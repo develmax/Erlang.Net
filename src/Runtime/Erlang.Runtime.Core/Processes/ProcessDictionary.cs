@@ -5,7 +5,7 @@ namespace Erlang;
 
 // Pre-release migration: all public snapshots detach after the dictionary gate
 // is released. Explicit borrow roots protect values across that preparation.
-public sealed class ProcessDictionary : IDictionary<Term, Term>, IReadOnlyDictionary<Term, Term>
+public sealed partial class ProcessDictionary : IDictionary<Term, Term>, IReadOnlyDictionary<Term, Term>
 {
     private readonly ProcessContext context;
     private readonly object gate = new();
@@ -196,6 +196,7 @@ public sealed class ProcessDictionary : IDictionary<Term, Term>, IReadOnlyDictio
         {
             frame!.Clear(removed.Key);
             frame.Clear(removed.Value);
+            reusableDictionarySlots507.Push(removed);
         }
 
         return true;
@@ -208,6 +209,7 @@ public sealed class ProcessDictionary : IDictionary<Term, Term>, IReadOnlyDictio
             CheckOpen();
             data.Clear();
             slots.Clear();
+            reusableDictionarySlots507.Clear();
             if (frame is not null)
             {
                 frame.Dispose();
@@ -268,6 +270,7 @@ public sealed class ProcessDictionary : IDictionary<Term, Term>, IReadOnlyDictio
             closed = true;
             data.Clear();
             slots.Clear();
+            reusableDictionarySlots507.Clear();
             frame?.Dispose();
             frame = null;
         }

@@ -308,7 +308,7 @@ public sealed partial class Mailbox
                 finally
                 {
                     if (!transferred504 && result is BeamReceiveSelection discarded504)
-                        discarded504.Registers.Dispose();
+                        discarded504.Dispose();
                 }
                 continue;
             }

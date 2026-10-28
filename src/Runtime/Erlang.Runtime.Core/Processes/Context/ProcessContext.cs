@@ -500,9 +500,18 @@ public sealed partial class ProcessContext : ITermExecutionContext
             T? result = erlangTimeout is null
                 ? await Mailbox.ReceiveAsync(select, timeout, cancellation)
                 : await Mailbox.ReceiveErlangAsync(select, erlangTimeout, cancellation);
-            Runtime.ThrowIfHalted();
+            try
+            {
+                Runtime.ThrowIfHalted();
 
-            return result;
+                return result;
+            }
+            catch
+            {
+                if (result is BeamReceiveSelection abandoned507)
+                    abandoned507.Dispose();
+                throw;
+            }
         }
         catch (OperationCanceledException) when (Runtime.IsHaltRequested)
         {

@@ -11,7 +11,8 @@ public sealed partial class ModuleRegistry
         ModuleCodeImage? image,
         IDisposable? code,
         bool handler,
-        bool hostErrorHandler
+        bool hostErrorHandler,
+        OwnedBindingKind507 ownedKind507 = OwnedBindingKind507.Opaque
     )
     {
         ValueTask<Term> InvokeOwned()
@@ -49,7 +50,8 @@ public sealed partial class ModuleRegistry
                     arguments,
                     body,
                     image,
-                    code
+                    code,
+                    ownedKind507
                 );
         }
 

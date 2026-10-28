@@ -1,0 +1,79 @@
+{
+  "ObservationAcquisitionPassed": true,
+  "Errors": [],
+  "Phases": {
+    "statistics-all20": {
+      "Command": [
+        "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library376-official-compiler\\installed\\bin\\erl.exe",
+        "+S",
+        "1:1",
+        "+A",
+        "1",
+        "-noshell",
+        "-noinput",
+        "-boot",
+        "no_dot_erlang",
+        "-pa",
+        "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\owned-guest507\\failed-two-original2\\statistics-all20",
+        "-eval",
+        "W=fun(N,T)->ok=file:write_file(N,term_to_binary(T,[{minor_version,2}])) end,Expected=filename:absname(os:getenv(\"CONTRACT506_ORIGINAL_ROOT\")),Expected=filename:absname(code:root_dir()),8=erlang:system_info(wordsize),W(\"metadata.etf\",{Expected,erlang:system_info(version),erlang:system_info(system_architecture),erlang:system_info(wordsize),erlang:system_info(schedulers),code:which(proc_lib)}),Files=filelib:wildcard(\"*.erl\"),Compiled=[compile:file(F,[return_errors,return_warnings])||F<-Files],W(\"compile.etf\",Compiled),true=lists:all(fun({ok,_,_})->true;({ok,_})->true;(_)->false end,Compiled),Modules=[case Item of {ok,M,_}->M;{ok,M}->M end||Item<-Compiled],W(\"modules.etf\",[{M,code:which(M),M:module_info(md5)}||M<-Modules]),try contract_statistics509:run() of T->W(\"observed.etf\",T),halt(0) catch C:R:S->W(\"entry-failure.etf\",{C,R,S}),halt(77) end."
+      ],
+      "Pid": 150364,
+      "ElapsedSeconds": 0.2660000000614673,
+      "TimedOut": false,
+      "Settled": true,
+      "ExitCode": 0,
+      "Failures": [],
+      "StdoutSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+      "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    "proc-lib-reports-init-hibernate": {
+      "Command": [
+        "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library376-official-compiler\\installed\\bin\\erl.exe",
+        "+S",
+        "1:1",
+        "+A",
+        "1",
+        "-noshell",
+        "-noinput",
+        "-boot",
+        "no_dot_erlang",
+        "-pa",
+        "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\owned-guest507\\failed-two-original2\\proc-lib-reports-init-hibernate",
+        "-eval",
+        "W=fun(N,T)->ok=file:write_file(N,term_to_binary(T,[{minor_version,2}])) end,Expected=filename:absname(os:getenv(\"CONTRACT506_ORIGINAL_ROOT\")),Expected=filename:absname(code:root_dir()),8=erlang:system_info(wordsize),W(\"metadata.etf\",{Expected,erlang:system_info(version),erlang:system_info(system_architecture),erlang:system_info(wordsize),erlang:system_info(schedulers),code:which(proc_lib)}),Files=filelib:wildcard(\"*.erl\"),Compiled=[compile:file(F,[return_errors,return_warnings])||F<-Files],W(\"compile.etf\",Compiled),true=lists:all(fun({ok,_,_})->true;({ok,_})->true;(_)->false end,Compiled),Modules=[case Item of {ok,M,_}->M;{ok,M}->M end||Item<-Compiled],W(\"modules.etf\",[{M,code:which(M),M:module_info(md5)}||M<-Modules]),try contract_proclib509:run() of T->W(\"observed.etf\",T),halt(0) catch C:R:S->W(\"entry-failure.etf\",{C,R,S}),halt(77) end."
+      ],
+      "Pid": 135200,
+      "ElapsedSeconds": 0.3279999999795109,
+      "TimedOut": false,
+      "Settled": true,
+      "ExitCode": 0,
+      "Failures": [],
+      "StdoutSha256": "9B91276172EED58DDE329A595DF15C422C31ECC7BB95842D128D81A0AA6600FA",
+      "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    }
+  },
+  "Observations": [
+    {
+      "Job": "statistics-all20",
+      "Bytes": 19579,
+      "Sha256": "480CA884341EA98C3508A307FF18DB871D2A476079692C9E2DDCAC6F98C9DAD4"
+    },
+    {
+      "Job": "proc-lib-reports-init-hibernate",
+      "Bytes": 50800,
+      "Sha256": "583B1A240E74A59215358E109BC06952B175FF73B04D8D36D3A87D49584916C3"
+    }
+  ],
+  "SourcePlanSha256": "3E6157290161A3A02C88CBA8093E0232D4030A024DB2F13A27A7D9D227F93B70",
+  "PinnedCommit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "OriginalOnly": true,
+  "WholeContractsClosed": 0,
+  "ComparisonPerformed": false,
+  "OriginalGoldenComparisonRequested": false,
+  "OriginalGoldenComparisonPerformed": false,
+  "OriginalGoldenComparisons": [],
+  "ManagedComparisonPerformed": false,
+  "ManagedExecutionClaimed": false,
+  "RawEtfRewritten": false
+}

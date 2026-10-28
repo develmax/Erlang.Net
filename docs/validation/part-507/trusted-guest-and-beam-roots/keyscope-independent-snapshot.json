@@ -1,0 +1,171 @@
+{
+  "frozenManifestSha256": "3D08816FD9F634011B015CD194B0E9EDA10A88E03AFFCB576A9E3856271F771C",
+  "productionMatchIgnoringFormatting": true,
+  "files": [
+    {
+      "path": "src/Runtime/Erlang.Runtime.Core/Execution/Patterns/OpaquePatternInvocation507.cs",
+      "frozenSha256": "BF00C0E79ED149EC37593048F2E4AAC6F72881257E107DB77721AA179455DD72",
+      "activeSha256": "81A45C07883C3809AC3051BA638B6E181FC634380C13A142A1691023B3E2CE11",
+      "activeRawMatch": false,
+      "whitespaceOnly": true,
+      "testGuestModuleRenameOnly": false
+    },
+    {
+      "path": "src/Runtime/Erlang.Runtime.Core/Execution/Patterns/Pattern.Owned507.cs",
+      "frozenSha256": "93EDB531904195A8001D80C6CC001E381385EF33D3EB4DBCA25C93DF37E6CA25",
+      "activeSha256": "93EDB531904195A8001D80C6CC001E381385EF33D3EB4DBCA25C93DF37E6CA25",
+      "activeRawMatch": true,
+      "whitespaceOnly": true,
+      "testGuestModuleRenameOnly": false
+    },
+    {
+      "path": "tests/Erlang.Tests/Runtime/Memory/HybridKeyScope507Checks.cs",
+      "frozenSha256": "7F353E70750F1E1111C4163FC31452BC10EB3FEB171AFFF58E6A80C9443E6EE5",
+      "activeSha256": "C86E8CC4D34CD727DEFAC0B8EF1289D061AA6486B9BA19A884CE40B1695AFF9A",
+      "activeRawMatch": false,
+      "whitespaceOnly": false,
+      "testGuestModuleRenameOnly": false
+    },
+    {
+      "path": "tests/Erlang.Tests/Runtime/Memory/HybridKeyScope507Names.cs",
+      "frozenSha256": "D8360E25A6CA5998EEF01D51A2D6E87EC7BEF9E8ED11D8B26A7E54F466BCC553",
+      "activeSha256": "919B80C973AA764A9B3BD3BAC14D69C4D66D8426C3155F8676DE81BA6FA182B9",
+      "activeRawMatch": false,
+      "whitespaceOnly": false,
+      "testGuestModuleRenameOnly": false
+    },
+    {
+      "path": "tests/Erlang.Tests/Runtime/Memory/HybridKeyScopePattern507.cs",
+      "frozenSha256": "48A1CC7D7293BAF8EBB353B2EE517BFEC43EE35681143BD5D043A7ABE02063BC",
+      "activeSha256": "CE32876C574F8A3D6354973A344BE3BBB65D8D6F506D967D26C12790806C5EB7",
+      "activeRawMatch": false,
+      "whitespaceOnly": true,
+      "testGuestModuleRenameOnly": false
+    }
+  ],
+  "contextFiles": [
+    {
+      "path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/OwnedTermInvocation506.cs",
+      "sha256": "6E67E5E21549280BFC9A26C00FF1943E17366DCEF006316D3E99C9DCF8ACDF0E"
+    },
+    {
+      "path": "src/Runtime/Erlang.Runtime.Core/Execution/Patterns/Pattern.cs",
+      "sha256": "402CD8D8DCADE99DAC2E1CE81BFEE215C78DA8A5047F22545A233F7F732A2137"
+    },
+    {
+      "path": "src/Compiler/Erlang.Compiler/Syntax/Ast/MapPattern.cs",
+      "sha256": "70458B35B8EA3CD0CB338AA7B9F189811890BC23BD7F56D781BA879F3BF27B19"
+    },
+    {
+      "path": "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessContext.FunctionBoundary506.cs",
+      "sha256": "FF50E1417687932A0B67A65B156AE453003DA1D33186C5F657D82F8042B88C84"
+    },
+    {
+      "path": "src/Runtime/Erlang.Runtime.Core/Modules/ModuleRegistry.OwnedTerms506.cs",
+      "sha256": "B8D63CF3EEDA56780B0CF6DFE25409AFA206AA19E25087251EE92297E68A214B"
+    }
+  ],
+  "anchors": [
+    {
+      "path": "src/Runtime/Erlang.Runtime.Core/Execution/Patterns/OpaquePatternInvocation507.cs",
+      "anchors": [
+        {
+          "text": "outputs = Bindings.ToArray()",
+          "lines": [
+            52
+          ]
+        },
+        {
+          "text": "keyOutputs = KeyScope.ToArray()",
+          "lines": [
+            53
+          ]
+        },
+        {
+          "text": "owned.Frame.Set",
+          "lines": [
+            56
+          ]
+        },
+        {
+          "text": "owned.Preserve",
+          "lines": [
+            62
+          ]
+        },
+        {
+          "text": "Replace507(destination",
+          "lines": [
+            65
+          ]
+        },
+        {
+          "text": "Replace507(keyDestination",
+          "lines": [
+            67
+          ]
+        }
+      ]
+    },
+    {
+      "path": "src/Runtime/Erlang.Runtime.Core/Execution/Patterns/Pattern.Owned507.cs",
+      "anchors": [
+        {
+          "text": "boundary.Complete507(matched, bindings, keyScope)",
+          "lines": [
+            36,
+            90
+          ]
+        }
+      ]
+    },
+    {
+      "path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/OwnedTermInvocation506.cs",
+      "anchors": [
+        {
+          "text": "internal Term Preserve",
+          "lines": [
+            86
+          ]
+        },
+        {
+          "text": "parent.Frame.RetainLocalGraph507",
+          "lines": [
+            87
+          ]
+        }
+      ]
+    },
+    {
+      "path": "src/Runtime/Erlang.Runtime.Core/Execution/Patterns/Pattern.cs",
+      "anchors": [
+        {
+          "text": "var candidate = new Dictionary",
+          "lines": [
+            31,
+            53
+          ]
+        },
+        {
+          "text": "new Dictionary<string, Term>(keyScope ?? bindings",
+          "lines": [
+            36,
+            58
+          ]
+        },
+        {
+          "text": "Items[i].MatchBoundary507",
+          "lines": [
+            116
+          ]
+        },
+        {
+          "text": "Items[i].MatchBoundaryAsync507",
+          "lines": [
+            137
+          ]
+        }
+      ]
+    }
+  ]
+}

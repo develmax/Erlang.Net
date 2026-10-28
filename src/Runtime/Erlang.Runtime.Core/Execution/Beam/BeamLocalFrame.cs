@@ -1,6 +1,6 @@
 namespace Erlang;
 
-internal sealed class BeamLocalFrame : IDisposable
+internal sealed partial class BeamLocalFrame : IDisposable
 {
     private readonly BeamRegisterSlot[]? values;
     private readonly ProcessOwnedWordLease504? storage504;
@@ -8,6 +8,8 @@ internal sealed class BeamLocalFrame : IDisposable
     private readonly int slots;
     private BeamFrameIdentity? identity;
     private int handlerCount;
+    private readonly ProcessContext? context507;
+    private readonly BeamOwnedRoots507? roots507;
 
     internal BeamLocalFrame(int slots) : this(
         slots,
@@ -25,11 +27,21 @@ internal sealed class BeamLocalFrame : IDisposable
     )
     { }
 
+    internal BeamLocalFrame(int slots, ProcessWordExecution504? words, ProcessContext? context) : this(
+        slots,
+        words,
+        null,
+        0,
+        context
+    )
+    { }
+
     private BeamLocalFrame(
         int slots,
         ProcessWordExecution504? words,
         BeamFrameIdentity? identity,
-        int handlerCount
+        int handlerCount,
+        ProcessContext? context = null
     )
     {
         this.slots = slots;
@@ -40,6 +52,18 @@ internal sealed class BeamLocalFrame : IDisposable
             storage504 = words.Allocate(slots);
         this.identity = identity;
         this.handlerCount = handlerCount;
+        context507 = context;
+        try
+        {
+            if (context is not null && context.Runtime.OwnedTermsPilot506)
+                roots507 = new(context, slots);
+        }
+        catch
+        {
+            if (storage504 is not null)
+                words504!.Release(storage504);
+            throw;
+        }
     }
 
     internal int Slots => slots;
@@ -48,27 +72,40 @@ internal sealed class BeamLocalFrame : IDisposable
 
     internal Term Read(int index) => ReadSlot(index).ReadTerm();
 
-    internal void Write(int index, Term value) => WriteSlot(index, BeamRegisterSlot.FromTerm(value));
+    internal void Write(int index, Term value) => WriteSlotCore507(index, BeamRegisterSlot.FromTerm(value), true);
 
     internal void InitializeBlank(int index) => Write(index, Nil.Value);
 
     internal BeamRegisterSlot ReadSlot(int index) => storage504 is null
         ? values![index] : BeamRegisterSlot.FromStoredValue504(storage504.Read(index));
 
-    private void WriteRaw504(int index, BeamRegisterSlot value)
+    private void WriteRaw504(int index, BeamRegisterSlot value, bool adopt = false)
     {
-        if (storage504 is null)
-            values![index] = value;
-        else
-            storage504.Write(index, value.StoredValue504);
+        BeamRegisterSlot prepared = roots507?.Prepare(index, value, adopt) ?? value;
+        try
+        {
+            if (storage504 is null)
+                values![index] = prepared;
+            else
+                storage504.Write(index, prepared.StoredValue504);
+            roots507?.Commit(index);
+        }
+        catch
+        {
+            roots507?.Rollback(index);
+            throw;
+        }
     }
 
     internal void WriteSlot(int index, BeamRegisterSlot value)
+        => WriteSlotCore507(index, value, false);
+
+    private void WriteSlotCore507(int index, BeamRegisterSlot value, bool adopt)
     {
         value.RequireMovable();
         if (ReadSlot(index).Kind == BeamRegisterSlotKind.Handler)
             throw new InvalidDataException(BeamRegisterProtocolNames.Handler);
-        WriteRaw504(index, value);
+        WriteRaw504(index, value, adopt);
     }
 
     internal BeamHandlerTag InstallHandler(int index, BeamHandlerCheckpoint checkpoint)
@@ -122,7 +159,8 @@ internal sealed class BeamLocalFrame : IDisposable
             remaining,
             words504,
             identity,
-            handlerCount
+            handlerCount,
+            context507
         );
         try
         {
@@ -144,7 +182,8 @@ internal sealed class BeamLocalFrame : IDisposable
             Slots,
             words504,
             identity,
-            handlerCount
+            handlerCount,
+            context507
         );
         try
         {
@@ -162,9 +201,16 @@ internal sealed class BeamLocalFrame : IDisposable
 
     public void Dispose()
     {
-        if (storage504 is not null)
-            words504!.Release(storage504);
-        else
-            Array.Clear(values!);
+        try
+        {
+            if (storage504 is not null)
+                words504!.Release(storage504);
+            else
+                Array.Clear(values!);
+        }
+        finally
+        {
+            roots507?.Dispose();
+        }
     }
 }

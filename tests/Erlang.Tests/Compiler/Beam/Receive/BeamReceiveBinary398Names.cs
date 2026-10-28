@@ -18,6 +18,5 @@ internal static class BeamReceiveBinary398Names
     internal const string PositionType = "BeamBinaryMatchPosition";
     internal const string WriteBinaryPosition = "WriteBinaryPosition";
     internal const string NodeName = "binary@host";
-    internal const string Registers = "Registers";
     internal const string LegacyStartOpcode = "bs_start_match3";
 }

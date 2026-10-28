@@ -1,15 +1,23 @@
 namespace Erlang;
 
-internal sealed class BeamRegisterState : IDisposable
+internal sealed partial class BeamRegisterState : IDisposable
 {
     private readonly BeamRegisterSlot[] values = new BeamRegisterSlot[BeamOperandParameters.MaximumRegister];
     private readonly Stack<BeamLocalFrame> frames = new();
     private readonly double?[] floating = new double?[BeamOperandParameters.MaximumRegister];
     private readonly ProcessWordExecution504? words504;
+    private readonly ProcessContext? context507;
+    private readonly BeamOwnedRoots507? roots507;
 
     internal BeamRegisterState() { }
 
-    internal BeamRegisterState(ProcessWordExecution504? words) => words504 = words;
+    internal BeamRegisterState(ProcessWordExecution504? words, ProcessContext? context = null)
+    {
+        words504 = words;
+        context507 = context;
+        if (context is not null && context.Runtime.OwnedTermsPilot506)
+            roots507 = new(context, values.Length);
+    }
 
     internal IDisposable? EnterWordOperation504() => words504?.Enter();
 
@@ -27,7 +35,20 @@ internal sealed class BeamRegisterState : IDisposable
 
     internal int FrameDepth => frames.Count;
 
-    internal void Allocate(int slots) => frames.Push(new(slots, words504));
+    internal void Allocate(int slots) => PushFrame507(new(slots, words504, context507));
+
+    private void PushFrame507(BeamLocalFrame frame)
+    {
+        try
+        {
+            frames.Push(frame);
+        }
+        catch
+        {
+            frame.Dispose();
+            throw;
+        }
+    }
 
     internal void Deallocate(int slots)
     {
@@ -47,8 +68,16 @@ internal sealed class BeamRegisterState : IDisposable
         if (!frames.TryPeek(out BeamLocalFrame? frame))
             throw new InvalidDataException(BeamOnLoadDiagnostics.Frame);
         BeamLocalFrame trimmed = frame.Trim(removed, remaining);
-        frames.Pop().Dispose();
-        frames.Push(trimmed);
+        try
+        {
+            frames.Pop().Dispose();
+            PushFrame507(trimmed);
+        }
+        catch
+        {
+            trimmed.Dispose();
+            throw;
+        }
     }
 
     internal void Write(BeamOperand operand, Term value)
@@ -61,7 +90,7 @@ internal sealed class BeamRegisterState : IDisposable
 
     public Term Read(int index) => values[index].ReadTerm();
 
-    public void Write(int index, Term value) => values[index] = BeamRegisterSlot.FromTerm(value);
+    public void Write(int index, Term value) => WriteXSlot507(index, BeamRegisterSlot.FromTerm(value), true);
 
     internal BeamRegisterSlot ReadSlot(BeamOperand operand) => operand.Kind switch
     {
@@ -76,7 +105,7 @@ internal sealed class BeamRegisterState : IDisposable
         if (operand.Kind == BeamOperandParameters.Y)
             frames.Peek().WriteSlot((int)operand.Value, value);
         else if (operand.Kind == BeamOperandParameters.X)
-            values[(int)operand.Value] = value;
+            WriteXSlot507((int)operand.Value, value, false);
         else
             throw new InvalidDataException(BeamRegisterProtocolNames.TypedValue);
     }
@@ -121,16 +150,17 @@ internal sealed class BeamRegisterState : IDisposable
         BeamRegisterSlot beforeSecond = ReadSlot(second);
         beforeFirst.RequireMovable();
         beforeSecond.RequireMovable();
+        using var swapRoots507 = roots507?.Protect(Term.Tuple(beforeFirst.RootGraph507(), beforeSecond.RootGraph507()));
         WriteSlot(first, beforeSecond);
         WriteSlot(second, beforeFirst);
     }
 
-    internal void WriteSavedTrace(int index, BeamSavedTrace trace) => values[index] = BeamRegisterSlot.FromSavedTrace(trace);
+    internal void WriteSavedTrace(int index, BeamSavedTrace trace) => WriteXSlot507(index, BeamRegisterSlot.FromSavedTrace(trace), false);
 
     internal BeamSavedTrace ReadSavedTrace(int index) => values[index].ReadSavedTrace();
 
     internal void WriteExceptionMarkerX(int index, BeamHandlerTag tag)
-        => values[index] = BeamRegisterSlot.FromHandler(tag);
+        => WriteXSlot507(index, BeamRegisterSlot.FromHandler(tag), false);
 
     internal void RequireExceptionMarker(int index, BeamHandlerTag expected)
     {
@@ -142,6 +172,17 @@ internal sealed class BeamRegisterState : IDisposable
     {
         if (live.Any(index => index < 0 || index >= values.Length))
             throw new InvalidDataException(BeamRegisterNames.Unsupported);
+        if (roots507 is not null)
+        {
+            for (int index = 0; index < values.Length; index++)
+                if (!live.Contains(index))
+                {
+                    values[index] = default;
+                    roots507.Clear(index);
+                }
+
+            return;
+        }
         var retained = new BeamRegisterSlot[live.Length];
         for (int index = 0; index < live.Length; index++)
             retained[index] = values[live[index]];
@@ -190,13 +231,18 @@ internal sealed class BeamRegisterState : IDisposable
 
     public BeamRegisterState Clone()
     {
-        var clone = new BeamRegisterState(words504);
+        var clone = new BeamRegisterState(words504, context507);
         try
         {
-            Array.Copy(values, clone.values, values.Length);
+            if (roots507 is null)
+                Array.Copy(values, clone.values, values.Length);
+            else
+                for (int index = 0; index < values.Length; index++)
+                    if (values[index].Kind != BeamRegisterSlotKind.Uninitialized)
+                        clone.WriteXSlot507(index, values[index], false);
             Array.Copy(floating, clone.floating, floating.Length);
             foreach (BeamLocalFrame frame in frames.Reverse())
-                clone.frames.Push(frame.Clone());
+                clone.PushFrame507(frame.Clone());
 
             return clone;
         }
@@ -215,9 +261,38 @@ internal sealed class BeamRegisterState : IDisposable
 
     public void Dispose()
     {
+        if (roots507 is null)
+        {
+            while (frames.TryPop(out BeamLocalFrame? ordinary))
+                ordinary.Dispose();
+            Array.Clear(values);
+            Array.Clear(floating);
+
+            return;
+        }
+        List<Exception>? failures = null;
         while (frames.TryPop(out BeamLocalFrame? frame))
-            frame.Dispose();
+        {
+            try
+            {
+                frame.Dispose();
+            }
+            catch (Exception failure)
+            {
+                (failures ??= new()).Add(failure);
+            }
+        }
         Array.Clear(values);
         Array.Clear(floating);
+        try
+        {
+            roots507?.Dispose();
+        }
+        catch (Exception failure)
+        {
+            (failures ??= new()).Add(failure);
+        }
+        if (failures is not null)
+            throw new AggregateException(failures);
     }
 }

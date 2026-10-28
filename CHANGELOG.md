@@ -150,4 +150,4 @@ Append numbered English entries only to the last volume. Start the next sequenti
 
 - [0088.md](docs/changelog/0088.md) — parts502–505 (closed; logical/physical retirement and complete native map surface/topology)
 
-- [0089.md](docs/changelog/0089.md) — part506 (active; guest payload/root integration)
+- [0089.md](docs/changelog/0089.md) — parts506–507 (active; payload roots, trusted transfer, BEAM receive and callback boundaries)

@@ -133,6 +133,7 @@ public sealed partial class ModuleRegistry
         {
             functions.Add((module, function, arity), body);
             intrinsicBindings.Remove((module, function, arity));
+            ownedBindings507.Remove((module, function, arity));
             PublishModule(module);
             informationSnapshots.Remove(module);
         }
@@ -295,6 +296,7 @@ public sealed partial class ModuleRegistry
         bool nativeErrorBoundary = false;
         bool sourceWrapperBoundary = false;
         bool hostErrorHandler = false;
+        OwnedBindingKind507 ownedKind507 = OwnedBindingKind507.Opaque;
         Atom selectedHandler = context.ErrorHandler;
         lock (gate)
         {
@@ -336,6 +338,8 @@ public sealed partial class ModuleRegistry
                     selectedElementSourceContract = nativeErrorBoundary && IsElementSourceContract(signature, body, currentImage);
                 }
             }
+            if (!handler && body is not null)
+                ownedKind507 = SelectedOwnedBinding507((module, function, arguments.Length), body);
         }
 
         if (sourceWrapperBoundary)
@@ -370,7 +374,8 @@ public sealed partial class ModuleRegistry
             image,
             code,
             handler,
-            hostErrorHandler
+            hostErrorHandler,
+            ownedKind507
         );
     }
 
@@ -381,7 +386,8 @@ public sealed partial class ModuleRegistry
         Term[] arguments,
         ErlangFunction body,
         ModuleCodeImage? image,
-        IDisposable? code
+        IDisposable? code,
+        OwnedBindingKind507 ownedKind507 = OwnedBindingKind507.Opaque
     ) => context.Runtime.OwnedTermsPilot506
         ? InvokeSelectedOwned506(
             context,
@@ -390,7 +396,8 @@ public sealed partial class ModuleRegistry
             arguments,
             body,
             image,
-            code
+            code,
+            ownedKind507
         )
         : InvokeSelectedCore506(
             context,
@@ -409,13 +416,16 @@ public sealed partial class ModuleRegistry
         Term[] arguments,
         ErlangFunction body,
         ModuleCodeImage? image,
-        IDisposable? code
+        IDisposable? code,
+        OwnedBindingKind507 ownedKind507 = OwnedBindingKind507.Opaque
     )
     {
         using var owned = context.EnterOwnedInvocation506(arguments)!;
         try
         {
-            Term[] portable = owned.Arguments.Select(owned.Export).ToArray();
+            bool borrow507 = owned.CanBorrow507 && ownedKind507 != OwnedBindingKind507.Opaque;
+            owned.BindingKind507 = borrow507 ? ownedKind507 : OwnedBindingKind507.Opaque;
+            Term[] portable = borrow507 ? owned.Arguments : owned.Arguments.Select(owned.Export).ToArray();
             Term result = await InvokeSelectedCore506(
                 context,
                 module,
@@ -426,7 +436,7 @@ public sealed partial class ModuleRegistry
                 code
             );
 
-            return owned.Complete(result);
+            return borrow507 ? owned.CompleteGuest507(result) : owned.Complete(result);
         }
         catch (ErlangException error)
         {
@@ -591,6 +601,7 @@ public sealed partial class ModuleRegistry
                 functions.Remove(entry.Key);
                 runtimeErrorBindings.Remove(entry.Key);
                 intrinsicBindings.Remove(entry.Key);
+                ownedBindings507.Remove(entry.Key);
                 sourceOwners.Remove(entry.Key);
             }
             loadedModules.Remove(module);
@@ -772,6 +783,7 @@ public sealed partial class ModuleRegistry
             {
                 var previous = new Dictionary<(string Module, string Function, int Arity), ErlangFunction>(functions);
                 var previousNativeErrors = new Dictionary<(string Module, string Function, int Arity), RuntimeErrorBinding>(runtimeErrorBindings);
+                var previousOwned507 = new Dictionary<(string Module, string Function, int Arity), OwnedBinding507>(ownedBindings507);
                 var previousIntrinsics = new Dictionary<(string Module, string Function, int Arity), IntrinsicBinding>(intrinsicBindings);
                 var previousModules = new Dictionary<string, Atom>(loadedModules, StringComparer.Ordinal);
                 var previousPreloaded = new Dictionary<string, Atom>(preloadedModules, StringComparer.Ordinal);
@@ -792,6 +804,9 @@ public sealed partial class ModuleRegistry
                     runtimeErrorBindings.Clear();
                     foreach (var entry in previousNativeErrors)
                         runtimeErrorBindings.Add(entry.Key, entry.Value);
+                    ownedBindings507.Clear();
+                    foreach (var entry in previousOwned507)
+                        ownedBindings507.Add(entry.Key, entry.Value);
                     intrinsicBindings.Clear();
                     foreach (var entry in previousIntrinsics)
                         intrinsicBindings.Add(entry.Key, entry.Value);

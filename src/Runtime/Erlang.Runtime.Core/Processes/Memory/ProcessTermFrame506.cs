@@ -1,6 +1,6 @@
 namespace Erlang;
 
-internal sealed class ProcessTermFrame506 : IDisposable
+internal sealed partial class ProcessTermFrame506 : IDisposable
 {
     private readonly ProcessTermHeap506 owner;
     private readonly Dictionary<int, Term> values = new();

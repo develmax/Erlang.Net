@@ -140,7 +140,9 @@ internal static class BeamReceiveBinary398Checks
             new BitString([0, 0, 0, 1, 99]),
             self
         );
-        object registers = Property(selected, Registers);
+        using var selectionOwner507 = (IDisposable)selected;
+        object registers = Call(selected, BeamReceiveSelectionHostNames.TakeRegisters);
+        using var registersOwner507 = (IDisposable)registers;
         Require(((Term)Call(registers, BeamBinaryHostNames.Read, 0)).Equals(new BitString([99])));
         Require(((Term)Call(registers, BeamBinaryHostNames.Read, 2)).Equals(Term.I(1)));
         Require(((Term)Call(before, BeamBinaryHostNames.Read, 1)).Equals(Term.I(37)));

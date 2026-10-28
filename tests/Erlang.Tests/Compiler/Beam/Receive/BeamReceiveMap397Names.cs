@@ -11,7 +11,6 @@ internal static class BeamReceiveMap397Names
     internal const string Instructions = "Instructions";
     internal const string Definition = "Definition";
     internal const string Name = "Name";
-    internal const string Registers = "Registers";
     internal const string BinaryPositionType = "BeamBinaryMatchPosition";
     internal const string WritePosition = "WriteBinaryPosition";
     internal const string NodeName = "map@host";

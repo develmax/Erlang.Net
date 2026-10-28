@@ -87,7 +87,7 @@ internal static class ProcessOwnedWord504Checks
     {
         object arena = Create(0);
         object execution = CreateTyped(ExecutionType, arena);
-        object registers = CreateTyped(RegistersType, execution);
+        object registers = CreateTyped(RegistersType, execution, null);
         object? clone = null;
         Term escaped = Term.Tuple(Term.I(504), Term.I(3));
         try
@@ -132,7 +132,7 @@ internal static class ProcessOwnedWord504Checks
     {
         object arena = Create(0);
         object execution = CreateTyped(ExecutionType, arena);
-        object registers = CreateTyped(RegistersType, execution);
+        object registers = CreateTyped(RegistersType, execution, null);
         IDisposable operation = (IDisposable)Call(execution, Enter)!;
         try
         {

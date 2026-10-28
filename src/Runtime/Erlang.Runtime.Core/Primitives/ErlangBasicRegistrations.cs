@@ -75,17 +75,17 @@ internal static class ErlangBasicRegistrations
                 return arguments[1];
             }
             );
-        Add(ErlangModuleNames.Get, 0, (context, _) => Cons.From(context.Dictionary.Select(entry => Term.Tuple(entry.Key, entry.Value))));
-        Add(
+        registry.RegisterCanonicalDictionary507(
+            ErlangModuleNames.Module,
+            ErlangModuleNames.Get,
+            0,
+            (context, _) => ValueTask.FromResult(OwnedDictionaryBifs507.All(context, false))
+        );
+        registry.RegisterCanonicalDictionary507(
+            ErlangModuleNames.Module,
             ErlangModuleNames.Erase,
             0,
-            (context, _) =>
-        {
-            Term previous = Cons.From(context.Dictionary.Select(entry => Term.Tuple(entry.Key, entry.Value)));
-            context.Dictionary.Clear();
-
-            return previous;
-        }
+            (context, _) => ValueTask.FromResult(OwnedDictionaryBifs507.All(context, true))
         );
         Add(ErlangBasicBifNames.GetKeys, 0, (context, _) => Cons.From(context.Dictionary.Keys));
         Add(

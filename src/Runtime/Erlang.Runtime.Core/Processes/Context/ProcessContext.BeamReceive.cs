@@ -20,9 +20,18 @@ public sealed partial class ProcessContext
             T? result = await (rescanRemovedCandidate
                 ? Mailbox.ReceiveBeamGuardAsync(select, timeout, Cancellation)
                 : Mailbox.ReceiveBeamAsync(select, timeout, Cancellation));
-            Runtime.ThrowIfHalted();
+            try
+            {
+                Runtime.ThrowIfHalted();
 
-            return result;
+                return result;
+            }
+            catch
+            {
+                if (result is BeamReceiveSelection abandoned507)
+                    abandoned507.Dispose();
+                throw;
+            }
         }
         catch (OperationCanceledException) when (Runtime.IsHaltRequested)
         {

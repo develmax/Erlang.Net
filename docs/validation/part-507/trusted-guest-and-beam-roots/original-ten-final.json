@@ -1,0 +1,334 @@
+{
+  "ObservationAcquisitionPassed": true,
+  "Errors": [],
+  "Phases": {
+    "portable-errors": {
+      "Command": [
+        "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library376-official-compiler\\installed\\bin\\erl.exe",
+        "+S",
+        "1:1",
+        "+A",
+        "1",
+        "-noshell",
+        "-noinput",
+        "-boot",
+        "no_dot_erlang",
+        "-pa",
+        "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\owned-guest507\\all-ten-final\\portable-errors",
+        "-eval",
+        "W=fun(N,T)->ok=file:write_file(N,term_to_binary(T,[{minor_version,2}])) end,Expected=filename:absname(os:getenv(\"CONTRACT506_ORIGINAL_ROOT\")),Expected=filename:absname(code:root_dir()),8=erlang:system_info(wordsize),W(\"metadata.etf\",{Expected,erlang:system_info(version),erlang:system_info(system_architecture),erlang:system_info(wordsize),erlang:system_info(schedulers),code:which(proc_lib)}),Files=filelib:wildcard(\"*.erl\"),Compiled=[compile:file(F,[return_errors,return_warnings])||F<-Files],W(\"compile.etf\",Compiled),true=lists:all(fun({ok,_,_})->true;({ok,_})->true;(_)->false end,Compiled),Modules=[case Item of {ok,M,_}->M;{ok,M}->M end||Item<-Compiled],W(\"modules.etf\",[{M,code:which(M),M:module_info(md5)}||M<-Modules]),try contract_errors506:run() of T->W(\"observed.etf\",T),halt(0) catch C:R:S->W(\"entry-failure.etf\",{C,R,S}),halt(77) end."
+      ],
+      "Pid": 246948,
+      "ElapsedSeconds": 0.34299999999348074,
+      "TimedOut": false,
+      "Settled": true,
+      "ExitCode": 0,
+      "Failures": [],
+      "StdoutSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+      "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    "owned-resource-window": {
+      "Command": [
+        "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library376-official-compiler\\installed\\bin\\erl.exe",
+        "+S",
+        "1:1",
+        "+A",
+        "1",
+        "-noshell",
+        "-noinput",
+        "-boot",
+        "no_dot_erlang",
+        "-pa",
+        "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\owned-guest507\\all-ten-final\\owned-resource-window",
+        "-eval",
+        "W=fun(N,T)->ok=file:write_file(N,term_to_binary(T,[{minor_version,2}])) end,Expected=filename:absname(os:getenv(\"CONTRACT506_ORIGINAL_ROOT\")),Expected=filename:absname(code:root_dir()),8=erlang:system_info(wordsize),W(\"metadata.etf\",{Expected,erlang:system_info(version),erlang:system_info(system_architecture),erlang:system_info(wordsize),erlang:system_info(schedulers),code:which(proc_lib)}),Files=filelib:wildcard(\"*.erl\"),Compiled=[compile:file(F,[return_errors,return_warnings])||F<-Files],W(\"compile.etf\",Compiled),true=lists:all(fun({ok,_,_})->true;({ok,_})->true;(_)->false end,Compiled),Modules=[case Item of {ok,M,_}->M;{ok,M}->M end||Item<-Compiled],W(\"modules.etf\",[{M,code:which(M),M:module_info(md5)}||M<-Modules]),try contract_resources506:run() of T->W(\"observed.etf\",T),halt(0) catch C:R:S->W(\"entry-failure.etf\",{C,R,S}),halt(77) end."
+      ],
+      "Pid": 185404,
+      "ElapsedSeconds": 0.31200000003445894,
+      "TimedOut": false,
+      "Settled": true,
+      "ExitCode": 0,
+      "Failures": [],
+      "StdoutSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+      "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    "existing-owned-pilot": {
+      "Command": [
+        "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library376-official-compiler\\installed\\bin\\erl.exe",
+        "+S",
+        "1:1",
+        "+A",
+        "1",
+        "-noshell",
+        "-noinput",
+        "-boot",
+        "no_dot_erlang",
+        "-pa",
+        "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\owned-guest507\\all-ten-final\\existing-owned-pilot",
+        "-eval",
+        "W=fun(N,T)->ok=file:write_file(N,term_to_binary(T,[{minor_version,2}])) end,Expected=filename:absname(os:getenv(\"CONTRACT506_ORIGINAL_ROOT\")),Expected=filename:absname(code:root_dir()),8=erlang:system_info(wordsize),W(\"metadata.etf\",{Expected,erlang:system_info(version),erlang:system_info(system_architecture),erlang:system_info(wordsize),erlang:system_info(schedulers),code:which(proc_lib)}),Files=filelib:wildcard(\"*.erl\"),Compiled=[compile:file(F,[return_errors,return_warnings])||F<-Files],W(\"compile.etf\",Compiled),true=lists:all(fun({ok,_,_})->true;({ok,_})->true;(_)->false end,Compiled),Modules=[case Item of {ok,M,_}->M;{ok,M}->M end||Item<-Compiled],W(\"modules.etf\",[{M,code:which(M),M:module_info(md5)}||M<-Modules]),try owned_observer506:run() of T->W(\"observed.etf\",T),halt(0) catch C:R:S->W(\"entry-failure.etf\",{C,R,S}),halt(77) end."
+      ],
+      "Pid": 236024,
+      "ElapsedSeconds": 0.2970000000204891,
+      "TimedOut": false,
+      "Settled": true,
+      "ExitCode": 0,
+      "Failures": [],
+      "StdoutSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+      "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    "shared-spawn-options": {
+      "Command": [
+        "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library376-official-compiler\\installed\\bin\\erl.exe",
+        "+S",
+        "1:1",
+        "+A",
+        "1",
+        "-noshell",
+        "-noinput",
+        "-boot",
+        "no_dot_erlang",
+        "-pa",
+        "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\owned-guest507\\all-ten-final\\shared-spawn-options",
+        "-eval",
+        "W=fun(N,T)->ok=file:write_file(N,term_to_binary(T,[{minor_version,2}])) end,Expected=filename:absname(os:getenv(\"CONTRACT506_ORIGINAL_ROOT\")),Expected=filename:absname(code:root_dir()),8=erlang:system_info(wordsize),W(\"metadata.etf\",{Expected,erlang:system_info(version),erlang:system_info(system_architecture),erlang:system_info(wordsize),erlang:system_info(schedulers),code:which(proc_lib)}),Files=filelib:wildcard(\"*.erl\"),Compiled=[compile:file(F,[return_errors,return_warnings])||F<-Files],W(\"compile.etf\",Compiled),true=lists:all(fun({ok,_,_})->true;({ok,_})->true;(_)->false end,Compiled),Modules=[case Item of {ok,M,_}->M;{ok,M}->M end||Item<-Compiled],W(\"modules.etf\",[{M,code:which(M),M:module_info(md5)}||M<-Modules]),try contract_spawn506:run() of T->W(\"observed.etf\",T),halt(0) catch C:R:S->W(\"entry-failure.etf\",{C,R,S}),halt(77) end."
+      ],
+      "Pid": 22544,
+      "ElapsedSeconds": 25.405999999959022,
+      "TimedOut": false,
+      "Settled": true,
+      "ExitCode": 0,
+      "Failures": [],
+      "StdoutSha256": "D3F2681815A498893B491E9556FC9FF2919BA2FF53D1443069C296BB07C39258",
+      "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    "shared-system-flags": {
+      "Command": [
+        "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library376-official-compiler\\installed\\bin\\erl.exe",
+        "+S",
+        "1:1",
+        "+A",
+        "1",
+        "-noshell",
+        "-noinput",
+        "-boot",
+        "no_dot_erlang",
+        "-pa",
+        "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\owned-guest507\\all-ten-final\\shared-system-flags",
+        "-eval",
+        "W=fun(N,T)->ok=file:write_file(N,term_to_binary(T,[{minor_version,2}])) end,Expected=filename:absname(os:getenv(\"CONTRACT506_ORIGINAL_ROOT\")),Expected=filename:absname(code:root_dir()),8=erlang:system_info(wordsize),W(\"metadata.etf\",{Expected,erlang:system_info(version),erlang:system_info(system_architecture),erlang:system_info(wordsize),erlang:system_info(schedulers),code:which(proc_lib)}),Files=filelib:wildcard(\"*.erl\"),Compiled=[compile:file(F,[return_errors,return_warnings])||F<-Files],W(\"compile.etf\",Compiled),true=lists:all(fun({ok,_,_})->true;({ok,_})->true;(_)->false end,Compiled),Modules=[case Item of {ok,M,_}->M;{ok,M}->M end||Item<-Compiled],W(\"modules.etf\",[{M,code:which(M),M:module_info(md5)}||M<-Modules]),try contract_flags506:run() of T->W(\"observed.etf\",T),halt(0) catch C:R:S->W(\"entry-failure.etf\",{C,R,S}),halt(77) end."
+      ],
+      "Pid": 256784,
+      "ElapsedSeconds": 0.34399999992456287,
+      "TimedOut": false,
+      "Settled": true,
+      "ExitCode": 0,
+      "Failures": [],
+      "StdoutSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+      "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    "paired-observable": {
+      "Command": [
+        "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library376-official-compiler\\installed\\bin\\erl.exe",
+        "+S",
+        "1:1",
+        "+A",
+        "1",
+        "-noshell",
+        "-noinput",
+        "-boot",
+        "no_dot_erlang",
+        "-pa",
+        "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\owned-guest507\\all-ten-final\\paired-observable",
+        "-eval",
+        "W=fun(N,T)->ok=file:write_file(N,term_to_binary(T,[{minor_version,2}])) end,Expected=filename:absname(os:getenv(\"CONTRACT506_ORIGINAL_ROOT\")),Expected=filename:absname(code:root_dir()),8=erlang:system_info(wordsize),W(\"metadata.etf\",{Expected,erlang:system_info(version),erlang:system_info(system_architecture),erlang:system_info(wordsize),erlang:system_info(schedulers),code:which(proc_lib)}),Files=filelib:wildcard(\"*.erl\"),Compiled=[compile:file(F,[return_errors,return_warnings])||F<-Files],W(\"compile.etf\",Compiled),true=lists:all(fun({ok,_,_})->true;({ok,_})->true;(_)->false end,Compiled),Modules=[case Item of {ok,M,_}->M;{ok,M}->M end||Item<-Compiled],W(\"modules.etf\",[{M,code:which(M),M:module_info(md5)}||M<-Modules]),try paired_worker506:run() of T->W(\"observed.etf\",T),ok=file:write_file(\"observed-deterministic.etf\",term_to_binary(T,[deterministic,{minor_version,2}])),W(\"witnesses.etf\",get(paired_witness506)),halt(0) catch C:R:S->W(\"entry-failure.etf\",{C,R,S}),halt(77) end."
+      ],
+      "Pid": 111048,
+      "ElapsedSeconds": 0.2660000000614673,
+      "TimedOut": false,
+      "Settled": true,
+      "ExitCode": 0,
+      "Failures": [],
+      "StdoutSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+      "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    "process-info-all41": {
+      "Command": [
+        "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library376-official-compiler\\installed\\bin\\erl.exe",
+        "+S",
+        "1:1",
+        "+A",
+        "1",
+        "-noshell",
+        "-noinput",
+        "-boot",
+        "no_dot_erlang",
+        "-pa",
+        "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\owned-guest507\\all-ten-final\\process-info-all41",
+        "-eval",
+        "W=fun(N,T)->ok=file:write_file(N,term_to_binary(T,[{minor_version,2}])) end,Expected=filename:absname(os:getenv(\"CONTRACT506_ORIGINAL_ROOT\")),Expected=filename:absname(code:root_dir()),8=erlang:system_info(wordsize),W(\"metadata.etf\",{Expected,erlang:system_info(version),erlang:system_info(system_architecture),erlang:system_info(wordsize),erlang:system_info(schedulers),code:which(proc_lib)}),Files=filelib:wildcard(\"*.erl\"),Compiled=[compile:file(F,[return_errors,return_warnings])||F<-Files],W(\"compile.etf\",Compiled),true=lists:all(fun({ok,_,_})->true;({ok,_})->true;(_)->false end,Compiled),Modules=[case Item of {ok,M,_}->M;{ok,M}->M end||Item<-Compiled],W(\"modules.etf\",[{M,code:which(M),M:module_info(md5)}||M<-Modules]),try contract_process509:run() of T->W(\"observed.etf\",T),halt(0) catch C:R:S->W(\"entry-failure.etf\",{C,R,S}),halt(77) end."
+      ],
+      "Pid": 3496,
+      "ElapsedSeconds": 0.26500000001396984,
+      "TimedOut": false,
+      "Settled": true,
+      "ExitCode": 0,
+      "Failures": [],
+      "StdoutSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+      "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    "statistics-all20": {
+      "Command": [
+        "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library376-official-compiler\\installed\\bin\\erl.exe",
+        "+S",
+        "1:1",
+        "+A",
+        "1",
+        "-noshell",
+        "-noinput",
+        "-boot",
+        "no_dot_erlang",
+        "-pa",
+        "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\owned-guest507\\all-ten-final\\statistics-all20",
+        "-eval",
+        "W=fun(N,T)->ok=file:write_file(N,term_to_binary(T,[{minor_version,2}])) end,Expected=filename:absname(os:getenv(\"CONTRACT506_ORIGINAL_ROOT\")),Expected=filename:absname(code:root_dir()),8=erlang:system_info(wordsize),W(\"metadata.etf\",{Expected,erlang:system_info(version),erlang:system_info(system_architecture),erlang:system_info(wordsize),erlang:system_info(schedulers),code:which(proc_lib)}),Files=filelib:wildcard(\"*.erl\"),Compiled=[compile:file(F,[return_errors,return_warnings])||F<-Files],W(\"compile.etf\",Compiled),true=lists:all(fun({ok,_,_})->true;({ok,_})->true;(_)->false end,Compiled),Modules=[case Item of {ok,M,_}->M;{ok,M}->M end||Item<-Compiled],W(\"modules.etf\",[{M,code:which(M),M:module_info(md5)}||M<-Modules]),try contract_statistics509:run() of T->W(\"observed.etf\",T),halt(0) catch C:R:S->W(\"entry-failure.etf\",{C,R,S}),halt(77) end."
+      ],
+      "Pid": 186972,
+      "ElapsedSeconds": 0.25,
+      "TimedOut": false,
+      "Settled": true,
+      "ExitCode": 0,
+      "Failures": [],
+      "StdoutSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+      "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    "proc-lib-reports-init-hibernate": {
+      "Command": [
+        "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library376-official-compiler\\installed\\bin\\erl.exe",
+        "+S",
+        "1:1",
+        "+A",
+        "1",
+        "-noshell",
+        "-noinput",
+        "-boot",
+        "no_dot_erlang",
+        "-pa",
+        "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\owned-guest507\\all-ten-final\\proc-lib-reports-init-hibernate",
+        "-eval",
+        "W=fun(N,T)->ok=file:write_file(N,term_to_binary(T,[{minor_version,2}])) end,Expected=filename:absname(os:getenv(\"CONTRACT506_ORIGINAL_ROOT\")),Expected=filename:absname(code:root_dir()),8=erlang:system_info(wordsize),W(\"metadata.etf\",{Expected,erlang:system_info(version),erlang:system_info(system_architecture),erlang:system_info(wordsize),erlang:system_info(schedulers),code:which(proc_lib)}),Files=filelib:wildcard(\"*.erl\"),Compiled=[compile:file(F,[return_errors,return_warnings])||F<-Files],W(\"compile.etf\",Compiled),true=lists:all(fun({ok,_,_})->true;({ok,_})->true;(_)->false end,Compiled),Modules=[case Item of {ok,M,_}->M;{ok,M}->M end||Item<-Compiled],W(\"modules.etf\",[{M,code:which(M),M:module_info(md5)}||M<-Modules]),try contract_proclib509:run() of T->W(\"observed.etf\",T),halt(0) catch C:R:S->W(\"entry-failure.etf\",{C,R,S}),halt(77) end."
+      ],
+      "Pid": 188836,
+      "ElapsedSeconds": 0.35999999998603016,
+      "TimedOut": false,
+      "Settled": true,
+      "ExitCode": 0,
+      "Failures": [],
+      "StdoutSha256": "51570B5EB0DBA5B85E5F5895115DFC4ED37A3C122788C586332CA44305A5CC51",
+      "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    "native-load-errors": {
+      "Command": [
+        "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library376-official-compiler\\installed\\bin\\erl.exe",
+        "+S",
+        "1:1",
+        "+A",
+        "1",
+        "-noshell",
+        "-noinput",
+        "-boot",
+        "no_dot_erlang",
+        "-pa",
+        "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\owned-guest507\\all-ten-final\\native-load-errors",
+        "-eval",
+        "W=fun(N,T)->ok=file:write_file(N,term_to_binary(T,[{minor_version,2}])) end,Expected=filename:absname(os:getenv(\"CONTRACT506_ORIGINAL_ROOT\")),Expected=filename:absname(code:root_dir()),8=erlang:system_info(wordsize),W(\"metadata.etf\",{Expected,erlang:system_info(version),erlang:system_info(system_architecture),erlang:system_info(wordsize),erlang:system_info(schedulers),code:which(proc_lib)}),Files=filelib:wildcard(\"*.erl\"),Compiled=[compile:file(F,[return_errors,return_warnings])||F<-Files],W(\"compile.etf\",Compiled),true=lists:all(fun({ok,_,_})->true;({ok,_})->true;(_)->false end,Compiled),Modules=[case Item of {ok,M,_}->M;{ok,M}->M end||Item<-Compiled],W(\"modules.etf\",[{M,code:which(M),M:module_info(md5)}||M<-Modules]),try contract_nif_errors509:run() of T->W(\"observed.etf\",T),halt(0) catch C:R:S->W(\"entry-failure.etf\",{C,R,S}),halt(77) end."
+      ],
+      "Pid": 318144,
+      "ElapsedSeconds": 0.26500000001396984,
+      "TimedOut": false,
+      "Settled": true,
+      "ExitCode": 0,
+      "Failures": [],
+      "StdoutSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+      "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    }
+  },
+  "Observations": [
+    {
+      "Job": "portable-errors",
+      "Bytes": 17193,
+      "Sha256": "7EC8A1F4AD8C29D688415B3B4A4FD8610F935909C868F983F591CDD913D5853B"
+    },
+    {
+      "Job": "owned-resource-window",
+      "Bytes": 120750,
+      "Sha256": "4EC1F5C123D655C01767AF96E028FBE0D75024BCA14C4F64584F1F58188A4A3B"
+    },
+    {
+      "Job": "existing-owned-pilot",
+      "Bytes": 544,
+      "Sha256": "F0136F6E60DC0FC2B41E1B273FCACB4F5D70A72C81EF895BEFB432366F0A8BD6"
+    },
+    {
+      "Job": "shared-spawn-options",
+      "Bytes": 1172320,
+      "Sha256": "68BB3E8B473A743661F4F04EABC748A606B9DDCDF43D41F77C674F5DB16DD124"
+    },
+    {
+      "Job": "shared-system-flags",
+      "Bytes": 101002,
+      "Sha256": "1583E699A7F99E61D09B89B7EA13F32F3BDD91C8F5B6516CF997A2C55B7F9253"
+    },
+    {
+      "Job": "paired-observable",
+      "Bytes": 335,
+      "Sha256": "312CC50A9F2BD78D59F27967A9801F1773AFF99C09123896D09A80A60357630B"
+    },
+    {
+      "Job": "process-info-all41",
+      "Bytes": 60721,
+      "Sha256": "D3CC91804CB35BDFE70065A25E08D970DAF4976CB1EFF0F15F422404CB89C41F"
+    },
+    {
+      "Job": "statistics-all20",
+      "Bytes": 19579,
+      "Sha256": "16CAB1140BA33683759AA4A00A1B23107B88AAFDB1DD209588D432978F240E50"
+    },
+    {
+      "Job": "proc-lib-reports-init-hibernate",
+      "Bytes": 50800,
+      "Sha256": "B5B6AD67D90B26B1C0ED13336B14827A97655D1A48C4CBDAFBC1EE04344D4EA9"
+    },
+    {
+      "Job": "native-load-errors",
+      "Bytes": 6155,
+      "Sha256": "2B42EC073164CB6E4C779A03DA68A1C4B9FE712E4438047AE214F828571B1833"
+    }
+  ],
+  "SourcePlanSha256": "07FD3C23FB671402A291AA1012BA5456D0A8F822991AF62113FF6A112F058D41",
+  "PinnedCommit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "OriginalOnly": true,
+  "WholeContractsClosed": 0,
+  "ComparisonPerformed": true,
+  "OriginalGoldenComparisonRequested": true,
+  "OriginalGoldenComparisonPerformed": true,
+  "OriginalGoldenComparisons": [
+    {
+      "Job": "paired-observable",
+      "Profile": "observed.etf",
+      "ActualSha256": "312CC50A9F2BD78D59F27967A9801F1773AFF99C09123896D09A80A60357630B",
+      "GoldenSha256": "312CC50A9F2BD78D59F27967A9801F1773AFF99C09123896D09A80A60357630B",
+      "Equal": true
+    },
+    {
+      "Job": "paired-observable",
+      "Profile": "observed-deterministic.etf",
+      "ActualSha256": "312CC50A9F2BD78D59F27967A9801F1773AFF99C09123896D09A80A60357630B",
+      "GoldenSha256": "312CC50A9F2BD78D59F27967A9801F1773AFF99C09123896D09A80A60357630B",
+      "Equal": true
+    }
+  ],
+  "ManagedComparisonPerformed": false,
+  "ManagedExecutionClaimed": false,
+  "RawEtfRewritten": false
+}

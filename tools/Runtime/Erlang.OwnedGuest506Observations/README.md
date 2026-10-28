@@ -1,12 +1,27 @@
 # Pinned original owned guest506 batch
 
-One collector handles six jobs: representative 24-MFA errors, owned resource
+One collector preserves its original six jobs: representative 24-MFA errors, owned resource
 window, initial owned pilot, paired compiled worker, shared spawn options, and
 shared heap/system-flag defaults. Each job uses a fresh owned VM and an explicit
 fixture list; original fixture bytes are copied unchanged. Module compilation
 must succeed before its dependent observer is called. One failed job does not
 skip other independent jobs. Full errors/stacks, logs, crash dumps and all raw ETF
 are retained; no pretty-printer replaces original evidence.
+
+Four further source-only jobs are appended in part 507 from the frozen 509
+package: process-info-all41, statistics-all20, proc-lib-reports-init-hibernate,
+and native-load-errors. All use the same run/0 dispatcher, admission and cleanup;
+no second collector is introduced. The original six job definitions and fixtures
+remain unchanged. Total admitted job definitions: ten. The two native-dependent
+509 jobs (native-load-rejections, native-load-lifecycle) are not admitted until
+native binary/environment preparation is source-bound. New observation acquisition
+does not close any full contract and is not an implementation of these APIs.
+
+Completion distinguishes actual OriginalGoldenComparisons (profile SHA/equality
+receipts) from ManagedComparisonPerformed=false. ComparisonPerformed reflects
+whether an original-golden check really reached a profile, not merely a CLI flag.
+Golden bytes and the strict comparison/failure algorithm are unchanged. Uncompiled
+or failed jobs cannot claim comparisons, and WholeContractsClosed remains zero.
 
 Relocation proposal: the preparing agent has not executed this relocated tool,
 its sealer, Linux acquisition or workflow. Source fixtures and Windows acquisition
@@ -62,7 +77,7 @@ helpers/workflow use declared TextLF, binary/C# dependencies use Raw. The option
 
 The manual workflow has exact head + reviewed plan SHA inputs, separate Linux and
 Windows matrix jobs with fail-fast disabled, one provider preparation per platform,
-all six observations per provider, independent final-source managed controls, an
+all admitted observations per provider, independent final-source managed controls, an
 explicit joint success gate, and always-uploaded failure artifacts. It does not
 replace existing validate.yml or run duplicated push/PR triggers. Original failure
 cannot become a passing job through continue-on-error: the final gate requires both

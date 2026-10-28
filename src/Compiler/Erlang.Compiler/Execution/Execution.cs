@@ -32,7 +32,7 @@ public static partial class Execution
                 null
             );
 
-            return owned.Complete(result);
+            return owned.CompleteGuest507(result);
         }
         catch (ErlangException error)
         {
@@ -82,7 +82,7 @@ public static partial class Execution
                 null
             );
 
-            return owned.Complete(result);
+            return owned.CompleteGuest507(result);
         }
         catch (ErlangException error)
         {
@@ -147,6 +147,7 @@ public static partial class Execution
     )
     {
         using var owned = context.EnterOwnedInvocation506(arguments)!;
+        owned.MarkCompilerFactory507();
         owned.AdmitContinuationInputs506();
         try
         {
@@ -158,7 +159,7 @@ public static partial class Execution
                 image
             );
 
-            return owned?.Complete(result) ?? result;
+            return owned?.CompleteGuest507(result) ?? result;
         }
         catch (ErlangException error) when (owned is not null)
         {
@@ -199,7 +200,7 @@ public static partial class Execution
                 {
                     try
                     {
-                        return await native.InvokeAsync(context, arguments);
+                        return await context.InvokeNativePrimitive507(native.InvokeAsync, arguments);
                     }
                     catch (ErlangException exception)
                     {
@@ -327,9 +328,21 @@ public static partial class Execution
     )
     {
         using var owned = context.EnterOwnedInvocation506(arguments)!;
-        var copied = environment.ToDictionary(pair => pair.Key, pair => owned.Frame.Retain(pair.Value), StringComparer.Ordinal);
+        owned.MarkCompilerFactory507();
+        var copied = environment.ToDictionary(
+            pair => pair.Key,
+            pair => owned.CanBorrow507 ? owned.Frame.RetainLocalGraph507(pair.Value) : owned.Frame.Retain(pair.Value),
+            StringComparer.Ordinal
+        );
         Dictionary<string, Term> rooted = environment is CompiledBindingScope previous
-            ? new CompiledBindingScope(copied, previous.Constraints.ToDictionary(pair => pair.Key, pair => owned.Frame.Retain(pair.Value), StringComparer.Ordinal))
+            ? new CompiledBindingScope(
+                copied,
+                previous.Constraints.ToDictionary(
+                    pair => pair.Key,
+                    pair => owned.CanBorrow507 ? owned.Frame.RetainLocalGraph507(pair.Value) : owned.Frame.Retain(pair.Value),
+                    StringComparer.Ordinal
+                )
+            )
             : copied;
         owned.AdmitContinuationInputs506();
         try
@@ -344,7 +357,7 @@ public static partial class Execution
                 owned.Arguments
             );
 
-            return owned.Complete(result);
+            return owned.CompleteGuest507(result);
         }
         catch (ErlangException error)
         {
@@ -522,7 +535,7 @@ public static partial class Execution
                 tail
             );
 
-            return ctx.OwnGuestResult506(result);
+            return ctx.OwnEvaluationResult507(result);
         }
         catch (ErlangException exception)
         {
@@ -1067,7 +1080,7 @@ public static partial class Execution
                             throw new FunctionTailCall(f, args);
                         }
 
-                        return await f.Invoke(ctx, args);
+                        return await ctx.InvokeGuestFunction507(f, args);
                     }
                     catch (ErlangException exception)
                     {

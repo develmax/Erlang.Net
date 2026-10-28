@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Erlang.Compiler;
 
-public sealed record MapPattern(IReadOnlyList<MapPatternField> Fields) : Pattern
+public sealed record MapPattern(IReadOnlyList<MapPatternField> Fields) : Pattern, ICanonicalPattern507
 {
     protected override bool MatchCore(
         Term value,

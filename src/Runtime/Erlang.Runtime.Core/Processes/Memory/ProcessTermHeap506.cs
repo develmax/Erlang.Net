@@ -2,7 +2,7 @@ namespace Erlang;
 
 // Pilot payload backend: real managed pointer-word slabs, explicit registered
 // root frames. No implicit CLR root scanning and no public resource estimates.
-internal sealed class ProcessTermHeap506(ProcessRuntime runtime)
+internal sealed partial class ProcessTermHeap506(ProcessRuntime runtime)
 {
     internal object Gate { get; } = new();
     private readonly List<ProcessTermSlab506> slabs = new();

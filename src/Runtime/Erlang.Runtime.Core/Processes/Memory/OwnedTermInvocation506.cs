@@ -1,6 +1,6 @@
 namespace Erlang;
 
-internal sealed class OwnedTermInvocation506 : IDisposable
+internal sealed partial class OwnedTermInvocation506 : IDisposable
 {
     private static readonly AsyncLocal<OwnedTermInvocation506?> active = new();
     private readonly OwnedTermInvocation506? previousActive;
@@ -43,7 +43,9 @@ internal sealed class OwnedTermInvocation506 : IDisposable
         if (parent is { IsDisposed: true })
             throw new ObjectDisposedException(nameof(OwnedTermInvocation506));
         this.trampoline = trampoline;
-        destination = parent is null ? -1 : parent.trampoline ? parent.resultSlot : parent.Frame.Reserve();
+        CanBorrow507 = !hostBoundary && parent is not null && RuntimeActorExecutionTurn.IsOwnedBy(context);
+        BindingKind507 = CanBorrow507 ? parent!.BindingKind507 : OwnedBindingKind507.Opaque;
+        destination = parent is null ? -1 : parent.resultSlot;
         Frame = context.TermHeap506.Enter();
         try
         {
@@ -53,7 +55,10 @@ internal sealed class OwnedTermInvocation506 : IDisposable
             Arguments = new Term[arguments.Count];
             for (int index = 0; index < arguments.Count; index++)
             {
-                Frame.Set(argumentSlots[index], arguments[index]);
+                if (CanBorrow507)
+                    Frame.SetLocalGraph507(argumentSlots[index], arguments[index]);
+                else
+                    Frame.Set(argumentSlots[index], arguments[index]);
                 Arguments[index] = Frame.Read(argumentSlots[index]);
             }
             context.CurrentOwned506 = this;
@@ -78,13 +83,17 @@ internal sealed class OwnedTermInvocation506 : IDisposable
         return parent.Frame.Read(destination);
     }
 
-    internal Term Preserve(Term value) => parent is null ? Export(value) : parent.Frame.Retain(value);
+    internal Term Preserve(Term value) => parent is null ? Export(value)
+        : CanBorrow507 ? parent.Frame.RetainLocalGraph507(value) : parent.Frame.Retain(value);
 
     internal ErlangException Transfer(ErlangException error) => error.WithTransferredTerms506(Preserve);
 
     internal Term HoldControl506(Term value)
     {
-        Frame.Set(controlSlot, value);
+        if (CanBorrow507)
+            Frame.SetLocalGraph507(controlSlot, value);
+        else
+            Frame.Set(controlSlot, value);
 
         return Frame.Read(controlSlot);
     }

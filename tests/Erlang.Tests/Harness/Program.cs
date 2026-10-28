@@ -6976,6 +6976,34 @@ try
     Test(Erlang.Tests.OwnedGuest506Names.MessageTest, Erlang.Tests.OwnedGuest506Checks.SourceMessageRetirement);
     Test(Erlang.Tests.OwnedGuestOriginal506Names.Test, Erlang.Tests.OwnedGuestOriginal506Checks.Run);
     Test(Erlang.Tests.OwnedShutdown506Names.Test, Erlang.Tests.OwnedShutdown506Checks.NestedForeignInvocation);
+    Test(Erlang.Tests.TrustedGuest507Names.SharingTest, Erlang.Tests.TrustedGuest507Checks.Sharing);
+    Test(Erlang.Tests.TrustedGuest507Names.AllocationTest, Erlang.Tests.TrustedGuest507Checks.AllocationAndSlots);
+    Test(Erlang.Tests.TrustedGuest507Names.OverrideTest, Erlang.Tests.TrustedGuest507Checks.OpaqueOverride);
+    Test(Erlang.Tests.HybridBoundary507Names.Test, Erlang.Tests.HybridBoundary507Checks.MutablePatterns);
+    Test(Erlang.Tests.HybridKeyScope507Names.Test, Erlang.Tests.HybridKeyScope507Checks.Parity);
+    Test(
+        Erlang.Tests.TrustedCapabilities507Names.Test,
+        Erlang.Tests.TrustedCapabilities507Checks.FactoryInheritedAndPublicOverride
+    );
+    Test(
+        Erlang.Tests.TrustedCapabilities507Names.EmptyTest,
+        Erlang.Tests.TrustedCapabilities507Checks.RepeatedGuestOnlyPreparation
+    );
+    Test(Erlang.Tests.BeamGuestReturn507Names.Test, Erlang.Tests.BeamGuestReturn507Checks.AliasAndHost);
+    Test(Erlang.Tests.BeamOwnedRoots507Names.ReplayTest, Erlang.Tests.BeamOwnedRoots507Checks.OriginalTryReplay);
+    Test(Erlang.Tests.BeamOwnedRoots507Names.AliasTest, Erlang.Tests.BeamOwnedRoots507Checks.AliasAndTrim);
+    Test(Erlang.Tests.BeamOwnedRoots507Names.CancelTest, Erlang.Tests.BeamOwnedRoots507Checks.CancelAtTuple);
+    Test(Erlang.Tests.BeamOwnedReceive507Names.ProtectedTest, Erlang.Tests.BeamOwnedReceive507Checks.OriginalProtectedReceive);
+    Test(Erlang.Tests.BeamOwnedReceive507Names.BeforeCallbackTest, Erlang.Tests.BeamOwnedReceive507Checks.CancelBeforeCallback);
+    Test(Erlang.Tests.BeamOwnedReceive507Names.AfterSelectionTest, Erlang.Tests.BeamOwnedReceive507Checks.CancelAfterSelection);
+    Test(
+        Erlang.Tests.BeamOwnedReceive507Names.SourceRetirementTest,
+        Erlang.Tests.BeamOwnedReceive507Checks.MixedSourceSenderRetirement
+    );
+    Test(Erlang.Tests.BeamOwnedReceive507Names.MetadataTest, Erlang.Tests.BeamOwnedReceive507Checks.MetadataRootOnly);
+    Test(Erlang.Tests.BeamOwnedReceive507Names.RollbackTest, Erlang.Tests.BeamOwnedReceive507Checks.RemovedCandidateRollback);
+    Test(Erlang.Tests.BeamOwnedReceive507Names.PendingTest, Erlang.Tests.BeamOwnedReceive507Checks.PendingAdmissionCancellation);
+    Test(Erlang.Tests.BeamOwnedReceive507Names.TraceFailureTest, Erlang.Tests.BeamOwnedReceive507Checks.TraceFailureBothRoutes);
     Test(Erlang.Tests.OwnedGuest506Names.HeldTest, Erlang.Tests.OwnedGuest506Checks.AwaitAndClosure);
     Test(Erlang.Tests.OwnedGuest506Names.CapturedTaskTest, Erlang.Tests.OwnedGuest506Checks.CapturedTask);
     Test(Erlang.Tests.OwnedGuest506Names.DictionaryTest, Erlang.Tests.OwnedGuest506Checks.ConcurrentDictionary);

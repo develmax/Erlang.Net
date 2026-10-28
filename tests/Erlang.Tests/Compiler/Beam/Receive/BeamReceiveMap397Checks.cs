@@ -79,7 +79,9 @@ internal static class BeamReceiveMap397Checks
             Map((retained, Term.I(1)), (returned, Term.I(2))),
             self
         );
-        object registers = Property(selection, Registers);
+        using var selectionOwner507 = (IDisposable)selection;
+        object registers = Call(selection, BeamReceiveSelectionHostNames.TakeRegisters);
+        using var registersOwner507 = (IDisposable)registers;
         Require(((Term)Call(registers, BeamBinaryHostNames.Read, 0)).Equals(Term.I(1)));
         Require(((Term)Call(registers, BeamBinaryHostNames.Read, 1)).Equals(Term.I(2)));
         Require(ReferenceEquals(Call(before, BeamBinaryHostNames.Read, 1), sentinel));
@@ -123,7 +125,9 @@ internal static class BeamReceiveMap397Checks
             Map((Term.A(BeamOpcodeEdgeNames.Marker), Term.I(1))),
             self
         );
-        object registers = Property(selection, Registers);
+        using var selectionOwner507 = (IDisposable)selection;
+        object registers = Call(selection, BeamReceiveSelectionHostNames.TakeRegisters);
+        using var registersOwner507 = (IDisposable)registers;
         Require(ReferenceEquals(Call(registers, BeamBinaryHostNames.Read, 1), sentinel));
         Refuses<InvalidDataException>(() => Call(registers, BeamBinaryHostNames.Read, 2));
         Refuses<InvalidDataException>(() => Call(registers, BeamBinaryHostNames.Read, 3));

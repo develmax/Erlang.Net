@@ -1,0 +1,90 @@
+{
+  "kind": "SourceOnlyProposal",
+  "pin": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "preimageDrift": [],
+  "sourceFileCount": 14,
+  "sources": [
+    {
+      "path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamOwnedReceive507Names.cs",
+      "sha256": "E54003BFCDDDDFED85995E1BA99D6D934EF0DDFFAB486431EE136C328C2ABA32"
+    },
+    {
+      "path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamOwnedRoots507.cs",
+      "sha256": "CEB79D42AF34CFCAF339752CC3CD2E3EBA6C2D3B972830A2601CD9CE947F896E"
+    },
+    {
+      "path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamReceiveCallbackExecution.cs",
+      "sha256": "142AC6EC8D3795B9B75CA206B7DD6A20503127BD7A20C98D8AC35EEC5072DB4A"
+    },
+    {
+      "path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamReceiveMatcher.cs",
+      "sha256": "2354C8BBE0CBA71DCD81FCB797E2F95935FD1B04D7B4B34D87D55980F4C90AD3"
+    },
+    {
+      "path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamReceiveSelection.cs",
+      "sha256": "A59BCD8B420A534B4DEDDDAB90505763F7C33A736CE5EA15ECB37BABBBCAC208"
+    },
+    {
+      "path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamRegisterInterpreter.cs",
+      "sha256": "A1E8F0333DA96E3188B069A2C5214F8A396E57E653B9FDC860C8A7940A9D9948"
+    },
+    {
+      "path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamRegisterState.Owned507.cs",
+      "sha256": "03D9043EB3BA61DAA05E6718D4512C593AE564A290CFC21143E634EFD7F81BD8"
+    },
+    {
+      "path": "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessContext.BeamReceive.cs",
+      "sha256": "9E6C52CCB0CBD9BBDDD6FCF1FBB91BF658EF2B560F86F2A8B608360B9684874A"
+    },
+    {
+      "path": "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessContext.cs",
+      "sha256": "AC8C8F0D6738442617B2B5A58CBDEB805FA417BB891A6E868575858B175CAC61"
+    },
+    {
+      "path": "src/Runtime/Erlang.Runtime.Core/Processes/Mailbox.BeamSaveCursor.cs",
+      "sha256": "226D36AA46BAD30487E352AD4D8DE09BC209420450979157E2CA4BD901E67F78"
+    },
+    {
+      "path": "src/Runtime/Erlang.Runtime.Core/Processes/Mailbox.cs",
+      "sha256": "73050E6EFCBD47DBD07BC2B2BBD913306C47EDDD26BD2306B828AD205F17ADA7"
+    },
+    {
+      "path": "tests/Erlang.Tests/Runtime/Memory/BeamOwnedReceive507Checks.cs",
+      "sha256": "252D71F04C25DFDBCB3C5D8E4E05E8594DCE7E63430C56D4B2F70CDE2685596C"
+    },
+    {
+      "path": "tests/Erlang.Tests/Runtime/Memory/BeamOwnedReceive507Names.cs",
+      "sha256": "9049411BF5A25788D4D31D89E1848079F8CC39BB3090005F4D221D9F7A0D223E"
+    },
+    {
+      "path": "tests/Erlang.Tests/Runtime/Memory/BeamOwnedRoots507Checks.cs",
+      "sha256": "EBEE36AEBD9F05F3259896A45E36CB85D9775F74FA42A7C07765C386D2E3C01D"
+    }
+  ],
+  "documents": [
+    {
+      "path": "README.md",
+      "sha256": "A562F2A74DD35E7F47F355A297F645FD7953E3438981BD4359F4FEECFA14BCC2"
+    },
+    {
+      "path": "preimage-manifest.json",
+      "sha256": "E9D27C8E7206E017208432EEE6AD5F603490F6C2DB7768CEE8AC0740FB99D013"
+    },
+    {
+      "path": "source-anchors.json",
+      "sha256": "26309C585C7F8AD8B87AD1D634695753907C4E9F8BDF9164820C831DB179B85E"
+    },
+    {
+      "path": "beam-owned-receive.patch",
+      "sha256": "18FFD0BB303F122ECF135542F02F8480538638B82E17A5D92E423A4A4752C2B9"
+    }
+  ],
+  "validation": {
+    "textualBraceBalance": true,
+    "receiveRefusalRemoved": true,
+    "noSelectionRegisterEscape": true,
+    "build": false,
+    "executedTests": false,
+    "originalVM": false
+  }
+}
