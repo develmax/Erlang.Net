@@ -41,9 +41,18 @@ internal sealed class ProcessSpawnOptions
 
     internal static ProcessSpawnOptions ParseRemote(Term value)
     {
+        Term[] allOptions = Cons.Items(value).ToArray();
+        ProcessSpawnResourceValidation540 resources = ProcessSpawnResourceOptions540.Analyze(
+            allOptions,
+            IntPtr.Size * ProcessSpawnResourceNames540.BitsPerByte
+        );
+        if (resources.Invalid)
+            throw new ErlangException(ErlangErrorReasons.BadArgument);
         var result = new ProcessSpawnOptions();
-        foreach (Term option in Cons.Items(value))
+        foreach (Term option in allOptions)
         {
+            if (ProcessSpawnResourceOptions540.IsResourceOption(option))
+                continue;
             if (option is TupleTerm { Items: [Atom { Name: ProcessSchedulerNames.Binding }, ..] })
             {
                 result.SchedulerOptions.Add(option);
@@ -66,14 +75,26 @@ internal sealed class ProcessSpawnOptions
                 result.MonitorOptions = current.MonitorOptions;
         }
 
+        if (resources.HasResourceOption)
+            throw new NotSupportedException(ProcessSpawnResourceNames540.Unsupported);
+
         return result;
     }
 
     public static ProcessSpawnOptions Parse(Term value, int configuredSchedulers = int.MaxValue)
     {
+        Term[] allOptions = Cons.Items(value).ToArray();
+        ProcessSpawnResourceValidation540 resources = ProcessSpawnResourceOptions540.Analyze(
+            allOptions,
+            IntPtr.Size * ProcessSpawnResourceNames540.BitsPerByte
+        );
+        if (resources.Invalid)
+            throw new ErlangException(ErlangErrorReasons.BadArgument);
         var result = new ProcessSpawnOptions();
-        foreach (Term option in Cons.Items(value))
+        foreach (Term option in allOptions)
         {
+            if (ProcessSpawnResourceOptions540.IsResourceOption(option))
+                continue;
             switch (option)
             {
                 case TupleTerm { Items: [Atom { Name: ProcessAsyncDistributionNames.Flag }, Atom { Name: ErlangBooleanAtoms.True }] }:
@@ -133,6 +154,9 @@ internal sealed class ProcessSpawnOptions
                     throw new ErlangException(ErlangErrorReasons.BadArgument);
             }
         }
+
+        if (resources.HasResourceOption)
+            throw new NotSupportedException(ProcessSpawnResourceNames540.Unsupported);
 
         return result;
     }

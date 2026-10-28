@@ -10,6 +10,40 @@ PIN = 'ad05823719d77c8faee87348ea39513d4e2f99c5'
 TOOL = 'tools/Runtime/Erlang.OwnedGuest506Observations'
 WORKFLOWS = ['.github/workflows/owned-guest506-original.yml', '.github/workflows/validate.yml']
 DEPENDENCIES = [
+    'src/Runtime/Erlang.Runtime.Core/Processes/ProcessSpawnRequestOptions.cs',
+    'src/Runtime/Erlang.Runtime.Core/Primitives/RuntimeNativeMetadataImage.cs',
+    'src/Runtime/Erlang.Runtime.Core/Primitives/RuntimeNativeErrorMetadata545.cs',
+    'src/Runtime/Erlang.Runtime.Core/Primitives/RuntimeNativeErrorMetadata545Names.cs',
+    'src/Runtime/Erlang.Runtime.Core/Processes/ProcessSpawnRequestRegistrations.cs',
+    'src/Runtime/Erlang.Runtime.Core/Processes/ProcessSpawnRequestErrorMetadata547.cs',
+    'tests/Erlang.Tests/Compiler/Beam/Calls/DynamicApplyBoundary520Imports.cs',
+    'tests/Erlang.Tests/Runtime/Processes/Spawn/SpawnWorker546Admission.cs',
+    'tests/Erlang.Tests/Runtime/Processes/Spawn/SpawnWorker546Checks.cs',
+    'tests/Erlang.Tests/Runtime/Processes/Spawn/SpawnWorker546FunctionScope.cs',
+    'tests/Erlang.Tests/Runtime/Processes/Spawn/SpawnWorker546Names.cs',
+    'tests/Erlang.Tests/Runtime/Processes/Spawn/SpawnWorker546WitnessLaw.cs',
+    'tests/Erlang.Tests/Runtime/Processes/Spawn/SpawnResource542Names.cs',
+    'tests/Erlang.Tests/Runtime/Processes/Spawn/SpawnResource542OriginalAdmission.cs',
+    'tests/Erlang.Tests/Runtime/Diagnostics/Debug/DebugDirtyNative424Access.cs',
+    'tests/Erlang.Tests/Runtime/Modules/CodeLifecycle/OwnedFunctionOriginal407Terms.cs',
+    'tests/Erlang.Tests/Runtime/Modules/CodeLifecycle/OwnedFunctionOriginal407Names.cs',
+    'src/Runtime/Erlang.Runtime.Core/Processes/Internal/InternalSpawnRequestNative429.cs',
+    'src/Runtime/Erlang.Runtime.Core/Processes/ProcessSpawnOptionRegistrations.cs',
+    'src/Runtime/Erlang.Runtime.Core/Processes/ProcessSpawnOptions.cs',
+    'src/Runtime/Erlang.Runtime.Core/Processes/SpawnValidation/ProcessSpawnResourceNames540.cs',
+    'src/Runtime/Erlang.Runtime.Core/Processes/SpawnValidation/ProcessSpawnResourceOptions540.cs',
+    'src/Runtime/Erlang.Runtime.Core/Processes/SpawnValidation/ProcessSpawnResourceValidation540.cs',
+    'tests/Erlang.Tests/Compiler/Beam/Calls/DynamicApplyNativeMetadata527Admission.cs',
+    'tests/Erlang.Tests/Compiler/Beam/Calls/DynamicApplyNativeMetadata527Names.cs',
+    'tests/Erlang.Tests/Harness/Program.cs',
+    'tests/Erlang.Tests/Runtime/Memory/OriginalMap517Admission.cs',
+    'tests/Erlang.Tests/Runtime/Memory/OriginalMap517AdmissionReader.cs',
+    'tests/Erlang.Tests/Runtime/Processes/Spawn/SpawnResource540Checks.cs',
+    'tests/Erlang.Tests/Runtime/Processes/Spawn/SpawnResource540Names.cs',
+    'tests/Erlang.Tests/Runtime/Processes/Spawn/SpawnResource541Comparison.cs',
+    'tests/Erlang.Tests/Runtime/Processes/Spawn/SpawnResource541ComparisonChecks.cs',
+    'tests/Erlang.Tests/Runtime/Processes/Spawn/SpawnResource541Names.cs',
+    'tests/Erlang.Tests/Runtime/Processes/Spawn/SpawnResource541Replay.cs',
     'tools/Native/Erlang.DdllFormatterOriginalObservations/scripts/owned.py',
     'tools/Native/Erlang.DdllFormatterOriginalObservations/scripts/bounded_inventory.py',
     'tools/Distribution/Erlang.GuestConnectedSendObservations/owned_process.py',
@@ -44,7 +78,7 @@ def main():
         if not args.replace_plan_sha256 or actual != args.replace_plan_sha256.upper():
             raise RuntimeError('Replacing a plan requires its current SHA; immutable history belongs outside the tool')
     rows = []
-    allowed_root = {'.gitattributes', 'collect.py', 'seal.py', 'jobs.json', 'README.md', 'adopt-original.py', 'admitted_receipts.py'}
+    allowed_root = {'.gitattributes', 'collect.py', 'seal.py', 'jobs.json', 'README.md', 'adopt-original.py', 'admitted_receipts.py', 'adopt-spawn541.py', 'capture-spawn541.py'}
     for path in sorted(tool.rglob('*')):
         if not path.is_file() or path == plan_path:
             continue

@@ -65,8 +65,16 @@ internal static class ProcessSpawnOptionRegistrations
                 arguments[^1]
             );
         }
-        ProcessSpawnOptions options = node == context.Runtime.Node
-            ? ParseOptions(context, arguments) : ProcessSpawnOptions.ParseRemote(arguments[^1]);
+        ProcessSpawnOptions options;
+        try
+        {
+            options = node == context.Runtime.Node
+                ? ParseOptions(context, arguments) : ProcessSpawnOptions.ParseRemote(arguments[^1]);
+        }
+        catch (ErlangException)
+        {
+            throw Invalid(context, arguments, true);
+        }
         if (node != context.Runtime.Node)
         {
             var remoteResult = await context.Runtime.DistributionPending.TrySpawnConnectedAsync(
@@ -139,7 +147,12 @@ internal static class ProcessSpawnOptionRegistrations
         return new ErlangException(reason ?? Term.A(ErlangErrorReasons.BadArgument))
         {
             ExplicitStackTrace = true,
-            StackTraceTerm = context.CaptureErrorStack(Cons.From(arguments), new MapTerm(fields), ProcessSpawnOptionNames.Function)
+            StackTraceTerm = context.CaptureErrorStack(
+                Cons.From(arguments),
+                new MapTerm(fields),
+                ProcessSpawnOptionNames.Function,
+                RuntimeNativeErrorMetadata545.SpawnOptionLocation(context, arguments, badOption)
+            )
         };
     }
 }

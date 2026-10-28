@@ -42,14 +42,22 @@ internal static class InternalSpawnRequestNative429
             }
             if (tail is not Nil)
                 return ValueTask.FromResult<Term>(Term.A(InternalSpawnRequestNames429.BadOptions));
-            // This backend has no process heap allocation policy. Do not silently turn
-            // a valid unimplemented source option into an asynchronous badopt.
-            // All heap-option value/interaction partitions remain explicit HOST scope.
-            foreach (Term option in options)
-                if (option is TupleTerm { Items: [Atom { Name: InternalSpawnRequestNames429.MinimumHeap or InternalSpawnRequestNames429.MinimumBinaryHeap or InternalSpawnRequestNames429.MaximumHeap }, _] })
-                    throw new NotSupportedException(InternalSpawnRequestNames429.HeapPartition);
-            ProcessSpawnRequestOptions parsed = ProcessSpawnRequestOptions.Parse(options, false, owner.ActorDispatchCapacity);
-            Term? failure = parsed.BadOptions ? Term.A(InternalSpawnRequestNames429.BadOptions) : null;
+            ProcessSpawnResourceValidation540 resources = ProcessSpawnResourceOptions540.Analyze(
+                options,
+                IntPtr.Size * ProcessSpawnResourceNames540.BitsPerByte
+            );
+            // Validate all ordinary options and keep reply/tag processing even
+            // when a resource value is malformed. A valid unsupported policy
+            // is refused only after every independent validation has passed.
+            ProcessSpawnRequestOptions parsed = ProcessSpawnRequestOptions.Parse(
+                options.Where(option => !ProcessSpawnResourceOptions540.IsResourceOption(option)).ToArray(),
+                false,
+                owner.ActorDispatchCapacity
+            );
+            bool badOptions = parsed.BadOptions || resources.Invalid;
+            if (resources.HasResourceOption && !badOptions)
+                throw new NotSupportedException(InternalSpawnRequestNames429.HeapPartition);
+            Term? failure = badOptions ? Term.A(InternalSpawnRequestNames429.BadOptions) : null;
             Term[] copiedArguments = values.ToArray();
             SequenceSpawnDescription description = SequenceSpawnDescription.Module(
                 targetModule,

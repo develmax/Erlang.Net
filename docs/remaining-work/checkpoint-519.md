@@ -1,6 +1,6 @@
 # Checkpoint 519
 
-The shared-map feature is integrated in the publication candidate. Publication, exact-head GitHub CI and review are pending; no merge or full-catalogue run is inferred.
+The shared-map feature is published in PR #72 at 74e8f740e3e51b613a21e7d53d79c9ae7f498ff2. Exact-head CI551 (40552052788) passed all three required jobs, including the full Windows regression (9166/9166), Linux original/managed controls and relocated tooling. The required genuine compiled-map original acquisition, adoption, both-profile managed comparison and final outcome gate passed. No merge or fresh completed automatic review is claimed.
 
 | Module | Full | Registered | Known differences | Needs verification |
 | --- | ---: | ---: | ---: | ---: |
@@ -36,3 +36,9 @@ Canonical totals remain 708 registered /180 full /504 pending /24 known differen
 The publication proof inventory records SHA256 digests for `artifacts/part519/affected-first.json`, the repaired-parent build log, `map-admission.json`, original acquisition completion, `whole-map-final/completion.json`, both retained managed outputs, and the native four-route completion. These are separate actual receipts; the documentation proposal itself performs no execution. Root must archive the final proof and refresh this checkpoint with the actual final native plan and CI head before claiming delivery.
 
 Final publication regression: 98/98 selected controls passed on the repaired parent, including the strengthened receive controls. All three native map comparison tools passed four loader/runtime profiles each (12 actual comparisons); the final source-complete variadic replay separately passed 4/4. Canonical MFA totals remain unchanged.
+
+## Exact-head CI completion
+
+CI550 retained a real caller error: the compiled-map command supplied a relative admission path to a reader requiring an absolute path. The caller now passes an absolute path; the admission rule is unchanged. CI551 passed on the corrected exact head. The validation ZIP (artifact12759060723, SHA25679C1CA64DC2EE67945E838657D19651C1C702012BAD3A75B51B2F0A9725F8E7B) was downloaded and verified: tests.json records9166 passed/0 failed, original compiled-worker acquisition returned1712 bytes, and the required managed step/final outcome gate succeeded. No inline review threads were returned after that head.
+
+Artifact retention follow-up: the current upload retains original compiled-worker inputs and the managed command log, but omits the managed raw/deterministic files written under artifacts/map-routing517/<guid>/. Add that path to the next workflow upload. The successful bound whole comparison is not inferred from the original-only acquisition receipt.

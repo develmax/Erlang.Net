@@ -162,7 +162,17 @@ internal static class ProcessSpawnRequestRegistrations
         return new ErlangException(ErlangErrorReasons.BadArgument)
         {
             ExplicitStackTrace = true,
-            StackTraceTerm = context.CaptureErrorStack(Cons.From(arguments), new MapTerm(fields), function)
+            StackTraceTerm = context.CaptureErrorStack(
+                Cons.From(arguments),
+                new MapTerm(fields),
+                function,
+                ProcessSpawnRequestErrorMetadata547.Location(
+                    context,
+                    arguments,
+                    function,
+                    badOption
+                )
+            )
         };
     }
 }

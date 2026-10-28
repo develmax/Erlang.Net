@@ -1,0 +1,3241 @@
+{
+  "Scope": "Native runtime with original proc_lib,315 named-target malformed cases,2profiles",
+  "FinalSourcePlanSha256": "6136025B98B9FE8A9A2BAE57C9E38F96C99EBCD87DAC0D64A256643222129C63",
+  "FinalCompletion": {
+    "Passed": true,
+    "OriginalExitCode": 0,
+    "ManagedRequested": true,
+    "ManagedRuns": [
+      {
+        "Backend": "original-proc-lib",
+        "Profile": "ordinary",
+        "Passed": true,
+        "Receipt": {
+          "Command": [
+            "dotnet",
+            "exec",
+            "--fx-version",
+            "10.0.11",
+            "D:\\Distr\\Work\\Codex\\Erlang.Net\\w517fix\\tests\\Erlang.Tests\\bin\\Debug\\net10.0\\Erlang.Tests.dll",
+            "--spawn-resource542-child",
+            "D:\\Distr\\Work\\Codex\\Erlang.Net\\w517fix",
+            "D:\\Distr\\Work\\Codex\\Erlang.Net\\w517fix\\artifacts\\spawn520\\contracts-review-final\\admission.json",
+            "3B9C1593F0F9EEB61AC1BE9EA0969A48234A785944E49FFCC9C2D5165DCE32FE",
+            "D:\\Distr\\Work\\Codex\\Erlang.Net\\w517fix\\artifacts\\spawn520\\native-metadata-first\\completion.json",
+            "AA3DB5D80107CFBDEE87C4DA4934812726BC32EBC78F24BA745CB01DBAD46058",
+            "false",
+            "original-proc-lib",
+            "D:\\Distr\\Work\\Codex\\Erlang.Net\\w517fix\\artifacts\\spawn520\\contracts-review-final\\ordinary\\actual"
+          ],
+          "Pid": 156528,
+          "ElapsedSeconds": 0.9690000000409782,
+          "TimedOut": false,
+          "Settled": true,
+          "ExitCode": 0,
+          "Failures": [],
+          "StdoutSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+          "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+        }
+      },
+      {
+        "Backend": "original-proc-lib",
+        "Profile": "private-owned",
+        "Passed": true,
+        "Receipt": {
+          "Command": [
+            "dotnet",
+            "exec",
+            "--fx-version",
+            "10.0.11",
+            "D:\\Distr\\Work\\Codex\\Erlang.Net\\w517fix\\tests\\Erlang.Tests\\bin\\Debug\\net10.0\\Erlang.Tests.dll",
+            "--spawn-resource542-child",
+            "D:\\Distr\\Work\\Codex\\Erlang.Net\\w517fix",
+            "D:\\Distr\\Work\\Codex\\Erlang.Net\\w517fix\\artifacts\\spawn520\\contracts-review-final\\admission.json",
+            "3B9C1593F0F9EEB61AC1BE9EA0969A48234A785944E49FFCC9C2D5165DCE32FE",
+            "D:\\Distr\\Work\\Codex\\Erlang.Net\\w517fix\\artifacts\\spawn520\\native-metadata-first\\completion.json",
+            "AA3DB5D80107CFBDEE87C4DA4934812726BC32EBC78F24BA745CB01DBAD46058",
+            "true",
+            "original-proc-lib",
+            "D:\\Distr\\Work\\Codex\\Erlang.Net\\w517fix\\artifacts\\spawn520\\contracts-review-final\\private-owned\\actual"
+          ],
+          "Pid": 214060,
+          "ElapsedSeconds": 24.95299999997951,
+          "TimedOut": false,
+          "Settled": true,
+          "ExitCode": 0,
+          "Failures": [],
+          "StdoutSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+          "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+        }
+      }
+    ],
+    "ExpectedManagedRoutes": 2,
+    "Errors": [],
+    "WholeContractsClosed": 0,
+    "PendingCompanion": "Actual-default-dependent15 rows are acquired but not accepted as compatible",
+    "ReferenceBatch": "Immutable original330-row full fixture acquired separately",
+    "RawEtfRewritten": false
+  },
+  "Affected": {
+    "Passed": 319,
+    "Failed": 0
+  },
+  "MixedReplyOriginal": {
+    "OriginalPassed": true,
+    "FourFullReplyProtocols": true,
+    "ReferenceEchoAndTagsVerified": true,
+    "Provider6427Unchanged": true,
+    "Receipt": {
+      "Command": [
+        "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library376-official-compiler\\installed\\bin\\erl.exe",
+        "+S",
+        "1:1",
+        "+A",
+        "1",
+        "-noshell",
+        "-noinput",
+        "-boot",
+        "no_dot_erlang",
+        "-eval",
+        "H={min_heap_size,233},B={reply,not_a_resource_value},T={reply_tag,mixed_resource_badopt540},Os=[[H,B],[B,H],[B,H,T],[T,H,B]],Rs=[begin R=erlang:spawn_request(erlang,self,[],O),receive Reply={_,R,error,badopt}->{R,Reply} after 5000->erlang:error(timeout) end end||O<-Os],ok=file:write_file(\"observed.etf\",term_to_binary(Rs,[{minor_version,2}])),halt(0)."
+      ],
+      "Pid": 36188,
+      "ElapsedSeconds": 0.1410000000614673,
+      "TimedOut": false,
+      "Settled": true,
+      "ExitCode": 0,
+      "Failures": [],
+      "StdoutSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+      "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    "RawSha256": "1C4B8C29156ADF38CD2C50819EBEE31A2410DC5C265F51E23205D264FD1639E7"
+  },
+  "FinalNativeVariadic": {
+    "Passed": true,
+    "ProviderFiles": 6427,
+    "PlanSha256": "94030F936E20BAE2DF105D5B184CABE6DE76587DDF3E135E8410C29B6248CB2C",
+    "InventorySha256": "F144ACFF758B4F267D3577996157A1BA80B307C3C208925ADB4324EA49D1F30E",
+    "OriginalExecuted": true,
+    "ManagedRequested": true,
+    "MatchedManagedRoutes": [
+      "ordinary-ordinary",
+      "ordinary-reviewed",
+      "private-owned-ordinary",
+      "private-owned-reviewed"
+    ],
+    "ExpectedManagedRoutes": 4,
+    "Phases": {
+      "build": {
+        "Command": [
+          "C:\\Users\\Maksim\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+          "-B",
+          "D:\\Distr\\Work\\Codex\\Erlang.Net\\w517fix\\tools\\Native\\Erlang.NifVariadic526Observations\\build-native.py",
+          "--plan",
+          "D:\\Distr\\Work\\Codex\\Erlang.Net\\w517fix\\tools\\Native\\Erlang.NifVariadic526Observations\\source-plan.json",
+          "--approved-plan-sha256",
+          "94030F936E20BAE2DF105D5B184CABE6DE76587DDF3E135E8410C29B6248CB2C",
+          "--provider-admission",
+          "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library376-official-compiler\\official-admission.json",
+          "--output",
+          "D:\\Distr\\Work\\Codex\\Erlang.Net\\w517fix\\artifacts\\nif-variadic526\\part520-final\\build"
+        ],
+        "Pid": 220296,
+        "ElapsedSeconds": 2.7189999998081475,
+        "TimedOut": false,
+        "Settled": true,
+        "ExitCode": 0,
+        "Failures": [],
+        "StdoutSha256": "3B1087B9A538BFA27E1FBF642A01CF34E5B40BD4B365CA1F70577FB9052BA6EC",
+        "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+      },
+      "original": {
+        "Command": [
+          "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library376-official-compiler\\installed\\bin\\erl.exe",
+          "+S",
+          "1:1",
+          "+A",
+          "1",
+          "+SDcpu",
+          "1",
+          "+SDio",
+          "1",
+          "-noshell",
+          "-noinput",
+          "-boot",
+          "no_dot_erlang",
+          "-pa",
+          "D:\\Distr\\Work\\Codex\\Erlang.Net\\w517fix\\artifacts\\nif-variadic526\\part520-final\\original",
+          "-eval",
+          "W=fun(N,V)->ok=file:write_file(N,term_to_binary(V,[{minor_version,2}])) end,try Expected=filename:absname(os:getenv(\"MAP_FAMILY504_RUNTIME_ROOT\")),Expected=filename:absname(code:root_dir()),8=erlang:system_info(wordsize),W(\"metadata.etf\",{Expected,erlang:system_info(version),erlang:system_info(system_architecture)}),Files=[\"variadic_family526.erl\",\"variadic_family526_driver.erl\"],C=[compile:file(F,[return_errors,return_warnings])||F<-Files],W(\"compile.etf\",C),true=lists:all(fun({ok,_,_})->true;({ok,_})->true;(_)->false end,C),W(\"executing-owners.etf\",[{M,code:which(M),M:module_info(md5),M:module_info(compile),M:module_info(attributes),M:module_info(exports)}||M<-[variadic_family526,variadic_family526_driver]]),T=variadic_family526_driver:observe(\"D:/Distr/Work/Codex/Erlang.Net/w517fix/artifacts/nif-variadic526/part520-final/build/variadic_family526\",probe),W(\"observed.etf\",T),ok=file:write_file(\"observed-deterministic.etf\",term_to_binary(T,[deterministic,{minor_version,2}])),{loaded,[{1,_,_,_,_,_,_,_,1},{2,_,_,_,_,_,_,_,1},{3,_,_,_,_,_,_,_,1}]}=T,D=code:delete(variadic_family526),P=code:purge(variadic_family526),L=code:is_loaded(variadic_family526),W(\"cleanup.etf\",{D,P,L}),false=L,halt(0) catch Class:Reason:Stack->W(\"entry-failure.etf\",{Class,Reason,Stack}),halt(77) end."
+        ],
+        "Pid": 100568,
+        "ElapsedSeconds": 0.2660000000614673,
+        "TimedOut": false,
+        "Settled": true,
+        "ExitCode": 0,
+        "Failures": [],
+        "StdoutSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+        "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+      },
+      "ordinary-ordinary": {
+        "Command": [
+          "dotnet",
+          "exec",
+          "--fx-version",
+          "10.0.11",
+          "D:\\Distr\\Work\\Codex\\Erlang.Net\\w517fix\\tools\\Native\\Erlang.NifNativeBackend\\bin\\Debug\\net10.0\\Erlang.NifNativeBackend.dll",
+          "--nif-dirty521-child",
+          "D:\\Distr\\Work\\Codex\\Erlang.Net\\w517fix\\artifacts\\nif-variadic526\\part520-final\\execution-admission.json",
+          "8D0CBB2C429F96C62C64C97D2ACFF0E2F033DFFD34927FF17F700CB69770F4F7",
+          "ordinary",
+          "ordinary",
+          "D:\\Distr\\Work\\Codex\\Erlang.Net\\w517fix\\artifacts\\nif-variadic526\\part520-final\\ordinary-ordinary\\actual"
+        ],
+        "Pid": 341244,
+        "ElapsedSeconds": 0.5940000000409782,
+        "TimedOut": false,
+        "Settled": true,
+        "ExitCode": 0,
+        "Failures": [],
+        "StdoutSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+        "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+      },
+      "ordinary-reviewed": {
+        "Command": [
+          "dotnet",
+          "exec",
+          "--fx-version",
+          "10.0.11",
+          "D:\\Distr\\Work\\Codex\\Erlang.Net\\w517fix\\tools\\Native\\Erlang.NifNativeBackend\\bin\\Debug\\net10.0\\Erlang.NifNativeBackend.dll",
+          "--nif-dirty521-child",
+          "D:\\Distr\\Work\\Codex\\Erlang.Net\\w517fix\\artifacts\\nif-variadic526\\part520-final\\execution-admission.json",
+          "8D0CBB2C429F96C62C64C97D2ACFF0E2F033DFFD34927FF17F700CB69770F4F7",
+          "reviewed",
+          "ordinary",
+          "D:\\Distr\\Work\\Codex\\Erlang.Net\\w517fix\\artifacts\\nif-variadic526\\part520-final\\ordinary-reviewed\\actual"
+        ],
+        "Pid": 127740,
+        "ElapsedSeconds": 0.6089999999385327,
+        "TimedOut": false,
+        "Settled": true,
+        "ExitCode": 0,
+        "Failures": [],
+        "StdoutSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+        "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+      },
+      "private-owned-ordinary": {
+        "Command": [
+          "dotnet",
+          "exec",
+          "--fx-version",
+          "10.0.11",
+          "D:\\Distr\\Work\\Codex\\Erlang.Net\\w517fix\\tools\\Native\\Erlang.NifNativeBackend\\bin\\Debug\\net10.0\\Erlang.NifNativeBackend.dll",
+          "--nif-dirty521-child",
+          "D:\\Distr\\Work\\Codex\\Erlang.Net\\w517fix\\artifacts\\nif-variadic526\\part520-final\\execution-admission.json",
+          "8D0CBB2C429F96C62C64C97D2ACFF0E2F033DFFD34927FF17F700CB69770F4F7",
+          "ordinary",
+          "private-owned",
+          "D:\\Distr\\Work\\Codex\\Erlang.Net\\w517fix\\artifacts\\nif-variadic526\\part520-final\\private-owned-ordinary\\actual"
+        ],
+        "Pid": 132716,
+        "ElapsedSeconds": 10.047000000020489,
+        "TimedOut": false,
+        "Settled": true,
+        "ExitCode": 0,
+        "Failures": [],
+        "StdoutSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+        "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+      },
+      "private-owned-reviewed": {
+        "Command": [
+          "dotnet",
+          "exec",
+          "--fx-version",
+          "10.0.11",
+          "D:\\Distr\\Work\\Codex\\Erlang.Net\\w517fix\\tools\\Native\\Erlang.NifNativeBackend\\bin\\Debug\\net10.0\\Erlang.NifNativeBackend.dll",
+          "--nif-dirty521-child",
+          "D:\\Distr\\Work\\Codex\\Erlang.Net\\w517fix\\artifacts\\nif-variadic526\\part520-final\\execution-admission.json",
+          "8D0CBB2C429F96C62C64C97D2ACFF0E2F033DFFD34927FF17F700CB69770F4F7",
+          "reviewed",
+          "private-owned",
+          "D:\\Distr\\Work\\Codex\\Erlang.Net\\w517fix\\artifacts\\nif-variadic526\\part520-final\\private-owned-reviewed\\actual"
+        ],
+        "Pid": 331160,
+        "ElapsedSeconds": 9.608999999938533,
+        "TimedOut": false,
+        "Settled": true,
+        "ExitCode": 0,
+        "Failures": [],
+        "StdoutSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+        "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+      }
+    },
+    "Errors": [],
+    "NormalizationPerformed": false,
+    "WholeContractsClosed": 0
+  },
+  "MFA": {
+    "Registered": 708,
+    "Full": 180,
+    "Pending": 504,
+    "Known": 24
+  },
+  "SourceGuards": 1939,
+  "NativeRawBindings": 289,
+  "LegacyManagedAccepted": false,
+  "Full330Accepted": false,
+  "Default15Accepted": false,
+  "ArchiveSha256": "50BE2D4644BF90BA957041957D20EB454EDC195D40F1E76FC1004A76F433D7D8",
+  "Files": [
+    {
+      "Path": "artifacts/nif-variadic526/part520-final/artifacts.json",
+      "Bytes": 12453,
+      "Sha256": "F144ACFF758B4F267D3577996157A1BA80B307C3C208925ADB4324EA49D1F30E"
+    },
+    {
+      "Path": "artifacts/nif-variadic526/part520-final/build/build-receipt.json",
+      "Bytes": 4520,
+      "Sha256": "D6CAD3884DAA0CB0E745FEB52EC6267EE5E8227CA1C02FE83998CEFB780EF56B"
+    },
+    {
+      "Path": "artifacts/nif-variadic526/part520-final/build/compile.stderr",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "artifacts/nif-variadic526/part520-final/build/compile.stdout",
+      "Bytes": 11,
+      "Sha256": "2F97A77084BA90D92DC3C08EDF2F2487ABDA4D0D36774442AA09E351CF23A4F3"
+    },
+    {
+      "Path": "artifacts/nif-variadic526/part520-final/build/dependencies.stderr",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "artifacts/nif-variadic526/part520-final/build/dependencies.stdout",
+      "Bytes": 299,
+      "Sha256": "88BA6BA536FAEF01C897B68E86E014FDF0067A65B84E90A0B11ECE5A7DED11AE"
+    },
+    {
+      "Path": "artifacts/nif-variadic526/part520-final/build/erl_drv_nif.h",
+      "Bytes": 7102,
+      "Sha256": "E9D4280779E8FD4AC463144F310B4DA2346DD3A18E73D445BF1F88AE3C1F1312"
+    },
+    {
+      "Path": "artifacts/nif-variadic526/part520-final/build/erl_int_sizes_config.h",
+      "Bytes": 1178,
+      "Sha256": "9CE6329729C2F6AA0B87B2D84608FF547A8A256D02D8E9559DFF874CDB8A9986"
+    },
+    {
+      "Path": "artifacts/nif-variadic526/part520-final/build/erl_nif.h",
+      "Bytes": 13859,
+      "Sha256": "6CB96C37D306A173EF71946E823829FC21E47CB4A19288B221129EAC2F13B689"
+    },
+    {
+      "Path": "artifacts/nif-variadic526/part520-final/build/erl_nif_api_funcs.h",
+      "Bytes": 38959,
+      "Sha256": "CF34ADA521AEB0EE00C9936320CD694F9816EDBAB960500453051CEA443DDA11"
+    },
+    {
+      "Path": "artifacts/nif-variadic526/part520-final/build/exports.stderr",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "artifacts/nif-variadic526/part520-final/build/exports.stdout",
+      "Bytes": 493,
+      "Sha256": "E896D9FF220215F0BCB98F34E4691171F5447CE2B346721F7DA378887D59876F"
+    },
+    {
+      "Path": "artifacts/nif-variadic526/part520-final/build/fixture.c",
+      "Bytes": 2034,
+      "Sha256": "64EA4EE3CC4E3DBD6EBD6295E35CE34421E69033468BE13548885D8F8C78D411"
+    },
+    {
+      "Path": "artifacts/nif-variadic526/part520-final/build/fixture.obj",
+      "Bytes": 6563,
+      "Sha256": "999A00CD6E25E2A52ABC092D2CD9D0B1F15113EFB2B74EFCD52B587DD971CC68"
+    },
+    {
+      "Path": "artifacts/nif-variadic526/part520-final/build/link.stderr",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "artifacts/nif-variadic526/part520-final/build/link.stdout",
+      "Bytes": 78,
+      "Sha256": "FC2E83EC201E7E99F958789F3477245D6DED93CDC0F95D5DED5BE299B5448ED4"
+    },
+    {
+      "Path": "artifacts/nif-variadic526/part520-final/build/source-plan.json",
+      "Bytes": 204738,
+      "Sha256": "94030F936E20BAE2DF105D5B184CABE6DE76587DDF3E135E8410C29B6248CB2C"
+    },
+    {
+      "Path": "artifacts/nif-variadic526/part520-final/build/variadic_family526.dll",
+      "Bytes": 10240,
+      "Sha256": "649C1D115857982B19F60E4A5A3DBB976D0178BAD046EAE90CA09E5A12FEC571"
+    },
+    {
+      "Path": "artifacts/nif-variadic526/part520-final/build/variadic_family526.erl",
+      "Bytes": 408,
+      "Sha256": "64E4A199BCF0779F3968BC131EB60E62A65CEAC159F57C5F167CD11C5BF605A1"
+    },
+    {
+      "Path": "artifacts/nif-variadic526/part520-final/build/variadic_family526.exp",
+      "Bytes": 735,
+      "Sha256": "03220CDE5E028954A2E08B7F723BB4B8D355EBB5B3B52BA22E39AAA8D398AA61"
+    },
+    {
+      "Path": "artifacts/nif-variadic526/part520-final/build/variadic_family526.lib",
+      "Bytes": 1918,
+      "Sha256": "985C1A8EC34394C1580F28A839ACE675B0DC7C303D102CFBE0C5B7275656C2FB"
+    },
+    {
+      "Path": "artifacts/nif-variadic526/part520-final/completion.json",
+      "Bytes": 8111,
+      "Sha256": "8898600C96ADAC36E9A71F03DD19C54BD03532FAD7FB7576A441C28508B45DC2"
+    },
+    {
+      "Path": "artifacts/nif-variadic526/part520-final/execution-admission.json",
+      "Bytes": 4054,
+      "Sha256": "8D0CBB2C429F96C62C64C97D2ACFF0E2F033DFFD34927FF17F700CB69770F4F7"
+    },
+    {
+      "Path": "artifacts/nif-variadic526/part520-final/launch-plan.json",
+      "Bytes": 130,
+      "Sha256": "78E7EA4C33FB489C84C22C89579E25FD898DED8AE38E9328AE4D9614F08C5D62"
+    },
+    {
+      "Path": "artifacts/nif-variadic526/part520-final/managed-inputs-after.json",
+      "Bytes": 10162,
+      "Sha256": "38F532893106CA3443DF614D94BE3B49E5FD973DF367E197A2566FC6941D23EA"
+    },
+    {
+      "Path": "artifacts/nif-variadic526/part520-final/managed-inputs-before.json",
+      "Bytes": 10162,
+      "Sha256": "38F532893106CA3443DF614D94BE3B49E5FD973DF367E197A2566FC6941D23EA"
+    },
+    {
+      "Path": "artifacts/nif-variadic526/part520-final/ordinary-ordinary/actual/completion.json",
+      "Bytes": 1189,
+      "Sha256": "B68668F7EA01B83453A1C9202296426FB16489FC52B2E0579A2B726634C36A56"
+    },
+    {
+      "Path": "artifacts/nif-variadic526/part520-final/ordinary-ordinary/actual/observed-deterministic.etf",
+      "Bytes": 564389,
+      "Sha256": "644559845754D866D1383A7D273DFB2E4659CECA6CA75E92851FDEBE55F3DE35"
+    },
+    {
+      "Path": "artifacts/nif-variadic526/part520-final/ordinary-ordinary/actual/observed.etf",
+      "Bytes": 564389,
+      "Sha256": "644559845754D866D1383A7D273DFB2E4659CECA6CA75E92851FDEBE55F3DE35"
+    },
+    {
+      "Path": "artifacts/nif-variadic526/part520-final/ordinary-ordinary/actual/runtime-profile.json",
+      "Bytes": 67,
+      "Sha256": "0116A049DD7D65AE33C5D6F1D53363CF29DE3C2B02137D4C39EF3345751C6451"
+    },
+    {
+      "Path": "artifacts/nif-variadic526/part520-final/ordinary-ordinary/actual/source-owners-before.json",
+      "Bytes": 3730,
+      "Sha256": "E886314CA9CE1177BF70871CCAE8BB9743F4A80B419DA3BA08A53B17871C7CF1"
+    },
+    {
+      "Path": "artifacts/nif-variadic526/part520-final/ordinary-ordinary/original.exit.json",
+      "Bytes": 924,
+      "Sha256": "674DD705BA67EDE13E40FD6647AFBD31DEE36E807C391178B9D28F4B8057C41F"
+    },
+    {
+      "Path": "artifacts/nif-variadic526/part520-final/ordinary-ordinary/original.live.json",
+      "Bytes": 675,
+      "Sha256": "53F704C5AEE5FD13A53D6E5129F95295736E362B0E8F004A89879289EF45007D"
+    },
+    {
+      "Path": "artifacts/nif-variadic526/part520-final/ordinary-ordinary/original.stderr.log",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "artifacts/nif-variadic526/part520-final/ordinary-ordinary/original.stdout.log",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "artifacts/nif-variadic526/part520-final/ordinary-reviewed/actual/completion.json",
+      "Bytes": 1189,
+      "Sha256": "F3223B282FE2CB1FB965E24AFC6A3371F253ED15DE9C60463B19431ED97390FC"
+    },
+    {
+      "Path": "artifacts/nif-variadic526/part520-final/ordinary-reviewed/actual/observed-deterministic.etf",
+      "Bytes": 564389,
+      "Sha256": "644559845754D866D1383A7D273DFB2E4659CECA6CA75E92851FDEBE55F3DE35"
+    },
+    {
+      "Path": "artifacts/nif-variadic526/part520-final/ordinary-reviewed/actual/observed.etf",
+      "Bytes": 564389,
+      "Sha256": "644559845754D866D1383A7D273DFB2E4659CECA6CA75E92851FDEBE55F3DE35"
+    },
+    {
+      "Path": "artifacts/nif-variadic526/part520-final/ordinary-reviewed/actual/runtime-profile.json",
+      "Bytes": 67,
+      "Sha256": "0116A049DD7D65AE33C5D6F1D53363CF29DE3C2B02137D4C39EF3345751C6451"
+    },
+    {
+      "Path": "artifacts/nif-variadic526/part520-final/ordinary-reviewed/actual/source-owners-before.json",
+      "Bytes": 3730,
+      "Sha256": "E886314CA9CE1177BF70871CCAE8BB9743F4A80B419DA3BA08A53B17871C7CF1"
+    },
+    {
+      "Path": "artifacts/nif-variadic526/part520-final/ordinary-reviewed/original.exit.json",
+      "Bytes": 924,
+      "Sha256": "AA032C01CFE569D2699EA695A22C75AE3D31CE67B26D0228587983A2F56AD79C"
+    },
+    {
+      "Path": "artifacts/nif-variadic526/part520-final/ordinary-reviewed/original.live.json",
+      "Bytes": 675,
+      "Sha256": "AA05E69F069FE81534579975DDA95A67705E7DA36AE29B454F8F1B4D86558F8B"
+    },
+    {
+      "Path": "artifacts/nif-variadic526/part520-final/ordinary-reviewed/original.stderr.log",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "artifacts/nif-variadic526/part520-final/ordinary-reviewed/original.stdout.log",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "artifacts/nif-variadic526/part520-final/original/cleanup.etf",
+      "Bytes": 23,
+      "Sha256": "44FA3EC6F4663BADEF0A0CEB708E492BA9DF2371A3A208C685F11428DCFE98C3"
+    },
+    {
+      "Path": "artifacts/nif-variadic526/part520-final/original/compile.etf",
+      "Bytes": 68,
+      "Sha256": "61B0B07FD321575BFF345C16037C193FCEDA2D0BED75A50594F80BFABB665427"
+    },
+    {
+      "Path": "artifacts/nif-variadic526/part520-final/original/executing-owners.etf",
+      "Bytes": 881,
+      "Sha256": "FB243D7E77C4D86D4D8559C4F56671DA9ECD01CB180F6DA53A91375372D8A37E"
+    },
+    {
+      "Path": "artifacts/nif-variadic526/part520-final/original/launch.json",
+      "Bytes": 1763,
+      "Sha256": "5C8DA953A746D0EE06E184049350EB61F8F29CDBA72393B56B1327BDE596C6B5"
+    },
+    {
+      "Path": "artifacts/nif-variadic526/part520-final/original/metadata.etf",
+      "Bytes": 123,
+      "Sha256": "098EB09C7FBFFC93E77790228427C1EAEA3F3274F5B58FE26241806FA2F61FF5"
+    },
+    {
+      "Path": "artifacts/nif-variadic526/part520-final/original/observed-deterministic.etf",
+      "Bytes": 564389,
+      "Sha256": "644559845754D866D1383A7D273DFB2E4659CECA6CA75E92851FDEBE55F3DE35"
+    },
+    {
+      "Path": "artifacts/nif-variadic526/part520-final/original/observed.etf",
+      "Bytes": 564389,
+      "Sha256": "644559845754D866D1383A7D273DFB2E4659CECA6CA75E92851FDEBE55F3DE35"
+    },
+    {
+      "Path": "artifacts/nif-variadic526/part520-final/original/original.exit.json",
+      "Bytes": 2075,
+      "Sha256": "ABB524B66A8A350AA2846E29CA9C023ACCE8D01C7E0771B2A7B181C52FF4BD3F"
+    },
+    {
+      "Path": "artifacts/nif-variadic526/part520-final/original/original.live.json",
+      "Bytes": 1826,
+      "Sha256": "DA8D47B4C51935D9269FA1E6BDA8D7DC250708B24389F728740922782849677E"
+    },
+    {
+      "Path": "artifacts/nif-variadic526/part520-final/original/original.stderr.log",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "artifacts/nif-variadic526/part520-final/original/original.stdout.log",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "artifacts/nif-variadic526/part520-final/original/variadic_family526.beam",
+      "Bytes": 996,
+      "Sha256": "5C838288CD384057353596F4E26DA2E712922ED5094C6D2C8402E47B7A3F7CB8"
+    },
+    {
+      "Path": "artifacts/nif-variadic526/part520-final/original/variadic_family526.erl",
+      "Bytes": 408,
+      "Sha256": "64E4A199BCF0779F3968BC131EB60E62A65CEAC159F57C5F167CD11C5BF605A1"
+    },
+    {
+      "Path": "artifacts/nif-variadic526/part520-final/original/variadic_family526_driver.beam",
+      "Bytes": 840,
+      "Sha256": "4BE49F2CDE6B447D8172E9EA9E69070C8329FE4198B1F881C5CD5A1D41474B9D"
+    },
+    {
+      "Path": "artifacts/nif-variadic526/part520-final/original/variadic_family526_driver.erl",
+      "Bytes": 279,
+      "Sha256": "74C3606376626609542C7BC8632FB136ADECFD94C71C0C32B703C77B9CFAEB29"
+    },
+    {
+      "Path": "artifacts/nif-variadic526/part520-final/prepare/original.exit.json",
+      "Bytes": 1059,
+      "Sha256": "234F1090645C2A7A7F32DC004052C93996C1312BF82BEDC39A5F733963F45B57"
+    },
+    {
+      "Path": "artifacts/nif-variadic526/part520-final/prepare/original.live.json",
+      "Bytes": 810,
+      "Sha256": "DC612DD0A5F58E4672EC78E690A3A74C06E05D581712663D85A10F26153D10C5"
+    },
+    {
+      "Path": "artifacts/nif-variadic526/part520-final/prepare/original.stderr.log",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "artifacts/nif-variadic526/part520-final/prepare/original.stdout.log",
+      "Bytes": 236,
+      "Sha256": "3B1087B9A538BFA27E1FBF642A01CF34E5B40BD4B365CA1F70577FB9052BA6EC"
+    },
+    {
+      "Path": "artifacts/nif-variadic526/part520-final/private-owned-ordinary/actual/completion.json",
+      "Bytes": 1188,
+      "Sha256": "94529971CB667AAC25FA03301D4CC58050C0C02645B6927A84C6A5A207C35A19"
+    },
+    {
+      "Path": "artifacts/nif-variadic526/part520-final/private-owned-ordinary/actual/observed-deterministic.etf",
+      "Bytes": 564389,
+      "Sha256": "644559845754D866D1383A7D273DFB2E4659CECA6CA75E92851FDEBE55F3DE35"
+    },
+    {
+      "Path": "artifacts/nif-variadic526/part520-final/private-owned-ordinary/actual/observed.etf",
+      "Bytes": 564389,
+      "Sha256": "644559845754D866D1383A7D273DFB2E4659CECA6CA75E92851FDEBE55F3DE35"
+    },
+    {
+      "Path": "artifacts/nif-variadic526/part520-final/private-owned-ordinary/actual/runtime-profile.json",
+      "Bytes": 66,
+      "Sha256": "9A2AE41B2F490451E409BDF53540BF83C52288C9498B08A3BCCA62C2FDE921CC"
+    },
+    {
+      "Path": "artifacts/nif-variadic526/part520-final/private-owned-ordinary/actual/source-owners-before.json",
+      "Bytes": 3730,
+      "Sha256": "E886314CA9CE1177BF70871CCAE8BB9743F4A80B419DA3BA08A53B17871C7CF1"
+    },
+    {
+      "Path": "artifacts/nif-variadic526/part520-final/private-owned-ordinary/original.exit.json",
+      "Bytes": 934,
+      "Sha256": "8725F9753570BC16A5F3FA3DFC6AFD66D7BE023413F23FAF9D7FCE90C6D4B509"
+    },
+    {
+      "Path": "artifacts/nif-variadic526/part520-final/private-owned-ordinary/original.live.json",
+      "Bytes": 685,
+      "Sha256": "FF844BE2C9BEDCB1A04379094EC0DD3F8DE7459E16CC4E143242D1178528F113"
+    },
+    {
+      "Path": "artifacts/nif-variadic526/part520-final/private-owned-ordinary/original.stderr.log",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "artifacts/nif-variadic526/part520-final/private-owned-ordinary/original.stdout.log",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "artifacts/nif-variadic526/part520-final/private-owned-reviewed/actual/completion.json",
+      "Bytes": 1188,
+      "Sha256": "7AB3756292D0E6B131F060D98AFA02678BC55C448179CE9BDC2BA08A224E39D8"
+    },
+    {
+      "Path": "artifacts/nif-variadic526/part520-final/private-owned-reviewed/actual/observed-deterministic.etf",
+      "Bytes": 564389,
+      "Sha256": "644559845754D866D1383A7D273DFB2E4659CECA6CA75E92851FDEBE55F3DE35"
+    },
+    {
+      "Path": "artifacts/nif-variadic526/part520-final/private-owned-reviewed/actual/observed.etf",
+      "Bytes": 564389,
+      "Sha256": "644559845754D866D1383A7D273DFB2E4659CECA6CA75E92851FDEBE55F3DE35"
+    },
+    {
+      "Path": "artifacts/nif-variadic526/part520-final/private-owned-reviewed/actual/runtime-profile.json",
+      "Bytes": 66,
+      "Sha256": "9A2AE41B2F490451E409BDF53540BF83C52288C9498B08A3BCCA62C2FDE921CC"
+    },
+    {
+      "Path": "artifacts/nif-variadic526/part520-final/private-owned-reviewed/actual/source-owners-before.json",
+      "Bytes": 3730,
+      "Sha256": "E886314CA9CE1177BF70871CCAE8BB9743F4A80B419DA3BA08A53B17871C7CF1"
+    },
+    {
+      "Path": "artifacts/nif-variadic526/part520-final/private-owned-reviewed/original.exit.json",
+      "Bytes": 933,
+      "Sha256": "9129E6FF2ADED8BFE4E98784F2340BAAF5C022007045ABBC80D90D2358305A0E"
+    },
+    {
+      "Path": "artifacts/nif-variadic526/part520-final/private-owned-reviewed/original.live.json",
+      "Bytes": 685,
+      "Sha256": "1A9FA46C2FFB556F432B5EA34C2C6C86186E42BF9841DDA051B868D8D54CD2A7"
+    },
+    {
+      "Path": "artifacts/nif-variadic526/part520-final/private-owned-reviewed/original.stderr.log",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "artifacts/nif-variadic526/part520-final/private-owned-reviewed/original.stdout.log",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "artifacts/nif-variadic526/part520-final/provider-after.json",
+      "Bytes": 741931,
+      "Sha256": "29C73BD8BB300A3F6F7CA47B1386837198ED3C00235407C7F0CD1D2A07D80DAF"
+    },
+    {
+      "Path": "artifacts/nif-variadic526/part520-final/provider-before.json",
+      "Bytes": 757205,
+      "Sha256": "85ACA44BD321DF9EFD9761906D634C9EF28FE4923E194C6C9EEEE924A43898F0"
+    },
+    {
+      "Path": "artifacts/part519/ci551-verification.json",
+      "Bytes": 816,
+      "Sha256": "5528028021F0904F68C442B9CB062083D88F7A94111D280ADF39A3332B45ECB2"
+    },
+    {
+      "Path": "artifacts/repair518/index-refresh.json",
+      "Bytes": 683,
+      "Sha256": "AC21C835CEB0E420D7D39C99FF125676C0294466D5BFAB3E11DF63C919629BC5"
+    },
+    {
+      "Path": "artifacts/spawn-option-publication-review/findings.md",
+      "Bytes": 4091,
+      "Sha256": "D781AC5E775CF2BA2DC9658E7E64DE0195C596540D73B46421B888DE71C0CB28"
+    },
+    {
+      "Path": "artifacts/spawn-option-publication-review/manifest.json",
+      "Bytes": 2758,
+      "Sha256": "E2FB67DCC5DF820E3D6E051BCBB8820BEFD40DD26472C249B13F684E82DD4081"
+    },
+    {
+      "Path": "artifacts/spawn520/PROGRESS.md",
+      "Bytes": 5650,
+      "Sha256": "3E3403AFFFD8E1AB1021A395DF7292024839AD1A89FBF63D828BAEB10231E4E1"
+    },
+    {
+      "Path": "artifacts/spawn520/affected319-command.json",
+      "Bytes": 25102,
+      "Sha256": "655319EBD83AB26C7B380769ADF7867C828CEF9758239813C27B1C81A04E3651"
+    },
+    {
+      "Path": "artifacts/spawn520/affected319-review-final.json",
+      "Bytes": 69184,
+      "Sha256": "A58A85D128B13E60AE53B9B99181877564C0E9F9144463B88A9CB7207052B740"
+    },
+    {
+      "Path": "artifacts/spawn520/affected319-review-final.log",
+      "Bytes": 21584,
+      "Sha256": "4FC9004797DEEB7BB393B280FA6EB98938C58BAFEF69442F1994F64B6967624B"
+    },
+    {
+      "Path": "artifacts/spawn520/affected319.json",
+      "Bytes": 69186,
+      "Sha256": "1F02C9E040D2D07235E9B667C50DDC733CFDFD05520CEFA013A6B523D5476F5B"
+    },
+    {
+      "Path": "artifacts/spawn520/affected319.log",
+      "Bytes": 21584,
+      "Sha256": "4FC9004797DEEB7BB393B280FA6EB98938C58BAFEF69442F1994F64B6967624B"
+    },
+    {
+      "Path": "artifacts/spawn520/build-first.log",
+      "Bytes": 3299,
+      "Sha256": "EDD5FB35905B9085C97D96ACF293437B282198DE64A9974A4D232C865C235F2C"
+    },
+    {
+      "Path": "artifacts/spawn520/build-second.log",
+      "Bytes": 2653,
+      "Sha256": "F87CB1443BE69BF089E3B7A909E4C2416D44179D5FD8942E100AE974ECDA89C8"
+    },
+    {
+      "Path": "artifacts/spawn520/build-third.log",
+      "Bytes": 2132,
+      "Sha256": "0B8B31CB829DAA65D9BD3C5569CAAE2E0B95C19AFF827ECF0CDA0C0D4BE8BED9"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-final/admission.json",
+      "Bytes": 2414,
+      "Sha256": "6C2DB301E156AF6E34F9CB2ACBEE20EE1C07673B5C3F6ACFCE6EDB7500433956"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-final/adoption.stderr",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-final/adoption.stdout",
+      "Bytes": 163,
+      "Sha256": "7ECF7CBB8CBB9277BA154E41763545C4E5591728323D5E978E5FB4A11173B522"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-final/completion.json",
+      "Bytes": 3105,
+      "Sha256": "A83573D5F0AE88B6CAD1C5ABC603C6A3B813194885E6F22B5A1664577BAEEE13"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-final/ordinary/actual/comparison.json",
+      "Bytes": 387,
+      "Sha256": "B52EFDEDD0C27C1F6BC413D1D46829D6278940AB5D79C6A468F1D3155398F6EF"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-final/ordinary/actual/observed-deterministic.etf",
+      "Bytes": 177459,
+      "Sha256": "201D3BE16EDA138C0624CFA4ABB2B7F685D5122CA9E5625EEBFD727905AA0E6A"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-final/ordinary/actual/observed.etf",
+      "Bytes": 177459,
+      "Sha256": "201D3BE16EDA138C0624CFA4ABB2B7F685D5122CA9E5625EEBFD727905AA0E6A"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-final/ordinary/actual/proc-lib-image.json",
+      "Bytes": 530,
+      "Sha256": "A3D09097288FE47E079EAE338106D776E83B75195509AD103663E5F8F700FD07"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-final/ordinary/actual/worker-witnesses.etf",
+      "Bytes": 255,
+      "Sha256": "7C75F7D63DAB30D2B93F7CA4EEEF3D0D91408C5CF0E513C2DCD4E1F5B4C61B52"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-final/ordinary/managed.exit.json",
+      "Bytes": 1114,
+      "Sha256": "798337BF67DB1454E1C24CC2A8ED8343FB3290E7786E63E571262CFA453BA8E3"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-final/ordinary/managed.live.json",
+      "Bytes": 865,
+      "Sha256": "E88A9E7E9E0690706BD2B67EC157F63F88EB2B1F832C7B304B754F57F5BC7C98"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-final/ordinary/managed.stderr.log",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-final/ordinary/managed.stdout.log",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-final/original.stderr",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-final/original.stdout",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-final/original/completion.json",
+      "Bytes": 8347,
+      "Sha256": "BF9E4377D345ACFDCC3CD3331826CFA356D37316C42F66582353C57E9B6EB8A9"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-final/original/launch-plan.json",
+      "Bytes": 486,
+      "Sha256": "DA8BB31FF7164CBF4B3CA3322E7CF9A9134C6F7BB9F88BF1DD5665FEA23372B0"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-final/original/provider-after.json",
+      "Bytes": 379,
+      "Sha256": "7FB9E744752ACF2CA4E53F78CFD208198152F57237CA0608B9042BF01D6C97A0"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-final/original/provider-before.json",
+      "Bytes": 757205,
+      "Sha256": "85ACA44BD321DF9EFD9761906D634C9EF28FE4923E194C6C9EEEE924A43898F0"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-final/original/spawn-resource-default541/artifacts.json",
+      "Bytes": 2571,
+      "Sha256": "4F455BA89F3C9F9CC310B82BAAA597BB53C4F0901D1D955504EA70B8A1554B97"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-final/original/spawn-resource-default541/compile.etf",
+      "Bytes": 69,
+      "Sha256": "9F1367BE54456B3250404B0BCEAC245FBE9DD3208810CCFBCA04C3B11C3E2BE9"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-final/original/spawn-resource-default541/contract_worker513.beam",
+      "Bytes": 1860,
+      "Sha256": "32FFB858CC6B51539321715CC90FCBFD26DFD981FE5256C37BE3A5DD1F35FC72"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-final/original/spawn-resource-default541/contract_worker513.erl",
+      "Bytes": 1294,
+      "Sha256": "D9C30FF09F7F9B5AD29C23A2F5C8D01BFD0E177F836C705E2840963D93BE73C5"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-final/original/spawn-resource-default541/executing-owners.etf",
+      "Bytes": 949,
+      "Sha256": "AA87CA719DCAA659C521768FA577235A8DD412156BB7A5AF8111DCBD78BF34C9"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-final/original/spawn-resource-default541/metadata.etf",
+      "Bytes": 254,
+      "Sha256": "A9DB9A15EA7C99C385F4C3BAD799DB44EB4D4B883C8EE30B20DC24271667B8CD"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-final/original/spawn-resource-default541/modules.etf",
+      "Bytes": 379,
+      "Sha256": "7EFF17C66E7EB33B26DEFC0F7C25F86A0032D3D61723383D154566CD020BDC66"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-final/original/spawn-resource-default541/observed-deterministic.etf",
+      "Bytes": 9864,
+      "Sha256": "63206D3920958331F0AC92F117F9BA260691ABBFBD20A2A4958D432376DA72BE"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-final/original/spawn-resource-default541/observed.etf",
+      "Bytes": 9864,
+      "Sha256": "B582CF0C175A4723A4A100AD979503091D6E2E3E9457B6F7F0D50FEA1080BBCA"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-final/original/spawn-resource-default541/original.exit.json",
+      "Bytes": 1975,
+      "Sha256": "1C0D4BB3D0252B6A03DE6C22C896D852E56AAEDE0351C965EA0C20396FAF916B"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-final/original/spawn-resource-default541/original.live.json",
+      "Bytes": 1740,
+      "Sha256": "0E0D37B8ED680BE3E8476E5D2CBFCC084D696077B7AA8E90AA3F006833BD113D"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-final/original/spawn-resource-default541/original.stderr.log",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-final/original/spawn-resource-default541/original.stdout.log",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-final/original/spawn-resource-default541/spawn_resources_default541.beam",
+      "Bytes": 3192,
+      "Sha256": "BACB3272EFE122BBE477B65B123EF66BD101DBF4801F31480FB1810CFF9FCD2E"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-final/original/spawn-resource-default541/spawn_resources_default541.erl",
+      "Bytes": 2849,
+      "Sha256": "07B50C88D3CEFA6B7C1EF1639EEBF20D0C2438446310174375FD327408EFC2C8"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-final/original/spawn-resource-default541/worker-witnesses.etf",
+      "Bytes": 258,
+      "Sha256": "FAEF3C92D9BBA18E96E56BFA190CCD4109ED181D5FD19CF1AF1D90D50BF6657B"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-final/original/spawn-resource-full540/artifacts.json",
+      "Bytes": 2556,
+      "Sha256": "1848B527452047D0506F8CE643606E8046F9C2514610402C2F6B21A39D3DA854"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-final/original/spawn-resource-full540/compile.etf",
+      "Bytes": 61,
+      "Sha256": "1E704E6E2FEC9BB861E5879EE671A69051E2B799FF482C9D93EC8B07004A2203"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-final/original/spawn-resource-full540/contract_worker513.beam",
+      "Bytes": 1856,
+      "Sha256": "3E21B2088F16AA4BE4E01F3D605AC0B12C1CDDCCA831974EAE1D2CD4E2D77977"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-final/original/spawn-resource-full540/contract_worker513.erl",
+      "Bytes": 1294,
+      "Sha256": "D9C30FF09F7F9B5AD29C23A2F5C8D01BFD0E177F836C705E2840963D93BE73C5"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-final/original/spawn-resource-full540/executing-owners.etf",
+      "Bytes": 913,
+      "Sha256": "F728F7485BBE89CE0C68A244CFA8D73C34CC1CA1D9F083F6412B68F90919ECA2"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-final/original/spawn-resource-full540/metadata.etf",
+      "Bytes": 254,
+      "Sha256": "A9DB9A15EA7C99C385F4C3BAD799DB44EB4D4B883C8EE30B20DC24271667B8CD"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-final/original/spawn-resource-full540/modules.etf",
+      "Bytes": 357,
+      "Sha256": "9E14CDDA4CC4DC62BA53DDD29345E0B3B475B21093B87359711FE842D0B154FE"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-final/original/spawn-resource-full540/observed-deterministic.etf",
+      "Bytes": 201118,
+      "Sha256": "96DA990266F6AAB8C16FACFF40668E7C093379FA91DA1A898F4B536679D4AF6C"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-final/original/spawn-resource-full540/observed.etf",
+      "Bytes": 201118,
+      "Sha256": "136AA2105279473588F9A4EF96B50D7319F27EE8E72ED44693C03F583139F736"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-final/original/spawn-resource-full540/original.exit.json",
+      "Bytes": 1978,
+      "Sha256": "44D4EBD35A1DBF466C39B8B44815A91C95DA5889E1BB7B725B610145C8717BDC"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-final/original/spawn-resource-full540/original.live.json",
+      "Bytes": 1729,
+      "Sha256": "59AE1B9703A85352A96ACCF968A16179EB40AED254CEC2F16CD552C86C7138DF"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-final/original/spawn-resource-full540/original.stderr.log",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-final/original/spawn-resource-full540/original.stdout.log",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-final/original/spawn-resource-full540/spawn_resources540.beam",
+      "Bytes": 4572,
+      "Sha256": "F4596D2FD5B13ED3FC7162B7BC2DA5497EFE8CBF4B34E94E5565B76E28815D2F"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-final/original/spawn-resource-full540/spawn_resources540.erl",
+      "Bytes": 4152,
+      "Sha256": "CC8DC9806B924EB924DBAC1B9D2412F47496E88F0C734785C7945FD5C098179E"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-final/original/spawn-resource-full540/worker-witnesses.etf",
+      "Bytes": 250,
+      "Sha256": "C24947F58B92FC878DA77A70E5343E6BC072BD92AF192CF674D584BCE10BAF86"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-final/original/spawn-resource-malformed541/artifacts.json",
+      "Bytes": 2571,
+      "Sha256": "1065AA4BF06444C0353F1EA383343E6B1F8BDA382E5F986A88BE6646E487B308"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-final/original/spawn-resource-malformed541/compile.etf",
+      "Bytes": 66,
+      "Sha256": "87A9A88E786CE7EA386E1D6B3C5D03E1E25C8A2C92FD576FCF27A902B10A00CA"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-final/original/spawn-resource-malformed541/contract_worker513.beam",
+      "Bytes": 1864,
+      "Sha256": "188C34B6AAA81F7655F2B5FBDF54B727AD529BB732C5EDB50BBE9378FA6ECC07"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-final/original/spawn-resource-malformed541/contract_worker513.erl",
+      "Bytes": 1294,
+      "Sha256": "D9C30FF09F7F9B5AD29C23A2F5C8D01BFD0E177F836C705E2840963D93BE73C5"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-final/original/spawn-resource-malformed541/executing-owners.etf",
+      "Bytes": 948,
+      "Sha256": "60FF98E871B36868E1DC282EEE9FB39EBE48BF1BB8A5990DA8644A4475CABB1F"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-final/original/spawn-resource-malformed541/metadata.etf",
+      "Bytes": 254,
+      "Sha256": "A9DB9A15EA7C99C385F4C3BAD799DB44EB4D4B883C8EE30B20DC24271667B8CD"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-final/original/spawn-resource-malformed541/modules.etf",
+      "Bytes": 377,
+      "Sha256": "911A2386099D34AC21E8927346A57ECE352B40372972EA7C9B58BBE755C0650F"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-final/original/spawn-resource-malformed541/observed-deterministic.etf",
+      "Bytes": 177459,
+      "Sha256": "A8CBA856D84C47DE7BD558C429B01D9B2209B6A9DBCE1CB942ED97D4B1AFF701"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-final/original/spawn-resource-malformed541/observed.etf",
+      "Bytes": 177459,
+      "Sha256": "A8CBA856D84C47DE7BD558C429B01D9B2209B6A9DBCE1CB942ED97D4B1AFF701"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-final/original/spawn-resource-malformed541/original.exit.json",
+      "Bytes": 1973,
+      "Sha256": "36CC84720FD9EC39EA04D607D89A447BE1870EB692A32E6EDFAF2F16F63373E1"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-final/original/spawn-resource-malformed541/original.live.json",
+      "Bytes": 1738,
+      "Sha256": "175EBFA7C91780FD5FA3C586FF0C2979BE4A42DA1F3C8AD583133EB9683E4FE5"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-final/original/spawn-resource-malformed541/original.stderr.log",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-final/original/spawn-resource-malformed541/original.stdout.log",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-final/original/spawn-resource-malformed541/spawn_resources_core541.beam",
+      "Bytes": 4192,
+      "Sha256": "0E6CAEBD035E5B669BA82E0158340B23BB847069BEB8F97C68F65E0428F42FF9"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-final/original/spawn-resource-malformed541/spawn_resources_core541.erl",
+      "Bytes": 3830,
+      "Sha256": "63047F721143380EFBD06CBA94F934D20446F62A4B55B2EC989C9CE5334A026E"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-final/original/spawn-resource-malformed541/worker-witnesses.etf",
+      "Bytes": 255,
+      "Sha256": "3630C6201B0B1CA09AFC458D0AB5B6583C35E23FA0613FF146C17F324AB9AF16"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-final/private-owned/actual/comparison.json",
+      "Bytes": 387,
+      "Sha256": "B52EFDEDD0C27C1F6BC413D1D46829D6278940AB5D79C6A468F1D3155398F6EF"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-final/private-owned/actual/observed-deterministic.etf",
+      "Bytes": 177459,
+      "Sha256": "201D3BE16EDA138C0624CFA4ABB2B7F685D5122CA9E5625EEBFD727905AA0E6A"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-final/private-owned/actual/observed.etf",
+      "Bytes": 177459,
+      "Sha256": "201D3BE16EDA138C0624CFA4ABB2B7F685D5122CA9E5625EEBFD727905AA0E6A"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-final/private-owned/actual/proc-lib-image.json",
+      "Bytes": 530,
+      "Sha256": "A3D09097288FE47E079EAE338106D776E83B75195509AD103663E5F8F700FD07"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-final/private-owned/actual/worker-witnesses.etf",
+      "Bytes": 255,
+      "Sha256": "7C75F7D63DAB30D2B93F7CA4EEEF3D0D91408C5CF0E513C2DCD4E1F5B4C61B52"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-final/private-owned/managed.exit.json",
+      "Bytes": 1117,
+      "Sha256": "0AFC3413E525E201B46C406FD3BB43464EFFA2AFDD8496B925A8F2932A4F98B2"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-final/private-owned/managed.live.json",
+      "Bytes": 867,
+      "Sha256": "C195290D53E3D2887A21D3B9F125A75BBBB70FDE595F8C568E6C94EF5759E935"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-final/private-owned/managed.stderr.log",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-final/private-owned/managed.stdout.log",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-first/admission.json",
+      "Bytes": 1990,
+      "Sha256": "93122ECCA03E97F3958561B3581EB6337CF3620546DBDFB5C2E6EFAFF71C57E1"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-first/adoption.stderr",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-first/adoption.stdout",
+      "Bytes": 163,
+      "Sha256": "C76092575412B347C2DC869A04BDF71D0394FBA255B2E3A1C2B58E0D8B1D05C9"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-first/completion.json",
+      "Bytes": 509,
+      "Sha256": "A29882CBF7DB19E04FA3AD3F1134CEE1B8B1FD717C5E08177497C89D34488E71"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-first/misrouted-process-logs/managed.exit.json",
+      "Bytes": 1095,
+      "Sha256": "F2BDF581D178018CFC1680681EEA0FA40AF3E65331B10384C1A64702F32A1663"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-first/misrouted-process-logs/managed.live.json",
+      "Bytes": 838,
+      "Sha256": "8018D923940535702B042AECDC8502BDC158617566F8296B39F6D86AC0D73B86"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-first/misrouted-process-logs/managed.stderr.log",
+      "Bytes": 771,
+      "Sha256": "CE85AFAF4527704C8B99D6D5968A85FA1B2B0F1C5F193B38010CCAE23942F3D6"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-first/misrouted-process-logs/managed.stdout.log",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-first/misrouted-process-logs/moved-inventory.json",
+      "Bytes": 496,
+      "Sha256": "1F9DB3DC31907C4911A2BF98E85FCF9F7070362BFAC034884565E9BFA19864BA"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-first/original.stderr",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-first/original.stdout",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-first/original/completion.json",
+      "Bytes": 8348,
+      "Sha256": "B04E73DC92B818E4098F3432797EE12EC8EDB93C806E44E45F212EBEE9B3ED33"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-first/original/launch-plan.json",
+      "Bytes": 486,
+      "Sha256": "FE22CF8571057FC81A22E22A244707912181C63B5AC8F81358A68139427A6172"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-first/original/provider-after.json",
+      "Bytes": 379,
+      "Sha256": "7FB9E744752ACF2CA4E53F78CFD208198152F57237CA0608B9042BF01D6C97A0"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-first/original/provider-before.json",
+      "Bytes": 757205,
+      "Sha256": "85ACA44BD321DF9EFD9761906D634C9EF28FE4923E194C6C9EEEE924A43898F0"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-first/original/spawn-resource-default541/artifacts.json",
+      "Bytes": 2571,
+      "Sha256": "473B03958FBB6D6066772F9B439580FBADD734B89DA0BA5980B38DD6CC92EC5F"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-first/original/spawn-resource-default541/compile.etf",
+      "Bytes": 69,
+      "Sha256": "9F1367BE54456B3250404B0BCEAC245FBE9DD3208810CCFBCA04C3B11C3E2BE9"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-first/original/spawn-resource-default541/contract_worker513.beam",
+      "Bytes": 1860,
+      "Sha256": "28A3457CCA4331AE05DA17FAC2A8D6A06C46379F361F37BE700F1C2404D40716"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-first/original/spawn-resource-default541/contract_worker513.erl",
+      "Bytes": 1294,
+      "Sha256": "D9C30FF09F7F9B5AD29C23A2F5C8D01BFD0E177F836C705E2840963D93BE73C5"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-first/original/spawn-resource-default541/executing-owners.etf",
+      "Bytes": 949,
+      "Sha256": "BF5F0A26E0616B24F10316AA6E99465EAD4FBC81EA625B2A4388DD808DBCBF45"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-first/original/spawn-resource-default541/metadata.etf",
+      "Bytes": 254,
+      "Sha256": "A9DB9A15EA7C99C385F4C3BAD799DB44EB4D4B883C8EE30B20DC24271667B8CD"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-first/original/spawn-resource-default541/modules.etf",
+      "Bytes": 379,
+      "Sha256": "CB0B78F6D372E129B0F0EDBEA3982FF1399091EED969CFFD1328E432D86EFA21"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-first/original/spawn-resource-default541/observed-deterministic.etf",
+      "Bytes": 9864,
+      "Sha256": "3803214B5E1786ED440A89DD621F0FE2633361D419FE8A3B10D1B099AE317D96"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-first/original/spawn-resource-default541/observed.etf",
+      "Bytes": 9864,
+      "Sha256": "8D710C8AD7EFF694662E689E6C2E466E3CA0B65DE595FD08290020D8C34F77E2"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-first/original/spawn-resource-default541/original.exit.json",
+      "Bytes": 1974,
+      "Sha256": "9206DF08FC8237A7FDA02742002788FB54D1BF30FE76282610B95DD1BF768DE4"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-first/original/spawn-resource-default541/original.live.json",
+      "Bytes": 1739,
+      "Sha256": "2B1C79074A29B1894881F47B8436E5C321754C1625479C748E9DAD4836A79655"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-first/original/spawn-resource-default541/original.stderr.log",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-first/original/spawn-resource-default541/original.stdout.log",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-first/original/spawn-resource-default541/spawn_resources_default541.beam",
+      "Bytes": 3192,
+      "Sha256": "C21905941D8ADC131435B36ADE022A7289289F11491CE9FAF1C8E7017988846F"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-first/original/spawn-resource-default541/spawn_resources_default541.erl",
+      "Bytes": 2849,
+      "Sha256": "07B50C88D3CEFA6B7C1EF1639EEBF20D0C2438446310174375FD327408EFC2C8"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-first/original/spawn-resource-default541/worker-witnesses.etf",
+      "Bytes": 258,
+      "Sha256": "00DB11858C3D1465013B7A81F75D89350FF07CAF7FF5A54BEF17A1FB0EC0128F"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-first/original/spawn-resource-full540/artifacts.json",
+      "Bytes": 2556,
+      "Sha256": "C6BF34A07AB4C6260F452D105291C6A9240E34093655C57759961C3D37E674D5"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-first/original/spawn-resource-full540/compile.etf",
+      "Bytes": 61,
+      "Sha256": "1E704E6E2FEC9BB861E5879EE671A69051E2B799FF482C9D93EC8B07004A2203"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-first/original/spawn-resource-full540/contract_worker513.beam",
+      "Bytes": 1856,
+      "Sha256": "BD4D1E150B5EDFFFB01148066C9CC8282F048C4B992998E44539D323BC06F0A7"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-first/original/spawn-resource-full540/contract_worker513.erl",
+      "Bytes": 1294,
+      "Sha256": "D9C30FF09F7F9B5AD29C23A2F5C8D01BFD0E177F836C705E2840963D93BE73C5"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-first/original/spawn-resource-full540/executing-owners.etf",
+      "Bytes": 913,
+      "Sha256": "16CB03384B409D5111AF08A296934C45C22CFA0D36999F89CB76771BD71B57B3"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-first/original/spawn-resource-full540/metadata.etf",
+      "Bytes": 254,
+      "Sha256": "A9DB9A15EA7C99C385F4C3BAD799DB44EB4D4B883C8EE30B20DC24271667B8CD"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-first/original/spawn-resource-full540/modules.etf",
+      "Bytes": 357,
+      "Sha256": "BD9FA2CB54224997EBCD17B5231D4A3A77E038F8CCD276AE6E71432B4C6ACED2"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-first/original/spawn-resource-full540/observed-deterministic.etf",
+      "Bytes": 201118,
+      "Sha256": "2D3F32F0F55C7F90523E2271D8359E8865145E7CD738D0E45D089B76847B720E"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-first/original/spawn-resource-full540/observed.etf",
+      "Bytes": 201118,
+      "Sha256": "05D0AA5E21353E5CFB6AF44CB7E76B7ECCCD08731F9FD0CF4220F6DB7FEA9643"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-first/original/spawn-resource-full540/original.exit.json",
+      "Bytes": 1979,
+      "Sha256": "1E2E97D485AC8D55160D69AB1B70C3D4A3FC9E5BC93475F510A883313895DE0D"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-first/original/spawn-resource-full540/original.live.json",
+      "Bytes": 1729,
+      "Sha256": "34A465ECBDC3E6BB309D48567C4449D333FC3E1E4FD8A99D36DFF338A2B9E231"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-first/original/spawn-resource-full540/original.stderr.log",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-first/original/spawn-resource-full540/original.stdout.log",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-first/original/spawn-resource-full540/spawn_resources540.beam",
+      "Bytes": 4572,
+      "Sha256": "2A2B0046FA50B8D281C175FACB308B6B8914E2DC7115CD6FD017589CF4203183"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-first/original/spawn-resource-full540/spawn_resources540.erl",
+      "Bytes": 4152,
+      "Sha256": "CC8DC9806B924EB924DBAC1B9D2412F47496E88F0C734785C7945FD5C098179E"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-first/original/spawn-resource-full540/worker-witnesses.etf",
+      "Bytes": 250,
+      "Sha256": "98C538CA1F9B77F8CE4B44831AB94EE394BD6228FD9D9AD1606AD020A7F8680F"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-first/original/spawn-resource-malformed541/artifacts.json",
+      "Bytes": 2571,
+      "Sha256": "4B562E2379DA21D6CA4F9FEDD2D9A68E878C3C730CDFD6C103F97EE57A279077"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-first/original/spawn-resource-malformed541/compile.etf",
+      "Bytes": 66,
+      "Sha256": "87A9A88E786CE7EA386E1D6B3C5D03E1E25C8A2C92FD576FCF27A902B10A00CA"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-first/original/spawn-resource-malformed541/contract_worker513.beam",
+      "Bytes": 1864,
+      "Sha256": "4DF2D81D61327347EABCE7BAB0884F5C2C1C7F704ECC0BEF849BD0CC0423E784"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-first/original/spawn-resource-malformed541/contract_worker513.erl",
+      "Bytes": 1294,
+      "Sha256": "D9C30FF09F7F9B5AD29C23A2F5C8D01BFD0E177F836C705E2840963D93BE73C5"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-first/original/spawn-resource-malformed541/executing-owners.etf",
+      "Bytes": 948,
+      "Sha256": "2ECC096AFA013573C0A6931D43AD4AC65566DC391DBF8BBA08D55AD396D1312F"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-first/original/spawn-resource-malformed541/metadata.etf",
+      "Bytes": 254,
+      "Sha256": "A9DB9A15EA7C99C385F4C3BAD799DB44EB4D4B883C8EE30B20DC24271667B8CD"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-first/original/spawn-resource-malformed541/modules.etf",
+      "Bytes": 377,
+      "Sha256": "578C99BA495AF3F68FC367B3286053444B4509C7FC45F0BFC24BBBDAC93F106C"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-first/original/spawn-resource-malformed541/observed-deterministic.etf",
+      "Bytes": 177459,
+      "Sha256": "6761A0C0DCD29901FE181ED045A4FD815D8E94BD26174045BCBDA1F356C2600E"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-first/original/spawn-resource-malformed541/observed.etf",
+      "Bytes": 177459,
+      "Sha256": "6761A0C0DCD29901FE181ED045A4FD815D8E94BD26174045BCBDA1F356C2600E"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-first/original/spawn-resource-malformed541/original.exit.json",
+      "Bytes": 1974,
+      "Sha256": "E82021DDF6BB57568FD8C2D62455793FCDC9F6AF05316EEBBE8A160A408D895C"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-first/original/spawn-resource-malformed541/original.live.json",
+      "Bytes": 1739,
+      "Sha256": "7BD9F4F63728A80ACCD61D6D292B4AD6E8D53FC068BB75EB19C9FB9873404349"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-first/original/spawn-resource-malformed541/original.stderr.log",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-first/original/spawn-resource-malformed541/original.stdout.log",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-first/original/spawn-resource-malformed541/spawn_resources_core541.beam",
+      "Bytes": 4192,
+      "Sha256": "7350C7C08766CDD019493B767E2618A701E8F0A054D6BBA6BFEF5D9BC2AF3DCC"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-first/original/spawn-resource-malformed541/spawn_resources_core541.erl",
+      "Bytes": 3830,
+      "Sha256": "63047F721143380EFBD06CBA94F934D20446F62A4B55B2EC989C9CE5334A026E"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-first/original/spawn-resource-malformed541/worker-witnesses.etf",
+      "Bytes": 255,
+      "Sha256": "A0986645B7A4196D932BDAFC7AB2F1746E80BBD2CC75CE56EA4AA82133E2378E"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-review-final/admission.json",
+      "Bytes": 2491,
+      "Sha256": "3B9C1593F0F9EEB61AC1BE9EA0969A48234A785944E49FFCC9C2D5165DCE32FE"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-review-final/adoption.stderr",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-review-final/adoption.stdout",
+      "Bytes": 163,
+      "Sha256": "F0374965A9E6C78D83A892DC9DCF63E838DE65A244033996736359CD5D95B560"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-review-final/completion.json",
+      "Bytes": 3133,
+      "Sha256": "63E4CAC30A655A2DBF21CB2EE4A07E893C6BA3DA76ED13C64EB7B509FF2C319F"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-review-final/ordinary/actual/comparison.json",
+      "Bytes": 387,
+      "Sha256": "B52EFDEDD0C27C1F6BC413D1D46829D6278940AB5D79C6A468F1D3155398F6EF"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-review-final/ordinary/actual/observed-deterministic.etf",
+      "Bytes": 177459,
+      "Sha256": "201D3BE16EDA138C0624CFA4ABB2B7F685D5122CA9E5625EEBFD727905AA0E6A"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-review-final/ordinary/actual/observed.etf",
+      "Bytes": 177459,
+      "Sha256": "201D3BE16EDA138C0624CFA4ABB2B7F685D5122CA9E5625EEBFD727905AA0E6A"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-review-final/ordinary/actual/proc-lib-image.json",
+      "Bytes": 530,
+      "Sha256": "A3D09097288FE47E079EAE338106D776E83B75195509AD103663E5F8F700FD07"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-review-final/ordinary/actual/worker-witnesses.etf",
+      "Bytes": 255,
+      "Sha256": "7C75F7D63DAB30D2B93F7CA4EEEF3D0D91408C5CF0E513C2DCD4E1F5B4C61B52"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-review-final/ordinary/managed.exit.json",
+      "Bytes": 1128,
+      "Sha256": "0669292577EB650D150A5F4873D7FA51C41895DCEB909C6035386FA231D9A3E0"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-review-final/ordinary/managed.live.json",
+      "Bytes": 879,
+      "Sha256": "0F2DFEB31EE00795980F2BFCDB5DEE0C4DD57BAEC4A52C8B742FFF4C6C815FE6"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-review-final/ordinary/managed.stderr.log",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-review-final/ordinary/managed.stdout.log",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-review-final/original.stderr",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-review-final/original.stdout",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-review-final/original/completion.json",
+      "Bytes": 8397,
+      "Sha256": "E24AA02021604C7E8486422AE603B6D436B8D9904760D1C4143A8A308277EB52"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-review-final/original/launch-plan.json",
+      "Bytes": 486,
+      "Sha256": "75E228914BE721EDB3E596DFF45F6849CA376F6B66B0247B6FC758478B12AA81"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-review-final/original/provider-after.json",
+      "Bytes": 379,
+      "Sha256": "7FB9E744752ACF2CA4E53F78CFD208198152F57237CA0608B9042BF01D6C97A0"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-review-final/original/provider-before.json",
+      "Bytes": 757205,
+      "Sha256": "85ACA44BD321DF9EFD9761906D634C9EF28FE4923E194C6C9EEEE924A43898F0"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-review-final/original/spawn-resource-default541/artifacts.json",
+      "Bytes": 2578,
+      "Sha256": "DB50A4D05B5C7A17A387F8C9778DA659278CA342615B110ED7440FDC96A6A850"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-review-final/original/spawn-resource-default541/compile.etf",
+      "Bytes": 69,
+      "Sha256": "9F1367BE54456B3250404B0BCEAC245FBE9DD3208810CCFBCA04C3B11C3E2BE9"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-review-final/original/spawn-resource-default541/contract_worker513.beam",
+      "Bytes": 1868,
+      "Sha256": "C481F77A6F2D650C77B3A9356E3B9062EF01C257E43051D74D6FE5E59EDDEEAE"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-review-final/original/spawn-resource-default541/contract_worker513.erl",
+      "Bytes": 1294,
+      "Sha256": "D9C30FF09F7F9B5AD29C23A2F5C8D01BFD0E177F836C705E2840963D93BE73C5"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-review-final/original/spawn-resource-default541/executing-owners.etf",
+      "Bytes": 977,
+      "Sha256": "E1990E0821509D67C9C114938CA11B148C96489D58D4B8A5452AD8950EAF7EFA"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-review-final/original/spawn-resource-default541/metadata.etf",
+      "Bytes": 254,
+      "Sha256": "A9DB9A15EA7C99C385F4C3BAD799DB44EB4D4B883C8EE30B20DC24271667B8CD"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-review-final/original/spawn-resource-default541/modules.etf",
+      "Bytes": 393,
+      "Sha256": "4ED57E1BD7987F8C384B679B2CD9F8A25DD65F46316DE12E1BD498EB9DBD290A"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-review-final/original/spawn-resource-default541/observed-deterministic.etf",
+      "Bytes": 9864,
+      "Sha256": "C9B054CE7071C6181A15EB32675C8B6ADDDDE2E6758E241E0E8C1E7BA44C125B"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-review-final/original/spawn-resource-default541/observed.etf",
+      "Bytes": 9864,
+      "Sha256": "4B517985F861972BD345F59762847C60B1A644286D160F0282BA7F3784B97B2B"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-review-final/original/spawn-resource-default541/original.exit.json",
+      "Bytes": 1996,
+      "Sha256": "269FF6203DDD21EF9821F61005BC5CFAC03C575565CD9B7885DEBB5EF8A40CB7"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-review-final/original/spawn-resource-default541/original.live.json",
+      "Bytes": 1745,
+      "Sha256": "0BA9FB3B06DA410AC395042A6CA2DDBC6F9475B99BDBB3F7965741F9AD011AD3"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-review-final/original/spawn-resource-default541/original.stderr.log",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-review-final/original/spawn-resource-default541/original.stdout.log",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-review-final/original/spawn-resource-default541/spawn_resources_default541.beam",
+      "Bytes": 3200,
+      "Sha256": "793966615142821F497B907674458C44523200B6BE42101D1105BFDC6F809FE5"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-review-final/original/spawn-resource-default541/spawn_resources_default541.erl",
+      "Bytes": 2849,
+      "Sha256": "07B50C88D3CEFA6B7C1EF1639EEBF20D0C2438446310174375FD327408EFC2C8"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-review-final/original/spawn-resource-default541/worker-witnesses.etf",
+      "Bytes": 258,
+      "Sha256": "6DAD78DBB92EE15C3EF9F3C7708958E30D0554F06F482599AD4C0911364C4CE6"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-review-final/original/spawn-resource-full540/artifacts.json",
+      "Bytes": 2563,
+      "Sha256": "90AE492898E5D72321BBC94ABF77454CC01A9D4B8212F99602DF1CB9FF9266A0"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-review-final/original/spawn-resource-full540/compile.etf",
+      "Bytes": 61,
+      "Sha256": "1E704E6E2FEC9BB861E5879EE671A69051E2B799FF482C9D93EC8B07004A2203"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-review-final/original/spawn-resource-full540/contract_worker513.beam",
+      "Bytes": 1864,
+      "Sha256": "535689372EEE7530A9D2F92B262F5C4D8551ADFD95538F6586BEFAABD8B8D417"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-review-final/original/spawn-resource-full540/contract_worker513.erl",
+      "Bytes": 1294,
+      "Sha256": "D9C30FF09F7F9B5AD29C23A2F5C8D01BFD0E177F836C705E2840963D93BE73C5"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-review-final/original/spawn-resource-full540/executing-owners.etf",
+      "Bytes": 941,
+      "Sha256": "5C923D2AF27B6B105C6B42EE2007F8F3DCE3D9D424B92FD6040247AF364A8ED9"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-review-final/original/spawn-resource-full540/metadata.etf",
+      "Bytes": 254,
+      "Sha256": "A9DB9A15EA7C99C385F4C3BAD799DB44EB4D4B883C8EE30B20DC24271667B8CD"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-review-final/original/spawn-resource-full540/modules.etf",
+      "Bytes": 371,
+      "Sha256": "30D787510733826DAE9B69CD0896C42370E2F09B09D4BC92B1CD0F8FE5C3BFF3"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-review-final/original/spawn-resource-full540/observed-deterministic.etf",
+      "Bytes": 201118,
+      "Sha256": "87D7E0107738E65764C346B6256D40691E36D9A6D93AFE644919F451F61535A6"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-review-final/original/spawn-resource-full540/observed.etf",
+      "Bytes": 201118,
+      "Sha256": "14F35B986536959253CDE3780C0C9F643A60A9F036B6A4CBD022CE5DA15530BE"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-review-final/original/spawn-resource-full540/original.exit.json",
+      "Bytes": 1985,
+      "Sha256": "0386DB7DB3DC22326D0DE4F8786BCE9A2A5D1D3CC3238BF3ED91B2BDFDF145DA"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-review-final/original/spawn-resource-full540/original.live.json",
+      "Bytes": 1735,
+      "Sha256": "684447868ED2167FC1A3670D9D6499D404F5425AD13109F20FDA69C7390BFD54"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-review-final/original/spawn-resource-full540/original.stderr.log",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-review-final/original/spawn-resource-full540/original.stdout.log",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-review-final/original/spawn-resource-full540/spawn_resources540.beam",
+      "Bytes": 4580,
+      "Sha256": "680BFDF1B8F7547F1CA89D14BBDB9A9DD7AAE6496F43A7579190B2AB18A5D5F4"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-review-final/original/spawn-resource-full540/spawn_resources540.erl",
+      "Bytes": 4152,
+      "Sha256": "CC8DC9806B924EB924DBAC1B9D2412F47496E88F0C734785C7945FD5C098179E"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-review-final/original/spawn-resource-full540/worker-witnesses.etf",
+      "Bytes": 250,
+      "Sha256": "D089A7C34FB613C6552F862D30FEBAF71A03069BEBB208C272F919C4F4591D27"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-review-final/original/spawn-resource-malformed541/artifacts.json",
+      "Bytes": 2578,
+      "Sha256": "AE985361659DF13C89974C27AD4D4567CB59C3C601CC3206F33A92CC75475D4B"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-review-final/original/spawn-resource-malformed541/compile.etf",
+      "Bytes": 66,
+      "Sha256": "87A9A88E786CE7EA386E1D6B3C5D03E1E25C8A2C92FD576FCF27A902B10A00CA"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-review-final/original/spawn-resource-malformed541/contract_worker513.beam",
+      "Bytes": 1868,
+      "Sha256": "57D34ECFBEF38BF8B73D715E4347253E0F3A794DC55F3E541DDE839C109972F4"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-review-final/original/spawn-resource-malformed541/contract_worker513.erl",
+      "Bytes": 1294,
+      "Sha256": "D9C30FF09F7F9B5AD29C23A2F5C8D01BFD0E177F836C705E2840963D93BE73C5"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-review-final/original/spawn-resource-malformed541/executing-owners.etf",
+      "Bytes": 976,
+      "Sha256": "D4A894DB229DBD703E42702DC2A7D64B6FEFFCB8BBDCDD071CE4F88906D9F866"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-review-final/original/spawn-resource-malformed541/metadata.etf",
+      "Bytes": 254,
+      "Sha256": "A9DB9A15EA7C99C385F4C3BAD799DB44EB4D4B883C8EE30B20DC24271667B8CD"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-review-final/original/spawn-resource-malformed541/modules.etf",
+      "Bytes": 391,
+      "Sha256": "55C7B994B67100CF612927060937F67E1F76BD1298D89EFD410F3E8A977E63C7"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-review-final/original/spawn-resource-malformed541/observed-deterministic.etf",
+      "Bytes": 177459,
+      "Sha256": "358ABC1773CF5E311E560077A6B9C26A6BE67203D6C9E9BD327934B2AB662830"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-review-final/original/spawn-resource-malformed541/observed.etf",
+      "Bytes": 177459,
+      "Sha256": "358ABC1773CF5E311E560077A6B9C26A6BE67203D6C9E9BD327934B2AB662830"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-review-final/original/spawn-resource-malformed541/original.exit.json",
+      "Bytes": 1995,
+      "Sha256": "E16CB73644ADA3092F54C83EC96C18BFAEEB4CDAD135F7F0AF6916A98ABB7872"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-review-final/original/spawn-resource-malformed541/original.live.json",
+      "Bytes": 1744,
+      "Sha256": "3674BB86460690305649040DA578A0CB898632F3508000D344CC93E057558E4F"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-review-final/original/spawn-resource-malformed541/original.stderr.log",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-review-final/original/spawn-resource-malformed541/original.stdout.log",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-review-final/original/spawn-resource-malformed541/spawn_resources_core541.beam",
+      "Bytes": 4200,
+      "Sha256": "566D4FE74F59D92FD82F7AC97876FC0ED67D0D6CE9696A90FE04CBA28A6D459F"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-review-final/original/spawn-resource-malformed541/spawn_resources_core541.erl",
+      "Bytes": 3830,
+      "Sha256": "63047F721143380EFBD06CBA94F934D20446F62A4B55B2EC989C9CE5334A026E"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-review-final/original/spawn-resource-malformed541/worker-witnesses.etf",
+      "Bytes": 255,
+      "Sha256": "040777E39BF0AE88278F7C80F5D11446923D222E49FB935A9BEB3B98C1771E15"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-review-final/private-owned/actual/comparison.json",
+      "Bytes": 387,
+      "Sha256": "B52EFDEDD0C27C1F6BC413D1D46829D6278940AB5D79C6A468F1D3155398F6EF"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-review-final/private-owned/actual/observed-deterministic.etf",
+      "Bytes": 177459,
+      "Sha256": "201D3BE16EDA138C0624CFA4ABB2B7F685D5122CA9E5625EEBFD727905AA0E6A"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-review-final/private-owned/actual/observed.etf",
+      "Bytes": 177459,
+      "Sha256": "201D3BE16EDA138C0624CFA4ABB2B7F685D5122CA9E5625EEBFD727905AA0E6A"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-review-final/private-owned/actual/proc-lib-image.json",
+      "Bytes": 530,
+      "Sha256": "A3D09097288FE47E079EAE338106D776E83B75195509AD103663E5F8F700FD07"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-review-final/private-owned/actual/worker-witnesses.etf",
+      "Bytes": 255,
+      "Sha256": "7C75F7D63DAB30D2B93F7CA4EEEF3D0D91408C5CF0E513C2DCD4E1F5B4C61B52"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-review-final/private-owned/managed.exit.json",
+      "Bytes": 1131,
+      "Sha256": "54F75C3C317457F0A943AC98D1F0959271B37EA97E8FF076B2A634F3904FC08B"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-review-final/private-owned/managed.live.json",
+      "Bytes": 883,
+      "Sha256": "5AD4C0EA15E6AAB944A1A4903FFEA77ACA5089DB148ED73ECDE6B3D9ECC09AF7"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-review-final/private-owned/managed.stderr.log",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-review-final/private-owned/managed.stdout.log",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-second/admission.json",
+      "Bytes": 1999,
+      "Sha256": "BCFBE29239AFCD7863E7338FF3E199E83DCFBE5B584BF193765B460029984331"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-second/adoption.stderr",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-second/adoption.stdout",
+      "Bytes": 163,
+      "Sha256": "83B71A999EAD42E2B2E2D4BE9537483CF9701558CAD8394C246E5899F568C952"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-second/completion.json",
+      "Bytes": 555,
+      "Sha256": "1F2645A1C363B3AAF49BAE3B0D4BE55DFD6C68CE8BB3F3F64623324AD3A22DDE"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-second/ordinary/actual/observed-deterministic.etf",
+      "Bytes": 166985,
+      "Sha256": "BD12659ABDDB15FE77B6B1981B8B6F3C52F1F4D57EA59FD88A9A0B90E4FD3AE7"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-second/ordinary/actual/observed.etf",
+      "Bytes": 166985,
+      "Sha256": "BD12659ABDDB15FE77B6B1981B8B6F3C52F1F4D57EA59FD88A9A0B90E4FD3AE7"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-second/ordinary/managed.exit.json",
+      "Bytes": 1098,
+      "Sha256": "B24FFDA9AA38E64F132A9F7BD5BF687A65F7FD0EF5739FEE05EC6B0CC11878DF"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-second/ordinary/managed.live.json",
+      "Bytes": 841,
+      "Sha256": "896D2350BF7351C63B580452B82BCDA57DD6F1F4DDE0987846B83B9636D342E6"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-second/ordinary/managed.stderr.log",
+      "Bytes": 4218,
+      "Sha256": "CEE7E9963398C520A900D7848F4E49FC80D25FE9055B0B31BF723AF69E99BE0A"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-second/ordinary/managed.stdout.log",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-second/original.stderr",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-second/original.stdout",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-second/original/completion.json",
+      "Bytes": 8381,
+      "Sha256": "0A0D794161C73CFA5A5BF914233F760DFCE4E5494311629C3671D87EE8F4C642"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-second/original/launch-plan.json",
+      "Bytes": 486,
+      "Sha256": "3A284940195EDF116DF723D26E23D206ED70C4909076A33FF6B4957D47084D6D"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-second/original/provider-after.json",
+      "Bytes": 379,
+      "Sha256": "7FB9E744752ACF2CA4E53F78CFD208198152F57237CA0608B9042BF01D6C97A0"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-second/original/provider-before.json",
+      "Bytes": 757205,
+      "Sha256": "85ACA44BD321DF9EFD9761906D634C9EF28FE4923E194C6C9EEEE924A43898F0"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-second/original/spawn-resource-default541/artifacts.json",
+      "Bytes": 2572,
+      "Sha256": "BBA020D53F7A94B679AAF93E452064EDD2A0F35B9D4A4FE8DB3D94DCF3C3BAB8"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-second/original/spawn-resource-default541/compile.etf",
+      "Bytes": 69,
+      "Sha256": "9F1367BE54456B3250404B0BCEAC245FBE9DD3208810CCFBCA04C3B11C3E2BE9"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-second/original/spawn-resource-default541/contract_worker513.beam",
+      "Bytes": 1860,
+      "Sha256": "8AD1ACF94B5E136BC9DD33726CCA934ACCE6E6BEFDCB9E93788949AD0EBA6A93"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-second/original/spawn-resource-default541/contract_worker513.erl",
+      "Bytes": 1294,
+      "Sha256": "D9C30FF09F7F9B5AD29C23A2F5C8D01BFD0E177F836C705E2840963D93BE73C5"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-second/original/spawn-resource-default541/executing-owners.etf",
+      "Bytes": 953,
+      "Sha256": "930FC6FCB37BB2190238AC658A397CA22BA8D60648C5E2BEA589B3131B9D9B39"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-second/original/spawn-resource-default541/metadata.etf",
+      "Bytes": 254,
+      "Sha256": "A9DB9A15EA7C99C385F4C3BAD799DB44EB4D4B883C8EE30B20DC24271667B8CD"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-second/original/spawn-resource-default541/modules.etf",
+      "Bytes": 381,
+      "Sha256": "BADE7B6BB1251F890EFD65E9C7AAB4092E9CEC06FBDF155143D1743A4E9DFD53"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-second/original/spawn-resource-default541/observed-deterministic.etf",
+      "Bytes": 9864,
+      "Sha256": "24188D84CA7A265D6FCB5665D1B82B28DDA06D2E457D7738D9DE53D94D604DDC"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-second/original/spawn-resource-default541/observed.etf",
+      "Bytes": 9864,
+      "Sha256": "9E515F86BFDFD16475D5E70CB0FCB6A5207AAD5333FE5A391062A7E41B5DA97A"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-second/original/spawn-resource-default541/original.exit.json",
+      "Bytes": 1991,
+      "Sha256": "6969F7E7826AFC513CBCCF4BDA977168F6750A0F7C74C41F459F749AA45AD0FB"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-second/original/spawn-resource-default541/original.live.json",
+      "Bytes": 1741,
+      "Sha256": "5CB8FFA4FB243E797E45C636C270AA96426CD5FABF554893EB2C4D18E8A0BFA4"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-second/original/spawn-resource-default541/original.stderr.log",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-second/original/spawn-resource-default541/original.stdout.log",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-second/original/spawn-resource-default541/spawn_resources_default541.beam",
+      "Bytes": 3192,
+      "Sha256": "6F9F6504B843FAFD95ADC0F9680773204F5C15A9B6AC5B583F34E792369B8055"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-second/original/spawn-resource-default541/spawn_resources_default541.erl",
+      "Bytes": 2849,
+      "Sha256": "07B50C88D3CEFA6B7C1EF1639EEBF20D0C2438446310174375FD327408EFC2C8"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-second/original/spawn-resource-default541/worker-witnesses.etf",
+      "Bytes": 258,
+      "Sha256": "4A73A57995AFD00F08561F609C6FE9CA60C0305C8D8FA2F01F9FB5A36C5FDBCD"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-second/original/spawn-resource-full540/artifacts.json",
+      "Bytes": 2557,
+      "Sha256": "BB7CB931DBEBB00325C74B6332E8655E4CA2D47B633CDDFC3456E76302E096BC"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-second/original/spawn-resource-full540/compile.etf",
+      "Bytes": 61,
+      "Sha256": "1E704E6E2FEC9BB861E5879EE671A69051E2B799FF482C9D93EC8B07004A2203"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-second/original/spawn-resource-full540/contract_worker513.beam",
+      "Bytes": 1860,
+      "Sha256": "900A0CBE24916CB90C43C980E7E62685095A46D552A9D1E0E057AD78CCBD6F1E"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-second/original/spawn-resource-full540/contract_worker513.erl",
+      "Bytes": 1294,
+      "Sha256": "D9C30FF09F7F9B5AD29C23A2F5C8D01BFD0E177F836C705E2840963D93BE73C5"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-second/original/spawn-resource-full540/executing-owners.etf",
+      "Bytes": 917,
+      "Sha256": "32ABD1344FDB33DA57DD25511367175E1FF2BDA0E8C3213E8D2739781F916031"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-second/original/spawn-resource-full540/metadata.etf",
+      "Bytes": 254,
+      "Sha256": "A9DB9A15EA7C99C385F4C3BAD799DB44EB4D4B883C8EE30B20DC24271667B8CD"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-second/original/spawn-resource-full540/modules.etf",
+      "Bytes": 359,
+      "Sha256": "786EB5E415330DDA4B18B5D8A99205669821C579F8B38E699D6B62A365FB536E"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-second/original/spawn-resource-full540/observed-deterministic.etf",
+      "Bytes": 201118,
+      "Sha256": "E0D3519BEAF806F0CFB468FD1C5221E790E6FA5F62B6E338D66B075DEA2EE642"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-second/original/spawn-resource-full540/observed.etf",
+      "Bytes": 201118,
+      "Sha256": "C7A56D9A6EC5E77F0B6587EDD8557D841F18AFCA2F1DE9542AD4F121172D1B72"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-second/original/spawn-resource-full540/original.exit.json",
+      "Bytes": 1980,
+      "Sha256": "9C262B1E55B910BB4C7745BE3342272CD59AF3009CA65780E1E7F8FE06AF2B00"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-second/original/spawn-resource-full540/original.live.json",
+      "Bytes": 1730,
+      "Sha256": "E3A1F13E90AFABB3ECF4CF921B5B9A1EF224F285D93ADD6E5B9177D4CC825C14"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-second/original/spawn-resource-full540/original.stderr.log",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-second/original/spawn-resource-full540/original.stdout.log",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-second/original/spawn-resource-full540/spawn_resources540.beam",
+      "Bytes": 4576,
+      "Sha256": "F3E7EBE1778D5353CC662C937D636241056CFF03727DA45B8A6A586252423A08"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-second/original/spawn-resource-full540/spawn_resources540.erl",
+      "Bytes": 4152,
+      "Sha256": "CC8DC9806B924EB924DBAC1B9D2412F47496E88F0C734785C7945FD5C098179E"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-second/original/spawn-resource-full540/worker-witnesses.etf",
+      "Bytes": 250,
+      "Sha256": "45C74D0CC5F48490EF0BF9EE2863C4970CE9DD8C81F03F17F095E1B5444E6948"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-second/original/spawn-resource-malformed541/artifacts.json",
+      "Bytes": 2572,
+      "Sha256": "EBB631610033F54F0A5EF6EA6FFA6A1FBDA3A973BAD094375C40537441323E5A"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-second/original/spawn-resource-malformed541/compile.etf",
+      "Bytes": 66,
+      "Sha256": "87A9A88E786CE7EA386E1D6B3C5D03E1E25C8A2C92FD576FCF27A902B10A00CA"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-second/original/spawn-resource-malformed541/contract_worker513.beam",
+      "Bytes": 1864,
+      "Sha256": "3D3558D553F0F2B7678E9EE6EB61A4E912A9A03DD7D6158005678765533D5E1F"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-second/original/spawn-resource-malformed541/contract_worker513.erl",
+      "Bytes": 1294,
+      "Sha256": "D9C30FF09F7F9B5AD29C23A2F5C8D01BFD0E177F836C705E2840963D93BE73C5"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-second/original/spawn-resource-malformed541/executing-owners.etf",
+      "Bytes": 952,
+      "Sha256": "764C53F514DBCC893F799333783882B08F5AB8EF65C6281AB61F49C6FF05F97D"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-second/original/spawn-resource-malformed541/metadata.etf",
+      "Bytes": 254,
+      "Sha256": "A9DB9A15EA7C99C385F4C3BAD799DB44EB4D4B883C8EE30B20DC24271667B8CD"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-second/original/spawn-resource-malformed541/modules.etf",
+      "Bytes": 379,
+      "Sha256": "CDB0895346D9EEC053233048634440D641FC4D41BF7ECE514184D4E6E95BC0C7"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-second/original/spawn-resource-malformed541/observed-deterministic.etf",
+      "Bytes": 177459,
+      "Sha256": "15EF916D8FC5623A90B0E379C06221F23F23E57B40058A7C996C41F9BC5AF514"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-second/original/spawn-resource-malformed541/observed.etf",
+      "Bytes": 177459,
+      "Sha256": "15EF916D8FC5623A90B0E379C06221F23F23E57B40058A7C996C41F9BC5AF514"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-second/original/spawn-resource-malformed541/original.exit.json",
+      "Bytes": 1989,
+      "Sha256": "114DAA2D5EDA3B215DBD957B89D9877DD7C3BEB1B0E64EC0173026370FC7A66F"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-second/original/spawn-resource-malformed541/original.live.json",
+      "Bytes": 1739,
+      "Sha256": "78DC01D8E17F15E01DCC4164FF80C3394CD22AAF7BD54307F9FB00934585BB8D"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-second/original/spawn-resource-malformed541/original.stderr.log",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-second/original/spawn-resource-malformed541/original.stdout.log",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-second/original/spawn-resource-malformed541/spawn_resources_core541.beam",
+      "Bytes": 4192,
+      "Sha256": "2C9AE81BE50BDD2B56149AFF95DAB5EB5C321494D9AAD340D7A4D3A9794AAC2A"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-second/original/spawn-resource-malformed541/spawn_resources_core541.erl",
+      "Bytes": 3830,
+      "Sha256": "63047F721143380EFBD06CBA94F934D20446F62A4B55B2EC989C9CE5334A026E"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-second/original/spawn-resource-malformed541/worker-witnesses.etf",
+      "Bytes": 255,
+      "Sha256": "4F2F72A762D4ECEF81B6A6A201EAC80613F98454DC53A3D62AD4DDBB4C89F8C8"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-second/private-owned/managed.exit.json",
+      "Bytes": 1102,
+      "Sha256": "B0E50B8177A82984544AB658263C1D27F178D6435F8B20E4895E8ABFFCBA2E73"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-second/private-owned/managed.live.json",
+      "Bytes": 845,
+      "Sha256": "98D7B69A7DE5FE62633A121262F064A81C95024F72343A186EDDBF8575755200"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-second/private-owned/managed.stderr.log",
+      "Bytes": 1036,
+      "Sha256": "EAA103737E3BC4F2B9A9C7D723F9D713690B457C43DF2A9FEAE62273712C45D5"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-second/private-owned/managed.stdout.log",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-third/admission.json",
+      "Bytes": 1990,
+      "Sha256": "7FE4DD2BED36371C246B6B7A1C67B43F5645EF469E5496419B97F7BDE4FE4334"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-third/adoption.stderr",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-third/adoption.stdout",
+      "Bytes": 163,
+      "Sha256": "87FD576E69A4F63E807573711540282FDA5FD956386451BAFD6BF1A80A682505"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-third/completion.json",
+      "Bytes": 555,
+      "Sha256": "1F2645A1C363B3AAF49BAE3B0D4BE55DFD6C68CE8BB3F3F64623324AD3A22DDE"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-third/ordinary/actual/observed-deterministic.etf",
+      "Bytes": 166985,
+      "Sha256": "BD12659ABDDB15FE77B6B1981B8B6F3C52F1F4D57EA59FD88A9A0B90E4FD3AE7"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-third/ordinary/actual/observed.etf",
+      "Bytes": 166985,
+      "Sha256": "BD12659ABDDB15FE77B6B1981B8B6F3C52F1F4D57EA59FD88A9A0B90E4FD3AE7"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-third/ordinary/managed.exit.json",
+      "Bytes": 1097,
+      "Sha256": "F5825B1326446DAA0D27C868B10828D805BD7B734FC7417CF68E9EA16C26CF8F"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-third/ordinary/managed.live.json",
+      "Bytes": 839,
+      "Sha256": "98FBED7B3808F16D62AF87FE7AFF50F12A9FD6A458989469DE9E0B5F16492C4F"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-third/ordinary/managed.stderr.log",
+      "Bytes": 3822,
+      "Sha256": "55BA5D7E0559BC67131DD48FFAB470C3191E128CA00E1A13841099403414F5D3"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-third/ordinary/managed.stdout.log",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-third/original.stderr",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-third/original.stdout",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-third/original/completion.json",
+      "Bytes": 8361,
+      "Sha256": "F207EA6BA50FBE247C7AB8FFA83FF2BD5E8FEF52BBB360489475C090984ACDFF"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-third/original/launch-plan.json",
+      "Bytes": 486,
+      "Sha256": "A2C73B3DEB647535B6888A8E9733FB43FFFE083326C7083175104B224B96D0F9"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-third/original/provider-after.json",
+      "Bytes": 379,
+      "Sha256": "7FB9E744752ACF2CA4E53F78CFD208198152F57237CA0608B9042BF01D6C97A0"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-third/original/provider-before.json",
+      "Bytes": 757205,
+      "Sha256": "85ACA44BD321DF9EFD9761906D634C9EF28FE4923E194C6C9EEEE924A43898F0"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-third/original/spawn-resource-default541/artifacts.json",
+      "Bytes": 2571,
+      "Sha256": "28C4E7046364B1B365A433051DE04014C8B0413617AEE1009146816A3ABA31DB"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-third/original/spawn-resource-default541/compile.etf",
+      "Bytes": 69,
+      "Sha256": "9F1367BE54456B3250404B0BCEAC245FBE9DD3208810CCFBCA04C3B11C3E2BE9"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-third/original/spawn-resource-default541/contract_worker513.beam",
+      "Bytes": 1860,
+      "Sha256": "65991188477AEEEFE186E12BD3399B7D50AEBD16EA0D531483AC2A6092B8B76A"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-third/original/spawn-resource-default541/contract_worker513.erl",
+      "Bytes": 1294,
+      "Sha256": "D9C30FF09F7F9B5AD29C23A2F5C8D01BFD0E177F836C705E2840963D93BE73C5"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-third/original/spawn-resource-default541/executing-owners.etf",
+      "Bytes": 949,
+      "Sha256": "6FFD1D6CBCFC424C5FC319ED670E033AACC2879A7AFC7E49603FFA0D77A8D6DC"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-third/original/spawn-resource-default541/metadata.etf",
+      "Bytes": 254,
+      "Sha256": "A9DB9A15EA7C99C385F4C3BAD799DB44EB4D4B883C8EE30B20DC24271667B8CD"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-third/original/spawn-resource-default541/modules.etf",
+      "Bytes": 379,
+      "Sha256": "A2E6719580AC2C17C4BC6314F662A30A34B4D5A92F1D03ED89A9581422D7E79B"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-third/original/spawn-resource-default541/observed-deterministic.etf",
+      "Bytes": 9864,
+      "Sha256": "A803654BF5CAA17E081C0010DA7E6272382BB1E6D94A46A5009F430F8BC8134F"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-third/original/spawn-resource-default541/observed.etf",
+      "Bytes": 9864,
+      "Sha256": "A5D56D3FAF381CCB916A752757BB8224C7781FBAAB4593072E19AEFC206EF4AE"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-third/original/spawn-resource-default541/original.exit.json",
+      "Bytes": 1988,
+      "Sha256": "10BDB08584147DD0CD24C157921145F845AE2E818B4545EF5D0E334E5E254F3E"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-third/original/spawn-resource-default541/original.live.json",
+      "Bytes": 1739,
+      "Sha256": "5F2472611847A42B12DF4143940AF62EE2DF0A030E963B01E83206F032FAA2F5"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-third/original/spawn-resource-default541/original.stderr.log",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-third/original/spawn-resource-default541/original.stdout.log",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-third/original/spawn-resource-default541/spawn_resources_default541.beam",
+      "Bytes": 3192,
+      "Sha256": "3B93B7B2A81490E3E5AF9A3B16ADF6BE3318B4800414A0B4E0215546434C4185"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-third/original/spawn-resource-default541/spawn_resources_default541.erl",
+      "Bytes": 2849,
+      "Sha256": "07B50C88D3CEFA6B7C1EF1639EEBF20D0C2438446310174375FD327408EFC2C8"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-third/original/spawn-resource-default541/worker-witnesses.etf",
+      "Bytes": 258,
+      "Sha256": "0045C9FB6BA547A2509DCDAF91AFE11133A9E03F058FF105065421FCA8EDD8D6"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-third/original/spawn-resource-full540/artifacts.json",
+      "Bytes": 2556,
+      "Sha256": "CD76CB05C3F421950515E80AF633391CDE99776E29A19AC083CE1C6790D9487B"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-third/original/spawn-resource-full540/compile.etf",
+      "Bytes": 61,
+      "Sha256": "1E704E6E2FEC9BB861E5879EE671A69051E2B799FF482C9D93EC8B07004A2203"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-third/original/spawn-resource-full540/contract_worker513.beam",
+      "Bytes": 1856,
+      "Sha256": "760D6C78B9A52CC3041939FD66AF679A5F7FDBA92EA47789B022F430B177F8CE"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-third/original/spawn-resource-full540/contract_worker513.erl",
+      "Bytes": 1294,
+      "Sha256": "D9C30FF09F7F9B5AD29C23A2F5C8D01BFD0E177F836C705E2840963D93BE73C5"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-third/original/spawn-resource-full540/executing-owners.etf",
+      "Bytes": 913,
+      "Sha256": "FF5DBB9FF4E6A15328AA0DC0371E35958F0A5AF8024D05FCE791022813DAA04F"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-third/original/spawn-resource-full540/metadata.etf",
+      "Bytes": 254,
+      "Sha256": "A9DB9A15EA7C99C385F4C3BAD799DB44EB4D4B883C8EE30B20DC24271667B8CD"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-third/original/spawn-resource-full540/modules.etf",
+      "Bytes": 357,
+      "Sha256": "F97548B6DF1DBDB3EF20C03170D1A4EB7D408DFDBD19619AE65628662B10C940"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-third/original/spawn-resource-full540/observed-deterministic.etf",
+      "Bytes": 201118,
+      "Sha256": "2EAC6A83A1E99476ED15C1B304A5D8441D7C19D4EF28C2A1F56266607F82F12F"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-third/original/spawn-resource-full540/observed.etf",
+      "Bytes": 201118,
+      "Sha256": "080D82D268F9BB8C3846EC6B542778CD9C3B56F91C4EDF607CF71B2B7A8F9A77"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-third/original/spawn-resource-full540/original.exit.json",
+      "Bytes": 1964,
+      "Sha256": "F41E08706A72FACA5EBF956807A9DF38A25DCD28933F83AED57E83675A8DA06F"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-third/original/spawn-resource-full540/original.live.json",
+      "Bytes": 1729,
+      "Sha256": "6788E4226E1F293D37FE86C230DF03BE174D9BE8E776F878D8DB4D78C176D0E4"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-third/original/spawn-resource-full540/original.stderr.log",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-third/original/spawn-resource-full540/original.stdout.log",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-third/original/spawn-resource-full540/spawn_resources540.beam",
+      "Bytes": 4572,
+      "Sha256": "429AA3E2170C2CBE59C1307DB30361FFB3E83DEAE27DB83AF9B88F28151FBCAC"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-third/original/spawn-resource-full540/spawn_resources540.erl",
+      "Bytes": 4152,
+      "Sha256": "CC8DC9806B924EB924DBAC1B9D2412F47496E88F0C734785C7945FD5C098179E"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-third/original/spawn-resource-full540/worker-witnesses.etf",
+      "Bytes": 250,
+      "Sha256": "836700E0D4004C0A14F88AA69040DABEFDA203ACCBA4904AB7B7ACD10F4C7E78"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-third/original/spawn-resource-malformed541/artifacts.json",
+      "Bytes": 2571,
+      "Sha256": "077082F461F690F2F8CD3FE63FC7EDB8C25946573CE5AB6D9D654D7ADA501FC6"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-third/original/spawn-resource-malformed541/compile.etf",
+      "Bytes": 66,
+      "Sha256": "87A9A88E786CE7EA386E1D6B3C5D03E1E25C8A2C92FD576FCF27A902B10A00CA"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-third/original/spawn-resource-malformed541/contract_worker513.beam",
+      "Bytes": 1864,
+      "Sha256": "044A11F4EA8296284BFFF20059067FF1CAF035B94A2F11A7CDC2951AC5FB1323"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-third/original/spawn-resource-malformed541/contract_worker513.erl",
+      "Bytes": 1294,
+      "Sha256": "D9C30FF09F7F9B5AD29C23A2F5C8D01BFD0E177F836C705E2840963D93BE73C5"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-third/original/spawn-resource-malformed541/executing-owners.etf",
+      "Bytes": 948,
+      "Sha256": "DB0EEC029CFC1552E3701F0834907A1C90E12AC31E7AAEB058E19764A77F3097"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-third/original/spawn-resource-malformed541/metadata.etf",
+      "Bytes": 254,
+      "Sha256": "A9DB9A15EA7C99C385F4C3BAD799DB44EB4D4B883C8EE30B20DC24271667B8CD"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-third/original/spawn-resource-malformed541/modules.etf",
+      "Bytes": 377,
+      "Sha256": "54831479FD5843B6923C411E3B71F8242A7F16871468F4EA3D0E33F1CEEC35E1"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-third/original/spawn-resource-malformed541/observed-deterministic.etf",
+      "Bytes": 177459,
+      "Sha256": "AD62A7F3D4BA14AAA154ABA67CD76C3D2B6F3F89756665EBDF04869755511877"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-third/original/spawn-resource-malformed541/observed.etf",
+      "Bytes": 177459,
+      "Sha256": "AD62A7F3D4BA14AAA154ABA67CD76C3D2B6F3F89756665EBDF04869755511877"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-third/original/spawn-resource-malformed541/original.exit.json",
+      "Bytes": 1988,
+      "Sha256": "94E877EB81CBD2698844244CA6698B907970A6DC07673DB1F5DB57545E6E3742"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-third/original/spawn-resource-malformed541/original.live.json",
+      "Bytes": 1738,
+      "Sha256": "000534041FB5DAA1FEAE458B2919434F28E1314AAED6D21793E292A7C78B98DB"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-third/original/spawn-resource-malformed541/original.stderr.log",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-third/original/spawn-resource-malformed541/original.stdout.log",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-third/original/spawn-resource-malformed541/spawn_resources_core541.beam",
+      "Bytes": 4192,
+      "Sha256": "7C69B81CA3A4025D3192FC6C91BFB8D47D204CF0EC67DC13CA1F870231DC671A"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-third/original/spawn-resource-malformed541/spawn_resources_core541.erl",
+      "Bytes": 3830,
+      "Sha256": "63047F721143380EFBD06CBA94F934D20446F62A4B55B2EC989C9CE5334A026E"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-third/original/spawn-resource-malformed541/worker-witnesses.etf",
+      "Bytes": 255,
+      "Sha256": "A42C6512743987D8670497BCB52DA4D3C7350AE2A9D841DF5F108BB8CE4E2450"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-third/private-owned/actual/observed-deterministic.etf",
+      "Bytes": 166985,
+      "Sha256": "BD12659ABDDB15FE77B6B1981B8B6F3C52F1F4D57EA59FD88A9A0B90E4FD3AE7"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-third/private-owned/actual/observed.etf",
+      "Bytes": 166985,
+      "Sha256": "BD12659ABDDB15FE77B6B1981B8B6F3C52F1F4D57EA59FD88A9A0B90E4FD3AE7"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-third/private-owned/managed.exit.json",
+      "Bytes": 1100,
+      "Sha256": "055A4EDCD55115F60AFD39C2FA7C186B0F62E02B490C4EDFD72AC8987E768547"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-third/private-owned/managed.live.json",
+      "Bytes": 842,
+      "Sha256": "1B4854CF9FAA4411078C9EA31A5567095024D099F4BE81AE2802F1F81EF51BF2"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-third/private-owned/managed.stderr.log",
+      "Bytes": 3822,
+      "Sha256": "55BA5D7E0559BC67131DD48FFAB470C3191E128CA00E1A13841099403414F5D3"
+    },
+    {
+      "Path": "artifacts/spawn520/contracts-third/private-owned/managed.stdout.log",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "artifacts/spawn520/final-build.log",
+      "Bytes": 2132,
+      "Sha256": "8BCE48A813EF49BB8014E97DD3C5F661E2D05A8C8FEEE55CC4CB5602C222E55F"
+    },
+    {
+      "Path": "artifacts/spawn520/final-index-refresh.log",
+      "Bytes": 700,
+      "Sha256": "090CA4AFC460A4EEB02F51A3E0CDB3E5F588AFEADF1CA764E12EFCEAFAA67DFA"
+    },
+    {
+      "Path": "artifacts/spawn520/final-source-build.log",
+      "Bytes": 2132,
+      "Sha256": "566A87D746466194AD94AACC1F769B7B89BFADED7203721F9312BF76EF0580E9"
+    },
+    {
+      "Path": "artifacts/spawn520/final-style-check.log",
+      "Bytes": 40,
+      "Sha256": "BB08B466C0BFDFB9FC2C1B90B9C6457E06E38B3336410FAE7964D8D1C4F32B1F"
+    },
+    {
+      "Path": "artifacts/spawn520/focused-final.json",
+      "Bytes": 1075,
+      "Sha256": "A6459C89D3DE195DF91B26A2B89E3B45050787A1BC7372AC6C589266B95FBE76"
+    },
+    {
+      "Path": "artifacts/spawn520/focused-witness-first.json",
+      "Bytes": 1315,
+      "Sha256": "1E5906D8060AC5E420268C5F66F3FC5E1EB4081769C11EA2E9202692BE9F66BD"
+    },
+    {
+      "Path": "artifacts/spawn520/metadata545-build.log",
+      "Bytes": 2132,
+      "Sha256": "FBE6E534FBE14B334C7CCEB1D2F9546B0ED65BE12141E94E08308D0EA9D18893"
+    },
+    {
+      "Path": "artifacts/spawn520/metadata545-probe-corrected/completion.json",
+      "Bytes": 810,
+      "Sha256": "580BFC51A6FAE299D2A4B8F009FBA3593C3223A9B723AB2C95B7794A31EBA99B"
+    },
+    {
+      "Path": "artifacts/spawn520/metadata545-probe-corrected/managed-proc-lib/false/actual/observed-deterministic.etf",
+      "Bytes": 170453,
+      "Sha256": "04717BDA3F3BF8BE5E309A0AC7D6A648A9C22AE6969B0A0B11EA8477917EA6B8"
+    },
+    {
+      "Path": "artifacts/spawn520/metadata545-probe-corrected/managed-proc-lib/false/actual/observed.etf",
+      "Bytes": 170453,
+      "Sha256": "04717BDA3F3BF8BE5E309A0AC7D6A648A9C22AE6969B0A0B11EA8477917EA6B8"
+    },
+    {
+      "Path": "artifacts/spawn520/metadata545-probe-corrected/managed-proc-lib/false/managed.exit.json",
+      "Bytes": 1148,
+      "Sha256": "9C784AA60294A7D216FEB30CF0ED160653641672F39A32A383EFD4A466DC2BE3"
+    },
+    {
+      "Path": "artifacts/spawn520/metadata545-probe-corrected/managed-proc-lib/false/managed.live.json",
+      "Bytes": 889,
+      "Sha256": "D689C905209594C7E4BC03830688A6EB91E5A3A36F2B9A29AA1E5D431E12DA03"
+    },
+    {
+      "Path": "artifacts/spawn520/metadata545-probe-corrected/managed-proc-lib/false/managed.stderr.log",
+      "Bytes": 24605,
+      "Sha256": "B754F1E76AED3CC162A665B069A397F49D7A899D4C3457DE246F7A75348B68F6"
+    },
+    {
+      "Path": "artifacts/spawn520/metadata545-probe-corrected/managed-proc-lib/false/managed.stdout.log",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "artifacts/spawn520/metadata545-probe-corrected/managed-proc-lib/true/actual/observed-deterministic.etf",
+      "Bytes": 170453,
+      "Sha256": "04717BDA3F3BF8BE5E309A0AC7D6A648A9C22AE6969B0A0B11EA8477917EA6B8"
+    },
+    {
+      "Path": "artifacts/spawn520/metadata545-probe-corrected/managed-proc-lib/true/actual/observed.etf",
+      "Bytes": 170453,
+      "Sha256": "04717BDA3F3BF8BE5E309A0AC7D6A648A9C22AE6969B0A0B11EA8477917EA6B8"
+    },
+    {
+      "Path": "artifacts/spawn520/metadata545-probe-corrected/managed-proc-lib/true/managed.exit.json",
+      "Bytes": 1146,
+      "Sha256": "5BEED4DB9DD39A7EA47AE71B2093E5DB5A943247703DE879B4790B987D7D9950"
+    },
+    {
+      "Path": "artifacts/spawn520/metadata545-probe-corrected/managed-proc-lib/true/managed.live.json",
+      "Bytes": 889,
+      "Sha256": "EB85E6533D05ACC318089DC8BF827718CFA5168DEF4FD2A9845C32394E1AC433"
+    },
+    {
+      "Path": "artifacts/spawn520/metadata545-probe-corrected/managed-proc-lib/true/managed.stderr.log",
+      "Bytes": 24605,
+      "Sha256": "B754F1E76AED3CC162A665B069A397F49D7A899D4C3457DE246F7A75348B68F6"
+    },
+    {
+      "Path": "artifacts/spawn520/metadata545-probe-corrected/managed-proc-lib/true/managed.stdout.log",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "artifacts/spawn520/metadata545-probe-corrected/original-proc-lib/false/managed.exit.json",
+      "Bytes": 1150,
+      "Sha256": "017E7449C750FD66C53794DB7E58D9C2DB86C0B2D11C09D2DF81BC5BF3C17137"
+    },
+    {
+      "Path": "artifacts/spawn520/metadata545-probe-corrected/original-proc-lib/false/managed.live.json",
+      "Bytes": 893,
+      "Sha256": "EE20F720DA0DD04E1FD2817B6B285CA3B197396A423251364C0E09D7E6CE7713"
+    },
+    {
+      "Path": "artifacts/spawn520/metadata545-probe-corrected/original-proc-lib/false/managed.stderr.log",
+      "Bytes": 3068,
+      "Sha256": "CBD8F62D6AF27F3F7068737F127CCCA7646324397141F35A689AECFA7D464C38"
+    },
+    {
+      "Path": "artifacts/spawn520/metadata545-probe-corrected/original-proc-lib/false/managed.stdout.log",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "artifacts/spawn520/metadata545-probe-corrected/original-proc-lib/true/managed.exit.json",
+      "Bytes": 1148,
+      "Sha256": "DAFA8A30E7DD90CF06E81DE647AA0635749FF802B1EB5B776AF28E60C6F29C47"
+    },
+    {
+      "Path": "artifacts/spawn520/metadata545-probe-corrected/original-proc-lib/true/managed.live.json",
+      "Bytes": 891,
+      "Sha256": "5B9FB53F14E9905B8EC187BDA875D9657EBF6570363ACD38E4D68040395697D7"
+    },
+    {
+      "Path": "artifacts/spawn520/metadata545-probe-corrected/original-proc-lib/true/managed.stderr.log",
+      "Bytes": 3068,
+      "Sha256": "CBD8F62D6AF27F3F7068737F127CCCA7646324397141F35A689AECFA7D464C38"
+    },
+    {
+      "Path": "artifacts/spawn520/metadata545-probe-corrected/original-proc-lib/true/managed.stdout.log",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "artifacts/spawn520/metadata545-probe/ManagedProcLib/false/managed.exit.json",
+      "Bytes": 1135,
+      "Sha256": "83AEAA628524A4B5F4179EDA014259A0AD1BA655D5B21CC834EA9E8E9DFD7F45"
+    },
+    {
+      "Path": "artifacts/spawn520/metadata545-probe/ManagedProcLib/false/managed.live.json",
+      "Bytes": 876,
+      "Sha256": "93046780C590147C46AEF160541C104B5563257E3585F8C9EFB7AA299BAC0FBF"
+    },
+    {
+      "Path": "artifacts/spawn520/metadata545-probe/ManagedProcLib/false/managed.stderr.log",
+      "Bytes": 787,
+      "Sha256": "9D31AD3D24645B39009AFAAB8DED8D3F7B543CFEF5C93C52382168F85D22B9D5"
+    },
+    {
+      "Path": "artifacts/spawn520/metadata545-probe/ManagedProcLib/false/managed.stdout.log",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "artifacts/spawn520/metadata545-probe/ManagedProcLib/true/managed.exit.json",
+      "Bytes": 1131,
+      "Sha256": "A159D75F78EB08ABDAC4B9AEF0109D3D0E44F22D484C0A57215534F0E6E9773B"
+    },
+    {
+      "Path": "artifacts/spawn520/metadata545-probe/ManagedProcLib/true/managed.live.json",
+      "Bytes": 874,
+      "Sha256": "F954FF4ADAF0817DFD3E2479D00BE20B9CB750CAB29EFB25419394534FD4E1B9"
+    },
+    {
+      "Path": "artifacts/spawn520/metadata545-probe/ManagedProcLib/true/managed.stderr.log",
+      "Bytes": 787,
+      "Sha256": "9D31AD3D24645B39009AFAAB8DED8D3F7B543CFEF5C93C52382168F85D22B9D5"
+    },
+    {
+      "Path": "artifacts/spawn520/metadata545-probe/ManagedProcLib/true/managed.stdout.log",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "artifacts/spawn520/metadata545-probe/OriginalProcLib/false/managed.exit.json",
+      "Bytes": 1136,
+      "Sha256": "AE08BED051200DE54533C6B73FAAD9FEA110A7D9362DA3DCCE6C52D7C1E6A327"
+    },
+    {
+      "Path": "artifacts/spawn520/metadata545-probe/OriginalProcLib/false/managed.live.json",
+      "Bytes": 879,
+      "Sha256": "19C46354CA8B6B0566BA181C67F729166FD0E996C52E2CEF4645BB75BB6613D2"
+    },
+    {
+      "Path": "artifacts/spawn520/metadata545-probe/OriginalProcLib/false/managed.stderr.log",
+      "Bytes": 787,
+      "Sha256": "9D31AD3D24645B39009AFAAB8DED8D3F7B543CFEF5C93C52382168F85D22B9D5"
+    },
+    {
+      "Path": "artifacts/spawn520/metadata545-probe/OriginalProcLib/false/managed.stdout.log",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "artifacts/spawn520/metadata545-probe/OriginalProcLib/true/managed.exit.json",
+      "Bytes": 1134,
+      "Sha256": "709A70F714A832C6BADB5D3944AC36840F9B5B59BBBF1FBA44B08904B0567A89"
+    },
+    {
+      "Path": "artifacts/spawn520/metadata545-probe/OriginalProcLib/true/managed.live.json",
+      "Bytes": 876,
+      "Sha256": "8168278CEF32D9BB07B8FDFC54C1A6F4CE3977660434780EDA511FAF0447DF28"
+    },
+    {
+      "Path": "artifacts/spawn520/metadata545-probe/OriginalProcLib/true/managed.stderr.log",
+      "Bytes": 787,
+      "Sha256": "9D31AD3D24645B39009AFAAB8DED8D3F7B543CFEF5C93C52382168F85D22B9D5"
+    },
+    {
+      "Path": "artifacts/spawn520/metadata545-probe/OriginalProcLib/true/managed.stdout.log",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "artifacts/spawn520/metadata545-probe/completion.json",
+      "Bytes": 802,
+      "Sha256": "37BF0927B93FF71F52F50A870F89E944903C2A767DC6CBBDFAC258F426EFB0B5"
+    },
+    {
+      "Path": "artifacts/spawn520/metadata545-second-build.log",
+      "Bytes": 2132,
+      "Sha256": "5F01DFD3BF08F7784770532CBEEF4BB17533A398E819C498C40B9974E4AE423A"
+    },
+    {
+      "Path": "artifacts/spawn520/mixed-public-original/completion.json",
+      "Bytes": 1202,
+      "Sha256": "CA4444A7DB52CF75A964D4AD27475A8C17EF63464D86FF2BE62EFA4F0B4B363D"
+    },
+    {
+      "Path": "artifacts/spawn520/mixed-public-original/observed.etf",
+      "Bytes": 433,
+      "Sha256": "1C4B8C29156ADF38CD2C50819EBEE31A2410DC5C265F51E23205D264FD1639E7"
+    },
+    {
+      "Path": "artifacts/spawn520/mixed-public-original/original.exit.json",
+      "Bytes": 949,
+      "Sha256": "E173103B07E2657392DD849046A58C39C1659E41ABDC0EB3554D685513860DCE"
+    },
+    {
+      "Path": "artifacts/spawn520/mixed-public-original/original.live.json",
+      "Bytes": 700,
+      "Sha256": "A207C9F78A2567F1F4D46A3FBE6799C80BAD8B31601E4B1ACC145E7601E3177F"
+    },
+    {
+      "Path": "artifacts/spawn520/mixed-public-original/original.stderr.log",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "artifacts/spawn520/mixed-public-original/original.stdout.log",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "artifacts/spawn520/native-metadata-first/acquire520.beam",
+      "Bytes": 4836,
+      "Sha256": "C79DA23461323D44FEB461C0A670DB8731940633EAEB8950F7C80DDD00BAE8D9"
+    },
+    {
+      "Path": "artifacts/spawn520/native-metadata-first/acquire520.erl",
+      "Bytes": 2283,
+      "Sha256": "F1B253C062CA8956C1AC859F9A7B883272F7BC9C9454B31CD02685E22A825E9D"
+    },
+    {
+      "Path": "artifacts/spawn520/native-metadata-first/compile/acquire520.beam",
+      "Bytes": 4836,
+      "Sha256": "C79DA23461323D44FEB461C0A670DB8731940633EAEB8950F7C80DDD00BAE8D9"
+    },
+    {
+      "Path": "artifacts/spawn520/native-metadata-first/compile/acquire520.erl",
+      "Bytes": 2283,
+      "Sha256": "F1B253C062CA8956C1AC859F9A7B883272F7BC9C9454B31CD02685E22A825E9D"
+    },
+    {
+      "Path": "artifacts/spawn520/native-metadata-first/compile/dynamic_apply_caller520.beam",
+      "Bytes": 7260,
+      "Sha256": "0A985EE69DABD4C4636249482AAE0808556F8D93F6525BFC6A0819B509E6A7D2"
+    },
+    {
+      "Path": "artifacts/spawn520/native-metadata-first/compile/dynamic_apply_caller520.erl",
+      "Bytes": 3483,
+      "Sha256": "DBA16F51270C66F15142556A929D7A087C7C33E66731CBE36BA1EC4D1F33B63B"
+    },
+    {
+      "Path": "artifacts/spawn520/native-metadata-first/compile/dynamic_apply_target520.beam",
+      "Bytes": 1284,
+      "Sha256": "8F6131E288C6E962711F2EDA779A708C84C91DC2B12662FBBFD20C94B87FE4E4"
+    },
+    {
+      "Path": "artifacts/spawn520/native-metadata-first/compile/dynamic_apply_target520.erl",
+      "Bytes": 290,
+      "Sha256": "E1FE85ECFF79FDA2E2A30B035CFBFA6373997F48897CE90ABBAA9A17AB46ABCB"
+    },
+    {
+      "Path": "artifacts/spawn520/native-metadata-first/compile/original.exit.json",
+      "Bytes": 940,
+      "Sha256": "183C54023648232406EC50EAD6749F90037C1279272E7A046E08875D240C5C61"
+    },
+    {
+      "Path": "artifacts/spawn520/native-metadata-first/compile/original.live.json",
+      "Bytes": 690,
+      "Sha256": "B6948C288765872EE6CA2134ED4180C707D8F6494B95A12B5D376CE7A6CD5BB2"
+    },
+    {
+      "Path": "artifacts/spawn520/native-metadata-first/compile/original.stderr.log",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "artifacts/spawn520/native-metadata-first/compile/original.stdout.log",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "artifacts/spawn520/native-metadata-first/compile/static-imports.etf",
+      "Bytes": 304,
+      "Sha256": "2CB2BA95561896BCA63E02083207FF436E40D7A22E9DD6E152F00194188C3FA9"
+    },
+    {
+      "Path": "artifacts/spawn520/native-metadata-first/completion.json",
+      "Bytes": 11926,
+      "Sha256": "AA3DB5D80107CFBDEE87C4DA4934812726BC32EBC78F24BA745CB01DBAD46058"
+    },
+    {
+      "Path": "artifacts/spawn520/native-metadata-first/dynamic_apply_caller520.beam",
+      "Bytes": 7260,
+      "Sha256": "0A985EE69DABD4C4636249482AAE0808556F8D93F6525BFC6A0819B509E6A7D2"
+    },
+    {
+      "Path": "artifacts/spawn520/native-metadata-first/dynamic_apply_caller520.erl",
+      "Bytes": 3483,
+      "Sha256": "DBA16F51270C66F15142556A929D7A087C7C33E66731CBE36BA1EC4D1F33B63B"
+    },
+    {
+      "Path": "artifacts/spawn520/native-metadata-first/dynamic_apply_target520.beam",
+      "Bytes": 1284,
+      "Sha256": "8F6131E288C6E962711F2EDA779A708C84C91DC2B12662FBBFD20C94B87FE4E4"
+    },
+    {
+      "Path": "artifacts/spawn520/native-metadata-first/dynamic_apply_target520.erl",
+      "Bytes": 290,
+      "Sha256": "E1FE85ECFF79FDA2E2A30B035CFBFA6373997F48897CE90ABBAA9A17AB46ABCB"
+    },
+    {
+      "Path": "artifacts/spawn520/native-metadata-first/metadata-effective-erlang.beam",
+      "Bytes": 40440,
+      "Sha256": "F4827EBCDB5C66BF96E34EE832783905FC5A7795286A154D00434C5CFA723FA7"
+    },
+    {
+      "Path": "artifacts/spawn520/native-metadata-first/metadata-source-erlang.beam",
+      "Bytes": 249620,
+      "Sha256": "F7CF9DAA675DA37CFEB5D03F685B3127A4B5D9B09350376D3FDFB55948B875BC"
+    },
+    {
+      "Path": "artifacts/spawn520/native-metadata-first/native-metadata-executing.etf",
+      "Bytes": 44,
+      "Sha256": "CB287385D54324341B1E7426494602D8ED3974783333DF7468613F3ABA2536AB"
+    },
+    {
+      "Path": "artifacts/spawn520/native-metadata-first/native-metadata-identity.json",
+      "Bytes": 1129,
+      "Sha256": "1388CCC6E24AADB3576DC009ECDD7E71C9154728F4E3562B22AF3786775CA7BD"
+    },
+    {
+      "Path": "artifacts/spawn520/native-metadata-first/observed-deterministic.etf",
+      "Bytes": 55072,
+      "Sha256": "5E73490C508775C72D15BD546A3DEEE818BD3A27E3FC9451F264454263EA4F05"
+    },
+    {
+      "Path": "artifacts/spawn520/native-metadata-first/observed.etf",
+      "Bytes": 55072,
+      "Sha256": "5E73490C508775C72D15BD546A3DEEE818BD3A27E3FC9451F264454263EA4F05"
+    },
+    {
+      "Path": "artifacts/spawn520/native-metadata-first/odbc.beam",
+      "Bytes": 43640,
+      "Sha256": "7830D857641C35AD0491C89212AB124003281C27103D280FD151BA9460EEA8BC"
+    },
+    {
+      "Path": "artifacts/spawn520/native-metadata-first/original.exit.json",
+      "Bytes": 917,
+      "Sha256": "9C5AE75865EFFECABC1184D478A91F3336203B5A31BEA377EBF56195CF3A7252"
+    },
+    {
+      "Path": "artifacts/spawn520/native-metadata-first/original.live.json",
+      "Bytes": 668,
+      "Sha256": "7815547415BF74C8713BA6AA1EFBC5357058B706F42C0C633B247677302828AC"
+    },
+    {
+      "Path": "artifacts/spawn520/native-metadata-first/original.stderr.log",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "artifacts/spawn520/native-metadata-first/original.stdout.log",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "artifacts/spawn520/native-metadata-first/owners.etf",
+      "Bytes": 1110,
+      "Sha256": "340972119BDCD1D3D0C0ECA2814A584F4AD5739EC11A4212B969E5443823BE16"
+    },
+    {
+      "Path": "artifacts/spawn520/native-metadata-first/provider-after.json",
+      "Bytes": 754834,
+      "Sha256": "2762B9CD8CB22EE90AB6124AC92CB6B40269B4627EA32066C587D6E2A71D1C76"
+    },
+    {
+      "Path": "artifacts/spawn520/native-metadata-first/provider-before.json",
+      "Bytes": 757205,
+      "Sha256": "85ACA44BD321DF9EFD9761906D634C9EF28FE4923E194C6C9EEEE924A43898F0"
+    },
+    {
+      "Path": "artifacts/spawn520/native-metadata-first/worker-witness.etf",
+      "Bytes": 208,
+      "Sha256": "C918A31ADBA5A18C6E4BAFF4E19E4FC0BE1E473A499A5A2463638210E2627F45"
+    },
+    {
+      "Path": "artifacts/spawn520/original-lane-build.log",
+      "Bytes": 2663,
+      "Sha256": "D4986332A5406D2976F804F1FF91468994AA98A484B0683946792F6DA9150F62"
+    },
+    {
+      "Path": "artifacts/spawn520/original546-ordinary-first/actual/observed-deterministic.etf",
+      "Bytes": 177278,
+      "Sha256": "B3855B08C217A60B698879A3D037C1A8D531BC744C71AE2554A629E080E2CA6E"
+    },
+    {
+      "Path": "artifacts/spawn520/original546-ordinary-first/actual/observed.etf",
+      "Bytes": 177278,
+      "Sha256": "B3855B08C217A60B698879A3D037C1A8D531BC744C71AE2554A629E080E2CA6E"
+    },
+    {
+      "Path": "artifacts/spawn520/original546-ordinary-first/actual/proc-lib-image.json",
+      "Bytes": 530,
+      "Sha256": "A3D09097288FE47E079EAE338106D776E83B75195509AD103663E5F8F700FD07"
+    },
+    {
+      "Path": "artifacts/spawn520/original546-ordinary-first/actual/worker-witnesses.etf",
+      "Bytes": 255,
+      "Sha256": "7C75F7D63DAB30D2B93F7CA4EEEF3D0D91408C5CF0E513C2DCD4E1F5B4C61B52"
+    },
+    {
+      "Path": "artifacts/spawn520/original546-ordinary-first/managed.exit.json",
+      "Bytes": 1122,
+      "Sha256": "CC153B81FD250D496C020AB68F288199DAE89F4DBD6AF6FD75F7012792439F6A"
+    },
+    {
+      "Path": "artifacts/spawn520/original546-ordinary-first/managed.live.json",
+      "Bytes": 865,
+      "Sha256": "FEF00DE0A2F8FE2FCF2DC89EDF19D1210CB03623F5A161C47380B95905C9D455"
+    },
+    {
+      "Path": "artifacts/spawn520/original546-ordinary-first/managed.stderr.log",
+      "Bytes": 24856,
+      "Sha256": "709C7F59DC7E4CD96D4E164535837EF3F2649302830B3CE5FA1BEB7FA883FBAD"
+    },
+    {
+      "Path": "artifacts/spawn520/original546-ordinary-first/managed.stdout.log",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "artifacts/spawn520/plan-new-source-members.json",
+      "Bytes": 3611,
+      "Sha256": "75654D1B689820D1512CCE57BE6CCAA930F7FA4B562A060BBA5E8D7C3A43F47B"
+    },
+    {
+      "Path": "artifacts/spawn520/process-catalog.json",
+      "Bytes": 149216,
+      "Sha256": "F94965475AD9405D6D23DC27725FC1749955EF93033BC439DC0229EB75D9DA81"
+    },
+    {
+      "Path": "artifacts/spawn520/replay-build-third.log",
+      "Bytes": 2132,
+      "Sha256": "4FFA17AB29ADC7B5A5B8634C66B761A4E639157A246FA8CD1805BD804C9EDBA9"
+    },
+    {
+      "Path": "artifacts/spawn520/replay-build.log",
+      "Bytes": 2132,
+      "Sha256": "FE8B32B1885ED5AEF996B3574E2106D3D40508E4772298010B26E771D86425EC"
+    },
+    {
+      "Path": "artifacts/spawn520/request547-build.log",
+      "Bytes": 2132,
+      "Sha256": "93B381ECD5F54FEA775AA1618E390DA6ADC55360D1725A3DE4A007A59958E489"
+    },
+    {
+      "Path": "artifacts/spawn520/request547-probe/completion.json",
+      "Bytes": 3049,
+      "Sha256": "AB27A6E7E38B80492F79F219576255001D7157011E07991D8EFA10FF10EDC37B"
+    },
+    {
+      "Path": "artifacts/spawn520/request547-probe/managed-proc-lib/false/actual/observed-deterministic.etf",
+      "Bytes": 170691,
+      "Sha256": "10D384F66CC0CDC019B36BDC1CEF68BB4AB842F69A48AD07157D829B298F6A28"
+    },
+    {
+      "Path": "artifacts/spawn520/request547-probe/managed-proc-lib/false/actual/observed.etf",
+      "Bytes": 170691,
+      "Sha256": "10D384F66CC0CDC019B36BDC1CEF68BB4AB842F69A48AD07157D829B298F6A28"
+    },
+    {
+      "Path": "artifacts/spawn520/request547-probe/managed-proc-lib/false/actual/worker-witnesses.etf",
+      "Bytes": 255,
+      "Sha256": "7C75F7D63DAB30D2B93F7CA4EEEF3D0D91408C5CF0E513C2DCD4E1F5B4C61B52"
+    },
+    {
+      "Path": "artifacts/spawn520/request547-probe/managed-proc-lib/false/managed.exit.json",
+      "Bytes": 1137,
+      "Sha256": "EF192395D368FB2A48265661A9A2C25054DA4881964A26E68AE3128981F2BE2F"
+    },
+    {
+      "Path": "artifacts/spawn520/request547-probe/managed-proc-lib/false/managed.live.json",
+      "Bytes": 879,
+      "Sha256": "E575629CB130FF31C04C932E1F8807F985790688DDC7053C73DADFBF87ECA65D"
+    },
+    {
+      "Path": "artifacts/spawn520/request547-probe/managed-proc-lib/false/managed.stderr.log",
+      "Bytes": 45609,
+      "Sha256": "81D4055832DE564D4DF58F0869091299410AC57D162EFCBCCE3A930D31CE8EB7"
+    },
+    {
+      "Path": "artifacts/spawn520/request547-probe/managed-proc-lib/false/managed.stdout.log",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "artifacts/spawn520/request547-probe/managed-proc-lib/true/actual/observed-deterministic.etf",
+      "Bytes": 170691,
+      "Sha256": "10D384F66CC0CDC019B36BDC1CEF68BB4AB842F69A48AD07157D829B298F6A28"
+    },
+    {
+      "Path": "artifacts/spawn520/request547-probe/managed-proc-lib/true/actual/observed.etf",
+      "Bytes": 170691,
+      "Sha256": "10D384F66CC0CDC019B36BDC1CEF68BB4AB842F69A48AD07157D829B298F6A28"
+    },
+    {
+      "Path": "artifacts/spawn520/request547-probe/managed-proc-lib/true/actual/worker-witnesses.etf",
+      "Bytes": 255,
+      "Sha256": "7C75F7D63DAB30D2B93F7CA4EEEF3D0D91408C5CF0E513C2DCD4E1F5B4C61B52"
+    },
+    {
+      "Path": "artifacts/spawn520/request547-probe/managed-proc-lib/true/managed.exit.json",
+      "Bytes": 1135,
+      "Sha256": "74B4FC87A275562C030D97AF42A7994DF96F645CB6D01EED0D8A889FE2D909D6"
+    },
+    {
+      "Path": "artifacts/spawn520/request547-probe/managed-proc-lib/true/managed.live.json",
+      "Bytes": 878,
+      "Sha256": "D692BA0370990DF1B00441E404D5DAD69C4F9D95AE0FF9F41089B8DF169117B5"
+    },
+    {
+      "Path": "artifacts/spawn520/request547-probe/managed-proc-lib/true/managed.stderr.log",
+      "Bytes": 45609,
+      "Sha256": "81D4055832DE564D4DF58F0869091299410AC57D162EFCBCCE3A930D31CE8EB7"
+    },
+    {
+      "Path": "artifacts/spawn520/request547-probe/managed-proc-lib/true/managed.stdout.log",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "artifacts/spawn520/request547-probe/original-proc-lib/false/actual/comparison.json",
+      "Bytes": 387,
+      "Sha256": "B52EFDEDD0C27C1F6BC413D1D46829D6278940AB5D79C6A468F1D3155398F6EF"
+    },
+    {
+      "Path": "artifacts/spawn520/request547-probe/original-proc-lib/false/actual/observed-deterministic.etf",
+      "Bytes": 177459,
+      "Sha256": "201D3BE16EDA138C0624CFA4ABB2B7F685D5122CA9E5625EEBFD727905AA0E6A"
+    },
+    {
+      "Path": "artifacts/spawn520/request547-probe/original-proc-lib/false/actual/observed.etf",
+      "Bytes": 177459,
+      "Sha256": "201D3BE16EDA138C0624CFA4ABB2B7F685D5122CA9E5625EEBFD727905AA0E6A"
+    },
+    {
+      "Path": "artifacts/spawn520/request547-probe/original-proc-lib/false/actual/proc-lib-image.json",
+      "Bytes": 530,
+      "Sha256": "A3D09097288FE47E079EAE338106D776E83B75195509AD103663E5F8F700FD07"
+    },
+    {
+      "Path": "artifacts/spawn520/request547-probe/original-proc-lib/false/actual/worker-witnesses.etf",
+      "Bytes": 255,
+      "Sha256": "7C75F7D63DAB30D2B93F7CA4EEEF3D0D91408C5CF0E513C2DCD4E1F5B4C61B52"
+    },
+    {
+      "Path": "artifacts/spawn520/request547-probe/original-proc-lib/false/managed.exit.json",
+      "Bytes": 1130,
+      "Sha256": "7F146FD87134006F1A029686F1787CC8D8101A320C7C187B5DA9905985D42F98"
+    },
+    {
+      "Path": "artifacts/spawn520/request547-probe/original-proc-lib/false/managed.live.json",
+      "Bytes": 880,
+      "Sha256": "E202645EC9DADEEDBC36E73B7139437B6A11B6A4EBBC9F545876B87C56B615E4"
+    },
+    {
+      "Path": "artifacts/spawn520/request547-probe/original-proc-lib/false/managed.stderr.log",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "artifacts/spawn520/request547-probe/original-proc-lib/false/managed.stdout.log",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "artifacts/spawn520/request547-probe/original-proc-lib/true/actual/comparison.json",
+      "Bytes": 387,
+      "Sha256": "B52EFDEDD0C27C1F6BC413D1D46829D6278940AB5D79C6A468F1D3155398F6EF"
+    },
+    {
+      "Path": "artifacts/spawn520/request547-probe/original-proc-lib/true/actual/observed-deterministic.etf",
+      "Bytes": 177459,
+      "Sha256": "201D3BE16EDA138C0624CFA4ABB2B7F685D5122CA9E5625EEBFD727905AA0E6A"
+    },
+    {
+      "Path": "artifacts/spawn520/request547-probe/original-proc-lib/true/actual/observed.etf",
+      "Bytes": 177459,
+      "Sha256": "201D3BE16EDA138C0624CFA4ABB2B7F685D5122CA9E5625EEBFD727905AA0E6A"
+    },
+    {
+      "Path": "artifacts/spawn520/request547-probe/original-proc-lib/true/actual/proc-lib-image.json",
+      "Bytes": 530,
+      "Sha256": "A3D09097288FE47E079EAE338106D776E83B75195509AD103663E5F8F700FD07"
+    },
+    {
+      "Path": "artifacts/spawn520/request547-probe/original-proc-lib/true/actual/worker-witnesses.etf",
+      "Bytes": 255,
+      "Sha256": "7C75F7D63DAB30D2B93F7CA4EEEF3D0D91408C5CF0E513C2DCD4E1F5B4C61B52"
+    },
+    {
+      "Path": "artifacts/spawn520/request547-probe/original-proc-lib/true/managed.exit.json",
+      "Bytes": 1129,
+      "Sha256": "AE2E728BAEE73117DD367657F261F28A78C6267375C8FA28AB8F00F157D04744"
+    },
+    {
+      "Path": "artifacts/spawn520/request547-probe/original-proc-lib/true/managed.live.json",
+      "Bytes": 879,
+      "Sha256": "7725DA88EA5BF4C73D6DB99E82ECC8713902B60F444106C5D82B08904943D9E8"
+    },
+    {
+      "Path": "artifacts/spawn520/request547-probe/original-proc-lib/true/managed.stderr.log",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "artifacts/spawn520/request547-probe/original-proc-lib/true/managed.stdout.log",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "artifacts/spawn520/review-fixed-build.log",
+      "Bytes": 2132,
+      "Sha256": "CE2AC4ABC4AF1CA01C63B9416F17082DBF66D1C0C5E3247187ED240314BC42F3"
+    },
+    {
+      "Path": "artifacts/spawn520/review-style-write.log",
+      "Bytes": 32,
+      "Sha256": "22708DD90501B6C16B79F76AF7848FED313FF665F44A79EDB71E77CBB809714C"
+    },
+    {
+      "Path": "artifacts/spawn520/style-final-write.log",
+      "Bytes": 33,
+      "Sha256": "D2FCC78EE158118D0769C72BC0635560E878FB2483DDA8ACBBF5379756FC043A"
+    },
+    {
+      "Path": "artifacts/spawn520/tag-final-build.log",
+      "Bytes": 2132,
+      "Sha256": "FF4824F1A934D1FF027242946605B01E135A6B4FDFD12BFE64B7C6B2663421C0"
+    },
+    {
+      "Path": "artifacts/spawn520/tag-final.json",
+      "Bytes": 393,
+      "Sha256": "76F61562E97703C46DE9C81DD0E8D04CE8F1EB458B12CAE433AE9D57FBCD9550"
+    },
+    {
+      "Path": "artifacts/spawn520/tag-final.log",
+      "Bytes": 141,
+      "Sha256": "CF81DF9E88C3E6D4A313064C48D9707C23FE9875F3703E28D7261B9D3B50AC5F"
+    },
+    {
+      "Path": "artifacts/spawn520/tag-style-write.log",
+      "Bytes": 32,
+      "Sha256": "5B2B97DEF6C44D903A42048A5E3F6F72194D3447E0B115214A7D6CCED315E898"
+    },
+    {
+      "Path": "artifacts/spawn520/witness546-build.log",
+      "Bytes": 2132,
+      "Sha256": "733395FB7726C2EBC6C691AD6B43CC9C051810EE1CF3B67F0B0F09EBCBB20A1D"
+    },
+    {
+      "Path": "tools/Runtime/Erlang.OwnedGuest506Observations/source-plan.json",
+      "Bytes": 26140,
+      "Sha256": "6136025B98B9FE8A9A2BAE57C9E38F96C99EBCD87DAC0D64A256643222129C63"
+    }
+  ]
+}

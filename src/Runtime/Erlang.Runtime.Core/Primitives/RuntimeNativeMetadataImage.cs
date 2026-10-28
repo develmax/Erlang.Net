@@ -10,6 +10,11 @@ public sealed class RuntimeNativeMetadataImage
 
     internal Term LoadModuleErrorLocation527 { get; }
 
+    internal Term InheritedErrorLocation545 { get; }
+    internal Term BadargInfoLocation545 { get; }
+    internal Term BadargCauseLocation545 { get; }
+    internal Term ErrorInfoLocation545 { get; }
+
     public RuntimeNativeMetadataImage(ReadOnlyMemory<byte> originalErlangBeam)
     {
         byte[] owned = originalErlangBeam.ToArray();
@@ -42,6 +47,10 @@ public sealed class RuntimeNativeMetadataImage
         if (!found)
             throw new InvalidDataException(RuntimeNativeMetadataNames527.Invalid);
         LoadModuleErrorLocation527 = selected!;
+        InheritedErrorLocation545 = RuntimeNativeErrorMetadata545.Inherited(code);
+        BadargInfoLocation545 = RuntimeNativeErrorMetadata545.BadargInfo(code);
+        BadargCauseLocation545 = RuntimeNativeErrorMetadata545.BadargCause(code);
+        ErrorInfoLocation545 = RuntimeNativeErrorMetadata545.ErrorInfo(code);
         NativeMd5 = BeamChecksumReader.Read(code);
         OriginalBeamSha256 = Convert.ToHexString(SHA256.HashData(owned));
     }
