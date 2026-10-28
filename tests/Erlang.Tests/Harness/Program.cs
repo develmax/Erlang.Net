@@ -6996,6 +6996,19 @@ try
     Test(Erlang.Tests.TrustedGuest507Names.OverrideTest, Erlang.Tests.TrustedGuest507Checks.OpaqueOverride);
     Test(Erlang.Tests.HybridBoundary507Names.Test, Erlang.Tests.HybridBoundary507Checks.MutablePatterns);
     Test(Erlang.Tests.HybridKeyScope507Names.Test, Erlang.Tests.HybridKeyScope507Checks.Parity);
+    Test(Erlang.Tests.WindowsVariadic526Names.Test, Erlang.Tests.WindowsVariadic526Checks.RequiredSlots);
+    Test(Erlang.Tests.BeamOrdinaryBinaryReceive525Names.Test, Erlang.Tests.BeamOrdinaryBinaryReceive525Checks.OriginalWholeImage);
+    Test(Erlang.Tests.DirtyIoConcurrency522Names.HeldTest, Erlang.Tests.DirtyIoConcurrency522Checks.HeldIoLeavesRealControlLane);
+    Test(Erlang.Tests.DirtyIoConcurrency522Names.CloseTest, Erlang.Tests.DirtyIoConcurrency522Checks.CloseJoinsEveryIoWorker);
+    Test(Erlang.Tests.NifPhysicalCustody521Names.ReleaseTest, Erlang.Tests.NifPhysicalCustody521Checks.DeferredPhysicalRelease);
+    Test(
+        Erlang.Tests.NifPhysicalCustody521Names.CleanupTest,
+        Erlang.Tests.NifPhysicalCustody521Checks.CleanupFailureStillReleasesImage
+    );
+    Test(
+        Erlang.Tests.NifPhysicalCustody521Names.RetentionTest,
+        Erlang.Tests.NifPhysicalCustody521Checks.FinalBookkeepingFailureRetainsImage
+    );
     Test(
         Erlang.Tests.DynamicApplyBoundary520Names.SourceHashTest,
         Erlang.Tests.DynamicApplySourceAdmission520Checks.DeclaredLineEndings

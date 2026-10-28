@@ -5,7 +5,7 @@ namespace Erlang;
 
 internal static unsafe class NifNativeEntryFunctions
 {
-    internal static IReadOnlyDictionary<(string Name, int Arity), nint> Read(
+    internal static IReadOnlyDictionary<(string Name, int Arity), NifNativeFunction521> Read(
         NifNativeAbiEntry entry,
         string module,
         ModuleCodeDescriptor descriptor
@@ -28,7 +28,7 @@ internal static unsafe class NifNativeEntryFunctions
             entry.FunctionCount < 0 || entry.FunctionCount > 0 && entry.Functions == 0 ||
             entry.Options != NifNativeAbi.InitializerEntryOptions)
             throw new NotSupportedException(NifNativeDiagnostics.UnsupportedNativeEntry);
-        var functions = new Dictionary<(string Name, int Arity), nint>();
+        var functions = new Dictionary<(string Name, int Arity), NifNativeFunction521>();
         for (int index = 0; index < entry.FunctionCount; index++)
         {
             var function = ((NifNativeAbiFunction*)entry.Functions)[index];
@@ -58,9 +58,15 @@ internal static unsafe class NifNativeEntryFunctions
                     name,
                     function.Arity
                 );
-            if (function.Flags != 0 || function.Function == 0)
+            DirtyNativeKind419 kind = NifNativeFunction521.ReadKind(
+                function.Flags,
+                module,
+                name,
+                function.Arity
+            );
+            if (function.Function == 0)
                 throw new NotSupportedException(NifNativeDiagnostics.UntrustedFunction);
-            if (!functions.TryAdd(key, function.Function))
+            if (!functions.TryAdd(key, new NifNativeFunction521(function.Function, kind)))
                 throw FunctionError(
                     NifNativeLoadReasonKind.DuplicateFunction,
                     NifNativeDiagnostics.UntrustedFunction,

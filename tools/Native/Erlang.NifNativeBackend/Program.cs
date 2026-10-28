@@ -3,6 +3,20 @@ using Erlang.NifNativeBackend;
 
 try
 {
+    if (args.Length != 0 && args[0] == NifDirty521Names.Mode)
+    {
+        await NifDirty521Driver.Run(
+            args[1..],
+            enabled => Task.FromResult(new ProcessRuntime(new ProcessRuntimeOptions
+            {
+                OwnedTermsPilot506 = enabled,
+                DirtyIoSchedulerCount = NifDirty521Names.IoWorkers
+            }))
+        );
+
+        return;
+    }
+
     if (args.Length != 0 && args[0] == NifNativeUnixRawPathNames.Mode)
     {
         await NifNativeUnixRawPathDriver.Run(args[1..]);

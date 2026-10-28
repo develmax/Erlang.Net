@@ -117,6 +117,7 @@ internal static unsafe class NifNativeExportRegistration
         MakeLong = &NifNativeLinuxNumericCallbacks.MakeLong,
         MakeInt64 = &NifNativeLinuxNumericCallbacks.MakeLong,
         MakeUInt64 = &NifNativeLinuxNumericCallbacks.MakeUnsignedLong,
-        GetMapSize = &NifNativeMapSizeCallbacks.Size
+        GetMapSize = &NifNativeMapSizeCallbacks.Size,
+        ThreadType521 = &NifNativeThreadType521Callbacks.Read
     };
 }

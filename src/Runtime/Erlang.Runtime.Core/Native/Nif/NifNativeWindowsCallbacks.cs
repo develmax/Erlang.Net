@@ -16,10 +16,14 @@ internal sealed unsafe class NifNativeWindowsCallbacks : IDisposable
     {
         if (IntPtr.Size != NifNativeAbi.PointerBytes)
             throw new PlatformNotSupportedException(NifNativeDiagnostics.CallbackPlatform);
+        var variadic526 = OperatingSystem.IsWindows() ? NifWindowsVariadic526.EnsureRegistered() : default;
         pointer = (nint)NativeMemory.AllocZeroed((nuint)((NifNativeWindowsCallbackLayout.FunctionCount + NifNativeWindowsCallbackLayout.TailPointers) * IntPtr.Size));
         if (pointer == 0)
             throw new OutOfMemoryException();
         var slots = (nint*)pointer;
+        slots[NifWindowsVariadic526Names.TupleSlot] = variadic526.Tuple;
+        slots[NifWindowsVariadic526Names.ListSlot] = variadic526.List;
+        slots[NifNativeWindowsCallbackLayout.ThreadType521] = (nint)(delegate* unmanaged[Cdecl]<int>)&NifNativeThreadType521Callbacks.Read;
         slots[NifNativeWindowsCallbackLayout.MakeNewMap] = (nint)(delegate* unmanaged[Cdecl]<nint, nuint>)&NifNativeMapCreation501Callbacks.Make;
         slots[NifNativeWindowsCallbackLayout.GetMapValue] = (nint)(delegate* unmanaged[Cdecl]<nint, nuint, nuint, nuint*, int>)&NifNativeMapValue503Callbacks.Get;
         slots[NifNativeWindowsCallbackLayout.MakeMapPut] = (nint)(delegate* unmanaged[Cdecl]<nint, nuint, nuint, nuint, nuint*, int>)&NifNativeMapMutation504Callbacks.Put;

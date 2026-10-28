@@ -1,12 +1,12 @@
 namespace Erlang;
 
-internal sealed unsafe class NifNativeLibraryOwner : IAsyncDisposable
+internal sealed unsafe partial class NifNativeLibraryOwner : IAsyncDisposable
 {
     private readonly object gate = new();
     private readonly ModuleCodeImage image;
     private readonly ProcessContext initializationContext;
     private readonly NifNativeAllocationOwner allocations = new();
-    private readonly Dictionary<(string Name, int Arity), nint> functions = new();
+    private readonly Dictionary<(string Name, int Arity), NifNativeFunction521> functions = new();
     private NifNativeWindowsCallbacks? windowsCallbacks;
     private NifNativeLinuxCapsuleLease? linuxCapsule;
     private NifNativeAbiEntry entry;
@@ -123,14 +123,7 @@ internal sealed unsafe class NifNativeLibraryOwner : IAsyncDisposable
             var bindings = new List<KeyValuePair<(string Name, int Arity), ErlangFunction>>();
             foreach (var pair in functions)
             {
-                nint function = pair.Value;
-                int arity = pair.Key.Arity;
-                bindings.Add(new(pair.Key, (context, arguments) => ValueTask.FromResult(Invoke(
-                    context,
-                    arguments,
-                    function,
-                    arity
-                ))));
+                bindings.Add(new(pair.Key, BindFunction521(pair.Key, pair.Value)));
             }
 
             return bindings.AsReadOnly();
@@ -150,7 +143,9 @@ internal sealed unsafe class NifNativeLibraryOwner : IAsyncDisposable
         int arity
     )
     {
-        // Image dispatch owns the admitted NifImageCall; this gate also joins actual native frames.
+        // The admitted image call now remains pinned through physical dirty settlement.
+        // Do not serialize native bodies: same-owner status/release NIFs must run.
+        nint data;
         lock (gate)
         {
             if (disposed)
@@ -160,26 +155,27 @@ internal sealed unsafe class NifNativeLibraryOwner : IAsyncDisposable
             if (arguments.Count != arity)
                 throw new ErlangException(ErlangErrorReasons.BadArgument);
             context.Cancellation.ThrowIfCancellationRequested();
-            var failure = new NifNativeFailureState();
-            using var scope = new NifNativeCallbackScope(allocations, failure, reallocationEnabled);
-            using var environment = new NifNativeCallEnvironment(
-                context,
-                image,
-                privateData,
-                failure
-            );
-            environment.AttachGuestRoots516(context);
-            using var invocation = scope.BindEnvironment(environment);
-            nuint[] handles = arguments.Select(environment.Add).ToArray();
-            nuint returned;
-            fixed (nuint* values = handles)
-                returned = ((delegate* unmanaged[Cdecl]<nint, int, nuint*, nuint>)function)(environment.Pointer, handles.Length, values);
-            // Pending exception wins even if native code returned an ordinary term.
-            failure.ThrowPending();
-            context.Cancellation.ThrowIfCancellationRequested();
-
-            return environment.ExportResult516(returned);
+            data = privateData;
         }
+        var failure = new NifNativeFailureState();
+        using var scope = new NifNativeCallbackScope(allocations, failure, reallocationEnabled);
+        using var environment = new NifNativeCallEnvironment(
+            context,
+            image,
+            data,
+            failure
+        );
+        environment.AttachGuestRoots516(context);
+        using var invocation = scope.BindEnvironment(environment);
+        nuint[] handles = arguments.Select(environment.Add).ToArray();
+        nuint returned;
+        fixed (nuint* values = handles)
+            returned = ((delegate* unmanaged[Cdecl]<nint, int, nuint*, nuint>)function)(environment.Pointer, handles.Length, values);
+        // Pending exception wins even if native code returned an ordinary term.
+        failure.ThrowPending();
+        context.Cancellation.ThrowIfCancellationRequested();
+
+        return environment.ExportResult516(returned);
     }
 
     public ValueTask DisposeAsync()

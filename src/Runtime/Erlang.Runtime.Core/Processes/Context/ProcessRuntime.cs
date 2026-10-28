@@ -175,6 +175,9 @@ public sealed partial class ProcessRuntime : IAsyncDisposable
     )
     {
         ArgumentNullException.ThrowIfNull(options);
+        ArgumentOutOfRangeException.ThrowIfLessThan(options.DirtyIoSchedulerCount, DirtyNativePoolParameters522.MinimumIoWorkers, nameof(options.DirtyIoSchedulerCount));
+        ArgumentOutOfRangeException.ThrowIfGreaterThan(options.DirtyIoSchedulerCount, DirtyNativePoolParameters522.MaximumIoWorkers, nameof(options.DirtyIoSchedulerCount));
+        dirtyIoSchedulerCount522 = options.DirtyIoSchedulerCount;
         OwnedTermsPilot506 = options.OwnedTermsPilot506;
         NativeMetadataImage527 = options.NativeMetadataImage;
         ArgumentOutOfRangeException.ThrowIfLessThan(options.MaximumAtoms, AtomRuntimeParameters.MinimumCapacity);

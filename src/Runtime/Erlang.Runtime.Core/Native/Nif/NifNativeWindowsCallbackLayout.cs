@@ -2,6 +2,7 @@ namespace Erlang;
 
 internal static class NifNativeWindowsCallbackLayout
 {
+    internal const int ThreadType521 = 139;
     internal const int GetMapSize = 109;
     internal const int MakeNewMap = 110;
     internal const int GetMapValue = 112;

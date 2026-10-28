@@ -27,7 +27,7 @@ internal static unsafe class NifNativeBridgeFixedHostChecks
             "MakeTupleFromArray", "MakeListFromArray", "GetUnsignedLong", "GetDouble",
             "GetUnsignedInt", "GetLong", "GetInt64", "GetUInt64", "MakeUnsignedLong",
             "MakeDouble", "MakeUnsignedInt", "MakeLong", "MakeInt64", "MakeUInt64",
-            "GetMapSize", "MakeReference", "AllocateEnvironment", "FreeEnvironment", "ClearEnvironment", "CopyTerm"
+            "GetMapSize", "MakeReference", "AllocateEnvironment", "FreeEnvironment", "ClearEnvironment", "CopyTerm", "ThreadType521"
         ];
         Require(prefix.Length == NifNativeBridgeFixedHostNames.LegacyPointerCount);
         Require(extension.Length == NifNativeBridgeFixedHostNames.AddedPointerCount);
@@ -39,6 +39,7 @@ internal static unsafe class NifNativeBridgeFixedHostChecks
                 NifNativeBridgeFixedHostNames.MetadataBytes + index * sizeof(nint));
             Require(pointers[index] != 0);
         }
+        Require(table.ThreadType521() == NifNativeScheduling521Names.NormalThread);
         Require((nint)table.GetLong == (nint)table.GetInt64);
         Require((nint)table.GetUnsignedLong == (nint)table.GetUInt64);
         Require((nint)table.MakeLong == (nint)table.MakeInt64);

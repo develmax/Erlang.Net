@@ -67,14 +67,27 @@ internal static class BeamReceiveBinaryPairs
                 pairs.Add(pc);
                 pairs.Add(pc + 1);
             }
-        for (int pc = function.FirstInstructionIndex; pc < function.EndInstructionIndex; pc++)
-        {
-            string name = code.Instructions[pc].Definition.Name;
-            if ((name is BeamBinaryNames.Create or BeamBinaryNames.InitializeWritable) && !matcher.Contains(pc))
-                continue;
-            if (IsBinary(name) && !pairs.Contains(pc))
+        // Only receive-candidate scratch must use the reviewed adjacent pair.
+        // Ordinary binary blocks are validated by the exceptional role worklist;
+        // their contexts/positions must be dead before another receive begins.
+        foreach (int pc in matcher)
+            if (IsBinary(code.Instructions[pc].Definition.Name) && !pairs.Contains(pc))
                 throw new NotSupportedException(BeamOnLoadDiagnostics.Frame);
-        }
+    }
+
+    internal static bool HasOrdinaryScratch(
+        BeamLinkedCode code,
+        BeamLinkedFunction function,
+        IReadOnlyDictionary<int, BeamReceivePlan> receives
+    )
+    {
+        var matcher = new HashSet<int>(receives.Values.SelectMany(plan => plan.MatcherInstructions));
+        for (int pc = function.FirstInstructionIndex; pc < function.EndInstructionIndex; pc++)
+            if (!matcher.Contains(pc) && IsBinary(code.Instructions[pc].Definition.Name)
+                && code.Instructions[pc].Definition.Name != BeamBinaryNames.Create)
+                return true;
+
+        return false;
     }
 
     internal static bool IsBinary(string name)
