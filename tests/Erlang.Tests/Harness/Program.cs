@@ -119,6 +119,23 @@ if (args is [Erlang.Tests.OriginalInteger559Names.ChildSwitch, var integerReposi
     return 0;
 }
 
+if (args is [Erlang.Tests.OriginalReference563Names.ChildSwitch, var referenceRepository,
+    var referenceAdmission, var referenceAdmissionSha, var referenceMetadata, var referenceMetadataSha,
+    var referenceOwned, var referenceOutput])
+{
+    await Erlang.Tests.OriginalReference563Replay.Run(
+        referenceRepository,
+        referenceAdmission,
+        referenceAdmissionSha,
+        referenceMetadata,
+        referenceMetadataSha,
+        bool.Parse(referenceOwned),
+        referenceOutput
+    );
+
+    return 0;
+}
+
 Erlang.Tests.TestRunSelection selection;
 try
 {
@@ -7102,6 +7119,28 @@ try
         Erlang.Tests.BoxedInteger559TestNames.TransferCase,
         Erlang.Tests.BoxedInteger559Checks.ImmediateChildrenImportAndAdoption
     );
+    Test(Erlang.Tests.Allocation567TestNames.ScalarCase, Erlang.Tests.Allocation567Checks.ScalarGenerationsAndReclaim);
+    Test(Erlang.Tests.Allocation567TestNames.MapCase, Erlang.Tests.Allocation567Checks.SharedMapCustody);
+    Test(Erlang.Tests.Allocation567TestNames.RollbackCase, Erlang.Tests.Allocation567Checks.FailedPublicationRollback);
+    Test(Erlang.Tests.Allocation567TestNames.RetirementCase, Erlang.Tests.Allocation567Checks.IsolationAndRetirement);
+    Test(Erlang.Tests.OrdinaryReference562TestNames.PhysicalCase, Erlang.Tests.OrdinaryReference562Checks.PhysicalAndRetirement);
+    Test(
+        Erlang.Tests.OrdinaryReference562TestNames.ImportCase,
+        Erlang.Tests.OrdinaryReference562Checks.AdoptionImportAndRollback
+    );
+    Test(
+        Erlang.Tests.OrdinaryReference562TestNames.ProvenanceCase,
+        Erlang.Tests.OrdinaryReference562Checks.ProvenanceIdentityAndForeign
+    );
+    Test(
+        Erlang.Tests.BeamLoaderMapKeys565Names.CustodyCase,
+        Erlang.Tests.BeamLoaderMapKeys565Checks.HiddenKeyCustodyRefusals
+    );
+    Test(
+        Erlang.Tests.BeamLoaderMapKeys565Names.PredicateCase,
+        Erlang.Tests.BeamLoaderMapKeys565Checks.SyntacticPredicateAndImages
+    );
+    Test(Erlang.Tests.BeamLoaderMapKeys565Names.PhysicalCase, Erlang.Tests.BeamLoaderMapKeys565Checks.PhysicalCustodyAndExport);
     Test(Erlang.Tests.BoxedInteger559TestNames.PhysicalCase, Erlang.Tests.BoxedInteger559Checks.PayloadAndCollection);
     Test(Erlang.Tests.BoxedInteger559TestNames.AdoptionCase, Erlang.Tests.BoxedInteger559Checks.ImmediateAliasLiteralAndLimits);
     Test(Erlang.Tests.BoxedInteger559TestNames.LifetimeCase, Erlang.Tests.BoxedInteger559Checks.ForeignAndHeldRetirement);

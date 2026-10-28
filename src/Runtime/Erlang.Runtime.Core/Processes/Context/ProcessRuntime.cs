@@ -1193,7 +1193,7 @@ public sealed partial class ProcessRuntime : IAsyncDisposable
             domain = referenceDomain;
         }
 
-        return new ReferenceTerm(
+        return ReferenceTerm.CreateOrdinaryLocal562(
             LocalIdentity,
             [
             (uint)(value & ReferenceIdentityLayout.LocalFirstWordMask),

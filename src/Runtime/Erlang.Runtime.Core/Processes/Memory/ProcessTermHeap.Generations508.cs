@@ -7,6 +7,7 @@ internal sealed partial class ProcessTermHeap506
     private ushort minorCollections508;
     private long completedCollections508;
     private long reclaimedPayloadWords508;
+    private long reclaimedAllocationWords567;
 
     internal ProcessTermGenerationSnapshot508 GenerationSnapshot508
     {
@@ -75,8 +76,10 @@ internal sealed partial class ProcessTermHeap506
             long[] dead = blocks.Keys.Where(id => !marked.Contains(id)
                 && (major || !oldBlocks508.Contains(id))).ToArray();
             long reclaimed = dead.Sum(id => (long)blocks[id].Count);
+            long reclaimedAllocation = dead.Sum(id => (long)blocks[id].AllocationWords526);
             long completed = checked(completedCollections508 + 1);
             long totalReclaimed = checked(reclaimedPayloadWords508 + reclaimed);
+            long totalReclaimedAllocation = checked(reclaimedAllocationWords567 + reclaimedAllocation);
             ushort nextMinor = major ? (ushort)0 : checked((ushort)(minorCollections508 + 1));
             // All traversal/validation and checked scalar calculations complete
             // before cells are released or collection state advances.
@@ -98,13 +101,17 @@ internal sealed partial class ProcessTermHeap506
             minorCollections508 = nextMinor;
             completedCollections508 = completed;
             reclaimedPayloadWords508 = totalReclaimed;
+            reclaimedAllocationWords567 = totalReclaimedAllocation;
 
             return new(
                 major,
                 reclaimed,
                 completed,
                 nextMinor
-            );
+            )
+            {
+                ReclaimedAllocationWords567 = reclaimedAllocation
+            };
         }
     }
 }

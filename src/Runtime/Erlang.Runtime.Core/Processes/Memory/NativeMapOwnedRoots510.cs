@@ -6,8 +6,14 @@ internal static class NativeMapOwnedRoots510
 {
     internal static Term[] Children(Term value)
     {
-        if (value is not MapTerm map || !NativeMapMaterialization505.TryRead(map, null, out var layout))
+        if (value is not MapTerm map)
             return new DebugDirtyCopyFrame424(value).Children;
+        if (!NativeMapMaterialization505.TryRead(map, null, out var layout))
+        {
+            Term[] children = new DebugDirtyCopyFrame424(value).Children;
+
+            return map.FlatKeys426 is { } flatKeys ? [.. children, flatKeys] : children;
+        }
         var roots = new List<Term>();
         foreach (var pair in map.Entries)
         {

@@ -123,6 +123,7 @@ internal static partial class BeamRegisterInterpreter
         );
         using var flow = lease.Attach(execution.Owner);
         BeamRegisterValidation.Validate(code, function);
+        context.Runtime.RegisterLoaderMapKeys565(code);
         await using var wordExecution504 = new ProcessWordExecution504(context.OwnedWords504);
         var registers = new BeamRegisterState(wordExecution504, context);
         // Admission/import can fail before the ordinary interpreter try/finally.
@@ -461,7 +462,18 @@ internal static partial class BeamRegisterInterpreter
                                 entries.Add(new(key, Read(code, registers, operands[pair + 1])));
                             }
                             if (!missingExact)
-                                registers.Write(operands[2], new MapTerm(entries));
+                            {
+                                var constructedMap = new MapTerm(entries);
+                                if (instruction.Definition.Name == BeamGeneralOpcodeNames.MapAssociate
+                                    && code.LoaderMapKeys565.TryGetValue(instruction.Offset, out TupleTerm? literalKeys))
+                                {
+                                    MapTerm bindings = constructedMap;
+                                    constructedMap = new MapTerm(literalKeys.Items.Select(key =>
+                                        new KeyValuePair<Term, Term>(key, bindings.Get(key))), literalKeys);
+                                }
+
+                                registers.Write(operands[2], constructedMap);
+                            }
                             break;
                         case BeamGeneralOpcodeNames.BinaryBif:
                             BeamExternalImport binaryImport = BeamRegisterValidation.BinaryImport(code, (int)operands[1].Value);

@@ -32,6 +32,7 @@ public sealed partial class ModuleRegistry
                 BeamRegisterValidation.Validate(code, function);
 
         owningRuntime?.MarkPreparedLiterals425(code.Structure.Literals);
+        owningRuntime?.RegisterLoaderMapKeys565(code);
 
         return new PreparedBeamImage(
             this,

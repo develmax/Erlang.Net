@@ -10,15 +10,44 @@ PIN = 'ad05823719d77c8faee87348ea39513d4e2f99c5'
 TOOL = 'tools/Runtime/Erlang.OwnedGuest506Observations'
 WORKFLOWS = ['.github/workflows/owned-guest506-original.yml', '.github/workflows/validate.yml']
 DEPENDENCIES = [
-    'src/Runtime/Erlang.Runtime.Core/Processes/Memory/BoxedInteger559Names.cs',
+    'src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamLinkedCode.LoaderMapKeys565.cs',
+    'src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamLinkedCode.cs',
+    'src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamLoaderMapKeys565.cs',
+    'src/Runtime/Erlang.Runtime.Core/Modules/ModuleRegistry.PreparedBeam.cs',
+    'src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.LoaderMapKeys565.cs',
+    'src/Runtime/Erlang.Runtime.Core/Processes/Memory/NativeMapOwnedRoots510.cs',
+    'src/Runtime/Erlang.Runtime.Core/Processes/Memory/OwnedMapRow517.cs',
+    'src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessTermAllocationSnapshot567.cs',
+    'src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessTermCollection508.cs',
+    'src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessTermHeap.Allocation567.cs',
+    'src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessTermHeap.Generations508.cs',
+    'src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessTermHeap.LoaderMapKeys565.cs',
+    'src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessTermHeap.MapPayload517.cs',
+    'tests/Erlang.Tests/Runtime/Memory/Allocation567Checks.cs',
+    'tests/Erlang.Tests/Runtime/Memory/Allocation567TestNames.cs',
+    'tests/Erlang.Tests/Runtime/Memory/BeamLoaderMapKeys565Checks.cs',
+    'tests/Erlang.Tests/Runtime/Memory/BeamLoaderMapKeys565Names.cs',
+    'tests/Erlang.Tests/Runtime/Memory/OriginalLoaderMap528Names.cs',
+    'src/Runtime/Erlang.Terms/Storage/IOwnedReferenceStorage562.cs',
+    'src/Runtime/Erlang.Runtime.Core/Processes/Memory/OrdinaryReference562Names.cs',
+    'src/Runtime/Erlang.Terms/Identifiers/ReferenceTerm.cs',
+    'src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.cs',
+    'src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessTermHeap.Reference562.cs',
+    'src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessTermSequence506.cs',
+    'src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessTermHeap506.cs',
     'src/Runtime/Erlang.Runtime.Core/Processes/Memory/OwnedTermTransfer506.cs',
     'src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessTermFrame.Guest507.cs',
+    'src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessTermHeap.Guest507.cs',
     'src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessTermFrame.Source511.cs',
     'src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessTermHeap.DebugWords526.cs',
-    'src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessTermHeap.Guest507.cs',
+    'tests/Erlang.Tests/Runtime/Memory/OrdinaryReference562Checks.cs',
+    'tests/Erlang.Tests/Runtime/Memory/OrdinaryReference562TestNames.cs',
+    'tests/Erlang.Tests/Runtime/Memory/OriginalReference563Admission.cs',
+    'tests/Erlang.Tests/Runtime/Memory/OriginalReference563AdmissionReader.cs',
+    'tests/Erlang.Tests/Runtime/Memory/OriginalReference563Names.cs',
+    'tests/Erlang.Tests/Runtime/Memory/OriginalReference563Replay.cs',
+    'src/Runtime/Erlang.Runtime.Core/Processes/Memory/BoxedInteger559Names.cs',
     'src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessTermHeap.Integer559.cs',
-    'src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessTermHeap506.cs',
-    'src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessTermSequence506.cs',
     'src/Runtime/Erlang.Terms/Storage/IOwnedIntegerStorage559.cs',
     'src/Runtime/Erlang.Terms/Values/Integer.cs',
     'tests/Erlang.Tests/Runtime/Memory/BoxedInteger559Checks.cs',
@@ -123,7 +152,7 @@ def main():
         if not args.replace_plan_sha256 or actual != args.replace_plan_sha256.upper():
             raise RuntimeError('Replacing a plan requires its current SHA; immutable history belongs outside the tool')
     rows = []
-    allowed_root = {'.gitattributes', 'collect.py', 'seal.py', 'jobs.json', 'README.md', 'adopt-original.py', 'adopt-float556.py', 'adopt-integer559.py', 'capture-float556.py', 'capture-integer559.py', 'admitted_receipts.py', 'adopt-spawn541.py', 'capture-spawn541.py'}
+    allowed_root = {'.gitattributes', 'collect.py', 'seal.py', 'jobs.json', 'README.md', 'adopt-original.py', 'adopt-float556.py', 'adopt-integer559.py', 'adopt-reference563.py', 'capture-float556.py', 'capture-integer559.py', 'capture-reference563.py', 'admitted_receipts.py', 'adopt-spawn541.py', 'capture-spawn541.py'}
     for path in sorted(tool.rglob('*')):
         if not path.is_file() or path == plan_path:
             continue

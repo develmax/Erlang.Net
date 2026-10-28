@@ -1,0 +1,421 @@
+{
+  "ObservedHead": "c2a4ff547d14ced76dec802bcfac41d14fdd6225",
+  "ReadOnly": true,
+  "Counts": {
+    "Known": 24,
+    "Resource": 19,
+    "Lifecycle": 4,
+    "Nif": 1
+  },
+  "Groups": {
+    "RESOURCE19": {
+      "Mfas": [
+        "erlang:process_info/2",
+        "erlang:process_info/1",
+        "erlang:spawn_opt/2",
+        "erlang:spawn_opt/3",
+        "erlang:spawn_opt/4",
+        "erlang:spawn_opt/5",
+        "erlang:spawn_request/2",
+        "erlang:spawn_request/3",
+        "erlang:spawn_request/4",
+        "erlang:spawn_request/5",
+        "erlang:system_flag/2",
+        "erlang:statistics/1",
+        "proc_lib:spawn_opt/3",
+        "proc_lib:spawn_opt/5",
+        "proc_lib:spawn_opt/2",
+        "proc_lib:spawn_opt/4",
+        "proc_lib:start/5",
+        "proc_lib:start_link/5",
+        "proc_lib:start_monitor/5"
+      ],
+      "ActualCause": "Complete default-on process-owned allocation/root/GC/policy provider is absent; a private tuple/list/map/HAMT/float/bignum backend is implemented, not an ERTS-wide resource provider.",
+      "ImplementTogether": [
+        "Actual allocation/header/raw-word accounting with separately named private metrics; retain pointer-payload counters.",
+        "Complete all guest allocation domains and roots, including source/BEAM continuation stacks and escape boundaries; admit ordinary references only with exact factory/source provenance.",
+        "One immutable per-VM defaults snapshot + child policy, size-class min heap, binary virtual heap, max size/kill/error_logger/include_shared_binaries, fullsweep propagation.",
+        "Transactional admission/allocation safe points with complete live graph roots before GC or quota decisions, rollback on refusal and kill only the logical owning VM/process per policy.",
+        "Remote/asynchronous GC executes on target actor safe points, never under runtime gate; aggregate actual per-VM collection events.",
+        "Expose process_info four missing fields and flags/statistics only after truthful domains and defaults; preserve list order/duplicates/error metadata."
+      ],
+      "StillMissing": [
+        "Refs/PID/port/external-identity and resource/magic-reference boxed ownership (ordinary-ref562 packet is not yet this clean main).",
+        "Function closure/export descriptors and environment ownership; literal vs process heap classification.",
+        "Binary heap wrappers/offheap virtual-heap age/pressure policy distinct from existing genuine payload leases.",
+        "Source/BEAM continuation/try/return/hibernate stack and all producer ingress, message fragments, ETS/persistent/host/native cross-owner boundaries.",
+        "Automatic collection on allocation pressure and actual heap capacity growth/shrink policy, not just explicit private self-GC."
+      ]
+    },
+    "LIFECYCLE4": {
+      "Mfas": [
+        "proc_lib:init_p/3",
+        "proc_lib:init_p/5",
+        "proc_lib:wake_up/3",
+        "proc_lib:hibernate/3"
+      ],
+      "ActualCause": "Original proc_lib reports depend on missing physical process_info and native hibernate stack/heap compaction; distributed reports also depend on real rpc/logger path.",
+      "ImplementTogether": [
+        "Run original proc_lib module as preferred library backend; preserve legacy C# backend limits independently.",
+        "Attach genuine root custody to hibernate transfer arguments before actor suspension, then stack teardown and owned GC/shrink at actor safe point.",
+        "Use complete provider for own and neighbour heap/stack/reductions fields; retain whole report/log/error stacks and actual neighbour liveness.",
+        "Exercise init_p/3,5, wake_up/3, hibernate/3 together with original source workers and explicit sleep/wake/cancel barriers."
+      ],
+      "BlockedBy": [
+        "RESOURCE19 complete public physical provider",
+        "Real connected distributed report/logger dependencies"
+      ]
+    },
+    "NIF1": {
+      "Mfas": [
+        "erlang:load_nif/2"
+      ],
+      "ActualCause": "A working ordinary/reviewed ABI subset is not full load_nif/2 callback/dependency/lifecycle compatibility.",
+      "ImplementTogether": [
+        "Compose and genuinely execute pending native resource type/payload/DSO ownership, takeover vs fresh load/purge and destructor host-scope corrections.",
+        "Close callback families required by real selected stock NIFs: resources, locks/conditions, system_info/init support; preserve actual supported-platform gates.",
+        "Test original load errors and full stacks at current selected metadata image, direct/indirect callers, old/current/reload/upgrade generations, loader dependency search and cleanup.",
+        "Bind all final native sources/partial families in all affected source plans before any expensive regression."
+      ],
+      "StillMissing": [
+        "UpgradeUnsupported remains an explicit image admission failure in clean main.",
+        "Windows callback table is zero-initialized then assigns only reviewed callbacks; absent families are not safe to invoke.",
+        "Foreign thread, unload/takeover/callback pins and logical-vs-physical retirement must be demonstrated by native fixture execution, not managed object tests."
+      ]
+    }
+  },
+  "Entries": [
+    {
+      "Mfa": "erlang:process_info/2",
+      "StatusRetained": "Known differences",
+      "CurrentScope": "Four physical process_info keys remain absent from the supported-key parser and default logical list. No manufactured ERTS heap/stack figures are introduced.",
+      "SharedCluster": "RESOURCE19",
+      "NextAcceptanceGate": "Whole original contract including stacks, actual own-state resource/lifecycle witnesses and supported backend/profile boundaries; no status promotion from finite controls."
+    },
+    {
+      "Mfa": "erlang:process_info/1",
+      "StatusRetained": "Known differences",
+      "CurrentScope": "Four physical process_info keys remain absent from the supported-key parser and default logical list. No manufactured ERTS heap/stack figures are introduced.",
+      "SharedCluster": "RESOURCE19",
+      "NextAcceptanceGate": "Whole original contract including stacks, actual own-state resource/lifecycle witnesses and supported backend/profile boundaries; no status promotion from finite controls."
+    },
+    {
+      "Mfa": "erlang:spawn_opt/2",
+      "StatusRetained": "Known differences",
+      "CurrentScope": "Part520: malformed native resource options and complete error stacks match the selected original OTP named-target suite in both runtime profiles, using original proc_lib BEAM above the native runtime. Valid heap policies, actual VM defaults and collector/resource parity remain incomplete; this finite error partition does not close the whole API.",
+      "SharedCluster": "RESOURCE19",
+      "NextAcceptanceGate": "Whole original contract including stacks, actual own-state resource/lifecycle witnesses and supported backend/profile boundaries; no status promotion from finite controls."
+    },
+    {
+      "Mfa": "erlang:spawn_opt/3",
+      "StatusRetained": "Known differences",
+      "CurrentScope": "Part520: malformed native resource options and complete error stacks match the selected original OTP named-target suite in both runtime profiles, using original proc_lib BEAM above the native runtime. Valid heap policies, actual VM defaults and collector/resource parity remain incomplete; this finite error partition does not close the whole API.",
+      "SharedCluster": "RESOURCE19",
+      "NextAcceptanceGate": "Whole original contract including stacks, actual own-state resource/lifecycle witnesses and supported backend/profile boundaries; no status promotion from finite controls."
+    },
+    {
+      "Mfa": "erlang:spawn_opt/4",
+      "StatusRetained": "Known differences",
+      "CurrentScope": "Part520: malformed native resource options and complete error stacks match the selected original OTP named-target suite in both runtime profiles, using original proc_lib BEAM above the native runtime. Valid heap policies, actual VM defaults and collector/resource parity remain incomplete; this finite error partition does not close the whole API.",
+      "SharedCluster": "RESOURCE19",
+      "NextAcceptanceGate": "Whole original contract including stacks, actual own-state resource/lifecycle witnesses and supported backend/profile boundaries; no status promotion from finite controls."
+    },
+    {
+      "Mfa": "erlang:spawn_opt/5",
+      "StatusRetained": "Known differences",
+      "CurrentScope": "Part520: malformed native resource options and complete error stacks match the selected original OTP named-target suite in both runtime profiles, using original proc_lib BEAM above the native runtime. Valid heap policies, actual VM defaults and collector/resource parity remain incomplete; this finite error partition does not close the whole API.",
+      "SharedCluster": "RESOURCE19",
+      "NextAcceptanceGate": "Whole original contract including stacks, actual own-state resource/lifecycle witnesses and supported backend/profile boundaries; no status promotion from finite controls."
+    },
+    {
+      "Mfa": "erlang:spawn_request/2",
+      "StatusRetained": "Known differences",
+      "CurrentScope": "Part520: malformed native resource options and complete error stacks match the selected original OTP named-target suite in both runtime profiles, using original proc_lib BEAM above the native runtime. Valid heap policies, actual VM defaults and collector/resource parity remain incomplete; this finite error partition does not close the whole API.",
+      "SharedCluster": "RESOURCE19",
+      "NextAcceptanceGate": "Whole original contract including stacks, actual own-state resource/lifecycle witnesses and supported backend/profile boundaries; no status promotion from finite controls."
+    },
+    {
+      "Mfa": "erlang:spawn_request/3",
+      "StatusRetained": "Known differences",
+      "CurrentScope": "Part520: malformed native resource options and complete error stacks match the selected original OTP named-target suite in both runtime profiles, using original proc_lib BEAM above the native runtime. Valid heap policies, actual VM defaults and collector/resource parity remain incomplete; this finite error partition does not close the whole API.",
+      "SharedCluster": "RESOURCE19",
+      "NextAcceptanceGate": "Whole original contract including stacks, actual own-state resource/lifecycle witnesses and supported backend/profile boundaries; no status promotion from finite controls."
+    },
+    {
+      "Mfa": "erlang:spawn_request/4",
+      "StatusRetained": "Known differences",
+      "CurrentScope": "Part520: malformed native resource options and complete error stacks match the selected original OTP named-target suite in both runtime profiles, using original proc_lib BEAM above the native runtime. Valid heap policies, actual VM defaults and collector/resource parity remain incomplete; this finite error partition does not close the whole API.",
+      "SharedCluster": "RESOURCE19",
+      "NextAcceptanceGate": "Whole original contract including stacks, actual own-state resource/lifecycle witnesses and supported backend/profile boundaries; no status promotion from finite controls."
+    },
+    {
+      "Mfa": "erlang:spawn_request/5",
+      "StatusRetained": "Known differences",
+      "CurrentScope": "Part520: malformed native resource options and complete error stacks match the selected original OTP named-target suite in both runtime profiles, using original proc_lib BEAM above the native runtime. Valid heap policies, actual VM defaults and collector/resource parity remain incomplete; this finite error partition does not close the whole API.",
+      "SharedCluster": "RESOURCE19",
+      "NextAcceptanceGate": "Whole original contract including stacks, actual own-state resource/lifecycle witnesses and supported backend/profile boundaries; no status promotion from finite controls."
+    },
+    {
+      "Mfa": "erlang:system_flag/2",
+      "StatusRetained": "Known differences",
+      "CurrentScope": "system_flag(fullsweep_after,Value) is implemented, including native-small validation and system clamp. min_heap_size and other unimplemented system controls remain contract gaps.",
+      "SharedCluster": "RESOURCE19",
+      "NextAcceptanceGate": "Whole original contract including stacks, actual own-state resource/lifecycle witnesses and supported backend/profile boundaries; no status promotion from finite controls."
+    },
+    {
+      "Mfa": "erlang:statistics/1",
+      "StatusRetained": "Known differences",
+      "CurrentScope": "statistics(garbage_collection) is implemented using actual CLR samples. Old unsupported-key wording is obsolete; the estimate is not ERTS per-process/native-word accounting and does not establish whole statistics compatibility.",
+      "SharedCluster": "RESOURCE19",
+      "NextAcceptanceGate": "Whole original contract including stacks, actual own-state resource/lifecycle witnesses and supported backend/profile boundaries; no status promotion from finite controls."
+    },
+    {
+      "Mfa": "erlang:load_nif/2",
+      "StatusRetained": "Known differences",
+      "CurrentScope": "Ordinary loader and reviewed native routes exist. Complete ordinary/indirect calls, pathname/platform/ABI and callback dependency closure remain unclosed; no finite fixture upgrades the whole API.",
+      "SharedCluster": "NIF1",
+      "NextAcceptanceGate": "Whole original contract including stacks, actual own-state resource/lifecycle witnesses and supported backend/profile boundaries; no status promotion from finite controls."
+    },
+    {
+      "Mfa": "proc_lib:spawn_opt/3",
+      "StatusRetained": "Known differences",
+      "CurrentScope": "Part520: original proc_lib BEAM above our native runtime matches the selected named-target malformed-option cases and complete stacks in both profiles. The legacy C# proc_lib backend still differs in frame metadata. Valid heap policies, actual VM defaults and collector/resource parity remain incomplete; the whole API remains a known difference.",
+      "SharedCluster": "RESOURCE19",
+      "NextAcceptanceGate": "Whole original contract including stacks, actual own-state resource/lifecycle witnesses and supported backend/profile boundaries; no status promotion from finite controls."
+    },
+    {
+      "Mfa": "proc_lib:spawn_opt/5",
+      "StatusRetained": "Known differences",
+      "CurrentScope": "Part520: original proc_lib BEAM above our native runtime matches the selected named-target malformed-option cases and complete stacks in both profiles. The legacy C# proc_lib backend still differs in frame metadata. Valid heap policies, actual VM defaults and collector/resource parity remain incomplete; the whole API remains a known difference.",
+      "SharedCluster": "RESOURCE19",
+      "NextAcceptanceGate": "Whole original contract including stacks, actual own-state resource/lifecycle witnesses and supported backend/profile boundaries; no status promotion from finite controls."
+    },
+    {
+      "Mfa": "proc_lib:spawn_opt/2",
+      "StatusRetained": "Known differences",
+      "CurrentScope": "Part520: original proc_lib BEAM above our native runtime matches the selected named-target malformed-option cases and complete stacks in both profiles. The legacy C# proc_lib backend still differs in frame metadata. Valid heap policies, actual VM defaults and collector/resource parity remain incomplete; the whole API remains a known difference.",
+      "SharedCluster": "RESOURCE19",
+      "NextAcceptanceGate": "Whole original contract including stacks, actual own-state resource/lifecycle witnesses and supported backend/profile boundaries; no status promotion from finite controls."
+    },
+    {
+      "Mfa": "proc_lib:spawn_opt/4",
+      "StatusRetained": "Known differences",
+      "CurrentScope": "Part520: original proc_lib BEAM above our native runtime matches the selected named-target malformed-option cases and complete stacks in both profiles. The legacy C# proc_lib backend still differs in frame metadata. Valid heap policies, actual VM defaults and collector/resource parity remain incomplete; the whole API remains a known difference.",
+      "SharedCluster": "RESOURCE19",
+      "NextAcceptanceGate": "Whole original contract including stacks, actual own-state resource/lifecycle witnesses and supported backend/profile boundaries; no status promotion from finite controls."
+    },
+    {
+      "Mfa": "proc_lib:start/5",
+      "StatusRetained": "Known differences",
+      "CurrentScope": "Part520: original proc_lib BEAM above our native runtime matches the selected named-target malformed-option cases and complete stacks in both profiles. The legacy C# proc_lib backend still differs in frame metadata. Valid heap policies, actual VM defaults and collector/resource parity remain incomplete; the whole API remains a known difference.",
+      "SharedCluster": "RESOURCE19",
+      "NextAcceptanceGate": "Whole original contract including stacks, actual own-state resource/lifecycle witnesses and supported backend/profile boundaries; no status promotion from finite controls."
+    },
+    {
+      "Mfa": "proc_lib:start_link/5",
+      "StatusRetained": "Known differences",
+      "CurrentScope": "Part520: original proc_lib BEAM above our native runtime matches the selected named-target malformed-option cases and complete stacks in both profiles. The legacy C# proc_lib backend still differs in frame metadata. Valid heap policies, actual VM defaults and collector/resource parity remain incomplete; the whole API remains a known difference.",
+      "SharedCluster": "RESOURCE19",
+      "NextAcceptanceGate": "Whole original contract including stacks, actual own-state resource/lifecycle witnesses and supported backend/profile boundaries; no status promotion from finite controls."
+    },
+    {
+      "Mfa": "proc_lib:start_monitor/5",
+      "StatusRetained": "Known differences",
+      "CurrentScope": "Part520: original proc_lib BEAM above our native runtime matches the selected named-target malformed-option cases and complete stacks in both profiles. The legacy C# proc_lib backend still differs in frame metadata. Valid heap policies, actual VM defaults and collector/resource parity remain incomplete; the whole API remains a known difference.",
+      "SharedCluster": "RESOURCE19",
+      "NextAcceptanceGate": "Whole original contract including stacks, actual own-state resource/lifecycle witnesses and supported backend/profile boundaries; no status promotion from finite controls."
+    },
+    {
+      "Mfa": "proc_lib:init_p/3",
+      "StatusRetained": "Known differences",
+      "CurrentScope": "Missing physical process_info fields still flow into crash reports. Complete distributed report/logger machinery and hibernate physical behavior remain separate from passing local lifecycle witnesses.",
+      "SharedCluster": "LIFECYCLE4",
+      "NextAcceptanceGate": "Whole original contract including stacks, actual own-state resource/lifecycle witnesses and supported backend/profile boundaries; no status promotion from finite controls."
+    },
+    {
+      "Mfa": "proc_lib:init_p/5",
+      "StatusRetained": "Known differences",
+      "CurrentScope": "Missing physical process_info fields still flow into crash reports. Complete distributed report/logger machinery and hibernate physical behavior remain separate from passing local lifecycle witnesses.",
+      "SharedCluster": "LIFECYCLE4",
+      "NextAcceptanceGate": "Whole original contract including stacks, actual own-state resource/lifecycle witnesses and supported backend/profile boundaries; no status promotion from finite controls."
+    },
+    {
+      "Mfa": "proc_lib:wake_up/3",
+      "StatusRetained": "Known differences",
+      "CurrentScope": "Missing physical process_info fields still flow into crash reports. Complete distributed report/logger machinery and hibernate physical behavior remain separate from passing local lifecycle witnesses.",
+      "SharedCluster": "LIFECYCLE4",
+      "NextAcceptanceGate": "Whole original contract including stacks, actual own-state resource/lifecycle witnesses and supported backend/profile boundaries; no status promotion from finite controls."
+    },
+    {
+      "Mfa": "proc_lib:hibernate/3",
+      "StatusRetained": "Known differences",
+      "CurrentScope": "Missing physical process_info fields still flow into crash reports. Complete distributed report/logger machinery and hibernate physical behavior remain separate from passing local lifecycle witnesses.",
+      "SharedCluster": "LIFECYCLE4",
+      "NextAcceptanceGate": "Whole original contract including stacks, actual own-state resource/lifecycle witnesses and supported backend/profile boundaries; no status promotion from finite controls."
+    }
+  ],
+  "SourcePreimages": [
+    {
+      "Path": "docs/mfa-compatibility.json",
+      "Sha256": "DEE169301AF705698A6CDC604C543B2E5E84A6A967C8BA61650FF36F0FC213FE",
+      "Bytes": 1694606
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessTermHeap.Generations508.cs",
+      "Sha256": "0A7F62DFE406B96D815AF2DD9551F907A800935792BC7A8B98B9DF2F9E2B7507",
+      "Bytes": 4403
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessTermHeap506.cs",
+      "Sha256": "4C667A2C4D5EC76147E992E4F0681A0071A5C55D6B23DB0D37D037DC9CBE4C06",
+      "Bytes": 10490
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessTermSequence506.cs",
+      "Sha256": "B0D6BFCEE923B5D70F46192C6C2B6ACE70A6732DAF87C38634F89B3CFE403196",
+      "Bytes": 1261
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessTermHeapSnapshot506.cs",
+      "Sha256": "97013557BB122E7FD05DD61F8C2CCC927886DE41C0DDC9A37C406B29A32601AF",
+      "Bytes": 168
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessTermGenerationSnapshot508.cs",
+      "Sha256": "F4D8BAACDBF1E512F143D8E3F0FAC46AA123D681903468274F5E06ABC86BAD8E",
+      "Bytes": 319
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessTermCollection508.cs",
+      "Sha256": "41C005FFE1764F5DEE5A6289E55341881828EC2A9009623EC7B3107ECF14AC2A",
+      "Bytes": 197
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessTermHeap.Float556.cs",
+      "Sha256": "5212BE15594721F4B17C7CCB8779E44A334D9D6FC1DAA29D584AE16EC899C01B",
+      "Bytes": 2007
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessTermHeap.Integer559.cs",
+      "Sha256": "7523EBBDDA8B9B3FC31807F250169D56D1F31C4BF1E7DBF39AB0C0B3E39406AC",
+      "Bytes": 4033
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessTermHeap.Guest507.cs",
+      "Sha256": "BEE6CBEBCAA94AC8FCB613F2B83A979C97E2D69404C148678B52C2F0DBF228FB",
+      "Bytes": 3268
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessTermHeap.DebugWords526.cs",
+      "Sha256": "CDF39032F23C39194BC814F5F1BDBF83A7D401BBE8E4BA11FDA5566B3DCAA294",
+      "Bytes": 4794
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessBinaryRegistry512.cs",
+      "Sha256": "F80012B7E9BE0841ADA6B6B6A93D5308A1C1AE9594ED244E9376F3E0533997DD",
+      "Bytes": 4361
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/Policy/ProcessResourcePolicyParser508.cs",
+      "Sha256": "B23187DEE60033F5788C82C7DD2C11E1EDA5DAF529E440E0AC69BD2EA6AF3C31",
+      "Bytes": 1812
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/Policy/RuntimeResourceDefaults508.cs",
+      "Sha256": "CF36005567A8CE1C34383E6C7142C82D10B88942534B1429995107940F0FA6A5",
+      "Bytes": 1582
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/SpawnValidation/ProcessSpawnResourceOptions540.cs",
+      "Sha256": "D66A37094F748BF28F043BCC9489398D68830D5CE0906AAD0CEE8B7500CB87FB",
+      "Bytes": 3840
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/ProcessSpawnOptions.cs",
+      "Sha256": "8CA1AA54EC19701BC44B33ACB2CA0BD48249C18215FDF23C97B7AABFB18A6B12",
+      "Bytes": 7768
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/ProcessSpawnRequestOptions.cs",
+      "Sha256": "5423A083050CDB99DEDAB6B979003070582C6F5282CF227CEA94C2DB0460FA65",
+      "Bytes": 3752
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Internal/InternalSpawnRequestNative429.cs",
+      "Sha256": "B235E796EF99B183660C687518449D9E28119AEDD6BC2FD5C10B4EE86D60A43A",
+      "Bytes": 3768
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessContext.OwnedCollection508.cs",
+      "Sha256": "624585D1B7FAF6172B1A3700CD0312B1BD96BA9C5F69917B384A4317DD6F5AC1",
+      "Bytes": 600
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.GarbageCollection.cs",
+      "Sha256": "04B9EC5D240C39D02700A1C15E9C17711D535A97BB3C85460C4DD4D67DC0ED10",
+      "Bytes": 3100
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.cs",
+      "Sha256": "2B36BF8460DDCF828975DEF5BDAE5D14DC07EDF2CE5CF3B7FEDCBE3642B92624",
+      "Bytes": 74540
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.DefaultProcessInfo.cs",
+      "Sha256": "66AA3CCC4991B76EC06DE86826272800021786A7F8C6F11A3B595BF57781BDD3",
+      "Bytes": 1097
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/ProcessInfoDefaultCatalog.cs",
+      "Sha256": "7B3FCA544BBAECF99567010EB5549D6359F159D90A4EB823FB56E6F47FD80AF2",
+      "Bytes": 1429
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/ProcessInfoAtoms.cs",
+      "Sha256": "EB6A119EABD576DFBC3BF40DA6452544FF294A5182DBFACCAC81C7BE62F29DDF",
+      "Bytes": 1310
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Diagnostics/Tracing/SequenceTraceRegistrations.cs",
+      "Sha256": "7B836B5A86AD0ED84E2D0F4CCD2EE785E7346B185EE02C54DA721CD79C2928F7",
+      "Bytes": 4948
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Services/RuntimeStatistics.ManagedGarbage457.cs",
+      "Sha256": "66D0F899189B5D7C822F125238EFC7E66343297A84892B82BD4939E538CB4B43",
+      "Bytes": 1572
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntimeOptions.cs",
+      "Sha256": "829DD85C958C4BC4F153F469B12C508634D8E454CE53432D7A980251E81262AF",
+      "Bytes": 1266
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeWindowsCallbacks.cs",
+      "Sha256": "A70745A6BC2A1D126787E800E6A0FAFD4369BF7FD0076BDA565C92F755885A14",
+      "Bytes": 13865
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifImageAdmissionFailure.cs",
+      "Sha256": "4B790532D7372463A073278105173DAB64F0E89FE080BA2C69EB14DF636CDB3F",
+      "Bytes": 414
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeEntryFunctions.cs",
+      "Sha256": "0E1A50430A240D8521EB78916754FFFA1F02A8B2C84288A6B2D7D0A66A649A59",
+      "Bytes": 4346
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeCallEnvironment.OwnedRoots516.cs",
+      "Sha256": "534ADB6E337F51CABD8AE6E4C5E48B765761FFFD862189977875DEFD5FFFCFD8",
+      "Bytes": 5260
+    },
+    {
+      "Path": "src/Otp/Managed/Erlang.Otp.Stdlib/Processes/ProcLib/ProcLibProcessInfoQuery.cs",
+      "Sha256": "7DF48537CCD424AEC39848B97A20E4442FA9FA3890053D473B947566055600EF",
+      "Bytes": 1285
+    }
+  ],
+  "NoStatusPromotion": true,
+  "NoExecution": true
+}
