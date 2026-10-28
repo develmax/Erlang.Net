@@ -28,6 +28,21 @@ if (args.Length > 0 && args[0] == Erlang.Tests.StandardBootOriginal412Names.Chil
 if (args.Length > 0 && args[0] == Erlang.Tests.AtomicsOriginal413Names.ChildSwitch)
     return await Erlang.Tests.AtomicsOriginal413ChildMain.Run(args);
 
+// Dedicated explicit-input child target; do not register artifact-dependent
+// Ordinary/Private methods into the canonical checkout test list.
+if (args is [Erlang.Tests.DynamicApplyBoundary520Names.ChildSwitch, var repository, var completion, var sha, var owned, var output])
+{
+    await Erlang.Tests.DynamicApplyBoundary520Checks.Run(
+        repository,
+        completion,
+        sha,
+        bool.Parse(owned),
+        output
+    );
+
+    return 0;
+}
+
 Erlang.Tests.TestRunSelection selection;
 try
 {
@@ -6981,6 +6996,13 @@ try
     Test(Erlang.Tests.TrustedGuest507Names.OverrideTest, Erlang.Tests.TrustedGuest507Checks.OpaqueOverride);
     Test(Erlang.Tests.HybridBoundary507Names.Test, Erlang.Tests.HybridBoundary507Checks.MutablePatterns);
     Test(Erlang.Tests.HybridKeyScope507Names.Test, Erlang.Tests.HybridKeyScope507Checks.Parity);
+    Test(
+        Erlang.Tests.DynamicApplyBoundary520Names.SourceHashTest,
+        Erlang.Tests.DynamicApplySourceAdmission520Checks.DeclaredLineEndings
+    );
+    Test(Erlang.Tests.NativeMetadataWitness527Names.Test, Erlang.Tests.NativeMetadataWitness527Checks.Run);
+    Test(Erlang.Tests.NativeMetadataImage527Names.Test, Erlang.Tests.NativeMetadataImage527Checks.Original);
+    Test(Erlang.Tests.NativeMetadataImage527Names.LinelessTest, Erlang.Tests.NativeMetadataImage527Checks.Lineless);
     Test(Erlang.Tests.AllocatorFirstFit519Names.MixedTest, Erlang.Tests.AllocatorFirstFit519Checks.MixedFirstFit);
     Test(Erlang.Tests.AllocatorFirstFit519Names.FragmentedTest, Erlang.Tests.AllocatorFirstFit519Checks.FragmentedLinearScan);
     Test(Erlang.Tests.AllocatorFirstFit519Names.HeapTest, Erlang.Tests.AllocatorFirstFit519Checks.HeapLinearScan);

@@ -176,6 +176,7 @@ public sealed partial class ProcessRuntime : IAsyncDisposable
     {
         ArgumentNullException.ThrowIfNull(options);
         OwnedTermsPilot506 = options.OwnedTermsPilot506;
+        NativeMetadataImage527 = options.NativeMetadataImage;
         ArgumentOutOfRangeException.ThrowIfLessThan(options.MaximumAtoms, AtomRuntimeParameters.MinimumCapacity);
         AtomNames = new(options.MaximumAtoms, AtomTableExhausted);
         using var atomScope = new AtomNameScope(AtomNames);

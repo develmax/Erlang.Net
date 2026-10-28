@@ -44,12 +44,9 @@ internal static class BeamApplyExecution
                 [module, function, Cons.From(arguments)],
                 true
             );
-        BeamExternalImport target = BeamExternalImports.Resolve(
-            code,
-            moduleAtom.Name,
-            functionAtom.Name,
-            arity
-        );
+        // Dynamic apply resolves its computed MFA at runtime. The caller's
+        // static import admission cannot restrict a later-published target.
+        BeamExternalImport target = new(moduleAtom.Name, functionAtom.Name, arity);
         if (BeamModuleApplyTailScope.IsModuleApply(target) && context.Runtime.Modules.IsCanonicalModuleApply())
         {
             var prepared = ErlangApplyDispatch.Prepare(context, arguments);

@@ -167,6 +167,7 @@ def main():
     parser.add_argument('--output', type=Path, required=True)
     parser.add_argument('--execute-original', action='store_true')
     parser.add_argument('--check-paired-golden', action='store_true')
+    parser.add_argument('--compiled-worker', action='store_true')
     sources = parser.add_mutually_exclusive_group()
     sources.add_argument('--official-admission', type=Path)
     sources.add_argument('--build-receipt', type=Path)
@@ -190,9 +191,16 @@ def main():
         require(row['Module'].replace('_', '').isalnum(), 'Unsafe module')
         for fixture in row['Fixtures']:
             require(Path(fixture).name == fixture and (tool/'fixtures'/fixture).is_file(), 'Invalid fixture')
+    worker_source = tool/'fixtures/contract_worker513.erl'
+    require(not args.compiled_worker or worker_source.is_file(), 'Sealed compiled-worker fixture required')
+    require(not args.compiled_worker or any(row['Scope'] == 'Tool' and row['Path'] == 'fixtures/contract_worker513.erl'
+        and row['HashMode'] == 'Raw' and row['Sha256'] == sha(worker_source) for row in plan['Inputs']),
+        'Compiled-worker bytes must be an explicit raw sealed input')
     out.mkdir(parents=True)
     save(out/'launch-plan.json', dict(Prepared=True, ExecuteOriginal=args.execute_original, Jobs=selected,
-        SourcePlanSha256=sha(plan_path), WholeContractsClosed=0, ExpectedHead=args.expected_head))
+        SourcePlanSha256=sha(plan_path), WholeContractsClosed=0, ExpectedHead=args.expected_head,
+        CompiledWorkerRequested=args.compiled_worker,
+        WorkerSourceSha256=sha(worker_source) if args.compiled_worker else None))
     if not args.execute_original:
         print(json.dumps(dict(Prepared=True, Executed=False, WholeContractsClosed=0)))
         return
@@ -206,7 +214,7 @@ def main():
         save(out/'preflight-failure.json', dict(Error=repr(error), VmStarted=False))
         raise
     save(out/'provider-before.json', before)
-    errors, observations, phases, golden_comparisons = [], [], {}, []
+    errors, observations, phases, golden_comparisons, inventories = [], [], {}, [], []
     env = dict(os.environ)
     for key in ['ERL_FLAGS', 'ERL_AFLAGS', 'ERL_ZFLAGS', 'ERL_LIBS', 'ERL_COMPILER_OPTIONS', 'ERLC_EMULATOR',
                 'ERLC_USE_SERVER', 'ERLC_SERVER_ID', 'ERLC_CONFIGURATION', 'ERL_ROOTDIR']:
@@ -221,6 +229,10 @@ def main():
                 row = jobs[job]
                 for name in row['Fixtures']:
                     shutil.copyfile(tool/'fixtures'/name, directory/name)
+                compiled_worker = args.compiled_worker and not row.get('PairedProfiles')
+                if compiled_worker:
+                    shutil.copyfile(worker_source, directory/worker_source.name)
+                entry = 'contract_worker513:run('+row['Module']+')' if compiled_worker else row['Module']+':run()'
                 job_env = dict(env, ERL_CRASH_DUMP=str(directory/'erl_crash.dump'), ERL_CRASH_DUMP_SECONDS='15')
                 paired = ('ok=file:write_file("observed-deterministic.etf",term_to_binary(T,[deterministic,{minor_version,2}])),'
                           'W("witnesses.etf",get(paired_witness506)),') if row.get('PairedProfiles') else ''
@@ -234,8 +246,14 @@ def main():
                     'W("compile.etf",Compiled),true=lists:all(fun({ok,_,_})->true;({ok,_})->true;(_)->false end,Compiled),'
                     'Modules=[case Item of {ok,M,_}->M;{ok,M}->M end||Item<-Compiled],'
                     'W("modules.etf",[{M,code:which(M),M:module_info(md5)}||M<-Modules]),'
-                    'try '+row['Module']+':run() of T->W("observed.etf",T),'+paired+'halt(0) '
-                    'catch C:R:S->W("entry-failure.etf",{C,R,S}),halt(77) end.')
+                    + ('W("executing-owners.etf",[{M,code:which(M),M:module_info(md5),'
+                       'M:module_info(compile),M:module_info(attributes),M:module_info(exports)}||M<-Modules]),' if compiled_worker else '')
+                    +
+                    'try '+entry+' of T->W("observed.etf",T),'+paired
+                    + ('ok=file:write_file("observed-deterministic.etf",term_to_binary(T,[deterministic,{minor_version,2}])),'
+                       'W("worker-witnesses.etf",get(contract_worker513_witnesses)),'
+                       'case T of {{returned,_},normal}->halt(0);_->halt(78) end ' if compiled_worker else 'halt(0) ')
+                    + 'catch C:R:S->W("entry-failure.etf",{C,R,S}),halt(77) end.')
                 command = [str(executable), '+S', '1:1', '+A', '1', '-noshell', '-noinput', '-boot', 'no_dot_erlang',
                            '-pa', str(directory), '-eval', expression]
                 phases[job] = execute(repo, command, directory, job_env)
@@ -259,7 +277,8 @@ def main():
                     if directory.is_dir():
                         save(directory/'artifacts.json', dict(CrashDumpRequestedPath=str(directory/'erl_crash.dump'),
                             Files=[dict(Name=p.name, Bytes=p.stat().st_size, Sha256=sha(p))
-                                   for p in sorted(directory.iterdir()) if p.is_file()]))
+                                   for p in sorted(directory.iterdir()) if p.is_file() and p.name != 'artifacts.json']))
+                        inventories.append(dict(Job=job, Path=job+'/artifacts.json', Sha256=sha(directory/'artifacts.json')))
                 except Exception as error:
                     errors.append(job+' artifact inventory: '+repr(error))
     finally:
@@ -276,8 +295,12 @@ def main():
             errors.append('postflight: '+repr(error))
             save(out/'provider-after.json', dict(ProviderEqual=False, Error=repr(error)))
         save(out/'completion.json', dict(ObservationAcquisitionPassed=not errors, Errors=errors, Phases=phases,
-            Observations=observations, SourcePlanSha256=args.plan_sha256.upper(), PinnedCommit=PIN,
+            Observations=observations, ArtifactInventories=inventories,
+            ProviderBeforeSha256=sha(out/'provider-before.json'), ProviderAfterSha256=sha(out/'provider-after.json'),
+            LaunchPlanSha256=sha(out/'launch-plan.json'),
+            SourcePlanSha256=args.plan_sha256.upper(), PinnedCommit=PIN,
             OriginalOnly=True, WholeContractsClosed=0,
+            CompiledWorkerRequested=args.compiled_worker,
             ComparisonPerformed=bool(golden_comparisons),
             OriginalGoldenComparisonRequested=args.check_paired_golden,
             OriginalGoldenComparisonPerformed=bool(golden_comparisons),

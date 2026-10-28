@@ -32,7 +32,7 @@ jobs:
           base = os.environ.get('BASE_SHA', '')
           present = bool(base and set(base) != {'0'} and subprocess.run(['git', 'cat-file', '-e', base + '^{commit}'], capture_output=True).returncode == 0)
           changed = subprocess.check_output(['git', 'diff', '--name-only', base, 'HEAD'], text=True).splitlines() if present else []
-          prefixes = ('tools/Runtime/Erlang.OwnedGuest506Observations/', 'tests/Erlang.Tests/Runtime/Memory/Owned', 'src/Runtime/Erlang.Runtime.Core/Processes/Memory/', 'src/Runtime/Erlang.Runtime.Core/Execution/Beam/', 'tools/Runtime/Erlang.ResourceControls504Observations/', 'tools/Runtime/Erlang.SchedulerAffinityOriginalObservations/', 'src/Runtime/Erlang.Runtime.Core/Scheduling/', 'src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.Statistics', 'src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.SchedulerStatistics', 'src/Runtime/Erlang.Runtime.Core/Diagnostics/Tracing/SequenceTraceRegistrations')
+          prefixes = ('tools/Runtime/Erlang.DynamicApply520Observations/', 'tests/Erlang.Tests/Compiler/Beam/Calls/DynamicApply', 'tools/Runtime/Erlang.OwnedGuest506Observations/', 'tests/Erlang.Tests/Runtime/Memory/Owned', 'src/Runtime/Erlang.Runtime.Core/Processes/Memory/', 'src/Runtime/Erlang.Runtime.Core/Execution/Beam/', 'tools/Runtime/Erlang.ResourceControls504Observations/', 'tools/Runtime/Erlang.SchedulerAffinityOriginalObservations/', 'src/Runtime/Erlang.Runtime.Core/Scheduling/', 'src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.Statistics', 'src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.SchedulerStatistics', 'src/Runtime/Erlang.Runtime.Core/Diagnostics/Tracing/SequenceTraceRegistrations')
           selected = [name for name in changed if name.startswith(prefixes) or 'SystemFlag504' in name or 'Owned' in name or name == '.github/workflows/validate.yml']
           required = not present or bool(selected)
           folder = pathlib.Path('artifacts/resource-controls504-original')
@@ -106,30 +106,77 @@ jobs:
         if: ${{ !cancelled() && steps.owned506-admit.outcome == 'success' }}
         with:
           global-json-file: global.json
-      - name: Verify final-source owned506 observer and sender controls on Linux
-        id: owned506-controls
+      - name: Build the shared managed Linux test host once
+        id: managed-linux-build
         if: ${{ !cancelled() && steps.owned506-sdk.outcome == 'success' }}
         continue-on-error: true
         shell: bash
         run: |
           set -euo pipefail
-          dotnet run --project tests/Erlang.Tests/Erlang.Tests.csproj -c Release -- \
+          dotnet build tests/Erlang.Tests/Erlang.Tests.csproj -c Release -m:1 > artifacts/resource-controls504-original/shared-managed-build.log 2>&1
+      - name: Verify final-source owned506 observer and sender controls on Linux
+        id: owned506-controls
+        if: ${{ !cancelled() && steps.managed-linux-build.outcome == 'success' }}
+        continue-on-error: true
+        shell: bash
+        run: |
+          set -euo pipefail
+          dotnet exec --fx-version 10.0.11 tests/Erlang.Tests/bin/Release/net10.0/Erlang.Tests.dll \
             --case runtime/owned-guest506/original-compiled-worker-whole-values-and-stacks \
             --case runtime/owned-guest506/source-message-survives-sender-physical-retirement \
             --case runtime/owned-guest506/nested-foreign-invocation-refuses-enclosing-vm-shutdown \
             --report artifacts/resource-controls504-original/owned506-final-controls.json \
             > artifacts/resource-controls504-original/owned506-final-controls.log 2>&1
+      - name: Capture fresh dynamic520 whole contracts using the shared Linux OTP
+        id: dynamic520-original
+        if: ${{ !cancelled() && steps.shared-original-build.outcome == 'success' }}
+        continue-on-error: true
+        shell: bash
+        run: |
+          set -euo pipefail
+          receipt="$GITHUB_WORKSPACE/artifacts/resource-controls504-original/runtime-build/build-receipt.json"
+          plan_sha=$(sha256sum tools/Runtime/Erlang.DynamicApply520Observations/source-plan.json | cut -d ' ' -f 1)
+          receipt_sha=$(sha256sum "$receipt" | cut -d ' ' -f 1)
+          python3 -B tools/Runtime/Erlang.DynamicApply520Observations/collect-original.py \
+            --repository "$GITHUB_WORKSPACE" --expected-head "$EXPECTED_HEAD" --plan-sha256 "$plan_sha" \
+            --build-receipt "$receipt" --admission-sha256 "$receipt_sha" \
+            --otp-source "$GITHUB_WORKSPACE/artifacts/resource-controls504-otp-source" \
+            --output artifacts/resource-controls504-original/dynamic520-original --execute-original \
+            > artifacts/resource-controls504-original/dynamic520-original.log 2>&1
+      - name: Compare both final-source dynamic520 profiles with Linux OTP
+        id: dynamic520-controls
+        if: ${{ !cancelled() && steps.dynamic520-original.outcome == 'success' && steps.managed-linux-build.outcome == 'success' }}
+        continue-on-error: true
+        shell: bash
+        run: |
+          set -euo pipefail
+          completion="$GITHUB_WORKSPACE/artifacts/resource-controls504-original/dynamic520-original/completion.json"
+          completion_sha=$(sha256sum "$completion" | cut -d ' ' -f 1)
+          status=0
+          for owned in false true; do
+            if ! dotnet exec --fx-version 10.0.11 tests/Erlang.Tests/bin/Release/net10.0/Erlang.Tests.dll --dynamic-apply-boundary520-child \
+              "$GITHUB_WORKSPACE" "$completion" "$completion_sha" "$owned" \
+              "$GITHUB_WORKSPACE/artifacts/resource-controls504-original/dynamic520-managed-$owned" \
+              > "artifacts/resource-controls504-original/dynamic520-managed-$owned.log" 2>&1; then status=1; fi
+          done
+          exit "$status"
       - name: Require every owned506 original and final-control stage
         if: ${{ !cancelled() && steps.resource-scope.outputs.required == 'true' }}
         shell: bash
         env:
           ADMISSION: ${{ steps.owned506-admit.outcome }}
           ORIGINAL: ${{ steps.owned506-original.outcome }}
+          BUILD: ${{ steps.managed-linux-build.outcome }}
           CONTROLS: ${{ steps.owned506-controls.outcome }}
+          DYNAMIC_ORIGINAL: ${{ steps.dynamic520-original.outcome }}
+          DYNAMIC_CONTROLS: ${{ steps.dynamic520-controls.outcome }}
         run: |
           test "$ADMISSION" = success
           test "$ORIGINAL" = success
+          test "$BUILD" = success
           test "$CONTROLS" = success
+          test "$DYNAMIC_ORIGINAL" = success
+          test "$DYNAMIC_CONTROLS" = success
       - uses: actions/upload-artifact@v7
         if: always()
         with:
@@ -258,8 +305,18 @@ jobs:
           if ($contractFailures.Count -ne 0) { throw ($contractFailures -join '; ') }
       - shell: pwsh
         run: ./tools/validate.ps1 -TestRuntimeVersion 10.0.11
+      - name: Require the built native host before dependent native comparisons
+        id: native-host-ready
+        if: ${{ !cancelled() && steps.shared-original-provider.outcome == 'success' }}
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = 'Stop'
+          foreach ($file in @('Erlang.NifNativeBackend.dll', 'Erlang.NifNativeBackend.deps.json', 'Erlang.NifNativeBackend.runtimeconfig.json')) {
+            $path = Join-Path 'tools/Native/Erlang.NifNativeBackend/bin/Debug/net10.0' $file
+            if (!(Test-Path -LiteralPath $path)) { throw "Native host preparation failed; dependent execution is blocked: $path" }
+          }
       - name: Compare native empty-map creation with pinned OTP and both loaders
-        if: ${{ !cancelled() }}
+        if: ${{ !cancelled() && steps.native-host-ready.outcome == 'success' }}
         shell: pwsh
         run: |
           if (!(Test-Path tools/Native/Erlang.NifNativeBackend/bin/Debug/net10.0/Erlang.NifNativeBackend.dll) -or !(Test-Path artifacts/library376-official-compiler/official-admission.json)) {
@@ -268,14 +325,14 @@ jobs:
           python -B tools/Native/Erlang.NifMapCreation501Observations/collect.py --repository $PWD.Path --provider-admission artifacts/library376-official-compiler/official-admission.json --plan-sha256 3E2BAFD2AB62E8588434C07C3CD341D9E429333C6AF4F7916E4D2279D9954579 --output artifacts/native-map501/ci --runtime-version 10.0.11 --check-golden
           if ($LASTEXITCODE -ne 0) { throw 'Native map501 original/ordinary/reviewed comparison failed; inspect all phase receipts' }
       - name: Compare native map lookup with pinned OTP and both loaders
-        if: ${{ !cancelled() }}
+        if: ${{ !cancelled() && steps.native-host-ready.outcome == 'success' }}
         shell: pwsh
         run: |
           if (!(Test-Path artifacts/library376-official-compiler/official-admission.json)) { throw 'Map lookup503 preparation unavailable; dependent native execution was not started.' }
           python -B tools/Native/Erlang.NifMapValue503Observations/collect.py --repository $PWD.Path --provider-admission artifacts/library376-official-compiler/official-admission.json --plan-sha256 D1A9BE80F21C40E7FD8D84489401BF18F673EA14A5A383FB0170C11766EA204A --output artifacts/native-map503/ci --check-golden
           if ($LASTEXITCODE -ne 0) { throw 'Native map lookup503 comparison failed; independent route results are retained.' }
       - name: Compare the complete native map family with pinned OTP and both loaders
-        if: ${{ !cancelled() }}
+        if: ${{ !cancelled() && steps.native-host-ready.outcome == 'success' }}
         shell: pwsh
         run: |
           if (!(Test-Path artifacts/library376-official-compiler/official-admission.json)) {
@@ -289,14 +346,14 @@ jobs:
             if ($comparison516.ManagedRuntimeProfileReceipts.('ordinary-runtime--' + $route516).OwnedTermsPilot506 -ne $false -or $comparison516.ManagedRuntimeProfileReceipts.('owned-runtime--' + $route516).OwnedTermsPilot506 -ne $true) { throw 'Actual native runtime-profile receipt missing or wrong' }
           }
       - name: Compare source-exact function collision protocol with pinned OTP
-        if: ${{ !cancelled() }}
+        if: ${{ !cancelled() && steps.native-host-ready.outcome == 'success' }}
         shell: pwsh
         run: |
           if (!(Test-Path artifacts/library376-official-compiler/official-admission.json)) { throw 'Collision504 provider preparation missing; dependent execution skipped' }
           python -B tools/Native/Erlang.NifMapCollision504Observations/collect.py --repository $PWD.Path --provider-admission artifacts/library376-official-compiler/official-admission.json --plan-sha256 1E9AFD3B7D49E6EB0D8B30C09C91C718821360533C610D87A62CBE8C056FFAC4 --output artifacts/native-map504/collision-ci --check-golden
           if ($LASTEXITCODE -ne 0) { throw 'Source-exact collision504 original/ordinary/reviewed comparison failed' }
       - name: Compare materialized native maps after return with pinned OTP
-        if: ${{ !cancelled() }}
+        if: ${{ !cancelled() && steps.native-host-ready.outcome == 'success' }}
         shell: pwsh
         run: |
           if (!(Test-Path artifacts/library376-official-compiler/official-admission.json)) {
@@ -310,7 +367,7 @@ jobs:
             if ($comparison516.ManagedRuntimeProfileReceipts.('ordinary-runtime--' + $route516).OwnedTermsPilot506 -ne $false -or $comparison516.ManagedRuntimeProfileReceipts.('owned-runtime--' + $route516).OwnedTermsPilot506 -ne $true) { throw 'Actual native runtime-profile receipt missing or wrong' }
           }
       - name: Compare duplicate flat-map native reentry with pinned OTP
-        if: ${{ !cancelled() }}
+        if: ${{ !cancelled() && steps.native-host-ready.outcome == 'success' }}
         shell: pwsh
         run: |
           if (!(Test-Path artifacts/library376-official-compiler/official-admission.json)) {
@@ -332,6 +389,36 @@ jobs:
           }
           python -B tools/Native/Erlang.ProcessRetirement502OriginalObservations/collect.py --repository $PWD.Path --provider-admission artifacts/library376-official-compiler/official-admission.json --plan-sha256 63171EAC39BEF4AD0DEBE1F4CD09241EA6C4F6967CB8FABBCC638D6F540B7B76 --output artifacts/process-retirement502/ci --check-golden
           if ($LASTEXITCODE -ne 0) { throw 'Retirement502 controlled original protocol failed; inspect native markers and owned-process receipt' }
+      - name: Capture dynamic520 contracts with the shared Windows OTP
+        id: dynamic520-original
+        if: ${{ !cancelled() && steps.shared-original-provider.outcome == 'success' }}
+        continue-on-error: true
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = 'Stop'
+          New-Item -ItemType Directory -Path artifacts/dynamic520 -Force | Out-Null
+          $admission = 'artifacts/library376-official-compiler/official-admission.json'
+          $planSha = (Get-FileHash tools/Runtime/Erlang.DynamicApply520Observations/source-plan.json -Algorithm SHA256).Hash
+          $admissionSha = (Get-FileHash $admission -Algorithm SHA256).Hash
+          python -B tools/Runtime/Erlang.DynamicApply520Observations/collect-original.py --repository $PWD.Path --expected-head $env:EXPECTED_HEAD --plan-sha256 $planSha --official-admission $admission --admission-sha256 $admissionSha --output artifacts/dynamic520/original --execute-original *> artifacts/dynamic520/original.log
+          if ($LASTEXITCODE -ne 0) { throw 'Dynamic520 original acquisition failed' }
+      - name: Compare both final-source dynamic520 profiles with Windows OTP
+        id: dynamic520-controls
+        if: ${{ !cancelled() && steps.dynamic520-original.outcome == 'success' }}
+        continue-on-error: true
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = 'Stop'
+          if (!(Test-Path 'tests/Erlang.Tests/bin/Debug/net10.0/Erlang.Tests.dll')) { throw 'Shared test host preparation failed; dependent dynamic execution was not started' }
+          $completion = Join-Path $PWD.Path 'artifacts/dynamic520/original/completion.json'
+          $completionSha = (Get-FileHash $completion -Algorithm SHA256).Hash
+          $failures = @()
+          foreach ($owned in @('false', 'true')) {
+            $target = Join-Path $PWD.Path "artifacts/dynamic520/managed-$owned"
+            dotnet exec --fx-version 10.0.11 tests/Erlang.Tests/bin/Debug/net10.0/Erlang.Tests.dll --dynamic-apply-boundary520-child $PWD.Path $completion $completionSha $owned $target *> "artifacts/dynamic520/managed-$owned.log"
+            if ($LASTEXITCODE -ne 0) { $failures += $owned }
+          }
+          if ($failures.Count -ne 0) { throw "Dynamic520 failed profiles: $failures" }
       - name: Require owned506 original source and full original batch
         if: ${{ !cancelled() }}
         shell: pwsh
@@ -340,12 +427,14 @@ jobs:
           ORIGINAL: ${{ steps.owned506-original.outcome }}
         run: |
           if ($env:ADMISSION -ne 'success' -or $env:ORIGINAL -ne 'success') { throw 'Owned506 required acquisition stages did not pass' }
+          if ('${{ steps.dynamic520-original.outcome }}' -ne 'success' -or '${{ steps.dynamic520-controls.outcome }}' -ne 'success') { throw 'Dynamic520 required original and managed stages did not pass' }
       - uses: actions/upload-artifact@v7
         if: always()
         with:
           name: validation
           path: |
             artifacts/owned506/**
+            artifacts/dynamic520/**
             artifacts/tests.json
             artifacts/native-map501/ci/**
             artifacts/process-retirement502/ci/**
