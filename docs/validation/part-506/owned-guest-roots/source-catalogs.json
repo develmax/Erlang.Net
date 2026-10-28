@@ -1,0 +1,310 @@
+{
+  "system_flag": {
+    "Source": "erts/emulator/beam/bif.c",
+    "StartLine": 4972,
+    "EndLine": 5305,
+    "AtomBranches": [
+      "backtrace_depth",
+      "debug_flags",
+      "dirty_cpu_schedulers_online",
+      "fullsweep_after",
+      "max_heap_size",
+      "microstate_accounting",
+      "min_bin_vheap_size",
+      "min_heap_size",
+      "multi_scheduling",
+      "outstanding_system_requests_limit",
+      "reset_seq_trace",
+      "scheduler_wall_time",
+      "schedulers_online",
+      "sequential_tracer",
+      "time_offset",
+      "trace_control_word"
+    ],
+    "PlatformConditionalBranchesRemainSeparate": true
+  },
+  "statistics": {
+    "Source": "erts/emulator/beam/erl_bif_info.c",
+    "StartLine": 4160,
+    "EndLine": 4326,
+    "AtomBranches": [
+      "active_tasks",
+      "active_tasks_all",
+      "context_switches",
+      "exact_reductions",
+      "garbage_collection",
+      "io",
+      "microstate_accounting",
+      "reductions",
+      "run_queue",
+      "run_queue_lengths",
+      "run_queue_lengths_all",
+      "run_queues",
+      "runtime",
+      "scheduler_wall_time",
+      "scheduler_wall_time_all",
+      "total_active_tasks",
+      "total_active_tasks_all",
+      "total_run_queue_lengths",
+      "total_run_queue_lengths_all",
+      "wall_clock"
+    ],
+    "PlatformConditionalBranchesRemainSeparate": true
+  },
+  "process_info": {
+    "Source": "erts/emulator/beam/erl_bif_info.c",
+    "StartLine": 813,
+    "EndLine": 855,
+    "ItemCatalog": [
+      "registered_name",
+      "current_function",
+      "initial_call",
+      "status",
+      "messages",
+      "message_queue_len",
+      "links",
+      "monitors",
+      "monitored_by",
+      "dictionary",
+      "trap_exit",
+      "error_handler",
+      "heap_size",
+      "stack_size",
+      "memory",
+      "garbage_collection",
+      "group_leader",
+      "reductions",
+      "priority",
+      "trace",
+      "binary",
+      "sequential_trace_token",
+      "catchlevel",
+      "backtrace",
+      "last_calls",
+      "total_heap_size",
+      "suspending",
+      "min_heap_size",
+      "min_bin_vheap_size",
+      "max_heap_size",
+      "current_location",
+      "current_stacktrace",
+      "message_queue_data",
+      "garbage_collection_info",
+      "magic_ref",
+      "fullsweep_after",
+      "parent",
+      "async_dist",
+      "dictionary",
+      "label",
+      "priority_messages"
+    ],
+    "CatalogDoesNotImplyDefaultListMembership": true,
+    "Rows": [
+      {
+        "Line": 814,
+        "Text": "{am_registered_name, 0, 0, ERTS_PROC_LOCK_MAIN},",
+        "Tuple2Selector": false
+      },
+      {
+        "Line": 815,
+        "Text": "{am_current_function, 4, ERTS_PI_FLAG_FORCE_SIG_SEND, ERTS_PROC_LOCK_MAIN},",
+        "Tuple2Selector": false
+      },
+      {
+        "Line": 816,
+        "Text": "{am_initial_call, 4, 0, ERTS_PROC_LOCK_MAIN},",
+        "Tuple2Selector": false
+      },
+      {
+        "Line": 817,
+        "Text": "{am_status, 0, 0, 0},",
+        "Tuple2Selector": false
+      },
+      {
+        "Line": 818,
+        "Text": "{am_messages, 0, ERTS_PI_FLAG_WANT_MSGS|ERTS_PI_FLAG_NEED_MSGQ|ERTS_PI_FLAG_FORCE_SIG_SEND, ERTS_PROC_LOCK_MAIN},",
+        "Tuple2Selector": false
+      },
+      {
+        "Line": 819,
+        "Text": "{am_message_queue_len, 0, 0, ERTS_PROC_LOCK_MAIN},",
+        "Tuple2Selector": false
+      },
+      {
+        "Line": 820,
+        "Text": "{am_links, 0, ERTS_PI_FLAG_FORCE_SIG_SEND, ERTS_PROC_LOCK_MAIN},",
+        "Tuple2Selector": false
+      },
+      {
+        "Line": 821,
+        "Text": "{am_monitors, 0, ERTS_PI_FLAG_FORCE_SIG_SEND, ERTS_PROC_LOCK_MAIN},",
+        "Tuple2Selector": false
+      },
+      {
+        "Line": 822,
+        "Text": "{am_monitored_by, 0, ERTS_PI_FLAG_FORCE_SIG_SEND, ERTS_PROC_LOCK_MAIN},",
+        "Tuple2Selector": false
+      },
+      {
+        "Line": 823,
+        "Text": "{am_dictionary, 0, ERTS_PI_FLAG_FORCE_SIG_SEND, ERTS_PROC_LOCK_MAIN},",
+        "Tuple2Selector": false
+      },
+      {
+        "Line": 824,
+        "Text": "{am_trap_exit, 0, 0, ERTS_PROC_LOCK_MAIN},",
+        "Tuple2Selector": false
+      },
+      {
+        "Line": 825,
+        "Text": "{am_error_handler, 0, 0, ERTS_PROC_LOCK_MAIN},",
+        "Tuple2Selector": false
+      },
+      {
+        "Line": 826,
+        "Text": "{am_heap_size, 0, 0, ERTS_PROC_LOCK_MAIN},",
+        "Tuple2Selector": false
+      },
+      {
+        "Line": 827,
+        "Text": "{am_stack_size, 0, 0, ERTS_PROC_LOCK_MAIN},",
+        "Tuple2Selector": false
+      },
+      {
+        "Line": 828,
+        "Text": "{am_memory, 0, ERTS_PI_FLAG_NEED_MSGQ|ERTS_PI_FLAG_FORCE_SIG_SEND, ERTS_PROC_LOCK_MAIN},",
+        "Tuple2Selector": false
+      },
+      {
+        "Line": 829,
+        "Text": "{am_garbage_collection, 3+2 + 3+2 + 3+2 + 3+2 + 3+2 + ERTS_MAX_HEAP_SIZE_MAP_SZ, 0, ERTS_PROC_LOCK_MAIN},",
+        "Tuple2Selector": false
+      },
+      {
+        "Line": 830,
+        "Text": "{am_group_leader, 0, 0, ERTS_PROC_LOCK_MAIN},",
+        "Tuple2Selector": false
+      },
+      {
+        "Line": 831,
+        "Text": "{am_reductions, 0, 0, ERTS_PROC_LOCK_MAIN},",
+        "Tuple2Selector": false
+      },
+      {
+        "Line": 832,
+        "Text": "{am_priority, 0, 0, 0},",
+        "Tuple2Selector": false
+      },
+      {
+        "Line": 833,
+        "Text": "{am_trace, 0, 0, ERTS_PROC_LOCK_MAIN},",
+        "Tuple2Selector": false
+      },
+      {
+        "Line": 834,
+        "Text": "{am_binary, 0, ERTS_PI_FLAG_FORCE_SIG_SEND, ERTS_PROC_LOCK_MAIN},",
+        "Tuple2Selector": false
+      },
+      {
+        "Line": 835,
+        "Text": "{am_sequential_trace_token, 0, 0, ERTS_PROC_LOCK_MAIN},",
+        "Tuple2Selector": false
+      },
+      {
+        "Line": 836,
+        "Text": "{am_catchlevel, 0, 0, ERTS_PROC_LOCK_MAIN},",
+        "Tuple2Selector": false
+      },
+      {
+        "Line": 837,
+        "Text": "{am_backtrace, 0, ERTS_PI_FLAG_FORCE_SIG_SEND, ERTS_PROC_LOCK_MAIN},",
+        "Tuple2Selector": false
+      },
+      {
+        "Line": 838,
+        "Text": "{am_last_calls, 0, 0, ERTS_PROC_LOCK_MAIN},",
+        "Tuple2Selector": false
+      },
+      {
+        "Line": 839,
+        "Text": "{am_total_heap_size, 0, ERTS_PI_FLAG_NEED_MSGQ|ERTS_PI_FLAG_FORCE_SIG_SEND, ERTS_PROC_LOCK_MAIN},",
+        "Tuple2Selector": false
+      },
+      {
+        "Line": 840,
+        "Text": "{am_suspending, 0, ERTS_PI_FLAG_FORCE_SIG_SEND, 0},",
+        "Tuple2Selector": false
+      },
+      {
+        "Line": 841,
+        "Text": "{am_min_heap_size, 0, 0, ERTS_PROC_LOCK_MAIN},",
+        "Tuple2Selector": false
+      },
+      {
+        "Line": 842,
+        "Text": "{am_min_bin_vheap_size, 0, 0, ERTS_PROC_LOCK_MAIN},",
+        "Tuple2Selector": false
+      },
+      {
+        "Line": 843,
+        "Text": "{am_max_heap_size, 0, 0, ERTS_PROC_LOCK_MAIN},",
+        "Tuple2Selector": false
+      },
+      {
+        "Line": 844,
+        "Text": "{am_current_location, 0, ERTS_PI_FLAG_FORCE_SIG_SEND, ERTS_PROC_LOCK_MAIN},",
+        "Tuple2Selector": false
+      },
+      {
+        "Line": 845,
+        "Text": "{am_current_stacktrace, 0, ERTS_PI_FLAG_FORCE_SIG_SEND, ERTS_PROC_LOCK_MAIN},",
+        "Tuple2Selector": false
+      },
+      {
+        "Line": 846,
+        "Text": "{am_message_queue_data, 0, 0, ERTS_PROC_LOCK_MAIN},",
+        "Tuple2Selector": false
+      },
+      {
+        "Line": 847,
+        "Text": "{am_garbage_collection_info, ERTS_PROCESS_GC_INFO_MAX_SIZE, 0, ERTS_PROC_LOCK_MAIN},",
+        "Tuple2Selector": false
+      },
+      {
+        "Line": 848,
+        "Text": "{am_magic_ref, 0, ERTS_PI_FLAG_FORCE_SIG_SEND, ERTS_PROC_LOCK_MAIN},",
+        "Tuple2Selector": false
+      },
+      {
+        "Line": 849,
+        "Text": "{am_fullsweep_after, 0, 0, ERTS_PROC_LOCK_MAIN},",
+        "Tuple2Selector": false
+      },
+      {
+        "Line": 850,
+        "Text": "{am_parent, 0, 0, ERTS_PROC_LOCK_MAIN},",
+        "Tuple2Selector": false
+      },
+      {
+        "Line": 851,
+        "Text": "{am_async_dist, 0, 0, ERTS_PROC_LOCK_MAIN},",
+        "Tuple2Selector": false
+      },
+      {
+        "Line": 852,
+        "Text": "{am_dictionary, 3, ERTS_PI_FLAG_FORCE_SIG_SEND|ERTS_PI_FLAG_KEY_TUPLE2, ERTS_PROC_LOCK_MAIN},",
+        "Tuple2Selector": true
+      },
+      {
+        "Line": 853,
+        "Text": "{am_label, 0, ERTS_PI_FLAG_FORCE_SIG_SEND, ERTS_PROC_LOCK_MAIN},",
+        "Tuple2Selector": false
+      },
+      {
+        "Line": 854,
+        "Text": "{am_priority_messages, 0, 0, ERTS_PROC_LOCK_MAIN}",
+        "Tuple2Selector": false
+      }
+    ]
+  }
+}

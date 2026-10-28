@@ -130,7 +130,7 @@ public static partial class Execution
                     context
                 );
             case Expr.Call call when context is not null && Semantics.GuardBifs.Contains((call.Function, call.Arguments.Count)):
-                return await context.Runtime.Modules.Call(
+                return await context.Runtime.Modules.CallInto506(
                     context,
                     ErlangModuleNames.Module,
                     call.Function,

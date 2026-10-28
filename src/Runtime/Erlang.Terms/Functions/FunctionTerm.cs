@@ -32,7 +32,18 @@ public sealed class FunctionTerm(int arity, Func<ITermExecutionContext, IReadOnl
         Environment = Array.AsReadOnly(environment.ToArray());
     }
 
-    public ValueTask<Term> Invoke(ITermExecutionContext context, IReadOnlyList<Term> arguments) => arguments.Count == Arity ? invoke(context, arguments) : throw new ErlangException(Term.Tuple(Term.A(ErlangErrorReasons.BadArity), Term.Tuple(this, Cons.From(arguments))));
+    public ValueTask<Term> Invoke(ITermExecutionContext context, IReadOnlyList<Term> arguments)
+    {
+        if (arguments.Count != Arity)
+            throw new ErlangException(Term.Tuple(Term.A(ErlangErrorReasons.BadArity), Term.Tuple(this, Cons.From(arguments))));
+
+        return context is ITermInvocationBoundary506 { OwnedInvocationEnabled506: true } boundary
+            ? boundary.InvokeOwnedFunction506(this, arguments)
+            : invoke(context, arguments);
+    }
+
+    internal ValueTask<Term> InvokeDirect506(ITermExecutionContext context, IReadOnlyList<Term> arguments)
+        => invoke(context, arguments);
 
     public FunctionTerm(
         Func<LocalFunctionIdentity> identityProvider,

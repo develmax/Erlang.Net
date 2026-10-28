@@ -9,6 +9,7 @@ public sealed partial class ProcessContext : ITermExecutionContext
     )
     {
         Runtime = runtime;
+        Dictionary = new(this);
         InitialCall = initialCall ?? ProcessInfoAtoms.Undefined;
         Self = pid;
         GroupLeader = pid;
@@ -391,7 +392,7 @@ public sealed partial class ProcessContext : ITermExecutionContext
         get; internal set;
     }
     public CancellationToken Cancellation => Stop.Token;
-    public Dictionary<Term, Term> Dictionary { get; } = new();
+    public ProcessDictionary Dictionary { get; }
 
     [System.Diagnostics.CodeAnalysis.DoesNotReturn]
     public void Halt(int status) => Runtime.Halt(this, status);

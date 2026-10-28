@@ -1,0 +1,121 @@
+{
+  "ObservationAcquisitionPassed": true,
+  "Pin": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "OriginalOnly": true,
+  "ProviderBeforeEqual": true,
+  "ProviderAfterEqual": true,
+  "ProviderAdmissionBeforeSha256": "41CCC2FDE5493D85BEAA21996E12D0885D2919B0D4BF44137D0673DCDC9D5EA6",
+  "ProviderAdmissionAfterSha256": "41CCC2FDE5493D85BEAA21996E12D0885D2919B0D4BF44137D0673DCDC9D5EA6",
+  "ProviderAdmissionUnchanged": true,
+  "ProviderBinaryMetadata": [
+    {
+      "Path": "bin/erl.exe",
+      "Sha256": "D91699E88F417E00470D224934D47CD92358CC1B3B37CA1F15BCF5D4731D8F4E",
+      "Bytes": 138752
+    },
+    {
+      "Path": "erts-17.1/bin/beam.smp.dll",
+      "Sha256": "27E75CEAEB1C33BAA8089071A47DB1F3473B537906353F874D687AE9A0854B05",
+      "Bytes": 5669888
+    },
+    {
+      "Path": "erts-17.1/bin/erl.exe",
+      "Sha256": "D91699E88F417E00470D224934D47CD92358CC1B3B37CA1F15BCF5D4731D8F4E",
+      "Bytes": 138752
+    },
+    {
+      "Path": "erts-17.1/bin/erlexec.dll",
+      "Sha256": "FDB7A83AEDB5CB1F76DB4A0D197F2147129DD96E5270CD6C95CAAD8AB347EB6B",
+      "Bytes": 185856
+    },
+    {
+      "Path": "lib/erts-17.1/ebin/erlang.beam",
+      "Sha256": "F7CF9DAA675DA37CFEB5D03F685B3127A4B5D9B09350376D3FDFB55948B875BC",
+      "Bytes": 249620
+    },
+    {
+      "Path": "lib/stdlib-8.1/ebin/proc_lib.beam",
+      "Sha256": "D16CF269C1A728428B10A6ECA58912F59249B6B939D825D724AF34C0AE380131",
+      "Bytes": 53080
+    }
+  ],
+  "Phases": {
+    "shared-spawn-options": {
+      "Command": [
+        "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library376-official-compiler\\installed\\bin\\erl.exe",
+        "+S",
+        "1:1",
+        "+A",
+        "1",
+        "-noshell",
+        "-noinput",
+        "-boot",
+        "no_dot_erlang",
+        "-pa",
+        "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\batch506\\original-contract-runs\\spawn-flags-original1\\shared-spawn-options",
+        "-eval",
+        "W=fun(N,T)->ok=file:write_file(N,term_to_binary(T,[{minor_version,2}])) end,Expected=filename:absname(os:getenv(\"CONTRACT506_ORIGINAL_ROOT\")),Expected=filename:absname(code:root_dir()),8=erlang:system_info(wordsize),W(\"metadata.etf\",{Expected,erlang:system_info(version),erlang:system_info(system_architecture),erlang:system_info(wordsize),erlang:system_info(schedulers),code:which(proc_lib)}),Files=filelib:wildcard(\"*.erl\"),Compiled=[compile:file(F,[return_errors,return_warnings])||F<-Files],W(\"compile.etf\",Compiled),true=lists:all(fun({ok,_,_})->true;({ok,_})->true;(_)->false end,Compiled),Modules=[case Item of {ok,M,_}->M;{ok,M}->M end||Item<-Compiled],W(\"modules.etf\",[{M,code:which(M),M:module_info(md5)}||M<-Modules]),try contract_spawn506:run() of T->W(\"observed.etf\",T),halt(0) catch C:R:S->W(\"entry-failure.etf\",{C,R,S}),halt(77) end."
+      ],
+      "Pid": 227936,
+      "ElapsedSeconds": 25.45299999997951,
+      "TimedOut": false,
+      "Settled": true,
+      "ExitCode": 0,
+      "Failures": [],
+      "StdoutSha256": "5CCBD3622FCD257E89AF353F4F61D090BAFB3649A08766AF5B884648F1D1D990",
+      "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    "shared-system-flags": {
+      "Command": [
+        "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library376-official-compiler\\installed\\bin\\erl.exe",
+        "+S",
+        "1:1",
+        "+A",
+        "1",
+        "-noshell",
+        "-noinput",
+        "-boot",
+        "no_dot_erlang",
+        "-pa",
+        "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\batch506\\original-contract-runs\\spawn-flags-original1\\shared-system-flags",
+        "-eval",
+        "W=fun(N,T)->ok=file:write_file(N,term_to_binary(T,[{minor_version,2}])) end,Expected=filename:absname(os:getenv(\"CONTRACT506_ORIGINAL_ROOT\")),Expected=filename:absname(code:root_dir()),8=erlang:system_info(wordsize),W(\"metadata.etf\",{Expected,erlang:system_info(version),erlang:system_info(system_architecture),erlang:system_info(wordsize),erlang:system_info(schedulers),code:which(proc_lib)}),Files=filelib:wildcard(\"*.erl\"),Compiled=[compile:file(F,[return_errors,return_warnings])||F<-Files],W(\"compile.etf\",Compiled),true=lists:all(fun({ok,_,_})->true;({ok,_})->true;(_)->false end,Compiled),Modules=[case Item of {ok,M,_}->M;{ok,M}->M end||Item<-Compiled],W(\"modules.etf\",[{M,code:which(M),M:module_info(md5)}||M<-Modules]),try contract_flags506:run() of T->W(\"observed.etf\",T),halt(0) catch C:R:S->W(\"entry-failure.etf\",{C,R,S}),halt(77) end."
+      ],
+      "Pid": 330144,
+      "ElapsedSeconds": 0.3440000000409782,
+      "TimedOut": false,
+      "Settled": true,
+      "ExitCode": 0,
+      "Failures": [],
+      "StdoutSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+      "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    }
+  },
+  "Observations": [
+    {
+      "Job": "shared-spawn-options",
+      "ReturnedBytes": 1172320,
+      "ReturnedSha256": "83F120C6B4B436D559C4EE51C833C76AAD9D5B49C6924D1FFB8062E8E30D173D"
+    },
+    {
+      "Job": "shared-system-flags",
+      "ReturnedBytes": 101002,
+      "ReturnedSha256": "E2B9F438175C90627D89D5DF8089EE143375B573E38200592C0C9FC0F8F1E2BA"
+    }
+  ],
+  "Errors": [],
+  "KnownDifferenceMfas": 24,
+  "WholeContractsClosed": 0,
+  "WholeContractCompatibilityClaimed": false,
+  "ManagedExecutionClaimed": false,
+  "ComparisonPerformed": false,
+  "CapturedEtfRewritten": false,
+  "DeferredExecutionGroups": [
+    "PINFO_COMPLETE",
+    "STATS_COMPLETE",
+    "PROC_REPORT",
+    "NIF_LOAD",
+    "SPAWN_REAL_REMOTE_PEER",
+    "FLAGS_NON_HEAP_BRANCHES"
+  ]
+}

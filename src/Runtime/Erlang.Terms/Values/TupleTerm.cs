@@ -15,6 +15,13 @@ public sealed class TupleTerm : Term
         get;
     }
 
+    internal IOwnedTermSequence506? OwnedStorage506 => Items as IOwnedTermSequence506;
+
+    internal TupleTerm(IOwnedTermSequence506 owned)
+    {
+        Items = owned;
+    }
+
     public TupleTerm(IEnumerable<Term> items)
     {
         Term[] owned = items.ToArray();

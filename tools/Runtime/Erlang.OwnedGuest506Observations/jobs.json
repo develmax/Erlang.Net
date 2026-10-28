@@ -1,0 +1,70 @@
+{
+  "Jobs": {
+    "portable-errors": {
+      "Module": "contract_errors506",
+      "Fixtures": [
+        "contract_cases506.erl",
+        "contract_errors506.erl",
+        "contract_resources506.erl",
+        "contract_subject506.erl",
+        "owned_guest506.erl",
+        "owned_observer506.erl",
+        "owned_probe506.erl"
+      ]
+    },
+    "owned-resource-window": {
+      "Module": "contract_resources506",
+      "Fixtures": [
+        "contract_cases506.erl",
+        "contract_errors506.erl",
+        "contract_resources506.erl",
+        "contract_subject506.erl",
+        "owned_guest506.erl",
+        "owned_observer506.erl",
+        "owned_probe506.erl"
+      ]
+    },
+    "existing-owned-pilot": {
+      "Module": "owned_observer506",
+      "Fixtures": [
+        "contract_cases506.erl",
+        "contract_errors506.erl",
+        "contract_resources506.erl",
+        "contract_subject506.erl",
+        "owned_guest506.erl",
+        "owned_observer506.erl",
+        "owned_probe506.erl"
+      ]
+    },
+    "shared-spawn-options": {
+      "Module": "contract_spawn506",
+      "Fixtures": [
+        "contract_cases506.erl",
+        "contract_logger506.erl",
+        "contract_spawn_subject506.erl",
+        "contract_spawn506.erl",
+        "contract_flags506.erl"
+      ]
+    },
+    "shared-system-flags": {
+      "Module": "contract_flags506",
+      "Fixtures": [
+        "contract_cases506.erl",
+        "contract_logger506.erl",
+        "contract_spawn_subject506.erl",
+        "contract_spawn506.erl",
+        "contract_flags506.erl"
+      ]
+    },
+    "paired-observable": {
+      "Module": "paired_worker506",
+      "Fixtures": [
+        "owned_guest506.erl",
+        "owned_probe506.erl",
+        "owned_observer506.erl",
+        "paired_worker506.erl"
+      ],
+      "PairedProfiles": true
+    }
+  }
+}

@@ -31,7 +31,14 @@ public sealed partial class ProcessRuntime
         if (!enqueued)
         {
             executingProcesses.Remove(context);
-            context.Unwound.TrySetResult();
+            try
+            {
+                context.BeginOwnedTermRetirement506();
+            }
+            finally
+            {
+                context.Unwound.TrySetResult();
+            }
         }
     }
 }

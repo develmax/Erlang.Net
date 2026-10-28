@@ -282,7 +282,8 @@ public sealed partial class ProcessRuntime
                     DrainHamtIndex429(),
                     DrainDriverFrontend422(),
                     DrainCodePurger432(),
-                    DrainAllocatorGather434()
+                    DrainAllocatorGather434(),
+                    DrainOwnedTermContexts506()
                 ).ConfigureAwait(false);
             }
             catch (Exception exception)

@@ -85,5 +85,14 @@ public sealed class ErlangException(Term reason, string exceptionClass = ErlangE
         return result;
     }
 
+    internal ErlangException WithTransferredTerms506(Func<Term, Term> transfer)
+        => new(transfer(Reason), ExceptionClass)
+        {
+            StackTraceTerm = transfer(StackTraceTerm),
+            ExplicitStackTrace = ExplicitStackTrace,
+            AutomaticStackTraceCaptured = AutomaticStackTraceCaptured,
+            traceOrigin = traceOrigin
+        };
+
     public ErlangException(string reason) : this(Term.A(reason)) { }
 }

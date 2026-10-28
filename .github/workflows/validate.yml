@@ -10,14 +10,17 @@ concurrency:
 jobs:
   original-resource-controls504:
     runs-on: ubuntu-latest
-    timeout-minutes: 50
+    timeout-minutes: 60
     env:
+      EXPECTED_HEAD: ${{ github.event.pull_request.head.sha || github.sha }}
       ERLC_USE_SERVER: 'false'
       PYTHONDONTWRITEBYTECODE: '1'
     steps:
       - uses: actions/checkout@v7
         with:
           fetch-depth: 2
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+          persist-credentials: false
       - name: Select changed resource-control inputs
         id: resource-scope
         shell: bash
@@ -29,8 +32,8 @@ jobs:
           base = os.environ.get('BASE_SHA', '')
           present = bool(base and set(base) != {'0'} and subprocess.run(['git', 'cat-file', '-e', base + '^{commit}'], capture_output=True).returncode == 0)
           changed = subprocess.check_output(['git', 'diff', '--name-only', base, 'HEAD'], text=True).splitlines() if present else []
-          prefixes = ('tools/Runtime/Erlang.ResourceControls504Observations/', 'tools/Runtime/Erlang.SchedulerAffinityOriginalObservations/', 'src/Runtime/Erlang.Runtime.Core/Scheduling/', 'src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.Statistics', 'src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.SchedulerStatistics', 'src/Runtime/Erlang.Runtime.Core/Diagnostics/Tracing/SequenceTraceRegistrations')
-          selected = [name for name in changed if name.startswith(prefixes) or 'SystemFlag504' in name or name == '.github/workflows/validate.yml']
+          prefixes = ('tools/Runtime/Erlang.OwnedGuest506Observations/', 'tests/Erlang.Tests/Runtime/Memory/Owned', 'src/Runtime/Erlang.Runtime.Core/Processes/Memory/', 'src/Runtime/Erlang.Runtime.Core/Execution/Beam/', 'tools/Runtime/Erlang.ResourceControls504Observations/', 'tools/Runtime/Erlang.SchedulerAffinityOriginalObservations/', 'src/Runtime/Erlang.Runtime.Core/Scheduling/', 'src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.Statistics', 'src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.SchedulerStatistics', 'src/Runtime/Erlang.Runtime.Core/Diagnostics/Tracing/SequenceTraceRegistrations')
+          selected = [name for name in changed if name.startswith(prefixes) or 'SystemFlag504' in name or 'Owned' in name or name == '.github/workflows/validate.yml']
           required = not present or bool(selected)
           folder = pathlib.Path('artifacts/resource-controls504-original')
           folder.mkdir(parents=True)
@@ -38,7 +41,22 @@ jobs:
           with open(os.environ['GITHUB_OUTPUT'], 'a') as output:
               output.write('required=' + str(required).lower() + '\n')
           PY
+      - name: Admit reviewed committed owned506 plan at the exact source head
+        id: owned506-admit
+        if: steps.resource-scope.outputs.required == 'true'
+        continue-on-error: true
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(git rev-parse HEAD)" = "$EXPECTED_HEAD"
+          plan_sha=$(git show "$EXPECTED_HEAD:tools/Runtime/Erlang.OwnedGuest506Observations/source-plan.json" | sha256sum | cut -d ' ' -f 1)
+          python3 -B tools/Runtime/Erlang.OwnedGuest506Observations/collect.py \
+            --repository "$GITHUB_WORKSPACE" --expected-head "$EXPECTED_HEAD" --plan-sha256 "$plan_sha" \
+            --output "$GITHUB_WORKSPACE/artifacts/resource-controls504-original/owned506-prepare" \
+            > artifacts/resource-controls504-original/owned506-source-admission.log 2>&1
+          echo "OWNED506_PLAN_SHA=$plan_sha" >> "$GITHUB_ENV"
       - name: Prepare one pinned original runtime for the whole resource batch
+        id: shared-original-build
         if: steps.resource-scope.outputs.required == 'true'
         shell: bash
         run: |
@@ -48,7 +66,7 @@ jobs:
           test "$(git -C artifacts/resource-controls504-otp-source rev-parse HEAD)" = ad05823719d77c8faee87348ea39513d4e2f99c5
           python3 -B tools/Runtime/Erlang.SchedulerAffinityOriginalObservations/build-original.py \
             --repository "$GITHUB_WORKSPACE" --manifest-sha256 AEBBA0D2DCF97E1248CA38407E8EBE628EB08F9EA4D13F48EC0C83A7A0364E61 \
-            --expected-head "$GITHUB_SHA" --otp-source "$GITHUB_WORKSPACE/artifacts/resource-controls504-otp-source" \
+            --expected-head "$EXPECTED_HEAD" --otp-source "$GITHUB_WORKSPACE/artifacts/resource-controls504-otp-source" \
             --prefix "$GITHUB_WORKSPACE/artifacts/resource-controls504-otp" \
             --output "$GITHUB_WORKSPACE/artifacts/resource-controls504-original/runtime-build" \
             > artifacts/resource-controls504-original/runtime-build.log 2>&1
@@ -60,13 +78,58 @@ jobs:
           receipt="$GITHUB_WORKSPACE/artifacts/resource-controls504-original/runtime-build/build-receipt.json"
           receipt_sha=$(sha256sum "$receipt" | cut -d ' ' -f 1)
           python3 -B tools/Runtime/Erlang.ResourceControls504Observations/collect.py \
-            --repository "$GITHUB_WORKSPACE" --expected-head "$GITHUB_SHA" \
+            --repository "$GITHUB_WORKSPACE" --expected-head "$EXPECTED_HEAD" \
             --plan-sha256 65DFD908AB37416665DEB9BA988B315BAFAB27DC2FEA8F3A7802156D7A62582C \
             --otp-source "$GITHUB_WORKSPACE/artifacts/resource-controls504-otp-source" \
             --otp-install "$GITHUB_WORKSPACE/artifacts/resource-controls504-otp/lib/erlang" \
             --build-receipt "$receipt" --build-receipt-sha256 "$receipt_sha" \
             --output "$GITHUB_WORKSPACE/artifacts/resource-controls504-original/capture" \
             > artifacts/resource-controls504-original/capture.log 2>&1
+      - name: Reuse the same original Linux installation for all six owned506 jobs
+        id: owned506-original
+        if: ${{ !cancelled() && steps.resource-scope.outputs.required == 'true' && steps.shared-original-build.outcome == 'success' && steps.owned506-admit.outcome == 'success' }}
+        continue-on-error: true
+        shell: bash
+        run: |
+          set -euo pipefail
+          receipt="$GITHUB_WORKSPACE/artifacts/resource-controls504-original/runtime-build/build-receipt.json"
+          receipt_sha=$(sha256sum "$receipt" | cut -d ' ' -f 1)
+          python3 -B tools/Runtime/Erlang.OwnedGuest506Observations/collect.py \
+            --repository "$GITHUB_WORKSPACE" --expected-head "$EXPECTED_HEAD" --plan-sha256 "$OWNED506_PLAN_SHA" \
+            --build-receipt "$receipt" --admission-sha256 "$receipt_sha" \
+            --otp-source "$GITHUB_WORKSPACE/artifacts/resource-controls504-otp-source" \
+            --output "$GITHUB_WORKSPACE/artifacts/resource-controls504-original/owned506-capture" \
+            --execute-original --check-paired-golden \
+            > artifacts/resource-controls504-original/owned506-capture.log 2>&1
+      - uses: actions/setup-dotnet@v6
+        id: owned506-sdk
+        if: ${{ !cancelled() && steps.owned506-admit.outcome == 'success' }}
+        with:
+          global-json-file: global.json
+      - name: Verify final-source owned506 observer and sender controls on Linux
+        id: owned506-controls
+        if: ${{ !cancelled() && steps.owned506-sdk.outcome == 'success' }}
+        continue-on-error: true
+        shell: bash
+        run: |
+          set -euo pipefail
+          dotnet run --project tests/Erlang.Tests/Erlang.Tests.csproj -c Release -- \
+            --case runtime/owned-guest506/original-compiled-worker-whole-values-and-stacks \
+            --case runtime/owned-guest506/source-message-survives-sender-physical-retirement \
+            --case runtime/owned-guest506/nested-foreign-invocation-refuses-enclosing-vm-shutdown \
+            --report artifacts/resource-controls504-original/owned506-final-controls.json \
+            > artifacts/resource-controls504-original/owned506-final-controls.log 2>&1
+      - name: Require every owned506 original and final-control stage
+        if: ${{ !cancelled() && steps.resource-scope.outputs.required == 'true' }}
+        shell: bash
+        env:
+          ADMISSION: ${{ steps.owned506-admit.outcome }}
+          ORIGINAL: ${{ steps.owned506-original.outcome }}
+          CONTROLS: ${{ steps.owned506-controls.outcome }}
+        run: |
+          test "$ADMISSION" = success
+          test "$ORIGINAL" = success
+          test "$CONTROLS" = success
       - uses: actions/upload-artifact@v7
         if: always()
         with:
@@ -87,18 +150,49 @@ jobs:
           path: artifacts/review498/**
   local-regressions:
     runs-on: windows-latest
+    env:
+      EXPECTED_HEAD: ${{ github.event.pull_request.head.sha || github.sha }}
     steps:
       - uses: actions/checkout@v7
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+          persist-credentials: false
+      - name: Admit reviewed committed owned506 plan at the exact source head
+        id: owned506-admit
+        continue-on-error: true
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = 'Stop'
+          New-Item -ItemType Directory -Path artifacts/owned506 -Force | Out-Null
+          $actualHead = git rev-parse HEAD
+          if ($LASTEXITCODE -ne 0 -or $actualHead -ne $env:EXPECTED_HEAD) { throw 'Exact source head differs' }
+          $planSha = python -c "import hashlib,subprocess,sys; print(hashlib.sha256(subprocess.check_output(['git','show',sys.argv[1]+':tools/Runtime/Erlang.OwnedGuest506Observations/source-plan.json'])).hexdigest().upper())" $env:EXPECTED_HEAD
+          if ($LASTEXITCODE -ne 0) { throw 'Committed source plan could not be read' }
+          python -B tools/Runtime/Erlang.OwnedGuest506Observations/collect.py --repository $PWD.Path --expected-head $env:EXPECTED_HEAD --plan-sha256 $planSha --output artifacts/owned506/prepare *> artifacts/owned506/source-admission.log
+          if ($LASTEXITCODE -ne 0) { throw 'Owned506 sealed source admission failed' }
+          "OWNED506_PLAN_SHA=$planSha" | Add-Content $env:GITHUB_ENV
       - uses: actions/setup-dotnet@v6
         with:
           global-json-file: global.json
       - shell: pwsh
+        id: shared-original-provider
         run: |
           $runtimes = dotnet --list-runtimes
           if ($LASTEXITCODE -ne 0 -or -not ($runtimes -match '^Microsoft.NETCore.App 10\.0\.11 ')) { throw 'Required source-admitted test CLR 10.0.11 is missing' }
           New-Item -ItemType Directory -Path artifacts -Force | Out-Null
           $runtimes | Set-Content artifacts/runtime-profile.log
           ./tools/prepare-regex-provider.ps1 -Repository $PWD.Path
+      - name: Reuse admitted Windows provider for all six owned506 jobs
+        id: owned506-original
+        if: ${{ !cancelled() && steps.shared-original-provider.outcome == 'success' && steps.owned506-admit.outcome == 'success' }}
+        continue-on-error: true
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = 'Stop'
+          $admission = 'artifacts/library376-official-compiler/official-admission.json'
+          $admissionSha = (Get-FileHash -LiteralPath $admission -Algorithm SHA256).Hash
+          python -B tools/Runtime/Erlang.OwnedGuest506Observations/collect.py --repository $PWD.Path --expected-head $env:EXPECTED_HEAD --plan-sha256 $env:OWNED506_PLAN_SHA --official-admission $admission --admission-sha256 $admissionSha --output artifacts/owned506/capture --execute-original --check-paired-golden *> artifacts/owned506/capture.log
+          if ($LASTEXITCODE -ne 0) { throw 'Owned506 independent original jobs failed; all raw receipts retained' }
       - shell: pwsh
         run: |
           $originalFailures = @()
@@ -223,11 +317,20 @@ jobs:
           }
           python -B tools/Native/Erlang.ProcessRetirement502OriginalObservations/collect.py --repository $PWD.Path --provider-admission artifacts/library376-official-compiler/official-admission.json --plan-sha256 63171EAC39BEF4AD0DEBE1F4CD09241EA6C4F6967CB8FABBCC638D6F540B7B76 --output artifacts/process-retirement502/ci --check-golden
           if ($LASTEXITCODE -ne 0) { throw 'Retirement502 controlled original protocol failed; inspect native markers and owned-process receipt' }
+      - name: Require owned506 original source and full original batch
+        if: ${{ !cancelled() }}
+        shell: pwsh
+        env:
+          ADMISSION: ${{ steps.owned506-admit.outcome }}
+          ORIGINAL: ${{ steps.owned506-original.outcome }}
+        run: |
+          if ($env:ADMISSION -ne 'success' -or $env:ORIGINAL -ne 'success') { throw 'Owned506 required acquisition stages did not pass' }
       - uses: actions/upload-artifact@v7
         if: always()
         with:
           name: validation
           path: |
+            artifacts/owned506/**
             artifacts/tests.json
             artifacts/native-map501/ci/**
             artifacts/process-retirement502/ci/**

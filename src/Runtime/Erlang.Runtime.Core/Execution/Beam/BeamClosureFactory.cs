@@ -64,6 +64,20 @@ internal static class BeamClosureFactory
         return function;
     }
 
+    internal static bool TryCaptureTransferBinding506(ProcessRuntime owner, FunctionTerm function, out BeamClosureBinding? binding)
+    {
+        if (!bindings.TryGetValue(function, out binding))
+            return false;
+        if (binding.Execution.Owner is PreparedBeamImage prepared && !ReferenceEquals(prepared.Owner, owner.Modules))
+        {
+            binding = null;
+
+            return false;
+        }
+
+        return true;
+    }
+
     internal static BeamClosureBinding CaptureStoredBinding(ProcessRuntime owner, FunctionTerm function)
     {
         if (!bindings.TryGetValue(function, out BeamClosureBinding? binding)
