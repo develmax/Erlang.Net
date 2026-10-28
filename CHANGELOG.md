@@ -152,4 +152,6 @@ Append numbered English entries only to the last volume. Start the next sequenti
 
 - [0089.md](docs/changelog/0089.md) — parts506–516 (closed; payload roots, trusted transfer, BEAM receive and callback boundaries)
 
-- [0090.md](docs/changelog/0090.md) — parts517–522 (active; loader metadata, dirty native ABI, shared maps and native spawn contracts)
+- [0090.md](docs/changelog/0090.md) — parts517–523 (closed; loader metadata, dirty native ABI, shared maps and native spawn contracts)
+
+- [0091.md](docs/changelog/0091.md) — Part523 CI correction (active)

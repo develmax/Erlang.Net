@@ -1,8 +1,8 @@
 # Remaining work
 
-## Current checkpoint522
+## Current checkpoint523
 
-See [checkpoint522](checkpoint-522.md):708 registered /180 full /504 pending /24 known differences, deltas0. Shared-ledger index generation repairs stale16/30/541 presentation. Current-root get_list custody passes95 applicable publication checks; final original comparisons/publication CI remain pending. The complete24-entry next batch is19 shared resource-policy consumers,1 NIF upgrade and4 crash/hibernate contracts. Part520 CI552 is fully green9171/9171/all3jobs; Part521 CI553 is in progress.
+See [checkpoint523](checkpoint-523.md):708 registered /180 full /504 pending /24 known differences, deltas0. Actual float slab storage and live native load private-data behavior are implemented as finite prerequisites; final local original Float2/2 and native private-data4/4 routes,203/203 affected checks and source seals pass; exact publication-head CI remains pending. Part522 CI554 is fully green9177/9177/all3jobs. All24 remain grouped19resource +1upgrade +4crash/hibernate.
 
 ## Historical Part504 contract queue
 
@@ -32,3 +32,7 @@ The detailed [architecture and compatibility queue](architecture-and-compatibili
 - [Native API boundaries](../NATIVE_API_LIMITATIONS.md)
 
 The current528 unclosed rows are504 pending plus24 recorded differences. Historical differences still need current reproductions; unregistered original exports are not automatically missing implementations. Preparation of1321 primary images across34 libraries is complete under the explicit native configuration; full application/API acceptance remains separate. No justified project-wide completion percentage or fixed remaining-test count is available.
+
+## Part523 CI555 correction
+
+Full9180/0 and Linux pass; overall run failed three old native-map source plans. Metadata/checkouts and early8-plan gate are corrected, local original12routes pass, exact repair-head CI pending. See [checkpoint523](checkpoint-523.md#2026-10-28-ci555-source-plan-correction).

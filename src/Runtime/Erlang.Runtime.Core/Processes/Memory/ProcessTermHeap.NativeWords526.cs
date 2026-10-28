@@ -11,9 +11,10 @@ internal sealed partial class ProcessTermHeap506
                     slabs.Sum(slab => (long)slab.Cells.Length),
                     slabs.Sum(slab => (long)slab.Cells.RootedTerms526),
                     slabs.Sum(slab => (long)slab.Cells.RawHeaders526),
-                    slabs.Sum(slab => (long)slab.Cells.RootedTerms526 + slab.Cells.RawHeaders526),
+                    slabs.Sum(slab => (long)slab.Cells.RootedTerms526 + slab.Cells.RawHeaders526 + slab.Cells.RawNumericWords556),
                     blocks.Count,
-                    slabs.Sum(slab => (long)slab.Cells.RootedTerms526)
+                    slabs.Sum(slab => (long)slab.Cells.RootedTerms526),
+                    slabs.Sum(slab => (long)slab.Cells.RawNumericWords556)
                 );
         }
     }

@@ -11,9 +11,11 @@ internal sealed unsafe class NativeTermCellBuffer526 : IDisposable
     private readonly byte[] kinds;
     private int rooted;
     private int headers;
+    private int numericWords556;
     internal int Length => kinds.Length;
     internal int RootedTerms526 => rooted;
     internal int RawHeaders526 => headers;
+    internal int RawNumericWords556 => numericWords556;
     internal bool Disposed526 => pointer == null;
 
     internal NativeTermCellBuffer526(int words)
@@ -83,6 +85,31 @@ internal sealed unsafe class NativeTermCellBuffer526 : IDisposable
         return result;
     }
 
+    internal void WriteNumeric556(nuint[] values, int offset)
+    {
+        for (int index = 0; index < values.Length; index++)
+        {
+            int target = checked(offset + index);
+            Require526(target);
+            ClearCell526(target);
+            pointer[target] = values[index];
+            kinds[target] = CellStorage526Names.NumericDataKind556;
+            numericWords556++;
+        }
+        GC.KeepAlive(this);
+    }
+
+    internal nuint ReadNumeric556(int index)
+    {
+        Require526(index);
+        if (kinds[index] != CellStorage526Names.NumericDataKind556)
+            throw new InvalidOperationException(CellStorage526Names.NotNumeric556);
+        nuint result = pointer[index];
+        GC.KeepAlive(this);
+
+        return result;
+    }
+
     internal void Clear526(int offset, int length)
     {
         ArgumentOutOfRangeException.ThrowIfNegative(offset);
@@ -111,6 +138,8 @@ internal sealed unsafe class NativeTermCellBuffer526 : IDisposable
         }
         else if (kinds[index] == CellStorage526Names.HeaderKind)
             headers--;
+        else if (kinds[index] == CellStorage526Names.NumericDataKind556)
+            numericWords556--;
         pointer[index] = 0;
         kinds[index] = CellStorage526Names.EmptyKind;
     }

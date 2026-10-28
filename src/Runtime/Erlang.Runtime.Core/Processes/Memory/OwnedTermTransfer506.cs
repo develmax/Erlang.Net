@@ -32,6 +32,7 @@ internal static class OwnedTermTransfer506
                 )
                 : frame.Source switch
                 {
+                    FloatTerm number => heap.CreateFloat556(number.Value, construction),
                     Cons => heap.CreateCons(frame.Copied[0], frame.Copied[1]),
                     TupleTerm { Items.Count: 0 } => frame.Source,
                     TupleTerm => heap.CreateTuple(frame.Copied),
@@ -43,7 +44,7 @@ internal static class OwnedTermTransfer506
                     ),
                     _ => frame.Source
                 };
-            if (frame.MapPlan is null && frame.NodePlan526 is null)
+            if (frame.MapPlan is null && frame.NodePlan526 is null && frame.Source is not FloatTerm)
                 construction.Publish(result);
             stack.Pop();
             if (stack.Count == 0)

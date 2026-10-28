@@ -1,0 +1,121 @@
+{
+  "FinalPassiveChecks": {
+    "Passed": true,
+    "Checks": [
+      {
+        "Plan": "Erlang.NifMapFamily504Observations",
+        "Passed": true,
+        "Details": {
+          "PlanSha256": "3123F5A26E4878EBEBB6D2DD1212B24012A59905C013EB0E5C33AEABEFA38B29",
+          "VerifiedRows": 34,
+          "NativeExecuted": false
+        }
+      },
+      {
+        "Plan": "Erlang.NifMapMaterialized505Observations",
+        "Passed": true,
+        "Details": {
+          "PlanSha256": "5B2137298B00B507CD86D9C62EBA8D985A8BCBFA0185EB4CC4745522FED40728",
+          "VerifiedRows": 39,
+          "NativeExecuted": false
+        }
+      },
+      {
+        "Plan": "Erlang.NifMapReentry505Observations",
+        "Passed": true,
+        "Details": {
+          "PlanSha256": "5BC5955BE8F3773D707FC0FEEEC994A37BB0E155BCA32277813C3A5C61EB39D0",
+          "VerifiedRows": 39,
+          "NativeExecuted": false
+        }
+      },
+      {
+        "Plan": "tools/Runtime/Erlang.OwnedGuest506Observations",
+        "Passed": true,
+        "Details": {
+          "PlanSha256": "C8CCE5E4928794BCFDFB6A02E8CDAC9ED40509990FBCAB9C83D45025ADC919C4",
+          "VerifiedRows": 145
+        }
+      },
+      {
+        "Plan": "tools/Native/Erlang.NifVariadic526Observations",
+        "Passed": true,
+        "Details": {
+          "PlanSha256": "86ADF59C212FFEFFCB155F999FBB3FE7EB09096E7CC340849DBFFC2B7F51CAA6",
+          "VerifiedRows": 855
+        }
+      },
+      {
+        "Plan": "Pending",
+        "Passed": true,
+        "Details": {
+          "PlanSha256": "CE3C55DCA3089EC11F0C055424C9016687C5F7FF58DF8BD0DD4CE4EEF681B6E6",
+          "VerifiedRows": 3181,
+          "CompleteGitMembershipChecked": false
+        }
+      },
+      {
+        "Plan": "Reallocation",
+        "Passed": true,
+        "Details": {
+          "PlanSha256": "906E524714E92DFC8A8459BD791D36EB47924F2D37880D08C893B1C394A6BC0D",
+          "VerifiedRows": 3288
+        }
+      },
+      {
+        "Plan": "Private557",
+        "Passed": true,
+        "Details": {
+          "PlanSha256": "1C6C2F5B3C35CDD723B27E66AA8B62194E95671CD5AC569C025B553EDC6128AC",
+          "VerifiedFiles": 2830
+        }
+      }
+    ],
+    "ExpectedPlans": 8,
+    "BuildOrVmExecuted": false,
+    "NativeExecuted": false,
+    "SourceHeadAuthenticityClaimed": false,
+    "FullSourceMembershipClaimed": false,
+    "WholeContractsClosed": 0
+  },
+  "FinalFivePlanClosure": {
+    "Changes": [
+      {
+        "Plan": "tools/Runtime/Erlang.OwnedGuest506Observations/source-plan.json",
+        "Path": ".github/workflows/validate.yml",
+        "Old": "4486DB11EAE04303B5ACBD4DF8D56757C8021C11C509A380EB5EF5ABC046B306",
+        "New": "899DEEADD5A37F15040D4FA4DE8D626666B8D02DD30E80205D32D1E0612AEBED"
+      },
+      {
+        "Plan": "tools/Native/Erlang.NifPrivateData557Observations/source-plan.json",
+        "Path": ".github/workflows/validate.yml",
+        "Old": "4486DB11EAE04303B5ACBD4DF8D56757C8021C11C509A380EB5EF5ABC046B306",
+        "New": "899DEEADD5A37F15040D4FA4DE8D626666B8D02DD30E80205D32D1E0612AEBED"
+      }
+    ],
+    "Pins": [
+      {
+        "Path": ".github/workflows/nif-pending-native.yml",
+        "Old": "CE3C55DCA3089EC11F0C055424C9016687C5F7FF58DF8BD0DD4CE4EEF681B6E6",
+        "New": "CE3C55DCA3089EC11F0C055424C9016687C5F7FF58DF8BD0DD4CE4EEF681B6E6"
+      },
+      {
+        "Path": ".github/workflows/nif-reallocation-native.yml",
+        "Old": "906E524714E92DFC8A8459BD791D36EB47924F2D37880D08C893B1C394A6BC0D",
+        "New": "906E524714E92DFC8A8459BD791D36EB47924F2D37880D08C893B1C394A6BC0D"
+      }
+    ],
+    "AllFiveFinalRowsVerified": 10298,
+    "FinalHashes": {
+      "tools/Runtime/Erlang.OwnedGuest506Observations/source-plan.json": "C8CCE5E4928794BCFDFB6A02E8CDAC9ED40509990FBCAB9C83D45025ADC919C4",
+      "tools/Native/Erlang.NifPendingVarargsObservations/reviewed-source-plan.json": "CE3C55DCA3089EC11F0C055424C9016687C5F7FF58DF8BD0DD4CE4EEF681B6E6",
+      "tools/Native/Erlang.NifReallocationObservations/SOURCE-PLAN.json": "906E524714E92DFC8A8459BD791D36EB47924F2D37880D08C893B1C394A6BC0D",
+      "tools/Native/Erlang.NifVariadic526Observations/source-plan.json": "86ADF59C212FFEFFCB155F999FBB3FE7EB09096E7CC340849DBFFC2B7F51CAA6",
+      "tools/Native/Erlang.NifPrivateData557Observations/source-plan.json": "1C6C2F5B3C35CDD723B27E66AA8B62194E95671CD5AC569C025B553EDC6128AC"
+    },
+    "CsharpOrGoldenChanged": false,
+    "ClassificationsChanged": false
+  },
+  "PostArchiveChange": "Removed indentation-only whitespace from empty YAML script lines and refreshed two bound workflow rows; Python/runtime semantics unchanged",
+  "ArchivedEvidenceNotOverwritten": true
+}

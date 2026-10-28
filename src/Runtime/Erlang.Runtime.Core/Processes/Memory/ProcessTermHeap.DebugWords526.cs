@@ -31,14 +31,18 @@ internal sealed partial class ProcessTermHeap506
                     return true;
                 // Reject unrepresented scalar/function/binary/foreign domains;
                 // their existing source policy remains the explicit fallback.
-                if (value is not (TupleTerm or Cons or MapTerm or HamtBitmapTerm429))
+                if (value is not (TupleTerm or Cons or MapTerm or HamtBitmapTerm429 or FloatTerm))
                     return false;
                 if (!flat && runtime.IsSharingLiteral425(value))
                     return true;
                 if (!IsOwnedLocal(value) || Storage(value) is not ProcessTermSequence506 payload)
                     return false;
                 bool sharedHamt = false;
-                if (value is TupleTerm)
+                if (value is FloatTerm)
+                {
+                    _ = ReadFloat556(payload);
+                }
+                else if (value is TupleTerm)
                 {
                     if (payload.HeaderWords526 != 1
                         || payload.Slab.Cells.ReadHeader526(payload.AllocationOffset526) != EncodedMapHeader526.Tuple(payload.Count))

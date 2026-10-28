@@ -17,8 +17,8 @@ internal sealed partial class ProcessTermHeap506
         pending.Push(new(source, maps));
         while (pending.TryPeek(out GuestAdoptionFrame507? frame))
         {
-            if (IsOwnedLocal(frame.Source) || frame.NodePlan526 is null
-                && (frame.Source is not (TupleTerm or Cons or MapTerm)
+            if (IsOwnedLocal(frame.Source) || IsLiteralFloat556(frame.Source) || frame.NodePlan526 is null
+                && (frame.Source is not (TupleTerm or Cons or MapTerm or FloatTerm)
                     || frame.Source is TupleTerm { Items.Count: 0 }
                     || frame.Source is MapTerm && frame.MapPlan is null))
             {
@@ -51,8 +51,10 @@ internal sealed partial class ProcessTermHeap506
                     frame.Built,
                     admitted?.For(mapPlan) ?? throw new InvalidOperationException(MapRouting517Names.MissingPlan)
                 )
+                : frame.Source is FloatTerm number
+                ? CreateFloat556(number.Value, construction ?? throw new InvalidOperationException(ProcessTermConstruction514Names.InvalidCustody))
                 : frame.Source is Cons ? CreateCons(frame.Built[0], frame.Built[1]) : CreateTuple(frame.Built);
-            if (frame.MapPlan is null && frame.NodePlan526 is null)
+            if (frame.MapPlan is null && frame.NodePlan526 is null && frame.Source is not FloatTerm)
                 construction?.Publish(built);
             copies[frame.Source] = built;
             pending.Pop();

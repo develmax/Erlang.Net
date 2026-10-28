@@ -156,12 +156,13 @@ internal sealed partial class ProcessTermHeap506(ProcessRuntime runtime)
 
     private ProcessTermSequence506 Allocate(Term[] children) => AllocateEncoded526(children, []);
 
-    private ProcessTermSequence506 AllocateEncoded526(Term[] children, nuint[] headers)
+    private ProcessTermSequence506 AllocateEncoded526(Term[] children, nuint[] headers, nuint[]? numeric = null)
     {
         if (!Monitor.IsEntered(Gate))
             throw new InvalidOperationException(CellStorage526Names.GateRequired);
         ObjectDisposedException.ThrowIf(closing && frames.Count == 0, this);
-        int physicalWords = checked(children.Length + headers.Length);
+        numeric ??= [];
+        int physicalWords = checked(children.Length + headers.Length + numeric.Length);
         ArgumentOutOfRangeException.ThrowIfNegativeOrZero(physicalWords);
         // Caller holds Gate throughout complete graph import + root publication.
         ProcessTermSlab506? selected = null;
@@ -222,12 +223,14 @@ internal sealed partial class ProcessTermHeap506(ProcessRuntime runtime)
                 this,
                 id,
                 selected,
-                checked(offset + headers.Length),
+                checked(offset + headers.Length + numeric.Length),
                 children.Length,
-                headers.Length
+                headers.Length,
+                numeric.Length
             );
             selected.Cells.WriteHeaders526(headers, offset);
-            selected.Cells.WriteTerms526(children, checked(offset + headers.Length));
+            selected.Cells.WriteNumeric556(numeric, checked(offset + headers.Length));
+            selected.Cells.WriteTerms526(children, checked(offset + headers.Length + numeric.Length));
             blocks.Add(id, block);
             identity = id;
 
@@ -300,6 +303,7 @@ internal sealed partial class ProcessTermHeap506(ProcessRuntime runtime)
         MapTerm map => map.OwnedMapPayload517?.RootPayload,
         HamtBitmapTerm429 bitmap => bitmap.OwnedStorage517,
         Cons cons => cons.OwnedStorage506,
+        FloatTerm number => number.OwnedStorage556,
         _ => null
     };
 }

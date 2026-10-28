@@ -60,10 +60,10 @@ internal sealed partial class ProcessTermFrame506
                 throw new InvalidOperationException(ProcessTermConstruction514Names.InvalidCustody);
             if (!owner.IsOwnedLocal(value))
                 return;
-            if (value is not (Cons or TupleTerm or MapTerm or HamtBitmapTerm429))
+            if (value is not (Cons or TupleTerm or MapTerm or HamtBitmapTerm429 or FloatTerm))
                 throw new InvalidOperationException(ProcessTermConstruction514Names.InvalidCustody);
-            // Only admitted tuple/cons/map containers are created here. Their
-            // direct children must come from the rooted input or earlier nodes;
+            // Admitted containers and zero-child boxed floats are created here.
+            // Direct children must come from the rooted input or earlier nodes;
             // no new binary backing can enter through this capability.
             foreach (Term child in ProcessTermHeap506.DirectConstructionChildren517(value))
                 if (!custody.Contains(child))
