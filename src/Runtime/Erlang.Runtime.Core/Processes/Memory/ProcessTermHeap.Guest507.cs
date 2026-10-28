@@ -5,14 +5,15 @@ internal sealed partial class ProcessTermHeap506
     // Called only while this heap gate is held; no code/image/runtime callback.
     internal void ValidateGuestGraph507(Term value) => ValidateLocalGraph(value);
 
-    internal Term AdoptGuest507(Term source)
+    internal Term AdoptGuest507(Term source, ProcessTermConstruction514? construction = null)
     {
         var copies = new Dictionary<Term, Term>(ReferenceEqualityComparer.Instance);
         var pending = new Stack<GuestAdoptionFrame507>();
         pending.Push(new(source));
         while (pending.TryPeek(out GuestAdoptionFrame507? frame))
         {
-            if (IsOwnedLocal(frame.Source) || frame.Source is not (TupleTerm or Cons))
+            if (IsOwnedLocal(frame.Source) || frame.Source is not (TupleTerm or Cons)
+                || frame.Source is TupleTerm { Items.Count: 0 })
             {
                 copies[frame.Source] = frame.Source;
                 pending.Pop();
@@ -29,8 +30,10 @@ internal sealed partial class ProcessTermHeap506
                 frame.Built[frame.Next++] = copied;
                 continue;
             }
-            copies[frame.Source] = frame.Source is Cons
+            Term built = frame.Source is Cons
                 ? CreateCons(frame.Built[0], frame.Built[1]) : CreateTuple(frame.Built);
+            construction?.Publish(built);
+            copies[frame.Source] = built;
             pending.Pop();
         }
 

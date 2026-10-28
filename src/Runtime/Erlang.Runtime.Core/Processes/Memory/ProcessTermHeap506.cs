@@ -32,9 +32,17 @@ internal sealed partial class ProcessTermHeap506(ProcessRuntime runtime)
         {
             ObjectDisposedException.ThrowIf(closing, this);
             var frame = new ProcessTermFrame506(this);
-            frames.Add(frame);
+            try
+            {
+                frames.Add(frame);
 
-            return frame;
+                return frame;
+            }
+            catch
+            {
+                frame.Dispose();
+                throw;
+            }
         }
     }
 
@@ -46,11 +54,19 @@ internal sealed partial class ProcessTermHeap506(ProcessRuntime runtime)
                 throw new ObjectDisposedException(nameof(ProcessTermFrame506));
             ValidateLocalGraph(value);
             var frame = new ProcessTermFrame506(this);
-            frame.InitializeBorrow506(value);
-            var borrow = new ProcessTermBorrow506(this, frame, value);
-            frames.Add(frame);
+            try
+            {
+                frame.InitializeBorrow506(value);
+                var borrow = new ProcessTermBorrow506(this, frame, value);
+                frames.Add(frame);
 
-            return borrow;
+                return borrow;
+            }
+            catch
+            {
+                frame.Dispose();
+                throw;
+            }
         }
     }
 
@@ -116,7 +132,7 @@ internal sealed partial class ProcessTermHeap506(ProcessRuntime runtime)
             // process heap gate while holding this process's gate.
             if (Storage(current) is not null)
                 _ = IsOwnedLocal(current);
-            foreach (Term child in new DebugDirtyCopyFrame424(current).Children)
+            foreach (Term child in NativeMapOwnedRoots510.Children(current))
                 pending.Push(child);
         }
     }
@@ -197,38 +213,8 @@ internal sealed partial class ProcessTermHeap506(ProcessRuntime runtime)
     }
 
     internal long Collect()
-    {
-        lock (Gate)
-        {
-            var seen = new HashSet<Term>(ReferenceEqualityComparer.Instance);
-            var marked = new HashSet<long>();
-            var pending = new Stack<Term>(frames.SelectMany(frame => frame.Roots));
-            while (pending.TryPop(out Term? term))
-            {
-                if (!seen.Add(term))
-                    continue;
-                if (Storage(term) is { } block)
-                {
-                    if (!ReferenceEquals(block.Owner, this))
-                        throw new InvalidOperationException(ProcessTerm506Names.ForeignRoot);
-                    marked.Add(block.Identity);
-                }
-                foreach (Term child in new DebugDirtyCopyFrame424(term).Children)
-                    pending.Push(child);
-            }
-            long[] dead = blocks.Keys.Where(id => !marked.Contains(id)).ToArray();
-            long reclaimed = 0;
-            foreach (long id in dead)
-            {
-                ProcessTermSequence506 block = blocks[id];
-                reclaimed = checked(reclaimed + block.Count);
-                block.Slab.Release(block.Offset, block.Count);
-                blocks.Remove(id);
-            }
+     => CollectGeneration508(true, ProcessFullSweepNames.DefaultThreshold).ReclaimedPayloadWords;
 
-            return reclaimed;
-        }
-    }
 
     internal void Release(ProcessTermFrame506 frame)
     {
@@ -254,6 +240,7 @@ internal sealed partial class ProcessTermHeap506(ProcessRuntime runtime)
         foreach (ProcessTermSlab506 slab in slabs)
             Array.Clear(slab.Cells);
         blocks.Clear();
+        oldBlocks508.Clear();
         slabs.Clear();
         drained.TrySetResult();
     }

@@ -26,5 +26,5 @@ internal sealed partial class OwnedTermInvocation506
     internal Term HoldGuestResult507(Term value) => Frame.SetLocalGraph507(resultSlot, value);
 
     internal Term AdoptExpression507(Term value)
-        => Frame.AdoptGuestInto507(Frame.Reserve(), value);
+        => Frame.AdoptExpression511(value);
 }

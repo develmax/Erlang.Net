@@ -7,17 +7,18 @@ internal static class OwnedTermDetachedCopy506
         // The native copy_struct traversal copies each heap occurrence; do not
         // turn repeated boxed children into a shared memoized output graph.
         // Explicit frames avoid CLR recursion for deep proper/improper lists.
-        var stack = new Stack<DebugDirtyCopyFrame424>();
-        stack.Push(Frame(source));
+        var stack = new Stack<OwnedDetachedCopyFrame510>();
+        stack.Push(new(runtime, source));
         while (true)
         {
-            DebugDirtyCopyFrame424 frame = stack.Peek();
+            OwnedDetachedCopyFrame510 frame = stack.Peek();
             if (frame.Index < frame.Children.Length)
             {
-                stack.Push(Frame(frame.Children[frame.Index]));
+                stack.Push(new(runtime, frame.Children[frame.Index]));
                 continue;
             }
-            Term copy = Build(runtime, frame.Source, frame.Copied);
+            Term copy = frame.NativeMap is { } nativeMap
+                ? nativeMap.Build(frame.Copied) : Build(runtime, frame.Source, frame.Copied);
             stack.Pop();
             if (stack.Count == 0)
             {
@@ -25,17 +26,10 @@ internal static class OwnedTermDetachedCopy506
 
                 return copy;
             }
-            DebugDirtyCopyFrame424 parent = stack.Peek();
+            OwnedDetachedCopyFrame510 parent = stack.Peek();
             parent.Copied[parent.Index++] = copy;
         }
-    }
 
-    private static DebugDirtyCopyFrame424 Frame(Term source)
-    {
-        if (source is MapTerm { NativeEquality505: not null })
-            throw new NotSupportedException(ProcessTerm506Names.PhysicalMapDependency);
-
-        return new(source);
     }
 
     private static Term Build(ProcessRuntime runtime, Term source, Term[] values)

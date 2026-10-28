@@ -1,0 +1,11 @@
+# Final review: corrected Part514 bytes
+
+Final actual w504 production/test/Program hashes are bound in final-corrected-snapshot.json. Every completion.json FinalSources hash matches current bytes. The earlier clean-review miss and explicit empty-tuple amendment remain preserved; this verdict concerns only the corrected final sources.
+
+No remaining concrete blocker was found in the bounded corrected custody/publication review. AdoptGuest507 now reuses `TupleTerm { Items.Count: 0 }` in its base branch. The exact original empty wrapper remains in the input reference inventory, so enclosing tuples/lists pass direct-child membership without allocating/admitting an unowned fresh wrapper. Ordinary owned/noncontainer base cases, physical-aware input coverage, transaction identity checks, new-backing rejection and final destination binary lease are unchanged.
+
+The final five-file construction algorithm plus actual registry diagnostics preserve the previously audited constant graph walks and reference-identity HashSet membership. There is no recursive term equality in Contains and no per-suffix binary traversal for constructed nodes. Input/hidden-map backing coverage remains complete through NativeMapOwnedRoots510.Children. New-node dictionary failure removes its new custody admission; old destination lease/root remains until successful full destination publication; temporary frame disposal occurs after that publication.
+
+Final test source keeps all three independent sizes and original thresholds; the explicit nested-empty regression is registered alongside scaling, hidden physical map and new-backing rollback controls. Harness Program registers all four. This reviewer passively read parent-produced receipts: the nested-empty reproduction actually failed0/1 with UnadmittedChild before correction; final affected run passed111/111, zero failures, and is explicitly Partial against9133 registered tests. Parent's actual measured green visits66/130/258, retains2 each, peak32/64/128 are finite linear-work evidence, not public VM statistics or a timing benchmark. No new VM/native/build execution was performed by this reviewer.
+
+Exact-head CI and fresh review after publication remain separate required delivery evidence. This correction does not close any of the24 known full API contracts or change public resource compatibility.

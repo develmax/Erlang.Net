@@ -223,6 +223,8 @@ public static partial class Execution
                 selection.Bindings,
                 module,
                 true
+            ,
+                functionBody: true
             );
         }
         catch (SourceContinuationReturn returned)
@@ -411,7 +413,8 @@ public static partial class Execution
                         context,
                         selection.Bindings,
                         module,
-                        true
+                        true,
+                        functionBody: true
                     );
             }
 
@@ -523,8 +526,11 @@ public static partial class Execution
         Dictionary<string, Term> b,
         ModuleDefinition? module,
         bool tail = false
+    ,
+        bool functionBody = false
     )
     {
+        using var sourceEvaluation = ctx.EnterSourceEvaluation511(functionBody);
         try
         {
             Term result = await EvaluateCore(
@@ -772,8 +778,10 @@ public static partial class Execution
                 );
             case Expr.Sequence s:
                 {
+                    using var roots = ctx.EnterSourceStatementRoots511();
                     Term result = Term.A(ExecutionResultAtoms.EmptySequence);
                     for (int i = 0; i < s.Items.Count; i++)
+                    {
                         result = await Evaluate(
                             s.Items[i],
                             ctx,
@@ -781,6 +789,10 @@ public static partial class Execution
                             module,
                             tail && i == s.Items.Count - 1
                         );
+
+                        if (roots is not null && i + 1 < s.Items.Count)
+                            roots.PublishCompletedStatement(SourceContinuationLiveness511.CompleteStatement(s, i, b));
+                    }
 
                     return result;
                 }

@@ -15,7 +15,7 @@ internal sealed partial class ProcessTermFrame506 : IDisposable
     internal void InitializeBorrow506(Term value)
     {
         nextSlot = 1;
-        values.Add(0, value);
+        PublishRoot512(0, value);
     }
 
     internal int Reserve()
@@ -35,7 +35,7 @@ internal sealed partial class ProcessTermFrame506 : IDisposable
             ValidateSlot(slot);
             if (owner.IsOwnedLocal(value))
             {
-                values[slot] = value;
+                PublishRoot512(slot, value);
 
                 return;
             }
@@ -44,7 +44,7 @@ internal sealed partial class ProcessTermFrame506 : IDisposable
         lock (owner.Gate)
         {
             ValidateSlot(slot);
-            values[slot] = owner.ImportPrepared(prepared.Portable);
+            PublishRoot512(slot, owner.ImportPrepared(prepared.Portable));
         }
     }
 
@@ -53,7 +53,7 @@ internal sealed partial class ProcessTermFrame506 : IDisposable
         lock (owner.Gate)
         {
             ValidateSlot(slot);
-            values[slot] = owner.ImportPrepared(portable);
+            PublishRoot512(slot, owner.ImportPrepared(portable));
         }
     }
 
@@ -88,6 +88,7 @@ internal sealed partial class ProcessTermFrame506 : IDisposable
         {
             ObjectDisposedException.ThrowIf(disposed, this);
             values.Remove(slot);
+            binaryRoots512?.Clear512(slot);
         }
     }
 
@@ -99,6 +100,7 @@ internal sealed partial class ProcessTermFrame506 : IDisposable
                 return;
             disposed = true;
             values.Clear();
+            binaryRoots512?.Dispose();
             owner.Release(this);
         }
     }
