@@ -304,6 +304,7 @@ internal sealed partial class ProcessTermHeap506(ProcessRuntime runtime)
         HamtBitmapTerm429 bitmap => bitmap.OwnedStorage517,
         Cons cons => cons.OwnedStorage506,
         FloatTerm number => number.OwnedStorage556,
+        Integer number => number.OwnedStorage559,
         _ => null
     };
 }

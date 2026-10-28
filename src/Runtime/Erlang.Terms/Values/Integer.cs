@@ -4,18 +4,25 @@ using System.Text;
 
 namespace Erlang;
 
-public sealed class Integer(BigInteger value) : Term
+public sealed class Integer : Term
 {
-    public BigInteger Value { get; } = value;
+    private readonly BigInteger portableValue;
+    internal IOwnedIntegerStorage559? OwnedStorage559 { get; }
+    public BigInteger Value => OwnedStorage559?.ReadInteger559() ?? portableValue;
+
+    public Integer(BigInteger value) => portableValue = value;
+
+    internal Integer(IOwnedIntegerStorage559 storage) => OwnedStorage559 = storage;
 
     public bool TryToDouble(out double result)
     {
-        BigInteger magnitude = BigInteger.Abs(Value);
+        BigInteger value = Value;
+        BigInteger magnitude = BigInteger.Abs(value);
         long width = magnitude.GetBitLength();
 
         if (width <= 53)
         {
-            result = (double)Value;
+            result = (double)value;
 
             return true;
         }
@@ -41,7 +48,7 @@ public sealed class Integer(BigInteger value) : Term
             return false;
         }
 
-        result = Value.Sign < 0 ? -number : number;
+        result = value.Sign < 0 ? -number : number;
 
         return true;
     }

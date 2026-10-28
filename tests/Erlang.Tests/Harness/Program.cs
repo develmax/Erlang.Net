@@ -102,6 +102,23 @@ if (args is [Erlang.Tests.OriginalFloat556Names.ChildSwitch, var floatRepository
     return 0;
 }
 
+if (args is [Erlang.Tests.OriginalInteger559Names.ChildSwitch, var integerRepository,
+    var integerAdmission, var integerAdmissionSha, var integerMetadata, var integerMetadataSha,
+    var integerOwned, var integerOutput])
+{
+    await Erlang.Tests.OriginalInteger559Replay.Run(
+        integerRepository,
+        integerAdmission,
+        integerAdmissionSha,
+        integerMetadata,
+        integerMetadataSha,
+        bool.Parse(integerOwned),
+        integerOutput
+    );
+
+    return 0;
+}
+
 Erlang.Tests.TestRunSelection selection;
 try
 {
@@ -7081,6 +7098,13 @@ try
     Test(Erlang.Tests.NativeMetadataWitness527Names.Test, Erlang.Tests.NativeMetadataWitness527Checks.Run);
     Test(Erlang.Tests.NativeMetadataImage527Names.Test, Erlang.Tests.NativeMetadataImage527Checks.Original);
     Test(Erlang.Tests.NativeMetadataImage527Names.LinelessTest, Erlang.Tests.NativeMetadataImage527Checks.Lineless);
+    Test(
+        Erlang.Tests.BoxedInteger559TestNames.TransferCase,
+        Erlang.Tests.BoxedInteger559Checks.ImmediateChildrenImportAndAdoption
+    );
+    Test(Erlang.Tests.BoxedInteger559TestNames.PhysicalCase, Erlang.Tests.BoxedInteger559Checks.PayloadAndCollection);
+    Test(Erlang.Tests.BoxedInteger559TestNames.AdoptionCase, Erlang.Tests.BoxedInteger559Checks.ImmediateAliasLiteralAndLimits);
+    Test(Erlang.Tests.BoxedInteger559TestNames.LifetimeCase, Erlang.Tests.BoxedInteger559Checks.ForeignAndHeldRetirement);
     Test(Erlang.Tests.BoxedFloat556Names.PhysicalCase, Erlang.Tests.BoxedFloat556Checks.PhysicalGetterAndGc);
     Test(Erlang.Tests.BoxedFloat556Names.AdoptionCase, Erlang.Tests.BoxedFloat556Checks.AdoptionAndRootOnly);
     Test(Erlang.Tests.BoxedFloat556Names.LifetimeCase, Erlang.Tests.BoxedFloat556Checks.ForeignAndHeldRetirement);

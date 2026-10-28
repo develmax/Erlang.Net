@@ -10,6 +10,23 @@ PIN = 'ad05823719d77c8faee87348ea39513d4e2f99c5'
 TOOL = 'tools/Runtime/Erlang.OwnedGuest506Observations'
 WORKFLOWS = ['.github/workflows/owned-guest506-original.yml', '.github/workflows/validate.yml']
 DEPENDENCIES = [
+    'src/Runtime/Erlang.Runtime.Core/Processes/Memory/BoxedInteger559Names.cs',
+    'src/Runtime/Erlang.Runtime.Core/Processes/Memory/OwnedTermTransfer506.cs',
+    'src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessTermFrame.Guest507.cs',
+    'src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessTermFrame.Source511.cs',
+    'src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessTermHeap.DebugWords526.cs',
+    'src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessTermHeap.Guest507.cs',
+    'src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessTermHeap.Integer559.cs',
+    'src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessTermHeap506.cs',
+    'src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessTermSequence506.cs',
+    'src/Runtime/Erlang.Terms/Storage/IOwnedIntegerStorage559.cs',
+    'src/Runtime/Erlang.Terms/Values/Integer.cs',
+    'tests/Erlang.Tests/Runtime/Memory/BoxedInteger559Checks.cs',
+    'tests/Erlang.Tests/Runtime/Memory/BoxedInteger559TestNames.cs',
+    'tests/Erlang.Tests/Runtime/Memory/OriginalInteger559Admission.cs',
+    'tests/Erlang.Tests/Runtime/Memory/OriginalInteger559AdmissionReader.cs',
+    'tests/Erlang.Tests/Runtime/Memory/OriginalInteger559Names.cs',
+    'tests/Erlang.Tests/Runtime/Memory/OriginalInteger559Replay.cs',
     'src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeLibraryOwner.LoadPrivateData557.cs',
     'src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeCallEnvironment.LoadPrivateData557.cs',
     'src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeCallEnvironment.cs',
@@ -20,15 +37,8 @@ DEPENDENCIES = [
     'src/Runtime/Erlang.Runtime.Core/Processes/Memory/CellStorage526Names.cs',
     'src/Runtime/Erlang.Runtime.Core/Processes/Memory/NativeTermCellBuffer526.cs',
     'src/Runtime/Erlang.Runtime.Core/Processes/Memory/OwnedPhysicalWordSnapshot526.cs',
-    'src/Runtime/Erlang.Runtime.Core/Processes/Memory/OwnedTermTransfer506.cs',
-    'src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessTermFrame.Guest507.cs',
-    'src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessTermFrame.Source511.cs',
-    'src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessTermHeap.DebugWords526.cs',
     'src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessTermHeap.Float556.cs',
-    'src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessTermHeap.Guest507.cs',
     'src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessTermHeap.NativeWords526.cs',
-    'src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessTermHeap506.cs',
-    'src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessTermSequence506.cs',
     'src/Runtime/Erlang.Terms/Storage/IOwnedFloatStorage556.cs',
     'src/Runtime/Erlang.Terms/Values/FloatTerm.cs',
     'tests/Erlang.Tests/Runtime/Memory/OriginalFloat556Admission.cs',
@@ -113,7 +123,7 @@ def main():
         if not args.replace_plan_sha256 or actual != args.replace_plan_sha256.upper():
             raise RuntimeError('Replacing a plan requires its current SHA; immutable history belongs outside the tool')
     rows = []
-    allowed_root = {'.gitattributes', 'collect.py', 'seal.py', 'jobs.json', 'README.md', 'adopt-original.py', 'adopt-float556.py', 'capture-float556.py', 'admitted_receipts.py', 'adopt-spawn541.py', 'capture-spawn541.py'}
+    allowed_root = {'.gitattributes', 'collect.py', 'seal.py', 'jobs.json', 'README.md', 'adopt-original.py', 'adopt-float556.py', 'adopt-integer559.py', 'capture-float556.py', 'capture-integer559.py', 'admitted_receipts.py', 'adopt-spawn541.py', 'capture-spawn541.py'}
     for path in sorted(tool.rglob('*')):
         if not path.is_file() or path == plan_path:
             continue

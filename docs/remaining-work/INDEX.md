@@ -1,6 +1,10 @@
 # Remaining work
 
-## Current checkpoint523
+## Current checkpoint524
+
+See [checkpoint524](checkpoint-524.md): actual bignum slab storage and corrected nested immediate transfer;428/428 development affected controls pass. Publication408/408 +1readiness, original bignum2/2 +float2/2 +native4/4 and source seals pass; exact publication-head CI remains required. Counts unchanged708/180full/504pending/24known.
+
+## Prior checkpoint523
 
 See [checkpoint523](checkpoint-523.md):708 registered /180 full /504 pending /24 known differences, deltas0. Actual float slab storage and live native load private-data behavior are implemented as finite prerequisites; final local original Float2/2 and native private-data4/4 routes,203/203 affected checks and source seals pass; exact publication-head CI remains pending. Part522 CI554 is fully green9177/9177/all3jobs. All24 remain grouped19resource +1upgrade +4crash/hibernate.
 

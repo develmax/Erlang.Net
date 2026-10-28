@@ -33,6 +33,13 @@
     },
     {
       "Scope": "Tool",
+      "Path": "adopt-integer559.py",
+      "HashMode": "Raw",
+      "Sha256": "64C18EE9743134F9E747FA54A787A56142626CD0E233D0BF9FF225593EEE012F",
+      "Bytes": 5693
+    },
+    {
+      "Scope": "Tool",
       "Path": "adopt-original.py",
       "HashMode": "Raw",
       "Sha256": "02C5BF22C0525584DDFA7C94B66BD180464ECECA38181BE4CA7D8955193A930B",
@@ -54,6 +61,13 @@
     },
     {
       "Scope": "Tool",
+      "Path": "capture-integer559.py",
+      "HashMode": "Raw",
+      "Sha256": "256C6A869C43CD5BE1117139EB6175E6A54F61C544090B30A82E8E0CCFE24A44",
+      "Bytes": 6318
+    },
+    {
+      "Scope": "Tool",
       "Path": "capture-spawn541.py",
       "HashMode": "Raw",
       "Sha256": "22322061380973D8E082149198A38CBCB970E9E7A50B7C62651D7A1DFDB186FD",
@@ -72,6 +86,13 @@
       "HashMode": "Raw",
       "Sha256": "C80A710C63FF2AD200401A16C40D650A4A809B53673EE0DBDB03BB58396726C2",
       "Bytes": 1432
+    },
+    {
+      "Scope": "Tool",
+      "Path": "fixtures/boxed_integer559.erl",
+      "HashMode": "Raw",
+      "Sha256": "A318CD0569F675996E4697C026EC7C28B5380B53EDCB9A9C5376CFDB358EADBD",
+      "Bytes": 1154
     },
     {
       "Scope": "Tool",
@@ -413,15 +434,134 @@
       "Scope": "Tool",
       "Path": "jobs.json",
       "HashMode": "Raw",
-      "Sha256": "B2136D37CBD6B83ED24CA641389D504847E338ED2C98769368F253226A34F55C",
-      "Bytes": 3517
+      "Sha256": "8473AA6AF75B83EFAC702900D8E7877AD754544ED6DF78DE56D7B60AD0290C0C",
+      "Bytes": 3645
     },
     {
       "Scope": "Tool",
       "Path": "seal.py",
       "HashMode": "Raw",
-      "Sha256": "5254ED174E91A730A24A239D81989D572C109910E92ABFC645123765EE55E1D4",
-      "Bytes": 10090
+      "Sha256": "9878E8C60AF3E0F53480C2E5007D91273773485BDF10D3B6EEAB8DB889245B8D",
+      "Bytes": 10843
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/BoxedInteger559Names.cs",
+      "HashMode": "Raw",
+      "Sha256": "6CCA5EE623D4C5C0D6B5DA6E973F79326936BCC20F1127B519282C81E9F550D9",
+      "SealedBytes": 620
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/OwnedTermTransfer506.cs",
+      "HashMode": "Raw",
+      "Sha256": "AB84D8E69F4DC4F07A7F6D44E316FBB442385CCABF2BCB397356BDFAD70844A5",
+      "SealedBytes": 2393
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessTermFrame.Guest507.cs",
+      "HashMode": "Raw",
+      "Sha256": "A60C45C346EB91747C09AE10510AD2655B8ECA102B6F27153D1003E55C363A2C",
+      "SealedBytes": 3793
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessTermFrame.Source511.cs",
+      "HashMode": "Raw",
+      "Sha256": "CEB712A90A8AF38E3F6AAFA41044D73C0D6DE64E4BACDE07AB37A015BA73FF0A",
+      "SealedBytes": 4901
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessTermHeap.DebugWords526.cs",
+      "HashMode": "Raw",
+      "Sha256": "CDF39032F23C39194BC814F5F1BDBF83A7D401BBE8E4BA11FDA5566B3DCAA294",
+      "SealedBytes": 4794
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessTermHeap.Guest507.cs",
+      "HashMode": "Raw",
+      "Sha256": "BEE6CBEBCAA94AC8FCB613F2B83A979C97E2D69404C148678B52C2F0DBF228FB",
+      "SealedBytes": 3268
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessTermHeap.Integer559.cs",
+      "HashMode": "Raw",
+      "Sha256": "7523EBBDDA8B9B3FC31807F250169D56D1F31C4BF1E7DBF39AB0C0B3E39406AC",
+      "SealedBytes": 4033
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessTermHeap506.cs",
+      "HashMode": "Raw",
+      "Sha256": "4C667A2C4D5EC76147E992E4F0681A0071A5C55D6B23DB0D37D037DC9CBE4C06",
+      "SealedBytes": 10490
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessTermSequence506.cs",
+      "HashMode": "Raw",
+      "Sha256": "B0D6BFCEE923B5D70F46192C6C2B6ACE70A6732DAF87C38634F89B3CFE403196",
+      "SealedBytes": 1261
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Terms/Storage/IOwnedIntegerStorage559.cs",
+      "HashMode": "Raw",
+      "Sha256": "E3CB878B748CB61472EBE1D7922311E35A7C3B4B10160501D06B8FA7C201FA30",
+      "SealedBytes": 147
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Terms/Values/Integer.cs",
+      "HashMode": "Raw",
+      "Sha256": "3D6261FA9487E05878E1B0B4854B3E97F83E351C3FA23E442685E80FED18B09C",
+      "SealedBytes": 1516
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tests/Erlang.Tests/Runtime/Memory/BoxedInteger559Checks.cs",
+      "HashMode": "Raw",
+      "Sha256": "4713DF0267F7A37DB337306569ADC02F5AFCBE3C2DFDD9F96FA4B4EB9160223C",
+      "SealedBytes": 17484
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tests/Erlang.Tests/Runtime/Memory/BoxedInteger559TestNames.cs",
+      "HashMode": "Raw",
+      "Sha256": "8D3425C95689D556E40107906452E2189109A257FB635939D19432553331C532",
+      "SealedBytes": 3079
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tests/Erlang.Tests/Runtime/Memory/OriginalInteger559Admission.cs",
+      "HashMode": "Raw",
+      "Sha256": "29CBB28E9D1CF9E2CAD5BA25AE5A4801228033FCB228A62B969C6D1B6618CA2C",
+      "SealedBytes": 733
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tests/Erlang.Tests/Runtime/Memory/OriginalInteger559AdmissionReader.cs",
+      "HashMode": "Raw",
+      "Sha256": "47FA851BF6DBA7904B0FDA12D559753CE8D091CF0D15AA2428ABBEA4548AA34B",
+      "SealedBytes": 2465
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tests/Erlang.Tests/Runtime/Memory/OriginalInteger559Names.cs",
+      "HashMode": "Raw",
+      "Sha256": "0EBAE1B6776C8F434EDABFD99D8E760A8E2A7B68A0D34581AB68C99FB4D00FEB",
+      "SealedBytes": 2090
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tests/Erlang.Tests/Runtime/Memory/OriginalInteger559Replay.cs",
+      "HashMode": "Raw",
+      "Sha256": "CBB1AAAEC829A471C28028BDBCC428479E28868AC19ECA4287CA907DC6825B7F",
+      "SealedBytes": 6716
     },
     {
       "Scope": "Repository",
@@ -495,34 +635,6 @@
     },
     {
       "Scope": "Repository",
-      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/OwnedTermTransfer506.cs",
-      "HashMode": "Raw",
-      "Sha256": "C60839894DB958C73CE61E861D07793C8FD8FB02E50E254B525B9F8A92A087FE",
-      "SealedBytes": 2186
-    },
-    {
-      "Scope": "Repository",
-      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessTermFrame.Guest507.cs",
-      "HashMode": "Raw",
-      "Sha256": "918C2092189DB6069F96EC9F1007CECF0801EC7F624A4C7B7205A56A1B31BFF9",
-      "SealedBytes": 3679
-    },
-    {
-      "Scope": "Repository",
-      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessTermFrame.Source511.cs",
-      "HashMode": "Raw",
-      "Sha256": "8F1612B0A1A30F1182AAEDB1752FD2BDA0D48612813FA705BC5C6F487582C362",
-      "SealedBytes": 4888
-    },
-    {
-      "Scope": "Repository",
-      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessTermHeap.DebugWords526.cs",
-      "HashMode": "Raw",
-      "Sha256": "89A057943B1D4590B1851FC11CBC1A824E38B87E4BBBD8804880133161D2E305",
-      "SealedBytes": 4596
-    },
-    {
-      "Scope": "Repository",
       "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessTermHeap.Float556.cs",
       "HashMode": "Raw",
       "Sha256": "5212BE15594721F4B17C7CCB8779E44A334D9D6FC1DAA29D584AE16EC899C01B",
@@ -530,31 +642,10 @@
     },
     {
       "Scope": "Repository",
-      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessTermHeap.Guest507.cs",
-      "HashMode": "Raw",
-      "Sha256": "44C29A485CE581EDA2B404E2C4D9CCBAF833CA4F6342E3C02AF2D5413600423C",
-      "SealedBytes": 2951
-    },
-    {
-      "Scope": "Repository",
       "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessTermHeap.NativeWords526.cs",
       "HashMode": "Raw",
       "Sha256": "F50E4877F915E396866EB31739A402E30134221B82D9405900C892D3652FC140",
       "SealedBytes": 1866
-    },
-    {
-      "Scope": "Repository",
-      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessTermHeap506.cs",
-      "HashMode": "Raw",
-      "Sha256": "C2712D1948AB2047E5284C79AD90207A0B2B78DD04839B66A408733DBBDCE78D",
-      "SealedBytes": 10440
-    },
-    {
-      "Scope": "Repository",
-      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessTermSequence506.cs",
-      "HashMode": "Raw",
-      "Sha256": "106F33CEDB5B4C2D58DF77D5F6CD898EFE4A48C18D51F168923F61E7ABB5E6BD",
-      "SealedBytes": 1149
     },
     {
       "Scope": "Repository",
@@ -588,8 +679,8 @@
       "Scope": "Repository",
       "Path": "tests/Erlang.Tests/Runtime/Memory/OriginalFloat556Metadata.cs",
       "HashMode": "Raw",
-      "Sha256": "E40975F3F1B6D07B860D33ED1D178523BEA67168A46C0D03286EE092BAC0A758",
-      "SealedBytes": 2714
+      "Sha256": "B40F588542E6D3018670B61A3ECA8059A01B3125FEC6B4F11187EBDB2F9765C4",
+      "SealedBytes": 3026
     },
     {
       "Scope": "Repository",
@@ -847,8 +938,8 @@
       "Scope": "Repository",
       "Path": "tests/Erlang.Tests/Harness/Program.cs",
       "HashMode": "Raw",
-      "Sha256": "2A84D7F4659D72330164DA96E21CC58736D68A12C5351F89782CEF70B5735B49",
-      "SealedBytes": 334706
+      "Sha256": "15C1A55BFBB00B6FF1407611B00A2A8591D732D59EE0298CE981EFAA31F8CCE2",
+      "SealedBytes": 335727
     },
     {
       "Scope": "Repository",
@@ -1015,8 +1106,8 @@
       "Scope": "Repository",
       "Path": ".github/workflows/validate.yml",
       "HashMode": "TextLF",
-      "Sha256": "899DEEADD5A37F15040D4FA4DE8D626666B8D02DD30E80205D32D1E0612AEBED",
-      "SealedBytes": 58904
+      "Sha256": "C0BB01768E43D9B3398F423D99A60F9C22DC0598AE73741DDDF79B052D0E382F",
+      "SealedBytes": 60728
     }
   ],
   "Excludes": [

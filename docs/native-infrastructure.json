@@ -29,7 +29,7 @@
   "SourceEquivalence": {
     "TestedPlanPath": "docs/validation/part-361/tested-source-plan.json",
     "TestedPlanSha256": "26771833B3E7C2A70166C36ED0854354198F4DC5E6270E01CD1B00E97101A2E2",
-    "CurrentBoundSourceFiles": 291,
+    "CurrentBoundSourceFiles": 294,
     "ExactRawHashesMatchTestedPlan": false,
     "SameHeadExecutionInferred": false,
     "HistoricalCurrentBoundSourceFiles": 40,
@@ -1132,152 +1132,72 @@
       "ScopedMilestoneMet": false,
       "SourceBindings": [
         {
-          "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeMapSizeCallbacks.cs",
-          "Sha256": "025989B3728E33AFBAAC57A0CCEDAC67315AA1465D8C25C34EE31448054A72F8"
+          "Path": "src/Compiler/Erlang.Compiler/Execution/Execution.cs",
+          "Sha256": "3F0480F53A69B897A379B25822A0FD87C5B19EE4CF9B1471A246BD1F6CE58380"
         },
         {
-          "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeWindowsCallbackLayout.cs",
-          "Sha256": "9833093E1296B4644BBBC43F0FC5F900997B160181EA440DC99E94D1F9639403"
+          "Path": "src/Compiler/Erlang.Compiler/Execution/Source/SourceContinuationLiveness511.cs",
+          "Sha256": "09E3D480CF4D0FE7EB4CFB064029111143A60D71B75A13662A10D432D8A12F18"
         },
         {
-          "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeMapCreation501Callbacks.cs",
-          "Sha256": "0DDFBD5D7CFAB7EE89D19DBEE7D8310460225ED5A1B3A2121759D44E9258B674"
+          "Path": "src/Runtime/Erlang.Runtime.Core/Diagnostics/Debug/DebugSharingSize425.cs",
+          "Sha256": "149A40DB4E11A44826C4B6CE99DD768D6D5D0AE80C5146FDE0C5AB4E6D12AE38"
         },
         {
-          "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeMapCreation501Names.cs",
-          "Sha256": "1F51B43126E4FB600C628A5B2847CB6C780D079FD0D128169D611581E3AF2956"
+          "Path": "src/Runtime/Erlang.Runtime.Core/Diagnostics/Debug/DebugSharingSizeFrame425.cs",
+          "Sha256": "7653BD37FF0CD6D7CA1F505CCBC41744AD3061F465AAF07394C4E8449A821A1A"
         },
         {
-          "Path": "tools/Native/Erlang.NifMapCreation501Observations/build-native.py",
-          "Sha256": "5D1C2D76D798BA611C3A12FD6CCBAF79116CAC7C2DAA5FCA5EE2B127661D941E"
+          "Path": "src/Runtime/Erlang.Runtime.Core/Diagnostics/Debug/DebugSharingSizeGraph528.cs",
+          "Sha256": "11FE2F12506EBB7269D72D0B55D33001730E78754690992672128482E339EEF1"
         },
         {
-          "Path": "tools/Native/Erlang.NifMapCreation501Observations/collect.py",
-          "Sha256": "EE5591C2648E3A3641D7EB86633ED5CF71C2E66B4020C56A78DC6672F8E368F8"
+          "Path": "src/Runtime/Erlang.Runtime.Core/Diagnostics/Debug/DebugSharingSizePolicy528.cs",
+          "Sha256": "DB93AA8F123A00ADCE05292F6250F7FC1AB9433127A03B1EB3B5C1F04F896DE4"
         },
         {
-          "Path": "tools/Native/Erlang.NifMapCreation501Observations/map_creation501.c",
-          "Sha256": "13D90A7396133FCB4F180C2E23EA06267AA6552DFE7D09E306F79E31CC824805"
+          "Path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamExternalImports.cs",
+          "Sha256": "1CF3522F7959F73B5E5B6277B522D6C62DACDEF9E9C87084167997AA136D3C3F"
         },
         {
-          "Path": "tools/Native/Erlang.NifMapCreation501Observations/map_creation501.erl",
-          "Sha256": "0077477F4808FB1673B5683D677C2688D782428DB5AAA697BB27F8E2A7904C46"
+          "Path": "src/Runtime/Erlang.Runtime.Core/Modules/ModuleRegistry.BeamPrimitives.cs",
+          "Sha256": "BF6FF901A849F407ED11F0130E15F936492991D9AA066BDAE98C6CA6B0392FC2"
         },
         {
-          "Path": "tools/Native/Erlang.NifMapCreation501Observations/original-values.etf",
-          "Sha256": "0F1A977A4D479B2463F5B9D74FBA6BC32E1A6B7BAAFDA3E13F2C33FD9A14F242"
+          "Path": "src/Runtime/Erlang.Runtime.Core/Modules/ModuleRegistry.DebugSharing425.cs",
+          "Sha256": "C677932F29CFBC5991378C37E78677AAE7C3F81FF173AF3CA13CD371A80039EF"
         },
         {
-          "Path": "tools/Native/Erlang.NifMapCreation501Observations/source-plan.json",
-          "Sha256": "3E2BAFD2AB62E8588434C07C3CD341D9E429333C6AF4F7916E4D2279D9954579"
+          "Path": "src/Runtime/Erlang.Runtime.Core/Modules/ModuleRegistry.HamtMap430.cs",
+          "Sha256": "E73DF16D135B3D4B4C25374971B425710E9A96083B2D9EC348484331CE85D957"
         },
         {
-          "Path": "tools/Native/Erlang.NifNativeBackend/MapCreation501CallbackAdmission.cs",
-          "Sha256": "F7D980106F928BFD571B1826ECD391C6D7994DB2E8ECDD8C8FB5CB302A288BDA"
+          "Path": "src/Runtime/Erlang.Runtime.Core/Modules/ModuleRegistry.MapKeys426.cs",
+          "Sha256": "554DD893A9074DF5F7FE712627C3D755CB997473AA43579488EE6876FC76DBFF"
         },
         {
-          "Path": "tools/Native/Erlang.NifNativeBackend/MapCreation501CallbackDriver.cs",
-          "Sha256": "DB953D4580B9724435402A81040B2191545D79ED5C815854539DFA68F1DBB8C6"
+          "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifBinaryPayloadLease512.cs",
+          "Sha256": "EF313A260913E3A885928BEA70B8C44240019810370BCEC88923766436B6F7EB"
         },
         {
-          "Path": "tools/Native/Erlang.NifNativeBackend/MapCreation501CallbackEntry.cs",
-          "Sha256": "0F0A18651F3AEF743BEA751F6950BEB3B9E0AB045AFC093CA2183D69A0C056B1"
+          "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeBinaryStorage.Lease512.cs",
+          "Sha256": "2BEC9661A3A37436A203A689537BD022A1FB0B84D12A6D73695FC3EE1B4AA30F"
         },
         {
-          "Path": "tools/Native/Erlang.NifNativeBackend/MapCreation501CallbackNames.cs",
-          "Sha256": "1FCC2C3533783BE9961AFAB21AB777A25D04E3A4D7C04AAC760BD3EF89DA4C7D"
+          "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeBinaryStorage.cs",
+          "Sha256": "F2BAD9246399F5C66DA38D3ADFBEF3AC422C30BF1D835D88E92E8094531C2E69"
         },
         {
-          "Path": "tools/Native/Erlang.NifNativeBackend/MapCreation501NativeModuleHandle.cs",
-          "Sha256": "DC535680C9E29AEE7D1F4320B6D9F63B142480B942BC256734BCE3D54210EF29"
-        },
-        {
-          "Path": "tools/Native/Erlang.NifNativeBackend/NifNativeMapCreation501HostChecks.cs",
-          "Sha256": "DB3B4CFF4745F4EDE80E5A328F1756DB708240F16FFF1500BE82C2772D5E38CC"
-        },
-        {
-          "Path": "tools/Native/Erlang.NifNativeBackend/NifNativeMapCreation501HostEntry.cs",
-          "Sha256": "C6A0CEB7ECC7296E7042580714782EE2F1027815D0CDB2DB2EC6761DEBFE2263"
-        },
-        {
-          "Path": "tools/Native/Erlang.NifNativeBackend/NifNativeMapCreation501HostNames.cs",
-          "Sha256": "D54B47EC3D6F5C748BDC432BDEDF0A054B600954B34249D4E4337064B1F0F047"
-        },
-        {
-          "Path": "tools/Native/Erlang.NifNativeBackend/Program.cs",
-          "Sha256": "7A7B8F3C7D1059234C2D9F63FD764F9E8A174CD7958C5E2FC0E90D6CD649F7B1"
-        },
-        {
-          "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeMapValue503Callbacks.cs",
-          "Sha256": "59B5EEB47C899D4B3BBCD6ECC091AF61348EA54EEF4AB0D68F8B0AA538BCC490"
-        },
-        {
-          "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeMapValue503Names.cs",
-          "Sha256": "DF32946BB761E484D068AD0E23E044B419C59EFC15FFA86E182B3861AD7D61B5"
-        },
-        {
-          "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeWindowsCallbacks.cs",
-          "Sha256": "A70745A6BC2A1D126787E800E6A0FAFD4369BF7FD0076BDA565C92F755885A14"
-        },
-        {
-          "Path": "tools/Native/Erlang.NifNativeBackend/MapValue503CallbackAdmission.cs",
-          "Sha256": "5D339C1931F3087B4699066A5B54713312CC273EF8EF252EC37D60A7DEE741FD"
-        },
-        {
-          "Path": "tools/Native/Erlang.NifNativeBackend/MapValue503CallbackDriver.cs",
-          "Sha256": "6E9335CB98CC9F98C1F37ED073F8F328A5D223BEA2C27415BC05371A0160157F"
-        },
-        {
-          "Path": "tools/Native/Erlang.NifNativeBackend/MapValue503CallbackEntry.cs",
-          "Sha256": "27B173ED38B1B6454E4A0C574136192F0F3227BBC1FB8373EBD5BF9D189107BB"
-        },
-        {
-          "Path": "tools/Native/Erlang.NifNativeBackend/MapValue503CallbackNames.cs",
-          "Sha256": "E00C1EABC8C689CF9EDB8C812941779602EBC4FA8EDB7ECE7E78ACF91BF48D52"
-        },
-        {
-          "Path": "tools/Native/Erlang.NifNativeBackend/MapValue503NativeModuleHandle.cs",
-          "Sha256": "5253E2658D85F7093FC4DA2A6BA8220F164CCB674B13C1E206FBC76794CCEFE2"
-        },
-        {
-          "Path": "tools/Native/Erlang.NifNativeBackend/NifNativeMapValue503HostChecks.cs",
-          "Sha256": "3B4983AB34482048828EB7460DF2CFEBF0E2143B28AFACF3F1EFB5018B3DF839"
-        },
-        {
-          "Path": "tools/Native/Erlang.NifNativeBackend/NifNativeMapValue503HostEntry.cs",
-          "Sha256": "72CF16ACA37EB0AD805C185CC3ADC59D6D0248F4A01EAD290B7750CA8594179D"
-        },
-        {
-          "Path": "tools/Native/Erlang.NifNativeBackend/NifNativeMapValue503HostNames.cs",
-          "Sha256": "14A85A1B6F99BABD2C0C68C16F716B1ABEA9EB76ADA8594EC7411EEB090613A5"
-        },
-        {
-          "Path": "tools/Native/Erlang.NifMapValue503Observations/build-native.py",
-          "Sha256": "722FA9FC57360FEFFF0AC06201F47B75FDDCE7E586A59D8848137D3D5C1F4C81"
-        },
-        {
-          "Path": "tools/Native/Erlang.NifMapValue503Observations/collect.py",
-          "Sha256": "9F4CD71453C67AC01B65A58095CC93D9DD9649DD13E1E6A41F1693AE9D0C5F69"
-        },
-        {
-          "Path": "tools/Native/Erlang.NifMapValue503Observations/map_value503.c",
-          "Sha256": "BC9DFCE0F4D57E0431673F71B5F74595CABD590243B106F710BAEFC1ACB7A227"
-        },
-        {
-          "Path": "tools/Native/Erlang.NifMapValue503Observations/map_value503.erl",
-          "Sha256": "F07C4506ED7ECE32A0D28C4C8DD01E123EF2F9CBFDE5B86116C153230E48CF9D"
-        },
-        {
-          "Path": "tools/Native/Erlang.NifMapValue503Observations/source-plan.json",
-          "Sha256": "D1A9BE80F21C40E7FD8D84489401BF18F673EA14A5A383FB0170C11766EA204A"
-        },
-        {
-          "Path": "tools/Native/Erlang.NifMapValue503Observations/original-values.etf",
-          "Sha256": "84EBCB88F48074ECF056C2EC4D307909B67AB2C162A4D592D844C44D263B6704"
+          "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeCallEnvironment.LoadPrivateData557.cs",
+          "Sha256": "E60C65D915755D245A1A13A0B8848200CF9461F721573D2A49C778437F3D48BC"
         },
         {
           "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeCallEnvironment.MapIterator504.cs",
           "Sha256": "35C1FC2DBF94F222C44A9219E4ED7388245AC74435D78906C357639103827493"
+        },
+        {
+          "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeCallEnvironment.OwnedRoots516.cs",
+          "Sha256": "534ADB6E337F51CABD8AE6E4C5E48B765761FFFD862189977875DEFD5FFFCFD8"
         },
         {
           "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeCallEnvironment.cs",
@@ -1288,12 +1208,24 @@
           "Sha256": "B071F2E5213A9B46C37F619ED79FA4510E2E59A0587DD20BE672F4038ED8BDE0"
         },
         {
+          "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeLibraryOwner.LoadPrivateData557.cs",
+          "Sha256": "3D86003E3FE390754170E58491472DD2FB5214A47EB43BF4E2E57C08933CF9AD"
+        },
+        {
           "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeMapArrays504Callbacks.cs",
           "Sha256": "10BEDAA74A1A8F1F4A8A0FEB94723602B5508305321D93A95021C685AEB67407"
         },
         {
           "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeMapBranch504.cs",
           "Sha256": "AF7951BCAB16BE177B35BE2120F823E324B76EC1B908542F1272454D16DB43A2"
+        },
+        {
+          "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeMapCreation501Callbacks.cs",
+          "Sha256": "0DDFBD5D7CFAB7EE89D19DBEE7D8310460225ED5A1B3A2121759D44E9258B674"
+        },
+        {
+          "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeMapCreation501Names.cs",
+          "Sha256": "1F51B43126E4FB600C628A5B2847CB6C780D079FD0D128169D611581E3AF2956"
         },
         {
           "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeMapFamily504Names.cs",
@@ -1336,8 +1268,20 @@
           "Sha256": "006827E654EEEF275AEFC621174DA9FEAF6F9F895FABCB92523FEC673C494954"
         },
         {
+          "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeMapSizeCallbacks.cs",
+          "Sha256": "025989B3728E33AFBAAC57A0CCEDAC67315AA1465D8C25C34EE31448054A72F8"
+        },
+        {
           "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeMapTree504.cs",
           "Sha256": "F045E1A940A3E94AC872BDD80B2BE948FB42518970DC1A82F08772279164CEFD"
+        },
+        {
+          "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeMapValue503Callbacks.cs",
+          "Sha256": "59B5EEB47C899D4B3BBCD6ECC091AF61348EA54EEF4AB0D68F8B0AA538BCC490"
+        },
+        {
+          "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeMapValue503Names.cs",
+          "Sha256": "DF32946BB761E484D068AD0E23E044B419C59EFC15FFA86E182B3861AD7D61B5"
         },
         {
           "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeTermCopy504.cs",
@@ -1352,172 +1296,20 @@
           "Sha256": "69BD961E88178C067AFAC52C72106D7379FC06E41B3AB6C319214D8C26D6C283"
         },
         {
-          "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/ProcessRuntime.NativeMapHash504.cs",
-          "Sha256": "A579107CAC417D4D0DD5F499AD1F0C2CFC6403BDF1D42FEE5E46F19BBB804F25"
+          "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeWindowsCallbackLayout.cs",
+          "Sha256": "9833093E1296B4644BBBC43F0FC5F900997B160181EA440DC99E94D1F9639403"
         },
         {
-          "Path": "src/Runtime/Erlang.Terms/Collections/Maps/MapTerm.Native504.cs",
-          "Sha256": "617C15E350A55AD3CBDC62FD65092D67EC4779AF9F6DA7925087A327CA45C6AC"
-        },
-        {
-          "Path": "src/Runtime/Erlang.Terms/Collections/Maps/MapTerm.cs",
-          "Sha256": "0DB4206147105AA9EAEF985063CB832EE5BDEC7884470D734E3930B57C47F281"
-        },
-        {
-          "Path": "src/Runtime/Erlang.Terms/Collections/Maps/NativeMapLayout504.cs",
-          "Sha256": "971E9C3E5005D343DB52D5416E8AFFCACE099C286122B33958915A5D73BA4E0D"
-        },
-        {
-          "Path": "src/Runtime/Erlang.Terms/Protocols/Distribution/NodeIdentityTraversal.cs",
-          "Sha256": "EEA65826D68A4575481C6DF962A250996A355CD47DC33A3B28A52AEE466B8CB7"
-        },
-        {
-          "Path": "tools/Native/Erlang.NifNativeBackend/MapFamily504CallbackAdmission.cs",
-          "Sha256": "D637BC63C84B5107CA73C1FA743E5867D45BD5ACBB336E5F9C74109B909FEAD6"
-        },
-        {
-          "Path": "tools/Native/Erlang.NifNativeBackend/MapFamily504CallbackDriver.cs",
-          "Sha256": "E6084FC723FD07DB83EA75B2F21704F824BD281DBE4714D533027B96BA12F801"
-        },
-        {
-          "Path": "tools/Native/Erlang.NifNativeBackend/MapFamily504CallbackEntry.cs",
-          "Sha256": "B9BED050DF8CF9BE8E873B2D28804503A92F39A5916C8A79569BE7F46C581DB3"
-        },
-        {
-          "Path": "tools/Native/Erlang.NifNativeBackend/MapFamily504CallbackNames.cs",
-          "Sha256": "EE0A4AD2B344E9F689977CB87C81BD69D102FDC30031726C9B10FD73BB5D2211"
-        },
-        {
-          "Path": "tools/Native/Erlang.NifNativeBackend/MapFamily504NativeModuleHandle.cs",
-          "Sha256": "C942CA2AE9ADF21706651136C25DC5572147D9B4752769BBEFA524D527EE5D62"
-        },
-        {
-          "Path": "tools/Native/Erlang.NifNativeBackend/NifNativeMapFamily504HostChecks.cs",
-          "Sha256": "D96B3939A22D9B69A0AC648F8A09282A0053CA3A995CE38E89755CE0F7EE3782"
-        },
-        {
-          "Path": "tools/Native/Erlang.NifNativeBackend/NifNativeMapFamily504HostEntry.cs",
-          "Sha256": "DADC671F4E4878759CD9DA2F4F53C84790C0C485BA1191C8E2160C5013166AEE"
-        },
-        {
-          "Path": "tools/Native/Erlang.NifNativeBackend/NifNativeMapFamily504HostNames.cs",
-          "Sha256": "CDE319123FA73E2428FBB1DD03CA308659F37F88C16EA677436AF901B242150A"
-        },
-        {
-          "Path": "tools/Native/Erlang.NifNativeBackend/NifNativeMapIterator504HostChecks.cs",
-          "Sha256": "264D515DBC7656909971286D4E6354F50B5422377E87197998F3A110929EA773"
-        },
-        {
-          "Path": "tools/Native/Erlang.NifNativeBackend/NifNativeMapIterator504HostEntry.cs",
-          "Sha256": "D67E34913C2BCB44861E7B0015457C69524F7252CFB71459FC8B4E365F6117DB"
-        },
-        {
-          "Path": "tools/Native/Erlang.NifNativeBackend/NifNativeMapIterator504HostNames.cs",
-          "Sha256": "C42E63669137FC34277287A99163EC4E66E602382C402FF6CC7EE07F2B1762A3"
-        },
-        {
-          "Path": "tools/Native/Erlang.NifNativeBackend/RuntimeQueueStatistics504HostChecks.cs",
-          "Sha256": "62093D3FEDC5005B89AA646BE7A7CE6BB971C0095FA71A0AC1859E7A50CF0D40"
-        },
-        {
-          "Path": "tools/Native/Erlang.NifNativeBackend/RuntimeQueueStatistics504HostEntry.cs",
-          "Sha256": "B6DF68561AA3E4BB5BCB7C4425B5B963FC1B5A6B86F3F12EAB7F9395563F79A6"
-        },
-        {
-          "Path": "tools/Native/Erlang.NifNativeBackend/RuntimeQueueStatistics504HostNames.cs",
-          "Sha256": "63A4B21A51A28DD93C47D6803BDA2E02F1ED1550952D111EDD887F9DDDF0546E"
-        },
-        {
-          "Path": "tools/Native/Erlang.NifMapFamily504Observations/build-native.py",
-          "Sha256": "E8FADF6884E175EB6A08A7B170E86B31BE31C5342CF2EFC1A23D01593A9D1921"
-        },
-        {
-          "Path": "tools/Native/Erlang.NifMapFamily504Observations/collect.py",
-          "Sha256": "9CE0EB3EA32700A756A647C6B08B6AE5DE8FC456662B0BBCF1AD64E2BF2C435D"
-        },
-        {
-          "Path": "tools/Native/Erlang.NifMapFamily504Observations/diagnostic_etf.py",
-          "Sha256": "194CB0DB3D7D591B481AB601CA3156790E807A479A965CB886C08597993D355C"
-        },
-        {
-          "Path": "tools/Native/Erlang.NifMapFamily504Observations/map_family504.c",
-          "Sha256": "41F95EDD498BAE925670FB3B7B824DE2FB7363D63F2B1E9EDC463345BA7A2BD5"
-        },
-        {
-          "Path": "tools/Native/Erlang.NifMapFamily504Observations/map_family504.erl",
-          "Sha256": "49DC3866112524C71BCFF1513B83B21B00CD1431CFD3F3B351AC3E2D764883F0"
-        },
-        {
-          "Path": "tools/Native/Erlang.NifMapFamily504Observations/original-values.etf",
-          "Sha256": "F5BAA4479C6C886E1C5534E0F90C5FB496EFA2D7E822395B43401DCEC1C450A2"
-        },
-        {
-          "Path": "tools/Native/Erlang.NifMapFamily504Observations/README.md",
-          "Sha256": "AF1E38E205254D48867E7DF514D518C3FBCFB81EFF1D99A6A953415535A1A059"
-        },
-        {
-          "Path": "tools/Native/Erlang.NifMapFamily504Observations/source-plan.json",
-          "Sha256": "3123F5A26E4878EBEBB6D2DD1212B24012A59905C013EB0E5C33AEABEFA38B29"
-        },
-        {
-          "Path": "tools/Native/Erlang.NifNativeBackend/MapCollision504CallbackAdmission.cs",
-          "Sha256": "CE9F393769BC26FF5B9CA3174BB9817BEA43A73B51898523BB6735CE52F282FC"
-        },
-        {
-          "Path": "tools/Native/Erlang.NifNativeBackend/MapCollision504CallbackDriver.cs",
-          "Sha256": "B661F4F0FD2808F72A1C212BC45581445597EBC61C54E669DEADC028BC99D320"
-        },
-        {
-          "Path": "tools/Native/Erlang.NifNativeBackend/MapCollision504CallbackEntry.cs",
-          "Sha256": "27160071808F8E56D8A87DFAF3B60117F636D6D820967DD63D952F74BB451397"
-        },
-        {
-          "Path": "tools/Native/Erlang.NifNativeBackend/MapCollision504CallbackNames.cs",
-          "Sha256": "2B6DEC64B8560E908A8ABCEED283369CBBE179F2627132D0B3798514D5233582"
-        },
-        {
-          "Path": "tools/Native/Erlang.NifNativeBackend/MapCollision504NativeModuleHandle.cs",
-          "Sha256": "BD83CF83CD5F044AED5D1292602217CC243B61E968CF255646478041007E9C30"
-        },
-        {
-          "Path": "tools/Native/Erlang.NifNativeBackend/NifNativeMapReview504HostChecks.cs",
-          "Sha256": "1ED369F1ED5B08F59404FA6E71764FDDBD38C185A3AEE5064CF04885B6EAE972"
-        },
-        {
-          "Path": "tools/Native/Erlang.NifNativeBackend/NifNativeMapReview504HostEntry.cs",
-          "Sha256": "04A61E2753B1FF4FFE4FF64791BA94A34EE9DC631C7B667A7854C3144FE25467"
-        },
-        {
-          "Path": "tools/Native/Erlang.NifNativeBackend/NifNativeMapReview504HostNames.cs",
-          "Sha256": "BB2AD26CB2C740557273DC49997365A639013D03C8E8367B1190821E36EEF526"
-        },
-        {
-          "Path": "tools/Native/Erlang.NifMapCollision504Observations/build-native.py",
-          "Sha256": "EAA40F4DD4115BB9CCC72F8899896A1D896B9C887678E754F5F36BEDE7B1C6E6"
-        },
-        {
-          "Path": "tools/Native/Erlang.NifMapCollision504Observations/collect.py",
-          "Sha256": "17A67E5813CD3FB2F9FD84E63B61AE14838397652C744A3E2459AD4753710E65"
-        },
-        {
-          "Path": "tools/Native/Erlang.NifMapCollision504Observations/map_fun_collision504.c",
-          "Sha256": "58C48819CC31C85057588039D13FB20B6A2EC392D589B932989B4DA4AFB64F73"
-        },
-        {
-          "Path": "tools/Native/Erlang.NifMapCollision504Observations/map_fun_collision504.erl",
-          "Sha256": "9EC58B5910D0B738C1CEA4C3F768583FC0E75A25DF5144C4D34D279666E7DF92"
-        },
-        {
-          "Path": "tools/Native/Erlang.NifMapCollision504Observations/original-values.etf",
-          "Sha256": "632783221F4F85E25D1297898ABEAA336FBCCEC5D063CD1E50F7661B8B041503"
-        },
-        {
-          "Path": "tools/Native/Erlang.NifMapCollision504Observations/source-plan.json",
-          "Sha256": "1E9AFD3B7D49E6EB0D8B30C09C91C718821360533C610D87A62CBE8C056FFAC4"
+          "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeWindowsCallbacks.cs",
+          "Sha256": "A70745A6BC2A1D126787E800E6A0FAFD4369BF7FD0076BDA565C92F755885A14"
         },
         {
           "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/ProcessRuntime.NativeMapDomain505.cs",
           "Sha256": "9FDE42B7C53D6F821398603CA4BF6AFA5B4F56EC07F6AFABB4BFDE396EA30AC1"
+        },
+        {
+          "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/ProcessRuntime.NativeMapHash504.cs",
+          "Sha256": "A579107CAC417D4D0DD5F499AD1F0C2CFC6403BDF1D42FEE5E46F19BBB804F25"
         },
         {
           "Path": "src/Runtime/Erlang.Runtime.Core/Primitives/Maps/HamtCursorDispatch.cs",
@@ -1536,132 +1328,20 @@
           "Sha256": "91C99F52B3FA9D48DC31E460F0E911229590FF1EDCF75B1CA1BC8E5D6298FEEF"
         },
         {
+          "Path": "src/Runtime/Erlang.Runtime.Core/Primitives/Maps/HamtViewNode.OwnedPayload517.cs",
+          "Sha256": "715FADF2310F9E3485334116FD10EA7ADBCBBE4E22DF3C224855E5E4A285AC8C"
+        },
+        {
+          "Path": "src/Runtime/Erlang.Runtime.Core/Primitives/Maps/HamtViewNode.cs",
+          "Sha256": "FE0ED3CA9F2487CF7FC6F19AEA0A05FB5B0DD053232B9522AA6190B91DCFA483"
+        },
+        {
           "Path": "src/Runtime/Erlang.Runtime.Core/Primitives/Maps/MapIteration.cs",
           "Sha256": "7CE3DEF6B2E6028AAD56484F3872DAF12E305B202A2F8AA06B7D68D034982465"
         },
         {
           "Path": "src/Runtime/Erlang.Runtime.Core/Primitives/Maps/MapNativeBridge.cs",
           "Sha256": "827FDDCECFEA9B2F54DAC3306DEB2D9AD875702D0B0D5220FD0617F3A3E6B6E2"
-        },
-        {
-          "Path": "src/Runtime/Erlang.Runtime.Core/Primitives/Maps/NativeMapFlatEntries505.cs",
-          "Sha256": "09801A7ECF51AE0B2380B569B79FC8F33267EE0FC6CC3F65A07838F927F2565E"
-        },
-        {
-          "Path": "src/Runtime/Erlang.Runtime.Core/Primitives/Maps/NativeMapMaterialization505.cs",
-          "Sha256": "911A1F301A8B96CC4053F56D8E5111B438D1254D788FCE1AF251696623041A01"
-        },
-        {
-          "Path": "src/Runtime/Erlang.Runtime.Core/Primitives/Maps/NativeMapMaterializedLayout505.Equality.cs",
-          "Sha256": "283C8D361B9F464CC0F7B03923210A2413B8D024FF087D2B7579FAFAFE5B1C9D"
-        },
-        {
-          "Path": "src/Runtime/Erlang.Runtime.Core/Primitives/Maps/NativeMapMaterializedLayout505.cs",
-          "Sha256": "441B79EBC564863A8F51127A930840D2EC00F1CF1DC7374EA5402B9F2E95161A"
-        },
-        {
-          "Path": "src/Runtime/Erlang.Runtime.Core/Primitives/Maps/OtpMapHashLayoutProtocol.cs",
-          "Sha256": "1DDBDD3786D894317D3A1171E6E7E0F7CA8C348B03F102DFA4B8214D43E4FC1F"
-        },
-        {
-          "Path": "src/Runtime/Erlang.Runtime.Core/Primitives/Maps/OtpMapHashState64.cs",
-          "Sha256": "EE02FBA19F4D9BF7C3F0A1DEED826A9257B7E890E90384F095EC395BE94D01CE"
-        },
-        {
-          "Path": "src/Runtime/Erlang.Runtime.Core/Primitives/Maps/OtpMapRuntimeIdentityProvider.cs",
-          "Sha256": "A94F8188EAD637D4A371B9DD9AFC8B6DFE0D83BD3F634FA2228ADCF3ADC06EE2"
-        },
-        {
-          "Path": "src/Runtime/Erlang.Terms/Collections/Maps/NativeMapEqualityPlan505.cs",
-          "Sha256": "244278C0756CB52A56D8E6C6F2AF53B200DC298CDD8F59F62A7280625B454854"
-        },
-        {
-          "Path": "src/Runtime/Erlang.Terms/Ordering/TermOrder.cs",
-          "Sha256": "32E7D474056C42295F1A550BEE528812666BB2E4C5087F2C28C7780D02217FCD"
-        },
-        {
-          "Path": "tools/Native/Erlang.NifNativeBackend/MapMaterialized505CallbackAdmission.cs",
-          "Sha256": "233533B4E0298BF1D1A5E2A133BB6D9A9887B36B366AAD46325588B1B2DF69B4"
-        },
-        {
-          "Path": "tools/Native/Erlang.NifNativeBackend/MapMaterialized505CallbackDriver.cs",
-          "Sha256": "C5AD524F002CFB8AC40BBC289C2EF1D32BD743691DA2A09C6FAA1C9201D17EFF"
-        },
-        {
-          "Path": "tools/Native/Erlang.NifNativeBackend/MapMaterialized505CallbackEntry.cs",
-          "Sha256": "C6400242E0EF80EF1525AB7B3FA6DFB71F416C0987ED823E974E445907D9CF0D"
-        },
-        {
-          "Path": "tools/Native/Erlang.NifNativeBackend/MapMaterialized505CallbackNames.cs",
-          "Sha256": "5D813B82EF8989B631AD9D5EE3D03104AE6C340B98AC63792D13800B730728D6"
-        },
-        {
-          "Path": "tools/Native/Erlang.NifNativeBackend/MapMaterialized505NativeModuleHandle.cs",
-          "Sha256": "CDC217AFFA0CB830F078401856988CF30B17FEC22F595C84CB373FB363C34426"
-        },
-        {
-          "Path": "tools/Native/Erlang.NifNativeBackend/MapReentry505CallbackAdmission.cs",
-          "Sha256": "336BBEED1AEEA238583526759AD09E7D721DE5BE884FE9A4AF63E50B451543A2"
-        },
-        {
-          "Path": "tools/Native/Erlang.NifNativeBackend/MapReentry505CallbackDriver.cs",
-          "Sha256": "1AB0FD44A5A579C1ABB1CE096C065798BFF8E384498449A05BE46BDF84F1B575"
-        },
-        {
-          "Path": "tools/Native/Erlang.NifNativeBackend/MapReentry505CallbackEntry.cs",
-          "Sha256": "F88F0DE1B30C6F799C57DE76FA425E59C12D97737F0F84F2EF7C097267572B91"
-        },
-        {
-          "Path": "tools/Native/Erlang.NifNativeBackend/MapReentry505CallbackNames.cs",
-          "Sha256": "0CEBEA97BAEFFA87F1C215117A9A68BA11B01D2F1320B7EBA912463651DC67ED"
-        },
-        {
-          "Path": "tools/Native/Erlang.NifNativeBackend/MapReentry505NativeModuleHandle.cs",
-          "Sha256": "E1E664BBB8AC7E24C564030461F360BED2A031B870C378E0180D25FB0D8BED30"
-        },
-        {
-          "Path": "tools/Native/Erlang.NifNativeBackend/NifNativeFlatDuplicate505HostChecks.cs",
-          "Sha256": "E2C0E43E809A1093E0F98CBD6C4B1B3D971DDCFC366DD4C5F81DCA24029024BB"
-        },
-        {
-          "Path": "tools/Native/Erlang.NifNativeBackend/NifNativeFlatDuplicate505HostEntry.cs",
-          "Sha256": "FBC8B91A15808724F76790D1A3832A75F261C0FB9EAF28DC1A97E1F690D853B2"
-        },
-        {
-          "Path": "tools/Native/Erlang.NifNativeBackend/NifNativeFlatDuplicate505HostNames.cs",
-          "Sha256": "BC923271CABF8F51D2FACDB7377C433CE0D40F50E5B3C3DDADDF6F28FD66D80F"
-        },
-        {
-          "Path": "tools/Native/Erlang.NifNativeBackend/NifNativeMapMaterialized505HostChecks.cs",
-          "Sha256": "0B1769FD12F73F718092EB8D00E24F05DC9E07827A4FA601D7CFCB4D7623AA03"
-        },
-        {
-          "Path": "tools/Native/Erlang.NifNativeBackend/NifNativeMapMaterialized505HostEntry.cs",
-          "Sha256": "CE000549262C696FB81B20E4A321CCFEA1D73D096735E2F04E0BDF9BEFEEFF63"
-        },
-        {
-          "Path": "tools/Native/Erlang.NifNativeBackend/NifNativeMapMaterialized505HostNames.cs",
-          "Sha256": "8B948CD5E075687B98BA5AEB3944DC0C7DE33E7F5ACED0B120168073E1F5C3B6"
-        },
-        {
-          "Path": "src/Compiler/Erlang.Compiler/Execution/Execution.cs",
-          "Sha256": "3F0480F53A69B897A379B25822A0FD87C5B19EE4CF9B1471A246BD1F6CE58380"
-        },
-        {
-          "Path": "src/Compiler/Erlang.Compiler/Execution/Source/SourceContinuationLiveness511.cs",
-          "Sha256": "09E3D480CF4D0FE7EB4CFB064029111143A60D71B75A13662A10D432D8A12F18"
-        },
-        {
-          "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifBinaryPayloadLease512.cs",
-          "Sha256": "EF313A260913E3A885928BEA70B8C44240019810370BCEC88923766436B6F7EB"
-        },
-        {
-          "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeBinaryStorage.Lease512.cs",
-          "Sha256": "2BEC9661A3A37436A203A689537BD022A1FB0B84D12A6D73695FC3EE1B4AA30F"
-        },
-        {
-          "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeBinaryStorage.cs",
-          "Sha256": "F2BAD9246399F5C66DA38D3ADFBEF3AC422C30BF1D835D88E92E8094531C2E69"
         },
         {
           "Path": "src/Runtime/Erlang.Runtime.Core/Primitives/Maps/NativeMapCopy510Names.cs",
@@ -1676,12 +1356,56 @@
           "Sha256": "3920725F8D3EFEF11043A105F496166C53F45C31F060482C5AB4475A82976790"
         },
         {
+          "Path": "src/Runtime/Erlang.Runtime.Core/Primitives/Maps/NativeMapFlatEntries505.cs",
+          "Sha256": "09801A7ECF51AE0B2380B569B79FC8F33267EE0FC6CC3F65A07838F927F2565E"
+        },
+        {
+          "Path": "src/Runtime/Erlang.Runtime.Core/Primitives/Maps/NativeMapMaterialization.LogicalEscape517.cs",
+          "Sha256": "D47EF67ECFD929115732AD1DD30E7B73848C3DA7CE4CCB2CD2AF3D181679CDCC"
+        },
+        {
           "Path": "src/Runtime/Erlang.Runtime.Core/Primitives/Maps/NativeMapMaterialization.OwnedCopy510.cs",
           "Sha256": "140806CD72900906CA3D6F3DC6F2E8F66B000C555ABCB51E321F52253A1A7228"
         },
         {
+          "Path": "src/Runtime/Erlang.Runtime.Core/Primitives/Maps/NativeMapMaterialization.OwnedPayload517.cs",
+          "Sha256": "DA01F18E611F9483CCB44DDD8AF8D937B1CF9CF36CFC816F32E3FD4DD4610466"
+        },
+        {
+          "Path": "src/Runtime/Erlang.Runtime.Core/Primitives/Maps/NativeMapMaterialization505.cs",
+          "Sha256": "911A1F301A8B96CC4053F56D8E5111B438D1254D788FCE1AF251696623041A01"
+        },
+        {
+          "Path": "src/Runtime/Erlang.Runtime.Core/Primitives/Maps/NativeMapMaterializedLayout505.Equality.cs",
+          "Sha256": "283C8D361B9F464CC0F7B03923210A2413B8D024FF087D2B7579FAFAFE5B1C9D"
+        },
+        {
+          "Path": "src/Runtime/Erlang.Runtime.Core/Primitives/Maps/NativeMapMaterializedLayout505.OwnedPayload517.cs",
+          "Sha256": "908596A42B9D2B702DA01B5CDA787A406A0D2A454232059658E44D34450EE0B1"
+        },
+        {
+          "Path": "src/Runtime/Erlang.Runtime.Core/Primitives/Maps/NativeMapMaterializedLayout505.cs",
+          "Sha256": "441B79EBC564863A8F51127A930840D2EC00F1CF1DC7374EA5402B9F2E95161A"
+        },
+        {
           "Path": "src/Runtime/Erlang.Runtime.Core/Primitives/Maps/NativeMapRowReferenceComparer510.cs",
           "Sha256": "6DBCB1D8605671E340EE8B80276CF16ADAC5A82384CBEEAFE4445534834BC8BA"
+        },
+        {
+          "Path": "src/Runtime/Erlang.Runtime.Core/Primitives/Maps/OtpMapHashLayoutProtocol.cs",
+          "Sha256": "1DDBDD3786D894317D3A1171E6E7E0F7CA8C348B03F102DFA4B8214D43E4FC1F"
+        },
+        {
+          "Path": "src/Runtime/Erlang.Runtime.Core/Primitives/Maps/OtpMapHashState64.cs",
+          "Sha256": "EE02FBA19F4D9BF7C3F0A1DEED826A9257B7E890E90384F095EC395BE94D01CE"
+        },
+        {
+          "Path": "src/Runtime/Erlang.Runtime.Core/Primitives/Maps/OtpMapRuntimeIdentityProvider.cs",
+          "Sha256": "A94F8188EAD637D4A371B9DD9AFC8B6DFE0D83BD3F634FA2228ADCF3ADC06EE2"
+        },
+        {
+          "Path": "src/Runtime/Erlang.Runtime.Core/Primitives/Maps/OwnedFlatMapLookup517.cs",
+          "Sha256": "4B41B610D8CD3FB597CAD5AD322A61C3C4568F2EDE46826EF5A0D52709370CA0"
         },
         {
           "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessContext.OwnedCollection508.cs",
@@ -1696,216 +1420,20 @@
           "Sha256": "EF35471453DEFAAC05B74FB0C7DBC127BF5BBAB2B8B8D05520042733A794F02B"
         },
         {
-          "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/BinaryPayload512Names.cs",
-          "Sha256": "A8E1A08E76014B2C22DC317FF74CAD20624ECDF49442FC2AED1F09E1D22D8608"
-        },
-        {
-          "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/NativeMapOwnedRoots510.cs",
-          "Sha256": "44D51E58908FCF76893F7878F701B1702526806758D1D89B5749F683C196A640"
-        },
-        {
-          "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/OwnedDetachedCopyFrame510.cs",
-          "Sha256": "A9EF39D1F6E4CD80B76B9FB8CF64C204C94532133F7E22134BE726813BFB4419"
-        },
-        {
-          "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/OwnedTermDetachedCopy506.cs",
-          "Sha256": "A5FB02A94ADEAFF8079509587D228538573AAC811F98D523623E12B282A4C155"
-        },
-        {
-          "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/OwnedTermInvocation.Guest507.cs",
-          "Sha256": "CE2256F3B330F8FA7D826F737240DEA756B3F2DA148804F49B32B4B89584CD99"
-        },
-        {
-          "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/OwnedTermInvocation.Source511.cs",
-          "Sha256": "688EDAE3DA7BF929C64B191AFC4BF790B70E54A30BA21FECDD9B7A7B328FF54D"
-        },
-        {
-          "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/Policy/PinnedHeapSizeClasses508.cs",
-          "Sha256": "0E89E0EBCC601FB0C2A3A32D2A01B416787FFA02ED539A7304B3AFCB0DE7ABCA"
-        },
-        {
-          "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/Policy/ProcessResourcePolicy508.cs",
-          "Sha256": "8D291906E3D394A4B1A824A036E400C694266D682F8DFD740500D504C57A4672"
-        },
-        {
-          "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/Policy/ProcessResourcePolicyParser508.cs",
-          "Sha256": "B23187DEE60033F5788C82C7DD2C11E1EDA5DAF529E440E0AC69BD2EA6AF3C31"
-        },
-        {
-          "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/Policy/ResourcePolicy508Names.cs",
-          "Sha256": "AD7F38BE17E32D69C188F38798A4BCB2690146253E20A763C9A58DD783BDB07C"
-        },
-        {
-          "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/Policy/RuntimeResourceDefaults508.cs",
-          "Sha256": "CF36005567A8CE1C34383E6C7142C82D10B88942534B1429995107940F0FA6A5"
-        },
-        {
-          "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessBinaryFrame512.cs",
-          "Sha256": "8823F742B413D119BEE0D7EE1CFE1DFC473D3B1020F6361B632B2FBAE7B309F2"
-        },
-        {
-          "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessBinaryLease512.cs",
-          "Sha256": "391F43A4AD2A84DDFBA01A4BC90431F8C78AE05D440785CA5EBBD79EF53C88EE"
-        },
-        {
-          "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessBinaryPublication512.cs",
-          "Sha256": "BAF4DF8337265330D8DEA3CBFF96372D3A4667D9EB2B5E3C6A1F488AC9E27087"
-        },
-        {
-          "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessBinaryRegistry512.cs",
-          "Sha256": "F80012B7E9BE0841ADA6B6B6A93D5308A1C1AE9594ED244E9376F3E0533997DD"
-        },
-        {
-          "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessBinarySnapshot512.cs",
-          "Sha256": "3BBF654A49DF6153D667872249B4F64E69230CE5BFA7DAD00143E85F44F3F79B"
-        },
-        {
-          "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessTermCollection508.cs",
-          "Sha256": "41C005FFE1764F5DEE5A6289E55341881828EC2A9009623EC7B3107ECF14AC2A"
-        },
-        {
-          "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessTermFrame.Binary512.cs",
-          "Sha256": "D363695F75FB9D1683DE18EA6DB0861816616FA434B60E2AA7BA42E351710560"
-        },
-        {
-          "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessTermFrame.Guest507.cs",
-          "Sha256": "918C2092189DB6069F96EC9F1007CECF0801EC7F624A4C7B7205A56A1B31BFF9"
-        },
-        {
-          "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessTermFrame.Source511.cs",
-          "Sha256": "8F1612B0A1A30F1182AAEDB1752FD2BDA0D48612813FA705BC5C6F487582C362"
-        },
-        {
-          "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessTermFrame506.cs",
-          "Sha256": "DEC669BEF81FB8282FCD948B806BFFB6E97196D0B49979E01C8C646CD61557D4"
-        },
-        {
-          "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessTermGenerationSnapshot508.cs",
-          "Sha256": "F4D8BAACDBF1E512F143D8E3F0FAC46AA123D681903468274F5E06ABC86BAD8E"
-        },
-        {
-          "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessTermHeap.Binary512.cs",
-          "Sha256": "88BABD8FB06B387D174B0A0A6EA085A602A254AB4605F86AAEDAAFC172A03213"
-        },
-        {
-          "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessTermHeap.Generations508.cs",
-          "Sha256": "0A7F62DFE406B96D815AF2DD9551F907A800935792BC7A8B98B9DF2F9E2B7507"
-        },
-        {
-          "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessTermHeap.Guest507.cs",
-          "Sha256": "44C29A485CE581EDA2B404E2C4D9CCBAF833CA4F6342E3C02AF2D5413600423C"
-        },
-        {
-          "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessTermHeap506.cs",
-          "Sha256": "C2712D1948AB2047E5284C79AD90207A0B2B78DD04839B66A408733DBBDCE78D"
-        },
-        {
-          "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/SourceEvaluationTurn511.cs",
-          "Sha256": "713B40DFDAA3A3AFBD6DF6A1CE26DC1F859FFBF0AE7EDDD53D1D7F5EA948A9CD"
-        },
-        {
-          "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/SourceStatementRoots511.cs",
-          "Sha256": "45FE0054E788BA663C94EB7F94CFBB7922936E5B9848414821D1DD9451F559F2"
-        },
-        {
-          "Path": "src/Runtime/Erlang.Terms/Collections/Maps/MapTerm.NativeCopy510.cs",
-          "Sha256": "C83DAC01B9E39C812B7E2B29B7C97B4FD0C43371AD1BFB94B105FC1868DD5251"
-        },
-        {
-          "Path": "src/Runtime/Erlang.Terms/Values/Binary/BinaryPayloadHandle512.cs",
-          "Sha256": "6A021A4E8FF12E72B5B6302C2E6743C49C6B606C6178BCEE1C1F6585E84216E6"
-        },
-        {
-          "Path": "src/Runtime/Erlang.Terms/Values/BitString.OwnedPayload512.cs",
-          "Sha256": "CC99E5FE209D04AE9FE51782B50FA3F7F8B5D830BDDE7B081427D568B8A4BB03"
-        },
-        {
-          "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessBinaryTraversalSnapshot514.cs",
-          "Sha256": "2DF784B671F6DE513828D6FD8B86AA3F457A67E6660D87F40EBD6891A9B5EB86"
-        },
-        {
-          "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessTermConstruction514.cs",
-          "Sha256": "19BC0871B84C27E399D3730F0571BE4287B0E598078791EFC64BB0532BA41754"
-        },
-        {
-          "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessTermConstruction514Names.cs",
-          "Sha256": "E9BA37BF9203F566C2D2C311390626EA541326E9309C767A6B7400C3C9AA70D4"
-        },
-        {
-          "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeCallEnvironment.OwnedRoots516.cs",
-          "Sha256": "534ADB6E337F51CABD8AE6E4C5E48B765761FFFD862189977875DEFD5FFFCFD8"
+          "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.DebugSharing425.cs",
+          "Sha256": "007D41574E6E8901DAFACCDCB51D8547092C9EE2BCA9BBC16CAB2FA73821013C"
         },
         {
           "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.GarbageCollection.cs",
           "Sha256": "04B9EC5D240C39D02700A1C15E9C17711D535A97BB3C85460C4DD4D67DC0ED10"
         },
         {
-          "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessTermSlab506.cs",
-          "Sha256": "346B3BD054CA76E183C14E580F152F4DF65E00909314DDCC0C33D2901CEC12B9"
+          "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/BinaryPayload512Names.cs",
+          "Sha256": "A8E1A08E76014B2C22DC317FF74CAD20624ECDF49442FC2AED1F09E1D22D8608"
         },
         {
-          "Path": "src/Runtime/Erlang.Runtime.Core/Diagnostics/Debug/DebugSharingSize425.cs",
-          "Sha256": "149A40DB4E11A44826C4B6CE99DD768D6D5D0AE80C5146FDE0C5AB4E6D12AE38"
-        },
-        {
-          "Path": "src/Runtime/Erlang.Runtime.Core/Diagnostics/Debug/DebugSharingSizeFrame425.cs",
-          "Sha256": "7653BD37FF0CD6D7CA1F505CCBC41744AD3061F465AAF07394C4E8449A821A1A"
-        },
-        {
-          "Path": "src/Runtime/Erlang.Runtime.Core/Diagnostics/Debug/DebugSharingSizeGraph528.cs",
-          "Sha256": "11FE2F12506EBB7269D72D0B55D33001730E78754690992672128482E339EEF1"
-        },
-        {
-          "Path": "src/Runtime/Erlang.Runtime.Core/Diagnostics/Debug/DebugSharingSizePolicy528.cs",
-          "Sha256": "DB93AA8F123A00ADCE05292F6250F7FC1AB9433127A03B1EB3B5C1F04F896DE4"
-        },
-        {
-          "Path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamExternalImports.cs",
-          "Sha256": "1CF3522F7959F73B5E5B6277B522D6C62DACDEF9E9C87084167997AA136D3C3F"
-        },
-        {
-          "Path": "src/Runtime/Erlang.Runtime.Core/Modules/ModuleRegistry.BeamPrimitives.cs",
-          "Sha256": "BF6FF901A849F407ED11F0130E15F936492991D9AA066BDAE98C6CA6B0392FC2"
-        },
-        {
-          "Path": "src/Runtime/Erlang.Runtime.Core/Modules/ModuleRegistry.DebugSharing425.cs",
-          "Sha256": "C677932F29CFBC5991378C37E78677AAE7C3F81FF173AF3CA13CD371A80039EF"
-        },
-        {
-          "Path": "src/Runtime/Erlang.Runtime.Core/Modules/ModuleRegistry.HamtMap430.cs",
-          "Sha256": "E73DF16D135B3D4B4C25374971B425710E9A96083B2D9EC348484331CE85D957"
-        },
-        {
-          "Path": "src/Runtime/Erlang.Runtime.Core/Modules/ModuleRegistry.MapKeys426.cs",
-          "Sha256": "554DD893A9074DF5F7FE712627C3D755CB997473AA43579488EE6876FC76DBFF"
-        },
-        {
-          "Path": "src/Runtime/Erlang.Runtime.Core/Primitives/Maps/HamtViewNode.OwnedPayload517.cs",
-          "Sha256": "715FADF2310F9E3485334116FD10EA7ADBCBBE4E22DF3C224855E5E4A285AC8C"
-        },
-        {
-          "Path": "src/Runtime/Erlang.Runtime.Core/Primitives/Maps/HamtViewNode.cs",
-          "Sha256": "FE0ED3CA9F2487CF7FC6F19AEA0A05FB5B0DD053232B9522AA6190B91DCFA483"
-        },
-        {
-          "Path": "src/Runtime/Erlang.Runtime.Core/Primitives/Maps/NativeMapMaterialization.LogicalEscape517.cs",
-          "Sha256": "D47EF67ECFD929115732AD1DD30E7B73848C3DA7CE4CCB2CD2AF3D181679CDCC"
-        },
-        {
-          "Path": "src/Runtime/Erlang.Runtime.Core/Primitives/Maps/NativeMapMaterialization.OwnedPayload517.cs",
-          "Sha256": "DA01F18E611F9483CCB44DDD8AF8D937B1CF9CF36CFC816F32E3FD4DD4610466"
-        },
-        {
-          "Path": "src/Runtime/Erlang.Runtime.Core/Primitives/Maps/NativeMapMaterializedLayout505.OwnedPayload517.cs",
-          "Sha256": "908596A42B9D2B702DA01B5CDA787A406A0D2A454232059658E44D34450EE0B1"
-        },
-        {
-          "Path": "src/Runtime/Erlang.Runtime.Core/Primitives/Maps/OwnedFlatMapLookup517.cs",
-          "Sha256": "4B41B610D8CD3FB597CAD5AD322A61C3C4568F2EDE46826EF5A0D52709370CA0"
-        },
-        {
-          "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.DebugSharing425.cs",
-          "Sha256": "007D41574E6E8901DAFACCDCB51D8547092C9EE2BCA9BBC16CAB2FA73821013C"
+          "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/BoxedInteger559Names.cs",
+          "Sha256": "6CCA5EE623D4C5C0D6B5DA6E973F79326936BCC20F1127B519282C81E9F550D9"
         },
         {
           "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/CellStorage526Names.cs",
@@ -1928,8 +1456,16 @@
           "Sha256": "B72B2985238912471D7BFEC28C28157DAC229AD630DC8C6A95D6BACC7769E2E3"
         },
         {
+          "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/NativeMapOwnedRoots510.cs",
+          "Sha256": "44D51E58908FCF76893F7878F701B1702526806758D1D89B5749F683C196A640"
+        },
+        {
           "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/NativeTermCellBuffer526.cs",
           "Sha256": "EE0E6F5EBA1297D927EA1A378AE1A893FC29899550F33CA44FF8A5D05D63E0C4"
+        },
+        {
+          "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/OwnedDetachedCopyFrame510.cs",
+          "Sha256": "A9EF39D1F6E4CD80B76B9FB8CF64C204C94532133F7E22134BE726813BFB4419"
         },
         {
           "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/OwnedMapEntries517.cs",
@@ -1972,12 +1508,44 @@
           "Sha256": "B7A5E561BB1AD735510A628DAEF285560515C8F7A0F76BD560EDF45E3EC2F743"
         },
         {
+          "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/OwnedTermDetachedCopy506.cs",
+          "Sha256": "A5FB02A94ADEAFF8079509587D228538573AAC811F98D523623E12B282A4C155"
+        },
+        {
+          "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/OwnedTermInvocation.Guest507.cs",
+          "Sha256": "CE2256F3B330F8FA7D826F737240DEA756B3F2DA148804F49B32B4B89584CD99"
+        },
+        {
+          "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/OwnedTermInvocation.Source511.cs",
+          "Sha256": "688EDAE3DA7BF929C64B191AFC4BF790B70E54A30BA21FECDD9B7A7B328FF54D"
+        },
+        {
           "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/OwnedTermTransfer506.cs",
-          "Sha256": "C60839894DB958C73CE61E861D07793C8FD8FB02E50E254B525B9F8A92A087FE"
+          "Sha256": "AB84D8E69F4DC4F07A7F6D44E316FBB442385CCABF2BCB397356BDFAD70844A5"
         },
         {
           "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/OwnedWordSizeFrame526.cs",
           "Sha256": "2AE7238D740AE0316B88A94D1D9A6F75C982110F63836CA5B8CCF8D69C058559"
+        },
+        {
+          "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/Policy/PinnedHeapSizeClasses508.cs",
+          "Sha256": "0E89E0EBCC601FB0C2A3A32D2A01B416787FFA02ED539A7304B3AFCB0DE7ABCA"
+        },
+        {
+          "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/Policy/ProcessResourcePolicy508.cs",
+          "Sha256": "8D291906E3D394A4B1A824A036E400C694266D682F8DFD740500D504C57A4672"
+        },
+        {
+          "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/Policy/ProcessResourcePolicyParser508.cs",
+          "Sha256": "B23187DEE60033F5788C82C7DD2C11E1EDA5DAF529E440E0AC69BD2EA6AF3C31"
+        },
+        {
+          "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/Policy/ResourcePolicy508Names.cs",
+          "Sha256": "AD7F38BE17E32D69C188F38798A4BCB2690146253E20A763C9A58DD783BDB07C"
+        },
+        {
+          "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/Policy/RuntimeResourceDefaults508.cs",
+          "Sha256": "CF36005567A8CE1C34383E6C7142C82D10B88942534B1429995107940F0FA6A5"
         },
         {
           "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/PreparedMapGraph517.cs",
@@ -2000,16 +1568,88 @@
           "Sha256": "CC4862F6469D56669B0671116450AF0C35FDDAF708294DB088B14C8A19ED15BB"
         },
         {
+          "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessBinaryFrame512.cs",
+          "Sha256": "8823F742B413D119BEE0D7EE1CFE1DFC473D3B1020F6361B632B2FBAE7B309F2"
+        },
+        {
+          "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessBinaryLease512.cs",
+          "Sha256": "391F43A4AD2A84DDFBA01A4BC90431F8C78AE05D440785CA5EBBD79EF53C88EE"
+        },
+        {
+          "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessBinaryPublication512.cs",
+          "Sha256": "BAF4DF8337265330D8DEA3CBFF96372D3A4667D9EB2B5E3C6A1F488AC9E27087"
+        },
+        {
+          "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessBinaryRegistry512.cs",
+          "Sha256": "F80012B7E9BE0841ADA6B6B6A93D5308A1C1AE9594ED244E9376F3E0533997DD"
+        },
+        {
+          "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessBinarySnapshot512.cs",
+          "Sha256": "3BBF654A49DF6153D667872249B4F64E69230CE5BFA7DAD00143E85F44F3F79B"
+        },
+        {
+          "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessBinaryTraversalSnapshot514.cs",
+          "Sha256": "2DF784B671F6DE513828D6FD8B86AA3F457A67E6660D87F40EBD6891A9B5EB86"
+        },
+        {
+          "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessTermCollection508.cs",
+          "Sha256": "41C005FFE1764F5DEE5A6289E55341881828EC2A9009623EC7B3107ECF14AC2A"
+        },
+        {
           "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessTermConstruction.MapFork517.cs",
           "Sha256": "663A15B1DBEDA6B20A799B1406D771D886B62BB8A77F0D5636E2DEAEE25AFEFD"
+        },
+        {
+          "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessTermConstruction514.cs",
+          "Sha256": "19BC0871B84C27E399D3730F0571BE4287B0E598078791EFC64BB0532BA41754"
+        },
+        {
+          "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessTermConstruction514Names.cs",
+          "Sha256": "E9BA37BF9203F566C2D2C311390626EA541326E9309C767A6B7400C3C9AA70D4"
+        },
+        {
+          "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessTermFrame.Binary512.cs",
+          "Sha256": "D363695F75FB9D1683DE18EA6DB0861816616FA434B60E2AA7BA42E351710560"
+        },
+        {
+          "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessTermFrame.Guest507.cs",
+          "Sha256": "A60C45C346EB91747C09AE10510AD2655B8ECA102B6F27153D1003E55C363A2C"
         },
         {
           "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessTermFrame.MapFork517.cs",
           "Sha256": "7B553140DDD96EF3FDF8C919638241C06FAEFF6217534A19027C384618C8F9B6"
         },
         {
+          "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessTermFrame.Source511.cs",
+          "Sha256": "CEB712A90A8AF38E3F6AAFA41044D73C0D6DE64E4BACDE07AB37A015BA73FF0A"
+        },
+        {
+          "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessTermFrame506.cs",
+          "Sha256": "DEC669BEF81FB8282FCD948B806BFFB6E97196D0B49979E01C8C646CD61557D4"
+        },
+        {
+          "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessTermGenerationSnapshot508.cs",
+          "Sha256": "F4D8BAACDBF1E512F143D8E3F0FAC46AA123D681903468274F5E06ABC86BAD8E"
+        },
+        {
+          "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessTermHeap.Binary512.cs",
+          "Sha256": "88BABD8FB06B387D174B0A0A6EA085A602A254AB4605F86AAEDAAFC172A03213"
+        },
+        {
           "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessTermHeap.DebugWords526.cs",
-          "Sha256": "89A057943B1D4590B1851FC11CBC1A824E38B87E4BBBD8804880133161D2E305"
+          "Sha256": "CDF39032F23C39194BC814F5F1BDBF83A7D401BBE8E4BA11FDA5566B3DCAA294"
+        },
+        {
+          "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessTermHeap.Generations508.cs",
+          "Sha256": "0A7F62DFE406B96D815AF2DD9551F907A800935792BC7A8B98B9DF2F9E2B7507"
+        },
+        {
+          "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessTermHeap.Guest507.cs",
+          "Sha256": "BEE6CBEBCAA94AC8FCB613F2B83A979C97E2D69404C148678B52C2F0DBF228FB"
+        },
+        {
+          "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessTermHeap.Integer559.cs",
+          "Sha256": "7523EBBDDA8B9B3FC31807F250169D56D1F31C4BF1E7DBF39AB0C0B3E39406AC"
         },
         {
           "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessTermHeap.MapPayload517.cs",
@@ -2028,8 +1668,24 @@
           "Sha256": "F1A3E1E9B1553AEA077EA2C229483C781BE56A004F8D2492626DBF49F6C3C576"
         },
         {
+          "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessTermHeap506.cs",
+          "Sha256": "4C667A2C4D5EC76147E992E4F0681A0071A5C55D6B23DB0D37D037DC9CBE4C06"
+        },
+        {
           "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessTermSequence506.cs",
-          "Sha256": "106F33CEDB5B4C2D58DF77D5F6CD898EFE4A48C18D51F168923F61E7ABB5E6BD"
+          "Sha256": "B0D6BFCEE923B5D70F46192C6C2B6ACE70A6732DAF87C38634F89B3CFE403196"
+        },
+        {
+          "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessTermSlab506.cs",
+          "Sha256": "346B3BD054CA76E183C14E580F152F4DF65E00909314DDCC0C33D2901CEC12B9"
+        },
+        {
+          "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/SourceEvaluationTurn511.cs",
+          "Sha256": "713B40DFDAA3A3AFBD6DF6A1CE26DC1F859FFBF0AE7EDDD53D1D7F5EA948A9CD"
+        },
+        {
+          "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/SourceStatementRoots511.cs",
+          "Sha256": "45FE0054E788BA663C94EB7F94CFBB7922936E5B9848414821D1DD9451F559F2"
         },
         {
           "Path": "src/Runtime/Erlang.Terms/Collections/Maps/HamtBitmapTerm429.OwnedPayload517.cs",
@@ -2044,20 +1700,376 @@
           "Sha256": "8A89A14F75195C18515172FCAB6E4B667606CDAFF2D96D1380A54984A2FEE376"
         },
         {
+          "Path": "src/Runtime/Erlang.Terms/Collections/Maps/MapTerm.Native504.cs",
+          "Sha256": "617C15E350A55AD3CBDC62FD65092D67EC4779AF9F6DA7925087A327CA45C6AC"
+        },
+        {
+          "Path": "src/Runtime/Erlang.Terms/Collections/Maps/MapTerm.NativeCopy510.cs",
+          "Sha256": "C83DAC01B9E39C812B7E2B29B7C97B4FD0C43371AD1BFB94B105FC1868DD5251"
+        },
+        {
           "Path": "src/Runtime/Erlang.Terms/Collections/Maps/MapTerm.OwnedPayload517.cs",
           "Sha256": "90056FD42A48CD1BCC8C78594FE602940F73391FEBA9FDC8DE2D1F8768D1EB0A"
+        },
+        {
+          "Path": "src/Runtime/Erlang.Terms/Collections/Maps/MapTerm.cs",
+          "Sha256": "0DB4206147105AA9EAEF985063CB832EE5BDEC7884470D734E3930B57C47F281"
+        },
+        {
+          "Path": "src/Runtime/Erlang.Terms/Collections/Maps/NativeMapEqualityPlan505.cs",
+          "Sha256": "244278C0756CB52A56D8E6C6F2AF53B200DC298CDD8F59F62A7280625B454854"
+        },
+        {
+          "Path": "src/Runtime/Erlang.Terms/Collections/Maps/NativeMapLayout504.cs",
+          "Sha256": "971E9C3E5005D343DB52D5416E8AFFCACE099C286122B33958915A5D73BA4E0D"
+        },
+        {
+          "Path": "src/Runtime/Erlang.Terms/Ordering/TermOrder.cs",
+          "Sha256": "32E7D474056C42295F1A550BEE528812666BB2E4C5087F2C28C7780D02217FCD"
+        },
+        {
+          "Path": "src/Runtime/Erlang.Terms/Protocols/Distribution/NodeIdentityTraversal.cs",
+          "Sha256": "EEA65826D68A4575481C6DF962A250996A355CD47DC33A3B28A52AEE466B8CB7"
+        },
+        {
+          "Path": "src/Runtime/Erlang.Terms/Storage/IOwnedIntegerStorage559.cs",
+          "Sha256": "E3CB878B748CB61472EBE1D7922311E35A7C3B4B10160501D06B8FA7C201FA30"
         },
         {
           "Path": "src/Runtime/Erlang.Terms/Storage/IOwnedMapPayload517.cs",
           "Sha256": "37F658263F6DCB44BCB89E699356C5CBC5A1020733EFA57D9FB3E6CD329F9AF5"
         },
         {
-          "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeLibraryOwner.LoadPrivateData557.cs",
-          "Sha256": "3D86003E3FE390754170E58491472DD2FB5214A47EB43BF4E2E57C08933CF9AD"
+          "Path": "src/Runtime/Erlang.Terms/Values/Binary/BinaryPayloadHandle512.cs",
+          "Sha256": "6A021A4E8FF12E72B5B6302C2E6743C49C6B606C6178BCEE1C1F6585E84216E6"
         },
         {
-          "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeCallEnvironment.LoadPrivateData557.cs",
-          "Sha256": "E60C65D915755D245A1A13A0B8848200CF9461F721573D2A49C778437F3D48BC"
+          "Path": "src/Runtime/Erlang.Terms/Values/BitString.OwnedPayload512.cs",
+          "Sha256": "CC99E5FE209D04AE9FE51782B50FA3F7F8B5D830BDDE7B081427D568B8A4BB03"
+        },
+        {
+          "Path": "tools/Native/Erlang.NifMapCollision504Observations/build-native.py",
+          "Sha256": "EAA40F4DD4115BB9CCC72F8899896A1D896B9C887678E754F5F36BEDE7B1C6E6"
+        },
+        {
+          "Path": "tools/Native/Erlang.NifMapCollision504Observations/collect.py",
+          "Sha256": "17A67E5813CD3FB2F9FD84E63B61AE14838397652C744A3E2459AD4753710E65"
+        },
+        {
+          "Path": "tools/Native/Erlang.NifMapCollision504Observations/map_fun_collision504.c",
+          "Sha256": "58C48819CC31C85057588039D13FB20B6A2EC392D589B932989B4DA4AFB64F73"
+        },
+        {
+          "Path": "tools/Native/Erlang.NifMapCollision504Observations/map_fun_collision504.erl",
+          "Sha256": "9EC58B5910D0B738C1CEA4C3F768583FC0E75A25DF5144C4D34D279666E7DF92"
+        },
+        {
+          "Path": "tools/Native/Erlang.NifMapCollision504Observations/original-values.etf",
+          "Sha256": "632783221F4F85E25D1297898ABEAA336FBCCEC5D063CD1E50F7661B8B041503"
+        },
+        {
+          "Path": "tools/Native/Erlang.NifMapCollision504Observations/source-plan.json",
+          "Sha256": "1E9AFD3B7D49E6EB0D8B30C09C91C718821360533C610D87A62CBE8C056FFAC4"
+        },
+        {
+          "Path": "tools/Native/Erlang.NifMapCreation501Observations/build-native.py",
+          "Sha256": "5D1C2D76D798BA611C3A12FD6CCBAF79116CAC7C2DAA5FCA5EE2B127661D941E"
+        },
+        {
+          "Path": "tools/Native/Erlang.NifMapCreation501Observations/collect.py",
+          "Sha256": "EE5591C2648E3A3641D7EB86633ED5CF71C2E66B4020C56A78DC6672F8E368F8"
+        },
+        {
+          "Path": "tools/Native/Erlang.NifMapCreation501Observations/map_creation501.c",
+          "Sha256": "13D90A7396133FCB4F180C2E23EA06267AA6552DFE7D09E306F79E31CC824805"
+        },
+        {
+          "Path": "tools/Native/Erlang.NifMapCreation501Observations/map_creation501.erl",
+          "Sha256": "0077477F4808FB1673B5683D677C2688D782428DB5AAA697BB27F8E2A7904C46"
+        },
+        {
+          "Path": "tools/Native/Erlang.NifMapCreation501Observations/original-values.etf",
+          "Sha256": "0F1A977A4D479B2463F5B9D74FBA6BC32E1A6B7BAAFDA3E13F2C33FD9A14F242"
+        },
+        {
+          "Path": "tools/Native/Erlang.NifMapCreation501Observations/source-plan.json",
+          "Sha256": "3E2BAFD2AB62E8588434C07C3CD341D9E429333C6AF4F7916E4D2279D9954579"
+        },
+        {
+          "Path": "tools/Native/Erlang.NifMapFamily504Observations/README.md",
+          "Sha256": "AF1E38E205254D48867E7DF514D518C3FBCFB81EFF1D99A6A953415535A1A059"
+        },
+        {
+          "Path": "tools/Native/Erlang.NifMapFamily504Observations/build-native.py",
+          "Sha256": "E8FADF6884E175EB6A08A7B170E86B31BE31C5342CF2EFC1A23D01593A9D1921"
+        },
+        {
+          "Path": "tools/Native/Erlang.NifMapFamily504Observations/collect.py",
+          "Sha256": "9CE0EB3EA32700A756A647C6B08B6AE5DE8FC456662B0BBCF1AD64E2BF2C435D"
+        },
+        {
+          "Path": "tools/Native/Erlang.NifMapFamily504Observations/diagnostic_etf.py",
+          "Sha256": "194CB0DB3D7D591B481AB601CA3156790E807A479A965CB886C08597993D355C"
+        },
+        {
+          "Path": "tools/Native/Erlang.NifMapFamily504Observations/map_family504.c",
+          "Sha256": "41F95EDD498BAE925670FB3B7B824DE2FB7363D63F2B1E9EDC463345BA7A2BD5"
+        },
+        {
+          "Path": "tools/Native/Erlang.NifMapFamily504Observations/map_family504.erl",
+          "Sha256": "49DC3866112524C71BCFF1513B83B21B00CD1431CFD3F3B351AC3E2D764883F0"
+        },
+        {
+          "Path": "tools/Native/Erlang.NifMapFamily504Observations/original-values.etf",
+          "Sha256": "F5BAA4479C6C886E1C5534E0F90C5FB496EFA2D7E822395B43401DCEC1C450A2"
+        },
+        {
+          "Path": "tools/Native/Erlang.NifMapFamily504Observations/source-plan.json",
+          "Sha256": "12B3190794AB74965082E0425E65D39080C9A8DDFC498218D8D9A24D9DD9C63D"
+        },
+        {
+          "Path": "tools/Native/Erlang.NifMapValue503Observations/build-native.py",
+          "Sha256": "722FA9FC57360FEFFF0AC06201F47B75FDDCE7E586A59D8848137D3D5C1F4C81"
+        },
+        {
+          "Path": "tools/Native/Erlang.NifMapValue503Observations/collect.py",
+          "Sha256": "9F4CD71453C67AC01B65A58095CC93D9DD9649DD13E1E6A41F1693AE9D0C5F69"
+        },
+        {
+          "Path": "tools/Native/Erlang.NifMapValue503Observations/map_value503.c",
+          "Sha256": "BC9DFCE0F4D57E0431673F71B5F74595CABD590243B106F710BAEFC1ACB7A227"
+        },
+        {
+          "Path": "tools/Native/Erlang.NifMapValue503Observations/map_value503.erl",
+          "Sha256": "F07C4506ED7ECE32A0D28C4C8DD01E123EF2F9CBFDE5B86116C153230E48CF9D"
+        },
+        {
+          "Path": "tools/Native/Erlang.NifMapValue503Observations/original-values.etf",
+          "Sha256": "84EBCB88F48074ECF056C2EC4D307909B67AB2C162A4D592D844C44D263B6704"
+        },
+        {
+          "Path": "tools/Native/Erlang.NifMapValue503Observations/source-plan.json",
+          "Sha256": "D1A9BE80F21C40E7FD8D84489401BF18F673EA14A5A383FB0170C11766EA204A"
+        },
+        {
+          "Path": "tools/Native/Erlang.NifNativeBackend/MapCollision504CallbackAdmission.cs",
+          "Sha256": "CE9F393769BC26FF5B9CA3174BB9817BEA43A73B51898523BB6735CE52F282FC"
+        },
+        {
+          "Path": "tools/Native/Erlang.NifNativeBackend/MapCollision504CallbackDriver.cs",
+          "Sha256": "B661F4F0FD2808F72A1C212BC45581445597EBC61C54E669DEADC028BC99D320"
+        },
+        {
+          "Path": "tools/Native/Erlang.NifNativeBackend/MapCollision504CallbackEntry.cs",
+          "Sha256": "27160071808F8E56D8A87DFAF3B60117F636D6D820967DD63D952F74BB451397"
+        },
+        {
+          "Path": "tools/Native/Erlang.NifNativeBackend/MapCollision504CallbackNames.cs",
+          "Sha256": "2B6DEC64B8560E908A8ABCEED283369CBBE179F2627132D0B3798514D5233582"
+        },
+        {
+          "Path": "tools/Native/Erlang.NifNativeBackend/MapCollision504NativeModuleHandle.cs",
+          "Sha256": "BD83CF83CD5F044AED5D1292602217CC243B61E968CF255646478041007E9C30"
+        },
+        {
+          "Path": "tools/Native/Erlang.NifNativeBackend/MapCreation501CallbackAdmission.cs",
+          "Sha256": "F7D980106F928BFD571B1826ECD391C6D7994DB2E8ECDD8C8FB5CB302A288BDA"
+        },
+        {
+          "Path": "tools/Native/Erlang.NifNativeBackend/MapCreation501CallbackDriver.cs",
+          "Sha256": "DB953D4580B9724435402A81040B2191545D79ED5C815854539DFA68F1DBB8C6"
+        },
+        {
+          "Path": "tools/Native/Erlang.NifNativeBackend/MapCreation501CallbackEntry.cs",
+          "Sha256": "0F0A18651F3AEF743BEA751F6950BEB3B9E0AB045AFC093CA2183D69A0C056B1"
+        },
+        {
+          "Path": "tools/Native/Erlang.NifNativeBackend/MapCreation501CallbackNames.cs",
+          "Sha256": "1FCC2C3533783BE9961AFAB21AB777A25D04E3A4D7C04AAC760BD3EF89DA4C7D"
+        },
+        {
+          "Path": "tools/Native/Erlang.NifNativeBackend/MapCreation501NativeModuleHandle.cs",
+          "Sha256": "DC535680C9E29AEE7D1F4320B6D9F63B142480B942BC256734BCE3D54210EF29"
+        },
+        {
+          "Path": "tools/Native/Erlang.NifNativeBackend/MapFamily504CallbackAdmission.cs",
+          "Sha256": "D637BC63C84B5107CA73C1FA743E5867D45BD5ACBB336E5F9C74109B909FEAD6"
+        },
+        {
+          "Path": "tools/Native/Erlang.NifNativeBackend/MapFamily504CallbackDriver.cs",
+          "Sha256": "E6084FC723FD07DB83EA75B2F21704F824BD281DBE4714D533027B96BA12F801"
+        },
+        {
+          "Path": "tools/Native/Erlang.NifNativeBackend/MapFamily504CallbackEntry.cs",
+          "Sha256": "B9BED050DF8CF9BE8E873B2D28804503A92F39A5916C8A79569BE7F46C581DB3"
+        },
+        {
+          "Path": "tools/Native/Erlang.NifNativeBackend/MapFamily504CallbackNames.cs",
+          "Sha256": "EE0A4AD2B344E9F689977CB87C81BD69D102FDC30031726C9B10FD73BB5D2211"
+        },
+        {
+          "Path": "tools/Native/Erlang.NifNativeBackend/MapFamily504NativeModuleHandle.cs",
+          "Sha256": "C942CA2AE9ADF21706651136C25DC5572147D9B4752769BBEFA524D527EE5D62"
+        },
+        {
+          "Path": "tools/Native/Erlang.NifNativeBackend/MapMaterialized505CallbackAdmission.cs",
+          "Sha256": "233533B4E0298BF1D1A5E2A133BB6D9A9887B36B366AAD46325588B1B2DF69B4"
+        },
+        {
+          "Path": "tools/Native/Erlang.NifNativeBackend/MapMaterialized505CallbackDriver.cs",
+          "Sha256": "C5AD524F002CFB8AC40BBC289C2EF1D32BD743691DA2A09C6FAA1C9201D17EFF"
+        },
+        {
+          "Path": "tools/Native/Erlang.NifNativeBackend/MapMaterialized505CallbackEntry.cs",
+          "Sha256": "C6400242E0EF80EF1525AB7B3FA6DFB71F416C0987ED823E974E445907D9CF0D"
+        },
+        {
+          "Path": "tools/Native/Erlang.NifNativeBackend/MapMaterialized505CallbackNames.cs",
+          "Sha256": "5D813B82EF8989B631AD9D5EE3D03104AE6C340B98AC63792D13800B730728D6"
+        },
+        {
+          "Path": "tools/Native/Erlang.NifNativeBackend/MapMaterialized505NativeModuleHandle.cs",
+          "Sha256": "CDC217AFFA0CB830F078401856988CF30B17FEC22F595C84CB373FB363C34426"
+        },
+        {
+          "Path": "tools/Native/Erlang.NifNativeBackend/MapReentry505CallbackAdmission.cs",
+          "Sha256": "336BBEED1AEEA238583526759AD09E7D721DE5BE884FE9A4AF63E50B451543A2"
+        },
+        {
+          "Path": "tools/Native/Erlang.NifNativeBackend/MapReentry505CallbackDriver.cs",
+          "Sha256": "1AB0FD44A5A579C1ABB1CE096C065798BFF8E384498449A05BE46BDF84F1B575"
+        },
+        {
+          "Path": "tools/Native/Erlang.NifNativeBackend/MapReentry505CallbackEntry.cs",
+          "Sha256": "F88F0DE1B30C6F799C57DE76FA425E59C12D97737F0F84F2EF7C097267572B91"
+        },
+        {
+          "Path": "tools/Native/Erlang.NifNativeBackend/MapReentry505CallbackNames.cs",
+          "Sha256": "0CEBEA97BAEFFA87F1C215117A9A68BA11B01D2F1320B7EBA912463651DC67ED"
+        },
+        {
+          "Path": "tools/Native/Erlang.NifNativeBackend/MapReentry505NativeModuleHandle.cs",
+          "Sha256": "E1E664BBB8AC7E24C564030461F360BED2A031B870C378E0180D25FB0D8BED30"
+        },
+        {
+          "Path": "tools/Native/Erlang.NifNativeBackend/MapValue503CallbackAdmission.cs",
+          "Sha256": "5D339C1931F3087B4699066A5B54713312CC273EF8EF252EC37D60A7DEE741FD"
+        },
+        {
+          "Path": "tools/Native/Erlang.NifNativeBackend/MapValue503CallbackDriver.cs",
+          "Sha256": "6E9335CB98CC9F98C1F37ED073F8F328A5D223BEA2C27415BC05371A0160157F"
+        },
+        {
+          "Path": "tools/Native/Erlang.NifNativeBackend/MapValue503CallbackEntry.cs",
+          "Sha256": "27B173ED38B1B6454E4A0C574136192F0F3227BBC1FB8373EBD5BF9D189107BB"
+        },
+        {
+          "Path": "tools/Native/Erlang.NifNativeBackend/MapValue503CallbackNames.cs",
+          "Sha256": "E00C1EABC8C689CF9EDB8C812941779602EBC4FA8EDB7ECE7E78ACF91BF48D52"
+        },
+        {
+          "Path": "tools/Native/Erlang.NifNativeBackend/MapValue503NativeModuleHandle.cs",
+          "Sha256": "5253E2658D85F7093FC4DA2A6BA8220F164CCB674B13C1E206FBC76794CCEFE2"
+        },
+        {
+          "Path": "tools/Native/Erlang.NifNativeBackend/NifNativeFlatDuplicate505HostChecks.cs",
+          "Sha256": "E2C0E43E809A1093E0F98CBD6C4B1B3D971DDCFC366DD4C5F81DCA24029024BB"
+        },
+        {
+          "Path": "tools/Native/Erlang.NifNativeBackend/NifNativeFlatDuplicate505HostEntry.cs",
+          "Sha256": "FBC8B91A15808724F76790D1A3832A75F261C0FB9EAF28DC1A97E1F690D853B2"
+        },
+        {
+          "Path": "tools/Native/Erlang.NifNativeBackend/NifNativeFlatDuplicate505HostNames.cs",
+          "Sha256": "BC923271CABF8F51D2FACDB7377C433CE0D40F50E5B3C3DDADDF6F28FD66D80F"
+        },
+        {
+          "Path": "tools/Native/Erlang.NifNativeBackend/NifNativeMapCreation501HostChecks.cs",
+          "Sha256": "DB3B4CFF4745F4EDE80E5A328F1756DB708240F16FFF1500BE82C2772D5E38CC"
+        },
+        {
+          "Path": "tools/Native/Erlang.NifNativeBackend/NifNativeMapCreation501HostEntry.cs",
+          "Sha256": "C6A0CEB7ECC7296E7042580714782EE2F1027815D0CDB2DB2EC6761DEBFE2263"
+        },
+        {
+          "Path": "tools/Native/Erlang.NifNativeBackend/NifNativeMapCreation501HostNames.cs",
+          "Sha256": "D54B47EC3D6F5C748BDC432BDEDF0A054B600954B34249D4E4337064B1F0F047"
+        },
+        {
+          "Path": "tools/Native/Erlang.NifNativeBackend/NifNativeMapFamily504HostChecks.cs",
+          "Sha256": "D96B3939A22D9B69A0AC648F8A09282A0053CA3A995CE38E89755CE0F7EE3782"
+        },
+        {
+          "Path": "tools/Native/Erlang.NifNativeBackend/NifNativeMapFamily504HostEntry.cs",
+          "Sha256": "DADC671F4E4878759CD9DA2F4F53C84790C0C485BA1191C8E2160C5013166AEE"
+        },
+        {
+          "Path": "tools/Native/Erlang.NifNativeBackend/NifNativeMapFamily504HostNames.cs",
+          "Sha256": "CDE319123FA73E2428FBB1DD03CA308659F37F88C16EA677436AF901B242150A"
+        },
+        {
+          "Path": "tools/Native/Erlang.NifNativeBackend/NifNativeMapIterator504HostChecks.cs",
+          "Sha256": "264D515DBC7656909971286D4E6354F50B5422377E87197998F3A110929EA773"
+        },
+        {
+          "Path": "tools/Native/Erlang.NifNativeBackend/NifNativeMapIterator504HostEntry.cs",
+          "Sha256": "D67E34913C2BCB44861E7B0015457C69524F7252CFB71459FC8B4E365F6117DB"
+        },
+        {
+          "Path": "tools/Native/Erlang.NifNativeBackend/NifNativeMapIterator504HostNames.cs",
+          "Sha256": "C42E63669137FC34277287A99163EC4E66E602382C402FF6CC7EE07F2B1762A3"
+        },
+        {
+          "Path": "tools/Native/Erlang.NifNativeBackend/NifNativeMapMaterialized505HostChecks.cs",
+          "Sha256": "0B1769FD12F73F718092EB8D00E24F05DC9E07827A4FA601D7CFCB4D7623AA03"
+        },
+        {
+          "Path": "tools/Native/Erlang.NifNativeBackend/NifNativeMapMaterialized505HostEntry.cs",
+          "Sha256": "CE000549262C696FB81B20E4A321CCFEA1D73D096735E2F04E0BDF9BEFEEFF63"
+        },
+        {
+          "Path": "tools/Native/Erlang.NifNativeBackend/NifNativeMapMaterialized505HostNames.cs",
+          "Sha256": "8B948CD5E075687B98BA5AEB3944DC0C7DE33E7F5ACED0B120168073E1F5C3B6"
+        },
+        {
+          "Path": "tools/Native/Erlang.NifNativeBackend/NifNativeMapReview504HostChecks.cs",
+          "Sha256": "1ED369F1ED5B08F59404FA6E71764FDDBD38C185A3AEE5064CF04885B6EAE972"
+        },
+        {
+          "Path": "tools/Native/Erlang.NifNativeBackend/NifNativeMapReview504HostEntry.cs",
+          "Sha256": "04A61E2753B1FF4FFE4FF64791BA94A34EE9DC631C7B667A7854C3144FE25467"
+        },
+        {
+          "Path": "tools/Native/Erlang.NifNativeBackend/NifNativeMapReview504HostNames.cs",
+          "Sha256": "BB2AD26CB2C740557273DC49997365A639013D03C8E8367B1190821E36EEF526"
+        },
+        {
+          "Path": "tools/Native/Erlang.NifNativeBackend/NifNativeMapValue503HostChecks.cs",
+          "Sha256": "3B4983AB34482048828EB7460DF2CFEBF0E2143B28AFACF3F1EFB5018B3DF839"
+        },
+        {
+          "Path": "tools/Native/Erlang.NifNativeBackend/NifNativeMapValue503HostEntry.cs",
+          "Sha256": "72CF16ACA37EB0AD805C185CC3ADC59D6D0248F4A01EAD290B7750CA8594179D"
+        },
+        {
+          "Path": "tools/Native/Erlang.NifNativeBackend/NifNativeMapValue503HostNames.cs",
+          "Sha256": "14A85A1B6F99BABD2C0C68C16F716B1ABEA9EB76ADA8594EC7411EEB090613A5"
+        },
+        {
+          "Path": "tools/Native/Erlang.NifNativeBackend/Program.cs",
+          "Sha256": "7A7B8F3C7D1059234C2D9F63FD764F9E8A174CD7958C5E2FC0E90D6CD649F7B1"
+        },
+        {
+          "Path": "tools/Native/Erlang.NifNativeBackend/RuntimeQueueStatistics504HostChecks.cs",
+          "Sha256": "62093D3FEDC5005B89AA646BE7A7CE6BB971C0095FA71A0AC1859E7A50CF0D40"
+        },
+        {
+          "Path": "tools/Native/Erlang.NifNativeBackend/RuntimeQueueStatistics504HostEntry.cs",
+          "Sha256": "B6DF68561AA3E4BB5BCB7C4425B5B963FC1B5A6B86F3F12EAB7F9395563F79A6"
+        },
+        {
+          "Path": "tools/Native/Erlang.NifNativeBackend/RuntimeQueueStatistics504HostNames.cs",
+          "Sha256": "63A4B21A51A28DD93C47D6803BDA2E02F1ED1550952D111EDD887F9DDDF0546E"
         }
       ],
       "EvidenceRefs": [
@@ -2513,11 +2525,38 @@
     "ClassificationsChanged": false,
     "SameHeadFullRegressionInferred": false
   },
+  "CurrentSourceUpdate524": {
+    "Scope": "Actual slab bignum digits/getter and immediate import custody; no classification or full-regression promotion",
+    "ChangedSourceBindings": [
+      "src/Runtime/Erlang.Runtime.Core/Processes/Memory/OwnedTermTransfer506.cs",
+      "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessTermFrame.Guest507.cs",
+      "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessTermFrame.Source511.cs",
+      "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessTermHeap.DebugWords526.cs",
+      "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessTermHeap.Guest507.cs",
+      "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessTermHeap506.cs",
+      "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessTermSequence506.cs"
+    ],
+    "AddedSourceBindings": [
+      "src/Runtime/Erlang.Runtime.Core/Processes/Memory/BoxedInteger559Names.cs",
+      "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessTermHeap.Integer559.cs",
+      "src/Runtime/Erlang.Terms/Storage/IOwnedIntegerStorage559.cs"
+    ],
+    "ApiBindingCountChanged": false,
+    "ClassificationsChanged": false,
+    "SameHeadFullRegressionInferred": false
+  },
   "CurrentSourcePlanRepair523": {
     "BoundPlan": "tools/Native/Erlang.NifMapFamily504Observations/source-plan.json",
     "OldSha256": "E45F5C266FEC47FBCF26FCB3F4539912707D2DF806B65599B0DE6A5650928724",
     "NewSha256": "3123F5A26E4878EBEBB6D2DD1212B24012A59905C013EB0E5C33AEABEFA38B29",
     "SourceOrMilestonePromotion": false,
     "CountsChanged": false
+  },
+  "CurrentSourcePlanRepair524": {
+    "BoundPlan": "tools/Native/Erlang.NifMapFamily504Observations/source-plan.json",
+    "NewSha256": "12B3190794AB74965082E0425E65D39080C9A8DDFC498218D8D9A24D9DD9C63D",
+    "InheritedEarlyEightPlanGate": true,
+    "CsharpChangedFromPublishedF763": false,
+    "ApiOrMilestoneChanged": false
   }
 }
