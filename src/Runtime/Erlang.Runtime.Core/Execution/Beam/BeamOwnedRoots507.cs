@@ -54,6 +54,14 @@ internal sealed class BeamOwnedRoots507 : IDisposable
     internal Term Cons(int index, Term head, Term tail)
         => frame.CreateConsInto507(Candidate(index), head, tail);
 
+    // Only the tuple/list constructors publish these candidates. Verify the
+    // actual registered root; never infer custody from a value's type or cache.
+    internal void RequireConstructedCandidate548(int index, Term value)
+    {
+        if (!ReferenceEquals(frame.Read(Candidate(index)), value))
+            throw new InvalidDataException(BeamConstructedCommit548Names.CandidateMismatch);
+    }
+
     internal void Commit(int index)
     {
         frame.Clear(Current(index));
