@@ -1,3 +1,5 @@
+Part526 integration checkpoint: reviewed all15 initially open PRs; corrected aggregate64/65 and merged64,66–76 in order. PR77 exact-head CI571 remains pending. Obsolete contained branches are removed with SHA/ancestry checks; uncommitted source work preserved. Retained Python build-script finding has an identical-AST correction and8/8 passive source checks. API/full deltas0/0. [Audit and remaining gates](validation/part-526/README.md).
+
 Final local Part485 acceptance:6540/6540 affected tests;warm and cold configured1321/1321,176 whole captures,9 portable native groups and own-state map protocol,balanced native cleanup and child exit0. Core/test/cold and three package runtime entries match41F9B1DF. Strict readiness preflight8896 preserves all8895 prior ordered names;1685 source bindings. Merge484 CI40189725678 is green. Publication-head full CI remains pending.
 
 # Current checkpoint — Part485

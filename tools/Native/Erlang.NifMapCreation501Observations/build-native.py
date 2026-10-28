@@ -48,11 +48,13 @@ def main():
     env = os.environ.copy()
     for line in configured.stdout.decode('mbcs').splitlines():
         if '=' in line and not line.startswith('='):
-            key,value = line.split('=',1); env[key.upper()] = value
+            key, value = line.split('=', 1)
+            env[key.upper()] = value
     binaries = {key:shutil.which(key,path=env.get('PATH')) for key in ['cl.exe','link.exe','dumpbin.exe']}
     assert all(binaries.values())
     out.mkdir(parents=True)
-    for name,data in headers.items(): (out/name).write_bytes(data)
+    for name, data in headers.items():
+        (out / name).write_bytes(data)
     shutil.copyfile(native,out/'fixture.c')
     shutil.copyfile(erlang,out/'map_creation501.erl')
     shutil.copyfile(plan_path,out/'source-plan.json')
@@ -77,4 +79,5 @@ def main():
     (out/'build-receipt.json').write_text(json.dumps(receipt,indent=2)+'\n')
     print(json.dumps({'Receipt':str(out/'build-receipt.json'),'Sha256':sha(out/'build-receipt.json'),'ExecutionApproved':False}))
 
-if __name__ == '__main__': main()
+if __name__ == '__main__':
+    main()
