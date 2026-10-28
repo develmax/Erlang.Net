@@ -305,6 +305,7 @@ internal sealed partial class ProcessTermHeap506(ProcessRuntime runtime)
         Cons cons => cons.OwnedStorage506,
         FloatTerm number => number.OwnedStorage556,
         Integer number => number.OwnedStorage559,
+        ReferenceTerm reference => reference.OwnedStorage562,
         _ => null
     };
 }

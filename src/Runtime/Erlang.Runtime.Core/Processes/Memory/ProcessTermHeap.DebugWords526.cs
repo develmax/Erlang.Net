@@ -32,7 +32,7 @@ internal sealed partial class ProcessTermHeap506
                     return true;
                 // Reject unrepresented scalar/function/binary/foreign domains;
                 // their existing source policy remains the explicit fallback.
-                if (value is not (TupleTerm or Cons or MapTerm or HamtBitmapTerm429 or FloatTerm or Integer))
+                if (value is not (TupleTerm or Cons or MapTerm or HamtBitmapTerm429 or FloatTerm or Integer or ReferenceTerm))
                     return false;
                 if (!flat && runtime.IsSharingLiteral425(value))
                     return true;
@@ -46,6 +46,10 @@ internal sealed partial class ProcessTermHeap506
                 else if (value is Integer)
                 {
                     _ = ReadInteger559(payload);
+                }
+                else if (value is ReferenceTerm)
+                {
+                    _ = ReadReferenceWords562(payload);
                 }
                 else if (value is TupleTerm)
                 {

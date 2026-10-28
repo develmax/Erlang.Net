@@ -4,7 +4,7 @@ using System.Numerics;
 
 namespace Erlang;
 
-internal sealed record BeamLinkedCode(
+internal sealed partial record BeamLinkedCode(
     BeamStructure Structure,
     BeamTypeTable Types,
     IReadOnlyList<BeamInstruction> Instructions,

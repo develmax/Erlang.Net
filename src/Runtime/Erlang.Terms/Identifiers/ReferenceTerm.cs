@@ -10,9 +10,14 @@ public class ReferenceTerm : Term
     internal LocalNodeSnapshot WireIdentity => localIdentity?.Snapshot ?? externalIdentity;
     internal LocalNodeIdentity? LocalIdentity => localIdentity;
     public ulong Id => checked((ulong)FullId);
-    public BigInteger FullId { get; }
+    private readonly BigInteger portableId562;
+    private readonly IReadOnlyList<uint> portableWords562 = Array.Empty<uint>();
+    private readonly bool ordinaryLocal562;
+    internal IOwnedReferenceStorage562? OwnedStorage562 { get; }
+    internal bool IsOrdinaryLocal562 => ordinaryLocal562;
+    public BigInteger FullId => OwnedStorage562 is null ? portableId562 : Reconstruct562(Words);
     public uint Creation => WireIdentity.Creation;
-    public IReadOnlyList<uint> Words { get; }
+    public IReadOnlyList<uint> Words => OwnedStorage562?.ReadReferenceWords562() ?? portableWords562;
 
     public ReferenceTerm(string node, ulong id, uint creation = 0) : this(node, id > uint.MaxValue ? [(uint)id, (uint)(id >> ReferenceIdentityLayout.WordBits)] : [(uint)id], creation)
     {
@@ -24,11 +29,11 @@ public class ReferenceTerm : Term
         if (values.Length < ReferenceIdentityLayout.MinimumWords || values.Length > ReferenceIdentityLayout.MaximumWords)
             throw new ErlangException(ErlangErrorReasons.BadArgument);
         externalIdentity = new(node, creation);
-        Words = Array.AsReadOnly(values);
+        portableWords562 = Array.AsReadOnly(values);
         BigInteger id = BigInteger.Zero;
         for (int index = values.Length - 1; index >= 0; index--)
             id = (id << ReferenceIdentityLayout.WordBits) | values[index];
-        FullId = id;
+        portableId562 = id;
     }
 
     internal ReferenceTerm(LocalNodeIdentity identity, IEnumerable<uint> words)
@@ -41,6 +46,37 @@ public class ReferenceTerm : Term
         : this(identity.Node, identity.Words, identity.Creation)
     {
         localIdentity = identity.LocalIdentity;
+        ordinaryLocal562 = identity.ordinaryLocal562;
+    }
+
+    // Only the runtime's ordinary make_ref generator uses this factory. Public
+    // constructors, decoder paths and PID/resource aliases receive no capability.
+    internal static ReferenceTerm CreateOrdinaryLocal562(LocalNodeIdentity identity, uint[] words)
+        => new(identity, words, true);
+
+    private ReferenceTerm(LocalNodeIdentity identity, uint[] words, bool ordinary)
+        : this(identity, words)
+    {
+        if (words.Length != ReferenceIdentityLayout.LocalWords)
+            throw new ErlangException(ErlangErrorReasons.BadArgument);
+        ordinaryLocal562 = ordinary;
+    }
+
+    internal ReferenceTerm(LocalNodeIdentity identity, IOwnedReferenceStorage562 storage)
+    {
+        externalIdentity = identity.Snapshot;
+        localIdentity = identity;
+        OwnedStorage562 = storage;
+        ordinaryLocal562 = true;
+    }
+
+    private static BigInteger Reconstruct562(IReadOnlyList<uint> words)
+    {
+        BigInteger id = BigInteger.Zero;
+        for (int index = words.Count - 1; index >= 0; index--)
+            id = (id << ReferenceIdentityLayout.WordBits) | words[index];
+
+        return id;
     }
 
     public override string ToString()

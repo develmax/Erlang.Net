@@ -1,0 +1,50 @@
+namespace Erlang.Tests;
+
+internal static class OrdinaryReference562TestNames
+{
+    internal static nuint NumberMutation => (nuint)1 << 32;
+    internal const int DrainTimeoutSeconds = 10;
+    internal const string HeapType = "Erlang.ProcessTermHeap506";
+    internal const string HeapGate = "Gate";
+    internal const string Enter = "Enter";
+    internal const string Reserve = "Reserve";
+    internal const string Set = "Set";
+    internal const string SetPrepared = "SetPrepared";
+    internal const string Read = "Read";
+    internal const string Clear = "Clear";
+    internal const string Collect = "Collect";
+    internal const string CollectGeneration = "CollectGeneration508";
+    internal const string Export = "Export";
+    internal const string Adopt = "AdoptGuestInto507";
+    internal const string BeginConstruction = "BeginConstruction514";
+    internal const string CreateReference = "CreateReference562";
+    internal const string Eligible = "IsOrdinaryLocalReference562";
+    internal const string Retire = "RetireAsync";
+    internal const string Snapshot = "PhysicalWordSnapshot526";
+    internal const string Physical = "LivePhysicalWords";
+    internal const string Headers = "LiveEncodedHeaderWords";
+    internal const string Numeric = "LiveRawNumericWords556";
+    internal const string Handles = "RootedTermHandles";
+    internal const string Storage = "OwnedStorage562";
+    internal const string Slab = "Slab";
+    internal const string Cells = "Cells";
+    internal const string Offset = "AllocationOffset526";
+    internal const string ReadNumeric = "ReadNumeric556";
+    internal const string WriteNumeric = "WriteNumeric556";
+    internal const string ReadHeader = "ReadHeader526";
+    internal const string WriteHeaders = "WriteHeaders526";
+    internal const string LocalIdentity = "LocalIdentity";
+    internal const string IdentitySnapshot = "Snapshot";
+    internal const string PublishIdentity = "Publish";
+    internal const string Node = "Node";
+    internal const string Creation = "Creation";
+    internal const string ChangedNode = "ordinary562@localhost";
+    internal const string Failure = "The ordinary local reference ownership control failed.";
+    internal const string AssertionAndCleanupFailure = "The ordinary reference assertion and/or independent cleanup phases failed.";
+    internal const string FrameCleanupFailure = "An ordinary reference root frame did not dispose during cleanup.";
+    internal const string HeapCleanupFailure = "An ordinary reference heap did not retire and drain during cleanup.";
+    internal const string RuntimeCleanupFailure = "The ordinary reference runtime did not dispose during cleanup.";
+    internal const string PhysicalCase = "runtime/ordinary-reference562/actual-header-words-and-retirement";
+    internal const string ImportCase = "runtime/ordinary-reference562/alias-import-adopt-and-rollback";
+    internal const string ProvenanceCase = "runtime/ordinary-reference562/provenance-identity-and-foreign";
+}

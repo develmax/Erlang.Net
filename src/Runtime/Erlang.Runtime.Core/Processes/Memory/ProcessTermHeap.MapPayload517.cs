@@ -118,8 +118,14 @@ internal sealed partial class ProcessTermHeap506
                         throw new NotSupportedException(OwnedMapPayloadNames517.InvalidShape);
                     flatKeys = copied[0] as TupleTerm
                         ?? throw new InvalidOperationException(OwnedMapPayloadNames517.InvalidShape);
-                    if (!IsOwnedLocal(flatKeys) || flatKeys.OwnedStorage506 is not ProcessTermSequence506 keysPayload
-                        || keysPayload.Count != prepared.Count)
+                    IReadOnlyList<Term> keysPayload;
+                    if (IsLoaderMapKeys565(flatKeys))
+                        keysPayload = flatKeys.Items;
+                    else if (IsOwnedLocal(flatKeys) && flatKeys.OwnedStorage506 is ProcessTermSequence506 ownedKeys)
+                        keysPayload = ownedKeys;
+                    else
+                        throw new InvalidOperationException(OwnedMapPayloadNames517.InvalidShape);
+                    if (keysPayload.Count != prepared.Count)
                         throw new InvalidOperationException(OwnedMapPayloadNames517.InvalidShape);
                     var body = new Term[checked(prepared.Count + 1)];
                     body[0] = flatKeys;

@@ -17,9 +17,10 @@ internal sealed partial class ProcessTermHeap506
         pending.Push(new(source, maps));
         while (pending.TryPeek(out GuestAdoptionFrame507? frame))
         {
-            if (IsOwnedLocal(frame.Source) || IsLiteralFloat556(frame.Source)
-                || IsLiteralInteger559(frame.Source) || IsImmediateInteger559(frame.Source) || frame.NodePlan526 is null
-                && (frame.Source is not (TupleTerm or Cons or MapTerm or FloatTerm or Integer)
+            if (IsOwnedLocal(frame.Source) || IsLoaderMapKeys565(frame.Source) || IsLiteralFloat556(frame.Source)
+                || IsLiteralInteger559(frame.Source) || IsImmediateInteger559(frame.Source)
+                || frame.Source is ReferenceTerm && !IsOrdinaryLocalReference562(frame.Source) || frame.NodePlan526 is null
+                && (frame.Source is not (TupleTerm or Cons or MapTerm or FloatTerm or Integer or ReferenceTerm)
                     || frame.Source is TupleTerm { Items.Count: 0 }
                     || frame.Source is MapTerm && frame.MapPlan is null))
             {
@@ -56,8 +57,11 @@ internal sealed partial class ProcessTermHeap506
                 ? CreateFloat556(number.Value, construction ?? throw new InvalidOperationException(ProcessTermConstruction514Names.InvalidCustody))
                 : frame.Source is Integer integer
                 ? CreateInteger559(integer.Value, construction ?? throw new InvalidOperationException(ProcessTermConstruction514Names.InvalidCustody))
+                : frame.Source is ReferenceTerm reference
+                ? CreateReference562(reference, construction ?? throw new InvalidOperationException(ProcessTermConstruction514Names.InvalidCustody))
                 : frame.Source is Cons ? CreateCons(frame.Built[0], frame.Built[1]) : CreateTuple(frame.Built);
-            if (frame.MapPlan is null && frame.NodePlan526 is null && frame.Source is not (FloatTerm or Integer))
+            if (frame.MapPlan is null && frame.NodePlan526 is null && frame.Source is not (FloatTerm or Integer)
+                && !IsOrdinaryLocalReference562(frame.Source))
                 construction?.Publish(built);
             copies[frame.Source] = built;
             pending.Pop();
