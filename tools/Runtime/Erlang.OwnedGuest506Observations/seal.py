@@ -542,6 +542,20 @@ DEPENDENCIES = [
     'tools/Runtime/Erlang.MatchSaved634Observations/fixtures/match_saved634.erl',
     'tools/Runtime/Erlang.MatchSaved634Observations/inputs.json',
     'tools/Runtime/Erlang.MatchSaved634Observations/run.py',
+    'src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.MatchSpec419.cs',
+    'src/Runtime/Erlang.Runtime.Core/Storage/EtsCompiledDispatch638.cs',
+    'src/Runtime/Erlang.Runtime.Core/Storage/EtsCompiledDispatch638Names.cs',
+    'src/Runtime/Erlang.Runtime.Core/Storage/EtsCompiledExecutable638.cs',
+    'src/Runtime/Erlang.Runtime.Core/Storage/EtsCompiledOperations419.cs',
+    'src/Runtime/Erlang.Runtime.Core/Storage/EtsCompiledProgram419.cs',
+    'src/Runtime/Erlang.Runtime.Core/Storage/EtsCursorState420.cs',
+    'src/Runtime/Erlang.Runtime.Core/Storage/RuntimeEtsFoundation.Cursors420.cs',
+    'tests/Erlang.Tests/Runtime/Storage/MatchSpecs/EtsDispatch638Access.cs',
+    'tests/Erlang.Tests/Runtime/Storage/MatchSpecs/EtsDispatch638Checks.cs',
+    'tests/Erlang.Tests/Runtime/Storage/MatchSpecs/EtsDispatch638Fence.cs',
+    'tests/Erlang.Tests/Runtime/Storage/MatchSpecs/EtsDispatch638Names.cs',
+    'tools/Runtime/Erlang.EtsDispatch540Observations/inputs.json',
+    'tools/Runtime/Erlang.EtsDispatch540Observations/run.py',
 ]
 
 

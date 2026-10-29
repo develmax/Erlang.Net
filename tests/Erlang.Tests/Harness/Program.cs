@@ -7649,6 +7649,13 @@ try
     Test(Erlang.Tests.MatchSaved634Names.DisposeCase, Erlang.Tests.MatchSaved634Checks.DisposeWaitsReader);
     Test(Erlang.Tests.MatchSaved634Names.HaltCase, Erlang.Tests.MatchSaved634Checks.HaltWaitsReader);
     Test(Erlang.Tests.MatchSaved634Names.HeaderCase, Erlang.Tests.MatchSaved634Checks.HeaderRejection);
+    Test(Erlang.Tests.EtsDispatch638Names.RunCase, Erlang.Tests.EtsDispatch638Checks.RunTrap);
+    Test(Erlang.Tests.EtsDispatch638Names.HashCase, Erlang.Tests.EtsDispatch638Checks.HashTrap);
+    Test(Erlang.Tests.EtsDispatch638Names.TreeCase, Erlang.Tests.EtsDispatch638Checks.TreeTrap);
+    Test(Erlang.Tests.EtsDispatch638Names.RunCancelCase, Erlang.Tests.EtsDispatch638Checks.RunCancellation);
+    Test(Erlang.Tests.EtsDispatch638Names.TreeCancelCase, Erlang.Tests.EtsDispatch638Checks.TreeCancellation);
+    Test(Erlang.Tests.EtsDispatch638Names.LegacyCase, Erlang.Tests.EtsDispatch638Checks.LegacyDomainControls);
+    Test(Erlang.Tests.EtsDispatch638Names.ForeignCase, Erlang.Tests.EtsDispatch638Checks.ForeignPublication);
     Test(Erlang.Tests.DictionaryOriginal631Names.Test, Erlang.Tests.DictionaryOriginal631Checks.Run);
     Test(Erlang.Tests.DictionaryKeys605Names.NativeCase, Erlang.Tests.DictionaryKeys605Checks.NativeKeys);
     Test(Erlang.Tests.DictionaryKeys605Names.ExitCase, Erlang.Tests.DictionaryKeys605Checks.NativeOwnerExit);
