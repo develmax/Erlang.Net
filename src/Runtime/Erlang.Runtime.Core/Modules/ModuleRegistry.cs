@@ -190,11 +190,17 @@ public sealed partial class ModuleRegistry
     {
         lock (gate)
         {
-            if (!codeDescriptors.TryGetValue(module, out var descriptor) || descriptor.SourceOwner is null || !descriptor.Fingerprint.Equals(fingerprint) ||
-                !sourceOwners.Any(entry => entry.Key.Module == module && ReferenceEquals(entry.Value, descriptor.SourceOwner)))
+            if (!codeDescriptors.TryGetValue(module, out var descriptor) || !descriptor.Fingerprint.Equals(fingerprint))
+                return null;
+            ModuleCodeImage image = codeImages[module];
+            object? owner = descriptor.SourceOwner;
+            if (owner is null && image.ExecutionOwner is PreparedBeamImage prepared
+                && ReferenceEquals(prepared.Owner, this) && ReferenceEquals(prepared.ExecutionIdentity.Image, image))
+                owner = prepared;
+            if (owner is null || !sourceOwners.Any(entry => entry.Key.Module == module && ReferenceEquals(entry.Value, owner)))
                 return null;
 
-            return new SourceCodeEntry(descriptor.SourceOwner, codeImages[module]);
+            return new SourceCodeEntry(owner, image);
         }
     }
 

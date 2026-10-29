@@ -581,8 +581,8 @@
       "Scope": "Tool",
       "Path": "seal.py",
       "HashMode": "Raw",
-      "Sha256": "95324E50351376C15D0169EF7BBE114EDD5CC40F7DD2A39CD0C3BA22D7FA2DD1",
-      "Bytes": 56692
+      "Sha256": "3E83F88AA2A99ABCD6870696962525FAB0F5D9A0BDF25306CECEC004A24BE748",
+      "Bytes": 59598
     },
     {
       "Scope": "Tool",
@@ -642,13 +642,6 @@
     },
     {
       "Scope": "Repository",
-      "Path": "src/Runtime/Erlang.Runtime.Core/Modules/ModuleRegistry.cs",
-      "HashMode": "Raw",
-      "Sha256": "C426AB8BEDEF68321FD430B60C89DC3FC573C434E0F0CA00F9530F7A8091F93F",
-      "SealedBytes": 33594
-    },
-    {
-      "Scope": "Repository",
       "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeEnvironmentCallbacks.cs",
       "HashMode": "Raw",
       "Sha256": "2A1B56863A9BB33E7AC19025A1EB4FBDF5C2A3E41B23787A9B6AC16C5B2244ED",
@@ -660,13 +653,6 @@
       "HashMode": "Raw",
       "Sha256": "926ECE27165E77306E49870E524E7D4285FE02E9D497DEC3D5F2D80D64A62800",
       "SealedBytes": 1996
-    },
-    {
-      "Scope": "Repository",
-      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessContext.FunctionBoundary506.cs",
-      "HashMode": "Raw",
-      "Sha256": "37553449ABBC8BC7091662FE6C673CC8E4275EB7D4C8102918336EF2BB043637",
-      "SealedBytes": 1101
     },
     {
       "Scope": "Repository",
@@ -831,24 +817,17 @@
     },
     {
       "Scope": "Repository",
-      "Path": "tests/Erlang.Tests/Runtime/Processes/Signals/Nonblocking641Checks.cs",
+      "Path": "tests/Erlang.Tests/Runtime/Native/Nif/Callbacks/NifBeamEntryHostChecks.cs",
       "HashMode": "Raw",
-      "Sha256": "01F1324134C8FC2B59949D370D585E48EB012EA26840DCF15B6710E9F6CB9BA9",
-      "SealedBytes": 5444
+      "Sha256": "F5A40ACBAB3F5C7576E75980AB603BFCFC680482985B4A4608CCAFA1FE9476B7",
+      "SealedBytes": 23517
     },
     {
       "Scope": "Repository",
-      "Path": "tests/Erlang.Tests/Runtime/Processes/Signals/Nonblocking641Names.cs",
+      "Path": "tests/Erlang.Tests/Runtime/Native/Nif/Callbacks/NifBeamEntryHostNames.cs",
       "HashMode": "Raw",
-      "Sha256": "56A4727F656CFF6E01AB71DA32F68D26065CA11F74C33C7966F8A45EF11697EC",
-      "SealedBytes": 602
-    },
-    {
-      "Scope": "Repository",
-      "Path": "tests/Erlang.Tests/Runtime/Processes/Signals/Nonblocking641Probe.cs",
-      "HashMode": "Raw",
-      "Sha256": "A3607667B12AFA6B7CAD6E4D8D5DC223F040689F9688CE2426A5D05694AEE6D1",
-      "SealedBytes": 1068
+      "Sha256": "BA589DCE0BE208DC6FB7418C85FF88DBC963A94D547335B7306F7507AA78F30E",
+      "SealedBytes": 3365
     },
     {
       "Scope": "Repository",
@@ -880,6 +859,27 @@
     },
     {
       "Scope": "Repository",
+      "Path": "tests/Erlang.Tests/Runtime/Processes/Signals/Nonblocking641Checks.cs",
+      "HashMode": "Raw",
+      "Sha256": "01F1324134C8FC2B59949D370D585E48EB012EA26840DCF15B6710E9F6CB9BA9",
+      "SealedBytes": 5444
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tests/Erlang.Tests/Runtime/Processes/Signals/Nonblocking641Names.cs",
+      "HashMode": "Raw",
+      "Sha256": "56A4727F656CFF6E01AB71DA32F68D26065CA11F74C33C7966F8A45EF11697EC",
+      "SealedBytes": 602
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tests/Erlang.Tests/Runtime/Processes/Signals/Nonblocking641Probe.cs",
+      "HashMode": "Raw",
+      "Sha256": "A3607667B12AFA6B7CAD6E4D8D5DC223F040689F9688CE2426A5D05694AEE6D1",
+      "SealedBytes": 1068
+    },
+    {
+      "Scope": "Repository",
       "Path": "tests/Erlang.Tests/Runtime/Processes/Signals/MonitorShutdown652Checks.cs",
       "HashMode": "Raw",
       "Sha256": "7950D4459445C3D79717B9B8945AA55B0D91AEA27CCE2EB7E0C1F8D49696378F",
@@ -891,6 +891,20 @@
       "HashMode": "Raw",
       "Sha256": "DAE8689789BFBE59B4442131423F8D6EC8A0F729EC7A3913A7DAF90A94C82BA7",
       "SealedBytes": 1633
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessContext.FunctionBoundary506.cs",
+      "HashMode": "Raw",
+      "Sha256": "DEFFED1C138CA3D9A955CCD11F35F9B1E66B879FBCF6E517E65EA950DF48EE56",
+      "SealedBytes": 1182
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tests/Erlang.Tests/Runtime/Modules/CodeLifecycle/CodePurger432Fixture.cs",
+      "HashMode": "Raw",
+      "Sha256": "16563BD5D1808E60C0F99B087956B84E43BD2C0A9309605763BEFD9B76EBF0F8",
+      "SealedBytes": 3523
     },
     {
       "Scope": "Repository",
@@ -1407,8 +1421,8 @@
       "Scope": "Repository",
       "Path": "tests/Erlang.Tests/Erlang.Tests.csproj",
       "HashMode": "TextLF",
-      "Sha256": "7D7972DB8D3496D249AA306649ABD0BDA208E544586E188387991A431EA615FD",
-      "SealedBytes": 40344
+      "Sha256": "BC5CC4DE10B375DA80216A8E02B3C5D8AF827C05E49AFA190C71876A057D5469",
+      "SealedBytes": 40500
     },
     {
       "Scope": "Repository",
@@ -3857,8 +3871,8 @@
       "Scope": "Repository",
       "Path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamRegisterInterpreter.cs",
       "HashMode": "Raw",
-      "Sha256": "9F076E4292A19D5C79745471D53C06E9298A6452AEE8260DA9D3E68446B866C7",
-      "SealedBytes": 79974
+      "Sha256": "666A56E71646FF3E572D2D4FA98872C85273388F91F59BD69EC0A8F8D686F2CC",
+      "SealedBytes": 80271
     },
     {
       "Scope": "Repository",
@@ -4095,8 +4109,8 @@
       "Scope": "Repository",
       "Path": "tests/Erlang.Tests/Harness/Program.cs",
       "HashMode": "Raw",
-      "Sha256": "67C07961FC1BC4710330DE2B695117AA772F2EAA0DA53E0F64324C5ABFFE37D6",
-      "SealedBytes": 367412
+      "Sha256": "FB77A5C2BD753CC2CA4CD06B6E95CC47A8B255EF53C3B4C74DCA7E85E101BDE9",
+      "SealedBytes": 368429
     },
     {
       "Scope": "Repository",
@@ -4606,7 +4620,7 @@
       "Scope": "Repository",
       "Path": "tools/Runtime/Erlang.MatchSaved634Observations/inputs.json",
       "HashMode": "TextLF",
-      "Sha256": "E845EC8904089AB6B6ECE39D3EFF6755E02D474482B7033C04CD07556F49CF65",
+      "Sha256": "F9866743EEF74934A00296593C781A736F524082083B1249FF8C34A50B40403B",
       "SealedBytes": 6226
     },
     {
@@ -4704,7 +4718,7 @@
       "Scope": "Repository",
       "Path": "tools/Runtime/Erlang.EtsDispatch540Observations/inputs.json",
       "HashMode": "TextLF",
-      "Sha256": "B9BDAD1B7789E31DA3F06B47E7681B16D4762559D5DAA2772D8196FC7CFFAF8B",
+      "Sha256": "A56E6A8907574912F999A2FF166AF0AA87ACE2917C203BEFA6CF2F314D1D154A",
       "SealedBytes": 24756
     },
     {
@@ -5187,8 +5201,8 @@
       "Scope": "Repository",
       "Path": "tools/Runtime/Erlang.MonitorOriginal645Observations/inputs.json",
       "HashMode": "TextLF",
-      "Sha256": "82147188D1182B25B96CF380385810ABC5B0CC73F46CF5911AF310E1F19AB64F",
-      "SealedBytes": 2731
+      "Sha256": "8A1FB941985310267CCE071528B96EA5D13F2C0B4FDAD902BF28B004F14CE566",
+      "SealedBytes": 2933
     },
     {
       "Scope": "Repository",
@@ -5196,6 +5210,223 @@
       "HashMode": "TextLF",
       "Sha256": "1091AAEFF5BAF4DC316B79ADC2BB86D1955A22B13C16F97D6E039F047B2EF3D3",
       "SealedBytes": 10345
+    },
+    {
+      "Scope": "Repository",
+      "Path": "docs/validation/part-542/source-freeze.json",
+      "HashMode": "TextLF",
+      "Sha256": "C518CDC33BECD3F52A49E3DA03533993F264A3E6DD740B01248F53448D9896AD",
+      "SealedBytes": 2034
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamClosureFactory.cs",
+      "HashMode": "Raw",
+      "Sha256": "86646D17CDE16BF6D3CEB672AFE08F694F1105539B62A5F163EED6AE8EC2991C",
+      "SealedBytes": 7966
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamExecutionHandler432.cs",
+      "HashMode": "Raw",
+      "Sha256": "5B166365E3601BDC701123455B2F79039F07225703496FB95CE2DFA1E193C994",
+      "SealedBytes": 412
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamRegisterInterpreter.Dispatch432.cs",
+      "HashMode": "Raw",
+      "Sha256": "F120480FCDC8B5F842F58014920C9B440FD4D3F1F7F936CF7CDA1248EEA22793",
+      "SealedBytes": 1404
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Modules/ModuleRegistry.cs",
+      "HashMode": "Raw",
+      "Sha256": "88F83E00EAB6A05401009AFB10452570C252FC6866FFC74E3C9E8833406470A2",
+      "SealedBytes": 33901
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Context/BeamFunAdmissionSite650.cs",
+      "HashMode": "Raw",
+      "Sha256": "DCA0A203648433BA8AF18699A057E337BAC3CBC5338B9C57331284A0DEC40DF4",
+      "SealedBytes": 119
+    },
+    {
+      "Scope": "Repository",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessContext.BeamFunAdmission650.cs",
+      "HashMode": "Raw",
+      "Sha256": "87C0DC0CD2871F4AF74504505B93C26B5FE9DECCC62662AE63A7BB466998C56C",
+      "SealedBytes": 1943
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tests/Erlang.Tests/Compiler/Beam/BeamStoredFunction406Checks.cs",
+      "HashMode": "Raw",
+      "Sha256": "B309D3FB22349C08D6A2ED657E69643385920F6C948B0584F99EAF762DDC1A49",
+      "SealedBytes": 14216
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tests/Erlang.Tests/Fixtures/BeamPassive647/abort-observed.etf",
+      "HashMode": "Raw",
+      "Sha256": "538B4D4B6309CD809DDFC822E78AB26727AE318F81402AD5F40B50111A598718",
+      "SealedBytes": 81
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tests/Erlang.Tests/Fixtures/BeamPassive647/abort-stack.etf",
+      "HashMode": "Raw",
+      "Sha256": "4309BCBA566DDE47811C47FA17EDA8251761909A39934D3AE48CB5FB2F90CB14",
+      "SealedBytes": 2
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tests/Erlang.Tests/Fixtures/BeamPassive647/beam_passive_entry649.beam",
+      "HashMode": "Raw",
+      "Sha256": "03EE02C7A6C1029FB10AC9B966B82CE4C601B786B2B15B940910DD2A8A3BD2E9",
+      "SealedBytes": 2720
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tests/Erlang.Tests/Fixtures/BeamPassive647/beam_passive_entry649.erl",
+      "HashMode": "TextLF",
+      "Sha256": "25553D46DAC753882B68A160F4A163E14080DCA3BF5A90B1EA4B4E1DA2535503",
+      "SealedBytes": 861
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tests/Erlang.Tests/Fixtures/BeamPassive647/beam_passive_fun647.beam",
+      "HashMode": "Raw",
+      "Sha256": "452A8A5B88AB583BFDAE7FD6C17B21F58458FEB6ACA38128423C5200DD1D88F2",
+      "SealedBytes": 3808
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tests/Erlang.Tests/Fixtures/BeamPassive647/beam_passive_fun647.erl",
+      "HashMode": "TextLF",
+      "Sha256": "1B1BD8C13169AACA3E7C830C5EF6F5339862B12CCC86EE04B7223447F9E561E6",
+      "SealedBytes": 1495
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tests/Erlang.Tests/Fixtures/BeamPassive647/complete-observed.etf",
+      "HashMode": "Raw",
+      "Sha256": "68D31DFCDE382AEF0C8589513BBF5ED8061FCB99332FD18554805D804E36F274",
+      "SealedBytes": 884
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tests/Erlang.Tests/Fixtures/BeamPassive647/complete-stack.etf",
+      "HashMode": "Raw",
+      "Sha256": "3576CA54D3CFF54396E40877663DA8FC47F00B20FF37EF0F2BCF46FE767F03E4",
+      "SealedBytes": 347
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tests/Erlang.Tests/Fixtures/BeamPassive647/manifest.json",
+      "HashMode": "TextLF",
+      "Sha256": "2D0BAC942CCFBBF4EE726DEA689950CF31B148BCC43E0863AFBE55C322508E68",
+      "SealedBytes": 1459
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tests/Erlang.Tests/Fixtures/BeamPassive647/original-completion.json",
+      "HashMode": "TextLF",
+      "Sha256": "0DDF8054AC76C0FB5A80F91DDC514714C43DC243A782F0BD0652AE99CBE68F14",
+      "SealedBytes": 7791
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tests/Erlang.Tests/Fixtures/BeamPassive647/original-provider-after.json",
+      "HashMode": "TextLF",
+      "Sha256": "0C7971C52D2EC5E99654330154BE233E23DF20E7E56D80E2DB5C74DD568CA45F",
+      "SealedBytes": 748401
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tests/Erlang.Tests/Fixtures/BeamPassive647/original-provider-before.json",
+      "HashMode": "TextLF",
+      "Sha256": "C3B69510E75B22D31BAF9EF239867BDFD23B0DA8C5DC05DD5C41B79CE0724B8F",
+      "SealedBytes": 750707
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tests/Erlang.Tests/Fixtures/BeamPassive647/reload-observed.etf",
+      "HashMode": "Raw",
+      "Sha256": "53DB4BE969CEB45043141E5D1A36AC302306CE577EE7B2C47BB61293386BDA69",
+      "SealedBytes": 80
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tests/Erlang.Tests/Fixtures/BeamPassive647/reload-stack.etf",
+      "HashMode": "Raw",
+      "Sha256": "4309BCBA566DDE47811C47FA17EDA8251761909A39934D3AE48CB5FB2F90CB14",
+      "SealedBytes": 2
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tests/Erlang.Tests/Runtime/Modules/CodeLifecycle/BeamPassive647Checks.cs",
+      "HashMode": "Raw",
+      "Sha256": "B17F9AA3CDB8922A1AF7E91CF2460EDAD56CC643F9C6A4B0015A7A165DE14D0E",
+      "SealedBytes": 7368
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tests/Erlang.Tests/Runtime/Modules/CodeLifecycle/BeamPassive647Names.cs",
+      "HashMode": "Raw",
+      "Sha256": "A6E587E88DD16A3F2A763A98E241559B593BE28FE8DB6602CF0795F25A56003C",
+      "SealedBytes": 2571
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tools/Runtime/Erlang.BeamFunction542Observations/beam_passive_entry649.erl",
+      "HashMode": "TextLF",
+      "Sha256": "25553D46DAC753882B68A160F4A163E14080DCA3BF5A90B1EA4B4E1DA2535503",
+      "SealedBytes": 861
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tools/Runtime/Erlang.BeamFunction542Observations/beam_passive_fun647.erl",
+      "HashMode": "TextLF",
+      "Sha256": "1B1BD8C13169AACA3E7C830C5EF6F5339862B12CCC86EE04B7223447F9E561E6",
+      "SealedBytes": 1495
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tools/Runtime/Erlang.BeamFunction542Observations/capture-original.py",
+      "HashMode": "TextLF",
+      "Sha256": "C672A111DD5278DFA7FF5A7118943791EF6D4D919141E94C32F7E0DB7087CA77",
+      "SealedBytes": 7241
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tools/Runtime/Erlang.BeamFunction542Observations/inputs.json",
+      "HashMode": "TextLF",
+      "Sha256": "9E5E71E24E8D10CF40F66310EE332D701355E81B895BC954C516699D7EAED317",
+      "SealedBytes": 7148
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tools/Runtime/Erlang.BeamFunction542Observations/manifest.json",
+      "HashMode": "TextLF",
+      "Sha256": "8C0ED8AF46A8E716F25B83785E961C45849F7BA604B55A4861CC0BE9AE41DB67",
+      "SealedBytes": 1083
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tools/Runtime/Erlang.BeamFunction542Observations/run.py",
+      "HashMode": "TextLF",
+      "Sha256": "7ACC2427ADC95C5917E0F6EF6AA4361CF54CDBB5E3C7EC64111D001BD983ACDF",
+      "SealedBytes": 9360
+    },
+    {
+      "Scope": "Repository",
+      "Path": "docs/validation/part-542-owned-correction/source-freeze-current.json",
+      "HashMode": "TextLF",
+      "Sha256": "FD3E87BDA68B95DD97FB92AFC5D6B87EDDC0463F478BC5426484CE18ADDC0543",
+      "SealedBytes": 17375
     },
     {
       "Scope": "Repository",
@@ -5220,10 +5451,45 @@
     },
     {
       "Scope": "Repository",
+      "Path": "docs/validation/part-542-owned-correction/current-source-freeze-parent-final20.json",
+      "HashMode": "TextLF",
+      "Sha256": "F3D272E570996A61164E1869CED33542084ABBC6C367F4389F97DDA9A144B06B",
+      "SealedBytes": 19185
+    },
+    {
+      "Scope": "Repository",
+      "Path": "docs/validation/part-542-owned-correction/current-source-freeze-native677.json",
+      "HashMode": "TextLF",
+      "Sha256": "4CDFE2E698B9A720B62645B46001DFFBDE09B01A7AC85EBF5FAC435730FDECD0",
+      "SealedBytes": 19558
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tests/Erlang.Tests/Resources/Beam/beam_fixture_closure_changed677.beam",
+      "HashMode": "Raw",
+      "Sha256": "F3B5D46FCEF7BC1B60C3F746F711E519AFA60797778066EE454ADBA8E7A2A333",
+      "SealedBytes": 1296
+    },
+    {
+      "Scope": "Repository",
+      "Path": "tests/Erlang.Tests/Resources/Beam/beam_fixture_closure_changed677.erl",
+      "HashMode": "TextLF",
+      "Sha256": "26A74A7613091459C3B01BF781F9E5011EB9285348476F81C6467FFE92622AC2",
+      "SealedBytes": 169
+    },
+    {
+      "Scope": "Repository",
       "Path": "docs/validation/part-541/current-source-freeze-counters683-687.json",
       "HashMode": "TextLF",
       "Sha256": "C92BF952B7CC95C8F85AA6FC8432748CB58641521ECAF066B5F98BA0853DA01F",
       "SealedBytes": 25162
+    },
+    {
+      "Scope": "Repository",
+      "Path": "docs/validation/part-542-owned-correction/current-source-freeze-parent-counters683.json",
+      "HashMode": "TextLF",
+      "Sha256": "A83B98649AD31B436FE475412308B2716B33D31C3384F3483293F066598372CF",
+      "SealedBytes": 27415
     },
     {
       "Scope": "Repository",
@@ -5236,8 +5502,8 @@
       "Scope": "Repository",
       "Path": ".github/workflows/validate.yml",
       "HashMode": "TextLF",
-      "Sha256": "7A96696208A919B7513E43D8CFEFD4CA10A01F466C14C10CF465897F2554795E",
-      "SealedBytes": 89657
+      "Sha256": "06AB63ADADA8BF3FD7413D965E78DE95DED229CEBAAC1F87A6C9FE77EF26144C",
+      "SealedBytes": 90782
     }
   ],
   "Excludes": [

@@ -259,7 +259,9 @@ internal static class BeamStoredFunction406Checks
         try
         {
             Task<Term> pending = await actor.Invoke(context => copy.Invoke(context, [Term.I(BeamClosureHostNames.Argument)]).AsTask());
-            BeamStoredFunction406Access.Require(!pending.IsCompleted
+            // Identical committed code shares the original fun entry. Purging
+            // the previous image does not suspend its current-image dispatch.
+            BeamStoredFunction406Access.Require((await pending.WaitAsync(BeamClosurePurgeHostNames.Deadline)).Equals(Term.I(BeamClosureHostNames.Result))
                 && BeamStoredFunction406Access.Active(await actor.Ready, oldImage) == 0);
             NifAdmissionHostBridge.Call(
                 runtime.Modules,
@@ -288,26 +290,11 @@ internal static class BeamStoredFunction406Checks
         );
         await actor.InvokeAsync(async context =>
         {
-            bool refused = false;
-            try
-            {
-                _ = await copy.Invoke(context, [Term.I(BeamClosureHostNames.Argument)]);
-            }
-            catch (ErlangException failure)
-            {
-                refused = failure.Reason.Equals(Term.A(ErlangErrorReasons.UndefinedFunction));
-            }
-            BeamStoredFunction406Access.Require(refused && BeamStoredFunction406Access.Active(context, oldImage) == 0);
-            bool originalRefused = false;
-            try
-            {
-                _ = await original!.Invoke(context, [Term.I(BeamClosureHostNames.Argument)]);
-            }
-            catch (ErlangException failure)
-            {
-                originalRefused = failure.Reason.Equals(Term.A(ErlangErrorReasons.UndefinedFunction));
-            }
-            BeamStoredFunction406Access.Require(originalRefused && BeamStoredFunction406Access.Active(context, oldImage) == 0);
+            Term copiedResult = await copy.Invoke(context, [Term.I(BeamClosureHostNames.Argument)]);
+            Term originalResult = await original!.Invoke(context, [Term.I(BeamClosureHostNames.Argument)]);
+            BeamStoredFunction406Access.Require(copiedResult.Equals(Term.I(BeamClosureHostNames.Result))
+                && originalResult.Equals(Term.I(BeamClosureHostNames.Result))
+                && BeamStoredFunction406Access.Active(context, oldImage) == 0);
             EtsFoundation405Access.Invoke(
                 store,
                 EtsFoundation405Names.Destroy,
