@@ -7641,6 +7641,14 @@ try
     Test(Erlang.Tests.DictionaryKeys538Names.RegexCase, Erlang.Tests.DictionaryKeys538Checks.Regex);
     Test(Erlang.Tests.DictionaryKeys538Names.BinaryCase, Erlang.Tests.DictionaryKeys538Checks.Binary);
     Test(Erlang.Tests.DictionaryProjection635Names.Test, Erlang.Tests.DictionaryProjection635Checks.Scaling);
+    // Opt-in component registrations; not active until owner compiles/reviews.
+    Test(Erlang.Tests.MatchSaved634Names.ProtocolCase, Erlang.Tests.MatchSaved634Checks.Protocol);
+    Test(Erlang.Tests.MatchSaved634Names.MutationCase, Erlang.Tests.MatchSaved634Checks.MutationAndCopy);
+    Test(Erlang.Tests.MatchSaved634Names.SourceCase, Erlang.Tests.MatchSaved634Checks.SourceReleased);
+    Test(Erlang.Tests.MatchSaved634Names.RollbackCase, Erlang.Tests.MatchSaved634Checks.RollbackAndCancellation);
+    Test(Erlang.Tests.MatchSaved634Names.DisposeCase, Erlang.Tests.MatchSaved634Checks.DisposeWaitsReader);
+    Test(Erlang.Tests.MatchSaved634Names.HaltCase, Erlang.Tests.MatchSaved634Checks.HaltWaitsReader);
+    Test(Erlang.Tests.MatchSaved634Names.HeaderCase, Erlang.Tests.MatchSaved634Checks.HeaderRejection);
     Test(Erlang.Tests.DictionaryOriginal631Names.Test, Erlang.Tests.DictionaryOriginal631Checks.Run);
     Test(Erlang.Tests.DictionaryKeys605Names.NativeCase, Erlang.Tests.DictionaryKeys605Checks.NativeKeys);
     Test(Erlang.Tests.DictionaryKeys605Names.ExitCase, Erlang.Tests.DictionaryKeys605Checks.NativeOwnerExit);

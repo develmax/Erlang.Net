@@ -31,6 +31,7 @@ public sealed partial class ProcessRuntime
             DrainPersistentTerms(),
             DrainRegex411(),
             DrainBinaryPrograms598(),
+            CloseSavedMatchPrograms634(),
             DrainDirtyNative419(),
             DrainDebugDispatch432(),
             DrainCounters421(),

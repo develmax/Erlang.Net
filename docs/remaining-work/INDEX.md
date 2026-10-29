@@ -1,5 +1,11 @@
 # Remaining work
 
+## Part539 current increment
+
+Internal native saved programs are locally validated for a constant-only subset:19 frozen C# sources, Debug280/280 and Release280/280, plus a fresh compiled original/managed210-byte Outcome for ten supported constants in both profiles. Physical operands, fragment ownership, deterministic rollback and VM close/reader fences are covered. Public419/trace and complete65-opcode behavior are unchanged/unimplemented respectively. No sixth-family, full P3/P4 or API contract promotion follows.
+
+Expected catalog9,387 remains separate from exact-head full CI and completed review. Counts708/180/504/24 stay fixed. Next: real VM literal handling, general guards/actions/compiled producers and complete Guest/Host/storage/NIF/code-image custody, alongside remaining P4 roots. [Checkpoint539](checkpoint-539.md) · [Evidence](../validation/part-539/README.md).
+
 ## Part538 current increment
 
 Five resource-bearing canonical key controls and two genuine timer callback phase controls are implemented. Final styled Debug273/273 and Release273/273 each pass in one owned outside-sandbox run; fresh compiled original dictionary/managed replay matches the complete108-byte Outcome in both profiles. Exact Roslyn tokens/literals survive nine formatting changes and SourceLayout is zero. The seven child groups are additional to inherited P2 projection control; expected catalog9,380 is not a local full-suite claim.
