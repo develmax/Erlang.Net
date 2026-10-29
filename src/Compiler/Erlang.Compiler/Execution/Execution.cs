@@ -47,7 +47,7 @@ public static partial class Execution
     }
 
     public static ValueTask<Term> EvaluateAsync(Expr expression, ProcessContext context)
-        => context.Runtime.OwnedTermsPilot506 ? EvaluateOwnedEntry506(expression, context) : Evaluate(
+        => context.OwnedExecutionEnabled683 ? EvaluateOwnedEntry506(expression, context) : Evaluate(
             expression,
             context,
             new Dictionary<string, Term>(StringComparer.Ordinal),
@@ -83,7 +83,7 @@ public static partial class Execution
         string function,
         ProcessContext context,
         IReadOnlyList<Term> arguments
-    ) => context.Runtime.OwnedTermsPilot506
+    ) => context.OwnedExecutionEnabled683
         ? InvokePublicOwned506(
             module,
             function,
@@ -156,7 +156,7 @@ public static partial class Execution
         ProcessContext context,
         IReadOnlyList<Term> arguments,
         ModuleCodeImage? image
-    ) => context.Runtime.OwnedTermsPilot506
+    ) => context.OwnedExecutionEnabled683
         ? InvokeOwnedFrame506(
             module,
             function,
@@ -333,7 +333,7 @@ public static partial class Execution
         ProcessContext context,
         ModuleCodeImage? image,
         IReadOnlyList<Term> arguments
-    ) => context.Runtime.OwnedTermsPilot506
+    ) => context.OwnedExecutionEnabled683
         ? InvokeOwnedAnonymous506(
             module,
             identity,

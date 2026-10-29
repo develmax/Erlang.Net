@@ -12,7 +12,7 @@ public sealed partial class ProcessRuntime
             // this synchronous self safe point. Retire unreachable guest cells
             // before CLR collection; otherwise their slabs keep dead graphs alive.
             // Remote/asynchronous/off-actor/default paths are intentionally unchanged.
-            if (OwnedTermsPilot506 && RuntimeActorExecutionTurn.IsOwnedBy(requester))
+            if (requester.OwnedExecutionEnabled683 && RuntimeActorExecutionTurn.IsOwnedBy(requester))
                 requester.CollectOwnedGeneration508(major);
             requester.CollectManagedGarbage(major, CollectManagedHeap);
 

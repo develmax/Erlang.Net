@@ -7,7 +7,7 @@ public sealed partial class ModuleRegistry
     internal IReadOnlyDictionary<(string Function, int Arity), ErlangFunction> CaptureBeamPrimitives(BeamLinkedCode code)
     {
         var primitives = new Dictionary<(string Function, int Arity), ErlangFunction>();
-        var owned507 = owningRuntime?.OwnedTermsPilot506 == true
+        var owned507 = owningRuntime is not null
             ? new Dictionary<ErlangFunction, OwnedBindingKind507>(ReferenceEqualityComparer.Instance) : null;
         lock (gate)
         {

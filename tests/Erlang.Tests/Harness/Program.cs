@@ -7656,6 +7656,19 @@ try
     }
 
     Test(Erlang.Tests.Nonblocking641Names.Case, Erlang.Tests.Nonblocking641Checks.Settlement);
+    Test(Erlang.Tests.OrdinaryCounterMfa680Names.Case, Erlang.Tests.OrdinaryCounterMfa680Checks.Run);
+    Test(Erlang.Tests.OrdinaryCounterMfa680Names.CaseHibernate, Erlang.Tests.OrdinaryCounterMfa680Checks.DictionaryHibernate);
+    Test(Erlang.Tests.OrdinaryOpaque682Names.RegisteredCase, Erlang.Tests.OrdinaryOpaque682Checks.RegisteredHost);
+    Test(Erlang.Tests.OrdinaryOpaque682Names.FunctionCase, Erlang.Tests.OrdinaryOpaque682Checks.PublicOpaqueFunction);
+    Test(Erlang.Tests.OrdinaryOpaque682Names.CaptureCase, Erlang.Tests.OrdinaryOpaque682Checks.SourceFunctionCapture);
+    Test(Erlang.Tests.OrdinaryVm686Names.PureCase, Erlang.Tests.OrdinaryVm686Checks.PureFastPath);
+    Test(Erlang.Tests.OrdinaryVm686Names.ActiveCase, Erlang.Tests.OrdinaryVm686Checks.ActiveShutdown);
+    Test(Erlang.Tests.OrdinaryVm686Names.QueuedCase, Erlang.Tests.OrdinaryVm686Checks.QueuedShutdown);
+    Test(Erlang.Tests.OrdinaryVm686Names.HibernateCase, Erlang.Tests.OrdinaryVm686Checks.HibernateArgument);
+    Test(Erlang.Tests.OrdinaryVm686Names.ErrorCase, Erlang.Tests.OrdinaryVm686Checks.ErrorReason);
+    Test(Erlang.Tests.OrdinaryVm686Names.ThrowCase, Erlang.Tests.OrdinaryVm686Checks.ThrowReason);
+    Test(Erlang.Tests.OrdinaryVm686Names.ExitCase, Erlang.Tests.OrdinaryVm686Checks.ExitReason);
+    Test(Erlang.Tests.MixedNif686Names.Case, Erlang.Tests.MixedNif686Checks.Run);
     Test(Erlang.Tests.CancellationFailure669Names.Case, Erlang.Tests.CancellationFailure669Checks.Run);
     Test(Erlang.Tests.MonitorShutdown652Names.Case, Erlang.Tests.MonitorShutdown652Checks.EarlierTarget);
     Test(Erlang.Tests.ProcessPayloadCore641Names.FailureCase, Erlang.Tests.ProcessPayloadCore641Checks.CompletedFailureIsolation);

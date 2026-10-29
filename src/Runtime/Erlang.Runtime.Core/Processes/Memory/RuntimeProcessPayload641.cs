@@ -17,6 +17,8 @@ internal sealed class RuntimeProcessPayload641 : IAsyncDisposable
         ?? throw new InvalidOperationException(RuntimeProcessPayloadNames641.Invalid);
     internal Task Completion641 => work.Completion641;
 
+    internal bool OwnsProcess683(ProcessContext context) => ReferenceEquals(work.Context641, context);
+
     private RuntimeProcessPayload641(RuntimeProcessPayloadWork641 work) => this.work = work;
 
     private static RuntimeProcessPayload641 New641(RuntimeProcessPayloadOwner641 owner, ProcessContext? context, bool derived)

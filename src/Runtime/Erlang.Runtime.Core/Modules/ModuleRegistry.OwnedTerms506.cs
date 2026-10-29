@@ -22,7 +22,7 @@ public sealed partial class ModuleRegistry
         string function,
         Term[] arguments,
         bool hostBoundary
-    ) => context.Runtime.OwnedTermsPilot506
+    ) => context.OwnedExecutionEnabled683
         ? AwaitOwnedCall506(
             context,
             module,

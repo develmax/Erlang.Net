@@ -388,7 +388,7 @@ public sealed partial class ModuleRegistry
         ModuleCodeImage? image,
         IDisposable? code,
         OwnedBindingKind507 ownedKind507 = OwnedBindingKind507.Opaque
-    ) => context.Runtime.OwnedTermsPilot506
+    ) => context.OwnedExecutionEnabled683
         ? InvokeSelectedOwned506(
             context,
             module,

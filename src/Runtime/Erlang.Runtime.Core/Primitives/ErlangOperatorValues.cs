@@ -156,7 +156,7 @@ public static partial class ErlangOperatorValues
         Term message
     )
     {
-        if (!context.Runtime.OwnedTermsPilot506 || context.CurrentOwned506 is not { } owned)
+        if (!context.OwnedExecutionEnabled683 || context.CurrentOwned506 is not { } owned)
             return (target, message, false);
 
         // A queued message can outlive its sender's actual heap retirement.

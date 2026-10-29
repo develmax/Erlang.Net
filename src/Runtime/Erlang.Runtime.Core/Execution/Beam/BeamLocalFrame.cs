@@ -55,7 +55,7 @@ internal sealed partial class BeamLocalFrame : IDisposable
         context507 = context;
         try
         {
-            if (context is not null && context.Runtime.OwnedTermsPilot506)
+            if (context is not null && context.OwnedExecutionEnabled683)
                 roots507 = new(context, slots);
         }
         catch

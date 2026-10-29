@@ -6,7 +6,7 @@ public sealed partial class ProcessContext
     // is intentionally unchanged until every live guest domain is owned/rooted.
     internal ProcessTermCollection508 CollectOwnedGeneration508(bool requestedMajor)
     {
-        if (!Runtime.OwnedTermsPilot506 || !RuntimeActorExecutionTurn.IsOwnedBy(this))
+        if (!OwnedExecutionEnabled683 || !RuntimeActorExecutionTurn.IsOwnedBy(this))
             throw new InvalidOperationException(ResourcePolicy508Names.PilotRequired);
 
         return TermHeap506.CollectGeneration508(requestedMajor, GarbageCollectionPolicy.Threshold);

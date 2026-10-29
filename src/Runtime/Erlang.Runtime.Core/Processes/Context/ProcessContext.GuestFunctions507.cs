@@ -3,7 +3,7 @@ namespace Erlang;
 public sealed partial class ProcessContext
 {
     internal ValueTask<Term> InvokeGuestFunction507(FunctionTerm function, IReadOnlyList<Term> arguments)
-        => !Runtime.OwnedTermsPilot506 || !RuntimeActorExecutionTurn.IsOwnedBy(this)
+        => !OwnedExecutionEnabled683 || !RuntimeActorExecutionTurn.IsOwnedBy(this)
             || CurrentOwned506 is not { IsDisposed: false }
             ? function.Invoke(this, arguments) : AwaitGuestFunction507(function, arguments);
 

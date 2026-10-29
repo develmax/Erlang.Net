@@ -9,16 +9,68 @@ public sealed partial class ProcessDictionary : IDictionary<Term, Term>, IReadOn
 {
     private readonly ProcessContext context;
     private readonly object gate = new();
-    private readonly Dictionary<Term, Term> data = new();
-    private readonly Dictionary<Term, (int Key, int Value)> slots = new();
+    private Dictionary<Term, Term> data = new();
+    private Dictionary<Term, (int Key, int Value)> slots = new();
     private ProcessTermFrame506? frame;
     private bool closed;
 
     internal ProcessDictionary(ProcessContext context)
     {
         this.context = context;
-        if (context.Runtime.OwnedTermsPilot506)
+        if (context.OwnedExecutionEnabled683)
             frame = context.TermHeap506.Enter();
+    }
+
+    internal void ActivateGenuineVmExecution683()
+    {
+        while (true)
+        {
+            context.Cancellation.ThrowIfCancellationRequested();
+            KeyValuePair<Term, Term>[] snapshot;
+            lock (gate)
+            {
+                CheckOpen();
+                if (frame is not null)
+                    return;
+                snapshot = data.ToArray();
+            }
+            ProcessTermFrame506? selected = context.TermHeap506.Enter();
+            try
+            {
+                var copied = new Dictionary<Term, Term>();
+                var copiedSlots = new Dictionary<Term, (int Key, int Value)>();
+                // Actual import, map planning and typed capture are outside D.
+                foreach (var pair in snapshot)
+                {
+                    int keySlot = selected.Reserve(), valueSlot = selected.Reserve();
+                    selected.SetPrepared(keySlot, pair.Key);
+                    selected.SetPrepared(valueSlot, pair.Value);
+                    Term key = selected.Read(keySlot);
+                    copied.Add(key, selected.Read(valueSlot));
+                    copiedSlots.Add(key, (keySlot, valueSlot));
+                }
+                lock (gate)
+                {
+                    CheckOpen();
+                    if (frame is not null)
+                        return;
+                    if (data.Count != snapshot.Length || snapshot.Any(pair =>
+                        !data.TryGetValue(pair.Key, out Term? current) || !ReferenceEquals(current, pair.Value)))
+                        continue;
+                    // Assignments only: every failed attempt preserves old data.
+                    data = copied;
+                    slots = copiedSlots;
+                    frame = selected;
+                    selected = null;
+
+                    return;
+                }
+            }
+            finally
+            {
+                selected?.Dispose();
+            }
+        }
     }
 
     public Term this[Term key]
@@ -59,19 +111,21 @@ public sealed partial class ProcessDictionary : IDictionary<Term, Term>, IReadOn
 
     private PreparedTermTransfer506? PrepareDetachedInput586(Term value, out Term portable)
     {
-        if (!context.Runtime.OwnedTermsPilot506)
-        {
-            portable = value;
-
-            return null;
-        }
         ProcessTermBorrow506 borrow;
         lock (gate)
         {
             CheckOpen();
-            borrow = context.TermHeap506.Borrow(frame!, value);
+            // A concurrent public writer during activation still uses its
+            // original facade; the migration snapshot will retry if changed.
+            if (frame is null)
+            {
+                portable = value;
+
+                return null;
+            }
+            borrow = context.TermHeap506.Borrow(frame, value);
         }
-        PreparedTermTransfer506 prepared = context.TermHeap506.PrepareBorrow(borrow);
+        PreparedTermTransfer506 prepared = context.TermHeap506.PrepareBorrowAtomics586(borrow, false);
         portable = prepared.Portable;
 
         return prepared;

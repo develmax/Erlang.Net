@@ -76,7 +76,7 @@ internal sealed partial class ProcessTermHeap506(ProcessRuntime runtime)
         => PrepareBorrow(Borrow(caller, value));
 
     internal PreparedTermTransfer506 PrepareBorrow(ProcessTermBorrow506 borrow)
-        => PrepareBorrowAtomics586(borrow, null);
+        => PrepareBorrowAtomics586(borrow, false);
 
     internal PreparedTermTransfer506 PrepareBorrowAtomics586(ProcessTermBorrow506 borrow, bool? exportHostAtomics586)
     {

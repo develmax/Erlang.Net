@@ -12,13 +12,13 @@ public sealed partial class ProcessContext
     }
 
     internal Term CopyGuestEscape507(Term value)
-        => Runtime.OwnedTermsPilot506 && CurrentOwned506 is { IsDisposed: false } scope ? scope.Export(value) : value;
+        => OwnedExecutionEnabled683 && CurrentOwned506 is { IsDisposed: false } scope ? scope.Export(value) : value;
 
     internal ValueTask<Term> InvokeNativePrimitive507(ErlangFunction primitive, IReadOnlyList<Term> arguments)
-        => !Runtime.OwnedTermsPilot506 ? primitive(this, arguments) : AwaitNativePrimitive507(null, primitive, arguments);
+        => !OwnedExecutionEnabled683 ? primitive(this, arguments) : AwaitNativePrimitive507(null, primitive, arguments);
 
     internal ValueTask<Term> InvokeNativePrimitive507(BeamExecutionIdentity execution, ErlangFunction primitive, IReadOnlyList<Term> arguments)
-        => !Runtime.OwnedTermsPilot506 ? primitive(this, arguments) : AwaitNativePrimitive507(execution, primitive, arguments);
+        => !OwnedExecutionEnabled683 ? primitive(this, arguments) : AwaitNativePrimitive507(execution, primitive, arguments);
 
     private async ValueTask<Term> AwaitNativePrimitive507(BeamExecutionIdentity? execution, ErlangFunction primitive, IReadOnlyList<Term> arguments)
     {

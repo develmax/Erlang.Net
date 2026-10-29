@@ -17,9 +17,24 @@ public sealed partial class ProcessRuntime
         }
     }
 
+    internal void RegisterGenuineVmContext683(ProcessContext context)
+    {
+        if (!ReferenceEquals(context.Runtime, this) || !RuntimeActorExecutionTurn.IsOwnedBy(context)
+            || !context.OwnedExecutionEnabled683 || OwnedTermsPilot506)
+            throw new InvalidOperationException(RuntimeProcessPayloadNames641.Invalid);
+        lock (ownedTermOwnersGate506)
+        {
+            // Same gate as the real closing snapshot. A losing entrant creates
+            // no heap frame; an admitted heap is in the snapshot before use.
+            ObjectDisposedException.ThrowIf(ownedTermOwnersClosing506 || Volatile.Read(ref context.Terminated) || IsHaltRequested, this);
+            context.Cancellation.ThrowIfCancellationRequested();
+            ownedTermOwners506.TryAdd(context, context.TermHeap506);
+        }
+    }
+
     internal void TrackOwnedTermRetirement506(ProcessContext context, Task retirement)
     {
-        if (!OwnedTermsPilot506)
+        if (!context.OwnedExecutionEnabled683)
             return;
         // No process/heap gate is held during continuation registration.
         if (ExecutionContext.IsFlowSuppressed())
@@ -40,8 +55,6 @@ public sealed partial class ProcessRuntime
 
     private Task DrainOwnedTermContexts506()
     {
-        if (!OwnedTermsPilot506)
-            return Task.CompletedTask;
         KeyValuePair<ProcessContext, ProcessTermHeap506>[] owners;
         lock (ownedTermOwnersGate506)
         {
