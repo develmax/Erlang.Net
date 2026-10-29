@@ -1,0 +1,85 @@
+{
+  "Passed": true,
+  "SourcePin": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "Modes": [
+    {
+      "Name": "binary390-values",
+      "Passed": true,
+      "Error": null,
+      "Process": {
+        "Command": [
+          "D:\\Distr\\Work\\Codex\\Erlang.Net\\w518repair\\artifacts\\library376-official-compiler\\installed\\bin\\erl.exe",
+          "+S",
+          "1:1",
+          "+A",
+          "1",
+          "-noshell",
+          "-noinput",
+          "-boot",
+          "no_dot_erlang",
+          "-pa",
+          "D:\\Distr\\Work\\Codex\\Erlang.Net\\w536\\artifacts\\resource536\\original-binary619-propagated-final\\binary390-values",
+          "-eval",
+          "W=fun(N,T)->ok=file:write_file(N,term_to_binary(T,[{minor_version,2}])) end,Expected=filename:absname(os:getenv(\"CONTRACT506_ORIGINAL_ROOT\")),Expected=filename:absname(code:root_dir()),8=erlang:system_info(wordsize),W(\"profile.etf\",{erlang:system_info(wordsize),erlang:system_info(schedulers),erlang:system_info(schedulers_online),erlang:system_info(debug_compiled)}),Observer=beam_binary_observer390,Observer:module_info(),ObserverPath=filename:absname(\"beam_binary_observer390.beam\"),ObserverPath=filename:absname(code:which(Observer)),{ok,{Observer,ObserverMd5}}=beam_lib:md5(ObserverPath),ObserverMd5=Observer:module_info(md5),W(\"observer-owner.etf\",{Observer,ObserverPath,ObserverMd5,Observer:module_info(compile)}),W(\"stock-owners-before.etf\",(fun()->[begin {ok,{M,ExpectedMd5}}=beam_lib:md5(P),ExpectedMd5=M:module_info(md5),Which=code:which(M),case Which of preloaded->true=lists:member(M,erlang:pre_loaded());_->ExpectedPath=filename:absname(P),ExpectedPath=filename:absname(Which) end,{M,Which,ExpectedMd5,M:module_info(compile),M:module_info(attributes),M:module_info(exports)} end||{M,P}<-[{binary,\"D:/Distr/Work/Codex/Erlang.Net/w518repair/artifacts/library376-official-compiler/installed/lib/stdlib-8.1/ebin/binary.beam\"},{lists,\"D:/Distr/Work/Codex/Erlang.Net/w518repair/artifacts/library376-official-compiler/installed/lib/stdlib-8.1/ebin/lists.beam\"}]] end)()),V=beam_binary_observer390:run(),94=length(V),W(\"observed.etf\",V),W(\"stock-owners-after.etf\",(fun()->[begin {ok,{M,ExpectedMd5}}=beam_lib:md5(P),ExpectedMd5=M:module_info(md5),Which=code:which(M),case Which of preloaded->true=lists:member(M,erlang:pre_loaded());_->ExpectedPath=filename:absname(P),ExpectedPath=filename:absname(Which) end,{M,Which,ExpectedMd5,M:module_info(compile),M:module_info(attributes),M:module_info(exports)} end||{M,P}<-[{binary,\"D:/Distr/Work/Codex/Erlang.Net/w518repair/artifacts/library376-official-compiler/installed/lib/stdlib-8.1/ebin/binary.beam\"},{lists,\"D:/Distr/Work/Codex/Erlang.Net/w518repair/artifacts/library376-official-compiler/installed/lib/stdlib-8.1/ebin/lists.beam\"}]] end)()),halt(0)."
+        ],
+        "Pid": 21360,
+        "ElapsedSeconds": 0.13999999999941792,
+        "TimedOut": false,
+        "Settled": true,
+        "ExitCode": 0,
+        "Failures": [],
+        "StdoutSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+        "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+      },
+      "ActualSha256": "EFB0AF3F00C214E18F9B8CB99FD5F00E70C7B862A58441A6FAB3291361BF31CE",
+      "GoldenSha256": "EFB0AF3F00C214E18F9B8CB99FD5F00E70C7B862A58441A6FAB3291361BF31CE",
+      "WholeRawEqual": true,
+      "FullErrorsAndStacksRetained": true,
+      "RawEtfRewritten": false
+    },
+    {
+      "Name": "binary390-stacks",
+      "Passed": true,
+      "Error": null,
+      "Process": {
+        "Command": [
+          "D:\\Distr\\Work\\Codex\\Erlang.Net\\w518repair\\artifacts\\library376-official-compiler\\installed\\bin\\erl.exe",
+          "+S",
+          "1:1",
+          "+A",
+          "1",
+          "-noshell",
+          "-noinput",
+          "-boot",
+          "no_dot_erlang",
+          "-pa",
+          "D:\\Distr\\Work\\Codex\\Erlang.Net\\w536\\artifacts\\resource536\\original-binary619-propagated-final\\binary390-stacks",
+          "-eval",
+          "W=fun(N,T)->ok=file:write_file(N,term_to_binary(T,[{minor_version,2}])) end,Expected=filename:absname(os:getenv(\"CONTRACT506_ORIGINAL_ROOT\")),Expected=filename:absname(code:root_dir()),8=erlang:system_info(wordsize),W(\"profile.etf\",{erlang:system_info(wordsize),erlang:system_info(schedulers),erlang:system_info(schedulers_online),erlang:system_info(debug_compiled)}),Observer=beam_binary_observer390,Observer:module_info(),ObserverPath=filename:absname(\"beam_binary_observer390.beam\"),ObserverPath=filename:absname(code:which(Observer)),{ok,{Observer,ObserverMd5}}=beam_lib:md5(ObserverPath),ObserverMd5=Observer:module_info(md5),W(\"observer-owner.etf\",{Observer,ObserverPath,ObserverMd5,Observer:module_info(compile)}),W(\"stock-owners-before.etf\",(fun()->[begin {ok,{M,ExpectedMd5}}=beam_lib:md5(P),ExpectedMd5=M:module_info(md5),Which=code:which(M),case Which of preloaded->true=lists:member(M,erlang:pre_loaded());_->ExpectedPath=filename:absname(P),ExpectedPath=filename:absname(Which) end,{M,Which,ExpectedMd5,M:module_info(compile),M:module_info(attributes),M:module_info(exports)} end||{M,P}<-[{binary,\"D:/Distr/Work/Codex/Erlang.Net/w518repair/artifacts/library376-official-compiler/installed/lib/stdlib-8.1/ebin/binary.beam\"},{lists,\"D:/Distr/Work/Codex/Erlang.Net/w518repair/artifacts/library376-official-compiler/installed/lib/stdlib-8.1/ebin/lists.beam\"}]] end)()),V=beam_binary_observer390:run_stacks(),5=length(V),true=lists:all(fun({_,Rows})->94=length(Rows),true end,V),W(\"observed.etf\",V),W(\"stock-owners-after.etf\",(fun()->[begin {ok,{M,ExpectedMd5}}=beam_lib:md5(P),ExpectedMd5=M:module_info(md5),Which=code:which(M),case Which of preloaded->true=lists:member(M,erlang:pre_loaded());_->ExpectedPath=filename:absname(P),ExpectedPath=filename:absname(Which) end,{M,Which,ExpectedMd5,M:module_info(compile),M:module_info(attributes),M:module_info(exports)} end||{M,P}<-[{binary,\"D:/Distr/Work/Codex/Erlang.Net/w518repair/artifacts/library376-official-compiler/installed/lib/stdlib-8.1/ebin/binary.beam\"},{lists,\"D:/Distr/Work/Codex/Erlang.Net/w518repair/artifacts/library376-official-compiler/installed/lib/stdlib-8.1/ebin/lists.beam\"}]] end)()),halt(0)."
+        ],
+        "Pid": 43104,
+        "ElapsedSeconds": 0.15700000000288128,
+        "TimedOut": false,
+        "Settled": true,
+        "ExitCode": 0,
+        "Failures": [],
+        "StdoutSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+        "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+      },
+      "ActualSha256": "CC2D3ABB325812163570914ECC12ECB72BDA50A7154D966F317BCB0A277F4BB2",
+      "GoldenSha256": "CC2D3ABB325812163570914ECC12ECB72BDA50A7154D966F317BCB0A277F4BB2",
+      "WholeRawEqual": true,
+      "FullErrorsAndStacksRetained": true,
+      "RawEtfRewritten": false
+    }
+  ],
+  "Errors": [],
+  "FreshOriginalExecution": true,
+  "ObserverRecompiled": false,
+  "NewCases": 0,
+  "RawEtfRewritten": false,
+  "FrameProjection": false,
+  "WholeContractsClosed": 0,
+  "PhysicalHeaderExecutionClaim": false,
+  "ManagedReplayPerformed": false
+}

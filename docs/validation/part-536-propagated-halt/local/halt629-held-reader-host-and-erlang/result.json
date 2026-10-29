@@ -1,0 +1,50 @@
+{
+  "Names": [
+    "runtime/binary629/halt-closes-host-program-and-joins-reader"
+  ],
+  "Assemblies": {
+    "Host": "1457FBF9F84465D287D8C2A6F236EC52608BF13DB78CC787EB1B5572FE7FB0A9",
+    "Runtime": "50E9D1D597B820D68B97A1F09C33B41BD1837FC8471B0C4750A3801CA4EA1D1C"
+  },
+  "Receipt": {
+    "Command": [
+      "dotnet",
+      "exec",
+      "--fx-version",
+      "10.0.11",
+      "D:\\Distr\\Work\\Codex\\Erlang.Net\\w536\\tests\\Erlang.Tests\\bin\\Debug\\net10.0\\Erlang.Tests.dll",
+      "--case",
+      "runtime/binary629/halt-closes-host-program-and-joins-reader",
+      "--report",
+      "D:\\Distr\\Work\\Codex\\Erlang.Net\\w536\\artifacts\\resource536\\halt629-held-reader-host-and-erlang\\report.json"
+    ],
+    "Pid": 44244,
+    "ElapsedSeconds": 0.5939999999973224,
+    "TimedOut": false,
+    "Settled": true,
+    "ExitCode": 1,
+    "Failures": [],
+    "StdoutSha256": "84F6313383E7CB05224946C0070674169A686557AFFACD33DBFCF3731FDB8D7F",
+    "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+  },
+  "Report": {
+    "Partial": true,
+    "SelectedCount": 1,
+    "TotalCount": 9343,
+    "Blocks": [],
+    "ExactCases": [
+      "runtime/binary629/halt-closes-host-program-and-joins-reader"
+    ],
+    "Passed": 0,
+    "Failed": 1,
+    "Tests": [
+      {
+        "Name": "runtime/binary629/halt-closes-host-program-and-joins-reader",
+        "Status": "Failed",
+        "Error": "System.InvalidOperationException: Halt did not close and physically retire the compiled binary program.\r\n   at Erlang.Tests.BinaryHalt629Checks.Require(Boolean value) in D:\\Distr\\Work\\Codex\\Erlang.Net\\w536\\tests\\Erlang.Tests\\Otp\\Stdlib\\Binary\\BinaryHalt629Checks.cs:line 93\r\n   at Erlang.Tests.BinaryHalt629Checks.<>c__DisplayClass1_0.<<Run>b__0>d.MoveNext() in D:\\Distr\\Work\\Codex\\Erlang.Net\\w536\\tests\\Erlang.Tests\\Otp\\Stdlib\\Binary\\BinaryHalt629Checks.cs:line 67\r\n--- End of stack trace from previous location ---\r\n   at Erlang.Tests.BinaryHalt629Checks.<>c__DisplayClass1_0.<<Run>b__0>d.MoveNext() in D:\\Distr\\Work\\Codex\\Erlang.Net\\w536\\tests\\Erlang.Tests\\Otp\\Stdlib\\Binary\\BinaryHalt629Checks.cs:line 87\r\n--- End of stack trace from previous location ---\r\n   at Erlang.Tests.BinaryArena598Fixture.Run(Term input, Func`2 body) in D:\\Distr\\Work\\Codex\\Erlang.Net\\w536\\tests\\Erlang.Tests\\Otp\\Stdlib\\Binary\\BinaryArena598Fixture.cs:line 64\r\n   at Erlang.Tests.BinaryArena598Fixture.Run(Term input, Func`2 body) in D:\\Distr\\Work\\Codex\\Erlang.Net\\w536\\tests\\Erlang.Tests\\Otp\\Stdlib\\Binary\\BinaryArena598Fixture.cs:line 112\r\n   at Erlang.Tests.BinaryHalt629Checks.Run() in D:\\Distr\\Work\\Codex\\Erlang.Net\\w536\\tests\\Erlang.Tests\\Otp\\Stdlib\\Binary\\BinaryHalt629Checks.cs:line 10\r\n   at Program.<Main>$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\w536\\tests\\Erlang.Tests\\Harness\\Program.cs:line 7688",
+        "Milliseconds": 125
+      }
+    ]
+  },
+  "ExpectedRed": false
+}

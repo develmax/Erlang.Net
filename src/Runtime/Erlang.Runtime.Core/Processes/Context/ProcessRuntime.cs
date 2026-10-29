@@ -1763,6 +1763,7 @@ public sealed partial class ProcessRuntime : IAsyncDisposable
                 _ = CloseCounters421();
                 _ = CloseHamtIndex429();
                 _ = CloseRegex411();
+                _ = CloseBinaryPrograms598();
                 _ = CloseDriverFrontend422();
                 _ = CloseAtomics413();
                 CloseCollectors413();
@@ -1826,6 +1827,7 @@ public sealed partial class ProcessRuntime : IAsyncDisposable
             await Task.WhenAll(
                 DrainPersistentTerms(),
                 DrainRegex411(),
+                CloseBinaryPrograms598(),
                 DrainSystemTasks428(),
                 DrainDirtyNative419(),
                 DrainDebugDispatch432(),
@@ -1918,6 +1920,7 @@ public sealed partial class ProcessRuntime : IAsyncDisposable
                 _ = CloseCounters421();
                 _ = CloseHamtIndex429();
                 _ = CloseRegex411();
+                _ = CloseBinaryPrograms598();
                 _ = CloseDriverFrontend422();
                 _ = CloseAtomics413();
                 CloseCollectors413();
@@ -1944,6 +1947,7 @@ public sealed partial class ProcessRuntime : IAsyncDisposable
             DrainEtsRetirements(),
             DrainPersistentTerms(),
             DrainRegex411(),
+            CloseBinaryPrograms598(),
             DrainSystemTasks428(),
             DrainDirtyNative419(),
             DrainDebugDispatch432(),

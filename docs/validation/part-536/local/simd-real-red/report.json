@@ -1,0 +1,19 @@
+{
+  "Partial": true,
+  "SelectedCount": 1,
+  "TotalCount": 9339,
+  "Blocks": [],
+  "ExactCases": [
+    "runtime/binary598/pinned-x64-simd-trie-root-bytes-and-cap"
+  ],
+  "Passed": 0,
+  "Failed": 1,
+  "Tests": [
+    {
+      "Name": "runtime/binary598/pinned-x64-simd-trie-root-bytes-and-cap",
+      "Status": "Failed",
+      "Error": "System.InvalidOperationException: Binary598 actual arena/root invariant failed.\r\n   at Erlang.Tests.BinaryArena598Checks.Require(Boolean value) in D:\\Distr\\Work\\Codex\\Erlang.Net\\w536\\tests\\Erlang.Tests\\Otp\\Stdlib\\Binary\\BinaryArena598Checks.cs:line 133\r\n   at Erlang.Tests.BinaryArena598Checks.\u003C\u003Ec__DisplayClass3_0.\u003C\u003CAcRootMetadata\u003Eb__2\u003Ed.MoveNext() in D:\\Distr\\Work\\Codex\\Erlang.Net\\w536\\tests\\Erlang.Tests\\Otp\\Stdlib\\Binary\\BinaryArena598Checks.cs:line 107\r\n--- End of stack trace from previous location ---\r\n   at Erlang.Tests.BinaryArena598Fixture.Run(Term input, Func\u00602 body) in D:\\Distr\\Work\\Codex\\Erlang.Net\\w536\\tests\\Erlang.Tests\\Otp\\Stdlib\\Binary\\BinaryArena598Fixture.cs:line 58\r\n   at Erlang.Tests.BinaryArena598Fixture.Run(Term input, Func\u00602 body) in D:\\Distr\\Work\\Codex\\Erlang.Net\\w536\\tests\\Erlang.Tests\\Otp\\Stdlib\\Binary\\BinaryArena598Fixture.cs:line 69\r\n   at Erlang.Tests.BinaryArena598Checks.AcRootMetadata() in D:\\Distr\\Work\\Codex\\Erlang.Net\\w536\\tests\\Erlang.Tests\\Otp\\Stdlib\\Binary\\BinaryArena598Checks.cs:line 101\r\n   at Program.\u003CMain\u003E$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\w536\\tests\\Erlang.Tests\\Harness\\Program.cs:line 7684",
+      "Milliseconds": 123
+    }
+  ]
+}

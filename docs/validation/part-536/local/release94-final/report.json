@@ -1,0 +1,576 @@
+{
+  "Partial": true,
+  "SelectedCount": 94,
+  "TotalCount": 9340,
+  "Blocks": [],
+  "ExactCases": [
+    "HOST/counters421/actual-gc-retires-unreachable-native-array",
+    "HOST/counters421/all-three-shutdown-paths-join-real-leases",
+    "HOST/counters421/owned-native-values-validation-and-foreign-kind",
+    "HOST/counters421/real-lane-add-and-base-put",
+    "HOST/counters421/unused-owner-initializer-death-closes-admission-before-disposed",
+    "binary/primitive/empty-iodata-copy-common-cancellation-unwind",
+    "binary/primitive/immutable-offset-backing-and-retention",
+    "binary/wrappers-join-backing-and-callback-context",
+    "binary/wrappers-replacement-effects-and-options",
+    "compiler/binary/insert-true-deferred-call-and-integer-match-pin",
+    "compiler/binary/search/seven-contracts-and-error-callers",
+    "native-cons539/resource-copy-and-clear-lifetime",
+    "native-resource535/canonical-readers-public-refusal",
+    "native-resource535/managed-nif-provider-opaque",
+    "native-resource535/public-reregister-canonical-delegate-opaque",
+    "oracle/compiled-module/counters421-all192-full-typed-raw",
+    "runtime/atomics586/foreign-before-stale-header-read",
+    "runtime/atomics586/guest-retirement-ignores-stale-clr-entry",
+    "runtime/atomics586/host-custody-independent-of-guest",
+    "runtime/atomics586/real-process-headers-share-live-prefix",
+    "runtime/atomics586/shutdown-waits-outside-runtime-gate",
+    "runtime/atomics589/public-dictionary-snapshot-host-retains-after-erase-gc",
+    "runtime/atomics590/ets-domain-source-drop-destination-retirement",
+    "runtime/atomics590/persistent-domain-source-drop-destination-retirement",
+    "runtime/atomics590/queue-export-source-drop-destination-retirement",
+    "runtime/atomics591/persistent-get-does-not-export-unused-atomics-key",
+    "runtime/atomics591/persistent-value-selection-preserves-alias-and-host-custody",
+    "runtime/atomics591/public-reservation-still-joins-active-pin",
+    "runtime/atomics591/retained-public-reservation-does-not-block-vm-close",
+    "runtime/atomics593/late-export-failure-releases-actual-host-custody",
+    "runtime/atomics593/successful-export-commits-only-returned-wrappers",
+    "runtime/atomics594/ets-backed-snapshot-later-row-rollback",
+    "runtime/atomics594/persistent-get-all-later-area-rollback",
+    "runtime/atomics595/dirty-copy-foreign-before-stale-without-entry-grant",
+    "runtime/atomics595/dirty-copy-host-wrapper-survives-source-drop",
+    "runtime/binary-owned512/native-reference-retains-storage-through-owner-release",
+    "runtime/binary-store536/binary-ets-source-header-drop",
+    "runtime/binary-store536/binary-persistent-source-header-drop",
+    "runtime/binary/search/compiled-resource-owner-etf-and-forgery",
+    "runtime/binary/search/cooperative-cancellation-unwind",
+    "runtime/binary/search/options-leftmost-longest-and-trimming",
+    "runtime/binary598/active-reader-and-host-store-retirement",
+    "runtime/binary598/host-reservation-shared-alias-transfer-retirement",
+    "runtime/binary598/physical-bm-ac-headers-and-gc",
+    "runtime/binary598/pinned-x64-simd-trie-root-bytes-and-cap",
+    "runtime/binary621/genuine-original-seven-search-bodies-public-reregister-opaque",
+    "runtime/counters591/actual-binary-prefix-and-source-extents",
+    "runtime/counters591/cacheline-grouping-and-base-physical-cells",
+    "runtime/counters596/active-pin-outlives-last-guest-root",
+    "runtime/counters596/ets-domain-source-drop-destination-retirement",
+    "runtime/counters596/foreign-before-stale-header-read",
+    "runtime/counters596/genuine-native-facet-authority-public-reregister-stays-opaque",
+    "runtime/counters596/guest-retirement-ignores-stale-clr-entry",
+    "runtime/counters596/host-custody-independent-of-guest",
+    "runtime/counters596/late-export-failure-releases-actual-host-custody",
+    "runtime/counters596/old-magic-root-survives-minor-not-major",
+    "runtime/counters596/persistent-domain-source-drop-destination-retirement",
+    "runtime/counters596/public-dictionary-getter-host-retains-after-erase-gc",
+    "runtime/counters596/public-dictionary-snapshot-host-retains-after-erase-gc",
+    "runtime/counters596/queue-export-source-drop-destination-retirement",
+    "runtime/counters596/real-native-five-entrypoints-and-entry-only-refusal",
+    "runtime/counters596/real-process-headers-share-live-prefix",
+    "runtime/counters596/successful-export-commits-only-returned-wrappers",
+    "runtime/counters603/initializer-done-before-global-drain",
+    "runtime/counters603/ordinary-owner-exit-preserves-independent-live-heap",
+    "runtime/counters611/component-real-queue-process-info-public-projection",
+    "runtime/counters611/public-mailbox-snapshot-host-custody",
+    "runtime/counters611/public-process-info-dictionary-key-host-custody",
+    "runtime/counters611/public-process-info-full-host-custody",
+    "runtime/counters611/public-process-info-list-host-custody",
+    "runtime/counters611/public-process-info-messages-host-custody",
+    "runtime/counters611/public-receive-callback-host-custody",
+    "runtime/counters611/public-receive-returned-host-custody",
+    "runtime/initializer615/live-unrelated-cancellation-remains-visible",
+    "runtime/initializer615/terminal-mailbox-before-stop-cancel",
+    "runtime/library390/original-binary-whole-values-and-stacks",
+    "runtime/library412/real-re-core-original-whole-terms-and-stacks",
+    "runtime/library413/original-re8-inspect-internal-run-import-full-outcomes",
+    "runtime/native-magic576/actual-wrapper-alias-and-prefix-reader",
+    "runtime/native-magic576/host-escape-and-foreign-custody",
+    "runtime/native-magic576/minor-major-and-construction-rollback",
+    "runtime/native-store600/ets-source-header-drop-real-payload",
+    "runtime/native-store600/persistent-source-header-drop-real-payload",
+    "runtime/native/regex485/binary-captures-whole-176",
+    "runtime/regex597/actual-prefix-header-and-guest-retirement",
+    "runtime/regex597/minor-major-foreign-and-code-reader",
+    "runtime/regex597/public-compile-import-and-closed-host",
+    "runtime/regex599/actual-host-reader-handoff-and-native-info",
+    "runtime/regex599/failed-install-actor-rollback-cleans-real-api",
+    "runtime/regex599/published-empty-engine-refuses-privileged-rollback",
+    "runtime/regex599/real-header-wins-or-manual-close-latches-before-guest",
+    "runtime/regex605/direct-foreign-actor-engine-disposal-settles",
+    "runtime/typed-store600/regex-ets-source-header-drop",
+    "runtime/typed-store600/regex-persistent-source-header-drop"
+  ],
+  "Passed": 94,
+  "Failed": 0,
+  "Tests": [
+    {
+      "Name": "runtime/native-store600/ets-source-header-drop-real-payload",
+      "Status": "Passed",
+      "Milliseconds": 149
+    },
+    {
+      "Name": "runtime/native-store600/persistent-source-header-drop-real-payload",
+      "Status": "Passed",
+      "Milliseconds": 35
+    },
+    {
+      "Name": "runtime/atomics589/public-dictionary-snapshot-host-retains-after-erase-gc",
+      "Status": "Passed",
+      "Milliseconds": 19
+    },
+    {
+      "Name": "runtime/atomics590/queue-export-source-drop-destination-retirement",
+      "Status": "Passed",
+      "Milliseconds": 26
+    },
+    {
+      "Name": "runtime/atomics590/ets-domain-source-drop-destination-retirement",
+      "Status": "Passed",
+      "Milliseconds": 5
+    },
+    {
+      "Name": "runtime/atomics590/persistent-domain-source-drop-destination-retirement",
+      "Status": "Passed",
+      "Milliseconds": 4
+    },
+    {
+      "Name": "runtime/atomics591/persistent-get-does-not-export-unused-atomics-key",
+      "Status": "Passed",
+      "Milliseconds": 8
+    },
+    {
+      "Name": "runtime/atomics591/persistent-value-selection-preserves-alias-and-host-custody",
+      "Status": "Passed",
+      "Milliseconds": 3
+    },
+    {
+      "Name": "runtime/atomics591/public-reservation-still-joins-active-pin",
+      "Status": "Passed",
+      "Milliseconds": 9
+    },
+    {
+      "Name": "runtime/atomics591/retained-public-reservation-does-not-block-vm-close",
+      "Status": "Passed",
+      "Milliseconds": 13
+    },
+    {
+      "Name": "runtime/atomics593/late-export-failure-releases-actual-host-custody",
+      "Status": "Passed",
+      "Milliseconds": 6
+    },
+    {
+      "Name": "runtime/atomics593/successful-export-commits-only-returned-wrappers",
+      "Status": "Passed",
+      "Milliseconds": 3
+    },
+    {
+      "Name": "runtime/atomics594/persistent-get-all-later-area-rollback",
+      "Status": "Passed",
+      "Milliseconds": 10
+    },
+    {
+      "Name": "runtime/atomics594/ets-backed-snapshot-later-row-rollback",
+      "Status": "Passed",
+      "Milliseconds": 8
+    },
+    {
+      "Name": "runtime/atomics586/real-process-headers-share-live-prefix",
+      "Status": "Passed",
+      "Milliseconds": 5
+    },
+    {
+      "Name": "runtime/atomics586/foreign-before-stale-header-read",
+      "Status": "Passed",
+      "Milliseconds": 9
+    },
+    {
+      "Name": "runtime/atomics586/guest-retirement-ignores-stale-clr-entry",
+      "Status": "Passed",
+      "Milliseconds": 3
+    },
+    {
+      "Name": "runtime/atomics586/host-custody-independent-of-guest",
+      "Status": "Passed",
+      "Milliseconds": 3
+    },
+    {
+      "Name": "runtime/atomics586/shutdown-waits-outside-runtime-gate",
+      "Status": "Passed",
+      "Milliseconds": 825
+    },
+    {
+      "Name": "runtime/native-magic576/actual-wrapper-alias-and-prefix-reader",
+      "Status": "Passed",
+      "Milliseconds": 11
+    },
+    {
+      "Name": "runtime/native-magic576/minor-major-and-construction-rollback",
+      "Status": "Passed",
+      "Milliseconds": 7
+    },
+    {
+      "Name": "runtime/native-magic576/host-escape-and-foreign-custody",
+      "Status": "Passed",
+      "Milliseconds": 6
+    },
+    {
+      "Name": "runtime/native/regex485/binary-captures-whole-176",
+      "Status": "Passed",
+      "Milliseconds": 2157
+    },
+    {
+      "Name": "runtime/library413/original-re8-inspect-internal-run-import-full-outcomes",
+      "Status": "Passed",
+      "Milliseconds": 2138
+    },
+    {
+      "Name": "runtime/library412/real-re-core-original-whole-terms-and-stacks",
+      "Status": "Passed",
+      "Milliseconds": 2975
+    },
+    {
+      "Name": "oracle/compiled-module/counters421-all192-full-typed-raw",
+      "Status": "Passed",
+      "Milliseconds": 89
+    },
+    {
+      "Name": "HOST/counters421/owned-native-values-validation-and-foreign-kind",
+      "Status": "Passed",
+      "Milliseconds": 13
+    },
+    {
+      "Name": "HOST/counters421/unused-owner-initializer-death-closes-admission-before-disposed",
+      "Status": "Passed",
+      "Milliseconds": 3
+    },
+    {
+      "Name": "HOST/counters421/real-lane-add-and-base-put",
+      "Status": "Passed",
+      "Milliseconds": 31
+    },
+    {
+      "Name": "HOST/counters421/actual-gc-retires-unreachable-native-array",
+      "Status": "Passed",
+      "Milliseconds": 30
+    },
+    {
+      "Name": "HOST/counters421/all-three-shutdown-paths-join-real-leases",
+      "Status": "Passed",
+      "Milliseconds": 14
+    },
+    {
+      "Name": "runtime/atomics595/dirty-copy-host-wrapper-survives-source-drop",
+      "Status": "Passed",
+      "Milliseconds": 6
+    },
+    {
+      "Name": "runtime/atomics595/dirty-copy-foreign-before-stale-without-entry-grant",
+      "Status": "Passed",
+      "Milliseconds": 5
+    },
+    {
+      "Name": "runtime/library390/original-binary-whole-values-and-stacks",
+      "Status": "Passed",
+      "Milliseconds": 299
+    },
+    {
+      "Name": "runtime/binary/search/compiled-resource-owner-etf-and-forgery",
+      "Status": "Passed",
+      "Milliseconds": 8
+    },
+    {
+      "Name": "runtime/binary/search/options-leftmost-longest-and-trimming",
+      "Status": "Passed",
+      "Milliseconds": 14
+    },
+    {
+      "Name": "runtime/binary/search/cooperative-cancellation-unwind",
+      "Status": "Passed",
+      "Milliseconds": 104
+    },
+    {
+      "Name": "compiler/binary/search/seven-contracts-and-error-callers",
+      "Status": "Passed",
+      "Milliseconds": 1206
+    },
+    {
+      "Name": "binary/wrappers-replacement-effects-and-options",
+      "Status": "Passed",
+      "Milliseconds": 10
+    },
+    {
+      "Name": "binary/primitive/empty-iodata-copy-common-cancellation-unwind",
+      "Status": "Passed",
+      "Milliseconds": 754
+    },
+    {
+      "Name": "binary/wrappers-join-backing-and-callback-context",
+      "Status": "Passed",
+      "Milliseconds": 7
+    },
+    {
+      "Name": "binary/primitive/immutable-offset-backing-and-retention",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "compiler/binary/insert-true-deferred-call-and-integer-match-pin",
+      "Status": "Passed",
+      "Milliseconds": 157
+    },
+    {
+      "Name": "native-resource535/canonical-readers-public-refusal",
+      "Status": "Passed",
+      "Milliseconds": 57
+    },
+    {
+      "Name": "native-resource535/public-reregister-canonical-delegate-opaque",
+      "Status": "Passed",
+      "Milliseconds": 29
+    },
+    {
+      "Name": "native-resource535/managed-nif-provider-opaque",
+      "Status": "Passed",
+      "Milliseconds": 41
+    },
+    {
+      "Name": "native-cons539/resource-copy-and-clear-lifetime",
+      "Status": "Passed",
+      "Milliseconds": 12
+    },
+    {
+      "Name": "runtime/binary-owned512/native-reference-retains-storage-through-owner-release",
+      "Status": "Passed",
+      "Milliseconds": 1
+    },
+    {
+      "Name": "runtime/counters596/guest-retirement-ignores-stale-clr-entry",
+      "Status": "Passed",
+      "Milliseconds": 8
+    },
+    {
+      "Name": "runtime/counters596/active-pin-outlives-last-guest-root",
+      "Status": "Passed",
+      "Milliseconds": 3
+    },
+    {
+      "Name": "runtime/counters596/host-custody-independent-of-guest",
+      "Status": "Passed",
+      "Milliseconds": 3
+    },
+    {
+      "Name": "runtime/counters596/real-process-headers-share-live-prefix",
+      "Status": "Passed",
+      "Milliseconds": 5
+    },
+    {
+      "Name": "runtime/counters596/old-magic-root-survives-minor-not-major",
+      "Status": "Passed",
+      "Milliseconds": 4
+    },
+    {
+      "Name": "runtime/counters596/foreign-before-stale-header-read",
+      "Status": "Passed",
+      "Milliseconds": 5
+    },
+    {
+      "Name": "runtime/counters596/queue-export-source-drop-destination-retirement",
+      "Status": "Passed",
+      "Milliseconds": 6
+    },
+    {
+      "Name": "runtime/counters596/ets-domain-source-drop-destination-retirement",
+      "Status": "Passed",
+      "Milliseconds": 3
+    },
+    {
+      "Name": "runtime/counters596/persistent-domain-source-drop-destination-retirement",
+      "Status": "Passed",
+      "Milliseconds": 3
+    },
+    {
+      "Name": "runtime/counters596/public-dictionary-getter-host-retains-after-erase-gc",
+      "Status": "Passed",
+      "Milliseconds": 5
+    },
+    {
+      "Name": "runtime/counters596/public-dictionary-snapshot-host-retains-after-erase-gc",
+      "Status": "Passed",
+      "Milliseconds": 1
+    },
+    {
+      "Name": "runtime/counters596/real-native-five-entrypoints-and-entry-only-refusal",
+      "Status": "Passed",
+      "Milliseconds": 10
+    },
+    {
+      "Name": "runtime/counters596/genuine-native-facet-authority-public-reregister-stays-opaque",
+      "Status": "Passed",
+      "Milliseconds": 15
+    },
+    {
+      "Name": "runtime/counters596/late-export-failure-releases-actual-host-custody",
+      "Status": "Passed",
+      "Milliseconds": 4
+    },
+    {
+      "Name": "runtime/counters596/successful-export-commits-only-returned-wrappers",
+      "Status": "Passed",
+      "Milliseconds": 4
+    },
+    {
+      "Name": "runtime/counters591/actual-binary-prefix-and-source-extents",
+      "Status": "Passed",
+      "Milliseconds": 1
+    },
+    {
+      "Name": "runtime/counters591/cacheline-grouping-and-base-physical-cells",
+      "Status": "Passed",
+      "Milliseconds": 1
+    },
+    {
+      "Name": "runtime/initializer615/terminal-mailbox-before-stop-cancel",
+      "Status": "Passed",
+      "Milliseconds": 12
+    },
+    {
+      "Name": "runtime/initializer615/live-unrelated-cancellation-remains-visible",
+      "Status": "Passed",
+      "Milliseconds": 5
+    },
+    {
+      "Name": "runtime/counters611/public-process-info-dictionary-key-host-custody",
+      "Status": "Passed",
+      "Milliseconds": 58
+    },
+    {
+      "Name": "runtime/counters611/component-real-queue-process-info-public-projection",
+      "Status": "Passed",
+      "Milliseconds": 91
+    },
+    {
+      "Name": "runtime/counters611/public-receive-callback-host-custody",
+      "Status": "Passed",
+      "Milliseconds": 35
+    },
+    {
+      "Name": "runtime/counters611/public-receive-returned-host-custody",
+      "Status": "Passed",
+      "Milliseconds": 34
+    },
+    {
+      "Name": "runtime/counters611/public-mailbox-snapshot-host-custody",
+      "Status": "Passed",
+      "Milliseconds": 36
+    },
+    {
+      "Name": "runtime/counters611/public-process-info-messages-host-custody",
+      "Status": "Passed",
+      "Milliseconds": 41
+    },
+    {
+      "Name": "runtime/counters611/public-process-info-full-host-custody",
+      "Status": "Passed",
+      "Milliseconds": 40
+    },
+    {
+      "Name": "runtime/counters611/public-process-info-list-host-custody",
+      "Status": "Passed",
+      "Milliseconds": 35
+    },
+    {
+      "Name": "runtime/binary621/genuine-original-seven-search-bodies-public-reregister-opaque",
+      "Status": "Passed",
+      "Milliseconds": 154
+    },
+    {
+      "Name": "runtime/binary598/physical-bm-ac-headers-and-gc",
+      "Status": "Passed",
+      "Milliseconds": 14
+    },
+    {
+      "Name": "runtime/binary598/active-reader-and-host-store-retirement",
+      "Status": "Passed",
+      "Milliseconds": 3
+    },
+    {
+      "Name": "runtime/binary598/host-reservation-shared-alias-transfer-retirement",
+      "Status": "Passed",
+      "Milliseconds": 3
+    },
+    {
+      "Name": "runtime/binary-store536/binary-ets-source-header-drop",
+      "Status": "Passed",
+      "Milliseconds": 9
+    },
+    {
+      "Name": "runtime/binary-store536/binary-persistent-source-header-drop",
+      "Status": "Passed",
+      "Milliseconds": 3
+    },
+    {
+      "Name": "runtime/binary598/pinned-x64-simd-trie-root-bytes-and-cap",
+      "Status": "Passed",
+      "Milliseconds": 9
+    },
+    {
+      "Name": "runtime/regex597/actual-prefix-header-and-guest-retirement",
+      "Status": "Passed",
+      "Milliseconds": 1434
+    },
+    {
+      "Name": "runtime/regex597/minor-major-foreign-and-code-reader",
+      "Status": "Passed",
+      "Milliseconds": 1439
+    },
+    {
+      "Name": "runtime/regex597/public-compile-import-and-closed-host",
+      "Status": "Passed",
+      "Milliseconds": 1639
+    },
+    {
+      "Name": "runtime/regex599/failed-install-actor-rollback-cleans-real-api",
+      "Status": "Passed",
+      "Milliseconds": 2829
+    },
+    {
+      "Name": "runtime/regex599/actual-host-reader-handoff-and-native-info",
+      "Status": "Passed",
+      "Milliseconds": 1403
+    },
+    {
+      "Name": "runtime/regex599/real-header-wins-or-manual-close-latches-before-guest",
+      "Status": "Passed",
+      "Milliseconds": 2796
+    },
+    {
+      "Name": "runtime/regex599/published-empty-engine-refuses-privileged-rollback",
+      "Status": "Passed",
+      "Milliseconds": 1396
+    },
+    {
+      "Name": "runtime/regex605/direct-foreign-actor-engine-disposal-settles",
+      "Status": "Passed",
+      "Milliseconds": 1389
+    },
+    {
+      "Name": "runtime/typed-store600/regex-ets-source-header-drop",
+      "Status": "Passed",
+      "Milliseconds": 1393
+    },
+    {
+      "Name": "runtime/typed-store600/regex-persistent-source-header-drop",
+      "Status": "Passed",
+      "Milliseconds": 1399
+    },
+    {
+      "Name": "runtime/counters603/initializer-done-before-global-drain",
+      "Status": "Passed",
+      "Milliseconds": 6
+    },
+    {
+      "Name": "runtime/counters603/ordinary-owner-exit-preserves-independent-live-heap",
+      "Status": "Passed",
+      "Milliseconds": 5
+    }
+  ]
+}

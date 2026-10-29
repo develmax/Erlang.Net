@@ -14,7 +14,7 @@ public sealed class RuntimeExternalTermReservation : IDisposable
         AtomicsHostCopyTransaction591? transaction = null;
         try
         {
-            if (hostAtomics586 && (AtomicsRoots586.Contains586(value) || CountersRoots596.Contains596(value) || ReMagicRoots597.Contains597(value)))
+            if (hostAtomics586 && (AtomicsRoots586.Contains586(value) || CountersRoots596.Contains596(value) || ReMagicRoots597.Contains597(value) || BinaryProgramRoots598.Contains598(value)))
             {
                 transaction = new AtomicsHostCopyTransaction591();
                 this.value = OwnedTermDetachedCopy506.CopyAtomics586(
@@ -33,7 +33,7 @@ public sealed class RuntimeExternalTermReservation : IDisposable
                 this.value = value is ResourceReferenceTerm identity
                     && (identity.ResourceKind is ReferenceResourceKind.Atomics413 or ReferenceResourceKind.Counters421
                         || !hostAtomics586 && identity.ResourceKind is
-                            ReferenceResourceKind.NativeResource524 or ReferenceResourceKind.Regex411)
+                            ReferenceResourceKind.NativeResource524 or ReferenceResourceKind.Regex411 or ReferenceResourceKind.BinarySearchPattern)
                     ? new ResourceReferenceTerm(identity.Entry, new ReferenceTerm(identity)) : value;
         }
         catch (Exception original)

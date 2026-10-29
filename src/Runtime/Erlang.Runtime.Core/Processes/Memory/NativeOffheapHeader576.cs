@@ -8,6 +8,8 @@ internal sealed class NativeOffheapHeader576
     private AtomicsBackingLease586? atomicsRetained586;
     private CountersBackingLease596? countersRetained596;
     internal CountersGuestRoot421? Counters596 { get; }
+    private BinaryProgramLease598? binaryRetained598;
+    internal BinaryProgramBacking598? Binary598 { get; }
     private ReMagicLease597? regexRetained597;
     internal ReMagicBacking597? Regex597 { get; }
     private readonly NativeResourcePayload524? payload;
@@ -94,8 +96,28 @@ internal sealed class NativeOffheapHeader576
         regexRetained597 = lease;
     }
 
+    internal NativeOffheapHeader576(
+        ProcessTermHeap506 owner,
+        ProcessTermSequence506 block,
+        BinaryProgramBacking598 backing,
+        nint binary,
+        nint address,
+        BinaryProgramLease598 lease
+    )
+    {
+        Owner = owner;
+        Block = block;
+        Binary598 = backing;
+        Binary = binary;
+        Address = address;
+        Kind = NativeOffheapKind576.MagicReference;
+        binaryRetained598 = lease;
+    }
+
     internal IReadOnlyList<uint> ReadNumbers586()
-        => Regex597 is { } regex
+        => Binary598 is { } binary
+            ? binary.Numbers598(binaryRetained598 ?? throw new ObjectDisposedException(nameof(NativeOffheapHeader576)))
+            : Regex597 is { } regex
             ? regex.Numbers597(regexRetained597 ?? throw new ObjectDisposedException(nameof(NativeOffheapHeader576)))
             : Atomics586 is { } backing
             ? backing.MagicNumbers586(atomicsRetained586 ?? throw new ObjectDisposedException(nameof(NativeOffheapHeader576)))
@@ -112,6 +134,13 @@ internal sealed class NativeOffheapHeader576
             selected?.Dispose();
         Interlocked.Exchange(ref atomicsRetained586, null)?.Dispose();
         Interlocked.Exchange(ref countersRetained596, null)?.Dispose();
-        Interlocked.Exchange(ref regexRetained597, null)?.Dispose();
+        try
+        {
+            Interlocked.Exchange(ref regexRetained597, null)?.Dispose();
+        }
+        finally
+        {
+            Interlocked.Exchange(ref binaryRetained598, null)?.Dispose();
+        }
     }
 }

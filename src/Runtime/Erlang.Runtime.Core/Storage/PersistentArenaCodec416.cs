@@ -158,7 +158,7 @@ internal static class PersistentArenaCodec416
                     _ => throw new InvalidDataException(PersistentArenaNames416.Invalid)
                 };
                 IDisposable? host = value is ResourceReferenceTerm resource
-                    ? (IDisposable?)resource.AtomicsHost586 ?? (IDisposable?)resource.CountersHost596 ?? resource.RegexHost597 : null;
+                    ? (IDisposable?)resource.AtomicsHost586 ?? (IDisposable?)resource.CountersHost596 ?? (IDisposable?)resource.RegexHost597 ?? resource.BinaryHost598 : null;
                 if (escaping?.Contains(position) == true && host is not null)
                 {
                     try

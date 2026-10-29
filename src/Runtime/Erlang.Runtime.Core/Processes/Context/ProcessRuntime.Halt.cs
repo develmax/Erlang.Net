@@ -82,6 +82,7 @@ public sealed partial class ProcessRuntime
             _ = CloseCounters421();
             _ = CloseHamtIndex429();
             _ = CloseRegex411();
+            _ = CloseBinaryPrograms598();
             _ = CloseDriverFrontend422();
             _ = CloseAtomics413();
             CloseCollectors413();
@@ -117,7 +118,7 @@ public sealed partial class ProcessRuntime
                 process.PriorityLinks.Clear();
                 process.PortLinks.Clear();
                 process.PriorityPortLinks.Clear();
-                if (etsFoundation?.HasPendingRetirements != true && PersistentTermRetirementCompletedSuccessfully && RegexRetirementCompleted411 && DirtyNativeRetirementCompleted419 && DebugDispatchRetirementCompleted432 && CountersRetirementCompleted421 && DriverFrontendRetirementCompleted422 && CodePurgerRetirementCompleted432 && AllocatorGatherRetirementCompleted434)
+                if (etsFoundation?.HasPendingRetirements != true && PersistentTermRetirementCompletedSuccessfully && RegexRetirementCompleted411 && BinaryRetirementCompleted598 && DirtyNativeRetirementCompleted419 && DebugDispatchRetirementCompleted432 && CountersRetirementCompleted421 && DriverFrontendRetirementCompleted422 && CodePurgerRetirementCompleted432 && AllocatorGatherRetirementCompleted434)
                     process.Done.TrySetResult(process.ExitReason);
             }
             deadlineStop = new CancellationTokenSource();
@@ -281,6 +282,7 @@ public sealed partial class ProcessRuntime
                     DrainEtsRetirements(),
                     DrainPersistentTerms(),
                     DrainRegex411(),
+                    DrainBinaryPrograms598(),
                     DrainSystemTasks428(),
                     DrainDirtyNative419(),
                     DrainDebugDispatch432(),

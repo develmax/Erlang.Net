@@ -1,0 +1,50 @@
+[
+  {
+    "Path": "src/Runtime/Erlang.Runtime.Core/Primitives/Binary/BinaryAcTrie598.cs",
+    "BeforePayloadSha256": "DAAE02C62741C8AAB1DFBFC273707F12620D36FD6E6D3B559A6C5B1928035366",
+    "Before": "internal struct BinaryAcTrie598",
+    "After": "internal unsafe struct BinaryAcTrie598"
+  },
+  {
+    "Path": "src/Runtime/Erlang.Runtime.Core/Primitives/Binary/BinaryAcTrie598.cs",
+    "BeforePayloadSha256": "DAAE02C62741C8AAB1DFBFC273707F12620D36FD6E6D3B559A6C5B1928035366",
+    "Before": "    internal nint Root;",
+    "After": "    internal nint Root;\n    internal nuint RootByteCount;\n    internal fixed byte RootBytes[BinaryArenaNames598.AcRootSimdMax];"
+  },
+  {
+    "Path": "src/Runtime/Erlang.Runtime.Core/Primitives/Binary/BinaryArenaNames598.cs",
+    "BeforePayloadSha256": "67F5971703152995405B2FD5A618FFC2BB6E0944334C3035594A4D30992F35A9",
+    "Before": "    internal const int AcTrieBytes = 16;",
+    "After": "    internal const int AcTrieBytes = 40;\n    internal const int AcCounterOffset = 0;\n    internal const int AcRootOffset = 8;\n    internal const int AcRootByteCountOffset = 16;\n    internal const int AcRootBytesOffset = 24;\n    internal const int AcRootSimdMax = 16;"
+  },
+  {
+    "Path": "src/Runtime/Erlang.Runtime.Core/Primitives/Binary/BinaryProgramArena598.cs",
+    "BeforePayloadSha256": "4C5BECF5500F7E7340D84687203120ECF7D439961703F53BFE0F0ED372CAFF90",
+    "Before": "            || Marshal.OffsetOf<BinaryAcNode598>(nameof(BinaryAcNode598.Transitions)).ToInt32() != BinaryArenaNames598.AcTransitionsOffset)",
+    "After": "            || Marshal.OffsetOf<BinaryAcNode598>(nameof(BinaryAcNode598.Transitions)).ToInt32() != BinaryArenaNames598.AcTransitionsOffset\n            || Marshal.OffsetOf<BinaryAcTrie598>(nameof(BinaryAcTrie598.Counter)).ToInt32() != BinaryArenaNames598.AcCounterOffset\n            || Marshal.OffsetOf<BinaryAcTrie598>(nameof(BinaryAcTrie598.Root)).ToInt32() != BinaryArenaNames598.AcRootOffset\n            || Marshal.OffsetOf<BinaryAcTrie598>(nameof(BinaryAcTrie598.RootByteCount)).ToInt32() != BinaryArenaNames598.AcRootByteCountOffset\n            || Marshal.OffsetOf<BinaryAcTrie598>(nameof(BinaryAcTrie598.RootBytes)).ToInt32() != BinaryArenaNames598.AcRootBytesOffset)"
+  },
+  {
+    "Path": "src/Runtime/Erlang.Runtime.Core/Primitives/Binary/BinaryProgramArena598.cs",
+    "BeforePayloadSha256": "4C5BECF5500F7E7340D84687203120ECF7D439961703F53BFE0F0ED372CAFF90",
+    "Before": "        trie->Root = NewAcNode598(0, 0);\n    }\n\n    internal nint AcRoot598",
+    "After": "        trie->Root = NewAcNode598(0, 0);\n        trie->RootByteCount = 0;\n    }\n\n    internal void RecordRootByte598(byte value)\n    {\n        var trie = Trie598();\n        // Pinned ac_add_one_pattern stores the first16 distinct root edges,\n        // then keeps17 as the disabled-root-SIMD sentinel, even after more edges.\n        if (trie->RootByteCount <= BinaryArenaNames598.AcRootSimdMax)\n        {\n            if (trie->RootByteCount < BinaryArenaNames598.AcRootSimdMax)\n                trie->RootBytes[(int)trie->RootByteCount] = value;\n            trie->RootByteCount++;\n        }\n    }\n\n    internal nint AcRoot598"
+  },
+  {
+    "Path": "src/Runtime/Erlang.Runtime.Core/Primitives/Binary/BinaryArenaCompiler598.cs",
+    "BeforePayloadSha256": "3A689320889B6706A98CD6107279825A65DD8510DD956B17AA890DBE4627A24B",
+    "Before": "                    child = arena.NewAcNode598(checked((uint)i + 1), root);\n                    arena.SetTransition598(node, item, child);",
+    "After": "                    child = arena.NewAcNode598(checked((uint)i + 1), root);\n                    if (node == root) arena.RecordRootByte598(item);\n                    arena.SetTransition598(node, item, child);"
+  },
+  {
+    "Path": "tests/Erlang.Tests/Otp/Stdlib/Binary/BinaryArena598Names.cs",
+    "BeforePayloadSha256": "012305D0577138DA55E665496A971173D1E67AC542131E4BB7569BE4F53D058E",
+    "Before": "    internal const string PhysicalCase = \"runtime/binary598/physical-bm-ac-headers-and-gc\";",
+    "After": "    internal const string AcRootCase = \"runtime/binary598/pinned-x64-simd-trie-root-bytes-and-cap\";\n    // Independent literal x64 source-profile witnesses, not reflected arena constants.\n    internal const int SourceAcTrieBytes = 40;\n    internal const int SourceAcNodeBytes = 2064;\n    internal const int SourceAcRootOffset = 8;\n    internal const int SourceAcRootCountOffset = 16;\n    internal const int SourceAcRootBytesOffset = 24;\n    internal const int SourceAcRootSimdMax = 16;\n    internal const int PatternByteCount = 2;\n    internal const int AddedRootDuplicates = 2;\n    internal const int RootByteStride = 7;\n    internal const byte CommonSuffix = 255;\n    internal const byte AlternateSuffix = 254;\n    internal const string PhysicalCase = \"runtime/binary598/physical-bm-ac-headers-and-gc\";"
+  },
+  {
+    "Path": "tests/Erlang.Tests/Otp/Stdlib/Binary/BinaryArena598Checks.cs",
+    "BeforePayloadSha256": "73C7EB42FE028978A6833C98BFAA4C878E216E213A1270E2F8319B02F6D8D55B",
+    "Before": "    private static nint AddressOf(object heap, object block)",
+    "After": "    internal static async Task AcRootMetadata()\n    {\n        foreach (int distinct in new[] { 2, SourceAcRootSimdMax, SourceAcRootSimdMax + 1, SourceAcRootSimdMax + 8 })\n        {\n            byte[] roots = Enumerable.Range(0, distinct).Select(index => checked((byte)(index * RootByteStride))).ToArray();\n            var patterns = roots.Select(root => (Term)new BitString([root, CommonSuffix])).ToList();\n            // A duplicate whole needle and a new interior edge must not add root bytes.\n            patterns.Add(new BitString([roots[0], CommonSuffix]));\n            patterns.Add(new BitString([roots[0], AlternateSuffix]));\n            await BinaryArena598Fixture.Run(Term.List(patterns.ToArray()), async fixture =>\n            {\n                object frame = fixture.Frame();\n                int slot = (int)Call(frame, Reserve)!;\n                Call(frame, Set, slot, fixture.Reference);\n                var reference = (ResourceReferenceTerm)Call(frame, Read, slot)!;\n                object arena = Property(fixture.BackingOwner, Arena);\n                nint data = (nint)Property(arena, Data);\n                nuint bytes = (nuint)Property(arena, TotalBytes);\n                long expectedBytes = PrefixBytes + SourceAcTrieBytes\n                    + ((long)PatternByteCount * (distinct + AddedRootDuplicates) + 1) * SourceAcNodeBytes;\n                Require(bytes == checked((nuint)expectedBytes));\n                Require((nint)Marshal.ReadInt64(data, SourceAcRootOffset) == data + SourceAcTrieBytes);\n                long expectedCount = distinct <= SourceAcRootSimdMax ? distinct : SourceAcRootSimdMax + 1;\n                Require(Marshal.ReadInt64(data, SourceAcRootCountOffset) == expectedCount);\n                for (int index = 0; index < Math.Min(distinct, SourceAcRootSimdMax); index++)\n                    Require(Marshal.ReadByte(data, SourceAcRootBytesOffset + index) == roots[index]);\n                fixture.Release();\n                Call(frame, Clear, slot);\n                Call(fixture.HeapOwner, Collect);\n                await ((Task)Property(fixture.BackingOwner, Retired)).WaitAsync(Deadline);\n                Require((bool)Property(fixture.BackingOwner, Freed));\n                GC.KeepAlive(reference);\n            });\n        }\n    }\n\n    private static nint AddressOf(object heap, object block)"
+  }
+]

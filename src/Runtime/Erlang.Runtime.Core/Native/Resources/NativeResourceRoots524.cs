@@ -52,6 +52,58 @@ internal static class NativeResourceRoots524
         bool hostAtomics586 = false
     )
     {
+        IDisposable? program = BinaryProgramRoots598.RetainGraph598(
+            source,
+            expected,
+            skipOwnedMagic576,
+            hostAtomics586
+        );
+        IDisposable? existing = null;
+        try
+        {
+            existing = RetainExistingGraph598(
+                source,
+                expected,
+                skipOwnedMagic576,
+                hostAtomics586
+            );
+            if (program is null) return existing;
+            if (existing is null) return program;
+
+            return new NativeResourceRootSet524([program, existing]);
+        }
+        catch (Exception original)
+        {
+            Exception? first = null, second = null;
+            try
+            {
+                existing?.Dispose();
+            }
+            catch (Exception error)
+            {
+                first = error;
+            }
+            try
+            {
+                program?.Dispose();
+            }
+            catch (Exception error)
+            {
+                second = error;
+            }
+            if (first is not null || second is not null)
+                throw new AggregateException(new[] { original, first, second }.OfType<Exception>());
+            throw;
+        }
+    }
+
+    private static IDisposable? RetainExistingGraph598(
+        Term source,
+        ProcessRuntime? expected = null,
+        bool skipOwnedMagic576 = false,
+        bool hostAtomics586 = false
+    )
+    {
         IDisposable? regex = ReMagicRoots597.RetainGraph597(
             source,
             expected,

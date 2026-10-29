@@ -30,6 +30,7 @@ public sealed partial class ProcessRuntime
             DrainEtsRetirements(),
             DrainPersistentTerms(),
             DrainRegex411(),
+            DrainBinaryPrograms598(),
             DrainDirtyNative419(),
             DrainDebugDispatch432(),
             DrainCounters421(),

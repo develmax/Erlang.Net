@@ -1,5 +1,16 @@
 # Remaining work
 
+## Current checkpoint536
+
+Current Part536 propagation/halt evidence: Release181/181 single approved outside-sandbox child; Debug179/181 plus exact unchanged-DLL outside2/2 is an explicit181 composite, with EACCES failures retained. Both final profiles have separately protected direct whole1088 comparisons against seven fresh original streams (binary564 +regex524). Binary VM halt now closes admission synchronously and joins both completion paths; ordinary process exit has no global binary wait. Clean missing-close RED and fixture-preparation failures remain distinct. Prior94-group evidence remains historical. Counts708/180/504/24, deltas0/0; exact-head review/full CI/merge remain gates. P4 monitor/timer proposals remain source-only. See docs/validation/part-536-propagated-halt.
+
+### Historical initial536 scope
+
+Actual native BM/AC binary programs and typed custody pass final Release94/94 and Debug94/94 on identical names. Prepared16-byte ACTrie source-layout defect was caught by a meaningful actual physical RED, corrected to pinned normal-x64 SIMD40 with first16 root bytes/cap17, and final controls pass. Fresh original6192/2 yields564 complete outcomes; direct paired whole bytes equal BOTH actual final profiles, preserving all value/error/stack fields. Public former-delegate authority remainsOpaque and deliberately lacks genuine native formatter metadata. [Checkpoint536](checkpoint-536.md) · [Evidence](../validation/part-536/README.md) · [English0093](../changelog/0093.md).
+
+Counts708/180/504/24, deltas0/0. Exact-head CI/review/merge remain gates. Full restart, native match-spec resources and general roots/policy accounting remain open; prepared packets grant no implementation credit.
+
+## Prior checkpoint535
 ## Current checkpoint535 CI correction
 
 Authentic PR87 CI40807031466 remains9331/2: deepgraph timeout and terminal mailbox OCE. Correction uses successful immutable native-pending custody inventory (no incomplete global-family shortcut) and a strict requested-token OR actual-dead-process receive helper. Same20k Debug measured8527ms to120ms once each, unchanged15s limit; deterministic private-VM terminal token-only OCE RED and live unrelated cancellation are retained. Final selected Debug156/156 and Release156/156 use identical156 names; fresh original5/5 and protected direct final Release524 + fresh Debugexisting3/direct524 pass. No local full9335 claim. [Checkpoint](checkpoint-535.md) · [Evidence](../validation/part-535-ci-correction/README.md) · [English0093](../changelog/0093.md).
