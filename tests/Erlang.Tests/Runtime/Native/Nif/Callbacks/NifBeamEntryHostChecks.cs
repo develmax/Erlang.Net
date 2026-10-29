@@ -13,7 +13,8 @@ public static class NifBeamEntryHostChecks
     {
         LambdaPublicationValidation();
         await LocalEntry();
-        await ClosuresAndGenerations();
+        await ClosuresAndGenerations(sameImage: true);
+        await ClosuresAndGenerations(sameImage: false);
         await OwnedDrain();
         await SyntheticPendingClosure();
     }
@@ -108,7 +109,12 @@ public static class NifBeamEntryHostChecks
         using var output = new MemoryStream();
         input.CopyTo(output);
         byte[] bytes = output.ToArray();
-        string expected = module == NifBeamEntryHostNames.LocalModule ? NifBeamEntryHostNames.LocalHash : NifBeamEntryHostNames.ClosureHash;
+        string expected = module switch
+        {
+            NifBeamEntryHostNames.LocalModule => NifBeamEntryHostNames.LocalHash,
+            NifBeamEntryHostNames.ClosureChangedModule677 => NifBeamEntryHostNames.ClosureChangedHash677,
+            _ => NifBeamEntryHostNames.ClosureHash
+        };
         Require(Convert.ToHexString(SHA256.HashData(bytes)) == expected);
 
         return bytes;
@@ -201,7 +207,7 @@ public static class NifBeamEntryHostChecks
         Require(owner.Calls == 1);
     }
 
-    private static async Task ClosuresAndGenerations()
+    private static async Task ClosuresAndGenerations(bool sameImage)
     {
         await using var runtime = new ProcessRuntime();
         byte[] bytes = Resource(NifBeamEntryHostNames.ClosureModule);
@@ -233,8 +239,12 @@ public static class NifBeamEntryHostChecks
             ),
             new KeyValuePair<(string Name, int Arity), ErlangFunction>(
                 (NifBeamEntryHostNames.Generated, 2),
-                (_, arguments) =>
+                (context, arguments) =>
             {
+                Require(ReferenceEquals(
+                    context.ExecutingSourceImage(first),
+                    Property(Property(first, NifBeamEntryHostNames.Execution), NifBeamEntryHostNames.Image)
+                ));
                 Require(arguments[0].Equals(Term.I(NifBeamEntryHostNames.Argument)) && arguments[1].Equals(Term.I(NifBeamEntryHostNames.Capture)));
                 Interlocked.Increment(ref lambdaCalls);
 
@@ -247,13 +257,31 @@ public static class NifBeamEntryHostChecks
             Term result = await Invoke(runtime, context => runtime.Modules.Call(context, first.Name, NifBeamEntryHostNames.Run));
             Require(result.Equals(Term.Tuple(Term.A(NifBeamEntryHostNames.Success), Term.I(NifBeamEntryHostNames.Bound), Term.A(NifBeamEntryHostNames.True))));
             Require(makeCalls == 1 && lambdaCalls == 1);
-            PreparedBeamImage second = runtime.Modules.PrepareBeam(bytes);
+            byte[] secondBytes = sameImage
+                ? bytes
+                : Resource(NifBeamEntryHostNames.ClosureChangedModule677);
+            Require(bytes.SequenceEqual(secondBytes) == sameImage);
+            PreparedBeamImage second = runtime.Modules.PrepareBeam(secondBytes);
+            Require(first.Name == second.Name);
+            Require(first.NativeMd5.Equals(second.NativeMd5) == sameImage);
             runtime.Modules.PublishPreparedBeam(second);
             var currentOwner = new NifBeamEntryTestOwner();
             object currentTable = Bind(
                 Property(second, NifBeamEntryHostNames.Execution),
                 currentOwner,
-                new KeyValuePair<(string Name, int Arity), ErlangFunction>((NifBeamEntryHostNames.Generated, 2), (_, _) => ValueTask.FromResult<Term>(Term.I(NifBeamEntryHostNames.Replacement)))
+                new KeyValuePair<(string Name, int Arity), ErlangFunction>(
+                    (NifBeamEntryHostNames.Generated, 2),
+                    (context, arguments) =>
+                {
+                    Require(ReferenceEquals(
+                        context.ExecutingSourceImage(second),
+                        Property(Property(second, NifBeamEntryHostNames.Execution), NifBeamEntryHostNames.Image)
+                    ));
+                    Require(arguments[0].Equals(Term.I(NifBeamEntryHostNames.Argument)) && arguments[1].Equals(Term.I(NifBeamEntryHostNames.Capture)));
+
+                    return ValueTask.FromResult<Term>(Term.I(NifBeamEntryHostNames.Replacement));
+                }
+                )
             );
             try
             {
@@ -268,7 +296,10 @@ public static class NifBeamEntryHostChecks
                 );
                 Term oldResult = await Invoke(runtime, context => captured.Invoke(context, [Term.I(NifBeamEntryHostNames.Argument)]));
                 Term newResult = await Invoke(runtime, context => current.Invoke(context, [Term.I(NifBeamEntryHostNames.Argument)]));
-                Require(oldResult.Equals(Term.I(NifBeamEntryHostNames.Bound)) && newResult.Equals(Term.I(NifBeamEntryHostNames.Replacement)));
+                int expectedOld = sameImage ? NifBeamEntryHostNames.Replacement : NifBeamEntryHostNames.Bound;
+                Require(oldResult.Equals(Term.I(expectedOld)) && newResult.Equals(Term.I(NifBeamEntryHostNames.Replacement)));
+                Require(captured.Equals(current) == sameImage);
+                Require(lambdaCalls == (sameImage ? 1 : 2));
 
                 BeamModule standalone = BeamModule.Prepare(bytes);
                 var isolated = (FunctionTerm)await Invoke(runtime, context => standalone.Invoke(context, NifBeamEntryHostNames.Make, Term.I(NifBeamEntryHostNames.Capture)));

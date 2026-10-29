@@ -1,3 +1,5 @@
+Part542 NIF generation correction: actual original sameBEAM43/43/equal and changedchecksum42/43/unequal, old5d genuineRED. Stronger same/distinctcode fixture only, no runtimechange. Final Debug310/Release310 distinct (native173+child141 overlap4);1034CDFE2E6;8/13gates4034members/2222guards;9438/fullCI/reviewpending,708/180/504/24 delta0/0. docs/validation/part-542-nif-generations. LICENSE.local.txt excluded.
+
 Current final-parent integration: d97ad11a cleanup/retirement fixes combined with owned badfun admission. Final Debug141/141 and Release141/141; fresh original6 whole stacks+4 nonopaque complete outcomes equal EACH profile,6 managed cleanups. Current101 F3D272E5 and37-input82BB6C0; all8/13 gates4,029 members/2,222 guards. Expected9,438/full CI/current review/merge pending; parent378 separate, no local full511 claim. Counts708/180/504/24 API/full0/0. [Current evidence](../validation/part-542-final-parent/README.md). Earlier scopes below remain historical.
 
 ## Current PR94 owned-boundary correction

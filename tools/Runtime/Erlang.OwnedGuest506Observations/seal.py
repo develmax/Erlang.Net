@@ -10,6 +10,8 @@ PIN = 'ad05823719d77c8faee87348ea39513d4e2f99c5'
 TOOL = 'tools/Runtime/Erlang.OwnedGuest506Observations'
 WORKFLOWS = ['.github/workflows/owned-guest506-original.yml', '.github/workflows/validate.yml']
 DEPENDENCIES = [
+    'tests/Erlang.Tests/Runtime/Native/Nif/Callbacks/NifBeamEntryHostChecks.cs',
+    'tests/Erlang.Tests/Runtime/Native/Nif/Callbacks/NifBeamEntryHostNames.cs',
     'tests/Erlang.Tests/Runtime/Bootstrap/ManagedCollectorPrestart415Checks.cs',
     'tests/Erlang.Tests/Runtime/Processes/Identity/IdentifierObservationShutdownHostChecks.cs',
     'tests/Erlang.Tests/Runtime/Processes/Signals/CancellationFailure669Checks.cs',
@@ -671,6 +673,9 @@ DEPENDENCIES = [
     'docs/validation/part-541/current-source-freeze-batch4.json',
     'docs/validation/part-541/current-source-freeze-final20.json',
     'docs/validation/part-542-owned-correction/current-source-freeze-parent-final20.json',
+    'docs/validation/part-542-owned-correction/current-source-freeze-native677.json',
+    'tests/Erlang.Tests/Resources/Beam/beam_fixture_closure_changed677.beam',
+    'tests/Erlang.Tests/Resources/Beam/beam_fixture_closure_changed677.erl',
 ]
 
 
