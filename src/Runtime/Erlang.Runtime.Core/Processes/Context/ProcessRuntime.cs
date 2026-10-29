@@ -2002,9 +2002,31 @@ public sealed partial class ProcessRuntime : IAsyncDisposable
             failures.Add(failure);
             nativeShutdown = Task.CompletedTask;
         }
+        // Start logical shutdown before taking the executing-context snapshot.
+        // An interrupted Terminate loop returns a faulted ValueTask; do not
+        // await its physical/payload drains before cancelling every real body.
+        ValueTask coreShutdown669 = DisposeRuntimeCoreAsync();
+        Task? cancellationDrain669 = null;
         try
         {
-            await DisposeRuntimeCoreAsync().ConfigureAwait(false);
+            ProcessContext[] remaining;
+            lock (gate)
+                remaining = executingProcesses.ToArray();
+            // Start ALL actual cancellations before joining any callback.
+            Task[] cancellations = remaining.Select(async process =>
+            {
+                await process.Stop.CancelAsync().ConfigureAwait(false);
+            }).ToArray();
+            cancellationDrain669 = Task.WhenAll(cancellations);
+            await cancellationDrain669.ConfigureAwait(false);
+        }
+        catch (Exception failure)
+        {
+            failures.Add(cancellationDrain669?.Exception ?? failure);
+        }
+        try
+        {
+            await coreShutdown669.ConfigureAwait(false);
         }
         catch (Exception failure)
         {
@@ -2043,23 +2065,6 @@ public sealed partial class ProcessRuntime : IAsyncDisposable
         catch (Exception failure)
         {
             failures.Add(failure);
-        }
-        // A failing cancellation callback must not leave another native owner running.
-        ProcessContext[] remaining;
-        lock (gate)
-            remaining = executingProcesses.ToArray();
-        Task[] cancellations = remaining.Select(async process =>
-        {
-            await process.Stop.CancelAsync().ConfigureAwait(false);
-        }).ToArray();
-        Task cancellationDrain = Task.WhenAll(cancellations);
-        try
-        {
-            await cancellationDrain.ConfigureAwait(false);
-        }
-        catch (Exception failure)
-        {
-            failures.Add(cancellationDrain.Exception ?? failure);
         }
         bool nativeImagesSettled528 = false;
         try

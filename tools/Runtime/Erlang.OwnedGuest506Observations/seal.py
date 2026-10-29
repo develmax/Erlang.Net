@@ -10,6 +10,15 @@ PIN = 'ad05823719d77c8faee87348ea39513d4e2f99c5'
 TOOL = 'tools/Runtime/Erlang.OwnedGuest506Observations'
 WORKFLOWS = ['.github/workflows/owned-guest506-original.yml', '.github/workflows/validate.yml']
 DEPENDENCIES = [
+    'tests/Erlang.Tests/Runtime/Processes/Signals/Nonblocking641Checks.cs',
+    'tests/Erlang.Tests/Runtime/Processes/Signals/Nonblocking641Names.cs',
+    'tests/Erlang.Tests/Runtime/Processes/Signals/Nonblocking641Probe.cs',
+    'tests/Erlang.Tests/Runtime/Bootstrap/ManagedCollectorPrestart415Checks.cs',
+    'tests/Erlang.Tests/Runtime/Processes/Identity/IdentifierObservationShutdownHostChecks.cs',
+    'tests/Erlang.Tests/Runtime/Processes/Signals/CancellationFailure669Checks.cs',
+    'tests/Erlang.Tests/Runtime/Processes/Signals/CancellationFailure669Names.cs',
+    'tests/Erlang.Tests/Runtime/Processes/Signals/MonitorShutdown652Checks.cs',
+    'tests/Erlang.Tests/Runtime/Processes/Signals/MonitorShutdown652Names.cs',
     'src/Runtime/Erlang.Runtime.Core/Primitives/Binary/BinaryAcNode598.cs',
     'src/Runtime/Erlang.Runtime.Core/Primitives/Binary/BinaryAcTrie598.cs',
     'src/Runtime/Erlang.Runtime.Core/Primitives/Binary/BinaryArenaCompiler598.cs',
@@ -626,6 +635,8 @@ DEPENDENCIES = [
     'tools/Runtime/Erlang.MonitorOriginal645Observations/inputs.json',
     'tools/Runtime/Erlang.MonitorOriginal645Observations/run.py',
     'docs/validation/part-541/current-source-freeze.json',
+    'docs/validation/part-541/current-source-freeze-batch4.json',
+    'docs/validation/part-541/current-source-freeze-final20.json',
 ]
 
 

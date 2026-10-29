@@ -42,6 +42,19 @@ public sealed partial class ProcessRuntime
             }
             if (decoded is null)
                 return null;
+            // Decode/factory side effects precede lookup, as in OTP GEN_EXIT.
+            // A dropped reason needs no detached copy or publication custody.
+            // Recheck below after capture because monitors can change outside R.
+            lock (gate)
+            {
+                if (!IsOwnedLiveNodeProcess(observer))
+                    return null;
+                var candidate = distributionProcessMonitors.FirstOrDefault(item => item.Origin &&
+                    ReferenceEquals(item.Entry, entry) && ReferenceEquals(item.Connection, connected) &&
+                    item.ConnectionId == connectionId && ReferenceEquals(item.Local, observer) && item.Reference.Equals(reference));
+                if (candidate is null || candidate.SpawnOptions && !monitors.ContainsKey(reference))
+                    return null;
+            }
             RuntimeProcessPayload641 decoded641;
             try
             {

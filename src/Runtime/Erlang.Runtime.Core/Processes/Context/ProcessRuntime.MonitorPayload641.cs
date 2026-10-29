@@ -117,7 +117,11 @@ public sealed partial class ProcessRuntime
     {
         lock (gate)
         {
-            if (!IsOwnedLiveNodeProcess(observer))
+            // Existing terminal signals remain observable during graceful VM
+            // shutdown; fresh node/process admission is still closed.
+            if (!ReferenceEquals(observer.Runtime, this) || IsHaltRequested || observer.Terminated
+                || observer.Stop.IsCancellationRequested || observer.Done.Task.IsCompleted
+                || !processes.TryGetValue(observer.Self, out var owned) || !ReferenceEquals(owned, observer))
                 return;
 
             var publication = RuntimeProcessPayload641.CombinePublication641(

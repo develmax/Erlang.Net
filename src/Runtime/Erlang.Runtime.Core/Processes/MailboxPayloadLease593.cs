@@ -6,6 +6,7 @@ namespace Erlang;
 internal sealed class MailboxPayloadLease593 : IThreadPoolWorkItem
 {
     private readonly RuntimeMailboxRootOwner593 owner;
+    internal RuntimeMailboxRootOwner593 Owner593 => owner;
     private IDisposable? backing;
     internal MailboxRetirementTracker593? RecipientTracker { get; private set; }
 

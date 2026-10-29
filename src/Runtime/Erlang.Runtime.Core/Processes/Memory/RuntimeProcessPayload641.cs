@@ -102,7 +102,7 @@ internal sealed class RuntimeProcessPayload641 : IAsyncDisposable
                 var group = new RuntimeProcessPayloadGroup641();
                 result.rollback = group; // BEFORE partial interest acquisition
                 group.Capture641(first?.Graph641, second?.Graph641);
-                result.graph = runtime.MailboxRoots593.PrepareInterestGraph593(runtime, group);
+                result.graph = runtime.MailboxRoots593.PrepareProcessPayloadInterestGraph641(runtime, group);
                 result.ownsCompositeGraph = true;
                 result.rollback = null; // graph now owns the actual group
             }
