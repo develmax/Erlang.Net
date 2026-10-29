@@ -7651,14 +7651,22 @@ try
         Erlang.Tests.TimerPayload628Names.BinaryFamily
     })
     {
-        Test(Erlang.Tests.TimerPayload628Names.FireCase + "/" + family,
-            () => Erlang.Tests.TimerPayload628Checks.Run(Erlang.Tests.TimerPayload628Mode.Fire, family));
-        Test(Erlang.Tests.TimerPayload628Names.CancelCase + "/" + family,
-            () => Erlang.Tests.TimerPayload628Checks.Run(Erlang.Tests.TimerPayload628Mode.Cancel, family));
-        Test(Erlang.Tests.TimerPayload628Names.ExitCase + "/" + family,
-            () => Erlang.Tests.TimerPayload628Checks.Run(Erlang.Tests.TimerPayload628Mode.OwnerExit, family));
-        Test(Erlang.Tests.TimerPayload628Names.VmCase + "/" + family,
-            () => Erlang.Tests.TimerPayload628Checks.Run(Erlang.Tests.TimerPayload628Mode.VmClose, family));
+        Test(
+            Erlang.Tests.TimerPayload628Names.FireCase + "/" + family,
+            () => Erlang.Tests.TimerPayload628Checks.Run(Erlang.Tests.TimerPayload628Mode.Fire, family)
+        );
+        Test(
+            Erlang.Tests.TimerPayload628Names.CancelCase + "/" + family,
+            () => Erlang.Tests.TimerPayload628Checks.Run(Erlang.Tests.TimerPayload628Mode.Cancel, family)
+        );
+        Test(
+            Erlang.Tests.TimerPayload628Names.ExitCase + "/" + family,
+            () => Erlang.Tests.TimerPayload628Checks.Run(Erlang.Tests.TimerPayload628Mode.OwnerExit, family)
+        );
+        Test(
+            Erlang.Tests.TimerPayload628Names.VmCase + "/" + family,
+            () => Erlang.Tests.TimerPayload628Checks.Run(Erlang.Tests.TimerPayload628Mode.VmClose, family)
+        );
     }
     Test(Erlang.Tests.TimerPayload628Names.OpaqueCase, Erlang.Tests.TimerPayload628Checks.OpaqueAlias);
     Test(Erlang.Tests.BinaryHalt629Names.Test, Erlang.Tests.BinaryHalt629Checks.Run);

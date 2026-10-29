@@ -37,13 +37,25 @@ internal static class DictionaryProjection635Checks
                 long visits = Number(Property(registry, LinearConstruction514Names.Traversal), LinearConstruction514Names.Visits) - before;
                 int expected = entry == Missing ? 0 : count;
                 long limit = (long)VisitsPerEntry * count + FixedVisits;
-                string row = string.Format(CultureInfo.InvariantCulture, Observation, count, entry, visits, limit);
+                string row = string.Format(
+                    CultureInfo.InvariantCulture,
+                    Observation,
+                    count,
+                    entry,
+                    visits,
+                    limit
+                );
                 Console.WriteLine(row);
                 if (!value.Equals(Term.I(expected)) || visits > limit)
                     failures.Add(row);
             }
         }
-        await actor.Invoke(context => { context.Dictionary.Clear(); return true; });
+        await actor.Invoke(context =>
+ {
+     context.Dictionary.Clear();
+
+     return true;
+ });
         if (failures.Count != 0)
             throw new InvalidOperationException(string.Join(Environment.NewLine, failures));
     }

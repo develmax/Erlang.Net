@@ -23,3 +23,5 @@ Remaining: forced callback claim/cancel/publication/close races, broader produce
 Archive SHA256: `97FF7F1825167611BF79C5A7DE2662D7E1CB91C2867033B89157DB9480D953C4`.
 
 [evidence.zip](evidence.zip) retains actual reports, raw results, preparation failures, independent reviews and final source hashes.
+
+The first PR89 CI (40824949688, head0b84e0b) failed the source-layout gate on six files before the unit-test report was produced. Its authenticated artifact has no tests.json; no full-suite count is inferred. Scoped formatting selects only the26 current537 C# files: seven change (the six CI files plus the new scaling control), and all seven preserve exact Roslyn token kinds/texts, including literals. The existing formatter reports zero remaining layout changes in that selection. Tool source-byte admission is refreshed; no Erlang VM or runtime build was run for this formatting. Fresh exact-head CI remains mandatory.

@@ -21,19 +21,40 @@ internal static class DictionaryKeys627Checks
                 fixture.Runtime,
                 actor,
                 fixture.Reference,
-                () => { fixture.ReleaseProducer(); producer.Dispose(); producer = null; },
+                () =>
+ {
+     fixture.ReleaseProducer();
+     producer.Dispose();
+     producer = null;
+ },
                 fixture.Array,
                 CountersCustody596Names.Retired
             );
             Require(!(bool)Property(fixture.Array, CountersCustody596Names.Allocated));
         }
-        catch (Exception error) { errors.Add(error); }
+        catch (Exception error)
+        {
+            errors.Add(error);
+        }
         finally
         {
-            try { producer?.Dispose(); } catch (Exception error) { errors.Add(error); }
+            try
+            {
+                producer?.Dispose();
+            }
+            catch (Exception error)
+            {
+                errors.Add(error);
+            }
             if (actor is not null)
-                try { await actor.DisposeAsync().AsTask().WaitAsync(DictionaryKeys605Names.Deadline); }
-                catch (Exception error) { errors.Add(error); }
+                try
+                {
+                    await actor.DisposeAsync().AsTask().WaitAsync(DictionaryKeys605Names.Deadline);
+                }
+                catch (Exception error)
+                {
+                    errors.Add(error);
+                }
             await fixture.Drain(errors);
         }
         Finish(errors);
@@ -52,7 +73,9 @@ internal static class DictionaryKeys627Checks
         Require((bool)Property(fixture.Backing!, RegexCustody597Names.Freed));
     });
 
-    internal static Task Binary() => BinaryArena598Fixture.Run(new BitString([120]), async fixture =>
+    internal static Task Binary() => BinaryArena598Fixture.Run(
+        new BitString([120]),
+        async fixture =>
     {
         await Exercise(
             fixture.Runtime,
@@ -63,7 +86,8 @@ internal static class DictionaryKeys627Checks
             BinaryArena598Names.Retired
         );
         Require((bool)Property(fixture.BackingOwner, BinaryArena598Names.Freed));
-    });
+    }
+    );
 
     private static async Task Exercise(
         ProcessRuntime runtime,
@@ -84,7 +108,12 @@ internal static class DictionaryKeys627Checks
         {
             sourceFrame = (IDisposable)Call(heap, DictionaryKeys605Names.Enter)!;
             int slot = (int)Call(sourceFrame, DictionaryKeys605Names.Reserve)!;
-            Call(sourceFrame, DictionaryKeys605Names.Set, slot, identity);
+            Call(
+                sourceFrame,
+                DictionaryKeys605Names.Set,
+                slot,
+                identity
+            );
             var source = (ReferenceTerm)Call(sourceFrame, DictionaryKeys605Names.Read, slot)!;
             await actor.Invoke(context =>
             {
@@ -94,9 +123,21 @@ internal static class DictionaryKeys627Checks
             });
             releaseProducer();
             Call(sourceFrame, DictionaryKeys605Names.Clear, slot);
-            await actor.Invoke(_ => { Major(heap); return true; });
+            await actor.Invoke(_ =>
+ {
+     Major(heap);
+
+     return true;
+ });
             bool stale = false;
-            try { _ = source.Words; } catch (ObjectDisposedException) { stale = true; }
+            try
+            {
+                _ = source.Words;
+            }
+            catch (ObjectDisposedException)
+            {
+                stale = true;
+            }
             Require(stale);
             sourceFrame.Dispose();
             sourceFrame = null;
@@ -126,7 +167,12 @@ internal static class DictionaryKeys627Checks
     }
 
     private static void Major(object heap)
-        => Call(heap, DictionaryKeys605Names.Major, true, ushort.MaxValue);
+        => Call(
+            heap,
+            DictionaryKeys605Names.Major,
+            true,
+            ushort.MaxValue
+        );
 
     private static void Require(bool condition)
     {

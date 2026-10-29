@@ -30,16 +30,32 @@ internal static class TimerPayload628Checks
             var reference = (ReferenceTerm)Call(fixture.Runtime.ReferenceResources, NativeMakeReference, payload)!;
             actor = new(fixture.Runtime);
             await Exercise(
-                fixture.Runtime, actor, reference, fixture.ReleaseNative,
-                payload, NativeRetired, mode, SendAfterThree, true
+                fixture.Runtime,
+                actor,
+                reference,
+                fixture.ReleaseNative,
+                payload,
+                NativeRetired,
+                mode,
+                SendAfterThree,
+                true
             );
         }
-        catch (Exception error) { errors.Add(error); }
+        catch (Exception error)
+        {
+            errors.Add(error);
+        }
         finally
         {
             if (actor is not null)
-                try { await actor.DisposeAsync().AsTask().WaitAsync(Deadline); }
-                catch (Exception error) { errors.Add(error); }
+                try
+                {
+                    await actor.DisposeAsync().AsTask().WaitAsync(Deadline);
+                }
+                catch (Exception error)
+                {
+                    errors.Add(error);
+                }
         }
         Finish(errors);
     });
@@ -55,18 +71,46 @@ internal static class TimerPayload628Checks
             producer = fixture.Lease(AtomicsP2a586Names.ProducerKind);
             actor = new(fixture.Runtime);
             await Exercise(
-                fixture.Runtime, actor, fixture.Reference,
-                () => { fixture.ReleaseProducer(); producer?.Dispose(); producer = null; },
-                fixture.Array, AtomicsP2a586Names.Retired, mode, StartTimerThree, false, fixture.ReleaseInvocationForShutdown
+                fixture.Runtime,
+                actor,
+                fixture.Reference,
+                () =>
+ {
+     fixture.ReleaseProducer();
+     producer?.Dispose();
+     producer = null;
+ },
+                fixture.Array,
+                AtomicsP2a586Names.Retired,
+                mode,
+                StartTimerThree,
+                false,
+                fixture.ReleaseInvocationForShutdown
             );
         }
-        catch (Exception error) { errors.Add(error); }
+        catch (Exception error)
+        {
+            errors.Add(error);
+        }
         finally
         {
-            try { producer?.Dispose(); } catch (Exception error) { errors.Add(error); }
+            try
+            {
+                producer?.Dispose();
+            }
+            catch (Exception error)
+            {
+                errors.Add(error);
+            }
             if (actor is not null)
-                try { await actor.DisposeAsync().AsTask().WaitAsync(Deadline); }
-                catch (Exception error) { errors.Add(error); }
+                try
+                {
+                    await actor.DisposeAsync().AsTask().WaitAsync(Deadline);
+                }
+                catch (Exception error)
+                {
+                    errors.Add(error);
+                }
             await fixture.Drain(errors);
         }
         Finish(errors);
@@ -83,32 +127,77 @@ internal static class TimerPayload628Checks
             producer = fixture.Lease(CountersCustody596Names.ProducerKind);
             actor = new(fixture.Runtime);
             await Exercise(
-                fixture.Runtime, actor, fixture.Reference,
-                () => { fixture.ReleaseProducer(); producer?.Dispose(); producer = null; },
-                fixture.Array, CountersCustody596Names.Retired, mode, SendAfterThree, false, fixture.ReleaseInvocationForShutdown
+                fixture.Runtime,
+                actor,
+                fixture.Reference,
+                () =>
+ {
+     fixture.ReleaseProducer();
+     producer?.Dispose();
+     producer = null;
+ },
+                fixture.Array,
+                CountersCustody596Names.Retired,
+                mode,
+                SendAfterThree,
+                false,
+                fixture.ReleaseInvocationForShutdown
             );
         }
-        catch (Exception error) { errors.Add(error); }
+        catch (Exception error)
+        {
+            errors.Add(error);
+        }
         finally
         {
-            try { producer?.Dispose(); } catch (Exception error) { errors.Add(error); }
+            try
+            {
+                producer?.Dispose();
+            }
+            catch (Exception error)
+            {
+                errors.Add(error);
+            }
             if (actor is not null)
-                try { await actor.DisposeAsync().AsTask().WaitAsync(Deadline); }
-                catch (Exception error) { errors.Add(error); }
+                try
+                {
+                    await actor.DisposeAsync().AsTask().WaitAsync(Deadline);
+                }
+                catch (Exception error)
+                {
+                    errors.Add(error);
+                }
             await fixture.Drain(errors);
         }
         Finish(errors);
     }
 
     private static Task Regex(TimerPayload628Mode mode) => RegexCustody597Fixture.Run(fixture => Exercise(
-        fixture.Runtime, fixture.Actor!, fixture.Reference, fixture.Release,
-        fixture.Backing!, RegexCustody597Names.Retired, mode, SendAfterFour, false
+        fixture.Runtime,
+        fixture.Actor!,
+        fixture.Reference,
+        fixture.Release,
+        fixture.Backing!,
+        RegexCustody597Names.Retired,
+        mode,
+        SendAfterFour,
+        false
     ));
 
-    private static Task Binary(TimerPayload628Mode mode) => BinaryArena598Fixture.Run(new BitString([120]), fixture => Exercise(
-        fixture.Runtime, fixture.Actor!, fixture.Reference, fixture.Release,
-        fixture.BackingOwner, BinaryArena598Names.Retired, mode, StartTimerFour, false
-    ));
+    private static Task Binary(TimerPayload628Mode mode) => BinaryArena598Fixture.Run(
+        new BitString([120]),
+        fixture => Exercise(
+            fixture.Runtime,
+            fixture.Actor!,
+            fixture.Reference,
+            fixture.Release,
+            fixture.BackingOwner,
+            BinaryArena598Names.Retired,
+            mode,
+            StartTimerFour,
+            false
+        )
+    );
 
     private static async Task Exercise(
         ProcessRuntime runtime,
@@ -147,7 +236,12 @@ internal static class TimerPayload628Checks
             var functions = (Dictionary<(string Module, string Function, int Arity), ErlangFunction>)typeof(ModuleRegistry)
                 .GetField(Functions, BindingFlags.Instance | BindingFlags.NonPublic)!.GetValue(runtime.Modules)!;
             ErlangFunction actual = functions[(TimerPayload628Names.Erlang, SendAfter, 3)];
-            runtime.Modules.Register(PublicAlias, SendAfter, 3, actual);
+            runtime.Modules.Register(
+                PublicAlias,
+                SendAfter,
+                3,
+                actual
+            );
             Require(runtime.Modules.SourceOwner(PublicAlias, SendAfter, 3) is null);
             bool refused = false;
             try
@@ -159,32 +253,62 @@ internal static class TimerPayload628Checks
                 refused = true;
             }
             Require(refused);
-            await actor.Invoke(owner => { owner.Dictionary.Clear(); Major(heap); return true; });
+            await actor.Invoke(owner =>
+ {
+     owner.Dictionary.Clear();
+     Major(heap);
+
+     return true;
+ });
             await ((Task)Property(backing, retiredName)).WaitAsync(Deadline);
             GC.KeepAlive(source);
 
             return;
         }
         Term timer = await actor.InvokeAsync(async owner => await runtime.Modules.Call(
-            owner, TimerPayload628Names.Module, Arm, Term.I(mode == TimerPayload628Mode.Fire ? FireDelay : PendingDelay), Term.I(operation)
+            owner,
+            TimerPayload628Names.Module,
+            Arm,
+            Term.I(mode == TimerPayload628Mode.Fire ? FireDelay : PendingDelay),
+            Term.I(operation)
         ));
         var failures = new List<Exception>();
         try
         {
-            await actor.Invoke(_ => { Major(heap); return true; });
+            await actor.Invoke(_ =>
+ {
+     Major(heap);
+
+     return true;
+ });
             bool stale = false;
-            try { _ = source!.Words; } catch (ObjectDisposedException) { stale = true; }
+            try
+            {
+                _ = source!.Words;
+            }
+            catch (ObjectDisposedException)
+            {
+                stale = true;
+            }
             Require(stale && !((Task)Property(backing, retiredName)).IsCompleted);
             if (mode == TimerPayload628Mode.Fire)
             {
                 Term value = await actor.InvokeAsync(async owner => await runtime.Modules.Call(owner, TimerPayload628Names.Module, Take));
                 Require(value.Equals(Term.I(MagicWords)));
-                await actor.Invoke(_ => { Major(heap); return true; });
+                await actor.Invoke(_ =>
+ {
+     Major(heap);
+
+     return true;
+ });
             }
             else if (mode == TimerPayload628Mode.Cancel)
             {
                 Term remaining = await actor.InvokeAsync(async owner => await runtime.Modules.Call(
-                    owner, TimerPayload628Names.Erlang, TimerPayload628Names.CancelTimer, timer
+                    owner,
+                    TimerPayload628Names.Erlang,
+                    TimerPayload628Names.CancelTimer,
+                    timer
                 ));
                 Require(remaining is Integer integer && integer.Value >= 0);
             }
@@ -207,7 +331,10 @@ internal static class TimerPayload628Checks
                 try
                 {
                     await actor.InvokeAsync(async owner => await runtime.Modules.Call(
-                        owner, TimerPayload628Names.Erlang, TimerPayload628Names.CancelTimer, timer
+                        owner,
+                        TimerPayload628Names.Erlang,
+                        TimerPayload628Names.CancelTimer,
+                        timer
                     ));
                 }
                 catch (Exception error)
@@ -224,7 +351,12 @@ internal static class TimerPayload628Checks
     }
 
     private static void Major(object heap)
-        => Call(heap, MajorCollect, true, ushort.MaxValue);
+        => Call(
+            heap,
+            MajorCollect,
+            true,
+            ushort.MaxValue
+        );
 
     private static void Require(bool condition)
     {

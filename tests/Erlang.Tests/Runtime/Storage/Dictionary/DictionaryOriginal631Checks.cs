@@ -51,8 +51,12 @@ internal static class DictionaryOriginal631Checks
                     foreach (var export in registry.Exports.Where(export => export.Module == image.Name))
                         if (!ReferenceEquals(registry.SourceOwner(export.Module, export.Function, export.Arity), image))
                             throw new InvalidOperationException(DictionaryOriginal631Names.OwnerMismatch);
-                    images.Add(new { Module = image.Name, ImageSha256 = Convert.ToHexString(SHA256.HashData(
-                        AtomicsHost413Access.Resource(image.Name + AtomicsHost413Names.Beam))) });
+                    images.Add(new
+                    {
+                        Module = image.Name,
+                        ImageSha256 = Convert.ToHexString(SHA256.HashData(
+                        AtomicsHost413Access.Resource(image.Name + AtomicsHost413Names.Beam)))
+                    });
                 }
             });
             using var observer = GeneratedModuleCompiler.Compile(Encoding.UTF8.GetString(originalSource), DictionaryOriginal631Names.File);
@@ -63,8 +67,10 @@ internal static class DictionaryOriginal631Checks
             Term outcome = await actor.InvokeAsync(async context => await actualRuntime.Modules.Call(
                 context, CaptureModule, Entry
             ));
-            byte[] bytes = ExternalTermFormat.Encode(outcome, new EtfEncodingOptions {
-                MinorVersion = 2, FunctionOwner = runtime.InitializationPid
+            byte[] bytes = ExternalTermFormat.Encode(outcome, new EtfEncodingOptions
+            {
+                MinorVersion = 2,
+                FunctionOwner = runtime.InitializationPid
             });
             System.IO.File.WriteAllBytes(Path.Combine(output, DictionaryOriginal631Names.OutcomeFile), bytes);
             actualSha = Convert.ToHexString(SHA256.HashData(bytes));
@@ -89,7 +95,10 @@ internal static class DictionaryOriginal631Checks
                     actorDone = true;
                 }
             }
-            catch (Exception error) { failures.Add(error); }
+            catch (Exception error)
+            {
+                failures.Add(error);
+            }
             try
             {
                 if (runtime is not null)
@@ -98,19 +107,35 @@ internal static class DictionaryOriginal631Checks
                     disposed = true;
                 }
             }
-            catch (Exception error) { failures.Add(error); }
-            System.IO.File.WriteAllText(Path.Combine(output, DictionaryOriginal631Names.ReceiptFile), JsonSerializer.Serialize(new {
-                RuntimeSha256 = runtimeSha, HostSha256 = hostSha,
-                ObserverSourceSha256 = SourceSha256,
-                CaptureSourceSha256 = Convert.ToHexString(SHA256.HashData(Convert.FromBase64String(CaptureBase64))),
-                OriginalDependencyImages = images, ActualSha256 = actualSha,
-                WholeOutcomeCaptured = captured, ObserverSourceBytesEqual = sourceEqual,
-                ActorDone = actorDone, RuntimeDisposeCompleted = disposed,
-                Passed = failures.Count == 0 && captured && sourceEqual && actorDone && disposed,
-                RawEtfRewritten = false, FrameProjection = false, GoldenCompared = false,
-                PhysicalRetirementInstrumented = false,
-                Errors = failures.Select(error => error.ToString()).ToArray()
-            }, new JsonSerializerOptions { WriteIndented = true }));
+            catch (Exception error)
+            {
+                failures.Add(error);
+            }
+            System.IO.File.WriteAllText(
+                Path.Combine(output, DictionaryOriginal631Names.ReceiptFile),
+                JsonSerializer.Serialize(
+                    new
+                    {
+                        RuntimeSha256 = runtimeSha,
+                        HostSha256 = hostSha,
+                        ObserverSourceSha256 = SourceSha256,
+                        CaptureSourceSha256 = Convert.ToHexString(SHA256.HashData(Convert.FromBase64String(CaptureBase64))),
+                        OriginalDependencyImages = images,
+                        ActualSha256 = actualSha,
+                        WholeOutcomeCaptured = captured,
+                        ObserverSourceBytesEqual = sourceEqual,
+                        ActorDone = actorDone,
+                        RuntimeDisposeCompleted = disposed,
+                        Passed = failures.Count == 0 && captured && sourceEqual && actorDone && disposed,
+                        RawEtfRewritten = false,
+                        FrameProjection = false,
+                        GoldenCompared = false,
+                        PhysicalRetirementInstrumented = false,
+                        Errors = failures.Select(error => error.ToString()).ToArray()
+                    },
+                    new JsonSerializerOptions { WriteIndented = true }
+                )
+            );
         }
         if (failures.Count == 1) ExceptionDispatchInfo.Capture(failures[0]).Throw();
         if (failures.Count > 1) throw new AggregateException(failures);
