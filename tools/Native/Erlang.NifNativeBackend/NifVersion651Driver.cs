@@ -104,15 +104,10 @@ internal static class NifVersion651Driver
                     );
                 });
             else if (linux)
-                NifNativeExportRegistration.EnsureRegistered(NifNativeCapabilityProfile.ForReviewedBasicAbi(
-                    new NifNativeReviewedBasicAbi(
-                        library,
-                        libraryHash,
-                        buildHash,
-                        bridgePath,
-                        bridgeHash
-                    )
-                ));
+                Verify(
+                    Path.Combine(AppContext.BaseDirectory, NifNativeLinuxNamespaceNames.DefaultBridge),
+                    bridgeHash!
+                );
             await NifNativeHarness.Context(
                 owner,
                 async context =>

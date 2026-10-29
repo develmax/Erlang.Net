@@ -40,8 +40,8 @@ jobs:
       OTP_PIN: ad05823719d77c8faee87348ea39513d4e2f99c5
       ORIGINAL_PLAN: AEBBA0D2DCF97E1248CA38407E8EBE628EB08F9EA4D13F48EC0C83A7A0364E61
       NATIVE_PLAN: EADBC90D532B150C94F430E89470B8AD093FE35F49F47988B209FF703BCE9F67
-      CAPTURE_PLAN: 88A22348B8FC0C465175BF7543909D09B3270F2F2FECCD2755DF552F03AFB165
-      ACCEPTANCE_PLAN: 9D4AF753A94587E0C10F077DE0471BB9D2E007A134ED078227F68A3B50927B13
+      CAPTURE_PLAN: F6FC7D6E5BFAD2BB43CDB37109080D3D4C90484017C78C5BE0678F52E699BF1F
+      ACCEPTANCE_PLAN: 7A0213C359822C8269092C48501098973A614CD6CA4C07DF1D1EEA4A06EE3514
       ERLC_USE_SERVER: 'false'
       PYTHONDONTWRITEBYTECODE: '1'
       DOTNET_PROCESSOR_COUNT: '2'
@@ -58,10 +58,34 @@ jobs:
           test "$(git --no-optional-locks rev-parse HEAD)" = "$EXPECTED_HEAD"
           mkdir -p artifacts/nif-version651/ci
           python3 -B - <<'PY'
-          import hashlib,json,os,subprocess
+          import hashlib,json,os,subprocess,sys
           from pathlib import Path
           repo=Path.cwd();tool=repo/'tools/Native/Erlang.NifVersion651Observations'
           sha=lambda p:hashlib.sha256(p.read_bytes()).hexdigest().upper()
+          # These four real Linux verifiers are independent source-only checks.
+          source_out=repo/'artifacts/nif-version651/ci/reused-source-preflight'
+          source_out.mkdir(parents=True,exist_ok=True)
+          source_results=[]
+          for label,name in [('entry','Erlang.NifEntryOriginalObservations'),('term','Erlang.NifTermCallbackOriginalObservations'),('text','Erlang.NifTextBinaryOriginalObservations'),('unix','Erlang.NifUnixFilenameObservations')]:
+              status=dict(Name=label,Tool=name,Passed=False,OriginalExecuted=False,ManagedExecuted=False)
+              stdout=b'';stderr=b''
+              try:
+                  folder=repo/'tools/Native'/name;manifest=folder/'manifest.json'
+                  argv=[sys.executable,'-B',str(folder/'verify-source.py'),'--expected-head',os.environ['EXPECTED_HEAD']]
+                  if label=='unix':argv+=['--source-manifest-sha256',sha(manifest)]
+                  else:argv+=['--repository',str(repo),'--manifest-sha256',sha(manifest)]
+                  environment=dict(os.environ,PYTHONDONTWRITEBYTECODE='1',GITHUB_SHA=os.environ['EXPECTED_HEAD'])
+                  result=subprocess.run(argv,cwd=repo,env=environment,capture_output=True,timeout=45)
+                  stdout=result.stdout;stderr=result.stderr
+                  status.update(Passed=result.returncode==0,ExitCode=result.returncode,ManifestSha256=sha(manifest))
+              except Exception as error:status['Error']=repr(error)
+              (source_out/(label+'.stdout')).write_bytes(stdout)
+              (source_out/(label+'.stderr')).write_bytes(stderr)
+              status.update(StdoutSha256=hashlib.sha256(stdout).hexdigest().upper(),StderrSha256=hashlib.sha256(stderr).hexdigest().upper())
+              source_results.append(status)
+          aggregate=dict(Passed=all(x['Passed'] for x in source_results),SubjectHead=os.environ['EXPECTED_HEAD'],SourceOnly=True,OriginalExecuted=False,ManagedExecuted=False,Results=source_results)
+          (source_out/'completion.json').write_text(json.dumps(aggregate,indent=2))
+          assert aggregate['Passed'],aggregate
           for name,pin in [('linux-build-inputs.json',os.environ['NATIVE_PLAN']),('linux-inputs.json',os.environ['CAPTURE_PLAN'])]:
               path=tool/name;assert sha(path)==pin
               plan=json.loads(path.read_bytes());assert plan['Pin']==os.environ['OTP_PIN']

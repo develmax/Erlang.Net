@@ -39,7 +39,7 @@ jobs:
           mkdir -p artifacts
           git clone --depth 1 --branch OTP-29.1.1 https://github.com/erlang/otp.git artifacts/raw-unix-otp-source
           test "$(git -C artifacts/raw-unix-otp-source rev-parse HEAD)" = ad05823719d77c8faee87348ea39513d4e2f99c5
-          python3 -B tools/Runtime/Erlang.SchedulerAffinityOriginalObservations/build-original.py --repository "$GITHUB_WORKSPACE" --manifest-sha256 4C9A79CD6E8BC18F68316D42B2F30DB171E67A242CA81CA84BB8A022E8BA5BFB --expected-head "$GITHUB_SHA" --otp-source "$GITHUB_WORKSPACE/artifacts/raw-unix-otp-source" --prefix "$GITHUB_WORKSPACE/artifacts/raw-unix-otp" --output "$GITHUB_WORKSPACE/artifacts/raw-unix-runtime-build"
+          python3 -B tools/Runtime/Erlang.SchedulerAffinityOriginalObservations/build-original.py --repository "$GITHUB_WORKSPACE" --manifest-sha256 AEBBA0D2DCF97E1248CA38407E8EBE628EB08F9EA4D13F48EC0C83A7A0364E61 --expected-head "$GITHUB_SHA" --otp-source "$GITHUB_WORKSPACE/artifacts/raw-unix-otp-source" --prefix "$GITHUB_WORKSPACE/artifacts/raw-unix-otp" --output "$GITHUB_WORKSPACE/artifacts/raw-unix-runtime-build"
       - name: Build managed driver and compare owned echo image against pinned original
         shell: bash
         run: |

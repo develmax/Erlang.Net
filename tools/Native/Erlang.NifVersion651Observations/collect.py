@@ -72,6 +72,25 @@ def main():
         sealed=snapshot([native,a.source_freeze,a.build_receipt if linux else a.official_admission,tool/input_name,tool/'cases.json',*bridge_inputs,*binary_inputs,*[Path(i['Library']['Path']) for i in images.values()]])
         save(out/'sealed-inputs.json',sealed)
     except Exception as error:errors.append(dict(Phase='shared-admission',Error=repr(error)));host=None
+    if linux and host is not None:
+        # Ordinary loading discovers the deployed bridge beside the application.
+        # The VM namespace binds its real reference/environment callbacks; the
+        # process-global registration table has no such per-VM authority.
+        deployment=dict(Passed=False,ProcessGlobalRegistration=False)
+        try:
+            target=host.parent/'Erlang.NifBridge.so'
+            need(not target.is_symlink(),'Ordinary bridge deployment cannot follow a symbolic link')
+            if not target.exists():
+                with target.open('xb') as destination:destination.write(bridge_inputs[0].read_bytes())
+            checked(target,bridge_admission['BridgeSha256'])
+            sealed.append(row(target))
+            deployment.update(Passed=True,Source=row(bridge_inputs[0]),Deployed=row(target))
+        except Exception as error:
+            # Reviewed execution uses its explicitly admitted bridge path and
+            # remains independent of this ordinary-only deployment preparation.
+            deployment['Error']=repr(error)
+            errors.append(dict(Phase='ordinary-bridge-deployment',Error=repr(error)))
+        save(out/'ordinary-bridge-deployment.json',deployment)
     # Original provider/compilation is a real dependency of the identical-BEAM replay, not of native image admission.
     try:
         if not linux:a.build_receipt=a.otp_source=None
