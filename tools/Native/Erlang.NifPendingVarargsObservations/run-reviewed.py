@@ -42,6 +42,7 @@ def write(path, value):
 
 
 EXPLICIT_REVIEWED_INPUTS = frozenset((
+    'docs/validation/part-541/current-source-freeze.json',
     'docs/validation/part-541/source-freeze.json',
     'src/Compiler/Erlang.Compiler/Execution/Execution.cs',
     'src/Otp/Managed/Erlang.Otp.Stdlib/Registration/ManagedStdlibRegistration456.cs',

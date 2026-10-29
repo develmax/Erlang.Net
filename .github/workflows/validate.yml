@@ -350,6 +350,16 @@ jobs:
                   target = (root / row["Path"]).resolve()
                   require(target.is_relative_to(root), "Focused input escapes repository")
                   require(digest(target) == row["Sha256"], "Focused input differs: " + row["Path"])
+              if "SourceFreezePath" in value:
+                  frozen_path = (root / value["SourceFreezePath"]).resolve()
+                  require(frozen_path.is_relative_to(root), "Focused freeze escapes repository")
+                  require(digest(frozen_path) == value["SourceFreezeSha256"], "Focused freeze hash differs")
+                  frozen = json.loads(frozen_path.read_bytes())
+                  require(len(frozen["Rows"]) == value["SourceFreezeRows"], "Focused freeze count differs")
+                  for row in frozen["Rows"]:
+                      target = (root / row["Path"]).resolve()
+                      require(target.is_relative_to(root), "Frozen source escapes repository")
+                      require(digest(target) == row["Sha256"], "Focused frozen source differs: " + row["Path"])
               if "RunnerSha256" in value:
                   require(digest(tool / "run.py") == value["RunnerSha256"], "Focused runner differs")
               return dict(PlanSha256=digest(path), VerifiedRows=len(names), BuildOrVmExecuted=False)
@@ -533,7 +543,7 @@ jobs:
           if (!(Test-Path artifacts/library376-official-compiler/official-admission.json)) {
             throw 'Map family504 requires successful host/provider preparation; dependent execution was not started'
           }
-          python -B tools/Native/Erlang.NifMapFamily504Observations/collect.py --repository $PWD.Path --provider-admission artifacts/library376-official-compiler/official-admission.json --plan-sha256 A214CDB29CFF26C7E30A682FE367540AD7E9509099D492C3DCFE3EBD6457D513 --output artifacts/native-map504/ci --check-golden --both-runtime-profiles516
+          python -B tools/Native/Erlang.NifMapFamily504Observations/collect.py --repository $PWD.Path --provider-admission artifacts/library376-official-compiler/official-admission.json --plan-sha256 07BD56CA7FA7E01F748C32DE428F71ACF27002DF2240C03A8C9F2BFF8C7EF1B5 --output artifacts/native-map504/ci --check-golden --both-runtime-profiles516
           if ($LASTEXITCODE -ne 0) { throw 'Native map family504 original/ordinary/reviewed comparison failed; all prepared independent route receipts are retained' }
           $comparison516 = Get-Content 'artifacts/native-map504/ci/completion.json' -Raw | ConvertFrom-Json
           if (!$comparison516.Passed -or !$comparison516.BothRuntimeProfiles516 -or $comparison516.ExpectedRawLoaderComparisons -ne 4 -or $comparison516.WholeRawLoaderComparisons -ne 4 -or $comparison516.WholeRawComparisonsByRuntimeProfile.'ordinary-runtime' -ne 2 -or $comparison516.WholeRawComparisonsByRuntimeProfile.'owned-runtime' -ne 2) { throw 'All four runtime-profile/loader comparisons are required' }
@@ -554,7 +564,7 @@ jobs:
           if (!(Test-Path artifacts/library376-official-compiler/official-admission.json)) {
             throw 'Materialized505 host/provider preparation missing; dependent execution skipped'
           }
-          python -B tools/Native/Erlang.NifMapMaterialized505Observations/collect.py --repository $PWD.Path --provider-admission artifacts/library376-official-compiler/official-admission.json --plan-sha256 F8D882E89C789480C1B9F59012C7770052CD3BFB6C53F932D53725CDDED8F88D --output artifacts/native-map505/ci --check-golden --both-runtime-profiles516
+          python -B tools/Native/Erlang.NifMapMaterialized505Observations/collect.py --repository $PWD.Path --provider-admission artifacts/library376-official-compiler/official-admission.json --plan-sha256 57670656541079AEB7C2F0F3632282F19D080B128A7EC4E98441E2AD3866FBF2 --output artifacts/native-map505/ci --check-golden --both-runtime-profiles516
           if ($LASTEXITCODE -ne 0) { throw 'Materialized505 independent original/ordinary/reviewed comparison failed; inspect retained full results' }
           $comparison516 = Get-Content 'artifacts/native-map505/ci/completion.json' -Raw | ConvertFrom-Json
           if (!$comparison516.Passed -or !$comparison516.BothRuntimeProfiles516 -or $comparison516.ExpectedRawLoaderComparisons -ne 4 -or $comparison516.WholeRawLoaderComparisons -ne 4 -or $comparison516.WholeRawComparisonsByRuntimeProfile.'ordinary-runtime' -ne 2 -or $comparison516.WholeRawComparisonsByRuntimeProfile.'owned-runtime' -ne 2) { throw 'All four runtime-profile/loader comparisons are required' }
@@ -568,7 +578,7 @@ jobs:
           if (!(Test-Path artifacts/library376-official-compiler/official-admission.json)) {
             throw 'Reentry505 host/provider preparation missing; dependent execution skipped'
           }
-          python -B tools/Native/Erlang.NifMapReentry505Observations/collect.py --repository $PWD.Path --provider-admission artifacts/library376-official-compiler/official-admission.json --plan-sha256 B5AA16FC792F83F9921A1E2B55A2A867F528AD055261848CBF7830233B0EBD54 --output artifacts/native-map505/reentry-ci --check-golden --both-runtime-profiles516
+          python -B tools/Native/Erlang.NifMapReentry505Observations/collect.py --repository $PWD.Path --provider-admission artifacts/library376-official-compiler/official-admission.json --plan-sha256 DF1CDD95F9422F4AE1E60F1D07CC23930B7338760F7BEA296EEC4530591767F2 --output artifacts/native-map505/reentry-ci --check-golden --both-runtime-profiles516
           if ($LASTEXITCODE -ne 0) { throw 'Reentry505 original/ordinary/reviewed comparison failed; independent routes and cleanup retained' }
           $comparison516 = Get-Content 'artifacts/native-map505/reentry-ci/completion.json' -Raw | ConvertFrom-Json
           if (!$comparison516.Passed -or !$comparison516.BothRuntimeProfiles516 -or $comparison516.ExpectedRawLoaderComparisons -ne 4 -or $comparison516.WholeRawLoaderComparisons -ne 4 -or $comparison516.WholeRawComparisonsByRuntimeProfile.'ordinary-runtime' -ne 2 -or $comparison516.WholeRawComparisonsByRuntimeProfile.'owned-runtime' -ne 2) { throw 'All four runtime-profile/loader comparisons are required' }
@@ -607,7 +617,7 @@ jobs:
           $result = Get-Content artifacts/nif-private-data557/ci/completion.json -Raw | ConvertFrom-Json
           if (!$result.Passed -or !$result.OriginalExecuted -or !$result.ManagedRequested -or $result.ExpectedManagedRoutes -ne 4 -or $result.MatchedManagedRoutes.Count -ne 4 -or $result.WholeContractsClosed -ne 0) { throw 'Private557 requires all four actual comparisons and physical cleanup' }
       - name: Verify logical death before physical dirty completion in pinned OTP
-        if: ${{ !cancelled() }}
+        if: ${{ !cancelled() && steps.shared-original-provider.outcome == 'success' }}
         shell: pwsh
         run: |
           if (!(Test-Path artifacts/library376-official-compiler/official-admission.json)) {
@@ -953,7 +963,7 @@ jobs:
         run: |
           $provider = Join-Path $PWD.Path 'artifacts/library376-official-compiler/official-admission.json'
           $providerSha = (Get-FileHash -Algorithm SHA256 -LiteralPath $provider).Hash
-          $freeze = Join-Path $PWD.Path 'docs/validation/part-541/source-freeze.json'
+          $freeze = Join-Path $PWD.Path 'docs/validation/part-541/current-source-freeze.json'
           $freezeSha = (Get-FileHash -Algorithm SHA256 -LiteralPath $freeze).Hash
           python -B tools/Runtime/Erlang.MonitorOriginal645Observations/run.py --repository $PWD.Path --official-admission $provider --admission-sha256 $providerSha --source-freeze $freeze --source-freeze-sha256 $freezeSha --output artifacts/owned506/monitor645 *> artifacts/owned506/monitor645.log
           if ($LASTEXITCODE -ne 0) { throw 'Fresh monitor original/managed whole-outcome comparison failed; independent receipts retained' }

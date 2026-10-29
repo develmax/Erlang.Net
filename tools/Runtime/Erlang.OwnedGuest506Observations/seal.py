@@ -625,6 +625,7 @@ DEPENDENCIES = [
     'tools/Runtime/Erlang.MonitorOriginal645Observations/fixtures/monitor_original645.erl',
     'tools/Runtime/Erlang.MonitorOriginal645Observations/inputs.json',
     'tools/Runtime/Erlang.MonitorOriginal645Observations/run.py',
+    'docs/validation/part-541/current-source-freeze.json',
 ]
 
 

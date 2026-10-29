@@ -79,6 +79,39 @@ internal static class ProcessPayloadCore641Checks
         }
     }
 
+    internal static async Task RootlessPublicationAfterClose()
+    {
+        var fixture = new ProcessPayloadCore641Fixture();
+        var failures = new List<Exception>();
+        object? publication = null;
+        try
+        {
+            lock (Field(fixture.Runtime, Gate)!)
+                Call(fixture.Runtime, StopMailbox);
+            publication = Static(
+                Combine,
+                fixture.Runtime,
+                null,
+                Term.Tuple(Term.I(7)),
+                null,
+                null
+            );
+            Require(publication is not null && Property(publication, Graph) is null);
+            Call(publication!, Close);
+            await ((Task)Property(publication!, Completion)).WaitAsync(Deadline);
+        }
+        catch (Exception error)
+        {
+            failures.Add(error);
+        }
+        finally
+        {
+            if (publication is not null)
+                Call(publication, Close);
+            await fixture.Finish(failures);
+        }
+    }
+
     internal static async Task UnusedStopDrain()
     {
         var fixture = new ProcessPayloadCore641Fixture();
