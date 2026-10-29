@@ -6,6 +6,8 @@ internal sealed class NativeOffheapHeader576
 {
     private NativeResourceRootLease524? retained;
     private AtomicsBackingLease586? atomicsRetained586;
+    private CountersBackingLease596? countersRetained596;
+    internal CountersGuestRoot421? Counters596 { get; }
     private readonly NativeResourcePayload524? payload;
     internal AtomicsGuestRoot413? Atomics586 { get; }
     internal ProcessTermHeap506 Owner { get; }
@@ -54,10 +56,30 @@ internal sealed class NativeOffheapHeader576
         atomicsRetained586 = lease;
     }
 
+    internal NativeOffheapHeader576(
+        ProcessTermHeap506 owner,
+        ProcessTermSequence506 block,
+        CountersGuestRoot421 backing,
+        nint binary,
+        nint address,
+        CountersBackingLease596 lease
+    )
+    {
+        Owner = owner;
+        Block = block;
+        Counters596 = backing;
+        Binary = binary;
+        Address = address;
+        Kind = NativeOffheapKind576.MagicReference;
+        countersRetained596 = lease;
+    }
+
     internal IReadOnlyList<uint> ReadNumbers586()
         => Atomics586 is { } backing
             ? backing.MagicNumbers586(atomicsRetained586 ?? throw new ObjectDisposedException(nameof(NativeOffheapHeader576)))
-            : Payload.ReadMagicNumbers576(Binary);
+            : Counters596 is { } counters
+                ? counters.MagicNumbers596(countersRetained596 ?? throw new ObjectDisposedException(nameof(NativeOffheapHeader576)))
+                : Payload.ReadMagicNumbers576(Binary);
 
     internal void Release576(bool guestGc)
     {
@@ -67,5 +89,6 @@ internal sealed class NativeOffheapHeader576
         else
             selected?.Dispose();
         Interlocked.Exchange(ref atomicsRetained586, null)?.Dispose();
+        Interlocked.Exchange(ref countersRetained596, null)?.Dispose();
     }
 }

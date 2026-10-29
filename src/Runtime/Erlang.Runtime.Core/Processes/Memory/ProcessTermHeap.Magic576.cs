@@ -7,7 +7,7 @@ internal sealed partial class ProcessTermHeap506
     private nint magicOffHeap576;
 
     internal bool IsNativeMagicReference576(Term value)
-        => value is ResourceReferenceTerm { ResourceKind: ReferenceResourceKind.NativeResource524 or ReferenceResourceKind.Atomics413 };
+        => value is ResourceReferenceTerm { ResourceKind: ReferenceResourceKind.NativeResource524 or ReferenceResourceKind.Atomics413 or ReferenceResourceKind.Counters421 };
 
     internal static bool HasOwnedMagicReference576(Term value)
         => value is ResourceReferenceTerm { OwnedStorage562: ProcessTermSequence506 block }
@@ -21,6 +21,8 @@ internal sealed partial class ProcessTermHeap506
 
     internal ResourceReferenceTerm CreateMagicReference576(ResourceReferenceTerm source, ProcessTermConstruction514 construction)
     {
+        if (source.ResourceKind == ReferenceResourceKind.Counters421)
+            return CreateCountersMagic596(source, construction);
         if (source.ResourceKind == ReferenceResourceKind.Atomics413)
             return CreateAtomicsMagic586(source, construction);
         if (source.ResourceKind != ReferenceResourceKind.NativeResource524

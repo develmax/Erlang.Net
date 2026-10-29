@@ -52,47 +52,59 @@ internal static class NativeResourceRoots524
         bool hostAtomics586 = false
     )
     {
-        IDisposable? atomics = AtomicsRoots586.RetainGraph586(
-            source,
-            expected,
-            skipOwnedMagic576,
-            hostAtomics586
-        );
-        IDisposable? native = null;
+        var retained = new IDisposable[3];
+        int count = 0;
         try
         {
-            native = RetainNativeGraph524(source, expected, skipOwnedMagic576);
-            if (atomics is null)
-                return native;
-            if (native is null)
-                return atomics;
+            if (AtomicsRoots586.RetainGraph586(
+                source,
+                expected,
+                skipOwnedMagic576,
+                hostAtomics586
+            ) is { } atomics)
+                retained[count++] = atomics;
+            if (CountersRoots596.RetainGraph596(
+                source,
+                expected,
+                skipOwnedMagic576,
+                hostAtomics586
+            ) is { } counters)
+                retained[count++] = counters;
+            if (RetainNativeGraph524(source, expected, skipOwnedMagic576) is { } native)
+                retained[count++] = native;
+            if (count == 0)
+                return null;
+            if (count == 1)
+                return retained[0];
 
-            return new NativeResourceRootSet524([atomics, native]);
+            return new NativeResourceRootSet524(retained[..count]);
         }
         catch (Exception original)
         {
-            Exception? nativeFailure = null;
-            Exception? atomicsFailure = null;
-            try
-            {
-                native?.Dispose();
-            }
-            catch (Exception error)
-            {
-                nativeFailure = error;
-            }
-            try
-            {
-                atomics?.Dispose();
-            }
-            catch (Exception error)
-            {
-                atomicsFailure = error;
-            }
-            if (nativeFailure is not null && atomicsFailure is not null)
-                throw new AggregateException(original, nativeFailure, atomicsFailure);
-            if (nativeFailure is not null || atomicsFailure is not null)
-                throw new AggregateException(original, nativeFailure ?? atomicsFailure!);
+            // Independent typed acquisitions are rolled back without callback under a registry gate.
+            Exception? firstCleanup = null, secondCleanup = null, thirdCleanup = null;
+            for (int index = count - 1; index >= 0; index--)
+                try
+                {
+                    retained[index].Dispose();
+                }
+                catch (Exception failure)
+                {
+                    if (firstCleanup is null) firstCleanup = failure;
+                    else if (secondCleanup is null) secondCleanup = failure;
+                    else thirdCleanup = failure;
+                }
+            if (thirdCleanup is not null)
+                throw new AggregateException(
+                    original,
+                    firstCleanup!,
+                    secondCleanup!,
+                    thirdCleanup
+                );
+            if (secondCleanup is not null)
+                throw new AggregateException(original, firstCleanup!, secondCleanup);
+            if (firstCleanup is not null)
+                throw new AggregateException(original, firstCleanup);
             throw;
         }
     }

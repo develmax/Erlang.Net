@@ -113,7 +113,7 @@ internal static class PersistentArenaCodec416
                 cancellation
             ) : null;
         var decoded = new Dictionary<ulong, Term>();
-        var admittedHosts591 = new List<AtomicsHostCustody586>();
+        var admittedHosts591 = new List<IDisposable>();
         try
         {
             while (input.Position < input.Length)
@@ -157,8 +157,10 @@ internal static class PersistentArenaCodec416
                     PersistentArenaKind416.Function when length == 0 && offheap is not null => Function(offheap, values, auxiliary),
                     _ => throw new InvalidDataException(PersistentArenaNames416.Invalid)
                 };
-                if (escaping?.Contains(position) == true
-                    && value is ResourceReferenceTerm { ResourceKind: ReferenceResourceKind.Atomics413, AtomicsHost586: { } host })
+                IDisposable? host = value is ResourceReferenceTerm { ResourceKind: ReferenceResourceKind.Atomics413, AtomicsHost586: { } atomicsHost }
+                    ? atomicsHost : value is ResourceReferenceTerm { ResourceKind: ReferenceResourceKind.Counters421, CountersHost596: { } countersHost }
+                    ? countersHost : null;
+                if (escaping?.Contains(position) == true && host is not null)
                 {
                     try
                     {
@@ -188,7 +190,7 @@ internal static class PersistentArenaCodec416
             Exception? cleanupFailure = null;
             // A later malformed node/admission failure must not leave hidden
             // finalizable host carriers created by earlier selected leaves.
-            foreach (AtomicsHostCustody586 host in admittedHosts591)
+            foreach (IDisposable host in admittedHosts591)
                 try
                 {
                     host.Dispose();

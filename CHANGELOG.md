@@ -156,4 +156,4 @@ Append numbered English entries only to the last volume. Start the next sequenti
 
 - [0091.md](docs/changelog/0091.md) — Parts524,526–531 and dated Part523 CI correction (closed)
 
-- [0092.md](docs/changelog/0092.md) — Parts532–533 (active)
+- [0092.md](docs/changelog/0092.md) — Parts532–534 (active)

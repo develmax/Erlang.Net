@@ -5,7 +5,7 @@ This document is a plan, not implementation or passing evidence. Baseline: 708 r
 
 ## Current progress — 2026-10-29
 
-Part532 is merged and green; Part533 local final acceptance is9294/9294 (+31), with actual original-backed Source/BEAM send lifetime, protected snapshots, both real native loaders, and scheduler-independent physical retirement. Current-head CI/review/delivery are recorded in its PR. These finite P1/P2a/P4 foundations close zero of the24 whole API contracts. Canonical708/180/504/24 remain.
+Part533 is merged into main f9951a0af after exact-head green CI40786318744,9294/9294 and clean completed review. Part534 adds counters backing/custody and synchronous initializer admission closure without a per-process global drain join. Final local affected54/54 and genuine original counters610 ordinary/private2/2 pass with complete value/error/stack protocol and physical cleanup (x64 OPT,1 normal scheduler). Required final-head CI/review/publication remain separate. Next: regex then binary/match-program producer custody, followed by general roots and physical policy/accounting. These finite P1/P2/P4 foundations close zero of the24 whole API contracts. Canonical708/180/504/24 remain. See [checkpoint534](checkpoint-534.md).
 
 ## Delivered foundation
 

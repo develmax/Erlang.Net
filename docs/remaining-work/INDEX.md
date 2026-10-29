@@ -1,6 +1,10 @@
 # Remaining work
 
-## Current checkpoint524
+## Current checkpoint534
+
+See [checkpoint534](checkpoint-534.md): final local affected54/54 and fresh original counters610 ordinary/private2/2 pass, with complete values/errors/stacks under the declared six-reference protocol and real physical cleanup. All19 new groups are included. Final-head CI/review/publication remain pending; the required workflow now runs the matching OPT counters comparison. Part533 is merged after green CI9294/9294 and clean review. Canonical708 registered /180 full /504 pending /24 known differences; deltas0/0. Next: regex/binary/match-program producers, general roots and physical policy accounting. [Detailed24-contract plan](plan-24-after-530.md).
+
+## Prior checkpoint524
 
 See [checkpoint524](checkpoint-524.md): actual bignum slab storage and corrected nested immediate transfer;428/428 development affected controls pass. Publication408/408 +1readiness, original bignum2/2 +float2/2 +native4/4 and source seals pass; exact publication-head CI remains required. Counts unchanged708/180full/504pending/24known.
 

@@ -31,9 +31,17 @@ internal sealed unsafe partial class CountersArray421
         this.lanes = lanes;
         memory = (nint)pointer;
         var header = (CountersMagicHeader421*)pointer;
+        header->Flags = NativeResourceMagic527.Magic;
+        header->ApparentSize = checked((nuint)(AllocatedBytes - CountersLayout591Names.MagicDataOffset));
+        header->OriginalSize = checked((nuint)(AllocatedBytes - CountersLayout591Names.BinaryPrefixBytes));
+        // Producer is provisional; actual guest headers/host carriers own the refcount.
+        header->ReferenceCount = 0;
         header->Destructor = DestructorAddress;
         header->AllocationKind = CountersNames421.AllocationKind;
         header->Length = length;
+#if DEBUG
+        header->CacheLineCount591 = lines;
+#endif
     }
 
     internal void BindIdentity(IReadOnlyList<uint> words)
@@ -46,6 +54,7 @@ internal sealed unsafe partial class CountersArray421
             header->Reference0 = words[0];
             header->Reference1 = words[1];
             header->Reference2 = words[2];
+            identityBound596 = true;
         }
     }
 
@@ -53,9 +62,12 @@ internal sealed unsafe partial class CountersArray421
     {
         lock (gate)
         {
-            if (closed) return null;
+            if (closed || retirementScheduled596) return null;
             var header = (CountersMagicHeader421*)memory;
-            if (header->Destructor != DestructorAddress || header->AllocationKind != CountersNames421.AllocationKind)
+            if (header->Flags != NativeResourceMagic527.Magic || header->Destructor != DestructorAddress
+                || header->AllocationKind != CountersNames421.AllocationKind
+                || header->OriginalSize != (nuint)(AllocatedBytes - CountersLayout591Names.BinaryPrefixBytes)
+                || header->ApparentSize != (nuint)(AllocatedBytes - CountersLayout591Names.MagicDataOffset))
                 throw new InvalidOperationException(CountersNames421.Destructor);
             var lease = new CountersArrayLease421(this);
             active = checked(active + 1);
@@ -66,16 +78,21 @@ internal sealed unsafe partial class CountersArray421
 
     internal void Release()
     {
+        RuntimeCountersOwner421? retire;
         lock (gate)
         {
             if (--active < 0) throw new InvalidOperationException(CountersNames421.Underflow);
             if (active == 0) Monitor.PulseAll(gate);
+            retire = ScheduleIfUnowned596();
         }
+        retire?.EnqueueRetirement596(this);
     }
 
     // Only an actual array lease may use this pointer. Close waits those leases before destroying it.
     private CountersMagicHeader421* Header => (CountersMagicHeader421*)memory;
     internal ulong Length => Header->Length;
+    // An actual array lease is required, as for Length and Cell.
+    internal ulong OriginalSize591 => checked((ulong)Header->OriginalSize);
 
     internal int Lanes => lanes;
 
@@ -102,7 +119,8 @@ internal sealed unsafe partial class CountersArray421
                 return;
             }
             closed = true;
-            while (active != 0) Monitor.Wait(gate);
+            // VM physical close follows root retirement, outside Runtime.gate.
+            while (active != 0 || producers596 != 0 || guestRoots596 != 0) Monitor.Wait(gate);
             retired = memory;
             memory = 0;
         }
@@ -135,6 +153,8 @@ internal sealed unsafe partial class CountersArray421
                 freed = true;
                 Monitor.PulseAll(gate);
             }
+            if (failure is null) retired596.TrySetResult();
+            else retired596.TrySetException(failure);
         }
     }
 

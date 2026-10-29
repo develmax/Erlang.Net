@@ -251,7 +251,10 @@ public sealed partial class ModuleRegistry
                         signature.Arity,
                         out ErlangFunction counters
                     ))
+                {
                     primitives.Add((function.Name, function.Arity), counters);
+                    if (owned507 is not null) owned507[counters] = OwnedBindingKind507.RuntimeRead535;
+                }
                 else if (!functions.ContainsKey(signature) && !sourceOwners.ContainsKey(signature)
                     && AtomicsNative413.TryCapture(
                         owningRuntime,

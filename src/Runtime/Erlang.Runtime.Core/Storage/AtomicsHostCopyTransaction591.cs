@@ -4,7 +4,7 @@ namespace Erlang;
 // lazy rollback scope and commit directly to their returned wrapper carriers.
 internal sealed class AtomicsHostCopyTransaction591 : IDisposable
 {
-    private readonly List<AtomicsHostCustody586> leases = new();
+    private readonly List<IDisposable> leases = new();
     private readonly List<Exception> failures = new();
     private bool transferred;
 
@@ -15,6 +15,8 @@ internal sealed class AtomicsHostCopyTransaction591 : IDisposable
     }
 
     internal void TrackPrepared591(AtomicsHostCustody586 lease) => leases.Add(lease);
+
+    internal void TrackCountersPrepared596(CountersHostCustody596 lease) => leases.Add(lease);
 
     internal IDisposable Commit591()
     {

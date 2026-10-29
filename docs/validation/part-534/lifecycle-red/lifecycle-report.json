@@ -1,0 +1,25 @@
+{
+  "Partial": true,
+  "SelectedCount": 2,
+  "TotalCount": 9313,
+  "Blocks": [],
+  "ExactCases": [
+    "runtime/counters603/initializer-done-before-global-drain",
+    "runtime/counters603/ordinary-owner-exit-preserves-independent-live-heap"
+  ],
+  "Passed": 1,
+  "Failed": 1,
+  "Tests": [
+    {
+      "Name": "runtime/counters603/initializer-done-before-global-drain",
+      "Status": "Failed",
+      "Error": "System.AggregateException: Counters exit control and cleanup failed. (The operation has timed out.) (The operation has timed out.)\r\n ---\u003E System.TimeoutException: The operation has timed out.\r\n   at Erlang.Tests.CountersExit603Checks.InitializerDoneBeforeGlobalDrain() in D:\\Distr\\Work\\Codex\\Erlang.Net\\w504\\tests\\Erlang.Tests\\Runtime\\Storage\\Counters\\CountersExit603Checks.cs:line 64\r\n   --- End of inner exception stack trace ---\r\n   at Erlang.Tests.CountersExit603Checks.Throw(List\u00601 failures) in D:\\Distr\\Work\\Codex\\Erlang.Net\\w504\\tests\\Erlang.Tests\\Runtime\\Storage\\Counters\\CountersExit603Checks.cs:line 193\r\n   at Erlang.Tests.CountersExit603Checks.InitializerDoneBeforeGlobalDrain() in D:\\Distr\\Work\\Codex\\Erlang.Net\\w504\\tests\\Erlang.Tests\\Runtime\\Storage\\Counters\\CountersExit603Checks.cs:line 90\r\n   at Program.\u003CMain\u003E$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\w504\\tests\\Erlang.Tests\\Harness\\Program.cs:line 7616\r\n ---\u003E (Inner Exception #1) System.TimeoutException: The operation has timed out.\r\n   at Erlang.Tests.RuntimeNodeFoundationHostActor.InvokeAsync[T](Func\u00602 command) in D:\\Distr\\Work\\Codex\\Erlang.Net\\w504\\tests\\Erlang.Tests\\Runtime\\Execution\\RuntimeNodeFoundationHostActor.cs:line 51\r\n   at Erlang.Tests.CountersExit603Checks.\u003C\u003Ec__DisplayClass0_0.\u003C\u003CInitializerDoneBeforeGlobalDrain\u003Eb__0\u003Ed.MoveNext() in D:\\Distr\\Work\\Codex\\Erlang.Net\\w504\\tests\\Erlang.Tests\\Runtime\\Storage\\Counters\\CountersExit603Checks.cs:line 83\r\n--- End of stack trace from previous location ---\r\n   at Erlang.Tests.CountersExit603Checks.Cleanup(Func\u00601 operation, List\u00601 failures) in D:\\Distr\\Work\\Codex\\Erlang.Net\\w504\\tests\\Erlang.Tests\\Runtime\\Storage\\Counters\\CountersExit603Checks.cs:line 178\u003C---\r\n",
+      "Milliseconds": 10139
+    },
+    {
+      "Name": "runtime/counters603/ordinary-owner-exit-preserves-independent-live-heap",
+      "Status": "Passed",
+      "Milliseconds": 13
+    }
+  ]
+}

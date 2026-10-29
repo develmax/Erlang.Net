@@ -7,6 +7,33 @@ using Erlang;
 using Erlang.Compiler;
 using Erlang.Otp;
 
+if (args is [Erlang.Tests.OriginalCounters610Names.ChildSwitch, var countersRepository610,
+    var countersAdmission610, var countersAdmissionSha610, var countersMetadata610, var countersMetadataSha610,
+    var countersOwned610, var countersOutput610])
+{
+    try
+    {
+        await Erlang.Tests.OriginalReference563Replay.RunCounters610(
+            countersRepository610,
+            countersAdmission610,
+            countersAdmissionSha610,
+            countersMetadata610,
+            countersMetadataSha610,
+            bool.Parse(countersOwned610),
+            countersOutput610
+        );
+
+        return 0;
+    }
+    catch (Exception error)
+    {
+        Console.Error.WriteLine(error);
+
+        return 1;
+    }
+}
+
+
 if (args is [Erlang.Tests.AtomicsInternalSend593Names.ChildSwitch, var send593Repository,
     var send593Admission, var send593AdmissionSha, var send593Metadata, var send593MetadataSha,
     var send593Beam])
@@ -7562,6 +7589,41 @@ try
     );
     Test(Erlang.Tests.ReviewFollowup498Names.ParserTest, Erlang.Tests.ReviewFollowup498Checks.ParserHostArguments);
     Test(Erlang.Tests.ReviewFollowup498Names.MapTest, Erlang.Tests.ReviewFollowup498Checks.ImportedFlatMaps);
+
+    Test(
+        Erlang.Tests.CountersCustody596Names.GuestTest,
+        Erlang.Tests.CountersCustody596Checks.GuestRetirementIgnoresStaleClrEntry
+    );
+    Test(Erlang.Tests.CountersCustody596Names.PinTest, Erlang.Tests.CountersCustody596Checks.ActivePinOutlivesLastGuestRoot);
+    Test(Erlang.Tests.CountersCustody596Names.HostTest, Erlang.Tests.CountersCustody596Checks.HostCustodyIndependentOfGuest);
+    Test(Erlang.Tests.CountersMagic596Names.PhysicalTest, Erlang.Tests.CountersMagic596Checks.PhysicalHeaders);
+    Test(Erlang.Tests.CountersMagic596Names.GenerationsTest, Erlang.Tests.CountersMagic596Checks.Generations);
+    Test(Erlang.Tests.CountersMagic596Names.ForeignTest, Erlang.Tests.CountersMagic596Checks.ForeignBeforeStale);
+    Test(Erlang.Tests.CountersStore596Names.SendCase, Erlang.Tests.CountersStore596Checks.QueueHandoff);
+    Test(Erlang.Tests.CountersStore596Names.EtsCase, Erlang.Tests.CountersStore596Checks.EtsHandoff);
+    Test(Erlang.Tests.CountersStore596Names.PersistentCase, Erlang.Tests.CountersStore596Checks.PersistentHandoff);
+    Test(
+        Erlang.Tests.CountersDictionary596Names.GetterCase,
+        Erlang.Tests.CountersDictionary596Checks.GetterSurvivesEraseAndCollection
+    );
+    Test(
+        Erlang.Tests.CountersDictionary596Names.SnapshotCase,
+        Erlang.Tests.CountersDictionary596Checks.SnapshotSurvivesEraseAndCollection
+    );
+    Test(Erlang.Tests.CountersNative596Names.Case, Erlang.Tests.CountersNative596Checks.RealNativeFamily);
+    Test(Erlang.Tests.CountersCapability596Names.Case, Erlang.Tests.CountersCapability596Checks.ExactPublicationAuthority);
+    Test(
+        Erlang.Tests.CountersExportRollback596Names.RollbackCase,
+        Erlang.Tests.CountersExportRollback596Checks.LateFailureReleasesActualBacking
+    );
+    Test(
+        Erlang.Tests.CountersExportRollback596Names.CommitCase,
+        Erlang.Tests.CountersExportRollback596Checks.SuccessfulCopyTransfersToWrappers
+    );
+    Test(Erlang.Tests.CountersPrefix591Names.PrefixCase, Erlang.Tests.CountersPrefix591Checks.ActualPrefix);
+    Test(Erlang.Tests.CountersPrefix591Names.GeometryCase, Erlang.Tests.CountersPrefix591Checks.ActualLaneGeometry);
+    Test(Erlang.Tests.CountersExit603Names.InitializerTest, Erlang.Tests.CountersExit603Checks.InitializerDoneBeforeGlobalDrain);
+    Test(Erlang.Tests.CountersExit603Names.OrdinaryTest, Erlang.Tests.CountersExit603Checks.OrdinaryExitPreservesIndependentHeap);
 
     var catalog = Erlang.Tests.TestRunCatalog.Create(tests.Select(test => test.Name));
     selectedTests = selection.Select(tests, catalog);

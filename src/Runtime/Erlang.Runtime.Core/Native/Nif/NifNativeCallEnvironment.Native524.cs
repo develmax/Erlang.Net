@@ -7,7 +7,7 @@ internal sealed unsafe partial class NifNativeCallEnvironment
 
     private void RetainNativeValue524(NifNativeTermValue value)
     {
-        if (!NativeResourceAddresses524.AnyLive524 && Runtime.AtomicsStorage413.LiveArrays == 0)
+        if (!NativeResourceAddresses524.AnyLive524 && Runtime.AtomicsStorage413.LiveArrays == 0 && Runtime.CountersStorage421.LiveArrays == 0)
             return;
         var seen = new HashSet<NifNativeTermNode>(ReferenceEqualityComparer.Instance);
         var pending = new Stack<NifNativeTermValue>();
