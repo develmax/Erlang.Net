@@ -9,6 +9,7 @@ public sealed class ResourceReferenceTerm : ReferenceTerm, IReferenceResourceSer
         AtomicsBacking586 = ReadAtomicsBacking586(entry);
         CountersBacking596 = ReadCountersBacking596(entry);
         RegexBacking597 = ReadRegexBacking597(entry);
+        BinaryBacking598 = ReadBinaryBacking598(entry);
     }
 
     internal ResourceReferenceTerm(ReferenceResourceEntry entry, ProcessTermSequence506 storage)
@@ -18,6 +19,7 @@ public sealed class ResourceReferenceTerm : ReferenceTerm, IReferenceResourceSer
         AtomicsBacking586 = ReadAtomicsBacking586(entry);
         RegexBacking597 = ReadRegexBacking597(entry);
         CountersBacking596 = ReadCountersBacking596(entry);
+        BinaryBacking598 = ReadBinaryBacking598(entry);
     }
 
     internal ResourceReferenceTerm(ReferenceResourceEntry entry, ReferenceTerm portableIdentity)
@@ -27,6 +29,7 @@ public sealed class ResourceReferenceTerm : ReferenceTerm, IReferenceResourceSer
         AtomicsBacking586 = ReadAtomicsBacking586(entry);
         CountersBacking596 = ReadCountersBacking596(entry);
         RegexBacking597 = ReadRegexBacking597(entry);
+        BinaryBacking598 = ReadBinaryBacking598(entry);
     }
 
     internal ReferenceResourceEntry Entry { get; }
@@ -64,6 +67,18 @@ public sealed class ResourceReferenceTerm : ReferenceTerm, IReferenceResourceSer
 
     private static CountersGuestRoot421? ReadCountersBacking596(ReferenceResourceEntry entry)
         => entry.Kind == ReferenceResourceKind.Counters421 ? entry.Read<CountersGuestRoot421>() : null;
+
+    internal BinaryProgramBacking598? BinaryBacking598 { get; }
+    internal BinaryProgramHost598? BinaryHost598 { get; }
+
+    internal ResourceReferenceTerm(ReferenceResourceEntry entry, ReferenceTerm identity, BinaryProgramHost598 host)
+        : this(entry, identity)
+    {
+        BinaryHost598 = host;
+    }
+
+    private static BinaryProgramBacking598? ReadBinaryBacking598(ReferenceResourceEntry entry)
+        => entry.Kind == ReferenceResourceKind.BinarySearchPattern ? entry.Read<BinarySearchPattern>().Backing598 : null;
 
     public ReferenceResourceKind ResourceKind => Entry.Kind;
 

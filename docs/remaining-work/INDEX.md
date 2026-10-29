@@ -1,6 +1,12 @@
 # Remaining work
 
-## Current checkpoint535
+## Current checkpoint536
+
+Actual native BM/AC binary programs and typed custody pass final Release94/94 and Debug94/94 on identical names. Prepared16-byte ACTrie source-layout defect was caught by a meaningful actual physical RED, corrected to pinned normal-x64 SIMD40 with first16 root bytes/cap17, and final controls pass. Fresh original6192/2 yields564 complete outcomes; direct paired whole bytes equal BOTH actual final profiles, preserving all value/error/stack fields. Public former-delegate authority remainsOpaque and deliberately lacks genuine native formatter metadata. [Checkpoint536](checkpoint-536.md) · [Evidence](../validation/part-536/README.md) · [English0093](../changelog/0093.md).
+
+Counts708/180/504/24, deltas0/0. Exact-head CI/review/merge remain gates. Full restart, native match-spec resources and general roots/policy accounting remain open; prepared packets grant no implementation credit.
+
+## Prior checkpoint535
 
 Compiled regex custody/lifecycle597/599, regex-only storage600 and foreign-engine605 correction pass final Release77/77 and Debug77/77 on identical selected names. Fresh original5/5 covers524 complete outcomes; direct final Debug pairing compares all five whole raw streams and preserves complete error stacks. Final Release77 is separate executed evidence, with retained GUID direct348; overwritten fixed-path Release485 bytes are not claimed. Meaningful one-await scheduler RED and restored final GREEN are retained. [Checkpoint535](checkpoint-535.md) · [Evidence](../validation/part-535/README.md) · [English log](../changelog/0093.md).
 

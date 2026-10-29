@@ -88,6 +88,10 @@ internal static class DebugDirtyTermCopy424
                 _ = CountersRoots596.Direct596(counters, runtime);
 
                 return CountersRoots596.HostCopy596(counters, transaction);
+            case ResourceReferenceTerm { ResourceKind: ReferenceResourceKind.BinarySearchPattern } program:
+                _ = BinaryProgramRoots598.Direct598(program, runtime);
+
+                return BinaryProgramRoots598.HostCopy598(program, transaction);
             case ResourceReferenceTerm { ResourceKind: ReferenceResourceKind.Regex411 } regex:
                 _ = ReMagicRoots597.Direct597(regex, runtime);
 

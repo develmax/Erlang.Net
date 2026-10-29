@@ -7632,6 +7632,13 @@ try
     Test(Erlang.Tests.CountersPublic611Names.InfoSingleCase, Erlang.Tests.CountersPublic611Checks.InfoSingleHost);
     Test(Erlang.Tests.CountersPublic611Names.InfoFullCase, Erlang.Tests.CountersPublic611Checks.InfoFullHost);
     Test(Erlang.Tests.CountersPublic611Names.InfoListCase, Erlang.Tests.CountersPublic611Checks.InfoListHost);
+    Test(Erlang.Tests.BinarySearchAuthority621Names.Test, Erlang.Tests.BinarySearchAuthority621Checks.Run);
+    Test(Erlang.Tests.BinaryArena598Names.PhysicalCase, Erlang.Tests.BinaryArena598Checks.Physical);
+    Test(Erlang.Tests.BinaryArena598Names.ActiveCase, Erlang.Tests.BinaryArena598Checks.Active);
+    Test(Erlang.Tests.BinaryArena598Names.HostCase, Erlang.Tests.BinaryArena598Checks.HostReservation);
+    Test(Erlang.Tests.BinaryStore536Names.BinaryEtsCase, Erlang.Tests.BinaryStore536Checks.BinaryEts);
+    Test(Erlang.Tests.BinaryStore536Names.BinaryPersistentCase, Erlang.Tests.BinaryStore536Checks.BinaryPersistent);
+    Test(Erlang.Tests.BinaryArena598Names.AcRootCase, Erlang.Tests.BinaryArena598Checks.AcRootMetadata);
     Test(Erlang.Tests.RegexCustody597Names.PhysicalCase, Erlang.Tests.RegexCustody597Checks.Physical);
     Test(Erlang.Tests.RegexCustody597Names.GenerationsCase, Erlang.Tests.RegexCustody597Checks.Generations);
     Test(Erlang.Tests.RegexCustody597Names.CompileImportCase, Erlang.Tests.RegexCustody597Checks.CompileImport);

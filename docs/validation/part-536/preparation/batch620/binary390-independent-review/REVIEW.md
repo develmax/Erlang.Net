@@ -1,0 +1,9 @@
+# Binary390 retained-streams620 independent source review
+
+Verified parent manifest5FB92BA45972F9FCF6211F70F2D618D98389712E63D397EDCFD7F470EC1CBF37, every supporting/payload hash and both actual w536 preimages. No VM/build/native/Git/CI/source mutation performed.
+
+One concrete cleanup defect: LibraryBinaryHostChecks.cs19–23 creates the runtime, then hashes its assembly before entering try/finally24. If that file read/hash fails, the newly created runtime bypasses the only disposal finally. Old code used await using immediately upon creation. The guarded optional hunk moves the identical SHA acquisition before runtime creation, preserving the actual executing file identity without creating an unprotected runtime. It is based on exact620 afterimage SHA, so apply only after620 under sole owner, never overwrite a changed file.
+
+No further concrete blocker in requested scope. Both actual full streams are encoded/written before equality assertions; a route failure is retained and the second independent route still executes. Raw whole bytes and typed whole terms both remain required. Original binary/lists backend/input-image/current-image/source-owner/native22 checks remain; observer input is hash-verified. Cleanup uses actual owner fields/backings, joins actual Dispose, and asserts owner closed/live-empty/active-build-zero/no failure plus physical free for every observed live backing. Zero observed live backings is honestly recorded, not converted into fake cumulative counts. Failures in actor cleanup, runtime disposal, inspection, capture or receipt writing remain test failures.
+
+Fixed94/470 row counts describe immutable hash-bound whole goldens; they are not a new count-only comparator. Final owner must execute and directly compare retained actual files to fresh original five/specific binary streams using exact child windows and executing runtime SHA. No family certification or compatibility credit follows from this static review.

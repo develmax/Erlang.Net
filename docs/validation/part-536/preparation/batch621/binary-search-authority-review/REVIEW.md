@@ -1,0 +1,11 @@
+# Binary search621 authority control bounded source review
+
+Verified packet/supporting hashes. No concrete semantic authority, namespace-collision or cleanup blocker found in this source-only review. Run constant is explicitly qualified at its use; method names/imports do not supply a hidden trust path. No compilation or execution claimed.
+
+Genuine phase prepares/publishes hash-bound original binary/lists images; asserts exact binary image SHA,22 native primitives and exact SourceOwner for every binary export. All seven specified delegate identities must be captured in the prepared execution identity with RuntimeRead535 before the actual unchanged compiled fixture runs. That fixture invokes compile_pattern/1,match/2,3,matches/2,3,split/2,3, ETF resource roundtrip and caller-error metadata. Metadata checks cannot vacuously pass over an empty signature set.
+
+Replacement phase removes binary and public-registers the EXACT formerly captured seven native bodies. It explicitly asserts no SourceOwner and SelectedOwnedBinding507 Opaque for every exact body, then executes the same fixture again. No capability field is modified, no namespace-only surrogate or synthetic registration creates authority. Typed Host custody through a public opaque body is allowed by design; the test does not demand an unrelated native524 HostScope refusal. It is a metadata/body-identity-plus-subject finite witness, not per-instruction instrumentation or seven whole-contract certification.
+
+Generated artifact, runtime and actor are scoped for cleanup on failure; actor retires before runtime disposal and artifact unload. Actual final execution/physical lifecycle remains owner evidence, not a passing claim here.
+
+One provenance metadata drift: source-authority.json still lists pre620 LibraryBinaryHostChecks F6DA..., while corrected/formatted current file is4CFFA929298DC15F36858C4CCB8C82DB3F35E2EC9D91EECF371379A9B5A8F22F. Its private digest-verifying Read seam is retained; exact overall file authority must be explicitly amended instead of claiming every old source seal still matches. Other listed authority files/fixture match. This is not a reason to weaken original-image/canonical/public assertions.

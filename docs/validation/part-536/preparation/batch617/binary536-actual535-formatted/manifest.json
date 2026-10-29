@@ -1,0 +1,983 @@
+{
+  "State": "FROZEN_BINARY536_REBASED_ACTUAL535_FORMATTED_SOURCE_ONLY",
+  "SourceOnly": true,
+  "SealedSourceOnly": true,
+  "CompilePending": true,
+  "ApplyReady": false,
+  "SourceAuthority": "w518repair actual535 source per-file exact guards over53470eb6b1d",
+  "ParentManifestSha256": "EE4091C53C18DA2F55B0B1DA4FE4F01566846CE147D439A7563D049807CC562D",
+  "Actual535CommitSha": null,
+  "RequiredIntegrationOrder": "Commit535 and handoff first; only then sole owner may apply after exact guard verification.",
+  "Builds": 0,
+  "VmExecutions": 0,
+  "ActiveSourceMutations": 0,
+  "GitOperations": 0,
+  "CiOperations": 0,
+  "ApiDelta": 0,
+  "FullContractDelta": 0,
+  "ProductionTargets": 42,
+  "TestFiles": 7,
+  "NewTestGroups": 5,
+  "ModifiedExistingTestGroups": 1,
+  "WorkloadManifestSha256": "DA54A1F130B103E32AB810AAC97A0880E9E03BBCBB5C5122B5ED143FB4E467B4",
+  "ActualWorkloadCheckpointObserved": false,
+  "Targets": [
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Diagnostics/Debug/DebugDirtyTermCopy424.cs",
+      "MustBeAbsent": false,
+      "BeforeSha256": "0A86BD66046769E2E7DA5EAB05178FDEB43E54C02B0699722303DBEEE5F56B30",
+      "AfterSha256": "EE2470C79A9BDD538C2A62C6260EF3A0D55B36AF69BEA888F915915051B4F2DE",
+      "Payload": "staged-tree/src/Runtime/Erlang.Runtime.Core/Diagnostics/Debug/DebugDirtyTermCopy424.cs"
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeCallEnvironment.OwnedRoots516.cs",
+      "MustBeAbsent": false,
+      "BeforeSha256": "AA199AC766E1EA62584FD99083A34269E4CE3306922E44C16A02CC29CFE4798C",
+      "AfterSha256": "4792E4BDBC62196A0698AF214A415BB8008598D37D014FB5DCABED0184D0B77C",
+      "Payload": "staged-tree/src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeCallEnvironment.OwnedRoots516.cs"
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Resources/NativeResourceRoots524.cs",
+      "MustBeAbsent": false,
+      "BeforeSha256": "1C04A820B1E4DF25EC219934F21FAA5D46BEFBD13B95B602EFDD94A25F91B428",
+      "AfterSha256": "E37F087662813926054FB48470E818F21A3B2811F736F4C2FFA2D41BDFDEB074",
+      "Payload": "staged-tree/src/Runtime/Erlang.Runtime.Core/Native/Resources/NativeResourceRoots524.cs"
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Primitives/Binary/BinaryAcNode598.cs",
+      "MustBeAbsent": true,
+      "BeforeSha256": null,
+      "AfterSha256": "449265F601DFDECF7DE9C52000555C3F0A58FFEB73D4891FD4CB17D2C06645C6",
+      "Payload": "staged-tree/src/Runtime/Erlang.Runtime.Core/Primitives/Binary/BinaryAcNode598.cs"
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Primitives/Binary/BinaryAcTrie598.cs",
+      "MustBeAbsent": true,
+      "BeforeSha256": null,
+      "AfterSha256": "DAAE02C62741C8AAB1DFBFC273707F12620D36FD6E6D3B559A6C5B1928035366",
+      "Payload": "staged-tree/src/Runtime/Erlang.Runtime.Core/Primitives/Binary/BinaryAcTrie598.cs"
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Primitives/Binary/BinaryArenaCompiler598.cs",
+      "MustBeAbsent": true,
+      "BeforeSha256": null,
+      "AfterSha256": "3A689320889B6706A98CD6107279825A65DD8510DD956B17AA890DBE4627A24B",
+      "Payload": "staged-tree/src/Runtime/Erlang.Runtime.Core/Primitives/Binary/BinaryArenaCompiler598.cs"
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Primitives/Binary/BinaryArenaKind598.cs",
+      "MustBeAbsent": true,
+      "BeforeSha256": null,
+      "AfterSha256": "80E93CE3B70AF058C16BC5A381793680BFA6C49A6DD743556AA59CF483039692",
+      "Payload": "staged-tree/src/Runtime/Erlang.Runtime.Core/Primitives/Binary/BinaryArenaKind598.cs"
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Primitives/Binary/BinaryArenaNames598.cs",
+      "MustBeAbsent": true,
+      "BeforeSha256": null,
+      "AfterSha256": "67F5971703152995405B2FD5A618FFC2BB6E0944334C3035594A4D30992F35A9",
+      "Payload": "staged-tree/src/Runtime/Erlang.Runtime.Core/Primitives/Binary/BinaryArenaNames598.cs"
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Primitives/Binary/BinaryArenaReader598.cs",
+      "MustBeAbsent": true,
+      "BeforeSha256": null,
+      "AfterSha256": "95B6D95CE411F27972C65DA7B634F1BE35D36E650035E8FFFF15D2F80A5A680F",
+      "Payload": "staged-tree/src/Runtime/Erlang.Runtime.Core/Primitives/Binary/BinaryArenaReader598.cs"
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Primitives/Binary/BinaryArenaSearch598.cs",
+      "MustBeAbsent": true,
+      "BeforeSha256": null,
+      "AfterSha256": "F522C9FD3B47491043F97DF430CAE312525EF52015C25B2D7D2395B2DA4BD3A1",
+      "Payload": "staged-tree/src/Runtime/Erlang.Runtime.Core/Primitives/Binary/BinaryArenaSearch598.cs"
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Primitives/Binary/BinaryBmData598.cs",
+      "MustBeAbsent": true,
+      "BeforeSha256": null,
+      "AfterSha256": "927EC63830EF5F94522B859BD7575D4E0F13CB942274C25788DECBD4E9D857E1",
+      "Payload": "staged-tree/src/Runtime/Erlang.Runtime.Core/Primitives/Binary/BinaryBmData598.cs"
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Primitives/Binary/BinaryProgramArena598.cs",
+      "MustBeAbsent": true,
+      "BeforeSha256": null,
+      "AfterSha256": "4C5BECF5500F7E7340D84687203120ECF7D439961703F53BFE0F0ED372CAFF90",
+      "Payload": "staged-tree/src/Runtime/Erlang.Runtime.Core/Primitives/Binary/BinaryProgramArena598.cs"
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Primitives/Binary/BinaryProgramBacking598.cs",
+      "MustBeAbsent": true,
+      "BeforeSha256": null,
+      "AfterSha256": "33E4D5663A21365E53A78BC2214BBD195FAA63295D64A999A568FC846C63C090",
+      "Payload": "staged-tree/src/Runtime/Erlang.Runtime.Core/Primitives/Binary/BinaryProgramBacking598.cs"
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Primitives/Binary/BinaryProgramHost598.cs",
+      "MustBeAbsent": true,
+      "BeforeSha256": null,
+      "AfterSha256": "BD771ED2BCF287C63CFF5FE752E4FE62999192A0F5D28613CF3A085EDE6DAAB0",
+      "Payload": "staged-tree/src/Runtime/Erlang.Runtime.Core/Primitives/Binary/BinaryProgramHost598.cs"
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Primitives/Binary/BinaryProgramLease598.cs",
+      "MustBeAbsent": true,
+      "BeforeSha256": null,
+      "AfterSha256": "A7779F2513CB95652F840599BCC432C518690E8614B017B126B05AD91F653D2B",
+      "Payload": "staged-tree/src/Runtime/Erlang.Runtime.Core/Primitives/Binary/BinaryProgramLease598.cs"
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Primitives/Binary/BinaryProgramLeaseKind598.cs",
+      "MustBeAbsent": true,
+      "BeforeSha256": null,
+      "AfterSha256": "CDE0BA4220804D6BCAA326AFD31DF0BB03C7FA600BC819C7059BAE5E2DF733E9",
+      "Payload": "staged-tree/src/Runtime/Erlang.Runtime.Core/Primitives/Binary/BinaryProgramLeaseKind598.cs"
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Primitives/Binary/BinaryProgramOperation598.cs",
+      "MustBeAbsent": true,
+      "BeforeSha256": null,
+      "AfterSha256": "BD1EE2B0CD333E60E27A290078561240F71EE894E516E458A043CA028724F8DF",
+      "Payload": "staged-tree/src/Runtime/Erlang.Runtime.Core/Primitives/Binary/BinaryProgramOperation598.cs"
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Primitives/Binary/BinaryProgramOwner598.cs",
+      "MustBeAbsent": true,
+      "BeforeSha256": null,
+      "AfterSha256": "333224DE6984656BF60646209EE716666D1C396F977838475A6A52BD90188BD7",
+      "Payload": "staged-tree/src/Runtime/Erlang.Runtime.Core/Primitives/Binary/BinaryProgramOwner598.cs"
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Primitives/Binary/BinaryProgramRoots598.cs",
+      "MustBeAbsent": true,
+      "BeforeSha256": null,
+      "AfterSha256": "88118E6BADFC4C5CC3BCBAC65CADCB420268B47D9FFB7488D7B70F2558D9C3D2",
+      "Payload": "staged-tree/src/Runtime/Erlang.Runtime.Core/Primitives/Binary/BinaryProgramRoots598.cs"
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Primitives/Binary/BinaryScratchWords598.cs",
+      "MustBeAbsent": true,
+      "BeforeSha256": null,
+      "AfterSha256": "985547DF2E41FC0AA9B641187035EEF3781731F63F920D4F253DCDD583861C3B",
+      "Payload": "staged-tree/src/Runtime/Erlang.Runtime.Core/Primitives/Binary/BinaryScratchWords598.cs"
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Primitives/Binary/BinarySearchCompiler.cs",
+      "MustBeAbsent": false,
+      "BeforeSha256": "95F1545CA8C478097484E3FB40559DDAA704A6629CD177AD52C30954255DE113",
+      "AfterSha256": "A027DA13DA00460872DFB4D276604CA0B9DC569C6A42C7513FC535D54F2A8CBC",
+      "Payload": "staged-tree/src/Runtime/Erlang.Runtime.Core/Primitives/Binary/BinarySearchCompiler.cs"
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Primitives/Binary/BinarySearchExecution.cs",
+      "MustBeAbsent": false,
+      "BeforeSha256": "43E3BBF9B4912AAAE83C65DD23E78D9C22AA15C389A601CA6E839D674F5BA7D1",
+      "AfterSha256": "726C57CD618E4928BE25913076F66A2AA139C5D3A215D5D4C906ECCB071B412E",
+      "Payload": "staged-tree/src/Runtime/Erlang.Runtime.Core/Primitives/Binary/BinarySearchExecution.cs"
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Primitives/Binary/BinarySearchModule.cs",
+      "MustBeAbsent": false,
+      "BeforeSha256": "92FAB523398CAE7420E2FE4F33DF7ADB00246469222DFE3A07F66EAB0D4ACD89",
+      "AfterSha256": "B76E3C4AEF68B80BA6364E5F3724BAEBBCD2C5DC257964CAD218B9679DD685A6",
+      "Payload": "staged-tree/src/Runtime/Erlang.Runtime.Core/Primitives/Binary/BinarySearchModule.cs"
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Primitives/Binary/BinarySearchPattern.cs",
+      "MustBeAbsent": false,
+      "BeforeSha256": "941C8759FE2D239F74FEA1B948A7D18415EECE65484BE54C98D959BC4FCC5D2F",
+      "AfterSha256": "415BCC66A83A85A2732570B21E30A5F0F7EAEB2EF2417DB13D7E19EF98232C4B",
+      "Payload": "staged-tree/src/Runtime/Erlang.Runtime.Core/Primitives/Binary/BinarySearchPattern.cs"
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Primitives/Binary/BinarySearchPatternHandle.cs",
+      "MustBeAbsent": false,
+      "BeforeSha256": "989216083BD0BB43124B79BC1574D5F8434AB42712CFC793483F48B4A548B54B",
+      "AfterSha256": "70C03AB2D3A97364FD9B2B4340082953AD72E2B11DC3C6B262496934BEE48A70",
+      "Payload": "staged-tree/src/Runtime/Erlang.Runtime.Core/Primitives/Binary/BinarySearchPatternHandle.cs"
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Primitives/Binary/BinarySearchPatterns.cs",
+      "MustBeAbsent": false,
+      "BeforeSha256": "D89BFC538D8318D5FE50B3FE8404185577EE3671CA3C4E893FEA2D74EAEBD028",
+      "AfterSha256": "F0446E88D8B7BF54F76A1E04FDB37D40E3D3C9EEE778EF6D346A3FC32C58989E",
+      "Payload": "staged-tree/src/Runtime/Erlang.Runtime.Core/Primitives/Binary/BinarySearchPatterns.cs"
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Primitives/References/ResourceReferenceTerm.cs",
+      "MustBeAbsent": false,
+      "BeforeSha256": "87A398F64E18FAB70ACBB8108372722F40DC723C818AB2D4CD9EE56893A3E110",
+      "AfterSha256": "7AC27827818B99FBA7F783AE88D5B9B44EE65A7EE004EF10E88E74853DA21923",
+      "Payload": "staged-tree/src/Runtime/Erlang.Runtime.Core/Primitives/References/ResourceReferenceTerm.cs"
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.Binary598.cs",
+      "MustBeAbsent": true,
+      "BeforeSha256": null,
+      "AfterSha256": "4806333CEF6E0B8BA84941EC4364B8A3D0E8760ABF243E6CD2CDFBEC98C94469",
+      "Payload": "staged-tree/src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.Binary598.cs"
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.cs",
+      "MustBeAbsent": false,
+      "BeforeSha256": "41D594933F89E9972834703D3E13A54DD64E693FAA731656E2C8565A4164D178",
+      "AfterSha256": "3F4AA09D2C458E7602BE81C681A9690975730EEC3019A9B9CE4E7A37B9484EA0",
+      "Payload": "staged-tree/src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.cs"
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/NativeOffheapHeader576.cs",
+      "MustBeAbsent": false,
+      "BeforeSha256": "F45779FABDD4F660A7CFB0066B2201732A71E4F759D8BEF7D42161E008E45201",
+      "AfterSha256": "4C152950EC060CA33E49FA9CE4DAF65E90E660B85A4FD903AE68E5F17C33D073",
+      "Payload": "staged-tree/src/Runtime/Erlang.Runtime.Core/Processes/Memory/NativeOffheapHeader576.cs"
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/OwnedTermDetachedCopy506.cs",
+      "MustBeAbsent": false,
+      "BeforeSha256": "F431872A3C38A1D49A63B07F7BB0F028351B98897498B9BC4C8BC06A3E293672",
+      "AfterSha256": "18664F229FF6168EF644D7FF1159B134C6A478E7B0830612C6A1B97F32B2CF2E",
+      "Payload": "staged-tree/src/Runtime/Erlang.Runtime.Core/Processes/Memory/OwnedTermDetachedCopy506.cs"
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/OwnedTermInvocation.Binary598.cs",
+      "MustBeAbsent": true,
+      "BeforeSha256": null,
+      "AfterSha256": "9FF9F41B48779047030A7DC1C68DF5DD015F8917F2F06629988460E88FFC7B58",
+      "Payload": "staged-tree/src/Runtime/Erlang.Runtime.Core/Processes/Memory/OwnedTermInvocation.Binary598.cs"
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/OwnedTermInvocation.Native524.cs",
+      "MustBeAbsent": false,
+      "BeforeSha256": "DC67AFDA88FBF264C52B92DB72242F465FA7FA11CB1C925C8E7DC96C4D5C2A6C",
+      "AfterSha256": "643A6D039AD57D401EA141CE598276BF4CE0599C54367EBE980FABFE278C9F87",
+      "Payload": "staged-tree/src/Runtime/Erlang.Runtime.Core/Processes/Memory/OwnedTermInvocation.Native524.cs"
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessBinaryRegistry512.cs",
+      "MustBeAbsent": false,
+      "BeforeSha256": "AA6A4685DCEF1E83D86355899DDFC2879EF278DA81ECC13F25751F418EF27060",
+      "AfterSha256": "16AF28038FDC0D3FCD1CBF731B9061D09F91BBCBF9E55752D4B95ED134EA5281",
+      "Payload": "staged-tree/src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessBinaryRegistry512.cs"
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessTermHeap.Binary598.cs",
+      "MustBeAbsent": true,
+      "BeforeSha256": null,
+      "AfterSha256": "20320771FAB00F5BCC0E4E70A38C31E36BD1A1F6FBD634FCA355CA326B1C7441",
+      "Payload": "staged-tree/src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessTermHeap.Binary598.cs"
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessTermHeap.Magic576.cs",
+      "MustBeAbsent": false,
+      "BeforeSha256": "7CF394C9765F011EBEC0EE211D497A76178BBE55B62D59AC5427CBAEE68822BC",
+      "AfterSha256": "152225E59EF553057AF1B70E3094C95B98B5958B46544F882D199FD0E4B3E70F",
+      "Payload": "staged-tree/src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessTermHeap.Magic576.cs"
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ResourceHostCopy611.cs",
+      "MustBeAbsent": false,
+      "BeforeSha256": "6374A9E86C2F898039AB5AB419002BD7D84A3AB79120D6AD1D44327EAE249F2D",
+      "AfterSha256": "970AE2B3CBB1373ED9BA7044333FB4CF679E676EA6DC0EA6A7787590E3B2C316",
+      "Payload": "staged-tree/src/Runtime/Erlang.Runtime.Core/Processes/Memory/ResourceHostCopy611.cs"
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Services/RuntimeExternalTermReservation.cs",
+      "MustBeAbsent": false,
+      "BeforeSha256": "1C1A51E26FD8D36975F94D272ECA83F20B0DFA54A678B1BD61544A8A91F2E2FE",
+      "AfterSha256": "444A6336787B35F50AAD4A0D4CA587F18308E6B1D9C700CA9A06EA2E0C551258",
+      "Payload": "staged-tree/src/Runtime/Erlang.Runtime.Core/Services/RuntimeExternalTermReservation.cs"
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Services/RuntimeReferenceResources.BinarySearch.cs",
+      "MustBeAbsent": false,
+      "BeforeSha256": "2EED226FBC957F2CE6046476071CC42B8923181BC2A37AFE04A32C41A8CD78AE",
+      "AfterSha256": "006862099A60E448DD5C76572498A5AB2A3EE315A5116C9C0282ACE80FD695B3",
+      "Payload": "staged-tree/src/Runtime/Erlang.Runtime.Core/Services/RuntimeReferenceResources.BinarySearch.cs"
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Services/RuntimeReferenceResources.cs",
+      "MustBeAbsent": false,
+      "BeforeSha256": "7710F4A134CC985F2D56D37883A7C3224B7684FA54CC6812995779C0C6B54E6D",
+      "AfterSha256": "CD377EA0AF91E486A8B171B2D804ED9676747F5C6FDCD8836E025C378A0E5B70",
+      "Payload": "staged-tree/src/Runtime/Erlang.Runtime.Core/Services/RuntimeReferenceResources.cs"
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Storage/AtomicsHostCopyTransaction591.cs",
+      "MustBeAbsent": false,
+      "BeforeSha256": "0453EF68CD2C8B33B5D7D3F7044912F0290DE66A6ECE905AC5A50A6D51E6CBF2",
+      "AfterSha256": "064D870DE65C59B545E27028A718E90DAE84A467212CA74D54063519A2A01202",
+      "Payload": "staged-tree/src/Runtime/Erlang.Runtime.Core/Storage/AtomicsHostCopyTransaction591.cs"
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Storage/PersistentArenaCodec416.cs",
+      "MustBeAbsent": false,
+      "BeforeSha256": "85AF472A7CDB71AD19CADE2C6ABFA626B6780D901425FB0E60A6438B669873EB",
+      "AfterSha256": "74FDC97C0CE1E3E480C6144238BAA2435601DF8D8C3DC8F4A4191952676DCF73",
+      "Payload": "staged-tree/src/Runtime/Erlang.Runtime.Core/Storage/PersistentArenaCodec416.cs"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Otp/Stdlib/Binary/BinaryArena598Checks.cs",
+      "MustBeAbsent": true,
+      "BeforeSha256": null,
+      "AfterSha256": "73C7EB42FE028978A6833C98BFAA4C878E216E213A1270E2F8319B02F6D8D55B",
+      "Payload": "staged-tree/tests/Erlang.Tests/Otp/Stdlib/Binary/BinaryArena598Checks.cs"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Otp/Stdlib/Binary/BinaryArena598Fixture.cs",
+      "MustBeAbsent": true,
+      "BeforeSha256": null,
+      "AfterSha256": "0EC77D44E5C67549B9B156C8600A6C553AEA8BF75759686F649AF2CB3D46D426",
+      "Payload": "staged-tree/tests/Erlang.Tests/Otp/Stdlib/Binary/BinaryArena598Fixture.cs"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Otp/Stdlib/Binary/BinaryArena598Names.cs",
+      "MustBeAbsent": true,
+      "BeforeSha256": null,
+      "AfterSha256": "012305D0577138DA55E665496A971173D1E67AC542131E4BB7569BE4F53D058E",
+      "Payload": "staged-tree/tests/Erlang.Tests/Otp/Stdlib/Binary/BinaryArena598Names.cs"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Otp/Stdlib/Binary/BinarySearchCooperativeHostChecks.cs",
+      "MustBeAbsent": false,
+      "BeforeSha256": "7EBEE5920ACEC66B7A149C079F63763B7B1D20DFF4DA96056F6BF8A656EA9919",
+      "AfterSha256": "09F2367FF58C9BCA09AB99A336ED3E9485CF2A2512F04F0F8ABAEA114426766D",
+      "Payload": "staged-tree/tests/Erlang.Tests/Otp/Stdlib/Binary/BinarySearchCooperativeHostChecks.cs"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Otp/Stdlib/Binary/BinaryWorkload598Names.cs",
+      "MustBeAbsent": true,
+      "BeforeSha256": null,
+      "AfterSha256": "3B914BE9007B522BA3D8F092C770CBC69B1326CFC62973F570FF17D47D784032",
+      "Payload": "staged-tree/tests/Erlang.Tests/Otp/Stdlib/Binary/BinaryWorkload598Names.cs"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Runtime/Storage/Resources/BinaryStore536Checks.cs",
+      "MustBeAbsent": true,
+      "BeforeSha256": null,
+      "AfterSha256": "FA0AC79819B94C7DE571B0533AC3AA5CF5702A32CE93BAAAE75E9CE68372DC56",
+      "Payload": "staged-tree/tests/Erlang.Tests/Runtime/Storage/Resources/BinaryStore536Checks.cs"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Runtime/Storage/Resources/BinaryStore536Names.cs",
+      "MustBeAbsent": true,
+      "BeforeSha256": null,
+      "AfterSha256": "4F682DF1A73477ECDA3019DF5FCB66DD9C346BA4EF6EB76269CAEC62212D3250",
+      "Payload": "staged-tree/tests/Erlang.Tests/Runtime/Storage/Resources/BinaryStore536Names.cs"
+    }
+  ],
+  "SupportingFiles": [
+    {
+      "Path": "before/src/Runtime/Erlang.Runtime.Core/Diagnostics/Debug/DebugDirtyTermCopy424.cs",
+      "Sha256": "0A86BD66046769E2E7DA5EAB05178FDEB43E54C02B0699722303DBEEE5F56B30"
+    },
+    {
+      "Path": "before/src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeCallEnvironment.OwnedRoots516.cs",
+      "Sha256": "AA199AC766E1EA62584FD99083A34269E4CE3306922E44C16A02CC29CFE4798C"
+    },
+    {
+      "Path": "before/src/Runtime/Erlang.Runtime.Core/Native/Resources/NativeResourceRoots524.cs",
+      "Sha256": "1C04A820B1E4DF25EC219934F21FAA5D46BEFBD13B95B602EFDD94A25F91B428"
+    },
+    {
+      "Path": "before/src/Runtime/Erlang.Runtime.Core/Primitives/Binary/BinarySearchCompiler.cs",
+      "Sha256": "95F1545CA8C478097484E3FB40559DDAA704A6629CD177AD52C30954255DE113"
+    },
+    {
+      "Path": "before/src/Runtime/Erlang.Runtime.Core/Primitives/Binary/BinarySearchExecution.cs",
+      "Sha256": "43E3BBF9B4912AAAE83C65DD23E78D9C22AA15C389A601CA6E839D674F5BA7D1"
+    },
+    {
+      "Path": "before/src/Runtime/Erlang.Runtime.Core/Primitives/Binary/BinarySearchModule.cs",
+      "Sha256": "92FAB523398CAE7420E2FE4F33DF7ADB00246469222DFE3A07F66EAB0D4ACD89"
+    },
+    {
+      "Path": "before/src/Runtime/Erlang.Runtime.Core/Primitives/Binary/BinarySearchPattern.cs",
+      "Sha256": "941C8759FE2D239F74FEA1B948A7D18415EECE65484BE54C98D959BC4FCC5D2F"
+    },
+    {
+      "Path": "before/src/Runtime/Erlang.Runtime.Core/Primitives/Binary/BinarySearchPatternHandle.cs",
+      "Sha256": "989216083BD0BB43124B79BC1574D5F8434AB42712CFC793483F48B4A548B54B"
+    },
+    {
+      "Path": "before/src/Runtime/Erlang.Runtime.Core/Primitives/Binary/BinarySearchPatterns.cs",
+      "Sha256": "D89BFC538D8318D5FE50B3FE8404185577EE3671CA3C4E893FEA2D74EAEBD028"
+    },
+    {
+      "Path": "before/src/Runtime/Erlang.Runtime.Core/Primitives/References/ResourceReferenceTerm.cs",
+      "Sha256": "87A398F64E18FAB70ACBB8108372722F40DC723C818AB2D4CD9EE56893A3E110"
+    },
+    {
+      "Path": "before/src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.cs",
+      "Sha256": "41D594933F89E9972834703D3E13A54DD64E693FAA731656E2C8565A4164D178"
+    },
+    {
+      "Path": "before/src/Runtime/Erlang.Runtime.Core/Processes/Memory/NativeOffheapHeader576.cs",
+      "Sha256": "F45779FABDD4F660A7CFB0066B2201732A71E4F759D8BEF7D42161E008E45201"
+    },
+    {
+      "Path": "before/src/Runtime/Erlang.Runtime.Core/Processes/Memory/OwnedTermDetachedCopy506.cs",
+      "Sha256": "F431872A3C38A1D49A63B07F7BB0F028351B98897498B9BC4C8BC06A3E293672"
+    },
+    {
+      "Path": "before/src/Runtime/Erlang.Runtime.Core/Processes/Memory/OwnedTermInvocation.Native524.cs",
+      "Sha256": "DC67AFDA88FBF264C52B92DB72242F465FA7FA11CB1C925C8E7DC96C4D5C2A6C"
+    },
+    {
+      "Path": "before/src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessBinaryRegistry512.cs",
+      "Sha256": "AA6A4685DCEF1E83D86355899DDFC2879EF278DA81ECC13F25751F418EF27060"
+    },
+    {
+      "Path": "before/src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessTermHeap.Magic576.cs",
+      "Sha256": "7CF394C9765F011EBEC0EE211D497A76178BBE55B62D59AC5427CBAEE68822BC"
+    },
+    {
+      "Path": "before/src/Runtime/Erlang.Runtime.Core/Processes/Memory/ResourceHostCopy611.cs",
+      "Sha256": "6374A9E86C2F898039AB5AB419002BD7D84A3AB79120D6AD1D44327EAE249F2D"
+    },
+    {
+      "Path": "before/src/Runtime/Erlang.Runtime.Core/Services/RuntimeExternalTermReservation.cs",
+      "Sha256": "1C1A51E26FD8D36975F94D272ECA83F20B0DFA54A678B1BD61544A8A91F2E2FE"
+    },
+    {
+      "Path": "before/src/Runtime/Erlang.Runtime.Core/Services/RuntimeReferenceResources.BinarySearch.cs",
+      "Sha256": "2EED226FBC957F2CE6046476071CC42B8923181BC2A37AFE04A32C41A8CD78AE"
+    },
+    {
+      "Path": "before/src/Runtime/Erlang.Runtime.Core/Services/RuntimeReferenceResources.cs",
+      "Sha256": "7710F4A134CC985F2D56D37883A7C3224B7684FA54CC6812995779C0C6B54E6D"
+    },
+    {
+      "Path": "before/src/Runtime/Erlang.Runtime.Core/Storage/AtomicsHostCopyTransaction591.cs",
+      "Sha256": "0453EF68CD2C8B33B5D7D3F7044912F0290DE66A6ECE905AC5A50A6D51E6CBF2"
+    },
+    {
+      "Path": "before/src/Runtime/Erlang.Runtime.Core/Storage/PersistentArenaCodec416.cs",
+      "Sha256": "85AF472A7CDB71AD19CADE2C6ABFA626B6780D901425FB0E60A6438B669873EB"
+    },
+    {
+      "Path": "before/tests/Erlang.Tests/Otp/Stdlib/Binary/BinarySearchCooperativeHostChecks.cs",
+      "Sha256": "7EBEE5920ACEC66B7A149C079F63763B7B1D20DFF4DA96056F6BF8A656EA9919"
+    },
+    {
+      "Path": "draft-tree/src/Runtime/Erlang.Runtime.Core/Diagnostics/Debug/DebugDirtyTermCopy424.cs",
+      "Sha256": "EE2470C79A9BDD538C2A62C6260EF3A0D55B36AF69BEA888F915915051B4F2DE"
+    },
+    {
+      "Path": "draft-tree/src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeCallEnvironment.OwnedRoots516.cs",
+      "Sha256": "4792E4BDBC62196A0698AF214A415BB8008598D37D014FB5DCABED0184D0B77C"
+    },
+    {
+      "Path": "draft-tree/src/Runtime/Erlang.Runtime.Core/Native/Resources/NativeResourceRoots524.cs",
+      "Sha256": "E37F087662813926054FB48470E818F21A3B2811F736F4C2FFA2D41BDFDEB074"
+    },
+    {
+      "Path": "draft-tree/src/Runtime/Erlang.Runtime.Core/Primitives/Binary/BinaryAcNode598.cs",
+      "Sha256": "449265F601DFDECF7DE9C52000555C3F0A58FFEB73D4891FD4CB17D2C06645C6"
+    },
+    {
+      "Path": "draft-tree/src/Runtime/Erlang.Runtime.Core/Primitives/Binary/BinaryAcTrie598.cs",
+      "Sha256": "DAAE02C62741C8AAB1DFBFC273707F12620D36FD6E6D3B559A6C5B1928035366"
+    },
+    {
+      "Path": "draft-tree/src/Runtime/Erlang.Runtime.Core/Primitives/Binary/BinaryArenaCompiler598.cs",
+      "Sha256": "3A689320889B6706A98CD6107279825A65DD8510DD956B17AA890DBE4627A24B"
+    },
+    {
+      "Path": "draft-tree/src/Runtime/Erlang.Runtime.Core/Primitives/Binary/BinaryArenaKind598.cs",
+      "Sha256": "80E93CE3B70AF058C16BC5A381793680BFA6C49A6DD743556AA59CF483039692"
+    },
+    {
+      "Path": "draft-tree/src/Runtime/Erlang.Runtime.Core/Primitives/Binary/BinaryArenaNames598.cs",
+      "Sha256": "67F5971703152995405B2FD5A618FFC2BB6E0944334C3035594A4D30992F35A9"
+    },
+    {
+      "Path": "draft-tree/src/Runtime/Erlang.Runtime.Core/Primitives/Binary/BinaryArenaReader598.cs",
+      "Sha256": "95B6D95CE411F27972C65DA7B634F1BE35D36E650035E8FFFF15D2F80A5A680F"
+    },
+    {
+      "Path": "draft-tree/src/Runtime/Erlang.Runtime.Core/Primitives/Binary/BinaryArenaSearch598.cs",
+      "Sha256": "F522C9FD3B47491043F97DF430CAE312525EF52015C25B2D7D2395B2DA4BD3A1"
+    },
+    {
+      "Path": "draft-tree/src/Runtime/Erlang.Runtime.Core/Primitives/Binary/BinaryBmData598.cs",
+      "Sha256": "927EC63830EF5F94522B859BD7575D4E0F13CB942274C25788DECBD4E9D857E1"
+    },
+    {
+      "Path": "draft-tree/src/Runtime/Erlang.Runtime.Core/Primitives/Binary/BinaryProgramArena598.cs",
+      "Sha256": "4C5BECF5500F7E7340D84687203120ECF7D439961703F53BFE0F0ED372CAFF90"
+    },
+    {
+      "Path": "draft-tree/src/Runtime/Erlang.Runtime.Core/Primitives/Binary/BinaryProgramBacking598.cs",
+      "Sha256": "33E4D5663A21365E53A78BC2214BBD195FAA63295D64A999A568FC846C63C090"
+    },
+    {
+      "Path": "draft-tree/src/Runtime/Erlang.Runtime.Core/Primitives/Binary/BinaryProgramHost598.cs",
+      "Sha256": "BD771ED2BCF287C63CFF5FE752E4FE62999192A0F5D28613CF3A085EDE6DAAB0"
+    },
+    {
+      "Path": "draft-tree/src/Runtime/Erlang.Runtime.Core/Primitives/Binary/BinaryProgramLease598.cs",
+      "Sha256": "A7779F2513CB95652F840599BCC432C518690E8614B017B126B05AD91F653D2B"
+    },
+    {
+      "Path": "draft-tree/src/Runtime/Erlang.Runtime.Core/Primitives/Binary/BinaryProgramLeaseKind598.cs",
+      "Sha256": "CDE0BA4220804D6BCAA326AFD31DF0BB03C7FA600BC819C7059BAE5E2DF733E9"
+    },
+    {
+      "Path": "draft-tree/src/Runtime/Erlang.Runtime.Core/Primitives/Binary/BinaryProgramOperation598.cs",
+      "Sha256": "BD1EE2B0CD333E60E27A290078561240F71EE894E516E458A043CA028724F8DF"
+    },
+    {
+      "Path": "draft-tree/src/Runtime/Erlang.Runtime.Core/Primitives/Binary/BinaryProgramOwner598.cs",
+      "Sha256": "333224DE6984656BF60646209EE716666D1C396F977838475A6A52BD90188BD7"
+    },
+    {
+      "Path": "draft-tree/src/Runtime/Erlang.Runtime.Core/Primitives/Binary/BinaryProgramRoots598.cs",
+      "Sha256": "88118E6BADFC4C5CC3BCBAC65CADCB420268B47D9FFB7488D7B70F2558D9C3D2"
+    },
+    {
+      "Path": "draft-tree/src/Runtime/Erlang.Runtime.Core/Primitives/Binary/BinaryScratchWords598.cs",
+      "Sha256": "985547DF2E41FC0AA9B641187035EEF3781731F63F920D4F253DCDD583861C3B"
+    },
+    {
+      "Path": "draft-tree/src/Runtime/Erlang.Runtime.Core/Primitives/Binary/BinarySearchCompiler.cs",
+      "Sha256": "A027DA13DA00460872DFB4D276604CA0B9DC569C6A42C7513FC535D54F2A8CBC"
+    },
+    {
+      "Path": "draft-tree/src/Runtime/Erlang.Runtime.Core/Primitives/Binary/BinarySearchExecution.cs",
+      "Sha256": "726C57CD618E4928BE25913076F66A2AA139C5D3A215D5D4C906ECCB071B412E"
+    },
+    {
+      "Path": "draft-tree/src/Runtime/Erlang.Runtime.Core/Primitives/Binary/BinarySearchModule.cs",
+      "Sha256": "B76E3C4AEF68B80BA6364E5F3724BAEBBCD2C5DC257964CAD218B9679DD685A6"
+    },
+    {
+      "Path": "draft-tree/src/Runtime/Erlang.Runtime.Core/Primitives/Binary/BinarySearchPattern.cs",
+      "Sha256": "415BCC66A83A85A2732570B21E30A5F0F7EAEB2EF2417DB13D7E19EF98232C4B"
+    },
+    {
+      "Path": "draft-tree/src/Runtime/Erlang.Runtime.Core/Primitives/Binary/BinarySearchPatternHandle.cs",
+      "Sha256": "70C03AB2D3A97364FD9B2B4340082953AD72E2B11DC3C6B262496934BEE48A70"
+    },
+    {
+      "Path": "draft-tree/src/Runtime/Erlang.Runtime.Core/Primitives/Binary/BinarySearchPatterns.cs",
+      "Sha256": "F0446E88D8B7BF54F76A1E04FDB37D40E3D3C9EEE778EF6D346A3FC32C58989E"
+    },
+    {
+      "Path": "draft-tree/src/Runtime/Erlang.Runtime.Core/Primitives/References/ResourceReferenceTerm.cs",
+      "Sha256": "7AC27827818B99FBA7F783AE88D5B9B44EE65A7EE004EF10E88E74853DA21923"
+    },
+    {
+      "Path": "draft-tree/src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.Binary598.cs",
+      "Sha256": "4806333CEF6E0B8BA84941EC4364B8A3D0E8760ABF243E6CD2CDFBEC98C94469"
+    },
+    {
+      "Path": "draft-tree/src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.cs",
+      "Sha256": "3F4AA09D2C458E7602BE81C681A9690975730EEC3019A9B9CE4E7A37B9484EA0"
+    },
+    {
+      "Path": "draft-tree/src/Runtime/Erlang.Runtime.Core/Processes/Memory/NativeOffheapHeader576.cs",
+      "Sha256": "4C152950EC060CA33E49FA9CE4DAF65E90E660B85A4FD903AE68E5F17C33D073"
+    },
+    {
+      "Path": "draft-tree/src/Runtime/Erlang.Runtime.Core/Processes/Memory/OwnedTermDetachedCopy506.cs",
+      "Sha256": "18664F229FF6168EF644D7FF1159B134C6A478E7B0830612C6A1B97F32B2CF2E"
+    },
+    {
+      "Path": "draft-tree/src/Runtime/Erlang.Runtime.Core/Processes/Memory/OwnedTermInvocation.Binary598.cs",
+      "Sha256": "9FF9F41B48779047030A7DC1C68DF5DD015F8917F2F06629988460E88FFC7B58"
+    },
+    {
+      "Path": "draft-tree/src/Runtime/Erlang.Runtime.Core/Processes/Memory/OwnedTermInvocation.Native524.cs",
+      "Sha256": "643A6D039AD57D401EA141CE598276BF4CE0599C54367EBE980FABFE278C9F87"
+    },
+    {
+      "Path": "draft-tree/src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessBinaryRegistry512.cs",
+      "Sha256": "16AF28038FDC0D3FCD1CBF731B9061D09F91BBCBF9E55752D4B95ED134EA5281"
+    },
+    {
+      "Path": "draft-tree/src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessTermHeap.Binary598.cs",
+      "Sha256": "20320771FAB00F5BCC0E4E70A38C31E36BD1A1F6FBD634FCA355CA326B1C7441"
+    },
+    {
+      "Path": "draft-tree/src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessTermHeap.Magic576.cs",
+      "Sha256": "152225E59EF553057AF1B70E3094C95B98B5958B46544F882D199FD0E4B3E70F"
+    },
+    {
+      "Path": "draft-tree/src/Runtime/Erlang.Runtime.Core/Processes/Memory/ResourceHostCopy611.cs",
+      "Sha256": "970AE2B3CBB1373ED9BA7044333FB4CF679E676EA6DC0EA6A7787590E3B2C316"
+    },
+    {
+      "Path": "draft-tree/src/Runtime/Erlang.Runtime.Core/Services/RuntimeExternalTermReservation.cs",
+      "Sha256": "444A6336787B35F50AAD4A0D4CA587F18308E6B1D9C700CA9A06EA2E0C551258"
+    },
+    {
+      "Path": "draft-tree/src/Runtime/Erlang.Runtime.Core/Services/RuntimeReferenceResources.BinarySearch.cs",
+      "Sha256": "006862099A60E448DD5C76572498A5AB2A3EE315A5116C9C0282ACE80FD695B3"
+    },
+    {
+      "Path": "draft-tree/src/Runtime/Erlang.Runtime.Core/Services/RuntimeReferenceResources.cs",
+      "Sha256": "CD377EA0AF91E486A8B171B2D804ED9676747F5C6FDCD8836E025C378A0E5B70"
+    },
+    {
+      "Path": "draft-tree/src/Runtime/Erlang.Runtime.Core/Storage/AtomicsHostCopyTransaction591.cs",
+      "Sha256": "064D870DE65C59B545E27028A718E90DAE84A467212CA74D54063519A2A01202"
+    },
+    {
+      "Path": "draft-tree/src/Runtime/Erlang.Runtime.Core/Storage/PersistentArenaCodec416.cs",
+      "Sha256": "74FDC97C0CE1E3E480C6144238BAA2435601DF8D8C3DC8F4A4191952676DCF73"
+    },
+    {
+      "Path": "draft-tree/tests/Erlang.Tests/Otp/Stdlib/Binary/BinaryArena598Checks.cs",
+      "Sha256": "73C7EB42FE028978A6833C98BFAA4C878E216E213A1270E2F8319B02F6D8D55B"
+    },
+    {
+      "Path": "draft-tree/tests/Erlang.Tests/Otp/Stdlib/Binary/BinaryArena598Fixture.cs",
+      "Sha256": "0EC77D44E5C67549B9B156C8600A6C553AEA8BF75759686F649AF2CB3D46D426"
+    },
+    {
+      "Path": "draft-tree/tests/Erlang.Tests/Otp/Stdlib/Binary/BinaryArena598Names.cs",
+      "Sha256": "012305D0577138DA55E665496A971173D1E67AC542131E4BB7569BE4F53D058E"
+    },
+    {
+      "Path": "draft-tree/tests/Erlang.Tests/Otp/Stdlib/Binary/BinarySearchCooperativeHostChecks.cs",
+      "Sha256": "09F2367FF58C9BCA09AB99A336ED3E9485CF2A2512F04F0F8ABAEA114426766D"
+    },
+    {
+      "Path": "draft-tree/tests/Erlang.Tests/Otp/Stdlib/Binary/BinaryWorkload598Names.cs",
+      "Sha256": "3B914BE9007B522BA3D8F092C770CBC69B1326CFC62973F570FF17D47D784032"
+    },
+    {
+      "Path": "draft-tree/tests/Erlang.Tests/Runtime/Storage/Resources/BinaryStore536Checks.cs",
+      "Sha256": "FA0AC79819B94C7DE571B0533AC3AA5CF5702A32CE93BAAAE75E9CE68372DC56"
+    },
+    {
+      "Path": "draft-tree/tests/Erlang.Tests/Runtime/Storage/Resources/BinaryStore536Names.cs",
+      "Sha256": "4F682DF1A73477ECDA3019DF5FCB66DD9C346BA4EF6EB76269CAEC62212D3250"
+    },
+    {
+      "Path": "initial-source-map.json",
+      "Sha256": "17A0C6AC3ADB29EA0823527506B2B57D29F905BE58726B399F399584DF0A8CF6"
+    },
+    {
+      "Path": "merge-conflicts.json",
+      "Sha256": "A5338D955B09046EC0B16F3A9625B7955C763AAE07DC722E474E6078745F932F"
+    },
+    {
+      "Path": "ProcessRuntime-current-drift.diff",
+      "Sha256": "9097BD4CDBCE045148F1251C8BBCCDAC7F56B94D9072F357961040A021CBB006"
+    },
+    {
+      "Path": "README.md",
+      "Sha256": "062E3D52C72A27F92980300FA05B1D2FDE6D4D7BE9F83BB7A92856C2175EECC4"
+    },
+    {
+      "Path": "rebase-notes.json",
+      "Sha256": "88EB470F75B4928D4801F9D18DFBE17F922E803F8AC3827D0D3DC8856900B7EB"
+    },
+    {
+      "Path": "rebase.py",
+      "Sha256": "51BFDF60BD07BDB26B87F0F428ADC2C278DFBD24A37B828D7460660C37E00C36"
+    },
+    {
+      "Path": "registrations.cs.txt",
+      "Sha256": "4E4A200F95FC1BC8F1803E216C0F243D846970FB9F9853E19CF82D05427CCF4F"
+    },
+    {
+      "Path": "review-diffs/src/Runtime/Erlang.Runtime.Core/Diagnostics/Debug/DebugDirtyTermCopy424.cs.diff",
+      "Sha256": "72C6643DA005112AB7FED09837EB4BACE69B2BAA21BCA38C2E2D885ABF0C3AE4"
+    },
+    {
+      "Path": "review-diffs/src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeCallEnvironment.OwnedRoots516.cs.diff",
+      "Sha256": "3BA43A393A852295F5E10DD0D9968E11D28B4C5E42DF7D7BF8010BE838653B23"
+    },
+    {
+      "Path": "review-diffs/src/Runtime/Erlang.Runtime.Core/Native/Resources/NativeResourceRoots524.cs.diff",
+      "Sha256": "D377025A828038F1C6544C40293533C99263E6EBC4A5924EADC4B4559797BA71"
+    },
+    {
+      "Path": "review-diffs/src/Runtime/Erlang.Runtime.Core/Primitives/Binary/BinarySearchCompiler.cs.diff",
+      "Sha256": "6EB93D5EBDD0BEF9EBB0CD0939FB0A50678313AF9EE6F17F6B3E3AAFE873CB95"
+    },
+    {
+      "Path": "review-diffs/src/Runtime/Erlang.Runtime.Core/Primitives/Binary/BinarySearchExecution.cs.diff",
+      "Sha256": "3E0373B883453022AD7DE52993DB877514D5039DA2FF0B9F78895B803D91C7DB"
+    },
+    {
+      "Path": "review-diffs/src/Runtime/Erlang.Runtime.Core/Primitives/Binary/BinarySearchModule.cs.diff",
+      "Sha256": "554C2A294EC4A371133EDB97BEBF473CB2068AB7C9568FA5C721A406114CD704"
+    },
+    {
+      "Path": "review-diffs/src/Runtime/Erlang.Runtime.Core/Primitives/Binary/BinarySearchPattern.cs.diff",
+      "Sha256": "B3EE4F07DAFA9236F35224A16B70ABD0B4C7A0E212AB7709674C9979E5963944"
+    },
+    {
+      "Path": "review-diffs/src/Runtime/Erlang.Runtime.Core/Primitives/Binary/BinarySearchPatternHandle.cs.diff",
+      "Sha256": "DB9AEAE4D076443F03C3478666CBEF22C6DA9F4E0BDD253D4A362347DE53A852"
+    },
+    {
+      "Path": "review-diffs/src/Runtime/Erlang.Runtime.Core/Primitives/Binary/BinarySearchPatterns.cs.diff",
+      "Sha256": "4B56915CDA56368F58FB0F7D6D93516D1BA4EEB3A6A3C387BC478944E627D0BA"
+    },
+    {
+      "Path": "review-diffs/src/Runtime/Erlang.Runtime.Core/Primitives/References/ResourceReferenceTerm.cs.diff",
+      "Sha256": "87152750C4D73C8FB8BECAB6E49B4FE71ACBEB461CE63631BE9589C0CCFAFDB5"
+    },
+    {
+      "Path": "review-diffs/src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.cs.diff",
+      "Sha256": "E3F3D50EFBF831DF885D08CB40CD27E5A560B29E748226AAA15C87AFA367A460"
+    },
+    {
+      "Path": "review-diffs/src/Runtime/Erlang.Runtime.Core/Processes/Memory/NativeOffheapHeader576.cs.diff",
+      "Sha256": "1943DC7E4316833AFF47EFD1875C0CEBF90DE1EF0B473A4052973942E6EA69D5"
+    },
+    {
+      "Path": "review-diffs/src/Runtime/Erlang.Runtime.Core/Processes/Memory/OwnedTermDetachedCopy506.cs.diff",
+      "Sha256": "A184379F31DB5DE5F234652ACC77B5BC0B4F15E799294E9844FC32A551F297F4"
+    },
+    {
+      "Path": "review-diffs/src/Runtime/Erlang.Runtime.Core/Processes/Memory/OwnedTermInvocation.Native524.cs.diff",
+      "Sha256": "F0A174929E9255A821AC88DEA60C4CF23D4672B9C2CB1A2453861F8D7E603B6B"
+    },
+    {
+      "Path": "review-diffs/src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessBinaryRegistry512.cs.diff",
+      "Sha256": "31B2442E72F1DFBA8BC234D151FF553C9A9695913D5D09CD23DDEC773A71C36E"
+    },
+    {
+      "Path": "review-diffs/src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessTermHeap.Magic576.cs.diff",
+      "Sha256": "A0EBE5A3D77D1A1F6FA5386B5E24577865481872306DD432E32F72853716EE6A"
+    },
+    {
+      "Path": "review-diffs/src/Runtime/Erlang.Runtime.Core/Processes/Memory/ResourceHostCopy611.cs.diff",
+      "Sha256": "CF90C6139660683A9D5357DC0775D49841E8866744223D0E58CE06E0787C7B89"
+    },
+    {
+      "Path": "review-diffs/src/Runtime/Erlang.Runtime.Core/Services/RuntimeExternalTermReservation.cs.diff",
+      "Sha256": "4C1D26E1798DC95D42F3B5122E659C3CCC1CD4C5F895822DE86BFA3EE2315B93"
+    },
+    {
+      "Path": "review-diffs/src/Runtime/Erlang.Runtime.Core/Services/RuntimeReferenceResources.BinarySearch.cs.diff",
+      "Sha256": "C10647E0C1A5967AAC1B78BF669EC98B3DC63625A346DC0234F7C7B551B02D90"
+    },
+    {
+      "Path": "review-diffs/src/Runtime/Erlang.Runtime.Core/Services/RuntimeReferenceResources.cs.diff",
+      "Sha256": "811F4E39339AAAE15FBE8F7BBFE220E73572F8B4FD814BF348C37C4345C4761B"
+    },
+    {
+      "Path": "review-diffs/src/Runtime/Erlang.Runtime.Core/Storage/AtomicsHostCopyTransaction591.cs.diff",
+      "Sha256": "621C264F8491B08F1F2D64A3D01A0F50CCB0CA5C27053F9FE54742D89399322A"
+    },
+    {
+      "Path": "review-diffs/src/Runtime/Erlang.Runtime.Core/Storage/PersistentArenaCodec416.cs.diff",
+      "Sha256": "71B805C67D24D2EDB9A68A591A6EEBD396B919DD70C9C883320833557DA391A9"
+    },
+    {
+      "Path": "review-diffs/tests/Erlang.Tests/Otp/Stdlib/Binary/BinarySearchCooperativeHostChecks.cs.diff",
+      "Sha256": "EA5F619DA80198658B8091885FC3665B9F6E0D2BEED8E82633D4BC768AADFBA8"
+    },
+    {
+      "Path": "semantic-token-diagnostic.json",
+      "Sha256": "969E219C9D1A6E844FFAAB79D19D8C343FE84DE8D718A8793C446F0D9EA47D8B"
+    },
+    {
+      "Path": "staged-tree/src/Runtime/Erlang.Runtime.Core/Diagnostics/Debug/DebugDirtyTermCopy424.cs",
+      "Sha256": "EE2470C79A9BDD538C2A62C6260EF3A0D55B36AF69BEA888F915915051B4F2DE"
+    },
+    {
+      "Path": "staged-tree/src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeCallEnvironment.OwnedRoots516.cs",
+      "Sha256": "4792E4BDBC62196A0698AF214A415BB8008598D37D014FB5DCABED0184D0B77C"
+    },
+    {
+      "Path": "staged-tree/src/Runtime/Erlang.Runtime.Core/Native/Resources/NativeResourceRoots524.cs",
+      "Sha256": "E37F087662813926054FB48470E818F21A3B2811F736F4C2FFA2D41BDFDEB074"
+    },
+    {
+      "Path": "staged-tree/src/Runtime/Erlang.Runtime.Core/Primitives/Binary/BinaryAcNode598.cs",
+      "Sha256": "449265F601DFDECF7DE9C52000555C3F0A58FFEB73D4891FD4CB17D2C06645C6"
+    },
+    {
+      "Path": "staged-tree/src/Runtime/Erlang.Runtime.Core/Primitives/Binary/BinaryAcTrie598.cs",
+      "Sha256": "DAAE02C62741C8AAB1DFBFC273707F12620D36FD6E6D3B559A6C5B1928035366"
+    },
+    {
+      "Path": "staged-tree/src/Runtime/Erlang.Runtime.Core/Primitives/Binary/BinaryArenaCompiler598.cs",
+      "Sha256": "3A689320889B6706A98CD6107279825A65DD8510DD956B17AA890DBE4627A24B"
+    },
+    {
+      "Path": "staged-tree/src/Runtime/Erlang.Runtime.Core/Primitives/Binary/BinaryArenaKind598.cs",
+      "Sha256": "80E93CE3B70AF058C16BC5A381793680BFA6C49A6DD743556AA59CF483039692"
+    },
+    {
+      "Path": "staged-tree/src/Runtime/Erlang.Runtime.Core/Primitives/Binary/BinaryArenaNames598.cs",
+      "Sha256": "67F5971703152995405B2FD5A618FFC2BB6E0944334C3035594A4D30992F35A9"
+    },
+    {
+      "Path": "staged-tree/src/Runtime/Erlang.Runtime.Core/Primitives/Binary/BinaryArenaReader598.cs",
+      "Sha256": "95B6D95CE411F27972C65DA7B634F1BE35D36E650035E8FFFF15D2F80A5A680F"
+    },
+    {
+      "Path": "staged-tree/src/Runtime/Erlang.Runtime.Core/Primitives/Binary/BinaryArenaSearch598.cs",
+      "Sha256": "F522C9FD3B47491043F97DF430CAE312525EF52015C25B2D7D2395B2DA4BD3A1"
+    },
+    {
+      "Path": "staged-tree/src/Runtime/Erlang.Runtime.Core/Primitives/Binary/BinaryBmData598.cs",
+      "Sha256": "927EC63830EF5F94522B859BD7575D4E0F13CB942274C25788DECBD4E9D857E1"
+    },
+    {
+      "Path": "staged-tree/src/Runtime/Erlang.Runtime.Core/Primitives/Binary/BinaryProgramArena598.cs",
+      "Sha256": "4C5BECF5500F7E7340D84687203120ECF7D439961703F53BFE0F0ED372CAFF90"
+    },
+    {
+      "Path": "staged-tree/src/Runtime/Erlang.Runtime.Core/Primitives/Binary/BinaryProgramBacking598.cs",
+      "Sha256": "33E4D5663A21365E53A78BC2214BBD195FAA63295D64A999A568FC846C63C090"
+    },
+    {
+      "Path": "staged-tree/src/Runtime/Erlang.Runtime.Core/Primitives/Binary/BinaryProgramHost598.cs",
+      "Sha256": "BD771ED2BCF287C63CFF5FE752E4FE62999192A0F5D28613CF3A085EDE6DAAB0"
+    },
+    {
+      "Path": "staged-tree/src/Runtime/Erlang.Runtime.Core/Primitives/Binary/BinaryProgramLease598.cs",
+      "Sha256": "A7779F2513CB95652F840599BCC432C518690E8614B017B126B05AD91F653D2B"
+    },
+    {
+      "Path": "staged-tree/src/Runtime/Erlang.Runtime.Core/Primitives/Binary/BinaryProgramLeaseKind598.cs",
+      "Sha256": "CDE0BA4220804D6BCAA326AFD31DF0BB03C7FA600BC819C7059BAE5E2DF733E9"
+    },
+    {
+      "Path": "staged-tree/src/Runtime/Erlang.Runtime.Core/Primitives/Binary/BinaryProgramOperation598.cs",
+      "Sha256": "BD1EE2B0CD333E60E27A290078561240F71EE894E516E458A043CA028724F8DF"
+    },
+    {
+      "Path": "staged-tree/src/Runtime/Erlang.Runtime.Core/Primitives/Binary/BinaryProgramOwner598.cs",
+      "Sha256": "333224DE6984656BF60646209EE716666D1C396F977838475A6A52BD90188BD7"
+    },
+    {
+      "Path": "staged-tree/src/Runtime/Erlang.Runtime.Core/Primitives/Binary/BinaryProgramRoots598.cs",
+      "Sha256": "88118E6BADFC4C5CC3BCBAC65CADCB420268B47D9FFB7488D7B70F2558D9C3D2"
+    },
+    {
+      "Path": "staged-tree/src/Runtime/Erlang.Runtime.Core/Primitives/Binary/BinaryScratchWords598.cs",
+      "Sha256": "985547DF2E41FC0AA9B641187035EEF3781731F63F920D4F253DCDD583861C3B"
+    },
+    {
+      "Path": "staged-tree/src/Runtime/Erlang.Runtime.Core/Primitives/Binary/BinarySearchCompiler.cs",
+      "Sha256": "A027DA13DA00460872DFB4D276604CA0B9DC569C6A42C7513FC535D54F2A8CBC"
+    },
+    {
+      "Path": "staged-tree/src/Runtime/Erlang.Runtime.Core/Primitives/Binary/BinarySearchExecution.cs",
+      "Sha256": "726C57CD618E4928BE25913076F66A2AA139C5D3A215D5D4C906ECCB071B412E"
+    },
+    {
+      "Path": "staged-tree/src/Runtime/Erlang.Runtime.Core/Primitives/Binary/BinarySearchModule.cs",
+      "Sha256": "B76E3C4AEF68B80BA6364E5F3724BAEBBCD2C5DC257964CAD218B9679DD685A6"
+    },
+    {
+      "Path": "staged-tree/src/Runtime/Erlang.Runtime.Core/Primitives/Binary/BinarySearchPattern.cs",
+      "Sha256": "415BCC66A83A85A2732570B21E30A5F0F7EAEB2EF2417DB13D7E19EF98232C4B"
+    },
+    {
+      "Path": "staged-tree/src/Runtime/Erlang.Runtime.Core/Primitives/Binary/BinarySearchPatternHandle.cs",
+      "Sha256": "70C03AB2D3A97364FD9B2B4340082953AD72E2B11DC3C6B262496934BEE48A70"
+    },
+    {
+      "Path": "staged-tree/src/Runtime/Erlang.Runtime.Core/Primitives/Binary/BinarySearchPatterns.cs",
+      "Sha256": "F0446E88D8B7BF54F76A1E04FDB37D40E3D3C9EEE778EF6D346A3FC32C58989E"
+    },
+    {
+      "Path": "staged-tree/src/Runtime/Erlang.Runtime.Core/Primitives/References/ResourceReferenceTerm.cs",
+      "Sha256": "7AC27827818B99FBA7F783AE88D5B9B44EE65A7EE004EF10E88E74853DA21923"
+    },
+    {
+      "Path": "staged-tree/src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.Binary598.cs",
+      "Sha256": "4806333CEF6E0B8BA84941EC4364B8A3D0E8760ABF243E6CD2CDFBEC98C94469"
+    },
+    {
+      "Path": "staged-tree/src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.cs",
+      "Sha256": "3F4AA09D2C458E7602BE81C681A9690975730EEC3019A9B9CE4E7A37B9484EA0"
+    },
+    {
+      "Path": "staged-tree/src/Runtime/Erlang.Runtime.Core/Processes/Memory/NativeOffheapHeader576.cs",
+      "Sha256": "4C152950EC060CA33E49FA9CE4DAF65E90E660B85A4FD903AE68E5F17C33D073"
+    },
+    {
+      "Path": "staged-tree/src/Runtime/Erlang.Runtime.Core/Processes/Memory/OwnedTermDetachedCopy506.cs",
+      "Sha256": "18664F229FF6168EF644D7FF1159B134C6A478E7B0830612C6A1B97F32B2CF2E"
+    },
+    {
+      "Path": "staged-tree/src/Runtime/Erlang.Runtime.Core/Processes/Memory/OwnedTermInvocation.Binary598.cs",
+      "Sha256": "9FF9F41B48779047030A7DC1C68DF5DD015F8917F2F06629988460E88FFC7B58"
+    },
+    {
+      "Path": "staged-tree/src/Runtime/Erlang.Runtime.Core/Processes/Memory/OwnedTermInvocation.Native524.cs",
+      "Sha256": "643A6D039AD57D401EA141CE598276BF4CE0599C54367EBE980FABFE278C9F87"
+    },
+    {
+      "Path": "staged-tree/src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessBinaryRegistry512.cs",
+      "Sha256": "16AF28038FDC0D3FCD1CBF731B9061D09F91BBCBF9E55752D4B95ED134EA5281"
+    },
+    {
+      "Path": "staged-tree/src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessTermHeap.Binary598.cs",
+      "Sha256": "20320771FAB00F5BCC0E4E70A38C31E36BD1A1F6FBD634FCA355CA326B1C7441"
+    },
+    {
+      "Path": "staged-tree/src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessTermHeap.Magic576.cs",
+      "Sha256": "152225E59EF553057AF1B70E3094C95B98B5958B46544F882D199FD0E4B3E70F"
+    },
+    {
+      "Path": "staged-tree/src/Runtime/Erlang.Runtime.Core/Processes/Memory/ResourceHostCopy611.cs",
+      "Sha256": "970AE2B3CBB1373ED9BA7044333FB4CF679E676EA6DC0EA6A7787590E3B2C316"
+    },
+    {
+      "Path": "staged-tree/src/Runtime/Erlang.Runtime.Core/Services/RuntimeExternalTermReservation.cs",
+      "Sha256": "444A6336787B35F50AAD4A0D4CA587F18308E6B1D9C700CA9A06EA2E0C551258"
+    },
+    {
+      "Path": "staged-tree/src/Runtime/Erlang.Runtime.Core/Services/RuntimeReferenceResources.BinarySearch.cs",
+      "Sha256": "006862099A60E448DD5C76572498A5AB2A3EE315A5116C9C0282ACE80FD695B3"
+    },
+    {
+      "Path": "staged-tree/src/Runtime/Erlang.Runtime.Core/Services/RuntimeReferenceResources.cs",
+      "Sha256": "CD377EA0AF91E486A8B171B2D804ED9676747F5C6FDCD8836E025C378A0E5B70"
+    },
+    {
+      "Path": "staged-tree/src/Runtime/Erlang.Runtime.Core/Storage/AtomicsHostCopyTransaction591.cs",
+      "Sha256": "064D870DE65C59B545E27028A718E90DAE84A467212CA74D54063519A2A01202"
+    },
+    {
+      "Path": "staged-tree/src/Runtime/Erlang.Runtime.Core/Storage/PersistentArenaCodec416.cs",
+      "Sha256": "74FDC97C0CE1E3E480C6144238BAA2435601DF8D8C3DC8F4A4191952676DCF73"
+    },
+    {
+      "Path": "staged-tree/tests/Erlang.Tests/Otp/Stdlib/Binary/BinaryArena598Checks.cs",
+      "Sha256": "73C7EB42FE028978A6833C98BFAA4C878E216E213A1270E2F8319B02F6D8D55B"
+    },
+    {
+      "Path": "staged-tree/tests/Erlang.Tests/Otp/Stdlib/Binary/BinaryArena598Fixture.cs",
+      "Sha256": "0EC77D44E5C67549B9B156C8600A6C553AEA8BF75759686F649AF2CB3D46D426"
+    },
+    {
+      "Path": "staged-tree/tests/Erlang.Tests/Otp/Stdlib/Binary/BinaryArena598Names.cs",
+      "Sha256": "012305D0577138DA55E665496A971173D1E67AC542131E4BB7569BE4F53D058E"
+    },
+    {
+      "Path": "staged-tree/tests/Erlang.Tests/Otp/Stdlib/Binary/BinarySearchCooperativeHostChecks.cs",
+      "Sha256": "09F2367FF58C9BCA09AB99A336ED3E9485CF2A2512F04F0F8ABAEA114426766D"
+    },
+    {
+      "Path": "staged-tree/tests/Erlang.Tests/Otp/Stdlib/Binary/BinaryWorkload598Names.cs",
+      "Sha256": "3B914BE9007B522BA3D8F092C770CBC69B1326CFC62973F570FF17D47D784032"
+    },
+    {
+      "Path": "staged-tree/tests/Erlang.Tests/Runtime/Storage/Resources/BinaryStore536Checks.cs",
+      "Sha256": "FA0AC79819B94C7DE571B0533AC3AA5CF5702A32CE93BAAAE75E9CE68372DC56"
+    },
+    {
+      "Path": "staged-tree/tests/Erlang.Tests/Runtime/Storage/Resources/BinaryStore536Names.cs",
+      "Sha256": "4F682DF1A73477ECDA3019DF5FCB66DD9C346BA4EF6EB76269CAEC62212D3250"
+    },
+    {
+      "Path": "targets.json",
+      "Sha256": "DB6521D23FE4DA3F5F368C101F1EC00F1F6BABF168FC05D561C0FEDE31FC67F6"
+    }
+  ]
+}

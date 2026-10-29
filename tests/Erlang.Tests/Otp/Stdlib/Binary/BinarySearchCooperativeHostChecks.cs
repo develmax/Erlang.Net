@@ -28,12 +28,21 @@ internal static class BinarySearchCooperativeHostChecks
         var entered = new TaskCompletionSource<Task<Term>>(TaskCreationOptions.RunContinuationsAsynchronously);
         var unwound = new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);
         Term[] arguments = function == BinaryModuleNames.CompilePattern
-            ? [Cons.From(Enumerable.Repeat<Term>(new BitString(new byte[BinarySearchHostNames.PatternBytes]), BinarySearchHostNames.PatternBytes))]
+            ? [Cons.From(Enumerable.Repeat<Term>(new BitString(new byte[BinaryWorkload598Names.NeedleBytes]), BinaryWorkload598Names.NeedleCount))]
             : [new BitString(new byte[BinarySearchHostNames.SubjectBytes]), new BitString([255])];
+        long prelude = 0;
         ProcessHandle worker = runtime.Spawn(async context =>
         {
             try
             {
+                if (function == BinaryModuleNames.CompilePattern)
+                {
+                    int remaining = (int)NativeResource524Access.Property(context, BinaryWorkload598Names.Remaining);
+                    Require(remaining > 0 && remaining <= BinaryWorkload598Names.MaximumPrelude);
+                    for (int i = 1; i < remaining; i++) await context.ReduceAsync();
+                    Require((int)NativeResource524Access.Property(context, BinaryWorkload598Names.Remaining) == 1);
+                    prelude = (long)NativeResource524Access.Property(context, BinaryWorkload598Names.Cumulative);
+                }
                 Task<Term> operation;
                 SynchronizationContext? previous = SynchronizationContext.Current;
                 SynchronizationContext.SetSynchronizationContext(continuations);
@@ -77,6 +86,8 @@ internal static class BinarySearchCooperativeHostChecks
                 Require(sampled is TupleTerm { Items.Count: 2 } sample
                     && sample.Items[1] is Integer reductions
                     && reductions.Value > 0);
+                if (function == BinaryModuleNames.CompilePattern)
+                    Require(((Integer)((TupleTerm)sampled).Items[1]).Value > prelude);
                 if (cancel)
                     runtime.Exit(context, worker.Pid, Term.A(BinarySearchHostNames.Kill));
 

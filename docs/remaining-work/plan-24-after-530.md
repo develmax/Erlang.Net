@@ -15,6 +15,12 @@ Compiled regex custody/lifecycle597/599, regex-only storage600 and foreign-engin
 
 Counts708 registered/180 verified/504 pending/24 known, deltas0/0. Exact-head CI/review/merge remain gates. Binary536, full restart605 and match-spec/general-root/policy work remain next, with no unexecuted compatibility credit.
 
+## Part536 local scoped progress
+
+Actual native BM/AC binary programs and typed custody pass final Release94/94 and Debug94/94 on identical names. Prepared16-byte ACTrie source-layout defect was caught by a meaningful actual physical RED, corrected to pinned normal-x64 SIMD40 with first16 root bytes/cap17, and final controls pass. Fresh original6192/2 yields564 complete outcomes; direct paired whole bytes equal BOTH actual final profiles, preserving all value/error/stack fields. Public former-delegate authority remainsOpaque and deliberately lacks genuine native formatter metadata. [Checkpoint536](checkpoint-536.md) · [Evidence](../validation/part-536/README.md) · [English0093](../changelog/0093.md).
+
+Counts708/180/504/24, deltas0/0. Exact-head CI/review/merge remain gates. Full restart, native match-spec resources and general roots/policy accounting remain open; prepared packets grant no implementation credit.
+
 ## Delivered foundation
 
 Part530 implements real three-word NIF resource magic references and three-word BinRef/five-word SubBits storage in the private-owned profile. Live readers, native-result aliases, nested resource slices, collection, rollback and physical retirement have source-bound evidence. PR82 exact-head CI40676225450 passed all three jobs and 9234/9234 tests; main has the identical tested tree. This does not establish complete ordinary-profile ownership, other resource producers, public resource accounting or general NIF compatibility.

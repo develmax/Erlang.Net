@@ -1,0 +1,11 @@
+# Future536 finite genuine-image / public-search-body authority control
+
+Two new C# test files and one registration; source-only, unbuilt/unexecuted, no runtime edits. Reuses EXACT existing binary_search_contract.erl fixture through the existing .NET GeneratedModuleCompiler, not a new Erlang scenario or opaque protocol. Original cached binary/lists images come through existing digest-verifying LibraryBinaryHostChecks.Read. No synthetic trust registration or production callback hook.
+
+Private VM prepares/publishes genuine whole binary/lists images, checks original binary SHA,22 native primitives and SourceOwner for every binary export. Captures exact seven native search delegates from the genuine PreparedBeamImage execution identity; each must have NativeBorrowKind507 RuntimeRead535. Existing unchanged compiled fixture exercises compile_pattern/1;match/2,3;matches/2,3;split/2,3 plus compiled-reference ETF roundtrip and original caller-error metadata.
+
+Then delete binary and PUBLIC-register the EXACT former seven canonical native delegates. Each current SourceOwner must be null and SelectedOwnedBinding507 must be Opaque despite same delegate/signature. Execute the SAME fixture again: typed binary Host copies are allowed through opaque public bodies; do not demand native524's unrelated explicit HostScope rejection for binary's self-owning Host type. The older public-reregister test for binary:referenced_byte_size remains in affected regression as an independent native524 boundary witness.
+
+This is finite metadata/canonical-body capture plus actual subject behavior, not per-instruction instrumentation or whole31 ownership certification. First actual root-owned execution must confirm original publication capture policy and public replacement behavior. The test does not change internal capability flags or mint source ownership. If a genuine native7 stub is missing or a kind differs, preserve the failure and repair source policy rather than weakening these assertions.
+
+Requires full536 binary custody and618 SIMD layout correction; no integration into535. Root sole owner applies/compiles/runs after exact absent guards. New test name runtime/binary621/genuine-original-seven-search-bodies-public-reregister-opaque.

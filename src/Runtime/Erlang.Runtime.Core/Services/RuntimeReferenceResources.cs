@@ -119,6 +119,8 @@ public sealed partial class RuntimeReferenceResources
                         producer = entry.Read<CountersGuestRoot421>().Array.RetainBacking596(CountersLeaseKind596.Producer);
                     else if (entry.Kind == ReferenceResourceKind.Regex411)
                         producer = entry.Read<RePattern411>().Backing597.Retain(ReMagicLeaseKind597.Guest);
+                    else if (entry.Kind == ReferenceResourceKind.BinarySearchPattern)
+                        producer = entry.Read<BinarySearchPattern>().Backing598.Retain598(BinaryProgramLeaseKind598.Guest);
                     else
                         return new ResourceReferenceTerm(entry);
                 }
@@ -141,7 +143,9 @@ public sealed partial class RuntimeReferenceResources
             return restored;
         // No registry gate is held across guest-heap publication or host acquisition.
         using (producer)
-            return selected.RegexBacking597 is { } regex
+            return selected.BinaryBacking598 is { } program
+                ? OwnedTermInvocation506.AdmitRehydratedBinary598(selected, program)
+                : selected.RegexBacking597 is { } regex
                 ? OwnedTermInvocation506.AdmitRehydratedRegex597(selected, regex)
                 : selected.CountersBacking596 is { } counters
                 ? OwnedTermInvocation506.AdmitRehydratedCounters596(selected, counters)

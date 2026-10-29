@@ -1,0 +1,7 @@
+{
+  "Path": "tests/Erlang.Tests/Compiler/Integration/LibraryBinaryHostChecks.cs",
+  "BeforeSha256": "A419119EDA791A0277875C002746B0BB38D82BA553C96B8BF7032140A1659F14",
+  "BeforeAuthority": "620 virtual afterimage; not current unamended active source",
+  "Before": "        var runtime = await ProcessRuntime.CreateAsync(new RuntimeLibrarySelection([\n            RuntimeModuleSelection.Beam(Module, Read(Module + BeamExtension), [Lists]),\n            RuntimeModuleSelection.Beam(Lists, Read(Lists + BeamExtension))\n        ]));\n        string runtimeSha = Convert.ToHexString(SHA256.HashData(File.ReadAllBytes(typeof(ProcessRuntime).Assembly.Location)));",
+  "After": "        string runtimeSha = Convert.ToHexString(SHA256.HashData(File.ReadAllBytes(typeof(ProcessRuntime).Assembly.Location)));\n        var runtime = await ProcessRuntime.CreateAsync(new RuntimeLibrarySelection([\n            RuntimeModuleSelection.Beam(Module, Read(Module + BeamExtension), [Lists]),\n            RuntimeModuleSelection.Beam(Lists, Read(Lists + BeamExtension))\n        ]));"
+}

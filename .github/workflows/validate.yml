@@ -513,7 +513,7 @@ jobs:
           if (!(Test-Path artifacts/library376-official-compiler/official-admission.json)) {
             throw 'Map family504 requires successful host/provider preparation; dependent execution was not started'
           }
-          python -B tools/Native/Erlang.NifMapFamily504Observations/collect.py --repository $PWD.Path --provider-admission artifacts/library376-official-compiler/official-admission.json --plan-sha256 794E4EDC4169F5D3036A84D246FAEDDB92AEFA5EFD4D54299408331B24DD86A4 --output artifacts/native-map504/ci --check-golden --both-runtime-profiles516
+          python -B tools/Native/Erlang.NifMapFamily504Observations/collect.py --repository $PWD.Path --provider-admission artifacts/library376-official-compiler/official-admission.json --plan-sha256 85480905F2DDF91246CCBFDFB4D1300C900065197080FE0656519F86B439B5CE --output artifacts/native-map504/ci --check-golden --both-runtime-profiles516
           if ($LASTEXITCODE -ne 0) { throw 'Native map family504 original/ordinary/reviewed comparison failed; all prepared independent route receipts are retained' }
           $comparison516 = Get-Content 'artifacts/native-map504/ci/completion.json' -Raw | ConvertFrom-Json
           if (!$comparison516.Passed -or !$comparison516.BothRuntimeProfiles516 -or $comparison516.ExpectedRawLoaderComparisons -ne 4 -or $comparison516.WholeRawLoaderComparisons -ne 4 -or $comparison516.WholeRawComparisonsByRuntimeProfile.'ordinary-runtime' -ne 2 -or $comparison516.WholeRawComparisonsByRuntimeProfile.'owned-runtime' -ne 2) { throw 'All four runtime-profile/loader comparisons are required' }
@@ -534,7 +534,7 @@ jobs:
           if (!(Test-Path artifacts/library376-official-compiler/official-admission.json)) {
             throw 'Materialized505 host/provider preparation missing; dependent execution skipped'
           }
-          python -B tools/Native/Erlang.NifMapMaterialized505Observations/collect.py --repository $PWD.Path --provider-admission artifacts/library376-official-compiler/official-admission.json --plan-sha256 190665B3B6FDF1532EFC37366457B00284A9744FC163430134D6F1CD581785D6 --output artifacts/native-map505/ci --check-golden --both-runtime-profiles516
+          python -B tools/Native/Erlang.NifMapMaterialized505Observations/collect.py --repository $PWD.Path --provider-admission artifacts/library376-official-compiler/official-admission.json --plan-sha256 37CFB76101D7A9BC7321B8EF782E7CE87B2B1CF0E3AF096F09562229371B7A9A --output artifacts/native-map505/ci --check-golden --both-runtime-profiles516
           if ($LASTEXITCODE -ne 0) { throw 'Materialized505 independent original/ordinary/reviewed comparison failed; inspect retained full results' }
           $comparison516 = Get-Content 'artifacts/native-map505/ci/completion.json' -Raw | ConvertFrom-Json
           if (!$comparison516.Passed -or !$comparison516.BothRuntimeProfiles516 -or $comparison516.ExpectedRawLoaderComparisons -ne 4 -or $comparison516.WholeRawLoaderComparisons -ne 4 -or $comparison516.WholeRawComparisonsByRuntimeProfile.'ordinary-runtime' -ne 2 -or $comparison516.WholeRawComparisonsByRuntimeProfile.'owned-runtime' -ne 2) { throw 'All four runtime-profile/loader comparisons are required' }
@@ -548,7 +548,7 @@ jobs:
           if (!(Test-Path artifacts/library376-official-compiler/official-admission.json)) {
             throw 'Reentry505 host/provider preparation missing; dependent execution skipped'
           }
-          python -B tools/Native/Erlang.NifMapReentry505Observations/collect.py --repository $PWD.Path --provider-admission artifacts/library376-official-compiler/official-admission.json --plan-sha256 1462B629C2FE6A02D79CA02320F9078C002443CE94E82FF13A3722BE7F89EF43 --output artifacts/native-map505/reentry-ci --check-golden --both-runtime-profiles516
+          python -B tools/Native/Erlang.NifMapReentry505Observations/collect.py --repository $PWD.Path --provider-admission artifacts/library376-official-compiler/official-admission.json --plan-sha256 5652328F87495AAF7A86F27D9FE6092F88C17FEBD9A6E834DCC1E0A8715D9CDC --output artifacts/native-map505/reentry-ci --check-golden --both-runtime-profiles516
           if ($LASTEXITCODE -ne 0) { throw 'Reentry505 original/ordinary/reviewed comparison failed; independent routes and cleanup retained' }
           $comparison516 = Get-Content 'artifacts/native-map505/reentry-ci/completion.json' -Raw | ConvertFrom-Json
           if (!$comparison516.Passed -or !$comparison516.BothRuntimeProfiles516 -or $comparison516.ExpectedRawLoaderComparisons -ne 4 -or $comparison516.WholeRawLoaderComparisons -ne 4 -or $comparison516.WholeRawComparisonsByRuntimeProfile.'ordinary-runtime' -ne 2 -or $comparison516.WholeRawComparisonsByRuntimeProfile.'owned-runtime' -ne 2) { throw 'All four runtime-profile/loader comparisons are required' }
@@ -863,6 +863,38 @@ jobs:
           $runtimeSha = (Get-FileHash -LiteralPath $runtime -Algorithm SHA256).Hash
           python -B tools/Runtime/Erlang.OwnedGuest506Observations/compare-regex613-existing.py --repository $PWD.Path --original artifacts/owned506/regex613-original --managed-frame artifacts/owned506/regex613-managed/frame.json --runtime-sha256 $runtimeSha --output artifacts/owned506/regex613-comparison
           if ($LASTEXITCODE -ne 0) { throw 'Fresh whole regex values/stacks, source-window or actual cleanup comparison failed' }
+      - name: Capture both unchanged binary390 observer modes with admitted Windows OTP
+        id: binary619-original
+        if: ${{ !cancelled() && steps.shared-original-provider.outcome == 'success' && steps.owned506-admit.outcome == 'success' }}
+        continue-on-error: true
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = 'Stop'
+          $env:DOTNET_PROCESSOR_COUNT = '2'
+          $provider = Join-Path $PWD.Path 'artifacts/library376-official-compiler/official-admission.json'
+          $providerSha = (Get-FileHash -LiteralPath $provider -Algorithm SHA256).Hash
+          python -B tools/Runtime/Erlang.OwnedGuest506Observations/capture-binary619-original.py --repository $PWD.Path --official-admission $provider --admission-sha256 $providerSha --plan tools/Runtime/Erlang.OwnedGuest506Observations/binary619-reuse-plan.json --plan-sha256 0E58CB1E7CB10D4F650F06289D20E29FE0B67A7A4DCF0EB6F39B2D90BA9189C4 --output artifacts/owned506/binary619-original *> artifacts/owned506/binary619-original.log
+          if ($LASTEXITCODE -ne 0) { throw 'Fresh binary original modes failed; independent receipts are retained' }
+      - name: Capture existing managed binary390 in one owned current-source window
+        id: binary619-managed
+        if: ${{ !cancelled() && steps.owned506-admit.outcome == 'success' }}
+        continue-on-error: true
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = 'Stop'
+          python -B tools/Runtime/Erlang.OwnedGuest506Observations/run-binary619-managed-ci.py --repository $PWD.Path --output artifacts/owned506/binary619-managed *> artifacts/owned506/binary619-managed.log
+          if ($LASTEXITCODE -ne 0) { throw 'Existing binary390 or its owned source window did not pass' }
+      - name: Require all 564 fresh whole binary contracts and actual cleanup
+        id: binary619-compare
+        if: ${{ !cancelled() && steps.binary619-original.outcome == 'success' && steps.binary619-managed.outcome == 'success' }}
+        continue-on-error: true
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = 'Stop'
+          $runtime = Join-Path $PWD.Path 'tests/Erlang.Tests/bin/Debug/net10.0/Erlang.Runtime.dll'
+          $runtimeSha = (Get-FileHash -LiteralPath $runtime -Algorithm SHA256).Hash
+          python -B tools/Runtime/Erlang.OwnedGuest506Observations/compare-binary619-existing.py --repository $PWD.Path --original artifacts/owned506/binary619-original --managed-frame artifacts/owned506/binary619-managed/frame.json --runtime-sha256 $runtimeSha --output artifacts/owned506/binary619-comparison
+          if ($LASTEXITCODE -ne 0) { throw 'Whole binary values/stacks, source-window or actual cleanup comparison failed' }
       - name: Require owned506 original source and full original batch
         if: ${{ !cancelled() }}
         shell: pwsh
@@ -876,6 +908,7 @@ jobs:
           if ('${{ steps.atomics592-contracts.outcome }}' -ne 'success') { throw 'Required atomics original/protocol/closure stages did not pass' }
           if ('${{ steps.counters610-release.outcome }}' -ne 'success' -or '${{ steps.counters610-contracts.outcome }}' -ne 'success') { throw 'Required matching OPT counters preparation and both complete original-backed profiles did not pass' }
           if ('${{ steps.regex613-original.outcome }}' -ne 'success' -or '${{ steps.regex613-managed.outcome }}' -ne 'success' -or '${{ steps.regex613-compare.outcome }}' -ne 'success') { throw 'Required regex original modes, current managed source window and all whole contracts did not pass' }
+          if ('${{ steps.binary619-original.outcome }}' -ne 'success' -or '${{ steps.binary619-managed.outcome }}' -ne 'success' -or '${{ steps.binary619-compare.outcome }}' -ne 'success') { throw 'Required binary original modes, current managed source window and all whole contracts did not pass' }
           if ('${{ steps.resource529-original.outcome }}' -ne 'success' -or '${{ steps.resource529-managed.outcome }}' -ne 'success') { throw 'Both selected resource529 original and managed routes must pass' }
           if ('${{ steps.queue593-original.outcome }}' -ne 'success' -or '${{ steps.queue593-managed.outcome }}' -ne 'success') { throw 'Native queue593 original and both final loader comparisons must pass' }
           if ('${{ steps.reference528-contracts.outcome }}' -ne 'success') { throw 'Required ordinary-reference/loader-map original and both profiles did not pass' }
