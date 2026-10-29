@@ -1,0 +1,22 @@
+{
+  "Run": 40880243780,
+  "Head": "09a3faefde30636cc9a0c8e29b1968d4e33bbea9",
+  "Artifact": 12899777807,
+  "ZipSha256": "5545E18581C04C0E559BC2B5EF24E063E362774BE9C3B2F00B2140919F425171",
+  "Passed": false,
+  "RuntimeBuilt": false,
+  "RuntimeTestsExecuted": false,
+  "PassiveChecksPassed": 11,
+  "PassiveChecksFailed": [
+    "Reallocation",
+    "Private557"
+  ],
+  "ActualOffendingPath": ".gitattributes",
+  "ExpectedTextLfSha256": "029772BEFB200DCBFA4461A2E43BBE6E89FC51ED8298088142CB39BE97F118A4",
+  "ActualTextLfSha256": "AE1FC2B898F627D1F4467B19DBFBC8EEC4049329EAFC327AF9AA6119A88D49DF",
+  "Cause": "Exact-path CR-at-EOL whitespace policy was appended after local source-seal receipts; the two dependent seals retained earlier attributes bytes.",
+  "Correction": "Rebind all source plans after final metadata; skip dependent retirement collector unless shared provider preparation succeeded.",
+  "RerunUnchangedHead": false,
+  "ApiDelta": 0,
+  "FullContractDelta": 0
+}

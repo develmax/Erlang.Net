@@ -618,7 +618,7 @@ jobs:
           $result = Get-Content artifacts/nif-private-data557/ci/completion.json -Raw | ConvertFrom-Json
           if (!$result.Passed -or !$result.OriginalExecuted -or !$result.ManagedRequested -or $result.ExpectedManagedRoutes -ne 4 -or $result.MatchedManagedRoutes.Count -ne 4 -or $result.WholeContractsClosed -ne 0) { throw 'Private557 requires all four actual comparisons and physical cleanup' }
       - name: Verify logical death before physical dirty completion in pinned OTP
-        if: ${{ !cancelled() }}
+        if: ${{ !cancelled() && steps.shared-original-provider.outcome == 'success' }}
         shell: pwsh
         run: |
           if (!(Test-Path artifacts/library376-official-compiler/official-admission.json)) {
