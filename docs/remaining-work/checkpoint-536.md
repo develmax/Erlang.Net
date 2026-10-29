@@ -33,3 +33,5 @@ The earlier94-group checkpoint and archive remain historical evidence. Final sou
 Evidence: [propagation and halt archive](../validation/part-536-propagated-halt/README.md).
 
 Final propagated/Halt source-only gates: all eight pass; exact pending membership 3,903 and 2,164 source guards verify every declared hash and length. New Halt tests and ETS completion dependency are explicitly enrolled. These metadata checks do not rerun or relabel the retained execution windows. Parent 535 current-head full validate stage is green; remaining native stages and authenticated final report, review/merge gates remain separate. Expected current full catalog is 9,343; no full local pass is claimed.
+
+PR 88 review 4408860643: expand the retirement success/failure branches onto separate lines. The only C# adjustment adds whitespace and braces; the remaining token sequence and both terminal calls are unchanged, with all other 61 frozen sources retained. Existing execution receipts keep their original source hashes; this source-only correction requires fresh exact-head CI and review.
