@@ -1,5 +1,13 @@
 # Remaining work
 
+## Part540 current increment
+
+Public compiled ETS Run and resumed hash/tree cursors now hold real internal634 native readers across reduction yields, result copies and cancellation/error exits. Payload capture remains singular; complete default AST compilation and distinct legacy execution modes remain unchanged. Continuations retain no reader between calls. This is not a general native producer or sixth-family custody completion.
+
+Final Debug and Release each pass an explicit disjoint299-case composite (140+140+19), with identical protected DLLs within each profile. The incomplete180-second aggregate remains unaccepted:295 selected passes, one informational line, four unfinished cases and no report. A separate23-case Debug cleanup probe passed. Fresh execution of hash-verified cached original419/420 workers matches all498 complete values/stacks across four raw ETF streams in both profiles; no fresh compilation, projection or normalization is claimed. SourceLayout0 and Roslyn13/13;13 C# frozen sources. Expected catalog9394(+7), distinct from pending exact-head full CI/current review. Counts708/180/504/24 and API/full deltas0/0 stay fixed.
+
+Next: coherent monitor/reason/function-image roots and general native production/custody. [Checkpoint540](checkpoint-540.md) · [Evidence](../validation/part-540/README.md).
+
 ## Part539 current increment
 
 Internal native saved programs are locally validated for a constant-only subset:19 frozen C# sources, Debug280/280 and Release280/280, plus a fresh compiled original/managed210-byte Outcome for ten supported constants in both profiles. Physical operands, fragment ownership, deterministic rollback and VM close/reader fences are covered. Public419/trace and complete65-opcode behavior are unchanged/unimplemented respectively. No sixth-family, full P3/P4 or API contract promotion follows.

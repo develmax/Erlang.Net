@@ -18,6 +18,10 @@ public sealed partial class ProcessRuntime
             RequireEtsFoundationActor(context);
             context.Cancellation.ThrowIfCancellationRequested();
 
+            // Authority validation is metadata-only under R. Real native reader
+            // acquisition belongs to the outside-monitor dispatch scope.
+            program.Executable.RequireOwner638(this);
+
             return ReferenceResources.CreateMatchSpec419(program);
         }
     }
