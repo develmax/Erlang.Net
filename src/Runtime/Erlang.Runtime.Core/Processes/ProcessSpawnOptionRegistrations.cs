@@ -5,7 +5,7 @@ internal static class ProcessSpawnOptionRegistrations
     public static void Register(ModuleRegistry registry)
     {
         foreach (int arity in new[] { 2, 3, 4, 5 })
-            registry.Register(
+            registry.RegisterCanonicalRuntimeRead535(
                 ErlangModuleNames.Module,
                 ProcessSpawnOptionNames.Function,
                 arity,
@@ -29,13 +29,7 @@ internal static class ProcessSpawnOptionRegistrations
                 : callback is FunctionTerm { Arity: 0 } or TupleTerm { Items: [Atom, Atom] };
             if (!valid)
                 throw Invalid(context, arguments);
-            body = child => child.Runtime.Modules.Call(
-                child,
-                ErlangModuleNames.Module,
-                ErlangBasicBifNames.Apply,
-                callback,
-                Nil.Value
-            );
+            body = RuntimeVmSpawnInput641.Callback641(callback, Array.Empty<Term>());
             description = SequenceSpawnDescription.Callback(callback, arguments[^1]);
         }
         else
@@ -52,12 +46,7 @@ internal static class ProcessSpawnOptionRegistrations
             {
                 throw Invalid(context, arguments);
             }
-            body = child => child.Runtime.Modules.Call(
-                child,
-                module.Name,
-                function.Name,
-                values
-            );
+            body = RuntimeVmSpawnInput641.Mfa641(module.Name, function.Name, values);
             description = SequenceSpawnDescription.Module(
                 module,
                 function,

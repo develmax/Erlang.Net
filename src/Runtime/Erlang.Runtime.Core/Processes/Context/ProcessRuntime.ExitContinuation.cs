@@ -40,7 +40,15 @@ public sealed partial class ProcessRuntime
 
     private void StartExitContinuation(ProcessExitContinuation continuation)
     {
-        exitContinuations.Add(continuation.Process, continuation);
+        try
+        {
+            exitContinuations.Add(continuation.Process, continuation);
+        }
+        catch
+        {
+            continuation.Origin641?.Close641();
+            throw;
+        }
         // Runtime-owned retirement must outlive an actor's scheduler lane.
         // Suppress actor/invocation AsyncLocals at the first asynchronous hop.
         if (ExecutionContext.IsFlowSuppressed())
@@ -77,7 +85,8 @@ public sealed partial class ProcessRuntime
                         continuation.Process,
                         continuation.Reason,
                         preparation,
-                        continuation
+                        continuation,
+                        continuation.Origin641
                     );
             }
             await continuation.LocalCleanup.Task.ConfigureAwait(false);
@@ -120,6 +129,7 @@ public sealed partial class ProcessRuntime
         }
         finally
         {
+            continuation.Origin641?.Close641();
             try
             {
                 // Logical replies/DOWN may precede dirty-body completion; ownership never does.

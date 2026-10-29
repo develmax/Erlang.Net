@@ -2,6 +2,8 @@ namespace Erlang;
 
 internal sealed record ProcessMonitorOptions(bool Priority, string? AliasMode, Term Tag)
 {
+    internal RuntimeProcessPayload641? Custody641 { get; init; }
+
     public static ProcessMonitorOptions Default { get; } = new(false, null, Term.A(ProcessMessageTags.MonitorDown));
 
     private static ProcessMonitorOptions ClockDefault { get; } = new(false, null, Term.A(ClockMonitorNames.Change));

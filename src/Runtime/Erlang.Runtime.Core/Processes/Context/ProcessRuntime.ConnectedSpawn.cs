@@ -6,7 +6,7 @@ public sealed partial class ProcessRuntime
     {
         lock (gate)
         {
-            monitors.Remove(request.Reference);
+            RemoveMonitor641(request.Reference);
             aliases.Remove(request.Reference);
             distributionProcessMonitors.RemoveAll(item => item.Origin &&
                 ReferenceEquals(item.Local, request.Owner) && item.Reference.Equals(request.Reference));
@@ -101,7 +101,7 @@ public sealed partial class ProcessRuntime
                             false
                         );
 
-                    return child.Runtime.Modules.Call(
+                    return child.Runtime.Modules.CallVmMfaRoot641(
                         child,
                         module.Name,
                         function.Name,

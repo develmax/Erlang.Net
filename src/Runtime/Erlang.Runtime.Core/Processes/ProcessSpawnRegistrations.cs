@@ -19,7 +19,7 @@ internal static class ProcessSpawnRegistrations
             : throw new ErlangException(ErlangErrorReasons.BadArgument)
         );
         foreach (string name in new[] { ErlangModuleNames.Spawn, ErlangModuleNames.SpawnLink, ErlangModuleNames.SpawnMonitor })
-            registry.Register(
+            registry.RegisterCanonicalRuntimeRead535(
                 ErlangModuleNames.Module,
                 name,
                 3,
@@ -29,12 +29,7 @@ internal static class ProcessSpawnRegistrations
                 string function = CoreModules.AtomName(arguments[1]);
                 Term[] values = Cons.Items(arguments[2]).ToArray();
 
-                ValueTask<Term> Body(ProcessContext child) => child.Runtime.Modules.Call(
-                    child,
-                    module,
-                    function,
-                    values
-                );
+                Func<ProcessContext, ValueTask<Term>> Body = RuntimeVmSpawnInput641.Mfa641(module, function, values);
                 if (name == ErlangModuleNames.SpawnMonitor)
                 {
                     var monitored = context.Runtime.SpawnMonitorTraced(
@@ -73,13 +68,7 @@ internal static class ProcessSpawnRegistrations
             throw new ErlangException(ErlangErrorReasons.BadArgument);
 
         return context.Runtime.SpawnTraced(
-            child => child.Runtime.Modules.Call(
-                child,
-                ErlangModuleNames.Module,
-                ErlangBasicBifNames.Apply,
-                callback,
-                Nil.Value
-            ),
+            RuntimeVmSpawnInput641.Callback641(callback, Array.Empty<Term>()),
             context,
             false,
             SequenceSpawnDescription.Callback(callback)

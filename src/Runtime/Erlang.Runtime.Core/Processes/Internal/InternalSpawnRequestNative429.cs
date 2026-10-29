@@ -70,12 +70,7 @@ internal static class InternalSpawnRequestNative429
 
             return ValueTask.FromResult<Term>(owner.SpawnRequest(
                 context,
-                child => child.Runtime.Modules.Call(
-                    child,
-                    targetModule.Name,
-                    targetFunction.Name,
-                    copiedArguments
-                ),
+                RuntimeVmSpawnInput641.Mfa641(targetModule.Name, targetFunction.Name, copiedArguments),
                 parsed,
                 failure,
                 description

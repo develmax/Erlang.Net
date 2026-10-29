@@ -70,6 +70,7 @@ public sealed partial class ProcessRuntime
             localNodeEvents?.Close();
             disposed = true;
             StopMailboxRootAdmission593();
+            StopProcessPayloadAdmission641();
             _ = actorDispatcher.CompleteWhenIdle();
             distributionPending?.Close();
             OsEnvironment?.Dispose();
@@ -102,12 +103,13 @@ public sealed partial class ProcessRuntime
             processes.Clear();
             names.Clear();
             aliases.Clear();
-            monitors.Clear();
+            ClearMonitors641();
             spawnRequests.Clear();
             foreach (ProcessContext process in stopped)
             {
                 processSlots.Remove(process.Self);
                 process.Terminated = true;
+                if (!process.ExecutionStarted) process.VmSpawnInput641?.CloseClaimed641();
                 process.Mailbox.StopAdmissionForExit606();
                 process.ExitReason = Term.A(ProcessExitReasons.Shutdown);
                 process.PendingCodeChecks.Clear();
@@ -119,7 +121,7 @@ public sealed partial class ProcessRuntime
                 process.PriorityLinks.Clear();
                 process.PortLinks.Clear();
                 process.PriorityPortLinks.Clear();
-                if (etsFoundation?.HasPendingRetirements != true && PersistentTermRetirementCompletedSuccessfully && RegexRetirementCompleted411 && BinaryRetirementCompleted598 && SavedMatchRetirementCompleted634 && DirtyNativeRetirementCompleted419 && DebugDispatchRetirementCompleted432 && CountersRetirementCompleted421 && DriverFrontendRetirementCompleted422 && CodePurgerRetirementCompleted432 && AllocatorGatherRetirementCompleted434)
+                if (etsFoundation?.HasPendingRetirements != true && PersistentTermRetirementCompletedSuccessfully && RegexRetirementCompleted411 && BinaryRetirementCompleted598 && SavedMatchRetirementCompleted634 && DirtyNativeRetirementCompleted419 && DebugDispatchRetirementCompleted432 && CountersRetirementCompleted421 && DriverFrontendRetirementCompleted422 && CodePurgerRetirementCompleted432 && AllocatorGatherRetirementCompleted434 && ProcessPayloadRetirementCompleted641(process))
                     process.Done.TrySetResult(process.ExitReason);
             }
             deadlineStop = new CancellationTokenSource();
@@ -290,6 +292,7 @@ public sealed partial class ProcessRuntime
                     DrainDebugDispatch432(),
                     DrainCounters421(),
                     DrainMailboxRoots593(),
+                    DrainProcessPayloads641(),
                     DrainAtomics586(),
                     DrainHamtIndex429(),
                     DrainDriverFrontend422(),

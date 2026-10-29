@@ -1,0 +1,40 @@
+using System.Text;
+
+namespace Erlang.Tests.MonitorOriginal645;
+
+internal static class MonitorOriginal645Names
+{
+    internal const string Case = "runtime/monitor645/original-public-role-whole-outcomes";
+    internal const string Schema = "monitor641/public-role-observer-v1";
+    internal const string OriginalPin = "ad05823719d77c8faee87348ea39513d4e2f99c5";
+    internal const string ObserverSha256 = "A5204669630446B4451BA726EA6A86F186469D9F748EEDDB35922B53061C6745";
+    internal const string Module = "monitor_original645";
+    internal const string SourceFile = "monitor_original645.erl";
+    internal const string Observe = "observe";
+    internal const string Stored = "stored";
+    internal const string Down = "down";
+    internal const string Cancel = "cancel";
+    internal const string Value = "value";
+    internal const string NativeFamily = "native";
+    internal const string AtomicsFamily = "atomics";
+    internal const string CountersFamily = "counters";
+    internal const string RegexFamily = "regex";
+    internal const string BinaryFamily = "binary";
+    internal const string OrdinaryFamily = "ordinary_reference_control";
+    internal const string NativeMakeReference = "MakeNativeResource524";
+    internal const string NativeRetired = "Retired524";
+    internal const string DictionaryData = "data";
+    internal const string Output = "artifacts/monitor645-managed";
+    internal const string GuidFormat = "N";
+    internal const string OutcomePrefix = "outcome-";
+    internal const string EtfSuffix = ".etf";
+    internal const string JsonSuffix = ".json";
+    internal const int ExpectedRows = 10;
+    internal const int Families = 5;
+    internal const int Modes = 2;
+    internal const string Receipt = "receipt.json";
+    internal const string Failure = "Complete Source monitor645 role observer or cleanup failed.";
+    internal const string ObserverBase64 = "LW1vZHVsZShtb25pdG9yX29yaWdpbmFsNjQ1KS4KLWV4cG9ydChbb2JzZXJ2ZS8xLGNhcHR1cmUvMV0pLgpvYnNlcnZlKE1vZGUpIC0+CiAgRXhwZWN0ZWQ9Z2V0KHN0b3JlZCksCiAgdHJ5IGFybSgpLGNhc2UgTW9kZSBvZiBkb3duIC0+IHRha2UoRXhwZWN0ZWQpOyBjYW5jZWwgLT4gY2FuY2VsKCkgZW5kIG9mCiAgICBWIC0+IHt2YWx1ZSxWfQogIGNhdGNoIEM6UjpTIC0+IHtleGNlcHRpb24sQyxSLFN9CiAgZW5kLgphcm0oKSAtPgogIENoaWxkPXNwYXduKGZ1bigpIC0+IHJlY2VpdmUgZ28gLT4gUj1lcnRzX2ludGVybmFsOmNvdW50ZXJzX25ldygxKSxleGl0KHtyZWFzb24sUn0pIGVuZCBlbmQpLAogIFRhZz17cGF5bG9hZCxbI3tyZXNvdXJjZT0+Z2V0KHN0b3JlZCl9XX0sCiAgUmVmPWVybGFuZzptb25pdG9yKHByb2Nlc3MsQ2hpbGQsW3t0YWcsVGFnfV0pLAogIHB1dChjaGlsZDY0NSxDaGlsZCkscHV0KHJlZjY0NSxSZWYpLGVyYXNlKHN0b3JlZCksZXJsYW5nOmdhcmJhZ2VfY29sbGVjdCgpLFJlZi4KdGFrZShFeHBlY3RlZCkgLT4KICBnZXQoY2hpbGQ2NDUpIWdvLAogIHJlY2VpdmUKICAgIHt7cGF5bG9hZCxbI3tyZXNvdXJjZTo9UH1dfSxSZWYscHJvY2VzcyxDaGlsZCx7cmVhc29uLFJ9fSAtPgogICAgICBSZWY9ZXJhc2UocmVmNjQ1KSxDaGlsZD1lcmFzZShjaGlsZDY0NSksCiAgICAgIHRydWU9aXNfcmVmZXJlbmNlKFApLHRydWU9aXNfcmVmZXJlbmNlKFIpLHRydWU9KFA9Oj1FeHBlY3RlZCksdHJ1ZT0oUj0vPUV4cGVjdGVkKSwzPWVydHNfZGVidWc6ZmxhdF9zaXplKFIpLHRydWUKICBhZnRlciA1MDAwIC0+IGVybGFuZzplcnJvcihtaXNzaW5nX2Rvd242NDUpCiAgZW5kLgpjYW5jZWwoKSAtPgogIFJlZj1lcmFzZShyZWY2NDUpLENoaWxkPWVyYXNlKGNoaWxkNjQ1KSx0cnVlPWVybGFuZzpkZW1vbml0b3IoUmVmLFtmbHVzaF0pLAogIEpvaW5lZD1lcmxhbmc6bW9uaXRvcihwcm9jZXNzLENoaWxkKSxleGl0KENoaWxkLGtpbGwpLAogIHJlY2VpdmUKICAgIHsnRE9XTicsSm9pbmVkLHByb2Nlc3MsQ2hpbGQsa2lsbGVkfSAtPiB0cnVlOwogICAgeydET1dOJyxKb2luZWQscHJvY2VzcyxDaGlsZCxub3Byb2N9IC0+IHRydWUKICBhZnRlciA1MDAwIC0+IGVybGFuZzplcnJvcihjaGlsZF9jbGVhbnVwNjQ1KQogIGVuZC4KbWFrZV90YWcoYXRvbWljcykgLT4gYXRvbWljczpuZXcoMSxbXSk7Cm1ha2VfdGFnKGNvdW50ZXJzKSAtPiBlcnRzX2ludGVybmFsOmNvdW50ZXJzX25ldygxKTsKbWFrZV90YWcocmVnZXgpIC0+IHtvayxQYXR0ZXJufT1yZTpjb21waWxlKCJ4IiksZWxlbWVudCg1LFBhdHRlcm4pOwptYWtlX3RhZyhiaW5hcnkpIC0+IGVsZW1lbnQoMixiaW5hcnk6Y29tcGlsZV9wYXR0ZXJuKDw8IngiPj4pKTsKbWFrZV90YWcob3JkaW5hcnlfcmVmZXJlbmNlX2NvbnRyb2wpIC0+IG1ha2VfcmVmKCkuCm9yaWdpbmFsX2Nhc2UoRmFtaWx5LE1vZGUpIC0+CiAgUGFyZW50PXNlbGYoKSwKICB7UGlkLFJlZn09c3Bhd25fbW9uaXRvcihmdW4oKSAtPiBwdXQoc3RvcmVkLG1ha2VfdGFnKEZhbWlseSkpLFBhcmVudCF7c2VsZigpLG9ic2VydmUoTW9kZSl9IGVuZCksCiAgcmVjZWl2ZQogICAge1BpZCxWYWx1ZX0gLT4gcmVjZWl2ZSB7J0RPV04nLFJlZixwcm9jZXNzLFBpZCxub3JtYWx9IC0+IFZhbHVlIGVuZDsKICAgIHsnRE9XTicsUmVmLHByb2Nlc3MsUGlkLFJlYXNvbn0gLT4ge3dvcmtlcl9leGl0LFJlYXNvbn0KICBhZnRlciAxNTAwMCAtPiBleGl0KFBpZCxraWxsKSxyZWNlaXZlIHsnRE9XTicsUmVmLHByb2Nlc3MsUGlkLF99LT5vayBlbmQse3dvcmtlcl90aW1lb3V0LEZhbWlseSxNb2RlfQogIGVuZC4KY2FwdHVyZShEaXJlY3RvcnkpIC0+CiAgUm93cz1be0YsTSxvcmlnaW5hbF9jYXNlKEYsTSl9IHx8IEYgPC0gW2F0b21pY3MsY291bnRlcnMscmVnZXgsYmluYXJ5LG9yZGluYXJ5X3JlZmVyZW5jZV9jb250cm9sXSxNIDwtIFtkb3duLGNhbmNlbF1dLAogIGxpc3RzOmZvcmVhY2goZnVuKHtJLFJvd30pLT5vaz1maWxlOndyaXRlX2ZpbGUoZmlsZW5hbWU6am9pbihEaXJlY3RvcnksIm91dGNvbWUtIisraW50ZWdlcl90b19saXN0KEkpKysiLmV0ZiIpLHRlcm1fdG9fYmluYXJ5KFJvdyxbe21pbm9yX3ZlcnNpb24sMn1dKSkgZW5kLGxpc3RzOnppcChsaXN0czpzZXEoMCw5KSxSb3dzKSksCiAgb2s9ZmlsZTp3cml0ZV9maWxlKGZpbGVuYW1lOmpvaW4oRGlyZWN0b3J5LCJhbGwtb3V0Y29tZXMuZXRmIiksdGVybV90b19iaW5hcnkoUm93cyxbe21pbm9yX3ZlcnNpb24sMn1dKSksCiAgY2FzZSBsaXN0czphbGwoZnVuKHtfLF8se3ZhbHVlLHRydWV9fSktPnRydWU7KF8pLT5mYWxzZSBlbmQsUm93cykgb2YgdHJ1ZS0+b2s7ZmFsc2UtPmVybGFuZzplcnJvcihvYnNlcnZlcl9vdXRjb21lNjQ1KSBlbmQuCg==";
+    internal static string Source => Encoding.UTF8.GetString(Convert.FromBase64String(ObserverBase64));
+    internal static readonly TimeSpan Deadline = TimeSpan.FromSeconds(20);
+}

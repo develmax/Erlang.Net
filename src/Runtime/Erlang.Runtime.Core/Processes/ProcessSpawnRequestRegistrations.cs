@@ -5,7 +5,7 @@ internal static class ProcessSpawnRequestRegistrations
     public static void Register(ModuleRegistry registry)
     {
         for (int arity = 1; arity <= 5; arity++)
-            registry.Register(
+            registry.RegisterCanonicalRuntimeRead535(
                 ErlangModuleNames.Module,
                 ProcessSpawnRequestNames.Function,
                 arity,
@@ -46,7 +46,7 @@ internal static class ProcessSpawnRequestRegistrations
                 node = arguments[0] is Atom address ? address.Name : throw Invalid(context, arguments);
             if (arguments.Count == callback + 2)
                 options = arguments[^1];
-            body = child => function.Invoke(child, Array.Empty<Term>());
+            body = RuntimeVmSpawnInput641.Callback641(function, Array.Empty<Term>());
             description = SequenceSpawnDescription.Callback(function, options);
         }
         else
@@ -68,12 +68,7 @@ internal static class ProcessSpawnRequestRegistrations
                 throw Invalid(context, arguments);
             }
             options = normalized[^1];
-            body = child => child.Runtime.Modules.Call(
-                child,
-                module.Name,
-                function.Name,
-                values
-            );
+            body = RuntimeVmSpawnInput641.Mfa641(module.Name, function.Name, values);
             description = SequenceSpawnDescription.Module(
                 module,
                 function,

@@ -41,12 +41,7 @@ public static class RuntimeBootstrapFileSystem
             return ValueTask.FromResult<Term>(purger!.Pid);
 
         return ValueTask.FromResult<Term>(context.Runtime.SpawnTraced(
-            child => child.Runtime.Modules.Call(
-                child,
-                module,
-                function,
-                values
-            ),
+            RuntimeVmSpawnInput641.Mfa641(module, function, values),
             context,
             false,
             SequenceSpawnDescription.Module(

@@ -7642,6 +7642,26 @@ try
     Test(Erlang.Tests.DictionaryKeys538Names.BinaryCase, Erlang.Tests.DictionaryKeys538Checks.Binary);
     Test(Erlang.Tests.DictionaryProjection635Names.Test, Erlang.Tests.DictionaryProjection635Checks.Scaling);
     // Opt-in component registrations; not active until owner compiles/reviews.
+    foreach (string family in new[] { Erlang.Tests.ReasonInput645Names.NativeFamily, Erlang.Tests.ReasonInput645Names.AtomicsFamily, Erlang.Tests.ReasonInput645Names.CountersFamily, Erlang.Tests.ReasonInput645Names.RegexFamily, Erlang.Tests.ReasonInput645Names.BinaryFamily })
+    {
+        string selectedFamily = family;
+        Test(
+            Erlang.Tests.ReasonInput645Names.ClosureCase + "/" + selectedFamily,
+            () => Erlang.Tests.ReasonInput645Checks.Run(Erlang.Tests.ReasonInput645Mode.Closure, selectedFamily)
+        );
+        Test(
+            Erlang.Tests.ReasonInput645Names.MfaCase + "/" + selectedFamily,
+            () => Erlang.Tests.ReasonInput645Checks.Run(Erlang.Tests.ReasonInput645Mode.Mfa, selectedFamily)
+        );
+    }
+
+    Test(Erlang.Tests.ProcessPayloadCore641Names.FailureCase, Erlang.Tests.ProcessPayloadCore641Checks.CompletedFailureIsolation);
+    Test(Erlang.Tests.ProcessPayloadCore641Names.StopCase, Erlang.Tests.ProcessPayloadCore641Checks.UnusedStopDrain);
+    Test(Erlang.Tests.ProcessPayloadCore641Names.SealCase, Erlang.Tests.ProcessPayloadCore641Checks.ContextSeal);
+    Test(
+        Erlang.Tests.MonitorOriginal645.MonitorOriginal645Names.Case,
+        Erlang.Tests.MonitorOriginal645.MonitorOriginal645Checks.Run
+    );
     Test(Erlang.Tests.MatchSaved634Names.ProtocolCase, Erlang.Tests.MatchSaved634Checks.Protocol);
     Test(Erlang.Tests.MatchSaved634Names.MutationCase, Erlang.Tests.MatchSaved634Checks.MutationAndCopy);
     Test(Erlang.Tests.MatchSaved634Names.SourceCase, Erlang.Tests.MatchSaved634Checks.SourceReleased);
@@ -7691,6 +7711,33 @@ try
         );
     }
     Test(Erlang.Tests.TimerPayload628Names.OpaqueCase, Erlang.Tests.TimerPayload628Checks.OpaqueAlias);
+    foreach (string family in new[]
+    {
+        Erlang.Tests.MonitorPayload641Names.NativeFamily,
+        Erlang.Tests.MonitorPayload641Names.AtomicsFamily,
+        Erlang.Tests.MonitorPayload641Names.CountersFamily,
+        Erlang.Tests.MonitorPayload641Names.RegexFamily,
+        Erlang.Tests.MonitorPayload641Names.BinaryFamily
+    })
+    {
+        Test(
+            Erlang.Tests.MonitorPayload641Names.DownCase + "/" + family,
+            () => Erlang.Tests.MonitorPayload641Checks.Run(Erlang.Tests.MonitorPayload641Mode.Down, family)
+        );
+        Test(
+            Erlang.Tests.MonitorPayload641Names.CancelCase + "/" + family,
+            () => Erlang.Tests.MonitorPayload641Checks.Run(Erlang.Tests.MonitorPayload641Mode.Cancel, family)
+        );
+        Test(
+            Erlang.Tests.MonitorPayload641Names.ExitCase + "/" + family,
+            () => Erlang.Tests.MonitorPayload641Checks.Run(Erlang.Tests.MonitorPayload641Mode.OwnerExit, family)
+        );
+        Test(
+            Erlang.Tests.MonitorPayload641Names.VmCase + "/" + family,
+            () => Erlang.Tests.MonitorPayload641Checks.Run(Erlang.Tests.MonitorPayload641Mode.VmClose, family)
+        );
+    }
+
     Test(Erlang.Tests.BinaryHalt629Names.Test, Erlang.Tests.BinaryHalt629Checks.Run);
     Test(Erlang.Tests.BinaryArena598Names.PhysicalCase, Erlang.Tests.BinaryArena598Checks.Physical);
     Test(Erlang.Tests.BinaryArena598Names.ActiveCase, Erlang.Tests.BinaryArena598Checks.Active);

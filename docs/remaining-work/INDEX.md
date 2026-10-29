@@ -1,5 +1,9 @@
 # Remaining work
 
+## Part541 current increment
+
+Process reason/tag custody and pre-scheduling source input handoff are implemented. Final local Debug370/370 and Release370/370 are disjoint140+140+19+38+33 composites on unchanged per-profile DLLs, plus102 disjoint existing error/stack ABI cases per profile. Fresh original OTP compilation/execution matches ten complete raw observer outcomes in each profile. Separate33 lifetime groups establish actual five-family process/header/backing retirement; an ordinary reference in the portable observer never substitutes for a native NIF object. XML alignment/rebuilds preserve tested DLLs;8 source metadata gates pass. Counts708/180/504/24, API/full deltas0/0. Publication/exact-head CI/review/merge remain gates. [Checkpoint541](checkpoint-541.md) · [Evidence](../validation/part-541/README.md).
+
 ## Part540 current increment
 
 Public compiled ETS Run and resumed hash/tree cursors now hold real internal634 native readers across reduction yields, result copies and cancellation/error exits. Payload capture remains singular; complete default AST compilation and distinct legacy execution modes remain unchanged. Continuations retain no reader between calls. This is not a general native producer or sixth-family custody completion.

@@ -108,7 +108,8 @@ public sealed partial class ProcessRuntime
     {
         ProcessMonitorEntry? localOptions = monitor.SpawnOptions ? monitors.GetValueOrDefault(monitor.Reference) : null;
         Term reported = watched is Atom name ? Term.Tuple(name, Term.A(monitor.Entry.Node.Name)) : watched;
-        monitor.Local.Mailbox.SendPending(
+        SendMonitorPayload641(
+            monitor.Local,
             Term.Tuple(
                 localOptions?.Tag ?? Term.A(ProcessMessageTags.MonitorDown),
                 monitor.Reference,
@@ -124,12 +125,13 @@ public sealed partial class ProcessRuntime
                         return null;
 
                     if (localOptions is null) return false;
-                    if (!monitors.Remove(monitor.Reference)) return null;
+                    if (!RemoveMonitor641(monitor.Reference)) return null;
                     if (!localOptions.KeepAlias) aliases.Remove(monitor.Reference);
 
                     return localOptions.Priority;
                 }
             },
+            localOptions?.Custody641,
             preserve: true,
             from: monitor.Entry.Node
         );

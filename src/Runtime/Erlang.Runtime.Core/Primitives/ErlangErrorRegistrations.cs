@@ -4,7 +4,7 @@ internal static class ErlangErrorRegistrations
 {
     public static void Register(ModuleRegistry registry)
     {
-        registry.Register(
+        registry.RegisterCanonicalRuntimeRead535(
             ErlangModuleNames.Module,
             ErlangModuleNames.Error,
             2,
@@ -15,7 +15,7 @@ internal static class ErlangErrorRegistrations
                 null
             )
         );
-        registry.Register(
+        registry.RegisterCanonicalRuntimeRead535(
             ErlangModuleNames.Module,
             ErlangModuleNames.Error,
             3,
@@ -27,7 +27,7 @@ internal static class ErlangErrorRegistrations
             )
         );
         foreach (int arity in new[] { 1, 2 })
-            registry.Register(
+            registry.RegisterCanonicalRuntimeRead535(
                 ErlangModuleNames.Module,
                 ErlangErrorMetadataNames.NifError,
                 arity,
