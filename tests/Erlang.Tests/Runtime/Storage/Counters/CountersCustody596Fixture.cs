@@ -84,6 +84,12 @@ internal sealed class CountersCustody596Fixture
         producer = null;
     }
 
+    internal void ReleaseInvocationForShutdown()
+    {
+        invocation?.Dispose();
+        invocation = null;
+    }
+
     private static object Kind(string name) => Enum.Parse(typeof(ProcessRuntime).Assembly.GetType(KindType, true)!, name);
 
     internal async Task Drain(List<Exception> errors)

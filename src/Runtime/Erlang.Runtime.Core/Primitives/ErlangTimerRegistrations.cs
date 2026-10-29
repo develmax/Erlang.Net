@@ -6,7 +6,7 @@ internal static class ErlangTimerRegistrations
     {
         foreach (string operation in new[] { TimerModuleNames.SendAfter, TimerModuleNames.StartTimer })
         {
-            registry.Register(
+            registry.RegisterCanonicalRuntimeRead535(
                 ErlangModuleNames.Module,
                 operation,
                 4,

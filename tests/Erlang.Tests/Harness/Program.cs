@@ -7633,6 +7633,42 @@ try
     Test(Erlang.Tests.CountersPublic611Names.InfoFullCase, Erlang.Tests.CountersPublic611Checks.InfoFullHost);
     Test(Erlang.Tests.CountersPublic611Names.InfoListCase, Erlang.Tests.CountersPublic611Checks.InfoListHost);
     Test(Erlang.Tests.BinarySearchAuthority621Names.Test, Erlang.Tests.BinarySearchAuthority621Checks.Run);
+    Test(Erlang.Tests.DictionaryOriginal631Names.Test, Erlang.Tests.DictionaryOriginal631Checks.Run);
+    Test(Erlang.Tests.DictionaryProjection635Names.Test, Erlang.Tests.DictionaryProjection635Checks.Scaling);
+    Test(Erlang.Tests.DictionaryKeys605Names.NativeCase, Erlang.Tests.DictionaryKeys605Checks.NativeKeys);
+    Test(Erlang.Tests.DictionaryKeys605Names.ExitCase, Erlang.Tests.DictionaryKeys605Checks.NativeOwnerExit);
+    Test(Erlang.Tests.DictionaryKeys605Names.OpaqueCase, Erlang.Tests.DictionaryKeys605Checks.OpaqueReplacement);
+    Test(Erlang.Tests.DictionaryKeys605Names.AtomicsCase, Erlang.Tests.DictionaryKeys605Checks.AtomicsKeys);
+    Test(Erlang.Tests.DictionaryKeys627Names.CountersCase, Erlang.Tests.DictionaryKeys627Checks.Counters);
+    Test(Erlang.Tests.DictionaryKeys627Names.RegexCase, Erlang.Tests.DictionaryKeys627Checks.Regex);
+    Test(Erlang.Tests.DictionaryKeys627Names.BinaryCase, Erlang.Tests.DictionaryKeys627Checks.Binary);
+    foreach (string family in new[]
+    {
+        Erlang.Tests.TimerPayload628Names.NativeFamily,
+        Erlang.Tests.TimerPayload628Names.AtomicsFamily,
+        Erlang.Tests.TimerPayload628Names.CountersFamily,
+        Erlang.Tests.TimerPayload628Names.RegexFamily,
+        Erlang.Tests.TimerPayload628Names.BinaryFamily
+    })
+    {
+        Test(
+            Erlang.Tests.TimerPayload628Names.FireCase + "/" + family,
+            () => Erlang.Tests.TimerPayload628Checks.Run(Erlang.Tests.TimerPayload628Mode.Fire, family)
+        );
+        Test(
+            Erlang.Tests.TimerPayload628Names.CancelCase + "/" + family,
+            () => Erlang.Tests.TimerPayload628Checks.Run(Erlang.Tests.TimerPayload628Mode.Cancel, family)
+        );
+        Test(
+            Erlang.Tests.TimerPayload628Names.ExitCase + "/" + family,
+            () => Erlang.Tests.TimerPayload628Checks.Run(Erlang.Tests.TimerPayload628Mode.OwnerExit, family)
+        );
+        Test(
+            Erlang.Tests.TimerPayload628Names.VmCase + "/" + family,
+            () => Erlang.Tests.TimerPayload628Checks.Run(Erlang.Tests.TimerPayload628Mode.VmClose, family)
+        );
+    }
+    Test(Erlang.Tests.TimerPayload628Names.OpaqueCase, Erlang.Tests.TimerPayload628Checks.OpaqueAlias);
     Test(Erlang.Tests.BinaryHalt629Names.Test, Erlang.Tests.BinaryHalt629Checks.Run);
     Test(Erlang.Tests.BinaryArena598Names.PhysicalCase, Erlang.Tests.BinaryArena598Checks.Physical);
     Test(Erlang.Tests.BinaryArena598Names.ActiveCase, Erlang.Tests.BinaryArena598Checks.Active);

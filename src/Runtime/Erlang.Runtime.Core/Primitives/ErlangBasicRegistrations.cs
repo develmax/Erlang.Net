@@ -94,11 +94,17 @@ internal static class ErlangBasicRegistrations
             0,
             (context, _) => ValueTask.FromResult(OwnedDictionaryBifs507.All(context, true))
         );
-        Add(ErlangBasicBifNames.GetKeys, 0, (context, _) => Cons.From(context.Dictionary.Keys));
-        Add(
+        registry.RegisterCanonicalDictionary507(
+            ErlangModuleNames.Module,
+            ErlangBasicBifNames.GetKeys,
+            0,
+            (context, _) => ValueTask.FromResult(OwnedDictionaryKeys605.All(context))
+        );
+        registry.RegisterCanonicalDictionary507(
+            ErlangModuleNames.Module,
             ErlangBasicBifNames.GetKeys,
             1,
-            (context, arguments) => Cons.From(context.Dictionary.Where(entry => entry.Value.Equals(arguments[0])).Select(entry => entry.Key))
+            (context, arguments) => ValueTask.FromResult(OwnedDictionaryKeys605.Matching(context, arguments[0]))
         );
         registry.Register(
             ErlangModuleNames.Module,
