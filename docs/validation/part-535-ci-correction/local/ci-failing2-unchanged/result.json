@@ -1,0 +1,58 @@
+{
+  "Names": [
+    "runtime/nif-binary-windows-deepgraph",
+    "runtime/process-liveness499/exit-signal-order"
+  ],
+  "Assemblies": {
+    "Host": "8F4BFA4F843F8CD5A32CDD6328D6B9F5CE29A7F90BCC3A6286DD94A813B4370D",
+    "Runtime": "D526E595FCBD8635D891CAF4D9003E8CA4A4A474A8F0AC541827FE4F4E4F393C"
+  },
+  "Receipt": {
+    "Command": [
+      "dotnet",
+      "exec",
+      "--fx-version",
+      "10.0.11",
+      "D:\\Distr\\Work\\Codex\\Erlang.Net\\w518repair\\tests\\Erlang.Tests\\bin\\Debug\\net10.0\\Erlang.Tests.dll",
+      "--case",
+      "runtime/nif-binary-windows-deepgraph",
+      "--case",
+      "runtime/process-liveness499/exit-signal-order",
+      "--report",
+      "D:\\Distr\\Work\\Codex\\Erlang.Net\\w518repair\\artifacts\\resource535\\ci-failing2-unchanged\\report.json"
+    ],
+    "Pid": 45352,
+    "ElapsedSeconds": 9.90599999999904,
+    "TimedOut": false,
+    "Settled": true,
+    "ExitCode": 0,
+    "Failures": [],
+    "StdoutSha256": "50839E503EFACD71A62F344447FD081028FFBCDF83F7445E006C53966EEA67D5",
+    "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+  },
+  "Report": {
+    "Partial": true,
+    "SelectedCount": 2,
+    "TotalCount": 9333,
+    "Blocks": [],
+    "ExactCases": [
+      "runtime/nif-binary-windows-deepgraph",
+      "runtime/process-liveness499/exit-signal-order"
+    ],
+    "Passed": 2,
+    "Failed": 0,
+    "Tests": [
+      {
+        "Name": "runtime/nif-binary-windows-deepgraph",
+        "Status": "Passed",
+        "Milliseconds": 8527
+      },
+      {
+        "Name": "runtime/process-liveness499/exit-signal-order",
+        "Status": "Passed",
+        "Milliseconds": 371
+      }
+    ]
+  },
+  "ExpectedRed": false
+}

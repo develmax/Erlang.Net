@@ -1,0 +1,5 @@
+# Part535 CI-correction final Debug524 direct proof
+
+Fresh actual Debug existing3 replay passes3/3 in a settled exit0 owned child. All three suite receipts belong to this exact NEW Debug child window, not earlier Debug156. Current Debug runtime/host bytes match its owned receipt. Five actual entire streams directly equal the same fresh genuine original5,524 complete outcomes; all hashes also equal already-frozen final Release524 (DEC39AF...). Both paired sides and three receipts are copied here, so subsequent fixed485 overwrites cannot remove this proof.
+
+Both final profiles therefore have direct524 equality, in addition to separate selected regression156/156 Debug and156/156 Release. All original processes settle/exit0;6427 provider before/after and stock ownership agree. Actual captures485 cleanup and successful core/three disposal remain literal; no fabricated cumulative frees/original physical-header execution or whole re compatibility claim. Passive file/receipt verification only; no VM/build/native/source/Git/CI action by author. Historical CI9331/2 and staging evidence remain unchanged.

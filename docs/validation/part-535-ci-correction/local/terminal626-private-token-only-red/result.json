@@ -1,0 +1,59 @@
+{
+  "Names": [
+    "runtime/process-liveness626/real-closed-before-token-cancellation",
+    "runtime/process-liveness626/live-unrelated-cancellation-visible"
+  ],
+  "Assemblies": {
+    "Host": "E527F6C468C4142D28D0E779AE848E6114003C595EB693969A157B86853648A5",
+    "Runtime": "3AF1208E433A17DACBF00F039E09B52DB0A54B84DFEAD2B7D293AB013ED94302"
+  },
+  "Receipt": {
+    "Command": [
+      "dotnet",
+      "exec",
+      "--fx-version",
+      "10.0.11",
+      "D:\\Distr\\Work\\Codex\\Erlang.Net\\w518repair\\tests\\Erlang.Tests\\bin\\Debug\\net10.0\\Erlang.Tests.dll",
+      "--case",
+      "runtime/process-liveness626/real-closed-before-token-cancellation",
+      "--case",
+      "runtime/process-liveness626/live-unrelated-cancellation-visible",
+      "--report",
+      "D:\\Distr\\Work\\Codex\\Erlang.Net\\w518repair\\artifacts\\resource535\\terminal626-private-token-only-red\\report.json"
+    ],
+    "Pid": 15036,
+    "ElapsedSeconds": 1.5629999999982829,
+    "TimedOut": false,
+    "Settled": true,
+    "ExitCode": 1,
+    "Failures": [],
+    "StdoutSha256": "6304271004BC69FC9FDA3FB13BE8A723007A17EC59EE27F80A6E47B4992E3DB1",
+    "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+  },
+  "Report": {
+    "Partial": true,
+    "SelectedCount": 2,
+    "TotalCount": 9335,
+    "Blocks": [],
+    "ExactCases": [
+      "runtime/process-liveness626/live-unrelated-cancellation-visible",
+      "runtime/process-liveness626/real-closed-before-token-cancellation"
+    ],
+    "Passed": 1,
+    "Failed": 1,
+    "Tests": [
+      {
+        "Name": "runtime/process-liveness626/real-closed-before-token-cancellation",
+        "Status": "Failed",
+        "Error": "System.OperationCanceledException: The operation was canceled.\r\n   at Erlang.Mailbox.ThrowIfHalted() in D:\\Distr\\Work\\Codex\\Erlang.Net\\w518repair\\src\\Runtime\\Erlang.Runtime.Core\\Processes\\Mailbox.cs:line 56\r\n   at Erlang.Mailbox.ReceiveMarkedCore593[T](Func`2 select, Nullable`1 timeout, CancellationToken cancellation, Func`1 resolveTimeout, ReceiveMarkerState markerSelection, MailboxSelectionAdmission593 admission593) in D:\\Distr\\Work\\Codex\\Erlang.Net\\w518repair\\src\\Runtime\\Erlang.Runtime.Core\\Processes\\Mailbox.cs:line 683\r\n   at Erlang.Mailbox.ReceiveCore593[T](Func`2 select, Nullable`1 timeout, CancellationToken cancellation, Func`1 resolveTimeout, Boolean rescanRemovedCandidate, MailboxSelectionAdmission593 admission593) in D:\\Distr\\Work\\Codex\\Erlang.Net\\w518repair\\src\\Runtime\\Erlang.Runtime.Core\\Processes\\Mailbox.ReceiveMarkers.cs:line 203\r\n   at Erlang.Mailbox.ReceiveAsync[T](Func`2 select, Nullable`1 timeout, CancellationToken cancellation) in D:\\Distr\\Work\\Codex\\Erlang.Net\\w518repair\\src\\Runtime\\Erlang.Runtime.Core\\Processes\\Mailbox.cs:line 609\r\n   at Erlang.Tests.ProcessLiveness499OrderingChecks.ReceiveForOrdering(ProcessRuntime runtime, ProcessContext context, CancellationToken cancellation, Action`1 observe) in D:\\Distr\\Work\\Codex\\Erlang.Net\\w518repair\\tests\\Erlang.Tests\\Runtime\\Processes\\Lifecycle\\ProcessLiveness499OrderingChecks.cs:line 117\r\n   at Erlang.Tests.ProcessLiveness626Checks.ClosedBeforeToken() in D:\\Distr\\Work\\Codex\\Erlang.Net\\w518repair\\tests\\Erlang.Tests\\Runtime\\Processes\\Lifecycle\\ProcessLiveness626Checks.cs:line 54\r\n   at Erlang.Tests.ProcessLiveness626Checks.ClosedBeforeToken() in D:\\Distr\\Work\\Codex\\Erlang.Net\\w518repair\\tests\\Erlang.Tests\\Runtime\\Processes\\Lifecycle\\ProcessLiveness626Checks.cs:line 55\r\n   at Erlang.Tests.ProcessLiveness626Checks.ClosedBeforeToken() in D:\\Distr\\Work\\Codex\\Erlang.Net\\w518repair\\tests\\Erlang.Tests\\Runtime\\Processes\\Lifecycle\\ProcessLiveness626Checks.cs:line 55\r\n   at Erlang.Tests.ProcessLiveness626Checks.ClosedBeforeToken() in D:\\Distr\\Work\\Codex\\Erlang.Net\\w518repair\\tests\\Erlang.Tests\\Runtime\\Processes\\Lifecycle\\ProcessLiveness626Checks.cs:line 55\r\n   at Program.<Main>$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\w518repair\\tests\\Erlang.Tests\\Harness\\Program.cs:line 7680",
+        "Milliseconds": 1104
+      },
+      {
+        "Name": "runtime/process-liveness626/live-unrelated-cancellation-visible",
+        "Status": "Passed",
+        "Milliseconds": 5
+      }
+    ]
+  },
+  "ExpectedRed": true
+}

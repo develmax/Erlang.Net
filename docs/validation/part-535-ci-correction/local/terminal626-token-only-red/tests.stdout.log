@@ -1,0 +1,14 @@
+{"Partial":true,"SelectedCount":2,"TotalCount":9335}
+FAIL runtime/process-liveness626/real-closed-before-token-cancellation: System.NullReferenceException: Object reference not set to an instance of an object.
+   at Erlang.Tests.ProcessLiveness626Checks.Field(Object owner, String name) in D:\Distr\Work\Codex\Erlang.Net\w518repair\tests\Erlang.Tests\Runtime\Processes\Lifecycle\ProcessLiveness626Checks.cs:line 83
+   at Erlang.Tests.ProcessLiveness626Checks.<>c__DisplayClass0_0.<ClosedBeforeToken>b__1() in D:\Distr\Work\Codex\Erlang.Net\w518repair\tests\Erlang.Tests\Runtime\Processes\Lifecycle\ProcessLiveness626Checks.cs:line 29
+   at System.Threading.SpinWait.SpinUntil(Func`1 condition, Int32 millisecondsTimeout)
+   at System.Threading.SpinWait.SpinUntil(Func`1 condition, TimeSpan timeout)
+   at Erlang.Tests.ProcessLiveness626Checks.ClosedBeforeToken() in D:\Distr\Work\Codex\Erlang.Net\w518repair\tests\Erlang.Tests\Runtime\Processes\Lifecycle\ProcessLiveness626Checks.cs:line 28
+   at Erlang.Tests.ProcessLiveness626Checks.ClosedBeforeToken() in D:\Distr\Work\Codex\Erlang.Net\w518repair\tests\Erlang.Tests\Runtime\Processes\Lifecycle\ProcessLiveness626Checks.cs:line 55
+   at Erlang.Tests.ProcessLiveness626Checks.ClosedBeforeToken() in D:\Distr\Work\Codex\Erlang.Net\w518repair\tests\Erlang.Tests\Runtime\Processes\Lifecycle\ProcessLiveness626Checks.cs:line 55
+   at Erlang.Tests.ProcessLiveness626Checks.ClosedBeforeToken() in D:\Distr\Work\Codex\Erlang.Net\w518repair\tests\Erlang.Tests\Runtime\Processes\Lifecycle\ProcessLiveness626Checks.cs:line 55
+   at Erlang.Tests.ProcessLiveness626Checks.ClosedBeforeToken() in D:\Distr\Work\Codex\Erlang.Net\w518repair\tests\Erlang.Tests\Runtime\Processes\Lifecycle\ProcessLiveness626Checks.cs:line 55
+   at Program.<Main>$(String[] args) in D:\Distr\Work\Codex\Erlang.Net\w518repair\tests\Erlang.Tests\Harness\Program.cs:line 7680
+PASS runtime/process-liveness626/live-unrelated-cancellation-visible
+1/2 passed

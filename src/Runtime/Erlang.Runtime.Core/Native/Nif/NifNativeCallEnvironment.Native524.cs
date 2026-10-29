@@ -3,12 +3,14 @@ namespace Erlang;
 internal sealed unsafe partial class NifNativeCallEnvironment
 {
     private HashSet<Term>? nativeStaticRoots524;
+    private HashSet<NifNativeTermNode>? retainedNativePending524;
     private List<IDisposable>? nativeLeases524;
 
     private void RetainNativeValue524(NifNativeTermValue value)
     {
         var seen = new HashSet<NifNativeTermNode>(ReferenceEqualityComparer.Instance);
         var pending = new Stack<NifNativeTermValue>();
+        bool stablePending = true;
         pending.Push(value);
         while (pending.TryPop(out NifNativeTermValue next))
         {
@@ -33,15 +35,26 @@ internal sealed unsafe partial class NifNativeCallEnvironment
                 // traversed anew, so a later map mutation cannot hide a new root.
                 nativeStaticRoots524.Add(term);
             }
-            else if (next.Pending is { } node && seen.Add(node))
+            else if (next.Pending is { } node
+                && retainedNativePending524?.Contains(node) != true
+                && seen.Add(node))
+            {
+                stablePending &= node is NifNativeTupleNode or NifNativeConsNode or NifNativeBinaryNode or NifNativeMapNode504;
                 for (int index = node.ChildCount - 1; index >= 0; index--)
                     pending.Push(node.Child(index));
+            }
         }
+        // Publish custody inventory only after every descendant retention
+        // succeeds. Immutable wrappers may share it; unknown/mutable graphs
+        // must be traversed again on the next admission.
+        if (stablePending && seen.Count != 0)
+            (retainedNativePending524 ??= new(ReferenceEqualityComparer.Instance)).UnionWith(seen);
     }
 
     private void ClearNativeRoots524()
     {
         nativeStaticRoots524?.Clear();
+        retainedNativePending524?.Clear();
         if (nativeLeases524 is not { } leases) return;
         var failures = new List<Exception>(leases.Count);
         foreach (IDisposable lease in leases)

@@ -10,6 +10,9 @@ PIN = 'ad05823719d77c8faee87348ea39513d4e2f99c5'
 TOOL = 'tools/Runtime/Erlang.OwnedGuest506Observations'
 WORKFLOWS = ['.github/workflows/owned-guest506-original.yml', '.github/workflows/validate.yml']
 DEPENDENCIES = [
+    'tests/Erlang.Tests/Runtime/Processes/Lifecycle/ProcessLiveness499OrderingChecks.cs',
+    'tests/Erlang.Tests/Runtime/Processes/Lifecycle/ProcessLiveness626Checks.cs',
+    'tests/Erlang.Tests/Runtime/Processes/Lifecycle/ProcessLiveness626Names.cs',
     'src/Runtime/Erlang.Runtime.Core/Bootstrap/RuntimeNativePrimitiveProviders.Regex411.cs',
     'src/Runtime/Erlang.Runtime.Core/Modules/ModuleRegistry.Regex411.cs',
     'src/Runtime/Erlang.Runtime.Core/Native/Regex/ReCode411.cs',

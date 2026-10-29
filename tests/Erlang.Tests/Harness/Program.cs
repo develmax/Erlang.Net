@@ -7632,6 +7632,8 @@ try
     Test(Erlang.Tests.CountersPublic611Names.InfoSingleCase, Erlang.Tests.CountersPublic611Checks.InfoSingleHost);
     Test(Erlang.Tests.CountersPublic611Names.InfoFullCase, Erlang.Tests.CountersPublic611Checks.InfoFullHost);
     Test(Erlang.Tests.CountersPublic611Names.InfoListCase, Erlang.Tests.CountersPublic611Checks.InfoListHost);
+    Test(Erlang.Tests.ProcessLiveness626Names.TerminalCase, Erlang.Tests.ProcessLiveness626Checks.ClosedBeforeToken);
+    Test(Erlang.Tests.ProcessLiveness626Names.LiveCase, Erlang.Tests.ProcessLiveness626Checks.LiveCancellation);
     Test(Erlang.Tests.RegexCustody597Names.PhysicalCase, Erlang.Tests.RegexCustody597Checks.Physical);
     Test(Erlang.Tests.RegexCustody597Names.GenerationsCase, Erlang.Tests.RegexCustody597Checks.Generations);
     Test(Erlang.Tests.RegexCustody597Names.CompileImportCase, Erlang.Tests.RegexCustody597Checks.CompileImport);
