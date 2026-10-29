@@ -569,6 +569,8 @@ EXPLICIT_REVIEWED_INPUTS = frozenset((
     'tests/Erlang.Tests/Runtime/Storage/Dictionary/DictionaryKeys627Names.cs',
     'tests/Erlang.Tests/Runtime/Storage/Dictionary/DictionaryOriginal631Checks.cs',
     'tests/Erlang.Tests/Runtime/Storage/Dictionary/DictionaryOriginal631Names.cs',
+    'tests/Erlang.Tests/Runtime/Storage/Dictionary/DictionaryProjection635Checks.cs',
+    'tests/Erlang.Tests/Runtime/Storage/Dictionary/DictionaryProjection635Names.cs',
     'tests/Erlang.Tests/Runtime/Storage/Mailbox/ForeignRuntimeDrain606Checks.cs',
     'tests/Erlang.Tests/Runtime/Storage/Mailbox/ForeignRuntimeDrain606Names.cs',
     'tests/Erlang.Tests/Runtime/Storage/Mailbox/MailboxBulkClose606Checks.cs',

@@ -29,7 +29,7 @@ public sealed partial class ProcessDictionary
 
         using (borrow)
         {
-            invocation.HoldGuestResult507(Nil.Value);
+            Term selected = Nil.Value;
             for (int index = captured.Length - 1; index >= 0; index--)
             {
                 context.Cancellation.ThrowIfCancellationRequested();
@@ -37,13 +37,12 @@ public sealed partial class ProcessDictionary
                 if (filter && !pair.Value.Equals(expectedValue))
                     continue;
 
-                invocation.Frame.CreateConsInto507(
-                    invocation.ResultSlot507,
-                    pair.Key,
-                    invocation.Frame.Read(invocation.ResultSlot507)
-                );
+                selected = new Cons(pair.Key, selected);
             }
-            result = invocation.Frame.Read(invocation.ResultSlot507);
+            context.Cancellation.ThrowIfCancellationRequested();
+            // Keep the captured guest borrow live while one transactional bulk
+            // adoption allocates the complete owned spine and publishes once.
+            result = invocation.Frame.AdoptGuestInto507(invocation.ResultSlot507, selected);
 
             return true;
         }

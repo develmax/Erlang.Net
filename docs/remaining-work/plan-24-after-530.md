@@ -1,5 +1,7 @@
 # Implementation plan for the 24 remaining known contract differences
 
+Part537 PR89 correction: the original per-prefix key-list publication was quadratic. One transactional bulk guest adoption and a deterministic 128/256/512 registry-visit control are now integrated. RED/GREEN receipts come from the broader538 candidate, not the scoped537 tree; exact-head CI/review remain mandatory. Earlier265/108 receipts retain their original hashes. Whole P4 and API/full deltas remain open/0.
+
 ### Part537 — completed local dictionary/timer increment
 
 Dictionary-key guest borrows/result lists and detached complete timer graphs are implemented and locally validated: final Debug265/265 and Release265/265, plus fresh original/managed whole108-byte dictionary Outcome equality per profile. Genuine callback retirement is joined before payload release; no public replacement gains canonical authority. Portable required CI gate reuses the existing job/provider; exact-head delivery acceptance remains separate.

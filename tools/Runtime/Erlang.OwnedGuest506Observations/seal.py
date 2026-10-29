@@ -516,6 +516,8 @@ DEPENDENCIES = [
     'tools/Runtime/Erlang.Dictionary537Observations/fixtures/dictionary_keys605_capture631.erl',
     'tools/Runtime/Erlang.Dictionary537Observations/inputs.json',
     'tools/Runtime/Erlang.Dictionary537Observations/run.py',
+    'tests/Erlang.Tests/Runtime/Storage/Dictionary/DictionaryProjection635Checks.cs',
+    'tests/Erlang.Tests/Runtime/Storage/Dictionary/DictionaryProjection635Names.cs',
 ]
 
 

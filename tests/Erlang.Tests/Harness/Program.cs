@@ -7634,6 +7634,7 @@ try
     Test(Erlang.Tests.CountersPublic611Names.InfoListCase, Erlang.Tests.CountersPublic611Checks.InfoListHost);
     Test(Erlang.Tests.BinarySearchAuthority621Names.Test, Erlang.Tests.BinarySearchAuthority621Checks.Run);
     Test(Erlang.Tests.DictionaryOriginal631Names.Test, Erlang.Tests.DictionaryOriginal631Checks.Run);
+    Test(Erlang.Tests.DictionaryProjection635Names.Test, Erlang.Tests.DictionaryProjection635Checks.Scaling);
     Test(Erlang.Tests.DictionaryKeys605Names.NativeCase, Erlang.Tests.DictionaryKeys605Checks.NativeKeys);
     Test(Erlang.Tests.DictionaryKeys605Names.ExitCase, Erlang.Tests.DictionaryKeys605Checks.NativeOwnerExit);
     Test(Erlang.Tests.DictionaryKeys605Names.OpaqueCase, Erlang.Tests.DictionaryKeys605Checks.OpaqueReplacement);
