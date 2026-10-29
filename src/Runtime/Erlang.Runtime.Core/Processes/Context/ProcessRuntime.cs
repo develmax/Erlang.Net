@@ -1764,6 +1764,7 @@ public sealed partial class ProcessRuntime : IAsyncDisposable
                 _ = CloseHamtIndex429();
                 _ = CloseRegex411();
                 _ = CloseBinaryPrograms598();
+                _ = CloseSavedMatchPrograms634();
                 _ = CloseDriverFrontend422();
                 _ = CloseAtomics413();
                 CloseCollectors413();
@@ -1828,6 +1829,7 @@ public sealed partial class ProcessRuntime : IAsyncDisposable
                 DrainPersistentTerms(),
                 DrainRegex411(),
                 CloseBinaryPrograms598(),
+                CloseSavedMatchPrograms634(),
                 DrainSystemTasks428(),
                 DrainDirtyNative419(),
                 DrainDebugDispatch432(),
@@ -1921,6 +1923,7 @@ public sealed partial class ProcessRuntime : IAsyncDisposable
                 _ = CloseHamtIndex429();
                 _ = CloseRegex411();
                 _ = CloseBinaryPrograms598();
+                _ = CloseSavedMatchPrograms634();
                 _ = CloseDriverFrontend422();
                 _ = CloseAtomics413();
                 CloseCollectors413();
@@ -1949,6 +1952,7 @@ public sealed partial class ProcessRuntime : IAsyncDisposable
             DrainPersistentTerms(),
             DrainRegex411(),
             CloseBinaryPrograms598(),
+            CloseSavedMatchPrograms634(),
             DrainSystemTasks428(),
             DrainDirtyNative419(),
             DrainDebugDispatch432(),
