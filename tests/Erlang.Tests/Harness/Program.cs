@@ -7655,9 +7655,14 @@ try
         );
     }
 
+    Test(Erlang.Tests.MonitorShutdown652Names.Case, Erlang.Tests.MonitorShutdown652Checks.EarlierTarget);
     Test(Erlang.Tests.ProcessPayloadCore641Names.FailureCase, Erlang.Tests.ProcessPayloadCore641Checks.CompletedFailureIsolation);
     Test(Erlang.Tests.ProcessPayloadCore641Names.StopCase, Erlang.Tests.ProcessPayloadCore641Checks.UnusedStopDrain);
     Test(Erlang.Tests.ProcessPayloadCore641Names.SealCase, Erlang.Tests.ProcessPayloadCore641Checks.ContextSeal);
+    Test(
+        Erlang.Tests.ProcessPayloadCore641Names.EmptyPublicationCase,
+        Erlang.Tests.ProcessPayloadCore641Checks.RootlessPublicationAfterClose
+    );
     Test(
         Erlang.Tests.MonitorOriginal645.MonitorOriginal645Names.Case,
         Erlang.Tests.MonitorOriginal645.MonitorOriginal645Checks.Run

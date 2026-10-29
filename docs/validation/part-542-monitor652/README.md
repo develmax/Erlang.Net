@@ -1,0 +1,3 @@
+# Historical local integration checkpoint
+
+This retained source/receipt archive predates the four confirmed parent-CI fixes and final asynchronous641 worker correction. It is not current publication acceptance. In particular, the initial652 probe passed because the old disposed guard suppressed the required DOWN callback; that is not compatibility evidence. The final corrected652 control requires actual DOWN delivery, validates live custody and process order, and protects real physical completion. See the later parent Part541 CI-batch4 evidence and final child integration for current gates. No whole-API promotion is granted here.

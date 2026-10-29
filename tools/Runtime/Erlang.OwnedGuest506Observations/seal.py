@@ -10,6 +10,8 @@ PIN = 'ad05823719d77c8faee87348ea39513d4e2f99c5'
 TOOL = 'tools/Runtime/Erlang.OwnedGuest506Observations'
 WORKFLOWS = ['.github/workflows/owned-guest506-original.yml', '.github/workflows/validate.yml']
 DEPENDENCIES = [
+    'tests/Erlang.Tests/Runtime/Processes/Signals/MonitorShutdown652Checks.cs',
+    'tests/Erlang.Tests/Runtime/Processes/Signals/MonitorShutdown652Names.cs',
     'src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessContext.FunctionBoundary506.cs',
     'tests/Erlang.Tests/Runtime/Modules/CodeLifecycle/CodePurger432Fixture.cs',
     'src/Runtime/Erlang.Runtime.Core/Primitives/Binary/BinaryAcNode598.cs',
@@ -658,6 +660,7 @@ DEPENDENCIES = [
     'tools/Runtime/Erlang.BeamFunction542Observations/manifest.json',
     'tools/Runtime/Erlang.BeamFunction542Observations/run.py',
     'docs/validation/part-542-owned-correction/source-freeze-current.json',
+    'docs/validation/part-541/current-source-freeze.json',
 ]
 
 

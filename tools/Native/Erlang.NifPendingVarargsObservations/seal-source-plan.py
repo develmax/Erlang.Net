@@ -5,6 +5,7 @@ import pathlib
 import subprocess
 
 EXPLICIT_REVIEWED_INPUTS = frozenset((
+    'docs/validation/part-541/current-source-freeze.json',
     'docs/validation/part-541/source-freeze.json',
     'docs/validation/part-542-owned-correction/source-freeze-current.json',
     'docs/validation/part-542/source-freeze.json',
@@ -558,6 +559,8 @@ EXPLICIT_REVIEWED_INPUTS = frozenset((
     'tests/Erlang.Tests/Runtime/Processes/Signals/MonitorPayload641Checks.cs',
     'tests/Erlang.Tests/Runtime/Processes/Signals/MonitorPayload641Mode.cs',
     'tests/Erlang.Tests/Runtime/Processes/Signals/MonitorPayload641Names.cs',
+    'tests/Erlang.Tests/Runtime/Processes/Signals/MonitorShutdown652Checks.cs',
+    'tests/Erlang.Tests/Runtime/Processes/Signals/MonitorShutdown652Names.cs',
     'tests/Erlang.Tests/Runtime/Processes/Signals/ProcessPayloadCore641Access.cs',
     'tests/Erlang.Tests/Runtime/Processes/Signals/ProcessPayloadCore641Checks.cs',
     'tests/Erlang.Tests/Runtime/Processes/Signals/ProcessPayloadCore641Fault.cs',

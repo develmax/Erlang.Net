@@ -4,6 +4,10 @@ internal static class ProcessPayloadCore641Names
 {
     internal const string FailureCase = "runtime/payload641/completed-failure-context-isolation-and-vm-drain";
     internal const string StopCase = "runtime/payload641/unused-vm-stop-drain-refuses-first-capture";
+    internal const string EmptyPublicationCase = "runtime/payload641/rootless-publication-after-mailbox-close-settles";
+    internal const string Combine = "CombinePublication641";
+    internal const string Graph = "Graph641";
+    internal const string StopMailbox = "StopMailboxRootAdmission593";
     internal const string SealCase = "runtime/payload641/seal-rejects-fresh-derived-prereserved-null-drain";
     internal const string Failure = "Actual process payload641 finite owner gate failed.";
     internal const string Injected = "Actual attached payload641 cleanup failed for this control.";
