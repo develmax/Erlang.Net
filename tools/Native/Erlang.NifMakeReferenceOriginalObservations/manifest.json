@@ -1,6 +1,6 @@
 {
   "PinnedOtpCommit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
-  "RuntimeBuildManifestSha256": "4C9A79CD6E8BC18F68316D42B2F30DB171E67A242CA81CA84BB8A022E8BA5BFB",
+  "RuntimeBuildManifestSha256": "AEBBA0D2DCF97E1248CA38407E8EBE628EB08F9EA4D13F48EC0C83A7A0364E61",
   "Headers": [
     {
       "Name": "erl_nif.h",
@@ -22,28 +22,28 @@
   "Files": [
     {
       "Path": "build-native.py",
-      "Bytes": 209,
-      "Sha256": "C5071F4A241C97926448A671BEC768ABD9CA16F2AA4BA17146C9EB8FC6EBC499"
+      "Bytes": 214,
+      "Sha256": "611B70CF1D00B29FD93DE105B9A62981E20C74758C0B75052DBE350AFE6B99B6"
     },
     {
       "Path": "cases.json",
-      "Bytes": 779,
-      "Sha256": "C3241076794E2E29500F58516F97AF2E0225CF08E65145638BACF9A4076284CC"
+      "Bytes": 804,
+      "Sha256": "3ACE9297C35F4D5D4A3ECE44F3E5775C0FCA9917FA9EE11A5FB0FDF7618E55ED"
     },
     {
       "Path": "collect.py",
-      "Bytes": 7799,
-      "Sha256": "477D1C1A1F80A9D948068FF48D92AA77702B2D931FF3E9357E7E01C8F5C6A4C4"
+      "Bytes": 7893,
+      "Sha256": "7B9320295C92652E0CFE30F62A55A8CBBD33395560CA71CE3975440F66812C58"
     },
     {
       "Path": "common.py",
-      "Bytes": 1965,
-      "Sha256": "3DDA9F58A11CE664B1F81A951F5FAE097B1FEE39B3B2A724137417F72EC705A6"
+      "Bytes": 2057,
+      "Sha256": "4B56625B189991B3F45EAEFCA80805D791A89A6CA2C6083EDCE1BB1A3FC516DA"
     },
     {
       "Path": "compare.py",
-      "Bytes": 5908,
-      "Sha256": "4CA9C3A03390871016F4DBB9EFBB6FAB22701B1D1355FB4532E6440015C2B83A"
+      "Bytes": 5940,
+      "Sha256": "F0CE05059BCF093C0C7B1AB822AC323CB68BB4D8E5ACC19903624BF5FC07D130"
     },
     {
       "Path": "native/entry_fixture_names.h",
@@ -67,8 +67,8 @@
     },
     {
       "Path": "verify-source.py",
-      "Bytes": 370,
-      "Sha256": "9606583380F9C7806EB1E08C2F810A6D900D7597D58B3ECBFE1F7B1C46249FC5"
+      "Bytes": 378,
+      "Sha256": "A82FE3F4E41B1BA9350655FD8F982BE13AC3C382D577A0575D99F768B850C33D"
     }
   ],
   "Dependencies": [
@@ -89,13 +89,13 @@
     },
     {
       "Path": "tools/Native/Erlang.NifEntryOriginalObservations/build-native.py",
-      "Bytes": 4304,
-      "Sha256": "51D77AD276615E39E34E3AC2CA27388864A9B29A8735D00E718E0BC3DAF12B0D"
+      "Bytes": 4346,
+      "Sha256": "6BFA75526AEE885AB859AFF7EAA50297AFE1670FE2CC938E6ED7F461DFD0C852"
     },
     {
       "Path": "tools/Native/Erlang.NifEntryOriginalObservations/common.py",
-      "Bytes": 6493,
-      "Sha256": "74C2E6E59B1E4BA2629920399BF83B852CAB16D5FC352CDCD10B5A6656613C3D"
+      "Bytes": 6580,
+      "Sha256": "655DE0072EF0833C34F5FB60497D80BD5ACF098B7A7E19D1D23356D144152CBE"
     },
     {
       "Path": "tools/Runtime/Erlang.SchedulerAffinityOriginalObservations/README.md",
@@ -176,11 +176,16 @@
       "Path": "tools/Runtime/Erlang.SchedulerAffinityOriginalObservations/verify-source.py",
       "Bytes": 451,
       "Sha256": "77FCB06FBEF2C7A2ADE4190395E6C1762007279A827CA4BD6078721D7D87CACC"
+    },
+    {
+      "Path": ".gitattributes",
+      "Bytes": 26284,
+      "Sha256": "C129957CFB388237BD99888EA2AD7F7CD61B4056114D4AB7EFA7F6AA763E4325"
     }
   ],
   "Workflow": {
     "Path": ".github/workflows/nif-make-reference-original.yml",
-    "Sha256": "326CD1B862AE2CCF76A6F0A775A5898319C6C959A55D40F87966135A2347FF4E"
+    "Sha256": "F4E893146CC8126AE1925C46F5E6F877259604479053E75A049735C17607B3D0"
   },
   "NativeImageCount": 1,
   "CaseCount": 1,

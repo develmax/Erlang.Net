@@ -12,6 +12,10 @@ internal sealed record NifNativeLoadReason(
     int ReturnCode
 )
 {
+    internal int Major651 { get; init; }
+    internal int Minor651 { get; init; }
+    internal string VersionText651 { get; init; } = string.Empty;
+
     internal uint Flags521 { get; init; }
 
     public string Category => Kind == NifNativeLoadReasonKind.LoadVeto
@@ -22,10 +26,24 @@ internal sealed record NifNativeLoadReason(
         if (Kind == NifNativeLoadReasonKind.LoadVeto)
             return NifNativeLoadReasonText.VetoPrefix + ReturnCode.ToString(CultureInfo.InvariantCulture) + NifNativeLoadReasonText.VetoSuffix;
 
+        if (Kind == NifNativeLoadReasonKind.OldVersion651)
+            return NifNativeVersion651.OldPrefix + Major651.ToString(CultureInfo.InvariantCulture)
+                + NifNativeVersion651.VersionSeparator + Minor651.ToString(CultureInfo.InvariantCulture)
+                + NifNativeVersion651.OldMiddle + NifNativeAbi.MajorVersion.ToString(CultureInfo.InvariantCulture)
+                + NifNativeVersion651.VersionSeparator + NifNativeAbi.MinorVersion.ToString(CultureInfo.InvariantCulture)
+                + NifNativeVersion651.OldSuffix;
+        if (Kind == NifNativeLoadReasonKind.Variant651)
+            return NifNativeVersion651.VariantPrefix + VersionText651 + NifNativeVersion651.VariantMiddle
+                + NifNativeNames.Variant + NifNativeVersion651.VariantSuffix;
+
         ReadOnlySpan<byte> displayed = new TermDisplayWriter(runtime).Write(Term.A(CallingModule));
         if (displayed.IsEmpty || displayed[^1] != TermDisplayParameters.LineFeed)
             throw new InvalidOperationException(NifNativeLoadReasonText.DisplayTerminator);
-        string module = Encoding.UTF8.GetString(displayed[..^1]);
+        // load_nif_error builds its charlist directly from the formatter bytes.
+        string module = Encoding.Latin1.GetString(displayed[..^1]);
+        if (Kind == NifNativeLoadReasonKind.FutureVersion651)
+            return NifNativeVersion651.FuturePrefix + module + NifNativeVersion651.FutureMiddle
+                + VersionText651 + NifNativeVersion651.FutureSuffix;
         if (Kind == NifNativeLoadReasonKind.ModuleMismatch)
             return NifNativeLoadReasonText.ModulePrefix + LibraryModule + NifNativeLoadReasonText.CallingModulePrefix + module + NifNativeLoadReasonText.CallingModuleSuffix;
 

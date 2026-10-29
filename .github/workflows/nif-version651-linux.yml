@@ -1,0 +1,276 @@
+name: Focused Linux NIF version651 contracts
+on:
+  pull_request:
+    paths:
+      - '.gitattributes'
+      - '.github/workflows/nif-version651-linux.yml'
+      - 'tools/Native/Erlang.NifVersion651Observations/**'
+      - 'tools/Native/Erlang.NifLinuxCallbackObservations/**'
+      - 'tools/Native/Erlang.NifNativeBackend/NifLinuxCallback*.cs'
+      - 'tools/Native/Erlang.NifLinuxCallbackFocus/**'
+      - 'tools/Native/Erlang.NifOrdinaryLoaderFocus/**'
+      - 'tools/Native/Erlang.NifOrdinaryLoaderObservations/**'
+      - 'tools/Native/Erlang.NifMapSizeOriginalObservations/**'
+      - 'tools/Native/Erlang.NifMakeReferenceOriginalObservations/**'
+      - 'tools/Native/Erlang.NifNativeBackend/NifVersion651*.cs'
+      - 'tools/Native/Erlang.NifNativeBackend/NifModuleText690*.cs'
+      - 'tools/Native/Erlang.NifNativeBackend/native/**'
+      - 'src/Runtime/Erlang.Runtime.Core/Native/Nif/**'
+      - 'src/Runtime/Erlang.Runtime.Core/Primitives/ErlangErrorRegistrations.cs'
+      - 'src/Runtime/Erlang.Runtime.Core/Modules/ModuleRegistry.Nif*.cs'
+      - 'global.json'
+      - 'Directory.Build.props'
+  workflow_dispatch:
+    inputs:
+      expected_head:
+        description: Exact commit of the selected workflow branch; reviewed N1 plan pins below must match
+        type: string
+        required: true
+permissions:
+  contents: read
+concurrency:
+  group: nif-version651-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+jobs:
+  n1-linux:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    env:
+      EXPECTED_HEAD: ${{ inputs.expected_head || github.event.pull_request.head.sha || github.sha }}
+      OTP_PIN: ad05823719d77c8faee87348ea39513d4e2f99c5
+      ORIGINAL_PLAN: AEBBA0D2DCF97E1248CA38407E8EBE628EB08F9EA4D13F48EC0C83A7A0364E61
+      NATIVE_PLAN: EADBC90D532B150C94F430E89470B8AD093FE35F49F47988B209FF703BCE9F67
+      CAPTURE_PLAN: 88A22348B8FC0C465175BF7543909D09B3270F2F2FECCD2755DF552F03AFB165
+      ACCEPTANCE_PLAN: 9D4AF753A94587E0C10F077DE0471BB9D2E007A134ED078227F68A3B50927B13
+      ERLC_USE_SERVER: 'false'
+      PYTHONDONTWRITEBYTECODE: '1'
+      DOTNET_PROCESSOR_COUNT: '2'
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+          persist-credentials: false
+      - name: Verify exact committed N1 inputs and freeze managed build sources
+        id: inputs
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(git --no-optional-locks rev-parse HEAD)" = "$EXPECTED_HEAD"
+          mkdir -p artifacts/nif-version651/ci
+          python3 -B - <<'PY'
+          import hashlib,json,os,subprocess
+          from pathlib import Path
+          repo=Path.cwd();tool=repo/'tools/Native/Erlang.NifVersion651Observations'
+          sha=lambda p:hashlib.sha256(p.read_bytes()).hexdigest().upper()
+          for name,pin in [('linux-build-inputs.json',os.environ['NATIVE_PLAN']),('linux-inputs.json',os.environ['CAPTURE_PLAN'])]:
+              path=tool/name;assert sha(path)==pin
+              plan=json.loads(path.read_bytes());assert plan['Pin']==os.environ['OTP_PIN']
+              for row in plan['Inputs']:
+                  root=tool if row['Scope']=='Tool' else repo
+                  p=(root/row['Path']).resolve();assert p.is_relative_to(root) and sha(p)==row['Sha256'],row['Path']
+          acceptance=repo/'tools/Native/Erlang.NifLinuxCallbackObservations/acceptance-inputs.json'
+          assert sha(acceptance)==os.environ['ACCEPTANCE_PLAN']
+          ap=json.loads(acceptance.read_bytes());assert ap['Pin']==os.environ['OTP_PIN'] and ap['N1BuildPlanSha256']==os.environ['NATIVE_PLAN'] and ap['OriginalPlanSha256']==os.environ['ORIGINAL_PLAN']
+          for row in ap['Files']:
+              p=(repo/row['Path']).resolve();assert p.is_relative_to(repo) and p.stat().st_size==row['Bytes'] and sha(p)==row['Sha256'],row['Path']
+          source=repo/'tools/Runtime/Erlang.SchedulerAffinityOriginalObservations'
+          assert sha(source/'manifest.json')==os.environ['ORIGINAL_PLAN']
+          original=json.loads((source/'manifest.json').read_bytes());assert original['OriginalCommit']==os.environ['OTP_PIN']
+          for row in original['Files']+original['Dependencies']+[original['Workflow']]:
+              root=source if row in original['Files'] else repo
+              assert sha(root/row['Path'])==row['Sha256'],row['Path']
+          tracked=subprocess.check_output(['git','--no-optional-locks','ls-files','-z']).decode().split('\0')
+          rows=[]
+          for name in tracked:
+              p=repo/name
+              if name and (p.suffix in {'.cs','.csproj','.props','.targets','.sln','.slnx'} or name=='global.json'):
+                  assert p.is_file() and not p.is_symlink()
+                  rows.append(dict(Path=name,Sha256=sha(p)))
+          assert rows
+          out=repo/'artifacts/nif-version651/ci'
+          (out/'source-freeze.json').write_text(json.dumps(dict(SubjectHead=os.environ['EXPECTED_HEAD'],Rows=rows),indent=2))
+          (out/'scope.json').write_text(json.dumps(dict(SubjectHead=os.environ['EXPECTED_HEAD'],OtpPin=os.environ['OTP_PIN'],NativePlan=os.environ['NATIVE_PLAN'],CapturePlan=os.environ['CAPTURE_PLAN'],FocusedN1Only=True,PendingGates=['legacy68 callback comparisons','pthread bindings/create/join','ordinary-loader3 and cleanup'],WholeLoadNifCompatible=False),indent=2))
+          PY
+      - name: Acquire exact pinned original source
+        id: otp-source
+        if: ${{ !cancelled() && steps.inputs.outcome == 'success' }}
+        continue-on-error: true
+        shell: bash
+        run: |
+          set -euo pipefail
+          git clone --depth 1 --single-branch --branch OTP-29.1.1 https://github.com/erlang/otp.git artifacts/nif-version651/otp-source > artifacts/nif-version651/ci/clone.log 2>&1
+          test "$(git -C artifacts/nif-version651/otp-source rev-parse HEAD)" = "$OTP_PIN"
+      - name: Build one source-bound original runtime
+        id: original-build
+        if: ${{ !cancelled() && steps.inputs.outcome == 'success' && steps.otp-source.outcome == 'success' }}
+        continue-on-error: true
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 -B tools/Runtime/Erlang.SchedulerAffinityOriginalObservations/build-original.py \
+            --repository "$GITHUB_WORKSPACE" --manifest-sha256 "$ORIGINAL_PLAN" --expected-head "$EXPECTED_HEAD" \
+            --otp-source "$GITHUB_WORKSPACE/artifacts/nif-version651/otp-source" \
+            --prefix "$GITHUB_WORKSPACE/artifacts/nif-version651/otp-install" \
+            --output "$GITHUB_WORKSPACE/artifacts/nif-version651/original-build" \
+            > artifacts/nif-version651/ci/original-build.log 2>&1
+      - name: Build bridge and all independent 42 native layouts
+        id: native-build
+        if: ${{ !cancelled() && steps.inputs.outcome == 'success' && steps.original-build.outcome == 'success' }}
+        continue-on-error: true
+        shell: bash
+        run: |
+          set -euo pipefail
+          receipt="$GITHUB_WORKSPACE/artifacts/nif-version651/original-build/build-receipt.json"
+          receipt_sha=$(sha256sum "$receipt" | cut -d ' ' -f 1)
+          python3 -B tools/Native/Erlang.NifVersion651Observations/build-linux.py \
+            --repository "$GITHUB_WORKSPACE" --expected-head "$EXPECTED_HEAD" \
+            --otp-source "$GITHUB_WORKSPACE/artifacts/nif-version651/otp-source" \
+            --build-receipt "$receipt" --admission-sha256 "$receipt_sha" --plan-sha256 "$NATIVE_PLAN" \
+            --output "$GITHUB_WORKSPACE/artifacts/nif-version651/linux-build" \
+            > artifacts/nif-version651/ci/native-build.log 2>&1
+      - uses: actions/setup-dotnet@v6
+        id: sdk
+        if: ${{ !cancelled() && steps.inputs.outcome == 'success' }}
+        continue-on-error: true
+        with:
+          global-json-file: global.json
+      - name: Record SDK profile and build current native backend host once
+        id: managed-build
+        if: ${{ !cancelled() && steps.inputs.outcome == 'success' && steps.sdk.outcome == 'success' }}
+        continue-on-error: true
+        shell: bash
+        run: |
+          set -euo pipefail
+          dotnet --info > artifacts/nif-version651/ci/dotnet-info.txt
+          dotnet --list-runtimes > artifacts/nif-version651/ci/dotnet-runtimes.txt
+          python3 - <<'PY'
+          import os,re
+          from pathlib import Path
+          versions=re.findall(r'^Microsoft.NETCore.App (10\.\d+\.\d+) ',Path('artifacts/nif-version651/ci/dotnet-runtimes.txt').read_text(),re.M)
+          assert versions
+          selected=max(versions,key=lambda x:tuple(map(int,x.split('.'))))
+          with open(os.environ['GITHUB_ENV'],'a') as f:f.write('N1_FRAMEWORK_VERSION='+selected+'\n')
+          PY
+          dotnet build tools/Native/Erlang.NifNativeBackend/Erlang.NifNativeBackend.csproj -c Release --no-incremental -m:1 > artifacts/nif-version651/ci/managed-build.log 2>&1
+      - name: Admit available reviewed native rows before NIF initialization
+        id: native-ready
+        if: ${{ !cancelled() && steps.inputs.outcome == 'success' && steps.original-build.outcome == 'success' }}
+        continue-on-error: true
+        shell: bash
+        run: |
+          python3 -B - <<'PY'
+          import hashlib,json,os
+          from pathlib import Path
+          out=Path('artifacts/nif-version651/linux-build');path=out/'build-receipt.json'
+          sha=lambda p:hashlib.sha256(p.read_bytes()).hexdigest().upper()
+          ready=False;errors=[]
+          try:
+              p=json.loads(path.read_bytes());assert p['Status']=='VERSION651_LINUX_BUILD' and p['Pin']==os.environ['OTP_PIN'] and p['SubjectHead']==os.environ['EXPECTED_HEAD'] and p['PlanSha256']==os.environ['NATIVE_PLAN']
+              bridge=p['Bridge'];assert bridge is not None and p['Images']
+              for row in [bridge['Library'],bridge['BuildReceipt'],*[r['Library'] for r in p['Images']]]:
+                  q=Path(row['Path']).resolve();assert q.is_relative_to(out.resolve()) and sha(q)==row['Sha256']
+              proof=json.loads(Path(bridge['BuildReceipt']['Path']).read_bytes())
+              assert proof['Status']=='VERSION651_LINUX_BRIDGE_BUILD' and proof['Pin']==os.environ['OTP_PIN'] and proof['SubjectHead']==os.environ['EXPECTED_HEAD']
+              assert {'enif_release_resource','enif_keep_resource','nif_bridge_register'}<=set(proof['Exports'])
+              assert proof['BridgeSha256']==bridge['Library']['Sha256'] and not proof['NativeLoaded']
+              ids=set()
+              for image in p['Images']:
+                  assert image['Id'] not in ids and not image['NativeInitializationExecuted'];ids.add(image['Id'])
+                  assert image['Layout'][0] in [64,72,80,88,96] and image['Layout'][1] in [24,32] and image['Layout'][2]==24
+              ready=True
+          except Exception as e:errors.append(repr(e))
+          Path('artifacts/nif-version651/ci/native-readiness.json').write_text(json.dumps(dict(ReadyForAvailableIndependentCases=ready,Errors=errors,SourcePlanPreapproved=os.environ['NATIVE_PLAN'],NativeReceiptSha256=sha(path) if path.is_file() else None,ComputedHashAloneIsNotPermission=True),indent=2))
+          with open(os.environ['GITHUB_OUTPUT'],'a') as f:f.write('ready='+str(ready).lower()+'\n')
+          if not ready:raise SystemExit(1)
+          PY
+      - name: Compare original42 plus Module690 four cases through both full-outcome routes
+        id: capture
+        if: ${{ !cancelled() && steps.inputs.outcome == 'success' && steps.original-build.outcome == 'success' && steps.managed-build.outcome == 'success' && steps.native-ready.outputs.ready == 'true' }}
+        continue-on-error: true
+        shell: bash
+        run: |
+          set -euo pipefail
+          original="$GITHUB_WORKSPACE/artifacts/nif-version651/original-build/build-receipt.json"
+          native="$GITHUB_WORKSPACE/artifacts/nif-version651/linux-build/build-receipt.json"
+          freeze="$GITHUB_WORKSPACE/artifacts/nif-version651/ci/source-freeze.json"
+          python3 -B tools/Native/Erlang.NifVersion651Observations/collect.py \
+            --repository "$GITHUB_WORKSPACE" --expected-head "$EXPECTED_HEAD" \
+            --otp-source "$GITHUB_WORKSPACE/artifacts/nif-version651/otp-source" \
+            --build-receipt "$original" --admission-sha256 "$(sha256sum "$original" | cut -d ' ' -f 1)" \
+            --native-build-receipt "$native" --approved-native-build-sha256 "$(sha256sum "$native" | cut -d ' ' -f 1)" \
+            --managed-host "$GITHUB_WORKSPACE/tools/Native/Erlang.NifNativeBackend/bin/Release/net10.0/Erlang.NifNativeBackend.dll" \
+            --source-freeze "$freeze" --source-freeze-sha256 "$(sha256sum "$freeze" | cut -d ' ' -f 1)" \
+            --plan-sha256 "$CAPTURE_PLAN" --framework-version "${N1_FRAMEWORK_VERSION:-10.0.11}" \
+            --output "$GITHUB_WORKSPACE/artifacts/nif-version651/capture-linux" \
+            > artifacts/nif-version651/ci/capture.log 2>&1
+      - name: Reuse current bridge for legacy68 pthread and ordinary3 acceptance
+        id: acceptance
+        if: ${{ !cancelled() && steps.inputs.outcome == 'success' }}
+        continue-on-error: true
+        shell: bash
+        run: |
+          python3 -B tools/Native/Erlang.NifLinuxCallbackObservations/acceptance.py \
+            --expected-head "$EXPECTED_HEAD" --plan-sha256 "$ACCEPTANCE_PLAN" \
+            --approved-n1-build-plan-sha256 "$NATIVE_PLAN" \
+            --source-freeze "$GITHUB_WORKSPACE/artifacts/nif-version651/ci/source-freeze.json" \
+            --approved-source-freeze-sha256 "$(sha256sum artifacts/nif-version651/ci/source-freeze.json | cut -d ' ' -f 1)" \
+            --otp-source "$GITHUB_WORKSPACE/artifacts/nif-version651/otp-source" \
+            --original-build-receipt "$GITHUB_WORKSPACE/artifacts/nif-version651/original-build/build-receipt.json" \
+            --n1-native-build "$GITHUB_WORKSPACE/artifacts/nif-version651/linux-build" \
+            --framework-version "${N1_FRAMEWORK_VERSION:-10.0.11}" \
+            --output "$GITHUB_WORKSPACE/artifacts/nif-version651/acceptance" \
+            > artifacts/nif-version651/ci/acceptance.log 2>&1
+      - name: Aggregate exact-head N1 result and preserve pending wider gates
+        if: ${{ !cancelled() }}
+        shell: bash
+        env:
+          INPUTS_OUTCOME: ${{ steps.inputs.outcome }}
+          SOURCE_OUTCOME: ${{ steps.otp-source.outcome }}
+          ORIGINAL_OUTCOME: ${{ steps.original-build.outcome }}
+          NATIVE_OUTCOME: ${{ steps.native-build.outcome }}
+          HOST_OUTCOME: ${{ steps.managed-build.outcome }}
+          READY_OUTCOME: ${{ steps.native-ready.outcome }}
+          CAPTURE_OUTCOME: ${{ steps.capture.outcome }}
+          ACCEPTANCE_OUTCOME: ${{ steps.acceptance.outcome }}
+        run: |
+          python3 -B - <<'PY'
+          import hashlib,json,os,subprocess
+          from pathlib import Path
+          out=Path('artifacts/nif-version651/ci');out.mkdir(parents=True,exist_ok=True)
+          errors=[];capture={};stages={k:os.environ.get(k,'') for k in ['INPUTS_OUTCOME','SOURCE_OUTCOME','ORIGINAL_OUTCOME','NATIVE_OUTCOME','HOST_OUTCOME','READY_OUTCOME','CAPTURE_OUTCOME','ACCEPTANCE_OUTCOME']}
+          try:
+              assert all(v=='success' for v in stages.values()),stages
+              capture=json.loads(Path('artifacts/nif-version651/capture-linux/completion.json').read_bytes())
+              assert capture['Passed'] and capture['Count']==42 and len(capture['Rows'])==42 and not capture['Errors'] and capture['FreshOriginalCompilation']
+              for row in capture['Rows']:
+                  assert set(row['Routes'])=={'original','reviewed','ordinary'} and all(r['Passed'] for r in row['Routes'].values())
+                  assert set(row['Comparisons'])=={'reviewed','ordinary'} and all(r['WholeTypedEquality'] and r['RawByteEquality'] for r in row['Comparisons'].values())
+              module690=capture['ModuleText690']
+              assert module690['Passed'] and module690['Count']==4 and module690['ExpectedComparisons']==8 and len(module690['Rows'])==4 and not module690['Errors']
+              assert module690['FreshOriginalCompilation'] and module690['NewNativeBuilds']==0 and module690['ReusedNativeCase']=='v2_18_opts1'
+              for row in module690['Rows']:
+                  assert set(row['Routes'])=={'original','reviewed','ordinary'} and all(r['Passed'] for r in row['Routes'].values())
+                  assert set(row['Comparisons'])=={'reviewed','ordinary'} and all(r['WholeTypedEquality'] and r['RawByteEquality'] for r in row['Comparisons'].values())
+              acceptance=json.loads(Path('artifacts/nif-version651/acceptance/completion.json').read_bytes())
+              assert acceptance['Passed'] and acceptance['SubjectHead']==os.environ['EXPECTED_HEAD'] and acceptance['PlanSha256']==os.environ['ACCEPTANCE_PLAN']
+              assert acceptance['LegacyExpectedComparisons']==68 and acceptance['OrdinaryExpectedCases']==3 and all(r['Passed'] for r in acceptance['Stages'])
+              freeze=json.loads((out/'source-freeze.json').read_bytes());assert freeze['SubjectHead']==os.environ['EXPECTED_HEAD']
+              for row in freeze['Rows']:assert hashlib.sha256(Path(row['Path']).read_bytes()).hexdigest().upper()==row['Sha256'],row['Path']
+              assert subprocess.check_output(['git','rev-parse','HEAD'],text=True).strip()==os.environ['EXPECTED_HEAD']
+              subprocess.run(['git','diff','--exit-code'],check=True)
+          except Exception as e:errors.append(repr(e))
+          result=dict(Passed=not errors,FocusedN1Only=True,SubjectHead=os.environ['EXPECTED_HEAD'],Stages=stages,ExpectedOriginalCases=42,ExpectedComparisons=84,ExpectedModuleTextCases=4,ExpectedModuleTextComparisons=8,Errors=errors,AcceptancePlanSha256=os.environ['ACCEPTANCE_PLAN'],AcceptanceGates=['legacy68 callback comparisons','pthread bindings/create/join','ordinary-loader3 and cleanup'],PendingGates=[] if not errors else ['See failed N1/acceptance stages'],AllTlsFunctionsExecuted=False,CppTlsAndHiddenCallsVerified=False,WholeLoadNifCompatible=False,ApiDelta=0,FullContractDelta=0)
+          (out/'completion.json').write_text(json.dumps(result,indent=2))
+          print(json.dumps(result));raise SystemExit(0 if result['Passed'] else 1)
+          PY
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: nif-version651-linux-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            artifacts/nif-version651/ci/**
+            artifacts/nif-version651/original-build/**
+            artifacts/nif-version651/linux-build/**
+            artifacts/nif-version651/capture-linux/**
+            artifacts/nif-version651/acceptance/**
+          if-no-files-found: warn

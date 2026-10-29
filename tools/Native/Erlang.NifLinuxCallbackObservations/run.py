@@ -11,6 +11,7 @@ def write(path,value):
 def main():
  p=argparse.ArgumentParser()
  for key in ['admission','approved-admission-sha256','focus','output']:p.add_argument('--'+key,required=True)
+ p.add_argument('--framework-version')
  a=p.parse_args();admission=Path(a.admission).resolve();assert H(admission)==a.approved_admission_sha256.upper()
  ad=J(admission);focus=Path(a.focus).resolve();assert focus.is_relative_to(R) and focus.name=='Erlang.NifLinuxCallbackFocus.dll'
  dotnet=shutil.which('dotnet');assert dotnet
@@ -25,14 +26,25 @@ def main():
  owned=module(R/'tools/Distribution/Erlang.GuestConnectedSendObservations/owned_process.py','linux17_run_owned')
  env=identity.sanitized_environment(os.environ);env.update(DOTNET_PROCESSOR_COUNT='2',DOTNET_CLI_TELEMETRY_OPTOUT='1',DOTNET_SKIP_FIRST_TIME_EXPERIENCE='1')
  write(out/'inputs.json',dict(AdmissionPath=str(admission),AdmissionSha256=H(admission),FocusPath=str(focus),FocusSha256=H(focus),DotnetPath=dotnet,DotnetSha256=H(dotnet),AdjacentDlls=dlls))
- stages=[]
- try:
-  for route in ['reviewed','ordinary']:
-   stages.append(common.stage(owned,identity,[dotnet,focus,admission,H(admission),out/route,route],R,env,out/route,180))
-   completion=J(out/route/'completion.json');assert completion['Status']=='ACQUIRED_LINUX_CALLBACK17_TWO_RUNTIME_ROWS' and completion['AdmissionSha256']==H(admission) and completion['Route']==route and completion['RuntimeDomains']==2 and completion['PrimaryObservationCount']==17 and completion['FirstForeignAllocationOwnershipChecked']
+ stages=[];failures=[]
+ for route in ['reviewed','ordinary']:
+  failure=None
+  try:
+   stages.append(common.stage(owned,identity,([dotnet,'exec','--fx-version',a.framework_version] if a.framework_version else [dotnet])+[focus,admission,H(admission),out/route,route],R,env,out/route,180))
+   completion=J(out/route/'completion.json');assert completion['Status']=='ACQUIRED_LINUX_CALLBACK17_TWO_RUNTIME_ROWS' and completion['AdmissionSha256']==H(admission) and completion['Route']==route and completion['RuntimeDomains']==2 and completion['PrimaryObservationCount']==17 and completion['FirstForeignAllocationOwnershipChecked'] and completion['AllImageRetirementsCompleted'] and completion['RuntimeDisposalsCompleted']
    for row in completion['Files']:assert H(out/route/row['Path'])==row['Sha256']
-  for row in dlls:assert H(row['Path'])==row['Sha256']
-  write(out/'completion.json',dict(Status='ACQUIRED_TWO_LINUX_ROUTES_CALLBACK17',SubjectHead=ad['SubjectHead'],AdmissionSha256=H(admission),InputsSha256=H(out/'inputs.json'),OwnedStages=stages,Routes=['reviewed','ordinary'],PrimaryRowsPerRoute=17,RuntimeDomainsPerRoute=2,OriginalComparisonExecuted=False))
- except BaseException as e:
-  write(out/'failure.json',dict(Status='FAILED_LINUX_CALLBACK17_RAW_RETAINED',Error=repr(e),OwnedStages=stages));raise
+  except Exception as error:
+   failure=repr(error);failures.append(dict(Route=route,Failure=failure))
+  # Failure aggregation never permits a still-running child or changed shared input.
+  try:
+   receipt=J(out/(route+'.process.json'))
+   assert receipt['ParentReaped'] and receipt['StreamsClosed'] and receipt['CleanupFailure'] is None and not receipt['RemainingGroupKillRequested']
+   for row in dlls:assert H(row['Path'])==row['Sha256']
+   for path,expected in [(ad['BridgePath'],ad['BridgeSha256']),(ad['BridgeReceiptPath'],ad['BridgeReceiptSha256'])]:assert H(path)==expected
+   for image in ad['Images']:
+    for key in ['Library','NativeSource','ErlangSource','Manifest','BuildReceipt']:assert H(image[key+'Path'])==image[key+'Sha256']
+  except Exception as error:
+   failures.append(dict(Route=route,IsolationFailure=repr(error)));break
+ write(out/'completion.json',dict(Status='FAILED_TWO_LINUX_ROUTES_CALLBACK17' if failures else 'ACQUIRED_TWO_LINUX_ROUTES_CALLBACK17',SubjectHead=ad['SubjectHead'],AdmissionSha256=H(admission),InputsSha256=H(out/'inputs.json'),OwnedStages=stages,Routes=['reviewed','ordinary'],PrimaryRowsPerRoute=17,RuntimeDomainsPerRoute=2,OriginalComparisonExecuted=False,Failures=failures,FrameworkVersion=a.framework_version))
+ if failures:raise RuntimeError('Independent route failures: '+repr(failures))
 if __name__=='__main__':main()

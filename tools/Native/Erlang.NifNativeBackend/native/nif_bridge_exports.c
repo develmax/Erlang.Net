@@ -313,7 +313,7 @@ NIF_BRIDGE_EXPORT void *enif_alloc_resource(ErlNifResourceType *type, size_t siz
     return nif_bridge_callbacks()->alloc_resource527(type, size);
 }
 
-NIF_BRIDGE_EXPORT voidenif_release_resource(void *resource)
+NIF_BRIDGE_EXPORT void enif_release_resource(void *resource)
 {
     nif_bridge_callbacks()->release_resource527(resource);
 }
@@ -333,7 +333,7 @@ NIF_BRIDGE_EXPORT size_t enif_sizeof_resource(void *resource)
     return nif_bridge_callbacks()->sizeof_resource527(resource);
 }
 
-NIF_BRIDGE_EXPORT voidenif_keep_resource(void *resource)
+NIF_BRIDGE_EXPORT void enif_keep_resource(void *resource)
 {
     nif_bridge_callbacks()->keep_resource527(resource);
 }
