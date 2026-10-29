@@ -1,5 +1,9 @@
 # Remaining work
 
+## Part542 current increment
+
+Shared genuine BEAM function admission and exact badfun stack are corrected. Final Debug500/500 and Release500/500 are explicit seven-block composites on identical per-profile DLLs. Fresh original observer compilation/execution matches all3 complete stack streams and2 nonopaque whole outcomes in each profile; function identity is checked inside Erlang without rewriting opaque IDs. Permanent default tests use genuine original BEAM fixtures and actual cleanup. Counts708/180/504/24/deltas0/0. Exact-head CI/review/publication remain gates. Next direct known-difference API: load_nif/2 historical ABI/options, then upgrade/monitor/select/callback/platform closure. [Checkpoint542](checkpoint-542.md) · [Evidence](../validation/part-542/README.md) · [Exact24-row plan](contracts-24/current-closure/README.md).
+
 ## Part541 current increment
 
 Process reason/tag custody and pre-scheduling source input handoff are implemented. Final local Debug370/370 and Release370/370 are disjoint140+140+19+38+33 composites on unchanged per-profile DLLs, plus102 disjoint existing error/stack ABI cases per profile. Fresh original OTP compilation/execution matches ten complete raw observer outcomes in each profile. Separate33 lifetime groups establish actual five-family process/header/backing retirement; an ordinary reference in the portable observer never substitutes for a native NIF object. XML alignment/rebuilds preserve tested DLLs;8 source metadata gates pass. Counts708/180/504/24, API/full deltas0/0. Publication/exact-head CI/review/merge remain gates. [Checkpoint541](checkpoint-541.md) · [Evidence](../validation/part-541/README.md).

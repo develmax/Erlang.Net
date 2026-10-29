@@ -87,7 +87,8 @@ internal static partial class BeamRegisterInterpreter
         IReadOnlyList<Term> environment,
         BeamExecutionIdentity execution,
         long? diagnosticInstructionBudget = null,
-        LocalFunctionInvocation? invocation = null
+        LocalFunctionInvocation? invocation = null,
+        SourceCodeLease? admittedLease647 = null
     )
         => Dispatch432(
             context,
@@ -98,7 +99,8 @@ internal static partial class BeamRegisterInterpreter
             execution,
             SourceCodeAdmissionKind.Function,
             diagnosticInstructionBudget,
-            invocation
+            invocation,
+            admittedLease647
         );
 
     private static async ValueTask<Term> ExecuteCore(
@@ -110,12 +112,13 @@ internal static partial class BeamRegisterInterpreter
         BeamExecutionIdentity execution,
         SourceCodeAdmissionKind admission,
         long? diagnosticInstructionBudget,
-        LocalFunctionInvocation? invocation = null
+        LocalFunctionInvocation? invocation = null,
+        SourceCodeLease? admittedLease647 = null
     )
     {
         context.Cancellation.ThrowIfCancellationRequested();
         using var debugExecution432 = new DebugBreakpointExecution432();
-        using var lease = await context.Runtime.Modules.AcquireSourceEntry(
+        using var lease = admittedLease647 ?? await context.Runtime.Modules.AcquireSourceEntry(
             context,
             execution.Image,
             admission,
@@ -1050,7 +1053,9 @@ internal static partial class BeamRegisterInterpreter
                                 }
                                 else
                                     functionFrame!.SetContinuation(code, pc);
-                                Term funResult = await callable.Invoke(context, Array.AsReadOnly(funArguments));
+                                Term funResult;
+                                using (tailFun ? null : context.EnterBeamFunAdmission650(callable))
+                                    funResult = await callable.Invoke(context, Array.AsReadOnly(funArguments));
                                 functionFrame?.ClearContinuation();
                                 registers.Write(0, funResult);
                                 if (tailFun && !ReturnToCaller())

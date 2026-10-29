@@ -15,7 +15,8 @@ internal static partial class BeamRegisterInterpreter
         BeamExecutionIdentity execution,
         SourceCodeAdmissionKind admission,
         long? budget,
-        LocalFunctionInvocation? invocation = null
+        LocalFunctionInvocation? invocation = null,
+        SourceCodeLease? admittedLease647 = null
     )
         => executionHandler432(
             context,
@@ -26,7 +27,8 @@ internal static partial class BeamRegisterInterpreter
             execution,
             admission,
             budget,
-            invocation
+            invocation,
+            admittedLease647
         );
 
     internal static Term ActiveInstructions432()

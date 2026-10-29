@@ -7662,6 +7662,19 @@ try
         Erlang.Tests.MonitorOriginal645.MonitorOriginal645Names.Case,
         Erlang.Tests.MonitorOriginal645.MonitorOriginal645Checks.Run
     );
+    Test(
+        Erlang.Tests.BeamPassive647Names.CompleteCase,
+        () => Erlang.Tests.BeamPassive647Checks.Run(Erlang.Tests.BeamPassive647Names.Complete)
+    );
+    Test(
+        Erlang.Tests.BeamPassive647Names.AbortCase,
+        () => Erlang.Tests.BeamPassive647Checks.Run(Erlang.Tests.BeamPassive647Names.Abort)
+    );
+    Test(
+        Erlang.Tests.BeamPassive647Names.ReloadCase,
+        () => Erlang.Tests.BeamPassive647Checks.Run(Erlang.Tests.BeamPassive647Names.Reload)
+    );
+
     Test(Erlang.Tests.MatchSaved634Names.ProtocolCase, Erlang.Tests.MatchSaved634Checks.Protocol);
     Test(Erlang.Tests.MatchSaved634Names.MutationCase, Erlang.Tests.MatchSaved634Checks.MutationAndCopy);
     Test(Erlang.Tests.MatchSaved634Names.SourceCase, Erlang.Tests.MatchSaved634Checks.SourceReleased);

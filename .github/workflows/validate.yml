@@ -381,7 +381,8 @@ jobs:
                   return dict(PlanSha256=digest(path), VerifiedFiles=len(files))
               checks.append(("Private557", private))
               focused = ["Erlang.Dictionary537Observations", "Erlang.MatchSaved634Observations",
-                         "Erlang.EtsDispatch540Observations", "Erlang.MonitorOriginal645Observations"]
+                         "Erlang.EtsDispatch540Observations", "Erlang.MonitorOriginal645Observations",
+                         "Erlang.BeamFunction542Observations"]
               checks.extend((name, lambda name=name: focused_inputs(root, name)) for name in focused)
               outcomes = []
               for name, check in checks:
@@ -391,7 +392,7 @@ jobs:
                       outcomes.append(dict(Plan=name, Passed=False, Error=repr(error)))
               passed = all(row["Passed"] for row in outcomes)
               output.parent.mkdir(parents=True, exist_ok=True)
-              output.write_bytes((json.dumps(dict(Passed=passed, Checks=outcomes, ExpectedPlans=len(checks), ExpectedNativePlans=8, FocusedInputPlans=4,
+              output.write_bytes((json.dumps(dict(Passed=passed, Checks=outcomes, ExpectedPlans=len(checks), ExpectedNativePlans=8, FocusedInputPlans=5,
                   BuildOrVmExecuted=False, NativeExecuted=False, SourceHeadAuthenticityClaimed=False,
                   FullSourceMembershipClaimed=False, WholeContractsClosed=0), indent=2) + "\n").encode())
               require(passed, "Source-plan consistency failed; all independent results retained")
@@ -533,7 +534,7 @@ jobs:
           if (!(Test-Path artifacts/library376-official-compiler/official-admission.json)) {
             throw 'Map family504 requires successful host/provider preparation; dependent execution was not started'
           }
-          python -B tools/Native/Erlang.NifMapFamily504Observations/collect.py --repository $PWD.Path --provider-admission artifacts/library376-official-compiler/official-admission.json --plan-sha256 A214CDB29CFF26C7E30A682FE367540AD7E9509099D492C3DCFE3EBD6457D513 --output artifacts/native-map504/ci --check-golden --both-runtime-profiles516
+          python -B tools/Native/Erlang.NifMapFamily504Observations/collect.py --repository $PWD.Path --provider-admission artifacts/library376-official-compiler/official-admission.json --plan-sha256 E073BBBEEACFADE0E83DD56F9F74BFF1ADB8CF906641774678908F05E2D631B3 --output artifacts/native-map504/ci --check-golden --both-runtime-profiles516
           if ($LASTEXITCODE -ne 0) { throw 'Native map family504 original/ordinary/reviewed comparison failed; all prepared independent route receipts are retained' }
           $comparison516 = Get-Content 'artifacts/native-map504/ci/completion.json' -Raw | ConvertFrom-Json
           if (!$comparison516.Passed -or !$comparison516.BothRuntimeProfiles516 -or $comparison516.ExpectedRawLoaderComparisons -ne 4 -or $comparison516.WholeRawLoaderComparisons -ne 4 -or $comparison516.WholeRawComparisonsByRuntimeProfile.'ordinary-runtime' -ne 2 -or $comparison516.WholeRawComparisonsByRuntimeProfile.'owned-runtime' -ne 2) { throw 'All four runtime-profile/loader comparisons are required' }
@@ -554,7 +555,7 @@ jobs:
           if (!(Test-Path artifacts/library376-official-compiler/official-admission.json)) {
             throw 'Materialized505 host/provider preparation missing; dependent execution skipped'
           }
-          python -B tools/Native/Erlang.NifMapMaterialized505Observations/collect.py --repository $PWD.Path --provider-admission artifacts/library376-official-compiler/official-admission.json --plan-sha256 F8D882E89C789480C1B9F59012C7770052CD3BFB6C53F932D53725CDDED8F88D --output artifacts/native-map505/ci --check-golden --both-runtime-profiles516
+          python -B tools/Native/Erlang.NifMapMaterialized505Observations/collect.py --repository $PWD.Path --provider-admission artifacts/library376-official-compiler/official-admission.json --plan-sha256 F15EA348E8C50E54A1B8CDD966CFBC0A24280539844E524A6F554B7C2AF62B6B --output artifacts/native-map505/ci --check-golden --both-runtime-profiles516
           if ($LASTEXITCODE -ne 0) { throw 'Materialized505 independent original/ordinary/reviewed comparison failed; inspect retained full results' }
           $comparison516 = Get-Content 'artifacts/native-map505/ci/completion.json' -Raw | ConvertFrom-Json
           if (!$comparison516.Passed -or !$comparison516.BothRuntimeProfiles516 -or $comparison516.ExpectedRawLoaderComparisons -ne 4 -or $comparison516.WholeRawLoaderComparisons -ne 4 -or $comparison516.WholeRawComparisonsByRuntimeProfile.'ordinary-runtime' -ne 2 -or $comparison516.WholeRawComparisonsByRuntimeProfile.'owned-runtime' -ne 2) { throw 'All four runtime-profile/loader comparisons are required' }
@@ -568,7 +569,7 @@ jobs:
           if (!(Test-Path artifacts/library376-official-compiler/official-admission.json)) {
             throw 'Reentry505 host/provider preparation missing; dependent execution skipped'
           }
-          python -B tools/Native/Erlang.NifMapReentry505Observations/collect.py --repository $PWD.Path --provider-admission artifacts/library376-official-compiler/official-admission.json --plan-sha256 B5AA16FC792F83F9921A1E2B55A2A867F528AD055261848CBF7830233B0EBD54 --output artifacts/native-map505/reentry-ci --check-golden --both-runtime-profiles516
+          python -B tools/Native/Erlang.NifMapReentry505Observations/collect.py --repository $PWD.Path --provider-admission artifacts/library376-official-compiler/official-admission.json --plan-sha256 D507C7F440FD7A1E44C7593347832883F887BAD7D2F5E66183CD1A243C2AC860 --output artifacts/native-map505/reentry-ci --check-golden --both-runtime-profiles516
           if ($LASTEXITCODE -ne 0) { throw 'Reentry505 original/ordinary/reviewed comparison failed; independent routes and cleanup retained' }
           $comparison516 = Get-Content 'artifacts/native-map505/reentry-ci/completion.json' -Raw | ConvertFrom-Json
           if (!$comparison516.Passed -or !$comparison516.BothRuntimeProfiles516 -or $comparison516.ExpectedRawLoaderComparisons -ne 4 -or $comparison516.WholeRawLoaderComparisons -ne 4 -or $comparison516.WholeRawComparisonsByRuntimeProfile.'ordinary-runtime' -ne 2 -or $comparison516.WholeRawComparisonsByRuntimeProfile.'owned-runtime' -ne 2) { throw 'All four runtime-profile/loader comparisons are required' }
@@ -957,6 +958,16 @@ jobs:
           $freezeSha = (Get-FileHash -Algorithm SHA256 -LiteralPath $freeze).Hash
           python -B tools/Runtime/Erlang.MonitorOriginal645Observations/run.py --repository $PWD.Path --official-admission $provider --admission-sha256 $providerSha --source-freeze $freeze --source-freeze-sha256 $freezeSha --output artifacts/owned506/monitor645 *> artifacts/owned506/monitor645.log
           if ($LASTEXITCODE -ne 0) { throw 'Fresh monitor original/managed whole-outcome comparison failed; independent receipts retained' }
+      - name: Compare fresh original BEAM function admission and complete stacks
+        id: beam542-contracts
+        if: ${{ !cancelled() && steps.shared-original-provider.outcome == 'success' && steps.owned506-admit.outcome == 'success' }}
+        continue-on-error: true
+        shell: pwsh
+        run: |
+          $provider = Join-Path $PWD.Path 'artifacts/library376-official-compiler/official-admission.json'
+          $providerSha = (Get-FileHash -Algorithm SHA256 -LiteralPath $provider).Hash
+          python -B tools/Runtime/Erlang.BeamFunction542Observations/run.py --repository $PWD.Path --official-admission $provider --admission-sha256 $providerSha --output artifacts/owned506/beam542 *> artifacts/owned506/beam542.log
+          if ($LASTEXITCODE -ne 0) { throw 'Fresh BEAM function whole outcome/stack comparison failed; independent receipts retained' }
       - name: Require owned506 original source and full original batch
         if: ${{ !cancelled() }}
         shell: pwsh
@@ -975,6 +986,7 @@ jobs:
           if ('${{ steps.match634-contracts.outcome }}' -ne 'success') { throw 'Required internal native saved-match constant comparison did not pass' }
           if ('${{ steps.ets540-contracts.outcome }}' -ne 'success') { throw 'Required fresh ETS Run/cursor comparisons did not pass' }
           if ('${{ steps.monitor645-contracts.outcome }}' -ne 'success') { throw 'Required fresh monitor original and current managed comparisons did not pass' }
+          if ('${{ steps.beam542-contracts.outcome }}' -ne 'success') { throw 'Required fresh BEAM function original/managed outcome and stack comparisons did not pass' }
           if ('${{ steps.resource529-original.outcome }}' -ne 'success' -or '${{ steps.resource529-managed.outcome }}' -ne 'success') { throw 'Both selected resource529 original and managed routes must pass' }
           if ('${{ steps.queue593-original.outcome }}' -ne 'success' -or '${{ steps.queue593-managed.outcome }}' -ne 'success') { throw 'Native queue593 original and both final loader comparisons must pass' }
           if ('${{ steps.reference528-contracts.outcome }}' -ne 'success') { throw 'Required ordinary-reference/loader-map original and both profiles did not pass' }
