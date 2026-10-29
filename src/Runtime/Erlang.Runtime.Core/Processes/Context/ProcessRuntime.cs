@@ -1943,6 +1943,7 @@ public sealed partial class ProcessRuntime : IAsyncDisposable
         await Ports.Drain().ConfigureAwait(false);
         await Task.WhenAll(
             distributionPending?.DrainOwnedOutputOperations() ?? Task.CompletedTask,
+            Timers.StopForHaltAsync(),
             DrainExitContinuations(),
             DrainEtsRetirements(),
             DrainPersistentTerms(),

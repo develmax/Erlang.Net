@@ -4,19 +4,7 @@ namespace Erlang;
 
 internal sealed class RuntimeTimers(ProcessRuntime runtime, object gate) : IDisposable
 {
-    private sealed class Entry(long milliseconds, Term destination, Term message)
-    {
-        public long Milliseconds { get; set; } = milliseconds;
-        public long Started { get; set; } = Stopwatch.GetTimestamp();
-        public bool Paused { get; set; }
-        public Term Destination { get; } = destination;
-        public Term Message { get; } = message;
-        public Timer Timer { get; set; } = null!;
-
-        public long Remaining => Paused ? Milliseconds : Math.Max(0, Milliseconds - Stopwatch.GetElapsedTime(Started).Ticks / TimeSpan.TicksPerMillisecond);
-    }
-
-    private readonly Dictionary<ReferenceTerm, Entry> timers = new();
+    private readonly Dictionary<ReferenceTerm, RuntimeTimerEntry628> timers = new();
     private readonly HashSet<Task> retiringCallbacks = new();
     private bool disposed;
 
@@ -29,29 +17,68 @@ internal sealed class RuntimeTimers(ProcessRuntime runtime, object gate) : IDisp
         bool absolute = false
     )
     {
+        using var atoms = new AtomNameScope(runtime.AtomNames);
         var time = (Integer)ErlangTimerDeadline.Delay(duration, absolute);
+        long started = Stopwatch.GetTimestamp();
         if (destination is not Atom && destination is not Pid || destination is Pid pid && !runtime.IsCurrentLocal(pid))
             throw new ErlangException(ErlangErrorReasons.BadArgument);
-        lock (gate)
+        Term outgoing = wrap ? Term.Tuple(Term.A(TimerMessageAtoms.Timeout), reference, message) : message;
+        RuntimePendingPayload628 payload = RuntimePendingPayload628.Prepare(
+            runtime,
+            Term.Tuple(reference, destination, outgoing)
+        );
+        bool transferred = false;
+        Exception? primary = null;
+        try
         {
-            ObjectDisposedException.ThrowIf(disposed, this);
-            if (destination is Pid target && !runtime.IsAlive(target))
-                return reference;
-            var entry = new Entry((long)time.Value, destination, wrap ? Term.Tuple(Term.A(TimerMessageAtoms.Timeout), reference, message) : message);
-            entry.Timer = new Timer(
-                _ => Fire(reference),
-                null,
-                Timeout.Infinite,
-                Timeout.Infinite
-            );
-            timers.Add(reference, entry);
-            if (destination is Pid recipient && runtime.Suspensions.IsActive(recipient))
-                entry.Paused = true;
-            else
-                Schedule(entry);
-        }
+            lock (gate)
+            {
+                ObjectDisposedException.ThrowIf(disposed, this);
+                if (destination is Pid target && !runtime.IsAlive(target))
+                    return reference;
+                var entry = new RuntimeTimerEntry628((long)time.Value, payload) { Started = started };
+                ReferenceTerm storedReference = entry.Reference;
+                entry.Timer = CreateTimer(storedReference, entry);
+                try
+                {
+                    timers.Add(storedReference, entry);
+                    transferred = true;
+                    if (destination is Pid recipient && runtime.Suspensions.IsActive(recipient))
+                        entry.Paused = true;
+                    else
+                        Schedule(entry);
+                }
+                catch
+                {
+                    if (timers.TryGetValue(storedReference, out var selected) && ReferenceEquals(selected, entry))
+                        timers.Remove(storedReference);
+                    // Once constructed, retire the real Timer and payload through
+                    // one detached owner, including publication rollback.
+                    transferred = true;
+                    RetireEntry(entry);
+                    throw;
+                }
+            }
 
-        return reference;
+            return reference;
+        }
+        catch (Exception error)
+        {
+            primary = error;
+            throw;
+        }
+        finally
+        {
+            if (!transferred)
+                try
+                {
+                    payload.DisposeAsync().GetAwaiter().GetResult();
+                }
+                catch (Exception cleanup) when (primary is not null)
+                {
+                    throw new AggregateException(primary, cleanup);
+                }
+        }
     }
 
     public Term Access(Term term, bool cancel)
@@ -66,38 +93,56 @@ internal sealed class RuntimeTimers(ProcessRuntime runtime, object gate) : IDisp
             if (cancel)
             {
                 timers.Remove(reference);
-                Retire(entry.Timer);
+                RetireEntry(entry);
             }
 
             return Term.I(remaining);
         }
     }
 
-    private void Fire(ReferenceTerm reference)
+    private void Fire(ReferenceTerm reference, RuntimeTimerEntry628 entry)
     {
-        lock (gate)
+        try
         {
-            if (!timers.TryGetValue(reference, out var entry) || entry.Paused)
-                return;
-            long remaining = entry.Remaining;
-            if (remaining > 0)
+            using var atoms = new AtomNameScope(runtime.AtomNames);
+            lock (gate)
             {
-                entry.Timer.Change((int)Math.Min(remaining, TimerSchedulingLimits.MaximumCallbackDelayMilliseconds), Timeout.Infinite);
+                if (!timers.TryGetValue(reference, out var selected) || !ReferenceEquals(selected, entry) || entry.Paused)
+                    return;
+                long remaining = entry.Remaining;
+                if (remaining > 0)
+                {
+                    entry.Timer.Change((int)Math.Min(remaining, TimerSchedulingLimits.MaximumCallbackDelayMilliseconds), Timeout.Infinite);
 
-                return;
+                    return;
+                }
+                timers.Remove(reference);
+                // Register before leaving R. Shutdown joins this in-flight
+                // callback AND the last payload-root retirement it produces.
+                RetireEntry(entry);
             }
-            timers.Remove(reference);
-            Retire(entry.Timer);
-            Term destination = entry.Destination is Atom name ? runtime.WhereIs(name.Name) : entry.Destination;
-            if (destination is Pid target)
-                runtime.SendSystem(target, entry.Message, Term.A(ProcessTraceNames.ClockService));
+            using var publication = MailboxPublicationScope593.Forward(runtime, entry.Payload.Graph);
+            runtime.SendTimerSnapshot628(entry.Destination, entry.Message, publication);
+        }
+        catch (Exception error)
+        {
+            // ThreadPool Timer callbacks cannot return a faulted Task. Preserve
+            // the actual error in the joined retirement rather than terminating
+            // the host or silently discarding a failed native publication.
+            lock (gate)
+            {
+                (entry.CallbackFailures ??= new()).Add(error);
+                if (timers.TryGetValue(reference, out var selected) && ReferenceEquals(selected, entry))
+                    timers.Remove(reference);
+                RetireEntry(entry);
+            }
         }
     }
 
     public void PauseRecipient(Pid pid)
     {
         lock (gate)
-            foreach (Entry entry in timers.Values.Where(entry => entry.Destination.Equals(pid) && !entry.Paused))
+            foreach (RuntimeTimerEntry628 entry in timers.Values.Where(entry => entry.Destination.Equals(pid) && !entry.Paused))
             {
                 entry.Milliseconds = entry.Remaining;
                 entry.Paused = true;
@@ -110,24 +155,52 @@ internal sealed class RuntimeTimers(ProcessRuntime runtime, object gate) : IDisp
         lock (gate)
             foreach (var pair in timers.Where(pair => pair.Value.Destination.Equals(pid) && pair.Value.Paused).ToArray())
             {
-                Entry entry = pair.Value;
+                RuntimeTimerEntry628 entry = pair.Value;
                 timers.Remove(pair.Key);
-                Retire(entry.Timer);
-                ReferenceTerm privateReference = runtime.MakeReference();
-                entry.Timer = new Timer(
-                    _ => Fire(privateReference),
-                    null,
-                    Timeout.Infinite,
-                    Timeout.Infinite
-                );
-                entry.Started = Stopwatch.GetTimestamp();
-                entry.Paused = false;
-                timers.Add(privateReference, entry);
-                Schedule(entry);
+                ReferenceTerm? privateReference = null;
+                try
+                {
+                    RetireTimer(entry.Timer);
+                    privateReference = runtime.MakeReference();
+                    entry.Timer = CreateTimer(privateReference, entry);
+                    entry.Started = Stopwatch.GetTimestamp();
+                    entry.Paused = false;
+                    timers.Add(privateReference, entry);
+                    Schedule(entry);
+                }
+                catch
+                {
+                    if (privateReference is not null && timers.TryGetValue(privateReference, out var selected)
+                        && ReferenceEquals(selected, entry))
+                        timers.Remove(privateReference);
+                    RetireEntry(entry);
+                    throw;
+                }
             }
     }
 
-    private static void Schedule(Entry entry) => entry.Timer.Change((int)Math.Min(entry.Remaining, TimerSchedulingLimits.MaximumCallbackDelayMilliseconds), Timeout.Infinite);
+    private Timer CreateTimer(ReferenceTerm reference, RuntimeTimerEntry628 entry)
+    {
+        // A system callback must not inherit an actor turn or a disposed Source
+        // invocation through Timer's ExecutionContext capture.
+        if (ExecutionContext.IsFlowSuppressed())
+            return new Timer(
+                _ => Fire(reference, entry),
+                null,
+                Timeout.Infinite,
+                Timeout.Infinite
+            );
+        using (ExecutionContext.SuppressFlow())
+            return new Timer(
+                _ => Fire(reference, entry),
+                null,
+                Timeout.Infinite,
+                Timeout.Infinite
+            );
+    }
+
+    private static void Schedule(RuntimeTimerEntry628 entry)
+        => entry.Timer.Change((int)Math.Min(entry.Remaining, TimerSchedulingLimits.MaximumCallbackDelayMilliseconds), Timeout.Infinite);
 
     public void RecipientTerminated(Pid pid)
     {
@@ -135,23 +208,69 @@ internal sealed class RuntimeTimers(ProcessRuntime runtime, object gate) : IDisp
             foreach (var pair in timers.Where(pair => pair.Value.Destination.Equals(pid)).ToArray())
             {
                 timers.Remove(pair.Key);
-                Retire(pair.Value.Timer);
+                RetireEntry(pair.Value);
             }
     }
 
-    private void Retire(Timer timer)
+    private void RetireTimer(Timer timer) => Track(timer.DisposeAsync().AsTask());
+
+    private void RetireEntry(RuntimeTimerEntry628 entry)
     {
-        Task completion = timer.DisposeAsync().AsTask();
+        if (entry.RetirementStarted)
+            return;
+        entry.RetirementStarted = true;
+        Task callbacks = entry.Timer.DisposeAsync().AsTask();
+        Task retirement;
+        if (ExecutionContext.IsFlowSuppressed())
+            retirement = CompleteEntry(entry, callbacks);
+        else
+            using (ExecutionContext.SuppressFlow())
+                retirement = CompleteEntry(entry, callbacks);
+        Track(retirement);
+    }
+
+    private async Task CompleteEntry(RuntimeTimerEntry628 entry, Task callbacks)
+    {
+        // Always detach from the invoking actor's scheduler and ExecutionContext.
+        // A foreign runtime may be synchronously disposed by that same actor.
+        await Task.CompletedTask.ConfigureAwait(ConfigureAwaitOptions.ForceYielding);
+        using var atoms = new AtomNameScope(runtime.AtomNames);
+        Exception? callbackWaitFailure = null, payloadFailure = null;
+        try
+        {
+            await callbacks.ConfigureAwait(false);
+        }
+        catch (Exception error)
+        {
+            callbackWaitFailure = error;
+        }
+        try
+        {
+            await entry.Payload.DisposeAsync().ConfigureAwait(false);
+        }
+        catch (Exception error)
+        {
+            payloadFailure = error;
+        }
+        // Allocate aggregation only after every deterministic owner is settled.
+        Exception[] failures = new[] { callbackWaitFailure, payloadFailure }.OfType<Exception>()
+            .Concat(entry.CallbackFailures?.AsEnumerable() ?? Enumerable.Empty<Exception>()).ToArray();
+        if (failures.Length != 0)
+            throw new AggregateException(failures);
+    }
+
+    private void Track(Task completion)
+    {
         if (completion.IsCompletedSuccessfully)
             return;
         retiringCallbacks.Add(completion);
         _ = completion.ContinueWith(
             completed =>
-        {
-            lock (gate)
-                if (completed.IsCompletedSuccessfully)
-                    retiringCallbacks.Remove(completed);
-        },
+            {
+                lock (gate)
+                    if (completed.IsCompletedSuccessfully)
+                        retiringCallbacks.Remove(completed);
+            },
             CancellationToken.None,
             TaskContinuationOptions.ExecuteSynchronously,
             TaskScheduler.Default
@@ -162,23 +281,23 @@ internal sealed class RuntimeTimers(ProcessRuntime runtime, object gate) : IDisp
     {
         lock (gate)
         {
-            disposed = true;
-            foreach (Entry entry in timers.Values)
-                Retire(entry.Timer);
-            timers.Clear();
+            Close();
 
             return Task.WhenAll(retiringCallbacks.ToArray());
         }
     }
 
+    private void Close()
+    {
+        disposed = true;
+        foreach (RuntimeTimerEntry628 entry in timers.Values)
+            RetireEntry(entry);
+        timers.Clear();
+    }
+
     public void Dispose()
     {
         lock (gate)
-        {
-            disposed = true;
-            foreach (var timer in timers.Values)
-                Retire(timer.Timer);
-            timers.Clear();
-        }
+            Close();
     }
 }

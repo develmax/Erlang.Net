@@ -210,7 +210,14 @@ internal sealed class BinaryProgramBacking598 : IThreadPoolWorkItem
         {
             failure = Combine598(error, failure);
         }
-        if (failure is null) retired.TrySetResult(); else retired.TrySetException(failure);
+        if (failure is null)
+        {
+            retired.TrySetResult();
+        }
+        else
+        {
+            retired.TrySetException(failure);
+        }
     }
 
     private void Free598()

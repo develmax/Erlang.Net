@@ -895,6 +895,16 @@ jobs:
           $runtimeSha = (Get-FileHash -LiteralPath $runtime -Algorithm SHA256).Hash
           python -B tools/Runtime/Erlang.OwnedGuest506Observations/compare-binary619-existing.py --repository $PWD.Path --original artifacts/owned506/binary619-original --managed-frame artifacts/owned506/binary619-managed/frame.json --runtime-sha256 $runtimeSha --output artifacts/owned506/binary619-comparison
           if ($LASTEXITCODE -ne 0) { throw 'Whole binary values/stacks, source-window or actual cleanup comparison failed' }
+      - name: Compare fresh compiled original dictionary605 with exact managed observer
+        id: dictionary537-contracts
+        if: ${{ !cancelled() && steps.shared-original-provider.outcome == 'success' && steps.owned506-admit.outcome == 'success' }}
+        continue-on-error: true
+        shell: pwsh
+        run: |
+          $provider = Join-Path $PWD.Path 'artifacts/library376-official-compiler/official-admission.json'
+          $providerSha = (Get-FileHash -Algorithm SHA256 -LiteralPath $provider).Hash
+          python -B tools/Runtime/Erlang.Dictionary537Observations/run.py --repository $PWD.Path --official-admission $provider --admission-sha256 $providerSha --output artifacts/owned506/dictionary537 *> artifacts/owned506/dictionary537.log
+          if ($LASTEXITCODE -ne 0) { throw 'Dictionary original compile/replay/whole Outcome comparison failed; all route receipts retained' }
       - name: Require owned506 original source and full original batch
         if: ${{ !cancelled() }}
         shell: pwsh
@@ -909,6 +919,7 @@ jobs:
           if ('${{ steps.counters610-release.outcome }}' -ne 'success' -or '${{ steps.counters610-contracts.outcome }}' -ne 'success') { throw 'Required matching OPT counters preparation and both complete original-backed profiles did not pass' }
           if ('${{ steps.regex613-original.outcome }}' -ne 'success' -or '${{ steps.regex613-managed.outcome }}' -ne 'success' -or '${{ steps.regex613-compare.outcome }}' -ne 'success') { throw 'Required regex original modes, current managed source window and all whole contracts did not pass' }
           if ('${{ steps.binary619-original.outcome }}' -ne 'success' -or '${{ steps.binary619-managed.outcome }}' -ne 'success' -or '${{ steps.binary619-compare.outcome }}' -ne 'success') { throw 'Required binary original modes, current managed source window and all whole contracts did not pass' }
+          if ('${{ steps.dictionary537-contracts.outcome }}' -ne 'success') { throw 'Required fresh dictionary comparison did not pass' }
           if ('${{ steps.resource529-original.outcome }}' -ne 'success' -or '${{ steps.resource529-managed.outcome }}' -ne 'success') { throw 'Both selected resource529 original and managed routes must pass' }
           if ('${{ steps.queue593-original.outcome }}' -ne 'success' -or '${{ steps.queue593-managed.outcome }}' -ne 'success') { throw 'Native queue593 original and both final loader comparisons must pass' }
           if ('${{ steps.reference528-contracts.outcome }}' -ne 'success') { throw 'Required ordinary-reference/loader-map original and both profiles did not pass' }

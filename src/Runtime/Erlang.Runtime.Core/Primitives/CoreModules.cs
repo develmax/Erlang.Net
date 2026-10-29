@@ -427,7 +427,7 @@ public static class CoreModules
         ErlangLoadNifRegistrations.Register(r);
         RuntimeManagedLibraries456.Register(r, RuntimeManagedLibraryStage456.Modules);
         foreach (string operation in new[] { TimerModuleNames.SendAfter, TimerModuleNames.StartTimer })
-            r.Register(
+            r.RegisterCanonicalRuntimeRead535(
                 ErlangModuleNames.Module,
                 operation,
                 3,
