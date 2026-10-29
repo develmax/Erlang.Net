@@ -1,0 +1,50 @@
+{
+  "Names": [
+    "runtime/binary629/halt-closes-host-program-and-joins-reader"
+  ],
+  "Assemblies": {
+    "Host": "47D379BB24285A89B803E7711ED085C71B9243B8F4818A593A9388DD00B104D2",
+    "Runtime": "50E9D1D597B820D68B97A1F09C33B41BD1837FC8471B0C4750A3801CA4EA1D1C"
+  },
+  "Receipt": {
+    "Command": [
+      "dotnet",
+      "exec",
+      "--fx-version",
+      "10.0.11",
+      "D:\\Distr\\Work\\Codex\\Erlang.Net\\w536\\tests\\Erlang.Tests\\bin\\Debug\\net10.0\\Erlang.Tests.dll",
+      "--case",
+      "runtime/binary629/halt-closes-host-program-and-joins-reader",
+      "--report",
+      "D:\\Distr\\Work\\Codex\\Erlang.Net\\w536\\artifacts\\resource536\\halt629-both-entry-green\\report.json"
+    ],
+    "Pid": 42720,
+    "ElapsedSeconds": 1.125,
+    "TimedOut": false,
+    "Settled": true,
+    "ExitCode": 1,
+    "Failures": [],
+    "StdoutSha256": "AFCBBCDE4D6511A03DF66F44644F91BB023AAF397EE32FF0FEC957F46ABE10BA",
+    "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+  },
+  "Report": {
+    "Partial": true,
+    "SelectedCount": 1,
+    "TotalCount": 9343,
+    "Blocks": [],
+    "ExactCases": [
+      "runtime/binary629/halt-closes-host-program-and-joins-reader"
+    ],
+    "Passed": 0,
+    "Failed": 1,
+    "Tests": [
+      {
+        "Name": "runtime/binary629/halt-closes-host-program-and-joins-reader",
+        "Status": "Failed",
+        "Error": "System.NullReferenceException: Object reference not set to an instance of an object.\r\n   at Erlang.Tests.NativeResource524Access.Call(Object value, String name, Object[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\w536\\tests\\Erlang.Tests\\Runtime\\Native\\Resources\\NativeResource524Access.cs:line 15\r\n   at Erlang.Tests.BinaryHalt629Checks.<>c__DisplayClass1_0.<<Run>b__0>d.MoveNext() in D:\\Distr\\Work\\Codex\\Erlang.Net\\w536\\tests\\Erlang.Tests\\Otp\\Stdlib\\Binary\\BinaryHalt629Checks.cs:line 55\r\n--- End of stack trace from previous location ---\r\n   at Erlang.Tests.BinaryHalt629Checks.<>c__DisplayClass1_0.<<Run>b__0>d.MoveNext() in D:\\Distr\\Work\\Codex\\Erlang.Net\\w536\\tests\\Erlang.Tests\\Otp\\Stdlib\\Binary\\BinaryHalt629Checks.cs:line 87\r\n--- End of stack trace from previous location ---\r\n   at Erlang.Tests.BinaryArena598Fixture.Run(Term input, Func`2 body) in D:\\Distr\\Work\\Codex\\Erlang.Net\\w536\\tests\\Erlang.Tests\\Otp\\Stdlib\\Binary\\BinaryArena598Fixture.cs:line 64\r\n   at Erlang.Tests.BinaryArena598Fixture.Run(Term input, Func`2 body) in D:\\Distr\\Work\\Codex\\Erlang.Net\\w536\\tests\\Erlang.Tests\\Otp\\Stdlib\\Binary\\BinaryArena598Fixture.cs:line 112\r\n   at Erlang.Tests.BinaryHalt629Checks.Run() in D:\\Distr\\Work\\Codex\\Erlang.Net\\w536\\tests\\Erlang.Tests\\Otp\\Stdlib\\Binary\\BinaryHalt629Checks.cs:line 10\r\n   at Program.<Main>$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\w536\\tests\\Erlang.Tests\\Harness\\Program.cs:line 7688",
+        "Milliseconds": 129
+      }
+    ]
+  },
+  "ExpectedRed": false
+}

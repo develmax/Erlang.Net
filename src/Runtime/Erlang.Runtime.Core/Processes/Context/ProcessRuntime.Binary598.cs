@@ -39,4 +39,8 @@ public sealed partial class ProcessRuntime
         lock (gate) selected = binaryPrograms598;
         if (selected is not null) await selected.Drain598().ConfigureAwait(false);
     }
+
+    private Task DrainBinaryPrograms598() => CloseBinaryPrograms598();
+
+    private bool BinaryRetirementCompleted598 => binaryPrograms598 is null || binaryShutdown598?.IsCompletedSuccessfully == true;
 }

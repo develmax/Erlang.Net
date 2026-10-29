@@ -490,6 +490,9 @@ DEPENDENCIES = [
     'tests/Erlang.Tests/Runtime/Memory/OwnedShutdown506Names.cs',
     'tests/Erlang.Tests/Resources/OwnedGuestOriginal506/observed.etf',
     'tests/Erlang.Tests/Resources/OwnedGuestOriginal506/observed-deterministic.etf',
+    'src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.EtsFoundation.cs',
+    'tests/Erlang.Tests/Otp/Stdlib/Binary/BinaryHalt629Checks.cs',
+    'tests/Erlang.Tests/Otp/Stdlib/Binary/BinaryHalt629Names.cs',
 ]
 
 

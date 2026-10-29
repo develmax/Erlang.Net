@@ -7633,6 +7633,7 @@ try
     Test(Erlang.Tests.CountersPublic611Names.InfoFullCase, Erlang.Tests.CountersPublic611Checks.InfoFullHost);
     Test(Erlang.Tests.CountersPublic611Names.InfoListCase, Erlang.Tests.CountersPublic611Checks.InfoListHost);
     Test(Erlang.Tests.BinarySearchAuthority621Names.Test, Erlang.Tests.BinarySearchAuthority621Checks.Run);
+    Test(Erlang.Tests.BinaryHalt629Names.Test, Erlang.Tests.BinaryHalt629Checks.Run);
     Test(Erlang.Tests.BinaryArena598Names.PhysicalCase, Erlang.Tests.BinaryArena598Checks.Physical);
     Test(Erlang.Tests.BinaryArena598Names.ActiveCase, Erlang.Tests.BinaryArena598Checks.Active);
     Test(Erlang.Tests.BinaryArena598Names.HostCase, Erlang.Tests.BinaryArena598Checks.HostReservation);
