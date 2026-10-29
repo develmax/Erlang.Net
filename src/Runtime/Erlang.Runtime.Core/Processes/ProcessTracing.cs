@@ -373,7 +373,7 @@ internal sealed partial class ProcessTracing(ProcessRuntime runtime, object gate
         IReadOnlyList<Term> arguments
     )
     {
-        if (runtime.OwnedTermsPilot506)
+        if (context.OwnedExecutionEnabled683)
         {
             lock (gate)
                 if (patterns.Count == 0 && namedSessions425.Count == 0)

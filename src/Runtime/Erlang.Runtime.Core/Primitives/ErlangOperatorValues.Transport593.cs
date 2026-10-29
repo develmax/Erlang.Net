@@ -5,7 +5,7 @@ public static partial class ErlangOperatorValues
     internal static async ValueTask<bool> TrySendCompiler593Async(ProcessContext context, Term target, Term message)
     {
         var source = context.CurrentOwned506;
-        if (!context.Runtime.OwnedTermsPilot506 || source is not { IsDisposed: false, CanBorrow507: true }
+        if (!context.OwnedExecutionEnabled683 || source is not { IsDisposed: false, CanBorrow507: true }
             || source.BindingKind507 is not (OwnedBindingKind507.CompilerGuest or OwnedBindingKind507.PreparedGuest)
             || !source.OwnsContext507(context) || !RuntimeActorExecutionTurn.IsOwnedBy(context)
             || !context.Runtime.CanBeginMessageSnapshot593(context, target))

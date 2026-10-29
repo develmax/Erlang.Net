@@ -15,7 +15,7 @@ internal sealed partial class BeamRegisterState : IDisposable
     {
         words504 = words;
         context507 = context;
-        if (context is not null && context.Runtime.OwnedTermsPilot506)
+        if (context is not null && context.OwnedExecutionEnabled683)
             roots507 = new(context, values.Length);
     }
 

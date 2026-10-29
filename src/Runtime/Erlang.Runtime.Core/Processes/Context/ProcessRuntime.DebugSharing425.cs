@@ -24,7 +24,7 @@ public sealed partial class ProcessRuntime
                 return DebugSharingCopy425.Copy(this, arguments[0], flag.Name == ErlangBooleanAtoms.True);
             }
             ulong words = 0;
-            if (!(OwnedTermsPilot506 && RuntimeActorExecutionTurn.IsOwnedBy(context)
+            if (!(context.OwnedExecutionEnabled683 && RuntimeActorExecutionTurn.IsOwnedBy(context)
                 && context.TermHeap506.TryReadPhysicalSize526(
                     context,
                     arguments[0],

@@ -3,6 +3,8 @@ namespace Erlang;
 internal sealed unsafe partial class NifNativeCallEnvironment
 {
     private ProcessTermFrame506? guestRoots516;
+    private bool attachedGuestExecution683;
+    internal bool UsesOwnedExecution683 => Runtime.OwnedTermsPilot506 || attachedGuestExecution683;
     private HashSet<Term>? retainedGuestIdentities516;
     private HashSet<NifNativeTermNode>? retainedGuestPending516;
 
@@ -13,8 +15,12 @@ internal sealed unsafe partial class NifNativeCallEnvironment
             throw new InvalidOperationException(NifNativeDiagnostics.ForeignRuntime);
         if (IsIndependent)
             throw new InvalidOperationException(NifNativeEnvironmentNames.ProcessBound);
-        if (Runtime.OwnedTermsPilot506 && guestRoots516 is null)
+        if (caller.OwnedExecutionEnabled683 && guestRoots516 is null)
+        {
             guestRoots516 = caller.TermHeap506.Enter();
+            // Captured only from this validated actual process-bound caller.
+            attachedGuestExecution683 = true;
+        }
     }
 
     // Native environments are caller-synchronized, as required by the NIF API.
@@ -96,14 +102,17 @@ internal sealed unsafe partial class NifNativeCallEnvironment
     }
 
     internal nuint CopyValueFrom516(NifNativeTermValue value)
+        => CopyValueFromOwnedSource683(value, false);
+
+    internal nuint CopyValueFromOwnedSource683(NifNativeTermValue value, bool sourceOwnedExecution683)
     {
-        if (!Runtime.OwnedTermsPilot506)
+        if (!UsesOwnedExecution683 && !sourceOwnedExecution683)
             return AddValue(NifNativeTermCopy504.Copy(value));
         // The source environment remains admitted while copying. New wrappers
         // must not retain another process's physical tuple/list cells.
         NifNativeTermValue copied = NifNativeTermCopy504.CopyWithStatic516(
             value,
-            term => OwnedTermDetachedCopy506.Copy(Runtime, term)
+            term => OwnedTermDetachedCopy506.CopyAtomics586(Runtime, term, exportHostAtomics586: false)
         );
 
         return AddValue(copied);
@@ -113,7 +122,7 @@ internal sealed unsafe partial class NifNativeCallEnvironment
     {
         Term value = Get(handle);
 
-        if (Runtime.OwnedTermsPilot506 && (NativeResourceRoots524.Contains524(value) || AtomicsRoots586.Contains586(value) || CountersRoots596.Contains596(value) || ReMagicRoots597.Contains597(value) || BinaryProgramRoots598.Contains598(value))
+        if (UsesOwnedExecution683 && (NativeResourceRoots524.Contains524(value) || AtomicsRoots586.Contains586(value) || CountersRoots596.Contains596(value) || ReMagicRoots597.Contains597(value) || BinaryProgramRoots598.Contains598(value))
             && OwnedTermInvocation506.TryAdmitNativeGuestResult535(
                 Runtime,
                 Image,
@@ -122,12 +131,29 @@ internal sealed unsafe partial class NifNativeCallEnvironment
             ))
             return guest;
 
+        if (!UsesOwnedExecution683 && ResourceHostCopy611.Requires(value))
+            return AtomicsHostAggregate594.Publish(transaction =>
+            {
+                // All builtin carriers must roll back if the existing native
+                // resource Host admission fails for a composite result.
+                Term host = OwnedTermDetachedCopy506.CopyAtomics586(
+                    Runtime,
+                    value,
+                    exportHostAtomics586: true,
+                    hostCopies591: transaction
+                );
+
+                return NativeResourceRoots524.Contains524(host)
+                    ? NativeTermHostScope524.AdmitCurrent524(Runtime, host) : host;
+            });
+
         // Export opaque results while the environment frame still owns every
         // source graph/root and backing.
-        Term exported = Runtime.OwnedTermsPilot506 ? OwnedTermDetachedCopy506.Copy(Runtime, value) : value;
+        Term exported = UsesOwnedExecution683
+            ? OwnedTermDetachedCopy506.CopyAtomics586(Runtime, value, exportHostAtomics586: false) : value;
         if (!NativeResourceRoots524.Contains524(exported)) return exported;
 
-        return Runtime.OwnedTermsPilot506
+        return UsesOwnedExecution683
             ? OwnedTermInvocation506.AdmitNativeResult524(Runtime, exported)
             : NativeTermHostScope524.AdmitCurrent524(Runtime, exported);
     }

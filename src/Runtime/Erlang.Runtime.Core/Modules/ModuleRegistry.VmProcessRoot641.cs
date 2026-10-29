@@ -17,7 +17,7 @@ public sealed partial class ModuleRegistry
             genuine = functions.TryGetValue(key, out var body)
                 && SelectedOwnedBinding507(key, body) is OwnedBindingKind507.CompilerGuest or OwnedBindingKind507.PreparedGuest;
         }
-        if (!genuine || !context.Runtime.OwnedTermsPilot506)
+        if (!genuine || !context.OwnedExecutionEnabled683 && resumedArguments641?.Graph641 is null)
             return CallLegacyVmRoot641(
                 context,
                 module,
@@ -25,6 +25,9 @@ public sealed partial class ModuleRegistry
                 arguments,
                 resumedArguments641
             );
+
+        if (!context.OwnedExecutionEnabled683)
+            context.ActivateGenuineVmExecution683(resumedArguments641!);
 
         return ExecuteVmRoot641(
             context,
@@ -47,7 +50,7 @@ public sealed partial class ModuleRegistry
         RuntimeProcessPayload641? resumedArguments641 = null
     )
     {
-        if (!context.Runtime.OwnedTermsPilot506)
+        if (!context.OwnedExecutionEnabled683)
             return CallLegacyVmRoot641(
                 context,
                 ErlangModuleNames.Module,
@@ -67,6 +70,7 @@ public sealed partial class ModuleRegistry
         if (callback is FunctionTerm callable
             && RuntimeStoredFunctionRecipes.TryCaptureTransfer506(context.Runtime, callable, out var recipe)
             && recipe is ICanonicalGuestRecipe507 admitted && admitted.AdmittedTo507(context.Runtime))
+        {
             return ExecuteVmRoot641(
                 context,
                 arguments,
@@ -74,6 +78,7 @@ public sealed partial class ModuleRegistry
                 (rootedArguments, rootedCallable) => context.InvokeGuestFunction507(rootedCallable!, rootedArguments),
                 callable
             );
+        }
 
         return CallLegacyVmRoot641(
             context,

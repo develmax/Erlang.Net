@@ -17,7 +17,7 @@ internal sealed class MailboxSelectionAdmission593
     internal static MailboxSelectionAdmission593? Source(ProcessContext context, object matcher)
     {
         OwnedTermInvocation506? active = context.CurrentOwned506;
-        if (!context.Runtime.MessageSnapshotRouteReady593 || !context.Runtime.OwnedTermsPilot506 || active is not { CanBorrow507: true, IsDisposed: false }
+        if (!context.Runtime.MessageSnapshotRouteReady593 || !context.OwnedExecutionEnabled683 || active is not { CanBorrow507: true, IsDisposed: false }
             || active.BindingKind507 is not (OwnedBindingKind507.CompilerGuest or OwnedBindingKind507.PreparedGuest)
             || active.SourceEvaluationDepth511 == 0 || !active.OwnsContext507(context)
             || !RuntimeActorExecutionTurn.IsOwnedBy(context))
@@ -47,7 +47,7 @@ internal sealed class MailboxSelectionAdmission593
     // registered frame. Public/opaque selectors never obtain this capability.
     internal static MailboxSelectionAdmission593? Beam(ProcessContext context, ProcessTermFrame506 frame)
     {
-        if (!context.Runtime.MessageSnapshotRouteReady593 || !context.Runtime.OwnedTermsPilot506)
+        if (!context.Runtime.MessageSnapshotRouteReady593 || !context.OwnedExecutionEnabled683)
             return null;
 
         if (!RuntimeActorExecutionTurn.IsOwnedBy(context))
