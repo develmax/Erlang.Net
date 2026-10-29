@@ -1,0 +1,13 @@
+{"Partial":true,"SelectedCount":1,"TotalCount":9288}
+FAIL runtime/mailbox601/cancel-during-real-ets-target-retirement-gap: System.AggregateException: Mailbox snapshot assertion and independent cleanup failed. (A mailbox snapshot lost its actual native ownership boundary.) (A mailbox snapshot lost its actual native ownership boundary.)
+ ---> System.InvalidOperationException: A mailbox snapshot lost its actual native ownership boundary.
+   at Erlang.Tests.MailboxSnapshot601Fixture.Require(Boolean value) in D:\Distr\Work\Codex\Erlang.Net\w518repair\tests\Erlang.Tests\Runtime\Storage\Mailbox\MailboxSnapshot601Fixture.cs:line 124
+   at Erlang.Tests.ProcessInfoStorageGap601Checks.Run() in D:\Distr\Work\Codex\Erlang.Net\w518repair\tests\Erlang.Tests\Runtime\Storage\Mailbox\ProcessInfoStorageGap601Checks.cs:line 79
+   --- End of inner exception stack trace ---
+   at Erlang.Tests.ProcessInfoStorageGap601Checks.Run() in D:\Distr\Work\Codex\Erlang.Net\w518repair\tests\Erlang.Tests\Runtime\Storage\Mailbox\ProcessInfoStorageGap601Checks.cs:line 121
+   at Program.<Main>$(String[] args) in D:\Distr\Work\Codex\Erlang.Net\w518repair\tests\Erlang.Tests\Harness\Program.cs:line 7575
+ ---> (Inner Exception #1) System.InvalidOperationException: A mailbox snapshot lost its actual native ownership boundary.
+   at Erlang.Tests.MailboxSnapshot601Fixture.Require(Boolean value) in D:\Distr\Work\Codex\Erlang.Net\w518repair\tests\Erlang.Tests\Runtime\Storage\Mailbox\MailboxSnapshot601Fixture.cs:line 124
+   at Erlang.Tests.ProcessInfoStorageGap601Checks.Run() in D:\Distr\Work\Codex\Erlang.Net\w518repair\tests\Erlang.Tests\Runtime\Storage\Mailbox\ProcessInfoStorageGap601Checks.cs:line 98<---
+
+0/1 passed

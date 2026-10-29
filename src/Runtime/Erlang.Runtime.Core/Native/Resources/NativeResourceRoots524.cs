@@ -2,6 +2,13 @@ namespace Erlang;
 
 internal static class NativeResourceRoots524
 {
+    internal static void DisposeGuestGraph593(IDisposable? selected)
+    {
+        if (selected is NativeResourceRootLease524 native) native.DisposeGuestGc536();
+        else if (selected is NativeResourceRootSet524 set) set.DisposeGuestGc593();
+        else selected?.Dispose();
+    }
+
     internal static NativeResourcePayload524? Direct524(Term value, ProcessRuntime? expected = null)
     {
         // Admit backing custody before a live/stale descriptor can read its heap.

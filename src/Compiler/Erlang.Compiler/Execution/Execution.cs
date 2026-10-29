@@ -2,7 +2,41 @@ namespace Erlang.Compiler;
 
 public static partial class Execution
 {
-    private sealed record Selection(Clause Clause, Dictionary<string, Term> Bindings);
+    private sealed record Selection(Clause Clause, Dictionary<string, Term> Bindings) : IGuestMailboxSelection593
+    {
+        private ProcessTermFrame506? receiveCandidate593;
+
+        public void AttachMailboxCandidate593(ProcessTermFrame506 candidate)
+        {
+            if (receiveCandidate593 is not null)
+                throw new InvalidOperationException(MailboxCustody593Names.DuplicateReceiveCandidate);
+            receiveCandidate593 = candidate;
+        }
+
+        internal void PublishReceiveBindings593(ProcessContext context)
+        {
+            if (receiveCandidate593 is null) return;
+            context.PublishSourceReceiveBindings593(Bindings.Values);
+            Dispose();
+        }
+
+        public void Dispose() => Interlocked.Exchange(ref receiveCandidate593, null)?.Dispose();
+    }
+    private sealed class SourceReceiveSelector593(
+        IReadOnlyList<Clause> clauses, Dictionary<string, Term> parent, ProcessContext context
+    ) : ISourceMailboxSelector593<Selection>
+    {
+        public ProcessContext Context => context;
+
+        public ValueTask<Selection?> Select(Term candidate)
+            => Execution.Select(
+                clauses,
+                [candidate],
+                parent,
+                context
+            );
+    }
+
     private sealed class TailCall(string function, IReadOnlyList<Term> arguments, ModuleCodeImage? image) : Exception, IOwnedControlTransfer506
     {
         public string Function { get; } = function; public IReadOnlyList<Term> Arguments { get; } = arguments;
@@ -942,7 +976,7 @@ public static partial class Execution
                     using var sourceLocation = ctx.EnterSourceLocation(SourceCallLocations.For(module, x.SourceLine));
                     if (x.Operator == ErlangOperators.Send)
                     {
-                        await ErlangOperatorValues.TrySendAsync(ctx, left, right);
+                        await ErlangOperatorValues.TrySendCompiler593Async(ctx, left, right);
 
                         return right;
                     }
@@ -1132,17 +1166,36 @@ public static partial class Execution
                         module
                     );
 
-                    ValueTask<Selection?> SelectMessage(Term message) => Select(
-                        x.Clauses,
-                        [message],
-                        b,
-                        ctx
-                    );
+                    var matcher593 = new SourceReceiveSelector593(x.Clauses, b, ctx);
                     var selection = timeout is null
-                        ? await ctx.ReceiveSelectingAsync(SelectMessage)
-                        : await ctx.ReceiveSelectingAsync(SelectMessage, timeout);
+                        ? await ctx.ReceiveSourceSelecting593(matcher593)
+                        : await ctx.ReceiveSourceSelecting593(matcher593, timeout);
                     if (selection is not null)
-                        return await Branch(selection);
+                    {
+                        Exception? primary593 = null;
+                        try
+                        {
+                            selection.PublishReceiveBindings593(ctx);
+
+                            return await Branch(selection);
+                        }
+                        catch (Exception error)
+                        {
+                            primary593 = error;
+                            throw;
+                        }
+                        finally
+                        {
+                            try
+                            {
+                                selection.Dispose();
+                            }
+                            catch (Exception cleanup) when (primary593 is not null)
+                            {
+                                throw new AggregateException(primary593, cleanup);
+                            }
+                        }
+                    }
 
                     return x.After is not null ? await Evaluate(
                         x.After,

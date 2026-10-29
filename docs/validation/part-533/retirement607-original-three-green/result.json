@@ -1,0 +1,35 @@
+{
+  "HostUnchanged": true,
+  "Names": [
+    "scheduler/canceled-queued-waiter-successor",
+    "host/nif-map-value503-invalid-owner-and-thread-controls",
+    "host/nif-map-family504/invalid-owners-threads"
+  ],
+  "Receipt": {
+    "Command": [
+      "dotnet",
+      "exec",
+      "--fx-version",
+      "10.0.11",
+      "D:\\Distr\\Work\\Codex\\Erlang.Net\\w518repair\\tests\\Erlang.Tests\\bin\\Debug\\net10.0\\Erlang.Tests.dll",
+      "--case",
+      "scheduler/canceled-queued-waiter-successor",
+      "--case",
+      "host/nif-map-value503-invalid-owner-and-thread-controls",
+      "--case",
+      "host/nif-map-family504/invalid-owners-threads",
+      "--report",
+      "D:\\Distr\\Work\\Codex\\Erlang.Net\\w518repair\\artifacts\\resource533\\retirement607-original-three-green\\focus-report.json"
+    ],
+    "Pid": 26284,
+    "ElapsedSeconds": 0.625,
+    "TimedOut": false,
+    "Settled": true,
+    "ExitCode": 0,
+    "Failures": [],
+    "StdoutSha256": "08084EA1FF68DF0E7399B3D3EDED2365385F419AD4974AE87F8059B69369DB1B",
+    "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+  },
+  "Passed": 3,
+  "Failed": 0
+}

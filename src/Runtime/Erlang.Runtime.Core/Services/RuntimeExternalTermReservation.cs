@@ -27,8 +27,13 @@ public sealed class RuntimeExternalTermReservation : IDisposable
                 transaction = null;
             }
             else
-                this.value = value is ResourceReferenceTerm { ResourceKind: ReferenceResourceKind.Atomics413 } atomics
-                    ? new ResourceReferenceTerm(atomics.Entry, new ReferenceTerm(atomics)) : value;
+                // The store custody above retains the native allocation, not
+                // the originating process's actual reference header. Snapshot
+                // the stable identity before those source cells may retire.
+                this.value = value is ResourceReferenceTerm identity
+                    && (identity.ResourceKind == ReferenceResourceKind.Atomics413
+                        || !hostAtomics586 && identity.ResourceKind == ReferenceResourceKind.NativeResource524)
+                    ? new ResourceReferenceTerm(identity.Entry, new ReferenceTerm(identity)) : value;
         }
         catch (Exception original)
         {

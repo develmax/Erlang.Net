@@ -157,33 +157,38 @@ public sealed partial class Mailbox
         save.InPriority = true;
     }
 
-    internal ValueTask<T?> ReceiveBeamAsync<T>(
-        Func<Term, ValueTask<T?>> select,
-        Term timeout,
-        CancellationToken cancellation
-    ) where T : class => ReceiveBeamSelectionAsync(
-        select,
-        timeout,
-        cancellation,
-        rescanRemovedCandidate: false
-    );
-
-    internal ValueTask<T?> ReceiveBeamGuardAsync<T>(
-        Func<Term, ValueTask<T?>> select,
-        Term timeout,
-        CancellationToken cancellation
-    ) where T : class => ReceiveBeamSelectionAsync(
-        select,
-        timeout,
-        cancellation,
-        rescanRemovedCandidate: true
-    );
-
-    private async ValueTask<T?> ReceiveBeamSelectionAsync<T>(
+    internal ValueTask<T?> ReceiveBeamAdmitted593<T>(
         Func<Term, ValueTask<T?>> select,
         Term timeout,
         CancellationToken cancellation,
-        bool rescanRemovedCandidate = false
+        MailboxSelectionAdmission593? admission593 = null
+    ) where T : class => ReceiveBeamSelectionAdmitted593(
+        select,
+        timeout,
+        cancellation,
+        rescanRemovedCandidate: false,
+        admission593
+    );
+
+    internal ValueTask<T?> ReceiveBeamGuardAdmitted593<T>(
+        Func<Term, ValueTask<T?>> select,
+        Term timeout,
+        CancellationToken cancellation,
+        MailboxSelectionAdmission593? admission593 = null
+    ) where T : class => ReceiveBeamSelectionAdmitted593(
+        select,
+        timeout,
+        cancellation,
+        rescanRemovedCandidate: true,
+        admission593
+    );
+
+    private async ValueTask<T?> ReceiveBeamSelectionAdmitted593<T>(
+        Func<Term, ValueTask<T?>> select,
+        Term timeout,
+        CancellationToken cancellation,
+        bool rescanRemovedCandidate = false,
+        MailboxSelectionAdmission593? admission593 = null
     ) where T : class
     {
         lock (gate)
@@ -192,12 +197,13 @@ public sealed partial class Mailbox
         {
             TimeSpan? initial = timeout is Integer integer && integer.Value.IsZero ? TimeSpan.Zero : null;
 
-            return await ReceiveCore(
+            return await ReceiveCore593(
                 select,
                 initial,
                 cancellation,
                 () => ReceiveTimeoutValue.Parse(timeout),
-                rescanRemovedCandidate
+                rescanRemovedCandidate,
+                admission593
             );
         }
         finally
@@ -206,12 +212,13 @@ public sealed partial class Mailbox
         }
     }
 
-    private async ValueTask<T?> ReceiveBeamSaveCore<T>(
+    private async ValueTask<T?> ReceiveBeamSaveCore593<T>(
         Func<Term, ValueTask<T?>> select,
         TimeSpan? timeout,
         CancellationToken cancellation,
         Func<TimeSpan?>? resolveTimeout,
-        bool rescanRemovedCandidate
+        bool rescanRemovedCandidate,
+        MailboxSelectionAdmission593? admission593
     ) where T : class
     {
         if (timeout < TimeSpan.Zero)
@@ -227,6 +234,7 @@ public sealed partial class Mailbox
                 start += await WaitForExecution();
             Task signal;
             Entry candidate = default;
+            IDisposable? operation593 = null;
             LinkedListNode<Entry>? candidateNode = null;
             bool found;
             bool admissionPending;
@@ -237,18 +245,36 @@ public sealed partial class Mailbox
                 candidateNode = node;
                 found = node is not null;
                 if (found)
+                {
                     candidate = node!.Value;
+                    operation593 = candidate.Custody593?.BorrowOperation();
+                }
                 signal = changed.Task;
             }
             if (admissionPending || ExecutionBlocked?.Invoke() == true)
+            {
+                operation593?.Dispose();
                 continue;
+            }
             if (found)
             {
-                long suspended = SuspensionTime?.Invoke() ?? 0;
-                T? result = await select(candidate.Value);
+                T? result = null;
+                MailboxGuestCandidate593? guest593 = null;
+                IDisposable? consumedOperation593 = null;
+                Exception? primary593 = null;
                 bool transferred504 = false;
                 try
                 {
+                    long suspended = SuspensionTime?.Invoke() ?? 0;
+                    guest593 = admission593?.Prepare(candidate.Value, candidate.Custody593?.Graph);
+                    Term candidateValue593 = guest593?.Value ?? OpaqueCandidate593(candidate.Value);
+                    if (admission593 is null)
+                    {
+                        operation593?.Dispose();
+                        operation593 = null;
+                    }
+                    result = await select(candidateValue593);
+                    guest593?.AttachTo(result);
                     start += (SuspensionTime?.Invoke() ?? 0) - suspended;
                     while (true)
                     {
@@ -278,6 +304,7 @@ public sealed partial class Mailbox
                                 {
                                     var current = PeekBeamSave() ?? throw new InvalidDataException(BeamReceiveNames.InvalidPlan);
                                     consumed = current.Value;
+                                    consumedOperation593 = consumed.Custody593?.BorrowOperation();
                                     RemoveNode(current);
                                     ResetBeamSave();
                                 }
@@ -305,10 +332,20 @@ public sealed partial class Mailbox
                         return result;
                     }
                 }
+                catch (Exception error)
+                {
+                    primary593 = error;
+                    throw;
+                }
                 finally
                 {
-                    if (!transferred504 && result is BeamReceiveSelection discarded504)
-                        discarded504.Dispose();
+                    MailboxReceiveCleanup593.Dispose(
+                        !transferred504 ? result as IGuestMailboxSelection593 : null,
+                        guest593,
+                        operation593,
+                        primary593,
+                        consumedOperation593
+                    );
                 }
                 continue;
             }

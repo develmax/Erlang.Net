@@ -241,12 +241,43 @@ internal sealed partial class ProcessTracing(ProcessRuntime runtime, object gate
         Term message,
         bool exists
     )
-    {
-        foreach (var view in LiveTraceViews425()) view.Sent(
+        => SentCore593(
             sender,
             destination,
             message,
-            exists
+            exists,
+            null
+        );
+
+    internal void SentSnapshot593(
+        ProcessContext sender,
+        Term destination,
+        Term message,
+        bool exists,
+        MailboxPublicationScope593 publication
+    )
+        => SentCore593(
+            sender,
+            destination,
+            message,
+            exists,
+            publication
+        );
+
+    private void SentCore593(
+        ProcessContext sender,
+        Term destination,
+        Term message,
+        bool exists,
+        MailboxPublicationScope593? publication593
+    )
+    {
+        foreach (var view in LiveTraceViews425()) view.SentCore593(
+            sender,
+            destination,
+            message,
+            exists,
+            publication593
         );
         lock (gate)
         {
@@ -266,15 +297,47 @@ internal sealed partial class ProcessTracing(ProcessRuntime runtime, object gate
                     sender.Self,
                     ProcessTraceFlags.Send,
                     [Term.A(exists ? ProcessTraceNames.Send : ProcessTraceNames.MissingSend), message, destination],
-                    result.Value
+                    result.Value,
+                    publication593
                 );
             }
         }
     }
 
     public void Admitted(ProcessContext receiver, Term message, Term? from = null)
+        => AdmittedCore593(
+            receiver,
+            message,
+            from,
+            null
+        );
+
+    internal void AdmittedSnapshot593(
+        ProcessContext receiver,
+        Term message,
+        Term? from,
+        MailboxPublicationScope593 publication
+    )
+        => AdmittedCore593(
+            receiver,
+            message,
+            from,
+            publication
+        );
+
+    private void AdmittedCore593(
+        ProcessContext receiver,
+        Term message,
+        Term? from,
+        MailboxPublicationScope593? publication593
+    )
     {
-        foreach (var view in LiveTraceViews425()) view.Admitted(receiver, message, from);
+        foreach (var view in LiveTraceViews425()) view.AdmittedCore593(
+            receiver,
+            message,
+            from,
+            publication593
+        );
         lock (gate)
         {
             if (runtime.IsHaltRequested)
@@ -296,7 +359,8 @@ internal sealed partial class ProcessTracing(ProcessRuntime runtime, object gate
                     receiver.Self,
                     ProcessTraceFlags.Receive,
                     [Term.A(ProcessTraceNames.Receive), message],
-                    result.Value
+                    result.Value,
+                    publication593
                 );
             }
         }
@@ -501,7 +565,8 @@ internal sealed partial class ProcessTracing(ProcessRuntime runtime, object gate
         Pid tracee,
         ProcessTraceFlags flag,
         IReadOnlyList<Term> details,
-        Term? matchValue = null
+        Term? matchValue = null,
+        MailboxPublicationScope593? publication593 = null
     )
     {
         ProcessTraceSettings? current = Current(tracee);
@@ -526,11 +591,12 @@ internal sealed partial class ProcessTracing(ProcessRuntime runtime, object gate
             fields[0] = Term.A(ProcessTraceNames.TimestampedMessage);
             fields.Add(timestamp);
         }
-        processes[current.Tracer].Mailbox.SendTraced(
+        processes[current.Tracer].Mailbox.SendTracedSnapshot593(
             new TupleTerm(fields),
             null,
             true,
-            traceAdmission: false
+            traceAdmission: false,
+            publication593: publication593
         );
     }
 

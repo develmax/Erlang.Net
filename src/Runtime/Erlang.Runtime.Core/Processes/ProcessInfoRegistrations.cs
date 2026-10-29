@@ -4,7 +4,7 @@ internal static class ProcessInfoRegistrations
 {
     public static void Register(ModuleRegistry registry)
     {
-        registry.Register(
+        registry.RegisterCanonicalRuntimeRead535(
             ErlangModuleNames.Module,
             ProcessInfoNames.Function,
             2,

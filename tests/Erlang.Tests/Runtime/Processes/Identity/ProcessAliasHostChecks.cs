@@ -66,8 +66,10 @@ internal static class ProcessAliasHostChecks
         ReferenceTerm liveAtExit = runtime.CreateAlias(owner.Context, false, true);
         release.SetResult();
         await process.Completion.WaitAsync(TimeSpan.FromSeconds(ProcessAliasCheckParameters.TimeoutSeconds));
+        if (owner.Context.Mailbox.Count != 0)
+            throw new InvalidOperationException(ProcessAliasCheckDiagnostics.Lifecycle);
         runtime.Send(liveAtExit, Term.I(2000), true);
-        if (owner.Context.Mailbox.Count != 2 || runtime.Unalias(owner.Context, liveAtExit))
+        if (owner.Context.Mailbox.Count != 0 || runtime.Unalias(owner.Context, liveAtExit))
             throw new InvalidOperationException(ProcessAliasCheckDiagnostics.Lifecycle);
     }
 

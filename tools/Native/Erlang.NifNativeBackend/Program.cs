@@ -3,6 +3,13 @@ using Erlang.NifNativeBackend;
 
 try
 {
+    if (args.Length != 0 && args[0] == ResourceQueue593Names.Mode)
+    {
+        await Resource529Driver.RunProtocol(args[1..], protocol: Resource529ProtocolKind.Queue593);
+
+        return;
+    }
+
     if (args.Length != 0 && args[0] == Resource529Names.Mode)
     {
         await Resource529Driver.Run(args[1..]);
