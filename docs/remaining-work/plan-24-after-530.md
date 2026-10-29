@@ -9,6 +9,18 @@ Part533 is merged into main f9951a0af after exact-head green CI40786318744,9294/
 
 Part534 PR86 review/CI corrections now pass64/64 in Debug and64/64 in Release, fresh counters6102/2, and the targeted published TestAnalysis consumer with actual Dispose. Literal genuine Debug421 goldens preserve all192 full comparisons. Current-head CI/review/merge remain open; no whole-contract promotion. See [correction evidence](../validation/part-534-review86/README.md).
 
+## Part535 local scoped progress
+
+Compiled regex custody/lifecycle597/599, regex-only storage600 and foreign-engine605 correction pass final Release77/77 and Debug77/77 on identical selected names. Fresh original5/5 covers524 complete outcomes; direct final Debug pairing compares all five whole raw streams and preserves complete error stacks. Final Release77 is separate executed evidence, with retained GUID direct348; overwritten fixed-path Release485 bytes are not claimed. Meaningful one-await scheduler RED and restored final GREEN are retained. [Checkpoint535](checkpoint-535.md) · [Evidence](../validation/part-535/README.md) · [English log](../changelog/0093.md).
+
+Counts708 registered/180 verified/504 pending/24 known, deltas0/0. Exact-head CI/review/merge remain gates. Binary536, full restart605 and match-spec/general-root/policy work remain next, with no unexecuted compatibility credit.
+
+## Part535 exact-CI correction
+
+Authentic PR87 CI40807031466 remains9331/2: deepgraph timeout and terminal mailbox OCE. Correction uses successful immutable native-pending custody inventory (no incomplete global-family shortcut) and a strict requested-token OR actual-dead-process receive helper. Same20k Debug measured8527ms to120ms once each, unchanged15s limit; deterministic private-VM terminal token-only OCE RED and live unrelated cancellation are retained. Final selected Debug156/156 and Release156/156 use identical156 names; fresh original5/5 and protected direct final Release524 + fresh Debugexisting3/direct524 pass. No local full9335 claim. [Checkpoint](checkpoint-535.md) · [Evidence](../validation/part-535-ci-correction/README.md) · [English0093](../changelog/0093.md).
+
+Counts708/180/504/24, deltas0/0. New correction-head CI/review/merge remain gates. Preserve staged536 work; propagate parent corrections recoverably and rebuild/revalidate its affected binary/regex scope before reusing acceptance. Full restart/matchspec/general roots/policies remain open.
+
 ## Delivered foundation
 
 Part530 implements real three-word NIF resource magic references and three-word BinRef/five-word SubBits storage in the private-owned profile. Live readers, native-result aliases, nested resource slices, collection, rollback and physical retirement have source-bound evidence. PR82 exact-head CI40676225450 passed all three jobs and 9234/9234 tests; main has the identical tested tree. This does not establish complete ordinary-profile ownership, other resource producers, public resource accounting or general NIF compatibility.

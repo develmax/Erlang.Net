@@ -52,6 +52,58 @@ internal static class NativeResourceRoots524
         bool hostAtomics586 = false
     )
     {
+        IDisposable? regex = ReMagicRoots597.RetainGraph597(
+            source,
+            expected,
+            skipOwnedMagic576,
+            hostAtomics586
+        );
+        IDisposable? existing = null;
+        try
+        {
+            existing = RetainExistingGraph597(
+                source,
+                expected,
+                skipOwnedMagic576,
+                hostAtomics586
+            );
+            if (regex is null) return existing;
+            if (existing is null) return regex;
+
+            return new NativeResourceRootSet524([regex, existing]);
+        }
+        catch (Exception original)
+        {
+            Exception? first = null, second = null;
+            try
+            {
+                existing?.Dispose();
+            }
+            catch (Exception error)
+            {
+                first = error;
+            }
+            try
+            {
+                regex?.Dispose();
+            }
+            catch (Exception error)
+            {
+                second = error;
+            }
+            if (first is not null || second is not null)
+                throw new AggregateException(new[] { original, first, second }.OfType<Exception>());
+            throw;
+        }
+    }
+
+    private static IDisposable? RetainExistingGraph597(
+        Term source,
+        ProcessRuntime? expected = null,
+        bool skipOwnedMagic576 = false,
+        bool hostAtomics586 = false
+    )
+    {
         var retained = new IDisposable[3];
         int count = 0;
         try

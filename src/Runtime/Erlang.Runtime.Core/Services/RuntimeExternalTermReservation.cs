@@ -14,7 +14,7 @@ public sealed class RuntimeExternalTermReservation : IDisposable
         AtomicsHostCopyTransaction591? transaction = null;
         try
         {
-            if (hostAtomics586 && (AtomicsRoots586.Contains586(value) || CountersRoots596.Contains596(value)))
+            if (hostAtomics586 && (AtomicsRoots586.Contains586(value) || CountersRoots596.Contains596(value) || ReMagicRoots597.Contains597(value)))
             {
                 transaction = new AtomicsHostCopyTransaction591();
                 this.value = OwnedTermDetachedCopy506.CopyAtomics586(
@@ -32,7 +32,8 @@ public sealed class RuntimeExternalTermReservation : IDisposable
                 // the stable identity before those source cells may retire.
                 this.value = value is ResourceReferenceTerm identity
                     && (identity.ResourceKind is ReferenceResourceKind.Atomics413 or ReferenceResourceKind.Counters421
-                        || !hostAtomics586 && identity.ResourceKind == ReferenceResourceKind.NativeResource524)
+                        || !hostAtomics586 && identity.ResourceKind is
+                            ReferenceResourceKind.NativeResource524 or ReferenceResourceKind.Regex411)
                     ? new ResourceReferenceTerm(identity.Entry, new ReferenceTerm(identity)) : value;
         }
         catch (Exception original)

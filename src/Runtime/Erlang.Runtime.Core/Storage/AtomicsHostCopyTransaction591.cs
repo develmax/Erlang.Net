@@ -18,6 +18,8 @@ internal sealed class AtomicsHostCopyTransaction591 : IDisposable
 
     internal void TrackCountersPrepared596(CountersHostCustody596 lease) => leases.Add(lease);
 
+    internal void TrackRegex597(ReMagicHost597 lease) => leases.Add(lease);
+
     internal IDisposable Commit591()
     {
         var result = new NativeResourceRootSet524(leases.Cast<IDisposable>().ToArray());

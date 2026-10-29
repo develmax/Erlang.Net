@@ -21,7 +21,7 @@ public sealed partial class RuntimeRegexEngine411
         ReCode411? code = null;
         try
         {
-            code = Authenticate(expression, canonicalMetadata: false);
+            code = Authenticate(context, expression, canonicalMetadata: false);
             if (!item.Equals(Term.A(ReExtendedNames413.NameList)))
                 throw new ErlangException(ErlangErrorReasons.BadArgument);
             uint options = PatternInfo413(code, ReExtendedNames413.AllOptions);

@@ -1,0 +1,129 @@
+{
+  "Names": [
+    "runtime/regex597/actual-prefix-header-and-guest-retirement",
+    "runtime/regex597/minor-major-foreign-and-code-reader",
+    "runtime/regex597/public-compile-import-and-closed-host",
+    "runtime/regex599/failed-install-actor-rollback-cleans-real-api",
+    "runtime/regex599/actual-host-reader-handoff-and-native-info",
+    "runtime/regex599/real-header-wins-or-manual-close-latches-before-guest",
+    "runtime/regex599/published-empty-engine-refuses-privileged-rollback",
+    "runtime/regex605/direct-foreign-actor-engine-disposal-settles",
+    "runtime/typed-store600/regex-ets-source-header-drop",
+    "runtime/typed-store600/regex-persistent-source-header-drop"
+  ],
+  "HostSha256": "911DC0C8724BEE24E6B9A1C517BF2744E284FF575D674DB91EDE31966955D7A9",
+  "HostUnchanged": true,
+  "Receipt": {
+    "Command": [
+      "dotnet",
+      "exec",
+      "--fx-version",
+      "10.0.11",
+      "D:\\Distr\\Work\\Codex\\Erlang.Net\\w518repair\\tests\\Erlang.Tests\\bin\\Release\\net10.0\\Erlang.Tests.dll",
+      "--case",
+      "runtime/regex597/actual-prefix-header-and-guest-retirement",
+      "--case",
+      "runtime/regex597/minor-major-foreign-and-code-reader",
+      "--case",
+      "runtime/regex597/public-compile-import-and-closed-host",
+      "--case",
+      "runtime/regex599/failed-install-actor-rollback-cleans-real-api",
+      "--case",
+      "runtime/regex599/actual-host-reader-handoff-and-native-info",
+      "--case",
+      "runtime/regex599/real-header-wins-or-manual-close-latches-before-guest",
+      "--case",
+      "runtime/regex599/published-empty-engine-refuses-privileged-rollback",
+      "--case",
+      "runtime/regex605/direct-foreign-actor-engine-disposal-settles",
+      "--case",
+      "runtime/typed-store600/regex-ets-source-header-drop",
+      "--case",
+      "runtime/typed-store600/regex-persistent-source-header-drop",
+      "--report",
+      "D:\\Distr\\Work\\Codex\\Erlang.Net\\w518repair\\artifacts\\resource535\\controls-first\\report.json"
+    ],
+    "Pid": 35572,
+    "ElapsedSeconds": 97.14100000000326,
+    "TimedOut": false,
+    "Settled": true,
+    "ExitCode": 1,
+    "Failures": [],
+    "StdoutSha256": "C3D9A839365F7F983A3C1BAE6B9E0FCAD7C5BB5DCBFAC9330878C3A6A5EC9752",
+    "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+  },
+  "Actual": {
+    "Partial": true,
+    "SelectedCount": 10,
+    "TotalCount": 9333,
+    "Blocks": [],
+    "ExactCases": [
+      "runtime/regex597/actual-prefix-header-and-guest-retirement",
+      "runtime/regex597/minor-major-foreign-and-code-reader",
+      "runtime/regex597/public-compile-import-and-closed-host",
+      "runtime/regex599/actual-host-reader-handoff-and-native-info",
+      "runtime/regex599/failed-install-actor-rollback-cleans-real-api",
+      "runtime/regex599/published-empty-engine-refuses-privileged-rollback",
+      "runtime/regex599/real-header-wins-or-manual-close-latches-before-guest",
+      "runtime/regex605/direct-foreign-actor-engine-disposal-settles",
+      "runtime/typed-store600/regex-ets-source-header-drop",
+      "runtime/typed-store600/regex-persistent-source-header-drop"
+    ],
+    "Passed": 8,
+    "Failed": 2,
+    "Tests": [
+      {
+        "Name": "runtime/regex597/actual-prefix-header-and-guest-retirement",
+        "Status": "Passed",
+        "Milliseconds": 69451
+      },
+      {
+        "Name": "runtime/regex597/minor-major-foreign-and-code-reader",
+        "Status": "Passed",
+        "Milliseconds": 1420
+      },
+      {
+        "Name": "runtime/regex597/public-compile-import-and-closed-host",
+        "Status": "Failed",
+        "Error": "Erlang.ErlangException: undef\r\n   at Erlang.ModuleRegistry.AwaitOwnedCall506(ProcessContext context, String module, String function, Term[] arguments, Boolean hostBoundary) in D:\\Distr\\Work\\Codex\\Erlang.Net\\w518repair\\src\\Runtime\\Erlang.Runtime.Core\\Modules\\ModuleRegistry.OwnedTerms506.cs:line 67\r\n   at Erlang.Tests.RegexNative411Access.Call(ProcessContext context, String function, Term[] arguments) in D:\\Distr\\Work\\Codex\\Erlang.Net\\w518repair\\tests\\Erlang.Tests\\Runtime\\Native\\Regex\\RegexNative411Access.cs:line 21\r\n   at Erlang.Tests.RegexCustody597Checks.<>c__DisplayClass2_0.<<CompileImport>b__3>d.MoveNext() in D:\\Distr\\Work\\Codex\\Erlang.Net\\w518repair\\tests\\Erlang.Tests\\Runtime\\Native\\Regex\\RegexCustody597Checks.cs:line 92\r\n--- End of stack trace from previous location ---\r\n   at Erlang.Tests.RuntimeNodeFoundationHostActor.<>c__DisplayClass9_0`1.<<InvokeAsync>b__0>d.MoveNext() in D:\\Distr\\Work\\Codex\\Erlang.Net\\w518repair\\tests\\Erlang.Tests\\Runtime\\Execution\\RuntimeNodeFoundationHostActor.cs:line 43\r\n--- End of stack trace from previous location ---\r\n   at Erlang.Tests.RuntimeNodeFoundationHostActor.InvokeAsync[T](Func`2 command) in D:\\Distr\\Work\\Codex\\Erlang.Net\\w518repair\\tests\\Erlang.Tests\\Runtime\\Execution\\RuntimeNodeFoundationHostActor.cs:line 51\r\n   at Erlang.Tests.RegexCustody597Checks.<>c.<<CompileImport>b__2_0>d.MoveNext() in D:\\Distr\\Work\\Codex\\Erlang.Net\\w518repair\\tests\\Erlang.Tests\\Runtime\\Native\\Regex\\RegexCustody597Checks.cs:line 91\r\n--- End of stack trace from previous location ---\r\n   at Erlang.Tests.RegexCustody597Fixture.Run(Func`2 body) in D:\\Distr\\Work\\Codex\\Erlang.Net\\w518repair\\tests\\Erlang.Tests\\Runtime\\Native\\Regex\\RegexCustody597Fixture.cs:line 54\r\n   at Erlang.Tests.RegexCustody597Fixture.Run(Func`2 body) in D:\\Distr\\Work\\Codex\\Erlang.Net\\w518repair\\tests\\Erlang.Tests\\Runtime\\Native\\Regex\\RegexCustody597Fixture.cs:line 73\r\n   at Program.<Main>$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\w518repair\\tests\\Erlang.Tests\\Harness\\Program.cs:line 7678",
+        "Milliseconds": 1439
+      },
+      {
+        "Name": "runtime/regex599/failed-install-actor-rollback-cleans-real-api",
+        "Status": "Passed",
+        "Milliseconds": 2799
+      },
+      {
+        "Name": "runtime/regex599/actual-host-reader-handoff-and-native-info",
+        "Status": "Passed",
+        "Milliseconds": 1409
+      },
+      {
+        "Name": "runtime/regex599/real-header-wins-or-manual-close-latches-before-guest",
+        "Status": "Passed",
+        "Milliseconds": 2822
+      },
+      {
+        "Name": "runtime/regex599/published-empty-engine-refuses-privileged-rollback",
+        "Status": "Passed",
+        "Milliseconds": 1399
+      },
+      {
+        "Name": "runtime/regex605/direct-foreign-actor-engine-disposal-settles",
+        "Status": "Failed",
+        "Error": "System.TimeoutException: The operation has timed out.\r\n   at Erlang.Tests.RegexForeignEngine605Checks.<>c.<<DirectForeignActorDispose>b__0_0>d.MoveNext() in D:\\Distr\\Work\\Codex\\Erlang.Net\\w518repair\\tests\\Erlang.Tests\\Runtime\\Native\\Regex\\RegexForeignEngine605Checks.cs:line 36\r\n--- End of stack trace from previous location ---\r\n   at Erlang.Tests.RegexForeignEngine605Checks.<>c.<<DirectForeignActorDispose>b__0_0>d.MoveNext() in D:\\Distr\\Work\\Codex\\Erlang.Net\\w518repair\\tests\\Erlang.Tests\\Runtime\\Native\\Regex\\RegexForeignEngine605Checks.cs:line 42\r\n--- End of stack trace from previous location ---\r\n   at Erlang.Tests.RegexCustody597Fixture.Run(Func`2 body) in D:\\Distr\\Work\\Codex\\Erlang.Net\\w518repair\\tests\\Erlang.Tests\\Runtime\\Native\\Regex\\RegexCustody597Fixture.cs:line 54\r\n   at Erlang.Tests.RegexCustody597Fixture.Run(Func`2 body) in D:\\Distr\\Work\\Codex\\Erlang.Net\\w518repair\\tests\\Erlang.Tests\\Runtime\\Native\\Regex\\RegexCustody597Fixture.cs:line 73\r\n   at Program.<Main>$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\w518repair\\tests\\Erlang.Tests\\Harness\\Program.cs:line 7678",
+        "Milliseconds": 12430
+      },
+      {
+        "Name": "runtime/typed-store600/regex-ets-source-header-drop",
+        "Status": "Passed",
+        "Milliseconds": 1470
+      },
+      {
+        "Name": "runtime/typed-store600/regex-persistent-source-header-drop",
+        "Status": "Passed",
+        "Milliseconds": 1440
+      }
+    ]
+  }
+}

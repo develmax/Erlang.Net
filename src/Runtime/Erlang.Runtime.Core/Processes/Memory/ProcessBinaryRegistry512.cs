@@ -42,6 +42,7 @@ internal sealed class ProcessBinaryRegistry512
         HashSet<NativeResourcePayload524>? native = null;
         HashSet<AtomicsGuestRoot413>? atomics586 = null;
         HashSet<CountersGuestRoot421>? counters596 = null;
+        HashSet<ReMagicBacking597>? regex597 = null;
         long visits = 0;
         var pending = new Stack<Term>();
         pending.Push(graph);
@@ -61,6 +62,9 @@ internal sealed class ProcessBinaryRegistry512
             if (CountersRoots596.Direct596(value, (owner as ProcessTermHeap506)?.Runtime524) is { } counters
                 && !ProcessTermHeap506.HasOwnedMagicReference576(value))
                 (counters596 ??= new(ReferenceEqualityComparer.Instance)).Add(counters);
+            if (ReMagicRoots597.Direct597(value, (owner as ProcessTermHeap506)?.Runtime524) is { } regex
+                && !ProcessTermHeap506.HasOwnedMagicReference576(value))
+                (regex597 ??= new(ReferenceEqualityComparer.Instance)).Add(regex);
             if (value is BitString binary)
             {
                 BinaryPayloadHandle512 handle = binary.CaptureBinaryPayload512();
@@ -70,7 +74,7 @@ internal sealed class ProcessBinaryRegistry512
                 foreach (Term child in NativeMapOwnedRoots510.Children(value))
                     pending.Push(child);
         }
-        var retained = new IDisposable[(native?.Count ?? 0) + (atomics586?.Count ?? 0) + (counters596?.Count ?? 0)];
+        var retained = new IDisposable[(native?.Count ?? 0) + (atomics586?.Count ?? 0) + (counters596?.Count ?? 0) + (regex597?.Count ?? 0)];
         int admitted = 0;
         ProcessBinaryLease512 lease;
         try
@@ -81,6 +85,8 @@ internal sealed class ProcessBinaryRegistry512
                 foreach (AtomicsGuestRoot413 root in atomics586) retained[admitted++] = root.RetainGuest586();
             if (counters596 is not null)
                 foreach (CountersGuestRoot421 root in counters596) retained[admitted++] = root.RetainGuest596();
+            if (regex597 is not null)
+                foreach (var backing in regex597) retained[admitted++] = backing.Retain(ReMagicLeaseKind597.Guest);
             lease = new ProcessBinaryLease512(
                 this,
                 owner,

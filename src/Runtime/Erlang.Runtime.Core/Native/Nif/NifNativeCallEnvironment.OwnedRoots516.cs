@@ -113,7 +113,7 @@ internal sealed unsafe partial class NifNativeCallEnvironment
     {
         Term value = Get(handle);
 
-        if (Runtime.OwnedTermsPilot506 && (NativeResourceRoots524.Contains524(value) || AtomicsRoots586.Contains586(value) || CountersRoots596.Contains596(value))
+        if (Runtime.OwnedTermsPilot506 && (NativeResourceRoots524.Contains524(value) || AtomicsRoots586.Contains586(value) || CountersRoots596.Contains596(value) || ReMagicRoots597.Contains597(value))
             && OwnedTermInvocation506.TryAdmitNativeGuestResult535(
                 Runtime,
                 Image,

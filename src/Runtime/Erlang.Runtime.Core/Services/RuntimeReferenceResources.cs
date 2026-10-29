@@ -117,6 +117,8 @@ public sealed partial class RuntimeReferenceResources
                         producer = entry.Read<AtomicsGuestRoot413>().Array.RetainBacking586(AtomicsLeaseKind586.Producer);
                     else if (entry.Kind == ReferenceResourceKind.Counters421)
                         producer = entry.Read<CountersGuestRoot421>().Array.RetainBacking596(CountersLeaseKind596.Producer);
+                    else if (entry.Kind == ReferenceResourceKind.Regex411)
+                        producer = entry.Read<RePattern411>().Backing597.Retain(ReMagicLeaseKind597.Guest);
                     else
                         return new ResourceReferenceTerm(entry);
                 }
@@ -139,7 +141,9 @@ public sealed partial class RuntimeReferenceResources
             return restored;
         // No registry gate is held across guest-heap publication or host acquisition.
         using (producer)
-            return selected.CountersBacking596 is { } counters
+            return selected.RegexBacking597 is { } regex
+                ? OwnedTermInvocation506.AdmitRehydratedRegex597(selected, regex)
+                : selected.CountersBacking596 is { } counters
                 ? OwnedTermInvocation506.AdmitRehydratedCounters596(selected, counters)
                 : OwnedTermInvocation506.AdmitRehydratedAtomics586(selected, selected.AtomicsBacking586!);
     }
@@ -157,7 +161,7 @@ public sealed partial class RuntimeReferenceResources
         {
             closed = true;
             foreach (var weak in entries.Values)
-                if (weak.TryGetTarget(out var entry) && entry.Kind != ReferenceResourceKind.NativeResource524)
+                if (weak.TryGetTarget(out var entry) && entry.Kind is not (ReferenceResourceKind.NativeResource524 or ReferenceResourceKind.Regex411))
                     entry.Close();
             // Native entries stay readable by already-admitted guest roots until
             // real physical resource retirement. The strong identity index is

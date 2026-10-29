@@ -88,6 +88,10 @@ internal static class DebugDirtyTermCopy424
                 _ = CountersRoots596.Direct596(counters, runtime);
 
                 return CountersRoots596.HostCopy596(counters, transaction);
+            case ResourceReferenceTerm { ResourceKind: ReferenceResourceKind.Regex411 } regex:
+                _ = ReMagicRoots597.Direct597(regex, runtime);
+
+                return ReMagicRoots597.HostCopy597(regex, transaction);
             case ResourceReferenceTerm { ResourceKind: ReferenceResourceKind.Atomics413 } atomics:
                 // A copied wrapper owns actual backing custody; the registry
                 // Entry deliberately owns neither a Host nor a Guest root.
