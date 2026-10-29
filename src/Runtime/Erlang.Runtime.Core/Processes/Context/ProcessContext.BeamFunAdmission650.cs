@@ -12,6 +12,16 @@ public sealed partial class ProcessContext
         return new BeamFunAdmissionScope650(this, previous);
     }
 
+    internal IDisposable? EnterOwnedBeamFunAdmission650(FunctionTerm original, FunctionTerm selected)
+    {
+        var site = beamFunAdmissionSite650.Value;
+        if (site is null || !ReferenceEquals(site.Function, original) || ReferenceEquals(original, selected))
+            return null;
+        beamFunAdmissionSite650.Value = site with { Function = selected };
+
+        return new BeamFunAdmissionScope650(this, site);
+    }
+
     internal ErlangException CaptureBeamFunAdmissionFailure650(ErlangException error, FunctionTerm function)
     {
         var site = beamFunAdmissionSite650.Value;

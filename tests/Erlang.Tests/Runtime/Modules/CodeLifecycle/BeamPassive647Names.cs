@@ -12,6 +12,9 @@ internal static class BeamPassive647Names
     internal const string CompleteCase = "runtime/fun647/passive-beam-fun-complete-purge-badfun";
     internal const string AbortCase = "runtime/fun647/passive-beam-fun-soft-abort-remains-callable";
     internal const string ReloadCase = "runtime/fun647/passive-beam-fun-identical-reload-rebinds";
+    internal const string OwnedCompleteCase = "runtime/fun647/owned-passive-beam-fun-complete-purge-badfun";
+    internal const string OwnedAbortCase = "runtime/fun647/owned-passive-beam-fun-soft-abort-remains-callable";
+    internal const string OwnedReloadCase = "runtime/fun647/owned-passive-beam-fun-identical-reload-rebinds";
     internal const string RuntimeModule = "erlang";
     internal const string Encode = "term_to_binary";
     internal const string Value = "value";

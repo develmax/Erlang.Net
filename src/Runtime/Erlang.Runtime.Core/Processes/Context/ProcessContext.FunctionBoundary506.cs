@@ -10,6 +10,7 @@ public sealed partial class ProcessContext : ITermInvocationBoundary506
         // ExecutionContext data is never accepted as caller/root admission.
         using var owned = EnterOwnedInvocation506(arguments, true)!;
         FunctionTerm selected = (FunctionTerm)owned.Export(function);
+        using var admission = EnterOwnedBeamFunAdmission650(function, selected);
         try
         {
             Term[] portable = owned.Arguments.Select(owned.Export).ToArray();

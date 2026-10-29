@@ -7,7 +7,7 @@ namespace Erlang.Tests;
 
 internal static class BeamPassive647Checks
 {
-    internal static async Task Run(string mode)
+    internal static async Task Run(string mode, bool owned = false)
     {
         string output = Path.GetFullPath(Path.Combine(Output, Guid.NewGuid().ToString("N")));
         Directory.CreateDirectory(output);
@@ -16,8 +16,13 @@ internal static class BeamPassive647Checks
         bool cleanupCompleted = false;
         try
         {
-            fixture = await CodePurger432Fixture.Create();
-            await Observe(fixture, mode, output);
+            fixture = await CodePurger432Fixture.Create(owned);
+            await Observe(
+                fixture,
+                mode,
+                output,
+                owned
+            );
         }
         catch (System.Exception error)
         {
@@ -50,7 +55,12 @@ internal static class BeamPassive647Checks
             throw new AggregateException(Failure, failures);
     }
 
-    private static async Task Observe(CodePurger432Fixture fixture, string mode, string output)
+    private static async Task Observe(
+        CodePurger432Fixture fixture,
+        string mode,
+        string output,
+        bool owned
+    )
     {
         Require(mode is Complete or Abort or Reload);
         var dependencies = new BeamDependencySelection(new[]
@@ -88,6 +98,7 @@ internal static class BeamPassive647Checks
             JsonSerializer.Serialize(new
             {
                 Mode = mode,
+                OwnedTerms = owned,
                 CallerBackend,
                 SubjectBackend,
                 FullStackRawBytesEqual = stackEqual,

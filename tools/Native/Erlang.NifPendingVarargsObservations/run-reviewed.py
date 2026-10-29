@@ -43,6 +43,7 @@ def write(path, value):
 
 EXPLICIT_REVIEWED_INPUTS = frozenset((
     'docs/validation/part-541/source-freeze.json',
+    'docs/validation/part-542-owned-correction/source-freeze-current.json',
     'docs/validation/part-542/source-freeze.json',
     'src/Compiler/Erlang.Compiler/Execution/Execution.cs',
     'src/Otp/Managed/Erlang.Otp.Stdlib/Registration/ManagedStdlibRegistration456.cs',
@@ -142,6 +143,7 @@ EXPLICIT_REVIEWED_INPUTS = frozenset((
     'src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessContext.BeamFunAdmission650.cs',
     'src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessContext.BeamReceive.cs',
     'src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessContext.Counters596.cs',
+    'src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessContext.FunctionBoundary506.cs',
     'src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessContext.LegacyBeamReceive606.cs',
     'src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessContext.ProcessInfo601.cs',
     'src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessContext.ProcessPayloads641.cs',
@@ -519,6 +521,7 @@ EXPLICIT_REVIEWED_INPUTS = frozenset((
     'tests/Erlang.Tests/Runtime/Memory/UnknownSourceLiveness511Expr.cs',
     'tests/Erlang.Tests/Runtime/Modules/CodeLifecycle/BeamPassive647Checks.cs',
     'tests/Erlang.Tests/Runtime/Modules/CodeLifecycle/BeamPassive647Names.cs',
+    'tests/Erlang.Tests/Runtime/Modules/CodeLifecycle/CodePurger432Fixture.cs',
     'tests/Erlang.Tests/Runtime/Modules/Loading/InitializerClose615Checks.cs',
     'tests/Erlang.Tests/Runtime/Modules/Loading/InitializerClose615Names.cs',
     'tests/Erlang.Tests/Runtime/Native/Nif/Callbacks/NifReallocationHostChecks.cs',

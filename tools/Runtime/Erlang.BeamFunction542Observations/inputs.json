@@ -36,7 +36,7 @@
     },
     {
       "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessContext.BeamFunAdmission650.cs",
-      "Sha256": "932827FD1AE1C1C42F9BA8A7B97128C867B25056361247D5179EF3E0D586621D"
+      "Sha256": "87C0DC0CD2871F4AF74504505B93C26B5FE9DECCC62662AE63A7BB466998C56C"
     },
     {
       "Path": "tests/Erlang.Tests/Compiler/Beam/BeamStoredFunction406Checks.cs",
@@ -104,15 +104,15 @@
     },
     {
       "Path": "tests/Erlang.Tests/Harness/Program.cs",
-      "Sha256": "0F3CF72748F0DBD06A78EF331EB8A5FBEE0D75F8A05BCF12B449416BAC298A0F"
+      "Sha256": "D271D5E4933247E05A20A7F2CDCBF161E5939696B8F8CEFF4EF94965C32FC73C"
     },
     {
       "Path": "tests/Erlang.Tests/Runtime/Modules/CodeLifecycle/BeamPassive647Checks.cs",
-      "Sha256": "F76EF8A5319332E8DFF8BB17DBE63626CC61C7E9C558A2CB9F60D28077952073"
+      "Sha256": "B17F9AA3CDB8922A1AF7E91CF2460EDAD56CC643F9C6A4B0015A7A165DE14D0E"
     },
     {
       "Path": "tests/Erlang.Tests/Runtime/Modules/CodeLifecycle/BeamPassive647Names.cs",
-      "Sha256": "E7D084A1C7529A9DE40DCEF1C47CF35505DC31653E0593D288569EC69A84C6DA"
+      "Sha256": "A6E587E88DD16A3F2A763A98E241559B593BE28FE8DB6602CF0795F25A56003C"
     },
     {
       "Path": "tools/Native/Erlang.DdllFormatterOriginalObservations/scripts/owned.py",
@@ -140,11 +140,24 @@
     },
     {
       "Path": "tools/Runtime/Erlang.BeamFunction542Observations/run.py",
-      "Sha256": "DDB96AF75861D5A02D52E90C6E83DA4A1C299DDAC9D0FEDECEBF61546683C6CC"
+      "Sha256": "7ACC2427ADC95C5917E0F6EF6AA4361CF54CDBB5E3C7EC64111D001BD983ACDF"
     },
     {
       "Path": "tools/Runtime/Erlang.OwnedGuest506Observations/collect.py",
       "Sha256": "E0A9019CA029EB53D01247D68A87B1E017C448AF12ABAA3474B80BE8DB7C5DD1"
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessContext.FunctionBoundary506.cs",
+      "Sha256": "E4EFA2B805BC782BDD7087F6E5946B479EDC2750E17CF666B078202489AD53AD"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Runtime/Modules/CodeLifecycle/CodePurger432Fixture.cs",
+      "Sha256": "16563BD5D1808E60C0F99B087956B84E43BD2C0A9309605763BEFD9B76EBF0F8"
     }
+  ],
+  "OwnedCases": [
+    "runtime/fun647/owned-passive-beam-fun-complete-purge-badfun",
+    "runtime/fun647/owned-passive-beam-fun-soft-abort-remains-callable",
+    "runtime/fun647/owned-passive-beam-fun-identical-reload-rebinds"
   ]
 }

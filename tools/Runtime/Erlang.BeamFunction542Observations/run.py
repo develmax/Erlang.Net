@@ -96,16 +96,19 @@ def main():
             and (p.suffix == '.dll' or p.name.endswith(('.deps.json', '.runtimeconfig.json')))}
     before = inventory()
     managed_ok = False
+    selected_cases = plan['Cases'] + plan['OwnedCases']
+    need(len(plan['Cases']) == 3 and len(plan['OwnedCases']) == 3 and len(set(selected_cases)) == 6, 'Exactly three default and three owned cases required')
     started = time.time_ns()
     try:
         command = ['dotnet', 'exec', '--fx-version', '10.0.11', str(host)]
-        for name in plan['Cases']:
+        for name in selected_cases:
             command += ['--case', name]
         command += ['--report', str(out / 'managed-report.json')]
         owned.owned(command, out, 'managed', 120, dict(os.environ, DOTNET_PROCESSOR_COUNT='2'), str(repo))
         report = json.loads((out / 'managed-report.json').read_bytes())
-        need(report['Passed'] == 3 and report['Failed'] == 0
-            and {x['Name'] for x in report['Tests']} == set(plan['Cases']), 'Managed cases differ')
+        need(report['Passed'] == 6 and report['Failed'] == 0 and report['SelectedCount'] == 6
+            and len(report['Tests']) == 6 and {x['Name'] for x in report['Tests']} == set(selected_cases)
+            and all(x['Status'] == 'Passed' for x in report['Tests']), 'Managed six exact cases differ')
         managed_ok = True
     except Exception as error:
         errors.append('managed: ' + repr(error))
@@ -113,42 +116,52 @@ def main():
     captures = {}
     try:
         added = (set(root.iterdir()) if root.exists() else set()) - previous
-        need(len(added) == 3, 'Expected exactly three fresh captures')
+        need(len(added) == 6, 'Expected exactly six fresh captures')
         destination = out / 'managed'
         destination.mkdir()
         for folder in added:
             need(re.fullmatch('[a-fA-F0-9]{32}', folder.name), 'Unexpected capture directory')
             receipt = json.loads((folder / 'receipt.json').read_bytes())
             mode = receipt['Mode']
-            need(mode in ['complete', 'abort', 'reload'] and mode not in captures, 'Invalid/duplicate mode')
+            need(type(receipt.get('OwnedTerms')) is bool, 'OwnedTerms profile must be an actual boolean')
+            profile = 'owned' if receipt['OwnedTerms'] else 'default'
+            key = profile + '/' + mode
+            need(mode in ['complete', 'abort', 'reload'] and key not in captures, 'Invalid/duplicate profile and mode')
+            need(receipt['CallerBackend'] == 'matched-original-BEAM649-spawn-worker'
+                and receipt['SubjectBackend'] == 'genuine-original-BEAM432'
+                and receipt['Normalization'] is False and receipt['CleanupRecordedSeparately'] is True, 'Wrong BEAM/raw capture profile')
             cleanup = json.loads((folder / 'cleanup.json').read_bytes())
             need(cleanup['Completed'] and not cleanup['Errors'], 'Actor/VM cleanup failed')
-            target = destination / mode
-            target.mkdir()
+            target = destination / profile / mode
+            target.mkdir(parents=True)
             for path in folder.iterdir():
                 if path.is_file():
                     need(started <= path.stat().st_mtime_ns <= ended, 'Capture outside owned window')
                     shutil.copyfile(path, target / path.name)
-            captures[mode] = receipt
+            captures[key] = receipt
         need(inventory() == before, 'Managed DLL/config inventory changed')
     except Exception as error:
         errors.append('capture/cleanup: ' + repr(error))
     equal = {}
-    if original_ok and managed_ok and len(captures) == 3:
-        for mode in ['complete', 'abort', 'reload']:
-            a, b = out / 'original' / mode, out / 'managed' / mode
-            equal[mode + '/whole-stack'] = (a / 'stack.etf').read_bytes() == (b / 'stack.etf').read_bytes()
-            if mode != 'complete':
-                equal[mode + '/whole-outcome'] = (a / 'observed.etf').read_bytes() == (b / 'actual.etf').read_bytes()
+    if original_ok and managed_ok and len(captures) == 6:
+        for profile, expected_owned in [('default', False), ('owned', True)]:
+            for mode in ['complete', 'abort', 'reload']:
+                key = profile + '/' + mode
+                need(captures[key]['OwnedTerms'] is expected_owned, 'Captured profile differs from requested owned setting')
+                a, b = out / 'original' / mode, out / 'managed' / profile / mode
+                equal[key + '/whole-stack'] = (a / 'stack.etf').read_bytes() == (b / 'stack.etf').read_bytes()
+                if mode != 'complete':
+                    equal[key + '/whole-outcome'] = (a / 'observed.etf').read_bytes() == (b / 'actual.etf').read_bytes()
         if not all(equal.values()):
             errors.append('Fresh complete raw comparison differs')
     try:
         guard()
     except Exception as error:
         errors.append('postflight: ' + repr(error))
-    result = dict(Passed=original_ok and managed_ok and len(equal) == 5 and all(equal.values()) and not errors,
+    result = dict(Passed=original_ok and managed_ok and len(equal) == 10 and all(equal.values()) and not errors,
         Errors=errors, Equal=equal, Configuration=args.configuration, InputPlanSha256=hashlib.sha256(plan_bytes).hexdigest().upper(),
-        ProtectedDllAndConfig=before, CleanupCompletedModes=sorted(captures),
+        ProtectedDllAndConfig=before, CleanupCompletedModes=sorted(captures), ManagedProfiles=['default', 'owned'],
+        ManagedCaseCount=6, FreshOriginalModeCount=3, OriginalCaptureReusedAcrossOwnedProfiles=True,
         OpaqueFunctionIdsCompared=False, FunctionReasonIdentityCheckedInsideOriginalAndManagedWorker=True,
         StackFramesProjected=False, RawEtfRewritten=False, ApiDelta=0, FullContractDelta=0)
     save(out / 'completion.json', result)

@@ -1,3 +1,9 @@
+## Current PR94 owned-boundary correction
+
+The exact callable-identity loss is reproduced (2/3 prior owned controls pass; complete-purge raw stack fails), corrected with a trusted exact-reference scoped alias, and accepted locally. Final13 C# freeze FA842D7E8AEE81B2EE16ED3D1835A019DBB6B0252D1C78A8EF9903240CC2A385; true Roslyn13/13. Debug503 and Release503 explicit same-DLL composites pass; two sandbox port failures and one Release child OOM remain recorded with unchanged-DLL isolated PASS, without an established OOM cause. Each profile fresh original3 versus default3+owned3 yields10/10 complete raw comparisons and6 actual cleanup completions. Catalog9434;708/180/504/24 and API/full0/0 unchanged. The runtime supplement and current metadata/CI/review gates are documented in ../validation/part-542/README.md. Broader restored-factory propagation remains P4 work.
+
+Previous pre-review checkpoint follows unchanged.
+
 # Part542 — BEAM local-function admission and exact badfun stack
 
 ## Implemented

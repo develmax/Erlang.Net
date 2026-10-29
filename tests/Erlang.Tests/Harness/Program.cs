@@ -7675,6 +7675,19 @@ try
         () => Erlang.Tests.BeamPassive647Checks.Run(Erlang.Tests.BeamPassive647Names.Reload)
     );
 
+    Test(
+        Erlang.Tests.BeamPassive647Names.OwnedCompleteCase,
+        () => Erlang.Tests.BeamPassive647Checks.Run(Erlang.Tests.BeamPassive647Names.Complete, true)
+    );
+    Test(
+        Erlang.Tests.BeamPassive647Names.OwnedAbortCase,
+        () => Erlang.Tests.BeamPassive647Checks.Run(Erlang.Tests.BeamPassive647Names.Abort, true)
+    );
+    Test(
+        Erlang.Tests.BeamPassive647Names.OwnedReloadCase,
+        () => Erlang.Tests.BeamPassive647Checks.Run(Erlang.Tests.BeamPassive647Names.Reload, true)
+    );
+
     Test(Erlang.Tests.MatchSaved634Names.ProtocolCase, Erlang.Tests.MatchSaved634Checks.Protocol);
     Test(Erlang.Tests.MatchSaved634Names.MutationCase, Erlang.Tests.MatchSaved634Checks.MutationAndCopy);
     Test(Erlang.Tests.MatchSaved634Names.SourceCase, Erlang.Tests.MatchSaved634Checks.SourceReleased);
