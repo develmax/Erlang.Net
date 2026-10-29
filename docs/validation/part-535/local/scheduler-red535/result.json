@@ -1,0 +1,51 @@
+{
+  "MeaningfulRed": true,
+  "OnlyChangedAwait": true,
+  "GreenSourceSha256": "80760C5DE014DA03388DA3C74996981822A83ECD8BCA68D1612DEE989EBA2889",
+  "RedSourceSha256": "72911CBC6919360DD1C1529A7D01368002856EAC5D8B9B6A149647D6124C9F38",
+  "SourceRestored": true,
+  "Build": {
+    "Command": [
+      "dotnet",
+      "build",
+      "tests/Erlang.Tests/Erlang.Tests.csproj",
+      "-c",
+      "Release",
+      "--no-restore",
+      "-m:1",
+      "-p:UseSharedCompilation=false",
+      "-p:BuildInParallel=false",
+      "-v:q"
+    ],
+    "Pid": 38028,
+    "ElapsedSeconds": 60.125,
+    "TimedOut": false,
+    "Settled": true,
+    "ExitCode": 0,
+    "Failures": [],
+    "StdoutSha256": "72A039EEEF17045278246FB6FA0AC556F4C0E29CC4A4287072399D6BC0552283",
+    "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+  },
+  "Test": {
+    "Command": [
+      "dotnet",
+      "exec",
+      "--fx-version",
+      "10.0.11",
+      "D:\\Distr\\Work\\Codex\\Erlang.Net\\w518repair\\tests\\Erlang.Tests\\bin\\Release\\net10.0\\Erlang.Tests.dll",
+      "--case",
+      "runtime/regex605/direct-foreign-actor-engine-disposal-settles",
+      "--report",
+      "D:\\Distr\\Work\\Codex\\Erlang.Net\\w518repair\\artifacts\\resource535\\scheduler-red535\\report.json"
+    ],
+    "Pid": 39600,
+    "ElapsedSeconds": 7.03099999999904,
+    "TimedOut": false,
+    "Settled": true,
+    "ExitCode": 1,
+    "Failures": [],
+    "StdoutSha256": "9B7146E5F31A7423B33EB80E5B703017DA48E2CD65DF1A05A50B7FFFBC2F2F81",
+    "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+  },
+  "FinalGreenBuildAndReplayPending": true
+}

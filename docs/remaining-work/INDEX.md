@@ -1,6 +1,12 @@
 # Remaining work
 
-## Current checkpoint534
+## Current checkpoint535
+
+Compiled regex custody/lifecycle597/599, regex-only storage600 and foreign-engine605 correction pass final Release77/77 and Debug77/77 on identical selected names. Fresh original5/5 covers524 complete outcomes; direct final Debug pairing compares all five whole raw streams and preserves complete error stacks. Final Release77 is separate executed evidence, with retained GUID direct348; overwritten fixed-path Release485 bytes are not claimed. Meaningful one-await scheduler RED and restored final GREEN are retained. [Checkpoint535](checkpoint-535.md) · [Evidence](../validation/part-535/README.md) · [English log](../changelog/0093.md).
+
+Counts708 registered/180 verified/504 pending/24 known, deltas0/0. Exact-head CI/review/merge remain gates. Binary536, full restart605 and match-spec/general-root/policy work remain next, with no unexecuted compatibility credit.
+
+## Prior checkpoint534
 
 PR86 corrections pass64/64 selected groups in both Debug and Release, including all54 prior names and10 added review/termination groups. Genuine original counters610 ordinary/private2/2 and actual published TestAnalysis2463 outcomes/233 checks/91 assets plus Dispose pass. Authentic Debug counters421 acquisition matches both complete raw streams; actual runtime profile selects independent OPT/Debug fixtures with all192 comparisons preserved. Seven missing public counters predicates, fresh intermediate dictionary Host-ticket ownership and initializer close/cancel ordering are fixed. [Correction evidence](../validation/part-534-review86/README.md) · [Checkpoint](checkpoint-534.md) · [English log](../changelog/0093.md).
 

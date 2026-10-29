@@ -7632,6 +7632,16 @@ try
     Test(Erlang.Tests.CountersPublic611Names.InfoSingleCase, Erlang.Tests.CountersPublic611Checks.InfoSingleHost);
     Test(Erlang.Tests.CountersPublic611Names.InfoFullCase, Erlang.Tests.CountersPublic611Checks.InfoFullHost);
     Test(Erlang.Tests.CountersPublic611Names.InfoListCase, Erlang.Tests.CountersPublic611Checks.InfoListHost);
+    Test(Erlang.Tests.RegexCustody597Names.PhysicalCase, Erlang.Tests.RegexCustody597Checks.Physical);
+    Test(Erlang.Tests.RegexCustody597Names.GenerationsCase, Erlang.Tests.RegexCustody597Checks.Generations);
+    Test(Erlang.Tests.RegexCustody597Names.CompileImportCase, Erlang.Tests.RegexCustody597Checks.CompileImport);
+    Test(Erlang.Tests.RegexLifecycle599Names.RollbackCase, Erlang.Tests.RegexLifecycle599Checks.FailedInstallRollback);
+    Test(Erlang.Tests.RegexLifecycle599Names.ReaderCase, Erlang.Tests.RegexLifecycle599Checks.HostReaderHandoff);
+    Test(Erlang.Tests.RegexLifecycle599Names.AdmissionCase, Erlang.Tests.RegexLifecycle599Checks.AdmissionOrders);
+    Test(Erlang.Tests.RegexLifecycle599Names.PublishedCase, Erlang.Tests.RegexLifecycle599Checks.PublishedRollbackRefused);
+    Test(Erlang.Tests.RegexForeignEngine605Names.Case, Erlang.Tests.RegexForeignEngine605Checks.DirectForeignActorDispose);
+    Test(Erlang.Tests.RegexStore535Names.RegexEtsCase, Erlang.Tests.RegexStore535Checks.RegexEts);
+    Test(Erlang.Tests.RegexStore535Names.RegexPersistentCase, Erlang.Tests.RegexStore535Checks.RegexPersistent);
     Test(Erlang.Tests.CountersExit603Names.InitializerTest, Erlang.Tests.CountersExit603Checks.InitializerDoneBeforeGlobalDrain);
     Test(Erlang.Tests.CountersExit603Names.OrdinaryTest, Erlang.Tests.CountersExit603Checks.OrdinaryExitPreservesIndependentHeap);
 

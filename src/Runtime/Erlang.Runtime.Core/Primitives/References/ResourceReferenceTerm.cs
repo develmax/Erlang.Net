@@ -8,6 +8,7 @@ public sealed class ResourceReferenceTerm : ReferenceTerm, IReferenceResourceSer
         Entry = entry;
         AtomicsBacking586 = ReadAtomicsBacking586(entry);
         CountersBacking596 = ReadCountersBacking596(entry);
+        RegexBacking597 = ReadRegexBacking597(entry);
     }
 
     internal ResourceReferenceTerm(ReferenceResourceEntry entry, ProcessTermSequence506 storage)
@@ -15,6 +16,7 @@ public sealed class ResourceReferenceTerm : ReferenceTerm, IReferenceResourceSer
     {
         Entry = entry;
         AtomicsBacking586 = ReadAtomicsBacking586(entry);
+        RegexBacking597 = ReadRegexBacking597(entry);
         CountersBacking596 = ReadCountersBacking596(entry);
     }
 
@@ -24,11 +26,23 @@ public sealed class ResourceReferenceTerm : ReferenceTerm, IReferenceResourceSer
         Entry = entry;
         AtomicsBacking586 = ReadAtomicsBacking586(entry);
         CountersBacking596 = ReadCountersBacking596(entry);
+        RegexBacking597 = ReadRegexBacking597(entry);
     }
 
     internal ReferenceResourceEntry Entry { get; }
     internal AtomicsGuestRoot413? AtomicsBacking586 { get; }
     internal AtomicsHostCustody586? AtomicsHost586 { get; }
+    internal ReMagicBacking597? RegexBacking597 { get; }
+    internal ReMagicHost597? RegexHost597 { get; }
+
+    internal ResourceReferenceTerm(ReferenceResourceEntry entry, ReferenceTerm identity, ReMagicHost597 host)
+        : this(entry, identity)
+    {
+        RegexHost597 = host;
+    }
+
+    private static ReMagicBacking597? ReadRegexBacking597(ReferenceResourceEntry entry)
+        => entry.Kind == ReferenceResourceKind.Regex411 ? entry.Read<RePattern411>().Backing597 : null;
 
     internal ResourceReferenceTerm(ReferenceResourceEntry entry, ReferenceTerm identity, AtomicsHostCustody586 host)
         : this(entry, identity)

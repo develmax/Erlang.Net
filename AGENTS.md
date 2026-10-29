@@ -1,3 +1,5 @@
+Part535 local scoped evidence: final Release77/77 and Debug77/77 (same distinct names), fresh original five streams/524 complete outcomes directly equal final Debug bytes. Meaningful one-await foreign-engine scheduler RED settles and restored final sources pass. Final runtime ReleaseB7B7905D/DebugD526E595; no retained finalRelease485 raw claim. Full restart, binary536 and match-spec remain future. Counts708/180/504/24, deltas0/0. Exact-head CI/review/merge are separate gates. English0093; docs/validation/part-535. LICENSE.local.txt excluded.
+
 Part486 current layout: src/{Runtime,Compiler,Integration,Otp/Managed,Otp/Original/<category>} and tools/{Build,Validation,Native,Distribution,Collections,Compiler,Runtime}. Test directories and root tools/*.ps1 entry points stay in place. See docs/project-layout.md and docs/remaining-work/checkpoint-486.md. Older recorded paths below refer to their historical checkpoints; do not recreate flat project directories. Part485 merged eb2d3d743; exact merge CI40216629306 green. Layout grants API/full deltas0/0; LICENSE.local.txt remains excluded.
 
 Review and merge gate:

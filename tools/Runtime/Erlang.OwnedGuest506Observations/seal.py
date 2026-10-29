@@ -10,6 +10,38 @@ PIN = 'ad05823719d77c8faee87348ea39513d4e2f99c5'
 TOOL = 'tools/Runtime/Erlang.OwnedGuest506Observations'
 WORKFLOWS = ['.github/workflows/owned-guest506-original.yml', '.github/workflows/validate.yml']
 DEPENDENCIES = [
+    'src/Runtime/Erlang.Runtime.Core/Bootstrap/RuntimeNativePrimitiveProviders.Regex411.cs',
+    'src/Runtime/Erlang.Runtime.Core/Modules/ModuleRegistry.Regex411.cs',
+    'src/Runtime/Erlang.Runtime.Core/Native/Regex/ReCode411.cs',
+    'src/Runtime/Erlang.Runtime.Core/Native/Regex/ReMagicBacking597.cs',
+    'src/Runtime/Erlang.Runtime.Core/Native/Regex/ReMagicHeader597.cs',
+    'src/Runtime/Erlang.Runtime.Core/Native/Regex/ReMagicHost597.cs',
+    'src/Runtime/Erlang.Runtime.Core/Native/Regex/ReMagicLease597.cs',
+    'src/Runtime/Erlang.Runtime.Core/Native/Regex/ReMagicLeaseKind597.cs',
+    'src/Runtime/Erlang.Runtime.Core/Native/Regex/ReMagicNames597.cs',
+    'src/Runtime/Erlang.Runtime.Core/Native/Regex/ReMagicOwner597.cs',
+    'src/Runtime/Erlang.Runtime.Core/Native/Regex/ReMagicRegistry597.cs',
+    'src/Runtime/Erlang.Runtime.Core/Native/Regex/ReMagicRoots597.cs',
+    'src/Runtime/Erlang.Runtime.Core/Native/Regex/RePattern411.cs',
+    'src/Runtime/Erlang.Runtime.Core/Native/Regex/RuntimeRegexEngine.Publication597.cs',
+    'src/Runtime/Erlang.Runtime.Core/Native/Regex/RuntimeRegexEngine411.Operations.cs',
+    'src/Runtime/Erlang.Runtime.Core/Native/Regex/RuntimeRegexEngine411.cs',
+    'src/Runtime/Erlang.Runtime.Core/Native/Regex/RuntimeRegexEngine413.Import.cs',
+    'src/Runtime/Erlang.Runtime.Core/Native/Regex/RuntimeRegexEngine413.Inspect.cs',
+    'src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessContext.Regex597.cs',
+    'src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.Regex411.cs',
+    'src/Runtime/Erlang.Runtime.Core/Processes/Memory/OwnedTermInvocation.Regex597.cs',
+    'src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessTermHeap.Regex597.cs',
+    'src/Runtime/Erlang.Runtime.Core/Services/RuntimeReferenceResources.Re411.cs',
+    'tests/Erlang.Tests/Runtime/Native/Regex/RegexCustody597Checks.cs',
+    'tests/Erlang.Tests/Runtime/Native/Regex/RegexCustody597Fixture.cs',
+    'tests/Erlang.Tests/Runtime/Native/Regex/RegexCustody597Names.cs',
+    'tests/Erlang.Tests/Runtime/Native/Regex/RegexForeignEngine605Checks.cs',
+    'tests/Erlang.Tests/Runtime/Native/Regex/RegexForeignEngine605Names.cs',
+    'tests/Erlang.Tests/Runtime/Native/Regex/RegexLifecycle599Checks.cs',
+    'tests/Erlang.Tests/Runtime/Native/Regex/RegexLifecycle599Names.cs',
+    'tests/Erlang.Tests/Runtime/Storage/Resources/RegexStore535Checks.cs',
+    'tests/Erlang.Tests/Runtime/Storage/Resources/RegexStore535Names.cs',
     'tests/Erlang.Tests/Erlang.Tests.csproj',
     'tests/Erlang.Tests/Fixtures/CountersOriginal421Debug/.gitattributes',
     'tests/Erlang.Tests/Fixtures/CountersOriginal421Debug/authority.json',
@@ -438,6 +470,12 @@ def main():
             raise RuntimeError('Replacing a plan requires its current SHA; immutable history belongs outside the tool')
     rows = []
     allowed_root = {'.gitattributes', 'collect.py', 'seal.py', 'jobs.json', 'README.md', 'adopt-original.py', 'adopt-float556.py', 'adopt-integer559.py', 'adopt-reference563.py', 'adopt-counters610.py', 'capture-counters610.py', 'stock-owners588.py', 'adopt-atomics588.py', 'capture-atomics588.py', 'atomics-closure592.py', 'capture-float556.py', 'capture-integer559.py', 'capture-reference563.py', 'admitted_receipts.py', 'adopt-spawn541.py', 'capture-spawn541.py'}
+    allowed_root.update({
+        'capture-regex613-original.py',
+        'regex613-reuse-plan.json',
+        'run-regex613-managed-ci.py',
+        'compare-regex613-existing.py',
+    })
     for path in sorted(tool.rglob('*')):
         if not path.is_file() or path == plan_path:
             continue

@@ -1,0 +1,31 @@
+{"Partial":true,"SelectedCount":10,"TotalCount":9333}
+PASS runtime/regex597/actual-prefix-header-and-guest-retirement
+PASS runtime/regex597/minor-major-foreign-and-code-reader
+FAIL runtime/regex597/public-compile-import-and-closed-host: Erlang.ErlangException: undef
+   at Erlang.ModuleRegistry.AwaitOwnedCall506(ProcessContext context, String module, String function, Term[] arguments, Boolean hostBoundary) in D:\Distr\Work\Codex\Erlang.Net\w518repair\src\Runtime\Erlang.Runtime.Core\Modules\ModuleRegistry.OwnedTerms506.cs:line 67
+   at Erlang.Tests.RegexNative411Access.Call(ProcessContext context, String function, Term[] arguments) in D:\Distr\Work\Codex\Erlang.Net\w518repair\tests\Erlang.Tests\Runtime\Native\Regex\RegexNative411Access.cs:line 21
+   at Erlang.Tests.RegexCustody597Checks.<>c__DisplayClass2_0.<<CompileImport>b__3>d.MoveNext() in D:\Distr\Work\Codex\Erlang.Net\w518repair\tests\Erlang.Tests\Runtime\Native\Regex\RegexCustody597Checks.cs:line 92
+--- End of stack trace from previous location ---
+   at Erlang.Tests.RuntimeNodeFoundationHostActor.<>c__DisplayClass9_0`1.<<InvokeAsync>b__0>d.MoveNext() in D:\Distr\Work\Codex\Erlang.Net\w518repair\tests\Erlang.Tests\Runtime\Execution\RuntimeNodeFoundationHostActor.cs:line 43
+--- End of stack trace from previous location ---
+   at Erlang.Tests.RuntimeNodeFoundationHostActor.InvokeAsync[T](Func`2 command) in D:\Distr\Work\Codex\Erlang.Net\w518repair\tests\Erlang.Tests\Runtime\Execution\RuntimeNodeFoundationHostActor.cs:line 51
+   at Erlang.Tests.RegexCustody597Checks.<>c.<<CompileImport>b__2_0>d.MoveNext() in D:\Distr\Work\Codex\Erlang.Net\w518repair\tests\Erlang.Tests\Runtime\Native\Regex\RegexCustody597Checks.cs:line 91
+--- End of stack trace from previous location ---
+   at Erlang.Tests.RegexCustody597Fixture.Run(Func`2 body) in D:\Distr\Work\Codex\Erlang.Net\w518repair\tests\Erlang.Tests\Runtime\Native\Regex\RegexCustody597Fixture.cs:line 54
+   at Erlang.Tests.RegexCustody597Fixture.Run(Func`2 body) in D:\Distr\Work\Codex\Erlang.Net\w518repair\tests\Erlang.Tests\Runtime\Native\Regex\RegexCustody597Fixture.cs:line 73
+   at Program.<Main>$(String[] args) in D:\Distr\Work\Codex\Erlang.Net\w518repair\tests\Erlang.Tests\Harness\Program.cs:line 7678
+PASS runtime/regex599/failed-install-actor-rollback-cleans-real-api
+PASS runtime/regex599/actual-host-reader-handoff-and-native-info
+PASS runtime/regex599/real-header-wins-or-manual-close-latches-before-guest
+PASS runtime/regex599/published-empty-engine-refuses-privileged-rollback
+FAIL runtime/regex605/direct-foreign-actor-engine-disposal-settles: System.TimeoutException: The operation has timed out.
+   at Erlang.Tests.RegexForeignEngine605Checks.<>c.<<DirectForeignActorDispose>b__0_0>d.MoveNext() in D:\Distr\Work\Codex\Erlang.Net\w518repair\tests\Erlang.Tests\Runtime\Native\Regex\RegexForeignEngine605Checks.cs:line 36
+--- End of stack trace from previous location ---
+   at Erlang.Tests.RegexForeignEngine605Checks.<>c.<<DirectForeignActorDispose>b__0_0>d.MoveNext() in D:\Distr\Work\Codex\Erlang.Net\w518repair\tests\Erlang.Tests\Runtime\Native\Regex\RegexForeignEngine605Checks.cs:line 42
+--- End of stack trace from previous location ---
+   at Erlang.Tests.RegexCustody597Fixture.Run(Func`2 body) in D:\Distr\Work\Codex\Erlang.Net\w518repair\tests\Erlang.Tests\Runtime\Native\Regex\RegexCustody597Fixture.cs:line 54
+   at Erlang.Tests.RegexCustody597Fixture.Run(Func`2 body) in D:\Distr\Work\Codex\Erlang.Net\w518repair\tests\Erlang.Tests\Runtime\Native\Regex\RegexCustody597Fixture.cs:line 73
+   at Program.<Main>$(String[] args) in D:\Distr\Work\Codex\Erlang.Net\w518repair\tests\Erlang.Tests\Harness\Program.cs:line 7678
+PASS runtime/typed-store600/regex-ets-source-header-drop
+PASS runtime/typed-store600/regex-persistent-source-header-drop
+8/10 passed

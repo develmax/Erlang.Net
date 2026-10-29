@@ -8,6 +8,8 @@ internal sealed class NativeOffheapHeader576
     private AtomicsBackingLease586? atomicsRetained586;
     private CountersBackingLease596? countersRetained596;
     internal CountersGuestRoot421? Counters596 { get; }
+    private ReMagicLease597? regexRetained597;
+    internal ReMagicBacking597? Regex597 { get; }
     private readonly NativeResourcePayload524? payload;
     internal AtomicsGuestRoot413? Atomics586 { get; }
     internal ProcessTermHeap506 Owner { get; }
@@ -74,8 +76,28 @@ internal sealed class NativeOffheapHeader576
         countersRetained596 = lease;
     }
 
+    internal NativeOffheapHeader576(
+        ProcessTermHeap506 owner,
+        ProcessTermSequence506 block,
+        ReMagicBacking597 backing,
+        nint binary,
+        nint address,
+        ReMagicLease597 lease
+    )
+    {
+        Owner = owner;
+        Block = block;
+        Regex597 = backing;
+        Binary = binary;
+        Address = address;
+        Kind = NativeOffheapKind576.MagicReference;
+        regexRetained597 = lease;
+    }
+
     internal IReadOnlyList<uint> ReadNumbers586()
-        => Atomics586 is { } backing
+        => Regex597 is { } regex
+            ? regex.Numbers597(regexRetained597 ?? throw new ObjectDisposedException(nameof(NativeOffheapHeader576)))
+            : Atomics586 is { } backing
             ? backing.MagicNumbers586(atomicsRetained586 ?? throw new ObjectDisposedException(nameof(NativeOffheapHeader576)))
             : Counters596 is { } counters
                 ? counters.MagicNumbers596(countersRetained596 ?? throw new ObjectDisposedException(nameof(NativeOffheapHeader576)))
@@ -90,5 +112,6 @@ internal sealed class NativeOffheapHeader576
             selected?.Dispose();
         Interlocked.Exchange(ref atomicsRetained586, null)?.Dispose();
         Interlocked.Exchange(ref countersRetained596, null)?.Dispose();
+        Interlocked.Exchange(ref regexRetained597, null)?.Dispose();
     }
 }
