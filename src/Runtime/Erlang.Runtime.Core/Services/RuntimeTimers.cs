@@ -7,6 +7,20 @@ internal sealed class RuntimeTimers(ProcessRuntime runtime, object gate) : IDisp
     private readonly Dictionary<ReferenceTerm, RuntimeTimerEntry628> timers = new();
     private readonly HashSet<Task> retiringCallbacks = new();
     private bool disposed;
+    private RuntimeTimerCallbackPhase539? callbackPhase539;
+
+    internal void AttachCallbackPhase539(RuntimeTimerCallbackPhase539 phase)
+    {
+        ArgumentNullException.ThrowIfNull(phase);
+        lock (gate)
+        {
+            ObjectDisposedException.ThrowIf(disposed, this);
+            if (callbackPhase539 is not null || timers.Count != 0 || retiringCallbacks.Count != 0)
+                throw new InvalidOperationException(RuntimeTimerCallbackPhase539Names.AttachAfterAdmission);
+            phase.Bind539(gate);
+            callbackPhase539 = phase;
+        }
+    }
 
     public Term Start(
         ReferenceTerm reference,
@@ -102,6 +116,7 @@ internal sealed class RuntimeTimers(ProcessRuntime runtime, object gate) : IDisp
 
     private void Fire(ReferenceTerm reference, RuntimeTimerEntry628 entry)
     {
+        RuntimeTimerCallbackPhase539? phase539 = null;
         try
         {
             using var atoms = new AtomNameScope(runtime.AtomNames);
@@ -120,8 +135,10 @@ internal sealed class RuntimeTimers(ProcessRuntime runtime, object gate) : IDisp
                 // Register before leaving R. Shutdown joins this in-flight
                 // callback AND the last payload-root retirement it produces.
                 RetireEntry(entry);
+                phase539 = callbackPhase539;
             }
             using var publication = MailboxPublicationScope593.Forward(runtime, entry.Payload.Graph);
+            phase539?.WaitAfterClaim539();
             runtime.SendTimerSnapshot628(entry.Destination, entry.Message, publication);
         }
         catch (Exception error)
@@ -136,6 +153,10 @@ internal sealed class RuntimeTimers(ProcessRuntime runtime, object gate) : IDisp
                     timers.Remove(reference);
                 RetireEntry(entry);
             }
+        }
+        finally
+        {
+            phase539?.SignalExited539();
         }
     }
 
