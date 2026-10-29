@@ -7642,6 +7642,46 @@ try
     Test(Erlang.Tests.DictionaryKeys538Names.BinaryCase, Erlang.Tests.DictionaryKeys538Checks.Binary);
     Test(Erlang.Tests.DictionaryProjection635Names.Test, Erlang.Tests.DictionaryProjection635Checks.Scaling);
     // Opt-in component registrations; not active until owner compiles/reviews.
+    foreach (string family in new[] { Erlang.Tests.ReasonInput645Names.NativeFamily, Erlang.Tests.ReasonInput645Names.AtomicsFamily, Erlang.Tests.ReasonInput645Names.CountersFamily, Erlang.Tests.ReasonInput645Names.RegexFamily, Erlang.Tests.ReasonInput645Names.BinaryFamily })
+    {
+        string selectedFamily = family;
+        Test(
+            Erlang.Tests.ReasonInput645Names.ClosureCase + "/" + selectedFamily,
+            () => Erlang.Tests.ReasonInput645Checks.Run(Erlang.Tests.ReasonInput645Mode.Closure, selectedFamily)
+        );
+        Test(
+            Erlang.Tests.ReasonInput645Names.MfaCase + "/" + selectedFamily,
+            () => Erlang.Tests.ReasonInput645Checks.Run(Erlang.Tests.ReasonInput645Mode.Mfa, selectedFamily)
+        );
+    }
+
+    Test(Erlang.Tests.Nonblocking641Names.Case, Erlang.Tests.Nonblocking641Checks.Settlement);
+    Test(Erlang.Tests.OrdinaryCounterMfa680Names.Case, Erlang.Tests.OrdinaryCounterMfa680Checks.Run);
+    Test(Erlang.Tests.OrdinaryCounterMfa680Names.CaseHibernate, Erlang.Tests.OrdinaryCounterMfa680Checks.DictionaryHibernate);
+    Test(Erlang.Tests.OrdinaryOpaque682Names.RegisteredCase, Erlang.Tests.OrdinaryOpaque682Checks.RegisteredHost);
+    Test(Erlang.Tests.OrdinaryOpaque682Names.FunctionCase, Erlang.Tests.OrdinaryOpaque682Checks.PublicOpaqueFunction);
+    Test(Erlang.Tests.OrdinaryOpaque682Names.CaptureCase, Erlang.Tests.OrdinaryOpaque682Checks.SourceFunctionCapture);
+    Test(Erlang.Tests.OrdinaryVm686Names.PureCase, Erlang.Tests.OrdinaryVm686Checks.PureFastPath);
+    Test(Erlang.Tests.OrdinaryVm686Names.ActiveCase, Erlang.Tests.OrdinaryVm686Checks.ActiveShutdown);
+    Test(Erlang.Tests.OrdinaryVm686Names.QueuedCase, Erlang.Tests.OrdinaryVm686Checks.QueuedShutdown);
+    Test(Erlang.Tests.OrdinaryVm686Names.HibernateCase, Erlang.Tests.OrdinaryVm686Checks.HibernateArgument);
+    Test(Erlang.Tests.OrdinaryVm686Names.ErrorCase, Erlang.Tests.OrdinaryVm686Checks.ErrorReason);
+    Test(Erlang.Tests.OrdinaryVm686Names.ThrowCase, Erlang.Tests.OrdinaryVm686Checks.ThrowReason);
+    Test(Erlang.Tests.OrdinaryVm686Names.ExitCase, Erlang.Tests.OrdinaryVm686Checks.ExitReason);
+    Test(Erlang.Tests.MixedNif686Names.Case, Erlang.Tests.MixedNif686Checks.Run);
+    Test(Erlang.Tests.CancellationFailure669Names.Case, Erlang.Tests.CancellationFailure669Checks.Run);
+    Test(Erlang.Tests.MonitorShutdown652Names.Case, Erlang.Tests.MonitorShutdown652Checks.EarlierTarget);
+    Test(Erlang.Tests.ProcessPayloadCore641Names.FailureCase, Erlang.Tests.ProcessPayloadCore641Checks.CompletedFailureIsolation);
+    Test(Erlang.Tests.ProcessPayloadCore641Names.StopCase, Erlang.Tests.ProcessPayloadCore641Checks.UnusedStopDrain);
+    Test(Erlang.Tests.ProcessPayloadCore641Names.SealCase, Erlang.Tests.ProcessPayloadCore641Checks.ContextSeal);
+    Test(
+        Erlang.Tests.ProcessPayloadCore641Names.EmptyPublicationCase,
+        Erlang.Tests.ProcessPayloadCore641Checks.RootlessPublicationAfterClose
+    );
+    Test(
+        Erlang.Tests.MonitorOriginal645.MonitorOriginal645Names.Case,
+        Erlang.Tests.MonitorOriginal645.MonitorOriginal645Checks.Run
+    );
     Test(Erlang.Tests.MatchSaved634Names.ProtocolCase, Erlang.Tests.MatchSaved634Checks.Protocol);
     Test(Erlang.Tests.MatchSaved634Names.MutationCase, Erlang.Tests.MatchSaved634Checks.MutationAndCopy);
     Test(Erlang.Tests.MatchSaved634Names.SourceCase, Erlang.Tests.MatchSaved634Checks.SourceReleased);
@@ -7691,6 +7731,33 @@ try
         );
     }
     Test(Erlang.Tests.TimerPayload628Names.OpaqueCase, Erlang.Tests.TimerPayload628Checks.OpaqueAlias);
+    foreach (string family in new[]
+    {
+        Erlang.Tests.MonitorPayload641Names.NativeFamily,
+        Erlang.Tests.MonitorPayload641Names.AtomicsFamily,
+        Erlang.Tests.MonitorPayload641Names.CountersFamily,
+        Erlang.Tests.MonitorPayload641Names.RegexFamily,
+        Erlang.Tests.MonitorPayload641Names.BinaryFamily
+    })
+    {
+        Test(
+            Erlang.Tests.MonitorPayload641Names.DownCase + "/" + family,
+            () => Erlang.Tests.MonitorPayload641Checks.Run(Erlang.Tests.MonitorPayload641Mode.Down, family)
+        );
+        Test(
+            Erlang.Tests.MonitorPayload641Names.CancelCase + "/" + family,
+            () => Erlang.Tests.MonitorPayload641Checks.Run(Erlang.Tests.MonitorPayload641Mode.Cancel, family)
+        );
+        Test(
+            Erlang.Tests.MonitorPayload641Names.ExitCase + "/" + family,
+            () => Erlang.Tests.MonitorPayload641Checks.Run(Erlang.Tests.MonitorPayload641Mode.OwnerExit, family)
+        );
+        Test(
+            Erlang.Tests.MonitorPayload641Names.VmCase + "/" + family,
+            () => Erlang.Tests.MonitorPayload641Checks.Run(Erlang.Tests.MonitorPayload641Mode.VmClose, family)
+        );
+    }
+
     Test(Erlang.Tests.BinaryHalt629Names.Test, Erlang.Tests.BinaryHalt629Checks.Run);
     Test(Erlang.Tests.BinaryArena598Names.PhysicalCase, Erlang.Tests.BinaryArena598Checks.Physical);
     Test(Erlang.Tests.BinaryArena598Names.ActiveCase, Erlang.Tests.BinaryArena598Checks.Active);

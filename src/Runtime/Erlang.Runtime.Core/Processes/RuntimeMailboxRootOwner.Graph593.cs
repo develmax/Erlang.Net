@@ -74,7 +74,10 @@ internal sealed partial class RuntimeMailboxRootOwner593
             publication?.Track(work);
             lock (gate)
             {
-                ObjectDisposedException.ThrowIf(closed, this);
+                // Publication/Entry callers still hold an actual parent graph
+                // interest while forking; only that anchored derivation may
+                // continue after fresh admission stops.
+                ObjectDisposedException.ThrowIf(closed && !IsLiveGraphAnchor593(graph), this);
                 active.AddLast(work.Link);
                 registered = true;
                 work.MarkRegistered593();

@@ -1,0 +1,17 @@
+# Part541 validation
+
+The implementation adds real process payload ownership and source entry/input transfer; this is not only a test increment. Default public APIs are unchanged. See the [checkpoint](../../remaining-work/checkpoint-541.md) for acceptance boundaries and remaining work.
+
+`source-freeze.json` binds76 final C# files. SHA256: `72D89FD288DE297ABC8BB486362673A6E708E5EF6AD3C98E0B4FBE05B87949E9`. Build receipts check these bytes before and after both builds. Physical backing, guest header retirement and real actor/VM cleanup are checked by managed fixtures. An ordinary CLR reference is deliberately kept alive to distinguish CLR reachability from guest ownership.
+
+Both profiles pass370 distinct affected cases in five disjoint blocks140+140+19+38+33, with fixed source/DLL identities within a profile. The19 reader cases preserve part540 coverage; the38 lifecycle cases include default-mode hibernation, internal ports and connected exits. The33 new cases test five-family monitor tags, actual five-family process exit reasons and finite cleanup/admission failures. This is scoped regression, not a full9,428-case local run.
+
+The new observer is compiled afresh by the admitted original OTP compiler and executed by that OTP VM for each profile. Ten complete raw ETF rows equal actual managed captures. Four built-in families are atomics, counters, regex and compiled binary patterns; the fifth is explicitly `ordinary_reference_control`. It does not represent a native NIF object or prove the original VM's physical headers. The observer checks tag identity, independence of the child reason and monitor process/reference roles inside Erlang. Any exception class, reason and complete stack remains in its captured outcome. No stack/value normalization or raw ETF rewrite is allowed. Its retained expected tag checks observable identity, not physical lifetime.
+
+Earlier preparation failures remain recorded: two params-array compile errors; the first native tag's actual opaque monitor/3 rejection; a missing counters fixture dependency; and a styled-reference/hunk mismatch caught before source application. These are not failed OTP comparisons. A default callback mode regression was reproduced and corrected. The first sandbox run21/38 and corrected outside run38/38 establish distinct facts: explicit EACCES and internal-port casts were observed, but an isolated sandbox cause for every cast was not proven.
+
+An additional102 existing error/raise/nif_error/exit/monitor ABI cases pass in EACH profile on the same DLLs, disjoint from the370. They cover stack/argument metadata and monitored error classes affected by the canonical binding changes; this is not a fresh original acquisition for those historical cases.
+
+XML inputs now equal committed LF bytes, their XML trees are unchanged, and both rebuilds produce the exact tested DLL pairs. All8 source metadata gates pass:3,988 exact members/2,220 guards. Those gates execute no VM. Four actual collector preflights also pass with5/31/130/12 input declarations.
+
+[Raw evidence](evidence.zip) contains909 verified members,5,340,557 bytes. SHA256: `BB68FC87BAA8436C09B4EFBDE8C9C036B0F94E3A827D5097C4D4AA23903FF199`. [Archive receipt](archive.json). Exact-head GitHub CI/review, merge and latest-main CI remain independent gates. Counts708/180/504/24 and API/full deltas0/0 are unchanged. Full P3/P4, native match-spec production/opcodes, function-image/native trace lifetime and complete remote/port phase contracts stay open.

@@ -2,7 +2,7 @@ namespace Erlang;
 
 public sealed partial class ProcessContext : ITermInvocationBoundary506
 {
-    bool ITermInvocationBoundary506.OwnedInvocationEnabled506 => Runtime.OwnedTermsPilot506;
+    bool ITermInvocationBoundary506.OwnedInvocationEnabled506 => OwnedExecutionEnabled683;
 
     async ValueTask<Term> ITermInvocationBoundary506.InvokeOwnedFunction506(FunctionTerm function, IReadOnlyList<Term> arguments)
     {

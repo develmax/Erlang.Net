@@ -64,8 +64,15 @@ public sealed partial class ProcessRuntime
                     work.Complete(null);
                 throw;
             }
-            lock (gate)
-                work.Complete(owner.Terminated ? null : ready);
+            try
+            {
+                lock (gate)
+                    work.Complete(owner.Terminated ? null : ready);
+            }
+            finally
+            {
+                ready?.Payload641?.Close641();
+            }
         }
     }
 }

@@ -11,10 +11,30 @@ public sealed partial class ProcessContext
         set => currentOwned506.Value = value;
     }
     internal Task OwnedTermRetirement506 { get; private set; } = Task.CompletedTask;
+    private volatile bool genuineVmExecution683;
+    internal bool OwnedExecutionEnabled683 => Runtime.OwnedTermsPilot506 || genuineVmExecution683;
+
+    internal void ActivateGenuineVmExecution683(RuntimeProcessPayload641 source)
+    {
+        if (OwnedExecutionEnabled683)
+            return;
+        if (!ReferenceEquals(source.Runtime641, Runtime) || !source.OwnsProcess683(this)
+            || source.Graph641 is not { HasGraphReferences593: true } graph || !ReferenceEquals(graph.Runtime, Runtime)
+            || CurrentOwned506 is not null || !RuntimeActorExecutionTurn.IsOwnedBy(this)
+            || Volatile.Read(ref Terminated) || Runtime.IsHaltRequested)
+            throw new InvalidOperationException(RuntimeProcessPayloadNames641.Invalid);
+        Cancellation.ThrowIfCancellationRequested();
+        // Enrollment precedes ANY physical frame/slab allocation. Failure still
+        // leaves the actual context lifecycle responsible for partial teardown.
+        genuineVmExecution683 = true;
+        Runtime.RegisterGenuineVmContext683(this);
+        Dictionary.ActivateGenuineVmExecution683();
+    }
+
 
     internal OwnedTermInvocation506? EnterOwnedInvocation506(IReadOnlyList<Term> arguments, bool hostBoundary = false)
     {
-        if (!Runtime.OwnedTermsPilot506)
+        if (!OwnedExecutionEnabled683)
             return null;
         if (hostBoundary)
         {
@@ -29,7 +49,7 @@ public sealed partial class ProcessContext
 
     internal void BeginOwnedTermRetirement506()
     {
-        if (!Runtime.OwnedTermsPilot506)
+        if (!OwnedExecutionEnabled683)
             return;
         Dictionary.Close506();
         if (termHeap506 is { } heap)

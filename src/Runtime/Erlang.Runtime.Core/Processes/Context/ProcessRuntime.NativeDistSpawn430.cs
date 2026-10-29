@@ -7,7 +7,8 @@ public sealed partial class ProcessRuntime
         ProcessSpawnRequestOptions options,
         string reason,
         bool monitor,
-        bool request
+        bool request,
+        RuntimeProcessPayload641? input641 = null
     )
     {
         lock (gate)
@@ -15,14 +16,16 @@ public sealed partial class ProcessRuntime
             owner.Cancellation.ThrowIfCancellationRequested();
             RequireAlive(owner.Self);
             ReferenceTerm reference = reason == DistSpawn430Names.BadOptions ? MakeReference() : ReserveConnectedSpawnReference(owner, options.Spawn);
-            if (options.ErrorReply) owner.Mailbox.SendTraced(
+            if (options.ErrorReply) SendMonitorPayload641(
+                owner,
                 Term.Tuple(
-                    options.Tag,
+                    input641 is null ? options.Tag : ((TupleTerm)input641.Value641).Items[0],
                     reference,
                     Term.A(DistSpawn430Names.Error),
                     Term.A(reason)
                 ),
                 null,
+                input641,
                 preserve: true,
                 from: NodeAtom
             );

@@ -104,7 +104,9 @@ public sealed partial class Mailbox
 
                 return;
             }
-            node.Value = node.Value with { Value = result.Message, Control = false };
+            MailboxEntryCustody593? custody641 = PrepareCustody593(result.Payload641?.Publication641);
+            node.Value = node.Value with { Value = result.Message, Control = false, Custody593 = custody641 };
+            custody641?.Publish();
             admittedCount++;
             ObserveQueueLength419(admittedCount);
             if (Volatile.Read(ref closed593)) return;
@@ -156,6 +158,9 @@ public sealed partial class Mailbox
         }
         if (admitted is not null)
             for (System.Numerics.BigInteger remaining = copies; remaining > 0; remaining--)
-                MessageAdmitted?.Invoke(admitted, from);
+                if (result?.Payload641 is { } source641 && MessageAdmittedSnapshot593 is { } traced641)
+                    traced641(admitted, from, source641.Publication641);
+                else
+                    MessageAdmitted?.Invoke(admitted, from);
     }
 }

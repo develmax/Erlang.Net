@@ -22,7 +22,7 @@ internal sealed unsafe partial class NifNativeLibraryOwner
             bool transferred = false;
             try
             {
-                if (context.Runtime.OwnedTermsPilot506)
+                if (context.OwnedExecutionEnabled683)
                 {
                     custody = context.TermHeap506.Enter();
                     foreach (Term argument in arguments)

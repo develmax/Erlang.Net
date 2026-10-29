@@ -13,7 +13,7 @@ internal sealed class BeamFunctionScope : IDisposable
     {
         this.context = context;
         Arguments = Array.AsReadOnly(arguments.ToArray());
-        if (context.Runtime.OwnedTermsPilot506)
+        if (context.OwnedExecutionEnabled683)
             roots507 = new(context, 2);
         try
         {

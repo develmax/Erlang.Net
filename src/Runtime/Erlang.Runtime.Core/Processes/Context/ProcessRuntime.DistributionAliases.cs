@@ -26,7 +26,7 @@ public sealed partial class ProcessRuntime
                     if (current.Reply)
                     {
                         aliases.Remove(reference);
-                        monitors.Remove(reference);
+                        RemoveMonitor641(reference);
                         DetachConnectedSpawnMonitor(target, reference);
                     }
 

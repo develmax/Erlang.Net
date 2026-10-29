@@ -22,18 +22,18 @@ public sealed partial class ProcessRuntime
     private void InstallConnectedSpawnMonitorOptions(DistributionSpawnRequest request, Pid child)
     {
         var options = request.Options.Spawn.MonitorOptions;
+        if (request.MonitorCustody641 is { } input641)
+            options = options with { Tag = ((TupleTerm)input641.Value641).Items[1], Custody641 = input641 };
         if (options.AliasMode is not null)
             aliases.Add(request.Reference, new(request.Owner.Self,
                 options.AliasMode == ProcessMonitorOptionNames.ReplyDemonitor, false));
-        monitors.Add(
+        AddMonitor641(
             request.Reference,
-            new(
-                request.Owner.Self,
+            CreateMonitorEntry641(
+                request.Owner,
                 child,
                 child,
-                options.Tag,
-                options.Priority,
-                options.AliasMode == ProcessAliasNames.Explicit
+                options
             )
         );
     }

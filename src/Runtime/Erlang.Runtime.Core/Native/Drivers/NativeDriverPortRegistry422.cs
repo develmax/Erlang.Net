@@ -52,7 +52,7 @@ internal sealed partial class NativeDriverPortRegistry422 : IErlDriverPortHost42
             // Staging only. Child stops after its current callback; do not send
             // ClosePort recursively from this reverse callback.
             row.Closing = true;
-            row.Reason = eof ? Term.A(ProcessExitReasons.Normal) : reason;
+            row.SetReason641(eof ? Term.A(ProcessExitReasons.Normal) : reason);
             row.Writable.TrySetResult();
 
             return 0;

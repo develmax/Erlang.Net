@@ -12,7 +12,7 @@ public sealed partial class ProcessRuntime
         // could create an ownership cycle.
         Task queueObservation606 = EtsQueueRetirement419(context, Task.CompletedTask);
         Task queueRoots593 = context.Mailbox.DrainAfterQueueObservations606(queueObservation606);
-        if (!OwnedTermsPilot506)
+        if (!context.OwnedExecutionEnabled683)
             return Task.WhenAll(preceding, queueRoots593);
 
         // Terminate has already removed this process under the runtime gate.

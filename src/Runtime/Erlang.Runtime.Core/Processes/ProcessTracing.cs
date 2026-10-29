@@ -373,7 +373,7 @@ internal sealed partial class ProcessTracing(ProcessRuntime runtime, object gate
         IReadOnlyList<Term> arguments
     )
     {
-        if (runtime.OwnedTermsPilot506)
+        if (context.OwnedExecutionEnabled683)
         {
             lock (gate)
                 if (patterns.Count == 0 && namedSessions425.Count == 0)
@@ -488,6 +488,9 @@ internal sealed partial class ProcessTracing(ProcessRuntime runtime, object gate
 
     public void Failed(ProcessContext context, ProcessTraceInvocation? invocation, ErlangException exception)
     {
+        if (invocation is null)
+            return;
+
         Term portableReason507 = context.CopyGuestEscape507(exception.Reason);
         if (invocation?.Children425 is { } children)
             foreach (var child in children) child.Owner.Failed(context, child.Invocation, exception);

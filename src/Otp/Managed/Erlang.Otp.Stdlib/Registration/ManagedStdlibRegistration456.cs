@@ -29,6 +29,14 @@ public sealed class ManagedStdlibRegistration456 : IRuntimeManagedLibrary456
                 arity,
                 (context, arguments) => ValueTask.FromResult(body(context, arguments))
             );
+
+        void AddVmSpawn641(string name, Func<ProcessContext, IReadOnlyList<Term>, Term> body)
+            => r.RegisterCanonicalRuntimeRead535(
+                ErlangModuleNames.Module,
+                name,
+                1,
+                (context, arguments) => ValueTask.FromResult(body(context, arguments))
+            );
         Add(
             ListModuleNames.Module,
             ListModuleNames.Reverse,
@@ -151,43 +159,37 @@ public sealed class ManagedStdlibRegistration456 : IRuntimeManagedLibrary456
      );
  }
         );
-        Add(
-            ErlangModuleNames.Module,
+        AddVmSpawn641(
             ErlangModuleNames.Spawn,
-            1,
             (c, a) =>
  {
      return ProcessSpawnRegistrations.StartCallback(c, a[0]);
  }
         );
-        Add(
-            ErlangModuleNames.Module,
+        AddVmSpawn641(
             ErlangModuleNames.SpawnLink,
-            1,
             (c, a) =>
  {
      if (a[0] is not FunctionTerm { Arity: 0 } f)
          throw new ErlangException(ErlangErrorReasons.BadArgument);
 
      return c.Runtime.SpawnTraced(
-         child => f.Invoke(child, []),
+         RuntimeVmSpawnInput641.Callback641(f, Array.Empty<Term>()),
          c,
          true,
          SequenceSpawnDescription.Callback(f, SequenceSpawnDescription.DefaultOptions(ErlangModuleNames.SpawnLink))
      ).Pid;
  }
         );
-        Add(
-            ErlangModuleNames.Module,
+        AddVmSpawn641(
             ErlangModuleNames.SpawnMonitor,
-            1,
             (c, a) =>
  {
      if (a[0] is not FunctionTerm { Arity: 0 } f)
          throw new ErlangException(ErlangErrorReasons.BadArgument);
      var spawned = c.Runtime.SpawnMonitorTraced(
          c,
-         child => f.Invoke(child, []),
+         RuntimeVmSpawnInput641.Callback641(f, Array.Empty<Term>()),
          false,
          SequenceSpawnDescription.Callback(f, SequenceSpawnDescription.DefaultOptions(ErlangModuleNames.SpawnMonitor))
      );

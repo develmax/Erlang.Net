@@ -27,7 +27,7 @@ public sealed partial class ModuleRegistry
         lock (gate)
         {
             var key = (module, function, arity);
-            if (owningRuntime?.OwnedTermsPilot506 == true && functions.TryGetValue(key, out var selected)
+            if (owningRuntime is not null && functions.TryGetValue(key, out var selected)
                 && ReferenceEquals(selected, body) && sourceOwners.TryGetValue(key, out var currentOwner)
                 && ReferenceEquals(currentOwner, owner))
                 ownedBindings507[key] = new(
@@ -55,7 +55,7 @@ public sealed partial class ModuleRegistry
         lock (gate)
         {
             var key = (module, function, arity);
-            if (owningRuntime?.OwnedTermsPilot506 == true && functions.TryGetValue(key, out var selected)
+            if (owningRuntime is not null && functions.TryGetValue(key, out var selected)
                 && ReferenceEquals(selected, body) && !sourceOwners.ContainsKey(key))
                 ownedBindings507[key] = new(
                     body,
@@ -82,7 +82,7 @@ public sealed partial class ModuleRegistry
         lock (gate)
         {
             var key = (module, function, arity);
-            if (owningRuntime?.OwnedTermsPilot506 == true && functions.TryGetValue(key, out var selected)
+            if (owningRuntime is not null && functions.TryGetValue(key, out var selected)
                 && ReferenceEquals(selected, body) && !sourceOwners.ContainsKey(key))
                 ownedBindings507[key] = new(
                     body,
@@ -103,7 +103,7 @@ public sealed partial class ModuleRegistry
 
     private void BindPreparedOwnedBodies507(PreparedBeamImage image)
     {
-        if (owningRuntime?.OwnedTermsPilot506 != true)
+        if (owningRuntime is null)
             return;
         for (int index = 0; index < image.Code.Exports.Count; index++)
         {

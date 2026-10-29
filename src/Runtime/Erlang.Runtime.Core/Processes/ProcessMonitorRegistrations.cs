@@ -4,7 +4,7 @@ internal static class ProcessMonitorRegistrations
 {
     public static void Register(ModuleRegistry registry)
     {
-        registry.Register(
+        registry.RegisterCanonicalRuntimeRead535(
             ErlangModuleNames.Module,
             ErlangModuleNames.Monitor,
             3,

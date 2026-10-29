@@ -1,0 +1,58 @@
+{
+  "Passed": true,
+  "Profiles": [
+    {
+      "Configuration": "Debug",
+      "Cases": 371,
+      "TestAnalysisSeconds": 8.156000000002678,
+      "RawEtfSha256": "C4ED56E9C3C32D0831FD1F785DDA1D730654EC6AB9DE10A5F7FDCA024263B2B7",
+      "OriginalOutcomes": 2463,
+      "ProcessSettled": true,
+      "SourceCommit": "ad05823719d77c8faee87348ea39513d4e2f99c5"
+    },
+    {
+      "Configuration": "Release",
+      "Cases": 371,
+      "TestAnalysisSeconds": 7.936999999998079,
+      "RawEtfSha256": "C4ED56E9C3C32D0831FD1F785DDA1D730654EC6AB9DE10A5F7FDCA024263B2B7",
+      "OriginalOutcomes": 2463,
+      "ProcessSettled": true,
+      "SourceCommit": "ad05823719d77c8faee87348ea39513d4e2f99c5"
+    }
+  ],
+  "AffectedCompositePerProfile": [
+    140,
+    140,
+    19,
+    38,
+    33,
+    1
+  ],
+  "RootlessRegressionRed": true,
+  "OriginalDiagnosticTimeoutsAccepted": false,
+  "IncompleteSandbox371Accepted": false,
+  "SourceRows": [
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/RuntimeProcessPayload641.cs",
+      "Sha256": "7960D7F5127A4B004DEC83CB9B480942305750D0A8B2489ACA76F6501E83232D"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Harness/Program.cs",
+      "Sha256": "69DB740C79B46380EB88D4AE77891B8EF963C19F9A47ABDBAEC74313512AB7BA"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Runtime/Processes/Signals/ProcessPayloadCore641Checks.cs",
+      "Sha256": "D2691495487B796A2B5EF43F4AE8B13AD78E4E637D4A17B6609427FEFC7C8365"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Runtime/Processes/Signals/ProcessPayloadCore641Names.cs",
+      "Sha256": "E572B9D478D604833DA2B61DB0B46FB323EF7D346CD48706DC05DEB2230161AF"
+    }
+  ],
+  "CurrentSourceFreezeSha256": "E663248267C95BDEDE808E52F1C6E48910C5259FD2C1C3B21D5A0AFCD27541E1",
+  "ApiDelta": 0,
+  "WholeContractDelta": 0,
+  "KnownDifferences": 24,
+  "ResourceBearingShutdownDerivedPublicationProven": false,
+  "FullCiPending": true
+}

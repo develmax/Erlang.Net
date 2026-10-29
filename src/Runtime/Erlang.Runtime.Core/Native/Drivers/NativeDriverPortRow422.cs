@@ -32,6 +32,25 @@ internal sealed class NativeDriverPortRow422(
     internal bool Closing;
     internal bool StopRequested;
     internal Term Reason = Term.A(ProcessExitReasons.Normal);
+    internal RuntimeProcessPayload641? Reason641;
+
+    internal void SetReason641(Term reason, RuntimeProcessPayload641? origin641 = null)
+    {
+        RuntimeProcessPayload641? next641 = origin641?.Borrow641(null);
+        RuntimeProcessPayload641? previous641 = Reason641;
+        Reason = reason;
+        Reason641 = next641;
+        previous641?.Close641();
+    }
+
+    internal void ReleaseReason641()
+    {
+        RuntimeProcessPayload641? previous641 = Reason641;
+        Reason641 = null;
+        Reason = Nil.Value;
+        previous641?.Close641();
+    }
+
     internal bool PhysicallyStopped;
     internal bool OpenResultKnown;
     internal bool OpenSucceeded;
