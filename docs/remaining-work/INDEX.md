@@ -1,5 +1,11 @@
 # Remaining work
 
+## Current checkpoint537
+
+Canonical dictionary get_keys/0,1 and complete pending timer payload custody pass final Debug265/265 and Release265/265 on identical LF-pinned sources. Each profile also directly matches the complete108-byte dictionary Outcome from fresh admitted original OTP compilation/execution. Corrected native Cancel has meaningful old-storage RED to integrated GREEN; setup failures and sandbox EACCES remain separate. [Checkpoint537](checkpoint-537.md) · [Evidence](../validation/part-537/README.md).
+
+Counts708/180/504/24, deltas0/0. Whole P4 remains open: resource-bearing canonical keys across all families, projection cancellation, forced timer races, monitor/reason roots and FunctionTerm/image-purge custody still need work. Exact-head full CI/review/merge remain gates. Previous checkpoints retain historical scope.
+
 ## Current checkpoint536
 
 Current Part536 propagation/halt evidence: Release181/181 single approved outside-sandbox child; Debug179/181 plus exact unchanged-DLL outside2/2 is an explicit181 composite, with EACCES failures retained. Both final profiles have separately protected direct whole1088 comparisons against seven fresh original streams (binary564 +regex524). Binary VM halt now closes admission synchronously and joins both completion paths; ordinary process exit has no global binary wait. Clean missing-close RED and fixture-preparation failures remain distinct. Prior94-group evidence remains historical. Counts708/180/504/24, deltas0/0; exact-head review/full CI/merge remain gates. P4 monitor/timer proposals remain source-only. See docs/validation/part-536-propagated-halt.
