@@ -1,0 +1,25 @@
+{
+  "Partial": true,
+  "SelectedCount": 2,
+  "TotalCount": 9335,
+  "Blocks": [],
+  "ExactCases": [
+    "runtime/process-liveness626/live-unrelated-cancellation-visible",
+    "runtime/process-liveness626/real-closed-before-token-cancellation"
+  ],
+  "Passed": 1,
+  "Failed": 1,
+  "Tests": [
+    {
+      "Name": "runtime/process-liveness626/real-closed-before-token-cancellation",
+      "Status": "Failed",
+      "Error": "System.NullReferenceException: Object reference not set to an instance of an object.\r\n   at Erlang.Tests.ProcessLiveness626Checks.Field(Object owner, String name) in D:\\Distr\\Work\\Codex\\Erlang.Net\\w518repair\\tests\\Erlang.Tests\\Runtime\\Processes\\Lifecycle\\ProcessLiveness626Checks.cs:line 83\r\n   at Erlang.Tests.ProcessLiveness626Checks.\u003C\u003Ec__DisplayClass0_0.\u003CClosedBeforeToken\u003Eb__1() in D:\\Distr\\Work\\Codex\\Erlang.Net\\w518repair\\tests\\Erlang.Tests\\Runtime\\Processes\\Lifecycle\\ProcessLiveness626Checks.cs:line 29\r\n   at System.Threading.SpinWait.SpinUntil(Func\u00601 condition, Int32 millisecondsTimeout)\r\n   at System.Threading.SpinWait.SpinUntil(Func\u00601 condition, TimeSpan timeout)\r\n   at Erlang.Tests.ProcessLiveness626Checks.ClosedBeforeToken() in D:\\Distr\\Work\\Codex\\Erlang.Net\\w518repair\\tests\\Erlang.Tests\\Runtime\\Processes\\Lifecycle\\ProcessLiveness626Checks.cs:line 28\r\n   at Erlang.Tests.ProcessLiveness626Checks.ClosedBeforeToken() in D:\\Distr\\Work\\Codex\\Erlang.Net\\w518repair\\tests\\Erlang.Tests\\Runtime\\Processes\\Lifecycle\\ProcessLiveness626Checks.cs:line 55\r\n   at Erlang.Tests.ProcessLiveness626Checks.ClosedBeforeToken() in D:\\Distr\\Work\\Codex\\Erlang.Net\\w518repair\\tests\\Erlang.Tests\\Runtime\\Processes\\Lifecycle\\ProcessLiveness626Checks.cs:line 55\r\n   at Erlang.Tests.ProcessLiveness626Checks.ClosedBeforeToken() in D:\\Distr\\Work\\Codex\\Erlang.Net\\w518repair\\tests\\Erlang.Tests\\Runtime\\Processes\\Lifecycle\\ProcessLiveness626Checks.cs:line 55\r\n   at Erlang.Tests.ProcessLiveness626Checks.ClosedBeforeToken() in D:\\Distr\\Work\\Codex\\Erlang.Net\\w518repair\\tests\\Erlang.Tests\\Runtime\\Processes\\Lifecycle\\ProcessLiveness626Checks.cs:line 55\r\n   at Program.\u003CMain\u003E$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\w518repair\\tests\\Erlang.Tests\\Harness\\Program.cs:line 7680",
+      "Milliseconds": 88
+    },
+    {
+      "Name": "runtime/process-liveness626/live-unrelated-cancellation-visible",
+      "Status": "Passed",
+      "Milliseconds": 5
+    }
+  ]
+}

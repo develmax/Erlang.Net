@@ -20,6 +20,11 @@ Counts708 registered/180 verified/504 pending/24 known, deltas0/0. Exact-head CI
 Actual native BM/AC binary programs and typed custody pass final Release94/94 and Debug94/94 on identical names. Prepared16-byte ACTrie source-layout defect was caught by a meaningful actual physical RED, corrected to pinned normal-x64 SIMD40 with first16 root bytes/cap17, and final controls pass. Fresh original6192/2 yields564 complete outcomes; direct paired whole bytes equal BOTH actual final profiles, preserving all value/error/stack fields. Public former-delegate authority remainsOpaque and deliberately lacks genuine native formatter metadata. [Checkpoint536](checkpoint-536.md) · [Evidence](../validation/part-536/README.md) · [English0093](../changelog/0093.md).
 
 Counts708/180/504/24, deltas0/0. Exact-head CI/review/merge remain gates. Full restart, native match-spec resources and general roots/policy accounting remain open; prepared packets grant no implementation credit.
+## Part535 exact-CI correction
+
+Authentic PR87 CI40807031466 remains9331/2: deepgraph timeout and terminal mailbox OCE. Correction uses successful immutable native-pending custody inventory (no incomplete global-family shortcut) and a strict requested-token OR actual-dead-process receive helper. Same20k Debug measured8527ms to120ms once each, unchanged15s limit; deterministic private-VM terminal token-only OCE RED and live unrelated cancellation are retained. Final selected Debug156/156 and Release156/156 use identical156 names; fresh original5/5 and protected direct final Release524 + fresh Debugexisting3/direct524 pass. No local full9335 claim. [Checkpoint](checkpoint-535.md) · [Evidence](../validation/part-535-ci-correction/README.md) · [English0093](../changelog/0093.md).
+
+Counts708/180/504/24, deltas0/0. New correction-head CI/review/merge remain gates. Preserve staged536 work; propagate parent corrections recoverably and rebuild/revalidate its affected binary/regex scope before reusing acceptance. Full restart/matchspec/general roots/policies remain open.
 
 ## Delivered foundation
 

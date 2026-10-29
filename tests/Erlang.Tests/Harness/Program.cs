@@ -7639,6 +7639,8 @@ try
     Test(Erlang.Tests.BinaryStore536Names.BinaryEtsCase, Erlang.Tests.BinaryStore536Checks.BinaryEts);
     Test(Erlang.Tests.BinaryStore536Names.BinaryPersistentCase, Erlang.Tests.BinaryStore536Checks.BinaryPersistent);
     Test(Erlang.Tests.BinaryArena598Names.AcRootCase, Erlang.Tests.BinaryArena598Checks.AcRootMetadata);
+    Test(Erlang.Tests.ProcessLiveness626Names.TerminalCase, Erlang.Tests.ProcessLiveness626Checks.ClosedBeforeToken);
+    Test(Erlang.Tests.ProcessLiveness626Names.LiveCase, Erlang.Tests.ProcessLiveness626Checks.LiveCancellation);
     Test(Erlang.Tests.RegexCustody597Names.PhysicalCase, Erlang.Tests.RegexCustody597Checks.Physical);
     Test(Erlang.Tests.RegexCustody597Names.GenerationsCase, Erlang.Tests.RegexCustody597Checks.Generations);
     Test(Erlang.Tests.RegexCustody597Names.CompileImportCase, Erlang.Tests.RegexCustody597Checks.CompileImport);
