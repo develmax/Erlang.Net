@@ -7655,6 +7655,8 @@ try
         );
     }
 
+    Test(Erlang.Tests.Nonblocking641Names.Case, Erlang.Tests.Nonblocking641Checks.Settlement);
+    Test(Erlang.Tests.CancellationFailure669Names.Case, Erlang.Tests.CancellationFailure669Checks.Run);
     Test(Erlang.Tests.MonitorShutdown652Names.Case, Erlang.Tests.MonitorShutdown652Checks.EarlierTarget);
     Test(Erlang.Tests.ProcessPayloadCore641Names.FailureCase, Erlang.Tests.ProcessPayloadCore641Checks.CompletedFailureIsolation);
     Test(Erlang.Tests.ProcessPayloadCore641Names.StopCase, Erlang.Tests.ProcessPayloadCore641Checks.UnusedStopDrain);

@@ -39,7 +39,9 @@ internal static class ManagedCollectorPrestart415Checks
                     typeof(ProcessRuntime),
                     ManagedCollectorPrestart415Names.Terminate,
                     child,
-                    Term.A(ManagedCollectorPrestart415Names.Reason)
+                    Term.A(ManagedCollectorPrestart415Names.Reason),
+                    null,
+                    null
                 );
                 RequireCleared(slot);
             }
@@ -58,7 +60,9 @@ internal static class ManagedCollectorPrestart415Checks
                     typeof(ProcessRuntime),
                     ManagedCollectorPrestart415Names.Terminate,
                     replacementActor,
-                    Term.A(ManagedCollectorPrestart415Names.Reason)
+                    Term.A(ManagedCollectorPrestart415Names.Reason),
+                    null,
+                    null
                 );
                 RequireCleared(slot);
             }

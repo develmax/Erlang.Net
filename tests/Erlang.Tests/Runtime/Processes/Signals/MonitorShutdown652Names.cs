@@ -14,6 +14,14 @@ internal static class MonitorShutdown652Names
     internal const string Target = "Target";
     internal const string Custody = "Custody641";
     internal const string Graph = "Graph641";
+    internal const string MailboxOwner = "MailboxRoots593";
+    internal const string GroupType = "Erlang.RuntimeProcessPayloadGroup641";
+    internal const string CaptureGroup = "Capture641";
+    internal const string PrepareDerived = "PrepareProcessPayloadInterestGraph641";
+    internal const string PrepareFresh = "PrepareGraph";
+    internal const string PrepareGeneric = "PrepareInterestGraph593";
+    internal const string RetainGraph = "Retain";
+    internal const string DrainRoots = "DrainAsync";
     internal const string Failure = "Earlier-target resource monitor did not settle VM shutdown.";
     internal const string Source = """
         -module(monitor_shutdown652).

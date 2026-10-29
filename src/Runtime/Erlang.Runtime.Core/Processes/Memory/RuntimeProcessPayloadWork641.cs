@@ -78,23 +78,38 @@ internal sealed class RuntimeProcessPayloadWork641 : IThreadPoolWorkItem
     public void Execute()
     {
         if (Volatile.Read(ref scheduled) == 0) return;
-        var spin = new SpinWait();
-        while (Volatile.Read(ref queueSettled) == 0) spin.SpinOnce();
         if (Interlocked.CompareExchange(ref executing, 1, 0) != 0) return;
+        if (ExecutionContext.IsFlowSuppressed())
+        {
+            _ = ExecuteAsync641();
+        }
+        else
+        {
+            using (ExecutionContext.SuppressFlow()) _ = ExecuteAsync641();
+        }
+    }
+
+    private async Task ExecuteAsync641()
+    {
+        // Always leave the caller, including a Join fallback under a runtime gate.
+        // Exclude the actor context; establish this VM's atom table after yielding.
+        await ready.Task.ConfigureAwait(ConfigureAwaitOptions.ForceYielding);
         using var atoms = new AtomNameScope(owner.Runtime641.AtomNames);
         Exception? waited = null, released = null;
+        Task? required = Volatile.Read(ref dependency);
         try
         {
-            Volatile.Read(ref dependency)?.GetAwaiter().GetResult();
+            if (required is not null) await required.ConfigureAwait(false);
         }
-        catch (OperationCanceledException) when (Volatile.Read(ref dependency)?.IsCanceled == true) { }
+        catch (OperationCanceledException) when (required?.IsCanceled == true) { }
         catch (Exception error)
         {
             waited = error;
         }
         try
         {
-            Interlocked.Exchange(ref payload, null)?.DisposeAsync().GetAwaiter().GetResult();
+            IAsyncDisposable? held = Interlocked.Exchange(ref payload, null);
+            if (held is not null) await held.DisposeAsync().ConfigureAwait(false);
         }
         catch (Exception error)
         {

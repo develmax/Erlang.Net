@@ -79,7 +79,7 @@ internal static class IdentifierObservationShutdownHostChecks
             BindingFlags.Instance | BindingFlags.NonPublic)!.GetValue(known)!;
     }
 
-    private static void WrapIncoming(ProcessRuntime runtime, Mailbox mailbox, Action<Term> record)
+    internal static void WrapIncoming(ProcessRuntime runtime, Mailbox mailbox, Action<Term> record)
     {
         PropertyInfo property = typeof(Mailbox).GetProperty(IdentifierObservationShutdownHostNames.IncomingTermProperty,
             BindingFlags.Instance | BindingFlags.NonPublic)!;
