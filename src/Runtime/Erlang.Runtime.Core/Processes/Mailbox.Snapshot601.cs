@@ -28,8 +28,7 @@ public sealed partial class Mailbox
             Term[] values = captured.Values.ToArray();
             if (Runtime593 is not { } runtime) return (IReadOnlyList<Term>)values;
             int first = 0;
-            while (first < values.Length && !NativeResourceRoots524.Contains524(values[first])
-                && !AtomicsRoots586.Contains586(values[first])) first++;
+            while (first < values.Length && !ResourceHostCopy611.Requires(values[first])) first++;
             if (first == values.Length) return (IReadOnlyList<Term>)values;
 
             return AtomicsHostAggregate594.Publish(transaction =>
@@ -39,7 +38,7 @@ public sealed partial class Mailbox
                 for (int index = first; index < values.Length; index++)
                 {
                     Term value = values[index];
-                    if (!NativeResourceRoots524.Contains524(value) && !AtomicsRoots586.Contains586(value)) continue;
+                    if (!ResourceHostCopy611.Requires(value)) continue;
                     Term portable = OwnedTermDetachedCopy506.CopyAtomics586(
                         runtime,
                         value,

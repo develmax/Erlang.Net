@@ -1,0 +1,25 @@
+{
+  "Partial": true,
+  "SelectedCount": 2,
+  "TotalCount": 9322,
+  "Blocks": [],
+  "ExactCases": [
+    "runtime/initializer615/live-unrelated-cancellation-remains-visible",
+    "runtime/initializer615/terminal-mailbox-before-stop-cancel"
+  ],
+  "Passed": 1,
+  "Failed": 1,
+  "Tests": [
+    {
+      "Name": "runtime/initializer615/terminal-mailbox-before-stop-cancel",
+      "Status": "Failed",
+      "Error": "System.OperationCanceledException: The operation was canceled.\r\n   at Erlang.Mailbox.ThrowIfHalted() in D:\\Distr\\Work\\Codex\\Erlang.Net\\w504\\src\\Runtime\\Erlang.Runtime.Core\\Processes\\Mailbox.cs:line 56\r\n   at Erlang.Mailbox.ReceiveMarkedCore593[T](Func\u00602 select, Nullable\u00601 timeout, CancellationToken cancellation, Func\u00601 resolveTimeout, ReceiveMarkerState markerSelection, MailboxSelectionAdmission593 admission593) in D:\\Distr\\Work\\Codex\\Erlang.Net\\w504\\src\\Runtime\\Erlang.Runtime.Core\\Processes\\Mailbox.cs:line 683\r\n   at Erlang.Mailbox.ReceiveCore593[T](Func\u00602 select, Nullable\u00601 timeout, CancellationToken cancellation, Func\u00601 resolveTimeout, Boolean rescanRemovedCandidate, MailboxSelectionAdmission593 admission593) in D:\\Distr\\Work\\Codex\\Erlang.Net\\w504\\src\\Runtime\\Erlang.Runtime.Core\\Processes\\Mailbox.ReceiveMarkers.cs:line 203\r\n   at Erlang.Mailbox.ReceiveAsync[T](Func\u00602 select, Nullable\u00601 timeout, CancellationToken cancellation) in D:\\Distr\\Work\\Codex\\Erlang.Net\\w504\\src\\Runtime\\Erlang.Runtime.Core\\Processes\\Mailbox.cs:line 609\r\n   at Erlang.ProcessContext.ReceiveWithCancellation[T](Func\u00602 select, Nullable\u00601 timeout, CancellationToken cancellation, Term erlangTimeout) in D:\\Distr\\Work\\Codex\\Erlang.Net\\w504\\src\\Runtime\\Erlang.Runtime.Core\\Processes\\Context\\ProcessContext.cs:line 507\r\n   at Erlang.RuntimeInitializer.Run() in D:\\Distr\\Work\\Codex\\Erlang.Net\\w504\\src\\Runtime\\Erlang.Runtime.Core\\Bootstrap\\RuntimeInitializer.cs:line 60\r\n   at Erlang.RuntimeActorDispatcher.\u003C\u003Ec__DisplayClass30_0.\u003C\u003CDispatch\u003Eb__1\u003Ed.MoveNext() in D:\\Distr\\Work\\Codex\\Erlang.Net\\w504\\src\\Runtime\\Erlang.Runtime.Core\\Scheduling\\RuntimeActorDispatcher.cs:line 55\r\n--- End of stack trace from previous location ---\r\n   at Erlang.ProcessRuntime.DisposeRuntimeCoreAsync() in D:\\Distr\\Work\\Codex\\Erlang.Net\\w504\\src\\Runtime\\Erlang.Runtime.Core\\Processes\\Context\\ProcessRuntime.cs:line 1939\r\n   at Erlang.ProcessRuntime.DisposeAsync() in D:\\Distr\\Work\\Codex\\Erlang.Net\\w504\\src\\Runtime\\Erlang.Runtime.Core\\Processes\\Context\\ProcessRuntime.cs:line 1810\r\n   at Erlang.ProcessRuntime.DisposeAsync() in D:\\Distr\\Work\\Codex\\Erlang.Net\\w504\\src\\Runtime\\Erlang.Runtime.Core\\Processes\\Context\\ProcessRuntime.cs:line 1891\r\n   at Erlang.Tests.InitializerClose615Checks.ClosedBeforeCancellation() in D:\\Distr\\Work\\Codex\\Erlang.Net\\w504\\tests\\Erlang.Tests\\Runtime\\Modules\\Loading\\InitializerClose615Checks.cs:line 62\r\n   at Program.\u003CMain\u003E$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\w504\\tests\\Erlang.Tests\\Harness\\Program.cs:line 7667",
+      "Milliseconds": 2119
+    },
+    {
+      "Name": "runtime/initializer615/live-unrelated-cancellation-remains-visible",
+      "Status": "Passed",
+      "Milliseconds": 8
+    }
+  ]
+}

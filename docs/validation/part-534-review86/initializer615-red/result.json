@@ -1,0 +1,56 @@
+{
+  "Names": [
+    "runtime/initializer615/terminal-mailbox-before-stop-cancel",
+    "runtime/initializer615/live-unrelated-cancellation-remains-visible"
+  ],
+  "HostSha256": "EF9045D62ED8B32357FF3CB8A1DF3575FABE0BCA52F0F53657AA1743E8D5C0FD",
+  "HostUnchanged": true,
+  "Receipt": {
+    "Command": [
+      "dotnet",
+      "exec",
+      "--fx-version",
+      "10.0.11",
+      "D:\\Distr\\Work\\Codex\\Erlang.Net\\w504\\tests\\Erlang.Tests\\bin\\Release\\net10.0\\Erlang.Tests.dll",
+      "--case",
+      "runtime/initializer615/terminal-mailbox-before-stop-cancel",
+      "--case",
+      "runtime/initializer615/live-unrelated-cancellation-remains-visible",
+      "--report",
+      "D:\\Distr\\Work\\Codex\\Erlang.Net\\w504\\artifacts\\resource534\\initializer615-red\\report.json"
+    ],
+    "Pid": 17852,
+    "ElapsedSeconds": 2.54700000000048,
+    "TimedOut": false,
+    "Settled": true,
+    "ExitCode": 1,
+    "Failures": [],
+    "StdoutSha256": "5490A1CEB2463445C50A3587C58CABC04BEDFF86C736E7BADC2965CFAF5EDC32",
+    "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+  },
+  "Actual": {
+    "Partial": true,
+    "SelectedCount": 2,
+    "TotalCount": 9322,
+    "Blocks": [],
+    "ExactCases": [
+      "runtime/initializer615/live-unrelated-cancellation-remains-visible",
+      "runtime/initializer615/terminal-mailbox-before-stop-cancel"
+    ],
+    "Passed": 1,
+    "Failed": 1,
+    "Tests": [
+      {
+        "Name": "runtime/initializer615/terminal-mailbox-before-stop-cancel",
+        "Status": "Failed",
+        "Error": "System.InvalidOperationException: Initializer terminal mailbox cancellation was misclassified.\r\n   at Erlang.Tests.InitializerClose615Checks.Require(Boolean value) in D:\\Distr\\Work\\Codex\\Erlang.Net\\w504\\tests\\Erlang.Tests\\Runtime\\Modules\\Loading\\InitializerClose615Checks.cs:line 102\r\n   at Erlang.Tests.InitializerClose615Checks.ClosedBeforeCancellation() in D:\\Distr\\Work\\Codex\\Erlang.Net\\w504\\tests\\Erlang.Tests\\Runtime\\Modules\\Loading\\InitializerClose615Checks.cs:line 38\r\n   at Erlang.Tests.InitializerClose615Checks.ClosedBeforeCancellation() in D:\\Distr\\Work\\Codex\\Erlang.Net\\w504\\tests\\Erlang.Tests\\Runtime\\Modules\\Loading\\InitializerClose615Checks.cs:line 50\r\n   at Program.<Main>$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\w504\\tests\\Erlang.Tests\\Harness\\Program.cs:line 7667",
+        "Milliseconds": 2105
+      },
+      {
+        "Name": "runtime/initializer615/live-unrelated-cancellation-remains-visible",
+        "Status": "Passed",
+        "Milliseconds": 8
+      }
+    ]
+  }
+}

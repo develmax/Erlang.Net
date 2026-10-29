@@ -2,7 +2,9 @@
 
 ## Current checkpoint534
 
-See [checkpoint534](checkpoint-534.md): final local affected54/54 and fresh original counters610 ordinary/private2/2 pass, with complete values/errors/stacks under the declared six-reference protocol and real physical cleanup. All19 new groups are included. Final-head CI/review/publication remain pending; the required workflow now runs the matching OPT counters comparison. Part533 is merged after green CI9294/9294 and clean review. Canonical708 registered /180 full /504 pending /24 known differences; deltas0/0. Next: regex/binary/match-program producers, general roots and physical policy accounting. [Detailed24-contract plan](plan-24-after-530.md).
+PR86 corrections pass64/64 selected groups in both Debug and Release, including all54 prior names and10 added review/termination groups. Genuine original counters610 ordinary/private2/2 and actual published TestAnalysis2463 outcomes/233 checks/91 assets plus Dispose pass. Authentic Debug counters421 acquisition matches both complete raw streams; actual runtime profile selects independent OPT/Debug fixtures with all192 comparisons preserved. Seven missing public counters predicates, fresh intermediate dictionary Host-ticket ownership and initializer close/cancel ordering are fixed. [Correction evidence](../validation/part-534-review86/README.md) · [Checkpoint](checkpoint-534.md) · [English log](../changelog/0093.md).
+
+Exact updated-head CI, completed current review and merge remain gates. Counts708 registered /180 verified /504 pending /24 known differences, deltas0/0. Prepared regex535 and binary536 source-only packets are next, followed by general roots and physical policy accounting; unexecuted packets grant no compatibility credit. [Detailed24-contract plan](plan-24-after-530.md).
 
 ## Prior checkpoint524
 

@@ -7622,6 +7622,16 @@ try
     );
     Test(Erlang.Tests.CountersPrefix591Names.PrefixCase, Erlang.Tests.CountersPrefix591Checks.ActualPrefix);
     Test(Erlang.Tests.CountersPrefix591Names.GeometryCase, Erlang.Tests.CountersPrefix591Checks.ActualLaneGeometry);
+    Test(Erlang.Tests.InitializerClose615Names.ClosedCase, Erlang.Tests.InitializerClose615Checks.ClosedBeforeCancellation);
+    Test(Erlang.Tests.InitializerClose615Names.LiveCase, Erlang.Tests.InitializerClose615Checks.LiveCancellationRemainsVisible);
+    Test(Erlang.Tests.CountersPublic611Names.InfoKeyedCase, Erlang.Tests.CountersPublic611Checks.InfoKeyedHost);
+    Test(Erlang.Tests.CountersPublic611Names.ComponentCase, Erlang.Tests.CountersPublic611Checks.ComponentHost);
+    Test(Erlang.Tests.CountersPublic611Names.CallbackCase, Erlang.Tests.CountersPublic611Checks.CallbackHost);
+    Test(Erlang.Tests.CountersPublic611Names.ReturnedCase, Erlang.Tests.CountersPublic611Checks.ReturnedHost);
+    Test(Erlang.Tests.CountersPublic611Names.SnapshotCase, Erlang.Tests.CountersPublic611Checks.SnapshotHost);
+    Test(Erlang.Tests.CountersPublic611Names.InfoSingleCase, Erlang.Tests.CountersPublic611Checks.InfoSingleHost);
+    Test(Erlang.Tests.CountersPublic611Names.InfoFullCase, Erlang.Tests.CountersPublic611Checks.InfoFullHost);
+    Test(Erlang.Tests.CountersPublic611Names.InfoListCase, Erlang.Tests.CountersPublic611Checks.InfoListHost);
     Test(Erlang.Tests.CountersExit603Names.InitializerTest, Erlang.Tests.CountersExit603Checks.InitializerDoneBeforeGlobalDrain);
     Test(Erlang.Tests.CountersExit603Names.OrdinaryTest, Erlang.Tests.CountersExit603Checks.OrdinaryExitPreservesIndependentHeap);
 

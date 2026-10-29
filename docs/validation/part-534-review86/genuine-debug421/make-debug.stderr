@@ -1,0 +1,33 @@
+beam/erl_gc.c: In function ‘garbage_collect_hibernate’:
+beam/erl_gc.c:1104:5: warning: pointer ‘heap_area’ used after ‘erts_free’ [-Wuse-after-free]
+ 1104 |     offset_rootset(p,
+      |     ^~~~~~~~~~~~~~~~~
+ 1105 |                    heap_offset, heap_area, heap_area_sz,
+      |                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ 1106 |                    stack_offset, stack_area, stack_area_sz,
+      |                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ 1107 |                    p->arg_reg, p->arity);
+      |                    ~~~~~~~~~~~~~~~~~~~~~
+beam/erl_gc.c:1091:5: note: call to ‘erts_free’ here
+ 1091 |     erts_free(ERTS_ALC_T_TMP_HEAP, collection_heap);
+      |     ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+beam/erl_gc.c:1103:5: warning: pointer ‘heap_area’ used after ‘erts_free’ [-Wuse-after-free]
+ 1103 |     offset_heap(final_heap, heap_size, heap_offset, heap_area, heap_area_sz);
+      |     ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+beam/erl_gc.c:1091:5: note: call to ‘erts_free’ here
+ 1091 |     erts_free(ERTS_ALC_T_TMP_HEAP, collection_heap);
+      |     ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+beam/erl_bits.c:508:26: warning: ‘f16_to_f32’ defined but not used [-Wunused-function]
+  508 | static ERTS_INLINE float f16_to_f32(Uint16 fp)
+      |                          ^~~~~~~~~~
+beam/erl_bits.c:431:27: warning: ‘f64_to_f16’ defined but not used [-Wunused-function]
+  431 | static ERTS_INLINE Uint16 f64_to_f16(double fp)
+      |                           ^~~~~~~~~~
+drivers/common/inet_drv.c: In function ‘inet_async_binary_data’:
+drivers/common/inet_drv.c:3875:15: warning: unused variable ‘spec_size’ [-Wunused-variable]
+ 3875 |     const int spec_size = PACKET_ERL_DRV_TERM_DATA_LEN;
+      |               ^~~~~~~~~
+drivers/common/inet_drv.c: In function ‘packet_binary_message’:
+drivers/common/inet_drv.c:4111:15: warning: unused variable ‘spec_size’ [-Wunused-variable]
+ 4111 |     const int spec_size = PACKET_ERL_DRV_TERM_DATA_LEN;
+      |               ^~~~~~~~~

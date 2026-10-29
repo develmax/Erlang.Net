@@ -1,0 +1,9 @@
+{"Partial":true,"SelectedCount":2,"TotalCount":9322}
+INITIALIZER615 token=True completion=WaitingForActivation disposal=WaitingForActivation
+FAIL runtime/initializer615/terminal-mailbox-before-stop-cancel: System.InvalidOperationException: Initializer terminal mailbox cancellation was misclassified.
+   at Erlang.Tests.InitializerClose615Checks.Require(Boolean value) in D:\Distr\Work\Codex\Erlang.Net\w504\tests\Erlang.Tests\Runtime\Modules\Loading\InitializerClose615Checks.cs:line 105
+   at Erlang.Tests.InitializerClose615Checks.ClosedBeforeCancellation() in D:\Distr\Work\Codex\Erlang.Net\w504\tests\Erlang.Tests\Runtime\Modules\Loading\InitializerClose615Checks.cs:line 39
+   at Erlang.Tests.InitializerClose615Checks.ClosedBeforeCancellation() in D:\Distr\Work\Codex\Erlang.Net\w504\tests\Erlang.Tests\Runtime\Modules\Loading\InitializerClose615Checks.cs:line 53
+   at Program.<Main>$(String[] args) in D:\Distr\Work\Codex\Erlang.Net\w504\tests\Erlang.Tests\Harness\Program.cs:line 7667
+PASS runtime/initializer615/live-unrelated-cancellation-remains-visible
+1/2 passed

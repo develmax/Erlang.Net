@@ -1,0 +1,15 @@
+{
+  "Pid": 30544,
+  "Command": [
+    "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library376-official-compiler\\installed\\bin\\erl.exe",
+    "+S",
+    "2:2",
+    "-noshell",
+    "-noinput",
+    "-pa",
+    "D:\\Distr\\Work\\Codex\\Erlang.Net\\w504\\artifacts\\resource534\\metadata-review86-final",
+    "-eval",
+    "{ok,{erlang,NativeMd5}}=beam_lib:md5(\"metadata-effective-erlang.beam\"),NativeMd5=erlang:module_info(md5),ok=file:write_file(\"native-metadata-executing.etf\",term_to_binary({erlang,code:which(erlang),NativeMd5,erlang:module_info(compile)})),ok=acquire520:run(),halt()."
+  ],
+  "StartedUnixSeconds": 1793238088.0484173
+}

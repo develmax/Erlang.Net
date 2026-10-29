@@ -1,0 +1,56 @@
+{
+  "Names": [
+    "runtime/initializer615/terminal-mailbox-before-stop-cancel",
+    "runtime/initializer615/live-unrelated-cancellation-remains-visible"
+  ],
+  "HostSha256": "B462A10227708C5292967FA45EEC9A698911CDDF0951D02FFBA9572FD40998A3",
+  "HostUnchanged": true,
+  "Receipt": {
+    "Command": [
+      "dotnet",
+      "exec",
+      "--fx-version",
+      "10.0.11",
+      "D:\\Distr\\Work\\Codex\\Erlang.Net\\w504\\tests\\Erlang.Tests\\bin\\Release\\net10.0\\Erlang.Tests.dll",
+      "--case",
+      "runtime/initializer615/terminal-mailbox-before-stop-cancel",
+      "--case",
+      "runtime/initializer615/live-unrelated-cancellation-remains-visible",
+      "--report",
+      "D:\\Distr\\Work\\Codex\\Erlang.Net\\w504\\artifacts\\resource534\\initializer615-real-exit-red\\report.json"
+    ],
+    "Pid": 27092,
+    "ElapsedSeconds": 2.54700000000048,
+    "TimedOut": false,
+    "Settled": true,
+    "ExitCode": 1,
+    "Failures": [],
+    "StdoutSha256": "C8B7ACE7296CA6122DA4AC3D19320F12449331D7354D1F041992ECCC14AC0154",
+    "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+  },
+  "Actual": {
+    "Partial": true,
+    "SelectedCount": 2,
+    "TotalCount": 9322,
+    "Blocks": [],
+    "ExactCases": [
+      "runtime/initializer615/live-unrelated-cancellation-remains-visible",
+      "runtime/initializer615/terminal-mailbox-before-stop-cancel"
+    ],
+    "Passed": 1,
+    "Failed": 1,
+    "Tests": [
+      {
+        "Name": "runtime/initializer615/terminal-mailbox-before-stop-cancel",
+        "Status": "Failed",
+        "Error": "System.OperationCanceledException: The operation was canceled.\r\n   at Erlang.Mailbox.ThrowIfHalted() in D:\\Distr\\Work\\Codex\\Erlang.Net\\w504\\src\\Runtime\\Erlang.Runtime.Core\\Processes\\Mailbox.cs:line 56\r\n   at Erlang.Mailbox.ReceiveMarkedCore593[T](Func`2 select, Nullable`1 timeout, CancellationToken cancellation, Func`1 resolveTimeout, ReceiveMarkerState markerSelection, MailboxSelectionAdmission593 admission593) in D:\\Distr\\Work\\Codex\\Erlang.Net\\w504\\src\\Runtime\\Erlang.Runtime.Core\\Processes\\Mailbox.cs:line 683\r\n   at Erlang.Mailbox.ReceiveCore593[T](Func`2 select, Nullable`1 timeout, CancellationToken cancellation, Func`1 resolveTimeout, Boolean rescanRemovedCandidate, MailboxSelectionAdmission593 admission593) in D:\\Distr\\Work\\Codex\\Erlang.Net\\w504\\src\\Runtime\\Erlang.Runtime.Core\\Processes\\Mailbox.ReceiveMarkers.cs:line 203\r\n   at Erlang.Mailbox.ReceiveAsync[T](Func`2 select, Nullable`1 timeout, CancellationToken cancellation) in D:\\Distr\\Work\\Codex\\Erlang.Net\\w504\\src\\Runtime\\Erlang.Runtime.Core\\Processes\\Mailbox.cs:line 609\r\n   at Erlang.ProcessContext.ReceiveWithCancellation[T](Func`2 select, Nullable`1 timeout, CancellationToken cancellation, Term erlangTimeout) in D:\\Distr\\Work\\Codex\\Erlang.Net\\w504\\src\\Runtime\\Erlang.Runtime.Core\\Processes\\Context\\ProcessContext.cs:line 507\r\n   at Erlang.RuntimeInitializer.Run() in D:\\Distr\\Work\\Codex\\Erlang.Net\\w504\\src\\Runtime\\Erlang.Runtime.Core\\Bootstrap\\RuntimeInitializer.cs:line 60\r\n   at Erlang.RuntimeActorDispatcher.<>c__DisplayClass30_0.<<Dispatch>b__1>d.MoveNext() in D:\\Distr\\Work\\Codex\\Erlang.Net\\w504\\src\\Runtime\\Erlang.Runtime.Core\\Scheduling\\RuntimeActorDispatcher.cs:line 55\r\n--- End of stack trace from previous location ---\r\n   at Erlang.ProcessRuntime.DisposeRuntimeCoreAsync() in D:\\Distr\\Work\\Codex\\Erlang.Net\\w504\\src\\Runtime\\Erlang.Runtime.Core\\Processes\\Context\\ProcessRuntime.cs:line 1939\r\n   at Erlang.ProcessRuntime.DisposeAsync() in D:\\Distr\\Work\\Codex\\Erlang.Net\\w504\\src\\Runtime\\Erlang.Runtime.Core\\Processes\\Context\\ProcessRuntime.cs:line 1810\r\n   at Erlang.ProcessRuntime.DisposeAsync() in D:\\Distr\\Work\\Codex\\Erlang.Net\\w504\\src\\Runtime\\Erlang.Runtime.Core\\Processes\\Context\\ProcessRuntime.cs:line 1891\r\n   at Erlang.Tests.InitializerClose615Checks.ClosedBeforeCancellation() in D:\\Distr\\Work\\Codex\\Erlang.Net\\w504\\tests\\Erlang.Tests\\Runtime\\Modules\\Loading\\InitializerClose615Checks.cs:line 62\r\n   at Program.<Main>$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\w504\\tests\\Erlang.Tests\\Harness\\Program.cs:line 7667",
+        "Milliseconds": 2119
+      },
+      {
+        "Name": "runtime/initializer615/live-unrelated-cancellation-remains-visible",
+        "Status": "Passed",
+        "Milliseconds": 8
+      }
+    ]
+  }
+}

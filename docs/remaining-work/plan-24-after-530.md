@@ -7,6 +7,8 @@ This document is a plan, not implementation or passing evidence. Baseline: 708 r
 
 Part533 is merged into main f9951a0af after exact-head green CI40786318744,9294/9294 and clean completed review. Part534 adds counters backing/custody and synchronous initializer admission closure without a per-process global drain join. Final local affected54/54 and genuine original counters610 ordinary/private2/2 pass with complete value/error/stack protocol and physical cleanup (x64 OPT,1 normal scheduler). Required final-head CI/review/publication remain separate. Next: regex then binary/match-program producer custody, followed by general roots and physical policy/accounting. These finite P1/P2/P4 foundations close zero of the24 whole API contracts. Canonical708/180/504/24 remain. See [checkpoint534](checkpoint-534.md).
 
+Part534 PR86 review/CI corrections now pass64/64 in Debug and64/64 in Release, fresh counters6102/2, and the targeted published TestAnalysis consumer with actual Dispose. Literal genuine Debug421 goldens preserve all192 full comparisons. Current-head CI/review/merge remain open; no whole-contract promotion. See [correction evidence](../validation/part-534-review86/README.md).
+
 ## Delivered foundation
 
 Part530 implements real three-word NIF resource magic references and three-word BinRef/five-word SubBits storage in the private-owned profile. Live readers, native-result aliases, nested resource slices, collection, rollback and physical retirement have source-bound evidence. PR82 exact-head CI40676225450 passed all three jobs and 9234/9234 tests; main has the identical tested tree. This does not establish complete ordinary-profile ownership, other resource producers, public resource accounting or general NIF compatibility.

@@ -1,0 +1,49 @@
+2026-10-29T00:34:27.3264434Z   Erlang.Otp.Management.Library.Tests -> D:\a\Erlang.Net\Erlang.Net\artifacts\otp-library-consumer-e5628ff51d1844abb34e0bc7f0a99db7\published\
+2026-10-29T00:34:31.7551307Z Original diameter/snmp packaging: 439 checks passed; 768 complete outcomes/stacks match OTP
+2026-10-29T00:34:32.4428524Z   Determining projects to restore...
+2026-10-29T00:34:33.4161052Z   Restored D:\a\Erlang.Net\Erlang.Net\src\Otp\Original\Networking\Erlang.Otp.Megaco.Beam\Erlang.Otp.Megaco.Beam.csproj (in 765 ms).
+2026-10-29T00:34:35.4606658Z   Erlang.Otp.Megaco.Beam -> D:\a\Erlang.Net\Erlang.Net\src\Otp\Original\Networking\Erlang.Otp.Megaco.Beam\bin\Debug\net10.0\Erlang.Otp.Megaco.Beam.dll
+2026-10-29T00:34:36.0709598Z   Successfully created package 'D:\a\Erlang.Net\Erlang.Net\artifacts\packages\Erlang.Otp.Megaco.Beam.0.1.0.nupkg'.
+2026-10-29T00:34:36.2022331Z Original Megaco source/support package assets: 95 byte-verified
+2026-10-29T00:34:36.8729606Z   Determining projects to restore...
+2026-10-29T00:34:37.9304529Z   Restored D:\a\Erlang.Net\Erlang.Net\artifacts\otp-library-consumer-4a9b2fe369ce4192b9a95c4fc9bab6c3\Erlang.Otp.Megaco.Library.Tests.csproj (in 821 ms).
+2026-10-29T00:34:38.5610760Z   Erlang.Otp.Megaco.Library.Tests -> D:\a\Erlang.Net\Erlang.Net\artifacts\otp-library-consumer-4a9b2fe369ce4192b9a95c4fc9bab6c3\bin\Debug\net10.0\Erlang.Otp.Megaco.Library.Tests.dll
+2026-10-29T00:34:38.6359339Z   Erlang.Otp.Megaco.Library.Tests -> D:\a\Erlang.Net\Erlang.Net\artifacts\otp-library-consumer-4a9b2fe369ce4192b9a95c4fc9bab6c3\published\
+2026-10-29T00:34:42.1240645Z Original megaco packaging: 150 checks passed; 2003 complete outcomes/stacks match OTP
+2026-10-29T00:34:43.4328173Z Original receive484: 576 complete selections and unmatched mailbox queues match OTP
+2026-10-29T00:34:44.1360272Z   Determining projects to restore...
+2026-10-29T00:34:44.9330872Z   Restored D:\a\Erlang.Net\Erlang.Net\src\Otp\Original\Development\Erlang.Otp.CommonTest.Beam\Erlang.Otp.CommonTest.Beam.csproj (in 593 ms).
+2026-10-29T00:34:47.1033924Z   Erlang.Otp.CommonTest.Beam -> D:\a\Erlang.Net\Erlang.Net\src\Otp\Original\Development\Erlang.Otp.CommonTest.Beam\bin\Debug\net10.0\Erlang.Otp.CommonTest.Beam.dll
+2026-10-29T00:34:47.5816122Z   Successfully created package 'D:\a\Erlang.Net\Erlang.Net\artifacts\packages\Erlang.Otp.CommonTest.Beam.0.1.0.nupkg'.
+2026-10-29T00:34:48.3071616Z   Determining projects to restore...
+2026-10-29T00:34:48.6440313Z   Restored D:\a\Erlang.Net\Erlang.Net\src\Otp\Original\Development\Erlang.Otp.Dialyzer.Beam\Erlang.Otp.Dialyzer.Beam.csproj (in 129 ms).
+2026-10-29T00:34:50.5814673Z   Erlang.Otp.Dialyzer.Beam -> D:\a\Erlang.Net\Erlang.Net\src\Otp\Original\Development\Erlang.Otp.Dialyzer.Beam\bin\Debug\net10.0\Erlang.Otp.Dialyzer.Beam.dll
+2026-10-29T00:34:50.9786733Z   Successfully created package 'D:\a\Erlang.Net\Erlang.Net\artifacts\packages\Erlang.Otp.Dialyzer.Beam.0.1.0.nupkg'.
+2026-10-29T00:34:51.0790224Z Original TestAnalysis source/support package assets: 91 byte-verified
+2026-10-29T00:34:51.7145627Z   Determining projects to restore...
+2026-10-29T00:34:52.6376170Z   Restored D:\a\Erlang.Net\Erlang.Net\artifacts\otp-library-consumer-43b1cd4092d44457ab85bb0c6fdcb888\Erlang.Otp.TestAnalysis.Library.Tests.csproj (in 703 ms).
+2026-10-29T00:34:53.3615309Z   Erlang.Otp.TestAnalysis.Library.Tests -> D:\a\Erlang.Net\Erlang.Net\artifacts\otp-library-consumer-43b1cd4092d44457ab85bb0c6fdcb888\bin\Debug\net10.0\Erlang.Otp.TestAnalysis.Library.Tests.dll
+2026-10-29T00:34:53.3919647Z   Erlang.Otp.TestAnalysis.Library.Tests -> D:\a\Erlang.Net\Erlang.Net\artifacts\otp-library-consumer-43b1cd4092d44457ab85bb0c6fdcb888\published\
+2026-10-29T00:35:01.8129151Z System.OperationCanceledException: The operation was canceled.
+2026-10-29T00:35:01.8129778Z    at Erlang.Mailbox.ThrowIfHalted()
+2026-10-29T00:35:01.8131539Z    at Erlang.Mailbox.ReceiveMarkedCore593[T](Func`2 select, Nullable`1 timeout, CancellationToken cancellation, Func`1 resolveTimeout, ReceiveMarkerState markerSelection, MailboxSelectionAdmission593 admission593)
+2026-10-29T00:35:01.8132801Z    at Erlang.Mailbox.ReceiveCore593[T](Func`2 select, Nullable`1 timeout, CancellationToken cancellation, Func`1 resolveTimeout, Boolean rescanRemovedCandidate, MailboxSelectionAdmission593 admission593)
+2026-10-29T00:35:01.8133686Z    at Erlang.Mailbox.ReceiveAsync[T](Func`2 select, Nullable`1 timeout, CancellationToken cancellation)
+2026-10-29T00:35:01.8134762Z    at Erlang.ProcessContext.ReceiveWithCancellation[T](Func`2 select, Nullable`1 timeout, CancellationToken cancellation, Term erlangTimeout)
+2026-10-29T00:35:01.8135311Z    at Erlang.RuntimeInitializer.Run()
+2026-10-29T00:35:01.8135766Z    at Erlang.RuntimeActorDispatcher.<>c__DisplayClass30_0.<<Dispatch>b__1>d.MoveNext()
+2026-10-29T00:35:01.8137255Z --- End of stack trace from previous location ---
+2026-10-29T00:35:01.8138153Z    at Erlang.ProcessRuntime.DisposeRuntimeCoreAsync()
+2026-10-29T00:35:01.8138542Z    at Erlang.ProcessRuntime.DisposeAsync()
+2026-10-29T00:35:01.8138869Z    at Erlang.ProcessRuntime.DisposeAsync()
+2026-10-29T00:35:01.8139748Z    at Erlang.Otp.TestAnalysis.Library.Tests.TestAnalysisLibraryChecks.Run(String[] args) in D:\a\Erlang.Net\Erlang.Net\artifacts\otp-library-consumer-43b1cd4092d44457ab85bb0c6fdcb888\TestAnalysisLibraryChecks.cs:line 165
+2026-10-29T00:35:01.8140828Z    at Program.<Main>$(String[] args) in D:\a\Erlang.Net\Erlang.Net\artifacts\otp-library-consumer-43b1cd4092d44457ab85bb0c6fdcb888\Program.cs:line 5
+2026-10-29T00:35:01.9142037Z [31;1mException: [0mD:\a\Erlang.Net\Erlang.Net\tools\validate-otp-library-package.ps1:60[0m
+2026-10-29T00:35:01.9142774Z [31;1m[0m[36;1mLine |[0m
+2026-10-29T00:35:01.9143571Z [31;1m[0m[36;1m[36;1m  60 | [0m … ITCODE -ne 0) { [36;1mthrow "Published original $Library consumer failed"[0m }[0m
+2026-10-29T00:35:01.9144398Z [31;1m[0m[36;1m[36;1m[0m[36;1m[0m[36;1m     | [31;1m                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+2026-10-29T00:35:01.9145215Z [31;1m[0m[36;1m[36;1m[0m[36;1m[0m[36;1m[31;1m[31;1m[36;1m     | [31;1mPublished original TestAnalysis consumer failed[0m
+2026-10-29T00:35:01.9425567Z ##[error]Process completed with exit code 1.
+2026-10-29T00:35:01.9601308Z ##[group]Run $ErrorActionPreference = 'Stop'
+2026-10-29T00:35:01.9601760Z [36;1m$ErrorActionPreference = 'Stop'[0m
+
