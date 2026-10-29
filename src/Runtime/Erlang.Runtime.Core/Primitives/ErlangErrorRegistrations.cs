@@ -2,6 +2,13 @@ namespace Erlang;
 
 internal static class ErlangErrorRegistrations
 {
+    private static readonly MapTerm NifErrorInfo = new(
+        [new KeyValuePair<Term, Term>(
+            Term.A(RuntimeExceptionNames.Module),
+            Term.A(RuntimeExceptionNames.Formatter(ErlangModuleNames.Module)!)
+        )]
+    );
+
     public static void Register(ModuleRegistry registry)
     {
         registry.RegisterCanonicalRuntimeRead535(
@@ -34,7 +41,7 @@ internal static class ErlangErrorRegistrations
                 (context, arguments) => throw new ErlangException(arguments[0])
                 {
                     ExplicitStackTrace = true,
-                    StackTraceTerm = context.CaptureErrorStack(Cons.From(arguments), null, ErlangErrorMetadataNames.NifError)
+                    StackTraceTerm = context.CaptureErrorStack(Cons.From(arguments), NifErrorInfo, ErlangErrorMetadataNames.NifError)
                 }
             );
     }

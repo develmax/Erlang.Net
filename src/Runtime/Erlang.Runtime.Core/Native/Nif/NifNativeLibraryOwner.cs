@@ -106,7 +106,7 @@ internal sealed unsafe partial class NifNativeLibraryOwner : IAsyncDisposable
                 ? ((delegate* unmanaged[Cdecl]<nint, nint>)initialize)(windowsCallbacks!.Pointer)
                 : ((delegate* unmanaged[Cdecl]<nint>)initialize)();
             failure.ThrowPending();
-            entry = NifNativeEntryReader.Read(entryPointer);
+            entry = NifNativeEntryReader.Read(entryPointer, image.Module);
             ValidateEntry(descriptor);
             nuint info = environment.Add(loadInfo);
             int result = InvokeLoadCallback557(environment, info);

@@ -3,6 +3,13 @@ using Erlang.NifNativeBackend;
 
 try
 {
+    if (args.Length != 0 && args[0] == NifVersion651DriverNames.Mode)
+    {
+        await NifVersion651Driver.Run(args[1..]);
+
+        return;
+    }
+
     if (args.Length != 0 && args[0] == ResourceQueue593Names.Mode)
     {
         await Resource529Driver.RunProtocol(args[1..], protocol: Resource529ProtocolKind.Queue593);
@@ -131,6 +138,7 @@ try
         return;
     }
 
+    await NifVersion651Checks.Run();
     await NifNativeManagedChecks.Run();
     Console.WriteLine(NifNativeHarnessNames.ManagedPass);
     if (args.Length != 0)

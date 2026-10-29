@@ -10,6 +10,13 @@ PIN = 'ad05823719d77c8faee87348ea39513d4e2f99c5'
 TOOL = 'tools/Runtime/Erlang.OwnedGuest506Observations'
 WORKFLOWS = ['.github/workflows/owned-guest506-original.yml', '.github/workflows/validate.yml']
 DEPENDENCIES = [
+    'src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeAbiEntryPrefix651.cs',
+    'src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeAbiFunctionLegacy651.cs',
+    'src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeEntryFunctions.cs',
+    'src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeEntryReader.cs',
+    'src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeLoadReason.cs',
+    'src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeLoadReasonKind.cs',
+    'src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeVersion651.cs',
     'src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamFunctionScope.cs',
     'src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamLocalFrame.cs',
     'src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamRegisterState.cs',
@@ -710,6 +717,7 @@ DEPENDENCIES = [
     'tests/Erlang.Tests/Resources/Beam/beam_fixture_closure_changed677.erl',
     'docs/validation/part-541/current-source-freeze-counters683-687.json',
     'docs/validation/part-542-owned-correction/current-source-freeze-parent-counters683.json',
+    'docs/validation/part-542-owned-correction/current-source-freeze-nif543.json',
 ]
 
 

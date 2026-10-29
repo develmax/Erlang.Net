@@ -24,14 +24,24 @@ internal static unsafe class NifNativeEntryFunctions
                     0
                 )
             );
-        if (Marshal.PtrToStringUTF8(entry.Variant) != NifNativeNames.Variant ||
-            entry.FunctionCount < 0 || entry.FunctionCount > 0 && entry.Functions == 0 ||
-            entry.Options != NifNativeAbi.InitializerEntryOptions)
+        if (entry.FunctionCount < 0 || entry.FunctionCount > 0 && entry.Functions == 0)
             throw new NotSupportedException(NifNativeDiagnostics.UnsupportedNativeEntry);
         var functions = new Dictionary<(string Name, int Arity), NifNativeFunction521>();
         for (int index = 0; index < entry.FunctionCount; index++)
         {
-            var function = ((NifNativeAbiFunction*)entry.Functions)[index];
+            NifNativeAbiFunction function;
+            if (entry.Minor >= NifNativeVersion651.FlagsMinor)
+                function = ((NifNativeAbiFunction*)entry.Functions)[index];
+            else
+            {
+                var legacy = ((NifNativeAbiFunctionLegacy651*)entry.Functions)[index];
+                function = new NifNativeAbiFunction
+                {
+                    Name = legacy.Name,
+                    Arity = legacy.Arity,
+                    Function = legacy.Function
+                };
+            }
             string name = ReadLatin1(function.Name);
             if (function.Arity > int.MaxValue)
                 throw FunctionError(

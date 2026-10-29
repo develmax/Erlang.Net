@@ -1,9 +1,10 @@
 """Passive provider/call witnesses; does not infer whole-libc compatibility."""
 from pathlib import Path
-import json
+import argparse,json
 
 R=Path(__file__).resolve().parents[3]
-root=R/'artifacts/linux-callback-pthread-control';expected=['pthread_create','pthread_join','pthread_key_create','pthread_key_delete','pthread_getspecific','pthread_setspecific','__cxa_thread_atexit_impl','pthread_exit']
+parser=argparse.ArgumentParser();parser.add_argument('--capture-root',type=Path,default=R/'artifacts/linux-callback-pthread-control');args=parser.parse_args()
+root=args.capture_root.resolve();assert root.is_relative_to(R/'artifacts');expected=['pthread_create','pthread_join','pthread_key_create','pthread_key_delete','pthread_getspecific','pthread_setspecific','__cxa_thread_atexit_impl','pthread_exit']
 reports=[]
 for route in ['reviewed','ordinary']:
     wrappers=[];base_providers=None

@@ -16,7 +16,8 @@ def verify(repository, expected, manifest_sha):
     tool = root / TOOL
     assert tool == Path(__file__).resolve().parent
     assert subprocess.check_output(['git','--no-optional-locks','-C',str(root),'rev-parse','HEAD'],text=True,timeout=20).strip() == expected
-    assert not os.environ.get('GITHUB_SHA') or os.environ['GITHUB_SHA'] == expected
+    workflow_head = os.environ.get('EXPECTED_HEAD', os.environ.get('GITHUB_SHA'))
+    assert workflow_head is None or workflow_head == expected
     assert digest(tool/'manifest.json') == manifest_sha.upper()
     plan = read(tool/'manifest.json')
     assert plan['PinnedOtpCommit'] == PIN

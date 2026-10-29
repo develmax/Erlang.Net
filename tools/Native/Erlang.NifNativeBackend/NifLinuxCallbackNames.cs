@@ -20,6 +20,11 @@ internal static class NifLinuxCallbackNames
     internal const string SubjectHeadProperty = "SubjectHead";
     internal const string BridgeHashProperty = "BridgeSha256";
     internal const string BridgeBuildStatus = "PASS_OWNED_LINUX_V4_BRIDGE_BUILD";
+    internal const string ReusedBridgeStatus = "PASS_SOURCE_BOUND_N1_BRIDGE_REUSE";
+    internal const string ParentReceiptPath = "ParentBuildReceiptPath";
+    internal const string ParentReceiptHash = "ParentBuildReceiptSha256";
+    internal const string CompileExecuted = "CompileExecuted";
+    internal const string ParentBridgeStatus = "VERSION651_LINUX_BRIDGE_BUILD";
     internal const string NativeBuildStatus = "PASS_OWNED_NATIVE_ENTRY_FIXTURE_BUILD";
     internal const string SourceManifestHashProperty = "SourceManifestSha256";
     internal const string ImagesProperty = "Images";
