@@ -1,0 +1,19 @@
+{
+  "Partial": true,
+  "SelectedCount": 1,
+  "TotalCount": 9380,
+  "Blocks": [],
+  "ExactCases": [
+    "runtime/dictionary635/linear-key-projection-visits"
+  ],
+  "Passed": 0,
+  "Failed": 1,
+  "Tests": [
+    {
+      "Name": "runtime/dictionary635/linear-key-projection-visits",
+      "Status": "Failed",
+      "Error": "System.InvalidOperationException: Dictionary635 N=128, operation=all_keys, actual visits=17938, limit=5376\r\nDictionary635 N=128, operation=matching_keys, actual visits=17940, limit=5376\r\nDictionary635 N=256, operation=all_keys, actual visits=68626, limit=10496\r\nDictionary635 N=256, operation=matching_keys, actual visits=68628, limit=10496\r\nDictionary635 N=512, operation=all_keys, actual visits=268306, limit=20736\r\nDictionary635 N=512, operation=matching_keys, actual visits=268308, limit=20736\r\n   at Erlang.Tests.DictionaryProjection635Checks.Scaling() in D:\\Distr\\Work\\Codex\\Erlang.Net\\w518repair\\tests\\Erlang.Tests\\Runtime\\Storage\\Dictionary\\DictionaryProjection635Checks.cs:line 48\r\n   at Erlang.Tests.DictionaryProjection635Checks.Scaling() in D:\\Distr\\Work\\Codex\\Erlang.Net\\w518repair\\tests\\Erlang.Tests\\Runtime\\Storage\\Dictionary\\DictionaryProjection635Checks.cs:line 48\r\n   at Erlang.Tests.DictionaryProjection635Checks.Scaling() in D:\\Distr\\Work\\Codex\\Erlang.Net\\w518repair\\tests\\Erlang.Tests\\Runtime\\Storage\\Dictionary\\DictionaryProjection635Checks.cs:line 48\r\n   at Program.\u003CMain\u003E$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\w518repair\\tests\\Erlang.Tests\\Harness\\Program.cs:line 7723",
+      "Milliseconds": 1619
+    }
+  ]
+}

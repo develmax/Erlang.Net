@@ -516,6 +516,14 @@ DEPENDENCIES = [
     'tools/Runtime/Erlang.Dictionary537Observations/fixtures/dictionary_keys605_capture631.erl',
     'tools/Runtime/Erlang.Dictionary537Observations/inputs.json',
     'tools/Runtime/Erlang.Dictionary537Observations/run.py',
+    'tests/Erlang.Tests/Runtime/Storage/Dictionary/DictionaryProjection635Checks.cs',
+    'tests/Erlang.Tests/Runtime/Storage/Dictionary/DictionaryProjection635Names.cs',
+    'src/Runtime/Erlang.Runtime.Core/Services/Time/RuntimeTimerCallbackPhase539.cs',
+    'src/Runtime/Erlang.Runtime.Core/Services/Time/RuntimeTimerCallbackPhase539Names.cs',
+    'tests/Erlang.Tests/Runtime/Processes/Timers/TimerCallback539Checks.cs',
+    'tests/Erlang.Tests/Runtime/Processes/Timers/TimerCallback539Names.cs',
+    'tests/Erlang.Tests/Runtime/Storage/Dictionary/DictionaryKeys538Checks.cs',
+    'tests/Erlang.Tests/Runtime/Storage/Dictionary/DictionaryKeys538Names.cs',
 ]
 
 

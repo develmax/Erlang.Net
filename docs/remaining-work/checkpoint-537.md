@@ -1,5 +1,13 @@
 # Checkpoint537 — Dictionary projection and pending timer custody
 
+## PR89 correction — linear dictionary projection
+
+Review 4409102001 confirmed that publishing every growing get_keys prefix repeatedly traversed its tail. Keep the captured guest borrow live, construct one temporary managed spine, then use the existing transactional guest adoption to allocate and publish the final list once. Reverse order, exact filtering and cancellation checks remain; no Host output or incomplete family shortcut is introduced.
+
+A deterministic registry-visit control tests get_keys/0 and matching/missing get_keys/1 at 128/256/512 entries. The actual old path visits 17,938/68,626/268,306 nodes for get_keys/0 (matching adds two); the corrected path visits 1,811/3,603/7,187 (matching adds two), with unchanged 40N+256 limits. These RED/GREEN executions occurred on the broader 538 candidate, explicitly not this scoped 537 tree. Its context hashes and full receipts remain in review-p2-correction. Earlier 265/265 and 108-byte proofs below retain their original source snapshots and are historical for this correction.
+
+The scoped backport changes one production file, two new control files and one registration. No local build or VM execution is claimed for this corrected tree; fresh exact-head full CI and completed review are mandatory. Expected catalog is 9,373; API/full deltas stay 0/0 and counts 708/180/504/24 remain.
+
 Canonical get_keys/0,1 now captures a real temporary guest borrow under the dictionary monitor, then compares values and constructs selected-key result lists outside it. Public registration of the former delegate remains opaque; the negative control uses a genuine resource-bearing key.
 
 Timers prepare the complete reference/destination/wrapped-message graph before runtime publication and detach source wrappers without Host exports. Callbacks suppress inherited ExecutionContext. Cancellation, delivery, recipient exit and VM disposal retain one retirement owner; actual Timer.DisposeAsync precedes final payload release outside runtime/mailbox monitors. The start deadline includes preparation time.
@@ -17,3 +25,5 @@ Counts remain708 registered /180 verified /504 pending /24 known differences; AP
 [Local evidence](../validation/part-537/README.md) · [English changelog0093](../changelog/0093.md) · [24-difference plan](plan-24-after-530.md).
 
 Final source-only provenance: all eight source gates pass. Exact pending membership is 3,922; 2,172 source guards verify every declared byte hash and length, without classification changes. The portable tool and both original fixtures are explicitly admitted and preserve committed bytes on Windows. Parent 535 is merged after authenticated 9,335/0 CI; parent 536 exact-head CI remains pending. This metadata refresh does not rerun or relabel the local execution receipts.
+
+The first PR89 CI (40824949688, head0b84e0b) failed the source-layout gate on six files before the unit-test report was produced. Its authenticated artifact has no tests.json; no full-suite count is inferred. Scoped formatting selects only the26 current537 C# files: seven change (the six CI files plus the new scaling control), and all seven preserve exact Roslyn token kinds/texts, including literals. The existing formatter reports zero remaining layout changes in that selection. Tool source-byte admission is refreshed; no Erlang VM or runtime build was run for this formatting. Fresh exact-head CI remains mandatory.

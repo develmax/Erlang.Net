@@ -1,5 +1,13 @@
 # Implementation plan for the 24 remaining known contract differences
 
+## Part538 current increment
+
+Five resource-bearing canonical key controls and two genuine timer callback phase controls are implemented. Final styled Debug273/273 and Release273/273 each pass in one owned outside-sandbox run; fresh compiled original dictionary/managed replay matches the complete108-byte Outcome in both profiles. Exact Roslyn tokens/literals survive nine formatting changes and SourceLayout is zero. The seven child groups are additional to inherited P2 projection control; expected catalog9,380 is not a local full-suite claim.
+
+The callback seam is optional internal synchronization data, defaultnull; it blocks the real System.Threading.Timer callback only after claim and publication interest outsideR/M. Actual cancellation-after-claim and VM-close retirement are covered for the native family. General monitor/reason/function-image roots, full P4 and all families/races remain open. API/full deltas0/0;708/180/504/24 unchanged. [Checkpoint538](checkpoint-538.md) · [Evidence](../validation/part-538/README.md).
+
+Part537 PR89 correction: the original per-prefix key-list publication was quadratic. One transactional bulk guest adoption and a deterministic 128/256/512 registry-visit control are now integrated. RED/GREEN receipts come from the broader538 candidate, not the scoped537 tree; exact-head CI/review remain mandatory. Earlier265/108 receipts retain their original hashes. Whole P4 and API/full deltas remain open/0.
+
 ### Part537 — completed local dictionary/timer increment
 
 Dictionary-key guest borrows/result lists and detached complete timer graphs are implemented and locally validated: final Debug265/265 and Release265/265, plus fresh original/managed whole108-byte dictionary Outcome equality per profile. Genuine callback retirement is joined before payload release; no public replacement gains canonical authority. Portable required CI gate reuses the existing job/provider; exact-head delivery acceptance remains separate.

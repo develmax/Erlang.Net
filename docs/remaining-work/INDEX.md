@@ -1,5 +1,11 @@
 # Remaining work
 
+## Part538 current increment
+
+Five resource-bearing canonical key controls and two genuine timer callback phase controls are implemented. Final styled Debug273/273 and Release273/273 each pass in one owned outside-sandbox run; fresh compiled original dictionary/managed replay matches the complete108-byte Outcome in both profiles. Exact Roslyn tokens/literals survive nine formatting changes and SourceLayout is zero. The seven child groups are additional to inherited P2 projection control; expected catalog9,380 is not a local full-suite claim.
+
+The callback seam is optional internal synchronization data, defaultnull; it blocks the real System.Threading.Timer callback only after claim and publication interest outsideR/M. Actual cancellation-after-claim and VM-close retirement are covered for the native family. General monitor/reason/function-image roots, full P4 and all families/races remain open. API/full deltas0/0;708/180/504/24 unchanged. [Checkpoint538](checkpoint-538.md) · [Evidence](../validation/part-538/README.md).
+
 ## Current checkpoint537
 
 Canonical dictionary get_keys/0,1 and complete pending timer payload custody pass final Debug265/265 and Release265/265 on identical LF-pinned sources. Each profile also directly matches the complete108-byte dictionary Outcome from fresh admitted original OTP compilation/execution. Corrected native Cancel has meaningful old-storage RED to integrated GREEN; setup failures and sandbox EACCES remain separate. [Checkpoint537](checkpoint-537.md) · [Evidence](../validation/part-537/README.md).
