@@ -1,0 +1,60 @@
+{"Partial":true,"SelectedCount":6,"TotalCount":9319}
+FAIL runtime/counters611/public-receive-callback-host-custody: System.AggregateException: A public counter callback/result did not retain actual Host custody after the last guest root retired. (A public counter callback/result did not retain actual Host custody after the last guest root retired.)
+ ---> System.InvalidOperationException: A public counter callback/result did not retain actual Host custody after the last guest root retired.
+   at Erlang.Tests.CountersPublic611Checks.Require(Boolean value) in D:\Distr\Work\Codex\Erlang.Net\w504\tests\Erlang.Tests\Runtime\Storage\Counters\CountersPublic611Checks.cs:line 159
+   at Erlang.Tests.CountersPublic611Checks.<>c__DisplayClass6_0.<<Run>b__0>d.MoveNext() in D:\Distr\Work\Codex\Erlang.Net\w504\tests\Erlang.Tests\Runtime\Storage\Counters\CountersPublic611Checks.cs:line 118
+   --- End of inner exception stack trace ---
+   at Erlang.Tests.CountersPublic611Checks.<>c__DisplayClass6_0.<<Run>b__0>d.MoveNext() in D:\Distr\Work\Codex\Erlang.Net\w504\tests\Erlang.Tests\Runtime\Storage\Counters\CountersPublic611Checks.cs:line 154
+--- End of stack trace from previous location ---
+   at Erlang.Tests.CountersCustody596Checks.Run(Func`2 body) in D:\Distr\Work\Codex\Erlang.Net\w504\tests\Erlang.Tests\Runtime\Storage\Counters\CountersCustody596Checks.cs:line 66
+   at Erlang.Tests.CountersCustody596Checks.Run(Func`2 body) in D:\Distr\Work\Codex\Erlang.Net\w504\tests\Erlang.Tests\Runtime\Storage\Counters\CountersCustody596Checks.cs:line 76
+   at Program.<Main>$(String[] args) in D:\Distr\Work\Codex\Erlang.Net\w504\tests\Erlang.Tests\Harness\Program.cs:line 7664
+FAIL runtime/counters611/public-receive-returned-host-custody: System.AggregateException: A public counter callback/result did not retain actual Host custody after the last guest root retired. (A public counter callback/result did not retain actual Host custody after the last guest root retired.)
+ ---> System.InvalidOperationException: A public counter callback/result did not retain actual Host custody after the last guest root retired.
+   at Erlang.Tests.CountersPublic611Checks.Require(Boolean value) in D:\Distr\Work\Codex\Erlang.Net\w504\tests\Erlang.Tests\Runtime\Storage\Counters\CountersPublic611Checks.cs:line 159
+   at Erlang.Tests.CountersPublic611Checks.<>c__DisplayClass6_0.<<Run>b__0>d.MoveNext() in D:\Distr\Work\Codex\Erlang.Net\w504\tests\Erlang.Tests\Runtime\Storage\Counters\CountersPublic611Checks.cs:line 118
+   --- End of inner exception stack trace ---
+   at Erlang.Tests.CountersPublic611Checks.<>c__DisplayClass6_0.<<Run>b__0>d.MoveNext() in D:\Distr\Work\Codex\Erlang.Net\w504\tests\Erlang.Tests\Runtime\Storage\Counters\CountersPublic611Checks.cs:line 154
+--- End of stack trace from previous location ---
+   at Erlang.Tests.CountersCustody596Checks.Run(Func`2 body) in D:\Distr\Work\Codex\Erlang.Net\w504\tests\Erlang.Tests\Runtime\Storage\Counters\CountersCustody596Checks.cs:line 66
+   at Erlang.Tests.CountersCustody596Checks.Run(Func`2 body) in D:\Distr\Work\Codex\Erlang.Net\w504\tests\Erlang.Tests\Runtime\Storage\Counters\CountersCustody596Checks.cs:line 76
+   at Program.<Main>$(String[] args) in D:\Distr\Work\Codex\Erlang.Net\w504\tests\Erlang.Tests\Harness\Program.cs:line 7664
+FAIL runtime/counters611/public-mailbox-snapshot-host-custody: System.AggregateException: A public counter callback/result did not retain actual Host custody after the last guest root retired. (A public counter callback/result did not retain actual Host custody after the last guest root retired.)
+ ---> System.InvalidOperationException: A public counter callback/result did not retain actual Host custody after the last guest root retired.
+   at Erlang.Tests.CountersPublic611Checks.Require(Boolean value) in D:\Distr\Work\Codex\Erlang.Net\w504\tests\Erlang.Tests\Runtime\Storage\Counters\CountersPublic611Checks.cs:line 159
+   at Erlang.Tests.CountersPublic611Checks.<>c__DisplayClass6_0.<<Run>b__0>d.MoveNext() in D:\Distr\Work\Codex\Erlang.Net\w504\tests\Erlang.Tests\Runtime\Storage\Counters\CountersPublic611Checks.cs:line 118
+   --- End of inner exception stack trace ---
+   at Erlang.Tests.CountersPublic611Checks.<>c__DisplayClass6_0.<<Run>b__0>d.MoveNext() in D:\Distr\Work\Codex\Erlang.Net\w504\tests\Erlang.Tests\Runtime\Storage\Counters\CountersPublic611Checks.cs:line 154
+--- End of stack trace from previous location ---
+   at Erlang.Tests.CountersCustody596Checks.Run(Func`2 body) in D:\Distr\Work\Codex\Erlang.Net\w504\tests\Erlang.Tests\Runtime\Storage\Counters\CountersCustody596Checks.cs:line 66
+   at Erlang.Tests.CountersCustody596Checks.Run(Func`2 body) in D:\Distr\Work\Codex\Erlang.Net\w504\tests\Erlang.Tests\Runtime\Storage\Counters\CountersCustody596Checks.cs:line 76
+   at Program.<Main>$(String[] args) in D:\Distr\Work\Codex\Erlang.Net\w504\tests\Erlang.Tests\Harness\Program.cs:line 7664
+FAIL runtime/counters611/public-process-info-messages-host-custody: System.AggregateException: A public counter callback/result did not retain actual Host custody after the last guest root retired. (The operation has timed out.)
+ ---> System.TimeoutException: The operation has timed out.
+   at Erlang.Tests.CountersPublic611Checks.<>c__DisplayClass6_0.<<Run>b__0>d.MoveNext() in D:\Distr\Work\Codex\Erlang.Net\w504\tests\Erlang.Tests\Runtime\Storage\Counters\CountersPublic611Checks.cs:line 132
+   --- End of inner exception stack trace ---
+   at Erlang.Tests.CountersPublic611Checks.<>c__DisplayClass6_0.<<Run>b__0>d.MoveNext() in D:\Distr\Work\Codex\Erlang.Net\w504\tests\Erlang.Tests\Runtime\Storage\Counters\CountersPublic611Checks.cs:line 154
+--- End of stack trace from previous location ---
+   at Erlang.Tests.CountersCustody596Checks.Run(Func`2 body) in D:\Distr\Work\Codex\Erlang.Net\w504\tests\Erlang.Tests\Runtime\Storage\Counters\CountersCustody596Checks.cs:line 66
+   at Erlang.Tests.CountersCustody596Checks.Run(Func`2 body) in D:\Distr\Work\Codex\Erlang.Net\w504\tests\Erlang.Tests\Runtime\Storage\Counters\CountersCustody596Checks.cs:line 76
+   at Program.<Main>$(String[] args) in D:\Distr\Work\Codex\Erlang.Net\w504\tests\Erlang.Tests\Harness\Program.cs:line 7664
+FAIL runtime/counters611/public-process-info-full-host-custody: System.AggregateException: A public counter callback/result did not retain actual Host custody after the last guest root retired. (A public counter callback/result did not retain actual Host custody after the last guest root retired.)
+ ---> System.InvalidOperationException: A public counter callback/result did not retain actual Host custody after the last guest root retired.
+   at Erlang.Tests.CountersPublic611Checks.Require(Boolean value) in D:\Distr\Work\Codex\Erlang.Net\w504\tests\Erlang.Tests\Runtime\Storage\Counters\CountersPublic611Checks.cs:line 159
+   at Erlang.Tests.CountersPublic611Checks.<>c__DisplayClass6_0.<<Run>b__0>d.MoveNext() in D:\Distr\Work\Codex\Erlang.Net\w504\tests\Erlang.Tests\Runtime\Storage\Counters\CountersPublic611Checks.cs:line 96
+   --- End of inner exception stack trace ---
+   at Erlang.Tests.CountersPublic611Checks.<>c__DisplayClass6_0.<<Run>b__0>d.MoveNext() in D:\Distr\Work\Codex\Erlang.Net\w504\tests\Erlang.Tests\Runtime\Storage\Counters\CountersPublic611Checks.cs:line 154
+--- End of stack trace from previous location ---
+   at Erlang.Tests.CountersCustody596Checks.Run(Func`2 body) in D:\Distr\Work\Codex\Erlang.Net\w504\tests\Erlang.Tests\Runtime\Storage\Counters\CountersCustody596Checks.cs:line 66
+   at Erlang.Tests.CountersCustody596Checks.Run(Func`2 body) in D:\Distr\Work\Codex\Erlang.Net\w504\tests\Erlang.Tests\Runtime\Storage\Counters\CountersCustody596Checks.cs:line 76
+   at Program.<Main>$(String[] args) in D:\Distr\Work\Codex\Erlang.Net\w504\tests\Erlang.Tests\Harness\Program.cs:line 7664
+FAIL runtime/counters611/public-process-info-list-host-custody: System.AggregateException: A public counter callback/result did not retain actual Host custody after the last guest root retired. (The operation has timed out.)
+ ---> System.TimeoutException: The operation has timed out.
+   at Erlang.Tests.CountersPublic611Checks.<>c__DisplayClass6_0.<<Run>b__0>d.MoveNext() in D:\Distr\Work\Codex\Erlang.Net\w504\tests\Erlang.Tests\Runtime\Storage\Counters\CountersPublic611Checks.cs:line 132
+   --- End of inner exception stack trace ---
+   at Erlang.Tests.CountersPublic611Checks.<>c__DisplayClass6_0.<<Run>b__0>d.MoveNext() in D:\Distr\Work\Codex\Erlang.Net\w504\tests\Erlang.Tests\Runtime\Storage\Counters\CountersPublic611Checks.cs:line 154
+--- End of stack trace from previous location ---
+   at Erlang.Tests.CountersCustody596Checks.Run(Func`2 body) in D:\Distr\Work\Codex\Erlang.Net\w504\tests\Erlang.Tests\Runtime\Storage\Counters\CountersCustody596Checks.cs:line 66
+   at Erlang.Tests.CountersCustody596Checks.Run(Func`2 body) in D:\Distr\Work\Codex\Erlang.Net\w504\tests\Erlang.Tests\Runtime\Storage\Counters\CountersCustody596Checks.cs:line 76
+   at Program.<Main>$(String[] args) in D:\Distr\Work\Codex\Erlang.Net\w504\tests\Erlang.Tests\Harness\Program.cs:line 7664
+0/6 passed

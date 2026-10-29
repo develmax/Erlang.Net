@@ -84,6 +84,10 @@ internal static class DebugDirtyTermCopy424
 
                 return slice.Backing is null ? new BitString(binary.ToArray(), binary.BitLength)
                     : slice.Backing.Materialize(slice.BitOffset, slice.BitLength);
+            case ResourceReferenceTerm { ResourceKind: ReferenceResourceKind.Counters421 } counters:
+                _ = CountersRoots596.Direct596(counters, runtime);
+
+                return CountersRoots596.HostCopy596(counters, transaction);
             case ResourceReferenceTerm { ResourceKind: ReferenceResourceKind.Atomics413 } atomics:
                 // A copied wrapper owns actual backing custody; the registry
                 // Entry deliberately owns neither a Host nor a Guest root.

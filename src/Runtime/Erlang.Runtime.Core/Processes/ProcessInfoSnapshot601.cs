@@ -28,13 +28,13 @@ internal sealed class ProcessInfoSnapshot601 : IDisposable
 
         // Ordinary snapshots already contain portable values. Avoid changing
         // public callback/term identity through an unnecessary whole-graph copy.
-        if (!NativeResourceRoots524.Contains524(Value) && !AtomicsRoots586.Contains586(Value)) return Value;
+        if (!ResourceHostCopy611.Requires(Value)) return Value;
 
         return AtomicsHostAggregate594.Publish(transaction =>
         {
             Term Export(Term value)
             {
-                if (!NativeResourceRoots524.Contains524(value) && !AtomicsRoots586.Contains586(value)) return value;
+                if (!ResourceHostCopy611.Requires(value)) return value;
                 Term portable = OwnedTermDetachedCopy506.CopyAtomics586(
                     runtime,
                     value,
@@ -53,7 +53,7 @@ internal sealed class ProcessInfoSnapshot601 : IDisposable
                 if (field is TupleTerm { Items.Count: 2 } pair
                     && pair.Items[0] is Atom { Name: ProcessInfoNames.Messages })
                 {
-                    if (!NativeResourceRoots524.Contains524(pair.Items[1]) && !AtomicsRoots586.Contains586(pair.Items[1])) return pair;
+                    if (!ResourceHostCopy611.Requires(pair.Items[1])) return pair;
 
                     return Term.Tuple(pair.Items[0], Cons.From(Cons.Items(pair.Items[1]).Select(Export)));
                 }
@@ -91,7 +91,62 @@ internal sealed class ProcessInfoSnapshot601 : IDisposable
         }
     }
 
-    public void Dispose() => Interlocked.Exchange(ref messages, null)?.Dispose();
+    internal AtomicsHostCopyTransaction591 CreateDictionaryHostCopies611()
+    {
+        var copies = new AtomicsHostCopyTransaction591();
+        // Allocations occur before this holder owns any native Host ticket.
+        // Capture is serialized before publication; origin disposal begins only
+        // after capture completes or records its failure.
+        var node = new DictionaryHostCopies611(copies, dictionaryHostCopies611);
+        dictionaryHostCopies611 = node;
+
+        return copies;
+    }
+
+    public void Dispose()
+    {
+        MailboxSnapshot601? capturedMessages = Interlocked.Exchange(ref messages, null);
+        DictionaryHostCopies611? copies = Interlocked.Exchange(ref dictionaryHostCopies611, null);
+        Exception? messageFailure = null;
+        try
+        {
+            capturedMessages?.Dispose();
+        }
+        catch (Exception error)
+        {
+            messageFailure = error;
+        }
+        bool copyFailure = false;
+        for (DictionaryHostCopies611? node = copies; node is not null; node = node.Next)
+            try
+            {
+                node.Copies.Dispose();
+            }
+            catch (Exception error)
+            {
+                node.Failure = error;
+                copyFailure = true;
+            }
+        // No error aggregation allocation can prevent an independent release.
+        if (messageFailure is not null || copyFailure)
+            throw new AggregateException(Failures611(messageFailure, copies));
+    }
+
+    private static IEnumerable<Exception> Failures611(Exception? messageFailure, DictionaryHostCopies611? copies)
+    {
+        if (messageFailure is not null) yield return messageFailure;
+        for (DictionaryHostCopies611? node = copies; node is not null; node = node.Next)
+            if (node.Failure is { } failure) yield return failure;
+    }
+
+    private sealed class DictionaryHostCopies611(AtomicsHostCopyTransaction591 copies, DictionaryHostCopies611? next)
+    {
+        internal AtomicsHostCopyTransaction591 Copies { get; } = copies;
+        internal DictionaryHostCopies611? Next { get; } = next;
+        internal Exception? Failure { get; set; }
+    }
+
+    private DictionaryHostCopies611? dictionaryHostCopies611;
 
     private MailboxSnapshot601? messages;
 }

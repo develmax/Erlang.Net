@@ -41,6 +41,7 @@ internal sealed class ProcessBinaryRegistry512
         var backings = new Dictionary<object, BinaryPayloadHandle512>(ReferenceEqualityComparer.Instance);
         HashSet<NativeResourcePayload524>? native = null;
         HashSet<AtomicsGuestRoot413>? atomics586 = null;
+        HashSet<CountersGuestRoot421>? counters596 = null;
         long visits = 0;
         var pending = new Stack<Term>();
         pending.Push(graph);
@@ -57,6 +58,9 @@ internal sealed class ProcessBinaryRegistry512
             if (AtomicsRoots586.Direct586(value, (owner as ProcessTermHeap506)?.Runtime524) is { } atomics
                 && !ProcessTermHeap506.HasOwnedMagicReference576(value))
                 (atomics586 ??= new(ReferenceEqualityComparer.Instance)).Add(atomics);
+            if (CountersRoots596.Direct596(value, (owner as ProcessTermHeap506)?.Runtime524) is { } counters
+                && !ProcessTermHeap506.HasOwnedMagicReference576(value))
+                (counters596 ??= new(ReferenceEqualityComparer.Instance)).Add(counters);
             if (value is BitString binary)
             {
                 BinaryPayloadHandle512 handle = binary.CaptureBinaryPayload512();
@@ -66,7 +70,7 @@ internal sealed class ProcessBinaryRegistry512
                 foreach (Term child in NativeMapOwnedRoots510.Children(value))
                     pending.Push(child);
         }
-        var retained = new IDisposable[(native?.Count ?? 0) + (atomics586?.Count ?? 0)];
+        var retained = new IDisposable[(native?.Count ?? 0) + (atomics586?.Count ?? 0) + (counters596?.Count ?? 0)];
         int admitted = 0;
         ProcessBinaryLease512 lease;
         try
@@ -75,6 +79,8 @@ internal sealed class ProcessBinaryRegistry512
                 foreach (NativeResourcePayload524 payload in native) retained[admitted++] = payload.RetainRoot524();
             if (atomics586 is not null)
                 foreach (AtomicsGuestRoot413 root in atomics586) retained[admitted++] = root.RetainGuest586();
+            if (counters596 is not null)
+                foreach (CountersGuestRoot421 root in counters596) retained[admitted++] = root.RetainGuest596();
             lease = new ProcessBinaryLease512(
                 this,
                 owner,

@@ -13,6 +13,8 @@ internal static class CountersOriginal421Checks
         var errors = new List<object>();
         ProcessRuntime? runtime = null;
         RuntimeNodeFoundationHostActor? actor = null;
+        string? expectedPrefix = null;
+        object? actualProfile = null;
         try
         {
             runtime = new ProcessRuntime(1);
@@ -32,6 +34,22 @@ internal static class CountersOriginal421Checks
             });
             actor = new RuntimeNodeFoundationHostActor(owner);
             RuntimeNodeFoundationHostActor caller = actor;
+            _ = await caller.InvokeAsync(async context =>
+            {
+                var profile = await CountersOriginal616Profile.Select(context);
+                expectedPrefix = profile.Prefix;
+                actualProfile = new
+                {
+                    profile.DebugCompiled,
+                    profile.WordSize,
+                    profile.Schedulers,
+                    profile.Online,
+                    profile.DebugHeader,
+                    ExpectedResourcePrefix = profile.Prefix
+                };
+
+                return Nil.Value;
+            });
 
             async Task Capture(string function, string file)
             {
@@ -92,7 +110,8 @@ internal static class CountersOriginal421Checks
         var raw = new Dictionary<string, bool>();
         foreach (string file in new[] { CountersOriginal421Names.Values, CountersOriginal421Names.StackValues })
         {
-            byte[] bytes = CountersOriginal421Access.Resource(file);
+            if (expectedPrefix is null) continue;
+            byte[] bytes = CountersOriginal421Access.ProfileResource616(file, expectedPrefix);
             Term expected = OwnedFunctionOriginal407Terms.Decode(bytes);
             File.WriteAllBytes(Path.Combine(output, CountersOriginal421Names.Expected + file), bytes);
             File.WriteAllText(
@@ -124,6 +143,7 @@ internal static class CountersOriginal421Checks
             Path.Combine(output, CountersOriginal421Names.Receipt),
             JsonSerializer.Serialize(new
             {
+                ActualRuntimeProfile = actualProfile,
                 Expected = CountersOriginal421Names.WholeRows,
                 Examined = examined,
                 Equal = equal,

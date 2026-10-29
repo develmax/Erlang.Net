@@ -110,7 +110,7 @@ internal sealed class RuntimeInitializer(ProcessContext context)
         catch (ProcessHaltTransfer transfer) when (ReferenceEquals(transfer.Runtime, context.Runtime))
         {
         }
-        catch (OperationCanceledException) when (context.Cancellation.IsCancellationRequested)
+        catch (OperationCanceledException) when (context.Terminated || context.Cancellation.IsCancellationRequested)
         {
         }
         finally

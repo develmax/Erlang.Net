@@ -231,7 +231,7 @@ def main():
                     shutil.copyfile(tool/'fixtures'/name, directory/name)
                 stock588 = None
                 if row.get('StockModules588'):
-                    require(args.compiled_worker and row.get('OptInOnly') and job == 'atomics-magic586'
+                    require(args.compiled_worker and row.get('OptInOnly') and job in ('atomics-magic586', 'counters-family596')
                             and row['StockModules588'] == ['atomics', 'counters'], 'Unsupported stock-owner profile')
                     stock588 = load('stock_owners588', tool/'stock-owners588.py')
                     stock588.prepare(installed, directory, row['StockModules588'], source_built=args.build_receipt is not None)

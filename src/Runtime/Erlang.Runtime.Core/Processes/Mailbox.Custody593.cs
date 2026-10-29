@@ -35,7 +35,7 @@ public sealed partial class Mailbox
         if (Runtime593 is not { MessageSnapshotRouteReady593: true } runtime)
             return value;
 
-        if (!NativeResourceRoots524.Contains524(value) && !AtomicsRoots586.Contains586(value))
+        if (!ResourceHostCopy611.Requires(value))
             return value;
 
         return AtomicsHostAggregate594.Publish(transaction => OpaqueCandidate593(value, transaction));
@@ -46,7 +46,7 @@ public sealed partial class Mailbox
         if (Runtime593 is not { MessageSnapshotRouteReady593: true } runtime)
             return value;
 
-        if (!NativeResourceRoots524.Contains524(value) && !AtomicsRoots586.Contains586(value))
+        if (!ResourceHostCopy611.Requires(value))
             return value;
 
         Term portable = OwnedTermDetachedCopy506.CopyAtomics586(

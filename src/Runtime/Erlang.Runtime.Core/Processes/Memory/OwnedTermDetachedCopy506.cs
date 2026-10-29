@@ -70,7 +70,7 @@ internal static class OwnedTermDetachedCopy506
             // No allocation and no extra traversal for ordinary non-atomics
             // copies or internal guest/store copies with host export disabled.
             if (hostExport && hostCopies591 is null
-                && frame.Source is ResourceReferenceTerm { ResourceKind: ReferenceResourceKind.Atomics413 })
+                && frame.Source is ResourceReferenceTerm { ResourceKind: ReferenceResourceKind.Atomics413 or ReferenceResourceKind.Counters421 })
                 hostCopies591 = new AtomicsHostCopyTransaction591();
             Term copy = frame.NativeMap is { } nativeMap
                 ? nativeMap.Build(frame.Copied) : Build(
@@ -173,6 +173,8 @@ internal static class OwnedTermDetachedCopy506
                 return slice.Backing is null ? new BitString(binary.ToArray(), binary.BitLength)
                     : slice.Backing.Materialize(slice.BitOffset, slice.BitLength);
             case ResourceReferenceTerm resource:
+                if (exportHostAtomics586 && resource.ResourceKind == ReferenceResourceKind.Counters421)
+                    return CountersRoots596.HostCopy596(resource, hostCopies591);
                 if (exportHostAtomics586 && resource.ResourceKind == ReferenceResourceKind.Atomics413)
                     return AtomicsRoots586.HostCopy586(resource, hostCopies591);
 

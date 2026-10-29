@@ -1,0 +1,19 @@
+{
+  "Partial": true,
+  "SelectedCount": 1,
+  "TotalCount": 9323,
+  "Blocks": [],
+  "ExactCases": [
+    "oracle/compiled-module/counters421-all192-full-typed-raw"
+  ],
+  "Passed": 0,
+  "Failed": 1,
+  "Tests": [
+    {
+      "Name": "oracle/compiled-module/counters421-all192-full-typed-raw",
+      "Status": "Failed",
+      "Error": "System.InvalidOperationException: Original internal owner-backed native cohort differs; inspect full raw and typed observations\r\n   at Erlang.Tests.CountersOriginal421Access.Require(Boolean value) in D:\\Distr\\Work\\Codex\\Erlang.Net\\w504\\tests\\Erlang.Tests\\Runtime\\Storage\\Atomics\\CountersOriginal421Access.cs:line 10\r\n   at Erlang.Tests.CountersOriginal421Checks.Run() in D:\\Distr\\Work\\Codex\\Erlang.Net\\w504\\tests\\Erlang.Tests\\Runtime\\Storage\\Atomics\\CountersOriginal421Checks.cs:line 141\r\n   at Program.\u003CMain\u003E$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\w504\\tests\\Erlang.Tests\\Harness\\Program.cs:line 7668",
+      "Milliseconds": 400
+    }
+  ]
+}

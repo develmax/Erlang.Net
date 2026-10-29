@@ -100,8 +100,8 @@ public sealed partial class RuntimeReferenceResources
     internal ReferenceTerm Rehydrate(ReferenceTerm reference, LocalNodeSnapshot wire)
     {
         ArgumentNullException.ThrowIfNull(reference);
-        ResourceReferenceTerm? atomics = null;
-        AtomicsBackingLease586? producer = null;
+        ResourceReferenceTerm? selected = null;
+        IDisposable? producer = null;
         ReferenceTerm restored;
         lock (gate)
         {
@@ -111,12 +111,14 @@ public sealed partial class RuntimeReferenceResources
                 && (reference.Words[1] & ReferenceNumberLayout.MagicMarker) != 0
                 && entries.TryGetValue(restored, out var weak) && weak.TryGetTarget(out var entry) && entry.Published && entry.IsAlive)
             {
-                if (entry.Kind != ReferenceResourceKind.Atomics413)
-                    return new ResourceReferenceTerm(entry);
-                AtomicsGuestRoot413 root = entry.Read<AtomicsGuestRoot413>();
                 try
                 {
-                    producer = root.Array.RetainBacking586(AtomicsLeaseKind586.Producer);
+                    if (entry.Kind == ReferenceResourceKind.Atomics413)
+                        producer = entry.Read<AtomicsGuestRoot413>().Array.RetainBacking586(AtomicsLeaseKind586.Producer);
+                    else if (entry.Kind == ReferenceResourceKind.Counters421)
+                        producer = entry.Read<CountersGuestRoot421>().Array.RetainBacking596(CountersLeaseKind596.Producer);
+                    else
+                        return new ResourceReferenceTerm(entry);
                 }
                 catch (ObjectDisposedException)
                 {
@@ -124,19 +126,22 @@ public sealed partial class RuntimeReferenceResources
                 }
                 try
                 {
-                    atomics = new ResourceReferenceTerm(entry);
+                    selected = new ResourceReferenceTerm(entry);
                 }
                 catch
                 {
-                    producer.Dispose();
+                    producer!.Dispose();
                     throw;
                 }
             }
         }
-        if (atomics is null)
+        if (selected is null)
             return restored;
+        // No registry gate is held across guest-heap publication or host acquisition.
         using (producer)
-            return OwnedTermInvocation506.AdmitRehydratedAtomics586(atomics, atomics.AtomicsBacking586!);
+            return selected.CountersBacking596 is { } counters
+                ? OwnedTermInvocation506.AdmitRehydratedCounters596(selected, counters)
+                : OwnedTermInvocation506.AdmitRehydratedAtomics586(selected, selected.AtomicsBacking586!);
     }
 
     internal void Save(ReferenceResourceEntry entry)

@@ -85,7 +85,11 @@ internal static class CountersHost421Checks
             reference
         );
         CountersHost421Access.Require(info.TryGet(Term.A(CountersHost421Names.Memory), out var memory)
-            && memory!.Equals(new Integer(runtime.CountersStorage421.OwnedNativeBytes)));
+            && memory is Integer originalBytes
+            && originalBytes.Value + System.Runtime.InteropServices.Marshal.OffsetOf(
+                typeof(ProcessRuntime).Assembly.GetType(CountersPrefix591Names.PrefixType, true)!,
+                CountersPrefix591Names.DestructorField
+            ).ToInt64() == runtime.CountersStorage421.OwnedNativeBytes);
         foreach (Term index in new Term[] { Term.I(0), Term.I(-1), Term.I(10), Nil.Value, new Integer(BigInteger.One << 64) })
             await CountersHost421Access.BadArgument(
                 actor,
@@ -281,7 +285,13 @@ internal static class CountersHost421Checks
                     }
                     using var stop = new CancellationTokenSource(CountersHost421Names.Deadline);
                     while (!runtime.CountersStorage421.Closed) await Task.Delay(1, stop.Token);
-                    CountersHost421Access.Require(!closing.IsCompleted && !actor.Process.Completion.IsCompleted);
+                    // Global invocation and actual array pins have different
+                    // actor-retirement dependencies. Both must keep their real
+                    // VM resource alive until this held lease is released.
+                    var heldReport = runtime.CountersStorage421;
+                    CountersHost421Access.Require(!closing.IsCompleted
+                        && (invocation ? heldReport.ActiveInvocations > 0
+                            : heldReport.LiveArrays > 0 && heldReport.OwnedNativeBytes > 0));
                     held.Dispose();
                     held = null;
                     await closing.WaitAsync(CountersHost421Names.Deadline);

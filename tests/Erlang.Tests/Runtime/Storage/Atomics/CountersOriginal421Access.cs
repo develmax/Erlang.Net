@@ -10,11 +10,13 @@ internal static class CountersOriginal421Access
         if (!value) throw new InvalidOperationException(CountersOriginal421Names.Failure);
     }
 
-    internal static byte[] Resource(string name)
+    internal static byte[] Resource(string name) => ProfileResource616(name, CountersOriginal421Names.Prefix);
+
+    internal static byte[] ProfileResource616(string name, string prefix)
     {
         byte[] Read(string file)
         {
-            using var input = typeof(CountersOriginal421Access).Assembly.GetManifestResourceStream(CountersOriginal421Names.Prefix + file)!;
+            using var input = typeof(CountersOriginal421Access).Assembly.GetManifestResourceStream(prefix + file)!;
             using var output = new MemoryStream();
             input.CopyTo(output);
 

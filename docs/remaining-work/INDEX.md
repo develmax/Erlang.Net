@@ -1,6 +1,12 @@
 # Remaining work
 
-## Current checkpoint524
+## Current checkpoint534
+
+PR86 corrections pass64/64 selected groups in both Debug and Release, including all54 prior names and10 added review/termination groups. Genuine original counters610 ordinary/private2/2 and actual published TestAnalysis2463 outcomes/233 checks/91 assets plus Dispose pass. Authentic Debug counters421 acquisition matches both complete raw streams; actual runtime profile selects independent OPT/Debug fixtures with all192 comparisons preserved. Seven missing public counters predicates, fresh intermediate dictionary Host-ticket ownership and initializer close/cancel ordering are fixed. [Correction evidence](../validation/part-534-review86/README.md) · [Checkpoint](checkpoint-534.md) · [English log](../changelog/0093.md).
+
+Exact updated-head CI, completed current review and merge remain gates. Counts708 registered /180 verified /504 pending /24 known differences, deltas0/0. Prepared regex535 and binary536 source-only packets are next, followed by general roots and physical policy accounting; unexecuted packets grant no compatibility credit. [Detailed24-contract plan](plan-24-after-530.md).
+
+## Prior checkpoint524
 
 See [checkpoint524](checkpoint-524.md): actual bignum slab storage and corrected nested immediate transfer;428/428 development affected controls pass. Publication408/408 +1readiness, original bignum2/2 +float2/2 +native4/4 and source seals pass; exact publication-head CI remains required. Counts unchanged708/180full/504pending/24known.
 

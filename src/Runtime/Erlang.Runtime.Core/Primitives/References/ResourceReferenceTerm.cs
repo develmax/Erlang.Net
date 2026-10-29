@@ -7,6 +7,7 @@ public sealed class ResourceReferenceTerm : ReferenceTerm, IReferenceResourceSer
     {
         Entry = entry;
         AtomicsBacking586 = ReadAtomicsBacking586(entry);
+        CountersBacking596 = ReadCountersBacking596(entry);
     }
 
     internal ResourceReferenceTerm(ReferenceResourceEntry entry, ProcessTermSequence506 storage)
@@ -14,6 +15,7 @@ public sealed class ResourceReferenceTerm : ReferenceTerm, IReferenceResourceSer
     {
         Entry = entry;
         AtomicsBacking586 = ReadAtomicsBacking586(entry);
+        CountersBacking596 = ReadCountersBacking596(entry);
     }
 
     internal ResourceReferenceTerm(ReferenceResourceEntry entry, ReferenceTerm portableIdentity)
@@ -21,6 +23,7 @@ public sealed class ResourceReferenceTerm : ReferenceTerm, IReferenceResourceSer
     {
         Entry = entry;
         AtomicsBacking586 = ReadAtomicsBacking586(entry);
+        CountersBacking596 = ReadCountersBacking596(entry);
     }
 
     internal ReferenceResourceEntry Entry { get; }
@@ -35,6 +38,18 @@ public sealed class ResourceReferenceTerm : ReferenceTerm, IReferenceResourceSer
 
     private static AtomicsGuestRoot413? ReadAtomicsBacking586(ReferenceResourceEntry entry)
         => entry.Kind == ReferenceResourceKind.Atomics413 ? entry.Read<AtomicsGuestRoot413>() : null;
+
+    internal CountersGuestRoot421? CountersBacking596 { get; }
+    internal CountersHostCustody596? CountersHost596 { get; }
+
+    internal ResourceReferenceTerm(ReferenceResourceEntry entry, ReferenceTerm identity, CountersHostCustody596 host)
+        : this(entry, identity)
+    {
+        CountersHost596 = host;
+    }
+
+    private static CountersGuestRoot421? ReadCountersBacking596(ReferenceResourceEntry entry)
+        => entry.Kind == ReferenceResourceKind.Counters421 ? entry.Read<CountersGuestRoot421>() : null;
 
     public ReferenceResourceKind ResourceKind => Entry.Kind;
 
