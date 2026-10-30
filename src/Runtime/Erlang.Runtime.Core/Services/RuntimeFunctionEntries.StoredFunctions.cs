@@ -8,7 +8,10 @@ public sealed partial class RuntimeFunctionEntries
 
     // Compiler is a reviewed friend assembly. No public SDK registration path.
     internal void RegisterStoredSource(FunctionTerm function, IRuntimeStoredFunctionRecipe recipe)
-        => storedSources.Add(function, recipe);
+    {
+        storedSources.Add(function, recipe);
+        function.MarkRuntimeLocalTransferDescriptor();
+    }
 
     internal bool TryCaptureStored(FunctionTerm function, out IRuntimeStoredFunctionRecipe? recipe)
     {

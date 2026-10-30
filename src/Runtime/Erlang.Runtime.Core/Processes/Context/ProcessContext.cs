@@ -50,10 +50,6 @@ public sealed partial class ProcessContext : ITermExecutionContext
 
     internal volatile DistributionSignalDrain? DeferredSignalDrain;
     internal CancellationTokenSource Stop { get; } = new();
-    internal Pid GroupLeader
-    {
-        get; set;
-    }
     internal TaskCompletionSource<Term> Done { get; } = new(TaskCreationOptions.RunContinuationsAsynchronously);
     internal TaskCompletionSource Unwound { get; } = new(TaskCreationOptions.RunContinuationsAsynchronously);
     internal HashSet<Pid> Links { get; } = new();

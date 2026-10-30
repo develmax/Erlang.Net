@@ -4,7 +4,7 @@ public static class BinaryWrappersModule
 {
     public static void Register(ModuleRegistry registry)
     {
-        registry.Register(
+        registry.RegisterCanonicalRuntimeRead535(
             BinaryModuleNames.Module,
             BinaryModuleNames.Replace,
             3,
@@ -17,7 +17,7 @@ public static class BinaryWrappersModule
                 true
             )
         );
-        registry.Register(
+        registry.RegisterCanonicalRuntimeRead535(
             BinaryModuleNames.Module,
             BinaryModuleNames.Replace,
             4,

@@ -51,7 +51,7 @@ def main():
             stage([tools['readelf'],'-h','-Ws','-d',library],d,'elf')
             need({line.split()[0].split('@')[0] for line in (d/'exports.stdout').read_text().splitlines() if line.split()}=={'nif_init'},'Exact entry export')
             imports={line.split()[0].split('@')[0] for line in (d/'imports.stdout').read_text().splitlines() if line.split()}
-            allowed={'enif_alloc','enif_free','enif_alloc_env','enif_free_env','enif_make_copy','enif_get_tuple','enif_get_string','enif_get_int','enif_priv_data','enif_make_int','enif_make_uint','enif_make_atom','enif_make_tuple','enif_make_tuple_from_array'}
+            allowed={'enif_alloc','enif_free','enif_alloc_env','enif_free_env','enif_make_copy','enif_make_badarg','enif_get_tuple','enif_get_string','enif_get_int','enif_priv_data','enif_make_int','enif_make_uint','enif_make_atom','enif_make_tuple','enif_make_tuple_from_array'}
             need({name for name in imports if name.startswith('enif_')}<=allowed,'Unexpected NIF import')
             raw=library.read_bytes();need(raw[:6]==b'\x7fELF\x02\x01' and int.from_bytes(raw[18:20],'little')==62,'ELF x64')
         else:

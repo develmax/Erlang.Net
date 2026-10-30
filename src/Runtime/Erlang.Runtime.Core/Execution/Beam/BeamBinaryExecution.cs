@@ -80,7 +80,7 @@ internal static class BeamBinaryExecution
                     if (value is not BitString binary)
                         throw new ErlangException(ErlangErrorReasons.BadArgument);
                     length = binary.BitLength;
-                    if (kind == BeamBinaryNames.PrivateAppend)
+                    if (kind is BeamBinaryNames.PrivateAppend or BeamBinaryNames.AppendSegment)
                         appendPrefix = binary;
                 }
                 else if (size is Integer count && count.Value >= 0)
@@ -194,7 +194,8 @@ internal static class BeamBinaryExecution
 
         BitString complete = new(bytes, total);
 
-        return appendPrefix is null ? complete : BitString.FromValidatedAppend(appendPrefix, complete);
+        return appendPrefix is null ? complete : context is null
+            ? BitString.FromValidatedAppend(appendPrefix, complete) : context.AppendGuestBinary(appendPrefix, complete);
     }
 
     internal static void Start(BeamLinkedCode code, BeamRegisterState registers, IReadOnlyList<BeamOperand> operands)

@@ -450,3 +450,7 @@ tools/Runtime/Erlang.BeamFunction542Observations/inputs.json whitespace=trailing
 # Scheduler AEBBA authenticates this helper's existing committed LF blob.
 /tools/Distribution/Erlang.GuestConnectedSendObservations/owned_process.py text eol=lf
 tools/Native/Erlang.NifUpgradeObservations/** -text -whitespace
+docs/validation/part-547/** -text -whitespace
+tests/Erlang.Tests/Resources/Statistics/** -text -whitespace
+# Keep intentional whitespace inside this fixture raw Erlang source literal.
+tests/Erlang.Tests/Runtime/Memory/CollectionRequestNames.cs whitespace=-blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol

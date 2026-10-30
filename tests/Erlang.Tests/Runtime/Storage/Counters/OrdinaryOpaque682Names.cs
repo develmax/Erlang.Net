@@ -22,6 +22,9 @@ internal static class OrdinaryOpaque682Names
     internal const string Ok = "ok";
     internal const string Down = "DOWN";
     internal const string Normal = "normal";
+    internal const string HostRoots = "hostRoots596";
+    internal const string GuestRoots = "guestRoots596";
+    internal const long OriginalHostInterest = 1;
     internal const string Profile = "OwnedTermsPilot506";
     internal const string Input = "VmSpawnInput641";
     internal const string Processes = "processes";

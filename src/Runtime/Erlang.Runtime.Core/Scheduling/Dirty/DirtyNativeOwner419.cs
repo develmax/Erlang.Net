@@ -3,6 +3,7 @@ namespace Erlang;
 internal sealed partial class DirtyNativeOwner419
 {
     private readonly object gate = new();
+    internal RuntimeMicrostateAccounting? Microstates { get; }
     private readonly DirtyNativeWorker419 cpu;
     private readonly DirtyNativeWorker419 io;
     private readonly DirtyNativeWorker419[] ioWorkers522;
@@ -32,8 +33,10 @@ internal sealed partial class DirtyNativeOwner419
                 worker.StartLocked();
             started = true;
         }
-        catch
+        catch (Exception startup)
         {
+            // Retain a real partial Thread.Start failure until the owned joins settle.
+            retirementErrors522.Add(startup);
             closed = true;
             foreach (DirtyNativeWorker419 worker in workers522)
                 worker.CloseLocked();
@@ -45,18 +48,36 @@ internal sealed partial class DirtyNativeOwner419
     {
     }
 
-    internal DirtyNativeOwner419(int ioWorkerCount)
+    internal DirtyNativeOwner419(int ioWorkerCount, RuntimeMicrostateAccounting? microstates = null)
+        : this(ioWorkerCount, microstates, null)
+    {
+    }
+
+    internal DirtyNativeOwner419(int ioWorkerCount, RuntimeMicrostateAccounting? microstates, RuntimeWorkerCreationPolicy? creation)
     {
         ArgumentOutOfRangeException.ThrowIfLessThan(ioWorkerCount, DirtyNativePoolParameters522.MinimumIoWorkers);
         ArgumentOutOfRangeException.ThrowIfGreaterThan(ioWorkerCount, DirtyNativePoolParameters522.MaximumIoWorkers);
-        cpu = new(this, DirtyNativeKind419.Cpu);
+        Microstates = microstates;
+        cpu = new(
+            this,
+            DirtyNativeKind419.Cpu,
+            null,
+            creation,
+            1
+        );
         ioWorkers522 = new DirtyNativeWorker419[ioWorkerCount];
         workers522 = new DirtyNativeWorker419[checked(ioWorkerCount + 1)];
         workers522[0] = cpu;
         var sharedIo = new DirtyNativeQueue522();
         for (int index = 0; index < ioWorkers522.Length; index++)
         {
-            ioWorkers522[index] = new(this, DirtyNativeKind419.Io, sharedIo);
+            ioWorkers522[index] = new(
+                this,
+                DirtyNativeKind419.Io,
+                sharedIo,
+                creation,
+                index + 1
+            );
             workers522[index + 1] = ioWorkers522[index];
         }
         io = ioWorkers522[0];

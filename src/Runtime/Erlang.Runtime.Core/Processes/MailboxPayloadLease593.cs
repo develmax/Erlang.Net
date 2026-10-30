@@ -8,6 +8,25 @@ internal sealed class MailboxPayloadLease593 : IThreadPoolWorkItem
     private readonly RuntimeMailboxRootOwner593 owner;
     internal RuntimeMailboxRootOwner593 Owner593 => owner;
     private IDisposable? backing;
+    private MailboxMessageFragment? recipientFragment;
+    private MailboxRetirementTracker593? expectedRecipient;
+    internal Term? ObservationValue { get; private set; }
+
+    internal void AttachRecipientPreparation(MailboxMessageFragment fragment, MailboxRetirementTracker593 recipient)
+    {
+        recipientFragment = fragment;
+        expectedRecipient = recipient;
+    }
+
+    internal MailboxMessageFragment? TakeRecipientPreparation(MailboxRetirementTracker593 recipient)
+        => ReferenceEquals(expectedRecipient, recipient) ? Interlocked.Exchange(ref recipientFragment, null) : null;
+
+    internal void AttachRecipientFragment(MailboxMessageFragment fragment, Term? observationValue)
+    {
+        recipientFragment = fragment;
+        ObservationValue = observationValue;
+    }
+
     internal MailboxRetirementTracker593? RecipientTracker { get; private set; }
 
     internal void BindRecipient(MailboxRetirementTracker593 tracker)
@@ -55,7 +74,7 @@ internal sealed class MailboxPayloadLease593 : IThreadPoolWorkItem
 
     internal MailboxGraphSnapshot593? Graph { get; private set; }
 
-    internal void Attach(IDisposable value) => backing = value;
+    internal void Attach(IDisposable? value) => backing = value;
 
     internal void AttachSnapshot(IDisposable value, MailboxGraphSnapshot593 graph)
     {
@@ -129,6 +148,18 @@ internal sealed class MailboxPayloadLease593 : IThreadPoolWorkItem
         var spin = new SpinWait();
         while (Volatile.Read(ref queueSettled) == 0) spin.SpinOnce();
         if (Interlocked.CompareExchange(ref executing, 1, 0) != 0) return;
+        if (Volatile.Read(ref recipientFragment) is null)
+        {
+            CompleteLegacyBacking();
+
+            return;
+        }
+        if (ExecutionContext.IsFlowSuppressed()) _ = CompleteBackingAsync();
+        else using (ExecutionContext.SuppressFlow()) _ = CompleteBackingAsync();
+    }
+
+    private void CompleteLegacyBacking()
+    {
         Exception? retiredFailure = null;
         try
         {
@@ -163,6 +194,48 @@ internal sealed class MailboxPayloadLease593 : IThreadPoolWorkItem
         {
             Completion.TrySetException(Failure);
         }
+    }
+
+
+    private async Task CompleteBackingAsync()
+    {
+        // Both queued and drain fallback execution avoid the owning actor EC.
+        await Task.CompletedTask.ConfigureAwait(ConfigureAwaitOptions.ForceYielding);
+        Exception? retiredFailure = null;
+        try
+        {
+            var fragment = Interlocked.Exchange(ref recipientFragment, null);
+            if (fragment is not null) await fragment.DisposeAsync().ConfigureAwait(false);
+        }
+        catch (Exception error)
+        {
+            retiredFailure = error;
+        }
+        try
+        {
+            IDisposable? selected = Interlocked.Exchange(ref backing, null);
+            if (selected is IMailboxRootInterest593 interest)
+                await MailboxRootSettlement593.SettleAsync(interest.ReleaseLast()).ConfigureAwait(false);
+            else NativeResourceRoots524.DisposeGuestGraph593(selected);
+        }
+        catch (Exception error)
+        {
+            retiredFailure = retiredFailure is null ? error : new AggregateException(retiredFailure, error);
+        }
+        RetirementFailure = retiredFailure;
+        Exception? queued = Volatile.Read(ref schedulingFailure);
+        Failure = queued is null ? retiredFailure : retiredFailure is null ? queued
+            : new AggregateException(queued, retiredFailure);
+        try
+        {
+            owner.Finished(this);
+        }
+        catch (Exception error)
+        {
+            Failure = Failure is null ? error : new AggregateException(Failure, error);
+        }
+        if (Failure is null) Completion.TrySetResult();
+        else Completion.TrySetException(Failure);
     }
 
     private sealed class Operation(MailboxPayloadLease593 value) : IDisposable

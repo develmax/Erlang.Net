@@ -2,7 +2,7 @@ using System.Security.Cryptography;
 
 namespace Erlang;
 
-public sealed class BeamModule
+public sealed partial class BeamModule
 {
     private readonly BeamLinkedCode code;
     private readonly BeamExecutionIdentity execution;
@@ -90,11 +90,25 @@ public sealed class BeamModule
             throw new NotSupportedException(BeamRegisterNames.Unsupported);
         }
 
+        IReadOnlyList<Term> selectedArguments = Array.AsReadOnly(arguments.ToArray());
+        if (RuntimeActorExecutionTurn.IsOwnedBy(context))
+        {
+            BeamLinkedFunction entry = code.Exports.SingleOrDefault(value => value.Name == function && value.Arity == selectedArguments.Count)
+                ?? throw new InvalidDataException(BeamModuleDiagnostics.MissingExport);
+
+            return InvokePublicOwned(
+                context,
+                function,
+                selectedArguments,
+                entry
+            );
+        }
+
         return BeamRegisterInterpreter.Execute(
             context,
             code,
             function,
-            Array.AsReadOnly(arguments.ToArray()),
+            selectedArguments,
             execution
         );
     }

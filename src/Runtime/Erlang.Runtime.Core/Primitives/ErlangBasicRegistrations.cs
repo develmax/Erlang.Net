@@ -71,7 +71,7 @@ internal static class ErlangBasicRegistrations
         Add(ErlangBasicBifNames.Append, 2, (_, arguments) => Cons.From(Cons.Items(arguments[0]), arguments[1]));
         Add(ErlangBasicBifNames.Subtract, 2, (_, arguments) => ListBasicOperations.Subtract(arguments[0], arguments[1]));
         foreach (string name in new[] { ErlangBasicBifNames.Send, ErlangOperators.Send })
-            registry.Register(
+            registry.RegisterCanonicalMessage(
                 ErlangModuleNames.Module,
                 name,
                 2,

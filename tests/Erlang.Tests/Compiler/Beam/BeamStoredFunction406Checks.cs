@@ -109,11 +109,13 @@ internal static class BeamStoredFunction406Checks
             table,
             prepared.Name
         ));
+        await actor.InvokeAsync(async context => await runtime.Modules.Call(context,
+            ErlangModuleNames.Module, ProcessGarbageCollectionNames.Function));
         BeamStoredFunction406Access.RequireCollected(detached.Function);
         BeamStoredFunction406Access.RequireCollected(detached.Environment);
         EtsFoundation405Access.Collect();
         BeamStoredFunction406Access.Require(BeamStoredFunction406Access.Alive(detached.Binding)
-            && BeamStoredFunction406Access.Alive(detached.Resource));
+            && BeamStoredFunction406Access.Alive(detached.Backing));
         await actor.InvokeAsync(async context =>
         {
             FunctionTerm copied = BeamStoredFunction406Access.Read(
@@ -123,7 +125,7 @@ internal static class BeamStoredFunction406Checks
                 detached.Slot
             );
             var env = (TupleTerm)copied.Environment.Single();
-            BeamStoredFunction406Access.Require(ReferenceEquals(env.Items[0], env.Items[1]));
+            BeamStoredFunction406Access.Require(ReferenceEquals(env.Items[0], env.Items[1]) == detached.SharedEnvironment);
             using var resource = runtime.ReferenceResources.AcquireBinary((ReferenceTerm)env.Items[2]);
             BeamStoredFunction406Access.Require(resource is not null && resource.Value.ToArray().SequenceEqual(BeamStoredFunction406Names.Bytes));
             try
@@ -141,12 +143,13 @@ internal static class BeamStoredFunction406Checks
                 context,
                 table
             );
+            await runtime.Modules.Call(context, ErlangModuleNames.Module, ProcessGarbageCollectionNames.Function);
 
             return true;
         });
         EtsFoundation405Access.Empty(store);
         BeamStoredFunction406Access.RequireCollected(detached.Binding);
-        BeamStoredFunction406Access.RequireCollected(detached.Resource);
+        BeamStoredFunction406Access.RequireCollected(detached.Backing);
     }
 
     [MethodImpl(MethodImplOptions.NoInlining)]
@@ -187,7 +190,7 @@ internal static class BeamStoredFunction406Checks
 
     [MethodImpl(MethodImplOptions.NoInlining)]
     private static async Task<(WeakReference<object> Function, WeakReference<object> Environment, WeakReference<object> Binding,
-        WeakReference<object> Resource, long Slot)> StoreResourceClosure(
+        WeakReference<object> Backing, long Slot, bool SharedEnvironment)> StoreResourceClosure(
             ProcessContext context,
             object store,
             Term table,
@@ -211,7 +214,14 @@ internal static class BeamStoredFunction406Checks
             Term.Tuple(function)
         );
 
-        return (new(function), new(environment), new(binding), new(resource), slot);
+        // A portable wrapper may be collected while another wrapper/heap header
+        // retains the SAME authenticated Entry. Observe the actual backing value.
+        using var reader = context.Runtime.ReferenceResources.AcquireBinary(resource);
+        BeamStoredFunction406Access.Require(reader is not null);
+        var producedEnvironment = (TupleTerm)function.Environment.Single();
+
+        return (new(function), new(environment), new(binding), new(reader!.Value), slot,
+            ReferenceEquals(producedEnvironment.Items[0], producedEnvironment.Items[1]));
     }
 
     internal static async Task OriginalImageAndPurge()

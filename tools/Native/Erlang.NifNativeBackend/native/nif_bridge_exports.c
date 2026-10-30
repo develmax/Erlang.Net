@@ -56,7 +56,9 @@ NIF_BRIDGE_EXPORT int nif_bridge_register(const NifBridgeCallbacks *callbacks)
         callbacks->make_resource_binary527 == NULL ||
         callbacks->open_resource_type_x527 == NULL ||
         callbacks->init_resource_type527 == NULL ||
-        callbacks->dynamic_resource_call527 == NULL || callbacks->make_list_cell539 == NULL)
+        callbacks->dynamic_resource_call527 == NULL || callbacks->make_list_cell539 == NULL ||
+        callbacks->get_string719 == NULL || callbacks->get_tuple719 == NULL ||
+        callbacks->make_atom719 == NULL)
         return 1;
 
     if (atomic_compare_exchange_strong_explicit(&published_callbacks, &expected, callbacks,
@@ -356,4 +358,19 @@ NIF_BRIDGE_EXPORT ErlNifResourceType *enif_init_resource_type(ErlNifEnv *env, co
 NIF_BRIDGE_EXPORT int enif_dynamic_resource_call(ErlNifEnv *env, ERL_NIF_TERM module, ERL_NIF_TERM name, ERL_NIF_TERM resource, void *data)
 {
     return nif_bridge_callbacks()->dynamic_resource_call527(env, module, name, resource, data);
+}
+
+NIF_BRIDGE_EXPORT int enif_get_string(ErlNifEnv *env, ERL_NIF_TERM term, char *buffer, unsigned size, ErlNifCharEncoding encoding)
+{
+    return nif_bridge_callbacks()->get_string719(env, term, buffer, size, encoding);
+}
+
+NIF_BRIDGE_EXPORT int enif_get_tuple(ErlNifEnv *env, ERL_NIF_TERM term, int *arity, const ERL_NIF_TERM **array)
+{
+    return nif_bridge_callbacks()->get_tuple719(env, term, arity, array);
+}
+
+NIF_BRIDGE_EXPORT ERL_NIF_TERM enif_make_atom(ErlNifEnv *env, const char *name)
+{
+    return nif_bridge_callbacks()->make_atom719(env, name);
 }

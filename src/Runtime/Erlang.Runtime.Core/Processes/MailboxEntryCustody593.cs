@@ -22,6 +22,7 @@ internal sealed class MailboxEntryCustody593 : IDisposable
     }
 
     internal MailboxGraphSnapshot593? Graph => work.Graph;
+    internal Term? ObservationValue => work.ObservationValue;
 
     internal IDisposable BorrowOperation() => work.BorrowOperation();
 

@@ -9,19 +9,32 @@ internal sealed partial class ProcessTermHeap506
     // Caller owns Gate and keeps the complete input graph rooted during admission.
     internal ProcessNativePublication524? PrepareNativeHeaders524(Term graph, bool legacyHeaders576 = true)
     {
-        if (!NativeResourceAddresses524.AnyLive524 && magicReferences576.Count == 0)
+        if (!NativeResourceAddresses524.AnyLive524 && magicReferences576.Count == 0 && functionEntries.Count == 0)
             return null;
         var seen = new HashSet<Term>(ReferenceEqualityComparer.Instance);
         var pending = new Stack<Term>();
         var targets = new List<(Term Term, NativeResourcePayload524 Payload)>();
         var promotions = new List<NativeOffheapHeader576>();
         var binaryPromotions = new List<ResourceBinaryDescriptor577>();
+        var functionPromotions = new List<ManagedFunctionDispatchEntry>();
         pending.Push(graph);
         while (pending.TryPop(out Term? value))
         {
             if (!seen.Add(value)) continue;
             if (value is ResourceReferenceTerm { OwnedStorage562: { } storage } && !ReferenceEquals(storage.Owner, this))
                 throw new InvalidOperationException(ProcessTerm506Names.ForeignRoot);
+            if (value is FunctionTerm { OwnedFunctionStorage: ProcessTermSequence506 functionBlock })
+            {
+                var entry = RequireFunctionEntry(functionBlock, out _);
+                if (!entry.Published) functionPromotions.Add(entry);
+            }
+            if (Storage(value) is ProcessTermSequence506 externalBlock
+                && magicReferences576.TryGetValue(externalBlock.Identity, out var externalEntry)
+                && ExternalIdentifierLayout.IsKind(externalEntry.Kind))
+            {
+                _ = RequireNativeOffheapHeader576(externalBlock, externalEntry.Kind);
+                if (!externalEntry.Published) promotions.Add(externalEntry);
+            }
             bool actualMagic = HasOwnedMagicReference576(value);
             if (actualMagic && value is ResourceReferenceTerm { OwnedStorage562: ProcessTermSequence506 block })
             {
@@ -44,14 +57,15 @@ internal sealed partial class ProcessTermHeap506
             }
             foreach (Term child in NativeMapOwnedRoots510.Children(value)) pending.Push(child);
         }
-        if (targets.Count == 0 && promotions.Count == 0 && binaryPromotions.Count == 0) return null;
+        if (targets.Count == 0 && promotions.Count == 0 && binaryPromotions.Count == 0 && functionPromotions.Count == 0) return null;
         nativeHeaders524.EnsureCapacity(checked(nativeHeaders524.Count + targets.Count));
         var inserted = new ProcessNativeHeader524[targets.Count];
         var publication = new ProcessNativePublication524(
             this,
             inserted,
             promotions.ToArray(),
-            binaryPromotions.ToArray()
+            binaryPromotions.ToArray(),
+            functionPromotions.ToArray()
         );
         int admitted = 0;
         try

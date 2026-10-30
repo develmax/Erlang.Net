@@ -24,6 +24,10 @@ internal sealed class RuntimeInitializer(ProcessContext context)
                 registry.PublishModule(InitializationNames.Module);
                 registry.PublishModuleCode(InitializationNames.Module, ModuleCodeFingerprints.Owner(typeof(RuntimeInitializer)));
             });
+        // InstallPreloaded and EnterFunction scopes have released their gates.
+        // Original OTP has these helper instructions at VM birth; no-op BIFs do
+        // not create helper code or references on their later caller turns.
+        context.Runtime.Modules.PrewarmStatisticsTrapHelpers(context);
         Completion = context.Runtime.DispatchInitializer(context, Run);
     }
 

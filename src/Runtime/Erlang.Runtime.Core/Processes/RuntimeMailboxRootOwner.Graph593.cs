@@ -85,6 +85,11 @@ internal sealed partial class RuntimeMailboxRootOwner593
 
             IDisposable retained = graph.Retain();
             work.AttachSnapshot(retained, graph);
+            // Only the exact recipient receives the actual physical frame.
+            // Snapshot/trace forks retain portable observation/native custody,
+            // never another process's on_heap queue frame.
+            if (graph.RootWork593.TakeRecipientPreparation(recipient) is { } fragment)
+                work.AttachRecipientFragment(fragment, graph.ObservationValue);
             work.BindRecipient(recipient);
 
             return new(work, null, null);

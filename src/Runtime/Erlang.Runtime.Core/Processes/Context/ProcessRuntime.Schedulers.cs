@@ -2,7 +2,13 @@ namespace Erlang;
 
 public sealed partial class ProcessRuntime
 {
-    internal Task DispatchInitializer(ProcessContext context, Func<Task> body) => actorDispatcher.Dispatch(context, body, RuntimeActorRole.Initialization);
+    internal Task DispatchInitializer(ProcessContext context, Func<Task> body)
+        => actorDispatcher.Dispatch(context, async () =>
+        {
+            lock (gate)
+                context.ExecutionStarted = true;
+            await body();
+        }, RuntimeActorRole.Initialization);
 
     internal async ValueTask<Term> ChangeSchedulerBinding(ProcessContext context, Term value)
     {

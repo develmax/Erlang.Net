@@ -27,6 +27,14 @@ internal static class PersistentArena416ValuesChecks
                     GuestStoredFunction407Names.Make,
                     environment
                 );
+                // Public guest entry copies Host inputs. Store the ACTUAL closure
+                // capture alongside the closure, rather than an older Host view.
+                BitString hostSub = sub;
+                var actualEnvironment = (TupleTerm)ast.Environment.Single();
+                sub = (BitString)actualEnvironment.Items[2];
+                PersistentArena416HostAccess.Require(!ReferenceEquals(actualEnvironment, environment)
+                    && actualEnvironment.Equals(environment)
+                    && !ReferenceEquals(sub, hostSub) && sub.Equals(hostSub));
                 var external = (FunctionTerm)await runtime.Modules.Call(context, GuestStoredFunction407Names.ModuleName,
                     GuestStoredFunction407Names.External);
                 var original = (FunctionTerm)await runtime.Modules.Call(

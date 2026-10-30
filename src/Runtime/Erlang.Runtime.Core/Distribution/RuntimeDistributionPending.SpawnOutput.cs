@@ -38,7 +38,7 @@ public sealed partial class RuntimeDistributionPending
                 {
                     ticket = ReserveOwnedOutput(connected, new object());
                     snapshot = runtime.LocalIdentity.Snapshot;
-                    groupLeader = owner.GroupLeader;
+                    groupLeader = owner.SnapshotGroupLeader();
                     request = new(
                         entry,
                         connected,

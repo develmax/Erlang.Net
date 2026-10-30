@@ -29,7 +29,7 @@ internal sealed partial class RuntimeEtsStoredPayload : IDisposable
         long keyPosition = 1
     )
     {
-        if (compressed && NativeResourceRoots524.Contains524(root))
+        if (compressed && NativeResourceRoots524.ContainsNativeResourceOnly524(root))
             throw new NotSupportedException(NativeResource524Names.CompressedStorage);
         var indices = new Dictionary<Term, int>(ReferenceEqualityComparer.Instance);
         var completed = new HashSet<Term>(ReferenceEqualityComparer.Instance);

@@ -11,7 +11,8 @@ internal static class BitExpressionBindings
         Expr.Bits bits,
         Dictionary<string, Term> bindings,
         Func<Expr, Dictionary<string, Term>, ValueTask<Term>> evaluate,
-        bool compiled
+        bool compiled,
+        Func<BitString, BitString, BitString>? append = null
     )
     {
         var segments = new List<(Term Value, Term? Size, BitSegment Segment)>(bits.Segments.Count);
@@ -39,7 +40,7 @@ internal static class BitExpressionBindings
                 && first.Type == BitSegmentTypes.Binary
                 && (first.Size is null || first.Size is Expr.Literal { Value: Atom { Name: BitSizeAtoms.All } })
                 && segments[0].Value is BitString prefix)
-                result = BitString.FromValidatedAppend(prefix, result);
+                result = append is null ? BitString.FromValidatedAppend(prefix, result) : append(prefix, result);
         }
 
         foreach (var binding in scope)

@@ -4,17 +4,18 @@ using System.Text;
 
 namespace Erlang;
 
-public sealed class FunctionTerm(int arity, Func<ITermExecutionContext, IReadOnlyList<Term>, ValueTask<Term>> invoke) : Term
+public sealed partial class FunctionTerm(int arity, Func<ITermExecutionContext, IReadOnlyList<Term>, ValueTask<Term>> invoke) : Term
 {
     private static long next;
     internal long Identity { get; } = Interlocked.Increment(ref next);
-    public int Arity { get; } = arity;
+    public int Arity => ownedFunctionStorage?.ReadFunctionArity() ?? arity;
     public ExternalFunctionIdentity? ExternalIdentity { get; }
     private readonly LocalFunctionIdentity? localIdentity;
     private readonly Func<LocalFunctionIdentity>? identityProvider;
     public LocalFunctionIdentity? LocalIdentity => identityProvider?.Invoke() ?? localIdentity;
     internal LocalFunctionIdentity? StoredLocalIdentity => localIdentity;
-    public IReadOnlyList<Term> Environment { get; } = Array.Empty<Term>();
+    private readonly IReadOnlyList<Term> environment = Array.Empty<Term>();
+    public IReadOnlyList<Term> Environment => ownedFunctionStorage?.ReadFunctionEnvironment() ?? environment;
 
     public FunctionTerm(ExternalFunctionIdentity identity, Func<ITermExecutionContext, IReadOnlyList<Term>, ValueTask<Term>> invoke) : this(identity.Arity, invoke)
     {
@@ -29,7 +30,7 @@ public sealed class FunctionTerm(int arity, Func<ITermExecutionContext, IReadOnl
     ) : this(arity, invoke)
     {
         localIdentity = identity;
-        Environment = Array.AsReadOnly(environment.ToArray());
+        this.environment = Array.AsReadOnly(environment.ToArray());
     }
 
     public ValueTask<Term> Invoke(ITermExecutionContext context, IReadOnlyList<Term> arguments)
@@ -39,10 +40,40 @@ public sealed class FunctionTerm(int arity, Func<ITermExecutionContext, IReadOnl
 
         return context is ITermInvocationBoundary506 { OwnedInvocationEnabled506: true } boundary
             ? boundary.InvokeOwnedFunction506(this, arguments)
-            : invoke(context, arguments);
+            : InvokeDirect506(context, arguments);
     }
 
+    internal FunctionTerm CopyOpaqueForTransfer(IReadOnlyList<Term> environment)
+    {
+        if (ownedFunctionStorage is null && localIdentity is null && identityProvider is null && Environment.Count == 0)
+            return this;
+
+        return new FunctionTerm(
+            Arity,
+            invoke,
+            ExternalIdentity,
+            localIdentity,
+            identityProvider,
+            Identity,
+            environment
+        );
+    }
+
+    internal FunctionTerm CopyOpaqueForHeapStorage(IReadOnlyList<Term> copiedEnvironment)
+        => new FunctionTerm(
+            Arity,
+            invoke,
+            ExternalIdentity,
+            localIdentity,
+            identityProvider,
+            Identity,
+            copiedEnvironment
+        );
+
     internal ValueTask<Term> InvokeDirect506(ITermExecutionContext context, IReadOnlyList<Term> arguments)
+        => ownedFunctionStorage?.InvokeFunctionBody(context, arguments) ?? invoke(context, arguments);
+
+    internal ValueTask<Term> InvokeHeapBody(ITermExecutionContext context, IReadOnlyList<Term> arguments)
         => invoke(context, arguments);
 
     public FunctionTerm(
@@ -53,7 +84,7 @@ public sealed class FunctionTerm(int arity, Func<ITermExecutionContext, IReadOnl
     ) : this(arity, invoke)
     {
         this.identityProvider = identityProvider;
-        Environment = Array.AsReadOnly(environment.ToArray());
+        this.environment = Array.AsReadOnly(environment.ToArray());
     }
 
     public override string ToString() => $"#Fun<{Identity}/{Arity}>";

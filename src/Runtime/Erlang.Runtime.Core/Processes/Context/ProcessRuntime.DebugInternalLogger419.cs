@@ -17,7 +17,7 @@ public sealed partial class ProcessRuntime
         };
         Term text = Cons.From(Encoding.UTF8.GetBytes(message).Select(value => (Term)Term.I(value)));
         var origin = new MapTerm([new(Term.A(DebugInternalNames419.Emulator), Term.A(ErlangBooleanAtoms.True)), new(Term.A(DebugInternalNames419.Tag), Term.A(tag))]);
-        var metadata = new MapTerm([new(Term.A(DebugInternalNames419.ErrorLogger),origin),new(Term.A(DebugInternalNames419.GroupLeader),context.GroupLeader),new(Term.A(DebugInternalNames419.Pid),context.Self),new(
+        var metadata = new MapTerm([new(Term.A(DebugInternalNames419.ErrorLogger),origin),new(Term.A(DebugInternalNames419.GroupLeader),context.SnapshotGroupLeader()),new(Term.A(DebugInternalNames419.Pid),context.Self),new(
             Term.A(DebugInternalNames419.Time),
             new Integer(ErlangClockState.SystemNanoseconds/(ErlangClockParameters.NanosecondsPerSecond/ErlangClockParameters.MicrosecondsPerSecond))
         )]);

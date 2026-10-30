@@ -19,6 +19,7 @@ internal sealed class OwnedPayloadCopyFrame506
             {
                 Cons cons => [cons.Head, cons.Tail],
                 TupleTerm tuple => tuple.Items.ToArray(),
+                FunctionTerm function => function.Environment.ToArray(),
                 _ => []
             };
         Copied = new Term[Children.Length];

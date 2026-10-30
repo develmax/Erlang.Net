@@ -75,6 +75,7 @@ internal sealed partial class NativeDriverPortRegistry422
                             {
                                 if (!binding.IsLive || binding.Entry.ConnectionId != binding.Generation) return Nil.Value;
                                 row.OutputBytes = checked(row.OutputBytes + bytes.LongLength);
+                                runtime.Statistics.RecordOutputBytes(bytes.LongLength);
                             }
                             await transport.DistributionOutput457(row.Native, bytes).ConfigureAwait(false);
 

@@ -209,7 +209,18 @@ internal static class MailboxSnapshot601Checks
             requester = new(runtime);
             targetContext = await target.Ready.WaitAsync(Deadline);
             ProcessContext caller = await requester.Ready.WaitAsync(Deadline);
+            FieldInfo heap = typeof(ProcessContext).GetField(HeapField, Members)!;
+            object callerBirthStorage = heap.GetValue(caller)!;
+            object targetBirthStorage = heap.GetValue(targetContext)!;
+            MailboxSnapshot601Fixture.Require(callerBirthStorage is not null && targetBirthStorage is not null
+                && !ReferenceEquals(callerBirthStorage, targetBirthStorage)
+                && !(bool)typeof(ProcessContext).GetProperty("OwnedExecutionEnabled683", Members)!.GetValue(caller)!
+                && !(bool)typeof(ProcessContext).GetProperty("OwnedExecutionEnabled683", Members)!.GetValue(targetContext)!);
             runtime.Send(targetContext.Self, Term.I(DefaultMessage));
+            // The queued message now owns a real frame. The private info request
+            // must leave the actual already-queued heap/root state unchanged.
+            object callerBirthSnapshot = callerBirthStorage!.GetType().GetProperty("Snapshot", Members)!.GetValue(callerBirthStorage)!;
+            object targetBirthSnapshot = targetBirthStorage!.GetType().GetProperty("Snapshot", Members)!.GetValue(targetBirthStorage)!;
             pump = target.InvokeAsync(async context =>
             {
                 await context.ReceiveAsync<Term>(value => value is Atom atom && atom.Name == Stop ? value : null, Deadline);
@@ -225,8 +236,12 @@ internal static class MailboxSnapshot601Checks
                     Term.A(Messages)
                 ));
             MailboxSnapshot601Fixture.Require(result.Equals(Term.Tuple(Term.A(Messages), Term.List(Term.I(DefaultMessage)))));
-            FieldInfo heap = typeof(ProcessContext).GetField(HeapField, Members)!;
-            MailboxSnapshot601Fixture.Require(heap.GetValue(caller) is null && heap.GetValue(targetContext) is null);
+            MailboxSnapshot601Fixture.Require(ReferenceEquals(heap.GetValue(caller), callerBirthStorage)
+                && ReferenceEquals(heap.GetValue(targetContext), targetBirthStorage)
+                && callerBirthSnapshot.Equals(callerBirthStorage!.GetType().GetProperty("Snapshot", Members)!.GetValue(callerBirthStorage))
+                && targetBirthSnapshot.Equals(targetBirthStorage!.GetType().GetProperty("Snapshot", Members)!.GetValue(targetBirthStorage))
+                && !(bool)typeof(ProcessContext).GetProperty("OwnedExecutionEnabled683", Members)!.GetValue(caller)!
+                && !(bool)typeof(ProcessContext).GetProperty("OwnedExecutionEnabled683", Members)!.GetValue(targetContext)!);
             runtime.Send(targetContext.Self, Term.A(Stop));
             await pump.WaitAsync(Deadline);
             pump = null;

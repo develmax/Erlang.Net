@@ -71,6 +71,7 @@ public sealed partial class ProcessRuntime
             disposed = true;
             StopMailboxRootAdmission593();
             StopProcessPayloadAdmission641();
+            StopOrdinaryBinaryAdmission();
             _ = actorDispatcher.CompleteWhenIdle();
             distributionPending?.Close();
             OsEnvironment?.Dispose();
@@ -115,7 +116,7 @@ public sealed partial class ProcessRuntime
                 process.PendingCodeChecks.Clear();
                 process.PendingInfoRequests.Clear();
                 process.PendingDisplayRequests.Clear();
-                process.PendingGarbageCollections.Clear();
+                RetireCollectionRequests(process, false);
                 process.PendingSavedCallRequests.Clear();
                 process.Links.Clear();
                 process.PriorityLinks.Clear();
@@ -299,7 +300,9 @@ public sealed partial class ProcessRuntime
                     DrainCodePurger432(),
                     DrainAllocatorGather434(),
                     DrainOwnedTermContexts506(),
-                    DrainNativeResources524()
+                    DrainNativeResources524(),
+                    KnownNodes.DrainPhysicalNodes(),
+                    DrainOrdinaryBinaries()
                 ).ConfigureAwait(false);
             }
             catch (Exception exception)

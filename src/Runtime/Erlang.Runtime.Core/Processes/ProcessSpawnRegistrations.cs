@@ -4,13 +4,13 @@ internal static class ProcessSpawnRegistrations
 {
     public static void Register(ModuleRegistry registry)
     {
-        registry.Register(
+        registry.RegisterCanonicalRuntimeRead535(
             ErlangModuleNames.Module,
             ProcessGroupLeaderNames.GroupLeader,
             0,
-            (context, _) => ValueTask.FromResult<Term>(context.Runtime.GetGroupLeader(context))
+            (context, _) => ValueTask.FromResult<Term>(context.Runtime.GetGuestGroupLeader(context))
         );
-        registry.Register(
+        registry.RegisterCanonicalRuntimeRead535(
             ErlangModuleNames.Module,
             ProcessGroupLeaderNames.GroupLeader,
             2,

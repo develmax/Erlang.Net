@@ -10,7 +10,7 @@ internal sealed class ProcessTermSequence506(
     int length,
     int headerWords526 = 0,
     int rawPayloadWords556 = 0
-) : IOwnedFloatStorage556, IOwnedIntegerStorage559, IOwnedReferenceStorage562, IOwnedResourceBitsStorage577
+) : IOwnedFloatStorage556, IOwnedIntegerStorage559, IOwnedReferenceStorage562, IOwnedResourceBitsStorage577, IOwnedHeapBitStringStorage, IOwnedFunctionStorage, IOwnedExternalIdentifierStorage
 {
     public object Owner => owner;
     public long Identity { get; } = identity;
@@ -30,6 +30,25 @@ internal sealed class ProcessTermSequence506(
     public IReadOnlyList<uint> ReadReferenceWords562() => owner.ReadReferenceWords562(this);
 
     public ResourceBitsRead577 ReadResourceBits577() => owner.ReadResourceBits577(this);
+
+    public int ReadHeapBitLength() => owner.ReadHeapBitLength(this);
+
+    public byte ReadHeapByte(int index) => owner.ReadHeapBitByte(this, index);
+
+    public byte[] CopyHeapBytes() => owner.CopyHeapBitBytes(this);
+
+    public int ReadFunctionArity() => owner.ReadFunctionArity(this);
+
+    public IReadOnlyList<Term> ReadFunctionEnvironment() => owner.ReadFunctionEnvironment(this);
+
+    public ValueTask<Term> InvokeFunctionBody(ITermExecutionContext context, IReadOnlyList<Term> arguments)
+        => owner.InvokeFunctionBody(this, context, arguments);
+
+    public LocalNodeSnapshot ReadExternalIdentity() => owner.ReadExternalIdentity(this);
+
+    public ulong ReadExternalId() => owner.ReadExternalId(this);
+
+    public IReadOnlyList<uint> ReadExternalReferenceWords() => owner.ReadExternalReferenceWords(this);
 
     public IEnumerator<Term> GetEnumerator()
     {

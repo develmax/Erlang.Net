@@ -31,7 +31,10 @@ public abstract record Expr
     public sealed record BinaryComprehension(Expr Body, IReadOnlyList<ComprehensionQualifier> Qualifiers) : Expr;
     public sealed record MapComprehension(IReadOnlyList<MapField> Fields, IReadOnlyList<ComprehensionQualifier> Qualifiers) : Expr;
     public sealed record Map(Expr? Base, IReadOnlyList<MapField> Fields) : Expr;
-    public sealed record Bits(IReadOnlyList<BitSegment> Segments) : Expr;
+    public sealed record Bits(IReadOnlyList<BitSegment> Segments) : Expr
+    {
+        public int SourceLine { get; init; }
+    }
     public sealed record Call(string? Module, string Function, IReadOnlyList<Expr> Arguments) : Expr
     {
         public int SourceLine { get; init; }

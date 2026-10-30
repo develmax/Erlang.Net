@@ -9,6 +9,13 @@ public sealed partial class ProcessContext : ITermInvocationBoundary506
         // Public FunctionTerm.Invoke is always a new host boundary. Inherited
         // ExecutionContext data is never accepted as caller/root admission.
         using var owned = EnterOwnedInvocation506(arguments, true)!;
+        bool genuine = RuntimeActorExecutionTurn.IsOwnedBy(this)
+            && (Runtime.Functions.IsExternalEntry(function)
+                || RuntimeStoredFunctionRecipes.TryCaptureTransfer506(Runtime, function, out var recipe)
+                    && recipe is ICanonicalGuestRecipe507 admitted && admitted.AdmittedTo507(Runtime));
+        if (genuine)
+            return await InvokePublicGuestFunction(function, owned);
+
         FunctionTerm selected = (FunctionTerm)owned.Export(function);
         using var admission = EnterOwnedBeamFunAdmission650(function, selected);
         try

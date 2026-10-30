@@ -1,0 +1,798 @@
+{
+  "Partial": true,
+  "SelectedCount": 131,
+  "TotalCount": 9541,
+  "Blocks": [],
+  "ExactCases": [
+    "mailbox/cancel",
+    "mailbox/concurrent-arrival",
+    "mailbox/later-match-preserves-order",
+    "mailbox/sender-order-stress",
+    "mailbox/timeout",
+    "mailbox/zero-timeout-retains",
+    "oracle/compiled-module/erlang-process-info-group-leader",
+    "oracle/compiled-module/erlang-seq-trace-actual-print-events",
+    "oracle/compiled-module/erlang-seq-trace-alias-delivery-token",
+    "oracle/compiled-module/erlang-seq-trace-clear-retains-clock",
+    "oracle/compiled-module/erlang-seq-trace-dead-alias-owner-does-not-advance",
+    "oracle/compiled-module/erlang-seq-trace-dead-pid-does-not-advance",
+    "oracle/compiled-module/erlang-seq-trace-flag-1",
+    "oracle/compiled-module/erlang-seq-trace-flag-16",
+    "oracle/compiled-module/erlang-seq-trace-flag-2",
+    "oracle/compiled-module/erlang-seq-trace-flag-32",
+    "oracle/compiled-module/erlang-seq-trace-flag-4",
+    "oracle/compiled-module/erlang-seq-trace-flag-8",
+    "oracle/compiled-module/erlang-seq-trace-inactive-alias-live-owner-clock",
+    "oracle/compiled-module/erlang-seq-trace-info-defaults",
+    "oracle/compiled-module/erlang-seq-trace-info-spawn-active-rejected",
+    "oracle/compiled-module/erlang-seq-trace-invalid-16",
+    "oracle/compiled-module/erlang-seq-trace-invalid-17",
+    "oracle/compiled-module/erlang-seq-trace-invalid-18",
+    "oracle/compiled-module/erlang-seq-trace-invalid-19",
+    "oracle/compiled-module/erlang-seq-trace-invalid-20",
+    "oracle/compiled-module/erlang-seq-trace-invalid-21",
+    "oracle/compiled-module/erlang-seq-trace-invalid-22",
+    "oracle/compiled-module/erlang-seq-trace-invalid-23",
+    "oracle/compiled-module/erlang-seq-trace-invalid-24",
+    "oracle/compiled-module/erlang-seq-trace-invalid-25",
+    "oracle/compiled-module/erlang-seq-trace-invalid-26",
+    "oracle/compiled-module/erlang-seq-trace-invalid-27",
+    "oracle/compiled-module/erlang-seq-trace-invalid-28",
+    "oracle/compiled-module/erlang-seq-trace-invalid-29",
+    "oracle/compiled-module/erlang-seq-trace-invalid-tracer-39",
+    "oracle/compiled-module/erlang-seq-trace-invalid-tracer-40",
+    "oracle/compiled-module/erlang-seq-trace-invalid-tracer-41",
+    "oracle/compiled-module/erlang-seq-trace-invalid-tracer-42",
+    "oracle/compiled-module/erlang-seq-trace-invalid-tracer-43",
+    "oracle/compiled-module/erlang-seq-trace-local-name-tuple-send-destination",
+    "oracle/compiled-module/erlang-seq-trace-print-call-1",
+    "oracle/compiled-module/erlang-seq-trace-print-call-2",
+    "oracle/compiled-module/erlang-seq-trace-print-exact-label",
+    "oracle/compiled-module/erlang-seq-trace-print-mask-counter",
+    "oracle/compiled-module/erlang-seq-trace-queued-token-snapshots",
+    "oracle/compiled-module/erlang-seq-trace-selective-receive-token-only-on-match",
+    "oracle/compiled-module/erlang-seq-trace-send-receive-lamport",
+    "oracle/compiled-module/erlang-seq-trace-serial-small-boundary-12",
+    "oracle/compiled-module/erlang-seq-trace-serial-small-boundary-13",
+    "oracle/compiled-module/erlang-seq-trace-serial-small-boundary-14",
+    "oracle/compiled-module/erlang-seq-trace-serial-wrap",
+    "oracle/compiled-module/erlang-seq-trace-spawn-opt-callback-payload",
+    "oracle/compiled-module/erlang-seq-trace-spawn-protocol-and-monitor-reference",
+    "oracle/compiled-module/erlang-seq-trace-strict-timestamp-order",
+    "oracle/compiled-module/erlang-seq-trace-system-info",
+    "oracle/compiled-module/erlang-seq-trace-system-tracer",
+    "oracle/compiled-module/erlang-seq-trace-timestamp-monotonic_timestamp",
+    "oracle/compiled-module/erlang-seq-trace-timestamp-precedence",
+    "oracle/compiled-module/erlang-seq-trace-timestamp-strict_monotonic_timestamp",
+    "oracle/compiled-module/erlang-seq-trace-timestamp-timestamp",
+    "oracle/compiled-module/erlang-seq-trace-token-fields",
+    "oracle/compiled-module/erlang-seq-trace-tracer-death",
+    "oracle/compiled-module/erlang-seq-trace-tracer-self-suppression",
+    "oracle/compiled-module/erlang-seq-trace-unmatched-receive-preserves-token",
+    "oracle/compiled-module/erlang-seq-trace-untraced-receive-clears",
+    "oracle/compiled-module/io-group-leader-arbitrary-device-reply",
+    "oracle/compiled-module/io-group-leader-calling-self",
+    "oracle/compiled-module/io-group-leader-custom-device-validates-format",
+    "oracle/compiled-module/io-group-leader-dead-device",
+    "oracle/compiled-module/io-group-leader-dead-device-flushes-exit",
+    "oracle/compiled-module/io-group-leader-default-device-rejects-extra-arguments",
+    "oracle/compiled-module/io-group-leader-default-device-survives-format-error",
+    "oracle/compiled-module/io-group-leader-device-dies-during-request",
+    "oracle/compiled-module/io-group-leader-device-error-arguments",
+    "oracle/compiled-module/io-group-leader-device-error-calling_self",
+    "oracle/compiled-module/io-group-leader-device-error-other_error",
+    "oracle/compiled-module/io-group-leader-device-error-terminated",
+    "oracle/compiled-module/io-group-leader-device-error-translation",
+    "oracle/compiled-module/io-group-leader-format-request",
+    "oracle/compiled-module/io-group-leader-selective-reply-reference",
+    "runtime/distribution-group-leader-queued-signal-owned-local-target",
+    "runtime/io-monitored-group-leader-concurrent-output",
+    "runtime/mailbox-actual-off-heap-value-and-host-escape",
+    "runtime/mailbox-actual-on-heap-value-and-host-escape",
+    "runtime/mailbox/callback399/cancellation-reset",
+    "runtime/mailbox/callback399/current-save-priority",
+    "runtime/mailbox/callback399/deferred-priority",
+    "runtime/mailbox/callback399/exception-nested-save",
+    "runtime/mailbox/callback399/marker-priority",
+    "runtime/mailbox/callback399/nested-current-consume",
+    "runtime/mailbox/callback399/priority-source-repeats",
+    "runtime/mailbox/receive-markers381/control-only-wait",
+    "runtime/mailbox/receive-markers381/deferred-physical-order",
+    "runtime/mailbox/receive-markers381/deferred-priority-refused",
+    "runtime/mailbox/receive-markers381/duplicate-binding-refused",
+    "runtime/mailbox/receive-markers381/invalid-and-foreign",
+    "runtime/mailbox/receive-markers381/pass-expiration",
+    "runtime/mailbox/receive-markers381/position-and-clear",
+    "runtime/mailbox/receive-markers381/priority-refusal-after-await",
+    "runtime/mailbox/receive-markers381/priority-refusal-after-execution-wait",
+    "runtime/mailbox/receive-markers381/priority-refusal-before-use",
+    "runtime/mailbox/receive-markers381/removal-and-expiration",
+    "runtime/mailbox593/drain-does-not-join-other-recipient",
+    "runtime/mailbox593/final-recipient-settles-actual-roots",
+    "runtime/mailbox593/recipient-ready-fallback-and-errors",
+    "runtime/mailbox593/specific-ready-root-fallback-retains-failure",
+    "runtime/mailbox601/cancel-after-native-reply-publication-and-target-exit",
+    "runtime/mailbox601/cancel-before-target-capture-releases-request",
+    "runtime/mailbox601/cancel-during-real-ets-target-retirement-gap",
+    "runtime/mailbox601/default-mixed-process-info-preserves-public-callback",
+    "runtime/mailbox601/default-process-info-private-reply-no-owned-heap",
+    "runtime/mailbox601/mixed-native-and-plain-snapshot-identity",
+    "runtime/mailbox601/mutual-process-info-control-signal-liveness",
+    "runtime/mailbox601/opaque-remove-releases-all-operations-before-callback",
+    "runtime/mailbox601/plain-public-callback-snapshot-identity",
+    "runtime/mailbox601/public-reregister-process-info-stays-opaque",
+    "runtime/mailbox601/public-snapshot-retains-origin-across-dequeue",
+    "runtime/mailbox601/remote-process-info-original-reply-order",
+    "runtime/mailbox601/source-remote-process-info-roots-native-messages",
+    "runtime/mailbox601/source-self-process-info-and-trusted-receive",
+    "runtime/mailbox601/target-done-before-requester-consumes-native-reply",
+    "runtime/mailbox601/target-exit-before-capture-replies-undefined",
+    "runtime/mailbox606/bulk-commit-observer-close-exact-removal-and-cleanup",
+    "runtime/mailbox606/deferred-release-self-exit-complete-and-discard-once",
+    "runtime/mailbox606/foreign-runtime-dispose-inside-actor-settles",
+    "runtime/mailbox606/late-deferred-send-after-owner-done-releases-outside-monitor",
+    "runtime/mailbox606/pending-admission-self-exit-normal-and-bounded",
+    "runtime/seq-trace-concurrent-token-snapshots-tracer-switch-and-self-isolation",
+    "runtime/statistics-group-leader-foreign-pid-physical-root-and-detached-host-snapshot",
+    "runtime/statistics-group-leader-spawn-inheritance-independent-physical-roots-and-close"
+  ],
+  "Passed": 131,
+  "Failed": 0,
+  "Tests": [
+    {
+      "Name": "runtime/mailbox601/opaque-remove-releases-all-operations-before-callback",
+      "Status": "Passed",
+      "Milliseconds": 222
+    },
+    {
+      "Name": "runtime/mailbox601/public-snapshot-retains-origin-across-dequeue",
+      "Status": "Passed",
+      "Milliseconds": 100
+    },
+    {
+      "Name": "runtime/mailbox601/plain-public-callback-snapshot-identity",
+      "Status": "Passed",
+      "Milliseconds": 41
+    },
+    {
+      "Name": "runtime/mailbox601/mixed-native-and-plain-snapshot-identity",
+      "Status": "Passed",
+      "Milliseconds": 50
+    },
+    {
+      "Name": "runtime/mailbox601/default-mixed-process-info-preserves-public-callback",
+      "Status": "Passed",
+      "Milliseconds": 31
+    },
+    {
+      "Name": "runtime/mailbox601/cancel-after-native-reply-publication-and-target-exit",
+      "Status": "Passed",
+      "Milliseconds": 52
+    },
+    {
+      "Name": "runtime/mailbox601/target-exit-before-capture-replies-undefined",
+      "Status": "Passed",
+      "Milliseconds": 26
+    },
+    {
+      "Name": "runtime/mailbox601/target-done-before-requester-consumes-native-reply",
+      "Status": "Passed",
+      "Milliseconds": 33
+    },
+    {
+      "Name": "runtime/mailbox606/foreign-runtime-dispose-inside-actor-settles",
+      "Status": "Passed",
+      "Milliseconds": 28
+    },
+    {
+      "Name": "runtime/mailbox606/bulk-commit-observer-close-exact-removal-and-cleanup",
+      "Status": "Passed",
+      "Milliseconds": 45
+    },
+    {
+      "Name": "runtime/mailbox606/pending-admission-self-exit-normal-and-bounded",
+      "Status": "Passed",
+      "Milliseconds": 130
+    },
+    {
+      "Name": "runtime/mailbox606/deferred-release-self-exit-complete-and-discard-once",
+      "Status": "Passed",
+      "Milliseconds": 90
+    },
+    {
+      "Name": "runtime/mailbox606/late-deferred-send-after-owner-done-releases-outside-monitor",
+      "Status": "Passed",
+      "Milliseconds": 19
+    },
+    {
+      "Name": "runtime/mailbox601/cancel-during-real-ets-target-retirement-gap",
+      "Status": "Passed",
+      "Milliseconds": 45
+    },
+    {
+      "Name": "runtime/mailbox601/source-remote-process-info-roots-native-messages",
+      "Status": "Passed",
+      "Milliseconds": 1467
+    },
+    {
+      "Name": "runtime/mailbox601/source-self-process-info-and-trusted-receive",
+      "Status": "Passed",
+      "Milliseconds": 69
+    },
+    {
+      "Name": "runtime/mailbox601/public-reregister-process-info-stays-opaque",
+      "Status": "Passed",
+      "Milliseconds": 67
+    },
+    {
+      "Name": "runtime/mailbox601/default-process-info-private-reply-no-owned-heap",
+      "Status": "Passed",
+      "Milliseconds": 23
+    },
+    {
+      "Name": "runtime/mailbox601/mutual-process-info-control-signal-liveness",
+      "Status": "Passed",
+      "Milliseconds": 34
+    },
+    {
+      "Name": "runtime/mailbox601/remote-process-info-original-reply-order",
+      "Status": "Passed",
+      "Milliseconds": 24
+    },
+    {
+      "Name": "runtime/mailbox601/cancel-before-target-capture-releases-request",
+      "Status": "Passed",
+      "Milliseconds": 25
+    },
+    {
+      "Name": "runtime/mailbox593/recipient-ready-fallback-and-errors",
+      "Status": "Passed",
+      "Milliseconds": 2
+    },
+    {
+      "Name": "runtime/mailbox593/drain-does-not-join-other-recipient",
+      "Status": "Passed",
+      "Milliseconds": 1
+    },
+    {
+      "Name": "runtime/mailbox593/final-recipient-settles-actual-roots",
+      "Status": "Passed",
+      "Milliseconds": 27
+    },
+    {
+      "Name": "runtime/mailbox593/specific-ready-root-fallback-retains-failure",
+      "Status": "Passed",
+      "Milliseconds": 1
+    },
+    {
+      "Name": "runtime/mailbox-actual-on-heap-value-and-host-escape",
+      "Status": "Passed",
+      "Milliseconds": 25
+    },
+    {
+      "Name": "runtime/mailbox-actual-off-heap-value-and-host-escape",
+      "Status": "Passed",
+      "Milliseconds": 26
+    },
+    {
+      "Name": "runtime/mailbox/callback399/current-save-priority",
+      "Status": "Passed",
+      "Milliseconds": 6
+    },
+    {
+      "Name": "runtime/mailbox/callback399/priority-source-repeats",
+      "Status": "Passed",
+      "Milliseconds": 1
+    },
+    {
+      "Name": "runtime/mailbox/callback399/exception-nested-save",
+      "Status": "Passed",
+      "Milliseconds": 1
+    },
+    {
+      "Name": "runtime/mailbox/callback399/cancellation-reset",
+      "Status": "Passed",
+      "Milliseconds": 5
+    },
+    {
+      "Name": "runtime/mailbox/callback399/marker-priority",
+      "Status": "Passed",
+      "Milliseconds": 23
+    },
+    {
+      "Name": "runtime/mailbox/callback399/deferred-priority",
+      "Status": "Passed",
+      "Milliseconds": 7
+    },
+    {
+      "Name": "runtime/mailbox/callback399/nested-current-consume",
+      "Status": "Passed",
+      "Milliseconds": 1
+    },
+    {
+      "Name": "runtime/statistics-group-leader-foreign-pid-physical-root-and-detached-host-snapshot",
+      "Status": "Passed",
+      "Milliseconds": 49
+    },
+    {
+      "Name": "runtime/statistics-group-leader-spawn-inheritance-independent-physical-roots-and-close",
+      "Status": "Passed",
+      "Milliseconds": 49
+    },
+    {
+      "Name": "runtime/seq-trace-concurrent-token-snapshots-tracer-switch-and-self-isolation",
+      "Status": "Passed",
+      "Milliseconds": 87
+    },
+    {
+      "Name": "runtime/io-monitored-group-leader-concurrent-output",
+      "Status": "Passed",
+      "Milliseconds": 116
+    },
+    {
+      "Name": "mailbox/later-match-preserves-order",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "mailbox/zero-timeout-retains",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "mailbox/timeout",
+      "Status": "Passed",
+      "Milliseconds": 29
+    },
+    {
+      "Name": "mailbox/concurrent-arrival",
+      "Status": "Passed",
+      "Milliseconds": 1
+    },
+    {
+      "Name": "mailbox/cancel",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "mailbox/sender-order-stress",
+      "Status": "Passed",
+      "Milliseconds": 83
+    },
+    {
+      "Name": "oracle/compiled-module/io-group-leader-format-request",
+      "Status": "Passed",
+      "Milliseconds": 167
+    },
+    {
+      "Name": "oracle/compiled-module/io-group-leader-arbitrary-device-reply",
+      "Status": "Passed",
+      "Milliseconds": 102
+    },
+    {
+      "Name": "oracle/compiled-module/io-group-leader-custom-device-validates-format",
+      "Status": "Passed",
+      "Milliseconds": 106
+    },
+    {
+      "Name": "oracle/compiled-module/io-group-leader-selective-reply-reference",
+      "Status": "Passed",
+      "Milliseconds": 93
+    },
+    {
+      "Name": "oracle/compiled-module/io-group-leader-calling-self",
+      "Status": "Passed",
+      "Milliseconds": 72
+    },
+    {
+      "Name": "oracle/compiled-module/io-group-leader-dead-device",
+      "Status": "Passed",
+      "Milliseconds": 92
+    },
+    {
+      "Name": "oracle/compiled-module/io-group-leader-dead-device-flushes-exit",
+      "Status": "Passed",
+      "Milliseconds": 87
+    },
+    {
+      "Name": "oracle/compiled-module/io-group-leader-device-dies-during-request",
+      "Status": "Passed",
+      "Milliseconds": 81
+    },
+    {
+      "Name": "oracle/compiled-module/io-group-leader-device-error-arguments",
+      "Status": "Passed",
+      "Milliseconds": 83
+    },
+    {
+      "Name": "oracle/compiled-module/io-group-leader-device-error-terminated",
+      "Status": "Passed",
+      "Milliseconds": 131
+    },
+    {
+      "Name": "oracle/compiled-module/io-group-leader-device-error-calling_self",
+      "Status": "Passed",
+      "Milliseconds": 90
+    },
+    {
+      "Name": "oracle/compiled-module/io-group-leader-device-error-translation",
+      "Status": "Passed",
+      "Milliseconds": 106
+    },
+    {
+      "Name": "oracle/compiled-module/io-group-leader-device-error-other_error",
+      "Status": "Passed",
+      "Milliseconds": 85
+    },
+    {
+      "Name": "oracle/compiled-module/io-group-leader-default-device-survives-format-error",
+      "Status": "Passed",
+      "Milliseconds": 72
+    },
+    {
+      "Name": "oracle/compiled-module/io-group-leader-default-device-rejects-extra-arguments",
+      "Status": "Passed",
+      "Milliseconds": 80
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-process-info-group-leader",
+      "Status": "Passed",
+      "Milliseconds": 71
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-seq-trace-info-defaults",
+      "Status": "Passed",
+      "Milliseconds": 59
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-seq-trace-token-fields",
+      "Status": "Passed",
+      "Milliseconds": 80
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-seq-trace-flag-1",
+      "Status": "Passed",
+      "Milliseconds": 61
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-seq-trace-flag-2",
+      "Status": "Passed",
+      "Milliseconds": 57
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-seq-trace-flag-4",
+      "Status": "Passed",
+      "Milliseconds": 63
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-seq-trace-flag-8",
+      "Status": "Passed",
+      "Milliseconds": 82
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-seq-trace-flag-16",
+      "Status": "Passed",
+      "Milliseconds": 93
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-seq-trace-flag-32",
+      "Status": "Passed",
+      "Milliseconds": 65
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-seq-trace-print-call-1",
+      "Status": "Passed",
+      "Milliseconds": 54
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-seq-trace-print-call-2",
+      "Status": "Passed",
+      "Milliseconds": 61
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-seq-trace-print-exact-label",
+      "Status": "Passed",
+      "Milliseconds": 57
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-seq-trace-clear-retains-clock",
+      "Status": "Passed",
+      "Milliseconds": 66
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-seq-trace-serial-small-boundary-12",
+      "Status": "Passed",
+      "Milliseconds": 70
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-seq-trace-serial-small-boundary-13",
+      "Status": "Passed",
+      "Milliseconds": 89
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-seq-trace-serial-small-boundary-14",
+      "Status": "Passed",
+      "Milliseconds": 84
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-seq-trace-serial-wrap",
+      "Status": "Passed",
+      "Milliseconds": 79
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-seq-trace-invalid-16",
+      "Status": "Passed",
+      "Milliseconds": 79
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-seq-trace-invalid-17",
+      "Status": "Passed",
+      "Milliseconds": 51
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-seq-trace-invalid-18",
+      "Status": "Passed",
+      "Milliseconds": 58
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-seq-trace-invalid-19",
+      "Status": "Passed",
+      "Milliseconds": 53
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-seq-trace-invalid-20",
+      "Status": "Passed",
+      "Milliseconds": 50
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-seq-trace-invalid-21",
+      "Status": "Passed",
+      "Milliseconds": 56
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-seq-trace-invalid-22",
+      "Status": "Passed",
+      "Milliseconds": 51
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-seq-trace-invalid-23",
+      "Status": "Passed",
+      "Milliseconds": 55
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-seq-trace-invalid-24",
+      "Status": "Passed",
+      "Milliseconds": 51
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-seq-trace-invalid-25",
+      "Status": "Passed",
+      "Milliseconds": 65
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-seq-trace-invalid-26",
+      "Status": "Passed",
+      "Milliseconds": 80
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-seq-trace-invalid-27",
+      "Status": "Passed",
+      "Milliseconds": 62
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-seq-trace-invalid-28",
+      "Status": "Passed",
+      "Milliseconds": 50
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-seq-trace-invalid-29",
+      "Status": "Passed",
+      "Milliseconds": 55
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-seq-trace-info-spawn-active-rejected",
+      "Status": "Passed",
+      "Milliseconds": 53
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-seq-trace-untraced-receive-clears",
+      "Status": "Passed",
+      "Milliseconds": 64
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-seq-trace-queued-token-snapshots",
+      "Status": "Passed",
+      "Milliseconds": 91
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-seq-trace-system-info",
+      "Status": "Passed",
+      "Milliseconds": 69
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-seq-trace-system-tracer",
+      "Status": "Passed",
+      "Milliseconds": 70
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-seq-trace-actual-print-events",
+      "Status": "Passed",
+      "Milliseconds": 70
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-seq-trace-print-mask-counter",
+      "Status": "Passed",
+      "Milliseconds": 70
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-seq-trace-tracer-self-suppression",
+      "Status": "Passed",
+      "Milliseconds": 74
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-seq-trace-tracer-death",
+      "Status": "Passed",
+      "Milliseconds": 93
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-seq-trace-invalid-tracer-39",
+      "Status": "Passed",
+      "Milliseconds": 56
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-seq-trace-invalid-tracer-40",
+      "Status": "Passed",
+      "Milliseconds": 50
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-seq-trace-invalid-tracer-41",
+      "Status": "Passed",
+      "Milliseconds": 77
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-seq-trace-invalid-tracer-42",
+      "Status": "Passed",
+      "Milliseconds": 70
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-seq-trace-invalid-tracer-43",
+      "Status": "Passed",
+      "Milliseconds": 52
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-seq-trace-send-receive-lamport",
+      "Status": "Passed",
+      "Milliseconds": 111
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-seq-trace-selective-receive-token-only-on-match",
+      "Status": "Passed",
+      "Milliseconds": 85
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-seq-trace-timestamp-timestamp",
+      "Status": "Passed",
+      "Milliseconds": 67
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-seq-trace-timestamp-monotonic_timestamp",
+      "Status": "Passed",
+      "Milliseconds": 68
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-seq-trace-timestamp-strict_monotonic_timestamp",
+      "Status": "Passed",
+      "Milliseconds": 85
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-seq-trace-timestamp-precedence",
+      "Status": "Passed",
+      "Milliseconds": 94
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-seq-trace-spawn-protocol-and-monitor-reference",
+      "Status": "Passed",
+      "Milliseconds": 89
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-seq-trace-alias-delivery-token",
+      "Status": "Passed",
+      "Milliseconds": 80
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-seq-trace-inactive-alias-live-owner-clock",
+      "Status": "Passed",
+      "Milliseconds": 62
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-seq-trace-dead-pid-does-not-advance",
+      "Status": "Passed",
+      "Milliseconds": 57
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-seq-trace-dead-alias-owner-does-not-advance",
+      "Status": "Passed",
+      "Milliseconds": 68
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-seq-trace-local-name-tuple-send-destination",
+      "Status": "Passed",
+      "Milliseconds": 84
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-seq-trace-strict-timestamp-order",
+      "Status": "Passed",
+      "Milliseconds": 93
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-seq-trace-spawn-opt-callback-payload",
+      "Status": "Passed",
+      "Milliseconds": 102
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-seq-trace-unmatched-receive-preserves-token",
+      "Status": "Passed",
+      "Milliseconds": 62
+    },
+    {
+      "Name": "runtime/distribution-group-leader-queued-signal-owned-local-target",
+      "Status": "Passed",
+      "Milliseconds": 60
+    },
+    {
+      "Name": "runtime/mailbox/receive-markers381/position-and-clear",
+      "Status": "Passed",
+      "Milliseconds": 25
+    },
+    {
+      "Name": "runtime/mailbox/receive-markers381/removal-and-expiration",
+      "Status": "Passed",
+      "Milliseconds": 20
+    },
+    {
+      "Name": "runtime/mailbox/receive-markers381/invalid-and-foreign",
+      "Status": "Passed",
+      "Milliseconds": 24
+    },
+    {
+      "Name": "runtime/mailbox/receive-markers381/pass-expiration",
+      "Status": "Passed",
+      "Milliseconds": 19
+    },
+    {
+      "Name": "runtime/mailbox/receive-markers381/duplicate-binding-refused",
+      "Status": "Passed",
+      "Milliseconds": 19
+    },
+    {
+      "Name": "runtime/mailbox/receive-markers381/control-only-wait",
+      "Status": "Passed",
+      "Milliseconds": 38
+    },
+    {
+      "Name": "runtime/mailbox/receive-markers381/priority-refusal-before-use",
+      "Status": "Passed",
+      "Milliseconds": 18
+    },
+    {
+      "Name": "runtime/mailbox/receive-markers381/priority-refusal-after-await",
+      "Status": "Passed",
+      "Milliseconds": 22
+    },
+    {
+      "Name": "runtime/mailbox/receive-markers381/deferred-physical-order",
+      "Status": "Passed",
+      "Milliseconds": 22
+    },
+    {
+      "Name": "runtime/mailbox/receive-markers381/deferred-priority-refused",
+      "Status": "Passed",
+      "Milliseconds": 19
+    },
+    {
+      "Name": "runtime/mailbox/receive-markers381/priority-refusal-after-execution-wait",
+      "Status": "Passed",
+      "Milliseconds": 83
+    }
+  ]
+}

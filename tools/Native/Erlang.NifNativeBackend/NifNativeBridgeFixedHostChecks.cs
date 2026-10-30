@@ -46,11 +46,13 @@ internal static unsafe class NifNativeBridgeFixedHostChecks
             nameof(NifNativeBridgeTable.DynamicResourceCall527)
         ];
         string[] cons = [nameof(NifNativeBridgeTable.MakeListCell539)];
+        string[] textTuple719 = [nameof(NifNativeBridgeTable.GetString719), nameof(NifNativeBridgeTable.GetTuple719), nameof(NifNativeBridgeTable.MakeAtom719)];
+        Require(textTuple719.Length == NifNativeBridgeFixedHostNames.TextTuplePointerCount719);
         Require(resources.Length == NifNativeBridgeFixedHostNames.ResourcePointerCount);
         Require(cons.Length == NifNativeBridgeFixedHostNames.ConsPointerCount);
         Require(Marshal.OffsetOf<NifNativeBridgeTable>(resources[0]).ToInt64() == NifNativeBridgeFixedHostNames.ResourceAppendOffset);
         Require(Marshal.OffsetOf<NifNativeBridgeTable>(cons[0]).ToInt64() == NifNativeBridgeFixedHostNames.ConsAppendOffset);
-        string[] fields = [.. prefix, .. extension, .. resources, .. cons];
+        string[] fields = [.. prefix, .. extension, .. resources, .. cons, .. textTuple719];
         Require(NifNativeBridgeFixedHostNames.MetadataBytes + fields.Length * sizeof(nint) == NifNativeBridgeFixedHostNames.ExpectedTableBytes);
         var pointers = (nint*)((byte*)&table + NifNativeBridgeFixedHostNames.MetadataBytes);
         for (int index = 0; index < fields.Length; index++)

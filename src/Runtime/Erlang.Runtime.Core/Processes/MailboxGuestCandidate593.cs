@@ -19,7 +19,7 @@ internal sealed class MailboxGuestCandidate593 : IDisposable
         frame = context.TermHeap506.Enter();
         try
         {
-            Value = frame.AdoptGuestInto507(frame.Reserve(), value);
+            Value = MailboxValueEscape.ImportGuest(context.Runtime, frame, value);
         }
         catch (Exception original)
         {

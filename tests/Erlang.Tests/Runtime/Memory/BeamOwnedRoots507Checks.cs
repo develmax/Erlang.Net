@@ -8,9 +8,13 @@ internal static class BeamOwnedRoots507Checks
 {
     private const BindingFlags Members = BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic;
 
-    internal static async Task OriginalTryReplay()
+    internal static Task OriginalTryReplay() => TryReplay(true);
+
+    internal static Task OrdinaryTryReplay() => TryReplay(false);
+
+    private static async Task TryReplay(bool enabled)
     {
-        await using var runtime = OwnedGuest506RuntimeFactory.Create();
+        await using var runtime = OwnedGuest506RuntimeFactory.Create(enabled);
         PreparedBeamImage image = BeamTryHostAssets.Select(runtime);
         await using var owner = new RuntimeNodeFoundationHostActor(runtime);
         var opcodes = new HashSet<string>(StringComparer.Ordinal);
@@ -19,6 +23,7 @@ internal static class BeamOwnedRoots507Checks
         ValueTask Observe(ProcessContext context, string opcode)
         {
             opcodes.Add(opcode);
+            Check(typeof(ProcessContext).GetField(OrdinaryCollectorNames.HeapField, Members)!.GetValue(context) is not null);
             Call(Get(context, Heap), Collect);
             maximumWords = Math.Max(maximumWords, (long)Get(Get(Get(context, Heap), Snapshot), Words));
 

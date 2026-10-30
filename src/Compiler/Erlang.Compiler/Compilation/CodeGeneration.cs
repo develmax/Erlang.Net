@@ -103,7 +103,7 @@ public static class CodeGeneration
             f => "new global::Erlang.Compiler.MapField(" + ExpressionCode(f.Key) + "," + ExpressionCode(f.Value) + "," + (f.Exact ? "true" : "false") + ")",
             "global::Erlang.Compiler.MapField"
         ) + ")",
-        Expr.Bits bits => "new " + E + "Bits(" + Array(bits.Segments, BitSegmentCode, "global::Erlang.Compiler.BitSegment") + ")",
+        Expr.Bits bits => "new " + E + "Bits(" + Array(bits.Segments, BitSegmentCode, "global::Erlang.Compiler.BitSegment") + "){SourceLine=" + bits.SourceLine + "}",
         Expr.Unary u => SourceOperatorCode.Unary(u, Quote(u.Operator), ExpressionCode(u.Operand)),
         Expr.Binary b => SourceOperatorCode.Binary(
             b,

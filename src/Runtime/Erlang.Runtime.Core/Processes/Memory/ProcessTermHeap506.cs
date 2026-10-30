@@ -290,6 +290,7 @@ internal sealed partial class ProcessTermHeap506(ProcessRuntime runtime)
     {
         if (!closing || frames.Count != 0)
             return;
+        RetireFunctionEntries();
         RetireMagicReferences576();
         RetireResourceBinaryDescriptors577();
         RetireNativeHeaders524();
@@ -305,14 +306,17 @@ internal sealed partial class ProcessTermHeap506(ProcessRuntime runtime)
 
     internal static IOwnedTermSequence506? Storage(Term term) => term switch
     {
+        FunctionTerm function => function.OwnedFunctionStorage,
         TupleTerm tuple => tuple.OwnedStorage506,
         MapTerm map => map.OwnedMapPayload517?.RootPayload,
         HamtBitmapTerm429 bitmap => bitmap.OwnedStorage517,
         Cons cons => cons.OwnedStorage506,
         FloatTerm number => number.OwnedStorage556,
         Integer number => number.OwnedStorage559,
-        ReferenceTerm reference => reference.OwnedStorage562,
-        BitString binary => binary.OwnedStorage577,
+        Pid pid => pid.OwnedExternalStorage,
+        PortTerm port => port.OwnedExternalStorage,
+        ReferenceTerm reference => reference.OwnedExternalStorage ?? (IOwnedTermSequence506?)reference.OwnedStorage562,
+        BitString binary => binary.OwnedHeapBits ?? (IOwnedTermSequence506?)binary.OwnedStorage577,
         _ => null
     };
 }

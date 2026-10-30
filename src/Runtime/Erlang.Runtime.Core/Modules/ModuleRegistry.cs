@@ -394,7 +394,37 @@ public sealed partial class ModuleRegistry
         ModuleCodeImage? image,
         IDisposable? code,
         OwnedBindingKind507 ownedKind507 = OwnedBindingKind507.Opaque
-    ) => context.OwnedExecutionEnabled683
+    )
+    {
+        if (!context.OwnedExecutionEnabled683
+            && ownedKind507 is OwnedBindingKind507.CompilerGuest or OwnedBindingKind507.PreparedGuest
+            && RuntimeActorExecutionTurn.IsOwnedBy(context))
+        {
+            try
+            {
+                context.AdmitOrdinaryGuestCollector();
+
+                return InvokeFirstOrdinaryEntry(
+                    context,
+                    module,
+                    function,
+                    arguments,
+                    body,
+                    image,
+                    code,
+                    ownedKind507
+                );
+            }
+            catch
+            {
+                // Selection acquired this code lease before lifecycle admission.
+                // A losing shutdown entrant must not pin the selected image.
+                code?.Dispose();
+                throw;
+            }
+        }
+
+        return context.OwnedExecutionEnabled683
         ? InvokeSelectedOwned506(
             context,
             module,
@@ -414,6 +444,7 @@ public sealed partial class ModuleRegistry
             image,
             code
         );
+    }
 
     private async ValueTask<Term> InvokeSelectedOwned506(
         ProcessContext context,
@@ -426,12 +457,15 @@ public sealed partial class ModuleRegistry
         OwnedBindingKind507 ownedKind507 = OwnedBindingKind507.Opaque
     )
     {
-        using var owned = context.EnterOwnedInvocation506(arguments)!;
+        OwnedTermInvocation506? owned = null;
+        bool coreOwnsCode = false;
         try
         {
+            owned = context.EnterOwnedInvocation506(arguments)!;
             bool borrow507 = owned.CanBorrow507 && ownedKind507 != OwnedBindingKind507.Opaque;
             owned.BindingKind507 = borrow507 ? ownedKind507 : OwnedBindingKind507.Opaque;
             Term[] portable = borrow507 ? owned.Arguments : owned.Arguments.Select(owned.Export).ToArray();
+            coreOwnsCode = true;
             Term result = await InvokeSelectedCore506(
                 context,
                 module,
@@ -444,13 +478,25 @@ public sealed partial class ModuleRegistry
 
             return borrow507 ? owned.CompleteGuest507(result) : owned.Complete(result);
         }
-        catch (ErlangException error)
+        catch (ErlangException error) when (owned is not null)
         {
             throw owned.Transfer(error);
         }
-        catch (Exception control) when (control is IOwnedControlTransfer506)
+        catch (Exception control) when (owned is not null && control is IOwnedControlTransfer506)
         {
             throw owned.TransferControl506(control);
+        }
+        finally
+        {
+            try
+            {
+                owned?.Dispose();
+            }
+            finally
+            {
+                if (!coreOwnsCode)
+                    code?.Dispose();
+            }
         }
     }
 

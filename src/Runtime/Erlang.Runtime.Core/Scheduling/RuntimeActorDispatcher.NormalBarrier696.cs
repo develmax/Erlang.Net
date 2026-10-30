@@ -62,7 +62,7 @@ internal sealed partial class RuntimeActorDispatcher
                 && !pending.Scheduler696.Running
                 && pending.Scheduler696.ReadyNode is not null;
 
-    private RuntimeProcessTaskScheduler? SelectBarrierRequester696(RuntimeSchedulerLane lane)
+    private RuntimeProcessTaskScheduler? SelectBarrierRequester696(RuntimeSchedulerLane lane, RuntimeNormalWorkSelection selection)
     {
         var scheduler = normalBarrier696!.Scheduler696;
         if (!lane.Online || !ReferenceEquals(scheduler.Lane, lane)
@@ -70,11 +70,13 @@ internal sealed partial class RuntimeActorDispatcher
             return null;
         // Do not strand the sole admitted requester behind another actor's
         // higher-priority head. Keep every other node in its original queue.
+        selection.Acquire(node);
         node.List!.Remove(node);
         scheduler.ReadyNode = null;
         scheduler.Running = true;
         lane.Running = scheduler;
         WallTimeBecameActive(lane);
+        selection.WallTimeStarted = true;
 
         return scheduler;
     }

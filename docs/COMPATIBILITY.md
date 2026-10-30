@@ -1357,3 +1357,8 @@ Part114: erlang133/351,218 missing; exact-source original2233/2233=778/1371/84 a
 Part115: atom/existing-name and float-output increment adds13 MFAs/175 independent modules;erlang146/351,205 missing,total296,local2816/full. [Local evidence](validation/part-115/tests.json), [source boundaries](validation/part-115/reference-audit.json). Original2408/same-head2816 CI116 pending; latest complete original114 remains2233/2233 at2832c78. Active goal continues through all remaining real runtime families.
 
 Part116: exact-source original2408/2408=778/1546/84 and same-head2816/full CI at44ca437 verify atom/float output increment. [Proof](validation/part-116/remote-checkpoint.json). All earlier114 inputs/outcomes/generated hashes preserved;175 new modules match. erlang146/351,205 missing,total296;whole goal continues with clocks/calendar/timer options and real remaining runtime families.
+
+
+### Part547 current checkpoint —2026-10-31
+
+Physical writable binary/function/external-identifier/group-leader storage and direct/self mailbox roots have scoped local acceptance: final affected133/133, exact tokens/syntax386 sources, complete original writable4/4, external identifier7records×4routes and group leader4/4. See [immutable evidence](validation/part-547/REPORT.md). Public GC selection remains unchanged pending remaining signal/conversion, sequence-token/label and native-record roots. Whole statistics/profile/platform acceptance and fresh-head CI/publication remain pending.708/180/504/24 and API/full-contract delta0/0 unchanged. Next: finish actual remaining roots, then switch/test public per-VM GC values and complete original helper/profile acceptance separately.

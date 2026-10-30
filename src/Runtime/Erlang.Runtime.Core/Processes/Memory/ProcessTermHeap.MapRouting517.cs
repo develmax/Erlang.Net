@@ -22,6 +22,7 @@ internal sealed partial class ProcessTermHeap506
         HamtBitmapTerm429 bitmap => bitmap.Children,
         Cons cons => new[] { cons.Head, cons.Tail },
         TupleTerm tuple => tuple.Items,
+        FunctionTerm function => function.Environment,
         _ => Array.Empty<Term>()
     };
 }
