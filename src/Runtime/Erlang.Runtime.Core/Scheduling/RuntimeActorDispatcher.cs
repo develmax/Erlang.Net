@@ -231,6 +231,8 @@ internal sealed partial class RuntimeActorDispatcher
 
     private void GrantOnlineTurn()
     {
+        AdvanceNormalBarrier696();
+        if (normalBarrier696 is not null) return;
         if (onlineChange is not null || onlineTurn is not null)
             return;
         while (onlineRequests.First is { } first)
@@ -308,6 +310,7 @@ internal sealed partial class RuntimeActorDispatcher
 
     private RuntimeProcessTaskScheduler? Select(RuntimeSchedulerLane lane)
     {
+        if (normalBarrier696 is not null) return SelectBarrierRequester696(lane);
         LinkedList<RuntimeProcessTaskScheduler> queue;
         if (lane.Cleanup.Count != 0 && (lane.Online || retiring))
             queue = lane.Cleanup;
@@ -341,9 +344,11 @@ internal sealed partial class RuntimeActorDispatcher
 
     private void StartWorkers()
     {
+        AdvanceNormalBarrier696();
         foreach (var lane in lanes)
         {
-            if (lane.Online && !lane.Pumping && lane.Empty)
+            if (!NormalBarrierLaneMayStart696(lane)) continue;
+            if (normalBarrier696 is null && lane.Online && !lane.Pumping && lane.Empty)
                 TrySteal(lane);
             if (lane.Pumping || lane.Empty || !lane.Online && lane.Auxiliary420.Count == 0 && (!retiring || lane.Cleanup.Count == 0))
                 continue;
@@ -398,7 +403,7 @@ internal sealed partial class RuntimeActorDispatcher
             RuntimeSchedulerAuxiliary420? auxiliary = null;
             lock (gate)
             {
-                if (lane.Auxiliary420.First is { } first && DriverAuxiliaryMayRun422(lane))
+                if (normalBarrier696 is null && lane.Auxiliary420.First is { } first && DriverAuxiliaryMayRun422(lane))
                 {
                     lane.Auxiliary420.RemoveFirst();
                     auxiliary = first.Value;
@@ -409,12 +414,12 @@ internal sealed partial class RuntimeActorDispatcher
                 else
                 {
                     scheduler = Select(lane);
-                    if (scheduler is null && lane.Online)
+                    if (scheduler is null && lane.Online && normalBarrier696 is null)
                     {
                         TrySteal(lane);
                         scheduler = Select(lane);
                     }
-                    if (scheduler is null && lane.Auxiliary420.First is { } fallback)
+                    if (normalBarrier696 is null && scheduler is null && lane.Auxiliary420.First is { } fallback)
                     {
                         lane.Auxiliary420.RemoveFirst();
                         auxiliary = fallback.Value;
@@ -467,6 +472,7 @@ internal sealed partial class RuntimeActorDispatcher
                         AssignLane(scheduler);
                         if (scheduler.WorkCount428 != 0) Ready(scheduler);
                     }
+                    AdvanceNormalBarrier696();
                     CompleteTransition();
                     StartWorkers();
                 }
@@ -486,9 +492,12 @@ internal sealed partial class RuntimeActorDispatcher
 
     public Task CompleteWhenIdle()
     {
+        var normalBarrierFailure696 = new ObjectDisposedException(RuntimeNormalBarrierNames696.Lease);
         lock (gate)
         {
             retiring = true;
+            RetirePendingNormalBarriers696(normalBarrierFailure696);
+            CloseNormalNativeUnderGate697();
             StopInitializerAfterGuests();
             foreach (var lane in lanes)
                 foreach (var queue in new[] { lane.Maximum, lane.High, lane.Ordinary })
@@ -550,7 +559,7 @@ internal sealed partial class RuntimeActorDispatcher
 
     private void CompleteIfIdle()
     {
-        if (!retiring || nativeResourceOwners536 != 0 || driverOwners422 != 0 || active != 0 || !initializerStop.IsCompleted || lanes.Any(lane => lane.Pumping || !lane.Empty))
+        if (!retiring || normalNativeActive697 != 0 || nativeResourceOwners536 != 0 || driverOwners422 != 0 || active != 0 || !initializerStop.IsCompleted || lanes.Any(lane => lane.Pumping || !lane.Empty))
             return;
         if (initializerStop.Exception is { } failure)
             completion.TrySetException(failure.InnerExceptions);

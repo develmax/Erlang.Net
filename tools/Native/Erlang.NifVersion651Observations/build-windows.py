@@ -7,6 +7,7 @@ def main():
     for n in ['repository','official-admission','output']:p.add_argument('--'+n,type=Path,required=True)
     for n in ['plan-sha256','admission-sha256']:p.add_argument('--'+n,required=True)
     a=p.parse_args();repo=a.repository.resolve();tool=Path(__file__).resolve().parent
+    subject_head=subprocess.check_output(['git','--no-optional-locks','-C',str(repo),'rev-parse','HEAD'],text=True).strip()
     need(os.name=='nt' and sys.maxsize>2**32,'Windows x64 only');plan=guard(repo,tool,a.plan_sha256,"build-inputs.json")
     a.build_receipt=a.otp_source=None;provider=load('v651_provider',repo/PROVIDER);owned=load('v651_owned',repo/OWNED)
     out=fresh(repo,a.output);errors=[];images=[];before=None;after=None;sealed=None
@@ -68,8 +69,10 @@ def main():
             try:
                 current=after();save(out/'provider-after.json',current);need(current==before['Inventory'],'Provider changed')
             except Exception as error:errors.append(dict(Phase='provider-after',Error=repr(error)))
-        try:guard(repo,tool,a.plan_sha256,"build-inputs.json")
+        try:
+            need(subprocess.check_output(['git','--no-optional-locks','-C',str(repo),'rev-parse','HEAD'],text=True).strip()==subject_head,'Subject commit changed during native build')
+            guard(repo,tool,a.plan_sha256,"build-inputs.json")
         except Exception as error:errors.append(dict(Phase='source-after',Error=repr(error)))
-    result=dict(Status='VERSION651_WINDOWS_BUILD',Pin=PIN,Passed=len(images)==42 and not errors,ExpectedCases=42,Images=images,Errors=errors,PlanSha256=a.plan_sha256.upper(),NativeInitializationExecuted=False,ExecutionApproved=False,OriginalExecuted=False)
+    result=dict(Status='VERSION651_WINDOWS_BUILD',Pin=PIN,SubjectHead=subject_head,Passed=len(images)==42 and not errors,ExpectedCases=42,Images=images,Errors=errors,PlanSha256=a.plan_sha256.upper(),NativeInitializationExecuted=False,ExecutionApproved=False,OriginalExecuted=False)
     save(out/'build-receipt.json',result);return 0 if result['Passed'] else 1
 if __name__=='__main__':raise SystemExit(main())

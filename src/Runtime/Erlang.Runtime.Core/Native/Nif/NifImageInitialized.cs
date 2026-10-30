@@ -5,4 +5,8 @@ namespace Erlang;
 internal sealed record NifImageInitialized(
     IAsyncDisposable Owner,
     IReadOnlyList<KeyValuePair<(string Name, int Arity), ErlangFunction>> Bindings
-);
+)
+{
+    internal bool NativePublished544 { get; set; }
+    internal Exception? NativePostCommitFailure544 { get; set; }
+}

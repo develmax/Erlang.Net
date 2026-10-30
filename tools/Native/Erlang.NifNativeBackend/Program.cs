@@ -3,6 +3,13 @@ using Erlang.NifNativeBackend;
 
 try
 {
+    if (args.Length != 0 && args[0] == NormalNative697PhysicalNames.Mode)
+    {
+        await NifVersion651Driver.Run(args[1..], normalNativePhysical697: true);
+
+        return;
+    }
+
     if (args.Length != 0 && args[0] == NifVersion651DriverNames.Mode)
     {
         await NifVersion651Driver.Run(args[1..]);

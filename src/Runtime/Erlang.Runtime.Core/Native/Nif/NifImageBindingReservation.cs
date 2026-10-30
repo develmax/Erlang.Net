@@ -23,6 +23,15 @@ internal sealed class NifImageBindingReservation : IDisposable
         IAsyncDisposable nativeOwner
     ) => owner.Publish(this, bindings, nativeOwner);
 
+    internal NifPreparedImageBindings544 Prepare(
+        IEnumerable<KeyValuePair<(string Name, int Arity), ErlangFunction>> bindings
+    ) => owner.Prepare(this, bindings);
+
+    internal void PublishPrepared(
+        NifPreparedImageBindings544 prepared,
+        IAsyncDisposable nativeOwner
+    ) => owner.PublishPrepared(this, prepared, nativeOwner);
+
     // Failed publication does not transfer nativeOwner. Release that caller-owned
     // resource before disposing the reservation, so retirement observes real cleanup.
     public void Dispose() => owner.Abort(this);

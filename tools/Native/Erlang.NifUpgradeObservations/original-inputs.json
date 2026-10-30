@@ -1,0 +1,81 @@
+{
+  "SourceOnly": true,
+  "Pin": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "ExpectedHeadMode": "exact-current-argument",
+  "Inputs": [
+    {
+      "Root": "Packet",
+      "Path": "common.py",
+      "Sha256": "2C18DDF34680DB41267F7C86B6803A94820EC6ADC7608187521609E19658CDC8"
+    },
+    {
+      "Root": "Packet",
+      "Path": "collect-original.py",
+      "Sha256": "054B2E78F4A9E4DEFB83FADBAA9A72DB8FA1E2C2A208E4AECE52D1E3EFBDF5C5"
+    },
+    {
+      "Root": "Packet",
+      "Path": "cases.json",
+      "Sha256": "E81CD90391AFC4B48E47CC65EC7FF21A8363AC9821CC318C3CC588EAEEF46170"
+    },
+    {
+      "Root": "Packet",
+      "Path": "fixtures/nif_upgrade693.erl",
+      "Sha256": "BA37F5932B2D08FBC0F1076828F54A4E0F367922A7708E4B32980E7756B7D6AC"
+    },
+    {
+      "Root": "Packet",
+      "Path": "fixtures/upgrade_observer693.erl",
+      "Sha256": "CF98CC6CEE449B889474EB1D177DE39CF611D9854E5BED86AC072F88537DBB83"
+    },
+    {
+      "Root": "Packet",
+      "Path": "build-inputs.json",
+      "Sha256": "027A9B060EE0F7A4D023AEA07FD0D61864EF742C91CA5900D80510515927DE0E"
+    },
+    {
+      "Root": "Repository",
+      "Path": "tools/Runtime/Erlang.OwnedGuest506Observations/collect.py",
+      "Sha256": "E0A9019CA029EB53D01247D68A87B1E017C448AF12ABAA3474B80BE8DB7C5DD1"
+    },
+    {
+      "Root": "Repository",
+      "Path": "tools/Native/Erlang.DdllFormatterOriginalObservations/scripts/owned.py",
+      "Sha256": "2603D9DDC322D0B9F58BEA915076A8CCF2907B62E3927B33B49FF0BEE90EDD94"
+    },
+    {
+      "Root": "Repository",
+      "Path": "tools/Native/Erlang.DdllFormatterOriginalObservations/scripts/bounded_inventory.py",
+      "Sha256": "502862EB7045D780115D046A02FA56DB11FB67EBC7A1883CA58D06BEC6C7910A"
+    },
+    {
+      "Root": "Repository",
+      "Path": "tools/Distribution/Erlang.GuestConnectedSendObservations/owned_process.py",
+      "Sha256": "5FE871571A892AF7BF50948A6125904546334A86D7F8566FEBFB6C42C9EAB51D"
+    },
+    {
+      "Root": "Repository",
+      "Path": "tools/Native/Erlang.NifEntryOriginalObservations/common.py",
+      "Sha256": "655DE0072EF0833C34F5FB60497D80BD5ACF098B7A7E19D1D23356D144152CBE"
+    },
+    {
+      "Root": "Repository",
+      "Path": "tools/Runtime/Erlang.SchedulerAffinityOriginalObservations/source_inputs.py",
+      "Sha256": "28B06562E1621DF049D4C1B603B5AD7D9EBDA6C0BE616D21D54CCD4B03A34F45"
+    },
+    {
+      "Root": "Repository",
+      "Path": "tools/Distribution/Erlang.GuestConnectedSendObservations/passive_etf.py",
+      "Sha256": "A069AD650B3EA1BE6B90DE60117B84ED7A1A6B67128CC41E7ECAEFD2889C1713"
+    }
+  ],
+  "NativeBuildPlanSha256": "027A9B060EE0F7A4D023AEA07FD0D61864EF742C91CA5900D80510515927DE0E",
+  "WrongEntryNativeBuildPlans": {
+    "Windows": "94121DE643F587674DE3541C741A6E51CE2CFECE2188D1DEB7C1D735B068F511",
+    "Linux": "7F8A1A3B1997F5CD206CC64A6E210D9ACA4610B01811CE3691F65A0E7E95D1A3"
+  },
+  "ExpectedCases": 12,
+  "CleanupProtocol": "OLD_A_UNLOAD_BEFORE_CURRENT_PURGE_709",
+  "WholeN2Ready": false,
+  "WholeApiCredits": 0
+}

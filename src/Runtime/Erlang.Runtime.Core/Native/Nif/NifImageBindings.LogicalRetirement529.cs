@@ -26,6 +26,8 @@ internal sealed partial class NifImageBindings
             lock (gate)
             {
                 if (retirement is not null) return;
+                if (CloseNativeTransition544()) return;
+                closePreparation544 = true;
                 table = resourceNames529;
             }
             using NativeResourceImageNamesRetirement529? names = table?.PrepareImageNamesRetirement529(Image);

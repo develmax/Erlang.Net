@@ -79,6 +79,13 @@ internal sealed class NativeResourceType524 : IDisposable
 
     internal NativeResourceCallbackVersion527 Install527(NativeResourceTypeTable527 owner,
         NativeResourceCallbackVersion527 version)
+        => InstallUpgrade544(owner, version, retired: false);
+
+    internal NativeResourceCallbackVersion527 InstallUpgrade544(
+        NativeResourceTypeTable527 owner,
+        NativeResourceCallbackVersion527 version,
+        bool retired
+    )
     {
         lock (gate)
         {
@@ -86,7 +93,7 @@ internal sealed class NativeResourceType524 : IDisposable
             current = version;
             table = owner;
             registered = true;
-            ownerRetired = false;
+            ownerRetired = retired;
 
             return previous;
         }

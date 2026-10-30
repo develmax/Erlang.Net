@@ -13,4 +13,8 @@ internal static class NifNativeLoadReasonText
     internal const string FunctionAritySeparator = "/";
     internal const string VetoPrefix = "Library load-call unsuccessful (";
     internal const string VetoSuffix = ").";
+    internal const string OldCodePrefix544 = "Calling load_nif from old module '";
+    internal const string OldCodeSuffix544 = "' not allowed";
+    internal const string Reload544 = "NIF library already loaded (reload disallowed since OTP 20).";
+    internal const string UpgradeUnsupported544 = "Upgrade not supported by this NIF library.";
 }
