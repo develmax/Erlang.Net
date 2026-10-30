@@ -7,6 +7,7 @@ internal sealed record NifImageAdmissionGeneration(
     ModuleCodeDescriptor TargetDescriptor,
     ModuleCodeImage? CurrentImage,
     ModuleCodeImage? OldImage,
+    ModuleCodeImage? PreviousNativeImage544,
     ModuleCodeDescriptor? CurrentDescriptor,
     BeamOnLoadTicket? PendingTicket,
     IReadOnlyDictionary<(string Module, string Function, int Arity), ErlangFunction> Bodies,

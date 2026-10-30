@@ -18,6 +18,8 @@ internal sealed unsafe partial class NifNativeLibraryOwner : IAsyncDisposable
     private bool initialized;
     private bool disposed;
     private Exception? disposalFailure;
+    internal bool RequiresUpgrade544 { private get; set; }
+    internal NifNativeUpgradeOperation544? UpgradeOperation544 { get; set; }
     internal int OutstandingAfterNativeUnload { get; private set; } = -1;
 
     internal NifNativeLibraryOwner(ModuleCodeImage image, ProcessContext context)
@@ -66,7 +68,7 @@ internal sealed unsafe partial class NifNativeLibraryOwner : IAsyncDisposable
             if (OperatingSystem.IsWindows())
             {
                 windowsCallbacks = new(reallocationEnabled);
-                windowsCallbacks.BindIndependentEnvironments(initializationContext.Runtime, image);
+                windowsCallbacks.BindIndependentEnvironments(initializationContext.Runtime);
             }
             var failure = new NifNativeFailureState();
             using var scope = new NifNativeCallbackScope(allocations, failure, reallocationEnabled);
@@ -108,6 +110,11 @@ internal sealed unsafe partial class NifNativeLibraryOwner : IAsyncDisposable
             failure.ThrowPending();
             entry = NifNativeEntryReader.Read(entryPointer, image.Module);
             ValidateEntry(descriptor);
+            // OTP validates the newly opened entry before selecting load/upgrade.
+            // Until the native transition is admitted, never fall through to load
+            // for a caller that has a previous native image.
+            if (RequiresUpgrade544)
+                return InitializeUpgrade544(environment, failure, loadInfo);
             nuint info = environment.Add(loadInfo);
             int result = InvokeLoadCallback557(environment, info);
             if (result == 0)

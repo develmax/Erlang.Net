@@ -1,0 +1,135 @@
+{
+  "SourceOnly": true,
+  "Pin": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "ExpectedHeadMode": "exact-current-argument",
+  "OriginalPlanSha256": "582C8D312DAB0F4FB34BFD493D6CF1A25589EE1F368AC0D8DE62E6B9E6AE5D8D",
+  "NativeBuildPlanSha256": "64283C01D258C287FB0450795A1B7AFBA3837F978F68FA04F9B7FD77EC71BBDF",
+  "WrongEntryNativeBuildPlans": {
+    "Windows": "94121DE643F587674DE3541C741A6E51CE2CFECE2188D1DEB7C1D735B068F511",
+    "Linux": "AEA4964FBF802C1A942CF08815CB94FF053E8B161D8BAB18948F1E305761CB9B"
+  },
+  "ExpectedCases": 12,
+  "ExpectedComparisons": 24,
+  "CleanupProtocol": "OLD_A_UNLOAD_BEFORE_CURRENT_PURGE_709",
+  "RuntimeManifestSuppliedByRootAfterActualBuild": true,
+  "FutureRuntimeManifestApproved": false,
+  "WholeN2Ready": false,
+  "WholeApiCredits": 0,
+  "Inputs": [
+    {
+      "Root": "Tool",
+      "Path": "build-inputs.json",
+      "Sha256": "64283C01D258C287FB0450795A1B7AFBA3837F978F68FA04F9B7FD77EC71BBDF"
+    },
+    {
+      "Root": "Tool",
+      "Path": "build-native.py",
+      "Sha256": "DC099C0C566BCC879A97FB1147676B11C93787FA0A31F691A59DAD3725B09AB0"
+    },
+    {
+      "Root": "Tool",
+      "Path": "cases.json",
+      "Sha256": "E81CD90391AFC4B48E47CC65EC7FF21A8363AC9821CC318C3CC588EAEEF46170"
+    },
+    {
+      "Root": "Tool",
+      "Path": "collect-managed.py",
+      "Sha256": "5CDB047EA3C9FE8616628322C6D7D321FB21F127BAD81989373FF574852D03BC"
+    },
+    {
+      "Root": "Tool",
+      "Path": "collect-original.py",
+      "Sha256": "054B2E78F4A9E4DEFB83FADBAA9A72DB8FA1E2C2A208E4AECE52D1E3EFBDF5C5"
+    },
+    {
+      "Root": "Tool",
+      "Path": "common.py",
+      "Sha256": "2C18DDF34680DB41267F7C86B6803A94820EC6ADC7608187521609E19658CDC8"
+    },
+    {
+      "Root": "Tool",
+      "Path": "describe-current-runtime.py",
+      "Sha256": "A91557709D68C08A124DF4616C9418C54B465C0DD5D72BE6512F0A6CD7BBCB74"
+    },
+    {
+      "Root": "Tool",
+      "Path": "driver/Names.cs",
+      "Sha256": "CDDBC619A6E93742ED966080BC24FD4E7FE638D87A3F2B3D3811D525C4D416E9"
+    },
+    {
+      "Root": "Tool",
+      "Path": "driver/Program.cs",
+      "Sha256": "77FFDAC7B5B14423831EC35044C6A3A4B657BDFAA893589E303884F4205E9C5D"
+    },
+    {
+      "Root": "Tool",
+      "Path": "driver/Upgrade709.csproj",
+      "Sha256": "9CDA2A23E45E24B4E2F00AE0BAB70FEFAB5CA0F8BDF110EAA498B9BFC38272BB"
+    },
+    {
+      "Root": "Tool",
+      "Path": "fixtures/nif_upgrade693.c",
+      "Sha256": "6C26DBDCE9173F0EE6D74015337FD65E2FCB11A9010E800E01242C2D1D28D3E3"
+    },
+    {
+      "Root": "Tool",
+      "Path": "fixtures/nif_upgrade693.erl",
+      "Sha256": "BA37F5932B2D08FBC0F1076828F54A4E0F367922A7708E4B32980E7756B7D6AC"
+    },
+    {
+      "Root": "Tool",
+      "Path": "fixtures/upgrade_observer693.erl",
+      "Sha256": "CF98CC6CEE449B889474EB1D177DE39CF611D9854E5BED86AC072F88537DBB83"
+    },
+    {
+      "Root": "Tool",
+      "Path": "native-images.json",
+      "Sha256": "976A8DD27560CEDB83DF6C2AAA17E1F8AF3399D5C8F835844E3247417F702A6E"
+    },
+    {
+      "Root": "Tool",
+      "Path": "original-inputs.json",
+      "Sha256": "582C8D312DAB0F4FB34BFD493D6CF1A25589EE1F368AC0D8DE62E6B9E6AE5D8D"
+    },
+    {
+      "Root": "Tool",
+      "Path": "README.md",
+      "Sha256": "A89EB5DC7187C08D32D65B92A989CA8CEEA079CAE4F0061643B02527A84FAE36"
+    },
+    {
+      "Root": "Repository",
+      "Path": "tools/Runtime/Erlang.OwnedGuest506Observations/collect.py",
+      "Sha256": "E0A9019CA029EB53D01247D68A87B1E017C448AF12ABAA3474B80BE8DB7C5DD1"
+    },
+    {
+      "Root": "Repository",
+      "Path": "tools/Native/Erlang.DdllFormatterOriginalObservations/scripts/owned.py",
+      "Sha256": "2603D9DDC322D0B9F58BEA915076A8CCF2907B62E3927B33B49FF0BEE90EDD94"
+    },
+    {
+      "Root": "Repository",
+      "Path": "tools/Native/Erlang.DdllFormatterOriginalObservations/scripts/bounded_inventory.py",
+      "Sha256": "502862EB7045D780115D046A02FA56DB11FB67EBC7A1883CA58D06BEC6C7910A"
+    },
+    {
+      "Root": "Repository",
+      "Path": "tools/Distribution/Erlang.GuestConnectedSendObservations/owned_process.py",
+      "Sha256": "846101AD4F92121ACB128EAFB3228DD66D8A524CE0539A25E020A77010CFF071"
+    },
+    {
+      "Root": "Repository",
+      "Path": "tools/Native/Erlang.NifEntryOriginalObservations/common.py",
+      "Sha256": "655DE0072EF0833C34F5FB60497D80BD5ACF098B7A7E19D1D23356D144152CBE"
+    },
+    {
+      "Root": "Repository",
+      "Path": "tools/Runtime/Erlang.SchedulerAffinityOriginalObservations/source_inputs.py",
+      "Sha256": "28B06562E1621DF049D4C1B603B5AD7D9EBDA6C0BE616D21D54CCD4B03A34F45"
+    },
+    {
+      "Root": "Repository",
+      "Path": "tools/Distribution/Erlang.GuestConnectedSendObservations/passive_etf.py",
+      "Sha256": "A069AD650B3EA1BE6B90DE60117B84ED7A1A6B67128CC41E7ECAEFD2889C1713"
+    }
+  ]
+}

@@ -10,7 +10,7 @@ internal static unsafe class NifNativeBridgeFixedHostChecks
     {
         NifNativeBridgeTable table = Table();
         using var environmentTable = new NifNativeWindowsCallbacks();
-        environmentTable.BindIndependentEnvironments(context.Runtime, new ModuleCodeImage(NifNativeBridgeFixedHostNames.Module));
+        environmentTable.BindIndependentEnvironments(context.Runtime);
         NifNativeReferenceBridgeTable.Bind(ref table, ((nint*)environmentTable.Pointer)[NifNativeEnvironmentLayout.Allocate]);
         Require(table.Version == NifNativeBridgeFixedHostNames.ExpectedVersion);
         Require(table.Size == NifNativeBridgeFixedHostNames.ExpectedTableBytes);

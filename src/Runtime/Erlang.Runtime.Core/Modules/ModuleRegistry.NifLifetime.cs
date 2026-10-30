@@ -104,6 +104,8 @@ public sealed partial class ModuleRegistry
     internal Task CloseNifLifetimeAsync()
     {
         RequireNifShutdownCaller();
+        // Wake/fault Host entrants before any image/call joins can wait them.
+        owningRuntime?.CloseNormalNativeAdmission697();
         TaskCompletionSource completion;
         NifImageLoadReservation[] reservations;
         Task[] retirements;

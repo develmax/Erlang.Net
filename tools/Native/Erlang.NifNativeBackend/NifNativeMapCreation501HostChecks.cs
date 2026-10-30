@@ -14,7 +14,7 @@ internal static unsafe class NifNativeMapCreation501HostChecks
             state
         );
         using var table = new NifNativeWindowsCallbacks();
-        table.BindIndependentEnvironments(context.Runtime, image);
+        table.BindIndependentEnvironments(context.Runtime);
         nuint first = Make(table, caller.Pointer);
         nuint second = Make(table, caller.Pointer);
         Require(first != 0 && second != 0 && first != second);

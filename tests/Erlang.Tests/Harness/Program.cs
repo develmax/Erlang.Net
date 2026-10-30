@@ -1827,6 +1827,12 @@ Test(Erlang.Tests.NifImageBindingHostNames.Test, Erlang.Tests.NifImageBindingHos
 Test(Erlang.Tests.CodeModificationHostNames.Test, Erlang.Tests.CodeModificationHostChecks.Run);
 Test(Erlang.Tests.BeamOnLoadCallbackFaultHostNames.Test, Erlang.Tests.BeamOnLoadCallbackFaultHostChecks.Run);
 Test(Erlang.Tests.NifAdmissionHostNames.Test, Erlang.Tests.NifAdmissionHostChecks.Run);
+Test(Erlang.Tests.NormalBarrier696Names.ActualTest, Erlang.Tests.NormalBarrier696Checks.ActualTurnsAuxiliaryAndDirty);
+Test(Erlang.Tests.NormalBarrier696Names.CancellationTest, Erlang.Tests.NormalBarrier696Checks.ConcurrentCancellation);
+Test(Erlang.Tests.NormalBarrier696Names.RetirementTest, Erlang.Tests.NormalBarrier696Checks.ReentrantAndRetirement);
+Test(Erlang.Tests.NormalNative697Names.HostTest, Erlang.Tests.NormalNative697Checks.CountedHostAndSameContext);
+Test(Erlang.Tests.NormalNative697Names.AuxiliaryTest, Erlang.Tests.NormalNative697Checks.PendingAuxiliaryContinuation);
+Test(Erlang.Tests.NormalNative697Names.CloseTest, Erlang.Tests.NormalNative697Checks.QueuedCancellationAndEarlyClose);
 Test(Erlang.Tests.NifSourceEntryHostNames.Test, Erlang.Tests.NifSourceEntryHostChecks.Run);
 Test(Erlang.Tests.SourceLoadNifHostNames.Test, Erlang.Tests.SourceLoadNifHostChecks.Run);
 Test(Erlang.Tests.SourcePurgeStageHostNames.Test, Erlang.Tests.SourcePurgeStageHostChecks.Run);
@@ -6714,6 +6720,11 @@ Test(
 
 
 Test(
+    NifNativeBackend::Erlang.NifNativeBackend.NifNativeBoundIndependent712HostNames.Case,
+    NifNativeBackend::Erlang.NifNativeBackend.NifNativeBoundIndependent712HostEntry.Run
+);
+
+Test(
     Erlang.Tests.NifImmediateCallbackHostNames.Getter,
     NifNativeBackend::Erlang.NifNativeBackend.NifNativeImmediateHostEntry.Getter
 );
@@ -7463,6 +7474,14 @@ try
     Test(
         Erlang.Tests.NativeResourceScope528Names.TakeoverUsesNewPhysicalDestructor,
         Erlang.Tests.NativeResource527Checks.TakeoverUsesNewPhysicalDestructor
+    );
+    Test(
+        Erlang.Tests.NativeResourceUpgrade705Names.AcrossCloseTest,
+        Erlang.Tests.NativeResourceUpgrade705Checks.PreadmittedAcrossDomainClose
+    );
+    Test(
+        Erlang.Tests.NativeResourceUpgrade705Names.RejectCloseTest,
+        Erlang.Tests.NativeResourceUpgrade705Checks.CloseBeforeAdmissionRejected
     );
     Test(
         Erlang.Tests.NativeResourceScope528Names.ArenaSurvivesImageCloseAndSupportsForeignFree,

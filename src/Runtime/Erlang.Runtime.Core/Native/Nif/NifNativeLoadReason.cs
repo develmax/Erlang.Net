@@ -36,11 +36,7 @@ internal sealed record NifNativeLoadReason(
             return NifNativeVersion651.VariantPrefix + VersionText651 + NifNativeVersion651.VariantMiddle
                 + NifNativeNames.Variant + NifNativeVersion651.VariantSuffix;
 
-        ReadOnlySpan<byte> displayed = new TermDisplayWriter(runtime).Write(Term.A(CallingModule));
-        if (displayed.IsEmpty || displayed[^1] != TermDisplayParameters.LineFeed)
-            throw new InvalidOperationException(NifNativeLoadReasonText.DisplayTerminator);
-        // load_nif_error builds its charlist directly from the formatter bytes.
-        string module = Encoding.Latin1.GetString(displayed[..^1]);
+        string module = DisplayModule544(runtime, CallingModule);
         if (Kind == NifNativeLoadReasonKind.FutureVersion651)
             return NifNativeVersion651.FuturePrefix + module + NifNativeVersion651.FutureMiddle
                 + VersionText651 + NifNativeVersion651.FutureSuffix;
@@ -74,6 +70,16 @@ internal sealed record NifNativeLoadReason(
         nuint magnitude = unchecked((nuint)(nint)(-value));
 
         return CultureInfo.InvariantCulture.NumberFormat.NegativeSign + magnitude.ToString(CultureInfo.InvariantCulture);
+    }
+
+    internal static string DisplayModule544(ProcessRuntime runtime, string module)
+    {
+        ReadOnlySpan<byte> displayed = new TermDisplayWriter(runtime).Write(Term.A(module));
+        if (displayed.IsEmpty || displayed[^1] != TermDisplayParameters.LineFeed)
+            throw new InvalidOperationException(NifNativeLoadReasonText.DisplayTerminator);
+
+        // load_nif_error builds its charlist directly from the formatter bytes.
+        return Encoding.Latin1.GetString(displayed[..^1]);
     }
 
 }

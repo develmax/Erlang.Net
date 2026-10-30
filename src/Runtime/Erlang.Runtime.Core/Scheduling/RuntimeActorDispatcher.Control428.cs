@@ -13,7 +13,7 @@ internal sealed partial class RuntimeActorDispatcher
         lock (gate)
         {
             var scheduler = target.ActorTaskScheduler;
-            if (scheduler is null || scheduler.Running || controls428.ContainsKey(scheduler)) return false;
+            if (normalBarrier696 is not null || scheduler is null || scheduler.Running || controls428.ContainsKey(scheduler)) return false;
             // Both potentially allocating steps precede queue removal/publication.
             var candidate = new RuntimeActorControlLease428(this, scheduler);
             controls428.Add(scheduler, candidate);
@@ -36,6 +36,7 @@ internal sealed partial class RuntimeActorDispatcher
             if (!controls428.TryGetValue(scheduler, out var current) || !ReferenceEquals(current, lease))
                 throw new InvalidOperationException(RuntimeActorControlNames428.Missing);
             controls428.Remove(scheduler);
+            AdvanceNormalBarrier696();
             if (!scheduler.Running && scheduler.ReadyNode is null && scheduler.WorkCount428 != 0)
                 Ready(scheduler);
             StartWorkers();

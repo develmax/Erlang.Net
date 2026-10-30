@@ -13,10 +13,28 @@ internal static unsafe class NifNativeReferenceEnvironmentHostChecks
             0,
             state
         );
+        using (var callback = NifNativeCallEnvironment.CreateResourceCallback524(
+            context.Runtime,
+            image,
+            caller.PrivateData,
+            state
+        ))
+        {
+            Require(callback.IsIndependent && ReferenceEquals(callback.ModuleImage709, image));
+        }
         using var table = new NifNativeWindowsCallbacks();
-        table.BindIndependentEnvironments(context.Runtime, image);
+        table.BindIndependentEnvironments(context.Runtime);
+        using (var nextTable = new NifNativeWindowsCallbacks())
+        {
+            nextTable.BindIndependentEnvironments(context.Runtime);
+            Require(Slot(table, NifNativeEnvironmentLayout.Allocate)
+                == Slot(nextTable, NifNativeEnvironmentLayout.Allocate));
+        }
         nint independent = Allocate(table);
         Require(independent != 0);
+        var moduleless = NifNativeCallEnvironment.Resolve(independent);
+        Require(moduleless.IsIndependent && moduleless.ModuleImage709 is null
+            && moduleless.PrivateData == 0 && ReferenceEquals(moduleless.Runtime, context.Runtime));
         nuint copy = 0;
         Term? retained = null;
         try
@@ -41,9 +59,8 @@ internal static unsafe class NifNativeReferenceEnvironmentHostChecks
 
     internal static void ForeignThreads(ProcessContext context)
     {
-        var image = new ModuleCodeImage(NifNativeReferenceEnvironmentHostNames.Module);
         using var table = new NifNativeWindowsCallbacks();
-        table.BindIndependentEnvironments(context.Runtime, image);
+        table.BindIndependentEnvironments(context.Runtime);
         nint independent = 0;
         nuint first = 0;
         nuint second = 0;
@@ -81,6 +98,7 @@ internal static unsafe class NifNativeReferenceEnvironmentHostChecks
             successor.Start();
             Require(successor.Join(NifNativeReferenceEnvironmentHostNames.Deadline) && failure is null && second != 0);
             var owner = NifNativeCallEnvironment.Resolve(independent);
+            Require(owner.ModuleImage709 is null && ReferenceEquals(owner.Runtime, context.Runtime));
             Require(owner.Get(first) is ReferenceTerm firstReference && firstReference.Node == context.Runtime.Node);
             Require(!owner.Get(first).Equals(owner.Get(second)));
             Require(!owner.Get(first).Equals(context.Runtime.MakeReference()));
