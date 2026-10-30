@@ -1,0 +1,110 @@
+{
+  "Passed": false,
+  "Checks": [
+    {
+      "Plan": "Erlang.NifMapFamily504Observations",
+      "Passed": true,
+      "Details": {
+        "PlanSha256": "D81FCE810C07519D6B67933734EEB96BA753905204FFF3F6B6098FFA09F05525",
+        "VerifiedRows": 531,
+        "NativeExecuted": false
+      }
+    },
+    {
+      "Plan": "Erlang.NifMapMaterialized505Observations",
+      "Passed": true,
+      "Details": {
+        "PlanSha256": "3968270BAFCD929079A7D965891704A5C69260D0069F1F4820F208AFA205E4A0",
+        "VerifiedRows": 536,
+        "NativeExecuted": false
+      }
+    },
+    {
+      "Plan": "Erlang.NifMapReentry505Observations",
+      "Passed": true,
+      "Details": {
+        "PlanSha256": "AF215FC50BBDAC2FBC904ADEFB8D6C0856B6B9D38800A18CC5ECC40FBF9ACE96",
+        "VerifiedRows": 536,
+        "NativeExecuted": false
+      }
+    },
+    {
+      "Plan": "tools/Runtime/Erlang.OwnedGuest506Observations",
+      "Passed": true,
+      "Details": {
+        "PlanSha256": "2CA2B3F14DFE61C77EB60484DA1637D1F325254883A9EEF55B140055B7305F52",
+        "VerifiedRows": 911
+      }
+    },
+    {
+      "Plan": "tools/Native/Erlang.NifVariadic526Observations",
+      "Passed": true,
+      "Details": {
+        "PlanSha256": "3E45E1F0D51991CABD08E7BFCBE0FBCFCA62E3CF816561C8C93ADB6605524EA2",
+        "VerifiedRows": 874
+      }
+    },
+    {
+      "Plan": "Pending",
+      "Passed": true,
+      "Details": {
+        "PlanSha256": "2F63CE777D348BD5F98D60380F06C6A104A7F8B5798E122C2C3E60A705ED0E80",
+        "VerifiedRows": 4198,
+        "CompleteGitMembershipChecked": false
+      }
+    },
+    {
+      "Plan": "Reallocation",
+      "Passed": true,
+      "Details": {
+        "PlanSha256": "EB088535ADE6EB145DBBEE14DC7697C85A8C018E3B4501D21E559B70E61D5FFF",
+        "VerifiedRows": 3308
+      }
+    },
+    {
+      "Plan": "Private557",
+      "Passed": true,
+      "Details": {
+        "PlanSha256": "C8D5CA9939B5D7B93C63DE96B67DF15E731A6E0F8720221087DF67BDB8BC8588",
+        "VerifiedFiles": 2845
+      }
+    },
+    {
+      "Plan": "Erlang.Dictionary537Observations",
+      "Passed": true,
+      "Details": {
+        "PlanSha256": "ED5906EC10C50A77C5F0ADEF7F43AB604FBBF9E3665308F6AECF1420A66EAD5F",
+        "VerifiedRows": 5,
+        "BuildOrVmExecuted": false
+      }
+    },
+    {
+      "Plan": "Erlang.MatchSaved634Observations",
+      "Passed": false,
+      "Error": "ValueError('Focused input differs: src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.Halt.cs')"
+    },
+    {
+      "Plan": "Erlang.EtsDispatch540Observations",
+      "Passed": false,
+      "Error": "ValueError('Focused input differs: tests/Erlang.Tests/Erlang.Tests.csproj')"
+    },
+    {
+      "Plan": "Erlang.MonitorOriginal645Observations",
+      "Passed": false,
+      "Error": "ValueError('Focused input differs: tests/Erlang.Tests/Erlang.Tests.csproj')"
+    },
+    {
+      "Plan": "Erlang.BeamFunction542Observations",
+      "Passed": false,
+      "Error": "ValueError('Focused input differs: src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamClosureFactory.cs')"
+    }
+  ],
+  "ExpectedPlans": 13,
+  "ExpectedNativePlans": 8,
+  "FocusedInputPlans": 5,
+  "BuildOrVmExecuted": false,
+  "NativeExecuted": false,
+  "SourceHeadAuthenticityClaimed": false,
+  "FullSourceMembershipClaimed": false,
+  "WholeContractsClosed": 0
+}
