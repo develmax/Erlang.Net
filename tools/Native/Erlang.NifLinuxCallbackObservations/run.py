@@ -8,6 +8,16 @@ def module(path,name):
  s=importlib.util.spec_from_file_location(name,path);m=importlib.util.module_from_spec(s);s.loader.exec_module(m);return m
 def write(path,value):
  with path.open('xb') as f:f.write((json.dumps(value,indent=2)+'\n').encode())
+
+def project_headers552(root, hash_file):
+    paths=[root/'tools/Native/Erlang.NifNativeBackend/native'/name for name in ('nif_bridge_api.h','nif_snprintf791.h')]
+    return [dict(Path=str(path.resolve()),Bytes=path.stat().st_size,Sha256=hash_file(path)) for path in paths]
+
+def require_project_headers552(proof, root, hash_file):
+    expected=project_headers552(root,hash_file);actual=proof['ProjectHeaderInputs']
+    assert len(actual)==len(expected) and {row['Path']:(row['Bytes'],row['Sha256']) for row in actual}=={row['Path']:(row['Bytes'],row['Sha256']) for row in expected},'Project bridge headers changed or unbound'
+    return expected
+
 def main():
  p=argparse.ArgumentParser()
  for key in ['admission','approved-admission-sha256','focus','output']:p.add_argument('--'+key,required=True)
@@ -16,6 +26,7 @@ def main():
  ad=J(admission);focus=Path(a.focus).resolve();assert focus.is_relative_to(R) and focus.name=='Erlang.NifLinuxCallbackFocus.dll'
  dotnet=shutil.which('dotnet');assert dotnet
  for path,sha in [(ad['BridgePath'],ad['BridgeSha256']),(ad['BridgeReceiptPath'],ad['BridgeReceiptSha256'])]:assert H(path)==sha
+ project_header_rows=require_project_headers552(J(ad['BridgeReceiptPath']),R,H)
  for image in ad['Images']:
   for pathkey,hashkey in [('LibraryPath','LibrarySha256'),('NativeSourcePath','NativeSourceSha256'),('ErlangSourcePath','ErlangSourceSha256'),('ManifestPath','ManifestSha256'),('BuildReceiptPath','BuildReceiptSha256')]:assert H(image[pathkey])==image[hashkey]
  dlls=[dict(Path=str(p),Sha256=H(p)) for p in sorted(focus.parent.glob('*.dll'))];assert any(Path(r['Path']).name=='Erlang.Runtime.dll' for r in dlls)
@@ -25,7 +36,7 @@ def main():
  identity=module(R/'tools/Runtime/Erlang.SchedulerAffinityOriginalObservations/source_inputs.py','linux17_run_identity')
  owned=module(R/'tools/Distribution/Erlang.GuestConnectedSendObservations/owned_process.py','linux17_run_owned')
  env=identity.sanitized_environment(os.environ);env.update(DOTNET_PROCESSOR_COUNT='2',DOTNET_CLI_TELEMETRY_OPTOUT='1',DOTNET_SKIP_FIRST_TIME_EXPERIENCE='1')
- write(out/'inputs.json',dict(AdmissionPath=str(admission),AdmissionSha256=H(admission),FocusPath=str(focus),FocusSha256=H(focus),DotnetPath=dotnet,DotnetSha256=H(dotnet),AdjacentDlls=dlls))
+ write(out/'inputs.json',dict(AdmissionPath=str(admission),AdmissionSha256=H(admission),FocusPath=str(focus),FocusSha256=H(focus),DotnetPath=dotnet,DotnetSha256=H(dotnet),AdjacentDlls=dlls,ProjectHeaderInputs=project_header_rows))
  stages=[];failures=[]
  for route in ['reviewed','ordinary']:
   failure=None
@@ -39,6 +50,7 @@ def main():
   try:
    receipt=J(out/(route+'.process.json'))
    assert receipt['ParentReaped'] and receipt['StreamsClosed'] and receipt['CleanupFailure'] is None and not receipt['RemainingGroupKillRequested']
+   assert require_project_headers552(J(ad['BridgeReceiptPath']),R,H)==project_header_rows
    for row in dlls:assert H(row['Path'])==row['Sha256']
    for path,expected in [(ad['BridgePath'],ad['BridgeSha256']),(ad['BridgeReceiptPath'],ad['BridgeReceiptSha256'])]:assert H(path)==expected
    for image in ad['Images']:

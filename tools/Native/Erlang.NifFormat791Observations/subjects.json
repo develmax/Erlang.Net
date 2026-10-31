@@ -1,0 +1,27 @@
+[
+  {
+    "Name": "snprintf791",
+    "Module": "snprintf791_oracle",
+    "Observer": "snprintf791_driver",
+    "Native": "fixtures/snprintf791_oracle.c",
+    "Erlang": [
+      "fixtures/snprintf791_oracle.erl",
+      "fixtures/snprintf791_driver.erl"
+    ],
+    "ExpectedRows": 41,
+    "Kind": "snprintf"
+  },
+  {
+    "Name": "mutex795",
+    "Module": "mutex795",
+    "Observer": "mutex795_driver",
+    "Native": "fixtures/mutex795.c",
+    "Erlang": [
+      "fixtures/mutex795.erl",
+      "fixtures/mutex795_driver.erl"
+    ],
+    "ExpectedIntegers": 8,
+    "Kind": "mutex",
+    "LinuxCompatibilityClaimed": false
+  }
+]
