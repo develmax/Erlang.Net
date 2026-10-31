@@ -161,6 +161,7 @@ internal sealed partial class NativeDriverPortRegistry422 : IErlDriverPortHost42
             {
                 byte[] packet = NativeDistributionInput457.Copy(output);
                 row.InputBytes = checked(row.InputBytes + packet.LongLength);
+                runtime.Statistics.RecordInputBytes(packet.LongLength);
                 binding.Accept(packet);
 
                 return;
@@ -168,6 +169,7 @@ internal sealed partial class NativeDriverPortRegistry422 : IErlDriverPortHost42
             long count = checked(output.Header.LongLength + (output.Kind == ErlDriverOutputKind420.Vector
                 ? output.Segments!.Sum(segment => segment.LongLength) : output.Body.LongLength));
             row.InputBytes = checked(row.InputBytes + count);
+            runtime.Statistics.RecordInputBytes(count);
             foreach (Term data in NativeDriverPortOutput422.Data(row, output)) Deliver(row, data);
         }
     }

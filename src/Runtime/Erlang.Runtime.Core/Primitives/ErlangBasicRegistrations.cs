@@ -19,7 +19,7 @@ internal static class ErlangBasicRegistrations
         );
         foreach (string operation in new[] { ErlangOperators.Plus, ErlangOperators.Minus, ErlangOperators.Not, ErlangOperators.BitwiseNot })
             Add(operation, 1, (_, arguments) => ErlangOperatorValues.Unary(operation, arguments[0]));
-        foreach (string operation in new[] { ErlangOperators.Plus, ErlangOperators.Minus, ErlangOperators.Multiply, ErlangOperators.Divide, ErlangOperators.IntegerDivide, ErlangOperators.Remainder, ErlangOperators.BitwiseAnd, ErlangOperators.BitwiseOr, ErlangOperators.BitwiseXor, ErlangOperators.ShiftLeft, ErlangOperators.ShiftRight, ErlangOperators.And, ErlangOperators.Or, ErlangOperators.Xor, ErlangOperators.NumericEqual, ErlangOperators.NumericNotEqual, ErlangOperators.ExactEqual, ErlangOperators.ExactNotEqual, ErlangOperators.Less, ErlangOperators.Greater, ErlangOperators.LessOrEqual, ErlangOperators.GreaterOrEqual, ErlangOperators.Append, ErlangOperators.SubtractList })
+        foreach (string operation in new[] { ErlangOperators.Plus, ErlangOperators.Minus, ErlangOperators.Multiply, ErlangOperators.Divide, ErlangOperators.IntegerDivide, ErlangOperators.Remainder, ErlangOperators.BitwiseAnd, ErlangOperators.BitwiseOr, ErlangOperators.BitwiseXor, ErlangOperators.ShiftLeft, ErlangOperators.ShiftRight, ErlangOperators.And, ErlangOperators.Or, ErlangOperators.Xor, ErlangOperators.NumericEqual, ErlangOperators.NumericNotEqual, ErlangOperators.ExactEqual, ErlangOperators.ExactNotEqual, ErlangOperators.Less, ErlangOperators.Greater, ErlangOperators.LessOrEqual, ErlangOperators.GreaterOrEqual, ErlangOperators.SubtractList })
             Add(operation, 2, (context, arguments) => ErlangOperatorValues.Binary(
                 operation,
                 arguments[0],
@@ -68,10 +68,16 @@ internal static class ErlangBasicRegistrations
             (_, arguments) => arguments[0] is TupleTerm tuple ? Cons.From(tuple.Items) : throw new ErlangException(ErlangErrorReasons.BadArgument)
         );
         Add(ErlangBasicBifNames.ListToTuple, 1, (_, arguments) => ErlangTupleBifs.FromList(arguments[0]));
-        Add(ErlangBasicBifNames.Append, 2, (_, arguments) => Cons.From(Cons.Items(arguments[0]), arguments[1]));
+        foreach (string name in new[] { ErlangOperators.Append, ErlangBasicBifNames.Append })
+            registry.RegisterCanonicalListAppend(
+                ErlangModuleNames.Module,
+                name,
+                2,
+                (context, arguments) => ValueTask.FromResult(OwnedListAppend.Run(context, arguments))
+            );
         Add(ErlangBasicBifNames.Subtract, 2, (_, arguments) => ListBasicOperations.Subtract(arguments[0], arguments[1]));
         foreach (string name in new[] { ErlangBasicBifNames.Send, ErlangOperators.Send })
-            registry.Register(
+            registry.RegisterCanonicalMessage(
                 ErlangModuleNames.Module,
                 name,
                 2,

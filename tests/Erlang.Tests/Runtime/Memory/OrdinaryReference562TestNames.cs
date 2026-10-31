@@ -3,6 +3,11 @@ namespace Erlang.Tests;
 internal static class OrdinaryReference562TestNames
 {
     internal static nuint NumberMutation => (nuint)1 << 32;
+    internal const string ExternalStorage = "OwnedExternalStorage";
+    internal const int ExternalReferenceWords = 5;
+    internal const int ExternalNodeWord = 1;
+    internal const int ExternalReferenceDataWord = 3;
+    internal const nuint ExternalReferenceHeader = 0x138;
     internal const int DrainTimeoutSeconds = 10;
     internal const string HeapType = "Erlang.ProcessTermHeap506";
     internal const string HeapGate = "Gate";

@@ -12,7 +12,7 @@ public sealed partial class ProcessContext
     }
     internal Task OwnedTermRetirement506 { get; private set; } = Task.CompletedTask;
     private volatile bool genuineVmExecution683;
-    internal bool OwnedExecutionEnabled683 => Runtime.OwnedTermsPilot506 || genuineVmExecution683;
+    internal bool OwnedExecutionEnabled683 => Runtime.OwnedTermsPilot506 || genuineVmExecution683 || ordinaryGuestCollector;
 
     internal void ActivateGenuineVmExecution683(RuntimeProcessPayload641 source)
     {
@@ -49,8 +49,9 @@ public sealed partial class ProcessContext
 
     internal void BeginOwnedTermRetirement506()
     {
-        if (!OwnedExecutionEnabled683)
+        if (!VmStorageBackingEnabled)
             return;
+        CloseGroupLeaderRoots();
         Dictionary.Close506();
         if (termHeap506 is { } heap)
         {

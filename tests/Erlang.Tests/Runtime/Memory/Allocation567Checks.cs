@@ -12,6 +12,9 @@ internal static class Allocation567Checks
 
     internal static Task ScalarGenerationsAndReclaim() => RunWithCleanup(fixture =>
     {
+        ProcessRuntime otherRuntime = fixture.CreateRuntime();
+        AssertVmCollections(fixture.Runtime, 0, 0);
+        AssertVmCollections(otherRuntime, 0, 0);
         object heap = fixture.CreateHeap(fixture.Runtime);
         IDisposable roots = fixture.EnterRoots(heap);
         int numberSlot = Slot(roots), integerSlot = Slot(roots), referenceSlot = Slot(roots);
@@ -59,6 +62,8 @@ internal static class Allocation567Checks
             0
         );
         object first = Collection(heap, false);
+        AssertVmCollections(fixture.Runtime, 1, 0);
+        AssertVmCollections(otherRuntime, 0, 0);
         Check(Long(first, ReclaimedCollection) == 0 && Long(first, ReclaimedPayload) == 0);
         AssertAllocation(
             heap,
@@ -68,6 +73,7 @@ internal static class Allocation567Checks
             0
         );
         Collection(heap, false);
+        AssertVmCollections(fixture.Runtime, 2, 0);
         AssertAllocation(
             heap,
             0,
@@ -79,6 +85,7 @@ internal static class Allocation567Checks
         Call(roots, Clear, integerSlot);
         Call(roots, Clear, referenceSlot);
         object minor = Collection(heap, false);
+        AssertVmCollections(fixture.Runtime, 3, 0);
         Check(Long(minor, ReclaimedCollection) == 0 && Long(minor, ReclaimedPayload) == 0);
         AssertAllocation(
             heap,
@@ -89,6 +96,8 @@ internal static class Allocation567Checks
         );
         Check(number.Value == 3.5 && integer.Value == magnitude && reference.Equals(original));
         object major = Collection(heap, true);
+        AssertVmCollections(fixture.Runtime, 4, 9);
+        AssertVmCollections(otherRuntime, 0, 0);
         Check(Long(major, ReclaimedCollection) == 9 && Long(major, ReclaimedPayload) == 0);
         AssertAllocation(
             heap,
@@ -109,6 +118,10 @@ internal static class Allocation567Checks
         Expect<ObjectDisposedException>(() => _ = integer.Value);
         Expect<ObjectDisposedException>(() => _ = reference.Words);
         Check(original.Words.Count == 3);
+
+        GC.Collect();
+        AssertVmCollections(fixture.Runtime, 4, 9);
+        AssertVmCollections(otherRuntime, 0, 0);
 
         return Task.CompletedTask;
     });
@@ -174,6 +187,8 @@ internal static class Allocation567Checks
     internal static Task FailedPublicationRollback() => RunWithCleanup(fixture =>
     {
         object heap = fixture.CreateHeap(fixture.Runtime);
+        long completedCollections = 0;
+        AssertVmCollections(fixture.Runtime, completedCollections, 0);
         Term[] sources =
         [
             new FloatTerm(1.5),
@@ -219,7 +234,10 @@ internal static class Allocation567Checks
                 0,
                 0
             );
+            AssertVmCollections(fixture.Runtime, completedCollections, 0);
             object empty = Collection(heap, true);
+            completedCollections++;
+            AssertVmCollections(fixture.Runtime, completedCollections, 0);
             Check(Long(empty, ReclaimedCollection) == 0 && Long(empty, ReclaimedPayload) == 0);
         }
 
@@ -282,6 +300,8 @@ internal static class Allocation567Checks
             0
         );
         Collection(firstHeap, false);
+        AssertVmCollections(fixture.Runtime, 1, 0);
+        AssertVmCollections(otherRuntime, 0, 0);
         AssertAllocation(
             firstHeap,
             0,
@@ -307,6 +327,8 @@ internal static class Allocation567Checks
         );
         firstRoots.Dispose();
         await retiring.WaitAsync(TimeSpan.FromSeconds(DrainTimeoutSeconds));
+        AssertVmCollections(fixture.Runtime, 1, 0);
+        AssertVmCollections(otherRuntime, 0, 0);
         AssertAllocation(
             firstHeap,
             0,
@@ -326,6 +348,8 @@ internal static class Allocation567Checks
         );
         Call(otherRoots, Clear, otherSlot);
         object removed = Collection(otherHeap, true);
+        AssertVmCollections(fixture.Runtime, 1, 0);
+        AssertVmCollections(otherRuntime, 1, 4);
         Check(Long(removed, ReclaimedCollection) == 4 && Long(removed, ReclaimedPayload) == 0);
         AssertAllocation(
             otherHeap,
@@ -335,6 +359,13 @@ internal static class Allocation567Checks
             4
         );
     });
+
+    private static void AssertVmCollections(ProcessRuntime runtime, long count, long words)
+    {
+        object statistics = typeof(ProcessRuntime).GetProperty(StatisticsProperty, Members)!.GetValue(runtime)!;
+        var sample = (Term)Call(statistics, CollectionSample)!;
+        Check(sample.Equals(Term.Tuple(Term.I(count), Term.I(words), Term.I(0))));
+    }
 
     private static int Slot(IDisposable frame) => (int)Call(frame, Reserve)!;
 

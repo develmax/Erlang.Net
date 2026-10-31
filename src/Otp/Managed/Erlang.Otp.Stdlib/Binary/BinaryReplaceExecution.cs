@@ -16,7 +16,7 @@ internal static class BinaryReplaceExecution
             if (replacement is not BitString { IsBinary: true } && replacement is not FunctionTerm { Arity: 1 })
                 throw new ErlangException(ErlangErrorReasons.BadArgument);
             BinaryReplaceOptions settings = await BinaryReplaceOptions.Read(context, options);
-            Term matches = await context.Runtime.Modules.Call(
+            Term matches = await context.Runtime.Modules.CallInto506(
                 context,
                 BinaryModuleNames.Module,
                 settings.Global ? BinaryModuleNames.Matches : BinaryModuleNames.Match,
@@ -85,7 +85,7 @@ internal static class BinaryReplaceExecution
         int start,
         int length
     )
-        => context.Runtime.Modules.Call(
+        => context.Runtime.Modules.CallInto506(
             context,
             BinaryModuleNames.Module,
             BinaryModuleNames.Part,

@@ -5,6 +5,7 @@ on:
       - '.gitattributes'
       - '.github/workflows/nif-version651-linux.yml'
       - 'tools/Native/Erlang.NifVersion651Observations/**'
+      - 'tools/Native/Erlang.NifUpgradeObservations/**'
       - 'tools/Native/Erlang.NifLinuxCallbackObservations/**'
       - 'tools/Native/Erlang.NifNativeBackend/NifLinuxCallback*.cs'
       - 'tools/Native/Erlang.NifLinuxCallbackFocus/**'
@@ -39,9 +40,15 @@ jobs:
       EXPECTED_HEAD: ${{ inputs.expected_head || github.event.pull_request.head.sha || github.sha }}
       OTP_PIN: ad05823719d77c8faee87348ea39513d4e2f99c5
       ORIGINAL_PLAN: AEBBA0D2DCF97E1248CA38407E8EBE628EB08F9EA4D13F48EC0C83A7A0364E61
-      NATIVE_PLAN: EADBC90D532B150C94F430E89470B8AD093FE35F49F47988B209FF703BCE9F67
-      CAPTURE_PLAN: F6FC7D6E5BFAD2BB43CDB37109080D3D4C90484017C78C5BE0678F52E699BF1F
-      ACCEPTANCE_PLAN: 7A0213C359822C8269092C48501098973A614CD6CA4C07DF1D1EEA4A06EE3514
+      NATIVE_PLAN: AC4F4C82927245A23A0DAE7A0E543DE1BC2971DD273DFABB1ECEEC6A6FC51A5D
+      CAPTURE_PLAN: F6F5CE5769DEAD3591E0531E6C93CC61E0E839AC4B97CB3F580A11C60264B6C7
+      ACCEPTANCE_PLAN: 881B51FEFFB577D2A4FD222B1E50A9F4DB057DB811A7C66A5F86EE8CC3C8881D
+      N2_NATIVE_PLAN: 64283C01D258C287FB0450795A1B7AFBA3837F978F68FA04F9B7FD77EC71BBDF
+      N2_ORIGINAL_PLAN: 6BC5C8DAAE2B5C7B49F31FD83EB705F03387D9BAA70F496EC7B6A1D949CF3500
+      N2_MANAGED_PLAN: 395D8F1442C7B18B456FD455225D8B1600A10BCB01A3C9BB524EDF76B5779648
+      ENV709_NATIVE_PLAN: A1F0BABD112C19D422ABFD22FE32679799366808785CC37857FDA8C6D9C98962
+      ENV709_ORIGINAL_PLAN: 4550C02F8B25A6ECD9E068D279F4BA2418584D7AD6771121D0E79AC94FA1335E
+      ENV709_MANAGED_PLAN: 0986E9BD7746E5A6E967B40352EB93684F7D3C1B3901E078B2FCDE44F2331872
       ERLC_USE_SERVER: 'false'
       PYTHONDONTWRITEBYTECODE: '1'
       DOTNET_PROCESSOR_COUNT: '2'
@@ -244,6 +251,248 @@ jobs:
             --framework-version "${N1_FRAMEWORK_VERSION:-10.0.11}" \
             --output "$GITHUB_WORKSPACE/artifacts/nif-version651/acceptance" \
             > artifacts/nif-version651/ci/acceptance.log 2>&1
+      - name: Verify reviewed portable N2 source plans
+        id: n2-inputs
+        if: ${{ !cancelled() && steps.inputs.outcome == 'success' }}
+        continue-on-error: true
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p artifacts/nif-upgrade693/ci
+          python3 -B - <<'PY'
+          import hashlib,json,os,subprocess
+          from pathlib import Path
+          repo=Path.cwd();tool=repo/'tools/Native/Erlang.NifUpgradeObservations'
+          sha=lambda p:hashlib.sha256(p.read_bytes()).hexdigest().upper()
+          assert subprocess.check_output(['git','rev-parse','HEAD'],text=True).strip()==os.environ['EXPECTED_HEAD']
+          for filename,key in [('build-inputs.json','N2_NATIVE_PLAN'),('original-inputs.json','N2_ORIGINAL_PLAN'),('inputs.json','N2_MANAGED_PLAN')]:
+              assert sha(tool/filename)==os.environ[key]
+              plan=json.loads((tool/filename).read_bytes());assert plan['Pin']==os.environ['OTP_PIN'] and plan['ExpectedHeadMode']=='exact-current-argument'
+              for row in plan['Inputs']:
+                  root=tool if row['Root'] in ['Packet','Tool'] else repo
+                  q=(root/row['Path']).resolve();assert q.is_relative_to(root) and sha(q)==row['Sha256'],row['Path']
+          PY
+      - name: Build only three genuine N2 native images from reused provider
+        id: n2-native
+        if: ${{ !cancelled() && steps.n2-inputs.outcome == 'success' && steps.original-build.outcome == 'success' }}
+        continue-on-error: true
+        shell: bash
+        run: |
+          set -euo pipefail
+          receipt="$GITHUB_WORKSPACE/artifacts/nif-version651/original-build/build-receipt.json"
+          python3 -B tools/Native/Erlang.NifUpgradeObservations/build-native.py \
+            --repository "$GITHUB_WORKSPACE" --expected-head "$EXPECTED_HEAD" --plan-sha256 "$N2_NATIVE_PLAN" \
+            --otp-source "$GITHUB_WORKSPACE/artifacts/nif-version651/otp-source" \
+            --build-receipt "$receipt" --admission-sha256 "$(sha256sum "$receipt" | cut -d ' ' -f 1)" \
+            --output "$GITHUB_WORKSPACE/artifacts/nif-upgrade693/linux-native" \
+            > artifacts/nif-upgrade693/ci/native.log 2>&1
+      - name: Fresh original N2 compilation and twelve phased observations
+        id: n2-original
+        if: ${{ !cancelled() && steps.n2-native.outcome == 'success' && steps.native-ready.outputs.ready == 'true' }}
+        continue-on-error: true
+        shell: bash
+        run: |
+          set -euo pipefail
+          provider="$GITHUB_WORKSPACE/artifacts/nif-version651/original-build/build-receipt.json"
+          native="$GITHUB_WORKSPACE/artifacts/nif-upgrade693/linux-native/build-receipt.json"
+          wrong="$GITHUB_WORKSPACE/artifacts/nif-version651/linux-build/build-receipt.json"
+          python3 -B tools/Native/Erlang.NifUpgradeObservations/collect-original.py \
+            --repository "$GITHUB_WORKSPACE" --expected-head "$EXPECTED_HEAD" --plan-sha256 "$N2_ORIGINAL_PLAN" \
+            --otp-source "$GITHUB_WORKSPACE/artifacts/nif-version651/otp-source" --build-receipt "$provider" \
+            --admission-sha256 "$(sha256sum "$provider" | cut -d ' ' -f 1)" \
+            --native-build-receipt "$native" --approved-native-build-sha256 "$(sha256sum "$native" | cut -d ' ' -f 1)" \
+            --wrong-entry-build-receipt "$wrong" --approved-wrong-entry-build-sha256 "$(sha256sum "$wrong" | cut -d ' ' -f 1)" \
+            --output "$GITHUB_WORKSPACE/artifacts/nif-upgrade693/original-linux" \
+            > artifacts/nif-upgrade693/ci/original.log 2>&1
+      - name: Build small N2 observer against current existing host closure
+        id: n2-driver
+        if: ${{ !cancelled() && steps.n2-inputs.outcome == 'success' && steps.managed-build.outcome == 'success' }}
+        continue-on-error: true
+        shell: bash
+        run: |
+          set -euo pipefail
+          tool="$GITHUB_WORKSPACE/tools/Native/Erlang.NifUpgradeObservations"
+          host="$GITHUB_WORKSPACE/tools/Native/Erlang.NifNativeBackend/bin/Release/net10.0"
+          freeze="$GITHUB_WORKSPACE/artifacts/nif-version651/ci/source-freeze.json"
+          evidence="$GITHUB_WORKSPACE/artifacts/nif-version651/ci/managed-build.log"
+          python3 -B "$tool/describe-current-runtime.py" --repository "$GITHUB_WORKSPACE" --expected-head "$EXPECTED_HEAD" \
+            --runtime-directory "$host" --source-freeze "$freeze" --approved-source-freeze-sha256 "$(sha256sum "$freeze" | cut -d ' ' -f 1)" \
+            --build-evidence "$evidence" --approved-build-evidence-sha256 "$(sha256sum "$evidence" | cut -d ' ' -f 1)" --build-exit-code 0 \
+            --dotnet "$(readlink -f "$(command -v dotnet)")" --framework-version "$N1_FRAMEWORK_VERSION" --configuration Release \
+            --output "$GITHUB_WORKSPACE/artifacts/nif-upgrade693/ci/runtime-manifest.json"
+          echo "runtime_ready=true" >> "$GITHUB_OUTPUT"
+          dotnet build "$tool/driver/Upgrade709.csproj" -c Release --no-incremental -m:1 -p:RuntimeDirectory="$host" \
+            > artifacts/nif-upgrade693/ci/driver-build.log 2>&1
+      - name: Compare all twenty-four whole N2 streams and cleanup
+        id: n2-replay
+        if: ${{ !cancelled() && steps.n2-original.outcome == 'success' && steps.n2-driver.outcome == 'success' }}
+        continue-on-error: true
+        shell: bash
+        run: |
+          set -euo pipefail
+          tool="$GITHUB_WORKSPACE/tools/Native/Erlang.NifUpgradeObservations"
+          original="$GITHUB_WORKSPACE/artifacts/nif-upgrade693/original-linux/completion.json"
+          manifest="$GITHUB_WORKSPACE/artifacts/nif-upgrade693/ci/runtime-manifest.json"
+          freeze="$GITHUB_WORKSPACE/artifacts/nif-version651/ci/source-freeze.json"
+          python3 -B "$tool/collect-managed.py" --repository "$GITHUB_WORKSPACE" --expected-head "$EXPECTED_HEAD" \
+            --inputs "$tool/inputs.json" --plan-sha256 "$N2_MANAGED_PLAN" --driver-bin "$tool/driver/bin/Release/net10.0" \
+            --output "$GITHUB_WORKSPACE/artifacts/nif-upgrade693/managed-linux" --dotnet "$(readlink -f "$(command -v dotnet)")" \
+            --original-receipt "$original" --approved-original-receipt-sha256 "$(sha256sum "$original" | cut -d ' ' -f 1)" \
+            --runtime-manifest "$manifest" --approved-runtime-manifest-sha256 "$(sha256sum "$manifest" | cut -d ' ' -f 1)" \
+            --source-freeze "$freeze" --approved-source-freeze-sha256 "$(sha256sum "$freeze" | cut -d ' ' -f 1)" --execute \
+            > artifacts/nif-upgrade693/ci/replay.log 2>&1
+      - name: Verify same-DLL environment source plans
+        id: env709-inputs
+        if: ${{ !cancelled() && steps.inputs.outcome == 'success' }}
+        continue-on-error: true
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p artifacts/nif-upgrade693/env-ci
+          python3 -B - <<'PY'
+          import hashlib,json,os,subprocess
+          from pathlib import Path
+          repo=Path.cwd();tool=repo/'tools/Native/Erlang.NifUpgradeObservations/environments'
+          sha=lambda p:hashlib.sha256(p.read_bytes()).hexdigest().upper()
+          assert subprocess.check_output(['git','rev-parse','HEAD'],text=True).strip()==os.environ['EXPECTED_HEAD']
+          for filename,key in [('build-inputs.json','ENV709_NATIVE_PLAN'),('original-inputs.json','ENV709_ORIGINAL_PLAN'),('managed-inputs.json','ENV709_MANAGED_PLAN')]:
+              assert sha(tool/filename)==os.environ[key]
+              plan=json.loads((tool/filename).read_bytes());assert plan['Pin']==os.environ['OTP_PIN'] and plan['ExpectedHeadMode']=='exact-current-argument'
+              for row in plan['Inputs']:
+                  root=tool if row['Root']=='Packet' else repo
+                  path=(root/row['Path']).resolve();assert path.is_relative_to(root) and sha(path)==row['Sha256'],row['Path']
+          PY
+      - name: Build one genuine same-DLL environment fixture with reused OTP
+        id: env709-native
+        if: ${{ !cancelled() && steps.env709-inputs.outcome == 'success' && steps.original-build.outcome == 'success' }}
+        continue-on-error: true
+        shell: bash
+        run: |
+          set -euo pipefail
+          provider="$GITHUB_WORKSPACE/artifacts/nif-version651/original-build/build-receipt.json"
+          python3 -B tools/Native/Erlang.NifUpgradeObservations/environments/build-native.py \
+            --repository "$GITHUB_WORKSPACE" --expected-head "$EXPECTED_HEAD" --plan-sha256 "$ENV709_NATIVE_PLAN" \
+            --otp-source "$GITHUB_WORKSPACE/artifacts/nif-version651/otp-source" --build-receipt "$provider" \
+            --admission-sha256 "$(sha256sum "$provider" | cut -d ' ' -f 1)" \
+            --output "$GITHUB_WORKSPACE/artifacts/nif-upgrade693/env-native" \
+            > artifacts/nif-upgrade693/env-ci/native.log 2>&1
+      - name: Fresh original same-DLL success and veto with real foreign threads
+        id: env709-original
+        if: ${{ !cancelled() && steps.env709-native.outcome == 'success' }}
+        continue-on-error: true
+        shell: bash
+        run: |
+          set -euo pipefail
+          provider="$GITHUB_WORKSPACE/artifacts/nif-version651/original-build/build-receipt.json"
+          native="$GITHUB_WORKSPACE/artifacts/nif-upgrade693/env-native/build-receipt.json"
+          python3 -B tools/Native/Erlang.NifUpgradeObservations/environments/collect-original.py \
+            --repository "$GITHUB_WORKSPACE" --expected-head "$EXPECTED_HEAD" --plan-sha256 "$ENV709_ORIGINAL_PLAN" \
+            --otp-source "$GITHUB_WORKSPACE/artifacts/nif-version651/otp-source" --build-receipt "$provider" \
+            --admission-sha256 "$(sha256sum "$provider" | cut -d ' ' -f 1)" \
+            --native-build-receipt "$native" --approved-native-build-sha256 "$(sha256sum "$native" | cut -d ' ' -f 1)" \
+            --output "$GITHUB_WORKSPACE/artifacts/nif-upgrade693/env-original" \
+            > artifacts/nif-upgrade693/env-ci/original.log 2>&1
+      - name: Build small environment observer against the existing runtime closure
+        id: env709-driver
+        if: ${{ !cancelled() && steps.env709-inputs.outcome == 'success' && steps.managed-build.outcome == 'success' && steps.n2-driver.outputs.runtime_ready == 'true' }}
+        continue-on-error: true
+        shell: bash
+        run: |
+          set -euo pipefail
+          manifest="$GITHUB_WORKSPACE/artifacts/nif-upgrade693/ci/runtime-manifest.json"
+          python3 -B tools/Native/Erlang.NifUpgradeObservations/environments/build-driver.py \
+            --repository "$GITHUB_WORKSPACE" --expected-head "$EXPECTED_HEAD" --plan-sha256 "$ENV709_MANAGED_PLAN" \
+            --runtime-manifest "$manifest" --approved-runtime-manifest-sha256 "$(sha256sum "$manifest" | cut -d ' ' -f 1)" \
+            --dotnet "$(readlink -f "$(command -v dotnet)")" \
+            --output "$GITHUB_WORKSPACE/artifacts/nif-upgrade693/env-driver" \
+            > artifacts/nif-upgrade693/env-ci/driver.log 2>&1
+      - name: Compare four complete same-DLL outcomes and cleanup
+        id: env709-replay
+        if: ${{ !cancelled() && steps.env709-original.outcome == 'success' && steps.env709-driver.outcome == 'success' && steps.native-ready.outputs.ready == 'true' }}
+        continue-on-error: true
+        shell: bash
+        run: |
+          set -euo pipefail
+          original="$GITHUB_WORKSPACE/artifacts/nif-upgrade693/env-original/completion.json"
+          driver="$GITHUB_WORKSPACE/artifacts/nif-upgrade693/env-driver/build-receipt.json"
+          manifest="$GITHUB_WORKSPACE/artifacts/nif-upgrade693/ci/runtime-manifest.json"
+          freeze="$GITHUB_WORKSPACE/artifacts/nif-version651/ci/source-freeze.json"
+          bridge="$(python3 -B -c 'import json;from pathlib import Path;p=json.loads(Path("artifacts/nif-version651/linux-build/build-receipt.json").read_bytes());print(p["Bridge"]["BuildReceipt"]["Path"])')"
+          python3 -B tools/Native/Erlang.NifUpgradeObservations/environments/collect-managed.py \
+            --repository "$GITHUB_WORKSPACE" --expected-head "$EXPECTED_HEAD" --plan-sha256 "$ENV709_MANAGED_PLAN" \
+            --driver-bin "$GITHUB_WORKSPACE/artifacts/nif-upgrade693/env-driver/bin" --driver-manifest "$driver" \
+            --approved-driver-manifest-sha256 "$(sha256sum "$driver" | cut -d ' ' -f 1)" \
+            --original-receipt "$original" --approved-original-receipt-sha256 "$(sha256sum "$original" | cut -d ' ' -f 1)" \
+            --runtime-manifest "$manifest" --approved-runtime-manifest-sha256 "$(sha256sum "$manifest" | cut -d ' ' -f 1)" \
+            --source-freeze "$freeze" --approved-source-freeze-sha256 "$(sha256sum "$freeze" | cut -d ' ' -f 1)" \
+            --bridge-receipt "$bridge" --approved-bridge-receipt-sha256 "$(sha256sum "$bridge" | cut -d ' ' -f 1)" \
+            --dotnet "$(readlink -f "$(command -v dotnet)")" --output "$GITHUB_WORKSPACE/artifacts/nif-upgrade693/env-managed" --execute \
+            > artifacts/nif-upgrade693/env-ci/replay.log 2>&1
+      - name: Aggregate independent same-DLL environment stages
+        if: ${{ !cancelled() }}
+        shell: bash
+        env:
+          ENV709_INPUTS_OUTCOME: ${{ steps.env709-inputs.outcome }}
+          ENV709_NATIVE_OUTCOME: ${{ steps.env709-native.outcome }}
+          ENV709_ORIGINAL_OUTCOME: ${{ steps.env709-original.outcome }}
+          ENV709_DRIVER_OUTCOME: ${{ steps.env709-driver.outcome }}
+          ENV709_REPLAY_OUTCOME: ${{ steps.env709-replay.outcome }}
+        run: |
+          python3 -B - <<'PY'
+          import hashlib,json,os
+          from pathlib import Path
+          sha=lambda p:hashlib.sha256(p.read_bytes()).hexdigest().upper()
+          errors=[];stages={k:os.environ.get(k,'') for k in ['ENV709_INPUTS_OUTCOME','ENV709_NATIVE_OUTCOME','ENV709_ORIGINAL_OUTCOME','ENV709_DRIVER_OUTCOME','ENV709_REPLAY_OUTCOME']}
+          try:
+              assert all(v=='success' for v in stages.values()),stages
+              native=json.loads(Path('artifacts/nif-upgrade693/env-native/build-receipt.json').read_bytes())
+              assert native['Passed'] and native['Status']=='ENV709_NATIVE_BUILD' and native['Pin']==os.environ['OTP_PIN'] and native['SubjectHead']==os.environ['EXPECTED_HEAD'] and native['PlanSha256']==os.environ['ENV709_NATIVE_PLAN'] and len(native['Images'])==1
+              original=json.loads(Path('artifacts/nif-upgrade693/env-original/completion.json').read_bytes())
+              assert original['Passed'] and original['Status']=='ENV709_ORIGINAL' and original['SubjectHead']==os.environ['EXPECTED_HEAD'] and len(original['Rows'])==2 and original['FullRawOutcomesAndStacks']
+              assert all(r['Passed'] and r['ForeignOsThreadJoined'] for r in original['Rows'])
+              capture=json.loads(Path('artifacts/nif-upgrade693/env-managed/completion.json').read_bytes())
+              assert capture['Passed'] and capture['SubjectHead']==os.environ['EXPECTED_HEAD'] and len(capture['Rows'])==4 and not capture['Errors']
+              assert {(r['Mode'],r['Route']) for r in capture['Rows']}=={(m,r) for m in [0,1] for r in ['reviewed','ordinary']}
+              for row in capture['Rows']:
+                  assert row['Passed'] and all(row['Comparisons'][k] for k in ['WholeRawOutcomeEquality','WholeTypedOutcomeEquality','WholeRawEventEquality','WholeRawOldPhaseEquality'])
+                  proof=row['CaptureReceipt'];path=Path(proof['Path']).resolve();assert path.is_relative_to(Path('artifacts/nif-upgrade693/env-managed').resolve()) and sha(path)==proof['Sha256']
+                  actual=json.loads(path.read_bytes());assert actual['Passed'] and actual['Captured'] and actual['RuntimeClosed'] and actual['AllAcceptedNativeOwnersUnloaded'] and actual['SubjectHead']==os.environ['EXPECTED_HEAD'] and actual['Route']==row['Route']
+                  assert actual['RuntimeManifestSha256']==sha(Path('artifacts/nif-upgrade693/ci/runtime-manifest.json')) and actual['SourceFreezeSha256']==sha(Path('artifacts/nif-version651/ci/source-freeze.json'))
+          except Exception as error:errors.append(repr(error))
+          out=Path('artifacts/nif-upgrade693/env-ci');out.mkdir(parents=True,exist_ok=True)
+          result=dict(Passed=not errors,SubjectHead=os.environ['EXPECTED_HEAD'],Stages=stages,Errors=errors,NativeImages=1,OriginalCases=2,Comparisons=4,NoNormalization=True,WholeApiCredits=0,TwoVmPhysicalDllAffinityVerified=False,AllTlsFunctionsExecuted=False,CppTlsVerified=False)
+          (out/'completion.json').write_text(json.dumps(result,indent=2));print(json.dumps(result));raise SystemExit(0 if result['Passed'] else 1)
+          PY
+      - name: Aggregate independent N2 stages without changing N1 acceptance
+        if: ${{ !cancelled() }}
+        shell: bash
+        env:
+          N2_INPUTS_OUTCOME: ${{ steps.n2-inputs.outcome }}
+          N2_NATIVE_OUTCOME: ${{ steps.n2-native.outcome }}
+          N2_ORIGINAL_OUTCOME: ${{ steps.n2-original.outcome }}
+          N2_DRIVER_OUTCOME: ${{ steps.n2-driver.outcome }}
+          N2_REPLAY_OUTCOME: ${{ steps.n2-replay.outcome }}
+        run: |
+          python3 -B - <<'PY'
+          import json,os
+          from pathlib import Path
+          errors=[];stages={k:os.environ.get(k,'') for k in ['N2_INPUTS_OUTCOME','N2_NATIVE_OUTCOME','N2_ORIGINAL_OUTCOME','N2_DRIVER_OUTCOME','N2_REPLAY_OUTCOME']}
+          try:
+              assert all(v=='success' for v in stages.values()),stages
+              original=json.loads(Path('artifacts/nif-upgrade693/original-linux/completion.json').read_bytes())
+              assert original['Passed'] and original['Count']==12 and original['FreshOriginalCompilation'] and original['SubjectHead']==os.environ['EXPECTED_HEAD']
+              capture=json.loads(Path('artifacts/nif-upgrade693/managed-linux/completion.json').read_bytes())
+              assert capture['Passed'] and capture['ExecutionPassed'] and capture['Comparisons']==24 and capture['MatchedComparisons']==24 and not capture['Errors']
+              assert capture['SubjectHead']==os.environ['EXPECTED_HEAD'] and capture['PortableN2']
+              for row in capture['Rows']:
+                  assert set(row['Routes'])=={'reviewed','ordinary'} and all(r['Passed'] for r in row['Routes'].values())
+                  for r in row['Routes'].values():assert r['CaptureReceipt']['RuntimeClosed'] and r['CaptureReceipt']['AllAcceptedNativeOwnersUnloaded']
+                  for c in row['Comparisons'].values():assert all(c[k] for k in ['WholeRawOutcomeEquality','WholeTypedOutcomeEquality','WholeRawEventEquality','WholeRawOldPhaseEquality'])
+          except Exception as e:errors.append(repr(e))
+          out=Path('artifacts/nif-upgrade693/ci');out.mkdir(parents=True,exist_ok=True)
+          result=dict(Passed=not errors,SubjectHead=os.environ['EXPECTED_HEAD'],Stages=stages,Errors=errors,OriginalCases=12,Comparisons=24,NoNormalization=True,ApiDelta=0,FullContractDelta=0,AllTlsFunctionsExecuted=False,CppTlsVerified=False)
+          (out/'completion.json').write_text(json.dumps(result,indent=2));print(json.dumps(result));raise SystemExit(0 if result['Passed'] else 1)
+          PY
       - name: Aggregate exact-head N1 result and preserve pending wider gates
         if: ${{ !cancelled() }}
         shell: bash
@@ -297,4 +546,25 @@ jobs:
             artifacts/nif-version651/linux-build/**
             artifacts/nif-version651/capture-linux/**
             artifacts/nif-version651/acceptance/**
+            artifacts/nif-upgrade693/env-ci/**
+            artifacts/nif-upgrade693/env-native/**
+            artifacts/nif-upgrade693/env-original/**
+            artifacts/nif-upgrade693/env-driver/build-receipt.json
+            artifacts/nif-upgrade693/env-driver/build-driver*.log
+            artifacts/nif-upgrade693/env-driver/build-driver*.json
+            artifacts/nif-upgrade693/env-driver/bin/Env709.*
+            artifacts/nif-upgrade693/env-managed/completion.json
+            artifacts/nif-upgrade693/env-managed/**/admission.json
+            artifacts/nif-upgrade693/env-managed/**/completion.json
+            artifacts/nif-upgrade693/env-managed/**/managed*.log
+            artifacts/nif-upgrade693/env-managed/**/managed*.json
+            artifacts/nif-upgrade693/env-managed/**/capture/**
+            artifacts/nif-upgrade693/ci/**
+            artifacts/nif-upgrade693/linux-native/**
+            artifacts/nif-upgrade693/original-linux/**
+            artifacts/nif-upgrade693/managed-linux/completion.json
+            artifacts/nif-upgrade693/managed-linux/**/admission.json
+            artifacts/nif-upgrade693/managed-linux/**/managed*.json
+            artifacts/nif-upgrade693/managed-linux/**/managed*.log
+            artifacts/nif-upgrade693/managed-linux/**/capture/**
           if-no-files-found: warn

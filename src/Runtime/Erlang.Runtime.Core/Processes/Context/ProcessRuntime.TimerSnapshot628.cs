@@ -8,6 +8,17 @@ public sealed partial class ProcessRuntime
         MailboxPublicationScope593 publication
     )
     {
+        // Fire already owns the admitted timer payload/publication and calls
+        // here outside R. The prepared destination graph takes its own actual
+        // interests before the timer callback releases that source scope.
+        if (TrySendBackedLocalAsync(
+            destination,
+            message,
+            from: Term.A(ProcessTraceNames.ClockService),
+            preserve: true
+        )
+            .GetAwaiter().GetResult())
+            return;
         lock (gate)
         {
             if (IsHaltRequested)

@@ -1085,3 +1085,8 @@ Part116: exact-source original2408/2408=778/1546/84 and same-head2816/full CI at
 
 
 Part453 final local gate supplement:607 unique affected cases accepted from immutable sources/DLLs; initial606/607 remains failed due actual child CoreCLR startup OOM (0x8007000E), followed by the entire20-case block passing twice with empty stderr. Genuine native8/retained36, original boot79/actual cleanup, final style and all1623 source guards pass on runtime F39E2D87. Exact453 publication-head full CI/packages remain separate.
+
+
+### Part547 current checkpoint —2026-10-31
+
+Physical writable binary/function/external-identifier/group-leader storage and direct/self mailbox roots have scoped local acceptance: final affected133/133, exact tokens/syntax386 sources, complete original writable4/4, external identifier7records×4routes and group leader4/4. See [immutable evidence](validation/part-547/REPORT.md). Public GC selection remains unchanged pending remaining signal/conversion, sequence-token/label and native-record roots. Whole statistics/profile/platform acceptance and fresh-head CI/publication remain pending.708/180/504/24 and API/full-contract delta0/0 unchanged. Next: finish actual remaining roots, then switch/test public per-VM GC values and complete original helper/profile acceptance separately.

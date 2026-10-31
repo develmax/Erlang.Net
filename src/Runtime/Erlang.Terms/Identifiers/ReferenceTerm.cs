@@ -7,17 +7,19 @@ public class ReferenceTerm : Term
     private readonly LocalNodeIdentity? localIdentity;
     private readonly LocalNodeSnapshot externalIdentity;
     public string Node => WireIdentity.Node;
-    internal LocalNodeSnapshot WireIdentity => localIdentity?.Snapshot ?? externalIdentity;
+    internal LocalNodeSnapshot WireIdentity => externalStorage?.ReadExternalIdentity() ?? localIdentity?.Snapshot ?? externalIdentity;
     internal LocalNodeIdentity? LocalIdentity => localIdentity;
     public ulong Id => checked((ulong)FullId);
     private readonly BigInteger portableId562;
     private readonly IReadOnlyList<uint> portableWords562 = Array.Empty<uint>();
     private readonly bool ordinaryLocal562;
     internal IOwnedReferenceStorage562? OwnedStorage562 { get; }
+    private readonly IOwnedExternalIdentifierStorage? externalStorage;
+    internal IOwnedExternalIdentifierStorage? OwnedExternalStorage => externalStorage;
     internal bool IsOrdinaryLocal562 => ordinaryLocal562;
-    public BigInteger FullId => OwnedStorage562 is null ? portableId562 : Reconstruct562(Words);
+    public BigInteger FullId => OwnedStorage562 is null && externalStorage is null ? portableId562 : Reconstruct562(Words);
     public uint Creation => WireIdentity.Creation;
-    public IReadOnlyList<uint> Words => OwnedStorage562?.ReadReferenceWords562() ?? portableWords562;
+    public IReadOnlyList<uint> Words => externalStorage?.ReadExternalReferenceWords() ?? OwnedStorage562?.ReadReferenceWords562() ?? portableWords562;
 
     public ReferenceTerm(string node, ulong id, uint creation = 0) : this(node, id > uint.MaxValue ? [(uint)id, (uint)(id >> ReferenceIdentityLayout.WordBits)] : [(uint)id], creation)
     {
@@ -77,6 +79,12 @@ public class ReferenceTerm : Term
         externalIdentity = identity.WireIdentity;
         localIdentity = identity.LocalIdentity;
         OwnedStorage562 = storage;
+    }
+
+    internal ReferenceTerm(IOwnedExternalIdentifierStorage storage)
+    {
+        externalStorage = storage;
+        externalIdentity = storage.ReadExternalIdentity();
     }
 
     private static BigInteger Reconstruct562(IReadOnlyList<uint> words)

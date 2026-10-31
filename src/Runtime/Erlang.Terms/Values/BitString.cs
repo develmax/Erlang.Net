@@ -12,7 +12,7 @@ public sealed partial class BitString : Term
     private readonly long bitOffset;
     private byte[]? normalized;
     private readonly int portableBitLength577;
-    public int BitLength => ownedResourceBits577?.ReadResourceBits577().BitLength ?? portableBitLength577;
+    public int BitLength => ownedHeapBits?.ReadHeapBitLength() ?? ownedResourceBits577?.ReadResourceBits577().BitLength ?? portableBitLength577;
     public bool IsBinary => BitLength % 8 == 0;
 
     public BitString(ReadOnlySpan<byte> data, int? bitLength = null)
@@ -28,7 +28,7 @@ public sealed partial class BitString : Term
 
     public byte[] ToArray()
     {
-        using IDisposable? read = backing.RetainNative524();
+        using IDisposable? read = backing.RetainNativeCopyRead524();
 
         return ByteSpan.ToArray();
     }
@@ -39,6 +39,8 @@ public sealed partial class BitString : Term
     {
         get
         {
+            if (ownedHeapBits is not null)
+                return ownedHeapBits.CopyHeapBytes();
             if (ownedResourceBits577 is not null)
                 return ReadOwnedByteSpan577();
             if (LogicalBitOffset577 % BitStringLayout.BitsPerByte == 0 && IsBinary)
@@ -71,6 +73,8 @@ public sealed partial class BitString : Term
     {
         if (offset < 0 || count < 0 || offset > BitLength - count)
             throw new ErlangException(ErlangErrorReasons.BadArgument);
+        if (ownedHeapBits is not null)
+            return SliceOwnedHeapBits(offset, count);
         if (ownedResourceBits577 is not null)
             return SliceOwnedResourceBits577(offset, count);
         var result = new BitString(
@@ -156,11 +160,13 @@ public sealed partial class BitString : Term
 
     public void WriteTo(Stream destination)
     {
-        using IDisposable? read = backing.RetainNative524();
+        using IDisposable? read = backing.RetainNativeCopyRead524();
         destination.Write(ByteSpan);
     }
 
-    internal int Bit(int i) => (bytes[(int)((LogicalBitOffset577 + i) / BitStringLayout.BitsPerByte)] >> (BitStringStorage.HighBit - (int)((LogicalBitOffset577 + i) % BitStringLayout.BitsPerByte))) & 1;
+    internal int Bit(int i) => ownedHeapBits is not null
+        ? (ownedHeapBits.ReadHeapByte(i / BitStringLayout.BitsPerByte) >> (BitStringStorage.HighBit - i % BitStringLayout.BitsPerByte)) & 1
+        : (backing.ReadByte524((int)((LogicalBitOffset577 + i) / BitStringLayout.BitsPerByte)) >> (BitStringStorage.HighBit - (int)((LogicalBitOffset577 + i) % BitStringLayout.BitsPerByte))) & 1;
 
     public override string ToString()
     {

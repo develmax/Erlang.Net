@@ -2,6 +2,8 @@ namespace Erlang.Tests;
 
 internal static class Allocation567TestNames
 {
+    internal const string StatisticsProperty = "Statistics";
+    internal const string CollectionSample = "SampleVmCollections";
     internal const string ScalarCase = "runtime/allocation567/scalar-generations-and-actual-reclaim";
     internal const string MapCase = "runtime/allocation567/shared-map-roots-custody";
     internal const string RollbackCase = "runtime/allocation567/failed-publication-not-garbage-collection";

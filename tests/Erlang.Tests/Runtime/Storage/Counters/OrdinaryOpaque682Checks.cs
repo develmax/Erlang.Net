@@ -77,6 +77,9 @@ internal static class OrdinaryOpaque682Checks
 
                 return pair;
             }).WaitAsync(Deadline);
+            // First canonical admission must not mint an unreturned Host copy
+            // of the input. Only the original, still-live carrier owns a Host root.
+            Check((long)Field(array, HostRoots)! == OriginalHostInterest);
             var ids = (TupleTerm)started;
             Pid childPid = (Pid)ids.Items[0];
             ReferenceTerm monitor = (ReferenceTerm)ids.Items[1];
@@ -181,6 +184,14 @@ internal static class OrdinaryOpaque682Checks
             Check(changed.Equals(Term.I(1)));
             foreach (IDisposable carrier in escapedCarriers) carrier.Dispose();
             escapedCarriers.Clear();
+            Check((long)Field(array, HostRoots)! == 0);
+            // Actual ordinary VM heap garbage can retain guest headers after
+            // an FFI frame ends. Reclaim it through the public VM collector;
+            // CLR finalization must not be needed to release a hidden Host copy.
+            Term collected = await parent.InvokeAsync(async context => await runtime.Modules.Call(
+                context, ErlangModuleNames.Module, ProcessGarbageCollectionNames.Function));
+            Check(collected.Equals(Term.A(ErlangBooleanAtoms.True)));
+            Check((long)Field(array, GuestRoots)! == 0 && (long)Field(array, HostRoots)! == 0);
             await ((Task)Property(array, Retired)).WaitAsync(Deadline);
             await CountersOwnerAccounting683Checks.AwaitEmpty(runtime, Deadline);
             GC.KeepAlive(reference);

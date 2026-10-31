@@ -240,3 +240,13 @@ P10 may close earlier; counts must then be recomputed from actual accepted entri
 ## Immediate next executable package
 
 Deliver Part533 through exact-head green CI/current review/merge. Then integrate the counters current-source composition and independent lifecycle correction, build and compare the complete original family, preserving actual DEBUG/OPT allocation geometry and scheduler configuration. Continue corrected regex/binary/match-program producers and remaining owner/root domains before enabling physical public metrics or promoting P6-P10 contracts. Keep the acceptance matrices above unchanged.
+
+
+## Current priority and execution policy —2026-10-30
+
+The current named24 assessment and first full API plan are in contracts-24/current-closure/all24-matrix.json and first-full-statistics-plan.json. statistics/1 is the first whole-contract target; historical load_nif-first ordering below does not override this decision. Use targeted behavioral groups plus verified dependencies and fresh partial reports during iteration, then the complete pinned-OTP contract and mandatory full platform/backend/profile/cleanup regression before acceptance. The plan records concrete cache keys/provenance and isolated process-shard catalog/timing/serial-lane/aggregation gates for review; implementing a large CI migration must not displace statistics. No partial run closes an API.
+
+
+## Deferred: production names without historical checkpoint numbers
+
+DEFERRED, NOT STARTED. Schedule after statistics/1 and the current24-contract acceptance priorities; this is not part of the active implementation. Inventory production classes/symbols whose names contain historical part/checkpoint numbers. Rename by responsibility, including matching files and dependent references, in reviewed coherent groups. Preserve semantic version/protocol/ABI/size/numeric identifiers. Do not mass-rename test names or historical evidence. Before each group inspect reflection/string lookups, serialization, public API and ABI, generated code, resources, source manifests and hash/workflow pins. Preserve compatibility through explicit adapters/version strategy where a public identity is affected. Validate targeted behavioral groups plus verified dependencies, then the applicable full regression/compatibility gates; retain exact original behavior and cleanup.

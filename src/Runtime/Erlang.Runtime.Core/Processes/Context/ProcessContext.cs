@@ -18,8 +18,10 @@ public sealed partial class ProcessContext : ITermExecutionContext
             Owner = pid,
             Runtime593 = runtime,
             IncomingTerm = Runtime.ObserveIncomingTerm,
+            TrySendBacked = (message, priority) => Runtime.TrySendBackedRawMailbox(this, message, priority),
             HaltRequested = () => Runtime.IsHaltRequested,
             ProcessSignals = () => Runtime.AdmitSignals(this),
+            ProcessStoragePolicies = () => Runtime.DrainMessageQueuePoliciesAsync(this),
             PendingSignalAdded428 = priority => Runtime.NotifyDirtySignalHandler428(this, priority),
             WaitForExecution = WaitIfSuspended,
             SuspensionTime = () => Interlocked.Read(ref cumulativeSuspensionTicks),
@@ -50,10 +52,6 @@ public sealed partial class ProcessContext : ITermExecutionContext
 
     internal volatile DistributionSignalDrain? DeferredSignalDrain;
     internal CancellationTokenSource Stop { get; } = new();
-    internal Pid GroupLeader
-    {
-        get; set;
-    }
     internal TaskCompletionSource<Term> Done { get; } = new(TaskCreationOptions.RunContinuationsAsynchronously);
     internal TaskCompletionSource Unwound { get; } = new(TaskCreationOptions.RunContinuationsAsynchronously);
     internal HashSet<Pid> Links { get; } = new();
@@ -423,6 +421,11 @@ public sealed partial class ProcessContext : ITermExecutionContext
     {
         Runtime.ThrowIfHalted();
         Cancellation.ThrowIfCancellationRequested();
+        if (Mailbox.HasMessageQueuePolicyWork)
+        {
+            Runtime.AdmitSignals(this);
+            await Runtime.DrainMessageQueuePoliciesAsync(this);
+        }
         if (SuspensionRequested)
             await WaitIfSuspended();
         if (capToRemainingSlice)

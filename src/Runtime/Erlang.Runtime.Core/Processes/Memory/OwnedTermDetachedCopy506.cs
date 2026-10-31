@@ -46,12 +46,30 @@ internal static class OwnedTermDetachedCopy506
         }
     }
 
+    // This DTO is INTERNAL observation metadata only. Its ordinary binaries
+    // contain consumed bytes; actual queued values remain the same heap graph.
+    // No Host/store/cross-process pointer or backing is published by this copy.
+    internal static Term CopySameHeapMailboxObservation(ProcessRuntime runtime, Term source)
+    {
+        AtomicsHostCopyTransaction591? transaction = null;
+
+        return CopyCore593(
+            runtime,
+            source,
+            false,
+            ref transaction,
+            false,
+            true
+        );
+    }
+
     private static Term CopyCore593(
         ProcessRuntime runtime,
         Term source,
         bool hostExport,
         ref AtomicsHostCopyTransaction591? hostCopies591,
-        bool ownsTransaction
+        bool ownsTransaction,
+        bool consumeOrdinaryBinary = false
     )
     {
         // The native copy_struct traversal copies each heap occurrence; do not
@@ -78,7 +96,8 @@ internal static class OwnedTermDetachedCopy506
                     frame.Source,
                     frame.Copied,
                     hostExport,
-                    hostCopies591
+                    hostCopies591,
+                    consumeOrdinaryBinary
                 );
             if (frame.NativeMap is not null && frame.Source is MapTerm { IsOrdinaryLogicalMap517: true } && copy is MapTerm raw)
             {
@@ -123,7 +142,8 @@ internal static class OwnedTermDetachedCopy506
         Term source,
         Term[] values,
         bool exportHostAtomics586,
-        AtomicsHostCopyTransaction591? hostCopies591
+        AtomicsHostCopyTransaction591? hostCopies591,
+        bool consumeOrdinaryBinary
     )
     {
         switch (source)
@@ -163,10 +183,14 @@ internal static class OwnedTermDetachedCopy506
                     record.IsExported,
                     record.FieldNames.Select((name, index) => new KeyValuePair<Atom, Term>(name, values[index]))
                 );
+            case BitString binary when consumeOrdinaryBinary && binary.ResourceBacking577.NativeStorage524 is OrdinaryBinaryBacking:
+                return new BitString(binary.ToArray(), binary.BitLength);
+            case BitString binary when exportHostAtomics586 && binary.ResourceBacking577.NativeStorage524 is OrdinaryBinaryBacking ordinary:
+                return ordinary.ExportPortable(binary);
             case BitString binary when binary.NativeResourceIdentity524 is not null:
                 return binary.CloneNativeView524();
             case BitString binary:
-                if (binary.OwnedStorage577 is not null || binary.ResourceSliceOrigin577 is not null)
+                if (binary.OwnedHeapBits is not null || binary.OwnedStorage577 is not null || binary.ResourceSliceOrigin577 is not null)
                     return binary.DetachResourceView577();
                 PersistentBinarySlice416 slice = binary.CapturePersistentSlice416();
 
@@ -196,18 +220,19 @@ internal static class OwnedTermDetachedCopy506
             case FunctionTerm function:
                 if (RuntimeStoredFunctionRecipes.TryCaptureTransfer506(runtime, function, out IRuntimeStoredFunctionRecipe? recipe))
                 {
-                    if (recipe is ExternalStoredFunctionRecipe external)
-                        recipe = new DebugDirtyExternalFunctionRecipe424(external.Owner, external.Identity);
-
+                    // Ordinary VM/Host transfers keep the canonical external
+                    // pointer. Debug inspection has its own explicit copy path.
                     return recipe!.Rebind(values);
                 }
-                // Managed callbacks have opaque CLR captures. Public arguments
-                // and dictionary values are detached before reaching this profile;
-                // no guest-owned root capability is public. Keep its own delegate
-                // lifetime, rather than pretending it is a portable Erlang closure.
-                if (function.LocalIdentity is null && function.Environment.Count == 0)
-                    return function;
-                throw new NotSupportedException(ProcessTerm506Names.UnknownClosure);
+                // A known local descriptor refused by this VM must not become
+                // an opaque callback. Public metadata alone grants no descriptor.
+                if (function.HasRuntimeLocalTransferDescriptor)
+                    throw new NotSupportedException(ProcessTerm506Names.UnknownClosure);
+
+                // Explicit environment values were copied by the real graph
+                // traversal. Preserve opaque CLR delegate lifetime and lazy
+                // identity without invoking it or granting guest permission.
+                return function.CopyOpaqueForTransfer(values);
             default:
                 throw new NotSupportedException(PersistentArenaNames416.Unsupported);
         }

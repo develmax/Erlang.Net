@@ -15,6 +15,7 @@ public static class PortHostChecks
         {
             try
             {
+                await VerifyIo(context, 0);
                 string executable = Path.GetFullPath(
                     Path.Combine(PortHostParameters.RuntimeRoot, OperatingSystem.IsWindows() ? PortHostParameters.WindowsHost : PortHostParameters.UnixHost),
                     System.Runtime.InteropServices.RuntimeEnvironment.GetRuntimeDirectory()
@@ -39,6 +40,7 @@ public static class PortHostChecks
                 int pid = (int)((Integer)info.Items[1]).Value;
                 using var child = System.Diagnostics.Process.GetProcessById(pid);
                 Require(!child.HasExited);
+                await VerifyIo(context, 0);
                 await runtime.Modules.Call(
                     context,
                     ErlangModuleNames.Module,
@@ -48,6 +50,7 @@ public static class PortHostChecks
                 );
                 Term? reply = await context.Mailbox.ReceiveAsync<Term>(message => message, PortHostParameters.Timeout, context.Cancellation);
                 Require(reply is TupleTerm { Items.Count: 2 } tuple && tuple.Items[0].Equals(identity) && tuple.Items[1].Equals(Term.Tuple(Term.A(PortNames.Data), new BitString(new byte[] { 1, 2, 3 }))));
+                await VerifyIo(context, PortHostParameters.EchoPayloadBytes);
             }
             catch (Exception exception)
             {
@@ -62,6 +65,7 @@ public static class PortHostChecks
         Term? observed = null;
         var observer = runtime.Spawn(async context =>
         {
+            await VerifyIo(context, PortHostParameters.EchoPayloadBytes);
             observed = await runtime.Modules.Call(
                 context,
                 ErlangModuleNames.Module,
@@ -73,6 +77,20 @@ public static class PortHostChecks
         });
         await observer.Completion.WaitAsync(PortHostParameters.Timeout);
         Require(observed!.Equals(Term.A(ProcessRegistryAtoms.Undefined)));
+    }
+
+    private static async ValueTask VerifyIo(ProcessContext context, int bytes)
+    {
+        Term sample = await context.Runtime.Modules.Call(
+            context,
+            ErlangModuleNames.Module,
+            RuntimeStatisticsNames.Function,
+            Term.A(RuntimeStatisticsNames.Io)
+        );
+        Require(sample.Equals(Term.Tuple(
+            Term.Tuple(Term.A(PortHostParameters.StatisticsInput), Term.I(bytes)),
+            Term.Tuple(Term.A(PortHostParameters.StatisticsOutput), Term.I(bytes))
+        )));
     }
 
     private static Term Text(string text) => Cons.From(text.Select(character => Term.I(character)));

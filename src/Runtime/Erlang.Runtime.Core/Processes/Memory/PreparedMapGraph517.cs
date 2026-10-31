@@ -2,8 +2,16 @@ using System.Runtime.ExceptionServices;
 
 namespace Erlang;
 
-internal sealed class PreparedMapGraph517 : IDisposable
+internal sealed partial class PreparedMapGraph517 : IDisposable
 {
+    private readonly Dictionary<Term, PreparedExternalIdentifier> externalIdentifiers = new(ReferenceEqualityComparer.Instance);
+
+    internal PreparedExternalIdentifier FindExternalIdentifier(Term source) => externalIdentifiers[source];
+
+    private readonly Dictionary<BinaryBacking, PreparedOrdinaryBinary> ordinaryBinaries = new(ReferenceEqualityComparer.Instance);
+
+    internal PreparedOrdinaryBinary FindOrdinaryBinary(BitString source) => ordinaryBinaries[source.ResourceBacking577];
+
     private readonly Dictionary<MapTerm, PreparedOwnedMap517> plans = new(ReferenceEqualityComparer.Instance);
     private readonly List<MapRoutingFallback517> fallbacks = new();
     private readonly Dictionary<Term, PreparedOwnedMapNode526> nodes526 = new(ReferenceEqualityComparer.Instance);
@@ -54,6 +62,35 @@ internal sealed class PreparedMapGraph517 : IDisposable
             {
                 if (!seen.Add(value))
                     continue;
+                graph.CaptureCanonicalFunction(runtime, value);
+                graph.CaptureRecord(runtime, value, pending);
+                if (heap.CanOwnExternalIdentifier(value))
+                {
+                    var plan = new PreparedExternalIdentifier(runtime, value);
+                    try
+                    {
+                        graph.externalIdentifiers.Add(value, plan);
+                    }
+                    catch
+                    {
+                        plan.Dispose();
+                        throw;
+                    }
+                }
+                if (value is BitString binary && heap.CanOwnOrdinaryBinary(binary)
+                    && !ContainsOrdinaryBinary(graph, binary))
+                {
+                    var plan = new PreparedOrdinaryBinary(runtime, binary, heap);
+                    try
+                    {
+                        graph.ordinaryBinaries.Add(binary.ResourceBacking577, plan);
+                    }
+                    catch
+                    {
+                        plan.Dispose();
+                        throw;
+                    }
+                }
                 if (value is MapTerm map)
                 {
                     if (preserveLocal && heap.IsLocalMapForPreparation517(map))
@@ -121,6 +158,9 @@ internal sealed class PreparedMapGraph517 : IDisposable
         }
     }
 
+    private static bool ContainsOrdinaryBinary(PreparedMapGraph517 graph, BitString source)
+        => graph.ordinaryBinaries.ContainsKey(source.ResourceBacking577);
+
     public void Dispose()
     {
         List<Exception>? errors = null;
@@ -133,6 +173,27 @@ internal sealed class PreparedMapGraph517 : IDisposable
             {
                 (errors ??= new()).Add(error);
             }
+        foreach (var binary in ordinaryBinaries.Values)
+            try
+            {
+                binary.Dispose();
+            }
+            catch (Exception error)
+            {
+                (errors ??= new()).Add(error);
+            }
+        foreach (var external in externalIdentifiers.Values)
+            try
+            {
+                external.Dispose();
+            }
+            catch (Exception error)
+            {
+                (errors ??= new()).Add(error);
+            }
+        records.Clear();
+        externalIdentifiers.Clear();
+        ordinaryBinaries.Clear();
         plans.Clear();
         fallbacks.Clear();
         nodes526.Clear();

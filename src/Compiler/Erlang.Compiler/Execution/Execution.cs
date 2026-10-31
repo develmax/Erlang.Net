@@ -47,7 +47,7 @@ public static partial class Execution
     }
 
     public static ValueTask<Term> EvaluateAsync(Expr expression, ProcessContext context)
-        => context.OwnedExecutionEnabled683 ? EvaluateOwnedEntry506(expression, context) : Evaluate(
+        => AdmitDirectGuestCollector(context) ? EvaluateOwnedEntry506(expression, context) : Evaluate(
             expression,
             context,
             new Dictionary<string, Term>(StringComparer.Ordinal),
@@ -57,24 +57,28 @@ public static partial class Execution
     private static async ValueTask<Term> EvaluateOwnedEntry506(Expr expression, ProcessContext context)
     {
         using var owned = context.EnterOwnedInvocation506([], true)!;
+        using var compiler = RuntimeActorExecutionTurn.IsOwnedBy(context)
+            ? context.EnterOwnedInvocation506([]) : null;
+        compiler?.MarkCompilerFactory507();
         try
         {
             Term result = await Evaluate(
                 expression,
                 context,
                 new Dictionary<string, Term>(StringComparer.Ordinal),
-                null
+                null,
+                functionBody: compiler is not null
             );
 
-            return owned.CompleteGuest507(result);
+            return owned.CompleteGuest507(compiler?.CompleteGuest507(result) ?? result);
         }
         catch (ErlangException error)
         {
-            throw owned.Transfer(error);
+            throw owned.Transfer(compiler?.Transfer(error) ?? error);
         }
         catch (Exception control) when (owned is not null && control is IOwnedControlTransfer506)
         {
-            throw owned.TransferControl506(control);
+            throw owned.TransferControl506(compiler?.TransferControl506(control) ?? control);
         }
     }
 
@@ -83,7 +87,7 @@ public static partial class Execution
         string function,
         ProcessContext context,
         IReadOnlyList<Term> arguments
-    ) => context.OwnedExecutionEnabled683
+    ) => AdmitDirectGuestCollector(context)
         ? InvokePublicOwned506(
             module,
             function,
@@ -426,7 +430,7 @@ public static partial class Execution
             context.Cancellation.ThrowIfCancellationRequested();
         }
 
-        using var frame = context.EnterFunction(identity.Module.Name, identity.Name!.Name, arguments.Count);
+        using var frame = context.EnterFunction(identity.Module.Name, identity.Name!.Name, AnonymousStackArity(expression, environment, arguments.Count));
         try
         {
             foreach (var clause in expression.Clauses)
@@ -565,6 +569,7 @@ public static partial class Execution
     )
     {
         using var sourceEvaluation = ctx.EnterSourceEvaluation511(functionBody);
+        using var binaryLocation = e is Expr.Bits bits ? ctx.EnterSourceLocation(SourceCallLocations.For(module, bits.SourceLine)) : null;
         try
         {
             Term result = await EvaluateCore(
@@ -808,7 +813,8 @@ public static partial class Execution
                         scope,
                         module
                     ),
-                    module is not null
+                    module is not null,
+                    ctx.AppendGuestBinary
                 );
             case Expr.Sequence s:
                 {

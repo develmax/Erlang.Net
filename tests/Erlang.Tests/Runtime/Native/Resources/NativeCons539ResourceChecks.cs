@@ -23,19 +23,18 @@ internal static class NativeCons539ResourceChecks
         using var first = (IDisposable)New(NativeCons539ResourceNames.Environment, runtime, image);
         using var second = (IDisposable)New(NativeCons539ResourceNames.Environment, runtime, image);
         using var table = (IDisposable)New(NativeCons539ResourceNames.Table);
-        Call(
-            table,
-            NativeCons539ResourceNames.Bind,
-            runtime,
-            image
-        );
-        nint callbacks = (nint)Property(table, NativeCons539ResourceNames.Pointer);
-        nuint head = (nuint)Call(first, NativeCons539ResourceNames.Add, binary)!;
-        nuint tail = (nuint)Call(first, NativeCons539ResourceNames.Add, Term.I(539))!;
         bool nativeReleased = false;
         Exception? failure = null;
         try
         {
+            Call(
+                table,
+                NativeCons539ResourceNames.Bind,
+                runtime
+            );
+            nint callbacks = (nint)Property(table, NativeCons539ResourceNames.Pointer);
+            nuint head = (nuint)Call(first, NativeCons539ResourceNames.Add, binary)!;
+            nuint tail = (nuint)Call(first, NativeCons539ResourceNames.Add, Term.I(539))!;
             nuint cell = Make(
                 callbacks,
                 first,

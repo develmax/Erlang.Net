@@ -1,3 +1,8 @@
+Current Part550 (2026-10-31): zero-warning normal Debug solution build;13/13 Roslyn proofs;367/367 affected checks and all6 package groups pass with unchanged106 source/DLL fingerprints and original deadlines. Final28/28 whole OTP terms/stacks/ETF routes match. Catalog9574 preserves9572+2; full9574 execution not claimed. Runtime optimization policy is explicit and PE-verified. Exact new-head CI next; token/trace/terminal/HAMT/suspension integration remains open; public GC unchanged. API/full deltas0/0;708/180/504/24 unchanged. Evidence: validation/part-550/README.md.
+
+Current Part549 (2026-10-31): final108-file Roslyn proof and zero-warning Release build;365/365 affected tests plus2 independent CI regex contracts;24/24 full original term/stack/ETF comparisons. Normal Transport passes22.953s within unchanged30s (1107 ssl/ssh +96 frame481). Catalog9572 preserves9541 prior names+31; not a full-suite execution. Exact-head CI/source closure next. Token/trace/terminal candidates unapplied; public GC unchanged. API/full deltas0/0;708/180/504/24 unchanged. Evidence: validation/part-549/README.md.
+
+
 # Active implementation checkpoint — Part533 (2026-10-29)
 
 Part533 final local gates pass9294/9294 (+31), preserving every9263 authenticated previous CI name. Supported local guest sends, snapshots and process_info replies use explicit custody; physical queue retirement runs outside runtime monitors and actor scheduler affinity. Actual Source/originalBEAM lifetimes, fresh atomics/counters and both real native-loader whole streams/cleanup pass. Failed whole runs and meaningful controls remain preserved. API/full deltas0/0;708registered/180verified/504pending/24known. Current-head CI/review/merge are separate PR gates.
@@ -1498,3 +1503,8 @@ Part116: exact-source original2408/2408=778/1546/84 and same-head2816/full CI at
 
 
 Part453 final local gate supplement:607 unique affected cases accepted from immutable sources/DLLs; initial606/607 remains failed due actual child CoreCLR startup OOM (0x8007000E), followed by the entire20-case block passing twice with empty stderr. Genuine native8/retained36, original boot79/actual cleanup, final style and all1623 source guards pass on runtime F39E2D87. Exact453 publication-head full CI/packages remain separate.
+
+
+### Part547 current checkpoint —2026-10-31
+
+Physical writable binary/function/external-identifier/group-leader storage and direct/self mailbox roots have scoped local acceptance: final affected133/133, exact tokens/syntax386 sources, complete original writable4/4, external identifier7records×4routes and group leader4/4. See [immutable evidence](validation/part-547/REPORT.md). Public GC selection remains unchanged pending remaining signal/conversion, sequence-token/label and native-record roots. Whole statistics/profile/platform acceptance and fresh-head CI/publication remain pending.708/180/504/24 and API/full-contract delta0/0 unchanged. Next: finish actual remaining roots, then switch/test public per-VM GC values and complete original helper/profile acceptance separately.

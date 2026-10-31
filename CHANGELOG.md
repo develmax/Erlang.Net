@@ -160,4 +160,12 @@ Append numbered English entries only to the last volume. Start the next sequenti
 
 - [0093.md](docs/changelog/0093.md) — Parts534–539 and review/CI corrections (closed)
 
-- [0094.md](docs/changelog/0094.md) — Part539 delivery checkpoints and subsequent work (active)
+- [0094.md](docs/changelog/0094.md) — Parts539–542 delivery checkpoints and corrections (closed)
+
+- [0095.md](docs/changelog/0095.md) — Parts543–544 NIF admission, genuine upgrade and local validation (closed)
+
+- [0096.md](docs/changelog/0096.md) — Part544 delivery and Part545 VM-affine independent NIF environments (closed; includes partial statistics implementation records)
+
+- [0097.md](docs/changelog/0097.md) — Parts546–547 scoped statistics and physical GC root checkpoints (closed volume; whole target unfinished)
+
+- [0098.md](docs/changelog/0098.md) — Part548 mailbox public identity and remaining process roots (active; in progress)

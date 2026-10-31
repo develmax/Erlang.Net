@@ -8,5 +8,7 @@ internal enum OwnedBindingKind507
     LocalDictionary,
     PureAliasRead,
     RuntimeRead535,
-    NativeGuest535
+    NativeGuest535,
+    LocalMessage,
+    LocalListAppend
 }

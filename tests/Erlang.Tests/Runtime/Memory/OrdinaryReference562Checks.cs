@@ -196,7 +196,107 @@ internal static class OrdinaryReference562Checks
         await using var foreignRuntime = OwnedGuest506RuntimeFactory.Create();
         ReferenceTerm foreign = foreignRuntime.MakeReference();
         Check(foreign.Node == source.Node && foreign.Creation == source.Creation);
-        foreach (ReferenceTerm refused in new ReferenceTerm[] { publicSame, derived, resource, alias, foreign })
+        Check(!(bool)Call(heap, Eligible, publicSame)!);
+        var external = (ReferenceTerm)Call(
+            roots,
+            Adopt,
+            slot,
+            publicSame
+        )!;
+        Check(!ReferenceEquals(external, publicSame) && external.Equals(publicSame));
+        Check(Property(external, Storage) is null && Property(external, ExternalStorage) is not null);
+        Check(Words(heap, Physical) == ExternalReferenceWords && Words(heap, Headers) == 1
+            && Words(heap, Numeric) == ExternalReferenceWords - 1 && Words(heap, Handles) == 0);
+        object externalStorage = Property(external, ExternalStorage)!;
+        object cells = Get(Get(externalStorage, Slab), Cells);
+        int offset = (int)Get(externalStorage, Offset);
+        nuint externalNodePointer, first, header;
+        lock (Get(heap, HeapGate))
+        {
+            header = (nuint)Call(cells, ReadHeader, offset)!;
+            externalNodePointer = (nuint)Call(cells, ReadNumeric, offset + ExternalNodeWord)!;
+            first = (nuint)Call(cells, ReadNumeric, offset + ExternalReferenceDataWord)!;
+        }
+        Check(header == ExternalReferenceHeader && externalNodePointer != 0);
+        Check(external.Node == publicSame.Node && external.Creation == publicSame.Creation
+            && external.Words.SequenceEqual(publicSame.Words));
+        try
+        {
+            lock (Get(heap, HeapGate))
+                Call(
+                    cells,
+                    WriteNumeric,
+                    new nuint[] { externalNodePointer ^ 1u },
+                    offset + ExternalNodeWord
+                );
+            Expect<InvalidOperationException>(() => _ = external.Node);
+        }
+        finally
+        {
+            lock (Get(heap, HeapGate))
+                Call(
+                    cells,
+                    WriteNumeric,
+                    new nuint[] { externalNodePointer },
+                    offset + ExternalNodeWord
+                );
+        }
+        try
+        {
+            lock (Get(heap, HeapGate))
+                Call(
+                    cells,
+                    WriteHeaders,
+                    new nuint[] { 0 },
+                    offset
+                );
+            Expect<InvalidOperationException>(() => _ = external.Words);
+        }
+        finally
+        {
+            lock (Get(heap, HeapGate))
+                Call(
+                    cells,
+                    WriteHeaders,
+                    new nuint[] { header },
+                    offset
+                );
+        }
+        try
+        {
+            lock (Get(heap, HeapGate))
+                Call(
+                    cells,
+                    WriteNumeric,
+                    new nuint[] { first ^ NumberMutation },
+                    offset + ExternalReferenceDataWord
+                );
+            Check(external.Words[0] == (publicSame.Words[0] ^ 1u) && external.FullId != publicSame.FullId);
+        }
+        finally
+        {
+            lock (Get(heap, HeapGate))
+                Call(
+                    cells,
+                    WriteNumeric,
+                    new nuint[] { first },
+                    offset + ExternalReferenceDataWord
+                );
+        }
+        var hostExternal = (ReferenceTerm)Call(
+            heap,
+            Export,
+            roots,
+            external
+        )!;
+        Check(Property(hostExternal, ExternalStorage) is null && hostExternal.Equals(publicSame));
+        Call(roots, Clear, slot);
+        Call(heap, Collect);
+        Check(Words(heap, Physical) == 0);
+        Expect<ObjectDisposedException>(() => _ = external.FullId);
+        Expect<ObjectDisposedException>(() => _ = external.Node);
+        Check(hostExternal.FullId == publicSame.FullId && hostExternal.Node == publicSame.Node);
+        foreach (ReferenceTerm refused in new ReferenceTerm[] { derived, resource, alias, foreign })
         {
             Check((bool)Call(heap, Eligible, refused)! == false);
             Check(ReferenceEquals(Call(

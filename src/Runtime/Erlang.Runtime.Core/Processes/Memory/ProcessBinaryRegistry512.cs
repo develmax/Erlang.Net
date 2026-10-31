@@ -40,6 +40,7 @@ internal sealed class ProcessBinaryRegistry512
         // registry gate is held while reading term children or their backing.
         var seen = new HashSet<Term>(ReferenceEqualityComparer.Instance);
         var backings = new Dictionary<object, BinaryPayloadHandle512>(ReferenceEqualityComparer.Instance);
+        HashSet<OrdinaryBinaryBacking>? ordinaryBinaries = null;
         HashSet<NativeResourcePayload524>? native = null;
         HashSet<AtomicsGuestRoot413>? atomics586 = null;
         HashSet<CountersGuestRoot421>? counters596 = null;
@@ -53,6 +54,12 @@ internal sealed class ProcessBinaryRegistry512
             if (!seen.Add(value))
                 continue;
             visits++;
+            // This exact immutable closure cannot contain ANY binary/native
+            // backing. Keep the real lease/publication/rollback bookkeeping;
+            // only omit its proven empty descendant walk.
+            if (value is Cons or TupleTerm && owner is ProcessTermHeap506 closureHeap && Monitor.IsEntered(closureHeap.Gate)
+                && ProcessTermHeap506.Storage(value) is ProcessTermSequence506 { HasImmutablePlainClosure550: true }
+                && closureHeap.IsOwnedLocal(value)) continue;
             if (value is ResourceReferenceTerm { OwnedStorage562: { } storage } && !ReferenceEquals(storage.Owner, owner))
                 throw new InvalidOperationException(ProcessTerm506Names.ForeignRoot);
             if (NativeResourceRoots524.Direct524(value, (owner as ProcessTermHeap506)?.Runtime524) is { } resource
@@ -72,6 +79,12 @@ internal sealed class ProcessBinaryRegistry512
                 (binary598 ??= new(ReferenceEqualityComparer.Instance)).Add(program);
             if (value is BitString binary)
             {
+                if (binary.OwnedStorage577 is null && binary.ResourceBacking577.NativeStorage524 is OrdinaryBinaryBacking ordinary)
+                {
+                    if (owner is ProcessTermHeap506 heap && !ReferenceEquals(heap.Runtime524, ordinary.Runtime))
+                        throw new NotSupportedException(NativeResource524Names.Foreign);
+                    (ordinaryBinaries ??= new(ReferenceEqualityComparer.Instance)).Add(ordinary);
+                }
                 BinaryPayloadHandle512 handle = binary.CaptureBinaryPayload512();
                 backings.TryAdd(handle.Identity, handle);
             }
@@ -79,11 +92,13 @@ internal sealed class ProcessBinaryRegistry512
                 foreach (Term child in NativeMapOwnedRoots510.Children(value))
                     pending.Push(child);
         }
-        var retained = new IDisposable[(native?.Count ?? 0) + (atomics586?.Count ?? 0) + (counters596?.Count ?? 0) + (regex597?.Count ?? 0) + (binary598?.Count ?? 0)];
+        var retained = new IDisposable[(ordinaryBinaries?.Count ?? 0) + (native?.Count ?? 0) + (atomics586?.Count ?? 0) + (counters596?.Count ?? 0) + (regex597?.Count ?? 0) + (binary598?.Count ?? 0)];
         int admitted = 0;
         ProcessBinaryLease512 lease;
         try
         {
+            if (ordinaryBinaries is not null)
+                foreach (var backing in ordinaryBinaries) retained[admitted++] = backing.Retain();
             if (native is not null)
                 foreach (NativeResourcePayload524 payload in native) retained[admitted++] = payload.RetainRoot524();
             if (atomics586 is not null)

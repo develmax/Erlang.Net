@@ -17,7 +17,7 @@ public sealed partial class ModuleRegistry
             genuine = functions.TryGetValue(key, out var body)
                 && SelectedOwnedBinding507(key, body) is OwnedBindingKind507.CompilerGuest or OwnedBindingKind507.PreparedGuest;
         }
-        if (!genuine || !context.OwnedExecutionEnabled683 && resumedArguments641?.Graph641 is null)
+        if (!genuine)
             return CallLegacyVmRoot641(
                 context,
                 module,
@@ -27,7 +27,12 @@ public sealed partial class ModuleRegistry
             );
 
         if (!context.OwnedExecutionEnabled683)
-            context.ActivateGenuineVmExecution683(resumedArguments641!);
+        {
+            if (resumedArguments641?.Graph641 is { HasGraphReferences593: true })
+                context.ActivateGenuineVmExecution683(resumedArguments641);
+            else
+                context.AdmitOrdinaryGuestCollector();
+        }
 
         return ExecuteVmRoot641(
             context,
@@ -50,15 +55,6 @@ public sealed partial class ModuleRegistry
         RuntimeProcessPayload641? resumedArguments641 = null
     )
     {
-        if (!context.OwnedExecutionEnabled683)
-            return CallLegacyVmRoot641(
-                context,
-                ErlangModuleNames.Module,
-                ErlangBasicBifNames.Apply,
-                [callback, Cons.From(arguments)],
-                resumedArguments641
-            );
-
         if (callback is TupleTerm { Items: [Atom module, Atom function] })
             return CallVmMfaRoot641(
                 context,
@@ -71,6 +67,9 @@ public sealed partial class ModuleRegistry
             && RuntimeStoredFunctionRecipes.TryCaptureTransfer506(context.Runtime, callable, out var recipe)
             && recipe is ICanonicalGuestRecipe507 admitted && admitted.AdmittedTo507(context.Runtime))
         {
+            if (!context.OwnedExecutionEnabled683)
+                context.AdmitOrdinaryGuestCollector();
+
             return ExecuteVmRoot641(
                 context,
                 arguments,

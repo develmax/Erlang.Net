@@ -267,7 +267,7 @@ internal sealed partial class SequenceTracing(ProcessRuntime runtime, object gat
                     Term.A(SequenceTraceNames.SpawnRequest),
                     reference,
                     parent.Self,
-                    child.GroupLeader,
+                    child.SnapshotGroupLeader(),
                     description.Mfa,
                     description.Options,
                     description.ReplyTag ?? Term.A(SequenceTraceNames.SpawnReply),

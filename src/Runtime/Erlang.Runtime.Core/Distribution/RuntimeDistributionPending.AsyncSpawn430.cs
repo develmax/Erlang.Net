@@ -30,7 +30,7 @@ public sealed partial class RuntimeDistributionPending
                 {
                     Validate();
                     snapshot = runtime.LocalIdentity.Snapshot;
-                    groupLeader = caller.GroupLeader;
+                    groupLeader = caller.SnapshotGroupLeader();
                     resource = runtime.ReferenceResources.AcquireDistributionEntry(entry.Reference) ?? throw new InvalidOperationException(DistributionOutputLifecycleDiagnostics.Retired);
                     ticket = ReserveOwnedOutput(connected, new object());
                     request = new(

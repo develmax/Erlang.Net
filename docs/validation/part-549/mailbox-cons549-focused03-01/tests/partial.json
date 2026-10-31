@@ -1,0 +1,31 @@
+{
+  "Partial": true,
+  "SelectedCount": 3,
+  "TotalCount": 9570,
+  "Blocks": [],
+  "ExactCases": [
+    "mailbox/plain-portable-preparation-keeps-real-copy-and-occurrence-ownership",
+    "runtime/beam/receive484/length-plus-whole-mailbox",
+    "runtime/immediate-cons-closure-real-collector-live-stale-foreign-and-boxed-head"
+  ],
+  "Passed": 2,
+  "Failed": 1,
+  "Tests": [
+    {
+      "Name": "runtime/beam/receive484/length-plus-whole-mailbox",
+      "Status": "Failed",
+      "Error": "System.TimeoutException: The operation has timed out.\r\n   at Program.\u003CMain\u003E$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\w546\\tests\\Erlang.Tests\\Harness\\Program.cs:line 8197",
+      "Milliseconds": 15369
+    },
+    {
+      "Name": "runtime/immediate-cons-closure-real-collector-live-stale-foreign-and-boxed-head",
+      "Status": "Passed",
+      "Milliseconds": 185
+    },
+    {
+      "Name": "mailbox/plain-portable-preparation-keeps-real-copy-and-occurrence-ownership",
+      "Status": "Passed",
+      "Milliseconds": 121
+    }
+  ]
+}

@@ -628,6 +628,131 @@ Test(Erlang.Tests.ManagedCollectors413Names.AuthorityTest, Erlang.Tests.ManagedC
 Test(Erlang.Tests.ManagedCollectorPrestart415Names.Test, Erlang.Tests.ManagedCollectorPrestart415Checks.Run);
 Test(Erlang.Tests.ManagedCollectors413Names.ProtocolTest, Erlang.Tests.ManagedCollectors413Checks.Protocol);
 Test(Erlang.Tests.ManagedCollectors413Names.ShutdownTest, Erlang.Tests.ManagedCollectors413Checks.Shutdown);
+Test(Erlang.Tests.BinaryWrapperCapabilityNames.Case, Erlang.Tests.BinaryWrapperCapabilityChecks.Run);
+Test(Erlang.Tests.StatisticsTrapTestNames.Authentic, Erlang.Tests.StatisticsTrapChecks.Authentic);
+Test(Erlang.Tests.StatisticsTrapTestNames.Replies, Erlang.Tests.StatisticsTrapChecks.Replies);
+Test(Erlang.Tests.StatisticsTrapTestNames.Fault, Erlang.Tests.StatisticsTrapChecks.Fault);
+Test(Erlang.Tests.StatisticsTrapTestNames.Cancel, Erlang.Tests.StatisticsTrapChecks.Cancel);
+Test(Erlang.Tests.StatisticsTrapTestNames.Close, Erlang.Tests.StatisticsTrapChecks.Close);
+Test(Erlang.Tests.BinaryNestedPartOverrideNames.Case, Erlang.Tests.BinaryNestedPartOverrideChecks.Run);
+Test(Erlang.Tests.StatisticsTrapNativeCaptureNames.Case, Erlang.Tests.StatisticsTrapNativeCaptureChecks.Run);
+Test(Erlang.Tests.StacktraceContinuationNames.Case, Erlang.Tests.StacktraceContinuationChecks.Run);
+Test(
+    NifNativeBackend::Erlang.NifNativeBackend.OrdinaryBinaryCaseNames.ShortReference,
+    NifNativeBackend::Erlang.NifNativeBackend.OrdinaryBinaryChecks.PreserveSmallReferenceShape
+);
+Test(
+    NifNativeBackend::Erlang.NifNativeBackend.OrdinaryBinaryWritableCaseNames.Preservation,
+    NifNativeBackend::Erlang.NifNativeBackend.OrdinaryBinaryWritableChecks.PreserveWriterCapacityAndAliases
+);
+Test(
+    NifNativeBackend::Erlang.NifNativeBackend.NativeWritableCaseNames.Bits,
+    NifNativeBackend::Erlang.NifNativeBackend.NativeWritableChecks.PartialByte
+);
+Test(
+    NifNativeBackend::Erlang.NifNativeBackend.NativeWritableCaseNames.Close,
+    NifNativeBackend::Erlang.NifNativeBackend.NativeWritableChecks.CloseWaitingSource
+);
+Test(
+    NifNativeBackend::Erlang.NifNativeBackend.SameHeapMailboxCaseNames.Physical,
+    NifNativeBackend::Erlang.NifNativeBackend.SameHeapMailboxChecks.PhysicalSelfSend
+);
+Test(
+    NifNativeBackend::Erlang.NifNativeBackend.SameHeapMailboxCaseNames.Capability,
+    NifNativeBackend::Erlang.NifNativeBackend.SameHeapMailboxChecks.ExactCanonicalCapability
+);
+Test(
+    NifNativeBackend::Erlang.NifNativeBackend.MailboxBackingCaseNames.OnHeap,
+    NifNativeBackend::Erlang.NifNativeBackend.MailboxBackingChecks.OnHeap
+);
+Test(
+    NifNativeBackend::Erlang.NifNativeBackend.MailboxBackingCaseNames.OffHeap,
+    NifNativeBackend::Erlang.NifNativeBackend.MailboxBackingChecks.OffHeap
+);
+Test(
+    NifNativeBackend::Erlang.NifNativeBackend.DeferredMailboxBackingCaseNames.OnHeap,
+    NifNativeBackend::Erlang.NifNativeBackend.DeferredMailboxBackingChecks.OnHeap
+);
+Test(
+    NifNativeBackend::Erlang.NifNativeBackend.DeferredMailboxBackingCaseNames.OffHeap,
+    NifNativeBackend::Erlang.NifNativeBackend.DeferredMailboxBackingChecks.OffHeap
+);
+Test(
+    NifNativeBackend::Erlang.NifNativeBackend.DeferredMailboxBackingCaseNames.ReleaseChangesMode,
+    NifNativeBackend::Erlang.NifNativeBackend.DeferredMailboxBackingChecks.ReleaseChangesMode
+);
+Test(
+    NifNativeBackend::Erlang.NifNativeBackend.RawMailboxBackingCaseNames.OnHeap,
+    NifNativeBackend::Erlang.NifNativeBackend.RawMailboxBackingChecks.OnHeap
+);
+Test(
+    NifNativeBackend::Erlang.NifNativeBackend.RawMailboxBackingCaseNames.OffHeap,
+    NifNativeBackend::Erlang.NifNativeBackend.RawMailboxBackingChecks.OffHeap
+);
+Test(
+    NifNativeBackend::Erlang.NifNativeBackend.RawMailboxBackingCaseNames.Priority,
+    NifNativeBackend::Erlang.NifNativeBackend.RawMailboxBackingChecks.Priority
+);
+Test(
+    NifNativeBackend::Erlang.NifNativeBackend.TimerMailboxBackingCaseNames.OnHeap,
+    NifNativeBackend::Erlang.NifNativeBackend.TimerMailboxBackingChecks.OnHeap
+);
+Test(
+    NifNativeBackend::Erlang.NifNativeBackend.TimerMailboxBackingCaseNames.OffHeap,
+    NifNativeBackend::Erlang.NifNativeBackend.TimerMailboxBackingChecks.OffHeap
+);
+Test(
+    NifNativeBackend::Erlang.NifNativeBackend.TimerMailboxBackingCaseNames.Wrapped,
+    NifNativeBackend::Erlang.NifNativeBackend.TimerMailboxBackingChecks.Wrapped
+);
+Test(
+    NifNativeBackend::Erlang.NifNativeBackend.LocalSignalMailboxBackingCaseNames.ExitOnHeap,
+    NifNativeBackend::Erlang.NifNativeBackend.LocalSignalMailboxBackingChecks.ExitOnHeap
+);
+Test(
+    NifNativeBackend::Erlang.NifNativeBackend.LocalSignalMailboxBackingCaseNames.ExitOffHeap,
+    NifNativeBackend::Erlang.NifNativeBackend.LocalSignalMailboxBackingChecks.ExitOffHeap
+);
+Test(
+    NifNativeBackend::Erlang.NifNativeBackend.LocalSignalMailboxBackingCaseNames.DownOnHeap,
+    NifNativeBackend::Erlang.NifNativeBackend.LocalSignalMailboxBackingChecks.DownOnHeap
+);
+Test(
+    NifNativeBackend::Erlang.NifNativeBackend.LocalSignalMailboxBackingCaseNames.DownOffHeap,
+    NifNativeBackend::Erlang.NifNativeBackend.LocalSignalMailboxBackingChecks.DownOffHeap
+);
+Test(
+    NifNativeBackend::Erlang.NifNativeBackend.PendingSignalMailboxBackingCaseNames.ExitOnHeap,
+    NifNativeBackend::Erlang.NifNativeBackend.PendingSignalMailboxBackingChecks.ExitOnHeap
+);
+Test(
+    NifNativeBackend::Erlang.NifNativeBackend.PendingSignalMailboxBackingCaseNames.ExitOffHeap,
+    NifNativeBackend::Erlang.NifNativeBackend.PendingSignalMailboxBackingChecks.ExitOffHeap
+);
+Test(
+    NifNativeBackend::Erlang.NifNativeBackend.PendingSignalMailboxBackingCaseNames.DownOnHeap,
+    NifNativeBackend::Erlang.NifNativeBackend.PendingSignalMailboxBackingChecks.DownOnHeap
+);
+Test(
+    NifNativeBackend::Erlang.NifNativeBackend.PendingSignalMailboxBackingCaseNames.DownOffHeap,
+    NifNativeBackend::Erlang.NifNativeBackend.PendingSignalMailboxBackingChecks.DownOffHeap
+);
+Test(
+    NifNativeBackend::Erlang.NifNativeBackend.MailboxPolicyConversionCaseNames.OnToOff,
+    NifNativeBackend::Erlang.NifNativeBackend.MailboxPolicyConversionChecks.OnToOff
+);
+Test(
+    NifNativeBackend::Erlang.NifNativeBackend.MailboxPolicyConversionCaseNames.OffToOn,
+    NifNativeBackend::Erlang.NifNativeBackend.MailboxPolicyConversionChecks.OffToOn
+);
+Test(
+    NifNativeBackend::Erlang.NifNativeBackend.MailboxPolicyConversionCaseNames.Reversal,
+    NifNativeBackend::Erlang.NifNativeBackend.MailboxPolicyReversalChecks.Run
+);
+Test(
+    NifNativeBackend::Erlang.NifNativeBackend.MailboxPolicyBarrierCaseNames.Order,
+    NifNativeBackend::Erlang.NifNativeBackend.MailboxPolicyBarrierChecks.Run
+);
 Test(Erlang.Tests.PersistentArena416HostNames.ValuesTest, Erlang.Tests.PersistentArena416ValuesChecks.Run);
 Test(Erlang.Tests.PersistentArena416HostNames.RetiredTest, Erlang.Tests.PersistentArena416RetirementChecks.Run);
 Test(Erlang.Tests.PersistentArena416HostNames.RollbackTest, Erlang.Tests.PersistentArena416RollbackChecks.Run);
@@ -1802,7 +1927,198 @@ Test(Erlang.Tests.HaltPlatformHostNames.Test, Erlang.Tests.HaltPlatformHostCheck
 Test(Erlang.Tests.HaltPortHostNames.Test, Erlang.Tests.HaltPortHostChecks.Run);
 Test(Erlang.Tests.HaltSubprocessHostNames.Test, Erlang.Tests.HaltSubprocessHostChecks.Run);
 Test(Erlang.Tests.CpuTopologyStateHostNames.Test, Erlang.Tests.CpuTopologyStateHostChecks.Run);
+Test(Erlang.Tests.WorkerLifecycleArgumentNames.Test, Erlang.Tests.WorkerLifecycleArgumentChecks.Run);
+Test(Erlang.Tests.WorkerLifecycleNames.PartialNormal, Erlang.Tests.WorkerLifecycleChecks.PartialNormal);
+Test(Erlang.Tests.WorkerLifecycleNames.PartialDirty, Erlang.Tests.WorkerLifecycleChecks.PartialDirty);
+Test(Erlang.Tests.WorkerLifecycleNames.Constructor, Erlang.Tests.WorkerLifecycleChecks.Constructor);
+Test(Erlang.Tests.WorkerLifecycleNames.ConcurrentClose, Erlang.Tests.WorkerLifecycleChecks.ConcurrentClose);
+Test(Erlang.Tests.WorkerLifecycleNames.IndependentErrors, Erlang.Tests.WorkerLifecycleChecks.IndependentErrors);
 Test(Erlang.Tests.RuntimeStatisticsHostParameters.Test, Erlang.Tests.RuntimeStatisticsHostChecks.Run);
+
+Test(
+    Erlang.Tests.RuntimeBuildMetadataTestNames.Case,
+    Erlang.Tests.RuntimeBuildMetadataChecks.Run
+);
+Test(
+    NifNativeBackend::Erlang.NifNativeBackend.SchedulerObservationControlCaseNames.Native,
+    NifNativeBackend::Erlang.NifNativeBackend.SchedulerObservationControlChecks.Native
+);
+Test(
+    NifNativeBackend::Erlang.NifNativeBackend.SchedulerObservationControlCaseNames.Gather,
+    NifNativeBackend::Erlang.NifNativeBackend.SchedulerObservationControlChecks.Gather
+);
+Test(
+    NifNativeBackend::Erlang.NifNativeBackend.SchedulerObservationControlCaseNames.Managed,
+    NifNativeBackend::Erlang.NifNativeBackend.SchedulerObservationControlChecks.Managed
+);
+Test(
+    NifNativeBackend::Erlang.NifNativeBackend.QueuedWallTimeCaseNames.Repeat,
+    NifNativeBackend::Erlang.NifNativeBackend.QueuedWallTimeRepeatChecks.Run
+);
+Test(
+    NifNativeBackend::Erlang.NifNativeBackend.QueuedWallTimeCaseNames.Snapshot,
+    NifNativeBackend::Erlang.NifNativeBackend.QueuedWallTimeSnapshotChecks.Run
+);
+Test(
+    NifNativeBackend::Erlang.NifNativeBackend.MicrostateCaseNames.Cache,
+    NifNativeBackend::Erlang.NifNativeBackend.MicrostateCacheChecks.Run
+);
+Test(
+    NifNativeBackend::Erlang.NifNativeBackend.MicrostateCaseNames.Feature,
+    NifNativeBackend::Erlang.NifNativeBackend.MicrostateFeatureChecks.Run
+);
+Test(
+    NifNativeBackend::Erlang.NifNativeBackend.MicrostateCaseNames.Producers,
+    NifNativeBackend::Erlang.NifNativeBackend.MicrostateProducerChecks.Run
+);
+Test(
+    NifNativeBackend::Erlang.NifNativeBackend.MicrostateCaseNames.Nested,
+    NifNativeBackend::Erlang.NifNativeBackend.MicrostateNestedChecks.Run
+);
+Test(
+    NifNativeBackend::Erlang.NifNativeBackend.MicrostateControlCaseNames.SameActor,
+    NifNativeBackend::Erlang.NifNativeBackend.MicrostateControlChecks.SameActorEnableWorkIdle
+);
+Test(
+    NifNativeBackend::Erlang.NifNativeBackend.MicrostateWorkerIdentityNames.Normal,
+    NifNativeBackend::Erlang.NifNativeBackend.MicrostateWorkerIdentityChecks.NormalOutOfOrder
+);
+Test(
+    NifNativeBackend::Erlang.NifNativeBackend.MicrostateWorkerIdentityNames.Dirty,
+    NifNativeBackend::Erlang.NifNativeBackend.MicrostateWorkerIdentityChecks.DirtyOutOfOrder
+);
+Test(
+    NifNativeBackend::Erlang.NifNativeBackend.MicrostateWorkerIdentityNames.Duplicate,
+    NifNativeBackend::Erlang.NifNativeBackend.MicrostateWorkerIdentityChecks.DuplicatePhysicalThreadIdentity
+);
+Test(
+    NifNativeBackend::Erlang.NifNativeBackend.HeapFunctionCaseNames.SourceBirth,
+    NifNativeBackend::Erlang.NifNativeBackend.HeapFunctionChecks.CanonicalSourceBirth
+);
+Test(
+    NifNativeBackend::Erlang.NifNativeBackend.HeapFunctionImportCaseNames.SourceImport,
+    NifNativeBackend::Erlang.NifNativeBackend.HeapFunctionImportChecks.SourceImportedEnvironment
+);
+Test(
+    NifNativeBackend::Erlang.NifNativeBackend.ExternalFunctionHeaderCaseNames.Physical,
+    NifNativeBackend::Erlang.NifNativeBackend.ExternalFunctionHeaderChecks.OpaqueExternalMetadataKind
+);
+Test(
+    NifNativeBackend::Erlang.NifNativeBackend.ExternalIdentifierCaseNames.Physical,
+    NifNativeBackend::Erlang.NifNativeBackend.ExternalIdentifierChecks.PhysicalBirthAndReclaim
+);
+Test(
+    NifNativeBackend::Erlang.NifNativeBackend.ExternalIdentifierCaseNames.Transfer,
+    NifNativeBackend::Erlang.NifNativeBackend.ExternalIdentifierChecks.CrossHeapLeaseAndHostEscape
+);
+Test(
+    NifNativeBackend::Erlang.NifNativeBackend.ExternalIdentifierCaseNames.Close,
+    NifNativeBackend::Erlang.NifNativeBackend.ExternalIdentifierChecks.VmCloseWaitsForRealNode
+);
+Test(
+    NifNativeBackend::Erlang.NifNativeBackend.OwnedListAppendCaseNames.Physical,
+    NifNativeBackend::Erlang.NifNativeBackend.OwnedListAppendChecks.PhysicalPrefixAndOpaqueReplay
+);
+
+Test(
+    NifNativeBackend::Erlang.NifNativeBackend.PreparedBeamValidationCaseNames.Isolation,
+    NifNativeBackend::Erlang.NifNativeBackend.PreparedBeamValidationChecks.Isolation
+);
+
+Test(
+    NifNativeBackend::Erlang.NifNativeBackend.UnchangedRegister550CaseNames.Physical,
+    NifNativeBackend::Erlang.NifNativeBackend.UnchangedRegister550Checks.Physical
+);
+
+Test(
+    NifNativeBackend::Erlang.NifNativeBackend.ImmediateConsClosureCaseNames.NestedPhysical,
+    NifNativeBackend::Erlang.NifNativeBackend.ImmediateConsClosureChecks.NestedPhysical
+);
+
+Test(
+    NifNativeBackend::Erlang.NifNativeBackend.ImmediateConsClosureCaseNames.Physical,
+    NifNativeBackend::Erlang.NifNativeBackend.ImmediateConsClosureChecks.Physical
+);
+
+Test(
+    NifNativeBackend::Erlang.NifNativeBackend.MailboxPortableInputCaseNames.Physical,
+    NifNativeBackend::Erlang.NifNativeBackend.MailboxPortableInputChecks.PhysicalOccurrences
+);
+
+Test(
+    NifNativeBackend::Erlang.NifNativeBackend.NativeRecordBeamCaseNames.Whole,
+    NifNativeBackend::Erlang.NifNativeBackend.NativeRecordBeamChecks.OriginalWhole
+);
+Test(
+    NifNativeBackend::Erlang.NifNativeBackend.NativeRecordBeamCaseNames.Roles,
+    () =>
+    {
+        NifNativeBackend::Erlang.NifNativeBackend.NativeRecordBeamChecks.OperandGuards();
+
+        return Task.CompletedTask;
+    }
+);
+
+Test(
+    NifNativeBackend::Erlang.NifNativeBackend.NativeRecordHeapCaseNames.Physical,
+    NifNativeBackend::Erlang.NifNativeBackend.NativeRecordHeapChecks.PhysicalDefinitionAndReclaim
+);
+Test(
+    NifNativeBackend::Erlang.NifNativeBackend.NativeRecordHeapCaseNames.Transfer,
+    NifNativeBackend::Erlang.NifNativeBackend.NativeRecordHeapChecks.TransferAndEscape
+);
+Test(
+    NifNativeBackend::Erlang.NifNativeBackend.NativeRecordHeapCaseNames.Source,
+    NifNativeBackend::Erlang.NifNativeBackend.NativeRecordHeapChecks.SourceBirthAndUpdate
+);
+Test(
+    NifNativeBackend::Erlang.NifNativeBackend.NativeRecordHeapCaseNames.Close,
+    NifNativeBackend::Erlang.NifNativeBackend.NativeRecordHeapChecks.CloseWaitingSource
+);
+Test(
+    NifNativeBackend::Erlang.NifNativeBackend.GroupLeaderRootCaseNames.Storage,
+    NifNativeBackend::Erlang.NifNativeBackend.GroupLeaderRootChecks.StorageAndSnapshot
+);
+Test(
+    NifNativeBackend::Erlang.NifNativeBackend.GroupLeaderRootCaseNames.Inheritance,
+    NifNativeBackend::Erlang.NifNativeBackend.GroupLeaderRootChecks.InheritanceAndClose
+);
+Test(
+    NifNativeBackend::Erlang.NifNativeBackend.OrdinaryBinaryCaseNames.Physical,
+    NifNativeBackend::Erlang.NifNativeBackend.OrdinaryBinaryChecks.PhysicalBirthAndReclaim
+);
+Test(
+    NifNativeBackend::Erlang.NifNativeBackend.OrdinaryBinaryCaseNames.Graph,
+    NifNativeBackend::Erlang.NifNativeBackend.OrdinaryBinaryChecks.GraphTransferAndHostEscape
+);
+Test(
+    NifNativeBackend::Erlang.NifNativeBackend.OrdinaryBinaryCaseNames.Shutdown,
+    NifNativeBackend::Erlang.NifNativeBackend.OrdinaryBinaryChecks.VmCloseWaitsRealInterest
+);
+Test(
+    NifNativeBackend::Erlang.NifNativeBackend.HeapBitStringCaseNames.ReferenceShape,
+    NifNativeBackend::Erlang.NifNativeBackend.HeapBitStringChecks.PreserveReferenceShape
+);
+Test(
+    NifNativeBackend::Erlang.NifNativeBackend.HeapBitStringCaseNames.Physical,
+    NifNativeBackend::Erlang.NifNativeBackend.HeapBitStringChecks.PhysicalBirthAndReclaim
+);
+Test(
+    NifNativeBackend::Erlang.NifNativeBackend.HeapBitStringCaseNames.Transfer,
+    NifNativeBackend::Erlang.NifNativeBackend.HeapBitStringChecks.TransferAndEscape
+);
+Test(
+    NifNativeBackend::Erlang.NifNativeBackend.SchedulerWallTimeCaseNames.References,
+    NifNativeBackend::Erlang.NifNativeBackend.SchedulerWallTimeReferenceChecks.Run
+);
+Test(
+    NifNativeBackend::Erlang.NifNativeBackend.SchedulerWallTimeCaseNames.Concurrent,
+    NifNativeBackend::Erlang.NifNativeBackend.SchedulerWallTimeConcurrentChecks.Run
+);
+Test(
+    NifNativeBackend::Erlang.NifNativeBackend.SchedulerWallTimeCaseNames.Dirty,
+    NifNativeBackend::Erlang.NifNativeBackend.SchedulerWallTimeDirtyChecks.Run
+);
 Test(Erlang.Tests.MatchSpecHostNames.Test, Erlang.Tests.MatchSpecHostChecks.Run);
 Test(Erlang.Tests.ProcessTraceHostParameters.Test, Erlang.Tests.ProcessTraceHostChecks.Run);
 Test(Erlang.Tests.SequenceTraceHostParameters.Test, Erlang.Tests.SequenceTraceHostChecks.Run);
@@ -1827,6 +2143,12 @@ Test(Erlang.Tests.NifImageBindingHostNames.Test, Erlang.Tests.NifImageBindingHos
 Test(Erlang.Tests.CodeModificationHostNames.Test, Erlang.Tests.CodeModificationHostChecks.Run);
 Test(Erlang.Tests.BeamOnLoadCallbackFaultHostNames.Test, Erlang.Tests.BeamOnLoadCallbackFaultHostChecks.Run);
 Test(Erlang.Tests.NifAdmissionHostNames.Test, Erlang.Tests.NifAdmissionHostChecks.Run);
+Test(Erlang.Tests.NormalBarrier696Names.ActualTest, Erlang.Tests.NormalBarrier696Checks.ActualTurnsAuxiliaryAndDirty);
+Test(Erlang.Tests.NormalBarrier696Names.CancellationTest, Erlang.Tests.NormalBarrier696Checks.ConcurrentCancellation);
+Test(Erlang.Tests.NormalBarrier696Names.RetirementTest, Erlang.Tests.NormalBarrier696Checks.ReentrantAndRetirement);
+Test(Erlang.Tests.NormalNative697Names.HostTest, Erlang.Tests.NormalNative697Checks.CountedHostAndSameContext);
+Test(Erlang.Tests.NormalNative697Names.AuxiliaryTest, Erlang.Tests.NormalNative697Checks.PendingAuxiliaryContinuation);
+Test(Erlang.Tests.NormalNative697Names.CloseTest, Erlang.Tests.NormalNative697Checks.QueuedCancellationAndEarlyClose);
 Test(Erlang.Tests.NifSourceEntryHostNames.Test, Erlang.Tests.NifSourceEntryHostChecks.Run);
 Test(Erlang.Tests.SourceLoadNifHostNames.Test, Erlang.Tests.SourceLoadNifHostChecks.Run);
 Test(Erlang.Tests.SourcePurgeStageHostNames.Test, Erlang.Tests.SourcePurgeStageHostChecks.Run);
@@ -6714,6 +7036,11 @@ Test(
 
 
 Test(
+    NifNativeBackend::Erlang.NifNativeBackend.NifNativeBoundIndependent712HostNames.Case,
+    NifNativeBackend::Erlang.NifNativeBackend.NifNativeBoundIndependent712HostEntry.Run
+);
+
+Test(
     Erlang.Tests.NifImmediateCallbackHostNames.Getter,
     NifNativeBackend::Erlang.NifNativeBackend.NifNativeImmediateHostEntry.Getter
 );
@@ -7465,6 +7792,14 @@ try
         Erlang.Tests.NativeResource527Checks.TakeoverUsesNewPhysicalDestructor
     );
     Test(
+        Erlang.Tests.NativeResourceUpgrade705Names.AcrossCloseTest,
+        Erlang.Tests.NativeResourceUpgrade705Checks.PreadmittedAcrossDomainClose
+    );
+    Test(
+        Erlang.Tests.NativeResourceUpgrade705Names.RejectCloseTest,
+        Erlang.Tests.NativeResourceUpgrade705Checks.CloseBeforeAdmissionRejected
+    );
+    Test(
         Erlang.Tests.NativeResourceScope528Names.ArenaSurvivesImageCloseAndSupportsForeignFree,
         Erlang.Tests.NativeResourceArena528Checks.ArenaSurvivesImageCloseAndSupportsForeignFree
     );
@@ -7504,6 +7839,43 @@ try
     Test(Erlang.Tests.NativeMapOwned510Names.HiddenHamtTest, Erlang.Tests.NativeMapOwned510Checks.HiddenHamtRootsAndTopology);
     Test(Erlang.Tests.NativeMapOwned510Names.ForeignDomainTest, Erlang.Tests.NativeMapOwned510Checks.ForeignDomainFailsClosed);
     Test(Erlang.Tests.SourceLiveness511Names.Test, Erlang.Tests.SourceLiveness511Checks.Run);
+    Test(Erlang.Tests.OrdinaryCollectorNames.Case, Erlang.Tests.OrdinaryCollectorChecks.SourceBacking);
+    Test(Erlang.Tests.CollectionRequestNames.OrdinaryCase, Erlang.Tests.CollectionRequestChecks.Ordinary);
+    Test(Erlang.Tests.CollectionRequestNames.OwnedCase, Erlang.Tests.CollectionRequestChecks.Owned);
+    Test(Erlang.Tests.CollectionRequestNames.OrdinaryBeamCase, Erlang.Tests.CollectionRequestChecks.OrdinaryBeam);
+    Test(Erlang.Tests.CollectionRequestNames.OwnedBeamCase, Erlang.Tests.CollectionRequestChecks.OwnedBeam);
+    Test(Erlang.Tests.OpaqueHostFunctionNames.MetadataCase, Erlang.Tests.OpaqueHostFunctionChecks.Metadata);
+    Test(Erlang.Tests.OpaqueHostFunctionNames.ProviderCase, Erlang.Tests.OpaqueHostFunctionChecks.Provider);
+    Test(Erlang.Tests.DirectInterpreterEntryNames.EvaluateCase, Erlang.Tests.DirectInterpreterEntryChecks.Evaluate);
+    Test(Erlang.Tests.DirectInterpreterEntryNames.InvokeCase, Erlang.Tests.DirectInterpreterEntryChecks.Invoke);
+    Test(Erlang.Tests.DirectInterpreterEntryNames.BeamCase, Erlang.Tests.DirectInterpreterEntryChecks.Beam);
+    Test(Erlang.Tests.DirectInterpreterEntryNames.ErrorCase, Erlang.Tests.DirectInterpreterEntryChecks.Error);
+    Test(Erlang.Tests.DirectInterpreterEntryNames.CancelCase, Erlang.Tests.DirectInterpreterEntryChecks.Cancel);
+    Test(Erlang.Tests.DirectInterpreterEntryNames.OffActorCase, Erlang.Tests.DirectInterpreterEntryChecks.OffActor);
+    Test(Erlang.Tests.OrdinaryCollectorNames.BeamCase, Erlang.Tests.BeamOwnedRoots507Checks.OrdinaryTryReplay);
+    Test(
+        NifNativeBackend::Erlang.NifNativeBackend.CpuStatisticsCaseNames.Isolation,
+        NifNativeBackend::Erlang.NifNativeBackend.CpuStatisticsIsolationChecks.Run
+    );
+    Test(
+        NifNativeBackend::Erlang.NifNativeBackend.CpuStatisticsCaseNames.InFlight,
+        NifNativeBackend::Erlang.NifNativeBackend.CpuStatisticsInFlightChecks.Run
+    );
+    Test(
+        NifNativeBackend::Erlang.NifNativeBackend.CpuStatisticsCaseNames.Nested,
+        NifNativeBackend::Erlang.NifNativeBackend.CpuStatisticsNestedChecks.Run
+    );
+    Test(
+        NifNativeBackend::Erlang.NifNativeBackend.CpuStatisticsCaseNames.Auxiliary,
+        NifNativeBackend::Erlang.NifNativeBackend.CpuStatisticsAuxiliaryChecks.Run
+    );
+    Test(
+        NifNativeBackend::Erlang.NifNativeBackend.CpuStatisticsCaseNames.Dirty,
+        NifNativeBackend::Erlang.NifNativeBackend.CpuStatisticsDirtyChecks.Run
+    );
+    Test(Erlang.Tests.StatisticsContextSelectionNames.Interleaved, Erlang.Tests.StatisticsContextSelectionChecks.Interleaved);
+    Test(Erlang.Tests.StatisticsContextSelectionNames.Adjacent, Erlang.Tests.StatisticsContextSelectionChecks.Adjacent);
+    Test(Erlang.Tests.StatisticsContextSelectionNames.Inline, Erlang.Tests.StatisticsContextSelectionChecks.InitializerAndInline);
     Test(Erlang.Tests.BinaryOwned512Names.SharingTest, Erlang.Tests.BinaryOwned512Checks.SharingAndEscapes);
     Test(Erlang.Tests.BinaryOwned512Names.SourceTest, Erlang.Tests.BinaryOwned512Checks.SourceAndRollback);
     Test(Erlang.Tests.BinaryOwned512Names.NativeTest, Erlang.Tests.BinaryOwned512Checks.NativeLifetime);
@@ -7805,6 +8177,12 @@ try
     Test(Erlang.Tests.RegexStore535Names.RegexPersistentCase, Erlang.Tests.RegexStore535Checks.RegexPersistent);
     Test(Erlang.Tests.CountersExit603Names.InitializerTest, Erlang.Tests.CountersExit603Checks.InitializerDoneBeforeGlobalDrain);
     Test(Erlang.Tests.CountersExit603Names.OrdinaryTest, Erlang.Tests.CountersExit603Checks.OrdinaryExitPreservesIndependentHeap);
+
+    Test(Erlang.Tests.VmStorageBirthNames.Birth, Erlang.Tests.VmStorageBirthChecks.Birth);
+    Test(Erlang.Tests.VmStorageBirthNames.Dictionary, Erlang.Tests.VmStorageBirthChecks.DictionaryCollection);
+    Test(Erlang.Tests.VmStorageBirthNames.Isolation, Erlang.Tests.VmStorageBirthChecks.Isolation);
+    Test(Erlang.Tests.VmStorageBirthNames.Drain, Erlang.Tests.VmStorageBirthChecks.Drain);
+    Test(Erlang.Tests.VmStorageBirthNames.Rollback, Erlang.Tests.VmStorageBirthChecks.Rollback);
 
     var catalog = Erlang.Tests.TestRunCatalog.Create(tests.Select(test => test.Name));
     selectedTests = selection.Select(tests, catalog);

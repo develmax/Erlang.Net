@@ -93,6 +93,7 @@ internal sealed partial class NativeDriverPortRegistry422
                     if (writable is null)
                     {
                         row.OutputBytes = checked(row.OutputBytes + bytes.LongLength);
+                        runtime.Statistics.RecordOutputBytes(bytes.LongLength);
                         break;
                     }
                 }

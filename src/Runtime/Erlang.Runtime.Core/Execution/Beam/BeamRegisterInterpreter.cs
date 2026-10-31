@@ -278,6 +278,15 @@ internal static partial class BeamRegisterInterpreter
                         registers.ClearFloats();
                     switch (instruction.Definition.Name)
                     {
+                        case BeamNativeRecordAccessNames.Elements:
+                            if (!BeamNativeRecordAccess.GetElements(code, registers, operands))
+                                pc = Branch(
+                                    code,
+                                    function,
+                                    operands[0],
+                                    new ErlangException(ErlangErrorReasons.FunctionClause)
+                                );
+                            break;
                         case BeamRecordConstructionNames.Opcode:
                             registers.Write(operands[BeamRecordConstructionNames.Destination], BeamRecordConstruction.Create(code, registers, operands));
                             break;

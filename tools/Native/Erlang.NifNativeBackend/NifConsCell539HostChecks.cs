@@ -7,9 +7,9 @@ internal static unsafe class NifConsCell539HostChecks
 {
     internal static void ShapeAndAbi(ProcessContext context)
     {
-        Require(Marshal.SizeOf<NifNativeBridgeTable>() == 464);
+        Require(Marshal.SizeOf<NifNativeBridgeTable>() == 488);
         Require((int)Marshal.OffsetOf<NifNativeBridgeTable>(nameof(NifNativeBridgeTable.MakeListCell539)) == 456);
-        Require(NifNativeNames.BridgeVersion == 7);
+        Require(NifNativeNames.BridgeVersion == 8);
         var state = new NifNativeFailureState();
         using var scope = new NifNativeCallbackScope(new NifNativeAllocationOwner(), state);
         using var env = new NifNativeCallEnvironment(

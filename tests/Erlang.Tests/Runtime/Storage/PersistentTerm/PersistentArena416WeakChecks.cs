@@ -23,11 +23,15 @@ internal static class PersistentArena416WeakChecks
                 var value = (TupleTerm)PersistentArena416HostAccess.Get(store, context, Term.A(PersistentArena416HostNames.Key));
                 var graph = (TupleTerm)value.Items[0];
                 var function = (FunctionTerm)value.Items[1];
-                PersistentArena416HostAccess.Require(ReferenceEquals(graph.Items[0], graph.Items[1])
+                PersistentArena416HostAccess.Require(ReferenceEquals(graph.Items[0], graph.Items[1]) == weak.Shared
                     && ((BitString)((TupleTerm)graph.Items[0]).Items[0]).BitLength == 1001
                     && ReferenceEquals(function.Environment.Single(), graph));
                 var returned = (TupleTerm)await function.Invoke(context, [Nil.Value]);
-                PersistentArena416HostAccess.Require(ReferenceEquals(returned.Items[0], graph) && returned.Items[1] is Nil);
+                var returnedGraph = (TupleTerm)returned.Items[0];
+                PersistentArena416HostAccess.Require(returnedGraph.Equals(graph)
+                    && !ReferenceEquals(returnedGraph, graph)
+                    && ReferenceEquals(returnedGraph.Items[0], returnedGraph.Items[1]) == weak.Shared
+                    && returned.Items[1] is Nil);
 
                 return true;
             });
@@ -40,7 +44,7 @@ internal static class PersistentArena416WeakChecks
     }
 
     [MethodImpl(MethodImplOptions.NoInlining)]
-    private static async Task<(WeakReference<object> Graph, WeakReference<object> BinaryWrapper, WeakReference<object> Function)> Stage(object store, ProcessContext context)
+    private static async Task<(WeakReference<object> Graph, WeakReference<object> BinaryWrapper, WeakReference<object> Function, bool Shared)> Stage(object store, ProcessContext context)
     {
         var binary = new BitString(Enumerable.Range(0, 2048).Select(index => (byte)index).ToArray()).SliceBits(5, 1001);
         var shared = Term.Tuple(binary, Term.List(Term.I(1), Term.I(2)));
@@ -51,6 +55,14 @@ internal static class PersistentArena416WeakChecks
             GuestStoredFunction407Names.Make,
             graph
         );
+        var actualGraph = (TupleTerm)function.Environment.Single();
+        PersistentArena416HostAccess.Require(!ReferenceEquals(actualGraph, graph) && actualGraph.Equals(graph));
+        var actualBinary = (BitString)((TupleTerm)actualGraph.Items[0]).Items[0];
+        PersistentArena416HostAccess.Require(!ReferenceEquals(actualBinary, binary) && actualBinary.Equals(binary));
+        graph = actualGraph;
+        binary = actualBinary;
+        bool capturedChildrenShared = ReferenceEquals(graph.Items[0], graph.Items[1]);
+        PersistentArena416HostAccess.Require(!capturedChildrenShared); // Actual public copy_struct duplicates the two boxed occurrences.
         await PersistentArena416HostAccess.Put(
             store,
             context,
@@ -58,6 +70,6 @@ internal static class PersistentArena416WeakChecks
             Term.Tuple(graph, function)
         );
 
-        return (new(graph), new(binary), new(function));
+        return (new(graph), new(binary), new(function), capturedChildrenShared);
     }
 }

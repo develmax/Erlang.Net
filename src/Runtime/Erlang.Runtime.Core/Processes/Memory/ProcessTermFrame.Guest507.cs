@@ -64,11 +64,12 @@ internal sealed partial class ProcessTermFrame506
         {
             ValidateSlot(slot);
             owner.ValidateGuestGraph507(value);
-            if (owner.IsOwnedLocal(value) || owner.IsLoaderMapKeys565(value) || owner.IsLiteralFloat556(value)
+            if (value is Pid or PortTerm && !owner.CanOwnExternalIdentifier(value)
+                || owner.IsOwnedLocal(value) || owner.IsLoaderMapKeys565(value) || owner.IsLiteralFloat556(value)
                 || owner.IsLiteralInteger559(value) || ProcessTermHeap506.IsImmediateInteger559(value)
-                || value is BitString && !owner.IsNativeResourceBinary577(value)
-                || value is ReferenceTerm && !owner.IsOrdinaryLocalReference562(value) && !owner.IsNativeMagicReference576(value)
-                || value is not (TupleTerm or Cons or MapTerm or FloatTerm or Integer or ReferenceTerm or BitString)
+                || value is BitString candidate && !owner.IsNativeResourceBinary577(candidate) && !owner.CanOwnHeapBitString(candidate) && !owner.CanOwnOrdinaryBinary(candidate)
+                || value is ReferenceTerm && !owner.IsOrdinaryLocalReference562(value) && !owner.IsNativeMagicReference576(value) && !owner.CanOwnExternalIdentifier(value)
+                || value is not (TupleTerm or Cons or MapTerm or FloatTerm or Integer or ReferenceTerm or BitString or FunctionTerm or Pid or PortTerm or NativeRecordTerm)
                 || value is TupleTerm { Items.Count: 0 } || value is MapTerm { Entries.Count: 0 })
             {
                 PublishRoot512(slot, value);
@@ -90,19 +91,29 @@ internal sealed partial class ProcessTermFrame506
         using (PreparedMapGraph517 maps = owner.PrepareMapGraph517(value, true))
         using (PreparedMapGraphUse517 admitted = maps.AdmitBuilds517())
         {
+            Term adopted;
             lock (owner.Gate)
             {
                 ValidateSlot(slot);
-                Term adopted = owner.AdoptGuest507(
+                adopted = owner.AdoptGuest507(
                     value,
                     custody,
                     maps,
                     admitted
                 );
-                PublishRoot512(slot, adopted);
+                if (adopted is not FunctionTerm || owner.IsOwnedLocal(adopted))
+                {
+                    PublishRoot512(slot, adopted);
 
-                return adopted;
+                    return adopted;
+                }
             }
+            // Portable function environments need actual copied target children
+            // before private recipe/opaque rebinding, outside H.
+            using PreparedHeapImport imported = owner.PrepareHeapImport(this, adopted);
+            SetLocalGraph507(slot, imported.Value);
+
+            return imported.Value;
         }
     }
 

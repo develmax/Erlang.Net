@@ -13,10 +13,17 @@ internal sealed class MailboxGraphSnapshot593 : IDisposable, IAsyncDisposable
     internal MailboxPayloadLease593 RootWork593 => roots;
     internal bool HasGraphReferences593 => Volatile.Read(ref references) > 0;
     internal ProcessRuntime Runtime { get; }
+    internal Term? ObservationValue { get; }
 
     internal MailboxGraphSnapshot593(ProcessRuntime runtime, MailboxPayloadLease593 roots)
+        : this(runtime, roots, null)
+    {
+    }
+
+    internal MailboxGraphSnapshot593(ProcessRuntime runtime, MailboxPayloadLease593 roots, Term? observationValue)
     {
         Runtime = runtime;
+        ObservationValue = observationValue;
         this.roots = roots;
     }
 

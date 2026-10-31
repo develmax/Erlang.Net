@@ -18,7 +18,7 @@ internal sealed class RuntimeBootstrapSchedulerBinding
         if (!ReferenceEquals(context.Runtime, Runtime) || !ReferenceEquals(context.Runtime.Modules, registry))
             throw new ArgumentException(RuntimeBootstrapSchedulerNames.Foreign, nameof(context));
 
-        return ValueTask.FromResult<Term>(CoreModules.Boolean(Runtime.ExchangeSchedulerWallTime(context,
-            arguments[0] is Atom { Name: ErlangBooleanAtoms.True })));
+        return Runtime.SetNativeSchedulerWallTime(context,
+            arguments[0] is Atom { Name: ErlangBooleanAtoms.True });
     }
 }

@@ -1,0 +1,1210 @@
+{
+  "Target": "erlang:statistics/1",
+  "AssessedHead": "b36f3f8cd68d4620396c6806b56022096a5e4fe5 plus final validated Part550 source",
+  "PinnedOtp": "OTP-29.1.1/ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "State": "IMPLEMENTATION_AND_ACCEPTANCE_REQUIRED",
+  "WholeContractAccepted": false,
+  "ImplementedRoutesNotCompatibilityCount": [
+    "total_active_tasks",
+    "total_run_queue_lengths",
+    "total_active_tasks_all",
+    "total_run_queue_lengths_all",
+    "active_tasks",
+    "run_queue_lengths",
+    "active_tasks_all",
+    "run_queue_lengths_all",
+    "garbage_collection",
+    "reductions",
+    "exact_reductions",
+    "runtime",
+    "run_queue",
+    "wall_clock",
+    "run_queues",
+    "io",
+    "context_switches",
+    "scheduler_wall_time",
+    "scheduler_wall_time_all",
+    "microstate_accounting"
+  ],
+  "ExplicitRefusals": [],
+  "CurrentKnownMismatch": [
+    "All20 selector routes now exist, but MSACC/walltime normal-participant acknowledgement, per-caller enabled state, full supported profiles and real service/native ownership remain unclosed.",
+    "Public garbage_collection still uses the CLR-global route pending actual storage backing for all required process/domain roots.",
+    "Public runtime uses attributed per-VM OS-thread USER CPU; foreign native-thread and asynchronous/shared-service attribution remains unclosed.",
+    "All twenty-selector full-value/full-stack/profile differential and exact final-head CI remain required."
+  ],
+  "RequiredCommonAcceptance": [
+    "Admit exact pinned OTP image/MD5/source/error metadata and actual provider configuration, final managed head and DLLs; preserve original raw default+deterministic streams and cleanup on success/failure.",
+    "Run Source and genuine BEAM callers on ordinary and private-owned backends, plus public C# host entry routes where advertised; Windows/Linux and Release/Debug, wordsize and enabled feature profiles must be explicit. Unsupported architecture profiles cannot silently count as accepted.",
+    "Stable results/errors use entire value and entire stack comparison (native frame, caller source context, error_info, depth and precedence). Dynamic own-state values keep every field under an authenticated source-defined state/event protocol, never delete varying fields or require coincidental cross-VM absolute counters.",
+    "Concurrent callers, two logical VMs in one host, mutation/sampling barriers, cancellation, actor exit and VM Dispose/Halt; final-head affected/full CI, current independent review, exact catalog preservation. No count promotion before all obligations close."
+  ],
+  "DependsOnPublicHeapPolicyCompletion": false,
+  "ActualDependencies": "Per-VM collector event/reclaimed-word accounting, actual scheduler dispatch/context-switch/active-time state, I/O byte ownership hooks, feature flag negotiation and source-defined sampling cursors. No prerequisite to expose public min/max/default heap system_flag policy; statistics observes actual events independently.",
+  "Gates": [
+    {
+      "Id": "S0",
+      "Deliverable": "Bind complete original contract",
+      "DoneWhen": "Declare all20 selectors/argument/error branches, provider feature/build configurations, source/BEAM/C# entry routes, ordinary/private-owned profiles, Windows/Linux and applicable Debug/Release. Reuse and authenticate retained contract_statistics509 inputs; no historical original-only file becomes current managed proof.",
+      "State": "ORIGINAL_WINDOWS_CAPTURED; ALL_OTHER_COMPOSITIONS_OPEN"
+    },
+    {
+      "Id": "S1",
+      "Deliverable": "Implement real VM telemetry",
+      "DoneWhen": "Wire actual logical-VM collector events/reclaimed words, scheduler work/context-switch/queue states, port/native I/O byte events and VM CPU attribution. Ordinary and owned backing must both be covered. Prove two VMs/host work do not alter each other; no CLR-global GC estimate or host CPU cursor as VM telemetry. Minimal first discriminator: one controlled real collector/scheduler/I/O event changes only the owning VM counters. If ordinary backing lacks sufficient ownership this is an explicit implementation blocker, not a mocked counter.",
+      "State": "IN_PROGRESS_BIRTH_STORAGE_AND_REAL_PRODUCERS_PASS; MAILBOX_AND_OTHER_DOMAINS_OPEN",
+      "ArchitecturalDependencyConfirmed": "Ordinary scalar processes and async/other-target GC may use only CLR-global collection; the real506 collector is not universally entered. Root adoption and safe-point dispatch must cover those paths before S1/full acceptance. Public heap-option completion is not itself required."
+    },
+    {
+      "Id": "S2",
+      "Deliverable": "Complete selectors and required feature controls",
+      "DoneWhen": "Implement context_switches,io,scheduler_wall_time,scheduler_wall_time_all and source-conditional microstate_accounting. Add only the walltime/MSACC feature-control dependencies needed for this API, including enabled/disabled/reset and provider capability negotiation. Correct badarg/undefined/notsup according to pinned build branches; never hide unsupported valid behavior.",
+      "State": "ALL20_ROUTES_PRESENT; NORMAL_ACK_PROFILES_AND_WHOLE_COMPATIBILITY_OPEN"
+    },
+    {
+      "Id": "S3",
+      "Deliverable": "Permanent full contract regressions",
+      "DoneWhen": "Cover every selector and invalid input with full value/error/stack metadata. Exercise total/delta cursors, reset interleavings, exact/approx reductions, scheduler/dirty/online dimensions, I/O, collector effects and concurrent samplers. Dynamic counters retain all fields under authenticated own-state/event laws; never project away varying values.",
+      "State": "OPEN"
+    },
+    {
+      "Id": "S4",
+      "Deliverable": "Original differential matrix on final code",
+      "DoneWhen": "Run pinned original and final managed complete contracts through every S0 applicable composition using matched source/BEAM callers. Stable outcomes/stacks compare whole raw/typed values; dynamic full records compare source-defined dimensions,units,event,total/delta/reset laws with real own-state witnesses. Include two-VM isolation,cancellation,actor exit,Halt/Dispose and physical cleanup; no required case skipped.",
+      "State": "OPEN"
+    },
+    {
+      "Id": "S5",
+      "Deliverable": "Accept one complete MFA",
+      "DoneWhen": "All prior gates accepted, no remaining source mismatch/unassigned witness/failed cleanup; exact-head focused and required general CI green; fresh review triaged. Only then statistics/1 Known->Verified:708 registered,181 verified,504 pending,23 known; erlang84 verified/255 pending/12 known. Registration delta0,full-contract delta+1. Other23 remain open.",
+      "State": "OPEN"
+    }
+  ],
+  "NextAction": "Fix measured prepared-code structural-validation overhead and complete current CI source closure, publish the355/20 checkpoint; then integrate coherent token/spawn/terminal/PID-ref root packets before public GC selection.",
+  "Eta": null,
+  "NoScopeReduction": true,
+  "NoRegistrationOrLedgerPromotionYet": true,
+  "ValidationExecutionPolicy": {
+    "Priority": "statistics/1 stays first until whole acceptance; CI optimization must not delay its implementation.",
+    "Iteration": {
+      "Selection": "Existing --case/--block: changed behavioral groups plus explicitly justified dependency groups; source paths alone do not establish dependency coverage.",
+      "Reports": "Fresh separate partial report with selected and total catalog counts, exact head/source/DLL hashes, requested and actually executed names, failures and unfinished cases. Partial success gives no whole-contract credit.",
+      "Order": [
+        "Early committed-byte/source/provider/workflow/manifest closure preflight",
+        "Targeted and dependency regressions",
+        "Complete pinned OTP differential contract",
+        "Mandatory full regression and all applicable platform/backend/profile/resource cleanup gates before acceptance and merge"
+      ]
+    },
+    "EarlyPreflight": [
+      "Resolve raw inputs against actual Git blobs and declared Root/Scope, including unchanged shared helpers.",
+      "Validate CRLF/LF mode, raw/text hash and length; no blanket normalization of observed values or stacks.",
+      "Check workflow/provider/capture/native-plan pins and transitive manifest closure before expensive jobs.",
+      "Independent checks collect failures; failed preparation prevents dependent execution."
+    ],
+    "CacheReviewPlan": {
+      "State": "REVIEWABLE_PLAN_NOT_IMPLEMENTED",
+      "Key": [
+        "pinned OTP source commit and source-input Merkle digest",
+        "OS/image version/libc and architecture/wordsize",
+        "compiler/linker/tool versions and binary hashes",
+        "configure/build flags and generated ABI/feature-header hashes",
+        "producer scripts/plan hashes and relevant environment flags"
+      ],
+      "Admission": "Immutable original receipt plus restored complete file inventory/content hashes and provenance validation. A cache hit proves a build input, never a passing comparison. Do not rewrite an old SubjectHead or bypass current strict receipt checks; any explicit current-head cache-admission protocol must be reviewed and implemented before reuse.",
+      "BuildReuse": "One admitted original provider and one sealed managed build per required profile/platform. Exact DLL inventory/hash remains fixed through consumers; native ABI/toolchain/capability changes invalidate appropriate entries."
+    },
+    "ProcessShardsReviewPlan": {
+      "State": "REVIEWABLE_PLAN_NOT_IMPLEMENTED",
+      "Catalog": "Generate one exact expected test-name catalog and SHA from the sealed assembly before partitioning; no removed, duplicated or skipped required cases.",
+      "Balance": "Use actual per-case/block timings from required runs; if timing is absent add reviewed report-only timing instrumentation. No extra full run solely for tuning and no timing estimates from source-path count.",
+      "Isolation": "Separate OS process, fresh temp/output roots, ephemeral bound ports/private EPMD, native globals and logical VMs for independent shards. Keep a deliberate two-VM isolation/concurrency scenario together within one atomic case.",
+      "SerialLanes": "Explicit resource/native-global/physical-GC/timing-sensitive cohorts remain in isolated serial lanes with required cleanup; classification changes scheduling only and excludes no difficult case.",
+      "Aggregation": "Authenticate head, source/DLL/provider hashes and exact requested/executed names for every shard. Union must equal the entire expected catalog; reject duplicates, missing/unfinished tests, process failures and cleanup failures. Preserve individual partial reports and produce a separate full-union proof; never relabel one partial report as full.",
+      "Rollout": "First compare one required baseline full run with the proposed partition and timings; demonstrate unchanged complete catalog and evidence before enabling parallel default."
+    },
+    "PerformanceAcceptance": "Record real before/after wall time, build counts/cache hits, process count and repeat-run count with identical final coverage; no claimed speedup yet."
+  },
+  "DeferredWork": [
+    {
+      "Name": "Remove historical checkpoint numbers from production identities",
+      "State": "DEFERRED_NOT_STARTED",
+      "Priority": "After statistics/1 and current24 acceptance; no active rename",
+      "Queue": "docs/remaining-work/plan-24-after-530.md#Deferred: production names without historical checkpoint numbers",
+      "Scope": "Production symbols/classes and matching files/references only; preserve semantic version/protocol/ABI/size numbers; no mass test rename",
+      "Gates": [
+        "reflection/string identity",
+        "serialization/public API/ABI compatibility",
+        "generated code/resources",
+        "source manifests/hash/workflow pins",
+        "targeted+dependency and applicable full regression"
+      ]
+    }
+  ],
+  "PhaseTimings": {
+    "TrackingStartedUtc": "2026-10-30T03:44:45.524698Z",
+    "Policy": "UTC intervals are wall-time, not active effort. Reuse receipts; unknown earlier phase intervals remain unknown. Parallel intervals are linked and never summed as active time.",
+    "Categories": [
+      "source-contract review",
+      "implementation/debug",
+      "build",
+      "targeted tests",
+      "differential tests",
+      "full tests",
+      "source-manifest/tooling rework",
+      "CI queued/running/waiting",
+      "review/merge",
+      "capacity/error pause"
+    ],
+    "Rows": [
+      {
+        "Phase": "build",
+        "StartUtc": "2026-10-30T03:42:23.931083Z",
+        "EndUtc": "2026-10-30T03:42:38.962632Z",
+        "Commit": "3364c3050947c00084c19b446f98a05878b2512f + S1 working code",
+        "Receipt": "artifacts/statistics-full/s1-build-release.log",
+        "ExitCode": 1,
+        "ReportedElapsedSeconds": 14.71,
+        "ReasonForRepeat": "CS1503: Term.I accepts long; actual VM counters retain unsigned64 values. Correct construction as Integer, preserving width.",
+        "TimeBasis": "existing native-build log creation/final-write UTC and MSBuild elapsed; not CPU or active effort",
+        "Overlaps": []
+      },
+      {
+        "Phase": "implementation/debug",
+        "StartUtc": "2026-10-30T03:44:45.524698Z",
+        "EndUtc": "2026-10-30T03:44:45.532644Z",
+        "Commit": "S1 working code",
+        "Receipt": "RuntimeStatistics.VmCollections.cs",
+        "ReasonForRepeat": "Fix signed helper overload without narrowing real counters",
+        "Overlaps": []
+      },
+      {
+        "Phase": "build",
+        "StartUtc": "2026-10-30T03:45:20.055950Z",
+        "EndUtc": "2026-10-30T03:46:27.063363Z",
+        "Commit": "3364c3050947c00084c19b446f98a05878b2512f + S1 working code",
+        "Receipt": "artifacts/statistics-full/s1-build-release02.log",
+        "ReasonForRepeat": "Correct unsigned counter construction after first compiler failure",
+        "Overlaps": "Record links when exact parallel receipts are available; no additive active-time claim",
+        "ExitCode": 0,
+        "WallSeconds": 67.016
+      },
+      {
+        "Phase": "targeted tests",
+        "StartUtc": "2026-10-30T03:48:51.810670Z",
+        "EndUtc": "2026-10-30T03:48:53.305679Z",
+        "Commit": "3364c3050947c00084c19b446f98a05878b2512f + S1 working code",
+        "Receipt": "artifacts/statistics-full/s1-targeted8-release.json",
+        "Selection": [
+          "runtime/allocation567/scalar-generations-and-actual-reclaim",
+          "runtime/allocation567/shared-map-roots-custody",
+          "runtime/allocation567/failed-publication-not-garbage-collection",
+          "runtime/allocation567/isolation-and-held-retirement",
+          "runtime/resource-policy508/actual-young-old-slab-reclamation",
+          "runtime/statistics-two-owners-real-clock-user-cpu-cursors",
+          "runtime/fullsweep-zero-real-major-collection",
+          "host/runtime-queue-statistics504-held-dirty-kinds"
+        ],
+        "DependencyReason": "actual collector allocation/generation/root rollback/isolation/retirement plus public GC policy, Statistics gate/cursors and scheduler queue consumers",
+        "ReasonForRepeat": null,
+        "Overlaps": [],
+        "ExitCode": 0,
+        "WallSeconds": 1.484
+      },
+      {
+        "Phase": "build",
+        "StartUtc": "2026-10-30T04:10:33.075296Z",
+        "EndUtc": "2026-10-30T04:11:12.336269Z",
+        "Commit": "3364c3050947c00084c19b446f98a05878b2512f + S1 working code",
+        "Receipt": "artifacts/statistics-full/s1-final-build-release.log",
+        "ReasonForRepeat": "Added direct rollback-event assertions; formatted final S1 source",
+        "Overlaps": [],
+        "ExitCode": 0,
+        "WallSeconds": 39.25
+      },
+      {
+        "Phase": "targeted tests",
+        "StartUtc": "2026-10-30T04:11:12.354149Z",
+        "EndUtc": "2026-10-30T04:11:13.495796Z",
+        "Commit": "3364c3050947c00084c19b446f98a05878b2512f + S1 working code",
+        "Receipt": "artifacts/statistics-full/s1-final-targeted8-release.log",
+        "ReasonForRepeat": "Final-source verification of direct rollback counter invariants and unchanged dependency groups",
+        "Overlaps": [],
+        "ExitCode": 0,
+        "WallSeconds": 1.125
+      },
+      {
+        "Phase": "differential preparation/original acquisition",
+        "StartUtc": "2026-10-30T04:16:05.188848Z",
+        "EndUtc": "2026-10-30T04:17:26.340142Z",
+        "Commit": "3364c3050947c00084c19b446f98a05878b2512f + working statistics sources",
+        "Receipt": "artifacts/statistics-full/original-01/completion.json",
+        "ReasonForRepeat": null,
+        "OriginalOnly": true,
+        "ManagedCompared": false,
+        "Overlaps": [],
+        "ExitCode": 1,
+        "WallSeconds": 81.141
+      },
+      {
+        "Phase": "differential preparation/original acquisition",
+        "StartUtc": "2026-10-30T04:22:49.213707Z",
+        "EndUtc": "2026-10-30T04:22:57.522800Z",
+        "Commit": "3364c3050947c00084c19b446f98a05878b2512f + working statistics sources",
+        "Receipt": "artifacts/statistics-full/original-02/completion.json",
+        "ReasonForRepeat": "OTP compiler rejected unqualified port_info/1; qualify the BIF and retain the original failure; disable shared erlc daemon",
+        "OriginalOnly": true,
+        "ManagedCompared": false,
+        "Overlaps": [],
+        "ExitCode": 1,
+        "WallSeconds": 8.297
+      },
+      {
+        "Phase": "differential preparation/original acquisition",
+        "StartUtc": "2026-10-30T04:32:12.519788Z",
+        "EndUtc": "2026-10-30T04:32:18.021483Z",
+        "Commit": "3364c3050947c00084c19b446f98a05878b2512f + working statistics sources",
+        "Receipt": "artifacts/statistics-full/original-03-outer/completion.json",
+        "ReasonForRepeat": "Measured pipe-client access denied inside sandbox; identical pinned flags succeed outside. Replay same original02 native/BEAM bytes without recompilation.",
+        "ExecutionBoundary": "outside sandbox; only owned original/echo processes",
+        "OriginalOnly": true,
+        "ManagedCompared": false,
+        "Overlaps": [],
+        "ExitCode": 0,
+        "WallSeconds": 5.485
+      },
+      {
+        "Phase": "build",
+        "StartUtc": "2026-10-30T05:01:29.586262+00:00",
+        "EndUtc": "2026-10-30T05:01:50.669708+00:00",
+        "IntervalSource": "log creation/final write",
+        "Receipt": "artifacts/statistics-full/s1-ordinary-red-build.log",
+        "ExitCode": 1,
+        "ReasonForRepeat": "New test compilation failed: inaccessible atom name and ambiguous Module; no test execution.",
+        "Overlaps": []
+      },
+      {
+        "Phase": "build",
+        "StartUtc": "2026-10-30T05:02:12.476616+00:00",
+        "EndUtc": "2026-10-30T05:02:46.872547+00:00",
+        "IntervalSource": "log creation/final write",
+        "Receipt": "artifacts/statistics-full/s1-ordinary-red-build02.log",
+        "ExitCode": 0,
+        "ReasonForRepeat": "Corrected test only; old production path.",
+        "Overlaps": []
+      },
+      {
+        "Phase": "targeted preparation",
+        "StartUtc": "2026-10-30T05:02:40.195858+00:00",
+        "EndUtc": "2026-10-30T05:02:41.461229+00:00",
+        "IntervalSource": "log creation/final write",
+        "Receipt": "artifacts/statistics-full/s1-ordinary-red.log",
+        "ExitCode": 2,
+        "ReasonForRepeat": "Attempt used previous DLL before build completion; case unknown, no test executed.",
+        "Overlaps": []
+      },
+      {
+        "Phase": "targeted",
+        "StartUtc": "2026-10-30T05:02:52.078260+00:00",
+        "EndUtc": "2026-10-30T05:02:54.975702+00:00",
+        "IntervalSource": "log creation/final write",
+        "Receipt": "artifacts/statistics-full/s1-ordinary-red02.log",
+        "ExitCode": 1,
+        "ReasonForRepeat": "Meaningful RED: backing_present false before garbage_collect.",
+        "Overlaps": []
+      },
+      {
+        "Phase": "build",
+        "StartUtc": "2026-10-30T05:03:04.720069+00:00",
+        "EndUtc": "2026-10-30T05:04:35.197517+00:00",
+        "IntervalSource": "log creation/final write",
+        "Receipt": "artifacts/statistics-full/s1-ordinary-green-build.log",
+        "ExitCode": 0,
+        "ReasonForRepeat": "Four guarded ordinary-admission targets, real backing before producers.",
+        "Overlaps": []
+      },
+      {
+        "Phase": "targeted",
+        "StartUtc": "2026-10-30T05:04:55.979035+00:00",
+        "EndUtc": "2026-10-30T05:05:00.977969+00:00",
+        "IntervalSource": "log creation/final write",
+        "Receipt": "artifacts/statistics-full/s1-ordinary-green9.log",
+        "ExitCode": 0,
+        "ReasonForRepeat": "9/9 partial including new Source control and eight real dependencies.",
+        "Overlaps": []
+      },
+      {
+        "Phase": "build",
+        "StartUtc": "2026-10-30T05:06:21.301593+00:00",
+        "EndUtc": "2026-10-30T05:06:58.900816+00:00",
+        "IntervalSource": "log creation/final write",
+        "Receipt": "artifacts/statistics-full/s1-ordinary-final-build.log",
+        "ExitCode": 0,
+        "ReasonForRepeat": "Purpose-named admission; lifecycle refusal releases acquired image lease; two-VM/host-GC and genuine ordinary-BEAM tests.",
+        "Overlaps": []
+      },
+      {
+        "Phase": "targeted",
+        "StartUtc": "2026-10-30T05:07:06.076560+00:00",
+        "EndUtc": "2026-10-30T05:07:09.590112+00:00",
+        "IntervalSource": "log creation/final write",
+        "Receipt": "artifacts/statistics-full/s1-ordinary-final10.log",
+        "ExitCode": 0,
+        "ReasonForRepeat": "10/10 partial, exact same final DLLs; complete API acceptance remains false.",
+        "Overlaps": []
+      },
+      {
+        "Phase": "build",
+        "StartUtc": "2026-10-30T05:15:46.544559+00:00",
+        "EndUtc": "2026-10-30T05:16:51.921484+00:00",
+        "IntervalSource": "log creation/final write",
+        "Receipt": "artifacts/statistics-full/s1-s2-composed-build.log",
+        "ExitCode": 0,
+        "ReasonForRepeat": "Combined queue/CPU/IO/context implementation, 9472 catalog.",
+        "Overlaps": []
+      },
+      {
+        "Phase": "targeted",
+        "StartUtc": "2026-10-30T05:17:23.298595+00:00",
+        "EndUtc": "2026-10-30T05:17:24.736543+00:00",
+        "IntervalSource": "log creation/final write",
+        "Receipt": "artifacts/statistics-full/s2-cpu-global-red.log",
+        "ExitCode": 1,
+        "ReasonForRepeat": "Actual old process-global runtime selector credits another VM.",
+        "Overlaps": []
+      },
+      {
+        "Phase": "targeted",
+        "StartUtc": "2026-10-30T05:17:38.652320+00:00",
+        "EndUtc": "2026-10-30T05:17:40.011767+00:00",
+        "IntervalSource": "log creation/final write",
+        "Receipt": "artifacts/statistics-full/s1-s2-requests-context6.log",
+        "ExitCode": 1,
+        "ReasonForRepeat": "4/6; two raw-parser fixtures stopped at unexpanded module macro, no GC protocol execution for those two.",
+        "Overlaps": []
+      },
+      {
+        "Phase": "build",
+        "StartUtc": "2026-10-30T05:19:17.251664+00:00",
+        "EndUtc": "2026-10-30T05:20:06.385590+00:00",
+        "IntervalSource": "log creation/final write",
+        "Receipt": "artifacts/statistics-full/s1-s2-cpu-owned-build.log",
+        "ExitCode": 0,
+        "ReasonForRepeat": "Per-VM CPU public branch and explicit raw-parser module-macro preparation.",
+        "Overlaps": []
+      },
+      {
+        "Phase": "targeted",
+        "StartUtc": "2026-10-30T05:21:05.959646+00:00",
+        "EndUtc": "2026-10-30T05:21:11.249144+00:00",
+        "IntervalSource": "log creation/final write",
+        "Receipt": "artifacts/statistics-full/s1-s2-cpu-gc7.log",
+        "ExitCode": 0,
+        "ReasonForRepeat": "7/7 actual CPU and Source self/other-target request controls.",
+        "Overlaps": []
+      },
+      {
+        "Phase": "build",
+        "StartUtc": "2026-10-30T05:23:58.342356+00:00",
+        "EndUtc": "2026-10-30T05:24:45.769441+00:00",
+        "IntervalSource": "log creation/final write",
+        "Receipt": "artifacts/statistics-full/s1-s2-original-beam-final-build.log",
+        "ExitCode": 0,
+        "ReasonForRepeat": "Actual fresh original BEAM/outcome embedded, bounded-finalizer amendment, layout scope61.",
+        "Overlaps": []
+      },
+      {
+        "Phase": "targeted",
+        "StartUtc": "2026-10-30T05:25:50.420955+00:00",
+        "EndUtc": "2026-10-30T05:25:56.075402+00:00",
+        "IntervalSource": "log creation/final write",
+        "Receipt": "artifacts/statistics-full/s1-s2-final18.log",
+        "ExitCode": 1,
+        "ReasonForRepeat": "17/18; obsolete expected IO/context notsup remained in legacy test due newline mismatch in prior test edit.",
+        "Overlaps": []
+      },
+      {
+        "Phase": "build",
+        "StartUtc": "2026-10-30T05:27:01.772575+00:00",
+        "EndUtc": "2026-10-30T05:27:28.389935+00:00",
+        "IntervalSource": "log creation/final write",
+        "Receipt": "artifacts/statistics-full/s1-s2-positive-stats-build.log",
+        "ExitCode": 0,
+        "ReasonForRepeat": "Correct stale refusal list using guarded newline-aware edit, add full positive IO/context tuples.",
+        "Overlaps": []
+      },
+      {
+        "Phase": "targeted",
+        "StartUtc": "2026-10-30T05:30:01.883585+00:00",
+        "EndUtc": "2026-10-30T05:30:02.985242+00:00",
+        "IntervalSource": "log creation/final write",
+        "Receipt": "artifacts/statistics-full/s1-s2-positive-io2.log",
+        "ExitCode": 1,
+        "ReasonForRepeat": "Clock/CPU positive test passed; actual port child denied eacces inside sandbox.",
+        "Overlaps": []
+      },
+      {
+        "Phase": "targeted",
+        "StartUtc": "2026-10-30T05:30:15.010088+00:00",
+        "EndUtc": "2026-10-30T05:30:15.584727+00:00",
+        "IntervalSource": "log creation/final write",
+        "Receipt": "artifacts/statistics-full/s1-s2-positive-io-outer.log",
+        "ExitCode": 0,
+        "ReasonForRepeat": "Same unchanged port test/DLL passed outside sandbox, actual whole IO tuples and child cleanup.",
+        "Overlaps": []
+      },
+      {
+        "Phase": "targeted",
+        "StartUtc": "2026-10-30T05:35:02.884759+00:00",
+        "EndUtc": "2026-10-30T05:35:04.232205+00:00",
+        "IntervalSource": "log creation/final write",
+        "Receipt": "artifacts/statistics-full/opaque-prior-final.log",
+        "ExitCode": 0,
+        "ReasonForRepeat": "Isolated unchanged prior runtime2/2, actual callback42 and metadata-provider counts0/1.",
+        "Overlaps": []
+      },
+      {
+        "Phase": "targeted",
+        "StartUtc": "2026-10-30T05:35:12.432462+00:00",
+        "EndUtc": "2026-10-30T05:35:15.161642+00:00",
+        "IntervalSource": "log creation/final write",
+        "Receipt": "artifacts/statistics-full/opaque-current-red.log",
+        "ExitCode": 2,
+        "ReasonForRepeat": "Same opaque callback controls fail current ordinary backing with UnknownClosure; genuine compatibility regression, not accepted.",
+        "Overlaps": []
+      },
+      {
+        "Phase": "build",
+        "StartUtc": "2026-10-30T07:45:31.335064+00:00",
+        "EndUtc": "2026-10-30T07:46:44.122183+00:00",
+        "IntervalSource": "log creation/final write",
+        "Receipt": "artifacts/statistics-full/public-function-preserved-build.log",
+        "ExitCode": 0,
+        "ReasonForRepeat": "Compile public-function boundary and canonical external preservation",
+        "Overlaps": []
+      },
+      {
+        "Phase": "targeted",
+        "StartUtc": "2026-10-30T07:50:43.241026+00:00",
+        "EndUtc": "2026-10-30T07:50:46.891419+00:00",
+        "IntervalSource": "log creation/final write",
+        "Receipt": "artifacts/statistics-full/public-function-preserved2.log",
+        "ExitCode": 0,
+        "ReasonForRepeat": "Both previously failing real resource/function controls pass after production fixes",
+        "Overlaps": []
+      },
+      {
+        "Phase": "targeted",
+        "StartUtc": "2026-10-30T07:50:51.794658+00:00",
+        "EndUtc": "2026-10-30T07:50:58.082941+00:00",
+        "IntervalSource": "log creation/final write",
+        "Receipt": "artifacts/statistics-full/public-function-permanent37.log",
+        "ExitCode": 0,
+        "ReasonForRepeat": "Re-run complete affected37 block on final DLLs;37/37 pass",
+        "Overlaps": []
+      },
+      {
+        "Phase": "build",
+        "StartUtc": "2026-10-30T07:58:01.747392+00:00",
+        "EndUtc": "2026-10-30T07:59:03.585929+00:00",
+        "IntervalSource": "log creation/final write",
+        "Receipt": "artifacts/statistics-full/storage-birth-build.log",
+        "ExitCode": 0,
+        "ReasonForRepeat": "Build actual storage-at-birth integration",
+        "Overlaps": []
+      },
+      {
+        "Phase": "targeted",
+        "StartUtc": "2026-10-30T08:12:49.096945+00:00",
+        "EndUtc": "2026-10-30T08:12:57.421991+00:00",
+        "IntervalSource": "log creation/final write",
+        "Receipt": "artifacts/statistics-full/storage-birth-dependencies46.log",
+        "ExitCode": 1,
+        "ReasonForRepeat": "Initial wider44/46 exposed obsolete heapnull and CLR-global event expectations; retained",
+        "Overlaps": []
+      },
+      {
+        "Phase": "build",
+        "StartUtc": "2026-10-30T08:14:32.476068+00:00",
+        "EndUtc": "2026-10-30T08:15:02.608513+00:00",
+        "IntervalSource": "log creation/final write",
+        "Receipt": "artifacts/statistics-full/storage-birth-controls-build.log",
+        "ExitCode": 0,
+        "ReasonForRepeat": "Compile five actual storage/lifecycle controls and explicit VM-event expectations",
+        "Overlaps": []
+      },
+      {
+        "Phase": "targeted",
+        "StartUtc": "2026-10-30T08:15:20.813872+00:00",
+        "EndUtc": "2026-10-30T08:15:21.541546+00:00",
+        "IntervalSource": "log creation/final write",
+        "Receipt": "artifacts/statistics-full/storage-birth-controls5.log",
+        "ExitCode": 0,
+        "ReasonForRepeat": "New real birth/dictionary/isolation/borrow/rollback5/5",
+        "Overlaps": []
+      },
+      {
+        "Phase": "targeted",
+        "StartUtc": "2026-10-30T08:15:30.953937+00:00",
+        "EndUtc": "2026-10-30T08:15:37.787200+00:00",
+        "IntervalSource": "log creation/final write",
+        "Receipt": "artifacts/statistics-full/storage-birth-final51.log",
+        "ExitCode": 0,
+        "ReasonForRepeat": "Final foundation dependencies and lifecycle51/51",
+        "Overlaps": []
+      },
+      {
+        "Phase": "build",
+        "StartUtc": "2026-10-30T08:18:27.215913+00:00",
+        "EndUtc": "2026-10-30T08:19:29.556645+00:00",
+        "IntervalSource": "log creation/final write",
+        "Receipt": "artifacts/statistics-full/msacc-base-build.log",
+        "ExitCode": 0,
+        "ReasonForRepeat": "Compile actual producer MSACC integration",
+        "Overlaps": []
+      },
+      {
+        "Phase": "targeted",
+        "StartUtc": "2026-10-30T08:19:34.620788+00:00",
+        "EndUtc": "2026-10-30T08:19:37.998673+00:00",
+        "IntervalSource": "log creation/final write",
+        "Receipt": "artifacts/statistics-full/msacc-base4.log",
+        "ExitCode": 0,
+        "ReasonForRepeat": "Four actual feature/producer/nested/cache controls pass",
+        "Overlaps": []
+      },
+      {
+        "Phase": "targeted",
+        "StartUtc": "2026-10-30T08:19:43.740499+00:00",
+        "EndUtc": "2026-10-30T08:19:52.619026+00:00",
+        "IntervalSource": "log creation/final write",
+        "Receipt": "artifacts/statistics-full/msacc-composed55.log",
+        "ExitCode": 0,
+        "ReasonForRepeat": "Composed affected55/55 on current Release DLLs",
+        "Overlaps": []
+      },
+      {
+        "Phase": "build",
+        "StartUtc": "2026-10-30T08:21:16.756284+00:00",
+        "EndUtc": "2026-10-30T08:22:23.326057+00:00",
+        "IntervalSource": "log creation/final write",
+        "Receipt": "artifacts/statistics-full/msacc-final-style-build.log",
+        "ExitCode": 0,
+        "ReasonForRepeat": "Final SourceLayout127-file review changed18 source layouts; compile and verify affected55 on final bytes",
+        "Overlaps": []
+      },
+      {
+        "Phase": "targeted",
+        "StartUtc": "2026-10-30T08:22:52.312393+00:00",
+        "EndUtc": "2026-10-30T08:23:02.044025+00:00",
+        "IntervalSource": "log creation/final write",
+        "Receipt": "artifacts/statistics-full/msacc-final55.log",
+        "ExitCode": 0,
+        "ReasonForRepeat": "Final SourceLayout127-file review changed18 source layouts; compile and verify affected55 on final bytes",
+        "Overlaps": []
+      },
+      {
+        "Phase": "targeted",
+        "StartUtc": "2026-10-30T08:27:48.840839+00:00",
+        "EndUtc": "2026-10-30T08:27:52.300376+00:00",
+        "IntervalSource": "log creation/final write",
+        "Receipt": "artifacts/statistics-full/storage-dictionary-dependencies.log",
+        "ExitCode": 1,
+        "ReasonForRepeat": "Wider actual dictionary seam regression;15pass and2missing-admission prep failures retained",
+        "Overlaps": []
+      },
+      {
+        "Phase": "targeted",
+        "StartUtc": "2026-10-30T08:28:20.997658+00:00",
+        "EndUtc": "2026-10-30T08:28:56.832054+00:00",
+        "IntervalSource": "log creation/final write",
+        "Receipt": "artifacts/statistics-full/storage-dictionary-provider2.log",
+        "ExitCode": 0,
+        "ReasonForRepeat": "Only two failed preparations rerun after exact existing admission reuse;2/2pass without source change",
+        "Overlaps": []
+      },
+      {
+        "Phase": "original15-native-build",
+        "StartUtc": "2026-10-30T08:29:49.125512+00:00",
+        "EndUtc": "2026-10-30T08:29:49.760003+00:00",
+        "IntervalSource": "owned runner exact stage timestamps",
+        "Receipt": "artifacts/statistics-full/normal-ack-original-01/completion.json#native-build",
+        "ExitCode": 0,
+        "ReasonForRepeat": "First actual original15 acquisition, no duplicate provider build or fixture replay",
+        "Overlaps": []
+      },
+      {
+        "Phase": "original15-native-exports",
+        "StartUtc": "2026-10-30T08:29:49.760003+00:00",
+        "EndUtc": "2026-10-30T08:29:49.787980+00:00",
+        "IntervalSource": "owned runner exact stage timestamps",
+        "Receipt": "artifacts/statistics-full/normal-ack-original-01/completion.json#native-exports",
+        "ExitCode": 0,
+        "ReasonForRepeat": "First actual original15 acquisition, no duplicate provider build or fixture replay",
+        "Overlaps": []
+      },
+      {
+        "Phase": "original15-native-headers",
+        "StartUtc": "2026-10-30T08:29:49.794406+00:00",
+        "EndUtc": "2026-10-30T08:29:49.819178+00:00",
+        "IntervalSource": "owned runner exact stage timestamps",
+        "Receipt": "artifacts/statistics-full/normal-ack-original-01/completion.json#native-headers",
+        "ExitCode": 0,
+        "ReasonForRepeat": "First actual original15 acquisition, no duplicate provider build or fixture replay",
+        "Overlaps": []
+      },
+      {
+        "Phase": "original15-compile-erlang",
+        "StartUtc": "2026-10-30T08:29:49.857936+00:00",
+        "EndUtc": "2026-10-30T08:29:50.172561+00:00",
+        "IntervalSource": "owned runner exact stage timestamps",
+        "Receipt": "artifacts/statistics-full/normal-ack-original-01/completion.json#compile-erlang",
+        "ExitCode": 0,
+        "ReasonForRepeat": "First actual original15 acquisition, no duplicate provider build or fixture replay",
+        "Overlaps": []
+      },
+      {
+        "Phase": "original15-original",
+        "StartUtc": "2026-10-30T08:29:50.174588+00:00",
+        "EndUtc": "2026-10-30T08:29:50.545969+00:00",
+        "IntervalSource": "owned runner exact stage timestamps",
+        "Receipt": "artifacts/statistics-full/normal-ack-original-01/completion.json#original",
+        "ExitCode": 0,
+        "ReasonForRepeat": "First actual original15 acquisition, no duplicate provider build or fixture replay",
+        "Overlaps": []
+      },
+      {
+        "Phase": "managed20-source-ordinary",
+        "StartUtc": "2026-10-30T08:36:31.052963+00:00",
+        "EndUtc": "2026-10-30T08:36:33.950555+00:00",
+        "IntervalSource": "owned stage live receipt/exit write",
+        "Receipt": "artifacts/statistics-full/managed20-01/source-ordinary",
+        "ExitCode": 0,
+        "ReasonForRepeat": "First whole corpus acquisition",
+        "Overlaps": []
+      },
+      {
+        "Phase": "managed20-source-private-owned",
+        "StartUtc": "2026-10-30T08:36:33.955938+00:00",
+        "EndUtc": "2026-10-30T08:36:36.734426+00:00",
+        "IntervalSource": "owned stage live receipt/exit write",
+        "Receipt": "artifacts/statistics-full/managed20-01/source-private-owned",
+        "ExitCode": 0,
+        "ReasonForRepeat": "First whole corpus acquisition",
+        "Overlaps": []
+      },
+      {
+        "Phase": "managed20-beam-ordinary",
+        "StartUtc": "2026-10-30T08:36:36.740604+00:00",
+        "EndUtc": "2026-10-30T08:36:37.315989+00:00",
+        "IntervalSource": "owned stage live receipt/exit write",
+        "Receipt": "artifacts/statistics-full/managed20-01/beam-ordinary",
+        "ExitCode": 1,
+        "ReasonForRepeat": "First whole corpus acquisition",
+        "Overlaps": []
+      },
+      {
+        "Phase": "managed20-beam-private-owned",
+        "StartUtc": "2026-10-30T08:36:37.318886+00:00",
+        "EndUtc": "2026-10-30T08:36:37.884001+00:00",
+        "IntervalSource": "owned stage live receipt/exit write",
+        "Receipt": "artifacts/statistics-full/managed20-01/beam-private-owned",
+        "ExitCode": 1,
+        "ReasonForRepeat": "First whole corpus acquisition",
+        "Overlaps": []
+      },
+      {
+        "Phase": "managed20-public-csharp-ordinary",
+        "StartUtc": "2026-10-30T08:36:37.887728+00:00",
+        "EndUtc": "2026-10-30T08:36:38.449611+00:00",
+        "IntervalSource": "owned stage live receipt/exit write",
+        "Receipt": "artifacts/statistics-full/managed20-01/public-csharp-ordinary",
+        "ExitCode": 1,
+        "ReasonForRepeat": "First whole corpus acquisition",
+        "Overlaps": []
+      },
+      {
+        "Phase": "managed20-public-csharp-private-owned",
+        "StartUtc": "2026-10-30T08:36:38.453864+00:00",
+        "EndUtc": "2026-10-30T08:36:39.047914+00:00",
+        "IntervalSource": "owned stage live receipt/exit write",
+        "Receipt": "artifacts/statistics-full/managed20-01/public-csharp-private-owned",
+        "ExitCode": 1,
+        "ReasonForRepeat": "First whole corpus acquisition",
+        "Overlaps": []
+      },
+      {
+        "Phase": "managed20-beam-ordinary",
+        "StartUtc": "2026-10-30T08:39:02.744648+00:00",
+        "EndUtc": "2026-10-30T08:39:07.090497+00:00",
+        "IntervalSource": "owned stage live receipt/exit write",
+        "Receipt": "artifacts/statistics-full/managed20-02/beam-ordinary",
+        "ExitCode": 0,
+        "ReasonForRepeat": "Only failed BEAM/public routes repeated after exact driver dependency correction; runtime unchanged",
+        "Overlaps": []
+      },
+      {
+        "Phase": "managed20-beam-private-owned",
+        "StartUtc": "2026-10-30T08:39:07.094525+00:00",
+        "EndUtc": "2026-10-30T08:39:11.299847+00:00",
+        "IntervalSource": "owned stage live receipt/exit write",
+        "Receipt": "artifacts/statistics-full/managed20-02/beam-private-owned",
+        "ExitCode": 0,
+        "ReasonForRepeat": "Only failed BEAM/public routes repeated after exact driver dependency correction; runtime unchanged",
+        "Overlaps": []
+      },
+      {
+        "Phase": "managed20-public-csharp-ordinary",
+        "StartUtc": "2026-10-30T08:39:11.304066+00:00",
+        "EndUtc": "2026-10-30T08:39:15.581956+00:00",
+        "IntervalSource": "owned stage live receipt/exit write",
+        "Receipt": "artifacts/statistics-full/managed20-02/public-csharp-ordinary",
+        "ExitCode": 0,
+        "ReasonForRepeat": "Only failed BEAM/public routes repeated after exact driver dependency correction; runtime unchanged",
+        "Overlaps": []
+      },
+      {
+        "Phase": "managed20-public-csharp-private-owned",
+        "StartUtc": "2026-10-30T08:39:15.587297+00:00",
+        "EndUtc": "2026-10-30T08:39:20.009573+00:00",
+        "IntervalSource": "owned stage live receipt/exit write",
+        "Receipt": "artifacts/statistics-full/managed20-02/public-csharp-private-owned",
+        "ExitCode": 0,
+        "ReasonForRepeat": "Only failed BEAM/public routes repeated after exact driver dependency correction; runtime unchanged",
+        "Overlaps": []
+      },
+      {
+        "Phase": "build",
+        "StartUtc": "2026-10-30T09:33:40.133497+00:00",
+        "EndUtc": "2026-10-30T09:34:44.094749+00:00",
+        "IntervalSource": "log creation/final write",
+        "Receipt": "artifacts/statistics-full/control-wait-build.log",
+        "ExitCode": 0,
+        "ReasonForRepeat": "Fix real native process_info/control wait cycle and verify actual compiled dependency composition",
+        "Overlaps": []
+      },
+      {
+        "Phase": "targeted",
+        "StartUtc": "2026-10-30T09:36:46.504745+00:00",
+        "EndUtc": "2026-10-30T09:36:47.841264+00:00",
+        "IntervalSource": "log creation/final write",
+        "Receipt": "artifacts/statistics-full/control-wait-new3.log",
+        "ExitCode": 0,
+        "ReasonForRepeat": "Fix real native process_info/control wait cycle and verify actual compiled dependency composition",
+        "Overlaps": []
+      },
+      {
+        "Phase": "targeted",
+        "StartUtc": "2026-10-30T09:36:53.979418+00:00",
+        "EndUtc": "2026-10-30T09:37:04.190101+00:00",
+        "IntervalSource": "log creation/final write",
+        "Receipt": "artifacts/statistics-full/control-wait-composed64.log",
+        "ExitCode": 0,
+        "ReasonForRepeat": "Fix real native process_info/control wait cycle and verify actual compiled dependency composition",
+        "Overlaps": []
+      },
+      {
+        "Phase": "build",
+        "StartUtc": "2026-10-30T09:55:46.103633+00:00",
+        "EndUtc": "2026-10-30T09:55:49.362481+00:00",
+        "IntervalSource": "log creation/final write",
+        "Receipt": "artifacts/statistics-full/normal-ack-control-host-build.log",
+        "ExitCode": 0,
+        "ReasonForRepeat": "Fix real native process_info/control wait cycle and verify actual compiled dependency composition",
+        "Overlaps": []
+      },
+      {
+        "Phase": "native15-control-native-control-smoke01",
+        "StartUtc": "2026-10-30T09:56:49.391600+00:00",
+        "EndUtc": "2026-10-30T09:56:51.259887+00:00",
+        "IntervalSource": "actual owned stage start/exit receipt write",
+        "Receipt": "artifacts/statistics-full/native-control-smoke01/managed.exit.json",
+        "ExitCode": 0,
+        "ReasonForRepeat": "Single smoke succeeds, then only three remaining loader/profile compositions; same original DLL/BEAM and unchanged bounds",
+        "Overlaps": []
+      },
+      {
+        "Phase": "native15-control-native-control-ordinary-private-owned",
+        "StartUtc": "2026-10-30T09:58:06.890028+00:00",
+        "EndUtc": "2026-10-30T09:58:08.556923+00:00",
+        "IntervalSource": "actual owned stage start/exit receipt write",
+        "Receipt": "artifacts/statistics-full/native-control-ordinary-private-owned/managed.exit.json",
+        "ExitCode": 0,
+        "ReasonForRepeat": "Single smoke succeeds, then only three remaining loader/profile compositions; same original DLL/BEAM and unchanged bounds",
+        "Overlaps": []
+      },
+      {
+        "Phase": "native15-control-native-control-reviewed-ordinary",
+        "StartUtc": "2026-10-30T09:58:08.716592+00:00",
+        "EndUtc": "2026-10-30T09:58:10.422911+00:00",
+        "IntervalSource": "actual owned stage start/exit receipt write",
+        "Receipt": "artifacts/statistics-full/native-control-reviewed-ordinary/managed.exit.json",
+        "ExitCode": 0,
+        "ReasonForRepeat": "Single smoke succeeds, then only three remaining loader/profile compositions; same original DLL/BEAM and unchanged bounds",
+        "Overlaps": []
+      },
+      {
+        "Phase": "native15-control-native-control-reviewed-private-owned",
+        "StartUtc": "2026-10-30T09:58:10.556954+00:00",
+        "EndUtc": "2026-10-30T09:58:12.229763+00:00",
+        "IntervalSource": "actual owned stage start/exit receipt write",
+        "Receipt": "artifacts/statistics-full/native-control-reviewed-private-owned/managed.exit.json",
+        "ExitCode": 0,
+        "ReasonForRepeat": "Single smoke succeeds, then only three remaining loader/profile compositions; same original DLL/BEAM and unchanged bounds",
+        "Overlaps": []
+      }
+    ]
+  },
+  "Progress": {
+    "OriginalWindowsAcquired": true,
+    "OriginalReceipt": "artifacts/statistics-full/original-03-outer/completion.json",
+    "OriginalReceiptSha256": "E46F745AD03EFADB70CFB35F7F3E0B5722EC3837D7D7CF013F28E2F6892828B1",
+    "RawAll20SelectorsPreserved": true,
+    "NativeAndWorkerRecompiledForBoundaryReplay": false,
+    "ManagedFullDifferentialAccepted": false,
+    "LinuxContractAccepted": false,
+    "RealCollectorPrimitive": "Implemented on working branch; actual506 events and physical words; public selector remains CLR route until ordinary/async/other backing complete",
+    "Targeted": {
+      "Passed": 87,
+      "Selected": 87,
+      "Total": 9506,
+      "Partial": true,
+      "Report": "artifacts/statistics-full/workers-msacc-partial87-01/partial.json",
+      "Composition": "artifacts/statistics-full/workers-msacc-composition87.json",
+      "CompositionSha256": "29BB7465CF1FD8DB92A18703E315047628984067C143DB54FB052117A11D3A7A",
+      "SupersededByUnvalidatedWorkerIdentityComposition": false
+    },
+    "OrdinaryGcDependency": "OPEN",
+    "RemainingGates": [
+      "actual storage backing for all required roots, public GC route and native/service CPU attribution",
+      "MSACC and actual normal-worker acknowledgement; walltime startup/profile obligations",
+      "all20 selector/error/full-stack/effect/reset/concurrency differential across required profiles",
+      "required full regression/Linux/current-head CI/review/cleanup"
+    ],
+    "OrdinaryCanonicalSourceBeamBacking": "Actual public Evaluate, Invoke/unregistered definitions and raw BEAM entry backed; six direct controls and four Source/original-BEAM ordinary/private target-GC controls pass in current37 block.",
+    "OrdinaryFinalPartial": {
+      "Passed": 10,
+      "Selected": 10,
+      "Total": 9462,
+      "Partial": true,
+      "Report": "artifacts/statistics-full/s1-ordinary-final10.json"
+    },
+    "VmCpuAttribution": "Public runtime switched after genuine global-credit RED; final actual CPU5PASS including2VM/host, inflight/nested, dirty/auxiliary/cache cleanup. Remaining service/native ownership explicit.",
+    "CurrentStage": "Current Part550 (2026-10-31): zero-warning normal Debug solution build;13/13 Roslyn proofs;367/367 affected checks and all6 package groups pass with unchanged106 source/DLL fingerprints and original deadlines. Final28/28 whole OTP terms/stacks/ETF routes match. Catalog9574 preserves9572+2; full9574 execution not claimed. Runtime optimization policy is explicit and PE-verified. Exact new-head CI next; token/trace/terminal/HAMT/suspension integration remains open; public GC unchanged. API/full deltas0/0;708/180/504/24 unchanged. Evidence: validation/part-550/README.md.",
+    "TargetGcRequests": "Implemented metadata queue and target actor drain outsideR/M; Source and actual fresh original BEAM both ordinary/private-owned pass whole original3-outcome result, actual VM completed collections>=3.",
+    "IoAndContext": "Actual port/native IO7sites and committed dispatch counters active. Three real same-epoch/inline selection controls PASS. Real owned port IO full tuples/cleanup PASS outside sandbox; EACCES inside retained.",
+    "OriginalQueueReceipt": "artifacts/statistics-full/collection-original-01/completion.json",
+    "OriginalQueueReceiptSha256": "05ABABFCCAA57E99DFADF3003AF0AA2D5A7473702DB09C40473F11EC85A24921",
+    "ConfirmedRegression": {
+      "Prior": "artifacts/statistics-full/opaque-prior-final.log",
+      "Current": "artifacts/statistics-full/opaque-current-red.log",
+      "State": "FIXED_TARGETED_NOT_WHOLE_ACCEPTED",
+      "PriorPassed": 2,
+      "CurrentFailed": 2,
+      "Final": "artifacts/statistics-full/public-function-permanent37.json",
+      "FinalOpaquePassed": 2
+    },
+    "FirstSelectedEntry": "Real outer Host frame prevents unreturned Host copy; permanent resource controls verify Host and Guest interests separately and require actual VM collection before physical retirement.",
+    "ExternalAndFunctionBoundary": "Canonical external entry remains canonical on normal transfer; known local Source/BEAM public invocation retains callable/environment in VM and exports only actual result. Opaque Host path and unknown/foreign recipe restrictions preserved.",
+    "Walltime": "Three permanent controls pass for nested/concurrent owners, real dirty clocks and selected controller. Whole acknowledgement/startup/profile proof remains open.",
+    "BirthStorage": "Applied independent immutable storage flag and lifecycle enrollment. Five actual controls pass: first pure Host body+initializer, dictionary event/reclaim, two-VM/CLR-GC isolation, real borrow-delayed physical drain and actual dispatch refusal rollback. Execution authority unchanged.",
+    "BirthStorageEvidence": "artifacts/statistics-full/storage-birth-final51.json",
+    "Microstates": "Actual OS-thread lifetime/role records, default seven states, synchronous dispatcher/dirty/auxiliary/collector/resource hooks implemented. Four permanent feature/producers/nested/cache controls pass; no normal-worker ack or complete-profile acceptance yet.",
+    "MicrostatesEvidence": "artifacts/statistics-full/msacc-base4.json",
+    "MailboxDependency": "Part549 has real fragment/heap-backed ordinary queue values and policy conversions. OPEN: actual sequence tokens, held-R trace outputs, future-prefix commit-late native acquisition, terminal/spawn and suspension-tag roots; public GC switch blocked until integrated original-event ordering and lifetime controls pass.",
+    "NormalAcknowledgement": "Actual pinned original15 observes source table: twelve pending until blocker released; MSACC repeat true/false and disabled wall sample immediate. Managed BIF queued ack/per-caller generation integration remains OPEN; full raw values/stacks/status and cleanup retained.",
+    "FinalDirtyComposition": "artifacts/statistics-full/msacc-final-composition.json",
+    "OriginalNormalAcknowledgement": {
+      "OriginalOnly": true,
+      "ManagedCompared": false,
+      "Passed": true,
+      "Scenarios": 15,
+      "Receipt": "artifacts/statistics-full/normal-ack-original-01/completion.json",
+      "ReceiptSha256": "13CE65CD1AB00664F129A6367CAE967862DD1A85CA455A13BA43E90A3E61F452",
+      "RawFullOutcomes": "artifacts/statistics-full/normal-ack-original-01/capture/scenario-outcomes.etf",
+      "DiagnosticSummary": "artifacts/statistics-full/normal-ack-original-01/phase-observation-summary.json",
+      "ObservedImmediate": [
+        "msacc_repeat_true",
+        "msacc_repeat_false",
+        "wall_sample_disabled"
+      ],
+      "OtherTwelveWaitForActualNormalParticipant": true,
+      "AllNativeAndMonitorCleanupNormal": true,
+      "VmSeconds": 0.371,
+      "FreshNativeBuilds": 1,
+      "FreshBeams": 2,
+      "ProviderRebuilt": false
+    },
+    "AdditionalDictionaryDependencies": "Same final DLLs: initial15/17 pass; two fail preparation because local admission path absent. Reuse exact pinned41CCC admission bytes with existing absolute paths; rerun only those two,2/2 pass. No production/source change or provider reinstall.",
+    "ManagedWholeCorpusCapture": {
+      "SuccessfulRoutes": 6,
+      "CaptureOnly": true,
+      "OriginalCompared": false,
+      "WholeContractAccepted": false,
+      "Report": "artifacts/statistics-full/managed20-six-route-capture.json",
+      "Sha256": "98FC1802D270B8CF4A0FEF7232C743C16930967481215548E4B94CED8D48043A",
+      "DriverCorrectionsOnly": true,
+      "ActualEchoOsExitAllSix": true,
+      "FullLawAndStackValidation": "OPEN"
+    },
+    "FinalDirtyCompositionIsPriorToQueuedWalltime": true,
+    "GenuineNativeAcknowledgementBaseline": {
+      "OrdinaryReviewedTimesOrdinaryPrivate": 4,
+      "CasesPerRoute": 15,
+      "AcquisitionAndActualCleanupPassed": true,
+      "PhaseMismatchesPerRoute": 12,
+      "TotalPhaseMismatches": 48,
+      "Audit": "artifacts/statistics-full/normal-ack-native-baseline-phase-audit.json",
+      "WholeValueAndStackComparisonAccepted": false,
+      "InitialPreparationFailuresPreserved": true,
+      "Corrections": "Exact frozen variadic asset, verified requested lexical capability path, real RuntimeBootstrapScheduler.Register; no runtime changes for baseline."
+    },
+    "QueuedWalltimeCandidate": "Build0warnings/errors;new2+affected61/61PASS. Genuine same-native four profiles all invocation/physicalcleanup timeout. Candidate NOT accepted. Source-supported process_info control-admission cycle matches independent actual watchdog, not a696barrier.",
+    "Full20AuditFindings": [
+      "Source capturedK lambda stack arity0vs1, callable remains0; candidate pending",
+      "Five system_info build/configuration metadata keys badarg; truthful metadata implementation needed",
+      "Original dirtyCPU2/IO10 versus current1/1 requires explicit matched profile",
+      "Original erl_eval/init launch context differs; new shared compiled worker required on BOTH",
+      "Prepared-BEAM capture driver lacked real OtpModules.Register, creating proc_lib:set_label undef; copied driver corrected and four routes recaptured, runtime unchanged"
+    ],
+    "GenuineNativeFailureSummary": "artifacts/statistics-full/queued-walltime-native-failure-summary.json",
+    "ControlWaitFix": "Applied exact6 guarded targets. Services real target controls, saves/restores genuine waiting state, drains exact admitted completion after cancellation/error per existing SystemCheck431 pattern. New3 andcomposed64/64PASS; actualnative4profiles recover without altered fixtures/deadlines.",
+    "CurrentDirtyComposition": "artifacts/statistics-full/control-wait-composition.json",
+    "CurrentDirtyCompositionSha256": "825FE270280BD03BFFA3A3344889CE780A12FA366B790BCE8611A3A39A6950C6",
+    "NativeWalltimeAfterControlFix": {
+      "Report": "artifacts/statistics-full/native-control-four-route-audit.json",
+      "Sha256": "17FD05D79CEB469A8E119CEB930D28AD8E962B2DB4D8CCD5F7E35253212E71F9",
+      "Captured15Times4": 60,
+      "ActualImageRuntimeOsCleanupRoutes": 4,
+      "WalltimePhaseMatches": 28,
+      "BeforeDiagnosticPhaseMismatches": 48,
+      "AfterDiagnosticPhaseMismatches": 24,
+      "RemainingPhases": "Six MSACC modes per four profiles; this24 is phase-case count, NOT the24 Known MFA ledger",
+      "WholeValueStackAccepted": false
+    },
+    "NormalWorkerOwnership": "Source and complete retained observations show current transient Pump scopes omit normal idle lifetime; cannot fabricate Sleep after returning pooled OS thread. Actual persistent VM-owned worker lifecycle/readiness/rollback/exit joining is now a concrete MSACC foundation gate.",
+    "WalltimeUnitsAudit": "Pinned SWT uses raw Windows QPC/OS monotonic units (low10bits quantized); MSACC/perf_counter is separate ns conversion. No100x mixed-clock defect or conversion patch claimed. Source/retained evidence in external batch735.",
+    "SharedControllerCapture": {
+      "Original": "artifacts/statistics-full/shared-original-01/completion.json",
+      "OriginalSha256": "07F7E6EDF1077AF39F8B82D9293EC964C77B0DAAAFBD793E569659AC2B1EF617",
+      "Managed": "artifacts/statistics-full/shared-managed-02/completion.json",
+      "RoutesAcquired": 6,
+      "RaisedOutcomesPerRoute": 125,
+      "NormalDirtyProfileMatched": true,
+      "AsyncPoolProfileAccepted": false,
+      "PassiveAudit": "artifacts/statistics-full/shared-passive02/summary.json",
+      "WholeAccepted": false,
+      "All125FrameTailsExactOnAll6": true,
+      "SourceLineDifferencesClosed": 54,
+      "OwnSubjectsForwardedExactly": true,
+      "All20ShapeLaws": true
+    },
+    "WorkerCandidate": {
+      "Composition": "artifacts/statistics-full/worker-integration01/composition.json",
+      "AppliedFiles": 13,
+      "AcceptanceExecuted": true,
+      "PhysicalLifecycle": {
+        "Report": "artifacts/statistics-full/lifecycle-isolated-execution03/partial.json",
+        "GroupsPassed": 5,
+        "Variants": 11,
+        "WholeStatisticsAccepted": false
+      }
+    },
+    "WorkerDependencyRegression": {
+      "Report": "artifacts/statistics-full/worker-dependency16-01/partial.json",
+      "Passed": 16,
+      "Selected": 16,
+      "Partial": true
+    },
+    "MsaccQueuedProtocol": {
+      "Applied": "artifacts/statistics-full/msacc-integration01/application.json",
+      "ExperimentalNativeReplay": "artifacts/statistics-full/msacc-native-experimental01/capture/completion.json",
+      "OriginalDllAndBeamsReused": true,
+      "CasesPassed": 15,
+      "PhaseMatches": 15,
+      "FullQueryInfoMatches": 0,
+      "PhaseAudit": "artifacts/statistics-full/msacc-native-experimental01/phase-audit.json",
+      "WholeAccepted": false
+    },
+    "CurrentSourceCorrections": [
+      "True physical persistent normal-worker sleep/CPU lifecycle, eager dirty readiness, independent constructor rollback; lifecycle5groups/11variants executed.",
+      "Requested flag, instrumentation gate, and each actual normal-thread attachment now separate; real queued normal callbacks replace immediate MSACC completion.",
+      "Actual partial dirty Thread.Start failure retained through close/join, deterministic Windows environment cleanup.",
+      "Compiled comprehension owner location uses actual first generated helper generator annotation; live process stack keeps existing actual frame source metadata. Full recapture pending."
+    ],
+    "WorkerIdentityCandidate": {
+      "Applied": "artifacts/statistics-full/worker-identity-integration01/application.json",
+      "ConfiguredPerKindIds": true,
+      "DeterministicReverseBirthTests": 3,
+      "Accepted": false
+    },
+    "LaterAffectedReceipts": [
+      {
+        "Report": "artifacts/statistics-full/worker-identity-partial90-01/partial.json",
+        "Passed": 90,
+        "Selected": 90,
+        "WholeAcceptance": false
+      },
+      {
+        "Report": "artifacts/statistics-full/inline-binary-partial93-01/partial.json",
+        "Passed": 93,
+        "Selected": 93,
+        "WholeAcceptance": false,
+        "SourceDllHashesUnchangedDuringRun": true
+      }
+    ],
+    "BroaderDependencyRegression": {
+      "Selected": 753,
+      "Shard1": "440/443",
+      "Shard2": "299/310 observed; process exceeded owned bound; not accepted",
+      "AllPassed": false,
+      "RootCleanup": "Successful verified query found recorded root already exited",
+      "Prior87Baseline": "Four selected persistent/insert/mailbox failures reproduced0/4 on authenticated prior runtime",
+      "ShortRefcShape": "New exact physical view control RED then GREEN after excluding actual reference backing",
+      "PublicBoundaryWitness": "Two actual pre-Put captures equal Host values but independent wrappers; repeated Host children copied independently before codec",
+      "Remaining": "two timeouts, BEAM context flow, seven sandbox EACCES child cases; four prerequisite fixes awaiting coherent validation",
+      "FourPrerequisites": "Fixed and actual99 affected controls passed; original prior failures retained"
+    },
+    "LatestAffected": {
+      "Passed": 259,
+      "Selected": 259,
+      "Report": "docs/validation/part-548/affected259/partial.json",
+      "InputIntegrity": "docs/validation/part-548/affected259/input-integrity.json",
+      "SourceCount": 386,
+      "WholeAcceptance": false
+    },
+    "ExactPinComparison": "Fresh OTP and managed whole5-case integer/atom/list term equal; formatter whitespace only differs",
+    "GenuineHelperComponents": {
+      "Passed": 7,
+      "Selected": 7,
+      "ActualErrorIdentityVariants": 3,
+      "Report": "artifacts/statistics-full/trap756-components-green01/partial.json",
+      "NativeCaptures": "All71 full-image stubs captured;14 new private bindings use authentic existing handlers, no public export publication",
+      "ContinuationCounterControl": "Fresh pinned original2 cases; before same-PC RED and distinct-PC GREEN both profiles; final all4 whole outcomes pass",
+      "PrivateImageFullCodeValidation": true
+    },
+    "FinalLayout": {
+      "Sources": 386,
+      "Changed": 41,
+      "ExactRoslynTokenEquality": true,
+      "SyntaxErrors": 0,
+      "Proof": "artifacts/statistics-full/mailbox-group-layout02",
+      "ReleaseBuildWarnings": 0,
+      "ReleaseBuildErrors": 0
+    },
+    "NativeHelperReplay": {
+      "Acquisitions": 60,
+      "CompleteQueryInfoExactAgainstRetainedReference": 60,
+      "Report": "artifacts/statistics-full/trap-native-probe02/comparison-summary.json",
+      "FinalStyledBinaryRecapturePending": true,
+      "FreshMatchedReference": "artifacts/statistics-full/normal-ack-matched-original-01/completion.json",
+      "FreshMatchedCompleteQueryInfo": 14,
+      "CasesPerRoute": 15,
+      "UnresolvedObservation": "reset-disabled running/msglen1 vswaiting/msglen0; genuine source-defined control/ACK race; first full records retained",
+      "WorkerProfileGap": "matched OTP normal2/cpu1/io1/aux1/poll1/async1; managednormal2/cpu1/io1/aux1",
+      "WholeAccepted": false
+    },
+    "BinaryBacking": {
+      "EmptyHeapBits": "Actual0x60/two-word storage; physical/readerRED then4controlsPASS",
+      "ImmutableRefc": "Actual native Binary prefix/payload +BinRef/SubBits, real getter/lease/transfer/close integration;6focusedPASS",
+      "UnamendedRegression": "4/6; writer preservation andSourceinsert/pin failed",
+      "WritableSafety": "Real writable-origin producer excluded from immutable capture; no fake allocation/reclaim count",
+      "WritableNativeProducerAndGcPolicy": "Physical lifecycle/9bit/realclose accepted; complete original worker includingfullstacks/allvalues matches4/4 finalSource/BEAM/profile routes",
+      "ComposedReleaseBuild": "zero warnings/errors",
+      "FinalNewSourceLayoutAndBroaderRegressions": "265 exact token/syntax proofs and styled Release112 PASS; broader/profile/Linux/fullCI pending",
+      "PublicGarbageSelectorSwitched": false
+    },
+    "FunctionBacking": {
+      "CanonicalBirth": "Real RED then GREEN both profiles",
+      "ImportedEnvironment": "Actual callable copied environment, dictionary and reclaim control passes both profiles",
+      "OpaqueExportCorrection": "Bound zero-env function is detached; actual682 timeout RED then GREEN; no timeout increase"
+    },
+    "IdentifierBacking": {
+      "PhysicalGroupsPassed": 3,
+      "FreshOriginalRecords": 7,
+      "MatchedBackendProfileRoutes": 4,
+      "All28WholeRecordsEqual": true,
+      "Report": "artifacts/statistics-full/identifier-original01/copyread-summary.json"
+    },
+    "PendingMailboxRootIntegration": {
+      "Activated": "742pluspreservation and761earlyself",
+      "FocusedPassed": 4,
+      "MeaningfulBaseline": "0/2 physicalEntry unbacked; preserved",
+      "Remaining": "Otherraw/pending/system/signal/alias/port/distribution/tracing/timer andqueueconversion producers",
+      "WholeAccepted": false
+    },
+    "CurrentRootGaps": [
+      "Remaining actual mailbox/signal/mode-conversion producers",
+      "Actual sequence token/label storage andtransport",
+      "NativeRecordTerm instance/definition representation",
+      "ForeignGroupLeader actualpersistentroot"
+    ],
+    "SeparateMissingFeaturesNotExistingRootLoss": [
+      "Absent process parent metadata/API support",
+      "Canonical VMglobalexternalfunction nativeABI",
+      "Unclosed async/pollCPU/MSACC attribution"
+    ],
+    "GroupLeaderRoot": {
+      "PhysicalPassed": 2,
+      "WholeOriginalRoutesPassed": 4,
+      "AllPhysicalCloseRequired": true
+    },
+    "PublicGarbageSelectorSwitched": false,
+    "PublicObservationIdentity": {
+      "FirstBroad": "127/131, actual3identity plus1constructor regressions",
+      "RepairedBroad": "131/131",
+      "FinalUnion": "259/259",
+      "AssertionsWeakened": false
+    },
+    "CiSourceClosure": {
+      "Targets": 22,
+      "SourceGuards": 4421,
+      "InputRows": 14105,
+      "CodeOrHistoricalEvidenceChanged": false,
+      "FreshExactHeadCiAccepted": false
+    },
+    "Part549": {
+      "RecordAndPendingControls": {
+        "Passed": 7,
+        "Selected": 7
+      },
+      "MailboxProducerControls": {
+        "Passed": 21,
+        "Selected": 21
+      },
+      "CompleteOriginalTermAndEtfRoutes": {
+        "Passed": 8,
+        "Selected": 8
+      },
+      "ExpandedRegressionAccepted": true,
+      "Receive576BeforeMilliseconds": 30399,
+      "Receive576BeforeTimedOut": true,
+      "Receive576AfterBodyMilliseconds": 15248,
+      "Receive576AllGoldenValuesAndBytesEqual": true,
+      "OriginalHarness15sAccepted": true,
+      "PublicGcSelectorSwitched": false,
+      "TokenCandidatesActivated": false,
+      "ExpandedRegressionCases": 365,
+      "FullTermAndEtfOriginalRoutes": 24,
+      "Receive576HarnessMilliseconds": 11739,
+      "SourceFilesUnchangedDuringRegression": 108,
+      "DllFilesUnchangedDuringRegression": 24,
+      "CITransportStillOpen": false,
+      "NormalTransportSeconds": 22.953,
+      "CurrentHeadCiStillRequired": true
+    },
+    "Part550": {
+      "AffectedPassed": 367,
+      "PackageGroupsPassed": 6,
+      "WholeOriginalTermAndEtfRoutes": 28,
+      "Catalog": 9574,
+      "NewTests": 2,
+      "SourceDllFingerprintsUnchanged": 106,
+      "RoslynFiles": 13,
+      "PublicGcSelectorSwitched": false,
+      "ExactPublicationHeadCiRequired": true,
+      "ApiDelta": 0,
+      "FullContractDelta": 0
+    }
+  }
+}

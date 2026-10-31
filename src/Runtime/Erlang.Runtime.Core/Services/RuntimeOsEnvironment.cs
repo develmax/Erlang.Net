@@ -10,9 +10,9 @@ internal sealed partial class RuntimeOsEnvironment : IDisposable
     private RuntimeOsEnvironment(IReadOnlyList<KeyValuePair<string, string>> initial)
     {
         locale = new();
-        tree = new(locale);
         try
         {
+            tree = new(locale);
             foreach (var entry in initial) tree.Put(entry.Key, entry.Value);
         }
         catch

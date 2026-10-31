@@ -18,6 +18,9 @@ internal sealed partial class OwnedTermInvocation506
 
     internal static Term AdmitNativeStoredResultSelected594(Term value, AtomicsHostCopyTransaction591? transaction)
     {
+        if (Active is not { IsDisposed: false }
+            && value is BitString { ResourceBacking577.NativeStorage524: OrdinaryBinaryBacking ordinary } binary)
+            return ordinary.ExportPortable(binary);
         if (value is ResourceReferenceTerm { ResourceKind: ReferenceResourceKind.Counters421 } counters
             && CountersRoots596.Direct596(counters) is { } countersBacking)
             return AdmitRehydratedCountersSelected596(counters, countersBacking, transaction);

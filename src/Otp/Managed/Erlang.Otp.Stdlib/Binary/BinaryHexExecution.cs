@@ -59,7 +59,7 @@ internal static class BinaryHexExecution
                     index
                 );
             }
-            accumulator = BitString.FromValidatedAppend(
+            accumulator = context.AppendGuestBinary(
                 accumulator,
                 BitString.FromOwnedBytes(output.AsSpan(0, firstBytes * BinaryWrapperSource.HexWidth).ToArray())
             );
@@ -82,7 +82,7 @@ internal static class BinaryHexExecution
                     digits,
                     index
                 );
-                accumulator = BitString.FromValidatedAppend(
+                accumulator = context.AppendGuestBinary(
                     accumulator,
                     BitString.FromOwnedBytes(output.AsSpan(0, (index + 1) * BinaryWrapperSource.HexWidth).ToArray())
                 );
@@ -144,7 +144,7 @@ internal static class BinaryHexExecution
                 output[index / BinaryWrapperSource.HexWidth] = (byte)((high << BinaryWrapperSource.NibbleBits) | low);
             }
             if (valid)
-                accumulator = BitString.FromValidatedAppend(
+                accumulator = context.AppendGuestBinary(
                     accumulator,
                     BitString.FromOwnedBytes(output.AsSpan(0, firstBytes / BinaryWrapperSource.HexWidth).ToArray())
                 );
@@ -175,7 +175,7 @@ internal static class BinaryHexExecution
                     output[outputIndex] |= (byte)digit;
                 int bits = (index + 1) * BinaryWrapperSource.NibbleBits;
                 int bytes = (bits + BinaryWrapperSource.BitsPerByte - 1) / BinaryWrapperSource.BitsPerByte;
-                accumulator = BitString.FromValidatedAppend(
+                accumulator = context.AppendGuestBinary(
                     accumulator,
                     new BitString(output.AsSpan(0, bytes), bits)
                 );

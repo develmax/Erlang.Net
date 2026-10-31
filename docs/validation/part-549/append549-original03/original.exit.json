@@ -1,0 +1,26 @@
+{
+  "Command": [
+    "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library376-official-compiler\\installed\\bin\\erl.exe",
+    "+S",
+    "2:2",
+    "+SDcpu",
+    "1:1",
+    "+SDio",
+    "1",
+    "+A",
+    "1",
+    "-noshell",
+    "-pa",
+    "D:\\Distr\\Work\\Codex\\Erlang.Net\\w546\\artifacts\\statistics-full\\append549-original03",
+    "-eval",
+    "V=append_root_capture:run(),ok=file:write_file(\"D:/Distr/Work/Codex/Erlang.Net/w546/artifacts/statistics-full/append549-original03/original.etf\",term_to_binary(V,[{minor_version,2}])),io:format(\"~p~n\",[V]),halt(0)."
+  ],
+  "Pid": 50644,
+  "ElapsedSeconds": 0.15700000000651926,
+  "TimedOut": false,
+  "Settled": true,
+  "ExitCode": 0,
+  "Failures": [],
+  "StdoutSha256": "305FB0301BC0C8C0A42311E9767880FC339870A3C945C7B9B0C615E869F7907D",
+  "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+}

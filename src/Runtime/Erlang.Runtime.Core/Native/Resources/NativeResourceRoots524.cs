@@ -1,6 +1,6 @@
 namespace Erlang;
 
-internal static class NativeResourceRoots524
+internal static partial class NativeResourceRoots524
 {
     internal static void DisposeGuestGraph593(IDisposable? selected)
     {
@@ -33,6 +33,9 @@ internal static class NativeResourceRoots524
     }
 
     internal static bool Contains524(Term source)
+        => OrdinaryBinaryRoots.Contains(source) || ContainsNativeResourceOnly524(source);
+
+    internal static bool ContainsNativeResourceOnly524(Term source)
     {
         if (!NativeResourceAddresses524.AnyLive524) return false;
         var traversal = new ResourceRootTraversal595(source);
@@ -45,7 +48,7 @@ internal static class NativeResourceRoots524
         return false;
     }
 
-    internal static IDisposable? RetainGraph524(
+    private static IDisposable? RetainGraphBeforeOrdinaryBinary(
         Term source,
         ProcessRuntime? expected = null,
         bool skipOwnedMagic576 = false,

@@ -4,6 +4,14 @@ internal static class BeamRegisterValidation
 {
     public static void Validate(BeamLinkedCode code, BeamLinkedFunction entry)
     {
+        PreparedBeamValidationCache.TryGet(code, out PreparedBeamValidationCertificate? certificate);
+        if (certificate?.HasSuccess(entry) == true) return;
+        ValidateCore(code, entry);
+        certificate?.RecordSuccess(entry); // Failures are never memoized.
+    }
+
+    private static void ValidateCore(BeamLinkedCode code, BeamLinkedFunction entry)
+    {
         if (code.Lambdas.Count != 0)
         {
             _ = BeamChecksumReader.Read(code);
@@ -47,7 +55,14 @@ internal static class BeamRegisterValidation
                 var operands = instruction.Operands;
                 switch (instruction.Definition.Name)
                 {
+                    case BeamNativeRecordAccessNames.Elements:
+                        Branch(code, function, operands[0]);
+                        Source(operands[1]);
+                        for (int field = 3; field < operands.Count; field += 2)
+                            Destination(operands[field + 1]);
+                        break;
                     case BeamRecordConstructionNames.Opcode:
+                        Source(operands[BeamRecordConstructionNames.Source]);
                         Live(operands[BeamRecordConstructionNames.Live]);
                         for (int field = BeamRecordConstructionNames.FirstField; field < operands.Count; field += BeamRecordConstructionNames.FieldWidth)
                             Source(operands[field + 1]);

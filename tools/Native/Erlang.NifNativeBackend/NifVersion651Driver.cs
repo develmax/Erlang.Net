@@ -5,7 +5,7 @@ namespace Erlang.NifNativeBackend;
 
 internal static class NifVersion651Driver
 {
-    internal static async Task Run(string[] arguments)
+    internal static async Task Run(string[] arguments, bool normalNativePhysical697 = false)
     {
         NifNativeHarness.Require((OperatingSystem.IsWindows() || OperatingSystem.IsLinux()) && arguments.Length == 3);
         bool linux = OperatingSystem.IsLinux();
@@ -15,6 +15,9 @@ internal static class NifVersion651Driver
         JsonElement plan = document.RootElement;
         string status = Text(plan, NifVersion651DriverNames.StatusField);
         bool module690 = status == NifModuleText690Names.Admission;
+        if (normalNativePhysical697)
+            NifNativeHarness.Require(!module690
+                && Text(plan, NifVersion651DriverNames.IdField) == NormalNative697PhysicalNames.NativeCase);
         NifNativeHarness.Require(module690 || status == NifVersion651DriverNames.Admission);
         string subject = module690 ? Module690(Text(plan, NifModuleText690Names.CaseField)) : NifVersion651DriverNames.Module;
         string observer = module690 ? NifModuleText690Names.Observer : NifVersion651DriverNames.Observer;
@@ -131,6 +134,14 @@ internal static class NifVersion651Driver
                 observed = true;
             }
             );
+            if (normalNativePhysical697)
+            {
+                await NormalNative697PhysicalChecks.RunLoaded(owner, imageOwner, libraryHash);
+                File.WriteAllText(
+                    Path.Combine(output, NormalNative697PhysicalNames.Receipt),
+                    JsonSerializer.Serialize(new { Passed = true, LibrarySha256 = libraryHash, Route = route })
+                );
+            }
         }
         catch (Exception error)
         {

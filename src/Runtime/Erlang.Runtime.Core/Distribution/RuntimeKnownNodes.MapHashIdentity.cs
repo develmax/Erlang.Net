@@ -58,7 +58,7 @@ internal sealed partial class RuntimeKnownNodes
 
     private bool MapHashEpochRetained(string node, uint creation)
     {
-        if (reservedEpochs.ContainsKey((node, creation)))
+        if (HasPhysicalNodeEpoch(node, creation) || reservedEpochs.ContainsKey((node, creation)))
             return true;
         if (!nodes.TryGetValue(node, out var references))
             return false;

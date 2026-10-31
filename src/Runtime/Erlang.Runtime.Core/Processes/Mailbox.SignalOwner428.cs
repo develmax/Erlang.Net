@@ -34,14 +34,20 @@ public sealed partial class Mailbox
         ArgumentOutOfRangeException.ThrowIfNegativeOrZero(budget);
         var admitted = new List<(Term Message, Term? From)>();
         int processed = 0;
-        bool deferred = false, remaining;
+        bool deferred = false, backing = false, remaining;
         lock (gate)
         {
             if (Volatile.Read(ref closed593) || HaltRequested?.Invoke() == true) return new(0, false, false);
+            if (policyMoveReady) return new(0, false, pendingSignals428.Count != 0) { PolicyMove = true };
             var originalTail = pendingSignals428.Last;
             while (processed < budget && pendingSignals428.First is { } index)
             {
                 var node = index.Value;
+                if (node.Value.PendingBacking)
+                {
+                    backing = true;
+                    break;
+                }
                 if (node.Value.Deferred)
                 {
                     deferred = true;
@@ -78,25 +84,39 @@ public sealed partial class Mailbox
                 }
                 // Reentrant callbacks may remove the original tail. Conservatively
                 // yield before newly appended signals instead of chasing them forever.
-                if (reachedTail || originalTail?.List is null) break;
+                if (policyMoveReady || reachedTail || originalTail?.List is null) break;
             }
             remaining = !Volatile.Read(ref closed593) && pendingSignals428.Count != 0;
         }
         foreach (var item in admitted) MessageAdmitted?.Invoke(item.Message, item.From);
 
-        return new(processed, deferred, remaining);
+        return new(processed, deferred, remaining) { PendingBacking = backing, PolicyMove = policyMoveReady };
     }
 
-    internal MailboxDeferredPreparation? ClaimDeferredBounded428()
+    internal MailboxDeferredPreparation? ClaimDeferredBounded428() => ClaimDeferredBoundedCore(false);
+
+    internal MailboxDeferredPreparation? ClaimDeferredBoundedForBacking() => ClaimDeferredBoundedCore(true);
+
+    private MailboxDeferredPreparation? ClaimDeferredBoundedCore(bool outerRelease)
     {
         lock (gate)
         {
-            if (Volatile.Read(ref closed593) || pendingSignals428.First is not { } first) return null;
+            if (Volatile.Read(ref closed593) || outerRelease && policyMoveReady || pendingSignals428.First is not { } first) return null;
             var node = first.Value;
             if (!node.Value.Deferred || node.Value.DeferredPreparation is not { } prepare) return null;
-            node.Value = node.Value with { DeferredPreparation = null };
+            var claim = new MailboxDeferredPreparation(
+                prepare,
+                result => CompleteDeferred(node, result),
+                outerRelease ? node.Value.DeferredRelease : null,
+                outerRelease && AllowsDeferredBacking(node.Value.DistributionTraceToken)
+            );
+            node.Value = node.Value with
+            {
+                DeferredPreparation = null,
+                DeferredRelease = outerRelease ? null : node.Value.DeferredRelease
+            };
 
-            return new(prepare, result => CompleteDeferred(node, result));
+            return claim;
         }
     }
 

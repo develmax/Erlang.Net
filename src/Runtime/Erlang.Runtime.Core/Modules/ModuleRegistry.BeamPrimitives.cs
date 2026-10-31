@@ -7,6 +7,7 @@ public sealed partial class ModuleRegistry
     internal IReadOnlyDictionary<(string Function, int Arity), ErlangFunction> CaptureBeamPrimitives(BeamLinkedCode code)
     {
         var primitives = new Dictionary<(string Function, int Arity), ErlangFunction>();
+        var unavailable = new List<BeamLinkedFunction>();
         var owned507 = owningRuntime is not null
             ? new Dictionary<ErlangFunction, OwnedBindingKind507>(ReferenceEqualityComparer.Instance) : null;
         lock (gate)
@@ -19,7 +20,7 @@ public sealed partial class ModuleRegistry
                     ErlangFunction canonical = functions[signature];
                     primitives.Add((function.Name, function.Arity), canonical);
                     OwnedBindingKind507 kind = SelectedOwnedBinding507(signature, canonical);
-                    if (owned507 is not null && kind is OwnedBindingKind507.PureAliasRead or OwnedBindingKind507.LocalDictionary or OwnedBindingKind507.RuntimeRead535)
+                    if (owned507 is not null && kind is OwnedBindingKind507.PureAliasRead or OwnedBindingKind507.LocalDictionary or OwnedBindingKind507.RuntimeRead535 or OwnedBindingKind507.LocalMessage or OwnedBindingKind507.LocalListAppend)
                         owned507[canonical] = kind;
                 }
                 else if (sourceOwners.GetValueOrDefault(signature) is PreparedBeamImage previous
@@ -28,7 +29,7 @@ public sealed partial class ModuleRegistry
                 {
                     primitives.Add((function.Name, function.Arity), primitive);
                     OwnedBindingKind507 kind = NativeBorrowKind507(previous.ExecutionIdentity, primitive);
-                    if (owned507 is not null && kind is OwnedBindingKind507.PureAliasRead or OwnedBindingKind507.LocalDictionary or OwnedBindingKind507.RuntimeRead535)
+                    if (owned507 is not null && kind is OwnedBindingKind507.PureAliasRead or OwnedBindingKind507.LocalDictionary or OwnedBindingKind507.RuntimeRead535 or OwnedBindingKind507.LocalMessage or OwnedBindingKind507.LocalListAppend)
                         owned507[primitive] = kind;
                 }
                 else if (!functions.ContainsKey(signature) && !sourceOwners.ContainsKey(signature)
@@ -477,9 +478,40 @@ public sealed partial class ModuleRegistry
                         out ErlangFunction allocatorGather434
                     ))
                     primitives.Add((function.Name, function.Arity), allocatorGather434);
+                else if (!functions.ContainsKey(signature) && !sourceOwners.ContainsKey(signature)
+                    && InternalBootstrapNativeCapture.TryCapture(
+                        owningRuntime,
+                        this,
+                        signature.Module,
+                        signature.Name,
+                        signature.Arity,
+                        out ErlangFunction bootstrapPrimitive,
+                        out OwnedBindingKind507 bootstrapKind
+                    ))
+                {
+                    primitives.Add((function.Name, function.Arity), bootstrapPrimitive);
+                    if (owned507 is not null && bootstrapKind != OwnedBindingKind507.Opaque)
+                        owned507[bootstrapPrimitive] = bootstrapKind;
+                }
                 else
-                    throw new NotSupportedException(BeamRegisterNames.Unsupported);
+                    unavailable.Add(function);
             }
+        }
+
+        if (unavailable.Count != 0)
+        {
+            BeamLinkedFunction first = unavailable[0];
+            throw new NotSupportedException(BeamRegisterNames.Unsupported)
+            {
+                Data =
+                {
+                    [nameof(BeamLinkedFunction.Module)] = first.Module,
+                    [nameof(BeamLinkedFunction.Name)] = first.Name,
+                    [nameof(BeamLinkedFunction.Arity)] = first.Arity,
+                    [BeamRegisterNames.UnavailableNativePrimitives] = Array.AsReadOnly(unavailable
+                        .Select(function => new BeamFunctionSignature(function.Name, function.Arity)).ToArray())
+                }
+            };
         }
 
         var captured = primitives.ToFrozenDictionary();

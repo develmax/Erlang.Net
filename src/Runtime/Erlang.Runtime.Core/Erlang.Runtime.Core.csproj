@@ -14,4 +14,9 @@
     <Error Condition="!Exists('runtimes/win-x64/native/Erlang.Nif.WindowsVariadic.dll')"
            Text="Build/install the Windows NIF variadic runtime asset before packaging Erlang.Runtime.Core." />
   </Target>
+  <ItemGroup>
+    <EmbeddedResource Include="../../Otp/Original/Foundation/Erlang.Otp.Erts.Beam/Otp/ebin/erts_internal.beam" LogicalName="Erlang.Runtime.PinnedOtp.erts_internal.beam" />
+    <EmbeddedResource Include="../../Otp/Original/Foundation/Erlang.Otp.Erts.Beam/Otp/src/erts_internal.erl" LogicalName="Erlang.Runtime.PinnedOtp.erts_internal.erl" />
+    <EmbeddedResource Include="../../Otp/Original/Foundation/Erlang.Otp.Erts.Beam/provenance.json" LogicalName="Erlang.Runtime.PinnedOtp.erts_internal.provenance.json" />
+  </ItemGroup>
 </Project>

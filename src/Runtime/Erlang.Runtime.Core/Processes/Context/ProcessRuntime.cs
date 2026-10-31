@@ -172,8 +172,29 @@ public sealed partial class ProcessRuntime : IAsyncDisposable
         RuntimeStandardStreams? standardStreams,
         int maximumActorConcurrency,
         ProcessRuntimeOptions options
+    ) : this(
+        node,
+        output,
+        maximumProcesses,
+        standardStreams,
+        maximumActorConcurrency,
+        options,
+        null
     )
     {
+    }
+
+    internal ProcessRuntime(
+        string node,
+        TextWriter? output,
+        int maximumProcesses,
+        RuntimeStandardStreams? standardStreams,
+        int maximumActorConcurrency,
+        ProcessRuntimeOptions options,
+        RuntimeWorkerCreationPolicy? creation
+    )
+    {
+        workerCreation = creation;
         ArgumentNullException.ThrowIfNull(options);
         ArgumentOutOfRangeException.ThrowIfLessThan(options.DirtyIoSchedulerCount, DirtyNativePoolParameters522.MinimumIoWorkers, nameof(options.DirtyIoSchedulerCount));
         ArgumentOutOfRangeException.ThrowIfGreaterThan(options.DirtyIoSchedulerCount, DirtyNativePoolParameters522.MaximumIoWorkers, nameof(options.DirtyIoSchedulerCount));
@@ -188,35 +209,56 @@ public sealed partial class ProcessRuntime : IAsyncDisposable
         ArgumentOutOfRangeException.ThrowIfNegativeOrZero(maximumActorConcurrency);
         processSlots = new(maximumProcesses);
         OsEnvironment = OperatingSystem.IsWindows() ? RuntimeOsEnvironment.CaptureWindows() : null;
-        actorDispatcher = new(maximumActorConcurrency);
-        AtomNameRegistry.Observe(node);
-        ConfiguredNode = node;
-        LocalIdentity = new(ProcessNodeDefaults.Local);
-        ReferenceResources = new(Modules, LocalIdentity);
-        KnownNodes = new(LocalIdentity, TryGetDistributionEntryIdentity, AtomNames.Observe);
-        Modules.AttachRuntime(this);
-        Output = output ?? Console.Out;
-        ownsStandardStreams = standardStreams is null;
-        StandardStreams = standardStreams ?? RuntimeStandardStreams.Open();
-        Timers = new(this, gate);
-        Suspensions = new(gate, processes, Timers);
-        SystemMonitoring = new(this, gate, processes);
-        Ports = new(this, gate);
-        SequenceTracing = new(this, gate, processes);
-        SystemProfiling = new(this, gate, processes);
-        ProcessTracing = new(this, gate, processes);
-        var initial = new ProcessContext(this, new Pid(LocalIdentity, InitializationNames.ProcessId))
+        try
         {
-            IsSystemProcess = true
-        };
-        InitializationPid = initial.Self;
-        processes.Add(initial.Self, initial);
-        RegisterOwnedTermContext506(initial);
-        processSlots.Add(initial.Self);
-        initializer = new(initial);
-        initial.ExecutionStarted = true;
-        initializer.Start();
-        ClrMemorySources.Register(this);
+            workerCreation?.ConstructorCheckpoint(RuntimeWorkerCreationNames.BeforeDispatcher, this);
+            actorDispatcher = new(
+                maximumActorConcurrency,
+                Statistics.UserCpu,
+                Statistics.Microstates,
+                true,
+                workerCreation
+            );
+            workerCreation?.ConstructorCheckpoint(RuntimeWorkerCreationNames.BeforeAtoms, this);
+            AtomNameRegistry.Observe(node);
+            ConfiguredNode = node;
+            LocalIdentity = new(ProcessNodeDefaults.Local);
+            ReferenceResources = new(Modules, LocalIdentity);
+            KnownNodes = new(LocalIdentity, TryGetDistributionEntryIdentity, AtomNames.Observe);
+            Modules.AttachRuntime(this);
+            Output = output ?? Console.Out;
+            ownsStandardStreams = standardStreams is null;
+            StandardStreams = standardStreams ?? RuntimeStandardStreams.Open();
+            workerCreation?.ConstructorCheckpoint(RuntimeWorkerCreationNames.AfterStreams, this);
+            Timers = new(this, gate);
+            Suspensions = new(gate, processes, Timers);
+            SystemMonitoring = new(this, gate, processes);
+            Ports = new(this, gate);
+            SequenceTracing = new(this, gate, processes);
+            SystemProfiling = new(this, gate, processes);
+            ProcessTracing = new(this, gate, processes);
+            var initial = new ProcessContext(this, new Pid(LocalIdentity, InitializationNames.ProcessId))
+            {
+                IsSystemProcess = true
+            };
+            InitializationPid = initial.Self;
+            processes.Add(initial.Self, initial);
+            RegisterOwnedTermContext506(initial);
+            processSlots.Add(initial.Self);
+            initializer = new(initial);
+            StartActualWorkersBeforeInitialization();
+            workerCreation?.ConstructorCheckpoint(RuntimeWorkerCreationNames.BeforeInitializer, this);
+            initializer.Start();
+            workerCreation?.ConstructorCheckpoint(RuntimeWorkerCreationNames.BeforeClrRegistration, this);
+            ClrMemorySources.Register(this);
+        }
+        catch (Exception startup)
+        {
+            Exception failure = RollbackInitializationWorkers(startup);
+            if (ReferenceEquals(failure, startup))
+                throw;
+            throw failure;
+        }
     }
 
     public ProcessHandle Spawn(Func<ProcessContext, ValueTask<Term>> body, ProcessContext? parent = null, bool link = false)
@@ -676,6 +718,7 @@ public sealed partial class ProcessRuntime : IAsyncDisposable
         ObserveIncomingTerm(message);
         if (Volatile.Read(ref haltResult) is not null)
             throw new ObjectDisposedException(nameof(ProcessRuntime));
+        if (TrySendBackedLocalAsync(target, message).GetAwaiter().GetResult()) return message;
         lock (gate)
         {
             if (processes.TryGetValue(target, out var p))
@@ -706,6 +749,7 @@ public sealed partial class ProcessRuntime : IAsyncDisposable
         Term? destination = null
     )
     {
+        if (TrySendBackedLocalAsync(target, message, sender).GetAwaiter().GetResult()) return message;
         lock (gate)
         {
             ProcessTracing.Sent(
@@ -819,12 +863,12 @@ public sealed partial class ProcessRuntime : IAsyncDisposable
         return new Pid(LocalIdentity, encoded >> ProcessAliasLayout.PidTagBits);
     }
 
-    internal void AdmitSignals(ProcessContext owner)
+    private void AdmitSignalsCore(ProcessContext owner)
     {
         using var signalOwner428 = TryBeginSignalOwner428(owner);
         if (signalOwner428 is null) return;
         using var outputTransfer = distributionPending?.BeginOutputTransfer();
-        if (owner.DeferredSignalDrain is { } drain && (drain.IsCurrent || owner.Mailbox.HasDeferredPending))
+        if (owner.DeferredSignalDrain is { } drain && (drain.IsCurrent || owner.Mailbox.HasDeferredPending || owner.Mailbox.HasPendingBacking))
         {
             if (drain.IsCurrent)
                 return;
@@ -859,7 +903,19 @@ public sealed partial class ProcessRuntime : IAsyncDisposable
     public Pid GetGroupLeader(ProcessContext owner)
     {
         lock (gate)
-            return RequireAlive(owner.Self).GroupLeader;
+            return RequireAlive(owner.Self).SnapshotGroupLeader();
+    }
+
+    internal Pid GetGuestGroupLeader(ProcessContext owner)
+    {
+        lock (gate)
+        {
+            ProcessContext alive = RequireAlive(owner.Self);
+
+            return owner.CurrentOwned506 is { CanBorrow507: true } invocation
+                && invocation.OwnsContext507(owner) && RuntimeActorExecutionTurn.IsOwnedBy(owner)
+                ? alive.GroupLeader : alive.SnapshotGroupLeader();
+        }
     }
 
     public bool SetGroupLeader(Pid leader, Pid target)
@@ -964,7 +1020,7 @@ public sealed partial class ProcessRuntime : IAsyncDisposable
                     ProcessInfoNames.Links => Cons.From(process.Links.Cast<Term>().Concat(process.PortLinks)),
                     ProcessInfoNames.PriorityMessages => Term.A(PriorityPermissionCount(process) != 0 ? ErlangBooleanAtoms.True : ErlangBooleanAtoms.False),
                     ProcessInfoNames.TrapExit => Term.A(process.TrapExits ? ErlangBooleanAtoms.True : ErlangBooleanAtoms.False),
-                    ProcessInfoNames.GroupLeader => process.GroupLeader,
+                    ProcessInfoNames.GroupLeader => process.SnapshotGroupLeader(),
                     ProcessInfoNames.LastCalls => process.SavedCalls.Snapshot(),
                     ProcessInfoNames.Dictionary when key.DictionaryKey is { } dictionaryKey => process.Dictionary.ValueForProcessInfo611(captured, dictionaryKey),
                     ProcessInfoNames.Dictionary => process.Dictionary.SnapshotForProcessInfo611(captured),
@@ -1486,6 +1542,9 @@ public sealed partial class ProcessRuntime : IAsyncDisposable
         var origin641 = RuntimeProcessPayload641.Prepare641(this, sender, reason);
         try
         {
+            if (TryPublishBackedLocalExitAsync(sender, target, origin641.Value641)
+                .GetAwaiter().GetResult())
+                return;
             ExitPrepared641(
                 sender,
                 target,
@@ -1639,6 +1698,7 @@ public sealed partial class ProcessRuntime : IAsyncDisposable
         );
         try
         {
+            target.DeferredSignalDrain ??= new();
             target.Mailbox.SendPendingSnapshot593(
                 publication641.Value641,
                 () =>
@@ -1670,7 +1730,8 @@ public sealed partial class ProcessRuntime : IAsyncDisposable
             },
                 token: token,
                 from: sender,
-                publication593: publication641.Publication641
+                publication593: publication641.Publication641,
+                prepareBacking: true
             );
         }
         finally
@@ -1747,6 +1808,7 @@ public sealed partial class ProcessRuntime : IAsyncDisposable
             CleanupStep(() => storage = PersistentProcessRetirement417(ctx, storage));
             CleanupStep(() => storage = SystemTaskProcessRetirement428(ctx, storage));
             CleanupStep(() => physical = DirtyNativeProcessRetirement419(ctx, Task.CompletedTask));
+            CleanupStep(() => physical = PublicWallTimeProcessRetirement(ctx, physical));
             CleanupStep(() => storage = DebugDispatchProcessRetirement432(ctx, storage));
             CleanupStep(() => storage = CountersProcessRetirement421(ctx, storage));
             CleanupStep(() => storage = HamtProcessRetirement429(ctx, storage));
@@ -1828,9 +1890,7 @@ public sealed partial class ProcessRuntime : IAsyncDisposable
         foreach (var request in ctx.PendingDisplayRequests)
             CleanupStep(() => ReplyProcessDisplay(request, Term.A(ErlangErrorReasons.BadArgument)));
         ctx.PendingDisplayRequests.Clear();
-        foreach (var request in ctx.PendingGarbageCollections)
-            CleanupStep(() => ReplyGarbageCollection(request, false, ctx.Self));
-        ctx.PendingGarbageCollections.Clear();
+        CleanupStep(() => RetireCollectionRequests(ctx, true));
         foreach (var request in ctx.PendingSavedCallRequests)
             CleanupStep(() => ReplySavedCallRequest(request, Term.A(ErlangErrorReasons.BadArgument), ctx.Self));
         ctx.PendingSavedCallRequests.Clear();
@@ -1945,6 +2005,7 @@ public sealed partial class ProcessRuntime : IAsyncDisposable
                 disposed = true;
                 StopMailboxRootAdmission593();
                 StopProcessPayloadAdmission641();
+                StopOrdinaryBinaryAdmission();
                 _ = actorDispatcher.CompleteWhenIdle();
                 Timers.Dispose();
                 distributionPending?.Close();
@@ -2059,7 +2120,9 @@ public sealed partial class ProcessRuntime : IAsyncDisposable
                 DrainCodePurger432(),
                 DrainAllocatorGather434(),
                 DrainOwnedTermContexts506(),
-                DrainNativeResources524()
+                DrainNativeResources524(),
+                KnownNodes.DrainPhysicalNodes(),
+                DrainOrdinaryBinaries()
             ).ConfigureAwait(false);
         }
         catch (Exception failure)
@@ -2111,6 +2174,7 @@ public sealed partial class ProcessRuntime : IAsyncDisposable
                 disposed = true;
                 StopMailboxRootAdmission593();
                 StopProcessPayloadAdmission641();
+                StopOrdinaryBinaryAdmission();
                 _ = actorDispatcher.CompleteWhenIdle();
                 Timers.Dispose();
                 distributionPending?.Close();

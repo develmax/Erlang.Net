@@ -229,7 +229,8 @@ public sealed partial class Mailbox
         {
             ThrowIfHalted();
             cancellation.ThrowIfCancellationRequested();
-            ProcessSignals?.Invoke();
+            ThrowStatisticsTrapFailure();
+            await ProcessSignalsAndStorageAsync();
             if (WaitForExecution is not null)
                 start += await WaitForExecution();
             Task signal;
@@ -280,7 +281,7 @@ public sealed partial class Mailbox
                     {
                         ThrowIfHalted();
                         cancellation.ThrowIfCancellationRequested();
-                        ProcessSignals?.Invoke();
+                        await ProcessSignalsAndStorageAsync();
                         if (WaitForExecution is not null)
                             start += await WaitForExecution();
                         Entry consumed = default;
@@ -377,13 +378,14 @@ public sealed partial class Mailbox
             {
                 WaitingStateChanged?.Invoke(true);
                 if (remaining is { } finite)
-                    await signal.WaitAsync(
+                    await WaitStatisticsTrapSignal(
+                        signal,
                         finite > TimeSpan.FromMilliseconds(MailboxWaitParameters.MaximumSegmentMilliseconds)
                             ? TimeSpan.FromMilliseconds(MailboxWaitParameters.MaximumSegmentMilliseconds) : finite,
                         cancellation
                     );
                 else
-                    await signal.WaitAsync(cancellation);
+                    await WaitStatisticsTrapSignal(signal, null, cancellation);
             }
             catch (TimeoutException)
             {

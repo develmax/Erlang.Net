@@ -343,7 +343,8 @@ internal static class MailboxReentrantExit606Checks
             sender,
             false,
             null,
-            null
+            null,
+            false
         );
 
     private static object RuntimeMonitor(ProcessRuntime runtime)

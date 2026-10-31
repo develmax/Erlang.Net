@@ -1,0 +1,57 @@
+{
+  "Partial": true,
+  "SelectedCount": 7,
+  "TotalCount": 9535,
+  "Blocks": [],
+  "ExactCases": [
+    "runtime/statistics-external-identifiers-actual-node-header-birth-live-dead-reclaim",
+    "runtime/statistics-external-identifiers-real-cross-heap-node-lease-host-escape",
+    "runtime/statistics-external-identifiers-vm-close-real-node-drain",
+    "runtime/statistics-native-writable-genuine-source-wait-vm-close-real-retirement",
+    "runtime/statistics-native-writable-partial-byte-actual-flags-and-payload",
+    "runtime/statistics-opaque-sdk-external-function-real-kind-header-no-canonical-admission",
+    "runtime/statistics-ordinary-refc-writable-origin-preserves-append-token-capacity-aliases"
+  ],
+  "Passed": 4,
+  "Failed": 3,
+  "Tests": [
+    {
+      "Name": "runtime/statistics-ordinary-refc-writable-origin-preserves-append-token-capacity-aliases",
+      "Status": "Failed",
+      "Error": "System.InvalidOperationException: Actual native writable backing/append/volatile view/pin/GC/lifetime contract failed.\r\n   at Erlang.NifNativeBackend.NativeWritableTestAccess.Require(Boolean value) in D:\\Distr\\Work\\Codex\\Erlang.Net\\w546\\tools\\Native\\Erlang.NifNativeBackend\\NativeWritableTestAccess.cs:line 92\r\n   at Erlang.NifNativeBackend.NativeWritableChecks.CheckSnapshots(IReadOnlyDictionary\u00602 snapshots) in D:\\Distr\\Work\\Codex\\Erlang.Net\\w546\\tools\\Native\\Erlang.NifNativeBackend\\NativeWritableChecks.cs:line 60\r\n   at Erlang.NifNativeBackend.NativeWritableChecks.SourceLifecycle() in D:\\Distr\\Work\\Codex\\Erlang.Net\\w546\\tools\\Native\\Erlang.NifNativeBackend\\NativeWritableChecks.cs:line 38\r\n   at Erlang.NifNativeBackend.NativeWritableChecks.SourceLifecycle() in D:\\Distr\\Work\\Codex\\Erlang.Net\\w546\\tools\\Native\\Erlang.NifNativeBackend\\NativeWritableChecks.cs:line 42\r\n   at Program.\u003CMain\u003E$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\w546\\tests\\Erlang.Tests\\Harness\\Program.cs:line 8049",
+      "Milliseconds": 2462
+    },
+    {
+      "Name": "runtime/statistics-native-writable-partial-byte-actual-flags-and-payload",
+      "Status": "Failed",
+      "Error": "System.InvalidOperationException: Actual native writable backing/append/volatile view/pin/GC/lifetime contract failed.\r\n   at Erlang.NifNativeBackend.NativeWritableTestAccess.Require(Boolean value) in D:\\Distr\\Work\\Codex\\Erlang.Net\\w546\\tools\\Native\\Erlang.NifNativeBackend\\NativeWritableTestAccess.cs:line 92\r\n   at Erlang.NifNativeBackend.NativeWritableChecks.PartialByte()\r\n   at Erlang.NifNativeBackend.NativeWritableChecks.PartialByte() in D:\\Distr\\Work\\Codex\\Erlang.Net\\w546\\tools\\Native\\Erlang.NifNativeBackend\\NativeWritableChecks.cs:line 99\r\n   at Program.\u003CMain\u003E$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\w546\\tests\\Erlang.Tests\\Harness\\Program.cs:line 8049",
+      "Milliseconds": 125
+    },
+    {
+      "Name": "runtime/statistics-native-writable-genuine-source-wait-vm-close-real-retirement",
+      "Status": "Passed",
+      "Milliseconds": 252
+    },
+    {
+      "Name": "runtime/statistics-opaque-sdk-external-function-real-kind-header-no-canonical-admission",
+      "Status": "Passed",
+      "Milliseconds": 39
+    },
+    {
+      "Name": "runtime/statistics-external-identifiers-actual-node-header-birth-live-dead-reclaim",
+      "Status": "Failed",
+      "Error": "System.InvalidOperationException: Invalid external identifier descriptor\r\n   at Erlang.ProcessTermHeap506.RequireExternalIdentifier(ProcessTermSequence506 block) in D:\\Distr\\Work\\Codex\\Erlang.Net\\w546\\src\\Runtime\\Erlang.Runtime.Core\\Processes\\Memory\\ProcessTermHeap.ExternalIdentifiers.cs:line 77\r\n   at Erlang.ProcessTermHeap506.ReadExternalIdentity(ProcessTermSequence506 block) in D:\\Distr\\Work\\Codex\\Erlang.Net\\w546\\src\\Runtime\\Erlang.Runtime.Core\\Processes\\Memory\\ProcessTermHeap.ExternalIdentifiers.cs:line 84\r\n   at Erlang.ProcessTermSequence506.ReadExternalIdentity() in D:\\Distr\\Work\\Codex\\Erlang.Net\\w546\\src\\Runtime\\Erlang.Runtime.Core\\Processes\\Memory\\ProcessTermSequence506.cs:line 47\r\n   at Erlang.Pid.get_WireIdentity() in D:\\Distr\\Work\\Codex\\Erlang.Net\\w546\\src\\Runtime\\Erlang.Terms\\Identifiers\\Pid.cs:line 17\r\n   at Erlang.Pid.get_Node() in D:\\Distr\\Work\\Codex\\Erlang.Net\\w546\\src\\Runtime\\Erlang.Terms\\Identifiers\\Pid.cs:line 11\r\n   at Erlang.NifNativeBackend.ExternalIdentifierTestAccess.Snapshot(Term value) in D:\\Distr\\Work\\Codex\\Erlang.Net\\w546\\tools\\Native\\Erlang.NifNativeBackend\\ExternalIdentifierTestAccess.cs:line 16\r\n   at Erlang.NifNativeBackend.ExternalIdentifierChecks.PhysicalBirthAndReclaim() in D:\\Distr\\Work\\Codex\\Erlang.Net\\w546\\tools\\Native\\Erlang.NifNativeBackend\\ExternalIdentifierChecks.cs:line 42\r\n   at Erlang.NifNativeBackend.ExternalIdentifierChecks.PhysicalBirthAndReclaim() in D:\\Distr\\Work\\Codex\\Erlang.Net\\w546\\tools\\Native\\Erlang.NifNativeBackend\\ExternalIdentifierChecks.cs:line 54\r\n   at Erlang.NifNativeBackend.ExternalIdentifierChecks.PhysicalBirthAndReclaim() in D:\\Distr\\Work\\Codex\\Erlang.Net\\w546\\tools\\Native\\Erlang.NifNativeBackend\\ExternalIdentifierChecks.cs:line 54\r\n   at Program.\u003CMain\u003E$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\w546\\tests\\Erlang.Tests\\Harness\\Program.cs:line 8049",
+      "Milliseconds": 63
+    },
+    {
+      "Name": "runtime/statistics-external-identifiers-real-cross-heap-node-lease-host-escape",
+      "Status": "Passed",
+      "Milliseconds": 28
+    },
+    {
+      "Name": "runtime/statistics-external-identifiers-vm-close-real-node-drain",
+      "Status": "Passed",
+      "Milliseconds": 27
+    }
+  ]
+}

@@ -64,6 +64,8 @@ internal static class BeamClosureFactory
             identity
         ));
 
+        function.MarkRuntimeLocalTransferDescriptor();
+
         return function;
     }
 

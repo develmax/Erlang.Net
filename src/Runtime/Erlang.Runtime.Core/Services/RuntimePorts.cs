@@ -470,6 +470,7 @@ internal sealed partial class RuntimePorts(ProcessRuntime runtime, object gate)
                 {
                     int width = port.Options.PacketBytes;
                     port.OutputBytes += bytes.Length;
+                    runtime.Statistics.RecordOutputBytes(bytes.LongLength);
                     if (width != 0 && (ulong)bytes.Length >= (1UL << (width * PortParameters.ByteBits)))
                     {
                         Close(port, Term.A(PortNames.InvalidValue));
@@ -620,6 +621,7 @@ internal sealed partial class RuntimePorts(ProcessRuntime runtime, object gate)
                     if (port.Closed)
                         return;
                     port.InputBytes += payload.Length;
+                    runtime.Statistics.RecordInputBytes(payload.LongLength);
                     if (port.Lines is null)
                         Deliver(port, payload, null);
                     else

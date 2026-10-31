@@ -47,7 +47,7 @@ internal static class BinaryJoinExecution
                     throw new ErlangException(ErlangErrorReasons.BadArgument);
                 var complete = (BitString)await BinaryWrapperOutput.Flatten(context, Cons.From(chunks));
 
-                return BitString.FromValidatedAppend(BitString.InitializeWritable(capacity), complete);
+                return context.AppendGuestBinary(BitString.InitializeWritable(capacity), complete);
             }
         }
         catch (ErlangException error) when (error.ExceptionClass == ErlangExceptionClasses.Error)

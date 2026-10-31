@@ -41,40 +41,18 @@ internal sealed partial class ProcessTermFrame506 : IDisposable
             }
         }
         using PreparedTermTransfer506 prepared = owner.Prepare(this, value);
-        using PreparedMapGraph517 maps = owner.PrepareMapGraph517(prepared.Portable, false);
-        using PreparedMapGraphUse517 admitted = maps.AdmitBuilds517();
-        using ProcessTermFrame506 construction = owner.Enter();
-        lock (owner.Gate)
-        {
-            ValidateSlot(slot);
-            ProcessTermConstruction514 custody = construction.BeginConstruction514(prepared.Portable);
-            PublishRoot512(slot, owner.ImportPrepared(
-                prepared.Portable,
-                maps,
-                custody,
-                admitted
-            ));
-        }
+        using PreparedHeapImport imported = owner.PrepareHeapImport(this, prepared.Portable);
+        SetLocalGraph507(slot, imported.Value);
     }
 
     internal void SetPrepared(int slot, Term portable)
     {
-        using ProcessTermBorrow506 borrow = owner.Borrow(this, portable);
-        using PreparedMapGraph517 maps = owner.PrepareMapGraph517(portable, false);
-        using PreparedMapGraphUse517 admitted = maps.AdmitBuilds517();
-        using ProcessTermFrame506 construction = owner.Enter();
-        lock (owner.Gate)
-        {
-            ValidateSlot(slot);
-            ProcessTermConstruction514 custody = construction.BeginConstruction514(portable);
-            PublishRoot512(slot, owner.ImportPrepared(
-                portable,
-                maps,
-                custody,
-                admitted
-            ));
-        }
+        lock (owner.Gate) ValidateSlot(slot);
+        using PreparedHeapImport imported = owner.PrepareHeapImport(this, portable);
+        SetLocalGraph507(slot, imported.Value);
     }
+
+    internal PreparedHeapImport PrepareImport(Term portable) => owner.PrepareHeapImport(this, portable);
 
     private void ValidateSlot(int slot)
     {
@@ -90,6 +68,20 @@ internal sealed partial class ProcessTermFrame506 : IDisposable
             ObjectDisposedException.ThrowIf(disposed, this);
 
             return values[slot];
+        }
+    }
+
+    // Existing live root only; this grants no new ownership/admission. Callers
+    // separately require the actual register cell to be the identical Term.
+    internal bool KeepsLiveRoot550(int slot, Term value)
+    {
+        lock (owner.Gate)
+        {
+            ValidateSlot(slot);
+            if (!values.TryGetValue(slot, out Term? current) || !ReferenceEquals(current, value)) return false;
+            _ = owner.IsOwnedLocal(value); // Reject any actual stale/foreign block.
+
+            return true;
         }
     }
 

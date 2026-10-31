@@ -15,7 +15,7 @@ public static class SourceLayout
     {
         for (int pass = 0; pass < 32; pass++)
         {
-            string formatted = ApplyPass(source);
+            string formatted = PreserveTokenText(source, ApplyPass(source));
             if (formatted == source)
                 return formatted;
 
@@ -23,6 +23,30 @@ public static class SourceLayout
         }
 
         throw new InvalidOperationException(StyleDiagnostics.UnstableLayout);
+    }
+
+    private static string PreserveTokenText(string source, string formatted)
+    {
+        var options = new CSharpParseOptions(LanguageVersion.Preview);
+        var before = CSharpSyntaxTree.ParseText(source, options).GetRoot().DescendantTokens().ToArray();
+        var root = CSharpSyntaxTree.ParseText(formatted, options).GetRoot();
+        var after = root.DescendantTokens().ToArray();
+        if (before.Length != after.Length)
+            throw new InvalidOperationException(StyleDiagnostics.ChangedTokens);
+        var replacements = new Dictionary<SyntaxToken, SyntaxToken>();
+        for (int index = 0; index < before.Length; index++)
+        {
+            if (before[index].RawKind != after[index].RawKind)
+                throw new InvalidOperationException(StyleDiagnostics.ChangedTokens);
+            if (before[index].Text != after[index].Text)
+                replacements.Add(
+                    after[index],
+                    before[index].WithLeadingTrivia(after[index].LeadingTrivia).WithTrailingTrivia(after[index].TrailingTrivia)
+                );
+        }
+
+        return replacements.Count == 0 ? formatted
+            : root.ReplaceTokens(replacements.Keys, (token, _) => replacements[token]).ToFullString();
     }
 
     private static string ApplyPass(string source)
