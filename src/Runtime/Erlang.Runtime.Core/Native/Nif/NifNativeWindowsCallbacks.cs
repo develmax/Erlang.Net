@@ -2,7 +2,7 @@ using System.Runtime.InteropServices;
 
 namespace Erlang;
 
-internal sealed unsafe class NifNativeWindowsCallbacks : IDisposable
+internal sealed unsafe partial class NifNativeWindowsCallbacks : IDisposable
 {
     private nint pointer;
     private NifNativeEnvironmentAllocator? environmentAllocator;
@@ -22,8 +22,10 @@ internal sealed unsafe class NifNativeWindowsCallbacks : IDisposable
             throw new OutOfMemoryException();
         var slots = (nint*)pointer;
         NifNativeResource527Registration.InstallWindows527(slots);
+        NifNativeOptional793Registration.InstallWindows(slots);
         slots[NifWindowsVariadic526Names.TupleSlot] = variadic526.Tuple;
         slots[NifWindowsVariadic526Names.ListSlot] = variadic526.List;
+        slots[NifNativePrintf791Names.SnprintfSlot] = OperatingSystem.IsWindows() ? NifWindowsVariadic526.Snprintf791 : 0;
         slots[NifNativeWindowsCallbackLayout.ThreadType521] = (nint)(delegate* unmanaged[Cdecl]<int>)&NifNativeThreadType521Callbacks.Read;
         slots[NifNativeWindowsCallbackLayout.MakeNewMap] = (nint)(delegate* unmanaged[Cdecl]<nint, nuint>)&NifNativeMapCreation501Callbacks.Make;
         slots[NifNativeWindowsCallbackLayout.GetMapValue] = (nint)(delegate* unmanaged[Cdecl]<nint, nuint, nuint, nuint*, int>)&NifNativeMapValue503Callbacks.Get;

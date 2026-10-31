@@ -13,6 +13,16 @@ def load(name,path):
 def save(path,value):
  with path.open('x',encoding='utf-8') as f:json.dump(value,f,indent=2);f.write('\n')
 
+
+def project_headers552(root, hash_file):
+    paths=[root/'tools/Native/Erlang.NifNativeBackend/native'/name for name in ('nif_bridge_api.h','nif_snprintf791.h')]
+    return [dict(Path=str(path.resolve()),Bytes=path.stat().st_size,Sha256=hash_file(path)) for path in paths]
+
+def require_project_headers552(proof, root, hash_file):
+    expected=project_headers552(root,hash_file);actual=proof['ProjectHeaderInputs']
+    assert len(actual)==len(expected) and {row['Path']:(row['Bytes'],row['Sha256']) for row in actual}=={row['Path']:(row['Bytes'],row['Sha256']) for row in expected},'Project bridge headers changed or unbound'
+    return expected
+
 def main():
  p=argparse.ArgumentParser()
  for key in ['expected-head','plan-sha256','approved-n1-build-plan-sha256','source-freeze','approved-source-freeze-sha256','otp-source','original-build-receipt','n1-native-build','framework-version','output']:p.add_argument('--'+key,required=True)
@@ -93,6 +103,7 @@ def main():
   b=n['Bridge'];assert b is not None and H(b['BuildReceipt']['Path'])==b['BuildReceipt']['Sha256'] and Path(b['BuildReceipt']['Path']).resolve()==bridgeparent
   proof=J(bridgeparent);assert proof['Status']=='VERSION651_LINUX_BRIDGE_BUILD' and proof['Pin']==PIN and proof['SubjectHead']==a.expected_head and proof['NativeLoaded'] is False
   assert H(proof['BridgePath'])==proof['BridgeSha256']==b['Library']['Sha256']
+  require_project_headers552(proof,R,H)
  bridge_ok=check('n1-bridge-parent',bridge)
  admission_ok=False
  if provider_ok and bridge_ok and all(nativeok.values()):
@@ -125,6 +136,7 @@ def main():
  def final_sources():
   for row in plan['Files']:assert H(R/row['Path'])==row['Sha256']
   for row in dllrows:assert H(row['Path'])==row['Sha256']
+  if bridge_ok:require_project_headers552(J(bridgeparent),R,H)
   verify_frozen()
   assert subprocess.check_output(['git','--no-optional-locks','rev-parse','HEAD'],cwd=R,text=True).strip()==a.expected_head
  check('source-dll-head-after',final_sources)

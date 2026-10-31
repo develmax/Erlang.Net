@@ -8,6 +8,16 @@ def module(p,name):
  spec=importlib.util.spec_from_file_location(name,p);m=importlib.util.module_from_spec(spec);spec.loader.exec_module(m);return m
 def write(p,v):
  with p.open('xb') as f:f.write((json.dumps(v,indent=2)+'\n').encode())
+
+def project_headers552(root, hash_file):
+    paths=[root/'tools/Native/Erlang.NifNativeBackend/native'/name for name in ('nif_bridge_api.h','nif_snprintf791.h')]
+    return [dict(Path=str(path.resolve()),Bytes=path.stat().st_size,Sha256=hash_file(path)) for path in paths]
+
+def require_project_headers552(proof, root, hash_file):
+    expected=project_headers552(root,hash_file);actual=proof['ProjectHeaderInputs']
+    assert len(actual)==len(expected) and {row['Path']:(row['Bytes'],row['Sha256']) for row in actual}=={row['Path']:(row['Bytes'],row['Sha256']) for row in expected},'Project bridge headers changed or unbound'
+    return expected
+
 def main():
  p=argparse.ArgumentParser()
  for key in ['expected-head','source-plan','approved-source-plan-sha256','otp-source','runtime-root','build-receipt','approved-build-receipt-sha256','size-native-build','approved-size-native-receipt-sha256','reference-native-build','approved-reference-native-receipt-sha256','output']:p.add_argument('--'+key,required=True)
@@ -35,6 +45,7 @@ def main():
   assert H(source)==image['SourceSha256']
   for row in manifest['Headers']:assert H(headers/row['Name'])==row['Sha256']
   images.append(dict(Module=case['Module'],LibraryPath=str(library),LibrarySha256=H(library),NativeSourcePath=str(source),NativeSourceSha256=H(source),ErlangSourcePath=str(erlang),ErlangSourceSha256=H(erlang),ManifestPath=str(tool/'manifest.json'),ManifestSha256=H(tool/'manifest.json'),BuildReceiptPath=str(proof),BuildReceiptSha256=H(proof),ObservationNames=J(tool/'cases.json')['ObservationNames']))
+ project_header_rows=project_headers552(R,H)
  if a.reuse_n1_bridge_receipt:
   parent=Path(a.reuse_n1_bridge_receipt).resolve();assert H(parent)==a.approved_n1_bridge_receipt_sha256.upper()
   proof=J(parent);assert proof['Status']=='VERSION651_LINUX_BRIDGE_BUILD' and proof['Pin']=='ad05823719d77c8faee87348ea39513d4e2f99c5' and proof['SubjectHead']==a.expected_head and proof['NativeLoaded'] is False
@@ -42,6 +53,7 @@ def main():
   sources=[R/'tools/Native/Erlang.NifNativeBackend/native'/x for x in ['nif_bridge_exports.c','nif_bridge_varargs.c','nif_bridge_pthread_control.c']]
   assert {Path(x['Path']).resolve() for x in proof['Sources']}=={x.resolve() for x in sources}
   for row in proof['Sources']:assert H(row['Path'])==row['Sha256']
+  assert require_project_headers552(proof,R,H)==project_header_rows
   headerrows=[]
   for name in ['erl_nif.h','erl_drv_nif.h','erl_nif_api_funcs.h','erl_int_sizes_config.h']:
    row=next(x for x in proof['HeaderInputs'] if Path(x['Path']).name==name)
@@ -51,8 +63,9 @@ def main():
   # Verify the real preceding build's owned compile/export/ELF process receipts.
   for name in ['compile','exports','elf']:
    identity.require_normal_receipt(J(parent.parent/(name+'.process.json')))
+  assert project_headers552(R,H)==project_header_rows
   receipt=out/'bridge-build-receipt.json'
-  write(receipt,dict(Status='PASS_SOURCE_BOUND_N1_BRIDGE_REUSE',SubjectHead=a.expected_head,SourcePlanSha256=H(a.source_plan),RuntimeBuildReceiptSha256=H(a.build_receipt),HeaderInputs=headerrows,Sources=proof['Sources'],BridgePath=str(bridge),BridgeSha256=H(bridge),ParentBuildReceiptPath=str(parent),ParentBuildReceiptSha256=H(parent),CompileExecuted=False,NativeLoaded=False))
+  write(receipt,dict(Status='PASS_SOURCE_BOUND_N1_BRIDGE_REUSE',SubjectHead=a.expected_head,SourcePlanSha256=H(a.source_plan),RuntimeBuildReceiptSha256=H(a.build_receipt),HeaderInputs=headerrows,ProjectHeaderInputs=project_header_rows,Sources=proof['Sources'],BridgePath=str(bridge),BridgeSha256=H(bridge),ParentBuildReceiptPath=str(parent),ParentBuildReceiptSha256=H(parent),CompileExecuted=False,NativeLoaded=False))
   write(out/'admission.json',dict(Status='ROOT_OWN_LINUX_CALLBACK17_ADMISSION',SubjectHead=a.expected_head,BridgePath=str(bridge),BridgeSha256=H(bridge),BridgeReceiptPath=str(receipt),BridgeReceiptSha256=H(receipt),Images=images))
   print(H(out/'admission.json'));return
  assert not a.approved_n1_bridge_receipt_sha256
@@ -66,7 +79,8 @@ def main():
  stage('bridge-elf',[readelf,'-h','-Ws','-d',bridge],30)
  defined={x.split()[0] for x in (out/'bridge-defined.stdout').read_text().splitlines() if x.split()}
  assert {'nif_bridge_register','nif_bridge_read_term','enif_get_map_size','enif_make_ref','enif_alloc_env','enif_free_env','enif_clear_env','enif_make_copy'}<=defined
- receipt=out/'bridge-build-receipt.json';write(receipt,dict(Status='PASS_OWNED_LINUX_V4_BRIDGE_BUILD',SubjectHead=a.expected_head,SourcePlanSha256=H(a.source_plan),RuntimeBuildReceiptSha256=H(a.build_receipt),HeaderInputs=[dict(Path=str(headers/x),Bytes=(headers/x).stat().st_size,Sha256=H(headers/x)) for x in ['erl_nif.h','erl_drv_nif.h','erl_nif_api_funcs.h','erl_int_sizes_config.h']],Sources=[dict(Path=str(x),Sha256=H(x)) for x in sources],BridgePath=str(bridge),BridgeSha256=H(bridge),OwnedStages=stages,NativeLoaded=False))
+ assert project_headers552(R,H)==project_header_rows
+ receipt=out/'bridge-build-receipt.json';write(receipt,dict(Status='PASS_OWNED_LINUX_V4_BRIDGE_BUILD',SubjectHead=a.expected_head,SourcePlanSha256=H(a.source_plan),RuntimeBuildReceiptSha256=H(a.build_receipt),HeaderInputs=[dict(Path=str(headers/x),Bytes=(headers/x).stat().st_size,Sha256=H(headers/x)) for x in ['erl_nif.h','erl_drv_nif.h','erl_nif_api_funcs.h','erl_int_sizes_config.h']],ProjectHeaderInputs=project_header_rows,Sources=[dict(Path=str(x),Sha256=H(x)) for x in sources],BridgePath=str(bridge),BridgeSha256=H(bridge),OwnedStages=stages,NativeLoaded=False))
  write(out/'admission.json',dict(Status='ROOT_OWN_LINUX_CALLBACK17_ADMISSION',SubjectHead=a.expected_head,BridgePath=str(bridge),BridgeSha256=H(bridge),BridgeReceiptPath=str(receipt),BridgeReceiptSha256=H(receipt),Images=images))
  print(H(out/'admission.json'))
 if __name__=='__main__':main()

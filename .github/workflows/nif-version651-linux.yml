@@ -5,6 +5,12 @@ on:
       - '.gitattributes'
       - '.github/workflows/nif-version651-linux.yml'
       - 'tools/Native/Erlang.NifVersion651Observations/**'
+      - 'tools/Native/Erlang.NifLinuxMutex795Observations/**'
+      - 'tools/Native/Erlang.NifNativeBackend/NifLinuxMutex795*.cs'
+      - 'src/Runtime/Erlang.Runtime.Core/Primitives/TermDisplayWriter*.cs'
+      - 'src/Runtime/Erlang.Runtime.Core/Primitives/PrintfTerm*.cs'
+      - 'tools/Runtime/Erlang.OwnedGuest506Observations/collect.py'
+      - 'tools/Native/Erlang.DdllFormatterOriginalObservations/scripts/passive_etf.py'
       - 'tools/Compiler/Erlang.GcBinary818Observations/**'
       - 'tools/Native/Erlang.NifNativeBackend/GcBinary818*.cs'
       - 'src/Runtime/Erlang.Runtime.Core/Execution/Beam/**'
@@ -42,9 +48,9 @@ jobs:
       EXPECTED_HEAD: ${{ inputs.expected_head || github.event.pull_request.head.sha || github.sha }}
       OTP_PIN: ad05823719d77c8faee87348ea39513d4e2f99c5
       ORIGINAL_PLAN: AEBBA0D2DCF97E1248CA38407E8EBE628EB08F9EA4D13F48EC0C83A7A0364E61
-      NATIVE_PLAN: EC4DB550F29D25FB836C2D2AC598E7B32172889044C0E601A713FA4C849B2AA1
-      CAPTURE_PLAN: E9610A411D87EF14E334E97F60E2EBC103235372007BC1BCAD26EF5730307892
-      ACCEPTANCE_PLAN: 536E61B24EB0EA1228CEEE81073D00125B46A7E4419E3D0D53EFE39C92FBB2AD
+      NATIVE_PLAN: 1635E70D2EB6C01749A8F6BFFD344FE778A5E3E51AC053011356C60E0821A463
+      CAPTURE_PLAN: 336D37459479124EA9BF435354F9124A182AF04276E81ED8DD68172AF0E82268
+      ACCEPTANCE_PLAN: 241F5083347F0B44C24B902D0856CD331A41AD1F9DD50B6904507DEE54FEA37D
       ERLC_USE_SERVER: 'false'
       PYTHONDONTWRITEBYTECODE: '1'
       DOTNET_PROCESSOR_COUNT: '2'
@@ -247,6 +253,28 @@ jobs:
             --plan-sha256 "$CAPTURE_PLAN" --framework-version "${N1_FRAMEWORK_VERSION:-10.0.11}" \
             --output "$GITHUB_WORKSPACE/artifacts/nif-version651/capture-linux" \
             > artifacts/nif-version651/ci/capture.log 2>&1
+      - name: Compare Linux mutex795 namespaces and native worker cleanup on the current bridge
+        id: mutex795
+        if: ${{ !cancelled() && steps.inputs.outcome == 'success' && steps.original-build.outcome == 'success' && steps.managed-build.outcome == 'success' && steps.native-ready.outputs.ready == 'true' }}
+        continue-on-error: true
+        shell: bash
+        run: |
+          set -euo pipefail
+          original="$GITHUB_WORKSPACE/artifacts/nif-version651/original-build/build-receipt.json"
+          native="$GITHUB_WORKSPACE/artifacts/nif-version651/linux-build/build-receipt.json"
+          host="$GITHUB_WORKSPACE/tools/Native/Erlang.NifNativeBackend/bin/Release/net10.0/Erlang.NifNativeBackend.dll"
+          bridge_receipt=$(python3 -c 'import json,sys;print(json.load(open(sys.argv[1]))["Bridge"]["BuildReceipt"]["Path"])' "$native")
+          bridge=$(python3 -c 'import json,sys;print(json.load(open(sys.argv[1]))["BridgePath"])' "$bridge_receipt")
+          cp "$bridge" "$(dirname "$host")/Erlang.NifBridge.so"
+          python3 -B tools/Native/Erlang.NifLinuxMutex795Observations/collect.py \
+            --repository "$GITHUB_WORKSPACE" --expected-head "$EXPECTED_HEAD" \
+            --otp-source "$GITHUB_WORKSPACE/artifacts/nif-version651/otp-source" \
+            --build-receipt "$original" --admission-sha256 "$(sha256sum "$original" | cut -d ' ' -f 1)" \
+            --bridge-receipt "$bridge_receipt" --bridge-receipt-sha256 "$(sha256sum "$bridge_receipt" | cut -d ' ' -f 1)" \
+            --managed-host "$host" --host-sha256 "$(sha256sum "$host" | cut -d ' ' -f 1)" \
+            --runtime-version "$N1_FRAMEWORK_VERSION" \
+            --output "$GITHUB_WORKSPACE/artifacts/nif-version651/mutex795-linux" --execute \
+            > artifacts/nif-version651/ci/mutex795.log 2>&1
       - name: Reuse current bridge for legacy68 pthread and ordinary3 acceptance
         id: acceptance
         if: ${{ !cancelled() && steps.inputs.outcome == 'success' }}
@@ -277,14 +305,15 @@ jobs:
           CAPTURE_OUTCOME: ${{ steps.capture.outcome }}
           ACCEPTANCE_OUTCOME: ${{ steps.acceptance.outcome }}
           GC818_OUTCOME: ${{ steps.gc818.outcome }}
+          MUTEX795_OUTCOME: ${{ steps.mutex795.outcome }}
         run: |
           python3 -B - <<'PY'
           import hashlib,json,os,subprocess
           from pathlib import Path
           out=Path('artifacts/nif-version651/ci');out.mkdir(parents=True,exist_ok=True)
-          errors=[];capture={};gc818={};stages={k:os.environ.get(k,'') for k in ['INPUTS_OUTCOME','SOURCE_OUTCOME','ORIGINAL_OUTCOME','NATIVE_OUTCOME','HOST_OUTCOME','READY_OUTCOME','CAPTURE_OUTCOME','ACCEPTANCE_OUTCOME','GC818_OUTCOME']}
+          errors=[];capture={};gc818={};mutex795={};stages={k:os.environ.get(k,'') for k in ['INPUTS_OUTCOME','SOURCE_OUTCOME','ORIGINAL_OUTCOME','NATIVE_OUTCOME','HOST_OUTCOME','READY_OUTCOME','CAPTURE_OUTCOME','ACCEPTANCE_OUTCOME','GC818_OUTCOME','MUTEX795_OUTCOME']}
           try:
-              assert all(v=='success' for k,v in stages.items() if k!='GC818_OUTCOME'),stages
+              assert all(v=='success' for k,v in stages.items() if k not in ['GC818_OUTCOME','MUTEX795_OUTCOME']),stages
               capture=json.loads(Path('artifacts/nif-version651/capture-linux/completion.json').read_bytes())
               assert capture['Passed'] and capture['Count']==42 and len(capture['Rows'])==42 and not capture['Errors'] and capture['FreshOriginalCompilation']
               for row in capture['Rows']:
@@ -322,7 +351,48 @@ jobs:
               assert set(coverage)=={'BodyFailZero','GuardFailNonzero','DestinationAliasesLeft','DestinationAliasesRight','LiveAtLeastThree','ArithmeticGcBifs'} and all(value is True for value in coverage.values())
               assert gc818['ApiRegistryDelta']==0 and gc818['FullCompatibilityClaimed'] is False and gc818['FramesDropped'] is False and gc818['NormalizationPerformed'] is False
           except Exception as e:errors.append('gc818: '+repr(e))
-          result=dict(Passed=not errors,FocusedN1Only=True,SubjectHead=os.environ['EXPECTED_HEAD'],Stages=stages,ExpectedOriginalCases=42,ExpectedComparisons=84,ExpectedModuleTextCases=4,ExpectedModuleTextComparisons=8,ExpectedGcBinary818Rows=38,ExpectedGcBinary818Profiles=2,GcBinary818=gc818,Errors=errors,AcceptancePlanSha256=os.environ['ACCEPTANCE_PLAN'],AcceptanceGates=['legacy68 callback comparisons','pthread bindings/create/join','ordinary-loader3 and cleanup'],PendingGates=[] if not errors else ['See failed N1/acceptance stages'],AllTlsFunctionsExecuted=False,CppTlsAndHiddenCallsVerified=False,WholeLoadNifCompatible=False,ApiDelta=0,FullContractDelta=0)
+          try:
+              assert stages['MUTEX795_OUTCOME']=='success',stages
+              root=Path('artifacts/nif-version651/mutex795-linux')
+              mutex795=json.loads((root/'completion.json').read_bytes())
+              expected={'ordinary-ordinary','ordinary-reviewed','private-owned-ordinary','private-owned-reviewed'}
+              assert mutex795['Passed'] and mutex795['Expected']==4 and set(mutex795['Completed'])==expected and not mutex795['Errors']
+              assert mutex795['FullCompatibilityClaimed'] is False and mutex795['FullTlsCompatibilityClaimed'] is False
+              admission=root/'admission.json';admission_sha=hashlib.sha256(admission.read_bytes()).hexdigest().upper()
+              for profile in ['ordinary','private-owned']:
+                  for route in ['ordinary','reviewed']:
+                      actual=root/(profile+'-'+route)/'actual'
+                      complete=json.loads((actual/'completion.json').read_bytes())
+                      assert complete['Passed'] and complete['Route']==route and complete['OwnedProfile']==(profile=='private-owned')
+                      assert complete['AdmissionSha256']==admission_sha and complete['NormalizationPerformed'] is False
+                      assert complete['FirstWholeEqual'] and complete['SecondWholeEqual'] and complete['ActualVmAuthorityNegatives']
+                      assert complete['RealNativeHolderRetirementFence'] and complete['NativeBaselinesRestored']
+              # Complete original/actual bytes, not only receipt booleans.
+              admitted=json.loads(admission.read_bytes())
+              raw=Path(admitted['OriginalRawPath']).read_bytes()
+              deterministic=Path(admitted['OriginalDeterministicPath']).read_bytes()
+              expected_symbols={'pthread_create','pthread_join','pthread_key_create','pthread_key_delete','pthread_getspecific','pthread_setspecific','__cxa_thread_atexit_impl','pthread_exit'}
+              for name in expected:
+                  actual=root/name/'actual'
+                  for vm in ['a','b']:
+                      assert (actual/(vm+'-observed.etf')).read_bytes()==raw
+                      assert (actual/(vm+'-observed-deterministic.etf')).read_bytes()==deterministic
+                      witness=json.loads((actual/(vm+'-pthread.json')).read_bytes())
+                      assert witness['Bindings']
+                      for binding in witness['Bindings']:
+                          rows=json.loads(binding)
+                          assert {row['Name'] for row in rows}==expected_symbols
+                          assert all(row['CapsuleLookupMatchesWrapper'] for row in rows)
+                      calls={row['Name']:row['Calls'] for row in json.loads(witness['Calls'])}
+                      minimum=2 if vm=='a' else 1
+                      assert calls['pthread_create']>=minimum and calls['pthread_join']>=minimum
+              bridge_proof=json.loads(Path(admitted['BridgeReceiptPath']).read_bytes())
+              assert {'nif_bridge_mutex795_register','enif_mutex_create','enif_mutex_destroy','enif_mutex_trylock','enif_mutex_lock','enif_mutex_unlock','enif_mutex_name'}<=set(bridge_proof['Exports'])
+              headers=bridge_proof['ProjectHeaderInputs']
+              assert len(headers)==2 and {Path(row['Path']).name for row in headers}=={'nif_bridge_api.h','nif_snprintf791.h'}
+              for row in headers:assert hashlib.sha256(Path(row['Path']).read_bytes()).hexdigest().upper()==row['Sha256']
+          except Exception as e:errors.append('mutex795: '+repr(e))
+          result=dict(Passed=not errors,FocusedN1Only=True,SubjectHead=os.environ['EXPECTED_HEAD'],Stages=stages,ExpectedOriginalCases=42,ExpectedComparisons=84,ExpectedModuleTextCases=4,ExpectedModuleTextComparisons=8,ExpectedGcBinary818Rows=38,ExpectedGcBinary818Profiles=2,GcBinary818=gc818,ExpectedMutex795Routes=4,Mutex795=mutex795,Errors=errors,AcceptancePlanSha256=os.environ['ACCEPTANCE_PLAN'],AcceptanceGates=['legacy68 callback comparisons','pthread bindings/create/join','ordinary-loader3 and cleanup'],PendingGates=[] if not errors else ['See failed N1/acceptance stages'],AllTlsFunctionsExecuted=False,CppTlsAndHiddenCallsVerified=False,WholeLoadNifCompatible=False,ApiDelta=0,FullContractDelta=0)
           (out/'completion.json').write_text(json.dumps(result,indent=2))
           print(json.dumps(result));raise SystemExit(0 if result['Passed'] else 1)
           PY
@@ -336,5 +406,6 @@ jobs:
             artifacts/nif-version651/linux-build/**
             artifacts/nif-version651/capture-linux/**
             artifacts/nif-version651/acceptance/**
+            artifacts/nif-version651/mutex795-linux/**
             artifacts/gc-binary818/ci-linux01/**
           if-no-files-found: warn

@@ -66,6 +66,7 @@ internal sealed unsafe partial class NifNativeLibraryOwner : IAsyncDisposable
             if (OperatingSystem.IsWindows())
             {
                 windowsCallbacks = new(reallocationEnabled);
+                windowsCallbacks.BindMutexes795(allocations);
                 windowsCallbacks.BindIndependentEnvironments(initializationContext.Runtime, image);
             }
             var failure = new NifNativeFailureState();
@@ -204,8 +205,10 @@ internal sealed unsafe partial class NifNativeLibraryOwner : IAsyncDisposable
             );
             using var retirementInvocation = retirementScope.BindEnvironment(retirementEnvironment);
             disposed = true;
+            bool failedInitialization795 = !initialized;
             Exception? failure = resourceRollbackFailure527;
             bool nativeClosed = false;
+            bool retainMutexCallbacks795 = false;
             try
             {
                 if (initialized)
@@ -253,11 +256,11 @@ internal sealed unsafe partial class NifNativeLibraryOwner : IAsyncDisposable
                         // enif_alloc is VM allocation storage, not DLL-private
                         // scratch. A new callback image can free old userdata.
                         // Reclaim only an unjoined standalone owner here.
-                        if (allocations.Arena528 is null) allocations.ReclaimAll();
-                        else allocations.ImageClosed528();
+                        allocations.CloseImageMutexes795(failedInitialization795);
                     }
                     catch (Exception reclaimFailure)
                     {
+                        retainMutexCallbacks795 = true;
                         failure = failure is null ? reclaimFailure : new AggregateException(failure, reclaimFailure);
                     }
                     var previousFile = libraryFile;
@@ -270,15 +273,20 @@ internal sealed unsafe partial class NifNativeLibraryOwner : IAsyncDisposable
                     {
                         failure = failure is null ? fileFailure : new AggregateException(failure, fileFailure);
                     }
-                    var previousCallbacks = windowsCallbacks;
-                    windowsCallbacks = null;
-                    try
+                    if (retainMutexCallbacks795)
+                        NifNativeLinuxNamespaceRetention.Retain(this);
+                    else
                     {
-                        previousCallbacks?.Dispose();
-                    }
-                    catch (Exception callbackFailure)
-                    {
-                        failure = failure is null ? callbackFailure : new AggregateException(failure, callbackFailure);
+                        var previousCallbacks = windowsCallbacks;
+                        windowsCallbacks = null;
+                        try
+                        {
+                            previousCallbacks?.Dispose();
+                        }
+                        catch (Exception callbackFailure)
+                        {
+                            failure = failure is null ? callbackFailure : new AggregateException(failure, callbackFailure);
+                        }
                     }
                     functions.Clear();
                     try
