@@ -137,11 +137,30 @@ internal static class BeamLinkedCodeReader
         var operands = instruction.Operands;
         switch (instruction.Definition.Name)
         {
+            case BeamNativeRecordAccessNames.Elements:
+                Branch(operands[0]);
+                Require(operands[1].Kind is BeamOperandParameters.X or BeamOperandParameters.Y, BeamLinkDiagnostics.OperandRole);
+                Require(
+                    operands[2].Kind == BeamOperandParameters.Count && operands[2].Value == operands.Count - 3
+                    && operands[2].Value > 0 && operands[2].Value % 2 == 0,
+                    BeamLinkDiagnostics.OperandRole
+                );
+                var extractionFields = new HashSet<int>();
+                for (int field = 3; field < operands.Count; field += 2)
+                {
+                    Require(
+                        operands[field].Kind == BeamOperandParameters.Atom
+                        && extractionFields.Add((int)operands[field].Value),
+                        BeamLinkDiagnostics.OperandRole
+                    );
+                    Destination(operands[field + 1]);
+                }
+                break;
             case BeamRecordConstructionNames.Opcode:
                 Require(
                     operands[BeamRecordConstructionNames.Failure].Kind == BeamOperandParameters.Failure
                     && operands[BeamRecordConstructionNames.Name].Kind == BeamOperandParameters.Atom
-                    && operands[BeamRecordConstructionNames.Source].Kind == BeamOperandParameters.Nil,
+                    && operands[BeamRecordConstructionNames.Source].Kind is BeamOperandParameters.Nil or BeamOperandParameters.X or BeamOperandParameters.Y,
                     BeamLinkDiagnostics.OperandRole
                 );
                 Destination(operands[BeamRecordConstructionNames.Destination]);

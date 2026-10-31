@@ -11,7 +11,7 @@ internal static class MailboxValueEscape
         {
             if (!seen.Add(current)) continue;
             if (current is not (Nil or Atom or Integer or FloatTerm or ReferenceTerm
-                or Pid or PortTerm or BitString or FunctionTerm or Cons or TupleTerm or MapTerm))
+                or Pid or PortTerm or BitString or FunctionTerm or Cons or TupleTerm or MapTerm or NativeRecordTerm))
                 return false; // Preserve existing extension/unknown-term transport.
             if (current is FunctionTerm { HasRuntimeLocalTransferDescriptor: true } function
                 && !RuntimeStoredFunctionRecipes.TryCaptureTransfer506(runtime, function, out _))

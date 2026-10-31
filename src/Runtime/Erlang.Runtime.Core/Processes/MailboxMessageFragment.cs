@@ -9,6 +9,8 @@ internal sealed class MailboxMessageFragment : IAsyncDisposable
     private ProcessTermFrame506? frame;
     private Task? closing;
     internal Term Value { get; }
+    internal ProcessTermHeap506 HeapOwner => heap;
+    internal bool OwnsHeap => ownsHeap;
     internal ProcessTermHeapSnapshot506 StorageSnapshot => heap.Snapshot;
 
     private MailboxMessageFragment(

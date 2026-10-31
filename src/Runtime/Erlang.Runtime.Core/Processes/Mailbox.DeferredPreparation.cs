@@ -61,19 +61,36 @@ public sealed partial class Mailbox
         return true;
     }
 
-    internal MailboxDeferredPreparation? ClaimDeferred()
+    internal MailboxDeferredPreparation? ClaimDeferred() => ClaimDeferredCore(false);
+
+    internal MailboxDeferredPreparation? ClaimDeferredForBacking() => ClaimDeferredCore(true);
+
+    private MailboxDeferredPreparation? ClaimDeferredCore(bool outerRelease)
     {
         lock (gate)
         {
-            if (Volatile.Read(ref closed593)) return null;
+            if (Volatile.Read(ref closed593) || outerRelease && policyMoveReady) return null;
             for (var node = messages.First; node is not null; node = node.Next)
             {
                 if (node.Value.DeferredPreparation is not { } prepare)
                     continue;
-                node.Value = node.Value with { DeferredPreparation = null };
                 var captured = node;
+                var claim = new MailboxDeferredPreparation(
+                    prepare,
+                    result => CompleteDeferred(captured, result),
+                    outerRelease ? node.Value.DeferredRelease : null,
+                    outerRelease && AllowsDeferredBacking(node.Value.DistributionTraceToken)
+                );
+                // Allocate the claim BEFORE removing either callback. Actual
+                // runtime drainers own release outside R/M; legacy reflection-
+                // visible claims preserve their existing Complete contract.
+                node.Value = node.Value with
+                {
+                    DeferredPreparation = null,
+                    DeferredRelease = outerRelease ? null : node.Value.DeferredRelease
+                };
 
-                return new(prepare, result => CompleteDeferred(captured, result));
+                return claim;
             }
 
             return null;
@@ -104,7 +121,7 @@ public sealed partial class Mailbox
 
                 return;
             }
-            MailboxEntryCustody593? custody641 = PrepareCustody593(result.Payload641?.Publication641);
+            MailboxEntryCustody593? custody641 = PrepareCustody593(result.BackingPublication ?? result.Payload641?.Publication641);
             node.Value = node.Value with { Value = result.Message, Control = false, Custody593 = custody641 };
             custody641?.Publish();
             admittedCount++;
@@ -158,9 +175,16 @@ public sealed partial class Mailbox
         }
         if (admitted is not null)
             for (System.Numerics.BigInteger remaining = copies; remaining > 0; remaining--)
-                if (result?.Payload641 is { } source641 && MessageAdmittedSnapshot593 is { } traced641)
+                if (result?.BackingPublication is { } preparedPublication && MessageAdmittedSnapshot593 is { } tracedPrepared)
+                    tracedPrepared(admitted, from, preparedPublication);
+                else if (result?.Payload641 is { } source641 && MessageAdmittedSnapshot593 is { } traced641)
                     traced641(admitted, from, source641.Publication641);
                 else
                     MessageAdmitted?.Invoke(admitted, from);
     }
+
+    private static bool AllowsDeferredBacking(Term? rawTrace)
+        => rawTrace is null or Nil
+            || rawTrace is Atom preserved && preserved.Name == DistributionSequenceTraceNames.PreserveMarker;
+
 }

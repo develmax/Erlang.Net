@@ -230,7 +230,7 @@ public sealed partial class Mailbox
             ThrowIfHalted();
             cancellation.ThrowIfCancellationRequested();
             ThrowStatisticsTrapFailure();
-            ProcessSignals?.Invoke();
+            await ProcessSignalsAndStorageAsync();
             if (WaitForExecution is not null)
                 start += await WaitForExecution();
             Task signal;
@@ -281,7 +281,7 @@ public sealed partial class Mailbox
                     {
                         ThrowIfHalted();
                         cancellation.ThrowIfCancellationRequested();
-                        ProcessSignals?.Invoke();
+                        await ProcessSignalsAndStorageAsync();
                         if (WaitForExecution is not null)
                             start += await WaitForExecution();
                         Entry consumed = default;

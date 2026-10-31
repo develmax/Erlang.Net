@@ -32,7 +32,7 @@ internal sealed partial class ProcessTermHeap506
                     return true;
                 // Reject unrepresented scalar/function/binary/foreign domains;
                 // their existing source policy remains the explicit fallback.
-                if (value is not (TupleTerm or Cons or MapTerm or HamtBitmapTerm429 or FloatTerm or Integer or ReferenceTerm or BitString))
+                if (value is not (TupleTerm or Cons or MapTerm or HamtBitmapTerm429 or FloatTerm or Integer or ReferenceTerm or BitString or NativeRecordTerm))
                     return false;
                 if (!flat && runtime.IsSharingLiteral425(value))
                     return true;
@@ -52,10 +52,18 @@ internal sealed partial class ProcessTermHeap506
                 {
                     _ = ReadReferenceWords562(payload);
                 }
-                else if (value is BitString)
+                else if (value is BitString binary)
                 {
-                    _ = ReadResourceBits577(payload);
-                    binaryReference577 = RequireResourceBitsDescriptor577(payload).BinRef.Block;
+                    if (binary.OwnedHeapBits is not null) _ = RequireHeapBitLength(payload);
+                    else
+                    {
+                        _ = ReadResourceBits577(payload);
+                        binaryReference577 = RequireResourceBitsDescriptor577(payload).BinRef.Block;
+                    }
+                }
+                else if (value is NativeRecordTerm)
+                {
+                    _ = RequireRecordDefinition(payload);
                 }
                 else if (value is TupleTerm)
                 {
@@ -82,6 +90,7 @@ internal sealed partial class ProcessTermHeap506
                 if (!active.Add(payload.Identity))
                     return false;
                 frame = new(payload);
+                if (value is NativeRecordTerm) frame = new(payload) { Children = [RequireRecordDefinition(payload), .. payload] };
                 if (binaryReference577 is { } binaryReference
                     && (flat || !known.ContainsKey(binaryReference.Identity)))
                 {
@@ -109,9 +118,9 @@ internal sealed partial class ProcessTermHeap506
             while (pending.TryPeek(out var frame))
             {
                 context.Cancellation.ThrowIfCancellationRequested();
-                if (frame.Next < frame.Payload.Count)
+                if (frame.Next < frame.Children.Count)
                 {
-                    Term child = frame.Payload[frame.Next++];
+                    Term child = frame.Children[frame.Next++];
                     if (!Enter(child, out var next, out ulong repeatedWords))
                     {
                         words = 0;

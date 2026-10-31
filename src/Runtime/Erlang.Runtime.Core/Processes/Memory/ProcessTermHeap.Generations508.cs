@@ -58,6 +58,7 @@ internal sealed partial class ProcessTermHeap506
                 foreach (long id in oldBlocks508)
                 {
                     ProcessTermSequence506 block = blocks[id];
+                    if (recordDefinitions.TryGetValue(id, out var recordDefinition)) pending.Push(recordDefinition);
                     for (int index = 0; index < block.Count; index++)
                         pending.Push(block.Slab.Cells[block.Offset + index]!);
                 }
@@ -92,6 +93,7 @@ internal sealed partial class ProcessTermHeap506
             writableCollection.Commit();
             magicCollection?.Commit576();
             ForgetFunctionEntries(dead);
+            ForgetRecordDefinitions(dead);
             foreach (long id in dead)
             {
                 ProcessTermSequence506 block = blocks[id];

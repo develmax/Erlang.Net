@@ -9,9 +9,14 @@ internal sealed class ProcessTermSequence506(
     int offset,
     int length,
     int headerWords526 = 0,
-    int rawPayloadWords556 = 0
-) : IOwnedFloatStorage556, IOwnedIntegerStorage559, IOwnedReferenceStorage562, IOwnedResourceBitsStorage577, IOwnedHeapBitStringStorage, IOwnedFunctionStorage, IOwnedExternalIdentifierStorage
+    int rawPayloadWords556 = 0,
+    bool immediateConsClosure = false
+) : IOwnedFloatStorage556, IOwnedIntegerStorage559, IOwnedReferenceStorage562, IOwnedResourceBitsStorage577, IOwnedHeapBitStringStorage, IOwnedFunctionStorage, IOwnedExternalIdentifierStorage, IOwnedNativeRecordStorage
 {
+    // Immutable construction certificate for Cons-only/immediate-leaf chains.
+    // It is not consulted by collectors, and never certifies tuple mutation.
+    internal bool HasImmediateConsClosure { get; } = immediateConsClosure;
+
     public object Owner => owner;
     public long Identity { get; } = identity;
     public int Count { get; } = length;
@@ -43,6 +48,18 @@ internal sealed class ProcessTermSequence506(
 
     public ValueTask<Term> InvokeFunctionBody(ITermExecutionContext context, IReadOnlyList<Term> arguments)
         => owner.InvokeFunctionBody(this, context, arguments);
+
+    public TupleTerm ReadRecordDefinition() => owner.ReadRecordDefinition(this);
+
+    public Atom ReadRecordModule() => owner.ReadRecordModule(this);
+
+    public Atom ReadRecordName() => owner.ReadRecordName(this);
+
+    public bool ReadRecordExported() => owner.ReadRecordExported(this);
+
+    public IReadOnlyList<Atom> ReadRecordFieldNames() => owner.ReadRecordFieldNames(this);
+
+    public IReadOnlyList<Term> ReadRecordValues() => owner.ReadRecordValues(this);
 
     public LocalNodeSnapshot ReadExternalIdentity() => owner.ReadExternalIdentity(this);
 

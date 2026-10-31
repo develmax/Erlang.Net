@@ -868,7 +868,7 @@ public sealed partial class ProcessRuntime : IAsyncDisposable
         using var signalOwner428 = TryBeginSignalOwner428(owner);
         if (signalOwner428 is null) return;
         using var outputTransfer = distributionPending?.BeginOutputTransfer();
-        if (owner.DeferredSignalDrain is { } drain && (drain.IsCurrent || owner.Mailbox.HasDeferredPending))
+        if (owner.DeferredSignalDrain is { } drain && (drain.IsCurrent || owner.Mailbox.HasDeferredPending || owner.Mailbox.HasPendingBacking))
         {
             if (drain.IsCurrent)
                 return;
@@ -1542,6 +1542,9 @@ public sealed partial class ProcessRuntime : IAsyncDisposable
         var origin641 = RuntimeProcessPayload641.Prepare641(this, sender, reason);
         try
         {
+            if (TryPublishBackedLocalExitAsync(sender, target, origin641.Value641)
+                .GetAwaiter().GetResult())
+                return;
             ExitPrepared641(
                 sender,
                 target,
@@ -1695,6 +1698,7 @@ public sealed partial class ProcessRuntime : IAsyncDisposable
         );
         try
         {
+            target.DeferredSignalDrain ??= new();
             target.Mailbox.SendPendingSnapshot593(
                 publication641.Value641,
                 () =>
@@ -1726,7 +1730,8 @@ public sealed partial class ProcessRuntime : IAsyncDisposable
             },
                 token: token,
                 from: sender,
-                publication593: publication641.Publication641
+                publication593: publication641.Publication641,
+                prepareBacking: true
             );
         }
         finally

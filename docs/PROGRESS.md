@@ -1,3 +1,6 @@
+Current Part549 (2026-10-31): final108-file Roslyn proof and zero-warning Release build;365/365 affected tests plus2 independent CI regex contracts;24/24 full original term/stack/ETF comparisons. Normal Transport passes22.953s within unchanged30s (1107 ssl/ssh +96 frame481). Catalog9572 preserves9541 prior names+31; not a full-suite execution. Exact-head CI/source closure next. Token/trace/terminal candidates unapplied; public GC unchanged. API/full deltas0/0;708/180/504/24 unchanged. Evidence: validation/part-549/README.md.
+
+
 # Active implementation checkpoint — Part533 (2026-10-29)
 
 Part533 final local gates pass9294/9294 (+31), preserving every9263 authenticated previous CI name. Supported local guest sends, snapshots and process_info replies use explicit custody; physical queue retirement runs outside runtime monitors and actor scheduler affinity. Actual Source/originalBEAM lifetimes, fresh atomics/counters and both real native-loader whole streams/cleanup pass. Failed whole runs and meaningful controls remain preserved. API/full deltas0/0;708registered/180verified/504pending/24known. Current-head CI/review/merge are separate PR gates.

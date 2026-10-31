@@ -233,7 +233,7 @@ jobs:
         with:
           ref: ${{ github.event.pull_request.head.sha || github.sha }}
           persist-credentials: false
-      - name: Check all eight native source-plan byte bindings before regression
+      - name: Check all active native and focused source-plan bindings before regression
         shell: python
         run: |
           """Passive source binding checks only: never calls a collector main/build/VM."""
@@ -338,6 +338,24 @@ jobs:
               return dict(PlanSha256=digest(path), VerifiedRows=len(value["Files"]))
 
 
+          def resource529(root):
+              relative = NATIVE + "Erlang.NifResource529Observations"
+              path, value = plan(root, relative + "/source-plan.json")
+              helper = module(root / relative / "collect.py", "preflight_resource529")
+              names = set()
+              for row in value["Dependencies"]:
+                  require(row["Path"] not in names, "Duplicate resource529 source")
+                  names.add(row["Path"])
+                  target = (root / row["Path"]).resolve()
+                  require(target.is_relative_to(root), "Resource529 source escapes repository")
+                  require(helper.dependency_sha(row) == row["Sha256"], "Resource529 source differs: " + row["Path"])
+              require(digest(root / relative / "build-native.py") == value["BuildScriptSha256"], "Resource529 build script differs")
+              for variant in value["Variants"].values():
+                  for prefix in ["NativeSource", "ErlangSource"]:
+                      require(digest(root / variant[prefix + "Path"]) == variant[prefix + "Sha256"], "Resource529 variant source differs")
+              return dict(PlanSha256=digest(path), VerifiedRows=len(names), NativeExecuted=False)
+
+
           def focused_inputs(root, name):
               tool = root / "tools/Runtime" / name
               path = tool / "inputs.json"
@@ -390,6 +408,7 @@ jobs:
                   files = evidence.package(root, root / relative, digest(path))
                   return dict(PlanSha256=digest(path), VerifiedFiles=len(files))
               checks.append(("Private557", private))
+              checks.append(("Resource529", lambda: resource529(root)))
               focused = ["Erlang.Dictionary537Observations", "Erlang.MatchSaved634Observations",
                          "Erlang.EtsDispatch540Observations", "Erlang.MonitorOriginal645Observations",
                          "Erlang.BeamFunction542Observations"]
@@ -402,7 +421,7 @@ jobs:
                       outcomes.append(dict(Plan=name, Passed=False, Error=repr(error)))
               passed = all(row["Passed"] for row in outcomes)
               output.parent.mkdir(parents=True, exist_ok=True)
-              output.write_bytes((json.dumps(dict(Passed=passed, Checks=outcomes, ExpectedPlans=len(checks), ExpectedNativePlans=8, FocusedInputPlans=5,
+              output.write_bytes((json.dumps(dict(Passed=passed, Checks=outcomes, ExpectedPlans=len(checks), ExpectedNativePlans=9, FocusedInputPlans=5,
                   BuildOrVmExecuted=False, NativeExecuted=False, SourceHeadAuthenticityClaimed=False,
                   FullSourceMembershipClaimed=False, WholeContractsClosed=0), indent=2) + "\n").encode())
               require(passed, "Source-plan consistency failed; all independent results retained")

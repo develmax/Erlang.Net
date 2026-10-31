@@ -13,9 +13,18 @@ public sealed partial class Mailbox
 
     internal ProcessMessageQueueDataMode411 ExchangeMessageQueueData411(ProcessMessageQueueDataMode411 mode)
     {
-        var previous = (ProcessMessageQueueDataMode411)Interlocked.Exchange(ref messageQueueData411, (int)mode);
-        if (previous != mode) Interlocked.Increment(ref messageQueuePolicyRevision);
+        // Constructor/internal initial policy only. Public process_flag uses
+        // RequestMessageQueuePolicy and its real ordered receiver marker.
+        lock (gate)
+        {
+            var previous = MessageQueueData411;
+            Volatile.Write(ref messageQueueData411, (int)mode);
+            Volatile.Write(ref messageQueuePlacementMode, (int)mode);
+            policyMovePending = false;
+            policyMoveReady = false;
+            if (previous != mode) Interlocked.Increment(ref messageQueuePolicyRevision);
 
-        return previous;
+            return previous;
+        }
     }
 }

@@ -9,6 +9,7 @@ internal sealed class MailboxPayloadLease593 : IThreadPoolWorkItem
     internal RuntimeMailboxRootOwner593 Owner593 => owner;
     private IDisposable? backing;
     private MailboxMessageFragment? recipientFragment;
+    internal MailboxMessageFragment? RecipientFragment => Volatile.Read(ref recipientFragment);
     private MailboxRetirementTracker593? expectedRecipient;
     internal Term? ObservationValue { get; private set; }
 

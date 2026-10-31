@@ -146,8 +146,11 @@ internal sealed partial class ProcessTermHeap506(ProcessRuntime runtime)
                 continue;
             // Check ownership before reading a sequence; never take another
             // process heap gate while holding this process's gate.
-            if (Storage(current) is not null)
-                _ = IsOwnedLocal(current);
+            if (Storage(current) is { } storage)
+            {
+                _ = IsOwnedLocal(current); // Foreign/stale checks ALWAYS precede shortcut.
+                if (current is Cons && storage is ProcessTermSequence506 { HasImmediateConsClosure: true }) continue;
+            }
             foreach (Term child in NativeMapOwnedRoots510.Children(current))
                 pending.Push(child);
         }
@@ -155,11 +158,26 @@ internal sealed partial class ProcessTermHeap506(ProcessRuntime runtime)
 
     internal Term CreateTuple(Term[] children) => children.Length == 0 ? Term.Tuple() : new TupleTerm(AllocateEncoded526(children, [EncodedMapHeader526.Tuple(children.Length)]));
 
-    internal Term CreateCons(Term head, Term tail) => new Cons(Allocate([head, tail]));
+    internal Term CreateCons(Term head, Term tail)
+    {
+        // Only this fresh immutable Cons allocation may certify the closure.
+        // No boxed head, portable tail, foreign/stale block or mutable tuple is
+        // eligible. All other graphs retain the full validation walk.
+        bool immediateHead = head is Nil or Atom
+            || head is Integer && Storage(head) is null && IsImmediateInteger559(head);
+        bool immediateClosure = immediateHead && (tail is Nil || tail is Cons
+            && Storage(tail) is ProcessTermSequence506 { HasImmediateConsClosure: true } tailStorage
+            && ReferenceEquals(tailStorage.Owner, this) && IsOwnedLocal(tail));
 
-    private ProcessTermSequence506 Allocate(Term[] children) => AllocateEncoded526(children, []);
+        return new Cons(AllocateEncoded526([head, tail], [], immediateConsClosure: immediateClosure));
+    }
 
-    private ProcessTermSequence506 AllocateEncoded526(Term[] children, nuint[] headers, nuint[]? numeric = null)
+    private ProcessTermSequence506 AllocateEncoded526(
+        Term[] children,
+        nuint[] headers,
+        nuint[]? numeric = null,
+        bool immediateConsClosure = false
+    )
     {
         if (!Monitor.IsEntered(Gate))
             throw new InvalidOperationException(CellStorage526Names.GateRequired);
@@ -229,7 +247,8 @@ internal sealed partial class ProcessTermHeap506(ProcessRuntime runtime)
                 checked(offset + headers.Length + numeric.Length),
                 children.Length,
                 headers.Length,
-                numeric.Length
+                numeric.Length,
+                immediateConsClosure
             );
             selected.Cells.WriteHeaders526(headers, offset);
             selected.Cells.WriteNumeric556(numeric, checked(offset + headers.Length));
@@ -291,6 +310,7 @@ internal sealed partial class ProcessTermHeap506(ProcessRuntime runtime)
         if (!closing || frames.Count != 0)
             return;
         RetireFunctionEntries();
+        recordDefinitions.Clear();
         RetireMagicReferences576();
         RetireResourceBinaryDescriptors577();
         RetireNativeHeaders524();
@@ -307,6 +327,7 @@ internal sealed partial class ProcessTermHeap506(ProcessRuntime runtime)
     internal static IOwnedTermSequence506? Storage(Term term) => term switch
     {
         FunctionTerm function => function.OwnedFunctionStorage,
+        NativeRecordTerm record => record.OwnedRecordStorage,
         TupleTerm tuple => tuple.OwnedStorage506,
         MapTerm map => map.OwnedMapPayload517?.RootPayload,
         HamtBitmapTerm429 bitmap => bitmap.OwnedStorage517,

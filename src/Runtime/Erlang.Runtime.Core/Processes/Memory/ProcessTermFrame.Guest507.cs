@@ -69,7 +69,7 @@ internal sealed partial class ProcessTermFrame506
                 || owner.IsLiteralInteger559(value) || ProcessTermHeap506.IsImmediateInteger559(value)
                 || value is BitString candidate && !owner.IsNativeResourceBinary577(candidate) && !owner.CanOwnHeapBitString(candidate) && !owner.CanOwnOrdinaryBinary(candidate)
                 || value is ReferenceTerm && !owner.IsOrdinaryLocalReference562(value) && !owner.IsNativeMagicReference576(value) && !owner.CanOwnExternalIdentifier(value)
-                || value is not (TupleTerm or Cons or MapTerm or FloatTerm or Integer or ReferenceTerm or BitString or FunctionTerm or Pid or PortTerm)
+                || value is not (TupleTerm or Cons or MapTerm or FloatTerm or Integer or ReferenceTerm or BitString or FunctionTerm or Pid or PortTerm or NativeRecordTerm)
                 || value is TupleTerm { Items.Count: 0 } || value is MapTerm { Entries.Count: 0 })
             {
                 PublishRoot512(slot, value);

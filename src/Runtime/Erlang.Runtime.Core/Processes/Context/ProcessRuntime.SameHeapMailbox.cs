@@ -68,7 +68,7 @@ public sealed partial class ProcessRuntime
         bool Eligible()
             => ReferenceEquals(context.Runtime, this) && !disposed && !IsHaltRequested && !context.Terminated
                 && context.SequentialTrace.Token is null && !context.Mailbox.CopySelfMessages
-                && context.Mailbox.MessageQueueData411 == ProcessMessageQueueDataMode411.OnHeap
+                && context.Mailbox.MessageQueuePlacementMode == ProcessMessageQueueDataMode411.OnHeap
                 && ProcessTracing.CanPublishDirectMailboxBacking()
                 && ResolveBackedMailboxTarget(target, out var actual) && actual.Equals(context.Self)
                 && processes.TryGetValue(context.Self, out var owner) && ReferenceEquals(owner, context);

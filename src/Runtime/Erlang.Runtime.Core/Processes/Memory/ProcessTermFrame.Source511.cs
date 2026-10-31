@@ -63,7 +63,7 @@ internal sealed partial class ProcessTermFrame506
                 throw new InvalidOperationException(ProcessTermConstruction514Names.InvalidCustody);
             if (!owner.IsOwnedLocal(value))
                 return;
-            if (value is not (Cons or TupleTerm or MapTerm or HamtBitmapTerm429 or FloatTerm or Integer or ReferenceTerm or BitString or FunctionTerm or Pid or PortTerm))
+            if (value is not (Cons or TupleTerm or MapTerm or HamtBitmapTerm429 or FloatTerm or Integer or ReferenceTerm or BitString or FunctionTerm or Pid or PortTerm or NativeRecordTerm))
                 throw new InvalidOperationException(ProcessTermConstruction514Names.InvalidCustody);
             // Admitted containers and zero-child boxed numerics are created here.
             // Direct children must come from the rooted input or earlier nodes;

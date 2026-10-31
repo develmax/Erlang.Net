@@ -17,6 +17,8 @@ internal sealed partial class ProcessTermHeap506
         pending.Push(new(source, maps));
         while (pending.TryPeek(out GuestAdoptionFrame507? frame))
         {
+            if (frame.Next == 0 && frame.RecordPlan is { } recordMetadata)
+                recordMetadata.AdmitMetadata(construction ?? throw new InvalidOperationException(ProcessTermConstruction514Names.InvalidCustody));
             if (frame.Source is FunctionTerm function && !IsOwnedLocal(function))
             {
                 PreparedCanonicalFunction? prepared = maps?.FindCanonicalFunction(function);
@@ -26,12 +28,13 @@ internal sealed partial class ProcessTermHeap506
                 pending.Pop();
                 continue;
             }
-            if (frame.Source is Pid or PortTerm && !CanOwnExternalIdentifier(frame.Source)
+            if (frame.Source is NativeRecordTerm literalRecord && runtime.IsSharingLiteral425(literalRecord)
+                || frame.Source is Pid or PortTerm && !CanOwnExternalIdentifier(frame.Source)
                 || IsOwnedLocal(frame.Source) || IsLoaderMapKeys565(frame.Source) || IsLiteralFloat556(frame.Source)
                 || IsLiteralInteger559(frame.Source) || IsImmediateInteger559(frame.Source)
                 || frame.Source is BitString candidate && !IsNativeResourceBinary577(candidate) && !CanOwnHeapBitString(candidate) && !CanOwnOrdinaryBinary(candidate)
                 || frame.Source is ReferenceTerm && !IsOrdinaryLocalReference562(frame.Source) && !IsNativeMagicReference576(frame.Source) && !CanOwnExternalIdentifier(frame.Source) || frame.NodePlan526 is null
-                && (frame.Source is not (TupleTerm or Cons or MapTerm or FloatTerm or Integer or ReferenceTerm or BitString or Pid or PortTerm)
+                && (frame.Source is not (TupleTerm or Cons or MapTerm or FloatTerm or Integer or ReferenceTerm or BitString or Pid or PortTerm or NativeRecordTerm)
                     || frame.Source is TupleTerm { Items.Count: 0 }
                     || frame.Source is MapTerm && frame.MapPlan is null))
             {
@@ -75,6 +78,13 @@ internal sealed partial class ProcessTermHeap506
                             true
                         )
                         : CreateResourceBits577(binary, construction ?? throw new InvalidOperationException(ProcessTermConstruction514Names.InvalidCustody))
+                : frame.Source is NativeRecordTerm record
+                ? CreateNativeRecord(
+                    record,
+                    frame.RecordPlan ?? throw new InvalidOperationException(NativeRecordHeapLayout.MissingPlan),
+                    frame.Built,
+                    construction ?? throw new InvalidOperationException(ProcessTermConstruction514Names.InvalidCustody)
+                )
                 : frame.Source is FloatTerm number
                 ? CreateFloat556(number.Value, construction ?? throw new InvalidOperationException(ProcessTermConstruction514Names.InvalidCustody))
                 : frame.Source is Integer integer

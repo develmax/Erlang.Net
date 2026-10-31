@@ -669,6 +669,90 @@ Test(
     NifNativeBackend::Erlang.NifNativeBackend.MailboxBackingCaseNames.OffHeap,
     NifNativeBackend::Erlang.NifNativeBackend.MailboxBackingChecks.OffHeap
 );
+Test(
+    NifNativeBackend::Erlang.NifNativeBackend.DeferredMailboxBackingCaseNames.OnHeap,
+    NifNativeBackend::Erlang.NifNativeBackend.DeferredMailboxBackingChecks.OnHeap
+);
+Test(
+    NifNativeBackend::Erlang.NifNativeBackend.DeferredMailboxBackingCaseNames.OffHeap,
+    NifNativeBackend::Erlang.NifNativeBackend.DeferredMailboxBackingChecks.OffHeap
+);
+Test(
+    NifNativeBackend::Erlang.NifNativeBackend.DeferredMailboxBackingCaseNames.ReleaseChangesMode,
+    NifNativeBackend::Erlang.NifNativeBackend.DeferredMailboxBackingChecks.ReleaseChangesMode
+);
+Test(
+    NifNativeBackend::Erlang.NifNativeBackend.RawMailboxBackingCaseNames.OnHeap,
+    NifNativeBackend::Erlang.NifNativeBackend.RawMailboxBackingChecks.OnHeap
+);
+Test(
+    NifNativeBackend::Erlang.NifNativeBackend.RawMailboxBackingCaseNames.OffHeap,
+    NifNativeBackend::Erlang.NifNativeBackend.RawMailboxBackingChecks.OffHeap
+);
+Test(
+    NifNativeBackend::Erlang.NifNativeBackend.RawMailboxBackingCaseNames.Priority,
+    NifNativeBackend::Erlang.NifNativeBackend.RawMailboxBackingChecks.Priority
+);
+Test(
+    NifNativeBackend::Erlang.NifNativeBackend.TimerMailboxBackingCaseNames.OnHeap,
+    NifNativeBackend::Erlang.NifNativeBackend.TimerMailboxBackingChecks.OnHeap
+);
+Test(
+    NifNativeBackend::Erlang.NifNativeBackend.TimerMailboxBackingCaseNames.OffHeap,
+    NifNativeBackend::Erlang.NifNativeBackend.TimerMailboxBackingChecks.OffHeap
+);
+Test(
+    NifNativeBackend::Erlang.NifNativeBackend.TimerMailboxBackingCaseNames.Wrapped,
+    NifNativeBackend::Erlang.NifNativeBackend.TimerMailboxBackingChecks.Wrapped
+);
+Test(
+    NifNativeBackend::Erlang.NifNativeBackend.LocalSignalMailboxBackingCaseNames.ExitOnHeap,
+    NifNativeBackend::Erlang.NifNativeBackend.LocalSignalMailboxBackingChecks.ExitOnHeap
+);
+Test(
+    NifNativeBackend::Erlang.NifNativeBackend.LocalSignalMailboxBackingCaseNames.ExitOffHeap,
+    NifNativeBackend::Erlang.NifNativeBackend.LocalSignalMailboxBackingChecks.ExitOffHeap
+);
+Test(
+    NifNativeBackend::Erlang.NifNativeBackend.LocalSignalMailboxBackingCaseNames.DownOnHeap,
+    NifNativeBackend::Erlang.NifNativeBackend.LocalSignalMailboxBackingChecks.DownOnHeap
+);
+Test(
+    NifNativeBackend::Erlang.NifNativeBackend.LocalSignalMailboxBackingCaseNames.DownOffHeap,
+    NifNativeBackend::Erlang.NifNativeBackend.LocalSignalMailboxBackingChecks.DownOffHeap
+);
+Test(
+    NifNativeBackend::Erlang.NifNativeBackend.PendingSignalMailboxBackingCaseNames.ExitOnHeap,
+    NifNativeBackend::Erlang.NifNativeBackend.PendingSignalMailboxBackingChecks.ExitOnHeap
+);
+Test(
+    NifNativeBackend::Erlang.NifNativeBackend.PendingSignalMailboxBackingCaseNames.ExitOffHeap,
+    NifNativeBackend::Erlang.NifNativeBackend.PendingSignalMailboxBackingChecks.ExitOffHeap
+);
+Test(
+    NifNativeBackend::Erlang.NifNativeBackend.PendingSignalMailboxBackingCaseNames.DownOnHeap,
+    NifNativeBackend::Erlang.NifNativeBackend.PendingSignalMailboxBackingChecks.DownOnHeap
+);
+Test(
+    NifNativeBackend::Erlang.NifNativeBackend.PendingSignalMailboxBackingCaseNames.DownOffHeap,
+    NifNativeBackend::Erlang.NifNativeBackend.PendingSignalMailboxBackingChecks.DownOffHeap
+);
+Test(
+    NifNativeBackend::Erlang.NifNativeBackend.MailboxPolicyConversionCaseNames.OnToOff,
+    NifNativeBackend::Erlang.NifNativeBackend.MailboxPolicyConversionChecks.OnToOff
+);
+Test(
+    NifNativeBackend::Erlang.NifNativeBackend.MailboxPolicyConversionCaseNames.OffToOn,
+    NifNativeBackend::Erlang.NifNativeBackend.MailboxPolicyConversionChecks.OffToOn
+);
+Test(
+    NifNativeBackend::Erlang.NifNativeBackend.MailboxPolicyConversionCaseNames.Reversal,
+    NifNativeBackend::Erlang.NifNativeBackend.MailboxPolicyReversalChecks.Run
+);
+Test(
+    NifNativeBackend::Erlang.NifNativeBackend.MailboxPolicyBarrierCaseNames.Order,
+    NifNativeBackend::Erlang.NifNativeBackend.MailboxPolicyBarrierChecks.Run
+);
 Test(Erlang.Tests.PersistentArena416HostNames.ValuesTest, Erlang.Tests.PersistentArena416ValuesChecks.Run);
 Test(Erlang.Tests.PersistentArena416HostNames.RetiredTest, Erlang.Tests.PersistentArena416RetirementChecks.Run);
 Test(Erlang.Tests.PersistentArena416HostNames.RollbackTest, Erlang.Tests.PersistentArena416RollbackChecks.Run);
@@ -1930,6 +2014,56 @@ Test(
 Test(
     NifNativeBackend::Erlang.NifNativeBackend.ExternalIdentifierCaseNames.Close,
     NifNativeBackend::Erlang.NifNativeBackend.ExternalIdentifierChecks.VmCloseWaitsForRealNode
+);
+Test(
+    NifNativeBackend::Erlang.NifNativeBackend.OwnedListAppendCaseNames.Physical,
+    NifNativeBackend::Erlang.NifNativeBackend.OwnedListAppendChecks.PhysicalPrefixAndOpaqueReplay
+);
+
+Test(
+    NifNativeBackend::Erlang.NifNativeBackend.PreparedBeamValidationCaseNames.Isolation,
+    NifNativeBackend::Erlang.NifNativeBackend.PreparedBeamValidationChecks.Isolation
+);
+
+Test(
+    NifNativeBackend::Erlang.NifNativeBackend.ImmediateConsClosureCaseNames.Physical,
+    NifNativeBackend::Erlang.NifNativeBackend.ImmediateConsClosureChecks.Physical
+);
+
+Test(
+    NifNativeBackend::Erlang.NifNativeBackend.MailboxPortableInputCaseNames.Physical,
+    NifNativeBackend::Erlang.NifNativeBackend.MailboxPortableInputChecks.PhysicalOccurrences
+);
+
+Test(
+    NifNativeBackend::Erlang.NifNativeBackend.NativeRecordBeamCaseNames.Whole,
+    NifNativeBackend::Erlang.NifNativeBackend.NativeRecordBeamChecks.OriginalWhole
+);
+Test(
+    NifNativeBackend::Erlang.NifNativeBackend.NativeRecordBeamCaseNames.Roles,
+    () =>
+    {
+        NifNativeBackend::Erlang.NifNativeBackend.NativeRecordBeamChecks.OperandGuards();
+
+        return Task.CompletedTask;
+    }
+);
+
+Test(
+    NifNativeBackend::Erlang.NifNativeBackend.NativeRecordHeapCaseNames.Physical,
+    NifNativeBackend::Erlang.NifNativeBackend.NativeRecordHeapChecks.PhysicalDefinitionAndReclaim
+);
+Test(
+    NifNativeBackend::Erlang.NifNativeBackend.NativeRecordHeapCaseNames.Transfer,
+    NifNativeBackend::Erlang.NifNativeBackend.NativeRecordHeapChecks.TransferAndEscape
+);
+Test(
+    NifNativeBackend::Erlang.NifNativeBackend.NativeRecordHeapCaseNames.Source,
+    NifNativeBackend::Erlang.NifNativeBackend.NativeRecordHeapChecks.SourceBirthAndUpdate
+);
+Test(
+    NifNativeBackend::Erlang.NifNativeBackend.NativeRecordHeapCaseNames.Close,
+    NifNativeBackend::Erlang.NifNativeBackend.NativeRecordHeapChecks.CloseWaitingSource
 );
 Test(
     NifNativeBackend::Erlang.NifNativeBackend.GroupLeaderRootCaseNames.Storage,

@@ -1,0 +1,38 @@
+{
+  "Partial": true,
+  "SelectedCount": 4,
+  "TotalCount": 9545,
+  "Blocks": [],
+  "ExactCases": [
+    "runtime/statistics-native-record-copied-actual-children-detached-host-escape",
+    "runtime/statistics-native-record-genuine-source-wait-vm-close-and-stale-read",
+    "runtime/statistics-native-record-real-instance-definition-order-pointers-and-reclaim",
+    "runtime/statistics-native-record-source-birth-update-getters-live-gc-and-return"
+  ],
+  "Passed": 2,
+  "Failed": 2,
+  "Tests": [
+    {
+      "Name": "runtime/statistics-native-record-real-instance-definition-order-pointers-and-reclaim",
+      "Status": "Failed",
+      "Error": "System.InvalidOperationException: Native word allocation requires its owning process heap gate.\r\n   at Erlang.ProcessTermHeap506.ReadRawAddress571(ProcessTermSequence506 block, Int32 relativeOffset, Int32 words) in D:\\Distr\\Work\\Codex\\Erlang.Net\\w546\\src\\Runtime\\Erlang.Runtime.Core\\Processes\\Memory\\ProcessTermHeap.RawAddresses571.cs:line 24\r\n   at Erlang.ProcessTermHeap506.CaptureRawAddress571(ProcessTermSequence506 block, Int32 relativeOffset, Int32 words) in D:\\Distr\\Work\\Codex\\Erlang.Net\\w546\\src\\Runtime\\Erlang.Runtime.Core\\Processes\\Memory\\ProcessTermHeap.RawAddresses571.cs:line 11\r\n   at Erlang.NifNativeBackend.NativeRecordHeapTestAccess.Inspect(ProcessTermHeap506 heap, NativeRecordTerm value) in D:\\Distr\\Work\\Codex\\Erlang.Net\\w546\\tools\\Native\\Erlang.NifNativeBackend\\NativeRecordHeapTestAccess.cs:line 41\r\n   at Erlang.NifNativeBackend.NativeRecordHeapChecks.\u003C\u003Ec__DisplayClass0_0.\u003C\u003CPhysicalDefinitionAndReclaim\u003Eb__0\u003Ed.MoveNext() in D:\\Distr\\Work\\Codex\\Erlang.Net\\w546\\tools\\Native\\Erlang.NifNativeBackend\\NativeRecordHeapChecks.cs:line 26\r\n--- End of stack trace from previous location ---\r\n   at Erlang.NifNativeBackend.NativeRecordHeapChecks.\u003C\u003Ec__DisplayClass0_0.\u003C\u003CPhysicalDefinitionAndReclaim\u003Eb__0\u003Ed.MoveNext() in D:\\Distr\\Work\\Codex\\Erlang.Net\\w546\\tools\\Native\\Erlang.NifNativeBackend\\NativeRecordHeapChecks.cs:line 53\r\n--- End of stack trace from previous location ---\r\n   at Erlang.NifNativeBackend.CpuStatisticsAccess.\u003C\u003Ec__DisplayClass4_0\u00601.\u003C\u003CActor\u003Eb__0\u003Ed.MoveNext() in D:\\Distr\\Work\\Codex\\Erlang.Net\\w546\\tools\\Native\\Erlang.NifNativeBackend\\CpuStatisticsAccess.cs:line 45\r\n--- End of stack trace from previous location ---\r\n   at Erlang.NifNativeBackend.CpuStatisticsAccess.Actor[T](ProcessRuntime runtime, Func\u00602 body) in D:\\Distr\\Work\\Codex\\Erlang.Net\\w546\\tools\\Native\\Erlang.NifNativeBackend\\CpuStatisticsAccess.cs:line 58\r\n   at Erlang.NifNativeBackend.CpuStatisticsAccess.Actor[T](ProcessRuntime runtime, Func\u00602 body) in D:\\Distr\\Work\\Codex\\Erlang.Net\\w546\\tools\\Native\\Erlang.NifNativeBackend\\CpuStatisticsAccess.cs:line 73\r\n   at Erlang.NifNativeBackend.NativeRecordHeapChecks.PhysicalDefinitionAndReclaim() in D:\\Distr\\Work\\Codex\\Erlang.Net\\w546\\tools\\Native\\Erlang.NifNativeBackend\\NativeRecordHeapChecks.cs:line 14\r\n   at Erlang.NifNativeBackend.NativeRecordHeapChecks.PhysicalDefinitionAndReclaim()\r\n   at Program.\u003CMain\u003E$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\w546\\tests\\Erlang.Tests\\Harness\\Program.cs:line 8089",
+      "Milliseconds": 255
+    },
+    {
+      "Name": "runtime/statistics-native-record-copied-actual-children-detached-host-escape",
+      "Status": "Failed",
+      "Error": "System.InvalidOperationException: Native word allocation requires its owning process heap gate.\r\n   at Erlang.ProcessTermHeap506.ReadRawAddress571(ProcessTermSequence506 block, Int32 relativeOffset, Int32 words) in D:\\Distr\\Work\\Codex\\Erlang.Net\\w546\\src\\Runtime\\Erlang.Runtime.Core\\Processes\\Memory\\ProcessTermHeap.RawAddresses571.cs:line 24\r\n   at Erlang.ProcessTermHeap506.CaptureRawAddress571(ProcessTermSequence506 block, Int32 relativeOffset, Int32 words) in D:\\Distr\\Work\\Codex\\Erlang.Net\\w546\\src\\Runtime\\Erlang.Runtime.Core\\Processes\\Memory\\ProcessTermHeap.RawAddresses571.cs:line 11\r\n   at Erlang.NifNativeBackend.NativeRecordHeapTestAccess.Inspect(ProcessTermHeap506 heap, NativeRecordTerm value) in D:\\Distr\\Work\\Codex\\Erlang.Net\\w546\\tools\\Native\\Erlang.NifNativeBackend\\NativeRecordHeapTestAccess.cs:line 41\r\n   at Erlang.NifNativeBackend.NativeRecordHeapChecks.TransferAndEscape() in D:\\Distr\\Work\\Codex\\Erlang.Net\\w546\\tools\\Native\\Erlang.NifNativeBackend\\NativeRecordHeapChecks.cs:line 79\r\n   at Erlang.NifNativeBackend.NativeRecordHeapChecks.TransferAndEscape() in D:\\Distr\\Work\\Codex\\Erlang.Net\\w546\\tools\\Native\\Erlang.NifNativeBackend\\NativeRecordHeapChecks.cs:line 96\r\n   at Erlang.NifNativeBackend.NativeRecordHeapChecks.TransferAndEscape()\r\n   at Program.\u003CMain\u003E$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\w546\\tests\\Erlang.Tests\\Harness\\Program.cs:line 8089",
+      "Milliseconds": 34
+    },
+    {
+      "Name": "runtime/statistics-native-record-source-birth-update-getters-live-gc-and-return",
+      "Status": "Passed",
+      "Milliseconds": 1378
+    },
+    {
+      "Name": "runtime/statistics-native-record-genuine-source-wait-vm-close-and-stale-read",
+      "Status": "Passed",
+      "Milliseconds": 151
+    }
+  ]
+}

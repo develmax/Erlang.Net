@@ -23,6 +23,8 @@ internal sealed partial class ProcessTermHeap506
         Cons cons => new[] { cons.Head, cons.Tail },
         TupleTerm tuple => tuple.Items,
         FunctionTerm function => function.Environment,
+        NativeRecordTerm { OwnedRecordStorage: { } storage } record => new Term[] { storage.ReadRecordDefinition() }.Concat(record.Values),
+        NativeRecordTerm record => record.Values,
         _ => Array.Empty<Term>()
     };
 }

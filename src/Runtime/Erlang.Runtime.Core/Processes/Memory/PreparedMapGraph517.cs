@@ -63,6 +63,7 @@ internal sealed partial class PreparedMapGraph517 : IDisposable
                 if (!seen.Add(value))
                     continue;
                 graph.CaptureCanonicalFunction(runtime, value);
+                graph.CaptureRecord(runtime, value, pending);
                 if (heap.CanOwnExternalIdentifier(value))
                 {
                     var plan = new PreparedExternalIdentifier(runtime, value);
@@ -190,6 +191,7 @@ internal sealed partial class PreparedMapGraph517 : IDisposable
             {
                 (errors ??= new()).Add(error);
             }
+        records.Clear();
         externalIdentifiers.Clear();
         ordinaryBinaries.Clear();
         plans.Clear();

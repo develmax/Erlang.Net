@@ -6,7 +6,10 @@ public sealed partial class ProcessRuntime
         Term target,
         Term message,
         ProcessContext? sender = null,
-        bool recordSavedCall = false
+        bool recordSavedCall = false,
+        bool priority = false,
+        Term? from = null,
+        bool preserve = false
     )
     {
         // A recursive legacy/system caller holding R must use its existing
@@ -32,7 +35,7 @@ public sealed partial class ProcessRuntime
                     return true;
                 }
                 if (recipient.Mailbox.DeferredGateHeld || sender?.Mailbox.DeferredGateHeld == true) return false;
-                mode = recipient.Mailbox.MessageQueueData411;
+                mode = recipient.Mailbox.MessageQueuePlacementMode;
                 policy = recipient.Mailbox.MessageQueuePolicyRevision;
             }
             PreparedMailboxMessage prepared;
@@ -78,13 +81,15 @@ public sealed partial class ProcessRuntime
 
                         return true;
                     }
-                    if (recipient.Mailbox.MessageQueueData411 != mode
+                    if (recipient.Mailbox.MessageQueuePlacementMode != mode
                         || recipient.Mailbox.MessageQueuePolicyRevision != policy) continue;
                     if (recordSavedCall) sender!.SavedCalls.Sent();
                     recipient.Mailbox.SendTracedSnapshot593(
                         prepared.Value,
                         null,
-                        from: sender?.Self,
+                        preserve: preserve,
+                        priority: priority,
+                        from: sender?.Self ?? from,
                         publication593: publication
                     );
 

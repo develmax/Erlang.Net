@@ -10,7 +10,14 @@ public sealed partial class ProcessRuntime
         }
         finally
         {
-            DrainCollectionRequests(owner);
+            try
+            {
+                DrainCollectionRequests(owner);
+            }
+            finally
+            {
+                DrainMessageQueuePoliciesSynchronously(owner);
+            }
         }
     }
 

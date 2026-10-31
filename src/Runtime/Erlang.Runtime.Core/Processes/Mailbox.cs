@@ -18,6 +18,7 @@ public sealed partial class Mailbox
     private TaskCompletionSource changed = NewSignal();
     internal Func<bool>? HaltRequested { get; init; }
     internal Action? ProcessSignals { get; init; }
+    internal Func<ValueTask>? ProcessStoragePolicies { get; init; }
     internal Func<ValueTask<long>>? WaitForExecution { get; init; }
     internal Func<long>? SuspensionTime { get; init; }
     internal Func<bool>? ExecutionBlocked { get; init; }
@@ -29,7 +30,7 @@ public sealed partial class Mailbox
     internal Action? ReceiveTimedOut { get; init; }
     internal Action<bool>? WaitingStateChanged { get; init; }
 
-    private readonly record struct Entry(
+    internal readonly record struct Entry(
         Term Value,
         Func<bool?>? Admission,
         bool Control = false,
@@ -43,7 +44,8 @@ public sealed partial class Mailbox
         bool Deferred = false,
         BeamReceiveMarker? ReceiveMarker = null,
         MailboxEntryCustody593? Custody593 = null,
-        Exception? RetirementFailure593 = null
+        Exception? RetirementFailure593 = null,
+        bool PendingBacking = false
     );
 
     private static TaskCompletionSource NewSignal() => new(TaskCreationOptions.RunContinuationsAsynchronously);
@@ -76,7 +78,7 @@ public sealed partial class Mailbox
             Task changedTask;
             lock (gate)
                 changedTask = changed.Task;
-            ProcessSignals?.Invoke();
+            await ProcessSignalsAndStorageAsync();
             if (completion.IsCompleted)
                 break;
             await Task.WhenAny(completion, changedTask).WaitAsync(cancellation);
@@ -97,9 +99,15 @@ public sealed partial class Mailbox
     }
 
     internal Action<Term>? IncomingTerm { get; init; }
+    internal Func<Term, bool, bool>? TrySendBacked { get; init; }
+    internal bool IsClosedForBacking => Volatile.Read(ref closed593);
 
     public void Send(Term message, bool priority = false)
     {
+        // Only the owner-bound runtime hook can prepare actual backing. The
+        // existing path remains for standalone/locked/system callers.
+        if (!Monitor.IsEntered(gate) && TrySendBacked?.Invoke(message, priority) == true)
+            return;
         SendTraced(
             message,
             null,
@@ -198,7 +206,8 @@ public sealed partial class Mailbox
         Term? from = null,
         bool traceAdmission = true,
         Term? distributionTraceToken = null,
-        MailboxPublicationScope593? publication593 = null
+        MailboxPublicationScope593? publication593 = null,
+        bool prepareBacking = false
     )
         => SendPendingCore593(
             message,
@@ -209,7 +218,8 @@ public sealed partial class Mailbox
             traceAdmission,
             distributionTraceToken,
             null,
-            publication593
+            publication593,
+            prepareBacking
         );
 
     internal void SendPendingPriority428(
@@ -239,7 +249,8 @@ public sealed partial class Mailbox
         Term? distributionTraceToken = null
         ,
         ProcessSchedulingPriority? notificationPriority428 = null,
-        MailboxPublicationScope593? publication593 = null
+        MailboxPublicationScope593? publication593 = null,
+        bool prepareBacking = false
     )
     {
         IncomingTerm?.Invoke(message);
@@ -260,7 +271,8 @@ public sealed partial class Mailbox
                 from,
                 traceAdmission,
                 distributionTraceToken,
-                Custody593: custody593
+                Custody593: custody593,
+                PendingBacking: prepareBacking
             ));
             AddPendingSignal428(pendingNode);
             messages.AddLast(pendingNode);
@@ -280,12 +292,12 @@ public sealed partial class Mailbox
         var admitted = new List<(Term Message, Term? From)>();
         lock (gate)
         {
-            if (Volatile.Read(ref closed593) || HaltRequested?.Invoke() == true || pending == 0)
+            if (Volatile.Read(ref closed593) || HaltRequested?.Invoke() == true || pending == 0 || policyMoveReady)
                 return;
             for (var node = messages.First; node is not null;)
             {
                 var next = node.Next;
-                if (node.Value.Deferred)
+                if (node.Value.Deferred || node.Value.PendingBacking)
                     break;
                 if (node.Value.Admission is { } admission)
                 {
@@ -324,6 +336,9 @@ public sealed partial class Mailbox
                         }
                     }
                 }
+                // The actual MOVE marker is an ordering barrier. Later GC,
+                // exit and monitor callbacks wait for real outside-lock movement.
+                if (policyMoveReady) break;
                 node = next is not null && next.List == messages ? next : null;
             }
         }
@@ -581,7 +596,7 @@ public sealed partial class Mailbox
         {
             ThrowIfHalted();
             cancellation.ThrowIfCancellationRequested();
-            ProcessSignals?.Invoke();
+            await ProcessSignalsAndStorageAsync();
             ThrowIfHalted();
             cancellation.ThrowIfCancellationRequested();
             if (WaitForExecution is not null)
@@ -683,7 +698,7 @@ public sealed partial class Mailbox
             ThrowIfHalted();
             cancellation.ThrowIfCancellationRequested();
             ThrowStatisticsTrapFailure();
-            ProcessSignals?.Invoke();
+            await ProcessSignalsAndStorageAsync();
             ThrowIfHalted();
             cancellation.ThrowIfCancellationRequested();
             if (WaitForExecution is not null)

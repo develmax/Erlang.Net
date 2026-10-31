@@ -20,12 +20,16 @@ internal sealed partial class RuntimeMailboxRootOwner593
         try
         {
             work.Attach(NativeResourceRoots524.RetainGraph524(source, runtime));
-            Term portable = OwnedTermDetachedCopy506.CopyAtomics586(runtime, source,
+            bool plainPortable = MailboxPortableInput.CanReuse(source);
+            // Import still copies every physical occurrence. An immutable plain
+            // portable input already IS the DTO; expanding its shared DAG into
+            // another DTO first only duplicates work and temporary objects.
+            Term portable = plainPortable ? source : OwnedTermDetachedCopy506.CopyAtomics586(runtime, source,
                 exportHostAtomics586: false);
             MailboxMessageFragment fragment = await MailboxMessageFragment.CreatePreparedAsync(runtime,
                 mode == ProcessMessageQueueDataMode411.OnHeap ? recipient : null, portable).ConfigureAwait(false);
             work.AttachRecipientPreparation(fragment, recipient.Mailbox.PayloadRetirements593);
-            Term observation = MailboxValueEscape.RequiresDetach(source) ? portable : source;
+            Term observation = !plainPortable && MailboxValueEscape.RequiresDetach(source) ? portable : source;
             var graph = new MailboxGraphSnapshot593(runtime, work, observation);
             lock (gate) ObjectDisposedException.ThrowIf(closed, this);
 

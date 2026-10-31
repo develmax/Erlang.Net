@@ -15,6 +15,7 @@ public sealed partial class ModuleRegistry
         {
             RegistryModuleDependencies = dependencies.RegistryModules
         };
+        var validatedEntries = new List<BeamLinkedFunction>();
         if (owningRuntime is not null)
             foreach (string? atom in code.Structure.Atoms)
                 if (atom is not null)
@@ -23,16 +24,22 @@ public sealed partial class ModuleRegistry
         {
             BeamLinkedFunction callback = code.Functions.Single(function => function.EntryLabel == callbackLabel);
             BeamRegisterValidation.Validate(code, callback);
+            validatedEntries.Add(callback);
         }
         BeamPreparedMetadata metadata = BeamPublicationMetadata.Read(code, decoding);
         if (code.OnLoadEntryLabel is not null)
             BeamOnLoadMetadata.RequireSupported(metadata);
         foreach (BeamLinkedFunction function in code.Exports)
             if (!BeamGeneratedMetadata.IsGenerated(code, function))
+            {
                 BeamRegisterValidation.Validate(code, function);
+                validatedEntries.Add(function);
+            }
 
         owningRuntime?.MarkPreparedLiterals425(code.Structure.Literals);
         owningRuntime?.RegisterLoaderMapKeys565(code);
+
+        PreparedBeamValidationCache.SealFreshPreparedCode(code, validatedEntries);
 
         return new PreparedBeamImage(
             this,

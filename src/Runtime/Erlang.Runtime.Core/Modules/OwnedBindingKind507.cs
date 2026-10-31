@@ -9,5 +9,6 @@ internal enum OwnedBindingKind507
     PureAliasRead,
     RuntimeRead535,
     NativeGuest535,
-    LocalMessage
+    LocalMessage,
+    LocalListAppend
 }

@@ -19,6 +19,8 @@ internal static class OwnedTermTransfer506
         while (true)
         {
             OwnedPayloadCopyFrame506 frame = stack.Peek();
+            if (frame.Index == 0 && frame.RecordPlan is { } recordMetadata)
+                lock (heap.Gate) recordMetadata.AdmitMetadata(construction);
             if (frame.Index < frame.Children.Length)
             {
                 stack.Push(new(frame.Children[frame.Index], maps));
@@ -55,6 +57,13 @@ internal static class OwnedTermTransfer506
                         ResourceReferenceTerm resource when heap.IsNativeMagicReference576(resource) => heap.CreateMagicReference576(resource, construction),
                         ReferenceTerm reference when heap.IsOrdinaryLocalReference562(reference) => heap.CreateReference562(reference, construction),
                         Cons => heap.CreateCons(frame.Copied[0], frame.Copied[1]),
+                        NativeRecordTerm record when heap.Runtime524.IsSharingLiteral425(record) => record,
+                        NativeRecordTerm record => heap.CreateNativeRecord(
+                            record,
+                            frame.RecordPlan ?? throw new InvalidOperationException(NativeRecordHeapLayout.MissingPlan),
+                            frame.Copied,
+                            construction
+                        ),
                         TupleTerm { Items.Count: 0 } => frame.Source,
                         TupleTerm => heap.CreateTuple(frame.Copied),
                         MapTerm when frame.MapPlan is { } plan => heap.CreateMapWithCustody517(

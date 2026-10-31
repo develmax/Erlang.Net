@@ -9,6 +9,9 @@ public sealed partial class ProcessContext
         if (!VmStorageBackingEnabled || !RuntimeActorExecutionTurn.IsOwnedBy(this))
             throw new InvalidOperationException(ResourcePolicy508Names.PilotRequired);
 
-        return TermHeap506.CollectGeneration508(requestedMajor, GarbageCollectionPolicy.Threshold);
+        var result = TermHeap506.CollectGeneration508(requestedMajor, GarbageCollectionPolicy.Threshold);
+        Runtime.ImportOnHeapMessagesAfterCollection(this);
+
+        return result;
     }
 }

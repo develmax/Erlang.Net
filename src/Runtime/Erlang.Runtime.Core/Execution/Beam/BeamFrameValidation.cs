@@ -90,7 +90,14 @@ internal static class BeamFrameValidation
             }
             switch (instruction.Definition.Name)
             {
+                case BeamNativeRecordAccessNames.Elements:
+                    Y(operands[1], true);
+                    Fail(operands[0]);
+                    for (int field = 3; field < operands.Count; field += 2)
+                        Write(operands[field + 1]);
+                    break;
                 case BeamRecordConstructionNames.Opcode:
+                    Y(operands[BeamRecordConstructionNames.Source], true);
                     if (slots != BeamFrameParameters.NoFrame && initialized != (BigInteger.One << slots) - BigInteger.One)
                         throw new InvalidDataException(BeamOnLoadDiagnostics.Frame);
                     for (int field = BeamRecordConstructionNames.FirstField; field < operands.Count; field += BeamRecordConstructionNames.FieldWidth)
@@ -796,7 +803,14 @@ internal static class BeamFrameValidation
 
             switch (name)
             {
+                case BeamNativeRecordAccessNames.Elements:
+                    Read(operands[1]);
+                    Branch(operands[0]);
+                    for (int field = 3; field < operands.Count; field += 2)
+                        Write(operands[field + 1]);
+                    break;
                 case BeamRecordConstructionNames.Opcode:
+                    Read(operands[BeamRecordConstructionNames.Source]);
                     Roots();
                     Live((int)operands[BeamRecordConstructionNames.Live].Value);
                     for (int field = BeamRecordConstructionNames.FirstField; field < operands.Count; field += BeamRecordConstructionNames.FieldWidth)

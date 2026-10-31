@@ -54,6 +54,12 @@ internal sealed class ProcessBinaryRegistry512
             if (!seen.Add(value))
                 continue;
             visits++;
+            // This exact immutable closure cannot contain ANY binary/native
+            // backing. Keep the real lease/publication/rollback bookkeeping;
+            // only omit its proven empty descendant walk.
+            if (value is Cons && owner is ProcessTermHeap506 closureHeap && Monitor.IsEntered(closureHeap.Gate)
+                && ProcessTermHeap506.Storage(value) is ProcessTermSequence506 { HasImmediateConsClosure: true }
+                && closureHeap.IsOwnedLocal(value)) continue;
             if (value is ResourceReferenceTerm { OwnedStorage562: { } storage } && !ReferenceEquals(storage.Owner, owner))
                 throw new InvalidOperationException(ProcessTerm506Names.ForeignRoot);
             if (NativeResourceRoots524.Direct524(value, (owner as ProcessTermHeap506)?.Runtime524) is { } resource
