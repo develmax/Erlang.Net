@@ -26,3 +26,10 @@ Publication metadata: the unchanged main13 checker passes13/13 on the final scop
 
 
 Windows checkout correction: the initial CI preflight failure is retained. Two scoped attributes rules preserve the new observer and current descriptor's exact bytes. Actual checkout-index with core.autocrlf=true verifies25 paths, and the unchanged13-plan checker passes on those real checkout bytes. No product source or hash-mode weakening is involved; exact new-head CI is separate.
+
+
+## Readiness correction after actual Windows full run
+
+Exact f545 Windows executes9451/9451 tests and original configured catalog1321/1321, then readiness rejects stale current source bindings for BeamRegisterInterpreter.cs and BeamRegisterValidation.cs. The independent Linux run passes38 complete rows in both profiles and retains84 native/8 module-text/68 legacy/pthread/3-loader/cleanup gates. Preserve the Windows failure; no green CI/merge is claimed.
+
+Audit all4373 source/evidence rows against2398 exact Git blobs: only these two current-source hashes differ. Update the two bindings in both current ledger and readiness output, preserving every Entry/classification/evidence and all other source rows. The six unchanged production MfaCompatibility classes run against the actual main-based ModuleRegistry/Core/Otp exports and all original evidence files:708 registered,2226 source bindings,180 verified,504 pending,24 known PASS. Initial diagnostic wrapper used uppercase baseline JSON keys; retain its failed run and close only confirmed own PID39140 before correcting lowercase keys. Corrected host build has zero warnings/errors and execution02 exits0. No production source change or compatibility promotion. New exact-head CI remains mandatory.
