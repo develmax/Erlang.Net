@@ -23,3 +23,6 @@ The same narrow changes were surgically ported to actual remote main d49963520e3
 
 
 Publication metadata: the unchanged main13 checker passes13/13 on the final scoped source and metadata, with isolated Git membership. The mandatory Linux workflow reuses its existing pinned original build and compares this38-row contract in both profiles independently of native-bridge readiness; its aggregate requires whole raw/deterministic equality, complete runtime closure and all six actual compiler gates. Existing NIF gates and raw artifacts remain required. Linux/GitHub execution is pending until the exact published head finishes.
+
+
+Windows checkout correction: the initial CI preflight failure is retained. Two scoped attributes rules preserve the new observer and current descriptor's exact bytes. Actual checkout-index with core.autocrlf=true verifies25 paths, and the unchanged13-plan checker passes on those real checkout bytes. No product source or hash-mode weakening is involved; exact new-head CI is separate.
