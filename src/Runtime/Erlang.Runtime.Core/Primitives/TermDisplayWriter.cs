@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Erlang;
 
-internal sealed class TermDisplayWriter(ProcessRuntime runtime)
+internal sealed partial class TermDisplayWriter(ProcessRuntime runtime)
 {
     private readonly ArrayBufferWriter<byte> buffer = new();
     private readonly record struct Work(Term? Value, string? Token = null, bool ConsCell = false);
@@ -15,6 +15,15 @@ internal sealed class TermDisplayWriter(ProcessRuntime runtime)
     private CancellationToken cancellation;
 
     internal byte[] WriteLimited430(Term term, int precision, CancellationToken token)
+    {
+        limited = true;
+        remaining = precision;
+        cancellation = token;
+
+        return Write(term);
+    }
+
+    internal byte[] WritePrintf791(Term term, long precision, CancellationToken token)
     {
         limited = true;
         remaining = precision;
@@ -68,6 +77,7 @@ internal sealed class TermDisplayWriter(ProcessRuntime runtime)
                     break;
                 case Atom atom:
                     Atom(atom.Name);
+                    if (printfSink791 is not null && remaining <= 0) stopped = true;
                     break;
                 case Integer integer:
                     Number(integer.Value);
@@ -152,18 +162,36 @@ internal sealed class TermDisplayWriter(ProcessRuntime runtime)
 
     private void Byte(byte value)
     {
+        if (printfSink791 is not null)
+        {
+            EmitPrintf791(new byte[] { value });
+
+            return;
+        }
         buffer.GetSpan(1)[0] = value;
         buffer.Advance(1);
     }
 
     private void Text(string text)
     {
+        if (printfSink791 is not null)
+        {
+            EmitPrintf791(Encoding.UTF8.GetBytes(text));
+
+            return;
+        }
         int count = Encoding.UTF8.GetByteCount(text);
         Encoding.UTF8.GetBytes(text, buffer.GetSpan(count));
         buffer.Advance(count);
     }
 
-    private void Number(System.Numerics.BigInteger value) => Text(value.ToString(CultureInfo.InvariantCulture));
+    private void Number(System.Numerics.BigInteger value)
+    {
+        string text = value.ToString(CultureInfo.InvariantCulture);
+        if (printfSink791 is not null && value >= PrintfTermParameters791.SmallMinimum && value <= PrintfTermParameters791.SmallMaximum)
+            EmitPrintfNumber791(text);
+        else Text(text);
+    }
 
     private void Float(double value)
     {

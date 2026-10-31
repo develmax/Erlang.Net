@@ -43,6 +43,7 @@ internal static class NifDirty521Driver
         int environments = NifNativeCallEnvironment.ActiveCount;
         long buffers = NifNativeBinaryStorage.LiveBufferCount;
         int binaries = NifNativeBinaryRegistry.NativeOwnedCount;
+        int mutexes795 = NifNativeAllocationOwner.LiveMutexCount795;
         int policyCalls = 0;
         string mode = root.GetProperty(NifDirty521Names.FieldMode).GetString()!;
         string observerModule526 = root.TryGetProperty(NifDirty521Names.FieldObserverModule526, out var observer526)
@@ -227,7 +228,16 @@ internal static class NifDirty521Driver
             }
         }
         bool moduleAbsentAfter = MapFamily504NativeModuleHandle.Find(library) == 0;
+        NifNativeAllocationDomainSnapshot allocationLedger = runtime?.NativeAllocationSnapshot ?? default;
+        bool allocationLedgerClean = allocationLedger.JoinedOwners == 0
+            && allocationLedger.Allocations.Count == 0
+            && allocationLedger.Allocations.RequestedBytes == 0
+            && allocationLedger.Allocations.BackingRequestBytes == 0;
+        int mutexesAfter795 = NifNativeAllocationOwner.LiveMutexCount795;
+        bool mutexLedgerClean795 = mutexesAfter795 == mutexes795;
         bool clean = moduleAbsentAfter
+            && allocationLedgerClean
+            && mutexLedgerClean795
             && NifNativeCallEnvironment.ActiveCount == environments
             && NifNativeBinaryStorage.LiveBufferCount == buffers
             && NifNativeBinaryRegistry.NativeOwnedCount == binaries;
@@ -261,6 +271,11 @@ internal static class NifDirty521Driver
                     NormalizationPerformed = false,
                     NativeEnvironmentAndBinaryBaselinesRestored = clean,
                     NativeModuleAbsentBeforeAndAfter = moduleAbsentAfter,
+                    NativeAllocationLedgerBaselineRestored = allocationLedgerClean,
+                    NativeAllocationLedgerAfter = allocationLedger,
+                    NativeMutexRegistryBaselineRestored = mutexLedgerClean795,
+                    NativeMutexRegistryBefore = mutexes795,
+                    NativeMutexRegistryAfter = mutexesAfter795,
                     NativeCountsBefore = new { Environments = environments, Buffers = buffers, Binaries = binaries },
                     NativeCountsAfter = new { Environments = NifNativeCallEnvironment.ActiveCount, Buffers = NifNativeBinaryStorage.LiveBufferCount, Binaries = NifNativeBinaryRegistry.NativeOwnedCount },
                     PolicyCalls = policyCalls,

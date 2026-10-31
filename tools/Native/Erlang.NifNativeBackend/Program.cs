@@ -3,6 +3,27 @@ using Erlang.NifNativeBackend;
 
 try
 {
+    if (args.Length != 0 && args[0] == NativeCallbacks552Names.Mode)
+    {
+        await NativeCallbacks552Checks.Run(args[1..]);
+
+        return;
+    }
+
+    if (args.Length != 0 && args[0] == NifMutexLifecycle795DriverNames.Mode)
+    {
+        await NifMutexLifecycle795Driver.Run(args[1..]);
+
+        return;
+    }
+
+    if (args.Length != 0 && args[0] == NifLinuxMutex795Names.Mode)
+    {
+        await NifLinuxMutex795Driver.Run(args[1..]);
+
+        return;
+    }
+
     if (args.Length != 0 && args[0] == GcBinary818Names.Mode)
     {
         await GcBinary818Driver.Run(args[1..]);

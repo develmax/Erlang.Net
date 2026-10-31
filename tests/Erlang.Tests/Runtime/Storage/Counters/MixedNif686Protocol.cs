@@ -94,7 +94,7 @@ internal sealed class MixedNif686Protocol(ProcessRuntime runtime, ModuleCodeImag
     private static object New(string name, params object?[] arguments)
         => Activator.CreateInstance(
             typeof(ProcessRuntime).Assembly.GetType(name, true)!,
-            Members,
+            ConstructorMembers,
             null,
             arguments,
             null

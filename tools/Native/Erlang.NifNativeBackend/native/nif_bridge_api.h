@@ -13,7 +13,7 @@ _Static_assert(sizeof(long) == 8, "Linux bridge requires LP64 long");
 _Static_assert(sizeof(void *) == 8, "Linux bridge requires x64 pointers");
 
 #define NIF_BRIDGE_EXPORT __attribute__((visibility("default")))
-#define NIF_BRIDGE_VERSION UINT32_C(7)
+#define NIF_BRIDGE_VERSION UINT32_C(9)
 
 typedef struct NifBridgeCursor {
     va_list arguments;
@@ -80,9 +80,29 @@ typedef struct NifBridgeCallbacks {
     ErlNifResourceType *(*init_resource_type527)(ErlNifEnv *env, const char *name, const ErlNifResourceTypeInit *init, ErlNifResourceFlags flags, ErlNifResourceFlags *tried);
     int(*dynamic_resource_call527)(ErlNifEnv *env, ERL_NIF_TERM module, ERL_NIF_TERM name, ERL_NIF_TERM resource, void *data);
     ERL_NIF_TERM (*make_list_cell539)(ErlNifEnv *, ERL_NIF_TERM, ERL_NIF_TERM);
+    int (*get_string719)(ErlNifEnv *, ERL_NIF_TERM, char *, unsigned, ErlNifCharEncoding);
+    int (*get_tuple719)(ErlNifEnv *, ERL_NIF_TERM, int *, const ERL_NIF_TERM **);
+    ERL_NIF_TERM (*make_atom719)(ErlNifEnv *, const char *);
+    int (*format_term791)(uintptr_t, int64_t, int (*)(void *, const char *, size_t), void *);
 } NifBridgeCallbacks;
 
-_Static_assert(sizeof(NifBridgeCallbacks) == 464, "Fixed bridge table size mismatch");
+_Static_assert(sizeof(NifBridgeCallbacks) == 496, "Fixed bridge table size mismatch");
+
+/* Optional independent extension. Main ABI9/496 and all old offsets stay
+ * unchanged; immutable callbacks live until this actual ELF bridge closes. */
+#define NIF_BRIDGE_MUTEX795_VERSION UINT32_C(1)
+typedef struct NifBridgeMutex795Callbacks {
+    uint32_t version;
+    uint32_t size;
+    ErlNifMutex *(*create)(char *);
+    void (*destroy)(ErlNifMutex *);
+    int (*trylock)(ErlNifMutex *);
+    void (*lock)(ErlNifMutex *);
+    void (*unlock)(ErlNifMutex *);
+    char *(*name)(ErlNifMutex *);
+} NifBridgeMutex795Callbacks;
+_Static_assert(sizeof(NifBridgeMutex795Callbacks) == 56, "Mutex extension fixed layout mismatch");
+NIF_BRIDGE_EXPORT int nif_bridge_mutex795_register(const NifBridgeMutex795Callbacks *callbacks);
 
 /* Caller owns an immutable, process-lifetime table. No replacement/unregister. */
 NIF_BRIDGE_EXPORT int nif_bridge_register(const NifBridgeCallbacks *callbacks);

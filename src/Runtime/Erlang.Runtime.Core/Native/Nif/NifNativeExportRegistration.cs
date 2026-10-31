@@ -130,6 +130,10 @@ internal static unsafe class NifNativeExportRegistration
         OpenResourceTypeX527 = &NifNativeResourceType527Callbacks.OpenX,
         InitResourceType527 = &NifNativeResourceType527Callbacks.Init,
         DynamicResourceCall527 = &NifNativeResourceType527Callbacks.DynamicCall,
-        MakeListCell539 = &NifNativeListCellCallbacks.Create
+        MakeListCell539 = &NifNativeListCellCallbacks.Create,
+        GetString719 = &NifNativeStringCallbacks.Get,
+        GetTuple719 = &NifNativeSequenceCallbacks.GetTuple,
+        MakeAtom719 = &NifNativeAtomCallbacks.Make,
+        FormatTerm791 = &NifNativePrintf791Callbacks.RenderTerm
     };
 }

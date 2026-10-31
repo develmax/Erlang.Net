@@ -24,6 +24,16 @@ def assert_expected(term,case):
     for failed in [first,second]:
         need(failed[0]=='tuple' and len(failed[1])==4 and failed[1][0]==A('raised') and failed[1][1]==A('error') and failed[1][2]==A('not_loaded') and failed[1][3][0]=='list' and bool(failed[1][3][1]),'Failure replaced stub or lost complete stack')
 
+
+def project_headers552(root, hash_file):
+    paths=[root/'tools/Native/Erlang.NifNativeBackend/native'/name for name in ('nif_bridge_api.h','nif_snprintf791.h')]
+    return [dict(Path=str(path.resolve()),Bytes=path.stat().st_size,Sha256=hash_file(path)) for path in paths]
+
+def require_project_headers552(proof, root, hash_file):
+    expected=project_headers552(root,hash_file);actual=proof['ProjectHeaderInputs']
+    assert len(actual)==len(expected) and {row['Path']:(row['Bytes'],row['Sha256']) for row in actual}=={row['Path']:(row['Bytes'],row['Sha256']) for row in expected},'Project bridge headers changed or unbound'
+    return expected
+
 def main():
     p=argparse.ArgumentParser()
     for n in ['repository','native-build-receipt','managed-host','source-freeze','output']:p.add_argument('--'+n,type=Path,required=True)
@@ -64,6 +74,8 @@ def main():
             for name in ['Library','BuildReceipt']:bridge_inputs.append(checked(bridge[name]['Path'],bridge[name]['Sha256']))
             proof=json.loads(bridge_inputs[1].read_bytes());need(proof['Status']=='VERSION651_LINUX_BRIDGE_BUILD' and proof['Pin']==PIN and proof['SubjectHead']==a.expected_head,'Bridge producer differs')
             need(proof['BridgePath']==str(bridge_inputs[0]) and proof['BridgeSha256']==sha(bridge_inputs[0]),'Bridge proof/library differs')
+            project_header_rows=require_project_headers552(proof,repo,sha)
+            bridge_inputs.extend(Path(row_['Path']) for row_ in project_header_rows)
             bridge_admission=dict(BridgePath=str(bridge_inputs[0]),BridgeSha256=sha(bridge_inputs[0]),BridgeBuildReceiptPath=str(bridge_inputs[1]),BridgeBuildReceiptSha256=sha(bridge_inputs[1]))
         checked(a.source_freeze,a.source_freeze_sha256);frozen=json.loads(a.source_freeze.read_bytes());need(bool(frozen['Rows']),'Empty source freeze')
         for row_ in frozen['Rows']:checked(repo/row_['Path'],row_['Sha256'])
