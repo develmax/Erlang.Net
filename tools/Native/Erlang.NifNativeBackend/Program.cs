@@ -3,6 +3,13 @@ using Erlang.NifNativeBackend;
 
 try
 {
+    if (args.Length != 0 && args[0] == GcBinary818Names.Mode)
+    {
+        await GcBinary818Driver.Run(args[1..]);
+
+        return;
+    }
+
     if (args.Length != 0 && args[0] == NifVersion651DriverNames.Mode)
     {
         await NifVersion651Driver.Run(args[1..]);

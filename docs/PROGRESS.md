@@ -1,3 +1,5 @@
+Part552 standalone delivery: compiled gc_bif2 binary_part/2 now uses the existing native entry. Main-based builds pass; fresh pinned original38 whole results/full stacks match BOTH profiles; existing eight opcode controls pass separately. API/full deltas0/0;708registered/180verified/504pending/24known unchanged. Exact-head metadata and CI remain pending. Experimental GC/native/root work is excluded. See validation/part-552/compiled-binary-part.md.
+
 # Active implementation checkpoint — Part533 (2026-10-29)
 
 Part533 final local gates pass9294/9294 (+31), preserving every9263 authenticated previous CI name. Supported local guest sends, snapshots and process_info replies use explicit custody; physical queue retirement runs outside runtime monitors and actor scheduler affinity. Actual Source/originalBEAM lifetimes, fresh atomics/counters and both real native-loader whole streams/cleanup pass. Failed whole runs and meaningful controls remain preserved. API/full deltas0/0;708registered/180verified/504pending/24known. Current-head CI/review/merge are separate PR gates.

@@ -261,7 +261,7 @@ internal static partial class BeamRegisterInterpreter
                             }
                         }
                     }
-                    await context.ReduceAsync();
+                    await context.ExecutionCheckpoint();
                     if (diagnosticInstructionBudget is { } budget && diagnosticSteps++ >= budget)
                     {
                         throw new InvalidOperationException(BeamRegisterNames.DiagnosticBudgetExceeded);
@@ -1247,16 +1247,20 @@ internal static partial class BeamRegisterInterpreter
                             break;
                         case BeamLinkNames.GuardBif:
                             registers.CheckLive((int)operands[1].Value);
-                            string arithmetic = BeamRegisterValidation.ArithmeticImport(code, (int)operands[2].Value);
+                            BeamExternalImport gcBinary = BeamRegisterValidation.GcBinaryImport815(code, (int)operands[2].Value);
                             try
                             {
-                                Term value = await context.Runtime.Modules.Call(
-                                    context,
-                                    BeamRegisterNames.Erlang,
-                                    arithmetic,
-                                    Read(code, registers, operands[3]),
-                                    Read(code, registers, operands[4])
-                                );
+                                Term left = Read(code, registers, operands[3]);
+                                Term right = Read(code, registers, operands[4]);
+                                Term value = gcBinary.Function == ErlangDataBifNames.BinaryPart
+                                    ? await BeamExternalImports.Invoke(context, gcBinary, [left, right])
+                                    : await context.Runtime.Modules.Call(
+                                        context,
+                                        BeamRegisterNames.Erlang,
+                                        gcBinary.Function,
+                                        left,
+                                        right
+                                    );
                                 registers.Write(operands[5], value);
                             }
                             catch (ErlangException error)
