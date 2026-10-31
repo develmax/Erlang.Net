@@ -1,6 +1,6 @@
 # Part553: bounded native callback delivery
 
-Delivery parent: `f25e252a6cf32d6aea074ce07d1d33b9db76eeea`. This checkpoint records scoped local acceptance. Publication-head CI is a separate required gate.
+Delivery parent: merged main `c1cd8f7293fc83775b4ea2a6517a0ce02e774873`; its source tree is identical to the prepared f25 baseline. This checkpoint records scoped local acceptance. Publication-head CI is a separate required gate.
 
 ## Implementation
 
@@ -27,3 +27,8 @@ Source plans preserve their original per-row modes, tool/repository scopes and s
 Require exact publication-head CI and final source/layout/readiness/Windows checkout proofs. The new independent Linux795 stage shares the existing original OTP build; it must actually pass four routes, real namespace and native-holder checks, pthread bindings/create/join, the existing three ordinary-loader cases and cleanup. Source admission, the parent PR98's green CI and static checks do not count as execution of the new Part553 Linux callbacks.
 
 The 24 known differences are not promoted. Registered API/full-contract deltas remain0/0:708 registered,180 verified,504 pending and 24 known differences. The evidence does not establish full printf/formatter coverage, execution of every TLS function, C++ TLS, whole-NIF compatibility, successful upgrade544, a performance advantage or the experimental public GC selector. Broad literal/token/trace-root work remains outside this publication slice. No package publication is claimed.
+
+
+Final local publication checks: the unchanged source-layout tool reports0 files needing formatting. Real Git Windows core.autocrlf=true checkout of129 changed/retained paths preserves118 exact RAW files; the remaining11 have permitted line-ending transport only. The unchanged raw-binding validator passes4714 actual transported/current byte bindings. Fresh original compiled gc_bif2 observer compares38 whole RAW/deterministic outcomes in BOTH final native profiles, all six compiler gates and real cleanup. Full Readiness executes again with the authenticated finalf25 CI9451/9451 report. These finite checks do not replace the new Part553 exact-head CI or Linux795 execution.
+
+PR98 was merged only after exactf25 Windows9451/9451, all required jobs, Linux38/native84+8/68/pthread/3loader/cleanup and artifact verification passed. Main merge CI41209905149 remains running. Its obsolete source branch was deleted with expected-SHA lease after reachability and open-PR dependency checks.
