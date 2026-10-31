@@ -1,4 +1,4 @@
-Part552 standalone delivery: compiled gc_bif2 binary_part/2 now uses the existing native entry. Main-based builds pass; fresh pinned original38 whole results/full stacks match BOTH profiles; existing eight opcode controls pass separately. API/full deltas0/0;708registered/180verified/504pending/24known unchanged. Exact-head metadata and CI remain pending. Experimental GC/native/root work is excluded. See validation/part-552/compiled-binary-part.md.
+Part552 standalone delivery: compiled gc_bif2 binary_part/2 now uses the existing native entry. Main-based builds pass; fresh pinned original38 whole results/full stacks match BOTH profiles; existing eight opcode controls pass separately. API/full deltas0/0;708registered/180verified/504pending/24known unchanged. Local source-plan closure passes13/13; exact-head GitHub CI remains pending. Experimental GC/native/root work is excluded. See validation/part-552/compiled-binary-part.md.
 
 # Active implementation checkpoint — Part533 (2026-10-29)
 
