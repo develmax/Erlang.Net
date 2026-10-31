@@ -415,7 +415,7 @@ internal static class BeamRegisterValidation
                         _ = BeamExternalImports.Resolve(code, (int)operands[1].Value);
                         break;
                     case BeamLinkNames.GuardBif:
-                        _ = ArithmeticImport(code, (int)operands[2].Value);
+                        _ = GcBinaryImport815(code, (int)operands[2].Value);
                         Branch(code, function, operands[0]);
                         Live(operands[1]);
                         Source(operands[3]);
@@ -468,6 +468,17 @@ internal static class BeamRegisterValidation
         BeamExternalImport import = BeamExternalImports.Resolve(code, index);
         if (import.Module != ErlangModuleNames.Module || import.Function != ErlangDataBifNames.BinaryPart || import.Arity != 3)
             throw new NotSupportedException(BeamRegisterNames.Unsupported);
+
+        return import;
+    }
+
+    internal static BeamExternalImport GcBinaryImport815(BeamLinkedCode code, int index)
+    {
+        BeamExternalImport import = BeamExternalImports.Resolve(code, index);
+        if (import.Module == ErlangModuleNames.Module && import.Function == ErlangDataBifNames.BinaryPart
+            && import.Arity == 2 && NativeBuiltinCatalog.Contains(import.Module, import.Function, import.Arity))
+            return import;
+        _ = ArithmeticImport(code, index);
 
         return import;
     }

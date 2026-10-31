@@ -5,6 +5,9 @@ on:
       - '.gitattributes'
       - '.github/workflows/nif-version651-linux.yml'
       - 'tools/Native/Erlang.NifVersion651Observations/**'
+      - 'tools/Compiler/Erlang.GcBinary818Observations/**'
+      - 'tools/Native/Erlang.NifNativeBackend/GcBinary818*.cs'
+      - 'src/Runtime/Erlang.Runtime.Core/Execution/Beam/**'
       - 'tools/Native/Erlang.NifLinuxCallbackObservations/**'
       - 'tools/Native/Erlang.NifNativeBackend/NifLinuxCallback*.cs'
       - 'tools/Native/Erlang.NifLinuxCallbackFocus/**'
@@ -39,9 +42,9 @@ jobs:
       EXPECTED_HEAD: ${{ inputs.expected_head || github.event.pull_request.head.sha || github.sha }}
       OTP_PIN: ad05823719d77c8faee87348ea39513d4e2f99c5
       ORIGINAL_PLAN: AEBBA0D2DCF97E1248CA38407E8EBE628EB08F9EA4D13F48EC0C83A7A0364E61
-      NATIVE_PLAN: EADBC90D532B150C94F430E89470B8AD093FE35F49F47988B209FF703BCE9F67
-      CAPTURE_PLAN: F6FC7D6E5BFAD2BB43CDB37109080D3D4C90484017C78C5BE0678F52E699BF1F
-      ACCEPTANCE_PLAN: 7A0213C359822C8269092C48501098973A614CD6CA4C07DF1D1EEA4A06EE3514
+      NATIVE_PLAN: EC4DB550F29D25FB836C2D2AC598E7B32172889044C0E601A713FA4C849B2AA1
+      CAPTURE_PLAN: E9610A411D87EF14E334E97F60E2EBC103235372007BC1BCAD26EF5730307892
+      ACCEPTANCE_PLAN: 536E61B24EB0EA1228CEEE81073D00125B46A7E4419E3D0D53EFE39C92FBB2AD
       ERLC_USE_SERVER: 'false'
       PYTHONDONTWRITEBYTECODE: '1'
       DOTNET_PROCESSOR_COUNT: '2'
@@ -176,6 +179,23 @@ jobs:
           with open(os.environ['GITHUB_ENV'],'a') as f:f.write('N1_FRAMEWORK_VERSION='+selected+'\n')
           PY
           dotnet build tools/Native/Erlang.NifNativeBackend/Erlang.NifNativeBackend.csproj -c Release --no-incremental -m:1 > artifacts/nif-version651/ci/managed-build.log 2>&1
+      - name: Compare compiled gc_bif2 binary_part full contracts with pinned original
+        id: gc818
+        if: ${{ !cancelled() && steps.inputs.outcome == 'success' && steps.original-build.outcome == 'success' && steps.managed-build.outcome == 'success' }}
+        continue-on-error: true
+        shell: bash
+        run: |
+          set -euo pipefail
+          original="$GITHUB_WORKSPACE/artifacts/nif-version651/original-build/build-receipt.json"
+          python3 -B tools/Compiler/Erlang.GcBinary818Observations/collect.py \
+            --repository "$GITHUB_WORKSPACE" --runtime-source-root "$GITHUB_WORKSPACE" \
+            --host "$GITHUB_WORKSPACE/tools/Native/Erlang.NifNativeBackend/bin/Release/net10.0/Erlang.NifNativeBackend.dll" \
+            --dotnet "$(command -v dotnet)" \
+            --build-receipt "$original" --admission-sha256 "$(sha256sum "$original" | cut -d' ' -f1)" \
+            --otp-source "$GITHUB_WORKSPACE/artifacts/nif-version651/otp-source" \
+            --expected-head "$EXPECTED_HEAD" \
+            --output "$GITHUB_WORKSPACE/artifacts/gc-binary818/ci-linux01" \
+            > artifacts/nif-version651/ci/gc818.log 2>&1
       - name: Admit available reviewed native rows before NIF initialization
         id: native-ready
         if: ${{ !cancelled() && steps.inputs.outcome == 'success' && steps.original-build.outcome == 'success' }}
@@ -256,14 +276,15 @@ jobs:
           READY_OUTCOME: ${{ steps.native-ready.outcome }}
           CAPTURE_OUTCOME: ${{ steps.capture.outcome }}
           ACCEPTANCE_OUTCOME: ${{ steps.acceptance.outcome }}
+          GC818_OUTCOME: ${{ steps.gc818.outcome }}
         run: |
           python3 -B - <<'PY'
           import hashlib,json,os,subprocess
           from pathlib import Path
           out=Path('artifacts/nif-version651/ci');out.mkdir(parents=True,exist_ok=True)
-          errors=[];capture={};stages={k:os.environ.get(k,'') for k in ['INPUTS_OUTCOME','SOURCE_OUTCOME','ORIGINAL_OUTCOME','NATIVE_OUTCOME','HOST_OUTCOME','READY_OUTCOME','CAPTURE_OUTCOME','ACCEPTANCE_OUTCOME']}
+          errors=[];capture={};gc818={};stages={k:os.environ.get(k,'') for k in ['INPUTS_OUTCOME','SOURCE_OUTCOME','ORIGINAL_OUTCOME','NATIVE_OUTCOME','HOST_OUTCOME','READY_OUTCOME','CAPTURE_OUTCOME','ACCEPTANCE_OUTCOME','GC818_OUTCOME']}
           try:
-              assert all(v=='success' for v in stages.values()),stages
+              assert all(v=='success' for k,v in stages.items() if k!='GC818_OUTCOME'),stages
               capture=json.loads(Path('artifacts/nif-version651/capture-linux/completion.json').read_bytes())
               assert capture['Passed'] and capture['Count']==42 and len(capture['Rows'])==42 and not capture['Errors'] and capture['FreshOriginalCompilation']
               for row in capture['Rows']:
@@ -283,7 +304,25 @@ jobs:
               assert subprocess.check_output(['git','rev-parse','HEAD'],text=True).strip()==os.environ['EXPECTED_HEAD']
               subprocess.run(['git','diff','--exit-code'],check=True)
           except Exception as e:errors.append(repr(e))
-          result=dict(Passed=not errors,FocusedN1Only=True,SubjectHead=os.environ['EXPECTED_HEAD'],Stages=stages,ExpectedOriginalCases=42,ExpectedComparisons=84,ExpectedModuleTextCases=4,ExpectedModuleTextComparisons=8,Errors=errors,AcceptancePlanSha256=os.environ['ACCEPTANCE_PLAN'],AcceptanceGates=['legacy68 callback comparisons','pthread bindings/create/join','ordinary-loader3 and cleanup'],PendingGates=[] if not errors else ['See failed N1/acceptance stages'],AllTlsFunctionsExecuted=False,CppTlsAndHiddenCallsVerified=False,WholeLoadNifCompatible=False,ApiDelta=0,FullContractDelta=0)
+          try:
+              assert stages['GC818_OUTCOME']=='success',stages
+              gcroot=Path('artifacts/gc-binary818/ci-linux01')
+              gc818=json.loads((gcroot/'summary.json').read_bytes())
+              assert gc818['Passed'] and gc818['ExpectedRows']==38 and not gc818['Errors'] and len(gc818['Profiles'])==2
+              assert {row['Profile'] for row in gc818['Profiles']}=={'ordinary','private-owned'}
+              for row in gc818['Profiles']:
+                  complete=row['Completion']
+                  assert row['Passed'] and complete['Passed'] and complete['WholeRawAndDeterministicEqual'] and complete['RuntimeClosed'] and not complete['Errors']
+                  assert complete['Profile']==row['Profile'] and complete['LibraryApiRegistryDelta']==0 and complete['FullCompatibilityClaimed'] is False
+                  assert complete['SourceStacksProjected'] is False and complete['FramesDropped'] is False and complete['NormalizationPerformed'] is False
+                  actual=gcroot/row['Profile']/'managed'
+                  for original_name,actual_name in [('original.etf','observed.etf'),('original-deterministic.etf','observed-deterministic.etf')]:
+                      assert (gcroot/'original'/original_name).read_bytes()==(actual/actual_name).read_bytes(),row['Profile']
+              coverage=json.loads((gcroot/'original/coverage.json').read_bytes())
+              assert set(coverage)=={'BodyFailZero','GuardFailNonzero','DestinationAliasesLeft','DestinationAliasesRight','LiveAtLeastThree','ArithmeticGcBifs'} and all(value is True for value in coverage.values())
+              assert gc818['ApiRegistryDelta']==0 and gc818['FullCompatibilityClaimed'] is False and gc818['FramesDropped'] is False and gc818['NormalizationPerformed'] is False
+          except Exception as e:errors.append('gc818: '+repr(e))
+          result=dict(Passed=not errors,FocusedN1Only=True,SubjectHead=os.environ['EXPECTED_HEAD'],Stages=stages,ExpectedOriginalCases=42,ExpectedComparisons=84,ExpectedModuleTextCases=4,ExpectedModuleTextComparisons=8,ExpectedGcBinary818Rows=38,ExpectedGcBinary818Profiles=2,GcBinary818=gc818,Errors=errors,AcceptancePlanSha256=os.environ['ACCEPTANCE_PLAN'],AcceptanceGates=['legacy68 callback comparisons','pthread bindings/create/join','ordinary-loader3 and cleanup'],PendingGates=[] if not errors else ['See failed N1/acceptance stages'],AllTlsFunctionsExecuted=False,CppTlsAndHiddenCallsVerified=False,WholeLoadNifCompatible=False,ApiDelta=0,FullContractDelta=0)
           (out/'completion.json').write_text(json.dumps(result,indent=2))
           print(json.dumps(result));raise SystemExit(0 if result['Passed'] else 1)
           PY
@@ -297,4 +336,5 @@ jobs:
             artifacts/nif-version651/linux-build/**
             artifacts/nif-version651/capture-linux/**
             artifacts/nif-version651/acceptance/**
+            artifacts/gc-binary818/ci-linux01/**
           if-no-files-found: warn

@@ -449,3 +449,8 @@ tools/Runtime/Erlang.BeamFunction542Observations/inputs.json whitespace=trailing
 /tools/Native/Erlang.NifMapSizeOriginalObservations/manifest.json -text
 # Scheduler AEBBA authenticates this helper's existing committed LF blob.
 /tools/Distribution/Erlang.GuestConnectedSendObservations/owned_process.py text eol=lf
+
+# Preserve exact compiled gc818 observer and current descriptor source-seal bytes.
+/tools/Compiler/Erlang.GcBinary818Observations/** -text
+/docs/validation/part-552/compiled-binary-part/monitor645-current-source.json -text
+/tools/Build/Erlang.Tool/verify-mfa-source-bindings.py -text
