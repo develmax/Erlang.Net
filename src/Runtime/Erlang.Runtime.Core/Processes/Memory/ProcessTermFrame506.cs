@@ -71,6 +71,20 @@ internal sealed partial class ProcessTermFrame506 : IDisposable
         }
     }
 
+    // Existing live root only; this grants no new ownership/admission. Callers
+    // separately require the actual register cell to be the identical Term.
+    internal bool KeepsLiveRoot550(int slot, Term value)
+    {
+        lock (owner.Gate)
+        {
+            ValidateSlot(slot);
+            if (!values.TryGetValue(slot, out Term? current) || !ReferenceEquals(current, value)) return false;
+            _ = owner.IsOwnedLocal(value); // Reject any actual stale/foreign block.
+
+            return true;
+        }
+    }
+
     internal Term Retain(Term value)
     {
         int slot = Reserve();

@@ -81,6 +81,10 @@ internal sealed partial class BeamLocalFrame : IDisposable
 
     private void WriteRaw504(int index, BeamRegisterSlot value, bool adopt = false)
     {
+        if (!adopt && value.Kind == BeamRegisterSlotKind.Term && ReadSlot(index).Kind == BeamRegisterSlotKind.Term
+            && ReferenceEquals(ReadSlot(index).ReadTerm(), value.ReadTerm())
+            && roots507?.KeepsPublishedTerm550(index, value.ReadTerm()) == true)
+            return;
         BeamRegisterSlot prepared = roots507?.Prepare(index, value, adopt) ?? value;
         try
         {

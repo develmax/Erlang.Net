@@ -21,10 +21,10 @@ internal sealed partial class ProcessTermHeap506
         while (pending.TryPop(out Term? value))
         {
             if (!seen.Add(value)) continue;
-            // Certified Cons-only/immediate-leaf chains have no native headers
+            // Certified immutable Cons/Tuple graphs with immediate leaves have no native headers
             // to promote. The actual live same-heap check precedes the shortcut.
-            if (value is Cons && Monitor.IsEntered(Gate)
-                && Storage(value) is ProcessTermSequence506 { HasImmediateConsClosure: true }
+            if (value is Cons or TupleTerm && Monitor.IsEntered(Gate)
+                && Storage(value) is ProcessTermSequence506 { HasImmutablePlainClosure550: true }
                 && IsOwnedLocal(value)) continue;
             if (value is ResourceReferenceTerm { OwnedStorage562: { } storage } && !ReferenceEquals(storage.Owner, this))
                 throw new InvalidOperationException(ProcessTerm506Names.ForeignRoot);

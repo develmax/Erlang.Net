@@ -66,6 +66,9 @@ internal sealed partial class BeamOwnedRoots507 : IDisposable
     internal bool HoldsPublishedTerm550(int index, Term value)
         => published[index] && ReferenceEquals(frame.Read(Current(index)), value);
 
+    internal bool KeepsPublishedTerm550(int index, Term value)
+        => published[index] && frame.KeepsLiveRoot550(Current(index), value);
+
     internal void Commit(int index)
     {
         frame.Clear(Current(index));

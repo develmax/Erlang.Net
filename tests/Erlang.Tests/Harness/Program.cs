@@ -2026,6 +2026,16 @@ Test(
 );
 
 Test(
+    NifNativeBackend::Erlang.NifNativeBackend.UnchangedRegister550CaseNames.Physical,
+    NifNativeBackend::Erlang.NifNativeBackend.UnchangedRegister550Checks.Physical
+);
+
+Test(
+    NifNativeBackend::Erlang.NifNativeBackend.ImmediateConsClosureCaseNames.NestedPhysical,
+    NifNativeBackend::Erlang.NifNativeBackend.ImmediateConsClosureChecks.NestedPhysical
+);
+
+Test(
     NifNativeBackend::Erlang.NifNativeBackend.ImmediateConsClosureCaseNames.Physical,
     NifNativeBackend::Erlang.NifNativeBackend.ImmediateConsClosureChecks.Physical
 );

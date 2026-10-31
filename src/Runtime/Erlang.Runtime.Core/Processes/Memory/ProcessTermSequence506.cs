@@ -10,12 +10,17 @@ internal sealed class ProcessTermSequence506(
     int length,
     int headerWords526 = 0,
     int rawPayloadWords556 = 0,
-    bool immediateConsClosure = false
+    bool immediateConsClosure = false,
+    bool immutablePlainClosure550 = false
 ) : IOwnedFloatStorage556, IOwnedIntegerStorage559, IOwnedReferenceStorage562, IOwnedResourceBitsStorage577, IOwnedHeapBitStringStorage, IOwnedFunctionStorage, IOwnedExternalIdentifierStorage, IOwnedNativeRecordStorage
 {
     // Immutable construction certificate for Cons-only/immediate-leaf chains.
     // It is not consulted by collectors, and never certifies tuple mutation.
     internal bool HasImmediateConsClosure { get; } = immediateConsClosure;
+
+    // Fresh physical Cons/Tuple graph, with only immediate leaves and already
+    // certified live blocks from THIS heap. Collectors still visit every edge.
+    internal bool HasImmutablePlainClosure550 { get; } = immutablePlainClosure550;
 
     public object Owner => owner;
     public long Identity { get; } = identity;
