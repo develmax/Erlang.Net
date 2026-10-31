@@ -160,4 +160,6 @@ Append numbered English entries only to the last volume. Start the next sequenti
 
 - [0093.md](docs/changelog/0093.md) — Parts534–539 and review/CI corrections (closed)
 
-- [0094.md](docs/changelog/0094.md) — Part539 delivery checkpoints and subsequent work (active)
+- [0094.md](docs/changelog/0094.md) — Part539 delivery checkpoints and subsequent Part552 corrections (closed)
+
+- [0095.md](docs/changelog/0095.md) — Historical Part543 records and Part552 readiness/early-binding correction (active)
