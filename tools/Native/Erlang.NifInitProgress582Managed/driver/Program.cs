@@ -41,12 +41,12 @@ internal static class Program
         var runtime = new ProcessRuntime(LogicalLanes);
         try
         {
+            PreparedBeamImage observer = runtime.Modules.PrepareBeam(
+                System.IO.File.ReadAllBytes(admission.File(ObserverBeam)),
+                new BeamDependencySelection([ErlangModule, AckModule, Subject, Observer])
+            );
             await runtime.InitializeModulesAsync(registry =>
             {
-                PreparedBeamImage observer = registry.PrepareBeam(
-                    System.IO.File.ReadAllBytes(admission.File(ObserverBeam)),
-                    new BeamDependencySelection([ErlangModule, AckModule, Subject, Observer])
-                );
                 Require(observer.Name == Observer && registry.PublishPreparedBeam(observer).Status == BeamPublicationStatus.Published);
             }).AsTask().WaitAsync(Remaining(clock));
             InitProgressPolicy617.Install(runtime, admission);

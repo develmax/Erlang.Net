@@ -28,7 +28,9 @@ Separate follow-up checkpoints:
 - [ ] Exercise actual actor-queue factory rejection/fault. The four real actor controls establish cancellation/exit delivery, not that separate fault branch.
 - [x] Complete source672 admission and real Windows Git checkout with core.autocrlf=true:221 required raw paths match, actual13/13 source plans,4739 MFA/native bindings and3921 Resource dependencies pass. Preserve failed65612/13 and earlier transport/proof-wrapper attempts; historical TextLF rows are checked by their declared modes, not relabelled raw.
 - [x] Publish the separate NIF validation candidate24652eed585fdaeb2ef539d0bceaf084a6031447; its private-index tree and active-worktree guards pass. Bootstrap its new CI only on feature/nif-upgrade-555, preserving exact event-head and original-artifact validation.
-- [ ] Complete genuine Linux N1/N2/ENV/582, full exact-head CI and current review before merge and compatibility acceptance.
+- [x] Diagnose first a509 CI from actual artifacts: all30 N2/ENV/582 managed attempts stop in observer preparation before native execution; Windows validate stops in the obsolete provider Enter reflection before unit9477. Preserve both failures, all cleanup receipts and intermediate-status reporting correction.
+- [x] Correct3 observer drivers and2 backend test files without production, policy, golden or deadline changes. Build2093/3 and210backend pass; owned default backend321 passes with7274 unchanged inputs. Source70213/13,4739 bindings and3921 Resource dependencies pass.
+- [ ] Publish the cohesive correction after final source/Windows transport review; require actual managed N2/ENV/582, full exact-head Windows9477/package CI and current review before merge or compatibility acceptance.
 
 ### Historical investigation snapshots (531-548; superseded by checkpoint590)
 
