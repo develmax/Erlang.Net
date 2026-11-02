@@ -7397,6 +7397,10 @@ try
     Test(Erlang.Tests.BoxedFloat556Names.AdoptionCase, Erlang.Tests.BoxedFloat556Checks.AdoptionAndRootOnly);
     Test(Erlang.Tests.BoxedFloat556Names.LifetimeCase, Erlang.Tests.BoxedFloat556Checks.ForeignAndHeldRetirement);
     Test(Erlang.Tests.BeamListCurrentRoot550Names.MatrixTest, Erlang.Tests.BeamListCurrentRoot550Checks.Matrix);
+    Test(Erlang.Tests.BeamReceiveCustody557Names.LifetimeTest, Erlang.Tests.BeamReceiveCustody557Checks.CloseOrder);
+    Test(Erlang.Tests.BeamReceiveCustody557Names.GenerationsTest, Erlang.Tests.BeamReceiveCustody557Checks.GenerationsAndAba);
+    Test(Erlang.Tests.BeamReceiveCustody557Names.CandidateTest, Erlang.Tests.BeamReceiveCustody557Checks.CandidateAndRollback);
+    Test(Erlang.Tests.BeamReceiveCustody557Names.RetentionTest, Erlang.Tests.BeamReceiveCustody557Checks.RetentionAndBaseline);
     Test(Erlang.Tests.BeamListCurrentRoot550Names.CustodyTest, Erlang.Tests.BeamListCurrentRoot550Checks.Custody);
     Test(Erlang.Tests.BeamListCurrentRoot550Names.FailureTest, Erlang.Tests.BeamListCurrentRoot550Checks.ClosedYStore);
     Test(

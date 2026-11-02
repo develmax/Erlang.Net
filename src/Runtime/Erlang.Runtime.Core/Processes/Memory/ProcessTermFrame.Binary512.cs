@@ -22,6 +22,7 @@ internal sealed partial class ProcessTermFrame506
     // dictionary growth failures restore the previous publication atomically.
     private void PublishRoot512(int slot, Term value, bool finalNativeOwnership576 = true)
     {
+        ObjectDisposedException.ThrowIf(disposed || publicationsClosed553, this);
         using ModuleLiteralRoots801? literalRoots = ModuleLiteralRoots801.Capture801(owner, value);
         using var literalAdmission = owner.EnterLiteralAdmission801(literalRoots);
         if (literalRoots is not null) literalSlots801.EnsureCapacity(checked(literalSlots801.Count + 1));

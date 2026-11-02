@@ -235,6 +235,230 @@ internal static class SystemTaskOwner428Checks
         }
     }
 
+
+    private static async Task<ProcessContext[]> TraceStartup514(ProcessRuntime runtime)
+    {
+        var records = new TaskCompletionSource<Term[]>(TaskCreationOptions.RunContinuationsAsynchronously);
+        var tracerReady = new TaskCompletionSource<ProcessContext>(TaskCreationOptions.RunContinuationsAsynchronously);
+        var stop = new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);
+        ProcessHandle tracer = runtime.Spawn(async context =>
+        {
+            tracerReady.TrySetResult(context);
+            try
+            {
+                var actual = new Term[SystemTaskOwner428Names.TraceEvents514];
+                for (int index = 0; index < actual.Length; index++)
+                    actual[index] = (await context.ReceiveAsync<Term>(value => value, SystemTaskOwner428Names.Deadline))!;
+                records.TrySetResult(actual);
+                await stop.Task.WaitAsync(SystemTaskOwner428Names.Deadline);
+            }
+            catch (Exception failure)
+            {
+                records.TrySetException(failure);
+                throw;
+            }
+
+            return Nil.Value;
+        });
+        ProcessContext tracerContext = await tracerReady.Task.WaitAsync(SystemTaskOwner428Names.Deadline);
+        object gate = ManagedCollectors413Access.Field(runtime, ManagedCollectorPrestart415Names.Gate)!;
+        ProcessContext parent;
+        lock (gate)
+            parent = (ProcessContext)((System.Collections.IDictionary)ManagedCollectors413Access.Field(runtime, ManagedCollectorPrestart415Names.Processes)!)[runtime.InitializationPid]!;
+        object tracing = ManagedCollectors413Access.Property(runtime, SystemTaskOwner428Names.Tracing514)!;
+
+        object? TraceCall(string methodName, params object?[] arguments)
+            => ManagedCollectors413Access.Invoke(
+                tracing,
+                tracing.GetType(),
+                methodName,
+                arguments
+            );
+        object[] slots = ((Array)ManagedCollectors413Access.Field(runtime, SystemTaskOwner428Names.HandlerSlots514)!).Cast<object>().ToArray();
+        Require(slots.Length == SystemTaskOwner428Names.HandlerCount514);
+        PreparedBeamImage image = (PreparedBeamImage)runtime.Modules.SourceOwner(SystemTaskOwner428Names.HandlerModule514, ManagedCollectors413Names.Start, 0)!;
+        ProcessContext[] actors = new ProcessContext[slots.Length];
+        try
+        {
+            // Same actual bytes/hash, independently prepared but never published:
+            // source identity must be refused before any privileged role starts.
+            using (Stream source = typeof(SystemTaskOwner428Checks).Assembly.GetManifestResourceStream(SystemTaskOwner428Names.HandlerPrefix + SystemTaskOwner428Names.HandlerBeam)!)
+            using (var memory = new MemoryStream())
+            {
+                source.CopyTo(memory);
+                byte[] bytes = memory.ToArray();
+                Require(Convert.ToHexString(System.Security.Cryptography.SHA256.HashData(bytes)) == SystemTaskOwner428Names.HandlerHash);
+                await using PreparedBeamImage unpublished = runtime.Modules.PrepareBeam(bytes,
+                    new BeamDependencySelection([SystemTaskOwner428Names.Runtime, SystemTaskOwner428Names.Module]));
+                bool refused = false;
+                try
+                {
+                    ManagedCollectors413Access.Invoke(
+                        runtime,
+                        typeof(ProcessRuntime),
+                        SystemTaskOwner428Names.StartHandlers514,
+                        unpublished
+                    );
+                }
+                catch (InvalidOperationException)
+                {
+                    refused = true;
+                }
+                Require(refused && slots.All(slot => ManagedCollectors413Access.Property(slot, ManagedCollectors413Names.Actor) is null
+                    && ManagedCollectors413Access.Property(slot, ManagedCollectors413Names.Source) is null
+                    && ManagedCollectors413Access.Property(slot, ManagedCollectorPrestart415Names.Reservation) is null));
+            }
+            TraceCall(SystemTaskOwner428Names.SetTracer514, tracer.Pid);
+            TraceCall(
+                SystemTaskOwner428Names.TraceSet514,
+                parent,
+                Term.A(SequenceTraceNames.Label),
+                Term.I(SystemTaskOwner428Names.TraceLabel514)
+            );
+            TraceCall(
+                SystemTaskOwner428Names.TraceSet514,
+                parent,
+                Term.A(SequenceTraceNames.Send),
+                Term.A(SystemTaskOwner428Names.True)
+            );
+            TraceCall(
+                SystemTaskOwner428Names.TraceSet514,
+                parent,
+                Term.A(SequenceTraceNames.Receive),
+                Term.A(SystemTaskOwner428Names.True)
+            );
+            TraceCall(
+                SystemTaskOwner428Names.TraceSet514,
+                parent,
+                Term.A(SequenceTraceNames.Serial),
+                Term.Tuple(Term.I(0), Term.I(0))
+            );
+            Term groupLeader = runtime.GetGroupLeader(parent);
+            RuntimeBootstrapInternalSystemTasks428.StartOriginalHandlers(runtime);
+            lock (gate)
+                for (int index = 0; index < slots.Length; index++)
+                {
+                    object slot = slots[index];
+                    actors[index] = (ProcessContext)ManagedCollectors413Access.Property(slot, ManagedCollectors413Names.Actor)!;
+                    Require(actors[index] is not null && ReferenceEquals(ManagedCollectors413Access.Property(slot, ManagedCollectors413Names.Source), image)
+                        && ManagedCollectors413Access.Property(slot, ManagedCollectorPrestart415Names.Reservation) is not null);
+                    object actualPriority = ManagedCollectors413Access.Property(actors[index], SystemTaskOwner428Names.SchedulingPriority514)!;
+                    Require(actualPriority.ToString() == SystemTaskOwner428Names.StartupPriorities514[index]
+                        && Equals(actualPriority, ManagedCollectors413Access.Property(slot, SystemTaskOwner428Names.SlotPriority514)));
+                }
+            Require(actors.Select(actor => actor.Self).Distinct().Count() == SystemTaskOwner428Names.HandlerCount514);
+            RuntimeBootstrapInternalSystemTasks428.StartOriginalHandlers(runtime);
+            lock (gate)
+                for (int index = 0; index < slots.Length; index++)
+                    Require(ReferenceEquals(ManagedCollectors413Access.Property(slots[index], ManagedCollectors413Names.Actor), actors[index]));
+            Term[] actual = await records.Task.WaitAsync(SystemTaskOwner428Names.Deadline);
+            var references = new HashSet<Term>();
+
+            Term Notice(
+                string kind,
+                long previous,
+                long serial,
+                Term sender,
+                Term destination,
+                Term message
+            )
+                => Term.Tuple(
+                    Term.A(SequenceTraceNames.Message),
+                    Term.I(SystemTaskOwner428Names.TraceLabel514),
+                    Term.Tuple(
+                        Term.A(kind),
+                        Term.Tuple(Term.I(previous), Term.I(serial)),
+                        sender,
+                        destination,
+                        message
+                    )
+                );
+            for (int index = 0; index < actors.Length; index++)
+            {
+                int offset = index * SystemTaskOwner428Names.TraceEventsPerHandler514;
+                Require(actual[offset] is TupleTerm { Items.Count: 3 } notification && notification.Items[2] is TupleTerm { Items.Count: 5 });
+                var details = (TupleTerm)((TupleTerm)actual[offset]).Items[2];
+                Require(details.Items[4] is TupleTerm { Items.Count: 8 });
+                var requestActual = (TupleTerm)details.Items[4];
+                Term reference = requestActual.Items[1];
+                Require(reference is ReferenceTerm && references.Add(reference));
+                Term request = Term.Tuple(
+                    Term.A(SequenceTraceNames.SpawnRequest),
+                    reference,
+                    parent.Self,
+                    groupLeader,
+                    Term.Tuple(Term.A(SystemTaskOwner428Names.HandlerModule514), Term.A(ManagedCollectors413Names.Start), Term.I(0)),
+                    Nil.Value,
+                    Term.A(SequenceTraceNames.SpawnReply),
+                    Nil.Value
+                );
+                Term reply = Term.Tuple(
+                    Term.A(SequenceTraceNames.SpawnReply),
+                    reference,
+                    Term.A(SystemTaskOwner428Names.Ok),
+                    actors[index].Self
+                );
+                var serials = SystemTaskOwner428Names.StartupSerials514[index];
+                Term[] expected = [
+                    Notice(
+                        SequenceTraceNames.Send,
+                        serials.PreviousRequest,
+                        serials.Request,
+                        parent.Self,
+                        actors[index].Self,
+                        request
+                    ),
+                    Notice(
+                        SequenceTraceNames.Receive,
+                        serials.PreviousRequest,
+                        serials.Request,
+                        parent.Self,
+                        actors[index].Self,
+                        request
+                    ),
+                    Notice(
+                        SequenceTraceNames.Send,
+                        serials.PreviousReply,
+                        serials.Reply,
+                        actors[index].Self,
+                        parent.Self,
+                        reply
+                    ),
+                    Notice(
+                        SequenceTraceNames.Receive,
+                        serials.PreviousReply,
+                        serials.Reply,
+                        actors[index].Self,
+                        parent.Self,
+                        reply
+                    )
+                ];
+                for (int field = 0; field < expected.Length; field++) Require(actual[offset + field].Equals(expected[field]));
+            }
+            Require(ManagedCollectors413Access.Snapshot(tracerContext).Count == 0);
+
+            return actors;
+        }
+        finally
+        {
+            try
+            {
+                TraceCall(
+                    SystemTaskOwner428Names.TraceSet514,
+                    parent,
+                    Term.A(SequenceTraceNames.Token),
+                    Nil.Value
+                );
+                TraceCall(SystemTaskOwner428Names.SetTracer514, Term.A(SystemTaskOwner428Names.False));
+            }
+            finally
+            {
+                stop.TrySetResult();
+                await tracer.Completion.WaitAsync(SystemTaskOwner428Names.Deadline);
+            }
+        }
+    }
+
     internal static async Task DirtySignals()
     {
         await using var runtime = new ProcessRuntime(2);
@@ -264,8 +488,7 @@ internal static class SystemTaskOwner428Checks
             };
         }
         );
-        RuntimeBootstrapInternalSystemTasks428.StartOriginalHandlers(runtime);
-        RuntimeBootstrapInternalSystemTasks428.StartOriginalHandlers(runtime);
+        ProcessContext[] startupActors514 = await TraceStartup514(runtime);
         await using var requester = new RuntimeNodeFoundationHostActor(runtime);
         await using var target = new RuntimeNodeFoundationHostActor(runtime);
         ProcessContext t = await target.Ready;
@@ -320,6 +543,18 @@ internal static class SystemTaskOwner428Checks
         {
             release.Set();
             if (dirty is not null) await dirty;
+        }
+        await target.DisposeAsync();
+        await requester.DisposeAsync();
+        await runtime.DisposeAsync();
+        foreach (object slot in (Array)ManagedCollectors413Access.Field(runtime, SystemTaskOwner428Names.HandlerSlots514)!)
+            foreach (string member in new[] { ManagedCollectors413Names.Actor, ManagedCollectors413Names.Source, ManagedCollectorPrestart415Names.Reservation })
+                Require(ManagedCollectors413Access.Property(slot, member) is null);
+        foreach (ProcessContext actor in startupActors514)
+        {
+            Require((bool)ManagedCollectors413Access.Property(actor, SystemTaskOwner428Names.Terminated514)!);
+            var unwound = (TaskCompletionSource)ManagedCollectors413Access.Property(actor, ManagedCollectorPrestart415Names.Unwound)!;
+            Require(unwound.Task.IsCompletedSuccessfully);
         }
     }
 }

@@ -434,7 +434,18 @@ public sealed class ManagedStdlibRegistration456 : IRuntimeManagedLibrary456
                 a[1]
             )
         );
-        foreach (string operation in new[] { ListModuleNames.All, ListModuleNames.Any, ListModuleNames.Partition, ListModuleNames.FilterMap, ListModuleNames.ForEach, ListModuleNames.TakeWhile, ListModuleNames.DropWhile })
+        r.RegisterReviewedManagedLibrary789(
+            ListModuleNames.Module,
+            ListModuleNames.All,
+            2,
+            (c, a) => ListFunctions.Run(
+                c,
+                ListModuleNames.All,
+                a[0],
+                a[1]
+            )
+        );
+        foreach (string operation in new[] { ListModuleNames.Any, ListModuleNames.Partition, ListModuleNames.FilterMap, ListModuleNames.ForEach, ListModuleNames.TakeWhile, ListModuleNames.DropWhile })
             r.Register(
                 ListModuleNames.Module,
                 operation,

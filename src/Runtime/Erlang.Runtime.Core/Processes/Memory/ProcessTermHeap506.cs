@@ -240,7 +240,7 @@ internal sealed partial class ProcessTermHeap506(ProcessRuntime runtime)
             if (!seen.Add(current))
                 continue;
             if (TryValidateLocalClosure483(current)) continue;
-            foreach (Term child in NativeMapOwnedRoots510.Children(current))
+            foreach (Term child in NativeMapOwnedRoots510.SnapshotChildren542(current))
                 pending.Push(child);
         }
     }
@@ -451,6 +451,9 @@ internal sealed partial class ProcessTermHeap506(ProcessRuntime runtime)
 
             return ReadLiteralCellCore800(block, index);
         }
+        // Internal graph walkers already hold this exact heap monitor. Keep
+        // all cell admission checks while avoiding a recursive monitor entry.
+        if (Monitor.IsEntered(Gate)) return ReadLiteralCellCore800(block, index);
         lock (Gate) return ReadLiteralCellCore800(block, index);
     }
 

@@ -121,7 +121,7 @@ internal sealed class ProcessBinaryRegistry512
                 AddBacking490(ref firstBacking490, ref backings, handle);
             }
             else
-                foreach (Term child in NativeMapOwnedRoots510.Children(value))
+                foreach (Term child in NativeMapOwnedRoots510.SnapshotChildren542(value))
                 {
                     if (pending is null)
                     {

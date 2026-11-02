@@ -29,6 +29,11 @@ internal static class BeamLiteralExportHostChecks
             undefined = error.Reason.Equals(Term.A(ErlangErrorReasons.UndefinedFunction));
         }
         Require(undefined);
+        Term value = Term.Tuple(Term.I(382));
+        var storage = typeof(TupleTerm).GetProperty(
+            BeamLiteralExportHostNames.OwnedTupleStorage,
+            System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic
+        )!;
         int calls = 0;
         runtime.Modules.Register(
             BeamLiteralExportHostNames.Module,
@@ -37,20 +42,28 @@ internal static class BeamLiteralExportHostChecks
             (_, args) =>
         {
             calls++;
+            Require(args.Count == 1 && args[0].Equals(value) && storage.GetValue(args[0]) is null);
 
             return ValueTask.FromResult(args[0]);
         }
         );
-        Term value = Term.Tuple(Term.I(382));
-        Require(ReferenceEquals(await actor.InvokeAsync(context => function.Invoke(context, [value]).AsTask()), value) && calls == 1);
+        Term actual = await actor.InvokeAsync(context => function.Invoke(context, [value]).AsTask());
+        Require(actual.Equals(value) && storage.GetValue(actual) is null && calls == 1);
+        int replacementCalls = 0;
         _ = runtime.Modules.DeleteModule(BeamLiteralExportHostNames.Module);
         runtime.Modules.Register(
             BeamLiteralExportHostNames.Module,
             BeamLiteralExportHostNames.Function,
             1,
-            (_, _) => ValueTask.FromResult<Term>(Nil.Value)
+            (_, _) =>
+            {
+                replacementCalls++;
+
+                return ValueTask.FromResult<Term>(Nil.Value);
+            }
         );
         Require(await actor.InvokeAsync(context => function.Invoke(context, [value]).AsTask()) is Nil);
+        Require(calls == 1 && replacementCalls == 1 && function.ExternalIdentity == Identity());
     }
 
     internal static async Task Interning()

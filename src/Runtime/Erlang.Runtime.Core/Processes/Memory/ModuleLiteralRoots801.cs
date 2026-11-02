@@ -588,7 +588,7 @@ internal sealed class ModuleLiteralRoots801 : IDisposable
                     if (immutable293
                         && (block.HasImmutablePlainClosure550 || block.HasImmutableNoBackingClosure192)) continue;
                 }
-                foreach (Term child in NativeMapOwnedRoots510.Children(current)) pending.Push(child);
+                foreach (Term child in NativeMapOwnedRoots510.SnapshotChildren542(current)) pending.Push(child);
             }
             if (next.Count != 0 || borrowed.Count != 0 || nextIntrinsics.Count != 0)
             {

@@ -8,6 +8,7 @@ internal sealed partial class BeamRegisterState : IDisposable
     private readonly ProcessWordExecution504? words504;
     private readonly ProcessContext? context507;
     private readonly BeamOwnedRoots507? roots507;
+    private Exception?[]? disposeFailures558;
 
     internal BeamRegisterState() : this(null, null) { }
 
@@ -22,7 +23,11 @@ internal sealed partial class BeamRegisterState : IDisposable
         words504 = words;
         context507 = context;
         if (context is not null && context.OwnedExecutionEnabled683)
+        {
+            // Reserve error storage before acquiring the owned X root frame.
+            disposeFailures558 = new Exception?[1];
             roots507 = new(context, values.Length);
+        }
     }
 
     internal IDisposable? EnterWordOperation504() => words504?.Enter();
@@ -59,11 +64,26 @@ internal sealed partial class BeamRegisterState : IDisposable
     {
         try
         {
+            if (roots507 is not null)
+            {
+                int required = checked(frames.Count + 2); // Incoming Y plus X cleanup.
+                if (disposeFailures558!.Length < required)
+                    disposeFailures558 = new Exception?[required];
+            }
             frames.Push(frame);
         }
-        catch
+        catch (Exception primary)
         {
-            frame.Dispose();
+            // The incoming genuine frame is not owned by the stack yet.
+            // Capacity/stack growth failure must still release all its loans.
+            try
+            {
+                frame.Dispose();
+            }
+            catch (Exception cleanup)
+            {
+                throw new AggregateException(primary, cleanup);
+            }
             throw;
         }
     }
@@ -271,6 +291,45 @@ internal sealed partial class BeamRegisterState : IDisposable
         }
     }
 
+    // Receive-only word snapshot. Legacy Clone above retains eager graph
+    // validation for all other callers and unsupported/raw source states.
+    internal BeamRegisterState CloneForReceive553(ProcessContext? context)
+    {
+        if (context is null || !ReferenceEquals(context507, context) || roots507 is null)
+            return Clone();
+        var clone = new BeamRegisterState(words504, context507, values.Length);
+        try
+        {
+            for (int index = 0; index < values.Length; index++)
+            {
+                BeamRegisterSlot value = values[index];
+                if (value.Kind == BeamRegisterSlotKind.Uninitialized) continue;
+                if (value.Kind == BeamRegisterSlotKind.Term
+                    && roots507.TryShareCurrent553(index, value.ReadTerm(), clone.roots507!))
+                    clone.values[index] = value;
+                else
+                    clone.WriteXSlot507(index, value, false);
+            }
+            if (floating is not null) clone.floating = (double?[])floating.Clone();
+            foreach (BeamLocalFrame frame in frames.Reverse())
+                clone.PushFrame507(frame.CloneForReceive553(context));
+
+            return clone;
+        }
+        catch (Exception primary)
+        {
+            try
+            {
+                clone.Dispose();
+            }
+            catch (Exception cleanup)
+            {
+                throw new AggregateException(primary, cleanup);
+            }
+            throw;
+        }
+    }
+
     public void CheckLive(int count)
     {
         for (int index = 0; index < count; index++)
@@ -288,29 +347,42 @@ internal sealed partial class BeamRegisterState : IDisposable
 
             return;
         }
-        List<Exception>? failures = null;
-        while (frames.TryPop(out BeamLocalFrame? frame))
+        // PushFrame507 reserved one error slot per acquired Y frame plus X.
+        // No allocation in these catches can starve a later independent loan.
+        int failureCount = 0;
+        try
         {
+            while (frames.TryPop(out BeamLocalFrame? frame))
+                try
+                {
+                    frame.Dispose();
+                }
+                catch (Exception failure)
+                {
+                    disposeFailures558![failureCount++] = failure;
+                }
+        }
+        finally
+        {
+            Array.Clear(values);
+            ClearFloats();
             try
             {
-                frame.Dispose();
+                roots507.Dispose();
             }
             catch (Exception failure)
             {
-                (failures ??= new()).Add(failure);
+                disposeFailures558![failureCount++] = failure;
             }
         }
-        Array.Clear(values);
-        ClearFloats();
         try
         {
-            roots507?.Dispose();
+            if (failureCount != 0)
+                throw new AggregateException(disposeFailures558!.Take(failureCount).Select(error => error!));
         }
-        catch (Exception failure)
+        finally
         {
-            (failures ??= new()).Add(failure);
+            Array.Clear(disposeFailures558!);
         }
-        if (failures is not null)
-            throw new AggregateException(failures);
     }
 }

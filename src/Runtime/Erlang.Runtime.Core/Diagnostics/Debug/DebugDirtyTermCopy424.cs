@@ -25,13 +25,19 @@ internal static class DebugDirtyTermCopy424
                 stack.Push(new(frame.Children[frame.Index]));
                 continue;
             }
-            Term copy = Build(
-                runtime,
-                frame.Source,
-                frame.Copied,
-                transaction
-            );
-            copy = destination?.Adopt(copy) ?? copy;
+            Term copy;
+            if (frame.Source is BitString binary)
+                copy = CopyBinary(binary, destination);
+            else
+            {
+                copy = Build(
+                    runtime,
+                    frame.Source,
+                    frame.Copied,
+                    transaction
+                );
+                copy = destination?.Adopt(copy) ?? copy;
+            }
             stack.Pop();
             if (stack.Count == 0)
             {
@@ -42,6 +48,18 @@ internal static class DebugDirtyTermCopy424
             DebugDirtyCopyFrame424 parent = stack.Peek();
             parent.Copied[parent.Index++] = copy;
         }
+    }
+
+    private static Term CopyBinary(BitString binary, DebugCopyDestination391? destination)
+    {
+        PersistentBinarySlice416 slice = binary.CapturePersistentSlice416();
+        using PersistentBinaryBacking416? backing = slice.Backing;
+        Term copy = backing is null ? new BitString(binary.ToArray(), binary.BitLength)
+            : backing.Materialize(slice.BitOffset, slice.BitLength);
+
+        // Keep the actual temporary backing interest until the destination's
+        // real native header owns its lease. The copy caller still roots source.
+        return destination?.Adopt(copy) ?? copy;
     }
 
     private static Term Build(
@@ -85,11 +103,6 @@ internal static class DebugDirtyTermCopy424
                     record.IsExported,
                     record.FieldNames.Select((name, index) => new KeyValuePair<Atom, Term>(name, values[index]))
                 );
-            case BitString binary:
-                PersistentBinarySlice416 slice = binary.CapturePersistentSlice416();
-
-                return slice.Backing is null ? new BitString(binary.ToArray(), binary.BitLength)
-                    : slice.Backing.Materialize(slice.BitOffset, slice.BitLength);
             case ResourceReferenceTerm { ResourceKind: ReferenceResourceKind.Counters421 } counters:
                 _ = CountersRoots596.Direct596(counters, runtime);
 

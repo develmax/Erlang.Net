@@ -71,7 +71,7 @@ internal sealed partial class ProcessTermHeap506
                     throw new NotSupportedException(NativeResource524Names.Foreign);
                 targets.Add((value, payload));
             }
-            foreach (Term child in NativeMapOwnedRoots510.Children(value)) pending.Push(child);
+            foreach (Term child in NativeMapOwnedRoots510.SnapshotChildren542(value)) pending.Push(child);
         }
         if (targets.Count == 0 && promotions.Count == 0 && binaryPromotions.Count == 0 && functionPromotions.Count == 0) return null;
         nativeHeaders524.EnsureCapacity(checked(nativeHeaders524.Count + targets.Count));

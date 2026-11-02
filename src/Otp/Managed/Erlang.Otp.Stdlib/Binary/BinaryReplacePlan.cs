@@ -44,7 +44,7 @@ internal sealed class BinaryReplacePlan(
             if (position is not Integer integer || integer.Value < previous || integer.Value > binary.ByteLength)
                 throw new ErlangException(ErlangErrorReasons.BadArgument);
             int next = (int)integer.Value;
-            pieces.Add((BitString)await context.Runtime.Modules.Call(
+            pieces.Add((BitString)await context.Runtime.Modules.CallInto506(
                 context,
                 BinaryModuleNames.Module,
                 BinaryModuleNames.Part,
@@ -52,7 +52,7 @@ internal sealed class BinaryReplacePlan(
             ));
             previous = next;
         }
-        pieces.Add((BitString)await context.Runtime.Modules.Call(
+        pieces.Add((BitString)await context.Runtime.Modules.CallInto506(
             context,
             BinaryModuleNames.Module,
             BinaryModuleNames.Part,

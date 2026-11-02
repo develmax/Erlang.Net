@@ -1,6 +1,43 @@
 # Physical GC activation checklist — Part 554
 
-Current checklist — checkpoint 508 (local acceptance complete; exact-head CI and merge pending)
+Current checklist - checkpoint 590 (local repair gates complete; publication/current-head CI and review remain open)
+
+Only the list immediately below is current. Dated snapshots later in this file preserve their then-open work and must not be read as current TODOs.
+
+- [x] Implement receive-only shared ACTUAL root-slot custody; focused generation/ABA, weak retirement, rollback and cleanup controls pass10/10 on build197. Legacy Clone unchanged. Broader final integration remains required.
+- [x] Close complete948+12 dirty outcomes/cleanup within the unchanged120-second budget: execution296 passes948/948 raw/typed plus12own protocols in107413ms on build200.
+- [x] Local affected43/43, root28/28 and SDK16/16 pass; final style-only six-assembly IL/metadata/resource proof preserves the tested code, with actual3-project build202.
+- [x] Final formatted-source native six-gate acceptance: five independent gates plus successful isolated ACK425 replay; original failed aggregate retained. Resource529 ordinary/reviewed2/2 also pass.
+- [x] Final source13/13, raw4714/4714, Resource3879 dependencies, layout0changes and source70/70 review pass. All7756 source guards covered by candidate/parent rawGit bytes.
+- [ ] Publish repaired PR100 head, verify mandatory exact-head GitHub CI and current-head reviews, then merge only after acceptance.
+
+### Historical investigation snapshots (531-548; superseded by checkpoint590)
+
+The unchecked boxes in this retained block record the state at those earlier source freezes; the current completed results above supersede them.
+
+- [x] Preserve exact published-head Windows failure: 9,436/9,460 passed, 24 failed.
+- [x] Obtain scoped passing local replays for 23 of those 24 distinct failed names across executions271/276/278/279. This composite does not establish final-source/full-catalog acceptance.
+- [x] Correct temporary binary-backing interest release; sharing425, binary pin and ordinary drain settle in execution278.
+- [x] Remove all ten temporary diagnostic files by exact guarded restoration; retain permanent fixes.
+- [ ] Resolve dirty424 complete-comparison timeout without increasing original deadlines. Conservative held-monitor read optimization is applied; build and measured replay are pending.
+- [ ] Re-run affected gates on the final sources and verify resource529 preparation from exact job evidence.
+- [ ] Publish reviewed repairs, require every mandatory exact-head CI job and current review, then merge.
+
+- [x] Build191: zero warnings/errors; execution281 passes all 23 selected repaired cases on one unchanged source/DLL freeze, with all temporary diagnostics removed.
+- [x] Re-read original user-linked Windows jobs: all ten original failed names have explicit published-head PR100 PASS lines.
+- [x] Diagnose resource529 from fresh job logs: dependency hashes already stale at published commit; structured independent diagnostics checked.
+- [ ] Dirty424 still times out in clean execution280 at 120,083 ms; held-monitor read optimization alone is insufficient.
+- [ ] Review and reseal full resource529 dependency closure, then execute the original and dependent managed routes.
+
+- [x] Review and atomically reseal Resource529's3878 dependency closure; all protocol fields unchanged and early source admission passes (545).
+- [x] Fresh original family527 plus both ordinary/reviewed private-owned managed routes pass whole raw/deterministic equality and physical cleanup on build194 (545). This is the selected local gate only.
+- [x] Measure allocation reduction independently:4000000 bytes to0 for100000 portable Cons enumerations; no whole-runtime speed claim (544).
+- [x] Identify CPU-bound dirty work with actual per-thread CPU and explicitly enabled contention events:112.22 CPU seconds/117.73 elapsed versus4.374 ms total CLR contention (286/548).
+
+### Earlier historical acceptance records
+
+The following table preserves checkpoint508 local results as historical evidence; it is not acceptance of the subsequent repair source.
+
 
 | Block | Final local acceptance | Remaining acceptance |
 | --- | --- | --- |
@@ -18,7 +55,7 @@ Current checklist — checkpoint 508 (local acceptance complete; exact-head CI a
 
 See [the final local evidence bundle](../validation/native-gc825/newpart554-final508/README.md). Separate API work remains, including PR96 native-upgrade integration and the existing request_system_task GC route; this delivery does not claim closure of all24 recorded differences.
 
-### Current full-comparison result
+### Historical full-comparison result (checkpoint508)
 
 - [x] Correct narrowly scoped harness routing: Fixed392 uses its existing 180-second command deadline; Tuple488 retains its existing 75-second result and settlement phases. Their outer watchdogs account for preparation/cleanup. Generic 15-second tests, default/cleanup actor deadlines and original guest Erlang timers remain unchanged.
 - [x] Verify the compiled routing and preserved signatures/defaults without executing a VM. The additional 30-second preparation allowance is an explicit harness policy choice, not an OTP performance measurement.

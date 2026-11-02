@@ -6,6 +6,7 @@ internal sealed partial class ProcessTermFrame506 : IDisposable
     private readonly Dictionary<int, Term> values = new();
     private int nextSlot;
     private bool disposed;
+    private bool publicationsClosed553;
 
     internal ProcessTermFrame506(ProcessTermHeap506 owner) => this.owner = owner;
 
@@ -24,6 +25,8 @@ internal sealed partial class ProcessTermFrame506 : IDisposable
         {
             ObjectDisposedException.ThrowIf(disposed, this);
 
+            ObjectDisposedException.ThrowIf(publicationsClosed553, this);
+
             return checked(nextSlot++);
         }
     }
@@ -35,6 +38,7 @@ internal sealed partial class ProcessTermFrame506 : IDisposable
         lock (owner.Gate)
         {
             ObjectDisposedException.ThrowIf(disposed, this);
+            ObjectDisposedException.ThrowIf(publicationsClosed553, this);
             int first = nextSlot;
             int second = checked(first + 1);
             int after = checked(second + 1);
@@ -42,6 +46,13 @@ internal sealed partial class ProcessTermFrame506 : IDisposable
 
             return (first, second);
         }
+    }
+
+    // Stop future publication while preserving real reads/GC roots held by
+    // receive-snapshot loans after the originating mirror has closed.
+    internal void ClosePublications553()
+    {
+        lock (owner.Gate) publicationsClosed553 = true;
     }
 
     internal void RequireLive507()
@@ -102,7 +113,7 @@ internal sealed partial class ProcessTermFrame506 : IDisposable
 
     private void ValidateSlot(int slot)
     {
-        ObjectDisposedException.ThrowIf(disposed, this);
+        ObjectDisposedException.ThrowIf(disposed || publicationsClosed553, this);
         if (slot < 0 || slot >= nextSlot)
             throw new ArgumentOutOfRangeException(nameof(slot));
     }
@@ -123,7 +134,9 @@ internal sealed partial class ProcessTermFrame506 : IDisposable
     {
         lock (owner.Gate)
         {
-            ValidateSlot(slot);
+            ObjectDisposedException.ThrowIf(disposed, this);
+            if (slot < 0 || slot >= nextSlot)
+                throw new ArgumentOutOfRangeException(nameof(slot));
             if (!values.TryGetValue(slot, out Term? current) || !ReferenceEquals(current, value)) return false;
             if (!owner.IsAuthenticatedLiteral801(value))
                 _ = owner.IsOwnedLocal(value); // Reject any actual stale/foreign block.
@@ -146,8 +159,24 @@ internal sealed partial class ProcessTermFrame506 : IDisposable
         {
             ObjectDisposedException.ThrowIf(disposed, this);
             values.Remove(slot);
-            ClearLiteralSlot801(slot);
-            binaryRoots512?.Clear512(slot);
+            Exception? failure = null;
+            try
+            {
+                ClearLiteralSlot801(slot);
+            }
+            catch (Exception error)
+            {
+                failure = error;
+            }
+            try
+            {
+                binaryRoots512?.Clear512(slot);
+            }
+            catch (Exception error)
+            {
+                failure = failure is null ? error : new AggregateException(failure, error);
+            }
+            if (failure is not null) System.Runtime.ExceptionServices.ExceptionDispatchInfo.Capture(failure).Throw();
         }
     }
 

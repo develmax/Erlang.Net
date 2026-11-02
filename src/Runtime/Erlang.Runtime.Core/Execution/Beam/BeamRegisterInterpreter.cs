@@ -1137,12 +1137,13 @@ internal static partial class BeamRegisterInterpreter
                                     ? null : registers.Clone();
                                 BeamRegisterState before = ownedBaseline ?? registers;
                                 Func<Term, BeamReceiveSelection?> selectMessage = plan.HasMatcher
-                                    ? message => BeamReceiveMatcher.Select(
+                                    ? message => BeamReceiveMatcher.SelectForReceive553(
                                         code,
                                         plan,
                                         before,
                                         message,
-                                        context.Self
+                                        context.Self,
+                                        context
                                     )
                                     : _ => null;
                                 MailboxSelectionAdmission593? admission593 = before.ReceiveAdmission593();
@@ -1324,7 +1325,13 @@ internal static partial class BeamRegisterInterpreter
                         case BeamLinkNames.PutList:
                             Term head = Read(code, registers, operands[0]);
                             Term tail = Read(code, registers, operands[1]);
-                            registers.WriteCons507(operands[2], head, tail);
+                            registers.WriteConsFromOperands537(
+                                operands[2],
+                                operands[0],
+                                operands[1],
+                                head,
+                                tail
+                            );
                             break;
                         case BeamLinkNames.PutTuple:
                             Term[] items = operands.Skip(BeamLinkParameters.TupleListPrefixOperands).Select(operand => Read(code, registers, operand)).ToArray();

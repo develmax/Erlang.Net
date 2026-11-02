@@ -26,6 +26,7 @@ internal static class SourcePurgeStageHostNames
     internal const string WriterAvailable = "IsAvailable";
     internal const string RuntimeGate = "gate";
     internal const string StageClosing = "closing";
+    internal const string CloseSourceMutations524 = "CloseSourceMutationsAsync";
     internal const string Image = "Image";
     internal const string Ticket = "Ticket";
     internal const string Generation = "Generation";

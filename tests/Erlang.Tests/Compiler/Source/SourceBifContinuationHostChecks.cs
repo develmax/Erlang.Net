@@ -12,28 +12,36 @@ internal static class SourceBifContinuationHostChecks
         using Stream stream = assembly.GetManifestResourceStream(resource)!;
         using var reader = new StreamReader(stream);
         using var artifact = GeneratedModuleCompiler.Compile(await reader.ReadToEndAsync(), SourceBifContinuationHostNames.Fixture);
-        // Enumerable.Repeat is materialized exactly once by TupleTerm; no second giant input array is constructed.
+        string validResource = assembly.GetManifestResourceNames().Single(name => name.EndsWith(SourceBifContinuationHostNames.ValidFixture526, StringComparison.Ordinal));
+        using Stream validStream = assembly.GetManifestResourceStream(validResource)!;
+        using var validReader = new StreamReader(validStream);
+        using var validArtifact = GeneratedModuleCompiler.Compile(await validReader.ReadToEndAsync(), SourceBifContinuationHostNames.ValidFixture526);
+        // OTP rejects tuple arity 2^24. The valid fixture covers ordinary
+        // continuations; the original index still covers failure and override guards.
         var tuple = new TupleTerm(Enumerable.Repeat<Term>(Term.A(SourceBifContinuationHostNames.Value), SourceBifContinuationHostParameters.TupleLength));
-        await Canonical(artifact.Definition, tuple);
+        await Canonical(validArtifact.Definition, artifact.Definition, tuple);
         await Overridden(artifact.Definition, tuple);
     }
 
-    private static async Task Canonical(ModuleDefinition module, TupleTerm tuple)
+    private static async Task Canonical(ModuleDefinition module, ModuleDefinition boundaryModule, TupleTerm tuple)
     {
         await using var runtime = new ProcessRuntime();
         module.Register(runtime.Modules);
+        boundaryModule.Register(runtime.Modules);
         int cleanup = 0;
-        runtime.Modules.Register(
-            SourceBifContinuationHostNames.Observer,
-            SourceBifContinuationHostNames.Cleanup,
-            SourceBifContinuationHostParameters.CleanupArity,
-            (_, _) =>
-            {
-                Interlocked.Increment(ref cleanup);
+        ErlangFunction cleanupObserver = (_, _) =>
+        {
+            Interlocked.Increment(ref cleanup);
 
-                return ValueTask.FromResult<Term>(Term.A(SourceBifContinuationHostNames.Done));
-            }
-        );
+            return ValueTask.FromResult<Term>(Term.A(SourceBifContinuationHostNames.Done));
+        };
+        foreach (string observer in new[] { SourceBifContinuationHostNames.Observer, SourceBifContinuationHostNames.ValidObserver526 })
+            runtime.Modules.Register(
+                observer,
+                SourceBifContinuationHostNames.Cleanup,
+                SourceBifContinuationHostParameters.CleanupArity,
+                cleanupObserver
+            );
         var failures = new List<Exception>();
         var completed = new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);
         var actor = runtime.Spawn(async context =>
@@ -61,7 +69,7 @@ internal static class SourceBifContinuationHostChecks
                 try
                 {
                     await Execution.InvokeAsync(
-                        module,
+                        boundaryModule,
                         function,
                         context,
                         [Term.A(SourceBifContinuationHostNames.Invalid)]
@@ -111,19 +119,23 @@ internal static class SourceBifContinuationHostChecks
             }
             Term nativeValue = Term.A(SourceBifContinuationHostNames.Value);
             Term continued = Term.Tuple(Term.A(SourceBifContinuationHostNames.Continued), nativeValue);
-            await Value(SourceBifContinuationHostNames.Direct, tuple, nativeValue);
-            await Value(SourceBifContinuationHostNames.Forwarded, tuple, nativeValue);
+            await Value(SourceBifContinuationHostNames.Direct, tuple, continued);
+            await Value(SourceBifContinuationHostNames.Forwarded, tuple, continued);
             await Value(SourceBifContinuationHostNames.Protected, tuple, continued);
             await Value(
                 SourceBifContinuationHostNames.Protected,
                 Term.A(SourceBifContinuationHostNames.Invalid),
                 Term.A(SourceBifContinuationHostNames.Caught)
             );
-            await Value(SourceBifContinuationHostNames.OfBody, tuple, nativeValue);
+            await Value(SourceBifContinuationHostNames.OfBody, tuple, continued);
             await Value(SourceBifContinuationHostNames.AfterBody, tuple, continued);
             if (Volatile.Read(ref cleanup) != SourceBifContinuationHostParameters.CleanupsAfterSuccess)
                 failures.Add(new InvalidOperationException(SourceBifContinuationHostNames.Failure));
-            await Value(SourceBifContinuationHostNames.Anonymous, tuple, Term.Tuple(Term.A(SourceBifContinuationHostNames.Outer), nativeValue));
+            await Value(
+                SourceBifContinuationHostNames.Anonymous,
+                tuple,
+                Term.Tuple(Term.A(SourceBifContinuationHostNames.Outer), Term.Tuple(Term.A(SourceBifContinuationHostNames.Inner526), nativeValue))
+            );
             await Failure(SourceBifContinuationHostNames.Direct, false, SourceBifContinuationHostParameters.DirectLine);
             await Failure(SourceBifContinuationHostNames.OfBody, false, SourceBifContinuationHostParameters.OfLine);
             await Failure(SourceBifContinuationHostNames.AfterBody, false, SourceBifContinuationHostParameters.AfterLine);
@@ -154,7 +166,13 @@ internal static class SourceBifContinuationHostChecks
                 SourceBifContinuationHostParameters.ElementArity,
                 (_, arguments) =>
                 {
-                    Require(arguments[0].Equals(Term.I(SourceBifContinuationHostParameters.ElementIndex)) && ReferenceEquals(arguments[1], tuple));
+                    Require(arguments[0].Equals(Term.I(SourceBifContinuationHostParameters.ElementIndex))
+                        && arguments[1] is TupleTerm hostTuple
+                        && hostTuple.Equals(tuple) && !ReferenceEquals(hostTuple, tuple));
+                    Require(typeof(TupleTerm).GetProperty(
+                        SourceBifContinuationHostNames.OwnedStorage526,
+                        System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.NonPublic
+                    )!.GetValue(arguments[1]) is null);
                     Interlocked.Increment(ref invoked);
 
                     return ValueTask.FromResult<Term>(Term.A(SourceBifContinuationHostNames.Custom));

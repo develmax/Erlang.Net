@@ -16,4 +16,24 @@ internal static class SystemTaskOwner428Names
     internal const string Ok = "ok", True = "true", False = "false", NotSupported = "notsup", Kill = "kill", Down = "DOWN", Killed = "killed";
     internal const string Policy = "GarbageCollectionPolicy", MinorField = "minorCollections";
     internal static readonly TimeSpan Deadline = TimeSpan.FromSeconds(12);
+    internal const string HandlerSlots514 = "dirtySystemHandlers428";
+    internal const string HandlerModule514 = "erts_dirty_process_signal_handler";
+    internal const string StartHandlers514 = "StartDirtySystemHandlers428";
+    internal const string Tracing514 = "SequenceTracing";
+    internal const string TraceSet514 = "Set";
+    internal const string SetTracer514 = "SetTracer";
+    internal const string SchedulingPriority514 = "SchedulingPriorityLevel";
+    internal const string SlotPriority514 = "Priority";
+    internal const string Terminated514 = "Terminated";
+    internal const int HandlerCount514 = 3;
+    internal const int TraceEventsPerHandler514 = 4;
+    internal const int TraceEvents514 = HandlerCount514 * TraceEventsPerHandler514;
+    internal const int TraceLabel514 = 514;
+    internal static readonly string[] StartupPriorities514 = ["Normal", "High", "Maximum"];
+    internal static readonly (long PreviousRequest, long Request, long PreviousReply, long Reply)[] StartupSerials514 =
+    [
+        (0, 1, 1, 2),
+        (47, 48, 48, 49),
+        (799, 800, 800, 801)
+    ];
 }

@@ -119,7 +119,51 @@ internal sealed partial class BeamRegisterState
         }
     }
 
+    private bool HoldsPublishedInput537(BeamOperand operand, Term value)
+    {
+        if (roots507 is null || operand.Value < 0 || operand.Value > int.MaxValue)
+            return false;
+        int index = (int)operand.Value;
+        if (operand.Kind == BeamOperandParameters.X)
+            return index < values.Length && values[index].Kind == BeamRegisterSlotKind.Term
+                && ReferenceEquals(values[index].ReadTerm(), value)
+                && roots507.HoldsPublishedTerm550(index, value);
+        if (operand.Kind == BeamOperandParameters.Y && frames.TryPeek(out BeamLocalFrame? local))
+            return index < local.Slots && local.ReadSlot(index).Kind == BeamRegisterSlotKind.Term
+                && ReferenceEquals(local.Read(index), value)
+                && local.HoldsPublishedTerm550(index, value);
+
+        return false;
+    }
+
+    internal void WriteConsFromOperands537(
+        BeamOperand destination,
+        BeamOperand headSource,
+        BeamOperand tailSource,
+        Term head,
+        Term tail
+    ) => WriteConsCore537(
+        destination,
+        head,
+        tail,
+        HoldsPublishedInput537(headSource, head) && HoldsPublishedInput537(tailSource, tail)
+    );
+
+    // Existing unproven/raw callers retain the original protection path.
     internal void WriteCons507(BeamOperand destination, Term head, Term tail)
+        => WriteConsCore537(
+            destination,
+            head,
+            tail,
+            false
+        );
+
+    private void WriteConsCore537(
+        BeamOperand destination,
+        Term head,
+        Term tail,
+        bool inputsPublished
+    )
     {
         if (roots507 is null)
         {
@@ -127,7 +171,9 @@ internal sealed partial class BeamRegisterState
 
             return;
         }
-        using var builder = Protect507(head, tail);
+        // CURRENT source slots remain registered until the alternate candidate
+        // owns the new Cons, including when destination aliases an input.
+        using var builder = inputsPublished ? null : Protect507(head, tail);
         if (destination.Kind == BeamOperandParameters.Y)
         {
             frames.Peek().WriteCons507((int)destination.Value, head, tail);

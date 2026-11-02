@@ -135,6 +135,12 @@ internal sealed partial class ProcessTermHeap506
 
     internal int ReadFunctionArity(ProcessTermSequence506 block)
     {
+        if (Monitor.IsEntered(Gate))
+        {
+            _ = RequireFunctionEntry(block, out int arity);
+
+            return arity;
+        }
         lock (Gate)
         {
             _ = RequireFunctionEntry(block, out int arity);
@@ -145,6 +151,12 @@ internal sealed partial class ProcessTermHeap506
 
     internal IReadOnlyList<Term> ReadFunctionEnvironment(ProcessTermSequence506 block)
     {
+        if (Monitor.IsEntered(Gate))
+        {
+            _ = RequireFunctionEntry(block, out _);
+
+            return block;
+        }
         lock (Gate)
         {
             _ = RequireFunctionEntry(block, out _);

@@ -4,6 +4,11 @@ namespace Erlang;
 // never requests the map owner, identity provider, lookup or comparison plan.
 internal static class NativeMapOwnedRoots510
 {
+    internal static NativeTermChildren542 SnapshotChildren542(Term value)
+        => value is Cons list
+            ? new NativeTermChildren542(list.Head, list.Tail)
+            : new NativeTermChildren542(Children(value));
+
     internal static Term[] Children(Term value)
     {
         if (value is NativeRecordTerm { OwnedRecordStorage: { } recordStorage } record)

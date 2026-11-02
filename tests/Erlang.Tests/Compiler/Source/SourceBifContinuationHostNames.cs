@@ -4,6 +4,9 @@ internal static class SourceBifContinuationHostNames
 {
     internal const string Test = "compiler/source-bif-return-contract-protection-and-registry-override";
     internal const string Fixture = "source_bif_continuation_contract.erl";
+    internal const string ValidFixture526 = "source_bif_continuation_valid526.erl";
+    internal const string ValidObserver526 = "source_bif_continuation_observer526";
+    internal const string OwnedStorage526 = "OwnedStorage506";
     internal const string Module = "source_bif_continuation_contract";
     internal const string Observer = "source_bif_continuation_observer";
     internal const string Cleanup = "cleanup";
@@ -19,6 +22,7 @@ internal static class SourceBifContinuationHostNames
     internal const string Value = "a";
     internal const string Continued = "continued";
     internal const string Outer = "outer";
+    internal const string Inner526 = "inner";
     internal const string Caught = "caught";
     internal const string Custom = "custom_result";
     internal const string Invalid = "invalid_tuple";

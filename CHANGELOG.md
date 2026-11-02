@@ -170,4 +170,6 @@ Append numbered English entries only to the last volume. Start the next sequenti
 
 - [0098.md](docs/changelog/0098.md) - Part554 throughput closure and final activation prerequisites (closed; continues in0099)
 
-- [0099.md](docs/changelog/0099.md) - Part554 final regression and original-OTP acceptance (active)
+- [0099.md](docs/changelog/0099.md) - Part554 final regression and original-OTP acceptance (closed; continues in0100)
+
+- [0100.md](docs/changelog/0100.md) - Part554 published-CI repairs and remaining traversal work (active)
