@@ -1,6 +1,6 @@
 # Physical GC activation checklist — Part 554
 
-Current checklist - checkpoint 607 (lifecycle allocation regression repaired locally; successor CI remains required)
+Current checklist - checkpoint 609 (lifecycle repair and Windows snapshot transport corrected; successor CI remains required)
 
 Only the list immediately below is current. Dated snapshots later in this file preserve their then-open work and must not be read as current TODOs.
 
@@ -14,6 +14,7 @@ Only the list immediately below is current. Dated snapshots later in this file p
 - [x] Replace quadratic cleanup-error capacity growth with bounded geometric growth before frame ownership transfers. Preserve failure cleanup, guest workloads, complete original values/stacks and deadlines. Execution308 passes in9350ms; final affected309 passes47/47 including all four lifecycle cases and actual cancellation settlement.
 - [x] Recheck physical roots on the final runtime: execution310 passes28/28, whole source820 ETF remains byte-identical, and all4309 inspected inputs remain unchanged. Build203 passes3/3 with identical pre/post source hashes. Preserve prior failed runs.
 - [x] Refresh only current dependency bindings:16 metadata outputs,10 direct bindings plus transitive hashes;13/13 source checks,4714/4714 raw bindings and3879 Resource dependencies pass. Historical source snapshots, API classifications and original goldens remain unchanged.
+- [x] Preserve503b267 CI early12/13 refusal: Windows checkout converted the new snapshot's line endings. Add one exact directory-local raw-byte rule; actual Git checkout with core.autocrlf=true now produces the sealed snapshot bytes. No runtime, plan pin or root attribute changes.
 - [ ] Publish this successor, verify all mandatory jobs and fresh reviews on its exact SHA, then merge only after acceptance. Prior green Linux jobs are not successor-head acceptance.
 - [ ] Complete the separate PR96 N2/ENV loading and initialization work. Current N1 success does not close it; an original-only constructor experiment has a retained failed outcome and needs a controlled scheduling protocol before guiding runtime changes.
 
