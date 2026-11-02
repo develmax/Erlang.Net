@@ -62,51 +62,66 @@ public sealed partial class ProcessRuntime
         }
         try
         {
-            lock (gate)
+            var description = SequenceSpawnDescription.Module(
+                Term.A(module),
+                Term.A(function),
+                Nil.Value,
+                Nil.Value
+            );
+            while (true)
             {
-                handle = SpawnTraced(
-                    async child =>
-                {
-                    lock (gate)
-                    {
-                        ObjectDisposedException.ThrowIf(collectorsClosed413, this);
-                        if (!ReferenceEquals(slot.Reservation, reservation))
-                            throw new InvalidOperationException(ManagedCollectorNames413.Invariant);
-                        if (!ReferenceEquals(slot.Actor, child))
-                            throw new InvalidOperationException(ManagedCollectorNames413.Invariant);
-                    }
-
-                    // A hibernate transfer unwinds this invocation but keeps the PID alive.
-                    // Only actual actor termination or owner shutdown releases the role.
-                    return await BeamRegisterInterpreter.Execute(
-                        child,
-                        image.Code,
-                        function,
-                        arguments,
-                        image.ExecutionIdentity
-                    );
-                },
+                using var preparedTrace641 = SequenceTracing.PrepareLocalSpawnTrace641(
                     parent,
+                    description,
                     false,
-                    SequenceSpawnDescription.Module(
-                        Term.A(module),
-                        Term.A(function),
-                        Nil.Value,
-                        Nil.Value
-                    ),
-                    systemProcess: true
+                    true
                 );
-                // SpawnTraced's worker first takes this gate. Publish the exact actor
-                // before it can be cancelled prior to entering the source body.
-                slot.Actor = processes[handle.Pid];
-            }
+                lock (gate)
+                {
+                    RequireCollectorActor413(parent);
+                    if (!ReferenceEquals(slot.Reservation, reservation) || !ReferenceEquals(slot.Source, image))
+                        throw new InvalidOperationException(ManagedCollectorNames413.Invariant);
+                    if (!preparedTrace641.IsCurrent()) continue;
+                    handle = SpawnTraced(
+                        async child =>
+                    {
+                        lock (gate)
+                        {
+                            ObjectDisposedException.ThrowIf(collectorsClosed413, this);
+                            if (!ReferenceEquals(slot.Reservation, reservation))
+                                throw new InvalidOperationException(ManagedCollectorNames413.Invariant);
+                            if (!ReferenceEquals(slot.Actor, child))
+                                throw new InvalidOperationException(ManagedCollectorNames413.Invariant);
+                        }
 
-            return true;
+                        // A hibernate transfer unwinds this invocation but keeps the PID alive.
+                        // Only actual actor termination or owner shutdown releases the role.
+                        return await BeamRegisterInterpreter.Execute(
+                            child,
+                            image.Code,
+                            function,
+                            arguments,
+                            image.ExecutionIdentity
+                        );
+                    },
+                        parent,
+                        false,
+                        description,
+                        systemProcess: true,
+                        preparedTrace641: preparedTrace641
+                    );
+                    // SpawnTraced's worker first takes this gate. Publish the exact actor
+                    // before it can be cancelled prior to entering the source body.
+                    slot.Actor = processes[handle.Pid];
+                }
+
+                return true;
+            }
         }
         catch
         {
             lock (gate)
-                if (ReferenceEquals(slot.Reservation, reservation)) slot.Clear();
+                if (handle is null && ReferenceEquals(slot.Reservation, reservation)) slot.Clear();
             throw;
         }
     }

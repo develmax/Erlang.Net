@@ -46,7 +46,9 @@ public sealed partial class ModuleRegistry
         bool hostBoundary
     )
     {
-        using OwnedTermInvocation506 owned = context.EnterOwnedInvocation506(arguments, hostBoundary)!;
+        using OwnedTermInvocation506 owned = hostBoundary
+            ? OwnedTermInvocation506.CreatePublic414(context, arguments)
+            : context.EnterOwnedInvocation506(arguments, false)!;
         try
         {
             // The selected binding bridge applies its exact body capability;

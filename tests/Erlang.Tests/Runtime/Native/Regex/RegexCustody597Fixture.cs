@@ -23,22 +23,26 @@ internal sealed class RegexCustody597Fixture
     {
         Engine = await RuntimeNativePrimitiveProviders.RegisterRegexAsync411(Runtime, Runtime.Modules, RegexNative411Access.Admission());
         if (originalRe)
-            await Runtime.InitializeModulesAsync(registry =>
-            {
-                Erlang.Otp.OtpModules.Register(registry);
-                var dependencies = new BeamDependencySelection(RegexThreeOriginal413Names.OriginalModules
-                    .Concat([RegexThreeOriginal413Names.Erlang]));
-                PreparedBeamImage[] images = RegexThreeOriginal413Names.OriginalModules.Select(module => registry.PrepareBeam(
-                    RegexThreeOriginal413Access.Read(module + LibraryDependencyOriginalNames.Beam), dependencies
-                )).ToArray();
-                if (images.Single(image => image.Name == RegexThreeOriginal413Names.Module).NativePrimitiveExports.Count != RegexThreeOriginal413Names.NativeBodies
-                    || registry.PublishPreparedBeam(images).Status != BeamPublicationStatus.Published)
-                    throw new InvalidOperationException(RegexThreeOriginal413Names.Failure);
-                foreach (PreparedBeamImage image in images)
-                    foreach (var export in registry.Exports.Where(export => export.Module == image.Name))
-                        if (!ReferenceEquals(registry.SourceOwner(export.Module, export.Function, export.Arity), image))
-                            throw new InvalidOperationException(RegexThreeOriginal413Names.Failure);
-            });
+        {
+            await Runtime.InitializeModulesAsync(Erlang.Otp.OtpModules.Register);
+            var dependencies = new BeamDependencySelection(RegexThreeOriginal413Names.OriginalModules
+                .Concat([RegexThreeOriginal413Names.Erlang]));
+            await PreparedBeamFixtureImages825.PrepareAndPublishAsync(
+                Runtime,
+                RegexThreeOriginal413Names.OriginalModules.Select(module => RegexThreeOriginal413Access.Read(module + LibraryDependencyOriginalNames.Beam)),
+                dependencies,
+                (registry, images) =>
+                {
+                    if (images.Single(image => image.Name == RegexThreeOriginal413Names.Module).NativePrimitiveExports.Count != RegexThreeOriginal413Names.NativeBodies
+                        || registry.PublishPreparedBeam(images).Status != BeamPublicationStatus.Published)
+                        throw new InvalidOperationException(RegexThreeOriginal413Names.Failure);
+                    foreach (PreparedBeamImage image in images)
+                        foreach (var export in registry.Exports.Where(export => export.Module == image.Name))
+                            if (!ReferenceEquals(registry.SourceOwner(export.Module, export.Function, export.Arity), image))
+                                throw new InvalidOperationException(RegexThreeOriginal413Names.Failure);
+                }
+            );
+        }
         Actor = new RuntimeNodeFoundationHostActor(Runtime);
         Context = await Actor.Ready.WaitAsync(Deadline);
         Heap = Property(Context, RegexCustody597Names.Heap);

@@ -19,15 +19,22 @@ internal static class InternalSystemCheck431HostAccess
 
     internal static async Task Initialize(ProcessRuntime runtime)
     {
-        await runtime.InitializeModulesAsync(registry =>
+        await global::Erlang.Tests.PreparedBeamFixtureScope171.RunAsync(
+            runtime,
+            (registry, scope) =>
         {
-            var image = registry.PrepareBeam(
+            var image = scope.Prepare(() => registry.PrepareBeam(
                 InternalSystemCheckOriginal431Access.Resource(InternalSystemCheckOriginal431Names.FacetBeam),
                 new BeamDependencySelection([InternalSystemCheck431HostNames.Module, InternalSystemCheckOriginal431Names.Runtime])
-            );
-            Require(registry.PublishPreparedBeam([image]).Status == BeamPublicationStatus.Published);
-            Require(ReferenceEquals(registry.SourceOwner(InternalSystemCheck431HostNames.Module, InternalSystemCheck431HostNames.Gather, 1), image));
-        });
+            ));
+
+            return ValueTask.FromResult<Action<ModuleRegistry>>(_ =>
+            {
+                Require(registry.PublishPreparedBeam([image]).Status == BeamPublicationStatus.Published);
+                Require(ReferenceEquals(registry.SourceOwner(InternalSystemCheck431HostNames.Module, InternalSystemCheck431HostNames.Gather, 1), image));
+            });
+        }
+        );
     }
 
     internal static Task BlockLane(ProcessRuntime runtime, TaskCompletionSource entered, ManualResetEventSlim release)

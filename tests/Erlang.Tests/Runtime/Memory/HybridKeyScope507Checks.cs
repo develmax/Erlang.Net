@@ -53,6 +53,8 @@ internal static class HybridKeyScope507Checks
             keys[Key] = Term.A(NewKey);
             bindings[Alias] = binaryAlias;
             keys[Alias] = binaryAlias;
+            Check(ReferenceEquals(BinaryBacking((BitString)bindings[Alias]), BinaryBacking((BitString)keys[Alias])));
+            Check(ReferenceEquals(BinaryBacking((BitString)bindings[Alias]), BinaryBacking(binaryAlias)));
             PublicReentry(context!);
         },
             asynchronous
@@ -67,8 +69,11 @@ internal static class HybridKeyScope507Checks
         {
             Capture(value, bindings, keys);
             Check(keys[Key].Equals(Term.A(NewKey)));
-            Check(ReferenceEquals(BinaryBacking((BitString)bindings[Alias]), BinaryBacking((BitString)keys[Alias])));
-            Check(ReferenceEquals(BinaryBacking((BitString)bindings[Alias]), BinaryBacking(binaryAlias)));
+            // This is the next opaque callback, after actual VM import/export.
+            // copy_struct copies boxed occurrences; Host backing identity is
+            // asserted above within one callback, not across that transfer.
+            Check(bindings[Alias].Equals(keys[Alias]));
+            Check(bindings[Alias].Equals(binaryAlias));
             observed = true;
         },
             asynchronous

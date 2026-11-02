@@ -17,19 +17,29 @@ internal static class ApplyTailOriginal416Checks
         {
             runtime = new ProcessRuntime();
             ProcessRuntime owner = runtime;
-            await owner.InitializeModulesAsync(registry =>
+            await global::Erlang.Tests.PreparedBeamFixtureScope171.RunAsync(
+                owner,
+                async (registry, scope) =>
             {
-                RuntimeBootstrapEtsTraversal416.Register(owner, registry);
+                await owner.InitializeModulesAsync(_ =>
+                {
+                    RuntimeBootstrapEtsTraversal416.Register(owner, registry);
+                });
                 var declared = new BeamDependencySelection([ApplyTailOriginal416Names.Ets,
-                    ApplyTailOriginal416Names.Runtime, ApplyTailOriginal416Names.File]);
-                PreparedBeamImage worker = registry.PrepareBeam(
-                    ApplyTailOriginal416Access.Resource(ApplyTailOriginal416Names.WorkerBeam), declared);
+                                ApplyTailOriginal416Names.Runtime, ApplyTailOriginal416Names.File]);
+                PreparedBeamImage worker = scope.Prepare(() => registry.PrepareBeam(
+                    ApplyTailOriginal416Access.Resource(ApplyTailOriginal416Names.WorkerBeam), declared));
                 ApplyTailOriginal416Access.Require(worker.Name == ApplyTailOriginal416Names.Module
                     && worker.NativePrimitiveExports.Count == 0);
-                ApplyTailOriginal416Access.Require(registry.PublishPreparedBeam(worker).Status == BeamPublicationStatus.Published);
-                foreach (var export in registry.Exports.Where(export => export.Module == worker.Name))
-                    ApplyTailOriginal416Access.Require(ReferenceEquals(registry.SourceOwner(export.Module, export.Function, export.Arity), worker));
-            });
+
+                return _ =>
+                {
+                    ApplyTailOriginal416Access.Require(registry.PublishPreparedBeam(worker).Status == BeamPublicationStatus.Published);
+                    foreach (var export in registry.Exports.Where(export => export.Module == worker.Name))
+                        ApplyTailOriginal416Access.Require(ReferenceEquals(registry.SourceOwner(export.Module, export.Function, export.Arity), worker));
+                };
+            }
+            );
             actor = new RuntimeNodeFoundationHostActor(owner);
             RuntimeNodeFoundationHostActor caller = actor;
 

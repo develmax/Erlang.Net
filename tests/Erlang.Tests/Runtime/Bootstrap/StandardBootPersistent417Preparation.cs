@@ -12,4 +12,15 @@ internal static class StandardBootPersistent417Preparation
 
         return image;
     }
+
+    internal static PreparedBeamImage Prepare171(ModuleRegistry registry, BeamDependencySelection dependencies, global::Erlang.Tests.PreparedBeamFixtureScope171 scope)
+    {
+        byte[] bytes = NativeProvider408Access.Resource(PersistentNative417Names.Image);
+        PreparedBeamImage image = scope.Prepare(() => registry.PrepareBeam(bytes, dependencies));
+        StandardBootOriginal412Access.Require(image.Name == PersistentNative417Names.Module
+            && image.NativePrimitiveExports.Count == PersistentNative417Names.NativeCount
+            && PersistentNative417Names.Signatures.All(signature => image.NativePrimitiveExports.Contains(signature)));
+
+        return image;
+    }
 }

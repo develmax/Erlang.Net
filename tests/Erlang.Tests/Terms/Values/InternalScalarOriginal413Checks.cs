@@ -143,29 +143,39 @@ internal static class InternalScalarOriginal413Checks
                 )
                     || runtime.Modules.SourceOwner(InternalScalarOriginal413Names.NativeModule, signature.Function, signature.Arity) is not null)
                     throw new InvalidOperationException(InternalScalarOriginal413Names.Failure);
-            await runtime.InitializeModulesAsync(registry =>
+            await global::Erlang.Tests.PreparedBeamFixtureScope171.RunAsync(
+                runtime,
+                async (registry, scope) =>
             {
-                Erlang.Otp.OtpModules.Register(registry);
+                await runtime.InitializeModulesAsync(_ =>
+                {
+                    Erlang.Otp.OtpModules.Register(registry);
+                });
                 var dependencies = new BeamDependencySelection(InternalScalarOriginal413Names.OriginalModules
                     .Concat([InternalScalarOriginal413Names.Erlang, InternalScalarOriginal413Names.NativeModule, suite.Observer]));
-                PreparedBeamImage[] images = InternalScalarOriginal413Names.OriginalModules.Select(module => registry.PrepareBeam(
+                PreparedBeamImage[] images = InternalScalarOriginal413Names.OriginalModules.Select(module => scope.Prepare(() => registry.PrepareBeam(
                     InternalScalarOriginal413Access.Read(module + LibraryDependencyOriginalNames.Beam), dependencies
-                )).ToArray();
-                if (registry.PublishPreparedBeam(images).Status != BeamPublicationStatus.Published)
-                    throw new InvalidOperationException(InternalScalarOriginal413Names.Failure);
-                foreach (PreparedBeamImage image in images)
-                    foreach (var export in registry.Exports.Where(export => export.Module == image.Name))
-                        if (!ReferenceEquals(registry.SourceOwner(export.Module, export.Function, export.Arity), image))
-                            throw new InvalidOperationException(InternalScalarOriginal413Names.Failure);
-                PreparedBeamImage worker = registry.PrepareBeam(
+                ))).ToArray();
+                PreparedBeamImage worker = scope.Prepare(() => registry.PrepareBeam(
                     InternalScalarOriginal413Access.Read(suite.Observer + LibraryDependencyOriginalNames.Beam), dependencies
-                );
-                if (worker.NativePrimitiveExports.Count != 0 || registry.PublishPreparedBeam(worker).Status != BeamPublicationStatus.Published
+                ));
+
+                return _ =>
+                {
+                    if (registry.PublishPreparedBeam(images).Status != BeamPublicationStatus.Published)
+                        throw new InvalidOperationException(InternalScalarOriginal413Names.Failure);
+                    foreach (PreparedBeamImage image in images)
+                        foreach (var export in registry.Exports.Where(export => export.Module == image.Name))
+                            if (!ReferenceEquals(registry.SourceOwner(export.Module, export.Function, export.Arity), image))
+                                throw new InvalidOperationException(InternalScalarOriginal413Names.Failure);
+                    if (worker.NativePrimitiveExports.Count != 0 || registry.PublishPreparedBeam(worker).Status != BeamPublicationStatus.Published
                     || !ReferenceEquals(registry.SourceOwner(suite.Observer, LibraryDependencyOriginalNames.Run, 0), worker)
                     || !ReferenceEquals(registry.SourceOwner(suite.Observer, LibraryDependencyOriginalNames.Stacks, 0), worker)
                     || runtime.NativePrimitives.Selection != RuntimeNativePrimitives.None || runtime.NativePrimitives.Bindings.Count != 0)
-                    throw new InvalidOperationException(InternalScalarOriginal413Names.Failure);
-            });
+                        throw new InvalidOperationException(InternalScalarOriginal413Names.Failure);
+                };
+            }
+            );
 
             return runtime;
         }

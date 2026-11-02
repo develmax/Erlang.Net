@@ -5,7 +5,12 @@ internal static class DebugDirtyTermCopy424
     internal static Term Copy(ProcessRuntime runtime, Term source)
         => AtomicsHostAggregate594.Publish(transaction => CopySelected595(runtime, source, transaction));
 
-    internal static Term CopySelected595(ProcessRuntime runtime, Term source, AtomicsHostCopyTransaction591 transaction)
+    internal static Term CopySelected595(
+        ProcessRuntime runtime,
+        Term source,
+        AtomicsHostCopyTransaction591 transaction,
+        DebugCopyDestination391? destination = null
+    )
     {
         // The native copy_struct traversal copies each heap occurrence; do not
         // turn repeated boxed children into a shared memoized output graph.
@@ -26,6 +31,7 @@ internal static class DebugDirtyTermCopy424
                 frame.Copied,
                 transaction
             );
+            copy = destination?.Adopt(copy) ?? copy;
             stack.Pop();
             if (stack.Count == 0)
             {

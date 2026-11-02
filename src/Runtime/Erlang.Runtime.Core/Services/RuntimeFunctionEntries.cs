@@ -211,6 +211,10 @@ public sealed partial class RuntimeFunctionEntries
                     if (!publication.IsSourceFactory && !context.Runtime.Modules.ValidateLocalFunctionPublication(invocation))
                         throw new LocalFunctionPublicationChangedException(invocation);
                     var temporary = publication.Factory(environment, invocation);
+                    // The factory runs outside the publication gates. Validate
+                    // its captured entry again before admitting the produced fun.
+                    if (!context.Runtime.Modules.ValidateLocalFunctionPublication(invocation))
+                        throw new LocalFunctionPublicationChangedException(invocation);
 
                     return await temporary.Invoke(context, arguments);
                 }

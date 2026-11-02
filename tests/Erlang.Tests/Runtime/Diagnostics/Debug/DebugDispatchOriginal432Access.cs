@@ -31,18 +31,28 @@ internal static class DebugDispatchOriginal432Access
         var runtime = new ProcessRuntime(1);
         try
         {
-            await runtime.InitializeModulesAsync(registry =>
+            await global::Erlang.Tests.PreparedBeamFixtureScope171.RunAsync(
+                runtime,
+                async (registry, scope) =>
             {
-                RuntimeBootstrapDebugDispatch432.Register(runtime, registry);
+                await runtime.InitializeModulesAsync(_ =>
+                {
+                    RuntimeBootstrapDebugDispatch432.Register(runtime, registry);
+                });
                 var selection = new BeamDependencySelection(["erlang", "prim_file", "erts_debug", DebugDispatchOriginal432Names.Module]);
-                PreparedBeamImage facet = registry.PrepareBeam(Resource("erts_debug.beam"), selection);
-                PreparedBeamImage worker = registry.PrepareBeam(Resource(DebugDispatchOriginal432Names.Worker), selection);
+                PreparedBeamImage facet = scope.Prepare(() => registry.PrepareBeam(Resource("erts_debug.beam"), selection));
+                PreparedBeamImage worker = scope.Prepare(() => registry.PrepareBeam(Resource(DebugDispatchOriginal432Names.Worker), selection));
                 DebugDispatch432Require(facet.NativePrimitiveExports.Count == 2);
-                DebugDispatch432Require(registry.PublishPreparedBeam([facet, worker]).Status == BeamPublicationStatus.Published);
-                foreach (var image in new[] { facet, worker })
-                    foreach (var export in registry.Exports.Where(export => export.Module == image.Name))
-                        DebugDispatch432Require(ReferenceEquals(registry.SourceOwner(export.Module, export.Function, export.Arity), image));
-            });
+
+                return _ =>
+                {
+                    DebugDispatch432Require(registry.PublishPreparedBeam([facet, worker]).Status == BeamPublicationStatus.Published);
+                    foreach (var image in new[] { facet, worker })
+                        foreach (var export in registry.Exports.Where(export => export.Module == image.Name))
+                            DebugDispatch432Require(ReferenceEquals(registry.SourceOwner(export.Module, export.Function, export.Arity), image));
+                };
+            }
+            );
 
             return runtime;
         }

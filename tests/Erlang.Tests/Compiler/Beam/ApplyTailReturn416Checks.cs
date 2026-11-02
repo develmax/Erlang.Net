@@ -32,18 +32,28 @@ internal static class ApplyTailReturn416Checks
         foreach (bool asynchronous in new[] { false, true })
         {
             await using var runtime = new ProcessRuntime();
-            await runtime.InitializeModulesAsync(registry =>
+            await global::Erlang.Tests.PreparedBeamFixtureScope171.RunAsync(
+                runtime,
+                async (registry, scope) =>
             {
-                RuntimeBootstrapEtsTraversal416.Register(runtime, registry);
-                var image = registry.PrepareBeam(
+                await runtime.InitializeModulesAsync(_ =>
+                {
+                    RuntimeBootstrapEtsTraversal416.Register(runtime, registry);
+                });
+                var image = scope.Prepare(() => registry.PrepareBeam(
                     Resource(ApplyTailReturn416Names.Worker),
                     new BeamDependencySelection([ErlangModuleNames.Module, ApplyTailReturn416Names.Ets, ApplyTailReturn416Names.PrimFile])
-                );
+                ));
                 Require(image.Name == ApplyTailReturn416Names.Module && image.NativePrimitiveExports.Count == 0);
-                Require(registry.PublishPreparedBeam(image).Status == BeamPublicationStatus.Published);
-                foreach (var export in registry.Exports.Where(e => e.Module == image.Name))
-                    Require(ReferenceEquals(registry.SourceOwner(export.Module, export.Function, export.Arity), image));
-            });
+
+                return _ =>
+                {
+                    Require(registry.PublishPreparedBeam(image).Status == BeamPublicationStatus.Published);
+                    foreach (var export in registry.Exports.Where(e => e.Module == image.Name))
+                        Require(ReferenceEquals(registry.SourceOwner(export.Module, export.Function, export.Arity), image));
+                };
+            }
+            );
             int calls = 0;
             _ = runtime.Modules.DeleteModule(ErlangModuleNames.Module);
             // Replace the REAL currently selected registry entry. No canonical cache,

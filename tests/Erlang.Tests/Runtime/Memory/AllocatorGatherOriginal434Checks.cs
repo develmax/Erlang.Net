@@ -17,19 +17,26 @@ internal static class AllocatorGatherOriginal434Checks
         {
             runtime = new ProcessRuntime(1);
             ProcessRuntime owner = runtime;
-            await owner.InitializeModulesAsync(registry =>
+            await global::Erlang.Tests.PreparedBeamFixtureScope171.RunAsync(
+                owner,
+                (registry, scope) =>
             {
                 var declared = new BeamDependencySelection(new[] { AllocatorGatherOriginal434Names.Runtime, AllocatorGatherOriginal434Names.File, AllocatorGatherOriginal434Names.Internal, AllocatorGatherOriginal434Names.Module });
-                PreparedBeamImage facet = registry.PrepareBeam(AllocatorGatherOriginal434Access.Resource(AllocatorGatherOriginal434Names.FacetBeam), declared);
-                PreparedBeamImage worker = registry.PrepareBeam(AllocatorGatherOriginal434Access.Resource(AllocatorGatherOriginal434Names.WorkerBeam), declared);
-                AllocatorGatherOriginal434Access.Require(registry.PublishPreparedBeam(new[] { facet, worker }).Status == BeamPublicationStatus.Published);
-                AllocatorGatherOriginal434Access.Require(facet.NativePrimitiveExports.Count == AllocatorGatherOriginal434Names.NativeCount
+                PreparedBeamImage facet = scope.Prepare(() => registry.PrepareBeam(AllocatorGatherOriginal434Access.Resource(AllocatorGatherOriginal434Names.FacetBeam), declared));
+                PreparedBeamImage worker = scope.Prepare(() => registry.PrepareBeam(AllocatorGatherOriginal434Access.Resource(AllocatorGatherOriginal434Names.WorkerBeam), declared));
+
+                return ValueTask.FromResult<Action<ModuleRegistry>>(_ =>
+                {
+                    AllocatorGatherOriginal434Access.Require(registry.PublishPreparedBeam(new[] { facet, worker }).Status == BeamPublicationStatus.Published);
+                    AllocatorGatherOriginal434Access.Require(facet.NativePrimitiveExports.Count == AllocatorGatherOriginal434Names.NativeCount
                     && facet.NativePrimitiveExports.Contains(new BeamFunctionSignature(AllocatorGatherOriginal434Names.NativeFunction, 1)));
-                AllocatorGatherOriginal434Access.Require(registry.Exports.Count(export => export.Module == facet.Name) == AllocatorGatherOriginal434Names.TotalExports);
-                foreach (var image in new[] { facet, worker })
-                    foreach (var export in registry.Exports.Where(export => export.Module == image.Name))
-                        AllocatorGatherOriginal434Access.Require(ReferenceEquals(registry.SourceOwner(export.Module, export.Function, export.Arity), image));
-            });
+                    AllocatorGatherOriginal434Access.Require(registry.Exports.Count(export => export.Module == facet.Name) == AllocatorGatherOriginal434Names.TotalExports);
+                    foreach (var image in new[] { facet, worker })
+                        foreach (var export in registry.Exports.Where(export => export.Module == image.Name))
+                            AllocatorGatherOriginal434Access.Require(ReferenceEquals(registry.SourceOwner(export.Module, export.Function, export.Arity), image));
+                });
+            }
+            );
             actor = new RuntimeNodeFoundationHostActor(owner);
             RuntimeNodeFoundationHostActor caller = actor;
 

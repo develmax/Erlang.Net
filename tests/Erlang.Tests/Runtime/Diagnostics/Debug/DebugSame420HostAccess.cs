@@ -28,16 +28,23 @@ internal static class DebugSame420HostAccess
 
     internal static async Task Initialize(ProcessRuntime runtime)
     {
-        await runtime.InitializeModulesAsync(registry =>
+        await global::Erlang.Tests.PreparedBeamFixtureScope171.RunAsync(
+            runtime,
+            (registry, scope) =>
         {
             Require(!registry.HasExport(DebugSame420HostNames.Module, DebugSame420HostNames.Function, 2));
-            var image = registry.PrepareBeam(Beam(), new BeamDependencySelection([DebugSame420HostNames.Runtime]));
+            var image = scope.Prepare(() => registry.PrepareBeam(Beam(), new BeamDependencySelection([DebugSame420HostNames.Runtime])));
             Require(image.NativePrimitiveExports.Count == 1 && image.NativePrimitiveExports.Contains(new BeamFunctionSignature(DebugSame420HostNames.Function, 2)));
-            Require(registry.PublishPreparedBeam(image).Status == BeamPublicationStatus.Published);
-            var exports = registry.Exports.Where(e => e.Module == DebugSame420HostNames.Module).ToArray();
-            Require(exports.Length == 3);
-            foreach (var export in exports) Require(ReferenceEquals(registry.SourceOwner(export.Module, export.Function, export.Arity), image));
-        });
+
+            return ValueTask.FromResult<Action<ModuleRegistry>>(_ =>
+            {
+                Require(registry.PublishPreparedBeam(image).Status == BeamPublicationStatus.Published);
+                var exports = registry.Exports.Where(e => e.Module == DebugSame420HostNames.Module).ToArray();
+                Require(exports.Length == 3);
+                foreach (var export in exports) Require(ReferenceEquals(registry.SourceOwner(export.Module, export.Function, export.Arity), image));
+            });
+        }
+        );
     }
 
     internal static async Task Same(

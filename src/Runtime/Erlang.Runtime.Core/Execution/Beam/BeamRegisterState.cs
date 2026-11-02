@@ -2,17 +2,23 @@ namespace Erlang;
 
 internal sealed partial class BeamRegisterState : IDisposable
 {
-    private readonly BeamRegisterSlot[] values = new BeamRegisterSlot[BeamOperandParameters.MaximumRegister];
+    private readonly BeamRegisterSlot[] values;
     private readonly Stack<BeamLocalFrame> frames = new();
-    private readonly double?[] floating = new double?[BeamOperandParameters.MaximumRegister];
+    private double?[]? floating;
     private readonly ProcessWordExecution504? words504;
     private readonly ProcessContext? context507;
     private readonly BeamOwnedRoots507? roots507;
 
-    internal BeamRegisterState() { }
+    internal BeamRegisterState() : this(null, null) { }
 
     internal BeamRegisterState(ProcessWordExecution504? words, ProcessContext? context = null)
+        : this(words, context, BeamOperandParameters.MaximumRegister) { }
+
+    internal BeamRegisterState(ProcessWordExecution504? words, ProcessContext? context, int capacity)
     {
+        if (capacity < BeamRegisterCapacity273.MinimumCapacity || capacity > BeamOperandParameters.MaximumRegister)
+            throw new ArgumentOutOfRangeException(nameof(capacity));
+        values = new BeamRegisterSlot[capacity];
         words504 = words;
         context507 = context;
         if (context is not null && context.OwnedExecutionEnabled683)
@@ -22,16 +28,28 @@ internal sealed partial class BeamRegisterState : IDisposable
     internal IDisposable? EnterWordOperation504() => words504?.Enter();
 
     internal double ReadFloat(BeamOperand operand)
-        => floating[(int)operand.Value] ?? throw new InvalidDataException(BeamOnLoadDiagnostics.Frame);
+    {
+        int index = (int)operand.Value;
+        if (index < 0 || index >= BeamOperandParameters.MaximumRegister)
+            throw new IndexOutOfRangeException();
+
+        return floating?[index] ?? throw new InvalidDataException(BeamOnLoadDiagnostics.Frame);
+    }
 
     internal void WriteFloat(BeamOperand operand, double value)
     {
         if (!double.IsFinite(value))
             throw new ErlangException(ErlangErrorReasons.BadArithmetic);
-        floating[(int)operand.Value] = value;
+        int index = (int)operand.Value;
+        if (index < 0 || index >= BeamOperandParameters.MaximumRegister)
+            throw new IndexOutOfRangeException();
+        (floating ??= new double?[BeamOperandParameters.MaximumRegister])[index] = value;
     }
 
-    internal void ClearFloats() => Array.Clear(floating);
+    internal void ClearFloats()
+    {
+        if (floating is not null) Array.Clear(floating);
+    }
 
     internal int FrameDepth => frames.Count;
 
@@ -231,7 +249,7 @@ internal sealed partial class BeamRegisterState : IDisposable
 
     public BeamRegisterState Clone()
     {
-        var clone = new BeamRegisterState(words504, context507);
+        var clone = new BeamRegisterState(words504, context507, values.Length);
         try
         {
             if (roots507 is null)
@@ -240,7 +258,7 @@ internal sealed partial class BeamRegisterState : IDisposable
                 for (int index = 0; index < values.Length; index++)
                     if (values[index].Kind != BeamRegisterSlotKind.Uninitialized)
                         clone.WriteXSlot507(index, values[index], false);
-            Array.Copy(floating, clone.floating, floating.Length);
+            if (floating is not null) clone.floating = (double?[])floating.Clone();
             foreach (BeamLocalFrame frame in frames.Reverse())
                 clone.PushFrame507(frame.Clone());
 
@@ -266,7 +284,7 @@ internal sealed partial class BeamRegisterState : IDisposable
             while (frames.TryPop(out BeamLocalFrame? ordinary))
                 ordinary.Dispose();
             Array.Clear(values);
-            Array.Clear(floating);
+            ClearFloats();
 
             return;
         }
@@ -283,7 +301,7 @@ internal sealed partial class BeamRegisterState : IDisposable
             }
         }
         Array.Clear(values);
-        Array.Clear(floating);
+        ClearFloats();
         try
         {
             roots507?.Dispose();

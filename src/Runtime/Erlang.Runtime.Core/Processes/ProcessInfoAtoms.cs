@@ -8,7 +8,7 @@ internal static class ProcessInfoAtoms
     public static readonly Atom RegisteredName = Term.A(ProcessInfoNames.RegisteredName);
     public static readonly Atom Undefined = Term.A(ProcessRegistryAtoms.Undefined);
 
-    public static bool IsSupported(Atom key) => key.Name is ProcessInfoLogicalNames.InitialCall or ProcessInfoLogicalNames.ErrorHandler or
+    public static bool IsSupported(Atom key) => key.Name is ProcessBinaryInfo823Names.Binary or ProcessInfoLogicalNames.InitialCall or ProcessInfoLogicalNames.ErrorHandler or
         ProcessInfoLogicalNames.Priority or ProcessInfoLogicalNames.Reductions or ProcessInfoLogicalNames.Suspending or ProcessInfoNames.Links or ProcessInfoNames.TrapExit or ProcessInfoNames.GroupLeader or
         ProcessInfoNames.RegisteredName or ProcessInfoNames.LastCalls or ProcessInfoNames.Dictionary or ProcessInfoNames.Messages or
         ProcessInfoNames.MessageQueueLength or ProcessInfoNames.Monitors or ProcessInfoNames.MonitoredBy or ProcessInfoNames.Status or

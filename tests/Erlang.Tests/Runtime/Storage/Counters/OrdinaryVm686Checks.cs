@@ -37,8 +37,11 @@ internal static class OrdinaryVm686Checks
         object? heap = fixture.HeapNow();
         if (pure || queued)
         {
-            Require(!fixture.EnabledNow() && heap is null && !fixture.RegistryContainsChild());
-            Require(Field(fixture.Context!.Dictionary, DictionaryFrame) is null);
+            // Runtime storage is enrolled at actual ProcessContext admission;
+            // this neither grants guest execution nor implies worker entry.
+            Require((bool)Property(fixture.Context!, StorageEnabled) && heap is not null && fixture.RegistryContainsChild());
+            Require(fixture.EnabledNow() == pure);
+            Require((Field(fixture.Context!.Dictionary, DictionaryFrame) is not null) == pure);
             object input = Field(fixture.Context, Input)!;
             object prepared = Field(input, Prepared)!;
             object? graph = Property(prepared, Graph);
@@ -110,7 +113,10 @@ internal static class OrdinaryVm686Checks
         }
         else
         {
-            Require(!fixture.EnabledNow() && fixture.HeapNow() is null && !fixture.RegistryContainsChild());
+            Require(fixture.EnabledNow() && fixture.HeapNow() is not null);
+            object snapshot = Property(fixture.HeapNow()!, Snapshot);
+            Require(Convert.ToInt64(Property(snapshot, CapacityWords)) == 0 && Convert.ToInt32(Property(snapshot, RootFrames)) == 0);
+            await AwaitOwnerGone(fixture);
         }
     }
 

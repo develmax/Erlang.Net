@@ -9,14 +9,15 @@ internal static class AllocatorFirstFit519Names
     internal const string HeapName = "Erlang.ProcessTermHeap506";
     internal const string Reserve = "Reserve";
     internal const string Release = "Release";
-    internal const string AllocateRaw = "Allocate";
+    internal const string CreateTuple = "CreateTuple";
+    internal const int TupleHeaderWords = 1, PayloadValue = 519;
+    internal const string HeaderWords = "HeaderWords526", AllocationWords = "AllocationWords526";
     internal const string HeapGate = "Gate";
-    internal const string OwnedSequenceType = "Erlang.IOwnedTermSequence506";
     internal const string CellVisits = "ReservationCellVisits519";
     internal const string SlabVisits = "AllocationSlabVisits519";
     internal const string Storage = "OwnedStorage506";
     internal const string Slab = "Slab";
-    internal const string Offset = "Offset";
+    internal const string Offset = "AllocationOffset526";
     internal const string Identity = "identity";
     internal const string Enter = "Enter";
     internal const string Borrow = "Borrow";

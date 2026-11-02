@@ -78,16 +78,23 @@ internal static class NifVersion651Driver
         {
             runtime = new ProcessRuntime();
             ProcessRuntime owner = runtime;
-            await owner.InitializeModulesAsync(registry =>
+            await global::Erlang.Tests.PreparedBeamFixtureScope171.RunAsync(
+                owner,
+                (registry, scope) =>
             {
                 var dependencies = new BeamDependencySelection([subject, observer]);
-                var prepared = beams.Select(beam => registry.PrepareBeam(File.ReadAllBytes(Text(beam, NifVersion651DriverNames.PathField)), dependencies)).ToArray();
+                var prepared = beams.Select(beam => scope.Prepare(() => registry.PrepareBeam(File.ReadAllBytes(Text(beam, NifVersion651DriverNames.PathField)), dependencies))).ToArray();
                 NifNativeHarness.Require(prepared.Select(image => image.Name).ToHashSet(StringComparer.Ordinal).SetEquals([subject, observer]));
-                NifNativeHarness.Require(registry.PublishPreparedBeam(prepared).Status == BeamPublicationStatus.Published);
-                foreach (var preparedImage in prepared)
-                    foreach (var export in registry.Exports.Where(export => export.Module == preparedImage.Name))
-                        NifNativeHarness.Require(ReferenceEquals(registry.SourceOwner(export.Module, export.Function, export.Arity), preparedImage));
-            });
+
+                return ValueTask.FromResult<Action<ModuleRegistry>>(_ =>
+                {
+                    NifNativeHarness.Require(registry.PublishPreparedBeam(prepared).Status == BeamPublicationStatus.Published);
+                    foreach (var preparedImage in prepared)
+                        foreach (var export in registry.Exports.Where(export => export.Module == preparedImage.Name))
+                            NifNativeHarness.Require(ReferenceEquals(registry.SourceOwner(export.Module, export.Function, export.Arity), preparedImage));
+                });
+            }
+            );
             imageOwner = owner.Modules.CurrentCodeImage(subject)
                 ?? throw new InvalidOperationException(NifNativeHarnessNames.Broken);
             if (route == NifVersion651DriverNames.Reviewed)

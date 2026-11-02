@@ -17,23 +17,37 @@ internal static class DebugDirtyOriginal424Checks
         {
             runtime = new ProcessRuntime(1);
             ProcessRuntime owner = runtime;
-            await owner.InitializeModulesAsync(registry =>
+            await global::Erlang.Tests.PreparedBeamFixtureScope171.RunAsync(
+                owner,
+                async (registry, scope) =>
             {
-                RuntimeBootstrapDebugDirty424.Register(owner, registry);
-                RuntimeBootstrapAtomics.Register(owner, registry);
+                await owner.InitializeModulesAsync(_ =>
+                {
+                    {
+                        RuntimeBootstrapDebugDirty424.Register(owner, registry);
+                    }
+                    {
+                        RuntimeBootstrapAtomics.Register(owner, registry);
+                    }
+                });
                 var declared = new BeamDependencySelection(["erlang", "prim_file", "erts_internal", "erts_debug", "atomics", "lists", "maps", "binary"]);
-                var helpers = new[] { "atomics", "lists", "maps" }.Select(module => registry.PrepareBeam(AtomicsHost413Access.Resource(module + ".beam"), declared)).ToArray();
-                PreparedBeamImage facet = registry.PrepareBeam(DebugDirtyOriginal424Access.Resource(DebugDirtyOriginal424Names.FacetBeam), declared);
+                var helpers = new[] { "atomics", "lists", "maps" }.Select(module => scope.Prepare(() => registry.PrepareBeam(AtomicsHost413Access.Resource(module + ".beam"), declared))).ToArray();
+                PreparedBeamImage facet = scope.Prepare(() => registry.PrepareBeam(DebugDirtyOriginal424Access.Resource(DebugDirtyOriginal424Names.FacetBeam), declared));
                 DebugDirtyOriginal424Access.Require(facet.Name == "erts_debug" && facet.NativePrimitiveExports.Count == 4);
                 foreach (var signature in new[] { new BeamFunctionSignature("dirty_cpu", 2), new BeamFunctionSignature("dirty_io", 2), new BeamFunctionSignature("dirty", 3), new BeamFunctionSignature("same", 2) })
                     DebugDirtyOriginal424Access.Require(facet.NativePrimitiveExports.Contains(signature));
-                PreparedBeamImage worker = registry.PrepareBeam(DebugDirtyOriginal424Access.Resource(DebugDirtyOriginal424Names.WorkerBeam), declared);
-                DebugDirtyOriginal424Access.Require(registry.PublishPreparedBeam(helpers.Concat(new[] { facet, worker }).ToArray()).Status == BeamPublicationStatus.Published);
-                DebugDirtyOriginal424Access.Require(registry.Exports.Count(export => export.Module == DebugDirtyOriginal424Names.Internal) == 6);
-                foreach (var image in new[] { facet, worker })
-                    foreach (var export in registry.Exports.Where(export => export.Module == image.Name))
-                        DebugDirtyOriginal424Access.Require(ReferenceEquals(registry.SourceOwner(export.Module, export.Function, export.Arity), image));
-            });
+                PreparedBeamImage worker = scope.Prepare(() => registry.PrepareBeam(DebugDirtyOriginal424Access.Resource(DebugDirtyOriginal424Names.WorkerBeam), declared));
+
+                return _ =>
+                {
+                    DebugDirtyOriginal424Access.Require(registry.PublishPreparedBeam(helpers.Concat(new[] { facet, worker }).ToArray()).Status == BeamPublicationStatus.Published);
+                    DebugDirtyOriginal424Access.Require(registry.Exports.Count(export => export.Module == DebugDirtyOriginal424Names.Internal) == 6);
+                    foreach (var image in new[] { facet, worker })
+                        foreach (var export in registry.Exports.Where(export => export.Module == image.Name))
+                            DebugDirtyOriginal424Access.Require(ReferenceEquals(registry.SourceOwner(export.Module, export.Function, export.Arity), image));
+                };
+            }
+            );
             actor = new RuntimeNodeFoundationHostActor(owner);
             RuntimeNodeFoundationHostActor caller = actor;
 

@@ -25,6 +25,6 @@ public sealed partial class ProcessRuntime
         // export.c allocates/registers the canonical export lambda in actual
         // global literal storage. This exact owned table slot is global even
         // when created dynamically, independently of BEAM literal references.
-        => value is FunctionTerm function && Functions.IsExternalEntry(function)
+        => IsEmptyTuple803(value) || value is FunctionTerm function && Functions.IsExternalEntry(function)
             || sharingLiterals425.TryGetValue(value, out _);
 }

@@ -36,6 +36,26 @@ public sealed partial class ModuleRegistry
         );
     }
 
+    internal FunctionTerm? ReconstructPublicLocal414(
+        ProcessRuntime runtime,
+        LocalFunctionIdentity identity,
+        int arity,
+        IReadOnlyList<Term> environment
+    )
+    {
+        // No generic RuntimeFunctionEntries.Register factory participates.
+        var source = SourceLocalFunction(identity);
+        if (source is not { } selected) return null;
+
+        return selected.Resolver.ReconstructPublicLocal414(
+            runtime,
+            identity,
+            arity,
+            environment,
+            selected.Image
+        );
+    }
+
     private (ISourceLocalFunctionResolver Resolver, ModuleCodeImage Image)? SourceLocalFunction(LocalFunctionIdentity identity)
     {
         lock (gate)

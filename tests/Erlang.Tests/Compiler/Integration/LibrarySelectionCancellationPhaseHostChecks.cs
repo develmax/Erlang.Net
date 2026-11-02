@@ -19,10 +19,9 @@ internal static class LibrarySelectionCancellationPhaseHostChecks
         try
         {
             ModuleCodeImage[] bootstrap = [runtime.Modules.CurrentCodeImage(ListBeamHostNames.Module)!, runtime.Modules.CurrentCodeImage(QueueModuleNames.Module)!];
-            object? plan = null;
+            using var plan = (IDisposable)Prepare(runtime.Modules, Both());
             await runtime.InitializeModulesAsync(registry =>
             {
-                plan = Prepare(registry, Both());
                 Publish(registry, plan);
             }).AsTask().WaitAsync(LibrarySelectionCancellationPhaseNames.Deadline);
             Require(runtime.Modules.HasOldCode(ListBeamHostNames.Module) && runtime.Modules.HasOldCode(QueueModuleNames.Module));

@@ -7,6 +7,7 @@ internal sealed class ProcessExitContinuation(
 )
 {
     internal ProcessContext Process { get; } = process;
+    internal PreparedSequenceTermination? Sequence641 { get; set; }
     internal RuntimeProcessPayload641? Origin641 { get; set; }
     internal Term Reason { get; } = reason;
     internal IReadOnlyList<DistributionExitOutput> Output { get; } = output;

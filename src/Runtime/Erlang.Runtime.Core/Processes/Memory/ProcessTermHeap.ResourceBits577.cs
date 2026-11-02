@@ -93,6 +93,7 @@ internal sealed partial class ProcessTermHeap506
 
     internal ResourceBitsRead577 ReadResourceBits577(ProcessTermSequence506 block)
     {
+        if (LiteralDomain800 is { IsSealed800: true } domain) return ReadImmutableModuleBinary805(block, domain);
         lock (Gate)
         {
             ResourceBinaryDescriptor577 descriptor = RequireResourceBitsDescriptor577(block);
@@ -104,15 +105,29 @@ internal sealed partial class ProcessTermHeap506
             nuint baseFlags = block.Slab.Cells.ReadNumeric556(offset + ResourceBinary577Names.BaseWord);
             nuint start = block.Slab.Cells.ReadNumeric556(offset + ResourceBinary577Names.StartWord);
             nuint end = block.Slab.Cells.ReadNumeric556(offset + ResourceBinary577Names.EndWord);
-            if ((baseFlags & ResourceBinary577Names.FlagMask) != 0 || end < start || end - start > int.MaxValue)
+            nuint flags = baseFlags & ResourceBinary577Names.FlagMask;
+            if (end < start || end - start > int.MaxValue || flags == NativeWritableBinaryLayout.Mutable
+                || flags != 0 && binRef.OrdinaryBinary is null)
                 throw new InvalidOperationException(ResourceBinary577Names.Invalid);
+            if ((flags & NativeWritableBinaryLayout.Volatile) != 0)
+            {
+                // Stored base can be stale after REAL relocation. Follow the
+                // actual BinRef native pointer, as ERTS_GET_BITSTRING_REF does.
+                baseFlags = (nuint)descriptor.Data;
+                if (!binRef.OrdinaryBinary!.IsWritable)
+                    block.Slab.Cells.WriteNumeric556([baseFlags], offset + ResourceBinary577Names.BaseWord);
+            }
             // Align-down compensation is source-defined. Rebase to the genuine
             // leased range to avoid ever reading padding/outside native memory.
             Int128 bitOffset = ((Int128)(UInt128)baseFlags - (Int128)(nuint)descriptor.Data) * BitStringLayout.BitsPerByte + (Int128)(UInt128)start;
             Int128 size = (Int128)(UInt128)(end - start);
             if (bitOffset < 0 || bitOffset > (Int128)descriptor.Bytes * BitStringLayout.BitsPerByte - size)
                 throw new InvalidOperationException(ResourceBinary577Names.Invalid);
-            binRef.Payload.ValidateRead524();
+            if (binRef.OrdinaryBinary is { } ordinary)
+            {
+                if (ordinary.BinaryPointer != binRef.Binary) throw new InvalidOperationException(ResourceBinary577Names.Invalid);
+            }
+            else binRef.Payload.ValidateRead524();
 
             return new(checked((long)bitOffset), checked((int)size));
         }
@@ -120,6 +135,12 @@ internal sealed partial class ProcessTermHeap506
 
     private ResourceBinaryDescriptor577 RequireResourceBitsDescriptor577(ProcessTermSequence506 block)
     {
+        if (LiteralDomain800 is { IsSealed800: true } domain)
+        {
+            using ModuleLiteralRead800 read = domain.EnterRead800(block);
+
+            return RequireImmutableModuleDescriptor805(block);
+        }
         if (!Monitor.IsEntered(Gate))
             throw new InvalidOperationException(CellStorage526Names.GateRequired);
         if (!ReferenceEquals(block.Owner, this))
@@ -162,6 +183,11 @@ internal sealed partial class ProcessTermHeap506
     {
         // Existing mark pass marks seen SubBits through Storage(value). Old raw
         // SubBits retained by minor still need their shared BinRef kept alive.
+        foreach (BitString raw in seen.OfType<BitString>())
+            if (raw.OwnedStorage577 is null && raw.ResourceBacking577.NativeStorage524 is OrdinaryBinaryBacking owner
+                && owner.WritableBinding is { } binding && ReferenceEquals(binding.Heap, this)
+                && blocks.TryGetValue(binding.BinRef.Block.Identity, out var live) && ReferenceEquals(live, binding.BinRef.Block))
+                marked.Add(binding.BinRef.Block.Identity);
         foreach (ResourceBinaryDescriptor577 descriptor in resourceBits577.Values)
         {
             bool retained = marked.Contains(descriptor.Block.Identity)

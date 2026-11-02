@@ -2,7 +2,7 @@ namespace Erlang;
 
 // Local trusted publication transaction, passed explicitly through send/trace
 // builders. It is not ambient authority and is not a public callback lease.
-internal sealed class MailboxPublicationScope593 : IDisposable, IAsyncDisposable
+internal sealed partial class MailboxPublicationScope593 : IDisposable, IAsyncDisposable
 {
     private readonly LinkedList<MailboxPayloadLease593> works = new();
     private readonly IDisposable? sender;

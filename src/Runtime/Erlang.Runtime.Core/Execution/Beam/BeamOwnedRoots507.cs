@@ -10,6 +10,7 @@ internal sealed partial class BeamOwnedRoots507 : IDisposable
     private readonly int[] second;
     private readonly bool[] alternate;
     private readonly bool[] published;
+    private readonly bool[] reserved507;
 
     internal BeamOwnedRoots507(ProcessContext context, int count)
     {
@@ -17,10 +18,12 @@ internal sealed partial class BeamOwnedRoots507 : IDisposable
         frame = context.TermHeap506.Enter();
         try
         {
-            first = Enumerable.Range(0, count).Select(_ => frame.Reserve()).ToArray();
-            second = Enumerable.Range(0, count).Select(_ => frame.Reserve()).ToArray();
+            ArgumentOutOfRangeException.ThrowIfNegative(count);
+            first = new int[count];
+            second = new int[count];
             alternate = new bool[count];
             published = new bool[count];
+            reserved507 = new bool[count];
         }
         catch
         {
@@ -29,7 +32,22 @@ internal sealed partial class BeamOwnedRoots507 : IDisposable
         }
     }
 
-    private int Candidate(int index) => alternate[index] ? first[index] : second[index];
+    private void EnsureSlots507(int index)
+    {
+        if (reserved507[index])
+            return;
+        var pair = frame.ReservePair507();
+        first[index] = pair.First;
+        second[index] = pair.Second;
+        reserved507[index] = true;
+    }
+
+    private int Candidate(int index)
+    {
+        EnsureSlots507(index);
+
+        return alternate[index] ? first[index] : second[index];
+    }
 
     private int Current(int index) => alternate[index] ? second[index] : first[index];
 
@@ -68,12 +86,19 @@ internal sealed partial class BeamOwnedRoots507 : IDisposable
 
     internal void Commit(int index)
     {
+        EnsureSlots507(index);
         frame.Clear(Current(index));
         alternate[index] = !alternate[index];
         published[index] = true;
     }
 
-    internal void Rollback(int index) => frame.Clear(Candidate(index));
+    internal void Rollback(int index)
+    {
+        if (reserved507[index])
+            frame.Clear(Candidate(index));
+        else
+            frame.RequireLive507();
+    }
 
     internal void Clear(int index)
     {

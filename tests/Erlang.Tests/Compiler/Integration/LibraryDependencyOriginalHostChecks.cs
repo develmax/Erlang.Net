@@ -97,7 +97,10 @@ internal static class LibraryDependencyOriginalHostChecks
     {
         await using ProcessRuntime runtime = await Start(suite);
         await using var actor = new RuntimeNodeFoundationHostActor(runtime);
-        await actor.InvokeAsync(async context =>
+        Func<Func<ProcessContext, Task<bool>>, Task<bool>> invoke500 = actor.InvokeAsync;
+        if (ReferenceEquals(suite, Fixed))
+            invoke500 = command => actor.InvokeWithDeadline500Async(command, Deadline);
+        await invoke500(async context =>
         {
             if (ReferenceEquals(suite, Os399))
                 Require((await runtime.Modules.Call(
@@ -186,45 +189,47 @@ internal static class LibraryDependencyOriginalHostChecks
         {
             if (requiresCodeServer)
                 await CodeServerRuntime410Checks.Prepare(runtime, suite.Fixtures);
-            await runtime.InitializeModulesAsync(registry =>
-            {
-                Erlang.Otp.OtpModules.Register(registry);
-                string[] declared = JsonSerializer.Deserialize<string[]>(Read(Dependencies)) ?? throw new InvalidDataException(Failure);
-                Require(declared.Length >= 180 && declared.Distinct(StringComparer.Ordinal).Count() == declared.Length);
-                var dependencies = new BeamDependencySelection(declared.Concat([ErlangModuleNames.Module]).Concat(suite.Fixtures));
-                string[] modules = Libraries.Concat(suite.AdditionalLibraries).Concat(suite.Fixtures)
-                    .Where(module => !requiresCodeServer || !CodeServerRuntime410Names.Modules.Contains(module, StringComparer.Ordinal))
-                    .ToArray();
-                PreparedBeamImage[] images = modules.Select(module => registry.PrepareBeam(
-                    module == IoPrintableOriginal404Names.CodeModule ? InterpreterCode411Resources.Read() : Read(module + Beam),
-                    dependencies
-                )).ToArray();
-                Require(registry.PublishPreparedBeam(images).Status == BeamPublicationStatus.Published);
-                foreach (PreparedBeamImage image in images)
+            await runtime.InitializeModulesAsync(Erlang.Otp.OtpModules.Register);
+            string[] declared = JsonSerializer.Deserialize<string[]>(Read(Dependencies)) ?? throw new InvalidDataException(Failure);
+            Require(declared.Length >= 180 && declared.Distinct(StringComparer.Ordinal).Count() == declared.Length);
+            var dependencies = new BeamDependencySelection(declared.Concat([ErlangModuleNames.Module]).Concat(suite.Fixtures));
+            string[] modules = Libraries.Concat(suite.AdditionalLibraries).Concat(suite.Fixtures)
+                .Where(module => !requiresCodeServer || !CodeServerRuntime410Names.Modules.Contains(module, StringComparer.Ordinal))
+                .ToArray();
+            await PreparedBeamFixtureImages825.PrepareAndPublishAsync(
+                runtime,
+                modules.Select(module => module == IoPrintableOriginal404Names.CodeModule
+                    ? InterpreterCode411Resources.Read() : Read(module + Beam)),
+                dependencies,
+                (registry, images) =>
                 {
-                    var exports = registry.Exports.Where(export => export.Module == image.Name).ToArray();
-                    Require(exports.Length > 0 && exports.All(export => ReferenceEquals(registry.SourceOwner(image.Name, export.Function, export.Arity), image)));
-                    int count = image.Name switch
+                    Require(registry.PublishPreparedBeam(images).Status == BeamPublicationStatus.Published);
+                    foreach (PreparedBeamImage image in images)
                     {
-                        "lists" => 5,
-                        "string" => 1,
-                        Unicode => 3,
-                        MathModule => 24,
-                        NetKernelModule => 1,
-                        IoPrintableRange404Names.ModuleName => 1,
-                        IoPrintableOriginal404Names.CodeModule => InterpreterCode411Names.NativeCount,
-                        FileModule => 1,
-                        PrimFileEncodingOriginal410Names.ModuleName => PrimFileEncodingOriginal410Names.NativeCount,
-                        WarningMap398HostNames.ModuleName => 1,
-                        OsModule when OperatingSystem.IsWindows() => 10,
-                        _ => 0
-                    };
-                    Require(image.NativePrimitiveExports.Count == count);
-                    if (image.Name == Unicode)
-                        Require(image.NativePrimitiveExports.Select(export => export.Name + "/" + export.Arity).Order(StringComparer.Ordinal)
-                            .SequenceEqual(UnicodeNative.Order(StringComparer.Ordinal)));
+                        var exports = registry.Exports.Where(export => export.Module == image.Name).ToArray();
+                        Require(exports.Length > 0 && exports.All(export => ReferenceEquals(registry.SourceOwner(image.Name, export.Function, export.Arity), image)));
+                        int count = image.Name switch
+                        {
+                            "lists" => 5,
+                            "string" => 1,
+                            Unicode => 3,
+                            MathModule => 24,
+                            NetKernelModule => 1,
+                            IoPrintableRange404Names.ModuleName => 1,
+                            IoPrintableOriginal404Names.CodeModule => InterpreterCode411Names.NativeCount,
+                            FileModule => 1,
+                            PrimFileEncodingOriginal410Names.ModuleName => PrimFileEncodingOriginal410Names.NativeCount,
+                            WarningMap398HostNames.ModuleName => 1,
+                            OsModule when OperatingSystem.IsWindows() => 10,
+                            _ => 0
+                        };
+                        Require(image.NativePrimitiveExports.Count == count);
+                        if (image.Name == Unicode)
+                            Require(image.NativePrimitiveExports.Select(export => export.Name + "/" + export.Arity).Order(StringComparer.Ordinal)
+                                .SequenceEqual(UnicodeNative.Order(StringComparer.Ordinal)));
+                    }
                 }
-            });
+            );
 
             if (requiresCodeServer)
             {

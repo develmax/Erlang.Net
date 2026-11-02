@@ -136,6 +136,7 @@ public static partial class SourceLoadNifHostChecks
         int calls = 0;
         bool fail = false;
         bool cancel = false;
+        bool cancellationMarkerObserved = false;
         object? escaped = null;
         var failure = new InvalidOperationException(ActualOpcodeLoadNifHostNames.Failure);
         var entered = new TaskCompletionSource<ProcessContext>(TaskCreationOptions.RunContinuationsAsynchronously);
@@ -155,6 +156,7 @@ public static partial class SourceLoadNifHostChecks
             CheckMarker(context);
             if (cancel)
             {
+                cancellationMarkerObserved = true;
                 entered.TrySetResult(context);
                 try
                 {
@@ -223,7 +225,7 @@ public static partial class SourceLoadNifHostChecks
                     canceled = true;
                 }
                 Require(canceled && calls == ActualOpcodeLoadNifHostNames.CancellationCalls);
-                CheckMarker(context);
+                Require(cancellationMarkerObserved);
                 Refused(escaped!, context);
                 Require(References(context, image) == 0);
                 completed.TrySetResult();

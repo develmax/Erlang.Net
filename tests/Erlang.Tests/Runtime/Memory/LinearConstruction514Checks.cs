@@ -59,7 +59,17 @@ internal static class LinearConstruction514Checks
                 Check(Number(after, References) == count);
                 int index = 0;
                 foreach (Term binary in Cons.Items(adopted))
-                    Check(ReferenceEquals(binary, binaries[index++]));
+                {
+                    Check(binary is BitString);
+                    var actual = (BitString)binary;
+                    BitString input = binaries[index++];
+                    // Native adoption materializes a new real SubBits/BinRef,
+                    // rather than retaining the original portable CLR wrapper.
+                    object payload = Call(actual, CapturePayload)!;
+                    Check(Property(payload, NativeIdentity) is not null
+                        && actual.BitLength == input.BitLength
+                        && actual.ToArray().AsSpan().SequenceEqual(input.ToArray()));
+                }
                 Check(index == count);
                 Call(frame, Clear, slot);
                 Call(heap, Collect);

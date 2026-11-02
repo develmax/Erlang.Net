@@ -37,7 +37,9 @@ public sealed partial record ModuleDefinition(
         init => nativeRecords = Array.AsReadOnly(value.ToArray());
     }
 
-    public void Register(ModuleRegistry registry)
+    public void Register(ModuleRegistry registry) => RegisterLiteralView819(registry, null);
+
+    internal void RegisterLiteralView819(ModuleRegistry registry, PreparedSourceLiteralView819? literalView)
     {
         using var source = registry.EnterSourceMutation();
         Otp.OtpModules.Register(registry);
@@ -49,7 +51,7 @@ public sealed partial record ModuleDefinition(
             foreach (var function in Functions)
                 AtomNameRegistry.Observe(function.Name);
             target.PublishModule(Name);
-            var image = target.CurrentCodeImage(Name)!;
+            var image = literalView is null ? target.CurrentCodeImage(Name)! : target.CreateSourceLiteralImage819(Name);
             foreach (var export in Exports)
                 target.RegisterCanonicalSource507(
                     Name,
@@ -80,6 +82,7 @@ public sealed partial record ModuleDefinition(
                     DeclaredNifs = this.DeclaredNifs
                 }
             );
+            literalView?.BindImage819(target, image);
         });
     }
 }

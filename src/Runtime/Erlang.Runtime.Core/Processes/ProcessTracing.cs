@@ -575,6 +575,13 @@ internal sealed partial class ProcessTracing(ProcessRuntime runtime, object gate
         ProcessTraceSettings? current = Current(tracee);
         if (current is null || (current.Flags & flag) == 0 || current.Tracer.Equals(tracee))
             return;
+        if (ReadonlyTraceOutputScope817.TryPublish(
+            this,
+            tracee,
+            current,
+            details,
+            matchValue
+        )) return;
         var fields = new List<Term> { Term.A(ProcessTraceNames.Message), tracee };
         fields.AddRange(details);
         if (matchValue is not null && matchValue is not Atom { Name: ErlangBooleanAtoms.True })

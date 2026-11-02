@@ -34,8 +34,68 @@ internal sealed partial class OwnedTermInvocation506 : IDisposable
         IReadOnlyList<Term> arguments,
         bool hostBoundary,
         bool trampoline = false
+    ) : this(
+        context,
+        arguments,
+        hostBoundary,
+        trampoline,
+        null
     )
     {
+    }
+
+    internal OwnedTermInvocation506(
+        ProcessContext context,
+        IReadOnlyList<Term> arguments,
+        bool hostBoundary,
+        bool trampoline,
+        ModuleLiteralRoots801? carriedLiteral801
+    ) : this(
+        context,
+        arguments,
+        hostBoundary,
+        trampoline,
+        carriedLiteral801,
+        null
+    )
+    {
+    }
+
+    private readonly PublicReceiverFunction414? publicReceiver414;
+
+    internal static OwnedTermInvocation506 CreatePublic414(ProcessContext context, IReadOnlyList<Term> arguments)
+    {
+        context.Runtime.ThrowIfHalted();
+        context.Cancellation.ThrowIfCancellationRequested();
+
+        return new(
+            context,
+            arguments,
+            true,
+            false,
+            null,
+            new PublicReceiverFunction414(context.Runtime)
+        );
+    }
+
+    internal FunctionTerm ImportPublicFunction414(FunctionTerm function)
+    {
+        int slot = Frame.Reserve();
+        Frame.SetPublicInput414(slot, function, publicReceiver414!);
+
+        return (FunctionTerm)Frame.Read(slot);
+    }
+
+    private OwnedTermInvocation506(
+        ProcessContext context,
+        IReadOnlyList<Term> arguments,
+        bool hostBoundary,
+        bool trampoline,
+        ModuleLiteralRoots801? carriedLiteral801,
+        PublicReceiverFunction414? publicReceiver414
+    )
+    {
+        this.publicReceiver414 = publicReceiver414;
         this.context = context;
         previous = context.CurrentOwned506;
         previousActive = active.Value;
@@ -57,6 +117,10 @@ internal sealed partial class OwnedTermInvocation506 : IDisposable
             {
                 if (CanBorrow507)
                     Frame.SetLocalGraph507(argumentSlots[index], arguments[index]);
+                else if (carriedLiteral801 is not null)
+                    Frame.SetPreparedWithLiteral801(argumentSlots[index], arguments[index], carriedLiteral801);
+                else if (publicReceiver414 is not null)
+                    Frame.SetPublicInput414(argumentSlots[index], arguments[index], publicReceiver414);
                 else
                     Frame.Set(argumentSlots[index], arguments[index]);
                 Arguments[index] = Frame.Read(argumentSlots[index]);
@@ -92,7 +156,7 @@ internal sealed partial class OwnedTermInvocation506 : IDisposable
     internal Term Preserve(Term value) => parent is null ? Export(value)
         : CanBorrow507 ? parent.Frame.RetainLocalGraph507(value) : parent.Frame.Retain(value);
 
-    internal ErlangException Transfer(ErlangException error) => error.WithTransferredTerms506(Preserve);
+    internal ErlangException Transfer(ErlangException error) => OwnedExceptionTransfer828.Transfer(Runtime, error, Preserve);
 
     internal Term HoldControl506(Term value)
     {

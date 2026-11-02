@@ -6,7 +6,7 @@ internal sealed partial class OwnedTermInvocation506
     // worker's captured context. Never read the actor's mutable CurrentOwned506.
     internal static Term AdmitNativeResult524(ProcessRuntime runtime, Term value)
     {
-        if (!NativeResourceRoots524.Contains524(value) && !ReMagicRoots597.Contains597(value) && !BinaryProgramRoots598.Contains598(value)) return value;
+        if (!NativeResourceRoots524.Contains524(value) && !ReMagicRoots597.Contains597(value) && !BinaryProgramRoots598.Contains598(value) && !PreparedLoaderRoots807.Contains807(value)) return value;
         for (OwnedTermInvocation506? invocation = active.Value; invocation is not null; invocation = invocation.previousActive)
             if (!invocation.IsDisposed && ReferenceEquals(invocation.Runtime, runtime))
                 return invocation.Frame.Retain(value);
@@ -18,6 +18,12 @@ internal sealed partial class OwnedTermInvocation506
 
     internal static Term AdmitNativeStoredResultSelected594(Term value, AtomicsHostCopyTransaction591? transaction)
     {
+        if (Active is not { IsDisposed: false }
+            && value is BitString { ResourceBacking577.NativeStorage524: OrdinaryBinaryBacking ordinary } binary)
+            return ordinary.ExportPortable(binary);
+        if (value is ResourceReferenceTerm { ResourceKind: ReferenceResourceKind.PreparedBeam } prepared
+            && PreparedLoaderRoots807.Direct807(prepared) is { } preparedOwner)
+            return AdmitRehydratedPrepared807(prepared, preparedOwner, transaction);
         if (value is ResourceReferenceTerm { ResourceKind: ReferenceResourceKind.Counters421 } counters
             && CountersRoots596.Direct596(counters) is { } countersBacking)
             return AdmitRehydratedCountersSelected596(counters, countersBacking, transaction);

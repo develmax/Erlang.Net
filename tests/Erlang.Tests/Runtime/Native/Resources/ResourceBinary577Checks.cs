@@ -11,6 +11,56 @@ internal static class ResourceBinary577Checks
     private const BindingFlags Members = BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic;
     private const BindingFlags StaticMembers = BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic;
 
+    internal static Task Comparison139() => Run(async fixture =>
+    {
+        IDisposable roots = fixture.Frame();
+        int valueSlot = Slot(roots), unalignedSlot = Slot(roots);
+        byte[] expectedBytes = fixture.Data.Skip(1).ToArray();
+        var owned = (BitString)Call(
+            roots,
+            Adopt,
+            valueSlot,
+            fixture.View
+        )!;
+        BitString portable = new(expectedBytes);
+        Check(Get(owned, Storage) is not null);
+        Check(TermOrder.Compare(owned, portable) == BitStringComparison139Names.Equal && TermOrder.Compare(portable, owned, true) == BitStringComparison139Names.Equal);
+        BeamUnicodeField392Checks.CompareSourceReader492(owned, portable);
+        int bits = Bytes * BitStringComparison139Names.BitsPerByte - BitStringComparison139Names.ResourceTailTrim;
+        BitString recipe = owned.SliceBits(BitStringComparison139Names.ResourceOffsetBits, bits);
+        var unaligned = (BitString)Call(
+            roots,
+            Adopt,
+            unalignedSlot,
+            recipe
+        )!;
+        BitString expected = BitStringComparison139Checks.PortableBits(expectedBytes, BitStringComparison139Names.ResourceOffsetBits, bits);
+        Check(Get(unaligned, Storage) is not null);
+        Check(TermOrder.Compare(unaligned, expected) == BitStringComparison139Names.Equal && TermOrder.Compare(expected, unaligned) == BitStringComparison139Names.Equal);
+        BeamUnicodeField392Checks.CompareSourceReader492(unaligned, expected);
+        // Hold only the canonical physical guest roots after native-owner drop.
+        fixture.ReleaseNative();
+        Check(!((Task)Get(fixture.Payload, Retired)).IsCompleted);
+        Check(TermOrder.Compare(owned, portable) == BitStringComparison139Names.Equal && TermOrder.Compare(unaligned, expected) == BitStringComparison139Names.Equal);
+        ProcessRuntime foreign = fixture.ForeignRuntime();
+        ExpectForeign(() => DirectNative(owned, foreign));
+        Call(roots, Clear, valueSlot);
+        Call(roots, Clear, unalignedSlot);
+        Call(fixture.Heap, Collect);
+        Expect<ObjectDisposedException>(() => _ = TermOrder.Compare(owned, new BitString([])));
+        Expect<ObjectDisposedException>(() => _ = TermOrder.Compare(new BitString([]), owned));
+        Expect<ObjectDisposedException>(() => _ = TermOrder.Compare(unaligned, expected));
+        Expect<ObjectDisposedException>(() => BeamUnicodeField392Checks.CompareSourceReader492(owned, portable));
+        Expect<ObjectDisposedException>(() => BeamUnicodeField392Checks.CompareSourceReader492(unaligned, expected));
+        await ((Task)Get(fixture.Payload, Retired)).WaitAsync(Deadline);
+        // An unowned native view has a portable bit length. Both real backing
+        // reader guards must still reject its fully retired storage, even with
+        // a zero-length common prefix and even in the right-hand position.
+        Expect<ObjectDisposedException>(() => _ = TermOrder.Compare(fixture.View, new BitString([])));
+        Expect<ObjectDisposedException>(() => _ = TermOrder.Compare(new BitString([]), fixture.View));
+        Expect<ObjectDisposedException>(() => BeamUnicodeField392Checks.CompareSourceReader492(fixture.View, portable));
+    });
+
     internal static Task HeaderReadersAndCorruption() => Run(async fixture =>
     {
         IDisposable roots = fixture.Frame();

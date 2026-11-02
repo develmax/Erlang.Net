@@ -28,53 +28,77 @@ internal sealed partial class ProcessTermFrame506 : IDisposable
         }
     }
 
-    internal void Set(int slot, Term value)
+    // Two logical mirror identifiers are admitted together before publication.
+    // Reserving IDs does not allocate or account for guest heap words.
+    internal (int First, int Second) ReservePair507()
     {
         lock (owner.Gate)
         {
+            ObjectDisposedException.ThrowIf(disposed, this);
+            int first = nextSlot;
+            int second = checked(first + 1);
+            int after = checked(second + 1);
+            nextSlot = after;
+
+            return (first, second);
+        }
+    }
+
+    internal void RequireLive507()
+    {
+        lock (owner.Gate)
+            ObjectDisposedException.ThrowIf(disposed, this);
+    }
+
+    internal void Set(int slot, Term value) => SetCore414(slot, value, null);
+
+    internal void SetPublicInput414(int slot, Term value, PublicReceiverFunction414 receiver)
+        => SetCore414(slot, value, receiver);
+
+    private void SetCore414(int slot, Term value, PublicReceiverFunction414? receiver)
+    {
+        lock (owner.Gate) ValidateSlot(slot);
+        if (TryPublishImmediate157(
+            slot,
+            value,
+            detachedCopy: true,
+            requireOutsideHeap: true
+        )) return;
+        value = owner.CanonicalizeEmptyTuple803(value);
+        using ModuleLiteralRoots801? literalRoots = ModuleLiteralRoots801.Capture801(owner, value);
+        lock (owner.Gate)
+        {
             ValidateSlot(slot);
-            if (owner.IsOwnedLocal(value))
+            using var literalAdmission = owner.EnterLiteralAdmission801(literalRoots);
+            if (owner.IsAuthenticatedLiteral801(value) || owner.IsOwnedLocal(value))
             {
                 PublishRoot512(slot, value);
 
                 return;
             }
         }
-        using PreparedTermTransfer506 prepared = owner.Prepare(this, value);
-        using PreparedMapGraph517 maps = owner.PrepareMapGraph517(prepared.Portable, false);
-        using PreparedMapGraphUse517 admitted = maps.AdmitBuilds517();
-        using ProcessTermFrame506 construction = owner.Enter();
-        lock (owner.Gate)
-        {
-            ValidateSlot(slot);
-            ProcessTermConstruction514 custody = construction.BeginConstruction514(prepared.Portable);
-            PublishRoot512(slot, owner.ImportPrepared(
-                prepared.Portable,
-                maps,
-                custody,
-                admitted
-            ));
-        }
+        using PreparedTermTransfer506 prepared = receiver is null
+            ? owner.Prepare(this, value) : owner.PreparePublicFunctions414(this, value, receiver);
+        using PreparedHeapImport imported = owner.PrepareHeapImport(this, prepared.Portable);
+        SetLocalGraph507(slot, imported.Value);
     }
 
-    internal void SetPrepared(int slot, Term portable)
+    internal void SetPrepared(int slot, Term portable) => SetPreparedWithLiteral801(slot, portable, null);
+
+    internal void SetPreparedWithLiteral801(int slot, Term portable, ModuleLiteralRoots801? carriedLiteral801)
     {
-        using ProcessTermBorrow506 borrow = owner.Borrow(this, portable);
-        using PreparedMapGraph517 maps = owner.PrepareMapGraph517(portable, false);
-        using PreparedMapGraphUse517 admitted = maps.AdmitBuilds517();
-        using ProcessTermFrame506 construction = owner.Enter();
-        lock (owner.Gate)
-        {
-            ValidateSlot(slot);
-            ProcessTermConstruction514 custody = construction.BeginConstruction514(portable);
-            PublishRoot512(slot, owner.ImportPrepared(
-                portable,
-                maps,
-                custody,
-                admitted
-            ));
-        }
+        lock (owner.Gate) ValidateSlot(slot);
+        if (TryPublishImmediate157(
+            slot,
+            portable,
+            detachedCopy: false,
+            requireOutsideHeap: true
+        )) return;
+        using PreparedHeapImport imported = owner.PrepareHeapImportWithLiteral801(this, portable, carriedLiteral801);
+        SetLocalGraph507(slot, imported.Value);
     }
+
+    internal PreparedHeapImport PrepareImport(Term portable) => owner.PrepareHeapImport(this, portable);
 
     private void ValidateSlot(int slot)
     {
@@ -93,6 +117,21 @@ internal sealed partial class ProcessTermFrame506 : IDisposable
         }
     }
 
+    // Existing live root only; this grants no new ownership/admission. Callers
+    // separately require the actual register cell to be the identical Term.
+    internal bool KeepsLiveRoot550(int slot, Term value)
+    {
+        lock (owner.Gate)
+        {
+            ValidateSlot(slot);
+            if (!values.TryGetValue(slot, out Term? current) || !ReferenceEquals(current, value)) return false;
+            if (!owner.IsAuthenticatedLiteral801(value))
+                _ = owner.IsOwnedLocal(value); // Reject any actual stale/foreign block.
+
+            return true;
+        }
+    }
+
     internal Term Retain(Term value)
     {
         int slot = Reserve();
@@ -107,6 +146,7 @@ internal sealed partial class ProcessTermFrame506 : IDisposable
         {
             ObjectDisposedException.ThrowIf(disposed, this);
             values.Remove(slot);
+            ClearLiteralSlot801(slot);
             binaryRoots512?.Clear512(slot);
         }
     }

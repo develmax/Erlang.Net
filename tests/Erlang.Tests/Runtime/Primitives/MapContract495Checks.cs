@@ -30,20 +30,30 @@ internal static class MapContract495Checks
     }
 
     private static async Task Initialize(ProcessRuntime runtime)
-        => await runtime.InitializeModulesAsync(registry =>
-        {
-            RuntimeBootstrapHamtMap430.Register(runtime, registry);
-            var dependencies = new BeamDependencySelection([MapContract495Names.Erlang,
-                MapContract495Names.PrimFile, MapContract495Names.Binary, MapContract495Names.Lists,
-                MapContract495Names.Maps, MapContract495Names.Debug, MapContract495Names.Internal]);
-            PreparedBeamImage[] images = [
-                registry.PrepareBeam(HamtOriginal430Access.Resource(MapContract495Names.Debug + MapContract495Names.BeamExtension), dependencies),
-                registry.PrepareBeam(HamtOriginal430Access.Resource(MapContract495Names.Internal + MapContract495Names.BeamExtension), dependencies)
-            ];
-            if (images.Any(image => image.NativePrimitiveExports.Count != 2)
-                || registry.PublishPreparedBeam(images).Status != BeamPublicationStatus.Published)
-                throw new InvalidDataException(MapContract495Names.Failure);
-        });
+        => await global::Erlang.Tests.PreparedBeamFixtureScope171.RunAsync(
+            runtime,
+            async (registry, scope) =>
+           {
+               await runtime.InitializeModulesAsync(_ =>
+               {
+                   RuntimeBootstrapHamtMap430.Register(runtime, registry);
+               });
+               var dependencies = new BeamDependencySelection([MapContract495Names.Erlang,
+                           MapContract495Names.PrimFile, MapContract495Names.Binary, MapContract495Names.Lists,
+                           MapContract495Names.Maps, MapContract495Names.Debug, MapContract495Names.Internal]);
+               PreparedBeamImage[] images = [
+                   scope.Prepare(() => registry.PrepareBeam(HamtOriginal430Access.Resource(MapContract495Names.Debug + MapContract495Names.BeamExtension), dependencies)),
+                           scope.Prepare(() => registry.PrepareBeam(HamtOriginal430Access.Resource(MapContract495Names.Internal + MapContract495Names.BeamExtension), dependencies))
+               ];
+
+               return _ =>
+               {
+                   if (images.Any(image => image.NativePrimitiveExports.Count != 2)
+                   || registry.PublishPreparedBeam(images).Status != BeamPublicationStatus.Published)
+                       throw new InvalidDataException(MapContract495Names.Failure);
+               };
+           }
+        );
 
     private static byte[] Read(
         string name,

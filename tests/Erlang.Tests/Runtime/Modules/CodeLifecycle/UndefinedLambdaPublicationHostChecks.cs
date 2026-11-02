@@ -279,9 +279,12 @@ internal static class UndefinedLambdaPublicationHostChecks
                 UndefinedLambdaPublicationHostNames.Handler,
                 UndefinedLambdaPublicationHostNames.UndefinedLambda,
                 UndefinedLambdaPublicationHostNames.CallbackArity,
-                (_, arguments) =>
+                (context, arguments) =>
             {
-                Require(ReferenceEquals(arguments[1], restored));
+                Require(arguments.Count == 3
+                    && arguments[0].Equals(Term.A(UndefinedLambdaPublicationHostNames.Module))
+                    && arguments[2].Equals(Term.List(Term.A(UndefinedLambdaPublicationHostNames.Argument))));
+                _ = KnownHostGraph384Checks.RequireLogicalFunction(context, arguments[1], restored);
                 Interlocked.Increment(ref callbacks);
 
                 return ValueTask.FromResult<Term>(Term.A(UndefinedLambdaPublicationHostNames.Handled));
@@ -356,7 +359,7 @@ internal static class UndefinedLambdaPublicationHostChecks
         await using var first = new RuntimeNodeFoundationHostActor(decoding);
         await using var second = new RuntimeNodeFoundationHostActor(executing);
         FunctionTerm original = await first.InvokeAsync(context => Make(context, anonymous));
-        FunctionTerm restored = await first.InvokeAsync(context => RoundTrip(context, original));
+        FunctionTerm restored = (FunctionTerm)executing.ImportExternalTerm(ExternalTermFormat.Encode(original, new EtfEncodingOptions { FunctionOwner = decoding.InitializationPid })).Term;
         executing.Modules.Register(
             UndefinedLambdaPublicationHostNames.Handler,
             UndefinedLambdaPublicationHostNames.UndefinedLambda,
@@ -364,13 +367,14 @@ internal static class UndefinedLambdaPublicationHostChecks
             async (context, arguments) =>
         {
             CheckFactoryGates(executing);
-            Require(retryInsideHandler && ReferenceEquals(arguments[1], restored));
+            Require(retryInsideHandler && arguments.Count == UndefinedLambdaPublicationHostNames.CallbackArity);
+            FunctionTerm received = KnownHostGraph384Checks.RequireLogicalFunction(context, arguments[1], restored);
             Require(arguments[0].Equals(Term.A(UndefinedLambdaPublicationHostNames.Module)) && arguments[2].Equals(Term.List(Term.A(UndefinedLambdaPublicationHostNames.Argument))));
             Require(Interlocked.Increment(ref callbacks) == 1);
             compiled.Definition.Register(executing.Modules);
             _ = await Make(context, anonymous);
 
-            return await ((FunctionTerm)arguments[1]).Invoke(context, [Term.A(UndefinedLambdaPublicationHostNames.Argument)]);
+            return await received.Invoke(context, [Term.A(UndefinedLambdaPublicationHostNames.Argument)]);
         }
         );
         if (!retryInsideHandler)

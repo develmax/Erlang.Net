@@ -75,7 +75,8 @@ public sealed partial class ProcessRuntime
         Term arguments,
         ProcessSpawnOptions options,
         Term wireOptions,
-        SequenceTraceToken? requestToken,
+        PreparedConnectedSpawnInput641 prepared641,
+        PreparedConnectedSpawnOutputs outputs641,
         out SequenceTraceToken? replyToken
     )
     {
@@ -87,27 +88,13 @@ public sealed partial class ProcessRuntime
                 ReferenceEquals(item.Entry, entry) && ReferenceEquals(item.Connection, connected) &&
                 item.Reference.Equals(reference)))
                 throw new InvalidOperationException(DistributionSpawnDiagnostics.DuplicateMonitor);
-            var values = Cons.Items(arguments).ToArray();
+            prepared641.RequireArguments();
             var module = (Atom)mfa.Items[0];
             var function = (Atom)mfa.Items[1];
+            var body641 = RuntimeVmSpawnInput641.ConnectedMfa641(module.Name, function.Name, prepared641.Payload641);
+            using var input641 = RuntimeVmSpawnInput641.PrepareBody641(this, body641, false);
             var handle = SpawnTraced(
-                child =>
-                {
-                    if (requestToken is not null)
-                        SequenceTracing.Received(
-                            child,
-                            arguments,
-                            requestToken,
-                            false
-                        );
-
-                    return child.Runtime.Modules.CallVmMfaRoot641(
-                        child,
-                        module.Name,
-                        function.Name,
-                        values
-                    );
-                },
+                body641,
                 null,
                 false,
                 new(mfa, arguments, Nil.Value),
@@ -156,7 +143,9 @@ public sealed partial class ProcessRuntime
                 groupLeader,
                 mfa,
                 wireOptions,
-                requestToken
+                prepared641.Trace641,
+                outputs641.Header,
+                outputs641.Reply
             );
 
             return context.Self;

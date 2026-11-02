@@ -25,5 +25,5 @@ internal sealed partial record BeamLinkedCode(
     internal IReadOnlyList<Term> SourceLocations { get; init; } = Array.Empty<Term>();
     internal ConcurrentDictionary<int, object> ContinuationIdentities { get; } = new();
 
-    internal Integer IntegerConstant(BigInteger value) => integerConstants.GetOrAdd(value, static number => new Integer(number));
+    internal Integer IntegerConstant(BigInteger value) => ReadIntegerConstant360(value);
 }

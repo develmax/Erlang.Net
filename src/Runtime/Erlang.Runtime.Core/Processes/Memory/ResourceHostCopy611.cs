@@ -9,5 +9,6 @@ internal static class ResourceHostCopy611
             || AtomicsRoots586.Contains586(value)
             || CountersRoots596.Contains596(value)
             || ReMagicRoots597.Contains597(value)
-            || BinaryProgramRoots598.Contains598(value);
+            || BinaryProgramRoots598.Contains598(value)
+            || PreparedLoaderRoots807.Contains807(value);
 }

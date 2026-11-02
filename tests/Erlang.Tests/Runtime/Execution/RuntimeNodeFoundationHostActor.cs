@@ -51,6 +51,26 @@ internal sealed class RuntimeNodeFoundationHostActor : IAsyncDisposable
         return await result.Task.WaitAsync(RuntimeNodeFoundationHostActorParameters.Deadline);
     }
 
+    // Explicit full-corpus command budget; default InvokeAsync and cleanup
+    // retain the existing generic smoke deadlines and reflection signature.
+    internal async Task<T> InvokeWithDeadline500Async<T>(Func<ProcessContext, Task<T>> command, TimeSpan deadline)
+    {
+        var result = new TaskCompletionSource<T>(TaskCreationOptions.RunContinuationsAsynchronously);
+        await commands.Writer.WriteAsync(async context =>
+        {
+            try
+            {
+                result.TrySetResult(await command(context));
+            }
+            catch (Exception exception)
+            {
+                result.TrySetException(exception);
+            }
+        });
+
+        return await result.Task.WaitAsync(deadline);
+    }
+
     public async ValueTask DisposeAsync()
     {
         commands.Writer.TryComplete();

@@ -25,8 +25,19 @@ internal sealed class PreparedOwnedMap517 : IDisposable
     internal IReadOnlyList<int> NodePairCounts526 { get; }
 
     internal static PreparedOwnedMap517 Capture(ProcessRuntime runtime, MapTerm map)
+        => CaptureCore800(runtime, map, false);
+
+    internal static PreparedOwnedMap517 CaptureModuleLiteral800(ProcessTermHeap506 heap, ProcessRuntime runtime, MapTerm map)
     {
-        if (map.Entries.Count == 0)
+        if (heap.LiteralDomain800 is not { IsSealed800: false } domain || !ReferenceEquals(domain.Runtime800, runtime))
+            throw new InvalidOperationException(ModuleLiteral800Names.Invalid);
+
+        return CaptureCore800(runtime, map, true);
+    }
+
+    private static PreparedOwnedMap517 CaptureCore800(ProcessRuntime runtime, MapTerm map, bool moduleLiteral800)
+    {
+        if (map.Entries.Count == 0 && !moduleLiteral800)
             throw new NotSupportedException(OwnedMapPayloadNames517.EmptyGlobal);
         runtime.RequireMapHashOpen();
         object domain = runtime.NativeMapDomain505();

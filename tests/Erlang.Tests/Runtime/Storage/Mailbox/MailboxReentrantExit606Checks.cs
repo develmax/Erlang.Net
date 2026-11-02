@@ -128,6 +128,7 @@ internal static class MailboxReentrantExit606Checks
                 }
                 catch (Exception error)
                 {
+                    Console.Error.WriteLine(error);
                     observed.Add(error);
                 }
                 try
@@ -137,6 +138,7 @@ internal static class MailboxReentrantExit606Checks
                 }
                 catch (Exception error)
                 {
+                    Console.Error.WriteLine(error);
                     observed.Add(error);
                 }
                 try
@@ -145,6 +147,7 @@ internal static class MailboxReentrantExit606Checks
                 }
                 catch (Exception error)
                 {
+                    Console.Error.WriteLine(error);
                     observed.Add(error);
                 }
                 try
@@ -153,6 +156,7 @@ internal static class MailboxReentrantExit606Checks
                 }
                 catch (Exception error)
                 {
+                    Console.Error.WriteLine(error);
                     observed.Add(error);
                 }
                 Finish(observed);
@@ -232,6 +236,7 @@ internal static class MailboxReentrantExit606Checks
                 }
                 catch (Exception error)
                 {
+                    Console.Error.WriteLine(error);
                     observed.Add(error);
                 }
                 finally
@@ -242,6 +247,7 @@ internal static class MailboxReentrantExit606Checks
                     }
                     catch (Exception error)
                     {
+                        Console.Error.WriteLine(error);
                         observed.Add(error);
                     }
                 }
@@ -252,6 +258,7 @@ internal static class MailboxReentrantExit606Checks
                 }
                 catch (Exception error)
                 {
+                    Console.Error.WriteLine(error);
                     observed.Add(error);
                 }
                 try
@@ -260,6 +267,7 @@ internal static class MailboxReentrantExit606Checks
                 }
                 catch (Exception error)
                 {
+                    Console.Error.WriteLine(error);
                     observed.Add(error);
                 }
                 try
@@ -268,6 +276,7 @@ internal static class MailboxReentrantExit606Checks
                 }
                 catch (Exception error)
                 {
+                    Console.Error.WriteLine(error);
                     observed.Add(error);
                 }
                 Finish(observed);
@@ -343,7 +352,8 @@ internal static class MailboxReentrantExit606Checks
             sender,
             false,
             null,
-            null
+            null,
+            false
         );
 
     private static object RuntimeMonitor(ProcessRuntime runtime)

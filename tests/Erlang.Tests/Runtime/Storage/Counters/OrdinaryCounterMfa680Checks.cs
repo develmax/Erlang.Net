@@ -25,9 +25,9 @@ internal static class OrdinaryCounterMfa680Checks
         try
         {
             Check(!(bool)Property(runtime, Profile));
+            using PreparedBeamImage facet = CountersOriginal421Preparation.Prepare(runtime, runtime.Modules);
             await runtime.InitializeModulesAsync(registry =>
             {
-                PreparedBeamImage facet = CountersOriginal421Preparation.Prepare(runtime, registry);
                 Check(registry.PublishPreparedBeam(facet).Status == BeamPublicationStatus.Published);
             });
             compiled.Definition.Register(runtime.Modules);
@@ -106,6 +106,7 @@ internal static class OrdinaryCounterMfa680Checks
             }).WaitAsync(Deadline);
             await child.Completion.WaitAsync(Deadline);
             await ((TaskCompletionSource)Property(childContext, Unwound)).Task.WaitAsync(Deadline);
+            await CounterParentCollection365.Collect(runtime, parent, array);
             await ((Task)Property(array, Retired)).WaitAsync(Deadline);
             await CountersOwnerAccounting683Checks.AwaitEmpty(runtime, Deadline);
             GC.KeepAlive(reference);

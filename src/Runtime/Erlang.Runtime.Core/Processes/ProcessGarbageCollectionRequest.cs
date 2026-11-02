@@ -1,8 +1,20 @@
 namespace Erlang;
 
-internal sealed class ProcessGarbageCollectionRequest(ProcessContext requester, Term id, bool major)
+internal sealed class ProcessGarbageCollectionRequest
 {
-    public ProcessContext Requester { get; } = requester;
-    public Term Id { get; } = id;
-    public bool Major { get; } = major;
+    internal ProcessGarbageCollectionRequest(ProcessContext requester, bool major, RuntimeProcessPayload641 custody)
+    {
+        Requester = requester;
+        Major = major;
+        Custody = custody;
+        QueueNode = new(this);
+    }
+
+    public ProcessContext Requester { get; }
+    public Term Id => Custody.Value641;
+    public bool Major { get; }
+    internal RuntimeProcessPayload641 Custody { get; }
+    internal LinkedListNode<ProcessGarbageCollectionRequest> QueueNode { get; }
+    internal ProcessContext? Target { get; set; }
+    internal ProcessCollectionRequestState State { get; set; }
 }

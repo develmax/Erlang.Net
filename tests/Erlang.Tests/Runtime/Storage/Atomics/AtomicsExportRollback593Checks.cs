@@ -33,28 +33,13 @@ internal static class AtomicsExportRollback593Checks
             );
             var source = (ReferenceTerm)Call(frame, AtomicsMagic586Names.Read, slot)!;
             long hostsAtClosure = UnobservedHosts;
-            var identity = new LocalFunctionIdentity(
-                Term.A(UnknownModule),
-                Term.A(UnknownFunction),
-                0,
-                0,
-                new BitString(new byte[UniqueBytes])
+            FunctionTerm? unportable = success ? null : await RuntimeFunctionMarker364Checks.CreateRefused(
+                fixture.Runtime,
+                actor,
+                heap,
+                frame
             );
-            var unportable = new FunctionTerm(
-                () =>
-                {
-                    // This getter is reached only by the later function build.
-                    // It records the REAL backing lease count at that point;
-                    // it grants no source/BEAM closure authority.
-                    hostsAtClosure = HostRoots(fixture.Array);
-
-                    return identity;
-                },
-                0,
-                [Term.I(0)],
-                static (_, _) => throw new InvalidOperationException(UnexpectedInvoke)
-            );
-            graph = Term.List(source, success ? (Term)source : unportable);
+            graph = Term.List(source, success ? (Term)source : unportable!);
             if (success)
             {
                 escaped = (Term)Call(
@@ -70,19 +55,31 @@ internal static class AtomicsExportRollback593Checks
             else
             {
                 bool rejected = false;
-                try
+                Task<Term> pending;
+                bool observed;
+                object gate = fixture.Runtime.Functions.GetType().GetField(RuntimeFunctionMarker364Names.FunctionGate, Members)!.GetValue(fixture.Runtime.Functions)!;
+                // Hold the real receiver registry until partial Host custody is
+                // visible; the later genuine function recipe then refuses.
+                lock (gate)
                 {
-                    _ = Call(
+                    pending = actor.Invoke(context => (Term)Call(
                         heap,
                         Export,
                         frame,
                         graph
-                    );
+                    )!);
+                    observed = SpinWait.SpinUntil(() => HostRoots(fixture.Array) == FailedCopyOccurrences || pending.IsCompleted, AtomicsMagic586Names.Deadline);
+                    hostsAtClosure = HostRoots(fixture.Array);
                 }
-                catch (NotSupportedException)
+                try
+                {
+                    _ = await pending.WaitAsync(AtomicsMagic586Names.Deadline);
+                }
+                catch (NotSupportedException error) when (error.Message == RuntimeFunctionMarker364Names.Refused)
                 {
                     rejected = true;
                 }
+                Check(observed, failures);
                 long after = HostRoots(fixture.Array);
                 Console.WriteLine(Observation, hostsAtClosure, after);
                 Check(rejected && hostsAtClosure == FailedCopyOccurrences, failures);

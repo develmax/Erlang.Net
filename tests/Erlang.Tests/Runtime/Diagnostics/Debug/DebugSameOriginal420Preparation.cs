@@ -17,4 +17,13 @@ internal static class DebugSameOriginal420Preparation
         DebugSameOriginal420Access.Require(exports.Length == 3);
         foreach (var e in exports) DebugSameOriginal420Access.Require(ReferenceEquals(registry.SourceOwner(e.Module, e.Function, e.Arity), image));
     }
+
+    internal static PreparedBeamImage Prepare171(ModuleRegistry registry, BeamDependencySelection dependencies, global::Erlang.Tests.PreparedBeamFixtureScope171 scope)
+    {
+        PreparedBeamImage image = scope.Prepare(() => registry.PrepareBeam(DebugSameOriginal420Access.Resource(DebugSameOriginal420Names.FacetBeam), dependencies));
+        DebugSameOriginal420Access.Require(image.Name == DebugSameOriginal420Names.Debug && image.NativePrimitiveExports.Count == DebugSameOriginal420Names.Signatures.Length);
+        foreach (var s in DebugSameOriginal420Names.Signatures) DebugSameOriginal420Access.Require(image.NativePrimitiveExports.Contains(new BeamFunctionSignature(s.Function, s.Arity)));
+
+        return image;
+    }
 }

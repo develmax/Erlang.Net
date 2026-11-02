@@ -38,7 +38,7 @@ public sealed partial class RuntimeDistributionPending
                 {
                     ticket = ReserveOwnedOutput(connected, new object());
                     snapshot = runtime.LocalIdentity.Snapshot;
-                    groupLeader = owner.GroupLeader;
+                    groupLeader = owner.SnapshotGroupLeader();
                     request = new(
                         entry,
                         connected,
@@ -61,61 +61,99 @@ public sealed partial class RuntimeDistributionPending
                 try
                 {
                     Term creatorOptions = ConnectedSpawnWireOptions.Normalize(description.Options);
+                    if (System.Threading.Monitor.IsEntered(gate))
+                        await Task.CompletedTask.ConfigureAwait(ConfigureAwaitOptions.ForceYielding);
+                    PreparedConnectedSequenceSend sequence;
                     SequenceTraceToken? token;
-                    lock (gate)
+                    while (true)
                     {
-                        owner.Cancellation.ThrowIfCancellationRequested();
-                        RequireProcess(owner);
-                        token = runtime.SequenceTracing.ConnectedSpawnSent(
+                        sequence = await PreparedConnectedSequenceSend.PrepareAsync(
                             owner,
-                            request.Entry.Node,
                             request.Reference,
                             groupLeader,
                             description,
                             creatorOptions
-                        );
+                        ).ConfigureAwait(false);
+                        bool accepted;
+                        try
+                        {
+                            lock (gate)
+                            {
+                                owner.Cancellation.ThrowIfCancellationRequested();
+                                RequireProcess(owner);
+                                accepted = sequence.IsCurrent(owner);
+                                if (accepted)
+                                    token = runtime.SequenceTracing.ConnectedSpawnSentPrepared(
+                                        owner,
+                                        request.Entry.Node,
+                                        request.Reference,
+                                        groupLeader,
+                                        description,
+                                        creatorOptions,
+                                        sequence
+                                    );
+                                else token = null;
+                            }
+                        }
+                        catch (Exception primary)
+                        {
+                            try
+                            {
+                                await sequence.DisposeAsync().ConfigureAwait(false);
+                            }
+                            catch (Exception cleanup)
+                            {
+                                throw new AggregateException(primary, cleanup);
+                            }
+                            throw;
+                        }
+                        if (accepted) break;
+                        await sequence.DisposeAsync().ConfigureAwait(false);
                     }
-                    var control = token is null
-                        ? Term.Tuple(
-                            Term.I(DistributionControlOpcodes.SpawnRequest),
-                            request.Reference,
-                            owner.Self,
-                            groupLeader,
-                            description.Mfa,
-                            creatorOptions
-                        )
-                        : Term.Tuple(
-                            Term.I(DistributionControlOpcodes.SpawnRequestTrace),
-                            request.Reference,
-                            owner.Self,
-                            groupLeader,
-                            description.Mfa,
-                            creatorOptions,
-                            token.ToTerm()
-                        );
-                    await PublishOwnedPacket(
-                        request.Entry,
-                        request.Connection,
-                        request.ConnectionId,
-                        ticket,
-                        () =>
-     {
-         owner.Cancellation.ThrowIfCancellationRequested();
-         RequireProcess(owner);
-     },
-                        () => new HostDistributionBuffer([DistributionPassThroughCodec.Encode(
-                            new(control, description.Arguments),
-                            negotiatedFlags: request.Connection.Flags,
-                            options: new EtfEncodingOptions
+                    await using (sequence.ConfigureAwait(false))
+                    {
+                        var control = token is null
+                            ? Term.Tuple(
+                                Term.I(DistributionControlOpcodes.SpawnRequest),
+                                request.Reference,
+                                owner.Self,
+                                groupLeader,
+                                description.Mfa,
+                                creatorOptions
+                            )
+                            : Term.Tuple(
+                                Term.I(DistributionControlOpcodes.SpawnRequestTrace),
+                                request.Reference,
+                                owner.Self,
+                                groupLeader,
+                                description.Mfa,
+                                creatorOptions,
+                                token.ToTerm()
+                            );
+                        await PublishOwnedPacket(
+                            request.Entry,
+                            request.Connection,
+                            request.ConnectionId,
+                            ticket,
+                            () =>
+         {
+             owner.Cancellation.ThrowIfCancellationRequested();
+             RequireProcess(owner);
+         },
+                            () => new HostDistributionBuffer([DistributionPassThroughCodec.Encode(
+                                new(control, description.Arguments),
+                                negotiatedFlags: request.Connection.Flags,
+                                options: new EtfEncodingOptions
                         {
                             NodeIdentity = runtime.LocalIdentity,
                             NodeSnapshot = snapshot,
                             FunctionOwner = owner.Self
                         }
-                        ).AsMemory()]),
-                        owner.Cancellation,
-                        waitingProducer: owner
-                    ).ConfigureAwait(false);
+                            ).AsMemory()]),
+                            owner.Cancellation,
+                            waitingProducer: owner
+                        ).ConfigureAwait(false);
+                    }
 
                     return request.Reference;
                 }

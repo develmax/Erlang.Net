@@ -6,6 +6,11 @@ internal sealed partial class ProcessTermConstruction514
     private readonly HashSet<Term> admitted;
 
     internal ProcessTermConstruction514(ProcessTermFrame506 frame, Term source)
+        : this(frame, source, null)
+    {
+    }
+
+    internal ProcessTermConstruction514(ProcessTermFrame506 frame, Term source, ProcessTermHeap506? adoptionHeap145)
     {
         this.frame = frame;
         admitted = new(ReferenceEqualityComparer.Instance);
@@ -15,6 +20,15 @@ internal sealed partial class ProcessTermConstruction514
         {
             if (!admitted.Add(current))
                 continue;
+            // Explicit same-process adoption keeps this node in Allowed, but
+            // never copies descendants of the actual destination-owned node.
+            // Default transfer/import construction still enumerates ALL edges.
+            if (adoptionHeap145 is not null && ProcessTermHeap506.Storage(current) is { } storage
+                && ReferenceEquals(storage.Owner, adoptionHeap145) && frame.OwnsMailboxStorage(current))
+            {
+                lock (adoptionHeap145.Gate)
+                    if (adoptionHeap145.IsOwnedLocal(current)) continue;
+            }
             foreach (Term child in NativeMapOwnedRoots510.Children(current))
                 pending.Push(child);
         }

@@ -9,6 +9,8 @@ internal sealed class CompiledComprehensionFrames(
 {
     private readonly List<ComprehensionLogicalFrame> pending = [];
     private int currentLine;
+    private readonly int ownerCallLine = source.Functions
+        .FirstOrDefault(function => function.SourceLine > 0)?.SourceLine ?? source.Line;
     private int currentGenerator;
     private long emittedCount;
     private readonly Dictionary<int, ComprehensionGeneratorFrames> generators = [];
@@ -105,7 +107,7 @@ internal sealed class CompiledComprehensionFrames(
     internal IDisposable Materialize()
     {
         var scopes = new List<IDisposable>(pending.Count + 1);
-        if (context.EnterSourceLocation(SourceCallLocations.For(module, source.Line)) is { } ownerLocation)
+        if (context.EnterSourceLocation(SourceCallLocations.For(module, ownerCallLine)) is { } ownerLocation)
         {
             scopes.Add(ownerLocation);
         }

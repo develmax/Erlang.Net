@@ -5,6 +5,14 @@ internal sealed class ProcessBinaryLease512 : IDisposable
     private readonly ProcessBinaryRegistry512 registry;
     internal object Owner { get; }
     internal BinaryPayloadHandle512[] Handles { get; private set; }
+    // Only the registry-selected active summary owner has this metadata.
+    // The registry clears it under its gate before removal/handle retirement.
+    internal Term? CachedRoot466 { get; set; }
+    // Intrusive eligible-active ring; no extra backing or native ownership.
+    internal Term? SummaryRoot495 { get; set; }
+    internal ProcessBinaryLease512? SummaryPrevious495 { get; set; }
+    internal ProcessBinaryLease512? SummaryNext495 { get; set; }
+    internal bool HasAdditionalRoots495 => native524 is not null;
     private bool disposed;
     private IDisposable? native524;
 

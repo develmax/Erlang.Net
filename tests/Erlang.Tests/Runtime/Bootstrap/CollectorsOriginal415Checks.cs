@@ -17,10 +17,7 @@ internal static class CollectorsOriginal415Checks
         {
             runtime = new ProcessRuntime();
             ProcessRuntime owner = runtime;
-            await owner.InitializeModulesAsync(registry =>
-            {
-                CollectorsOriginal415Preparation.Prepare(registry);
-            });
+            await CollectorsOriginal415Preparation.Prepare171Async(owner);
             actor = new RuntimeNodeFoundationHostActor(owner);
             RuntimeNodeFoundationHostActor caller = actor;
 

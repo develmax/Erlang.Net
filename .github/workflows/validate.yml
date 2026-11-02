@@ -549,7 +549,7 @@ jobs:
           if (!(Test-Path artifacts/library376-official-compiler/official-admission.json)) {
             throw 'Map family504 requires successful host/provider preparation; dependent execution was not started'
           }
-          python -B tools/Native/Erlang.NifMapFamily504Observations/collect.py --repository $PWD.Path --provider-admission artifacts/library376-official-compiler/official-admission.json --plan-sha256 FEF8025351218498C48CACBE8D6CE47E47780BF5EDD5428C1CF721A638EC317B --output artifacts/native-map504/ci --check-golden --both-runtime-profiles516
+          python -B tools/Native/Erlang.NifMapFamily504Observations/collect.py --repository $PWD.Path --provider-admission artifacts/library376-official-compiler/official-admission.json --plan-sha256 98A8B0E189907F89B56036D3EEB190726DF43EEE82A85844C6D1DBD25C989C4B --output artifacts/native-map504/ci --check-golden --both-runtime-profiles516
           if ($LASTEXITCODE -ne 0) { throw 'Native map family504 original/ordinary/reviewed comparison failed; all prepared independent route receipts are retained' }
           $comparison516 = Get-Content 'artifacts/native-map504/ci/completion.json' -Raw | ConvertFrom-Json
           if (!$comparison516.Passed -or !$comparison516.BothRuntimeProfiles516 -or $comparison516.ExpectedRawLoaderComparisons -ne 4 -or $comparison516.WholeRawLoaderComparisons -ne 4 -or $comparison516.WholeRawComparisonsByRuntimeProfile.'ordinary-runtime' -ne 2 -or $comparison516.WholeRawComparisonsByRuntimeProfile.'owned-runtime' -ne 2) { throw 'All four runtime-profile/loader comparisons are required' }
@@ -570,7 +570,7 @@ jobs:
           if (!(Test-Path artifacts/library376-official-compiler/official-admission.json)) {
             throw 'Materialized505 host/provider preparation missing; dependent execution skipped'
           }
-          python -B tools/Native/Erlang.NifMapMaterialized505Observations/collect.py --repository $PWD.Path --provider-admission artifacts/library376-official-compiler/official-admission.json --plan-sha256 751E95100F25059E047550515C0E8A78F46E339A356BD20D9EFC471068D10458 --output artifacts/native-map505/ci --check-golden --both-runtime-profiles516
+          python -B tools/Native/Erlang.NifMapMaterialized505Observations/collect.py --repository $PWD.Path --provider-admission artifacts/library376-official-compiler/official-admission.json --plan-sha256 67887F583C4F3FA6476D686FA3DDC082180A8284EEBC0BD64B3A04B8FB482FEE --output artifacts/native-map505/ci --check-golden --both-runtime-profiles516
           if ($LASTEXITCODE -ne 0) { throw 'Materialized505 independent original/ordinary/reviewed comparison failed; inspect retained full results' }
           $comparison516 = Get-Content 'artifacts/native-map505/ci/completion.json' -Raw | ConvertFrom-Json
           if (!$comparison516.Passed -or !$comparison516.BothRuntimeProfiles516 -or $comparison516.ExpectedRawLoaderComparisons -ne 4 -or $comparison516.WholeRawLoaderComparisons -ne 4 -or $comparison516.WholeRawComparisonsByRuntimeProfile.'ordinary-runtime' -ne 2 -or $comparison516.WholeRawComparisonsByRuntimeProfile.'owned-runtime' -ne 2) { throw 'All four runtime-profile/loader comparisons are required' }
@@ -584,7 +584,7 @@ jobs:
           if (!(Test-Path artifacts/library376-official-compiler/official-admission.json)) {
             throw 'Reentry505 host/provider preparation missing; dependent execution skipped'
           }
-          python -B tools/Native/Erlang.NifMapReentry505Observations/collect.py --repository $PWD.Path --provider-admission artifacts/library376-official-compiler/official-admission.json --plan-sha256 1E0D1765A8BE8D537AF08A87D2AAC1722E3F1C4AE40956BA6209430DBBF3CFD3 --output artifacts/native-map505/reentry-ci --check-golden --both-runtime-profiles516
+          python -B tools/Native/Erlang.NifMapReentry505Observations/collect.py --repository $PWD.Path --provider-admission artifacts/library376-official-compiler/official-admission.json --plan-sha256 63F936BE62DCC67F862614E2A9A684E9D714C180E71A074AC680892A69CDBDDD --output artifacts/native-map505/reentry-ci --check-golden --both-runtime-profiles516
           if ($LASTEXITCODE -ne 0) { throw 'Reentry505 original/ordinary/reviewed comparison failed; independent routes and cleanup retained' }
           $comparison516 = Get-Content 'artifacts/native-map505/reentry-ci/completion.json' -Raw | ConvertFrom-Json
           if (!$comparison516.Passed -or !$comparison516.BothRuntimeProfiles516 -or $comparison516.ExpectedRawLoaderComparisons -ne 4 -or $comparison516.WholeRawLoaderComparisons -ne 4 -or $comparison516.WholeRawComparisonsByRuntimeProfile.'ordinary-runtime' -ne 2 -or $comparison516.WholeRawComparisonsByRuntimeProfile.'owned-runtime' -ne 2) { throw 'All four runtime-profile/loader comparisons are required' }

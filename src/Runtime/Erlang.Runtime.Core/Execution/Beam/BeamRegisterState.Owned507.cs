@@ -53,7 +53,7 @@ internal sealed partial class BeamRegisterState
     internal Term[] ExportArguments507(Term[] arguments) => roots507?.ExportArguments(arguments) ?? arguments;
 
     internal ErlangException ExportException507(ErlangException error)
-        => roots507 is null ? error : error.WithTransferredTerms506(roots507.Export);
+        => roots507 is null ? error : OwnedExceptionTransfer828.Transfer(context507!.Runtime, error, roots507.Export);
 
     internal IDisposable? Protect507(params Term[] values)
         => roots507?.Protect(Term.Tuple(values));

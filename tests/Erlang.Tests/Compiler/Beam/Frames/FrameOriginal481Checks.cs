@@ -58,15 +58,22 @@ internal static class FrameOriginal481Checks
     internal static async Task Admission()
     {
         await using var runtime = new ProcessRuntime();
-        await runtime.InitializeModulesAsync(registry =>
+        await global::Erlang.Tests.PreparedBeamFixtureScope171.RunAsync(
+            runtime,
+            (registry, scope) =>
         {
             var dependencies = new BeamDependencySelection(Imports);
-            PreparedBeamImage[] images = AdmissionImages.Select(name => registry.PrepareBeam(Read(name), dependencies)).ToArray();
-            Require(registry.PublishPreparedBeam(images).Status == BeamPublicationStatus.Published);
-            foreach (PreparedBeamImage image in images)
-                Require(registry.Exports.Where(export => export.Module == image.Name)
+            PreparedBeamImage[] images = AdmissionImages.Select(name => scope.Prepare(() => registry.PrepareBeam(Read(name), dependencies))).ToArray();
+
+            return ValueTask.FromResult<Action<ModuleRegistry>>(_ =>
+            {
+                Require(registry.PublishPreparedBeam(images).Status == BeamPublicationStatus.Published);
+                foreach (PreparedBeamImage image in images)
+                    Require(registry.Exports.Where(export => export.Module == image.Name)
                     .All(export => ReferenceEquals(registry.SourceOwner(export.Module, export.Function, export.Arity), image)));
-        });
+            });
+        }
+        );
     }
 
     private static async Task Capture(
@@ -78,17 +85,24 @@ internal static class FrameOriginal481Checks
     )
     {
         await using var runtime = new ProcessRuntime();
-        await runtime.InitializeModulesAsync(registry =>
+        await global::Erlang.Tests.PreparedBeamFixtureScope171.RunAsync(
+            runtime,
+            (registry, scope) =>
         {
             var dependencies = new BeamDependencySelection(Imports);
             string[] names = observer == TlsObserver ? [ListsImage, TlsVersionImage, SslImage, imageName] : [imageName];
             PreparedBeamImage[] images = names
-                .Select(name => registry.PrepareBeam(Read(name), dependencies)).ToArray();
-            Require(registry.PublishPreparedBeam(images).Status == BeamPublicationStatus.Published);
-            foreach (var image in images)
-                Require(registry.Exports.Where(export => export.Module == image.Name)
+                .Select(name => scope.Prepare(() => registry.PrepareBeam(Read(name), dependencies))).ToArray();
+
+            return ValueTask.FromResult<Action<ModuleRegistry>>(_ =>
+            {
+                Require(registry.PublishPreparedBeam(images).Status == BeamPublicationStatus.Published);
+                foreach (var image in images)
+                    Require(registry.Exports.Where(export => export.Module == image.Name)
                     .All(export => ReferenceEquals(registry.SourceOwner(export.Module, export.Function, export.Arity), image)));
-        });
+            });
+        }
+        );
         var completed = new TaskCompletionSource<Term>(TaskCreationOptions.RunContinuationsAsynchronously);
         var actor = runtime.Spawn(async context =>
         {

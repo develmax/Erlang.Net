@@ -103,6 +103,57 @@ internal static class BeamUnicodeFields
         return new BitString(bytes);
     }
 
+    // Bounded value reads only. Mutable/resource-origin/unknown families keep
+    // the original per-bit route; no pointer or span survives this method.
+    private static bool TryStableWord492(
+        BitString source,
+        int position,
+        int bytes,
+        bool little,
+        out uint value
+    )
+    {
+        value = 0;
+        BinaryBacking backing = source.ResourceBacking577;
+        if (source.ResourceSliceOrigin577 is not null || backing.HasWritableOrigin) return false;
+        if (backing.NativeStorage524 is null)
+            return source.TryReadAlignedWord492(
+                position,
+                bytes,
+                little,
+                out value
+            );
+        if (backing.NativeStorage524 is not OrdinaryBinaryBacking ordinary)
+            return false;
+        if (source.OwnedStorage577 is ProcessTermSequence506 block && block.Owner is ProcessTermHeap506 heap)
+        {
+            if (heap.LiteralDomain800 is not null) return false;
+            lock (heap.Gate)
+            {
+                _ = heap.IsOwnedLocal(source);
+                nuint flags = block.Slab.Cells.ReadNumeric556(block.AllocationOffset526 + ResourceBinary577Names.BaseWord)
+                    & ResourceBinary577Names.FlagMask;
+                if (flags != 0 || ordinary.IsWritable || ordinary.WritableBinding is not null) return false;
+
+                return source.TryReadAlignedWord492(
+                    position,
+                    bytes,
+                    little,
+                    out value
+                );
+            }
+        }
+        if (source.OwnedStorage577 is not null || ordinary.IsWritable || ordinary.WritableBinding is not null)
+            return false;
+
+        return source.TryReadAlignedWord492(
+            position,
+            bytes,
+            little,
+            out value
+        );
+    }
+
     private static uint Word(
         BeamBinaryMatchContext match,
         int byteOffset,
@@ -110,6 +161,15 @@ internal static class BeamUnicodeFields
         bool little
     )
     {
+        int start492 = match.Position + byteOffset * BeamBinaryNames.BitsPerByte;
+        if (TryStableWord492(
+            match.Source,
+            start492,
+            bytes,
+            little,
+            out uint stable492
+        ))
+            return stable492;
         uint value = 0;
         for (int index = 0; index < bytes; index++)
         {

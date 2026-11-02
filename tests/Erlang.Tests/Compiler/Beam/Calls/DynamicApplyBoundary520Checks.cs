@@ -90,37 +90,57 @@ internal static class DynamicApplyBoundary520Checks
         Directory.CreateDirectory(output);
         await using var runtime = OwnedGuest506RuntimeFactory.Create(owned, metadataProfile);
         PreparedBeamImage? caller = null, target = null;
-        await runtime.InitializeModulesAsync(registry =>
+        await global::Erlang.Tests.PreparedBeamFixtureScope171.RunAsync(
+            runtime,
+            (registry, scope) =>
         {
             // Actual caller static imports remain [erlang]. Explicit loader
             // authority grants ONLY the admitted ODBC image's imported modules.
             // The dynamic target is absent from that declared selection.
-            PreparedBeamImage prepared = registry.PrepareBeam(callerBytes, new BeamDependencySelection(selected));
+            PreparedBeamImage prepared = scope.Prepare(() => registry.PrepareBeam(callerBytes, new BeamDependencySelection(selected)));
             caller = prepared;
             Require(!registry.HasExport(Target, TargetEcho, 1));
-            Require(registry.PublishPreparedBeam(prepared).Status == BeamPublicationStatus.Published);
-        });
+
+            return ValueTask.FromResult<Action<ModuleRegistry>>(_ =>
+            {
+                Require(registry.PublishPreparedBeam(prepared).Status == BeamPublicationStatus.Published);
+            });
+        }
+        );
         // Separate late publication after the caller has already been prepared.
-        await runtime.InitializeModulesAsync(registry =>
+        await global::Erlang.Tests.PreparedBeamFixtureScope171.RunAsync(
+            runtime,
+            (registry, scope) =>
         {
-            PreparedBeamImage prepared = registry.PrepareBeam(targetBytes, new BeamDependencySelection(new[] { ErlangModule }));
+            PreparedBeamImage prepared = scope.Prepare(() => registry.PrepareBeam(targetBytes, new BeamDependencySelection(new[] { ErlangModule })));
             target = prepared;
-            Require(registry.PublishPreparedBeam(prepared).Status == BeamPublicationStatus.Published);
-        });
+
+            return ValueTask.FromResult<Action<ModuleRegistry>>(_ =>
+            {
+                Require(registry.PublishPreparedBeam(prepared).Status == BeamPublicationStatus.Published);
+            });
+        }
+        );
         Require(caller is not null && target is not null);
         bool hostSelectionRejected = false;
-        await runtime.InitializeModulesAsync(registry =>
+        await global::Erlang.Tests.PreparedBeamFixtureScope171.RunOutsideAsync(
+            runtime,
+            (registry, scope) =>
         {
             Require(!registry.HasExport(LoaderModule, LoaderFunction, 3));
             try
             {
-                _ = registry.PrepareBeam(loaderBytes, new BeamDependencySelection(new[] { ErlangModule }));
+                scope.Prepare(() => registry.PrepareBeam(loaderBytes, new BeamDependencySelection(new[] { ErlangModule })));
             }
             catch (NotSupportedException)
             {
                 hostSelectionRejected = true;
             }
-        });
+
+            return ValueTask.CompletedTask;
+
+        }
+        );
         // Both host and guest loader retain declared dependency authority.
         // Guest loader success below inherits the nearest actual caller's
         // admitted selection; this control keeps the narrow host refusal.

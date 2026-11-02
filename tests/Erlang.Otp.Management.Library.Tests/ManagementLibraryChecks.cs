@@ -100,7 +100,9 @@ internal static class ManagementLibraryChecks
         var runtime = new ProcessRuntime();
         try
         {
-            await runtime.InitializeModulesAsync(registry =>
+            await global::Erlang.Tests.PreparedBeamFixtureScope171.RunAsync(
+                runtime,
+                (registry, scope) =>
             {
                 string[] imports = OtpDiameter.Modules.Concat(OtpSnmp.Modules).Concat(OtpStdlib.Modules).Concat(OtpKernel.Modules).Concat([Observer, Internal, ErlangModule, Crypto, Debugger, Asn1Runtime, PrimitiveSocket, PersistentTerm, PrimitiveInternet]).ToArray();
                 var dependencies = new BeamDependencySelection(imports);
@@ -109,20 +111,25 @@ internal static class ManagementLibraryChecks
                 {
                     try
                     {
-                        return registry.PrepareBeam(image, dependencies);
+                        return scope.Prepare(() => registry.PrepareBeam(image, dependencies));
                     }
                     catch (Exception error)
                     {
                         throw new InvalidOperationException(BeamArtifactInspector.Inspect(image).Name, error);
                     }
                 }).ToArray();
-                Check(registry.PublishPreparedBeam(images).Status == BeamPublicationStatus.Published);
-                foreach (PreparedBeamImage image in images)
+
+                return ValueTask.FromResult<Action<ModuleRegistry>>(_ =>
                 {
-                    var exports = registry.Exports.Where(export => export.Module == image.Name).ToArray();
-                    Check(exports.Length > 0 && exports.All(export => ReferenceEquals(registry.SourceOwner(export.Module, export.Function, export.Arity), image)));
-                }
-            });
+                    Check(registry.PublishPreparedBeam(images).Status == BeamPublicationStatus.Published);
+                    foreach (PreparedBeamImage image in images)
+                    {
+                        var exports = registry.Exports.Where(export => export.Module == image.Name).ToArray();
+                        Check(exports.Length > 0 && exports.All(export => ReferenceEquals(registry.SourceOwner(export.Module, export.Function, export.Arity), image)));
+                    }
+                });
+            }
+            );
             var completed = new TaskCompletionSource<Term>(TaskCreationOptions.RunContinuationsAsynchronously);
             ProcessHandle actor = runtime.Spawn(async context =>
             {

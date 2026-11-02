@@ -54,16 +54,21 @@ try
     if (owned.Count != 1)
         throw new InvalidOperationException(Failure);
     regex = await RuntimeNativePrimitiveProviders.RegisterRegexAsync411(runtime, runtime.Modules, admission);
-    await runtime.InitializeModulesAsync(registry =>
+    await global::Erlang.Tests.PreparedBeamFixtureScope171.RunAsync(
+        runtime,
+        async (registry, scope) =>
     {
-        RuntimeNativePrimitiveProviders.RegisterCatalog(runtime, registry);
+        await runtime.InitializeModulesAsync(_ =>
+        {
+            RuntimeNativePrimitiveProviders.RegisterCatalog(runtime, registry);
+        });
         var dependencies = new BeamDependencySelection(inventory.Select(image => image.Module).Append(CatalogValidationNames.Erlang));
         var execution = new List<PreparedBeamImage>();
         foreach (CatalogImage entry in inventory)
         {
             try
             {
-                PreparedBeamImage image = registry.PrepareBeam(File.ReadAllBytes(entry.Path), dependencies);
+                PreparedBeamImage image = scope.Prepare(() => registry.PrepareBeam(File.ReadAllBytes(entry.Path), dependencies));
                 prepared++;
                 preparations.Add(new
                 {
@@ -84,23 +89,28 @@ try
         if (execution.Count != ExecutionModules.Length)
             throw new InvalidOperationException(Failure);
         foreach (var (directory, observer) in new[] { (Indexed, IndexedObserver), (Protocol, ProtocolObserver) })
-            execution.Add(registry.PrepareBeam(File.ReadAllBytes(Path.Combine(
+            execution.Add(scope.Prepare(() => registry.PrepareBeam(File.ReadAllBytes(Path.Combine(
                 repository,
                 Fixtures,
                 directory,
                 observer + Beam
-            )), dependencies));
-        execution.Add(registry.PrepareBeam(File.ReadAllBytes(Path.Combine(repository, CaptureFixtures, CaptureObserver + Beam)), dependencies));
-        if (registry.PublishPreparedBeam(execution.ToArray()).Status != BeamPublicationStatus.Published)
-            throw new InvalidOperationException(Failure);
-        foreach (PreparedBeamImage image in execution)
+            )), dependencies)));
+        execution.Add(scope.Prepare(() => registry.PrepareBeam(File.ReadAllBytes(Path.Combine(repository, CaptureFixtures, CaptureObserver + Beam)), dependencies)));
+
+        return _ =>
         {
-            var exports = registry.Exports.Where(export => export.Module == image.Name).ToArray();
-            if (exports.Length == 0 || exports.Any(export => !ReferenceEquals(registry.SourceOwner(export.Module, export.Function, export.Arity), image)))
+            if (registry.PublishPreparedBeam(execution.ToArray()).Status != BeamPublicationStatus.Published)
                 throw new InvalidOperationException(Failure);
-        }
-        published = true;
-    });
+            foreach (PreparedBeamImage image in execution)
+            {
+                var exports = registry.Exports.Where(export => export.Module == image.Name).ToArray();
+                if (exports.Length == 0 || exports.Any(export => !ReferenceEquals(registry.SourceOwner(export.Module, export.Function, export.Arity), image)))
+                    throw new InvalidOperationException(Failure);
+            }
+            published = true;
+        };
+    }
+    );
     for (int index = 1; index <= RawKeyGroup; index++)
     {
         try

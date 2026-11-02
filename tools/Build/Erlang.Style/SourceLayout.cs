@@ -27,13 +27,14 @@ public static class SourceLayout
 
     private static string ApplyPass(string source)
     {
-        source = source.Replace("\r\n", "\n").TrimStart(
+        source = source.TrimStart(
             ' ',
             '\t',
             '\r',
             '\n'
         );
-        var root = CSharpSyntaxTree.ParseText(source, new CSharpParseOptions(LanguageVersion.Preview)).GetRoot();
+        var root = NormalizeEndOfLineTrivia(CSharpSyntaxTree.ParseText(source, new CSharpParseOptions(LanguageVersion.Preview)).GetRoot());
+        source = root.ToFullString();
         var insertions = new Dictionary<int, int>();
 
         void BreakBefore(SyntaxToken token, int requiredNewlines)
@@ -131,10 +132,16 @@ public static class SourceLayout
             source = source.Insert(insertion.Key, new string('\n', insertion.Value));
 
         source = IndentWrappedLists(source);
-        source = Formatter.Format(CSharpSyntaxTree.ParseText(source, new CSharpParseOptions(LanguageVersion.Preview)).GetRoot(), Workspace).ToFullString().Replace("\r\n", "\n");
+        source = NormalizeEndOfLineTrivia(Formatter.Format(CSharpSyntaxTree.ParseText(source, new CSharpParseOptions(LanguageVersion.Preview)).GetRoot(), Workspace)).ToFullString();
 
         return source.EndsWith('\n') ? source : source + "\n";
     }
+
+    private static SyntaxNode NormalizeEndOfLineTrivia(SyntaxNode root)
+        => root.ReplaceTrivia(
+            root.DescendantTrivia(descendIntoTrivia: true).Where(trivia => trivia.IsKind(SyntaxKind.EndOfLineTrivia)),
+            (_, _) => SyntaxFactory.EndOfLine("\n")
+        );
 
     private static bool NeedsWrapping(int count, SyntaxNode list) => count >= ManyArguments || count > 1 && list.DescendantTokens().Sum(token => token.Text.Length) > LongListWidth;
 

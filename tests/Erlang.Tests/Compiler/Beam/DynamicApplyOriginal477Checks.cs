@@ -34,16 +34,23 @@ internal static class DynamicApplyOriginal477Checks
     internal static async Task Run()
     {
         await using var runtime = new ProcessRuntime();
-        await runtime.InitializeModulesAsync(registry =>
+        await global::Erlang.Tests.PreparedBeamFixtureScope171.RunAsync(
+            runtime,
+            (registry, scope) =>
         {
             var dependencies = new BeamDependencySelection(Imports);
             PreparedBeamImage[] images = new[] { ListsImage, OdbcImage, ObserverImage }
-                .Select(name => registry.PrepareBeam(Read(name), dependencies)).ToArray();
-            Require(registry.PublishPreparedBeam(images).Status == BeamPublicationStatus.Published);
-            foreach (var image in images)
-                Require(registry.Exports.Where(export => export.Module == image.Name)
+                .Select(name => scope.Prepare(() => registry.PrepareBeam(Read(name), dependencies))).ToArray();
+
+            return ValueTask.FromResult<Action<ModuleRegistry>>(_ =>
+            {
+                Require(registry.PublishPreparedBeam(images).Status == BeamPublicationStatus.Published);
+                foreach (var image in images)
+                    Require(registry.Exports.Where(export => export.Module == image.Name)
                     .All(export => ReferenceEquals(registry.SourceOwner(export.Module, export.Function, export.Arity), image)));
-        });
+            });
+        }
+        );
         var completed = new TaskCompletionSource<Term>(TaskCreationOptions.RunContinuationsAsynchronously);
         var actor = runtime.Spawn(async context =>
         {
@@ -79,11 +86,18 @@ internal static class DynamicApplyOriginal477Checks
         foreach (bool asynchronous in new[] { false, true })
         {
             await using var runtime = new ProcessRuntime();
-            await runtime.InitializeModulesAsync(registry =>
+            await global::Erlang.Tests.PreparedBeamFixtureScope171.RunAsync(
+                runtime,
+                (registry, scope) =>
             {
-                var image = registry.PrepareBeam(Read(ObserverImage), new BeamDependencySelection(Imports));
-                Require(registry.PublishPreparedBeam(image).Status == BeamPublicationStatus.Published);
-            });
+                var image = scope.Prepare(() => registry.PrepareBeam(Read(ObserverImage), new BeamDependencySelection(Imports)));
+
+                return ValueTask.FromResult<Action<ModuleRegistry>>(_ =>
+                {
+                    Require(registry.PublishPreparedBeam(image).Status == BeamPublicationStatus.Published);
+                });
+            }
+            );
             Require(runtime.Modules.DeleteModule(Erts).Equals(Term.A(ErlangBooleanAtoms.True)));
             int calls = 0;
             runtime.Modules.Register(

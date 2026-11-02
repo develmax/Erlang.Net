@@ -10,6 +10,7 @@ public sealed class ResourceReferenceTerm : ReferenceTerm, IReferenceResourceSer
         CountersBacking596 = ReadCountersBacking596(entry);
         RegexBacking597 = ReadRegexBacking597(entry);
         BinaryBacking598 = ReadBinaryBacking598(entry);
+        PreparedBacking807 = ReadPreparedBacking807(entry);
     }
 
     internal ResourceReferenceTerm(ReferenceResourceEntry entry, ProcessTermSequence506 storage)
@@ -20,6 +21,7 @@ public sealed class ResourceReferenceTerm : ReferenceTerm, IReferenceResourceSer
         RegexBacking597 = ReadRegexBacking597(entry);
         CountersBacking596 = ReadCountersBacking596(entry);
         BinaryBacking598 = ReadBinaryBacking598(entry);
+        PreparedBacking807 = ReadPreparedBacking807(entry);
     }
 
     internal ResourceReferenceTerm(ReferenceResourceEntry entry, ReferenceTerm portableIdentity)
@@ -30,6 +32,7 @@ public sealed class ResourceReferenceTerm : ReferenceTerm, IReferenceResourceSer
         CountersBacking596 = ReadCountersBacking596(entry);
         RegexBacking597 = ReadRegexBacking597(entry);
         BinaryBacking598 = ReadBinaryBacking598(entry);
+        PreparedBacking807 = ReadPreparedBacking807(entry);
     }
 
     internal ReferenceResourceEntry Entry { get; }
@@ -79,6 +82,18 @@ public sealed class ResourceReferenceTerm : ReferenceTerm, IReferenceResourceSer
 
     private static BinaryProgramBacking598? ReadBinaryBacking598(ReferenceResourceEntry entry)
         => entry.Kind == ReferenceResourceKind.BinarySearchPattern ? entry.Read<BinarySearchPattern>().Backing598 : null;
+
+    internal PreparedLoaderOwner807? PreparedBacking807 { get; }
+    internal PreparedLoaderHost807? PreparedHost807 { get; }
+
+    internal ResourceReferenceTerm(ReferenceResourceEntry entry, ReferenceTerm identity, PreparedLoaderHost807 host)
+        : this(entry, identity)
+    {
+        PreparedHost807 = host;
+    }
+
+    private static PreparedLoaderOwner807? ReadPreparedBacking807(ReferenceResourceEntry entry)
+        => entry.Kind == ReferenceResourceKind.PreparedBeam ? entry.Read<PreparedLoaderOwner807>() : null;
 
     public ReferenceResourceKind ResourceKind => Entry.Kind;
 

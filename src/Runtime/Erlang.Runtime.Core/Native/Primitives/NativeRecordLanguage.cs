@@ -2,9 +2,11 @@ namespace Erlang;
 
 public static class NativeRecordLanguage
 {
-    public static Term Definition(NativeRecordDefinition definition) => Term.Tuple(
+    public static Term Definition(NativeRecordDefinition definition) => Definition313(definition, null);
+
+    internal static Term Definition313(NativeRecordDefinition definition, Func<Term, Term>? readDefault) => Term.Tuple(
         new MapTerm([new KeyValuePair<Term, Term>(Term.A(NativeRecordLanguageNames.ExportedOption), CoreModules.Boolean(definition.IsExported))]),
-        Cons.From(definition.Fields.Select(field => field.Value is null ? (Term)field.Key : Term.Tuple(field.Key, field.Value)))
+        Cons.From(definition.Fields.Select(field => field.Value is null ? (Term)field.Key : Term.Tuple(field.Key, readDefault is null ? field.Value : readDefault(field.Value))))
     );
 
     public static NativeRecordTerm Construct(
@@ -13,6 +15,22 @@ public static class NativeRecordLanguage
         string name,
         IReadOnlyList<KeyValuePair<Atom, Term>> fields,
         bool external
+    ) => Construct313(
+        module,
+        definition,
+        name,
+        fields,
+        external,
+        null
+    );
+
+    internal static NativeRecordTerm Construct313(
+        string module,
+        NativeRecordDefinition? definition,
+        string name,
+        IReadOnlyList<KeyValuePair<Atom, Term>> fields,
+        bool external,
+        Func<Term, Term>? readDefault
     )
     {
         var identity = Term.Tuple(Term.A(module), Term.A(name));
@@ -26,7 +44,9 @@ public static class NativeRecordLanguage
         var values = new List<KeyValuePair<Atom, Term>>();
         foreach (var field in definition.Fields)
         {
-            Term? value = supplied.TryGetValue(field.Key, out var explicitValue) ? explicitValue : field.Value;
+            Term? value;
+            if (supplied.TryGetValue(field.Key, out var explicitValue)) value = explicitValue;
+            else value = field.Value is { } template && readDefault is not null ? readDefault(template) : field.Value;
             if (value is null)
                 throw Failure(NativeRecordLanguageNames.NoValue, Term.Tuple(identity, field.Key));
             values.Add(new(field.Key, value));

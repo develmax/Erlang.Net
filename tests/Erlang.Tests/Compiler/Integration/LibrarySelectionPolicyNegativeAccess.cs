@@ -20,7 +20,12 @@ internal static class LibrarySelectionPolicyNegativeAccess
             .GetProperty(NativePrimitives, Members)!.GetValue(identity)!;
     }
 
-    internal static void RejectPrepare(ModuleRegistry registry, RuntimeLibrarySelection request)
+    internal static void RejectPrepare(
+        ModuleRegistry registry,
+        RuntimeLibrarySelection request,
+        string expectedMessage,
+        string? expectedInnerMessage = null
+    )
     {
         var before = Bodies(registry).ToDictionary(pair => pair.Key, pair => pair.Value);
         var modules = registry.LoadedModules.Order(StringComparer.Ordinal).ToArray();
@@ -28,14 +33,24 @@ internal static class LibrarySelectionPolicyNegativeAccess
         var old = modules.ToDictionary(module => module, registry.HasOldCode, StringComparer.Ordinal);
         var owners = before.Keys.ToDictionary(key => key, key => registry.SourceOwner(key.Module, key.Function, key.Arity));
         bool refused = false;
+        object? unexpected = null;
         try
         {
-            _ = LibrarySelectionCancellationPhaseAccess.Prepare(registry, request);
+            unexpected = LibrarySelectionCancellationPhaseAccess.Prepare(registry, request);
         }
-        catch (TargetInvocationException error) when (error.InnerException is InvalidOperationException)
+        catch (TargetInvocationException error) when (
+            error.InnerException is InvalidOperationException policy
+            && policy.GetType() == typeof(InvalidOperationException)
+            && policy.Message == expectedMessage
+            && (expectedInnerMessage is null
+                ? policy.InnerException is null
+                : policy.InnerException is InvalidDataException detail
+                    && detail.GetType() == typeof(InvalidDataException)
+                    && detail.Message == expectedInnerMessage))
         {
             refused = true;
         }
+        if (unexpected is IDisposable plan) plan.Dispose();
         Require(refused);
         Require(modules.SequenceEqual(registry.LoadedModules.Order(StringComparer.Ordinal)));
         Require(before.Count == Bodies(registry).Count);

@@ -66,19 +66,24 @@ internal static class SpawnResource541Replay
             ? SpawnResource542OriginalAdmission.Read(provider.RootElement) : null;
         await using var runtime = OwnedGuest506RuntimeFactory.Create(owned, native);
         PreparedBeamImage? originalImage = null;
-        await runtime.InitializeModulesAsync(registry =>
+        await global::Erlang.Tests.PreparedBeamFixtureScope171.RunAsync(
+            runtime,
+            async (registry, scope) =>
         {
-            OtpModules.Register(registry);
+            await runtime.InitializeModulesAsync(_ =>
+            {
+                OtpModules.Register(registry);
+            });
             var selection = new BeamDependencySelection(new[] { Core, SpawnResource541Names.ProcLib, Subject, Worker });
             var images = new List<PreparedBeamImage>
-            {
-                registry.PrepareBeam(subject, selection),
-                registry.PrepareBeam(worker, selection)
-            };
+                    {
+                        scope.Prepare(() => registry.PrepareBeam(subject, selection)),
+                        scope.Prepare(() => registry.PrepareBeam(worker, selection))
+                    };
             if (originalProc is { } admitted)
             {
-                originalImage = registry.PrepareBeam(admitted.Bytes,
-                    new BeamDependencySelection(SpawnResource542Names.Imports));
+                originalImage = scope.Prepare(() => registry.PrepareBeam(admitted.Bytes,
+                    new BeamDependencySelection(SpawnResource542Names.Imports)));
                 Require(originalImage.Name == SpawnResource541Names.ProcLib && !originalImage.HasOnLoad
                     && originalImage.NativePrimitiveExports.Count == 0
                     && originalImage.OriginalBeamSha256 == admitted.Sha256);
@@ -96,9 +101,14 @@ internal static class SpawnResource541Replay
                     ));
                 images.Add(originalImage);
             }
-            Require(registry.PublishPreparedBeam(images.ToArray()).Status == BeamPublicationStatus.Published);
-            RequireOriginalOwners(registry, originalImage);
-        });
+
+            return _ =>
+            {
+                Require(registry.PublishPreparedBeam(images.ToArray()).Status == BeamPublicationStatus.Published);
+                RequireOriginalOwners(registry, originalImage);
+            };
+        }
+        );
         Directory.CreateDirectory(output);
         if (originalProc is { } selected)
             await File.WriteAllTextAsync(

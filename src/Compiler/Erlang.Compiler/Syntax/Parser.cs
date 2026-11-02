@@ -679,9 +679,11 @@ public sealed class Parser
 
     private Expr ParseBits()
     {
+        int lineIndex = Array.BinarySearch(sourceLineStarts, tokens[position - 1].Start);
+        int sourceLine = lineIndex >= 0 ? lineIndex + 1 : ~lineIndex;
         var segments = new List<BitSegment>();
         if (Take(ErlangSyntaxTokens.BinaryClose))
-            return new Expr.Bits(segments);
+            return new Expr.Bits(segments) { SourceLine = sourceLine };
         do
         {
             var value = Primary(true);
@@ -806,7 +808,7 @@ public sealed class Parser
         } while (Take(ErlangSyntaxTokens.Comma));
         Expect(ErlangSyntaxTokens.BinaryClose);
 
-        return new Expr.Bits(segments);
+        return new Expr.Bits(segments) { SourceLine = sourceLine };
     }
 
     private CompileException RecordError(string message) => new(CompilerDiagnosticCodes.RecordDefinition, message, Current.Start);

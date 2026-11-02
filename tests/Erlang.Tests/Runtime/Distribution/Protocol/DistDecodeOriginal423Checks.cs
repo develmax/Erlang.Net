@@ -17,20 +17,30 @@ internal static class DistDecodeOriginal423Checks
         {
             runtime = new ProcessRuntime(1);
             ProcessRuntime owner = runtime;
-            await owner.InitializeModulesAsync(registry =>
+            await global::Erlang.Tests.PreparedBeamFixtureScope171.RunAsync(
+                owner,
+                async (registry, scope) =>
             {
-                RuntimeBootstrapDistDecode423.Register(owner, registry);
+                await owner.InitializeModulesAsync(_ =>
+                {
+                    RuntimeBootstrapDistDecode423.Register(owner, registry);
+                });
                 var declared = new BeamDependencySelection([DistDecodeOriginal423Names.Runtime, DistDecodeOriginal423Names.File, DistDecodeOriginal423Names.Internal]);
-                PreparedBeamImage facet = registry.PrepareBeam(DistDecodeOriginal423Access.Resource(DistDecodeOriginal423Names.FacetBeam), declared);
+                PreparedBeamImage facet = scope.Prepare(() => registry.PrepareBeam(DistDecodeOriginal423Access.Resource(DistDecodeOriginal423Names.FacetBeam), declared));
                 DistDecodeOriginal423Access.Require(facet.Name == DistDecodeOriginal423Names.Internal && facet.NativePrimitiveExports.Count == 1
                     && facet.NativePrimitiveExports.Single().Name == DistDecodeOriginal423Names.Function && facet.NativePrimitiveExports.Single().Arity == 2);
-                PreparedBeamImage worker = registry.PrepareBeam(DistDecodeOriginal423Access.Resource(DistDecodeOriginal423Names.WorkerBeam), declared);
-                DistDecodeOriginal423Access.Require(registry.PublishPreparedBeam([facet, worker]).Status == BeamPublicationStatus.Published);
-                DistDecodeOriginal423Access.Require(registry.Exports.Count(export => export.Module == DistDecodeOriginal423Names.Internal) == 3);
-                foreach (var image in new[] { facet, worker })
-                    foreach (var export in registry.Exports.Where(export => export.Module == image.Name))
-                        DistDecodeOriginal423Access.Require(ReferenceEquals(registry.SourceOwner(export.Module, export.Function, export.Arity), image));
-            });
+                PreparedBeamImage worker = scope.Prepare(() => registry.PrepareBeam(DistDecodeOriginal423Access.Resource(DistDecodeOriginal423Names.WorkerBeam), declared));
+
+                return _ =>
+                {
+                    DistDecodeOriginal423Access.Require(registry.PublishPreparedBeam([facet, worker]).Status == BeamPublicationStatus.Published);
+                    DistDecodeOriginal423Access.Require(registry.Exports.Count(export => export.Module == DistDecodeOriginal423Names.Internal) == 3);
+                    foreach (var image in new[] { facet, worker })
+                        foreach (var export in registry.Exports.Where(export => export.Module == image.Name))
+                            DistDecodeOriginal423Access.Require(ReferenceEquals(registry.SourceOwner(export.Module, export.Function, export.Arity), image));
+                };
+            }
+            );
             actor = new RuntimeNodeFoundationHostActor(owner);
             RuntimeNodeFoundationHostActor caller = actor;
 

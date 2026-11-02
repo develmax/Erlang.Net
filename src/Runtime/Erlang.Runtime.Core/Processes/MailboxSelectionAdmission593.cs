@@ -66,6 +66,10 @@ internal sealed class MailboxSelectionAdmission593
         return matcher.Select(candidate);
     }
 
+    internal ProcessExecutionAwaitable ResumeExecution()
+        => protocolMatcher601 is null ? context.ResumeExecution()
+            : new(ValueTask.CompletedTask, null, ProcessExecutionAdmission.Continuation);
+
     internal MailboxGuestCandidate593 Prepare(Term value, MailboxGraphSnapshot593? graph601 = null)
     {
         if (protocolMatcher601 is not null)
@@ -77,6 +81,6 @@ internal sealed class MailboxSelectionAdmission593
         if (!RuntimeActorExecutionTurn.IsOwnedBy(context))
             throw new InvalidOperationException(MailboxCustody593Names.InvalidReceiveAdmission);
 
-        return new(context, value);
+        return new(context, value, graph601);
     }
 }

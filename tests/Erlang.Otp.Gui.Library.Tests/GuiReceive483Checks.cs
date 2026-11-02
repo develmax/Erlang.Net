@@ -67,7 +67,7 @@ internal static class GuiReceive483Checks
     )
     {
         await using var runtime = new ProcessRuntime();
-        await runtime.InitializeModulesAsync(registry => Publish(registry, imageNames));
+        await Publish171Async(runtime, imageNames);
         var completed = new TaskCompletionSource<Term>(TaskCreationOptions.RunContinuationsAsynchronously);
         var actor = runtime.Spawn(async context =>
         {
@@ -97,5 +97,27 @@ internal static class GuiReceive483Checks
         File.WriteAllBytes(Path.Combine(output, Managed), encoded);
         Require(Cons.Items(actual).Count() == count);
         Require(actual.Equals(ExternalTermFormat.Decode(expected)) && encoded.AsSpan().SequenceEqual(expected));
+    }
+
+    private static async Task Publish171Async(ProcessRuntime runtime, string[] names)
+    {
+        await global::Erlang.Tests.PreparedBeamFixtureScope171.RunAsync(
+            runtime,
+            (registry, scope) =>
+        {
+            var dependencies = new BeamDependencySelection(Imports);
+            PreparedBeamImage[] images = names.Select(name => scope.Prepare(() => registry.PrepareBeam(Read(name), dependencies))).ToArray();
+
+            return ValueTask.FromResult<Action<ModuleRegistry>>(_ =>
+            {
+                Require(registry.PublishPreparedBeam(images).Status == BeamPublicationStatus.Published);
+                foreach (PreparedBeamImage image in images)
+                {
+                    var exports = registry.Exports.Where(export => export.Module == image.Name).ToArray();
+                    Require(exports.Length != 0 && exports.All(export => ReferenceEquals(registry.SourceOwner(export.Module, export.Function, export.Arity), image)));
+                }
+            });
+        }
+        );
     }
 }

@@ -209,6 +209,13 @@ internal static class MailboxSnapshot601Checks
             requester = new(runtime);
             targetContext = await target.Ready.WaitAsync(Deadline);
             ProcessContext caller = await requester.Ready.WaitAsync(Deadline);
+            FieldInfo heap = typeof(ProcessContext).GetField(HeapField, Members)!;
+            object? callerHeap = heap.GetValue(caller), targetHeap = heap.GetValue(targetContext);
+            long callerWords = callerHeap is null ? 0 : (long)Property(Property(callerHeap, "Snapshot"), "LivePayloadWords");
+            long targetWords = targetHeap is null ? 0 : (long)Property(Property(targetHeap, "Snapshot"), "LivePayloadWords");
+            MailboxSnapshot601Fixture.Require(!(bool)Property(runtime, "OwnedTermsPilot506")
+                && !(bool)Property(caller, "OwnedExecutionEnabled683")
+                && !(bool)Property(targetContext, "OwnedExecutionEnabled683"));
             runtime.Send(targetContext.Self, Term.I(DefaultMessage));
             pump = target.InvokeAsync(async context =>
             {
@@ -225,8 +232,15 @@ internal static class MailboxSnapshot601Checks
                     Term.A(Messages)
                 ));
             MailboxSnapshot601Fixture.Require(result.Equals(Term.Tuple(Term.A(Messages), Term.List(Term.I(DefaultMessage)))));
-            FieldInfo heap = typeof(ProcessContext).GetField(HeapField, Members)!;
-            MailboxSnapshot601Fixture.Require(heap.GetValue(caller) is null && heap.GetValue(targetContext) is null);
+            // Registration owns a neutral heap before any guest entry. This
+            // protocol must preserve it and must not enroll guest execution.
+            MailboxSnapshot601Fixture.Require(ReferenceEquals(heap.GetValue(caller), callerHeap)
+                && ReferenceEquals(heap.GetValue(targetContext), targetHeap)
+                && (callerHeap is null || (long)Property(Property(callerHeap, "Snapshot"), "LivePayloadWords") == callerWords)
+                && (targetHeap is null || (long)Property(Property(targetHeap, "Snapshot"), "LivePayloadWords") == targetWords)
+                && !(bool)Property(runtime, "OwnedTermsPilot506")
+                && !(bool)Property(caller, "OwnedExecutionEnabled683")
+                && !(bool)Property(targetContext, "OwnedExecutionEnabled683"));
             runtime.Send(targetContext.Self, Term.A(Stop));
             await pump.WaitAsync(Deadline);
             pump = null;

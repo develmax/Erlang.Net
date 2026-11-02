@@ -17,18 +17,32 @@ internal static class ProcessAliveOriginal425Checks
         {
             runtime = new ProcessRuntime(1);
             ProcessRuntime owner = runtime;
-            await owner.InitializeModulesAsync(registry =>
+            await global::Erlang.Tests.PreparedBeamFixtureScope171.RunAsync(
+                owner,
+                async (registry, scope) =>
             {
-                RuntimeBootstrapProcessAlive425.Register(owner, registry);
-                RuntimeBootstrapAtomics.Register(owner, registry);
+                await owner.InitializeModulesAsync(_ =>
+                {
+                    {
+                        RuntimeBootstrapProcessAlive425.Register(owner, registry);
+                    }
+                    {
+                        RuntimeBootstrapAtomics.Register(owner, registry);
+                    }
+                });
                 var declared = new BeamDependencySelection(new[] { ProcessAliveOriginal425Names.Runtime, ProcessAliveOriginal425Names.File, ProcessAliveOriginal425Names.Internal }.Concat(ProcessAliveOriginal425Names.Helpers));
-                var helpers = ProcessAliveOriginal425Names.Helpers.Select(module => registry.PrepareBeam(AtomicsHost413Access.Resource(module + ".beam"), declared)).ToArray();
-                PreparedBeamImage worker = registry.PrepareBeam(ProcessAliveOriginal425Access.Resource(ProcessAliveOriginal425Names.WorkerBeam), declared);
-                ProcessAliveOriginal425Access.Require(registry.PublishPreparedBeam(helpers.Append(worker).ToArray()).Status == BeamPublicationStatus.Published);
-                foreach (var image in helpers.Append(worker))
-                    foreach (var export in registry.Exports.Where(export => export.Module == image.Name))
-                        ProcessAliveOriginal425Access.Require(ReferenceEquals(registry.SourceOwner(export.Module, export.Function, export.Arity), image));
-            });
+                var helpers = ProcessAliveOriginal425Names.Helpers.Select(module => scope.Prepare(() => registry.PrepareBeam(AtomicsHost413Access.Resource(module + ".beam"), declared))).ToArray();
+                PreparedBeamImage worker = scope.Prepare(() => registry.PrepareBeam(ProcessAliveOriginal425Access.Resource(ProcessAliveOriginal425Names.WorkerBeam), declared));
+
+                return _ =>
+                {
+                    ProcessAliveOriginal425Access.Require(registry.PublishPreparedBeam(helpers.Append(worker).ToArray()).Status == BeamPublicationStatus.Published);
+                    foreach (var image in helpers.Append(worker))
+                        foreach (var export in registry.Exports.Where(export => export.Module == image.Name))
+                            ProcessAliveOriginal425Access.Require(ReferenceEquals(registry.SourceOwner(export.Module, export.Function, export.Arity), image));
+                };
+            }
+            );
             actor = new RuntimeNodeFoundationHostActor(owner);
             RuntimeNodeFoundationHostActor caller = actor;
 

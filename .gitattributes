@@ -459,3 +459,81 @@ tools/Runtime/Erlang.BeamFunction542Observations/inputs.json whitespace=trailing
 /tools/Native/Erlang.NifFormat791Observations/** -text
 /tools/Native/Erlang.NifMutex795Observations/** -text
 /tools/Native/Erlang.NifLinuxMutex795Observations/** -text
+
+# Native GC825 permanent observation inputs are sealed as exact raw bytes.
+/tests/Runtime/Erlang.NativeGc.Observations/** -text
+/tests/Runtime/Erlang.NativeGc.TestSupport/** -text
+/tools/Runtime/Erlang.NativeGc825Observations/** -text
+/.github/workflows/native-gc825.yml -text
+
+# Exact final NativeGC825 metadata transport; preserve all previous rules.
+/tools/Native/Erlang.NifPendingVarargsObservations/reviewed-source-plan.json -text
+/tools/Native/Erlang.NifReallocationObservations/SOURCE-PLAN.json -text
+/tools/Native/Erlang.NifEntryOriginalObservations/manifest.json -text
+/tools/Native/Erlang.NifUnixFilenameObservations/manifest.json -text
+/.github/workflows/validate.yml -text
+/.github/workflows/nif-pending-native.yml -text
+/.github/workflows/nif-reallocation-native.yml -text
+/docs/validation/native-gc825/monitor645-final-source.json -text
+/docs/native-infrastructure.json -text
+
+# Exact admitted callback source fixture.
+/tests/Erlang.Tests/Resources/VmCallbackLiteral825/*.erl -text
+
+# Exact final NativeGC825 metadata transport; preserve all previous rules.
+/docs/validation/native-gc825/monitor645-final-source-165.json -text
+/tools/Runtime/Erlang.NativeGc825Observations/collect-ack425.py -text
+/tools/Runtime/Erlang.NativeGc825Observations/ack425-inputs.json -text
+/tools/Runtime/Erlang.NativeGc825Observations/fixtures/ack_receive_trace173.erl -text
+/docs/validation/native-gc825/original-records313/** -text
+
+# Exact final NativeGC825 metadata transport; preserve all previous rules.
+/docs/validation/native-gc825/current-source348.json -text
+/tests/Erlang.Tests/Fixtures/InternalProcessOriginal425/beam_internal_process425.erl -text
+/tests/Erlang.Tests/Fixtures/InternalProcessOriginal425/erts_internal.erl -text
+/tests/Erlang.Tests/Fixtures/InternalProcessOriginal425/stacks.etf -text
+/tests/Erlang.Tests/Fixtures/InternalProcessOriginal425/values.etf -text
+/tests/Runtime/Erlang.NativeGc.Observations/Resources/NativeAppend206/native_append206_observer.beam -text
+/tests/Runtime/Erlang.NativeGc.Observations/Resources/NativeAppend206/native_append206_observer.erl -text
+/tests/Runtime/Erlang.NativeGc.Observations/Resources/NativeAppend206/original-deterministic.etf -text
+/tests/Runtime/Erlang.NativeGc.Observations/Resources/NativeAppend206/original.etf -text
+/tests/Runtime/Erlang.NativeGc.Observations/Resources/NativeAppend206/provenance.json -text
+/tests/Runtime/Erlang.NativeGc.Observations/Resources/NativeRecordDefaults313/Consumer.beam -text
+/tests/Runtime/Erlang.NativeGc.Observations/Resources/NativeRecordDefaults313/FieldObserver331.beam -text
+/tests/Runtime/Erlang.NativeGc.Observations/Resources/NativeRecordDefaults313/FieldOriginal331.etf -text
+/tests/Runtime/Erlang.NativeGc.Observations/Resources/NativeRecordDefaults313/FieldProvenance331.json -text
+/tests/Runtime/Erlang.NativeGc.Observations/Resources/NativeRecordDefaults313/FieldWorker331.beam -text
+/tests/Runtime/Erlang.NativeGc.Observations/Resources/NativeRecordDefaults313/Original.etf -text
+/tests/Runtime/Erlang.NativeGc.Observations/Resources/NativeRecordDefaults313/OwnerV1.beam -text
+/tests/Runtime/Erlang.NativeGc.Observations/Resources/NativeRecordDefaults313/OwnerV2.beam -text
+/tests/Runtime/Erlang.NativeGc.Observations/Resources/NativeRecordDefaults313/Provenance.json -text
+/tests/Runtime/Erlang.NativeGc.Observations/Resources/RegisterCapacity273/register_capacity273_boundary.S -text
+/tests/Runtime/Erlang.NativeGc.Observations/Resources/RegisterCapacity273/register_capacity273_live.S -text
+/tests/Runtime/Erlang.NativeGc.Observations/Resources/RegisterCapacity273/register_capacity273_observer.erl -text
+/tests/Runtime/Erlang.NativeGc.Observations/Resources/RegisterCapacity273/register_capacity273_wide.S -text
+/tests/Erlang.Tests/Resources/NumericContract487/InlineInteger360Disassembly.term -text
+/tests/Erlang.Tests/Resources/NumericContract487/InlineInteger360Original.etf -text
+/tests/Erlang.Tests/Resources/NumericContract487/InlineInteger360Provenance.json -text
+/tests/Erlang.Tests/Resources/NumericContract487/InlineInteger360V1.S -text
+/tests/Erlang.Tests/Resources/NumericContract487/InlineInteger360V1.beam -text
+/tests/Erlang.Tests/Resources/NumericContract487/InlineInteger360V2.S -text
+/tests/Erlang.Tests/Resources/NumericContract487/InlineInteger360V2.beam -text
+
+# Exact final NativeGC825 metadata transport; preserve all previous rules.
+/docs/validation/native-gc825/monitor645-final414-source.json -text
+
+# Exact final NativeGC825 metadata transport; preserve all previous rules.
+/docs/validation/native-gc825/monitor645-final422-source.json -text
+/tests/Erlang.Tests/Resources/Beam/beam_fixture_closure.beam -text
+
+# Exact final NativeGC825 metadata transport; preserve all previous rules.
+/docs/validation/native-gc825/monitor645-final451-source.json -text
+
+# Exact final NativeGC825 metadata transport; preserve all previous rules.
+/docs/validation/native-gc825/monitor645-final457-source.json -text
+
+# Exact final NativeGC825 metadata transport; preserve all previous rules.
+/docs/validation/native-gc825/monitor645-final460-source.json -text
+
+# Exact final NativeGC825 metadata transport; preserve all previous rules.
+/docs/validation/native-gc825/monitor645-final507-source.json -text

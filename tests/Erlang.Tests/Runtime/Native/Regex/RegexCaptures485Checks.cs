@@ -37,18 +37,22 @@ internal static class RegexCaptures485Checks
         try
         {
             engine = await RuntimeNativePrimitiveProviders.RegisterRegexAsync411(runtime, runtime.Modules, RegexNative411Access.Admission());
-            await runtime.InitializeModulesAsync(registry =>
-            {
-                Erlang.Otp.OtpModules.Register(registry);
-                var dependencies = new BeamDependencySelection(RegexThreeOriginal413Names.OriginalModules.Concat(Modules).Append(RegexCaptures485Names.Erlang));
-                PreparedBeamImage[] images = Modules.Select(name => registry.PrepareBeam(Read(name + Beam), dependencies)).ToArray();
-                if (registry.PublishPreparedBeam(images).Status != BeamPublicationStatus.Published)
-                    throw new InvalidOperationException(Failure);
-                foreach (PreparedBeamImage image in images)
-                    foreach (var export in registry.Exports.Where(export => export.Module == image.Name))
-                        if (!ReferenceEquals(registry.SourceOwner(export.Module, export.Function, export.Arity), image))
-                            throw new InvalidOperationException(Failure);
-            });
+            await runtime.InitializeModulesAsync(Erlang.Otp.OtpModules.Register);
+            var dependencies = new BeamDependencySelection(RegexThreeOriginal413Names.OriginalModules.Concat(Modules).Append(RegexCaptures485Names.Erlang));
+            await PreparedBeamFixtureImages825.PrepareAndPublishAsync(
+                runtime,
+                Modules.Select(name => Read(name + Beam)),
+                dependencies,
+                (registry, images) =>
+                {
+                    if (registry.PublishPreparedBeam(images).Status != BeamPublicationStatus.Published)
+                        throw new InvalidOperationException(Failure);
+                    foreach (PreparedBeamImage image in images)
+                        foreach (var export in registry.Exports.Where(export => export.Module == image.Name))
+                            if (!ReferenceEquals(registry.SourceOwner(export.Module, export.Function, export.Arity), image))
+                                throw new InvalidOperationException(Failure);
+                }
+            );
             for (int index = 1; index <= Count; index++)
             {
                 int current = index;

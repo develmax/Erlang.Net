@@ -28,15 +28,18 @@ internal static class BinaryOwned512Checks
         )!;
         BitString slice = binary.SliceBits(512, 1024);
         Check(ReferenceEquals(Backing(binary), Backing(slice)));
+        // AllocateBinaryInto512 deliberately returns a portable shared backing.
+        // Keep this512 provider test on its real non-copying local-root API;
+        // Set now performs native adoption, which is a separate contract.
         Call(
             frameA,
-            Set,
+            SetLocal,
             slotA,
             binary
         );
         Call(
             frameB,
-            Set,
+            SetLocal,
             slotB,
             Term.Tuple(slice, slice)
         );
@@ -72,7 +75,26 @@ internal static class BinaryOwned512Checks
             1,
             (context, arguments) =>
         {
-            Check(arguments[0] is BitString value && ReferenceEquals(Backing(value), Backing(binary)));
+            Check(arguments[0] is BitString value && value.Equals(binary)
+                && Property(Call(value, Capture)!, NativeIdentity) is null);
+            // Public opaque callbacks receive a detached Host value. Inspect
+            // the genuine Source dictionary cell separately for native custody.
+            object dictionary = context.Dictionary;
+            object dictionaryGate = dictionary.GetType().GetField(DictionaryGate, Members)!.GetValue(dictionary)!;
+            TupleTerm retained;
+            lock (dictionaryGate)
+            {
+                var data = (Dictionary<Term, Term>)dictionary.GetType().GetField(DictionaryData, Members)!.GetValue(dictionary)!;
+                retained = (TupleTerm)data[Term.A(DictionaryKey)];
+            }
+            // This real actor's synchronous callback leaves the dictionary
+            // entry rooted. Drop its metadata gate before native tuple reads,
+            // which enter the actual process heap gate.
+            Check(retained.Items.Count == 2 && retained.Items[0] is BitString
+                && ReferenceEquals(retained.Items[0], retained.Items[1]));
+            var guest = (BitString)retained.Items[0];
+            Check(guest.Equals(binary) && Property(Call(guest, Capture)!, NativeIdentity) is not null
+                && !ReferenceEquals(Backing(guest), Backing((BitString)arguments[0])));
             Check((long)Property(Property(Property(context, Heap), BinarySnapshot), ReferenceBytes) == PayloadBytes);
             observed = true;
 
@@ -87,9 +109,24 @@ internal static class BinaryOwned512Checks
                 Run,
                 binary
             ));
-        Check(observed && result is TupleTerm tuple && ReferenceEquals(Backing((BitString)tuple.Items[0]), Backing(binary)));
         ProcessContext owner = await actor.Ready;
         object heap = Property(owner, Heap);
+        Check(observed && result is TupleTerm { Items.Count: 2 });
+        // copy_struct deliberately copies each boxed occurrence on Host escape.
+        // Source dictionary B/B aliasing was checked above against actual native
+        // cells; returned CLR wrappers need not retain that reference identity.
+        foreach (Term returned in ((TupleTerm)result).Items)
+        {
+            Check(returned is BitString);
+            var actual = (BitString)returned;
+            object payload = Call(actual, Capture)!;
+            Check(actual.BitLength == binary.BitLength
+                && actual.ToArray().AsSpan().SequenceEqual(binary.ToArray()));
+            Check(Property(payload, NativeIdentity) is null
+                && (bool)Property(payload, ReferenceCounted)
+                && (long)Property(payload, CapacityBytes) == PayloadBytes);
+            Check(heap.GetType().GetMethod(Storage, Static)!.Invoke(null, [actual]) is null);
+        }
         Call(heap, Collect);
         Check((long)Property(Total(runtime), ReferenceBytes) == 0);
         using var frame = (IDisposable)Call(heap, Enter)!;
@@ -100,6 +137,9 @@ internal static class BinaryOwned512Checks
             slot,
             binary
         );
+        var previous = (BitString)Call(frame, Read, slot)!;
+        Check(previous.Equals(binary) && Property(Call(previous, Capture)!, NativeIdentity) is not null);
+        object previousBacking = Backing(previous);
         object mirror = frame.GetType().GetField(BinaryRootsField, Members)!.GetValue(frame)!;
         using (var publication = (IDisposable)Call(
             mirror,
@@ -109,7 +149,9 @@ internal static class BinaryOwned512Checks
         )!)
             Check((int)Property(Total(runtime), Distinct) == 2);
         Check((int)Property(Total(runtime), Distinct) == 1);
-        Check(ReferenceEquals(Backing((BitString)Call(frame, Read, slot)!), Backing(binary)));
+        Check(ReferenceEquals(Call(frame, Read, slot), previous)
+            && ReferenceEquals(Backing((BitString)Call(frame, Read, slot)!), previousBacking)
+            && previous.Equals(binary));
         Call(frame, Clear, slot);
         Check((long)Property(Total(runtime), ReferenceBytes) == 0);
     }

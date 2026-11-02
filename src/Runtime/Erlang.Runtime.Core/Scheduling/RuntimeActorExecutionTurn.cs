@@ -11,6 +11,11 @@ internal static class RuntimeActorExecutionTurn
 
     internal static int LaneIdentity => laneIdentity;
 
+    // The existing thread-owned actor turn is the only initial execution seam.
+    // This does not install a turn or derive authority from an AsyncLocal value.
+    internal static ProcessContext? CurrentLiteralContext801(ProcessRuntime runtime)
+        => owner is not null && ReferenceEquals(owner.Runtime, runtime) ? owner : null;
+
     internal static bool IsRuntime(ProcessRuntime runtime) => owner is not null && ReferenceEquals(owner.Runtime, runtime);
 
     internal static bool IsOwnedBy(ProcessContext context) => ReferenceEquals(owner, context);

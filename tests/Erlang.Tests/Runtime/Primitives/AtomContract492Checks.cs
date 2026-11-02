@@ -5,7 +5,7 @@ namespace Erlang.Tests;
 
 internal static class AtomContract492Checks
 {
-    internal static Task Run((string Group, string Subject, int Values, int Profiles) group)
+    internal static async Task Run((string Group, string Subject, int Values, int Profiles) group)
     {
         byte[] manifest = Resource(AtomContract492Names.Manifest);
         if (Convert.ToHexString(SHA256.HashData(manifest)) != AtomContract492Names.ManifestSha256)
@@ -13,7 +13,7 @@ internal static class AtomContract492Checks
         var digests = JsonSerializer.Deserialize<Dictionary<string, string>>(manifest)
             ?? throw new InvalidDataException(AtomContract492Names.Failure);
 
-        return BeamOrdsetsCoreHostChecks.RunSubject(
+        await BeamOrdsetsCoreHostChecks.RunSubject(
             group.Subject,
             name => Read(
                 name,
@@ -25,6 +25,8 @@ internal static class AtomContract492Checks
             group.Profiles,
             group.Group == AtomContract492Names.IdentityGroup ? DebugSame420HostAccess.Initialize : null
         );
+        if (group.Group == AtomContract492Names.IdentityGroup)
+            await VmConstantPool357Checks.Run();
     }
 
     private static byte[] Read(

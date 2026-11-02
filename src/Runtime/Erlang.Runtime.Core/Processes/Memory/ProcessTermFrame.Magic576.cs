@@ -33,6 +33,22 @@ internal sealed partial class ProcessTermFrame506
         }
         try
         {
+            constructionCustody514?.RollbackFunctions();
+        }
+        catch (Exception error)
+        {
+            failure = failure is null ? error : new AggregateException(failure, error);
+        }
+        try
+        {
+            ClearLiteralRoots801();
+        }
+        catch (Exception error)
+        {
+            failure = failure is null ? error : new AggregateException(failure, error);
+        }
+        try
+        {
             owner.Release(this);
         }
         catch (Exception error)

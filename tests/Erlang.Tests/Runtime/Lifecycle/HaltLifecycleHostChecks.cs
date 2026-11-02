@@ -93,7 +93,7 @@ internal static class HaltLifecycleHostChecks
         Throws<ObjectDisposedException>(() => runtime.Spawn(context => ValueTask.FromResult<Term>(Nil.Value)));
         Throws<ObjectDisposedException>(() => runtime.Send(process.Pid, Nil.Value));
         Throws<ObjectDisposedException>(() => runtime.InitializeModulesAsync(_ => Interlocked.Increment(ref continuations)));
-        Throws<ProcessHaltTransfer>(() => runtime.Modules.Call(caller!, HaltLifecycleHostNames.Module, HaltLifecycleHostNames.Continuation));
+        Throws<ProcessHaltTransfer>(() => runtime.Modules.Call(caller!, HaltLifecycleHostNames.Module, HaltLifecycleHostNames.Continuation).GetAwaiter().GetResult());
         Require(continuations == 0);
         Term? survived = null;
         ProcessHandle live = survivor.Spawn(async context =>

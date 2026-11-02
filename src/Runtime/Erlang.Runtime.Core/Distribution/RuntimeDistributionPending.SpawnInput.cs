@@ -6,11 +6,12 @@ public sealed partial class RuntimeDistributionPending
         RuntimeDistributionPendingEntry entry,
         DistributionConnectedEntry connected,
         TupleTerm control,
-        Term arguments
+        Term arguments,
+        PreparedConnectedSpawnInput641 prepared641,
+        PreparedConnectedSpawnOutputs outputs641
     )
     {
-        SequenceTraceToken? requestToken = ((Integer)control.Items[0]).Value == DistributionControlOpcodes.SpawnRequestTrace
-            ? DistributionSequenceTraceToken.Decode(control.Items[DistributionSpawnLayout.RequestTokenIndex]).Token : null;
+        prepared641.RequireToken();
         SequenceTraceToken? replyToken;
         var reference = (ReferenceTerm)control.Items[DistributionSpawnLayout.ReferenceIndex];
         var parent = (Pid)control.Items[DistributionSpawnLayout.ParentIndex];
@@ -32,7 +33,8 @@ public sealed partial class RuntimeDistributionPending
                 arguments,
                 options,
                 control.Items[DistributionSpawnLayout.OptionsIndex],
-                requestToken,
+                prepared641,
+                outputs641,
                 out replyToken
             );
             replyFlags = (options.Link ? DistributionSpawnLayout.LinkFlag : 0) |
@@ -48,7 +50,9 @@ public sealed partial class RuntimeDistributionPending
                 (TupleTerm)control.Items[DistributionSpawnLayout.MfaIndex],
                 control.Items[DistributionSpawnLayout.OptionsIndex],
                 result,
-                requestToken
+                prepared641.Trace641,
+                outputs641.Header,
+                outputs641.Reply
             );
         }
         catch (ErlangException error) when (error.Reason.Equals(Term.A(ErlangErrorReasons.SystemLimit)))
@@ -61,7 +65,9 @@ public sealed partial class RuntimeDistributionPending
                 (TupleTerm)control.Items[DistributionSpawnLayout.MfaIndex],
                 control.Items[DistributionSpawnLayout.OptionsIndex],
                 result,
-                requestToken
+                prepared641.Trace641,
+                outputs641.Header,
+                outputs641.Reply
             );
         }
         // Reserve output under the shared gate before the newly queued actor can emit exit/DOWN.
