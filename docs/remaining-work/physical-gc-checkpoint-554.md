@@ -27,7 +27,8 @@ Separate follow-up checkpoints:
 - [x] Validate formatted NIF source locally: build208 passes all3 projects with identical pre/post source freeze; six-assembly PE audit637 preserves method IL, locals, exception handlers, metadata and managed resources, excluding only MVID/method RVAs and PDB/debug directories. Formatted physical execution320 passes28/28 with4346 unchanged inputs and complete source820 ETF equality. The182/182 native and4/4 admission runs are pre-format results, connected by this PE proof, not silently relabelled fresh formatted executions.
 - [ ] Exercise actual actor-queue factory rejection/fault. The four real actor controls establish cancellation/exit delivery, not that separate fault branch.
 - [x] Complete source672 admission and real Windows Git checkout with core.autocrlf=true:221 required raw paths match, actual13/13 source plans,4739 MFA/native bindings and3921 Resource dependencies pass. Preserve failed65612/13 and earlier transport/proof-wrapper attempts; historical TextLF rows are checked by their declared modes, not relabelled raw.
-- [ ] Publish the separate NIF validation head, then require genuine Linux N1/N2/ENV/582, full exact-head CI and current review before merge and compatibility acceptance.
+- [x] Publish the separate NIF validation candidate24652eed585fdaeb2ef539d0bceaf084a6031447; its private-index tree and active-worktree guards pass. Bootstrap its new CI only on feature/nif-upgrade-555, preserving exact event-head and original-artifact validation.
+- [ ] Complete genuine Linux N1/N2/ENV/582, full exact-head CI and current review before merge and compatibility acceptance.
 
 ### Historical investigation snapshots (531-548; superseded by checkpoint590)
 

@@ -1,5 +1,8 @@
 name: Reviewed integrated Linux NIF cohort
 on:
+  push:
+    branches:
+      - feature/nif-upgrade-555
   workflow_dispatch:
     inputs:
       expected_head:
@@ -21,7 +24,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 60
     env:
-      EXPECTED_HEAD: ${{ inputs.expected_head }}
+      EXPECTED_HEAD: ${{ inputs.expected_head || github.sha }}
       OTP_PIN: ad05823719d77c8faee87348ea39513d4e2f99c5
       ORIGINAL_PLAN: AEBBA0D2DCF97E1248CA38407E8EBE628EB08F9EA4D13F48EC0C83A7A0364E61
       NATIVE_PLAN: 59C77D2037F8E9BF39EDB98EAF924D8F2DA13983CB7D2EE5A141065BFB849226
@@ -679,7 +682,7 @@ jobs:
           python3 -B tools/Native/Erlang.NifIntegratedObservations/integrated.py assets \
             --repository "$GITHUB_WORKSPACE" --expected-head "$EXPECTED_HEAD" \
             --plan tools/Native/Erlang.NifIntegratedObservations/inputs.json --plan-sha256 "$INTEGRATED_PLAN" \
-            --artifact-id "${{ inputs.original_d935_artifact_id }}" \
+            --artifact-id "${{ inputs.original_d935_artifact_id || '13135189737' }}" \
             --output "$GITHUB_WORKSPACE/artifacts/nif-upgrade693/init582-assets"
       - name: Build exact620 driver against shared actual current runtime
         id: init582-build
