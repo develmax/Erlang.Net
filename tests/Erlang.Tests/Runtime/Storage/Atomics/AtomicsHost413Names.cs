@@ -22,4 +22,8 @@ internal static class AtomicsHost413Names
     internal const string DestructorField586 = "Destructor";
     internal const int Natives = 7, Exports = 12, Workers = 4, Iterations = 500;
     internal static readonly TimeSpan Deadline = TimeSpan.FromSeconds(10);
+    internal const string BackingRoot459 = "AtomicsBacking586";
+    internal const string BackingGate459 = "gate";
+    internal const string GuestRoots459 = "guestRoots586";
+    internal const string GarbageCollect459 = "garbage_collect";
 }

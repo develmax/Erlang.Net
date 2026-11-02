@@ -33,10 +33,16 @@ internal static class ReceiveOriginal483Checks
 
     private static string[] Imports => JsonSerializer.Deserialize<string[]>(Read(ImportsResource))!;
 
-    private static void Publish(ModuleRegistry registry, string[] names)
+    private static Task PrepareAndPublish(ProcessRuntime runtime, string[] names)
+        => PreparedBeamFixtureImages825.PrepareAndPublishAsync(
+            runtime,
+            names.Select(Read),
+            new BeamDependencySelection(Imports),
+            Publish
+        );
+
+    private static void Publish(ModuleRegistry registry, PreparedBeamImage[] images)
     {
-        var dependencies = new BeamDependencySelection(Imports);
-        PreparedBeamImage[] images = names.Select(name => registry.PrepareBeam(Read(name), dependencies)).ToArray();
         Require(registry.PublishPreparedBeam(images).Status == BeamPublicationStatus.Published);
         foreach (PreparedBeamImage image in images)
         {
@@ -48,7 +54,7 @@ internal static class ReceiveOriginal483Checks
     internal static async Task Admission(string module)
     {
         await using var runtime = new ProcessRuntime();
-        await runtime.InitializeModulesAsync(registry => Publish(registry, [module + ".beam"]));
+        await PrepareAndPublish(runtime, [module + ".beam"]);
     }
 
     internal static Task Capture() => Capture(
@@ -68,7 +74,7 @@ internal static class ReceiveOriginal483Checks
     )
     {
         await using var runtime = new ProcessRuntime();
-        await runtime.InitializeModulesAsync(registry => Publish(registry, imageNames));
+        await PrepareAndPublish(runtime, imageNames);
         var completed = new TaskCompletionSource<Term>(TaskCreationOptions.RunContinuationsAsynchronously);
         var actor = runtime.Spawn(async context =>
         {

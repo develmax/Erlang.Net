@@ -9,6 +9,14 @@ internal static class BinaryOwned512Names
     internal const string Allocate = "AllocateBinaryInto512";
     internal const string Enter = "Enter";
     internal const string Reserve = "Reserve";
+    internal const string SetLocal = "SetLocalGraph507";
+    internal const string NativeIdentity = "NativeIdentity524";
+    internal const string CapacityBytes = "CapacityBytes";
+    internal const string ReferenceCounted = "ReferenceCounted";
+    internal const string Storage = "Storage";
+    internal const string DictionaryGate = "gate";
+    internal const string DictionaryData = "data";
+    internal const string DictionaryKey = "binary_root512";
     internal const string Set = "Set";
     internal const string Read = "Read";
     internal const string Clear = "Clear";

@@ -83,7 +83,15 @@ internal static class EtfHostChecks
                                 EtfCheckDiagnostics.Size
                             );
                             if (compression == 0 && !local && (ReferenceEquals(value, original) || ReferenceEquals(value, function)))
-                                Require(fragments.Any(fragment => ReferenceEquals(fragment, original)), EtfCheckDiagnostics.BorrowedBinary);
+                            {
+                                // A public make/1 call may detach its captured input.
+                                // ETF must borrow the actual supplied function environment,
+                                // while direct binary input must retain its exact original.
+                                BitString expectedBorrowed = ReferenceEquals(value, function)
+                                    ? (BitString)function.Environment[0] : original;
+                                Require(expectedBorrowed.Equals(original), EtfCheckDiagnostics.BorrowedBinary);
+                                Require(fragments.Any(fragment => ReferenceEquals(fragment, expectedBorrowed)), EtfCheckDiagnostics.BorrowedBinary);
+                            }
                             foreach (BitString fragment in fragments)
                             {
                                 byte[] copy = fragment.ToArray();

@@ -4,15 +4,22 @@ namespace Erlang;
 // never requests the map owner, identity provider, lookup or comparison plan.
 internal static class NativeMapOwnedRoots510
 {
+    internal static NativeTermChildren542 SnapshotChildren542(Term value)
+        => value is Cons list
+            ? new NativeTermChildren542(list.Head, list.Tail)
+            : new NativeTermChildren542(Children(value));
+
     internal static Term[] Children(Term value)
     {
+        if (value is NativeRecordTerm { OwnedRecordStorage: { } recordStorage } record)
+            return [recordStorage.ReadRecordDefinition(), .. record.Values];
         if (value is BitString { ResourceSliceOrigin577: { } origin })
             return [origin];
         if (value is not MapTerm map)
-            return new DebugDirtyCopyFrame424(value).Children;
+            return DebugDirtyCopyFrame424.ReadChildren(value);
         if (!NativeMapMaterialization505.TryRead(map, null, out var layout))
         {
-            Term[] children = new DebugDirtyCopyFrame424(value).Children;
+            Term[] children = DebugDirtyCopyFrame424.ReadChildren(value);
 
             return map.FlatKeys426 is { } flatKeys ? [.. children, flatKeys] : children;
         }

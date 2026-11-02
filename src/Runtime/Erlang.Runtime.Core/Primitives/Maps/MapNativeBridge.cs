@@ -10,7 +10,7 @@ internal static class MapNativeBridge
             2,
             (_, arguments) => ValueTask.FromResult<Term>(Term.I(Math.Sign(TermOrder.Compare(arguments[0], arguments[1], true))))
         );
-        registry.Register(
+        registry.RegisterReviewedManagedLibrary789(
             MapNativeBridgeNames.Module,
             MapNativeBridgeNames.Next,
             3,

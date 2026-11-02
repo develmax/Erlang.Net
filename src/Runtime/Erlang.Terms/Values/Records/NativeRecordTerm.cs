@@ -2,15 +2,24 @@ namespace Erlang;
 
 public sealed class NativeRecordTerm : Term
 {
-    public Atom Module { get; }
+    private readonly Atom? portableModule;
+    private readonly Atom? portableName;
+    private readonly bool portableExported;
+    private readonly IReadOnlyList<Atom>? portableFieldNames;
+    private readonly IReadOnlyList<Term>? portableValues;
+    internal IOwnedNativeRecordStorage? OwnedRecordStorage { get; }
 
-    public Atom Name { get; }
+    public Atom Module => OwnedRecordStorage?.ReadRecordModule() ?? portableModule!;
 
-    public bool IsExported { get; }
+    public Atom Name => OwnedRecordStorage?.ReadRecordName() ?? portableName!;
 
-    public IReadOnlyList<Atom> FieldNames { get; }
+    public bool IsExported => OwnedRecordStorage?.ReadRecordExported() ?? portableExported;
 
-    public IReadOnlyList<Term> Values { get; }
+    public IReadOnlyList<Atom> FieldNames => OwnedRecordStorage?.ReadRecordFieldNames() ?? portableFieldNames!;
+
+    public IReadOnlyList<Term> Values => OwnedRecordStorage?.ReadRecordValues() ?? portableValues!;
+
+    internal NativeRecordTerm(IOwnedNativeRecordStorage storage) => OwnedRecordStorage = storage;
 
     public NativeRecordTerm(
         Atom module,
@@ -22,11 +31,11 @@ public sealed class NativeRecordTerm : Term
         var snapshot = fields.ToArray();
         if (snapshot.Select(field => field.Key).Distinct().Count() != snapshot.Length)
             throw new ErlangException(ErlangErrorReasons.BadArgument);
-        Module = module;
-        Name = name;
-        IsExported = isExported;
-        FieldNames = Array.AsReadOnly(snapshot.Select(field => field.Key).ToArray());
-        Values = Array.AsReadOnly(snapshot.Select(field => field.Value).ToArray());
+        portableModule = module;
+        portableName = name;
+        portableExported = isExported;
+        portableFieldNames = Array.AsReadOnly(snapshot.Select(field => field.Key).ToArray());
+        portableValues = Array.AsReadOnly(snapshot.Select(field => field.Value).ToArray());
     }
 
     public override string ToString() => NativeRecordSyntax.Prefix + Module + NativeRecordSyntax.ModuleSeparator + Name +

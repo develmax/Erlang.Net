@@ -37,7 +37,8 @@ internal static class QueueHigherTrace
         string helper,
         int arity,
         int line,
-        IReadOnlyList<QueueHigherFrame> pending
+        IReadOnlyList<QueueHigherFrame> pending,
+        bool guest507 = false
     )
     {
         await context.ChargeAsync(0);
@@ -57,7 +58,9 @@ internal static class QueueHigherTrace
         );
         try
         {
-            return await callback.Invoke(context, arguments);
+            return guest507
+                ? await context.InvokeGuestFunction507(callback, arguments)
+                : await callback.Invoke(context, arguments);
         }
         catch (ErlangException error)
         {

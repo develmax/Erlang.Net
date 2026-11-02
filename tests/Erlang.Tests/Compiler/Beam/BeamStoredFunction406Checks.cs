@@ -203,7 +203,8 @@ internal static class BeamStoredFunction406Checks
             BeamClosureHostNames.Make,
             environment
         );
-        object binding = BeamStoredFunction406Access.CallFactory(BeamStoredFunction406Names.CaptureBinding, context.Runtime, function);
+        function = BeamStoredFunction406Access.RebindEnvironment521(context.Runtime, function, environment);
+        _ = BeamStoredFunction406Access.CallFactory(BeamStoredFunction406Names.CaptureBinding, context.Runtime, function);
         long slot = EtsFoundation405Access.Store(
             store,
             context,
@@ -211,7 +212,14 @@ internal static class BeamStoredFunction406Checks
             Term.Tuple(function)
         );
 
-        return (new(function), new(environment), new(binding), new(resource), slot);
+        var actualRoots = BeamStoredFunction406Access.StoredRoots515(
+            context.Runtime,
+            store,
+            table,
+            slot
+        );
+
+        return (new(function), new(environment), actualRoots.Binding, actualRoots.Resource, slot);
     }
 
     internal static async Task OriginalImageAndPurge()

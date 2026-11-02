@@ -284,7 +284,7 @@ internal sealed class WindowsPortChildProcess : PortChildProcess
             }
             if (result == WindowsPortParameters.WaitFailed)
                 throw Error();
-            await Task.Delay(WindowsPortParameters.ExitPollMilliseconds);
+            await Task.Delay(WindowsPortParameters.ExitPollMilliseconds).ConfigureAwait(false);
         }
     }
 

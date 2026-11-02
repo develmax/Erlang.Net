@@ -4,11 +4,19 @@ internal static class BeamRegisterValidation
 {
     public static void Validate(BeamLinkedCode code, BeamLinkedFunction entry)
     {
+        PreparedBeamValidationCache.TryGet(code, out PreparedBeamValidationCertificate? certificate);
+        if (certificate?.HasSuccess(entry) == true) return;
+        ValidateCore(code, entry);
+        certificate?.RecordSuccess(entry); // Failures and nonmember aliases are never memoized.
+    }
+
+    private static void ValidateCore(BeamLinkedCode code, BeamLinkedFunction entry, HashSet<int>? visited = null)
+    {
         if (code.Lambdas.Count != 0)
         {
             _ = BeamChecksumReader.Read(code);
         }
-        var visited = new HashSet<int>();
+        visited ??= new HashSet<int>();
         var pending = new Stack<BeamLinkedFunction>();
         pending.Push(entry);
         while (pending.TryPop(out BeamLinkedFunction? function))
@@ -52,6 +60,11 @@ internal static class BeamRegisterValidation
                         for (int field = BeamRecordConstructionNames.FirstField; field < operands.Count; field += BeamRecordConstructionNames.FieldWidth)
                             Source(operands[field + 1]);
                         Destination(operands[BeamRecordConstructionNames.Destination]);
+                        break;
+                    case BeamRecordConstructionNames.GetField:
+                        Branch(code, function, operands[BeamRecordConstructionNames.FieldFailure]);
+                        Source(operands[BeamRecordConstructionNames.FieldSource]);
+                        Destination(operands[BeamRecordConstructionNames.FieldDestination]);
                         break;
                     case BeamCollectionOpcodeNames.UpdateRecord:
                         Source(operands[2]);
@@ -415,7 +428,7 @@ internal static class BeamRegisterValidation
                         _ = BeamExternalImports.Resolve(code, (int)operands[1].Value);
                         break;
                     case BeamLinkNames.GuardBif:
-                        _ = ArithmeticImport(code, (int)operands[2].Value);
+                        _ = GcBinaryImport815(code, (int)operands[2].Value);
                         Branch(code, function, operands[0]);
                         Live(operands[1]);
                         Source(operands[3]);
@@ -445,6 +458,36 @@ internal static class BeamRegisterValidation
         }
     }
 
+    // A single fresh owned preparation phase shares structural traversal only.
+    // It publishes no certificate and cannot be reused after any failed entry.
+    internal sealed class PreparationBatch476
+    {
+        private readonly BeamLinkedCode code;
+        private readonly HashSet<int> visited = new();
+        private bool failed;
+
+        internal PreparationBatch476(BeamLinkedCode code)
+        {
+            this.code = code;
+        }
+
+        internal void Validate(BeamLinkedFunction entry)
+        {
+            if (failed)
+                throw new InvalidOperationException();
+            try
+            {
+                ValidateCore(code, entry, visited);
+            }
+            catch
+            {
+                failed = true;
+                visited.Clear();
+                throw;
+            }
+        }
+    }
+
     public static void SelfImport(BeamLinkedCode code, int index)
     {
         BeamImport import = code.Structure.Imports[index];
@@ -468,6 +511,17 @@ internal static class BeamRegisterValidation
         BeamExternalImport import = BeamExternalImports.Resolve(code, index);
         if (import.Module != ErlangModuleNames.Module || import.Function != ErlangDataBifNames.BinaryPart || import.Arity != 3)
             throw new NotSupportedException(BeamRegisterNames.Unsupported);
+
+        return import;
+    }
+
+    internal static BeamExternalImport GcBinaryImport815(BeamLinkedCode code, int index)
+    {
+        BeamExternalImport import = BeamExternalImports.Resolve(code, index);
+        if (import.Module == ErlangModuleNames.Module && import.Function == ErlangDataBifNames.BinaryPart
+            && import.Arity == 2 && NativeBuiltinCatalog.Contains(import.Module, import.Function, import.Arity))
+            return import;
+        _ = ArithmeticImport(code, index);
 
         return import;
     }

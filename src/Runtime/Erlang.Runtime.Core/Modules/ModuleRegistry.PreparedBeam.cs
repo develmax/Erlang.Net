@@ -7,6 +7,7 @@ public sealed partial class ModuleRegistry
 
     public PreparedBeamImage PrepareBeam(ReadOnlyMemory<byte> bytes, BeamDependencySelection dependencies)
     {
+        using var source = EnterSourceMutation();
         using var atomScope = owningRuntime is null ? null : new AtomNameScope(owningRuntime.AtomNames);
         ArgumentNullException.ThrowIfNull(dependencies);
         byte[] owned = ObservedPayloadStorage.Code(bytes.ToArray());
@@ -15,6 +16,8 @@ public sealed partial class ModuleRegistry
         {
             RegistryModuleDependencies = dependencies.RegistryModules
         };
+        var validatedEntries = new List<BeamLinkedFunction>();
+        var initialValidation476 = new BeamRegisterValidation.PreparationBatch476(code);
         if (owningRuntime is not null)
             foreach (string? atom in code.Structure.Atoms)
                 if (atom is not null)
@@ -22,24 +25,50 @@ public sealed partial class ModuleRegistry
         if (code.OnLoadEntryLabel is int callbackLabel)
         {
             BeamLinkedFunction callback = code.Functions.Single(function => function.EntryLabel == callbackLabel);
-            BeamRegisterValidation.Validate(code, callback);
+            initialValidation476.Validate(callback);
+            validatedEntries.Add(callback);
         }
         BeamPreparedMetadata metadata = BeamPublicationMetadata.Read(code, decoding);
         if (code.OnLoadEntryLabel is not null)
             BeamOnLoadMetadata.RequireSupported(metadata);
         foreach (BeamLinkedFunction function in code.Exports)
             if (!BeamGeneratedMetadata.IsGenerated(code, function))
-                BeamRegisterValidation.Validate(code, function);
+            {
+                initialValidation476.Validate(function);
+                validatedEntries.Add(function);
+            }
 
-        owningRuntime?.MarkPreparedLiterals425(code.Structure.Literals);
-        owningRuntime?.RegisterLoaderMapKeys565(code);
+        ModuleLiteralDomain800? literals800 = null;
+        IReadOnlyList<Term>? recordDefaults313 = null;
+        try
+        {
+            if (owningRuntime is not null)
+            {
+                (code, literals800, recordDefaults313) = PrepareModuleLiteralCode802(owningRuntime, code);
+                // Native literal conversion creates the FINAL code identity.
+                // Validation reads literals, so certify its actual values too.
+                var finalValidation476 = new BeamRegisterValidation.PreparationBatch476(code);
+                foreach (BeamLinkedFunction entry in validatedEntries)
+                    finalValidation476.Validate(entry);
+            }
+            owningRuntime?.MarkPreparedLiterals425(literals800?.Literals800 ?? code.Structure.Literals);
+            owningRuntime?.RegisterLoaderMapKeys565(code);
+            PreparedBeamValidationCache.SealFreshPreparedCode(code, validatedEntries);
 
-        return new PreparedBeamImage(
-            this,
-            code,
-            metadata,
-            Convert.ToHexString(System.Security.Cryptography.SHA256.HashData(owned))
-        );
+            return new PreparedBeamImage(
+                this,
+                code,
+                metadata,
+                Convert.ToHexString(System.Security.Cryptography.SHA256.HashData(owned)),
+                literals800,
+                recordDefaults313
+            );
+        }
+        catch
+        {
+            _ = literals800?.CloseCodeOwner800();
+            throw;
+        }
     }
 
     public BeamPublicationResult PublishPreparedBeam(params PreparedBeamImage[] images)
@@ -56,6 +85,7 @@ public sealed partial class ModuleRegistry
                 ArgumentNullException.ThrowIfNull(image);
                 if (!ReferenceEquals(image.Owner, this))
                     throw new ArgumentException(BeamPreparationNames.ForeignImage, nameof(images));
+                if (image.Disposed800) throw new ObjectDisposedException(nameof(PreparedBeamImage));
                 if (image.Consumed)
                     throw new InvalidOperationException(BeamPreparationNames.ConsumedImage);
                 if (image.HasOnLoad)
@@ -63,6 +93,7 @@ public sealed partial class ModuleRegistry
                 if (pendingBeamImages.ContainsKey(image.Name))
                     throw new InvalidOperationException(BeamOnLoadDiagnostics.BusyModule);
             }
+            using PreparedLoaderImageReservations807 nativePreparations = ReservePreparedImagesUnderGate807(owned);
             var seen = new HashSet<string>(StringComparer.Ordinal);
             string[] duplicates = owned.Where(image => !seen.Add(image.Name)).Select(image => image.Name).Reverse().ToArray();
             if (duplicates.Length != 0)
@@ -95,7 +126,10 @@ public sealed partial class ModuleRegistry
                 }
             });
             foreach (PreparedBeamImage image in owned)
+            {
                 image.Consumed = true;
+                PreparedLoaderImageConsumed807(image);
+            }
 
             return new(BeamPublicationStatus.Published, Array.AsReadOnly(owned.Select(image => image.Name).ToArray()));
         }

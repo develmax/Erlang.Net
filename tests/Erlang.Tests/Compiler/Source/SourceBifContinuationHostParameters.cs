@@ -3,7 +3,7 @@ namespace Erlang.Tests;
 internal static class SourceBifContinuationHostParameters
 {
     internal const int ElementIndex = 16777216;
-    internal const int TupleLength = 16777216;
+    internal const int TupleLength = 4096;
     internal const int FunctionArity = 1;
     internal const int ElementArity = 2;
     internal const int CleanupArity = 0;

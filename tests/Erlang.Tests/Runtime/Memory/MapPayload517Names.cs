@@ -2,6 +2,7 @@ namespace Erlang.Tests;
 
 internal static class MapPayload517Names
 {
+    internal const string CanonicalEmptyTuple377 = "IsEmptyTuple803";
     internal const string FlatTest = "runtime/map517/flat-occurrence-custody";
     internal const string HamtTest = "runtime/map517/hamt-node-custody";
     internal const string RawTest = "runtime/map517/raw-interior-subtree-retention";

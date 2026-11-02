@@ -266,8 +266,10 @@ public sealed partial class Mailbox
                 try
                 {
                     long suspended = SuspensionTime?.Invoke() ?? 0;
+                    if (admission593 is not null)
+                        await admission593.ResumeExecution();
                     guest593 = admission593?.Prepare(candidate.Value, candidate.Custody593?.Graph);
-                    Term candidateValue593 = guest593?.Value ?? OpaqueCandidate593(candidate.Value);
+                    Term candidateValue593 = guest593?.Value ?? OpaqueCandidateWithCustody292(candidate.Value, candidate.Custody593, operation593);
                     if (admission593 is null)
                     {
                         operation593?.Dispose();

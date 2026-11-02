@@ -34,7 +34,7 @@ public sealed partial class Mailbox
         ArgumentOutOfRangeException.ThrowIfNegativeOrZero(budget);
         var admitted = new List<(Term Message, Term? From)>();
         int processed = 0;
-        bool deferred = false, remaining;
+        bool deferred = false, backing = false, remaining;
         lock (gate)
         {
             if (Volatile.Read(ref closed593) || HaltRequested?.Invoke() == true) return new(0, false, false);
@@ -42,6 +42,11 @@ public sealed partial class Mailbox
             while (processed < budget && pendingSignals428.First is { } index)
             {
                 var node = index.Value;
+                if (node.Value.PendingBacking)
+                {
+                    backing = true;
+                    break;
+                }
                 if (node.Value.Deferred)
                 {
                     deferred = true;
@@ -84,7 +89,7 @@ public sealed partial class Mailbox
         }
         foreach (var item in admitted) MessageAdmitted?.Invoke(item.Message, item.From);
 
-        return new(processed, deferred, remaining);
+        return new(processed, deferred, remaining) { PendingBacking = backing };
     }
 
     internal MailboxDeferredPreparation? ClaimDeferredBounded428()

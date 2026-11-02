@@ -15,7 +15,16 @@ internal sealed class ProcessInfoSnapshot601 : IDisposable
         if (Messages?.Failure is { } messageFailure) ExceptionDispatchInfo.Capture(messageFailure).Throw();
     }
 
+    internal ModuleLiteralRoots801? RetainLiteralRoots801() => Messages?.RetainLiteralRoots801();
+
     internal Term Complete(ProcessRuntime runtime, ProcessContext? requester)
+        => CompleteWithLiteral801(runtime, requester, null);
+
+    internal Term CompleteWithLiteral801(
+        ProcessRuntime runtime,
+        ProcessContext? requester,
+        ModuleLiteralRoots801? carriedLiteral801
+    )
     {
         RequireSuccess();
         OwnedTermInvocation506? active = OwnedTermInvocation506.Active;
@@ -24,17 +33,30 @@ internal sealed class ProcessInfoSnapshot601 : IDisposable
             && ReferenceEquals(requester.CurrentOwned506, active)
             && active.BindingKind507 == OwnedBindingKind507.RuntimeRead535
             && RuntimeActorExecutionTurn.IsOwnedBy(requester))
-            return active.Frame.AdoptGuestInto507(active.ResultSlot507, Value);
+        {
+            // The actual snapshot interests stay held through cross-process
+            // import. Target fragments are not requester-local guest roots.
+            using ModuleLiteralRoots801? capturedLiteral801 = RetainLiteralRoots801();
+            using ModuleLiteralRoots801? combinedLiteral801 = ModuleLiteralRoots801.RetainCombined801(
+                [capturedLiteral801, carriedLiteral801]);
+
+            return MailboxValueEscape.ImportGuestWithLiteral801(
+                runtime,
+                active.Frame,
+                Value,
+                combinedLiteral801
+            );
+        }
 
         // Ordinary snapshots already contain portable values. Avoid changing
         // public callback/term identity through an unnecessary whole-graph copy.
-        if (!ResourceHostCopy611.Requires(Value)) return Value;
+        if (!MailboxValueEscape.RequiresDetach(Value)) return Value;
 
         return AtomicsHostAggregate594.Publish(transaction =>
         {
             Term Export(Term value)
             {
-                if (!ResourceHostCopy611.Requires(value)) return value;
+                if (!MailboxValueEscape.RequiresDetach(value)) return value;
                 Term portable = OwnedTermDetachedCopy506.CopyAtomics586(
                     runtime,
                     value,
@@ -53,7 +75,7 @@ internal sealed class ProcessInfoSnapshot601 : IDisposable
                 if (field is TupleTerm { Items.Count: 2 } pair
                     && pair.Items[0] is Atom { Name: ProcessInfoNames.Messages })
                 {
-                    if (!ResourceHostCopy611.Requires(pair.Items[1])) return pair;
+                    if (!MailboxValueEscape.RequiresDetach(pair.Items[1])) return pair;
 
                     return Term.Tuple(pair.Items[0], Cons.From(Cons.Items(pair.Items[1]).Select(Export)));
                 }

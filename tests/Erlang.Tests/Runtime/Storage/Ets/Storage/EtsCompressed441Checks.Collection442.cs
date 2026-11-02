@@ -54,28 +54,32 @@ internal static partial class EtsCompressed441Checks
             BeamClosureHostNames.Make,
             environment
         );
-        object binding = BeamStoredFunction406Access.CallFactory(BeamStoredFunction406Names.CaptureBinding, context.Runtime, function);
-        await Call(
-            context.Runtime,
+        function = BeamStoredFunction406Access.RebindEnvironment521(context.Runtime, function, environment);
+        _ = BeamStoredFunction406Access.CallFactory(BeamStoredFunction406Names.CaptureBinding, context.Runtime, function);
+        // Observe the storage kernel before a public copy_struct boundary.
+        await (ValueTask<Term>)EtsFoundation405Access.Invoke(
+            EtsFoundation405Access.Get(context.Runtime),
+            EtsKeyKernel407Names.Insert,
             context,
-            EtsCompressed441Names.Insert,
             table,
             Term.Tuple(function, Term.I(EtsCompressed441Names.KeyField))
-        );
+        )!;
 
-        return (new(function), new(environment), new(binding), new(resource));
+        var actualRoots = BeamStoredFunction406Access.StoredRoots515(context.Runtime, EtsFoundation405Access.Get(context.Runtime), table);
+
+        return (new(function), new(environment), actualRoots.Binding, actualRoots.Resource);
     }
 
     [MethodImpl(MethodImplOptions.NoInlining)]
     private static async Task<bool> ReadDetached442(ProcessContext context, Term table)
     {
-        var rows = (Cons)await Call(
-            context.Runtime,
+        var rows = (Cons)EtsFoundation405Access.Invoke(
+            EtsFoundation405Access.Get(context.Runtime),
+            EtsKeyKernel407Names.Lookup,
             context,
-            EtsCompressed441Names.Lookup,
             table,
             Term.I(EtsCompressed441Names.KeyField)
-        );
+        )!;
         var function = (FunctionTerm)((TupleTerm)rows.Head).Items[EtsCompressed441Names.ValueField - 1];
         var environment = (TupleTerm)function.Environment.Single();
         Require(ReferenceEquals(environment.Items[0], environment.Items[1]));

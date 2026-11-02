@@ -45,44 +45,94 @@ public sealed partial class ProcessRuntime
         }
         try
         {
-            lock (gate)
+            var description = SequenceSpawnDescription.Module(
+                Term.A(SystemTaskNames428.HandlerModule),
+                Term.A(SystemTaskNames428.Start),
+                Nil.Value,
+                Nil.Value
+            );
+            while (true)
             {
-                int index = 0;
-                foreach (var slot in dirtySystemHandlers428)
+                // Trace/native custody preparation must precede R. The existing
+                // batch predicts consecutive spawn previews without mutating them.
+                var cleanupFailures = new List<Exception>(checked(dirtySystemHandlers428.Length + 1));
+                PreparedLocalSpawnTrace641[] preparedTraces = SequenceTracing.PrepareLocalSpawnBatch641(
+                    parent,
+                    description,
+                    dirtySystemHandlers428.Length
+                );
+                Exception? primary = null;
+                try
                 {
-                    var selected = slot;
-                    ProcessHandle handle = SpawnTraced(
-                        async child =>
+                    lock (gate)
                     {
-                        lock (gate)
+                        ObjectDisposedException.ThrowIf(disposed, this);
+                        ThrowIfHalted();
+                        if (systemTasksClosed428 || dirtySystemHandlers428.Any(slot =>
+                            !ReferenceEquals(slot.Reservation, reservation) || !ReferenceEquals(slot.Source, image)))
+                            throw new InvalidOperationException(SystemTaskNames428.RoleConflict);
+                        if (!preparedTraces[0].IsCurrent() || preparedTraces.Any(trace => !trace.AreOutputPlansCurrent()))
+                            continue;
+                        int index = 0;
+                        foreach (var slot in dirtySystemHandlers428)
                         {
-                            if (systemTasksClosed428 || !ReferenceEquals(selected.Reservation, reservation)
-                                || !ReferenceEquals(selected.Actor, child))
-                                throw new InvalidOperationException(SystemTaskNames428.Startup);
-                        }
+                            var selected = slot;
+                            ProcessHandle handle = SpawnTraced(
+                                async child =>
+                            {
+                                lock (gate)
+                                {
+                                    if (systemTasksClosed428 || !ReferenceEquals(selected.Reservation, reservation)
+                                        || !ReferenceEquals(selected.Actor, child))
+                                        throw new InvalidOperationException(SystemTaskNames428.Startup);
+                                }
 
-                        return await BeamRegisterInterpreter.Execute(
-                            child,
-                            image.Code,
-                            SystemTaskNames428.Start,
-                            [],
-                            image.ExecutionIdentity
-                        );
-                    },
-                        parent,
-                        false,
-                        SequenceSpawnDescription.Module(
-                            Term.A(SystemTaskNames428.HandlerModule),
-                            Term.A(SystemTaskNames428.Start),
-                            Nil.Value,
-                            Nil.Value
-                        ),
-                        initialPriority: selected.Priority,
-                        systemProcess: true,
-                        initialMessageQueueData: ProcessMessageQueueDataMode411.OffHeap
-                    );
-                    selected.Actor = processes[handle.Pid];
-                    started[index++] = selected.Actor;
+                                return await BeamRegisterInterpreter.Execute(
+                                    child,
+                                    image.Code,
+                                    SystemTaskNames428.Start,
+                                    [],
+                                    image.ExecutionIdentity
+                                );
+                            },
+                                parent,
+                                false,
+                                description,
+                                initialPriority: selected.Priority,
+                                systemProcess: true,
+                                initialMessageQueueData: ProcessMessageQueueDataMode411.OffHeap,
+                                preparedTrace641: preparedTraces[index]
+                            );
+                            selected.Actor = processes[handle.Pid];
+                            started[index++] = selected.Actor;
+                        }
+                    }
+
+                    return;
+                }
+                catch (Exception error)
+                {
+                    primary = error;
+                    throw;
+                }
+                finally
+                {
+                    // Every output/transport owner is released outside R, also
+                    // on stale-preview retries or a partially spawned set.
+                    foreach (PreparedLocalSpawnTrace641 trace in preparedTraces)
+                        try
+                        {
+                            trace.Dispose();
+                        }
+                        catch (Exception cleanup)
+                        {
+                            cleanupFailures.Add(cleanup);
+                        }
+                    if (cleanupFailures.Count != 0)
+                    {
+                        if (primary is not null) cleanupFailures.Insert(0, primary);
+                        throw new AggregateException(cleanupFailures);
+                    }
                 }
             }
         }

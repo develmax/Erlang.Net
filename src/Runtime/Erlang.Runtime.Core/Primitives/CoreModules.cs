@@ -185,8 +185,7 @@ public static class CoreModules
                     Term.Tuple(Term.A(ErlangErrorReasons.BadMap), a[0])
                 )
         );
-        Add(
-            ErlangModuleNames.Module,
+        AddRead507(
             ErlangModuleNames.MapGet,
             2,
             (c, a) => a[1] is MapTerm m ? m.Get(a[0]) : throw new ErlangException(Term.Tuple(Term.A(ErlangErrorReasons.BadMap), a[1]))

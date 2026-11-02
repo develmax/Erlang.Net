@@ -10,10 +10,10 @@ internal static class NativeRecordRegistrations
             2,
             (context, args) =>
         {
-            if (args[0] is not Atom module || args[1] is not Atom name || context.Runtime.Modules.NativeRecordDefinition(module.Name, name.Name) is not { } definition)
+            if (args[0] is not Atom module || args[1] is not Atom name)
                 throw new ErlangException(ErlangErrorReasons.BadArgument);
 
-            return ValueTask.FromResult(NativeRecordLanguage.Definition(definition));
+            return context.Runtime.Modules.NativeRecordDefinition313(context, module.Name, name.Name);
         }
         );
         registry.Register(

@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <AssemblyName>Erlang.NifNativeBackend</AssemblyName>
+    <LangVersion>14.0</LangVersion>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <IsPackable>false</IsPackable>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="../../../src/Runtime/Erlang.Runtime.Core/Erlang.Runtime.Core.csproj" />
+    <ProjectReference Include="../../../src/Compiler/Erlang.Compiler/Erlang.Compiler.csproj" />
+    <ProjectReference Include="../../../src/Otp/Managed/Erlang.Otp.Stdlib/Erlang.Otp.Stdlib.csproj" />
+  </ItemGroup>
+</Project>

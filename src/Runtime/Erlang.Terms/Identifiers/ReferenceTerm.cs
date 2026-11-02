@@ -7,17 +7,21 @@ public class ReferenceTerm : Term
     private readonly LocalNodeIdentity? localIdentity;
     private readonly LocalNodeSnapshot externalIdentity;
     public string Node => WireIdentity.Node;
-    internal LocalNodeSnapshot WireIdentity => localIdentity?.Snapshot ?? externalIdentity;
+    internal LocalNodeSnapshot WireIdentity => externalStorage?.ReadExternalIdentity() ?? localIdentity?.Snapshot ?? externalIdentity;
     internal LocalNodeIdentity? LocalIdentity => localIdentity;
     public ulong Id => checked((ulong)FullId);
     private readonly BigInteger portableId562;
     private readonly IReadOnlyList<uint> portableWords562 = Array.Empty<uint>();
     private readonly bool ordinaryLocal562;
+    private readonly bool localPid775;
     internal IOwnedReferenceStorage562? OwnedStorage562 { get; }
+    private readonly IOwnedExternalIdentifierStorage? externalStorage;
+    internal IOwnedExternalIdentifierStorage? OwnedExternalStorage => externalStorage;
     internal bool IsOrdinaryLocal562 => ordinaryLocal562;
-    public BigInteger FullId => OwnedStorage562 is null ? portableId562 : Reconstruct562(Words);
+    internal bool IsLocalPid775 => localPid775;
+    public BigInteger FullId => OwnedStorage562 is null && externalStorage is null ? portableId562 : Reconstruct562(Words);
     public uint Creation => WireIdentity.Creation;
-    public IReadOnlyList<uint> Words => OwnedStorage562?.ReadReferenceWords562() ?? portableWords562;
+    public IReadOnlyList<uint> Words => externalStorage?.ReadExternalReferenceWords() ?? OwnedStorage562?.ReadReferenceWords562() ?? portableWords562;
 
     public ReferenceTerm(string node, ulong id, uint creation = 0) : this(node, id > uint.MaxValue ? [(uint)id, (uint)(id >> ReferenceIdentityLayout.WordBits)] : [(uint)id], creation)
     {
@@ -47,12 +51,46 @@ public class ReferenceTerm : Term
     {
         localIdentity = identity.LocalIdentity;
         ordinaryLocal562 = identity.ordinaryLocal562;
+        localPid775 = identity.GetType() == typeof(ReferenceTerm) && identity.localPid775;
     }
 
     // Only the runtime's ordinary make_ref generator uses this factory. Public
     // constructors, decoder paths and PID/resource aliases receive no capability.
     internal static ReferenceTerm CreateOrdinaryLocal562(LocalNodeIdentity identity, uint[] words)
         => new(identity, words, true);
+
+    internal static ReferenceTerm CreateLocalPid775(LocalNodeIdentity identity, uint[] words)
+        => new(
+            identity,
+            words,
+            false,
+            true
+        );
+
+    // The caller authenticates the current local node/creation before entering
+    // this decoder seam. OTP reconstructs PID references from the five numbers;
+    // it does not require a still-active alias or a live owner process.
+    internal static ReferenceTerm RestoreLocal775(LocalNodeIdentity identity, IReadOnlyList<uint> words)
+    {
+        if (words.Count == ReferenceIdentityLayout.PidWordCount
+            && (words[ReferenceIdentityLayout.PidMarkerWord] & ReferenceIdentityLayout.PidMarker) != 0)
+            return CreateLocalPid775(identity, words.ToArray());
+
+        return new ReferenceTerm(identity, words);
+    }
+
+    private ReferenceTerm(
+        LocalNodeIdentity identity,
+        uint[] words,
+        bool ordinary,
+        bool pidReference
+    )
+        : this(identity, words)
+    {
+        if (!pidReference || ordinary || !HasLocalPidNumbers775(portableWords562))
+            throw new ErlangException(ErlangErrorReasons.BadArgument);
+        localPid775 = true;
+    }
 
     private ReferenceTerm(LocalNodeIdentity identity, uint[] words, bool ordinary)
         : this(identity, words)
@@ -76,8 +114,21 @@ public class ReferenceTerm : Term
     {
         externalIdentity = identity.WireIdentity;
         localIdentity = identity.LocalIdentity;
+        localPid775 = identity.GetType() == typeof(ReferenceTerm) && identity.localPid775;
         OwnedStorage562 = storage;
     }
+
+    internal ReferenceTerm(IOwnedExternalIdentifierStorage storage)
+    {
+        externalStorage = storage;
+        externalIdentity = storage.ReadExternalIdentity();
+    }
+
+    internal static bool HasLocalPidNumbers775(IReadOnlyList<uint> words)
+        => words.Count == ReferenceIdentityLayout.PidWordCount
+            && (words[0] & ~ReferenceIdentityLayout.LocalFirstWordMask) == 0
+            && (words[ReferenceIdentityLayout.PidMarkerWord] & ReferenceIdentityLayout.PidMarker) != 0
+            && (words[ReferenceIdentityLayout.PidOwnerLowWord] & ReferenceIdentityLayout.PidTagMask) == ReferenceIdentityLayout.PidTag;
 
     private static BigInteger Reconstruct562(IReadOnlyList<uint> words)
     {

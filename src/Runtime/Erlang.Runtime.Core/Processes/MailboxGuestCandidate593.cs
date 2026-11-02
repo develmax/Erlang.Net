@@ -4,22 +4,31 @@ internal sealed class MailboxGuestCandidate593 : IDisposable
 {
     private ProcessTermFrame506? frame;
     private IMailboxRootInterest593? protocolInterest601;
+    private MailboxGraphSnapshot593? protocolGraph601;
     private bool protocol601;
     internal Term Value { get; }
 
     internal MailboxGuestCandidate593(Term value, MailboxGraphSnapshot593? graph)
     {
         protocolInterest601 = (IMailboxRootInterest593?)graph?.Retain();
+        protocolGraph601 = graph; // Metadata borrowed under the exact retained interest.
         protocol601 = true;
         Value = value;
     }
 
-    internal MailboxGuestCandidate593(ProcessContext context, Term value)
+    internal MailboxGuestCandidate593(ProcessContext context, Term value) : this(context, value, null) { }
+
+    internal MailboxGuestCandidate593(ProcessContext context, Term value, MailboxGraphSnapshot593? graph)
     {
         frame = context.TermHeap506.Enter();
         try
         {
-            Value = frame.AdoptGuestInto507(frame.Reserve(), value);
+            Value = MailboxValueEscape.ImportGuestWithLiteral801(
+                context.Runtime,
+                frame,
+                value,
+                graph?.LiteralRoots801
+            );
         }
         catch (Exception original)
         {
@@ -43,8 +52,9 @@ internal sealed class MailboxGuestCandidate593 : IDisposable
         {
             if (selected is not IProtocolMailboxSelection601 protocol)
                 throw new InvalidOperationException(MailboxSnapshot601Names.InvalidAdmission);
-            protocol.AttachSnapshotInterest601(protocolInterest601);
+            protocol.AttachSnapshotInterest601(protocolInterest601, protocolGraph601);
             protocolInterest601 = null;
+            protocolGraph601 = null;
 
             return;
         }
@@ -68,6 +78,7 @@ internal sealed class MailboxGuestCandidate593 : IDisposable
         }
         try
         {
+            protocolGraph601 = null;
             MailboxRootSettlement593.Settle(Interlocked.Exchange(ref protocolInterest601, null)?.ReleaseLast());
         }
         catch (Exception error)

@@ -279,10 +279,10 @@ internal static class MonitorOriginal645Checks
         Action? releaseInvocationForShutdown = null
     )
     {
+        await runtime.InitializeModulesAsync(registry => RuntimeBootstrapDebugSharing425.Register(runtime, registry));
+        using PreparedBeamImage counters = CountersOriginal421Preparation.Prepare(runtime, runtime.Modules);
         await runtime.InitializeModulesAsync(registry =>
         {
-            RuntimeBootstrapDebugSharing425.Register(runtime, registry);
-            PreparedBeamImage counters = CountersOriginal421Preparation.Prepare(runtime, registry);
             Require(registry.PublishPreparedBeam(counters).Status == BeamPublicationStatus.Published);
             CountersOriginal421Preparation.AssertPublished(registry, counters);
         });

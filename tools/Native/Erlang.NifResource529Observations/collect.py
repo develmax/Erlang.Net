@@ -15,6 +15,23 @@ def dependency_sha(row):
  if mode=='TextLF':data=data.replace(b'\r\n',b'\n')
  return hashlib.sha256(data).hexdigest().upper()
 
+def dependency_failures(rows):
+ if not isinstance(rows,list) or not rows:
+  return [{'Error':'Source dependency inventory must be a nonempty list'}]
+ failures=[]
+ for row in rows:
+  if not isinstance(row,dict):
+   failures.append({'Error':'Source dependency row must be an object','Row':repr(row)})
+   continue
+  detail={'Path':row.get('Path'),'HashMode':row.get('HashMode','Raw'),'Expected':row.get('Sha256')}
+  try:
+   actual=dependency_sha(row)
+   if actual!=row['Sha256']:
+    failures.append(dict(detail,Actual=actual))
+  except (OSError,ValueError,KeyError,TypeError) as error:
+   failures.append(dict(detail,Error=repr(error)))
+ return failures
+
 def save(p,v): p.write_text(json.dumps(v,indent=2)+"\n")
 def load(n,p):
  s=importlib.util.spec_from_file_location(n,p);m=importlib.util.module_from_spec(s);s.loader.exec_module(m);return m
@@ -86,7 +103,8 @@ def main():
  selected_variants={variant for job in selected.values() for variant in job['Variants']}
  assert plan.get('SealState')=='FINAL_SOURCE_BOUND_NOT_EXECUTED' and plan['Dependencies']
  assert plan['BuildScriptSha256']==sha(TOOL/'build-native.py')
- for row in plan['Dependencies']:assert dependency_sha(row)==row['Sha256']
+ dependency_errors=dependency_failures(plan['Dependencies'])
+ if dependency_errors:raise RuntimeError('Source dependency admission failed: '+json.dumps(dependency_errors,sort_keys=True))
  admission=Path(x.provider_admission).resolve();assert sha(admission)==x.provider_sha256.upper()
  provider=json.loads(admission.read_bytes());assert provider['SourceCommit']==PIN and provider['ReleaseTag']=='OTP-29.1.1'
  installed=Path(provider['InstalledOtpRoot']).resolve();manifest=Path(provider['ExecutionManifestPath']);assert sha(manifest)==provider['ExecutionManifestSha256']
@@ -206,9 +224,8 @@ def main():
        errors.append(n+' independent managed: '+repr(e));managed[n]={'Succeeded':False,'Error':repr(e)}
 
  finally:
-  for dependency530 in plan['Dependencies']:
-   try:assert dependency_sha(dependency530)==dependency530['Sha256']
-   except Exception as e:errors.append('Source closure changed: '+repr(e))
+  for dependency_error in dependency_failures(plan['Dependencies']):
+   errors.append('Source closure changed: '+json.dumps(dependency_error,sort_keys=True))
   for input529 in backend_inputs:
    try:assert sha(input529['Path'])==input529['Sha256']
    except Exception as e:errors.append('Backend closure changed: '+repr(e))

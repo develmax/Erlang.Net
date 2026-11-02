@@ -17,20 +17,30 @@ internal static class DebugCodeOriginal427Checks
         {
             runtime = new ProcessRuntime(1);
             ProcessRuntime owner = runtime;
-            await owner.InitializeModulesAsync(registry =>
+            await global::Erlang.Tests.PreparedBeamFixtureScope171.RunAsync(
+                owner,
+                async (registry, scope) =>
             {
-                RuntimeBootstrapDebugCode427.Register(owner, registry);
+                await owner.InitializeModulesAsync(_ =>
+                {
+                    RuntimeBootstrapDebugCode427.Register(owner, registry);
+                });
                 var declared = new BeamDependencySelection([DebugCodeOriginal427Names.Runtime, DebugCodeOriginal427Names.File, DebugCodeOriginal427Names.Internal]);
-                PreparedBeamImage facet = registry.PrepareBeam(DebugCodeOriginal427Access.Resource(DebugCodeOriginal427Names.FacetBeam), declared);
+                PreparedBeamImage facet = scope.Prepare(() => registry.PrepareBeam(DebugCodeOriginal427Access.Resource(DebugCodeOriginal427Names.FacetBeam), declared));
                 DebugCodeOriginal427Access.Require(facet.Name == DebugCodeOriginal427Names.Internal && facet.NativePrimitiveExports.Count == 2
                     && facet.NativePrimitiveExports.Contains(new BeamFunctionSignature("disassemble", 1)) && facet.NativePrimitiveExports.Contains(new BeamFunctionSignature("interpreter_size", 0)));
-                PreparedBeamImage worker = registry.PrepareBeam(DebugCodeOriginal427Access.Resource(DebugCodeOriginal427Names.WorkerBeam), declared);
-                DebugCodeOriginal427Access.Require(registry.PublishPreparedBeam([facet, worker]).Status == BeamPublicationStatus.Published);
-                DebugCodeOriginal427Access.Require(registry.Exports.Count(export => export.Module == DebugCodeOriginal427Names.Internal) == 4);
-                foreach (var image in new[] { facet, worker })
-                    foreach (var export in registry.Exports.Where(export => export.Module == image.Name))
-                        DebugCodeOriginal427Access.Require(ReferenceEquals(registry.SourceOwner(export.Module, export.Function, export.Arity), image));
-            });
+                PreparedBeamImage worker = scope.Prepare(() => registry.PrepareBeam(DebugCodeOriginal427Access.Resource(DebugCodeOriginal427Names.WorkerBeam), declared));
+
+                return _ =>
+                {
+                    DebugCodeOriginal427Access.Require(registry.PublishPreparedBeam([facet, worker]).Status == BeamPublicationStatus.Published);
+                    DebugCodeOriginal427Access.Require(registry.Exports.Count(export => export.Module == DebugCodeOriginal427Names.Internal) == 4);
+                    foreach (var image in new[] { facet, worker })
+                        foreach (var export in registry.Exports.Where(export => export.Module == image.Name))
+                            DebugCodeOriginal427Access.Require(ReferenceEquals(registry.SourceOwner(export.Module, export.Function, export.Arity), image));
+                };
+            }
+            );
             actor = new RuntimeNodeFoundationHostActor(owner);
             RuntimeNodeFoundationHostActor caller = actor;
 

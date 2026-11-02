@@ -242,8 +242,8 @@ public static class NifReallocationHostChecks
         {
             await using var libraryA = new NifAllocationDomainHostBridge(image, context);
             await using var libraryB = new NifAllocationDomainHostBridge(image, context);
-            libraryA.InitializeWrongModule(descriptor);
-            libraryB.InitializeWrongModule(descriptor);
+            await libraryA.InitializeWrongModule(descriptor);
+            await libraryB.InitializeWrongModule(descriptor);
             var a = NifReallocationHostOwner.Library(libraryA);
             var b = NifReallocationHostOwner.Library(libraryB);
             nint pointer = a.Allocate(NifReallocationHostParameters.Initial);

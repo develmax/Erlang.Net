@@ -7,6 +7,7 @@ internal sealed partial class RuntimeKnownNodes
         lock (gate)
         {
             observedIdentitiesClosed = true;
+            StopPhysicalNodeAdmission();
             observed.Clear();
         }
     }

@@ -22,8 +22,23 @@ internal sealed class MailboxEntryCustody593 : IDisposable
     }
 
     internal MailboxGraphSnapshot593? Graph => work.Graph;
+    internal Term? ObservationValue => work.ObservationValue;
+    internal MailboxMessageFragment? RecipientFragment => work.RecipientFragment;
 
     internal IDisposable BorrowOperation() => work.BorrowOperation();
+
+    internal MailboxPreparedLoaderRead292? BorrowPreparedRead292(ProcessRuntime runtime, Term value, IDisposable? operation)
+    {
+        return MailboxPreparedLoaderRead292.TryCreate(
+            runtime,
+            value,
+            work,
+            operation
+        );
+    }
+
+    internal bool IsRecipient817(MailboxRetirementTracker593 tracker)
+        => ReferenceEquals(work.RecipientTracker, tracker);
 
     internal void Publish() => work.MarkPublished593();
 

@@ -90,29 +90,41 @@ public sealed partial class RuntimeDistributionPending
                 unsupportedControlValidator: control => ValidateUnsupportedConnectedControl(control, entry.Node, wire)
             );
             admission.Observe(Term.Tuple(decoded.Control, decoded.Payload ?? Nil.Value));
-            lock (gate)
+            using var spawn641 = DistributionPassThroughCodec.IsSpawnRequest(decoded.Control)
+                ? PreparedConnectedSpawnInput641.Capture(runtime, decoded.Control, decoded.Payload!) : null;
+            while (true)
             {
-                var connected = RequireConnectedDecodeSnapshot(
-                    entry,
-                    connectionId,
-                    caller,
-                    wire,
-                    nativePort
-                );
-                if (DistributionPassThroughCodec.IsSpawnRequest(decoded.Control))
-                    RouteConnectedSpawnRequest(
+                using var outputs641 = spawn641?.PrepareOutputs(runtime);
+                lock (gate)
+                {
+                    var connected = RequireConnectedDecodeSnapshot(
                         entry,
-                        connected,
-                        decoded.Control,
-                        decoded.Payload!
+                        connectionId,
+                        caller,
+                        wire,
+                        nativePort
                     );
-                else if (DistributionPassThroughCodec.IsSpawnReply(decoded.Control))
-                    RouteConnectedSpawnReply(entry, connected, decoded.Control);
-                else if (decoded.Payload is null)
-                    RouteRawConnectedProcessControl(entry, connected, decoded.Control);
-                else
-                    DeliverConnectedTracePayload(decoded.Control, decoded.Payload);
-                RecordPacketInput457(connected, caller, nativePort);
+                    if (spawn641 is not null && !outputs641!.IsCurrent(runtime.SequenceTracing, spawn641.Trace641 is not null))
+                        continue;
+                    if (spawn641 is not null)
+                        RouteConnectedSpawnRequest(
+                            entry,
+                            connected,
+                            spawn641.Control,
+                            spawn641.Arguments,
+                            spawn641,
+                            outputs641!
+                        );
+                    else if (DistributionPassThroughCodec.IsSpawnReply(decoded.Control))
+                        RouteConnectedSpawnReply(entry, connected, decoded.Control);
+                    else if (decoded.Payload is null)
+                        RouteRawConnectedProcessControl(entry, connected, decoded.Control);
+                    else
+                        DeliverConnectedTracePayload(decoded.Control, decoded.Payload);
+                    RecordPacketInput457(connected, caller, nativePort);
+                }
+
+                break;
             }
         }
     }

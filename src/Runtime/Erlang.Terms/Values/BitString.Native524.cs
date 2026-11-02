@@ -6,7 +6,7 @@ public sealed partial class BitString
     {
         get
         {
-            _ = ownedResourceBits577?.ReadResourceBits577();
+            ValidateOwnedBits577();
 
             return backing.NativeIdentity524;
         }

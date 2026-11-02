@@ -33,28 +33,13 @@ internal static class CountersExportRollback596Checks
             );
             var source = (ReferenceTerm)Call(frame, CountersMagic596Names.Read, slot)!;
             long hostsAtClosure = UnobservedHosts;
-            var identity = new LocalFunctionIdentity(
-                Term.A(UnknownModule),
-                Term.A(UnknownFunction),
-                0,
-                0,
-                new BitString(new byte[UniqueBytes])
+            FunctionTerm? unportable = success ? null : await RuntimeFunctionMarker364Checks.CreateRefused(
+                fixture.Runtime,
+                actor,
+                heap,
+                frame
             );
-            var unportable = new FunctionTerm(
-                () =>
-                {
-                    // This getter is reached only by the later function build.
-                    // It records the REAL backing lease count at that point;
-                    // it grants no source/BEAM closure authority.
-                    hostsAtClosure = HostRoots(fixture.Array);
-
-                    return identity;
-                },
-                0,
-                [Term.I(0)],
-                static (_, _) => throw new InvalidOperationException(UnexpectedInvoke)
-            );
-            graph = Term.List(source, success ? (Term)source : unportable);
+            graph = Term.List(source, success ? (Term)source : unportable!);
             if (success)
             {
                 escaped = (Term)Call(
@@ -70,19 +55,32 @@ internal static class CountersExportRollback596Checks
             else
             {
                 bool rejected = false;
-                try
+                Task<Term> pending;
+                bool observed;
+                object gate = fixture.Runtime.Functions.GetType().GetField(RuntimeFunctionMarker364Names.FunctionGate, Members)!.GetValue(fixture.Runtime.Functions)!;
+                // Real receiver registry gate: the first counter Host copy can
+                // complete, but later genuine function recipe lookup must wait.
+                // No callback/provider/test hook manufactures this ordering.
+                lock (gate)
                 {
-                    _ = Call(
+                    pending = actor.Invoke(context => (Term)Call(
                         heap,
                         Export,
                         frame,
                         graph
-                    );
+                    )!);
+                    observed = SpinWait.SpinUntil(() => HostRoots(fixture.Array) == FailedCopyOccurrences || pending.IsCompleted, CountersMagic596Names.Deadline);
+                    hostsAtClosure = HostRoots(fixture.Array);
                 }
-                catch (NotSupportedException)
+                try
+                {
+                    _ = await pending.WaitAsync(CountersMagic596Names.Deadline);
+                }
+                catch (NotSupportedException error) when (error.Message == RuntimeFunctionMarker364Names.Refused)
                 {
                     rejected = true;
                 }
+                Check(observed, failures);
                 long after = HostRoots(fixture.Array);
                 Console.WriteLine(Observation, hostsAtClosure, after);
                 Check(rejected && hostsAtClosure == FailedCopyOccurrences, failures);

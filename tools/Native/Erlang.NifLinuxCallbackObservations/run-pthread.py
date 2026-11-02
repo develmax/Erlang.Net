@@ -4,6 +4,16 @@ sys.path.insert(0,str(ROOT/'tools/Distribution/Erlang.GuestConnectedSendObservat
 from owned_process import OwnedProcess
 def sha(p):return hashlib.sha256(pathlib.Path(p).read_bytes()).hexdigest().upper()
 def check(p,s):assert sha(p)==s.upper(),str(p)
+
+def project_headers552(root, hash_file):
+    paths=[root/'tools/Native/Erlang.NifNativeBackend/native'/name for name in ('nif_bridge_api.h','nif_snprintf791.h')]
+    return [dict(Path=str(path.resolve()),Bytes=path.stat().st_size,Sha256=hash_file(path)) for path in paths]
+
+def require_project_headers552(proof, root, hash_file):
+    expected=project_headers552(root,hash_file);actual=proof['ProjectHeaderInputs']
+    assert len(actual)==len(expected) and {row['Path']:(row['Bytes'],row['Sha256']) for row in actual}=={row['Path']:(row['Bytes'],row['Sha256']) for row in expected},'Project bridge headers changed or unbound'
+    return expected
+
 a=argparse.ArgumentParser();a.add_argument('--source-plan',required=True);a.add_argument('--source-plan-sha256',required=True);a.add_argument('--approved-admission-sha256',required=True);args=a.parse_args()
 base=ROOT/'artifacts/linux-callback17';new_bridge=ROOT/'artifacts/linux-pthread-bridge';capture=ROOT/'artifacts/linux-callback-pthread-control';capture.mkdir(exist_ok=False)
 (capture/'bridge').symlink_to(new_bridge,target_is_directory=True)
@@ -18,6 +28,7 @@ changed={'tools/Native/Erlang.NifNativeBackend/NifLinuxCallbackDriver.cs','tools
 for row in plan['Files']:
     if row['Path'].replace('\\','/') not in changed:check(ROOT/row['Path'],row['Sha256'])
 check(admission['BridgePath'],admission['BridgeSha256']);check(admission['BridgeReceiptPath'],admission['BridgeReceiptSha256'])
+project_header_rows=require_project_headers552(json.loads(pathlib.Path(admission['BridgeReceiptPath']).read_bytes()),ROOT,sha)
 for image in admission['Images']:
     for key in ('Library','NativeSource','ErlangSource','Manifest','BuildReceipt'):check(image[key+'Path'],image[key+'Sha256'])
 focus=ROOT/'tools/Native/Erlang.NifLinuxCallbackFocus/bin/Debug/net10.0/Erlang.NifLinuxCallbackFocus.dll';dotnet=pathlib.Path(shutil.which('dotnet')).resolve()
@@ -36,7 +47,7 @@ for binary in sorted((dotnet.parent/'shared/Microsoft.NETCore.App').glob('10.0.*
 assert coreclr
 (out/'coreclr-identities.json').write_text(json.dumps(coreclr,indent=2))
 stages=[];failures=[]
-inputs={'DiagnosticInstrumentation':True,'PrimaryObservationCount':17,'AdmissionSubjectHead':admission['SubjectHead'],'ExecutingCodeHead':os.environ['GITHUB_SHA'],'PreviousRun':39030222266,'PreviousArtifact':12099548874,'SourcePlanSha256':args.source_plan_sha256,'Dotnet':str(dotnet),'DotnetSha256':sha(dotnet),'PreviousDotnetSha256':old['DotnetSha256'],'DotnetByteIdentical':sha(dotnet)==old['DotnetSha256'],'AdjacentDlls':dlls,'FocusSha256':sha(focus),'DebuggerPath':gdb,'DebuggerSha256':sha(gdb) if gdb else None,'Platform':platform.platform(),'Libc':platform.libc_ver(),'SignalCaptureBudget':4,'BacktraceFramesPerThread':16,'WallDeadlineSecondsPerRoute':180,'MaximumStreamBytes':4194304,'MaximumDumpFileBytes':67108864}
+inputs={'DiagnosticInstrumentation':True,'PrimaryObservationCount':17,'AdmissionSubjectHead':admission['SubjectHead'],'ExecutingCodeHead':os.environ['GITHUB_SHA'],'PreviousRun':39030222266,'PreviousArtifact':12099548874,'SourcePlanSha256':args.source_plan_sha256,'Dotnet':str(dotnet),'DotnetSha256':sha(dotnet),'PreviousDotnetSha256':old['DotnetSha256'],'DotnetByteIdentical':sha(dotnet)==old['DotnetSha256'],'AdjacentDlls':dlls,'FocusSha256':sha(focus),'DebuggerPath':gdb,'DebuggerSha256':sha(gdb) if gdb else None,'Platform':platform.platform(),'Libc':platform.libc_ver(),'ProjectHeaderInputs':project_header_rows,'SignalCaptureBudget':4,'BacktraceFramesPerThread':16,'WallDeadlineSecondsPerRoute':180,'MaximumStreamBytes':4194304,'MaximumDumpFileBytes':67108864}
 (out/'inputs.json').write_text(json.dumps(inputs,indent=2))
 resource.setrlimit(resource.RLIMIT_FSIZE,(64*1024*1024,64*1024*1024))
 for route in ('reviewed','ordinary'):
@@ -89,6 +100,7 @@ run
     finally:
         if process:process.close()
         check(admission['BridgePath'],admission['BridgeSha256'])
+        assert require_project_headers552(json.loads(pathlib.Path(admission['BridgeReceiptPath']).read_bytes()),ROOT,sha)==project_header_rows
         for image in admission['Images']:check(image['LibraryPath'],image['LibrarySha256'])
         target_completion=out/route/'completion.json';completed=False
         try:

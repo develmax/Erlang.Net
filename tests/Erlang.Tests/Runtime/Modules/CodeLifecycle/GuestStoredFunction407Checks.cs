@@ -26,6 +26,8 @@ internal static class GuestStoredFunction407Checks
                     functionName,
                     arguments
                 );
+                if (functionName == GuestStoredFunction407Names.Make)
+                    function = BeamStoredFunction406Access.RebindEnvironment521(runtime, function, environment);
                 FunctionTerm copy = GuestStoredFunction407Access.Copy(
                     storage,
                     context,

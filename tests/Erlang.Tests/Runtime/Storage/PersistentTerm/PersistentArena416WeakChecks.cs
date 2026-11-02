@@ -27,7 +27,10 @@ internal static class PersistentArena416WeakChecks
                     && ((BitString)((TupleTerm)graph.Items[0]).Items[0]).BitLength == 1001
                     && ReferenceEquals(function.Environment.Single(), graph));
                 var returned = (TupleTerm)await function.Invoke(context, [Nil.Value]);
-                PersistentArena416HostAccess.Require(ReferenceEquals(returned.Items[0], graph) && returned.Items[1] is Nil);
+                // Public invocation exports a detached copy_struct result.
+                // The actual stored DAG identity was checked above, before it.
+                PersistentArena416HostAccess.Require(returned.Items[0].Equals(graph)
+                    && !ReferenceEquals(returned.Items[0], graph) && returned.Items[1] is Nil);
 
                 return true;
             });
@@ -51,6 +54,8 @@ internal static class PersistentArena416WeakChecks
             GuestStoredFunction407Names.Make,
             graph
         );
+        function = BeamStoredFunction406Access.RebindEnvironment521(context.Runtime, function, graph);
+        PersistentArena416HostAccess.Require(ReferenceEquals(graph.Items[0], graph.Items[1]));
         await PersistentArena416HostAccess.Put(
             store,
             context,

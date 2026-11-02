@@ -7,7 +7,7 @@ internal sealed partial class ProcessTermHeap506
     private nint magicOffHeap576;
 
     internal bool IsNativeMagicReference576(Term value)
-        => value is ResourceReferenceTerm { ResourceKind: ReferenceResourceKind.NativeResource524 or ReferenceResourceKind.Atomics413 or ReferenceResourceKind.Counters421 or ReferenceResourceKind.Regex411 or ReferenceResourceKind.BinarySearchPattern };
+        => value is ResourceReferenceTerm { ResourceKind: ReferenceResourceKind.NativeResource524 or ReferenceResourceKind.Atomics413 or ReferenceResourceKind.Counters421 or ReferenceResourceKind.Regex411 or ReferenceResourceKind.BinarySearchPattern or ReferenceResourceKind.PreparedBeam };
 
     internal static bool HasOwnedMagicReference576(Term value)
         => value is ResourceReferenceTerm { OwnedStorage562: ProcessTermSequence506 block }
@@ -21,6 +21,8 @@ internal sealed partial class ProcessTermHeap506
 
     internal ResourceReferenceTerm CreateMagicReference576(ResourceReferenceTerm source, ProcessTermConstruction514 construction)
     {
+        if (source.ResourceKind == ReferenceResourceKind.PreparedBeam)
+            return CreatePreparedMagic807(source, construction);
         if (source.ResourceKind == ReferenceResourceKind.Counters421)
             return CreateCountersMagic596(source, construction);
         if (source.ResourceKind == ReferenceResourceKind.BinarySearchPattern)
@@ -153,15 +155,21 @@ internal sealed partial class ProcessTermHeap506
         if (!blocks.TryGetValue(block.Identity, out var live) || !ReferenceEquals(live, block)
             || !magicReferences576.TryGetValue(block.Identity, out var owned) || !ReferenceEquals(owned.Block, block))
             throw new ObjectDisposedException(nameof(ProcessTermSequence506));
+        bool external = ExternalIdentifierLayout.IsKind(kind);
+        int dataWords = block.RawPayloadWords556 - (ExternalIdentifierLayout.HeadWords - ExternalIdentifierLayout.HeaderWords);
+        nuint expected = external ? ExternalIdentifierLayout.Header(kind, dataWords) : NativeOffheap576Names.Header(kind);
         if (owned.Kind != kind || block.Count != 0 || block.HeaderWords526 != NativeOffheap576Names.HeaderWords
-            || block.RawPayloadWords556 != MagicReference576Names.DataWords
-            || block.Slab.Cells.ReadHeader526(block.AllocationOffset526) != NativeOffheap576Names.Header(kind)
+            || (external ? dataWords is < 1 or > 3 || kind != NativeOffheapKind576.ExternalReference && dataWords != 1
+                : block.RawPayloadWords556 != MagicReference576Names.DataWords)
+            || block.Slab.Cells.ReadHeader526(block.AllocationOffset526) != expected
             || CaptureRawAddress571(block, 0, MagicReference576Names.Words).Address571 != owned.Address)
             throw new InvalidOperationException(MagicReference576Names.Invalid);
         nuint binary = block.Slab.Cells.ReadNumeric556(block.AllocationOffset526 + MagicReference576Names.BinaryWord);
         if (binary != (nuint)owned.Binary || binary == 0 || (binary & (nuint)(IntPtr.Size - 1)) != 0
-            || unchecked((uint)binary) == OrdinaryReference562Names.Marker)
+            || !external && unchecked((uint)binary) == OrdinaryReference562Names.Marker)
             throw new InvalidOperationException(MagicReference576Names.Invalid);
+        if (external && (owned.ExternalNode is not { } node || node.Address != owned.Binary || node.Read().References < 1))
+            throw new InvalidOperationException(ExternalIdentifierLayout.Invalid);
         nint next = (nint)block.Slab.Cells.ReadNumeric556(block.AllocationOffset526 + MagicReference576Names.NextWord);
         if (next == owned.Address || next != 0 && !magicAddresses576.ContainsKey(next))
             throw new InvalidOperationException(MagicReference576Names.Invalid);
@@ -222,37 +230,44 @@ internal sealed partial class ProcessTermHeap506
         if (!Monitor.IsEntered(Gate))
             throw new InvalidOperationException(CellStorage526Names.GateRequired);
         var visited = new HashSet<nint>();
-        var alive = new List<NativeOffheapHeader576>();
+        var regular = new List<NativeOffheapHeader576>();
+        var writable = new List<NativeOffheapHeader576>();
         var dead = new List<NativeOffheapHeader576>();
-        nint cursor = magicOffHeap576;
-        while (cursor != 0)
+        foreach (nint head in new[] { magicOffHeap576, writableOffHeap })
         {
-            if (!visited.Add(cursor) || !magicAddresses576.TryGetValue(cursor, out var node))
-                throw new InvalidOperationException(MagicReference576Names.Invalid);
-            _ = RequireNativeOffheapHeader576(node.Block, node.Kind);
-            nint next = (nint)node.Block.Slab.Cells.ReadNumeric556(node.Block.AllocationOffset526 + MagicReference576Names.NextWord);
-            if (retire(node))
-                dead.Add(node);
-            else
+            nint cursor = head;
+            while (cursor != 0)
             {
-                alive.Add(node);
-                marked?.Add(node.Block.Identity);
+                if (!visited.Add(cursor) || !magicAddresses576.TryGetValue(cursor, out var node))
+                    throw new InvalidOperationException(MagicReference576Names.Invalid);
+                _ = RequireNativeOffheapHeader576(node.Block, node.Kind);
+                nint next = (nint)node.Block.Slab.Cells.ReadNumeric556(node.Block.AllocationOffset526 + MagicReference576Names.NextWord);
+                if (retire(node))
+                    dead.Add(node);
+                else
+                {
+                    if (node.OrdinaryBinary?.IsWritable == true) writable.Add(node);
+                    else regular.Add(node);
+                    marked?.Add(node.Block.Identity);
+                }
+                cursor = next;
             }
-            cursor = next;
         }
         if (visited.Count != magicReferences576.Count || visited.Count != magicAddresses576.Count)
             throw new InvalidOperationException(MagicReference576Names.Invalid);
-        var links = new nuint[alive.Count][];
-        for (int index = 0; index < alive.Count; index++)
-            links[index] = [(nuint)(index + 1 == alive.Count ? 0 : alive[index + 1].Address)];
+        NativeOffheapHeader576[] alive = regular.Concat(writable).ToArray();
+        var links = new nuint[alive.Length][];
+        for (int index = 0; index < alive.Length; index++)
+            links[index] = [(nuint)(index + 1 == regular.Count || index + 1 == alive.Length ? 0 : alive[index + 1].Address)];
 
         return new(
             this,
             dead.ToArray(),
-            alive.ToArray(),
+            alive,
             links,
             rollback
-        );
+        )
+        { RegularCount = regular.Count };
     }
 
     internal void CommitMagicSweep576(
@@ -262,12 +277,30 @@ internal sealed partial class ProcessTermHeap506
         bool rollback
     )
     {
+        CommitMagicChains(
+            dead,
+            alive,
+            links,
+            rollback,
+            alive.Length
+        );
+    }
+
+    internal void CommitMagicChains(
+        NativeOffheapHeader576[] dead,
+        NativeOffheapHeader576[] alive,
+        nuint[][] links,
+        bool rollback,
+        int regularCount
+    )
+    {
         // All pointer/chain validation and link arrays precede commit.
         // Lease retirement only schedules physical C destruction; no native
         // destructor is invoked inline while this heap gate is held.
         for (int index = 0; index < alive.Length; index++)
             alive[index].Block.Slab.Cells.WriteNumeric556(links[index], alive[index].Block.AllocationOffset526 + MagicReference576Names.NextWord);
-        magicOffHeap576 = alive.Length == 0 ? 0 : alive[0].Address;
+        magicOffHeap576 = regularCount == 0 ? 0 : alive[0].Address;
+        writableOffHeap = regularCount == alive.Length ? 0 : alive[regularCount].Address;
         foreach (NativeOffheapHeader576 node in dead)
         {
             magicReferences576.Remove(node.Block.Identity);

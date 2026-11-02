@@ -162,13 +162,12 @@ internal static class Program
         bool captured = false, closed = false;
         try
         {
-            PreparedBeamImage? observer = null;
+            PreparedBeamImage observer = runtime.Modules.PrepareBeam(
+                File.ReadAllBytes(Text(Names.ObserverBeamField)),
+                new BeamDependencySelection([Names.ErlangModule, Names.Subject, Names.Observer])
+            );
             await runtime.InitializeModulesAsync(registry =>
             {
-                observer = registry.PrepareBeam(
-                    File.ReadAllBytes(Text(Names.ObserverBeamField)),
-                    new BeamDependencySelection([Names.ErlangModule, Names.Subject, Names.Observer])
-                );
                 Require(observer.Name == Names.Observer && registry.PublishPreparedBeam(observer).Status == BeamPublicationStatus.Published);
             });
             Require(runtime.Modules.CurrentCodeImage(Names.Subject) is null);

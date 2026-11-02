@@ -192,24 +192,22 @@ internal static class AllocatorFirstFit519Checks
         }
     }
 
-    private static TupleTerm Allocate(object heap, int length)
+    private static TupleTerm Allocate(object heap, int physicalWords)
     {
-        // This suite measures the raw word allocator, independently of tuple
-        // header width. Preserve its original physical request/offset assertions.
+        // Every measured block is a genuine tuple: one arity header plus its
+        // immediate fields. Preserve the original physical first-fit requests.
+        Check(physicalWords > TupleHeaderWords);
         object gate = Property(heap, HeapGate)!;
         lock (gate)
         {
-            object payload = Call(heap, AllocateRaw, new object[] { Enumerable.Repeat<Term>(Term.I(519), length).ToArray() })!;
+            var children = Enumerable.Repeat<Term>(Term.I(PayloadValue), physicalWords - TupleHeaderWords).ToArray();
+            var value = (TupleTerm)Call(heap, CreateTuple, new object[] { children })!;
+            Check(value.Items.Count == physicalWords - TupleHeaderWords);
+            Check((int)BlockProperty(value, HeaderWords)! == TupleHeaderWords);
+            Check((int)BlockProperty(value, AllocationWords)! == physicalWords);
+            foreach (Term child in value.Items) Check(child.Equals(Term.I(PayloadValue)));
 
-            Type contract = typeof(TupleTerm).Assembly.GetType(OwnedSequenceType, true)!;
-            ConstructorInfo constructor = typeof(TupleTerm).GetConstructor(
-                Members,
-                null,
-                [contract],
-                null
-            )!;
-
-            return (TupleTerm)constructor.Invoke([payload]);
+            return value;
         }
     }
 

@@ -160,8 +160,18 @@ Append numbered English entries only to the last volume. Start the next sequenti
 
 - [0093.md](docs/changelog/0093.md) — Parts534–539 and review/CI corrections (closed)
 
-- [0094.md](docs/changelog/0094.md) — Parts539–542 delivery checkpoints and corrections (closed)
+- [0094.md](docs/changelog/0094.md) — Part539 delivery checkpoints and subsequent Part552 corrections (closed)
 
-- [0095.md](docs/changelog/0095.md) — Parts543–544 NIF admission, genuine upgrade and local validation (closed)
+- [0095.md](docs/changelog/0095.md) — Historical Part543 records and Part552 readiness/early-binding correction (closed)
 
-- [0096.md](docs/changelog/0096.md) — Part544 delivery and Part545 VM-affine independent NIF environments (active)
+- [0096.md](docs/changelog/0096.md) - Part554 integration checkpoints128–224 (closed; continues in0097)
+
+- [0097.md](docs/changelog/0097.md) - Part554 root custody and validation checkpoints through302 (closed; continues in0098)
+
+- [0098.md](docs/changelog/0098.md) - Part554 throughput closure and final activation prerequisites (closed; continues in0099)
+
+- [0099.md](docs/changelog/0099.md) - Part554 final regression and original-OTP acceptance (closed; continues in0100)
+
+- [0100.md](docs/changelog/0100.md) - Part554 accepted GC and Part555 initial NIF validation (closed; continues in0101)
+
+- [0101.md](docs/changelog/0101.md) - Part555 NIF observer and backend validation repairs (active)

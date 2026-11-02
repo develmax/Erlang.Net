@@ -17,4 +17,13 @@ internal static class DebugUniqueOriginal436Preparation
         DebugUniqueOriginal436Access.Require(exports.Length == 4);
         foreach (var e in exports) DebugUniqueOriginal436Access.Require(ReferenceEquals(registry.SourceOwner(e.Module, e.Function, e.Arity), image));
     }
+
+    internal static PreparedBeamImage Prepare171(ModuleRegistry registry, BeamDependencySelection dependencies, global::Erlang.Tests.PreparedBeamFixtureScope171 scope)
+    {
+        PreparedBeamImage image = scope.Prepare(() => registry.PrepareBeam(DebugUniqueOriginal436Access.Resource(DebugUniqueOriginal436Names.FacetBeam), dependencies));
+        DebugUniqueOriginal436Access.Require(image.Name == DebugUniqueOriginal436Names.Debug && image.NativePrimitiveExports.Count == DebugUniqueOriginal436Names.Signatures.Length);
+        foreach (var s in DebugUniqueOriginal436Names.Signatures) DebugUniqueOriginal436Access.Require(image.NativePrimitiveExports.Contains(new BeamFunctionSignature(s.Function, s.Arity)));
+
+        return image;
+    }
 }

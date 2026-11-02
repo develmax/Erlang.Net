@@ -27,6 +27,12 @@ internal static class PersistentArena416ValuesChecks
                     GuestStoredFunction407Names.Make,
                     environment
                 );
+                // Public module entry imports/exports a detached environment.
+                // Build the persistent input alias from the actual returned FUN;
+                // equal Host input bytes alone do not establish object sharing.
+                var actualEnvironment = (TupleTerm)ast.Environment.Single();
+                var actualSub = (BitString)actualEnvironment.Items[2];
+                PersistentArena416HostAccess.Require(actualEnvironment.Equals(environment) && actualSub.Equals(sub));
                 var external = (FunctionTerm)await runtime.Modules.Call(context, GuestStoredFunction407Names.ModuleName,
                     GuestStoredFunction407Names.External);
                 var original = (FunctionTerm)await runtime.Modules.Call(
@@ -65,7 +71,7 @@ internal static class PersistentArena416ValuesChecks
                     new ReferenceTerm(PersistentArena416HostNames.ExternalNode, new uint[] { 1, 3, 7 }, 3),
                     resource,
                     new BitString(PersistentArena416HostNames.ResourceBytes),
-                    sub
+                    actualSub
                 );
                 var functions = Term.Tuple(
                     ast,
@@ -75,6 +81,10 @@ internal static class PersistentArena416ValuesChecks
                 );
                 var key = Term.Tuple(shared, Term.A(PersistentArena416HostNames.Key));
                 var value = Term.Tuple(aliases, primitives, functions);
+                PersistentArena416HostAccess.Require(ReferenceEquals(
+                    ((TupleTerm)((FunctionTerm)functions.Items[0]).Environment.Single()).Items[2],
+                    primitives.Items[^1]
+                ));
                 await PersistentArena416HostAccess.Put(
                     store,
                     context,

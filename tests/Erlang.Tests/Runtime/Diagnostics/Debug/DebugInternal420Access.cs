@@ -36,16 +36,23 @@ internal static class DebugInternal420Access
 
     internal static async Task Initialize(ProcessRuntime runtime)
     {
-        await runtime.InitializeModulesAsync(registry =>
+        await global::Erlang.Tests.PreparedBeamFixtureScope171.RunAsync(
+            runtime,
+            (registry, scope) =>
         {
             Require(!registry.HasExport(DebugInternal420Names.Module, DebugInternal420Names.Get, 1));
-            var image = registry.PrepareBeam(Beam(), new BeamDependencySelection([DebugInternal420Names.Runtime]));
+            var image = scope.Prepare(() => registry.PrepareBeam(Beam(), new BeamDependencySelection([DebugInternal420Names.Runtime])));
             Require(image.NativePrimitiveExports.Count == 2 && image.NativePrimitiveExports.Contains(new BeamFunctionSignature(DebugInternal420Names.Get, 1)) && image.NativePrimitiveExports.Contains(new BeamFunctionSignature(DebugInternal420Names.Set, 2)));
-            Require(registry.PublishPreparedBeam(image).Status == BeamPublicationStatus.Published);
-            var exports = registry.Exports.Where(e => e.Module == DebugInternal420Names.Module).ToArray();
-            Require(exports.Length == 4);
-            foreach (var e in exports) Require(ReferenceEquals(registry.SourceOwner(e.Module, e.Function, e.Arity), image));
-        });
+
+            return ValueTask.FromResult<Action<ModuleRegistry>>(_ =>
+            {
+                Require(registry.PublishPreparedBeam(image).Status == BeamPublicationStatus.Published);
+                var exports = registry.Exports.Where(e => e.Module == DebugInternal420Names.Module).ToArray();
+                Require(exports.Length == 4);
+                foreach (var e in exports) Require(ReferenceEquals(registry.SourceOwner(e.Module, e.Function, e.Arity), image));
+            });
+        }
+        );
     }
 
     internal static ValueTask<Term> Get(ProcessContext context, Term key) => context.Runtime.Modules.Call(

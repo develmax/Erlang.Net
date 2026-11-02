@@ -17,4 +17,13 @@ internal static class DebugUnalignedOriginal421Preparation
         DebugUnalignedOriginal421Access.Require(exports.Length == 3);
         foreach (var e in exports) DebugUnalignedOriginal421Access.Require(ReferenceEquals(registry.SourceOwner(e.Module, e.Function, e.Arity), image));
     }
+
+    internal static PreparedBeamImage Prepare171(ModuleRegistry registry, BeamDependencySelection dependencies, global::Erlang.Tests.PreparedBeamFixtureScope171 scope)
+    {
+        PreparedBeamImage image = scope.Prepare(() => registry.PrepareBeam(DebugUnalignedOriginal421Access.Resource(DebugUnalignedOriginal421Names.FacetBeam), dependencies));
+        DebugUnalignedOriginal421Access.Require(image.Name == DebugUnalignedOriginal421Names.Debug && image.NativePrimitiveExports.Count == DebugUnalignedOriginal421Names.Signatures.Length);
+        foreach (var s in DebugUnalignedOriginal421Names.Signatures) DebugUnalignedOriginal421Access.Require(image.NativePrimitiveExports.Contains(new BeamFunctionSignature(s.Function, s.Arity)));
+
+        return image;
+    }
 }

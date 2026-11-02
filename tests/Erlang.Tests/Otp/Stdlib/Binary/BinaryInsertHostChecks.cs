@@ -15,6 +15,13 @@ internal static class BinaryInsertHostChecks
         Term result = await CompiledModuleExecution.Run(artifact);
         Term expected = Term.Tuple(Term.A(BinaryInsertHostNames.Success), Term.A(BinaryInsertHostNames.Done));
         if (!result.Equals(expected))
-            throw new InvalidOperationException(BinaryInsertHostNames.Failure);
+            throw new InvalidOperationException(string.Format(
+                System.Globalization.CultureInfo.InvariantCulture,
+                BinaryInsertHostNames.FailureDetails,
+                BinaryInsertHostNames.Failure,
+                expected,
+                result,
+                Convert.ToBase64String(ExternalTermFormat.Encode(result))
+            ));
     }
 }

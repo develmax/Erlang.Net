@@ -8,7 +8,7 @@ public sealed partial class ProcessRuntime
 
     private void RegisterOwnedTermContext506(ProcessContext context)
     {
-        if (!OwnedTermsPilot506)
+        if (!context.VmStorageBackingEnabled)
             return;
         lock (ownedTermOwnersGate506)
         {
@@ -34,7 +34,7 @@ public sealed partial class ProcessRuntime
 
     internal void TrackOwnedTermRetirement506(ProcessContext context, Task retirement)
     {
-        if (!context.OwnedExecutionEnabled683)
+        if (!context.VmStorageBackingEnabled)
             return;
         // No process/heap gate is held during continuation registration.
         if (ExecutionContext.IsFlowSuppressed())

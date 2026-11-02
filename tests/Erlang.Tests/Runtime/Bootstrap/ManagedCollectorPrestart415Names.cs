@@ -10,4 +10,5 @@ internal static class ManagedCollectorPrestart415Names
     internal const string Unwound = "Unwound";
     internal const string Reservation = "Reservation";
     internal const string Reason = "collector_prestart_control";
+    internal const int TerminateArguments = 4;
 }

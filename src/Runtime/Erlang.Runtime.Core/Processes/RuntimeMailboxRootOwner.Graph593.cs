@@ -5,8 +5,12 @@ internal sealed partial class RuntimeMailboxRootOwner593
     // Only this entry performs actual producer/header validation and typed
     // graph retention. Caller must execute it before runtime/mailbox monitors.
     internal MailboxGraphSnapshot593? PrepareGraph(ProcessRuntime runtime, Term completeGraph)
+        => PrepareGraphWithLiteral814(runtime, completeGraph, null);
+
+    internal MailboxGraphSnapshot593? PrepareGraphWithLiteral814(
+        ProcessRuntime runtime, Term completeGraph, ModuleLiteralRoots801? carriedLiteral801)
     {
-        MailboxPayloadLease593? roots = Capture(runtime, completeGraph);
+        MailboxPayloadLease593? roots = CaptureWithLiteral814(runtime, completeGraph, carriedLiteral801);
         if (roots is null)
             return null;
 
@@ -85,6 +89,11 @@ internal sealed partial class RuntimeMailboxRootOwner593
 
             IDisposable retained = graph.Retain();
             work.AttachSnapshot(retained, graph);
+            // Only the exact recipient receives the actual physical frame.
+            // Snapshot/trace forks retain portable observation/native custody,
+            // never another process's on_heap queue frame.
+            if (graph.RootWork593.TakeRecipientPreparation(recipient) is { } fragment)
+                work.AttachRecipientFragment(fragment, graph.ObservationValue);
             work.BindRecipient(recipient);
 
             return new(work, null, null);

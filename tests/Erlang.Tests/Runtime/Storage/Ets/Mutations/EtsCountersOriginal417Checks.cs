@@ -17,22 +17,37 @@ internal static class EtsCountersOriginal417Checks
         {
             runtime = new ProcessRuntime();
             ProcessRuntime owner = runtime;
-            await owner.InitializeModulesAsync(registry =>
+            await global::Erlang.Tests.PreparedBeamFixtureScope171.RunAsync(
+                owner,
+                async (registry, scope) =>
             {
-                RuntimeNativePrimitiveProviders.Register(owner, registry, RuntimeNativePrimitives.EtsStorageCore);
-                PreparedBeamImage facet = EtsCountersOriginal417Preparation.Prepare(owner, registry);
+                await owner.InitializeModulesAsync(_ =>
+                {
+                    {
+                        RuntimeNativePrimitiveProviders.Register(owner, registry, RuntimeNativePrimitives.EtsStorageCore);
+                    }
+                    {
+                        EtsCountersOriginal417Preparation.Register171(owner, registry);
+                    }
+                });
+                PreparedBeamImage facet = EtsCountersOriginal417Preparation.Prepare171(owner, registry, scope);
                 var declared = new BeamDependencySelection([EtsCountersOriginal417Names.Ets,
-                    EtsCountersOriginal417Names.Runtime, EtsCountersOriginal417Names.Lists, EtsCountersOriginal417Names.File]);
-                PreparedBeamImage lists = registry.PrepareBeam(
-                    EtsCountersOriginal417Access.Resource(EtsCountersOriginal417Names.ListsBeam), declared);
-                PreparedBeamImage worker = registry.PrepareBeam(
-                    EtsCountersOriginal417Access.Resource(EtsCountersOriginal417Names.WorkerBeam), declared);
-                EtsCountersOriginal417Access.Require(registry.PublishPreparedBeam([facet, lists, worker]).Status == BeamPublicationStatus.Published);
-                EtsCountersOriginal417Preparation.AssertPublished(registry, facet);
-                foreach (var image in new[] { lists, worker })
-                    foreach (var export in registry.Exports.Where(export => export.Module == image.Name))
-                        EtsCountersOriginal417Access.Require(ReferenceEquals(registry.SourceOwner(export.Module, export.Function, export.Arity), image));
-            });
+                                EtsCountersOriginal417Names.Runtime, EtsCountersOriginal417Names.Lists, EtsCountersOriginal417Names.File]);
+                PreparedBeamImage lists = scope.Prepare(() => registry.PrepareBeam(
+                    EtsCountersOriginal417Access.Resource(EtsCountersOriginal417Names.ListsBeam), declared));
+                PreparedBeamImage worker = scope.Prepare(() => registry.PrepareBeam(
+                    EtsCountersOriginal417Access.Resource(EtsCountersOriginal417Names.WorkerBeam), declared));
+
+                return _ =>
+                {
+                    EtsCountersOriginal417Access.Require(registry.PublishPreparedBeam([facet, lists, worker]).Status == BeamPublicationStatus.Published);
+                    EtsCountersOriginal417Preparation.AssertPublished(registry, facet);
+                    foreach (var image in new[] { lists, worker })
+                        foreach (var export in registry.Exports.Where(export => export.Module == image.Name))
+                            EtsCountersOriginal417Access.Require(ReferenceEquals(registry.SourceOwner(export.Module, export.Function, export.Arity), image));
+                };
+            }
+            );
             actor = new RuntimeNodeFoundationHostActor(owner);
             RuntimeNodeFoundationHostActor caller = actor;
 

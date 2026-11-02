@@ -64,4 +64,8 @@ internal unsafe struct NifNativeBridgeTable
     internal delegate* unmanaged[Cdecl]<nint, byte*, nint, int, int*, nint> InitResourceType527;
     internal delegate* unmanaged[Cdecl]<nint, nuint, nuint, nuint, nint, int> DynamicResourceCall527;
     internal delegate* unmanaged[Cdecl]<nint, nuint, nuint, nuint> MakeListCell539;
+    internal delegate* unmanaged[Cdecl]<nint, nuint, byte*, uint, int, int> GetString719;
+    internal delegate* unmanaged[Cdecl]<nint, nuint, int*, nuint**, int> GetTuple719;
+    internal delegate* unmanaged[Cdecl]<nint, byte*, nuint> MakeAtom719;
+    internal delegate* unmanaged[Cdecl]<nuint, long, nint, nint, int> FormatTerm791;
 }

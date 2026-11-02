@@ -2,7 +2,32 @@ namespace Erlang.Compiler;
 
 internal static class LocalCallValidation
 {
-    public static void Validate(ModuleDefinition module)
+    public static void Validate(ModuleDefinition module) => Validate819(module, null, null);
+
+    internal static (IReadOnlyList<Term> Values, IReadOnlyList<Pattern.Literal> Patterns) LiteralTemplates819(ModuleDefinition module, Func<Expr, bool, bool>? constant = null)
+    {
+        var values = new List<Term>();
+        var seen = new HashSet<Term>(ReferenceEqualityComparer.Instance);
+        var patterns = new List<Pattern.Literal>();
+        Validate819(
+            module,
+            value =>
+ {
+     if (seen.Add(value)) values.Add(value);
+ },
+            patterns.Add,
+            constant
+        );
+
+        return (values, patterns);
+    }
+
+    private static void Validate819(
+        ModuleDefinition module,
+        Action<Term>? literal,
+        Action<Pattern.Literal>? pattern,
+        Func<Expr, bool, bool>? constant = null
+    )
     {
         var locals = module.Functions.Select(function => (function.Name, function.Arity)).ToHashSet();
         locals.Add((FunctionResolutionNames.ModuleInfo, 0));
@@ -28,6 +53,13 @@ internal static class LocalCallValidation
         while (pending.TryPop(out var work))
         {
             var node = work.Node;
+            if (node is Expr candidate && constant?.Invoke(candidate, work.Guard) == true) continue;
+            if (node is Expr.Literal expressionLiteral) literal?.Invoke(expressionLiteral.Value);
+            else if (node is Pattern.Literal patternLiteral)
+            {
+                literal?.Invoke(patternLiteral.Value);
+                pattern?.Invoke(patternLiteral);
+            }
             guard = work.Guard;
             switch (node)
             {

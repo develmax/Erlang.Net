@@ -62,7 +62,7 @@ internal sealed partial class RuntimeActorDispatcher
                 && !pending.Scheduler696.Running
                 && pending.Scheduler696.ReadyNode is not null;
 
-    private RuntimeProcessTaskScheduler? SelectBarrierRequester696(RuntimeSchedulerLane lane)
+    private RuntimeProcessTaskScheduler? SelectBarrierRequester696(RuntimeSchedulerLane lane, RuntimeNormalWorkSelection selection)
     {
         var scheduler = normalBarrier696!.Scheduler696;
         if (!lane.Online || !ReferenceEquals(scheduler.Lane, lane)
@@ -70,11 +70,13 @@ internal sealed partial class RuntimeActorDispatcher
             return null;
         // Do not strand the sole admitted requester behind another actor's
         // higher-priority head. Keep every other node in its original queue.
+        selection.Acquire(node);
         node.List!.Remove(node);
         scheduler.ReadyNode = null;
         scheduler.Running = true;
         lane.Running = scheduler;
         WallTimeBecameActive(lane);
+        selection.WallTimeStarted = true;
 
         return scheduler;
     }
@@ -135,6 +137,60 @@ internal sealed partial class RuntimeActorDispatcher
                 request.Ready696.TrySetException(failure);
             }
             node = next;
+        }
+    }
+
+    internal NifActorAdmission616<RuntimeNormalBarrierRequest696> AcquireNifBarrier616(ProcessContext requester)
+    {
+        if (!requester.Runtime.OwnsActorDispatcher428(this)
+            || requester.ActorTaskScheduler is not { } scheduler
+            || !RuntimeActorExecutionTurn.IsOwnedBy(requester)
+            || DirtyNativeThread419.Owner is not null)
+            throw new InvalidOperationException(RuntimeNormalBarrierNames696.Requester);
+        var request = new RuntimeNormalBarrierRequest696(this, scheduler);
+        // Every callback/ticket allocation precedes enqueue and possible grant.
+        var admission = new NifNativeBarrierAdmission616(this, request, requester);
+        try
+        {
+            lock (gate)
+            {
+                ObjectDisposedException.ThrowIf(retiring, this);
+                requester.Cancellation.ThrowIfCancellationRequested();
+                foreach (var pending in normalRequests696)
+                    if (ReferenceEquals(pending.Scheduler696, scheduler))
+                        throw new InvalidOperationException(RuntimeNormalBarrierNames696.Reentrant);
+                normalRequests696.AddLast(request.Node696);
+                AdvanceNormalBarrier696();
+            }
+
+            return admission.Awaiter616;
+        }
+        catch (Exception error)
+        {
+            admission.Abandon616(error);
+            throw;
+        }
+    }
+
+    internal void AbandonNifBarrier616(RuntimeNormalBarrierRequest696 request, Exception failure)
+    {
+        lock (gate)
+        {
+            if (request.Node696.List is null) return;
+            if (ReferenceEquals(normalBarrier696, request) && request.Granted696)
+            {
+                ReleaseNormalBarrier696(request);
+
+                return;
+            }
+            normalRequests696.Remove(request.Node696);
+            if (ReferenceEquals(normalBarrier696, request)) normalBarrier696 = null;
+            request.Detach696();
+            request.Ready696.TrySetException(failure);
+            AdvanceNormalBarrier696();
+            GrantOnlineTurn();
+            StartWorkers();
+            CompleteIfIdle();
         }
     }
 }

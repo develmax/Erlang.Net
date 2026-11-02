@@ -70,6 +70,7 @@ internal static class BeamListCurrentRoot550Checks
 
     internal static async Task Custody()
     {
+        await PutListCustody537();
         foreach (bool sourceY in new[] { false, true })
             await WithState(
                 false,
@@ -216,6 +217,83 @@ internal static class BeamListCurrentRoot550Checks
 
             return true;
         });
+    }
+
+    private static async Task PutListCustody537()
+    {
+        foreach (bool native in new[] { false, true })
+            foreach (bool headY in new[] { false, true })
+                foreach (bool tailY in new[] { false, true })
+                    foreach (int alias in new[] { 0, 1, 2 })
+                        await WithState(
+                            native,
+                            async (
+                                context,
+                                state,
+                                registry,
+                                heap
+                            ) =>
+                        {
+                            object headSource = Operand(headY, 0), tailSource = Operand(tailY, 1);
+                            Call(
+                                state,
+                                headY ? BeamOwnedRoots507Names.WriteY : BeamOwnedRoots507Names.Write,
+                                0,
+                                Term.Tuple(new BitString(new byte[BackingBytes]))
+                            );
+                            Call(
+                                state,
+                                tailY ? BeamOwnedRoots507Names.WriteY : BeamOwnedRoots507Names.Write,
+                                1,
+                                Term.List(Term.Tuple(new BitString(new byte[BackingBytes])))
+                            );
+                            Term head = ReadOperand(state, headSource), tail = ReadOperand(state, tailSource);
+                            Check((bool)Call(
+                                state,
+                                PublishedInput537,
+                                headSource,
+                                head
+                            )!);
+                            Check((bool)Call(
+                                state,
+                                PublishedInput537,
+                                tailSource,
+                                tail
+                            )!);
+                            Check(!(bool)Call(
+                                state,
+                                PublishedInput537,
+                                headSource,
+                                tail
+                            )!);
+                            Check(!(bool)Call(
+                                state,
+                                PublishedInput537,
+                                Operand(false, 2),
+                                Nil.Value
+                            )!);
+                            object destination = alias == 1 ? headSource : alias == 2 ? tailSource : Operand(false, 2);
+                            object before = Property(registry, LinearConstruction514Names.Traversal);
+                            Call(
+                                state,
+                                PutList537,
+                                destination,
+                                headSource,
+                                tailSource,
+                                head,
+                                tail
+                            );
+                            object after = Property(registry, LinearConstruction514Names.Traversal);
+                            Check(Number(after, LinearConstruction514Names.Retains)
+                                - Number(before, LinearConstruction514Names.Retains) == 1);
+                            var result = (Cons)ReadOperand(state, destination);
+                            Check(ReferenceEquals(result.Head, head) && ReferenceEquals(result.Tail, tail));
+                            Call(heap, LinearConstruction514Names.Collect);
+                            Check(((BitString)((TupleTerm)result.Head).Items[0]).ToArray().Length == BackingBytes);
+                            Check(((BitString)((TupleTerm)((Cons)result.Tail).Head).Items[0]).ToArray().Length == BackingBytes);
+                            await Task.CompletedTask;
+                        }
+                        );
     }
 
     private static async Task WithState(bool native, Func<ProcessContext, object, object, object, Task> body)

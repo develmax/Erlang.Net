@@ -158,7 +158,8 @@ internal static class OpaqueBoundary602Checks
         async fixture =>
     {
         object[] works = fixture.Works();
-        Require(works.Length == 2 && fixture.Atomics.Count(GuestRoots) == 2);
+        Require(works.Length == 2);
+        fixture.AssertQueueCustody(2);
         var escaped = new List<Term>();
         var errors = new List<Exception>();
         bool closed = false;

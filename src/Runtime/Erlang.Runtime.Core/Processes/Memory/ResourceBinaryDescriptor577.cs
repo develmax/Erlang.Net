@@ -15,7 +15,9 @@ internal sealed class ResourceBinaryDescriptor577(
     internal ProcessTermSequence506 Block { get; } = block;
     internal NativeOffheapHeader576 BinRef { get; } = binRef;
     internal BinaryBacking Backing { get; } = backing;
-    internal nint Data { get; } = data;
-    internal int Bytes { get; } = bytes;
+    private readonly nint resourceData = data;
+    internal nint Data => BinRef.OrdinaryBinary is INativeBinaryStorage524 ordinary ? ordinary.Pointer524 : resourceData;
+    private readonly int resourceBytes = bytes;
+    internal int Bytes => BinRef.OrdinaryBinary is INativeBinaryStorage524 ordinary ? ordinary.DataLength524 : resourceBytes;
     internal bool Published { get; set; }
 }

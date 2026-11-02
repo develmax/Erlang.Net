@@ -7,6 +7,8 @@ internal static class LinearConstruction514Names
     internal const string ScalingTest = "runtime/resource514/linear-construction-binary-visits-and-leases";
     internal const string HiddenTest = "runtime/resource514/construction-hidden-physical-map-custody";
     internal const string RollbackTest = "runtime/resource514/construction-custody-rejects-new-backing-rollback";
+    internal const string CapturePayload = "CaptureBinaryPayload512";
+    internal const string NativeIdentity = "NativeIdentity524";
     internal const string Heap = "TermHeap506";
     internal const string Registry = "BinaryRegistry512";
     internal const string Snapshot = "Snapshot512";

@@ -43,6 +43,8 @@ internal sealed partial class ProcessTermHeap506
     // partially imported graph has unpublished intermediate payload blocks.
     internal ProcessTermCollection508 CollectGeneration508(bool requestedMajor, ushort fullSweepAfter)
     {
+        if (LiteralDomain800 is not null) throw new InvalidOperationException(ModuleLiteral800Names.Immutable);
+        using var microstate = RuntimeMicrostateExecution.EnterState(runtime.Statistics.Microstates, RuntimeMicrostate.Gc);
         lock (Gate)
         {
             bool major = requestedMajor || minorCollections508 >= fullSweepAfter;
@@ -57,12 +59,14 @@ internal sealed partial class ProcessTermHeap506
                 foreach (long id in oldBlocks508)
                 {
                     ProcessTermSequence506 block = blocks[id];
+                    if (recordDefinitions.TryGetValue(id, out var recordDefinition)) pending.Push(recordDefinition);
                     for (int index = 0; index < block.Count; index++)
                         pending.Push(block.Slab.Cells[block.Offset + index]!);
                 }
             }
             while (pending.TryPop(out Term? term))
             {
+                if (IsAuthenticatedLiteral801(term)) continue;
                 if (!seen.Add(term))
                     continue;
                 if (Storage(term) is { } block)
@@ -76,6 +80,7 @@ internal sealed partial class ProcessTermHeap506
             MarkResourceBinaryNodes577(seen, major, marked);
             ProcessNativeCollection524? nativeCollection = PrepareNativeCollection524(seen, major, marked);
             MagicReferenceSweep576? magicCollection = PrepareMagicCollection576(marked, major);
+            using WritableBinaryCollection writableCollection = PrepareWritableCollection(marked, major);
             long[] dead = blocks.Keys.Where(id => !marked.Contains(id)
                 && (major || !oldBlocks508.Contains(id))).ToArray();
             long reclaimed = dead.Sum(id => (long)blocks[id].Count);
@@ -87,12 +92,16 @@ internal sealed partial class ProcessTermHeap506
             // All traversal/validation and checked scalar calculations complete
             // before cells are released or collection state advances.
             nativeCollection?.Commit524();
+            writableCollection.Commit();
             magicCollection?.Commit576();
+            ForgetFunctionEntries(dead);
+            ForgetRecordDefinitions(dead);
             foreach (long id in dead)
             {
                 ProcessTermSequence506 block = blocks[id];
                 ReleaseAllocation519(block.Slab, block.AllocationOffset526, block.AllocationWords526);
                 blocks.Remove(id);
+                ReleaseLiteralBlock801(id);
                 mapHeaders517.Remove(id);
                 oldBlocks508.Remove(id);
             }
@@ -108,6 +117,7 @@ internal sealed partial class ProcessTermHeap506
             completedCollections508 = completed;
             reclaimedPayloadWords508 = totalReclaimed;
             reclaimedAllocationWords567 = totalReclaimedAllocation;
+            runtime.Statistics.RecordVmCollection(reclaimedAllocation);
 
             return new(
                 major,

@@ -76,18 +76,28 @@ internal static class DistributionProfile429Checks
     internal static async Task OriginalReaders()
     {
         await using var runtime = new ProcessRuntime();
-        await runtime.InitializeModulesAsync(registry =>
+        await global::Erlang.Tests.PreparedBeamFixtureScope171.RunAsync(
+            runtime,
+            async (registry, scope) =>
         {
-            RuntimeBootstrapDistributionProfile429.Register(runtime, registry);
+            await runtime.InitializeModulesAsync(_ =>
+            {
+                RuntimeBootstrapDistributionProfile429.Register(runtime, registry);
+            });
             using var input = typeof(DistributionProfile429Checks).Assembly.GetManifestResourceStream(DistributionProfile429Names.Resource)!;
             using var buffer = new MemoryStream();
             input.CopyTo(buffer);
             byte[] bytes = buffer.ToArray();
             Require(Convert.ToHexString(SHA256.HashData(bytes)) == DistributionProfile429Names.Hash);
-            PreparedBeamImage original = registry.PrepareBeam(bytes, new BeamDependencySelection(DistributionProfile429Names.Imports));
-            Require(original.NativePrimitiveExports.Count == 0 && registry.PublishPreparedBeam([original]).Status == BeamPublicationStatus.Published);
-            Require(ReferenceEquals(registry.SourceOwner(DistributionProfile429Names.DistUtil, DistributionProfile429Names.Strict, 0), original));
-        });
+            PreparedBeamImage original = scope.Prepare(() => registry.PrepareBeam(bytes, new BeamDependencySelection(DistributionProfile429Names.Imports)));
+
+            return _ =>
+            {
+                Require(original.NativePrimitiveExports.Count == 0 && registry.PublishPreparedBeam([original]).Status == BeamPublicationStatus.Published);
+                Require(ReferenceEquals(registry.SourceOwner(DistributionProfile429Names.DistUtil, DistributionProfile429Names.Strict, 0), original));
+            };
+        }
+        );
         await using var actor = new RuntimeNodeFoundationHostActor(runtime);
         await actor.InvokeAsync(async c =>
         {

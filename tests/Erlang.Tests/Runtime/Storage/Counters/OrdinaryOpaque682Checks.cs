@@ -31,9 +31,9 @@ internal static class OrdinaryOpaque682Checks
         try
         {
             Check(!(bool)Property(runtime, Profile));
+            using PreparedBeamImage facet = CountersOriginal421Preparation.Prepare(runtime, runtime.Modules);
             await runtime.InitializeModulesAsync(registry =>
             {
-                PreparedBeamImage facet = CountersOriginal421Preparation.Prepare(runtime, registry);
                 Check(registry.PublishPreparedBeam(facet).Status == BeamPublicationStatus.Published);
             });
             compiled.Definition.Register(runtime.Modules);
@@ -181,6 +181,14 @@ internal static class OrdinaryOpaque682Checks
             Check(changed.Equals(Term.I(1)));
             foreach (IDisposable carrier in escapedCarriers) carrier.Dispose();
             escapedCarriers.Clear();
+            // Cleared invocation frames are not a physical sweep. Keep the
+            // parent alive and collect its real unrooted native magic headers.
+            await parent.Invoke(context =>
+            {
+                Call(Property(context, CountersMagic596Names.Heap), CountersMagic596Names.Collect);
+
+                return true;
+            });
             await ((Task)Property(array, Retired)).WaitAsync(Deadline);
             await CountersOwnerAccounting683Checks.AwaitEmpty(runtime, Deadline);
             GC.KeepAlive(reference);

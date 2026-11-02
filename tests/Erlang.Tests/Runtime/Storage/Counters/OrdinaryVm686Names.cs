@@ -2,7 +2,7 @@ namespace Erlang.Tests;
 
 internal static class OrdinaryVm686Names
 {
-    internal const string PureCase = "runtime/genuine-vm686/pure-mfa-keeps-no-native-heap-fastpath";
+    internal const string PureCase = "runtime/genuine-vm686/pure-mfa-storage-guest-admission-and-retirement";
     internal const string ActiveCase = "runtime/genuine-vm686/active-native-mfa-vm-close-joins-real-heap";
     internal const string QueuedCase = "runtime/genuine-vm686/offline-claimed-native-input-vm-close-before-entry";
     internal const string HibernateCase = "runtime/genuine-vm686/native-counter-in-real-hibernate-arguments";
@@ -26,6 +26,7 @@ internal static class OrdinaryVm686Names
     internal const string NoCatch = "nocatch";
     internal const string Value = "value";
     internal const string Profile = "OwnedTermsPilot506";
+    internal const string StorageEnabled = "VmStorageBackingEnabled";
     internal const string Enabled = "OwnedExecutionEnabled683";
     internal const string HeapField = "termHeap506";
     internal const string DictionaryFrame = "frame";

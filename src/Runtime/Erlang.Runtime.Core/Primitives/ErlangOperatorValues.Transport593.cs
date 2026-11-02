@@ -4,6 +4,8 @@ public static partial class ErlangOperatorValues
 {
     internal static async ValueTask<bool> TrySendCompiler593Async(ProcessContext context, Term target, Term message)
     {
+        if (await context.Runtime.TrySendSelfOnHeapMailboxAsync(context, target, message).ConfigureAwait(false))
+            return true;
         var source = context.CurrentOwned506;
         if (!context.OwnedExecutionEnabled683 || source is not { IsDisposed: false, CanBorrow507: true }
             || source.BindingKind507 is not (OwnedBindingKind507.CompilerGuest or OwnedBindingKind507.PreparedGuest)
@@ -28,6 +30,8 @@ public static partial class ErlangOperatorValues
         Term message
     )
     {
+        if (await context.Runtime.TrySendSelfOnHeapMailboxAsync(context, target, message).ConfigureAwait(false))
+            return true;
         if (!registers.HasOwnedRoots507 || !RuntimeActorExecutionTurn.IsOwnedBy(context)
             || !context.Runtime.CanBeginMessageSnapshot593(context, target))
             return await TrySendLegacyBeam593Async(
@@ -58,7 +62,7 @@ public static partial class ErlangOperatorValues
     )
     {
         var borrowed = context.TermHeap506.Borrow(caller, Term.Tuple(target, message));
-        PreparedTermTransfer506 prepared = context.TermHeap506.PrepareBorrowAtomics586(borrowed, exportHostAtomics586: false);
+        PreparedTermTransfer506 prepared = context.TermHeap506.PrepareGuestSendBorrow824(borrowed);
         PreparedSendArguments593? outgoing = null;
         try
         {
@@ -91,7 +95,14 @@ public static partial class ErlangOperatorValues
         Exception? primary = null;
         try
         {
-            sent = context.Runtime.TrySendMessageSnapshot593(context, outgoing);
+            sent = await context.Runtime.TrySendBackedLocalWithLiteral824Async(
+                outgoing.Target,
+                outgoing.Message,
+                outgoing.Publication593.Graph?.LiteralRoots801,
+                context,
+                recordSavedCall: true
+            ).ConfigureAwait(false);
+            if (!sent) sent = context.Runtime.TrySendMessageSnapshot593(context, outgoing);
         }
         catch (Exception error)
         {

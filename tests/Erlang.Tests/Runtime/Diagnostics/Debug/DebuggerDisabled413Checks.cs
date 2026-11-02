@@ -10,16 +10,23 @@ internal static class DebuggerDisabled413Checks
         try
         {
             PreparedBeamImage? image = null;
-            await runtime.InitializeModulesAsync(registry =>
+            await global::Erlang.Tests.PreparedBeamFixtureScope171.RunAsync(
+                runtime,
+                (registry, scope) =>
             {
                 DebuggerDisabled413Access.Require(!registry.HasExport(DebuggerDisabled413Names.Module, "supported", 0));
-                image = registry.PrepareBeam(DebuggerDisabled413Access.Beam(), new BeamDependencySelection(["erlang"]));
+                image = scope.Prepare(() => registry.PrepareBeam(DebuggerDisabled413Access.Beam(), new BeamDependencySelection(["erlang"])));
                 DebuggerDisabled413Access.Require(image.Name == DebuggerDisabled413Names.Module
                     && image.NativePrimitiveExports.Count == DebuggerDisabled413Names.Signatures.Length
                     && new HashSet<BeamFunctionSignature>(DebuggerDisabled413Names.Signatures
                         .Select(s => new BeamFunctionSignature(s.Function, s.Arity))).SetEquals(image.NativePrimitiveExports));
-                DebuggerDisabled413Access.Require(registry.PublishPreparedBeam(image).Status == BeamPublicationStatus.Published);
-            });
+
+                return ValueTask.FromResult<Action<ModuleRegistry>>(_ =>
+                {
+                    DebuggerDisabled413Access.Require(registry.PublishPreparedBeam(image).Status == BeamPublicationStatus.Published);
+                });
+            }
+            );
             await foreign.InitializeModulesAsync(_ => { });
             ErlangFunction captured = DebuggerDisabled413Access.Capture(runtime);
             await using (var actor = new RuntimeNodeFoundationHostActor(runtime))

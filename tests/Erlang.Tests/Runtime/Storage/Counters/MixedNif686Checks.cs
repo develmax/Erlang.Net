@@ -24,9 +24,9 @@ internal static class MixedNif686Checks
         try
         {
             Check(!(bool)Property(runtime, Profile));
+            using PreparedBeamImage facet = CountersOriginal421Preparation.Prepare(runtime, runtime.Modules);
             await runtime.InitializeModulesAsync(registry =>
             {
-                PreparedBeamImage facet = CountersOriginal421Preparation.Prepare(runtime, registry);
                 Check(registry.PublishPreparedBeam(facet).Status == BeamPublicationStatus.Published);
             });
             compiled.Definition.Register(runtime.Modules);
@@ -118,14 +118,21 @@ internal static class MixedNif686Checks
             }).WaitAsync(Deadline);
             await child.Completion.WaitAsync(Deadline);
             await ((TaskCompletionSource)Property(childContext, CancellationFailure669Names.Unwound)).Task.WaitAsync(Deadline);
+            // The parent entered BEAM too; retire its heap before observing the
+            // independent environment as the sole remaining carrier.
+            await parent.DisposeAsync().AsTask().WaitAsync(Deadline);
+            parent = null;
             // Source process/env/root has physically retired; independent env
             // still owns the actual backing. Receiver context remains ordinary.
             Check(protocol.SourceContextOwned && !protocol.IndependentOwned);
             Check(!((Task)Property(array, Retired)).IsCompleted);
-            returned = (ResourceReferenceTerm)await parent.InvokeAsync(async context =>
+            // First genuine BEAM entry permanently admits the parent collector.
+            // Use a fresh Host actor for the independent ordinary destination.
+            await using var destination = new RuntimeNodeFoundationHostActor(runtime);
+            returned = (ResourceReferenceTerm)await destination.InvokeAsync(async context =>
                 await runtime.Modules.Call(context, ProbeModule, Pop));
             Check(!protocol.DestinationOwned);
-            Term value = await parent.InvokeAsync(async context =>
+            Term value = await destination.InvokeAsync(async context =>
                 await runtime.Modules.Call(
                     context,
                     NativeModule,

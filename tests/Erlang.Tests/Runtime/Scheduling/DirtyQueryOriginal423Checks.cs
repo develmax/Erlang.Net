@@ -17,20 +17,30 @@ internal static class DirtyQueryOriginal423Checks
         {
             runtime = new ProcessRuntime(1);
             ProcessRuntime owner = runtime;
-            await owner.InitializeModulesAsync(registry =>
+            await global::Erlang.Tests.PreparedBeamFixtureScope171.RunAsync(
+                owner,
+                async (registry, scope) =>
             {
-                RuntimeBootstrapDirtyQuery423.Register(owner, registry);
+                await owner.InitializeModulesAsync(_ =>
+                {
+                    RuntimeBootstrapDirtyQuery423.Register(owner, registry);
+                });
                 var declared = new BeamDependencySelection([DirtyQueryOriginal423Names.Runtime, DirtyQueryOriginal423Names.File, DirtyQueryOriginal423Names.Internal]);
-                PreparedBeamImage facet = registry.PrepareBeam(DirtyQueryOriginal423Access.Resource(DirtyQueryOriginal423Names.FacetBeam), declared);
+                PreparedBeamImage facet = scope.Prepare(() => registry.PrepareBeam(DirtyQueryOriginal423Access.Resource(DirtyQueryOriginal423Names.FacetBeam), declared));
                 DirtyQueryOriginal423Access.Require(facet.Name == DirtyQueryOriginal423Names.Internal && facet.NativePrimitiveExports.Count == 1
                     && facet.NativePrimitiveExports.Single().Name == DirtyQueryOriginal423Names.Function && facet.NativePrimitiveExports.Single().Arity == 1);
-                PreparedBeamImage worker = registry.PrepareBeam(DirtyQueryOriginal423Access.Resource(DirtyQueryOriginal423Names.WorkerBeam), declared);
-                DirtyQueryOriginal423Access.Require(registry.PublishPreparedBeam([facet, worker]).Status == BeamPublicationStatus.Published);
-                DirtyQueryOriginal423Access.Require(registry.Exports.Count(export => export.Module == DirtyQueryOriginal423Names.Internal) == 3);
-                foreach (var image in new[] { facet, worker })
-                    foreach (var export in registry.Exports.Where(export => export.Module == image.Name))
-                        DirtyQueryOriginal423Access.Require(ReferenceEquals(registry.SourceOwner(export.Module, export.Function, export.Arity), image));
-            });
+                PreparedBeamImage worker = scope.Prepare(() => registry.PrepareBeam(DirtyQueryOriginal423Access.Resource(DirtyQueryOriginal423Names.WorkerBeam), declared));
+
+                return _ =>
+                {
+                    DirtyQueryOriginal423Access.Require(registry.PublishPreparedBeam([facet, worker]).Status == BeamPublicationStatus.Published);
+                    DirtyQueryOriginal423Access.Require(registry.Exports.Count(export => export.Module == DirtyQueryOriginal423Names.Internal) == 3);
+                    foreach (var image in new[] { facet, worker })
+                        foreach (var export in registry.Exports.Where(export => export.Module == image.Name))
+                            DirtyQueryOriginal423Access.Require(ReferenceEquals(registry.SourceOwner(export.Module, export.Function, export.Arity), image));
+                };
+            }
+            );
             actor = new RuntimeNodeFoundationHostActor(owner);
             RuntimeNodeFoundationHostActor caller = actor;
 

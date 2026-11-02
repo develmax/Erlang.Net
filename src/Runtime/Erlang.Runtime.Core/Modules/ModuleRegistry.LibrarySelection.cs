@@ -19,52 +19,69 @@ public sealed partial class ModuleRegistry
     {
         var images = new Dictionary<string, PreparedBeamImage>(StringComparer.Ordinal);
         var bootstrap = new Dictionary<string, ModuleCodeImage>(StringComparer.Ordinal);
-        foreach (RuntimeModuleSelection choice in request.Modules)
+        var bindings802 = CaptureStartupPreparation802(request, bootstrap);
+        try
         {
-            ModuleCodeImage? image = RequireStartupOwner(choice);
-            if (image is not null)
-                bootstrap.Add(choice.Module, image);
-            if (choice.Backend != RuntimeModuleBackend.Beam)
-                continue;
-            try
+            foreach (RuntimeModuleSelection choice in request.Modules)
             {
-                PreparedBeamImage prepared = PrepareBeam(choice.OwnedImage, new BeamDependencySelection(choice.Dependencies.Append(choice.Module)));
-                if (prepared.Name != choice.Module || prepared.HasOnLoad && onLoadOrder is null)
-                    throw new InvalidDataException(LibrarySelectionNames.Request);
-                foreach (var signature in functions.Keys.Where(key => key.Module == choice.Module))
-                    if (!prepared.Code.Exports.Any(export => export.Name == signature.Function && export.Arity == signature.Arity))
-                        throw new InvalidDataException(LibrarySelectionNames.MissingExport + LibrarySelectionNames.ContextSeparator
-                            + choice.Module + LibrarySelectionNames.FunctionSeparator + signature.Function
-                            + LibrarySelectionNames.AritySeparator + signature.Arity);
-                if (image is not null && !LibrarySelectionNames.ManagedModules.Contains(choice.Module, StringComparer.Ordinal))
-                    RequireStartupNativeBootstrap(choice.Module, prepared);
-                images.Add(choice.Module, prepared);
+                ModuleCodeImage? image = bootstrap.GetValueOrDefault(choice.Module);
+                if (choice.Backend != RuntimeModuleBackend.Beam)
+                    continue;
+                PreparedBeamImage? prepared = null;
+                try
+                {
+                    prepared = PrepareBeam(choice.OwnedImage, new BeamDependencySelection(choice.Dependencies.Append(choice.Module)));
+                    if (prepared.Name != choice.Module || prepared.HasOnLoad && onLoadOrder is null)
+                        throw new InvalidDataException(LibrarySelectionNames.Request);
+                    lock (gate)
+                    {
+                        foreach (var signature in bindings802.Keys.Where(key => key.Module == choice.Module))
+                            if (!prepared.Code.Exports.Any(export => export.Name == signature.Function && export.Arity == signature.Arity))
+                                throw new InvalidDataException(LibrarySelectionNames.MissingExport + LibrarySelectionNames.ContextSeparator
+                                    + choice.Module + LibrarySelectionNames.FunctionSeparator + signature.Function
+                                    + LibrarySelectionNames.AritySeparator + signature.Arity);
+                        if (image is not null && !LibrarySelectionNames.ManagedModules.Contains(choice.Module, StringComparer.Ordinal))
+                            RequireStartupNativeBootstrap(choice.Module, prepared);
+                    }
+                    images.Add(choice.Module, prepared);
+                }
+                catch (Exception error)
+                {
+                    prepared?.Dispose();
+                    throw new InvalidOperationException(LibrarySelectionNames.Phase + LibrarySelectionNames.ContextSeparator + choice.Module, error);
+                }
             }
-            catch (Exception error)
+            string[] callbacks = images.Values.Where(image => image.HasOnLoad).Select(image => image.Name).ToArray();
+            if (onLoadOrder is not null && (callbacks.Length != onLoadOrder.Count
+                || !callbacks.ToHashSet(StringComparer.Ordinal).SetEquals(onLoadOrder)))
+                throw new InvalidOperationException(LibrarySelectionNames.OnLoadOrder);
+            var result = new RuntimeLibraryPreparedSelection(
+                request,
+                images,
+                bootstrap,
+                onLoadOrder ?? Array.Empty<string>(),
+                bindings802
+            );
+            lock (gate)
             {
-                throw new InvalidOperationException(LibrarySelectionNames.Phase + LibrarySelectionNames.ContextSeparator + choice.Module, error);
+                ValidateStartupPreparation802(result);
+                foreach (RuntimeModuleSelection choice in request.Modules.Where(value => value.Backend == RuntimeModuleBackend.Beam))
+                    foreach (BeamImport import in images[choice.Module].Code.Structure.Imports)
+                        ValidateStartupImport(
+                            result,
+                            choice,
+                            images[choice.Module].Code,
+                            import
+                        );
             }
-        }
-        string[] callbacks = images.Values.Where(image => image.HasOnLoad).Select(image => image.Name).ToArray();
-        if (onLoadOrder is not null && (callbacks.Length != onLoadOrder.Count
-            || !callbacks.ToHashSet(StringComparer.Ordinal).SetEquals(onLoadOrder)))
-            throw new InvalidOperationException(LibrarySelectionNames.OnLoadOrder);
-        var result = new RuntimeLibraryPreparedSelection(
-            request,
-            images,
-            bootstrap,
-            onLoadOrder ?? Array.Empty<string>()
-        );
-        foreach (RuntimeModuleSelection choice in request.Modules.Where(value => value.Backend == RuntimeModuleBackend.Beam))
-            foreach (BeamImport import in images[choice.Module].Code.Structure.Imports)
-                ValidateStartupImport(
-                    result,
-                    choice,
-                    images[choice.Module].Code,
-                    import
-                );
 
-        return result;
+            return result;
+        }
+        catch
+        {
+            foreach (PreparedBeamImage image in images.Values) image.Dispose();
+            throw;
+        }
     }
 
     private void ValidateStartupImport(
@@ -98,13 +115,19 @@ public sealed partial class ModuleRegistry
 
     internal void PublishStartupLibraries(RuntimeLibraryPreparedSelection plan)
     {
-        PreparedBeamImage[] ordinary = plan.Images.Values.Where(image => !image.HasOnLoad)
-            .OrderBy(image => image.Name, StringComparer.Ordinal).ToArray();
-        if (ordinary.Length == 0)
-            return;
-        BeamPublicationResult result = PublishPreparedBeam(ordinary);
-        if (result.Status != BeamPublicationStatus.Published)
-            throw new InvalidOperationException(LibrarySelectionNames.Publish + LibrarySelectionNames.ContextSeparator + result.Status);
+        using var source = EnterSourceMutation();
+        using var modification = CodeModification.Enter();
+        lock (gate)
+        {
+            ValidateStartupPreparation802(plan);
+            PreparedBeamImage[] ordinary = plan.Images.Values.Where(image => !image.HasOnLoad)
+                .OrderBy(image => image.Name, StringComparer.Ordinal).ToArray();
+            if (ordinary.Length == 0)
+                return;
+            BeamPublicationResult result = PublishPreparedBeam(ordinary);
+            if (result.Status != BeamPublicationStatus.Published)
+                throw new InvalidOperationException(LibrarySelectionNames.Publish + LibrarySelectionNames.ContextSeparator + result.Status);
+        }
     }
 
     internal RuntimeLibrarySelectionSnapshot CaptureStartupLibraries(RuntimeLibraryPreparedSelection plan)

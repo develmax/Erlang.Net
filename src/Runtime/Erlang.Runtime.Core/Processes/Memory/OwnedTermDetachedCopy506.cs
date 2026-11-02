@@ -46,12 +46,98 @@ internal static class OwnedTermDetachedCopy506
         }
     }
 
+    // This DTO is INTERNAL observation metadata only. Its ordinary binaries
+    // contain consumed bytes; actual queued values remain the same heap graph.
+    // No Host/store/cross-process pointer or backing is published by this copy.
+    internal static Term CopySameHeapMailboxObservation(ProcessRuntime runtime, Term source)
+    {
+        AtomicsHostCopyTransaction591? transaction = null;
+
+        return CopyCore593(
+            runtime,
+            source,
+            false,
+            ref transaction,
+            false,
+            true
+        );
+    }
+
+    internal static Term CopyGuestLiteral801(ProcessRuntime runtime, Term source, ModuleLiteralRoots801? roots)
+    {
+        AtomicsHostCopyTransaction591? transaction = null;
+
+        return CopyCoreLiteral801(
+            runtime,
+            source,
+            false,
+            ref transaction,
+            false,
+            literalRoots801: roots
+        );
+    }
+
+    // Only the actual mailbox operation owner may supply this per-copy loan.
+    internal static Term CopyMailboxPrepared292(
+        ProcessRuntime runtime,
+        Term source,
+        AtomicsHostCopyTransaction591 transaction,
+        MailboxPreparedLoaderRead292 preparedRead
+    )
+    {
+        AtomicsHostCopyTransaction591? actual = transaction;
+
+        return CopyCoreLiteral801(
+            runtime,
+            source,
+            true,
+            ref actual,
+            false,
+            preparedRead292: preparedRead
+        );
+    }
+
+    internal static Term CopyPublicFunctions414(ProcessRuntime runtime, Term source, PublicReceiverFunction414 receiver)
+    {
+        AtomicsHostCopyTransaction591? transaction = null;
+
+        return CopyCoreLiteral801(
+            runtime,
+            source,
+            false,
+            ref transaction,
+            false,
+            publicReceiver414: receiver
+        );
+    }
+
     private static Term CopyCore593(
         ProcessRuntime runtime,
         Term source,
         bool hostExport,
         ref AtomicsHostCopyTransaction591? hostCopies591,
-        bool ownsTransaction
+        bool ownsTransaction,
+        bool consumeOrdinaryBinary = false
+    )
+        => CopyCoreLiteral801(
+            runtime,
+            source,
+            hostExport,
+            ref hostCopies591,
+            ownsTransaction,
+            consumeOrdinaryBinary
+        );
+
+    private static Term CopyCoreLiteral801(
+        ProcessRuntime runtime,
+        Term source,
+        bool hostExport,
+        ref AtomicsHostCopyTransaction591? hostCopies591,
+        bool ownsTransaction,
+        bool consumeOrdinaryBinary = false,
+        ModuleLiteralRoots801? literalRoots801 = null,
+        MailboxPreparedLoaderRead292? preparedRead292 = null,
+        PublicReceiverFunction414? publicReceiver414 = null
     )
     {
         // The native copy_struct traversal copies each heap occurrence; do not
@@ -62,6 +148,15 @@ internal static class OwnedTermDetachedCopy506
         while (true)
         {
             OwnedDetachedCopyFrame510 frame = stack.Peek();
+            if (literalRoots801?.OwnsValue803(frame.Source) == true)
+            {
+                Term shared = frame.Source;
+                stack.Pop();
+                if (stack.Count == 0) return shared;
+                OwnedDetachedCopyFrame510 literalParent = stack.Peek();
+                literalParent.Copied[literalParent.Index++] = shared;
+                continue;
+            }
             if (frame.Index < frame.Children.Length)
             {
                 stack.Push(new(runtime, frame.Children[frame.Index]));
@@ -70,7 +165,7 @@ internal static class OwnedTermDetachedCopy506
             // No allocation and no extra traversal for ordinary non-atomics
             // copies or internal guest/store copies with host export disabled.
             if (hostExport && hostCopies591 is null
-                && frame.Source is ResourceReferenceTerm { ResourceKind: ReferenceResourceKind.Atomics413 or ReferenceResourceKind.Counters421 or ReferenceResourceKind.Regex411 or ReferenceResourceKind.BinarySearchPattern })
+                && frame.Source is ResourceReferenceTerm { ResourceKind: ReferenceResourceKind.Atomics413 or ReferenceResourceKind.Counters421 or ReferenceResourceKind.Regex411 or ReferenceResourceKind.BinarySearchPattern or ReferenceResourceKind.PreparedBeam })
                 hostCopies591 = new AtomicsHostCopyTransaction591();
             Term copy = frame.NativeMap is { } nativeMap
                 ? nativeMap.Build(frame.Copied) : Build(
@@ -78,7 +173,10 @@ internal static class OwnedTermDetachedCopy506
                     frame.Source,
                     frame.Copied,
                     hostExport,
-                    hostCopies591
+                    hostCopies591,
+                    consumeOrdinaryBinary,
+                    preparedRead292,
+                    publicReceiver414
                 );
             if (frame.NativeMap is not null && frame.Source is MapTerm { IsOrdinaryLogicalMap517: true } && copy is MapTerm raw)
             {
@@ -123,7 +221,10 @@ internal static class OwnedTermDetachedCopy506
         Term source,
         Term[] values,
         bool exportHostAtomics586,
-        AtomicsHostCopyTransaction591? hostCopies591
+        AtomicsHostCopyTransaction591? hostCopies591,
+        bool consumeOrdinaryBinary,
+        MailboxPreparedLoaderRead292? preparedRead292,
+        PublicReceiverFunction414? publicReceiver414
     )
     {
         switch (source)
@@ -139,8 +240,9 @@ internal static class OwnedTermDetachedCopy506
             case Cons:
                 return new Cons(values[0], values[1]);
             case TupleTerm { Items.Count: 0 }:
-                // OTP's empty tuple is always its global literal.
-                return source;
+                // Host/store DTOs contain no native global pointer. The typed
+                // guest-copy branch above preserves only a real held intrinsic.
+                return new TupleTerm([]);
             case TupleTerm:
                 return new TupleTerm(values);
             case HamtBitmapTerm429 node:
@@ -163,16 +265,23 @@ internal static class OwnedTermDetachedCopy506
                     record.IsExported,
                     record.FieldNames.Select((name, index) => new KeyValuePair<Atom, Term>(name, values[index]))
                 );
+            case BitString binary when consumeOrdinaryBinary && binary.ResourceBacking577.NativeStorage524 is OrdinaryBinaryBacking:
+                return new BitString(binary.ToArray(), binary.BitLength);
+            case BitString binary when exportHostAtomics586 && binary.ResourceBacking577.NativeStorage524 is OrdinaryBinaryBacking ordinary:
+                return ordinary.ExportPortable(binary);
             case BitString binary when binary.NativeResourceIdentity524 is not null:
                 return binary.CloneNativeView524();
             case BitString binary:
-                if (binary.OwnedStorage577 is not null || binary.ResourceSliceOrigin577 is not null)
+                if (binary.OwnedHeapBits is not null || binary.OwnedStorage577 is not null || binary.ResourceSliceOrigin577 is not null)
                     return binary.DetachResourceView577();
                 PersistentBinarySlice416 slice = binary.CapturePersistentSlice416();
 
                 return slice.Backing is null ? new BitString(binary.ToArray(), binary.BitLength)
                     : slice.Backing.Materialize(slice.BitOffset, slice.BitLength);
             case ResourceReferenceTerm resource:
+                if (exportHostAtomics586 && resource.ResourceKind == ReferenceResourceKind.PreparedBeam)
+                    return preparedRead292 is null ? PreparedLoaderRoots807.HostCopy807(resource, hostCopies591)
+                        : preparedRead292.CopyHost(resource, hostCopies591);
                 if (exportHostAtomics586 && resource.ResourceKind == ReferenceResourceKind.Counters421)
                     return CountersRoots596.HostCopy596(resource, hostCopies591);
                 if (exportHostAtomics586 && resource.ResourceKind == ReferenceResourceKind.BinarySearchPattern)
@@ -196,18 +305,26 @@ internal static class OwnedTermDetachedCopy506
             case FunctionTerm function:
                 if (RuntimeStoredFunctionRecipes.TryCaptureTransfer506(runtime, function, out IRuntimeStoredFunctionRecipe? recipe))
                 {
-                    if (recipe is ExternalStoredFunctionRecipe external)
-                        recipe = new DebugDirtyExternalFunctionRecipe424(external.Owner, external.Identity);
-
+                    // Ordinary VM/Host transfers keep the canonical external
+                    // pointer. Debug inspection has its own explicit copy path.
                     return recipe!.Rebind(values);
                 }
-                // Managed callbacks have opaque CLR captures. Public arguments
-                // and dictionary values are detached before reaching this profile;
-                // no guest-owned root capability is public. Keep its own delegate
-                // lifetime, rather than pretending it is a portable Erlang closure.
-                if (function.LocalIdentity is null && function.Environment.Count == 0)
-                    return function;
-                throw new NotSupportedException(ProcessTerm506Names.UnknownClosure);
+                if (publicReceiver414?.TryRebind(
+                    runtime,
+                    function,
+                    values,
+                    out FunctionTerm? receiverFunction
+                ) == true)
+                    return receiverFunction!;
+                // A known local descriptor refused by this VM must not become
+                // an opaque callback. Public metadata alone grants no descriptor.
+                if (function.HasRuntimeLocalTransferDescriptor)
+                    throw new NotSupportedException(ProcessTerm506Names.UnknownClosure);
+
+                // Explicit environment values were copied by the real graph
+                // traversal. Preserve opaque CLR delegate lifetime and lazy
+                // identity without invoking it or granting guest permission.
+                return function.CopyOpaqueForTransfer(values);
             default:
                 throw new NotSupportedException(PersistentArenaNames416.Unsupported);
         }
