@@ -13,7 +13,7 @@ internal sealed partial class ProcessTermHeap506
     internal bool IsLocalMapForPreparation517(MapTerm map)
     {
         lock (Gate)
-            return IsOwnedLocal(map);
+            return IsAuthenticatedLiteral801(map) || IsOwnedLocal(map);
     }
 
     internal static IEnumerable<Term> DirectConstructionChildren517(Term value) => value switch
@@ -22,6 +22,9 @@ internal sealed partial class ProcessTermHeap506
         HamtBitmapTerm429 bitmap => bitmap.Children,
         Cons cons => new[] { cons.Head, cons.Tail },
         TupleTerm tuple => tuple.Items,
+        FunctionTerm function => function.Environment,
+        NativeRecordTerm { OwnedRecordStorage: { } storage } record => new Term[] { storage.ReadRecordDefinition() }.Concat(record.Values),
+        NativeRecordTerm record => record.Values,
         _ => Array.Empty<Term>()
     };
 }

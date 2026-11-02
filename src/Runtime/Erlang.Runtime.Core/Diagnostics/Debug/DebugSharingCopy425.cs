@@ -3,6 +3,20 @@ namespace Erlang;
 internal static class DebugSharingCopy425
 {
     internal static Term Copy(ProcessRuntime runtime, Term source, bool copyLiterals)
+        => AtomicsHostAggregate594.Publish(transaction => CopySelected377(
+            runtime,
+            source,
+            copyLiterals,
+            transaction
+        ));
+
+    internal static Term CopySelected377(
+        ProcessRuntime runtime,
+        Term source,
+        bool copyLiterals,
+        AtomicsHostCopyTransaction591 transaction,
+        DebugCopyDestination391? destination = null
+    )
     {
         var known = new Dictionary<Term, Term>(ReferenceEqualityComparer.Instance);
         var pending = new Stack<DebugSharingCopyFrame425>();
@@ -22,7 +36,12 @@ internal static class DebugSharingCopy425
                 // Literal storage must never be marked in the sharing table.
                 // Source copy_shared_perform copies each literal occurrence
                 // through copy_struct_x, whose traversal is flat, not memoized.
-                Term literalCopy = DebugDirtyTermCopy424.Copy(runtime, frame.Source);
+                Term literalCopy = DebugDirtyTermCopy424.CopySelected595(
+                    runtime,
+                    frame.Source,
+                    transaction,
+                    destination
+                );
                 pending.Pop();
                 if (pending.Count == 0) return literalCopy;
                 DebugSharingCopyFrame425 parent = pending.Peek();
@@ -54,8 +73,14 @@ internal static class DebugSharingCopy425
                     record.FieldNames.Select((name, index) => new KeyValuePair<Atom, Term>(name, frame.Copied[index]))
                 ),
                 FunctionTerm function => CopyFunction(runtime, function, frame.Copied),
-                _ => DebugDirtyTermCopy424.Copy(runtime, frame.Source)
+                _ => DebugDirtyTermCopy424.CopySelected595(
+                    runtime,
+                    frame.Source,
+                    transaction,
+                    destination
+                )
             };
+            result = destination?.Adopt(result) ?? result;
             known.Add(frame.Source, result);
             pending.Pop();
             if (pending.Count == 0)

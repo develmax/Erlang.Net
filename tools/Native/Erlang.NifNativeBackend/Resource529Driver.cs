@@ -66,7 +66,9 @@ internal static class Resource529Driver
         {
             runtime = runtimeFactory is null ? NativeOwned516Profile.Create(owned) : await runtimeFactory(owned);
             Require(runtime.OwnedTermsPilot506 == owned);
-            await runtime.InitializeModulesAsync(registry =>
+            await global::Erlang.Tests.PreparedBeamFixtureScope171.RunAsync(
+                runtime,
+                (registry, scope) =>
             {
                 string[] dependencies = row.GetProperty("Dependencies").EnumerateArray().Select(value => value.GetString()!).ToArray();
                 var publication = new List<PreparedBeamImage>();
@@ -85,7 +87,7 @@ internal static class Resource529Driver
                             images.Add(existing);
                             continue;
                         }
-                        PreparedBeamImage prepared = registry.PrepareBeam(File.ReadAllBytes(path), new BeamDependencySelection(dependencies));
+                        PreparedBeamImage prepared = scope.Prepare(() => registry.PrepareBeam(File.ReadAllBytes(path), new BeamDependencySelection(dependencies)));
                         Require(prepared.Name == module && prepared.OriginalBeamSha256 == hash);
                         images.Add(prepared);
                         publication.Add(prepared);
@@ -96,9 +98,14 @@ internal static class Resource529Driver
                     }
                 }
                 if (errors.Count != 0) throw new AggregateException(errors);
-                if (publication.Count != 0)
-                    Require(registry.PublishPreparedBeam(publication.ToArray()).Status == BeamPublicationStatus.Published);
-            });
+
+                return ValueTask.FromResult<Action<ModuleRegistry>>(_ =>
+                {
+                    if (publication.Count != 0)
+                        Require(registry.PublishPreparedBeam(publication.ToArray()).Status == BeamPublicationStatus.Published);
+                });
+            }
+            );
             if (route == Resource529Names.Reviewed)
                 runtime.Modules.InstallReviewedNativeExecutionPolicy(path =>
                 {

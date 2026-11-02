@@ -1,0 +1,160 @@
+name: Native GC825 roots and complete original820/425/ACK173
+on:
+  pull_request:
+    paths:
+      - '.gitattributes'
+      - '.github/workflows/native-gc825.yml'
+      - 'tools/Runtime/Erlang.NativeGc825Observations/**'
+      - 'tests/Runtime/Erlang.NativeGc.Observations/**'
+      - 'tests/Erlang.Tests/Fixtures/InternalProcessOriginal425/**'
+      - 'tests/Runtime/Erlang.NativeGc.TestSupport/**'
+      - 'src/Runtime/**'
+      - 'src/Compiler/**'
+      - 'src/Otp/Managed/**'
+      - 'global.json'
+      - 'Directory.Build.props'
+  workflow_dispatch:
+    inputs:
+      expected_head:
+        description: Exact selected workflow branch commit
+        type: string
+        required: true
+permissions:
+  contents: read
+concurrency:
+  group: native-gc825-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+jobs:
+  linux:
+    runs-on: ubuntu-latest
+    timeout-minutes: 65
+    env:
+      EXPECTED_HEAD: ${{ inputs.expected_head || github.event.pull_request.head.sha || github.sha }}
+      OTP_PIN: ad05823719d77c8faee87348ea39513d4e2f99c5
+      ORIGINAL_PLAN: AEBBA0D2DCF97E1248CA38407E8EBE628EB08F9EA4D13F48EC0C83A7A0364E61
+      GC_INPUTS: F1B853B9F1DAB89B02B6E2416E366394B2A7750F78CE58C7F45A2DD8F34E8187
+      ERLC_USE_SERVER: 'false'
+      PYTHONDONTWRITEBYTECODE: '1'
+      DOTNET_PROCESSOR_COUNT: '2'
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+          persist-credentials: false
+      - name: Verify exact subject and reviewed portable inputs
+        id: inputs
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(git --no-optional-locks rev-parse HEAD)" = "$EXPECTED_HEAD"
+          mkdir -p artifacts/native-gc825/ci
+          python3 -B - <<'PY'
+          import hashlib,json,os,subprocess
+          from pathlib import Path
+          repo=Path.cwd();tool=repo/'tools/Runtime/Erlang.NativeGc825Observations'
+          digest=lambda p:hashlib.sha256(p.read_bytes()).hexdigest().upper()
+          assert digest(tool/'inputs.json')==os.environ['GC_INPUTS']
+          inputs=json.loads((tool/'inputs.json').read_bytes())
+          assert inputs['OtpPin']==os.environ['OTP_PIN'] and len(inputs['Modes'])==28 and len(set(inputs['Modes']))==28
+          for row in inputs['Files']:
+              p=(repo/row['Path']).resolve()
+              assert p.is_relative_to(repo) and p.is_file() and not p.is_symlink()
+              assert p.stat().st_size==row['Bytes'] and digest(p)==row['Sha256'],row['Path']
+          original=repo/'tools/Runtime/Erlang.SchedulerAffinityOriginalObservations/manifest.json'
+          assert digest(original)==os.environ['ORIGINAL_PLAN']==inputs['OriginalManifestSha256']
+          assert json.loads(original.read_bytes())['OriginalCommit']==os.environ['OTP_PIN']
+          assert not subprocess.check_output(['git','--no-optional-locks','status','--porcelain','--untracked-files=no']).strip()
+          (repo/'artifacts/native-gc825/ci/preflight.json').write_text(json.dumps(dict(Passed=True,SourceOnly=True,SubjectHead=os.environ['EXPECTED_HEAD'],InputsSha256=os.environ['GC_INPUTS'],Rows=len(inputs['Files'])),indent=2))
+          PY
+      - name: Acquire exact pinned original source once
+        id: otp-source
+        if: ${{ !cancelled() && steps.inputs.outcome == 'success' }}
+        continue-on-error: true
+        shell: bash
+        run: |
+          set -euo pipefail
+          git clone --depth 1 --single-branch --branch OTP-29.1.1 https://github.com/erlang/otp.git artifacts/native-gc825/otp-source > artifacts/native-gc825/ci/clone.log 2>&1
+          test "$(git -C artifacts/native-gc825/otp-source rev-parse HEAD)" = "$OTP_PIN"
+      - name: Build one source-bound original runtime with existing reviewed helper
+        id: original-build
+        if: ${{ !cancelled() && steps.inputs.outcome == 'success' && steps.otp-source.outcome == 'success' }}
+        continue-on-error: true
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 -B tools/Runtime/Erlang.SchedulerAffinityOriginalObservations/build-original.py \
+            --repository "$GITHUB_WORKSPACE" --manifest-sha256 "$ORIGINAL_PLAN" --expected-head "$EXPECTED_HEAD" \
+            --otp-source "$GITHUB_WORKSPACE/artifacts/native-gc825/otp-source" \
+            --prefix "$GITHUB_WORKSPACE/artifacts/native-gc825/otp-install" \
+            --output "$GITHUB_WORKSPACE/artifacts/native-gc825/original-build" \
+            > artifacts/native-gc825/ci/original-build.log 2>&1
+      - uses: actions/setup-dotnet@v6
+        id: sdk
+        if: ${{ !cancelled() && steps.inputs.outcome == 'success' }}
+        continue-on-error: true
+        with:
+          global-json-file: global.json
+      - name: Ensure exact .NET runtime10.0.11 without rolling fallback
+        id: runtime
+        if: ${{ !cancelled() && steps.inputs.outcome == 'success' && steps.sdk.outcome == 'success' }}
+        continue-on-error: true
+        shell: bash
+        run: |
+          set -euo pipefail
+          dotnet --info > artifacts/native-gc825/ci/dotnet-info.txt
+          if ! dotnet --list-runtimes | grep -q '^Microsoft.NETCore.App 10\.0\.11 '; then
+            curl --fail --silent --show-error --location https://builds.dotnet.microsoft.com/dotnet/scripts/v1/dotnet-install.sh --output artifacts/native-gc825/ci/dotnet-install.sh
+            sha256sum artifacts/native-gc825/ci/dotnet-install.sh > artifacts/native-gc825/ci/dotnet-install.sha256
+            bash artifacts/native-gc825/ci/dotnet-install.sh --runtime dotnet --version 10.0.11 --install-dir "$DOTNET_ROOT" --no-path > artifacts/native-gc825/ci/runtime-install.log 2>&1
+          fi
+          dotnet --list-runtimes > artifacts/native-gc825/ci/dotnet-runtimes.txt
+          grep -q '^Microsoft.NETCore.App 10\.0\.11 ' artifacts/native-gc825/ci/dotnet-runtimes.txt
+      - name: Build one portable host and collect28 roots plus fresh820/425/ACK173 and append206
+        id: collect
+        if: ${{ !cancelled() && steps.inputs.outcome == 'success' && steps.sdk.outcome == 'success' && steps.runtime.outcome == 'success' }}
+        continue-on-error: true
+        shell: bash
+        run: |
+          set -euo pipefail
+          receipt="$GITHUB_WORKSPACE/artifacts/native-gc825/original-build/build-receipt.json"
+          receipt_sha=MISSING
+          if test -f "$receipt"; then receipt_sha=$(sha256sum "$receipt" | cut -d' ' -f1); fi
+          python3 -B tools/Runtime/Erlang.NativeGc825Observations/collect.py \
+            --repository "$GITHUB_WORKSPACE" --expected-head "$EXPECTED_HEAD" --inputs-sha256 "$GC_INPUTS" \
+            --build-receipt "$receipt" --admission-sha256 "$receipt_sha" \
+            --otp-source "$GITHUB_WORKSPACE/artifacts/native-gc825/otp-source" \
+            --dotnet "$(command -v dotnet)" \
+            --output "$GITHUB_WORKSPACE/artifacts/native-gc825/collection" \
+            > artifacts/native-gc825/ci/collector.log 2>&1
+      - name: Aggregate genuine preparation and collection outcomes
+        if: ${{ !cancelled() }}
+        env:
+          INPUTS: ${{ steps.inputs.outcome }}
+          SOURCE: ${{ steps.otp-source.outcome }}
+          ORIGINAL: ${{ steps.original-build.outcome }}
+          SDK: ${{ steps.sdk.outcome }}
+          RUNTIME: ${{ steps.runtime.outcome }}
+          COLLECT: ${{ steps.collect.outcome }}
+        shell: bash
+        run: |
+          python3 -B - <<'PY'
+          import json,os
+          from pathlib import Path
+          root=Path('artifacts/native-gc825');root.mkdir(parents=True,exist_ok=True)
+          steps={name:os.environ.get(name,'missing') for name in ['INPUTS','SOURCE','ORIGINAL','SDK','RUNTIME','COLLECT']}
+          path=root/'collection/completion.json'
+          collection=json.loads(path.read_bytes()) if path.is_file() else None
+          passed=all(value=='success' for value in steps.values()) and collection is not None and collection['Passed']
+          passed=passed and collection['ModeCount']==28 and collection['PassedModes']==28
+          passed=passed and collection['AdditionalCliRows']==4 and collection['PassedAdditionalCliRows']==4
+          passed=passed and collection['Whole425BothProfiles'] and collection['Whole425OutcomeRowsPerProfile']==150
+          passed=passed and collection['Ack173OwnIdProtocolBothProfiles'] and not collection['WholeRawTraceAcrossVmsEqualClaimed']
+          (root/'aggregate.json').write_text(json.dumps(dict(Passed=passed,Steps=steps,Collection=collection,FullCompatibilityClaimed=False),indent=2))
+          assert passed,'At least one genuine preparation/observation/comparison/cleanup gate failed'
+          PY
+      - uses: actions/upload-artifact@v6
+        if: always()
+        with:
+          name: native-gc825-${{ github.event.pull_request.head.sha || github.sha }}
+          path: artifacts/native-gc825
+          if-no-files-found: error

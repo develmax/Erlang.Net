@@ -46,9 +46,9 @@ internal static class CountersPublic611Checks
         try
         {
             Require((bool)Property(fixture.Runtime, GateReady));
+            using PreparedBeamImage bridge = CountersOriginal421Preparation.Prepare(fixture.Runtime, fixture.Runtime.Modules);
             await fixture.Runtime.InitializeModulesAsync(registry =>
             {
-                PreparedBeamImage bridge = CountersOriginal421Preparation.Prepare(fixture.Runtime, registry);
                 Require(registry.PublishPreparedBeam(bridge).Status == BeamPublicationStatus.Published);
                 CountersOriginal421Preparation.AssertPublished(registry, bridge);
             });

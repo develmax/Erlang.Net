@@ -32,21 +32,29 @@ internal sealed partial class ProcessTermHeap506
 
     internal double ReadFloat556(ProcessTermSequence506 payload)
     {
-        lock (Gate)
+        if (LiteralDomain800 is { IsSealed800: true } domain)
         {
-            if (!ReferenceEquals(payload.Owner, this)
-                || !blocks.TryGetValue(payload.Identity, out var active)
-                || !ReferenceEquals(active, payload))
-                throw new ObjectDisposedException(nameof(ProcessTermSequence506));
-            if (payload.Count != 0 || payload.HeaderWords526 != BoxedFloat556Names.HeaderWords
-                || payload.RawPayloadWords556 != BoxedFloat556Names.PayloadWords
-                || payload.Slab.Cells.ReadHeader526(payload.AllocationOffset526) != BoxedFloat556Names.Header)
-                throw new InvalidOperationException(CellStorage526Names.InvalidHeader);
-            nuint bits = payload.Slab.Cells.ReadNumeric556(
-                checked(payload.AllocationOffset526 + BoxedFloat556Names.HeaderWords)
-            );
+            using var reader = domain.EnterRead800(payload);
 
-            return BitConverter.Int64BitsToDouble(unchecked((long)bits));
+            return ReadLiteralFloatCore800(payload);
         }
+        lock (Gate) return ReadLiteralFloatCore800(payload);
+    }
+
+    private double ReadLiteralFloatCore800(ProcessTermSequence506 payload)
+    {
+        if (!ReferenceEquals(payload.Owner, this)
+            || !blocks.TryGetValue(payload.Identity, out var active)
+            || !ReferenceEquals(active, payload))
+            throw new ObjectDisposedException(nameof(ProcessTermSequence506));
+        if (payload.Count != 0 || payload.HeaderWords526 != BoxedFloat556Names.HeaderWords
+            || payload.RawPayloadWords556 != BoxedFloat556Names.PayloadWords
+            || payload.Slab.Cells.ReadHeader526(payload.AllocationOffset526) != BoxedFloat556Names.Header)
+            throw new InvalidOperationException(CellStorage526Names.InvalidHeader);
+        nuint bits = payload.Slab.Cells.ReadNumeric556(
+            checked(payload.AllocationOffset526 + BoxedFloat556Names.HeaderWords)
+        );
+
+        return BitConverter.Int64BitsToDouble(unchecked((long)bits));
     }
 }

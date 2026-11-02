@@ -50,27 +50,12 @@ internal static class DebugSharing425Access
         return bytes;
     }
 
-    internal static async Task<ProcessRuntime> SourceRuntime()
+    internal static async Task<ProcessRuntime> SourceRuntime(bool privateProfile = false)
     {
-        var runtime = new ProcessRuntime(1);
+        var runtime = privateProfile ? OwnedGuest506RuntimeFactory.Create() : new ProcessRuntime(1);
         try
         {
-            await runtime.InitializeModulesAsync(registry =>
-            {
-                RuntimeBootstrapDebugSharing425.Register(runtime, registry);
-                RuntimeBootstrapAtomics.Register(runtime, registry);
-                var declared = new BeamDependencySelection(["erlang", "prim_file", "binary", "erts_debug", "erts_internal", "atomics", "lists", "maps"]);
-                var helpers = new[] { "atomics", "lists", "maps" }.Select(module => registry.PrepareBeam(AtomicsHost413Access.Resource(module + ".beam"), declared));
-                PreparedBeamImage facet = registry.PrepareBeam(Fixture("erts_debug.beam"), declared);
-                Require(facet.NativePrimitiveExports.Count == 4);
-                foreach (var signature in new[] { new BeamFunctionSignature("flat_size", 1), new BeamFunctionSignature("size_shared", 1), new BeamFunctionSignature("copy_shared", 2), new BeamFunctionSignature("same", 2) })
-                    Require(facet.NativePrimitiveExports.Contains(signature));
-                PreparedBeamImage worker = registry.PrepareBeam(Fixture(DebugSharing425Names.Worker + ".beam"), declared);
-                Require(registry.PublishPreparedBeam(helpers.Concat(new[] { facet, worker }).ToArray()).Status == BeamPublicationStatus.Published);
-                foreach (var image in new[] { facet, worker })
-                    foreach (var export in registry.Exports.Where(export => export.Module == image.Name))
-                        Require(ReferenceEquals(registry.SourceOwner(export.Module, export.Function, export.Arity), image));
-            });
+            await PrepareSourceRuntime(runtime);
 
             return runtime;
         }
@@ -87,4 +72,39 @@ internal static class DebugSharing425Access
             throw;
         }
     }
+
+    internal static async Task PrepareSourceRuntime(ProcessRuntime runtime)
+    {
+        await global::Erlang.Tests.PreparedBeamFixtureScope171.RunAsync(
+            runtime,
+            async (registry, scope) =>
+        {
+            await runtime.InitializeModulesAsync(_ =>
+            {
+                {
+                    RuntimeBootstrapDebugSharing425.Register(runtime, registry);
+                }
+                {
+                    RuntimeBootstrapAtomics.Register(runtime, registry);
+                }
+            });
+            var declared = new BeamDependencySelection(["erlang", "prim_file", "binary", "erts_debug", "erts_internal", "atomics", "lists", "maps"]);
+            var helpers = new[] { "atomics", "lists", "maps" }.Select(module => scope.Prepare(() => registry.PrepareBeam(AtomicsHost413Access.Resource(module + ".beam"), declared))).ToArray();
+            PreparedBeamImage facet = scope.Prepare(() => registry.PrepareBeam(Fixture("erts_debug.beam"), declared));
+            Require(facet.NativePrimitiveExports.Count == 4);
+            foreach (var signature in new[] { new BeamFunctionSignature("flat_size", 1), new BeamFunctionSignature("size_shared", 1), new BeamFunctionSignature("copy_shared", 2), new BeamFunctionSignature("same", 2) })
+                Require(facet.NativePrimitiveExports.Contains(signature));
+            PreparedBeamImage worker = scope.Prepare(() => registry.PrepareBeam(Fixture(DebugSharing425Names.Worker + ".beam"), declared));
+
+            return _ =>
+            {
+                Require(registry.PublishPreparedBeam(helpers.Concat(new[] { facet, worker }).ToArray()).Status == BeamPublicationStatus.Published);
+                foreach (var image in new[] { facet, worker })
+                    foreach (var export in registry.Exports.Where(export => export.Module == image.Name))
+                        Require(ReferenceEquals(registry.SourceOwner(export.Module, export.Function, export.Arity), image));
+            };
+        }
+        );
+    }
+
 }

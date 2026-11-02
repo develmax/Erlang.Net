@@ -1,0 +1,56 @@
+namespace Erlang.Tests;
+
+internal static class MetadataBorrowed316Names
+{
+    internal const string Failure = "Caller-owned metadata changed value/identity, acquired ownership, or allowed a stale native read.";
+    internal const string MetadataModule = "borrowed_metadata316";
+    internal const string RecordName = "borrowed_record316";
+    internal const string FieldName = "field316";
+    internal const string CompileInfo = "compile";
+    internal const string Attributes = "attributes";
+    internal const string Heap = "TermHeap506";
+    internal const string Enter = "Enter";
+    internal const string Reserve = "Reserve";
+    internal const string Set = "Set";
+    internal const string Read = "Read";
+    internal const string Collect = "Collect";
+    internal const string Adopt = "AdoptGuestInto507";
+    internal const string IsWritable = "IsWritable";
+    internal const string PayloadGate = "gate";
+    internal const string NativeCount = "native";
+    internal const string RootCount = "roots";
+    internal const string ReleaseNative = "ReleaseNative524";
+    internal const string RetireImage = "RetireAsync";
+    internal const string Pointer = "Pointer524";
+    internal const string Retired = "Retired524";
+    internal const string InitializeWritable = "InitializeWritable";
+    internal const string Append = "FromValidatedAppend";
+    internal const string MissingBitStringMethod = "The exact canonical BitString fixture method is absent: ";
+    internal const string AtomicsProducer = "Erlang.AtomicsConstructorBinding413";
+    internal const string Body = "Body";
+    internal const string AtomicsHost = "AtomicsHost586";
+    internal const string AtomicsRoots = "Erlang.AtomicsRoots586";
+    internal const string AtomicsDirect = "Direct586";
+    internal const string Array = "Array";
+    internal const string AtomicsRetired = "Retired586";
+    internal const string Backing = "ResourceBacking577";
+    internal const string Native = "NativeStorage524";
+    internal const int OrdinaryBytes = 512;
+    internal const int WritableCapacity = 1024;
+    internal const int WritableBytes = 130;
+    internal const int SliceOffset = 3;
+    internal const int SmallSliceBits = 127;
+    internal const int SliceBits = 1021;
+    internal const string OwnedBinaryStorage = "OwnedStorage577";
+    internal const string SliceOrigin = "ResourceSliceOrigin577";
+    internal const string StorageOwner = "Owner";
+    internal const string MapPayload = "OwnedMapPayload517";
+    internal const string MapRoot = "RootPayload";
+    internal const string ReadMapHeader = "ReadMapHeader517";
+    internal const int TupleNative = 0;
+    internal const int TupleOrdinary = 1;
+    internal const int TupleWriter = 2;
+    internal const int TupleMagic = 3;
+    internal const int TupleMap = 4;
+    internal const byte PayloadValue = 0x6D;
+}

@@ -25,6 +25,16 @@ internal sealed partial class OwnedTermInvocation506
 
     internal Term HoldGuestResult507(Term value) => Frame.SetLocalGraph507(resultSlot, value);
 
+    // Actual resumed VM payload stays alive through a real callable import,
+    // including dynamic native captures without any module-literal bundle.
+    // This is passive value custody; source invocation admission remains later.
+    internal Term HoldGuestResultWithLiteral801(Term value, ModuleLiteralRoots801? carriedLiteral801)
+    {
+        Frame.SetPreparedWithLiteral801(resultSlot, value, carriedLiteral801);
+
+        return Frame.Read(resultSlot);
+    }
+
     internal Term AdoptExpression507(Term value)
         => Frame.AdoptExpression511(value);
 }

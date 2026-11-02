@@ -199,14 +199,29 @@ internal static class OrdinaryReference562Checks
         foreach (ReferenceTerm refused in new ReferenceTerm[] { publicSame, derived, resource, alias, foreign })
         {
             Check((bool)Call(heap, Eligible, refused)! == false);
-            Check(ReferenceEquals(Call(
+            bool external = (bool)Call(heap, ExternalEligible, refused)!;
+            bool pidAlias = (bool)Call(heap, AliasEligible, refused)!;
+            var actual = (ReferenceTerm)Call(
                 roots,
                 Adopt,
                 slot,
                 refused
-            ), refused));
-            Check(Property(refused, Storage) is null && Words(heap, Physical) == 0);
+            )!;
+            if (external || pidAlias)
+            {
+                // Different physical families must not manufacture ordinary
+                // local562 provenance merely because the numeric values match.
+                Check(!ReferenceEquals(actual, refused) && actual.Equals(refused));
+                Check(!(bool)Property(actual, OrdinaryLocal)!);
+                Check((Property(actual, ExternalStorage) is not null) == external);
+                Check((Property(actual, Storage) is not null) == pidAlias);
+                Check((bool)Call(heap, Eligible, actual)! == false && Words(heap, Physical) > 0);
+            }
+            else
+                Check(ReferenceEquals(actual, refused) && Property(refused, Storage) is null && Words(heap, Physical) == 0);
             Call(roots, Clear, slot);
+            Call(heap, Collect);
+            Check(Words(heap, Physical) == 0);
         }
         Call(
             roots,

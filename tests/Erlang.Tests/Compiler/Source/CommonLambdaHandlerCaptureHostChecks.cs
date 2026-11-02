@@ -21,11 +21,11 @@ public static class CommonLambdaHandlerCaptureHostChecks
                 ErlangFunction bridge = async (context, arguments) =>
                 {
                     Require(arguments.Count == 3 && arguments[0].Equals(Term.A(target.Definition.Name))
-                        && ReferenceEquals(arguments[1], restored)
                         && arguments[2].Equals(Term.List(Term.A(UndefinedLambdaLifecycleHostNames.Argument))));
+                    FunctionTerm received = KnownHostGraph384Checks.RequireLogicalFunction(context, arguments[1], restored!);
                     int call = ++calls;
                     if (!sourceHandler && call == 1)
-                        return await restored!.Invoke(context, [Term.A(UndefinedLambdaLifecycleHostNames.Argument)]);
+                        return await received.Invoke(context, [Term.A(UndefinedLambdaLifecycleHostNames.Argument)]);
                     await Task.Yield();
                     throw new ErlangException(Term.A(UndefinedLambdaLifecycleHostNames.Fault));
                 };

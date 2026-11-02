@@ -8,7 +8,7 @@ internal static class BeamLoaderRegistrations
             ErlangModuleNames.Module,
             BeamLoaderNames.Prepare,
             2,
-            (context, arguments) => ValueTask.FromResult(BeamLoaderApi.Prepare(context, arguments[0], arguments[1]))
+            (context, arguments) => BeamLoaderApi.PrepareAsync371(context, arguments[0], arguments[1])
         );
         registry.Register(
             ErlangModuleNames.Module,
@@ -20,7 +20,7 @@ internal static class BeamLoaderRegistrations
             ErlangModuleNames.Module,
             BeamLoaderNames.Finish,
             1,
-            (context, arguments) => context.Runtime.Modules.ModifySourceCodeAsync(context, () => BeamLoaderApi.Finish(context, arguments[0]))
+            (context, arguments) => BeamLoaderApi.FinishAsync807(context, arguments[0])
         );
         registry.Register(
             ErlangModuleNames.Module,
@@ -38,7 +38,7 @@ internal static class BeamLoaderRegistrations
             ErlangModuleNames.Module,
             BeamLoaderNames.LoadModule,
             2,
-            (context, arguments) => context.Runtime.Modules.ModifySourceCodeAsync(context, () => BeamLoaderApi.LoadModule(context, arguments[0], arguments[1]))
+            (context, arguments) => BeamLoaderApi.LoadModuleAsync(context, arguments[0], arguments[1])
         );
     }
 }

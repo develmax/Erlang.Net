@@ -17,23 +17,30 @@ internal static class CodePurgerOriginal432Checks
         {
             runtime = new ProcessRuntime(1);
             ProcessRuntime owner = runtime;
-            await owner.InitializeModulesAsync(registry =>
+            await global::Erlang.Tests.PreparedBeamFixtureScope171.RunAsync(
+                owner,
+                (registry, scope) =>
             {
                 var declared = new BeamDependencySelection(new[] { CodePurgerOriginal432Names.Runtime, CodePurgerOriginal432Names.File, CodePurgerOriginal432Names.Internal, CodePurgerOriginal432Names.Purger, CodePurger432HostNames.Subject, CodePurgerOriginal432Names.Module });
-                PreparedBeamImage facet = registry.PrepareBeam(CodePurgerOriginal432Access.Resource(CodePurgerOriginal432Names.FacetBeam), declared);
-                PreparedBeamImage purger = registry.PrepareBeam(CodePurgerOriginal432Access.Resource(CodePurgerOriginal432Names.PurgerBeam), declared);
-                PreparedBeamImage worker = registry.PrepareBeam(CodePurgerOriginal432Access.Resource(CodePurgerOriginal432Names.WorkerBeam), declared);
-                CodePurgerOriginal432Access.Require(registry.PublishPreparedBeam(new[] { facet, purger, worker }).Status == BeamPublicationStatus.Published);
-                CodePurgerOriginal432Access.Require(facet.NativePrimitiveExports.Count == CodePurgerOriginal432Names.NativeCount
+                PreparedBeamImage facet = scope.Prepare(() => registry.PrepareBeam(CodePurgerOriginal432Access.Resource(CodePurgerOriginal432Names.FacetBeam), declared));
+                PreparedBeamImage purger = scope.Prepare(() => registry.PrepareBeam(CodePurgerOriginal432Access.Resource(CodePurgerOriginal432Names.PurgerBeam), declared));
+                PreparedBeamImage worker = scope.Prepare(() => registry.PrepareBeam(CodePurgerOriginal432Access.Resource(CodePurgerOriginal432Names.WorkerBeam), declared));
+
+                return ValueTask.FromResult<Action<ModuleRegistry>>(_ =>
+                {
+                    CodePurgerOriginal432Access.Require(registry.PublishPreparedBeam(new[] { facet, purger, worker }).Status == BeamPublicationStatus.Published);
+                    CodePurgerOriginal432Access.Require(facet.NativePrimitiveExports.Count == CodePurgerOriginal432Names.NativeCount
                     && facet.NativePrimitiveExports.Contains(new BeamFunctionSignature(CodePurgerOriginal432Names.NativeFunction, 2))
                     && facet.NativePrimitiveExports.Contains(new BeamFunctionSignature(CodePurgerOriginal432Names.Request, 3)));
-                CodePurgerOriginal432Access.Require(registry.Exports.Count(export => export.Module == facet.Name) == CodePurgerOriginal432Names.TotalExports);
-                CodePurgerOriginal432Access.Require(purger.NativePrimitiveExports.Count == 0
+                    CodePurgerOriginal432Access.Require(registry.Exports.Count(export => export.Module == facet.Name) == CodePurgerOriginal432Names.TotalExports);
+                    CodePurgerOriginal432Access.Require(purger.NativePrimitiveExports.Count == 0
                     && registry.Exports.Count(export => export.Module == purger.Name) == CodePurgerOriginal432Names.PurgerExports);
-                foreach (var image in new[] { facet, purger, worker })
-                    foreach (var export in registry.Exports.Where(export => export.Module == image.Name))
-                        CodePurgerOriginal432Access.Require(ReferenceEquals(registry.SourceOwner(export.Module, export.Function, export.Arity), image));
-            });
+                    foreach (var image in new[] { facet, purger, worker })
+                        foreach (var export in registry.Exports.Where(export => export.Module == image.Name))
+                            CodePurgerOriginal432Access.Require(ReferenceEquals(registry.SourceOwner(export.Module, export.Function, export.Arity), image));
+                });
+            }
+            );
             typeof(ProcessRuntime).GetMethod(CodePurgerOriginal432Names.StartBeforeBoot, CodePurger432HostNames.Flags)!.Invoke(owner, null);
             long readiness = Environment.TickCount64;
             while (owner.WhereIs(CodePurgerOriginal432Names.Purger) is not Pid

@@ -91,11 +91,11 @@ public sealed class ManagedStdlibRegistration456 : IRuntimeManagedLibrary456
             1,
             (c, a) => ListBasicOperations.Sum(a[0])
         );
-        Add(
+        r.RegisterCanonicalRead507(
             ListModuleNames.Module,
             ListModuleNames.KeyFind,
             3,
-            (c, a) => ListOperations.KeyFind(a[0], a[1], a[2])
+            (c, a) => ValueTask.FromResult(ListOperations.KeyFind(a[0], a[1], a[2]))
         );
         Add(
             ListModuleNames.Module,

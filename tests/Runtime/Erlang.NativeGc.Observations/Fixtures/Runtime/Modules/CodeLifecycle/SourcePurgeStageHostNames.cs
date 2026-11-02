@@ -1,0 +1,60 @@
+using System.Reflection;
+
+namespace Erlang.Tests;
+
+internal static class SourcePurgeStageHostNames
+{
+    internal const string Test = "runtime/source-stage-transaction-ownership-and-purge-generation";
+    internal const string Broken = "Source stage ownership, pending fun or settlement invariant failed.";
+    internal const string Rollback = "Intentional source transaction rollback.";
+    internal const string Module = "source_purge_stage_host";
+    internal const string Other = "source_purge_stage_other";
+    internal const string Third = "source_purge_stage_third";
+    internal const string Seed = "source_purge_stage_seed";
+    internal const string Clean = "source_purge_stage_cleanup";
+    internal const string Callback = "source_purge_stage_callback";
+    internal const string Block = "block";
+    internal const string Make = "make";
+    internal const string Run = "run";
+    internal const string Kept = "kept";
+    internal const string Value = "value";
+    internal const string Prepare = "PreparePurge";
+    internal const string Finish = "FinishPurge";
+    internal const string FinishAsync = "FinishPurgeAsync";
+    internal const string PrepareAsync = "PreparePurgeAsync";
+    internal const string ClosingException = "ModuleSourceMutationClosedException";
+    internal const string WriterAvailable = "IsAvailable";
+    internal const string RuntimeGate = "gate";
+    internal const string StageClosing = "closing";
+    internal const string Image = "Image";
+    internal const string Ticket = "Ticket";
+    internal const string Generation = "Generation";
+    internal const string Completion = "Completion";
+    internal const string Failure = "Failure";
+    internal const string StageBusy = "StageBusy";
+    internal const string WriterOrder = "WriterOrder";
+    internal const string RuntimeClosing = "RuntimeClosing";
+    internal const string InvalidTicket = "InvalidTicket";
+    internal const string InvalidSession = "InvalidSession";
+    internal const string ReentrantShutdown = "ReentrantShutdown";
+    internal const string AdmissionType = "Erlang.ModuleSourceMutationAdmissionException";
+    internal const string ScopeType = "Erlang.ModuleSourceMutationScope";
+    internal const string SourcePermission = "SourceMutation";
+    internal const string EnterSource = "EnterSourceMutation";
+    internal const string TryAcquire = "TryAcquire";
+    internal const string ModifySource = "ModifySourceCodeAsync";
+    internal const string CodePermission = "CodeModification";
+    internal const string Acquire = "AcquireAsync";
+    internal const string TicketRun = "Run";
+    internal const string AsTask = "AsTask";
+    internal const string Result = "Result";
+    internal const string Unwound = "Unwound";
+    internal const string IsExecutingCode = "IsExecutingCode";
+    internal const string PendingWriters = "PendingAsynchronousWriters";
+    internal const string Source = "-module(source_purge_stage_host). -export([make/0,run/0]). make()->fun hidden/0. hidden()->kept. run()->source_purge_stage_callback:block(),kept.";
+    internal const string OtherSource = "-module(source_purge_stage_other). -export([value/0]). value()->kept.";
+    internal const string ThirdSource = "-module(source_purge_stage_third). -export([value/0]). value()->kept.";
+    internal const string SeedSource = "-module(source_purge_stage_seed). -export([value/0]). value()->kept.";
+    internal const BindingFlags Members = BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic;
+    internal static readonly TimeSpan Deadline = TimeSpan.FromSeconds(10);
+}

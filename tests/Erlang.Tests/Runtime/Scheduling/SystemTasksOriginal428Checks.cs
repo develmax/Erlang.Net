@@ -17,23 +17,33 @@ internal static class SystemTasksOriginal428Checks
         {
             runtime = new ProcessRuntime(1);
             ProcessRuntime owner = runtime;
-            await owner.InitializeModulesAsync(registry =>
+            await global::Erlang.Tests.PreparedBeamFixtureScope171.RunAsync(
+                owner,
+                async (registry, scope) =>
             {
-                RuntimeBootstrapInternalSystemTasks428.Register(owner, registry);
+                await owner.InitializeModulesAsync(_ =>
+                {
+                    RuntimeBootstrapInternalSystemTasks428.Register(owner, registry);
+                });
                 var declared = new BeamDependencySelection([SystemTasksOriginal428Names.Runtime, SystemTasksOriginal428Names.File, SystemTasksOriginal428Names.Internal]);
-                PreparedBeamImage facet = registry.PrepareBeam(SystemTasksOriginal428Access.Resource(SystemTasksOriginal428Names.FacetBeam), declared);
+                PreparedBeamImage facet = scope.Prepare(() => registry.PrepareBeam(SystemTasksOriginal428Access.Resource(SystemTasksOriginal428Names.FacetBeam), declared));
                 SystemTasksOriginal428Access.Require(facet.Name == SystemTasksOriginal428Names.Internal
                     && facet.NativePrimitiveExports.Count == SystemTasksOriginal428Names.NativeCount
                     && SystemTasksOriginal428Names.NativeSignatures.All(signature => facet.NativePrimitiveExports.Contains(signature)));
-                PreparedBeamImage handler = registry.PrepareBeam(SystemTasksOriginal428Access.Resource(SystemTasksOriginal428Names.HandlerBeam), declared);
+                PreparedBeamImage handler = scope.Prepare(() => registry.PrepareBeam(SystemTasksOriginal428Access.Resource(SystemTasksOriginal428Names.HandlerBeam), declared));
                 SystemTasksOriginal428Access.Require(handler.Name == SystemTasksOriginal428Names.HandlerModule && handler.NativePrimitiveExports.Count == 0);
-                PreparedBeamImage worker = registry.PrepareBeam(SystemTasksOriginal428Access.Resource(SystemTasksOriginal428Names.WorkerBeam), declared);
-                SystemTasksOriginal428Access.Require(registry.PublishPreparedBeam([facet, handler, worker]).Status == BeamPublicationStatus.Published);
-                foreach (var image in new[] { facet, handler, worker })
-                    foreach (var export in registry.Exports.Where(export => export.Module == image.Name))
-                        SystemTasksOriginal428Access.Require(ReferenceEquals(registry.SourceOwner(export.Module, export.Function, export.Arity), image));
-                SystemTasksOriginal428Access.Require(registry.Exports.Count(export => export.Module == facet.Name) == SystemTasksOriginal428Names.FacetExports);
-            });
+                PreparedBeamImage worker = scope.Prepare(() => registry.PrepareBeam(SystemTasksOriginal428Access.Resource(SystemTasksOriginal428Names.WorkerBeam), declared));
+
+                return _ =>
+                {
+                    SystemTasksOriginal428Access.Require(registry.PublishPreparedBeam([facet, handler, worker]).Status == BeamPublicationStatus.Published);
+                    foreach (var image in new[] { facet, handler, worker })
+                        foreach (var export in registry.Exports.Where(export => export.Module == image.Name))
+                            SystemTasksOriginal428Access.Require(ReferenceEquals(registry.SourceOwner(export.Module, export.Function, export.Arity), image));
+                    SystemTasksOriginal428Access.Require(registry.Exports.Count(export => export.Module == facet.Name) == SystemTasksOriginal428Names.FacetExports);
+                };
+            }
+            );
             RuntimeBootstrapInternalSystemTasks428.StartOriginalHandlers(owner);
             actor = new RuntimeNodeFoundationHostActor(owner);
             RuntimeNodeFoundationHostActor caller = actor;

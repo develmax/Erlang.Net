@@ -6,6 +6,15 @@ internal interface ISourceLocalFunctionResolver
 
     LocalFunctionIdentity? ResolveLocalIdentity(LocalFunctionIdentity identity, int arity);
 
+    // Called only after actual receiver module/image provenance is authenticated.
+    FunctionTerm? ReconstructPublicLocal414(
+        ProcessRuntime runtime,
+        LocalFunctionIdentity identity,
+        int arity,
+        IReadOnlyList<Term> environment,
+        ModuleCodeImage image
+    );
+
     FunctionTerm? ResolveLocalFunction(
         LocalFunctionIdentity identity,
         int arity,

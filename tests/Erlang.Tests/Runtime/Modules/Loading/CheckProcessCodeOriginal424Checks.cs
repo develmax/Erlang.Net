@@ -20,13 +20,21 @@ internal static class CheckProcessCodeOriginal424Checks
             await owner.InitializeModulesAsync(registry =>
             {
                 RuntimeBootstrapCheckProcessCode423.Register(owner, registry);
-                var declared = new BeamDependencySelection([CheckProcessCodeOriginal424Names.Runtime, CheckProcessCodeOriginal424Names.File, CheckProcessCodeOriginal424Names.Internal, CheckProcessCodeOriginal424Names.Subject, CheckProcessCodeOriginal424Names.Module]);
-                PreparedBeamImage worker = registry.PrepareBeam(CheckProcessCodeOriginal424Access.Resource(CheckProcessCodeOriginal424Names.WorkerBeam), declared);
-                CheckProcessCodeOriginal424Access.Require(registry.PublishPreparedBeam([worker]).Status == BeamPublicationStatus.Published);
-                foreach (var image in new[] { worker })
-                    foreach (var export in registry.Exports.Where(export => export.Module == image.Name))
-                        CheckProcessCodeOriginal424Access.Require(ReferenceEquals(registry.SourceOwner(export.Module, export.Function, export.Arity), image));
             });
+            var declared = new BeamDependencySelection([CheckProcessCodeOriginal424Names.Runtime, CheckProcessCodeOriginal424Names.File, CheckProcessCodeOriginal424Names.Internal, CheckProcessCodeOriginal424Names.Subject, CheckProcessCodeOriginal424Names.Module]);
+            await PreparedBeamFixtureImages825.PrepareAndPublishAsync(
+                owner,
+                [CheckProcessCodeOriginal424Access.Resource(CheckProcessCodeOriginal424Names.WorkerBeam)],
+                declared,
+                (registry, images) =>
+                {
+                    PreparedBeamImage worker = images[0];
+                    CheckProcessCodeOriginal424Access.Require(registry.PublishPreparedBeam([worker]).Status == BeamPublicationStatus.Published);
+                    foreach (var image in new[] { worker })
+                        foreach (var export in registry.Exports.Where(export => export.Module == image.Name))
+                            CheckProcessCodeOriginal424Access.Require(ReferenceEquals(registry.SourceOwner(export.Module, export.Function, export.Arity), image));
+                }
+            );
             actor = new RuntimeNodeFoundationHostActor(owner);
             RuntimeNodeFoundationHostActor caller = actor;
 

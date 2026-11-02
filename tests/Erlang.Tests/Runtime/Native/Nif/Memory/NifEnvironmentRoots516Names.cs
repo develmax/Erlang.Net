@@ -30,5 +30,9 @@ internal static class NifEnvironmentRoots516Names
     internal const string ClearEnvironment = "ClearIndependent";
     internal const string Retire = "RetireAsync";
     internal const string HeapField = "termHeap506";
+    internal const string PrivateProfile = "OwnedTermsPilot506";
+    internal const string StorageBacking = "VmStorageBackingEnabled";
+    internal const string GuestExecution = "OwnedExecutionEnabled683";
+    internal const string EnvironmentExecution = "UsesOwnedExecution683";
     internal const string Failure = "NIF516 environment root custody failed.";
 }

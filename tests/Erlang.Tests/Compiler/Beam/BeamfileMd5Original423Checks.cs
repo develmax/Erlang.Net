@@ -17,16 +17,26 @@ internal static class BeamfileMd5Original423Checks
         {
             runtime = new ProcessRuntime(1);
             ProcessRuntime owner = runtime;
-            await owner.InitializeModulesAsync(registry =>
+            await global::Erlang.Tests.PreparedBeamFixtureScope171.RunAsync(
+                owner,
+                async (registry, scope) =>
             {
-                RuntimeBootstrapBeamfileMd5423.Register(owner, registry);
+                await owner.InitializeModulesAsync(_ =>
+                {
+                    RuntimeBootstrapBeamfileMd5423.Register(owner, registry);
+                });
                 var declared = new BeamDependencySelection([BeamfileMd5Original423Names.Runtime, BeamfileMd5Original423Names.File, BeamfileMd5Original423Names.Internal]);
-                PreparedBeamImage worker = registry.PrepareBeam(BeamfileMd5Original423Access.Resource(BeamfileMd5Original423Names.WorkerBeam), declared);
-                BeamfileMd5Original423Access.Require(registry.PublishPreparedBeam([worker]).Status == BeamPublicationStatus.Published);
-                foreach (var image in new[] { worker })
-                    foreach (var export in registry.Exports.Where(export => export.Module == image.Name))
-                        BeamfileMd5Original423Access.Require(ReferenceEquals(registry.SourceOwner(export.Module, export.Function, export.Arity), image));
-            });
+                PreparedBeamImage worker = scope.Prepare(() => registry.PrepareBeam(BeamfileMd5Original423Access.Resource(BeamfileMd5Original423Names.WorkerBeam), declared));
+
+                return _ =>
+                {
+                    BeamfileMd5Original423Access.Require(registry.PublishPreparedBeam([worker]).Status == BeamPublicationStatus.Published);
+                    foreach (var image in new[] { worker })
+                        foreach (var export in registry.Exports.Where(export => export.Module == image.Name))
+                            BeamfileMd5Original423Access.Require(ReferenceEquals(registry.SourceOwner(export.Module, export.Function, export.Arity), image));
+                };
+            }
+            );
             actor = new RuntimeNodeFoundationHostActor(owner);
             RuntimeNodeFoundationHostActor caller = actor;
 

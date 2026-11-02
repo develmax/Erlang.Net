@@ -81,13 +81,20 @@ internal static class CodePurger432HostChecks
         CodePurger432HostAccess.Require(sourceResult.Equals(Term.A(CodePurger432HostNames.True)));
 
         await using var altered = new ProcessRuntime(1);
-        await altered.InitializeModulesAsync(registry =>
+        await global::Erlang.Tests.PreparedBeamFixtureScope171.RunAsync(
+            altered,
+            (registry, scope) =>
         {
             byte[] raw = CodePurgerOriginal432Access.Resource(CodePurgerOriginal432Names.PurgerBeam);
             byte[] changed = BeamMetadataModeledBytes.WithAttributes(raw, Cons.From([Term.Tuple(Term.A(CodePurger432HostNames.AlteredAuthority), Cons.From([Term.I(1)]))]));
-            var image = registry.PrepareBeam(changed, fixture.Dependencies);
-            CodePurger432HostAccess.Require(registry.PublishPreparedBeam([image]).Status == BeamPublicationStatus.Published);
-        });
+            var image = scope.Prepare(() => registry.PrepareBeam(changed, fixture.Dependencies));
+
+            return ValueTask.FromResult<Action<ModuleRegistry>>(_ =>
+            {
+                CodePurger432HostAccess.Require(registry.PublishPreparedBeam([image]).Status == BeamPublicationStatus.Published);
+            });
+        }
+        );
         await using var parent = new RuntimeNodeFoundationHostActor(altered);
         await parent.Invoke(context =>
         {

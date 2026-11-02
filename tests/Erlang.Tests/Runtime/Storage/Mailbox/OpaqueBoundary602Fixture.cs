@@ -111,9 +111,17 @@ internal sealed class OpaqueBoundary602Fixture
                 }
                 Require(stale);
             }
-        CollectHostTransients(); // Host-finalizer authority only; source guestGC was explicit above.
-        Require(Atomics.Count(GuestRoots) == messages);
+        CollectHostTransients();
+        AssertQueueCustody(messages);
     }
+
+    internal void AssertQueueCustody(int messages)
+        => OpaqueBoundary602Custody367.Check(
+            Atomics,
+            sourceHeap!,
+            Works(),
+            messages
+        );
 
     internal object[] Works()
     {
@@ -159,7 +167,7 @@ internal sealed class OpaqueBoundary602Fixture
 
     internal async Task Retired()
     {
-        await ((Task)Call(Mailbox, Drain)!).WaitAsync(Deadline);
+        await OpaqueReceiverCollection379.Collect(this);
         CollectHostTransients();
         await ((Task)Property(Atomics.Array, AtomicsRetired)).WaitAsync(Deadline);
         Require(!(bool)Property(Atomics.Array, Allocated));

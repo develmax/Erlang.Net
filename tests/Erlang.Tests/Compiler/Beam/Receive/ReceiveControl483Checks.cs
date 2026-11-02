@@ -72,17 +72,19 @@ internal static class ReceiveControl483Checks
         );
         bool refused = false;
         await using var runtime = new ProcessRuntime();
-        await runtime.InitializeModulesAsync(registry =>
+        await global::Erlang.Tests.PreparedBeamFixtureScope171.RunOutsideAsync(
+            runtime,
+            (registry, scope) =>
         {
-            registry.PrepareBeam(Build(
+            scope.Prepare(() => registry.PrepareBeam(Build(
                 opcode,
                 X(0),
                 I(1),
                 F(5)
-            ));
+            )));
             try
             {
-                registry.PrepareBeam(image);
+                scope.Prepare(() => registry.PrepareBeam(image));
             }
             catch (Exception error) when ((error is InvalidDataException or NotSupportedException)
                 && error.Message == (subject == X(9) || arity == X(9) ? FrameDiagnostic
@@ -90,7 +92,11 @@ internal static class ReceiveControl483Checks
             {
                 refused = true;
             }
-        });
+
+            return ValueTask.CompletedTask;
+
+        }
+        );
         ReceiveOriginal483Checks.Require(refused);
     }
 }

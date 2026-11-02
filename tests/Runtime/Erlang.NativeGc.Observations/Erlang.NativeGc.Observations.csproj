@@ -1,0 +1,37 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net10.0</TargetFramework>
+    <AssemblyName>Erlang.Tests</AssemblyName>
+    <LangVersion>14.0</LangVersion>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="../../../src/Runtime/Erlang.Runtime.Core/Erlang.Runtime.Core.csproj" />
+    <ProjectReference Include="../../../src/Otp/Original/Foundation/Erlang.Otp.Erts.Beam/Erlang.Otp.Erts.Beam.csproj" />
+    <ProjectReference Include="../../../src/Compiler/Erlang.Compiler/Erlang.Compiler.csproj" />
+    <ProjectReference Include="../../../src/Otp/Managed/Erlang.Otp.Stdlib/Erlang.Otp.Stdlib.csproj" />
+    <ProjectReference Include="../Erlang.NativeGc.TestSupport/Erlang.NativeGc.TestSupport.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources/guest_connected_bang322.beam" LogicalName="Erlang.Tests.ModelledBase.guest_connected_bang322.beam" />
+    <EmbeddedResource Include="../../Erlang.Tests/Resources/Beam/beam_fixture_closure.beam" LogicalName="Erlang.Tests.PublicReceiver414.beam_fixture_closure.beam" />
+    <EmbeddedResource Include="Resources/NativeRecordDefaults313/*" LogicalName="Erlang.Tests.NativeRecordDefaults313.%(Filename)%(Extension)" />
+    <EmbeddedResource Include="Resources/NativeAppend206/*" LogicalName="Erlang.Tests.NativeAppend206.%(Filename)%(Extension)" />
+    <EmbeddedResource Include="Resources/Original820/*.erl" />
+    <Content Include="Resources/Original820/*.erl" CopyToOutputDirectory="PreserveNewest" />
+    <Content Include="Resources/OriginalLibrary/*.beam" CopyToOutputDirectory="PreserveNewest" />
+    <Content Include="Resources/original-library-assets06.json" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.CodeAnalysis"><HintPath>$(MSBuildToolsPath)/Roslyn/bincore/Microsoft.CodeAnalysis.dll</HintPath><Private>true</Private></Reference>
+    <Reference Include="Microsoft.CodeAnalysis.CSharp"><HintPath>$(MSBuildToolsPath)/Roslyn/bincore/Microsoft.CodeAnalysis.CSharp.dll</HintPath><Private>true</Private></Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="../../Erlang.Tests/Runtime/Native/Regex/RegexNative411Access.cs" Link="Fixtures/Runtime/Native/Regex/RegexNative411Access.cs" />
+    <Compile Include="../../Erlang.Tests/Runtime/Native/Regex/RegexNative411Names.cs" Link="Fixtures/Runtime/Native/Regex/RegexNative411Names.cs" />
+  </ItemGroup>
+</Project>

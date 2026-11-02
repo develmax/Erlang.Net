@@ -1,6 +1,6 @@
 namespace Erlang;
 
-internal sealed class ModuleRegistryApplyFrame
+internal sealed partial class ModuleRegistryApplyFrame
 {
     [ThreadStatic]
     private static ModuleRegistryApplyFrame? current;
@@ -56,8 +56,7 @@ internal sealed class ModuleRegistryApplyFrame
     {
         if (ReferenceEquals(root, this))
         {
-            adopted?.Dispose();
-            adopted = null;
+            ReleaseSourceRoot819();
         }
     }
 }

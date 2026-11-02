@@ -238,18 +238,32 @@ internal static class SystemTaskOwner428Checks
     internal static async Task DirtySignals()
     {
         await using var runtime = new ProcessRuntime(2);
-        await runtime.InitializeModulesAsync(registry =>
+        await global::Erlang.Tests.PreparedBeamFixtureScope171.RunAsync(
+            runtime,
+            async (registry, scope) =>
         {
-            RuntimeBootstrapInternalSystemTasks428.Register(runtime, registry);
-            RuntimeBootstrapProcessAlive425.Register(runtime, registry);
+            await runtime.InitializeModulesAsync(_ =>
+            {
+                {
+                    RuntimeBootstrapInternalSystemTasks428.Register(runtime, registry);
+                }
+                {
+                    RuntimeBootstrapProcessAlive425.Register(runtime, registry);
+                }
+            });
             using var stream = typeof(SystemTaskOwner428Checks).Assembly.GetManifestResourceStream(SystemTaskOwner428Names.HandlerPrefix + SystemTaskOwner428Names.HandlerBeam)!;
             using var bytes = new MemoryStream();
             stream.CopyTo(bytes);
             byte[] image = bytes.ToArray();
             Require(Convert.ToHexString(System.Security.Cryptography.SHA256.HashData(image)) == SystemTaskOwner428Names.HandlerHash);
-            PreparedBeamImage handler = registry.PrepareBeam(image, new BeamDependencySelection([SystemTaskOwner428Names.Runtime, SystemTaskOwner428Names.Module]));
-            Require(handler.NativePrimitiveExports.Count == 0 && registry.PublishPreparedBeam([handler]).Status == BeamPublicationStatus.Published);
-        });
+            PreparedBeamImage handler = scope.Prepare(() => registry.PrepareBeam(image, new BeamDependencySelection([SystemTaskOwner428Names.Runtime, SystemTaskOwner428Names.Module])));
+
+            return _ =>
+            {
+                Require(handler.NativePrimitiveExports.Count == 0 && registry.PublishPreparedBeam([handler]).Status == BeamPublicationStatus.Published);
+            };
+        }
+        );
         RuntimeBootstrapInternalSystemTasks428.StartOriginalHandlers(runtime);
         RuntimeBootstrapInternalSystemTasks428.StartOriginalHandlers(runtime);
         await using var requester = new RuntimeNodeFoundationHostActor(runtime);

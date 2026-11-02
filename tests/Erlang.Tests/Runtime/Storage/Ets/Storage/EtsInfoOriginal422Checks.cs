@@ -17,27 +17,42 @@ internal static class EtsInfoOriginal422Checks
         {
             runtime = new ProcessRuntime(1);
             ProcessRuntime owner = runtime;
-            await owner.InitializeModulesAsync(registry =>
+            await global::Erlang.Tests.PreparedBeamFixtureScope171.RunAsync(
+                owner,
+                async (registry, scope) =>
             {
-                RuntimeNativePrimitiveProviders.Register(owner, registry, RuntimeNativePrimitives.EtsStorageCore);
-                PreparedBeamImage facet = EtsInfoOriginal422Preparation.Prepare(owner, registry);
+                await owner.InitializeModulesAsync(_ =>
+                {
+                    {
+                        RuntimeNativePrimitiveProviders.Register(owner, registry, RuntimeNativePrimitives.EtsStorageCore);
+                    }
+                    {
+                        EtsInfoOriginal422Preparation.Register171(owner, registry);
+                    }
+                });
+                PreparedBeamImage facet = EtsInfoOriginal422Preparation.Prepare171(owner, registry, scope);
                 var declared = new BeamDependencySelection([EtsInfoOriginal422Names.Ets,
-                    EtsInfoOriginal422Names.Runtime, EtsInfoOriginal422Names.Lists, EtsInfoOriginal422Names.File, EtsInfoOriginal422Names.Internal]);
-                PreparedBeamImage lists = registry.PrepareBeam(
-                    EtsInfoOriginal422Access.Resource(EtsInfoOriginal422Names.ListsBeam), declared);
-                PreparedBeamImage inspection = registry.PrepareBeam(EtsInfoOriginal422Access.Resource(EtsInfoOriginal422Names.InternalBeam), declared);
+                                EtsInfoOriginal422Names.Runtime, EtsInfoOriginal422Names.Lists, EtsInfoOriginal422Names.File, EtsInfoOriginal422Names.Internal]);
+                PreparedBeamImage lists = scope.Prepare(() => registry.PrepareBeam(
+                    EtsInfoOriginal422Access.Resource(EtsInfoOriginal422Names.ListsBeam), declared));
+                PreparedBeamImage inspection = scope.Prepare(() => registry.PrepareBeam(EtsInfoOriginal422Access.Resource(EtsInfoOriginal422Names.InternalBeam), declared));
                 EtsInfoOriginal422Access.Require(inspection.Name == EtsInfoOriginal422Names.Internal
                     && inspection.NativePrimitiveExports.Count == EtsInfoOriginal422Names.InternalNatives
                     && inspection.NativePrimitiveExports.Select(signature => (signature.Name, signature.Arity)).ToHashSet().SetEquals(EtsInfoOriginal422Names.InternalSignatures));
-                PreparedBeamImage worker = registry.PrepareBeam(
-                    EtsInfoOriginal422Access.Resource(EtsInfoOriginal422Names.WorkerBeam), declared);
-                EtsInfoOriginal422Access.Require(registry.PublishPreparedBeam([facet, lists, inspection, worker]).Status == BeamPublicationStatus.Published);
-                EtsInfoOriginal422Preparation.AssertPublished(registry, facet);
-                EtsInfoOriginal422Access.Require(registry.Exports.Count(export => export.Module == EtsInfoOriginal422Names.Internal) == EtsInfoOriginal422Names.InternalExports);
-                foreach (var image in new[] { lists, inspection, worker })
-                    foreach (var export in registry.Exports.Where(export => export.Module == image.Name))
-                        EtsInfoOriginal422Access.Require(ReferenceEquals(registry.SourceOwner(export.Module, export.Function, export.Arity), image));
-            });
+                PreparedBeamImage worker = scope.Prepare(() => registry.PrepareBeam(
+                    EtsInfoOriginal422Access.Resource(EtsInfoOriginal422Names.WorkerBeam), declared));
+
+                return _ =>
+                {
+                    EtsInfoOriginal422Access.Require(registry.PublishPreparedBeam([facet, lists, inspection, worker]).Status == BeamPublicationStatus.Published);
+                    EtsInfoOriginal422Preparation.AssertPublished(registry, facet);
+                    EtsInfoOriginal422Access.Require(registry.Exports.Count(export => export.Module == EtsInfoOriginal422Names.Internal) == EtsInfoOriginal422Names.InternalExports);
+                    foreach (var image in new[] { lists, inspection, worker })
+                        foreach (var export in registry.Exports.Where(export => export.Module == image.Name))
+                            EtsInfoOriginal422Access.Require(ReferenceEquals(registry.SourceOwner(export.Module, export.Function, export.Arity), image));
+                };
+            }
+            );
             actor = new RuntimeNodeFoundationHostActor(owner);
             RuntimeNodeFoundationHostActor caller = actor;
 

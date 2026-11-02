@@ -70,13 +70,28 @@ internal static class BootLibraryChecks
         var runtime = new ProcessRuntime();
         try
         {
-            await runtime.InitializeModulesAsync(registry =>
+            await global::Erlang.Tests.PreparedBeamFixtureScope171.RunAsync(
+                runtime,
+                async (registry, scope) =>
             {
-                RuntimeBootstrapAtomics.Register(runtime, registry);
-                RuntimeBootstrapFileSystem.Register(runtime, registry);
-                RuntimeBootstrapScheduler.Register(runtime, registry);
-                RuntimeBootstrapInternalPorts416.Register(runtime, registry);
-                RuntimeBootstrapEtsInspection420.Register(runtime, registry);
+                await runtime.InitializeModulesAsync(_ =>
+                {
+                    {
+                        RuntimeBootstrapAtomics.Register(runtime, registry);
+                    }
+                    {
+                        RuntimeBootstrapFileSystem.Register(runtime, registry);
+                    }
+                    {
+                        RuntimeBootstrapScheduler.Register(runtime, registry);
+                    }
+                    {
+                        RuntimeBootstrapInternalPorts416.Register(runtime, registry);
+                    }
+                    {
+                        RuntimeBootstrapEtsInspection420.Register(runtime, registry);
+                    }
+                });
                 string[] imports = OtpErts.Modules.Concat(OtpSasl.Modules).Concat(OtpStdlib.Modules).Concat(OtpKernel.Modules).Append(Observer).ToArray();
                 var dependencies = new BeamDependencySelection(imports);
                 byte[][] bytes = [OtpStdlib.ReadImage("lists"), OtpErts.ReadImage("atomics"), OtpErts.ReadImage("counters"), OtpErts.ReadImage("erts_internal"), OtpSasl.ReadImage("misc_supp"), OtpSasl.ReadImage("systools_lib"), Resource(ObserverImage)];
@@ -84,20 +99,25 @@ internal static class BootLibraryChecks
                 {
                     try
                     {
-                        return registry.PrepareBeam(image, dependencies);
+                        return scope.Prepare(() => registry.PrepareBeam(image, dependencies));
                     }
                     catch (Exception error)
                     {
                         throw new InvalidOperationException(BeamArtifactInspector.Inspect(image).Name, error);
                     }
                 }).ToArray();
-                Check(registry.PublishPreparedBeam(images).Status == BeamPublicationStatus.Published);
-                foreach (PreparedBeamImage image in images)
+
+                return _ =>
                 {
-                    var exports = registry.Exports.Where(export => export.Module == image.Name).ToArray();
-                    Check(exports.Length > 0 && exports.All(export => ReferenceEquals(registry.SourceOwner(export.Module, export.Function, export.Arity), image)));
-                }
-            });
+                    Check(registry.PublishPreparedBeam(images).Status == BeamPublicationStatus.Published);
+                    foreach (PreparedBeamImage image in images)
+                    {
+                        var exports = registry.Exports.Where(export => export.Module == image.Name).ToArray();
+                        Check(exports.Length > 0 && exports.All(export => ReferenceEquals(registry.SourceOwner(export.Module, export.Function, export.Arity), image)));
+                    }
+                };
+            }
+            );
             var completed = new TaskCompletionSource<Term>(TaskCreationOptions.RunContinuationsAsynchronously);
             ProcessHandle actor = runtime.Spawn(async context =>
             {

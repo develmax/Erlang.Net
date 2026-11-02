@@ -133,7 +133,7 @@ internal sealed class LinuxPortChildProcess : PortChildProcess
             }
             if (result < 0 && Marshal.GetLastPInvokeError() != LinuxPortParameters.Interrupted)
                 throw new Win32Exception(Marshal.GetLastPInvokeError());
-            await Task.Delay(LinuxPortParameters.ExitPollMilliseconds);
+            await Task.Delay(LinuxPortParameters.ExitPollMilliseconds).ConfigureAwait(false);
         }
     }
 

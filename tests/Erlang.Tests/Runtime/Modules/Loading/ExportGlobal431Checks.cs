@@ -17,8 +17,23 @@ internal static class ExportGlobal431Checks
 
     internal static async Task Run()
     {
-        await using var runtime = new ProcessRuntime();
-        await runtime.InitializeModulesAsync(registry => RuntimeBootstrapDebugSharing425.Register(runtime, registry));
+        var failures = new List<Exception>();
+        foreach (bool privateProfile in new[] { false, true })
+            try
+            {
+                await Profile(privateProfile);
+            }
+            catch (Exception error)
+            {
+                failures.Add(error);
+            }
+        if (failures.Count != 0) throw new AggregateException(ExportGlobal431Names.Failure, failures);
+    }
+
+    private static async Task Profile(bool privateProfile)
+    {
+        await using var runtime = privateProfile ? OwnedGuest506RuntimeFactory.Create() : new ProcessRuntime();
+        await DebugSharing425Access.PrepareSourceRuntime(runtime);
         await using var other = new ProcessRuntime();
         await other.InitializeModulesAsync(_ => { });
         var identity = new ExternalFunctionIdentity(Term.A(ExportGlobal431Names.Runtime), Term.A(ExportGlobal431Names.Function), 0);
@@ -55,7 +70,12 @@ internal static class ExportGlobal431Checks
         Require(ReferenceEquals(global, literal.Items[0]) && ReferenceEquals(global, literal.Items[1])
             && runtime.Functions.IsExternalEntry((FunctionTerm)literal.Items[0]));
         Require(!ExportGlobal431Access.HasModuleMarker(runtime, global));
-        Require(ExportGlobal431Access.HasModuleMarker(runtime, literal));
+        // Public result is a detached DTO. The exact native literal/copy word
+        // identity is checked inside a real guest before this Host boundary.
+        Require(!ExportGlobal431Access.HasModuleMarker(runtime, literal));
+        DebugGuestIdentity377Checks.Portable(literal);
+        await DebugGuestIdentity377Checks.Prepare(runtime);
+        await DebugGuestIdentity377Checks.ExportCase(runtime, actor);
         await actor.InvokeAsync(async context =>
         {
             FunctionTerm keep = (FunctionTerm)await Call(
@@ -98,60 +118,10 @@ internal static class ExportGlobal431Checks
             Require(ReferenceEquals(imported, global) && !runtime.Functions.IsExternalEntry(copy));
             Require((await Call(context, ExportGlobal431Names.Shared, global)).Equals(Term.I(0))
                 && (await Call(context, ExportGlobal431Names.Shared, copy)).Equals(Term.I(2)));
-            await Nested(
-                context,
-                literal,
-                true,
-                false
-            );
-            await Nested(
-                context,
-                Term.Tuple(global, global),
-                false,
-                false
-            );
-            await Nested(
-                context,
-                Term.Tuple(copy, copy),
-                false,
-                true
-            );
+            await DebugGuestIdentity377Checks.ExportNested395(context);
 
             return Nil.Value;
         });
     }
 
-    private static async Task Nested(
-        ProcessContext context,
-        TupleTerm root,
-        bool literal,
-        bool freshChildren
-    )
-    {
-        Require((await Call(context, ExportGlobal431Names.Flat, root)).Equals(Term.I(7)));
-        Require((await Call(context, ExportGlobal431Names.Shared, root)).Equals(Term.I(literal ? 0 : freshChildren ? 5 : 3)));
-        foreach (bool copyLiterals in new[] { false, true })
-        {
-            var copied = (TupleTerm)await Call(
-                context,
-                ExportGlobal431Names.Copy,
-                root,
-                Term.A(copyLiterals ? ExportGlobal431Names.True : ExportGlobal431Names.False)
-            );
-            bool rootSame = DebugSharing425Access.Same(context, root, copied);
-            bool childSame = DebugSharing425Access.Same(context, copied.Items[0], copied.Items[1]);
-            Require(rootSame == (literal && !copyLiterals));
-            Require(childSame == (!copyLiterals || freshChildren));
-            long shared = literal && !copyLiterals ? 0 : freshChildren ? 5 : copyLiterals ? 7 : 3;
-            Require((await Call(context, ExportGlobal431Names.Shared, copied)).Equals(Term.I(shared)));
-            foreach (Term value in copied.Items)
-            {
-                var function = (FunctionTerm)value;
-                Require(context.Runtime.Functions.IsExternalEntry(function) == (!freshChildren && !copyLiterals));
-                Require((await Call(context, ExportGlobal431Names.Flat, function)).Equals(Term.I(2)));
-                Require((await Call(context, ExportGlobal431Names.Shared, function)).Equals(Term.I(!freshChildren && !copyLiterals ? 0 : 2)));
-                Require((await function.Invoke(context, [])).Equals(context.Self));
-            }
-        }
-    }
 }

@@ -19,17 +19,23 @@ internal static class ComparisonFrame482Checks
     {
         await using var runtime = new ProcessRuntime();
         bool refused = false;
-        await runtime.InitializeModulesAsync(registry =>
+        await global::Erlang.Tests.PreparedBeamFixtureScope171.RunOutsideAsync(
+            runtime,
+            (registry, scope) =>
         {
             try
             {
-                registry.PrepareBeam(ComparisonOriginal482Checks.Read(name), new BeamDependencySelection(ComparisonOriginal482Names.Imports));
+                scope.Prepare(() => registry.PrepareBeam(ComparisonOriginal482Checks.Read(name), new BeamDependencySelection(ComparisonOriginal482Names.Imports)));
             }
             catch (InvalidDataException error) when (error.Message == FrameDiagnostic)
             {
                 refused = true;
             }
-        });
+
+            return ValueTask.CompletedTask;
+
+        }
+        );
         ComparisonOriginal482Checks.Require(refused);
     }
 }

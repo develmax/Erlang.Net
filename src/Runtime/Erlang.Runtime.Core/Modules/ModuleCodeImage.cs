@@ -1,6 +1,6 @@
 namespace Erlang;
 
-public sealed class ModuleCodeImage
+public sealed partial class ModuleCodeImage
 {
     internal ModuleCodeImage(string module) => Module = module;
 

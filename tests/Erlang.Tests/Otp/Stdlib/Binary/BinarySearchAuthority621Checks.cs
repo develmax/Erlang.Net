@@ -15,18 +15,25 @@ internal static class BinarySearchAuthority621Checks
         await using var runtime = OwnedGuest506RuntimeFactory.Create();
         artifact.Definition.Register(runtime.Modules);
         PreparedBeamImage? binary = null;
-        await runtime.InitializeModulesAsync(registry =>
+        await global::Erlang.Tests.PreparedBeamFixtureScope171.RunAsync(
+            runtime,
+            (registry, scope) =>
         {
             var dependencies = new BeamDependencySelection([LibraryBinaryNames.Module, LibraryBinaryNames.Lists, ErlangModuleNames.Module]);
             PreparedBeamImage[] images = new[] { LibraryBinaryNames.Module, LibraryBinaryNames.Lists }
-                .Select(module => registry.PrepareBeam(Image(module), dependencies)).ToArray();
-            Require(registry.PublishPreparedBeam(images).Status == BeamPublicationStatus.Published);
-            binary = images.Single(image => image.Name == LibraryBinaryNames.Module);
-            Require(binary.OriginalBeamSha256 == LibraryBinaryNames.Digests[LibraryBinaryNames.Module + LibraryBinaryNames.BeamExtension]);
-            Require(binary.NativePrimitiveExports.Count == LibraryBinaryNames.NativePrimitiveCount);
-            foreach (var export in registry.Exports.Where(export => export.Module == LibraryBinaryNames.Module))
-                Require(ReferenceEquals(registry.SourceOwner(export.Module, export.Function, export.Arity), binary));
-        });
+                .Select(module => scope.Prepare(() => registry.PrepareBeam(Image(module), dependencies))).ToArray();
+
+            return ValueTask.FromResult<Action<ModuleRegistry>>(_ =>
+            {
+                Require(registry.PublishPreparedBeam(images).Status == BeamPublicationStatus.Published);
+                binary = images.Single(image => image.Name == LibraryBinaryNames.Module);
+                Require(binary.OriginalBeamSha256 == LibraryBinaryNames.Digests[LibraryBinaryNames.Module + LibraryBinaryNames.BeamExtension]);
+                Require(binary.NativePrimitiveExports.Count == LibraryBinaryNames.NativePrimitiveCount);
+                foreach (var export in registry.Exports.Where(export => export.Module == LibraryBinaryNames.Module))
+                    Require(ReferenceEquals(registry.SourceOwner(export.Module, export.Function, export.Arity), binary));
+            });
+        }
+        );
         object execution = Property(binary!, Execution);
         var primitives = (IReadOnlyDictionary<(string Function, int Arity), ErlangFunction>)Property(execution, NativePrimitives);
         var exactBodies = new Dictionary<(string Function, int Arity), ErlangFunction>();

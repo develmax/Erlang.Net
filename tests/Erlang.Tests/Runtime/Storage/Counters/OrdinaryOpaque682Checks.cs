@@ -31,9 +31,9 @@ internal static class OrdinaryOpaque682Checks
         try
         {
             Check(!(bool)Property(runtime, Profile));
+            using PreparedBeamImage facet = CountersOriginal421Preparation.Prepare(runtime, runtime.Modules);
             await runtime.InitializeModulesAsync(registry =>
             {
-                PreparedBeamImage facet = CountersOriginal421Preparation.Prepare(runtime, registry);
                 Check(registry.PublishPreparedBeam(facet).Status == BeamPublicationStatus.Published);
             });
             compiled.Definition.Register(runtime.Modules);

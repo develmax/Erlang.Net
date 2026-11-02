@@ -7,6 +7,7 @@ internal sealed class RuntimeVmSpawnInput641 : IDisposable
     private TupleTerm? source;
     private RuntimeProcessPayload641? prepared;
     private int preparation, claimed, closed;
+    private readonly bool connected;
 
     private RuntimeVmSpawnInput641(
         string? module,
@@ -19,6 +20,21 @@ internal sealed class RuntimeVmSpawnInput641 : IDisposable
         this.function = function;
         source = Term.Tuple(callback, Cons.From(arguments));
     }
+
+    private RuntimeVmSpawnInput641(string module, string function, RuntimeProcessPayload641 source641)
+    {
+        this.module = module;
+        this.function = function;
+        prepared = source641.Borrow641(null);
+        preparation = 2;
+        connected = true;
+    }
+
+    internal static Func<ProcessContext, ValueTask<Term>> ConnectedMfa641(
+        string module,
+        string function,
+        RuntimeProcessPayload641 source641
+    ) => new RuntimeVmSpawnInput641(module, function, source641).Invoke641;
 
     internal static Func<ProcessContext, ValueTask<Term>> Mfa641(string module, string function, IReadOnlyList<Term> arguments)
         => new RuntimeVmSpawnInput641(
@@ -91,6 +107,21 @@ internal sealed class RuntimeVmSpawnInput641 : IDisposable
             ?? throw new InvalidOperationException(RuntimeProcessPayloadNames641.Invalid);
         var values = (TupleTerm)input.Value641;
         Term[] arguments = Cons.Items(values.Items[1]).ToArray();
+        if (connected)
+        {
+            var control = (TupleTerm)values.Items[0];
+            if (((Integer)control.Items[0]).Value == DistributionControlOpcodes.SpawnRequestTrace)
+            {
+                SequenceTraceToken? token = DistributionSequenceTraceToken.Decode(control.Items[DistributionSpawnLayout.RequestTokenIndex]).Token;
+                if (token is not null)
+                    child.Runtime.SequenceTracing.Received(
+                        child,
+                        values.Items[1],
+                        token,
+                        false
+                    );
+            }
+        }
 
         return module is null
             ? child.Runtime.Modules.CallVmCallbackRoot641(

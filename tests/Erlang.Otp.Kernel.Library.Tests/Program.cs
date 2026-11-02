@@ -41,15 +41,22 @@ Reject(() => OtpKernel.ReadImage("../net_kernel"));
 Reject(() => OtpKernel.ReadImage("missing"));
 Reject(() => OtpKernel.Beam("net_kernel", null!));
 await using var runtime = new ProcessRuntime();
-await runtime.InitializeModulesAsync(registry =>
+await global::Erlang.Tests.PreparedBeamFixtureScope171.RunAsync(
+    runtime,
+    (registry, scope) =>
 {
-    PreparedBeamImage image = registry.PrepareBeam(
+    PreparedBeamImage image = scope.Prepare(() => registry.PrepareBeam(
         OtpKernel.ReadImage("inet_parse"),
         new BeamDependencySelection(["application", "erlang", "error_logger", "file", "io", "lists", "string"])
-    );
-    Check(registry.PublishPreparedBeam([image]).Status == BeamPublicationStatus.Published);
-    Check(ReferenceEquals(registry.SourceOwner("inet_parse", "address", 1), image));
-});
+    ));
+
+    return ValueTask.FromResult<Action<ModuleRegistry>>(_ =>
+    {
+        Check(registry.PublishPreparedBeam([image]).Status == BeamPublicationStatus.Published);
+        Check(ReferenceEquals(registry.SourceOwner("inet_parse", "address", 1), image));
+    });
+}
+);
 var completed = new TaskCompletionSource<Term>(TaskCreationOptions.RunContinuationsAsynchronously);
 ProcessHandle actor = runtime.Spawn(async context =>
 {

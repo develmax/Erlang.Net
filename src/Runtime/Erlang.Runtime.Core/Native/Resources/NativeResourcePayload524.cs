@@ -129,7 +129,7 @@ internal sealed unsafe partial class NativeResourcePayload524
             _ = checked(native + next);
             roots = next;
             UpdatePhysicalCount527();
-            lease.Admit524();
+            lease.SetState821(NativeResourceRootLeaseState821.Admitted);
         }
 
         return lease;

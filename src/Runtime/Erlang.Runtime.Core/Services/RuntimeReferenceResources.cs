@@ -25,20 +25,14 @@ public sealed partial class RuntimeReferenceResources
         if (image.IsConsumed)
             throw new InvalidOperationException(ReferenceResourceNames.ConsumedPrepared);
 
-        return Create(ReferenceResourceKind.PreparedBeam, image);
+        return CreatePreparedNative807(image);
     }
 
     public ResourceReferenceTerm CreateBinary(ReadOnlyMemory<byte> bytes)
         => Create(ReferenceResourceKind.BinarySnapshot, new BitString(bytes.Span));
 
     public ReferenceResourceLease<PreparedBeamImage>? AcquirePrepared(ReferenceTerm reference)
-        => Acquire<PreparedBeamImage>(reference, ReferenceResourceKind.PreparedBeam);
-
-    internal bool TryReadPreparedMetadata(ReferenceTerm reference, out PreparedBeamImage? image)
-    {
-        lock (gate)
-            return TryReadPreparedMetadataLocked(reference, out image);
-    }
+        => AcquirePreparedNative807(reference);
 
     internal Term FinishPreparedReferences(IReadOnlyList<ReferenceTerm> references)
     {
@@ -49,31 +43,10 @@ public sealed partial class RuntimeReferenceResources
         return modules.FinishLoaderReferences(this, references);
     }
 
-    internal Term AdmitPreparedReferences(IReadOnlyList<ReferenceTerm> references)
+    internal void RequirePreparedFinishOpen807(int count)
     {
-        modules.RequireSourceMutationScope();
         lock (gate)
-        {
-            var images = new List<PreparedBeamImage>();
-            foreach (ReferenceTerm reference in references)
-            {
-                if (!TryReadPreparedMetadataLocked(reference, out PreparedBeamImage? image))
-                    throw new ErlangException(ErlangErrorReasons.BadArgument);
-                images.Add(image!);
-            }
-
-            return modules.FinishLoaderImages(images.ToArray());
-        }
-    }
-
-    private bool TryReadPreparedMetadataLocked(ReferenceTerm reference, out PreparedBeamImage? image)
-    {
-        image = null;
-        if (closed || reference is not ResourceReferenceTerm resource ||
-            !ReferenceEquals(resource.Entry.Owner, this) || resource.ResourceKind != ReferenceResourceKind.PreparedBeam)
-            return false;
-
-        return resource.Entry.TryReadPreparedMetadata(out image);
+            if (closed && count != 0) throw new ErlangException(ErlangErrorReasons.BadArgument);
     }
 
     public ReferenceResourceLease<BitString>? AcquireBinary(ReferenceTerm reference)
@@ -106,14 +79,20 @@ public sealed partial class RuntimeReferenceResources
         lock (gate)
         {
             bool local = ReferenceEquals(reference.LocalIdentity, localIdentity) || reference.Node == wire.Node && reference.Creation == wire.Creation;
-            restored = local ? new ReferenceTerm(localIdentity, reference.Words) : new ReferenceTerm(reference.Node, reference.Words, reference.Creation);
+            restored = local
+                ? ReferenceEquals(reference.LocalIdentity, localIdentity) && (reference.IsLocalPid775 || reference.IsOrdinaryLocal562)
+                    ? new ReferenceTerm(reference)
+                    : ReferenceTerm.RestoreLocal775(localIdentity, reference.Words)
+                : new ReferenceTerm(reference.Node, reference.Words, reference.Creation);
             if (!closed && local && reference.Words.Count == ReferenceIdentityLayout.LocalWords
                 && (reference.Words[1] & ReferenceNumberLayout.MagicMarker) != 0
                 && entries.TryGetValue(restored, out var weak) && weak.TryGetTarget(out var entry) && entry.Published && entry.IsAlive)
             {
                 try
                 {
-                    if (entry.Kind == ReferenceResourceKind.Atomics413)
+                    if (entry.Kind == ReferenceResourceKind.PreparedBeam)
+                        producer = entry.Read<PreparedLoaderOwner807>().Retain807(PreparedLoaderLeaseKind807.Operation);
+                    else if (entry.Kind == ReferenceResourceKind.Atomics413)
                         producer = entry.Read<AtomicsGuestRoot413>().Array.RetainBacking586(AtomicsLeaseKind586.Producer);
                     else if (entry.Kind == ReferenceResourceKind.Counters421)
                         producer = entry.Read<CountersGuestRoot421>().Array.RetainBacking596(CountersLeaseKind596.Producer);
@@ -143,7 +122,9 @@ public sealed partial class RuntimeReferenceResources
             return restored;
         // No registry gate is held across guest-heap publication or host acquisition.
         using (producer)
-            return selected.BinaryBacking598 is { } program
+            return selected.PreparedBacking807 is { } prepared
+                ? OwnedTermInvocation506.AdmitRehydratedPrepared807(selected, prepared)
+                : selected.BinaryBacking598 is { } program
                 ? OwnedTermInvocation506.AdmitRehydratedBinary598(selected, program)
                 : selected.RegexBacking597 is { } regex
                 ? OwnedTermInvocation506.AdmitRehydratedRegex597(selected, regex)
@@ -165,7 +146,7 @@ public sealed partial class RuntimeReferenceResources
         {
             closed = true;
             foreach (var weak in entries.Values)
-                if (weak.TryGetTarget(out var entry) && entry.Kind is not (ReferenceResourceKind.NativeResource524 or ReferenceResourceKind.Regex411))
+                if (weak.TryGetTarget(out var entry) && entry.Kind is not (ReferenceResourceKind.NativeResource524 or ReferenceResourceKind.Regex411 or ReferenceResourceKind.PreparedBeam))
                     entry.Close();
             // Native entries stay readable by already-admitted guest roots until
             // real physical resource retirement. The strong identity index is

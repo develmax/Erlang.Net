@@ -352,24 +352,36 @@ public sealed partial class RuntimeDistributionPending
                     : null
             );
             admission.Observe(Term.Tuple(message.Control, message.Payload));
-            lock (gate)
+            using var spawn641 = DistributionPassThroughCodec.IsSpawnRequest(message.Control)
+                ? PreparedConnectedSpawnInput641.Capture(runtime, message.Control, message.Payload) : null;
+            while (true)
             {
-                var connected = RequireConnectedDecodeSnapshot(
-                    entry,
-                    connectionId,
-                    caller,
-                    wire
-                );
-                connected.Queue.RecordAcceptedHostInput(connected.QueueHandle, caller);
-                if (DistributionPassThroughCodec.IsSpawnRequest(message.Control))
-                    RouteConnectedSpawnRequest(
+                using var outputs641 = spawn641?.PrepareOutputs(runtime);
+                lock (gate)
+                {
+                    var connected = RequireConnectedDecodeSnapshot(
                         entry,
-                        connected,
-                        message.Control,
-                        message.Payload
+                        connectionId,
+                        caller,
+                        wire
                     );
-                else
-                    DeliverConnectedTracePayload(message.Control, message.Payload);
+                    if (spawn641 is not null && !outputs641!.IsCurrent(runtime.SequenceTracing, spawn641.Trace641 is not null))
+                        continue;
+                    connected.Queue.RecordAcceptedHostInput(connected.QueueHandle, caller);
+                    if (spawn641 is not null)
+                        RouteConnectedSpawnRequest(
+                            entry,
+                            connected,
+                            spawn641.Control,
+                            spawn641.Arguments,
+                            spawn641,
+                            outputs641!
+                        );
+                    else
+                        DeliverConnectedTracePayload(message.Control, message.Payload);
+                }
+
+                break;
             }
         }
     }

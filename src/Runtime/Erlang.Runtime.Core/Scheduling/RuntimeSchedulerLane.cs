@@ -4,6 +4,7 @@ internal sealed class RuntimeSchedulerLane(int identity)
 {
     internal int Identity { get; } = identity;
     internal bool Online { get; set; } = true;
+    internal bool WallTimeEnabled { get; set; }
     internal long WallTimeOrigin { get; set; }
     internal long WallTimeActiveStarted { get; set; }
     internal long WallTimeActiveTicks { get; set; }

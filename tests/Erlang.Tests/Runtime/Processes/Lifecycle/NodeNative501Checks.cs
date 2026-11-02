@@ -39,16 +39,26 @@ internal static class NodeNative501Checks
     }
 
     private static async Task InitializeAtomics(ProcessRuntime runtime)
-        => await runtime.InitializeModulesAsync(registry =>
-        {
-            RuntimeBootstrapAtomics.Register(runtime, registry);
-            PreparedBeamImage image = registry.PrepareBeam(
-                AtomicsHost413Access.Resource(AtomicsHost413Names.Atomics + AtomicsHost413Names.Beam),
-                new BeamDependencySelection([AtomicsHost413Names.Runtime, AtomicsHost413Names.Internal])
-            );
-            if (registry.PublishPreparedBeam([image]).Status != BeamPublicationStatus.Published)
-                throw new InvalidDataException(NodeNative501Names.Failure);
-        });
+        => await global::Erlang.Tests.PreparedBeamFixtureScope171.RunAsync(
+            runtime,
+            async (registry, scope) =>
+           {
+               await runtime.InitializeModulesAsync(_ =>
+               {
+                   RuntimeBootstrapAtomics.Register(runtime, registry);
+               });
+               PreparedBeamImage image = scope.Prepare(() => registry.PrepareBeam(
+                   AtomicsHost413Access.Resource(AtomicsHost413Names.Atomics + AtomicsHost413Names.Beam),
+                   new BeamDependencySelection([AtomicsHost413Names.Runtime, AtomicsHost413Names.Internal])
+               ));
+
+               return _ =>
+               {
+                   if (registry.PublishPreparedBeam([image]).Status != BeamPublicationStatus.Published)
+                       throw new InvalidDataException(NodeNative501Names.Failure);
+               };
+           }
+        );
 
     private static byte[] Resource(string prefix, string name)
     {

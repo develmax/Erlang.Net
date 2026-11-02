@@ -27,12 +27,25 @@ internal static class OsNative
                 context.Cancellation.ThrowIfCancellationRequested();
                 RuntimeOsEnvironment environment = owner.RequireOsEnvironment();
 
-                return ValueTask.FromResult(Invoke(
+                Term result = Invoke(
                     context,
                     environment,
                     function,
                     arguments
-                ));
+                );
+                // All() has released its private environment gate before any
+                // genuine frame publication takes the process heap gate.
+                if (function == OsNativeNames.Env && arguments.Count == 0
+                    && context.CurrentOwned506 is { BindingKind507: OwnedBindingKind507.LocalOsEnvironment401 } invocation)
+                {
+                    if (invocation.IsDisposed || !invocation.CanBorrow507 || !invocation.OwnsContext507(context)
+                        || !RuntimeActorExecutionTurn.IsOwnedBy(context))
+                        throw new InvalidOperationException(OwnedBoundary507Names.PublicationChanged);
+
+                    result = invocation.Frame.AdoptGuestInto507(invocation.ResultSlot507, result);
+                }
+
+                return ValueTask.FromResult(result);
             };
 
             return true;

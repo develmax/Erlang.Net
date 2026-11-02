@@ -16,15 +16,19 @@ internal sealed class RuntimePendingPayload628 : IAsyncDisposable
     // Must run before R/M. Caller keeps its actual source invocation or borrow
     // alive throughout validation, graph retain and complete detached copying.
     internal static RuntimePendingPayload628 Prepare(ProcessRuntime runtime, TupleTerm source)
+        => PrepareWithLiteral814(runtime, source, null);
+
+    internal static RuntimePendingPayload628 PrepareWithLiteral814(
+        ProcessRuntime runtime, TupleTerm source, ModuleLiteralRoots801? carriedLiteral801)
     {
         using var atoms = new AtomNameScope(runtime.AtomNames);
-        MailboxGraphSnapshot593? graph = runtime.MailboxRoots593.PrepareGraph(runtime, source);
+        MailboxGraphSnapshot593? graph = runtime.MailboxRoots593.PrepareGraphWithLiteral814(runtime, source, carriedLiteral801);
         try
         {
-            var stable = (TupleTerm)OwnedTermDetachedCopy506.CopyAtomics586(
+            var stable = (TupleTerm)OwnedTermDetachedCopy506.CopyGuestLiteral801(
                 runtime,
                 source,
-                exportHostAtomics586: false
+                graph?.LiteralRoots801
             );
 
             return new(stable, graph);

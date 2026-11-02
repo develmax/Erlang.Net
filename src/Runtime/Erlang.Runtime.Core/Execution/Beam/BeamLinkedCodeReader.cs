@@ -140,10 +140,10 @@ internal static class BeamLinkedCodeReader
             case BeamRecordConstructionNames.Opcode:
                 Require(
                     operands[BeamRecordConstructionNames.Failure].Kind == BeamOperandParameters.Failure
-                    && operands[BeamRecordConstructionNames.Name].Kind == BeamOperandParameters.Atom
                     && operands[BeamRecordConstructionNames.Source].Kind == BeamOperandParameters.Nil,
                     BeamLinkDiagnostics.OperandRole
                 );
+                RecordIdentity(operands[BeamRecordConstructionNames.Name], structure, false);
                 Destination(operands[BeamRecordConstructionNames.Destination]);
                 _ = Unsigned(operands[BeamRecordConstructionNames.Live]);
                 Require(
@@ -161,6 +161,13 @@ internal static class BeamLinkedCodeReader
                     );
                     Source(operands[field + 1]);
                 }
+                break;
+            case BeamRecordConstructionNames.GetField:
+                Branch(operands[BeamRecordConstructionNames.FieldFailure]);
+                Source(operands[BeamRecordConstructionNames.FieldSource]);
+                RecordIdentity(operands[BeamRecordConstructionNames.FieldIdentity], structure, true);
+                Require(operands[BeamRecordConstructionNames.FieldName].Kind == BeamOperandParameters.Atom, BeamLinkDiagnostics.OperandRole);
+                Destination(operands[BeamRecordConstructionNames.FieldDestination]);
                 break;
             case BeamCollectionOpcodeNames.UpdateRecord:
                 Require(operands[0].Kind == BeamOperandParameters.Atom, BeamLinkDiagnostics.OperandRole);
@@ -632,6 +639,24 @@ internal static class BeamLinkedCodeReader
             default:
                 throw new NotSupportedException(BeamLinkDiagnostics.OpcodeRole);
         }
+    }
+
+    private static void RecordIdentity(BeamOperand operand, BeamStructure structure, bool allowWildcard)
+    {
+        if (operand.Kind == BeamOperandParameters.Atom)
+        {
+            Require(
+                allowWildcard || structure.Atoms[(int)operand.Value] != NativeRecordLanguageNames.LocalAccessWildcard,
+                BeamLinkDiagnostics.OperandRole
+            );
+
+            return;
+        }
+        Require(
+            operand.Kind == BeamOperandParameters.LiteralValue
+            && structure.Literals[(int)operand.Value] is TupleTerm { Items: [Atom, Atom] },
+            BeamLinkDiagnostics.OperandRole
+        );
     }
 
     private static void CheckImport(BeamStructure structure, int index, int arity)

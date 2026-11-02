@@ -18,6 +18,7 @@ public sealed partial class Mailbox
     private TaskCompletionSource changed = NewSignal();
     internal Func<bool>? HaltRequested { get; init; }
     internal Action? ProcessSignals { get; init; }
+    internal Func<ValueTask>? ProcessStoragePolicies { get; init; }
     internal Func<ValueTask<long>>? WaitForExecution { get; init; }
     internal Func<long>? SuspensionTime { get; init; }
     internal Func<bool>? ExecutionBlocked { get; init; }
@@ -29,7 +30,7 @@ public sealed partial class Mailbox
     internal Action? ReceiveTimedOut { get; init; }
     internal Action<bool>? WaitingStateChanged { get; init; }
 
-    private readonly record struct Entry(
+    internal readonly record struct Entry(
         Term Value,
         Func<bool?>? Admission,
         bool Control = false,
@@ -43,7 +44,8 @@ public sealed partial class Mailbox
         bool Deferred = false,
         BeamReceiveMarker? ReceiveMarker = null,
         MailboxEntryCustody593? Custody593 = null,
-        Exception? RetirementFailure593 = null
+        Exception? RetirementFailure593 = null,
+        bool PendingBacking = false
     );
 
     private static TaskCompletionSource NewSignal() => new(TaskCreationOptions.RunContinuationsAsynchronously);
@@ -76,7 +78,7 @@ public sealed partial class Mailbox
             Task changedTask;
             lock (gate)
                 changedTask = changed.Task;
-            ProcessSignals?.Invoke();
+            await ProcessSignalsAndStorageAsync();
             if (completion.IsCompleted)
                 break;
             await Task.WhenAny(completion, changedTask).WaitAsync(cancellation);
@@ -97,9 +99,15 @@ public sealed partial class Mailbox
     }
 
     internal Action<Term>? IncomingTerm { get; init; }
+    internal Func<Term, bool, bool>? TrySendBacked { get; init; }
+    internal bool IsClosedForBacking => Volatile.Read(ref closed593);
 
     public void Send(Term message, bool priority = false)
     {
+        // Only the owner-bound runtime hook can prepare actual backing. The
+        // existing path remains for standalone/locked/system callers.
+        if (!Monitor.IsEntered(gate) && TrySendBacked?.Invoke(message, priority) == true)
+            return;
         SendTraced(
             message,
             null,
@@ -198,7 +206,8 @@ public sealed partial class Mailbox
         Term? from = null,
         bool traceAdmission = true,
         Term? distributionTraceToken = null,
-        MailboxPublicationScope593? publication593 = null
+        MailboxPublicationScope593? publication593 = null,
+        bool prepareBacking = false
     )
         => SendPendingCore593(
             message,
@@ -209,7 +218,8 @@ public sealed partial class Mailbox
             traceAdmission,
             distributionTraceToken,
             null,
-            publication593
+            publication593,
+            prepareBacking
         );
 
     internal void SendPendingPriority428(
@@ -239,7 +249,8 @@ public sealed partial class Mailbox
         Term? distributionTraceToken = null
         ,
         ProcessSchedulingPriority? notificationPriority428 = null,
-        MailboxPublicationScope593? publication593 = null
+        MailboxPublicationScope593? publication593 = null,
+        bool prepareBacking = false
     )
     {
         IncomingTerm?.Invoke(message);
@@ -260,7 +271,8 @@ public sealed partial class Mailbox
                 from,
                 traceAdmission,
                 distributionTraceToken,
-                Custody593: custody593
+                Custody593: custody593,
+                PendingBacking: prepareBacking
             ));
             AddPendingSignal428(pendingNode);
             messages.AddLast(pendingNode);
@@ -280,12 +292,12 @@ public sealed partial class Mailbox
         var admitted = new List<(Term Message, Term? From)>();
         lock (gate)
         {
-            if (Volatile.Read(ref closed593) || HaltRequested?.Invoke() == true || pending == 0)
+            if (Volatile.Read(ref closed593) || HaltRequested?.Invoke() == true || pending == 0 || policyMoveReady)
                 return;
             for (var node = messages.First; node is not null;)
             {
                 var next = node.Next;
-                if (node.Value.Deferred)
+                if (node.Value.Deferred || node.Value.PendingBacking)
                     break;
                 if (node.Value.Admission is { } admission)
                 {
@@ -324,6 +336,9 @@ public sealed partial class Mailbox
                         }
                     }
                 }
+                // The actual MOVE marker is an ordering barrier. Later GC,
+                // exit and monitor callbacks wait for real outside-lock movement.
+                if (policyMoveReady) break;
                 node = next is not null && next.List == messages ? next : null;
             }
         }
@@ -395,7 +410,7 @@ public sealed partial class Mailbox
                 Exception? primary = null;
                 try
                 {
-                    Term input = opaque ? OpaqueCandidate593(candidate.Value) : candidate.Value;
+                    Term input = opaque ? OpaqueCandidateWithCustody292(candidate.Value, candidate.Custody593, operation) : candidate.Value;
                     if (opaque)
                     {
                         operation?.Dispose();
@@ -475,7 +490,12 @@ public sealed partial class Mailbox
                 {
                     var inputs = new Term[candidates.Length];
                     for (int index = 0; index < candidates.Length; index++)
-                        inputs[index] = OpaqueCandidate593(candidates[index].Value.Value, transaction);
+                        inputs[index] = OpaqueCandidateWithCustody292(
+                            candidates[index].Value.Value,
+                            transaction,
+                            candidates[index].Value.Custody593,
+                            operations[index]
+                        );
 
                     // An opaque predicate may close the VM. No temporary guest
                     // operation owned by this batch may remain during callbacks.
@@ -581,7 +601,7 @@ public sealed partial class Mailbox
         {
             ThrowIfHalted();
             cancellation.ThrowIfCancellationRequested();
-            ProcessSignals?.Invoke();
+            await ProcessSignalsAndStorageAsync();
             ThrowIfHalted();
             cancellation.ThrowIfCancellationRequested();
             if (WaitForExecution is not null)
@@ -682,7 +702,8 @@ public sealed partial class Mailbox
         {
             ThrowIfHalted();
             cancellation.ThrowIfCancellationRequested();
-            ProcessSignals?.Invoke();
+            ThrowStatisticsTrapFailure();
+            await ProcessSignalsAndStorageAsync();
             ThrowIfHalted();
             cancellation.ThrowIfCancellationRequested();
             if (WaitForExecution is not null)
@@ -747,8 +768,10 @@ public sealed partial class Mailbox
                 try
                 {
                     long suspensionBefore = SuspensionTime?.Invoke() ?? 0;
+                    if (admission593 is not null)
+                        await admission593.ResumeExecution();
                     guest593 = admission593?.Prepare(candidate.Value, candidate.Custody593?.Graph);
-                    Term candidateValue593 = guest593?.Value ?? OpaqueCandidate593(candidate.Value);
+                    Term candidateValue593 = guest593?.Value ?? OpaqueCandidateWithCustody292(candidate.Value, candidate.Custody593, operation593);
                     if (admission593 is null)
                     {
                         // Host admission is complete; do not make a public
@@ -830,7 +853,7 @@ public sealed partial class Mailbox
                     MessageReceived?.Invoke();
                     SequenceTraceToken? traceToken = received.TraceToken;
                     bool preserveTrace = received.PreserveTrace;
-                    if (received.DistributionTraceToken is { } rawTrace)
+                    if (traceToken is null && received.DistributionTraceToken is { } rawTrace)
                     {
                         var reception = DistributionSequenceTraceToken.Decode(rawTrace);
                         traceToken = reception.Token;
@@ -881,7 +904,8 @@ public sealed partial class Mailbox
                 if (remaining is { } finite)
                 {
                     WaitingStateChanged?.Invoke(true);
-                    await signal.WaitAsync(
+                    await WaitStatisticsTrapSignal(
+                        signal,
                         finite > TimeSpan.FromMilliseconds(MailboxWaitParameters.MaximumSegmentMilliseconds) ? TimeSpan.FromMilliseconds(MailboxWaitParameters.MaximumSegmentMilliseconds) : finite,
                         cancellation
                     );
@@ -889,7 +913,7 @@ public sealed partial class Mailbox
                 else
                 {
                     WaitingStateChanged?.Invoke(true);
-                    await signal.WaitAsync(cancellation);
+                    await WaitStatisticsTrapSignal(signal, null, cancellation);
                 }
             }
             catch (TimeoutException)

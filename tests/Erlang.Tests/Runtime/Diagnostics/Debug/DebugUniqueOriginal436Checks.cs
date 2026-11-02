@@ -17,21 +17,28 @@ internal static class DebugUniqueOriginal436Checks
         {
             runtime = new ProcessRuntime();
             ProcessRuntime owner = runtime;
-            await owner.InitializeModulesAsync(registry =>
+            await global::Erlang.Tests.PreparedBeamFixtureScope171.RunAsync(
+                owner,
+                (registry, scope) =>
             {
                 var declared = new BeamDependencySelection([DebugUniqueOriginal436Names.Debug,
-                    DebugUniqueOriginal436Names.Runtime, DebugUniqueOriginal436Names.Subject, DebugUniqueOriginal436Names.Module]);
-                PreparedBeamImage facet = DebugUniqueOriginal436Preparation.Prepare(registry, declared);
-                PreparedBeamImage worker = registry.PrepareBeam(
-                    DebugUniqueOriginal436Access.Resource(DebugUniqueOriginal436Names.WorkerBeam), declared);
-                PreparedBeamImage observer = registry.PrepareBeam(
-                    DebugUniqueOriginal436Access.Resource(DebugUniqueOriginal436Names.ObserverBeam), declared);
-                DebugUniqueOriginal436Access.Require(registry.PublishPreparedBeam([facet, worker, observer]).Status == BeamPublicationStatus.Published);
-                DebugUniqueOriginal436Preparation.AssertPublished(registry, facet);
-                foreach (var image in new[] { worker, observer })
-                    foreach (var export in registry.Exports.Where(export => export.Module == image.Name))
-                        DebugUniqueOriginal436Access.Require(ReferenceEquals(registry.SourceOwner(export.Module, export.Function, export.Arity), image));
-            });
+                                DebugUniqueOriginal436Names.Runtime, DebugUniqueOriginal436Names.Subject, DebugUniqueOriginal436Names.Module]);
+                PreparedBeamImage facet = DebugUniqueOriginal436Preparation.Prepare171(registry, declared, scope);
+                PreparedBeamImage worker = scope.Prepare(() => registry.PrepareBeam(
+                    DebugUniqueOriginal436Access.Resource(DebugUniqueOriginal436Names.WorkerBeam), declared));
+                PreparedBeamImage observer = scope.Prepare(() => registry.PrepareBeam(
+                    DebugUniqueOriginal436Access.Resource(DebugUniqueOriginal436Names.ObserverBeam), declared));
+
+                return ValueTask.FromResult<Action<ModuleRegistry>>(_ =>
+                {
+                    DebugUniqueOriginal436Access.Require(registry.PublishPreparedBeam([facet, worker, observer]).Status == BeamPublicationStatus.Published);
+                    DebugUniqueOriginal436Preparation.AssertPublished(registry, facet);
+                    foreach (var image in new[] { worker, observer })
+                        foreach (var export in registry.Exports.Where(export => export.Module == image.Name))
+                            DebugUniqueOriginal436Access.Require(ReferenceEquals(registry.SourceOwner(export.Module, export.Function, export.Arity), image));
+                });
+            }
+            );
             actor = new RuntimeNodeFoundationHostActor(owner);
             RuntimeNodeFoundationHostActor caller = actor;
 

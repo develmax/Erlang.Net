@@ -44,11 +44,10 @@ internal static partial class OriginalReference563Replay
             )!.GetValue(runtime)!;
             Require(actualOwned == owned);
             await DebugSame420HostAccess.Initialize(runtime);
-            PreparedBeamImage? nativeCounters = null;
+            await runtime.InitializeModulesAsync(registry => RuntimeBootstrapDebugSharing425.Register(runtime, registry));
+            using PreparedBeamImage nativeCounters = CountersOriginal421Preparation.Prepare(runtime, runtime.Modules);
             await runtime.InitializeModulesAsync(registry =>
             {
-                RuntimeBootstrapDebugSharing425.Register(runtime, registry);
-                nativeCounters = CountersOriginal421Preparation.Prepare(runtime, registry);
                 Require(registry.PublishPreparedBeam(nativeCounters).Status == BeamPublicationStatus.Published);
                 // This existing source-authenticated five-clause bridge is not
                 // whole-module erts_internal admission. Install the independent

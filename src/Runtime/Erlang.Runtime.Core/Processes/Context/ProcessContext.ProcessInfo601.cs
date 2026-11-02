@@ -20,7 +20,7 @@ public sealed partial class ProcessContext
             // The received origin interest remains held until result publication.
             var captured = new ProcessInfoSnapshot601 { Value = selected.Tuple.Items[1] };
 
-            return captured.Complete(Runtime, this);
+            return captured.CompleteWithLiteral801(Runtime, this, selected.LiteralRoots801);
         }
         catch (Exception error)
         {
@@ -54,19 +54,26 @@ public sealed partial class ProcessContext
         : IGuestMailboxSelection593, IProtocolMailboxSelection601
     {
         private IMailboxRootInterest593? interest;
+        private MailboxGraphSnapshot593? graph601;
         private bool attached;
         internal TupleTerm Tuple => tuple;
+        internal ModuleLiteralRoots801? LiteralRoots801 => graph601?.LiteralRoots801;
 
-        public void AttachSnapshotInterest601(IMailboxRootInterest593? value)
+        public void AttachSnapshotInterest601(IMailboxRootInterest593? value, MailboxGraphSnapshot593? graph)
         {
             if (attached) throw new InvalidOperationException(MailboxSnapshot601Names.DoubleSelection);
             interest = value;
+            graph601 = graph;
             attached = true;
         }
 
         public void AttachMailboxCandidate593(ProcessTermFrame506 candidate)
             => throw new InvalidOperationException(MailboxSnapshot601Names.InvalidAdmission);
 
-        public void Dispose() => MailboxRootSettlement593.Settle(Interlocked.Exchange(ref interest, null)?.ReleaseLast());
+        public void Dispose()
+        {
+            graph601 = null;
+            MailboxRootSettlement593.Settle(Interlocked.Exchange(ref interest, null)?.ReleaseLast());
+        }
     }
 }

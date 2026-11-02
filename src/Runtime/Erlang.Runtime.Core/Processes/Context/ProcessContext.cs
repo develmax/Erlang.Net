@@ -10,6 +10,7 @@ public sealed partial class ProcessContext : ITermExecutionContext
     {
         Runtime = runtime;
         Dictionary = new(this);
+        SequentialTrace = new(this);
         InitialCall = initialCall ?? ProcessInfoAtoms.Undefined;
         Self = pid;
         GroupLeader = pid;
@@ -50,10 +51,6 @@ public sealed partial class ProcessContext : ITermExecutionContext
 
     internal volatile DistributionSignalDrain? DeferredSignalDrain;
     internal CancellationTokenSource Stop { get; } = new();
-    internal Pid GroupLeader
-    {
-        get; set;
-    }
     internal TaskCompletionSource<Term> Done { get; } = new(TaskCreationOptions.RunContinuationsAsynchronously);
     internal TaskCompletionSource Unwound { get; } = new(TaskCreationOptions.RunContinuationsAsynchronously);
     internal HashSet<Pid> Links { get; } = new();
@@ -77,7 +74,7 @@ public sealed partial class ProcessContext : ITermExecutionContext
     internal volatile bool Yielding;
     internal HashSet<ProcessSavedCallRequest> PendingSavedCallRequests { get; } = new();
     internal ProcessSavedCalls SavedCalls { get; } = new();
-    internal SequenceTraceState SequentialTrace { get; } = new();
+    internal SequenceTraceState SequentialTrace { get; }
     private int reductions;
     private long cumulativeReductions;
     internal Term InitialCall
@@ -106,7 +103,12 @@ public sealed partial class ProcessContext : ITermExecutionContext
     private readonly Dictionary<ModuleCodeImage, int> activeCode = new();
     private readonly AsyncLocal<SourceExecution?> sourceExecution = new();
 
-    private sealed record SourceExecution(ModuleCodeImage Image, object Owner, SourceExecution? Parent);
+    private sealed record SourceExecution(
+        ModuleCodeImage Image,
+        object Owner,
+        SourceExecution? Parent,
+        ModuleLiteralLease800? Literals800
+    );
 
     private sealed class SourceExecutionScope(ProcessContext context, SourceExecution current) : IDisposable
     {
@@ -153,23 +155,64 @@ public sealed partial class ProcessContext : ITermExecutionContext
         ArgumentNullException.ThrowIfNull(owner);
         var lease = Runtime.Modules.ReserveSourceCode(this, image);
 
-        return new SourceCodeScope(lease, lease.Attach(owner));
+        IDisposable? flow800 = null;
+        try
+        {
+            flow800 = lease.Attach(owner);
+
+            return new SourceCodeScope(lease, flow800);
+        }
+        catch
+        {
+            try
+            {
+                flow800?.Dispose();
+            }
+            finally
+            {
+                lease.Dispose();
+            }
+            throw;
+        }
     }
 
     internal SourceCodeLease ReserveSourceCode(ModuleCodeImage image)
     {
-        lock (codeGate)
-            activeCode[image] = activeCode.GetValueOrDefault(image) + 1;
+        ModuleLiteralDomain800? domain800 = image.LiteralDomain819;
+        if (domain800 is not null && !ReferenceEquals(domain800.Runtime800, Runtime))
+            throw new InvalidOperationException(ModuleLiteral800Names.Invalid);
+        ModuleLiteralLease800? literals800 = domain800?.AcquireForImage800(image);
+        bool registered800 = false;
+        try
+        {
+            lock (codeGate)
+            {
+                activeCode[image] = activeCode.GetValueOrDefault(image) + 1;
+                registered800 = true;
+            }
 
-        return new SourceCodeLease(this, image);
+            return new SourceCodeLease(this, image, literals800);
+        }
+        catch
+        {
+            if (registered800) ReleaseSourceCode(image);
+            literals800?.Dispose();
+            throw;
+        }
     }
 
-    internal IDisposable AttachSourceCode(ModuleCodeImage image, object owner)
+    internal IDisposable AttachSourceCode(ModuleCodeImage image, object owner, ModuleLiteralLease800? literals800 = null)
     {
-        var current = new SourceExecution(image, owner, sourceExecution.Value);
+        var current = new SourceExecution(
+            image,
+            owner,
+            sourceExecution.Value,
+            literals800
+        );
+        var scope = new SourceExecutionScope(this, current);
         sourceExecution.Value = current;
 
-        return new SourceExecutionScope(this, current);
+        return scope;
     }
 
     internal void ReleaseSourceCode(ModuleCodeImage image)
@@ -419,33 +462,62 @@ public sealed partial class ProcessContext : ITermExecutionContext
 
     internal ValueTask BumpReductionsAsync(int count) => ChargeAsync(count, capToRemainingSlice: true);
 
-    private async ValueTask ChargeAsync(int count, bool capToRemainingSlice)
+    private ValueTask ChargeAsync(int count, bool capToRemainingSlice)
     {
-        Runtime.ThrowIfHalted();
-        Cancellation.ThrowIfCancellationRequested();
-        if (SuspensionRequested)
-            await WaitIfSuspended();
+        try
+        {
+            Runtime.ThrowIfHalted();
+            Cancellation.ThrowIfCancellationRequested();
+            if (SuspensionRequested)
+                return ChargeAfterSuspension156(count, capToRemainingSlice);
+
+            return ChargeReady156(count, capToRemainingSlice);
+        }
+        catch (Exception failure)
+        {
+            // Preserve async ValueTask exception/cancellation completion rather
+            // than turning the public checkpoint into a synchronous throw.
+            var completion = System.Runtime.CompilerServices.AsyncValueTaskMethodBuilder.Create();
+            completion.SetException(failure);
+
+            return completion.Task;
+        }
+    }
+
+    private async ValueTask ChargeAfterSuspension156(int count, bool capToRemainingSlice)
+    {
+        await WaitIfSuspended();
+        await ChargeReady156(count, capToRemainingSlice);
+    }
+
+    private ValueTask ChargeReady156(int count, bool capToRemainingSlice)
+    {
         if (capToRemainingSlice)
             count = Math.Min(count, ProcessSchedulingLimits.CooperativeSlice - reductions);
         Interlocked.Add(ref cumulativeReductions, count);
         Runtime.Statistics.RecordReductions(count);
         reductions += count;
         if (reductions >= ProcessSchedulingLimits.CooperativeSlice)
+            return YieldCharged156();
+
+        return ValueTask.CompletedTask;
+    }
+
+    private async ValueTask YieldCharged156()
+    {
+        reductions = 0;
+        Runtime.AdmitSignals(this);
+        Yielding = true;
+        try
         {
-            reductions = 0;
-            Runtime.AdmitSignals(this);
-            Yielding = true;
-            try
-            {
-                await YieldReduction();
-            }
-            finally
-            {
-                Yielding = false;
-            }
-            Runtime.ThrowIfHalted();
-            Cancellation.ThrowIfCancellationRequested();
+            await YieldReduction();
         }
+        finally
+        {
+            Yielding = false;
+        }
+        Runtime.ThrowIfHalted();
+        Cancellation.ThrowIfCancellationRequested();
     }
 
     internal async ValueTask<long> WaitIfSuspended()

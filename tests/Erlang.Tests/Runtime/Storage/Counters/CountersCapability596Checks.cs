@@ -10,9 +10,9 @@ internal static class CountersCapability596Checks
     {
         ModuleRegistry registry = fixture.Runtime.Modules;
         ErlangFunction? selected = null;
+        using PreparedBeamImage image = CountersOriginal421Preparation.Prepare(fixture.Runtime, fixture.Runtime.Modules);
         await fixture.Runtime.InitializeModulesAsync(actual =>
         {
-            PreparedBeamImage image = CountersOriginal421Preparation.Prepare(fixture.Runtime, actual);
             object execution = Property(image, Execution);
             var primitives = (IReadOnlyDictionary<(string Function, int Arity), ErlangFunction>)Property(execution, Primitives);
             MethodInfo nativeKind = typeof(ModuleRegistry).GetMethod(NativeKind, Members)!;

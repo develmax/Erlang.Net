@@ -47,12 +47,12 @@ public sealed partial class ModuleRegistry
     private Task QueueNifRetirement(ModuleCodeImage image)
     {
         if (!NifImageBindingStore.TryGetValue(image, out var bindings))
-            return Task.CompletedTask;
+            return CloseModuleLiteralCodeOwner800(image, Task.CompletedTask);
         nifRetirements ??= new();
         if (nifRetirements.TryGetValue(image, out var pending))
-            return pending.Completion;
+            return CloseModuleLiteralCodeOwner800(image, pending.Completion);
         if (nifCompletedRetirements is not null && nifCompletedRetirements.TryGetValue(image, out var completed))
-            return completed.Completion;
+            return CloseModuleLiteralCodeOwner800(image, completed.Completion);
         nifRetirements.EnsureCapacity(checked(nifRetirements.Count + 1));
         var operation = new NifRetirementOperation(this, image, bindings!);
         // Close guest admission and unlink old-owned resource names before
@@ -61,7 +61,7 @@ public sealed partial class ModuleRegistry
         nifRetirements.Add(image, operation);
         operation.Start();
 
-        return operation.Completion;
+        return CloseModuleLiteralCodeOwner800(image, operation.Completion);
     }
 
     internal Task RetireNifImageAsync(ModuleCodeImage image)
@@ -104,6 +104,7 @@ public sealed partial class ModuleRegistry
     internal Task CloseNifLifetimeAsync()
     {
         RequireNifShutdownCaller();
+        bool directPrepared807 = Monitor.IsEntered(gate) || CodeModification.IsOwned;
         TaskCompletionSource completion;
         NifImageLoadReservation[] reservations;
         Task[] retirements;
@@ -121,7 +122,9 @@ public sealed partial class ModuleRegistry
                 .Concat(pendingBeamImages.Values.Select(ticket => ticket.CodeImage))
                 .Distinct().ToArray();
             var queued = images.Select(QueueNifRetirement).ToArray();
-            retirements = queued
+            Task[] vmConstantFailures357 = owningRuntime?.CloseVmConstants357() ?? [];
+            retirements = queued.Concat(CloseModuleLiteralOwners800()).Concat(vmConstantFailures357)
+                .Concat(ClosePreparedLoaderOwners807(directPrepared807))
                 .Concat(nifRetirements?.Values.Select(operation => operation.Completion) ?? [])
                 .Concat(nifRetirementFailures ?? Enumerable.Empty<Task>()).Distinct().ToArray();
         }
@@ -188,7 +191,7 @@ public sealed partial class ModuleRegistry
         RequireNifShutdownCaller();
         // A dormant reentrant caller must not queue a worker that would wait
         // for the monitor that caller retains while joining disposal.
-        if (Monitor.IsEntered(gate))
+        if (Monitor.IsEntered(gate) || CodeModification.IsOwned)
             return CloseNifLifetimeAsync();
 
         return Task.Run(NifImageInitializationFlow.IsolateActor(

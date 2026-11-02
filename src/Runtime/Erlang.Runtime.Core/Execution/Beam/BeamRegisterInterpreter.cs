@@ -128,7 +128,16 @@ internal static partial class BeamRegisterInterpreter
         BeamRegisterValidation.Validate(code, function);
         context.Runtime.RegisterLoaderMapKeys565(code);
         await using var wordExecution504 = new ProcessWordExecution504(context.OwnedWords504);
-        var registers = new BeamRegisterState(wordExecution504, context);
+        var registers = new BeamRegisterState(
+            wordExecution504,
+            context,
+            BeamRegisterCapacity273.ForEntry(
+                code,
+                function,
+                arguments.Count,
+                environment.Count
+            )
+        );
         // Admission/import can fail before the ordinary interpreter try/finally.
         // This guard covers imports before the interpreter try/finally.
         using var ownedSetup507 = registers.HasOwnedRoots507 ? registers : null;
@@ -279,8 +288,37 @@ internal static partial class BeamRegisterInterpreter
                     switch (instruction.Definition.Name)
                     {
                         case BeamRecordConstructionNames.Opcode:
-                            registers.Write(operands[BeamRecordConstructionNames.Destination], BeamRecordConstruction.Create(code, registers, operands));
+                            registers.Write(
+                                operands[BeamRecordConstructionNames.Destination],
+                                await BeamRecordConstruction.Create(
+                                    context,
+                                    execution,
+                                    code,
+                                    registers,
+                                    operands
+                                )
+                            );
                             break;
+                        case BeamRecordConstructionNames.GetField:
+                            {
+                                Term value;
+                                try
+                                {
+                                    value = BeamRecordConstruction.ReadField(code, registers, operands);
+                                }
+                                catch (ErlangException error)
+                                {
+                                    pc = Branch(
+                                        code,
+                                        function,
+                                        operands[BeamRecordConstructionNames.FieldFailure],
+                                        error
+                                    );
+                                    break;
+                                }
+                                registers.Write(operands[BeamRecordConstructionNames.FieldDestination], value);
+                                break;
+                            }
                         case BeamCollectionOpcodeNames.UpdateRecord:
                             registers.Write(operands[3], BeamCollectionExecution.UpdateRecord(code, registers, operands));
                             break;
@@ -1090,7 +1128,14 @@ internal static partial class BeamRegisterInterpreter
                                 BeamReceivePlan plan = instruction.Definition.Name == BeamLinkNames.LoopReceive
                                     ? BeamReceivePlanner.Build(code, function, pc - 1)
                                     : BeamReceivePlanner.BuildDelay(code, function, pc - 1);
-                                using BeamRegisterState before = registers.Clone();
+                                // Pure matching clones its own isolated candidate. The live
+                                // interpreter state remains unchanged until timeout/selection
+                                // commits below, so it already owns the baseline real roots.
+                                // Guest callbacks and rootless/metadata states retain their
+                                // original snapshot/admission behavior (including later activation).
+                                using BeamRegisterState? ownedBaseline = plan.Callback is null && registers.HasOwnedRoots507
+                                    ? null : registers.Clone();
+                                BeamRegisterState before = ownedBaseline ?? registers;
                                 Func<Term, BeamReceiveSelection?> selectMessage = plan.HasMatcher
                                     ? message => BeamReceiveMatcher.Select(
                                         code,

@@ -4,13 +4,17 @@ namespace Erlang.Tests;
 
 internal static class NumericContract487Checks
 {
-    internal static Task Run() => BeamOrdsetsCoreHostChecks.RunSubject(
-        NumericContract487Names.Subject,
-        Read,
-        NumericContract487Names.Values,
-        NumericContract487Names.Profiles,
-        DebugSame420HostAccess.Initialize
-    );
+    internal static async Task Run()
+    {
+        await BeamOrdsetsCoreHostChecks.RunSubject(
+            NumericContract487Names.Subject,
+            Read,
+            NumericContract487Names.Values,
+            NumericContract487Names.Profiles,
+            DebugSame420HostAccess.Initialize
+        );
+        await InlineInteger360Checks.Run();
+    }
 
     private static byte[] Read(string name)
     {

@@ -64,7 +64,9 @@ internal static class NifDirty521Driver
         {
             runtime = runtimeFactory is null ? NativeOwned516Profile.Create(owned) : await runtimeFactory(owned);
             Require(runtime.OwnedTermsPilot506 == owned);
-            await runtime.InitializeModulesAsync(registry =>
+            await global::Erlang.Tests.PreparedBeamFixtureScope171.RunAsync(
+                runtime,
+                (registry, scope) =>
             {
                 string[] declarations = root.GetProperty(NifDirty521Names.FieldDependencies).EnumerateArray().Select(value => value.GetString()!).ToArray();
                 var errors = new List<Exception>();
@@ -82,7 +84,7 @@ internal static class NifDirty521Driver
                             images.Add(existing);
                             continue;
                         }
-                        PreparedBeamImage prepared = registry.PrepareBeam(File.ReadAllBytes(path), new BeamDependencySelection(declarations));
+                        PreparedBeamImage prepared = scope.Prepare(() => registry.PrepareBeam(File.ReadAllBytes(path), new BeamDependencySelection(declarations)));
                         Require(prepared.Name == module);
                         images.Add(prepared);
                         publication.Add(prepared);
@@ -94,9 +96,14 @@ internal static class NifDirty521Driver
                 }
                 if (errors.Count != 0)
                     throw new AggregateException(errors);
-                if (publication.Count != 0)
-                    Require(registry.PublishPreparedBeam(publication.ToArray()).Status == BeamPublicationStatus.Published);
-            });
+
+                return ValueTask.FromResult<Action<ModuleRegistry>>(_ =>
+                {
+                    if (publication.Count != 0)
+                        Require(registry.PublishPreparedBeam(publication.ToArray()).Status == BeamPublicationStatus.Published);
+                });
+            }
+            );
             if (mode == NifDirty521Names.ControlMode)
             {
                 var missing = new List<string>();

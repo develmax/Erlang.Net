@@ -33,12 +33,7 @@ public sealed partial class ModuleRegistry
                             entry.Binding.Body
                         );
                     else
-                        registry.Register(
-                            DebugSharingNames425.Module,
-                            entry.Signature.Function,
-                            entry.Signature.Arity,
-                            entry.Binding.Body
-                        );
+                        registry.RegisterCanonicalDebugCopy377(entry.Binding);
                 }
             });
         });

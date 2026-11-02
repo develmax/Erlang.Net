@@ -17,23 +17,33 @@ internal static class InternalOwnerOriginal419Checks
         {
             runtime = new ProcessRuntime();
             ProcessRuntime owner = runtime;
-            await owner.InitializeModulesAsync(registry =>
+            await global::Erlang.Tests.PreparedBeamFixtureScope171.RunAsync(
+                owner,
+                async (registry, scope) =>
             {
-                RuntimeNativePrimitiveProviders.Register(owner, registry, RuntimeNativePrimitives.PersistentTermCore);
-                PreparedBeamImage facet = InternalOwnerOriginal419Preparation.Prepare(owner, registry);
+                await owner.InitializeModulesAsync(_ =>
+                {
+                    RuntimeNativePrimitiveProviders.Register(owner, registry, RuntimeNativePrimitives.PersistentTermCore);
+                });
+                PreparedBeamImage facet = InternalOwnerOriginal419Preparation.Prepare171(owner, registry, scope);
                 var declared = new BeamDependencySelection([InternalOwnerOriginal419Names.Internal,
-                    InternalOwnerOriginal419Names.Runtime, InternalOwnerOriginal419Names.Persistent, InternalOwnerOriginal419Names.File, InternalOwnerOriginal419Names.Module]);
-                PreparedBeamImage library = registry.PrepareBeam(
-                    InternalOwnerOriginal419Access.Resource(InternalOwnerOriginal419Names.PersistentBeam), declared);
-                PreparedBeamImage worker = registry.PrepareBeam(
-                    InternalOwnerOriginal419Access.Resource(InternalOwnerOriginal419Names.WorkerBeam), declared);
+                                InternalOwnerOriginal419Names.Runtime, InternalOwnerOriginal419Names.Persistent, InternalOwnerOriginal419Names.File, InternalOwnerOriginal419Names.Module]);
+                PreparedBeamImage library = scope.Prepare(() => registry.PrepareBeam(
+                    InternalOwnerOriginal419Access.Resource(InternalOwnerOriginal419Names.PersistentBeam), declared));
+                PreparedBeamImage worker = scope.Prepare(() => registry.PrepareBeam(
+                    InternalOwnerOriginal419Access.Resource(InternalOwnerOriginal419Names.WorkerBeam), declared));
                 InternalOwnerOriginal419Access.Require(library.NativePrimitiveExports.Count == 7);
-                InternalOwnerOriginal419Access.Require(registry.PublishPreparedBeam([facet, library, worker]).Status == BeamPublicationStatus.Published);
-                InternalOwnerOriginal419Preparation.AssertPublished(registry, facet);
-                foreach (var image in new[] { library, worker })
-                    foreach (var export in registry.Exports.Where(export => export.Module == image.Name))
-                        InternalOwnerOriginal419Access.Require(ReferenceEquals(registry.SourceOwner(export.Module, export.Function, export.Arity), image));
-            });
+
+                return _ =>
+                {
+                    InternalOwnerOriginal419Access.Require(registry.PublishPreparedBeam([facet, library, worker]).Status == BeamPublicationStatus.Published);
+                    InternalOwnerOriginal419Preparation.AssertPublished(registry, facet);
+                    foreach (var image in new[] { library, worker })
+                        foreach (var export in registry.Exports.Where(export => export.Module == image.Name))
+                            InternalOwnerOriginal419Access.Require(ReferenceEquals(registry.SourceOwner(export.Module, export.Function, export.Arity), image));
+                };
+            }
+            );
             actor = new RuntimeNodeFoundationHostActor(owner);
             RuntimeNodeFoundationHostActor caller = actor;
 

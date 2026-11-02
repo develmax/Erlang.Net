@@ -47,7 +47,7 @@ public static partial class Execution
     }
 
     public static ValueTask<Term> EvaluateAsync(Expr expression, ProcessContext context)
-        => context.OwnedExecutionEnabled683 ? EvaluateOwnedEntry506(expression, context) : Evaluate(
+        => AdmitDirectGuestCollector(context) ? EvaluateOwnedEntry506(expression, context) : Evaluate(
             expression,
             context,
             new Dictionary<string, Term>(StringComparer.Ordinal),
@@ -57,24 +57,28 @@ public static partial class Execution
     private static async ValueTask<Term> EvaluateOwnedEntry506(Expr expression, ProcessContext context)
     {
         using var owned = context.EnterOwnedInvocation506([], true)!;
+        using var compiler = RuntimeActorExecutionTurn.IsOwnedBy(context)
+            ? context.EnterOwnedInvocation506([]) : null;
+        compiler?.MarkCompilerFactory507();
         try
         {
             Term result = await Evaluate(
                 expression,
                 context,
                 new Dictionary<string, Term>(StringComparer.Ordinal),
-                null
+                null,
+                functionBody: compiler is not null
             );
 
-            return owned.CompleteGuest507(result);
+            return owned.CompleteGuest507(compiler?.CompleteGuest507(result) ?? result);
         }
         catch (ErlangException error)
         {
-            throw owned.Transfer(error);
+            throw owned.Transfer(compiler?.Transfer(error) ?? error);
         }
         catch (Exception control) when (owned is not null && control is IOwnedControlTransfer506)
         {
-            throw owned.TransferControl506(control);
+            throw owned.TransferControl506(compiler?.TransferControl506(control) ?? control);
         }
     }
 
@@ -83,7 +87,7 @@ public static partial class Execution
         string function,
         ProcessContext context,
         IReadOnlyList<Term> arguments
-    ) => context.OwnedExecutionEnabled683
+    ) => AdmitDirectGuestCollector(context)
         ? InvokePublicOwned506(
             module,
             function,
@@ -426,7 +430,7 @@ public static partial class Execution
             context.Cancellation.ThrowIfCancellationRequested();
         }
 
-        using var frame = context.EnterFunction(identity.Module.Name, identity.Name!.Name, arguments.Count);
+        using var frame = context.EnterFunction(identity.Module.Name, identity.Name!.Name, AnonymousStackArity(expression, environment, arguments.Count));
         try
         {
             foreach (var clause in expression.Clauses)
@@ -499,7 +503,7 @@ public static partial class Execution
 
     private static Term GuardValue(Expr e, Dictionary<string, Term> b, ProcessContext? ctx) => e switch
     {
-        Expr.Literal l => l.Value,
+        Expr.Literal l => ctx?.ReadExecutingSourceLiteral819(l.Value) ?? l.Value,
         Expr.Variable v => b.TryGetValue(v.Name, out var value) ? value : throw new ErlangException(Term.Tuple(Term.A(ExecutionErrorReasons.Unbound), Term.A(v.Name))),
         Expr.RecordTest record => GuardValue(record.Value, b, ctx) is TupleTerm tuple && tuple.Items.Count == record.Arity && tuple.Items[0] is Atom tag && tag.Name == record.Name ? Term.A(ErlangBooleanAtoms.True) : throw new ErlangException(ErlangErrorReasons.BadArgument),
         NativeRecordExpression { Operation: NativeRecordOperation.Access } record => NativeRecordLanguage.Access(
@@ -565,6 +569,7 @@ public static partial class Execution
     )
     {
         using var sourceEvaluation = ctx.EnterSourceEvaluation511(functionBody);
+        using var binaryLocation = e is Expr.Bits bits ? ctx.EnterSourceLocation(SourceCallLocations.For(module, bits.SourceLine)) : null;
         try
         {
             Term result = await EvaluateCore(
@@ -592,6 +597,7 @@ public static partial class Execution
     )
     {
         await ctx.ExecutionCheckpoint();
+        if (ctx.TryReadExecutingSourceConstant820(e, module, out Term constant820)) return constant820;
 
         async ValueTask<Term[]> Arguments(IReadOnlyList<Expr> expressions)
         {
@@ -636,7 +642,7 @@ public static partial class Execution
         switch (e)
         {
             case Expr.Literal l:
-                return l.Value;
+                return ctx.ReadExecutingModuleLiteral819(l.Value, module);
             case Expr.Variable v:
                 return b.TryGetValue(v.Name, out var boundValue) ? boundValue : throw new ErlangException(Term.Tuple(Term.A(ExecutionErrorReasons.Unbound), Term.A(v.Name)));
             case NativeRecordExpression record:
@@ -667,14 +673,22 @@ public static partial class Execution
                             record.External,
                             fields
                         );
-                    var definition = record.External ? ctx.Runtime.Modules.NativeRecordDefinition(record.Module, record.Name!) : module?.NativeRecords.FirstOrDefault(value => value.Name == record.Name);
+                    if (record.External)
+                        return await ctx.Runtime.Modules.ConstructNativeRecord313(
+                            ctx,
+                            record.Module,
+                            record.Name!,
+                            fields
+                        );
+                    var definition = module?.NativeRecords.FirstOrDefault(value => value.Name == record.Name);
 
-                    return NativeRecordLanguage.Construct(
+                    return NativeRecordLanguage.Construct313(
                         record.Module,
                         definition,
                         record.Name!,
                         fields,
-                        record.External
+                        false,
+                        template => ctx.ReadExecutingNativeRecordDefault313(template, module)
                     );
                 }
             case Expr.RecordConstruction record:
@@ -808,7 +822,8 @@ public static partial class Execution
                         scope,
                         module
                     ),
-                    module is not null
+                    module is not null,
+                    ctx.AppendGuestBinary
                 );
             case Expr.Sequence s:
                 {
@@ -1175,6 +1190,7 @@ public static partial class Execution
                         Exception? primary593 = null;
                         try
                         {
+                            await ctx.ResumeExecution();
                             selection.PublishReceiveBindings593(ctx);
 
                             return await Branch(selection);

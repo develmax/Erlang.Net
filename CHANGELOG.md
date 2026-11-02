@@ -162,4 +162,12 @@ Append numbered English entries only to the last volume. Start the next sequenti
 
 - [0094.md](docs/changelog/0094.md) — Part539 delivery checkpoints and subsequent Part552 corrections (closed)
 
-- [0095.md](docs/changelog/0095.md) — Historical Part543 records and Part552 readiness/early-binding correction (active)
+- [0095.md](docs/changelog/0095.md) — Historical Part543 records and Part552 readiness/early-binding correction (closed)
+
+- [0096.md](docs/changelog/0096.md) - Part554 integration checkpoints128–224 (closed; continues in0097)
+
+- [0097.md](docs/changelog/0097.md) - Part554 root custody and validation checkpoints through302 (closed; continues in0098)
+
+- [0098.md](docs/changelog/0098.md) - Part554 throughput closure and final activation prerequisites (closed; continues in0099)
+
+- [0099.md](docs/changelog/0099.md) - Part554 final regression and original-OTP acceptance (active)

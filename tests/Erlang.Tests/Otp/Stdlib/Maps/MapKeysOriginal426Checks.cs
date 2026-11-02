@@ -17,18 +17,28 @@ internal static class MapKeysOriginal426Checks
         {
             runtime = new ProcessRuntime(1);
             ProcessRuntime owner = runtime;
-            await owner.InitializeModulesAsync(registry =>
+            await global::Erlang.Tests.PreparedBeamFixtureScope171.RunAsync(
+                owner,
+                async (registry, scope) =>
             {
-                RuntimeBootstrapMapKeys426.Register(owner, registry);
+                await owner.InitializeModulesAsync(_ =>
+                {
+                    RuntimeBootstrapMapKeys426.Register(owner, registry);
+                });
                 var declared = new BeamDependencySelection(new[] { MapKeysOriginal426Names.Runtime, MapKeysOriginal426Names.File, MapKeysOriginal426Names.Internal, MapKeysOriginal426Names.Debug, MapKeysOriginal426Names.Module }.Concat(MapKeysOriginal426Names.Helpers));
-                var helpers = MapKeysOriginal426Names.Helpers.Select(module => registry.PrepareBeam(AtomicsHost413Access.Resource(module + ".beam"), declared)).ToArray();
-                PreparedBeamImage same = registry.PrepareBeam(DebugSame420HostAccess.Beam(), declared);
-                PreparedBeamImage worker = registry.PrepareBeam(MapKeysOriginal426Access.Resource(MapKeysOriginal426Names.WorkerBeam), declared);
-                MapKeysOriginal426Access.Require(registry.PublishPreparedBeam(helpers.Append(same).Append(worker).ToArray()).Status == BeamPublicationStatus.Published);
-                foreach (var image in helpers.Append(same).Append(worker))
-                    foreach (var export in registry.Exports.Where(export => export.Module == image.Name))
-                        MapKeysOriginal426Access.Require(ReferenceEquals(registry.SourceOwner(export.Module, export.Function, export.Arity), image));
-            });
+                var helpers = MapKeysOriginal426Names.Helpers.Select(module => scope.Prepare(() => registry.PrepareBeam(AtomicsHost413Access.Resource(module + ".beam"), declared))).ToArray();
+                PreparedBeamImage same = scope.Prepare(() => registry.PrepareBeam(DebugSame420HostAccess.Beam(), declared));
+                PreparedBeamImage worker = scope.Prepare(() => registry.PrepareBeam(MapKeysOriginal426Access.Resource(MapKeysOriginal426Names.WorkerBeam), declared));
+
+                return _ =>
+                {
+                    MapKeysOriginal426Access.Require(registry.PublishPreparedBeam(helpers.Append(same).Append(worker).ToArray()).Status == BeamPublicationStatus.Published);
+                    foreach (var image in helpers.Append(same).Append(worker))
+                        foreach (var export in registry.Exports.Where(export => export.Module == image.Name))
+                            MapKeysOriginal426Access.Require(ReferenceEquals(registry.SourceOwner(export.Module, export.Function, export.Arity), image));
+                };
+            }
+            );
             actor = new RuntimeNodeFoundationHostActor(owner);
             RuntimeNodeFoundationHostActor caller = actor;
 

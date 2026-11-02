@@ -20,20 +20,30 @@ internal static class CollectorHibernate415Access
         var hashes = JsonSerializer.Deserialize<Dictionary<string, string>>(
             ManagedCollectors413Access.Resource(ManagedCollectors413Names.Manifest))!;
         Require(hashes.Count == 2);
-        await runtime.InitializeModulesAsync(registry =>
+        await global::Erlang.Tests.PreparedBeamFixtureScope171.RunAsync(
+            runtime,
+            async (registry, scope) =>
         {
-            RuntimeBootstrapFileSystem.Register(runtime, registry);
+            await runtime.InitializeModulesAsync(_ =>
+            {
+                RuntimeBootstrapFileSystem.Register(runtime, registry);
+            });
             var images = new List<PreparedBeamImage>();
             foreach (string module in new[] { ManagedCollectors413Names.Literal, ManagedCollectors413Names.Trace })
             {
                 byte[] bytes = ManagedCollectors413Access.Resource(module + StandardBootOriginal412Names.Beam);
                 Require(Convert.ToHexString(SHA256.HashData(bytes)) == hashes[module + StandardBootOriginal412Names.Beam]);
-                PreparedBeamImage image = registry.PrepareBeam(bytes, new BeamDependencySelection([ManagedCollectors413Names.Erlang, CollectorHibernate415Names.Erts]));
+                PreparedBeamImage image = scope.Prepare(() => registry.PrepareBeam(bytes, new BeamDependencySelection([ManagedCollectors413Names.Erlang, CollectorHibernate415Names.Erts])));
                 Require(image.Name == module && image.NativePrimitiveExports.Count == 2);
                 images.Add(image);
             }
-            Require(registry.PublishPreparedBeam(images.ToArray()).Status == BeamPublicationStatus.Published);
-        });
+
+            return _ =>
+            {
+                Require(registry.PublishPreparedBeam(images.ToArray()).Status == BeamPublicationStatus.Published);
+            };
+        }
+        );
     }
 
     internal static CollectorHibernate415State? Capture(ProcessRuntime runtime, string module, string slotName)

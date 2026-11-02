@@ -35,7 +35,8 @@ internal static class BoundedBifHostChecks
         Require(results[1].Equals(Cons.From(Enumerable.Range(0, BoundedBifHostNames.FunctionCount).SelectMany(_ => new Term[] { Term.A(ErlangBooleanAtoms.True), Term.A(ErlangBooleanAtoms.False) }))));
         Require(results[2] is TupleTerm { Items.Count: 3 });
         var identity = ((TupleTerm)results[2]).Items;
-        Require(ReferenceEquals(identity[0], identity[2]) && ReferenceEquals(identity[1], identity[2]));
+        Require(identity[0].Equals(identity[2]) && identity[1].Equals(identity[2]));
+        await BoundedNativeIdentity379Checks.Run(artifact.Definition, outcome);
         Require(results[3].Equals(Term.Tuple(
             Term.A(ErlangBooleanAtoms.True),
             Term.A(ErlangBooleanAtoms.False),

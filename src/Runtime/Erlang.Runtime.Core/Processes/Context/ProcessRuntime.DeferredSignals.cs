@@ -33,6 +33,7 @@ public sealed partial class ProcessRuntime
         while (true)
         {
             MailboxDeferredPreparation? work;
+            MailboxPendingBackingClaim? pendingClaim;
             lock (gate)
             {
                 if (owner.Terminated)
@@ -48,7 +49,13 @@ public sealed partial class ProcessRuntime
 
                     return;
                 }
-                work = owner.Mailbox.ClaimDeferred();
+                pendingClaim = owner.Mailbox.ClaimPendingBacking();
+                work = pendingClaim is null ? owner.Mailbox.ClaimDeferred() : null;
+            }
+            if (pendingClaim is not null)
+            {
+                PrepareAndAdmitPendingMailboxBacking(owner, pendingClaim, null);
+                continue;
             }
             if (work is null)
                 return;

@@ -1,0 +1,1087 @@
+{
+  "Scope": "Finite28 native GC root groups plus fresh complete original820, capacity273 tuple,164-row append206 matched-worker full native-record331 outcomes and explicit additional425/173 CLI comparisons; no API/compatibility promotion",
+  "OtpPin": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "OriginalManifestSha256": "AEBBA0D2DCF97E1248CA38407E8EBE628EB08F9EA4D13F48EC0C83A7A0364E61",
+  "Modes": [
+    "literal800",
+    "lifetime801",
+    "empty803",
+    "binary805",
+    "halt811",
+    "tokenMutable550",
+    "tokenLiteral814",
+    "trace817",
+    "prefix817",
+    "priority817",
+    "onheap817",
+    "preparedNative810",
+    "preparedBuilder810",
+    "preparedAdmission810",
+    "sourceLiteral819",
+    "sourceParser820",
+    "sourceDeep820",
+    "suspensionRoot821",
+    "resource524Guest",
+    "resource524Image",
+    "nativeBinaryInfo822",
+    "binaryOwner823",
+    "sourceObserver820",
+    "controlRoots826",
+    "hostCopy827",
+    "sourceLocation146",
+    "functionUnique212",
+    "capacity273"
+  ],
+  "Files": [
+    {
+      "Path": ".github/workflows/scheduler-affinity-original.yml",
+      "Bytes": 3495,
+      "Sha256": "7AB6C32B1E7E0E95BF077FD0BC08D08AE6E7F194109717BF7248D889175038EB"
+    },
+    {
+      "Path": "Directory.Build.props",
+      "Bytes": 363,
+      "Sha256": "EDF92768B885A0B9B87D5711536684DDFAC508CBEA79E99D66CAF69C3A8F16D0"
+    },
+    {
+      "Path": "global.json",
+      "Bytes": 56,
+      "Sha256": "18D05BFD5B899775C6427F2ECD63E03E60F1E9C35489A573C39DE4C796EB5585"
+    },
+    {
+      "Path": "tests/Runtime/Erlang.NativeGc.Observations/Control826/ControlRoot826Checks.cs",
+      "Bytes": 16159,
+      "Sha256": "C8CD8CF634AC9119B9F0C912C5A9855E66F3272913DFE7CCC14703C5D5A4FEAF"
+    },
+    {
+      "Path": "tests/Runtime/Erlang.NativeGc.Observations/Control826/ControlRoot826Names.cs",
+      "Bytes": 3027,
+      "Sha256": "A4A198B06BCC778EA8FB8B730EDF7EB266EB2A97EA852748A5481FFBE2C2EA11"
+    },
+    {
+      "Path": "tests/Runtime/Erlang.NativeGc.Observations/Control826/ControlRoot826UnknownReference.cs",
+      "Bytes": 200,
+      "Sha256": "236943EBD4C71429E1F68C5A974696D5C031DBE7984B0437A97C7A7DD087CD10"
+    },
+    {
+      "Path": "tests/Runtime/Erlang.NativeGc.Observations/Control826/ControlRoot826UnknownTerm.cs",
+      "Bytes": 161,
+      "Sha256": "6C4CB1EF76BF36641BE44350D0EEA8815B015A34BF143F86EB7CA3792F570F94"
+    },
+    {
+      "Path": "tests/Runtime/Erlang.NativeGc.Observations/Erlang.NativeGc.Observations.csproj",
+      "Bytes": 2679,
+      "Sha256": "187ACB5CB260077383BFA0F25A05989FD2B63AAC5326777F5A486477BA7A5B0A"
+    },
+    {
+      "Path": "tests/Runtime/Erlang.NativeGc.Observations/Fixtures/Compiler/Beam/BeamLiteralExportHostBytes.cs",
+      "Bytes": 2610,
+      "Sha256": "68180594A3F408E07B7D6CBF032675AF952EC8551204E1263678DBD1BA199BD3"
+    },
+    {
+      "Path": "tests/Runtime/Erlang.NativeGc.Observations/Fixtures/Compiler/Beam/BeamLiteralExportHostNames.cs",
+      "Bytes": 1100,
+      "Sha256": "6909E96764F3BFDFE9E58A50A8FB922036586BE1E02B6F482C01A5187D200FE1"
+    },
+    {
+      "Path": "tests/Runtime/Erlang.NativeGc.Observations/Fixtures/Compiler/Beam/BeamLoaderAdmissionRaceChecks.cs",
+      "Bytes": 6169,
+      "Sha256": "B77156FB71F8E57E928295CCA8FF04D7A02F5A9F9D6FD70B118E0D23E16DA032"
+    },
+    {
+      "Path": "tests/Runtime/Erlang.NativeGc.Observations/Fixtures/Compiler/Beam/BeamLoaderAdmissionRaceNames.cs",
+      "Bytes": 564,
+      "Sha256": "1DD4F225234D4E29EAD8B1826BFDCCE93D7DAD5CCA5F8C5864A8D44C6925D450"
+    },
+    {
+      "Path": "tests/Runtime/Erlang.NativeGc.Observations/Fixtures/Compiler/Beam/BeamMetadataModeledBytes.cs",
+      "Bytes": 2243,
+      "Sha256": "96B99C868AE2F051E32164C5183F9F0CE700399D612EE98B2A578320349EFFED"
+    },
+    {
+      "Path": "tests/Runtime/Erlang.NativeGc.Observations/Fixtures/Compiler/Beam/BeamOpcodeEdgeBytes.cs",
+      "Bytes": 3424,
+      "Sha256": "F4A22BA1F758687A430793C3D73151AB797C83549F977F91D370156A6B5FD7F5"
+    },
+    {
+      "Path": "tests/Runtime/Erlang.NativeGc.Observations/Fixtures/Compiler/Beam/BeamOpcodeEdgeNames.cs",
+      "Bytes": 1212,
+      "Sha256": "2CFF08585AA17CC8B4231B28B02A8ADBFB008B5ACFB61330E3399E78C9F99C33"
+    },
+    {
+      "Path": "tests/Runtime/Erlang.NativeGc.Observations/Fixtures/Compiler/Beam/BeamPreparedHostNames.cs",
+      "Bytes": 2808,
+      "Sha256": "6E9D180385640FC234E85C65CA95545600B7D85BB80C6E8BDBA0872C4040A9FB"
+    },
+    {
+      "Path": "tests/Runtime/Erlang.NativeGc.Observations/Fixtures/Runtime/Execution/RuntimeNodeFoundationHostActor.cs",
+      "Bytes": 1920,
+      "Sha256": "2B92247A71D03AE6E0C62EF4033037435726844AA8AFEB3B413D45C981D18448"
+    },
+    {
+      "Path": "tests/Runtime/Erlang.NativeGc.Observations/Fixtures/Runtime/Execution/RuntimeNodeFoundationHostActorParameters.cs",
+      "Bytes": 238,
+      "Sha256": "FC7CD922A949F390A1958FE6113791BC5A1A784F5CE033845230D75BF222F2B0"
+    },
+    {
+      "Path": "tests/Runtime/Erlang.NativeGc.Observations/Fixtures/Runtime/Lifecycle/IntrinsicHalt811Checks.cs",
+      "Bytes": 4669,
+      "Sha256": "45A4722F2315BB8B8D28A8E1AA24D8EC1BD2FC1E43E7ACC8AFB806A0A543D0AF"
+    },
+    {
+      "Path": "tests/Runtime/Erlang.NativeGc.Observations/Fixtures/Runtime/Lifecycle/IntrinsicHalt811Names.cs",
+      "Bytes": 1245,
+      "Sha256": "5F72CC438C2F0AA4EBAF2140F9983A1D7B2152420FAE37CC4FD0748930D93142"
+    },
+    {
+      "Path": "tests/Runtime/Erlang.NativeGc.Observations/Fixtures/Runtime/Memory/EmptyTuple803Bytes.cs",
+      "Bytes": 346,
+      "Sha256": "AA939A614878587691DC582128ECCDE88F84C635B34FCC509845C39259E1DCCB"
+    },
+    {
+      "Path": "tests/Runtime/Erlang.NativeGc.Observations/Fixtures/Runtime/Memory/EmptyTuple803Checks.cs",
+      "Bytes": 9889,
+      "Sha256": "68CBBF8F94C7495A6AB40D68FE6C729F54AF6B2CC79EE37BDF13DF8D5870AFF7"
+    },
+    {
+      "Path": "tests/Runtime/Erlang.NativeGc.Observations/Fixtures/Runtime/Memory/EmptyTuple803Names.cs",
+      "Bytes": 2625,
+      "Sha256": "3AD9D79ECCEFDC72A116AE4A8C17D354B07654827C981AC054FF9FD761B87676"
+    },
+    {
+      "Path": "tests/Runtime/Erlang.NativeGc.Observations/Fixtures/Runtime/Memory/ModuleLiteral801Checks.cs",
+      "Bytes": 29796,
+      "Sha256": "BCA1058D6475635FEB64BFF6D037CB21BA8FF5313FA829BA7A6EF886D5808817"
+    },
+    {
+      "Path": "tests/Runtime/Erlang.NativeGc.Observations/Fixtures/Runtime/Memory/ModuleLiteral801Names.cs",
+      "Bytes": 3810,
+      "Sha256": "690F059EAAFD144CBC5C020BD4A6AE0C6D92C05E300F45BB84962F0AFBC45D4E"
+    },
+    {
+      "Path": "tests/Runtime/Erlang.NativeGc.Observations/Fixtures/Runtime/Memory/OwnedGuest506Names.cs",
+      "Bytes": 3709,
+      "Sha256": "25F3BEA28D3C2BED3AE09847E3A3D08624386D2FF46C10A5361BC314933B7716"
+    },
+    {
+      "Path": "tests/Runtime/Erlang.NativeGc.Observations/Fixtures/Runtime/Memory/OwnedGuest506RuntimeFactory.cs",
+      "Bytes": 681,
+      "Sha256": "5D70C9F8FF9996554254AEBACD7FEB80E0E43CA3DABBB13D2CAE28358726FDE8"
+    },
+    {
+      "Path": "tests/Runtime/Erlang.NativeGc.Observations/Fixtures/Runtime/Memory/SequenceLiteral814Checks.cs",
+      "Bytes": 26505,
+      "Sha256": "6813C6C766563E6C34550AB9BCE13CB5617CAF265AD2E638A4AEC479276F3202"
+    },
+    {
+      "Path": "tests/Runtime/Erlang.NativeGc.Observations/Fixtures/Runtime/Memory/SequenceLiteral814Names.cs",
+      "Bytes": 4654,
+      "Sha256": "800C6CC60AD8C8D897B047EDEF8C4FF34745F82D69D4A7B7143DBB73957C6CB9"
+    },
+    {
+      "Path": "tests/Runtime/Erlang.NativeGc.Observations/Fixtures/Runtime/Modules/CodeLifecycle/SourcePurgeStageHostBridge.cs",
+      "Bytes": 6127,
+      "Sha256": "00FBC1FCE539FF472679DA29F854C2BB5E27CF519D362CDEBB30B5C37B92DA0B"
+    },
+    {
+      "Path": "tests/Runtime/Erlang.NativeGc.Observations/Fixtures/Runtime/Modules/CodeLifecycle/SourcePurgeStageHostNames.cs",
+      "Bytes": 3588,
+      "Sha256": "BFA1E7646881DFF780938DFA3F442BCA06D84B75BE44FD5BFFE14B21E576F64C"
+    },
+    {
+      "Path": "tests/Runtime/Erlang.NativeGc.Observations/Fixtures/Runtime/Modules/Loading/ModuleBinary805Checks.cs",
+      "Bytes": 5849,
+      "Sha256": "6FC92AF0414998C69FC7294069D445CC7D3B0190794E2BA03D0218FA88013C32"
+    },
+    {
+      "Path": "tests/Runtime/Erlang.NativeGc.Observations/Fixtures/Runtime/Modules/Loading/ModuleBinary805Names.cs",
+      "Bytes": 1337,
+      "Sha256": "7E29B8C05A464F3027FBEB19A3B3A73C49D246D110808599A9E257D43DBE6B3C"
+    },
+    {
+      "Path": "tests/Runtime/Erlang.NativeGc.Observations/Fixtures/Runtime/Modules/Loading/ModuleLiteral800Checks.cs",
+      "Bytes": 4076,
+      "Sha256": "28C859274DC3240811E2B7CBE89269BC0F4B0A84DFD4834233254DC3950DFBAF"
+    },
+    {
+      "Path": "tests/Runtime/Erlang.NativeGc.Observations/Fixtures/Runtime/Modules/Loading/ModuleLiteral800Names.cs",
+      "Bytes": 818,
+      "Sha256": "4F3EDDC25549D92D3D89209E56F53B6CE19C73FF5823BBAF85049E625BBBF691"
+    },
+    {
+      "Path": "tests/Runtime/Erlang.NativeGc.Observations/Fixtures/Runtime/Modules/Loading/ParserConstant820Checks.cs",
+      "Bytes": 13280,
+      "Sha256": "88CBE6D261E3632A7D81D4A317B7A76BF1F7422024117E07635FA1447FE47276"
+    },
+    {
+      "Path": "tests/Runtime/Erlang.NativeGc.Observations/Fixtures/Runtime/Modules/Loading/ParserConstant820Diagnostic.cs",
+      "Bytes": 4932,
+      "Sha256": "89D64A89AC083AC6BBB22F9096E0A3F6738A03F06C93C1D32CAA7EFB4A1EAFF5"
+    },
+    {
+      "Path": "tests/Runtime/Erlang.NativeGc.Observations/Fixtures/Runtime/Modules/Loading/ParserConstant820LibraryNames.cs",
+      "Bytes": 1299,
+      "Sha256": "EBFF32B347EB37D1FF2BA9D57D1B67F411D3C2D5C25876B2441CF49791B2432D"
+    },
+    {
+      "Path": "tests/Runtime/Erlang.NativeGc.Observations/Fixtures/Runtime/Modules/Loading/ParserConstant820LibrarySetup.cs",
+      "Bytes": 4006,
+      "Sha256": "59AEC35DE1C6BE98517726CF04B9541505118528E9A2A9151509F7D421E683C6"
+    },
+    {
+      "Path": "tests/Runtime/Erlang.NativeGc.Observations/Fixtures/Runtime/Modules/Loading/ParserConstant820Names.cs",
+      "Bytes": 2358,
+      "Sha256": "8127EF6A99FD94F6CE0D257D89106462446ACFBFC8B765E46BACE9C56ADDB519"
+    },
+    {
+      "Path": "tests/Runtime/Erlang.NativeGc.Observations/Fixtures/Runtime/Modules/Loading/PreparedLoader807Checks.cs",
+      "Bytes": 11771,
+      "Sha256": "236BE27099E0D96AECAB9BA07C3BAEA5DB5808383086751787724454C9447C90"
+    },
+    {
+      "Path": "tests/Runtime/Erlang.NativeGc.Observations/Fixtures/Runtime/Modules/Loading/PreparedLoader807Names.cs",
+      "Bytes": 2364,
+      "Sha256": "297FB3453F26F17FC9D6CCEFE93D0074CAC7EA7B9EF4821346895F167AF5A014"
+    },
+    {
+      "Path": "tests/Runtime/Erlang.NativeGc.Observations/Fixtures/Runtime/Modules/Loading/SourceLiteral819Checks.cs",
+      "Bytes": 14771,
+      "Sha256": "FFEFBD3497C50BB16EE4B6E998C5F1A3F51A0CD19C0D707939FA6868CE052D08"
+    },
+    {
+      "Path": "tests/Runtime/Erlang.NativeGc.Observations/Fixtures/Runtime/Modules/Loading/SourceLiteral819Names.cs",
+      "Bytes": 1898,
+      "Sha256": "C09B3D631F40832760CF6B5F97039507C8AAA38623524E2F7807E91156A8313E"
+    },
+    {
+      "Path": "tests/Runtime/Erlang.NativeGc.Observations/Fixtures/Runtime/Native/Nif/Loading/NifAdmissionHostBridge.cs",
+      "Bytes": 4232,
+      "Sha256": "48EE3DF92A204C34031B5CFF2983CA320A992B5A233C4C60D55AD42AE69CBD4E"
+    },
+    {
+      "Path": "tests/Runtime/Erlang.NativeGc.Observations/Fixtures/Runtime/Native/Nif/Loading/NifAdmissionHostNames.cs",
+      "Bytes": 2494,
+      "Sha256": "F3ECB35249056C4A56A7926B18E933046EE5E436D63CFB7EDB93E8C00622BE86"
+    },
+    {
+      "Path": "tests/Runtime/Erlang.NativeGc.Observations/Fixtures/Runtime/Native/Nif/Memory/UnknownNifGuest516Term.cs",
+      "Bytes": 162,
+      "Sha256": "D7B9E7143FD894AB26644D8043394F4705787C88D710F11F014F3F1A3186EB67"
+    },
+    {
+      "Path": "tests/Runtime/Erlang.NativeGc.Observations/Fixtures/Runtime/Native/Resources/BinaryInfo822Checks.cs",
+      "Bytes": 7671,
+      "Sha256": "0BA33722B7A08D60EBBCC9640266CD8A2772E1AA076C0EE1AB26816DA0964133"
+    },
+    {
+      "Path": "tests/Runtime/Erlang.NativeGc.Observations/Fixtures/Runtime/Native/Resources/BinaryInfo822ControlNames.cs",
+      "Bytes": 1244,
+      "Sha256": "4B6DFE62BE1022D31C0EB2F38867871EAE899BCE5621233EE99BFFB19092D6A0"
+    },
+    {
+      "Path": "tests/Runtime/Erlang.NativeGc.Observations/Fixtures/Runtime/Native/Resources/BinaryOwner823Checks.cs",
+      "Bytes": 5736,
+      "Sha256": "371F7CE4592CD7F2B671A1B21BD7DE06906B907F5EABDEAB48C3CC1D7C21462E"
+    },
+    {
+      "Path": "tests/Runtime/Erlang.NativeGc.Observations/Fixtures/Runtime/Native/Resources/BinaryOwner823Names.cs",
+      "Bytes": 1452,
+      "Sha256": "4896E3AF315E90418123D940DA0725A39C9BFCF2B66A77A708FDF4090DEF9FD8"
+    },
+    {
+      "Path": "tests/Runtime/Erlang.NativeGc.Observations/Fixtures/Runtime/Native/Resources/NativeResource524Access.cs",
+      "Bytes": 2995,
+      "Sha256": "D1E6DF2E1B02993E6D017E792175D63A420BBA1135BB79A95D3672FEADBE9AF0"
+    },
+    {
+      "Path": "tests/Runtime/Erlang.NativeGc.Observations/Fixtures/Runtime/Native/Resources/NativeResource524Checks.cs",
+      "Bytes": 5497,
+      "Sha256": "3DBDF8EAB23FB1DF3392EEA85A16EF5632685F879ADEB1079B72AA60FCF97C35"
+    },
+    {
+      "Path": "tests/Runtime/Erlang.NativeGc.Observations/Fixtures/Runtime/Native/Resources/NativeResource524ImageOwner.cs",
+      "Bytes": 319,
+      "Sha256": "EE71D8CBF5D94C5F4121455B9AC54F5C0E3D0E46302ED74288124E70FC5B5C56"
+    },
+    {
+      "Path": "tests/Runtime/Erlang.NativeGc.Observations/Fixtures/Runtime/Native/Resources/NativeResource524Names.cs",
+      "Bytes": 663,
+      "Sha256": "086A050701D3AA46A34C7F0A7297E04B0DDB8A8BE9E6E29EF1A627A9B4A03325"
+    },
+    {
+      "Path": "tests/Runtime/Erlang.NativeGc.Observations/Fixtures/Runtime/Native/Resources/SuspensionRootLease821Checks.cs",
+      "Bytes": 10490,
+      "Sha256": "05D4832D97B0F2BE544B8F075368105EF24486871E2053B85CF36C6C6A7A260E"
+    },
+    {
+      "Path": "tests/Runtime/Erlang.NativeGc.Observations/Fixtures/Runtime/Native/Resources/SuspensionRootLease821Names.cs",
+      "Bytes": 1139,
+      "Sha256": "B7DFA7FE997ADC3746B18959427982CC7460E767FAD6623B009188F0B90660F5"
+    },
+    {
+      "Path": "tests/Runtime/Erlang.NativeGc.Observations/HostCopy827/HostCopy827Checks.cs",
+      "Bytes": 3213,
+      "Sha256": "6773C7101F2FC73370A6681F0CC19B80D0FD8AA53C8878EFBE8346E7E4002691"
+    },
+    {
+      "Path": "tests/Runtime/Erlang.NativeGc.Observations/HostCopy827/HostCopy827Names.cs",
+      "Bytes": 871,
+      "Sha256": "D42DAEB0F017E5C992255ED7AD99E95A7422EFC4BDB56E3CD29B856BC9FD3497"
+    },
+    {
+      "Path": "tests/Runtime/Erlang.NativeGc.Observations/OtpLiteral815Checks.cs",
+      "Bytes": 3730,
+      "Sha256": "A9546759849D930AF5DFCE9418A3813D05D96FFDE859EB5581EF8E3A3BBDFCF6"
+    },
+    {
+      "Path": "tests/Runtime/Erlang.NativeGc.Observations/Prepared810Entry.cs",
+      "Bytes": 737,
+      "Sha256": "E3F97B7BDFAD9E16E69A47D5E2455A57CDCA995C59F9934DA28FA5A737D8EE34"
+    },
+    {
+      "Path": "tests/Runtime/Erlang.NativeGc.Observations/Program.cs",
+      "Bytes": 3121,
+      "Sha256": "35BC2CE5EC9B0335AF070CEB0E773CE8792175BA08D5A943771321A7B2180250"
+    },
+    {
+      "Path": "tests/Runtime/Erlang.NativeGc.Observations/Resources/Original820/source_literalpool_probe820.erl",
+      "Bytes": 3673,
+      "Sha256": "7E13BCB6F721C2355947D93FA695D28E471E87797B80471677BCC79A01DEE9A7"
+    },
+    {
+      "Path": "tests/Runtime/Erlang.NativeGc.Observations/Resources/Original820/source_literalpool_subject820.erl",
+      "Bytes": 867,
+      "Sha256": "2598A49849BB73555442EAA3A46C0F5230939DF4081B7BEC1A51F18367BE1D8D"
+    },
+    {
+      "Path": "tests/Runtime/Erlang.NativeGc.Observations/Resources/OriginalLibrary/atomics.beam",
+      "Bytes": 6456,
+      "Sha256": "A683CBAC5176D979720C771C47908AEFE07252E9492EAF4940B81AA956FE2619"
+    },
+    {
+      "Path": "tests/Runtime/Erlang.NativeGc.Observations/Resources/OriginalLibrary/erts_debug.beam",
+      "Bytes": 27620,
+      "Sha256": "5719E86BE4F4D86264BED95D57975C17A003842DF471CD92CD7D56AADBA51D28"
+    },
+    {
+      "Path": "tests/Runtime/Erlang.NativeGc.Observations/Resources/OriginalLibrary/gb_trees.beam",
+      "Bytes": 24192,
+      "Sha256": "00C16C1658AD15D3E4F37514E172A8F7A68D3A53691FF4BB148F4328214B0FA7"
+    },
+    {
+      "Path": "tests/Runtime/Erlang.NativeGc.Observations/Resources/OriginalLibrary/lists.beam",
+      "Bytes": 124180,
+      "Sha256": "8941092DC34F0470CD404979E1890DF514D83F2EEB3B0AA8A276553E76471262"
+    },
+    {
+      "Path": "tests/Runtime/Erlang.NativeGc.Observations/Resources/OriginalLibrary/maps.beam",
+      "Bytes": 29016,
+      "Sha256": "DCDBAF8551AE63258BDA7BC1415C7DCD2D3310AAA9036A34BD09F24E90966454"
+    },
+    {
+      "Path": "tests/Runtime/Erlang.NativeGc.Observations/Resources/guest_connected_bang322.beam",
+      "Bytes": 968,
+      "Sha256": "AAADAC2F0BE0422FC84C4B79F398DD6EDD5B0D35778D925A0A4BC2D0BF2FE7E5"
+    },
+    {
+      "Path": "tests/Runtime/Erlang.NativeGc.Observations/Resources/original-library-assets06.json",
+      "Bytes": 1214,
+      "Sha256": "640BCB6E91CADE92BA13A861AC40B1C1EC7D21B5A8ADA393FEDA8741646F3BC9"
+    },
+    {
+      "Path": "tests/Runtime/Erlang.NativeGc.TestSupport/CpuStatisticsAccess.cs",
+      "Bytes": 2843,
+      "Sha256": "9AA0D7EC7DF822966B89F6482762259B2940416CEF62AED6A4CA646C1F08719B"
+    },
+    {
+      "Path": "tests/Runtime/Erlang.NativeGc.TestSupport/CpuStatisticsParameters.cs",
+      "Bytes": 969,
+      "Sha256": "470BC1A4729707ECC6538DD63B17CAF68D19BD5019A182FE5BC3688DAE3150DB"
+    },
+    {
+      "Path": "tests/Runtime/Erlang.NativeGc.TestSupport/CpuStatisticsSample.cs",
+      "Bytes": 149,
+      "Sha256": "9B8CCBE47DFE5F30BEFF4E4612EBADB221488F539E8320F873D86E4FB69FF853"
+    },
+    {
+      "Path": "tests/Runtime/Erlang.NativeGc.TestSupport/Erlang.NativeGc.TestSupport.csproj",
+      "Bytes": 768,
+      "Sha256": "588D6F9C606F248E3C6DB126BB084E75448A241B5374F700C2BC96EDBF44FB3D"
+    },
+    {
+      "Path": "tests/Runtime/Erlang.NativeGc.TestSupport/GcBinary818Driver.cs",
+      "Bytes": 7585,
+      "Sha256": "3E430298BB6EE320A7087694B63F48F5E716263F47867E57CDAD9DEA7A1FA6E6"
+    },
+    {
+      "Path": "tests/Runtime/Erlang.NativeGc.TestSupport/GcBinary818Entry.cs",
+      "Bytes": 151,
+      "Sha256": "03A74C57C948914821EF89D3F76E67DDF494FA25FFCC28A65C5FCF8F4708055C"
+    },
+    {
+      "Path": "tests/Runtime/Erlang.NativeGc.TestSupport/GcBinary818Names.cs",
+      "Bytes": 693,
+      "Sha256": "ABD8E5EC390A53F07A795A2163706179D95BBAAD11F31D1ED3EB4949F7A9B44A"
+    },
+    {
+      "Path": "tests/Runtime/Erlang.NativeGc.TestSupport/MailboxBackingCaseNames.cs",
+      "Bytes": 758,
+      "Sha256": "188B52412BB4AA2155AA0B25A9F82A7142EC97A4E533BF47682B6FE9E14B6EC7"
+    },
+    {
+      "Path": "tests/Runtime/Erlang.NativeGc.TestSupport/MailboxBackingProbe.cs",
+      "Bytes": 1632,
+      "Sha256": "1E4302EA70B0DC41860013BFA7BFDC1E7A839AE3D9895EB7D59B1F8B61627E93"
+    },
+    {
+      "Path": "tests/Runtime/Erlang.NativeGc.TestSupport/MutableSequenceToken550CaseNames.cs",
+      "Bytes": 559,
+      "Sha256": "481404993E4DE0594E46D5FD7A3779DE8D0F1D0BC5AAE907A97B2D7EE9C57154"
+    },
+    {
+      "Path": "tests/Runtime/Erlang.NativeGc.TestSupport/MutableSequenceToken550Checks.cs",
+      "Bytes": 12102,
+      "Sha256": "8ECC1CD278D4191356202C989D8704F1739E78D5575CC2B36EE2B3A7FD0E4094"
+    },
+    {
+      "Path": "tests/Runtime/Erlang.NativeGc.TestSupport/NativeOwned516Profile.cs",
+      "Bytes": 547,
+      "Sha256": "7A2AB338DC20C6EED0617F5D5B4D534BD6FAFF8A9868D96B11009E9C124A6A5F"
+    },
+    {
+      "Path": "tests/Runtime/Erlang.NativeGc.TestSupport/NativeOwned516ProfileNames.cs",
+      "Bytes": 252,
+      "Sha256": "6ADAA1A081B605796B8F968C191627700C43A9FA5E54B08DCFF05532E389892E"
+    },
+    {
+      "Path": "tests/Runtime/Erlang.NativeGc.TestSupport/NifDirty521Names.cs",
+      "Bytes": 5187,
+      "Sha256": "D0E4DAC541673C962E597CDE49BD1074C6FE188B198CDBFD7C0A478198DC34CD"
+    },
+    {
+      "Path": "tests/Runtime/Erlang.NativeGc.TestSupport/NifNativeHarness.cs",
+      "Bytes": 1287,
+      "Sha256": "2A8E68915E688BD05645F3A2DCC97FA011738E570C7A712CF18B7F46F74DA5FE"
+    },
+    {
+      "Path": "tests/Runtime/Erlang.NativeGc.TestSupport/NifNativeHarnessNames.cs",
+      "Bytes": 1680,
+      "Sha256": "330EA44C9DC12F60BC21CD908CC5FA331766A080DA434C96D88467FD57280826"
+    },
+    {
+      "Path": "tests/Runtime/Erlang.NativeGc.TestSupport/OrdinaryBinaryCaseNames.cs",
+      "Bytes": 993,
+      "Sha256": "5B1BF8BE5F6433125620289C139DEAF32F81CE6FB520A1BF66584E25551E1275"
+    },
+    {
+      "Path": "tests/Runtime/Erlang.NativeGc.TestSupport/OrdinaryBinaryTestAccess.cs",
+      "Bytes": 898,
+      "Sha256": "A40352DDC892C59CE59BB2F61D60F40DE5A3733E35719EF479077633462E5635"
+    },
+    {
+      "Path": "tests/Runtime/Erlang.NativeGc.TestSupport/ReadonlyTrace817Actor.cs",
+      "Bytes": 2050,
+      "Sha256": "B56222E9787942987AABF09CE6E8DA7D62D219BB511F9D4D435BBEDA2DC8F4CC"
+    },
+    {
+      "Path": "tests/Runtime/Erlang.NativeGc.TestSupport/ReadonlyTrace817CaseNames.cs",
+      "Bytes": 713,
+      "Sha256": "4CAC20143A3A92477F6B494C9561BBA54A8FCEDEE3FC241F55A2E63B98271666"
+    },
+    {
+      "Path": "tests/Runtime/Erlang.NativeGc.TestSupport/ReadonlyTrace817Checks.cs",
+      "Bytes": 14126,
+      "Sha256": "27ACFE8CEA7BED41390133B1133D0A04C00160D24F1C858F9F96B2844CE5A71A"
+    },
+    {
+      "Path": "tests/Runtime/Erlang.NativeGc.TestSupport/ReadonlyTraceOnHeap817CaseNames.cs",
+      "Bytes": 840,
+      "Sha256": "76A13B81947796E846303C855C86444D68909E7E7A94286CC01E300E287B3D91"
+    },
+    {
+      "Path": "tests/Runtime/Erlang.NativeGc.TestSupport/ReadonlyTraceOnHeap817Checks.cs",
+      "Bytes": 11847,
+      "Sha256": "27B24A08A202BD6C74E72544DA1526BF813D1B1AC72B8B781B1C4F87609AF589"
+    },
+    {
+      "Path": "tests/Runtime/Erlang.NativeGc.TestSupport/ReadonlyTracePrefix817CaseNames.cs",
+      "Bytes": 736,
+      "Sha256": "BEE585E2099DA819F110BFFDBC84875436BB238261ED74A62D6E970D329E8771"
+    },
+    {
+      "Path": "tests/Runtime/Erlang.NativeGc.TestSupport/ReadonlyTracePrefix817Checks.cs",
+      "Bytes": 8826,
+      "Sha256": "593DE246DB037906254C7157296BBC7C66442A7EA0512C4AD3553532C2F39D63"
+    },
+    {
+      "Path": "tests/Runtime/Erlang.NativeGc.TestSupport/ReadonlyTracePriority817CaseNames.cs",
+      "Bytes": 829,
+      "Sha256": "D9EB79B2DA94950671EE53B5ADCFE4917BD1A8F19BE413408F8EC0E5F7E72D12"
+    },
+    {
+      "Path": "tests/Runtime/Erlang.NativeGc.TestSupport/ReadonlyTracePriority817Checks.cs",
+      "Bytes": 10099,
+      "Sha256": "3C524C0E2ABA0809CD69B8AAC216FC0E0C4B5B695CA2810FB6F191B858162407"
+    },
+    {
+      "Path": "tools/Distribution/Erlang.GuestConnectedSendObservations/owned_process.py",
+      "Bytes": 3675,
+      "Sha256": "846101AD4F92121ACB128EAFB3228DD66D8A524CE0539A25E020A77010CFF071"
+    },
+    {
+      "Path": "tools/Distribution/Erlang.GuestConnectedSendObservations/passive_etf.py",
+      "Bytes": 7105,
+      "Sha256": "A069AD650B3EA1BE6B90DE60117B84ED7A1A6B67128CC41E7ECAEFD2889C1713"
+    },
+    {
+      "Path": "tools/Native/Erlang.DdllFormatterOriginalObservations/scripts/bounded_inventory.py",
+      "Bytes": 823,
+      "Sha256": "502862EB7045D780115D046A02FA56DB11FB67EBC7A1883CA58D06BEC6C7910A"
+    },
+    {
+      "Path": "tools/Runtime/Erlang.NativeGc825Observations/collect.py",
+      "Bytes": 36511,
+      "Sha256": "4C5248B69C3BBFCF11F4F90CCB8B2306D09FC556BBC999B76B0E085425F9BF93"
+    },
+    {
+      "Path": "tools/Runtime/Erlang.OwnedGuest506Observations/collect.py",
+      "Bytes": 19882,
+      "Sha256": "E0A9019CA029EB53D01247D68A87B1E017C448AF12ABAA3474B80BE8DB7C5DD1"
+    },
+    {
+      "Path": "tools/Runtime/Erlang.SchedulerAffinityOriginalObservations/README.md",
+      "Bytes": 3677,
+      "Sha256": "C21F5CA5CED8349CA0A264F91BA0E7D0A4F3DBDFB24635DEEC253EA54A6168B7"
+    },
+    {
+      "Path": "tools/Runtime/Erlang.SchedulerAffinityOriginalObservations/build-original.py",
+      "Bytes": 4256,
+      "Sha256": "B7C199B249AFF4C7C7E6ED06C1A26A2A1450991E810CD9388D50F521CCC97A35"
+    },
+    {
+      "Path": "tools/Runtime/Erlang.SchedulerAffinityOriginalObservations/check-source-controls.py",
+      "Bytes": 4177,
+      "Sha256": "5B9C1040B671B4FE63B25E142BBABAFCBE8D03750B2E22AAC1600796200FC30D"
+    },
+    {
+      "Path": "tools/Runtime/Erlang.SchedulerAffinityOriginalObservations/collect-profile.py",
+      "Bytes": 8774,
+      "Sha256": "E6637A0CE4561AD1E741DBDD6585DEE739FE2EA08C76AA994828B6E6F0B8170A"
+    },
+    {
+      "Path": "tools/Runtime/Erlang.SchedulerAffinityOriginalObservations/fixtures/scheduler_first_instruction.erl",
+      "Bytes": 473,
+      "Sha256": "ABB26ED42ED55ECC662E02E3301BCC38253AD4204D532199B8DCA25991650254"
+    },
+    {
+      "Path": "tools/Runtime/Erlang.SchedulerAffinityOriginalObservations/fixtures/scheduler_invalid_and_duplicate.erl",
+      "Bytes": 713,
+      "Sha256": "20430A4ACED89F26AE3C10535CE3861D4A5AB35204A5BCE0F3C39BA49F382DF2"
+    },
+    {
+      "Path": "tools/Runtime/Erlang.SchedulerAffinityOriginalObservations/fixtures/scheduler_migration_previous_binding.erl",
+      "Bytes": 349,
+      "Sha256": "26D487608148CD933C6B95E69117EF2675B01F11CDFDCF18341F1C447BE31961"
+    },
+    {
+      "Path": "tools/Runtime/Erlang.SchedulerAffinityOriginalObservations/fixtures/scheduler_offline_bound_resume.erl",
+      "Bytes": 978,
+      "Sha256": "DC851B11A4E7E8F4FFCADE7FADF6C9B35FAD474A2F6D80883A0655F93C5461EE"
+    },
+    {
+      "Path": "tools/Runtime/Erlang.SchedulerAffinityOriginalObservations/fixtures/scheduler_offline_pending_kill.erl",
+      "Bytes": 999,
+      "Sha256": "BAF618AC18FA41E6A325780A0AD4C2D5DA88F871D9EF3E39B300A085C79EF0D5"
+    },
+    {
+      "Path": "tools/Runtime/Erlang.SchedulerAffinityOriginalObservations/golden/compiled-protocol.etf",
+      "Bytes": 13,
+      "Sha256": "23B72BADA8C96C8C80CF461CB32D6C35DF80AA77EB59DE04E6DAF104DE4D5FA8"
+    },
+    {
+      "Path": "tools/Runtime/Erlang.SchedulerAffinityOriginalObservations/golden/outcome.etf",
+      "Bytes": 19,
+      "Sha256": "666DC00F2BCD8ADE2B692DE79BA53C1F46D80095DC9FD45EFAABFE87F8850B4A"
+    },
+    {
+      "Path": "tools/Runtime/Erlang.SchedulerAffinityOriginalObservations/golden/profile.etf",
+      "Bytes": 26,
+      "Sha256": "1C9EF0D7ADC63609C2BAC80E80855A5BD1E24CEB6A1C5ADA28D30F81169C2C65"
+    },
+    {
+      "Path": "tools/Runtime/Erlang.SchedulerAffinityOriginalObservations/golden/returned.etf",
+      "Bytes": 7,
+      "Sha256": "B95A960C86D5DB4B0AD2EB63A6A3298A224E20944B11E5B91751B0E534C3D683"
+    },
+    {
+      "Path": "tools/Runtime/Erlang.SchedulerAffinityOriginalObservations/manifest.json",
+      "Bytes": 4992,
+      "Sha256": "AEBBA0D2DCF97E1248CA38407E8EBE628EB08F9EA4D13F48EC0C83A7A0364E61"
+    },
+    {
+      "Path": "tools/Runtime/Erlang.SchedulerAffinityOriginalObservations/source_inputs.py",
+      "Bytes": 3099,
+      "Sha256": "28B06562E1621DF049D4C1B603B5AD7D9EBDA6C0BE616D21D54CCD4B03A34F45"
+    },
+    {
+      "Path": "tools/Runtime/Erlang.SchedulerAffinityOriginalObservations/verify-source.py",
+      "Bytes": 451,
+      "Sha256": "77FCB06FBEF2C7A2ADE4190395E6C1762007279A827CA4BD6078721D7D87CACC"
+    },
+    {
+      "Path": "tests/Runtime/Erlang.NativeGc.Observations/Fixtures/Runtime/Memory/BeamLocation146Checks.cs",
+      "Bytes": 10297,
+      "Sha256": "7D3C715F319D425B02DEE0EADC1EF97C08DDB8ACA45E6CC09A2F7B04A3E1605B"
+    },
+    {
+      "Path": "tests/Runtime/Erlang.NativeGc.Observations/Fixtures/Runtime/Memory/BeamLocation146Names.cs",
+      "Bytes": 1995,
+      "Sha256": "E76E3DDD645EC0A320BC4538CBCC914D37FDC2C04774FF4D4EDD38409D1AB7E8"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Fixtures/InternalProcessOriginal425/beam_internal_process425.erl",
+      "Bytes": 3975,
+      "Sha256": "B35D23F9A64F68DB2302F1875BB50705843A4AD52A5ACFE8819D26E78757CDDA"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Fixtures/InternalProcessOriginal425/erts_internal.erl",
+      "Bytes": 661,
+      "Sha256": "0B1B7A9118C86476D5AD75E9B2D1C8B5472CCA180E517C37CA9ADD39408B83D8"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Fixtures/InternalProcessOriginal425/stacks.etf",
+      "Bytes": 7869,
+      "Sha256": "5E7964EF422E1578CA4A326A0D96DEA1A0416302E6D8EE43F1A598970CD98894"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Fixtures/InternalProcessOriginal425/values.etf",
+      "Bytes": 1842,
+      "Sha256": "22FD63321F8888EA543B85BA2331382F6E3A826023C3AF6A828AB4FA54138760"
+    },
+    {
+      "Path": "tests/Runtime/Erlang.NativeGc.Observations/AckOriginal425Replay.cs",
+      "Bytes": 7251,
+      "Sha256": "680477204ECA9CA1FA70CE4EC1A713C6CE1AAD77C029DBDDDC3CEFD0444B5915"
+    },
+    {
+      "Path": "tests/Runtime/Erlang.NativeGc.Observations/AckOriginal425ReplayNames.cs",
+      "Bytes": 2141,
+      "Sha256": "B7AE03C13969FB63C9937483653AC8F24302B6ED2B0C07FC520D72BFB5FED2F0"
+    },
+    {
+      "Path": "tests/Runtime/Erlang.NativeGc.Observations/AckTrace173Replay.cs",
+      "Bytes": 6509,
+      "Sha256": "F44231E12D7D3C88A0C4CB8324DD1C2EF90F023AC68FBBEF70220383A8C5F931"
+    },
+    {
+      "Path": "tests/Runtime/Erlang.NativeGc.Observations/AckTrace173ReplayNames.cs",
+      "Bytes": 1026,
+      "Sha256": "8201B7BE3C9E8485EF65B4E3B3ED921E2C09CB02C4908BB2BF9B49E5466E2992"
+    },
+    {
+      "Path": "tests/Runtime/Erlang.NativeGc.Observations/Control826/EmptyLiteralProof200Checks.cs",
+      "Bytes": 7201,
+      "Sha256": "C0CACF5CEBB8608727A4B8F1E052BAA755B0DDBD44315CB69ED189F904FBD5DB"
+    },
+    {
+      "Path": "tests/Runtime/Erlang.NativeGc.Observations/Control826/EmptyLiteralProof200Names.cs",
+      "Bytes": 1461,
+      "Sha256": "6D97F25AACCF25495F24C1962C4CC563EF4EC87FFAB0E8BCBD86EB94F8111B43"
+    },
+    {
+      "Path": "tests/Runtime/Erlang.NativeGc.Observations/Control826/LazyFloatRegister230Checks.cs",
+      "Bytes": 7127,
+      "Sha256": "D5AA0ED9F91B406314C5177559A50C1E5595C2089DE54EAE34AEFFB3D3D72CA1"
+    },
+    {
+      "Path": "tests/Runtime/Erlang.NativeGc.Observations/Control826/LazyFloatRegister230Names.cs",
+      "Bytes": 1196,
+      "Sha256": "BA90A1137ADD87243FE5258205A327EED17CC7E2E8C7912D1A2A7CF65AD8AC9C"
+    },
+    {
+      "Path": "tests/Runtime/Erlang.NativeGc.Observations/Control826/MetadataBorrowed316Checks.cs",
+      "Bytes": 16162,
+      "Sha256": "557E34C22F19F4247E9CF9AA076D6076694112C2C2E8EAD0BB52839D2EA9485D"
+    },
+    {
+      "Path": "tests/Runtime/Erlang.NativeGc.Observations/Control826/MetadataBorrowed316Names.cs",
+      "Bytes": 2846,
+      "Sha256": "87C9779573BDB433150C6CCE57665FFC1D1AD20708D5335196CBC235A5613AED"
+    },
+    {
+      "Path": "tests/Runtime/Erlang.NativeGc.Observations/Control826/NativeAppend206Checks.cs",
+      "Bytes": 21499,
+      "Sha256": "033DD519905D89B42F76E6EE1DA0692EB56A585319BDC720BED8D1A1E71DDF9E"
+    },
+    {
+      "Path": "tests/Runtime/Erlang.NativeGc.Observations/Control826/NativeAppend206Names.cs",
+      "Bytes": 3429,
+      "Sha256": "732D56FE826904591FB7E4068986CCC47C59F44E41DAE737F86147F831A5ABAF"
+    },
+    {
+      "Path": "tests/Runtime/Erlang.NativeGc.Observations/Control826/NoBackingClosure192Checks.cs",
+      "Bytes": 11578,
+      "Sha256": "5D8637D57C8F134A56B95626746F8FDF087BBDC67E9EF375ACABC9EFA9A4559B"
+    },
+    {
+      "Path": "tests/Runtime/Erlang.NativeGc.Observations/Control826/NoBackingClosure192Names.cs",
+      "Bytes": 1578,
+      "Sha256": "D42A5111BEC1AFE8D1683131C5CAAF284871A49B5D04C1A70EAE2E2D992AD917"
+    },
+    {
+      "Path": "tests/Runtime/Erlang.NativeGc.Observations/Control826/OwnedMapClosure302Checks.cs",
+      "Bytes": 11217,
+      "Sha256": "8039F5275761A909A292607D567E4B408C49E10D15DBC88B8DA42CCE055EFC9B"
+    },
+    {
+      "Path": "tests/Runtime/Erlang.NativeGc.Observations/Control826/OwnedMapClosure302Names.cs",
+      "Bytes": 859,
+      "Sha256": "47ADB9666E98D46BE800B0C4575C7ED2BA19091EA9676DA0426D0CE5A8FF79FA"
+    },
+    {
+      "Path": "tests/Runtime/Erlang.NativeGc.Observations/Control826/PublishedFunctionClosure293Checks.cs",
+      "Bytes": 15633,
+      "Sha256": "5CFEB0EACFFDF4D02AE12CA6DDC5185ADCC17E68BE2F2AB9E7B408D89BE170A2"
+    },
+    {
+      "Path": "tests/Runtime/Erlang.NativeGc.Observations/Control826/PublishedFunctionClosure293Names.cs",
+      "Bytes": 2472,
+      "Sha256": "3D9025849467D9BA6C4032E15D83B600CE00B4836B85156F225124869AA55851"
+    },
+    {
+      "Path": "tests/Runtime/Erlang.NativeGc.Observations/Control826/RegisterCapacity273Checks.cs",
+      "Bytes": 21496,
+      "Sha256": "B84F272D9AD3DCC52509D5C0E9E42A3161F499C516B37EF2025216FA9FA5A3F1"
+    },
+    {
+      "Path": "tests/Runtime/Erlang.NativeGc.Observations/Control826/RegisterCapacity273Names.cs",
+      "Bytes": 3836,
+      "Sha256": "248EE0B3BE14E279176E74ED85E5EAF0B051ABE6596AC7D27BBE4C4BC59A6100"
+    },
+    {
+      "Path": "tests/Runtime/Erlang.NativeGc.Observations/Fixtures/Runtime/Memory/FlatLiteralCapture222Checks.cs",
+      "Bytes": 10786,
+      "Sha256": "93A4336532A2A7A1A7B90053C346D6C4520ACC0E2E89CDADC65A35F679EE6C2A"
+    },
+    {
+      "Path": "tests/Runtime/Erlang.NativeGc.Observations/Fixtures/Runtime/Memory/FlatLiteralCapture222Names.cs",
+      "Bytes": 1549,
+      "Sha256": "22FC51500FC34CC6D5AC3533722CD3711D77E9C364ED72F4B9AF1A0895DC584D"
+    },
+    {
+      "Path": "tests/Runtime/Erlang.NativeGc.Observations/Fixtures/Runtime/Modules/Loading/GeneratedSourcePreparation190Checks.cs",
+      "Bytes": 7918,
+      "Sha256": "50AA25FD0C8F49B12AADE3B7F7193AF184B6E4B5F242F08838EAB936A28A21DF"
+    },
+    {
+      "Path": "tests/Runtime/Erlang.NativeGc.Observations/Fixtures/Runtime/Modules/Loading/GeneratedSourcePreparation190Names.cs",
+      "Bytes": 2068,
+      "Sha256": "46DEC24557F87669B20D6A44821CC5D2B5F4B798F6A89B80109A693FDBAF32D4"
+    },
+    {
+      "Path": "tests/Runtime/Erlang.NativeGc.Observations/Fixtures/Runtime/Modules/Loading/NativeRecordDefaults313BeamChecks.cs",
+      "Bytes": 7432,
+      "Sha256": "F266F6863E7055CF4EBC5B2201D8B83A74BEA4DB5F3F56F2218ADDB2FAD9C82A"
+    },
+    {
+      "Path": "tests/Runtime/Erlang.NativeGc.Observations/Fixtures/Runtime/Modules/Loading/NativeRecordDefaults313Checks.cs",
+      "Bytes": 13806,
+      "Sha256": "E675D89291E159418BF36BC875086F7D3AF2980D3686B170721DFDC5FB023CB4"
+    },
+    {
+      "Path": "tests/Runtime/Erlang.NativeGc.Observations/Fixtures/Runtime/Modules/Loading/NativeRecordDefaults313Names.cs",
+      "Bytes": 5321,
+      "Sha256": "7312426FED526891B75E8D7BC775356961606011A5773AE65B2FA149268308FB"
+    },
+    {
+      "Path": "tests/Runtime/Erlang.NativeGc.Observations/Fixtures/Runtime/Modules/Loading/NativeRecordDefaults331Names.cs",
+      "Bytes": 1681,
+      "Sha256": "8FD14544B4713F0FF6DEA0C04419723CB795DF618BF5B7F6BE02754C9B0F8266"
+    },
+    {
+      "Path": "tests/Runtime/Erlang.NativeGc.Observations/Fixtures/Runtime/Modules/Loading/NativeRecordDefaults331Scope.cs",
+      "Bytes": 1675,
+      "Sha256": "8E0C3111F4FFBF838822FDE1124A820DD0AB933212C56341DDD480809833379A"
+    },
+    {
+      "Path": "tests/Runtime/Erlang.NativeGc.Observations/Fixtures/Runtime/Modules/Loading/NativeRecordField331Checks.cs",
+      "Bytes": 2344,
+      "Sha256": "303D178346EAF4F971EF7DC846900FCF55E4DC80FDF112A75DC4448663661882"
+    },
+    {
+      "Path": "tests/Runtime/Erlang.NativeGc.Observations/Fixtures/Runtime/Modules/Loading/PreparedBeamFixtureScope171.cs",
+      "Bytes": 2569,
+      "Sha256": "CF51F43F76FA862B1AE66378B2AAA41ED23C8D2FB65679E40268916A17D8BBE5"
+    },
+    {
+      "Path": "tests/Runtime/Erlang.NativeGc.Observations/Fixtures/Runtime/Native/Resources/PreparedMailboxRead292Checks.cs",
+      "Bytes": 8919,
+      "Sha256": "D0FB38B4885552A625453BFC48A7171EF8C24B295439F726C9037F9654E01926"
+    },
+    {
+      "Path": "tests/Runtime/Erlang.NativeGc.Observations/Fixtures/Runtime/Native/Resources/PreparedMailboxRead292Names.cs",
+      "Bytes": 829,
+      "Sha256": "9062FA65FA5028D56AED27DD7B931DD25C40F2443E200B1C6D2468D7A15177BB"
+    },
+    {
+      "Path": "tests/Runtime/Erlang.NativeGc.Observations/Fixtures/Runtime/Native/Resources/SuspensionAck172Checks.cs",
+      "Bytes": 7316,
+      "Sha256": "08C94F2F5718143E9F25DE05D98D92BDBB6B660FF35B0E0C824804066D32394F"
+    },
+    {
+      "Path": "tests/Runtime/Erlang.NativeGc.Observations/Fixtures/Runtime/Native/Resources/SuspensionAck172Names.cs",
+      "Bytes": 1425,
+      "Sha256": "B55A8E63348B6C9D05F75F09DDEC63E3E480393DFC10823D4CE4AEE5A81C7473"
+    },
+    {
+      "Path": "tests/Runtime/Erlang.NativeGc.Observations/Fixtures/Runtime/Native/Resources/SuspensionAck173TraceChecks.cs",
+      "Bytes": 6066,
+      "Sha256": "5B91D4C85B3F89D455944515DE6A2C718B4BE10A7A3401F41C3CB047E633302A"
+    },
+    {
+      "Path": "tests/Runtime/Erlang.NativeGc.Observations/Fixtures/Runtime/Native/Resources/SuspensionAck175Checks.cs",
+      "Bytes": 16044,
+      "Sha256": "9CAE65D527E26FB7DC8BAD1564AD747FCE314C2E88F4B454A84DF99BC6EBAFD4"
+    },
+    {
+      "Path": "tests/Runtime/Erlang.NativeGc.Observations/Fixtures/Runtime/Native/Resources/SuspensionAck175Names.cs",
+      "Bytes": 1980,
+      "Sha256": "5B5ECD59306235488D95382582C5106F939D0B8B5630CEE1FAE431D0A277210B"
+    },
+    {
+      "Path": "tests/Runtime/Erlang.NativeGc.Observations/Fixtures/Runtime/Native/Resources/SuspensionAck285Checks.cs",
+      "Bytes": 7688,
+      "Sha256": "ED5FD221AB57C7652215CF8DF2207FE5831B1E50A26C5704D4245E703463F609"
+    },
+    {
+      "Path": "tests/Runtime/Erlang.NativeGc.Observations/Fixtures/Runtime/Native/Resources/SuspensionAck285Names.cs",
+      "Bytes": 967,
+      "Sha256": "7E214430E46DA4AD4A51DAE50785F9F2AC4B4F89FB94729E5E972800A9158C2B"
+    },
+    {
+      "Path": "tests/Runtime/Erlang.NativeGc.Observations/Fixtures/Runtime/Native/Resources/SuspensionAck286Checks.cs",
+      "Bytes": 17238,
+      "Sha256": "8875F8B5823190ACD7A74783A32AF89831677F7B5EF00EC6F2F2E394AC348A24"
+    },
+    {
+      "Path": "tests/Runtime/Erlang.NativeGc.Observations/Fixtures/Runtime/Native/Resources/SuspensionAck286Names.cs",
+      "Bytes": 3038,
+      "Sha256": "3EBD681F5DEB7E838BE98DCEFC84961F4587D06E85C5BC6A6386796EC14F18F5"
+    },
+    {
+      "Path": "tests/Runtime/Erlang.NativeGc.Observations/Fixtures/Runtime/Native/Resources/SuspensionAckFamily286.cs",
+      "Bytes": 142,
+      "Sha256": "A1AE01D75C1BE0507984DBC5067FFFDDF17F1BD51BE5A0810F36967B56B162AE"
+    },
+    {
+      "Path": "tests/Runtime/Erlang.NativeGc.Observations/Fixtures/Runtime/Native/Resources/ThreadPoolReturnProof299Checks.cs",
+      "Bytes": 9748,
+      "Sha256": "27D4FBBDBAB98B69D5BF15000D3E413DD12439FB6A409641F959197FE11F095E"
+    },
+    {
+      "Path": "tests/Runtime/Erlang.NativeGc.Observations/Fixtures/Runtime/Native/Resources/ThreadPoolReturnProof299Instruction.cs",
+      "Bytes": 175,
+      "Sha256": "BBF3CB94841671BFD04C7654FC5B970C9A216EDFCD2B774FAC35DCBEAF309913"
+    },
+    {
+      "Path": "tests/Runtime/Erlang.NativeGc.Observations/Fixtures/Runtime/Native/Resources/ThreadPoolReturnProof299Names.cs",
+      "Bytes": 2091,
+      "Sha256": "A0E3C3A2ABC64ECC06A21B4D2F13DB41EE30066872BE6F900D15A2D1851F8E20"
+    },
+    {
+      "Path": "tests/Runtime/Erlang.NativeGc.Observations/FunctionUnique212/Fingerprint274Checks.cs",
+      "Bytes": 6887,
+      "Sha256": "38CF074E99462085FACA75FD2AA25E2E720BDCFC99D0592DC4845D375247841A"
+    },
+    {
+      "Path": "tests/Runtime/Erlang.NativeGc.Observations/FunctionUnique212/Fingerprint274Names.cs",
+      "Bytes": 589,
+      "Sha256": "164E212084D2F7663543C8A0A1E0D928DAFC902FD7451F9033268136229E4950"
+    },
+    {
+      "Path": "tests/Runtime/Erlang.NativeGc.Observations/FunctionUnique212/FunctionIdentityValue255Checks.cs",
+      "Bytes": 12410,
+      "Sha256": "A577F740AF5154DD98E44772F1C072B18BB9147768167613870DA65E0600DF38"
+    },
+    {
+      "Path": "tests/Runtime/Erlang.NativeGc.Observations/FunctionUnique212/FunctionIdentityValue255Names.cs",
+      "Bytes": 1339,
+      "Sha256": "285A9447DE9207DC492A428D52D55A44694C9FF2534513CCC4D382764156CFC5"
+    },
+    {
+      "Path": "tests/Runtime/Erlang.NativeGc.Observations/FunctionUnique212/FunctionUnique212Checks.cs",
+      "Bytes": 12067,
+      "Sha256": "A84FE5D98248FE9E3ABA057788FC001AC04CDC8654EC4AA756C7FD1DC249B163"
+    },
+    {
+      "Path": "tests/Runtime/Erlang.NativeGc.Observations/FunctionUnique212/FunctionUnique212Names.cs",
+      "Bytes": 2211,
+      "Sha256": "1EC4BB9D0532D952BDD952874318536189CB3AEF28E56081AB3B711385D69CB4"
+    },
+    {
+      "Path": "tests/Runtime/Erlang.NativeGc.Observations/Resources/NativeAppend206/native_append206_observer.beam",
+      "Bytes": 3804,
+      "Sha256": "CD257E99DEFCACF7C9F95F29D87DAEA4D020543B4CA210991A2EBE051BCBC2B5"
+    },
+    {
+      "Path": "tests/Runtime/Erlang.NativeGc.Observations/Resources/NativeAppend206/native_append206_observer.erl",
+      "Bytes": 1079,
+      "Sha256": "22F24F38DBC16796F3C967454296E47C731E58242181E46FA73499CC7597E01E"
+    },
+    {
+      "Path": "tests/Runtime/Erlang.NativeGc.Observations/Resources/NativeAppend206/original-deterministic.etf",
+      "Bytes": 63467,
+      "Sha256": "3B92D7EE8A3ADB4D88ED1EBCE1AF01F0D69AD4EACFAA63EE5EB85164FBF9E0A3"
+    },
+    {
+      "Path": "tests/Runtime/Erlang.NativeGc.Observations/Resources/NativeAppend206/original.etf",
+      "Bytes": 63467,
+      "Sha256": "3B92D7EE8A3ADB4D88ED1EBCE1AF01F0D69AD4EACFAA63EE5EB85164FBF9E0A3"
+    },
+    {
+      "Path": "tests/Runtime/Erlang.NativeGc.Observations/Resources/NativeAppend206/provenance.json",
+      "Bytes": 814,
+      "Sha256": "C6383B71752A6AF168B6F7432E53899CFB7DC58E6B59E323259C947575A4CC8D"
+    },
+    {
+      "Path": "tests/Runtime/Erlang.NativeGc.Observations/Resources/NativeRecordDefaults313/Consumer.beam",
+      "Bytes": 976,
+      "Sha256": "89BE7FA348E42601A671CA330F565E474498DC65C93995ACEEA31109E349E526"
+    },
+    {
+      "Path": "tests/Runtime/Erlang.NativeGc.Observations/Resources/NativeRecordDefaults313/FieldObserver331.beam",
+      "Bytes": 2224,
+      "Sha256": "48AE3970CDF7CF50C7589153D512606E0FFCE58E7A72E66858B02793DF952E5B"
+    },
+    {
+      "Path": "tests/Runtime/Erlang.NativeGc.Observations/Resources/NativeRecordDefaults313/FieldOriginal331.etf",
+      "Bytes": 1357,
+      "Sha256": "DCC3E3564CD5AEAF7E2FD1495459344933ED3AAA4F5D30AB2F1D02ABBE6F082C"
+    },
+    {
+      "Path": "tests/Runtime/Erlang.NativeGc.Observations/Resources/NativeRecordDefaults313/FieldProvenance331.json",
+      "Bytes": 515,
+      "Sha256": "621CB43949D4A144DFAC3D2F2E771D3D001CD9664E511BBDB255997A56C2A28A"
+    },
+    {
+      "Path": "tests/Runtime/Erlang.NativeGc.Observations/Resources/NativeRecordDefaults313/FieldWorker331.beam",
+      "Bytes": 856,
+      "Sha256": "FFE1717EC7964AA1111AF1C4B3EF57C5A289D5EF02108B16F75205E118D565CF"
+    },
+    {
+      "Path": "tests/Runtime/Erlang.NativeGc.Observations/Resources/NativeRecordDefaults313/Original.etf",
+      "Bytes": 283,
+      "Sha256": "DA810FF1ACBBE35459B1A1C8E7861A6F648F7A1D6E3C6C160BC0B30062B3C933"
+    },
+    {
+      "Path": "tests/Runtime/Erlang.NativeGc.Observations/Resources/NativeRecordDefaults313/OwnerV1.beam",
+      "Bytes": 1368,
+      "Sha256": "5C84A6E212B9E0FEA35EF572FA45F2DF279B854EFBB4DE0C464E9914422D28A9"
+    },
+    {
+      "Path": "tests/Runtime/Erlang.NativeGc.Observations/Resources/NativeRecordDefaults313/OwnerV2.beam",
+      "Bytes": 1372,
+      "Sha256": "56DE48D3BDE663A7EE9DB57096EC304FD26E94489D3EA937734EEC4C21F3A80E"
+    },
+    {
+      "Path": "tests/Runtime/Erlang.NativeGc.Observations/Resources/NativeRecordDefaults313/Provenance.json",
+      "Bytes": 1198,
+      "Sha256": "52FA0735B3BD62C84DF5C1CA48E3C22807F4B61E08122AC62B83BAC7468ADC1B"
+    },
+    {
+      "Path": "tests/Runtime/Erlang.NativeGc.Observations/Resources/RegisterCapacity273/register_capacity273_boundary.S",
+      "Bytes": 297,
+      "Sha256": "3C78362161FF6E6E7B9FABB6EA759245CE135226F67C275CE4EA27F4B7235475"
+    },
+    {
+      "Path": "tests/Runtime/Erlang.NativeGc.Observations/Resources/RegisterCapacity273/register_capacity273_live.S",
+      "Bytes": 274,
+      "Sha256": "E420A9D1DEDD07C95F4EDB1F7BD1B50FE9264518F8A2852297B7F1BBF42764EB"
+    },
+    {
+      "Path": "tests/Runtime/Erlang.NativeGc.Observations/Resources/RegisterCapacity273/register_capacity273_observer.erl",
+      "Bytes": 1052,
+      "Sha256": "A6856E5FA20A52D1ECC3D12243354D4889E108212BC77398856383845C067B4A"
+    },
+    {
+      "Path": "tests/Runtime/Erlang.NativeGc.Observations/Resources/RegisterCapacity273/register_capacity273_wide.S",
+      "Bytes": 821,
+      "Sha256": "B7F91625F371C9BBD64930407AD535CEEE65C26D37193D4113B11B9D7B8EB77A"
+    },
+    {
+      "Path": "tests/Runtime/Erlang.NativeGc.TestSupport/ReadonlyTraceTransition304Checks.cs",
+      "Bytes": 11903,
+      "Sha256": "91C5D05FD223A46B4ABBE11ACE23480F9542BFABCF8493FD2B066EA2F315BABD"
+    },
+    {
+      "Path": "tests/Runtime/Erlang.NativeGc.TestSupport/ReadonlyTraceTransition304Kind.cs",
+      "Bytes": 155,
+      "Sha256": "7DC951C7AA6F64E71BCA2D8699AD21A0234D403EDA9C0FC620171FB11DB20A5D"
+    },
+    {
+      "Path": "tests/Runtime/Erlang.NativeGc.TestSupport/ReadonlyTraceTransition304Names.cs",
+      "Bytes": 314,
+      "Sha256": "C8B80A8D4D158801E1AF464D208A94FE9CD065353B92B5C8D828B58E7F0284C6"
+    },
+    {
+      "Path": "tests/Runtime/Erlang.NativeGc.TestSupport/SequenceSelection170Checks.cs",
+      "Bytes": 4983,
+      "Sha256": "A753B784BC77C34756B9025E55212130911489E1F3647B36971AFA4B9FCE7996"
+    },
+    {
+      "Path": "tests/Runtime/Erlang.NativeGc.TestSupport/SequenceSelection170Names.cs",
+      "Bytes": 351,
+      "Sha256": "AA179CA971BBD538DF394C8EDCBE1D05DC3C71201E6E8BAA7263EEC7060FFC0E"
+    },
+    {
+      "Path": "tools/Runtime/Erlang.NativeGc825Observations/ack425-inputs.json",
+      "Bytes": 2116,
+      "Sha256": "9E22C42280332A6307C887A23BFE06D62A2BDED68F1F73F4C0238EC113C042CB"
+    },
+    {
+      "Path": "tools/Runtime/Erlang.NativeGc825Observations/collect-ack425.py",
+      "Bytes": 14588,
+      "Sha256": "1BAEC5A58DB7EF891453DD3FCAF20F97EC2B2736A073C8CF59607214945D89AE"
+    },
+    {
+      "Path": "tools/Runtime/Erlang.NativeGc825Observations/fixtures/ack_receive_trace173.erl",
+      "Bytes": 4137,
+      "Sha256": "8C9DE70008DFBA22AFE1276438C3BD272ACE2BF424049FD839121B15D8783075"
+    },
+    {
+      "Path": "tests/Runtime/Erlang.NativeGc.Observations/Control826/DistributionNoBacking398Checks.cs",
+      "Bytes": 5900,
+      "Sha256": "B9AF58BB960169F26144771EDE78F0C663725E3BE3926ABAADDF21386A65F0FF"
+    },
+    {
+      "Path": "tests/Runtime/Erlang.NativeGc.Observations/Control826/DistributionNoBacking398Names.cs",
+      "Bytes": 1731,
+      "Sha256": "2458097257BAAAE7F01E224861113BC12D6675C52F012BDF696C3FDBBF0CF7D7"
+    },
+    {
+      "Path": "tests/Runtime/Erlang.NativeGc.Observations/Control826/LiteralCapture397Checks.cs",
+      "Bytes": 30041,
+      "Sha256": "8B7750353460F6C71DE0D0ADF54C5FB1DC7E5E42D433AF5A7F8279146A672298"
+    },
+    {
+      "Path": "tests/Runtime/Erlang.NativeGc.Observations/Control826/LiteralCapture397Names.cs",
+      "Bytes": 4250,
+      "Sha256": "A731D6C6FC14460C3D59F27AC09AB6F65E6D91E1C3805EADBA9810968DAB4CEB"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/Beam/beam_fixture_closure.beam",
+      "Bytes": 1232,
+      "Sha256": "99A54BA32C5BD185F23550303E7036F451D52609376D8A738CF19EA3BBDD76F9"
+    },
+    {
+      "Path": "tests/Runtime/Erlang.NativeGc.Observations/Fixtures/Runtime/Modules/Loading/PublicReceiverFunction414Checks.cs",
+      "Bytes": 13233,
+      "Sha256": "08AD82696817739F7FC2231EC9E4417ABE56F6E666421892F37AB57DC92A20C9"
+    },
+    {
+      "Path": "tests/Runtime/Erlang.NativeGc.Observations/Fixtures/Runtime/Modules/Loading/PublicReceiverFunction414Names.cs",
+      "Bytes": 2327,
+      "Sha256": "C4480EFC9F368105F11ED51BFC1F4EBD47CC88CEA58BD1944D063E1BF0A4EFAD"
+    }
+  ]
+}

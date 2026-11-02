@@ -32,33 +32,43 @@ internal static class DictionaryOriginal631Checks
             hostSha = Convert.ToHexString(SHA256.HashData(System.IO.File.ReadAllBytes(typeof(DictionaryOriginal631Checks).Assembly.Location)));
             runtime = OwnedGuest506RuntimeFactory.Create();
             ProcessRuntime actualRuntime = runtime;
-            await runtime.InitializeModulesAsync(registry =>
+            await global::Erlang.Tests.PreparedBeamFixtureScope171.RunAsync(
+                runtime,
+                async (registry, scope) =>
             {
-                RuntimeBootstrapAtomics.Register(actualRuntime, registry);
+                await runtime.InitializeModulesAsync(_ =>
+                {
+                    RuntimeBootstrapAtomics.Register(actualRuntime, registry);
+                });
                 var dependencies = new BeamDependencySelection([
                     AtomicsHost413Names.Runtime, AtomicsHost413Names.Internal,
-                    AtomicsHost413Names.Atomics, AtomicsHost413Names.Lists, AtomicsHost413Names.Maps
+                                AtomicsHost413Names.Atomics, AtomicsHost413Names.Lists, AtomicsHost413Names.Maps
                 ]);
                 PreparedBeamImage[] originals = new[] {
-                    AtomicsHost413Names.Atomics, AtomicsHost413Names.Lists, AtomicsHost413Names.Maps
-                }.Select(module => registry.PrepareBeam(
-                    AtomicsHost413Access.Resource(module + AtomicsHost413Names.Beam), dependencies
-                )).ToArray();
-                if (registry.PublishPreparedBeam(originals).Status != BeamPublicationStatus.Published)
-                    throw new InvalidOperationException(DictionaryOriginal631Names.PublicationFailure);
-                foreach (PreparedBeamImage image in originals)
+                                AtomicsHost413Names.Atomics, AtomicsHost413Names.Lists, AtomicsHost413Names.Maps
+                            }.Select(module => scope.Prepare(() => registry.PrepareBeam(
+                                AtomicsHost413Access.Resource(module + AtomicsHost413Names.Beam), dependencies
+                            ))).ToArray();
+
+                return _ =>
                 {
-                    foreach (var export in registry.Exports.Where(export => export.Module == image.Name))
-                        if (!ReferenceEquals(registry.SourceOwner(export.Module, export.Function, export.Arity), image))
-                            throw new InvalidOperationException(DictionaryOriginal631Names.OwnerMismatch);
-                    images.Add(new
+                    if (registry.PublishPreparedBeam(originals).Status != BeamPublicationStatus.Published)
+                        throw new InvalidOperationException(DictionaryOriginal631Names.PublicationFailure);
+                    foreach (PreparedBeamImage image in originals)
                     {
-                        Module = image.Name,
-                        ImageSha256 = Convert.ToHexString(SHA256.HashData(
+                        foreach (var export in registry.Exports.Where(export => export.Module == image.Name))
+                            if (!ReferenceEquals(registry.SourceOwner(export.Module, export.Function, export.Arity), image))
+                                throw new InvalidOperationException(DictionaryOriginal631Names.OwnerMismatch);
+                        images.Add(new
+                        {
+                            Module = image.Name,
+                            ImageSha256 = Convert.ToHexString(SHA256.HashData(
                         AtomicsHost413Access.Resource(image.Name + AtomicsHost413Names.Beam)))
-                    });
-                }
-            });
+                        });
+                    }
+                };
+            }
+            );
             using var observer = GeneratedModuleCompiler.Compile(Encoding.UTF8.GetString(originalSource), DictionaryOriginal631Names.File);
             using var capture = GeneratedModuleCompiler.Compile(Encoding.UTF8.GetString(captureSource), CaptureFile);
             observer.Definition.Register(runtime.Modules);
