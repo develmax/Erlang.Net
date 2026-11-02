@@ -21,10 +21,9 @@ internal sealed unsafe partial class NifNativeCallEnvironment : IDisposable
     {
         get;
     }
-    internal ModuleCodeImage Image
-    {
-        get;
-    }
+    internal ModuleCodeImage? ModuleImage709 { get; }
+    internal ModuleCodeImage Image => ModuleImage709
+        ?? throw new InvalidOperationException(NifNativeVmEnvironmentNames709.Moduleless);
     private readonly nint privateDataSnapshot557;
     internal nint PrivateData => initializingOwner557?.ReadInitializingPrivateData557() ?? privateDataSnapshot557;
     internal NifNativeFailureState Failure { get; }
@@ -60,9 +59,18 @@ internal sealed unsafe partial class NifNativeCallEnvironment : IDisposable
     {
     }
 
+    internal static NifNativeCallEnvironment AllocateIndependent709(ProcessRuntime runtime)
+        => new(
+            runtime,
+            null,
+            0,
+            new NifNativeFailureState(),
+            true
+        );
+
     private NifNativeCallEnvironment(
         ProcessRuntime runtime,
-        ModuleCodeImage image,
+        ModuleCodeImage? image,
         nint privateData,
         NifNativeFailureState failure,
         bool independent
@@ -70,7 +78,7 @@ internal sealed unsafe partial class NifNativeCallEnvironment : IDisposable
     {
         Failure = failure;
         Runtime = runtime;
-        Image = image;
+        ModuleImage709 = image;
         privateDataSnapshot557 = privateData;
         IsIndependent = independent;
         pointer = (nint)NativeMemory.Alloc(NifNativeAbi.EnvironmentStorageBytes);

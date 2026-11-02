@@ -1317,25 +1317,7 @@ public sealed partial class ProcessRuntime : IAsyncDisposable
     }
 
     private async ValueTask<bool> PurgeOldCode(ProcessContext worker, string module)
-    {
-        SourcePurgeFenceSession? session = await Modules.PreparePurgeAsync(worker, module);
-        if (session is null)
-            return false;
-        bool completed = false;
-        try
-        {
-            await PurgeCodeImageProcesses(worker, session.Image);
-            bool purged = await Modules.FinishPurgeAsync(session, true);
-            completed = true;
-
-            return purged;
-        }
-        finally
-        {
-            if (!completed)
-                await Modules.FinishPurgeAsync(session, false);
-        }
-    }
+        => (await PurgeOldCodeOutcome706(worker, module)).Purged;
 
     public void Link(ProcessContext source, Pid target, bool priority = false)
     {

@@ -104,6 +104,8 @@ public sealed partial class ModuleRegistry
     internal Task CloseNifLifetimeAsync()
     {
         RequireNifShutdownCaller();
+        // Wake/fault Host entrants before image/call joins can wait for them.
+        owningRuntime?.CloseNormalNativeAdmission697();
         bool directPrepared807 = Monitor.IsEntered(gate) || CodeModification.IsOwned;
         TaskCompletionSource completion;
         NifImageLoadReservation[] reservations;

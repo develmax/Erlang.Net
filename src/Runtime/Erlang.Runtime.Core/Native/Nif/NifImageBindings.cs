@@ -68,6 +68,11 @@ internal sealed partial class NifImageBindings
         return pending;
     }
 
+    internal NifPreparedImageBindings544 Prepare(
+        NifImageBindingReservation pending,
+        IEnumerable<KeyValuePair<(string Name, int Arity), ErlangFunction>> bindings
+    ) => NifPreparedImageBindings544.Create544(this, pending, bindings);
+
     internal void Publish(
         NifImageBindingReservation pending,
         IEnumerable<KeyValuePair<(string Name, int Arity), ErlangFunction>> bindings,
@@ -76,25 +81,28 @@ internal sealed partial class NifImageBindings
     {
         ArgumentNullException.ThrowIfNull(bindings);
         ArgumentNullException.ThrowIfNull(owner);
-        var snapshot = new Dictionary<(string Name, int Arity), ErlangFunction>();
-        var ordered = new List<Term>();
-        foreach (var binding in bindings)
-        {
-            if (binding.Value is null || !pending.Eligible.Contains(binding.Key))
-                throw new ArgumentException(NifImageBindingNames.InvalidFunction, nameof(bindings));
-            if (!snapshot.TryAdd(binding.Key, binding.Value))
-                throw new ArgumentException(NifImageBindingNames.DuplicateFunction, nameof(bindings));
-            ordered.Add(Term.Tuple(Term.A(binding.Key.Name), Term.I(binding.Key.Arity)));
-        }
-        Term installed = Cons.From(ordered);
+        NifPreparedImageBindings544 prepared = Prepare(pending, bindings);
+        PublishPrepared(pending, prepared, owner);
+    }
+
+    // Binding snapshot work is complete, but resource publication and live phase
+    // validation remain fallible; this is not an irrevocable native-success commit.
+    internal void PublishPrepared(
+        NifImageBindingReservation pending,
+        NifPreparedImageBindings544 prepared,
+        IAsyncDisposable owner
+    )
+    {
+        ArgumentNullException.ThrowIfNull(prepared);
+        ArgumentNullException.ThrowIfNull(owner);
         using NativeResourcePublication527? resourcePublication =
             (owner as NifNativeLibraryOwner)?.PrepareResourcePublication527();
         lock (gate)
         {
             if (phase != NifImageBindingPhase.Initializing || !ReferenceEquals(reservation, pending))
                 throw new InvalidOperationException(NifImageBindingNames.ForeignReservation);
-            ready = snapshot;
-            installedFunctions = installed;
+            ready = prepared.Consume544(this, pending);
+            installedFunctions = prepared.InstalledFunctions544;
             nativeOwner = owner;
             reservation = null;
             phase = NifImageBindingPhase.Ready;
@@ -107,6 +115,8 @@ internal sealed partial class NifImageBindings
     {
         lock (gate)
         {
+            if (nativeTransition544 is { } transition && ReferenceEquals(transition.Pending544, pending))
+                throw new InvalidOperationException(NifNativeTransition544Names.ActiveAbort);
             if (ReferenceEquals(reservation, pending))
             {
                 reservation = null;

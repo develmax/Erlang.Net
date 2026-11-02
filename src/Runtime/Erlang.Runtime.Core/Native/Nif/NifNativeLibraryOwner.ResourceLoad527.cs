@@ -15,6 +15,9 @@ internal sealed unsafe partial class NifNativeLibraryOwner : INifImageRetirement
 
     internal void EndResourceLoadCallback527() => resourceLoad527?.EndLoading527();
 
+    internal NativeResourceUpgradeCommit544 PrepareResourceUpgrade544()
+        => resourceLoad527!.PrepareUpgradeCommit544();
+
     internal void RollbackResourceLoad527() => resourceLoad527?.Dispose();
 
     internal NativeResourcePublication527? PrepareResourcePublication527() => resourceLoad527?.PreparePublication527();

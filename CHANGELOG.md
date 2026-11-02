@@ -172,4 +172,6 @@ Append numbered English entries only to the last volume. Start the next sequenti
 
 - [0099.md](docs/changelog/0099.md) - Part554 final regression and original-OTP acceptance (closed; continues in0100)
 
-- [0100.md](docs/changelog/0100.md) - Part554 published-CI repairs and remaining traversal work (active)
+- [0100.md](docs/changelog/0100.md) - Part554 accepted GC and Part555 initial NIF validation (closed; continues in0101)
+
+- [0101.md](docs/changelog/0101.md) - Part555 NIF observer and backend validation repairs (active)

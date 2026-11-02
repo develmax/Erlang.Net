@@ -139,4 +139,58 @@ internal sealed partial class RuntimeActorDispatcher
             node = next;
         }
     }
+
+    internal NifActorAdmission616<RuntimeNormalBarrierRequest696> AcquireNifBarrier616(ProcessContext requester)
+    {
+        if (!requester.Runtime.OwnsActorDispatcher428(this)
+            || requester.ActorTaskScheduler is not { } scheduler
+            || !RuntimeActorExecutionTurn.IsOwnedBy(requester)
+            || DirtyNativeThread419.Owner is not null)
+            throw new InvalidOperationException(RuntimeNormalBarrierNames696.Requester);
+        var request = new RuntimeNormalBarrierRequest696(this, scheduler);
+        // Every callback/ticket allocation precedes enqueue and possible grant.
+        var admission = new NifNativeBarrierAdmission616(this, request, requester);
+        try
+        {
+            lock (gate)
+            {
+                ObjectDisposedException.ThrowIf(retiring, this);
+                requester.Cancellation.ThrowIfCancellationRequested();
+                foreach (var pending in normalRequests696)
+                    if (ReferenceEquals(pending.Scheduler696, scheduler))
+                        throw new InvalidOperationException(RuntimeNormalBarrierNames696.Reentrant);
+                normalRequests696.AddLast(request.Node696);
+                AdvanceNormalBarrier696();
+            }
+
+            return admission.Awaiter616;
+        }
+        catch (Exception error)
+        {
+            admission.Abandon616(error);
+            throw;
+        }
+    }
+
+    internal void AbandonNifBarrier616(RuntimeNormalBarrierRequest696 request, Exception failure)
+    {
+        lock (gate)
+        {
+            if (request.Node696.List is null) return;
+            if (ReferenceEquals(normalBarrier696, request) && request.Granted696)
+            {
+                ReleaseNormalBarrier696(request);
+
+                return;
+            }
+            normalRequests696.Remove(request.Node696);
+            if (ReferenceEquals(normalBarrier696, request)) normalBarrier696 = null;
+            request.Detach696();
+            request.Ready696.TrySetException(failure);
+            AdvanceNormalBarrier696();
+            GrantOnlineTurn();
+            StartWorkers();
+            CompleteIfIdle();
+        }
+    }
 }

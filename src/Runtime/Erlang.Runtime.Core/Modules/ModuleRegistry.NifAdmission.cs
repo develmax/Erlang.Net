@@ -2,7 +2,16 @@ namespace Erlang;
 
 public sealed partial class ModuleRegistry
 {
-    internal async ValueTask<NifImageLoadReservation> ReserveNifImageAsync(ProcessContext context)
+    internal ValueTask<NifImageLoadReservation> ReserveNifImageAsync(ProcessContext context)
+        => ReserveNifImageCore544Async(context, nativeUpgrade: false);
+
+    internal ValueTask<NifImageLoadReservation> ReserveNativeNifImage544Async(ProcessContext context)
+        => ReserveNifImageCore544Async(context, nativeUpgrade: true);
+
+    private async ValueTask<NifImageLoadReservation> ReserveNifImageCore544Async(
+        ProcessContext context,
+        bool nativeUpgrade
+    )
     {
         ArgumentNullException.ThrowIfNull(context);
         if (!ReferenceEquals(context.Runtime.Modules, this))
@@ -22,7 +31,7 @@ public sealed partial class ModuleRegistry
                 {
                     ThrowIfNifClosing();
                     context.Cancellation.ThrowIfCancellationRequested();
-                    var generation = CaptureNifGeneration(context, caller);
+                    var generation = CaptureNifGeneration(context, caller, nativeUpgrade);
                     lease = ReserveSourceCode(context, caller.Image);
                     binding = caller.Image.NifBindings.Begin(generation.TargetDescriptor);
 
@@ -60,7 +69,11 @@ public sealed partial class ModuleRegistry
         }
     }
 
-    private NifImageAdmissionGeneration CaptureNifGeneration(ProcessContext context, SourceCodeEntry caller)
+    private NifImageAdmissionGeneration CaptureNifGeneration(
+        ProcessContext context,
+        SourceCodeEntry caller,
+        bool nativeUpgrade
+    )
     {
         string module = caller.Image.Module;
         if (!context.IsExecutingCode(caller.Image))
@@ -105,8 +118,9 @@ public sealed partial class ModuleRegistry
         }
         if (NifImageBindingStore.IsCreated(caller.Image) && caller.Image.NifBindings.Phase == NifImageBindingPhase.Ready)
             throw new NifImageAdmissionException(NifImageAdmissionFailure.Reload);
-        if (previousNifImage is not null && NifImageBindingStore.IsCreated(previousNifImage)
-            && previousNifImage.NifBindings.Phase == NifImageBindingPhase.Ready)
+        bool hasPreviousNativeImage = previousNifImage is not null && NifImageBindingStore.IsCreated(previousNifImage)
+            && previousNifImage.NifBindings.Phase == NifImageBindingPhase.Ready;
+        if (hasPreviousNativeImage && !nativeUpgrade)
             throw new NifImageAdmissionException(NifImageAdmissionFailure.UpgradeUnsupported);
 
         return new(
@@ -116,6 +130,7 @@ public sealed partial class ModuleRegistry
             target,
             current,
             previous?.Image,
+            hasPreviousNativeImage ? previousNifImage : null,
             descriptor,
             pending,
             functions.Where(entry => entry.Key.Module == module).ToDictionary(entry => entry.Key, entry => entry.Value),
@@ -134,27 +149,58 @@ public sealed partial class ModuleRegistry
         lock (gate)
         {
             ThrowIfNifClosing();
+            ValidateNativeGeneration544(reservation);
             var generation = reservation.Generation;
             string module = generation.Caller.Image.Module;
-            var pending = pendingBeamImages.GetValueOrDefault(module);
-            if (!ReferenceEquals(codeImages.GetValueOrDefault(module), generation.CurrentImage)
-                || !ReferenceEquals(oldCode.GetValueOrDefault(module)?.Image, generation.OldImage)
-                || !ReferenceEquals(codeDescriptors.GetValueOrDefault(module), generation.CurrentDescriptor)
-                || !ReferenceEquals(pending, generation.PendingTicket)
-                || !MatchesNifBodies(module, generation))
-                throw new NifImageAdmissionException(NifImageAdmissionFailure.GenerationChanged);
-            if (generation.Origin == NifImageAdmissionOrigin.PendingOnLoad
-                && (pending is null || !ReferenceEquals(pending.CodeImage, reservation.Image)
-                    || !ReferenceEquals(pending.Prepared.Descriptor, generation.TargetDescriptor)
-                    || pending.CurrentPhase is not (BeamOnLoadPhase.Staged or BeamOnLoadPhase.Running)))
-                throw new NifImageAdmissionException(NifImageAdmissionFailure.GenerationChanged);
-            generation.Context.Runtime.ThrowIfHalted();
-            generation.Context.Cancellation.ThrowIfCancellationRequested();
             reservation.BeginCommit();
             binding.Publish(bindings, owner);
             if (generation.Origin == NifImageAdmissionOrigin.Current)
                 informationSnapshots.Remove(module);
         }
+    }
+
+    internal NifNativeBindingTransition544 PrepareNativeUpgrade544(
+        NifImageLoadReservation reservation,
+        NifImageBindingReservation binding,
+        NifPreparedImageBindings544 prepared,
+        NifNativeLibraryOwner candidate,
+        NativeResourceLoadTransaction527 resources
+    )
+    {
+        using var modification = CodeModification.Enter();
+        lock (gate)
+        {
+            ValidateNativeGeneration544(reservation);
+            reservation.BeginCommit();
+
+            return resources.PrepareBindings544(
+                reservation.Generation.Context.Runtime,
+                binding,
+                prepared,
+                candidate
+            );
+        }
+    }
+
+    private void ValidateNativeGeneration544(NifImageLoadReservation reservation)
+    {
+        ThrowIfNifClosing();
+        var generation = reservation.Generation;
+        string module = generation.Caller.Image.Module;
+        var pending = pendingBeamImages.GetValueOrDefault(module);
+        if (!ReferenceEquals(codeImages.GetValueOrDefault(module), generation.CurrentImage)
+            || !ReferenceEquals(oldCode.GetValueOrDefault(module)?.Image, generation.OldImage)
+            || !ReferenceEquals(codeDescriptors.GetValueOrDefault(module), generation.CurrentDescriptor)
+            || !ReferenceEquals(pending, generation.PendingTicket)
+            || !MatchesNifBodies(module, generation))
+            throw new NifImageAdmissionException(NifImageAdmissionFailure.GenerationChanged);
+        if (generation.Origin == NifImageAdmissionOrigin.PendingOnLoad
+            && (pending is null || !ReferenceEquals(pending.CodeImage, reservation.Image)
+                || !ReferenceEquals(pending.Prepared.Descriptor, generation.TargetDescriptor)
+                || pending.CurrentPhase is not (BeamOnLoadPhase.Staged or BeamOnLoadPhase.Running)))
+            throw new NifImageAdmissionException(NifImageAdmissionFailure.GenerationChanged);
+        generation.Context.Runtime.ThrowIfHalted();
+        generation.Context.Cancellation.ThrowIfCancellationRequested();
     }
 
     private bool MatchesNifBodies(string module, NifImageAdmissionGeneration generation)

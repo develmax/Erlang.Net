@@ -1,10 +1,10 @@
 # Physical GC activation checklist — Part 554
 
-Current checklist - checkpoint 609 (lifecycle repair and Windows snapshot transport corrected; successor CI remains required)
+Current checklist - GC delivery complete; separate NIF correction through build216/execution333 (local final regression complete; source admission and exact-head CI pending)
 
-Only the list immediately below is current. Dated snapshots later in this file preserve their then-open work and must not be read as current TODOs.
+Only the checklist and separate NIF follow-up section before Historical investigation snapshots are current. The completed GC rows describe accepted main c369b685c6a2ba6e319d80ae905913a753b6f95c, not the later NIF working copy. Dated snapshots later in this file preserve their then-open work and must not be read as current TODOs.
 
-- [x] Implement receive-only shared ACTUAL root-slot custody; focused generation/ABA, weak retirement, rollback and cleanup controls pass10/10 on build197. Legacy Clone unchanged. Broader final integration remains required.
+- [x] Implement receive-only shared ACTUAL root-slot custody; focused generation/ABA, weak retirement, rollback and cleanup controls pass10/10 on build197. Legacy Clone unchanged. Scoped GC integration and exact-head acceptance are complete as recorded below; separate NIF acceptance remains open.
 - [x] Close complete948+12 dirty outcomes/cleanup within the unchanged120-second budget: execution296 passes948/948 raw/typed plus12own protocols in107413ms on build200.
 - [x] Local affected43/43, root28/28 and SDK16/16 pass; final style-only six-assembly IL/metadata/resource proof preserves the tested code, with actual3-project build202.
 - [x] Final formatted-source native six-gate acceptance: five independent gates plus successful isolated ACK425 replay; original failed aggregate retained. Resource529 ordinary/reviewed2/2 also pass.
@@ -15,8 +15,30 @@ Only the list immediately below is current. Dated snapshots later in this file p
 - [x] Recheck physical roots on the final runtime: execution310 passes28/28, whole source820 ETF remains byte-identical, and all4309 inspected inputs remain unchanged. Build203 passes3/3 with identical pre/post source hashes. Preserve prior failed runs.
 - [x] Refresh only current dependency bindings:16 metadata outputs,10 direct bindings plus transitive hashes;13/13 source checks,4714/4714 raw bindings and3879 Resource dependencies pass. Historical source snapshots, API classifications and original goldens remain unchanged.
 - [x] Preserve503b267 CI early12/13 refusal: Windows checkout converted the new snapshot's line endings. Add one exact directory-local raw-byte rule; actual Git checkout with core.autocrlf=true now produces the sealed snapshot bytes. No runtime, plan pin or root attribute changes.
-- [ ] Publish this successor, verify all mandatory jobs and fresh reviews on its exact SHA, then merge only after acceptance. Prior green Linux jobs are not successor-head acceptance.
-- [ ] Complete the separate PR96 N2/ENV loading and initialization work. Current N1 success does not close it; an original-only constructor experiment has a retained failed outcome and needs a controlled scheduling protocol before guiding runtime changes.
+- [x] Publish73ef0b1a219c50398473374dea42500d3ac1e467 and complete all mandatory exact-head CI:9464/9464 Windows tests plus every native comparison, both Linux workflows, resource controls and relocated tooling. Fresh review and independent artifacts pass; no inline threads remain. Merge PR100 as c369b685c6a2ba6e319d80ae905913a753b6f95c, verify identical tree/ancestry and delete only its completed branch. This closes the scoped GC delivery checklist.
+
+Separate follow-up checkpoints:
+
+- [x] Confirm automatic post-merge main run41441355888: completed/success, tested head and current main both c369b685c6a2ba6e319d80ae905913a753b6f95c. Its tree is identical to the accepted73ef0 source.
+- [x] Establish the controlled original NIF reference: run41433709749 passes all9 fields, actual2/2/1/2 scheduler profile with warm ACK, complete event order, four cleanup outcomes and18 process cleanups. Preserve the prior failed original with uncontrolled actor placement; its OTP source/build pin was valid.
+- [x] Integrate120 guarded NIF source/driver paths and the two reviewed internal-test migrations. Core/permanent build204 and normal/backend build205 pass. Actual catalog9473 preserves9464 old cases and adds9; all9 added controls pass in execution312.
+- [x] Complete local native regression: execution319 passes182/182 on unchanged inputs. Preserve execution313176/178 and replay3142/2 after migrating the obsolete test reflection adapter. Execute the four new real actor/permit/barrier cancellation controls as318:4/4 pass; factory-level queue rejection remains explicitly unverified. Catalog9477 is not a full9477-suite pass.
+- [ ] Complete Linux N2/ENV and genuine constructor tests on the managed runtime. Current N1 success and original-only success do not close these managed contracts.
+- [x] Validate formatted NIF source locally: build208 passes all3 projects with identical pre/post source freeze; six-assembly PE audit637 preserves method IL, locals, exception handlers, metadata and managed resources, excluding only MVID/method RVAs and PDB/debug directories. Formatted physical execution320 passes28/28 with4346 unchanged inputs and complete source820 ETF equality. The182/182 native and4/4 admission runs are pre-format results, connected by this PE proof, not silently relabelled fresh formatted executions.
+- [ ] Exercise actual actor-queue factory rejection/fault. The four real actor controls establish cancellation/exit delivery, not that separate fault branch.
+- [x] Complete source672 admission and real Windows Git checkout with core.autocrlf=true:221 required raw paths match, actual13/13 source plans,4739 MFA/native bindings and3921 Resource dependencies pass. Preserve failed65612/13 and earlier transport/proof-wrapper attempts; historical TextLF rows are checked by their declared modes, not relabelled raw.
+- [x] Publish the separate NIF validation candidate24652eed585fdaeb2ef539d0bceaf084a6031447; its private-index tree and active-worktree guards pass. Bootstrap its new CI only on feature/nif-upgrade-555, preserving exact event-head and original-artifact validation.
+- [x] Diagnose first a509 CI from actual artifacts: all30 N2/ENV/582 managed attempts stop in observer preparation before native execution; Windows validate stops in the obsolete provider Enter reflection before unit9477. Preserve both failures, all cleanup receipts and intermediate-status reporting correction.
+- [x] Correct3 observer drivers and2 backend test files without production, policy, golden or deadline changes. Build2093/3 and210backend pass; owned default backend321 passes with7274 unchanged inputs. Source70213/13,4739 bindings and3921 Resource dependencies pass.
+- [x] Publish a425b43 correction. Its strict Linux N2/ENV comparisons pass24/24 and4/4; constructor whole9/profile/events and physical closure pass, while four cleanup booleans expose code:purge DidKill versus internal physical-purge semantics. Preserve the failed aggregate; no current-source constructor acceptance is inferred.
+- [x] Plumb real Purged/DidKill without altering old API/protocol; keep all4 original cleanup comparisons and add separate physical assertions. New real control323, affected32441/41, native325182/182 and physical32628/28 pass; retain the failed tail-call premise322 and its strict non-tail correction. Build2114/4 and212 normal pass.
+- [x] Audit complete a425 Windows artifact:9475/9477, exact old catalog, two failures retained;13 independent native wrappers pass but package/consumer/readiness proof is absent.
+- [x] Reproduce539 resource timeout327/328, measure native=1 before Add, migrate obsolete reflection arity and protect all post-allocation setup cleanup. Restore temporary diagnostic byte-for-byte; all success lifetime assertions remain before final disposal.
+- [x] Establish real pending-barrier suspension, then retain33019/20 and33149/50. Actual counters expose delivered1/nonHost1 with cancelled actor and completed readiness; do not accept the registration-only correction.
+- [x] Correct readiness scheduler capture and HOST rejection delivery with once-only/error/custody preservation. Two independent source reviews pass. Build2164/4, style7426895/0 changes, final33250/50 replays and3338/8 affected tests pass.
+- [x] Finish final regression on unchanged sources:334native182/182,335physical28/28 with4348 stable inputs and exact source820 ETF,336purge41/41. Overlapping selections are not summed.
+- [ ] Finish finite source/transport admission and publish the correction.
+- [ ] Require constructor cleanup equality, full exact-head9478/package CI and current review before merge or compatibility acceptance.
 
 ### Historical investigation snapshots (531-548; superseded by checkpoint590)
 

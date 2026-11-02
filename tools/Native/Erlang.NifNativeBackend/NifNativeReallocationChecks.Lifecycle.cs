@@ -95,7 +95,8 @@ internal static partial class NifNativeReallocationChecks
                 Require(runtime.NativeAllocationSnapshot.JoinedOwners == 0);
                 try
                 {
-                    owner.Initialize(
+                    await InitializeOneShot616(
+                        owner,
                         startNew ? profile : reflectedLegacy,
                         source.Descriptor,
                         Nil.Value,
@@ -108,7 +109,8 @@ internal static partial class NifNativeReallocationChecks
                 var failedFirst = runtime.NativeAllocationSnapshot;
                 try
                 {
-                    owner.Initialize(
+                    await InitializeOneShot616(
+                        owner,
                         startNew ? reflectedLegacy : profile,
                         source.Descriptor,
                         Nil.Value,
@@ -123,7 +125,8 @@ internal static partial class NifNativeReallocationChecks
                 Require(closed.JoinedOwners == 0);
                 try
                 {
-                    owner.Initialize(
+                    await InitializeOneShot616(
+                        owner,
                         profile,
                         source.Descriptor,
                         Nil.Value,
@@ -139,7 +142,8 @@ internal static partial class NifNativeReallocationChecks
             var before = runtime.NativeAllocationSnapshot;
             try
             {
-                neverStarted.Initialize(
+                await InitializeOneShot616(
+                    neverStarted,
                     profile,
                     source.Descriptor,
                     Nil.Value,
@@ -151,5 +155,23 @@ internal static partial class NifNativeReallocationChecks
             Require(runtime.NativeAllocationSnapshot == before);
         }
         );
+    }
+
+    private static async Task InitializeOneShot616(
+        NifNativeLibraryOwner owner,
+        NifNativeCapabilityProfile profile,
+        ModuleCodeDescriptor descriptor,
+        Term loadInfo,
+        CancellationToken cancellation
+    )
+    {
+        using NifNativeLifecyclePermit616 permit = await NifNativeLifecycleGate.AcquireAsync616(cancellation);
+        owner.OpenAndValidate616(
+            profile,
+            descriptor,
+            cancellation,
+            permit
+        );
+        _ = owner.InitializeLoad616(loadInfo, cancellation, permit);
     }
 }

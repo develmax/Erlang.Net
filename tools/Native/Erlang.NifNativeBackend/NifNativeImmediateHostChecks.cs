@@ -46,20 +46,36 @@ internal static unsafe class NifNativeImmediateHostChecks
                 ? [0, 1, uint.MaxValue] : [int.MinValue, 0, 1, int.MaxValue];
             foreach (long value in values)
             {
-                foreach (nint hint in new[] { (nint)0, (nint)1, other.Pointer })
+                foreach (nint hint in new[] { (nint)0, (nint)1 })
                     Check(owner, Make(
                         table,
                         slot,
                         hint,
                         value
                     ), value);
-                using (scope.BindEnvironment(other))
-                    Check(other, Make(
+                CheckTransfer(
+                    other,
+                    owner,
+                    Make(
                         table,
                         slot,
-                        owner.Pointer,
+                        other.Pointer,
                         value
-                    ), value);
+                    ),
+                    value
+                );
+                using (scope.BindEnvironment(other))
+                    CheckTransfer(
+                        owner,
+                        other,
+                        Make(
+                            table,
+                            slot,
+                            owner.Pointer,
+                            value
+                        ),
+                        value
+                    );
                 Check(owner, Make(
                     table,
                     slot,
@@ -128,6 +144,25 @@ internal static unsafe class NifNativeImmediateHostChecks
             var get = (delegate* unmanaged[Cdecl]<nint, nuint, int*, int>)Slots(table)[NifNativeImmediateHostNames.GetInt];
             Require(get(0, owner.Add(Term.I(1)), null) == 0 && state.HostFailure is not null && !state.HasGuestException);
         }
+    }
+
+    private static void CheckTransfer(
+        NifNativeCallEnvironment destination,
+        NifNativeCallEnvironment caller,
+        nuint token,
+        long expected
+    )
+    {
+        Check(destination, token, expected);
+        delegate* unmanaged[Cdecl]<nint, nuint, long*, int> getter = &NifNativeNumericCallbacks.GetInt64;
+        long read = 0;
+        Require(getter(caller.Pointer, token, &read) == 1 && read == expected);
+        delegate* unmanaged[Cdecl]<nint, nuint*, uint, nuint> tuple = &NifNativeArrayCallbacks.MakeTuple;
+        nuint tupleToken = tuple(destination.Pointer, &token, 1);
+        Require(destination.Get(tupleToken) is TupleTerm { Items: [Integer value] } && value.Value == expected);
+        delegate* unmanaged[Cdecl]<nint, nuint, nuint> copy = &NifNativeEnvironmentCallbacks.Copy;
+        nuint copied = copy(caller.Pointer, tupleToken);
+        Require(caller.Get(copied) is TupleTerm { Items: [Integer result] } && result.Value == expected);
     }
 
     private static nuint Make(
