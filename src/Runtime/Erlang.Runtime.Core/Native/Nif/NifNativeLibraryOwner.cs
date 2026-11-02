@@ -14,10 +14,13 @@ internal sealed unsafe partial class NifNativeLibraryOwner : IAsyncDisposable
     private FileStream? libraryFile;
     private nint privateData;
     private bool initializationStarted;
+    private NifNativeInitializationPhase616 phase616;
     private bool reallocationEnabled;
     private bool initialized;
     private bool disposed;
     private Exception? disposalFailure;
+    internal bool RequiresUpgrade544 { private get; set; }
+    internal NifNativeUpgradeOperation544? UpgradeOperation544 { get; set; }
     internal int OutstandingAfterNativeUnload { get; private set; } = -1;
 
     internal NifNativeLibraryOwner(ModuleCodeImage image, ProcessContext context)
@@ -26,14 +29,14 @@ internal sealed unsafe partial class NifNativeLibraryOwner : IAsyncDisposable
         initializationContext = context;
     }
 
-    internal IReadOnlyList<KeyValuePair<(string Name, int Arity), ErlangFunction>> Initialize(
+    internal void OpenAndValidate616(
         NifNativeCapabilityProfile profile,
         ModuleCodeDescriptor descriptor,
-        Term loadInfo,
-        CancellationToken cancellation
+        CancellationToken cancellation,
+        NifNativeLifecyclePermit616 permit
     )
     {
-        using var lifecycle = NifNativeLifecycleGate.Enter(cancellation);
+        using var lifecycle = permit.Enter616();
         lock (gate)
         {
             cancellation.ThrowIfCancellationRequested();
@@ -67,7 +70,7 @@ internal sealed unsafe partial class NifNativeLibraryOwner : IAsyncDisposable
             {
                 windowsCallbacks = new(reallocationEnabled);
                 windowsCallbacks.BindMutexes795(allocations);
-                windowsCallbacks.BindIndependentEnvironments(initializationContext.Runtime, image);
+                windowsCallbacks.BindIndependentEnvironments(initializationContext.Runtime);
             }
             var failure = new NifNativeFailureState();
             using var scope = new NifNativeCallbackScope(allocations, failure, reallocationEnabled);
@@ -109,25 +112,68 @@ internal sealed unsafe partial class NifNativeLibraryOwner : IAsyncDisposable
             failure.ThrowPending();
             entry = NifNativeEntryReader.Read(entryPointer, image.Module);
             ValidateEntry(descriptor);
+            phase616 = NifNativeInitializationPhase616.Opened;
+        }
+    }
+
+    internal IReadOnlyList<KeyValuePair<(string Name, int Arity), ErlangFunction>> InitializeLoad616(
+        Term loadInfo,
+        CancellationToken cancellation,
+        NifNativeLifecyclePermit616 permit
+    )
+    {
+        using var lifecycle = permit.Enter616();
+        lock (gate)
+        {
+            if (disposed || RequiresUpgrade544 || phase616 != NifNativeInitializationPhase616.Opened)
+                throw new InvalidOperationException(NifNativeTransition544Names.Admission);
+            cancellation.ThrowIfCancellationRequested();
+            var failure = new NifNativeFailureState();
+            using var scope = new NifNativeCallbackScope(allocations, failure, reallocationEnabled);
+            using var environment = new NifNativeCallEnvironment(
+                initializationContext,
+                image,
+                0,
+                failure
+            );
+            environment.AttachGuestRoots516(initializationContext);
+            using var invocation = scope.BindEnvironment(environment);
             nuint info = environment.Add(loadInfo);
+            phase616 = NifNativeInitializationPhase616.Invoking;
             int result = InvokeLoadCallback557(environment, info);
             if (result == 0)
             {
                 initialized = true;
+                phase616 = NifNativeInitializationPhase616.NativeSucceeded;
             }
             failure.ThrowPending();
             if (result != 0)
                 throw new NifNativeLoadVetoException(result);
             cancellation.ThrowIfCancellationRequested();
-            var bindings = new List<KeyValuePair<(string Name, int Arity), ErlangFunction>>();
-            foreach (var pair in functions)
-            {
-                bindings.Add(new(pair.Key, BindFunction521(pair.Key, pair.Value)));
-            }
 
-            SealGuestBindings535(bindings);
+            return PrepareBindings616();
+        }
+    }
 
-            return bindings.AsReadOnly();
+    private IReadOnlyList<KeyValuePair<(string Name, int Arity), ErlangFunction>> PrepareBindings616()
+    {
+        var bindings = new List<KeyValuePair<(string Name, int Arity), ErlangFunction>>(functions.Count);
+        foreach (var pair in functions)
+            bindings.Add(new(pair.Key, BindFunction521(pair.Key, pair.Value)));
+        SealGuestBindings535(bindings);
+
+        return bindings.AsReadOnly();
+    }
+
+    internal void PrepareUpgrade616()
+    {
+        lock (gate)
+        {
+            if (disposed || !RequiresUpgrade544 || phase616 != NifNativeInitializationPhase616.Opened
+                || UpgradeOperation544 is not { } operation || entry.Upgrade == 0)
+                throw new NifImageAdmissionException(NifImageAdmissionFailure.UpgradeUnsupported);
+            operation.Prepare544(this, PrepareBindings616(), resourceLoad527!);
+            phase616 = NifNativeInitializationPhase616.Prepared;
         }
     }
 
@@ -179,135 +225,193 @@ internal sealed unsafe partial class NifNativeLibraryOwner : IAsyncDisposable
         return environment.ExportResult516(returned);
     }
 
-    public ValueTask DisposeAsync()
+    private ValueTask DisposeSynchronous616(NifNativeLifecyclePermit616 permit)
     {
-        Exception? resourceRollbackFailure527 = null;
-        try
-        {
-            RollbackResourceLoad527();
-        }
-        catch (Exception error)
-        {
-            resourceRollbackFailure527 = error;
-        }
-        using var lifecycle = NifNativeLifecycleGate.Enter(CancellationToken.None);
+        var errors = new Exception?[NifNativePhaseNames616.RetirementFailureSlots];
+        var lifecycle = permit.Enter616();
         lock (gate)
         {
-            if (disposed)
-                return disposalFailure is null ? ValueTask.CompletedTask : ValueTask.FromException(disposalFailure);
-            var retirementState = new NifNativeFailureState();
-            using var retirementScope = new NifNativeCallbackScope(allocations, retirementState, reallocationEnabled);
-            using var retirementEnvironment = new NifNativeCallEnvironment(
-                initializationContext,
-                image,
-                privateData,
-                retirementState
-            );
-            using var retirementInvocation = retirementScope.BindEnvironment(retirementEnvironment);
-            disposed = true;
-            bool failedInitialization795 = !initialized;
-            Exception? failure = resourceRollbackFailure527;
-            bool nativeClosed = false;
-            bool retainMutexCallbacks795 = false;
+            NifNativeCallbackScope? scope = null;
+            NifNativeCallEnvironment? environment = null;
+            NifNativeEnvironmentBinding? invocation = null;
             try
             {
-                if (initialized)
+                if (!disposed)
                 {
-                    initialized = false;
-                    if (entry.Unload != 0)
+                    try
                     {
-                        ((delegate* unmanaged[Cdecl]<nint, nint, void>)entry.Unload)(retirementEnvironment.Pointer, privateData);
-                        OutstandingAfterNativeUnload = allocations.Count;
-                        retirementState.ThrowPending();
+                        RollbackResourceLoad527();
+                    }
+                    catch (Exception error)
+                    {
+                        errors[NifNativePhaseNames616.ResourceRollbackFailure] = error;
+                    }
+                    var state = new NifNativeFailureState();
+                    scope = new(allocations, state, reallocationEnabled);
+                    environment = new(
+                        initializationContext,
+                        image,
+                        privateData,
+                        state
+                    );
+                    invocation = scope.BindEnvironment(environment);
+                    disposed = true;
+                    phase616 = NifNativeInitializationPhase616.Closing;
+                    bool failedInitialization795 = !initialized;
+                    bool nativeClosed = false;
+                    bool retainMutexCallbacks795 = false;
+                    try
+                    {
+                        if (initialized)
+                        {
+                            initialized = false;
+                            if (entry.Unload != 0)
+                            {
+                                ((delegate* unmanaged[Cdecl]<nint, nint, void>)entry.Unload)(environment.Pointer, privateData);
+                                OutstandingAfterNativeUnload = allocations.Count;
+                                state.ThrowPending();
+                            }
+                        }
+                    }
+                    catch (Exception error)
+                    {
+                        errors[NifNativePhaseNames616.UnloadFailure] = error;
+                    }
+                    try
+                    {
+                        if (linuxCapsule is { } capsule)
+                        {
+                            capsule.Dispose();
+                            linuxCapsule = null;
+                        }
+                        else
+                            NifNativePlatformLoader.Close(library);
+                        nativeClosed = true;
+                        library = 0;
+                        state.ThrowPending();
+                    }
+                    catch (Exception error)
+                    {
+                        errors[NifNativePhaseNames616.LibraryCloseFailure] = error;
+                    }
+                    if (nativeClosed)
+                    {
+                        privateData = 0;
+                        try
+                        {
+                            allocations.CloseImageMutexes795(failedInitialization795);
+                        }
+                        catch (Exception error)
+                        {
+                            retainMutexCallbacks795 = true;
+                            errors[NifNativePhaseNames616.MutexCloseFailure] = error;
+                        }
+                        FileStream? previousFile = libraryFile;
+                        libraryFile = null;
+                        try
+                        {
+                            previousFile?.Dispose();
+                        }
+                        catch (Exception error)
+                        {
+                            errors[NifNativePhaseNames616.LibraryFileFailure] = error;
+                        }
+                        if (retainMutexCallbacks795)
+                        {
+                            try
+                            {
+                                NifNativeLinuxNamespaceRetention.Retain(this);
+                            }
+                            catch (Exception error)
+                            {
+                                errors[NifNativePhaseNames616.RetentionFailure] = error;
+                            }
+                        }
+                        else
+                        {
+                            NifNativeWindowsCallbacks? previousCallbacks = windowsCallbacks;
+                            windowsCallbacks = null;
+                            try
+                            {
+                                previousCallbacks?.Dispose();
+                            }
+                            catch (Exception error)
+                            {
+                                errors[NifNativePhaseNames616.WindowsCallbacksFailure] = error;
+                            }
+                        }
+                        functions.Clear();
+                        try
+                        {
+                            allocations.TryEndDomainMembership();
+                        }
+                        catch (Exception error)
+                        {
+                            errors[NifNativePhaseNames616.DomainMembershipFailure] = error;
+                        }
+                    }
+                    else
+                    {
+                        try
+                        {
+                            NifNativeLinuxNamespaceRetention.Retain(this);
+                        }
+                        catch (Exception error)
+                        {
+                            errors[NifNativePhaseNames616.RetentionFailure] = error;
+                        }
                     }
                 }
             }
-            catch (Exception unloadFailure)
+            catch (Exception error)
             {
-                failure = unloadFailure;
+                errors[NifNativePhaseNames616.RetirementSetupFailure] = error;
             }
             finally
             {
                 try
                 {
-                    if (linuxCapsule is { } capsule)
-                    {
-                        capsule.Dispose();
-                        linuxCapsule = null;
-                    }
-                    else
-                    {
-                        NifNativePlatformLoader.Close(library);
-                    }
-                    nativeClosed = true;
-                    library = 0;
-                    retirementState.ThrowPending();
+                    invocation?.Dispose();
                 }
-                catch (Exception closeFailure)
+                catch (Exception error)
                 {
-                    failure = failure is null ? closeFailure : new AggregateException(failure, closeFailure);
+                    errors[NifNativePhaseNames616.InvocationDisposeFailure] = error;
                 }
-                if (nativeClosed)
+                try
                 {
-                    privateData = 0;
-                    // Target ELF/CRT destructors finish before failed-init/veto containment.
-                    try
-                    {
-                        // enif_alloc is VM allocation storage, not DLL-private
-                        // scratch. A new callback image can free old userdata.
-                        // Reclaim only an unjoined standalone owner here.
-                        allocations.CloseImageMutexes795(failedInitialization795);
-                    }
-                    catch (Exception reclaimFailure)
-                    {
-                        retainMutexCallbacks795 = true;
-                        failure = failure is null ? reclaimFailure : new AggregateException(failure, reclaimFailure);
-                    }
-                    var previousFile = libraryFile;
-                    libraryFile = null;
-                    try
-                    {
-                        previousFile?.Dispose();
-                    }
-                    catch (Exception fileFailure)
-                    {
-                        failure = failure is null ? fileFailure : new AggregateException(failure, fileFailure);
-                    }
-                    if (retainMutexCallbacks795)
-                        NifNativeLinuxNamespaceRetention.Retain(this);
-                    else
-                    {
-                        var previousCallbacks = windowsCallbacks;
-                        windowsCallbacks = null;
-                        try
-                        {
-                            previousCallbacks?.Dispose();
-                        }
-                        catch (Exception callbackFailure)
-                        {
-                            failure = failure is null ? callbackFailure : new AggregateException(failure, callbackFailure);
-                        }
-                    }
-                    functions.Clear();
-                    try
-                    {
-                        allocations.TryEndDomainMembership();
-                    }
-                    catch (Exception membershipFailure)
-                    {
-                        failure = failure is null ? membershipFailure : new AggregateException(failure, membershipFailure);
-                    }
+                    environment?.Dispose();
                 }
-                else
+                catch (Exception error)
                 {
-                    NifNativeLinuxNamespaceRetention.Retain(this);
+                    errors[NifNativePhaseNames616.EnvironmentDisposeFailure] = error;
+                }
+                try
+                {
+                    scope?.Dispose();
+                }
+                catch (Exception error)
+                {
+                    errors[NifNativePhaseNames616.ScopeDisposeFailure] = error;
+                }
+                try
+                {
+                    lifecycle.Dispose();
+                }
+                catch (Exception error)
+                {
+                    errors[NifNativePhaseNames616.LifecycleScopeFailure] = error;
                 }
             }
-            disposalFailure = failure;
-            if (failure is not null)
-                return ValueTask.FromException(failure);
+            Exception[] failures = errors.Where(error => error is not null).Cast<Exception>().ToArray();
+            if (failures.Length != 0)
+            {
+                Exception failure = failures.Length == 1 ? failures[0] : new AggregateException(failures);
+                disposalFailure = disposalFailure is null ? failure : new AggregateException(disposalFailure, failure);
+            }
+            if (disposed)
+                phase616 = library == 0 ? NifNativeInitializationPhase616.Closed : NifNativeInitializationPhase616.RetainedFailure;
 
-            return ValueTask.CompletedTask;
+            return disposalFailure is null ? ValueTask.CompletedTask : ValueTask.FromException(disposalFailure);
         }
     }
 }

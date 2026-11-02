@@ -5,7 +5,6 @@ namespace Erlang;
 internal sealed unsafe partial class NifNativeWindowsCallbacks : IDisposable
 {
     private nint pointer;
-    private NifNativeEnvironmentAllocator? environmentAllocator;
     internal nint Pointer => pointer;
 
     internal NifNativeWindowsCallbacks() : this(false)
@@ -104,23 +103,10 @@ internal sealed unsafe partial class NifNativeWindowsCallbacks : IDisposable
         slots[NifNativeWindowsCallbackLayout.MakeString] = (nint)(delegate* unmanaged[Cdecl]<nint, byte*, int, nuint>)&NifNativePrimitiveCallbacks.MakeString;
     }
 
-    internal void BindIndependentEnvironments(ProcessRuntime runtime, ModuleCodeImage image)
+    internal void BindIndependentEnvironments(ProcessRuntime runtime)
     {
-        environmentAllocator = () =>
-        {
-            try
-            {
-                return new NifNativeCallEnvironment(runtime, image).Pointer;
-            }
-            catch (Exception failure)
-            {
-                NifNativeCallbackScope.Fail(failure);
-
-                return 0;
-            }
-        };
         var slots = (nint*)pointer;
-        slots[NifNativeEnvironmentLayout.Allocate] = Marshal.GetFunctionPointerForDelegate(environmentAllocator);
+        slots[NifNativeEnvironmentLayout.Allocate] = runtime.IndependentEnvironmentAllocator709.Pointer;
         slots[NifNativeEnvironmentLayout.Free] = (nint)(delegate* unmanaged[Cdecl]<nint, void>)&NifNativeEnvironmentCallbacks.Free;
         slots[NifNativeEnvironmentLayout.Clear] = (nint)(delegate* unmanaged[Cdecl]<nint, void>)&NifNativeEnvironmentCallbacks.Clear;
         slots[NifNativeEnvironmentLayout.Copy] = (nint)(delegate* unmanaged[Cdecl]<nint, nuint, nuint>)&NifNativeEnvironmentCallbacks.Copy;

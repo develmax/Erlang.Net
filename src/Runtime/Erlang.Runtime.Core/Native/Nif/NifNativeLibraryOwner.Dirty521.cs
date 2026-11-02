@@ -5,7 +5,7 @@ internal sealed unsafe partial class NifNativeLibraryOwner
     private ErlangFunction BindFunction521((string Name, int Arity) signature, NifNativeFunction521 function)
     {
         if (function.Kind == DirtyNativeKind419.Normal)
-            return (context, arguments) => ValueTask.FromResult(Invoke(
+            return (context, arguments) => ValueTask.FromResult(InvokeNormal697(
                 context,
                 arguments,
                 function.Pointer,

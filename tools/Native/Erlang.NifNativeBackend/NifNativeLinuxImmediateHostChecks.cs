@@ -49,15 +49,37 @@ internal static unsafe class NifNativeLinuxImmediateHostChecks
         using var other = Environment(context, state);
         using var invocation = scope.BindEnvironment(owner);
         NifNativeBridgeTable table = Table();
-        foreach (nint hint in new[] { (nint)0, (nint)1, other.Pointer })
+        foreach (nint hint in new[] { (nint)0, (nint)1 })
         {
             Check(owner, table.MakeLong(hint, NifNativeLinuxImmediateHostNames.Lower), NifNativeLinuxImmediateHostNames.Lower);
             Check(owner, table.MakeUInt64(hint, (ulong)NifNativeLinuxImmediateHostNames.Upper), NifNativeLinuxImmediateHostNames.Upper);
         }
+        CheckTransfer(
+            other,
+            owner,
+            table.MakeLong(other.Pointer, NifNativeLinuxImmediateHostNames.Lower),
+            NifNativeLinuxImmediateHostNames.Lower
+        );
+        CheckTransfer(
+            other,
+            owner,
+            table.MakeUInt64(other.Pointer, (ulong)NifNativeLinuxImmediateHostNames.Upper),
+            NifNativeLinuxImmediateHostNames.Upper
+        );
         using (scope.BindEnvironment(other))
         {
-            Check(other, table.MakeInt64(owner.Pointer, 1), 1);
-            Check(other, table.MakeUnsignedLong(owner.Pointer, 1), 1);
+            CheckTransfer(
+                owner,
+                other,
+                table.MakeInt64(owner.Pointer, 1),
+                1
+            );
+            CheckTransfer(
+                owner,
+                other,
+                table.MakeUnsignedLong(owner.Pointer, 1),
+                1
+            );
         }
         Check(owner, table.MakeInt64(0, 1), 1);
         // A bignum is allocated in the valid supplied env, unlike an immediate.
@@ -100,6 +122,25 @@ internal static unsafe class NifNativeLinuxImmediateHostChecks
             Check(owner, table.MakeLong(owner.Pointer, 1), 1);
             Require(table.MakeUnsignedLong(0, 1) == 0 && state.HostFailure is not null && !state.HasGuestException);
         }
+    }
+
+    private static void CheckTransfer(
+        NifNativeCallEnvironment destination,
+        NifNativeCallEnvironment caller,
+        nuint token,
+        long expected
+    )
+    {
+        Check(destination, token, expected);
+        delegate* unmanaged[Cdecl]<nint, nuint, long*, int> getter = &NifNativeNumericCallbacks.GetInt64;
+        long read = 0;
+        Require(getter(caller.Pointer, token, &read) == 1 && read == expected);
+        delegate* unmanaged[Cdecl]<nint, nuint*, uint, nuint> tuple = &NifNativeArrayCallbacks.MakeTuple;
+        nuint tupleToken = tuple(destination.Pointer, &token, 1);
+        Require(destination.Get(tupleToken) is TupleTerm { Items: [Integer value] } && value.Value == expected);
+        delegate* unmanaged[Cdecl]<nint, nuint, nuint> copy = &NifNativeEnvironmentCallbacks.Copy;
+        nuint copied = copy(caller.Pointer, tupleToken);
+        Require(caller.Get(copied) is TupleTerm { Items: [Integer result] } && result.Value == expected);
     }
 
     private static NifNativeBridgeTable Table() => (NifNativeBridgeTable)typeof(NifNativeExportRegistration)

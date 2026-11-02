@@ -1,0 +1,66 @@
+{
+  "SourceOnly": true,
+  "Pin": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "ExpectedHeadMode": "exact-current-argument",
+  "Inputs": [
+    {
+      "Root": "Packet",
+      "Path": "common.py",
+      "Sha256": "2C18DDF34680DB41267F7C86B6803A94820EC6ADC7608187521609E19658CDC8"
+    },
+    {
+      "Root": "Packet",
+      "Path": "build-native.py",
+      "Sha256": "DC099C0C566BCC879A97FB1147676B11C93787FA0A31F691A59DAD3725B09AB0"
+    },
+    {
+      "Root": "Packet",
+      "Path": "native-images.json",
+      "Sha256": "976A8DD27560CEDB83DF6C2AAA17E1F8AF3399D5C8F835844E3247417F702A6E"
+    },
+    {
+      "Root": "Packet",
+      "Path": "fixtures/nif_upgrade693.c",
+      "Sha256": "6C26DBDCE9173F0EE6D74015337FD65E2FCB11A9010E800E01242C2D1D28D3E3"
+    },
+    {
+      "Root": "Repository",
+      "Path": "tools/Runtime/Erlang.OwnedGuest506Observations/collect.py",
+      "Sha256": "E0A9019CA029EB53D01247D68A87B1E017C448AF12ABAA3474B80BE8DB7C5DD1"
+    },
+    {
+      "Root": "Repository",
+      "Path": "tools/Native/Erlang.DdllFormatterOriginalObservations/scripts/owned.py",
+      "Sha256": "2603D9DDC322D0B9F58BEA915076A8CCF2907B62E3927B33B49FF0BEE90EDD94"
+    },
+    {
+      "Root": "Repository",
+      "Path": "tools/Native/Erlang.DdllFormatterOriginalObservations/scripts/bounded_inventory.py",
+      "Sha256": "502862EB7045D780115D046A02FA56DB11FB67EBC7A1883CA58D06BEC6C7910A"
+    },
+    {
+      "Root": "Repository",
+      "Path": "tools/Distribution/Erlang.GuestConnectedSendObservations/owned_process.py",
+      "Sha256": "846101AD4F92121ACB128EAFB3228DD66D8A524CE0539A25E020A77010CFF071"
+    },
+    {
+      "Root": "Repository",
+      "Path": "tools/Native/Erlang.NifEntryOriginalObservations/common.py",
+      "Sha256": "655DE0072EF0833C34F5FB60497D80BD5ACF098B7A7E19D1D23356D144152CBE"
+    },
+    {
+      "Root": "Repository",
+      "Path": "tools/Runtime/Erlang.SchedulerAffinityOriginalObservations/source_inputs.py",
+      "Sha256": "28B06562E1621DF049D4C1B603B5AD7D9EBDA6C0BE616D21D54CCD4B03A34F45"
+    },
+    {
+      "Root": "Repository",
+      "Path": "tools/Native/Erlang.NifFixtureHost/native/source-plan.json",
+      "Sha256": "FDF26E769C0DB9D9D9BCBBC7B54418770DAD903E35C17F65B95895812F3F042C"
+    }
+  ],
+  "ExpectedImages": 3,
+  "TargetNifInitializationApproved": false,
+  "NativeBuildAcquisitionOnly": true,
+  "WholeApiCredits": 0
+}
