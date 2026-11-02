@@ -35,13 +35,19 @@ on:
         description: Exact commit of the selected workflow branch; reviewed N1 plan pins below must match
         type: string
         required: true
+      init_progress_original_only:
+        description: Original-only constructor progress; deliberately skip N1 and managed tests
+        type: boolean
+        default: false
+        required: false
 permissions:
   contents: read
 concurrency:
-  group: nif-version651-${{ github.event.pull_request.number || github.ref }}
+  group: ${{ inputs.init_progress_original_only && format('nif-init-progress582-{0}', github.ref) || format('nif-version651-{0}', github.event.pull_request.number || github.ref) }}
   cancel-in-progress: true
 jobs:
   n1-linux:
+    if: ${{ !(github.event_name == 'workflow_dispatch' && inputs.init_progress_original_only) }}
     runs-on: ubuntu-latest
     timeout-minutes: 60
     env:
@@ -408,4 +414,66 @@ jobs:
             artifacts/nif-version651/acceptance/**
             artifacts/nif-version651/mutex795-linux/**
             artifacts/gc-binary818/ci-linux01/**
+          if-no-files-found: warn
+
+  init-progress582-original:
+    name: Original-only OTP init582 (N1 and managed deliberately skipped)
+    if: ${{ github.event_name == 'workflow_dispatch' && inputs.init_progress_original_only }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    env:
+      EXPECTED_HEAD: ${{ inputs.expected_head }}
+      OTP_PIN: ad05823719d77c8faee87348ea39513d4e2f99c5
+      ORIGINAL_PLAN: AEBBA0D2DCF97E1248CA38407E8EBE628EB08F9EA4D13F48EC0C83A7A0364E61
+      INIT582_PLAN: 06DE5115707927AA5C94412B081AA373845B63CCEB013C4AAD80AEA5140B6810
+      PYTHONDONTWRITEBYTECODE: '1'
+      ERLC_USE_SERVER: 'false'
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: ${{ github.sha }}
+          persist-credentials: false
+      - name: Verify isolated original582 source plan before any build
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p artifacts/nif-init-progress582/ci
+          python3 -B tools/Native/Erlang.NifInitProgress582Observations/run-original.py \
+            --repository "$GITHUB_WORKSPACE" --expected-head "$EXPECTED_HEAD" --plan-sha256 "$INIT582_PLAN" \
+            --source-report "$GITHUB_WORKSPACE/artifacts/nif-init-progress582/ci/source-check.json"
+      - name: Acquire only the exact pinned original source
+        shell: bash
+        run: |
+          set -euo pipefail
+          git clone --depth 1 --single-branch --branch OTP-29.1.1 https://github.com/erlang/otp.git artifacts/nif-init-progress582/otp-source > artifacts/nif-init-progress582/ci/clone.log 2>&1
+          test "$(git -C artifacts/nif-init-progress582/otp-source rev-parse HEAD)" = "$OTP_PIN"
+      - name: Build admitted original OTP with existing owned source builder
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 -B tools/Runtime/Erlang.SchedulerAffinityOriginalObservations/build-original.py \
+            --repository "$GITHUB_WORKSPACE" --manifest-sha256 "$ORIGINAL_PLAN" --expected-head "$EXPECTED_HEAD" \
+            --otp-source "$GITHUB_WORKSPACE/artifacts/nif-init-progress582/otp-source" \
+            --prefix "$GITHUB_WORKSPACE/artifacts/nif-init-progress582/otp-install" \
+            --output "$GITHUB_WORKSPACE/artifacts/nif-init-progress582/original-build" \
+            > artifacts/nif-init-progress582/ci/original-build.log 2>&1
+      - name: Genuinely build and observe unchanged two-NIF constructor protocol
+        shell: bash
+        run: |
+          set -euo pipefail
+          receipt="$GITHUB_WORKSPACE/artifacts/nif-init-progress582/original-build/build-receipt.json"
+          python3 -B tools/Native/Erlang.NifInitProgress582Observations/run-original.py \
+            --repository "$GITHUB_WORKSPACE" --expected-head "$EXPECTED_HEAD" --plan-sha256 "$INIT582_PLAN" \
+            --otp-source "$GITHUB_WORKSPACE/artifacts/nif-init-progress582/otp-source" \
+            --build-receipt "$receipt" --admission-sha256 "$(sha256sum "$receipt" | cut -d ' ' -f 1)" \
+            --output "$GITHUB_WORKSPACE/artifacts/nif-init-progress582/capture" --execute \
+            > artifacts/nif-init-progress582/ci/capture.log 2>&1
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: original-only-init582-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            artifacts/nif-init-progress582/ci/**
+            artifacts/nif-init-progress582/original-build/**
+            artifacts/nif-init-progress582/capture/**
           if-no-files-found: warn
