@@ -13,3 +13,11 @@ Native compiler flags retain -Werror and exempt only unused static utility funct
 Initial scope is the positive ACK constructor-progress reference only. The no-ACK and no-ready negative controls from the staging protocol are NOT executed or declared accepted by this composition. They remain explicit follow-up original observations before a broader lifecycle redesign. No fixture/golden/native-timeout change is included.
 
 After the publisher verifies exact parent4b720d3 and creates a separate diagnostic branch, dispatch with expected_head equal to that new full commit and init_progress_original_only=true. Do not dispatch the current PR100 branch or represent the deliberately skipped N1 job as passing.
+
+## Controlled original successor
+
+Retain failed original run41429934648 and its full nine outcomes/stacks, event log and process receipts. It requested +S2:2 but did not record online schedulers, pin actors or establish a runnable/warm ACK before DLOpen. ACK only executed after constructor timeout; this observation alone is not proof of a constructor-wide VM barrier.
+
+This explicit changed test-observer variant pins the loader worker to scheduler1 and ACK to scheduler2, requires actual scheduler/online guards, and waits for the actor to report actual ack()->not_ready before starting the constructor. The original50ms actor delay remains before the armed handshake;500 polls/5ms, constructor2000ms and VM90s remain unchanged. A separate full scheduler-profile ETF records actual observations. All nine positive expectations are unchanged; a veto still FAILS the positive case. No result is declared before genuine original execution.
+
+Cleanup distinguishes zero, one and two accepted SUBJECT owners: expected unload pairs are respectively00,10,11. Rejected v2 handle closure is not a NIF unload callback. ACK has a separate accepted library but no unload callback. Old/current/ACK/observer cleanup outcomes are all retained independently. Positive acceptance still requires two subject accepts and exactly one unload for each. Result, complete stacks, profile, cleanup and event evidence are classified independently so a veto does not hide cleanup evidence. This is not execution of all three lifecycle cases or the unimplemented negative controls.

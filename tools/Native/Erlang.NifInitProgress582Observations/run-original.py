@@ -97,18 +97,22 @@ def capture_expression(installed, prep, images, case):
         '{ok,Beam2}=file:read_file(' + es(prep / 'subject-v2.beam') + '),'
         'Capture=try init_observer582:capture(AckBeam,Beam1,Beam2,'
         + es(images['ack'].with_suffix('')) + ',' + es(images['v1'].with_suffix('')) + ',' + es(images['v2'].with_suffix(''))
-        + ') of T0->{returned,T0} catch C0:R0:S0->{raised,C0,R0,S0} end,W("observed.etf",Capture),'
+        + ') of T0->{returned,T0} catch C0:R0:S0->{raised,C0,R0,S0} end,W("observed.etf",Capture),W("scheduler-profile.etf",erlang:get(init582_profile)),'
         'Events=fun()->case file:read_file(' + es(case / 'events.log') + ') of {ok,D}->[L||L<-binary:split(D,<<10>>,[global]),L=/=<<>>];{error,enoent}->[] end end,'
         'Count=fun(E)->length([ok||L<-Events(),L=:=E]) end,'
+        'Accepted=Count(<<"load_accepted">>),ExpectedOwners=case Accepted of 0->{0,0};1->{1,0};2->{1,1};_->erlang:error({accepted_load_count,Accepted}) end,'
+        'Outcome=fun(F)->try F() of V0->{value,V0} catch C2:R2:S2->{raised,C2,R2,S2} end end,'
         'WaitOld=fun F(0)->erlang:error({old_unload_timeout,Events()});F(N)->case Count(<<"unload_v1">>) of 1->ok;0->receive after 10->F(N-1) end;V->erlang:error({old_unload_count,V}) end end,'
-        'WaitAll=fun F(0)->erlang:error({all_unload_timeout,Events()});F(N)->case {Count(<<"unload_v1">>),Count(<<"unload_v2">>)} of {1,1}->ok;{A,B} when A=<1,B=<1->receive after 10->F(N-1) end;V->erlang:error({unload_counts,V}) end end,'
-        'Cleanup=try erlang:garbage_collect(),OldPurge=code:purge(init_subject582),WaitOld(1500),'
-        'Current={code:delete(init_subject582),code:purge(init_subject582)},WaitAll(1500),'
-        'AckCleanup={code:delete(init_ack582),code:purge(init_ack582)},'
-        'ObserverCleanup={code:delete(init_observer582),code:purge(init_observer582)},'
-        '{returned,{OldPurge,Current,AckCleanup,ObserverCleanup,Events()}} catch C1:R1:S1->{raised,C1,R1,S1} end,'
+        'WaitAll=fun F(0)->erlang:error({all_unload_timeout,ExpectedOwners,Events()});F(N)->case {Count(<<"unload_v1">>),Count(<<"unload_v2">>)} of ExpectedOwners->ok;{A,B} when A=<1,B=<1->receive after 10->F(N-1) end;V->erlang:error({unload_counts,V}) end end,'
+        'OldCleanup=Outcome(fun()->OldPurge=code:purge(init_subject582),case Accepted of 0->ok;_->WaitOld(1500) end,OldPurge end),'
+        'CurrentCleanup=Outcome(fun()->Current={code:delete(init_subject582),code:purge(init_subject582)},WaitAll(1500),Current end),'
+        'AckCleanup=Outcome(fun()->{code:delete(init_ack582),code:purge(init_ack582)} end),'
+        'ObserverCleanup=Outcome(fun()->{code:delete(init_observer582),code:purge(init_observer582)} end),'
+        'CleanupReport={Accepted,ExpectedOwners,OldCleanup,CurrentCleanup,AckCleanup,ObserverCleanup,Events()},'
+        'CleanupPassed=lists:all(fun({value,_})->true;(_)->false end,[OldCleanup,CurrentCleanup,AckCleanup,ObserverCleanup]),'
+        'Cleanup=case CleanupPassed of true->{returned,CleanupReport};false->{cleanup_failed,CleanupReport} end,'
         'W("cleanup.etf",Cleanup),W("events.etf",Events()),'
-        'case {Capture,Cleanup} of {{returned,_},{returned,_}}->halt(0);_->halt(79) end.'
+        'case {Capture,CleanupPassed} of {{returned,_},true}->halt(0);_->halt(79) end.'
     )
 
 
@@ -223,19 +227,41 @@ def execute(args, repo, tool, plan):
                 tup = lambda *v: ("tuple", tuple(v))
                 value = lambda v: tup(atom("value"), v)
                 expected = tup(atom("returned"), tup(value(atom("ok")), value(atom("ok")), value(tup(integer(1), integer(0))), value(atom("ok")), value(tup(integer(2), integer(0))), value(tup(integer(1), integer(0))), value(atom("ok")), atom("normal"), integer(2)))
-                need(observed == expected, "Whole nine-field original observation differs; raw result and complete raised stacks retained")
-                need(cleanup[0] == "tuple" and cleanup[1][0] == atom("returned"), "Actual cleanup did not complete")
-                events = (case / "events.log").read_text().splitlines()
-                for name, count in [("load_accepted", 2), ("constructor_enter", 1), ("ack_attempt", 1), ("ack_written", 1), ("constructor_ack_seen", 1), ("upgrade_enter", 1), ("unload_v1", 1), ("unload_v2", 1)]:
-                    need(events.count(name) == count, "Unexpected event count " + name)
-                need("constructor_timeout" not in events, "Constructor did not progress within its unchanged 2s fixture bound")
-                need(set(events) <= {"load_accepted", "constructor_enter", "ack_attempt", "ack_written", "constructor_ack_seen", "upgrade_enter", "unload_v1", "unload_v2"}, "Unexpected original event; complete raw log retained")
-                indices = [events.index(name) for name in ["constructor_enter", "ack_attempt", "constructor_ack_seen", "upgrade_enter"]]
-                need(indices == sorted(indices) and len(set(indices)) == 4, "Required constructor/ACK/upgrade partial order differs")
-                second_load = [n for n, event in enumerate(events) if event == "load_accepted"][1]
-                need(indices[-1] < second_load < events.index("unload_v1") < events.index("unload_v2"), "Load/old-first cleanup order differs")
-                need(events.index("ack_attempt") < events.index("ack_written"), "ACK write order differs")
-                result.update(WholeNineFieldsVerified=True, WholeRawResult=snapshot(observed_path), WholeCleanup=snapshot(cleanup_path), Events=snapshot(case / "events.log"), EventValues=events, ConstructorBoundMilliseconds=2000, OriginalVmOuterSeconds=90)
+                result.update(WholeRawResult=snapshot(observed_path), WholeCleanup=snapshot(cleanup_path))
+                profile_path = case / "scheduler-profile.etf"
+                profile = decoder.decode_exact(profile_path.read_bytes()) if profile_path.is_file() else None
+                if profile_path.is_file():
+                    result["SchedulerProfile"] = snapshot(profile_path)
+                    (case / "scheduler-profile-decoded.txt").write_text(repr(profile))
+                events = (case / "events.log").read_text().splitlines() if (case / "events.log").is_file() else []
+                result["EventValues"] = events
+                if (case / "events.log").is_file():
+                    result["Events"] = snapshot(case / "events.log")
+                cleanup_returned = cleanup[0] == "tuple" and len(cleanup[1]) == 2 and cleanup[1][0] == atom("returned")
+                cleanup_body = cleanup[1][1] if cleanup_returned else None
+                result["CleanupSucceededForActualAcceptedOwners"] = cleanup_returned
+                result["AcceptedSubjectOwners"] = cleanup_body[1][0][1] if cleanup_body and cleanup_body[0] == "tuple" else None
+                result["AckOwnerHasNoUnloadCallback"] = True
+                checks = {
+                    "WholeNineFields": observed == expected,
+                    "ActualTwoSchedulersAndWarmAck": profile == tup(atom("init582_control"), integer(2), integer(2), integer(1), integer(2), atom("not_ready")),
+                    "AllIndependentCleanupSteps": cleanup_returned,
+                    "PositiveTwoAcceptedSubjectOwners": bool(cleanup_body and cleanup_body[0] == "tuple" and len(cleanup_body[1]) == 7 and cleanup_body[1][0] == integer(2) and cleanup_body[1][1] == tup(integer(1), integer(1))),
+                    "NoConstructorTimeout": "constructor_timeout" not in events,
+                }
+                expected_counts = {"load_accepted": 2, "constructor_enter": 1, "ack_attempt": 1, "ack_written": 1, "constructor_ack_seen": 1, "upgrade_enter": 1, "unload_v1": 1, "unload_v2": 1}
+                checks["CompleteEventCounts"] = all(events.count(name) == count for name, count in expected_counts.items())
+                checks["NoUnknownEvents"] = set(events) <= set(expected_counts)
+                ordered = ["constructor_enter", "ack_attempt", "constructor_ack_seen", "upgrade_enter"]
+                checks["ConstructorAckUpgradeOrder"] = all(name in events for name in ordered) and all(events.index(left) < events.index(right) for left, right in zip(ordered, ordered[1:]))
+                loads = [n for n, event in enumerate(events) if event == "load_accepted"]
+                checks["OldFirstPhysicalSubjectCleanup"] = bool(len(loads) == 2 and all(name in events for name in ["upgrade_enter", "unload_v1", "unload_v2"]) and events.index("upgrade_enter") < loads[1] < events.index("unload_v1") < events.index("unload_v2"))
+                checks["AckWriteOrder"] = all(name in events for name in ["ack_attempt", "ack_written"]) and events.index("ack_attempt") < events.index("ack_written")
+                result["Checks"] = checks
+                for name, passed in checks.items():
+                    if not passed:
+                        result["Errors"].append(dict(Stage="independent-original-classification", Check=name, Error="Whole original evidence retained; positive expectation not relaxed"))
+                result.update(WholeNineFieldsVerified=checks["WholeNineFields"], ConstructorBoundMilliseconds=2000, OriginalVmOuterSeconds=90)
             else:
                 result["Errors"].append(dict(Stage="capture-files", Error="Whole result/cleanup missing; stderr/crashdump/owned process receipts retained"))
     except Exception as error:
