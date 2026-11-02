@@ -1,6 +1,6 @@
 # Physical GC activation checklist — Part 554
 
-Current checklist - checkpoint 590 (local repair gates complete; publication/current-head CI and review remain open)
+Current checklist - checkpoint 607 (lifecycle allocation regression repaired locally; successor CI remains required)
 
 Only the list immediately below is current. Dated snapshots later in this file preserve their then-open work and must not be read as current TODOs.
 
@@ -9,7 +9,13 @@ Only the list immediately below is current. Dated snapshots later in this file p
 - [x] Local affected43/43, root28/28 and SDK16/16 pass; final style-only six-assembly IL/metadata/resource proof preserves the tested code, with actual3-project build202.
 - [x] Final formatted-source native six-gate acceptance: five independent gates plus successful isolated ACK425 replay; original failed aggregate retained. Resource529 ordinary/reviewed2/2 also pass.
 - [x] Final source13/13, raw4714/4714, Resource3879 dependencies, layout0changes and source70/70 review pass. All7756 source guards covered by candidate/parent rawGit bytes.
-- [ ] Publish repaired PR100 head, verify mandatory exact-head GitHub CI and current-head reviews, then merge only after acceptance.
+- [x] Publish PR100 repair head4b720d3866391a2d2d56bcc9d4f7c0129efb9583. Dedicated Linux GC and N1 workflows, resource controls and relocated tooling pass; fresh automatic review completes without findings. These results certify that exact head only.
+- [x] Retain full Windows result9463/9464, including the newly exposed alternating lifecycle388 timeout. Reproduce the same unchanged15-second failure locally as execution307 (15224ms).
+- [x] Replace quadratic cleanup-error capacity growth with bounded geometric growth before frame ownership transfers. Preserve failure cleanup, guest workloads, complete original values/stacks and deadlines. Execution308 passes in9350ms; final affected309 passes47/47 including all four lifecycle cases and actual cancellation settlement.
+- [x] Recheck physical roots on the final runtime: execution310 passes28/28, whole source820 ETF remains byte-identical, and all4309 inspected inputs remain unchanged. Build203 passes3/3 with identical pre/post source hashes. Preserve prior failed runs.
+- [x] Refresh only current dependency bindings:16 metadata outputs,10 direct bindings plus transitive hashes;13/13 source checks,4714/4714 raw bindings and3879 Resource dependencies pass. Historical source snapshots, API classifications and original goldens remain unchanged.
+- [ ] Publish this successor, verify all mandatory jobs and fresh reviews on its exact SHA, then merge only after acceptance. Prior green Linux jobs are not successor-head acceptance.
+- [ ] Complete the separate PR96 N2/ENV loading and initialization work. Current N1 success does not close it; an original-only constructor experiment has a retained failed outcome and needs a controlled scheduling protocol before guiding runtime changes.
 
 ### Historical investigation snapshots (531-548; superseded by checkpoint590)
 

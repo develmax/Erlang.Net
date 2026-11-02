@@ -68,7 +68,11 @@ internal sealed partial class BeamRegisterState : IDisposable
             {
                 int required = checked(frames.Count + 2); // Incoming Y plus X cleanup.
                 if (disposeFailures558!.Length < required)
-                    disposeFailures558 = new Exception?[required];
+                {
+                    int capacity = disposeFailures558.Length;
+                    int expanded = capacity <= int.MaxValue / 2 ? capacity * 2 : required;
+                    disposeFailures558 = new Exception?[Math.Max(required, expanded)];
+                }
             }
             frames.Push(frame);
         }
