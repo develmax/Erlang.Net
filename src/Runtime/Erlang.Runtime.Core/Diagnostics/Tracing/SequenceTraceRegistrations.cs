@@ -4,25 +4,25 @@ internal static class SequenceTraceRegistrations
 {
     public static void Register(ModuleRegistry registry)
     {
-        registry.Register(
+        registry.RegisterCanonicalRuntimeRead535(
             ErlangModuleNames.Module,
             SequenceTraceNames.Set,
             2,
             (context, arguments) => ValueTask.FromResult(context.Runtime.SequenceTracing.Set(context, arguments[0], arguments[1]))
         );
-        registry.Register(
+        registry.RegisterCanonicalRuntimeRead535(
             ErlangModuleNames.Module,
             SequenceTraceNames.Info,
             1,
             (context, arguments) => ValueTask.FromResult(context.Runtime.SequenceTracing.Info(context, arguments[0]))
         );
-        registry.Register(
+        registry.RegisterCanonicalRuntimeRead535(
             ErlangModuleNames.Module,
             SequenceTraceNames.Print,
             1,
             (context, arguments) => ValueTask.FromResult(context.Runtime.SequenceTracing.Print(context, null, arguments[0]))
         );
-        registry.Register(
+        registry.RegisterCanonicalRuntimeRead535(
             ErlangModuleNames.Module,
             SequenceTraceNames.Print,
             2,

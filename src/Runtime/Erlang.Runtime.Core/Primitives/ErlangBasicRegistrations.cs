@@ -17,19 +17,32 @@ internal static class ErlangBasicRegistrations
             arity,
             (context, arguments) => ValueTask.FromResult(body(context, arguments))
         );
+
+        void Value354(string name, int arity, Func<ProcessContext, IReadOnlyList<Term>, Term> body)
+            => registry.RegisterCanonicalValueBif354(name, arity, body);
+
         foreach (string operation in new[] { ErlangOperators.Plus, ErlangOperators.Minus, ErlangOperators.Not, ErlangOperators.BitwiseNot })
-            Add(operation, 1, (_, arguments) => ErlangOperatorValues.Unary(operation, arguments[0]));
-        foreach (string operation in new[] { ErlangOperators.Plus, ErlangOperators.Minus, ErlangOperators.Multiply, ErlangOperators.Divide, ErlangOperators.IntegerDivide, ErlangOperators.Remainder, ErlangOperators.BitwiseAnd, ErlangOperators.BitwiseOr, ErlangOperators.BitwiseXor, ErlangOperators.ShiftLeft, ErlangOperators.ShiftRight, ErlangOperators.And, ErlangOperators.Or, ErlangOperators.Xor, ErlangOperators.NumericEqual, ErlangOperators.NumericNotEqual, ErlangOperators.ExactEqual, ErlangOperators.ExactNotEqual, ErlangOperators.Less, ErlangOperators.Greater, ErlangOperators.LessOrEqual, ErlangOperators.GreaterOrEqual, ErlangOperators.Append, ErlangOperators.SubtractList })
-            Add(operation, 2, (context, arguments) => ErlangOperatorValues.Binary(
+            Value354(operation, 1, (_, arguments) => ErlangOperatorValues.Unary(operation, arguments[0]));
+        foreach (string operation in new[] { ErlangOperators.Plus, ErlangOperators.Minus, ErlangOperators.Multiply, ErlangOperators.Divide, ErlangOperators.IntegerDivide, ErlangOperators.Remainder, ErlangOperators.BitwiseAnd, ErlangOperators.BitwiseOr, ErlangOperators.BitwiseXor, ErlangOperators.ShiftLeft, ErlangOperators.ShiftRight, ErlangOperators.And, ErlangOperators.Or, ErlangOperators.Xor, ErlangOperators.NumericEqual, ErlangOperators.NumericNotEqual, ErlangOperators.ExactEqual, ErlangOperators.ExactNotEqual, ErlangOperators.Less, ErlangOperators.Greater, ErlangOperators.LessOrEqual, ErlangOperators.GreaterOrEqual, ErlangOperators.SubtractList })
+        {
+            Func<ProcessContext, IReadOnlyList<Term>, Term> body = (context, arguments) => ErlangOperatorValues.Binary(
                 operation,
                 arguments[0],
                 arguments[1],
                 context
-            ));
+            );
+            if (operation is ErlangOperators.Plus or ErlangOperators.Minus or ErlangOperators.Multiply
+                or ErlangOperators.Divide or ErlangOperators.IntegerDivide or ErlangOperators.Remainder
+                or ErlangOperators.BitwiseAnd or ErlangOperators.BitwiseOr or ErlangOperators.BitwiseXor
+                or ErlangOperators.ShiftLeft or ErlangOperators.ShiftRight)
+                Value354(operation, 2, body);
+            else
+                Add(operation, 2, body);
+        }
         foreach (string operation in new[] { ErlangBasicBifNames.Absolute, ErlangBasicBifNames.Float, ErlangBasicBifNames.Round, ErlangBasicBifNames.Truncate, ErlangBasicBifNames.Floor, ErlangBasicBifNames.Ceiling })
-            Add(operation, 1, (_, arguments) => ErlangNumericBifs.Run(operation, arguments[0]));
-        Add(ErlangBasicBifNames.Minimum, 2, (_, arguments) => ErlangInfallibleBifValues.Minimum(arguments[0], arguments[1]));
-        Add(ErlangBasicBifNames.Maximum, 2, (_, arguments) => ErlangInfallibleBifValues.Maximum(arguments[0], arguments[1]));
+            Value354(operation, 1, (_, arguments) => ErlangNumericBifs.Run(operation, arguments[0]));
+        Value354(ErlangBasicBifNames.Minimum, 2, (_, arguments) => ErlangInfallibleBifValues.Minimum(arguments[0], arguments[1]));
+        Value354(ErlangBasicBifNames.Maximum, 2, (_, arguments) => ErlangInfallibleBifValues.Maximum(arguments[0], arguments[1]));
         Add(
             ErlangBasicBifNames.IsBoolean,
             1,
@@ -62,16 +75,17 @@ internal static class ErlangBasicRegistrations
             Add(operation, arity, (_, arguments) => ErlangTupleBifs.Change(operation, arguments));
         foreach (int arity in new[] { 2, 3 })
             Add(ErlangBasicBifNames.MakeTuple, arity, (_, arguments) => ErlangTupleBifs.Create(arguments));
-        Add(
+        Value354(
             ErlangBasicBifNames.TupleToList,
             1,
             (_, arguments) => arguments[0] is TupleTerm tuple ? Cons.From(tuple.Items) : throw new ErlangException(ErlangErrorReasons.BadArgument)
         );
         Add(ErlangBasicBifNames.ListToTuple, 1, (_, arguments) => ErlangTupleBifs.FromList(arguments[0]));
-        Add(ErlangBasicBifNames.Append, 2, (_, arguments) => Cons.From(Cons.Items(arguments[0]), arguments[1]));
+        registry.RegisterCanonicalListAppend206(ErlangOperators.Append);
+        registry.RegisterCanonicalListAppend206(ErlangBasicBifNames.Append);
         Add(ErlangBasicBifNames.Subtract, 2, (_, arguments) => ListBasicOperations.Subtract(arguments[0], arguments[1]));
         foreach (string name in new[] { ErlangBasicBifNames.Send, ErlangOperators.Send })
-            registry.Register(
+            registry.RegisterCanonicalMessage(
                 ErlangModuleNames.Module,
                 name,
                 2,

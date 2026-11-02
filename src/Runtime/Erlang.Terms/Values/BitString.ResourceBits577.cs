@@ -15,18 +15,24 @@ public sealed partial class BitString
         ownedResourceBits577 = storage;
     }
 
-    private void ValidateOwnedBits577() => _ = ownedResourceBits577?.ReadResourceBits577();
+    private void ValidateOwnedBits577()
+    {
+        _ = ownedHeapBits?.ReadHeapBitLength();
+        _ = ownedResourceBits577?.ReadResourceBits577();
+    }
 
     internal BinaryBacking ResourceBacking577 => backing;
 
     internal ResourceBitsRead577 CaptureResourceBits577()
-        => ownedResourceBits577?.ReadResourceBits577() ?? new(bitOffset, portableBitLength577);
+        => ownedHeapBits is not null ? new(0, ownedHeapBits.ReadHeapBitLength())
+            : ownedResourceBits577?.ReadResourceBits577() ?? new(bitOffset, portableBitLength577);
 
     internal BitString DetachResourceView577()
     {
         ResourceBitsRead577 read = CaptureResourceBits577();
 
-        return new BitString(backing, read.BitOffset, read.BitLength);
+        return ownedHeapBits is not null ? new BitString(ownedHeapBits.CopyHeapBytes(), read.BitLength)
+            : new BitString(backing, read.BitOffset, read.BitLength);
     }
 
     private ReadOnlySpan<byte> ReadOwnedByteSpan577()

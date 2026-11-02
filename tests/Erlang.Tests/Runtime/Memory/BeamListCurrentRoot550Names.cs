@@ -8,6 +8,8 @@ internal static class BeamListCurrentRoot550Names
     internal const string Pair = "WriteListParts550";
     internal const string Proof = "CanReuseListSource550";
     internal const string Protect = "Protect507";
+    internal const string PutList537 = "WriteConsFromOperands537";
+    internal const string PublishedInput537 = "HoldsPublishedInput537";
     internal const string Kind = "Kind";
     internal const string Value = "Value";
     internal const string Opcode = "get_list";

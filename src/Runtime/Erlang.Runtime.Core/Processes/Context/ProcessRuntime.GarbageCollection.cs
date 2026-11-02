@@ -8,42 +8,53 @@ public sealed partial class ProcessRuntime
         bool major = options.Type is Atom { Name: ProcessGarbageCollectionNames.Major };
         if (!options.Async && target.Equals(requester.Self))
         {
-            // The internal owned profile has real registered guest roots at
-            // this synchronous self safe point. Retire unreachable guest cells
-            // before CLR collection; otherwise their slabs keep dead graphs alive.
-            // Remote/asynchronous/off-actor/default paths are intentionally unchanged.
-            if (requester.OwnedExecutionEnabled683 && RuntimeActorExecutionTurn.IsOwnedBy(requester))
-                requester.CollectOwnedGeneration508(major);
-            requester.CollectManagedGarbage(major, CollectManagedHeap);
+            if (RuntimeActorExecutionTurn.IsOwnedBy(requester))
+                CollectAtProcessSafePoint(requester, major);
+            else
+                requester.CollectManagedGarbage(major, CollectManagedHeap); // existing opaque Host path only
 
             return Term.A(ErlangBooleanAtoms.True);
         }
+        if (System.Threading.Monitor.IsEntered(gate) || requester.Mailbox.DeferredGateHeld)
+            throw new InvalidOperationException(RuntimeActorControlNames428.Foreign);
         Term requestId = options.Async ? options.RequestId : MakeReference();
-        var request = new ProcessGarbageCollectionRequest(requester, requestId, major);
-        lock (gate)
+        // Capture while caller inputs are genuinely live and before R/M. This
+        // runtime-owned queued operation outlives caller frame/cancellation.
+        var custody = RuntimeProcessPayload641.Prepare641(this, null, requestId);
+        ProcessGarbageCollectionRequest request;
+        try
         {
-            if (!processes.TryGetValue(target, out var process))
-                ReplyGarbageCollection(request, false);
-            else
+            request = new(requester, major, custody);
+        }
+        catch
+        {
+            custody.Close641();
+            throw;
+        }
+        try
+        {
+            lock (gate)
             {
-                process.PendingGarbageCollections.Add(request);
-                process.Mailbox.SendPending(
-                    Nil.Value,
-                    () =>
+                if (!processes.TryGetValue(target, out var process))
+                    CompleteCollectionRequest(request, false, true);
+                else
                 {
-                    lock (gate)
+                    request.Target = process;
+                    process.PendingGarbageCollections.Add(request);
+                    request.State = ProcessCollectionRequestState.Pending;
+                    process.Mailbox.SendPending(Nil.Value, () =>
                     {
-                        if (process.PendingGarbageCollections.Remove(request))
-                        {
-                            process.CollectManagedGarbage(request.Major, CollectManagedHeap);
-                            ReplyGarbageCollection(request, true, process.Self);
-                        }
-                    }
+                        ClaimCollectionRequest(process, request);
 
-                    return null;
+                        return null;
+                    });
                 }
-                );
             }
+        }
+        catch
+        {
+            CompleteCollectionRequest(request, false, false);
+            throw;
         }
         if (options.Async)
             return Term.A(ProcessGarbageCollectionNames.AsyncResult);
@@ -63,13 +74,16 @@ public sealed partial class ProcessRuntime
         );
     }
 
-    private void ReplyGarbageCollection(ProcessGarbageCollectionRequest request, bool result, Term? from = null) => SendSystem(
-        request.Requester.Self,
-        Term.Tuple(
-            Term.A(ProcessGarbageCollectionNames.ReplyTag),
-            request.Id,
-            Term.A(result ? ErlangBooleanAtoms.True : ErlangBooleanAtoms.False)
-        ),
-        from
-    );
+    private void ReplyGarbageCollection(ProcessGarbageCollectionRequest request, bool result, Term? from = null)
+        => SendMonitorPayload641(
+            request.Requester,
+            Term.Tuple(
+                Term.A(ProcessGarbageCollectionNames.ReplyTag),
+                request.Id,
+                Term.A(result ? ErlangBooleanAtoms.True : ErlangBooleanAtoms.False)
+            ),
+            null,
+            request.Custody,
+            from: from
+        );
 }

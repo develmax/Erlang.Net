@@ -19,13 +19,13 @@ internal static class CountersOriginal421Checks
         {
             runtime = new ProcessRuntime(1);
             ProcessRuntime owner = runtime;
+            using PreparedBeamImage facet = CountersOriginal421Preparation.Prepare(owner, owner.Modules);
+            var declared = new BeamDependencySelection([CountersOriginal421Names.Internal,
+                CountersOriginal421Names.Runtime, CountersOriginal421Names.File, CountersOriginal421Names.Module]);
+            using PreparedBeamImage worker = owner.Modules.PrepareBeam(
+                CountersOriginal421Access.Resource(CountersOriginal421Names.WorkerBeam), declared);
             await owner.InitializeModulesAsync(registry =>
             {
-                PreparedBeamImage facet = CountersOriginal421Preparation.Prepare(owner, registry);
-                var declared = new BeamDependencySelection([CountersOriginal421Names.Internal,
-                    CountersOriginal421Names.Runtime, CountersOriginal421Names.File, CountersOriginal421Names.Module]);
-                PreparedBeamImage worker = registry.PrepareBeam(
-                    CountersOriginal421Access.Resource(CountersOriginal421Names.WorkerBeam), declared);
                 CountersOriginal421Access.Require(registry.PublishPreparedBeam([facet, worker]).Status == BeamPublicationStatus.Published);
                 CountersOriginal421Preparation.AssertPublished(registry, facet);
                 foreach (var image in new[] { worker })

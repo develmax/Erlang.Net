@@ -111,32 +111,45 @@ internal static class EtsKernelOriginal407Checks
         var runtime = new ProcessRuntime();
         try
         {
-            await runtime.InitializeModulesAsync(registry =>
+            await global::Erlang.Tests.PreparedBeamFixtureScope171.RunAsync(
+                runtime,
+                async (registry, scope) =>
             {
-                Erlang.Otp.OtpModules.Register(registry);
+                await runtime.InitializeModulesAsync(_ =>
+                {
+                    Erlang.Otp.OtpModules.Register(registry);
+                });
                 var type = typeof(ProcessRuntime).Assembly.GetType(EtsKernelOriginal407Names.FacetType, true)!;
                 var method = type.GetMethod(EtsKernelOriginal407Names.CreateBodies,
                     System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.NonPublic)!;
                 var bodies = (IReadOnlyDictionary<(string Function, int Arity), ErlangFunction>)method.Invoke(null, [runtime])!;
                 if (bodies.Count != EtsKernelOriginal407Names.NativeBodies)
                     throw new InvalidOperationException(EtsKernelOriginal407Names.Failure);
-                foreach (var entry in bodies)
-                    registry.Register(
-                        EtsKernelOriginal407Names.Module,
-                        entry.Key.Function,
-                        entry.Key.Arity,
-                        entry.Value
-                    );
+                await runtime.InitializeModulesAsync(_ =>
+                {
+                    foreach (var entry in bodies)
+                        registry.Register(
+                            EtsKernelOriginal407Names.Module,
+                            entry.Key.Function,
+                            entry.Key.Arity,
+                            entry.Value
+                        );
+                });
                 var dependencies = new BeamDependencySelection([EtsKernelOriginal407Names.Module,
-                    EtsKernelOriginal407Names.Erlang, suite.Observer]);
-                PreparedBeamImage image = registry.PrepareBeam(
+                                EtsKernelOriginal407Names.Erlang, suite.Observer]);
+                PreparedBeamImage image = scope.Prepare(() => registry.PrepareBeam(
                     LibraryDependencyOriginalHostChecks.ReadRetainedResource(suite.Observer + LibraryDependencyOriginalNames.Beam),
                     dependencies
-                );
-                if (registry.PublishPreparedBeam([image]).Status != BeamPublicationStatus.Published ||
+                ));
+
+                return _ =>
+                {
+                    if (registry.PublishPreparedBeam([image]).Status != BeamPublicationStatus.Published ||
                     !ReferenceEquals(registry.SourceOwner(suite.Observer, LibraryDependencyOriginalNames.Run, 0), image))
-                    throw new InvalidOperationException(EtsKernelOriginal407Names.Failure);
-            });
+                        throw new InvalidOperationException(EtsKernelOriginal407Names.Failure);
+                };
+            }
+            );
 
             return runtime;
         }

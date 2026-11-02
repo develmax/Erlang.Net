@@ -30,6 +30,26 @@ internal static class LibraryMapProtocolNames
     internal const string StacksFile = "stacks.etf";
     internal const string BeamExtension = ".beam";
     internal const string Failure = "Original map protocol observation failed";
+    internal const string GuestModule520 = "map_protocol_guest520";
+    internal const string GuestFile520 = "map_protocol_guest520.erl";
+    internal const string GuestSeed520 = "seed";
+    internal const string GuestCursor520 = "cursor";
+    internal const string GuestSource520 = """
+        -module(map_protocol_guest520).
+        -export([seed/3,cursor/1]).
+        seed(Path,Map,Seed) ->
+            Result = erts_internal:map_next(Path,Map,Seed),
+            Tail = skip_pairs(map_size(Map),Result),
+            {erts_debug:same(Tail,Seed),Result}.
+        skip_pairs(0,Tail) -> Tail;
+        skip_pairs(N,[_|Tail]) -> skip_pairs(N-1,Tail).
+        cursor(Map) ->
+            Result = erts_internal:map_next(0,Map,iterator),
+            [_|SameMap] = skip_cursor(32,Result),
+            {erts_debug:same(SameMap,Map),Result}.
+        skip_cursor(0,Rest) -> Rest;
+        skip_cursor(N,{_,_,Next}) -> skip_cursor(N-1,Next).
+        """;
     internal const int CaseCount = 165;
     internal const int IndependentCount = 154;
     internal const int Profiles = 5;

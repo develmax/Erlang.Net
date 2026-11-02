@@ -4,11 +4,19 @@ internal static class BeamRegisterValidation
 {
     public static void Validate(BeamLinkedCode code, BeamLinkedFunction entry)
     {
+        PreparedBeamValidationCache.TryGet(code, out PreparedBeamValidationCertificate? certificate);
+        if (certificate?.HasSuccess(entry) == true) return;
+        ValidateCore(code, entry);
+        certificate?.RecordSuccess(entry); // Failures and nonmember aliases are never memoized.
+    }
+
+    private static void ValidateCore(BeamLinkedCode code, BeamLinkedFunction entry, HashSet<int>? visited = null)
+    {
         if (code.Lambdas.Count != 0)
         {
             _ = BeamChecksumReader.Read(code);
         }
-        var visited = new HashSet<int>();
+        visited ??= new HashSet<int>();
         var pending = new Stack<BeamLinkedFunction>();
         pending.Push(entry);
         while (pending.TryPop(out BeamLinkedFunction? function))
@@ -52,6 +60,11 @@ internal static class BeamRegisterValidation
                         for (int field = BeamRecordConstructionNames.FirstField; field < operands.Count; field += BeamRecordConstructionNames.FieldWidth)
                             Source(operands[field + 1]);
                         Destination(operands[BeamRecordConstructionNames.Destination]);
+                        break;
+                    case BeamRecordConstructionNames.GetField:
+                        Branch(code, function, operands[BeamRecordConstructionNames.FieldFailure]);
+                        Source(operands[BeamRecordConstructionNames.FieldSource]);
+                        Destination(operands[BeamRecordConstructionNames.FieldDestination]);
                         break;
                     case BeamCollectionOpcodeNames.UpdateRecord:
                         Source(operands[2]);
@@ -442,6 +455,36 @@ internal static class BeamRegisterValidation
                 }
             }
             BeamFrameValidation.Validate(code, function, receives);
+        }
+    }
+
+    // A single fresh owned preparation phase shares structural traversal only.
+    // It publishes no certificate and cannot be reused after any failed entry.
+    internal sealed class PreparationBatch476
+    {
+        private readonly BeamLinkedCode code;
+        private readonly HashSet<int> visited = new();
+        private bool failed;
+
+        internal PreparationBatch476(BeamLinkedCode code)
+        {
+            this.code = code;
+        }
+
+        internal void Validate(BeamLinkedFunction entry)
+        {
+            if (failed)
+                throw new InvalidOperationException();
+            try
+            {
+                ValidateCore(code, entry, visited);
+            }
+            catch
+            {
+                failed = true;
+                visited.Clear();
+                throw;
+            }
         }
     }
 

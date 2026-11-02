@@ -30,31 +30,60 @@ public sealed partial class Mailbox
         return prepared.Admitted is { } work ? new MailboxEntryCustody593(work) : null;
     }
 
-    private Term OpaqueCandidate593(Term value)
-    {
-        if (Runtime593 is not { MessageSnapshotRouteReady593: true } runtime)
-            return value;
-
-        if (!ResourceHostCopy611.Requires(value))
-            return value;
-
-        return AtomicsHostAggregate594.Publish(transaction => OpaqueCandidate593(value, transaction));
-    }
+    // Preserve both original reflection-visible helper signatures.
+    private Term OpaqueCandidate593(Term value) => OpaqueCandidateWithCustody292(value, null, null);
 
     private Term OpaqueCandidate593(Term value, AtomicsHostCopyTransaction591 transaction)
+        => OpaqueCandidateWithCustody292(
+            value,
+            transaction,
+            null,
+            null
+        );
+
+    private Term OpaqueCandidateWithCustody292(Term value, MailboxEntryCustody593? custody, IDisposable? operation)
     {
         if (Runtime593 is not { MessageSnapshotRouteReady593: true } runtime)
             return value;
 
-        if (!ResourceHostCopy611.Requires(value))
+        if (!MailboxValueEscape.RequiresDetach(value))
             return value;
 
-        Term portable = OwnedTermDetachedCopy506.CopyAtomics586(
-            runtime,
+        return AtomicsHostAggregate594.Publish(transaction => OpaqueCandidateWithCustody292(
             value,
-            exportHostAtomics586: true,
-            hostCopies591: transaction
-        );
+            transaction,
+            custody,
+            operation
+        ));
+    }
+
+    private Term OpaqueCandidateWithCustody292(
+        Term value,
+        AtomicsHostCopyTransaction591 transaction,
+        MailboxEntryCustody593? custody,
+        IDisposable? operation
+    )
+    {
+        if (Runtime593 is not { MessageSnapshotRouteReady593: true } runtime)
+            return value;
+
+        if (!MailboxValueEscape.RequiresDetach(value))
+            return value;
+
+        using MailboxPreparedLoaderRead292? preparedRead = custody?.BorrowPreparedRead292(runtime, value, operation);
+        Term portable = preparedRead is null
+            ? OwnedTermDetachedCopy506.CopyAtomics586(
+                runtime,
+                value,
+                exportHostAtomics586: true,
+                hostCopies591: transaction
+            )
+            : OwnedTermDetachedCopy506.CopyMailboxPrepared292(
+                runtime,
+                value,
+                transaction,
+                preparedRead
+            );
 
         return NativeResourceRoots524.Contains524(portable)
             ? NativeTermHostScope524.AdmitCurrent524(runtime, portable) : portable;

@@ -124,6 +124,20 @@ internal sealed class HamtIndexOwner429(ProcessRuntime runtime)
         }
     }
 
+    internal HamtNodeRead785 AcquireNode785(HamtBitmapTerm429 node)
+    {
+        lock (gate)
+        {
+            ObjectDisposedException.ThrowIf(closing, HamtIndexNames429.Closed);
+            if (!ReferenceEquals(Domain, node.Domain))
+                throw new ArgumentException(HamtIndexNames429.Foreign);
+            var read = new HamtNodeRead785(this);
+            readers = checked(readers + 1);
+
+            return read;
+        }
+    }
+
     internal void Release()
     {
         lock (gate)

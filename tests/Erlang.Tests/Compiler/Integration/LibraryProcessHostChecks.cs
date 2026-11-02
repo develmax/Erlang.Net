@@ -139,19 +139,29 @@ internal static class LibraryProcessHostChecks
         var runtime = new ProcessRuntime();
         try
         {
-            await runtime.InitializeModulesAsync(registry =>
+            await global::Erlang.Tests.PreparedBeamFixtureScope171.RunAsync(
+                runtime,
+                async (registry, scope) =>
             {
-                Erlang.Otp.OtpModules.Register(registry);
-                PreparedBeamImage[] images = Libraries.Concat(fixtures).Select(module => registry.PrepareBeam(
-                    Read(module + Beam), new BeamDependencySelection(Dependencies))).ToArray();
-                Require(registry.PublishPreparedBeam(images).Status == BeamPublicationStatus.Published);
-                foreach (PreparedBeamImage image in images)
+                await runtime.InitializeModulesAsync(_ =>
                 {
-                    foreach (var export in registry.Exports.Where(export => export.Module == image.Name))
-                        Require(ReferenceEquals(registry.SourceOwner(image.Name, export.Function, export.Arity), image));
-                    Require(image.NativePrimitiveExports.Count == (image.Name == StringModule ? 1 : 0));
-                }
-            });
+                    Erlang.Otp.OtpModules.Register(registry);
+                });
+                PreparedBeamImage[] images = Libraries.Concat(fixtures).Select(module => scope.Prepare(() => registry.PrepareBeam(
+                    Read(module + Beam), new BeamDependencySelection(Dependencies)))).ToArray();
+
+                return _ =>
+                {
+                    Require(registry.PublishPreparedBeam(images).Status == BeamPublicationStatus.Published);
+                    foreach (PreparedBeamImage image in images)
+                    {
+                        foreach (var export in registry.Exports.Where(export => export.Module == image.Name))
+                            Require(ReferenceEquals(registry.SourceOwner(image.Name, export.Function, export.Arity), image));
+                        Require(image.NativePrimitiveExports.Count == (image.Name == StringModule ? 1 : 0));
+                    }
+                };
+            }
+            );
 
             return runtime;
         }

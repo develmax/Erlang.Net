@@ -311,11 +311,11 @@ internal static class OwnedGuest506Checks
             using var deadline = new CancellationTokenSource(Deadline);
             while (true)
             {
-                // The root count proves that the transfer borrow was admitted.
-                // Snapshot/collection must remain available while the source
-                // recipe capture is blocked on RuntimeFunctionEntries.gate.
+                // The shared heap registry admits the public boundary frame
+                // before source entry classification waits on the function gate.
+                // Snapshot/collection must remain available at that actual stage.
                 object snapshot = await System.Threading.Tasks.Task.Run(() => Get(heap, Snapshot)).WaitAsync(deadline.Token);
-                if ((int)Get(snapshot, Roots) >= baseline + 2)
+                if ((int)Get(snapshot, Roots) >= baseline + 1)
                     break;
                 await System.Threading.Tasks.Task.Delay(1, deadline.Token);
             }

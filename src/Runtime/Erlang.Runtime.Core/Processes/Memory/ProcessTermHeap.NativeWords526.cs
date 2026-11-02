@@ -38,6 +38,7 @@ internal sealed partial class ProcessTermHeap506
             throw new ObjectDisposedException(nameof(ProcessTermSequence506));
         ReleaseAllocation519(payload.Slab, payload.AllocationOffset526, payload.AllocationWords526);
         blocks.Remove(payload.Identity);
+        ReleaseLiteralBlock801(payload.Identity);
         oldBlocks508.Remove(payload.Identity);
         mapHeaders517.Remove(payload.Identity);
     }

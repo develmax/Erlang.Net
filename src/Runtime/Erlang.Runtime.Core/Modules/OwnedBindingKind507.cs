@@ -8,5 +8,12 @@ internal enum OwnedBindingKind507
     LocalDictionary,
     PureAliasRead,
     RuntimeRead535,
-    NativeGuest535
+    NativeGuest535,
+    LocalMessage,
+    LocalListAppend,
+    ReviewedManagedLibrary,
+    SuspensionTag821,
+    LocalValueBif354,
+    LocalDebugCopy377,
+    LocalOsEnvironment401
 }

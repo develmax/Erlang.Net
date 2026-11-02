@@ -27,6 +27,18 @@ public sealed partial class ProcessRuntime
         }
     }
 
+    internal HamtNodeRead785 AcquireHamtNode785(HamtBitmapTerm429 node)
+    {
+        lock (gate)
+        {
+            ObjectDisposedException.ThrowIf(hamtAdmissionClosed429 || disposed || IsHaltRequested, this);
+            if (hamtIndex429 is null || !ReferenceEquals(hamtIndex429.Domain, node.Domain))
+                throw new ArgumentException(HamtIndexNames429.Foreign);
+
+            return hamtIndex429.AcquireNode785(node);
+        }
+    }
+
     private Task CloseHamtIndex429()
     {
         hamtAdmissionClosed429 = true;

@@ -22,6 +22,8 @@ internal sealed class AtomicsHostCopyTransaction591 : IDisposable
 
     internal void TrackBinary598(BinaryProgramHost598 lease) => leases.Add(lease);
 
+    internal void TrackPreparedLoader807(PreparedLoaderHost807 lease) => leases.Add(lease);
+
     internal IDisposable Commit591()
     {
         var result = new NativeResourceRootSet524(leases.Cast<IDisposable>().ToArray());

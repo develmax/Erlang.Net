@@ -103,7 +103,7 @@ public static class CodeGeneration
             f => "new global::Erlang.Compiler.MapField(" + ExpressionCode(f.Key) + "," + ExpressionCode(f.Value) + "," + (f.Exact ? "true" : "false") + ")",
             "global::Erlang.Compiler.MapField"
         ) + ")",
-        Expr.Bits bits => "new " + E + "Bits(" + Array(bits.Segments, BitSegmentCode, "global::Erlang.Compiler.BitSegment") + ")",
+        Expr.Bits bits => "new " + E + "Bits(" + Array(bits.Segments, BitSegmentCode, "global::Erlang.Compiler.BitSegment") + "){SourceLine=" + bits.SourceLine + "}",
         Expr.Unary u => SourceOperatorCode.Unary(u, Quote(u.Operator), ExpressionCode(u.Operand)),
         Expr.Binary b => SourceOperatorCode.Binary(
             b,
@@ -167,7 +167,7 @@ public static class CodeGeneration
             module.Attributes,
             attribute => ModuleAttributeCodeNames.Constructor + Quote(attribute.Name) + "," + TermCode(attribute.Value) + ")",
             "global::Erlang.Compiler.ModuleAttribute"
-        ) : string.Empty) + ")" + NativeModuleInitializer(module, includeAttributes) + ";\npublic static void Register(global::Erlang.ModuleRegistry registry)=>Definition.Register(registry);\n}\n";
+        ) : string.Empty) + ")" + NativeModuleInitializer(module, includeAttributes) + ";\npublic static void Register(global::Erlang.ModuleRegistry registry)=>Definition.Register(registry);" + (includeAttributes ? GeneratedSourcePreparationCodeNames190.Entry : string.Empty) + "\n}\n";
     }
 
     public static string Preprocess(string source, string path, string nullableContext = "enable")

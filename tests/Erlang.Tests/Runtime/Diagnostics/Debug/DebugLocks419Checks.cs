@@ -6,17 +6,24 @@ internal static class DebugLocks419Checks
     {
         await using var runtime = new ProcessRuntime();
         PreparedBeamImage? image = null;
-        await runtime.InitializeModulesAsync(registry =>
+        await global::Erlang.Tests.PreparedBeamFixtureScope171.RunAsync(
+            runtime,
+            (registry, scope) =>
         {
             DebugLocks419Access.Require(!registry.HasExport(DebugLocks419Names.Module, DebugLocks419Names.Clear, 0));
-            image = registry.PrepareBeam(DebugLocks419Access.Beam(), new BeamDependencySelection([DebugLocks419Names.Runtime]));
+            image = scope.Prepare(() => registry.PrepareBeam(DebugLocks419Access.Beam(), new BeamDependencySelection([DebugLocks419Names.Runtime])));
             DebugLocks419Access.Require(image.Name == DebugLocks419Names.Module && image.NativePrimitiveExports.Count == DebugLocks419Names.Signatures.Length);
             foreach (var s in DebugLocks419Names.Signatures) DebugLocks419Access.Require(image.NativePrimitiveExports.Contains(new BeamFunctionSignature(s.Function, s.Arity)));
-            DebugLocks419Access.Require(registry.PublishPreparedBeam(image).Status == BeamPublicationStatus.Published);
-            var exports = registry.Exports.Where(e => e.Module == DebugLocks419Names.Module).ToArray();
-            DebugLocks419Access.Require(exports.Length == 6);
-            foreach (var e in exports) DebugLocks419Access.Require(ReferenceEquals(registry.SourceOwner(e.Module, e.Function, e.Arity), image));
-        });
+
+            return ValueTask.FromResult<Action<ModuleRegistry>>(_ =>
+            {
+                DebugLocks419Access.Require(registry.PublishPreparedBeam(image).Status == BeamPublicationStatus.Published);
+                var exports = registry.Exports.Where(e => e.Module == DebugLocks419Names.Module).ToArray();
+                DebugLocks419Access.Require(exports.Length == 6);
+                foreach (var e in exports) DebugLocks419Access.Require(ReferenceEquals(registry.SourceOwner(e.Module, e.Function, e.Arity), image));
+            });
+        }
+        );
         await using var actor = new RuntimeNodeFoundationHostActor(runtime);
         await actor.InvokeAsync(async context =>
         {

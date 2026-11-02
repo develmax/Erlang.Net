@@ -71,7 +71,9 @@ internal static class OrdsetFullTrace
         using var current = Enter(context, frame);
         try
         {
-            return await callback.Invoke(context, arguments);
+            return await (arguments.Count == callback.Arity
+                ? context.InvokeGuestFunction507(callback, arguments)
+                : callback.Invoke(context, arguments));
         }
         catch (ErlangException error)
         {

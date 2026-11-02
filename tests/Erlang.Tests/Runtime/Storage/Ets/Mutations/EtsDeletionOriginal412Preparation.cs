@@ -27,4 +27,23 @@ internal static class EtsDeletionOriginal412Preparation
         foreach (var export in exports)
             EtsDeletionOriginal412Access.Require(ReferenceEquals(registry.SourceOwner(export.Module, export.Function, export.Arity), facet));
     }
+
+    internal static PreparedBeamImage Prepare171(ProcessRuntime runtime, ModuleRegistry registry, global::Erlang.Tests.PreparedBeamFixtureScope171 scope)
+    {
+        PreparedBeamImage facet = scope.Prepare(() => registry.PrepareBeam(
+            EtsDeletionOriginal412Access.Resource(EtsDeletionOriginal412Names.FacetBeam),
+            new BeamDependencySelection([EtsDeletionOriginal412Names.Runtime, EtsDeletionOriginal412Names.Ets])
+        ));
+        var actual = facet.NativePrimitiveExports.Select(signature => (signature.Name, signature.Arity)).ToHashSet();
+        EtsDeletionOriginal412Access.Require(facet.Name == EtsDeletionOriginal412Names.Ets
+            && actual.Count == EtsDeletionOriginal412Names.CapturedNatives
+            && actual.SetEquals(EtsDeletionOriginal412Names.NativeSignatures));
+
+        return facet;
+    }
+
+    internal static void Register171(ProcessRuntime runtime, ModuleRegistry registry)
+    {
+        RuntimeBootstrapEtsDeletion.Register(runtime, registry);
+    }
 }

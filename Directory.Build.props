@@ -1,1 +1,8 @@
-<Project><PropertyGroup><TargetFramework>net10.0</TargetFramework><Nullable>enable</Nullable><ImplicitUsings>enable</ImplicitUsings><LangVersion>14.0</LangVersion><Deterministic>true</Deterministic><TreatWarningsAsErrors>true</TreatWarningsAsErrors><AnalysisLevel>latest</AnalysisLevel><UseSharedCompilation>false</UseSharedCompilation></PropertyGroup></Project>
+<Project><PropertyGroup><TargetFramework>net10.0</TargetFramework><Nullable>enable</Nullable><ImplicitUsings>enable</ImplicitUsings><LangVersion>14.0</LangVersion><Deterministic>true</Deterministic><TreatWarningsAsErrors>true</TreatWarningsAsErrors><AnalysisLevel>latest</AnalysisLevel><UseSharedCompilation>false</UseSharedCompilation></PropertyGroup>
+  <!-- Runtime hot loops stay optimized in ordinary project references too.
+       Keep Debug symbols/assertions; opt out for managed step-through debugging. -->
+  <PropertyGroup Condition="'$(MSBuildProjectName)' == 'Erlang.Runtime.Core' Or '$(MSBuildProjectName)' == 'Erlang.Terms' Or '$(MSBuildProjectName)' == 'Erlang.Serialization'">
+    <ErlangRuntimeOptimize Condition="'$(ErlangRuntimeOptimize)' == ''">true</ErlangRuntimeOptimize>
+    <Optimize>$(ErlangRuntimeOptimize)</Optimize>
+  </PropertyGroup>
+</Project>

@@ -60,13 +60,20 @@ internal static class KernelBootOriginal453Checks
         RuntimeOtpBootSession session = await runtime.StartOtpBootAsync(
             arguments.Select(value => new BitString(Encoding.UTF8.GetBytes(value))), deadline.Token);
         KernelBootOriginal453Access.Require(!session.Completion.IsCompleted && runtime.Node == Node);
-        await runtime.InitializeModulesAsync(registry =>
+        await global::Erlang.Tests.PreparedBeamFixtureScope171.RunAsync(
+            runtime,
+            (registry, scope) =>
         {
             string[] modules = JsonSerializer.Deserialize<string[]>(StandardBootOriginal412Access.Resource(StandardBootOriginal412Names.Dependencies))!;
-            PreparedBeamImage image = registry.PrepareBeam(KernelBootOriginal453Access.Read(Worker + Beam),
-                new BeamDependencySelection(modules.Append(Worker)));
-            KernelBootOriginal453Access.Require(registry.PublishPreparedBeam(image).Status == BeamPublicationStatus.Published);
-        });
+            PreparedBeamImage image = scope.Prepare(() => registry.PrepareBeam(KernelBootOriginal453Access.Read(Worker + Beam),
+                new BeamDependencySelection(modules.Append(Worker))));
+
+            return ValueTask.FromResult<Action<ModuleRegistry>>(_ =>
+            {
+                KernelBootOriginal453Access.Require(registry.PublishPreparedBeam(image).Status == BeamPublicationStatus.Published);
+            });
+        }
+        );
         await using var actor = new RuntimeNodeFoundationHostActor(runtime);
         await actor.InvokeAsync(async context =>
         {

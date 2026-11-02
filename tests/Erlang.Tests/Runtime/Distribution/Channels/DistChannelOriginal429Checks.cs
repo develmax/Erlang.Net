@@ -17,22 +17,36 @@ internal static class DistChannelOriginal429Checks
         {
             runtime = new ProcessRuntime(1);
             ProcessRuntime owner = runtime;
-            await owner.InitializeModulesAsync(registry =>
+            await global::Erlang.Tests.PreparedBeamFixtureScope171.RunAsync(
+                owner,
+                async (registry, scope) =>
             {
-                RuntimeBootstrapDistributionProfile429.Register(owner, registry);
-                RuntimeBootstrapDistChannel429.Register(owner, registry);
+                await owner.InitializeModulesAsync(_ =>
+                {
+                    {
+                        RuntimeBootstrapDistributionProfile429.Register(owner, registry);
+                    }
+                    {
+                        RuntimeBootstrapDistChannel429.Register(owner, registry);
+                    }
+                });
                 var declared = new BeamDependencySelection([DistChannelOriginal429Names.Runtime, DistChannelOriginal429Names.File, DistChannelOriginal429Names.Internal]);
-                PreparedBeamImage facet = registry.PrepareBeam(DistChannelOriginal429Access.Resource(DistChannelOriginal429Names.FacetBeam), declared);
+                PreparedBeamImage facet = scope.Prepare(() => registry.PrepareBeam(DistChannelOriginal429Access.Resource(DistChannelOriginal429Names.FacetBeam), declared));
                 DistChannelOriginal429Access.Require(facet.Name == DistChannelOriginal429Names.Internal
                     && facet.NativePrimitiveExports.Count == DistChannelOriginal429Names.NativeCount
                     && DistChannelOriginal429Names.NativeSignatures.All(signature => facet.NativePrimitiveExports.Contains(signature)));
-                PreparedBeamImage worker = registry.PrepareBeam(DistChannelOriginal429Access.Resource(DistChannelOriginal429Names.WorkerBeam), declared);
-                DistChannelOriginal429Access.Require(registry.PublishPreparedBeam([facet, worker]).Status == BeamPublicationStatus.Published);
-                foreach (var image in new[] { facet, worker })
-                    foreach (var export in registry.Exports.Where(export => export.Module == image.Name))
-                        DistChannelOriginal429Access.Require(ReferenceEquals(registry.SourceOwner(export.Module, export.Function, export.Arity), image));
-                DistChannelOriginal429Access.Require(registry.Exports.Count(export => export.Module == facet.Name) == DistChannelOriginal429Names.FacetExports);
-            });
+                PreparedBeamImage worker = scope.Prepare(() => registry.PrepareBeam(DistChannelOriginal429Access.Resource(DistChannelOriginal429Names.WorkerBeam), declared));
+
+                return _ =>
+                {
+                    DistChannelOriginal429Access.Require(registry.PublishPreparedBeam([facet, worker]).Status == BeamPublicationStatus.Published);
+                    foreach (var image in new[] { facet, worker })
+                        foreach (var export in registry.Exports.Where(export => export.Module == image.Name))
+                            DistChannelOriginal429Access.Require(ReferenceEquals(registry.SourceOwner(export.Module, export.Function, export.Arity), image));
+                    DistChannelOriginal429Access.Require(registry.Exports.Count(export => export.Module == facet.Name) == DistChannelOriginal429Names.FacetExports);
+                };
+            }
+            );
             actor = new RuntimeNodeFoundationHostActor(owner);
             RuntimeNodeFoundationHostActor caller = actor;
 

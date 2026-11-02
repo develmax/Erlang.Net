@@ -10,10 +10,13 @@ internal sealed class MagicReferenceSweep576(
     bool rollback
 )
 {
-    internal void Commit576() => owner.CommitMagicSweep576(
+    internal int RegularCount { get; init; } = alive.Length;
+
+    internal void Commit576() => owner.CommitMagicChains(
         dead,
         alive,
         links,
-        rollback
+        rollback,
+        RegularCount
     );
 }

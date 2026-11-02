@@ -18,6 +18,9 @@ internal static class OrdinaryReference562TestNames
     internal const string Adopt = "AdoptGuestInto507";
     internal const string BeginConstruction = "BeginConstruction514";
     internal const string CreateReference = "CreateReference562";
+    internal const string ExternalEligible = "CanOwnExternalIdentifier";
+    internal const string AliasEligible = "IsLocalPidReference775";
+    internal const string OrdinaryLocal = "IsOrdinaryLocal562";
     internal const string Eligible = "IsOrdinaryLocalReference562";
     internal const string Retire = "RetireAsync";
     internal const string Snapshot = "PhysicalWordSnapshot526";
@@ -25,6 +28,7 @@ internal static class OrdinaryReference562TestNames
     internal const string Headers = "LiveEncodedHeaderWords";
     internal const string Numeric = "LiveRawNumericWords556";
     internal const string Handles = "RootedTermHandles";
+    internal const string ExternalStorage = "OwnedExternalStorage";
     internal const string Storage = "OwnedStorage562";
     internal const string Slab = "Slab";
     internal const string Cells = "Cells";

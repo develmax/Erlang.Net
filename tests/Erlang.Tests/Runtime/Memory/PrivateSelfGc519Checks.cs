@@ -101,10 +101,13 @@ internal static class PrivateSelfGc519Checks
         await using var actor = new RuntimeNodeFoundationHostActor(runtime);
         await actor.InvokeAsync(async context =>
         {
-            Check(typeof(ProcessContext).GetField(HeapField, Members)!.GetValue(context) is null);
+            object heap = typeof(ProcessContext).GetField(HeapField, Members)!.GetValue(context)!;
+            Check(heap is not null && (bool)Property(context, StorageEnabled) && !(bool)Property(context, GuestEnabled));
+            long words = (long)Property(Property(heap!, Snapshot), Words);
             Term answer = await runtime.Modules.Call(context, ErlangModule, GarbageCollect);
             Check(answer.Equals(Term.A(ErlangBooleanAtoms.True)));
-            Check(typeof(ProcessContext).GetField(HeapField, Members)!.GetValue(context) is null);
+            Check(ReferenceEquals(typeof(ProcessContext).GetField(HeapField, Members)!.GetValue(context), heap));
+            Check(!(bool)Property(context, GuestEnabled) && (long)Property(Property(heap!, Snapshot), Words) == words);
 
             return true;
         });

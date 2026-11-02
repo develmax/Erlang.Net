@@ -8,6 +8,9 @@ internal sealed class RuntimeProcessPayloadGroup641 : IDisposable
     private MailboxGraphSnapshot593? firstGraph, secondGraph;
     private int captured;
 
+    internal ModuleLiteralRoots801? RetainLiteralRoots801()
+        => ModuleLiteralRoots801.RetainCombined801([firstGraph?.LiteralRoots801, secondGraph?.LiteralRoots801]);
+
     internal void Capture641(MailboxGraphSnapshot593? left, MailboxGraphSnapshot593? right)
     {
         firstGraph = left;

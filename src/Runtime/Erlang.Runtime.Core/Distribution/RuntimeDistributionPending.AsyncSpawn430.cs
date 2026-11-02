@@ -30,7 +30,7 @@ public sealed partial class RuntimeDistributionPending
                 {
                     Validate();
                     snapshot = runtime.LocalIdentity.Snapshot;
-                    groupLeader = caller.GroupLeader;
+                    groupLeader = caller.SnapshotGroupLeader();
                     resource = runtime.ReferenceResources.AcquireDistributionEntry(entry.Reference) ?? throw new InvalidOperationException(DistributionOutputLifecycleDiagnostics.Retired);
                     ticket = ReserveOwnedOutput(connected, new object());
                     request = new(
@@ -43,57 +43,97 @@ public sealed partial class RuntimeDistributionPending
                     )
                     { MonitorCustody641 = input641.Borrow641(caller) };
                     AddConnectedSpawnRequest641(request);
-                    token = runtime.SequenceTracing.ConnectedSpawnSent(
+                }
+                Term creatorOptions = ConnectedSpawnWireOptions.Normalize(description.Options);
+                PreparedConnectedSequenceSend sequence;
+                while (true)
+                {
+                    sequence = await PreparedConnectedSequenceSend.PrepareAsync(
                         caller,
-                        entry.Node,
                         request.Reference,
                         groupLeader,
                         description,
-                        ConnectedSpawnWireOptions.Normalize(description.Options)
-                    );
+                        creatorOptions
+                    ).ConfigureAwait(false);
+                    bool accepted;
+                    try
+                    {
+                        lock (gate)
+                        {
+                            Validate();
+                            accepted = sequence.IsCurrent(caller);
+                            if (accepted)
+                                token = runtime.SequenceTracing.ConnectedSpawnSentPrepared(
+                                    caller,
+                                    entry.Node,
+                                    request.Reference,
+                                    groupLeader,
+                                    description,
+                                    creatorOptions,
+                                    sequence
+                                );
+                            else token = null;
+                        }
+                    }
+                    catch (Exception primary)
+                    {
+                        try
+                        {
+                            await sequence.DisposeAsync().ConfigureAwait(false);
+                        }
+                        catch (Exception cleanup)
+                        {
+                            throw new AggregateException(primary, cleanup);
+                        }
+                        throw;
+                    }
+                    if (accepted) break;
+                    await sequence.DisposeAsync().ConfigureAwait(false);
                 }
-                Term creatorOptions = ConnectedSpawnWireOptions.Normalize(description.Options);
-                var control = token is null
-                 ? Term.Tuple(
-                     Term.I(DistributionControlOpcodes.SpawnRequest),
-                     request.Reference,
-                     caller.Self,
-                     groupLeader,
-                     description.Mfa,
-                     creatorOptions
-                 )
-                 : Term.Tuple(
-                     Term.I(DistributionControlOpcodes.SpawnRequestTrace),
-                     request.Reference,
-                     caller.Self,
-                     groupLeader,
-                     description.Mfa,
-                     creatorOptions,
-                     token.ToTerm()
-                 );
-                var packet = new HostDistributionBuffer([DistributionPassThroughCodec.Encode(
-                    new(control,description.Arguments),
-                    negotiatedFlags:connected.Flags,
-                    options:new EtfEncodingOptions{NodeIdentity=runtime.LocalIdentity,NodeSnapshot=snapshot,FunctionOwner=caller.Self}
-                ).AsMemory()]);
-                lock (gate)
+                await using (sequence.ConfigureAwait(false))
                 {
-                    Validate();
-                    staged = connected.Queue.TryStageOutput(connected.QueueHandle, packet) ?? throw new ErlangException(ErlangErrorReasons.SystemLimit);
-                    output = new(
-                        entry,
-                        connected,
-                        request.ConnectionId,
-                        ticket,
-                        resource,
-                        staged
-                    );
-                    // The existing worker owns the real ticket, staged bytes and resource until
-                    // physical queue completion/retirement. Acceptance precedes guest return.
-                    worker = PublishAsyncDistributionOutput(output);
-                    output.Acceptance.TrySetResult(true);
+                    var control = token is null
+                     ? Term.Tuple(
+                         Term.I(DistributionControlOpcodes.SpawnRequest),
+                         request.Reference,
+                         caller.Self,
+                         groupLeader,
+                         description.Mfa,
+                         creatorOptions
+                     )
+                     : Term.Tuple(
+                         Term.I(DistributionControlOpcodes.SpawnRequestTrace),
+                         request.Reference,
+                         caller.Self,
+                         groupLeader,
+                         description.Mfa,
+                         creatorOptions,
+                         token.ToTerm()
+                     );
+                    var packet = new HostDistributionBuffer([DistributionPassThroughCodec.Encode(
+                        new(control,description.Arguments),
+                        negotiatedFlags:connected.Flags,
+                        options:new EtfEncodingOptions{NodeIdentity=runtime.LocalIdentity,NodeSnapshot=snapshot,FunctionOwner=caller.Self}
+                    ).AsMemory()]);
+                    lock (gate)
+                    {
+                        Validate();
+                        staged = connected.Queue.TryStageOutput(connected.QueueHandle, packet) ?? throw new ErlangException(ErlangErrorReasons.SystemLimit);
+                        output = new(
+                            entry,
+                            connected,
+                            request.ConnectionId,
+                            ticket,
+                            resource,
+                            staged
+                        );
+                        // The existing worker owns the real ticket, staged bytes and resource until
+                        // physical queue completion/retirement. Acceptance precedes guest return.
+                        worker = PublishAsyncDistributionOutput(output);
+                        output.Acceptance.TrySetResult(true);
 
-                    return request.Reference;
+                        return request.Reference;
+                    }
                 }
             }
             catch (OperationCanceledException) when (request is not null && !CapturedOutputGenerationIsCurrent(entry, connected, request.ConnectionId))

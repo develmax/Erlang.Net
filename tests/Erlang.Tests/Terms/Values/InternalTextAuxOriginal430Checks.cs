@@ -16,19 +16,26 @@ internal static class InternalTextAuxOriginal430Checks
         {
             runtime = new ProcessRuntime(InternalTextAuxOriginal430Names.Participants);
             ProcessRuntime owner = runtime;
-            await owner.InitializeModulesAsync(registry =>
+            await global::Erlang.Tests.PreparedBeamFixtureScope171.RunAsync(
+                owner,
+                (registry, scope) =>
             {
                 var dependencies = new BeamDependencySelection(new[] { InternalTextAuxOriginal430Names.Runtime, InternalTextAuxOriginal430Names.File, InternalTextAuxOriginal430Names.Internal, InternalTextAuxOriginal430Names.Module });
-                PreparedBeamImage facet = registry.PrepareBeam(InternalTextAuxOriginal430Access.Resource(InternalTextAuxOriginal430Names.FacetBeam), dependencies);
-                PreparedBeamImage worker = registry.PrepareBeam(InternalTextAuxOriginal430Access.Resource(InternalTextAuxOriginal430Names.WorkerBeam), dependencies);
+                PreparedBeamImage facet = scope.Prepare(() => registry.PrepareBeam(InternalTextAuxOriginal430Access.Resource(InternalTextAuxOriginal430Names.FacetBeam), dependencies));
+                PreparedBeamImage worker = scope.Prepare(() => registry.PrepareBeam(InternalTextAuxOriginal430Access.Resource(InternalTextAuxOriginal430Names.WorkerBeam), dependencies));
                 InternalTextAuxOriginal430Access.Require(facet.NativePrimitiveExports.Count == InternalTextAuxOriginal430Names.NativeCount
                     && facet.NativePrimitiveExports.Contains(new BeamFunctionSignature(InternalTextAuxOriginal430Names.Text, 2))
                     && facet.NativePrimitiveExports.Contains(new BeamFunctionSignature(InternalTextAuxOriginal430Names.Auxiliary, 0)));
-                InternalTextAuxOriginal430Access.Require(registry.PublishPreparedBeam([facet, worker]).Status == BeamPublicationStatus.Published);
-                InternalTextAuxOriginal430Access.Require(registry.Exports.Count(export => export.Module == facet.Name) == InternalTextAuxOriginal430Names.TotalExports);
-                foreach (var image in new[] { facet, worker }) foreach (var export in registry.Exports.Where(export => export.Module == image.Name))
-                    InternalTextAuxOriginal430Access.Require(ReferenceEquals(registry.SourceOwner(export.Module, export.Function, export.Arity), image));
-            });
+
+                return ValueTask.FromResult<Action<ModuleRegistry>>(_ =>
+                {
+                    InternalTextAuxOriginal430Access.Require(registry.PublishPreparedBeam([facet, worker]).Status == BeamPublicationStatus.Published);
+                    InternalTextAuxOriginal430Access.Require(registry.Exports.Count(export => export.Module == facet.Name) == InternalTextAuxOriginal430Names.TotalExports);
+                    foreach (var image in new[] { facet, worker }) foreach (var export in registry.Exports.Where(export => export.Module == image.Name))
+                        InternalTextAuxOriginal430Access.Require(ReferenceEquals(registry.SourceOwner(export.Module, export.Function, export.Arity), image));
+                });
+            }
+            );
             actor = new RuntimeNodeFoundationHostActor(owner);
             RuntimeNodeFoundationHostActor caller = actor;
             foreach (var route in new[] { (InternalTextAuxOriginal430Names.Run, InternalTextAuxOriginal430Names.Values), (InternalTextAuxOriginal430Names.RunStacks, InternalTextAuxOriginal430Names.Stacks) })

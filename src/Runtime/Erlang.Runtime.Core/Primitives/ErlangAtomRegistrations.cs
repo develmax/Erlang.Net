@@ -4,15 +4,17 @@ internal static class ErlangAtomRegistrations
 {
     public static void Register(ModuleRegistry registry)
     {
-        void Add(string name, int arity, Func<IReadOnlyList<Term>, Term> body) => registry.Register(
-            ErlangModuleNames.Module,
+        void Add(string name, int arity, Func<IReadOnlyList<Term>, Term> body) => registry.RegisterCanonicalValueBif354(
             name,
             arity,
             (context, arguments) =>
             {
                 try
                 {
-                    return ValueTask.FromResult(body(arguments));
+                    Term result = body(arguments);
+
+                    return name == ErlangAtomBifNames.AtomToBinary
+                        ? context.Runtime.OwnAtomBinaryConstant357(context, arguments, result) : result;
                 }
                 catch (ErlangException error) when (arity == 1
                     && name is ErlangAtomBifNames.AtomToBinary or ErlangAtomBifNames.BinaryToAtom or ErlangAtomBifNames.BinaryToExistingAtom
@@ -23,7 +25,7 @@ internal static class ErlangAtomRegistrations
                         ExplicitStackTrace = true,
                         StackTraceTerm = context.CaptureErrorStack(
                             Cons.From(arguments),
-                            ErlangErrorHelperMetadata.Info,
+                            context.Runtime.ErrorHelperInfo357(context),
                             name,
                             PortErrorSourceLocations.ErrorWithInfo
                         )

@@ -17,4 +17,5 @@ internal static class BeamLiteralExportHostNames
     internal const byte Version = 131;
     internal const int Arity = 1;
     internal const int UniqueBytes = 16;
+    internal const string OwnedTupleStorage = "OwnedStorage506";
 }

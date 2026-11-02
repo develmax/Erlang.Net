@@ -44,6 +44,7 @@ public sealed partial class ProcessRuntime
         var observer = libraryStartupObserver.Value;
         var runtime = new ProcessRuntime();
         Task? setup = null;
+        RuntimeLibraryPreparedSelection? plan = null;
         try
         {
             if (options.DriverFrontend is { } driverFrontend)
@@ -58,7 +59,6 @@ public sealed partial class ProcessRuntime
                     cancellation
                 ).ConfigureAwait(false);
             }
-            RuntimeLibraryPreparedSelection? plan = null;
             setup = runtime.InitializeModulesAsync(registry =>
             {
                 RuntimeNativePrimitiveProviders.Register(runtime, registry, options.NativePrimitives);
@@ -66,9 +66,15 @@ public sealed partial class ProcessRuntime
                     RuntimeBootstrapFileSystem.Register(runtime, registry);
                 observer?.Invoke(LibraryStartupObservationNames.SetupBeforePrepare, runtime, null);
                 cancellation.ThrowIfCancellationRequested();
-                plan = explicitOnLoad
-                    ? registry.PrepareStartupLibrariesWithOnLoad(libraries, options.OnLoadOrder)
-                    : registry.PrepareStartupLibraries(libraries);
+            }).AsTask();
+            await setup.WaitAsync(cancellation).ConfigureAwait(false);
+            cancellation.ThrowIfCancellationRequested();
+            plan = explicitOnLoad
+                ? runtime.Modules.PrepareStartupLibrariesWithOnLoad(libraries, options.OnLoadOrder)
+                : runtime.Modules.PrepareStartupLibraries(libraries);
+            cancellation.ThrowIfCancellationRequested();
+            setup = runtime.InitializeModulesAsync(registry =>
+            {
                 cancellation.ThrowIfCancellationRequested();
                 registry.PublishStartupLibraries(plan);
             }).AsTask();
@@ -135,6 +141,10 @@ public sealed partial class ProcessRuntime
                 throw new AggregateException(LibrarySelectionNames.Cleanup, new[] { error }.Concat(cleanup));
 
             throw;
+        }
+        finally
+        {
+            plan?.Dispose();
         }
     }
 

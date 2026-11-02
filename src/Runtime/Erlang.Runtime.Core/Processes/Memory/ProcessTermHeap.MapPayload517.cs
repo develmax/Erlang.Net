@@ -17,21 +17,29 @@ internal sealed partial class ProcessTermHeap506
 
     internal OwnedMapHeader517 ReadMapHeader517(ProcessTermSequence506 payload)
     {
-        lock (Gate)
+        if (LiteralDomain800 is { IsSealed800: true } domain)
         {
-            if (!ReferenceEquals(payload.Owner, this)
-                || !blocks.TryGetValue(payload.Identity, out var active) || !ReferenceEquals(active, payload)
-                || !mapHeaders517.TryGetValue(payload.Identity, out var header))
-                throw new ObjectDisposedException(OwnedMapPayloadNames517.HeaderMissing);
+            using var reader = domain.EnterRead800(payload);
 
-            int encodedLength = EncodedMapHeader526.WordCount(header);
-            if (encodedLength != payload.HeaderWords526
-                || encodedLength > 0 && payload.Slab.Cells.ReadHeader526(payload.AllocationOffset526) != EncodedMapHeader526.First(header)
-                || encodedLength == 2 && payload.Slab.Cells.ReadHeader526(payload.AllocationOffset526 + 1) != checked((nuint)header.PairCount))
-                throw new InvalidOperationException(CellStorage526Names.InvalidHeader);
-
-            return header;
+            return ReadLiteralMapHeaderCore800(payload);
         }
+        lock (Gate) return ReadLiteralMapHeaderCore800(payload);
+    }
+
+    private OwnedMapHeader517 ReadLiteralMapHeaderCore800(ProcessTermSequence506 payload)
+    {
+        if (!ReferenceEquals(payload.Owner, this)
+            || !blocks.TryGetValue(payload.Identity, out var active) || !ReferenceEquals(active, payload)
+            || !mapHeaders517.TryGetValue(payload.Identity, out var header))
+            throw new ObjectDisposedException(OwnedMapPayloadNames517.HeaderMissing);
+
+        int encodedLength = EncodedMapHeader526.WordCount(header);
+        if (encodedLength != payload.HeaderWords526
+            || encodedLength > 0 && payload.Slab.Cells.ReadHeader526(payload.AllocationOffset526) != EncodedMapHeader526.First(header)
+            || encodedLength == 2 && payload.Slab.Cells.ReadHeader526(payload.AllocationOffset526 + 1) != checked((nuint)header.PairCount))
+            throw new InvalidOperationException(CellStorage526Names.InvalidHeader);
+
+        return header;
     }
 
     private ProcessTermSequence506 AllocateMap517(
@@ -44,7 +52,14 @@ internal sealed partial class ProcessTermHeap506
             throw new InvalidOperationException(OwnedMapPayloadNames517.InvalidShape);
         transaction.EnsureCapacity(checked(transaction.Count + 1));
         mapHeaders517.EnsureCapacity(checked(mapHeaders517.Count + 1));
-        var payload = AllocateEncoded526(cells, EncodedMapHeader526.Words(header));
+        var payload = AllocateEncoded526(
+            cells,
+            EncodedMapHeader526.Words(header),
+            immutableLiteralOnlyClosure132: cells.All(IsImmutableMapLiteralCell302),
+            immutableReadonlyCaptureClosure138: cells.All(IsImmutableMapReadonlyCell302),
+            immutableNoBackingClosure192: cells.All(IsImmutableMapNoBackingCell302),
+            immutableNoBinaryClosure192: cells.All(IsImmutableMapNoBinaryCell302)
+        );
         transaction.Add(payload);
         mapHeaders517.Add(payload.Identity, header);
 
@@ -119,9 +134,11 @@ internal sealed partial class ProcessTermHeap506
                     flatKeys = copied[0] as TupleTerm
                         ?? throw new InvalidOperationException(OwnedMapPayloadNames517.InvalidShape);
                     IReadOnlyList<Term> keysPayload;
-                    if (IsLoaderMapKeys565(flatKeys))
+                    if (prepared.Count == 0 && IsAuthenticatedEmptyTuple803(flatKeys))
                         keysPayload = flatKeys.Items;
-                    else if (IsOwnedLocal(flatKeys) && flatKeys.OwnedStorage506 is ProcessTermSequence506 ownedKeys)
+                    else if (IsLoaderMapKeys565(flatKeys))
+                        keysPayload = flatKeys.Items;
+                    else if ((IsAuthenticatedLiteral801(flatKeys) || IsOwnedLocal(flatKeys)) && flatKeys.OwnedStorage506 is ProcessTermSequence506 ownedKeys)
                         keysPayload = ownedKeys;
                     else
                         throw new InvalidOperationException(OwnedMapPayloadNames517.InvalidShape);
@@ -188,6 +205,7 @@ internal sealed partial class ProcessTermHeap506
                     // earlier hole, just like collection and base allocation.
                     ReleaseAllocation519(payload.Slab, payload.AllocationOffset526, payload.AllocationWords526);
                     blocks.Remove(payload.Identity);
+                    ReleaseLiteralBlock801(payload.Identity);
                     oldBlocks508.Remove(payload.Identity);
                     mapHeaders517.Remove(payload.Identity);
                 }

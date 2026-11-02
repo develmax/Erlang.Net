@@ -13,17 +13,22 @@ internal static class ReUnicodeOriginal453Checks
         var failures = new List<object>();
         var receipts = new List<object>();
         await using ProcessRuntime runtime = await RegexThreeOriginal413Checks.Start(RegexThreeOriginal413Names.Suite);
-        await runtime.InitializeModulesAsync(registry =>
-        {
-            var dependencies = new BeamDependencySelection(RegexThreeOriginal413Names.OriginalModules.Concat(
-                [RegexThreeOriginal413Names.Erlang, ReUnicodeOriginal453Names.Worker]));
-            PreparedBeamImage image = registry.PrepareBeam(ReUnicodeOriginal453Access.Read(ReUnicodeOriginal453Names.WorkerImage), dependencies);
-            ReUnicodeOriginal453Access.Require(image.NativePrimitiveExports.Count == 0 && registry.PublishPreparedBeam(image).Status == BeamPublicationStatus.Published);
-            foreach (string route in new[] { ReUnicodeOriginal453Names.Run, ReUnicodeOriginal453Names.Stacks })
-                ReUnicodeOriginal453Access.Require(ReferenceEquals(registry.SourceOwner(image.Name, route, 0), image));
-            ReUnicodeOriginal453Access.Require(registry.SourceOwner(ReUnicodeOriginal453Names.Re, ReUnicodeOriginal453Names.UnicodeCompile, 2) is PreparedBeamImage);
-            ReUnicodeOriginal453Access.Require(registry.SourceOwner(ReUnicodeOriginal453Names.Re, ReUnicodeOriginal453Names.UnicodeRun, 3) is PreparedBeamImage);
-        });
+        var dependencies = new BeamDependencySelection(RegexThreeOriginal413Names.OriginalModules.Concat(
+            [RegexThreeOriginal413Names.Erlang, ReUnicodeOriginal453Names.Worker]));
+        await PreparedBeamFixtureImages825.PrepareAndPublishAsync(
+            runtime,
+            [ReUnicodeOriginal453Access.Read(ReUnicodeOriginal453Names.WorkerImage)],
+            dependencies,
+            (registry, images) =>
+            {
+                PreparedBeamImage image = images.Single();
+                ReUnicodeOriginal453Access.Require(image.NativePrimitiveExports.Count == 0 && registry.PublishPreparedBeam(image).Status == BeamPublicationStatus.Published);
+                foreach (string route in new[] { ReUnicodeOriginal453Names.Run, ReUnicodeOriginal453Names.Stacks })
+                    ReUnicodeOriginal453Access.Require(ReferenceEquals(registry.SourceOwner(image.Name, route, 0), image));
+                ReUnicodeOriginal453Access.Require(registry.SourceOwner(ReUnicodeOriginal453Names.Re, ReUnicodeOriginal453Names.UnicodeCompile, 2) is PreparedBeamImage);
+                ReUnicodeOriginal453Access.Require(registry.SourceOwner(ReUnicodeOriginal453Names.Re, ReUnicodeOriginal453Names.UnicodeRun, 3) is PreparedBeamImage);
+            }
+        );
         await using var actor = new RuntimeNodeFoundationHostActor(runtime);
         Term? values = await Capture(
             runtime,

@@ -26,9 +26,9 @@ public sealed partial class ProcessRuntime
 
     public Task<RuntimeHaltResult> RequestHalt(RuntimeHaltRequest request) => RequestHaltCore(request, false);
 
-    private Task<RuntimeHaltResult> RequestHaltCore(RuntimeHaltRequest request, bool fatalAtomExhaustion)
+    private Task<RuntimeHaltResult> RequestHaltCore(RuntimeHaltRequest request, bool internalFatalFailure)
     {
-        if (!fatalAtomExhaustion)
+        if (!internalFatalFailure)
             Modules.RequireSourceShutdownCaller();
         ArgumentNullException.ThrowIfNull(request);
         ArgumentNullException.ThrowIfNull(request.Options);
@@ -60,7 +60,7 @@ public sealed partial class ProcessRuntime
 
                 return haltCompletion.Task;
             }
-            ObjectDisposedException.ThrowIf(disposed, this);
+            if (!internalFatalFailure) ObjectDisposedException.ThrowIf(disposed, this);
             result = new RuntimeHaltResult(status & RuntimeHaltNames.StatusMask) { Kind = request.Kind, Slogan = request.Slogan, LogicalStack = request.LogicalStack };
             haltFlushPending = options.Flush;
             selectedAt = Stopwatch.GetTimestamp();
@@ -71,6 +71,7 @@ public sealed partial class ProcessRuntime
             disposed = true;
             StopMailboxRootAdmission593();
             StopProcessPayloadAdmission641();
+            StopOrdinaryBinaryAdmission();
             _ = actorDispatcher.CompleteWhenIdle();
             distributionPending?.Close();
             OsEnvironment?.Dispose();
@@ -89,6 +90,7 @@ public sealed partial class ProcessRuntime
             _ = CloseAtomics413();
             CloseCollectors413();
             _ = CloseCodePurger432();
+            ProcessTracing.StopPatternRoots778();
             ProcessTracing.CloseTraceSessions425();
             _ = CloseNativeResources524();
             ReferenceResources.Close();
@@ -115,7 +117,7 @@ public sealed partial class ProcessRuntime
                 process.PendingCodeChecks.Clear();
                 process.PendingInfoRequests.Clear();
                 process.PendingDisplayRequests.Clear();
-                process.PendingGarbageCollections.Clear();
+                RetireCollectionRequests(process, false);
                 process.PendingSavedCallRequests.Clear();
                 process.Links.Clear();
                 process.PriorityLinks.Clear();
@@ -179,6 +181,14 @@ public sealed partial class ProcessRuntime
         var ownerCancellation = new List<Task>();
         try
         {
+            try
+            {
+                ProcessTracing.RetirePatternRoots778();
+            }
+            catch (Exception failure)
+            {
+                failures.Add(failure);
+            }
             Task timerCallbacks = Timers.StopForHaltAsync();
             Suspensions.StopForHalt();
             Task mailboxRetirements593;
@@ -299,7 +309,9 @@ public sealed partial class ProcessRuntime
                     DrainCodePurger432(),
                     DrainAllocatorGather434(),
                     DrainOwnedTermContexts506(),
-                    DrainNativeResources524()
+                    DrainNativeResources524(),
+                    KnownNodes.DrainPhysicalNodes(),
+                    DrainOrdinaryBinaries()
                 ).ConfigureAwait(false);
             }
             catch (Exception exception)
@@ -319,6 +331,14 @@ public sealed partial class ProcessRuntime
             try
             {
                 FinalizeNativeAllocationArena528(nativeImagesSettled528);
+            }
+            catch (Exception error)
+            {
+                failures.Add(error);
+            }
+            try
+            {
+                await CloseEmptyTuple803().ConfigureAwait(false);
             }
             catch (Exception error)
             {

@@ -1,15 +1,34 @@
 namespace Erlang;
 
-public sealed partial class PreparedBeamImage : ISourceLocalFunctionResolver
+public sealed partial class PreparedBeamImage : ISourceLocalFunctionResolver, IDisposable, IAsyncDisposable
 {
+    // Preserve the original metadata-only constructor signature.
     internal PreparedBeamImage(
         ModuleRegistry owner,
         BeamLinkedCode code,
         BeamPreparedMetadata metadata,
         string originalBeamSha256
+    ) : this(
+        owner,
+        code,
+        metadata,
+        originalBeamSha256,
+        null
+    )
+    {
+    }
+
+    internal PreparedBeamImage(
+        ModuleRegistry owner,
+        BeamLinkedCode code,
+        BeamPreparedMetadata metadata,
+        string originalBeamSha256,
+        ModuleLiteralDomain800? literals800,
+        IReadOnlyList<Term>? recordDefaults313 = null
     )
     {
         OriginalBeamSha256 = originalBeamSha256;
+        LiteralDomain800 = literals800;
         Owner = owner;
         Code = code;
         Descriptor = metadata.Descriptor;
@@ -30,6 +49,14 @@ public sealed partial class PreparedBeamImage : ISourceLocalFunctionResolver
                 ExecutionIdentity
             )
         ).ToArray()));
+        literals800?.BindImage800(owner, ExecutionIdentity.Image);
+        if (literals800 is not null && recordDefaults313 is not null)
+            ExecutionIdentity.Image.BindNativeRecordDefaults313(new(
+                ExecutionIdentity.Image,
+                literals800,
+                recordDefaults313,
+                metadata.Descriptor.NativeRecords
+            ));
     }
 
     internal ModuleRegistry Owner
@@ -77,4 +104,10 @@ public sealed partial class PreparedBeamImage : ISourceLocalFunctionResolver
         get;
     }
     public bool IsConsumed => Owner.IsPreparedBeamConsumed(this);
+    internal ModuleLiteralDomain800? LiteralDomain800 { get; }
+    internal bool Disposed800 { get; set; }
+
+    public void Dispose() => _ = Owner.DisposePreparedModuleLiteral800(this);
+
+    public ValueTask DisposeAsync() => new(Owner.DisposePreparedModuleLiteral800(this));
 }

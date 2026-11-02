@@ -39,7 +39,7 @@ public static partial class ErlangOperatorValues
             ErlangOperators.Greater => CoreModules.Boolean(first.CompareTo(second) > 0),
             ErlangOperators.LessOrEqual => CoreModules.Boolean(first.CompareTo(second) <= 0),
             ErlangOperators.GreaterOrEqual => CoreModules.Boolean(first.CompareTo(second) >= 0),
-            ErlangOperators.Append => Cons.From(Cons.Items(first), second),
+            ErlangOperators.Append => AppendSynchronous219(first, second),
             ErlangOperators.SubtractList => ListBasicOperations.Subtract(first, second),
             ErlangOperators.Send when context is not null => Send(context, first, second),
             _ => CoreModules.Arithmetic(operation, first, second)
@@ -54,9 +54,28 @@ public static partial class ErlangOperatorValues
         bool noSuspend = false
     )
     {
+        return TrySendSelfOrPortableAsync(
+            context,
+            target,
+            message,
+            priority,
+            noSuspend
+        );
+    }
+
+    private static async ValueTask<bool> TrySendSelfOrPortableAsync(
+        ProcessContext context,
+        Term target,
+        Term message,
+        bool priority,
+        bool noSuspend
+    )
+    {
+        if (!priority && await context.Runtime.TrySendSelfOnHeapMailboxAsync(context, target, message).ConfigureAwait(false))
+            return true;
         var outgoing = PrepareSendArguments506(context, target, message);
 
-        return TrySendPortableAsync(
+        return await TrySendPortableAsync(
             context,
             outgoing.Target,
             outgoing.Message,
@@ -139,6 +158,9 @@ public static partial class ErlangOperatorValues
         bool priority = false
     )
     {
+        if (!priority && context.Runtime.TrySendSelfOnHeapMailboxAsync(context, target, message)
+            .GetAwaiter().GetResult())
+            return message;
         var outgoing = PrepareSendArguments506(context, target, message);
         Term result = SendPortable(
             context,

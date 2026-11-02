@@ -159,12 +159,21 @@ internal static class ListModuleRegistrations
         foreach (string operation in new[] { ListModuleNames.Zip, ListModuleNames.ZipThree })
         {
             int count = operation == ListModuleNames.Zip ? 2 : 3;
-            registry.Register(
-                ListModuleNames.Module,
-                operation,
-                count,
-                (c, a) => ListZipOperations.Zip(c, a)
-            );
+            ErlangFunction body = (c, a) => ListZipOperations.Zip(c, a);
+            if (operation == ListModuleNames.Zip)
+                registry.RegisterReviewedManagedLibrary789(
+                    ListModuleNames.Module,
+                    operation,
+                    count,
+                    body
+                );
+            else
+                registry.Register(
+                    ListModuleNames.Module,
+                    operation,
+                    count,
+                    body
+                );
             registry.Register(
                 ListModuleNames.Module,
                 operation,

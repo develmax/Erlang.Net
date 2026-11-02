@@ -17,21 +17,28 @@ internal static class DebugUnalignedOriginal421Checks
         {
             runtime = new ProcessRuntime();
             ProcessRuntime owner = runtime;
-            await owner.InitializeModulesAsync(registry =>
+            await global::Erlang.Tests.PreparedBeamFixtureScope171.RunAsync(
+                owner,
+                (registry, scope) =>
             {
                 var declared = new BeamDependencySelection([DebugUnalignedOriginal421Names.Debug,
-                    DebugUnalignedOriginal421Names.Runtime, DebugUnalignedOriginal421Names.Subject, DebugUnalignedOriginal421Names.Module]);
-                PreparedBeamImage facet = DebugUnalignedOriginal421Preparation.Prepare(registry, declared);
-                PreparedBeamImage worker = registry.PrepareBeam(
-                    DebugUnalignedOriginal421Access.Resource(DebugUnalignedOriginal421Names.WorkerBeam), declared);
-                PreparedBeamImage observer = registry.PrepareBeam(
-                    DebugUnalignedOriginal421Access.Resource(DebugUnalignedOriginal421Names.ObserverBeam), declared);
-                DebugUnalignedOriginal421Access.Require(registry.PublishPreparedBeam([facet, worker, observer]).Status == BeamPublicationStatus.Published);
-                DebugUnalignedOriginal421Preparation.AssertPublished(registry, facet);
-                foreach (var image in new[] { worker, observer })
-                    foreach (var export in registry.Exports.Where(export => export.Module == image.Name))
-                        DebugUnalignedOriginal421Access.Require(ReferenceEquals(registry.SourceOwner(export.Module, export.Function, export.Arity), image));
-            });
+                                DebugUnalignedOriginal421Names.Runtime, DebugUnalignedOriginal421Names.Subject, DebugUnalignedOriginal421Names.Module]);
+                PreparedBeamImage facet = DebugUnalignedOriginal421Preparation.Prepare171(registry, declared, scope);
+                PreparedBeamImage worker = scope.Prepare(() => registry.PrepareBeam(
+                    DebugUnalignedOriginal421Access.Resource(DebugUnalignedOriginal421Names.WorkerBeam), declared));
+                PreparedBeamImage observer = scope.Prepare(() => registry.PrepareBeam(
+                    DebugUnalignedOriginal421Access.Resource(DebugUnalignedOriginal421Names.ObserverBeam), declared));
+
+                return ValueTask.FromResult<Action<ModuleRegistry>>(_ =>
+                {
+                    DebugUnalignedOriginal421Access.Require(registry.PublishPreparedBeam([facet, worker, observer]).Status == BeamPublicationStatus.Published);
+                    DebugUnalignedOriginal421Preparation.AssertPublished(registry, facet);
+                    foreach (var image in new[] { worker, observer })
+                        foreach (var export in registry.Exports.Where(export => export.Module == image.Name))
+                            DebugUnalignedOriginal421Access.Require(ReferenceEquals(registry.SourceOwner(export.Module, export.Function, export.Arity), image));
+                });
+            }
+            );
             actor = new RuntimeNodeFoundationHostActor(owner);
             RuntimeNodeFoundationHostActor caller = actor;
 

@@ -30,12 +30,26 @@ internal sealed partial class ProcessTermFrame506
     private ProcessTermConstruction514? constructionCustody514;
 
     internal ProcessTermConstruction514 BeginConstruction514(Term source)
+        => BeginConstructionCore145(source, false);
+
+    internal ProcessTermConstruction514 BeginGuestAdoptionConstruction145(Term source)
+        => BeginConstructionCore145(source, true);
+
+    private ProcessTermConstruction514 BeginConstructionCore145(Term source, bool preserveLocal145)
     {
         lock (owner.Gate)
         {
             ObjectDisposedException.ThrowIf(disposed, this);
             if (constructionCustody514 is not null)
                 throw new InvalidOperationException(ProcessTermConstruction514Names.InvalidCustody);
+        }
+        using ModuleLiteralRoots801? literalRoots = ModuleLiteralRoots801.Capture801(owner, source);
+        lock (owner.Gate)
+        {
+            ObjectDisposedException.ThrowIf(disposed, this);
+            if (constructionCustody514 is not null)
+                throw new InvalidOperationException(ProcessTermConstruction514Names.InvalidCustody);
+            using var literalAdmission = owner.EnterLiteralAdmission801(literalRoots);
             owner.ValidateGuestGraph507(source);
             int slot = Reserve();
             // Portable construction inputs need only their real512 backing
@@ -44,7 +58,8 @@ internal sealed partial class ProcessTermFrame506
             PublishRoot512(slot, source, false);
             try
             {
-                return constructionCustody514 = new(this, source);
+                return constructionCustody514 = preserveLocal145
+                    ? new(this, source, owner) : new(this, source);
             }
             catch
             {
@@ -61,9 +76,15 @@ internal sealed partial class ProcessTermFrame506
             ObjectDisposedException.ThrowIf(disposed, this);
             if (!ReferenceEquals(custody, constructionCustody514))
                 throw new InvalidOperationException(ProcessTermConstruction514Names.InvalidCustody);
+            if (owner.IsAuthenticatedEmptyTuple803(value))
+            {
+                custody.Admit(value);
+
+                return;
+            }
             if (!owner.IsOwnedLocal(value))
                 return;
-            if (value is not (Cons or TupleTerm or MapTerm or HamtBitmapTerm429 or FloatTerm or Integer or ReferenceTerm or BitString))
+            if (value is not (Cons or TupleTerm or MapTerm or HamtBitmapTerm429 or FloatTerm or Integer or ReferenceTerm or BitString or FunctionTerm or Pid or PortTerm or NativeRecordTerm))
                 throw new InvalidOperationException(ProcessTermConstruction514Names.InvalidCustody);
             // Admitted containers and zero-child boxed numerics are created here.
             // Direct children must come from the rooted input or earlier nodes;

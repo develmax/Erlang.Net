@@ -74,23 +74,58 @@ internal static class Asn1LibraryChecks
         var runtime = new ProcessRuntime();
         try
         {
-            await runtime.InitializeModulesAsync(registry =>
+            await global::Erlang.Tests.PreparedBeamFixtureScope171.RunAsync(
+                runtime,
+                async (registry, scope) =>
             {
-                RuntimeNativePrimitiveProviders.Register(runtime, registry, RuntimeNativePrimitives.EtsStorageCore);
-                RuntimeBootstrapEtsDeletion.Register(runtime, registry);
-                RuntimeBootstrapEtsQueries414.Register(runtime, registry);
-                RuntimeBootstrapEtsMutations414.Register(runtime, registry);
-                RuntimeBootstrapEtsTraversal416.Register(runtime, registry);
-                RuntimeBootstrapEtsCounter417.Register(runtime, registry);
-                RuntimeBootstrapEtsRename418.Register(runtime, registry);
-                RuntimeBootstrapEtsHeir419.Register(runtime, registry);
-                RuntimeBootstrapEtsCompiled419.Register(runtime, registry);
-                RuntimeBootstrapEtsAll420.Register(runtime, registry);
-                RuntimeBootstrapEtsFixation420.Register(runtime, registry);
-                RuntimeBootstrapEtsCursor420.Register(runtime, registry);
-                RuntimeBootstrapEtsReplace420.Register(runtime, registry);
-                RuntimeBootstrapEtsInspection420.Register(runtime, registry);
-                RuntimeBootstrapEtsInfo420.Register(runtime, registry);
+                await runtime.InitializeModulesAsync(_ =>
+                {
+                    {
+                        RuntimeNativePrimitiveProviders.Register(runtime, registry, RuntimeNativePrimitives.EtsStorageCore);
+                    }
+                    {
+                        RuntimeBootstrapEtsDeletion.Register(runtime, registry);
+                    }
+                    {
+                        RuntimeBootstrapEtsQueries414.Register(runtime, registry);
+                    }
+                    {
+                        RuntimeBootstrapEtsMutations414.Register(runtime, registry);
+                    }
+                    {
+                        RuntimeBootstrapEtsTraversal416.Register(runtime, registry);
+                    }
+                    {
+                        RuntimeBootstrapEtsCounter417.Register(runtime, registry);
+                    }
+                    {
+                        RuntimeBootstrapEtsRename418.Register(runtime, registry);
+                    }
+                    {
+                        RuntimeBootstrapEtsHeir419.Register(runtime, registry);
+                    }
+                    {
+                        RuntimeBootstrapEtsCompiled419.Register(runtime, registry);
+                    }
+                    {
+                        RuntimeBootstrapEtsAll420.Register(runtime, registry);
+                    }
+                    {
+                        RuntimeBootstrapEtsFixation420.Register(runtime, registry);
+                    }
+                    {
+                        RuntimeBootstrapEtsCursor420.Register(runtime, registry);
+                    }
+                    {
+                        RuntimeBootstrapEtsReplace420.Register(runtime, registry);
+                    }
+                    {
+                        RuntimeBootstrapEtsInspection420.Register(runtime, registry);
+                    }
+                    {
+                        RuntimeBootstrapEtsInfo420.Register(runtime, registry);
+                    }
+                });
                 string[] imports = OtpAsn1.Modules.Concat(OtpStdlib.Modules).Concat([Observer, Internal, ErlangModule, FileModule, DiskLog]).ToArray();
                 var dependencies = new BeamDependencySelection(imports);
                 byte[][] bytes = [OtpStdlib.ReadImage(Lists), OtpStdlib.ReadImage(Ets), OtpAsn1.ReadImage(ExternalTransform), OtpAsn1.ReadImage(CompilerTable), Resource(ObserverImage)];
@@ -98,20 +133,25 @@ internal static class Asn1LibraryChecks
                 {
                     try
                     {
-                        return registry.PrepareBeam(image, dependencies);
+                        return scope.Prepare(() => registry.PrepareBeam(image, dependencies));
                     }
                     catch (Exception error)
                     {
                         throw new InvalidOperationException(BeamArtifactInspector.Inspect(image).Name, error);
                     }
                 }).ToArray();
-                Check(registry.PublishPreparedBeam(images).Status == BeamPublicationStatus.Published);
-                foreach (PreparedBeamImage image in images)
+
+                return _ =>
                 {
-                    var exports = registry.Exports.Where(export => export.Module == image.Name).ToArray();
-                    Check(exports.Length > 0 && exports.All(export => ReferenceEquals(registry.SourceOwner(export.Module, export.Function, export.Arity), image)));
-                }
-            });
+                    Check(registry.PublishPreparedBeam(images).Status == BeamPublicationStatus.Published);
+                    foreach (PreparedBeamImage image in images)
+                    {
+                        var exports = registry.Exports.Where(export => export.Module == image.Name).ToArray();
+                        Check(exports.Length > 0 && exports.All(export => ReferenceEquals(registry.SourceOwner(export.Module, export.Function, export.Arity), image)));
+                    }
+                };
+            }
+            );
             var completed = new TaskCompletionSource<Term>(TaskCreationOptions.RunContinuationsAsynchronously);
             ProcessHandle actor = runtime.Spawn(async context =>
             {

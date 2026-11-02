@@ -1294,6 +1294,7 @@ Test(
 );
 Test(Erlang.Tests.Library398TestNames.WarningOwner, Erlang.Tests.LibraryDependencyOriginalHostChecks.WarningMap398Owner);
 Test(Erlang.Tests.LibraryDependencyOriginalNames.Os399Test, Erlang.Tests.LibraryDependencyOriginalHostChecks.Os399Whole);
+Test(Erlang.Tests.CanonicalOsEnv401Names.Case, Erlang.Tests.CanonicalOsEnv401Checks.Run);
 Test(Erlang.Tests.LibraryDependencyOriginalNames.Port399Test, Erlang.Tests.LibraryDependencyOriginalHostChecks.Port399Whole);
 Test(Erlang.Tests.Os399HostNames.ClockTest, () =>
  {
@@ -6301,6 +6302,14 @@ foreach (var export in exportRegistry.Exports.Where(export => Erlang.Tests.Funct
     );
 
 Test(Erlang.Tests.BeamPreparedHostNames.Test, Erlang.Tests.BeamPreparedHostChecks.Run);
+Test(
+    "runtime/exception828/explicit-native-counter-still-transfers",
+    Erlang.Tests.PortableExceptionIdentity828Checks.NativeCounter
+);
+Test(Erlang.Tests.VmCallbackLiteral825Checks.OrdinaryTest, Erlang.Tests.VmCallbackLiteral825Checks.Ordinary);
+Test(Erlang.Tests.VmCallbackLiteral825Checks.PilotTest, Erlang.Tests.VmCallbackLiteral825Checks.Pilot);
+
+Test("runtime/beam/prepared-validation-cache825", Erlang.Tests.PreparedBeamValidationCache825Checks.Run);
 
 Test(Erlang.Tests.BeamOnLoadHostNames.Test, Erlang.Tests.BeamOnLoadHostChecks.Run);
 
@@ -7388,6 +7397,10 @@ try
     Test(Erlang.Tests.BoxedFloat556Names.AdoptionCase, Erlang.Tests.BoxedFloat556Checks.AdoptionAndRootOnly);
     Test(Erlang.Tests.BoxedFloat556Names.LifetimeCase, Erlang.Tests.BoxedFloat556Checks.ForeignAndHeldRetirement);
     Test(Erlang.Tests.BeamListCurrentRoot550Names.MatrixTest, Erlang.Tests.BeamListCurrentRoot550Checks.Matrix);
+    Test(Erlang.Tests.BeamReceiveCustody557Names.LifetimeTest, Erlang.Tests.BeamReceiveCustody557Checks.CloseOrder);
+    Test(Erlang.Tests.BeamReceiveCustody557Names.GenerationsTest, Erlang.Tests.BeamReceiveCustody557Checks.GenerationsAndAba);
+    Test(Erlang.Tests.BeamReceiveCustody557Names.CandidateTest, Erlang.Tests.BeamReceiveCustody557Checks.CandidateAndRollback);
+    Test(Erlang.Tests.BeamReceiveCustody557Names.RetentionTest, Erlang.Tests.BeamReceiveCustody557Checks.RetentionAndBaseline);
     Test(Erlang.Tests.BeamListCurrentRoot550Names.CustodyTest, Erlang.Tests.BeamListCurrentRoot550Checks.Custody);
     Test(Erlang.Tests.BeamListCurrentRoot550Names.FailureTest, Erlang.Tests.BeamListCurrentRoot550Checks.ClosedYStore);
     Test(
@@ -7521,6 +7534,7 @@ try
     Test(Erlang.Tests.BeamOwnedRoots507Names.ReplayTest, Erlang.Tests.BeamOwnedRoots507Checks.OriginalTryReplay);
     Test(Erlang.Tests.BeamOwnedRoots507Names.AliasTest, Erlang.Tests.BeamOwnedRoots507Checks.AliasAndTrim);
     Test(Erlang.Tests.BeamOwnedRoots507Names.CancelTest, Erlang.Tests.BeamOwnedRoots507Checks.CancelAtTuple);
+    Test(Erlang.Tests.BeamLazyRootSlots825Names.Case, Erlang.Tests.BeamLazyRootSlots825Checks.Run);
     Test(Erlang.Tests.BeamOwnedReceive507Names.ProtectedTest, Erlang.Tests.BeamOwnedReceive507Checks.OriginalProtectedReceive);
     Test(Erlang.Tests.BeamOwnedReceive507Names.BeforeCallbackTest, Erlang.Tests.BeamOwnedReceive507Checks.CancelBeforeCallback);
     Test(Erlang.Tests.BeamOwnedReceive507Names.AfterSelectionTest, Erlang.Tests.BeamOwnedReceive507Checks.CancelAfterSelection);
@@ -7805,6 +7819,10 @@ try
     Test(Erlang.Tests.RegexStore535Names.RegexPersistentCase, Erlang.Tests.RegexStore535Checks.RegexPersistent);
     Test(Erlang.Tests.CountersExit603Names.InitializerTest, Erlang.Tests.CountersExit603Checks.InitializerDoneBeforeGlobalDrain);
     Test(Erlang.Tests.CountersExit603Names.OrdinaryTest, Erlang.Tests.CountersExit603Checks.OrdinaryExitPreservesIndependentHeap);
+
+    Test(Erlang.Tests.BitStringComparison139Names.BoundaryCase, Erlang.Tests.BitStringComparison139Checks.Boundaries);
+    Test(Erlang.Tests.BitStringComparison139Names.OwnedCase, Erlang.Tests.BitStringComparison139Checks.OwnedAndModule);
+    Test(Erlang.Tests.BitStringComparison139Names.ResourceCase, Erlang.Tests.ResourceBinary577Checks.Comparison139);
 
     var catalog = Erlang.Tests.TestRunCatalog.Create(tests.Select(test => test.Name));
     selectedTests = selection.Select(tests, catalog);

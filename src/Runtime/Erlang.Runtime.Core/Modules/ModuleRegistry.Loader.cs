@@ -5,12 +5,7 @@ public sealed partial class ModuleRegistry
     private readonly Dictionary<string, BeamOnLoadTicket> loaderPendingImages = new(StringComparer.Ordinal);
 
     internal Term FinishLoaderReferences(RuntimeReferenceResources resources, IReadOnlyList<ReferenceTerm> references)
-    {
-        using var source = EnterSourceMutation();
-        using var modification = CodeModification.Enter();
-        lock (gate)
-            return resources.AdmitPreparedReferences(references);
-    }
+        => FinishPreparedWaiting807(resources, references);
 
     internal Term FinishLoaderImages(PreparedBeamImage[] images)
     {

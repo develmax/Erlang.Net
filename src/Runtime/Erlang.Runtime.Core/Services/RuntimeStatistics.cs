@@ -5,6 +5,8 @@ namespace Erlang;
 
 internal sealed partial class RuntimeStatistics
 {
+    internal RuntimeUserCpuAccounting UserCpu { get; } = new();
+    internal RuntimeMicrostateAccounting Microstates { get; } = new();
     private readonly RuntimeReductionStatistics reductions = new();
     private readonly object gate = new();
     private readonly long started = Stopwatch.GetTimestamp();
@@ -31,8 +33,7 @@ internal sealed partial class RuntimeStatistics
             }
             else
             {
-                using var process = Process.GetCurrentProcess();
-                total = process.UserProcessorTime.Ticks / RuntimeStatisticsParameters.UserCpuTicksPerMillisecond;
+                total = UserCpu.SampleMilliseconds();
                 previous = previousUserCpu;
                 previousUserCpu = total;
             }

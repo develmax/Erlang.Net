@@ -39,6 +39,10 @@ internal sealed partial class SequenceTracing(ProcessRuntime runtime, object gat
 
     public Term Set(ProcessContext context, Term component, Term value)
     {
+        if (component is Atom { Name: SequenceTraceNames.Label })
+            return SetLabelPrepared(context, value);
+        if (component is Atom { Name: SequenceTraceNames.Token } && value is Nil)
+            return ClearTokenPrepared(context);
         lock (gate)
         {
             runtime.ThrowIfHalted();
@@ -59,6 +63,7 @@ internal sealed partial class SequenceTracing(ProcessRuntime runtime, object gat
                 if (value is not TupleTerm { Items: [Integer previous, Integer current] } || previous.Value < SequenceTraceParameters.MinimumSerial || previous.Value > SequenceTraceParameters.MaximumSerial || current.Value < SequenceTraceParameters.MinimumSerial || current.Value > SequenceTraceParameters.MaximumSerial)
                     throw new ErlangException(ErlangErrorReasons.BadArgument);
                 SequenceTraceToken token = EnsureToken(context);
+                Term previousSerial = Term.Tuple(Term.I(token.LastCount), Term.I(token.Serial));
                 state.Token = token with
                 {
                     LastCount = (long)previous.Value,
@@ -67,17 +72,7 @@ internal sealed partial class SequenceTracing(ProcessRuntime runtime, object gat
                 state.LastCount = SequenceTraceParameters.Unsigned((long)previous.Value);
                 state.Clock = SequenceTraceParameters.Unsigned((long)current.Value);
 
-                return Term.Tuple(Term.I(token.LastCount), Term.I(token.Serial));
-            }
-            if (item.Name == SequenceTraceNames.Label)
-            {
-                SequenceTraceToken token = EnsureToken(context);
-                state.Token = token with
-                {
-                    Label = value
-                };
-
-                return token.Label;
+                return previousSerial;
             }
             SequenceTraceFlags flag = Flag(item.Name);
             if (flag == SequenceTraceFlags.None || value is not Atom { Name: ErlangBooleanAtoms.True or ErlangBooleanAtoms.False } boolean)
@@ -113,22 +108,54 @@ internal sealed partial class SequenceTracing(ProcessRuntime runtime, object gat
 
     public Term Print(ProcessContext context, Term? label, Term message)
     {
-        lock (gate)
+        runtime.AssertSequenceTracePreparation();
+        while (true)
         {
-            runtime.ThrowIfHalted();
-            SequenceTraceToken? token = context.SequentialTrace.Token;
-            if (token is null || label is not null && !label.Equals(token.Label))
-                return CoreModules.Boolean(false);
-            token = Advance(context);
-            Output(
-                context,
-                token,
-                SequenceTraceFlags.Print,
-                Nil.Value,
-                message
-            );
+            SequenceTraceSendPreview preview;
+            ProcessTermBorrow506? borrow;
+            lock (gate)
+            {
+                runtime.ThrowIfHalted();
+                SequenceTraceToken? token = context.SequentialTrace.Token;
+                if (token is null || label is not null && !label.Equals(token.Label))
+                    return CoreModules.Boolean(false);
+                preview = PreviewSent(context);
+                borrow = context.SequentialTrace.BorrowPhysical();
+            }
+            using (borrow)
+            {
+                SequenceTraceToken next = preview.Next!;
+                PreparedSequenceTraceOutput? plan = (next.Flags & SequenceTraceFlags.Print) == 0 ? null
+                    : PrepareOutputAsync([next.Label, next.Sender, message], context.Self).GetAwaiter().GetResult();
+                try
+                {
+                    lock (gate)
+                    {
+                        runtime.ThrowIfHalted();
+                        if (!IsCurrentSendPreview(context, preview) || !IsCurrentOutputPlanOrSuppressed(
+                            plan,
+                            next,
+                            SequenceTraceFlags.Print,
+                            context.Self
+                        )) continue;
+                        SequenceTraceToken? token = Advance(context);
+                        OutputPrepared(
+                            context.Self,
+                            token,
+                            SequenceTraceFlags.Print,
+                            Nil.Value,
+                            message,
+                            plan
+                        );
 
-            return CoreModules.Boolean(true);
+                        return CoreModules.Boolean(true);
+                    }
+                }
+                finally
+                {
+                    if (plan is not null) plan.DisposeAsync().GetAwaiter().GetResult();
+                }
+            }
         }
     }
 
@@ -218,27 +245,94 @@ internal sealed partial class SequenceTracing(ProcessRuntime runtime, object gat
         bool preserve
     )
     {
-        if (preserve)
-            return;
-        lock (gate)
+        if (preserve) return;
+        runtime.AssertSequenceTracePreparation();
+        using PreparedSequenceTraceTransport641? transport = token is null ? null
+            : PreparedSequenceTraceTransport641.Capture(runtime, token);
+        while (true)
         {
-            if (runtime.IsHaltRequested)
-                return;
-            receiver.SequentialTrace.Token = token;
-            if (token is not null)
+            SequenceTraceStorage? prepared = transport is null ? null
+                : SequenceTraceStorage.CreatePreparedWithLiteral814(receiver, transport.Token, transport.LiteralRoots814);
+            PreparedSequenceTraceOutput? plan = null;
+            Exception? primary = null;
+            try
             {
-                ulong serial = SequenceTraceParameters.Unsigned(token.Serial);
-                receiver.SequentialTrace.LastCount = serial;
-                receiver.SequentialTrace.Clock = Math.Max(receiver.SequentialTrace.Clock, serial);
-                Output(
-                    receiver,
-                    token,
-                    SequenceTraceFlags.Receive,
-                    receiver.Self,
-                    message
-                );
+                plan = prepared is null || (prepared.Token.Flags & SequenceTraceFlags.Receive) == 0 ? null
+                    : PrepareOutputAsync([prepared.Token.Label, prepared.Token.Sender, message], receiver.Self).GetAwaiter().GetResult();
+                lock (gate)
+                {
+                    if (runtime.IsHaltRequested) return;
+                    if (prepared is not null && !IsCurrentOutputPlanOrSuppressed(
+                        plan,
+                        prepared.Token,
+                        SequenceTraceFlags.Receive,
+                        receiver.Self
+                    )) continue;
+                    if (prepared is null) receiver.SequentialTrace.Token = null;
+                    else
+                    {
+                        receiver.SequentialTrace.InstallPrepared(prepared);
+                        prepared = null;
+                    }
+                    SequenceTraceToken? installed = receiver.SequentialTrace.Token;
+                    if (installed is not null)
+                    {
+                        ulong serial = SequenceTraceParameters.Unsigned(installed.Serial);
+                        receiver.SequentialTrace.LastCount = serial;
+                        receiver.SequentialTrace.Clock = Math.Max(receiver.SequentialTrace.Clock, serial);
+                        OutputPrepared(
+                            receiver.Self,
+                            installed,
+                            SequenceTraceFlags.Receive,
+                            receiver.Self,
+                            message,
+                            plan
+                        );
+                    }
+
+                    return;
+                }
+            }
+            catch (Exception error)
+            {
+                primary = error;
+                throw;
+            }
+            finally
+            {
+                DisposeReceivedPreparation456(prepared, plan, primary);
             }
         }
+    }
+
+    private static void DisposeReceivedPreparation456(
+        SequenceTraceStorage? storage,
+        PreparedSequenceTraceOutput? output,
+        Exception? primary
+    )
+    {
+        Exception? storageFailure = null, outputFailure = null;
+        try
+        {
+            storage?.Dispose();
+        }
+        catch (Exception error)
+        {
+            storageFailure = error;
+        }
+        try
+        {
+            if (output is not null) output.DisposeAsync().GetAwaiter().GetResult();
+        }
+        catch (Exception error)
+        {
+            outputFailure = error;
+        }
+        if (storageFailure is null && outputFailure is null) return;
+        if (primary is not null || storageFailure is not null && outputFailure is not null)
+            throw new AggregateException(new[] { primary, storageFailure, outputFailure }.OfType<Exception>());
+
+        System.Runtime.ExceptionServices.ExceptionDispatchInfo.Capture(storageFailure ?? outputFailure!).Throw();
     }
 
     public void Spawned(

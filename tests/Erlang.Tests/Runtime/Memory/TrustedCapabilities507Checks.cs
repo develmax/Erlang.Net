@@ -30,47 +30,55 @@ internal static class TrustedCapabilities507Checks
     {
         await using var runtime = OwnedGuest506RuntimeFactory.Create();
         await using var other = OwnedGuest506RuntimeFactory.Create();
-        await runtime.InitializeModulesAsync(registry =>
+        await global::Erlang.Tests.PreparedBeamFixtureScope171.RunOutsideAsync(
+            runtime,
+            async (registry, scope) =>
         {
             Check(!registry.HasExport(DebugSame420HostNames.Module, DebugSame420HostNames.Function, 2));
-            var first = registry.PrepareBeam(DebugSame420HostAccess.Beam(),
-                new BeamDependencySelection([DebugSame420HostNames.Runtime]));
+            PreparedBeamImage first = scope.Prepare(() => registry.PrepareBeam(DebugSame420HostAccess.Beam(),
+                new BeamDependencySelection([DebugSame420HostNames.Runtime])));
             ErlangFunction primitive = RequireSingleCapability(registry, first);
             Check(BorrowKind(other.Modules, first, primitive) == Opaque);
-            Check(registry.PublishPreparedBeam(first).Status == BeamPublicationStatus.Published);
-            // The second capture must inherit the exact captured primitive and
-            // its precise image policy, without re-registering a global delegate.
-            var inherited = registry.PrepareBeam(DebugSame420HostAccess.Beam(),
-                new BeamDependencySelection([DebugSame420HostNames.Runtime]));
+            await runtime.InitializeModulesAsync(_ =>
+                Check(registry.PublishPreparedBeam(first).Status == BeamPublicationStatus.Published));
+            // Capture the actual published primitive and its precise image policy.
+            PreparedBeamImage inherited = scope.Prepare(() => registry.PrepareBeam(DebugSame420HostAccess.Beam(),
+                new BeamDependencySelection([DebugSame420HostNames.Runtime])));
             ErlangFunction inheritedPrimitive = RequireSingleCapability(registry, inherited);
             Check(ReferenceEquals(primitive, inheritedPrimitive));
             Check(!ReferenceEquals(Get(Get(first, Identity), NativePrimitives),
                 Get(Get(inherited, Identity), NativePrimitives)));
             Check(BorrowKind(registry, first, primitive) == PureRead);
             Check(BorrowKind(registry, inherited, primitive) == PureRead);
-            // Public republication of the same CLR delegate must not acquire the
-            // internal capability of either already admitted image.
-            registry.DeleteModule(DebugSame420HostNames.Module);
-            registry.Register(
-                DebugSame420HostNames.Module,
-                DebugSame420HostNames.Function,
-                2,
-                primitive
-            );
-            PreparedBeamImage? opaque;
+            // Public republication keeps the original delegate opaque.
+            await runtime.InitializeModulesAsync(_ =>
+            {
+                registry.DeleteModule(DebugSame420HostNames.Module);
+                registry.Register(
+                    DebugSame420HostNames.Module,
+                    DebugSame420HostNames.Function,
+                    2,
+                    primitive
+                );
+            });
+            PreparedBeamImage opaque;
             try
             {
-                opaque = registry.PrepareBeam(DebugSame420HostAccess.Beam(),
-                    new BeamDependencySelection([DebugSame420HostNames.Runtime]));
+                opaque = scope.Prepare(() => registry.PrepareBeam(DebugSame420HostAccess.Beam(),
+                    new BeamDependencySelection([DebugSame420HostNames.Runtime])));
             }
             catch (NotSupportedException)
             {
-                // A public non-native entry can be rejected at preparation.
                 return;
             }
-            Check(Entries(Get(opaque, Identity), NativeCapabilities).Length == 0);
-            Check(BorrowKind(registry, opaque, primitive) == Opaque);
-        });
+
+            {
+                Check(Entries(Get(opaque, Identity), NativeCapabilities).Length == 0);
+                Check(BorrowKind(registry, opaque, primitive) == Opaque);
+            }
+
+        }
+        );
     }
 
     private static ErlangFunction RequireSingleCapability(ModuleRegistry registry, PreparedBeamImage image)

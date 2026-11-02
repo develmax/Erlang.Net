@@ -12,6 +12,11 @@ internal static class TestExecutionBudgets
         KernelBootOriginal453Names.Test => TimeSpan.FromSeconds(KernelBootOriginal453Names.BudgetSeconds),
         ReUnicodeCancellation453Names.Test => TimeSpan.FromSeconds(ReUnicodeCancellation453Names.BudgetSeconds),
         NumericContract487Names.Test => TimeSpan.FromSeconds(NumericContract487Names.BudgetSeconds),
+        LibraryDependencyOriginalNames.FixedTest => LibraryDependencyOriginalNames.Deadline
+            + RuntimeNodeFoundationHostActorParameters.Deadline
+            + TimeSpan.FromSeconds(TestExecutionBudgetNames.FullComparisonPreparationSeconds500),
+        TupleContract488Names.Test => BeamOrdsetsCoreHostNames.Deadline + BeamOrdsetsCoreHostNames.Deadline
+            + TimeSpan.FromSeconds(TestExecutionBudgetNames.FullComparisonPreparationSeconds500),
         _ => TimeSpan.FromSeconds(TestExecutionBudgetNames.DefaultSeconds)
     };
 }

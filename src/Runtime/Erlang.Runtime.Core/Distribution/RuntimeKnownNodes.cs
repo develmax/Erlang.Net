@@ -132,7 +132,7 @@ internal sealed partial class RuntimeKnownNodes(
     {
         lock (gate)
         {
-            if (reservedEpochs.ContainsKey((name, creation)))
+            if (HasPhysicalNodeEpoch(name, creation) || reservedEpochs.ContainsKey((name, creation)))
                 return true;
             if (!nodes.TryGetValue(name, out var references))
                 return false;
