@@ -54,7 +54,7 @@ internal static class InitProgressObservation617
         }
     }
 
-    internal static async Task<bool> Purge(ProcessRuntime runtime, ProcessContext context, string module)
+    internal static async Task<(bool Purged, bool DidKill)> Purge(ProcessRuntime runtime, ProcessContext context, string module)
     {
         MethodInfo method = typeof(ProcessRuntime).GetMethod(
             PurgeMethod,
@@ -66,7 +66,14 @@ internal static class InitProgressObservation617
 
         try
         {
-            return await (ValueTask<bool>)method.Invoke(runtime, [context, module])!;
+            Term outcome = await (ValueTask<Term>)method.Invoke(runtime, [context, module])!;
+            Require(outcome is TupleTerm
+            {
+                Items: [Atom { Name: True or False }, Atom { Name: True or False }]
+            });
+            var fields = ((TupleTerm)outcome).Items;
+
+            return (fields[0].Equals(Term.A(True)), fields[1].Equals(Term.A(True)));
         }
         catch (TargetInvocationException failure) when (failure.InnerException is { } inner)
         {
@@ -111,7 +118,7 @@ internal static class InitProgressObservation617
         throw new TimeoutException(Failure);
     }
 
-    internal static async Task<Term> Cleanup(
+    internal static async Task<(Term Result, IReadOnlyList<bool> PhysicalPurgeResults)> Cleanup(
         ProcessRuntime runtime,
         ProcessContext context,
         string log,
@@ -132,6 +139,7 @@ internal static class InitProgressObservation617
         }
         int first = accepted > 0 ? 1 : 0, second = accepted > 1 ? 1 : 0;
         var results = new List<Term>();
+        var physicalPurges = new List<bool>();
         int initialErrors = errors.Count;
 
         async Task Attempt(Func<Task<Term>> action)
@@ -148,7 +156,8 @@ internal static class InitProgressObservation617
         }
         await Attempt(async () =>
         {
-            bool purged = await Purge(runtime, context, Subject);
+            var outcome = await Purge(runtime, context, Subject);
+            physicalPurges.Add(outcome.Purged);
             if (accepted > 0) await WaitOwners(
                 log,
                 first,
@@ -156,12 +165,13 @@ internal static class InitProgressObservation617
                 budget
             );
 
-            return Term.A(purged ? True : False);
+            return Term.A(outcome.DidKill ? True : False);
         });
         await Attempt(async () =>
         {
             Term deleted = runtime.Modules.DeleteModule(Subject);
-            bool purged = await Purge(runtime, context, Subject);
+            var outcome = await Purge(runtime, context, Subject);
+            physicalPurges.Add(outcome.Purged);
             if (accepted >= 0) await WaitOwners(
                 log,
                 first,
@@ -169,10 +179,17 @@ internal static class InitProgressObservation617
                 budget
             );
 
-            return Term.Tuple(deleted, Term.A(purged ? True : False));
+            return Term.Tuple(deleted, Term.A(outcome.DidKill ? True : False));
         });
         foreach (string module in new[] { AckModule, Observer })
-            await Attempt(async () => Term.Tuple(runtime.Modules.DeleteModule(module), Term.A(await Purge(runtime, context, module) ? True : False)));
+            await Attempt(async () =>
+            {
+                Term deleted = runtime.Modules.DeleteModule(module);
+                var outcome = await Purge(runtime, context, module);
+                physicalPurges.Add(outcome.Purged);
+
+                return Term.Tuple(deleted, Term.A(outcome.DidKill ? True : False));
+            });
         string[] lines = [];
         try
         {
@@ -194,7 +211,7 @@ internal static class InitProgressObservation617
         );
         bool passed = accepted >= 0 && errors.Count == initialErrors && results.All(value => value is TupleTerm { Items: [Atom { Name: Value }, _] });
 
-        return Term.Tuple(Term.A(passed ? Returned : CleanupFailed), report);
+        return (Term.Tuple(Term.A(passed ? Returned : CleanupFailed), report), physicalPurges.AsReadOnly());
     }
 
     internal static bool CleanupPrefixEquals(Term actual, Term original)

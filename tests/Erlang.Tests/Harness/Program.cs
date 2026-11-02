@@ -1907,6 +1907,7 @@ Test(Erlang.Tests.ProcessGarbageCollectionHostNames.Test, Erlang.Tests.ProcessGa
 Test(Erlang.Tests.ProcessInfoObservableHostNames.Test, Erlang.Tests.ProcessInfoObservableHostChecks.Run);
 Test(Erlang.Tests.FunctionReloadHostNames.Test, Erlang.Tests.FunctionReloadHostChecks.Run);
 Test(Erlang.Tests.CodePurgeHostNames.Test, Erlang.Tests.CodePurgeHostChecks.Run);
+Test(Erlang.Tests.CodePurgeOutcome706Names.Test, Erlang.Tests.CodePurgeOutcome706Checks.Run);
 Test(Erlang.Tests.ExactImageCodeHostNames.Test, Erlang.Tests.ExactImageCodeHostChecks.Run);
 Test(Erlang.Tests.StandardStreamHostNames.Test, Erlang.Tests.StandardStreamHostChecks.Run);
 Test(Erlang.Tests.ProcessSuspensionHostNames.Test, Erlang.Tests.ProcessSuspensionHostChecks.Run);

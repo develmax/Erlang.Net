@@ -24,6 +24,7 @@ internal static class NifAdmission626Names
     internal const string ClaimedState = "Granted";
     internal const string Kill = "kill";
     internal const string Broken = "Actual NIF admission custody/delivery invariant failed.";
+    internal const string PendingFailure = Broken + " delivered={0}; nonHost={1}; actorCanceled={2}; readyCompleted={3}.";
     internal const BindingFlags Members = BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic;
     internal const BindingFlags Statics = BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic;
     internal static readonly TimeSpan Deadline = TimeSpan.FromSeconds(5);

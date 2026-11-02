@@ -1058,6 +1058,11 @@ EXPLICIT_REVIEWED_INPUTS = frozenset((
     'tools/Native/Erlang.NifUpgradeObservations/inputs.json',
     'tools/Native/Erlang.NifUpgradeObservations/native-images.json',
     'tools/Native/Erlang.NifUpgradeObservations/original-inputs.json',
+    'docs/validation/native-gc825/purge-outcome717-source.json',
+    'src/Runtime/Erlang.Runtime.Core/Processes/Context/CodePurgeOutcome706.cs',
+    'src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.CodePurgeOutcome706.cs',
+    'tests/Erlang.Tests/Runtime/Modules/CodeLifecycle/CodePurgeOutcome706Checks.cs',
+    'tests/Erlang.Tests/Runtime/Modules/CodeLifecycle/CodePurgeOutcome706Names.cs',
 ))
 
 

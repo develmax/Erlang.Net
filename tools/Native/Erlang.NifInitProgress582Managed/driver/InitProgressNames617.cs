@@ -17,6 +17,7 @@ internal static class InitProgressNames617
     internal const string WholeRawResult = "WholeRawResult", WholeCleanup = "WholeCleanup", SchedulerProfile = "SchedulerProfile";
     internal const string LinuxSuffix = ".so", True = "true", False = "false", HostFailure = "host_failure", CleanupFailed = "cleanup_failed";
     internal const string WholeRawEqual = "WholeRawEqual", ActualProfile = "ActualLogicalLaneProfile", CleanupPrefix = "CleanupOutcomePrefixEqual";
+    internal const string PhysicalPurges = "AllFourPhysicalPurgesCompleted";
     internal const string NativeEvents = "ActualNativeEventContract", RuntimeClosed = "RuntimeClosed", ControllerSettled = "ControllerSettled";
     internal const string ProfileMeaning = "Logical actor dispatcher lanes; original profile denotes OTP normal schedulers. No hardware core equivalence claimed.";
     internal const string AckBeam = "AckBeam", Beam1 = "Beam1", Beam2 = "Beam2", ObserverBeam = "ObserverBeam";
@@ -30,7 +31,7 @@ internal static class InitProgressNames617
     internal const string NativeImages = "NativeImages", OriginalOnly = "OriginalOnly", ManagedExecuted = "ManagedExecuted";
     internal const string ConstructorMilliseconds = "ConstructorBoundMilliseconds", VmSeconds = "OriginalVmOuterSeconds";
     internal const string CapabilityType = "Erlang.NifNativeReviewedBasicAbi", PolicyMethod = "InstallReviewedNativeExecutionPolicy";
-    internal const string PurgeMethod = "PurgeModule", Capture = "capture", Get = "get";
+    internal const string PurgeMethod = "PurgeModuleOutcome706", Capture = "capture", Get = "get";
     internal const string ErlangModule = "erlang", AckModule = "init_ack582", Subject = "init_subject582", Observer = "init_observer582";
     internal const string ProfileKey = "init582_profile", ProfileAtom = "init582_control", NotReady = "not_ready";
     internal const string Ok = "ok", Normal = "normal", Returned = "returned", Raised = "raised", Value = "value";
@@ -41,6 +42,6 @@ internal static class InitProgressNames617
     internal const string AckSeen = "constructor_ack_seen", Upgrade = "upgrade_enter", Unload1 = "unload_v1", Unload2 = "unload_v2", Timeout = "constructor_timeout";
     internal const string Failure = "Actual managed init582 positive contract or source admission differs.";
     internal const int LogicalLanes = 2, SubjectOwnerCount = 2, Arity = 6, NativeCount = 3, ExpectedNine = 9, ConstructorBound = 2000;
-    internal const int ArgumentCount = 3, CleanupFields = 7, MaxEventBytes = 65536;
+    internal const int ArgumentCount = 3, CleanupFields = 7, CleanupSteps = 4, MaxEventBytes = 65536;
     internal static readonly TimeSpan InvocationDeadline = TimeSpan.FromSeconds(90), Poll = TimeSpan.FromMilliseconds(10);
 }

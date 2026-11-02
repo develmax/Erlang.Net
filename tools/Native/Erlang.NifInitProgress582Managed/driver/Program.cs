@@ -35,6 +35,7 @@ internal static class Program
         Require(original.Equals(InitProgressObservation617.Expected()) && originalProfile.Equals(InitProgressObservation617.ExpectedProfile()));
         var errors = new List<string>();
         Term? observed = null, profile = null, cleanup = null;
+        IReadOnlyList<bool>? physicalPurgeResults = null;
         byte[]? observedBytes = null;
         bool runtimeClosed = false, controllerSettled = false;
         var clock = Stopwatch.StartNew();
@@ -100,7 +101,7 @@ internal static class Program
                 {
                     try
                     {
-                        cleanup = await InitProgressObservation617.Cleanup(
+                        (cleanup, physicalPurgeResults) = await InitProgressObservation617.Cleanup(
                             runtime,
                             context,
                             log,
@@ -174,6 +175,7 @@ internal static class Program
         Check(WholeRawEqual, () => observedBytes is not null && observedBytes.SequenceEqual(originalBytes));
         Check(ActualProfile, () => profile is not null && profile.Equals(originalProfile));
         Check(CleanupPrefix, () => cleanup is not null && InitProgressObservation617.CleanupPrefixEquals(cleanup, originalCleanup));
+        Check(PhysicalPurges, () => physicalPurgeResults is { Count: CleanupSteps } && physicalPurgeResults.All(value => value));
         Check(NativeEvents, () => InitProgressObservation617.EventContract(events));
         Check(RuntimeClosed, () => runtimeClosed);
         Check(ControllerSettled, () => controllerSettled);
@@ -194,6 +196,7 @@ internal static class Program
                     OuterSeconds = InvocationDeadline.TotalSeconds,
                     ConstructorMilliseconds = ConstructorBound,
                     WholeCleanupRawEqualityClaimed = false,
+                    PhysicalPurgeResults = physicalPurgeResults,
                     NativeFixturesDuplicated = false,
                     ApiDelta = 0,
                     FullContractDelta = 0

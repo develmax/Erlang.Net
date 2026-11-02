@@ -174,16 +174,17 @@ internal static class NifAdmission626Checks
                 try
                 {
                     using IDisposable permit = await NifAdmission626Access.Acquire(CancellationToken.None, static () => { });
-                    NifAdmission626Awaiter admission = NifAdmission626Access.Barrier(
+                    NifAdmission626Awaiter? admission = null;
+                    admission = NifAdmission626Access.Barrier(
                         context,
                         () =>
                     {
                         Interlocked.Increment(ref delivered);
                         if (NifAdmission626Access.Actor is not null) Interlocked.Increment(ref nonHost);
-                    }
+                    },
+                        () => captured.TrySetResult((context, admission!))
                     );
                     Require(!NifAdmission626Access.Ready(admission).IsCompleted);
-                    captured.TrySetResult((context, admission));
                     try
                     {
                         using IDisposable impossible = await admission;
@@ -206,7 +207,17 @@ internal static class NifAdmission626Checks
             var observation = await captured.Task.WaitAsync(NifAdmission626Names.Deadline);
             DirtyNative419Access.Cancel(observation.Context);
             await requesterSettled.Task.WaitAsync(NifAdmission626Names.Deadline);
-            Require(delivered == 1 && nonHost == 0);
+            int observedDelivered = Volatile.Read(ref delivered);
+            int observedNonHost = Volatile.Read(ref nonHost);
+            if (observedDelivered != 1 || observedNonHost != 0)
+                throw new InvalidOperationException(string.Format(
+                    System.Globalization.CultureInfo.InvariantCulture,
+                    NifAdmission626Names.PendingFailure,
+                    observedDelivered,
+                    observedNonHost,
+                    observation.Context.Cancellation.IsCancellationRequested,
+                    NifAdmission626Access.Ready(observation.Admission).IsCompleted
+                ));
         }
         finally
         {

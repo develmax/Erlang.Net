@@ -1,6 +1,6 @@
 # Physical GC activation checklist — Part 554
 
-Current checklist - GC delivery complete; separate NIF local validation through build208/execution320 (managed Linux and exact-head acceptance pending)
+Current checklist - GC delivery complete; separate NIF correction through build216/execution333 (local final regression complete; source admission and exact-head CI pending)
 
 Only the checklist and separate NIF follow-up section before Historical investigation snapshots are current. The completed GC rows describe accepted main c369b685c6a2ba6e319d80ae905913a753b6f95c, not the later NIF working copy. Dated snapshots later in this file preserve their then-open work and must not be read as current TODOs.
 
@@ -30,7 +30,15 @@ Separate follow-up checkpoints:
 - [x] Publish the separate NIF validation candidate24652eed585fdaeb2ef539d0bceaf084a6031447; its private-index tree and active-worktree guards pass. Bootstrap its new CI only on feature/nif-upgrade-555, preserving exact event-head and original-artifact validation.
 - [x] Diagnose first a509 CI from actual artifacts: all30 N2/ENV/582 managed attempts stop in observer preparation before native execution; Windows validate stops in the obsolete provider Enter reflection before unit9477. Preserve both failures, all cleanup receipts and intermediate-status reporting correction.
 - [x] Correct3 observer drivers and2 backend test files without production, policy, golden or deadline changes. Build2093/3 and210backend pass; owned default backend321 passes with7274 unchanged inputs. Source70213/13,4739 bindings and3921 Resource dependencies pass.
-- [ ] Publish the cohesive correction after final source/Windows transport review; require actual managed N2/ENV/582, full exact-head Windows9477/package CI and current review before merge or compatibility acceptance.
+- [x] Publish a425b43 correction. Its strict Linux N2/ENV comparisons pass24/24 and4/4; constructor whole9/profile/events and physical closure pass, while four cleanup booleans expose code:purge DidKill versus internal physical-purge semantics. Preserve the failed aggregate; no current-source constructor acceptance is inferred.
+- [x] Plumb real Purged/DidKill without altering old API/protocol; keep all4 original cleanup comparisons and add separate physical assertions. New real control323, affected32441/41, native325182/182 and physical32628/28 pass; retain the failed tail-call premise322 and its strict non-tail correction. Build2114/4 and212 normal pass.
+- [x] Audit complete a425 Windows artifact:9475/9477, exact old catalog, two failures retained;13 independent native wrappers pass but package/consumer/readiness proof is absent.
+- [x] Reproduce539 resource timeout327/328, measure native=1 before Add, migrate obsolete reflection arity and protect all post-allocation setup cleanup. Restore temporary diagnostic byte-for-byte; all success lifetime assertions remain before final disposal.
+- [x] Establish real pending-barrier suspension, then retain33019/20 and33149/50. Actual counters expose delivered1/nonHost1 with cancelled actor and completed readiness; do not accept the registration-only correction.
+- [x] Correct readiness scheduler capture and HOST rejection delivery with once-only/error/custody preservation. Two independent source reviews pass. Build2164/4, style7426895/0 changes, final33250/50 replays and3338/8 affected tests pass.
+- [x] Finish final regression on unchanged sources:334native182/182,335physical28/28 with4348 stable inputs and exact source820 ETF,336purge41/41. Overlapping selections are not summed.
+- [ ] Finish finite source/transport admission and publish the correction.
+- [ ] Require constructor cleanup equality, full exact-head9478/package CI and current review before merge or compatibility acceptance.
 
 ### Historical investigation snapshots (531-548; superseded by checkpoint590)
 

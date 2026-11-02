@@ -886,6 +886,11 @@ DEPENDENCIES = [
     'tools/Native/Erlang.NifUpgradeObservations/original-inputs.json',
     'tools/Native/Erlang.NifVersion651Observations/build-windows.py',
     'tools/Runtime/Erlang.OwnedGuest506Observations/seal.py',
+    'docs/validation/native-gc825/purge-outcome717-source.json',
+    'src/Runtime/Erlang.Runtime.Core/Processes/Context/CodePurgeOutcome706.cs',
+    'src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.CodePurgeOutcome706.cs',
+    'tests/Erlang.Tests/Runtime/Modules/CodeLifecycle/CodePurgeOutcome706Checks.cs',
+    'tests/Erlang.Tests/Runtime/Modules/CodeLifecycle/CodePurgeOutcome706Names.cs',
 ]
 
 

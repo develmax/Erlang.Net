@@ -37,10 +37,14 @@ internal static class NifAdmission626Access
         return adapter;
     }
 
-    internal static NifAdmission626Awaiter Barrier(ProcessContext context, Action result)
+    internal static NifAdmission626Awaiter Barrier(
+        ProcessContext context,
+        Action result,
+        Action? registered = null
+    )
     {
         MethodInfo method = typeof(ProcessRuntime).GetMethod(NifAdmission626Names.AcquireBarrier, NifAdmission626Names.Members)!;
-        var adapter = new NifAdmission626Awaiter(method.ReturnType, result);
+        var adapter = new NifAdmission626Awaiter(method.ReturnType, result, registered);
         object?[] arguments = [context];
         adapter.Bind(Invoke(method, context.Runtime, arguments)!);
 

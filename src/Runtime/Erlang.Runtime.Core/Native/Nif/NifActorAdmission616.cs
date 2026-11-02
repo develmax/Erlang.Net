@@ -21,6 +21,7 @@ internal sealed class NifActorAdmission616<T> : ICriticalNotifyCompletion
     private int delivered;
     private readonly ContextCallback runInContext;
     private readonly WaitCallback fallback;
+    private readonly WaitCallback rejectedFallback;
 
     internal NifActorAdmission616(
         Task ready,
@@ -39,6 +40,7 @@ internal sealed class NifActorAdmission616<T> : ICriticalNotifyCompletion
         observe = Observe616;
         runInContext = _ => InvokeOnce616();
         fallback = _ => Run616();
+        rejectedFallback = _ => DeliverRejected616();
     }
 
     public NifActorAdmission616<T> GetAwaiter() => this;
@@ -77,7 +79,7 @@ internal sealed class NifActorAdmission616<T> : ICriticalNotifyCompletion
         }
         try
         {
-            ready.GetAwaiter().UnsafeOnCompleted(resume);
+            ready.ConfigureAwait(false).GetAwaiter().UnsafeOnCompleted(resume);
         }
         catch (Exception error)
         {
@@ -111,6 +113,9 @@ internal sealed class NifActorAdmission616<T> : ICriticalNotifyCompletion
         }
         try
         {
+            // Resume runs only after completion. Failed readiness must not
+            // enqueue actor work merely because its actor token is still live.
+            ready.GetAwaiter().GetResult();
             actor.Cancellation.ThrowIfCancellationRequested();
             Task queued = actor.ActorTaskScheduler!.ContinueNifAdmission616(request);
             _ = queued.ContinueWith(
@@ -145,10 +150,30 @@ internal sealed class NifActorAdmission616<T> : ICriticalNotifyCompletion
         }
         finally
         {
+            // Queue/ExecutionContext rejection can be observed on an actual
+            // actor turn. Deliver failed GetResult only from the HOST fallback.
+            if (Volatile.Read(ref delivered) == 0)
+                ThreadPool.UnsafeQueueUserWorkItem(rejectedFallback, null);
+        }
+    }
+
+    private void DeliverRejected616()
+    {
+        // A first delivery preserves the captured ExecutionContext where it
+        // works. If context entry already failed, started remains set: bypass
+        // that failed entry on this HOST thread rather than queue forever.
+        try
+        {
             if (Volatile.Read(ref started) == 0)
                 Run616();
             else
                 InvokeOnce616();
+        }
+        catch (Exception error)
+        {
+            // Match normal dispatch containment; delivered already prevents
+            // a throwing continuation from being invoked or queued again.
+            Reject616(error);
         }
     }
 
