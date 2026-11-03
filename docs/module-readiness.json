@@ -8928,11 +8928,15 @@
     {
       "Path": "src/Runtime/Erlang.Runtime.Core/Modules/ModuleRegistry.NativeCallerScope.cs",
       "Sha256": "FEB454DCF08BA793D2C366FE30A3C978E016EA10CCB560C3BE0F7E6CD1CA3653"
+    },
+    {
+      "Path": "src/Otp/Managed/Erlang.Otp.Stdlib/Text/StringBinarySearchBuffer.cs",
+      "Sha256": "C60779D74CD70E9D940873273D97714DBA646FCB5C1E05CD3EFAA3899F44AD28"
     }
   ],
   "VerifiedCompatibleMfas": 180,
-  "NeedsVerificationMfas": 526,
-  "KnownDifferenceMfas": 27,
+  "NeedsVerificationMfas": 514,
+  "KnownDifferenceMfas": 39,
   "MfaCompatibility": [
     {
       "Module": "erlang",
@@ -31042,7 +31046,7 @@
       "Function": "is_set",
       "Arity": 1,
       "Status": "Known differences",
-      "Scope": "Implemented source port; all 21 APIs have actual pinned OTP finite value/full-stack comparisons. This is not a whole-domain compatibility claim. Known native flatmap numeric/order discrepancy after a supported physical binary-key mutation; see current source audit.",
+      "Scope": "Implemented source port; all 21 APIs have actual pinned OTP finite value/full-stack comparisons. This is not a whole-domain compatibility claim. Known native flatmap numeric/order discrepancy after a supported physical binary-key mutation; see current source audit. Actual supplemental native-layout counterexamples expose the shared flatmap comparison difference.",
       "Evidence": [
         {
           "Kind": "SourceReview",
@@ -31097,11 +31101,18 @@
           "Path": "validation/integration-20261103/native-flat-order-pending/manifest.json",
           "Sha256": "BECB51FE7A9C4A8847A5EDA4D45FB0C8A14B2098D2F50B1EDA62B5C901788465",
           "Scope": "Pinned admitted505 real native map: positive order and false numeric/exact equality; public is_equal/is_element false. Captured is_set([M,F]) false agrees and is not itself claimed a mismatch."
+        },
+        {
+          "Kind": "OriginalOtpComparison",
+          "Path": "validation/integration-20261103/native-flat-order-all-apis/manifest.json",
+          "Sha256": "A8D49F6E37C9B89452599443B7F8DD8CCD5DDFE3F1B38B8BE289D2018DA2175A",
+          "Scope": "8 genuine native505 layouts x21 exports:168 raw whole outcomes per backend,60 baseline row differences affecting these15 MFAs. Exact row indices/spans, provider/native identities and old/fixed lab assembly hashes are preserved; the candidate fix is not applied to this integration."
         }
       ],
       "Limits": [
         "Whole-domain source dependency closure remains pending: complete term ordering/equality including HAMT map keys and all function terms, dependent lists private helper/error paths, or length trapping/resource lifetime as applicable. Finite samples do not establish these general contracts.",
-        "Known difference: physical non-atom flat-key order is sorted for numeric/order comparison; is_equal/is_element disagree with pinned native OTP, and is_set([F,M]) follows the source-derived wrong order. Separate fix and complete contract validation required."
+        "Known difference: physical non-atom flat-key order is sorted for numeric/order comparison; is_equal/is_element disagree with pinned native OTP, and is_set([F,M]) follows the source-derived wrong order. Separate fix and complete contract validation required.",
+        "Known native flatmap numeric/order discrepancy: actual matching-owner baseline counterexamples at zero-based rows 25,67,109,151. Requires the separate physical-key-order fix and full contract validation; no whole-module acceptance."
       ],
       "Key": "ordsets:is_set/1"
     },
@@ -31211,7 +31222,7 @@
       "Function": "is_equal",
       "Arity": 2,
       "Status": "Known differences",
-      "Scope": "Implemented source port; all 21 APIs have actual pinned OTP finite value/full-stack comparisons. This is not a whole-domain compatibility claim. Known native flatmap numeric/order discrepancy after a supported physical binary-key mutation; see current source audit.",
+      "Scope": "Implemented source port; all 21 APIs have actual pinned OTP finite value/full-stack comparisons. This is not a whole-domain compatibility claim. Known native flatmap numeric/order discrepancy after a supported physical binary-key mutation; see current source audit. Actual supplemental native-layout counterexamples expose the shared flatmap comparison difference.",
       "Evidence": [
         {
           "Kind": "SourceReview",
@@ -31266,11 +31277,18 @@
           "Path": "validation/integration-20261103/native-flat-order-pending/manifest.json",
           "Sha256": "BECB51FE7A9C4A8847A5EDA4D45FB0C8A14B2098D2F50B1EDA62B5C901788465",
           "Scope": "Pinned admitted505 real native map: positive order and false numeric/exact equality; public is_equal/is_element false. Captured is_set([M,F]) false agrees and is not itself claimed a mismatch."
+        },
+        {
+          "Kind": "OriginalOtpComparison",
+          "Path": "validation/integration-20261103/native-flat-order-all-apis/manifest.json",
+          "Sha256": "A8D49F6E37C9B89452599443B7F8DD8CCD5DDFE3F1B38B8BE289D2018DA2175A",
+          "Scope": "8 genuine native505 layouts x21 exports:168 raw whole outcomes per backend,60 baseline row differences affecting these15 MFAs. Exact row indices/spans, provider/native identities and old/fixed lab assembly hashes are preserved; the candidate fix is not applied to this integration."
         }
       ],
       "Limits": [
         "Whole-domain source dependency closure remains pending: complete term ordering/equality including HAMT map keys and all function terms, dependent lists private helper/error paths, or length trapping/resource lifetime as applicable. Finite samples do not establish these general contracts.",
-        "Known difference: physical non-atom flat-key order is sorted for numeric/order comparison; is_equal/is_element disagree with pinned native OTP, and is_set([F,M]) follows the source-derived wrong order. Separate fix and complete contract validation required."
+        "Known difference: physical non-atom flat-key order is sorted for numeric/order comparison; is_equal/is_element disagree with pinned native OTP, and is_set([F,M]) follows the source-derived wrong order. Separate fix and complete contract validation required.",
+        "Known native flatmap numeric/order discrepancy: actual matching-owner baseline counterexamples at zero-based rows 26,68,110,152. Requires the separate physical-key-order fix and full contract validation; no whole-module acceptance."
       ],
       "Key": "ordsets:is_equal/2"
     },
@@ -31279,7 +31297,7 @@
       "Function": "is_element",
       "Arity": 2,
       "Status": "Known differences",
-      "Scope": "Implemented source port; all 21 APIs have actual pinned OTP finite value/full-stack comparisons. This is not a whole-domain compatibility claim. Known native flatmap numeric/order discrepancy after a supported physical binary-key mutation; see current source audit.",
+      "Scope": "Implemented source port; all 21 APIs have actual pinned OTP finite value/full-stack comparisons. This is not a whole-domain compatibility claim. Known native flatmap numeric/order discrepancy after a supported physical binary-key mutation; see current source audit. Actual supplemental native-layout counterexamples expose the shared flatmap comparison difference.",
       "Evidence": [
         {
           "Kind": "SourceReview",
@@ -31334,11 +31352,18 @@
           "Path": "validation/integration-20261103/native-flat-order-pending/manifest.json",
           "Sha256": "BECB51FE7A9C4A8847A5EDA4D45FB0C8A14B2098D2F50B1EDA62B5C901788465",
           "Scope": "Pinned admitted505 real native map: positive order and false numeric/exact equality; public is_equal/is_element false. Captured is_set([M,F]) false agrees and is not itself claimed a mismatch."
+        },
+        {
+          "Kind": "OriginalOtpComparison",
+          "Path": "validation/integration-20261103/native-flat-order-all-apis/manifest.json",
+          "Sha256": "A8D49F6E37C9B89452599443B7F8DD8CCD5DDFE3F1B38B8BE289D2018DA2175A",
+          "Scope": "8 genuine native505 layouts x21 exports:168 raw whole outcomes per backend,60 baseline row differences affecting these15 MFAs. Exact row indices/spans, provider/native identities and old/fixed lab assembly hashes are preserved; the candidate fix is not applied to this integration."
         }
       ],
       "Limits": [
         "Whole-domain source dependency closure remains pending: complete term ordering/equality including HAMT map keys and all function terms, dependent lists private helper/error paths, or length trapping/resource lifetime as applicable. Finite samples do not establish these general contracts.",
-        "Known difference: physical non-atom flat-key order is sorted for numeric/order comparison; is_equal/is_element disagree with pinned native OTP, and is_set([F,M]) follows the source-derived wrong order. Separate fix and complete contract validation required."
+        "Known difference: physical non-atom flat-key order is sorted for numeric/order comparison; is_equal/is_element disagree with pinned native OTP, and is_set([F,M]) follows the source-derived wrong order. Separate fix and complete contract validation required.",
+        "Known native flatmap numeric/order discrepancy: actual matching-owner baseline counterexamples at zero-based rows 27,69,111,153. Requires the separate physical-key-order fix and full contract validation; no whole-module acceptance."
       ],
       "Key": "ordsets:is_element/2"
     },
@@ -31346,8 +31371,8 @@
       "Module": "ordsets",
       "Function": "add_element",
       "Arity": 2,
-      "Status": "Needs verification",
-      "Scope": "Implemented source port; all 21 APIs have actual pinned OTP finite value/full-stack comparisons. This is not a whole-domain compatibility claim.",
+      "Status": "Known differences",
+      "Scope": "Implemented source port; all 21 APIs have actual pinned OTP finite value/full-stack comparisons. This is not a whole-domain compatibility claim. Actual supplemental native-layout counterexamples expose the shared flatmap comparison difference.",
       "Evidence": [
         {
           "Kind": "SourceReview",
@@ -31390,10 +31415,17 @@
           "Path": "validation/part-557/ordsets/final-affected.json",
           "Sha256": "8D83DDFA4E836E31219E906B89B854532E626D6CCB91CC620EC86D9CEC32CD72",
           "Scope": "870/870 collection/comparison/dependency groups, explicitly partial; not canonical readiness evidence."
+        },
+        {
+          "Kind": "OriginalOtpComparison",
+          "Path": "validation/integration-20261103/native-flat-order-all-apis/manifest.json",
+          "Sha256": "A8D49F6E37C9B89452599443B7F8DD8CCD5DDFE3F1B38B8BE289D2018DA2175A",
+          "Scope": "8 genuine native505 layouts x21 exports:168 raw whole outcomes per backend,60 baseline row differences affecting these15 MFAs. Exact row indices/spans, provider/native identities and old/fixed lab assembly hashes are preserved; the candidate fix is not applied to this integration."
         }
       ],
       "Limits": [
-        "Whole-domain source dependency closure remains pending: complete term ordering/equality including HAMT map keys and all function terms, dependent lists private helper/error paths, or length trapping/resource lifetime as applicable. Finite samples do not establish these general contracts."
+        "Whole-domain source dependency closure remains pending: complete term ordering/equality including HAMT map keys and all function terms, dependent lists private helper/error paths, or length trapping/resource lifetime as applicable. Finite samples do not establish these general contracts.",
+        "Known native flatmap numeric/order discrepancy: actual matching-owner baseline counterexamples at zero-based rows 28,70,112,154. Requires the separate physical-key-order fix and full contract validation; no whole-module acceptance."
       ],
       "Key": "ordsets:add_element/2"
     },
@@ -31401,8 +31433,8 @@
       "Module": "ordsets",
       "Function": "del_element",
       "Arity": 2,
-      "Status": "Needs verification",
-      "Scope": "Implemented source port; all 21 APIs have actual pinned OTP finite value/full-stack comparisons. This is not a whole-domain compatibility claim.",
+      "Status": "Known differences",
+      "Scope": "Implemented source port; all 21 APIs have actual pinned OTP finite value/full-stack comparisons. This is not a whole-domain compatibility claim. Actual supplemental native-layout counterexamples expose the shared flatmap comparison difference.",
       "Evidence": [
         {
           "Kind": "SourceReview",
@@ -31445,10 +31477,17 @@
           "Path": "validation/part-557/ordsets/final-affected.json",
           "Sha256": "8D83DDFA4E836E31219E906B89B854532E626D6CCB91CC620EC86D9CEC32CD72",
           "Scope": "870/870 collection/comparison/dependency groups, explicitly partial; not canonical readiness evidence."
+        },
+        {
+          "Kind": "OriginalOtpComparison",
+          "Path": "validation/integration-20261103/native-flat-order-all-apis/manifest.json",
+          "Sha256": "A8D49F6E37C9B89452599443B7F8DD8CCD5DDFE3F1B38B8BE289D2018DA2175A",
+          "Scope": "8 genuine native505 layouts x21 exports:168 raw whole outcomes per backend,60 baseline row differences affecting these15 MFAs. Exact row indices/spans, provider/native identities and old/fixed lab assembly hashes are preserved; the candidate fix is not applied to this integration."
         }
       ],
       "Limits": [
-        "Whole-domain source dependency closure remains pending: complete term ordering/equality including HAMT map keys and all function terms, dependent lists private helper/error paths, or length trapping/resource lifetime as applicable. Finite samples do not establish these general contracts."
+        "Whole-domain source dependency closure remains pending: complete term ordering/equality including HAMT map keys and all function terms, dependent lists private helper/error paths, or length trapping/resource lifetime as applicable. Finite samples do not establish these general contracts.",
+        "Known native flatmap numeric/order discrepancy: actual matching-owner baseline counterexamples at zero-based rows 29,71,113,155. Requires the separate physical-key-order fix and full contract validation; no whole-module acceptance."
       ],
       "Key": "ordsets:del_element/2"
     },
@@ -31456,8 +31495,8 @@
       "Module": "ordsets",
       "Function": "union",
       "Arity": 2,
-      "Status": "Needs verification",
-      "Scope": "Implemented source port; all 21 APIs have actual pinned OTP finite value/full-stack comparisons. This is not a whole-domain compatibility claim.",
+      "Status": "Known differences",
+      "Scope": "Implemented source port; all 21 APIs have actual pinned OTP finite value/full-stack comparisons. This is not a whole-domain compatibility claim. Actual supplemental native-layout counterexamples expose the shared flatmap comparison difference.",
       "Evidence": [
         {
           "Kind": "SourceReview",
@@ -31500,10 +31539,17 @@
           "Path": "validation/part-557/ordsets/final-affected.json",
           "Sha256": "8D83DDFA4E836E31219E906B89B854532E626D6CCB91CC620EC86D9CEC32CD72",
           "Scope": "870/870 collection/comparison/dependency groups, explicitly partial; not canonical readiness evidence."
+        },
+        {
+          "Kind": "OriginalOtpComparison",
+          "Path": "validation/integration-20261103/native-flat-order-all-apis/manifest.json",
+          "Sha256": "A8D49F6E37C9B89452599443B7F8DD8CCD5DDFE3F1B38B8BE289D2018DA2175A",
+          "Scope": "8 genuine native505 layouts x21 exports:168 raw whole outcomes per backend,60 baseline row differences affecting these15 MFAs. Exact row indices/spans, provider/native identities and old/fixed lab assembly hashes are preserved; the candidate fix is not applied to this integration."
         }
       ],
       "Limits": [
-        "Whole-domain source dependency closure remains pending: complete term ordering/equality including HAMT map keys and all function terms, dependent lists private helper/error paths, or length trapping/resource lifetime as applicable. Finite samples do not establish these general contracts."
+        "Whole-domain source dependency closure remains pending: complete term ordering/equality including HAMT map keys and all function terms, dependent lists private helper/error paths, or length trapping/resource lifetime as applicable. Finite samples do not establish these general contracts.",
+        "Known native flatmap numeric/order discrepancy: actual matching-owner baseline counterexamples at zero-based rows 30,72,114,156. Requires the separate physical-key-order fix and full contract validation; no whole-module acceptance."
       ],
       "Key": "ordsets:union/2"
     },
@@ -31511,8 +31557,8 @@
       "Module": "ordsets",
       "Function": "intersection",
       "Arity": 2,
-      "Status": "Needs verification",
-      "Scope": "Implemented source port; all 21 APIs have actual pinned OTP finite value/full-stack comparisons. This is not a whole-domain compatibility claim.",
+      "Status": "Known differences",
+      "Scope": "Implemented source port; all 21 APIs have actual pinned OTP finite value/full-stack comparisons. This is not a whole-domain compatibility claim. Actual supplemental native-layout counterexamples expose the shared flatmap comparison difference.",
       "Evidence": [
         {
           "Kind": "SourceReview",
@@ -31555,10 +31601,17 @@
           "Path": "validation/part-557/ordsets/final-affected.json",
           "Sha256": "8D83DDFA4E836E31219E906B89B854532E626D6CCB91CC620EC86D9CEC32CD72",
           "Scope": "870/870 collection/comparison/dependency groups, explicitly partial; not canonical readiness evidence."
+        },
+        {
+          "Kind": "OriginalOtpComparison",
+          "Path": "validation/integration-20261103/native-flat-order-all-apis/manifest.json",
+          "Sha256": "A8D49F6E37C9B89452599443B7F8DD8CCD5DDFE3F1B38B8BE289D2018DA2175A",
+          "Scope": "8 genuine native505 layouts x21 exports:168 raw whole outcomes per backend,60 baseline row differences affecting these15 MFAs. Exact row indices/spans, provider/native identities and old/fixed lab assembly hashes are preserved; the candidate fix is not applied to this integration."
         }
       ],
       "Limits": [
-        "Whole-domain source dependency closure remains pending: complete term ordering/equality including HAMT map keys and all function terms, dependent lists private helper/error paths, or length trapping/resource lifetime as applicable. Finite samples do not establish these general contracts."
+        "Whole-domain source dependency closure remains pending: complete term ordering/equality including HAMT map keys and all function terms, dependent lists private helper/error paths, or length trapping/resource lifetime as applicable. Finite samples do not establish these general contracts.",
+        "Known native flatmap numeric/order discrepancy: actual matching-owner baseline counterexamples at zero-based rows 31,73,115,157. Requires the separate physical-key-order fix and full contract validation; no whole-module acceptance."
       ],
       "Key": "ordsets:intersection/2"
     },
@@ -31566,8 +31619,8 @@
       "Module": "ordsets",
       "Function": "is_disjoint",
       "Arity": 2,
-      "Status": "Needs verification",
-      "Scope": "Implemented source port; all 21 APIs have actual pinned OTP finite value/full-stack comparisons. This is not a whole-domain compatibility claim.",
+      "Status": "Known differences",
+      "Scope": "Implemented source port; all 21 APIs have actual pinned OTP finite value/full-stack comparisons. This is not a whole-domain compatibility claim. Actual supplemental native-layout counterexamples expose the shared flatmap comparison difference.",
       "Evidence": [
         {
           "Kind": "SourceReview",
@@ -31610,10 +31663,17 @@
           "Path": "validation/part-557/ordsets/final-affected.json",
           "Sha256": "8D83DDFA4E836E31219E906B89B854532E626D6CCB91CC620EC86D9CEC32CD72",
           "Scope": "870/870 collection/comparison/dependency groups, explicitly partial; not canonical readiness evidence."
+        },
+        {
+          "Kind": "OriginalOtpComparison",
+          "Path": "validation/integration-20261103/native-flat-order-all-apis/manifest.json",
+          "Sha256": "A8D49F6E37C9B89452599443B7F8DD8CCD5DDFE3F1B38B8BE289D2018DA2175A",
+          "Scope": "8 genuine native505 layouts x21 exports:168 raw whole outcomes per backend,60 baseline row differences affecting these15 MFAs. Exact row indices/spans, provider/native identities and old/fixed lab assembly hashes are preserved; the candidate fix is not applied to this integration."
         }
       ],
       "Limits": [
-        "Whole-domain source dependency closure remains pending: complete term ordering/equality including HAMT map keys and all function terms, dependent lists private helper/error paths, or length trapping/resource lifetime as applicable. Finite samples do not establish these general contracts."
+        "Whole-domain source dependency closure remains pending: complete term ordering/equality including HAMT map keys and all function terms, dependent lists private helper/error paths, or length trapping/resource lifetime as applicable. Finite samples do not establish these general contracts.",
+        "Known native flatmap numeric/order discrepancy: actual matching-owner baseline counterexamples at zero-based rows 33,75,117,159. Requires the separate physical-key-order fix and full contract validation; no whole-module acceptance."
       ],
       "Key": "ordsets:is_disjoint/2"
     },
@@ -31621,8 +31681,8 @@
       "Module": "ordsets",
       "Function": "subtract",
       "Arity": 2,
-      "Status": "Needs verification",
-      "Scope": "Implemented source port; all 21 APIs have actual pinned OTP finite value/full-stack comparisons. This is not a whole-domain compatibility claim.",
+      "Status": "Known differences",
+      "Scope": "Implemented source port; all 21 APIs have actual pinned OTP finite value/full-stack comparisons. This is not a whole-domain compatibility claim. Actual supplemental native-layout counterexamples expose the shared flatmap comparison difference.",
       "Evidence": [
         {
           "Kind": "SourceReview",
@@ -31665,10 +31725,17 @@
           "Path": "validation/part-557/ordsets/final-affected.json",
           "Sha256": "8D83DDFA4E836E31219E906B89B854532E626D6CCB91CC620EC86D9CEC32CD72",
           "Scope": "870/870 collection/comparison/dependency groups, explicitly partial; not canonical readiness evidence."
+        },
+        {
+          "Kind": "OriginalOtpComparison",
+          "Path": "validation/integration-20261103/native-flat-order-all-apis/manifest.json",
+          "Sha256": "A8D49F6E37C9B89452599443B7F8DD8CCD5DDFE3F1B38B8BE289D2018DA2175A",
+          "Scope": "8 genuine native505 layouts x21 exports:168 raw whole outcomes per backend,60 baseline row differences affecting these15 MFAs. Exact row indices/spans, provider/native identities and old/fixed lab assembly hashes are preserved; the candidate fix is not applied to this integration."
         }
       ],
       "Limits": [
-        "Whole-domain source dependency closure remains pending: complete term ordering/equality including HAMT map keys and all function terms, dependent lists private helper/error paths, or length trapping/resource lifetime as applicable. Finite samples do not establish these general contracts."
+        "Whole-domain source dependency closure remains pending: complete term ordering/equality including HAMT map keys and all function terms, dependent lists private helper/error paths, or length trapping/resource lifetime as applicable. Finite samples do not establish these general contracts.",
+        "Known native flatmap numeric/order discrepancy: actual matching-owner baseline counterexamples at zero-based rows 34,76,118,160. Requires the separate physical-key-order fix and full contract validation; no whole-module acceptance."
       ],
       "Key": "ordsets:subtract/2"
     },
@@ -31676,8 +31743,8 @@
       "Module": "ordsets",
       "Function": "is_subset",
       "Arity": 2,
-      "Status": "Needs verification",
-      "Scope": "Implemented source port; all 21 APIs have actual pinned OTP finite value/full-stack comparisons. This is not a whole-domain compatibility claim.",
+      "Status": "Known differences",
+      "Scope": "Implemented source port; all 21 APIs have actual pinned OTP finite value/full-stack comparisons. This is not a whole-domain compatibility claim. Actual supplemental native-layout counterexamples expose the shared flatmap comparison difference.",
       "Evidence": [
         {
           "Kind": "SourceReview",
@@ -31720,10 +31787,17 @@
           "Path": "validation/part-557/ordsets/final-affected.json",
           "Sha256": "8D83DDFA4E836E31219E906B89B854532E626D6CCB91CC620EC86D9CEC32CD72",
           "Scope": "870/870 collection/comparison/dependency groups, explicitly partial; not canonical readiness evidence."
+        },
+        {
+          "Kind": "OriginalOtpComparison",
+          "Path": "validation/integration-20261103/native-flat-order-all-apis/manifest.json",
+          "Sha256": "A8D49F6E37C9B89452599443B7F8DD8CCD5DDFE3F1B38B8BE289D2018DA2175A",
+          "Scope": "8 genuine native505 layouts x21 exports:168 raw whole outcomes per backend,60 baseline row differences affecting these15 MFAs. Exact row indices/spans, provider/native identities and old/fixed lab assembly hashes are preserved; the candidate fix is not applied to this integration."
         }
       ],
       "Limits": [
-        "Whole-domain source dependency closure remains pending: complete term ordering/equality including HAMT map keys and all function terms, dependent lists private helper/error paths, or length trapping/resource lifetime as applicable. Finite samples do not establish these general contracts."
+        "Whole-domain source dependency closure remains pending: complete term ordering/equality including HAMT map keys and all function terms, dependent lists private helper/error paths, or length trapping/resource lifetime as applicable. Finite samples do not establish these general contracts.",
+        "Known native flatmap numeric/order discrepancy: actual matching-owner baseline counterexamples at zero-based rows 35,77,119,161. Requires the separate physical-key-order fix and full contract validation; no whole-module acceptance."
       ],
       "Key": "ordsets:is_subset/2"
     },
@@ -31731,8 +31805,8 @@
       "Module": "ordsets",
       "Function": "intersection",
       "Arity": 1,
-      "Status": "Needs verification",
-      "Scope": "Implemented source port; all 21 APIs have actual pinned OTP finite value/full-stack comparisons. This is not a whole-domain compatibility claim.",
+      "Status": "Known differences",
+      "Scope": "Implemented source port; all 21 APIs have actual pinned OTP finite value/full-stack comparisons. This is not a whole-domain compatibility claim. Actual supplemental native-layout counterexamples expose the shared flatmap comparison difference.",
       "Evidence": [
         {
           "Kind": "SourceReview",
@@ -31775,10 +31849,17 @@
           "Path": "validation/part-557/ordsets/final-affected.json",
           "Sha256": "8D83DDFA4E836E31219E906B89B854532E626D6CCB91CC620EC86D9CEC32CD72",
           "Scope": "870/870 collection/comparison/dependency groups, explicitly partial; not canonical readiness evidence."
+        },
+        {
+          "Kind": "OriginalOtpComparison",
+          "Path": "validation/integration-20261103/native-flat-order-all-apis/manifest.json",
+          "Sha256": "A8D49F6E37C9B89452599443B7F8DD8CCD5DDFE3F1B38B8BE289D2018DA2175A",
+          "Scope": "8 genuine native505 layouts x21 exports:168 raw whole outcomes per backend,60 baseline row differences affecting these15 MFAs. Exact row indices/spans, provider/native identities and old/fixed lab assembly hashes are preserved; the candidate fix is not applied to this integration."
         }
       ],
       "Limits": [
-        "Whole-domain source dependency closure remains pending: complete term ordering/equality including HAMT map keys and all function terms, dependent lists private helper/error paths, or length trapping/resource lifetime as applicable. Finite samples do not establish these general contracts."
+        "Whole-domain source dependency closure remains pending: complete term ordering/equality including HAMT map keys and all function terms, dependent lists private helper/error paths, or length trapping/resource lifetime as applicable. Finite samples do not establish these general contracts.",
+        "Known native flatmap numeric/order discrepancy: actual matching-owner baseline counterexamples at zero-based rows 32,74,116,158. Requires the separate physical-key-order fix and full contract validation; no whole-module acceptance."
       ],
       "Key": "ordsets:intersection/1"
     },
@@ -31786,8 +31867,8 @@
       "Module": "ordsets",
       "Function": "from_list",
       "Arity": 1,
-      "Status": "Needs verification",
-      "Scope": "Implemented source port; all 21 APIs have actual pinned OTP finite value/full-stack comparisons. This is not a whole-domain compatibility claim.",
+      "Status": "Known differences",
+      "Scope": "Implemented source port; all 21 APIs have actual pinned OTP finite value/full-stack comparisons. This is not a whole-domain compatibility claim. Actual supplemental native-layout counterexamples expose the shared flatmap comparison difference.",
       "Evidence": [
         {
           "Kind": "SourceReview",
@@ -31830,10 +31911,17 @@
           "Path": "validation/part-557/ordsets/final-affected.json",
           "Sha256": "8D83DDFA4E836E31219E906B89B854532E626D6CCB91CC620EC86D9CEC32CD72",
           "Scope": "870/870 collection/comparison/dependency groups, explicitly partial; not canonical readiness evidence."
+        },
+        {
+          "Kind": "OriginalOtpComparison",
+          "Path": "validation/integration-20261103/native-flat-order-all-apis/manifest.json",
+          "Sha256": "A8D49F6E37C9B89452599443B7F8DD8CCD5DDFE3F1B38B8BE289D2018DA2175A",
+          "Scope": "8 genuine native505 layouts x21 exports:168 raw whole outcomes per backend,60 baseline row differences affecting these15 MFAs. Exact row indices/spans, provider/native identities and old/fixed lab assembly hashes are preserved; the candidate fix is not applied to this integration."
         }
       ],
       "Limits": [
-        "Whole-domain source dependency closure remains pending: complete term ordering/equality including HAMT map keys and all function terms, dependent lists private helper/error paths, or length trapping/resource lifetime as applicable. Finite samples do not establish these general contracts."
+        "Whole-domain source dependency closure remains pending: complete term ordering/equality including HAMT map keys and all function terms, dependent lists private helper/error paths, or length trapping/resource lifetime as applicable. Finite samples do not establish these general contracts.",
+        "Known native flatmap numeric/order discrepancy: actual matching-owner baseline counterexamples at zero-based rows 36,78,120,162. Requires the separate physical-key-order fix and full contract validation; no whole-module acceptance."
       ],
       "Key": "ordsets:from_list/1"
     },
@@ -31841,8 +31929,8 @@
       "Module": "ordsets",
       "Function": "union",
       "Arity": 1,
-      "Status": "Needs verification",
-      "Scope": "Implemented source port; all 21 APIs have actual pinned OTP finite value/full-stack comparisons. This is not a whole-domain compatibility claim.",
+      "Status": "Known differences",
+      "Scope": "Implemented source port; all 21 APIs have actual pinned OTP finite value/full-stack comparisons. This is not a whole-domain compatibility claim. Actual supplemental native-layout counterexamples expose the shared flatmap comparison difference.",
       "Evidence": [
         {
           "Kind": "SourceReview",
@@ -31885,10 +31973,17 @@
           "Path": "validation/part-557/ordsets/final-affected.json",
           "Sha256": "8D83DDFA4E836E31219E906B89B854532E626D6CCB91CC620EC86D9CEC32CD72",
           "Scope": "870/870 collection/comparison/dependency groups, explicitly partial; not canonical readiness evidence."
+        },
+        {
+          "Kind": "OriginalOtpComparison",
+          "Path": "validation/integration-20261103/native-flat-order-all-apis/manifest.json",
+          "Sha256": "A8D49F6E37C9B89452599443B7F8DD8CCD5DDFE3F1B38B8BE289D2018DA2175A",
+          "Scope": "8 genuine native505 layouts x21 exports:168 raw whole outcomes per backend,60 baseline row differences affecting these15 MFAs. Exact row indices/spans, provider/native identities and old/fixed lab assembly hashes are preserved; the candidate fix is not applied to this integration."
         }
       ],
       "Limits": [
-        "Whole-domain source dependency closure remains pending: complete term ordering/equality including HAMT map keys and all function terms, dependent lists private helper/error paths, or length trapping/resource lifetime as applicable. Finite samples do not establish these general contracts."
+        "Whole-domain source dependency closure remains pending: complete term ordering/equality including HAMT map keys and all function terms, dependent lists private helper/error paths, or length trapping/resource lifetime as applicable. Finite samples do not establish these general contracts.",
+        "Known native flatmap numeric/order discrepancy: actual matching-owner baseline counterexamples at zero-based rows 37,79,121,163. Requires the separate physical-key-order fix and full contract validation; no whole-module acceptance."
       ],
       "Key": "ordsets:union/1"
     },
@@ -32110,8 +32205,8 @@
       "Module": "ordsets",
       "Function": "map",
       "Arity": 2,
-      "Status": "Needs verification",
-      "Scope": "Implemented source port; all 21 APIs have actual pinned OTP finite value/full-stack comparisons. This is not a whole-domain compatibility claim.",
+      "Status": "Known differences",
+      "Scope": "Implemented source port; all 21 APIs have actual pinned OTP finite value/full-stack comparisons. This is not a whole-domain compatibility claim. Actual supplemental native-layout counterexamples expose the shared flatmap comparison difference.",
       "Evidence": [
         {
           "Kind": "SourceReview",
@@ -32154,10 +32249,17 @@
           "Path": "validation/part-557/ordsets/final-affected.json",
           "Sha256": "8D83DDFA4E836E31219E906B89B854532E626D6CCB91CC620EC86D9CEC32CD72",
           "Scope": "870/870 collection/comparison/dependency groups, explicitly partial; not canonical readiness evidence."
+        },
+        {
+          "Kind": "OriginalOtpComparison",
+          "Path": "validation/integration-20261103/native-flat-order-all-apis/manifest.json",
+          "Sha256": "A8D49F6E37C9B89452599443B7F8DD8CCD5DDFE3F1B38B8BE289D2018DA2175A",
+          "Scope": "8 genuine native505 layouts x21 exports:168 raw whole outcomes per backend,60 baseline row differences affecting these15 MFAs. Exact row indices/spans, provider/native identities and old/fixed lab assembly hashes are preserved; the candidate fix is not applied to this integration."
         }
       ],
       "Limits": [
-        "Whole-domain source dependency closure remains pending: complete term ordering/equality including HAMT map keys and all function terms, dependent lists private helper/error paths, or length trapping/resource lifetime as applicable. Finite samples do not establish these general contracts."
+        "Whole-domain source dependency closure remains pending: complete term ordering/equality including HAMT map keys and all function terms, dependent lists private helper/error paths, or length trapping/resource lifetime as applicable. Finite samples do not establish these general contracts.",
+        "Known native flatmap numeric/order discrepancy: actual matching-owner baseline counterexamples at zero-based rows 38,80,122,164. Requires the separate physical-key-order fix and full contract validation; no whole-module acceptance."
       ],
       "Key": "ordsets:map/2"
     },
@@ -32165,8 +32267,8 @@
       "Module": "ordsets",
       "Function": "filtermap",
       "Arity": 2,
-      "Status": "Needs verification",
-      "Scope": "Implemented source port; all 21 APIs have actual pinned OTP finite value/full-stack comparisons. This is not a whole-domain compatibility claim.",
+      "Status": "Known differences",
+      "Scope": "Implemented source port; all 21 APIs have actual pinned OTP finite value/full-stack comparisons. This is not a whole-domain compatibility claim. Actual supplemental native-layout counterexamples expose the shared flatmap comparison difference.",
       "Evidence": [
         {
           "Kind": "SourceReview",
@@ -32209,10 +32311,17 @@
           "Path": "validation/part-557/ordsets/final-affected.json",
           "Sha256": "8D83DDFA4E836E31219E906B89B854532E626D6CCB91CC620EC86D9CEC32CD72",
           "Scope": "870/870 collection/comparison/dependency groups, explicitly partial; not canonical readiness evidence."
+        },
+        {
+          "Kind": "OriginalOtpComparison",
+          "Path": "validation/integration-20261103/native-flat-order-all-apis/manifest.json",
+          "Sha256": "A8D49F6E37C9B89452599443B7F8DD8CCD5DDFE3F1B38B8BE289D2018DA2175A",
+          "Scope": "8 genuine native505 layouts x21 exports:168 raw whole outcomes per backend,60 baseline row differences affecting these15 MFAs. Exact row indices/spans, provider/native identities and old/fixed lab assembly hashes are preserved; the candidate fix is not applied to this integration."
         }
       ],
       "Limits": [
-        "Whole-domain source dependency closure remains pending: complete term ordering/equality including HAMT map keys and all function terms, dependent lists private helper/error paths, or length trapping/resource lifetime as applicable. Finite samples do not establish these general contracts."
+        "Whole-domain source dependency closure remains pending: complete term ordering/equality including HAMT map keys and all function terms, dependent lists private helper/error paths, or length trapping/resource lifetime as applicable. Finite samples do not establish these general contracts.",
+        "Known native flatmap numeric/order discrepancy: actual matching-owner baseline counterexamples at zero-based rows 39,81,123,165. Requires the separate physical-key-order fix and full contract validation; no whole-module acceptance."
       ],
       "Key": "ordsets:filtermap/2"
     },
@@ -34349,7 +34458,7 @@
     }
   ],
   "ComparisonTestReport": "validation/part-533/previous532-tests.json",
-  "LocalPassedTests": 9680,
+  "LocalPassedTests": 9682,
   "RegisteredMfas": 733,
   "PreviousRegisteredMfas": 708,
   "RegisteredMfaDelta": 25,
@@ -34583,7 +34692,7 @@
         "Physical BEAM heap/scheduler/resources,complete lint/spec/warnings/source stacks/code staging,connected distribution and full native/upstream/performance parity;native numeric record hashes independently matched in230, while general resource/lifecycle scope remains partial.",
         "Part378: same-function receive\u002Btry and mixed Term/raw joins remain conservative refusals; raw manual/Nil, native-entry-specific, full depth/deeper recursion/cross-image lifecycle and stale-fun dispatch profiles need separate proof."
       ],
-      "RelatedPassedTests": 2416
+      "RelatedPassedTests": 2418
     },
     {
       "Id": "Compiler",
@@ -47708,8 +47817,8 @@
       "Status": "Partially compatible",
       "RegisteredMfas": 21,
       "VerifiedCompatibleMfas": 6,
-      "NeedsVerificationMfas": 12,
-      "KnownDifferenceMfas": 3,
+      "NeedsVerificationMfas": 0,
+      "KnownDifferenceMfas": 15,
       "PreviousRegisteredMfas": 21,
       "Delta": 0,
       "ReferenceDeclarations": 21,

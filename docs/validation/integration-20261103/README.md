@@ -40,3 +40,9 @@ No new runtime dependency, third-party license change, NuGet publication or comp
 [Post-ACK timeout protocol](proc-lib-timeout-protocol/README.md) preserves the failed def183876 full CI, exact old-fixture pinned OTP RED, corrected protocol reference repetitions, focused .NET controls and an explicit source-attribution correction. Runtime semantics and deadlines are unchanged. [Math matrix](math-ci-41674636411/README.md) records the successful def183876 three-platform run; it does not override the failed full regression gate.
 
 [Separator-search review](string-separator-review/README.md) closes another repeated-copy path in trailing trim/take and lexemes using the existing private reader. All5226+13 actual observations remain byte-identical; separate per-operation allocation guards are RED on the old library and GREEN on the fix. Final9682 regression and fresh CI/review remain required.
+
+[Complete local9681/9682 and isolated lifecycle control](local-regression-9682/README.md) preserve one unchanged15s outer timeout, followed by the same exact-source case passing alone in10497ms. The full remains failed and the subset remains partial. [Exact ad791 Math verification](math-ci-41695595170/README.md) independently confirms the three-platform matrix; it does not substitute for a passed complete regression.
+
+## Canonical final-source regression
+
+[Complete exact-head CI report](final-regression-9682/README.md) records9682/9682 passed on ad791, with the original JSON and official ZIP digest independently checked. Readiness regenerated from that whole report against the unchanged9263-test/708-MFA comparison snapshot:733 registered APIs, delta+25, no complete-module promotion. The failed local full and isolated control remain preserved. Final documentation-head CI/review and verified merge are recorded in PR102; source-changing future proposals remain separate.

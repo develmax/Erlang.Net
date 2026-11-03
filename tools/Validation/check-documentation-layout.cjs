@@ -128,6 +128,28 @@ for (const member of separatorManifest.Files) {
 for (const member of separatorManifest.SourceMembers)
     check(sha(fs.readFileSync(member.Path)) === member.AfterSha256.toLowerCase(),
         'Separator-search source changed: ' + member.Path);
+const localRegressionRoot = 'docs/validation/integration-20261103/local-regression-9682/';
+for (const member of JSON.parse(read(localRegressionRoot + 'manifest.json')).Files) {
+    const packed = fs.readFileSync(localRegressionRoot + member.Archive);
+    const raw = require('node:zlib').gunzipSync(packed);
+    check(sha(packed) === member.ArchiveSha256.toLowerCase()
+        && raw.length === member.Bytes && sha(raw) === member.Sha256.toLowerCase(),
+        'Local regression evidence changed: ' + member.Archive);
+}
+const finalRegressionRoot = 'docs/validation/integration-20261103/final-regression-9682/';
+const finalRegressionManifest = JSON.parse(read(finalRegressionRoot + 'manifest.json'));
+for (const member of finalRegressionManifest.Files) {
+    const packed = fs.readFileSync(finalRegressionRoot + member.Archive);
+    const raw = require('node:zlib').gunzipSync(packed);
+    check(sha(packed) === member.ArchiveSha256.toLowerCase()
+        && raw.length === member.Bytes && sha(raw) === member.Sha256.toLowerCase(),
+        'Final CI regression evidence changed: ' + member.Archive);
+}
+const finalRegression = JSON.parse(require('node:zlib').gunzipSync(fs.readFileSync(finalRegressionRoot + 'tests.json.gz')));
+check(finalRegression.Passed === 9682 && finalRegression.Failed === 0
+    && finalRegression.Tests.length === 9682 && !finalRegression.Partial
+    && finalRegression.Tests.every(test => test.Status === 'Passed'),
+    'Final CI regression is not a complete passing report');
 const patternRoot = 'docs/validation/integration-20261103/string-pattern-review/';
 const patternManifest = JSON.parse(read(patternRoot + 'manifest.json'));
 for (const member of [...patternManifest.Files, ...JSON.parse(read(patternRoot + 'environment.json')).Files, ...JSON.parse(read(patternRoot + 'catch-environment.json')).Files]) {
@@ -148,6 +170,9 @@ const entryFiles = ['AGENTS.md', 'docs/PROGRESS.md', 'docs/NEXT_STEPS.md', 'docs
     'docs/validation/integration-20261103/string-pattern-review/README.md',
     'docs/validation/integration-20261103/proc-lib-timeout-protocol/README.md',
     'docs/validation/integration-20261103/string-separator-review/README.md',
+    'docs/validation/integration-20261103/local-regression-9682/README.md',
+    'docs/validation/integration-20261103/final-regression-9682/README.md',
+    'docs/validation/integration-20261103/math-ci-41695595170/README.md',
     'docs/validation/integration-20261103/math-ci-41674636411/README.md',
     'docs/validation/integration-20261103/native-flat-order-all-apis/README.md',
     'docs/validation/integration-20261103/atomic-native-caller/README.md',
