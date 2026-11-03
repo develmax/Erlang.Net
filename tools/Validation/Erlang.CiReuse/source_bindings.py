@@ -5,6 +5,31 @@ from pathlib import Path
 import re
 
 
+PRODUCER_FIELDS = {
+    "N2_ORIGINAL_PLAN": {"NativeBuildPlanSha256", "WrongEntryNativeBuildPlans"},
+    "N2_MANAGED_PLAN": {"NativeBuildPlanSha256", "OriginalPlanSha256", "WrongEntryNativeBuildPlans"},
+    "ENV709_ORIGINAL_PLAN": {"NativeBuildPlanSha256"},
+    "ENV709_MANAGED_PLAN": {"NativeBuildPlanSha256", "OriginalPlanSha256"},
+}
+
+
+def require_producer_fields(role, dependency):
+    missing = PRODUCER_FIELDS.get(role, set()) - dependency.keys()
+    if missing:
+        raise ValueError("Required producer fields missing: " + role + ": " + ", ".join(sorted(missing)))
+
+
+def powershell_pin(repository, caller_text=None):
+    root = Path(repository)
+    if caller_text is None:
+        caller_text = (root / "tools/validate-async-microstates.ps1").read_text()
+    values = re.findall(r"\[string\]\$PlanSha256\s*=\s*['\"]([0-9A-Fa-f]{64})['\"]", caller_text)
+    expected = hashlib.sha256((root / "tools/Validation/Erlang.AsyncMicrostateValidation/source-plan.json").read_bytes()).hexdigest().upper()
+    if [value.upper() for value in values] != [expected]:
+        raise ValueError("PowerShell async source-plan pin differs")
+    return expected
+
+
 def qualified_inputs(repository, owner, rows):
     repository = Path(repository).resolve()
     owner = Path(owner).resolve()
@@ -26,6 +51,7 @@ def qualified_inputs(repository, owner, rows):
 
 def verify(repository, workflow_text=None):
     root = Path(repository).resolve()
+    powershell_pin(root)
     plan_path = root / "tools/Native/Erlang.NifIntegratedObservations/inputs.json"
     plan = json.loads(plan_path.read_bytes())
     if workflow_text is None:
@@ -51,6 +77,7 @@ def verify(repository, workflow_text=None):
         workflow_pin(key, row["Sha256"])
         dependency_path = root / row["Path"]
         dependency = json.loads(dependency_path.read_bytes())
+        require_producer_fields(key, dependency)
         qualified_inputs(root, dependency_path.parent, dependency.get("Inputs", []))
         if key in ("N2_ORIGINAL_PLAN", "N2_MANAGED_PLAN"):
             expected = {

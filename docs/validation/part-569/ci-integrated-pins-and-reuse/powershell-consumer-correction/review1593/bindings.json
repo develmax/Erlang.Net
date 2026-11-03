@@ -1,0 +1,846 @@
+{
+  "Head": "7cd478612f702abc80d3a4405ee0471ddc14722a",
+  "Base": "b073ced4eb6298405fd4b5fe2902ab206becef56",
+  "PlanPins": [
+    {
+      "Key": "ORIGINAL_PLAN",
+      "Path": "tools/Runtime/Erlang.SchedulerAffinityOriginalObservations/manifest.json",
+      "Sha256": "AEBBA0D2DCF97E1248CA38407E8EBE628EB08F9EA4D13F48EC0C83A7A0364E61"
+    },
+    {
+      "Key": "NATIVE_PLAN",
+      "Path": "tools/Native/Erlang.NifVersion651Observations/linux-build-inputs.json",
+      "Sha256": "58CDC4D874E84717E275B7A33FA31F05A9D439ABCCC02CC36956FAA4FCF439BE"
+    },
+    {
+      "Key": "CAPTURE_PLAN",
+      "Path": "tools/Native/Erlang.NifVersion651Observations/linux-inputs.json",
+      "Sha256": "C993B2CB594FE941FE4A01F0CA537ECFD2C80D92F51E8EC7218D0FB69D77EAEE"
+    },
+    {
+      "Key": "ACCEPTANCE_PLAN",
+      "Path": "tools/Native/Erlang.NifLinuxCallbackObservations/acceptance-inputs.json",
+      "Sha256": "46762053BE8BCA61A04F401CCC57B2BA1B9F3C6DF4EF1F933A420654B3088AE8"
+    },
+    {
+      "Key": "N2_NATIVE_PLAN",
+      "Path": "tools/Native/Erlang.NifUpgradeObservations/build-inputs.json",
+      "Sha256": "64283C01D258C287FB0450795A1B7AFBA3837F978F68FA04F9B7FD77EC71BBDF"
+    },
+    {
+      "Key": "N2_ORIGINAL_PLAN",
+      "Path": "tools/Native/Erlang.NifUpgradeObservations/original-inputs.json",
+      "Sha256": "1A8EE5CCBFB28E8597F5AA2027007778E75772B13D29EDD8737471737C919273"
+    },
+    {
+      "Key": "N2_MANAGED_PLAN",
+      "Path": "tools/Native/Erlang.NifUpgradeObservations/inputs.json",
+      "Sha256": "88961ED9D2467571F1B5F65FD64E67110ADC3245C153EA89E45D52FF93E3A712"
+    },
+    {
+      "Key": "ENV709_NATIVE_PLAN",
+      "Path": "tools/Native/Erlang.NifUpgradeObservations/environments/build-inputs.json",
+      "Sha256": "7559F54AFD09E956DEB068BD670B7263DD5FA998AD2B1EFE0AC6EC114D7649E2"
+    },
+    {
+      "Key": "ENV709_ORIGINAL_PLAN",
+      "Path": "tools/Native/Erlang.NifUpgradeObservations/environments/original-inputs.json",
+      "Sha256": "A6C84AE7E0BD88FD215948CF76FA024EAA63AF5ECA1D4E95A35D82F81EBAF063"
+    },
+    {
+      "Key": "ENV709_MANAGED_PLAN",
+      "Path": "tools/Native/Erlang.NifUpgradeObservations/environments/managed-inputs.json",
+      "Sha256": "BEAA38E594A789BA0EF624D006F4720D3F4AC2A2883258C2A54176E243221884"
+    },
+    {
+      "Key": "INIT582_PLAN",
+      "Path": "tools/Native/Erlang.NifInitProgress582Observations/inputs.json",
+      "Sha256": "C5C711D44B0970D37D5B5B9F289B04BE900B73BF29588137D0D2AFC50F5BF02B"
+    }
+  ],
+  "QualifiedInputBindings": [
+    {
+      "Consumer": "N2_NATIVE_PLAN",
+      "Root": "Packet",
+      "DeclaredPath": "common.py",
+      "ResolvedGitPath": "tools/Native/Erlang.NifUpgradeObservations/common.py",
+      "Sha256": "2C18DDF34680DB41267F7C86B6803A94820EC6ADC7608187521609E19658CDC8",
+      "HashMode": "Raw"
+    },
+    {
+      "Consumer": "N2_NATIVE_PLAN",
+      "Root": "Packet",
+      "DeclaredPath": "build-native.py",
+      "ResolvedGitPath": "tools/Native/Erlang.NifUpgradeObservations/build-native.py",
+      "Sha256": "DC099C0C566BCC879A97FB1147676B11C93787FA0A31F691A59DAD3725B09AB0",
+      "HashMode": "Raw"
+    },
+    {
+      "Consumer": "N2_NATIVE_PLAN",
+      "Root": "Packet",
+      "DeclaredPath": "native-images.json",
+      "ResolvedGitPath": "tools/Native/Erlang.NifUpgradeObservations/native-images.json",
+      "Sha256": "976A8DD27560CEDB83DF6C2AAA17E1F8AF3399D5C8F835844E3247417F702A6E",
+      "HashMode": "Raw"
+    },
+    {
+      "Consumer": "N2_NATIVE_PLAN",
+      "Root": "Packet",
+      "DeclaredPath": "fixtures/nif_upgrade693.c",
+      "ResolvedGitPath": "tools/Native/Erlang.NifUpgradeObservations/fixtures/nif_upgrade693.c",
+      "Sha256": "6C26DBDCE9173F0EE6D74015337FD65E2FCB11A9010E800E01242C2D1D28D3E3",
+      "HashMode": "Raw"
+    },
+    {
+      "Consumer": "N2_NATIVE_PLAN",
+      "Root": "Repository",
+      "DeclaredPath": "tools/Runtime/Erlang.OwnedGuest506Observations/collect.py",
+      "ResolvedGitPath": "tools/Runtime/Erlang.OwnedGuest506Observations/collect.py",
+      "Sha256": "E0A9019CA029EB53D01247D68A87B1E017C448AF12ABAA3474B80BE8DB7C5DD1",
+      "HashMode": "Raw"
+    },
+    {
+      "Consumer": "N2_NATIVE_PLAN",
+      "Root": "Repository",
+      "DeclaredPath": "tools/Native/Erlang.DdllFormatterOriginalObservations/scripts/owned.py",
+      "ResolvedGitPath": "tools/Native/Erlang.DdllFormatterOriginalObservations/scripts/owned.py",
+      "Sha256": "2603D9DDC322D0B9F58BEA915076A8CCF2907B62E3927B33B49FF0BEE90EDD94",
+      "HashMode": "Raw"
+    },
+    {
+      "Consumer": "N2_NATIVE_PLAN",
+      "Root": "Repository",
+      "DeclaredPath": "tools/Native/Erlang.DdllFormatterOriginalObservations/scripts/bounded_inventory.py",
+      "ResolvedGitPath": "tools/Native/Erlang.DdllFormatterOriginalObservations/scripts/bounded_inventory.py",
+      "Sha256": "502862EB7045D780115D046A02FA56DB11FB67EBC7A1883CA58D06BEC6C7910A",
+      "HashMode": "Raw"
+    },
+    {
+      "Consumer": "N2_NATIVE_PLAN",
+      "Root": "Repository",
+      "DeclaredPath": "tools/Distribution/Erlang.GuestConnectedSendObservations/owned_process.py",
+      "ResolvedGitPath": "tools/Distribution/Erlang.GuestConnectedSendObservations/owned_process.py",
+      "Sha256": "846101AD4F92121ACB128EAFB3228DD66D8A524CE0539A25E020A77010CFF071",
+      "HashMode": "Raw"
+    },
+    {
+      "Consumer": "N2_NATIVE_PLAN",
+      "Root": "Repository",
+      "DeclaredPath": "tools/Native/Erlang.NifEntryOriginalObservations/common.py",
+      "ResolvedGitPath": "tools/Native/Erlang.NifEntryOriginalObservations/common.py",
+      "Sha256": "655DE0072EF0833C34F5FB60497D80BD5ACF098B7A7E19D1D23356D144152CBE",
+      "HashMode": "Raw"
+    },
+    {
+      "Consumer": "N2_NATIVE_PLAN",
+      "Root": "Repository",
+      "DeclaredPath": "tools/Runtime/Erlang.SchedulerAffinityOriginalObservations/source_inputs.py",
+      "ResolvedGitPath": "tools/Runtime/Erlang.SchedulerAffinityOriginalObservations/source_inputs.py",
+      "Sha256": "28B06562E1621DF049D4C1B603B5AD7D9EBDA6C0BE616D21D54CCD4B03A34F45",
+      "HashMode": "Raw"
+    },
+    {
+      "Consumer": "N2_NATIVE_PLAN",
+      "Root": "Repository",
+      "DeclaredPath": "tools/Native/Erlang.NifFixtureHost/native/source-plan.json",
+      "ResolvedGitPath": "tools/Native/Erlang.NifFixtureHost/native/source-plan.json",
+      "Sha256": "FDF26E769C0DB9D9D9BCBBC7B54418770DAD903E35C17F65B95895812F3F042C",
+      "HashMode": "Raw"
+    },
+    {
+      "Consumer": "N2_ORIGINAL_PLAN",
+      "Root": "Packet",
+      "DeclaredPath": "common.py",
+      "ResolvedGitPath": "tools/Native/Erlang.NifUpgradeObservations/common.py",
+      "Sha256": "2C18DDF34680DB41267F7C86B6803A94820EC6ADC7608187521609E19658CDC8",
+      "HashMode": "Raw"
+    },
+    {
+      "Consumer": "N2_ORIGINAL_PLAN",
+      "Root": "Packet",
+      "DeclaredPath": "collect-original.py",
+      "ResolvedGitPath": "tools/Native/Erlang.NifUpgradeObservations/collect-original.py",
+      "Sha256": "054B2E78F4A9E4DEFB83FADBAA9A72DB8FA1E2C2A208E4AECE52D1E3EFBDF5C5",
+      "HashMode": "Raw"
+    },
+    {
+      "Consumer": "N2_ORIGINAL_PLAN",
+      "Root": "Packet",
+      "DeclaredPath": "cases.json",
+      "ResolvedGitPath": "tools/Native/Erlang.NifUpgradeObservations/cases.json",
+      "Sha256": "E81CD90391AFC4B48E47CC65EC7FF21A8363AC9821CC318C3CC588EAEEF46170",
+      "HashMode": "Raw"
+    },
+    {
+      "Consumer": "N2_ORIGINAL_PLAN",
+      "Root": "Packet",
+      "DeclaredPath": "fixtures/nif_upgrade693.erl",
+      "ResolvedGitPath": "tools/Native/Erlang.NifUpgradeObservations/fixtures/nif_upgrade693.erl",
+      "Sha256": "BA37F5932B2D08FBC0F1076828F54A4E0F367922A7708E4B32980E7756B7D6AC",
+      "HashMode": "Raw"
+    },
+    {
+      "Consumer": "N2_ORIGINAL_PLAN",
+      "Root": "Packet",
+      "DeclaredPath": "fixtures/upgrade_observer693.erl",
+      "ResolvedGitPath": "tools/Native/Erlang.NifUpgradeObservations/fixtures/upgrade_observer693.erl",
+      "Sha256": "CF98CC6CEE449B889474EB1D177DE39CF611D9854E5BED86AC072F88537DBB83",
+      "HashMode": "Raw"
+    },
+    {
+      "Consumer": "N2_ORIGINAL_PLAN",
+      "Root": "Packet",
+      "DeclaredPath": "build-inputs.json",
+      "ResolvedGitPath": "tools/Native/Erlang.NifUpgradeObservations/build-inputs.json",
+      "Sha256": "64283C01D258C287FB0450795A1B7AFBA3837F978F68FA04F9B7FD77EC71BBDF",
+      "HashMode": "Raw"
+    },
+    {
+      "Consumer": "N2_ORIGINAL_PLAN",
+      "Root": "Repository",
+      "DeclaredPath": "tools/Runtime/Erlang.OwnedGuest506Observations/collect.py",
+      "ResolvedGitPath": "tools/Runtime/Erlang.OwnedGuest506Observations/collect.py",
+      "Sha256": "E0A9019CA029EB53D01247D68A87B1E017C448AF12ABAA3474B80BE8DB7C5DD1",
+      "HashMode": "Raw"
+    },
+    {
+      "Consumer": "N2_ORIGINAL_PLAN",
+      "Root": "Repository",
+      "DeclaredPath": "tools/Native/Erlang.DdllFormatterOriginalObservations/scripts/owned.py",
+      "ResolvedGitPath": "tools/Native/Erlang.DdllFormatterOriginalObservations/scripts/owned.py",
+      "Sha256": "2603D9DDC322D0B9F58BEA915076A8CCF2907B62E3927B33B49FF0BEE90EDD94",
+      "HashMode": "Raw"
+    },
+    {
+      "Consumer": "N2_ORIGINAL_PLAN",
+      "Root": "Repository",
+      "DeclaredPath": "tools/Native/Erlang.DdllFormatterOriginalObservations/scripts/bounded_inventory.py",
+      "ResolvedGitPath": "tools/Native/Erlang.DdllFormatterOriginalObservations/scripts/bounded_inventory.py",
+      "Sha256": "502862EB7045D780115D046A02FA56DB11FB67EBC7A1883CA58D06BEC6C7910A",
+      "HashMode": "Raw"
+    },
+    {
+      "Consumer": "N2_ORIGINAL_PLAN",
+      "Root": "Repository",
+      "DeclaredPath": "tools/Distribution/Erlang.GuestConnectedSendObservations/owned_process.py",
+      "ResolvedGitPath": "tools/Distribution/Erlang.GuestConnectedSendObservations/owned_process.py",
+      "Sha256": "846101AD4F92121ACB128EAFB3228DD66D8A524CE0539A25E020A77010CFF071",
+      "HashMode": "Raw"
+    },
+    {
+      "Consumer": "N2_ORIGINAL_PLAN",
+      "Root": "Repository",
+      "DeclaredPath": "tools/Native/Erlang.NifEntryOriginalObservations/common.py",
+      "ResolvedGitPath": "tools/Native/Erlang.NifEntryOriginalObservations/common.py",
+      "Sha256": "655DE0072EF0833C34F5FB60497D80BD5ACF098B7A7E19D1D23356D144152CBE",
+      "HashMode": "Raw"
+    },
+    {
+      "Consumer": "N2_ORIGINAL_PLAN",
+      "Root": "Repository",
+      "DeclaredPath": "tools/Runtime/Erlang.SchedulerAffinityOriginalObservations/source_inputs.py",
+      "ResolvedGitPath": "tools/Runtime/Erlang.SchedulerAffinityOriginalObservations/source_inputs.py",
+      "Sha256": "28B06562E1621DF049D4C1B603B5AD7D9EBDA6C0BE616D21D54CCD4B03A34F45",
+      "HashMode": "Raw"
+    },
+    {
+      "Consumer": "N2_ORIGINAL_PLAN",
+      "Root": "Repository",
+      "DeclaredPath": "tools/Distribution/Erlang.GuestConnectedSendObservations/passive_etf.py",
+      "ResolvedGitPath": "tools/Distribution/Erlang.GuestConnectedSendObservations/passive_etf.py",
+      "Sha256": "A069AD650B3EA1BE6B90DE60117B84ED7A1A6B67128CC41E7ECAEFD2889C1713",
+      "HashMode": "Raw"
+    },
+    {
+      "Consumer": "N2_MANAGED_PLAN",
+      "Root": "Tool",
+      "DeclaredPath": "build-inputs.json",
+      "ResolvedGitPath": "tools/Native/Erlang.NifUpgradeObservations/build-inputs.json",
+      "Sha256": "64283C01D258C287FB0450795A1B7AFBA3837F978F68FA04F9B7FD77EC71BBDF",
+      "HashMode": "Raw"
+    },
+    {
+      "Consumer": "N2_MANAGED_PLAN",
+      "Root": "Tool",
+      "DeclaredPath": "build-native.py",
+      "ResolvedGitPath": "tools/Native/Erlang.NifUpgradeObservations/build-native.py",
+      "Sha256": "DC099C0C566BCC879A97FB1147676B11C93787FA0A31F691A59DAD3725B09AB0",
+      "HashMode": "Raw"
+    },
+    {
+      "Consumer": "N2_MANAGED_PLAN",
+      "Root": "Tool",
+      "DeclaredPath": "cases.json",
+      "ResolvedGitPath": "tools/Native/Erlang.NifUpgradeObservations/cases.json",
+      "Sha256": "E81CD90391AFC4B48E47CC65EC7FF21A8363AC9821CC318C3CC588EAEEF46170",
+      "HashMode": "Raw"
+    },
+    {
+      "Consumer": "N2_MANAGED_PLAN",
+      "Root": "Tool",
+      "DeclaredPath": "collect-managed.py",
+      "ResolvedGitPath": "tools/Native/Erlang.NifUpgradeObservations/collect-managed.py",
+      "Sha256": "5CDB047EA3C9FE8616628322C6D7D321FB21F127BAD81989373FF574852D03BC",
+      "HashMode": "Raw"
+    },
+    {
+      "Consumer": "N2_MANAGED_PLAN",
+      "Root": "Tool",
+      "DeclaredPath": "collect-original.py",
+      "ResolvedGitPath": "tools/Native/Erlang.NifUpgradeObservations/collect-original.py",
+      "Sha256": "054B2E78F4A9E4DEFB83FADBAA9A72DB8FA1E2C2A208E4AECE52D1E3EFBDF5C5",
+      "HashMode": "Raw"
+    },
+    {
+      "Consumer": "N2_MANAGED_PLAN",
+      "Root": "Tool",
+      "DeclaredPath": "common.py",
+      "ResolvedGitPath": "tools/Native/Erlang.NifUpgradeObservations/common.py",
+      "Sha256": "2C18DDF34680DB41267F7C86B6803A94820EC6ADC7608187521609E19658CDC8",
+      "HashMode": "Raw"
+    },
+    {
+      "Consumer": "N2_MANAGED_PLAN",
+      "Root": "Tool",
+      "DeclaredPath": "describe-current-runtime.py",
+      "ResolvedGitPath": "tools/Native/Erlang.NifUpgradeObservations/describe-current-runtime.py",
+      "Sha256": "A91557709D68C08A124DF4616C9418C54B465C0DD5D72BE6512F0A6CD7BBCB74",
+      "HashMode": "Raw"
+    },
+    {
+      "Consumer": "N2_MANAGED_PLAN",
+      "Root": "Tool",
+      "DeclaredPath": "driver/Names.cs",
+      "ResolvedGitPath": "tools/Native/Erlang.NifUpgradeObservations/driver/Names.cs",
+      "Sha256": "CDDBC619A6E93742ED966080BC24FD4E7FE638D87A3F2B3D3811D525C4D416E9",
+      "HashMode": "Raw"
+    },
+    {
+      "Consumer": "N2_MANAGED_PLAN",
+      "Root": "Tool",
+      "DeclaredPath": "driver/Program.cs",
+      "ResolvedGitPath": "tools/Native/Erlang.NifUpgradeObservations/driver/Program.cs",
+      "Sha256": "729C180CE9D3C80A0D7B8B0069935FCC3397BD29BDDD3A3025B299A5DC844B43",
+      "HashMode": "Raw"
+    },
+    {
+      "Consumer": "N2_MANAGED_PLAN",
+      "Root": "Tool",
+      "DeclaredPath": "driver/Upgrade709.csproj",
+      "ResolvedGitPath": "tools/Native/Erlang.NifUpgradeObservations/driver/Upgrade709.csproj",
+      "Sha256": "9CDA2A23E45E24B4E2F00AE0BAB70FEFAB5CA0F8BDF110EAA498B9BFC38272BB",
+      "HashMode": "Raw"
+    },
+    {
+      "Consumer": "N2_MANAGED_PLAN",
+      "Root": "Tool",
+      "DeclaredPath": "fixtures/nif_upgrade693.c",
+      "ResolvedGitPath": "tools/Native/Erlang.NifUpgradeObservations/fixtures/nif_upgrade693.c",
+      "Sha256": "6C26DBDCE9173F0EE6D74015337FD65E2FCB11A9010E800E01242C2D1D28D3E3",
+      "HashMode": "Raw"
+    },
+    {
+      "Consumer": "N2_MANAGED_PLAN",
+      "Root": "Tool",
+      "DeclaredPath": "fixtures/nif_upgrade693.erl",
+      "ResolvedGitPath": "tools/Native/Erlang.NifUpgradeObservations/fixtures/nif_upgrade693.erl",
+      "Sha256": "BA37F5932B2D08FBC0F1076828F54A4E0F367922A7708E4B32980E7756B7D6AC",
+      "HashMode": "Raw"
+    },
+    {
+      "Consumer": "N2_MANAGED_PLAN",
+      "Root": "Tool",
+      "DeclaredPath": "fixtures/upgrade_observer693.erl",
+      "ResolvedGitPath": "tools/Native/Erlang.NifUpgradeObservations/fixtures/upgrade_observer693.erl",
+      "Sha256": "CF98CC6CEE449B889474EB1D177DE39CF611D9854E5BED86AC072F88537DBB83",
+      "HashMode": "Raw"
+    },
+    {
+      "Consumer": "N2_MANAGED_PLAN",
+      "Root": "Tool",
+      "DeclaredPath": "native-images.json",
+      "ResolvedGitPath": "tools/Native/Erlang.NifUpgradeObservations/native-images.json",
+      "Sha256": "976A8DD27560CEDB83DF6C2AAA17E1F8AF3399D5C8F835844E3247417F702A6E",
+      "HashMode": "Raw"
+    },
+    {
+      "Consumer": "N2_MANAGED_PLAN",
+      "Root": "Tool",
+      "DeclaredPath": "original-inputs.json",
+      "ResolvedGitPath": "tools/Native/Erlang.NifUpgradeObservations/original-inputs.json",
+      "Sha256": "1A8EE5CCBFB28E8597F5AA2027007778E75772B13D29EDD8737471737C919273",
+      "HashMode": "Raw"
+    },
+    {
+      "Consumer": "N2_MANAGED_PLAN",
+      "Root": "Tool",
+      "DeclaredPath": "README.md",
+      "ResolvedGitPath": "tools/Native/Erlang.NifUpgradeObservations/README.md",
+      "Sha256": "A89EB5DC7187C08D32D65B92A989CA8CEEA079CAE4F0061643B02527A84FAE36",
+      "HashMode": "Raw"
+    },
+    {
+      "Consumer": "N2_MANAGED_PLAN",
+      "Root": "Repository",
+      "DeclaredPath": "tools/Runtime/Erlang.OwnedGuest506Observations/collect.py",
+      "ResolvedGitPath": "tools/Runtime/Erlang.OwnedGuest506Observations/collect.py",
+      "Sha256": "E0A9019CA029EB53D01247D68A87B1E017C448AF12ABAA3474B80BE8DB7C5DD1",
+      "HashMode": "Raw"
+    },
+    {
+      "Consumer": "N2_MANAGED_PLAN",
+      "Root": "Repository",
+      "DeclaredPath": "tools/Native/Erlang.DdllFormatterOriginalObservations/scripts/owned.py",
+      "ResolvedGitPath": "tools/Native/Erlang.DdllFormatterOriginalObservations/scripts/owned.py",
+      "Sha256": "2603D9DDC322D0B9F58BEA915076A8CCF2907B62E3927B33B49FF0BEE90EDD94",
+      "HashMode": "Raw"
+    },
+    {
+      "Consumer": "N2_MANAGED_PLAN",
+      "Root": "Repository",
+      "DeclaredPath": "tools/Native/Erlang.DdllFormatterOriginalObservations/scripts/bounded_inventory.py",
+      "ResolvedGitPath": "tools/Native/Erlang.DdllFormatterOriginalObservations/scripts/bounded_inventory.py",
+      "Sha256": "502862EB7045D780115D046A02FA56DB11FB67EBC7A1883CA58D06BEC6C7910A",
+      "HashMode": "Raw"
+    },
+    {
+      "Consumer": "N2_MANAGED_PLAN",
+      "Root": "Repository",
+      "DeclaredPath": "tools/Distribution/Erlang.GuestConnectedSendObservations/owned_process.py",
+      "ResolvedGitPath": "tools/Distribution/Erlang.GuestConnectedSendObservations/owned_process.py",
+      "Sha256": "846101AD4F92121ACB128EAFB3228DD66D8A524CE0539A25E020A77010CFF071",
+      "HashMode": "Raw"
+    },
+    {
+      "Consumer": "N2_MANAGED_PLAN",
+      "Root": "Repository",
+      "DeclaredPath": "tools/Native/Erlang.NifEntryOriginalObservations/common.py",
+      "ResolvedGitPath": "tools/Native/Erlang.NifEntryOriginalObservations/common.py",
+      "Sha256": "655DE0072EF0833C34F5FB60497D80BD5ACF098B7A7E19D1D23356D144152CBE",
+      "HashMode": "Raw"
+    },
+    {
+      "Consumer": "N2_MANAGED_PLAN",
+      "Root": "Repository",
+      "DeclaredPath": "tools/Runtime/Erlang.SchedulerAffinityOriginalObservations/source_inputs.py",
+      "ResolvedGitPath": "tools/Runtime/Erlang.SchedulerAffinityOriginalObservations/source_inputs.py",
+      "Sha256": "28B06562E1621DF049D4C1B603B5AD7D9EBDA6C0BE616D21D54CCD4B03A34F45",
+      "HashMode": "Raw"
+    },
+    {
+      "Consumer": "N2_MANAGED_PLAN",
+      "Root": "Repository",
+      "DeclaredPath": "tools/Distribution/Erlang.GuestConnectedSendObservations/passive_etf.py",
+      "ResolvedGitPath": "tools/Distribution/Erlang.GuestConnectedSendObservations/passive_etf.py",
+      "Sha256": "A069AD650B3EA1BE6B90DE60117B84ED7A1A6B67128CC41E7ECAEFD2889C1713",
+      "HashMode": "Raw"
+    },
+    {
+      "Consumer": "ENV709_NATIVE_PLAN",
+      "Root": "Packet",
+      "DeclaredPath": ".gitattributes",
+      "ResolvedGitPath": "tools/Native/Erlang.NifUpgradeObservations/environments/.gitattributes",
+      "Sha256": "705FD4D6451A31D36B3DF7DE96F83F30AC976C9B4A6D1E51671D8E2F33E2D0DA",
+      "HashMode": "Raw"
+    },
+    {
+      "Consumer": "ENV709_NATIVE_PLAN",
+      "Root": "Packet",
+      "DeclaredPath": "common.py",
+      "ResolvedGitPath": "tools/Native/Erlang.NifUpgradeObservations/environments/common.py",
+      "Sha256": "6CE7EB1EB52E8498B1CFD5B384A41F64450E487E287C6E93160BB12CC96DF7EA",
+      "HashMode": "Raw"
+    },
+    {
+      "Consumer": "ENV709_NATIVE_PLAN",
+      "Root": "Packet",
+      "DeclaredPath": "build-native.py",
+      "ResolvedGitPath": "tools/Native/Erlang.NifUpgradeObservations/environments/build-native.py",
+      "Sha256": "101C37B4C939066E32105A3D35D6F9BB56187C8F3DAE5B0583B6DE72C1E226DD",
+      "HashMode": "Raw"
+    },
+    {
+      "Consumer": "ENV709_NATIVE_PLAN",
+      "Root": "Packet",
+      "DeclaredPath": "fixtures/nif_env709.c",
+      "ResolvedGitPath": "tools/Native/Erlang.NifUpgradeObservations/environments/fixtures/nif_env709.c",
+      "Sha256": "44D171D5578608ED8AC113B42A1CCF258C1ABBB977E98D0544D8FD8D3D0DAB9B",
+      "HashMode": "Raw"
+    },
+    {
+      "Consumer": "ENV709_NATIVE_PLAN",
+      "Root": "Repository",
+      "DeclaredPath": "tools/Runtime/Erlang.OwnedGuest506Observations/collect.py",
+      "ResolvedGitPath": "tools/Runtime/Erlang.OwnedGuest506Observations/collect.py",
+      "Sha256": "E0A9019CA029EB53D01247D68A87B1E017C448AF12ABAA3474B80BE8DB7C5DD1",
+      "HashMode": "Raw"
+    },
+    {
+      "Consumer": "ENV709_NATIVE_PLAN",
+      "Root": "Repository",
+      "DeclaredPath": "tools/Native/Erlang.DdllFormatterOriginalObservations/scripts/owned.py",
+      "ResolvedGitPath": "tools/Native/Erlang.DdllFormatterOriginalObservations/scripts/owned.py",
+      "Sha256": "2603D9DDC322D0B9F58BEA915076A8CCF2907B62E3927B33B49FF0BEE90EDD94",
+      "HashMode": "Raw"
+    },
+    {
+      "Consumer": "ENV709_NATIVE_PLAN",
+      "Root": "Repository",
+      "DeclaredPath": "tools/Native/Erlang.DdllFormatterOriginalObservations/scripts/bounded_inventory.py",
+      "ResolvedGitPath": "tools/Native/Erlang.DdllFormatterOriginalObservations/scripts/bounded_inventory.py",
+      "Sha256": "502862EB7045D780115D046A02FA56DB11FB67EBC7A1883CA58D06BEC6C7910A",
+      "HashMode": "Raw"
+    },
+    {
+      "Consumer": "ENV709_NATIVE_PLAN",
+      "Root": "Repository",
+      "DeclaredPath": "tools/Distribution/Erlang.GuestConnectedSendObservations/owned_process.py",
+      "ResolvedGitPath": "tools/Distribution/Erlang.GuestConnectedSendObservations/owned_process.py",
+      "Sha256": "846101AD4F92121ACB128EAFB3228DD66D8A524CE0539A25E020A77010CFF071",
+      "HashMode": "Raw"
+    },
+    {
+      "Consumer": "ENV709_NATIVE_PLAN",
+      "Root": "Repository",
+      "DeclaredPath": "tools/Native/Erlang.NifEntryOriginalObservations/common.py",
+      "ResolvedGitPath": "tools/Native/Erlang.NifEntryOriginalObservations/common.py",
+      "Sha256": "655DE0072EF0833C34F5FB60497D80BD5ACF098B7A7E19D1D23356D144152CBE",
+      "HashMode": "Raw"
+    },
+    {
+      "Consumer": "ENV709_NATIVE_PLAN",
+      "Root": "Repository",
+      "DeclaredPath": "tools/Runtime/Erlang.SchedulerAffinityOriginalObservations/source_inputs.py",
+      "ResolvedGitPath": "tools/Runtime/Erlang.SchedulerAffinityOriginalObservations/source_inputs.py",
+      "Sha256": "28B06562E1621DF049D4C1B603B5AD7D9EBDA6C0BE616D21D54CCD4B03A34F45",
+      "HashMode": "Raw"
+    },
+    {
+      "Consumer": "ENV709_NATIVE_PLAN",
+      "Root": "Repository",
+      "DeclaredPath": "tools/Native/Erlang.NifFixtureHost/native/source-plan.json",
+      "ResolvedGitPath": "tools/Native/Erlang.NifFixtureHost/native/source-plan.json",
+      "Sha256": "FDF26E769C0DB9D9D9BCBBC7B54418770DAD903E35C17F65B95895812F3F042C",
+      "HashMode": "Raw"
+    },
+    {
+      "Consumer": "ENV709_NATIVE_PLAN",
+      "Root": "Repository",
+      "DeclaredPath": "tools/Native/Erlang.NifUpgradeObservations/common.py",
+      "ResolvedGitPath": "tools/Native/Erlang.NifUpgradeObservations/common.py",
+      "Sha256": "2C18DDF34680DB41267F7C86B6803A94820EC6ADC7608187521609E19658CDC8",
+      "HashMode": "Raw"
+    },
+    {
+      "Consumer": "ENV709_ORIGINAL_PLAN",
+      "Root": "Packet",
+      "DeclaredPath": ".gitattributes",
+      "ResolvedGitPath": "tools/Native/Erlang.NifUpgradeObservations/environments/.gitattributes",
+      "Sha256": "705FD4D6451A31D36B3DF7DE96F83F30AC976C9B4A6D1E51671D8E2F33E2D0DA",
+      "HashMode": "Raw"
+    },
+    {
+      "Consumer": "ENV709_ORIGINAL_PLAN",
+      "Root": "Packet",
+      "DeclaredPath": "common.py",
+      "ResolvedGitPath": "tools/Native/Erlang.NifUpgradeObservations/environments/common.py",
+      "Sha256": "6CE7EB1EB52E8498B1CFD5B384A41F64450E487E287C6E93160BB12CC96DF7EA",
+      "HashMode": "Raw"
+    },
+    {
+      "Consumer": "ENV709_ORIGINAL_PLAN",
+      "Root": "Packet",
+      "DeclaredPath": "collect-original.py",
+      "ResolvedGitPath": "tools/Native/Erlang.NifUpgradeObservations/environments/collect-original.py",
+      "Sha256": "ED1520277A469C004A240D08A9EA03C72E53CFFEC89F6E5C0E893ECFBC1F48A3",
+      "HashMode": "Raw"
+    },
+    {
+      "Consumer": "ENV709_ORIGINAL_PLAN",
+      "Root": "Packet",
+      "DeclaredPath": "build-inputs.json",
+      "ResolvedGitPath": "tools/Native/Erlang.NifUpgradeObservations/environments/build-inputs.json",
+      "Sha256": "7559F54AFD09E956DEB068BD670B7263DD5FA998AD2B1EFE0AC6EC114D7649E2",
+      "HashMode": "Raw"
+    },
+    {
+      "Consumer": "ENV709_ORIGINAL_PLAN",
+      "Root": "Packet",
+      "DeclaredPath": "fixtures/nif_env709.erl",
+      "ResolvedGitPath": "tools/Native/Erlang.NifUpgradeObservations/environments/fixtures/nif_env709.erl",
+      "Sha256": "AD36E486CAD4BB28DEC6C33495B546EF4AC6AC4614C36B8F9227E2449A9E31DE",
+      "HashMode": "Raw"
+    },
+    {
+      "Consumer": "ENV709_ORIGINAL_PLAN",
+      "Root": "Packet",
+      "DeclaredPath": "fixtures/env_observer709.erl",
+      "ResolvedGitPath": "tools/Native/Erlang.NifUpgradeObservations/environments/fixtures/env_observer709.erl",
+      "Sha256": "3AE9F075B56361B0E5ED1DDC3C02595159C83F8E720EF14A266E09AF0174FE32",
+      "HashMode": "Raw"
+    },
+    {
+      "Consumer": "ENV709_ORIGINAL_PLAN",
+      "Root": "Repository",
+      "DeclaredPath": "tools/Runtime/Erlang.OwnedGuest506Observations/collect.py",
+      "ResolvedGitPath": "tools/Runtime/Erlang.OwnedGuest506Observations/collect.py",
+      "Sha256": "E0A9019CA029EB53D01247D68A87B1E017C448AF12ABAA3474B80BE8DB7C5DD1",
+      "HashMode": "Raw"
+    },
+    {
+      "Consumer": "ENV709_ORIGINAL_PLAN",
+      "Root": "Repository",
+      "DeclaredPath": "tools/Native/Erlang.DdllFormatterOriginalObservations/scripts/owned.py",
+      "ResolvedGitPath": "tools/Native/Erlang.DdllFormatterOriginalObservations/scripts/owned.py",
+      "Sha256": "2603D9DDC322D0B9F58BEA915076A8CCF2907B62E3927B33B49FF0BEE90EDD94",
+      "HashMode": "Raw"
+    },
+    {
+      "Consumer": "ENV709_ORIGINAL_PLAN",
+      "Root": "Repository",
+      "DeclaredPath": "tools/Native/Erlang.DdllFormatterOriginalObservations/scripts/bounded_inventory.py",
+      "ResolvedGitPath": "tools/Native/Erlang.DdllFormatterOriginalObservations/scripts/bounded_inventory.py",
+      "Sha256": "502862EB7045D780115D046A02FA56DB11FB67EBC7A1883CA58D06BEC6C7910A",
+      "HashMode": "Raw"
+    },
+    {
+      "Consumer": "ENV709_ORIGINAL_PLAN",
+      "Root": "Repository",
+      "DeclaredPath": "tools/Distribution/Erlang.GuestConnectedSendObservations/owned_process.py",
+      "ResolvedGitPath": "tools/Distribution/Erlang.GuestConnectedSendObservations/owned_process.py",
+      "Sha256": "846101AD4F92121ACB128EAFB3228DD66D8A524CE0539A25E020A77010CFF071",
+      "HashMode": "Raw"
+    },
+    {
+      "Consumer": "ENV709_ORIGINAL_PLAN",
+      "Root": "Repository",
+      "DeclaredPath": "tools/Native/Erlang.NifEntryOriginalObservations/common.py",
+      "ResolvedGitPath": "tools/Native/Erlang.NifEntryOriginalObservations/common.py",
+      "Sha256": "655DE0072EF0833C34F5FB60497D80BD5ACF098B7A7E19D1D23356D144152CBE",
+      "HashMode": "Raw"
+    },
+    {
+      "Consumer": "ENV709_ORIGINAL_PLAN",
+      "Root": "Repository",
+      "DeclaredPath": "tools/Runtime/Erlang.SchedulerAffinityOriginalObservations/source_inputs.py",
+      "ResolvedGitPath": "tools/Runtime/Erlang.SchedulerAffinityOriginalObservations/source_inputs.py",
+      "Sha256": "28B06562E1621DF049D4C1B603B5AD7D9EBDA6C0BE616D21D54CCD4B03A34F45",
+      "HashMode": "Raw"
+    },
+    {
+      "Consumer": "ENV709_ORIGINAL_PLAN",
+      "Root": "Repository",
+      "DeclaredPath": "tools/Native/Erlang.NifFixtureHost/native/source-plan.json",
+      "ResolvedGitPath": "tools/Native/Erlang.NifFixtureHost/native/source-plan.json",
+      "Sha256": "FDF26E769C0DB9D9D9BCBBC7B54418770DAD903E35C17F65B95895812F3F042C",
+      "HashMode": "Raw"
+    },
+    {
+      "Consumer": "ENV709_ORIGINAL_PLAN",
+      "Root": "Repository",
+      "DeclaredPath": "tools/Native/Erlang.NifUpgradeObservations/common.py",
+      "ResolvedGitPath": "tools/Native/Erlang.NifUpgradeObservations/common.py",
+      "Sha256": "2C18DDF34680DB41267F7C86B6803A94820EC6ADC7608187521609E19658CDC8",
+      "HashMode": "Raw"
+    },
+    {
+      "Consumer": "ENV709_MANAGED_PLAN",
+      "Root": "Packet",
+      "DeclaredPath": ".gitattributes",
+      "ResolvedGitPath": "tools/Native/Erlang.NifUpgradeObservations/environments/.gitattributes",
+      "Sha256": "705FD4D6451A31D36B3DF7DE96F83F30AC976C9B4A6D1E51671D8E2F33E2D0DA",
+      "HashMode": "Raw"
+    },
+    {
+      "Consumer": "ENV709_MANAGED_PLAN",
+      "Root": "Packet",
+      "DeclaredPath": "common.py",
+      "ResolvedGitPath": "tools/Native/Erlang.NifUpgradeObservations/environments/common.py",
+      "Sha256": "6CE7EB1EB52E8498B1CFD5B384A41F64450E487E287C6E93160BB12CC96DF7EA",
+      "HashMode": "Raw"
+    },
+    {
+      "Consumer": "ENV709_MANAGED_PLAN",
+      "Root": "Packet",
+      "DeclaredPath": "build-driver.py",
+      "ResolvedGitPath": "tools/Native/Erlang.NifUpgradeObservations/environments/build-driver.py",
+      "Sha256": "A2B3CEC8C3CA05997047FF859F61E594C4A950D04F2E252CDF7EA897AAC8F5E2",
+      "HashMode": "Raw"
+    },
+    {
+      "Consumer": "ENV709_MANAGED_PLAN",
+      "Root": "Packet",
+      "DeclaredPath": "collect-managed.py",
+      "ResolvedGitPath": "tools/Native/Erlang.NifUpgradeObservations/environments/collect-managed.py",
+      "Sha256": "E11517E0A06D3960E3FCA7C34AAAD045C83C63CCEA0AA8289BAE28D737B7E85C",
+      "HashMode": "Raw"
+    },
+    {
+      "Consumer": "ENV709_MANAGED_PLAN",
+      "Root": "Packet",
+      "DeclaredPath": "build-inputs.json",
+      "ResolvedGitPath": "tools/Native/Erlang.NifUpgradeObservations/environments/build-inputs.json",
+      "Sha256": "7559F54AFD09E956DEB068BD670B7263DD5FA998AD2B1EFE0AC6EC114D7649E2",
+      "HashMode": "Raw"
+    },
+    {
+      "Consumer": "ENV709_MANAGED_PLAN",
+      "Root": "Packet",
+      "DeclaredPath": "original-inputs.json",
+      "ResolvedGitPath": "tools/Native/Erlang.NifUpgradeObservations/environments/original-inputs.json",
+      "Sha256": "A6C84AE7E0BD88FD215948CF76FA024EAA63AF5ECA1D4E95A35D82F81EBAF063",
+      "HashMode": "Raw"
+    },
+    {
+      "Consumer": "ENV709_MANAGED_PLAN",
+      "Root": "Packet",
+      "DeclaredPath": "driver/Env709.csproj",
+      "ResolvedGitPath": "tools/Native/Erlang.NifUpgradeObservations/environments/driver/Env709.csproj",
+      "Sha256": "167060B3B17F2B9DBBDBC412801BF25CD10B993F86F1F0A2B2A3A6D8C63D69F4",
+      "HashMode": "Raw"
+    },
+    {
+      "Consumer": "ENV709_MANAGED_PLAN",
+      "Root": "Packet",
+      "DeclaredPath": "driver/Program.cs",
+      "ResolvedGitPath": "tools/Native/Erlang.NifUpgradeObservations/environments/driver/Program.cs",
+      "Sha256": "FC2CEB3FD63BC3B2B31110699E7033321F2CE7C3F39E6F02E6844D949404BBDF",
+      "HashMode": "Raw"
+    },
+    {
+      "Consumer": "ENV709_MANAGED_PLAN",
+      "Root": "Packet",
+      "DeclaredPath": "driver/Names.cs",
+      "ResolvedGitPath": "tools/Native/Erlang.NifUpgradeObservations/environments/driver/Names.cs",
+      "Sha256": "049F16B408B850F1606878235860B9D566FD19119CE944E40D0730C8D27693C8",
+      "HashMode": "Raw"
+    },
+    {
+      "Consumer": "ENV709_MANAGED_PLAN",
+      "Root": "Repository",
+      "DeclaredPath": "tools/Runtime/Erlang.OwnedGuest506Observations/collect.py",
+      "ResolvedGitPath": "tools/Runtime/Erlang.OwnedGuest506Observations/collect.py",
+      "Sha256": "E0A9019CA029EB53D01247D68A87B1E017C448AF12ABAA3474B80BE8DB7C5DD1",
+      "HashMode": "Raw"
+    },
+    {
+      "Consumer": "ENV709_MANAGED_PLAN",
+      "Root": "Repository",
+      "DeclaredPath": "tools/Native/Erlang.DdllFormatterOriginalObservations/scripts/owned.py",
+      "ResolvedGitPath": "tools/Native/Erlang.DdllFormatterOriginalObservations/scripts/owned.py",
+      "Sha256": "2603D9DDC322D0B9F58BEA915076A8CCF2907B62E3927B33B49FF0BEE90EDD94",
+      "HashMode": "Raw"
+    },
+    {
+      "Consumer": "ENV709_MANAGED_PLAN",
+      "Root": "Repository",
+      "DeclaredPath": "tools/Native/Erlang.DdllFormatterOriginalObservations/scripts/bounded_inventory.py",
+      "ResolvedGitPath": "tools/Native/Erlang.DdllFormatterOriginalObservations/scripts/bounded_inventory.py",
+      "Sha256": "502862EB7045D780115D046A02FA56DB11FB67EBC7A1883CA58D06BEC6C7910A",
+      "HashMode": "Raw"
+    },
+    {
+      "Consumer": "ENV709_MANAGED_PLAN",
+      "Root": "Repository",
+      "DeclaredPath": "tools/Distribution/Erlang.GuestConnectedSendObservations/owned_process.py",
+      "ResolvedGitPath": "tools/Distribution/Erlang.GuestConnectedSendObservations/owned_process.py",
+      "Sha256": "846101AD4F92121ACB128EAFB3228DD66D8A524CE0539A25E020A77010CFF071",
+      "HashMode": "Raw"
+    },
+    {
+      "Consumer": "ENV709_MANAGED_PLAN",
+      "Root": "Repository",
+      "DeclaredPath": "tools/Native/Erlang.NifEntryOriginalObservations/common.py",
+      "ResolvedGitPath": "tools/Native/Erlang.NifEntryOriginalObservations/common.py",
+      "Sha256": "655DE0072EF0833C34F5FB60497D80BD5ACF098B7A7E19D1D23356D144152CBE",
+      "HashMode": "Raw"
+    },
+    {
+      "Consumer": "ENV709_MANAGED_PLAN",
+      "Root": "Repository",
+      "DeclaredPath": "tools/Runtime/Erlang.SchedulerAffinityOriginalObservations/source_inputs.py",
+      "ResolvedGitPath": "tools/Runtime/Erlang.SchedulerAffinityOriginalObservations/source_inputs.py",
+      "Sha256": "28B06562E1621DF049D4C1B603B5AD7D9EBDA6C0BE616D21D54CCD4B03A34F45",
+      "HashMode": "Raw"
+    },
+    {
+      "Consumer": "ENV709_MANAGED_PLAN",
+      "Root": "Repository",
+      "DeclaredPath": "tools/Native/Erlang.NifFixtureHost/native/source-plan.json",
+      "ResolvedGitPath": "tools/Native/Erlang.NifFixtureHost/native/source-plan.json",
+      "Sha256": "FDF26E769C0DB9D9D9BCBBC7B54418770DAD903E35C17F65B95895812F3F042C",
+      "HashMode": "Raw"
+    },
+    {
+      "Consumer": "ENV709_MANAGED_PLAN",
+      "Root": "Repository",
+      "DeclaredPath": "tools/Native/Erlang.NifUpgradeObservations/common.py",
+      "ResolvedGitPath": "tools/Native/Erlang.NifUpgradeObservations/common.py",
+      "Sha256": "2C18DDF34680DB41267F7C86B6803A94820EC6ADC7608187521609E19658CDC8",
+      "HashMode": "Raw"
+    },
+    {
+      "Consumer": "ENV709_MANAGED_PLAN",
+      "Root": "Repository",
+      "DeclaredPath": "tools/Distribution/Erlang.GuestConnectedSendObservations/passive_etf.py",
+      "ResolvedGitPath": "tools/Distribution/Erlang.GuestConnectedSendObservations/passive_etf.py",
+      "Sha256": "A069AD650B3EA1BE6B90DE60117B84ED7A1A6B67128CC41E7ECAEFD2889C1713",
+      "HashMode": "Raw"
+    }
+  ],
+  "ProducerReferences": [
+    {
+      "Consumer": "N2_ORIGINAL_PLAN",
+      "Field": "NativeBuildPlanSha256",
+      "Producer": "N2_NATIVE_PLAN",
+      "Sha256": "64283C01D258C287FB0450795A1B7AFBA3837F978F68FA04F9B7FD77EC71BBDF"
+    },
+    {
+      "Consumer": "N2_ORIGINAL_PLAN",
+      "Field": "WrongEntryNativeBuildPlans",
+      "Windows": "DC8F675F473298C1D48379B60ED13C150052BF11021B7CE3EA818F492BD1AFAC",
+      "Linux": "58CDC4D874E84717E275B7A33FA31F05A9D439ABCCC02CC36956FAA4FCF439BE"
+    },
+    {
+      "Consumer": "N2_MANAGED_PLAN",
+      "Field": "NativeBuildPlanSha256",
+      "Producer": "N2_NATIVE_PLAN",
+      "Sha256": "64283C01D258C287FB0450795A1B7AFBA3837F978F68FA04F9B7FD77EC71BBDF"
+    },
+    {
+      "Consumer": "N2_MANAGED_PLAN",
+      "Field": "OriginalPlanSha256",
+      "Producer": "N2_ORIGINAL_PLAN",
+      "Sha256": "1A8EE5CCBFB28E8597F5AA2027007778E75772B13D29EDD8737471737C919273"
+    },
+    {
+      "Consumer": "N2_MANAGED_PLAN",
+      "Field": "WrongEntryNativeBuildPlans",
+      "Windows": "DC8F675F473298C1D48379B60ED13C150052BF11021B7CE3EA818F492BD1AFAC",
+      "Linux": "58CDC4D874E84717E275B7A33FA31F05A9D439ABCCC02CC36956FAA4FCF439BE"
+    },
+    {
+      "Consumer": "ENV709_ORIGINAL_PLAN",
+      "Field": "NativeBuildPlanSha256",
+      "Producer": "ENV709_NATIVE_PLAN",
+      "Sha256": "7559F54AFD09E956DEB068BD670B7263DD5FA998AD2B1EFE0AC6EC114D7649E2"
+    },
+    {
+      "Consumer": "ENV709_MANAGED_PLAN",
+      "Field": "NativeBuildPlanSha256",
+      "Producer": "ENV709_NATIVE_PLAN",
+      "Sha256": "7559F54AFD09E956DEB068BD670B7263DD5FA998AD2B1EFE0AC6EC114D7649E2"
+    },
+    {
+      "Consumer": "ENV709_MANAGED_PLAN",
+      "Field": "OriginalPlanSha256",
+      "Producer": "ENV709_ORIGINAL_PLAN",
+      "Sha256": "A6C84AE7E0BD88FD215948CF76FA024EAA63AF5ECA1D4E95A35D82F81EBAF063"
+    }
+  ],
+  "SourceTestsBuildDifferentialUnchanged": true,
+  "CollectorUnchanged": true,
+  "ReviewedBlobCount": 49,
+  "TestsExecuted": false,
+  "NetworkUsed": false
+}

@@ -2,12 +2,37 @@ from pathlib import Path
 import re
 import hashlib
 import tempfile
+import json
 import unittest
 
-from source_bindings import qualified_inputs, verify
+from source_bindings import powershell_pin, qualified_inputs, require_producer_fields, verify
 
 
 class IntegratedBindingsTests(unittest.TestCase):
+    def test_known_producer_roles_cannot_drop_required_fields(self):
+        root = Path(__file__).resolve().parents[3]
+        pins = json.loads((root / "tools/Native/Erlang.NifIntegratedObservations/inputs.json").read_bytes())["PlanPins"]
+        roles = {
+            "N2_ORIGINAL_PLAN": ["NativeBuildPlanSha256", "WrongEntryNativeBuildPlans"],
+            "N2_MANAGED_PLAN": ["NativeBuildPlanSha256", "OriginalPlanSha256", "WrongEntryNativeBuildPlans"],
+            "ENV709_ORIGINAL_PLAN": ["NativeBuildPlanSha256"],
+            "ENV709_MANAGED_PLAN": ["NativeBuildPlanSha256", "OriginalPlanSha256"],
+        }
+        for role, fields in roles.items():
+            actual = json.loads((root / pins[role]["Path"]).read_bytes())
+            for field in fields:
+                changed = dict(actual)
+                changed.pop(field)
+                with self.assertRaisesRegex(ValueError, "Required producer fields missing"):
+                    require_producer_fields(role, changed)
+
+    def test_stale_powershell_caller_is_rejected_before_observer_execution(self):
+        root = Path(__file__).resolve().parents[3]
+        text = (root / "tools/validate-async-microstates.ps1").read_text()
+        changed = re.sub(r"(?<=')([0-9A-F]{64})(?=')", "0" * 64, text)
+        with self.assertRaisesRegex(ValueError, "PowerShell async"):
+            powershell_pin(root, changed)
+
     def test_packet_attribute_never_resolves_to_repository_attribute(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)

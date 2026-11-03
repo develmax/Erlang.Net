@@ -1,0 +1,671 @@
+{
+  "Run": 41719715112,
+  "Job": 126208946252,
+  "Head": "f0c23d603f304acb4f60aa8502e23ddf0fbe0b56",
+  "Step": 15,
+  "UnitCatalog": "9687/9687 passed",
+  "ConfiguredCatalog": "1321/1321 native9/9 cleanupTrue",
+  "ObservedFailure": "ValueError: Source-plan byte pin differs",
+  "FailureSource": "collect.py line38 before output creation/observer execution",
+  "Plan": "tools/Validation/Erlang.AsyncMicrostateValidation/source-plan.json",
+  "ActualPlanRawSha256": "711A00FEE7695A4DD4D1362933CA755EE7029271FF97B9AB49843DA8D155E644",
+  "Caller": "tools/validate-async-microstates.ps1",
+  "CallerDefaultPin": "A372441817625B01B55D221001E3B74733A4DED4887B303D604764C3037AEB99",
+  "SourceRows": [
+    {
+      "Path": "src/Otp/Original/Foundation/Erlang.Otp.Kernel.Beam/Otp/ebin/erl_ddll.beam",
+      "HashMode": "Raw",
+      "Expected": "3FA1034243C56854ED9BE22A948DF39E1FE8F524F51FE48B969A4F4EA0D973AD",
+      "Actual": "3FA1034243C56854ED9BE22A948DF39E1FE8F524F51FE48B969A4F4EA0D973AD",
+      "Passed": true
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Drivers/Ddll/DdllParentRow422.cs",
+      "HashMode": "TextLF",
+      "Expected": "32572D461001011174FC4840974BCF576D29E772C87F2453EA4A6DBE8AF8386D",
+      "Actual": "32572D461001011174FC4840974BCF576D29E772C87F2453EA4A6DBE8AF8386D",
+      "Passed": true
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Drivers/ErlDriverClosed1311.cs",
+      "HashMode": "TextLF",
+      "Expected": "CCD7100872C6D923EC257C49C43B138F18C6C3197C938CCE095179968C0061B6",
+      "Actual": "CCD7100872C6D923EC257C49C43B138F18C6C3197C938CCE095179968C0061B6",
+      "Passed": true
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Drivers/ErlDriverHostChild420.cs",
+      "HashMode": "TextLF",
+      "Expected": "0AE8B9526A4E79BA2986D6422326169524BFE5E19B4D3D632FFB33B1900E9B68",
+      "Actual": "0AE8B9526A4E79BA2986D6422326169524BFE5E19B4D3D632FFB33B1900E9B68",
+      "Passed": true
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Drivers/ErlDriverHostEngine420.Accounting1151.cs",
+      "HashMode": "TextLF",
+      "Expected": "7E4A6B5C3AB25DFD75FD62FE744653787518044D08A0FF9F7D432CB7A9FE4A3E",
+      "Actual": "7E4A6B5C3AB25DFD75FD62FE744653787518044D08A0FF9F7D432CB7A9FE4A3E",
+      "Passed": true
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Drivers/ErlDriverHostEngine420.Shutdown.cs",
+      "HashMode": "TextLF",
+      "Expected": "73360862FC5CE94D209D021B087EE26D6C81FB5D010EB2C68225B7AB56EB9586",
+      "Actual": "73360862FC5CE94D209D021B087EE26D6C81FB5D010EB2C68225B7AB56EB9586",
+      "Passed": true
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Drivers/ErlDriverHostOperation420.cs",
+      "HashMode": "TextLF",
+      "Expected": "6667A35A42FF727E5D12F9D7E23B31E60E29824E1C14140BEC026011E55DBAC0",
+      "Actual": "6667A35A42FF727E5D12F9D7E23B31E60E29824E1C14140BEC026011E55DBAC0",
+      "Passed": true
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Drivers/ErlDriverHostServer420.cs",
+      "HashMode": "TextLF",
+      "Expected": "3D54D8E651B4727EF60606C3A97BEF8962EE6B7916354EFB69C96668DA5D3145",
+      "Actual": "3D54D8E651B4727EF60606C3A97BEF8962EE6B7916354EFB69C96668DA5D3145",
+      "Passed": true
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Drivers/ErlDriverPortClosureNames1311.cs",
+      "HashMode": "TextLF",
+      "Expected": "9EE2AA51F312EE434D2D8EC03200205106D0F00CA088C31430891E435C16E818",
+      "Actual": "9EE2AA51F312EE434D2D8EC03200205106D0F00CA088C31430891E435C16E818",
+      "Passed": true
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Drivers/NativeDriverPortRegistry422.Children.cs",
+      "HashMode": "TextLF",
+      "Expected": "33FE4FDCD7E363F072D26ACD444685EA518C402CFC3650906BE6AC5BE5A399DD",
+      "Actual": "33FE4FDCD7E363F072D26ACD444685EA518C402CFC3650906BE6AC5BE5A399DD",
+      "Passed": true
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Drivers/NativeDriverPortRegistry422.Lifetime.cs",
+      "HashMode": "TextLF",
+      "Expected": "182BEB024477A026A35AE45EAD1570890AE54B67539ED2EDE04234252310DD41",
+      "Actual": "182BEB024477A026A35AE45EAD1570890AE54B67539ED2EDE04234252310DD41",
+      "Passed": true
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Drivers/NativeDriverPortRegistry422.LogicalClose1311.cs",
+      "HashMode": "TextLF",
+      "Expected": "AA0275660E88B4BE19D632ACFD0109761D08160019E0FE2BD8B9D7DBC05D7543",
+      "Actual": "AA0275660E88B4BE19D632ACFD0109761D08160019E0FE2BD8B9D7DBC05D7543",
+      "Passed": true
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Drivers/NativeDriverPortRegistry422.Shutdown.cs",
+      "HashMode": "TextLF",
+      "Expected": "2A83C962E904AAFAA7624EC1BA739C371A695D48C803EA54C1056012962CE859",
+      "Actual": "2A83C962E904AAFAA7624EC1BA739C371A695D48C803EA54C1056012962CE859",
+      "Passed": true
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Drivers/NativeDriverPortRow422.cs",
+      "HashMode": "TextLF",
+      "Expected": "38078AE89F0986125A2CC7DEDFEA696C525DCCD1ED638DF9F3C0467B5B1AF16F",
+      "Actual": "38078AE89F0986125A2CC7DEDFEA696C525DCCD1ED638DF9F3C0467B5B1AF16F",
+      "Passed": true
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Drivers/PortRegistrations.cs",
+      "HashMode": "TextLF",
+      "Expected": "463B9C696B14A6C78B47EE5DF2C116F910B7DD588FD681E51108AD704BC7BFEB",
+      "Actual": "463B9C696B14A6C78B47EE5DF2C116F910B7DD588FD681E51108AD704BC7BFEB",
+      "Passed": true
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Drivers/RuntimeAsyncAccountingCapture1170.cs",
+      "HashMode": "TextLF",
+      "Expected": "2C38E503E3B89DD1C8B45E27866A2FEAF07A1A305D01AA1F7AAE6EDCA5AB21C5",
+      "Actual": "2C38E503E3B89DD1C8B45E27866A2FEAF07A1A305D01AA1F7AAE6EDCA5AB21C5",
+      "Passed": true
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Drivers/RuntimeAsyncAccountingCodec1170.cs",
+      "HashMode": "TextLF",
+      "Expected": "660FD41E5D794172F055CF960B63E0145BE94AB11F74578B3ACE78BB160C2E75",
+      "Actual": "660FD41E5D794172F055CF960B63E0145BE94AB11F74578B3ACE78BB160C2E75",
+      "Passed": true
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Drivers/RuntimeDriverFrontend422.Accounting1170.cs",
+      "HashMode": "TextLF",
+      "Expected": "0EFF620B57B127232CC7E3F78A09751513FB1BF3FEE2F5B7659704D1D25176F8",
+      "Actual": "0EFF620B57B127232CC7E3F78A09751513FB1BF3FEE2F5B7659704D1D25176F8",
+      "Passed": true
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Drivers/RuntimeDriverFrontend422.Protocol.cs",
+      "HashMode": "TextLF",
+      "Expected": "0CBECEAD0A70248CADEE38CD840CF8D7EF034649FD75FA12B8ED864B9335CC97",
+      "Actual": "0CBECEAD0A70248CADEE38CD840CF8D7EF034649FD75FA12B8ED864B9335CC97",
+      "Passed": true
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.AsyncAccounting1170.cs",
+      "HashMode": "TextLF",
+      "Expected": "4041C198D596EEBBBEDC13B2D12EA81C57E0C7D24A595703D37ED6600283B1EF",
+      "Actual": "4041C198D596EEBBBEDC13B2D12EA81C57E0C7D24A595703D37ED6600283B1EF",
+      "Passed": true
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.Microstates.cs",
+      "HashMode": "TextLF",
+      "Expected": "88A540FF52B601E52C3D595C725EA5A1278EE4811A568244BDC5AD5B192568A5",
+      "Actual": "88A540FF52B601E52C3D595C725EA5A1278EE4811A568244BDC5AD5B192568A5",
+      "Passed": true
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.StatisticsTrapRetirement.cs",
+      "HashMode": "TextLF",
+      "Expected": "E97C296F7E1B5DF8BE03034CA038BA399DEA90EFDD11A80971128F0A69BCE830",
+      "Actual": "E97C296F7E1B5DF8BE03034CA038BA399DEA90EFDD11A80971128F0A69BCE830",
+      "Passed": true
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Mailbox.Retirement593.cs",
+      "HashMode": "TextLF",
+      "Expected": "FD1987F4B15FE40460F07CB712A3F07C60318FD270645324973F637FE504D383",
+      "Actual": "FD1987F4B15FE40460F07CB712A3F07C60318FD270645324973F637FE504D383",
+      "Passed": true
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Mailbox.StatisticsTrap.cs",
+      "HashMode": "TextLF",
+      "Expected": "E135AACE03EB8279DB5EDEB53ACED353C9E0EAFF2693DDDE99C5798AD9CD3C22",
+      "Actual": "E135AACE03EB8279DB5EDEB53ACED353C9E0EAFF2693DDDE99C5798AD9CD3C22",
+      "Passed": true
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Mailbox.cs",
+      "HashMode": "TextLF",
+      "Expected": "7EDA9543E21CA011064AD7A214A36A3C6B072D4ABE64FD20536F20AC281FA9AE",
+      "Actual": "7EDA9543E21CA011064AD7A214A36A3C6B072D4ABE64FD20536F20AC281FA9AE",
+      "Passed": true
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Scheduling/RuntimeActorDispatcher.MicrostateSourceTail1149.cs",
+      "HashMode": "TextLF",
+      "Expected": "5355A3743D60726C65FF57A305009A7825CEC59A8A5AD56991282B2EDC9F57AC",
+      "Actual": "5355A3743D60726C65FF57A305009A7825CEC59A8A5AD56991282B2EDC9F57AC",
+      "Passed": true
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Scheduling/RuntimeMicrostateSourceTail1149.cs",
+      "HashMode": "TextLF",
+      "Expected": "9208D370E6CC57B6D47EEE90CE343F6AB6294488F900B75553D5142A29E9E465",
+      "Actual": "9208D370E6CC57B6D47EEE90CE343F6AB6294488F900B75553D5142A29E9E465",
+      "Passed": true
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Services/RuntimeAssemblyNames.cs",
+      "HashMode": "TextLF",
+      "Expected": "8D2AC89BA76040D323E426DC547E1217A77C6F76387C8C9257E18784814A946A",
+      "Actual": "8D2AC89BA76040D323E426DC547E1217A77C6F76387C8C9257E18784814A946A",
+      "Passed": true
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Services/RuntimeDdllParent422.Children.cs",
+      "HashMode": "TextLF",
+      "Expected": "F46149317440781788EA0A5378B718FC459F2823FF1BA624DF20961B30AF62DE",
+      "Actual": "F46149317440781788EA0A5378B718FC459F2823FF1BA624DF20961B30AF62DE",
+      "Passed": true
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Services/RuntimeDdllParent422.Load.cs",
+      "HashMode": "TextLF",
+      "Expected": "331B82BDCF2F18309A0ECAA47D430F5F38C6425E4DAB1C14A8F2389442E07880",
+      "Actual": "331B82BDCF2F18309A0ECAA47D430F5F38C6425E4DAB1C14A8F2389442E07880",
+      "Passed": true
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Services/RuntimeDdllParent422.LogicalPortClose1311.cs",
+      "HashMode": "TextLF",
+      "Expected": "612EDD8DE2BBC163CC98D46901071C9BB1F2D7E1D722DBAE1135D7F9A64B6229",
+      "Actual": "612EDD8DE2BBC163CC98D46901071C9BB1F2D7E1D722DBAE1135D7F9A64B6229",
+      "Passed": true
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Services/RuntimeDdllParent422.PhysicalFailure.cs",
+      "HashMode": "TextLF",
+      "Expected": "6D535B2B7869FECDC2C2835F01BA58CCF588075019A59D22798A35FE3ED7C15C",
+      "Actual": "6D535B2B7869FECDC2C2835F01BA58CCF588075019A59D22798A35FE3ED7C15C",
+      "Passed": true
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Services/RuntimeDdllParent422.Reads.cs",
+      "HashMode": "TextLF",
+      "Expected": "E39806286E122C873950ED0CABCE5F8A98AD8C116007EA6D9C80DD83E4FA7871",
+      "Actual": "E39806286E122C873950ED0CABCE5F8A98AD8C116007EA6D9C80DD83E4FA7871",
+      "Passed": true
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Services/RuntimeDdllParent422.Unload.cs",
+      "HashMode": "TextLF",
+      "Expected": "840FDCF5279B345CDCD1C0B1D1A99F299BD4BA15612B3294DB1D4765203A4A87",
+      "Actual": "840FDCF5279B345CDCD1C0B1D1A99F299BD4BA15612B3294DB1D4765203A4A87",
+      "Passed": true
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Services/Statistics/Microstates/RuntimeMicrostateOperation1171.cs",
+      "HashMode": "TextLF",
+      "Expected": "B531E9DE3B9248616787FD25646273E3C5109000831296DD0A5AA36591400AA2",
+      "Actual": "B531E9DE3B9248616787FD25646273E3C5109000831296DD0A5AA36591400AA2",
+      "Passed": true
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Services/Statistics/Microstates/RuntimeMicrostateRequest.Source1171.cs",
+      "HashMode": "TextLF",
+      "Expected": "E6FE59A38216E738EA3E18C38308F091D1E7798A57FCA4D61AF3AA6BD8A10CBE",
+      "Actual": "E6FE59A38216E738EA3E18C38308F091D1E7798A57FCA4D61AF3AA6BD8A10CBE",
+      "Passed": true
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Services/Statistics/Microstates/RuntimeMicrostateRequest.cs",
+      "HashMode": "TextLF",
+      "Expected": "155ED0BD49A46D6452FF115019135574049EE6654227021ECD5447AAF6815C44",
+      "Actual": "155ED0BD49A46D6452FF115019135574049EE6654227021ECD5447AAF6815C44",
+      "Passed": true
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Services/Statistics/StatisticsTrapRequest.cs",
+      "HashMode": "TextLF",
+      "Expected": "71576EEC507F7C29719001EF94EC608EF0EF01E5999ECA3DE9333F0414F0DFA2",
+      "Actual": "71576EEC507F7C29719001EF94EC608EF0EF01E5999ECA3DE9333F0414F0DFA2",
+      "Passed": true
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Support/FriendAssemblies.cs",
+      "HashMode": "TextLF",
+      "Expected": "56840B8DCD7F5DB771B0E26150DFDE0D0DDB211672BBE36036A8933CC782F553",
+      "Actual": "56840B8DCD7F5DB771B0E26150DFDE0D0DDB211672BBE36036A8933CC782F553",
+      "Passed": true
+    },
+    {
+      "Path": "tests/Erlang.Tests/PreparedBeamFixtureScope171.cs",
+      "HashMode": "TextLF",
+      "Expected": "CF51F43F76FA862B1AE66378B2AAA41ED23C8D2FB65679E40268916A17D8BBE5",
+      "Actual": "CF51F43F76FA862B1AE66378B2AAA41ED23C8D2FB65679E40268916A17D8BBE5",
+      "Passed": true
+    },
+    {
+      "Path": "tests/Erlang.Tests/Runtime/Execution/RuntimeNodeFoundationHostActor.cs",
+      "HashMode": "TextLF",
+      "Expected": "23FCE0D6B77DF1B55A94846B2250B18F8BE1DAC35642D390B9969CA8CCFE8156",
+      "Actual": "23FCE0D6B77DF1B55A94846B2250B18F8BE1DAC35642D390B9969CA8CCFE8156",
+      "Passed": true
+    },
+    {
+      "Path": "tests/Erlang.Tests/Runtime/Execution/RuntimeNodeFoundationHostActorParameters.cs",
+      "HashMode": "TextLF",
+      "Expected": "FC7CD922A949F390A1958FE6113791BC5A1A784F5CE033845230D75BF222F2B0",
+      "Actual": "FC7CD922A949F390A1958FE6113791BC5A1A784F5CE033845230D75BF222F2B0",
+      "Passed": true
+    },
+    {
+      "Path": "tests/Erlang.Tests/Runtime/Native/Resources/NativeResource524Access.cs",
+      "HashMode": "TextLF",
+      "Expected": "D1E6DF2E1B02993E6D017E792175D63A420BBA1135BB79A95D3672FEADBE9AF0",
+      "Actual": "D1E6DF2E1B02993E6D017E792175D63A420BBA1135BB79A95D3672FEADBE9AF0",
+      "Passed": true
+    },
+    {
+      "Path": "tests/Erlang.Tests/Runtime/Native/Resources/NativeResource524ImageOwner.cs",
+      "HashMode": "TextLF",
+      "Expected": "EE71D8CBF5D94C5F4121455B9AC54F5C0E3D0E46302ED74288124E70FC5B5C56",
+      "Actual": "EE71D8CBF5D94C5F4121455B9AC54F5C0E3D0E46302ED74288124E70FC5B5C56",
+      "Passed": true
+    },
+    {
+      "Path": "tests/Erlang.Tests/Runtime/Native/Resources/NativeResource524Names.cs",
+      "HashMode": "TextLF",
+      "Expected": "086A050701D3AA46A34C7F0A7297E04B0DDB8A8BE9E6E29EF1A627A9B4A03325",
+      "Actual": "086A050701D3AA46A34C7F0A7297E04B0DDB8A8BE9E6E29EF1A627A9B4A03325",
+      "Passed": true
+    },
+    {
+      "Path": "tests/Erlang.Tests/Runtime/Native/Resources/NativeResource536Access.cs",
+      "HashMode": "TextLF",
+      "Expected": "ABA4C5AEF818F4D6CC0680A5DF98867FBAE2F5F604EA245F0AEE38676B36CD98",
+      "Actual": "ABA4C5AEF818F4D6CC0680A5DF98867FBAE2F5F604EA245F0AEE38676B36CD98",
+      "Passed": true
+    },
+    {
+      "Path": "tests/Erlang.Tests/Runtime/Native/Resources/NativeResource536TestNames.cs",
+      "HashMode": "TextLF",
+      "Expected": "FE1DC4F36BFC5DB36249223ACE9BEC4E874799B1B7084A451F044A44B5AC910C",
+      "Actual": "FE1DC4F36BFC5DB36249223ACE9BEC4E874799B1B7084A451F044A44B5AC910C",
+      "Passed": true
+    },
+    {
+      "Path": "tools/Native/Erlang.DdllFormatterOriginalObservations/scripts/bounded_inventory.py",
+      "HashMode": "Raw",
+      "Expected": "502862EB7045D780115D046A02FA56DB11FB67EBC7A1883CA58D06BEC6C7910A",
+      "Actual": "502862EB7045D780115D046A02FA56DB11FB67EBC7A1883CA58D06BEC6C7910A",
+      "Passed": true
+    },
+    {
+      "Path": "tools/Runtime/Erlang.OwnedGuest506Observations/collect.py",
+      "HashMode": "Raw",
+      "Expected": "E0A9019CA029EB53D01247D68A87B1E017C448AF12ABAA3474B80BE8DB7C5DD1",
+      "Actual": "E0A9019CA029EB53D01247D68A87B1E017C448AF12ABAA3474B80BE8DB7C5DD1",
+      "Passed": true
+    },
+    {
+      "Path": "tools/Validation/Erlang.AsyncMicrostateValidation/.gitattributes",
+      "HashMode": "Raw",
+      "Expected": "33452CC8E12753EFDA7D8443286D5B39D4A5D2D5C09F962BD6D1B97924DDA6C6",
+      "Actual": "33452CC8E12753EFDA7D8443286D5B39D4A5D2D5C09F962BD6D1B97924DDA6C6",
+      "Passed": true
+    },
+    {
+      "Path": "tools/Validation/Erlang.AsyncMicrostateValidation/AsyncCaptureFaultChecks.cs",
+      "HashMode": "TextLF",
+      "Expected": "B93EE65E3ECA6FE957447501F102C5204AF849EDC8A4DC79EF0B46CE27F2B800",
+      "Actual": "B93EE65E3ECA6FE957447501F102C5204AF849EDC8A4DC79EF0B46CE27F2B800",
+      "Passed": true
+    },
+    {
+      "Path": "tools/Validation/Erlang.AsyncMicrostateValidation/AsyncCaptureFaultNames.cs",
+      "HashMode": "TextLF",
+      "Expected": "FCF905FD3DB35BE150B16BE97DB18F4BA798CEBDD6CECC4BC702F73E94B2CF88",
+      "Actual": "FCF905FD3DB35BE150B16BE97DB18F4BA798CEBDD6CECC4BC702F73E94B2CF88",
+      "Passed": true
+    },
+    {
+      "Path": "tools/Validation/Erlang.AsyncMicrostateValidation/AsyncChildRollbackChecks.cs",
+      "HashMode": "TextLF",
+      "Expected": "7FF0EDF7A86B03E53DE4510C38FDA6CC0935EDB16EFE32C81F3895C64F82A67F",
+      "Actual": "7FF0EDF7A86B03E53DE4510C38FDA6CC0935EDB16EFE32C81F3895C64F82A67F",
+      "Passed": true
+    },
+    {
+      "Path": "tools/Validation/Erlang.AsyncMicrostateValidation/AsyncChildRollbackNames.cs",
+      "HashMode": "TextLF",
+      "Expected": "4379C9634BED255EF0A8FE22DF2EB4107F5A1534BB24748E82DE52F850DDDBBC",
+      "Actual": "4379C9634BED255EF0A8FE22DF2EB4107F5A1534BB24748E82DE52F850DDDBBC",
+      "Passed": true
+    },
+    {
+      "Path": "tools/Validation/Erlang.AsyncMicrostateValidation/AsyncDriverPositiveChecks.cs",
+      "HashMode": "TextLF",
+      "Expected": "3DB45BA27392497A14A3F54F34BC604BCDD1D84BF9B6AE3F891361ACE1190B5E",
+      "Actual": "3DB45BA27392497A14A3F54F34BC604BCDD1D84BF9B6AE3F891361ACE1190B5E",
+      "Passed": true
+    },
+    {
+      "Path": "tools/Validation/Erlang.AsyncMicrostateValidation/AsyncDriverPositiveNames.cs",
+      "HashMode": "TextLF",
+      "Expected": "9141381CC8C0696638B1DC4CE6FA8A6BC917E49776398F3377F592EB903EAA9D",
+      "Actual": "9141381CC8C0696638B1DC4CE6FA8A6BC917E49776398F3377F592EB903EAA9D",
+      "Passed": true
+    },
+    {
+      "Path": "tools/Validation/Erlang.AsyncMicrostateValidation/AsyncObservationProgramNames.cs",
+      "HashMode": "TextLF",
+      "Expected": "860168C1C4D0A1A7F6602505D553B4ACCC0D3296A1506A01045B148CDB60C252",
+      "Actual": "860168C1C4D0A1A7F6602505D553B4ACCC0D3296A1506A01045B148CDB60C252",
+      "Passed": true
+    },
+    {
+      "Path": "tools/Validation/Erlang.AsyncMicrostateValidation/AsyncOriginalComparison.cs",
+      "HashMode": "TextLF",
+      "Expected": "B33AED804223FF152F5D82E8F07CFF736AE23E71818649BA30251C4A78796358",
+      "Actual": "B33AED804223FF152F5D82E8F07CFF736AE23E71818649BA30251C4A78796358",
+      "Passed": true
+    },
+    {
+      "Path": "tools/Validation/Erlang.AsyncMicrostateValidation/AsyncOriginalComparisonNames.cs",
+      "HashMode": "TextLF",
+      "Expected": "B037179D1542C00780652DA8E49840500EE4328978087939DE478653C1914F27",
+      "Actual": "B037179D1542C00780652DA8E49840500EE4328978087939DE478653C1914F27",
+      "Passed": true
+    },
+    {
+      "Path": "tools/Validation/Erlang.AsyncMicrostateValidation/AsyncQueuedPortCloseChecks.cs",
+      "HashMode": "TextLF",
+      "Expected": "ECBF54493C74FB6BD55A39D60A9DD48E6B1FBB897B062A753B93AF40BC1E671C",
+      "Actual": "ECBF54493C74FB6BD55A39D60A9DD48E6B1FBB897B062A753B93AF40BC1E671C",
+      "Passed": true
+    },
+    {
+      "Path": "tools/Validation/Erlang.AsyncMicrostateValidation/AsyncQueuedPortCloseNames.cs",
+      "HashMode": "TextLF",
+      "Expected": "5E3EA57119F85DB10CA13D151F139BFF96A2C8C8F4A527E8BE2D688F074C8F6C",
+      "Actual": "5E3EA57119F85DB10CA13D151F139BFF96A2C8C8F4A527E8BE2D688F074C8F6C",
+      "Passed": true
+    },
+    {
+      "Path": "tools/Validation/Erlang.AsyncMicrostateValidation/Erlang.AsyncMicrostateValidation.csproj",
+      "HashMode": "TextLF",
+      "Expected": "D60C5D2E471590FA8E25F0DB12B077ACFDAE1633C1514092D5EAEA3F1065EF83",
+      "Actual": "D60C5D2E471590FA8E25F0DB12B077ACFDAE1633C1514092D5EAEA3F1065EF83",
+      "Passed": true
+    },
+    {
+      "Path": "tools/Validation/Erlang.AsyncMicrostateValidation/GlobalUsings.cs",
+      "HashMode": "TextLF",
+      "Expected": "2EF21EBEB4D782D2D60387C335337A51B8596CF349B2B31CBD8DDD031644B188",
+      "Actual": "2EF21EBEB4D782D2D60387C335337A51B8596CF349B2B31CBD8DDD031644B188",
+      "Passed": true
+    },
+    {
+      "Path": "tools/Validation/Erlang.AsyncMicrostateValidation/Program.cs",
+      "HashMode": "TextLF",
+      "Expected": "A08EC41DAA257476A750CD134219F7D44FD943BCF212C3B7A0D0410B36FEDB23",
+      "Actual": "A08EC41DAA257476A750CD134219F7D44FD943BCF212C3B7A0D0410B36FEDB23",
+      "Passed": true
+    },
+    {
+      "Path": "tools/Validation/Erlang.AsyncMicrostateValidation/README.md",
+      "HashMode": "TextLF",
+      "Expected": "BB155065B6ABDF6BD940E5B5EF38DB86893F706F9EC28EE9309121499CB486F3",
+      "Actual": "BB155065B6ABDF6BD940E5B5EF38DB86893F706F9EC28EE9309121499CB486F3",
+      "Passed": true
+    },
+    {
+      "Path": "tools/Validation/Erlang.AsyncMicrostateValidation/RemoteMsaccNegativeChecks.cs",
+      "HashMode": "TextLF",
+      "Expected": "2875967BE481E4E9C1C30409EFE5A446C71385F084F992EB1D65C0F3F8D7023E",
+      "Actual": "2875967BE481E4E9C1C30409EFE5A446C71385F084F992EB1D65C0F3F8D7023E",
+      "Passed": true
+    },
+    {
+      "Path": "tools/Validation/Erlang.AsyncMicrostateValidation/RemoteMsaccNegativeNames.cs",
+      "HashMode": "TextLF",
+      "Expected": "1371A486A709508EE21A57CC83A4388AF7598DBFEA74D2DEB924961F286D4C51",
+      "Actual": "1371A486A709508EE21A57CC83A4388AF7598DBFEA74D2DEB924961F286D4C51",
+      "Passed": true
+    },
+    {
+      "Path": "tools/Validation/Erlang.AsyncMicrostateValidation/collect.py",
+      "HashMode": "Raw",
+      "Expected": "E1A4A8C7348E48492E1A2E5D0F12D6FD4D94FD207F3A9918BE3051F43B829566",
+      "Actual": "E1A4A8C7348E48492E1A2E5D0F12D6FD4D94FD207F3A9918BE3051F43B829566",
+      "Passed": true
+    },
+    {
+      "Path": "tools/Validation/Erlang.AsyncMicrostateValidation/fixtures/async_cross_port1307.erl",
+      "HashMode": "Raw",
+      "Expected": "8B5CD6F129F1E7C7F5DB04B1E245F752B1A5A5A19B8BF372BAC4D1F077B43856",
+      "Actual": "8B5CD6F129F1E7C7F5DB04B1E245F752B1A5A5A19B8BF372BAC4D1F077B43856",
+      "Passed": true
+    },
+    {
+      "Path": "tools/Validation/Erlang.AsyncMicrostateValidation/fixtures/async_msacc1127.erl",
+      "HashMode": "Raw",
+      "Expected": "216D7A49B0E58C31E0455EAB3708D9E44FB135479D8020552B2F360ACE857270",
+      "Actual": "216D7A49B0E58C31E0455EAB3708D9E44FB135479D8020552B2F360ACE857270",
+      "Passed": true
+    },
+    {
+      "Path": "tools/Validation/Erlang.AsyncMicrostateValidation/fixtures/async_msacc1127_drv.c",
+      "HashMode": "Raw",
+      "Expected": "FF950E351E571563C3FBE6A873E70479D2F28C6F0A0D819AC33E8003A6C16D67",
+      "Actual": "FF950E351E571563C3FBE6A873E70479D2F28C6F0A0D819AC33E8003A6C16D67",
+      "Passed": true
+    },
+    {
+      "Path": "tools/Validation/Erlang.AsyncMicrostateValidation/windows_process.py",
+      "HashMode": "Raw",
+      "Expected": "7E0DAB13752286977D9A5059D860BC8924D3CE21029E99B944C51D9BFFE99645",
+      "Actual": "7E0DAB13752286977D9A5059D860BC8924D3CE21029E99B944C51D9BFFE99645",
+      "Passed": true
+    },
+    {
+      "Path": "tools/Validation/Erlang.OtpCatalogValidation/build-native.py",
+      "HashMode": "Raw",
+      "Expected": "AF66548650726EF66DB33C967DB234FA8764C014D8509F2213DB6370085394F1",
+      "Actual": "AF66548650726EF66DB33C967DB234FA8764C014D8509F2213DB6370085394F1",
+      "Passed": true
+    },
+    {
+      "Path": "tools/Validation/Erlang.OtpCatalogValidation/native/driver_async420.c",
+      "HashMode": "TextLF",
+      "Expected": "FF4404669EBE018367A12239745D1424DAB0CDD7FC95D846E134118644DFDB2B",
+      "Actual": "FF4404669EBE018367A12239745D1424DAB0CDD7FC95D846E134118644DFDB2B",
+      "Passed": true
+    },
+    {
+      "Path": "tools/Validation/Erlang.OtpCatalogValidation/native/driver_entry420.c",
+      "HashMode": "TextLF",
+      "Expected": "B5AEAB95EFD920B7E4CBE06DB0CBDF7D96B0CED31F7F39DB105B07A358412F1D",
+      "Actual": "B5AEAB95EFD920B7E4CBE06DB0CBDF7D96B0CED31F7F39DB105B07A358412F1D",
+      "Passed": true
+    },
+    {
+      "Path": "tools/Validation/Erlang.OtpCatalogValidation/native/driver_select420.c",
+      "HashMode": "TextLF",
+      "Expected": "C4CEF6BC0575468119676481C08561FA69D4C12684286FE57DD708C729CB7529",
+      "Actual": "C4CEF6BC0575468119676481C08561FA69D4C12684286FE57DD708C729CB7529",
+      "Passed": true
+    },
+    {
+      "Path": "tools/Validation/Erlang.OtpCatalogValidation/native/driver_threads420.c",
+      "HashMode": "TextLF",
+      "Expected": "B88320754117D67F25B0CC2FA8AEF7A9FF1FF6CC38D284FE73851C1D3C4DC9FD",
+      "Actual": "B88320754117D67F25B0CC2FA8AEF7A9FF1FF6CC38D284FE73851C1D3C4DC9FD",
+      "Passed": true
+    },
+    {
+      "Path": "tools/Validation/Erlang.OtpCatalogValidation/native/erldrv-host-abi.json",
+      "HashMode": "Raw",
+      "Expected": "4233AD3882BC6FD7EF364D7956A453101B0D5799D043274546E6D16A4B44B96F",
+      "Actual": "4233AD3882BC6FD7EF364D7956A453101B0D5799D043274546E6D16A4B44B96F",
+      "Passed": true
+    },
+    {
+      "Path": "tools/Validation/Erlang.OtpCatalogValidation/native/erldrv-host-errno.json",
+      "HashMode": "Raw",
+      "Expected": "34F32F9474543F7E6FE0865BEA91926C8C6C0801416853C061C1EB4FD68B1D28",
+      "Actual": "34F32F9474543F7E6FE0865BEA91926C8C6C0801416853C061C1EB4FD68B1D28",
+      "Passed": true
+    },
+    {
+      "Path": "tools/Validation/Erlang.OtpCatalogValidation/native/manifest.json",
+      "HashMode": "Raw",
+      "Expected": "56BCAB5B8CDBEC0EFD4127604C1B369C0995498F136A219C367E7F1F085D5FD3",
+      "Actual": "56BCAB5B8CDBEC0EFD4127604C1B369C0995498F136A219C367E7F1F085D5FD3",
+      "Passed": true
+    },
+    {
+      "Path": "tools/validate-otp-catalog.ps1",
+      "HashMode": "TextLF",
+      "Expected": "29652E182F9DDDC42706D49CB9B26B161F5A79C3C753F52DFCB47F277AF9402F",
+      "Actual": "29652E182F9DDDC42706D49CB9B26B161F5A79C3C753F52DFCB47F277AF9402F",
+      "Passed": true
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Bootstrap/RuntimeBootstrapDriverFrontend422.cs",
+      "HashMode": "TextLF",
+      "Expected": "55B814D9F46A469E7629B7EC307B85BBAA56F80312242B755A047E0DF236441D",
+      "Actual": "55B814D9F46A469E7629B7EC307B85BBAA56F80312242B755A047E0DF236441D",
+      "Passed": true
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Drivers/ErlDriverHostPeer420.cs",
+      "HashMode": "TextLF",
+      "Expected": "755659E25D9944C02B8667BC8A610B763442FCB94C60EF556B951AA30410A3D2",
+      "Actual": "755659E25D9944C02B8667BC8A610B763442FCB94C60EF556B951AA30410A3D2",
+      "Passed": true
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Drivers/ErlDriverHostResponseGate1427.cs",
+      "HashMode": "TextLF",
+      "Expected": "62363B2E94FA8EC8673D67BBFDC3D3420C379501473B1320D030DDC1E9ACA3C0",
+      "Actual": "62363B2E94FA8EC8673D67BBFDC3D3420C379501473B1320D030DDC1E9ACA3C0",
+      "Passed": true
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Drivers/ErlDriverHostResponseWitness1427.cs",
+      "HashMode": "TextLF",
+      "Expected": "4973015869523843CFF545A4A58E5B2E0483CC20FA93A98FC9A4B041ACAB8783",
+      "Actual": "4973015869523843CFF545A4A58E5B2E0483CC20FA93A98FC9A4B041ACAB8783",
+      "Passed": true
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Drivers/RuntimeDriverFrontend422.cs",
+      "HashMode": "TextLF",
+      "Expected": "76CAF5D572BD6AC7E7EC7304ABF57937712529081051EA01CADBCE3B44CD10BA",
+      "Actual": "76CAF5D572BD6AC7E7EC7304ABF57937712529081051EA01CADBCE3B44CD10BA",
+      "Passed": true
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.DriverFrontend422.cs",
+      "HashMode": "TextLF",
+      "Expected": "6F7E9B153842CF2B3D369098BA49E6D84D054929900F5BBCDFE57BA86D8E918E",
+      "Actual": "6F7E9B153842CF2B3D369098BA49E6D84D054929900F5BBCDFE57BA86D8E918E",
+      "Passed": true
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Scheduling/RuntimeActorDispatcher.cs",
+      "HashMode": "TextLF",
+      "Expected": "D3A6234035D2C5475C4EE51BFC7441FDE4828D241AAC5A6D925F224CEEA992A5",
+      "Actual": "D3A6234035D2C5475C4EE51BFC7441FDE4828D241AAC5A6D925F224CEEA992A5",
+      "Passed": true
+    },
+    {
+      "Path": "tools/Validation/Erlang.AsyncMicrostateValidation/AsyncGateControlNames1465.cs",
+      "HashMode": "TextLF",
+      "Expected": "0B621A3245BE5177FEBF2EA73B4B413C1C4D4EA354FCC29E47EAD69F6CEB324B",
+      "Actual": "0B621A3245BE5177FEBF2EA73B4B413C1C4D4EA354FCC29E47EAD69F6CEB324B",
+      "Passed": true
+    },
+    {
+      "Path": "tools/Validation/Erlang.AsyncMicrostateValidation/AsyncPendingRpcCaseNames1471.cs",
+      "HashMode": "TextLF",
+      "Expected": "1AEAD59467B7752DCE2EF692EAD151A2626044F76616343084FCB764C3EDA4F6",
+      "Actual": "1AEAD59467B7752DCE2EF692EAD151A2626044F76616343084FCB764C3EDA4F6",
+      "Passed": true
+    },
+    {
+      "Path": "tools/Validation/Erlang.AsyncMicrostateValidation/AsyncPendingRpcNames1441.cs",
+      "HashMode": "TextLF",
+      "Expected": "701BF5615A39069A0C3953D6EDF2E32FBE3806D3E75CAC102AFB12CC14AFB594",
+      "Actual": "701BF5615A39069A0C3953D6EDF2E32FBE3806D3E75CAC102AFB12CC14AFB594",
+      "Passed": true
+    },
+    {
+      "Path": "tools/Validation/Erlang.AsyncMicrostateValidation/PendingRpcGateControls1465.cs",
+      "HashMode": "TextLF",
+      "Expected": "FD7056039632853F46525CDDB2106514D1E96D854C3EFDD77245FFFBB8FBD3E3",
+      "Actual": "FD7056039632853F46525CDDB2106514D1E96D854C3EFDD77245FFFBB8FBD3E3",
+      "Passed": true
+    },
+    {
+      "Path": "tools/Validation/Erlang.AsyncMicrostateValidation/PendingRpcMatrixChecks1441.cs",
+      "HashMode": "TextLF",
+      "Expected": "AA18BBC180E4426E666476A7E75249F697814ED133671DFC37BA0F281BCC8420",
+      "Actual": "AA18BBC180E4426E666476A7E75249F697814ED133671DFC37BA0F281BCC8420",
+      "Passed": true
+    }
+  ],
+  "PassedSourceRows": 93,
+  "SourceRowCount": 93,
+  "OriginalMain417069RootCause": "Still unknown; this is a separate preflight failure",
+  "NoRerunStarted": true
+}
