@@ -10,27 +10,25 @@ internal static class BeamPositionOwner398Checks
 
     internal static async Task SourceIdentityStillRequired()
     {
-        byte[] image = BeamBinaryHostBytes.Image(
-            Join(
-                Start(2, 0, 0),
-                Start(2, 1, 1),
-                Instruction(
-                    SavePosition,
-                    X(0),
-                    X(2),
-                    U(2)
-                ),
-                Instruction(RestorePosition, X(1), X(2)),
-                Instruction(
-                    ExtractTail,
-                    X(1),
-                    X(0),
-                    U(2)
-                ),
-                [Return]
+        byte[] body = Join(
+            Start(2, 0, 0),
+            Start(2, 1, 1),
+            Instruction(
+                SavePosition,
+                X(0),
+                X(2),
+                U(2)
             ),
-            arity: 2
+            Instruction(RestorePosition, X(1), X(2)),
+            Instruction(
+                ExtractTail,
+                X(1),
+                X(0),
+                U(2)
+            ),
+            [Return]
         );
+        byte[] image = BeamBinaryHostBytes.Image(body, arity: 2);
         BeamModule prepared = BeamModule.Prepare(image);
         Require(prepared.Supports(BeamOpcodeEdgeNames.Run, 2));
         await using var runtime = new ProcessRuntime();
@@ -52,10 +50,16 @@ internal static class BeamPositionOwner398Checks
             refused = true;
         }
         Require(refused);
-        Require((await actor.InvokeAsync(context => prepared.Invoke(
+        // The public boundary imports argument occurrences separately. Build
+        // the alias with an actual BEAM move after importing ONE source.
+        BeamModule shared = BeamModule.Prepare(BeamBinaryHostBytes.Image(
+            Join(Instruction(Move, X(0), X(1)), body),
+            arity: 1
+        ));
+        Require(shared.Supports(BeamOpcodeEdgeNames.Run, 1));
+        Require((await actor.InvokeAsync(context => shared.Invoke(
             context,
             BeamOpcodeEdgeNames.Run,
-            first,
             first
         ).AsTask())).Equals(first));
     }

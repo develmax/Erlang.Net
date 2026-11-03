@@ -893,6 +893,7 @@ DEPENDENCIES = [
     'tests/Erlang.Tests/Runtime/Modules/CodeLifecycle/CodePurgeOutcome706Names.cs',
     'docs/validation/native-gc825/pr97-statistics-current953-source.json',
     'docs/validation/native-gc825/pr97-helper-shutdown1012-source.json',
+    'docs/validation/native-gc825/pr97-canonical-bif-final-source1047.json',
 ]
 
 

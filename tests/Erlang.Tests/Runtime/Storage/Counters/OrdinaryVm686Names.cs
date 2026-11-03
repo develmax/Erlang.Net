@@ -30,6 +30,9 @@ internal static class OrdinaryVm686Names
     internal const string Enabled = "OwnedExecutionEnabled683";
     internal const string HeapField = "termHeap506";
     internal const string DictionaryFrame = "frame";
+    internal const string DictionaryOwner = "owner";
+    internal const string HeapGate = "Gate";
+    internal const string HeapFrames = "frames";
     internal const string Snapshot = "Snapshot";
     internal const string CapacityWords = "CapacityWords";
     internal const string RootFrames = "RootFrames";

@@ -1,0 +1,33 @@
+{
+  "Partial": true,
+  "SelectedCount": 3,
+  "TotalCount": 9596,
+  "Blocks": [],
+  "ExactCases": [
+    "runtime/beam/binary382/context-flow",
+    "runtime/binary-owned512/real-shared-backing-roots-and-host-message-survival",
+    "runtime/genuine-vm686/offline-claimed-native-input-vm-close-before-entry"
+  ],
+  "Passed": 0,
+  "Failed": 3,
+  "Tests": [
+    {
+      "Name": "runtime/beam/binary382/context-flow",
+      "Status": "Failed",
+      "Error": "System.InvalidOperationException: Bounded BEAM binary HOST control failed\r\n   at Erlang.Tests.BeamBinaryHostAccess.Require(Boolean valid) in D:\\Distr\\Work\\Codex\\Erlang.Net\\w546\\artifacts\\statistics-full\\main-gc825-integration36\\workspace\\tests\\Erlang.Tests\\Compiler\\Beam\\Binary\\BeamBinaryHostAccess.cs:line 109\r\n   at Erlang.Tests.BeamBinaryHostChecks.ContextFlow() in D:\\Distr\\Work\\Codex\\Erlang.Net\\w546\\artifacts\\statistics-full\\main-gc825-integration36\\workspace\\tests\\Erlang.Tests\\Compiler\\Beam\\Binary\\BeamBinaryHostChecks.cs:line 501\r\n   at Erlang.Tests.BeamBinaryHostChecks.ContextFlow() in D:\\Distr\\Work\\Codex\\Erlang.Net\\w546\\artifacts\\statistics-full\\main-gc825-integration36\\workspace\\tests\\Erlang.Tests\\Compiler\\Beam\\Binary\\BeamBinaryHostChecks.cs:line 511\r\n   at Erlang.Tests.BeamBinaryHostChecks.ContextFlow() in D:\\Distr\\Work\\Codex\\Erlang.Net\\w546\\artifacts\\statistics-full\\main-gc825-integration36\\workspace\\tests\\Erlang.Tests\\Compiler\\Beam\\Binary\\BeamBinaryHostChecks.cs:line 511\r\n   at Program.\u003CMain\u003E$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\w546\\artifacts\\statistics-full\\main-gc825-integration36\\workspace\\tests\\Erlang.Tests\\Harness\\Program.cs:line 16144",
+      "Milliseconds": 809
+    },
+    {
+      "Name": "runtime/binary-owned512/real-shared-backing-roots-and-host-message-survival",
+      "Status": "Failed",
+      "Error": "System.InvalidOperationException: Owned binary512 private root-provider contract failed.\r\n   at Erlang.Tests.BinaryOwned512Checks.Check(Boolean value) in D:\\Distr\\Work\\Codex\\Erlang.Net\\w546\\artifacts\\statistics-full\\main-gc825-integration36\\workspace\\tests\\Erlang.Tests\\Runtime\\Memory\\BinaryOwned512Checks.cs:line 193\r\n   at Erlang.Tests.BinaryOwned512Checks.SharingAndEscapes() in D:\\Distr\\Work\\Codex\\Erlang.Net\\w546\\artifacts\\statistics-full\\main-gc825-integration36\\workspace\\tests\\Erlang.Tests\\Runtime\\Memory\\BinaryOwned512Checks.cs:line 59\r\n   at Erlang.Tests.BinaryOwned512Checks.SharingAndEscapes() in D:\\Distr\\Work\\Codex\\Erlang.Net\\w546\\artifacts\\statistics-full\\main-gc825-integration36\\workspace\\tests\\Erlang.Tests\\Runtime\\Memory\\BinaryOwned512Checks.cs:line 62\r\n   at Erlang.Tests.BinaryOwned512Checks.SharingAndEscapes() in D:\\Distr\\Work\\Codex\\Erlang.Net\\w546\\artifacts\\statistics-full\\main-gc825-integration36\\workspace\\tests\\Erlang.Tests\\Runtime\\Memory\\BinaryOwned512Checks.cs:line 62\r\n   at Erlang.Tests.BinaryOwned512Checks.SharingAndEscapes() in D:\\Distr\\Work\\Codex\\Erlang.Net\\w546\\artifacts\\statistics-full\\main-gc825-integration36\\workspace\\tests\\Erlang.Tests\\Runtime\\Memory\\BinaryOwned512Checks.cs:line 62\r\n   at Program.\u003CMain\u003E$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\w546\\artifacts\\statistics-full\\main-gc825-integration36\\workspace\\tests\\Erlang.Tests\\Harness\\Program.cs:line 16144",
+      "Milliseconds": 147
+    },
+    {
+      "Name": "runtime/genuine-vm686/offline-claimed-native-input-vm-close-before-entry",
+      "Status": "Failed",
+      "Error": "System.InvalidOperationException: Actual process payload641 finite owner gate failed.\r\n   at Erlang.Tests.ProcessPayloadCore641Access.Require(Boolean value) in D:\\Distr\\Work\\Codex\\Erlang.Net\\w546\\artifacts\\statistics-full\\main-gc825-integration36\\workspace\\tests\\Erlang.Tests\\Runtime\\Processes\\Signals\\ProcessPayloadCore641Access.cs:line 36\r\n   at Erlang.Tests.OrdinaryVm686Checks.Run(OrdinaryVm686Mode mode) in D:\\Distr\\Work\\Codex\\Erlang.Net\\w546\\artifacts\\statistics-full\\main-gc825-integration36\\workspace\\tests\\Erlang.Tests\\Runtime\\Storage\\Counters\\OrdinaryVm686Checks.cs:line 44\r\n   at Erlang.Tests.OrdinaryVm686Checks.Run(OrdinaryVm686Mode mode) in D:\\Distr\\Work\\Codex\\Erlang.Net\\w546\\artifacts\\statistics-full\\main-gc825-integration36\\workspace\\tests\\Erlang.Tests\\Runtime\\Storage\\Counters\\OrdinaryVm686Checks.cs:line 120\r\n   at Program.\u003CMain\u003E$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\w546\\artifacts\\statistics-full\\main-gc825-integration36\\workspace\\tests\\Erlang.Tests\\Harness\\Program.cs:line 16144",
+      "Milliseconds": 1355
+    }
+  ]
+}

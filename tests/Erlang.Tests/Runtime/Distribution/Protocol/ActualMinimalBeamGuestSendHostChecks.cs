@@ -62,7 +62,7 @@ internal static class ActualMinimalBeamGuestSendHostChecks
                 connection.Remote,
                 payload
             );
-            Check(ReferenceEquals(await operation, payload));
+            CheckPublicResult(await operation, payload);
             Check(ActiveReferences(context, beam) == 0);
 
             return true;
@@ -105,11 +105,25 @@ internal static class ActualMinimalBeamGuestSendHostChecks
         ProcessContext active = await entered.Task.WaitAsync(ActualMinimalBeamGuestSendHostNames.Deadline);
         Check(!waiting.IsCompleted && ActiveReferences(active, beam) > 0);
         await fixture.DrainFiller(connection, 1);
-        Check(ReferenceEquals(await waiting.WaitAsync(ActualMinimalBeamGuestSendHostNames.Deadline), payload));
+        CheckPublicResult(await waiting.WaitAsync(ActualMinimalBeamGuestSendHostNames.Deadline), payload);
         Check(ActiveReferences(active, beam) == 0);
         await fixture.DrainFiller(connection, capacity - 1);
         CheckSend(await fixture.Take(connection), connection.Remote, payload);
         Check(fixture.Runtime.DistributionPending.ConnectedSnapshot(connection.Host).QueuedPackets == 0);
+    }
+
+    private static void CheckPublicResult(Term result, Term payload)
+    {
+        Check(result.Equals(payload));
+        Check(!ReferenceEquals(result, payload));
+        Check(result is TupleTerm && payload is TupleTerm);
+        PropertyInfo? storage = typeof(TupleTerm).GetProperty(
+            ActualMinimalBeamGuestSendHostNames.OwnedStorage,
+            ActualMinimalBeamGuestSendHostNames.Members
+        );
+        Check(storage is not null);
+        Check(storage!.GetValue(result) is null);
+        Check(storage.GetValue(payload) is null);
     }
 
     private static async Task NormalDistribution(ProcessContext context)
