@@ -1,3 +1,5 @@
+extern alias NifNativeBackend;
+
 using System.Reflection;
 namespace Erlang.Tests;
 
@@ -518,6 +520,7 @@ internal static class SystemTaskOwner428Checks
                 return true;
             });
             Require(entered.Wait(SystemTaskOwner428Names.Deadline));
+            Action verifyDeferredBacking = NifNativeBackend::Erlang.NifNativeBackend.DeferredMailboxBackingChecks.PrepareDirtyTarget(t);
             await requester.InvokeAsync(async c =>
             {
                 ReferenceTerm reference = runtime.MakeReference();
@@ -533,6 +536,7 @@ internal static class SystemTaskOwner428Checks
                 // The actual physical worker is still held: only the genuine selected source
                 // handler can admit this target's pending ordered liveness control here.
                 Require(!release.IsSet && dirty is { IsCompleted: false });
+                verifyDeferredBacking();
 
                 return true;
             });

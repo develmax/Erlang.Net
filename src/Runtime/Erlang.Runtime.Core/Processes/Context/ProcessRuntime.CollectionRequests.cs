@@ -94,12 +94,16 @@ public sealed partial class ProcessRuntime
             throw new InvalidOperationException(RuntimeActorControlNames428.Foreign);
         target.Cancellation.ThrowIfCancellationRequested();
         ThrowIfHalted();
-        // Genuine guest execution uses physical process roots. A neutral heap
-        // alone does not admit an opaque Host actor to guest collection.
-        if (target.OwnedExecutionEnabled683)
-            _ = target.CollectOwnedGeneration508(major);
-        else
-            target.CollectManagedGarbage(major, CollectManagedHeap);
+        target.CollectManagedGarbage(
+            major,
+            selectedMajor =>
+        {
+            if (target.VmStorageBackingEnabled)
+                target.CollectOwnedGeneration508(selectedMajor);
+            else
+                CollectManagedHeap(selectedMajor); // existing opaque Host backing only
+        }
+        );
     }
 
     private void CompleteCollectionRequest(ProcessGarbageCollectionRequest request, bool result, bool sendReply)

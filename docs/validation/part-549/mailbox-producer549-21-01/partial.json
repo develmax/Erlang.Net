@@ -1,0 +1,138 @@
+{
+  "Partial": true,
+  "SelectedCount": 21,
+  "TotalCount": 9566,
+  "Blocks": [],
+  "ExactCases": [
+    "mailbox/actual-start-timer-wrapped-backing",
+    "mailbox/actual-timer-off-heap-backing",
+    "mailbox/actual-timer-on-heap-backing",
+    "mailbox/deferred-off-heap-actual-value",
+    "mailbox/deferred-on-heap-actual-value",
+    "mailbox/deferred-release-mode-revalidation",
+    "mailbox/language-exit-pending-off-heap-backing",
+    "mailbox/language-exit-pending-on-heap-backing",
+    "mailbox/local-down-off-heap-actual-backing",
+    "mailbox/local-down-on-heap-actual-backing",
+    "mailbox/local-exit-off-heap-actual-backing",
+    "mailbox/local-exit-on-heap-actual-backing",
+    "mailbox/monitor-down-pending-off-heap-backing",
+    "mailbox/monitor-down-pending-on-heap-backing",
+    "mailbox/policy-off-to-on-gc-adoption",
+    "mailbox/policy-on-to-off-existing-physical-message",
+    "mailbox/policy-real-marker-fences-later-admission-until-batched-movement",
+    "mailbox/policy-requested-reversal-keeps-effective-off-until-real-move-and-post-gc-import",
+    "mailbox/raw-owner-off-heap-actual-value",
+    "mailbox/raw-owner-on-heap-actual-value",
+    "mailbox/raw-priority-actual-value"
+  ],
+  "Passed": 21,
+  "Failed": 0,
+  "Tests": [
+    {
+      "Name": "mailbox/deferred-on-heap-actual-value",
+      "Status": "Passed",
+      "Milliseconds": 387
+    },
+    {
+      "Name": "mailbox/deferred-off-heap-actual-value",
+      "Status": "Passed",
+      "Milliseconds": 38
+    },
+    {
+      "Name": "mailbox/deferred-release-mode-revalidation",
+      "Status": "Passed",
+      "Milliseconds": 30
+    },
+    {
+      "Name": "mailbox/raw-owner-on-heap-actual-value",
+      "Status": "Passed",
+      "Milliseconds": 57
+    },
+    {
+      "Name": "mailbox/raw-owner-off-heap-actual-value",
+      "Status": "Passed",
+      "Milliseconds": 27
+    },
+    {
+      "Name": "mailbox/raw-priority-actual-value",
+      "Status": "Passed",
+      "Milliseconds": 29
+    },
+    {
+      "Name": "mailbox/actual-timer-on-heap-backing",
+      "Status": "Passed",
+      "Milliseconds": 28
+    },
+    {
+      "Name": "mailbox/actual-timer-off-heap-backing",
+      "Status": "Passed",
+      "Milliseconds": 20
+    },
+    {
+      "Name": "mailbox/actual-start-timer-wrapped-backing",
+      "Status": "Passed",
+      "Milliseconds": 27
+    },
+    {
+      "Name": "mailbox/local-exit-on-heap-actual-backing",
+      "Status": "Passed",
+      "Milliseconds": 33
+    },
+    {
+      "Name": "mailbox/local-exit-off-heap-actual-backing",
+      "Status": "Passed",
+      "Milliseconds": 25
+    },
+    {
+      "Name": "mailbox/local-down-on-heap-actual-backing",
+      "Status": "Passed",
+      "Milliseconds": 23
+    },
+    {
+      "Name": "mailbox/local-down-off-heap-actual-backing",
+      "Status": "Passed",
+      "Milliseconds": 20
+    },
+    {
+      "Name": "mailbox/language-exit-pending-on-heap-backing",
+      "Status": "Passed",
+      "Milliseconds": 30
+    },
+    {
+      "Name": "mailbox/language-exit-pending-off-heap-backing",
+      "Status": "Passed",
+      "Milliseconds": 19
+    },
+    {
+      "Name": "mailbox/monitor-down-pending-on-heap-backing",
+      "Status": "Passed",
+      "Milliseconds": 24
+    },
+    {
+      "Name": "mailbox/monitor-down-pending-off-heap-backing",
+      "Status": "Passed",
+      "Milliseconds": 19
+    },
+    {
+      "Name": "mailbox/policy-on-to-off-existing-physical-message",
+      "Status": "Passed",
+      "Milliseconds": 64
+    },
+    {
+      "Name": "mailbox/policy-off-to-on-gc-adoption",
+      "Status": "Passed",
+      "Milliseconds": 42
+    },
+    {
+      "Name": "mailbox/policy-requested-reversal-keeps-effective-off-until-real-move-and-post-gc-import",
+      "Status": "Passed",
+      "Milliseconds": 59
+    },
+    {
+      "Name": "mailbox/policy-real-marker-fences-later-admission-until-batched-movement",
+      "Status": "Passed",
+      "Milliseconds": 66
+    }
+  ]
+}

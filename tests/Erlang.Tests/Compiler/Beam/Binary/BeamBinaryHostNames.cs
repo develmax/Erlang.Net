@@ -2,6 +2,15 @@ namespace Erlang.Tests;
 
 internal static class BeamBinaryHostNames
 {
+    internal const byte ObserverAllocate = 12;
+    internal const byte ObserverMove = 64;
+    internal const byte ObserverDeallocate = 18;
+    internal const byte ObserverTail = 78;
+    internal const int ObserverSlots = 1;
+    internal const int ObserverArity = 2;
+    internal const int ObserverImports = 1;
+    internal const int ObserverModuleAtom = 7;
+    internal const int ObserverFunctionAtom = 8;
     internal const int MaximumEqualityBits = 64;
     internal const string CreateMethod = "Create";
     internal const string StartMethod = "Start";

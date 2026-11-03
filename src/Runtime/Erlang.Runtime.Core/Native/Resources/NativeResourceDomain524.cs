@@ -208,6 +208,8 @@ internal sealed partial class NativeResourceDomain524
     {
         try
         {
+            using var cpu = runtime.Statistics.UserCpu.Enter();
+            using var microstate = runtime.Statistics.Microstates.Attach(RuntimeMicrostateNames.Auxiliary, RuntimeMicrostate.Sleep);
             while (true)
             {
                 signal.Wait();
@@ -226,7 +228,11 @@ internal sealed partial class NativeResourceDomain524
                 }
                 if (payload is { NormalSchedulerRetirement536: true })
                     normalDispatcher536.Dispatch536(payload.Complete524).GetAwaiter().GetResult();
-                else payload?.Complete524();
+                else
+                {
+                    using var state = RuntimeMicrostateExecution.EnterState(runtime.Statistics.Microstates, RuntimeMicrostate.Aux);
+                    payload?.Complete524();
+                }
             }
         }
         catch (Exception error)

@@ -47,10 +47,23 @@ internal static class ProcessGarbageCollectionRegistrations
         if (badOption)
             entries.Add(new(Term.A(ProcessGarbageCollectionNames.ErrorCauseKey), Term.A(ProcessGarbageCollectionNames.BadOption)));
 
+        // These are the same original erlang.erl helper functions used by
+        // other wrapper BIFs, not unrelated equal-valued line constants.
+        Term location = badOption
+            ? PortErrorSourceLocations.BadArgumentWithCause
+            : arguments.Count == 1
+                ? PortErrorSourceLocations.ErrorWithInfo
+                : ErlangErrorHelperMetadata.BadArgumentWithInfo;
+
         return new ErlangException(ErlangErrorReasons.BadArgument)
         {
             ExplicitStackTrace = true,
-            StackTraceTerm = context.CaptureErrorStack(Cons.From(arguments), new MapTerm(entries), ProcessGarbageCollectionNames.Function)
+            StackTraceTerm = context.CaptureErrorStack(
+                Cons.From(arguments),
+                new MapTerm(entries),
+                ProcessGarbageCollectionNames.Function,
+                location
+            )
         };
     }
 }

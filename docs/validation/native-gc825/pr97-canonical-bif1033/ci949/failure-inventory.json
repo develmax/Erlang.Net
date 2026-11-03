@@ -1,0 +1,20 @@
+{
+  "Source": "Authenticated Chrome GitHub Actions rendered job log; read-only observation",
+  "Head": "949fb98f72b44b4313f7854207a63b9140427974",
+  "RunId": 41574613839,
+  "JobId": 125715114957,
+  "FullRegression": {"Passed": 9588, "Total": 9596, "Failed": 8},
+  "PreviouslyReproducedAndLocallyCorrected1043": [
+    "runtime/internal-gc428-real-managed-collection-policy",
+    "runtime/beam/position398/source-reference-identity",
+    "runtime/library394/infallible-opcode-kernel-preserves-remote-overrides",
+    "host_actual_original_minimal_beam_connected_bang",
+    "process-gc-actual-collection-and-pending-death"
+  ],
+  "AdditionalFailuresIndependentlyReproduced1046": [
+    {"Name":"runtime/beam/binary382/context-flow","Location":"BeamBinaryHostChecks.cs:501","Error":"Bounded BEAM binary HOST control failed"},
+    {"Name":"runtime/binary-owned512/real-shared-backing-roots-and-host-message-survival","Location":"BinaryOwned512Checks.cs:59","Error":"Owned binary512 private root-provider contract failed."},
+    {"Name":"runtime/genuine-vm686/offline-claimed-native-input-vm-close-before-entry","Location":"OrdinaryVm686Checks.cs:44","Error":"Actual process payload641 finite owner gate failed."}
+  ],
+  "Limit": "Independent native comparisons were still running; this is the completed validate.ps1 regression result, not an overall job conclusion. Complete downloadable logs remain required when available."
+}

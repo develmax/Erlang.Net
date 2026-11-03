@@ -50,7 +50,7 @@ public sealed partial class ProcessRuntime
                     return;
                 }
                 pendingClaim = owner.Mailbox.ClaimPendingBacking();
-                work = pendingClaim is null ? owner.Mailbox.ClaimDeferred() : null;
+                work = pendingClaim is null ? owner.Mailbox.ClaimDeferredForBacking() : null;
             }
             if (pendingClaim is not null)
             {
@@ -59,27 +59,7 @@ public sealed partial class ProcessRuntime
             }
             if (work is null)
                 return;
-            DeferredMailboxAdmission? ready;
-            try
-            {
-                // Neither global runtime nor mailbox gate is held here.
-                ready = work.Prepare();
-            }
-            catch
-            {
-                lock (gate)
-                    work.Complete(null);
-                throw;
-            }
-            try
-            {
-                lock (gate)
-                    work.Complete(owner.Terminated ? null : ready);
-            }
-            finally
-            {
-                ready?.Payload641?.Close641();
-            }
+            PrepareAndCompleteDeferredSignal(owner, work);
         }
     }
 }

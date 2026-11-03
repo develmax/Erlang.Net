@@ -24,6 +24,6 @@ internal static class ProcessMessageQueueData411
         ProcessMessageQueueDataMode411 mode = Parse(value);
         context.Cancellation.ThrowIfCancellationRequested();
 
-        return Atom(context.Mailbox.ExchangeMessageQueueData411(mode));
+        return Atom(context.Runtime.ChangeMessageQueuePolicy(context, mode));
     }
 }

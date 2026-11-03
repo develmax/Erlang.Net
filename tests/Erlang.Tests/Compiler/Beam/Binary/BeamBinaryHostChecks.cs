@@ -498,15 +498,23 @@ internal static class BeamBinaryHostChecks
         await using var runtime = new ProcessRuntime();
         await using var actor = new RuntimeNodeFoundationHostActor(runtime);
         BitString source = new([0xab]);
-        Require(ReferenceEquals(
-            await actor.InvokeAsync(context => prepared.Invoke(
-                context,
-                BeamOpcodeEdgeNames.Run,
-                Erlang.Nil.Value,
-                source
-            ).AsTask()),
+        Term returned = await actor.InvokeAsync(context => prepared.Invoke(
+            context,
+            BeamOpcodeEdgeNames.Run,
+            Erlang.Nil.Value,
             source
-        ));
+        ).AsTask());
+        Require(returned is BitString binary && binary.Equals(source));
+        await DebugSame420HostAccess.Initialize(runtime);
+        BeamModule identity = BeamModule.Prepare(BeamBinaryHostBytes.RetainedSourceIdentity(),
+            new BeamDependencySelection([DebugSame420HostNames.Module]));
+        Require(identity.Supports(BeamOpcodeEdgeNames.Run, 2));
+        Require((await actor.InvokeAsync(context => identity.Invoke(
+            context,
+            BeamOpcodeEdgeNames.Run,
+            Erlang.Nil.Value,
+            source
+        ).AsTask())).Equals(Term.A(ErlangBooleanAtoms.True)));
         byte[] dead = BeamBinaryHostBytes.Image(BeamBinaryHostBytes.Join(BeamBinaryHostBytes.Start(0, 1, 0), [64, 0x23, 3, 19]), arity: 3);
         Reject(dead, 3);
     }

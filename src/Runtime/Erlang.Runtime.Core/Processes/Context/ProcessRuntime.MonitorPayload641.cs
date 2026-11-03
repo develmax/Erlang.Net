@@ -134,14 +134,18 @@ public sealed partial class ProcessRuntime
             try
             {
                 if (admission is not null)
+                {
+                    observer.DeferredSignalDrain ??= new();
                     observer.Mailbox.SendPendingSnapshot593(
                         publication.Value641,
                         admission,
                         token,
                         preserve,
                         from,
-                        publication593: publication.Publication641
+                        publication593: publication.Publication641,
+                        prepareBacking: true
                     );
+                }
                 else
                     observer.Mailbox.SendTracedSnapshot593(
                         publication.Value641,

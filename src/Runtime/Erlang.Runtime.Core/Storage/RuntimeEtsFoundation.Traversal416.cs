@@ -13,6 +13,7 @@ internal sealed partial class RuntimeEtsFoundation
     {
         lock (gate)
         {
+            using var comparisonCopies = new AtomicsHostCopyTransaction591();
             var table = CoreResolve407(context, identifier, false);
             var options = coreOptions407.GetValue(table, _ => throw new InvalidOperationException(EtsIndexNames420.InvalidIndex));
             var index = table.Primary420 ?? throw new InvalidOperationException(EtsIndexNames420.InvalidIndex);
@@ -24,7 +25,7 @@ internal sealed partial class RuntimeEtsFoundation
                 {
                     context.Cancellation.ThrowIfCancellationRequested();
                     var group = index.Ordered[backward ? index.Ordered.Length - 1 - scan : scan];
-                    int comparison = step ? TermOrder.Compare(CoreKey407(CoreRead407(group.KeyPayload, context.Cancellation), options.KeyPosition), key) : 0;
+                    int comparison = step ? TermOrder.Compare(CoreKey407(CoreReadSelected594(group.KeyPayload, context.Cancellation, comparisonCopies), options.KeyPosition), key) : 0;
                     if (!step || (backward ? comparison < 0 : comparison > 0))
                     {
                         selected = group;

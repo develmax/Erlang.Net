@@ -90,7 +90,14 @@ internal static class BeamFrameValidation
             }
             switch (instruction.Definition.Name)
             {
+                case BeamNativeRecordAccessNames.Elements:
+                    Y(operands[BeamNativeRecordAccessNames.Source], true);
+                    Fail(operands[BeamNativeRecordAccessNames.Failure]);
+                    for (int field = BeamNativeRecordAccessNames.FirstField; field < operands.Count; field += BeamNativeRecordAccessNames.FieldWidth)
+                        Write(operands[field + BeamNativeRecordAccessNames.DestinationOffset]);
+                    break;
                 case BeamRecordConstructionNames.Opcode:
+                    Y(operands[BeamRecordConstructionNames.Source], true);
                     if (slots != BeamFrameParameters.NoFrame && initialized != (BigInteger.One << slots) - BigInteger.One)
                         throw new InvalidDataException(BeamOnLoadDiagnostics.Frame);
                     for (int field = BeamRecordConstructionNames.FirstField; field < operands.Count; field += BeamRecordConstructionNames.FieldWidth)
@@ -801,7 +808,14 @@ internal static class BeamFrameValidation
 
             switch (name)
             {
+                case BeamNativeRecordAccessNames.Elements:
+                    Read(operands[BeamNativeRecordAccessNames.Source]);
+                    Branch(operands[BeamNativeRecordAccessNames.Failure]);
+                    for (int field = BeamNativeRecordAccessNames.FirstField; field < operands.Count; field += BeamNativeRecordAccessNames.FieldWidth)
+                        Write(operands[field + BeamNativeRecordAccessNames.DestinationOffset]);
+                    break;
                 case BeamRecordConstructionNames.Opcode:
+                    Read(operands[BeamRecordConstructionNames.Source]);
                     Roots();
                     Live((int)operands[BeamRecordConstructionNames.Live].Value);
                     for (int field = BeamRecordConstructionNames.FirstField; field < operands.Count; field += BeamRecordConstructionNames.FieldWidth)

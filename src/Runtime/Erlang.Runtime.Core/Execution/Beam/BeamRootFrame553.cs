@@ -312,6 +312,17 @@ internal sealed class BeamRootFrame553(ProcessTermHeap506 heap, ProcessTermFrame
             }
         }
 
+        internal bool KeepsLiveRoot550(Term value)
+        {
+            Slot current = Volatile.Read(ref slot) ?? throw new ObjectDisposedException(nameof(Interest));
+            lock (current.Owner.Gate)
+            {
+                current.Owner.RequireSlot(current);
+
+                return current.Owner.RegisteredFrame.KeepsLiveRoot550(current.Id, value);
+            }
+        }
+
         // A search hint only. Frame(value) performs the actual slot admission
         // before an export can use this holder as its registered caller.
         internal bool RefersTo(Term value)

@@ -23,6 +23,7 @@ internal sealed class DriverPortDispatchJob422
             // RuntimeSchedulerAuxiliary420.Execute owns this real lane until
             // this method returns. Do not fire-and-forget or spoof a lane flag.
             using var permit = DriverPortDispatchPermit422.Enter(runtime, lane);
+            using var microstate = RuntimeMicrostateExecution.EnterState(runtime.Statistics.Microstates, RuntimeMicrostate.Port);
             action().GetAwaiter().GetResult();
         }
         finally

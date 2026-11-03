@@ -36,6 +36,7 @@ internal sealed class RuntimeMicrostateRequest
     internal void BindStatisticsTrap(RuntimeSchedulerAuxiliaryBatch420 batch, StatisticsTrapRequest trap)
     {
         statisticsTrap = trap;
+        trap.BindPreparationAbort(AbortStatisticsTrap);
         Bind(batch.Completion);
         trap.Observe(batch);
         trap.BindPhysical(Completion);
@@ -43,8 +44,14 @@ internal sealed class RuntimeMicrostateRequest
 
     internal void AbortStatisticsTrap(Exception error)
     {
-        Failure(error);
-        synchronous.TrySetException(error);
+        try
+        {
+            Failure(error);
+        }
+        finally
+        {
+            synchronous.TrySetException(error);
+        }
     }
 
     internal bool Prepare()

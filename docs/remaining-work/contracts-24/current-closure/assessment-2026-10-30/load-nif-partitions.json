@@ -1,0 +1,1163 @@
+{
+  "Mfa": "erlang:load_nif/2",
+  "AssessedHead": "3364c3050947c00084c19b446f98a05878b2512f",
+  "Pin": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "SourceOnly": true,
+  "Rows": [
+    {
+      "Id": "path.charlist",
+      "Group": "path",
+      "Assessment": "IMPLEMENTED_OR_EXISTING_PROTOCOL_WHOLE_MATRIX_UNVERIFIED",
+      "ConcreteGapIds": [],
+      "RelatedFiniteEvidence": [],
+      "RequiredOriginalObservation": "actual path conversion and suffix; full error class/reason/allframes",
+      "NextGate": "G6-targeted-original-matrix",
+      "WholePartitionAccepted": false
+    },
+    {
+      "Id": "path.nested-list",
+      "Group": "path",
+      "Assessment": "IMPLEMENTED_OR_EXISTING_PROTOCOL_WHOLE_MATRIX_UNVERIFIED",
+      "ConcreteGapIds": [],
+      "RelatedFiniteEvidence": [],
+      "RequiredOriginalObservation": "exact flattening order and memory/atom limits",
+      "NextGate": "G6-targeted-original-matrix",
+      "WholePartitionAccepted": false
+    },
+    {
+      "Id": "path.binary",
+      "Group": "path",
+      "Assessment": "IMPLEMENTED_OR_EXISTING_PROTOCOL_WHOLE_MATRIX_UNVERIFIED",
+      "ConcreteGapIds": [],
+      "RelatedFiniteEvidence": [],
+      "RequiredOriginalObservation": "actual platform conversion; Windows Latin1 fallback vsUnix rawbytes",
+      "NextGate": "G6-targeted-original-matrix",
+      "WholePartitionAccepted": false
+    },
+    {
+      "Id": "path.empty",
+      "Group": "path",
+      "Assessment": "IMPLEMENTED_OR_EXISTING_PROTOCOL_WHOLE_MATRIX_UNVERIFIED",
+      "ConcreteGapIds": [],
+      "RelatedFiniteEvidence": [],
+      "RequiredOriginalObservation": "retain actual suffix/open error string, no guessed path",
+      "NextGate": "G6-targeted-original-matrix",
+      "WholePartitionAccepted": false
+    },
+    {
+      "Id": "path.nul",
+      "Group": "path",
+      "Assessment": "IMPLEMENTED_OR_EXISTING_PROTOCOL_WHOLE_MATRIX_UNVERIFIED",
+      "ConcreteGapIds": [],
+      "RelatedFiniteEvidence": [],
+      "RequiredOriginalObservation": "source platform conversion/NUL partition; no generic sanitization substitution",
+      "NextGate": "G6-targeted-original-matrix",
+      "WholePartitionAccepted": false
+    },
+    {
+      "Id": "path.invalid-top",
+      "Group": "path",
+      "Assessment": "IMPLEMENTED_OR_EXISTING_PROTOCOL_WHOLE_MATRIX_UNVERIFIED",
+      "ConcreteGapIds": [],
+      "RelatedFiniteEvidence": [],
+      "RequiredOriginalObservation": "badarg full arguments/error_info and native/source frames",
+      "NextGate": "G6-targeted-original-matrix",
+      "WholePartitionAccepted": false
+    },
+    {
+      "Id": "path.invalid-elements",
+      "Group": "path",
+      "Assessment": "IMPLEMENTED_OR_EXISTING_PROTOCOL_WHOLE_MATRIX_UNVERIFIED",
+      "ConcreteGapIds": [],
+      "RelatedFiniteEvidence": [],
+      "RequiredOriginalObservation": "source conversion failure with exact original type/error boundary",
+      "NextGate": "G6-targeted-original-matrix",
+      "WholePartitionAccepted": false
+    },
+    {
+      "Id": "path.improper-list",
+      "Group": "path",
+      "Assessment": "IMPLEMENTED_OR_EXISTING_PROTOCOL_WHOLE_MATRIX_UNVERIFIED",
+      "ConcreteGapIds": [],
+      "RelatedFiniteEvidence": [],
+      "RequiredOriginalObservation": "source badarg and fullstack",
+      "NextGate": "G6-targeted-original-matrix",
+      "WholePartitionAccepted": false
+    },
+    {
+      "Id": "path.relative",
+      "Group": "path",
+      "Assessment": "IMPLEMENTED_OR_EXISTING_PROTOCOL_WHOLE_MATRIX_UNVERIFIED",
+      "ConcreteGapIds": [],
+      "RelatedFiniteEvidence": [],
+      "RequiredOriginalObservation": "actual working directory/loader search semantics",
+      "NextGate": "G6-targeted-original-matrix",
+      "WholePartitionAccepted": false
+    },
+    {
+      "Id": "path.absolute",
+      "Group": "path",
+      "Assessment": "IMPLEMENTED_OR_EXISTING_PROTOCOL_WHOLE_MATRIX_UNVERIFIED",
+      "ConcreteGapIds": [],
+      "RelatedFiniteEvidence": [],
+      "RequiredOriginalObservation": "no arbitrary path canonicalization changing symlink/.. behavior",
+      "NextGate": "G6-targeted-original-matrix",
+      "WholePartitionAccepted": false
+    },
+    {
+      "Id": "path.suffix",
+      "Group": "path",
+      "Assessment": "IMPLEMENTED_OR_EXISTING_PROTOCOL_WHOLE_MATRIX_UNVERIFIED",
+      "ConcreteGapIds": [],
+      "RelatedFiniteEvidence": [],
+      "RequiredOriginalObservation": "source appends platform suffix even if caller supplied one",
+      "NextGate": "G6-targeted-original-matrix",
+      "WholePartitionAccepted": false
+    },
+    {
+      "Id": "path.unicode",
+      "Group": "path",
+      "Assessment": "IMPLEMENTED_OR_EXISTING_PROTOCOL_WHOLE_MATRIX_UNVERIFIED",
+      "ConcreteGapIds": [],
+      "RelatedFiniteEvidence": [],
+      "RequiredOriginalObservation": "same original/managed actual file chosen",
+      "NextGate": "G6-targeted-original-matrix",
+      "WholePartitionAccepted": false
+    },
+    {
+      "Id": "path.drive-relative",
+      "Group": "path",
+      "Assessment": "IMPLEMENTED_OR_EXISTING_PROTOCOL_WHOLE_MATRIX_UNVERIFIED",
+      "ConcreteGapIds": [],
+      "RelatedFiniteEvidence": [],
+      "RequiredOriginalObservation": "current explicit unsupported boundary retained; must acquire original behavior",
+      "NextGate": "G6-targeted-original-matrix",
+      "WholePartitionAccepted": false
+    },
+    {
+      "Id": "path.missing",
+      "Group": "path",
+      "Assessment": "IMPLEMENTED_OR_EXISTING_PROTOCOL_WHOLE_MATRIX_UNVERIFIED",
+      "ConcreteGapIds": [],
+      "RelatedFiniteEvidence": [],
+      "RequiredOriginalObservation": "error load_failed string actual platform ddll failure text",
+      "NextGate": "G6-targeted-original-matrix",
+      "WholePartitionAccepted": false
+    },
+    {
+      "Id": "path.denied",
+      "Group": "path",
+      "Assessment": "IMPLEMENTED_OR_EXISTING_PROTOCOL_WHOLE_MATRIX_UNVERIFIED",
+      "ConcreteGapIds": [],
+      "RelatedFiniteEvidence": [],
+      "RequiredOriginalObservation": "full actual original/managed outcome and cleanup",
+      "NextGate": "G6-targeted-original-matrix",
+      "WholePartitionAccepted": false
+    },
+    {
+      "Id": "path.wrong-format",
+      "Group": "path",
+      "Assessment": "IMPLEMENTED_OR_EXISTING_PROTOCOL_WHOLE_MATRIX_UNVERIFIED",
+      "ConcreteGapIds": [],
+      "RelatedFiniteEvidence": [],
+      "RequiredOriginalObservation": "retain platform bad image loader reason",
+      "NextGate": "G6-targeted-original-matrix",
+      "WholePartitionAccepted": false
+    },
+    {
+      "Id": "path.dependency",
+      "Group": "path",
+      "Assessment": "IMPLEMENTED_OR_EXISTING_PROTOCOL_WHOLE_MATRIX_UNVERIFIED",
+      "ConcreteGapIds": [],
+      "RelatedFiniteEvidence": [],
+      "RequiredOriginalObservation": "existing ordinary-loader dep fixtures; do not rebuild duplicate suite",
+      "NextGate": "G6-targeted-original-matrix",
+      "WholePartitionAccepted": false
+    },
+    {
+      "Id": "path.symlink",
+      "Group": "path",
+      "Assessment": "IMPLEMENTED_OR_EXISTING_PROTOCOL_WHOLE_MATRIX_UNVERIFIED",
+      "ConcreteGapIds": [],
+      "RelatedFiniteEvidence": [],
+      "RequiredOriginalObservation": "actual opened file identity; own host observation not lexical canonicalization",
+      "NextGate": "G6-targeted-original-matrix",
+      "WholePartitionAccepted": false
+    },
+    {
+      "Id": "caller.direct-current",
+      "Group": "caller",
+      "Assessment": "IMPLEMENTED_OR_EXISTING_PROTOCOL_WHOLE_MATRIX_UNVERIFIED",
+      "ConcreteGapIds": [],
+      "RelatedFiniteEvidence": [],
+      "RequiredOriginalObservation": "current owner/image identity and installed bindings",
+      "NextGate": "G6-targeted-original-matrix",
+      "WholePartitionAccepted": false
+    },
+    {
+      "Id": "caller.indirect",
+      "Group": "caller",
+      "Assessment": "IMPLEMENTED_OR_EXISTING_PROTOCOL_WHOLE_MATRIX_UNVERIFIED",
+      "ConcreteGapIds": [],
+      "RelatedFiniteEvidence": [],
+      "RequiredOriginalObservation": "retain exact indirect-call error, do not fabricate caller authority",
+      "NextGate": "G6-targeted-original-matrix",
+      "WholePartitionAccepted": false
+    },
+    {
+      "Id": "caller.host",
+      "Group": "caller",
+      "Assessment": "IMPLEMENTED_OR_EXISTING_PROTOCOL_WHOLE_MATRIX_UNVERIFIED",
+      "ConcreteGapIds": [],
+      "RelatedFiniteEvidence": [],
+      "RequiredOriginalObservation": "no executing code capability; host cannot adopt arbitrary module identity",
+      "NextGate": "G6-targeted-original-matrix",
+      "WholePartitionAccepted": false
+    },
+    {
+      "Id": "caller.foreign",
+      "Group": "caller",
+      "Assessment": "IMPLEMENTED_OR_EXISTING_PROTOCOL_WHOLE_MATRIX_UNVERIFIED",
+      "ConcreteGapIds": [],
+      "RelatedFiniteEvidence": [],
+      "RequiredOriginalObservation": "foreign refusal before ownership/publication",
+      "NextGate": "G6-targeted-original-matrix",
+      "WholePartitionAccepted": false
+    },
+    {
+      "Id": "caller.old",
+      "Group": "caller",
+      "Assessment": "IMPLEMENTED_OR_EXISTING_PROTOCOL_WHOLE_MATRIX_UNVERIFIED",
+      "ConcreteGapIds": [],
+      "RelatedFiniteEvidence": [],
+      "RequiredOriginalObservation": "original error old_code and complete reason string",
+      "NextGate": "G6-targeted-original-matrix",
+      "WholePartitionAccepted": false
+    },
+    {
+      "Id": "caller.pending-onload",
+      "Group": "caller",
+      "Assessment": "IMPLEMENTED_OR_EXISTING_PROTOCOL_WHOLE_MATRIX_UNVERIFIED",
+      "ConcreteGapIds": [],
+      "RelatedFiniteEvidence": [],
+      "RequiredOriginalObservation": "load attached atomically to selected pending image",
+      "NextGate": "G6-targeted-original-matrix",
+      "WholePartitionAccepted": false
+    },
+    {
+      "Id": "caller.current-with-pending",
+      "Group": "caller",
+      "Assessment": "CONCRETE_REMAINING_SOURCE_GAP",
+      "ConcreteGapIds": [
+        "D1"
+      ],
+      "RelatedFiniteEvidence": [],
+      "RequiredOriginalObservation": "current PendingCurrentAmbiguous refusal is explicit; acquire original module.on_load selection semantics",
+      "NextGate": "G2-to-G5-production",
+      "WholePartitionAccepted": false
+    },
+    {
+      "Id": "caller.reregister",
+      "Group": "caller",
+      "Assessment": "IMPLEMENTED_OR_EXISTING_PROTOCOL_WHOLE_MATRIX_UNVERIFIED",
+      "ConcreteGapIds": [],
+      "RelatedFiniteEvidence": [],
+      "RequiredOriginalObservation": "exact body/image capability must remain revoked",
+      "NextGate": "G6-targeted-original-matrix",
+      "WholePartitionAccepted": false
+    },
+    {
+      "Id": "caller.generation",
+      "Group": "caller",
+      "Assessment": "IMPLEMENTED_OR_EXISTING_PROTOCOL_WHOLE_MATRIX_UNVERIFIED",
+      "ConcreteGapIds": [],
+      "RelatedFiniteEvidence": [],
+      "RequiredOriginalObservation": "rollback with no partially ready functions/types",
+      "NextGate": "G6-targeted-original-matrix",
+      "WholePartitionAccepted": false
+    },
+    {
+      "Id": "caller.closing",
+      "Group": "caller",
+      "Assessment": "IMPLEMENTED_OR_EXISTING_PROTOCOL_WHOLE_MATRIX_UNVERIFIED",
+      "ConcreteGapIds": [],
+      "RelatedFiniteEvidence": [],
+      "RequiredOriginalObservation": "close admission and physical init/callback drain; no leaked DSO/private_data",
+      "NextGate": "G6-targeted-original-matrix",
+      "WholePartitionAccepted": false
+    },
+    {
+      "Id": "entry.missing-init",
+      "Group": "entry",
+      "Assessment": "IMPLEMENTED_OR_EXISTING_PROTOCOL_WHOLE_MATRIX_UNVERIFIED",
+      "ConcreteGapIds": [],
+      "RelatedFiniteEvidence": [
+        "E1-part543-versioned-entry"
+      ],
+      "RequiredOriginalObservation": "original bad_lib reason actual platform symbol text",
+      "NextGate": "G6-targeted-original-matrix",
+      "WholePartitionAccepted": false
+    },
+    {
+      "Id": "entry.null-init",
+      "Group": "entry",
+      "Assessment": "IMPLEMENTED_OR_EXISTING_PROTOCOL_WHOLE_MATRIX_UNVERIFIED",
+      "ConcreteGapIds": [],
+      "RelatedFiniteEvidence": [
+        "E1-part543-versioned-entry"
+      ],
+      "RequiredOriginalObservation": "bad_lib exact library init failure text",
+      "NextGate": "G6-targeted-original-matrix",
+      "WholePartitionAccepted": false
+    },
+    {
+      "Id": "entry.null-load",
+      "Group": "entry",
+      "Assessment": "IMPLEMENTED_OR_EXISTING_PROTOCOL_WHOLE_MATRIX_UNVERIFIED",
+      "ConcreteGapIds": [],
+      "RelatedFiniteEvidence": [
+        "E1-part543-versioned-entry"
+      ],
+      "RequiredOriginalObservation": "successful initial load; private data remains actualNULL",
+      "NextGate": "G6-targeted-original-matrix",
+      "WholePartitionAccepted": false
+    },
+    {
+      "Id": "entry.future-version",
+      "Group": "entry",
+      "Assessment": "IMPLEMENTED_OR_EXISTING_PROTOCOL_WHOLE_MATRIX_UNVERIFIED",
+      "ConcreteGapIds": [],
+      "RelatedFiniteEvidence": [
+        "E1-part543-versioned-entry"
+      ],
+      "RequiredOriginalObservation": "actual min_erts error, no read beyond admitted prefix",
+      "NextGate": "G6-targeted-original-matrix",
+      "WholePartitionAccepted": false
+    },
+    {
+      "Id": "entry.historical-version",
+      "Group": "entry",
+      "Assessment": "IMPLEMENTED_OR_EXISTING_PROTOCOL_WHOLE_MATRIX_UNVERIFIED",
+      "ConcreteGapIds": [],
+      "RelatedFiniteEvidence": [
+        "E1-part543-versioned-entry"
+      ],
+      "RequiredOriginalObservation": "current reader insists exactly2.18: explicit compatibility gap",
+      "NextGate": "G6-targeted-original-matrix",
+      "WholePartitionAccepted": false
+    },
+    {
+      "Id": "entry.old-unsupported",
+      "Group": "entry",
+      "Assessment": "IMPLEMENTED_OR_EXISTING_PROTOCOL_WHOLE_MATRIX_UNVERIFIED",
+      "ConcreteGapIds": [],
+      "RelatedFiniteEvidence": [
+        "E1-part543-versioned-entry"
+      ],
+      "RequiredOriginalObservation": "source version diagnostic and cleanup",
+      "NextGate": "G6-targeted-original-matrix",
+      "WholePartitionAccepted": false
+    },
+    {
+      "Id": "entry.variant",
+      "Group": "entry",
+      "Assessment": "IMPLEMENTED_OR_EXISTING_PROTOCOL_WHOLE_MATRIX_UNVERIFIED",
+      "ConcreteGapIds": [],
+      "RelatedFiniteEvidence": [
+        "E1-part543-versioned-entry"
+      ],
+      "RequiredOriginalObservation": "source complete variant bad_lib diagnostic",
+      "NextGate": "G6-targeted-original-matrix",
+      "WholePartitionAccepted": false
+    },
+    {
+      "Id": "entry.module",
+      "Group": "entry",
+      "Assessment": "IMPLEMENTED_OR_EXISTING_PROTOCOL_WHOLE_MATRIX_UNVERIFIED",
+      "ConcreteGapIds": [],
+      "RelatedFiniteEvidence": [
+        "E1-part543-versioned-entry"
+      ],
+      "RequiredOriginalObservation": "bad_lib module-name mismatch exact bytes",
+      "NextGate": "G6-targeted-original-matrix",
+      "WholePartitionAccepted": false
+    },
+    {
+      "Id": "entry.missing-function",
+      "Group": "entry",
+      "Assessment": "IMPLEMENTED_OR_EXISTING_PROTOCOL_WHOLE_MATRIX_UNVERIFIED",
+      "ConcreteGapIds": [],
+      "RelatedFiniteEvidence": [
+        "E1-part543-versioned-entry"
+      ],
+      "RequiredOriginalObservation": "source bad_lib function/name/arity diagnostic",
+      "NextGate": "G6-targeted-original-matrix",
+      "WholePartitionAccepted": false
+    },
+    {
+      "Id": "entry.undeclared",
+      "Group": "entry",
+      "Assessment": "IMPLEMENTED_OR_EXISTING_PROTOCOL_WHOLE_MATRIX_UNVERIFIED",
+      "ConcreteGapIds": [],
+      "RelatedFiniteEvidence": [
+        "E1-part543-versioned-entry"
+      ],
+      "RequiredOriginalObservation": "source bad_lib declaration diagnostic",
+      "NextGate": "G6-targeted-original-matrix",
+      "WholePartitionAccepted": false
+    },
+    {
+      "Id": "entry.duplicate",
+      "Group": "entry",
+      "Assessment": "IMPLEMENTED_OR_EXISTING_PROTOCOL_WHOLE_MATRIX_UNVERIFIED",
+      "ConcreteGapIds": [],
+      "RelatedFiniteEvidence": [
+        "E1-part543-versioned-entry"
+      ],
+      "RequiredOriginalObservation": "source bad_lib duplicate diagnostic",
+      "NextGate": "G6-targeted-original-matrix",
+      "WholePartitionAccepted": false
+    },
+    {
+      "Id": "entry.flags",
+      "Group": "entry",
+      "Assessment": "IMPLEMENTED_OR_EXISTING_PROTOCOL_WHOLE_MATRIX_UNVERIFIED",
+      "ConcreteGapIds": [],
+      "RelatedFiniteEvidence": [
+        "E1-part543-versioned-entry"
+      ],
+      "RequiredOriginalObservation": "exact accepted flags and public bad_lib reason for invalid flags",
+      "NextGate": "G6-targeted-original-matrix",
+      "WholePartitionAccepted": false
+    },
+    {
+      "Id": "entry.arity-name",
+      "Group": "entry",
+      "Assessment": "IMPLEMENTED_OR_EXISTING_PROTOCOL_WHOLE_MATRIX_UNVERIFIED",
+      "ConcreteGapIds": [],
+      "RelatedFiniteEvidence": [
+        "E1-part543-versioned-entry"
+      ],
+      "RequiredOriginalObservation": "exact source admission/read bounds; no arbitrary pointer acceptance",
+      "NextGate": "G6-targeted-original-matrix",
+      "WholePartitionAccepted": false
+    },
+    {
+      "Id": "entry.entry-options",
+      "Group": "entry",
+      "Assessment": "IMPLEMENTED_OR_EXISTING_PROTOCOL_WHOLE_MATRIX_UNVERIFIED",
+      "ConcreteGapIds": [],
+      "RelatedFiniteEvidence": [
+        "E1-part543-versioned-entry"
+      ],
+      "RequiredOriginalObservation": "current fixed options/layout is bounded; field presence does not prove feature",
+      "NextGate": "G6-targeted-original-matrix",
+      "WholePartitionAccepted": false
+    },
+    {
+      "Id": "initialization.load-ok",
+      "Group": "initialization",
+      "Assessment": "IMPLEMENTED_OR_EXISTING_PROTOCOL_WHOLE_MATRIX_UNVERIFIED",
+      "ConcreteGapIds": [],
+      "RelatedFiniteEvidence": [],
+      "RequiredOriginalObservation": "all native functions atomically callable after ready commit",
+      "NextGate": "G6-targeted-original-matrix",
+      "WholePartitionAccepted": false
+    },
+    {
+      "Id": "initialization.load-veto",
+      "Group": "initialization",
+      "Assessment": "IMPLEMENTED_OR_EXISTING_PROTOCOL_WHOLE_MATRIX_UNVERIFIED",
+      "ConcreteGapIds": [],
+      "RelatedFiniteEvidence": [],
+      "RequiredOriginalObservation": "error load with exact veto code; no ready functions/types",
+      "NextGate": "G6-targeted-original-matrix",
+      "WholePartitionAccepted": false
+    },
+    {
+      "Id": "initialization.private-null",
+      "Group": "initialization",
+      "Assessment": "IMPLEMENTED_OR_EXISTING_PROTOCOL_WHOLE_MATRIX_UNVERIFIED",
+      "ConcreteGapIds": [],
+      "RelatedFiniteEvidence": [],
+      "RequiredOriginalObservation": "actualNULL during load",
+      "NextGate": "G6-targeted-original-matrix",
+      "WholePartitionAccepted": false
+    },
+    {
+      "Id": "initialization.private-live",
+      "Group": "initialization",
+      "Assessment": "IMPLEMENTED_OR_EXISTING_PROTOCOL_WHOLE_MATRIX_UNVERIFIED",
+      "ConcreteGapIds": [],
+      "RelatedFiniteEvidence": [],
+      "RequiredOriginalObservation": "same live pointer after each write; retained ordinary/reviewed ×ordinary/private evidence separate",
+      "NextGate": "G6-targeted-original-matrix",
+      "WholePartitionAccepted": false
+    },
+    {
+      "Id": "initialization.private-call",
+      "Group": "initialization",
+      "Assessment": "IMPLEMENTED_OR_EXISTING_PROTOCOL_WHOLE_MATRIX_UNVERIFIED",
+      "ConcreteGapIds": [],
+      "RelatedFiniteEvidence": [],
+      "RequiredOriginalObservation": "same actual owner data not copied snapshot",
+      "NextGate": "G6-targeted-original-matrix",
+      "WholePartitionAccepted": false
+    },
+    {
+      "Id": "initialization.loadinfo",
+      "Group": "initialization",
+      "Assessment": "IMPLEMENTED_OR_EXISTING_PROTOCOL_WHOLE_MATRIX_UNVERIFIED",
+      "ConcreteGapIds": [],
+      "RelatedFiniteEvidence": [],
+      "RequiredOriginalObservation": "complete real term semantics and ownership through callback",
+      "NextGate": "G6-targeted-original-matrix",
+      "WholePartitionAccepted": false
+    },
+    {
+      "Id": "initialization.cancel",
+      "Group": "initialization",
+      "Assessment": "IMPLEMENTED_OR_EXISTING_PROTOCOL_WHOLE_MATRIX_UNVERIFIED",
+      "ConcreteGapIds": [],
+      "RelatedFiniteEvidence": [],
+      "RequiredOriginalObservation": "physical C returns before image/allocations freed; no cancellation fake completion",
+      "NextGate": "G6-targeted-original-matrix",
+      "WholePartitionAccepted": false
+    },
+    {
+      "Id": "initialization.dead-initializer",
+      "Group": "initialization",
+      "Assessment": "IMPLEMENTED_OR_EXISTING_PROTOCOL_WHOLE_MATRIX_UNVERIFIED",
+      "ConcreteGapIds": [],
+      "RelatedFiniteEvidence": [],
+      "RequiredOriginalObservation": "rollback/native unload only after all real callbacks/pins settle",
+      "NextGate": "G6-targeted-original-matrix",
+      "WholePartitionAccepted": false
+    },
+    {
+      "Id": "reload-upgrade.reload",
+      "Group": "reload-upgrade",
+      "Assessment": "IMPLEMENTED_OR_EXISTING_PROTOCOL_WHOLE_MATRIX_UNVERIFIED",
+      "ConcreteGapIds": [],
+      "RelatedFiniteEvidence": [
+        "E2-part544-native-upgrade"
+      ],
+      "RequiredOriginalObservation": "OTP reload disallowed since20; exact error reload",
+      "NextGate": "G6-targeted-original-matrix",
+      "WholePartitionAccepted": false
+    },
+    {
+      "Id": "reload-upgrade.upgrade-none",
+      "Group": "reload-upgrade",
+      "Assessment": "IMPLEMENTED_OR_EXISTING_PROTOCOL_WHOLE_MATRIX_UNVERIFIED",
+      "ConcreteGapIds": [],
+      "RelatedFiniteEvidence": [
+        "E2-part544-native-upgrade"
+      ],
+      "RequiredOriginalObservation": "source upgrade unsupported reason",
+      "NextGate": "G6-targeted-original-matrix",
+      "WholePartitionAccepted": false
+    },
+    {
+      "Id": "reload-upgrade.upgrade-real",
+      "Group": "reload-upgrade",
+      "Assessment": "IMPLEMENTED_OR_EXISTING_PROTOCOL_WHOLE_MATRIX_UNVERIFIED",
+      "ConcreteGapIds": [],
+      "RelatedFiniteEvidence": [
+        "E2-part544-native-upgrade"
+      ],
+      "RequiredOriginalObservation": "CURRENT UpgradeUnsupported refuses before callback; genuine transaction implementation required",
+      "NextGate": "G6-targeted-original-matrix",
+      "WholePartitionAccepted": false
+    },
+    {
+      "Id": "reload-upgrade.upgrade-private",
+      "Group": "reload-upgrade",
+      "Assessment": "IMPLEMENTED_OR_EXISTING_PROTOCOL_WHOLE_MATRIX_UNVERIFIED",
+      "ConcreteGapIds": [],
+      "RelatedFiniteEvidence": [
+        "E2-part544-native-upgrade"
+      ],
+      "RequiredOriginalObservation": "exact old/new pointer custody; callback may mutate/relinquish old state",
+      "NextGate": "G6-targeted-original-matrix",
+      "WholePartitionAccepted": false
+    },
+    {
+      "Id": "reload-upgrade.upgrade-veto",
+      "Group": "reload-upgrade",
+      "Assessment": "IMPLEMENTED_OR_EXISTING_PROTOCOL_WHOLE_MATRIX_UNVERIFIED",
+      "ConcreteGapIds": [],
+      "RelatedFiniteEvidence": [
+        "E2-part544-native-upgrade"
+      ],
+      "RequiredOriginalObservation": "source restores previous old pointer and rolls back opened resource types",
+      "NextGate": "G6-targeted-original-matrix",
+      "WholePartitionAccepted": false
+    },
+    {
+      "Id": "reload-upgrade.upgrade-commit",
+      "Group": "reload-upgrade",
+      "Assessment": "IMPLEMENTED_OR_EXISTING_PROTOCOL_WHOLE_MATRIX_UNVERIFIED",
+      "ConcreteGapIds": [],
+      "RelatedFiniteEvidence": [
+        "E2-part544-native-upgrade"
+      ],
+      "RequiredOriginalObservation": "irreversible native boundary: all fallible prep beforeentry, no generic oldpointer rollback aftersuccess",
+      "NextGate": "G6-targeted-original-matrix",
+      "WholePartitionAccepted": false
+    },
+    {
+      "Id": "reload-upgrade.upgrade-normal",
+      "Group": "reload-upgrade",
+      "Assessment": "IMPLEMENTED_OR_EXISTING_PROTOCOL_WHOLE_MATRIX_UNVERIFIED",
+      "ConcreteGapIds": [],
+      "RelatedFiniteEvidence": [
+        "E2-part544-native-upgrade"
+      ],
+      "RequiredOriginalObservation": "source single-normal-scheduler exclusion; requester not counted against its own barrier",
+      "NextGate": "G6-targeted-original-matrix",
+      "WholePartitionAccepted": false
+    },
+    {
+      "Id": "reload-upgrade.upgrade-dirty",
+      "Group": "reload-upgrade",
+      "Assessment": "IMPLEMENTED_OR_EXISTING_PROTOCOL_WHOLE_MATRIX_UNVERIFIED",
+      "ConcreteGapIds": [],
+      "RelatedFiniteEvidence": [
+        "E2-part544-native-upgrade"
+      ],
+      "RequiredOriginalObservation": "source normal thread-progress barrier does not stop dirty; keep actual dirty callbacks and image pins alive",
+      "NextGate": "G6-targeted-original-matrix",
+      "WholePartitionAccepted": false
+    },
+    {
+      "Id": "reload-upgrade.takeover",
+      "Group": "reload-upgrade",
+      "Assessment": "IMPLEMENTED_OR_EXISTING_PROTOCOL_WHOLE_MATRIX_UNVERIFIED",
+      "ConcreteGapIds": [],
+      "RelatedFiniteEvidence": [
+        "E2-part544-native-upgrade"
+      ],
+      "RequiredOriginalObservation": "same type identity, atomic callback version handoff, existing payload data remains",
+      "NextGate": "G6-targeted-original-matrix",
+      "WholePartitionAccepted": false
+    },
+    {
+      "Id": "reload-upgrade.upgrade-close",
+      "Group": "reload-upgrade",
+      "Assessment": "IMPLEMENTED_OR_EXISTING_PROTOCOL_WHOLE_MATRIX_UNVERIFIED",
+      "ConcreteGapIds": [],
+      "RelatedFiniteEvidence": [
+        "E2-part544-native-upgrade"
+      ],
+      "RequiredOriginalObservation": "linearize before callback; after0 nonallocating publication/physical retirement handoff",
+      "NextGate": "G6-targeted-original-matrix",
+      "WholePartitionAccepted": false
+    },
+    {
+      "Id": "reload-upgrade.fresh-after-purge",
+      "Group": "reload-upgrade",
+      "Assessment": "IMPLEMENTED_OR_EXISTING_PROTOCOL_WHOLE_MATRIX_UNVERIFIED",
+      "ConcreteGapIds": [],
+      "RelatedFiniteEvidence": [
+        "E2-part544-native-upgrade"
+      ],
+      "RequiredOriginalObservation": "distinct fresh type, oldDSO held by old payload; do not label fresh LOAD as genuine TAKEOVER",
+      "NextGate": "G6-targeted-original-matrix",
+      "WholePartitionAccepted": false
+    },
+    {
+      "Id": "resources.type-create",
+      "Group": "resources",
+      "Assessment": "IMPLEMENTED_OR_EXISTING_PROTOCOL_WHOLE_MATRIX_UNVERIFIED",
+      "ConcreteGapIds": [],
+      "RelatedFiniteEvidence": [],
+      "RequiredOriginalObservation": "real opaque type token, exact tried flags and source-init size",
+      "NextGate": "G6-targeted-original-matrix",
+      "WholePartitionAccepted": false
+    },
+    {
+      "Id": "resources.type-takeover",
+      "Group": "resources",
+      "Assessment": "IMPLEMENTED_SLICE_WITH_CONCRETE_MISSING_DEPENDENCY",
+      "ConcreteGapIds": [
+        "D2",
+        "D3"
+      ],
+      "RelatedFiniteEvidence": [],
+      "RequiredOriginalObservation": "commit/rollback/type-name lifecycle; no premature registry/token free",
+      "NextGate": "G2-to-G5-production",
+      "WholePartitionAccepted": false
+    },
+    {
+      "Id": "resources.allocate",
+      "Group": "resources",
+      "Assessment": "CONCRETE_REMAINING_SOURCE_GAP",
+      "ConcreteGapIds": [
+        "D2"
+      ],
+      "RelatedFiniteEvidence": [],
+      "RequiredOriginalObservation": "real magic-binary prefix/orig_size/user pointer and source allocation failure",
+      "NextGate": "G2-to-G5-production",
+      "WholePartitionAccepted": false
+    },
+    {
+      "Id": "resources.keep-release",
+      "Group": "resources",
+      "Assessment": "IMPLEMENTED_OR_EXISTING_PROTOCOL_WHOLE_MATRIX_UNVERIFIED",
+      "ConcreteGapIds": [],
+      "RelatedFiniteEvidence": [],
+      "RequiredOriginalObservation": "actual exactly-once destructor after last native and guest/host roots",
+      "NextGate": "G6-targeted-original-matrix",
+      "WholePartitionAccepted": false
+    },
+    {
+      "Id": "resources.make-get",
+      "Group": "resources",
+      "Assessment": "IMPLEMENTED_OR_EXISTING_PROTOCOL_WHOLE_MATRIX_UNVERIFIED",
+      "ConcreteGapIds": [],
+      "RelatedFiniteEvidence": [],
+      "RequiredOriginalObservation": "correct actual user pointer without exposing freed memory; preserve equal wrappers",
+      "NextGate": "G6-targeted-original-matrix",
+      "WholePartitionAccepted": false
+    },
+    {
+      "Id": "resources.size",
+      "Group": "resources",
+      "Assessment": "IMPLEMENTED_OR_EXISTING_PROTOCOL_WHOLE_MATRIX_UNVERIFIED",
+      "ConcreteGapIds": [],
+      "RelatedFiniteEvidence": [],
+      "RequiredOriginalObservation": "actual resource size independent of allocation prefix/slab words",
+      "NextGate": "G6-targeted-original-matrix",
+      "WholePartitionAccepted": false
+    },
+    {
+      "Id": "resources.binary",
+      "Group": "resources",
+      "Assessment": "IMPLEMENTED_OR_EXISTING_PROTOCOL_WHOLE_MATRIX_UNVERIFIED",
+      "ConcreteGapIds": [],
+      "RelatedFiniteEvidence": [],
+      "RequiredOriginalObservation": "same resource root keeps native backing alive through actual guestGC",
+      "NextGate": "G6-targeted-original-matrix",
+      "WholePartitionAccepted": false
+    },
+    {
+      "Id": "resources.dynamic",
+      "Group": "resources",
+      "Assessment": "IMPLEMENTED_OR_EXISTING_PROTOCOL_WHOLE_MATRIX_UNVERIFIED",
+      "ConcreteGapIds": [],
+      "RelatedFiniteEvidence": [],
+      "RequiredOriginalObservation": "real admitted callback image/version/payload; wrongtype not arbitrary dispatch",
+      "NextGate": "G6-targeted-original-matrix",
+      "WholePartitionAccepted": false
+    },
+    {
+      "Id": "resources.down-monitor",
+      "Group": "resources",
+      "Assessment": "CONCRETE_REMAINING_SOURCE_GAP",
+      "ConcreteGapIds": [
+        "D3"
+      ],
+      "RelatedFiniteEvidence": [],
+      "RequiredOriginalObservation": "CURRENT explicit MonitorStorage refusal; real monitor storage/Down protocol missing",
+      "NextGate": "G2-to-G5-production",
+      "WholePartitionAccepted": false
+    },
+    {
+      "Id": "resources.stop-select",
+      "Group": "resources",
+      "Assessment": "CONCRETE_REMAINING_SOURCE_GAP",
+      "ConcreteGapIds": [
+        "D3"
+      ],
+      "RelatedFiniteEvidence": [],
+      "RequiredOriginalObservation": "real scheduler/event/close/cancel ownership not proven by storing stop pointer",
+      "NextGate": "G2-to-G5-production",
+      "WholePartitionAccepted": false
+    },
+    {
+      "Id": "resources.magic-header",
+      "Group": "resources",
+      "Assessment": "IMPLEMENTED_OR_EXISTING_PROTOCOL_WHOLE_MATRIX_UNVERIFIED",
+      "ConcreteGapIds": [],
+      "RelatedFiniteEvidence": [],
+      "RequiredOriginalObservation": "Part530 actual3word header mb/next/source prefix in bounded subtype only; other magic producer/whole offheap gaps remain",
+      "NextGate": "G6-targeted-original-matrix",
+      "WholePartitionAccepted": false
+    },
+    {
+      "Id": "calls-env.normal",
+      "Group": "calls-env",
+      "Assessment": "IMPLEMENTED_OR_EXISTING_PROTOCOL_WHOLE_MATRIX_UNVERIFIED",
+      "ConcreteGapIds": [],
+      "RelatedFiniteEvidence": [],
+      "RequiredOriginalObservation": "real normal scheduler thread_type, input/output ownership",
+      "NextGate": "G6-targeted-original-matrix",
+      "WholePartitionAccepted": false
+    },
+    {
+      "Id": "calls-env.dirty-cpu",
+      "Group": "calls-env",
+      "Assessment": "IMPLEMENTED_OR_EXISTING_PROTOCOL_WHOLE_MATRIX_UNVERIFIED",
+      "ConcreteGapIds": [],
+      "RelatedFiniteEvidence": [],
+      "RequiredOriginalObservation": "physical body remains pinned after logical cancellation",
+      "NextGate": "G6-targeted-original-matrix",
+      "WholePartitionAccepted": false
+    },
+    {
+      "Id": "calls-env.dirty-io",
+      "Group": "calls-env",
+      "Assessment": "IMPLEMENTED_OR_EXISTING_PROTOCOL_WHOLE_MATRIX_UNVERIFIED",
+      "ConcreteGapIds": [],
+      "RelatedFiniteEvidence": [],
+      "RequiredOriginalObservation": "actual IO lane/thread kind; source scheduler count/profile explicitly bound",
+      "NextGate": "G6-targeted-original-matrix",
+      "WholePartitionAccepted": false
+    },
+    {
+      "Id": "calls-env.schedule",
+      "Group": "calls-env",
+      "Assessment": "CONCRETE_REMAINING_SOURCE_GAP",
+      "ConcreteGapIds": [
+        "D4"
+      ],
+      "RelatedFiniteEvidence": [],
+      "RequiredOriginalObservation": "queued argv rooted before publication; image lease until real settled",
+      "NextGate": "G2-to-G5-production",
+      "WholePartitionAccepted": false
+    },
+    {
+      "Id": "calls-env.exception",
+      "Group": "calls-env",
+      "Assessment": "IMPLEMENTED_OR_EXISTING_PROTOCOL_WHOLE_MATRIX_UNVERIFIED",
+      "ConcreteGapIds": [],
+      "RelatedFiniteEvidence": [],
+      "RequiredOriginalObservation": "exception graph survives env Dispose and source catch/collection; full stack",
+      "NextGate": "G6-targeted-original-matrix",
+      "WholePartitionAccepted": false
+    },
+    {
+      "Id": "calls-env.independent-env",
+      "Group": "calls-env",
+      "Assessment": "CONCRETE_REMAINING_SOURCE_GAP",
+      "ConcreteGapIds": [
+        "D6"
+      ],
+      "RelatedFiniteEvidence": [
+        "E3-env709-same-VM-Windows"
+      ],
+      "RequiredOriginalObservation": "actual term graph ownership; clear/free cannot invalidate escaped valid terms",
+      "NextGate": "G2-to-G5-production",
+      "WholePartitionAccepted": false
+    },
+    {
+      "Id": "calls-env.send",
+      "Group": "calls-env",
+      "Assessment": "CONCRETE_REMAINING_SOURCE_GAP",
+      "ConcreteGapIds": [
+        "D4"
+      ],
+      "RelatedFiniteEvidence": [],
+      "RequiredOriginalObservation": "actual mailbox handoff/receiver ownership, original return code and real cleanup",
+      "NextGate": "G2-to-G5-production",
+      "WholePartitionAccepted": false
+    },
+    {
+      "Id": "calls-env.native-thread",
+      "Group": "calls-env",
+      "Assessment": "IMPLEMENTED_SLICE_WITH_CONCRETE_MISSING_DEPENDENCY",
+      "ConcreteGapIds": [
+        "D5",
+        "D6"
+      ],
+      "RelatedFiniteEvidence": [
+        "E3-env709-same-VM-Windows"
+      ],
+      "RequiredOriginalObservation": "actual supported operations only; generalized foreign-thread callback admission remains limited",
+      "NextGate": "G2-to-G5-production",
+      "WholePartitionAccepted": false
+    },
+    {
+      "Id": "calls-env.thread-kind",
+      "Group": "calls-env",
+      "Assessment": "IMPLEMENTED_OR_EXISTING_PROTOCOL_WHOLE_MATRIX_UNVERIFIED",
+      "ConcreteGapIds": [],
+      "RelatedFiniteEvidence": [],
+      "RequiredOriginalObservation": "all actual thread roles observed; foreign0 not fake normal",
+      "NextGate": "G6-targeted-original-matrix",
+      "WholePartitionAccepted": false
+    },
+    {
+      "Id": "calls-env.retirement",
+      "Group": "calls-env",
+      "Assessment": "IMPLEMENTED_OR_EXISTING_PROTOCOL_WHOLE_MATRIX_UNVERIFIED",
+      "ConcreteGapIds": [],
+      "RelatedFiniteEvidence": [],
+      "RequiredOriginalObservation": "real entered/done/unload markers, physical image/DSO joins; never timeout-as-success",
+      "NextGate": "G6-targeted-original-matrix",
+      "WholePartitionAccepted": false
+    },
+    {
+      "Id": "platform-callbacks.windows",
+      "Group": "platform-callbacks",
+      "Assessment": "IMPLEMENTED_SLICE_WITH_CONCRETE_MISSING_DEPENDENCY",
+      "ConcreteGapIds": [
+        "D3",
+        "D4",
+        "D5",
+        "D6"
+      ],
+      "RelatedFiniteEvidence": [],
+      "RequiredOriginalObservation": "actual packaged helper/library and runtime ABI layout; both loader routes",
+      "NextGate": "G2-to-G5-production",
+      "WholePartitionAccepted": false
+    },
+    {
+      "Id": "platform-callbacks.linux",
+      "Group": "platform-callbacks",
+      "Assessment": "IMPLEMENTED_SLICE_WITH_CONCRETE_MISSING_DEPENDENCY",
+      "ConcreteGapIds": [
+        "D3",
+        "D4",
+        "D5",
+        "D6"
+      ],
+      "RelatedFiniteEvidence": [],
+      "RequiredOriginalObservation": "source-built exact bridge ABI7/464 resource+cons layout, ordinary/reviewed separately",
+      "NextGate": "G2-to-G5-production",
+      "WholePartitionAccepted": false
+    },
+    {
+      "Id": "platform-callbacks.unsupported-platform",
+      "Group": "platform-callbacks",
+      "Assessment": "REQUIRED_TARGET_SCOPE_UNRESOLVED_NOT_AN_EXECUTED_FAILURE",
+      "ConcreteGapIds": [],
+      "RelatedFiniteEvidence": [],
+      "RequiredOriginalObservation": "explicit unsupported policy is not OTP compatibility; acquire original applicable scope",
+      "NextGate": "G0-target-scope",
+      "WholePartitionAccepted": false
+    },
+    {
+      "Id": "platform-callbacks.origin-deps",
+      "Group": "platform-callbacks",
+      "Assessment": "IMPLEMENTED_OR_EXISTING_PROTOCOL_WHOLE_MATRIX_UNVERIFIED",
+      "ConcreteGapIds": [],
+      "RelatedFiniteEvidence": [],
+      "RequiredOriginalObservation": "reuse existing source-bound loader fixture and exact accepted dependency identity",
+      "NextGate": "G6-targeted-original-matrix",
+      "WholePartitionAccepted": false
+    },
+    {
+      "Id": "platform-callbacks.library-path",
+      "Group": "platform-callbacks",
+      "Assessment": "IMPLEMENTED_OR_EXISTING_PROTOCOL_WHOLE_MATRIX_UNVERIFIED",
+      "ConcreteGapIds": [],
+      "RelatedFiniteEvidence": [],
+      "RequiredOriginalObservation": "reuse existing real dependency fixture without recreating same suite",
+      "NextGate": "G6-targeted-original-matrix",
+      "WholePartitionAccepted": false
+    },
+    {
+      "Id": "platform-callbacks.dep-missing",
+      "Group": "platform-callbacks",
+      "Assessment": "IMPLEMENTED_OR_EXISTING_PROTOCOL_WHOLE_MATRIX_UNVERIFIED",
+      "ConcreteGapIds": [],
+      "RelatedFiniteEvidence": [],
+      "RequiredOriginalObservation": "all independent loader scenarios retained before aggregate failure",
+      "NextGate": "G6-targeted-original-matrix",
+      "WholePartitionAccepted": false
+    },
+    {
+      "Id": "platform-callbacks.pthread-bindings",
+      "Group": "platform-callbacks",
+      "Assessment": "IMPLEMENTED_OR_EXISTING_PROTOCOL_WHOLE_MATRIX_UNVERIFIED",
+      "ConcreteGapIds": [],
+      "RelatedFiniteEvidence": [],
+      "RequiredOriginalObservation": "all required actual entrypoints/return codes checked, physical threads joined",
+      "NextGate": "G6-targeted-original-matrix",
+      "WholePartitionAccepted": false
+    },
+    {
+      "Id": "platform-callbacks.tls-c",
+      "Group": "platform-callbacks",
+      "Assessment": "IMPLEMENTED_OR_EXISTING_PROTOCOL_WHOLE_MATRIX_UNVERIFIED",
+      "ConcreteGapIds": [],
+      "RelatedFiniteEvidence": [],
+      "RequiredOriginalObservation": "CURRENT verifier does not prove all TLS functions; selected binding/create/join is insufficient",
+      "NextGate": "G6-targeted-original-matrix",
+      "WholePartitionAccepted": false
+    },
+    {
+      "Id": "platform-callbacks.tls-cpp",
+      "Group": "platform-callbacks",
+      "Assessment": "IMPLEMENTED_OR_EXISTING_PROTOCOL_WHOLE_MATRIX_UNVERIFIED",
+      "ConcreteGapIds": [],
+      "RelatedFiniteEvidence": [],
+      "RequiredOriginalObservation": "C++ TLS support unverified; no extrapolation from pthread success",
+      "NextGate": "G6-targeted-original-matrix",
+      "WholePartitionAccepted": false
+    },
+    {
+      "Id": "platform-callbacks.locks",
+      "Group": "platform-callbacks",
+      "Assessment": "CONCRETE_REMAINING_SOURCE_GAP",
+      "ConcreteGapIds": [
+        "D5"
+      ],
+      "RelatedFiniteEvidence": [],
+      "RequiredOriginalObservation": "c7 callback table does not bind these families; isolated pending packets are not implementation in this baseline",
+      "NextGate": "G2-to-G5-production",
+      "WholePartitionAccepted": false
+    },
+    {
+      "Id": "platform-callbacks.sysinfo-dlopen",
+      "Group": "platform-callbacks",
+      "Assessment": "CONCRETE_REMAINING_SOURCE_GAP",
+      "ConcreteGapIds": [
+        "D5"
+      ],
+      "RelatedFiniteEvidence": [],
+      "RequiredOriginalObservation": "explicit callback family/version validation required; source-only proposals not parity",
+      "NextGate": "G2-to-G5-production",
+      "WholePartitionAccepted": false
+    },
+    {
+      "Id": "platform-callbacks.all-callbacks",
+      "Group": "platform-callbacks",
+      "Assessment": "IMPLEMENTED_SLICE_WITH_CONCRETE_MISSING_DEPENDENCY",
+      "ConcreteGapIds": [
+        "D3",
+        "D4",
+        "D5"
+      ],
+      "RelatedFiniteEvidence": [],
+      "RequiredOriginalObservation": "slot table is zero-initialized then selected slots bound; unbound reachability mayNULL-call, not graceful compatible fallback; real isolated child evidence required",
+      "NextGate": "G2-to-G5-production",
+      "WholePartitionAccepted": false
+    },
+    {
+      "Id": "platform-callbacks.bootstrap",
+      "Group": "platform-callbacks",
+      "Assessment": "IMPLEMENTED_SLICE_WITH_CONCRETE_MISSING_DEPENDENCY",
+      "ConcreteGapIds": [
+        "D3",
+        "D4",
+        "D5"
+      ],
+      "RelatedFiniteEvidence": [],
+      "RequiredOriginalObservation": "resources11 alone do not prove crypto/fullkernel boot, native dependencies or arbitrary callback coverage",
+      "NextGate": "G2-to-G5-production",
+      "WholePartitionAccepted": false
+    },
+    {
+      "Id": "retirement.purge-no-resource",
+      "Group": "retirement",
+      "Assessment": "IMPLEMENTED_OR_EXISTING_PROTOCOL_WHOLE_MATRIX_UNVERIFIED",
+      "ConcreteGapIds": [],
+      "RelatedFiniteEvidence": [],
+      "RequiredOriginalObservation": "actual unload once and DSO free after body return",
+      "NextGate": "G6-targeted-original-matrix",
+      "WholePartitionAccepted": false
+    },
+    {
+      "Id": "retirement.purge-resource",
+      "Group": "retirement",
+      "Assessment": "IMPLEMENTED_SLICE_WITH_CONCRETE_MISSING_DEPENDENCY",
+      "ConcreteGapIds": [
+        "D2",
+        "D3"
+      ],
+      "RelatedFiniteEvidence": [],
+      "RequiredOriginalObservation": "name unlinked immediately, old exact image/DSO stays pinned",
+      "NextGate": "G2-to-G5-production",
+      "WholePartitionAccepted": false
+    },
+    {
+      "Id": "retirement.type-empty",
+      "Group": "retirement",
+      "Assessment": "IMPLEMENTED_OR_EXISTING_PROTOCOL_WHOLE_MATRIX_UNVERIFIED",
+      "ConcreteGapIds": [],
+      "RelatedFiniteEvidence": [],
+      "RequiredOriginalObservation": "domain/static registry/GCHandle removed exactlyonce; held/pending cases do not detach early",
+      "NextGate": "G6-targeted-original-matrix",
+      "WholePartitionAccepted": false
+    },
+    {
+      "Id": "retirement.native-last",
+      "Group": "retirement",
+      "Assessment": "IMPLEMENTED_OR_EXISTING_PROTOCOL_WHOLE_MATRIX_UNVERIFIED",
+      "ConcreteGapIds": [],
+      "RelatedFiniteEvidence": [],
+      "RequiredOriginalObservation": "actual destructor normal auxiliary thread_type, not broker0",
+      "NextGate": "G6-targeted-original-matrix",
+      "WholePartitionAccepted": false
+    },
+    {
+      "Id": "retirement.host-last",
+      "Group": "retirement",
+      "Assessment": "IMPLEMENTED_OR_EXISTING_PROTOCOL_WHOLE_MATRIX_UNVERIFIED",
+      "ConcreteGapIds": [],
+      "RelatedFiniteEvidence": [],
+      "RequiredOriginalObservation": "host origin retained separately; do not silently label every release normalGC",
+      "NextGate": "G6-targeted-original-matrix",
+      "WholePartitionAccepted": false
+    },
+    {
+      "Id": "retirement.vm-close",
+      "Group": "retirement",
+      "Assessment": "IMPLEMENTED_OR_EXISTING_PROTOCOL_WHOLE_MATRIX_UNVERIFIED",
+      "ConcreteGapIds": [],
+      "RelatedFiniteEvidence": [],
+      "RequiredOriginalObservation": "close admission first, release real admitted roots, actual worker/native image/arena join",
+      "NextGate": "G6-targeted-original-matrix",
+      "WholePartitionAccepted": false
+    },
+    {
+      "Id": "retirement.allocation-arena",
+      "Group": "retirement",
+      "Assessment": "IMPLEMENTED_OR_EXISTING_PROTOCOL_WHOLE_MATRIX_UNVERIFIED",
+      "ConcreteGapIds": [],
+      "RelatedFiniteEvidence": [],
+      "RequiredOriginalObservation": "address registry and actual process arena lifetimes separate from per-image DSO",
+      "NextGate": "G6-targeted-original-matrix",
+      "WholePartitionAccepted": false
+    },
+    {
+      "Id": "retirement.public-metrics",
+      "Group": "retirement",
+      "Assessment": "CONCRETE_REMAINING_SOURCE_GAP",
+      "ConcreteGapIds": [
+        "D7"
+      ],
+      "RelatedFiniteEvidence": [],
+      "RequiredOriginalObservation": "semantic/native byte records are not full ERTS process physical metrics; no public count fabrication",
+      "NextGate": "G2-to-G5-production",
+      "WholePartitionAccepted": false
+    }
+  ],
+  "Count": 103,
+  "NotExecutedTests": true,
+  "WholeContractClosed": false,
+  "Counts": [
+    {
+      "Assessment": "CONCRETE_REMAINING_SOURCE_GAP",
+      "SourcePartitionRows": 10
+    },
+    {
+      "Assessment": "IMPLEMENTED_OR_EXISTING_PROTOCOL_WHOLE_MATRIX_UNVERIFIED",
+      "SourcePartitionRows": 85
+    },
+    {
+      "Assessment": "IMPLEMENTED_SLICE_WITH_CONCRETE_MISSING_DEPENDENCY",
+      "SourcePartitionRows": 7
+    },
+    {
+      "Assessment": "REQUIRED_TARGET_SCOPE_UNRESOLVED_NOT_AN_EXECUTED_FAILURE",
+      "SourcePartitionRows": 1
+    }
+  ],
+  "CallbackRoster180IsSeparate": true,
+  "ApiDelta": 0,
+  "FullContractDelta": 0
+}

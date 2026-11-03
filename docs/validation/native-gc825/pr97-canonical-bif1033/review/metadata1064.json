@@ -1,0 +1,48 @@
+{
+  "Verdict": "No blocker in exact guarded17 source-binding outputs; parent controlled apply only",
+  "ManifestSha256": "D5BE4D1690F5CA949351A89D3D16AB18580F7C79955178124C21408A0EC001AA",
+  "Outputs": 17,
+  "SourceGuardsCheckedTwice": 5536,
+  "ActualFinal1055FreezeVerified": 13839,
+  "All38ActualModePathBindings": 24444,
+  "BytesAndSealedBytes": 10788,
+  "StandaloneCollectorChecks": [
+    "tools/Native/Erlang.NifMapFamily504Observations/source-plan.json",
+    "tools/Native/Erlang.NifMapMaterialized505Observations/source-plan.json",
+    "tools/Native/Erlang.NifMapReentry505Observations/source-plan.json"
+  ],
+  "ExplicitToolReadmeRoots": [
+    "tools/Native/Erlang.NifTermCallbackOriginalObservations/README.md",
+    "tools/Runtime/Erlang.SchedulerAffinityOriginalObservations/README.md"
+  ],
+  "History": "Existing JSON memberships/order/modes/counts/statuses/expected goldens structurally unchanged except precisely1freshmonitor append to3plans; old1012snapshot outsideoutputs and freshsame345pathroster verified.",
+  "Sealers": "3ASTs onlyfreshmonitorlistelement addition, oldmembers/body unchanged",
+  "Workflows": "3outputworkflow bytes unchanged after64hex masking; actual plan Path+Sha row checks pass in prospectiveoverlay",
+  "Attributes": "Exactly1freshmonitor rawlocalrule; root/srcuntouched",
+  "BuildVmGitCiExecuted": false,
+  "WorkspaceWritten": false,
+  "PublicationApproved": false,
+  "ApiDelta": 0,
+  "FullContractDelta": 0,
+  "Limits": "No generator execution, platform checker execution, tests orCI. Actual1055 stable build sourcefreeze verified raw; separate runtime/test receipts retained byRoot.",
+  "WorkflowExactChangedPinChecks": [
+    {
+      "Workflow": ".github/workflows/nif-pending-native.yml",
+      "Key": "REVIEWED_SOURCE_PLAN_SHA256",
+      "Plan": "tools/Native/Erlang.NifPendingVarargsObservations/reviewed-source-plan.json",
+      "Sha256": "B1B423629489ADF16F3325980BCB9BAB773A481CAEB22468FBE8A0E833206F3E"
+    },
+    {
+      "Workflow": ".github/workflows/nif-reallocation-native.yml",
+      "Key": "REVIEWED_REALLOCATION_PLAN_SHA256",
+      "Plan": "tools/Native/Erlang.NifReallocationObservations/SOURCE-PLAN.json",
+      "Sha256": "6CC108372CDBB3FDF9FD5425A7A7014A5095799D33B6E88E2F1B32CB8171E4C8"
+    },
+    {
+      "Workflow": ".github/workflows/nif-upgrade-integrated.yml",
+      "Key": "INTEGRATED_PLAN",
+      "Plan": "tools/Native/Erlang.NifIntegratedObservations/inputs.json",
+      "Sha256": "B8BB6DA949628E4A5315A6CD366DB04DBEACECBA5EBC148F5AD0A0C47EE7E27B"
+    }
+  ]
+}

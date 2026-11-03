@@ -8,6 +8,16 @@ public sealed partial class ProcessRuntime
         MailboxPublicationScope593 publication
     )
     {
+        // The active timer publication owns the source while the destination
+        // acquires its real graph. All preparation occurs outside R.
+        if (TrySendBackedLocalAsync(
+            destination,
+            message,
+            from: Term.A(ProcessTraceNames.ClockService),
+            preserve: true
+        ).GetAwaiter().GetResult())
+            return;
+
         lock (gate)
         {
             if (IsHaltRequested)

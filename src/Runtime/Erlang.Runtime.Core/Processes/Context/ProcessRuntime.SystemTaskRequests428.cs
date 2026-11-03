@@ -203,7 +203,7 @@ public sealed partial class ProcessRuntime
             if (request.Kind == SystemTaskNames428.GarbageCollect)
             {
                 bool major = request.Operation!.Items[2] is Atom { Name: SystemTaskNames428.Major };
-                target.CollectManagedGarbage(major, CollectManagedHeap);
+                CollectAtProcessSafePoint(target, major);
                 result = true;
             }
             else if (request.Kind == SystemTaskNames428.CheckCode)

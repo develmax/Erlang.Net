@@ -49,6 +49,7 @@ public sealed partial class ProcessRuntime
             CleanupStep(() => storage = DriverFrontendProcessRetirement422(ctx, storage, reason641));
             CleanupStep(() => storage = CodePurgerProcessRetirement432(ctx, storage));
             CleanupStep(() => physical = AllocatorGatherProcessRetirement434(ctx, physical));
+            CleanupStep(() => physical = StatisticsTrapProcessRetirement(ctx, physical));
             CleanupStep(() => physical = ProcessPayloadRetirement641(ctx, physical));
             CleanupStep(() => physical = OwnedTermProcessRetirement506(ctx, physical));
             if (sequence641 is not null) physical = Task.WhenAll(physical, sequence641.FanoutRetired.Task);

@@ -207,6 +207,7 @@ public sealed partial class ProcessRuntime : IAsyncDisposable
         WarningMapping = options.WarningMapping;
         PrintableRange = options.PrintableRange;
         ArgumentOutOfRangeException.ThrowIfNegativeOrZero(maximumActorConcurrency);
+        gcParticipantCounters = new(maximumActorConcurrency);
         processSlots = new(maximumProcesses);
         OsEnvironment = OperatingSystem.IsWindows() ? RuntimeOsEnvironment.CaptureWindows() : null;
         try
@@ -1814,6 +1815,7 @@ public sealed partial class ProcessRuntime : IAsyncDisposable
                 DrainDriverFrontend422(),
                 DrainCodePurger432(),
                 DrainAllocatorGather434(),
+                DrainStatisticsTraps(),
                 DrainOwnedTermContexts506(),
                 DrainNativeResources524(),
                 KnownNodes.DrainPhysicalNodes(),

@@ -30,6 +30,7 @@ internal static class ActualMinimalBeamGuestSendHostNames
     internal const string SendInstruction = "send";
     internal const string CodeGate = "codeGate";
     internal const string ActiveCode = "activeCode";
+    internal const string OwnedStorage = "OwnedStorage506";
     internal const string TestsSha = "TestsSha256";
     internal const string RuntimeSha = "RuntimeSha256";
     internal const string TestsMvid = "TestsMvid";

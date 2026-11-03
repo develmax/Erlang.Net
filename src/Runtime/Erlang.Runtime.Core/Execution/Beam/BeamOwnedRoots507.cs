@@ -240,6 +240,20 @@ internal sealed partial class BeamOwnedRoots507 : IDisposable
         }
     }
 
+    // Existing authenticated custody only; this never admits a new root.
+    internal bool KeepsPublishedTerm550(int index, Term value)
+    {
+        lock (holder553.Gate)
+        {
+            RequireOpen553();
+            if (!published[index] || preparingIndex553 >= 0 || pending553[index]) return false;
+
+            return borrowed553[index] is { } interest
+                ? interest.KeepsLiveRoot550(value)
+                : frame.KeepsLiveRoot550(Current(index), value);
+        }
+    }
+
     internal bool TryShareCurrent553(int index, Term value, BeamOwnedRoots507 destination)
     {
         if (!ReferenceEquals(context, destination.context)) return false;

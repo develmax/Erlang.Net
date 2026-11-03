@@ -1,0 +1,26 @@
+{
+  "Command": [
+    "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library376-official-compiler\\installed\\bin\\erl.exe",
+    "+S",
+    "2:2",
+    "+SDcpu",
+    "1:1",
+    "+SDio",
+    "1",
+    "+A",
+    "1",
+    "-noshell",
+    "-pa",
+    "D:\\Distr\\Work\\Codex\\Erlang.Net\\w546\\artifacts\\statistics-full\\writable-protocol-original02",
+    "-eval",
+    "V=native_writable_observer:run(),ok=file:write_file(\"D:/Distr/Work/Codex/Erlang.Net/w546/artifacts/statistics-full/writable-protocol-original02/original.etf\",term_to_binary(V,[{minor_version,2}])),io:format(\"~p~n\",[V]),halt(0)."
+  ],
+  "Pid": 66400,
+  "ElapsedSeconds": 0.21899999998277053,
+  "TimedOut": false,
+  "Settled": true,
+  "ExitCode": 0,
+  "Failures": [],
+  "StdoutSha256": "3FFC52DE38C7D56A29F0CFFC27257A980A08A7C5516501D29DA8549705C3AC3B",
+  "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+}

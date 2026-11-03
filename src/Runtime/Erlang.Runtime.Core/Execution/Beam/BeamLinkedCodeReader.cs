@@ -137,10 +137,33 @@ internal static class BeamLinkedCodeReader
         var operands = instruction.Operands;
         switch (instruction.Definition.Name)
         {
+            case BeamNativeRecordAccessNames.Elements:
+                Branch(operands[BeamNativeRecordAccessNames.Failure]);
+                Require(
+                    operands[BeamNativeRecordAccessNames.Source].Kind is BeamOperandParameters.X or BeamOperandParameters.Y,
+                    BeamLinkDiagnostics.OperandRole
+                );
+                Require(
+                    operands[BeamNativeRecordAccessNames.FieldCount].Kind == BeamOperandParameters.Count
+                    && operands[BeamNativeRecordAccessNames.FieldCount].Value == operands.Count - BeamNativeRecordAccessNames.FirstField
+                    && operands[BeamNativeRecordAccessNames.FieldCount].Value > 0
+                    && operands[BeamNativeRecordAccessNames.FieldCount].Value % BeamNativeRecordAccessNames.FieldWidth == 0,
+                    BeamLinkDiagnostics.OperandRole
+                );
+                var extractionFields = new HashSet<int>();
+                for (int field = BeamNativeRecordAccessNames.FirstField; field < operands.Count; field += BeamNativeRecordAccessNames.FieldWidth)
+                {
+                    Require(
+                        operands[field].Kind == BeamOperandParameters.Atom && extractionFields.Add((int)operands[field].Value),
+                        BeamLinkDiagnostics.OperandRole
+                    );
+                    Destination(operands[field + BeamNativeRecordAccessNames.DestinationOffset]);
+                }
+                break;
             case BeamRecordConstructionNames.Opcode:
                 Require(
                     operands[BeamRecordConstructionNames.Failure].Kind == BeamOperandParameters.Failure
-                    && operands[BeamRecordConstructionNames.Source].Kind == BeamOperandParameters.Nil,
+                    && operands[BeamRecordConstructionNames.Source].Kind is BeamOperandParameters.Nil or BeamOperandParameters.X or BeamOperandParameters.Y,
                     BeamLinkDiagnostics.OperandRole
                 );
                 RecordIdentity(operands[BeamRecordConstructionNames.Name], structure, false);

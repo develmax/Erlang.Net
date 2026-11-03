@@ -1,0 +1,20 @@
+{
+  "Pid": 66124,
+  "Command": [
+    "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library376-official-compiler\\installed\\bin\\erl.exe",
+    "+S",
+    "2:2",
+    "+SDcpu",
+    "1:1",
+    "+SDio",
+    "1",
+    "+A",
+    "1",
+    "-noshell",
+    "-pa",
+    "D:\\Distr\\Work\\Codex\\Erlang.Net\\w546\\artifacts\\statistics-full\\native-record-original01",
+    "-eval",
+    "V=native_record_physical_observer:run(),ok=file:write_file(\"D:/Distr/Work/Codex/Erlang.Net/w546/artifacts/statistics-full/native-record-original01/original.etf\",term_to_binary(V,[{minor_version,2}])),io:format(\"~p~n\",[V]),halt(0)."
+  ],
+  "StartedUnixSeconds": 1793403454.6630132
+}

@@ -21,6 +21,22 @@ internal static class BeamRecordConstruction
                 BeamRegisterInterpreter.Read(code, registers, operands[index + 1])
             ));
 
+        if (operands[BeamRecordConstructionNames.Source].Kind != BeamOperandParameters.Nil)
+        {
+            Term source = BeamRegisterInterpreter.Read(code, registers, operands[BeamRecordConstructionNames.Source]);
+
+            // Original source-register updates preserve the source definition;
+            // imported/local construction and actual literal defaults stay below.
+            return NativeRecordLanguage.Update(
+                source,
+                module,
+                null,
+                source is NativeRecordTerm record ? record.Module.Name : module,
+                false,
+                fields
+            );
+        }
+
         if (identity is TupleTerm imported)
             return await context.Runtime.Modules.ConstructNativeRecord313(
                 context,

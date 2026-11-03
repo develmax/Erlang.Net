@@ -123,7 +123,7 @@ public sealed partial class ProcessRuntime
                 process.PriorityLinks.Clear();
                 process.PortLinks.Clear();
                 process.PriorityPortLinks.Clear();
-                if (etsFoundation?.HasPendingRetirements != true && PersistentTermRetirementCompletedSuccessfully && RegexRetirementCompleted411 && BinaryRetirementCompleted598 && SavedMatchRetirementCompleted634 && DirtyNativeRetirementCompleted419 && DebugDispatchRetirementCompleted432 && CountersRetirementCompleted421 && DriverFrontendRetirementCompleted422 && CodePurgerRetirementCompleted432 && AllocatorGatherRetirementCompleted434 && ProcessPayloadRetirementCompleted641(process))
+                if (etsFoundation?.HasPendingRetirements != true && PersistentTermRetirementCompletedSuccessfully && RegexRetirementCompleted411 && BinaryRetirementCompleted598 && SavedMatchRetirementCompleted634 && DirtyNativeRetirementCompleted419 && DebugDispatchRetirementCompleted432 && CountersRetirementCompleted421 && DriverFrontendRetirementCompleted422 && CodePurgerRetirementCompleted432 && AllocatorGatherRetirementCompleted434 && ProcessPayloadRetirementCompleted641(process) && StatisticsTrapRetirementCompleted(process))
                     process.Done.TrySetResult(process.ExitReason);
             }
             deadlineStop = new CancellationTokenSource();
@@ -308,6 +308,7 @@ public sealed partial class ProcessRuntime
                     DrainDriverFrontend422(),
                     DrainCodePurger432(),
                     DrainAllocatorGather434(),
+                    DrainStatisticsTraps(),
                     DrainOwnedTermContexts506(),
                     DrainNativeResources524(),
                     KnownNodes.DrainPhysicalNodes(),

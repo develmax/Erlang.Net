@@ -9,11 +9,16 @@ namespace Erlang.Tests;
 // invokes the actual search/regex implementation; it is not an oracle comparer.
 internal static class RegexStore535Checks
 {
-    internal static Task RegexEts() => Regex(false);
+    internal static async Task RegexEts()
+    {
+        await Regex(false);
+        await Regex(false, compressed: true);
+        await Regex(false, compressed: true, keyIdentity: true);
+    }
 
     internal static Task RegexPersistent() => Regex(true);
 
-    private static Task Regex(bool persistent) => RegexCustody597Fixture.Run(fixture =>
+    private static Task Regex(bool persistent, bool compressed = false, bool keyIdentity = false) => RegexCustody597Fixture.Run(fixture =>
         Transfer(
             fixture.Runtime,
             fixture.Actor!,
@@ -41,7 +46,9 @@ internal static class RegexStore535Checks
                     Nil.Value
                 );
                 Require(actual.Equals(RegexNative411Access.Match(0, MatchLength)));
-            }
+            },
+            compressed,
+            keyIdentity
         ));
 
     private static async Task Transfer(
@@ -55,13 +62,15 @@ internal static class RegexStore535Checks
         string hostName,
         Action releaseProducer,
         bool persistent,
-        Func<ProcessContext, ResourceReferenceTerm, Task> use
+        Func<ProcessContext, ResourceReferenceTerm, Task> use,
+        bool compressed = false,
+        bool keyIdentity = false
     )
     {
         var failures = new List<Exception>();
         RuntimeNodeFoundationHostActor? receiver = null;
         IDisposable? sourceFrame = null, destinationFrame = null, returnedHost = null;
-        Func<Task>? removeStore = null;
+        Func<Task>? removeStore = null, exerciseStore = null;
         try
         {
             receiver = new(runtime);
@@ -110,29 +119,137 @@ internal static class RegexStore535Checks
             else
             {
                 object store = EtsFoundation405Access.Get(runtime);
-                Term table = await sender.Invoke(context => EtsFoundation405Access.Create(store, context));
-                removeStore = async () =>
+                if (compressed)
                 {
-                    await sender.Invoke(context => EtsFoundation405Access.Invoke(
+                    Term table = await sender.Invoke(context => (Term)EtsFoundation405Access.Invoke(
                         store,
-                        EtsFoundation405Names.Destroy,
+                        EtsKeyKernel407Names.New,
                         context,
-                        table
-                    ));
-                };
-                long slot = await sender.Invoke(context => EtsFoundation405Access.Store(
-                    store,
-                    context,
-                    table,
-                    Term.Tuple(key, source)
-                ));
-                read = () => receiver.Invoke(context =>
-                    ((TupleTerm)EtsFoundation405Access.Read(
+                        Term.A(Key),
+                        Term.List(Term.A(EtsCompressed441Names.Compressed), Term.A(EtsTraversal416HostNames.Ordered))
+                    )!);
+                    removeStore = async () =>
+                    {
+                        await sender.Invoke(context => EtsFoundation405Access.Invoke(
+                            store,
+                            EtsKeyKernel407Names.DeleteTable,
+                            context,
+                            table
+                        ));
+                    };
+                    TupleTerm row = keyIdentity
+                        ? Term.Tuple(source, key, Term.I(EtsCompressed441Names.CustodyInitial))
+                        : Term.Tuple(key, source, Term.I(EtsCompressed441Names.CustodyInitial));
+                    await sender.InvokeAsync(context => ((ValueTask<Term>)EtsFoundation405Access.Invoke(
+                        store,
+                        EtsKeyKernel407Names.Insert,
+                        context,
+                        table,
+                        row
+                    )!).AsTask());
+                    Term lookupKey = keyIdentity ? identity : key;
+                    exerciseStore = async () =>
+                    {
+                        Term incremented = await sender.InvokeAsync(context => ((ValueTask<Term>)EtsFoundation405Access.Invoke(
+                            store,
+                            EtsCompressed441Names.CustodyUpdateCounter,
+                            context,
+                            table,
+                            lookupKey,
+                            Term.Tuple(Term.I(EtsCompressed441Names.CustodyField), Term.I(EtsCompressed441Names.CustodyIncrement)),
+                            false,
+                            Nil.Value
+                        )!).AsTask());
+                        Require(incremented.Equals(Term.I(EtsCompressed441Names.CustodyIncrement)));
+                        Term updated = await sender.InvokeAsync(context => ((ValueTask<Term>)EtsFoundation405Access.Invoke(
+                            store,
+                            EtsCompressed441Names.CustodyUpdateElement,
+                            context,
+                            table,
+                            lookupKey,
+                            Term.Tuple(Term.I(EtsCompressed441Names.CustodyField), Term.I(EtsCompressed441Names.CustodyUpdated)),
+                            false,
+                            Nil.Value
+                        )!).AsTask());
+                        Require(updated.Equals(Term.A(ErlangBooleanAtoms.True)));
+                        Term next = await sender.Invoke(context => (Term)EtsFoundation405Access.Invoke(
+                            store,
+                            EtsCompressed441Names.CustodyTraverse,
+                            context,
+                            table,
+                            lookupKey,
+                            true,
+                            false,
+                            false
+                        )!);
+                        Require(next.Equals(Term.A(EtsTraversal416HostNames.End)));
+                        TupleTerm unmatched = keyIdentity
+                            ? Term.Tuple(identity, key, Term.I(EtsCompressed441Names.CustodyNonmatch))
+                            : Term.Tuple(key, identity, Term.I(EtsCompressed441Names.CustodyNonmatch));
+                        Term removed = await sender.InvokeAsync(context => ((ValueTask<Term>)EtsFoundation405Access.Invoke(
+                            store,
+                            EtsCompressed441Names.CustodyRemove,
+                            context,
+                            table,
+                            unmatched,
+                            false
+                        )!).AsTask());
+                        Require(removed.Equals(Term.A(ErlangBooleanAtoms.True)));
+                        await sender.Invoke(context =>
+                        {
+                            object?[] arguments = [context, table, Term.A(EtsCompressed441Names.CustodyData), null];
+                            var printed = (Term)EtsFoundation405Access.Invoke(
+                                store,
+                                EtsCompressed441Names.CustodyInfo,
+                                arguments
+                            )!;
+                            Require(printed.Equals(Term.A(ErlangBooleanAtoms.True))
+                                && arguments[EtsCompressed441Names.CustodyPrintedArgument] is byte[] { Length: > 0 });
+
+                            return true;
+                        });
+                    };
+                    read = () => receiver.Invoke(context =>
+                    {
+                        var restoredRow = (TupleTerm)Cons.Items((Term)EtsFoundation405Access.Invoke(
+                            store,
+                            EtsKeyKernel407Names.Lookup,
+                            context,
+                            table,
+                            lookupKey
+                        )!).Single();
+                        Require(restoredRow.Items[EtsCompressed441Names.CustodyField - 1]
+                            .Equals(Term.I(EtsCompressed441Names.CustodyUpdated)));
+
+                        return restoredRow.Items[keyIdentity ? 0 : 1];
+                    });
+                }
+                else
+                {
+                    Term table = await sender.Invoke(context => EtsFoundation405Access.Create(store, context));
+                    removeStore = async () =>
+                    {
+                        await sender.Invoke(context => EtsFoundation405Access.Invoke(
+                            store,
+                            EtsFoundation405Names.Destroy,
+                            context,
+                            table
+                        ));
+                    };
+                    long slot = await sender.Invoke(context => EtsFoundation405Access.Store(
                         store,
                         context,
                         table,
-                        slot
-                    )).Items[1]);
+                        Term.Tuple(key, source)
+                    ));
+                    read = () => receiver.Invoke(context =>
+                        ((TupleTerm)EtsFoundation405Access.Read(
+                            store,
+                            context,
+                            table,
+                            slot
+                        )).Items[1]);
+                }
             }
             // Do not pre-export the source: the actual store must capture it.
             releaseProducer();
@@ -154,6 +271,7 @@ internal static class RegexStore535Checks
                 sourceRetired = true;
             }
             Require(sourceRetired);
+            if (exerciseStore is not null) await exerciseStore();
             var restored = (ResourceReferenceTerm)await read();
             returnedHost = restored.GetType().GetProperty(hostName, Members)!.GetValue(restored) as IDisposable;
             Call(

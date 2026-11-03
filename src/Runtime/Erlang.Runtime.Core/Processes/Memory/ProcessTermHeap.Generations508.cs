@@ -44,6 +44,7 @@ internal sealed partial class ProcessTermHeap506
     internal ProcessTermCollection508 CollectGeneration508(bool requestedMajor, ushort fullSweepAfter)
     {
         if (LiteralDomain800 is not null) throw new InvalidOperationException(ModuleLiteral800Names.Immutable);
+        int participant = runtime.CurrentGcParticipant();
         using var microstate = RuntimeMicrostateExecution.EnterState(runtime.Statistics.Microstates, RuntimeMicrostate.Gc);
         lock (Gate)
         {
@@ -118,6 +119,7 @@ internal sealed partial class ProcessTermHeap506
             reclaimedPayloadWords508 = totalReclaimed;
             reclaimedAllocationWords567 = totalReclaimedAllocation;
             runtime.Statistics.RecordVmCollection(reclaimedAllocation);
+            runtime.RecordGcParticipant(participant, reclaimedAllocation);
 
             return new(
                 major,
