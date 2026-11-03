@@ -16,17 +16,18 @@ internal static class NativeCons539ResourceChecks
         int destroyed = 0;
         Destructor callback = (_, _) => Interlocked.Increment(ref destroyed);
         object payload = Allocate(runtime, provider.Provider, Marshal.GetFunctionPointerForDelegate(callback));
-        nint bytes = (nint)Property(payload, NativeCons539ResourceNames.ResourcePointer);
-        for (int index = 0; index < PayloadBytes; index++) Marshal.WriteByte(bytes, index, 90);
-        BitString binary = Binary(runtime, payload);
-        object image = Property(provider.Provider, NativeCons539ResourceNames.Image);
-        using var first = (IDisposable)New(NativeCons539ResourceNames.Environment, runtime, image);
-        using var second = (IDisposable)New(NativeCons539ResourceNames.Environment, runtime, image);
-        using var table = (IDisposable)New(NativeCons539ResourceNames.Table);
+        IDisposable? first = null, second = null, table = null;
         bool nativeReleased = false;
         Exception? failure = null;
         try
         {
+            nint bytes = (nint)Property(payload, NativeCons539ResourceNames.ResourcePointer);
+            for (int index = 0; index < PayloadBytes; index++) Marshal.WriteByte(bytes, index, 90);
+            BitString binary = Binary(runtime, payload);
+            object image = Property(provider.Provider, NativeCons539ResourceNames.Image);
+            first = (IDisposable)New(NativeCons539ResourceNames.Environment, runtime, image);
+            second = (IDisposable)New(NativeCons539ResourceNames.Environment, runtime, image);
+            table = (IDisposable)New(NativeCons539ResourceNames.Table);
             Call(
                 table,
                 NativeCons539ResourceNames.Bind,
@@ -69,15 +70,26 @@ internal static class NativeCons539ResourceChecks
                 {
                     failure = Combine(failure, error);
                 }
-            foreach (object env in new object[] { first, second })
-                try
-                {
-                    Call(env, NativeCons539ResourceNames.Clear);
-                }
-                catch (Exception error)
-                {
-                    failure = Combine(failure, error);
-                }
+            foreach (IDisposable? env in new[] { first, second })
+                if (env is not null)
+                    try
+                    {
+                        Call(env, NativeCons539ResourceNames.Clear);
+                    }
+                    catch (Exception error)
+                    {
+                        failure = Combine(failure, error);
+                    }
+            foreach (IDisposable? owned in new[] { table, second, first })
+                if (owned is not null)
+                    try
+                    {
+                        owned.Dispose();
+                    }
+                    catch (Exception error)
+                    {
+                        failure = Combine(failure, error);
+                    }
             try
             {
                 await ((Task)Property(payload, NativeCons539ResourceNames.Retired)).WaitAsync(Deadline);

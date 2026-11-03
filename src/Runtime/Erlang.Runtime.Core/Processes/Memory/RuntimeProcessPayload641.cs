@@ -39,11 +39,24 @@ internal sealed class RuntimeProcessPayload641 : IAsyncDisposable
     }
 
     internal static RuntimeProcessPayload641 Prepare641(ProcessRuntime runtime, ProcessContext? context, Term completeSourceGraph)
+        => PrepareWithLiteral814(
+            runtime,
+            context,
+            completeSourceGraph,
+            null
+        );
+
+    internal static RuntimeProcessPayload641 PrepareWithLiteral814(
+        ProcessRuntime runtime,
+        ProcessContext? context,
+        Term completeSourceGraph,
+        ModuleLiteralRoots801? carriedLiteral801
+    )
     {
         RuntimeProcessPayload641 result = Reserve641(runtime, context);
         try
         {
-            result.Capture641(completeSourceGraph);
+            result.CaptureWithLiteral814(completeSourceGraph, carriedLiteral801);
 
             return result;
         }
@@ -57,11 +70,13 @@ internal sealed class RuntimeProcessPayload641 : IAsyncDisposable
     internal static RuntimeProcessPayload641 Reserve641(ProcessRuntime runtime, ProcessContext? context)
         => New641(runtime.ProcessPayloads641, context, false);
 
-    internal void Capture641(Term completeSourceGraph)
+    internal void Capture641(Term completeSourceGraph) => CaptureWithLiteral814(completeSourceGraph, null);
+
+    private void CaptureWithLiteral814(Term completeSourceGraph, ModuleLiteralRoots801? carriedLiteral801)
     {
         if (value is not null || prepared is not null)
             throw new InvalidOperationException(RuntimeProcessPayloadNames641.Invalid);
-        prepared = RuntimePendingPayload628.Prepare(Runtime641, Term.Tuple(completeSourceGraph));
+        prepared = RuntimePendingPayload628.PrepareWithLiteral814(Runtime641, Term.Tuple(completeSourceGraph), carriedLiteral801);
         value = prepared.Value.Items[0];
         graph = prepared.Graph;
     }

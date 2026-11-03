@@ -476,7 +476,9 @@ public sealed partial class ModuleRegistry
                 code
             );
 
-            return borrow507 ? owned.CompleteGuest507(result) : owned.Complete(result);
+            return borrow507 && ownedKind507 == OwnedBindingKind507.ReviewedManagedLibrary
+                ? owned.CompleteReviewedManagedLibrary789(result)
+                : borrow507 ? owned.CompleteGuest507(result) : owned.Complete(result);
         }
         catch (ErlangException error) when (owned is not null)
         {

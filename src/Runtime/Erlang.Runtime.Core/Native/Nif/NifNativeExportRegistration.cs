@@ -133,6 +133,7 @@ internal static unsafe class NifNativeExportRegistration
         MakeListCell539 = &NifNativeListCellCallbacks.Create,
         GetString719 = &NifNativeStringCallbacks.Get,
         GetTuple719 = &NifNativeSequenceCallbacks.GetTuple,
-        MakeAtom719 = &NifNativeAtomCallbacks.Make
+        MakeAtom719 = &NifNativeAtomCallbacks.Make,
+        FormatTerm791 = &NifNativePrintf791Callbacks.RenderTerm
     };
 }

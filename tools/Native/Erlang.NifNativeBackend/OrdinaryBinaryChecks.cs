@@ -29,6 +29,16 @@ public static class OrdinaryBinaryChecks
             CpuStatisticsAccess.Require(storage.Slab.Cells.ReadHeader526(storage.AllocationOffset526) == 0x124);
             CpuStatisticsAccess.Require(value.ToArray().SequenceEqual(expected));
             CpuStatisticsAccess.Require(OrdinaryBinaryTestAccess.ReferencedBytes(value) == expected.Length);
+            // A normal physically backed binary is valid compressed ETS data.
+            // The codec must copy its bytes rather than reject it as a NIF resource.
+            Term stored = Term.Tuple(Term.I(1), value);
+            using (RuntimeEtsStoredPayload compressed = RuntimeEtsStoredPayload.Capture(
+                runtime,
+                stored,
+                CancellationToken.None,
+                compressed: true
+            ))
+                CpuStatisticsAccess.Require(compressed.Materialize(CancellationToken.None).Equals(stored));
             Term exported = OwnedTermDetachedCopy506.CopyAtomics586(runtime, value, true);
             CpuStatisticsAccess.Require(exported is BitString exportedBits && OrdinaryBinaryTestAccess.Storage(exportedBits) is null && OrdinaryBinaryTestAccess.Owner(exportedBits) is null);
             CpuStatisticsAccess.Require(heap.CollectGeneration508(true, ProcessFullSweepNames.DefaultThreshold).ReclaimedAllocationWords567 == 0);

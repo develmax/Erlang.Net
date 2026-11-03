@@ -74,14 +74,27 @@ internal sealed unsafe partial class OrdinaryBinaryBacking : INativeWritableBina
         }
     }
 
-    internal OrdinaryBinaryLease Retain()
+    // Allocates metadata only. This reservation is NOT native lifetime or
+    // sharing authority: caller must hold existing physical source custody.
+    internal OrdinaryBinaryLease ReserveLease() => new(this);
+
+    internal OrdinaryBinaryLease Retain() => RetainReserved(ReserveLease());
+
+    // Native ownership begins here, at the original observable copy point.
+    // No new lease allocation, source pin, callback, H or M acquisition occurs.
+    internal OrdinaryBinaryLease RetainReserved(OrdinaryBinaryLease lease)
     {
-        var lease = new OrdinaryBinaryLease(this);
+        if (!ReferenceEquals(lease.Owner, this))
+            throw new InvalidOperationException(OrdinaryBinaryNames.Prepared);
         lock (gate)
         {
             var header = (OrdinaryBinaryHeader*)Require();
             header->References = checked(header->References + 1);
-            lease.Admit();
+            if (!lease.TryAdmit())
+            {
+                header->References--;
+                throw new ObjectDisposedException(nameof(OrdinaryBinaryLease));
+            }
         }
 
         return lease;

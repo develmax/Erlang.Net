@@ -39,7 +39,7 @@ public static partial class ErlangOperatorValues
             ErlangOperators.Greater => CoreModules.Boolean(first.CompareTo(second) > 0),
             ErlangOperators.LessOrEqual => CoreModules.Boolean(first.CompareTo(second) <= 0),
             ErlangOperators.GreaterOrEqual => CoreModules.Boolean(first.CompareTo(second) >= 0),
-            ErlangOperators.Append => Cons.From(Cons.Items(first), second),
+            ErlangOperators.Append => AppendSynchronous219(first, second),
             ErlangOperators.SubtractList => ListBasicOperations.Subtract(first, second),
             ErlangOperators.Send when context is not null => Send(context, first, second),
             _ => CoreModules.Arithmetic(operation, first, second)

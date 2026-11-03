@@ -164,9 +164,15 @@ public sealed partial class BitString : Term
         destination.Write(ByteSpan);
     }
 
-    internal int Bit(int i) => ownedHeapBits is not null
-        ? (ownedHeapBits.ReadHeapByte(i / BitStringLayout.BitsPerByte) >> (BitStringStorage.HighBit - i % BitStringLayout.BitsPerByte)) & 1
-        : (backing.ReadByte524((int)((LogicalBitOffset577 + i) / BitStringLayout.BitsPerByte)) >> (BitStringStorage.HighBit - (int)((LogicalBitOffset577 + i) % BitStringLayout.BitsPerByte))) & 1;
+    internal int Bit(int i)
+    {
+        if (ownedHeapBits is not null)
+            return (ownedHeapBits.ReadHeapByte(i / BitStringLayout.BitsPerByte) >> (BitStringStorage.HighBit - i % BitStringLayout.BitsPerByte)) & 1;
+        long absolute497 = LogicalBitOffset577 + i;
+
+        return (backing.ReadByte524((int)(absolute497 / BitStringLayout.BitsPerByte))
+            >> (BitStringStorage.HighBit - (int)(absolute497 % BitStringLayout.BitsPerByte))) & 1;
+    }
 
     public override string ToString()
     {

@@ -11,7 +11,7 @@ public sealed partial class Mailbox
             try
             {
                 foreach (Entry entry in messages)
-                    if (!entry.Control) captured.Add(entry.Custody593?.ObservationValue ?? entry.Value, entry.Custody593?.Graph);
+                    if (!entry.Control) captured.Add(entry.Value, entry.Custody593?.Graph);
             }
             catch (Exception error)
             {

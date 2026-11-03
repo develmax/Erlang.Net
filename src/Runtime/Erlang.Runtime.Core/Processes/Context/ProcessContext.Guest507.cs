@@ -31,7 +31,9 @@ public sealed partial class ProcessContext
             Term[] selected = borrowed ? owned.Arguments : owned.Arguments.Select(owned.Export).ToArray();
             Term value = await primitive(this, selected);
 
-            return borrowed ? owned.CompleteGuest507(value) : owned.Complete(value);
+            return borrowed && kind == OwnedBindingKind507.ReviewedManagedLibrary
+                ? owned.CompleteReviewedManagedLibrary789(value)
+                : borrowed ? owned.CompleteGuest507(value) : owned.Complete(value);
         }
         catch (ErlangException error)
         {

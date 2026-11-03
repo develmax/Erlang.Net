@@ -10,24 +10,31 @@ internal static class InterpreterCode411Checks
         {
             Require(!runtime.Modules.HasExport(InterpreterCode411Names.Module, InterpreterCode411Names.CoverageSupport, 0));
             PreparedBeamImage? prepared = null;
-            await runtime.InitializeModulesAsync(registry =>
+            await global::Erlang.Tests.PreparedBeamFixtureScope171.RunAsync(
+                runtime,
+                (registry, scope) =>
             {
                 // The unchanged source image's whole import selection is explicit.
                 var imports = System.Text.Json.JsonSerializer.Deserialize<string[]>(
                     LibraryDependencyOriginalHostChecks.ReadRetainedResource(LibraryDependencyOriginalNames.Dependencies))!;
-                prepared = registry.PrepareBeam(InterpreterCode411Resources.Read(), new BeamDependencySelection(imports));
+                prepared = scope.Prepare(() => registry.PrepareBeam(InterpreterCode411Resources.Read(), new BeamDependencySelection(imports)));
                 var expected = new HashSet<BeamFunctionSignature>
-                {
-                    new(InterpreterCode411Names.CoverageSupport, 0), new(InterpreterCode411Names.Mode, 0),
-                    new(InterpreterCode411Names.Mode, 1), new(InterpreterCode411Names.SingleArgument[1], 1),
-                    new(InterpreterCode411Names.GetCoverage, 2), new(InterpreterCode411Names.SingleArgument[2], 1),
-                    new(InterpreterCode411Names.SingleArgument[3], 1)
-                };
+                            {
+                                new(InterpreterCode411Names.CoverageSupport, 0), new(InterpreterCode411Names.Mode, 0),
+                                new(InterpreterCode411Names.Mode, 1), new(InterpreterCode411Names.SingleArgument[1], 1),
+                                new(InterpreterCode411Names.GetCoverage, 2), new(InterpreterCode411Names.SingleArgument[2], 1),
+                                new(InterpreterCode411Names.SingleArgument[3], 1)
+                            };
                 Require(prepared.Name == InterpreterCode411Names.Module && prepared.NativePrimitiveExports.Count == 7
                     && expected.SetEquals(prepared.NativePrimitiveExports));
                 Require(!registry.HasExport(InterpreterCode411Names.Module, InterpreterCode411Names.CoverageSupport, 0));
-                Require(registry.PublishPreparedBeam(prepared).Status == BeamPublicationStatus.Published);
-            });
+
+                return ValueTask.FromResult<Action<ModuleRegistry>>(_ =>
+                {
+                    Require(registry.PublishPreparedBeam(prepared).Status == BeamPublicationStatus.Published);
+                });
+            }
+            );
             await using (var actor = new RuntimeNodeFoundationHostActor(runtime))
             {
                 context = await actor.Ready;

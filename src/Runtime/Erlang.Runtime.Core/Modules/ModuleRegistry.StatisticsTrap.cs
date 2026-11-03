@@ -3,15 +3,16 @@ namespace Erlang;
 public sealed partial class ModuleRegistry
 {
     private readonly object statisticsTrapGate = new();
-    private TaskCompletionSource<PreparedBeamImage>? statisticsTrapPreparation;
     private readonly TaskCompletionSource statisticsTrapDrained = new(TaskCreationOptions.RunContinuationsAsynchronously);
+    private TaskCompletionSource<PreparedBeamImage>? statisticsTrapPreparation;
     private PreparedBeamImage? statisticsTrapPrivateImage;
     private bool statisticsTrapPreparing, statisticsTrapClosing;
     private int statisticsTrapUses;
 
     internal void PrewarmStatisticsTrapHelpers(ProcessContext initializer)
     {
-        if (System.Threading.Monitor.IsEntered(gate) || !ReferenceEquals(owningRuntime, initializer.Runtime))
+        if (System.Threading.Monitor.IsEntered(gate) || !ReferenceEquals(owningRuntime, initializer.Runtime)
+            || RuntimeActorExecutionTurn.IsOwnedBy(initializer))
             throw new InvalidOperationException(StatisticsTrapNames.InvalidImage);
         _ = PreparePrivateStatisticsTrap(initializer).GetAwaiter().GetResult();
     }
@@ -22,20 +23,19 @@ public sealed partial class ModuleRegistry
             or (StatisticsTrapNames.GatherMicrostates, 2)
             or (StatisticsTrapNames.AwaitWallTime, 2)
             or (StatisticsTrapNames.GatherWallTime, 1);
-        if (!allowed)
-            throw new InvalidOperationException(StatisticsTrapNames.InvalidImage);
+        if (!allowed) throw new InvalidOperationException(StatisticsTrapNames.InvalidImage);
     }
 
     internal async ValueTask<StatisticsTrapAdmission> AdmitStatisticsTrap(ProcessContext caller, string function, int arity)
     {
         RequireStatisticsTrapSignature(function, arity);
-        if (!ReferenceEquals(owningRuntime, caller.Runtime))
+        if (!ReferenceEquals(owningRuntime, caller.Runtime) || !RuntimeActorExecutionTurn.IsOwnedBy(caller))
             throw new InvalidOperationException(StatisticsTrapNames.InvalidImage);
         caller.Cancellation.ThrowIfCancellationRequested();
         PreparedBeamImage? selected;
         lock (gate)
         {
-            ObjectDisposedException.ThrowIf(sourceClosing, this);
+            ObjectDisposedException.ThrowIf(sourceClosing || nifClosing, this);
             selected = sourceOwners.GetValueOrDefault((StatisticsTrapNames.Module, function, arity)) as PreparedBeamImage;
             if (selected is not null && (!ReferenceEquals(selected.Owner, this)
                 || selected.OriginalBeamSha256 != StatisticsTrapNames.ImageSha256
@@ -43,66 +43,118 @@ public sealed partial class ModuleRegistry
                 selected = null;
         }
         selected ??= await PreparePrivateStatisticsTrap(caller);
-        lock (statisticsTrapGate)
+        SourceCodeLease lease = await AcquireSourceEntry(caller, selected.ExecutionIdentity.Image, SourceCodeAdmissionKind.Function);
+        try
         {
-            ObjectDisposedException.ThrowIf(statisticsTrapClosing || Volatile.Read(ref sourceClosing), this);
-            checked
+            lock (statisticsTrapGate)
             {
-                statisticsTrapUses++;
-            }
+                ObjectDisposedException.ThrowIf(statisticsTrapClosing || Volatile.Read(ref sourceClosing) || Volatile.Read(ref nifClosing), this);
+                var admission = new StatisticsTrapAdmission(
+                    this,
+                    caller,
+                    selected,
+                    lease,
+                    function,
+                    arity
+                );
+                checked
+                {
+                    statisticsTrapUses++;
+                }
 
-            return new StatisticsTrapAdmission(this, selected);
+                return admission;
+            }
+        }
+        catch (Exception primary)
+        {
+            try
+            {
+                lease.Dispose();
+            }
+            catch (Exception cleanup)
+            {
+                throw new AggregateException(primary, cleanup);
+            }
+            throw;
         }
     }
 
     private async ValueTask<PreparedBeamImage> PreparePrivateStatisticsTrap(ProcessContext caller)
     {
-        TaskCompletionSource<PreparedBeamImage> preparing;
-        bool ownPreparation = false;
+        TaskCompletionSource<PreparedBeamImage> preparation;
+        bool prepare = false;
         lock (statisticsTrapGate)
         {
-            ObjectDisposedException.ThrowIf(statisticsTrapClosing || Volatile.Read(ref sourceClosing), this);
+            ObjectDisposedException.ThrowIf(statisticsTrapClosing || Volatile.Read(ref sourceClosing) || Volatile.Read(ref nifClosing), this);
             if (statisticsTrapPreparation is null)
             {
                 statisticsTrapPreparation = new(TaskCreationOptions.RunContinuationsAsynchronously);
                 statisticsTrapPreparing = true;
-                ownPreparation = true;
+                prepare = true;
             }
-            preparing = statisticsTrapPreparation;
+            preparation = statisticsTrapPreparation;
         }
-        if (ownPreparation)
-            try
-            {
-                // Private preparation is not registry publication or a code-writer
-                // transaction. Its actual preparation is owned by this cache's
-                // closing/preparing ledger; execution uses normal source leases.
-                PreparedBeamImage image = PrepareBeam(StatisticsTrapResource.AuthenticatedImage(),
-                    new BeamDependencySelection(StatisticsTrapImageImports.Modules));
-                if (image.Name != StatisticsTrapNames.Module || image.HasOnLoad
-                    || image.OriginalBeamSha256 != StatisticsTrapNames.ImageSha256)
-                    throw new InvalidDataException(StatisticsTrapNames.InvalidImage);
-                statisticsTrapPrivateImage = image;
-                preparing.TrySetResult(image);
-            }
-            catch (Exception error)
-            {
-                preparing.TrySetException(error);
-            }
-            finally
-            {
-                lock (statisticsTrapGate)
-                {
-                    statisticsTrapPreparing = false;
-                    CompleteStatisticsTrapDrain();
-                }
-            }
+        if (prepare)
+            _ = ProduceStatisticsTrapImage(preparation);
 
-        // No R/D/M gate across actual source preparation or waiting.
-        return await preparing.Task.WaitAsync(caller.Cancellation);
+        return await preparation.Task.WaitAsync(caller.Cancellation);
+    }
+
+    private async Task ProduceStatisticsTrapImage(TaskCompletionSource<PreparedBeamImage> preparation)
+    {
+        PreparedBeamImage? candidate = null;
+        try
+        {
+            candidate = await PrepareStatisticsTrapImage().ConfigureAwait(false);
+            if (candidate.Name != StatisticsTrapNames.Module || candidate.HasOnLoad
+                || candidate.OriginalBeamSha256 != StatisticsTrapNames.ImageSha256)
+                throw new InvalidDataException(StatisticsTrapNames.InvalidImage);
+            statisticsTrapPrivateImage = candidate;
+            preparation.TrySetResult(candidate);
+        }
+        catch (Exception primary)
+        {
+            Exception failure = primary;
+            if (candidate is not null)
+                try
+                {
+                    await candidate.DisposeAsync().ConfigureAwait(false);
+                }
+                catch (Exception cleanup)
+                {
+                    failure = new AggregateException(primary, cleanup);
+                }
+            preparation.TrySetException(failure);
+            // The last waiter may already have cancelled. Preserve the shared
+            // failure without leaving an unobserved task exception.
+            _ = preparation.Task.Exception;
+        }
+        finally
+        {
+            lock (statisticsTrapGate)
+            {
+                statisticsTrapPreparing = false;
+                CompleteStatisticsTrapDrain();
+            }
+        }
+    }
+
+    private async ValueTask<PreparedBeamImage> PrepareStatisticsTrapImage()
+    {
+        RequireAsyncSourceCaller();
+        // The shared VM preparation has its own source admission. Each caller
+        // may cancel its wait, while registry shutdown cancels the preparation.
+        using ModuleSourceMutationTicket ticket = await SourceMutation.AcquireAsync(CancellationToken.None).ConfigureAwait(false);
+        // This scope is thread-local: no await may occur before its disposal.
+        // Preparing literal arenas intentionally runs outside the code writer.
+        using var source = new ModuleSourceMutationScope(ticket, false);
+        ThrowIfSourceClosing();
+
+        return PrepareBeam(StatisticsTrapResource.AuthenticatedImage(), new BeamDependencySelection(StatisticsTrapImageImports.Modules));
     }
 
     internal ValueTask<Term> InvokeStatisticsTrap(
-        ProcessContext context,
+        ProcessContext caller,
         StatisticsTrapAdmission admission,
         string function,
         params Term[] arguments
@@ -110,31 +162,36 @@ public sealed partial class ModuleRegistry
     {
         RequireStatisticsTrapSignature(function, arguments.Length);
         PreparedBeamImage image = admission.Image;
-        if (!admission.IsCurrentFor(this) || !ReferenceEquals(image.Owner, this) || !ReferenceEquals(owningRuntime, context.Runtime)
-            || !RuntimeActorExecutionTurn.IsOwnedBy(context)
-            || image.OriginalBeamSha256 != StatisticsTrapNames.ImageSha256)
+        if (!ReferenceEquals(image.Owner, this) || !ReferenceEquals(owningRuntime, caller.Runtime)
+            || !RuntimeActorExecutionTurn.IsOwnedBy(caller) || image.OriginalBeamSha256 != StatisticsTrapNames.ImageSha256
+            || !admission.TryStart(
+                this,
+                caller,
+                function,
+                arguments.Length
+            ))
             throw new InvalidOperationException(StatisticsTrapNames.InvalidImage);
         BeamLinkedFunction target = image.Code.Functions.Single(value => value.Name == function && value.Arity == arguments.Length);
-        ErlangFunction body = (caller, values) => BeamRegisterInterpreter.ExecuteLocal(
-            caller,
+        ErlangFunction body = (context, values) => BeamRegisterInterpreter.ExecuteFunction(
+            context,
             image.Code,
             target,
             values,
             Array.Empty<Term>(),
-            image.ExecutionIdentity
+            image.ExecutionIdentity,
+            admittedLease647: admission.Lease
         );
+        OwnedBindingKind507 kind = caller.OwnedExecutionEnabled683 ? OwnedBindingKind507.PreparedGuest : OwnedBindingKind507.Opaque;
 
-        // Exact authenticated prepared guest authority; no public binding is changed.
-        // The interpreter independently acquires its normal source entry/purge lease.
         return InvokeSelected(
-            context,
+            caller,
             StatisticsTrapNames.Module,
             function,
             arguments,
             body,
             null,
             null,
-            OwnedBindingKind507.PreparedGuest
+            kind
         );
     }
 
@@ -142,8 +199,7 @@ public sealed partial class ModuleRegistry
     {
         lock (statisticsTrapGate)
         {
-            if (statisticsTrapUses <= 0)
-                throw new InvalidOperationException(StatisticsTrapNames.InvalidImage);
+            if (statisticsTrapUses <= 0) throw new InvalidOperationException(StatisticsTrapNames.InvalidImage);
             statisticsTrapUses--;
             CompleteStatisticsTrapDrain();
         }
@@ -157,21 +213,41 @@ public sealed partial class ModuleRegistry
 
     private async Task CloseStatisticsTrapHelpers()
     {
-        Task drain;
+        Task drained;
         lock (statisticsTrapGate)
         {
             statisticsTrapClosing = true;
             CompleteStatisticsTrapDrain();
-            drain = statisticsTrapDrained.Task;
+            drained = statisticsTrapDrained.Task;
         }
-        await drain.ConfigureAwait(false);
-        PreparedBeamImage? image = statisticsTrapPrivateImage;
-        if (image is not null)
+        await drained.ConfigureAwait(false);
+        if (statisticsTrapPrivateImage is { } image)
         {
-            lock (gate)
-                purgeStates.GetOrCreateValue(image.ExecutionIdentity.Image).Retired = true;
-            if (NifImageBindingStore.TryGetValue(image.ExecutionIdentity.Image, out var native))
-                await native!.RetireAsync().ConfigureAwait(false);
+            Exception? retirementFailure = null;
+            Exception? literalFailure = null;
+            try
+            {
+                lock (gate) purgeStates.GetOrCreateValue(image.ExecutionIdentity.Image).Retired = true;
+                await RetireNifImageAsync(image.ExecutionIdentity.Image).ConfigureAwait(false);
+            }
+            catch (Exception error)
+            {
+                retirementFailure = error;
+            }
+            try
+            {
+                await image.DisposeAsync().ConfigureAwait(false);
+            }
+            catch (Exception error)
+            {
+                literalFailure = error;
+            }
+            if (retirementFailure is not null && literalFailure is not null)
+                throw new AggregateException(retirementFailure, literalFailure);
+            if (retirementFailure is not null)
+                System.Runtime.ExceptionServices.ExceptionDispatchInfo.Capture(retirementFailure).Throw();
+            if (literalFailure is not null)
+                System.Runtime.ExceptionServices.ExceptionDispatchInfo.Capture(literalFailure).Throw();
         }
     }
 }

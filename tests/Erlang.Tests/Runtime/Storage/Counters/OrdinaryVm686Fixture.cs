@@ -32,9 +32,9 @@ internal sealed class OrdinaryVm686Fixture : IAsyncDisposable
         try
         {
             Require(!(bool)Property(result.Runtime, Profile));
+            using PreparedBeamImage facet = CountersOriginal421Preparation.Prepare(result.Runtime, result.Runtime.Modules);
             await result.Runtime.InitializeModulesAsync(registry =>
             {
-                PreparedBeamImage facet = CountersOriginal421Preparation.Prepare(result.Runtime, registry);
                 Require(registry.PublishPreparedBeam(facet).Status == BeamPublicationStatus.Published);
             });
             source.Definition.Register(result.Runtime.Modules);
@@ -172,6 +172,8 @@ internal sealed class OrdinaryVm686Fixture : IAsyncDisposable
 
     internal async Task AwaitNativeRetired()
     {
+        if (!Stopped && !NativeRetired() && !Parent.Process.Completion.IsCompleted)
+            await CounterParentCollection365.Collect(Runtime, Parent, ArrayObject!);
         await ((Task)Property(ArrayObject!, Retired)).WaitAsync(Deadline);
         await CountersOwnerAccounting683Checks.AwaitEmpty(Runtime, Deadline);
     }

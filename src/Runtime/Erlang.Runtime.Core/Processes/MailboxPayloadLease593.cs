@@ -6,8 +6,22 @@ namespace Erlang;
 internal sealed class MailboxPayloadLease593 : IThreadPoolWorkItem
 {
     private readonly RuntimeMailboxRootOwner593 owner;
+    private int suspensionAckCleanup172;
+    internal bool SuspensionAckCleanup172 => Volatile.Read(ref suspensionAckCleanup172) != 0;
+
+    internal void MarkSuspensionAckCleanup172()
+    {
+        Volatile.Write(ref suspensionAckCleanup172, 1);
+        owner.NotifySuspensionAck172();
+    }
+
     internal RuntimeMailboxRootOwner593 Owner593 => owner;
     private IDisposable? backing;
+    private ModuleLiteralRoots801? literalRoots801;
+    internal ModuleLiteralRoots801? LiteralRoots801 => literalRoots801 ?? Graph?.LiteralRoots801;
+
+    internal void AttachLiteralRoots801(ModuleLiteralRoots801? roots) => literalRoots801 = roots;
+
     private MailboxMessageFragment? recipientFragment;
     internal MailboxMessageFragment? RecipientFragment => Volatile.Read(ref recipientFragment);
     private MailboxRetirementTracker593? expectedRecipient;
@@ -75,7 +89,13 @@ internal sealed class MailboxPayloadLease593 : IThreadPoolWorkItem
 
     internal MailboxGraphSnapshot593? Graph { get; private set; }
 
-    internal void Attach(IDisposable? value) => backing = value;
+    internal void Attach(IDisposable? value)
+    {
+        backing = value;
+        if (value is RuntimeProcessPayloadGroup641 group) literalRoots801 = group.RetainLiteralRoots801();
+        else if (value is MailboxSnapshot601 snapshot) literalRoots801 = snapshot.RetainLiteralRoots801();
+        else if (value is ProcessInfoSnapshot601 processInfo) literalRoots801 = processInfo.RetainLiteralRoots801();
+    }
 
     internal void AttachSnapshot(IDisposable value, MailboxGraphSnapshot593 graph)
     {
@@ -92,6 +112,22 @@ internal sealed class MailboxPayloadLease593 : IThreadPoolWorkItem
         executing = 1;
         owner.Finished(this);
         Completion.TrySetResult();
+    }
+
+    internal bool OwnsPreparedReadOperation807(IDisposable operation)
+        => operation is Operation actual && actual.Owns807(this);
+
+    // Protected by an actual operation on this work; graph interests preserve
+    // the ancestor work until that same operation is released.
+    internal PreparedLoaderLease807? FindPreparedGuest807(PreparedLoaderOwner807 selected)
+    {
+        if (Volatile.Read(ref backing) is NativeResourceRootSet524 set
+            && set.FindPreparedGuest807(selected) is { } found) return found;
+        if (Volatile.Read(ref backing) is PreparedLoaderLease807 direct
+            && direct.Kind807 == PreparedLoaderLeaseKind807.Guest && direct.Owns807(selected)) return direct;
+
+        return Graph is { } graph && !ReferenceEquals(graph.RootWork593, this)
+            ? graph.RootWork593.FindPreparedGuest807(selected) : null;
     }
 
     internal IDisposable BorrowOperation()
@@ -138,6 +174,7 @@ internal sealed class MailboxPayloadLease593 : IThreadPoolWorkItem
             Volatile.Write(ref queueSettled, 1);
         }
         owner.NotifyReady();
+        if (SuspensionAckCleanup172) owner.NotifySuspensionAck172();
         RecipientTracker?.NotifyReady();
     }
 
@@ -173,6 +210,14 @@ internal sealed class MailboxPayloadLease593 : IThreadPoolWorkItem
         catch (Exception error)
         {
             retiredFailure = error;
+        }
+        try
+        {
+            Interlocked.Exchange(ref literalRoots801, null)?.Dispose();
+        }
+        catch (Exception error)
+        {
+            retiredFailure = retiredFailure is null ? error : new AggregateException(retiredFailure, error);
         }
         RetirementFailure = retiredFailure;
         Exception? queued = Volatile.Read(ref schedulingFailure);
@@ -223,6 +268,14 @@ internal sealed class MailboxPayloadLease593 : IThreadPoolWorkItem
         {
             retiredFailure = retiredFailure is null ? error : new AggregateException(retiredFailure, error);
         }
+        try
+        {
+            Interlocked.Exchange(ref literalRoots801, null)?.Dispose();
+        }
+        catch (Exception error)
+        {
+            retiredFailure = retiredFailure is null ? error : new AggregateException(retiredFailure, error);
+        }
         RetirementFailure = retiredFailure;
         Exception? queued = Volatile.Read(ref schedulingFailure);
         Failure = queued is null ? retiredFailure : retiredFailure is null ? queued
@@ -242,6 +295,9 @@ internal sealed class MailboxPayloadLease593 : IThreadPoolWorkItem
     private sealed class Operation(MailboxPayloadLease593 value) : IDisposable
     {
         private MailboxPayloadLease593? current = value;
+
+        internal bool Owns807(MailboxPayloadLease593 expected)
+            => ReferenceEquals(Volatile.Read(ref current), expected);
 
         public void Dispose() => Interlocked.Exchange(ref current, null)?.Release();
     }

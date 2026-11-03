@@ -60,7 +60,6 @@ public sealed partial class ProcessRuntime
             if (work is null)
                 return;
             PrepareAndCompleteDeferredSignal(owner, work);
-
         }
     }
 }

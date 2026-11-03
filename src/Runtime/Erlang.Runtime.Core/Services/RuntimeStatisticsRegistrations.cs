@@ -18,7 +18,9 @@ internal static class RuntimeStatisticsRegistrations
                 return ValueTask.FromResult(context.Runtime.Statistics.SampleContextSwitches());
             if (key.Name is RuntimeStatisticsNames.Reductions or RuntimeStatisticsNames.ExactReductions)
                 return ValueTask.FromResult(context.Runtime.Statistics.Sample(key.Name));
-            if (key.Name is RuntimeStatisticsNames.WallClock or RuntimeStatisticsNames.Runtime or RuntimeStatisticsNames.GarbageCollection)
+            if (key.Name == RuntimeStatisticsNames.GarbageCollection)
+                return context.Runtime.SampleGarbageCollection(context);
+            if (key.Name is RuntimeStatisticsNames.WallClock or RuntimeStatisticsNames.Runtime)
             {
                 try
                 {

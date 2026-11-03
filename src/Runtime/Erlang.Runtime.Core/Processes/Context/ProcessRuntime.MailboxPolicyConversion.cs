@@ -135,14 +135,40 @@ public sealed partial class ProcessRuntime
                 // Actual742 frame/root/copy construction and private callable
                 // rebinding occur outside R/M/H while old custody stays held.
                 PreparedMailboxMessage prepared;
+                Term? portableRaw = claim.RawToken;
                 try
                 {
-                    prepared = mailboxRoots593.PrepareMailboxMessageAsync(
-                        this,
-                        owner,
-                        toOffHeap ? ProcessMessageQueueDataMode411.OffHeap : ProcessMessageQueueDataMode411.OnHeap,
-                        claim.Value
-                    ).GetAwaiter().GetResult();
+                    var mode = toOffHeap ? ProcessMessageQueueDataMode411.OffHeap : ProcessMessageQueueDataMode411.OnHeap;
+                    if (claim.RawToken is { } raw)
+                    {
+                        var rawPrepared = mailboxRoots593.PrepareRawDistributionMailboxMessageAsync(
+                            this,
+                            owner,
+                            mode,
+                            claim.Value,
+                            raw,
+                            claim.Custody.Graph?.LiteralRoots801
+                        ).GetAwaiter().GetResult();
+                        prepared = rawPrepared.Message;
+                        portableRaw = rawPrepared.PortableRaw;
+                    }
+                    else
+                        prepared = (claim.Token is { } token
+                            ? mailboxRoots593.PrepareMailboxMessageAsync(
+                                this,
+                                owner,
+                                mode,
+                                claim.Value,
+                                token,
+                                claim.Custody.Graph?.LiteralRoots801
+                            )
+                            : mailboxRoots593.PrepareMailboxMessageFromEntry817Async(
+                                this,
+                                owner,
+                                mode,
+                                claim.Value,
+                                claim.Custody
+                            )).GetAwaiter().GetResult();
                 }
                 catch (ObjectDisposedException)
                 {
@@ -161,7 +187,8 @@ public sealed partial class ProcessRuntime
                                 prepared,
                                 publication,
                                 revision,
-                                toOffHeap
+                                toOffHeap,
+                                portableRaw
                             );
                     }
                 }

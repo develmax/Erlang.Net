@@ -48,11 +48,12 @@ internal static partial class NativeResourceRoots524
         return false;
     }
 
-    private static IDisposable? RetainGraphBeforeOrdinaryBinary(
+    private static IDisposable? RetainGraphBeforePrepared807(
         Term source,
         ProcessRuntime? expected = null,
         bool skipOwnedMagic576 = false,
-        bool hostAtomics586 = false
+        bool hostAtomics586 = false,
+        List<NativeResourceRootLease524>? reservations172 = null
     )
     {
         IDisposable? program = BinaryProgramRoots598.RetainGraph598(
@@ -68,7 +69,8 @@ internal static partial class NativeResourceRoots524
                 source,
                 expected,
                 skipOwnedMagic576,
-                hostAtomics586
+                hostAtomics586,
+                reservations172
             );
             if (program is null) return existing;
             if (existing is null) return program;
@@ -104,7 +106,8 @@ internal static partial class NativeResourceRoots524
         Term source,
         ProcessRuntime? expected = null,
         bool skipOwnedMagic576 = false,
-        bool hostAtomics586 = false
+        bool hostAtomics586 = false,
+        List<NativeResourceRootLease524>? reservations172 = null
     )
     {
         IDisposable? regex = ReMagicRoots597.RetainGraph597(
@@ -120,7 +123,8 @@ internal static partial class NativeResourceRoots524
                 source,
                 expected,
                 skipOwnedMagic576,
-                hostAtomics586
+                hostAtomics586,
+                reservations172
             );
             if (regex is null) return existing;
             if (existing is null) return regex;
@@ -156,7 +160,8 @@ internal static partial class NativeResourceRoots524
         Term source,
         ProcessRuntime? expected = null,
         bool skipOwnedMagic576 = false,
-        bool hostAtomics586 = false
+        bool hostAtomics586 = false,
+        List<NativeResourceRootLease524>? reservations172 = null
     )
     {
         var retained = new IDisposable[3];
@@ -177,7 +182,12 @@ internal static partial class NativeResourceRoots524
                 hostAtomics586
             ) is { } counters)
                 retained[count++] = counters;
-            if (RetainNativeGraph524(source, expected, skipOwnedMagic576) is { } native)
+            if (RetainNativeGraph524(
+                source,
+                expected,
+                skipOwnedMagic576,
+                reservations172
+            ) is { } native)
                 retained[count++] = native;
             if (count == 0)
                 return null;
@@ -216,7 +226,12 @@ internal static partial class NativeResourceRoots524
         }
     }
 
-    private static IDisposable? RetainNativeGraph524(Term source, ProcessRuntime? expected, bool skipOwnedMagic576)
+    private static IDisposable? RetainNativeGraph524(
+        Term source,
+        ProcessRuntime? expected,
+        bool skipOwnedMagic576,
+        List<NativeResourceRootLease524>? reservations172 = null
+    )
     {
         if (!NativeResourceAddresses524.AnyLive524) return null;
         var payloads = new HashSet<NativeResourcePayload524>(ReferenceEqualityComparer.Instance);
@@ -238,7 +253,15 @@ internal static partial class NativeResourceRoots524
         try
         {
             foreach (NativeResourcePayload524 payload in payloads)
-                leases[admitted++] = payload.RetainRoot524();
+            {
+                if (reservations172 is null) leases[admitted++] = payload.RetainRoot524();
+                else
+                {
+                    NativeResourceRootLease524 reserved = payload.ReserveRoot821();
+                    leases[admitted++] = reserved;
+                    reservations172.Add(reserved);
+                }
+            }
 
             return new NativeResourceRootSet524(leases);
         }

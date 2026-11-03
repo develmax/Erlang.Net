@@ -22,8 +22,8 @@ internal static class BeamOwnedRoots507Checks
 
         ValueTask Observe(ProcessContext context, string opcode)
         {
-            opcodes.Add(opcode);
             Check(typeof(ProcessContext).GetField(OrdinaryCollectorNames.HeapField, Members)!.GetValue(context) is not null);
+            opcodes.Add(opcode);
             Call(Get(context, Heap), Collect);
             maximumWords = Math.Max(maximumWords, (long)Get(Get(Get(context, Heap), Snapshot), Words));
 

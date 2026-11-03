@@ -10,5 +10,10 @@ internal enum OwnedBindingKind507
     RuntimeRead535,
     NativeGuest535,
     LocalMessage,
-    LocalListAppend
+    LocalListAppend,
+    ReviewedManagedLibrary,
+    SuspensionTag821,
+    LocalValueBif354,
+    LocalDebugCopy377,
+    LocalOsEnvironment401
 }

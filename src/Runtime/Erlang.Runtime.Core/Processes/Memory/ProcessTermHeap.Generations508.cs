@@ -43,6 +43,8 @@ internal sealed partial class ProcessTermHeap506
     // partially imported graph has unpublished intermediate payload blocks.
     internal ProcessTermCollection508 CollectGeneration508(bool requestedMajor, ushort fullSweepAfter)
     {
+        if (LiteralDomain800 is not null) throw new InvalidOperationException(ModuleLiteral800Names.Immutable);
+        int participant = runtime.CurrentGcParticipant();
         using var microstate = RuntimeMicrostateExecution.EnterState(runtime.Statistics.Microstates, RuntimeMicrostate.Gc);
         lock (Gate)
         {
@@ -65,6 +67,7 @@ internal sealed partial class ProcessTermHeap506
             }
             while (pending.TryPop(out Term? term))
             {
+                if (IsAuthenticatedLiteral801(term)) continue;
                 if (!seen.Add(term))
                     continue;
                 if (Storage(term) is { } block)
@@ -99,6 +102,7 @@ internal sealed partial class ProcessTermHeap506
                 ProcessTermSequence506 block = blocks[id];
                 ReleaseAllocation519(block.Slab, block.AllocationOffset526, block.AllocationWords526);
                 blocks.Remove(id);
+                ReleaseLiteralBlock801(id);
                 mapHeaders517.Remove(id);
                 oldBlocks508.Remove(id);
             }
@@ -115,6 +119,7 @@ internal sealed partial class ProcessTermHeap506
             reclaimedPayloadWords508 = totalReclaimed;
             reclaimedAllocationWords567 = totalReclaimedAllocation;
             runtime.Statistics.RecordVmCollection(reclaimedAllocation);
+            runtime.RecordGcParticipant(participant, reclaimedAllocation);
 
             return new(
                 major,

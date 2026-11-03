@@ -205,14 +205,7 @@ public static class TermOrder
 
                 return 0;
             case (BitString x, BitString y):
-                for (int i = 0; i < Math.Min(x.BitLength, y.BitLength); i++)
-                {
-                    int c = x.Bit(i).CompareTo(y.Bit(i));
-                    if (c != 0)
-                        return c;
-                }
-
-                return x.BitLength.CompareTo(y.BitLength);
+                return x.CompareBits139(y);
             default:
                 throw new NotSupportedException();
         }

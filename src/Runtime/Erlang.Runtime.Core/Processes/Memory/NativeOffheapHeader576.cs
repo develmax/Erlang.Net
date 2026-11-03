@@ -11,6 +11,8 @@ internal sealed class NativeOffheapHeader576
     private CountersBackingLease596? countersRetained596;
     internal CountersGuestRoot421? Counters596 { get; }
     private BinaryProgramLease598? binaryRetained598;
+    private PreparedLoaderLease807? preparedRetained807;
+    internal PreparedLoaderOwner807? Prepared807 { get; }
     internal BinaryProgramBacking598? Binary598 { get; }
     private ReMagicLease597? regexRetained597;
     internal ReMagicBacking597? Regex597 { get; }
@@ -153,8 +155,28 @@ internal sealed class NativeOffheapHeader576
         externalNode = lease;
     }
 
+    internal NativeOffheapHeader576(
+        ProcessTermHeap506 owner,
+        ProcessTermSequence506 block,
+        PreparedLoaderOwner807 backing,
+        nint binary,
+        nint address,
+        PreparedLoaderLease807 lease
+    )
+    {
+        Owner = owner;
+        Block = block;
+        Prepared807 = backing;
+        binarySnapshot = binary;
+        Address = address;
+        Kind = NativeOffheapKind576.MagicReference;
+        preparedRetained807 = lease;
+    }
+
     internal IReadOnlyList<uint> ReadNumbers586()
-        => Binary598 is { } binary
+        => Prepared807 is { } prepared
+            ? prepared.ReadNumbers807(preparedRetained807 ?? throw new ObjectDisposedException(nameof(NativeOffheapHeader576)))
+            : Binary598 is { } binary
             ? binary.Numbers598(binaryRetained598 ?? throw new ObjectDisposedException(nameof(NativeOffheapHeader576)))
             : Regex597 is { } regex
             ? regex.Numbers597(regexRetained597 ?? throw new ObjectDisposedException(nameof(NativeOffheapHeader576)))
@@ -200,7 +222,14 @@ internal sealed class NativeOffheapHeader576
         }
         finally
         {
-            Interlocked.Exchange(ref externalNode, null)?.Dispose();
+            try
+            {
+                Interlocked.Exchange(ref preparedRetained807, null)?.Dispose();
+            }
+            finally
+            {
+                Interlocked.Exchange(ref externalNode, null)?.Dispose();
+            }
         }
     }
 }

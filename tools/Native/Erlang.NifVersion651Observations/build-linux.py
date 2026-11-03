@@ -2,6 +2,16 @@
 import argparse,json,os,re,shutil,sys
 from pathlib import Path
 from common import *
+
+def project_headers552(root, hash_file):
+    paths=[root/'tools/Native/Erlang.NifNativeBackend/native'/name for name in ('nif_bridge_api.h','nif_snprintf791.h')]
+    return [dict(Path=str(path.resolve()),Bytes=path.stat().st_size,Sha256=hash_file(path)) for path in paths]
+
+def require_project_headers552(proof, root, hash_file):
+    expected=project_headers552(root,hash_file);actual=proof['ProjectHeaderInputs']
+    assert len(actual)==len(expected) and {row['Path']:(row['Bytes'],row['Sha256']) for row in actual}=={row['Path']:(row['Bytes'],row['Sha256']) for row in expected},'Project bridge headers changed or unbound'
+    return expected
+
 def main():
     p=argparse.ArgumentParser()
     for n in ['repository','otp-source','build-receipt','output']:p.add_argument('--'+n,type=Path,required=True)
@@ -22,7 +32,9 @@ def main():
         env=environment()
         for name in ['LD_PRELOAD','LD_AUDIT','LD_LIBRARY_PATH','GITHUB_TOKEN','GH_TOKEN']:env.pop(name,None)
         sources=[repo/'tools/Native/Erlang.NifNativeBackend/native'/n for n in ['nif_bridge_exports.c','nif_bridge_varargs.c','nif_bridge_pthread_control.c']]
-        sealed=snapshot([tool/'linux-build-inputs.json',tool/'cases.json',tool/'fixtures/version_entry651.c',a.build_receipt,*headers.iterdir(),*sources,*[Path(v) for v in tools.values()]])
+        project_header_rows=project_headers552(repo,sha)
+        project_header_paths=[Path(row_['Path']) for row_ in project_header_rows]
+        sealed=snapshot([tool/'linux-build-inputs.json',tool/'cases.json',tool/'fixtures/version_entry651.c',a.build_receipt,*headers.iterdir(),*sources,*project_header_paths,*[Path(v) for v in tools.values()]])
         save(out/'sealed-inputs.json',sealed);save(out/'tools.json',[row(Path(v)) for v in tools.values()])
         def stage_(argv,d,name,timeout=90):return entry.stage(owned,identity,argv,d,env,d/name,timeout)
         stage_([tools['gcc'],'--version'],out,'compiler-version')
@@ -35,7 +47,8 @@ def main():
             exports={x.split()[0].split('@')[0] for x in (bd/'exports.stdout').read_text().splitlines() if x.split()}
             required={'nif_bridge_register','enif_release_resource','enif_keep_resource','enif_make_ref','enif_get_map_size','pthread_create','pthread_join','pthread_key_create','pthread_key_delete','pthread_getspecific','pthread_setspecific','__cxa_thread_atexit_impl','pthread_exit','nif_bridge_pthread_register','nif_bridge_pthread_provider','nif_bridge_pthread_calls'}
             need(required<=exports and not {'voidenif_release_resource','voidenif_keep_resource'}&exports,'Bridge exports differ')
-            save(bd/'build-receipt.json',dict(Status='VERSION651_LINUX_BRIDGE_BUILD',Pin=PIN,SubjectHead=a.expected_head,BridgePath=str(library),BridgeSha256=sha(library),Sources=snapshot(sources),HeaderInputs=snapshot(headers.iterdir()),Exports=sorted(exports),NativeLoaded=False))
+            need(project_headers552(repo,sha)==project_header_rows,'Project bridge headers changed during compile')
+            save(bd/'build-receipt.json',dict(Status='VERSION651_LINUX_BRIDGE_BUILD',Pin=PIN,SubjectHead=a.expected_head,BridgePath=str(library),BridgeSha256=sha(library),Sources=snapshot(sources),ProjectHeaderInputs=project_header_rows,HeaderInputs=snapshot(headers.iterdir()),Exports=sorted(exports),NativeLoaded=False))
             bridge=dict(Library=row(library),BuildReceipt=row(bd/'build-receipt.json'))
         except Exception as error:errors.append(dict(Phase='bridge',Error=repr(error)))
         # Fixture builds remain independent of a failed bridge build; no NIF is executed.

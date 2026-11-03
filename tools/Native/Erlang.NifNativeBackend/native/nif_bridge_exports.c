@@ -58,7 +58,7 @@ NIF_BRIDGE_EXPORT int nif_bridge_register(const NifBridgeCallbacks *callbacks)
         callbacks->init_resource_type527 == NULL ||
         callbacks->dynamic_resource_call527 == NULL || callbacks->make_list_cell539 == NULL ||
         callbacks->get_string719 == NULL || callbacks->get_tuple719 == NULL ||
-        callbacks->make_atom719 == NULL)
+        callbacks->make_atom719 == NULL || callbacks->format_term791 == NULL)
         return 1;
 
     if (atomic_compare_exchange_strong_explicit(&published_callbacks, &expected, callbacks,
@@ -373,4 +373,51 @@ NIF_BRIDGE_EXPORT int enif_get_tuple(ErlNifEnv *env, ERL_NIF_TERM term, int *ari
 NIF_BRIDGE_EXPORT ERL_NIF_TERM enif_make_atom(ErlNifEnv *env, const char *name)
 {
     return nif_bridge_callbacks()->make_atom719(env, name);
+}
+
+/* The managed table is bound to THIS namespace/VM. No native thread-local
+ * variable or arbitrary first NIF image supplies allocation authority. */
+static _Atomic(const NifBridgeMutex795Callbacks *) published_mutex795_callbacks;
+NIF_BRIDGE_EXPORT int nif_bridge_mutex795_register(const NifBridgeMutex795Callbacks *callbacks)
+{
+    const NifBridgeMutex795Callbacks *expected = NULL;
+    if (callbacks == NULL || callbacks->version != NIF_BRIDGE_MUTEX795_VERSION
+        || callbacks->size != sizeof(NifBridgeMutex795Callbacks)
+        || callbacks->create == NULL || callbacks->destroy == NULL
+        || callbacks->trylock == NULL || callbacks->lock == NULL
+        || callbacks->unlock == NULL || callbacks->name == NULL)
+        return 1;
+    if (atomic_compare_exchange_strong_explicit(&published_mutex795_callbacks, &expected, callbacks,
+            memory_order_release, memory_order_acquire)) return 0;
+    return expected == callbacks ? 0 : 2;
+}
+static const NifBridgeMutex795Callbacks *mutex795_callbacks(void)
+{
+    const NifBridgeMutex795Callbacks *callbacks = atomic_load_explicit(&published_mutex795_callbacks, memory_order_acquire);
+    if (callbacks == NULL) abort(); /* Genuine missing host configuration. */
+    return callbacks;
+}
+NIF_BRIDGE_EXPORT ErlNifMutex *enif_mutex_create(char *name)
+{
+    return mutex795_callbacks()->create(name);
+}
+NIF_BRIDGE_EXPORT void enif_mutex_destroy(ErlNifMutex *mutex)
+{
+    mutex795_callbacks()->destroy(mutex);
+}
+NIF_BRIDGE_EXPORT int enif_mutex_trylock(ErlNifMutex *mutex)
+{
+    return mutex795_callbacks()->trylock(mutex);
+}
+NIF_BRIDGE_EXPORT void enif_mutex_lock(ErlNifMutex *mutex)
+{
+    mutex795_callbacks()->lock(mutex);
+}
+NIF_BRIDGE_EXPORT void enif_mutex_unlock(ErlNifMutex *mutex)
+{
+    mutex795_callbacks()->unlock(mutex);
+}
+NIF_BRIDGE_EXPORT char *enif_mutex_name(ErlNifMutex *mutex)
+{
+    return mutex795_callbacks()->name(mutex);
 }

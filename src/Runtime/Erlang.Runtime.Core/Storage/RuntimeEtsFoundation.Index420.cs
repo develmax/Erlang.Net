@@ -15,6 +15,7 @@ internal sealed partial class RuntimeEtsFoundation
 
     private EtsKeyGroup420? CoreKeyGroup420(RuntimeEtsFoundationTable table, Term key, CancellationToken cancellation)
     {
+        using var keyCopies = new AtomicsHostCopyTransaction591();
         var index = table.Primary420 ?? throw new InvalidOperationException(EtsIndexNames420.InvalidIndex);
 
         return index.Find(
@@ -23,7 +24,8 @@ internal sealed partial class RuntimeEtsFoundation
             group => CoreReadKey438(
                 group.KeyPayload,
                 coreOptions407.GetValue(table, _ => throw new InvalidOperationException(EtsIndexNames420.InvalidIndex)).KeyPosition,
-                cancellation
+                cancellation,
+                keyCopies
             )
         );
     }
@@ -36,13 +38,19 @@ internal sealed partial class RuntimeEtsFoundation
         bool? fixedTable = null
     )
     {
+        using var keyCopies = new AtomicsHostCopyTransaction591();
         var options = coreOptions407.GetValue(table, _ => throw new InvalidOperationException(EtsIndexNames420.InvalidIndex));
         EtsPrimaryIndex420 index = EtsPrimaryIndex420.Build(
             table.Primary420,
             live,
             options,
             fixedTable ?? table.FixedCount420 != 0,
-            payload => CoreReadKey438(payload, options.KeyPosition, cancellation),
+            payload => CoreReadKey438(
+                payload,
+                options.KeyPosition,
+                cancellation,
+                keyCopies
+            ),
             CoreHash420,
             cancellation
         );

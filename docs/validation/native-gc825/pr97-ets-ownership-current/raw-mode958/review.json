@@ -1,0 +1,54 @@
+{
+  "Passed": true,
+  "Scope": "Actual source-only6 explicit hash-mode/root controls; AST outside dependencies unchanged; no native/product/original execution or compatibility claim.",
+  "AstOutsideDependenciesUnchanged": true,
+  "CollectorSha256": "0B8AE6AEFC127A5696881AB4BD638F8688C6CF7FB68A0AC64160874633EBAA5A",
+  "Checks": [
+    {
+      "Name": "binary-exact-CRLF-preserved",
+      "Passed": true,
+      "Proof": [
+        {
+          "Path": "binary.bin",
+          "HashMode": "Raw",
+          "PlannedSha256": "BB1CD518261FDD78C8F586747F15B2C56EEA30A534473EE497ACB2496F17A6BA",
+          "ActualRawSha256": "BB1CD518261FDD78C8F586747F15B2C56EEA30A534473EE497ACB2496F17A6BA",
+          "ActualRawBytes": 8
+        }
+      ]
+    },
+    {
+      "Name": "text-explicit-LF-normalization",
+      "Passed": true,
+      "Proof": [
+        {
+          "Path": "text.txt",
+          "HashMode": "TextLF",
+          "PlannedSha256": "DBEA9325179EFE46EA2ADD94F7B6B745CA983FABB208DC6D34AA064623D7EE23",
+          "ActualRawSha256": "F8E0F1568DD9254C3262D199D5DCFC9FF6D4855E18EC53A7176F9EAB948ED93E",
+          "ActualRawBytes": 15
+        }
+      ]
+    },
+    {
+      "Name": "unknown-mode-refused",
+      "Passed": true,
+      "Error": "declared dependency hash mode"
+    },
+    {
+      "Name": "wrong-Raw-hash-refused",
+      "Passed": true,
+      "Error": "dependency seal: binary.bin"
+    },
+    {
+      "Name": "raw-binary-hash-cannot-pass-normalized-mode",
+      "Passed": true,
+      "Error": "dependency seal: binary.bin"
+    },
+    {
+      "Name": "outside-root-refused",
+      "Passed": true,
+      "Error": "dependency escapes root"
+    }
+  ]
+}

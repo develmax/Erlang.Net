@@ -160,39 +160,29 @@ internal static class DebugSharing425Checks
 
     internal static async Task Source()
     {
-        await using ProcessRuntime runtime = await DebugSharing425Access.SourceRuntime();
-        await using var actor = new RuntimeNodeFoundationHostActor(runtime);
-        await actor.InvokeAsync(async context =>
+        var failures = new List<Exception>();
+        foreach (bool privateProfile in new[] { false, true })
+            try
+            {
+                await using ProcessRuntime runtime = await DebugSharing425Access.SourceRuntime(privateProfile);
+                await DebugGuestIdentity377Checks.Prepare(runtime);
+                await using var actor = new RuntimeNodeFoundationHostActor(runtime);
+                await DebugGuestIdentity377Checks.SourceCase(runtime, actor);
+                await DebugGuestIdentity377Checks.OpaqueBoundaries(runtime, actor, privateProfile);
+            }
+            catch (Exception error)
+            {
+                failures.Add(error);
+            }
+        try
         {
-            Term literal = await runtime.Modules.Call(context, DebugSharing425Names.Worker, "literal");
-            Term same = await Call(
-                context,
-                DebugSharing425Names.Copy,
-                literal,
-                Term.A("false")
-            );
-            Term copied = await Call(
-                context,
-                DebugSharing425Names.Copy,
-                literal,
-                Term.A("true")
-            );
-            Require(ReferenceEquals(literal, same) && !ReferenceEquals(literal, copied) && copied.Equals(literal));
-            Require((await Call(context, DebugSharing425Names.Shared, literal)).Equals(Term.I(0)));
-            var function = (FunctionTerm)await runtime.Modules.Call(context, DebugSharing425Names.Worker, "closure");
-            var funCopy = (FunctionTerm)await Call(
-                context,
-                DebugSharing425Names.Copy,
-                function,
-                Term.A("true")
-            );
-            Require(!ReferenceEquals(function, funCopy) && function.Equals(funCopy));
-            var original = (TupleTerm)await function.Invoke(context, []);
-            var result = (TupleTerm)await funCopy.Invoke(context, []);
-            Require(!ReferenceEquals(result, original) && ReferenceEquals(result.Items[0], result.Items[1]) && result.Equals(original));
-
-            return true;
-        });
+            await DebugGuestCounter377Checks.Run();
+        }
+        catch (Exception error)
+        {
+            failures.Add(error);
+        }
+        if (failures.Count != 0) throw new AggregateException(DebugSharing425Names.Failure, failures);
     }
 
     internal static async Task Binding()

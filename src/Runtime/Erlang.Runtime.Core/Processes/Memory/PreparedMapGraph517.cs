@@ -21,7 +21,12 @@ internal sealed partial class PreparedMapGraph517 : IDisposable
 
     internal IReadOnlyList<MapRoutingFallback517> Fallbacks => fallbacks;
 
-    internal PreparedMapGraphUse517 AdmitBuilds517() => PreparedMapGraphUse517.Capture(plans.Values.Concat(extraNodeOwners526));
+    internal PreparedMapGraphUse517 AdmitBuilds517() => PreparedMapGraphUse517.Capture(plans.Values.Concat(extraNodeOwners526), bitmaps785.Values);
+
+    private readonly Dictionary<HamtBitmapTerm429, PreparedHamtBitmap785> bitmaps785 = new(ReferenceEqualityComparer.Instance);
+
+    internal PreparedHamtBitmap785? FindBitmap785(Term value) => value is HamtBitmapTerm429 bitmap
+        ? bitmaps785.GetValueOrDefault(bitmap) : null;
 
     internal PreparedOwnedMapNode526? FindNode526(Term value) => nodes526.GetValueOrDefault(value);
 
@@ -56,12 +61,22 @@ internal sealed partial class PreparedMapGraph517 : IDisposable
         try
         {
             var seen = new HashSet<Term>(ReferenceEqualityComparer.Instance);
+            var bitmapCandidates = new List<HamtBitmapTerm429>();
             var pending = new Stack<Term>();
             pending.Push(source);
             while (pending.TryPop(out Term? value))
             {
                 if (!seen.Add(value))
                     continue;
+                // Only adoption returns this exact live local node unchanged.
+                // False/default imports must retain every actual copying plan.
+                if (preserveLocal && ProcessTermHeap506.Storage(value) is { } storage
+                    && ReferenceEquals(storage.Owner, heap))
+                {
+                    lock (heap.Gate)
+                        if (heap.IsOwnedLocal(value)) continue;
+                }
+                if (value is HamtBitmapTerm429 bitmap) bitmapCandidates.Add(bitmap);
                 graph.CaptureCanonicalFunction(runtime, value);
                 graph.CaptureRecord(runtime, value, pending);
                 if (heap.CanOwnExternalIdentifier(value))
@@ -95,7 +110,7 @@ internal sealed partial class PreparedMapGraph517 : IDisposable
                 {
                     if (preserveLocal && heap.IsLocalMapForPreparation517(map))
                         continue;
-                    if (map.Entries.Count == 0)
+                    if (map.Entries.Count == 0 && heap.LiteralDomain800 is null)
                     {
                         graph.fallbacks.Add(new(map, MapRouting517Names.EmptyMap, null));
                         continue;
@@ -107,7 +122,9 @@ internal sealed partial class PreparedMapGraph517 : IDisposable
                     }
                     try
                     {
-                        var plan = PreparedOwnedMap517.Capture(runtime, map);
+                        var plan = heap.LiteralDomain800 is { IsSealed800: false }
+                            ? PreparedOwnedMap517.CaptureModuleLiteral800(heap, runtime, map)
+                            : PreparedOwnedMap517.Capture(runtime, map);
                         try
                         {
                             graph.plans.Add(map, plan);
@@ -141,6 +158,28 @@ internal sealed partial class PreparedMapGraph517 : IDisposable
 
             foreach (var plan in graph.plans.Values)
                 graph.AttachNodes526(plan, false);
+
+            foreach (HamtBitmapTerm429 bitmap in bitmapCandidates)
+            {
+                if (graph.nodes526.ContainsKey(bitmap)) continue;
+                var preparedBitmap = new PreparedHamtBitmap785(runtime, bitmap);
+                try
+                {
+                    graph.bitmaps785.Add(bitmap, preparedBitmap);
+                }
+                catch (Exception primary)
+                {
+                    try
+                    {
+                        preparedBitmap.Dispose();
+                    }
+                    catch (Exception cleanup)
+                    {
+                        throw new AggregateException(primary, cleanup);
+                    }
+                    throw;
+                }
+            }
 
             return graph;
         }
@@ -191,6 +230,16 @@ internal sealed partial class PreparedMapGraph517 : IDisposable
             {
                 (errors ??= new()).Add(error);
             }
+        foreach (var bitmap in bitmaps785.Values)
+            try
+            {
+                bitmap.Dispose();
+            }
+            catch (Exception error)
+            {
+                (errors ??= new()).Add(error);
+            }
+        bitmaps785.Clear();
         records.Clear();
         externalIdentifiers.Clear();
         ordinaryBinaries.Clear();

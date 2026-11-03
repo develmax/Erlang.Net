@@ -2,8 +2,20 @@ namespace Erlang;
 
 internal sealed class SystemTaskRequest428
 {
-    internal Term? Requester { get; private set; }
-    internal TupleTerm? Operation { get; private set; }
+    private PortableControlTerm826? requester826;
+    private PortableControlTerm826? operation826;
+
+    internal Term? Requester
+    {
+        get => requester826?.Value;
+        private set => requester826 = value is null ? null : PortableControlTerm826.Capture(value);
+    }
+
+    internal TupleTerm? Operation
+    {
+        get => (TupleTerm?)operation826?.Value;
+        private set => operation826 = value is null ? null : PortableControlTerm826.Capture(value);
+    }
     internal Term? Id => Operation?.Items[1];
     internal string Kind { get; }
     internal ProcessSchedulingPriority Priority { get; }

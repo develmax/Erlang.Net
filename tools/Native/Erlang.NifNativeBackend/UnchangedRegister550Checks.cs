@@ -1,4 +1,5 @@
 using Erlang.Differential;
+using System.Reflection;
 
 namespace Erlang.NifNativeBackend;
 
@@ -106,12 +107,64 @@ public static class UnchangedRegister550Checks
                 closed = true;
             }
             Require(closed);
+            CheckBorrowedSelfCopy(context);
 
             return ValueTask.FromResult<Term>(Nil.Value);
         }
         finally
         {
             state.Dispose();
+        }
+    }
+
+    private static void CheckBorrowedSelfCopy(ProcessContext context)
+    {
+        using var parent = new BeamRegisterState(null, context);
+        var x = new BeamOperand(BeamOperandParameters.X, 0);
+        var y = new BeamOperand(BeamOperandParameters.Y, 0);
+        parent.Write(0, Term.Tuple(Term.I(3)));
+        Term value = parent.Read(0);
+        parent.Allocate(1);
+        parent.WriteY(0, value);
+        using var child = parent.CloneForReceive553(context);
+        using var grandchild = child.CloneForReceive553(context);
+        parent.Dispose();
+        _ = context.CollectOwnedGeneration508(true);
+        CopyWithoutRetain(child);
+        child.Dispose();
+        _ = context.CollectOwnedGeneration508(true);
+        CopyWithoutRetain(grandchild);
+        var roots = (BeamOwnedRoots507)typeof(BeamRegisterState).GetField(
+            UnchangedRegister550CaseNames.RootsField, BindingFlags.Instance | BindingFlags.NonPublic
+        )!.GetValue(grandchild)!;
+        _ = roots.Prepare(UnchangedRegister550CaseNames.PendingSlot, BeamRegisterSlot.FromTerm(Term.I(7)), false);
+        try
+        {
+            bool rejected = false;
+            try
+            {
+                grandchild.CopyRegister(x, x);
+            }
+            catch (InvalidOperationException error) when (error.Message == BeamOwnedRoots507Names.PendingPreparation553)
+            {
+                rejected = true;
+            }
+            Require(rejected);
+        }
+        finally
+        {
+            roots.Rollback(UnchangedRegister550CaseNames.PendingSlot);
+        }
+        CopyWithoutRetain(grandchild);
+
+        void CopyWithoutRetain(BeamRegisterState current)
+        {
+            Require(ReferenceEquals(current.Read(0), value) && ReferenceEquals(current.ReadY(0), value));
+            Require(((TupleTerm)value).Items[0].Equals(Term.I(3)));
+            long before = context.Runtime.BinaryRegistry512.TraversalSnapshot514.RetainOperations;
+            current.CopyRegister(x, x);
+            current.CopyRegister(y, y);
+            Require(context.Runtime.BinaryRegistry512.TraversalSnapshot514.RetainOperations == before);
         }
     }
 

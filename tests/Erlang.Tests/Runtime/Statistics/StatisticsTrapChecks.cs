@@ -16,9 +16,10 @@ internal static class StatisticsTrapChecks
                 using Stream stream = typeof(ProcessRuntime).Assembly.GetManifestResourceStream(StatisticsTrapTestNames.Resource)!;
                 using var bytes = new MemoryStream();
                 stream.CopyTo(bytes);
+                // Prepare actual native literals outside the code writer, then publish the same image.
+                original = runtime.Modules.PrepareBeam(bytes.ToArray(), new BeamDependencySelection(StatisticsTrapTestNames.ImageDependencies));
                 await runtime.InitializeModulesAsync(registry =>
                 {
-                    original = registry.PrepareBeam(bytes.ToArray(), new BeamDependencySelection(StatisticsTrapTestNames.ImageDependencies));
                     Require(registry.PublishPreparedBeam(original).Status == BeamPublicationStatus.Published);
                 });
             }
@@ -229,4 +230,20 @@ internal static class StatisticsTrapChecks
         await Failed(operation.Invocation!);
         Require((int)Read(operation.Runtime.Modules, "statisticsTrapUses")! == 0);
     }
+
+    internal static async Task Halt()
+    {
+        await using var operation = new StatisticsTrapTestOperation();
+        await operation.Start(false);
+        _ = operation.Runtime.RequestImmediateHalt(0);
+        Require(!operation.Runtime.HaltQuiescence.IsCompleted);
+        Require(!operation.Actor.Process.Completion.IsCompleted);
+        operation.Release.Set();
+        await operation.Runtime.HaltQuiescence.WaitAsync(StatisticsTrapTestNames.Deadline);
+        await Failed(operation.Invocation!);
+        await operation.Actor.Process.Completion.WaitAsync(StatisticsTrapTestNames.Deadline);
+        Require((int)Read(operation.Runtime.Modules, "statisticsTrapUses")! == 0);
+        Require(((IReadOnlyList<Term>)Call(operation.Context.Mailbox, "Snapshot")!).Count == 0);
+    }
+
 }

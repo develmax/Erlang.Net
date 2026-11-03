@@ -30,8 +30,12 @@ public sealed partial class Mailbox
 
     // R held by actual runtime owner; old claim stays retained until original
     // Admission and all its reentrant effects have completed under R/M.
-    internal bool PreparePendingValue(MailboxPendingBackingClaim claim,
-        PreparedMailboxMessage? prepared, MailboxPublicationScope593? publication)
+    internal bool PreparePendingValue(
+        MailboxPendingBackingClaim claim,
+        PreparedMailboxMessage? prepared,
+        MailboxPublicationScope593? publication,
+        Term? portableRaw = null
+    )
     {
         lock (gate)
         {
@@ -48,7 +52,15 @@ public sealed partial class Mailbox
             {
                 var next = PrepareCustody593(publication);
                 var previous = node.Value.Custody593;
-                node.Value = node.Value with { Value = prepared.Value, Custody593 = next, PendingBacking = false };
+                node.Value = node.Value with
+                {
+                    Value = prepared.Value,
+                    TraceToken = prepared.Token,
+                    DistributionTraceToken = portableRaw,
+                    PreserveTrace = prepared.Token is not null && portableRaw is not null ? false : node.Value.PreserveTrace,
+                    Custody593 = next,
+                    PendingBacking = false
+                };
                 next?.Publish();
                 previous?.Dispose(); // Metadata scheduling; claim still holds source.
             }

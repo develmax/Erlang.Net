@@ -503,7 +503,7 @@ public static partial class Execution
 
     private static Term GuardValue(Expr e, Dictionary<string, Term> b, ProcessContext? ctx) => e switch
     {
-        Expr.Literal l => l.Value,
+        Expr.Literal l => ctx?.ReadExecutingSourceLiteral819(l.Value) ?? l.Value,
         Expr.Variable v => b.TryGetValue(v.Name, out var value) ? value : throw new ErlangException(Term.Tuple(Term.A(ExecutionErrorReasons.Unbound), Term.A(v.Name))),
         Expr.RecordTest record => GuardValue(record.Value, b, ctx) is TupleTerm tuple && tuple.Items.Count == record.Arity && tuple.Items[0] is Atom tag && tag.Name == record.Name ? Term.A(ErlangBooleanAtoms.True) : throw new ErlangException(ErlangErrorReasons.BadArgument),
         NativeRecordExpression { Operation: NativeRecordOperation.Access } record => NativeRecordLanguage.Access(
@@ -597,6 +597,7 @@ public static partial class Execution
     )
     {
         await ctx.ExecutionCheckpoint();
+        if (ctx.TryReadExecutingSourceConstant820(e, module, out Term constant820)) return constant820;
 
         async ValueTask<Term[]> Arguments(IReadOnlyList<Expr> expressions)
         {
@@ -641,7 +642,7 @@ public static partial class Execution
         switch (e)
         {
             case Expr.Literal l:
-                return l.Value;
+                return ctx.ReadExecutingModuleLiteral819(l.Value, module);
             case Expr.Variable v:
                 return b.TryGetValue(v.Name, out var boundValue) ? boundValue : throw new ErlangException(Term.Tuple(Term.A(ExecutionErrorReasons.Unbound), Term.A(v.Name)));
             case NativeRecordExpression record:
@@ -672,14 +673,22 @@ public static partial class Execution
                             record.External,
                             fields
                         );
-                    var definition = record.External ? ctx.Runtime.Modules.NativeRecordDefinition(record.Module, record.Name!) : module?.NativeRecords.FirstOrDefault(value => value.Name == record.Name);
+                    if (record.External)
+                        return await ctx.Runtime.Modules.ConstructNativeRecord313(
+                            ctx,
+                            record.Module,
+                            record.Name!,
+                            fields
+                        );
+                    var definition = module?.NativeRecords.FirstOrDefault(value => value.Name == record.Name);
 
-                    return NativeRecordLanguage.Construct(
+                    return NativeRecordLanguage.Construct313(
                         record.Module,
                         definition,
                         record.Name!,
                         fields,
-                        record.External
+                        false,
+                        template => ctx.ReadExecutingNativeRecordDefault313(template, module)
                     );
                 }
             case Expr.RecordConstruction record:
@@ -1181,6 +1190,7 @@ public static partial class Execution
                         Exception? primary593 = null;
                         try
                         {
+                            await ctx.ResumeExecution();
                             selection.PublishReceiveBindings593(ctx);
 
                             return await Branch(selection);

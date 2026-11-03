@@ -11,6 +11,7 @@ public sealed partial class ProcessRuntime
         MailboxPublicationScope593? publication = null;
         Exception? failure = null;
         MailboxSignalBatch428 result = default;
+        PendingSequenceTerminationControl? terminal = FindPendingSequenceTermination(claim);
         try
         {
             result = PrepareAndAdmit();
@@ -21,6 +22,14 @@ public sealed partial class ProcessRuntime
         }
         finally
         {
+            try
+            {
+                terminal?.ReleaseOutsideRuntimeGate();
+            }
+            catch (Exception error)
+            {
+                Add(error);
+            }
             // Retain original actual source through original Admission, including
             // reentrant Terminate that captures the existing reason641 graph.
             try
@@ -73,20 +82,28 @@ public sealed partial class ProcessRuntime
 
         MailboxSignalBatch428 PrepareAndAdmit()
         {
-            bool materializable = MailboxValueEscape.CanMaterialize(this, claim.Value);
+            bool materializable = MailboxValueEscape.CanMaterialize(this, claim.Value)
+                && (claim.Original.DistributionTraceToken is not { } rawInput || MailboxValueEscape.CanMaterialize(this, rawInput));
+            // A legacy naked physical token is not proved rooted by Value-only
+            // custody. Known767 Value+Token fragments supply the actual source.
+            bool tokenRooted = claim.Original.TraceToken is null
+                || ReferenceEquals(claim.Original.Custody593?.RecipientFragment?.Token, claim.Original.TraceToken);
+            Term? portableRaw = claim.Original.DistributionTraceToken;
             while (true)
             {
+                terminal?.ReleaseOutsideRuntimeGate();
+                terminal?.PrepareOutsideRuntimeGate();
                 ProcessMessageQueueDataMode411 mode;
                 long revision;
                 lock (gate)
                 {
                     if (!Live()) return default;
+                    if (terminal is not null && !terminal.IsCurrent()) continue;
                     // Preserve old unsupported/traced/shutdown delivery. Do not
                     // turn data into actor invocation authority or fresh roots.
                     if (!materializable || disposed || IsHaltRequested
                         || !ProcessTracing.CanPublishDirectMailboxBacking()
-                        || claim.Original.TraceToken is not null
-                        || claim.Original.DistributionTraceToken is not null)
+                        || !tokenRooted)
                     {
                         if (!owner.Mailbox.PreparePendingValue(claim, null, null)) return default;
 
@@ -97,19 +114,46 @@ public sealed partial class ProcessRuntime
                 }
                 try
                 {
-                    prepared = mailboxRoots593.PrepareMailboxMessageAsync(
-                        this,
-                        owner,
-                        mode,
-                        claim.Value
-                    )
-                        .GetAwaiter().GetResult();
+                    if (claim.Original.DistributionTraceToken is { } raw)
+                    {
+                        var rawPrepared = mailboxRoots593.PrepareRawDistributionMailboxMessageAsync(
+                            this,
+                            owner,
+                            mode,
+                            claim.Value,
+                            raw,
+                            claim.Original.Custody593?.Graph?.LiteralRoots801,
+                            claim.RetainedFragmentSource
+                        ).GetAwaiter().GetResult();
+                        prepared = rawPrepared.Message;
+                        portableRaw = rawPrepared.PortableRaw;
+                    }
+                    else
+                        prepared = (claim.Original.TraceToken is { } token
+                            ? mailboxRoots593.PrepareMailboxMessageAsync(
+                                this,
+                                owner,
+                                mode,
+                                claim.Value,
+                                token,
+                                claim.Original.Custody593?.Graph?.LiteralRoots801,
+                                claim.RetainedFragmentSource
+                            )
+                            : mailboxRoots593.PrepareMailboxMessageWithLiteral824Async(
+                                this,
+                                owner,
+                                mode,
+                                claim.Value,
+                                claim.Original.Custody593?.Graph?.LiteralRoots801,
+                                claim.RetainedFragmentSource
+                            )).GetAwaiter().GetResult();
                 }
                 catch (ObjectDisposedException)
                 {
                     lock (gate)
                     {
                         if (!Live()) return default;
+                        if (terminal is not null && !terminal.IsCurrent()) continue;
                         if (disposed || IsHaltRequested || owner.Mailbox.IsClosedForBacking)
                         {
                             if (!owner.Mailbox.PreparePendingValue(claim, null, null)) return default;
@@ -124,7 +168,8 @@ public sealed partial class ProcessRuntime
                 lock (gate)
                 {
                     if (!Live()) return default;
-                    retry = owner.Mailbox.MessageQueuePlacementMode != mode
+                    retry = terminal is not null && !terminal.IsCurrent()
+                        || owner.Mailbox.MessageQueuePlacementMode != mode
                         || owner.Mailbox.MessageQueuePolicyRevision != revision;
                     if (!retry)
                     {
@@ -132,7 +177,12 @@ public sealed partial class ProcessRuntime
                         {
                             if (!owner.Mailbox.PreparePendingValue(claim, null, null)) return default;
                         }
-                        else if (!owner.Mailbox.PreparePendingValue(claim, prepared, publication))
+                        else if (!owner.Mailbox.PreparePendingValue(
+                            claim,
+                            prepared,
+                            publication,
+                            portableRaw
+                        ))
                             return default;
 
                         // No R gap between exact physical Value swap and old

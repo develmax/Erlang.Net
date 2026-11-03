@@ -4,13 +4,20 @@ public sealed partial class FunctionTerm
 {
     private volatile bool runtimeLocalTransferDescriptor;
     internal bool HasRuntimeLocalTransferDescriptor => runtimeLocalTransferDescriptor;
+    private LocalFunctionIdentity? runtimeLocalTransferIdentity414;
+    internal LocalFunctionIdentity? RuntimeLocalTransferIdentity414 => runtimeLocalTransferDescriptor ? runtimeLocalTransferIdentity414 : null;
 
     // Metadata guard only: never a callable/guest borrowing capability.
     // Existing external pointers retain their VM-independent dispatch contract.
-    internal void MarkRuntimeLocalTransferDescriptor()
+    internal void MarkRuntimeLocalTransferDescriptor(LocalFunctionIdentity? storedIdentity = null)
     {
         if (ExternalIdentity is null)
+        {
+            // Data only: Unique is the immutable by-value snapshot from255.
+            // Never evaluate the public lazy identity provider here.
+            runtimeLocalTransferIdentity414 = storedIdentity ?? StoredLocalIdentity;
             runtimeLocalTransferDescriptor = true;
+        }
     }
 
     private FunctionTerm(

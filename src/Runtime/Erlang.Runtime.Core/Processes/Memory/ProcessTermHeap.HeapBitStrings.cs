@@ -39,6 +39,12 @@ internal sealed partial class ProcessTermHeap506
 
     internal int ReadHeapBitLength(ProcessTermSequence506 block)
     {
+        if (LiteralDomain800 is { IsSealed800: true } domain)
+        {
+            using var reader = domain.EnterRead800(block);
+
+            return RequireHeapBitLength(block);
+        }
         lock (Gate) return RequireHeapBitLength(block);
     }
 
@@ -63,14 +69,22 @@ internal sealed partial class ProcessTermHeap506
 
     internal byte ReadHeapBitByte(ProcessTermSequence506 block, int index)
     {
-        lock (Gate)
+        if (LiteralDomain800 is { IsSealed800: true } domain)
         {
-            int bits = RequireHeapBitLength(block);
-            ArgumentOutOfRangeException.ThrowIfNegative(index);
-            ArgumentOutOfRangeException.ThrowIfGreaterThanOrEqual(index, (bits + HeapBitStringLayout.BitsPerByte - 1) / HeapBitStringLayout.BitsPerByte);
+            using var reader = domain.EnterRead800(block);
 
-            return ReadHeapBitByteCore(block, index);
+            return ReadLiteralHeapByteCore800(block, index);
         }
+        lock (Gate) return ReadLiteralHeapByteCore800(block, index);
+    }
+
+    private byte ReadLiteralHeapByteCore800(ProcessTermSequence506 block, int index)
+    {
+        int bits = RequireHeapBitLength(block);
+        ArgumentOutOfRangeException.ThrowIfNegative(index);
+        ArgumentOutOfRangeException.ThrowIfGreaterThanOrEqual(index, (bits + HeapBitStringLayout.BitsPerByte - 1) / HeapBitStringLayout.BitsPerByte);
+
+        return ReadHeapBitByteCore(block, index);
     }
 
     private static byte ReadHeapBitByteCore(ProcessTermSequence506 block, int index)
@@ -85,14 +99,22 @@ internal sealed partial class ProcessTermHeap506
 
     internal byte[] CopyHeapBitBytes(ProcessTermSequence506 block)
     {
-        lock (Gate)
+        if (LiteralDomain800 is { IsSealed800: true } domain)
         {
-            int bits = RequireHeapBitLength(block);
-            var result = new byte[(bits + HeapBitStringLayout.BitsPerByte - 1) / HeapBitStringLayout.BitsPerByte];
-            for (int index = 0; index < result.Length; index++)
-                result[index] = ReadHeapBitByteCore(block, index);
+            using var reader = domain.EnterRead800(block);
 
-            return result;
+            return CopyLiteralHeapBytesCore800(block);
         }
+        lock (Gate) return CopyLiteralHeapBytesCore800(block);
+    }
+
+    private byte[] CopyLiteralHeapBytesCore800(ProcessTermSequence506 block)
+    {
+        int bits = RequireHeapBitLength(block);
+        var result = new byte[(bits + HeapBitStringLayout.BitsPerByte - 1) / HeapBitStringLayout.BitsPerByte];
+        for (int index = 0; index < result.Length; index++)
+            result[index] = ReadHeapBitByteCore(block, index);
+
+        return result;
     }
 }

@@ -17,21 +17,31 @@ internal static class InternalGcOriginal428Checks
         {
             runtime = new ProcessRuntime(1);
             ProcessRuntime owner = runtime;
-            await owner.InitializeModulesAsync(registry =>
+            await global::Erlang.Tests.PreparedBeamFixtureScope171.RunAsync(
+                owner,
+                async (registry, scope) =>
             {
-                RuntimeBootstrapInternalGarbageCollection428.Register(owner, registry);
+                await owner.InitializeModulesAsync(_ =>
+                {
+                    RuntimeBootstrapInternalGarbageCollection428.Register(owner, registry);
+                });
                 var declared = new BeamDependencySelection([InternalGcOriginal428Names.Runtime, InternalGcOriginal428Names.File, InternalGcOriginal428Names.Internal]);
-                PreparedBeamImage facet = registry.PrepareBeam(InternalGcOriginal428Access.Resource(InternalGcOriginal428Names.FacetBeam), declared);
+                PreparedBeamImage facet = scope.Prepare(() => registry.PrepareBeam(InternalGcOriginal428Access.Resource(InternalGcOriginal428Names.FacetBeam), declared));
                 InternalGcOriginal428Access.Require(facet.Name == InternalGcOriginal428Names.Internal
                     && facet.NativePrimitiveExports.Count == InternalGcOriginal428Names.NativeCount
                     && InternalGcOriginal428Names.NativeSignatures.All(signature => facet.NativePrimitiveExports.Contains(signature)));
-                PreparedBeamImage worker = registry.PrepareBeam(InternalGcOriginal428Access.Resource(InternalGcOriginal428Names.WorkerBeam), declared);
-                InternalGcOriginal428Access.Require(registry.PublishPreparedBeam([facet, worker]).Status == BeamPublicationStatus.Published);
-                foreach (var image in new[] { facet, worker })
-                    foreach (var export in registry.Exports.Where(export => export.Module == image.Name))
-                        InternalGcOriginal428Access.Require(ReferenceEquals(registry.SourceOwner(export.Module, export.Function, export.Arity), image));
-                InternalGcOriginal428Access.Require(registry.Exports.Count(export => export.Module == facet.Name) == InternalGcOriginal428Names.FacetExports);
-            });
+                PreparedBeamImage worker = scope.Prepare(() => registry.PrepareBeam(InternalGcOriginal428Access.Resource(InternalGcOriginal428Names.WorkerBeam), declared));
+
+                return _ =>
+                {
+                    InternalGcOriginal428Access.Require(registry.PublishPreparedBeam([facet, worker]).Status == BeamPublicationStatus.Published);
+                    foreach (var image in new[] { facet, worker })
+                        foreach (var export in registry.Exports.Where(export => export.Module == image.Name))
+                            InternalGcOriginal428Access.Require(ReferenceEquals(registry.SourceOwner(export.Module, export.Function, export.Arity), image));
+                    InternalGcOriginal428Access.Require(registry.Exports.Count(export => export.Module == facet.Name) == InternalGcOriginal428Names.FacetExports);
+                };
+            }
+            );
             actor = new RuntimeNodeFoundationHostActor(owner);
             RuntimeNodeFoundationHostActor caller = actor;
 

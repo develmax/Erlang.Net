@@ -49,6 +49,8 @@ internal sealed partial class ProcessTermHeap506
                 || !blocks.TryGetValue(payload.Identity, out var active)
                 || !ReferenceEquals(active, payload))
                 throw new ObjectDisposedException(nameof(ProcessTermSequence506));
+            if (TryReadPidReferenceWords775(payload, out var pidNumbers))
+                return pidNumbers!;
             if (payload.Count != 0 || payload.HeaderWords526 != OrdinaryReference562Names.HeaderWords
                 || payload.RawPayloadWords556 != OrdinaryReference562Names.DataWords
                 || payload.Slab.Cells.ReadHeader526(payload.AllocationOffset526) != OrdinaryReference562Names.Header)

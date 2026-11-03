@@ -62,7 +62,7 @@ public static partial class ErlangOperatorValues
     )
     {
         var borrowed = context.TermHeap506.Borrow(caller, Term.Tuple(target, message));
-        PreparedTermTransfer506 prepared = context.TermHeap506.PrepareBorrowAtomics586(borrowed, exportHostAtomics586: false);
+        PreparedTermTransfer506 prepared = context.TermHeap506.PrepareGuestSendBorrow824(borrowed);
         PreparedSendArguments593? outgoing = null;
         try
         {
@@ -95,9 +95,10 @@ public static partial class ErlangOperatorValues
         Exception? primary = null;
         try
         {
-            sent = await context.Runtime.TrySendBackedLocalAsync(
+            sent = await context.Runtime.TrySendBackedLocalWithLiteral824Async(
                 outgoing.Target,
                 outgoing.Message,
+                outgoing.Publication593.Graph?.LiteralRoots801,
                 context,
                 recordSavedCall: true
             ).ConfigureAwait(false);

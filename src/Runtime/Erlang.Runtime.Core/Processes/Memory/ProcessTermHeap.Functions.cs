@@ -11,9 +11,11 @@ internal sealed partial class ProcessTermHeap506
         while (pending.TryPop(out Term? value))
         {
             if (!seen.Add(value)) continue;
+            if (IsAuthenticatedLiteral801(value)) continue;
             if (Storage(value) is not null)
             {
                 _ = IsOwnedLocal(value);
+                if (CanSkipEmptyFunctionEnvironment463(value)) continue;
                 foreach (Term child in NativeMapOwnedRoots510.Children(value)) pending.Push(child);
                 continue;
             }
@@ -50,7 +52,11 @@ internal sealed partial class ProcessTermHeap506
             block = AllocateEncoded526(
                 prepared.Environment,
                 [HeapFunctionLayout.HeaderForFunction(prepared.Arity, prepared.Environment.Length, function.ExternalIdentity is not null)],
-                [(nuint)entry.Address]
+                [(nuint)entry.Address],
+                immutableLiteralOnlyClosure132: prepared.Environment.All(IsImmutableLiteralOnlyClosure132),
+                immutableReadonlyCaptureClosure138: prepared.Environment.All(IsImmutableReadonlyCaptureClosure138),
+                immutableNoBackingClosure192: prepared.Environment.All(IsImmutableNoBackingClosure192),
+                immutableNoBinaryClosure192: prepared.Environment.All(IsImmutableNoBinaryClosure192)
             );
             functionEntries.Add(block.Identity, entry);
             construction.TrackFunction(block);
@@ -68,6 +74,7 @@ internal sealed partial class ProcessTermHeap506
                 functionEntries.Remove(block.Identity);
                 ReleaseAllocation519(block.Slab, block.AllocationOffset526, block.AllocationWords526);
                 blocks.Remove(block.Identity);
+                ReleaseLiteralBlock801(block.Identity);
                 oldBlocks508.Remove(block.Identity);
             }
             entry?.Dispose();
@@ -103,6 +110,7 @@ internal sealed partial class ProcessTermHeap506
                 {
                     ReleaseAllocation519(block.Slab, block.AllocationOffset526, block.AllocationWords526);
                     blocks.Remove(block.Identity);
+                    ReleaseLiteralBlock801(block.Identity);
                     oldBlocks508.Remove(block.Identity);
                 }
             }
@@ -127,6 +135,12 @@ internal sealed partial class ProcessTermHeap506
 
     internal int ReadFunctionArity(ProcessTermSequence506 block)
     {
+        if (Monitor.IsEntered(Gate))
+        {
+            _ = RequireFunctionEntry(block, out int arity);
+
+            return arity;
+        }
         lock (Gate)
         {
             _ = RequireFunctionEntry(block, out int arity);
@@ -137,6 +151,12 @@ internal sealed partial class ProcessTermHeap506
 
     internal IReadOnlyList<Term> ReadFunctionEnvironment(ProcessTermSequence506 block)
     {
+        if (Monitor.IsEntered(Gate))
+        {
+            _ = RequireFunctionEntry(block, out _);
+
+            return block;
+        }
         lock (Gate)
         {
             _ = RequireFunctionEntry(block, out _);

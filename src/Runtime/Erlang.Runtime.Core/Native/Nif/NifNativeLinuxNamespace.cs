@@ -6,9 +6,10 @@ internal sealed unsafe class NifNativeLinuxNamespace : IDisposable
 {
     private readonly object gate = new();
     private readonly NifNativeLinuxBridgeInput bridge;
-    private readonly NifNativeEnvironmentAllocator allocator;
+    private readonly NifNativeVmEnvironmentAllocator709 allocator;
     private readonly nint identity;
     private NifNativeLinuxReallocationExtension? reallocation;
+    private NifNativeLinuxMutex795? mutexes795;
     private NifNativeBridgeTable* table;
     private nint library;
     private int capsules;
@@ -19,19 +20,7 @@ internal sealed unsafe class NifNativeLinuxNamespace : IDisposable
     internal NifNativeLinuxNamespace(ProcessRuntime runtime, ModuleCodeImage image, NifNativeCapabilityProfile profile)
     {
         bridge = NifNativeLinuxBridgeDeployment.Open(profile);
-        allocator = () =>
-        {
-            try
-            {
-                return new NifNativeCallEnvironment(runtime, image).Pointer;
-            }
-            catch (Exception failure)
-            {
-                NifNativeCallbackScope.Fail(failure);
-
-                return 0;
-            }
-        };
+        allocator = runtime.IndependentEnvironmentAllocator709;
         try
         {
             library = NifNativeLinuxNamespaceApi.Open(NifNativeLinuxNamespaceNames.NewNamespace, bridge.Descriptor);
@@ -41,10 +30,11 @@ internal sealed unsafe class NifNativeLinuxNamespace : IDisposable
             if (table == null)
                 throw new OutOfMemoryException();
             *table = NifNativeExportRegistration.CreateTable();
-            NifNativeReferenceBridgeTable.Bind(ref *table, Marshal.GetFunctionPointerForDelegate(allocator));
+            NifNativeReferenceBridgeTable.Bind(ref *table, allocator.Pointer);
             var register = (delegate* unmanaged[Cdecl]<NifNativeBridgeTable*, int>)NifNativeLinuxNamespaceApi.Symbol(library, NifNativeNames.BridgeRegister);
             if (register(table) != 0)
                 throw new InvalidOperationException(NifNativeDiagnostics.BridgeContract);
+            mutexes795 = NifNativeLinuxMutex795.TryBind(runtime.NativeAllocationDomain, library);
             Reader = NifNativeLinuxNamespaceApi.Symbol(library, NifNativeNames.BridgeReadTerm);
         }
         catch (Exception creationFailure)
@@ -132,9 +122,12 @@ internal sealed unsafe class NifNativeLinuxNamespace : IDisposable
                     throw new InvalidOperationException(NifNativeLinuxNamespaceNames.ActiveImages);
                 reallocation?.Dispose();
                 reallocation = null;
+                mutexes795?.PrepareClose795();
                 NifNativePlatformLoader.Close(library);
                 library = 0;
                 Reader = 0;
+                mutexes795?.ImageClosed795();
+                mutexes795 = null;
                 NativeMemory.Free(table);
                 table = null;
                 bridge.Dispose();

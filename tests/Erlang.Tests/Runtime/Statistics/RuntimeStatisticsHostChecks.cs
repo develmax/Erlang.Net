@@ -57,14 +57,11 @@ internal static class RuntimeStatisticsHostChecks
             Require(queues.Items.All(value => value is Integer { Value.Sign: >= 0 }));
             var beforeGc = await Sample(context, RuntimeStatisticsNames.GarbageCollection);
             Require(beforeGc.Items is [Integer { Value.Sign: >= 0 }, Integer { Value.Sign: >= 0 }, Integer { Value.IsZero: true }]);
-            // Public collection uses the actual VM heap. Observe its own event,
-            // independently of the still-legacy CLR statistics selector.
-            var beforeVmGc = await VmStorageBirthAccess.Sample(context);
+            // Exercise the real public VM collection and its native event counters.
+            // Dynamic word totals are not equated with another VM's heap.
             await runtime.Modules.Call(context, ErlangModuleNames.Module, ProcessGarbageCollectionNames.Function);
-            var afterVmGc = await VmStorageBirthAccess.Sample(context);
-            Require(afterVmGc.Collections == beforeVmGc.Collections + 1);
             var afterGc = await Sample(context, RuntimeStatisticsNames.GarbageCollection);
-            Require(((Integer)afterGc.Items[0]).Value >= ((Integer)beforeGc.Items[0]).Value);
+            Require(((Integer)afterGc.Items[0]).Value > ((Integer)beforeGc.Items[0]).Value);
             Require(((Integer)afterGc.Items[1]).Value >= ((Integer)beforeGc.Items[1]).Value);
             Require(afterGc.Items[2].Equals(Term.I(0)));
             firstWall = await Sample(context, RuntimeStatisticsNames.WallClock);

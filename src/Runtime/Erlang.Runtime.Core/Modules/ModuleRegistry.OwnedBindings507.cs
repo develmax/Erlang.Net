@@ -93,6 +93,34 @@ public sealed partial class ModuleRegistry
         }
     }
 
+    // Exact reviewed managed bodies retain guest inputs and adopt fresh output scaffolding.
+    internal void RegisterReviewedManagedLibrary789(
+        string module,
+        string function,
+        int arity,
+        ErlangFunction body
+    )
+    {
+        Register(
+            module,
+            function,
+            arity,
+            body
+        );
+        lock (gate)
+        {
+            var key = (module, function, arity);
+            if (owningRuntime is not null && functions.TryGetValue(key, out var selected)
+                && ReferenceEquals(selected, body) && !sourceOwners.ContainsKey(key))
+                ownedBindings507[key] = new(
+                    body,
+                    codeImages[module],
+                    null,
+                    OwnedBindingKind507.ReviewedManagedLibrary
+                );
+        }
+    }
+
     internal IReadOnlyDictionary<ErlangFunction, OwnedBindingKind507> PreparedOwnedCapabilities507(object primitives)
         => preparedOwnedCapabilities507.TryGetValue(primitives, out var captured) ? captured.Entries
             : System.Collections.Frozen.FrozenDictionary<ErlangFunction, OwnedBindingKind507>.Empty;

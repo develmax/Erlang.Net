@@ -126,27 +126,45 @@ internal static class NifNativeLifecycleChecks
 
     private static void ProveRetirementOwnsFence(Thread retirement, ConcurrentQueue<Exception> failures)
     {
-        var semaphore = (SemaphoreSlim)typeof(NifNativeLifecycleGate)
+        object lifecycleGate = typeof(NifNativeLifecycleGate)
             .GetField(NifNativeFenceNames.LifecycleSemaphore, NifNativeFenceNames.StaticMembers)!.GetValue(null)!;
-        NifNativeHarness.Require(SpinWait.SpinUntil(() => semaphore.CurrentCount == 0
+        FieldInfo holder = typeof(NifNativeLifecycleGate).GetFields(NifNativeFenceNames.StaticMembers)
+            .Single(field => field.FieldType == typeof(NifNativeLifecyclePermit616));
+
+        NifNativeLifecyclePermit616? CurrentOwner616()
+        {
+            lock (lifecycleGate)
+                return (NifNativeLifecyclePermit616?)holder.GetValue(null);
+        }
+        NifNativeHarness.Require(SpinWait.SpinUntil(() => CurrentOwner616() is not null
             || !retirement.IsAlive || !failures.IsEmpty, NifNativeFenceNames.Deadline));
-        // A's owner monitor is held; B has not been allowed to enter its initializer.
-        // No probe owns a permit here, so the owned retirement is the only possible holder.
-        NifNativeHarness.Require(semaphore.CurrentCount == 0 && retirement.IsAlive && failures.IsEmpty);
+        // A's owner monitor is held; B has not been allowed to initialize.
+        // No probe owns admission here, so only the real retirement can hold it.
+        NifNativeLifecyclePermit616? retirementOwner = CurrentOwner616();
+        NifNativeHarness.Require(retirementOwner is not null && retirement.IsAlive && failures.IsEmpty);
         using var deadline = new CancellationTokenSource(NifNativeFenceNames.Deadline);
         using var probe = CancellationTokenSource.CreateLinkedTokenSource(deadline.Token);
         probe.CancelAfter(NifNativeFenceNames.ProbeMilliseconds);
         try
         {
-            using var scope = NifNativeLifecycleGate.Enter(probe.Token);
+            ProbeFence616(probe.Token).GetAwaiter().GetResult();
         }
         catch (OperationCanceledException) when (!deadline.IsCancellationRequested)
         {
-            NifNativeHarness.Require(semaphore.CurrentCount == 0 && retirement.IsAlive && failures.IsEmpty);
+            NifNativeHarness.Require(ReferenceEquals(CurrentOwner616(), retirementOwner)
+                && retirement.IsAlive && failures.IsEmpty);
 
             return;
         }
         throw new InvalidOperationException(NifNativeHarnessNames.Broken);
+    }
+
+    private static async Task ProbeFence616(CancellationToken cancellation)
+    {
+        // This probe executes on the existing owned HOST control thread. The
+        // production admission remains asynchronous and claims a real permit.
+        using NifNativeLifecyclePermit616 permit = await NifNativeLifecycleGate.AcquireAsync616(cancellation);
+        using var scope = permit.Enter616();
     }
 
     private static void Exercise(

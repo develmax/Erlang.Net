@@ -14,8 +14,10 @@ public sealed partial class ModuleRegistry
             ThrowIfSourceClosing();
             if (!ReferenceEquals(image.Owner, this))
                 throw new ArgumentException(BeamPreparationNames.ForeignImage, nameof(image));
+            if (image.Disposed800) throw new ObjectDisposedException(nameof(PreparedBeamImage));
             if (image.Consumed)
                 throw new InvalidOperationException(BeamPreparationNames.ConsumedImage);
+            using PreparedLoaderImageReservations807 nativePreparation = ReservePreparedImagesUnderGate807([image]);
             if (!image.HasOnLoad)
                 throw new InvalidOperationException(BeamOnLoadDiagnostics.OnLoadRequired);
             if (pendingBeamImages.ContainsKey(image.Name))
@@ -32,6 +34,7 @@ public sealed partial class ModuleRegistry
             var ticket = new BeamOnLoadTicket(this, image, generation);
             pendingBeamImages.Add(image.Name, ticket);
             image.Consumed = true;
+            PreparedLoaderImageConsumed807(image);
 
             return ticket;
         }

@@ -229,8 +229,7 @@ public sealed partial class Mailbox
         {
             ThrowIfHalted();
             cancellation.ThrowIfCancellationRequested();
-            ThrowStatisticsTrapFailure();
-            await ProcessSignalsAndStorageAsync();
+            ProcessSignals?.Invoke();
             if (WaitForExecution is not null)
                 start += await WaitForExecution();
             Task signal;
@@ -267,8 +266,10 @@ public sealed partial class Mailbox
                 try
                 {
                     long suspended = SuspensionTime?.Invoke() ?? 0;
+                    if (admission593 is not null)
+                        await admission593.ResumeExecution();
                     guest593 = admission593?.Prepare(candidate.Value, candidate.Custody593?.Graph);
-                    Term candidateValue593 = guest593?.Value ?? OpaqueCandidate593(candidate.Value);
+                    Term candidateValue593 = guest593?.Value ?? OpaqueCandidateWithCustody292(candidate.Value, candidate.Custody593, operation593);
                     if (admission593 is null)
                     {
                         operation593?.Dispose();
@@ -281,7 +282,7 @@ public sealed partial class Mailbox
                     {
                         ThrowIfHalted();
                         cancellation.ThrowIfCancellationRequested();
-                        await ProcessSignalsAndStorageAsync();
+                        ProcessSignals?.Invoke();
                         if (WaitForExecution is not null)
                             start += await WaitForExecution();
                         Entry consumed = default;
@@ -378,14 +379,13 @@ public sealed partial class Mailbox
             {
                 WaitingStateChanged?.Invoke(true);
                 if (remaining is { } finite)
-                    await WaitStatisticsTrapSignal(
-                        signal,
+                    await signal.WaitAsync(
                         finite > TimeSpan.FromMilliseconds(MailboxWaitParameters.MaximumSegmentMilliseconds)
                             ? TimeSpan.FromMilliseconds(MailboxWaitParameters.MaximumSegmentMilliseconds) : finite,
                         cancellation
                     );
                 else
-                    await WaitStatisticsTrapSignal(signal, null, cancellation);
+                    await signal.WaitAsync(cancellation);
             }
             catch (TimeoutException)
             {

@@ -100,6 +100,7 @@ internal sealed class StatisticsTrapTestOperation : IAsyncDisposable
             }
             finally
             {
+                if (Request is IAsyncDisposable request) await request.DisposeAsync();
                 if (admission is not null)
                     Call(admission, "Dispose");
             }

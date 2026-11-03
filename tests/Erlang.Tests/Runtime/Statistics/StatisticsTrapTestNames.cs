@@ -7,6 +7,7 @@ internal static class StatisticsTrapTestNames
     internal const string Fault = "runtime/statistics-trap/callback-fault-interrupts-real-receive";
     internal const string Cancel = "runtime/statistics-trap/real-requester-kill-drains-callbacks";
     internal const string Close = "runtime/statistics-trap/close-waits-for-helper-and-callbacks";
+    internal const string Halt = "runtime/statistics-trap/immediate-halt-joins-held-callback";
     internal const string Failure = "Genuine statistics helper admission, receive or physical protocol differs";
     internal const string CallbackFailure = "actual-normal-callback-before-statistics-reply";
     internal const string IndependentFailure = "independent-held-normal-callback-failure";

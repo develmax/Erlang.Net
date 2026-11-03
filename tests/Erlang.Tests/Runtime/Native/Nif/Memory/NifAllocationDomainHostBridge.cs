@@ -9,6 +9,7 @@ internal sealed class NifAllocationDomainHostBridge : IAsyncDisposable
     private static readonly Assembly RuntimeAssembly = typeof(ProcessRuntime).Assembly;
     private static readonly Type LibraryType = Type(NifAllocationDomainHostNames.LibraryType);
     private static readonly Type ProfileType = Type(NifAllocationDomainHostNames.ProfileType);
+    private static readonly Type LifecycleGateType = Type(NifAllocationDomainHostNames.LifecycleGateType);
     private readonly object library;
     private readonly object backend;
     private readonly object gate;
@@ -34,7 +35,11 @@ internal sealed class NifAllocationDomainHostBridge : IAsyncDisposable
         _ = Property(snapshot, NifAllocationDomainHostNames.JoinedOwners);
         _ = Property(snapshot, nameof(NifAllocationDomainHostSnapshot.Allocations));
         _ = Field(NifAllocationDomainHostNames.Disposed);
-        _ = LibraryType.GetMethod(NifAllocationDomainHostNames.Initialize, NifAllocationDomainHostNames.Members)
+        _ = LibraryType.GetMethod(NifAllocationDomainHostNames.OpenAndValidate, NifAllocationDomainHostNames.Members)
+            ?? throw new InvalidOperationException(NifAllocationDomainHostNames.ReflectionContract);
+        _ = LibraryType.GetMethod(NifAllocationDomainHostNames.InitializeLoad, NifAllocationDomainHostNames.Members)
+            ?? throw new InvalidOperationException(NifAllocationDomainHostNames.ReflectionContract);
+        _ = LifecycleGateType.GetMethod(NifAllocationDomainHostNames.Acquire, NifAllocationDomainHostNames.Statics)
             ?? throw new InvalidOperationException(NifAllocationDomainHostNames.ReflectionContract);
     }
 
@@ -53,17 +58,35 @@ internal sealed class NifAllocationDomainHostBridge : IAsyncDisposable
         )!;
     }
 
-    internal void InitializeWrongModule(ModuleCodeDescriptor descriptor, CancellationToken cancellation = default)
+    internal async Task InitializeWrongModule(ModuleCodeDescriptor descriptor, CancellationToken cancellation = default)
     {
         try
         {
+            MethodInfo acquire = LifecycleGateType.GetMethod(
+                NifAllocationDomainHostNames.Acquire,
+                NifAllocationDomainHostNames.Statics
+            )!;
+            // Allocate and validate the adapter before the real grant exists.
+            var admission = new NifAllocationDomainHostAdmission628(acquire.ReturnType);
+            object?[] arguments = [cancellation];
+            admission.Bind(Invoke(acquire, null, arguments)!);
+            // Forward the actual admission awaiter: its GetResult claims the
+            // permit on this continuation, with no intermediary Task owner.
+            using IDisposable permit = await admission;
             Call(
                 library,
-                NifAllocationDomainHostNames.Initialize,
+                NifAllocationDomainHostNames.OpenAndValidate,
                 Profile(),
                 descriptor,
+                cancellation,
+                permit
+            );
+            Call(
+                library,
+                NifAllocationDomainHostNames.InitializeLoad,
                 Nil.Value,
-                cancellation
+                cancellation,
+                permit
             );
         }
         catch (InvalidOperationException error) when (IsMissingLibrary(error))

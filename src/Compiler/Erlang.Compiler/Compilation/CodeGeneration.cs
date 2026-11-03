@@ -167,7 +167,7 @@ public static class CodeGeneration
             module.Attributes,
             attribute => ModuleAttributeCodeNames.Constructor + Quote(attribute.Name) + "," + TermCode(attribute.Value) + ")",
             "global::Erlang.Compiler.ModuleAttribute"
-        ) : string.Empty) + ")" + NativeModuleInitializer(module, includeAttributes) + ";\npublic static void Register(global::Erlang.ModuleRegistry registry)=>Definition.Register(registry);\n}\n";
+        ) : string.Empty) + ")" + NativeModuleInitializer(module, includeAttributes) + ";\npublic static void Register(global::Erlang.ModuleRegistry registry)=>Definition.Register(registry);" + (includeAttributes ? GeneratedSourcePreparationCodeNames190.Entry : string.Empty) + "\n}\n";
     }
 
     public static string Preprocess(string source, string path, string nullableContext = "enable")

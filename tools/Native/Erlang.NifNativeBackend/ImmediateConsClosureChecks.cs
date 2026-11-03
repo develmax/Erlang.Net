@@ -38,13 +38,14 @@ public static class ImmediateConsClosureChecks
                     Term foreignList = other.CreateConsInto507(foreignSlot, Term.I(1), Nil.Value);
                     Require(MailboxBackingProbe.Storage(foreignList)!.HasImmediateConsClosure);
                     RejectForeign(() => frame.SetLocalGraph507(slot, foreignList));
-                    // A local block can be allocated with unchecked portable
-                    // children by trusted low-level code. It must NOT receive a
-                    // closure certificate and cannot hide a foreign descendant.
-                    Term malformed;
-                    lock (heap.Gate) malformed = heap.CreateCons(Term.Tuple(foreignList), Nil.Value);
-                    Require(!MailboxBackingProbe.Storage(malformed)!.HasImmediateConsClosure);
-                    RejectForeign(() => frame.SetLocalGraph507(slot, malformed));
+                    // Current physical constructors reject foreign descendants
+                    // before publishing any local block or closure certificate.
+                    ProcessTermHeapSnapshot506 beforeForeign = heap.Snapshot;
+                    RejectForeign(() =>
+                    {
+                        lock (heap.Gate) _ = heap.CreateCons(Term.Tuple(foreignList), Nil.Value);
+                    });
+                    Require(heap.Snapshot == beforeForeign);
                     frame.Clear(slot);
                     frame.Clear(boxedSlot);
                     frame.Clear(complexSlot);
@@ -125,10 +126,12 @@ public static class ImmediateConsClosureChecks
                     Term foreignTuple = other.CreateTupleInto507(foreignSlot, new Term[] { Term.I(1) });
                     Require(MailboxBackingProbe.Storage(foreignTuple)!.HasImmutablePlainClosure550);
                     RejectForeign(() => frame.SetLocalGraph507(parentSlot, foreignTuple));
-                    Term malformed;
-                    lock (heap.Gate) malformed = heap.CreateTuple([foreignTuple]);
-                    Require(!MailboxBackingProbe.Storage(malformed)!.HasImmutablePlainClosure550);
-                    RejectForeign(() => frame.SetLocalGraph507(parentSlot, malformed));
+                    ProcessTermHeapSnapshot506 beforeForeign = heap.Snapshot;
+                    RejectForeign(() =>
+                    {
+                        lock (heap.Gate) _ = heap.CreateTuple([foreignTuple]);
+                    });
+                    Require(heap.Snapshot == beforeForeign);
                     Term portable;
                     lock (heap.Gate) portable = heap.CreateTuple([Term.Tuple(Term.I(1))]);
                     Require(!MailboxBackingProbe.Storage(portable)!.HasImmutablePlainClosure550);

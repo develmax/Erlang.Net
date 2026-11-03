@@ -9,6 +9,9 @@ internal sealed class OwnedMapHamtView517(
     Term? stored
 )
 {
+    internal bool MatchesOwnedPayload302(ProcessTermHeap506 expectedOwner, ProcessTermSequence506 expectedPayload)
+        => ReferenceEquals(owner, expectedOwner) && ReferenceEquals(payload, expectedPayload);
+
     internal OwnedMapHeader517 Header => owner.ReadMapHeader517(payload);
     internal KeyValuePair<Term, Term>? Leaf => Header.Kind == OwnedMapHeaderKind517.HamtLeafCons
         ? new(payload[0], payload[1]) : null;

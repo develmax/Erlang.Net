@@ -11,6 +11,7 @@ internal sealed class MailboxGraphSnapshot593 : IDisposable, IAsyncDisposable
     private MailboxPayloadLease593? producerLast;
     // Callback-free identity/liveness used only under the actual root-owner gate.
     internal MailboxPayloadLease593 RootWork593 => roots;
+    internal ModuleLiteralRoots801? LiteralRoots801 => roots.LiteralRoots801;
     internal bool HasGraphReferences593 => Volatile.Read(ref references) > 0;
     internal ProcessRuntime Runtime { get; }
     internal Term? ObservationValue { get; }

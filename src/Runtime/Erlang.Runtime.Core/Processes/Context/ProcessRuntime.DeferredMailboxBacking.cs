@@ -11,7 +11,9 @@ public sealed partial class ProcessRuntime
         DeferredMailboxAdmission? ready = null;
         PreparedMailboxMessage? prepared = null, sourceHold = null;
         MailboxPublicationScope593? publication = null;
-        Exception? failure = null;
+        Exception? failure = null, inputFailure = null, completionFailure = null;
+        Exception? publicationFailure = null, preparedFailure = null, sourceHoldFailure = null, payloadFailure = null;
+        bool primaryAfterInput = false;
         bool releaseInvoked = false, completeInvoked = false;
         try
         {
@@ -20,7 +22,8 @@ public sealed partial class ProcessRuntime
         }
         catch (Exception error)
         {
-            Add(error);
+            primaryAfterInput = inputFailure is not null;
+            failure = error;
             ReleaseInput();
             if (!completeInvoked)
                 try
@@ -29,7 +32,7 @@ public sealed partial class ProcessRuntime
                 }
                 catch (Exception cleanup)
                 {
-                    Add(cleanup);
+                    completionFailure = cleanup;
                 }
         }
         finally
@@ -42,16 +45,31 @@ public sealed partial class ProcessRuntime
             }
             catch (Exception cleanup)
             {
-                Add(cleanup);
+                payloadFailure = cleanup;
             }
         }
-        if (failure is not null) ExceptionDispatchInfo.Capture(failure).Throw();
+        if (failure is null && inputFailure is null && completionFailure is null
+            && publicationFailure is null && preparedFailure is null && sourceHoldFailure is null && payloadFailure is null)
+            return;
 
-        void Add(Exception error)
+        // Record cleanup failures without allocating until every release was attempted.
+        var failures = new StatisticsTrapFailures();
+        if (primaryAfterInput)
         {
-            if (failure is null) failure = error;
-            else if (!ReferenceEquals(failure, error)) failure = new AggregateException(failure, error);
+            if (inputFailure is not null) failures.Add(inputFailure);
+            if (failure is not null) failures.Add(failure);
         }
+        else
+        {
+            if (failure is not null) failures.Add(failure);
+            if (inputFailure is not null) failures.Add(inputFailure);
+        }
+        if (completionFailure is not null) failures.Add(completionFailure);
+        if (publicationFailure is not null) failures.Add(publicationFailure);
+        if (preparedFailure is not null) failures.Add(preparedFailure);
+        if (sourceHoldFailure is not null) failures.Add(sourceHoldFailure);
+        if (payloadFailure is not null) failures.Add(payloadFailure);
+        failures.ThrowIfAny();
 
         bool Live()
             => !owner.Terminated
@@ -76,7 +94,7 @@ public sealed partial class ProcessRuntime
             }
             catch (Exception cleanup)
             {
-                Add(cleanup);
+                inputFailure = cleanup;
             }
         }
 
@@ -88,7 +106,7 @@ public sealed partial class ProcessRuntime
             }
             catch (Exception cleanup)
             {
-                Add(cleanup);
+                publicationFailure = cleanup;
             }
             try
             {
@@ -97,7 +115,7 @@ public sealed partial class ProcessRuntime
             }
             catch (Exception cleanup)
             {
-                Add(cleanup);
+                preparedFailure = cleanup;
             }
             try
             {
@@ -106,7 +124,7 @@ public sealed partial class ProcessRuntime
             }
             catch (Exception cleanup)
             {
-                Add(cleanup);
+                sourceHoldFailure = cleanup;
             }
         }
 
@@ -116,7 +134,7 @@ public sealed partial class ProcessRuntime
                 || !MailboxValueEscape.CanMaterialize(this, ready.Message))
             {
                 ReleaseInput();
-                if (failure is not null) ExceptionDispatchInfo.Capture(failure).Throw();
+                if (inputFailure is not null) ExceptionDispatchInfo.Capture(inputFailure).Throw();
                 Complete(ready);
 
                 return;
@@ -151,7 +169,7 @@ public sealed partial class ProcessRuntime
                 if (revision < 0)
                 {
                     ReleaseInput();
-                    if (failure is not null) ExceptionDispatchInfo.Capture(failure).Throw();
+                    if (inputFailure is not null) ExceptionDispatchInfo.Capture(inputFailure).Throw();
                     Complete(ready);
 
                     return;
@@ -186,7 +204,7 @@ public sealed partial class ProcessRuntime
                     // or a previous retry graph still owns the decoded value.
                     if (sourceHold is not null) break;
                     ReleaseInput();
-                    if (failure is not null) ExceptionDispatchInfo.Capture(failure).Throw();
+                    if (inputFailure is not null) ExceptionDispatchInfo.Capture(inputFailure).Throw();
                     Complete(ready);
 
                     return;
@@ -202,7 +220,7 @@ public sealed partial class ProcessRuntime
                 publication = MailboxPublicationScope593.Forward(this, prepared.Graph);
                 var actual = ready with { Message = prepared.Value, BackingPublication = publication };
                 ReleaseInput(); // BEFORE admission, OUTSIDE R/M, exactly once.
-                if (failure is not null) ExceptionDispatchInfo.Capture(failure).Throw();
+                if (inputFailure is not null) ExceptionDispatchInfo.Capture(inputFailure).Throw();
                 bool retry;
                 lock (gate)
                 {
@@ -239,7 +257,7 @@ public sealed partial class ProcessRuntime
             publication ??= MailboxPublicationScope593.Forward(this, held.Graph);
             var portable = ready with { Message = held.Graph.ObservationValue!, BackingPublication = publication };
             ReleaseInput();
-            if (failure is not null) ExceptionDispatchInfo.Capture(failure).Throw();
+            if (inputFailure is not null) ExceptionDispatchInfo.Capture(inputFailure).Throw();
             Complete(portable);
         }
     }

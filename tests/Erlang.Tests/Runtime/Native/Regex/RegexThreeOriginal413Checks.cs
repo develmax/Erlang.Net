@@ -132,30 +132,38 @@ internal static class RegexThreeOriginal413Checks
         try
         {
             await RuntimeNativePrimitiveProviders.RegisterRegexAsync411(runtime, runtime.Modules, RegexNative411Access.Admission());
-            await runtime.InitializeModulesAsync(registry =>
-            {
-                Erlang.Otp.OtpModules.Register(registry);
-                var dependencies = new BeamDependencySelection(RegexThreeOriginal413Names.OriginalModules
-                    .Concat([RegexThreeOriginal413Names.Erlang, suite.Observer]));
-                PreparedBeamImage[] images = RegexThreeOriginal413Names.OriginalModules.Select(module => registry.PrepareBeam(
-                    RegexThreeOriginal413Access.Read(module + LibraryDependencyOriginalNames.Beam), dependencies
-                )).ToArray();
-                if (images.Single(image => image.Name == RegexThreeOriginal413Names.Module).NativePrimitiveExports.Count != RegexThreeOriginal413Names.NativeBodies
-                    || registry.PublishPreparedBeam(images).Status != BeamPublicationStatus.Published)
-                    throw new InvalidOperationException(RegexThreeOriginal413Names.Failure);
-                foreach (PreparedBeamImage image in images)
-                    foreach (var export in registry.Exports.Where(export => export.Module == image.Name))
-                        if (!ReferenceEquals(registry.SourceOwner(export.Module, export.Function, export.Arity), image))
-                            throw new InvalidOperationException(RegexThreeOriginal413Names.Failure);
-                PreparedBeamImage worker = registry.PrepareBeam(
-                    RegexThreeOriginal413Access.Read(suite.Observer + LibraryDependencyOriginalNames.Beam), dependencies
-                );
-                if (worker.NativePrimitiveExports.Count != 0
-                    || registry.PublishPreparedBeam(worker).Status != BeamPublicationStatus.Published
-                    || !ReferenceEquals(registry.SourceOwner(suite.Observer, LibraryDependencyOriginalNames.Run, 1), worker)
-                    || !ReferenceEquals(registry.SourceOwner(suite.Observer, LibraryDependencyOriginalNames.Stacks, 1), worker))
-                    throw new InvalidOperationException(RegexThreeOriginal413Names.Failure);
-            });
+            await runtime.InitializeModulesAsync(Erlang.Otp.OtpModules.Register);
+            var dependencies = new BeamDependencySelection(RegexThreeOriginal413Names.OriginalModules
+                .Concat([RegexThreeOriginal413Names.Erlang, suite.Observer]));
+            await PreparedBeamFixtureImages825.PrepareAndPublishAsync(
+                runtime,
+                RegexThreeOriginal413Names.OriginalModules.Select(module => RegexThreeOriginal413Access.Read(module + LibraryDependencyOriginalNames.Beam)),
+                dependencies,
+                (registry, images) =>
+                {
+                    if (images.Single(image => image.Name == RegexThreeOriginal413Names.Module).NativePrimitiveExports.Count != RegexThreeOriginal413Names.NativeBodies
+                        || registry.PublishPreparedBeam(images).Status != BeamPublicationStatus.Published)
+                        throw new InvalidOperationException(RegexThreeOriginal413Names.Failure);
+                    foreach (PreparedBeamImage image in images)
+                        foreach (var export in registry.Exports.Where(export => export.Module == image.Name))
+                            if (!ReferenceEquals(registry.SourceOwner(export.Module, export.Function, export.Arity), image))
+                                throw new InvalidOperationException(RegexThreeOriginal413Names.Failure);
+                }
+            );
+            await PreparedBeamFixtureImages825.PrepareAndPublishAsync(
+                runtime,
+                [RegexThreeOriginal413Access.Read(suite.Observer + LibraryDependencyOriginalNames.Beam)],
+                dependencies,
+                (registry, images) =>
+                {
+                    PreparedBeamImage worker = images.Single();
+                    if (worker.NativePrimitiveExports.Count != 0
+                        || registry.PublishPreparedBeam(worker).Status != BeamPublicationStatus.Published
+                        || !ReferenceEquals(registry.SourceOwner(suite.Observer, LibraryDependencyOriginalNames.Run, 1), worker)
+                        || !ReferenceEquals(registry.SourceOwner(suite.Observer, LibraryDependencyOriginalNames.Stacks, 1), worker))
+                        throw new InvalidOperationException(RegexThreeOriginal413Names.Failure);
+                }
+            );
 
             return runtime;
         }

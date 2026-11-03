@@ -12,6 +12,10 @@ internal sealed partial class RuntimeMailboxRootOwner593
     private Task? drain;
 
     internal MailboxPayloadLease593? Capture(ProcessRuntime runtime, Term message)
+        => CaptureWithLiteral814(runtime, message, null);
+
+    internal MailboxPayloadLease593? CaptureWithLiteral814(
+        ProcessRuntime runtime, Term message, ModuleLiteralRoots801? carriedLiteral801)
     {
         var work = new MailboxPayloadLease593(this);
         lock (gate)
@@ -22,8 +26,12 @@ internal sealed partial class RuntimeMailboxRootOwner593
         bool emptyCompleted = false;
         try
         {
+            ProcessContext? literalActor = RuntimeActorExecutionTurn.CurrentLiteralContext801(runtime);
+            ModuleLiteralRoots801? literalRoots = literalActor is null ? carriedLiteral801?.Retain801()
+                : ModuleLiteralRoots801.Capture801(literalActor.TermHeap506, message, carriedLiteral801);
+            work.AttachLiteralRoots801(literalRoots);
             IDisposable? roots = NativeResourceRoots524.RetainGraph524(message, runtime);
-            if (roots is null)
+            if (roots is null && literalRoots is null)
             {
                 emptyCompleted = true;
                 work.CompleteEmptyCapture();
@@ -64,6 +72,7 @@ internal sealed partial class RuntimeMailboxRootOwner593
             if (active.Count == 0) drained.TrySetResult();
         }
         NotifyReady();
+        NotifySuspensionAck172();
     }
 
     internal void NotifyReady()
@@ -122,6 +131,8 @@ internal sealed partial class RuntimeMailboxRootOwner593
             await changed.WaitAsync().ConfigureAwait(false);
         }
         await drained.Task.ConfigureAwait(false);
+        NotifySuspensionAck172();
+        await (suspensionAckCleanup172 ?? Task.CompletedTask).ConfigureAwait(false);
         Exception[] failures;
         lock (gate) failures = failed.SelectMany(work => work.Failures).ToArray();
         if (failures.Length != 0) throw new AggregateException(failures);

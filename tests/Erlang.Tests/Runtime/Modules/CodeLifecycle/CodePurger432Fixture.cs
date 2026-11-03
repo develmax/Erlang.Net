@@ -19,12 +19,19 @@ internal sealed class CodePurger432Fixture : IAsyncDisposable
         var fixture = new CodePurger432Fixture(owned);
         try
         {
-            await fixture.Runtime.InitializeModulesAsync(registry =>
+            await global::Erlang.Tests.PreparedBeamFixtureScope171.RunAsync(
+                fixture.Runtime,
+                (registry, scope) =>
             {
-                var facet = registry.PrepareBeam(CodePurgerOriginal432Access.Resource(CodePurgerOriginal432Names.FacetBeam), fixture.Dependencies);
-                var purger = registry.PrepareBeam(CodePurgerOriginal432Access.Resource(CodePurgerOriginal432Names.PurgerBeam), fixture.Dependencies);
-                CodePurger432HostAccess.Require(registry.PublishPreparedBeam([facet, purger]).Status == BeamPublicationStatus.Published);
-            });
+                var facet = scope.Prepare(() => registry.PrepareBeam(CodePurgerOriginal432Access.Resource(CodePurgerOriginal432Names.FacetBeam), fixture.Dependencies));
+                var purger = scope.Prepare(() => registry.PrepareBeam(CodePurgerOriginal432Access.Resource(CodePurgerOriginal432Names.PurgerBeam), fixture.Dependencies));
+
+                return ValueTask.FromResult<Action<ModuleRegistry>>(_ =>
+                {
+                    CodePurger432HostAccess.Require(registry.PublishPreparedBeam([facet, purger]).Status == BeamPublicationStatus.Published);
+                });
+            }
+            );
             fixture.Actor = new(fixture.Runtime);
             fixture.Purger = await fixture.Actor.Invoke(context =>
             {

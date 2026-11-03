@@ -5,8 +5,12 @@ internal sealed partial class RuntimeMailboxRootOwner593
     // Only this entry performs actual producer/header validation and typed
     // graph retention. Caller must execute it before runtime/mailbox monitors.
     internal MailboxGraphSnapshot593? PrepareGraph(ProcessRuntime runtime, Term completeGraph)
+        => PrepareGraphWithLiteral814(runtime, completeGraph, null);
+
+    internal MailboxGraphSnapshot593? PrepareGraphWithLiteral814(
+        ProcessRuntime runtime, Term completeGraph, ModuleLiteralRoots801? carriedLiteral801)
     {
-        MailboxPayloadLease593? roots = Capture(runtime, completeGraph);
+        MailboxPayloadLease593? roots = CaptureWithLiteral814(runtime, completeGraph, carriedLiteral801);
         if (roots is null)
             return null;
 

@@ -69,11 +69,11 @@ public sealed partial class ProcessRuntime
                     batch = target.Mailbox.AdmitPendingBounded428(budget - used);
                     used += batch.Processed;
                     workUnits = used;
+                    if (batch.PolicyMove) return Term.A(SystemTaskNames428.Busy);
                     if (!batch.Remaining) return Term.A(CommonAtomNames.Ok);
                     if (batch.PendingBacking) pendingClaim = target.Mailbox.ClaimPendingBacking();
                     else if (batch.Deferred) preparation = target.Mailbox.ClaimDeferredBoundedForBacking();
                 }
-                if (batch.PolicyMove) return Term.A(SystemTaskNames428.Busy);
                 if (batch.PendingBacking)
                 {
                     if (pendingClaim is null) return Term.A(SystemTaskNames428.Busy);

@@ -23,17 +23,24 @@ internal static class DebugUnaligned421Access
         byte[] beam = Read(DebugUnaligned421Names.Beam);
         var hashes = JsonSerializer.Deserialize<Dictionary<string, string>>(Read(DebugUnaligned421Names.Manifest))!;
         Require(hashes.Count == 1 && hashes[DebugUnaligned421Names.Beam] == Convert.ToHexString(SHA256.HashData(beam)));
-        await runtime.InitializeModulesAsync(registry =>
+        await global::Erlang.Tests.PreparedBeamFixtureScope171.RunAsync(
+            runtime,
+            (registry, scope) =>
         {
             Require(!registry.HasExport(DebugUnaligned421Names.Module, DebugUnaligned421Names.Function, 2));
-            var image = registry.PrepareBeam(beam, new BeamDependencySelection([DebugUnaligned421Names.Runtime]));
+            var image = scope.Prepare(() => registry.PrepareBeam(beam, new BeamDependencySelection([DebugUnaligned421Names.Runtime])));
             Require(image.NativePrimitiveExports.Count == 1 && image.NativePrimitiveExports.Contains(new BeamFunctionSignature(DebugUnaligned421Names.Function, 2)));
-            Require(registry.PublishPreparedBeam(image).Status == BeamPublicationStatus.Published);
-            var exports = registry.Exports.Where(e => e.Module == DebugUnaligned421Names.Module).ToArray();
-            Require(exports.Length == 3);
-            foreach (var export in exports)
-                Require(ReferenceEquals(registry.SourceOwner(export.Module, export.Function, export.Arity), image));
-        });
+
+            return ValueTask.FromResult<Action<ModuleRegistry>>(_ =>
+            {
+                Require(registry.PublishPreparedBeam(image).Status == BeamPublicationStatus.Published);
+                var exports = registry.Exports.Where(e => e.Module == DebugUnaligned421Names.Module).ToArray();
+                Require(exports.Length == 3);
+                foreach (var export in exports)
+                    Require(ReferenceEquals(registry.SourceOwner(export.Module, export.Function, export.Arity), image));
+            });
+        }
+        );
     }
 
     internal static void Representation(BitString input, BitString result, int offset)

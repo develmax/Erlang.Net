@@ -410,7 +410,7 @@ public sealed partial class Mailbox
                 Exception? primary = null;
                 try
                 {
-                    Term input = opaque ? OpaqueCandidate593(candidate.Value) : candidate.Value;
+                    Term input = opaque ? OpaqueCandidateWithCustody292(candidate.Value, candidate.Custody593, operation) : candidate.Value;
                     if (opaque)
                     {
                         operation?.Dispose();
@@ -490,7 +490,12 @@ public sealed partial class Mailbox
                 {
                     var inputs = new Term[candidates.Length];
                     for (int index = 0; index < candidates.Length; index++)
-                        inputs[index] = OpaqueCandidate593(candidates[index].Value.Value, transaction);
+                        inputs[index] = OpaqueCandidateWithCustody292(
+                            candidates[index].Value.Value,
+                            transaction,
+                            candidates[index].Value.Custody593,
+                            operations[index]
+                        );
 
                     // An opaque predicate may close the VM. No temporary guest
                     // operation owned by this batch may remain during callbacks.
@@ -763,8 +768,10 @@ public sealed partial class Mailbox
                 try
                 {
                     long suspensionBefore = SuspensionTime?.Invoke() ?? 0;
+                    if (admission593 is not null)
+                        await admission593.ResumeExecution();
                     guest593 = admission593?.Prepare(candidate.Value, candidate.Custody593?.Graph);
-                    Term candidateValue593 = guest593?.Value ?? OpaqueCandidate593(candidate.Value);
+                    Term candidateValue593 = guest593?.Value ?? OpaqueCandidateWithCustody292(candidate.Value, candidate.Custody593, operation593);
                     if (admission593 is null)
                     {
                         // Host admission is complete; do not make a public
@@ -846,7 +853,7 @@ public sealed partial class Mailbox
                     MessageReceived?.Invoke();
                     SequenceTraceToken? traceToken = received.TraceToken;
                     bool preserveTrace = received.PreserveTrace;
-                    if (received.DistributionTraceToken is { } rawTrace)
+                    if (traceToken is null && received.DistributionTraceToken is { } rawTrace)
                     {
                         var reception = DistributionSequenceTraceToken.Decode(rawTrace);
                         traceToken = reception.Token;

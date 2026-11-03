@@ -4,13 +4,14 @@ namespace Erlang;
 // the initializer owns rollback; after zero, only committed retirement owns it.
 internal sealed class NifNativeUpgradeOperation544(
     NifImageLoadReservation reservation,
-    RuntimeNormalBarrierRequest696 barrier,
     NifNativePreviousOwnerLease544 previous,
     NativeResourceUpgradeCommit544 resourceCommit
 )
 {
     private NifNativeBindingTransition544? transition;
     private bool vetoEnded;
+    private RuntimeNormalBarrierRequest696? barrier616;
+    private int barrierAttached616;
     internal NifNativePreviousOwnerLease544 Previous544 => previous;
     internal bool NativeSucceeded544 { get; set; }
     internal NifImageInitialized Result544 { get; private set; } = null!;
@@ -28,7 +29,15 @@ internal sealed class NifNativeUpgradeOperation544(
         transition = reservation.PrepareNativeUpgrade544(prepared, owner, resources);
     }
 
-    internal void ReleaseNormalBarrier544() => barrier.Dispose();
+    internal void AttachNormalBarrier616(RuntimeNormalBarrierRequest696 barrier)
+    {
+        ArgumentNullException.ThrowIfNull(barrier);
+        if (Interlocked.CompareExchange(ref barrierAttached616, 1, 0) != 0)
+            throw new InvalidOperationException(NifNativeTransition544Names.Admission);
+        barrier616 = barrier;
+    }
+
+    internal void ReleaseNormalBarrier544() => Interlocked.Exchange(ref barrier616, null)?.Dispose();
 
     internal void EndVeto544()
     {

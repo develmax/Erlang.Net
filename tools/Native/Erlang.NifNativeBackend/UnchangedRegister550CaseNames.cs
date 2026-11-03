@@ -6,6 +6,8 @@ public static class UnchangedRegister550CaseNames
     internal const string Module = "unchanged_register550";
     internal const string Probe = "unchanged_register550_probe";
     internal const string Run = "run";
+    internal const string RootsField = "roots507";
+    internal const int PendingSlot = 2;
     internal const string Failure = "Unchanged register publication invariant failed";
     internal const string Source = "-module(unchanged_register550). -export([run/0]). run() -> unchanged_register550_probe:run().";
 }

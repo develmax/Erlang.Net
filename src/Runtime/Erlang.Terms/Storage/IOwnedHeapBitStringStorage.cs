@@ -7,4 +7,6 @@ internal interface IOwnedHeapBitStringStorage : IOwnedTermSequence506
     byte ReadHeapByte(int index);
 
     byte[] CopyHeapBytes();
+
+    BitString CopyHeapValue255();
 }

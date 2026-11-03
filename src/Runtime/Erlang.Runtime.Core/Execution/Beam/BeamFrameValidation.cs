@@ -91,10 +91,10 @@ internal static class BeamFrameValidation
             switch (instruction.Definition.Name)
             {
                 case BeamNativeRecordAccessNames.Elements:
-                    Y(operands[1], true);
-                    Fail(operands[0]);
-                    for (int field = 3; field < operands.Count; field += 2)
-                        Write(operands[field + 1]);
+                    Y(operands[BeamNativeRecordAccessNames.Source], true);
+                    Fail(operands[BeamNativeRecordAccessNames.Failure]);
+                    for (int field = BeamNativeRecordAccessNames.FirstField; field < operands.Count; field += BeamNativeRecordAccessNames.FieldWidth)
+                        Write(operands[field + BeamNativeRecordAccessNames.DestinationOffset]);
                     break;
                 case BeamRecordConstructionNames.Opcode:
                     Y(operands[BeamRecordConstructionNames.Source], true);
@@ -103,6 +103,11 @@ internal static class BeamFrameValidation
                     for (int field = BeamRecordConstructionNames.FirstField; field < operands.Count; field += BeamRecordConstructionNames.FieldWidth)
                         Y(operands[field + 1], true);
                     Write(operands[BeamRecordConstructionNames.Destination]);
+                    break;
+                case BeamRecordConstructionNames.GetField:
+                    Y(operands[BeamRecordConstructionNames.FieldSource], true);
+                    Fail(operands[BeamRecordConstructionNames.FieldFailure]);
+                    Write(operands[BeamRecordConstructionNames.FieldDestination]);
                     break;
                 case BeamCollectionOpcodeNames.UpdateRecord:
                     if (slots != BeamFrameParameters.NoFrame && initialized != (BigInteger.One << slots) - BigInteger.One)
@@ -804,10 +809,10 @@ internal static class BeamFrameValidation
             switch (name)
             {
                 case BeamNativeRecordAccessNames.Elements:
-                    Read(operands[1]);
-                    Branch(operands[0]);
-                    for (int field = 3; field < operands.Count; field += 2)
-                        Write(operands[field + 1]);
+                    Read(operands[BeamNativeRecordAccessNames.Source]);
+                    Branch(operands[BeamNativeRecordAccessNames.Failure]);
+                    for (int field = BeamNativeRecordAccessNames.FirstField; field < operands.Count; field += BeamNativeRecordAccessNames.FieldWidth)
+                        Write(operands[field + BeamNativeRecordAccessNames.DestinationOffset]);
                     break;
                 case BeamRecordConstructionNames.Opcode:
                     Read(operands[BeamRecordConstructionNames.Source]);
@@ -818,6 +823,11 @@ internal static class BeamFrameValidation
                     Exception();
                     Prune((int)operands[BeamRecordConstructionNames.Live].Value);
                     Write(operands[BeamRecordConstructionNames.Destination]);
+                    break;
+                case BeamRecordConstructionNames.GetField:
+                    Read(operands[BeamRecordConstructionNames.FieldSource]);
+                    Branch(operands[BeamRecordConstructionNames.FieldFailure]);
+                    Write(operands[BeamRecordConstructionNames.FieldDestination]);
                     break;
                 case BeamCollectionOpcodeNames.UpdateRecord:
                     Roots();

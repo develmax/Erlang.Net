@@ -11,7 +11,8 @@ internal static class NifNativeFenceNames
     internal const string PlatformType = "Erlang.NifNativePlatformLoader";
     internal const string VerifyProvider = "RequireDefaultProvider";
     internal const string VerifyPlatform = "VerifyPlatform";
-    internal const string Enter = "Enter";
+    internal const string AcquireActorAdmission = "AcquireAsync616";
+    internal const string AcquireHostAdmission = "AcquireHostAsync616";
     internal const string JoinFailure = "Owned native lifecycle control thread did not finish within its deadline.";
     internal static readonly TimeSpan Deadline = TimeSpan.FromSeconds(5);
     internal const int ProbeMilliseconds = 40;

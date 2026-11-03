@@ -1,0 +1,55 @@
+namespace Erlang.Tests;
+
+internal static class BeamPreparedHostNames
+{
+    internal const string Test = "BEAM prepared publication, native metadata and actual generation leases";
+    internal const string Failed = "BEAM prepared publication contract failed";
+    internal const string Constant = "beam_fixture_constant";
+    internal const string Add = "beam_fixture_add";
+    internal const string Local = "beam_fixture_local";
+    internal const string Receive = "beam_fixture_receive";
+    internal const string OnLoad = "beam_fixture_on_load";
+    internal const string BeamExtension = ".beam";
+    internal const string ExpectedExtension = ".expected.etf";
+    internal const string ResourceSeparator = ".";
+    internal const string Run = "run";
+    internal const string ModuleInfo = "module_info";
+    internal const string Erlang = "erlang";
+    internal const string CheckProcessCode = "check_process_code";
+    internal const string PurgeModule = "purge_module";
+    internal const string ProcessInfo = "process_info";
+    internal const string Status = "status";
+    internal const string Waiting = "waiting";
+    internal const string Md5 = "md5";
+    internal const string Attributes = "attributes";
+    internal const string Compilation = "compile";
+    internal const string Result = "ok";
+    internal const string True = "true";
+    internal const string Match = "ping";
+    internal const string ConstantNativeMd5 = "5796B3E22D4ADE3004E4537A5B44C1BA";
+    internal const string AddNativeMd5 = "92921F434D86958FD6C04040A647E8AF";
+    internal const string LocalNativeMd5 = "C839625CAFE60CBDBA75FAE8F14F2D82";
+    internal const string ReceiveNativeMd5 = "F9B9479664A30BAF4E5E25301015B899";
+    internal const string CustomAttribute = "native_attribute_probe";
+    internal const string AttributesChunk = "Attr";
+    internal const string CompilationChunk = "CInf";
+    internal const string LastAttribute = "zeta_attribute";
+    internal const string FirstAttribute = "alpha_attribute";
+    internal const byte TrailingFirstByte = 0;
+    internal const byte TrailingSecondByte = 255;
+    internal const int MetadataCompressionLevel = 6;
+    internal const int CompressedProbeElements = 256;
+    internal const int ExternalMetadataTagOffset = 1;
+    internal const byte CompressedMetadataTag = 80;
+    internal const int DuplicateFirstValue = 1;
+    internal const int DuplicateSecondValue = 2;
+    internal const int DuplicateThirdValue = 3;
+    internal const int AttributeProbeValue = 7;
+    internal const int FormHeaderBytes = 12;
+    internal const int ChunkHeaderBytes = 8;
+    internal const int ChunkIdBytes = 4;
+    internal const int AlignmentBytes = 4;
+    internal const int FormSizeOffset = 4;
+    internal const int FormSizeBias = 8;
+    internal const int NoArguments = 0;
+}

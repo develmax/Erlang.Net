@@ -10,12 +10,32 @@ internal static class MailboxValueEscape
         while (pending.TryPop(out var current))
         {
             if (!seen.Add(current)) continue;
+            if (current is HamtBitmapTerm429 bitmap)
+            {
+                try
+                {
+                    runtime.RequireHamtNode429(bitmap);
+                }
+                catch (ArgumentException)
+                {
+                    return false;
+                }
+                foreach (Term child in bitmap.Children) pending.Push(child);
+                continue;
+            }
             if (current is not (Nil or Atom or Integer or FloatTerm or ReferenceTerm
                 or Pid or PortTerm or BitString or FunctionTerm or Cons or TupleTerm or MapTerm or NativeRecordTerm))
                 return false; // Preserve existing extension/unknown-term transport.
-            if (current is FunctionTerm { HasRuntimeLocalTransferDescriptor: true } function
+            if (current is FunctionTerm function
                 && !RuntimeStoredFunctionRecipes.TryCaptureTransfer506(runtime, function, out _))
-                return false; // No new foreign canonical/opaque authority.
+            {
+                if (function.HasRuntimeLocalTransferDescriptor)
+                    return false; // No new foreign canonical/opaque authority.
+                // An ordinary Host callback graph owns no native custody to
+                // transfer. Keep its established public object/delegate identity.
+                // Resource/native graphs still take their actual copy path.
+                if (!RequiresDetach(value)) return false;
+            }
             foreach (var child in new DebugDirtyCopyFrame424(current).Children) pending.Push(child);
             if (current is MapTerm map)
                 foreach (var pair in map.ArithmeticKeyEntries)
@@ -63,15 +83,27 @@ internal static class MailboxValueEscape
     // Genuine guest admission supplies the actual target frame. Foreign fragment
     // headers are copied/imported; no context capability is invented here.
     internal static Term ImportGuest(ProcessRuntime runtime, ProcessTermFrame506 target, Term backedValue)
+        => ImportGuestWithLiteral801(
+            runtime,
+            target,
+            backedValue,
+            null
+        );
+
+    internal static Term ImportGuestWithLiteral801(
+        ProcessRuntime runtime,
+        ProcessTermFrame506 target,
+        Term backedValue,
+        ModuleLiteralRoots801? literalRoots801
+    )
     {
         if (target.OwnsMailboxStorage(backedValue))
             return target.AdoptGuestInto507(target.Reserve(), backedValue);
         // AdoptGuestInto507 validates local headers and rejects foreign fragment
         // storage. Detach under the live operation interest, then IMPORT here.
-        Term portable = OwnedTermDetachedCopy506.CopyAtomics586(runtime, backedValue,
-            exportHostAtomics586: false);
+        Term portable = OwnedTermDetachedCopy506.CopyGuestLiteral801(runtime, backedValue, literalRoots801);
         int slot = target.Reserve();
-        target.SetPrepared(slot, portable);
+        target.SetPreparedWithLiteral801(slot, portable, literalRoots801);
 
         return target.Read(slot);
     }

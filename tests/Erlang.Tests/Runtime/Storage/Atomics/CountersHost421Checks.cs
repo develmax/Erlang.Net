@@ -11,14 +11,16 @@ internal static class CountersHost421Checks
         var actor = new RuntimeNodeFoundationHostActor(runtime);
         try
         {
-            _ = await actor.Invoke(context =>
+            _ = await actor.InvokeAsync(async context =>
             {
                 object gate = typeof(ProcessRuntime).GetField(CountersHost421Names.RuntimeGate, CountersHost421Names.Members)!.GetValue(runtime)!;
-                lock (gate)
+                var initialOwner = typeof(ProcessRuntime).GetField(CountersHost421Names.Owner, CountersHost421Names.Members)!;
+                lock (gate) CountersHost421Access.Require(initialOwner.GetValue(runtime) is null);
+                await CountersInitializer356Access.KillAndAssert(
+                    runtime,
+                    () =>
                 {
                     var field = typeof(ProcessRuntime).GetField(CountersHost421Names.Owner, CountersHost421Names.Members)!;
-                    CountersHost421Access.Require(field.GetValue(runtime) is null);
-                    runtime.Exit(context, runtime.InitializationPid, Term.A(CountersHost421Names.Kill));
                     // Keep the actual shared gate until the surviving actor has
                     // tested admission, before initializer global cleanup runs.
                     bool refused = false;
@@ -33,6 +35,7 @@ internal static class CountersHost421Checks
                     CountersHost421Access.Require(refused && field.GetValue(runtime) is null
                         && !runtime.IsAlive(runtime.InitializationPid) && runtime.CountersStorage421.Closed);
                 }
+                );
 
                 return true;
             });

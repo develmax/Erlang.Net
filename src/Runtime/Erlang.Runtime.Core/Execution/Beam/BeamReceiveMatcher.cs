@@ -24,6 +24,31 @@ internal static class BeamReceiveMatcher
         return result.GetAwaiter().GetResult();
     }
 
+    // Pure matching stays synchronous. The separate actual clone context
+    // grants no guest callback/checkpoint execution in the pure matcher.
+    internal static BeamReceiveSelection? SelectForReceive553(
+        BeamLinkedCode code,
+        BeamReceivePlan plan,
+        BeamRegisterState before,
+        Term message,
+        Pid self,
+        ProcessContext context
+    )
+    {
+        var result = SelectCore(
+            code,
+            plan,
+            before,
+            message,
+            self,
+            null,
+            context
+        );
+        if (!result.IsCompleted) throw new InvalidDataException(BeamReceiveNames.InvalidPlan);
+
+        return result.GetAwaiter().GetResult();
+    }
+
     internal static ValueTask<BeamReceiveSelection?> SelectAsync(
         BeamLinkedCode code,
         BeamReceivePlan plan,
@@ -47,11 +72,12 @@ internal static class BeamReceiveMatcher
         BeamRegisterState before,
         Term message,
         Pid self,
-        ProcessContext? context
+        ProcessContext? context,
+        ProcessContext? cloneContext553 = null
     )
     {
         using var wordOperation504 = before.EnterWordOperation504();
-        BeamRegisterState registers = before.Clone();
+        BeamRegisterState registers = before.CloneForReceive553(cloneContext553 ?? context);
         bool transferred504 = false;
         var markerRoots507 = new List<IDisposable>();
         try

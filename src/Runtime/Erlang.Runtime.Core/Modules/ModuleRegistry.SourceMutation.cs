@@ -364,16 +364,8 @@ public sealed partial class ModuleRegistry
                 sessions = sourcePurgeSessions.Values.ToArray();
                 permission = sourceMutationPermission;
             }
-            Task statisticsHelpers = CloseStatisticsTrapHelpers();
+            permission?.Close();
             var failures = new List<Exception>();
-            try
-            {
-                permission?.Close();
-            }
-            catch (Exception failure)
-            {
-                failures.Add(failure);
-            }
             foreach (SourcePurgeFenceSession session in sessions)
             {
                 try
@@ -384,14 +376,6 @@ public sealed partial class ModuleRegistry
                 {
                     failures.Add(failure);
                 }
-            }
-            try
-            {
-                await statisticsHelpers.ConfigureAwait(false);
-            }
-            catch (Exception failure)
-            {
-                failures.Add(failure);
             }
             if (failures.Count == 0)
                 completion.TrySetResult();

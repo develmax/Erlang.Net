@@ -21,7 +21,7 @@ public sealed partial class ModuleRegistry
             // Add that actual Host boundary around the ALREADY selected body;
             // its inner canonical frame can borrow instead of exporting inputs
             // into hidden Host carriers. Do not redispatch or reselect an image.
-            boundary = context.EnterOwnedInvocation506(arguments, true)!;
+            boundary = OwnedTermInvocation506.CreatePublic414(context, arguments);
             selectedOwnsCode = true;
             Term result = await InvokeSelectedOwned506(
                 context,

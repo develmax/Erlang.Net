@@ -10,7 +10,9 @@ public sealed partial class RuntimeFunctionEntries
     internal void RegisterStoredSource(FunctionTerm function, IRuntimeStoredFunctionRecipe recipe)
     {
         storedSources.Add(function, recipe);
-        function.MarkRuntimeLocalTransferDescriptor();
+        function.MarkRuntimeLocalTransferDescriptor(
+            recipe is RestoredStoredFunctionRecipe restored ? restored.Identity : function.StoredLocalIdentity
+        );
     }
 
     internal bool TryCaptureStored(FunctionTerm function, out IRuntimeStoredFunctionRecipe? recipe)

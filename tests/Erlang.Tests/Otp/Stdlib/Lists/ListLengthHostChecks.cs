@@ -166,15 +166,16 @@ public static class ListLengthHostChecks
         if (compiled is not null)
             compiled.Definition.Register(runtime.Modules);
         else
-            await runtime.InitializeModulesAsync(registry =>
-            {
-                PreparedBeamImage image = registry.PrepareBeam(
-                    ReceiveLength484Checks.Read(ReceiveLength484Names.HostImage),
-                    new BeamDependencySelection([ErlangModuleNames.Module, ListLengthHostNames.Module])
-                );
-                if (registry.PublishPreparedBeam([image]).Status != BeamPublicationStatus.Published)
-                    throw new InvalidOperationException(ReceiveLength484Names.Failure);
-            });
+            await PreparedBeamFixtureImages825.PrepareAndPublishAsync(
+                runtime,
+                [ReceiveLength484Checks.Read(ReceiveLength484Names.HostImage)],
+                new BeamDependencySelection([ErlangModuleNames.Module, ListLengthHostNames.Module]),
+                (registry, images) =>
+                {
+                    if (registry.PublishPreparedBeam(images).Status != BeamPublicationStatus.Published)
+                        throw new InvalidOperationException(ReceiveLength484Names.Failure);
+                }
+            );
         await using var observer = new RuntimeNodeFoundationHostActor(runtime);
         await using var cleanup = new RuntimeNodeFoundationHostActor(runtime);
         var queue = new ListLengthYieldContext();

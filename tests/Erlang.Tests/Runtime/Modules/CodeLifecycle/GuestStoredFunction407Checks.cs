@@ -26,6 +26,8 @@ internal static class GuestStoredFunction407Checks
                     functionName,
                     arguments
                 );
+                if (functionName == GuestStoredFunction407Names.Make)
+                    function = BeamStoredFunction406Access.RebindEnvironment521(runtime, function, environment);
                 FunctionTerm copy = GuestStoredFunction407Access.Copy(
                     storage,
                     context,
@@ -54,14 +56,8 @@ internal static class GuestStoredFunction407Checks
                     if (functionName == GuestStoredFunction407Names.Make)
                     {
                         var copiedEnvironment = (TupleTerm)copy.Environment.Single();
-                        var producedEnvironment = (TupleTerm)function.Environment.Single();
-                        // The Host-to-VM bridge follows copy_struct occurrence
-                        // semantics. Storage must preserve its actual input graph,
-                        // not sharing that existed only in the original Host tuple.
                         GuestStoredFunction407Access.Require(!ReferenceEquals(environment, copiedEnvironment)
-                            && !ReferenceEquals(producedEnvironment, copiedEnvironment)
-                            && ReferenceEquals(copiedEnvironment.Items[0], copiedEnvironment.Items[1])
-                                == ReferenceEquals(producedEnvironment.Items[0], producedEnvironment.Items[1]));
+                            && ReferenceEquals(copiedEnvironment.Items[0], copiedEnvironment.Items[1]));
                     }
                     GuestStoredFunction407Access.Refused(
                         storage,

@@ -9,7 +9,8 @@ public static class PreparedBeamValidationChecks
         foreach (bool owned in new[] { false, true })
         {
             await using var runtime = NativeOwned516Profile.Create(owned);
-            await runtime.InitializeModulesAsync(Check);
+            await Erlang.Tests.PreparedBeamFixtureScope171.RunAsync(runtime, (registry, scope) =>
+                ValueTask.FromResult(Check(registry, scope)));
             byte[] expected = Convert.FromBase64String(NativeRecordBeamImages.Original);
             for (int replay = 0; replay < PreparedBeamValidationCaseNames.Replays; replay++)
             {
@@ -25,11 +26,11 @@ public static class PreparedBeamValidationChecks
         }
     }
 
-    private static void Check(ModuleRegistry registry)
+    private static Action<ModuleRegistry> Check(ModuleRegistry registry, Erlang.Tests.PreparedBeamFixtureScope171 scope)
     {
         byte[] source = Convert.FromBase64String(NativeRecordBeamImages.NativeRecordPhysical);
         var dependencies = new BeamDependencySelection([NativeRecordBeamCaseNames.Module, NativeRecordBeamCaseNames.Probe, ErlangModuleNames.Module]);
-        PreparedBeamImage image = registry.PrepareBeam(source, dependencies);
+        PreparedBeamImage image = scope.Prepare(() => registry.PrepareBeam(source, dependencies));
         BeamLinkedCode code = image.Code;
         BeamLinkedFunction entry = code.Exports.Single(function => function.Name == NativeRecordBeamCaseNames.Run);
         Require(PreparedBeamValidationCache.TryGet(code, out var proof) && proof!.HasSuccess(entry));
@@ -64,14 +65,15 @@ public static class PreparedBeamValidationChecks
         BeamLinkedCode changedDependencies = code with { RegistryModuleDependencies = FrozenSet<string>.Empty };
         Require(!PreparedBeamValidationCache.TryGet(changedDependencies, out _));
         RejectInvalid(() => BeamRegisterValidation.Validate(changedDependencies, entry));
-        PreparedBeamImage other = registry.PrepareBeam(Convert.FromBase64String(NativeRecordBeamImages.NativeRecordPhysical), dependencies);
+        PreparedBeamImage other = scope.Prepare(() => registry.PrepareBeam(Convert.FromBase64String(NativeRecordBeamImages.NativeRecordPhysical), dependencies));
         BeamLinkedFunction equalMfa = other.Code.Exports.Single(function => function.Name == entry.Name && function.Arity == entry.Arity);
         Require(!ReferenceEquals(code, other.Code) && entry == equalMfa && !ReferenceEquals(entry, equalMfa));
         Require(!proof!.HasSuccess(equalMfa));
         Require(PreparedBeamValidationCache.TryGet(other.Code, out var otherProof) && otherProof!.HasSuccess(equalMfa));
-        PreparedBeamImage probe = registry.PrepareBeam(Convert.FromBase64String(NativeRecordBeamImages.NativeRecordPhysicalProbe), dependencies);
-        PreparedBeamImage observer = registry.PrepareBeam(Convert.FromBase64String(NativeRecordBeamImages.NativeRecordPhysicalObserver), dependencies);
-        Require(registry.PublishPreparedBeam(image, probe, observer).Status == BeamPublicationStatus.Published);
+        PreparedBeamImage probe = scope.Prepare(() => registry.PrepareBeam(Convert.FromBase64String(NativeRecordBeamImages.NativeRecordPhysicalProbe), dependencies));
+        PreparedBeamImage observer = scope.Prepare(() => registry.PrepareBeam(Convert.FromBase64String(NativeRecordBeamImages.NativeRecordPhysicalObserver), dependencies));
+
+        return target => Require(target.PublishPreparedBeam(image, probe, observer).Status == BeamPublicationStatus.Published);
     }
 
     private static void RejectReadonly(Action action)

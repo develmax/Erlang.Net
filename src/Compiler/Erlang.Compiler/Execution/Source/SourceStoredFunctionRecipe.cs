@@ -67,6 +67,35 @@ internal sealed class SourceStoredFunctionRecipe : IRuntimeStoredFunctionRecipe,
         return recipe;
     }
 
+    internal static FunctionTerm CreatePublicReceiver414(
+        RuntimeFunctionEntries owner,
+        ModuleDefinition module,
+        LocalFunctionIdentity identity,
+        Expr.Fun? expression,
+        string? name,
+        IEnumerable<string> names,
+        ModuleCodeImage image,
+        int arity,
+        IReadOnlyList<Term> environment
+    )
+    {
+        // Bind only this function to actual receiver source code. Do not publish
+        // or overwrite any public factory or source-factory cell.
+        LocalFunctionIdentity previous = owner.GetCanonicalIdentityForHash(identity, arity);
+        identity = identity with { OldUnique = previous.OldUnique, LegacyIndex = previous.OldIndex };
+
+        return new SourceStoredFunctionRecipe(
+            owner,
+            module,
+            identity,
+            expression,
+            name,
+            names,
+            image,
+            arity
+        ).Create(environment);
+    }
+
     bool ICanonicalGuestRecipe507.AdmittedTo507(ProcessRuntime runtime) => ReferenceEquals(owner, runtime.Functions);
 
     public FunctionTerm Rebind(IReadOnlyList<Term> environment) => Create(environment);

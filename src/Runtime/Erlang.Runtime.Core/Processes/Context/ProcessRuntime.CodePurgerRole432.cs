@@ -40,48 +40,75 @@ public sealed partial class ProcessRuntime
             if (codePurgerClosed432 || sourceCodePurgerReservation432 is not null || !codePurgerRetirement432.IsCompletedSuccessfully) return false;
             sourceCodePurgerReservation432 = reservation;
             sourceCodePurgerImage432 = image;
-            try
+        }
+        try
+        {
+            var description = SequenceSpawnDescription.Module(
+                Term.A(module),
+                Term.A(function),
+                Nil.Value,
+                Nil.Value
+            );
+            while (true)
             {
-                handle = SpawnTraced(
-                    async child =>
-                {
-                    lock (gate)
-                    {
-                        if (!ReferenceEquals(sourceCodePurgerReservation432, reservation) || !ReferenceEquals(sourceCodePurger432, child))
-                            throw new InvalidOperationException(CodePurgerNames432.Invariant);
-                    }
-
-                    // Hibernate unwinds this body without ending the actual actor.
-                    return await BeamRegisterInterpreter.Execute(
-                        child,
-                        image.Code,
-                        function,
-                        arguments,
-                        image.ExecutionIdentity
-                    );
-                },
+                using var preparedTrace641 = SequenceTracing.PrepareLocalSpawnTrace641(
                     parent,
+                    description,
                     false,
-                    SequenceSpawnDescription.Module(
-                        Term.A(module),
-                        Term.A(function),
-                        Nil.Value,
-                        Nil.Value
-                    ),
-                    systemProcess: true
+                    true
                 );
-                sourceCodePurger432 = processes[handle.Pid];
-            }
-            catch
-            {
-                sourceCodePurger432 = null;
-                sourceCodePurgerImage432 = null;
-                sourceCodePurgerReservation432 = null;
-                throw;
+                lock (gate)
+                {
+                    RequireEtsFoundationActor(parent);
+                    parent.Cancellation.ThrowIfCancellationRequested();
+                    ObjectDisposedException.ThrowIf(codePurgerClosed432, this);
+                    if (!ReferenceEquals(sourceCodePurgerReservation432, reservation)
+                        || !ReferenceEquals(sourceCodePurgerImage432, image))
+                        throw new InvalidOperationException(CodePurgerNames432.Invariant);
+                    if (!preparedTrace641.IsCurrent()) continue;
+                    handle = SpawnTraced(
+                        async child =>
+                    {
+                        lock (gate)
+                        {
+                            if (!ReferenceEquals(sourceCodePurgerReservation432, reservation) || !ReferenceEquals(sourceCodePurger432, child))
+                                throw new InvalidOperationException(CodePurgerNames432.Invariant);
+                        }
+
+                        // Hibernate unwinds this body without ending the actual actor.
+                        return await BeamRegisterInterpreter.Execute(
+                            child,
+                            image.Code,
+                            function,
+                            arguments,
+                            image.ExecutionIdentity
+                        );
+                    },
+                        parent,
+                        false,
+                        description,
+                        systemProcess: true,
+                        preparedTrace641: preparedTrace641
+                    );
+                    sourceCodePurger432 = processes[handle.Pid];
+                }
+
+                return true;
             }
         }
-
-        return true;
+        catch
+        {
+            lock (gate)
+            {
+                if (handle is null && ReferenceEquals(sourceCodePurgerReservation432, reservation))
+                {
+                    sourceCodePurger432 = null;
+                    sourceCodePurgerImage432 = null;
+                    sourceCodePurgerReservation432 = null;
+                }
+            }
+            throw;
+        }
     }
 
     private void StartCodePurgerBeforeBoot432()

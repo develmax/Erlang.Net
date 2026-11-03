@@ -4,6 +4,8 @@ internal sealed class MailboxPolicyMoveClaim : IDisposable
 {
     internal object Node { get; }
     internal Term Value { get; }
+    internal SequenceTraceToken? Token { get; }
+    internal Term? RawToken { get; }
     internal MailboxEntryCustody593 Custody { get; }
     internal MailboxPolicyScan Scan { get; }
     internal long ScanRevision { get; }
@@ -15,11 +17,15 @@ internal sealed class MailboxPolicyMoveClaim : IDisposable
         MailboxEntryCustody593 custody,
         IDisposable operation,
         MailboxPolicyScan scan,
-        long revision
+        long revision,
+        SequenceTraceToken? token,
+        Term? rawToken
     )
     {
         Node = node;
         Value = value;
+        Token = token;
+        RawToken = rawToken;
         Custody = custody;
         this.operation = operation;
         Scan = scan;

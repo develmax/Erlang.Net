@@ -52,7 +52,10 @@ internal static unsafe class NifNativeBridgeFixedHostChecks
         Require(cons.Length == NifNativeBridgeFixedHostNames.ConsPointerCount);
         Require(Marshal.OffsetOf<NifNativeBridgeTable>(resources[0]).ToInt64() == NifNativeBridgeFixedHostNames.ResourceAppendOffset);
         Require(Marshal.OffsetOf<NifNativeBridgeTable>(cons[0]).ToInt64() == NifNativeBridgeFixedHostNames.ConsAppendOffset);
-        string[] fields = [.. prefix, .. extension, .. resources, .. cons, .. textTuple719];
+        string[] printf791 = [nameof(NifNativeBridgeTable.FormatTerm791)];
+        Require(printf791.Length == NifNativeBridgeFixedHostNames.PrintfPointerCount791);
+        Require(Marshal.OffsetOf<NifNativeBridgeTable>(printf791[0]).ToInt64() == NifNativeBridgeFixedHostNames.PrintfAppendOffset791);
+        string[] fields = [.. prefix, .. extension, .. resources, .. cons, .. textTuple719, .. printf791];
         Require(NifNativeBridgeFixedHostNames.MetadataBytes + fields.Length * sizeof(nint) == NifNativeBridgeFixedHostNames.ExpectedTableBytes);
         var pointers = (nint*)((byte*)&table + NifNativeBridgeFixedHostNames.MetadataBytes);
         for (int index = 0; index < fields.Length; index++)

@@ -109,7 +109,7 @@ public static class NifAllocationDomainHostChecks
         cancelled.Cancel();
         try
         {
-            library.InitializeWrongModule(descriptor, cancelled.Token);
+            await library.InitializeWrongModule(descriptor, cancelled.Token);
             throw new InvalidOperationException(NifAllocationDomainHostNames.UnexpectedInitialization);
         }
         catch (OperationCanceledException error) when (error.CancellationToken == cancelled.Token)
@@ -129,7 +129,7 @@ public static class NifAllocationDomainHostChecks
     )
     {
         await using var library = new NifAllocationDomainHostBridge(image, context);
-        library.InitializeWrongModule(descriptor);
+        await library.InitializeWrongModule(descriptor);
         nint pointer = library.Allocate(NifAllocationDomainHostParameters.FirstBlockBytes);
         Require(pointer != 0);
         Marshal.WriteByte(pointer, NifAllocationDomainHostParameters.FirstBlockBytes - 1, NifAllocationDomainHostParameters.PayloadMarker);
@@ -169,8 +169,8 @@ public static class NifAllocationDomainHostChecks
         var isolated = NifAllocationDomainHostBridge.Snapshot(otherRuntime);
         await using var first = new NifAllocationDomainHostBridge(image, context);
         await using var second = new NifAllocationDomainHostBridge(image, context);
-        first.InitializeWrongModule(descriptor);
-        second.InitializeWrongModule(descriptor);
+        await first.InitializeWrongModule(descriptor);
+        await second.InitializeWrongModule(descriptor);
         nint firstPointer = first.Allocate(NifAllocationDomainHostParameters.FirstBlockBytes);
         nint secondPointer = second.Allocate(NifAllocationDomainHostParameters.SecondBlockBytes);
         Require(firstPointer != 0 && secondPointer != 0);
@@ -202,8 +202,8 @@ public static class NifAllocationDomainHostChecks
     {
         await using var first = new NifAllocationDomainHostBridge(image, context);
         await using var second = new NifAllocationDomainHostBridge(image, context);
-        first.InitializeWrongModule(descriptor);
-        second.InitializeWrongModule(descriptor);
+        await first.InitializeWrongModule(descriptor);
+        await second.InitializeWrongModule(descriptor);
         var entered = new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);
         var release = new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);
         Task held = Task.Run(async () =>

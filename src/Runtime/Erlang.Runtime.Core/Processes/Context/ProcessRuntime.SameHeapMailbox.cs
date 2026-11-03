@@ -12,6 +12,7 @@ public sealed partial class ProcessRuntime
             || !ReferenceEquals(storage.Owner, context.TermHeap506)
             || !MailboxValueEscape.CanMaterialize(this, message))
             return false;
+        if (await TrySendTokenfulSelfOnHeapMailboxAsync(context, target, message).ConfigureAwait(false)) return true;
         long policy;
         lock (gate)
         {

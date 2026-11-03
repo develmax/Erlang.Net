@@ -4,6 +4,40 @@ namespace Erlang.NifNativeBackend;
 
 public static class DeferredMailboxBackingChecks
 {
+    public static Action PrepareDirtyTarget(ProcessContext context)
+    {
+        int prepared = 0, released = 0;
+        Term source = Term.Tuple(Term.A(MailboxBackingCaseNames.Tag),
+            Term.List(Term.Tuple(Term.A(MailboxBackingCaseNames.Tail), Term.I(7))));
+        object runtimeGate = DeferredMailboxBackingCaseNames.Gate(context.Runtime);
+        object mailboxGate = DeferredMailboxBackingCaseNames.Gate(context.Mailbox);
+        context.Runtime.QueueDeferredProcessSignal(
+            context,
+            () =>
+        {
+            CpuStatisticsAccess.Require(!Monitor.IsEntered(runtimeGate) && !Monitor.IsEntered(mailboxGate));
+            Interlocked.Increment(ref prepared);
+
+            return new DeferredMailboxAdmission(source);
+        },
+            () =>
+        {
+            CpuStatisticsAccess.Require(!Monitor.IsEntered(runtimeGate) && !Monitor.IsEntered(mailboxGate));
+            Interlocked.Increment(ref released);
+        }
+        );
+
+        return () =>
+        {
+            CpuStatisticsAccess.Require(Volatile.Read(ref prepared) == 1 && Volatile.Read(ref released) == 1);
+            var actual = MailboxBackingProbe.ReadSingle(context.Mailbox);
+            var storage = MailboxBackingProbe.Storage(actual.Value);
+            CpuStatisticsAccess.Require(storage is not null && ReferenceEquals(storage.Owner, context.TermHeap506));
+            CpuStatisticsAccess.Require(((ProcessTermHeap506)storage!.Owner).Snapshot.LivePayloadWords > 0
+                && actual.Work is not null && actual.Value.Equals(source));
+        };
+    }
+
     public static Task OnHeap() => Run(ProcessMessageQueueDataMode411.OnHeap, false);
 
     public static Task OffHeap() => Run(ProcessMessageQueueDataMode411.OffHeap, false);

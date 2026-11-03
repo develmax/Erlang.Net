@@ -10,6 +10,17 @@ internal static unsafe class NifWindowsVariadic526
     private static nint library;
     private static nint tuple;
     private static nint list;
+    private static nint snprintf791;
+
+    internal static nint Snprintf791
+    {
+        get
+        {
+            _ = EnsureRegistered();
+
+            return snprintf791;
+        }
+    }
 
     internal static (nint Tuple, nint List) EnsureRegistered()
     {
@@ -38,6 +49,7 @@ internal static unsafe class NifWindowsVariadic526
                 var register = (delegate* unmanaged[Cdecl]<NifWindowsVariadic526Table*, int>)NativeLibrary.GetExport(candidate, NifWindowsVariadic526Names.Register);
                 nint candidateTuple = NativeLibrary.GetExport(candidate, NifWindowsVariadic526Names.Tuple);
                 nint candidateList = NativeLibrary.GetExport(candidate, NifWindowsVariadic526Names.List);
+                nint candidateSnprintf791 = NativeLibrary.GetExport(candidate, NifWindowsVariadic526Names.Snprintf791);
                 var table = new NifWindowsVariadic526Table
                 {
                     Version = NifWindowsVariadic526Names.Version,
@@ -46,7 +58,8 @@ internal static unsafe class NifWindowsVariadic526
                     MaximumList = (uint)Array.MaxLength,
                     Tuple = &NifNativeArrayCallbacks.MakeTuple,
                     List = &NifNativeArrayCallbacks.MakeList,
-                    SystemLimit = &RaiseSystemLimit
+                    SystemLimit = &RaiseSystemLimit,
+                    FormatTerm791 = &NifNativePrintf791Callbacks.RenderTerm
                 };
                 if (register(&table) != 0)
                     throw new InvalidOperationException(NifWindowsVariadic526Names.ForeignRegistration);
@@ -54,6 +67,7 @@ internal static unsafe class NifWindowsVariadic526
                 // the existing Linux bridge, no image/env lifetime can free them.
                 tuple = candidateTuple;
                 list = candidateList;
+                snprintf791 = candidateSnprintf791;
                 library = candidate;
                 published = true;
 

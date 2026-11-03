@@ -93,6 +93,7 @@ internal sealed partial class ProcessTermHeap506
 
     internal ResourceBitsRead577 ReadResourceBits577(ProcessTermSequence506 block)
     {
+        if (LiteralDomain800 is { IsSealed800: true } domain) return ReadImmutableModuleBinary805(block, domain);
         lock (Gate)
         {
             ResourceBinaryDescriptor577 descriptor = RequireResourceBitsDescriptor577(block);
@@ -134,6 +135,12 @@ internal sealed partial class ProcessTermHeap506
 
     private ResourceBinaryDescriptor577 RequireResourceBitsDescriptor577(ProcessTermSequence506 block)
     {
+        if (LiteralDomain800 is { IsSealed800: true } domain)
+        {
+            using ModuleLiteralRead800 read = domain.EnterRead800(block);
+
+            return RequireImmutableModuleDescriptor805(block);
+        }
         if (!Monitor.IsEntered(Gate))
             throw new InvalidOperationException(CellStorage526Names.GateRequired);
         if (!ReferenceEquals(block.Owner, this))

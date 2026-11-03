@@ -13,7 +13,7 @@ internal sealed partial class ProcessTermHeap506
     internal bool IsLocalMapForPreparation517(MapTerm map)
     {
         lock (Gate)
-            return IsOwnedLocal(map);
+            return IsAuthenticatedLiteral801(map) || IsOwnedLocal(map);
     }
 
     internal static IEnumerable<Term> DirectConstructionChildren517(Term value) => value switch

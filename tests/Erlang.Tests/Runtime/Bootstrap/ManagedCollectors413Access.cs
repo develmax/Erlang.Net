@@ -70,18 +70,29 @@ internal static class ManagedCollectors413Access
     {
         var hashes = JsonSerializer.Deserialize<Dictionary<string, string>>(Resource(ManagedCollectors413Names.Manifest))!;
         Require(hashes.Count == 2);
-        await runtime.InitializeModulesAsync(registry =>
+        await global::Erlang.Tests.PreparedBeamFixtureScope171.RunAsync(
+            runtime,
+            (registry, scope) =>
         {
+            var images = new List<PreparedBeamImage>();
             foreach (string module in new[] { ManagedCollectors413Names.Literal, ManagedCollectors413Names.Trace })
             {
-                Require(!registry.HasExport(module, ManagedCollectors413Names.Start, 0));
                 byte[] bytes = Resource(module + ManagedCollectors413Names.Beam);
                 Require(Convert.ToHexString(SHA256.HashData(bytes)) == hashes[module + ManagedCollectors413Names.Beam]);
-                PreparedBeamImage image = registry.PrepareBeam(bytes, new BeamDependencySelection([ManagedCollectors413Names.Erlang, ManagedCollectors413Names.ErtsInternal]));
-                Require(image.NativePrimitiveExports.Count == 2);
-                Require(registry.PublishPreparedBeam(image).Status == BeamPublicationStatus.Published);
+                images.Add(scope.Prepare(() => registry.PrepareBeam(bytes, new BeamDependencySelection([ManagedCollectors413Names.Erlang, ManagedCollectors413Names.ErtsInternal]))));
             }
-        });
+
+            return ValueTask.FromResult<Action<ModuleRegistry>>(_ =>
+            {
+                foreach (PreparedBeamImage image in images)
+                {
+                    Require(!registry.HasExport(image.Name, ManagedCollectors413Names.Start, 0));
+                    Require(image.NativePrimitiveExports.Count == 2);
+                    Require(registry.PublishPreparedBeam(image).Status == BeamPublicationStatus.Published);
+                }
+            });
+        }
+        );
     }
 
     internal static ProcessHandle Spawn(ProcessRuntime runtime, ProcessContext parent, string module)

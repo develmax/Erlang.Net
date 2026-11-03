@@ -17,11 +17,15 @@ internal sealed partial class ProcessTermHeap506
         if (!Monitor.IsEntered(Gate) || !construction.Contains(source) || !CanOwnOrdinaryBinary(source)
             || !ReferenceEquals(prepared.Owner.Runtime, runtime))
             throw new InvalidOperationException(OrdinaryBinaryNames.Prepared);
+        if (LiteralDomain800 is not null && (!CanOwnModuleImmutableOrdinary805(source)
+            || prepared.Owner.IsWritable || prepared.Owner.WritableBinding is not null || prepared.CurrentWriter))
+            throw new InvalidOperationException(ModuleBinary805Names.Invalid);
         ResourceBitsRead577 read = source.CaptureResourceBits577();
         NativeOffheapHeader576? binRef = null;
         bool created = false;
         if (preserveOrigin && source.ResourceSliceOrigin577 is { } origin
-            && construction.Contains(origin) && TryGetResourceBitsDescriptor577(origin, out var original)
+            && construction.Contains(origin) && Storage(origin) is ProcessTermSequence506 originStorage
+            && ReferenceEquals(originStorage.Owner, this) && TryGetResourceBitsDescriptor577(origin, out var original)
             && ReferenceEquals(original!.BinRef.OrdinaryBinary, prepared.Owner))
             binRef = original.BinRef;
         WritableBinaryBinding? binding = prepared.Owner.WritableBinding;

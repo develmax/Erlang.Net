@@ -206,10 +206,10 @@ internal sealed partial class NativeResourceDomain524
 
     private void Run524()
     {
-        using var cpu = runtime.Statistics.UserCpu.Enter();
-        using var microstate = runtime.Statistics.Microstates.Attach(RuntimeMicrostateNames.Auxiliary, RuntimeMicrostate.Sleep);
         try
         {
+            using var cpu = runtime.Statistics.UserCpu.Enter();
+            using var microstate = runtime.Statistics.Microstates.Attach(RuntimeMicrostateNames.Auxiliary, RuntimeMicrostate.Sleep);
             while (true)
             {
                 signal.Wait();

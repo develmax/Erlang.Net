@@ -9,7 +9,9 @@ public static class NativeRecordBeamChecks
         foreach (bool owned in new[] { false, true })
         {
             await using var runtime = NativeOwned516Profile.Create(owned);
-            await runtime.InitializeModulesAsync(registry =>
+            await Erlang.Tests.PreparedBeamFixtureScope171.RunAsync(
+                runtime,
+                (registry, scope) =>
             {
                 var dependencies = new BeamDependencySelection([
                     NativeRecordBeamCaseNames.Module,
@@ -17,9 +19,20 @@ public static class NativeRecordBeamChecks
                     NativeRecordBeamCaseNames.Observer,
                     ErlangModuleNames.Module
                 ]);
-                foreach (string image in new[] { NativeRecordBeamImages.NativeRecordPhysical, NativeRecordBeamImages.NativeRecordPhysicalProbe, NativeRecordBeamImages.NativeRecordPhysicalObserver })
-                    Require(registry.PublishPreparedBeam(registry.PrepareBeam(Convert.FromBase64String(image), dependencies)).Status == BeamPublicationStatus.Published);
-            });
+                PreparedBeamImage[] images = new[]
+                {
+                    NativeRecordBeamImages.NativeRecordPhysical,
+                    NativeRecordBeamImages.NativeRecordPhysicalProbe,
+                    NativeRecordBeamImages.NativeRecordPhysicalObserver
+                }.Select(image => scope.Prepare(() => registry.PrepareBeam(Convert.FromBase64String(image), dependencies))).ToArray();
+
+                return ValueTask.FromResult<Action<ModuleRegistry>>(target =>
+                {
+                    foreach (PreparedBeamImage image in images)
+                        Require(target.PublishPreparedBeam(image).Status == BeamPublicationStatus.Published);
+                });
+            }
+            );
             Term actual = await CpuStatisticsAccess.Actor<Term>(
                 runtime,
                 async context => await runtime.Modules.Call(context, NativeRecordBeamCaseNames.Observer, NativeRecordBeamCaseNames.Run)

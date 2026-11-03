@@ -21,7 +21,7 @@ public sealed partial class ProcessRuntime
                 if (arguments[1] is not Atom flag || flag.Name is not (ErlangBooleanAtoms.True or ErlangBooleanAtoms.False))
                     throw new ErlangException(ErlangErrorReasons.BadArgument);
 
-                return DebugSharingCopy425.Copy(this, arguments[0], flag.Name == ErlangBooleanAtoms.True);
+                return DebugCopy377.Copy(context, arguments[0], flag.Name == ErlangBooleanAtoms.True);
             }
             ulong words = 0;
             if (!(context.OwnedExecutionEnabled683 && RuntimeActorExecutionTurn.IsOwnedBy(context)

@@ -95,8 +95,8 @@ public sealed partial class Mailbox
             foreach (var entry in messages)
                 if (!entry.Control && entry.Admission is null && !entry.Deferred
                     && (entry.TraceToken is not null || entry.DistributionTraceToken is not (null or Nil))
-                    && entry.Custody593?.RecipientFragment is { } fragment
-                    && (toOffHeap ? ReferenceEquals(fragment.HeapOwner, processHeap) : fragment.OwnsHeap))
+                    && (entry.Custody593?.RecipientFragment is not { } fragment
+                        || (toOffHeap ? ReferenceEquals(fragment.HeapOwner, processHeap) : fragment.OwnsHeap)))
                     return true;
 
         return false;
@@ -139,7 +139,6 @@ public sealed partial class Mailbox
             {
                 Entry entry = node.Value;
                 if (entry.Control || entry.Admission is not null || entry.Deferred || entry.ReceiveMarker is not null
-                    || entry.TraceToken is not null || entry.DistributionTraceToken is not (null or Nil)
                     || entry.Custody593 is not { } custody || custody.RecipientFragment is not { } fragment)
                     continue;
                 bool processOwned = ReferenceEquals(fragment.HeapOwner, processHeap);
@@ -151,7 +150,9 @@ public sealed partial class Mailbox
                     custody,
                     custody.BorrowOperation(),
                     scan,
-                    mutationRevision
+                    mutationRevision,
+                    entry.TraceToken,
+                    entry.DistributionTraceToken
                 );
             }
 
@@ -165,7 +166,8 @@ public sealed partial class Mailbox
         PreparedMailboxMessage prepared,
         MailboxPublicationScope593 publication,
         long revision,
-        bool toOffHeap
+        bool toOffHeap,
+        Term? portableRaw
     )
     {
         lock (gate)
@@ -174,12 +176,20 @@ public sealed partial class Mailbox
                 || MessageQueueData411 != (toOffHeap ? ProcessMessageQueueDataMode411.OffHeap : ProcessMessageQueueDataMode411.OnHeap)
                 || claim.Node is not LinkedListNode<Entry> node || !ReferenceEquals(node.List, messages)
                 || !ReferenceEquals(node.Value.Value, claim.Value) || !ReferenceEquals(node.Value.Custody593, claim.Custody)
+                || !ReferenceEquals(node.Value.TraceToken, claim.Token) || !ReferenceEquals(node.Value.DistributionTraceToken, claim.RawToken)
                 || node.Value.Control || node.Value.Admission is not null || node.Value.Deferred)
                 return false;
             MailboxEntryCustody593? next = PrepareCustody593(publication);
             if (next is null) throw new InvalidOperationException(MessageQueuePolicyParameters.Invalid);
             bool uncontendedScan = mutationRevision == claim.ScanRevision;
-            node.Value = node.Value with { Value = prepared.Value, Custody593 = next };
+            node.Value = node.Value with
+            {
+                Value = prepared.Value,
+                TraceToken = prepared.Token,
+                DistributionTraceToken = portableRaw,
+                PreserveTrace = portableRaw is not null && prepared.Token is not null ? false : node.Value.PreserveTrace,
+                Custody593 = next
+            };
             next.Publish();
             mutationRevision++;
             precedenceRevision++;

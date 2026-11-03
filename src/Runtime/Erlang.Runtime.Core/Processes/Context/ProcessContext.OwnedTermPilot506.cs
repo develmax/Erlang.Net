@@ -45,12 +45,26 @@ public sealed partial class ProcessContext
         return new(this, arguments, hostBoundary);
     }
 
+    // The VM root importer receives only the actual still-live resumed payload's
+    // module-literal custody. Existing Host/guest entry points stay unchanged.
+    internal OwnedTermInvocation506? EnterOwnedInvocationWithLiteral801(
+        IReadOnlyList<Term> arguments,
+        ModuleLiteralRoots801? carriedLiteral801
+    ) => !OwnedExecutionEnabled683 ? null : new(
+        this,
+        arguments,
+        false,
+        false,
+        carriedLiteral801
+    );
+
     internal Term OwnGuestResult506(Term value) => CurrentOwned506?.Frame.Retain(value) ?? value;
 
     internal void BeginOwnedTermRetirement506()
     {
         if (!VmStorageBackingEnabled)
             return;
+        SequentialTrace.Close();
         CloseGroupLeaderRoots();
         Dictionary.Close506();
         if (termHeap506 is { } heap)

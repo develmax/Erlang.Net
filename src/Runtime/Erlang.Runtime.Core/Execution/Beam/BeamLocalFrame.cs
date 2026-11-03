@@ -203,8 +203,54 @@ internal sealed partial class BeamLocalFrame : IDisposable
         }
     }
 
+    internal BeamLocalFrame CloneForReceive553(ProcessContext context)
+    {
+        if (!ReferenceEquals(context507, context) || roots507 is null)
+            return Clone();
+        var copy = new BeamLocalFrame(
+            Slots,
+            words504,
+            identity,
+            handlerCount,
+            context507
+        );
+        try
+        {
+            for (int index = 0; index < Slots; index++)
+            {
+                BeamRegisterSlot value = ReadSlot(index);
+                // Fresh managed/native cells are already uninitialized. A
+                // blank slot has no Term graph or mirror custody to publish.
+                if (value.Kind == BeamRegisterSlotKind.Uninitialized) continue;
+                if (value.Kind == BeamRegisterSlotKind.Term
+                    && roots507.TryShareCurrent553(index, value.ReadTerm(), copy.roots507!))
+                {
+                    if (copy.storage504 is null) copy.values![index] = value;
+                    else copy.storage504.Write(index, value.StoredValue504);
+                }
+                else
+                    copy.WriteRaw504(index, value);
+            }
+
+            return copy;
+        }
+        catch (Exception primary)
+        {
+            try
+            {
+                copy.Dispose();
+            }
+            catch (Exception cleanup)
+            {
+                throw new AggregateException(primary, cleanup);
+            }
+            throw;
+        }
+    }
+
     public void Dispose()
     {
+        Exception? storeFailure = null, rootFailure = null;
         try
         {
             if (storage504 is not null)
@@ -212,9 +258,19 @@ internal sealed partial class BeamLocalFrame : IDisposable
             else
                 Array.Clear(values!);
         }
-        finally
+        catch (Exception failure)
+        {
+            storeFailure = failure;
+        }
+        try
         {
             roots507?.Dispose();
         }
+        catch (Exception failure)
+        {
+            rootFailure = failure;
+        }
+        // Both actual releases ran before any aggregate allocation.
+        BeamRootFrame553.ThrowCleanup(storeFailure, rootFailure);
     }
 }

@@ -8,6 +8,11 @@ internal sealed class MailboxSnapshot601 : IDisposable
 {
     private readonly Term[] values;
     private readonly IMailboxRootInterest593?[] interests;
+    private readonly ModuleLiteralRoots801?[] literalRoots801;
+
+    internal ModuleLiteralRoots801? RetainLiteralRoots801()
+        => ModuleLiteralRoots801.RetainCombined801(literalRoots801.Take(count));
+
     private readonly Exception?[] failures;
     private int count, disposed;
     internal Exception? Failure { get; set; }
@@ -17,6 +22,7 @@ internal sealed class MailboxSnapshot601 : IDisposable
     internal MailboxSnapshot601(int capacity)
     {
         values = new Term[capacity];
+        literalRoots801 = new ModuleLiteralRoots801?[capacity];
         interests = new IMailboxRootInterest593?[capacity];
         failures = new Exception?[capacity];
     }
@@ -25,6 +31,17 @@ internal sealed class MailboxSnapshot601 : IDisposable
     internal void Add(Term value, MailboxGraphSnapshot593? graph)
     {
         IMailboxRootInterest593? interest = (IMailboxRootInterest593?)graph?.Retain();
+        try
+        {
+            literalRoots801[count] = graph?.LiteralRoots801?.Retain801();
+        }
+        catch
+        {
+            // The originating Entry still holds its graph, so this is not the
+            // final interest and cannot perform native retirement under M.
+            _ = interest?.ReleaseLast();
+            throw;
+        }
         values[count] = value;
         interests[count] = interest;
         count++;
@@ -71,6 +88,15 @@ internal sealed class MailboxSnapshot601 : IDisposable
             catch (Exception error)
             {
                 failures[index] = error;
+                failed = true;
+            }
+            try
+            {
+                Interlocked.Exchange(ref literalRoots801[index], null)?.Dispose();
+            }
+            catch (Exception error)
+            {
+                failures[index] = failures[index] is { } prior ? new AggregateException(prior, error) : error;
                 failed = true;
             }
             values[index] = Nil.Value;

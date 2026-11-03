@@ -42,6 +42,7 @@ internal static class MixedNif686Names
     internal const string ThrowPending = "ThrowPending";
     internal const string Failure = "Mixed authentic NIF environments lost the ordinary Host counter carrier.";
     internal const BindingFlags Members = BindingFlags.Instance | BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic;
+    internal const BindingFlags ConstructorMembers = BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic;
     internal static readonly TimeSpan Deadline = TimeSpan.FromSeconds(15);
     internal const string Source = """
 -module(mixed_source686).

@@ -334,7 +334,7 @@ internal static class AtomicsHost413Checks
     }
 
     [MethodImpl(MethodImplOptions.NoInlining)]
-    private static async Task<WeakReference> Dropped(ProcessRuntime runtime, RuntimeNodeFoundationHostActor actor)
+    private static async Task<(WeakReference Value, object Array)> Dropped(ProcessRuntime runtime, RuntimeNodeFoundationHostActor actor)
     {
         Term value = await AtomicsHost413Access.Call(
             actor,
@@ -344,15 +344,32 @@ internal static class AtomicsHost413Checks
             Nil.Value
         );
 
-        return new WeakReference(value);
+        object backing = value.GetType().GetProperty(AtomicsHost413Names.BackingRoot459, AtomicsHost413Names.Members)!.GetValue(value)!;
+        object array = backing.GetType().GetProperty(AtomicsHost413Names.Array, AtomicsHost413Names.Members)!.GetValue(backing)!;
+
+        return (new WeakReference(value), array);
     }
 
     internal static async Task GcNoGuestRoots()
     {
         await using var runtime = await AtomicsHost413Access.Create();
         await using var actor = new RuntimeNodeFoundationHostActor(runtime);
-        WeakReference weak = await Dropped(runtime, actor);
-        _ = await actor.Invoke(_ => true); // Replace actor's last native command closure before actual collection.
+        (WeakReference weak, object array) = await Dropped(runtime, actor);
+        // The original atomics module entered genuine BEAM execution. Its
+        // physical guest header is released by guest GC while the actor lives;
+        // CLR collection below is only for the independent escaped Host carrier.
+        _ = await actor.InvokeAsync(async context =>
+        {
+            AtomicsHost413Access.Require(GuestRoots459(array) > 0);
+            Term collected = await runtime.Modules.Call(
+                context,
+                AtomicsHost413Names.Runtime,
+                AtomicsHost413Names.GarbageCollect459
+            );
+            AtomicsHost413Access.Require(collected.Equals(Term.A(ErlangBooleanAtoms.True)) && GuestRoots459(array) == 0);
+
+            return true;
+        });
         using var deadline = new CancellationTokenSource(AtomicsHost413Names.Deadline);
         while (runtime.AtomicsStorage413.LiveArrays != 0)
         {
@@ -363,5 +380,12 @@ internal static class AtomicsHost413Checks
         }
         AtomicsHost413Access.Require(!weak.IsAlive && runtime.AtomicsStorage413.Created == runtime.AtomicsStorage413.Freed
             && runtime.AtomicsStorage413.OwnedNativeBytes == 0);
+    }
+
+    private static long GuestRoots459(object array)
+    {
+        object gate = array.GetType().GetField(AtomicsHost413Names.BackingGate459, AtomicsHost413Names.Members)!.GetValue(array)!;
+        lock (gate)
+            return (long)array.GetType().GetField(AtomicsHost413Names.GuestRoots459, AtomicsHost413Names.Members)!.GetValue(array)!;
     }
 }

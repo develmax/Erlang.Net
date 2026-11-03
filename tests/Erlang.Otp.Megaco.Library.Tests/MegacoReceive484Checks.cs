@@ -67,17 +67,31 @@ internal static class MegacoReceive484Checks
     )
     {
         await using var runtime = new ProcessRuntime();
-        await runtime.InitializeModulesAsync(registry =>
+        await global::Erlang.Tests.PreparedBeamFixtureScope171.RunAsync(
+            runtime,
+            (registry, scope) =>
         {
-            PreparedBeamImage whole = registry.PrepareBeam(
+            PreparedBeamImage whole = scope.Prepare(() => registry.PrepareBeam(
                 Erlang.Otp.OtpMegaco.ReadImage(MegacoModule),
                 new BeamDependencySelection(Imports)
-            );
-            Require(registry.PublishPreparedBeam([whole]).Status == BeamPublicationStatus.Published);
-            Require(registry.Exports.Where(export => export.Module == MegacoModule)
+            ));
+            var dependencies = new BeamDependencySelection(Imports);
+            PreparedBeamImage[] images = imageNames.Select(name => scope.Prepare(() => registry.PrepareBeam(Read(name), dependencies))).ToArray();
+
+            return ValueTask.FromResult<Action<ModuleRegistry>>(_ =>
+            {
+                Require(registry.PublishPreparedBeam([whole]).Status == BeamPublicationStatus.Published);
+                Require(registry.Exports.Where(export => export.Module == MegacoModule)
                 .All(export => ReferenceEquals(registry.SourceOwner(export.Module, export.Function, export.Arity), whole)));
-            Publish(registry, imageNames);
-        });
+                Require(registry.PublishPreparedBeam(images).Status == BeamPublicationStatus.Published);
+                foreach (PreparedBeamImage image in images)
+                {
+                    var exports = registry.Exports.Where(export => export.Module == image.Name).ToArray();
+                    Require(exports.Length != 0 && exports.All(export => ReferenceEquals(registry.SourceOwner(export.Module, export.Function, export.Arity), image)));
+                }
+            });
+        }
+        );
         var completed = new TaskCompletionSource<Term>(TaskCreationOptions.RunContinuationsAsynchronously);
         var actor = runtime.Spawn(async context =>
         {

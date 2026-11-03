@@ -80,14 +80,17 @@ public sealed partial class ProcessRuntime
                 {
                     preparation.Add(error);
                 }
-                lock (gate)
-                    FinishTermination(
-                        continuation.Process,
-                        continuation.Reason,
-                        preparation,
-                        continuation,
-                        continuation.Origin641
-                    );
+                if (continuation.Sequence641 is not null)
+                    await FinishPreparedSequenceContinuation(continuation, preparation).ConfigureAwait(false);
+                else
+                    lock (gate)
+                        FinishTermination(
+                            continuation.Process,
+                            continuation.Reason,
+                            preparation,
+                            continuation,
+                            continuation.Origin641
+                        );
             }
             await continuation.LocalCleanup.Task.ConfigureAwait(false);
             localCleanupCompleted = true;
@@ -129,6 +132,16 @@ public sealed partial class ProcessRuntime
         }
         finally
         {
+            try
+            {
+                if (continuation.Sequence641 is { } sequence)
+                    await sequence.RetireAsync().ConfigureAwait(false);
+            }
+            catch (Exception sequenceFailure)
+            {
+                failure = failure is null ? sequenceFailure : new AggregateException(failure, sequenceFailure);
+            }
+            continuation.Sequence641 = null;
             continuation.Origin641?.Close641();
             try
             {

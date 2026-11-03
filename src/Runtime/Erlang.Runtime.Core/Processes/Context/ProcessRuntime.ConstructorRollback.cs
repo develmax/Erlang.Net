@@ -51,6 +51,14 @@ public sealed partial class ProcessRuntime
             }
         }).ToArray();
         Task.WhenAll(settled).GetAwaiter().GetResult();
+        try
+        {
+            CloseEmptyTuple803().GetAwaiter().GetResult();
+        }
+        catch (Exception failure)
+        {
+            failures.Enqueue(failure);
+        }
 
         return RuntimeWorkerStartupFailure.Combine(failures);
 
@@ -106,6 +114,14 @@ public sealed partial class ProcessRuntime
             }
         }).ToArray();
         Task.WhenAll(settled).GetAwaiter().GetResult();
+        try
+        {
+            CloseEmptyTuple803().GetAwaiter().GetResult();
+        }
+        catch (Exception failure)
+        {
+            failures.Enqueue(failure);
+        }
 
         return RuntimeWorkerStartupFailure.Combine(failures);
 

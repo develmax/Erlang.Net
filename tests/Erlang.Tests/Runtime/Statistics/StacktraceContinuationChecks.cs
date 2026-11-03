@@ -25,12 +25,17 @@ internal static class StacktraceContinuationChecks
                 StacktraceContinuationNames.SchedulerCount,
                 options
             );
-            await runtime.InitializeModulesAsync(registry =>
+            await PreparedBeamFixtureScope171.RunAsync(
+                runtime,
+                (registry, scope) =>
             {
-                PreparedBeamImage image = registry.PrepareBeam(beam, new BeamDependencySelection(
-                    [StacktraceContinuationNames.Module, ErlangModuleNames.Module]));
-                Require(registry.PublishPreparedBeam(image).Status == BeamPublicationStatus.Published);
-            });
+                PreparedBeamImage image = scope.Prepare(() => registry.PrepareBeam(beam, new BeamDependencySelection(
+                    [StacktraceContinuationNames.Module, ErlangModuleNames.Module])));
+
+                return ValueTask.FromResult<Action<ModuleRegistry>>(target =>
+                    Require(target.PublishPreparedBeam(image).Status == BeamPublicationStatus.Published));
+            }
+            );
             await using var actor = new RuntimeNodeFoundationHostActor(runtime);
             foreach ((string mode, int index) in new[] { (StacktraceContinuationNames.Same, 0), (StacktraceContinuationNames.Distinct, 1) })
             {

@@ -55,15 +55,7 @@ public sealed partial class ModuleRegistry
         RuntimeProcessPayload641? resumedArguments641 = null
     )
     {
-        if (callback is TupleTerm { Items: [Atom module, Atom function] })
-            return CallVmMfaRoot641(
-                context,
-                module.Name,
-                function.Name,
-                arguments,
-                resumedArguments641
-            );
-        if (callback is FunctionTerm callable
+        if (callback is FunctionTerm callable && callable.Arity == arguments.Count
             && RuntimeStoredFunctionRecipes.TryCaptureTransfer506(context.Runtime, callable, out var recipe)
             && recipe is ICanonicalGuestRecipe507 admitted && admitted.AdmittedTo507(context.Runtime))
         {
@@ -107,6 +99,42 @@ public sealed partial class ModuleRegistry
 
             return Nil.Value;
         }
+        catch (ErlangException error) when (resumed is not null)
+        {
+            using var atoms = new AtomNameScope(context.Runtime.AtomNames);
+            // Error graphs may embed dynamic native values or module literals.
+            // Capture before the genuine resumed producer releases its custody.
+            Term reason = error.ExceptionClass == ErlangExceptionClasses.Exit ? error.Reason
+                : Term.Tuple(
+                    error.ExceptionClass == ErlangExceptionClasses.Throw
+                    ? Term.Tuple(Term.A(ErlangErrorReasons.NoCatch), error.Reason) : error.Reason,
+                    error.StackTraceTerm
+                );
+            RuntimeProcessPayload641 captured = RuntimeProcessPayload641.PrepareWithLiteral814(
+                context.Runtime,
+                context,
+                reason,
+                resumed.Graph641?.LiteralRoots801
+            );
+            ProcessVmFailure641 failure;
+            try
+            {
+                failure = new ProcessVmFailure641(context, captured);
+            }
+            catch (Exception allocationFailure)
+            {
+                try
+                {
+                    captured.Close641();
+                }
+                catch (Exception cleanupFailure)
+                {
+                    throw new AggregateException(allocationFailure, cleanupFailure);
+                }
+                throw;
+            }
+            throw failure;
+        }
         finally
         {
             resumed?.Close641();
@@ -134,8 +162,13 @@ public sealed partial class ModuleRegistry
                 throw new InvalidOperationException(RuntimeProcessPayloadNames641.Invalid);
             payload = RuntimeProcessPayload641.Reserve641(context.Runtime, context);
             failure = new ProcessVmFailure641(context, payload); // BEFORE native capture
-            root = context.EnterOwnedInvocation506(arguments)!;
-            FunctionTerm? rootedCallable = callable is null ? null : (FunctionTerm)root.HoldGuestResult507(callable);
+            root = context.EnterOwnedInvocationWithLiteral801(
+                arguments,
+                resumed?.Graph641?.LiteralRoots801
+            )!;
+            FunctionTerm? rootedCallable = callable is null ? null : (FunctionTerm)(resumed is null
+                ? root.HoldGuestResult507(callable)
+                : root.HoldGuestResultWithLiteral801(callable, resumed.Graph641?.LiteralRoots801));
             // New real frame owns resumed inputs before the old producer ends.
             resumed?.Close641();
             resumed = null;

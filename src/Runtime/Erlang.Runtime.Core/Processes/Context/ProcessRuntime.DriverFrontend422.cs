@@ -67,13 +67,10 @@ public sealed partial class ProcessRuntime
         out ErlangFunction body
     )
     {
-        body = null!;
-        if (module != DdllParentAtoms422.Module)
-            return false;
         lock (gate)
         {
-            if (driverFrontend422 is null || driverFrontendClosing422)
-                return false;
+            body = null!;
+            if (module != DdllParentAtoms422.Module || driverFrontend422 is null || driverFrontendClosing422) return false;
 
             return driverFrontend422.CreateDdllBodies().TryGetValue((function, arity), out body!);
         }

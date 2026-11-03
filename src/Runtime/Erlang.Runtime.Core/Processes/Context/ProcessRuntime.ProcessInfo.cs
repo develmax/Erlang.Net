@@ -30,25 +30,20 @@ public sealed partial class ProcessRuntime
                 observedTarget601 = process;
                 process.DeferredSignalDrain?.RequireSafeNestedWait();
                 process.PendingInfoRequests.Add(request);
-                process.Mailbox.SendPending(
-                    Nil.Value,
-                    () =>
+                if (keys.Any(key => key.Name == ProcessBinaryInfo823Names.Binary))
+                    QueueBinaryInfo823(process, request);
+                else
                 {
-                    lock (gate)
-                        if (process.PendingInfoRequests.Remove(request))
-                        {
-                            FillProcessInfoSnapshot601(
-                                request.Snapshot601,
-                                target,
-                                request.Keys,
-                                request.Singleton
-                            );
-                            PublishProcessInfoReply601(request, process.Self);
-                        }
-
-                    return null;
+                    process.Mailbox.SendPending(
+                        Nil.Value,
+                        new PendingProcessInfoAdmission817(
+                            this,
+                            process,
+                            target,
+                            request
+                        ).Callback
+                    );
                 }
-                );
             }
             // Keep servicing this requester's control signals while waiting.
             // Two ordinary actors may query one another simultaneously.
