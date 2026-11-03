@@ -47,7 +47,7 @@ jobs:
         run: |
           set -euo pipefail
           python3 -B tools/Runtime/Erlang.SchedulerAffinityOriginalObservations/build-original.py \
-            --repository "$GITHUB_WORKSPACE" --manifest-sha256 AF66E1F362A150627C876DA933E0890918438475EEE72D86D58B6BAECCA59AF1 \
+            --repository "$GITHUB_WORKSPACE" --manifest-sha256 AEBBA0D2DCF97E1248CA38407E8EBE628EB08F9EA4D13F48EC0C83A7A0364E61 \
             --expected-head "$GITHUB_SHA" --otp-source "$GITHUB_WORKSPACE/artifacts/nif-entry-otp-source" \
             --prefix "$GITHUB_WORKSPACE/artifacts/nif-entry-otp" \
             --output "$GITHUB_WORKSPACE/artifacts/nif-map-size-original/runtime-build" \
