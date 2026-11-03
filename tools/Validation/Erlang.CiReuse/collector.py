@@ -111,6 +111,11 @@ def collect(root, fingerprint, job):
     for run in current_runs:
         if run.get("path") in REQUIRED and run.get("conclusion") in ("failure", "timed_out", "cancelled", "action_required"):
             raise ValueError("Existing unsuccessful merge validation requires full validation: " + str(run["id"]))
+        if run.get("path") in REQUIRED and str(run.get("id")) != os.environ.get("GITHUB_RUN_ID"):
+            if run.get("status") != "completed" or run.get("conclusion") != "success":
+                raise ValueError("Other merge validation is incomplete or ambiguous")
+    if os.environ.get("GITHUB_RUN_ATTEMPT") != "1":
+        raise ValueError("Repeated merge attempt requires full validation")
     parents = git(root, "show", "-s", "--format=%P", commit).split()
     if len(parents) != 2:
         raise ValueError("Only an ordinary two-parent merge can reuse PR evidence")
@@ -133,8 +138,8 @@ def collect(root, fingerprint, job):
         if any(run.get("path") in REQUIRED and run.get("conclusion") != "success" for run in history):
             raise ValueError("Earlier equivalent-tree validation is unsuccessful or incomplete")
     runs = api.pages("actions/runs?head_sha=" + urllib.parse.quote(head), "workflow_runs")
-    if any(run.get("path") in REQUIRED and run.get("conclusion") in ("failure", "timed_out", "cancelled", "action_required") for run in runs):
-        raise ValueError("Unsuccessful tested-head evidence requires full validation")
+    if any(run.get("path") in REQUIRED and (run.get("status") != "completed" or run.get("conclusion") != "success") for run in runs):
+        raise ValueError("Unsuccessful or incomplete tested-head evidence requires full validation")
     selected = []
     for path in REQUIRED:
         matches = [run for run in runs if run.get("path") == path and run.get("event") in EVENTS[path]]

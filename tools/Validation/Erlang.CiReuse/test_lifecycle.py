@@ -16,6 +16,20 @@ from test_policy import fixture
 
 
 class WorkflowLifecycleTests(unittest.TestCase):
+    def test_other_incomplete_merge_run_is_not_ignored(self):
+        class API:
+            def __init__(self, repository, token):
+                pass
+
+            def pages(self, path, key=None):
+                return [dict(id=89, path=".github/workflows/validate.yml", status="in_progress", conclusion=None)]
+
+        env = dict(GITHUB_EVENT_NAME="push", GITHUB_REF="refs/heads/main", GITHUB_SHA="merge",
+                   GITHUB_REPOSITORY="owner/repo", GH_TOKEN="test-only", GITHUB_RUN_ID="90", GITHUB_RUN_ATTEMPT="1")
+        with patch.dict(os.environ, env), patch.object(collector, "GitHub", API):
+            with self.assertRaisesRegex(ValueError, "incomplete or ambiguous"):
+                collector.collect(Path("."), {}, "local-regressions")
+
     def test_existing_merge_failure_cannot_reuse_old_pr_success(self):
         class API:
             def __init__(self, repository, token):
@@ -62,7 +76,7 @@ class WorkflowLifecycleTests(unittest.TestCase):
 
                 def pages(self, path, key=None):
                     if path == "actions/runs?head_sha=merge":
-                        return []
+                        return [dict(id=100, path=".github/workflows/validate.yml", status="in_progress", conclusion=None)]
                     if path == "actions/runs?head_sha=prior":
                         return [dict(path=".github/workflows/validate.yml", conclusion="failure")]
                     if path == "commits/merge/pulls":
