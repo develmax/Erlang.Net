@@ -57,6 +57,12 @@
       "Bytes": 178
     },
     {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Drivers/NativeDriverPortRegistry422.Children.cs",
+      "HashMode": "TextLF",
+      "Sha256": "33FE4FDCD7E363F072D26ACD444685EA518C402CFC3650906BE6AC5BE5A399DD",
+      "Bytes": 6099
+    },
+    {
       "Path": "src/Runtime/Erlang.Runtime.Core/Native/Drivers/NativeDriverPortRegistry422.Lifetime.cs",
       "HashMode": "TextLF",
       "Sha256": "182BEB024477A026A35AE45EAD1570890AE54B67539ED2EDE04234252310DD41",
@@ -309,6 +315,18 @@
       "Bytes": 1321
     },
     {
+      "Path": "tools/Validation/Erlang.AsyncMicrostateValidation/AsyncChildRollbackChecks.cs",
+      "HashMode": "TextLF",
+      "Sha256": "7FF0EDF7A86B03E53DE4510C38FDA6CC0935EDB16EFE32C81F3895C64F82A67F",
+      "Bytes": 17124
+    },
+    {
+      "Path": "tools/Validation/Erlang.AsyncMicrostateValidation/AsyncChildRollbackNames.cs",
+      "HashMode": "TextLF",
+      "Sha256": "4379C9634BED255EF0A8FE22DF2EB4107F5A1534BB24748E82DE52F850DDDBBC",
+      "Bytes": 2251
+    },
+    {
       "Path": "tools/Validation/Erlang.AsyncMicrostateValidation/AsyncDriverPositiveChecks.cs",
       "HashMode": "TextLF",
       "Sha256": "3DB45BA27392497A14A3F54F34BC604BCDD1D84BF9B6AE3F891361ACE1190B5E",
@@ -365,14 +383,14 @@
     {
       "Path": "tools/Validation/Erlang.AsyncMicrostateValidation/Program.cs",
       "HashMode": "TextLF",
-      "Sha256": "A478C0352695FC5A495E4FA06C48587C8054E246B76447BF8DB373C3D7C886B7",
-      "Bytes": 5900
+      "Sha256": "41CEB971EAC42EB7AD5083751445DA7A974DE213E021F9481B74D949FC86A3EE",
+      "Bytes": 5999
     },
     {
       "Path": "tools/Validation/Erlang.AsyncMicrostateValidation/README.md",
       "HashMode": "TextLF",
-      "Sha256": "87C9DD0A34883694D2D95DF4E2046F54FE16A84D9F77B3C7C20E4F5FA5C24754",
-      "Bytes": 6692
+      "Sha256": "98925590A40A92D92C465FC8FA70B6C08CE2E3C03C0A8FDF23F2B15ADF3042AA",
+      "Bytes": 7156
     },
     {
       "Path": "tools/Validation/Erlang.AsyncMicrostateValidation/RemoteMsaccNegativeChecks.cs",
@@ -389,8 +407,8 @@
     {
       "Path": "tools/Validation/Erlang.AsyncMicrostateValidation/collect.py",
       "HashMode": "Raw",
-      "Sha256": "36FA3ACEF524C0198166D19CA37B757C4BF483D63D9FC7E78F7A4FAB3E160604",
-      "Bytes": 17750
+      "Sha256": "A6B7A08511B533EFE063C017428134299F3FFC7479FAC612FB5AE742872E7FC5",
+      "Bytes": 17919
     },
     {
       "Path": "tools/Validation/Erlang.AsyncMicrostateValidation/fixtures/async_cross_port1307.erl",
@@ -478,7 +496,8 @@
     "public-queued-ack-close",
     "component-child-exit",
     "component-wrong-epoch",
-    "original-queued-port-close-A1"
+    "original-queued-port-close-A1",
+    "component-child-reservation-rollback"
   ],
   "Profiles": [
     "Windows-x64-Debug",

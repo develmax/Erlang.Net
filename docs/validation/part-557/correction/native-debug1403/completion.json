@@ -1,0 +1,364 @@
+{
+  "Passed": true,
+  "Configuration": "Debug",
+  "PlanSha256": "8A7394B9D8EED33029D7683CBE67B71689EACF834A9DB826326A902F49ED133F",
+  "ExecutionTools": {
+    "dotnet": {
+      "Path": "C:\\Program Files\\dotnet\\dotnet.exe",
+      "Sha256": "AB1B71FD3DD71062E074C9FAB8312081A81B7F2B3E0327C48C4D249C8D1A3135",
+      "Bytes": 167208
+    },
+    "cmd": {
+      "Path": "C:\\Windows\\System32\\cmd.exe",
+      "Sha256": "BADF4752413CB0CBDC03FB95820CA167F0CDC63B597CCDB5EF43111180E088B0",
+      "Bytes": 289792
+    },
+    "vswhere": {
+      "Path": "C:\\Program Files (x86)\\Microsoft Visual Studio\\Installer\\vswhere.exe",
+      "Sha256": "C54F3B7C9164EA9A0DB8641E81ECDDA80C2664EF5A47C4191406F848CC07C662",
+      "Bytes": 469456
+    },
+    "vcvars": {
+      "Path": "C:\\Program Files\\Microsoft Visual Studio\\18\\Community\\VC\\Auxiliary\\Build\\vcvars64.bat",
+      "Sha256": "6B516D8FCF543C14B2D861E1F45661E0029230FE0DC48E86CE78522801822209",
+      "Bytes": 39
+    },
+    "compiler": {
+      "Path": "C:\\Program Files\\Microsoft Visual Studio\\18\\Community\\VC\\Tools\\MSVC\\14.51.36231\\bin\\Hostx64\\x64\\cl.exe",
+      "Sha256": "E6D57100C82AE0310C18B16ABFE52BC0DF8FBB272CA6C5FB287D485807CFCE91",
+      "Bytes": 893328
+    },
+    "compiler-ancillary": {
+      "Path": "C:\\Program Files\\Microsoft Visual Studio\\18\\Community\\VC\\Tools\\MSVC\\14.51.36231\\bin\\Hostx64\\x64\\vctip.exe",
+      "Sha256": "A364877CF54ED47727A5EE6C3E2989F7A416DC00199DC99B885CAF641D500C0E",
+      "Bytes": 514488
+    }
+  },
+  "Stages": [
+    {
+      "Name": "vswhere",
+      "Passed": true,
+      "Process": {
+        "Command": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Installer\\vswhere.exe",
+          "-latest",
+          "-products",
+          "*",
+          "-requires",
+          "Microsoft.VisualStudio.Component.VC.Tools.x86.x64",
+          "-property",
+          "installationPath"
+        ],
+        "Pid": 52992,
+        "ExitCode": 0,
+        "ElapsedSeconds": 0.10899999999674037,
+        "TimedOut": false,
+        "ForcedCleanup": false,
+        "ActiveProcessesAfter": 0,
+        "ResourcesClosed": true,
+        "Errors": [],
+        "TotalProcesses": 2,
+        "UserCpuSeconds": 0.015625,
+        "KernelCpuSeconds": 0.015625,
+        "PeakJobCommitBytes": 10301440,
+        "PeakProcessCommitBytes": 6672384,
+        "StdoutSha256": "B4A0D87F781F41EEA676CA53971351757A2EA9DF0F254E6E93D326D60E611500",
+        "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+      }
+    },
+    {
+      "Name": "fixture-native",
+      "Passed": true,
+      "Process": {
+        "Command": [
+          "C:\\Windows\\System32\\cmd.exe",
+          "/d",
+          "/c",
+          "D:\\Distr\\Work\\Codex\\Erlang.Net\\w546\\artifacts\\statistics-full\\main-gc825-integration36\\workspace\\artifacts\\async-child-final-debug1403\\1240508325c54d01a72ce9c1c599f49c\\compile-fixture.cmd"
+        ],
+        "Pid": 42840,
+        "ExitCode": 0,
+        "ElapsedSeconds": 1.452999999979511,
+        "TimedOut": false,
+        "ForcedCleanup": true,
+        "ActiveProcessesAfter": 0,
+        "ResourcesClosed": true,
+        "Errors": [],
+        "TotalProcesses": 39,
+        "UserCpuSeconds": 0.625,
+        "KernelCpuSeconds": 0.8125,
+        "PeakJobCommitBytes": 89235456,
+        "PeakProcessCommitBytes": 34689024,
+        "CompilerRetirement": {
+          "PolicyVersion": 1,
+          "Kind": "DeclaredMSVCCompilerAncillary",
+          "Success": true,
+          "Disposition": "DeclaredAncillaryRetirement",
+          "OutputBeforeRetirement": {
+            "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\w546\\artifacts\\statistics-full\\main-gc825-integration36\\workspace\\artifacts\\async-child-final-debug1403\\1240508325c54d01a72ce9c1c599f49c\\fixtures\\async_msacc1127_drv.dll",
+            "Bytes": 12800,
+            "Sha256": "93DEF6E7227ED5EC5A1506544F12A576C39B0E81D4B4FA0F912884892435582F"
+          },
+          "ObservedJobPids": [
+            18952
+          ],
+          "NaturalDescendantsExit": false,
+          "TerminationRequested": true,
+          "InspectionHandleClosed": true,
+          "Pid": 18952,
+          "Image": "C:\\Program Files\\Microsoft Visual Studio\\18\\Community\\VC\\Tools\\MSVC\\14.51.36231\\bin\\Hostx64\\x64\\vctip.exe",
+          "ImageSha256": "A364877CF54ED47727A5EE6C3E2989F7A416DC00199DC99B885CAF641D500C0E",
+          "MembershipVerified": true,
+          "RequestedExitCode": 3758166664,
+          "ObservedExitCode": 3758166664,
+          "JobActiveAfterRetirement": 0,
+          "OutputAfterRetirement": {
+            "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\w546\\artifacts\\statistics-full\\main-gc825-integration36\\workspace\\artifacts\\async-child-final-debug1403\\1240508325c54d01a72ce9c1c599f49c\\fixtures\\async_msacc1127_drv.dll",
+            "Bytes": 12800,
+            "Sha256": "93DEF6E7227ED5EC5A1506544F12A576C39B0E81D4B4FA0F912884892435582F"
+          }
+        },
+        "NaturalDescendantsExit": false,
+        "StdoutSha256": "4453809CF5F8213F987745651F18384C586D4D08D21C75BB571FDDC6FCE86C6B",
+        "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+      }
+    },
+    {
+      "Name": "fixture-beam",
+      "Passed": true,
+      "Process": {
+        "Command": [
+          "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library376-official-compiler\\installed\\bin\\erlc.exe",
+          "+debug_info",
+          "-o",
+          "D:\\Distr\\Work\\Codex\\Erlang.Net\\w546\\artifacts\\statistics-full\\main-gc825-integration36\\workspace\\artifacts\\async-child-final-debug1403\\1240508325c54d01a72ce9c1c599f49c\\fixtures",
+          "D:\\Distr\\Work\\Codex\\Erlang.Net\\w546\\artifacts\\statistics-full\\main-gc825-integration36\\workspace\\artifacts\\async-child-final-debug1403\\1240508325c54d01a72ce9c1c599f49c\\fixtures\\async_msacc1127.erl"
+        ],
+        "Pid": 37208,
+        "ExitCode": 0,
+        "ElapsedSeconds": 0.5320000000065193,
+        "TimedOut": false,
+        "ForcedCleanup": false,
+        "ActiveProcessesAfter": 0,
+        "ResourcesClosed": true,
+        "Errors": [],
+        "TotalProcesses": 3,
+        "UserCpuSeconds": 0.4375,
+        "KernelCpuSeconds": 0.09375,
+        "PeakJobCommitBytes": 47083520,
+        "PeakProcessCommitBytes": 39399424,
+        "StdoutSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+        "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+      }
+    },
+    {
+      "Name": "fixture-queued-port-beam",
+      "Passed": true,
+      "Process": {
+        "Command": [
+          "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library376-official-compiler\\installed\\bin\\erlc.exe",
+          "+debug_info",
+          "-o",
+          "D:\\Distr\\Work\\Codex\\Erlang.Net\\w546\\artifacts\\statistics-full\\main-gc825-integration36\\workspace\\artifacts\\async-child-final-debug1403\\1240508325c54d01a72ce9c1c599f49c\\fixtures",
+          "D:\\Distr\\Work\\Codex\\Erlang.Net\\w546\\artifacts\\statistics-full\\main-gc825-integration36\\workspace\\artifacts\\async-child-final-debug1403\\1240508325c54d01a72ce9c1c599f49c\\fixtures\\async_cross_port1307.erl"
+        ],
+        "Pid": 67600,
+        "ExitCode": 0,
+        "ElapsedSeconds": 0.40599999998812564,
+        "TimedOut": false,
+        "ForcedCleanup": false,
+        "ActiveProcessesAfter": 0,
+        "ResourcesClosed": true,
+        "Errors": [],
+        "TotalProcesses": 3,
+        "UserCpuSeconds": 0.375,
+        "KernelCpuSeconds": 0.109375,
+        "PeakJobCommitBytes": 48001024,
+        "PeakProcessCommitBytes": 40501248,
+        "StdoutSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+        "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+      }
+    },
+    {
+      "Name": "original-A1",
+      "Passed": true,
+      "Process": {
+        "Command": [
+          "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library376-official-compiler\\installed\\bin\\erl.exe",
+          "+S",
+          "2:2",
+          "+A",
+          "1",
+          "-noshell",
+          "-noinput",
+          "-pa",
+          "D:\\Distr\\Work\\Codex\\Erlang.Net\\w546\\artifacts\\statistics-full\\main-gc825-integration36\\workspace\\artifacts\\async-child-final-debug1403\\1240508325c54d01a72ce9c1c599f49c\\fixtures",
+          "-s",
+          "async_msacc1127",
+          "main",
+          "-extra",
+          "D:\\Distr\\Work\\Codex\\Erlang.Net\\w546\\artifacts\\statistics-full\\main-gc825-integration36\\workspace\\artifacts\\async-child-final-debug1403\\1240508325c54d01a72ce9c1c599f49c\\fixtures",
+          "D:\\Distr\\Work\\Codex\\Erlang.Net\\w546\\artifacts\\statistics-full\\main-gc825-integration36\\workspace\\artifacts\\async-child-final-debug1403\\1240508325c54d01a72ce9c1c599f49c\\original-A1.etf"
+        ],
+        "Pid": 14480,
+        "ExitCode": 0,
+        "ElapsedSeconds": 0.48399999999674037,
+        "TimedOut": false,
+        "ForcedCleanup": false,
+        "ActiveProcessesAfter": 0,
+        "ResourcesClosed": true,
+        "Errors": [],
+        "TotalProcesses": 2,
+        "UserCpuSeconds": 0.21875,
+        "KernelCpuSeconds": 0.03125,
+        "PeakJobCommitBytes": 57389056,
+        "PeakProcessCommitBytes": 50716672,
+        "StdoutSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+        "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+      }
+    },
+    {
+      "Name": "original-A2",
+      "Passed": true,
+      "Process": {
+        "Command": [
+          "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library376-official-compiler\\installed\\bin\\erl.exe",
+          "+S",
+          "2:2",
+          "+A",
+          "2",
+          "-noshell",
+          "-noinput",
+          "-pa",
+          "D:\\Distr\\Work\\Codex\\Erlang.Net\\w546\\artifacts\\statistics-full\\main-gc825-integration36\\workspace\\artifacts\\async-child-final-debug1403\\1240508325c54d01a72ce9c1c599f49c\\fixtures",
+          "-s",
+          "async_msacc1127",
+          "main",
+          "-extra",
+          "D:\\Distr\\Work\\Codex\\Erlang.Net\\w546\\artifacts\\statistics-full\\main-gc825-integration36\\workspace\\artifacts\\async-child-final-debug1403\\1240508325c54d01a72ce9c1c599f49c\\fixtures",
+          "D:\\Distr\\Work\\Codex\\Erlang.Net\\w546\\artifacts\\statistics-full\\main-gc825-integration36\\workspace\\artifacts\\async-child-final-debug1403\\1240508325c54d01a72ce9c1c599f49c\\original-A2.etf"
+        ],
+        "Pid": 6136,
+        "ExitCode": 0,
+        "ElapsedSeconds": 0.46900000001187436,
+        "TimedOut": false,
+        "ForcedCleanup": false,
+        "ActiveProcessesAfter": 0,
+        "ResourcesClosed": true,
+        "Errors": [],
+        "TotalProcesses": 2,
+        "UserCpuSeconds": 0.25,
+        "KernelCpuSeconds": 0.078125,
+        "PeakJobCommitBytes": 57511936,
+        "PeakProcessCommitBytes": 50835456,
+        "StdoutSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+        "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+      }
+    },
+    {
+      "Name": "original-queued-port-close-A1",
+      "Passed": true,
+      "Process": {
+        "Command": [
+          "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library376-official-compiler\\installed\\bin\\erl.exe",
+          "+S",
+          "2:2",
+          "+A",
+          "1",
+          "-noshell",
+          "-noinput",
+          "-pa",
+          "D:\\Distr\\Work\\Codex\\Erlang.Net\\w546\\artifacts\\statistics-full\\main-gc825-integration36\\workspace\\artifacts\\async-child-final-debug1403\\1240508325c54d01a72ce9c1c599f49c\\fixtures",
+          "-s",
+          "async_cross_port1307",
+          "main",
+          "-extra",
+          "D:\\Distr\\Work\\Codex\\Erlang.Net\\w546\\artifacts\\statistics-full\\main-gc825-integration36\\workspace\\artifacts\\async-child-final-debug1403\\1240508325c54d01a72ce9c1c599f49c\\fixtures",
+          "D:\\Distr\\Work\\Codex\\Erlang.Net\\w546\\artifacts\\statistics-full\\main-gc825-integration36\\workspace\\artifacts\\async-child-final-debug1403\\1240508325c54d01a72ce9c1c599f49c\\original-queued-port-close.etf"
+        ],
+        "Pid": 58604,
+        "ExitCode": 0,
+        "ElapsedSeconds": 0.23399999999674037,
+        "TimedOut": false,
+        "ForcedCleanup": false,
+        "ActiveProcessesAfter": 0,
+        "ResourcesClosed": true,
+        "Errors": [],
+        "TotalProcesses": 2,
+        "UserCpuSeconds": 0.171875,
+        "KernelCpuSeconds": 0.078125,
+        "PeakJobCommitBytes": 57487360,
+        "PeakProcessCommitBytes": 50790400,
+        "StdoutSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+        "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+      }
+    },
+    {
+      "Name": "observer-build",
+      "Passed": true,
+      "Process": {
+        "Command": [
+          "C:\\Program Files\\dotnet\\dotnet.exe",
+          "build",
+          "D:\\Distr\\Work\\Codex\\Erlang.Net\\w546\\artifacts\\statistics-full\\main-gc825-integration36\\workspace\\tools\\Validation\\Erlang.AsyncMicrostateValidation\\Erlang.AsyncMicrostateValidation.csproj",
+          "-c",
+          "Debug",
+          "-m:1",
+          "-nodeReuse:false",
+          "-p:UseSharedCompilation=false",
+          "-p:ReviewedPackageRoot=D:\\Distr\\Work\\Codex\\Erlang.Net\\artifacts\\batch825\\driverhost-rollback-final1400-Debug\\package",
+          "--nologo"
+        ],
+        "Pid": 56832,
+        "ExitCode": 0,
+        "ElapsedSeconds": 3.4059999999881256,
+        "TimedOut": false,
+        "ForcedCleanup": false,
+        "ActiveProcessesAfter": 0,
+        "ResourcesClosed": true,
+        "Errors": [],
+        "TotalProcesses": 4,
+        "UserCpuSeconds": 4.578125,
+        "KernelCpuSeconds": 0.75,
+        "PeakJobCommitBytes": 207597568,
+        "PeakProcessCommitBytes": 143847424,
+        "StdoutSha256": "C5BD3F5F24DCE7FADB1D5688E20DA02AF85476F89F7F43C549D519260B6840D6",
+        "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+      }
+    },
+    {
+      "Name": "observer-execute",
+      "Passed": true,
+      "Process": {
+        "Command": [
+          "C:\\Program Files\\dotnet\\dotnet.exe",
+          "exec",
+          "--fx-version",
+          "10.0.11",
+          "--roll-forward",
+          "Disable",
+          "D:\\Distr\\Work\\Codex\\Erlang.Net\\w546\\artifacts\\statistics-full\\main-gc825-integration36\\workspace\\tools\\Validation\\Erlang.AsyncMicrostateValidation\\bin\\Debug\\net10.0\\Erlang.AsyncMicrostateValidation.dll",
+          "D:\\Distr\\Work\\Codex\\Erlang.Net\\w546\\artifacts\\statistics-full\\main-gc825-integration36\\workspace\\artifacts\\async-child-final-debug1403\\1240508325c54d01a72ce9c1c599f49c\\inputs.json",
+          "D:\\Distr\\Work\\Codex\\Erlang.Net\\w546\\artifacts\\statistics-full\\main-gc825-integration36\\workspace\\artifacts\\async-child-final-debug1403\\1240508325c54d01a72ce9c1c599f49c\\observations.json"
+        ],
+        "Pid": 17500,
+        "ExitCode": 0,
+        "ElapsedSeconds": 11.828000000008615,
+        "TimedOut": false,
+        "ForcedCleanup": false,
+        "ActiveProcessesAfter": 0,
+        "ResourcesClosed": true,
+        "Errors": [],
+        "TotalProcesses": 18,
+        "UserCpuSeconds": 15.390625,
+        "KernelCpuSeconds": 2.015625,
+        "PeakJobCommitBytes": 113156096,
+        "PeakProcessCommitBytes": 93057024,
+        "StdoutSha256": "D27809A8015913F759DCCB896263691C21A7C4924660D896E02C1EFD158DC60B",
+        "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+      }
+    }
+  ],
+  "Errors": [],
+  "Scope": "Actual Windows child async; same original native fixture, seven independent cases including queued unrelated-port close. No raw topology/timing/fullstatistics or Linux claim"
+}

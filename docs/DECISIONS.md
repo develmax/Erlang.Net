@@ -1,3 +1,11 @@
+# Part557 corrected local checkpoint (2026-11-03)
+
+PR103 head1a60b9ea has passed its LinuxGC825/N1/integrated/resource gates but failed Windows pre-SDK raw transport admission. Both that failure and the actionable review finding are retained. The corrected code now settles unprepared-child logical/physical closure and releases actual reason custody using shared terminal cleanup, without fabricated native stop flags.
+
+Final local results: native8/8 EACH Debug/Release; affected101/101 EACH profile; both13904-input builds;83 runtimefiles stable per regression. Complete Git dependency checkout16993 verifies461raw rows/81nativeinputs and ALL13focused+combinedMFA/native+Resource checks. Four exactraw transport rules preserve bytes; no normalization/mode weakening. Current monitor selects new461snapshot; oldhistory remains byteexact.
+
+Counts stay708registered/180full/504pending/24known; erlang351/83/255/13; API/full deltas0/0. Whole statistics, in-flightRPC cancellation, persistentpoll, defaulttopology andLinuxDriverHost remain open. Corrected publication-headCI/currentreview/merge are still required. Previous checkpoints below retain their original historicalscope.
+
 # Current decisions - Part557 (local gates complete, 2026-11-03)
 
 Part556 is merged at main099042a95b429eed11a5a37482a21277bafeced3; post-merge CI41600159974 is green. Part557 is a separate locally validated increment and is not yet published/merged.

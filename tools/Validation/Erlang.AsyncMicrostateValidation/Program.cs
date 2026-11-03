@@ -152,6 +152,10 @@ await Case(
     AsyncQueuedPortCloseNames.CaseName,
     () => AsyncQueuedPortCloseChecks.Run(input)
 );
+await Case(
+    AsyncChildRollbackNames.CaseName,
+    () => AsyncChildRollbackChecks.Run(input)
+);
 File.WriteAllText(
     args[AsyncObservationProgramNames.ReportArgumentIndex],
     JsonSerializer.Serialize(

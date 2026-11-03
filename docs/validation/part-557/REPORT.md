@@ -1,3 +1,5 @@
+Current correction: [review and Windows transport results](correction/REPORT.md). Earlier checkpoint below is historical.
+
 # Part 557 — Native async accounting and logical port close
 
 Local Windows validation and final integrated source admissions are complete for the bounded scenarios below. Publication, exact committed checkout admission, exact-head CI, current review and merge remain separate required gates. API and full-contract deltas are **0 / 0**. The complete statistics contract is not accepted.

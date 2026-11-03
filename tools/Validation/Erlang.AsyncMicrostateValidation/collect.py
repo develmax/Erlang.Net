@@ -112,6 +112,8 @@ def main():
             queued_original_ready=False
             skipped("original-queued-port-close-A1",["fixture-native","fixture-queued-port-beam"])
         unavailable={}
+        if not native_ready:
+            unavailable["component-child-reservation-rollback"]="Fixture native prerequisite failed"
         if not queued_original_ready:
             unavailable["original-queued-port-close-A1"]="Required original queued-port close or native/BEAM preparation failed"
         for count in [1,2]:
@@ -142,7 +144,7 @@ def main():
         setting=dict(QueuedPortCloseBeam=str(fixtures/"async_cross_port1307.beam"),OriginalQueuedPortClose=str(queued_original),QueuedPortCloseOwnEtf=str(out/"own-queued-port-close.etf"),UnavailableCases=unavailable,ObserverAssemblyPath=str(dll),PackageManifest=str(package),DdllBeam=str(repo/"src/Otp/Original/Foundation/Erlang.Otp.Kernel.Beam/Otp/ebin/erl_ddll.beam"),ObserverBeam=str(fixtures/"async_msacc1127.beam"),DriverDirectory=str(fixtures),OriginalA1=str(out/"original-A1.etf"),OriginalA2=str(out/"original-A2.etf"),Configuration=args.configuration,Guards=[dict(Path=p,Sha256=h)for p,h in sorted(guards.items())],AssemblyGuards=[dict(Name=f,Sha256=sha(package.parent/f))for f in ["Erlang.Runtime.dll","Erlang.Terms.dll","Erlang.Serialization.dll","Erlang.Otp.Stdlib.dll"]])
         save(out/"inputs.json",setting)
         stage("observer-execute",[dotnet,"exec","--fx-version","10.0.11","--roll-forward","Disable",dll,out/"inputs.json",out/"observations.json"],cwd=repo,timeout=300)
-        observation=json.loads((out/"observations.json").read_bytes());need(observation["Passed"] and [c["Name"] for c in observation["Cases"]] == ["original-driver-A1","original-driver-A2","public-queued-ack-cancel","public-queued-ack-close","component-child-exit","component-wrong-epoch","original-queued-port-close-A1"] and all(c["Passed"]for c in observation["Cases"]) and not observation["Errors"],"Mandatory independent observations failed")
+        observation=json.loads((out/"observations.json").read_bytes());need(observation["Passed"] and [c["Name"] for c in observation["Cases"]] == ["original-driver-A1","original-driver-A2","public-queued-ack-cancel","public-queued-ack-close","component-child-exit","component-wrong-epoch","original-queued-port-close-A1","component-child-reservation-rollback"] and all(c["Passed"]for c in observation["Cases"]) and not observation["Errors"],"Mandatory independent observations failed")
     except Exception as error:errors.append(dict(Stage="composition",Error=repr(error)))
     finally:
         for name,row in execution_tools.items():
