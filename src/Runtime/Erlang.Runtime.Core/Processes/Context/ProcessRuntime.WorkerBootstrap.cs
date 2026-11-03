@@ -11,5 +11,6 @@ public sealed partial class ProcessRuntime
         // before starting any worker so partial startup always has a close path.
         dirtyNative419 = new(dirtyIoSchedulerCount522, Statistics.Microstates, workerCreation);
         dirtyNative419.EnsureWallTimeReady(CancellationToken.None).GetAwaiter().GetResult();
+        StartDescriptorPolling558();
     }
 }

@@ -2,9 +2,14 @@ using System.Runtime.InteropServices;
 
 namespace Erlang;
 
-internal sealed class DescriptorPortStream(int descriptor, bool readable) : Stream
+internal sealed class DescriptorPortStream(
+    int descriptor,
+    bool readable,
+    LinuxDescriptorPollService descriptorPolling
+) : Stream
 {
-    private bool disposed;
+    private readonly LinuxDescriptorPollOwner pollOwner = descriptorPolling.RegisterBorrowed(descriptor);
+    private int disposed;
     public override bool CanRead => readable;
     public override bool CanWrite => !readable;
     public override bool CanSeek => false;
@@ -43,23 +48,11 @@ internal sealed class DescriptorPortStream(int descriptor, bool readable) : Stre
 
     private async Task Ready(short events, CancellationToken cancellation)
     {
-        while (true)
-        {
-            cancellation.ThrowIfCancellationRequested();
-            ObjectDisposedException.ThrowIf(disposed, this);
-            var state = new DescriptorPollState { Descriptor = descriptor, Events = events };
-            int result = poll(ref state, 1, 0);
-            if (result > 0)
-            {
-                if ((state.Returned & DescriptorPortParameters.PollInvalid) != 0)
-                    throw new NativePortIOException(LinuxPortParameters.BadDescriptor);
-
-                return;
-            }
-            if (result < 0 && Marshal.GetLastPInvokeError() != LinuxPortParameters.Interrupted)
-                throw new NativePortIOException(Marshal.GetLastPInvokeError());
-            await Task.Delay(DescriptorPortParameters.PollIntervalMilliseconds, cancellation);
-        }
+        cancellation.ThrowIfCancellationRequested();
+        ObjectDisposedException.ThrowIf(Volatile.Read(ref disposed) != 0, this);
+        await descriptorPolling.WaitReadyAsync(pollOwner, events, cancellation).ConfigureAwait(false);
+        cancellation.ThrowIfCancellationRequested();
+        ObjectDisposedException.ThrowIf(Volatile.Read(ref disposed) != 0, this);
     }
 
     private unsafe (int Count, int Error) Transfer(Memory<byte> buffer, bool read)
@@ -74,7 +67,8 @@ internal sealed class DescriptorPortStream(int descriptor, bool readable) : Stre
 
     protected override void Dispose(bool disposing)
     {
-        disposed = true;
+        if (Interlocked.Exchange(ref disposed, 1) == 0)
+            _ = pollOwner.BeginRetire();
         base.Dispose(disposing);
     }
 
@@ -88,6 +82,4 @@ internal sealed class DescriptorPortStream(int descriptor, bool readable) : Stre
 
     public override void SetLength(long value) => throw new NotSupportedException();
 
-    [DllImport(LinuxPortParameters.Library, SetLastError = true)]
-    private static extern int poll(ref DescriptorPollState descriptors, nuint count, int timeout);
 }

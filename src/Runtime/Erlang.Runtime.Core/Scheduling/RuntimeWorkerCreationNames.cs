@@ -2,6 +2,7 @@ namespace Erlang;
 
 internal static class RuntimeWorkerCreationNames
 {
+    internal const string Poll = "poll";
     internal const string Normal = "normal";
     internal const string DirtyCpu = "dirty-cpu";
     internal const string DirtyIo = "dirty-io";

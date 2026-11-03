@@ -2,7 +2,14 @@ namespace Erlang;
 
 public sealed partial class ProcessRuntime
 {
-    private async ValueTask FinishSequenceDisposeDrains(Task? haltWait)
+    private ValueTask FinishSequenceDisposeDrains(Task? haltWait)
+    {
+        Task core = FinishSequenceDisposeDrainsCore(haltWait).AsTask();
+
+        return new(JoinDescriptorPollingShutdown558(core));
+    }
+
+    private async ValueTask FinishSequenceDisposeDrainsCore(Task? haltWait)
     {
         if (haltWait is not null)
         {

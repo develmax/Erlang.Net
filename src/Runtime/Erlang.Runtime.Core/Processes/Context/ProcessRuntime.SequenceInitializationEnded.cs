@@ -19,7 +19,7 @@ public sealed partial class ProcessRuntime
                 }
                 finally
                 {
-                    RetireSequenceShutdownAsync().GetAwaiter().GetResult();
+                    JoinDescriptorPollingShutdown558(RetireSequenceShutdownAsync().AsTask()).GetAwaiter().GetResult();
                 }
             }
             finally

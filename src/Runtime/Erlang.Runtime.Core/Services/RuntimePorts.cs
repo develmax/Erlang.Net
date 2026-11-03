@@ -30,7 +30,7 @@ internal sealed partial class RuntimePorts(ProcessRuntime runtime, object gate)
             PortChildProcess process;
             try
             {
-                process = PortChildProcess.Start(options);
+                process = PortChildProcess.Start(options, runtime.DescriptorPolling558);
             }
             catch (Win32Exception exception)
             {

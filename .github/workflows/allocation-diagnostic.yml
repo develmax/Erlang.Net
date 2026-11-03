@@ -1,42 +1,61 @@
-name: Windows hash allocation diagnostics
+name: Linux final poll custody and original descriptor comparison
 on:
   workflow_dispatch:
 permissions:
   contents: read
+concurrency:
+  group: poll-final558-${{ github.ref }}
+  cancel-in-progress: false
 jobs:
-  diagnostics:
-    runs-on: windows-latest
-    timeout-minutes: 15
+  linux-final-poll-custody:
+    runs-on: ubuntu-latest
+    timeout-minutes: 80
     env:
-      DOTNET_PROCESSOR_COUNT: 2
+      PYTHONDONTWRITEBYTECODE: '1'
+      DOTNET_CLI_TELEMETRY_OPTOUT: '1'
+      MSBUILDDISABLENODEREUSE: '1'
+      DOTNET_CLI_USE_MSBUILD_SERVER: '0'
     steps:
       - uses: actions/checkout@v7
         with:
+          ref: ${{ github.sha }}
+          fetch-depth: 2
+          sparse-checkout: |
+            .github/workflows
+            src/Runtime
+            src/Compiler
+            src/Otp/Managed
+            src/Otp/Original/Foundation/Erlang.Otp.Erts.Beam
+            tools/Native/Erlang.PortProbe
+            tools/Validation/Erlang.Differential
+            tools/Validation/Erlang.DescriptorPollVmValidation
+            tools/Validation/Erlang.DescriptorPollIntegratedValidation
+            tools/Validation/Erlang.DescriptorPollFdValidation
           persist-credentials: false
+      - name: Verify exact final source tree and complete materialized compile inputs
+        run: python3 -B tools/Validation/Erlang.DescriptorPollVmValidation/verify-ci.py
       - uses: actions/setup-dotnet@v6
         with:
           global-json-file: global.json
-      - name: Build current-head reference assemblies and diagnostic
-        shell: pwsh
+      - name: Require exact CLR profile
+        shell: bash
         run: |
-          New-Item -ItemType Directory -Path artifacts/allocation-diagnostic -Force | Out-Null
-          dotnet build tests/Erlang.Tests -m:1 --disable-build-servers *> artifacts/allocation-diagnostic/tests-build.log
-          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
-          dotnet build tools/Runtime/Erlang.AllocationDiagnostic -m:1 --disable-build-servers *> artifacts/allocation-diagnostic/helper-build.log
-          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
-      - name: Capture eight bounded fresh diagnostic processes
-        shell: pwsh
+          set -euo pipefail
+          if ! dotnet --list-runtimes | grep -F 'Microsoft.NETCore.App 10.0.11 '; then
+            curl --fail --location --retry 2 https://dot.net/v1/dotnet-install.sh -o "$RUNNER_TEMP/poll-final558-dotnet-install.sh"
+            bash "$RUNNER_TEMP/poll-final558-dotnet-install.sh" --runtime dotnet --version 10.0.11 --install-dir "$DOTNET_ROOT" --no-path
+          fi
+          dotnet --list-runtimes | grep -F 'Microsoft.NETCore.App 10.0.11 '
+      - name: Collect all54 final-source controls with one original provider
+        shell: bash
         run: |
-          $taskRows = @()
-          for ($taskIndex = 0; $taskIndex -lt 8; $taskIndex++) {
-            $taskReport = "artifacts/allocation-diagnostic/fresh-$taskIndex.json"
-            $taskResult = & ./tools/Runtime/Erlang.AllocationDiagnostic/Run-DiagnosticProcess.ps1 -Executable dotnet -Arguments @('tools/Runtime/Erlang.AllocationDiagnostic/bin/Debug/net10.0/Erlang.AllocationDiagnostic.dll', $taskReport) -Prefix "artifacts/allocation-diagnostic/fresh-$taskIndex"
-            $taskRows += [pscustomobject]@{ Index=$taskIndex; Complete=$taskResult.Complete; TimedOut=$taskResult.TimedOut; StillAlive=$taskResult.StillAlive; ExitCode=$taskResult.ExitCode; LaunchError=$taskResult.LaunchError; Report=$taskReport }
-          }
-          [pscustomobject]@{ HarnessCommit=$env:GITHUB_SHA; RunId=$env:GITHUB_RUN_ID; RunAttempt=$env:GITHUB_RUN_ATTEMPT; Job=$env:GITHUB_JOB; Rows=$taskRows; Failed267RuntimeDllBindingAvailable=$false; OriginalBudget=4096; IsCiRetry=$false; CauseProven=$false } | ConvertTo-Json -Depth 8 | Set-Content artifacts/allocation-diagnostic/run-provenance.json
-          if ($taskRows.Where({ -not $_.Complete -or $_.TimedOut -or $_.StillAlive -or $null -ne $_.LaunchError -or $_.ExitCode -ne 0 }).Count -gt 0) { exit 1 }
-      - uses: actions/upload-artifact@v7
+          python3 -B tools/Validation/Erlang.DescriptorPollVmValidation/run-ci.py --expected-head "$GITHUB_SHA" --expected-src-tree 773dc5159bf5ce42fa5c37bc2d2df09f8ffab68c --output artifacts/poll-final1589
+      - name: Always retain all actual outcomes, inputs and preparation logs
+        uses: actions/upload-artifact@v7
         if: always()
         with:
-          name: windows-hash-allocation-diagnostics
-          path: artifacts/allocation-diagnostic
+          name: descriptor-poll-final558-${{ github.sha }}
+          if-no-files-found: error
+          path: |
+            artifacts/poll-final1589/*.json
+            artifacts/poll-final1589/*.log
