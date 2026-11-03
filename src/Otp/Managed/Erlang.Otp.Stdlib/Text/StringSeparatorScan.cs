@@ -20,7 +20,8 @@ internal static class StringSeparatorScan
         BitString binary,
         Term continuation,
         HashSet<Term> separators,
-        bool member
+        bool member,
+        StringBinarySearchBuffer buffer
     )
     {
         var patterns = new List<byte[]>();
@@ -34,11 +35,11 @@ internal static class StringSeparatorScan
         {
             if (member)
             {
-                byte[] bytes = rest.ToArray();
+                ReadOnlyMemory<byte> bytes = buffer.Read(rest);
                 int position = -1;
                 foreach (byte[] pattern in patterns)
                 {
-                    int candidate = bytes.AsSpan().IndexOf(pattern);
+                    int candidate = bytes.Span.IndexOf(pattern);
                     if (candidate >= 0 && (position < 0 || candidate < position))
                     {
                         position = candidate;

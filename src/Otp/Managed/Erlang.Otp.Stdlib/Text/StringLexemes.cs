@@ -27,6 +27,7 @@ internal static class StringLexemes
         }
         var separators = Cons.Items(separatorList).ToHashSet();
         var result = new List<Term>();
+        var buffer = new StringBinarySearchBuffer([]);
         while (true)
         {
             bool listBinary = input is Cons { Head: BitString };
@@ -43,7 +44,8 @@ internal static class StringLexemes
                     binary,
                     continuation,
                     separators,
-                    false
+                    false,
+                    buffer
                 );
                 if (!scan.Found)
                 {
@@ -74,18 +76,33 @@ internal static class StringLexemes
                 }
                 if (number > 1)
                 {
-                    input = await Skip(context, next.Tail, separators);
+                    input = await Skip(
+                        context,
+                        next.Tail,
+                        separators,
+                        buffer
+                    );
                     number--;
                     continue;
                 }
             }
             if (number > 1)
             {
-                input = await Skip(context, input, separators);
+                input = await Skip(
+                    context,
+                    input,
+                    separators,
+                    buffer
+                );
                 number--;
                 continue;
             }
-            var picked = (TupleTerm)await Pick(context, input, separators);
+            var picked = (TupleTerm)await Pick(
+                context,
+                input,
+                separators,
+                buffer
+            );
             if (number is not null)
             {
                 return picked.Items[0];
@@ -107,7 +124,12 @@ internal static class StringLexemes
             Nil.Value
         );
 
-    private static async ValueTask<Term> Pick(ProcessContext context, Term input, HashSet<Term> separators)
+    private static async ValueTask<Term> Pick(
+        ProcessContext context,
+        Term input,
+        HashSet<Term> separators,
+        StringBinarySearchBuffer buffer
+    )
     {
         var firstCodepoints = await StringSeparatorScan.FirstCodepoints(context, separators);
         Term reverse = Nil.Value;
@@ -127,7 +149,8 @@ internal static class StringLexemes
                     binary,
                     continuation,
                     separators,
-                    true
+                    true,
+                    buffer
                 );
                 if (!scan.Found)
                 {
@@ -172,7 +195,12 @@ internal static class StringLexemes
         }
     }
 
-    private static async ValueTask<Term> Skip(ProcessContext context, Term input, HashSet<Term> separators)
+    private static async ValueTask<Term> Skip(
+        ProcessContext context,
+        Term input,
+        HashSet<Term> separators,
+        StringBinarySearchBuffer buffer
+    )
     {
         var firstCodepoints = await StringSeparatorScan.FirstCodepoints(context, separators);
         while (true)
@@ -191,7 +219,8 @@ internal static class StringLexemes
                     binary,
                     continuation,
                     separators,
-                    true
+                    true,
+                    buffer
                 );
                 if (!scan.Found)
                 {

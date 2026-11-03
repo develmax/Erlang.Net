@@ -178,4 +178,4 @@ Append numbered English entries only to the last volume. Start the next sequenti
 
 - [0102.md](docs/changelog/0102.md) - Parts555–559 compressed ETS, library compatibility and documentation integration (closed; continues in0103)
 
-- [0103.md](docs/changelog/0103.md) - Parts560–563 coordinated source snapshot, exact equality and atomic native-caller revalidation (active)
+- [0103.md](docs/changelog/0103.md) - Parts560–564 coordinated snapshot, native caller and String allocation revalidation (active)

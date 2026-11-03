@@ -116,6 +116,18 @@ for (const member of JSON.parse(read(procRoot + 'manifest.json')).Files) {
         && raw.length === member.Bytes && sha(raw) === member.Sha256.toLowerCase(),
         'Proc-lib protocol evidence changed: ' + member.Archive);
 }
+const separatorRoot = 'docs/validation/integration-20261103/string-separator-review/';
+const separatorManifest = JSON.parse(read(separatorRoot + 'manifest.json'));
+for (const member of separatorManifest.Files) {
+    const packed = fs.readFileSync(separatorRoot + member.Archive);
+    const raw = require('node:zlib').gunzipSync(packed);
+    check(sha(packed) === member.ArchiveSha256.toLowerCase()
+        && raw.length === member.Bytes && sha(raw) === member.Sha256.toLowerCase(),
+        'Separator-search evidence changed: ' + member.Archive);
+}
+for (const member of separatorManifest.SourceMembers)
+    check(sha(fs.readFileSync(member.Path)) === member.AfterSha256.toLowerCase(),
+        'Separator-search source changed: ' + member.Path);
 const patternRoot = 'docs/validation/integration-20261103/string-pattern-review/';
 const patternManifest = JSON.parse(read(patternRoot + 'manifest.json'));
 for (const member of [...patternManifest.Files, ...JSON.parse(read(patternRoot + 'environment.json')).Files, ...JSON.parse(read(patternRoot + 'catch-environment.json')).Files]) {
@@ -135,6 +147,7 @@ const entryFiles = ['AGENTS.md', 'docs/PROGRESS.md', 'docs/NEXT_STEPS.md', 'docs
     'docs/validation/integration-20261103/README.md',
     'docs/validation/integration-20261103/string-pattern-review/README.md',
     'docs/validation/integration-20261103/proc-lib-timeout-protocol/README.md',
+    'docs/validation/integration-20261103/string-separator-review/README.md',
     'docs/validation/integration-20261103/math-ci-41674636411/README.md',
     'docs/validation/integration-20261103/native-flat-order-all-apis/README.md',
     'docs/validation/integration-20261103/atomic-native-caller/README.md',

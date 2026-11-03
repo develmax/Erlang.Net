@@ -468,6 +468,7 @@ Test(Erlang.Tests.NativeBindingSelectionNames.Test, Erlang.Tests.NativeBindingSe
 Test(Erlang.Tests.NativeBindingSelectionNames.RaceTest, Erlang.Tests.NativeBindingSelectionChecks.Race);
 
 Test(Erlang.Tests.StringPatternAllocationNames.Test, Erlang.Tests.StringPatternAllocationChecks.Run);
+Test(Erlang.Tests.StringSeparatorAllocationNames.Test, Erlang.Tests.StringSeparatorAllocationChecks.Run);
 
 foreach (int part in Enumerable.Range(0, Erlang.Tests.OrdsetsCompatibilityNames.PartCount))
 {

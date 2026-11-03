@@ -9,6 +9,7 @@ internal static class StringTake
         bool complement
     )
     {
+        var buffer = new StringBinarySearchBuffer([]);
         Term reverse = Nil.Value;
         HashSet<Term> firstCodepoints = await StringSeparatorScan.FirstCodepoints(context, separators);
         while (true)
@@ -29,7 +30,8 @@ internal static class StringTake
                     binary,
                     continuation,
                     separators,
-                    complement
+                    complement,
+                    buffer
                 );
                 if (!scan.Found)
                 {
@@ -140,6 +142,7 @@ internal static class StringTake
         BitString binary = list ? (BitString)((Cons)input).Head : (BitString)input;
         Term continuation = list ? ((Cons)input).Tail : Nil.Value;
         int start = 0;
+        var buffer = new StringBinarySearchBuffer([]);
         while (true)
         {
             var first = await StringSeparatorScan.Scan(
@@ -147,7 +150,8 @@ internal static class StringTake
                 binary.SliceBits(start * 8, binary.BitLength - start * 8),
                 continuation,
                 separators,
-                !complement
+                !complement,
+                buffer
             );
             if (!first.Found)
             {
@@ -178,7 +182,8 @@ internal static class StringTake
                 separatorStart,
                 at.Tail,
                 separators,
-                complement
+                complement,
+                buffer
             );
             if (!inverse.Found)
             {

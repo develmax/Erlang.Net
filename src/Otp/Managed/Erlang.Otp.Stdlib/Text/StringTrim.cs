@@ -52,6 +52,7 @@ internal static class StringTrim
         BitString binary = list ? (BitString)((Cons)input).Head : (BitString)input;
         Term continuation = list ? ((Cons)input).Tail : Nil.Value;
         int start = 0;
+        var buffer = new StringBinarySearchBuffer([]);
         while (true)
         {
             var first = await StringSeparatorScan.Scan(
@@ -59,7 +60,8 @@ internal static class StringTrim
                 binary.SliceBits(start * 8, binary.BitLength - start * 8),
                 continuation,
                 separators,
-                true
+                true,
+                buffer
             );
             if (!first.Found)
             {
@@ -72,7 +74,8 @@ internal static class StringTrim
                 separatorStart,
                 at.Tail,
                 separators,
-                false
+                false,
+                buffer
             );
             if (!inverse.Found)
             {
