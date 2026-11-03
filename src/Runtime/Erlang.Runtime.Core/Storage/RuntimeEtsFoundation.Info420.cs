@@ -165,6 +165,7 @@ internal sealed partial class RuntimeEtsFoundation
 
     private byte[] CorePrintTable420(ProcessContext context, RuntimeEtsFoundationTable table, RuntimeEtsCoreOptions407 options)
     {
+        using var displayCopies = new AtomicsHostCopyTransaction591();
         var text = new StringBuilder();
 
         string Display(Term value)
@@ -180,7 +181,7 @@ internal sealed partial class RuntimeEtsFoundation
         var index = table.Primary420 ?? throw new InvalidOperationException(EtsIndexNames420.InvalidIndex);
         if (options.Kind == EtsCoreTableKind407.OrderedSet)
         {
-            foreach (var group in index.Ordered) foreach (var row in group.Rows) text.Append(Display(CoreRead407(row.Payload, context.Cancellation))).Append(EtsInfoNames420.NewLine);
+            foreach (var group in index.Ordered) foreach (var row in group.Rows) text.Append(Display(CoreReadSelected594(row.Payload, context.Cancellation, displayCopies))).Append(EtsInfoNames420.NewLine);
         }
         else for (int bucket = 0; bucket < index.Buckets.Length; bucket++)
         {
@@ -194,7 +195,7 @@ internal sealed partial class RuntimeEtsFoundation
                 {
                     if (!first) text.Append(EtsInfoNames420.Comma);
                     if (group.Deleted) text.Append(EtsInfoNames420.Deleted);
-                    text.Append(Display(CoreRead407(row.Payload, context.Cancellation)));
+                    text.Append(Display(CoreReadSelected594(row.Payload, context.Cancellation, displayCopies)));
                     first = false;
                 }
             }

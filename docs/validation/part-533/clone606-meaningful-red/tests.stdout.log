@@ -1,0 +1,38 @@
+{"Partial":true,"SelectedCount":3,"TotalCount":9291}
+PASS runtime/mailbox606/pending-admission-self-exit-normal-and-bounded
+FAIL runtime/mailbox606/deferred-release-self-exit-complete-and-discard-once: System.AggregateException: Mailbox reentrant termination assertion and independent cleanup failed. (Reentrant mailbox termination reused a retired node or lost exact release ownership.) (The LinkedList node does not belong to current LinkedList.)
+ ---> System.InvalidOperationException: Reentrant mailbox termination reused a retired node or lost exact release ownership.
+   at Erlang.Tests.MailboxReentrantExit606Checks.Require(Boolean condition) in D:\Distr\Work\Codex\Erlang.Net\w518repair\tests\Erlang.Tests\Runtime\Storage\Mailbox\MailboxReentrantExit606Checks.cs:line 390
+   at Erlang.Tests.MailboxReentrantExit606Checks.<>c__DisplayClass2_0.<<CopyCallbackClose606>b__0>d.MoveNext() in D:\Distr\Work\Codex\Erlang.Net\w518repair\tests\Erlang.Tests\Runtime\Storage\Mailbox\MailboxReentrantExit606Checks.cs:line 227
+--- End of stack trace from previous location ---
+   at Erlang.Tests.MailboxReentrantExit606Checks.Finish(List`1 failures) in D:\Distr\Work\Codex\Erlang.Net\w518repair\tests\Erlang.Tests\Runtime\Storage\Mailbox\MailboxReentrantExit606Checks.cs:line 395
+   at Erlang.Tests.MailboxReentrantExit606Checks.<>c__DisplayClass2_0.<<CopyCallbackClose606>b__0>d.MoveNext() in D:\Distr\Work\Codex\Erlang.Net\w518repair\tests\Erlang.Tests\Runtime\Storage\Mailbox\MailboxReentrantExit606Checks.cs:line 231
+--- End of stack trace from previous location ---
+   at Erlang.Tests.MailboxReentrantExit606Checks.InRuntime(Func`5 body, List`1 failures) in D:\Distr\Work\Codex\Erlang.Net\w518repair\tests\Erlang.Tests\Runtime\Storage\Mailbox\MailboxReentrantExit606Checks.cs:line 355
+   --- End of inner exception stack trace ---
+   at Erlang.Tests.MailboxReentrantExit606Checks.Finish(List`1 failures) in D:\Distr\Work\Codex\Erlang.Net\w518repair\tests\Erlang.Tests\Runtime\Storage\Mailbox\MailboxReentrantExit606Checks.cs:line 396
+   at Erlang.Tests.MailboxReentrantExit606Checks.Deferred() in D:\Distr\Work\Codex\Erlang.Net\w518repair\tests\Erlang.Tests\Runtime\Storage\Mailbox\MailboxReentrantExit606Checks.cs:line 164
+   at Program.<Main>$(String[] args) in D:\Distr\Work\Codex\Erlang.Net\w518repair\tests\Erlang.Tests\Harness\Program.cs:line 7593
+ ---> (Inner Exception #1) System.InvalidOperationException: The LinkedList node does not belong to current LinkedList.
+   at System.Collections.Generic.LinkedList`1.ValidateNode(LinkedListNode`1 node)
+   at System.Collections.Generic.LinkedList`1.AddAfter(LinkedListNode`1 node, LinkedListNode`1 newNode)
+   at Erlang.Mailbox.CompleteDeferred(LinkedListNode`1 node, DeferredMailboxAdmission result) in D:\Distr\Work\Codex\Erlang.Net\w518repair\src\Runtime\Erlang.Runtime.Core\Processes\Mailbox.DeferredPreparation.cs:line 139
+   at Erlang.Mailbox.<>c__DisplayClass134_0.<ClaimDeferred>b__0(DeferredMailboxAdmission result) in D:\Distr\Work\Codex\Erlang.Net\w518repair\src\Runtime\Erlang.Runtime.Core\Processes\Mailbox.DeferredPreparation.cs:line 76
+   at InvokeStub_Action`1.Invoke(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+--- End of stack trace from previous location ---
+   at Erlang.Tests.MailboxReentrantExit606Checks.Invoke(Delegate body, Object[] arguments) in D:\Distr\Work\Codex\Erlang.Net\w518repair\tests\Erlang.Tests\Runtime\Storage\Mailbox\MailboxReentrantExit606Checks.cs:line 328
+   at Erlang.Tests.MailboxReentrantExit606Checks.<>c__DisplayClass2_1.<CopyCallbackClose606>b__1(ProcessContext active) in D:\Distr\Work\Codex\Erlang.Net\w518repair\tests\Erlang.Tests\Runtime\Storage\Mailbox\MailboxReentrantExit606Checks.cs:line 210
+   at Erlang.Tests.RuntimeNodeFoundationHostActor.<>c__DisplayClass8_0`1.<Invoke>b__0(ProcessContext context) in D:\Distr\Work\Codex\Erlang.Net\w518repair\tests\Erlang.Tests\Runtime\Execution\RuntimeNodeFoundationHostActor.cs:line 34
+   at Erlang.Tests.RuntimeNodeFoundationHostActor.<>c__DisplayClass9_0`1.<<InvokeAsync>b__0>d.MoveNext() in D:\Distr\Work\Codex\Erlang.Net\w518repair\tests\Erlang.Tests\Runtime\Execution\RuntimeNodeFoundationHostActor.cs:line 43
+--- End of stack trace from previous location ---
+   at Erlang.Tests.RuntimeNodeFoundationHostActor.InvokeAsync[T](Func`2 command) in D:\Distr\Work\Codex\Erlang.Net\w518repair\tests\Erlang.Tests\Runtime\Execution\RuntimeNodeFoundationHostActor.cs:line 51
+   at Erlang.Tests.MailboxReentrantExit606Checks.<>c__DisplayClass2_0.<<CopyCallbackClose606>b__0>d.MoveNext() in D:\Distr\Work\Codex\Erlang.Net\w518repair\tests\Erlang.Tests\Runtime\Storage\Mailbox\MailboxReentrantExit606Checks.cs:line 180
+--- End of stack trace from previous location ---
+   at Erlang.Tests.MailboxReentrantExit606Checks.Finish(List`1 failures) in D:\Distr\Work\Codex\Erlang.Net\w518repair\tests\Erlang.Tests\Runtime\Storage\Mailbox\MailboxReentrantExit606Checks.cs:line 395
+   at Erlang.Tests.MailboxReentrantExit606Checks.<>c__DisplayClass2_0.<<CopyCallbackClose606>b__0>d.MoveNext() in D:\Distr\Work\Codex\Erlang.Net\w518repair\tests\Erlang.Tests\Runtime\Storage\Mailbox\MailboxReentrantExit606Checks.cs:line 231
+--- End of stack trace from previous location ---
+   at Erlang.Tests.MailboxReentrantExit606Checks.InRuntime(Func`5 body, List`1 failures) in D:\Distr\Work\Codex\Erlang.Net\w518repair\tests\Erlang.Tests\Runtime\Storage\Mailbox\MailboxReentrantExit606Checks.cs:line 355<---
+
+PASS runtime/mailbox606/late-deferred-send-after-owner-done-releases-outside-monitor
+2/3 passed

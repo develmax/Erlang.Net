@@ -40,8 +40,22 @@ public sealed partial class ProcessRuntime
 
     private void StartExitContinuation(ProcessExitContinuation continuation)
     {
-        exitContinuations.Add(continuation.Process, continuation);
-        _ = CompleteExitContinuation(continuation);
+        try
+        {
+            exitContinuations.Add(continuation.Process, continuation);
+        }
+        catch
+        {
+            continuation.Origin641?.Close641();
+            throw;
+        }
+        // Runtime-owned retirement must outlive an actor's scheduler lane.
+        // Suppress actor/invocation AsyncLocals at the first asynchronous hop.
+        if (ExecutionContext.IsFlowSuppressed())
+            _ = CompleteExitContinuation(continuation);
+        else
+            using (ExecutionContext.SuppressFlow())
+                _ = CompleteExitContinuation(continuation);
     }
 
     private async Task CompleteExitContinuation(ProcessExitContinuation continuation)
@@ -50,7 +64,11 @@ public sealed partial class ProcessRuntime
         bool localCleanupCompleted = false;
         try
         {
-            await Task.Yield();
+            // Force an asynchronous ThreadPool continuation without capturing
+            // the actor TaskScheduler or SynchronizationContext. There is no
+            // separate dispatch after registration that can orphan ownership.
+            await Task.CompletedTask.ConfigureAwait(ConfigureAwaitOptions.ForceYielding);
+            using var atomScope = new AtomNameScope(AtomNames);
             if (continuation.StorageRetirement is { } storage)
             {
                 var preparation = continuation.PreparationFailures!;
@@ -62,13 +80,17 @@ public sealed partial class ProcessRuntime
                 {
                     preparation.Add(error);
                 }
-                lock (gate)
-                    FinishTermination(
-                        continuation.Process,
-                        continuation.Reason,
-                        preparation,
-                        continuation
-                    );
+                if (continuation.Sequence641 is not null)
+                    await FinishPreparedSequenceContinuation(continuation, preparation).ConfigureAwait(false);
+                else
+                    lock (gate)
+                        FinishTermination(
+                            continuation.Process,
+                            continuation.Reason,
+                            preparation,
+                            continuation,
+                            continuation.Origin641
+                        );
             }
             await continuation.LocalCleanup.Task.ConfigureAwait(false);
             localCleanupCompleted = true;
@@ -110,6 +132,17 @@ public sealed partial class ProcessRuntime
         }
         finally
         {
+            try
+            {
+                if (continuation.Sequence641 is { } sequence)
+                    await sequence.RetireAsync().ConfigureAwait(false);
+            }
+            catch (Exception sequenceFailure)
+            {
+                failure = failure is null ? sequenceFailure : new AggregateException(failure, sequenceFailure);
+            }
+            continuation.Sequence641 = null;
+            continuation.Origin641?.Close641();
             try
             {
                 // Logical replies/DOWN may precede dirty-body completion; ownership never does.

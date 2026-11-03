@@ -14,7 +14,7 @@ public sealed partial class ModuleRegistry
                 && IsNativeEntry(key.Item1, key.Item2, key.Item3)) return;
             if (functions.ContainsKey(key) || sourceOwners.ContainsKey(key)) throw new InvalidOperationException(AtomicsNames413.Conflict);
             var binding = new AtomicsConstructorBinding413(runtime, this);
-            InstallPreloaded(target => target.Register(
+            InstallPreloaded(target => target.RegisterCanonicalRuntimeRead535(
                 key.Item1,
                 key.Item2,
                 key.Item3,

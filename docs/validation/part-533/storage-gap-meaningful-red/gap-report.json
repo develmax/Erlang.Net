@@ -1,0 +1,19 @@
+{
+  "Partial": true,
+  "SelectedCount": 1,
+  "TotalCount": 9288,
+  "Blocks": [],
+  "ExactCases": [
+    "runtime/mailbox601/cancel-during-real-ets-target-retirement-gap"
+  ],
+  "Passed": 0,
+  "Failed": 1,
+  "Tests": [
+    {
+      "Name": "runtime/mailbox601/cancel-during-real-ets-target-retirement-gap",
+      "Status": "Failed",
+      "Error": "System.AggregateException: Mailbox snapshot assertion and independent cleanup failed. (A mailbox snapshot lost its actual native ownership boundary.) (A mailbox snapshot lost its actual native ownership boundary.)\r\n ---\u003E System.InvalidOperationException: A mailbox snapshot lost its actual native ownership boundary.\r\n   at Erlang.Tests.MailboxSnapshot601Fixture.Require(Boolean value) in D:\\Distr\\Work\\Codex\\Erlang.Net\\w518repair\\tests\\Erlang.Tests\\Runtime\\Storage\\Mailbox\\MailboxSnapshot601Fixture.cs:line 124\r\n   at Erlang.Tests.ProcessInfoStorageGap601Checks.Run() in D:\\Distr\\Work\\Codex\\Erlang.Net\\w518repair\\tests\\Erlang.Tests\\Runtime\\Storage\\Mailbox\\ProcessInfoStorageGap601Checks.cs:line 79\r\n   --- End of inner exception stack trace ---\r\n   at Erlang.Tests.ProcessInfoStorageGap601Checks.Run() in D:\\Distr\\Work\\Codex\\Erlang.Net\\w518repair\\tests\\Erlang.Tests\\Runtime\\Storage\\Mailbox\\ProcessInfoStorageGap601Checks.cs:line 121\r\n   at Program.\u003CMain\u003E$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\w518repair\\tests\\Erlang.Tests\\Harness\\Program.cs:line 7575\r\n ---\u003E (Inner Exception #1) System.InvalidOperationException: A mailbox snapshot lost its actual native ownership boundary.\r\n   at Erlang.Tests.MailboxSnapshot601Fixture.Require(Boolean value) in D:\\Distr\\Work\\Codex\\Erlang.Net\\w518repair\\tests\\Erlang.Tests\\Runtime\\Storage\\Mailbox\\MailboxSnapshot601Fixture.cs:line 124\r\n   at Erlang.Tests.ProcessInfoStorageGap601Checks.Run() in D:\\Distr\\Work\\Codex\\Erlang.Net\\w518repair\\tests\\Erlang.Tests\\Runtime\\Storage\\Mailbox\\ProcessInfoStorageGap601Checks.cs:line 98\u003C---\r\n",
+      "Milliseconds": 114
+    }
+  ]
+}

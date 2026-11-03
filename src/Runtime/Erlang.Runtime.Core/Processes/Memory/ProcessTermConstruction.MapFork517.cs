@@ -9,6 +9,7 @@ internal sealed partial class ProcessTermConstruction514
     private ProcessTermConstruction514(ProcessTermFrame506 frame, ProcessTermConstruction514 parent)
     {
         this.frame = frame;
+        magicOwner576 = parent.magicOwner576 ?? parent;
         admitted = parent.admitted;
         forkAdds517 = new();
     }

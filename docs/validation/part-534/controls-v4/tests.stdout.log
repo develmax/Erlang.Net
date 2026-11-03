@@ -1,0 +1,22 @@
+{"Partial":true,"SelectedCount":19,"TotalCount":9313}
+PASS runtime/counters596/guest-retirement-ignores-stale-clr-entry
+PASS runtime/counters596/active-pin-outlives-last-guest-root
+PASS runtime/counters596/host-custody-independent-of-guest
+PASS runtime/counters596/real-process-headers-share-live-prefix
+PASS runtime/counters596/old-magic-root-survives-minor-not-major
+PASS runtime/counters596/foreign-before-stale-header-read
+PASS runtime/counters596/queue-export-source-drop-destination-retirement
+PASS runtime/counters596/ets-domain-source-drop-destination-retirement
+PASS runtime/counters596/persistent-domain-source-drop-destination-retirement
+PASS runtime/counters596/public-dictionary-getter-host-retains-after-erase-gc
+PASS runtime/counters596/public-dictionary-snapshot-host-retains-after-erase-gc
+PASS runtime/counters596/real-native-five-entrypoints-and-entry-only-refusal
+PASS runtime/counters596/genuine-native-facet-authority-public-reregister-stays-opaque
+counters596 rollback: host roots at late closure=1, after failure=0
+PASS runtime/counters596/late-export-failure-releases-actual-host-custody
+PASS runtime/counters596/successful-export-commits-only-returned-wrappers
+PASS runtime/counters591/actual-binary-prefix-and-source-extents
+PASS runtime/counters591/cacheline-grouping-and-base-physical-cells
+PASS runtime/counters603/initializer-done-before-global-drain
+PASS runtime/counters603/ordinary-owner-exit-preserves-independent-live-heap
+19/19 passed

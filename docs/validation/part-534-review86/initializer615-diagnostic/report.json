@@ -1,0 +1,25 @@
+{
+  "Partial": true,
+  "SelectedCount": 2,
+  "TotalCount": 9322,
+  "Blocks": [],
+  "ExactCases": [
+    "runtime/initializer615/live-unrelated-cancellation-remains-visible",
+    "runtime/initializer615/terminal-mailbox-before-stop-cancel"
+  ],
+  "Passed": 1,
+  "Failed": 1,
+  "Tests": [
+    {
+      "Name": "runtime/initializer615/terminal-mailbox-before-stop-cancel",
+      "Status": "Failed",
+      "Error": "System.InvalidOperationException: Initializer terminal mailbox cancellation was misclassified.\r\n   at Erlang.Tests.InitializerClose615Checks.Require(Boolean value) in D:\\Distr\\Work\\Codex\\Erlang.Net\\w504\\tests\\Erlang.Tests\\Runtime\\Modules\\Loading\\InitializerClose615Checks.cs:line 105\r\n   at Erlang.Tests.InitializerClose615Checks.ClosedBeforeCancellation() in D:\\Distr\\Work\\Codex\\Erlang.Net\\w504\\tests\\Erlang.Tests\\Runtime\\Modules\\Loading\\InitializerClose615Checks.cs:line 39\r\n   at Erlang.Tests.InitializerClose615Checks.ClosedBeforeCancellation() in D:\\Distr\\Work\\Codex\\Erlang.Net\\w504\\tests\\Erlang.Tests\\Runtime\\Modules\\Loading\\InitializerClose615Checks.cs:line 53\r\n   at Program.\u003CMain\u003E$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\w504\\tests\\Erlang.Tests\\Harness\\Program.cs:line 7667",
+      "Milliseconds": 2114
+    },
+    {
+      "Name": "runtime/initializer615/live-unrelated-cancellation-remains-visible",
+      "Status": "Passed",
+      "Milliseconds": 8
+    }
+  ]
+}

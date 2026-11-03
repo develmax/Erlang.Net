@@ -1,0 +1,58 @@
+{
+  "Applied": false,
+  "ReasonNotApplied": "Canonical ledger is in a separate merge conflict; preserve its current accepted source/evidence history. Apply only after integration review.",
+  "PreserveStatusesScopesLimits": true,
+  "TargetModule": "ordsets",
+  "SourceBindingUpdates": [
+    {
+      "Path": "src/Otp/Managed/Erlang.Otp.Stdlib/Collections/Lists/ListUniqueMergeMachine.cs",
+      "BeforeSha256": "CC34DC2E305980E59BF9E23970A4159522F158358FB3C1397DD7887CF7E1FA36",
+      "AfterSha256": "A6E8CB3B6168A2DA71CC5756F8C15DC8ED937563C9E02365D97CA6E335257940"
+    },
+    {
+      "Path": "src/Otp/Managed/Erlang.Otp.Stdlib/Collections/Lists/ListUniqueMergeNames.cs",
+      "BeforeSha256": "013F108DD7B448960A1D5F2EAE100875610DCAB320A099EEADFF955673D741A4",
+      "AfterSha256": "0099F85D1507314E10062D9A077E118AA041D44CDE1D9DC8C4B3423B3748EE45"
+    },
+    {
+      "Path": "src/Otp/Managed/Erlang.Otp.Stdlib/Collections/Lists/ListUniqueMergeTrace.cs",
+      "BeforeSha256": "EEA02651A68D3970C4AFD55C5D4ADC1D739D91F566978841815ADC226921DB3F",
+      "AfterSha256": "2258AA3593826BC71865720CCD3F2CE8AFA18F635BE8D06C37190209CD443983"
+    }
+  ],
+  "AddEvidence": [
+    {
+      "Kind": "OriginalOtpComparison",
+      "Path": "validation/part-557/ordsets/oracle-repeat.json",
+      "Sha256": "74246A7517CFB70AE9D4F14085E06F5DA386935E2590D59D6566434430E13E3F",
+      "Scope": "Fresh official OTP29.1.1 repeat:12247 complete outcomes, all21 ordsets MFAs, whole deterministic ETF reproduced without normalization;6427 provider files verified before/after."
+    },
+    {
+      "Kind": "LocalValidation",
+      "Path": "validation/part-557/ordsets/Managed.json",
+      "Sha256": "BA5B16E617399F17F461A8AB03D2CBC029B916970E7370C6616DCFDFB67767F9",
+      "Scope": "Explicit C# ordsets/lists selection matches all12247 complete results/errors/stacks/effects; finite corpus evidence, not whole-domain acceptance."
+    },
+    {
+      "Kind": "LocalValidation",
+      "Path": "validation/part-557/ordsets/Beam.json",
+      "Sha256": "7D4F9F1C2C7F07FD00813357AD3CCD518B4395568DA944E3EF224321B831CC2F",
+      "Scope": "Explicit unchanged original ordsets/lists BEAM selection on .NET matches the same12247 complete outcomes; original image identity/owners checked."
+    },
+    {
+      "Kind": "SourceReview",
+      "Path": "validation/part-557/ordsets/source-review.json",
+      "Sha256": "FBD82EBAA3943B8C446F47181965B74FDF4262E0C015DF92733FE8B4AEBBC54A",
+      "Scope": "Narrow native reverse helper-PC correction; no merge comparison/value changes; existing classifications preserved."
+    },
+    {
+      "Kind": "LocalValidation",
+      "Path": "validation/part-557/ordsets/final-affected.json",
+      "Sha256": "8D83DDFA4E836E31219E906B89B854532E626D6CCB91CC620EC86D9CEC32CD72",
+      "Scope": "870/870 collection/comparison/dependency groups, explicitly partial; not canonical readiness evidence."
+    }
+  ],
+  "ReadinessRegenerated": false,
+  "ReadinessReason": "Partial passed report and failed broad baseline cannot authorize canonical readiness generation.",
+  "ObservedOriginalSnapshotBeforeConcurrentMerge": "validation/part-485/native-catalog/previous-tests.json"
+}

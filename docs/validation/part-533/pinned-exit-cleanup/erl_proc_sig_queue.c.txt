@@ -1,0 +1,40 @@
+9588: void
+9589: erts_proc_sig_cleanup_queues(Process *c_p)
+9590: {
+9591:     ErtsMessage *queues[] = {
+9592: 	c_p->sig_qs.first, /* Message queue (inner signal queue) */
+9593: 	c_p->sig_qs.cont   /* Private signal queue (middle signal queue) */
+9594:     };
+9595:     int i;
+9596: 
+9597:     for (i = 0; i < sizeof(queues)/sizeof(queues[0]); i++) {
+9598: 	ErtsMessage *sig = queues[i];
+9599: 	while (sig) {
+9600: 	    ErtsMessage *free_sig = sig;
+9601: 	    sig = sig->next;
+9602: 	    if (ERTS_SIG_IS_RECV_MARKER(free_sig)) {
+9603:                 ErtsRecvMarker *recv_mark = (ErtsRecvMarker *) free_sig;
+9604:                 ASSERT(recv_mark->mark_type == ERTS_RECV_MARKER_TYPE_RECV);
+9605:                 recv_marker_deallocate(c_p, recv_mark);
+9606:             }
+9607: 	    else {
+9608:                 ASSERT(ERTS_SIG_IS_MSG(free_sig));
+9609: 		free_sig->next = NULL;
+9610: 		erts_cleanup_messages(free_sig);
+9611: 	    }
+9612: 	}
+9613:     }
+9614: 
+9615: #ifdef DEBUG
+9616:     /*
+9617:      * External signal queue (outer signal queue)
+9618:      * should already have been taken care of...
+9619:      */
+9620:     erts_proc_lock(c_p, ERTS_PROC_LOCK_MSGQ);
+9621:     ASSERT(!c_p->sig_inq.first);
+9622:     erts_proc_unlock(c_p, ERTS_PROC_LOCK_MSGQ);
+9623: #endif
+9624: }
+9625: 
+9626: void
+9627: erts_proc_sig_do_wait_dirty_handle_signals__(Process *c_p)

@@ -11,6 +11,7 @@ internal static class OrdsetsCompatibilityNames
     internal const string Prefix = "Erlang.Tests.OrdsetsCompatibility.";
     internal const string Image = "ordsets_compatibility_observer.beam";
     internal const string Golden = "original.etf";
+    internal const string Inputs = "inputs.etf";
     internal const string Worker = "ordsets_core_worker";
     internal const string Erlang = "erlang";
     internal const string ModuleInfo = "module_info";
@@ -22,5 +23,6 @@ internal static class OrdsetsCompatibilityNames
     internal const string Failure = "Ordsets whole OTP corpus differs";
     internal const int ExportCount = 21;
     internal const int ObservationCount = 12247;
+    internal const int BatchSize = 64;
     internal static readonly TimeSpan Deadline = TimeSpan.FromSeconds(75);
 }

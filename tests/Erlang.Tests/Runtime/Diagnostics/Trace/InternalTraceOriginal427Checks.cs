@@ -20,18 +20,26 @@ internal static class InternalTraceOriginal427Checks
             await owner.InitializeModulesAsync(registry =>
             {
                 RuntimeBootstrapInternalTrace425.Register(owner, registry);
-                var declared = new BeamDependencySelection([InternalTraceOriginal427Names.Runtime, InternalTraceOriginal427Names.File, InternalTraceOriginal427Names.Internal]);
-                PreparedBeamImage facet = registry.PrepareBeam(InternalTraceOriginal427Access.Resource(InternalTraceOriginal427Names.FacetBeam), declared);
-                InternalTraceOriginal427Access.Require(facet.Name == InternalTraceOriginal427Names.Internal
-                    && facet.NativePrimitiveExports.Count == InternalTraceOriginal427Names.NativeCount
-                    && InternalTraceOriginal427Names.NativeSignatures.All(signature => facet.NativePrimitiveExports.Contains(signature)));
-                PreparedBeamImage worker = registry.PrepareBeam(InternalTraceOriginal427Access.Resource(InternalTraceOriginal427Names.WorkerBeam), declared);
-                InternalTraceOriginal427Access.Require(registry.PublishPreparedBeam([facet, worker]).Status == BeamPublicationStatus.Published);
-                foreach (var image in new[] { facet, worker })
-                    foreach (var export in registry.Exports.Where(export => export.Module == image.Name))
-                        InternalTraceOriginal427Access.Require(ReferenceEquals(registry.SourceOwner(export.Module, export.Function, export.Arity), image));
-                InternalTraceOriginal427Access.Require(registry.Exports.Count(export => export.Module == facet.Name) == InternalTraceOriginal427Names.FacetExports);
             });
+            var declared = new BeamDependencySelection([InternalTraceOriginal427Names.Runtime, InternalTraceOriginal427Names.File, InternalTraceOriginal427Names.Internal]);
+            await PreparedBeamFixtureImages825.PrepareAndPublishAsync(
+                owner,
+                [InternalTraceOriginal427Access.Resource(InternalTraceOriginal427Names.FacetBeam), InternalTraceOriginal427Access.Resource(InternalTraceOriginal427Names.WorkerBeam)],
+                declared,
+                (registry, images) =>
+                {
+                    PreparedBeamImage facet = images[0];
+                    PreparedBeamImage worker = images[1];
+                    InternalTraceOriginal427Access.Require(facet.Name == InternalTraceOriginal427Names.Internal
+                        && facet.NativePrimitiveExports.Count == InternalTraceOriginal427Names.NativeCount
+                        && InternalTraceOriginal427Names.NativeSignatures.All(signature => facet.NativePrimitiveExports.Contains(signature)));
+                    InternalTraceOriginal427Access.Require(registry.PublishPreparedBeam([facet, worker]).Status == BeamPublicationStatus.Published);
+                    foreach (var image in new[] { facet, worker })
+                        foreach (var export in registry.Exports.Where(export => export.Module == image.Name))
+                            InternalTraceOriginal427Access.Require(ReferenceEquals(registry.SourceOwner(export.Module, export.Function, export.Arity), image));
+                    InternalTraceOriginal427Access.Require(registry.Exports.Count(export => export.Module == facet.Name) == InternalTraceOriginal427Names.FacetExports);
+                }
+            );
             actor = new RuntimeNodeFoundationHostActor(owner);
             RuntimeNodeFoundationHostActor caller = actor;
 

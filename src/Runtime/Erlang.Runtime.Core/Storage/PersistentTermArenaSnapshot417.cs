@@ -9,7 +9,8 @@ internal sealed class PersistentTermArenaSnapshot417(PersistentTableRead416 read
     {
         var current = Volatile.Read(ref owned) ?? throw new ObjectDisposedException(PersistentTermNativeNames.Closed);
 
-        return current.Pairs(cancellation).Cast<TupleTerm?>().ToArray();
+        return AtomicsHostAggregate594.Publish(transaction =>
+            current.PairsSelected594(cancellation, transaction).Cast<TupleTerm?>().ToArray());
     }
 
     public void Dispose() => Interlocked.Exchange(ref owned, null)?.Dispose();

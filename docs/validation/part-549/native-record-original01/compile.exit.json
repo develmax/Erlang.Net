@@ -1,0 +1,24 @@
+{
+  "Command": [
+    "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library376-official-compiler\\installed\\bin\\erl.exe",
+    "+S",
+    "2:2",
+    "+SDcpu",
+    "1:1",
+    "+SDio",
+    "1",
+    "+A",
+    "1",
+    "-noshell",
+    "-eval",
+    "((fun() -> case compile:file(\"D:/Distr/Work/Codex/Erlang.Net/w546/artifacts/statistics-full/native-record-original01/native_record_physical.erl\",[debug_info,{outdir,\"D:/Distr/Work/Codex/Erlang.Net/w546/artifacts/statistics-full/native-record-original01\"}]) of {ok,native_record_physical}->ok; E->erlang:error({compile_failed,E}) end end)()),((fun() -> case compile:file(\"D:/Distr/Work/Codex/Erlang.Net/w546/artifacts/statistics-full/native-record-original01/native_record_physical_probe.erl\",[debug_info,{outdir,\"D:/Distr/Work/Codex/Erlang.Net/w546/artifacts/statistics-full/native-record-original01\"}]) of {ok,native_record_physical_probe}->ok; E->erlang:error({compile_failed,E}) end end)()),((fun() -> case compile:file(\"D:/Distr/Work/Codex/Erlang.Net/w546/artifacts/statistics-full/native-record-original01/native_record_physical_observer.erl\",[debug_info,{outdir,\"D:/Distr/Work/Codex/Erlang.Net/w546/artifacts/statistics-full/native-record-original01\"}]) of {ok,native_record_physical_observer}->ok; E->erlang:error({compile_failed,E}) end end)()),halt(0)."
+  ],
+  "Pid": 28352,
+  "ElapsedSeconds": 0.28099999998812564,
+  "TimedOut": false,
+  "Settled": true,
+  "ExitCode": 0,
+  "Failures": [],
+  "StdoutSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+  "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+}

@@ -2,7 +2,12 @@ namespace Erlang;
 
 internal static class StringLexemes
 {
-    internal static async ValueTask<Term> Run(ProcessContext context, Term input, Term separatorList, int? number)
+    internal static async ValueTask<Term> Run(
+        ProcessContext context,
+        Term input,
+        Term separatorList,
+        int? number
+    )
     {
         if (number == 1 && separatorList is Nil)
         {
@@ -33,7 +38,13 @@ internal static class StringLexemes
             {
                 BitString binary = listBinary ? (BitString)((Cons)input).Head : (BitString)input;
                 Term continuation = listBinary ? ((Cons)input).Tail : Nil.Value;
-                var scan = await StringSeparatorScan.Scan(context, binary, continuation, separators, false);
+                var scan = await StringSeparatorScan.Scan(
+                    context,
+                    binary,
+                    continuation,
+                    separators,
+                    false
+                );
                 if (!scan.Found)
                 {
                     if (!listBinary)
@@ -89,7 +100,12 @@ internal static class StringLexemes
     }
 
     private static ValueTask<Term> EmptyPattern(ProcessContext context)
-        => context.Runtime.Modules.Call(context, BinaryModuleNames.Module, BinaryModuleNames.CompilePattern, Nil.Value);
+        => context.Runtime.Modules.Call(
+            context,
+            BinaryModuleNames.Module,
+            BinaryModuleNames.CompilePattern,
+            Nil.Value
+        );
 
     private static async ValueTask<Term> Pick(ProcessContext context, Term input, HashSet<Term> separators)
     {
@@ -106,7 +122,13 @@ internal static class StringLexemes
                 }
                 BitString binary = listBinary ? (BitString)((Cons)input).Head : (BitString)input;
                 Term continuation = listBinary ? ((Cons)input).Tail : Nil.Value;
-                var scan = await StringSeparatorScan.Scan(context, binary, continuation, separators, true);
+                var scan = await StringSeparatorScan.Scan(
+                    context,
+                    binary,
+                    continuation,
+                    separators,
+                    true
+                );
                 if (!scan.Found)
                 {
                     if (!listBinary)
@@ -164,7 +186,13 @@ internal static class StringLexemes
                 }
                 BitString binary = listBinary ? (BitString)((Cons)input).Head : (BitString)input;
                 Term continuation = listBinary ? ((Cons)input).Tail : Nil.Value;
-                var scan = await StringSeparatorScan.Scan(context, binary, continuation, separators, true);
+                var scan = await StringSeparatorScan.Scan(
+                    context,
+                    binary,
+                    continuation,
+                    separators,
+                    true
+                );
                 if (!scan.Found)
                 {
                     if (!listBinary)

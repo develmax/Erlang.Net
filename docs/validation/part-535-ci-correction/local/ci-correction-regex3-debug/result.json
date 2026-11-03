@@ -1,0 +1,67 @@
+{
+  "Names": [
+    "runtime/library412/real-re-core-original-whole-terms-and-stacks",
+    "runtime/library413/original-re8-inspect-internal-run-import-full-outcomes",
+    "runtime/native/regex485/binary-captures-whole-176"
+  ],
+  "Assemblies": {
+    "Host": "83D8F6C4B7C51DA14A6F74AA47B442A1BF352E3F4355DAA36EEA5AC7B7DCEE9A",
+    "Runtime": "954B83FA6E8322C9606A12B5DE6D99CD14FB1739ABB782AA68C7CAD1BB3E2B08"
+  },
+  "Receipt": {
+    "Command": [
+      "dotnet",
+      "exec",
+      "--fx-version",
+      "10.0.11",
+      "D:\\Distr\\Work\\Codex\\Erlang.Net\\w518repair\\tests\\Erlang.Tests\\bin\\Debug\\net10.0\\Erlang.Tests.dll",
+      "--case",
+      "runtime/library412/real-re-core-original-whole-terms-and-stacks",
+      "--case",
+      "runtime/library413/original-re8-inspect-internal-run-import-full-outcomes",
+      "--case",
+      "runtime/native/regex485/binary-captures-whole-176",
+      "--report",
+      "D:\\Distr\\Work\\Codex\\Erlang.Net\\w518repair\\artifacts\\resource535\\ci-correction-regex3-debug\\report.json"
+    ],
+    "Pid": 44036,
+    "ElapsedSeconds": 7.327999999997701,
+    "TimedOut": false,
+    "Settled": true,
+    "ExitCode": 0,
+    "Failures": [],
+    "StdoutSha256": "2CD3D4C581ED321995815E848003D3B00BA08CF0B42B32C5B40DC013F53FFA09",
+    "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+  },
+  "Report": {
+    "Partial": true,
+    "SelectedCount": 3,
+    "TotalCount": 9335,
+    "Blocks": [],
+    "ExactCases": [
+      "runtime/library412/real-re-core-original-whole-terms-and-stacks",
+      "runtime/library413/original-re8-inspect-internal-run-import-full-outcomes",
+      "runtime/native/regex485/binary-captures-whole-176"
+    ],
+    "Passed": 3,
+    "Failed": 0,
+    "Tests": [
+      {
+        "Name": "runtime/native/regex485/binary-captures-whole-176",
+        "Status": "Passed",
+        "Milliseconds": 2268
+      },
+      {
+        "Name": "runtime/library413/original-re8-inspect-internal-run-import-full-outcomes",
+        "Status": "Passed",
+        "Milliseconds": 3031
+      },
+      {
+        "Name": "runtime/library412/real-re-core-original-whole-terms-and-stacks",
+        "Status": "Passed",
+        "Milliseconds": 1526
+      }
+    ]
+  },
+  "ExpectedRed": false
+}

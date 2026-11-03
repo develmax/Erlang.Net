@@ -1,0 +1,84 @@
+{
+  "Scope": "Windows Release same permanent fixtures and45second collector deadline; independent actual reproductions, no Linux acceptance",
+  "SourceStable": true,
+  "Build": {
+    "Command": [
+      "C:\\Program Files\\dotnet\\dotnet.exe",
+      "build",
+      "tests/Runtime/Erlang.NativeGc.Observations/Erlang.NativeGc.Observations.csproj",
+      "--no-restore",
+      "-c",
+      "Release",
+      "-m:1",
+      "--nologo",
+      "--disable-build-servers"
+    ],
+    "Pid": 23392,
+    "ExitCode": 0,
+    "ElapsedSeconds": 35.15600000000268,
+    "TimedOut": false,
+    "ForcedCleanup": false,
+    "ActiveProcessesAfter": 0,
+    "ResourcesClosed": true,
+    "Errors": [],
+    "TotalProcesses": 24,
+    "UserCpuSeconds": 64.484375,
+    "KernelCpuSeconds": 3.640625,
+    "PeakJobCommitBytes": 953573376,
+    "PeakProcessCommitBytes": 872861696,
+    "StdoutSha256": "2F83C094CA571D53AB01FB74EE789C4CED3601E31B4EA657A24C5E903AFAA79E",
+    "StderrSha256": "77097214FF56C63F41686389CAFE353480923C5E6228C478DED2A6FCB528E9F3"
+  },
+  "Modes": {
+    "preparedAdmission810": {
+      "Command": [
+        "C:\\Program Files\\dotnet\\dotnet.exe",
+        "exec",
+        "--fx-version",
+        "10.0.11",
+        "D:\\Distr\\Work\\Codex\\Erlang.Net\\w546\\artifacts\\statistics-full\\main-gc825-integration36\\workspace\\tests\\Runtime\\Erlang.NativeGc.Observations\\bin\\Release\\net10.0\\Erlang.Tests.dll",
+        "preparedAdmission810"
+      ],
+      "Pid": 44732,
+      "ExitCode": 1460,
+      "ElapsedSeconds": 45.03100000000268,
+      "TimedOut": true,
+      "ForcedCleanup": true,
+      "ActiveProcessesAfter": 0,
+      "ResourcesClosed": true,
+      "Errors": [],
+      "TotalProcesses": 2,
+      "UserCpuSeconds": 0.546875,
+      "KernelCpuSeconds": 0.0625,
+      "PeakJobCommitBytes": 35823616,
+      "PeakProcessCommitBytes": 29208576,
+      "StdoutSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+      "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    "preparedNative810": {
+      "Command": [
+        "C:\\Program Files\\dotnet\\dotnet.exe",
+        "exec",
+        "--fx-version",
+        "10.0.11",
+        "D:\\Distr\\Work\\Codex\\Erlang.Net\\w546\\artifacts\\statistics-full\\main-gc825-integration36\\workspace\\tests\\Runtime\\Erlang.NativeGc.Observations\\bin\\Release\\net10.0\\Erlang.Tests.dll",
+        "preparedNative810"
+      ],
+      "Pid": 42820,
+      "ExitCode": 1460,
+      "ElapsedSeconds": 45.01600000000326,
+      "TimedOut": true,
+      "ForcedCleanup": true,
+      "ActiveProcessesAfter": 0,
+      "ResourcesClosed": true,
+      "Errors": [],
+      "TotalProcesses": 2,
+      "UserCpuSeconds": 0.640625,
+      "KernelCpuSeconds": 0.171875,
+      "PeakJobCommitBytes": 38748160,
+      "PeakProcessCommitBytes": 32124928,
+      "StdoutSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+      "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    }
+  }
+}

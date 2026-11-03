@@ -29,25 +29,36 @@ internal static class RuntimeStatisticsHostChecks
         })).ToArray();
         var controller = runtime.Spawn(async context =>
         {
-            foreach (string key in RuntimeStatisticsHostParameters.PhysicalKeys)
-            {
-                try
-                {
-                    await Sample(context, key);
-                    throw new InvalidOperationException(RuntimeStatisticsHostParameters.Failure);
-                }
-                catch (ErlangException exception)
-                {
-                    Require(exception.Reason.Equals(Term.A(RuntimeStatisticsNames.NotSupported)));
-                }
-            }
+            Term microstates = await runtime.Modules.Call(
+                context,
+                ErlangModuleNames.Module,
+                RuntimeStatisticsNames.Function,
+                Term.A(RuntimeStatisticsNames.MicrostateAccounting)
+            );
+            Term[] rows = Cons.Items(microstates).ToArray();
+            Require(rows.Length > 0 && rows.All(row => row is MapTerm map
+                && map.Entries.Count == RuntimeStatisticsHostParameters.MicrostateFields));
+            var io = await Sample(context, RuntimeStatisticsNames.Io);
+            Require(io.Items is [
+                TupleTerm { Items: [Atom { Name: RuntimeStatisticsHostParameters.Input }, Integer { Value.IsZero: true }] },
+                TupleTerm { Items: [Atom { Name: RuntimeStatisticsHostParameters.Output }, Integer { Value.IsZero: true }] }
+            ]);
+            var switches = await Sample(context, RuntimeStatisticsNames.ContextSwitches);
+            Require(switches.Items is [Integer { Value.Sign: > 0 }, Integer { Value.IsZero: true }]);
+            foreach (string wallKey in new[] { RuntimeStatisticsNames.SchedulerWallTime, RuntimeStatisticsNames.SchedulerWallTimeAll })
+                Require((await runtime.Modules.Call(
+                    context,
+                    ErlangModuleNames.Module,
+                    RuntimeStatisticsNames.Function,
+                    Term.A(wallKey)
+                )).Equals(Term.A(ProcessRegistryAtoms.Undefined)));
             var queues = await Sample(context, RuntimeStatisticsNames.RunQueues);
             Require(queues.Items.Count == runtime.ActorDispatchCapacity + RuntimeStatisticsHostParameters.DirtyQueueKinds);
             Require(queues.Items.All(value => value is Integer { Value.Sign: >= 0 }));
             var beforeGc = await Sample(context, RuntimeStatisticsNames.GarbageCollection);
             Require(beforeGc.Items is [Integer { Value.Sign: >= 0 }, Integer { Value.Sign: >= 0 }, Integer { Value.IsZero: true }]);
-            // Exercise the real public collection path; this is managed-platform
-            // telemetry, not equality with physical ERTS heap counts.
+            // Exercise the real public VM collection and its native event counters.
+            // Dynamic word totals are not equated with another VM's heap.
             await runtime.Modules.Call(context, ErlangModuleNames.Module, ProcessGarbageCollectionNames.Function);
             var afterGc = await Sample(context, RuntimeStatisticsNames.GarbageCollection);
             Require(((Integer)afterGc.Items[0]).Value > ((Integer)beforeGc.Items[0]).Value);

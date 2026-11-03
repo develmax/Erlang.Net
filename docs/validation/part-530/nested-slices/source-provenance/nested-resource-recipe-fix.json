@@ -1,0 +1,39 @@
+{
+  "State": "FROZEN_SOURCE_ONLY",
+  "BaseHead": "f0fc94ff2a4e0b76382a5469de9077aa7509ca1c",
+  "BuildPerformed": false,
+  "ExecutionPerformed": false,
+  "FullContractsClosed": 0,
+  "Targets": [
+    {
+      "Path": "src/Runtime/Erlang.Terms/Values/BitString.cs",
+      "Payload": "staged-tree/src/Runtime/Erlang.Terms/Values/BitString.cs",
+      "BeforeSha256": "E87633AC915747FC1F96899C8AF71DE3FCDC8C5BA68BA1734510059DA56E844B",
+      "AfterSha256": "357F4FD686BA618D6BE47BE5966C53C5948414B4C0EA453C690A796233DB5141",
+      "Before": "var result = new BitString(backing, LogicalBitOffset577 + offset, count);",
+      "After": "var result = new BitString(backing, LogicalBitOffset577 + offset, count, sliceOrigin577: resourceSliceOrigin577);"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Runtime/Native/Resources/ResourceBinary577Checks.cs",
+      "Payload": "staged-tree/tests/Erlang.Tests/Runtime/Native/Resources/ResourceBinary577Checks.cs",
+      "BeforeSha256": "428C107A896C1A18FC996FD20B4107D22C3EEBDDF4940BA85602D13E9B17A813",
+      "AfterSha256": "E06D4C7AD0A3CD0D1322ABDF3E3518F9A57E87939AC4EE3C4927BA1558CAF7CA",
+      "Change": "Append new method before RollbackAndHostEscape; all existing methods/assertions unchanged."
+    },
+    {
+      "Path": "tests/Erlang.Tests/Runtime/Native/Resources/ResourceBinary577TestNames.cs",
+      "Payload": "staged-tree/tests/Erlang.Tests/Runtime/Native/Resources/ResourceBinary577TestNames.cs",
+      "BeforeSha256": "6C2CDC18CAAC4D5E0866D9F5F4F7B583CCE567829A998F5BE62B67419549DD68",
+      "AfterSha256": "45F0A0B4D665D638BFB8E04E0999CB4F8747A3BE1E86C525628C3588D443EF79",
+      "Change": "One new case-name constant; existing names unchanged."
+    }
+  ],
+  "PinnedSource": {
+    "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\batch562\\next-owned-domain-audit\\pinned\\erl_bits.h",
+    "Sha256": "5A72BB9B9C14690D55FF94912FAF3E8F0E9914E155593D2C6AA7474C3FF5BFEC",
+    "Anchor": "erts_build_sub_bitstring comment erl_bits.h294\u2013300; extract underlying BinRef for nested sub-bitstrings"
+  },
+  "Harness": "registrations.txt",
+  "ReviewSha256": "E2F292CE31F9D6DD35B5B156064B5540E0847FEC08AF08FCD5AA97F52DEA3FCF",
+  "Apply": "Verify all3 BeforeSha256 first. Apply tests/Names+registration alone for RED on old production; then apply guarded1production fix for GREEN. Existing groups unchanged."
+}

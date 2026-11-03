@@ -23,35 +23,67 @@ internal sealed partial class RuntimeEtsFoundation
             options = coreOptions407.GetValue(admitted, _ => throw new InvalidOperationException(EtsIndexNames420.InvalidIndex));
         }
         EtsCursorState420 state;
-        if (initial)
+        ReferenceResourceLease<EtsCompiledProgram419>? retainedProgram = null;
+        try
         {
-            long chunk = EtsCursorTerms420.Small(arguments[2]);
-            if (chunk <= 0) throw new RuntimeEtsCoreFailure407(RuntimeEtsCoreCause407.None);
-            Term specification = function is EtsCursorNames420.Match or EtsCursorNames420.MatchObject
-             ? Term.List(Term.Tuple(
-                 arguments[1],
-                 Nil.Value,
-                 Term.List(Term.A(function == EtsCursorNames420.Match ? MatchSpecNames.Variables : MatchSpecNames.Whole))
-             )) : arguments[1];
-            if (specification is Nil) return Term.A(EtsCursorNames420.End);
-            MatchSpecProgram program = MatchSpecCompiler.Compile(specification, MatchSpecDialect.Table).Program ?? throw new RuntimeEtsCoreFailure407(RuntimeEtsCoreCause407.None);
-            var bounds = EtsCursorPattern420.Analyze(specification, options.KeyPosition);
-            if (bounds.Kind == EtsCursorBoundness420.Impossible) return Term.A(EtsCursorNames420.End);
-            state = new() { Tid = identifier, Chunk = chunk, Program = program, Initial = true, Bounds = bounds, BoundSingle = bounds.Kind == EtsCursorBoundness420.Bound, Reverse = function == EtsCursorNames420.SelectReverse ? 1 : 0, EndCondition = bounds.Kind == EtsCursorBoundness420.Partial ? (function == EtsCursorNames420.SelectReverse ? bounds.Least! : bounds.Most!) : Nil.Value };
-        }
-        else state = ParseCursor420(context, raw!, options.Kind);
-        EtsCursorSnapshot420 snapshot = CaptureCursor420(
-            context,
-            admitted,
-            state,
-            options
-        );
+            if (initial)
+            {
+                long chunk = EtsCursorTerms420.Small(arguments[2]);
+                if (chunk <= 0) throw new RuntimeEtsCoreFailure407(RuntimeEtsCoreCause407.None);
+                Term specification = function is EtsCursorNames420.Match or EtsCursorNames420.MatchObject
+                 ? Term.List(Term.Tuple(
+                     arguments[1],
+                     Nil.Value,
+                     Term.List(Term.A(function == EtsCursorNames420.Match ? MatchSpecNames.Variables : MatchSpecNames.Whole))
+                 )) : arguments[1];
+                if (specification is Nil) return Term.A(EtsCursorNames420.End);
+                MatchSpecProgram program = MatchSpecCompiler.Compile(specification, MatchSpecDialect.Table).Program ?? throw new RuntimeEtsCoreFailure407(RuntimeEtsCoreCause407.None);
+                var bounds = EtsCursorPattern420.Analyze(specification, options.KeyPosition);
+                if (bounds.Kind == EtsCursorBoundness420.Impossible) return Term.A(EtsCursorNames420.End);
+                state = new() { Tid = identifier, Chunk = chunk, Executable = new EtsCompiledExecutable638(program), Initial = true, Bounds = bounds, BoundSingle = bounds.Kind == EtsCursorBoundness420.Bound, Reverse = function == EtsCursorNames420.SelectReverse ? 1 : 0, EndCondition = bounds.Kind == EtsCursorBoundness420.Partial ? (function == EtsCursorNames420.SelectReverse ? bounds.Least! : bounds.Most!) : Nil.Value };
+            }
+            else state = ParseCursor420(
+                context,
+                raw!,
+                options.Kind,
+                out retainedProgram
+            );
+            using var execution = state.Executable.Acquire638(context);
+            EtsCursorSnapshot420 snapshot = CaptureCursor420(
+                context,
+                admitted,
+                state,
+                options
+            );
 
-        return options.Kind == EtsCoreTableKind407.OrderedSet ? await RunTreeCursor420(context, state, snapshot) : await RunHashCursor420(context, state, snapshot);
+            return options.Kind == EtsCoreTableKind407.OrderedSet ? await RunTreeCursor420(
+                context,
+                state,
+                snapshot,
+                execution
+            ) : await RunHashCursor420(
+                context,
+                state,
+                snapshot,
+                execution
+            );
+        }
+        finally
+        {
+            // Per invocation only: do not attach a read lease to a returned raw
+            // continuation and retain it between user calls.
+            retainedProgram?.Dispose();
+        }
     }
 
-    private static EtsCursorState420 ParseCursor420(ProcessContext context, TupleTerm raw, EtsCoreTableKind407 kind)
+    private static EtsCursorState420 ParseCursor420(
+        ProcessContext context,
+        TupleTerm raw,
+        EtsCoreTableKind407 kind,
+        out ReferenceResourceLease<EtsCompiledProgram419>? retainedProgram
+    )
     {
+        retainedProgram = null;
         var fields = raw.Items;
         bool tree = kind == EtsCoreTableKind407.OrderedSet;
         if (tree && fields.Count != EtsCursorNames420.TreeArity || !tree && fields.Count is not (EtsCursorNames420.HashPublicArity or EtsCursorNames420.HashTrapArity)) throw new RuntimeEtsCoreFailure407(RuntimeEtsCoreCause407.None);
@@ -63,14 +95,25 @@ internal sealed partial class RuntimeEtsFoundation
         if (!tree && (chunk < 0 || count < 0)) throw new RuntimeEtsCoreFailure407(RuntimeEtsCoreCause407.None);
         if (!tree && fields.Count == EtsCursorNames420.HashTrapArity) _ = EtsCursorTerms420.Small(fields[6]);
         if (fields[tree ? 4 : 3] is not ReferenceTerm reference) throw new RuntimeEtsCoreFailure407(RuntimeEtsCoreCause407.None);
-        MatchSpecProgram program;
-        using (var lease = context.Runtime.ReferenceResources.AcquireMatchSpec419(reference))
+        var lease = context.Runtime.ReferenceResources.AcquireMatchSpec419(reference);
+        if (lease is null) throw new RuntimeEtsCoreFailure407(RuntimeEtsCoreCause407.None);
+        bool transferred = false;
+        try
         {
-            if (lease is null) throw new RuntimeEtsCoreFailure407(RuntimeEtsCoreCause407.None);
-            program = lease.Value.Program;
-        }
+            EtsCompiledExecutable638 executable = lease.Value.Executable;
+            var state = new EtsCursorState420() { Tid = fields[0], Chunk = chunk, Count = count, Reverse = reverse, Slot = slot, LastKey = tree ? fields[1] : Nil.Value, EndCondition = tree ? fields[2] : Nil.Value, Accumulator = fields[tree ? 5 : 4], Reference = reference, Executable = executable };
+            // Handoff only after state construction succeeds; all earlier
+            // parse/value/allocation failures keep cleanup in this scope.
+            retainedProgram = lease;
+            transferred = true;
 
-        return new() { Tid = fields[0], Chunk = chunk, Count = count, Reverse = reverse, Slot = slot, LastKey = tree ? fields[1] : Nil.Value, EndCondition = tree ? fields[2] : Nil.Value, Accumulator = fields[tree ? 5 : 4], Reference = reference, Program = program };
+            return state;
+        }
+        finally
+        {
+            if (!transferred)
+                lease.Dispose();
+        }
     }
 
     private EtsCursorSnapshot420 CaptureCursor420(
@@ -176,9 +219,14 @@ internal sealed partial class RuntimeEtsFoundation
     }
 
     private static ReferenceTerm CursorProgram420(ProcessContext context, EtsCursorState420 state)
-     => state.Reference ??= context.Runtime.PublishMatchSpec419(context, new EtsCompiledProgram419(state.Program));
+     => state.Reference ??= context.Runtime.PublishMatchSpec419(context, new EtsCompiledProgram419(state.Executable));
 
-    private static async ValueTask<Term> RunHashCursor420(ProcessContext context, EtsCursorState420 state, EtsCursorSnapshot420 snapshot)
+    private static async ValueTask<Term> RunHashCursor420(
+        ProcessContext context,
+        EtsCursorState420 state,
+        EtsCursorSnapshot420 snapshot,
+        EtsCompiledDispatch638 execution
+    )
     {
         Term accumulator = state.Accumulator;
         long got = state.Count, next = state.Initial ? -1 : state.Slot;
@@ -195,7 +243,7 @@ internal sealed partial class RuntimeEtsFoundation
                 while (row < snapshot.Rows.Length && snapshot.Rows[row].Slot == slot)
                 {
                     context.Cancellation.ThrowIfCancellationRequested();
-                    var result = state.Program.Run(context, snapshot.Rows[row++].Row, MatchSpecRunMode.Production);
+                    var result = execution.RunCursor638(context, snapshot.Rows[row++].Row);
                     if (result.Matched)
                     {
                         accumulator = new Cons(result.Value, accumulator);
@@ -246,7 +294,12 @@ internal sealed partial class RuntimeEtsFoundation
         return accumulator is Nil ? Term.A(EtsCursorNames420.End) : Term.Tuple(accumulator, Term.A(EtsCursorNames420.End));
     }
 
-    private static async ValueTask<Term> RunTreeCursor420(ProcessContext context, EtsCursorState420 state, EtsCursorSnapshot420 snapshot)
+    private static async ValueTask<Term> RunTreeCursor420(
+        ProcessContext context,
+        EtsCursorState420 state,
+        EtsCursorSnapshot420 snapshot,
+        EtsCompiledDispatch638 execution
+    )
     {
         bool reverse = state.Reverse != 0;
         bool forward = state.Chunk != 0 ? !reverse : reverse;
@@ -280,7 +333,7 @@ internal sealed partial class RuntimeEtsFoundation
                 int end = EtsCursorPattern420.PartlyCompare(state.EndCondition, row.Key);
                 if (forward ? end < 0 : end > 0) break;
             }
-            var result = state.Program.Run(context, row.Row, MatchSpecRunMode.Production);
+            var result = execution.RunCursor638(context, row.Row);
             if (result.Matched)
             {
                 accumulator = new Cons(result.Value, accumulator);

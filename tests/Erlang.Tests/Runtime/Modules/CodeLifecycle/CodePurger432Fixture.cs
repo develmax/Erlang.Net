@@ -3,22 +3,35 @@ namespace Erlang.Tests;
 
 internal sealed class CodePurger432Fixture : IAsyncDisposable
 {
-    internal ProcessRuntime Runtime { get; } = new(CodePurger432HostNames.Schedulers);
+    internal ProcessRuntime Runtime { get; }
+
+    private CodePurger432Fixture(bool owned)
+    {
+        Runtime = owned ? OwnedGuest506RuntimeFactory.Create() : new(CodePurger432HostNames.Schedulers);
+    }
+
     internal RuntimeNodeFoundationHostActor Actor { get; private set; } = null!;
     internal ProcessHandle Purger { get; private set; } = null!;
     internal BeamDependencySelection Dependencies { get; } = new([CodePurger432HostNames.ErLang, CodePurger432HostNames.Internal, CodePurger432HostNames.Module, CodePurger432HostNames.Subject, CodePurgerOriginal432Names.Module, CodePurgerOriginal432Names.File]);
 
-    internal static async Task<CodePurger432Fixture> Create()
+    internal static async Task<CodePurger432Fixture> Create(bool owned = false)
     {
-        var fixture = new CodePurger432Fixture();
+        var fixture = new CodePurger432Fixture(owned);
         try
         {
-            await fixture.Runtime.InitializeModulesAsync(registry =>
+            await global::Erlang.Tests.PreparedBeamFixtureScope171.RunAsync(
+                fixture.Runtime,
+                (registry, scope) =>
             {
-                var facet = registry.PrepareBeam(CodePurgerOriginal432Access.Resource(CodePurgerOriginal432Names.FacetBeam), fixture.Dependencies);
-                var purger = registry.PrepareBeam(CodePurgerOriginal432Access.Resource(CodePurgerOriginal432Names.PurgerBeam), fixture.Dependencies);
-                CodePurger432HostAccess.Require(registry.PublishPreparedBeam([facet, purger]).Status == BeamPublicationStatus.Published);
-            });
+                var facet = scope.Prepare(() => registry.PrepareBeam(CodePurgerOriginal432Access.Resource(CodePurgerOriginal432Names.FacetBeam), fixture.Dependencies));
+                var purger = scope.Prepare(() => registry.PrepareBeam(CodePurgerOriginal432Access.Resource(CodePurgerOriginal432Names.PurgerBeam), fixture.Dependencies));
+
+                return ValueTask.FromResult<Action<ModuleRegistry>>(_ =>
+                {
+                    CodePurger432HostAccess.Require(registry.PublishPreparedBeam([facet, purger]).Status == BeamPublicationStatus.Published);
+                });
+            }
+            );
             fixture.Actor = new(fixture.Runtime);
             fixture.Purger = await fixture.Actor.Invoke(context =>
             {

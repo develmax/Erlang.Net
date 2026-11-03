@@ -10,19 +10,25 @@ internal static class EtsCompiledOperations419
         return context.Runtime.PublishMatchSpec419(context, new(compiled.Program));
     }
 
-    private static EtsCompiledProgram419? Read(ProcessContext context, Term argument)
+    private static (ReferenceResourceLease<EtsCompiledProgram419> Lease, EtsCompiledProgram419 Payload)? Read(ProcessContext context, Term argument)
     {
         if (argument is not ReferenceTerm reference) return null;
-        using var lease = context.Runtime.ReferenceResources.AcquireMatchSpec419(reference);
+        var lease = context.Runtime.ReferenceResources.AcquireMatchSpec419(reference);
         if (lease is null)
         {
             context.Runtime.RequireMatchSpecActor419(context);
 
             return null;
         }
+        bool transferred = false;
         try
         {
-            return lease.Value;
+            // Capture exactly once at the old read point. Re-reading Value in
+            // the caller would add a different registry-close race window.
+            EtsCompiledProgram419 payload = lease.Value;
+            transferred = true;
+
+            return (lease, payload);
         }
         catch (ObjectDisposedException)
         {
@@ -31,10 +37,20 @@ internal static class EtsCompiledOperations419
             context.Runtime.RequireMatchSpecActor419(context);
             throw;
         }
+        finally
+        {
+            if (!transferred)
+                lease.Dispose();
+        }
     }
 
     internal static Term IsCompiled(ProcessContext context, Term argument)
-        => CoreModules.Boolean(Read(context, argument) is not null);
+    {
+        var read = Read(context, argument);
+        using var lease = read?.Lease;
+
+        return CoreModules.Boolean(read is not null);
+    }
 
     internal static async ValueTask<Term> Run(
         ProcessContext context,
@@ -44,8 +60,9 @@ internal static class EtsCompiledOperations419
     )
     {
         if (list is not Cons && list is not Nil) throw new ErlangException(ErlangErrorReasons.BadArgument);
-        var owned = Read(context, resource) ?? throw new ErlangException(ErlangErrorReasons.BadArgument);
-        MatchSpecProgram program = owned.Program;
+        var dispatch = Read(context, resource) ?? throw new ErlangException(ErlangErrorReasons.BadArgument);
+        using var lease = dispatch.Lease;
+        using var execution = dispatch.Payload.Executable.Acquire638(context);
         Term entryList = list, entryAccumulator = accumulator;
         Term cursor = list, result = accumulator;
         int reductions = 0;
@@ -62,7 +79,7 @@ internal static class EtsCompiledOperations419
                 await Task.Yield();
                 continue;
             }
-            MatchSpecResult match = program.RunNative419(context, cell.Head);
+            MatchSpecResult match = execution.RunCompiled638(context, cell.Head);
             if (match.Matched) result = new Cons(match.Value, result);
             cursor = cell.Tail;
         }

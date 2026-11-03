@@ -11,6 +11,11 @@ spawn_monitor and waits for both its actual result and normal DOWN.
 
 Each report records all 71 signatures, exercised signatures, value matches,
 exception reason matches, full stack matches, and separate differences. Raw ETF
-files preserve every complete input/outcome. The executable exits nonzero for
-any value, reason or full-stack mismatch. Do not call a value-only pass full
+files preserve every complete input/outcome. Thirteen additional binary-backing
+observations include the 64-byte slice boundary. The executable exits nonzero for
+any value, reason, full-stack or backing mismatch. Do not call a value-only pass full
 compatibility. See [current scope](../../../docs/string-backends.md).
+
+An explicit `-RunnerDll <path>` on the PowerShell entry point uses a retained
+validator without rebuilding the checkout. This is useful during an unrelated
+integration conflict; it is not proof that the current combined source builds.

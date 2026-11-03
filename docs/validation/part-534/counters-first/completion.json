@@ -1,0 +1,219 @@
+{
+  "Passed": false,
+  "Errors": [
+    "ordinary: RuntimeError('Owned stage failed; all available raw evidence retained: managed')",
+    "private-owned: RuntimeError('Owned stage failed; all available raw evidence retained: managed')"
+  ],
+  "OriginalExitCode": 0,
+  "ManagedRequested": true,
+  "ExpectedHead": "ec302a4da3c83218a5c8570b8d76cd93e9baaf03",
+  "SourcePin": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "ProviderKind": "OfficialWindows",
+  "ProviderAdmissionSha256": "41CCC2FDE5493D85BEAA21996E12D0885D2919B0D4BF44137D0673DCDC9D5EA6",
+  "MetadataCompletionSha256": "9BE081497F9779F892283A910FB267EC0B4BB5C674F5529ACE1705CF9F04723A",
+  "ManagedPreparationPassed": true,
+  "AdoptionPassed": true,
+  "ManagedRuns": [
+    {
+      "Profile": "ordinary",
+      "RequestedOwned": false,
+      "Passed": false,
+      "Receipt": {
+        "Command": [
+          "C:\\Program Files\\dotnet\\dotnet.exe",
+          "exec",
+          "--fx-version",
+          "10.0.11",
+          "D:\\Distr\\Work\\Codex\\Erlang.Net\\w504\\tests\\Erlang.Tests\\bin\\Release\\net10.0\\Erlang.Tests.dll",
+          "--original-counters610-child",
+          "D:\\Distr\\Work\\Codex\\Erlang.Net\\w504",
+          "D:\\Distr\\Work\\Codex\\Erlang.Net\\w504\\artifacts\\resource534\\counters-first\\admission.json",
+          "71CAC25CFA5443C024F28FBB5C92C2F32F0B592027D97E123C26C11BB8255BB3",
+          "D:\\Distr\\Work\\Codex\\Erlang.Net\\w504\\artifacts\\resource534\\metadata-first\\completion.json",
+          "9BE081497F9779F892283A910FB267EC0B4BB5C674F5529ACE1705CF9F04723A",
+          "false",
+          "D:\\Distr\\Work\\Codex\\Erlang.Net\\w504\\artifacts\\resource534\\counters-first\\ordinary\\actual"
+        ],
+        "Pid": 25752,
+        "ElapsedSeconds": 255.04699999999866,
+        "TimedOut": true,
+        "Settled": false,
+        "ExitCode": null,
+        "Failures": [
+          "Owned process-tree termination failed: 1",
+          "TimeoutExpired(['C:\\\\Program Files\\\\dotnet\\\\dotnet.exe', 'exec', '--fx-version', '10.0.11', 'D:\\\\Distr\\\\Work\\\\Codex\\\\Erlang.Net\\\\w504\\\\tests\\\\Erlang.Tests\\\\bin\\\\Release\\\\net10.0\\\\Erlang.Tests.dll', '--original-counters610-child', 'D:\\\\Distr\\\\Work\\\\Codex\\\\Erlang.Net\\\\w504', 'D:\\\\Distr\\\\Work\\\\Codex\\\\Erlang.Net\\\\w504\\\\artifacts\\\\resource534\\\\counters-first\\\\admission.json', '71CAC25CFA5443C024F28FBB5C92C2F32F0B592027D97E123C26C11BB8255BB3', 'D:\\\\Distr\\\\Work\\\\Codex\\\\Erlang.Net\\\\w504\\\\artifacts\\\\resource534\\\\metadata-first\\\\completion.json', '9BE081497F9779F892283A910FB267EC0B4BB5C674F5529ACE1705CF9F04723A', 'false', 'D:\\\\Distr\\\\Work\\\\Codex\\\\Erlang.Net\\\\w504\\\\artifacts\\\\resource534\\\\counters-first\\\\ordinary\\\\actual'], 15)"
+        ],
+        "StdoutSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+        "StderrSha256": "2BB247D279192A2CA6CBBE14F54F82DAEFA90C94AEBDE7115980A16231709DF8"
+      },
+      "Error": "RuntimeError('Owned stage failed; all available raw evidence retained: managed')",
+      "Artifacts": [
+        {
+          "Path": "actual/actual-stock-owners-before.etf",
+          "Bytes": 1171,
+          "Sha256": "A64D2E9D2B1B19F1244449A768AC5E63F5382777642A618D0311B6348109762C"
+        },
+        {
+          "Path": "actual/cleanup610.json",
+          "Bytes": 295,
+          "Sha256": "33747E3F472AB48206748F653384E06CE3CA7FC7DB9028991F85054AAE8CD4ED"
+        },
+        {
+          "Path": "actual/failure.txt",
+          "Bytes": 918,
+          "Sha256": "695FCF8AF6953E14AD36780C306A8F711834ABC0A54254AD3148D58DF3B20187"
+        },
+        {
+          "Path": "actual/observed-deterministic.etf",
+          "Bytes": 601,
+          "Sha256": "E1E98A91B03EAA3850CD419B45C523B16018539EB210BBD747559E4DCF7E9B86"
+        },
+        {
+          "Path": "actual/observed.etf",
+          "Bytes": 601,
+          "Sha256": "E1E98A91B03EAA3850CD419B45C523B16018539EB210BBD747559E4DCF7E9B86"
+        },
+        {
+          "Path": "dotnet-host.trace",
+          "Bytes": 117941,
+          "Sha256": "A1CE1C453428688C163EAD84AB8C3D846958A7A5ABDA6BEA99AA9063608C7442"
+        },
+        {
+          "Path": "managed.exit.json",
+          "Bytes": 1992,
+          "Sha256": "5E560BC063E2BFA34C159578AFF7F5EB3ECE07ED61BA2893E40AAA9D7AE18569"
+        },
+        {
+          "Path": "managed.kill.stderr.log",
+          "Bytes": 23,
+          "Sha256": "E70262CF00C5919DFA815A138C24F28E8FD625E40066B4982D7376DC31620C1F"
+        },
+        {
+          "Path": "managed.kill.stdout.log",
+          "Bytes": 0,
+          "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+        },
+        {
+          "Path": "managed.live.json",
+          "Bytes": 859,
+          "Sha256": "12B2A4347C1ADE8AC08C2AFC0417CE5966EB4A53BC5BD53E6A3572CE7A7203F6"
+        },
+        {
+          "Path": "managed.stderr.log",
+          "Bytes": 2214,
+          "Sha256": "2BB247D279192A2CA6CBBE14F54F82DAEFA90C94AEBDE7115980A16231709DF8"
+        },
+        {
+          "Path": "managed.stdout.log",
+          "Bytes": 0,
+          "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+        },
+        {
+          "Path": "request.json",
+          "Bytes": 842,
+          "Sha256": "AD09F46D0CA233292B169EE39A52D8786A0397DD1300CD01CD5BDAFB7CFFCDB8"
+        }
+      ]
+    },
+    {
+      "Profile": "private-owned",
+      "RequestedOwned": true,
+      "Passed": false,
+      "Receipt": {
+        "Command": [
+          "C:\\Program Files\\dotnet\\dotnet.exe",
+          "exec",
+          "--fx-version",
+          "10.0.11",
+          "D:\\Distr\\Work\\Codex\\Erlang.Net\\w504\\tests\\Erlang.Tests\\bin\\Release\\net10.0\\Erlang.Tests.dll",
+          "--original-counters610-child",
+          "D:\\Distr\\Work\\Codex\\Erlang.Net\\w504",
+          "D:\\Distr\\Work\\Codex\\Erlang.Net\\w504\\artifacts\\resource534\\counters-first\\admission.json",
+          "71CAC25CFA5443C024F28FBB5C92C2F32F0B592027D97E123C26C11BB8255BB3",
+          "D:\\Distr\\Work\\Codex\\Erlang.Net\\w504\\artifacts\\resource534\\metadata-first\\completion.json",
+          "9BE081497F9779F892283A910FB267EC0B4BB5C674F5529ACE1705CF9F04723A",
+          "true",
+          "D:\\Distr\\Work\\Codex\\Erlang.Net\\w504\\artifacts\\resource534\\counters-first\\private-owned\\actual"
+        ],
+        "Pid": 18436,
+        "ElapsedSeconds": 20.25,
+        "TimedOut": false,
+        "Settled": true,
+        "ExitCode": 4294967295,
+        "Failures": [],
+        "StdoutSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+        "StderrSha256": "2BB247D279192A2CA6CBBE14F54F82DAEFA90C94AEBDE7115980A16231709DF8"
+      },
+      "Error": "RuntimeError('Owned stage failed; all available raw evidence retained: managed')",
+      "Artifacts": [
+        {
+          "Path": "actual/actual-stock-owners-before.etf",
+          "Bytes": 1171,
+          "Sha256": "A64D2E9D2B1B19F1244449A768AC5E63F5382777642A618D0311B6348109762C"
+        },
+        {
+          "Path": "actual/cleanup610.json",
+          "Bytes": 294,
+          "Sha256": "85141DDCFBECE1CEA561EBE1766162BC610E60C06F3BC45B8FF4ADDD90D880B0"
+        },
+        {
+          "Path": "actual/failure.txt",
+          "Bytes": 918,
+          "Sha256": "695FCF8AF6953E14AD36780C306A8F711834ABC0A54254AD3148D58DF3B20187"
+        },
+        {
+          "Path": "actual/observed-deterministic.etf",
+          "Bytes": 601,
+          "Sha256": "E1E98A91B03EAA3850CD419B45C523B16018539EB210BBD747559E4DCF7E9B86"
+        },
+        {
+          "Path": "actual/observed.etf",
+          "Bytes": 601,
+          "Sha256": "E1E98A91B03EAA3850CD419B45C523B16018539EB210BBD747559E4DCF7E9B86"
+        },
+        {
+          "Path": "dotnet-host.trace",
+          "Bytes": 117953,
+          "Sha256": "E7C4AF29556F628B5F8582CD7CD51600DA0B321ADB46EC9950C62B30CE5B2161"
+        },
+        {
+          "Path": "managed.exit.json",
+          "Bytes": 1108,
+          "Sha256": "69A04467669E0457DF5D528125520A1197F8E2A3DCFCE89DAC63E9B813E84BD4"
+        },
+        {
+          "Path": "managed.live.json",
+          "Bytes": 863,
+          "Sha256": "1FE4EE26F2359F62E74AE74B16BAFB0C1E3365F6931D415EA6F892444256D9A7"
+        },
+        {
+          "Path": "managed.stderr.log",
+          "Bytes": 2214,
+          "Sha256": "2BB247D279192A2CA6CBBE14F54F82DAEFA90C94AEBDE7115980A16231709DF8"
+        },
+        {
+          "Path": "managed.stdout.log",
+          "Bytes": 0,
+          "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+        },
+        {
+          "Path": "request.json",
+          "Bytes": 851,
+          "Sha256": "FF98E65D21F17FBA7D7DEB304CADE4317DBBEBAE83FFD95CF49FA3AF37FFF0BB"
+        }
+      ]
+    }
+  ],
+  "ExpectedManagedRoutes": 2,
+  "CompletedManagedRoutes": 2,
+  "OwnReferenceProtocolOptIn": true,
+  "ComparisonPolicy": "WholeDefaultAndDeterministicEtfOutsideAuthenticatedSixRoleMagicNumberWords610",
+  "EachManagedVmHasOwnReferenceBinding": true,
+  "RawEtfRewritten": false,
+  "WholeContractsClosed": 0,
+  "ManagedComparisonPerformed": true,
+  "ManagedReplaySkipped": false,
+  "ArtifactInventorySha256": "DA96845E13608F158B6547AFEAC750A61EB36D7B040319BB027D65B6E6AE7B31",
+  "ManagedHostSha256": "ECA4871897BFD8A8E67AB692C47FE1037B6E5F4A00A376828D7AF1D20F1E3CA7",
+  "SourcePlanSha256": "79044C1FBA34FD09E1C098F7B998F8E8EECC792654BD576E102E827F9F5FC91D"
+}

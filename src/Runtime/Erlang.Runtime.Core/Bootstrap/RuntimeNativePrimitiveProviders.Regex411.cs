@@ -27,20 +27,38 @@ public static partial class RuntimeNativePrimitiveProviders
             cancellation.ThrowIfCancellationRequested();
             runtime.PublishRegex411(engine);
             registry.InstallRegexProvider411(runtime, engine);
+            engine.MarkPublished599();
             runtime.CompleteRegexInstall411(null);
 
             return engine;
         }
-        catch
+        catch (Exception original)
         {
+            Exception? cleanupFailure = null, completionFailure = null;
             try
             {
-                if (engine is not null) await engine.DisposeAsync().ConfigureAwait(false);
+                if (engine is not null) await engine.DisposeFailedInstallation599Async().ConfigureAwait(false);
             }
-            finally
+            catch (Exception cleanup)
             {
-                runtime.CompleteRegexInstall411(engine);
+                cleanupFailure = cleanup;
             }
+            try
+            {
+                if (cleanupFailure is not null && engine is not null)
+                    runtime.RetainFailedRegexInstallation599(engine);
+                else
+                    runtime.CompleteRegexInstall411(engine);
+            }
+            catch (Exception cleanup)
+            {
+                completionFailure = cleanup;
+            }
+            // Preserve all phases after attempting cleanup and ownership handoff.
+            if (cleanupFailure is not null && completionFailure is not null)
+                throw new AggregateException(original, cleanupFailure, completionFailure);
+            if (cleanupFailure is not null || completionFailure is not null)
+                throw new AggregateException(original, cleanupFailure ?? completionFailure!);
             throw;
         }
     }

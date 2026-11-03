@@ -5,13 +5,20 @@ internal static class DebugDirtyRouting420Checks
     internal static async Task Run()
     {
         await using var runtime = new ProcessRuntime();
-        await runtime.InitializeModulesAsync(registry =>
+        await global::Erlang.Tests.PreparedBeamFixtureScope171.RunAsync(
+            runtime,
+            (registry, scope) =>
         {
-            var image = registry.PrepareBeam(DebugLocks419Access.Beam(), new BeamDependencySelection([DebugLocks419Names.Runtime]));
-            DirtyNative419Access.Require(image.NativePrimitiveExports.Count == 4 && registry.PublishPreparedBeam(image).Status == BeamPublicationStatus.Published);
-            foreach (var entry in DebugLocks419Names.Signatures)
-                DirtyNative419Access.Require(ReferenceEquals(registry.SourceOwner(DebugLocks419Names.Module, entry.Function, entry.Arity), image));
-        });
+            var image = scope.Prepare(() => registry.PrepareBeam(DebugLocks419Access.Beam(), new BeamDependencySelection([DebugLocks419Names.Runtime])));
+
+            return ValueTask.FromResult<Action<ModuleRegistry>>(_ =>
+            {
+                DirtyNative419Access.Require(image.NativePrimitiveExports.Count == 4 && registry.PublishPreparedBeam(image).Status == BeamPublicationStatus.Published);
+                foreach (var entry in DebugLocks419Names.Signatures)
+                    DirtyNative419Access.Require(ReferenceEquals(registry.SourceOwner(DebugLocks419Names.Module, entry.Function, entry.Arity), image));
+            });
+        }
+        );
         await using var held = new RuntimeNodeFoundationHostActor(runtime);
         await using var clear = new RuntimeNodeFoundationHostActor(runtime);
         await using var collect = new RuntimeNodeFoundationHostActor(runtime);

@@ -1,0 +1,82 @@
+{
+  "SystemFlagSubgrammars": {
+    "erts_alloc": {
+      "AllocatorAtoms": [
+        "sys_alloc",
+        "temp_alloc",
+        "sl_alloc",
+        "std_alloc",
+        "ll_alloc",
+        "eheap_alloc",
+        "ets_alloc",
+        "fix_alloc",
+        "literal_alloc",
+        "binary_alloc",
+        "driver_alloc",
+        "test_alloc"
+      ],
+      "Source": "erl_alloc.types declarations +erl_alloc.c3445-3508",
+      "Partition": "known/unknownallocator; known enabled/disabled/nonalloc_util; sbct Uint0/max/negative/bignum and atomflagother; correct tuple3 versus wrongshape; runtime threshold accepts/rejects try_set_dyn_param",
+      "ImportantPrecedence": "disabled/nonalloc_util knownallocator returnsnotsup BEFORE sbct Uintvalidation; supportedunknownflag returnsnotsup after integer-typecheck"
+    },
+    "scheduler_bind_type": {
+      "Atoms": [
+        "unbound",
+        "no_spread",
+        "thread_spread",
+        "processor_spread",
+        "spread",
+        "no_node_thread_spread",
+        "no_node_processor_spread",
+        "thread_no_node_processor_spread",
+        "default_bind"
+      ],
+      "Source": "erl_cpu_topology.c714-786",
+      "Partition": "no OSaffinity+currentunbound requestedunbound succeeds; other unsupported caseserrornotsup; availableaffinity badatom/topologyunknownerrorbadarg; valid changesnotifyschedulers"
+    },
+    "internal_cpu_topology": {
+      "Source": "erl_cpu_topology.c1348-1484 and verify_topology",
+      "Grammar": "undefined OR proper list of exactly7tuple {cpu,Node,Processor,ProcessorNode,Core,Thread,Logical}; numeric ID range-1..ERTS_MAX_CPU_TOPOLOGY_ID plus topology-consistency/uniqueness checks",
+      "Important": "retain pinned helper predicates verbatim; public cpu_topology trap additionally converts nested publicgrammar and emits deprecation warning"
+    },
+    "trace_control_word": {
+      "Source": "erl_db_util.c1091-1102",
+      "Range": "0..4294967295; nonnegative nativeUint conversion and Uint32 equality; atomic oldreturn"
+    },
+    "system_logger": {
+      "Source": "erl_trace.c2486-2491",
+      "Grammar": "logger|undefined|internalPid(alive or dead); externalPid invalid; atomic previous term"
+    },
+    "max_heap_size": {
+      "Source": "erl_gc.c3825-3875",
+      "Keys": [
+        "size",
+        "kill",
+        "error_logger",
+        "include_shared_binaries"
+      ],
+      "Details": "size mandatory native-small nonnegative; all booleans exact true/false; extra keys ignored; unspecified flags inherit existing globalflags; system_flag additionally enforces size0 or>=H_MIN_SIZE"
+    },
+    "garbage_collection_info": {
+      "Source": "erl_gc.c3650-3734",
+      "OrderedFields": [
+        "old_heap_block_size",
+        "heap_block_size",
+        "mbuf_size",
+        "recent_size",
+        "stack_size",
+        "old_heap_size",
+        "heap_size",
+        "bin_vheap_size",
+        "bin_vheap_block_size",
+        "bin_old_vheap_size",
+        "bin_old_vheap_block_size"
+      ],
+      "Relations": [
+        "total_heap_size = old_heap_block_size+heap_block_size+mbuf_size at aligned observation",
+        "occupancy!=capacity; high-water recent-size; actualbinary-vheap vsnative bytes separate",
+        "abandonedheap and on_heap attachedmessage fragments included bysource"
+      ]
+    }
+  }
+}

@@ -1,0 +1,58 @@
+{
+  "Names": [
+    "runtime/halt-foundation-transfer-admission-and-independent-runtime",
+    "runtime/halt-live-port-drain-immediate-timeout-and-profile-ownership"
+  ],
+  "Assemblies": {
+    "Host": "3D426774AEF4B85F17A92DD867C85B2AFB065ABAA597888F070AA49F7DD7A831",
+    "Runtime": "15D9FAEAF503225E30C19E06BF5FEC4D4679A206D3856FD65114A5EA04E80C08"
+  },
+  "Receipt": {
+    "Command": [
+      "dotnet",
+      "exec",
+      "--fx-version",
+      "10.0.11",
+      "D:\\Distr\\Work\\Codex\\Erlang.Net\\w536\\tests\\Erlang.Tests\\bin\\Debug\\net10.0\\Erlang.Tests.dll",
+      "--case",
+      "runtime/halt-foundation-transfer-admission-and-independent-runtime",
+      "--case",
+      "runtime/halt-live-port-drain-immediate-timeout-and-profile-ownership",
+      "--report",
+      "D:\\Distr\\Work\\Codex\\Erlang.Net\\w536\\artifacts\\resource536\\halt-port2-debug-outside-sandbox\\report.json"
+    ],
+    "Pid": 23740,
+    "ElapsedSeconds": 10.468000000000757,
+    "TimedOut": false,
+    "Settled": true,
+    "ExitCode": 0,
+    "Failures": [],
+    "StdoutSha256": "C9085DC33AADF9FF3FD56F46B2EBB8A53D60249B8BA7A8553C3FEDF1DA2487A1",
+    "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+  },
+  "Report": {
+    "Partial": true,
+    "SelectedCount": 2,
+    "TotalCount": 9343,
+    "Blocks": [],
+    "ExactCases": [
+      "runtime/halt-foundation-transfer-admission-and-independent-runtime",
+      "runtime/halt-live-port-drain-immediate-timeout-and-profile-ownership"
+    ],
+    "Passed": 2,
+    "Failed": 0,
+    "Tests": [
+      {
+        "Name": "runtime/halt-foundation-transfer-admission-and-independent-runtime",
+        "Status": "Passed",
+        "Milliseconds": 1382
+      },
+      {
+        "Name": "runtime/halt-live-port-drain-immediate-timeout-and-profile-ownership",
+        "Status": "Passed",
+        "Milliseconds": 8627
+      }
+    ]
+  },
+  "ExpectedRed": false
+}

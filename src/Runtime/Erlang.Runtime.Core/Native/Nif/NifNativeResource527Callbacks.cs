@@ -118,7 +118,7 @@ internal static unsafe class NifNativeResource527Callbacks
         {
             var owner = NifNativeCallEnvironment.ResolveTermOwner(value, env);
             Term term = owner.Get(value);
-            NativeResourcePayload524? payload = NativeResourceRoots524.Direct524(term);
+            NativeResourcePayload524? payload = NativeResourceRoots524.Direct524(term, owner.Runtime);
             if (payload is null || payload.Type.Token != token) return 0;
             RequireRuntime(owner, payload);
             if (output == null) throw new ArgumentException(NativeResource527Names.NullOutput);

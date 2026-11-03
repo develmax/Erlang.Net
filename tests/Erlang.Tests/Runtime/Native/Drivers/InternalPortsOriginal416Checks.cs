@@ -17,10 +17,7 @@ internal static class InternalPortsOriginal416Checks
         {
             runtime = new ProcessRuntime();
             ProcessRuntime owner = runtime;
-            await owner.InitializeModulesAsync(registry =>
-            {
-                InternalPortsOriginal416Preparation.Prepare(owner, registry);
-            });
+            await InternalPortsOriginal416Preparation.Prepare171Async(owner);
             actor = new RuntimeNodeFoundationHostActor(owner);
             RuntimeNodeFoundationHostActor caller = actor;
 

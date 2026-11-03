@@ -36,7 +36,10 @@ internal static class ResourceBoot543Access
                 captured.Add((pid.Id, context, context is not null && (bool)TerminatedField.GetValue(context)!));
             }
         }
-        finally { Monitor.Exit(gate); }
+        finally
+        {
+            Monitor.Exit(gate);
+        }
         var rows = new List<object>();
         bool complete = count <= MaximumActors;
         foreach (var actor in captured)
@@ -76,22 +79,37 @@ internal static class ResourceBoot543Access
                     pending = (int)PendingField.GetValue(mailbox)!;
                     deferred = (int)DeferredField.GetValue(mailbox)!;
                 }
-                finally { Monitor.Exit(mailboxGate); }
+                finally
+                {
+                    Monitor.Exit(mailboxGate);
+                }
             }
             complete &= available;
             rows.Add(new
             {
-                ActorId = actor.Id, PresentAtLookup = true, actor.Terminated,
-                VisibleFrameCount = frames.Count, VisibleFrameChain = chain.ToArray(), ChainTruncated = chainTruncated,
-                MailboxGateAvailable = available, AdmittedMessages = admitted, PendingMessages = pending, DeferredMessages = deferred
+                ActorId = actor.Id,
+                PresentAtLookup = true,
+                actor.Terminated,
+                VisibleFrameCount = frames.Count,
+                VisibleFrameChain = chain.ToArray(),
+                ChainTruncated = chainTruncated,
+                MailboxGateAvailable = available,
+                AdmittedMessages = admitted,
+                PendingMessages = pending,
+                DeferredMessages = deferred
             });
         }
 
         return new
         {
-            RuntimeGateAvailable = true, MembershipCount = count, ActorsTruncated = count > MaximumActors,
-            CompleteMembershipSnapshot = complete, AtomicCrossActorSnapshotClaimed = false,
-            TimerAsyncLocalUsed = false, MailboxCountCallbackUsed = false, GuestPayloadsRead = false,
+            RuntimeGateAvailable = true,
+            MembershipCount = count,
+            ActorsTruncated = count > MaximumActors,
+            CompleteMembershipSnapshot = complete,
+            AtomicCrossActorSnapshotClaimed = false,
+            TimerAsyncLocalUsed = false,
+            MailboxCountCallbackUsed = false,
+            GuestPayloadsRead = false,
             Actors = rows.ToArray()
         };
     }

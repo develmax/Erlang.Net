@@ -1,5 +1,5 @@
 -module(ordsets_compatibility_observer).
--export([run/0,identity/1,keep/1,drop/1,replace/1,invalid/1,crash/1,pair/2,crash_pair/2]).
+-export([run/0,run/1,cases/0,identity/1,keep/1,drop/1,replace/1,invalid/1,crash/1,pair/2,crash_pair/2]).
 
 run() -> observe(cases(), []).
 
@@ -66,3 +66,5 @@ crash(X) -> log(X), erlang:error({callback,X}).
 pair(X,A) -> log({X,A}), {X,A}.
 crash_pair(X,A) -> log({X,A}), throw({callback,X,A}).
 log(X) -> put(events,[X|get(events)]).
+
+run(Cases) -> observe(Cases, []).

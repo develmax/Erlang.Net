@@ -54,10 +54,32 @@ internal sealed partial class NativeResourceTypeTable527(ProcessRuntime runtime,
                 pin
             );
         }
-        catch
+        catch (Exception failure)
         {
-            pin?.Dispose();
-            domain.EndTypeLoad527();
+            Exception? pinFailure = null, domainFailure = null;
+            try
+            {
+                pin?.Dispose();
+            }
+            catch (Exception error)
+            {
+                pinFailure = error;
+            }
+            try
+            {
+                domain.EndTypeLoad527();
+            }
+            catch (Exception error)
+            {
+                domainFailure = error;
+            }
+            if (pinFailure is not null || domainFailure is not null)
+            {
+                var failures = new List<Exception> { failure };
+                if (pinFailure is not null) failures.Add(pinFailure);
+                if (domainFailure is not null) failures.Add(domainFailure);
+                throw new AggregateException(failures);
+            }
             throw;
         }
     }
@@ -77,9 +99,9 @@ internal sealed partial class NativeResourceTypeTable527(ProcessRuntime runtime,
 
     // Caller owns the publication writer scope. All nodes/versions were allocated
     // before the actual image binding monitor is entered.
-    internal void Commit527(NativeResourceTypeOpen527[] opens)
+    internal void Commit527(List<NativeResourceTypeOpen527> opens, int count)
     {
-        for (int index = opens.Length - 1; index >= 0; index--)
+        for (int index = count - 1; index >= 0; index--)
         {
             NativeResourceTypeOpen527 opened = opens[index];
             if (opened.Created527) committed.AddFirst(opened.Node527!);
@@ -97,18 +119,28 @@ internal sealed partial class NativeResourceTypeTable527(ProcessRuntime runtime,
 
     internal void TryRetireEmpty527(NativeResourceType524 type)
     {
-        NativeResourceCallbackVersion527? release = null;
+        bool detached = false;
         callbackGate.EnterWriteLock();
         try
         {
             lock (namesGate529)
-                if (type.DetachIfEmpty527(out release)) committed.Remove(type);
+            {
+                if (type.DetachIfEmpty527(out _))
+                {
+                    committed.Remove(type);
+                    detached = true;
+                }
+            }
         }
         finally
         {
             callbackGate.ExitWriteLock();
         }
-        release?.Dispose();
+        // Detach revoked future payload/pending admission. Transfer the domain's
+        // last ownership outside callback/name locks before unregistering the
+        // opaque token and releasing its callback-version/image pin.
+        if (detached)
+            domain.RetireDetachedType575(type);
     }
 
     internal void BeginClose527()

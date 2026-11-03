@@ -1,0 +1,50 @@
+{
+  "Names": [
+    "runtime/dictionary635/linear-key-projection-visits"
+  ],
+  "Assemblies": {
+    "Host": "6BBFE1DAFFF1FC4CC48FB34E54F790A3BE8A65DCA567905479B313CD2A1E0A41",
+    "Runtime": "58D01401ABAF7FB963EE445283F412E79D6E5B08A9B1401340FB189C897D91DB"
+  },
+  "Receipt": {
+    "Command": [
+      "dotnet",
+      "exec",
+      "--fx-version",
+      "10.0.11",
+      "D:\\Distr\\Work\\Codex\\Erlang.Net\\w518repair\\tests\\Erlang.Tests\\bin\\Debug\\net10.0\\Erlang.Tests.dll",
+      "--case",
+      "runtime/dictionary635/linear-key-projection-visits",
+      "--report",
+      "D:\\Distr\\Work\\Codex\\Erlang.Net\\w518repair\\artifacts\\resource538\\projection635-quadratic-red\\report.json"
+    ],
+    "Pid": 36396,
+    "ElapsedSeconds": 2.0940000000009604,
+    "TimedOut": false,
+    "Settled": true,
+    "ExitCode": 1,
+    "Failures": [],
+    "StdoutSha256": "BEC901AB673CD627E3861172B6907246F7C3CD5DAEFAABE046CBD423543EE3F0",
+    "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+  },
+  "Report": {
+    "Partial": true,
+    "SelectedCount": 1,
+    "TotalCount": 9380,
+    "Blocks": [],
+    "ExactCases": [
+      "runtime/dictionary635/linear-key-projection-visits"
+    ],
+    "Passed": 0,
+    "Failed": 1,
+    "Tests": [
+      {
+        "Name": "runtime/dictionary635/linear-key-projection-visits",
+        "Status": "Failed",
+        "Error": "System.InvalidOperationException: Dictionary635 N=128, operation=all_keys, actual visits=17938, limit=5376\r\nDictionary635 N=128, operation=matching_keys, actual visits=17940, limit=5376\r\nDictionary635 N=256, operation=all_keys, actual visits=68626, limit=10496\r\nDictionary635 N=256, operation=matching_keys, actual visits=68628, limit=10496\r\nDictionary635 N=512, operation=all_keys, actual visits=268306, limit=20736\r\nDictionary635 N=512, operation=matching_keys, actual visits=268308, limit=20736\r\n   at Erlang.Tests.DictionaryProjection635Checks.Scaling() in D:\\Distr\\Work\\Codex\\Erlang.Net\\w518repair\\tests\\Erlang.Tests\\Runtime\\Storage\\Dictionary\\DictionaryProjection635Checks.cs:line 48\r\n   at Erlang.Tests.DictionaryProjection635Checks.Scaling() in D:\\Distr\\Work\\Codex\\Erlang.Net\\w518repair\\tests\\Erlang.Tests\\Runtime\\Storage\\Dictionary\\DictionaryProjection635Checks.cs:line 48\r\n   at Erlang.Tests.DictionaryProjection635Checks.Scaling() in D:\\Distr\\Work\\Codex\\Erlang.Net\\w518repair\\tests\\Erlang.Tests\\Runtime\\Storage\\Dictionary\\DictionaryProjection635Checks.cs:line 48\r\n   at Program.<Main>$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\w518repair\\tests\\Erlang.Tests\\Harness\\Program.cs:line 7723",
+        "Milliseconds": 1619
+      }
+    ]
+  },
+  "ExpectedRed": true
+}

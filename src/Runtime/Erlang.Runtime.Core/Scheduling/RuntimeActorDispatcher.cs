@@ -19,11 +19,71 @@ internal sealed partial class RuntimeActorDispatcher
     public Task Completion => completion.Task;
     internal int OnlineCount { get; private set; }
 
-    public RuntimeActorDispatcher(int capacity)
+    private readonly RuntimeUserCpuAccounting? userCpu;
+    private readonly RuntimeMicrostateAccounting? microstates;
+    private readonly RuntimeNormalWorker[] normalWorkers;
+    private readonly HashSet<RuntimeProcessTaskScheduler> members = new();
+    private readonly List<Exception> workerFailures = new();
+    private readonly List<Task> workerFailureDrains = new();
+    private bool normalWorkersStopping;
+    private bool normalWorkersStarted;
+
+    public RuntimeActorDispatcher(int capacity) : this(capacity, null) { }
+
+    internal RuntimeActorDispatcher(
+        int capacity,
+        RuntimeUserCpuAccounting? userCpu,
+        RuntimeMicrostateAccounting? microstates = null,
+        bool deferNormalWorkerStart = false
+    )
+        : this(
+            capacity,
+            userCpu,
+            microstates,
+            deferNormalWorkerStart,
+            null
+        )
     {
+    }
+
+    internal RuntimeActorDispatcher(
+        int capacity,
+        RuntimeUserCpuAccounting? userCpu,
+        RuntimeMicrostateAccounting? microstates,
+        bool deferNormalWorkerStart,
+        RuntimeWorkerCreationPolicy? creation
+    )
+    {
+        this.userCpu = userCpu;
+        this.microstates = microstates;
         ArgumentOutOfRangeException.ThrowIfNegativeOrZero(capacity);
         lanes = Enumerable.Range(ProcessSchedulerNames.First, capacity).Select(identity => new RuntimeSchedulerLane(identity)).ToArray();
         OnlineCount = capacity;
+        normalWorkers = new RuntimeNormalWorker[lanes.Length];
+        try
+        {
+            for (int index = 0; index < lanes.Length; index++)
+            {
+                RuntimeSchedulerLane lane = lanes[index];
+                normalWorkers[index] = new(
+                    lane.Identity,
+                    microstates,
+                    userCpu,
+                    () => Pump(lane),
+                    error => ReportNormalWorkerFailure(lane, error),
+                    creation
+                );
+            }
+        }
+        catch (Exception startup)
+        {
+            Exception failure = RollbackNormalWorkerStartup(startup);
+            if (ReferenceEquals(failure, startup))
+                throw;
+            throw failure;
+        }
+        if (!deferNormalWorkerStart)
+            StartNormalWorkers();
     }
 
     public Task Dispatch(ProcessContext owner, Func<Task> body, RuntimeActorRole role = RuntimeActorRole.Guest)
@@ -35,7 +95,10 @@ internal sealed partial class RuntimeActorDispatcher
             var scheduler = new RuntimeProcessTaskScheduler(this, owner, role);
             scheduler.Lane = lanes[InitialLane(owner) - ProcessSchedulerNames.First];
             owner.ActorTaskScheduler = scheduler;
+            if (!Volatile.Read(ref normalWorkersStarted))
+                throw new InvalidOperationException(RuntimeWorkerStartupNames.NotReady);
             active++;
+            members.Add(scheduler);
             if (role == RuntimeActorRole.Initialization)
                 initializer = scheduler;
             else
@@ -63,6 +126,7 @@ internal sealed partial class RuntimeActorDispatcher
             catch
             {
                 active--;
+                members.Remove(scheduler);
                 if (role == RuntimeActorRole.Guest)
                     guests--;
                 else
@@ -231,6 +295,8 @@ internal sealed partial class RuntimeActorDispatcher
 
     private void GrantOnlineTurn()
     {
+        AdvanceNormalBarrier696();
+        if (normalBarrier696 is not null) return;
         if (onlineChange is not null || onlineTurn is not null)
             return;
         while (onlineRequests.First is { } first)
@@ -306,8 +372,9 @@ internal sealed partial class RuntimeActorDispatcher
         }
     }
 
-    private RuntimeProcessTaskScheduler? Select(RuntimeSchedulerLane lane)
+    private RuntimeProcessTaskScheduler? Select(RuntimeSchedulerLane lane, RuntimeNormalWorkSelection selection)
     {
+        if (normalBarrier696 is not null) return SelectBarrierRequester696(lane, selection);
         LinkedList<RuntimeProcessTaskScheduler> queue;
         if (lane.Cleanup.Count != 0 && (lane.Online || retiring))
             queue = lane.Cleanup;
@@ -330,37 +397,35 @@ internal sealed partial class RuntimeActorDispatcher
             queue.AddLast(skipped);
         }
         var best = queue.First!.Value;
+        selection.Acquire(queue.First!);
         queue.RemoveFirst();
         best.ReadyNode = null;
         best.Running = true;
         lane.Running = best;
         WallTimeBecameActive(lane);
+        selection.WallTimeStarted = true;
 
         return best;
     }
 
     private void StartWorkers()
     {
+        if (!Volatile.Read(ref normalWorkersStarted))
+        {
+            if (retiring)
+                return;
+            throw new InvalidOperationException(RuntimeWorkerStartupNames.NotReady);
+        }
+        AdvanceNormalBarrier696();
         foreach (var lane in lanes)
         {
-            if (lane.Online && !lane.Pumping && lane.Empty)
+            if (!NormalBarrierLaneMayStart696(lane)) continue;
+            if (normalBarrier696 is null && lane.Online && !lane.Pumping && lane.Empty)
                 TrySteal(lane);
             if (lane.Pumping || lane.Empty || !lane.Online && lane.Auxiliary420.Count == 0 && (!retiring || lane.Cleanup.Count == 0))
                 continue;
             lane.Pumping = true;
-            try
-            {
-                if (ExecutionContext.IsFlowSuppressed())
-                    _ = Task.Run(() => Pump(lane));
-                else
-                    using (ExecutionContext.SuppressFlow())
-                        _ = Task.Run(() => Pump(lane));
-            }
-            catch
-            {
-                lane.Pumping = false;
-                throw;
-            }
+            normalWorkers[lane.Identity - ProcessSchedulerNames.First].Signal();
         }
     }
 
@@ -391,86 +456,104 @@ internal sealed partial class RuntimeActorDispatcher
 
     private void Pump(RuntimeSchedulerLane lane)
     {
+        // Persistent worker owns USER CPU and scheduler attachment lifetimes.
         while (true)
         {
-            RuntimeProcessTaskScheduler? scheduler = null;
-            RuntimeScheduledTask? task = null;
-            RuntimeSchedulerAuxiliary420? auxiliary = null;
-            lock (gate)
-            {
-                if (lane.Auxiliary420.First is { } first && DriverAuxiliaryMayRun422(lane))
-                {
-                    lane.Auxiliary420.RemoveFirst();
-                    auxiliary = first.Value;
-                    lane.AuxiliaryRunning420 = true;
-                    DriverAuxiliarySelected422(lane, true);
-                    WallTimeBecameActive(lane);
-                }
-                else
-                {
-                    scheduler = Select(lane);
-                    if (scheduler is null && lane.Online)
-                    {
-                        TrySteal(lane);
-                        scheduler = Select(lane);
-                    }
-                    if (scheduler is null && lane.Auxiliary420.First is { } fallback)
-                    {
-                        lane.Auxiliary420.RemoveFirst();
-                        auxiliary = fallback.Value;
-                        lane.AuxiliaryRunning420 = true;
-                        DriverAuxiliarySelected422(lane, true);
-                        WallTimeBecameActive(lane);
-                    }
-                    else if (scheduler is null)
-                    {
-                        lane.Pumping = false;
-                        CompleteTransition();
-                        CompleteIfIdle();
-
-                        return;
-                    }
-                    if (scheduler is not null)
-                    {
-                        DriverAuxiliarySelected422(lane, false);
-                        task = scheduler.DequeueWork428();
-                        scheduler.LastExecutedEpoch = task.Epoch;
-                    }
-                }
-            }
+            var selection = new RuntimeNormalWorkSelection(lane);
+            Exception? selectedFailure = null;
             try
             {
+                RuntimeProcessTaskScheduler? scheduler = null;
+                RuntimeScheduledTask? task = null;
+                RuntimeSchedulerAuxiliary420? auxiliary = null;
+                lock (gate)
+                {
+                    if (normalBarrier696 is null && lane.Auxiliary420.First is { } first
+                        && DriverAuxiliaryMayRun422(lane))
+                    {
+                        SelectNormalAuxiliary(lane, first, selection);
+                        auxiliary = first.Value;
+                    }
+                    else
+                    {
+                        scheduler = Select(lane, selection);
+                        if (scheduler is null && lane.Online && normalBarrier696 is null)
+                        {
+                            TrySteal(lane);
+                            scheduler = Select(lane, selection);
+                        }
+                        if (normalBarrier696 is null && scheduler is null
+                            && lane.Auxiliary420.First is { } fallback)
+                        {
+                            SelectNormalAuxiliary(lane, fallback, selection);
+                            auxiliary = fallback.Value;
+                        }
+                        else if (scheduler is null)
+                        {
+                            lane.Pumping = false;
+                            CompleteTransition();
+                            CompleteIfIdle();
+
+                            return;
+                        }
+                        if (scheduler is not null)
+                        {
+                            DriverAuxiliarySelected422(lane, false);
+                            task = scheduler.DequeueSelectedWork(selection);
+                            scheduler.RecordSelectedProcessDispatch(task);
+                            scheduler.LastExecutedEpoch = task.Epoch;
+                        }
+                    }
+                }
                 if (auxiliary is not null)
                 {
                     try
                     {
-                        using var normalAuxiliary536 = RuntimeNormalAuxiliaryTurn536.Enter536(auxiliary.ResourceRuntime536, lane.Identity);
+                        using var normalAuxiliary536 = RuntimeNormalAuxiliaryTurn536.Enter536(
+                            auxiliary.ResourceRuntime536, lane.Identity);
+                        using var state = microstates is null ? null
+                            : RuntimeMicrostateExecution.EnterState(microstates, RuntimeMicrostate.Aux);
+                        selection.Consumed();
                         auxiliary.Execute(lane.Identity);
                     }
                     catch (Exception error)
                     {
                         auxiliary.Fail(error);
+                        selection.Consumed();
                     }
                 }
-                else scheduler!.Execute(task!, lane.Identity);
+                else
+                {
+                    using var state = microstates is null ? null
+                        : RuntimeMicrostateExecution.EnterState(microstates, RuntimeMicrostate.Emulator);
+                    scheduler!.ExecuteSelectedWork(task!, lane.Identity, selection);
+                }
+            }
+            catch (Exception failure)
+            {
+                selectedFailure = failure;
+                throw;
             }
             finally
             {
-                lock (gate)
+                try
                 {
-                    WallTimeBecameIdle(lane);
-                    if (auxiliary is not null) lane.AuxiliaryRunning420 = false;
-                    else
+                    lock (gate)
                     {
-                        scheduler!.Running = false;
-                        lane.Running = null;
-                        AssignLane(scheduler);
-                        if (scheduler.WorkCount428 != 0) Ready(scheduler);
+                        FinalizeNormalSelection(selection, selectedFailure);
+                        AdvanceNormalBarrier696();
+                        CompleteTransition();
+                        StartWorkers();
                     }
-                    CompleteTransition();
-                    StartWorkers();
+                    if (selection.ExecutionConsumed && selection.Scheduler is { } actual)
+                        actual.Owner.Runtime.DirtyTurnEnded428(actual.Owner);
                 }
-                if (scheduler is not null) scheduler.Owner.Runtime.DirtyTurnEnded428(scheduler.Owner);
+                catch (Exception cleanup)
+                {
+                    if (selectedFailure is not null && !ReferenceEquals(selectedFailure, cleanup))
+                        throw new AggregateException(selectedFailure, cleanup);
+                    throw;
+                }
             }
         }
     }
@@ -486,9 +569,14 @@ internal sealed partial class RuntimeActorDispatcher
 
     public Task CompleteWhenIdle()
     {
+        var normalBarrierFailure696 = new ObjectDisposedException(RuntimeNormalBarrierNames696.Lease);
         lock (gate)
         {
+            if (completion.Task.IsCompleted)
+                return completion.Task;
             retiring = true;
+            RetirePendingNormalBarriers696(normalBarrierFailure696);
+            CloseNormalNativeUnderGate697();
             StopInitializerAfterGuests();
             foreach (var lane in lanes)
                 foreach (var queue in new[] { lane.Maximum, lane.High, lane.Ordinary })
@@ -518,6 +606,7 @@ internal sealed partial class RuntimeActorDispatcher
         lock (gate)
         {
             active--;
+            members.Remove(scheduler);
             if (scheduler.Role == RuntimeActorRole.Guest)
                 guests--;
             StopInitializerAfterGuests();
@@ -548,13 +637,86 @@ internal sealed partial class RuntimeActorDispatcher
         );
     }
 
+    private void ReportNormalWorkerFailure(RuntimeSchedulerLane lane, Exception failure)
+    {
+        RuntimeProcessTaskScheduler[] stopped;
+        var drain = new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);
+        lock (gate)
+        {
+            workerFailures.Add(failure);
+            // Review gate: recovering an arbitrary mid-selection invariant fault
+            // must not silently discard a dequeued work item. See failure table.
+            lane.Pumping = false;
+            stopped = members.ToArray();
+            workerFailureDrains.Add(drain.Task);
+        }
+        _ = StopAfterNormalWorkerFailure(stopped, drain);
+    }
+
+    private async Task StopAfterNormalWorkerFailure(RuntimeProcessTaskScheduler[] stopped,
+        TaskCompletionSource drain)
+    {
+        try
+        {
+            _ = CompleteWhenIdle();
+            foreach (var scheduler in stopped)
+                try
+                {
+                    await scheduler.Owner.Stop.CancelAsync().ConfigureAwait(false);
+                }
+                catch (Exception failure)
+                {
+                    lock (gate) workerFailures.Add(failure);
+                }
+        }
+        catch (Exception failure)
+        {
+            lock (gate) workerFailures.Add(failure);
+        }
+        finally
+        {
+            drain.TrySetResult();
+            lock (gate)
+            {
+                StartWorkers();
+                CompleteIfIdle();
+            }
+        }
+    }
+
+    private async Task FinishNormalWorkers()
+    {
+        var failures = new List<Exception>();
+        foreach (var worker in normalWorkers)
+            try
+            {
+                await worker.JoinAsync().ConfigureAwait(false);
+            }
+            catch (Exception failure)
+            {
+                failures.Add(failure);
+            }
+        lock (gate)
+        {
+            failures.AddRange(workerFailures);
+            if (initializerStop.Exception is { } failure) failures.AddRange(failure.InnerExceptions);
+            if (failures.Count == 0) completion.TrySetResult();
+            else completion.TrySetException(failures);
+        }
+    }
+
     private void CompleteIfIdle()
     {
-        if (!retiring || nativeResourceOwners536 != 0 || driverOwners422 != 0 || active != 0 || !initializerStop.IsCompleted || lanes.Any(lane => lane.Pumping || !lane.Empty))
+        // Close may latch during startup, but no join/Stop can race bootstrap ownership.
+        if (normalWorkerStartupAttempted && !normalWorkerStartupSettled.Task.IsCompleted)
             return;
-        if (initializerStop.Exception is { } failure)
-            completion.TrySetException(failure.InnerExceptions);
-        else
-            completion.TrySetResult();
+        if (!retiring || normalNativeActive697 != 0 || nativeResourceOwners536 != 0 || driverOwners422 != 0 || active != 0 || !initializerStop.IsCompleted || lanes.Any(lane => lane.Pumping || !lane.Empty))
+            return;
+        if (workerFailureDrains.Any(task => !task.IsCompleted) || normalWorkersStopping) return;
+        normalWorkersStopping = true;
+        foreach (var worker in normalWorkers) worker.Stop();
+        // Initiate outside any synchronous join. Completion means actual joins,
+        // not just the last guest dequeue or worker's exit-finally notification.
+        _ = FinishNormalWorkers();
     }
 }

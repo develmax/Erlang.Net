@@ -401,7 +401,8 @@ public static partial class ExternalTermFormat
                     nodeContext.Read(identity, snapshot);
                 // The owning runtime supplies its actual flat keys or HAMT traversal.
                 // Deterministic encoding remains independent of VM storage order.
-                var entries = options.Deterministic ? m.Entries : options.MapEntries?.Invoke(m) ?? m.ArithmeticKeyEntries;
+                var entries = options.Deterministic ? m.Entries : options.MapEntries?.Invoke(m)
+                    ?? (m.Entries.Count > TermMapOrderParameters.FlatMapMaximumEntries ? m.Entries : m.ArithmeticKeyEntries);
                 s.WriteByte(EtfTags.Map);
                 U32(s, (uint)entries.Count);
                 foreach (var e in entries)

@@ -1,0 +1,307 @@
+{
+  "Passed": true,
+  "Errors": [],
+  "OriginalExitCode": 0,
+  "ManagedRequested": true,
+  "ExpectedHead": "34f3b5a1fa305a4fe085e2e01a6f2e9d8fe71309",
+  "SourcePin": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "ProviderKind": "OfficialWindows",
+  "ProviderAdmissionSha256": "41CCC2FDE5493D85BEAA21996E12D0885D2919B0D4BF44137D0673DCDC9D5EA6",
+  "MetadataCompletionSha256": "546E476B82C6C50E8B308F628882CE579FD8A41FFD569806C778342296D47000",
+  "ManagedPreparationPassed": true,
+  "AdoptionPassed": true,
+  "ManagedRuns": [
+    {
+      "Profile": "ordinary",
+      "RequestedOwned": false,
+      "Passed": true,
+      "Receipt": {
+        "Command": [
+          "C:\\Program Files\\dotnet\\dotnet.exe",
+          "exec",
+          "--fx-version",
+          "10.0.11",
+          "D:\\Distr\\Work\\Codex\\Erlang.Net\\w504\\tests\\Erlang.Tests\\bin\\Debug\\net10.0\\Erlang.Tests.dll",
+          "--original-atomics590-identity-child",
+          "D:\\Distr\\Work\\Codex\\Erlang.Net\\w504",
+          "D:\\Distr\\Work\\Codex\\Erlang.Net\\w504\\artifacts\\resource532\\atomics-linux-fix-windows\\admission.json",
+          "5A2B14774478C54943E4F2A0A5F5BFCBA0D373E2B44A8E2F0B8B20697240E67E",
+          "D:\\Distr\\Work\\Codex\\Erlang.Net\\w504\\artifacts\\resource532\\dynamic520-first\\completion.json",
+          "546E476B82C6C50E8B308F628882CE579FD8A41FFD569806C778342296D47000",
+          "false",
+          "D:\\Distr\\Work\\Codex\\Erlang.Net\\w504\\artifacts\\resource532\\atomics-linux-fix-windows\\ordinary\\actual"
+        ],
+        "Pid": 174776,
+        "ElapsedSeconds": 1.047000000020489,
+        "TimedOut": false,
+        "Settled": true,
+        "ExitCode": 0,
+        "Failures": [],
+        "StdoutSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+        "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+      },
+      "Error": null,
+      "ComparisonSha256": "8DACF7009E11903795EF4B4C9CE4D76F8C4596314B46C49E538AE2A0B5041750",
+      "WholeDefaultEtfEqual": false,
+      "WholeDeterministicEtfEqual": false,
+      "OwnReferenceProtocolPassed": true,
+      "OwnReferenceDefault": {
+        "Passed": true,
+        "OriginalOccurrences": 6,
+        "ManagedOccurrences": 6,
+        "OriginalRole": {
+          "Node": "nonode@nohost",
+          "Creation": 0,
+          "Words": [
+            24610,
+            3767664641,
+            4256219376
+          ]
+        },
+        "ManagedRole": {
+          "Node": "nonode@nohost",
+          "Creation": 0,
+          "Words": [
+            88066,
+            1906966528,
+            669044016
+          ]
+        },
+        "Failure": null
+      },
+      "OwnReferenceDeterministic": {
+        "Passed": true,
+        "OriginalOccurrences": 6,
+        "ManagedOccurrences": 6,
+        "OriginalRole": {
+          "Node": "nonode@nohost",
+          "Creation": 0,
+          "Words": [
+            24610,
+            3767664641,
+            4256219376
+          ]
+        },
+        "ManagedRole": {
+          "Node": "nonode@nohost",
+          "Creation": 0,
+          "Words": [
+            88066,
+            1906966528,
+            669044016
+          ]
+        },
+        "Failure": null
+      },
+      "Artifacts": [
+        {
+          "Path": "actual/actual-stock-owners-after.etf",
+          "Bytes": 1171,
+          "Sha256": "A64D2E9D2B1B19F1244449A768AC5E63F5382777642A618D0311B6348109762C"
+        },
+        {
+          "Path": "actual/actual-stock-owners-before.etf",
+          "Bytes": 1171,
+          "Sha256": "A64D2E9D2B1B19F1244449A768AC5E63F5382777642A618D0311B6348109762C"
+        },
+        {
+          "Path": "actual/comparison.json",
+          "Bytes": 1789,
+          "Sha256": "8DACF7009E11903795EF4B4C9CE4D76F8C4596314B46C49E538AE2A0B5041750"
+        },
+        {
+          "Path": "actual/observed-deterministic.etf",
+          "Bytes": 14817,
+          "Sha256": "E7EF441D1675EAD6097DF4DB40DD0B5ACA703CCE920B50247BD779C6BFF29839"
+        },
+        {
+          "Path": "actual/observed.etf",
+          "Bytes": 14817,
+          "Sha256": "E7EF441D1675EAD6097DF4DB40DD0B5ACA703CCE920B50247BD779C6BFF29839"
+        },
+        {
+          "Path": "dotnet-host.trace",
+          "Bytes": 118072,
+          "Sha256": "D45DA2FE87F83E65144458AAC3E4D48A10079C4EA2817CB4ADC5AFEE79F5909D"
+        },
+        {
+          "Path": "managed.exit.json",
+          "Bytes": 1138,
+          "Sha256": "ED1451843311153449DDADF25E126332A614C700C7F2538C1133E7FC4DB95A16"
+        },
+        {
+          "Path": "managed.live.json",
+          "Bytes": 890,
+          "Sha256": "878AA4F24C35BD340FB9C596D0293A83C61E94026FE7344C2CF5F73B63304B8F"
+        },
+        {
+          "Path": "managed.stderr.log",
+          "Bytes": 0,
+          "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+        },
+        {
+          "Path": "managed.stdout.log",
+          "Bytes": 0,
+          "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+        },
+        {
+          "Path": "request.json",
+          "Bytes": 872,
+          "Sha256": "D55B50A824A3E912B8ACA527890B9C200300F6584E04FA8A21172835916F760A"
+        }
+      ]
+    },
+    {
+      "Profile": "private-owned",
+      "RequestedOwned": true,
+      "Passed": true,
+      "Receipt": {
+        "Command": [
+          "C:\\Program Files\\dotnet\\dotnet.exe",
+          "exec",
+          "--fx-version",
+          "10.0.11",
+          "D:\\Distr\\Work\\Codex\\Erlang.Net\\w504\\tests\\Erlang.Tests\\bin\\Debug\\net10.0\\Erlang.Tests.dll",
+          "--original-atomics590-identity-child",
+          "D:\\Distr\\Work\\Codex\\Erlang.Net\\w504",
+          "D:\\Distr\\Work\\Codex\\Erlang.Net\\w504\\artifacts\\resource532\\atomics-linux-fix-windows\\admission.json",
+          "5A2B14774478C54943E4F2A0A5F5BFCBA0D373E2B44A8E2F0B8B20697240E67E",
+          "D:\\Distr\\Work\\Codex\\Erlang.Net\\w504\\artifacts\\resource532\\dynamic520-first\\completion.json",
+          "546E476B82C6C50E8B308F628882CE579FD8A41FFD569806C778342296D47000",
+          "true",
+          "D:\\Distr\\Work\\Codex\\Erlang.Net\\w504\\artifacts\\resource532\\atomics-linux-fix-windows\\private-owned\\actual"
+        ],
+        "Pid": 92412,
+        "ElapsedSeconds": 1.6870000001508743,
+        "TimedOut": false,
+        "Settled": true,
+        "ExitCode": 0,
+        "Failures": [],
+        "StdoutSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+        "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+      },
+      "Error": null,
+      "ComparisonSha256": "756B8D1CA4C8E03EB998507AE4245B37ABC0C9DDEFEA6BDC31D66F203B33753E",
+      "WholeDefaultEtfEqual": false,
+      "WholeDeterministicEtfEqual": false,
+      "OwnReferenceProtocolPassed": true,
+      "OwnReferenceDefault": {
+        "Passed": true,
+        "OriginalOccurrences": 6,
+        "ManagedOccurrences": 6,
+        "OriginalRole": {
+          "Node": "nonode@nohost",
+          "Creation": 0,
+          "Words": [
+            24610,
+            3767664641,
+            4256219376
+          ]
+        },
+        "ManagedRole": {
+          "Node": "nonode@nohost",
+          "Creation": 0,
+          "Words": [
+            108987,
+            3860201472,
+            1296796272
+          ]
+        },
+        "Failure": null
+      },
+      "OwnReferenceDeterministic": {
+        "Passed": true,
+        "OriginalOccurrences": 6,
+        "ManagedOccurrences": 6,
+        "OriginalRole": {
+          "Node": "nonode@nohost",
+          "Creation": 0,
+          "Words": [
+            24610,
+            3767664641,
+            4256219376
+          ]
+        },
+        "ManagedRole": {
+          "Node": "nonode@nohost",
+          "Creation": 0,
+          "Words": [
+            108987,
+            3860201472,
+            1296796272
+          ]
+        },
+        "Failure": null
+      },
+      "Artifacts": [
+        {
+          "Path": "actual/actual-stock-owners-after.etf",
+          "Bytes": 1171,
+          "Sha256": "A64D2E9D2B1B19F1244449A768AC5E63F5382777642A618D0311B6348109762C"
+        },
+        {
+          "Path": "actual/actual-stock-owners-before.etf",
+          "Bytes": 1171,
+          "Sha256": "A64D2E9D2B1B19F1244449A768AC5E63F5382777642A618D0311B6348109762C"
+        },
+        {
+          "Path": "actual/comparison.json",
+          "Bytes": 1792,
+          "Sha256": "756B8D1CA4C8E03EB998507AE4245B37ABC0C9DDEFEA6BDC31D66F203B33753E"
+        },
+        {
+          "Path": "actual/observed-deterministic.etf",
+          "Bytes": 14817,
+          "Sha256": "34A5167E937375E483B10459F7846D6DE0D67B5102A60F94AF70E12CA9CCD4B6"
+        },
+        {
+          "Path": "actual/observed.etf",
+          "Bytes": 14817,
+          "Sha256": "34A5167E937375E483B10459F7846D6DE0D67B5102A60F94AF70E12CA9CCD4B6"
+        },
+        {
+          "Path": "dotnet-host.trace",
+          "Bytes": 118084,
+          "Sha256": "60A9237A3B91DF94BD1808D7203216BA4896040CC864A3EF6B8F89299894B73C"
+        },
+        {
+          "Path": "managed.exit.json",
+          "Bytes": 1142,
+          "Sha256": "1C3B9AA276F59D67020575871754910263B9F91048FB1AD50125FCED92D06A1C"
+        },
+        {
+          "Path": "managed.live.json",
+          "Bytes": 892,
+          "Sha256": "9534AB97AD47549BCF4D35564E0F3F118B5881A0DDCD80D26A96649A2428255C"
+        },
+        {
+          "Path": "managed.stderr.log",
+          "Bytes": 0,
+          "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+        },
+        {
+          "Path": "managed.stdout.log",
+          "Bytes": 0,
+          "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+        },
+        {
+          "Path": "request.json",
+          "Bytes": 881,
+          "Sha256": "399A783234EA6E0E9212B900AC23D3AA95FC20394CD0DEBBE2DD1C935E532097"
+        }
+      ]
+    }
+  ],
+  "ExpectedManagedRoutes": 2,
+  "CompletedManagedRoutes": 2,
+  "OwnReferenceProtocolOptIn": true,
+  "ComparisonPolicy": "WholeETFWithExactSixNativeAtomicsReferenceCorrespondence",
+  "EachManagedVmHasOwnReferenceBinding": true,
+  "RawEtfRewritten": false,
+  "WholeContractsClosed": 0,
+  "ManagedComparisonPerformed": true,
+  "ManagedReplaySkipped": false,
+  "ArtifactInventorySha256": "0EC016D79B02CD984334244ED4D1A1F486DDC89649F791951C9A50BE021E6D4A",
+  "ManagedHostSha256": "DB005A9FD0F76DE5ECD81FA7437C0E18A00BFD47C993E24AE96F6FC88D111C4D",
+  "SourcePlanSha256": "A8236AEEF9E1D02B44CD4DA6993CDA5B9005ECCC87D7A3D476944DEF6239E002"
+}

@@ -12,4 +12,5 @@ internal unsafe struct NifWindowsVariadic526Table
     internal delegate* unmanaged[Cdecl]<nint, nuint*, uint, nuint> Tuple;
     internal delegate* unmanaged[Cdecl]<nint, nuint*, uint, nuint> List;
     internal delegate* unmanaged[Cdecl]<nint, nuint> SystemLimit;
+    internal delegate* unmanaged[Cdecl]<nuint, long, nint, nint, int> FormatTerm791;
 }

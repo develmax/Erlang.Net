@@ -1,0 +1,19 @@
+{
+  "Partial": true,
+  "SelectedCount": 1,
+  "TotalCount": 9343,
+  "Blocks": [],
+  "ExactCases": [
+    "runtime/binary629/halt-closes-host-program-and-joins-reader"
+  ],
+  "Passed": 0,
+  "Failed": 1,
+  "Tests": [
+    {
+      "Name": "runtime/binary629/halt-closes-host-program-and-joins-reader",
+      "Status": "Failed",
+      "Error": "System.NullReferenceException: Object reference not set to an instance of an object.\r\n   at Erlang.Tests.NativeResource524Access.Call(Object value, String name, Object[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\w536\\tests\\Erlang.Tests\\Runtime\\Native\\Resources\\NativeResource524Access.cs:line 15\r\n   at Erlang.Tests.BinaryHalt629Checks.\u003C\u003Ec__DisplayClass1_0.\u003C\u003CRun\u003Eb__0\u003Ed.MoveNext() in D:\\Distr\\Work\\Codex\\Erlang.Net\\w536\\tests\\Erlang.Tests\\Otp\\Stdlib\\Binary\\BinaryHalt629Checks.cs:line 55\r\n--- End of stack trace from previous location ---\r\n   at Erlang.Tests.BinaryHalt629Checks.\u003C\u003Ec__DisplayClass1_0.\u003C\u003CRun\u003Eb__0\u003Ed.MoveNext() in D:\\Distr\\Work\\Codex\\Erlang.Net\\w536\\tests\\Erlang.Tests\\Otp\\Stdlib\\Binary\\BinaryHalt629Checks.cs:line 87\r\n--- End of stack trace from previous location ---\r\n   at Erlang.Tests.BinaryArena598Fixture.Run(Term input, Func\u00602 body) in D:\\Distr\\Work\\Codex\\Erlang.Net\\w536\\tests\\Erlang.Tests\\Otp\\Stdlib\\Binary\\BinaryArena598Fixture.cs:line 64\r\n   at Erlang.Tests.BinaryArena598Fixture.Run(Term input, Func\u00602 body) in D:\\Distr\\Work\\Codex\\Erlang.Net\\w536\\tests\\Erlang.Tests\\Otp\\Stdlib\\Binary\\BinaryArena598Fixture.cs:line 112\r\n   at Erlang.Tests.BinaryHalt629Checks.Run() in D:\\Distr\\Work\\Codex\\Erlang.Net\\w536\\tests\\Erlang.Tests\\Otp\\Stdlib\\Binary\\BinaryHalt629Checks.cs:line 10\r\n   at Program.\u003CMain\u003E$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\w536\\tests\\Erlang.Tests\\Harness\\Program.cs:line 7688",
+      "Milliseconds": 129
+    }
+  ]
+}

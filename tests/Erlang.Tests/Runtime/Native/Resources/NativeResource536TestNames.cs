@@ -2,6 +2,8 @@ namespace Erlang.Tests;
 
 internal static class NativeResource536TestNames
 {
+    internal const int CleanupFailureCapacity = 8;
+
     internal const string NormalTest = "native-resource536/guest-gc-real-normal-auxiliary-once";
     internal const string HeldTest = "native-resource536/held-normal-destructor-physical-close";
     internal const string ForeignTest = "native-resource536/non-gc-foreign-context-retained";
@@ -25,6 +27,37 @@ internal static class NativeResource536TestNames
     internal const string Pointer = "Pointer524";
     internal const string Retired = "Retired524";
     internal const string RetireImage = "RetireAsync";
+    internal const string ResourceDomain = "NativeResources524";
+    internal const string AuxReady = "Ready989";
+    internal const string Statistics = "Statistics";
+    internal const string Microstates = "Microstates";
+    internal const string MicrostateActionType = "Erlang.RuntimeMicrostateAction";
+    internal const string Gather = "Gather";
+    internal const string CreateMicrostateRequest = "CreateRequest";
+    internal const string PrepareAuxiliary = "PrepareMicrostate989";
+    internal const string PublishAuxiliary = "Publish";
+    internal const string AuxCompletion = "Completion";
+    internal const string MicrostateResult = "Result";
+    internal const string MicrostateType = "type";
+    internal const string AuxiliaryType = "aux";
+    internal const string ErlangModule = "erlang";
+    internal const string SystemFlag = "system_flag";
+    internal const string MicrostateFlag = "microstate_accounting";
+    internal const string True = "true";
+    internal const string Kill = "kill";
+    internal const string DomainGate = "gate";
+    internal const string AuxiliaryQueue = "microstates989";
+    internal const string DomainSnapshot = "Snapshot524";
+    internal const string HeapSnapshot = "Snapshot";
+    internal const string LiveNativeBytes = "LiveNativeBytes";
+    internal const string LiveResources = "LiveResources";
+    internal const string Pending = "Pending";
+    internal const string WorkerJoined = "WorkerJoined";
+    internal const string CompletedSuccessfully = "CompletedSuccessfully";
+    internal const string RootFrames = "RootFrames";
+    internal const string LivePayloadWords = "LivePayloadWords";
+    internal const string Blocks = "Blocks";
+    internal const string TrapUses = "statisticsTrapUses";
     internal const int NormalThread = 1;
     internal const int ForeignThread = 0;
 }

@@ -4,7 +4,7 @@ using System.Numerics;
 
 namespace Erlang;
 
-internal sealed record BeamLinkedCode(
+internal sealed partial record BeamLinkedCode(
     BeamStructure Structure,
     BeamTypeTable Types,
     IReadOnlyList<BeamInstruction> Instructions,
@@ -25,5 +25,5 @@ internal sealed record BeamLinkedCode(
     internal IReadOnlyList<Term> SourceLocations { get; init; } = Array.Empty<Term>();
     internal ConcurrentDictionary<int, object> ContinuationIdentities { get; } = new();
 
-    internal Integer IntegerConstant(BigInteger value) => integerConstants.GetOrAdd(value, static number => new Integer(number));
+    internal Integer IntegerConstant(BigInteger value) => ReadIntegerConstant360(value);
 }

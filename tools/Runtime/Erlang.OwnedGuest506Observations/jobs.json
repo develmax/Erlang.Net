@@ -1,5 +1,6 @@
 {
   "Jobs": {
+    "counters-family596": {"Module":"counters_family591","Fixtures":["counters_family591.erl"],"OptInOnly":true,"StockModules588":["atomics","counters"]},
     "portable-errors": {
       "Module": "contract_errors506",
       "Fixtures": [
@@ -106,6 +107,60 @@
       "Module": "map_routes517",
       "Fixtures": [
         "map_routes517.erl"
+      ]
+    },
+    "spawn-resource-full540": {
+      "Module": "spawn_resources540",
+      "Fixtures": [
+        "spawn_resources540.erl"
+      ]
+    },
+    "spawn-resource-malformed541": {
+      "Module": "spawn_resources_core541",
+      "Fixtures": [
+        "spawn_resources_core541.erl"
+      ]
+    },
+    "spawn-resource-default541": {
+      "Module": "spawn_resources_default541",
+      "Fixtures": [
+        "spawn_resources_default541.erl"
+      ]
+    },
+    "boxed-float556": {
+      "Module": "boxed_float556",
+      "Fixtures": [
+        "boxed_float556.erl"
+      ]
+    },
+    "boxed-integer559": {
+      "Module": "boxed_integer559",
+      "Fixtures": [
+        "boxed_integer559.erl"
+      ]
+    },
+    "ordinary-reference563": {
+      "Module": "ordinary_reference563",
+      "Fixtures": [
+        "ordinary_reference563.erl"
+      ]
+    },
+    "loader-map-keys565": {
+      "Module": "loader_map_keys565",
+      "Fixtures": [
+        "loader_map_keys565.erl",
+        "loader_map_other565.erl"
+      ]
+    },
+    "atomics-magic586": {
+      "Module": "atomics_magic586",
+      "Fixtures": [
+        "atomics_magic586.erl"
+      ],
+      "OptInOnly": true,
+      "StockModules588": [
+        "atomics",
+        "counters"
       ]
     }
   }

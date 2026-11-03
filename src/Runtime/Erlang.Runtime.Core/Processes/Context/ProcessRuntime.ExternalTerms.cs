@@ -2,7 +2,13 @@ namespace Erlang;
 
 public sealed partial class ProcessRuntime
 {
-    public RuntimeExternalTermReservation ReserveExternalTerm(Term term)
+    public RuntimeExternalTermReservation ReserveExternalTerm(Term term) => ReserveTerm591(term, hostAtomics586: true);
+
+    // VM-owned store roots must retain deterministic guest custody, not rely
+    // on a CLR host wrapper or public external-reservation lifetime.
+    internal RuntimeExternalTermReservation ReserveStoredTerm591(Term term) => ReserveTerm591(term, hostAtomics586: false);
+
+    private RuntimeExternalTermReservation ReserveTerm591(Term term, bool hostAtomics586)
     {
         ArgumentNullException.ThrowIfNull(term);
         lock (gate)
@@ -11,7 +17,7 @@ public sealed partial class ProcessRuntime
             RequireExternalTermDomain(term);
             KnownNodes.Observe(term);
 
-            return new(term);
+            return new(this, term, hostAtomics586);
         }
     }
 

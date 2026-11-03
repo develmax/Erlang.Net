@@ -67,18 +67,38 @@ internal static class OrdsetsCompatibilityChecks
         );
         if (runtime.Modules.PublishPreparedBeam([image, worker]).Status != BeamPublicationStatus.Published)
             throw new InvalidDataException(OrdsetsCompatibilityNames.Failure);
-        var completed = new TaskCompletionSource<Term>(TaskCreationOptions.RunContinuationsAsynchronously);
+        // Inputs come from the admitted original observer's cases/0. Its run/0 and run/1
+        // are independently required to produce the same whole deterministic ETF.
+        var decoding = new EtfDecodeOptions
+        {
+            ExternalFunctionFactory = (identity, safe) => runtime.Functions.External(runtime, identity, safe)
+        };
+        Term[] inputs = Cons.Items(ExternalTermFormat.DecodeOne(Read(OrdsetsCompatibilityNames.Inputs), decoding).Term).ToArray();
+        var completed = new TaskCompletionSource<byte[]>(TaskCreationOptions.RunContinuationsAsynchronously);
         ProcessHandle actor = runtime.Spawn(async context =>
         {
             try
             {
-                completed.TrySetResult(await runtime.Modules.Call(
-                    context,
-                    OrdsetsCompatibilityNames.Worker,
-                    OrdsetsCompatibilityNames.Entry,
-                    Term.A(OrdsetsCompatibilityNames.Observer),
-                    Term.A(OrdsetsCompatibilityNames.Entry)
-                ));
+                var encodedBatches = new List<byte[]>();
+                foreach (Term[] batch in inputs.Chunk(OrdsetsCompatibilityNames.BatchSize))
+                {
+                    Term rows = await runtime.Modules.Call(
+                        context,
+                        OrdsetsCompatibilityNames.Worker,
+                        OrdsetsCompatibilityNames.Entry,
+                        Term.A(OrdsetsCompatibilityNames.Observer),
+                        Term.A(OrdsetsCompatibilityNames.Entry),
+                        Term.List(Cons.From(batch))
+                    );
+                    if (Cons.Items(rows).Count() != batch.Length)
+                        throw new InvalidDataException(OrdsetsCompatibilityNames.Failure);
+                    encodedBatches.Add(ExternalTermFormat.Encode(rows, new EtfEncodingOptions
+                    {
+                        FunctionOwner = runtime.InitializationPid,
+                        Deterministic = true
+                    }));
+                }
+                completed.TrySetResult(OrdsetsEncodedCorpus.Combine(encodedBatches, inputs.Length));
             }
             catch (Exception error)
             {
@@ -87,9 +107,37 @@ internal static class OrdsetsCompatibilityChecks
 
             return Nil.Value;
         });
-        Term actual = await completed.Task.WaitAsync(OrdsetsCompatibilityNames.Deadline);
+        Task finished;
+        try
+        {
+            finished = await Task.WhenAny(completed.Task, actor.Completion).WaitAsync(OrdsetsCompatibilityNames.Deadline);
+        }
+        catch (TimeoutException)
+        {
+            Directory.CreateDirectory(OrdsetsCompatibilityNames.FailureDirectory);
+            var query = typeof(ProcessRuntime).GetMethod("ProcessInfo", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic)!;
+            Type itemType = query.GetParameters()[1].ParameterType.GetGenericArguments()[0];
+            var parse = itemType.GetMethod("Parse")!;
+            string[] names = ["status", "current_function", "reductions"];
+            Array keys = Array.CreateInstance(itemType, names.Length);
+            for (int index = 0; index < names.Length; index++)
+                keys.SetValue(parse.Invoke(null, [Term.A(names[index])]), index);
+            File.WriteAllLines(
+                Path.Combine(OrdsetsCompatibilityNames.FailureDirectory, selected.Backend + ".timeout.txt"),
+                runtime.ProcessSnapshot().Select(pid => pid + ": " + query.Invoke(runtime, [pid, keys, false]))
+                    .Prepend("Actor completion: " + actor.Completion.Status)
+            );
+            throw;
+        }
+        if (ReferenceEquals(finished, actor.Completion))
+        {
+            await actor.Completion;
+            if (!completed.Task.IsCompleted)
+                throw new InvalidDataException(OrdsetsCompatibilityNames.Failure);
+        }
+        byte[] encoded = await completed.Task;
         await actor.Completion.WaitAsync(OrdsetsCompatibilityNames.Deadline);
-        byte[] encoded = ExternalTermFormat.Encode(actual, new EtfEncodingOptions { FunctionOwner = runtime.InitializationPid });
+        Term actual = ExternalTermFormat.DecodeOne(encoded, decoding).Term;
         byte[] expected = Read(OrdsetsCompatibilityNames.Golden);
         var coverage = Cons.Items(actual).Cast<TupleTerm>()
             .GroupBy(row => (((Atom)row.Items[0]).Name, Cons.Items(row.Items[1]).Count()))

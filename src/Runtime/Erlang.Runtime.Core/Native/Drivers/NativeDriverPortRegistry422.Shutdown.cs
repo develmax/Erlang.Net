@@ -11,7 +11,7 @@ internal sealed partial class NativeDriverPortRegistry422
             foreach (var row in rows)
             {
                 row.StopRequested = true;
-                row.Reason = Term.A(NativeDriverPortNames422.DriverUnloaded);
+                row.SetReason641(Term.A(NativeDriverPortNames422.DriverUnloaded));
                 row.Writable.TrySetResult();
             }
         }
@@ -28,7 +28,7 @@ internal sealed partial class NativeDriverPortRegistry422
             foreach (var row in rows)
             {
                 row.StopRequested = true;
-                row.Reason = Term.A(ProcessExitReasons.Shutdown);
+                row.SetReason641(Term.A(ProcessExitReasons.Shutdown));
                 row.Writable.TrySetResult();
             }
         }
@@ -90,7 +90,7 @@ internal sealed partial class NativeDriverPortRegistry422
                 row.Links.Clear();
                 row.Lines = null;
                 row.Data = Nil.Value;
-                row.Reason = Nil.Value;
+                row.ReleaseReason641();
             }
             childAttempts455.Clear();
             ownPortIdentities455.Clear();

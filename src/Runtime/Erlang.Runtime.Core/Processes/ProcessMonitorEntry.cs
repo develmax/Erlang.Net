@@ -8,5 +8,6 @@ internal sealed record ProcessMonitorEntry(
     bool Priority,
     bool KeepAlias,
     ProcessMonitorSource Source = ProcessMonitorSource.Process,
-    PortTerm? PortTarget = null
+    PortTerm? PortTarget = null,
+    RuntimeProcessPayload641? Custody641 = null
 );

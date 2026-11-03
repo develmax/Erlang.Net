@@ -163,12 +163,13 @@ public sealed partial class Mailbox
         return state is null ? messages.First : state.Node.Next;
     }
 
-    private async ValueTask<T?> ReceiveCore<T>(
+    private async ValueTask<T?> ReceiveCore593<T>(
         Func<Term, ValueTask<T?>> select,
         TimeSpan? timeout,
         CancellationToken cancellation,
         Func<TimeSpan?>? resolveTimeout = null,
-        bool rescanRemovedCandidate = false
+        bool rescanRemovedCandidate = false,
+        MailboxSelectionAdmission593? admission593 = null
     ) where T : class
     {
         ReceiveMarkerState? selected;
@@ -190,20 +191,22 @@ public sealed partial class Mailbox
                     SetBeamSaveMarker(selected);
             }
             if (sharedSave)
-                return await ReceiveBeamSaveCore(
+                return await ReceiveBeamSaveCore593(
                     select,
                     timeout,
                     cancellation,
                     resolveTimeout,
-                    rescanRemovedCandidate
+                    rescanRemovedCandidate,
+                    admission593
                 );
 
-            return await ReceiveMarkedCore(
+            return await ReceiveMarkedCore593(
                 select,
                 timeout,
                 cancellation,
                 resolveTimeout,
-                selected
+                selected,
+                admission593
             );
         }
         finally

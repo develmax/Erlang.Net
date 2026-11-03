@@ -33,6 +33,11 @@ internal static class MfaCompatibilityDocuments
 
         Directory.CreateDirectory(Path.GetDirectoryName(manifestPath)!);
         await File.WriteAllTextAsync(manifestPath, JsonSerializer.Serialize(files.Keys.Order(StringComparer.Ordinal)) + "\n", new UTF8Encoding(false));
+        await File.WriteAllTextAsync(
+            Path.Combine(output, MfaCompatibilityIndexNames.File),
+            MfaCompatibilityIndexMarkdown.Generate(ledger),
+            new UTF8Encoding(false)
+        );
     }
 
     public static Dictionary<string, string> Generate(MfaCompatibilityLedger ledger, string docs, string output)

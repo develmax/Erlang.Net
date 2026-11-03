@@ -24,6 +24,12 @@ internal sealed unsafe partial class AtomicsArray413
         if (pointer == null) throw new OutOfMemoryException();
         memory = (nint)pointer;
         var header = (AtomicsMagicHeader413*)pointer;
+        header->Flags = NativeResourceMagic527.Magic;
+        header->ApparentSize = checked((nuint)(AllocatedBytes - (ulong)Marshal.OffsetOf<AtomicsMagicHeader413>(nameof(AtomicsMagicHeader413.IsSigned))));
+        header->OriginalSize = checked((nuint)(AllocatedBytes - (ulong)Marshal.OffsetOf<AtomicsMagicHeader413>(nameof(AtomicsMagicHeader413.Destructor))));
+        // Pinned create_magic_binary starts at zero. Actual process-header
+        // roots are committed only by the parent shared-header adapter; never invent one.
+        header->ReferenceCount = 0;
         header->Destructor = DestructorAddress;
         header->AllocationKind = AtomicsNames413.AllocationKind;
         header->IsSigned = signed ? 1 : 0;
@@ -40,6 +46,7 @@ internal sealed unsafe partial class AtomicsArray413
             header->Reference0 = words[0];
             header->Reference1 = words[1];
             header->Reference2 = words[2];
+            identityBound586 = true;
         }
     }
 
@@ -47,9 +54,12 @@ internal sealed unsafe partial class AtomicsArray413
     {
         lock (gate)
         {
-            if (closed) return null;
+            if (closed || retirementScheduled586) return null;
             var header = (AtomicsMagicHeader413*)memory;
-            if (header->Destructor != DestructorAddress || header->AllocationKind != AtomicsNames413.AllocationKind)
+            if (header->Flags != NativeResourceMagic527.Magic || header->Destructor != DestructorAddress
+                || header->AllocationKind != AtomicsNames413.AllocationKind
+                || header->OriginalSize != (nuint)(AllocatedBytes - AtomicsOwnership586Names.BinaryPrefixBytes)
+                || header->ApparentSize != (nuint)(AllocatedBytes - AtomicsOwnership586Names.DataOffsetBytes))
                 throw new InvalidOperationException(AtomicsNames413.Destructor);
             var lease = new AtomicsArrayLease413(this);
             active = checked(active + 1);
@@ -60,17 +70,23 @@ internal sealed unsafe partial class AtomicsArray413
 
     internal void Release()
     {
+        RuntimeAtomicsOwner413? retire;
         lock (gate)
         {
             if (--active < 0) throw new InvalidOperationException(AtomicsNames413.Underflow);
             if (active == 0) Monitor.PulseAll(gate);
+            retire = ScheduleIfUnowned586();
         }
+        retire?.EnqueueRetirement586(this);
     }
 
     // Only an actual array lease may use this pointer. Close waits those leases before destroying it.
     private AtomicsMagicHeader413* Header => (AtomicsMagicHeader413*)memory;
     internal bool Signed => Header->IsSigned != 0;
     internal ulong Length => Header->Length;
+    // Caller must hold the existing real AtomicsArrayLease413.
+    internal ulong OriginalSize585 => checked((ulong)Header->OriginalSize);
+
 
     internal ref long Cell(ulong index) => ref *(long*)((byte*)memory + sizeof(AtomicsMagicHeader413) + checked((nint)(index * sizeof(long))));
 
@@ -88,7 +104,11 @@ internal sealed unsafe partial class AtomicsArray413
                 return;
             }
             closed = true;
-            while (active != 0) Monitor.Wait(gate);
+            // Parent P1 calls physical Close OUTSIDE Runtime.gate, after
+            // process heaps retire. Active pins/provisional producers and real
+            // guest headers must drain; ordinary host handles are invalidated
+            // by explicit VM close as before, not by guest GC.
+            while (active != 0 || producers586 != 0 || guestRoots586 != 0) Monitor.Wait(gate);
             retired = memory;
             memory = 0;
         }
@@ -121,6 +141,8 @@ internal sealed unsafe partial class AtomicsArray413
                 freed = true;
                 Monitor.PulseAll(gate);
             }
+            if (failure is null) retired586.TrySetResult();
+            else retired586.TrySetException(failure);
         }
     }
 

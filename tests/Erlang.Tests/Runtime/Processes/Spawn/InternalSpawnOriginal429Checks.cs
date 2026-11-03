@@ -17,19 +17,24 @@ internal static class InternalSpawnOriginal429Checks
         {
             runtime = new ProcessRuntime(1);
             ProcessRuntime owner = runtime;
-            await owner.InitializeModulesAsync(registry =>
-            {
-                var declared = new BeamDependencySelection(new[] { InternalSpawnOriginal429Names.Runtime, InternalSpawnOriginal429Names.File, InternalSpawnOriginal429Names.Internal, InternalSpawnOriginal429Names.Module });
-                PreparedBeamImage facet = registry.PrepareBeam(InternalSpawnOriginal429Access.Resource(InternalSpawnOriginal429Names.FacetBeam), declared);
-                PreparedBeamImage worker = registry.PrepareBeam(InternalSpawnOriginal429Access.Resource(InternalSpawnOriginal429Names.WorkerBeam), declared);
-                InternalSpawnOriginal429Access.Require(registry.PublishPreparedBeam(new[] { facet, worker }).Status == BeamPublicationStatus.Published);
-                InternalSpawnOriginal429Access.Require(facet.NativePrimitiveExports.Count == InternalSpawnOriginal429Names.NativeCount
-                    && facet.NativePrimitiveExports.Contains(new BeamFunctionSignature(InternalSpawnOriginal429Names.NativeFunction, 4)));
-                InternalSpawnOriginal429Access.Require(registry.Exports.Count(export => export.Module == facet.Name) == InternalSpawnOriginal429Names.TotalExports);
-                foreach (var image in new[] { facet, worker })
-                    foreach (var export in registry.Exports.Where(export => export.Module == image.Name))
-                        InternalSpawnOriginal429Access.Require(ReferenceEquals(registry.SourceOwner(export.Module, export.Function, export.Arity), image));
-            });
+            var declared = new BeamDependencySelection(new[] { InternalSpawnOriginal429Names.Runtime, InternalSpawnOriginal429Names.File, InternalSpawnOriginal429Names.Internal, InternalSpawnOriginal429Names.Module });
+            await PreparedBeamFixtureImages825.PrepareAndPublishAsync(
+                owner,
+                [InternalSpawnOriginal429Access.Resource(InternalSpawnOriginal429Names.FacetBeam), InternalSpawnOriginal429Access.Resource(InternalSpawnOriginal429Names.WorkerBeam)],
+                declared,
+                (registry, images) =>
+                {
+                    PreparedBeamImage facet = images[0];
+                    PreparedBeamImage worker = images[1];
+                    InternalSpawnOriginal429Access.Require(registry.PublishPreparedBeam(new[] { facet, worker }).Status == BeamPublicationStatus.Published);
+                    InternalSpawnOriginal429Access.Require(facet.NativePrimitiveExports.Count == InternalSpawnOriginal429Names.NativeCount
+                        && facet.NativePrimitiveExports.Contains(new BeamFunctionSignature(InternalSpawnOriginal429Names.NativeFunction, 4)));
+                    InternalSpawnOriginal429Access.Require(registry.Exports.Count(export => export.Module == facet.Name) == InternalSpawnOriginal429Names.TotalExports);
+                    foreach (var image in new[] { facet, worker })
+                        foreach (var export in registry.Exports.Where(export => export.Module == image.Name))
+                            InternalSpawnOriginal429Access.Require(ReferenceEquals(registry.SourceOwner(export.Module, export.Function, export.Arity), image));
+                }
+            );
             actor = new RuntimeNodeFoundationHostActor(owner);
             RuntimeNodeFoundationHostActor caller = actor;
 

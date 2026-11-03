@@ -17,21 +17,28 @@ internal static class BeamfileChunkOriginal418Checks
         {
             runtime = new ProcessRuntime();
             ProcessRuntime owner = runtime;
-            await owner.InitializeModulesAsync(registry =>
+            await global::Erlang.Tests.PreparedBeamFixtureScope171.RunAsync(
+                owner,
+                (registry, scope) =>
             {
                 var declared = new BeamDependencySelection([BeamfileChunkOriginal418Names.Internal,
-                    BeamfileChunkOriginal418Names.Runtime, BeamfileChunkOriginal418Names.Subject, BeamfileChunkOriginal418Names.Module]);
-                PreparedBeamImage facet = BeamfileChunkOriginal418Preparation.Prepare(registry, declared);
-                PreparedBeamImage worker = registry.PrepareBeam(
-                    BeamfileChunkOriginal418Access.Resource(BeamfileChunkOriginal418Names.WorkerBeam), declared);
-                PreparedBeamImage observer = registry.PrepareBeam(
-                    BeamfileChunkOriginal418Access.Resource(BeamfileChunkOriginal418Names.ObserverBeam), declared);
-                BeamfileChunkOriginal418Access.Require(registry.PublishPreparedBeam([facet, worker, observer]).Status == BeamPublicationStatus.Published);
-                BeamfileChunkOriginal418Preparation.AssertPublished(registry, facet);
-                foreach (var image in new[] { worker, observer })
-                    foreach (var export in registry.Exports.Where(export => export.Module == image.Name))
-                        BeamfileChunkOriginal418Access.Require(ReferenceEquals(registry.SourceOwner(export.Module, export.Function, export.Arity), image));
-            });
+                                BeamfileChunkOriginal418Names.Runtime, BeamfileChunkOriginal418Names.Subject, BeamfileChunkOriginal418Names.Module]);
+                PreparedBeamImage facet = BeamfileChunkOriginal418Preparation.Prepare171(registry, declared, scope);
+                PreparedBeamImage worker = scope.Prepare(() => registry.PrepareBeam(
+                    BeamfileChunkOriginal418Access.Resource(BeamfileChunkOriginal418Names.WorkerBeam), declared));
+                PreparedBeamImage observer = scope.Prepare(() => registry.PrepareBeam(
+                    BeamfileChunkOriginal418Access.Resource(BeamfileChunkOriginal418Names.ObserverBeam), declared));
+
+                return ValueTask.FromResult<Action<ModuleRegistry>>(_ =>
+                {
+                    BeamfileChunkOriginal418Access.Require(registry.PublishPreparedBeam([facet, worker, observer]).Status == BeamPublicationStatus.Published);
+                    BeamfileChunkOriginal418Preparation.AssertPublished(registry, facet);
+                    foreach (var image in new[] { worker, observer })
+                        foreach (var export in registry.Exports.Where(export => export.Module == image.Name))
+                            BeamfileChunkOriginal418Access.Require(ReferenceEquals(registry.SourceOwner(export.Module, export.Function, export.Arity), image));
+                });
+            }
+            );
             actor = new RuntimeNodeFoundationHostActor(owner);
             RuntimeNodeFoundationHostActor caller = actor;
 

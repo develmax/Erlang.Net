@@ -62,28 +62,29 @@ public sealed partial class ProcessRuntime
             {
                 MailboxSignalBatch428 batch;
                 MailboxDeferredPreparation? preparation = null;
+                MailboxPendingBackingClaim? pendingClaim = null;
                 lock (gate)
                 {
                     if (target.Terminated) return Term.A(CommonAtomNames.Ok);
                     batch = target.Mailbox.AdmitPendingBounded428(budget - used);
                     used += batch.Processed;
                     workUnits = used;
+                    if (batch.PolicyMove) return Term.A(SystemTaskNames428.Busy);
                     if (!batch.Remaining) return Term.A(CommonAtomNames.Ok);
-                    if (batch.Deferred) preparation = target.Mailbox.ClaimDeferredBounded428();
+                    if (batch.PendingBacking) pendingClaim = target.Mailbox.ClaimPendingBacking();
+                    else if (batch.Deferred) preparation = target.Mailbox.ClaimDeferredBoundedForBacking();
+                }
+                if (batch.PendingBacking)
+                {
+                    if (pendingClaim is null) return Term.A(SystemTaskNames428.Busy);
+                    var preparedBatch = PrepareAndAdmitPendingMailboxBacking(target, pendingClaim, budget - used);
+                    used += preparedBatch.Processed;
+                    workUnits = used;
+                    continue;
                 }
                 if (!batch.Deferred) continue;
                 if (preparation is null) return Term.A(SystemTaskNames428.Busy);
-                DeferredMailboxAdmission? ready;
-                try
-                {
-                    ready = preparation.Prepare();
-                }
-                catch
-                {
-                    lock (gate) preparation.Complete(null);
-                    throw;
-                }
-                lock (gate) preparation.Complete(target.Terminated ? null : ready);
+                PrepareAndCompleteDeferredSignal(target, preparation);
                 used++;
                 workUnits = used;
             }

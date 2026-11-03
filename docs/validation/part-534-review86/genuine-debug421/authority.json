@@ -1,0 +1,16 @@
+{
+  "Pin": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "WholeSourceSha256": "22B6A291C32778EDB84DC1E9BB2CFD5AF44CA7E9F0AE53CB01F3A674218BC260",
+  "SelectedClauses": [
+    "counters_new(_Size) ->\n    erlang:nif_error(undef).",
+    "counters_get(_Ref, _Ix) ->\n    erlang:nif_error(undef).",
+    "counters_add(_Ref, _Ix, _Incr) ->\n    erlang:nif_error(undef).",
+    "counters_put(_Ref, _Ix, _Value) ->\n    erlang:nif_error(undef).",
+    "counters_info(_Ref) ->\n    erlang:nif_error(undef)."
+  ],
+  "NativeCount": 5,
+  "PublicExports": 7,
+  "ExpectedWholeRows": 192,
+  "Launch": "Same actual compiled child/2 on both VMs",
+  "Uncovered": "Resource-bearing invalid-index/value stacks, real lane concurrency/GC/close require additional controls; no full contract claim"
+}

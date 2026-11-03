@@ -1,0 +1,116 @@
+{
+  "Passed": true,
+  "IndependentPassiveOnly": true,
+  "NewExecutionByAuthor": false,
+  "Profile": "FreshFinalCI-correctionDebugExisting3",
+  "SelectedGroupsPassed": 3,
+  "ActualAssemblies": {
+    "Host": "83D8F6C4B7C51DA14A6F74AA47B442A1BF352E3F4355DAA36EEA5AC7B7DCEE9A",
+    "Runtime": "954B83FA6E8322C9606A12B5DE6D99CD14FB1739ABB782AA68C7CAD1BB3E2B08"
+  },
+  "AllThreeManagedReceiptsInsideFreshDebug3Window": true,
+  "EarlierDebug156Fixed485Claim": false,
+  "DirectWholeOutcomes": 524,
+  "Pairs": [
+    {
+      "Mode": "core411-values",
+      "CompleteOutcomes": 16,
+      "WholeBytesEqual": true,
+      "Sha256": "43D3C1F0199B250165A5C1955104D97189D217538CC42D8F90A313E6EDB533A9",
+      "Bytes": 2082,
+      "OriginalPath": "D:\\Distr\\Work\\Codex\\Erlang.Net\\w518repair\\artifacts\\resource535\\original-regex613-ci-correction\\core411-values\\observed.etf",
+      "ManagedPath": "D:\\Distr\\Work\\Codex\\Erlang.Net\\w518repair\\artifacts\\library412-re-permanent-comparisons\\re-core411\\e9046beefe9346eaa5e6690b1f6c0026\\actual-values.etf",
+      "OriginalSettled": true,
+      "OriginalExitCode": 0
+    },
+    {
+      "Mode": "core411-stacks",
+      "CompleteOutcomes": 80,
+      "WholeBytesEqual": true,
+      "Sha256": "B044829418D04A0B66F1B1E6E935B7DC3592CC0F4739FD59752B4A6D77DE66A6",
+      "Bytes": 8574,
+      "OriginalPath": "D:\\Distr\\Work\\Codex\\Erlang.Net\\w518repair\\artifacts\\resource535\\original-regex613-ci-correction\\core411-stacks\\observed.etf",
+      "ManagedPath": "D:\\Distr\\Work\\Codex\\Erlang.Net\\w518repair\\artifacts\\library412-re-permanent-comparisons\\re-core411\\e9046beefe9346eaa5e6690b1f6c0026\\actual-stacks.etf",
+      "OriginalSettled": true,
+      "OriginalExitCode": 0
+    },
+    {
+      "Mode": "three413-values",
+      "CompleteOutcomes": 42,
+      "WholeBytesEqual": true,
+      "Sha256": "3B13498D4D74C8B137F600662A6DFBD88BBC4CE89B533FB819D22BF6D1396255",
+      "Bytes": 19715,
+      "OriginalPath": "D:\\Distr\\Work\\Codex\\Erlang.Net\\w518repair\\artifacts\\resource535\\original-regex613-ci-correction\\three413-values\\observed.etf",
+      "ManagedPath": "D:\\Distr\\Work\\Codex\\Erlang.Net\\w518repair\\artifacts\\library413-re-three-comparisons\\re-three413\\a2b82ee3338744e39e1deeaafbb1fa21\\actual-values.etf",
+      "OriginalSettled": true,
+      "OriginalExitCode": 0
+    },
+    {
+      "Mode": "three413-stacks",
+      "CompleteOutcomes": 210,
+      "WholeBytesEqual": true,
+      "Sha256": "C00C348D8C8EDE63CA736B1004502AAF82414C3DF0585FCB6CCCE4B6C3809A0A",
+      "Bytes": 89716,
+      "OriginalPath": "D:\\Distr\\Work\\Codex\\Erlang.Net\\w518repair\\artifacts\\resource535\\original-regex613-ci-correction\\three413-stacks\\observed.etf",
+      "ManagedPath": "D:\\Distr\\Work\\Codex\\Erlang.Net\\w518repair\\artifacts\\library413-re-three-comparisons\\re-three413\\a2b82ee3338744e39e1deeaafbb1fa21\\actual-stacks.etf",
+      "OriginalSettled": true,
+      "OriginalExitCode": 0
+    },
+    {
+      "Mode": "captures485-values",
+      "CompleteOutcomes": 176,
+      "WholeBytesEqual": true,
+      "Sha256": "6697C6DCF3B947ABEB2BAD9BBD0128653603ECAFE16C6B15A2ADCBD4579497A5",
+      "Bytes": 30364,
+      "OriginalPath": "D:\\Distr\\Work\\Codex\\Erlang.Net\\w518repair\\artifacts\\resource535\\original-regex613-ci-correction\\captures485-values\\observed.etf",
+      "ManagedPath": "D:\\Distr\\Work\\Codex\\Erlang.Net\\w518repair\\artifacts\\library485\\permanent\\managed-values.etf",
+      "OriginalSettled": true,
+      "OriginalExitCode": 0
+    }
+  ],
+  "Cleanup485": {
+    "CodesCreated": 160,
+    "CodesFreed": 160,
+    "MatchDataCreated": 110,
+    "MatchDataFreed": 110,
+    "Yields": 0,
+    "Active": 0,
+    "RetainedCodes": 0,
+    "Closed": true,
+    "LibraryFreed": true
+  },
+  "CoreThreeCleanup": "Actual actor/runtime disposal returned without CaptureErrors; no absent per-engine counters claimed",
+  "OriginalProvider6427BeforeAfterEqual": true,
+  "OriginalProcessesSettled": 5,
+  "OwnedDebugProcess": {
+    "Command": [
+      "dotnet",
+      "exec",
+      "--fx-version",
+      "10.0.11",
+      "D:\\Distr\\Work\\Codex\\Erlang.Net\\w518repair\\tests\\Erlang.Tests\\bin\\Debug\\net10.0\\Erlang.Tests.dll",
+      "--case",
+      "runtime/library412/real-re-core-original-whole-terms-and-stacks",
+      "--case",
+      "runtime/library413/original-re8-inspect-internal-run-import-full-outcomes",
+      "--case",
+      "runtime/native/regex485/binary-captures-whole-176",
+      "--report",
+      "D:\\Distr\\Work\\Codex\\Erlang.Net\\w518repair\\artifacts\\resource535\\ci-correction-regex3-debug\\report.json"
+    ],
+    "Pid": 44036,
+    "ElapsedSeconds": 7.327999999997701,
+    "TimedOut": false,
+    "Settled": true,
+    "ExitCode": 0,
+    "Failures": [],
+    "StdoutSha256": "2CD3D4C581ED321995815E848003D3B00BA08CF0B42B32C5B40DC013F53FFA09",
+    "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+  },
+  "Release524ManifestSha256": "DEC39AF00E90CAE6F92A2DC6A210E479A1C7E7EBC227B9C751A854056AA9AB36",
+  "AllFivePairedHashesAlsoEqualFrozenFinalRelease": true,
+  "BothProfilesDirectWhole524": true,
+  "RawProjection": false,
+  "ApiDelta": 0,
+  "FullContractDelta": 0
+}

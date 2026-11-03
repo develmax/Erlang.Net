@@ -70,5 +70,5 @@ nine failures before the production fix: eight port launches returned `eacces`,
 and one BEAM loader refusal control failed. Preserve that failed report; it is
 not a passing full run.
 
-See [checkpoint evidence](validation/part-523/ordsets/README.md) and
+See [checkpoint evidence](validation/part-557/ordsets/README.md) and
 [the compatibility ledger](mfa-compatibility.json).

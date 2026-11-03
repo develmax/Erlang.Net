@@ -17,7 +17,12 @@ internal static class OrdinaryReference562Checks
         uint[] original = source.Words.ToArray();
         BigInteger originalId = source.FullId;
         int slot = (int)Call(roots, Reserve)!;
-        Call(roots, Set, slot, source);
+        Call(
+            roots,
+            Set,
+            slot,
+            source
+        );
         var owned = (ReferenceTerm)Call(roots, Read, slot)!;
         Check(!ReferenceEquals(owned, source) && owned.FullId == originalId && owned.Words.SequenceEqual(original));
         Call(heap, Collect);
@@ -30,30 +35,80 @@ internal static class OrdinaryReference562Checks
         lock (Get(heap, HeapGate))
         {
             first = (nuint)Call(cells, ReadNumeric, offset + 1)!;
-            Call(cells, WriteNumeric, new nuint[] { first ^ NumberMutation }, offset + 1);
+            Call(
+                cells,
+                WriteNumeric,
+                new nuint[] { first ^ NumberMutation },
+                offset + 1
+            );
         }
         Check(owned.Words[0] == (original[0] ^ 1u) && owned.FullId != originalId);
         lock (Get(heap, HeapGate))
-            Call(cells, WriteNumeric, new nuint[] { first ^ 1u }, offset + 1);
+            Call(
+                cells,
+                WriteNumeric,
+                new nuint[] { first ^ 1u },
+                offset + 1
+            );
         Expect<InvalidOperationException>(() => _ = owned.Words);
         nuint header;
         lock (Get(heap, HeapGate))
         {
-            Call(cells, WriteNumeric, new nuint[] { first }, offset + 1);
+            Call(
+                cells,
+                WriteNumeric,
+                new nuint[] { first },
+                offset + 1
+            );
             header = (nuint)Call(cells, ReadHeader, offset)!;
-            Call(cells, WriteHeaders, new nuint[] { 0 }, offset);
+            Call(
+                cells,
+                WriteHeaders,
+                new nuint[] { 0 },
+                offset
+            );
         }
         Expect<InvalidOperationException>(() => _ = owned.FullId);
         lock (Get(heap, HeapGate))
-            Call(cells, WriteHeaders, new nuint[] { header }, offset);
-        var portable = (ReferenceTerm)Call(heap, Export, roots, owned)!;
+            Call(
+                cells,
+                WriteHeaders,
+                new nuint[] { header },
+                offset
+            );
+        var portable = (ReferenceTerm)Call(
+            heap,
+            Export,
+            roots,
+            owned
+        )!;
         Check(portable.FullId == originalId && Property(portable, Storage) is null);
-        Call(heap, CollectGeneration, false, ushort.MaxValue);
-        Call(heap, CollectGeneration, false, ushort.MaxValue);
+        Call(
+            heap,
+            CollectGeneration,
+            false,
+            ushort.MaxValue
+        );
+        Call(
+            heap,
+            CollectGeneration,
+            false,
+            ushort.MaxValue
+        );
         Call(roots, Clear, slot);
-        Call(heap, CollectGeneration, false, ushort.MaxValue);
+        Call(
+            heap,
+            CollectGeneration,
+            false,
+            ushort.MaxValue
+        );
         Check(Words(heap, Physical) == 3 && owned.FullId == originalId);
-        Call(roots, Set, slot, owned);
+        Call(
+            roots,
+            Set,
+            slot,
+            owned
+        );
         Task retirement = (Task)Call(heap, Retire)!;
         Check(!retirement.IsCompleted && owned.FullId == originalId);
         roots.Dispose();
@@ -68,7 +123,12 @@ internal static class OrdinaryReference562Checks
         IDisposable roots = fixture.EnterRoots(heap);
         int slot = (int)Call(roots, Reserve)!;
         ReferenceTerm source = fixture.Runtime.MakeReference();
-        var pair = (TupleTerm)Call(roots, Adopt, slot, Term.Tuple(source, source))!;
+        var pair = (TupleTerm)Call(
+            roots,
+            Adopt,
+            slot,
+            Term.Tuple(source, source)
+        )!;
         Check(ReferenceEquals(pair.Items[0], pair.Items[1]) && !ReferenceEquals(pair.Items[0], source));
         Check(Words(heap, Physical) == 6 && Words(heap, Numeric) == 2);
         Call(roots, Clear, slot);
@@ -83,10 +143,20 @@ internal static class OrdinaryReference562Checks
         {
             foreach (string route in new[] { Set, SetPrepared, Adopt })
             {
-                Call(roots, route, slot, value);
+                Call(
+                    roots,
+                    route,
+                    slot,
+                    value
+                );
                 Term actual = (Term)Call(roots, Read, slot)!;
                 Call(heap, Collect);
-                var exported = (Term)Call(heap, Export, roots, actual)!;
+                var exported = (Term)Call(
+                    heap,
+                    Export,
+                    roots,
+                    actual
+                )!;
                 Check(exported.Equals(value) && Words(heap, Numeric) >= 2);
                 Call(roots, Clear, slot);
                 Call(heap, Collect);
@@ -97,7 +167,12 @@ internal static class OrdinaryReference562Checks
         object custody = Call(failed, BeginConstruction, source)!;
         failed.Dispose();
         lock (Get(heap, HeapGate))
-            Expect<ObjectDisposedException>(() => Call(heap, CreateReference, source, custody));
+            Expect<ObjectDisposedException>(() => Call(
+                heap,
+                CreateReference,
+                source,
+                custody
+            ));
         Check(Words(heap, Physical) == 0);
         roots.Dispose();
         await ((Task)Call(heap, Retire)!).WaitAsync(TimeSpan.FromSeconds(DrainTimeoutSeconds));
@@ -124,18 +199,53 @@ internal static class OrdinaryReference562Checks
         foreach (ReferenceTerm refused in new ReferenceTerm[] { publicSame, derived, resource, alias, foreign })
         {
             Check((bool)Call(heap, Eligible, refused)! == false);
-            Check(ReferenceEquals(Call(roots, Adopt, slot, refused), refused));
-            Check(Property(refused, Storage) is null && Words(heap, Physical) == 0);
+            bool external = (bool)Call(heap, ExternalEligible, refused)!;
+            bool pidAlias = (bool)Call(heap, AliasEligible, refused)!;
+            var actual = (ReferenceTerm)Call(
+                roots,
+                Adopt,
+                slot,
+                refused
+            )!;
+            if (external || pidAlias)
+            {
+                // Different physical families must not manufacture ordinary
+                // local562 provenance merely because the numeric values match.
+                Check(!ReferenceEquals(actual, refused) && actual.Equals(refused));
+                Check(!(bool)Property(actual, OrdinaryLocal)!);
+                Check((Property(actual, ExternalStorage) is not null) == external);
+                Check((Property(actual, Storage) is not null) == pidAlias);
+                Check((bool)Call(heap, Eligible, actual)! == false && Words(heap, Physical) > 0);
+            }
+            else
+                Check(ReferenceEquals(actual, refused) && Property(refused, Storage) is null && Words(heap, Physical) == 0);
             Call(roots, Clear, slot);
+            Call(heap, Collect);
+            Check(Words(heap, Physical) == 0);
         }
-        Call(roots, Adopt, slot, source);
+        Call(
+            roots,
+            Adopt,
+            slot,
+            source
+        );
         var owned = (ReferenceTerm)Call(roots, Read, slot)!;
-        Expect<InvalidOperationException>(() => Call(otherRoots, Adopt, otherSlot, owned));
+        Expect<InvalidOperationException>(() => Call(
+            otherRoots,
+            Adopt,
+            otherSlot,
+            owned
+        ));
         Check(Words(otherHeap, Physical) == 0);
         IDisposable foreignConstruction = fixture.EnterRoots(otherHeap);
         object foreignCustody = Call(foreignConstruction, BeginConstruction, source)!;
         lock (Get(otherHeap, HeapGate))
-            Expect<InvalidOperationException>(() => Call(otherHeap, CreateReference, owned, foreignCustody));
+            Expect<InvalidOperationException>(() => Call(
+                otherHeap,
+                CreateReference,
+                owned,
+                foreignCustody
+            ));
         Check(Words(otherHeap, Physical) == 0);
         foreignConstruction.Dispose();
         object identity = Get(runtime, LocalIdentity);
@@ -145,11 +255,26 @@ internal static class OrdinaryReference562Checks
         try
         {
             // Actual stable identity publication seam, not full net_kernel boot.
-            Call(identity, PublishIdentity, ChangedNode, creation + 1);
+            Call(
+                identity,
+                PublishIdentity,
+                ChangedNode,
+                creation + 1
+            );
             Check(source.Node == ChangedNode && owned.Node == ChangedNode);
             Check((bool)Call(heap, Eligible, source)! && (bool)Call(heap, Eligible, owned)!);
-            var portable = (ReferenceTerm)Call(heap, Export, roots, owned)!;
-            Call(otherRoots, Set, otherSlot, portable);
+            var portable = (ReferenceTerm)Call(
+                heap,
+                Export,
+                roots,
+                owned
+            )!;
+            Call(
+                otherRoots,
+                Set,
+                otherSlot,
+                portable
+            );
             var copied = (ReferenceTerm)Call(otherRoots, Read, otherSlot)!;
             Check(copied.FullId == source.FullId && copied.Creation == creation + 1
                 && copied.Node == ChangedNode && Property(copied, Storage) is not null);
@@ -157,7 +282,12 @@ internal static class OrdinaryReference562Checks
         }
         finally
         {
-            Call(identity, PublishIdentity, node, creation);
+            Call(
+                identity,
+                PublishIdentity,
+                node,
+                creation
+            );
         }
         Check(await actor.Invoke(context => runtime.Unalias(context, alias)));
         roots.Dispose();

@@ -1,0 +1,62 @@
+{
+  "Scope": "Read-only exact current997 oneproductionfile versus canonical before.cs. Source review only;999 WindowsRelease passes reported by Root, not executed by reviewer.",
+  "Path": "src/Runtime/Erlang.Runtime.Core/Modules/ModuleRegistry.NifLifetime.cs",
+  "BeforeSha256": "BF8847BAA00484138C28A0A7E9D144ACA25004620A6817AAD839090C91276FA3",
+  "CurrentSha256": "ED970FAFA076B0FA53A70EA2972EFA3029FE4B67DAE416DAFE8B22CC7371BD97",
+  "Dependencies": [
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Modules/ModuleRegistry.GcStatistics.cs",
+      "Sha256": "656B7F4F26341D2E0208A5EE899BE3E494F22D5A9A5F291E98D4DF361444A6C5"
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Modules/ModuleRegistry.StatisticsTrap.cs",
+      "Sha256": "82D4B2F439B4FA9473576E85CFBD916D5556433D2BD55E4B73D16C94B743C851"
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Modules/ModuleRegistry.ModuleLiteral800.cs",
+      "Sha256": "D59A0B4CB7C9104B7785DDF9E67C03843EA1F9EDFA473CF1510EA748AFF435C3"
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Modules/Literals/ModuleLiteralDomain800.cs",
+      "Sha256": "C692CFD095B2F63F9835B5E60B9EF87D3B3A5D0F82ACCA0661412080C5708C3E"
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Modules/ModuleRegistry.SourceEntry.cs",
+      "Sha256": "1B221E8EC5D479C9671E2E6D0D1A10206D5DD7027902E61F857E87119002447A"
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Modules/SourceCodeLease.cs",
+      "Sha256": "C8A085418D9B3C92662F79A1D1F7F86429238EF2E441E9D1B8630CA1A3F29816"
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Modules/ModuleRegistry.PreparedLoader807.cs",
+      "Sha256": "47EF7B85742829BB70B8A7518E3476E081495E82D901034800A34958D5D5C788"
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Modules/ModuleRegistry.SourceMutation.cs",
+      "Sha256": "42A8BAEF19749CB7F55D15B92D3164FC115CADF13FF53DB63330E01CA539A18E"
+    }
+  ],
+  "Verdict": "No concrete source blocker identified in bounded helper-close initiation fix. Actual active-helper/preparing race controls still required before acceptance.",
+  "Proof": [
+    "Old source shutdown, retirement reentry, initialization permission and owned NIF shutdown guards retained. New pending nifShutdown refusal under retainedM prevents joining a worker that may still need same monitor.",
+    "Active helper preparing/use predicates checked before effects for retainedM/codepermission caller, then repeated atomically under both helper gates before either closing flag changes.",
+    "Dual helper gate order always gcStatisticsGate then statisticsTrapGate; no inverse dual acquisition found. Existing helper entry/release/preparation/close releases its helper gate before M acquisition, so no new helperGate->M nested cycle found.",
+    "Dormant helpers start CloseGcStatisticsHelper and CloseStatisticsTrapHelpers on original caller while its M is reentrant; async methods capture failures into returnedTask, both close calls initiated and captured before queued CompleteNifShutdown.",
+    "Helper drained TCS uses RunContinuationsAsynchronously; marking both closing/drain under helper gates does not inline arbitrary continuation under M/helper locks.",
+    "CompleteNifShutdown no longer initiates helper closes on queued worker; it joins captured helper tasks along with every existing reservation/native/literal/prepared owner/failure task. Distinct task enumeration preserved.",
+    "SourceCodeLease disposal releases context codeGate ownership and actual literal lease; literal physical retired TCS signals before ModuleLiteralRetired800 callback reacquiresM. Pre-counter source-entry lease gap does not require M for actual lease release.",
+    "No helper signature/hash/admission/source-entry/opaque-authority bypass, no existing request/collector/NIF616/TLS execution change."
+  ],
+  "ExpectedFocusedControls": [
+    "Dormant original cached helper close under actual retainedM and actual codepermission: succeeds with physical literal/prepared ownership released; old documented prewarm/closed-before-admission scenarios unchanged.",
+    "Actual active GC and four-helper source admissions under held M/codepermission: refusal occurs before nifClosing/helper flags change; original admission can complete; subsequent ordinary close succeeds.",
+    "Preparation enters after first busycheck but before atomicclosingcheck: repeatcheck refuses without halfclosingeitherhelper.",
+    "Already pending nifShutdown under retainedM refuses; repeated off-M close joins exact same completion; original error object/failures retained.",
+    "One helper close faults while other still ownsrealresources: both close tasks settle and original independent native/literal joins attempted."
+  ],
+  "RareFailureBoundary": "Catastrophic allocation/queue failure totality beyond existing conventions not established; no blanketallfailurecleanup claim.",
+  "WorkspaceWrites": false,
+  "BuildVmGitCiExecuted": false,
+  "PublicationApproved": false
+}

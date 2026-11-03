@@ -1,0 +1,86 @@
+{
+  "State": "SOURCE_ONLY_TEST_CORRECTION_REQUIRES_ACTUAL_EXECUTION",
+  "ExactBaseCommit": "f14e8666bb441e14f3c56707e2ebe74f6d2a279f",
+  "ProductionAcceptanceModified": false,
+  "ActualSemanticExecutionPerformed": false,
+  "Targets": [
+    {
+      "Path": "tests/Erlang.Tests/Compiler/Beam/Binary/BeamDelayBinary411Checks.cs",
+      "PayloadSha256": "EA8BF5B2DB69E6FD218AC7BCD45BEC55152D2C4114391A586036874A9EC06DE9",
+      "MustNotExist": false,
+      "ExpectedGitBlobSha256": "898AA97DC59E272017950E10556C9FEC230838B466BD66FE62852AC8A4B59280",
+      "ExpectedPrimaryRawSha256": "898AA97DC59E272017950E10556C9FEC230838B466BD66FE62852AC8A4B59280"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Compiler/Beam/Binary/BeamDelayBinary411Checks.Scratch532.cs",
+      "PayloadSha256": "4B581F0B97F2A78F7FD8E56CBAEF6ED44DEEE016522D9CA32DACB459C856A0DC",
+      "MustNotExist": true
+    },
+    {
+      "Path": "tests/Erlang.Tests/Compiler/Beam/Binary/BeamDelayBinary411Names.cs",
+      "PayloadSha256": "1CA6219CE0C2D4365E29BBFB5EBCA910E70FEF15328C498EEE42E0019901E3A0",
+      "MustNotExist": false,
+      "ExpectedGitBlobSha256": "681EE892D4D4A13CA401EF1FAA03AD4F8EF51A99D3F23A9861F377459B51F8D8",
+      "ExpectedPrimaryRawSha256": "681EE892D4D4A13CA401EF1FAA03AD4F8EF51A99D3F23A9861F377459B51F8D8"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Compiler/Beam/Binary/BeamDelayScratch532Names.cs",
+      "PayloadSha256": "228F69FEFAF4FE31AFFB7238F14DA9774F0AB147F9EF69BFFE35F80673F1B4EC",
+      "MustNotExist": true
+    }
+  ],
+  "Inputs": [
+    {
+      "Path": "candidate.patch",
+      "Sha256": "940258021EF1F9CAE0C263B970BBB39659283CF214852BC2EA62EE47DF202F93"
+    },
+    {
+      "Path": "f14-source/src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamFrameValidation.cs",
+      "Sha256": "B6CF7822D505F98650ACCE8115247553556EB175111563B7F4F44C2FA184D42E"
+    },
+    {
+      "Path": "f14-source/src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamReceiveBinaryPairs.cs",
+      "Sha256": "1B168D75EAAF8E143AA8C3E68BBDA3CE028EFD972B7E05C8D600F639096E8DA5"
+    },
+    {
+      "Path": "f14-source/src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamRegisterState.cs",
+      "Sha256": "470B4562633711F48B1D94DA0E919F45184B4CE777680E46AD9559867572FFF6"
+    },
+    {
+      "Path": "f14-source/tests/Erlang.Tests/Compiler/Beam/Binary/BeamDelayBinary411Checks.cs",
+      "Sha256": "898AA97DC59E272017950E10556C9FEC230838B466BD66FE62852AC8A4B59280"
+    },
+    {
+      "Path": "f14-source/tests/Erlang.Tests/Compiler/Beam/Binary/BeamDelayBinary411Names.cs",
+      "Sha256": "681EE892D4D4A13CA401EF1FAA03AD4F8EF51A99D3F23A9861F377459B51F8D8"
+    },
+    {
+      "Path": "FINDINGS.md",
+      "Sha256": "462E0D4A22FE038AEF806EE043088CF3FB16F5A2A9C06434B283525A48C713BA"
+    },
+    {
+      "Path": "preimages/tests/Erlang.Tests/Compiler/Beam/Binary/BeamDelayBinary411Checks.cs",
+      "Sha256": "898AA97DC59E272017950E10556C9FEC230838B466BD66FE62852AC8A4B59280"
+    },
+    {
+      "Path": "preimages/tests/Erlang.Tests/Compiler/Beam/Binary/BeamDelayBinary411Names.cs",
+      "Sha256": "681EE892D4D4A13CA401EF1FAA03AD4F8EF51A99D3F23A9861F377459B51F8D8"
+    },
+    {
+      "Path": "staged-tree/tests/Erlang.Tests/Compiler/Beam/Binary/BeamDelayBinary411Checks.cs",
+      "Sha256": "EA8BF5B2DB69E6FD218AC7BCD45BEC55152D2C4114391A586036874A9EC06DE9"
+    },
+    {
+      "Path": "staged-tree/tests/Erlang.Tests/Compiler/Beam/Binary/BeamDelayBinary411Checks.Scratch532.cs",
+      "Sha256": "4B581F0B97F2A78F7FD8E56CBAEF6ED44DEEE016522D9CA32DACB459C856A0DC"
+    },
+    {
+      "Path": "staged-tree/tests/Erlang.Tests/Compiler/Beam/Binary/BeamDelayBinary411Names.cs",
+      "Sha256": "1CA6219CE0C2D4365E29BBFB5EBCA910E70FEF15328C498EEE42E0019901E3A0"
+    },
+    {
+      "Path": "staged-tree/tests/Erlang.Tests/Compiler/Beam/Binary/BeamDelayScratch532Names.cs",
+      "Sha256": "228F69FEFAF4FE31AFFB7238F14DA9774F0AB147F9EF69BFFE35F80673F1B4EC"
+    }
+  ]
+}

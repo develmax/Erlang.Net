@@ -30,13 +30,16 @@ public sealed partial class ProcessRuntime
             DrainEtsRetirements(),
             DrainPersistentTerms(),
             DrainRegex411(),
+            DrainBinaryPrograms598(),
+            CloseSavedMatchPrograms634(),
             DrainDirtyNative419(),
             DrainDebugDispatch432(),
             DrainCounters421(),
             DrainHamtIndex429(),
             DrainDriverFrontend422(),
             DrainCodePurger432(),
-            DrainAllocatorGather434()
+            DrainAllocatorGather434(),
+            DrainStatisticsTraps()
         );
         try
         {

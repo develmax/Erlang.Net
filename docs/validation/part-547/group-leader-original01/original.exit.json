@@ -1,0 +1,26 @@
+{
+  "Command": [
+    "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library376-official-compiler\\installed\\bin\\erl.exe",
+    "+S",
+    "2:2",
+    "+SDcpu",
+    "1:1",
+    "+SDio",
+    "1",
+    "+A",
+    "1",
+    "-noshell",
+    "-pa",
+    "D:\\Distr\\Work\\Codex\\Erlang.Net\\w546\\artifacts\\statistics-full\\group-leader-original01",
+    "-eval",
+    "V=group_leader_root_observer:run(),ok=file:write_file(\"D:/Distr/Work/Codex/Erlang.Net/w546/artifacts/statistics-full/group-leader-original01/original.etf\",term_to_binary(V,[{minor_version,2}])),io:format(\"~p~n\",[V]),halt(0)."
+  ],
+  "Pid": 61888,
+  "ElapsedSeconds": 0.1870000000053551,
+  "TimedOut": false,
+  "Settled": true,
+  "ExitCode": 0,
+  "Failures": [],
+  "StdoutSha256": "60E8A82BDECCF73A148BD726EDDB013C203CF48E76D4C2E7D956A4A593FF705B",
+  "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+}

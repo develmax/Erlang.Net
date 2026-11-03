@@ -24,6 +24,7 @@ internal sealed class RuntimeInitializer(ProcessContext context)
                 registry.PublishModule(InitializationNames.Module);
                 registry.PublishModuleCode(InitializationNames.Module, ModuleCodeFingerprints.Owner(typeof(RuntimeInitializer)));
             });
+        context.Runtime.Modules.PrewarmStatisticsTrapHelpers(context);
         Completion = context.Runtime.DispatchInitializer(context, Run);
     }
 
@@ -110,7 +111,7 @@ internal sealed class RuntimeInitializer(ProcessContext context)
         catch (ProcessHaltTransfer transfer) when (ReferenceEquals(transfer.Runtime, context.Runtime))
         {
         }
-        catch (OperationCanceledException) when (context.Cancellation.IsCancellationRequested)
+        catch (OperationCanceledException) when (context.Terminated || context.Cancellation.IsCancellationRequested)
         {
         }
         finally

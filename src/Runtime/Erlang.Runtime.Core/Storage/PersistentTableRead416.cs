@@ -14,6 +14,21 @@ internal sealed class PersistentTableRead416(
     private PersistentArenaRead416?[]? areas = leases;
 
     internal TupleTerm? Find(Term key, ulong hash, CancellationToken cancellation)
+        => FindSelected591(
+            key,
+            hash,
+            cancellation,
+            true,
+            false
+        );
+
+    internal TupleTerm? FindSelected591(
+        Term key,
+        ulong hash,
+        CancellationToken cancellation,
+        bool admitResults = true,
+        bool valueOnly = false
+    )
     {
         lock (gate)
         {
@@ -29,8 +44,11 @@ internal sealed class PersistentTableRead416(
                 int offset = PersistentTableNames416.HeaderBytes + slot * PersistentTableNames416.SlotBytes;
                 if (BinaryPrimitives.ReadUInt64LittleEndian(current.AsSpan(offset)) == hash)
                 {
-                    TupleTerm pair = Area(root).Materialize(cancellation);
-                    if (pair.Items[0].Equals(key)) return pair;
+                    // Hash collisions and internal searches are not output
+                    // boundaries. The read lease owns every raw backing here.
+                    TupleTerm pair = Area(root).MaterializeSelected591(cancellation, admitResults: false);
+                    if (pair.Items[0].Equals(key))
+                        return admitResults ? Area(root).MaterializeSelected591(cancellation, valueOnly: valueOnly) : pair;
                 }
                 slot = (slot + 1) & (capacity - 1);
             }
@@ -39,6 +57,9 @@ internal sealed class PersistentTableRead416(
     }
 
     internal TupleTerm[] Pairs(CancellationToken cancellation)
+        => AtomicsHostAggregate594.Publish(transaction => PairsSelected594(cancellation, transaction));
+
+    internal TupleTerm[] PairsSelected594(CancellationToken cancellation, AtomicsHostCopyTransaction591 transaction)
     {
         lock (gate)
         {
@@ -50,7 +71,12 @@ internal sealed class PersistentTableRead416(
             {
                 cancellation.ThrowIfCancellationRequested();
                 int root = PersistentTable416.RootIndex(current, slot);
-                if (root != 0) result.Add(Area(root).Materialize(cancellation));
+                if (root != 0) result.Add(Area(root).MaterializeSelected594(
+                    cancellation,
+                    true,
+                    false,
+                    transaction
+                ));
             }
 
             return result.ToArray();

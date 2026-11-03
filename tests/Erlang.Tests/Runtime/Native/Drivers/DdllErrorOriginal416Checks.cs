@@ -17,10 +17,7 @@ internal static class DdllErrorOriginal416Checks
         {
             runtime = new ProcessRuntime();
             ProcessRuntime owner = runtime;
-            await owner.InitializeModulesAsync(registry =>
-            {
-                DdllErrorOriginal416Preparation.Prepare(owner, registry);
-            });
+            await DdllErrorOriginal416Preparation.Prepare171Async(owner);
             actor = new RuntimeNodeFoundationHostActor(owner);
             RuntimeNodeFoundationHostActor caller = actor;
 

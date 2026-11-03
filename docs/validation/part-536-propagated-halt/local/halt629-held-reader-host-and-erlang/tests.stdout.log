@@ -1,0 +1,12 @@
+{"Partial":true,"SelectedCount":1,"TotalCount":9343}
+FAIL runtime/binary629/halt-closes-host-program-and-joins-reader: System.InvalidOperationException: Halt did not close and physically retire the compiled binary program.
+   at Erlang.Tests.BinaryHalt629Checks.Require(Boolean value) in D:\Distr\Work\Codex\Erlang.Net\w536\tests\Erlang.Tests\Otp\Stdlib\Binary\BinaryHalt629Checks.cs:line 93
+   at Erlang.Tests.BinaryHalt629Checks.<>c__DisplayClass1_0.<<Run>b__0>d.MoveNext() in D:\Distr\Work\Codex\Erlang.Net\w536\tests\Erlang.Tests\Otp\Stdlib\Binary\BinaryHalt629Checks.cs:line 67
+--- End of stack trace from previous location ---
+   at Erlang.Tests.BinaryHalt629Checks.<>c__DisplayClass1_0.<<Run>b__0>d.MoveNext() in D:\Distr\Work\Codex\Erlang.Net\w536\tests\Erlang.Tests\Otp\Stdlib\Binary\BinaryHalt629Checks.cs:line 87
+--- End of stack trace from previous location ---
+   at Erlang.Tests.BinaryArena598Fixture.Run(Term input, Func`2 body) in D:\Distr\Work\Codex\Erlang.Net\w536\tests\Erlang.Tests\Otp\Stdlib\Binary\BinaryArena598Fixture.cs:line 64
+   at Erlang.Tests.BinaryArena598Fixture.Run(Term input, Func`2 body) in D:\Distr\Work\Codex\Erlang.Net\w536\tests\Erlang.Tests\Otp\Stdlib\Binary\BinaryArena598Fixture.cs:line 112
+   at Erlang.Tests.BinaryHalt629Checks.Run() in D:\Distr\Work\Codex\Erlang.Net\w536\tests\Erlang.Tests\Otp\Stdlib\Binary\BinaryHalt629Checks.cs:line 10
+   at Program.<Main>$(String[] args) in D:\Distr\Work\Codex\Erlang.Net\w536\tests\Erlang.Tests\Harness\Program.cs:line 7688
+0/1 passed

@@ -1,14 +1,32 @@
 -module(string_port_cases).
--export([write/1, cases/0, run/2, worker/3]).
+-export([write/1, cases/0, run/2, worker/3, backing/0]).
 
 write(Directory) ->
     Cases = cases(),
     Results = [{F,Args,run(F,Args)} || {F,Args} <- Cases],
     ok = file:write_file(filename:join(Directory,"cases.etf"),term_to_binary(Cases)),
     ok = file:write_file(filename:join(Directory,"original.etf"),term_to_binary(Results)),
+    ok = file:write_file(filename:join(Directory,"backing.etf"),term_to_binary(backing())),
     ok = file:write_file(filename:join(Directory,"exports.etf"),term_to_binary(
         lists:sort(string:module_info(exports) -- [{module_info,0},{module_info,1}]))),
     ok.
+
+backing() ->
+    B = binary:copy(<<"abcd">>,128),
+    Padded = <<"  ",B/binary,"  ">>,
+    [inspect(string:slice(B,1,100)),inspect(string:slice(B,1,64)),
+     inspect(string:slice(B,1,65)),inspect(string:slice(B,500,50)),
+     inspect(string:slice(B,0,512)),inspect(string:slice(B,100,0)),
+     inspect(string:slice(B,1,infinity)),inspect(string:prefix(B,"a")),
+     inspect(string:find(B,"b")),inspect(string:split(B,"bc",leading)),
+     inspect(string:replace(B,"bc",<<"!">>,trailing)),
+     inspect(string:take(B,"ab",false,leading)),
+     inspect(string:trim(Padded,both))].
+
+inspect(B) when is_binary(B) -> {B,binary:referenced_byte_size(B)};
+inspect([H|T]) -> [inspect(H)|inspect(T)];
+inspect(T) when is_tuple(T) -> list_to_tuple([inspect(E)||E<-tuple_to_list(T)]);
+inspect(T) -> T.
 
 run(F, Args) ->
     {Pid, Ref} = spawn_monitor(?MODULE, worker, [F, Args, self()]),

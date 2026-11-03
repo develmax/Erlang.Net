@@ -10,23 +10,22 @@ public sealed partial class ProcessRuntime
         Term? traceToken = null
     )
     {
+        bool accepted = false;
         lock (gate)
         {
-            if (!ReferenceEquals(owner.Runtime, this) || !processes.TryGetValue(owner.Self, out var found) ||
-                !ReferenceEquals(found, owner) || owner.Terminated)
+            if (ReferenceEquals(owner.Runtime, this) && processes.TryGetValue(owner.Self, out var found)
+                && ReferenceEquals(found, owner) && !owner.Terminated)
             {
-                release();
-
-                return;
+                owner.DeferredSignalDrain ??= new();
+                accepted = owner.Mailbox.TrySendDeferred606(
+                    prepare,
+                    release,
+                    from,
+                    traceToken
+                );
             }
-            owner.DeferredSignalDrain ??= new();
-            owner.Mailbox.SendDeferred(
-                prepare,
-                release,
-                from,
-                traceToken
-            );
         }
+        if (!accepted) release(); // No runtime R or mailbox M during rejected cleanup.
     }
 
     private void DrainDeferredProcessSignals(ProcessContext owner)
@@ -34,6 +33,7 @@ public sealed partial class ProcessRuntime
         while (true)
         {
             MailboxDeferredPreparation? work;
+            MailboxPendingBackingClaim? pendingClaim;
             lock (gate)
             {
                 if (owner.Terminated)
@@ -49,24 +49,17 @@ public sealed partial class ProcessRuntime
 
                     return;
                 }
-                work = owner.Mailbox.ClaimDeferred();
+                pendingClaim = owner.Mailbox.ClaimPendingBacking();
+                work = pendingClaim is null ? owner.Mailbox.ClaimDeferredForBacking() : null;
+            }
+            if (pendingClaim is not null)
+            {
+                PrepareAndAdmitPendingMailboxBacking(owner, pendingClaim, null);
+                continue;
             }
             if (work is null)
                 return;
-            DeferredMailboxAdmission? ready;
-            try
-            {
-                // Neither global runtime nor mailbox gate is held here.
-                ready = work.Prepare();
-            }
-            catch
-            {
-                lock (gate)
-                    work.Complete(null);
-                throw;
-            }
-            lock (gate)
-                work.Complete(owner.Terminated ? null : ready);
+            PrepareAndCompleteDeferredSignal(owner, work);
         }
     }
 }

@@ -19,23 +19,27 @@ internal static class LibrarySelectionPolicyOriginalMathChecks
             RuntimeModuleSelection.Beam(MathModule, image, dependencyModules)
         ));
         await using var runtime = new ProcessRuntime();
-        object? plan = null;
+        IReadOnlyDictionary<(string Function, int Arity), ErlangFunction>? before = null;
         PreparedBeamImage? prepared = null;
         await runtime.InitializeModulesAsync(registry =>
         {
-            var before = Bodies(registry).Where(pair => pair.Key.Module == MathModule)
+            before = Bodies(registry).Where(pair => pair.Key.Module == MathModule)
                 .ToDictionary(pair => (pair.Key.Function, pair.Key.Arity), pair => pair.Value);
             Require(before.Count == 26 && before.ContainsKey((MathNative, 1)));
-            plan = Prepare(registry, request);
+        });
+        using var plan = (IDisposable)Prepare(runtime.Modules, request);
+        await runtime.InitializeModulesAsync(registry =>
+        {
             Publish(registry, plan);
             prepared = (PreparedBeamImage)registry.SourceOwner(MathModule, MathNative, 1)!;
             Require(prepared.NativePrimitiveExports.Count == OriginalMathPrimitiveCount);
             IReadOnlyDictionary<(string Function, int Arity), ErlangFunction> captured = Captured(prepared);
             Require(captured.Count == OriginalMathPrimitiveCount);
-            foreach (var pair in before)
+            foreach (var pair in before!)
             {
                 if (pair.Key.Arity == 0)
                 {
+                    Require(pair.Key.Function is MathBackendNames.Pi or MathBackendNames.Tau);
                     Require(!captured.ContainsKey(pair.Key));
                     Require(ReferenceEquals(registry.SourceOwner(MathModule, pair.Key.Function, pair.Key.Arity), prepared));
                     continue;

@@ -6,7 +6,7 @@ internal static class NodeSpawnRegistrations
     {
         foreach (string function in new[] { ErlangModuleNames.Spawn, ErlangModuleNames.SpawnLink, ErlangModuleNames.SpawnMonitor })
             foreach (int arity in new[] { 2, 4 })
-                registry.Register(
+                registry.RegisterCanonicalRuntimeRead535(
                     ErlangModuleNames.Module,
                     function,
                     arity,
@@ -26,13 +26,7 @@ internal static class NodeSpawnRegistrations
             bool valid = function == ErlangModuleNames.Spawn ? callback is FunctionTerm or TupleTerm { Items: [Atom, Atom] } : callback is FunctionTerm { Arity: 0 };
             if (!valid)
                 throw Invalid(context, function, arguments);
-            body = child => child.Runtime.Modules.Call(
-                child,
-                ErlangModuleNames.Module,
-                ErlangBasicBifNames.Apply,
-                callback,
-                Nil.Value
-            );
+            body = RuntimeVmSpawnInput641.Callback641(callback, Array.Empty<Term>());
             description = SequenceSpawnDescription.Callback(callback, SequenceSpawnDescription.DefaultOptions(function));
         }
         else
@@ -48,12 +42,7 @@ internal static class NodeSpawnRegistrations
             {
                 throw Invalid(context, function, arguments);
             }
-            body = child => child.Runtime.Modules.Call(
-                child,
-                module.Name,
-                name.Name,
-                values
-            );
+            body = RuntimeVmSpawnInput641.Mfa641(module.Name, name.Name, values);
             description = SequenceSpawnDescription.Module(
                 module,
                 name,

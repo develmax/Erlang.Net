@@ -1,0 +1,9 @@
+# Part535 exact-CI correction evidence
+
+Authentic CI40807031466 on034f6c remains9331PASS/2FAIL; raw authenticated validation ZIP and summaries are preserved unchanged under failed-ci40807031466. Successful isolated unchanged local rerun does not erase CI failure. Concrete native pending-walk activation and terminal-before-token ordering mechanisms are documented separately from measurements.
+
+Local correction selected Debug156/156 and Release156/156 have identical names, not312 distinct. Fresh original five streams524 directly match protected final Release AND fresh explicit Debugexisting3 streams in separate exact child windows; paired raw and receipts preserved under protected-pairs. No stale earlierDebug156/fixed485 attribution. Actual root freeze and51 final C# snapshots authenticate the delivered correction (five changed source/test files). No local full9335 or new-head CI pass is claimed.
+
+Same20k Debug measures8527ms before/120ms after once each, unchanged15s bound; no universal benchmark or flaky label. The deterministic privateVM dictionary-gated old token-only helper produces true mailbox OCE RED1/2, corrected terminal/dead-or-requested helper passes2/2 and live unrelated cancellation remains visible. Initial reflection-null/unsuitable-profile attempts remain retained preparation failures, not meaningful RED. No timeout increase or incomplete global AnyLive guard.
+
+Original5 owned children/6427 provider and stock owners settle/agree; actual cleanup retains literal observed counts without invented frees or original VM physical-header instrumentation. All independent reviews remain source-only. Prior docs/validation/part-535 is untouched. Counts708/180/504/24 delta0/0; policy/restart/matchspec/general roots remain open. Parent corrections must be propagated into preserved staged536 and its acceptance refreshed. Exact correction-head CI/review/merge separate. Archive helper performs no source resealing, VM/build/native/Git/CI.

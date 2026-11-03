@@ -7,6 +7,7 @@ internal sealed partial class ProcessTermHeap506
     private ushort minorCollections508;
     private long completedCollections508;
     private long reclaimedPayloadWords508;
+    private long reclaimedAllocationWords567;
 
     internal ProcessTermGenerationSnapshot508 GenerationSnapshot508
     {
@@ -42,6 +43,9 @@ internal sealed partial class ProcessTermHeap506
     // partially imported graph has unpublished intermediate payload blocks.
     internal ProcessTermCollection508 CollectGeneration508(bool requestedMajor, ushort fullSweepAfter)
     {
+        if (LiteralDomain800 is not null) throw new InvalidOperationException(ModuleLiteral800Names.Immutable);
+        int participant = runtime.CurrentGcParticipant();
+        using var microstate = RuntimeMicrostateExecution.EnterState(runtime.Statistics.Microstates, RuntimeMicrostate.Gc);
         lock (Gate)
         {
             bool major = requestedMajor || minorCollections508 >= fullSweepAfter;
@@ -56,12 +60,14 @@ internal sealed partial class ProcessTermHeap506
                 foreach (long id in oldBlocks508)
                 {
                     ProcessTermSequence506 block = blocks[id];
+                    if (recordDefinitions.TryGetValue(id, out var recordDefinition)) pending.Push(recordDefinition);
                     for (int index = 0; index < block.Count; index++)
                         pending.Push(block.Slab.Cells[block.Offset + index]!);
                 }
             }
             while (pending.TryPop(out Term? term))
             {
+                if (IsAuthenticatedLiteral801(term)) continue;
                 if (!seen.Add(term))
                     continue;
                 if (Storage(term) is { } block)
@@ -72,24 +78,35 @@ internal sealed partial class ProcessTermHeap506
                 foreach (Term child in NativeMapOwnedRoots510.Children(term))
                     pending.Push(child);
             }
+            MarkResourceBinaryNodes577(seen, major, marked);
             ProcessNativeCollection524? nativeCollection = PrepareNativeCollection524(seen, major, marked);
+            MagicReferenceSweep576? magicCollection = PrepareMagicCollection576(marked, major);
+            using WritableBinaryCollection writableCollection = PrepareWritableCollection(marked, major);
             long[] dead = blocks.Keys.Where(id => !marked.Contains(id)
                 && (major || !oldBlocks508.Contains(id))).ToArray();
             long reclaimed = dead.Sum(id => (long)blocks[id].Count);
+            long reclaimedAllocation = dead.Sum(id => (long)blocks[id].AllocationWords526);
             long completed = checked(completedCollections508 + 1);
             long totalReclaimed = checked(reclaimedPayloadWords508 + reclaimed);
+            long totalReclaimedAllocation = checked(reclaimedAllocationWords567 + reclaimedAllocation);
             ushort nextMinor = major ? (ushort)0 : checked((ushort)(minorCollections508 + 1));
             // All traversal/validation and checked scalar calculations complete
             // before cells are released or collection state advances.
             nativeCollection?.Commit524();
+            writableCollection.Commit();
+            magicCollection?.Commit576();
+            ForgetFunctionEntries(dead);
+            ForgetRecordDefinitions(dead);
             foreach (long id in dead)
             {
                 ProcessTermSequence506 block = blocks[id];
                 ReleaseAllocation519(block.Slab, block.AllocationOffset526, block.AllocationWords526);
                 blocks.Remove(id);
+                ReleaseLiteralBlock801(id);
                 mapHeaders517.Remove(id);
                 oldBlocks508.Remove(id);
             }
+            ForgetResourceBinaryBlocks577(dead);
             if (major)
                 oldBlocks508.Clear();
             else
@@ -100,13 +117,19 @@ internal sealed partial class ProcessTermHeap506
             minorCollections508 = nextMinor;
             completedCollections508 = completed;
             reclaimedPayloadWords508 = totalReclaimed;
+            reclaimedAllocationWords567 = totalReclaimedAllocation;
+            runtime.Statistics.RecordVmCollection(reclaimedAllocation);
+            runtime.RecordGcParticipant(participant, reclaimedAllocation);
 
             return new(
                 major,
                 reclaimed,
                 completed,
                 nextMinor
-            );
+            )
+            {
+                ReclaimedAllocationWords567 = reclaimedAllocation
+            };
         }
     }
 }

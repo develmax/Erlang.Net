@@ -49,15 +49,22 @@ The implementation preserves numeric argument conversion, left-to-right
 underflow, and signed zero. `erf` and `erfc` use the supported operating system's
 CRT/libm through the existing native bindings. No approximation package was added.
 
-Current Windows validation passes 44 affected groups, including direct calls to
-all 26 MFAs. Both backends match the same 248 original cases at the default
-stack depth and five stack profiles: 1,488 complete outcomes per backend.
-Encoded ETF equality also checks IEEE float payloads. A fresh official OTP
-29.1.1 execution reproduced both saved oracle files byte for byte.
+Current Windows validation passes 45 affected groups, including direct calls to
+all 26 MFAs and an explicit log2 rounding regression. Both backends additionally
+match 502,772 freshly acquired numeric/type/error cases, the same 248 whole
+values/errors and five stack profiles. Complete ETF comparison checks IEEE
+float payloads, including signed zero.
+
+The expanded corpus found 2,785 differences in the previous runtime's Windows
+log2 path. Pinned OTP uses `log(x) / 0.6931471805599453` on this official
+Windows profile; the runtime now uses that exact expression. Both alternatives
+have zero differences on the expanded Windows corpus. The original Erlang and
+BEAM assets remain unchanged.
 
 This establishes complete API availability and the recorded differential
 corpus, not universal 100% compatibility. Exhaustive numerical/platform audit,
 other supported operating systems, and a passing complete project regression
 remain acceptance gates. All math ledger rows remain `Needs verification`.
 
-See [the checkpoint evidence](validation/part-520/math-port/README.md).
+See [the original port checkpoint](validation/part-520/math-port/README.md) and
+[the expanded compatibility evidence](validation/math-compatibility-20261103/README.md).

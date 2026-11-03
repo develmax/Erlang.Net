@@ -46,6 +46,29 @@ public sealed partial class PreparedBeamImage
         );
     }
 
+    FunctionTerm? ISourceLocalFunctionResolver.ReconstructPublicLocal414(
+        ProcessRuntime runtime,
+        LocalFunctionIdentity identity,
+        int arity,
+        IReadOnlyList<Term> environment,
+        ModuleCodeImage image
+    )
+    {
+        int index = LocalFunctionTableIndex(identity, arity);
+        if (index < 0 || environment.Count != Code.Lambdas[index].FreeVariables
+            || !ReferenceEquals(Owner, runtime.Modules)
+            || !ReferenceEquals(image, ExecutionIdentity.Image)) return null;
+
+        return BeamClosureFactory.Create(
+            Code,
+            index,
+            environment,
+            ExecutionIdentity,
+            entries: runtime.Functions,
+            legacyIdentity: identity
+        );
+    }
+
     FunctionTerm? ISourceLocalFunctionResolver.ResolveLocalFunction(
         LocalFunctionIdentity identity,
         int arity,

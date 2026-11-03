@@ -1,0 +1,25 @@
+{
+  "Command": [
+    "D:\\Distr\\Work\\Codex\\Erlang.Net\\w518repair\\artifacts\\library376-official-compiler\\installed\\bin\\erl.exe",
+    "+S",
+    "1:1",
+    "+A",
+    "1",
+    "-noshell",
+    "-noinput",
+    "-boot",
+    "no_dot_erlang",
+    "-pa",
+    "D:\\Distr\\Work\\Codex\\Erlang.Net\\w518repair\\artifacts\\resource535\\original-regex613-final\\three413-stacks",
+    "-eval",
+    "W=fun(N,T)->ok=file:write_file(N,term_to_binary(T,[{minor_version,2}])) end,Expected=filename:absname(os:getenv(\"CONTRACT506_ORIGINAL_ROOT\")),Expected=filename:absname(code:root_dir()),8=erlang:system_info(wordsize),W(\"profile.etf\",{erlang:system_info(wordsize),erlang:system_info(schedulers),erlang:system_info(schedulers_online),erlang:system_info(debug_compiled),re:version()}),Observer=beam_re_three413,Observer:module_info(),ObserverPath=filename:absname(\"beam_re_three413.beam\"),ObserverPath=filename:absname(code:which(Observer)),{ok,{Observer,ObserverMd5}}=beam_lib:md5(ObserverPath),ObserverMd5=Observer:module_info(md5),W(\"observer-owner.etf\",{Observer,ObserverPath,ObserverMd5,Observer:module_info(compile)}),W(\"stock-owners-before.etf\",(fun()->[begin {ok,{M,ExpectedMd5}}=beam_lib:md5(P),ExpectedMd5=M:module_info(md5),Which=code:which(M),case Which of preloaded->true=lists:member(M,erlang:pre_loaded());_->ExpectedPath=filename:absname(P),ExpectedPath=filename:absname(Which) end,{M,Which,ExpectedMd5,M:module_info(compile),M:module_info(attributes),M:module_info(exports)} end||{M,P}<-[{lists,\"D:/Distr/Work/Codex/Erlang.Net/w518repair/artifacts/library376-official-compiler/installed/lib/stdlib-8.1/ebin/lists.beam\"},{binary,\"D:/Distr/Work/Codex/Erlang.Net/w518repair/artifacts/library376-official-compiler/installed/lib/stdlib-8.1/ebin/binary.beam\"},{unicode_util,\"D:/Distr/Work/Codex/Erlang.Net/w518repair/artifacts/library376-official-compiler/installed/lib/stdlib-8.1/ebin/unicode_util.beam\"},{unicode,\"D:/Distr/Work/Codex/Erlang.Net/w518repair/artifacts/library376-official-compiler/installed/lib/stdlib-8.1/ebin/unicode.beam\"},{re,\"D:/Distr/Work/Codex/Erlang.Net/w518repair/artifacts/library376-official-compiler/installed/lib/stdlib-8.1/ebin/re.beam\"}]] end)()),{ok,InputBytes}=file:read_file(\"export-inputs.etf\"),Input=binary_to_term(InputBytes),V=beam_re_three413:run_stacks(Input),5=length(V),210=lists:sum([length(Rows)||{_,Rows}<-V]),W(\"observed.etf\",V),W(\"stock-owners-after.etf\",(fun()->[begin {ok,{M,ExpectedMd5}}=beam_lib:md5(P),ExpectedMd5=M:module_info(md5),Which=code:which(M),case Which of preloaded->true=lists:member(M,erlang:pre_loaded());_->ExpectedPath=filename:absname(P),ExpectedPath=filename:absname(Which) end,{M,Which,ExpectedMd5,M:module_info(compile),M:module_info(attributes),M:module_info(exports)} end||{M,P}<-[{lists,\"D:/Distr/Work/Codex/Erlang.Net/w518repair/artifacts/library376-official-compiler/installed/lib/stdlib-8.1/ebin/lists.beam\"},{binary,\"D:/Distr/Work/Codex/Erlang.Net/w518repair/artifacts/library376-official-compiler/installed/lib/stdlib-8.1/ebin/binary.beam\"},{unicode_util,\"D:/Distr/Work/Codex/Erlang.Net/w518repair/artifacts/library376-official-compiler/installed/lib/stdlib-8.1/ebin/unicode_util.beam\"},{unicode,\"D:/Distr/Work/Codex/Erlang.Net/w518repair/artifacts/library376-official-compiler/installed/lib/stdlib-8.1/ebin/unicode.beam\"},{re,\"D:/Distr/Work/Codex/Erlang.Net/w518repair/artifacts/library376-official-compiler/installed/lib/stdlib-8.1/ebin/re.beam\"}]] end)()),halt(0)."
+  ],
+  "Pid": 6288,
+  "ElapsedSeconds": 0.1720000000022992,
+  "TimedOut": false,
+  "Settled": true,
+  "ExitCode": 0,
+  "Failures": [],
+  "StdoutSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+  "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+}

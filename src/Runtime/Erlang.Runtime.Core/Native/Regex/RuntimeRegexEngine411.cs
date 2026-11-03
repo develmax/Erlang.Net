@@ -4,6 +4,7 @@ public sealed partial class RuntimeRegexEngine411 : IAsyncDisposable
 {
     private readonly ProcessRuntime runtime;
     private readonly ReEngineApi411 api;
+    private readonly ReMagicOwner597 magic597;
     private readonly object gate = new();
     private readonly HashSet<ReCode411> codes = new();
     private readonly Dictionary<ProcessContext, ReInvocation411> invocations = new();
@@ -12,6 +13,10 @@ public sealed partial class RuntimeRegexEngine411 : IAsyncDisposable
     private int active;
     private bool closed;
     private int disposalStarted;
+    private bool published599;
+    private Exception? unpublishedDispatcherFailure599, unpublishedLibraryFailure599;
+    internal (Exception? Dispatcher, Exception? Library) UnpublishedCleanupFailures599
+        => (Volatile.Read(ref unpublishedDispatcherFailure599), Volatile.Read(ref unpublishedLibraryFailure599));
     private long createdCodes, freedCodes, createdData, freedData, matchYields;
     private bool libraryFreed;
 
@@ -19,6 +24,7 @@ public sealed partial class RuntimeRegexEngine411 : IAsyncDisposable
     {
         this.runtime = runtime;
         this.api = api;
+        magic597 = new ReMagicOwner597(runtime, api.FreeCode, PhysicalCodeRetired597);
     }
 
     internal static RuntimeRegexEngine411 Open(ProcessRuntime runtime, string officialAdmission)
@@ -109,59 +115,31 @@ public sealed partial class RuntimeRegexEngine411 : IAsyncDisposable
 
     internal void ReleaseGuest(ReCode411 code)
     {
-        bool free = false;
-        lock (gate)
-        {
-            if (!codes.Contains(code)) return;
-            code.GuestReleased = true;
-            if (code.Readers == 0 && !closed)
-            {
-                codes.Remove(code);
-                active++;
-                free = true;
-            }
-        }
-        if (free)
-        {
-            try
-            {
-                Free(code);
-            }
-            finally
-            {
-                Exit();
-            }
-        }
+        code.GuestReleased = true; // Legacy diagnostic flag; not guest-GC authority.
+        code.Backing597.ReleaseProducer597();
     }
 
     private void Read(ReCode411 code)
     {
         lock (gate)
         {
-            if (closed || !codes.Contains(code) || code.GuestReleased) throw new ErlangException(ErlangErrorReasons.BadArgument);
+            if (closed || !codes.Contains(code)) throw new ErlangException(ErlangErrorReasons.BadArgument);
+            code.Backing597.RetainReader597();
             code.Readers++;
         }
     }
 
     private void EndRead(ReCode411 code)
     {
-        bool free = false;
         lock (gate)
-        {
             if (--code.Readers < 0) throw new InvalidOperationException(ReDiagnosticNames411.RegexReadLeaseUnderflow);
-            if (code.Readers == 0 && code.GuestReleased && !closed && codes.Remove(code)) free = true;
-        }
-        if (free) Free(code); // Invocation still owns its active engine lease.
+        code.Backing597.ReleaseReader597();
     }
 
-    private void Free(ReCode411 code)
+    private void PhysicalCodeRetired597(ReCode411 code)
     {
-        var pointer = Interlocked.Exchange(ref code.Pointer, IntPtr.Zero);
-        if (pointer != IntPtr.Zero)
-        {
-            api.FreeCode(pointer);
-            Interlocked.Increment(ref freedCodes);
-        }
+        lock (gate)
+            if (codes.Remove(code)) Interlocked.Increment(ref freedCodes);
     }
 
     public void RequestClose()
@@ -175,28 +153,112 @@ public sealed partial class RuntimeRegexEngine411 : IAsyncDisposable
 
     public async ValueTask DisposeAsync()
     {
+        if (RuntimeActorExecutionTurn.IsRuntime(runtime) || OwnedTermInvocation506.HasActiveFor506(runtime))
+            throw new InvalidOperationException(ReMagicNames597.ActiveDispose);
+        if (!runtime.RegexShutdown597) magic597.BeginManualClose599();
+        await DisposeCore599Async().ConfigureAwait(false);
+    }
+
+    private ValueTask DisposeUnpublished599()
+    {
+        RequestClose();
+        if (Interlocked.CompareExchange(ref disposalStarted, 1, 0) == 0)
+        {
+            Exception? dispatcherFailure = null, libraryFailure = null;
+            try
+            {
+                magic597.ReleaseUnpublishedDispatcher599();
+            }
+            catch (Exception error)
+            {
+                dispatcherFailure = error;
+            }
+            try
+            {
+                if (!magic597.AllPhysicalFreed597)
+                    throw new InvalidOperationException(ReMagicNames597.UnpublishedDispose599);
+                api.Dispose();
+                libraryFreed = true;
+            }
+            catch (Exception error)
+            {
+                libraryFailure = error;
+            }
+            // Both cleanup phases are attempted before allocating aggregation.
+            unpublishedDispatcherFailure599 = dispatcherFailure;
+            unpublishedLibraryFailure599 = libraryFailure;
+            if (dispatcherFailure is null && libraryFailure is null) disposed.TrySetResult();
+            else
+            {
+                Exception failure = dispatcherFailure ?? libraryFailure!;
+                if (dispatcherFailure is not null && libraryFailure is not null)
+                    try
+                    {
+                        failure = new AggregateException(dispatcherFailure, libraryFailure);
+                    }
+                    catch (Exception aggregation)
+                    {
+                        failure = aggregation;
+                    }
+                disposed.TrySetException(failure);
+            }
+        }
+
+        return new ValueTask(disposed.Task);
+    }
+
+    internal void MarkPublished599()
+    {
+        lock (gate)
+        {
+            if (closed) throw new ReOwnerClosing411(runtime);
+            published599 = true;
+        }
+    }
+
+    internal ValueTask DisposeFailedInstallation599Async()
+    {
+        lock (gate)
+        {
+            if (published599 || active != 0 || codes.Count != 0 || Volatile.Read(ref createdCodes) != 0)
+                throw new InvalidOperationException(ReMagicNames597.UnpublishedDispose599);
+            // No native body/code escaped. Engine -> owner -> backing is the
+            // existing admission order; no reverse callback holds owner.gate.
+            magic597.BeginUnpublishedClose599();
+            closed = true;
+        }
+
+        return DisposeUnpublished599();
+    }
+
+    private ValueTask DisposeCore599Async()
+    {
+        if (ExecutionContext.IsFlowSuppressed()) return DisposeCore605Async();
+        using (ExecutionContext.SuppressFlow()) return DisposeCore605Async();
+    }
+
+    private async ValueTask DisposeCore605Async()
+    {
         RequestClose();
         if (Interlocked.Exchange(ref disposalStarted, 1) == 0)
         {
             try
             {
-                await Task.Yield(); // Never free code or unload synchronously under the runtime close gate.
+                // A caller may be an actor of a different VM synchronously
+                // joining this engine. Cleanup must not require that scheduler.
+                await Task.CompletedTask.ConfigureAwait(ConfigureAwaitOptions.ForceYielding);
                 await drained.Task.ConfigureAwait(false);
-                ReCode411[] owned;
-                lock (gate)
-                {
-                    owned = codes.ToArray();
-                    codes.Clear();
-                }
                 var failures = new List<Exception>();
-                foreach (var code in owned) try
-                    {
-                        Free(code);
-                    }
-                    catch (Exception error)
-                    {
-                        failures.Add(error);
-                    }
+                try
+                {
+                    await magic597.Close597().ConfigureAwait(false);
+                }
+                catch (Exception error)
+                {
+                    failures.Add(error);
+                }
+                if (!magic597.AllPhysicalFreed597)
+                    throw new AggregateException(failures.Prepend(new InvalidOperationException(ReMagicNames597.DestructorFailure)));
                 try
                 {
                     api.Dispose();

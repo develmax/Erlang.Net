@@ -87,3 +87,11 @@ original steps; independent managed controls can still run after source admissio
 Additional observer groups can share this collector by adding immutable fixture
 files and jobs.json entries {Module, Fixtures}; run/0 is the only observer entry.
 Reseal after any change. No per-MFA collector duplication is necessary.
+# Opt-in atomics/counters comparison
+
+The `atomics-magic586` job is opt-in; it does not replace any existing default job. `capture-atomics588.py` uses the existing admitted provider, collector and actual compiled worker. Select `--official-admission` on Windows, or the existing `--build-receipt` plus `--otp-source` on Linux. The optional managed route requires the final built `--managed-host`, its SHA256 and the genuinely acquired dynamic520 metadata completion with its SHA256.
+
+Strict588 remains the default comparison. `--own-reference-protocol` explicitly selects590: exactly six occurrences of the same native-error atomics reference must satisfy the declared local identity/alias law. Every other ETF byte, including all error frames and metadata, remains literal. Both complete default/deterministic streams and strict equality flags are retained. Different VM reference numbers are not rewritten. The managed app, Core runtime and hostfxr input closures are checked before/after, and both managed routes are attempted independently after successful preparation.
+
+Original stock `atomics` and `counters` are genuinely file-loaded in the original VM for this profile. Initial preloaded metadata, actual load results, native operation witnesses and complete loaded before/after metadata remain separate evidence. No compilation metadata is fabricated to imitate a preloaded image. Selected observations do not close a whole API contract or the counters write-concurrency/guest-transfer families.
+

@@ -14,5 +14,8 @@ internal sealed class NativeResourceDispatcherLease536(
 
     internal Task Dispatch536(Action body) => dispatcher.DispatchNativeResource536(this, body);
 
+    internal Task DispatchWithWait989(Action body)
+        => dispatcher.DispatchNativeResourceWithWait989(this, body);
+
     public void Dispose() => dispatcher.ReleaseNativeResourceOwner536(this);
 }

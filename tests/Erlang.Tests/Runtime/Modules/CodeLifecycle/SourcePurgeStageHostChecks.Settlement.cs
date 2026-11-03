@@ -144,10 +144,18 @@ public static partial class SourcePurgeStageHostChecks
             IsBackground = true
         };
         bool started = false;
+        Task? sourceClosing524 = null;
         try
         {
             lock (runtimeGate)
             {
+                // Select source-close before process-stop explicitly. Runtime
+                // shutdown now prepares its signal batch under R first, so
+                // holding R cannot also be used to wait for that preparation.
+                sourceClosing524 = (Task)SourcePurgeStageHostBridge.Call(
+                    runtime.Modules,
+                    SourcePurgeStageHostNames.CloseSourceMutations524
+                )!;
                 closer.Start();
                 started = true;
                 bodyFinally.Task.WaitAsync(SourcePurgeStageHostNames.Deadline).GetAwaiter().GetResult();
@@ -160,9 +168,11 @@ public static partial class SourcePurgeStageHostChecks
         {
             if (started)
             {
-                await disposed.Task.WaitAsync(SourcePurgeStageHostNames.Deadline);
+                await Task.WhenAll(disposed.Task, sourceClosing524!).WaitAsync(SourcePurgeStageHostNames.Deadline);
                 Require(closer.Join(SourcePurgeStageHostNames.Deadline));
             }
+            else if (sourceClosing524 is not null)
+                await sourceClosing524.WaitAsync(SourcePurgeStageHostNames.Deadline);
         }
         Require((await actor.Completion.WaitAsync(SourcePurgeStageHostNames.Deadline)).Equals(Term.A(ProcessExitReasons.Shutdown)));
         Require(runtime.Modules.PendingPurge(SourcePurgeStageHostBridge.Image(session)) is null);

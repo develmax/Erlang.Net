@@ -13,9 +13,9 @@ internal static class CountersHost421Access
         var runtime = new ProcessRuntime(CountersHost421Names.Lanes);
         try
         {
+            using var facet = CountersOriginal421Preparation.Prepare(runtime, runtime.Modules);
             await runtime.InitializeModulesAsync(registry =>
             {
-                var facet = CountersOriginal421Preparation.Prepare(runtime, registry);
                 Require(registry.PublishPreparedBeam(facet).Status == BeamPublicationStatus.Published);
                 CountersOriginal421Preparation.AssertPublished(registry, facet);
             });

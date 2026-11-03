@@ -54,7 +54,7 @@ public static partial class Execution
         switch (expression)
         {
             case Expr.Literal literal:
-                return literal.Value;
+                return context?.ReadExecutingSourceLiteral819(literal.Value) ?? literal.Value;
             case Expr.Variable variable:
                 return bindings.TryGetValue(variable.Name, out var value) ? value : throw new ErlangException(Term.Tuple(Term.A(ExecutionErrorReasons.Unbound), Term.A(variable.Name)));
             case Expr.RecordTest record:

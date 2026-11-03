@@ -1,0 +1,118 @@
+[
+  {
+    "Path": "artifacts/batch506/original-contract-batch/pinned-source/erts/emulator/beam/erl_gc.c",
+    "Pin": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+    "Sha256": "D83220568588CFAD8EBEEF5D399D43D04A6E79D7A002404C1A503D274AB8381D",
+    "Symbols": [
+      {
+        "Text": "erts_garbage_collect_hibernate(Process* p)",
+        "Lines": [
+          1129
+        ]
+      },
+      {
+        "Text": "erts_max_heap_size(Eterm arg",
+        "Lines": [
+          3825
+        ]
+      },
+      {
+        "Text": "return size < p->min_heap_size",
+        "Lines": [
+          349
+        ]
+      }
+    ]
+  },
+  {
+    "Path": "artifacts/batch506/original-contract-batch/pinned-source/erts/emulator/beam/erl_process.c",
+    "Pin": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+    "Sha256": "89CBDB55BE2A97E77B2450BB3D339CA6DB934B9C4BF556EAD29B4EAE88072DC9",
+    "Symbols": [
+      {
+        "Text": "sop->min_heap_size  = H_MIN_SIZE",
+        "Lines": [
+          12242
+        ]
+      },
+      {
+        "Text": "arg == am_min_heap_size",
+        "Lines": [
+          12321
+        ]
+      },
+      {
+        "Text": "arg == am_fullsweep_after",
+        "Lines": [
+          12351
+        ]
+      },
+      {
+        "Text": "sop->max_heap_size != 0",
+        "Lines": [
+          12429
+        ]
+      },
+      {
+        "Text": "erts_garbage_collect_hibernate(c_p)",
+        "Lines": [
+          11188
+        ]
+      }
+    ]
+  },
+  {
+    "Path": "artifacts/batch506/original-contract-batch/pinned-source/erts/emulator/beam/bif.c",
+    "Pin": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+    "Sha256": "4DF5E1065391F693F73E5A7303F0C1993E67C7DD4B4AF151C43121CA913EF9CC",
+    "Symbols": [
+      {
+        "Text": "am_min_heap_size",
+        "Lines": [
+          2114,
+          5049
+        ]
+      },
+      {
+        "Text": "am_fullsweep_after",
+        "Lines": [
+          2101,
+          5039
+        ]
+      }
+    ]
+  },
+  {
+    "Path": "artifacts/batch506/original-contract-batch/pinned-source/lib/stdlib/src/proc_lib.erl",
+    "Pin": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+    "Sha256": "A8FC8E94F9AD47ACE46CD204FC5EB6FD227C09787F3BE906D80D2E4547E6A8C5",
+    "Symbols": [
+      {
+        "Text": "hibernate(M, F, A) when",
+        "Lines": [
+          306
+        ]
+      },
+      {
+        "Text": "my_info_1(Class, Reason, Stacktrace)",
+        "Lines": [
+          963,
+          966,
+          968
+        ]
+      },
+      {
+        "Text": "make_neighbour_report(Pid)",
+        "Lines": [
+          1073
+        ]
+      },
+      {
+        "Text": "get_process_info(Pid, Tag)",
+        "Lines": [
+          1190
+        ]
+      }
+    ]
+  }
+]

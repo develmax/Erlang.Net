@@ -31,17 +31,15 @@ internal static class ErlangDataRegistrations
                 arity,
                 arguments => new BitString(Encoding.ASCII.GetBytes(ErlangIntegerText.Format(arguments[0], ErlangIntegerText.Base(arguments))))
             );
-            registry.Register(
-                ErlangModuleNames.Module,
+            registry.RegisterCanonicalValueBif354(
                 ErlangDataBifNames.ListToInteger,
                 arity,
-                (context, arguments) => ValueTask.FromResult(ErlangIntegerParseBridge.Parse(context, arguments, false))
+                (context, arguments) => ErlangIntegerParseBridge.Parse(context, arguments, false)
             );
-            registry.Register(
-                ErlangModuleNames.Module,
+            registry.RegisterCanonicalValueBif354(
                 ErlangDataBifNames.BinaryToInteger,
                 arity,
-                (context, arguments) => ValueTask.FromResult(ErlangIntegerParseBridge.Parse(context, arguments, true))
+                (context, arguments) => ErlangIntegerParseBridge.Parse(context, arguments, true)
             );
         }
         Add(ErlangDataBifNames.ListToBinary, 1, arguments => ErlangIoData.Flatten(arguments[0], false, true));
@@ -52,18 +50,22 @@ internal static class ErlangDataRegistrations
         Read535(ErlangDataBifNames.BinaryToList, 1, arguments => ErlangIoData.ToList(arguments[0], false));
         Add(ErlangDataBifNames.BinaryToList, 3, arguments => ErlangIoData.SliceList(arguments));
         Add(ErlangDataBifNames.BitstringToList, 1, arguments => ErlangIoData.ToList(arguments[0], true));
-        Add(ErlangDataBifNames.BinaryPart, 3, arguments => ErlangIoData.Part(arguments[0], arguments[1], arguments[2]));
-        Add(
+        Read535(ErlangDataBifNames.BinaryPart, 3, arguments => ErlangIoData.Part(arguments[0], arguments[1], arguments[2]));
+        Read535(
             ErlangDataBifNames.BinaryPart,
             2,
             arguments => arguments[1] is TupleTerm { Items.Count: 2 } range ? ErlangIoData.Part(arguments[0], range.Items[0], range.Items[1]) : throw new ErlangException(ErlangErrorReasons.BadArgument)
         );
         Add(ErlangDataBifNames.SplitBinary, 2, arguments => ErlangIoData.Split(arguments[0], arguments[1]));
-        Add(ErlangDataBifNames.ListToFloat, 1, arguments => ErlangFloatText.Parse(ErlangIntegerText.ListCharacters(arguments[0])));
-        Add(
+        registry.RegisterCanonicalValueBif354(
+            ErlangDataBifNames.ListToFloat,
+            1,
+            (_, arguments) => ErlangFloatText.Parse(ErlangIntegerText.ListCharacters(arguments[0]))
+        );
+        registry.RegisterCanonicalValueBif354(
             ErlangDataBifNames.BinaryToFloat,
             1,
-            arguments => ErlangFloatText.Parse(ErlangIoData.Binary(arguments[0]).Select(number => (int)number))
+            (_, arguments) => ErlangFloatText.Parse(ErlangIoData.Binary(arguments[0]).Select(number => (int)number))
         );
         foreach (string operation in new[] { ErlangChecksumNames.Adler, ErlangChecksumNames.Crc })
         {

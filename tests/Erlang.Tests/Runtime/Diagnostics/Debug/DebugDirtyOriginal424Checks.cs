@@ -6,6 +6,7 @@ internal static class DebugDirtyOriginal424Checks
 {
     internal static async Task Run()
     {
+        var corpusClock539 = System.Diagnostics.Stopwatch.StartNew();
         string output = Path.GetFullPath(Path.Combine(DebugDirtyOriginal424Names.Output,
             System.Guid.NewGuid().ToString(DebugDirtyOriginal424Names.Guid)));
         Directory.CreateDirectory(output);
@@ -17,23 +18,44 @@ internal static class DebugDirtyOriginal424Checks
         {
             runtime = new ProcessRuntime(1);
             ProcessRuntime owner = runtime;
-            await owner.InitializeModulesAsync(registry =>
+            await global::Erlang.Tests.PreparedBeamFixtureScope171.RunAsync(
+                owner,
+                async (registry, scope) =>
             {
-                RuntimeBootstrapDebugDirty424.Register(owner, registry);
-                RuntimeBootstrapAtomics.Register(owner, registry);
+                await owner.InitializeModulesAsync(_ =>
+                {
+                    {
+                        RuntimeBootstrapDebugDirty424.Register(owner, registry);
+                    }
+                    {
+                        RuntimeBootstrapAtomics.Register(owner, registry);
+                    }
+                });
                 var declared = new BeamDependencySelection(["erlang", "prim_file", "erts_internal", "erts_debug", "atomics", "lists", "maps", "binary"]);
-                var helpers = new[] { "atomics", "lists", "maps" }.Select(module => registry.PrepareBeam(AtomicsHost413Access.Resource(module + ".beam"), declared)).ToArray();
-                PreparedBeamImage facet = registry.PrepareBeam(DebugDirtyOriginal424Access.Resource(DebugDirtyOriginal424Names.FacetBeam), declared);
+                var helpers = new[] { "atomics", "lists", "maps" }.Select(module => scope.Prepare(() => registry.PrepareBeam(AtomicsHost413Access.Resource(module + ".beam"), declared))).ToArray();
+                PreparedBeamImage facet = scope.Prepare(() => registry.PrepareBeam(DebugDirtyOriginal424Access.Resource(DebugDirtyOriginal424Names.FacetBeam), declared));
                 DebugDirtyOriginal424Access.Require(facet.Name == "erts_debug" && facet.NativePrimitiveExports.Count == 4);
                 foreach (var signature in new[] { new BeamFunctionSignature("dirty_cpu", 2), new BeamFunctionSignature("dirty_io", 2), new BeamFunctionSignature("dirty", 3), new BeamFunctionSignature("same", 2) })
                     DebugDirtyOriginal424Access.Require(facet.NativePrimitiveExports.Contains(signature));
-                PreparedBeamImage worker = registry.PrepareBeam(DebugDirtyOriginal424Access.Resource(DebugDirtyOriginal424Names.WorkerBeam), declared);
-                DebugDirtyOriginal424Access.Require(registry.PublishPreparedBeam(helpers.Concat(new[] { facet, worker }).ToArray()).Status == BeamPublicationStatus.Published);
-                DebugDirtyOriginal424Access.Require(registry.Exports.Count(export => export.Module == DebugDirtyOriginal424Names.Internal) == 6);
-                foreach (var image in new[] { facet, worker })
-                    foreach (var export in registry.Exports.Where(export => export.Module == image.Name))
-                        DebugDirtyOriginal424Access.Require(ReferenceEquals(registry.SourceOwner(export.Module, export.Function, export.Arity), image));
-            });
+                PreparedBeamImage worker = scope.Prepare(() => registry.PrepareBeam(DebugDirtyOriginal424Access.Resource(DebugDirtyOriginal424Names.WorkerBeam), declared));
+                _ = DebugDirtyGuestCapture565Access.Resource(DebugDirtyOriginal424Names.AdapterSource565);
+                PreparedBeamImage adapter = scope.Prepare(() => registry.PrepareBeam(
+                    DebugDirtyGuestCapture565Access.Resource(DebugDirtyOriginal424Names.AdapterBeam565),
+                    new BeamDependencySelection([DebugDirtyOriginal424Names.Runtime, DebugDirtyOriginal424Names.Module])
+                ));
+                DebugDirtyOriginal424Access.Require(adapter.Name == DebugDirtyOriginal424Names.AdapterModule565
+                    && adapter.NativePrimitiveExports.Count == 0);
+
+                return _ =>
+                {
+                    DebugDirtyOriginal424Access.Require(registry.PublishPreparedBeam(helpers.Concat(new[] { facet, worker, adapter }).ToArray()).Status == BeamPublicationStatus.Published);
+                    DebugDirtyOriginal424Access.Require(registry.Exports.Count(export => export.Module == DebugDirtyOriginal424Names.Internal) == 6);
+                    foreach (var image in new[] { facet, worker, adapter })
+                        foreach (var export in registry.Exports.Where(export => export.Module == image.Name))
+                            DebugDirtyOriginal424Access.Require(ReferenceEquals(registry.SourceOwner(export.Module, export.Function, export.Arity), image));
+                };
+            }
+            );
             actor = new RuntimeNodeFoundationHostActor(owner);
             RuntimeNodeFoundationHostActor caller = actor;
 
@@ -41,14 +63,17 @@ internal static class DebugDirtyOriginal424Checks
             {
                 try
                 {
-                    Term value = await caller.InvokeAsync(async context => await owner.Modules.Call(context,
-                        DebugDirtyOriginal424Names.Module, function));
-                    BitString wire = (BitString)await caller.InvokeAsync(async context => await owner.Modules.Call(
-                        context,
-                        DebugDirtyOriginal424Names.Runtime,
-                        DebugDirtyOriginal424Names.Encode,
-                        value
-                    ));
+                    // Each aggregate capture consumes only the remainder of
+                    // the EXISTING absolute whole-corpus budget. The harness
+                    // still enforces those same 120 seconds over the entire test.
+                    TimeSpan remaining539 = TimeSpan.FromSeconds(DebugDirtyOriginal424Names.OuterBudgetSeconds)
+                        - corpusClock539.Elapsed;
+                    if (remaining539 <= TimeSpan.Zero) throw new TimeoutException();
+                    // Only the already encoded binary crosses this public HOST
+                    // boundary; guest evaluation and encoding share one call.
+                    BitString wire = (BitString)await caller.InvokeWithDeadline500Async(async context => await owner.Modules.Call(context,
+                        DebugDirtyOriginal424Names.AdapterModule565, function), remaining539);
+                    Term value = OwnedFunctionOriginal407Terms.Decode(wire.ToArray());
                     captured.Add(file, (value, wire.ToArray()));
                     File.WriteAllBytes(Path.Combine(output, DebugDirtyOriginal424Names.Actual + file), wire.ToArray());
                     File.WriteAllText(
@@ -61,51 +86,9 @@ internal static class DebugDirtyOriginal424Checks
                     errors.Add(new { Route = file, Failure = error.ToString() });
                 }
             }
-            await Capture(DebugDirtyOriginal424Names.Run, DebugDirtyOriginal424Names.Values);
-            await Capture(DebugDirtyOriginal424Names.Stacks, DebugDirtyOriginal424Names.StackValues);
-            var own = new List<Term>();
-
-            async Task Own(string kind, string function, params Term[] arguments)
-            {
-                try
-                {
-                    Term value = await caller.InvokeAsync(async context => await owner.Modules.Call(
-                        context,
-                        DebugDirtyOriginal424Names.Module,
-                        function,
-                        arguments
-                    ));
-                    own.Add(new TupleTerm(new Term[] { Term.A(kind) }.Concat(arguments).Append(value).ToArray()));
-                }
-                catch (Exception error)
-                {
-                    errors.Add(new { OwnState = function, Failure = error.ToString() });
-                }
-            }
-            foreach (string route in new[] { "cpu", "io", "normal" }) await Own("send", "send_self", Term.A(route));
-            foreach (string route in new[] { "cpu", "io", "normal" }) await Own("ready", "ready", Term.A(route));
-            foreach (string route in new[] { "cpu", "io" })
-                foreach (string operation in new[] { "alive_waitexiting", "alive_waitexitingonly" }) await Own(
-                    "alive",
-                    "alive",
-                    Term.A(route),
-                    Term.A(operation)
-                );
-            await Own("magic_copy", "magic_copy");
-            await Own("heap_copy_sharing", "heap_copy_sharing");
-            Term ownTerm = Cons.From(own);
-            BitString ownWire = (BitString)await caller.InvokeAsync(async context => await owner.Modules.Call(
-                context,
-                "erlang",
-                "term_to_binary",
-                ownTerm
-            ));
-            captured.Add("own-state.etf", (ownTerm, ownWire.ToArray()));
-            File.WriteAllBytes(Path.Combine(output, "actual-own-state.etf"), ownWire.ToArray());
-            File.WriteAllText(
-                Path.Combine(output, "actual-own-state.etf.json"),
-                JsonSerializer.Serialize(OwnedFunctionOriginal407Terms.Typed(ownTerm))
-            );
+            await Capture(DebugDirtyOriginal424Names.AdapterValues565, DebugDirtyOriginal424Names.Values);
+            await Capture(DebugDirtyOriginal424Names.AdapterStacks565, DebugDirtyOriginal424Names.StackValues);
+            await Capture(DebugDirtyOriginal424Names.AdapterOwn565, DebugDirtyOriginal424Names.OwnValues565);
         }
         catch (Exception error)
         {

@@ -45,7 +45,12 @@ if check_only:
     for name, digest in retained["Files"].items():
         assert sha(FIXTURE / name) == digest, name
 expression = ("" if check_only else compiler) + (
+    'Cases=ordsets_compatibility_observer:cases(),'
     'Rows=ordsets_core_worker:run(ordsets_compatibility_observer,run),'
+    'FromInputs=ordsets_core_worker:run(ordsets_compatibility_observer,run,[Cases]),'
+    'Bytes=term_to_binary(Rows,[deterministic]),'
+    'Bytes=term_to_binary(FromInputs,[deterministic]),'
+    'ok=file:write_file("inputs.etf",term_to_binary(Cases,[deterministic])),'
     'ok=file:write_file(' + json.dumps(destination.as_posix()) + ',term_to_binary(Rows,[deterministic])), '
     'io:format("~p observations~n",[length(Rows)]),halt().'
 )

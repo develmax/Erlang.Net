@@ -23,6 +23,12 @@ internal static class DynamicApplyBoundary520Names
     internal const string Raw = "observed.etf";
     internal const string Deterministic = "observed-deterministic.etf";
     internal const string Witness = "worker-witness.etf";
+    internal const string SourceHashTest = "runtime/beam520/source-text-lf-is-explicit-and-raw-remains-raw";
+    internal const string SourceFixtureLf = "first\nsecond\n";
+    internal const string UnknownHashMode = "unsupported";
+    internal const string HashModeProperty = "HashMode";
+    internal const string RawMode = "Raw";
+    internal const string TextLfMode = "TextLF";
     internal const string PinProperty = "Pin";
     internal const string OriginalOnlyProperty = "OriginalOnly";
     internal const string AcquisitionPassedProperty = "AcquisitionPassed";

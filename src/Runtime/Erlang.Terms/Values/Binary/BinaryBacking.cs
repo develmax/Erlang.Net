@@ -6,6 +6,23 @@ internal sealed partial class BinaryBacking
     private byte[] buffer;
     private object? writer;
     private int apparentBytes;
+    // Actual producer origin, not a transient writer-state/identity heuristic.
+    // This family remains excluded until native writable append is implemented.
+    private readonly bool writableOrigin;
+    internal bool CanCaptureImmutableOrdinary => !writableOrigin && native524 is null;
+    internal bool HasWritableOrigin => writableOrigin;
+
+    internal WritableBinarySnapshot CaptureWritable(object? token)
+    {
+        lock (gate)
+        {
+            if (!writableOrigin || native524 is not null)
+                throw new InvalidOperationException(NativeBinary524Names.ArrayRequired);
+
+            return new(buffer.ToArray(), apparentBytes, token is not null && ReferenceEquals(writer, token));
+        }
+    }
+
     internal bool IsReference { get; }
     internal byte[] Buffer => native524 is null ? Volatile.Read(ref buffer)
         : throw new NotSupportedException(NativeBinary524Names.ArrayRequired);
@@ -17,8 +34,13 @@ internal sealed partial class BinaryBacking
 
     internal IDisposable? RetainNative524() => native524?.RetainRoot524();
 
-    internal BinaryBacking(byte[] owned, bool reference)
+    internal BinaryBacking(byte[] owned, bool reference) : this(owned, reference, false)
     {
+    }
+
+    private BinaryBacking(byte[] owned, bool reference, bool writableOrigin)
+    {
+        this.writableOrigin = writableOrigin;
         buffer = owned;
         IsReference = reference;
         apparentBytes = owned.Length;
@@ -29,7 +51,7 @@ internal sealed partial class BinaryBacking
     {
         if (initialBytes < 0 || initialBytes > Array.MaxLength)
             throw new ErlangException(ErlangErrorReasons.SystemLimit);
-        var result = new BinaryBacking(new byte[initialBytes], true);
+        var result = new BinaryBacking(new byte[initialBytes], true, true);
         var token = new object();
         result.writer = token;
         result.apparentBytes = 0;
@@ -41,7 +63,7 @@ internal sealed partial class BinaryBacking
     {
         var allocated = new byte[Math.Max(BinaryBackingParameters.MinimumAppendBytes, Growth(complete.Length))];
         complete.CopyTo(allocated, 0);
-        var result = new BinaryBacking(allocated, true);
+        var result = new BinaryBacking(allocated, true, true);
         var token = new object();
         result.writer = token;
         result.apparentBytes = complete.Length;
@@ -53,7 +75,7 @@ internal sealed partial class BinaryBacking
     {
         lock (gate)
         {
-            if (token is null || !ReferenceEquals(writer, token))
+            if (native524 is not null || token is null || !ReferenceEquals(writer, token))
                 return FreshAppend(complete);
             if (complete.Length > buffer.Length)
             {
@@ -74,6 +96,12 @@ internal sealed partial class BinaryBacking
 
     internal void Pin()
     {
+        if (native524 is INativeWritableBinaryStorage writable)
+        {
+            writable.PinWritable();
+
+            return;
+        }
         lock (gate)
         {
             if (writer is null)

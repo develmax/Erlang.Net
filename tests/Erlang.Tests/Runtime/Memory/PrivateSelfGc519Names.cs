@@ -4,7 +4,7 @@ internal static class PrivateSelfGc519Names
 {
     internal const string BifTest = "runtime/resource519/real-garbage-collect-reclaims-unrooted-owned-cells";
     internal const string LiveTest = "runtime/resource519/real-garbage-collect-keeps-hidden-map-binary-live";
-    internal const string OrdinaryTest = "runtime/resource519/ordinary-garbage-collect-does-not-create-owned-heap";
+    internal const string OrdinaryTest = "runtime/resource519/ordinary-storage-gc-without-guest-execution-authority";
     internal const string ErlangModule = "erlang";
     internal const string GarbageCollect = "garbage_collect";
     internal const string Enter = "Enter";
@@ -13,6 +13,8 @@ internal static class PrivateSelfGc519Names
     internal const string SetLocal = "SetLocalGraph507";
     internal const string Read = "Read";
     internal const string Clear = "Clear";
+    internal const string GuestEnabled = "OwnedExecutionEnabled683";
+    internal const string StorageEnabled = "VmStorageBackingEnabled";
     internal const string HeapField = "termHeap506";
     internal const string Registry = "BinaryRegistry512";
     internal const string BinarySnapshot = "Snapshot512";

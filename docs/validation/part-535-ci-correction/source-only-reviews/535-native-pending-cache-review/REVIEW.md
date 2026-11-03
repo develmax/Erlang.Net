@@ -1,0 +1,11 @@
+# Part535 native pending custody inventory correction review
+
+READ-ONLY source review of root's current w518 correction. No source edits, build, VM/native execution, Git/CI or timing measurements by this author. No concrete correctness or rollback blocker found in the bounded change.
+
+The new reference-identity inventory is specific to successful native pending custody. A cached node is skipped only after a previous complete scan published its required environment leases. Fresh traversal recognizes the exact four sealed pending tuple/cons/binary/map504 classes; unknown node anywhere makes stablePending false and prevents all new node inventory publication for that traversal. Known immutable map nodes capture persistent readonly entry sets; legitimate map replacement has a new identity. Binary byte mutation changes content, not resource-child topology. Unknown/custom graphs remain rescan paths.
+
+All descendant native-root retain/Add operations precede inventory UnionWith. A failed descendant retain or lease-list publication cannot publish fresh pending identities. Existing successful lease/static inventory is conservatively retained on partial failure, as before. If the final HashSet UnionWith allocation fails after some additions, each recorded identity still belongs to a fully scanned graph whose required actual custody already exists; a conservative subset is safe. No user equality/hash callbacks are introduced: identity comparers remain reference-based.
+
+Environment native-root clearing removes the new inventory before attempting all recorded lease disposals; ClearTerms calls this during independent clear/disposal alongside existing guest inventory reset. No new global AnyLive or three-family shortcut can omit regex/foreign-resource retention. Existing static-root caching semantics and all backing acquisition code are unchanged.
+
+Root reports actual unchanged20k Debug DeepGraph8527ms before/120ms after, one observation each and unchanged15s harness budget. This review does not independently execute or promote that pair to a benchmark. Root's deterministic499 terminal-cancellation RED/GREEN and unrelated-live-cancellation controls are separate actual receipts; this source review grants no whole regression/CI acceptance.

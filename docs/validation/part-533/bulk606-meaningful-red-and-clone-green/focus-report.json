@@ -1,0 +1,37 @@
+{
+  "Partial": true,
+  "SelectedCount": 4,
+  "TotalCount": 9292,
+  "Blocks": [],
+  "ExactCases": [
+    "runtime/mailbox606/bulk-commit-observer-close-exact-removal-and-cleanup",
+    "runtime/mailbox606/deferred-release-self-exit-complete-and-discard-once",
+    "runtime/mailbox606/late-deferred-send-after-owner-done-releases-outside-monitor",
+    "runtime/mailbox606/pending-admission-self-exit-normal-and-bounded"
+  ],
+  "Passed": 3,
+  "Failed": 1,
+  "Tests": [
+    {
+      "Name": "runtime/mailbox606/bulk-commit-observer-close-exact-removal-and-cleanup",
+      "Status": "Failed",
+      "Error": "System.AggregateException: Bulk mailbox commit reused a closed tail or reported retired entries as explicit removals. (Bulk mailbox commit reused a closed tail or reported retired entries as explicit removals.) (The LinkedList node does not belong to current LinkedList.)\r\n ---\u003E System.InvalidOperationException: Bulk mailbox commit reused a closed tail or reported retired entries as explicit removals.\r\n   at Erlang.Tests.MailboxBulkClose606Checks.Require(Boolean condition) in D:\\Distr\\Work\\Codex\\Erlang.Net\\w518repair\\tests\\Erlang.Tests\\Runtime\\Storage\\Mailbox\\MailboxBulkClose606Checks.cs:line 92\r\n   at Erlang.Tests.MailboxBulkClose606Checks.Run() in D:\\Distr\\Work\\Codex\\Erlang.Net\\w518repair\\tests\\Erlang.Tests\\Runtime\\Storage\\Mailbox\\MailboxBulkClose606Checks.cs:line 66\r\n   --- End of inner exception stack trace ---\r\n   at Erlang.Tests.MailboxBulkClose606Checks.Run() in D:\\Distr\\Work\\Codex\\Erlang.Net\\w518repair\\tests\\Erlang.Tests\\Runtime\\Storage\\Mailbox\\MailboxBulkClose606Checks.cs:line 87\r\n   at Program.\u003CMain\u003E$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\w518repair\\tests\\Erlang.Tests\\Harness\\Program.cs:line 7594\r\n ---\u003E (Inner Exception #1) System.InvalidOperationException: The LinkedList node does not belong to current LinkedList.\r\n   at System.Collections.Generic.LinkedList\u00601.ValidateNode(LinkedListNode\u00601 node)\r\n   at System.Collections.Generic.LinkedList\u00601.Remove(LinkedListNode\u00601 node)\r\n   at Erlang.Mailbox.RemoveNode(LinkedListNode\u00601 node) in D:\\Distr\\Work\\Codex\\Erlang.Net\\w518repair\\src\\Runtime\\Erlang.Runtime.Core\\Processes\\Mailbox.cs:line 907\r\n   at Erlang.Mailbox.RemoveCore593(Func\u00602 predicate, Boolean opaque) in D:\\Distr\\Work\\Codex\\Erlang.Net\\w518repair\\src\\Runtime\\Erlang.Runtime.Core\\Processes\\Mailbox.cs:line 514\r\n   at Erlang.Mailbox.Remove(Func\u00602 predicate) in D:\\Distr\\Work\\Codex\\Erlang.Net\\w518repair\\src\\Runtime\\Erlang.Runtime.Core\\Processes\\Mailbox.cs:line 441\r\n   at Erlang.Tests.MailboxBulkClose606Checks.\u003C\u003Ec__DisplayClass0_2.\u003CRun\u003Eb__0(ProcessContext active) in D:\\Distr\\Work\\Codex\\Erlang.Net\\w518repair\\tests\\Erlang.Tests\\Runtime\\Storage\\Mailbox\\MailboxBulkClose606Checks.cs:line 59\r\n   at Erlang.Tests.RuntimeNodeFoundationHostActor.\u003C\u003Ec__DisplayClass8_0\u00601.\u003CInvoke\u003Eb__0(ProcessContext context) in D:\\Distr\\Work\\Codex\\Erlang.Net\\w518repair\\tests\\Erlang.Tests\\Runtime\\Execution\\RuntimeNodeFoundationHostActor.cs:line 34\r\n   at Erlang.Tests.RuntimeNodeFoundationHostActor.\u003C\u003Ec__DisplayClass9_0\u00601.\u003C\u003CInvokeAsync\u003Eb__0\u003Ed.MoveNext() in D:\\Distr\\Work\\Codex\\Erlang.Net\\w518repair\\tests\\Erlang.Tests\\Runtime\\Execution\\RuntimeNodeFoundationHostActor.cs:line 43\r\n--- End of stack trace from previous location ---\r\n   at Erlang.Tests.RuntimeNodeFoundationHostActor.InvokeAsync[T](Func\u00602 command) in D:\\Distr\\Work\\Codex\\Erlang.Net\\w518repair\\tests\\Erlang.Tests\\Runtime\\Execution\\RuntimeNodeFoundationHostActor.cs:line 51\r\n   at Erlang.Tests.MailboxBulkClose606Checks.Run() in D:\\Distr\\Work\\Codex\\Erlang.Net\\w518repair\\tests\\Erlang.Tests\\Runtime\\Storage\\Mailbox\\MailboxBulkClose606Checks.cs:line 46\u003C---\r\n",
+      "Milliseconds": 117
+    },
+    {
+      "Name": "runtime/mailbox606/pending-admission-self-exit-normal-and-bounded",
+      "Status": "Passed",
+      "Milliseconds": 38
+    },
+    {
+      "Name": "runtime/mailbox606/deferred-release-self-exit-complete-and-discard-once",
+      "Status": "Passed",
+      "Milliseconds": 20
+    },
+    {
+      "Name": "runtime/mailbox606/late-deferred-send-after-owner-done-releases-outside-monitor",
+      "Status": "Passed",
+      "Milliseconds": 4
+    }
+  ]
+}

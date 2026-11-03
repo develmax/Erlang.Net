@@ -1,0 +1,25 @@
+{
+  "Partial": true,
+  "SelectedCount": 2,
+  "TotalCount": 9335,
+  "Blocks": [],
+  "ExactCases": [
+    "runtime/process-liveness626/live-unrelated-cancellation-visible",
+    "runtime/process-liveness626/real-closed-before-token-cancellation"
+  ],
+  "Passed": 1,
+  "Failed": 1,
+  "Tests": [
+    {
+      "Name": "runtime/process-liveness626/real-closed-before-token-cancellation",
+      "Status": "Failed",
+      "Error": "System.InvalidOperationException: Process cancellation ordering did not preserve real termination and live errors.\r\n   at Erlang.Tests.ProcessLiveness626Checks.Require(Boolean condition) in D:\\Distr\\Work\\Codex\\Erlang.Net\\w518repair\\tests\\Erlang.Tests\\Runtime\\Processes\\Lifecycle\\ProcessLiveness626Checks.cs:line 87\r\n   at Erlang.Tests.ProcessLiveness626Checks.ClosedBeforeToken() in D:\\Distr\\Work\\Codex\\Erlang.Net\\w518repair\\tests\\Erlang.Tests\\Runtime\\Processes\\Lifecycle\\ProcessLiveness626Checks.cs:line 44\r\n   at Erlang.Tests.ProcessLiveness626Checks.ClosedBeforeToken() in D:\\Distr\\Work\\Codex\\Erlang.Net\\w518repair\\tests\\Erlang.Tests\\Runtime\\Processes\\Lifecycle\\ProcessLiveness626Checks.cs:line 55\r\n   at Erlang.Tests.ProcessLiveness626Checks.ClosedBeforeToken() in D:\\Distr\\Work\\Codex\\Erlang.Net\\w518repair\\tests\\Erlang.Tests\\Runtime\\Processes\\Lifecycle\\ProcessLiveness626Checks.cs:line 55\r\n   at Erlang.Tests.ProcessLiveness626Checks.ClosedBeforeToken() in D:\\Distr\\Work\\Codex\\Erlang.Net\\w518repair\\tests\\Erlang.Tests\\Runtime\\Processes\\Lifecycle\\ProcessLiveness626Checks.cs:line 55\r\n   at Erlang.Tests.ProcessLiveness626Checks.ClosedBeforeToken() in D:\\Distr\\Work\\Codex\\Erlang.Net\\w518repair\\tests\\Erlang.Tests\\Runtime\\Processes\\Lifecycle\\ProcessLiveness626Checks.cs:line 55\r\n   at Program.\u003CMain\u003E$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\w518repair\\tests\\Erlang.Tests\\Harness\\Program.cs:line 7680",
+      "Milliseconds": 91
+    },
+    {
+      "Name": "runtime/process-liveness626/live-unrelated-cancellation-visible",
+      "Status": "Passed",
+      "Milliseconds": 4
+    }
+  ]
+}

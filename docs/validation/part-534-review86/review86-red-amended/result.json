@@ -1,0 +1,105 @@
+{
+  "Names": [
+    "runtime/counters611/public-receive-callback-host-custody",
+    "runtime/counters611/public-receive-returned-host-custody",
+    "runtime/counters611/public-mailbox-snapshot-host-custody",
+    "runtime/counters611/public-process-info-messages-host-custody",
+    "runtime/counters611/public-process-info-full-host-custody",
+    "runtime/counters611/public-process-info-list-host-custody",
+    "runtime/counters611/component-real-queue-process-info-public-projection"
+  ],
+  "HostSha256": "4EC97225F03E4D61734E9DC14AEADE40CC1F8AF8C998D6DA0385A249DC93AB2A",
+  "HostUnchanged": true,
+  "Receipt": {
+    "Command": [
+      "dotnet",
+      "exec",
+      "--fx-version",
+      "10.0.11",
+      "D:\\Distr\\Work\\Codex\\Erlang.Net\\w504\\tests\\Erlang.Tests\\bin\\Release\\net10.0\\Erlang.Tests.dll",
+      "--case",
+      "runtime/counters611/public-receive-callback-host-custody",
+      "--case",
+      "runtime/counters611/public-receive-returned-host-custody",
+      "--case",
+      "runtime/counters611/public-mailbox-snapshot-host-custody",
+      "--case",
+      "runtime/counters611/public-process-info-messages-host-custody",
+      "--case",
+      "runtime/counters611/public-process-info-full-host-custody",
+      "--case",
+      "runtime/counters611/public-process-info-list-host-custody",
+      "--case",
+      "runtime/counters611/component-real-queue-process-info-public-projection",
+      "--report",
+      "D:\\Distr\\Work\\Codex\\Erlang.Net\\w504\\artifacts\\resource534\\review86-red-amended\\report.json"
+    ],
+    "Pid": 40920,
+    "ElapsedSeconds": 13.390999999999622,
+    "TimedOut": false,
+    "Settled": true,
+    "ExitCode": 1,
+    "Failures": [],
+    "StdoutSha256": "AE51E55FDF687F0B83AC3C9C2358493C4C71429AE2DE928D3B6BDF6B4B6B3F68",
+    "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+  },
+  "Actual": {
+    "Partial": true,
+    "SelectedCount": 7,
+    "TotalCount": 9320,
+    "Blocks": [],
+    "ExactCases": [
+      "runtime/counters611/component-real-queue-process-info-public-projection",
+      "runtime/counters611/public-mailbox-snapshot-host-custody",
+      "runtime/counters611/public-process-info-full-host-custody",
+      "runtime/counters611/public-process-info-list-host-custody",
+      "runtime/counters611/public-process-info-messages-host-custody",
+      "runtime/counters611/public-receive-callback-host-custody",
+      "runtime/counters611/public-receive-returned-host-custody"
+    ],
+    "Passed": 2,
+    "Failed": 5,
+    "Tests": [
+      {
+        "Name": "runtime/counters611/component-real-queue-process-info-public-projection",
+        "Status": "Failed",
+        "Error": "System.AggregateException: A public counter callback/result did not retain actual Host custody after the last guest root retired. (A public counter callback/result did not retain actual Host custody after the last guest root retired. (Object reference not set to an instance of an object.)) (A public counter callback/result did not retain actual Host custody after the last guest root retired. (Object reference not set to an instance of an object.))\r\n ---> System.AggregateException: A public counter callback/result did not retain actual Host custody after the last guest root retired. (Object reference not set to an instance of an object.)\r\n ---> System.NullReferenceException: Object reference not set to an instance of an object.\r\n   at Erlang.Tests.NativeResource524Access.Call(Object value, String name, Object[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\w504\\tests\\Erlang.Tests\\Runtime\\Native\\Resources\\NativeResource524Access.cs:line 15\r\n   at Erlang.Tests.CountersPublic611Checks.<>c__DisplayClass7_0.<<Run>b__0>d.MoveNext() in D:\\Distr\\Work\\Codex\\Erlang.Net\\w504\\tests\\Erlang.Tests\\Runtime\\Storage\\Counters\\CountersPublic611Checks.cs:line 94\r\n   --- End of inner exception stack trace ---\r\n   at Erlang.Tests.CountersPublic611Checks.<>c__DisplayClass7_0.<<Run>b__0>d.MoveNext() in D:\\Distr\\Work\\Codex\\Erlang.Net\\w504\\tests\\Erlang.Tests\\Runtime\\Storage\\Counters\\CountersPublic611Checks.cs:line 194\r\n--- End of stack trace from previous location ---\r\n   at Erlang.Tests.CountersCustody596Checks.Run(Func`2 body) in D:\\Distr\\Work\\Codex\\Erlang.Net\\w504\\tests\\Erlang.Tests\\Runtime\\Storage\\Counters\\CountersCustody596Checks.cs:line 66\r\n   at Erlang.Tests.CountersCustody596Checks.Run(Func`2 body) in D:\\Distr\\Work\\Codex\\Erlang.Net\\w504\\tests\\Erlang.Tests\\Runtime\\Storage\\Counters\\CountersCustody596Checks.cs:line 76\r\n   at Erlang.Tests.CountersPublic611Checks.ComponentHost() in D:\\Distr\\Work\\Codex\\Erlang.Net\\w504\\tests\\Erlang.Tests\\Runtime\\Storage\\Counters\\CountersPublic611Checks.cs:line 25\r\n   --- End of inner exception stack trace ---\r\n   at Erlang.Tests.CountersPublic611Checks.ComponentHost() in D:\\Distr\\Work\\Codex\\Erlang.Net\\w504\\tests\\Erlang.Tests\\Runtime\\Storage\\Counters\\CountersPublic611Checks.cs:line 26\r\n   at Program.<Main>$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\w504\\tests\\Erlang.Tests\\Harness\\Program.cs:line 7665\r\n ---> (Inner Exception #1) System.AggregateException: A public counter callback/result did not retain actual Host custody after the last guest root retired. (Object reference not set to an instance of an object.)\r\n ---> System.NullReferenceException: Object reference not set to an instance of an object.\r\n   at Erlang.Tests.NativeResource524Access.Call(Object value, String name, Object[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\w504\\tests\\Erlang.Tests\\Runtime\\Native\\Resources\\NativeResource524Access.cs:line 15\r\n   at Erlang.Tests.CountersPublic611Checks.<>c__DisplayClass7_0.<<Run>b__0>d.MoveNext() in D:\\Distr\\Work\\Codex\\Erlang.Net\\w504\\tests\\Erlang.Tests\\Runtime\\Storage\\Counters\\CountersPublic611Checks.cs:line 94\r\n   --- End of inner exception stack trace ---\r\n   at Erlang.Tests.CountersPublic611Checks.<>c__DisplayClass7_0.<<Run>b__0>d.MoveNext() in D:\\Distr\\Work\\Codex\\Erlang.Net\\w504\\tests\\Erlang.Tests\\Runtime\\Storage\\Counters\\CountersPublic611Checks.cs:line 194\r\n--- End of stack trace from previous location ---\r\n   at Erlang.Tests.CountersCustody596Checks.Run(Func`2 body) in D:\\Distr\\Work\\Codex\\Erlang.Net\\w504\\tests\\Erlang.Tests\\Runtime\\Storage\\Counters\\CountersCustody596Checks.cs:line 66\r\n   at Erlang.Tests.CountersCustody596Checks.Run(Func`2 body) in D:\\Distr\\Work\\Codex\\Erlang.Net\\w504\\tests\\Erlang.Tests\\Runtime\\Storage\\Counters\\CountersCustody596Checks.cs:line 76\r\n   at Erlang.Tests.CountersPublic611Checks.ComponentHost() in D:\\Distr\\Work\\Codex\\Erlang.Net\\w504\\tests\\Erlang.Tests\\Runtime\\Storage\\Counters\\CountersPublic611Checks.cs:line 25<---\r\n",
+        "Milliseconds": 2066
+      },
+      {
+        "Name": "runtime/counters611/public-receive-callback-host-custody",
+        "Status": "Failed",
+        "Error": "System.AggregateException: A public counter callback/result did not retain actual Host custody after the last guest root retired. (A public counter callback/result did not retain actual Host custody after the last guest root retired.)\r\n ---> System.InvalidOperationException: A public counter callback/result did not retain actual Host custody after the last guest root retired.\r\n   at Erlang.Tests.CountersPublic611Checks.Require(Boolean value) in D:\\Distr\\Work\\Codex\\Erlang.Net\\w504\\tests\\Erlang.Tests\\Runtime\\Storage\\Counters\\CountersPublic611Checks.cs:line 199\r\n   at Erlang.Tests.CountersPublic611Checks.<>c__DisplayClass7_0.<<Run>b__0>d.MoveNext() in D:\\Distr\\Work\\Codex\\Erlang.Net\\w504\\tests\\Erlang.Tests\\Runtime\\Storage\\Counters\\CountersPublic611Checks.cs:line 158\r\n   --- End of inner exception stack trace ---\r\n   at Erlang.Tests.CountersPublic611Checks.<>c__DisplayClass7_0.<<Run>b__0>d.MoveNext() in D:\\Distr\\Work\\Codex\\Erlang.Net\\w504\\tests\\Erlang.Tests\\Runtime\\Storage\\Counters\\CountersPublic611Checks.cs:line 194\r\n--- End of stack trace from previous location ---\r\n   at Erlang.Tests.CountersCustody596Checks.Run(Func`2 body) in D:\\Distr\\Work\\Codex\\Erlang.Net\\w504\\tests\\Erlang.Tests\\Runtime\\Storage\\Counters\\CountersCustody596Checks.cs:line 66\r\n   at Erlang.Tests.CountersCustody596Checks.Run(Func`2 body) in D:\\Distr\\Work\\Codex\\Erlang.Net\\w504\\tests\\Erlang.Tests\\Runtime\\Storage\\Counters\\CountersCustody596Checks.cs:line 76\r\n   at Program.<Main>$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\w504\\tests\\Erlang.Tests\\Harness\\Program.cs:line 7665",
+        "Milliseconds": 47
+      },
+      {
+        "Name": "runtime/counters611/public-receive-returned-host-custody",
+        "Status": "Failed",
+        "Error": "System.AggregateException: A public counter callback/result did not retain actual Host custody after the last guest root retired. (A public counter callback/result did not retain actual Host custody after the last guest root retired.)\r\n ---> System.InvalidOperationException: A public counter callback/result did not retain actual Host custody after the last guest root retired.\r\n   at Erlang.Tests.CountersPublic611Checks.Require(Boolean value) in D:\\Distr\\Work\\Codex\\Erlang.Net\\w504\\tests\\Erlang.Tests\\Runtime\\Storage\\Counters\\CountersPublic611Checks.cs:line 199\r\n   at Erlang.Tests.CountersPublic611Checks.<>c__DisplayClass7_0.<<Run>b__0>d.MoveNext() in D:\\Distr\\Work\\Codex\\Erlang.Net\\w504\\tests\\Erlang.Tests\\Runtime\\Storage\\Counters\\CountersPublic611Checks.cs:line 158\r\n   --- End of inner exception stack trace ---\r\n   at Erlang.Tests.CountersPublic611Checks.<>c__DisplayClass7_0.<<Run>b__0>d.MoveNext() in D:\\Distr\\Work\\Codex\\Erlang.Net\\w504\\tests\\Erlang.Tests\\Runtime\\Storage\\Counters\\CountersPublic611Checks.cs:line 194\r\n--- End of stack trace from previous location ---\r\n   at Erlang.Tests.CountersCustody596Checks.Run(Func`2 body) in D:\\Distr\\Work\\Codex\\Erlang.Net\\w504\\tests\\Erlang.Tests\\Runtime\\Storage\\Counters\\CountersCustody596Checks.cs:line 66\r\n   at Erlang.Tests.CountersCustody596Checks.Run(Func`2 body) in D:\\Distr\\Work\\Codex\\Erlang.Net\\w504\\tests\\Erlang.Tests\\Runtime\\Storage\\Counters\\CountersCustody596Checks.cs:line 76\r\n   at Program.<Main>$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\w504\\tests\\Erlang.Tests\\Harness\\Program.cs:line 7665",
+        "Milliseconds": 87
+      },
+      {
+        "Name": "runtime/counters611/public-mailbox-snapshot-host-custody",
+        "Status": "Failed",
+        "Error": "System.AggregateException: A public counter callback/result did not retain actual Host custody after the last guest root retired. (A public counter callback/result did not retain actual Host custody after the last guest root retired.)\r\n ---> System.InvalidOperationException: A public counter callback/result did not retain actual Host custody after the last guest root retired.\r\n   at Erlang.Tests.CountersPublic611Checks.Require(Boolean value) in D:\\Distr\\Work\\Codex\\Erlang.Net\\w504\\tests\\Erlang.Tests\\Runtime\\Storage\\Counters\\CountersPublic611Checks.cs:line 199\r\n   at Erlang.Tests.CountersPublic611Checks.<>c__DisplayClass7_0.<<Run>b__0>d.MoveNext() in D:\\Distr\\Work\\Codex\\Erlang.Net\\w504\\tests\\Erlang.Tests\\Runtime\\Storage\\Counters\\CountersPublic611Checks.cs:line 158\r\n   --- End of inner exception stack trace ---\r\n   at Erlang.Tests.CountersPublic611Checks.<>c__DisplayClass7_0.<<Run>b__0>d.MoveNext() in D:\\Distr\\Work\\Codex\\Erlang.Net\\w504\\tests\\Erlang.Tests\\Runtime\\Storage\\Counters\\CountersPublic611Checks.cs:line 194\r\n--- End of stack trace from previous location ---\r\n   at Erlang.Tests.CountersCustody596Checks.Run(Func`2 body) in D:\\Distr\\Work\\Codex\\Erlang.Net\\w504\\tests\\Erlang.Tests\\Runtime\\Storage\\Counters\\CountersCustody596Checks.cs:line 66\r\n   at Erlang.Tests.CountersCustody596Checks.Run(Func`2 body) in D:\\Distr\\Work\\Codex\\Erlang.Net\\w504\\tests\\Erlang.Tests\\Runtime\\Storage\\Counters\\CountersCustody596Checks.cs:line 76\r\n   at Program.<Main>$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\w504\\tests\\Erlang.Tests\\Harness\\Program.cs:line 7665",
+        "Milliseconds": 54
+      },
+      {
+        "Name": "runtime/counters611/public-process-info-messages-host-custody",
+        "Status": "Passed",
+        "Milliseconds": 60
+      },
+      {
+        "Name": "runtime/counters611/public-process-info-full-host-custody",
+        "Status": "Failed",
+        "Error": "System.AggregateException: A public counter callback/result did not retain actual Host custody after the last guest root retired. (The operation has timed out.)\r\n ---> System.TimeoutException: The operation has timed out.\r\n   at Erlang.Tests.CountersPublic611Checks.<>c__DisplayClass7_0.<<Run>b__0>d.MoveNext() in D:\\Distr\\Work\\Codex\\Erlang.Net\\w504\\tests\\Erlang.Tests\\Runtime\\Storage\\Counters\\CountersPublic611Checks.cs:line 172\r\n   --- End of inner exception stack trace ---\r\n   at Erlang.Tests.CountersPublic611Checks.<>c__DisplayClass7_0.<<Run>b__0>d.MoveNext() in D:\\Distr\\Work\\Codex\\Erlang.Net\\w504\\tests\\Erlang.Tests\\Runtime\\Storage\\Counters\\CountersPublic611Checks.cs:line 194\r\n--- End of stack trace from previous location ---\r\n   at Erlang.Tests.CountersCustody596Checks.Run(Func`2 body) in D:\\Distr\\Work\\Codex\\Erlang.Net\\w504\\tests\\Erlang.Tests\\Runtime\\Storage\\Counters\\CountersCustody596Checks.cs:line 66\r\n   at Erlang.Tests.CountersCustody596Checks.Run(Func`2 body) in D:\\Distr\\Work\\Codex\\Erlang.Net\\w504\\tests\\Erlang.Tests\\Runtime\\Storage\\Counters\\CountersCustody596Checks.cs:line 76\r\n   at Program.<Main>$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\w504\\tests\\Erlang.Tests\\Harness\\Program.cs:line 7665",
+        "Milliseconds": 10065
+      },
+      {
+        "Name": "runtime/counters611/public-process-info-list-host-custody",
+        "Status": "Passed",
+        "Milliseconds": 54
+      }
+    ]
+  }
+}

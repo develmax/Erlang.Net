@@ -9,6 +9,10 @@ def main():
  assert plan['ProtocolSchemaVersion']==2 and plan['OriginalFirstRequired'] is True
  assert set(plan['Variants'])=={'family1','handoff1','handoff2'}
  assert set(plan['Jobs'])=={'family527','fresh_load_after_purge','genuine_upgrade'}
+ plan['OptionalProtocols']={'queue593':{'Observer':'resource_queue593','ObserverArity':0,'Modules':['native_resource_family527','resource_queue593'],'StockModules':['timer'],'RetainedNativeVariant':'family1','DefaultSelected':False}}
+ family=plan['Jobs']['family527']
+ family['Modules']=['native_resource_family527','resource_observer529','magic_alias_observer576','resource_binary_observer577']
+ family['StockModules']=['timer','erts_debug','gb_trees']
  for variant in plan['Variants'].values():
   variant['NativeSourceSha256']=sha(ROOT/variant['NativeSourcePath'])
   variant['ErlangSourceSha256']=sha(ROOT/variant['ErlangSourcePath'])
@@ -21,7 +25,12 @@ def main():
   files.add(ROOT/'tools/Native/Erlang.DdllFormatterOriginalObservations/scripts'/name)
  for name in ['Directory.Build.props','Directory.Build.targets','Directory.Packages.props','global.json']:
   if (ROOT/name).is_file():files.add(ROOT/name)
- plan['Dependencies']=[{'Path':p.relative_to(ROOT).as_posix(),'Sha256':sha(p)} for p in sorted(files)]
+ def dependency(path):
+  mode='TextLF' if path.suffix in {'.csproj','.props','.targets','.json'} else 'Raw'
+  data=path.read_bytes()
+  if mode=='TextLF':data=data.replace(b'\r\n',b'\n')
+  return {'Path':path.relative_to(ROOT).as_posix(),'HashMode':mode,'Sha256':hashlib.sha256(data).hexdigest().upper()}
+ plan['Dependencies']=[dependency(p) for p in sorted(files)]
  plan['OriginalGoldenState']='NOT_COLLECTED'
  plan['SealState']='FINAL_SOURCE_BOUND_NOT_EXECUTED'
  payload=(json.dumps(plan,indent=2)+'\n').encode()

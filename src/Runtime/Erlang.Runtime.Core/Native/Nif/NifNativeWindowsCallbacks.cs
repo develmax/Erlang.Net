@@ -2,10 +2,9 @@ using System.Runtime.InteropServices;
 
 namespace Erlang;
 
-internal sealed unsafe class NifNativeWindowsCallbacks : IDisposable
+internal sealed unsafe partial class NifNativeWindowsCallbacks : IDisposable
 {
     private nint pointer;
-    private NifNativeEnvironmentAllocator? environmentAllocator;
     internal nint Pointer => pointer;
 
     internal NifNativeWindowsCallbacks() : this(false)
@@ -22,8 +21,10 @@ internal sealed unsafe class NifNativeWindowsCallbacks : IDisposable
             throw new OutOfMemoryException();
         var slots = (nint*)pointer;
         NifNativeResource527Registration.InstallWindows527(slots);
+        NifNativeOptional793Registration.InstallWindows(slots);
         slots[NifWindowsVariadic526Names.TupleSlot] = variadic526.Tuple;
         slots[NifWindowsVariadic526Names.ListSlot] = variadic526.List;
+        slots[NifNativePrintf791Names.SnprintfSlot] = OperatingSystem.IsWindows() ? NifWindowsVariadic526.Snprintf791 : 0;
         slots[NifNativeWindowsCallbackLayout.ThreadType521] = (nint)(delegate* unmanaged[Cdecl]<int>)&NifNativeThreadType521Callbacks.Read;
         slots[NifNativeWindowsCallbackLayout.MakeNewMap] = (nint)(delegate* unmanaged[Cdecl]<nint, nuint>)&NifNativeMapCreation501Callbacks.Make;
         slots[NifNativeWindowsCallbackLayout.GetMapValue] = (nint)(delegate* unmanaged[Cdecl]<nint, nuint, nuint, nuint*, int>)&NifNativeMapValue503Callbacks.Get;
@@ -102,23 +103,10 @@ internal sealed unsafe class NifNativeWindowsCallbacks : IDisposable
         slots[NifNativeWindowsCallbackLayout.MakeString] = (nint)(delegate* unmanaged[Cdecl]<nint, byte*, int, nuint>)&NifNativePrimitiveCallbacks.MakeString;
     }
 
-    internal void BindIndependentEnvironments(ProcessRuntime runtime, ModuleCodeImage image)
+    internal void BindIndependentEnvironments(ProcessRuntime runtime)
     {
-        environmentAllocator = () =>
-        {
-            try
-            {
-                return new NifNativeCallEnvironment(runtime, image).Pointer;
-            }
-            catch (Exception failure)
-            {
-                NifNativeCallbackScope.Fail(failure);
-
-                return 0;
-            }
-        };
         var slots = (nint*)pointer;
-        slots[NifNativeEnvironmentLayout.Allocate] = Marshal.GetFunctionPointerForDelegate(environmentAllocator);
+        slots[NifNativeEnvironmentLayout.Allocate] = runtime.IndependentEnvironmentAllocator709.Pointer;
         slots[NifNativeEnvironmentLayout.Free] = (nint)(delegate* unmanaged[Cdecl]<nint, void>)&NifNativeEnvironmentCallbacks.Free;
         slots[NifNativeEnvironmentLayout.Clear] = (nint)(delegate* unmanaged[Cdecl]<nint, void>)&NifNativeEnvironmentCallbacks.Clear;
         slots[NifNativeEnvironmentLayout.Copy] = (nint)(delegate* unmanaged[Cdecl]<nint, nuint, nuint>)&NifNativeEnvironmentCallbacks.Copy;

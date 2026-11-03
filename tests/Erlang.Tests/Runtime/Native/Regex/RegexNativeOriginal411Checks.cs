@@ -130,19 +130,21 @@ internal static class RegexNativeOriginal411Checks
         try
         {
             await RuntimeNativePrimitiveProviders.RegisterRegexAsync411(runtime, runtime.Modules, RegexNative411Access.Admission());
-            await runtime.InitializeModulesAsync(registry =>
-            {
-                Erlang.Otp.OtpModules.Register(registry);
-                var dependencies = new BeamDependencySelection([RegexNativeOriginal411Names.Module,
-                    RegexNativeOriginal411Names.Erlang, suite.Observer]);
-                PreparedBeamImage image = registry.PrepareBeam(
-                    RegexNativeOriginal411Access.Read(suite.Observer + LibraryDependencyOriginalNames.Beam),
-                    dependencies
-                );
-                if (registry.PublishPreparedBeam([image]).Status != BeamPublicationStatus.Published ||
-                    !ReferenceEquals(registry.SourceOwner(suite.Observer, LibraryDependencyOriginalNames.Run, 0), image))
-                    throw new InvalidOperationException(RegexNativeOriginal411Names.Failure);
-            });
+            await runtime.InitializeModulesAsync(Erlang.Otp.OtpModules.Register);
+            var dependencies = new BeamDependencySelection([RegexNativeOriginal411Names.Module,
+                RegexNativeOriginal411Names.Erlang, suite.Observer]);
+            await PreparedBeamFixtureImages825.PrepareAndPublishAsync(
+                runtime,
+                [RegexNativeOriginal411Access.Read(suite.Observer + LibraryDependencyOriginalNames.Beam)],
+                dependencies,
+                (registry, images) =>
+                {
+                    PreparedBeamImage image = images.Single();
+                    if (registry.PublishPreparedBeam([image]).Status != BeamPublicationStatus.Published ||
+                        !ReferenceEquals(registry.SourceOwner(suite.Observer, LibraryDependencyOriginalNames.Run, 0), image))
+                        throw new InvalidOperationException(RegexNativeOriginal411Names.Failure);
+                }
+            );
 
             return runtime;
         }

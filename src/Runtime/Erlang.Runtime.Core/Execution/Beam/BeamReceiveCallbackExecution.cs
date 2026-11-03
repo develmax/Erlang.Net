@@ -32,7 +32,7 @@ internal static class BeamReceiveCallbackExecution
         scope.ClearContinuation();
         if (result is Atom { Name: BeamReceiveCallbackNames.NoMatch })
             return null;
-        BeamRegisterState registers = before.Clone();
+        BeamRegisterState registers = before.CloneForReceive553(context);
         try
         {
             registers.ClearXExcept();

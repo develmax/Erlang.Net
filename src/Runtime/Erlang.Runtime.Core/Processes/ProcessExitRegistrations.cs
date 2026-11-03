@@ -21,7 +21,7 @@ internal static class ProcessExitRegistrations
         );
         foreach (string name in new[] { ErlangModuleNames.Exit, ProcessExitFunctionNames.ExitSignal })
             foreach (int arity in name == ErlangModuleNames.Exit ? new[] { 3 } : new[] { 2, 3 })
-                registry.Register(
+                registry.RegisterCanonicalRuntimeRead535(
                     ErlangModuleNames.Module,
                     name,
                     arity,

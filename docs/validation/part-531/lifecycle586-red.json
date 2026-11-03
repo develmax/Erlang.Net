@@ -1,0 +1,26 @@
+{
+  "Partial": true,
+  "SelectedCount": 2,
+  "TotalCount": 9236,
+  "Blocks": [],
+  "ExactCases": [
+    "runtime/atomics586/shutdown-retains-backing-until-owned-heap-retires",
+    "runtime/atomics586/shutdown-waits-outside-runtime-gate"
+  ],
+  "Passed": 0,
+  "Failed": 2,
+  "Tests": [
+    {
+      "Name": "runtime/atomics586/shutdown-waits-outside-runtime-gate",
+      "Status": "Failed",
+      "Error": "System.InvalidOperationException: Atomics shutdown gate or physical root ordering failed\r\n   at Erlang.Tests.AtomicsLifecycle586Checks.Require(Boolean value) in D:\\Distr\\Work\\Codex\\Erlang.Net\\w518repair\\tests\\Erlang.Tests\\Runtime\\Storage\\Atomics\\AtomicsLifecycle586Checks.cs:line 22\r\n   at Erlang.Tests.AtomicsLifecycle586Checks.Run(Boolean halt, Boolean invocation, Boolean owned) in D:\\Distr\\Work\\Codex\\Erlang.Net\\w518repair\\tests\\Erlang.Tests\\Runtime\\Storage\\Atomics\\AtomicsLifecycle586Checks.cs:line 96\r\n   at Erlang.Tests.AtomicsLifecycle586Checks.Run(Boolean halt, Boolean invocation, Boolean owned) in D:\\Distr\\Work\\Codex\\Erlang.Net\\w518repair\\tests\\Erlang.Tests\\Runtime\\Storage\\Atomics\\AtomicsLifecycle586Checks.cs:line 132\r\n   at Erlang.Tests.AtomicsLifecycle586Checks.ShutdownWaitsOutsideRuntimeGate() in D:\\Distr\\Work\\Codex\\Erlang.Net\\w518repair\\tests\\Erlang.Tests\\Runtime\\Storage\\Atomics\\AtomicsLifecycle586Checks.cs:line 14\r\n   at Program.\u003CMain\u003E$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\w518repair\\tests\\Erlang.Tests\\Harness\\Program.cs:line 7440",
+      "Milliseconds": 581
+    },
+    {
+      "Name": "runtime/atomics586/shutdown-retains-backing-until-owned-heap-retires",
+      "Status": "Failed",
+      "Error": "System.InvalidOperationException: Atomics shutdown gate or physical root ordering failed\r\n   at Erlang.Tests.AtomicsLifecycle586Checks.Require(Boolean value) in D:\\Distr\\Work\\Codex\\Erlang.Net\\w518repair\\tests\\Erlang.Tests\\Runtime\\Storage\\Atomics\\AtomicsLifecycle586Checks.cs:line 22\r\n   at Erlang.Tests.AtomicsLifecycle586Checks.Run(Boolean halt, Boolean invocation, Boolean owned) in D:\\Distr\\Work\\Codex\\Erlang.Net\\w518repair\\tests\\Erlang.Tests\\Runtime\\Storage\\Atomics\\AtomicsLifecycle586Checks.cs:line 104\r\n   at Erlang.Tests.AtomicsLifecycle586Checks.Run(Boolean halt, Boolean invocation, Boolean owned) in D:\\Distr\\Work\\Codex\\Erlang.Net\\w518repair\\tests\\Erlang.Tests\\Runtime\\Storage\\Atomics\\AtomicsLifecycle586Checks.cs:line 132\r\n   at Program.\u003CMain\u003E$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\w518repair\\tests\\Erlang.Tests\\Harness\\Program.cs:line 7440",
+      "Milliseconds": 572
+    }
+  ]
+}

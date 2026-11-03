@@ -40,6 +40,7 @@ public sealed partial class RuntimeRegexEngine411
     private ReCode411 AdoptCode413(IntPtr pointer, byte unicode)
     {
         Interlocked.Increment(ref createdCodes);
+        ReCode411? created597 = null;
         try
         {
             using var captures = new ReBuffer411(new byte[sizeof(uint)]);
@@ -47,7 +48,8 @@ public sealed partial class RuntimeRegexEngine411
             if (api.Info(pointer, ReNativeConstants411.CaptureCount, captures.Pointer) != 0 || api.Info(pointer, ReNativeConstants411.Newline, newline.Pointer) != 0) throw new InvalidOperationException(ReDiagnosticNames411.NativeRegexMetadataFailed);
             uint count = unchecked((uint)Marshal.ReadInt32(captures.Pointer));
             uint nl = unchecked((uint)Marshal.ReadInt32(newline.Pointer));
-            var code = new ReCode411(
+            var code = created597 = new ReCode411(
+                magic597,
                 pointer,
                 count,
                 unicode,
@@ -62,10 +64,28 @@ public sealed partial class RuntimeRegexEngine411
 
             return code;
         }
-        catch
+        catch (Exception original)
         {
-            api.FreeCode(pointer);
-            Interlocked.Increment(ref freedCodes);
+            Exception? prefixFailure = null;
+            try
+            {
+                if (created597 is not null) magic597.AbandonUnpublished597(created597.Backing597);
+            }
+            catch (Exception error)
+            {
+                prefixFailure = error;
+            }
+            try
+            {
+                api.FreeCode(pointer);
+                Interlocked.Increment(ref freedCodes);
+            }
+            catch (Exception error)
+            {
+                if (prefixFailure is not null) throw new AggregateException(original, prefixFailure, error);
+                throw new AggregateException(original, error);
+            }
+            if (prefixFailure is not null) throw new AggregateException(original, prefixFailure);
             throw;
         }
     }
@@ -74,6 +94,8 @@ public sealed partial class RuntimeRegexEngine411
     {
         Enter(context);
         ReCode411? owned = null;
+        ReMagicHost597? failedHost597 = null;
+        Exception? primary597 = null;
         try
         {
             bool unicode = ReOptions411.Compile(options);
@@ -94,6 +116,8 @@ public sealed partial class RuntimeRegexEngine411
             try
             {
                 reference = runtime.ReferenceResources.CreateRegex411(payload);
+                reference = context.AdmitRegexProducer597(reference, owned.Backing597);
+                failedHost597 = reference.RegexHost597;
             }
             catch
             {
@@ -108,14 +132,27 @@ public sealed partial class RuntimeRegexEngine411
                 Term.I(owned.Crlf ? 1 : 0),
                 reference
             );
+            ReleaseGuest(owned);
             owned = null;
 
-            return Term.Tuple(Term.A(ReAtomNames411.Ok), mp);
+            Term result597 = Term.Tuple(Term.A(ReAtomNames411.Ok), mp);
+            failedHost597 = null;
+
+            return result597;
+        }
+        catch (Exception error)
+        {
+            primary597 = error;
+            throw;
         }
         finally
         {
-            if (owned is not null) ReleaseGuest(owned);
-            Exit(context);
+            CleanupPublication597(
+                context,
+                owned,
+                failedHost597,
+                primary597
+            );
         }
     }
 
@@ -134,7 +171,7 @@ public sealed partial class RuntimeRegexEngine411
 
     private static bool SmallMetadata(Term value) => value is Integer number && number.Value >= ErlangIntegerParseParameters.MinimumNativeSmall && number.Value <= ErlangIntegerParseParameters.MaximumNativeSmall;
 
-    private ReCode411 Authenticate(Term expression, bool canonicalMetadata = true)
+    private ReCode411 Authenticate(ProcessContext context, Term expression, bool canonicalMetadata = true)
     {
         if (expression is not TupleTerm { Items.Count: 5 } mp || !mp.Items[0].Equals(Term.A(ReNames411.Pattern)) || mp.Items[4] is not ReferenceTerm reference)
             throw new ErlangException(ErlangErrorReasons.BadArgument);
@@ -150,11 +187,13 @@ public sealed partial class RuntimeRegexEngine411
             throw new ErlangException(ErlangErrorReasons.BadArgument);
         }
         if (!ReferenceEquals(payload.Owner, this)) throw new ErlangException(ErlangErrorReasons.BadArgument);
+        context.RequireRegexReference597(reference, payload.Backing597);
         var code = payload.Code;
         if (!SmallMetadata(mp.Items[1]) || !SmallMetadata(mp.Items[2]) || !SmallMetadata(mp.Items[3])) throw new ErlangException(ErlangErrorReasons.BadArgument);
         if (canonicalMetadata && (!mp.Items[1].Equals(Term.I(code.Captures)) || !mp.Items[2].Equals(Term.I(code.UnicodeMetadata)) || !mp.Items[3].Equals(Term.I(code.Crlf ? 1 : 0))))
             throw new NotSupportedException(ReNames411.Unsupported); // Pinned raw tuple metadata is not universally authenticated; altered metadata is a held capability, never fake badarg.
         Read(code);
+        GC.KeepAlive(reference); // Keep the actual Host carrier until the native reader pin commits.
         GC.KeepAlive(payload); // Reader ownership now protects native code if the last guest payload subsequently dies.
 
         return code;
@@ -188,7 +227,7 @@ public sealed partial class RuntimeRegexEngine411
         try
         {
             bool binaryCaptures = ReOptions411.Run(options);
-            if (expression is TupleTerm) code = Authenticate(expression);
+            if (expression is TupleTerm) code = Authenticate(context, expression);
             else
             {
                 var result = CompileCode(await Bytes(context, expression, false).ConfigureAwait(false), false);

@@ -1,0 +1,55 @@
+{
+  "Names": [
+    "runtime/initializer615/terminal-mailbox-before-stop-cancel",
+    "runtime/initializer615/live-unrelated-cancellation-remains-visible"
+  ],
+  "HostSha256": "B8D1D03B945A19A668C566DB923DA3555050F6015E95D0D5E73F7AC8DE9254A7",
+  "HostUnchanged": true,
+  "Receipt": {
+    "Command": [
+      "dotnet",
+      "exec",
+      "--fx-version",
+      "10.0.11",
+      "D:\\Distr\\Work\\Codex\\Erlang.Net\\w504\\tests\\Erlang.Tests\\bin\\Release\\net10.0\\Erlang.Tests.dll",
+      "--case",
+      "runtime/initializer615/terminal-mailbox-before-stop-cancel",
+      "--case",
+      "runtime/initializer615/live-unrelated-cancellation-remains-visible",
+      "--report",
+      "D:\\Distr\\Work\\Codex\\Erlang.Net\\w504\\artifacts\\resource534\\initializer615-green\\report.json"
+    ],
+    "Pid": 36528,
+    "ElapsedSeconds": 3.061999999999898,
+    "TimedOut": false,
+    "Settled": true,
+    "ExitCode": 0,
+    "Failures": [],
+    "StdoutSha256": "487D11A7A0602C81F354CA36E2E512FE5C9FD85EC80F5AB8B2421CA5155195F5",
+    "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+  },
+  "Actual": {
+    "Partial": true,
+    "SelectedCount": 2,
+    "TotalCount": 9322,
+    "Blocks": [],
+    "ExactCases": [
+      "runtime/initializer615/live-unrelated-cancellation-remains-visible",
+      "runtime/initializer615/terminal-mailbox-before-stop-cancel"
+    ],
+    "Passed": 2,
+    "Failed": 0,
+    "Tests": [
+      {
+        "Name": "runtime/initializer615/terminal-mailbox-before-stop-cancel",
+        "Status": "Passed",
+        "Milliseconds": 2114
+      },
+      {
+        "Name": "runtime/initializer615/live-unrelated-cancellation-remains-visible",
+        "Status": "Passed",
+        "Milliseconds": 10
+      }
+    ]
+  }
+}

@@ -61,16 +61,21 @@ internal sealed class ProcessSpawnRequestOptions
                     break;
             }
         }
+        ProcessSpawnResourceValidation540 resources = disconnected ? default
+            : ProcessSpawnResourceOptions540.Analyze(spawn, IntPtr.Size * ProcessSpawnResourceNames540.BitsPerByte);
+        result.BadOptions |= resources.Invalid;
         try
         {
             result.Spawn = disconnected
                 ? ProcessSpawnOptions.ParseRemote(Cons.From(spawn))
-                : ProcessSpawnOptions.Parse(Cons.From(spawn), configuredSchedulers);
+                : ProcessSpawnOptions.Parse(Cons.From(spawn.Where(option => !ProcessSpawnResourceOptions540.IsResourceOption(option))), configuredSchedulers);
         }
         catch (ErlangException)
         {
             result.BadOptions = true;
         }
+        if (resources.HasResourceOption && !result.BadOptions)
+            throw new NotSupportedException(ProcessSpawnResourceNames540.Unsupported);
 
         return result;
     }

@@ -47,12 +47,12 @@ public sealed partial class ModuleRegistry
     private Task QueueNifRetirement(ModuleCodeImage image)
     {
         if (!NifImageBindingStore.TryGetValue(image, out var bindings))
-            return Task.CompletedTask;
+            return CloseModuleLiteralCodeOwner800(image, Task.CompletedTask);
         nifRetirements ??= new();
         if (nifRetirements.TryGetValue(image, out var pending))
-            return pending.Completion;
+            return CloseModuleLiteralCodeOwner800(image, pending.Completion);
         if (nifCompletedRetirements is not null && nifCompletedRetirements.TryGetValue(image, out var completed))
-            return completed.Completion;
+            return CloseModuleLiteralCodeOwner800(image, completed.Completion);
         nifRetirements.EnsureCapacity(checked(nifRetirements.Count + 1));
         var operation = new NifRetirementOperation(this, image, bindings!);
         // Close guest admission and unlink old-owned resource names before
@@ -61,7 +61,7 @@ public sealed partial class ModuleRegistry
         nifRetirements.Add(image, operation);
         operation.Start();
 
-        return operation.Completion;
+        return CloseModuleLiteralCodeOwner800(image, operation.Completion);
     }
 
     internal Task RetireNifImageAsync(ModuleCodeImage image)
@@ -97,13 +97,19 @@ public sealed partial class ModuleRegistry
             throw new NifImageAdmissionException(NifImageAdmissionFailure.ReentrantRetirementOperation);
         if (codeModificationPermission is { } permission && NifImageInitializationFlow.HoldsPermission(permission))
             throw new NifImageAdmissionException(NifImageAdmissionFailure.ReentrantInitializationOperation);
-        if (Monitor.IsEntered(gate) && HasNifShutdownOwnership())
+        if (Monitor.IsEntered(gate) && (HasNifShutdownOwnership() || nifShutdown is { Task.IsCompleted: false }))
+            throw new NifImageAdmissionException(NifImageAdmissionFailure.ReentrantRegistryShutdown);
+        if ((Monitor.IsEntered(gate) || (codeModificationPermission?.IsOwned ?? false))
+            && HasStatisticsHelperShutdownWork())
             throw new NifImageAdmissionException(NifImageAdmissionFailure.ReentrantRegistryShutdown);
     }
 
     internal Task CloseNifLifetimeAsync()
     {
         RequireNifShutdownCaller();
+        // Wake/fault Host entrants before image/call joins can wait for them.
+        owningRuntime?.CloseNormalNativeAdmission697();
+        bool directPrepared807 = Monitor.IsEntered(gate) || CodeModification.IsOwned;
         TaskCompletionSource completion;
         NifImageLoadReservation[] reservations;
         Task[] retirements;
@@ -111,6 +117,10 @@ public sealed partial class ModuleRegistry
         {
             if (nifShutdown is not null)
                 return nifShutdown.Task;
+            // Start dormant helper retirement on this caller: it may retain M
+            // while synchronously joining shutdown. A queued worker must never
+            // be the first thread to acquire M for that retirement.
+            Task[] helperShutdown = StartStatisticsHelperShutdown(directPrepared807);
             nifClosing = true;
             nifShutdown = completion = new(TaskCreationOptions.RunContinuationsAsynchronously);
             reservations = nifReservations?.ToArray() ?? [];
@@ -121,9 +131,12 @@ public sealed partial class ModuleRegistry
                 .Concat(pendingBeamImages.Values.Select(ticket => ticket.CodeImage))
                 .Distinct().ToArray();
             var queued = images.Select(QueueNifRetirement).ToArray();
-            retirements = queued
+            Task[] vmConstantFailures357 = owningRuntime?.CloseVmConstants357() ?? [];
+            retirements = queued.Concat(CloseModuleLiteralOwners800()).Concat(vmConstantFailures357)
+                .Concat(ClosePreparedLoaderOwners807(directPrepared807))
                 .Concat(nifRetirements?.Values.Select(operation => operation.Completion) ?? [])
-                .Concat(nifRetirementFailures ?? Enumerable.Empty<Task>()).Distinct().ToArray();
+                .Concat(nifRetirementFailures ?? Enumerable.Empty<Task>())
+                .Concat(helperShutdown).Distinct().ToArray();
         }
         try
         {
@@ -137,7 +150,7 @@ public sealed partial class ModuleRegistry
         return completion.Task;
     }
 
-    private static async Task CompleteNifShutdown(
+    private async Task CompleteNifShutdown(
         NifImageLoadReservation[] reservations,
         Task[] retirements,
         TaskCompletionSource completion
@@ -155,6 +168,37 @@ public sealed partial class ModuleRegistry
         {
             completion.TrySetException(all?.Exception ?? failure);
         }
+    }
+
+    private bool HasStatisticsHelperShutdownWork()
+    {
+        lock (gcStatisticsGate)
+            lock (statisticsTrapGate)
+                return gcStatisticsPreparing || gcStatisticsUses != 0
+                    || statisticsTrapPreparing || statisticsTrapUses != 0;
+    }
+
+    private Task[] StartStatisticsHelperShutdown(bool retainedRegistryOwnership)
+    {
+        var joins = new Task[2];
+        lock (gcStatisticsGate)
+            lock (statisticsTrapGate)
+            {
+                // Repeat the admission check atomically with closing both helpers.
+                // An already admitted helper may have reached its use counter since
+                // the initial caller check; its later drain can still need M.
+                if (retainedRegistryOwnership && (gcStatisticsPreparing || gcStatisticsUses != 0
+                    || statisticsTrapPreparing || statisticsTrapUses != 0))
+                    throw new NifImageAdmissionException(NifImageAdmissionFailure.ReentrantRegistryShutdown);
+                gcStatisticsClosing = true;
+                statisticsTrapClosing = true;
+                CompleteGcStatisticsDrain();
+                CompleteStatisticsTrapDrain();
+            }
+        joins[0] = CloseGcStatisticsHelper();
+        joins[1] = CloseStatisticsTrapHelpers();
+
+        return joins;
     }
 
     private static async Task JoinNifReservationForShutdown(NifImageLoadReservation reservation)
@@ -188,7 +232,7 @@ public sealed partial class ModuleRegistry
         RequireNifShutdownCaller();
         // A dormant reentrant caller must not queue a worker that would wait
         // for the monitor that caller retains while joining disposal.
-        if (Monitor.IsEntered(gate))
+        if (Monitor.IsEntered(gate) || CodeModification.IsOwned)
             return CloseNifLifetimeAsync();
 
         return Task.Run(NifImageInitializationFlow.IsolateActor(

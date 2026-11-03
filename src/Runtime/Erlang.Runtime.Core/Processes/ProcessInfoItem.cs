@@ -12,6 +12,6 @@ internal sealed record ProcessInfoItem(Term Key, string Name, Term? DictionaryKe
         throw new ErlangException(ErlangErrorReasons.BadArgument);
     }
 
-    public bool RequiresOwnerSnapshot => Name is ProcessInfoLogicalNames.Suspending or ProcessInfoNames.Links or ProcessInfoNames.Dictionary or ProcessInfoNames.Messages or ProcessInfoNames.MessageQueueLength or
+    public bool RequiresOwnerSnapshot => Name is ProcessBinaryInfo823Names.Binary or ProcessInfoLogicalNames.Suspending or ProcessInfoNames.Links or ProcessInfoNames.Dictionary or ProcessInfoNames.Messages or ProcessInfoNames.MessageQueueLength or
         ProcessInfoNames.Monitors or ProcessInfoNames.MonitoredBy or ProcessInfoNames.CurrentFunction or ProcessInfoNames.CurrentStackTrace or ProcessInfoNames.Status;
 }

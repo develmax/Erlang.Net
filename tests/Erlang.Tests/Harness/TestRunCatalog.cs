@@ -19,7 +19,12 @@ internal sealed class TestRunCatalog
         string[] names = testNames.ToArray();
         if (names.Length == 0 || names.Any(string.IsNullOrWhiteSpace)
             || names.Distinct(StringComparer.Ordinal).Count() != names.Length)
-            throw new ArgumentException(TestRunNames.InvalidCatalog);
+            throw new ArgumentException(TestRunNames.InvalidCatalog + Environment.NewLine + string.Join(
+                Environment.NewLine,
+                names.GroupBy(name => name, StringComparer.Ordinal)
+                    .Where(group => group.Count() > 1)
+                    .Select(group => group.Key)
+            ));
         var blocks = names.ToDictionary(name => name, Classify, StringComparer.Ordinal);
 
         return new TestRunCatalog(names, blocks);

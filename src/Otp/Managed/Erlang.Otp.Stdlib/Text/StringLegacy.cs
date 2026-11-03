@@ -192,6 +192,7 @@ internal static class StringLegacy
 
         return StringLegacyWords.Invoke(function, a);
     }
+
     private static Term Drop(Term input, int count)
     {
         while (count > 0 && input is Cons cell)

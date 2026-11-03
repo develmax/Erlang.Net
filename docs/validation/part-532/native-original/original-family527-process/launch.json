@@ -1,0 +1,22 @@
+{
+  "Command": [
+    "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library376-official-compiler\\installed\\bin\\erl.exe",
+    "+S",
+    "1:1",
+    "+A",
+    "1",
+    "+SDcpu",
+    "1",
+    "+SDio",
+    "2",
+    "-noshell",
+    "-noinput",
+    "-boot",
+    "no_dot_erlang",
+    "-pa",
+    "D:\\Distr\\Work\\Codex\\Erlang.Net\\w504\\artifacts\\nif-resource529\\part532-final-original\\original-family527",
+    "-eval",
+    "W=fun(N,V)->ok=file:write_file(N,term_to_binary(V,[{minor_version,2}])) end,try Expected=filename:absname(\"D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/library376-official-compiler/installed\"),Expected=filename:absname(code:root_dir()),8=erlang:system_info(wordsize),W(\"metadata.etf\",{Expected,erlang:system_info(version),erlang:system_info(system_architecture)}),C=[compile:file(F,[return_errors,return_warnings])||F<-[\"native_resource_family527.erl\",\"resource_observer529.erl\",\"magic_alias_observer576.erl\",\"resource_binary_observer577.erl\"]],W(\"compile.etf\",C),true=lists:all(fun({ok,_,_})->true;({ok,_})->true;(_)->false end,C),W(\"executing-owners.etf\",[{M,code:which(M),M:module_info(md5),M:module_info(compile),M:module_info(attributes),M:module_info(exports)}||M<-[native_resource_family527,resource_observer529,magic_alias_observer576,resource_binary_observer577]]),Stock=[{timer,filename:absname(\"D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/library376-official-compiler/installed/lib/stdlib-8.1/ebin/timer.beam\")},{erts_debug,filename:absname(\"D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/library376-official-compiler/installed/lib/kernel-11.0.4/ebin/erts_debug.beam\")},{gb_trees,filename:absname(\"D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/library376-official-compiler/installed/lib/stdlib-8.1/ebin/gb_trees.beam\")}],W(\"stock-executing-owners.etf\",[begin Running=M:module_info(md5),P=filename:absname(code:which(M)),{ok,{M,Running}}=beam_lib:md5(P),{M,P,Running,M:module_info(compile),M:module_info(attributes),M:module_info(exports)} end||{M,P}<-Stock]),V=resource_observer529:run(family527,\"D:/Distr/Work/Codex/Erlang.Net/w504/artifacts/nif-resource529/part532-final-original/build-family1/resource529\",\"D:/Distr/Work/Codex/Erlang.Net/w504/artifacts/nif-resource529/part532-final-original/build-family1/resource529\",<<>>,\"D:/Distr/Work/Codex/Erlang.Net/w504/artifacts/nif-resource529/part532-final-original/original-family527/marker529\"),W(\"observed.etf\",V),ok=file:write_file(\"observed-deterministic.etf\",term_to_binary(V,[deterministic,{minor_version,2}])),Cleanup=[{M,code:delete(M),code:purge(M),code:is_loaded(M)}||M<-[native_resource_family527,resource_observer529,magic_alias_observer576,resource_binary_observer577]],W(\"cleanup.etf\",Cleanup),true=lists:all(fun({_,_,_,false})->true;(_)->false end,Cleanup),case V of {returned529,_}->halt(0);_->halt(78) end catch Class:Reason:Stack->W(\"entry-failure.etf\",{Class,Reason,Stack}),halt(77) end."
+  ],
+  "WorkingDirectory": "D:\\Distr\\Work\\Codex\\Erlang.Net\\w504\\artifacts\\nif-resource529\\part532-final-original\\original-family527"
+}

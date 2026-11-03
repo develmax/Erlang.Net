@@ -9,5 +9,6 @@ internal delegate ValueTask<Term> BeamExecutionHandler432(
     BeamExecutionIdentity execution,
     SourceCodeAdmissionKind admission,
     long? budget,
-    LocalFunctionInvocation? invocation
+    LocalFunctionInvocation? invocation,
+    SourceCodeLease? admittedLease647
 );

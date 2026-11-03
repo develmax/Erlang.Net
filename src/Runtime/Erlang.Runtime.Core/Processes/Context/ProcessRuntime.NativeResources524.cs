@@ -13,7 +13,14 @@ public sealed partial class ProcessRuntime
             {
                 ObjectDisposedException.ThrowIf(disposed, NativeResource524Names.Closed);
 
-                return nativeResources524 ??= new NativeResourceDomain524(this);
+                if (nativeResources524 is null)
+                {
+                    // Publish the actual close owner before attempting a physical start.
+                    nativeResources524 = new NativeResourceDomain524(this);
+                    nativeResources524.Start989();
+                }
+
+                return nativeResources524;
             }
         }
     }

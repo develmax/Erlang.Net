@@ -1,10 +1,16 @@
 using System.Runtime.InteropServices;
+
 namespace Erlang;
-// Authoritative owned orig_bytes region: magic identity prefix24 + AtomicsRef fields16.
-// The real native allocation begins here; no unmanaged Binary internals or CLR heap estimate is reported.
+
+// Source-derived ARCH64 complete ErtsMagicBinary prefix followed by AtomicsRef.
+// This represents the ACTUAL allocation; info(memory) reads OriginalSize below.
 [StructLayout(LayoutKind.Sequential)]
 internal struct AtomicsMagicHeader413
 {
+    internal nuint Flags;
+    internal nuint ApparentSize;
+    internal long ReferenceCount;
+    internal nuint OriginalSize;
     internal nint Destructor;
     internal uint Reference0;
     internal uint Reference1;

@@ -1,0 +1,51 @@
+namespace Erlang.Tests;
+
+public static class EmptyTuple803Names
+{
+    public const string Physical = "runtime/intrinsic803/actual-empty-header-map-key-host-and-vm-drain";
+    internal const string Failure = "The VM-owned empty tuple intrinsic control failed.";
+    internal const string InvalidHeader = "The canonical empty tuple native header is invalid.";
+    internal const string Foreign = "An owned guest value crossed heaps without the explicit copy boundary.";
+    internal const string Domain = "EmptyTupleDomain803";
+    internal const string Value = "Value803";
+    internal const string Cells = "cells";
+    internal const string DomainGate = "gate";
+    internal const string ReaderCount = "readers";
+    internal const string OwnerOpen = "ownerOpen";
+    internal const string Holders = "holders";
+    internal const string CollectionCount = "Count";
+    internal const string FrameAuthorities = "ModuleLiteralAuthorities801";
+    internal const string RetainAuthority = "Retain801";
+    internal const string EnterRead = "EnterRead803";
+    internal const string ReadHeader = "ReadHeader526";
+    internal const string WriteHeaders = "WriteHeaders526";
+    internal const string HeaderCount = "RawHeaders526";
+    internal const string NativeLength = "Length";
+    internal const string PadCount = "RawNumericWords556";
+    internal const string ReadPad = "ReadNumeric556";
+    internal const string TermCount = "RootedTerms526";
+    internal const string Disposed = "Disposed526";
+    internal const string Storage = "OwnedStorage506";
+    internal const string Code = "Code";
+    internal const string Templates = "LoaderMapKeys565";
+    internal const string TemplateValues = "Values";
+    internal const string LiteralDomain = "LiteralDomain800";
+    internal const string Literals = "Literals800";
+    internal const string FlatKeys = "FlatKeys426";
+    internal const string Heap = "TermHeap506";
+    internal const string Enter = "Enter";
+    internal const string Reserve = "Reserve";
+    internal const string Tuple = "CreateTupleInto507";
+    internal const string SetLocal = "SetLocalGraph507";
+    internal const string Clear = "Clear";
+    internal const string Collect = "CollectGeneration508";
+    internal const string Export = "Export";
+    internal const string ForeignAtom = "ordinary_foreign803";
+    internal const string CodeChunk = "Code";
+    internal const string Run = "run";
+    internal const byte PutMapAssociate = 154;
+    internal const byte ArgumentList = 0x17;
+    internal const byte Return = 19;
+    internal const byte End = 3;
+    internal const int DeadlineSeconds = 10;
+}

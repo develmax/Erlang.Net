@@ -33,4 +33,29 @@ internal static class EtsHeirOriginal419Preparation
         foreach (var export in exports)
             EtsHeirOriginal419Access.Require(ReferenceEquals(registry.SourceOwner(export.Module, export.Function, export.Arity), facet));
     }
+
+    internal static PreparedBeamImage Prepare171(ProcessRuntime runtime, ModuleRegistry registry, global::Erlang.Tests.PreparedBeamFixtureScope171 scope)
+    {
+        PreparedBeamImage facet = scope.Prepare(() => registry.PrepareBeam(
+            EtsHeirOriginal419Access.Resource(EtsHeirOriginal419Names.FacetBeam),
+            new BeamDependencySelection([EtsHeirOriginal419Names.Runtime, EtsHeirOriginal419Names.Ets])
+        ));
+        var actual = facet.NativePrimitiveExports.Select(signature => (signature.Name, signature.Arity)).ToHashSet();
+        EtsHeirOriginal419Access.Require(facet.Name == EtsHeirOriginal419Names.Ets
+            && actual.Count == EtsHeirOriginal419Names.CapturedNatives
+            && actual.SetEquals(EtsHeirOriginal419Names.NativeSignatures));
+
+        return facet;
+    }
+
+    internal static void Register171(ProcessRuntime runtime, ModuleRegistry registry)
+    {
+        RuntimeBootstrapEtsDeletion.Register(runtime, registry);
+        RuntimeBootstrapEtsQueries414.Register(runtime, registry);
+        RuntimeBootstrapEtsMutations414.Register(runtime, registry);
+        RuntimeBootstrapEtsTraversal416.Register(runtime, registry);
+        RuntimeBootstrapEtsCounter417.Register(runtime, registry);
+        RuntimeBootstrapEtsRename418.Register(runtime, registry);
+        RuntimeBootstrapEtsHeir419.Register(runtime, registry);
+    }
 }

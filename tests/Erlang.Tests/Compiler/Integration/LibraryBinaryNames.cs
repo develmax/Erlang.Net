@@ -14,6 +14,22 @@ internal static class LibraryBinaryNames
     internal const string BeamExtension = ".beam";
     internal const string Failure = "Original binary backend contract observation failed";
     internal const int NativePrimitiveCount = 22;
+    internal const string OutputBase = "artifacts/library390-binary-comparisons";
+    internal const string GuidFormat = "N";
+    internal const string ActualValuesFile = "actual-values.etf";
+    internal const string ActualStacksFile = "actual-stacks.etf";
+    internal const string ComparisonFile = "comparison.json";
+    internal const int ValuesCount = 94;
+    internal const int StacksCount = 470;
+    internal const string BinaryOwner = "binaryPrograms598";
+    internal const string Gate = "gate";
+    internal const string Live = "live";
+    internal const string Closed = "closed";
+    internal const string ActiveBuilds = "activeBuilds";
+    internal const string Failures = "failures";
+    internal const string PhysicalFreed = "PhysicalFreed598";
+    internal const System.Reflection.BindingFlags Members = System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.NonPublic;
+
     internal static readonly IReadOnlyDictionary<string, string> Digests = new Dictionary<string, string>
     {
         ["beam_binary_observer390.beam"] = "5DF957E353EBB41BBE58B972F25FF8DBE3986D11667FC5178A97A22082923871",

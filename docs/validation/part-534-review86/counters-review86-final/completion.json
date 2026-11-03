@@ -1,0 +1,945 @@
+{
+  "Passed": true,
+  "Errors": [],
+  "OriginalExitCode": 0,
+  "ManagedRequested": true,
+  "ExpectedHead": "70eb6b1df655f45c470c978041219a7a5271295b",
+  "SourcePin": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "ProviderKind": "OfficialWindows",
+  "ProviderAdmissionSha256": "41CCC2FDE5493D85BEAA21996E12D0885D2919B0D4BF44137D0673DCDC9D5EA6",
+  "MetadataCompletionSha256": "51B0470594F57605C3B781A6D082E1B67D405D934ECF56676FAB3FFA6C489AFB",
+  "ManagedPreparationPassed": true,
+  "AdoptionPassed": true,
+  "ManagedRuns": [
+    {
+      "Profile": "ordinary",
+      "RequestedOwned": false,
+      "Passed": true,
+      "Receipt": {
+        "Command": [
+          "C:\\Program Files\\dotnet\\dotnet.exe",
+          "exec",
+          "--fx-version",
+          "10.0.11",
+          "D:\\Distr\\Work\\Codex\\Erlang.Net\\w504\\tests\\Erlang.Tests\\bin\\Release\\net10.0\\Erlang.Tests.dll",
+          "--original-counters610-child",
+          "D:\\Distr\\Work\\Codex\\Erlang.Net\\w504",
+          "D:\\Distr\\Work\\Codex\\Erlang.Net\\w504\\artifacts\\resource534\\counters-review86-final\\admission.json",
+          "B78AF9346B4845BBC58995F5B14475F25DA7F8222EE5D450228F1B4CF1017DE0",
+          "D:\\Distr\\Work\\Codex\\Erlang.Net\\w504\\artifacts\\resource534\\metadata-review86-final\\completion.json",
+          "51B0470594F57605C3B781A6D082E1B67D405D934ECF56676FAB3FFA6C489AFB",
+          "false",
+          "D:\\Distr\\Work\\Codex\\Erlang.Net\\w504\\artifacts\\resource534\\counters-review86-final\\ordinary\\actual"
+        ],
+        "Pid": 33544,
+        "ElapsedSeconds": 1.5930000000007567,
+        "TimedOut": false,
+        "Settled": true,
+        "ExitCode": 0,
+        "Failures": [],
+        "StdoutSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+        "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+      },
+      "Error": null,
+      "ComparisonSha256": "067B298AFFA6654E5D5EE1D59B9DA70344CD0F38817DFBA5784FA8EC7B6D0301",
+      "WholeDefaultEtfEqual": false,
+      "WholeDeterministicEtfEqual": false,
+      "OwnReferenceProtocolPassed": true,
+      "OwnReferenceDefault": {
+        "Passed": true,
+        "OriginalProfile": {
+          "WordSize": 8,
+          "Schedulers": 1,
+          "Online": 1,
+          "DebugCompiled": false
+        },
+        "ManagedProfile": {
+          "WordSize": 8,
+          "Schedulers": 1,
+          "Online": 1,
+          "DebugCompiled": false
+        },
+        "OriginalRoles": {
+          "family-default-atomics": {
+            "Node": "nonode@nohost",
+            "Creation": 0,
+            "Words": [
+              203646,
+              1154088961,
+              675172459
+            ]
+          },
+          "family-explicit-atomics": {
+            "Node": "nonode@nohost",
+            "Creation": 0,
+            "Words": [
+              203647,
+              1154088961,
+              675172459
+            ]
+          },
+          "family-write-concurrency": {
+            "Node": "nonode@nohost",
+            "Creation": 0,
+            "Words": [
+              203648,
+              1154088961,
+              675172459
+            ]
+          },
+          "native-counters": {
+            "Node": "nonode@nohost",
+            "Creation": 0,
+            "Words": [
+              203649,
+              1154088961,
+              675172459
+            ]
+          },
+          "native-wrong-kind-atomics": {
+            "Node": "nonode@nohost",
+            "Creation": 0,
+            "Words": [
+              203650,
+              1154088961,
+              675172459
+            ]
+          },
+          "scheduler-write-concurrency": {
+            "Node": "nonode@nohost",
+            "Creation": 0,
+            "Words": [
+              203651,
+              1154088961,
+              675172459
+            ]
+          }
+        },
+        "ManagedRoles": {
+          "family-default-atomics": {
+            "Node": "nonode@nohost",
+            "Creation": 0,
+            "Words": [
+              46620,
+              1971191808,
+              3053925577
+            ]
+          },
+          "family-explicit-atomics": {
+            "Node": "nonode@nohost",
+            "Creation": 0,
+            "Words": [
+              116271,
+              2870083584,
+              1917550447
+            ]
+          },
+          "family-write-concurrency": {
+            "Node": "nonode@nohost",
+            "Creation": 0,
+            "Words": [
+              232886,
+              2932998144,
+              3076994188
+            ]
+          },
+          "native-counters": {
+            "Node": "nonode@nohost",
+            "Creation": 0,
+            "Words": [
+              17874,
+              3476160512,
+              1724577066
+            ]
+          },
+          "native-wrong-kind-atomics": {
+            "Node": "nonode@nohost",
+            "Creation": 0,
+            "Words": [
+              76562,
+              1143865344,
+              1063261672
+            ]
+          },
+          "scheduler-write-concurrency": {
+            "Node": "nonode@nohost",
+            "Creation": 0,
+            "Words": [
+              56120,
+              51511296,
+              1132083120
+            ]
+          }
+        },
+        "OccurrenceRoles": [
+          "family-default-atomics",
+          "family-default-atomics",
+          "family-default-atomics",
+          "family-default-atomics",
+          "family-default-atomics",
+          "family-default-atomics",
+          "family-default-atomics",
+          "family-default-atomics",
+          "family-default-atomics",
+          "family-default-atomics",
+          "family-default-atomics",
+          "family-default-atomics",
+          "family-default-atomics",
+          "family-default-atomics",
+          "family-explicit-atomics",
+          "family-explicit-atomics",
+          "family-explicit-atomics",
+          "family-explicit-atomics",
+          "family-explicit-atomics",
+          "family-explicit-atomics",
+          "family-explicit-atomics",
+          "family-explicit-atomics",
+          "family-explicit-atomics",
+          "family-explicit-atomics",
+          "family-explicit-atomics",
+          "family-explicit-atomics",
+          "family-explicit-atomics",
+          "family-explicit-atomics",
+          "family-write-concurrency",
+          "family-write-concurrency",
+          "family-write-concurrency",
+          "family-write-concurrency",
+          "family-write-concurrency",
+          "family-write-concurrency",
+          "family-write-concurrency",
+          "family-write-concurrency",
+          "family-write-concurrency",
+          "family-write-concurrency",
+          "family-write-concurrency",
+          "family-write-concurrency",
+          "family-write-concurrency",
+          "family-write-concurrency",
+          "native-counters",
+          "native-wrong-kind-atomics",
+          "native-wrong-kind-atomics",
+          "native-counters",
+          "native-counters",
+          "native-counters",
+          "native-counters",
+          "native-counters",
+          "scheduler-write-concurrency"
+        ],
+        "Failure": null
+      },
+      "OwnReferenceDeterministic": {
+        "Passed": true,
+        "OriginalProfile": {
+          "WordSize": 8,
+          "Schedulers": 1,
+          "Online": 1,
+          "DebugCompiled": false
+        },
+        "ManagedProfile": {
+          "WordSize": 8,
+          "Schedulers": 1,
+          "Online": 1,
+          "DebugCompiled": false
+        },
+        "OriginalRoles": {
+          "family-default-atomics": {
+            "Node": "nonode@nohost",
+            "Creation": 0,
+            "Words": [
+              203646,
+              1154088961,
+              675172459
+            ]
+          },
+          "family-explicit-atomics": {
+            "Node": "nonode@nohost",
+            "Creation": 0,
+            "Words": [
+              203647,
+              1154088961,
+              675172459
+            ]
+          },
+          "family-write-concurrency": {
+            "Node": "nonode@nohost",
+            "Creation": 0,
+            "Words": [
+              203648,
+              1154088961,
+              675172459
+            ]
+          },
+          "native-counters": {
+            "Node": "nonode@nohost",
+            "Creation": 0,
+            "Words": [
+              203649,
+              1154088961,
+              675172459
+            ]
+          },
+          "native-wrong-kind-atomics": {
+            "Node": "nonode@nohost",
+            "Creation": 0,
+            "Words": [
+              203650,
+              1154088961,
+              675172459
+            ]
+          },
+          "scheduler-write-concurrency": {
+            "Node": "nonode@nohost",
+            "Creation": 0,
+            "Words": [
+              203651,
+              1154088961,
+              675172459
+            ]
+          }
+        },
+        "ManagedRoles": {
+          "family-default-atomics": {
+            "Node": "nonode@nohost",
+            "Creation": 0,
+            "Words": [
+              46620,
+              1971191808,
+              3053925577
+            ]
+          },
+          "family-explicit-atomics": {
+            "Node": "nonode@nohost",
+            "Creation": 0,
+            "Words": [
+              116271,
+              2870083584,
+              1917550447
+            ]
+          },
+          "family-write-concurrency": {
+            "Node": "nonode@nohost",
+            "Creation": 0,
+            "Words": [
+              232886,
+              2932998144,
+              3076994188
+            ]
+          },
+          "native-counters": {
+            "Node": "nonode@nohost",
+            "Creation": 0,
+            "Words": [
+              17874,
+              3476160512,
+              1724577066
+            ]
+          },
+          "native-wrong-kind-atomics": {
+            "Node": "nonode@nohost",
+            "Creation": 0,
+            "Words": [
+              76562,
+              1143865344,
+              1063261672
+            ]
+          },
+          "scheduler-write-concurrency": {
+            "Node": "nonode@nohost",
+            "Creation": 0,
+            "Words": [
+              56120,
+              51511296,
+              1132083120
+            ]
+          }
+        },
+        "OccurrenceRoles": [
+          "family-default-atomics",
+          "family-default-atomics",
+          "family-default-atomics",
+          "family-default-atomics",
+          "family-default-atomics",
+          "family-default-atomics",
+          "family-default-atomics",
+          "family-default-atomics",
+          "family-default-atomics",
+          "family-default-atomics",
+          "family-default-atomics",
+          "family-default-atomics",
+          "family-default-atomics",
+          "family-default-atomics",
+          "family-explicit-atomics",
+          "family-explicit-atomics",
+          "family-explicit-atomics",
+          "family-explicit-atomics",
+          "family-explicit-atomics",
+          "family-explicit-atomics",
+          "family-explicit-atomics",
+          "family-explicit-atomics",
+          "family-explicit-atomics",
+          "family-explicit-atomics",
+          "family-explicit-atomics",
+          "family-explicit-atomics",
+          "family-explicit-atomics",
+          "family-explicit-atomics",
+          "family-write-concurrency",
+          "family-write-concurrency",
+          "family-write-concurrency",
+          "family-write-concurrency",
+          "family-write-concurrency",
+          "family-write-concurrency",
+          "family-write-concurrency",
+          "family-write-concurrency",
+          "family-write-concurrency",
+          "family-write-concurrency",
+          "family-write-concurrency",
+          "family-write-concurrency",
+          "family-write-concurrency",
+          "family-write-concurrency",
+          "native-counters",
+          "native-wrong-kind-atomics",
+          "native-wrong-kind-atomics",
+          "native-counters",
+          "native-counters",
+          "native-counters",
+          "native-counters",
+          "native-counters",
+          "scheduler-write-concurrency"
+        ],
+        "Failure": null
+      },
+      "Artifacts": [
+        {
+          "Path": "actual/actual-stock-owners-after.etf",
+          "Bytes": 1171,
+          "Sha256": "A64D2E9D2B1B19F1244449A768AC5E63F5382777642A618D0311B6348109762C"
+        },
+        {
+          "Path": "actual/actual-stock-owners-before.etf",
+          "Bytes": 1171,
+          "Sha256": "A64D2E9D2B1B19F1244449A768AC5E63F5382777642A618D0311B6348109762C"
+        },
+        {
+          "Path": "actual/cleanup610.json",
+          "Bytes": 295,
+          "Sha256": "13BF72F32F0B085D5242EEB78F8EDF7CFD6015434C27767A59C970B3CEBB44C9"
+        },
+        {
+          "Path": "actual/comparison.json",
+          "Bytes": 8605,
+          "Sha256": "067B298AFFA6654E5D5EE1D59B9DA70344CD0F38817DFBA5784FA8EC7B6D0301"
+        },
+        {
+          "Path": "actual/observed-deterministic.etf",
+          "Bytes": 46361,
+          "Sha256": "F7939BE428878E20418D90DD20B2780D9A4B30836DC1639400F63F235A6D541B"
+        },
+        {
+          "Path": "actual/observed.etf",
+          "Bytes": 46361,
+          "Sha256": "F7939BE428878E20418D90DD20B2780D9A4B30836DC1639400F63F235A6D541B"
+        },
+        {
+          "Path": "dotnet-host.trace",
+          "Bytes": 118063,
+          "Sha256": "75CB06A40588C090DF611444C5BAFDEEB7909EBF9863ADD327435B723B289E3D"
+        },
+        {
+          "Path": "managed.exit.json",
+          "Bytes": 1135,
+          "Sha256": "3CED6B016EB01F1330A2C8E7A397BDA116C09363CD5F7559E8BF722D10035777"
+        },
+        {
+          "Path": "managed.live.json",
+          "Bytes": 886,
+          "Sha256": "20AE5DBBFBE07C7520AA5C5393A65AFD1D18F199907B6D2CEFC6EF5A27222B42"
+        },
+        {
+          "Path": "managed.stderr.log",
+          "Bytes": 0,
+          "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+        },
+        {
+          "Path": "managed.stdout.log",
+          "Bytes": 0,
+          "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+        },
+        {
+          "Path": "request.json",
+          "Bytes": 869,
+          "Sha256": "4308AB14B978582BB8D433B36E6B8FCCB031512FC5CAEEB7812CC4B8A0B3C3A8"
+        }
+      ]
+    },
+    {
+      "Profile": "private-owned",
+      "RequestedOwned": true,
+      "Passed": true,
+      "Receipt": {
+        "Command": [
+          "C:\\Program Files\\dotnet\\dotnet.exe",
+          "exec",
+          "--fx-version",
+          "10.0.11",
+          "D:\\Distr\\Work\\Codex\\Erlang.Net\\w504\\tests\\Erlang.Tests\\bin\\Release\\net10.0\\Erlang.Tests.dll",
+          "--original-counters610-child",
+          "D:\\Distr\\Work\\Codex\\Erlang.Net\\w504",
+          "D:\\Distr\\Work\\Codex\\Erlang.Net\\w504\\artifacts\\resource534\\counters-review86-final\\admission.json",
+          "B78AF9346B4845BBC58995F5B14475F25DA7F8222EE5D450228F1B4CF1017DE0",
+          "D:\\Distr\\Work\\Codex\\Erlang.Net\\w504\\artifacts\\resource534\\metadata-review86-final\\completion.json",
+          "51B0470594F57605C3B781A6D082E1B67D405D934ECF56676FAB3FFA6C489AFB",
+          "true",
+          "D:\\Distr\\Work\\Codex\\Erlang.Net\\w504\\artifacts\\resource534\\counters-review86-final\\private-owned\\actual"
+        ],
+        "Pid": 10920,
+        "ElapsedSeconds": 4.218999999999141,
+        "TimedOut": false,
+        "Settled": true,
+        "ExitCode": 0,
+        "Failures": [],
+        "StdoutSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+        "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+      },
+      "Error": null,
+      "ComparisonSha256": "F2C34BF2571E08792576E772BAC26AA91E05EA114406B945AC87F741CE0DC611",
+      "WholeDefaultEtfEqual": false,
+      "WholeDeterministicEtfEqual": false,
+      "OwnReferenceProtocolPassed": true,
+      "OwnReferenceDefault": {
+        "Passed": true,
+        "OriginalProfile": {
+          "WordSize": 8,
+          "Schedulers": 1,
+          "Online": 1,
+          "DebugCompiled": false
+        },
+        "ManagedProfile": {
+          "WordSize": 8,
+          "Schedulers": 1,
+          "Online": 1,
+          "DebugCompiled": false
+        },
+        "OriginalRoles": {
+          "family-default-atomics": {
+            "Node": "nonode@nohost",
+            "Creation": 0,
+            "Words": [
+              203646,
+              1154088961,
+              675172459
+            ]
+          },
+          "family-explicit-atomics": {
+            "Node": "nonode@nohost",
+            "Creation": 0,
+            "Words": [
+              203647,
+              1154088961,
+              675172459
+            ]
+          },
+          "family-write-concurrency": {
+            "Node": "nonode@nohost",
+            "Creation": 0,
+            "Words": [
+              203648,
+              1154088961,
+              675172459
+            ]
+          },
+          "native-counters": {
+            "Node": "nonode@nohost",
+            "Creation": 0,
+            "Words": [
+              203649,
+              1154088961,
+              675172459
+            ]
+          },
+          "native-wrong-kind-atomics": {
+            "Node": "nonode@nohost",
+            "Creation": 0,
+            "Words": [
+              203650,
+              1154088961,
+              675172459
+            ]
+          },
+          "scheduler-write-concurrency": {
+            "Node": "nonode@nohost",
+            "Creation": 0,
+            "Words": [
+              203651,
+              1154088961,
+              675172459
+            ]
+          }
+        },
+        "ManagedRoles": {
+          "family-default-atomics": {
+            "Node": "nonode@nohost",
+            "Creation": 0,
+            "Words": [
+              217109,
+              1292500992,
+              742124188
+            ]
+          },
+          "family-explicit-atomics": {
+            "Node": "nonode@nohost",
+            "Creation": 0,
+            "Words": [
+              221044,
+              1257373696,
+              2996001747
+            ]
+          },
+          "family-write-concurrency": {
+            "Node": "nonode@nohost",
+            "Creation": 0,
+            "Words": [
+              134828,
+              4204920832,
+              3615472753
+            ]
+          },
+          "native-counters": {
+            "Node": "nonode@nohost",
+            "Creation": 0,
+            "Words": [
+              96127,
+              3562668032,
+              3912295352
+            ]
+          },
+          "native-wrong-kind-atomics": {
+            "Node": "nonode@nohost",
+            "Creation": 0,
+            "Words": [
+              221984,
+              3441557504,
+              150075177
+            ]
+          },
+          "scheduler-write-concurrency": {
+            "Node": "nonode@nohost",
+            "Creation": 0,
+            "Words": [
+              48856,
+              3740663808,
+              2553651217
+            ]
+          }
+        },
+        "OccurrenceRoles": [
+          "family-default-atomics",
+          "family-default-atomics",
+          "family-default-atomics",
+          "family-default-atomics",
+          "family-default-atomics",
+          "family-default-atomics",
+          "family-default-atomics",
+          "family-default-atomics",
+          "family-default-atomics",
+          "family-default-atomics",
+          "family-default-atomics",
+          "family-default-atomics",
+          "family-default-atomics",
+          "family-default-atomics",
+          "family-explicit-atomics",
+          "family-explicit-atomics",
+          "family-explicit-atomics",
+          "family-explicit-atomics",
+          "family-explicit-atomics",
+          "family-explicit-atomics",
+          "family-explicit-atomics",
+          "family-explicit-atomics",
+          "family-explicit-atomics",
+          "family-explicit-atomics",
+          "family-explicit-atomics",
+          "family-explicit-atomics",
+          "family-explicit-atomics",
+          "family-explicit-atomics",
+          "family-write-concurrency",
+          "family-write-concurrency",
+          "family-write-concurrency",
+          "family-write-concurrency",
+          "family-write-concurrency",
+          "family-write-concurrency",
+          "family-write-concurrency",
+          "family-write-concurrency",
+          "family-write-concurrency",
+          "family-write-concurrency",
+          "family-write-concurrency",
+          "family-write-concurrency",
+          "family-write-concurrency",
+          "family-write-concurrency",
+          "native-counters",
+          "native-wrong-kind-atomics",
+          "native-wrong-kind-atomics",
+          "native-counters",
+          "native-counters",
+          "native-counters",
+          "native-counters",
+          "native-counters",
+          "scheduler-write-concurrency"
+        ],
+        "Failure": null
+      },
+      "OwnReferenceDeterministic": {
+        "Passed": true,
+        "OriginalProfile": {
+          "WordSize": 8,
+          "Schedulers": 1,
+          "Online": 1,
+          "DebugCompiled": false
+        },
+        "ManagedProfile": {
+          "WordSize": 8,
+          "Schedulers": 1,
+          "Online": 1,
+          "DebugCompiled": false
+        },
+        "OriginalRoles": {
+          "family-default-atomics": {
+            "Node": "nonode@nohost",
+            "Creation": 0,
+            "Words": [
+              203646,
+              1154088961,
+              675172459
+            ]
+          },
+          "family-explicit-atomics": {
+            "Node": "nonode@nohost",
+            "Creation": 0,
+            "Words": [
+              203647,
+              1154088961,
+              675172459
+            ]
+          },
+          "family-write-concurrency": {
+            "Node": "nonode@nohost",
+            "Creation": 0,
+            "Words": [
+              203648,
+              1154088961,
+              675172459
+            ]
+          },
+          "native-counters": {
+            "Node": "nonode@nohost",
+            "Creation": 0,
+            "Words": [
+              203649,
+              1154088961,
+              675172459
+            ]
+          },
+          "native-wrong-kind-atomics": {
+            "Node": "nonode@nohost",
+            "Creation": 0,
+            "Words": [
+              203650,
+              1154088961,
+              675172459
+            ]
+          },
+          "scheduler-write-concurrency": {
+            "Node": "nonode@nohost",
+            "Creation": 0,
+            "Words": [
+              203651,
+              1154088961,
+              675172459
+            ]
+          }
+        },
+        "ManagedRoles": {
+          "family-default-atomics": {
+            "Node": "nonode@nohost",
+            "Creation": 0,
+            "Words": [
+              217109,
+              1292500992,
+              742124188
+            ]
+          },
+          "family-explicit-atomics": {
+            "Node": "nonode@nohost",
+            "Creation": 0,
+            "Words": [
+              221044,
+              1257373696,
+              2996001747
+            ]
+          },
+          "family-write-concurrency": {
+            "Node": "nonode@nohost",
+            "Creation": 0,
+            "Words": [
+              134828,
+              4204920832,
+              3615472753
+            ]
+          },
+          "native-counters": {
+            "Node": "nonode@nohost",
+            "Creation": 0,
+            "Words": [
+              96127,
+              3562668032,
+              3912295352
+            ]
+          },
+          "native-wrong-kind-atomics": {
+            "Node": "nonode@nohost",
+            "Creation": 0,
+            "Words": [
+              221984,
+              3441557504,
+              150075177
+            ]
+          },
+          "scheduler-write-concurrency": {
+            "Node": "nonode@nohost",
+            "Creation": 0,
+            "Words": [
+              48856,
+              3740663808,
+              2553651217
+            ]
+          }
+        },
+        "OccurrenceRoles": [
+          "family-default-atomics",
+          "family-default-atomics",
+          "family-default-atomics",
+          "family-default-atomics",
+          "family-default-atomics",
+          "family-default-atomics",
+          "family-default-atomics",
+          "family-default-atomics",
+          "family-default-atomics",
+          "family-default-atomics",
+          "family-default-atomics",
+          "family-default-atomics",
+          "family-default-atomics",
+          "family-default-atomics",
+          "family-explicit-atomics",
+          "family-explicit-atomics",
+          "family-explicit-atomics",
+          "family-explicit-atomics",
+          "family-explicit-atomics",
+          "family-explicit-atomics",
+          "family-explicit-atomics",
+          "family-explicit-atomics",
+          "family-explicit-atomics",
+          "family-explicit-atomics",
+          "family-explicit-atomics",
+          "family-explicit-atomics",
+          "family-explicit-atomics",
+          "family-explicit-atomics",
+          "family-write-concurrency",
+          "family-write-concurrency",
+          "family-write-concurrency",
+          "family-write-concurrency",
+          "family-write-concurrency",
+          "family-write-concurrency",
+          "family-write-concurrency",
+          "family-write-concurrency",
+          "family-write-concurrency",
+          "family-write-concurrency",
+          "family-write-concurrency",
+          "family-write-concurrency",
+          "family-write-concurrency",
+          "family-write-concurrency",
+          "native-counters",
+          "native-wrong-kind-atomics",
+          "native-wrong-kind-atomics",
+          "native-counters",
+          "native-counters",
+          "native-counters",
+          "native-counters",
+          "native-counters",
+          "scheduler-write-concurrency"
+        ],
+        "Failure": null
+      },
+      "Artifacts": [
+        {
+          "Path": "actual/actual-stock-owners-after.etf",
+          "Bytes": 1171,
+          "Sha256": "A64D2E9D2B1B19F1244449A768AC5E63F5382777642A618D0311B6348109762C"
+        },
+        {
+          "Path": "actual/actual-stock-owners-before.etf",
+          "Bytes": 1171,
+          "Sha256": "A64D2E9D2B1B19F1244449A768AC5E63F5382777642A618D0311B6348109762C"
+        },
+        {
+          "Path": "actual/cleanup610.json",
+          "Bytes": 294,
+          "Sha256": "D6D682B12666F1CF6EC47C70ACBCB6364F3F15BD3146DC478E22DA8E71E2B09A"
+        },
+        {
+          "Path": "actual/comparison.json",
+          "Bytes": 8608,
+          "Sha256": "F2C34BF2571E08792576E772BAC26AA91E05EA114406B945AC87F741CE0DC611"
+        },
+        {
+          "Path": "actual/observed-deterministic.etf",
+          "Bytes": 46361,
+          "Sha256": "73F1EC971D0C35FA08034FF6BFEF34B48FF3A9F14C2F90F910355AA3D0BE9D05"
+        },
+        {
+          "Path": "actual/observed.etf",
+          "Bytes": 46361,
+          "Sha256": "73F1EC971D0C35FA08034FF6BFEF34B48FF3A9F14C2F90F910355AA3D0BE9D05"
+        },
+        {
+          "Path": "dotnet-host.trace",
+          "Bytes": 118075,
+          "Sha256": "4E1FE441B05E733DAADF858630A15CC563024AE9CA63FA6BFF615607DD3C92C6"
+        },
+        {
+          "Path": "managed.exit.json",
+          "Bytes": 1138,
+          "Sha256": "FD94E30BE79A0CB6BF3ACE859641F2F43D242BF347327E947DC84D80569844EE"
+        },
+        {
+          "Path": "managed.live.json",
+          "Bytes": 889,
+          "Sha256": "4FCA61149336E84699EA1B453EA25506888B09C5128CA4DED9A087EF36CF202F"
+        },
+        {
+          "Path": "managed.stderr.log",
+          "Bytes": 0,
+          "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+        },
+        {
+          "Path": "managed.stdout.log",
+          "Bytes": 0,
+          "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+        },
+        {
+          "Path": "request.json",
+          "Bytes": 878,
+          "Sha256": "9C3377C031C3C884F64EC217B61E95534028CD606249A556CC2B0967FE83B804"
+        }
+      ]
+    }
+  ],
+  "ExpectedManagedRoutes": 2,
+  "CompletedManagedRoutes": 2,
+  "OwnReferenceProtocolOptIn": true,
+  "ComparisonPolicy": "WholeDefaultAndDeterministicEtfOutsideAuthenticatedSixRoleMagicNumberWords610",
+  "EachManagedVmHasOwnReferenceBinding": true,
+  "RawEtfRewritten": false,
+  "WholeContractsClosed": 0,
+  "ManagedComparisonPerformed": true,
+  "ManagedReplaySkipped": false,
+  "ArtifactInventorySha256": "1C05FA420B7999F025DF157019D0BF6ED48DBBC4B89925A2F7CE3484028EE650",
+  "ManagedHostSha256": "8C0B475CE350B376B76D3B135755F2262EA008B7262C1B77E82083513A6D69CB",
+  "SourcePlanSha256": "3ED181CD9AD5BDE677C4861649455FE8A7F3A7D3FAAED96FA83461D6CE9CA9A7"
+}

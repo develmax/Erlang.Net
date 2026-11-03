@@ -3,7 +3,7 @@ namespace Erlang;
 public sealed partial class ProcessContext
 {
     internal ValueTask<Term> InvokeImageNif535(NifImageCall native, IReadOnlyList<Term> arguments)
-        => native.GuestNative535 && Runtime.OwnedTermsPilot506
+        => native.GuestNative535 && OwnedExecutionEnabled683
             && CurrentOwned506 is { IsDisposed: false } && RuntimeActorExecutionTurn.IsOwnedBy(this)
                 ? AwaitGuestNif535(native, arguments)
                 : InvokeNativePrimitive507(native.InvokeAsync, arguments);
@@ -11,7 +11,7 @@ public sealed partial class ProcessContext
     private async ValueTask<Term> AwaitGuestNif535(NifImageCall native, IReadOnlyList<Term> arguments)
     {
         using var owned = EnterOwnedInvocation506(arguments)!;
-        owned.BindingKind507 = OwnedBindingKind507.NativeGuest535;
+        owned.BindNativeGuestResult535(native);
         try
         {
             Term result = await native.InvokeAsync(this, owned.Arguments);

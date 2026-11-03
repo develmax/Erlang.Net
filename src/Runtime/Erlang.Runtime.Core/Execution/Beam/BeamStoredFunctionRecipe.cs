@@ -3,8 +3,9 @@ namespace Erlang;
 internal sealed record BeamStoredFunctionRecipe(BeamClosureBinding Binding) : IRuntimeStoredFunctionRecipe, ICanonicalGuestRecipe507
 {
     bool ICanonicalGuestRecipe507.AdmittedTo507(ProcessRuntime runtime)
-        => Binding.Execution.Owner is PreparedBeamImage image && ReferenceEquals(image.Owner, runtime.Modules)
-            && image.ExecutionIdentity.NativePrimitives.Values.All(body => runtime.Modules.NativeBorrowKind507(image.ExecutionIdentity, body) != OwnedBindingKind507.Opaque);
+        // The recipe names admitted BEAM code; native entries still pass through
+        // the interpreter's per-image/per-delegate opaque or reviewed boundary.
+        => Binding.Execution.Owner is PreparedBeamImage image && ReferenceEquals(image.Owner, runtime.Modules);
 
     public FunctionTerm Rebind(IReadOnlyList<Term> environment)
         => BeamClosureFactory.Create(

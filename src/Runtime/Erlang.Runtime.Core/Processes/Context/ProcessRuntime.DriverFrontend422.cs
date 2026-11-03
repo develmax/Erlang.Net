@@ -102,13 +102,21 @@ public sealed partial class ProcessRuntime
     private bool DriverFrontendRetirementCompleted422
         => driverFrontendInstalling422 is null && driverFrontend422?.RetirementCompletedSuccessfully != false;
 
-    private Task DriverFrontendProcessRetirement422(ProcessContext context, Task previous)
+    private Task DriverFrontendProcessRetirement422(
+        ProcessContext context,
+        Task previous,
+        RuntimeProcessPayload641? reason641 = null
+    )
     {
         if (driverFrontend422 is null && driverFrontendInstalling422 is null) return previous;
 
         return Task.WhenAll(
             previous,
-            driverFrontend422?.ProcessTerminated(context, context.ExitReason ?? Term.A(ProcessExitReasons.Normal)) ?? Task.CompletedTask,
+            driverFrontend422?.ProcessTerminated(
+                context,
+                context.ExitReason ?? Term.A(ProcessExitReasons.Normal),
+                reason641
+            ) ?? Task.CompletedTask,
             context.Self.Equals(InitializationPid) ? CloseDriverFrontend422() : Task.CompletedTask
         );
     }

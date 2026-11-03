@@ -11,9 +11,8 @@ public sealed partial class ProcessRuntime
             Atom { Name: InternalGarbageCollectionNames428.Major } => true,
             _ => throw new ErlangException(ErlangErrorReasons.BadArgument)
         };
-        // Same authoritative policy and real collector as the public process-GC
-        // implementation. State advances only after GC.Collect succeeds.
-        context.CollectManagedGarbage(major, CollectManagedHeap);
+        // Same actor-safe target collector as public process GC; no R/M walk.
+        CollectAtProcessSafePoint(context, major);
         RequireBeamfileActor418(context);
 
         return CoreModules.Boolean(true);

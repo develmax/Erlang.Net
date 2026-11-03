@@ -1,0 +1,50 @@
+{
+  "Names": [
+    "runtime/binary598/pinned-x64-simd-trie-root-bytes-and-cap"
+  ],
+  "Assemblies": {
+    "Host": "31812027330C51D804925F25EC4E44E8C42934383CB76DBFDE2C5EBB4405DE41",
+    "Runtime": "4058F442F0CDAEEC4981A5075E45DB89852E4E82C2DD9F086E71B7BA85173012"
+  },
+  "Receipt": {
+    "Command": [
+      "dotnet",
+      "exec",
+      "--fx-version",
+      "10.0.11",
+      "D:\\Distr\\Work\\Codex\\Erlang.Net\\w536\\tests\\Erlang.Tests\\bin\\Release\\net10.0\\Erlang.Tests.dll",
+      "--case",
+      "runtime/binary598/pinned-x64-simd-trie-root-bytes-and-cap",
+      "--report",
+      "D:\\Distr\\Work\\Codex\\Erlang.Net\\w536\\artifacts\\resource536\\simd-real-red\\report.json"
+    ],
+    "Pid": 12188,
+    "ElapsedSeconds": 1.2040000000015425,
+    "TimedOut": false,
+    "Settled": true,
+    "ExitCode": 1,
+    "Failures": [],
+    "StdoutSha256": "574BD73F74232560E3F47D33E619B6F981767B48F8ADC70AA3B65D002FCC0D88",
+    "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+  },
+  "Report": {
+    "Partial": true,
+    "SelectedCount": 1,
+    "TotalCount": 9339,
+    "Blocks": [],
+    "ExactCases": [
+      "runtime/binary598/pinned-x64-simd-trie-root-bytes-and-cap"
+    ],
+    "Passed": 0,
+    "Failed": 1,
+    "Tests": [
+      {
+        "Name": "runtime/binary598/pinned-x64-simd-trie-root-bytes-and-cap",
+        "Status": "Failed",
+        "Error": "System.InvalidOperationException: Binary598 actual arena/root invariant failed.\r\n   at Erlang.Tests.BinaryArena598Checks.Require(Boolean value) in D:\\Distr\\Work\\Codex\\Erlang.Net\\w536\\tests\\Erlang.Tests\\Otp\\Stdlib\\Binary\\BinaryArena598Checks.cs:line 133\r\n   at Erlang.Tests.BinaryArena598Checks.<>c__DisplayClass3_0.<<AcRootMetadata>b__2>d.MoveNext() in D:\\Distr\\Work\\Codex\\Erlang.Net\\w536\\tests\\Erlang.Tests\\Otp\\Stdlib\\Binary\\BinaryArena598Checks.cs:line 107\r\n--- End of stack trace from previous location ---\r\n   at Erlang.Tests.BinaryArena598Fixture.Run(Term input, Func`2 body) in D:\\Distr\\Work\\Codex\\Erlang.Net\\w536\\tests\\Erlang.Tests\\Otp\\Stdlib\\Binary\\BinaryArena598Fixture.cs:line 58\r\n   at Erlang.Tests.BinaryArena598Fixture.Run(Term input, Func`2 body) in D:\\Distr\\Work\\Codex\\Erlang.Net\\w536\\tests\\Erlang.Tests\\Otp\\Stdlib\\Binary\\BinaryArena598Fixture.cs:line 69\r\n   at Erlang.Tests.BinaryArena598Checks.AcRootMetadata() in D:\\Distr\\Work\\Codex\\Erlang.Net\\w536\\tests\\Erlang.Tests\\Otp\\Stdlib\\Binary\\BinaryArena598Checks.cs:line 101\r\n   at Program.<Main>$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\w536\\tests\\Erlang.Tests\\Harness\\Program.cs:line 7684",
+        "Milliseconds": 123
+      }
+    ]
+  },
+  "ExpectedRed": true
+}

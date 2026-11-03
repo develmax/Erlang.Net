@@ -1,0 +1,2784 @@
+{
+  "Schema": 1,
+  "SourcePin": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "CurrentHead": "c7fb01a757d04dc4ec08fdee99ab212d85b72f15",
+  "State": "SOURCE_ONLY_COMPLETE_TOP_LEVEL_SELECTOR_INVENTORY; no execution or full-contract promotion",
+  "MFAs": [
+    "erlang:process_info/1",
+    "erlang:process_info/2",
+    "erlang:system_flag/2",
+    "erlang:statistics/1"
+  ],
+  "KnownDifferencesClosed": 0,
+  "Count": {
+    "ProcessInfoSlots": 41,
+    "ProcessInfoAtomSelectors": 40,
+    "ProcessInfoTupleSelectors": 1,
+    "ProcessInfoDefaultItems": 17,
+    "SystemFlagNativeSelectors": 22,
+    "StatisticsNativeSelectors": 20
+  },
+  "ProcessInfo1": {
+    "DefaultOrder": [
+      "registered_name",
+      "current_function",
+      "initial_call",
+      "status",
+      "message_queue_len",
+      "links",
+      "dictionary",
+      "trap_exit",
+      "error_handler",
+      "priority",
+      "group_leader",
+      "total_heap_size",
+      "heap_size",
+      "stack_size",
+      "reductions",
+      "garbage_collection",
+      "suspending"
+    ],
+    "CurrentMissingDefaultKeys": [
+      "total_heap_size",
+      "heap_size",
+      "stack_size",
+      "garbage_collection"
+    ],
+    "CurrentFiles": [
+      "src/Runtime/Erlang.Runtime.Core/Processes/ProcessInfoDefaultRegistrations.cs",
+      "src/Runtime/Erlang.Runtime.Core/Processes/ProcessInfoDefaultCatalog.cs",
+      "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.DefaultProcessInfo.cs"
+    ],
+    "Status": "Returns logical subset rather than original full17; still Known",
+    "P6Gate": "All17 original fields/order/registered-name omission plus own-state fields under complete resource policy"
+  },
+  "ProcessInfo2": [
+    {
+      "Id": "pi.00.registered_name",
+      "Selector": "registered_name",
+      "AtomKey": "registered_name",
+      "Index": 0,
+      "RequestValueTypes": "Exact atom selector",
+      "ResultValue": "atom | []",
+      "ResultEnvelope": "{Selector,Value}; registered_name singleton unregistered is[]; dead isundefined",
+      "CurrentState": "Implemented path; full source/effects/stacks unverified",
+      "CurrentFiles": [
+        "src/Runtime/Erlang.Runtime.Core/Processes/ProcessInfoRegistrations.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/ProcessInfoItem.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/ProcessInfoAtoms.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.ProcessInfo.cs"
+      ],
+      "PinnedTableLine": 814,
+      "PinnedFlagsAndLocks": " 0, 0, ERTS_PROC_LOCK_MAIN}",
+      "Execution": {
+        "Path": "erts/emulator/beam/erl_bif_info.c",
+        "StartLine": 1624,
+        "EndLine": 1635,
+        "Text": "    case ERTS_PI_IX_REGISTERED_NAME:\n\tif (rp->common.u.alive.reg)\n\t    res = rp->common.u.alive.reg->name;\n        else {\n\t    if (flags & ERTS_PI_FLAG_ALWAYS_WRAP)\n\t\tres = NIL;\n\t    else\n\t\treturn NIL;\n\t}\n\tbreak;\n\n"
+      },
+      "RequiredPartitions": [
+        "registered/unregistered; singleton [] versus explicit list {registered_name,[]} versus default omission",
+        "registration/unregistration races"
+      ],
+      "CommonPartitions": [
+        "pi.targets",
+        "pi.selector_forms",
+        "pi.order_duplicates",
+        "pi.signals",
+        "pi.errors_full_stacks",
+        "profiles"
+      ],
+      "P6Gate": "All common/key-specific partitions,actual root custody and retained whole raw values/errors/stacks; resource fields require P6.resources, no global CLR estimates",
+      "VerifiedWholeContract": false
+    },
+    {
+      "Id": "pi.01.current_function",
+      "Selector": "current_function",
+      "AtomKey": "current_function",
+      "Index": 1,
+      "RequestValueTypes": "Exact atom selector",
+      "ResultValue": "{Module,Function,Arity} | undefined",
+      "ResultEnvelope": "{Selector,Value}; registered_name singleton unregistered is[]; dead isundefined",
+      "CurrentState": "Implemented path; full source/effects/stacks unverified",
+      "CurrentFiles": [
+        "src/Runtime/Erlang.Runtime.Core/Processes/ProcessInfoRegistrations.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/ProcessInfoItem.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/ProcessInfoAtoms.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.ProcessInfo.cs"
+      ],
+      "PinnedTableLine": 815,
+      "PinnedFlagsAndLocks": " 4, ERTS_PI_FLAG_FORCE_SIG_SEND, ERTS_PROC_LOCK_MAIN}",
+      "Execution": {
+        "Path": "erts/emulator/beam/erl_bif_info.c",
+        "StartLine": 1635,
+        "EndLine": 1640,
+        "Text": "    case ERTS_PI_IX_CURRENT_FUNCTION:\n\tres = current_function(c_p, hfact, rp, 0,\n                               reserve_size, flags);\n\tbreak;\n\n"
+      },
+      "RequiredPartitions": [
+        "self original source/BEAM/native BIF; held other worker; hibernate; tailcall/current native trap"
+      ],
+      "CommonPartitions": [
+        "pi.targets",
+        "pi.selector_forms",
+        "pi.order_duplicates",
+        "pi.signals",
+        "pi.errors_full_stacks",
+        "profiles"
+      ],
+      "P6Gate": "All common/key-specific partitions,actual root custody and retained whole raw values/errors/stacks; resource fields require P6.resources, no global CLR estimates",
+      "VerifiedWholeContract": false
+    },
+    {
+      "Id": "pi.02.initial_call",
+      "Selector": "initial_call",
+      "AtomKey": "initial_call",
+      "Index": 2,
+      "RequestValueTypes": "Exact atom selector",
+      "ResultValue": "{Module,Function,Arity}",
+      "ResultEnvelope": "{Selector,Value}; registered_name singleton unregistered is[]; dead isundefined",
+      "CurrentState": "Implemented path; full source/effects/stacks unverified",
+      "CurrentFiles": [
+        "src/Runtime/Erlang.Runtime.Core/Processes/ProcessInfoRegistrations.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/ProcessInfoItem.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/ProcessInfoAtoms.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.ProcessInfo.cs"
+      ],
+      "PinnedTableLine": 816,
+      "PinnedFlagsAndLocks": " 4, 0, ERTS_PROC_LOCK_MAIN}",
+      "Execution": {
+        "Path": "erts/emulator/beam/erl_bif_info.c",
+        "StartLine": 1649,
+        "EndLine": 1658,
+        "Text": "    case ERTS_PI_IX_INITIAL_CALL:\n        hp = erts_produce_heap(hfact, 4, reserve_size);\n\tres = TUPLE3(hp,\n\t\t     rp->u.initial.module,\n\t\t     rp->u.initial.function,\n\t\t     make_small(rp->u.initial.arity));\n\thp += 4;\n\tbreak;\n\n"
+      },
+      "RequiredPartitions": [
+        "read current exact state and state transition via corresponding process flag/native producer"
+      ],
+      "CommonPartitions": [
+        "pi.targets",
+        "pi.selector_forms",
+        "pi.order_duplicates",
+        "pi.signals",
+        "pi.errors_full_stacks",
+        "profiles"
+      ],
+      "P6Gate": "All common/key-specific partitions,actual root custody and retained whole raw values/errors/stacks; resource fields require P6.resources, no global CLR estimates",
+      "VerifiedWholeContract": false
+    },
+    {
+      "Id": "pi.03.status",
+      "Selector": "status",
+      "AtomKey": "status",
+      "Index": 3,
+      "RequestValueTypes": "Exact atom selector",
+      "ResultValue": "exiting | garbage_collecting | suspended | runnable | running | waiting",
+      "ResultEnvelope": "{Selector,Value}; registered_name singleton unregistered is[]; dead isundefined",
+      "CurrentState": "Implemented path; full source/effects/stacks unverified",
+      "CurrentFiles": [
+        "src/Runtime/Erlang.Runtime.Core/Processes/ProcessInfoRegistrations.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/ProcessInfoItem.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/ProcessInfoAtoms.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.ProcessInfo.cs"
+      ],
+      "PinnedTableLine": 817,
+      "PinnedFlagsAndLocks": " 0, 0, 0}",
+      "Execution": {
+        "Path": "erts/emulator/beam/erl_bif_info.c",
+        "StartLine": 1658,
+        "EndLine": 1690,
+        "Text": "    case ERTS_PI_IX_STATUS: {\n        erts_aint32_t state;\n        if (!rp_locks)\n            state = erts_atomic32_read_mb(&rp->state);\n        else\n            state = erts_atomic32_read_nob(&rp->state);\n        res = erts_process_state2status(state);\n        if (res == am_running\n            && c_p == rp\n            && (state & ERTS_PSFLG_RUNNING_SYS)) {\n            ASSERT(flags & ERTS_PI_FLAG_REQUEST_FOR_OTHER);\n            if (!(state & (ERTS_PSFLG_ACTIVE\n                           | ERTS_PSFLG_SIG_Q\n                           | ERTS_PSFLG_NMSG_SIG_IN_Q))) {\n                int sys_tasks = 0;\n                if (state & ERTS_PSFLG_SYS_TASKS)\n                    sys_tasks = erts_have_non_prio_elev_sys_tasks(rp,\n                                                                  rp_locks);\n                if (!sys_tasks) {\n                    /*\n                     * We are servicing a process-info request from\n                     * another process. If that other process could\n                     * have inspected our state itself, we would have\n                     * been in the 'waiting' state.\n                     */\n                    res = am_waiting;\n                }\n            }\n        }\n\tbreak;\n    }\n\n"
+      },
+      "RequiredPartitions": [
+        "running,runnable,waiting,suspended,garbage_collecting,exiting; dirty/system-task waits"
+      ],
+      "CommonPartitions": [
+        "pi.targets",
+        "pi.selector_forms",
+        "pi.order_duplicates",
+        "pi.signals",
+        "pi.errors_full_stacks",
+        "profiles"
+      ],
+      "P6Gate": "All common/key-specific partitions,actual root custody and retained whole raw values/errors/stacks; resource fields require P6.resources, no global CLR estimates",
+      "VerifiedWholeContract": false
+    },
+    {
+      "Id": "pi.04.messages",
+      "Selector": "messages",
+      "AtomKey": "messages",
+      "Index": 4,
+      "RequestValueTypes": "Exact atom selector",
+      "ResultValue": "[Term]",
+      "ResultEnvelope": "{Selector,Value}; registered_name singleton unregistered is[]; dead isundefined",
+      "CurrentState": "Implemented path; full source/effects/stacks unverified; sensitive suppression not represented in current ProcessRuntime.Info dispatch",
+      "CurrentFiles": [
+        "src/Runtime/Erlang.Runtime.Core/Processes/ProcessInfoRegistrations.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/ProcessInfoItem.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/ProcessInfoAtoms.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.ProcessInfo.cs"
+      ],
+      "PinnedTableLine": 818,
+      "PinnedFlagsAndLocks": " 0, ERTS_PI_FLAG_WANT_MSGS|ERTS_PI_FLAG_NEED_MSGQ|ERTS_PI_FLAG_FORCE_SIG_SEND, ERTS_PROC_LOCK_MAIN}",
+      "Execution": {
+        "Path": "erts/emulator/beam/erl_bif_info.c",
+        "StartLine": 1690,
+        "EndLine": 1742,
+        "Text": "    case ERTS_PI_IX_MESSAGES: {\n        ASSERT(flags & ERTS_PI_FLAG_NEED_MSGQ);\n\tif (rp->sig_qs.mq_len == 0 || (ERTS_IS_PROC_SENSITIVE(rp))) {\n            *msgq_len_p = 0;\n            res = NIL;\n        }\n        else {\n            int info_on_self = !(flags & ERTS_PI_FLAG_REQUEST_FOR_OTHER);\n\t    ErtsMessageInfo *mip;\n\t    Sint i, len;\n\t    Uint heap_need;\n\n\t    mip = erts_alloc(ERTS_ALC_T_TMP,\n\t\t\t     rp->sig_qs.mq_len*sizeof(ErtsMessageInfo));\n\n\t    /*\n\t     * Note that message queue may shrink when calling\n\t     * erts_proc_sig_prep_msgq_for_inspection() since it removes\n\t     * corrupt distribution messages.\n\t     */\n\t    heap_need = erts_proc_sig_prep_msgq_for_inspection(c_p, rp,\n                                                               rp_locks,\n                                                               info_on_self,\n                                                               mip, msgq_len_p);\n            len = *msgq_len_p;\n\n\t    heap_need += len*2; /* Cons cells */\n\n            reserve_size += heap_need;\n\n\t    /* Build list of messages... */\n\t    for (i = len - 1, res = NIL; i >= 0; i--) {\n\t\tEterm msg = ERL_MESSAGE_TERM(mip[i].msgp);\n\t\tUint sz = mip[i].size;\n\n                ERTS_PI_UNRESERVE(reserve_size, sz+2);\n                hp = erts_produce_heap(hfact, sz+2, reserve_size);\n\n\t\tif (sz != 0)\n\t\t    msg = copy_struct(msg, sz, &hp, hfact->off_heap);\n\n\t\tres = CONS(hp, msg, res);\n\t\thp += 2;\n\t    }\n\n            *reds += (Uint) len / 4;\n\n\t    erts_free(ERTS_ALC_T_TMP, mip);\n\t}\n\tbreak;\n    }\n\n"
+      },
+      "RequiredPartitions": [
+        "ordinary/priority receive ordering; on_heap/off_heap",
+        "sensitive suppresses payload to[]; combined messages/len query uses that observed length",
+        "corrupt distribution-message removal before len; source copy/sharing across queried process"
+      ],
+      "CommonPartitions": [
+        "pi.targets",
+        "pi.selector_forms",
+        "pi.order_duplicates",
+        "pi.signals",
+        "pi.errors_full_stacks",
+        "profiles"
+      ],
+      "P6Gate": "All common/key-specific partitions,actual root custody and retained whole raw values/errors/stacks; resource fields require P6.resources, no global CLR estimates",
+      "VerifiedWholeContract": false
+    },
+    {
+      "Id": "pi.05.message_queue_len",
+      "Selector": "message_queue_len",
+      "AtomKey": "message_queue_len",
+      "Index": 5,
+      "RequestValueTypes": "Exact atom selector",
+      "ResultValue": "non_neg_integer()",
+      "ResultEnvelope": "{Selector,Value}; registered_name singleton unregistered is[]; dead isundefined",
+      "CurrentState": "Implemented path; full source/effects/stacks unverified",
+      "CurrentFiles": [
+        "src/Runtime/Erlang.Runtime.Core/Processes/ProcessInfoRegistrations.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/ProcessInfoItem.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/ProcessInfoAtoms.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.ProcessInfo.cs"
+      ],
+      "PinnedTableLine": 819,
+      "PinnedFlagsAndLocks": " 0, 0, ERTS_PROC_LOCK_MAIN}",
+      "Execution": {
+        "Path": "erts/emulator/beam/erl_bif_info.c",
+        "StartLine": 1742,
+        "EndLine": 1757,
+        "Text": "    case ERTS_PI_IX_MESSAGE_QUEUE_LEN: {\n        Sint len = *msgq_len_p;\n        if (len < 0) {\n            len = rp->sig_qs.mq_len;\n        }\n        ASSERT(len >= 0);\n        if (len <= MAX_SMALL)\n            res = make_small(len);\n        else {\n            hp = erts_produce_heap(hfact, BIG_UINT_HEAP_SIZE, reserve_size);\n            res = uint_to_big((Uint) len, hp);\n        }\n\tbreak;\n    }\n\n"
+      },
+      "RequiredPartitions": [
+        "alone versus [messages,message_queue_len] including sensitive/corrupt queue; same captured boundary"
+      ],
+      "CommonPartitions": [
+        "pi.targets",
+        "pi.selector_forms",
+        "pi.order_duplicates",
+        "pi.signals",
+        "pi.errors_full_stacks",
+        "profiles"
+      ],
+      "P6Gate": "All common/key-specific partitions,actual root custody and retained whole raw values/errors/stacks; resource fields require P6.resources, no global CLR estimates",
+      "VerifiedWholeContract": false
+    },
+    {
+      "Id": "pi.06.links",
+      "Selector": "links",
+      "AtomKey": "links",
+      "Index": 6,
+      "RequestValueTypes": "Exact atom selector",
+      "ResultValue": "[pid() | port()]",
+      "ResultEnvelope": "{Selector,Value}; registered_name singleton unregistered is[]; dead isundefined",
+      "CurrentState": "Implemented path; full source/effects/stacks unverified",
+      "CurrentFiles": [
+        "src/Runtime/Erlang.Runtime.Core/Processes/ProcessInfoRegistrations.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/ProcessInfoItem.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/ProcessInfoAtoms.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.ProcessInfo.cs"
+      ],
+      "PinnedTableLine": 820,
+      "PinnedFlagsAndLocks": " 0, ERTS_PI_FLAG_FORCE_SIG_SEND, ERTS_PROC_LOCK_MAIN}",
+      "Execution": {
+        "Path": "erts/emulator/beam/erl_bif_info.c",
+        "StartLine": 1757,
+        "EndLine": 1783,
+        "Text": "    case ERTS_PI_IX_LINKS: {\n\tMonitorInfoCollection mic;\n\tint i;\n\tEterm item;\n\n\tINIT_MONITOR_INFOS(mic);\n\n\terts_link_tree_foreach(ERTS_P_LINKS(rp), collect_one_link, (void *) &mic);\n\n        reserve_size += mic.sz;\n\tres = NIL;\n\tfor (i = 0; i < mic.mi_i; i++) {\n            Eterm item_src = mic.mi[i].entity.term;\n            Uint sz = NC_HEAP_SIZE(item_src) + 2;\n            ERTS_PI_UNRESERVE(reserve_size, sz);\n            hp = erts_produce_heap(hfact, sz, reserve_size);\n\t    item = STORE_NC(&hp, hfact->off_heap, item_src); \n\t    res = CONS(hp, item, res);\n\t}\n\n        *reds += (Uint) mic.mi_i / 4;\n\n\tDESTROY_MONITOR_INFOS(mic);\n\tbreak;\n    }\n\n"
+      },
+      "RequiredPartitions": [
+        "local/remote pid,port,priority link,unlink/death barriers"
+      ],
+      "CommonPartitions": [
+        "pi.targets",
+        "pi.selector_forms",
+        "pi.order_duplicates",
+        "pi.signals",
+        "pi.errors_full_stacks",
+        "profiles"
+      ],
+      "P6Gate": "All common/key-specific partitions,actual root custody and retained whole raw values/errors/stacks; resource fields require P6.resources, no global CLR estimates",
+      "VerifiedWholeContract": false
+    },
+    {
+      "Id": "pi.07.monitors",
+      "Selector": "monitors",
+      "AtomKey": "monitors",
+      "Index": 7,
+      "RequestValueTypes": "Exact atom selector",
+      "ResultValue": "[{process,Target}|{port,Target}|{time_offset,clock_service}]",
+      "ResultEnvelope": "{Selector,Value}; registered_name singleton unregistered is[]; dead isundefined",
+      "CurrentState": "Implemented path; full source/effects/stacks unverified",
+      "CurrentFiles": [
+        "src/Runtime/Erlang.Runtime.Core/Processes/ProcessInfoRegistrations.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/ProcessInfoItem.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/ProcessInfoAtoms.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.ProcessInfo.cs"
+      ],
+      "PinnedTableLine": 821,
+      "PinnedFlagsAndLocks": " 0, ERTS_PI_FLAG_FORCE_SIG_SEND, ERTS_PROC_LOCK_MAIN}",
+      "Execution": {
+        "Path": "erts/emulator/beam/erl_bif_info.c",
+        "StartLine": 1783,
+        "EndLine": 1859,
+        "Text": "    case ERTS_PI_IX_MONITORS: {\n\tMonitorInfoCollection mic;\n        int i;\n\n\tINIT_MONITOR_INFOS(mic);\n        erts_monitor_tree_foreach(ERTS_P_MONITORS(rp),\n                                  collect_one_origin_monitor,\n                                  (void *) &mic);\n\n        reserve_size += mic.sz;\n\tres = NIL;\n\tfor (i = 0; i < mic.mi_i; i++) {\n\t    if (mic.mi[i].named) {\n\t\t/* Monitor by name. \n                 * Build {process|port, {Name, Node}} and cons it.\n\t\t */\n\t\tEterm t1, t2;\n                /* If pid is an atom, then it is a remote named monitor, which\n                   has to be a process */\n                Eterm m_type = is_port(mic.mi[i].pid) ? am_port : am_process;\n                ASSERT(is_pid(mic.mi[i].pid)\n                    || is_port(mic.mi[i].pid)\n                    || is_atom(mic.mi[i].pid));\n\n                ERTS_PI_UNRESERVE(reserve_size, 3+3+2);\n                hp = erts_produce_heap(hfact, 3+3+2, reserve_size);\n\n\t\tt1 = TUPLE2(hp, mic.mi[i].entity.term, mic.mi[i].node);\n\t\thp += 3;\n                t2 = TUPLE2(hp, m_type, t1);\n\t\thp += 3;\n\t\tres = CONS(hp, t2, res);\n\t    }\n\t    else {\n                /* Build {process|port|time_offset, Pid|clock_service} and cons it. */\n\t\tEterm t;\n\t\tEterm pid;\n                Eterm m_type;\n                Eterm pid_src = mic.mi[i].entity.term;\n                Uint sz = is_atom(pid_src) ? 0 : NC_HEAP_SIZE(pid_src);\n                sz += 3 + 2;\n\n                ERTS_PI_UNRESERVE(reserve_size, sz);\n                hp = erts_produce_heap(hfact, sz, reserve_size);\n\n                pid = (is_atom(pid_src)\n                       ? pid_src\n                       : STORE_NC(&hp, hfact->off_heap, pid_src));\n\n                switch (mic.mi[i].type) {\n                case ERTS_MON_TYPE_PORT:\n                    m_type = am_port;\n                    break;\n                case ERTS_MON_TYPE_TIME_OFFSET:\n                    m_type = am_time_offset;\n                    break;\n                default:\n                    m_type = am_process;\n                    break;\n                }\n\n                ASSERT(is_pid(mic.mi[i].pid)\n                    || is_port(mic.mi[i].pid));\n\n                t = TUPLE2(hp, m_type, pid);\n\t\thp += 3;\n\t\tres = CONS(hp, t, res);\n\t    }\n\t}\n\n        *reds += (Uint) mic.mi_i / 4;\n\n        DESTROY_MONITOR_INFOS(mic);\n\tbreak;\n    }\n\n"
+      },
+      "RequiredPartitions": [
+        "pid/name/port/time_offset/priority/remote and down/pending/demonitor"
+      ],
+      "CommonPartitions": [
+        "pi.targets",
+        "pi.selector_forms",
+        "pi.order_duplicates",
+        "pi.signals",
+        "pi.errors_full_stacks",
+        "profiles"
+      ],
+      "P6Gate": "All common/key-specific partitions,actual root custody and retained whole raw values/errors/stacks; resource fields require P6.resources, no global CLR estimates",
+      "VerifiedWholeContract": false
+    },
+    {
+      "Id": "pi.08.monitored_by",
+      "Selector": "monitored_by",
+      "AtomKey": "monitored_by",
+      "Index": 8,
+      "RequestValueTypes": "Exact atom selector",
+      "ResultValue": "[pid() | port()]",
+      "ResultEnvelope": "{Selector,Value}; registered_name singleton unregistered is[]; dead isundefined",
+      "CurrentState": "Implemented path; full source/effects/stacks unverified",
+      "CurrentFiles": [
+        "src/Runtime/Erlang.Runtime.Core/Processes/ProcessInfoRegistrations.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/ProcessInfoItem.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/ProcessInfoAtoms.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.ProcessInfo.cs"
+      ],
+      "PinnedTableLine": 822,
+      "PinnedFlagsAndLocks": " 0, ERTS_PI_FLAG_FORCE_SIG_SEND, ERTS_PROC_LOCK_MAIN}",
+      "Execution": {
+        "Path": "erts/emulator/beam/erl_bif_info.c",
+        "StartLine": 1859,
+        "EndLine": 1903,
+        "Text": "    case ERTS_PI_IX_MONITORED_BY: {\n\tMonitorInfoCollection mic;\n\tint i;\n\tEterm item;\n\n\tINIT_MONITOR_INFOS(mic);\n        erts_monitor_list_foreach(ERTS_P_LT_MONITORS(rp),\n                                  collect_one_target_monitor,\n                                  (void *) &mic);\n        erts_monitor_tree_foreach(ERTS_P_MONITORS(rp),\n                                  collect_one_target_monitor,\n                                  (void *) &mic);\n\n        reserve_size += mic.sz;\n\n\tres = NIL;\n\tfor (i = 0; i < mic.mi_i; ++i) {\n            Uint sz = 2;\n\n            if (mic.mi[i].type == ERTS_MON_TYPE_RESOURCE)\n                sz += erts_resource_ref_size(mic.mi[i].entity.resource);\n            else\n                sz += NC_HEAP_SIZE(mic.mi[i].entity.term);\n\n            ERTS_PI_UNRESERVE(reserve_size, sz);\n            hp = erts_produce_heap(hfact, sz, reserve_size);\n\n            if (mic.mi[i].type == ERTS_MON_TYPE_RESOURCE)\n                item = erts_bld_resource_ref(&hp,\n                                             hfact->off_heap,\n                                             mic.mi[i].entity.resource);\n            else\n                item = STORE_NC(&hp,\n                                hfact->off_heap,\n                                mic.mi[i].entity.term);\n\t    res = CONS(hp, item, res);\n\t}\n\n        *reds += (Uint) mic.mi_i / 4;\n\n\tDESTROY_MONITOR_INFOS(mic);\n\tbreak;\n    }\n\n"
+      },
+      "RequiredPartitions": [
+        "local/remote observer,port-origin monitors,death/demonitor barriers"
+      ],
+      "CommonPartitions": [
+        "pi.targets",
+        "pi.selector_forms",
+        "pi.order_duplicates",
+        "pi.signals",
+        "pi.errors_full_stacks",
+        "profiles"
+      ],
+      "P6Gate": "All common/key-specific partitions,actual root custody and retained whole raw values/errors/stacks; resource fields require P6.resources, no global CLR estimates",
+      "VerifiedWholeContract": false
+    },
+    {
+      "Id": "pi.09.dictionary",
+      "Selector": "dictionary",
+      "AtomKey": "dictionary",
+      "Index": 9,
+      "RequestValueTypes": "Exact atom selector",
+      "ResultValue": "[{Key,Value}]",
+      "ResultEnvelope": "{Selector,Value}; registered_name singleton unregistered is[]; dead isundefined",
+      "CurrentState": "Implemented path; full source/effects/stacks unverified; sensitive suppression not represented in current ProcessRuntime.Info dispatch",
+      "CurrentFiles": [
+        "src/Runtime/Erlang.Runtime.Core/Processes/ProcessInfoRegistrations.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/ProcessInfoItem.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/ProcessInfoAtoms.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.ProcessInfo.cs"
+      ],
+      "PinnedTableLine": 823,
+      "PinnedFlagsAndLocks": " 0, ERTS_PI_FLAG_FORCE_SIG_SEND, ERTS_PROC_LOCK_MAIN}",
+      "Execution": {
+        "Path": "erts/emulator/beam/erl_bif_info.c",
+        "StartLine": 1963,
+        "EndLine": 1974,
+        "Text": "    case ERTS_PI_IX_DICTIONARY:\n\tif (!rp->dictionary || (ERTS_IS_PROC_SENSITIVE(rp))) {\n\t    res = NIL;\n\t} else {\n            Uint num = rp->dictionary->numElements;\n\t    res = erts_dictionary_copy(hfact, rp->dictionary, reserve_size);\n            *reds += (Uint) num / 4;\n\t}\n\n\tbreak;\n\n"
+      },
+      "RequiredPartitions": [
+        "sensitive returns[]; arbitrary key/value terms; copied other-process values; source order"
+      ],
+      "CommonPartitions": [
+        "pi.targets",
+        "pi.selector_forms",
+        "pi.order_duplicates",
+        "pi.signals",
+        "pi.errors_full_stacks",
+        "profiles"
+      ],
+      "P6Gate": "All common/key-specific partitions,actual root custody and retained whole raw values/errors/stacks; resource fields require P6.resources, no global CLR estimates",
+      "VerifiedWholeContract": false
+    },
+    {
+      "Id": "pi.10.trap_exit",
+      "Selector": "trap_exit",
+      "AtomKey": "trap_exit",
+      "Index": 10,
+      "RequestValueTypes": "Exact atom selector",
+      "ResultValue": "boolean()",
+      "ResultEnvelope": "{Selector,Value}; registered_name singleton unregistered is[]; dead isundefined",
+      "CurrentState": "Implemented path; full source/effects/stacks unverified",
+      "CurrentFiles": [
+        "src/Runtime/Erlang.Runtime.Core/Processes/ProcessInfoRegistrations.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/ProcessInfoItem.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/ProcessInfoAtoms.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.ProcessInfo.cs"
+      ],
+      "PinnedTableLine": 824,
+      "PinnedFlagsAndLocks": " 0, 0, ERTS_PROC_LOCK_MAIN}",
+      "Execution": {
+        "Path": "erts/emulator/beam/erl_bif_info.c",
+        "StartLine": 1974,
+        "EndLine": 1978,
+        "Text": "    case ERTS_PI_IX_TRAP_EXIT:\n        res = (rp->flags & F_TRAP_EXIT) ? am_true : am_false;\n\tbreak;\n\n"
+      },
+      "RequiredPartitions": [
+        "read current exact state and state transition via corresponding process flag/native producer"
+      ],
+      "CommonPartitions": [
+        "pi.targets",
+        "pi.selector_forms",
+        "pi.order_duplicates",
+        "pi.signals",
+        "pi.errors_full_stacks",
+        "profiles"
+      ],
+      "P6Gate": "All common/key-specific partitions,actual root custody and retained whole raw values/errors/stacks; resource fields require P6.resources, no global CLR estimates",
+      "VerifiedWholeContract": false
+    },
+    {
+      "Id": "pi.11.error_handler",
+      "Selector": "error_handler",
+      "AtomKey": "error_handler",
+      "Index": 11,
+      "RequestValueTypes": "Exact atom selector",
+      "ResultValue": "atom()",
+      "ResultEnvelope": "{Selector,Value}; registered_name singleton unregistered is[]; dead isundefined",
+      "CurrentState": "Implemented path; full source/effects/stacks unverified",
+      "CurrentFiles": [
+        "src/Runtime/Erlang.Runtime.Core/Processes/ProcessInfoRegistrations.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/ProcessInfoItem.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/ProcessInfoAtoms.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.ProcessInfo.cs"
+      ],
+      "PinnedTableLine": 825,
+      "PinnedFlagsAndLocks": " 0, 0, ERTS_PROC_LOCK_MAIN}",
+      "Execution": {
+        "Path": "erts/emulator/beam/erl_bif_info.c",
+        "StartLine": 1978,
+        "EndLine": 1982,
+        "Text": "    case ERTS_PI_IX_ERROR_HANDLER:\n\tres = erts_proc_get_error_handler(rp);\n\tbreak;\n\n"
+      },
+      "RequiredPartitions": [
+        "read current exact state and state transition via corresponding process flag/native producer"
+      ],
+      "CommonPartitions": [
+        "pi.targets",
+        "pi.selector_forms",
+        "pi.order_duplicates",
+        "pi.signals",
+        "pi.errors_full_stacks",
+        "profiles"
+      ],
+      "P6Gate": "All common/key-specific partitions,actual root custody and retained whole raw values/errors/stacks; resource fields require P6.resources, no global CLR estimates",
+      "VerifiedWholeContract": false
+    },
+    {
+      "Id": "pi.12.heap_size",
+      "Selector": "heap_size",
+      "AtomKey": "heap_size",
+      "Index": 12,
+      "RequestValueTypes": "Exact atom selector",
+      "ResultValue": "non_neg_integer() words",
+      "ResultEnvelope": "{Selector,Value}; registered_name singleton unregistered is[]; dead isundefined",
+      "CurrentState": "Missing selector (currently badarg for valid pinned key)",
+      "CurrentFiles": [
+        "src/Runtime/Erlang.Runtime.Core/Processes/ProcessInfoRegistrations.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/ProcessInfoItem.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/ProcessInfoAtoms.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.ProcessInfo.cs"
+      ],
+      "PinnedTableLine": 826,
+      "PinnedFlagsAndLocks": " 0, 0, ERTS_PROC_LOCK_MAIN}",
+      "Execution": {
+        "Path": "erts/emulator/beam/erl_bif_info.c",
+        "StartLine": 1982,
+        "EndLine": 1990,
+        "Text": "    case ERTS_PI_IX_HEAP_SIZE: {\n\tUint hsz = 0;\n\t(void) erts_bld_uint(NULL, &hsz, HEAP_SIZE(rp));\n        hp = erts_produce_heap(hfact, hsz, reserve_size);\n\tres = erts_bld_uint(&hp, NULL, HEAP_SIZE(rp));\n\tbreak;\n    }\n\n"
+      },
+      "RequiredPartitions": [
+        "read current exact state and state transition via corresponding process flag/native producer"
+      ],
+      "CommonPartitions": [
+        "pi.targets",
+        "pi.selector_forms",
+        "pi.order_duplicates",
+        "pi.signals",
+        "pi.errors_full_stacks",
+        "profiles"
+      ],
+      "P6Gate": "All common/key-specific partitions,actual root custody and retained whole raw values/errors/stacks; resource fields require P6.resources, no global CLR estimates",
+      "VerifiedWholeContract": false
+    },
+    {
+      "Id": "pi.13.stack_size",
+      "Selector": "stack_size",
+      "AtomKey": "stack_size",
+      "Index": 13,
+      "RequestValueTypes": "Exact atom selector",
+      "ResultValue": "non_neg_integer() words",
+      "ResultEnvelope": "{Selector,Value}; registered_name singleton unregistered is[]; dead isundefined",
+      "CurrentState": "Missing selector (currently badarg for valid pinned key)",
+      "CurrentFiles": [
+        "src/Runtime/Erlang.Runtime.Core/Processes/ProcessInfoRegistrations.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/ProcessInfoItem.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/ProcessInfoAtoms.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.ProcessInfo.cs"
+      ],
+      "PinnedTableLine": 827,
+      "PinnedFlagsAndLocks": " 0, 0, ERTS_PROC_LOCK_MAIN}",
+      "Execution": {
+        "Path": "erts/emulator/beam/erl_bif_info.c",
+        "StartLine": 2050,
+        "EndLine": 2059,
+        "Text": "    case ERTS_PI_IX_STACK_SIZE: {\n\tUint stack_size = STACK_START(rp) - rp->stop;\n\tUint hsz = 0;\n\t(void) erts_bld_uint(NULL, &hsz, stack_size);\n        hp = erts_produce_heap(hfact, hsz, reserve_size);\n\tres = erts_bld_uint(&hp, NULL, stack_size);\n\tbreak;\n    }\n\n"
+      },
+      "RequiredPartitions": [
+        "read current exact state and state transition via corresponding process flag/native producer"
+      ],
+      "CommonPartitions": [
+        "pi.targets",
+        "pi.selector_forms",
+        "pi.order_duplicates",
+        "pi.signals",
+        "pi.errors_full_stacks",
+        "profiles"
+      ],
+      "P6Gate": "All common/key-specific partitions,actual root custody and retained whole raw values/errors/stacks; resource fields require P6.resources, no global CLR estimates",
+      "VerifiedWholeContract": false
+    },
+    {
+      "Id": "pi.14.memory",
+      "Selector": "memory",
+      "AtomKey": "memory",
+      "Index": 14,
+      "RequestValueTypes": "Exact atom selector",
+      "ResultValue": "non_neg_integer() bytes",
+      "ResultEnvelope": "{Selector,Value}; registered_name singleton unregistered is[]; dead isundefined",
+      "CurrentState": "Missing selector (currently badarg for valid pinned key)",
+      "CurrentFiles": [
+        "src/Runtime/Erlang.Runtime.Core/Processes/ProcessInfoRegistrations.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/ProcessInfoItem.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/ProcessInfoAtoms.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.ProcessInfo.cs"
+      ],
+      "PinnedTableLine": 828,
+      "PinnedFlagsAndLocks": " 0, ERTS_PI_FLAG_NEED_MSGQ|ERTS_PI_FLAG_FORCE_SIG_SEND, ERTS_PROC_LOCK_MAIN}",
+      "Execution": {
+        "Path": "erts/emulator/beam/erl_bif_info.c",
+        "StartLine": 2059,
+        "EndLine": 2072,
+        "Text": "    case ERTS_PI_IX_MEMORY: { /* Memory consumed in bytes */\n\tUint hsz = 0;\n\tUint size = erts_process_memory(rp, 0);\n\t(void) erts_bld_uint(NULL, &hsz, size);\n        hp = erts_produce_heap(hfact, hsz, reserve_size);\n\tres = erts_bld_uint(&hp, NULL, size);\n\n        ASSERT(flags & ERTS_PI_FLAG_NEED_MSGQ);\n        *reds += (Uint) rp->sig_qs.mq_len / 4;\n\n\tbreak;\n    }\n\n"
+      },
+      "RequiredPartitions": [
+        "read current exact state and state transition via corresponding process flag/native producer"
+      ],
+      "CommonPartitions": [
+        "pi.targets",
+        "pi.selector_forms",
+        "pi.order_duplicates",
+        "pi.signals",
+        "pi.errors_full_stacks",
+        "profiles"
+      ],
+      "P6Gate": "All common/key-specific partitions,actual root custody and retained whole raw values/errors/stacks; resource fields require P6.resources, no global CLR estimates",
+      "VerifiedWholeContract": false
+    },
+    {
+      "Id": "pi.15.garbage_collection",
+      "Selector": "garbage_collection",
+      "AtomKey": "garbage_collection",
+      "Index": 15,
+      "RequestValueTypes": "Exact atom selector",
+      "ResultValue": "ordered proplist(max_heap_size,min_bin_vheap_size,min_heap_size,fullsweep_after,minor_gcs)",
+      "ResultEnvelope": "{Selector,Value}; registered_name singleton unregistered is[]; dead isundefined",
+      "CurrentState": "Missing selector (currently badarg for valid pinned key)",
+      "CurrentFiles": [
+        "src/Runtime/Erlang.Runtime.Core/Processes/ProcessInfoRegistrations.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/ProcessInfoItem.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/ProcessInfoAtoms.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.ProcessInfo.cs"
+      ],
+      "PinnedTableLine": 829,
+      "PinnedFlagsAndLocks": " 3+2 + 3+2 + 3+2 + 3+2 + 3+2 + ERTS_MAX_HEAP_SIZE_MAP_SZ, 0, ERTS_PROC_LOCK_MAIN}",
+      "Execution": {
+        "Path": "erts/emulator/beam/erl_bif_info.c",
+        "StartLine": 2072,
+        "EndLine": 2096,
+        "Text": "    case ERTS_PI_IX_GARBAGE_COLLECTION: {\n        DECL_AM(minor_gcs);\n        Eterm t, mhs_map;\n\n        mhs_map = erts_max_heap_size_map(hfact, MAX_HEAP_SIZE_GET(rp),\n                                         MAX_HEAP_SIZE_FLAGS_GET(rp));\n\n        hp = erts_produce_heap(hfact, 5*(3+2), reserve_size);\n\n\tt = TUPLE2(hp, AM_minor_gcs, make_small(GEN_GCS(rp))); hp += 3;\n\tres = CONS(hp, t, NIL); hp += 2;\n\tt = TUPLE2(hp, am_fullsweep_after, make_small(MAX_GEN_GCS(rp))); hp += 3;\n\tres = CONS(hp, t, res); hp += 2;\n\n\tt = TUPLE2(hp, am_min_heap_size, make_small(MIN_HEAP_SIZE(rp))); hp += 3;\n\tres = CONS(hp, t, res); hp += 2;\n\tt = TUPLE2(hp, am_min_bin_vheap_size, make_small(rp->min_vheap_size)); hp += 3;\n\tres = CONS(hp, t, res); hp += 2;\n\n\tt = TUPLE2(hp, am_max_heap_size, mhs_map); hp += 3;\n\tres = CONS(hp, t, res); hp += 2;\n\tbreak;\n    }\n\n"
+      },
+      "RequiredPartitions": [
+        "exact ordered5field policy/minor count; fresh child inheritance/default changes"
+      ],
+      "CommonPartitions": [
+        "pi.targets",
+        "pi.selector_forms",
+        "pi.order_duplicates",
+        "pi.signals",
+        "pi.errors_full_stacks",
+        "profiles"
+      ],
+      "P6Gate": "All common/key-specific partitions,actual root custody and retained whole raw values/errors/stacks; resource fields require P6.resources, no global CLR estimates",
+      "VerifiedWholeContract": false
+    },
+    {
+      "Id": "pi.16.group_leader",
+      "Selector": "group_leader",
+      "AtomKey": "group_leader",
+      "Index": 16,
+      "RequestValueTypes": "Exact atom selector",
+      "ResultValue": "pid()",
+      "ResultEnvelope": "{Selector,Value}; registered_name singleton unregistered is[]; dead isundefined",
+      "CurrentState": "Implemented path; full source/effects/stacks unverified",
+      "CurrentFiles": [
+        "src/Runtime/Erlang.Runtime.Core/Processes/ProcessInfoRegistrations.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/ProcessInfoItem.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/ProcessInfoAtoms.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.ProcessInfo.cs"
+      ],
+      "PinnedTableLine": 830,
+      "PinnedFlagsAndLocks": " 0, 0, ERTS_PROC_LOCK_MAIN}",
+      "Execution": {
+        "Path": "erts/emulator/beam/erl_bif_info.c",
+        "StartLine": 2107,
+        "EndLine": 2114,
+        "Text": "    case ERTS_PI_IX_GROUP_LEADER: {\n\tint sz = NC_HEAP_SIZE(rp->group_leader);\n        hp = erts_produce_heap(hfact, sz, reserve_size);\n\tres = STORE_NC(&hp, hfact->off_heap, rp->group_leader);\n\tbreak;\n    }\n\n"
+      },
+      "RequiredPartitions": [
+        "read current exact state and state transition via corresponding process flag/native producer"
+      ],
+      "CommonPartitions": [
+        "pi.targets",
+        "pi.selector_forms",
+        "pi.order_duplicates",
+        "pi.signals",
+        "pi.errors_full_stacks",
+        "profiles"
+      ],
+      "P6Gate": "All common/key-specific partitions,actual root custody and retained whole raw values/errors/stacks; resource fields require P6.resources, no global CLR estimates",
+      "VerifiedWholeContract": false
+    },
+    {
+      "Id": "pi.17.reductions",
+      "Selector": "reductions",
+      "AtomKey": "reductions",
+      "Index": 17,
+      "RequestValueTypes": "Exact atom selector",
+      "ResultValue": "non_neg_integer()",
+      "ResultEnvelope": "{Selector,Value}; registered_name singleton unregistered is[]; dead isundefined",
+      "CurrentState": "Implemented path; full source/effects/stacks unverified",
+      "CurrentFiles": [
+        "src/Runtime/Erlang.Runtime.Core/Processes/ProcessInfoRegistrations.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/ProcessInfoItem.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/ProcessInfoAtoms.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.ProcessInfo.cs"
+      ],
+      "PinnedTableLine": 831,
+      "PinnedFlagsAndLocks": " 0, 0, ERTS_PROC_LOCK_MAIN}",
+      "Execution": {
+        "Path": "erts/emulator/beam/erl_bif_info.c",
+        "StartLine": 2114,
+        "EndLine": 2123,
+        "Text": "    case ERTS_PI_IX_REDUCTIONS: {\n\tUint reds = rp->reds + erts_current_reductions(c_p, rp);\n\tUint hsz = 0;\n\t(void) erts_bld_uint(NULL, &hsz, reds);\n        hp = erts_produce_heap(hfact, hsz, reserve_size);\n\tres = erts_bld_uint(&hp, NULL, reds);\n\tbreak;\n    }\n\n"
+      },
+      "RequiredPartitions": [
+        "charged self/other reductions; queued work; exact boundary and sample cost"
+      ],
+      "CommonPartitions": [
+        "pi.targets",
+        "pi.selector_forms",
+        "pi.order_duplicates",
+        "pi.signals",
+        "pi.errors_full_stacks",
+        "profiles"
+      ],
+      "P6Gate": "All common/key-specific partitions,actual root custody and retained whole raw values/errors/stacks; resource fields require P6.resources, no global CLR estimates",
+      "VerifiedWholeContract": false
+    },
+    {
+      "Id": "pi.18.priority",
+      "Selector": "priority",
+      "AtomKey": "priority",
+      "Index": 18,
+      "RequestValueTypes": "Exact atom selector",
+      "ResultValue": "low | normal | high | max",
+      "ResultEnvelope": "{Selector,Value}; registered_name singleton unregistered is[]; dead isundefined",
+      "CurrentState": "Implemented path; full source/effects/stacks unverified",
+      "CurrentFiles": [
+        "src/Runtime/Erlang.Runtime.Core/Processes/ProcessInfoRegistrations.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/ProcessInfoItem.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/ProcessInfoAtoms.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.ProcessInfo.cs"
+      ],
+      "PinnedTableLine": 832,
+      "PinnedFlagsAndLocks": " 0, 0, 0}",
+      "Execution": {
+        "Path": "erts/emulator/beam/erl_bif_info.c",
+        "StartLine": 2123,
+        "EndLine": 2131,
+        "Text": "    case ERTS_PI_IX_PRIORITY: {\n        erts_aint32_t state = erts_atomic32_read_nob(&rp->state);\n        if (ERTS_PSFLG_EXITING & state)\n            return am_undefined;\n\tres = erts_get_process_priority(state);\n\tbreak;\n    }\n\n"
+      },
+      "RequiredPartitions": [
+        "read current exact state and state transition via corresponding process flag/native producer"
+      ],
+      "CommonPartitions": [
+        "pi.targets",
+        "pi.selector_forms",
+        "pi.order_duplicates",
+        "pi.signals",
+        "pi.errors_full_stacks",
+        "profiles"
+      ],
+      "P6Gate": "All common/key-specific partitions,actual root custody and retained whole raw values/errors/stacks; resource fields require P6.resources, no global CLR estimates",
+      "VerifiedWholeContract": false
+    },
+    {
+      "Id": "pi.19.trace",
+      "Selector": "trace",
+      "AtomKey": "trace",
+      "Index": 19,
+      "RequestValueTypes": "Exact atom selector",
+      "ResultValue": "non_neg_integer() tracing flag bitmask",
+      "ResultEnvelope": "{Selector,Value}; registered_name singleton unregistered is[]; dead isundefined",
+      "CurrentState": "Missing selector (currently badarg for valid pinned key)",
+      "CurrentFiles": [
+        "src/Runtime/Erlang.Runtime.Core/Processes/ProcessInfoRegistrations.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/ProcessInfoItem.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/ProcessInfoAtoms.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.ProcessInfo.cs"
+      ],
+      "PinnedTableLine": 833,
+      "PinnedFlagsAndLocks": " 0, 0, ERTS_PROC_LOCK_MAIN}",
+      "Execution": {
+        "Path": "erts/emulator/beam/erl_bif_info.c",
+        "StartLine": 2131,
+        "EndLine": 2135,
+        "Text": "    case ERTS_PI_IX_TRACE:\n\tres = make_small(ERTS_IS_P_TRACED_FL(rp, TRACEE_FLAGS));\n\tbreak;\n\n"
+      },
+      "RequiredPartitions": [
+        "read current exact state and state transition via corresponding process flag/native producer"
+      ],
+      "CommonPartitions": [
+        "pi.targets",
+        "pi.selector_forms",
+        "pi.order_duplicates",
+        "pi.signals",
+        "pi.errors_full_stacks",
+        "profiles"
+      ],
+      "P6Gate": "All common/key-specific partitions,actual root custody and retained whole raw values/errors/stacks; resource fields require P6.resources, no global CLR estimates",
+      "VerifiedWholeContract": false
+    },
+    {
+      "Id": "pi.20.binary",
+      "Selector": "binary",
+      "AtomKey": "binary",
+      "Index": 20,
+      "RequestValueTypes": "Exact atom selector",
+      "ResultValue": "[{BinaryIdentity,ByteSize,ReferenceCount}]",
+      "ResultEnvelope": "{Selector,Value}; registered_name singleton unregistered is[]; dead isundefined",
+      "CurrentState": "Missing selector (currently badarg for valid pinned key)",
+      "CurrentFiles": [
+        "src/Runtime/Erlang.Runtime.Core/Processes/ProcessInfoRegistrations.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/ProcessInfoItem.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/ProcessInfoAtoms.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.ProcessInfo.cs"
+      ],
+      "PinnedTableLine": 834,
+      "PinnedFlagsAndLocks": " 0, ERTS_PI_FLAG_FORCE_SIG_SEND, ERTS_PROC_LOCK_MAIN}",
+      "Execution": {
+        "Path": "erts/emulator/beam/erl_bif_info.c",
+        "StartLine": 2135,
+        "EndLine": 2161,
+        "Text": "    case ERTS_PI_IX_BINARY: {\n        ErlHeapFragment *hfrag;\n        ErlOffHeap wrt_bins;\n        Uint sz;\n\n        res = NIL;\n        sz = 0;\n        wrt_bins.first = rp->wrt_bins;\n\n        (void)erts_bld_bin_list(NULL, &sz, &MSO(rp), NIL);\n        (void)erts_bld_bin_list(NULL, &sz, &wrt_bins, NIL);\n        for (hfrag = rp->mbuf; hfrag != NULL; hfrag = hfrag->next) {\n            (void)erts_bld_bin_list(NULL, &sz, &hfrag->off_heap, NIL);\n        }\n\n        hp = erts_produce_heap(hfact, sz, reserve_size);\n\n        res = erts_bld_bin_list(&hp, NULL, &MSO(rp), NIL);\n        res = erts_bld_bin_list(&hp, NULL, &wrt_bins, res);\n        for (hfrag = rp->mbuf; hfrag != NULL; hfrag = hfrag->next) {\n            res = erts_bld_bin_list(&hp, NULL, &hfrag->off_heap, res);\n        }\n\n        break;\n    }\n\n"
+      },
+      "RequiredPartitions": [
+        "shared backing versus independent header; subbinary; writable binary; old/young heap and mbuf",
+        "actual address/refcount are own-state witnesses, not fabricated IDs"
+      ],
+      "CommonPartitions": [
+        "pi.targets",
+        "pi.selector_forms",
+        "pi.order_duplicates",
+        "pi.signals",
+        "pi.errors_full_stacks",
+        "profiles"
+      ],
+      "P6Gate": "All common/key-specific partitions,actual root custody and retained whole raw values/errors/stacks; resource fields require P6.resources, no global CLR estimates",
+      "VerifiedWholeContract": false
+    },
+    {
+      "Id": "pi.21.sequential_trace_token",
+      "Selector": "sequential_trace_token",
+      "AtomKey": "sequential_trace_token",
+      "Index": 21,
+      "RequestValueTypes": "Exact atom selector",
+      "ResultValue": "[] | sequential trace token tuple",
+      "ResultEnvelope": "{Selector,Value}; registered_name singleton unregistered is[]; dead isundefined",
+      "CurrentState": "Missing selector (currently badarg for valid pinned key)",
+      "CurrentFiles": [
+        "src/Runtime/Erlang.Runtime.Core/Processes/ProcessInfoRegistrations.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/ProcessInfoItem.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/ProcessInfoAtoms.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.ProcessInfo.cs"
+      ],
+      "PinnedTableLine": 835,
+      "PinnedFlagsAndLocks": " 0, 0, ERTS_PROC_LOCK_MAIN}",
+      "Execution": {
+        "Path": "erts/emulator/beam/erl_bif_info.c",
+        "StartLine": 2161,
+        "EndLine": 2168,
+        "Text": "    case ERTS_PI_IX_SEQUENTIAL_TRACE_TOKEN: {\n        Uint sz = size_object(rp->seq_trace_token);\n        hp = erts_produce_heap(hfact, sz, reserve_size);\n        res = copy_struct(rp->seq_trace_token, sz, &hp, hfact->off_heap);\n\tbreak;\n    }\n\n"
+      },
+      "RequiredPartitions": [
+        "read current exact state and state transition via corresponding process flag/native producer"
+      ],
+      "CommonPartitions": [
+        "pi.targets",
+        "pi.selector_forms",
+        "pi.order_duplicates",
+        "pi.signals",
+        "pi.errors_full_stacks",
+        "profiles"
+      ],
+      "P6Gate": "All common/key-specific partitions,actual root custody and retained whole raw values/errors/stacks; resource fields require P6.resources, no global CLR estimates",
+      "VerifiedWholeContract": false
+    },
+    {
+      "Id": "pi.22.catchlevel",
+      "Selector": "catchlevel",
+      "AtomKey": "catchlevel",
+      "Index": 22,
+      "RequestValueTypes": "Exact atom selector",
+      "ResultValue": "non_neg_integer()",
+      "ResultEnvelope": "{Selector,Value}; registered_name singleton unregistered is[]; dead isundefined",
+      "CurrentState": "Missing selector (currently badarg for valid pinned key)",
+      "CurrentFiles": [
+        "src/Runtime/Erlang.Runtime.Core/Processes/ProcessInfoRegistrations.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/ProcessInfoItem.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/ProcessInfoAtoms.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.ProcessInfo.cs"
+      ],
+      "PinnedTableLine": 836,
+      "PinnedFlagsAndLocks": " 0, 0, ERTS_PROC_LOCK_MAIN}",
+      "Execution": {
+        "Path": "erts/emulator/beam/erl_bif_info.c",
+        "StartLine": 2168,
+        "EndLine": 2172,
+        "Text": "    case ERTS_PI_IX_CATCHLEVEL:\n\tres = make_small(catchlevel(rp));\n\tbreak;\n\n"
+      },
+      "RequiredPartitions": [
+        "read current exact state and state transition via corresponding process flag/native producer"
+      ],
+      "CommonPartitions": [
+        "pi.targets",
+        "pi.selector_forms",
+        "pi.order_duplicates",
+        "pi.signals",
+        "pi.errors_full_stacks",
+        "profiles"
+      ],
+      "P6Gate": "All common/key-specific partitions,actual root custody and retained whole raw values/errors/stacks; resource fields require P6.resources, no global CLR estimates",
+      "VerifiedWholeContract": false
+    },
+    {
+      "Id": "pi.23.backtrace",
+      "Selector": "backtrace",
+      "AtomKey": "backtrace",
+      "Index": 23,
+      "RequestValueTypes": "Exact atom selector",
+      "ResultValue": "binary() VM stack dump",
+      "ResultEnvelope": "{Selector,Value}; registered_name singleton unregistered is[]; dead isundefined",
+      "CurrentState": "Missing selector (currently badarg for valid pinned key)",
+      "CurrentFiles": [
+        "src/Runtime/Erlang.Runtime.Core/Processes/ProcessInfoRegistrations.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/ProcessInfoItem.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/ProcessInfoAtoms.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.ProcessInfo.cs"
+      ],
+      "PinnedTableLine": 837,
+      "PinnedFlagsAndLocks": " 0, ERTS_PI_FLAG_FORCE_SIG_SEND, ERTS_PROC_LOCK_MAIN}",
+      "Execution": {
+        "Path": "erts/emulator/beam/erl_bif_info.c",
+        "StartLine": 2172,
+        "EndLine": 2183,
+        "Text": "    case ERTS_PI_IX_BACKTRACE: {\n\terts_dsprintf_buf_t *dsbufp = erts_create_tmp_dsbuf(0);\n\terts_stack_dump(ERTS_PRINT_DSBUF, (void *) dsbufp, rp);\n\tres = erts_hfact_new_binary_from_data(hfact,\n                                              reserve_size,\n                                              dsbufp->str_len,\n                                              (byte*)dsbufp->str);\n\terts_destroy_tmp_dsbuf(dsbufp);\n\tbreak;\n    }\n\n"
+      },
+      "RequiredPartitions": [
+        "read current exact state and state transition via corresponding process flag/native producer"
+      ],
+      "CommonPartitions": [
+        "pi.targets",
+        "pi.selector_forms",
+        "pi.order_duplicates",
+        "pi.signals",
+        "pi.errors_full_stacks",
+        "profiles"
+      ],
+      "P6Gate": "All common/key-specific partitions,actual root custody and retained whole raw values/errors/stacks; resource fields require P6.resources, no global CLR estimates",
+      "VerifiedWholeContract": false
+    },
+    {
+      "Id": "pi.24.last_calls",
+      "Selector": "last_calls",
+      "AtomKey": "last_calls",
+      "Index": 24,
+      "RequestValueTypes": "Exact atom selector",
+      "ResultValue": "false | [MFA | send | receive | timeout]",
+      "ResultEnvelope": "{Selector,Value}; registered_name singleton unregistered is[]; dead isundefined",
+      "CurrentState": "Implemented path; full source/effects/stacks unverified",
+      "CurrentFiles": [
+        "src/Runtime/Erlang.Runtime.Core/Processes/ProcessInfoRegistrations.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/ProcessInfoItem.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/ProcessInfoAtoms.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.ProcessInfo.cs"
+      ],
+      "PinnedTableLine": 838,
+      "PinnedFlagsAndLocks": " 0, 0, ERTS_PROC_LOCK_MAIN}",
+      "Execution": {
+        "Path": "erts/emulator/beam/erl_bif_info.c",
+        "StartLine": 2183,
+        "EndLine": 2241,
+        "Text": "    case ERTS_PI_IX_LAST_CALLS: {\n\tstruct saved_calls *scb = ERTS_PROC_GET_SAVED_CALLS_BUF(rp);\n\tif (!scb) {\n\t    res = am_false;\n\t} else {\n\t    /*\n\t     * One cons cell and a 3-struct, and a 2-tuple.\n\t     * Might be less than that, if there are sends, receives or timeouts,\n\t     * so we must do a HRelease() to avoid creating holes.\n\t     */\n\t    Sint needed = scb->n*(2+4);\n            const Export *exp;\n\t    Eterm term, list;\n\t    int i, j;\n\n            reserve_size += needed;\n\n\t    list = NIL;\n\t    for (i = 0; i < scb->n; i++) {\n                Uint sz;\n\t\tj = scb->cur - i - 1;\n\t\tif (j < 0)\n\t\t    j += scb->len;\n\n                sz = 2;\n                exp = scb->ct[j];\n                if (exp != &exp_send && exp != &exp_receive && exp != &exp_timeout)\n                    sz += 4;\n\n                needed -= sz;\n                ERTS_PI_UNRESERVE(reserve_size, sz);\n                hp = erts_produce_heap(hfact, sz, reserve_size);\n\n\t\tif (exp == &exp_send)\n\t\t    term = am_send;\n\t\telse if (exp == &exp_receive)\n\t\t    term = am_receive;\n\t\telse if (exp == &exp_timeout)\n\t\t    term = am_timeout;\n\t\telse {\n\t\t    term = TUPLE3(hp,\n\t\t\t\t  scb->ct[j]->info.mfa.module,\n\t\t\t\t  scb->ct[j]->info.mfa.function,\n\t\t\t\t  make_small(scb->ct[j]->info.mfa.arity));\n\t\t    hp += 4;\n\t\t}\n\t\tlist = CONS(hp, term, list);\n\t    }\n\n            ASSERT(needed >= 0);\n            if (needed > 0)\n                reserve_size -= needed;\n\n\t    res = list;\n\t}\n\tbreak;\n    }\n\n"
+      },
+      "RequiredPartitions": [
+        "disabled false; enabled empty/bounded wraparound; MFA/send/receive/timeout chronological order"
+      ],
+      "CommonPartitions": [
+        "pi.targets",
+        "pi.selector_forms",
+        "pi.order_duplicates",
+        "pi.signals",
+        "pi.errors_full_stacks",
+        "profiles"
+      ],
+      "P6Gate": "All common/key-specific partitions,actual root custody and retained whole raw values/errors/stacks; resource fields require P6.resources, no global CLR estimates",
+      "VerifiedWholeContract": false
+    },
+    {
+      "Id": "pi.25.total_heap_size",
+      "Selector": "total_heap_size",
+      "AtomKey": "total_heap_size",
+      "Index": 25,
+      "RequestValueTypes": "Exact atom selector",
+      "ResultValue": "non_neg_integer() words",
+      "ResultEnvelope": "{Selector,Value}; registered_name singleton unregistered is[]; dead isundefined",
+      "CurrentState": "Missing selector (currently badarg for valid pinned key)",
+      "CurrentFiles": [
+        "src/Runtime/Erlang.Runtime.Core/Processes/ProcessInfoRegistrations.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/ProcessInfoItem.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/ProcessInfoAtoms.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.ProcessInfo.cs"
+      ],
+      "PinnedTableLine": 839,
+      "PinnedFlagsAndLocks": " 0, ERTS_PI_FLAG_NEED_MSGQ|ERTS_PI_FLAG_FORCE_SIG_SEND, ERTS_PROC_LOCK_MAIN}",
+      "Execution": {
+        "Path": "erts/emulator/beam/erl_bif_info.c",
+        "StartLine": 2021,
+        "EndLine": 2050,
+        "Text": "    case ERTS_PI_IX_TOTAL_HEAP_SIZE: {\n\tUint total_heap_size;\n\tUint hsz = 0;\n\n\ttotal_heap_size = rp->heap_sz;\n\tif (rp->old_hend && rp->old_heap)\n\t    total_heap_size += rp->old_hend - rp->old_heap;\n\n\ttotal_heap_size += rp->mbuf_sz;\n\n        ASSERT(flags & ERTS_PI_FLAG_NEED_MSGQ);\n        if (rp->sig_qs.flags & FS_ON_HEAP_MSGQ) {\n            ErtsMessage *mp;\n            for (mp = rp->sig_qs.first; mp; mp = mp->next) {\n\t\tif (ERTS_SIG_IS_RECV_MARKER(mp))\n\t\t    continue;\n                ASSERT(ERTS_SIG_IS_MSG(mp));\n                if (mp->data.attached)\n                    total_heap_size += erts_msg_attached_data_size(mp);\n            }\n            *reds += (Uint) rp->sig_qs.mq_len / 4;\n        }\n\n\t(void) erts_bld_uint(NULL, &hsz, total_heap_size);\n        hp = erts_produce_heap(hfact, hsz, reserve_size);\n\tres = erts_bld_uint(&hp, NULL, total_heap_size);\n\tbreak;\n    }\n\n"
+      },
+      "RequiredPartitions": [
+        "read current exact state and state transition via corresponding process flag/native producer"
+      ],
+      "CommonPartitions": [
+        "pi.targets",
+        "pi.selector_forms",
+        "pi.order_duplicates",
+        "pi.signals",
+        "pi.errors_full_stacks",
+        "profiles"
+      ],
+      "P6Gate": "All common/key-specific partitions,actual root custody and retained whole raw values/errors/stacks; resource fields require P6.resources, no global CLR estimates",
+      "VerifiedWholeContract": false
+    },
+    {
+      "Id": "pi.26.suspending",
+      "Selector": "suspending",
+      "AtomKey": "suspending",
+      "Index": 26,
+      "RequestValueTypes": "Exact atom selector",
+      "ResultValue": "[{pid(),ActiveSuspendCount,PendingSuspendCount}]",
+      "ResultEnvelope": "{Selector,Value}; registered_name singleton unregistered is[]; dead isundefined",
+      "CurrentState": "Implemented path; full source/effects/stacks unverified",
+      "CurrentFiles": [
+        "src/Runtime/Erlang.Runtime.Core/Processes/ProcessInfoRegistrations.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/ProcessInfoItem.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/ProcessInfoAtoms.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.ProcessInfo.cs"
+      ],
+      "PinnedTableLine": 840,
+      "PinnedFlagsAndLocks": " 0, ERTS_PI_FLAG_FORCE_SIG_SEND, 0}",
+      "Execution": {
+        "Path": "erts/emulator/beam/erl_bif_info.c",
+        "StartLine": 1903,
+        "EndLine": 1963,
+        "Text": "    case ERTS_PI_IX_SUSPENDING: {\n\tErtsSuspendMonitorInfoCollection smic;\n\tint i;\n\n\tERTS_INIT_SUSPEND_MONITOR_INFOS(smic);\n\n        erts_monitor_tree_foreach(ERTS_P_MONITORS(rp),\n                                  collect_one_suspend_monitor,\n                                  (void *) &smic);\n\n        reserve_size += smic.sz;\n\n\tres = NIL;\n\tfor (i = 0; i < smic.smi_i; i++) {\n            ErtsMonitorSuspend *msp;\n            erts_aint_t mstate;\n\t    Sint ci;\n            Eterm ct, active, pending, item;\n            Uint sz = 4 + 2;\n\n            msp = smic.smi[i];\n            mstate = erts_atomic_read_nob(&msp->state);\n\n            ci = (Sint) (mstate & ERTS_MSUSPEND_STATE_COUNTER_MASK);\n            if (!IS_SSMALL(ci))\n                sz += BIG_UINT_HEAP_SIZE;\n\n            ERTS_PI_UNRESERVE(reserve_size, sz);\n            hp = erts_produce_heap(hfact, sz, reserve_size);\n\n            if (IS_SSMALL(ci))\n                ct = make_small(ci);\n            else {\n                ct = small_to_big(ci, hp);\n                hp += BIG_UINT_HEAP_SIZE;\n            }\n\n            if (mstate & ERTS_MSUSPEND_STATE_FLG_ACTIVE) {\n                active = ct;\n                pending = make_small(0);\n            }\n            else {\n                active = make_small(0);\n                pending = ct;\n            }\n\n            ASSERT(is_internal_pid(msp->md.origin.other.item));\n\n\t    item = TUPLE3(hp, msp->md.origin.other.item, active, pending);\n\t    hp += 4;\n\t    res = CONS(hp, item, res);\n\t}\n\n        *reds += (Uint) smic.smi_i / 4;\n\n\tERTS_DESTROY_SUSPEND_MONITOR_INFOS(smic);\n\n\tbreak;\n    }\n\n"
+      },
+      "RequiredPartitions": [
+        "active and pending suspend counts,async transitions,observer death"
+      ],
+      "CommonPartitions": [
+        "pi.targets",
+        "pi.selector_forms",
+        "pi.order_duplicates",
+        "pi.signals",
+        "pi.errors_full_stacks",
+        "profiles"
+      ],
+      "P6Gate": "All common/key-specific partitions,actual root custody and retained whole raw values/errors/stacks; resource fields require P6.resources, no global CLR estimates",
+      "VerifiedWholeContract": false
+    },
+    {
+      "Id": "pi.27.min_heap_size",
+      "Selector": "min_heap_size",
+      "AtomKey": "min_heap_size",
+      "Index": 27,
+      "RequestValueTypes": "Exact atom selector",
+      "ResultValue": "non_neg_integer() words",
+      "ResultEnvelope": "{Selector,Value}; registered_name singleton unregistered is[]; dead isundefined",
+      "CurrentState": "Missing selector (currently badarg for valid pinned key)",
+      "CurrentFiles": [
+        "src/Runtime/Erlang.Runtime.Core/Processes/ProcessInfoRegistrations.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/ProcessInfoItem.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/ProcessInfoAtoms.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.ProcessInfo.cs"
+      ],
+      "PinnedTableLine": 841,
+      "PinnedFlagsAndLocks": " 0, 0, ERTS_PROC_LOCK_MAIN}",
+      "Execution": {
+        "Path": "erts/emulator/beam/erl_bif_info.c",
+        "StartLine": 1998,
+        "EndLine": 2006,
+        "Text": "    case ERTS_PI_IX_MIN_HEAP_SIZE: {\n\tUint hsz = 0;\n\t(void) erts_bld_uint(NULL, &hsz, MIN_HEAP_SIZE(rp));\n        hp = erts_produce_heap(hfact, hsz, reserve_size);\n\tres = erts_bld_uint(&hp, NULL, MIN_HEAP_SIZE(rp));\n\tbreak;\n    }\n\n"
+      },
+      "RequiredPartitions": [
+        "read current exact state and state transition via corresponding process flag/native producer"
+      ],
+      "CommonPartitions": [
+        "pi.targets",
+        "pi.selector_forms",
+        "pi.order_duplicates",
+        "pi.signals",
+        "pi.errors_full_stacks",
+        "profiles"
+      ],
+      "P6Gate": "All common/key-specific partitions,actual root custody and retained whole raw values/errors/stacks; resource fields require P6.resources, no global CLR estimates",
+      "VerifiedWholeContract": false
+    },
+    {
+      "Id": "pi.28.min_bin_vheap_size",
+      "Selector": "min_bin_vheap_size",
+      "AtomKey": "min_bin_vheap_size",
+      "Index": 28,
+      "RequestValueTypes": "Exact atom selector",
+      "ResultValue": "non_neg_integer() virtual binary words",
+      "ResultEnvelope": "{Selector,Value}; registered_name singleton unregistered is[]; dead isundefined",
+      "CurrentState": "Missing selector (currently badarg for valid pinned key)",
+      "CurrentFiles": [
+        "src/Runtime/Erlang.Runtime.Core/Processes/ProcessInfoRegistrations.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/ProcessInfoItem.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/ProcessInfoAtoms.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.ProcessInfo.cs"
+      ],
+      "PinnedTableLine": 842,
+      "PinnedFlagsAndLocks": " 0, 0, ERTS_PROC_LOCK_MAIN}",
+      "Execution": {
+        "Path": "erts/emulator/beam/erl_bif_info.c",
+        "StartLine": 2006,
+        "EndLine": 2014,
+        "Text": "    case ERTS_PI_IX_MIN_BIN_VHEAP_SIZE: {\n\tUint hsz = 0;\n\t(void) erts_bld_uint(NULL, &hsz, rp->min_vheap_size);\n        hp = erts_produce_heap(hfact, hsz, reserve_size);\n\tres = erts_bld_uint(&hp, NULL, rp->min_vheap_size);\n\tbreak;\n    }\n\n"
+      },
+      "RequiredPartitions": [
+        "read current exact state and state transition via corresponding process flag/native producer"
+      ],
+      "CommonPartitions": [
+        "pi.targets",
+        "pi.selector_forms",
+        "pi.order_duplicates",
+        "pi.signals",
+        "pi.errors_full_stacks",
+        "profiles"
+      ],
+      "P6Gate": "All common/key-specific partitions,actual root custody and retained whole raw values/errors/stacks; resource fields require P6.resources, no global CLR estimates",
+      "VerifiedWholeContract": false
+    },
+    {
+      "Id": "pi.29.max_heap_size",
+      "Selector": "max_heap_size",
+      "AtomKey": "max_heap_size",
+      "Index": 29,
+      "RequestValueTypes": "Exact atom selector",
+      "ResultValue": "map(size,kill,error_logger,include_shared_binaries)",
+      "ResultEnvelope": "{Selector,Value}; registered_name singleton unregistered is[]; dead isundefined",
+      "CurrentState": "Missing selector (currently badarg for valid pinned key)",
+      "CurrentFiles": [
+        "src/Runtime/Erlang.Runtime.Core/Processes/ProcessInfoRegistrations.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/ProcessInfoItem.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/ProcessInfoAtoms.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.ProcessInfo.cs"
+      ],
+      "PinnedTableLine": 843,
+      "PinnedFlagsAndLocks": " 0, 0, ERTS_PROC_LOCK_MAIN}",
+      "Execution": {
+        "Path": "erts/emulator/beam/erl_bif_info.c",
+        "StartLine": 2014,
+        "EndLine": 2021,
+        "Text": "    case ERTS_PI_IX_MAX_HEAP_SIZE: {\n\tres = erts_max_heap_size_map(hfact,\n                                     MAX_HEAP_SIZE_GET(rp),\n                                     MAX_HEAP_SIZE_FLAGS_GET(rp));\n\tbreak;\n    }\n\n"
+      },
+      "RequiredPartitions": [
+        "read current exact state and state transition via corresponding process flag/native producer"
+      ],
+      "CommonPartitions": [
+        "pi.targets",
+        "pi.selector_forms",
+        "pi.order_duplicates",
+        "pi.signals",
+        "pi.errors_full_stacks",
+        "profiles"
+      ],
+      "P6Gate": "All common/key-specific partitions,actual root custody and retained whole raw values/errors/stacks; resource fields require P6.resources, no global CLR estimates",
+      "VerifiedWholeContract": false
+    },
+    {
+      "Id": "pi.30.current_location",
+      "Selector": "current_location",
+      "AtomKey": "current_location",
+      "Index": 30,
+      "RequestValueTypes": "Exact atom selector",
+      "ResultValue": "{Module,Function,Arity,Location}",
+      "ResultEnvelope": "{Selector,Value}; registered_name singleton unregistered is[]; dead isundefined",
+      "CurrentState": "Missing selector (currently badarg for valid pinned key)",
+      "CurrentFiles": [
+        "src/Runtime/Erlang.Runtime.Core/Processes/ProcessInfoRegistrations.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/ProcessInfoItem.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/ProcessInfoAtoms.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.ProcessInfo.cs"
+      ],
+      "PinnedTableLine": 844,
+      "PinnedFlagsAndLocks": " 0, ERTS_PI_FLAG_FORCE_SIG_SEND, ERTS_PROC_LOCK_MAIN}",
+      "Execution": {
+        "Path": "erts/emulator/beam/erl_bif_info.c",
+        "StartLine": 1640,
+        "EndLine": 1645,
+        "Text": "    case ERTS_PI_IX_CURRENT_LOCATION:\n\tres = current_function(c_p, hfact, rp, 1,\n                               reserve_size, flags);\n\tbreak;\n\n"
+      },
+      "RequiredPartitions": [
+        "line-info present/absent genuine original image and native metadata profile"
+      ],
+      "CommonPartitions": [
+        "pi.targets",
+        "pi.selector_forms",
+        "pi.order_duplicates",
+        "pi.signals",
+        "pi.errors_full_stacks",
+        "profiles"
+      ],
+      "P6Gate": "All common/key-specific partitions,actual root custody and retained whole raw values/errors/stacks; resource fields require P6.resources, no global CLR estimates",
+      "VerifiedWholeContract": false
+    },
+    {
+      "Id": "pi.31.current_stacktrace",
+      "Selector": "current_stacktrace",
+      "AtomKey": "current_stacktrace",
+      "Index": 31,
+      "RequestValueTypes": "Exact atom selector",
+      "ResultValue": "[{Module,Function,Arity,Location}]",
+      "ResultEnvelope": "{Selector,Value}; registered_name singleton unregistered is[]; dead isundefined",
+      "CurrentState": "Implemented path; full source/effects/stacks unverified",
+      "CurrentFiles": [
+        "src/Runtime/Erlang.Runtime.Core/Processes/ProcessInfoRegistrations.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/ProcessInfoItem.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/ProcessInfoAtoms.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.ProcessInfo.cs"
+      ],
+      "PinnedTableLine": 845,
+      "PinnedFlagsAndLocks": " 0, ERTS_PI_FLAG_FORCE_SIG_SEND, ERTS_PROC_LOCK_MAIN}",
+      "Execution": {
+        "Path": "erts/emulator/beam/erl_bif_info.c",
+        "StartLine": 1645,
+        "EndLine": 1649,
+        "Text": "    case ERTS_PI_IX_CURRENT_STACKTRACE:\n\tres = current_stacktrace(c_p, hfact, rp, reserve_size, flags);\n\tbreak;\n\n"
+      },
+      "RequiredPartitions": [
+        "backtrace-depth; non-tail/tail; native/source/BEAM boundaries; file/line admission"
+      ],
+      "CommonPartitions": [
+        "pi.targets",
+        "pi.selector_forms",
+        "pi.order_duplicates",
+        "pi.signals",
+        "pi.errors_full_stacks",
+        "profiles"
+      ],
+      "P6Gate": "All common/key-specific partitions,actual root custody and retained whole raw values/errors/stacks; resource fields require P6.resources, no global CLR estimates",
+      "VerifiedWholeContract": false
+    },
+    {
+      "Id": "pi.32.message_queue_data",
+      "Selector": "message_queue_data",
+      "AtomKey": "message_queue_data",
+      "Index": 32,
+      "RequestValueTypes": "Exact atom selector",
+      "ResultValue": "on_heap | off_heap",
+      "ResultEnvelope": "{Selector,Value}; registered_name singleton unregistered is[]; dead isundefined",
+      "CurrentState": "Implemented path; full source/effects/stacks unverified",
+      "CurrentFiles": [
+        "src/Runtime/Erlang.Runtime.Core/Processes/ProcessInfoRegistrations.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/ProcessInfoItem.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/ProcessInfoAtoms.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.ProcessInfo.cs"
+      ],
+      "PinnedTableLine": 846,
+      "PinnedFlagsAndLocks": " 0, 0, ERTS_PROC_LOCK_MAIN}",
+      "Execution": {
+        "Path": "erts/emulator/beam/erl_bif_info.c",
+        "StartLine": 2241,
+        "EndLine": 2256,
+        "Text": "    case ERTS_PI_IX_MESSAGE_QUEUE_DATA:\n\tswitch (rp->sig_qs.flags & (FS_OFF_HEAP_MSGQ|FS_ON_HEAP_MSGQ)) {\n\tcase FS_OFF_HEAP_MSGQ:\n\t    res = am_off_heap;\n\t    break;\n\tcase FS_ON_HEAP_MSGQ:\n\t    res = am_on_heap;\n\t    break;\n\tdefault:\n\t    res = am_error;\n\t    ERTS_INTERNAL_ERROR(\"Inconsistent message queue management state\");\n\t    break;\n\t}\n\tbreak;\n\n"
+      },
+      "RequiredPartitions": [
+        "read current exact state and state transition via corresponding process flag/native producer"
+      ],
+      "CommonPartitions": [
+        "pi.targets",
+        "pi.selector_forms",
+        "pi.order_duplicates",
+        "pi.signals",
+        "pi.errors_full_stacks",
+        "profiles"
+      ],
+      "P6Gate": "All common/key-specific partitions,actual root custody and retained whole raw values/errors/stacks; resource fields require P6.resources, no global CLR estimates",
+      "VerifiedWholeContract": false
+    },
+    {
+      "Id": "pi.33.garbage_collection_info",
+      "Selector": "garbage_collection_info",
+      "AtomKey": "garbage_collection_info",
+      "Index": 33,
+      "RequestValueTypes": "Exact atom selector",
+      "ResultValue": "ordered proplist11fields",
+      "ResultEnvelope": "{Selector,Value}; registered_name singleton unregistered is[]; dead isundefined",
+      "CurrentState": "Missing selector (currently badarg for valid pinned key)",
+      "CurrentFiles": [
+        "src/Runtime/Erlang.Runtime.Core/Processes/ProcessInfoRegistrations.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/ProcessInfoItem.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/ProcessInfoAtoms.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.ProcessInfo.cs"
+      ],
+      "PinnedTableLine": 847,
+      "PinnedFlagsAndLocks": " ERTS_PROCESS_GC_INFO_MAX_SIZE, 0, ERTS_PROC_LOCK_MAIN}",
+      "Execution": {
+        "Path": "erts/emulator/beam/erl_bif_info.c",
+        "StartLine": 2096,
+        "EndLine": 2107,
+        "Text": "    case ERTS_PI_IX_GARBAGE_COLLECTION_INFO: {\n        Uint sz = 0, actual_sz = 0;\n\n        erts_process_gc_info(rp, &sz, NULL, 0, 0);\n\n        hp = erts_produce_heap(hfact, sz, reserve_size);\n        res = erts_process_gc_info(rp, &actual_sz, &hp, 0, 0);\n\n        break;\n    }\n\n"
+      },
+      "RequiredPartitions": [
+        "old_heap_block_size,heap_block_size,mbuf_size,recent_size,stack_size,old_heap_size,heap_size,bin_vheap_size,bin_vheap_block_size,bin_old_vheap_size,bin_old_vheap_block_size",
+        "on_heap attached messages alter mbuf_size; abandoned heap; young/old generation"
+      ],
+      "CommonPartitions": [
+        "pi.targets",
+        "pi.selector_forms",
+        "pi.order_duplicates",
+        "pi.signals",
+        "pi.errors_full_stacks",
+        "profiles"
+      ],
+      "P6Gate": "All common/key-specific partitions,actual root custody and retained whole raw values/errors/stacks; resource fields require P6.resources, no global CLR estimates",
+      "VerifiedWholeContract": false
+    },
+    {
+      "Id": "pi.34.magic_ref",
+      "Selector": "magic_ref",
+      "AtomKey": "magic_ref",
+      "Index": 34,
+      "RequestValueTypes": "Exact atom selector",
+      "ResultValue": "[{ActualMagicBinaryPointer,OriginalBytes,ActualReferenceCount}] from offheap magic entries",
+      "ResultEnvelope": "{Selector,Value}; registered_name singleton unregistered is[]; dead isundefined",
+      "CurrentState": "Missing selector (currently badarg for valid pinned key)",
+      "CurrentFiles": [
+        "src/Runtime/Erlang.Runtime.Core/Processes/ProcessInfoRegistrations.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/ProcessInfoItem.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/ProcessInfoAtoms.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.ProcessInfo.cs"
+      ],
+      "PinnedTableLine": 848,
+      "PinnedFlagsAndLocks": " 0, ERTS_PI_FLAG_FORCE_SIG_SEND, ERTS_PROC_LOCK_MAIN}",
+      "Execution": {
+        "Path": "erts/emulator/beam/erl_bif_info.c",
+        "StartLine": 2274,
+        "EndLine": 2284,
+        "Text": "    case ERTS_PI_IX_MAGIC_REF: {\n\tUint sz = 0;\n\t(void) bld_magic_ref_bin_list(NULL, &sz, &MSO(rp));\n        hp = erts_produce_heap(hfact, sz, 0);\n\tres = bld_magic_ref_bin_list(&hp, NULL, &MSO(rp));\n\n        *reds += (Uint) 10;\n\tbreak;\n    }\n\n"
+      },
+      "RequiredPartitions": [
+        "all actual magic producers (NIF,atomics,counters,aliases,match/code resources),not only576native resources"
+      ],
+      "CommonPartitions": [
+        "pi.targets",
+        "pi.selector_forms",
+        "pi.order_duplicates",
+        "pi.signals",
+        "pi.errors_full_stacks",
+        "profiles"
+      ],
+      "P6Gate": "All common/key-specific partitions,actual root custody and retained whole raw values/errors/stacks; resource fields require P6.resources, no global CLR estimates",
+      "VerifiedWholeContract": false
+    },
+    {
+      "Id": "pi.35.fullsweep_after",
+      "Selector": "fullsweep_after",
+      "AtomKey": "fullsweep_after",
+      "Index": 35,
+      "RequestValueTypes": "Exact atom selector",
+      "ResultValue": "non_neg_integer()",
+      "ResultEnvelope": "{Selector,Value}; registered_name singleton unregistered is[]; dead isundefined",
+      "CurrentState": "Implemented path; full source/effects/stacks unverified",
+      "CurrentFiles": [
+        "src/Runtime/Erlang.Runtime.Core/Processes/ProcessInfoRegistrations.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/ProcessInfoItem.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/ProcessInfoAtoms.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.ProcessInfo.cs"
+      ],
+      "PinnedTableLine": 849,
+      "PinnedFlagsAndLocks": " 0, 0, ERTS_PROC_LOCK_MAIN}",
+      "Execution": {
+        "Path": "erts/emulator/beam/erl_bif_info.c",
+        "StartLine": 1990,
+        "EndLine": 1998,
+        "Text": "    case ERTS_PI_IX_FULLSWEEP_AFTER: {\n\tUint hsz = 0;\n\t(void) erts_bld_uint(NULL, &hsz, MAX_GEN_GCS(rp));\n        hp = erts_produce_heap(hfact, hsz, reserve_size);\n\tres = erts_bld_uint(&hp, NULL, MAX_GEN_GCS(rp));\n\tbreak;\n    }\n\n"
+      },
+      "RequiredPartitions": [
+        "read current exact state and state transition via corresponding process flag/native producer"
+      ],
+      "CommonPartitions": [
+        "pi.targets",
+        "pi.selector_forms",
+        "pi.order_duplicates",
+        "pi.signals",
+        "pi.errors_full_stacks",
+        "profiles"
+      ],
+      "P6Gate": "All common/key-specific partitions,actual root custody and retained whole raw values/errors/stacks; resource fields require P6.resources, no global CLR estimates",
+      "VerifiedWholeContract": false
+    },
+    {
+      "Id": "pi.36.parent",
+      "Selector": "parent",
+      "AtomKey": "parent",
+      "Index": 36,
+      "RequestValueTypes": "Exact atom selector",
+      "ResultValue": "pid() | undefined",
+      "ResultEnvelope": "{Selector,Value}; registered_name singleton unregistered is[]; dead isundefined",
+      "CurrentState": "Missing selector (currently badarg for valid pinned key)",
+      "CurrentFiles": [
+        "src/Runtime/Erlang.Runtime.Core/Processes/ProcessInfoRegistrations.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/ProcessInfoItem.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/ProcessInfoAtoms.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.ProcessInfo.cs"
+      ],
+      "PinnedTableLine": 850,
+      "PinnedFlagsAndLocks": " 0, 0, ERTS_PROC_LOCK_MAIN}",
+      "Execution": {
+        "Path": "erts/emulator/beam/erl_bif_info.c",
+        "StartLine": 2256,
+        "EndLine": 2270,
+        "Text": "    case ERTS_PI_IX_PARENT:\n        if (is_immed(rp->parent)) {\n            ASSERT(is_internal_pid(rp->parent) || rp->parent == am_undefined);\n            res = rp->parent;\n        }\n        else {\n            Uint sz;\n            ASSERT(is_external_pid(rp->parent));\n            sz = size_object(rp->parent);\n            hp = erts_produce_heap(hfact, sz, reserve_size);\n            res = copy_struct(rp->parent, sz, &hp, hfact->off_heap);\n        }\n        break;\n\n"
+      },
+      "RequiredPartitions": [
+        "native/source/fun/spawn_request/proc_lib parent; local/remote parent lifecycle"
+      ],
+      "CommonPartitions": [
+        "pi.targets",
+        "pi.selector_forms",
+        "pi.order_duplicates",
+        "pi.signals",
+        "pi.errors_full_stacks",
+        "profiles"
+      ],
+      "P6Gate": "All common/key-specific partitions,actual root custody and retained whole raw values/errors/stacks; resource fields require P6.resources, no global CLR estimates",
+      "VerifiedWholeContract": false
+    },
+    {
+      "Id": "pi.37.async_dist",
+      "Selector": "async_dist",
+      "AtomKey": "async_dist",
+      "Index": 37,
+      "RequestValueTypes": "Exact atom selector",
+      "ResultValue": "boolean()",
+      "ResultEnvelope": "{Selector,Value}; registered_name singleton unregistered is[]; dead isundefined",
+      "CurrentState": "Implemented path; full source/effects/stacks unverified",
+      "CurrentFiles": [
+        "src/Runtime/Erlang.Runtime.Core/Processes/ProcessInfoRegistrations.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/ProcessInfoItem.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/ProcessInfoAtoms.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.ProcessInfo.cs"
+      ],
+      "PinnedTableLine": 851,
+      "PinnedFlagsAndLocks": " 0, 0, ERTS_PROC_LOCK_MAIN}",
+      "Execution": {
+        "Path": "erts/emulator/beam/erl_bif_info.c",
+        "StartLine": 2270,
+        "EndLine": 2274,
+        "Text": "    case ERTS_PI_IX_ASYNC_DIST:\n        res = (rp->flags & F_ASYNC_DIST) ? am_true : am_false;\n        break;\n\n"
+      },
+      "RequiredPartitions": [
+        "read current exact state and state transition via corresponding process flag/native producer"
+      ],
+      "CommonPartitions": [
+        "pi.targets",
+        "pi.selector_forms",
+        "pi.order_duplicates",
+        "pi.signals",
+        "pi.errors_full_stacks",
+        "profiles"
+      ],
+      "P6Gate": "All common/key-specific partitions,actual root custody and retained whole raw values/errors/stacks; resource fields require P6.resources, no global CLR estimates",
+      "VerifiedWholeContract": false
+    },
+    {
+      "Id": "pi.38.{dictionary,Key}",
+      "Selector": "{dictionary,Key}",
+      "AtomKey": "dictionary",
+      "Index": 38,
+      "RequestValueTypes": "Any Term as Key",
+      "ResultValue": "Term | undefined",
+      "ResultEnvelope": "{Selector,Value}; registered_name singleton unregistered is[]; dead isundefined",
+      "CurrentState": "Implemented path; sensitive/copy/error/lifecycle contract unverified; sensitive suppression not represented in current ProcessRuntime.Info dispatch; native-resource-bearing Key also requires genuine guest read admission,not opaque host export",
+      "CurrentFiles": [
+        "src/Runtime/Erlang.Runtime.Core/Processes/ProcessInfoRegistrations.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/ProcessInfoItem.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/ProcessInfoAtoms.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.ProcessInfo.cs"
+      ],
+      "PinnedTableLine": 852,
+      "PinnedFlagsAndLocks": " 3, ERTS_PI_FLAG_FORCE_SIG_SEND|ERTS_PI_FLAG_KEY_TUPLE2, ERTS_PROC_LOCK_MAIN}",
+      "Execution": {
+        "Path": "erts/emulator/beam/erl_bif_info.c",
+        "StartLine": 2284,
+        "EndLine": 2304,
+        "Text": "    case ERTS_PI_IX_DICTIONARY_LOOKUP: {\n        Uint sz;\n\n        ASSERT(is_value(extra));\n        res = ((ERTS_IS_PROC_SENSITIVE(rp))\n               ? am_undefined\n               : erts_pd_hash_get(rp, extra));\n        sz = (!(flags & ERTS_PI_FLAG_REQUEST_FOR_OTHER) || is_immed(res)\n              ? 0\n              : size_object(res));\n\n        /* Allocate 3 words extra for key 2-tuple... */\n        hp = erts_produce_heap(hfact, sz + 3, reserve_size);\n\n        if (sz)\n            res = copy_struct(res, sz, &hp, hfact->off_heap);\n\n        break;\n    }\n\n"
+      },
+      "RequiredPartitions": [
+        "sensitive returns[]; arbitrary key/value terms; copied other-process values; source order"
+      ],
+      "CommonPartitions": [
+        "pi.targets",
+        "pi.selector_forms",
+        "pi.order_duplicates",
+        "pi.signals",
+        "pi.errors_full_stacks",
+        "profiles"
+      ],
+      "P6Gate": "All common/key-specific partitions,actual root custody and retained whole raw values/errors/stacks; resource fields require P6.resources, no global CLR estimates",
+      "VerifiedWholeContract": false
+    },
+    {
+      "Id": "pi.39.label",
+      "Selector": "label",
+      "AtomKey": "label",
+      "Index": 39,
+      "RequestValueTypes": "Exact atom selector",
+      "ResultValue": "Term | undefined",
+      "ResultEnvelope": "{Selector,Value}; registered_name singleton unregistered is[]; dead isundefined",
+      "CurrentState": "Missing selector (currently badarg for valid pinned key)",
+      "CurrentFiles": [
+        "src/Runtime/Erlang.Runtime.Core/Processes/ProcessInfoRegistrations.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/ProcessInfoItem.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/ProcessInfoAtoms.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.ProcessInfo.cs"
+      ],
+      "PinnedTableLine": 853,
+      "PinnedFlagsAndLocks": " 0, ERTS_PI_FLAG_FORCE_SIG_SEND, ERTS_PROC_LOCK_MAIN}",
+      "Execution": {
+        "Path": "erts/emulator/beam/erl_bif_info.c",
+        "StartLine": 2304,
+        "EndLine": 2320,
+        "Text": "    case ERTS_PI_IX_LABEL: {\n        Uint sz;\n\n        res = erts_pd_hash_get(rp, am_DollarProcessLabel);\n        sz = (!(flags & ERTS_PI_FLAG_REQUEST_FOR_OTHER) || is_immed(res)\n              ? 0\n              : size_object(res));\n\n        hp = erts_produce_heap(hfact, sz, reserve_size);\n\n        if (sz)\n            res = copy_struct(res, sz, &hp, hfact->off_heap);\n\n        break;\n    }\n\n"
+      },
+      "RequiredPartitions": [
+        "$process_label dictionary entry arbitrary term; missing key undefined; distinct sensitive behavior from dictionary"
+      ],
+      "CommonPartitions": [
+        "pi.targets",
+        "pi.selector_forms",
+        "pi.order_duplicates",
+        "pi.signals",
+        "pi.errors_full_stacks",
+        "profiles"
+      ],
+      "P6Gate": "All common/key-specific partitions,actual root custody and retained whole raw values/errors/stacks; resource fields require P6.resources, no global CLR estimates",
+      "VerifiedWholeContract": false
+    },
+    {
+      "Id": "pi.40.priority_messages",
+      "Selector": "priority_messages",
+      "AtomKey": "priority_messages",
+      "Index": 40,
+      "RequestValueTypes": "Exact atom selector",
+      "ResultValue": "boolean()",
+      "ResultEnvelope": "{Selector,Value}; registered_name singleton unregistered is[]; dead isundefined",
+      "CurrentState": "Implemented path; full source/effects/stacks unverified",
+      "CurrentFiles": [
+        "src/Runtime/Erlang.Runtime.Core/Processes/ProcessInfoRegistrations.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/ProcessInfoItem.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/ProcessInfoAtoms.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.ProcessInfo.cs"
+      ],
+      "PinnedTableLine": 854,
+      "PinnedFlagsAndLocks": " 0, 0, ERTS_PROC_LOCK_MAIN}",
+      "Execution": {
+        "Path": "erts/emulator/beam/erl_bif_info.c",
+        "StartLine": 2320,
+        "EndLine": 2323,
+        "Text": "    case ERTS_PI_IX_PRIORITY_MESSAGES:\n        res = rp->sig_qs.flags & FS_PRIO_MQ ? am_true : am_false;\n        break;\n"
+      },
+      "RequiredPartitions": [
+        "real permission source count/queue flag; priority alias/monitor/link lifecycle"
+      ],
+      "CommonPartitions": [
+        "pi.targets",
+        "pi.selector_forms",
+        "pi.order_duplicates",
+        "pi.signals",
+        "pi.errors_full_stacks",
+        "profiles"
+      ],
+      "P6Gate": "All common/key-specific partitions,actual root custody and retained whole raw values/errors/stacks; resource fields require P6.resources, no global CLR estimates",
+      "VerifiedWholeContract": false
+    }
+  ],
+  "SystemFlag2": [
+    {
+      "Id": "flag.multi_scheduling",
+      "Selector": "multi_scheduling",
+      "AcceptedValuePartition": "block|unblock|block_normal|unblock_normal",
+      "Return": "enabled|blocked|blocked_normal",
+      "Effect": "Caller-owned nested blocking; scheduler/system/dirty transition and unblock on caller exit",
+      "CurrentState": "Missing; genericbadarg",
+      "RootCauseGroup": "scheduling",
+      "CurrentFiles": [
+        "src/Runtime/Erlang.Runtime.Core/Diagnostics/Tracing/SequenceTraceRegistrations.cs",
+        "src/Runtime/Erlang.Runtime.Core/Services/RuntimeSystemFlag504.cs"
+      ],
+      "PinnedDispatch": {
+        "Path": "erts/emulator/beam/bif.c",
+        "Line": 4976
+      },
+      "RequiredPartitions": [
+        "valid minimum/normal/upper boundary; wrong atom/type/proper/improper list/tuple/map; negative/native-small/bignum edges where relevant",
+        "old-return plus subsequent state read and fresh child inheritance where relevant",
+        "invalid value must retain state; restoration in finally; independent same-runtime concurrent changes",
+        "flag.errors_full_stacks",
+        "profiles"
+      ],
+      "P6Gate": "No parser-only success; source-defined real effect plus full captured errors/metadata and isolated VM ownership",
+      "VerifiedWholeContract": false
+    },
+    {
+      "Id": "flag.schedulers_online",
+      "Selector": "schedulers_online",
+      "AcceptedValuePartition": "native-small integer1..configured schedulers",
+      "Return": "previous online count",
+      "Effect": "Atomic scheduler transition/yield; caller rebound ifits lane is offline",
+      "CurrentState": "Implemented scheduler dispatcher; exact effects/errors/configs unverified",
+      "RootCauseGroup": "scheduling",
+      "CurrentFiles": [
+        "src/Runtime/Erlang.Runtime.Core/Diagnostics/Tracing/SequenceTraceRegistrations.cs",
+        "src/Runtime/Erlang.Runtime.Core/Services/RuntimeSystemFlag504.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.Schedulers.cs"
+      ],
+      "PinnedDispatch": {
+        "Path": "erts/emulator/beam/bif.c",
+        "Line": 5015
+      },
+      "RequiredPartitions": [
+        "valid minimum/normal/upper boundary; wrong atom/type/proper/improper list/tuple/map; negative/native-small/bignum edges where relevant",
+        "old-return plus subsequent state read and fresh child inheritance where relevant",
+        "invalid value must retain state; restoration in finally; independent same-runtime concurrent changes",
+        "flag.errors_full_stacks",
+        "profiles"
+      ],
+      "P6Gate": "No parser-only success; source-defined real effect plus full captured errors/metadata and isolated VM ownership",
+      "VerifiedWholeContract": false
+    },
+    {
+      "Id": "flag.fullsweep_after",
+      "Selector": "fullsweep_after",
+      "AcceptedValuePartition": "native-small integer>=0; clamp to65535",
+      "Return": "old native threshold",
+      "Effect": "Default for NEW processes only; process/spawn path Uint16 wrap differs",
+      "CurrentState": "Implemented policy/default path; whole physical GC enforcement unverified",
+      "RootCauseGroup": "resources",
+      "CurrentFiles": [
+        "src/Runtime/Erlang.Runtime.Core/Diagnostics/Tracing/SequenceTraceRegistrations.cs",
+        "src/Runtime/Erlang.Runtime.Core/Services/RuntimeSystemFlag504.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/ProcessFullSweepAfter.cs"
+      ],
+      "PinnedDispatch": {
+        "Path": "erts/emulator/beam/bif.c",
+        "Line": 5039
+      },
+      "RequiredPartitions": [
+        "valid minimum/normal/upper boundary; wrong atom/type/proper/improper list/tuple/map; negative/native-small/bignum edges where relevant",
+        "old-return plus subsequent state read and fresh child inheritance where relevant",
+        "invalid value must retain state; restoration in finally; independent same-runtime concurrent changes",
+        "flag.errors_full_stacks",
+        "profiles"
+      ],
+      "P6Gate": "No parser-only success; source-defined real effect plus full captured errors/metadata and isolated VM ownership",
+      "VerifiedWholeContract": false
+    },
+    {
+      "Id": "flag.min_heap_size",
+      "Selector": "min_heap_size",
+      "AcceptedValuePartition": "native-small integer>=0 ->erts_next_heap_size(n,0)",
+      "Return": "old rounded minimum",
+      "Effect": "NEW process heap default; heap table/word width and runtime init flags",
+      "CurrentState": "Missing; valid input getsbadarg",
+      "RootCauseGroup": "resources",
+      "CurrentFiles": [
+        "src/Runtime/Erlang.Runtime.Core/Diagnostics/Tracing/SequenceTraceRegistrations.cs",
+        "src/Runtime/Erlang.Runtime.Core/Services/RuntimeSystemFlag504.cs"
+      ],
+      "PinnedDispatch": {
+        "Path": "erts/emulator/beam/bif.c",
+        "Line": 5049
+      },
+      "RequiredPartitions": [
+        "valid minimum/normal/upper boundary; wrong atom/type/proper/improper list/tuple/map; negative/native-small/bignum edges where relevant",
+        "old-return plus subsequent state read and fresh child inheritance where relevant",
+        "invalid value must retain state; restoration in finally; independent same-runtime concurrent changes",
+        "flag.errors_full_stacks",
+        "profiles"
+      ],
+      "P6Gate": "No parser-only success; source-defined real effect plus full captured errors/metadata and isolated VM ownership",
+      "VerifiedWholeContract": false
+    },
+    {
+      "Id": "flag.min_bin_vheap_size",
+      "Selector": "min_bin_vheap_size",
+      "AcceptedValuePartition": "native-small integer>=0 ->erts_next_heap_size(n,0)",
+      "Return": "old rounded binary virtual minimum",
+      "Effect": "NEW process binary-vheap default and actual refc/offheap thresholds",
+      "CurrentState": "Missing; valid input getsbadarg",
+      "RootCauseGroup": "resources",
+      "CurrentFiles": [
+        "src/Runtime/Erlang.Runtime.Core/Diagnostics/Tracing/SequenceTraceRegistrations.cs",
+        "src/Runtime/Erlang.Runtime.Core/Services/RuntimeSystemFlag504.cs"
+      ],
+      "PinnedDispatch": {
+        "Path": "erts/emulator/beam/bif.c",
+        "Line": 5065
+      },
+      "RequiredPartitions": [
+        "valid minimum/normal/upper boundary; wrong atom/type/proper/improper list/tuple/map; negative/native-small/bignum edges where relevant",
+        "old-return plus subsequent state read and fresh child inheritance where relevant",
+        "invalid value must retain state; restoration in finally; independent same-runtime concurrent changes",
+        "flag.errors_full_stacks",
+        "profiles"
+      ],
+      "P6Gate": "No parser-only success; source-defined real effect plus full captured errors/metadata and isolated VM ownership",
+      "VerifiedWholeContract": false
+    },
+    {
+      "Id": "flag.max_heap_size",
+      "Selector": "max_heap_size",
+      "AcceptedValuePartition": "native-small nonnegative integer OR map mandatory small size>=0 and optional exact booleans kill/error_logger/include_shared_binaries; extra keys ignored; size0 or>=current minimum",
+      "Return": "old full max-heap map",
+      "Effect": "NEW process default; unspecified booleans inherit H_MAX_FLAGS; kill/log/shared-bin effects not parser-only",
+      "CurrentState": "Missing; valid input getsbadarg",
+      "RootCauseGroup": "resources",
+      "CurrentFiles": [
+        "src/Runtime/Erlang.Runtime.Core/Diagnostics/Tracing/SequenceTraceRegistrations.cs",
+        "src/Runtime/Erlang.Runtime.Core/Services/RuntimeSystemFlag504.cs"
+      ],
+      "PinnedDispatch": {
+        "Path": "erts/emulator/beam/bif.c",
+        "Line": 5081
+      },
+      "RequiredPartitions": [
+        "valid minimum/normal/upper boundary; wrong atom/type/proper/improper list/tuple/map; negative/native-small/bignum edges where relevant",
+        "old-return plus subsequent state read and fresh child inheritance where relevant",
+        "invalid value must retain state; restoration in finally; independent same-runtime concurrent changes",
+        "flag.errors_full_stacks",
+        "profiles"
+      ],
+      "P6Gate": "No parser-only success; source-defined real effect plus full captured errors/metadata and isolated VM ownership",
+      "VerifiedWholeContract": false
+    },
+    {
+      "Id": "flag.debug_flags",
+      "Selector": "debug_flags",
+      "AcceptedValuePartition": "ANY second argument, ignored",
+      "Return": "true",
+      "Effect": "No mutation in pinned branch",
+      "CurrentState": "Implemented simple branch; all argument/frame partitions unverified; ignored resource-bearing second argument still needs correct guest authority through registered opaque MFA",
+      "RootCauseGroup": "metadata",
+      "CurrentFiles": [
+        "src/Runtime/Erlang.Runtime.Core/Diagnostics/Tracing/SequenceTraceRegistrations.cs",
+        "src/Runtime/Erlang.Runtime.Core/Services/RuntimeSystemFlag504.cs"
+      ],
+      "PinnedDispatch": {
+        "Path": "erts/emulator/beam/bif.c",
+        "Line": 5106
+      },
+      "RequiredPartitions": [
+        "valid minimum/normal/upper boundary; wrong atom/type/proper/improper list/tuple/map; negative/native-small/bignum edges where relevant",
+        "old-return plus subsequent state read and fresh child inheritance where relevant",
+        "invalid value must retain state; restoration in finally; independent same-runtime concurrent changes",
+        "flag.errors_full_stacks",
+        "profiles"
+      ],
+      "P6Gate": "No parser-only success; source-defined real effect plus full captured errors/metadata and isolated VM ownership",
+      "VerifiedWholeContract": false
+    },
+    {
+      "Id": "flag.backtrace_depth",
+      "Selector": "backtrace_depth",
+      "AcceptedValuePartition": "native-small integer>=0; clamp toMAX_BACKTRACE_SIZE",
+      "Return": "previous depth",
+      "Effect": "Future stack captures include exact admitted line metadata",
+      "CurrentState": "Implemented; full source/BEAM/native/line profile partitions unverified",
+      "RootCauseGroup": "metadata",
+      "CurrentFiles": [
+        "src/Runtime/Erlang.Runtime.Core/Diagnostics/Tracing/SequenceTraceRegistrations.cs",
+        "src/Runtime/Erlang.Runtime.Core/Services/RuntimeSystemFlag504.cs",
+        "src/Runtime/Erlang.Runtime.Core/Diagnostics/Tracing/BacktraceDepthFlag.cs"
+      ],
+      "PinnedDispatch": {
+        "Path": "erts/emulator/beam/bif.c",
+        "Line": 5108
+      },
+      "RequiredPartitions": [
+        "valid minimum/normal/upper boundary; wrong atom/type/proper/improper list/tuple/map; negative/native-small/bignum edges where relevant",
+        "old-return plus subsequent state read and fresh child inheritance where relevant",
+        "invalid value must retain state; restoration in finally; independent same-runtime concurrent changes",
+        "flag.errors_full_stacks",
+        "profiles"
+      ],
+      "P6Gate": "No parser-only success; source-defined real effect plus full captured errors/metadata and isolated VM ownership",
+      "VerifiedWholeContract": false
+    },
+    {
+      "Id": "flag.trace_control_word",
+      "Selector": "trace_control_word",
+      "AcceptedValuePartition": "integer0..2^32-1 (native Uint conversion)",
+      "Return": "previous uint32 word",
+      "Effect": "Atomic trace match-spec control word change",
+      "CurrentState": "Missing from system_flag dispatch; related matchspec state is not automatic support",
+      "RootCauseGroup": "tracing",
+      "CurrentFiles": [
+        "src/Runtime/Erlang.Runtime.Core/Diagnostics/Tracing/SequenceTraceRegistrations.cs",
+        "src/Runtime/Erlang.Runtime.Core/Services/RuntimeSystemFlag504.cs"
+      ],
+      "PinnedDispatch": {
+        "Path": "erts/emulator/beam/bif.c",
+        "Line": 5116
+      },
+      "RequiredPartitions": [
+        "valid minimum/normal/upper boundary; wrong atom/type/proper/improper list/tuple/map; negative/native-small/bignum edges where relevant",
+        "old-return plus subsequent state read and fresh child inheritance where relevant",
+        "invalid value must retain state; restoration in finally; independent same-runtime concurrent changes",
+        "flag.errors_full_stacks",
+        "profiles"
+      ],
+      "P6Gate": "No parser-only success; source-defined real effect plus full captured errors/metadata and isolated VM ownership",
+      "VerifiedWholeContract": false
+    },
+    {
+      "Id": "flag.sequential_tracer",
+      "Selector": "sequential_tracer",
+      "AcceptedValuePartition": "false OR accepted tracer pid/port or {Module,State} through erts_term_to_tracer",
+      "Return": "previous tracer term orfalse",
+      "Effect": "Real system seq tracer change; invalid tracer unchanged; death/load callbacks",
+      "CurrentState": "Partial: only false or living local Pid supported by SequenceTracing.SetTracer",
+      "RootCauseGroup": "tracing",
+      "CurrentFiles": [
+        "src/Runtime/Erlang.Runtime.Core/Diagnostics/Tracing/SequenceTraceRegistrations.cs",
+        "src/Runtime/Erlang.Runtime.Core/Services/RuntimeSystemFlag504.cs",
+        "src/Runtime/Erlang.Runtime.Core/Diagnostics/Tracing/SequenceTracing.cs"
+      ],
+      "PinnedDispatch": {
+        "Path": "erts/emulator/beam/bif.c",
+        "Line": 5118
+      },
+      "RequiredPartitions": [
+        "valid minimum/normal/upper boundary; wrong atom/type/proper/improper list/tuple/map; negative/native-small/bignum edges where relevant",
+        "old-return plus subsequent state read and fresh child inheritance where relevant",
+        "invalid value must retain state; restoration in finally; independent same-runtime concurrent changes",
+        "flag.errors_full_stacks",
+        "profiles"
+      ],
+      "P6Gate": "No parser-only success; source-defined real effect plus full captured errors/metadata and isolated VM ownership",
+      "VerifiedWholeContract": false
+    },
+    {
+      "Id": "flag.reset_seq_trace",
+      "Selector": "reset_seq_trace",
+      "AcceptedValuePartition": "ANY second argument, ignored",
+      "Return": "true",
+      "Effect": "Clear process and queued-signal tokens/clocks across ALL processes; USE_VM_PROBES tags conditional",
+      "CurrentState": "Missing; valid input getsbadarg",
+      "RootCauseGroup": "tracing",
+      "CurrentFiles": [
+        "src/Runtime/Erlang.Runtime.Core/Diagnostics/Tracing/SequenceTraceRegistrations.cs",
+        "src/Runtime/Erlang.Runtime.Core/Services/RuntimeSystemFlag504.cs"
+      ],
+      "PinnedDispatch": {
+        "Path": "erts/emulator/beam/bif.c",
+        "Line": 5147
+      },
+      "RequiredPartitions": [
+        "valid minimum/normal/upper boundary; wrong atom/type/proper/improper list/tuple/map; negative/native-small/bignum edges where relevant",
+        "old-return plus subsequent state read and fresh child inheritance where relevant",
+        "invalid value must retain state; restoration in finally; independent same-runtime concurrent changes",
+        "flag.errors_full_stacks",
+        "profiles"
+      ],
+      "P6Gate": "No parser-only success; source-defined real effect plus full captured errors/metadata and isolated VM ownership",
+      "VerifiedWholeContract": false
+    },
+    {
+      "Id": "flag.scheduler_wall_time",
+      "Selector": "scheduler_wall_time",
+      "AcceptedValuePartition": "true|false",
+      "Return": "previous boolean",
+      "Effect": "Global actual scheduler walltime request/gather and async acknowledgement",
+      "CurrentState": "Missing; valid input getsbadarg",
+      "RootCauseGroup": "scheduling",
+      "CurrentFiles": [
+        "src/Runtime/Erlang.Runtime.Core/Diagnostics/Tracing/SequenceTraceRegistrations.cs",
+        "src/Runtime/Erlang.Runtime.Core/Services/RuntimeSystemFlag504.cs"
+      ],
+      "PinnedDispatch": {
+        "Path": "erts/emulator/beam/bif.c",
+        "Line": 5174
+      },
+      "RequiredPartitions": [
+        "valid minimum/normal/upper boundary; wrong atom/type/proper/improper list/tuple/map; negative/native-small/bignum edges where relevant",
+        "old-return plus subsequent state read and fresh child inheritance where relevant",
+        "invalid value must retain state; restoration in finally; independent same-runtime concurrent changes",
+        "flag.errors_full_stacks",
+        "profiles"
+      ],
+      "P6Gate": "No parser-only success; source-defined real effect plus full captured errors/metadata and isolated VM ownership",
+      "VerifiedWholeContract": false
+    },
+    {
+      "Id": "flag.dirty_cpu_schedulers_online",
+      "Selector": "dirty_cpu_schedulers_online",
+      "AcceptedValuePartition": "native-small integer within configured dirty CPU count/online-normal constraints",
+      "Return": "old dirty CPU online count",
+      "Effect": "Actual dirty pool resizing/yield;0/1/boundary conditions source config dependent",
+      "CurrentState": "Missing from system_flag dispatch despite dirty native pool implementation",
+      "RootCauseGroup": "scheduling",
+      "CurrentFiles": [
+        "src/Runtime/Erlang.Runtime.Core/Diagnostics/Tracing/SequenceTraceRegistrations.cs",
+        "src/Runtime/Erlang.Runtime.Core/Services/RuntimeSystemFlag504.cs"
+      ],
+      "PinnedDispatch": {
+        "Path": "erts/emulator/beam/bif.c",
+        "Line": 5178
+      },
+      "RequiredPartitions": [
+        "valid minimum/normal/upper boundary; wrong atom/type/proper/improper list/tuple/map; negative/native-small/bignum edges where relevant",
+        "old-return plus subsequent state read and fresh child inheritance where relevant",
+        "invalid value must retain state; restoration in finally; independent same-runtime concurrent changes",
+        "flag.errors_full_stacks",
+        "profiles"
+      ],
+      "P6Gate": "No parser-only success; source-defined real effect plus full captured errors/metadata and isolated VM ownership",
+      "VerifiedWholeContract": false
+    },
+    {
+      "Id": "flag.time_offset",
+      "Selector": "time_offset",
+      "AcceptedValuePartition": "finalize only",
+      "Return": "preliminary|final|volatile",
+      "Effect": "Time-warp-mode dependent one-way finalization; repeated calls",
+      "CurrentState": "Missing; valid input getsbadarg",
+      "RootCauseGroup": "time",
+      "CurrentFiles": [
+        "src/Runtime/Erlang.Runtime.Core/Diagnostics/Tracing/SequenceTraceRegistrations.cs",
+        "src/Runtime/Erlang.Runtime.Core/Services/RuntimeSystemFlag504.cs"
+      ],
+      "PinnedDispatch": {
+        "Path": "erts/emulator/beam/bif.c",
+        "Line": 5203
+      },
+      "RequiredPartitions": [
+        "valid minimum/normal/upper boundary; wrong atom/type/proper/improper list/tuple/map; negative/native-small/bignum edges where relevant",
+        "old-return plus subsequent state read and fresh child inheritance where relevant",
+        "invalid value must retain state; restoration in finally; independent same-runtime concurrent changes",
+        "flag.errors_full_stacks",
+        "profiles"
+      ],
+      "P6Gate": "No parser-only success; source-defined real effect plus full captured errors/metadata and isolated VM ownership",
+      "VerifiedWholeContract": false
+    },
+    {
+      "Id": "flag.microstate_accounting",
+      "Selector": "microstate_accounting",
+      "AcceptedValuePartition": "true|false|reset when ERTS_ENABLE_MSACC",
+      "Return": "previous boolean",
+      "Effect": "Enable/disable/reset all thread state accounting and await replies",
+      "CurrentState": "Missing; build-disabled original branch instead reaches unknown-selector error",
+      "RootCauseGroup": "scheduling",
+      "CurrentFiles": [
+        "src/Runtime/Erlang.Runtime.Core/Diagnostics/Tracing/SequenceTraceRegistrations.cs",
+        "src/Runtime/Erlang.Runtime.Core/Services/RuntimeSystemFlag504.cs"
+      ],
+      "PinnedDispatch": {
+        "Path": "erts/emulator/beam/bif.c",
+        "Line": 5226
+      },
+      "RequiredPartitions": [
+        "valid minimum/normal/upper boundary; wrong atom/type/proper/improper list/tuple/map; negative/native-small/bignum edges where relevant",
+        "old-return plus subsequent state read and fresh child inheritance where relevant",
+        "invalid value must retain state; restoration in finally; independent same-runtime concurrent changes",
+        "flag.errors_full_stacks",
+        "profiles"
+      ],
+      "P6Gate": "No parser-only success; source-defined real effect plus full captured errors/metadata and isolated VM ownership",
+      "VerifiedWholeContract": false
+    },
+    {
+      "Id": "flag.outstanding_system_requests_limit",
+      "Selector": "outstanding_system_requests_limit",
+      "AcceptedValuePartition": "integer Uint range; valid setter1..134217727",
+      "Return": "previous limit",
+      "Effect": "Code purger/literal collector request windows; errors retain previous value",
+      "CurrentState": "Implemented request-window state; complete effect/frame/error partitions unverified",
+      "RootCauseGroup": "lifecycle",
+      "CurrentFiles": [
+        "src/Runtime/Erlang.Runtime.Core/Diagnostics/Tracing/SequenceTraceRegistrations.cs",
+        "src/Runtime/Erlang.Runtime.Core/Services/RuntimeSystemFlag504.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.SystemRequestWindow432.cs"
+      ],
+      "PinnedDispatch": {
+        "Path": "erts/emulator/beam/bif.c",
+        "Line": 5250
+      },
+      "RequiredPartitions": [
+        "valid minimum/normal/upper boundary; wrong atom/type/proper/improper list/tuple/map; negative/native-small/bignum edges where relevant",
+        "old-return plus subsequent state read and fresh child inheritance where relevant",
+        "invalid value must retain state; restoration in finally; independent same-runtime concurrent changes",
+        "flag.errors_full_stacks",
+        "profiles"
+      ],
+      "P6Gate": "No parser-only success; source-defined real effect plus full captured errors/metadata and isolated VM ownership",
+      "VerifiedWholeContract": false
+    },
+    {
+      "Id": "flag.scheduling_statistics",
+      "Selector": "scheduling_statistics",
+      "AcceptedValuePartition": "disable|enable|clear",
+      "Return": "true",
+      "Effect": "Actual scheduler per-priority statistics state; internal/undocumented required",
+      "CurrentState": "Missing; valid input getsbadarg",
+      "RootCauseGroup": "scheduling",
+      "CurrentFiles": [
+        "src/Runtime/Erlang.Runtime.Core/Diagnostics/Tracing/SequenceTraceRegistrations.cs",
+        "src/Runtime/Erlang.Runtime.Core/Services/RuntimeSystemFlag504.cs"
+      ],
+      "PinnedDispatch": {
+        "Path": "erts/emulator/beam/bif.c",
+        "Line": 5258
+      },
+      "RequiredPartitions": [
+        "valid minimum/normal/upper boundary; wrong atom/type/proper/improper list/tuple/map; negative/native-small/bignum edges where relevant",
+        "old-return plus subsequent state read and fresh child inheritance where relevant",
+        "invalid value must retain state; restoration in finally; independent same-runtime concurrent changes",
+        "flag.errors_full_stacks",
+        "profiles"
+      ],
+      "P6Gate": "No parser-only success; source-defined real effect plus full captured errors/metadata and isolated VM ownership",
+      "VerifiedWholeContract": false
+    },
+    {
+      "Id": "flag.internal_cpu_topology",
+      "Selector": "internal_cpu_topology",
+      "AcceptedValuePartition": "undefined OR proper list of {cpu,Node,Processor,ProcessorNode,Core,Thread,Logical} with IDs-1..MAX and verify_topology constraints",
+      "Return": "old topology",
+      "Effect": "Set/clear user topology and recompute scheduler group/binding notifications",
+      "CurrentState": "Implemented CpuTopology conversion/state; full topology grammar/backend effect unverified",
+      "RootCauseGroup": "scheduling",
+      "CurrentFiles": [
+        "src/Runtime/Erlang.Runtime.Core/Diagnostics/Tracing/SequenceTraceRegistrations.cs",
+        "src/Runtime/Erlang.Runtime.Core/Services/RuntimeSystemFlag504.cs",
+        "src/Runtime/Erlang.Runtime.Core/Scheduling/Topology/CpuTopologyStateRegistrations.cs"
+      ],
+      "PinnedDispatch": {
+        "Path": "erts/emulator/beam/bif.c",
+        "Line": 5272
+      },
+      "RequiredPartitions": [
+        "valid minimum/normal/upper boundary; wrong atom/type/proper/improper list/tuple/map; negative/native-small/bignum edges where relevant",
+        "old-return plus subsequent state read and fresh child inheritance where relevant",
+        "invalid value must retain state; restoration in finally; independent same-runtime concurrent changes",
+        "flag.errors_full_stacks",
+        "profiles"
+      ],
+      "P6Gate": "No parser-only success; source-defined real effect plus full captured errors/metadata and isolated VM ownership",
+      "VerifiedWholeContract": false
+    },
+    {
+      "Id": "flag.cpu_topology",
+      "Selector": "cpu_topology",
+      "AcceptedValuePartition": "public nested cpu_topology grammar through original erlang set_cpu_topology trap",
+      "Return": "old public topology",
+      "Effect": "Deprecated warning message + original formatter/converter +internal topology effect",
+      "CurrentState": "Missing direct system_flag branch; separate set_cpu_topology registration isnotthis API",
+      "RootCauseGroup": "scheduling",
+      "CurrentFiles": [
+        "src/Runtime/Erlang.Runtime.Core/Diagnostics/Tracing/SequenceTraceRegistrations.cs",
+        "src/Runtime/Erlang.Runtime.Core/Services/RuntimeSystemFlag504.cs"
+      ],
+      "PinnedDispatch": {
+        "Path": "erts/emulator/beam/bif.c",
+        "Line": 5276
+      },
+      "RequiredPartitions": [
+        "valid minimum/normal/upper boundary; wrong atom/type/proper/improper list/tuple/map; negative/native-small/bignum edges where relevant",
+        "old-return plus subsequent state read and fresh child inheritance where relevant",
+        "invalid value must retain state; restoration in finally; independent same-runtime concurrent changes",
+        "flag.errors_full_stacks",
+        "profiles"
+      ],
+      "P6Gate": "No parser-only success; source-defined real effect plus full captured errors/metadata and isolated VM ownership",
+      "VerifiedWholeContract": false
+    },
+    {
+      "Id": "flag.scheduler_bind_type",
+      "Selector": "scheduler_bind_type",
+      "AcceptedValuePartition": "unbound|no_spread|thread_spread|processor_spread|spread|no_node_thread_spread|no_node_processor_spread|thread_no_node_processor_spread|default_bind",
+      "Return": "old binding policy",
+      "Effect": "Warn deprecated; CPU/OS affinity support and topology required; unbound special notsup-platform success",
+      "CurrentState": "Missing; backend affinity primitive isnot complete policy",
+      "RootCauseGroup": "scheduling",
+      "CurrentFiles": [
+        "src/Runtime/Erlang.Runtime.Core/Diagnostics/Tracing/SequenceTraceRegistrations.cs",
+        "src/Runtime/Erlang.Runtime.Core/Services/RuntimeSystemFlag504.cs"
+      ],
+      "PinnedDispatch": {
+        "Path": "erts/emulator/beam/bif.c",
+        "Line": 5284
+      },
+      "RequiredPartitions": [
+        "valid minimum/normal/upper boundary; wrong atom/type/proper/improper list/tuple/map; negative/native-small/bignum edges where relevant",
+        "old-return plus subsequent state read and fresh child inheritance where relevant",
+        "invalid value must retain state; restoration in finally; independent same-runtime concurrent changes",
+        "flag.errors_full_stacks",
+        "profiles"
+      ],
+      "P6Gate": "No parser-only success; source-defined real effect plus full captured errors/metadata and isolated VM ownership",
+      "VerifiedWholeContract": false
+    },
+    {
+      "Id": "flag.erts_alloc",
+      "Selector": "erts_alloc",
+      "AcceptedValuePartition": "{knownAllocatorAtom,FlagAtom,Integer}; sbct requires Uint only if allocator enabled/alloc_util; other flags or unsupported allocator returnnotsup",
+      "Return": "ok|notsup",
+      "Effect": "Actual allocator threshold update across thread-specific instances; malformed/unknown allocator badarg",
+      "CurrentState": "Missing; native VM arena existence isnot this API",
+      "RootCauseGroup": "allocator",
+      "CurrentFiles": [
+        "src/Runtime/Erlang.Runtime.Core/Diagnostics/Tracing/SequenceTraceRegistrations.cs",
+        "src/Runtime/Erlang.Runtime.Core/Services/RuntimeSystemFlag504.cs"
+      ],
+      "PinnedDispatch": {
+        "Path": "erts/emulator/beam/bif.c",
+        "Line": 5292
+      },
+      "RequiredPartitions": [
+        "valid minimum/normal/upper boundary; wrong atom/type/proper/improper list/tuple/map; negative/native-small/bignum edges where relevant",
+        "old-return plus subsequent state read and fresh child inheritance where relevant",
+        "invalid value must retain state; restoration in finally; independent same-runtime concurrent changes",
+        "flag.errors_full_stacks",
+        "profiles"
+      ],
+      "P6Gate": "No parser-only success; source-defined real effect plus full captured errors/metadata and isolated VM ownership",
+      "VerifiedWholeContract": false
+    },
+    {
+      "Id": "flag.system_logger",
+      "Selector": "system_logger",
+      "AcceptedValuePartition": "logger|undefined|INTERNAL Pid including dead local pid; foreign/external PID invalid",
+      "Return": "previous exact term",
+      "Effect": "Atomic destination change; dead logger reset on delivery failure,notDOWN",
+      "CurrentState": "Implemented runtime logger exchange; complete error/delivery lifecycle unverified",
+      "RootCauseGroup": "tracing",
+      "CurrentFiles": [
+        "src/Runtime/Erlang.Runtime.Core/Diagnostics/Tracing/SequenceTraceRegistrations.cs",
+        "src/Runtime/Erlang.Runtime.Core/Services/RuntimeSystemFlag504.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.SystemLogger.cs"
+      ],
+      "PinnedDispatch": {
+        "Path": "erts/emulator/beam/bif.c",
+        "Line": 5294
+      },
+      "RequiredPartitions": [
+        "valid minimum/normal/upper boundary; wrong atom/type/proper/improper list/tuple/map; negative/native-small/bignum edges where relevant",
+        "old-return plus subsequent state read and fresh child inheritance where relevant",
+        "invalid value must retain state; restoration in finally; independent same-runtime concurrent changes",
+        "flag.errors_full_stacks",
+        "profiles"
+      ],
+      "P6Gate": "No parser-only success; source-defined real effect plus full captured errors/metadata and isolated VM ownership",
+      "VerifiedWholeContract": false
+    }
+  ],
+  "Statistics1": [
+    {
+      "Id": "stats.scheduler_wall_time",
+      "Selector": "scheduler_wall_time",
+      "Input": "Exact atom; all other types/unknown atoms badarg",
+      "Return": "undefined disabled/unavailable OR list of {SchedulerId,ActiveTime,TotalTime}",
+      "EffectOrState": "Real scheduler sampling after flag gate; _all includes dirty IO. Normal/dirty state and online/offline asymmetry must use own-state witness.",
+      "CurrentState": "Missing: valid selector raisesnotsup",
+      "CurrentFiles": [
+        "src/Runtime/Erlang.Runtime.Core/Services/RuntimeStatisticsRegistrations.cs",
+        "src/Runtime/Erlang.Runtime.Core/Services/RuntimeStatistics.cs",
+        "src/Runtime/Erlang.Runtime.Core/Services/RuntimeStatistics.ManagedGarbage457.cs",
+        "src/Runtime/Erlang.Runtime.Core/Services/RuntimeReductionStatistics.cs",
+        "src/Runtime/Erlang.Runtime.Core/Scheduling/RuntimeSchedulerStatistics.cs",
+        "src/Runtime/Erlang.Runtime.Core/Scheduling/RuntimeActorDispatcher.Statistics504.cs"
+      ],
+      "PinnedDispatch": {
+        "Path": "erts/emulator/beam/erl_bif_info.c",
+        "Line": 4165
+      },
+      "RequiredPartitions": [
+        "first/consecutive/interleaved same-selector and other-selector calls",
+        "held/running/queued/dirtyCPU/dirtyIO/offline/empty and concurrent sample barrier",
+        "two logical VM isolation, halted/disposed VM, cancellation while request pending",
+        "stats.errors_full_stacks",
+        "profiles"
+      ],
+      "P6Gate": "Full actual own-state counter model and source-config error branches; no fake static values/estimated global CLR counters",
+      "VerifiedWholeContract": false
+    },
+    {
+      "Id": "stats.scheduler_wall_time_all",
+      "Selector": "scheduler_wall_time_all",
+      "Input": "Exact atom; all other types/unknown atoms badarg",
+      "Return": "undefined disabled/unavailable OR list of {SchedulerId,ActiveTime,TotalTime}",
+      "EffectOrState": "Real scheduler sampling after flag gate; _all includes dirty IO. Normal/dirty state and online/offline asymmetry must use own-state witness.",
+      "CurrentState": "Missing: valid selector raisesnotsup",
+      "CurrentFiles": [
+        "src/Runtime/Erlang.Runtime.Core/Services/RuntimeStatisticsRegistrations.cs",
+        "src/Runtime/Erlang.Runtime.Core/Services/RuntimeStatistics.cs",
+        "src/Runtime/Erlang.Runtime.Core/Services/RuntimeStatistics.ManagedGarbage457.cs",
+        "src/Runtime/Erlang.Runtime.Core/Services/RuntimeReductionStatistics.cs",
+        "src/Runtime/Erlang.Runtime.Core/Scheduling/RuntimeSchedulerStatistics.cs",
+        "src/Runtime/Erlang.Runtime.Core/Scheduling/RuntimeActorDispatcher.Statistics504.cs"
+      ],
+      "PinnedDispatch": {
+        "Path": "erts/emulator/beam/erl_bif_info.c",
+        "Line": 4170
+      },
+      "RequiredPartitions": [
+        "first/consecutive/interleaved same-selector and other-selector calls",
+        "held/running/queued/dirtyCPU/dirtyIO/offline/empty and concurrent sample barrier",
+        "two logical VM isolation, halted/disposed VM, cancellation while request pending",
+        "stats.errors_full_stacks",
+        "profiles"
+      ],
+      "P6Gate": "Full actual own-state counter model and source-config error branches; no fake static values/estimated global CLR counters",
+      "VerifiedWholeContract": false
+    },
+    {
+      "Id": "stats.total_active_tasks",
+      "Selector": "total_active_tasks",
+      "Input": "Exact atom; all other types/unknown atoms badarg",
+      "Return": "nonnegative scalar sum",
+      "EffectOrState": "Observational queue snapshot (pinned run_queue uses atomic_queues_read=1; other queue selectors0); active selectors include running; *_all/run_queues include dirty IO; others exclude dirty IO. Offline normal slots/count and running process semantics require source proof.",
+      "CurrentState": "Implemented actual per-runtime normal/CPU/IO queues; whole source sampling/offline/distribution-system-task partitions unverified",
+      "CurrentFiles": [
+        "src/Runtime/Erlang.Runtime.Core/Services/RuntimeStatisticsRegistrations.cs",
+        "src/Runtime/Erlang.Runtime.Core/Services/RuntimeStatistics.cs",
+        "src/Runtime/Erlang.Runtime.Core/Services/RuntimeStatistics.ManagedGarbage457.cs",
+        "src/Runtime/Erlang.Runtime.Core/Services/RuntimeReductionStatistics.cs",
+        "src/Runtime/Erlang.Runtime.Core/Scheduling/RuntimeSchedulerStatistics.cs",
+        "src/Runtime/Erlang.Runtime.Core/Scheduling/RuntimeActorDispatcher.Statistics504.cs"
+      ],
+      "PinnedDispatch": {
+        "Path": "erts/emulator/beam/erl_bif_info.c",
+        "Line": 4175
+      },
+      "RequiredPartitions": [
+        "first/consecutive/interleaved same-selector and other-selector calls",
+        "held/running/queued/dirtyCPU/dirtyIO/offline/empty and concurrent sample barrier",
+        "two logical VM isolation, halted/disposed VM, cancellation while request pending",
+        "stats.errors_full_stacks",
+        "profiles"
+      ],
+      "P6Gate": "Full actual own-state counter model and source-config error branches; no fake static values/estimated global CLR counters",
+      "VerifiedWholeContract": false
+    },
+    {
+      "Id": "stats.total_run_queue_lengths",
+      "Selector": "total_run_queue_lengths",
+      "Input": "Exact atom; all other types/unknown atoms badarg",
+      "Return": "nonnegative scalar sum",
+      "EffectOrState": "Observational queue snapshot (pinned run_queue uses atomic_queues_read=1; other queue selectors0); active selectors include running; *_all/run_queues include dirty IO; others exclude dirty IO. Offline normal slots/count and running process semantics require source proof.",
+      "CurrentState": "Implemented actual per-runtime normal/CPU/IO queues; whole source sampling/offline/distribution-system-task partitions unverified",
+      "CurrentFiles": [
+        "src/Runtime/Erlang.Runtime.Core/Services/RuntimeStatisticsRegistrations.cs",
+        "src/Runtime/Erlang.Runtime.Core/Services/RuntimeStatistics.cs",
+        "src/Runtime/Erlang.Runtime.Core/Services/RuntimeStatistics.ManagedGarbage457.cs",
+        "src/Runtime/Erlang.Runtime.Core/Services/RuntimeReductionStatistics.cs",
+        "src/Runtime/Erlang.Runtime.Core/Scheduling/RuntimeSchedulerStatistics.cs",
+        "src/Runtime/Erlang.Runtime.Core/Scheduling/RuntimeActorDispatcher.Statistics504.cs"
+      ],
+      "PinnedDispatch": {
+        "Path": "erts/emulator/beam/erl_bif_info.c",
+        "Line": 4176
+      },
+      "RequiredPartitions": [
+        "first/consecutive/interleaved same-selector and other-selector calls",
+        "held/running/queued/dirtyCPU/dirtyIO/offline/empty and concurrent sample barrier",
+        "two logical VM isolation, halted/disposed VM, cancellation while request pending",
+        "stats.errors_full_stacks",
+        "profiles"
+      ],
+      "P6Gate": "Full actual own-state counter model and source-config error branches; no fake static values/estimated global CLR counters",
+      "VerifiedWholeContract": false
+    },
+    {
+      "Id": "stats.total_active_tasks_all",
+      "Selector": "total_active_tasks_all",
+      "Input": "Exact atom; all other types/unknown atoms badarg",
+      "Return": "nonnegative scalar sum",
+      "EffectOrState": "Observational queue snapshot (pinned run_queue uses atomic_queues_read=1; other queue selectors0); active selectors include running; *_all/run_queues include dirty IO; others exclude dirty IO. Offline normal slots/count and running process semantics require source proof.",
+      "CurrentState": "Implemented actual per-runtime normal/CPU/IO queues; whole source sampling/offline/distribution-system-task partitions unverified",
+      "CurrentFiles": [
+        "src/Runtime/Erlang.Runtime.Core/Services/RuntimeStatisticsRegistrations.cs",
+        "src/Runtime/Erlang.Runtime.Core/Services/RuntimeStatistics.cs",
+        "src/Runtime/Erlang.Runtime.Core/Services/RuntimeStatistics.ManagedGarbage457.cs",
+        "src/Runtime/Erlang.Runtime.Core/Services/RuntimeReductionStatistics.cs",
+        "src/Runtime/Erlang.Runtime.Core/Scheduling/RuntimeSchedulerStatistics.cs",
+        "src/Runtime/Erlang.Runtime.Core/Scheduling/RuntimeActorDispatcher.Statistics504.cs"
+      ],
+      "PinnedDispatch": {
+        "Path": "erts/emulator/beam/erl_bif_info.c",
+        "Line": 4177
+      },
+      "RequiredPartitions": [
+        "first/consecutive/interleaved same-selector and other-selector calls",
+        "held/running/queued/dirtyCPU/dirtyIO/offline/empty and concurrent sample barrier",
+        "two logical VM isolation, halted/disposed VM, cancellation while request pending",
+        "stats.errors_full_stacks",
+        "profiles"
+      ],
+      "P6Gate": "Full actual own-state counter model and source-config error branches; no fake static values/estimated global CLR counters",
+      "VerifiedWholeContract": false
+    },
+    {
+      "Id": "stats.total_run_queue_lengths_all",
+      "Selector": "total_run_queue_lengths_all",
+      "Input": "Exact atom; all other types/unknown atoms badarg",
+      "Return": "nonnegative scalar sum",
+      "EffectOrState": "Observational queue snapshot (pinned run_queue uses atomic_queues_read=1; other queue selectors0); active selectors include running; *_all/run_queues include dirty IO; others exclude dirty IO. Offline normal slots/count and running process semantics require source proof.",
+      "CurrentState": "Implemented actual per-runtime normal/CPU/IO queues; whole source sampling/offline/distribution-system-task partitions unverified",
+      "CurrentFiles": [
+        "src/Runtime/Erlang.Runtime.Core/Services/RuntimeStatisticsRegistrations.cs",
+        "src/Runtime/Erlang.Runtime.Core/Services/RuntimeStatistics.cs",
+        "src/Runtime/Erlang.Runtime.Core/Services/RuntimeStatistics.ManagedGarbage457.cs",
+        "src/Runtime/Erlang.Runtime.Core/Services/RuntimeReductionStatistics.cs",
+        "src/Runtime/Erlang.Runtime.Core/Scheduling/RuntimeSchedulerStatistics.cs",
+        "src/Runtime/Erlang.Runtime.Core/Scheduling/RuntimeActorDispatcher.Statistics504.cs"
+      ],
+      "PinnedDispatch": {
+        "Path": "erts/emulator/beam/erl_bif_info.c",
+        "Line": 4178
+      },
+      "RequiredPartitions": [
+        "first/consecutive/interleaved same-selector and other-selector calls",
+        "held/running/queued/dirtyCPU/dirtyIO/offline/empty and concurrent sample barrier",
+        "two logical VM isolation, halted/disposed VM, cancellation while request pending",
+        "stats.errors_full_stacks",
+        "profiles"
+      ],
+      "P6Gate": "Full actual own-state counter model and source-config error branches; no fake static values/estimated global CLR counters",
+      "VerifiedWholeContract": false
+    },
+    {
+      "Id": "stats.active_tasks",
+      "Selector": "active_tasks",
+      "Input": "Exact atom; all other types/unknown atoms badarg",
+      "Return": "list of per-queue counts",
+      "EffectOrState": "Observational queue snapshot (pinned run_queue uses atomic_queues_read=1; other queue selectors0); active selectors include running; *_all/run_queues include dirty IO; others exclude dirty IO. Offline normal slots/count and running process semantics require source proof.",
+      "CurrentState": "Implemented actual per-runtime normal/CPU/IO queues; whole source sampling/offline/distribution-system-task partitions unverified",
+      "CurrentFiles": [
+        "src/Runtime/Erlang.Runtime.Core/Services/RuntimeStatisticsRegistrations.cs",
+        "src/Runtime/Erlang.Runtime.Core/Services/RuntimeStatistics.cs",
+        "src/Runtime/Erlang.Runtime.Core/Services/RuntimeStatistics.ManagedGarbage457.cs",
+        "src/Runtime/Erlang.Runtime.Core/Services/RuntimeReductionStatistics.cs",
+        "src/Runtime/Erlang.Runtime.Core/Scheduling/RuntimeSchedulerStatistics.cs",
+        "src/Runtime/Erlang.Runtime.Core/Scheduling/RuntimeActorDispatcher.Statistics504.cs"
+      ],
+      "PinnedDispatch": {
+        "Path": "erts/emulator/beam/erl_bif_info.c",
+        "Line": 4191
+      },
+      "RequiredPartitions": [
+        "first/consecutive/interleaved same-selector and other-selector calls",
+        "held/running/queued/dirtyCPU/dirtyIO/offline/empty and concurrent sample barrier",
+        "two logical VM isolation, halted/disposed VM, cancellation while request pending",
+        "stats.errors_full_stacks",
+        "profiles"
+      ],
+      "P6Gate": "Full actual own-state counter model and source-config error branches; no fake static values/estimated global CLR counters",
+      "VerifiedWholeContract": false
+    },
+    {
+      "Id": "stats.run_queue_lengths",
+      "Selector": "run_queue_lengths",
+      "Input": "Exact atom; all other types/unknown atoms badarg",
+      "Return": "list of per-queue counts",
+      "EffectOrState": "Observational queue snapshot (pinned run_queue uses atomic_queues_read=1; other queue selectors0); active selectors include running; *_all/run_queues include dirty IO; others exclude dirty IO. Offline normal slots/count and running process semantics require source proof.",
+      "CurrentState": "Implemented actual per-runtime normal/CPU/IO queues; whole source sampling/offline/distribution-system-task partitions unverified",
+      "CurrentFiles": [
+        "src/Runtime/Erlang.Runtime.Core/Services/RuntimeStatisticsRegistrations.cs",
+        "src/Runtime/Erlang.Runtime.Core/Services/RuntimeStatistics.cs",
+        "src/Runtime/Erlang.Runtime.Core/Services/RuntimeStatistics.ManagedGarbage457.cs",
+        "src/Runtime/Erlang.Runtime.Core/Services/RuntimeReductionStatistics.cs",
+        "src/Runtime/Erlang.Runtime.Core/Scheduling/RuntimeSchedulerStatistics.cs",
+        "src/Runtime/Erlang.Runtime.Core/Scheduling/RuntimeActorDispatcher.Statistics504.cs"
+      ],
+      "PinnedDispatch": {
+        "Path": "erts/emulator/beam/erl_bif_info.c",
+        "Line": 4192
+      },
+      "RequiredPartitions": [
+        "first/consecutive/interleaved same-selector and other-selector calls",
+        "held/running/queued/dirtyCPU/dirtyIO/offline/empty and concurrent sample barrier",
+        "two logical VM isolation, halted/disposed VM, cancellation while request pending",
+        "stats.errors_full_stacks",
+        "profiles"
+      ],
+      "P6Gate": "Full actual own-state counter model and source-config error branches; no fake static values/estimated global CLR counters",
+      "VerifiedWholeContract": false
+    },
+    {
+      "Id": "stats.active_tasks_all",
+      "Selector": "active_tasks_all",
+      "Input": "Exact atom; all other types/unknown atoms badarg",
+      "Return": "list of per-queue counts",
+      "EffectOrState": "Observational queue snapshot (pinned run_queue uses atomic_queues_read=1; other queue selectors0); active selectors include running; *_all/run_queues include dirty IO; others exclude dirty IO. Offline normal slots/count and running process semantics require source proof.",
+      "CurrentState": "Implemented actual per-runtime normal/CPU/IO queues; whole source sampling/offline/distribution-system-task partitions unverified",
+      "CurrentFiles": [
+        "src/Runtime/Erlang.Runtime.Core/Services/RuntimeStatisticsRegistrations.cs",
+        "src/Runtime/Erlang.Runtime.Core/Services/RuntimeStatistics.cs",
+        "src/Runtime/Erlang.Runtime.Core/Services/RuntimeStatistics.ManagedGarbage457.cs",
+        "src/Runtime/Erlang.Runtime.Core/Services/RuntimeReductionStatistics.cs",
+        "src/Runtime/Erlang.Runtime.Core/Scheduling/RuntimeSchedulerStatistics.cs",
+        "src/Runtime/Erlang.Runtime.Core/Scheduling/RuntimeActorDispatcher.Statistics504.cs"
+      ],
+      "PinnedDispatch": {
+        "Path": "erts/emulator/beam/erl_bif_info.c",
+        "Line": 4193
+      },
+      "RequiredPartitions": [
+        "first/consecutive/interleaved same-selector and other-selector calls",
+        "held/running/queued/dirtyCPU/dirtyIO/offline/empty and concurrent sample barrier",
+        "two logical VM isolation, halted/disposed VM, cancellation while request pending",
+        "stats.errors_full_stacks",
+        "profiles"
+      ],
+      "P6Gate": "Full actual own-state counter model and source-config error branches; no fake static values/estimated global CLR counters",
+      "VerifiedWholeContract": false
+    },
+    {
+      "Id": "stats.run_queue_lengths_all",
+      "Selector": "run_queue_lengths_all",
+      "Input": "Exact atom; all other types/unknown atoms badarg",
+      "Return": "list of per-queue counts",
+      "EffectOrState": "Observational queue snapshot (pinned run_queue uses atomic_queues_read=1; other queue selectors0); active selectors include running; *_all/run_queues include dirty IO; others exclude dirty IO. Offline normal slots/count and running process semantics require source proof.",
+      "CurrentState": "Implemented actual per-runtime normal/CPU/IO queues; whole source sampling/offline/distribution-system-task partitions unverified",
+      "CurrentFiles": [
+        "src/Runtime/Erlang.Runtime.Core/Services/RuntimeStatisticsRegistrations.cs",
+        "src/Runtime/Erlang.Runtime.Core/Services/RuntimeStatistics.cs",
+        "src/Runtime/Erlang.Runtime.Core/Services/RuntimeStatistics.ManagedGarbage457.cs",
+        "src/Runtime/Erlang.Runtime.Core/Services/RuntimeReductionStatistics.cs",
+        "src/Runtime/Erlang.Runtime.Core/Scheduling/RuntimeSchedulerStatistics.cs",
+        "src/Runtime/Erlang.Runtime.Core/Scheduling/RuntimeActorDispatcher.Statistics504.cs"
+      ],
+      "PinnedDispatch": {
+        "Path": "erts/emulator/beam/erl_bif_info.c",
+        "Line": 4194
+      },
+      "RequiredPartitions": [
+        "first/consecutive/interleaved same-selector and other-selector calls",
+        "held/running/queued/dirtyCPU/dirtyIO/offline/empty and concurrent sample barrier",
+        "two logical VM isolation, halted/disposed VM, cancellation while request pending",
+        "stats.errors_full_stacks",
+        "profiles"
+      ],
+      "P6Gate": "Full actual own-state counter model and source-config error branches; no fake static values/estimated global CLR counters",
+      "VerifiedWholeContract": false
+    },
+    {
+      "Id": "stats.microstate_accounting",
+      "Selector": "microstate_accounting",
+      "Input": "Exact atom; all other types/unknown atoms badarg",
+      "Return": "list of per-thread maps (type,id,counters...) |undefined if unavailable",
+      "EffectOrState": "Conditional ERTS_ENABLE_MSACC; enable/reset state from system_flag, units/wordsize and thread-type set.",
+      "CurrentState": "Missing: alwaysnotsup; original build-disabled selector isbadarg and enabled profile has actual maps",
+      "CurrentFiles": [
+        "src/Runtime/Erlang.Runtime.Core/Services/RuntimeStatisticsRegistrations.cs",
+        "src/Runtime/Erlang.Runtime.Core/Services/RuntimeStatistics.cs",
+        "src/Runtime/Erlang.Runtime.Core/Services/RuntimeStatistics.ManagedGarbage457.cs",
+        "src/Runtime/Erlang.Runtime.Core/Services/RuntimeReductionStatistics.cs",
+        "src/Runtime/Erlang.Runtime.Core/Scheduling/RuntimeSchedulerStatistics.cs",
+        "src/Runtime/Erlang.Runtime.Core/Scheduling/RuntimeActorDispatcher.Statistics504.cs"
+      ],
+      "PinnedDispatch": {
+        "Path": "erts/emulator/beam/erl_bif_info.c",
+        "Line": 4223
+      },
+      "RequiredPartitions": [
+        "first/consecutive/interleaved same-selector and other-selector calls",
+        "held/running/queued/dirtyCPU/dirtyIO/offline/empty and concurrent sample barrier",
+        "two logical VM isolation, halted/disposed VM, cancellation while request pending",
+        "stats.errors_full_stacks",
+        "profiles"
+      ],
+      "P6Gate": "Full actual own-state counter model and source-config error branches; no fake static values/estimated global CLR counters",
+      "VerifiedWholeContract": false
+    },
+    {
+      "Id": "stats.context_switches",
+      "Selector": "context_switches",
+      "Input": "Exact atom; all other types/unknown atoms badarg",
+      "Return": "{ActualTotalContextSwitches,0}",
+      "EffectOrState": "Real guest scheduler context switches, not CLR task scheduler estimate.",
+      "CurrentState": "Missing: valid selector raisesnotsup",
+      "CurrentFiles": [
+        "src/Runtime/Erlang.Runtime.Core/Services/RuntimeStatisticsRegistrations.cs",
+        "src/Runtime/Erlang.Runtime.Core/Services/RuntimeStatistics.cs",
+        "src/Runtime/Erlang.Runtime.Core/Services/RuntimeStatistics.ManagedGarbage457.cs",
+        "src/Runtime/Erlang.Runtime.Core/Services/RuntimeReductionStatistics.cs",
+        "src/Runtime/Erlang.Runtime.Core/Scheduling/RuntimeSchedulerStatistics.cs",
+        "src/Runtime/Erlang.Runtime.Core/Scheduling/RuntimeActorDispatcher.Statistics504.cs"
+      ],
+      "PinnedDispatch": {
+        "Path": "erts/emulator/beam/erl_bif_info.c",
+        "Line": 4230
+      },
+      "RequiredPartitions": [
+        "first/consecutive/interleaved same-selector and other-selector calls",
+        "held/running/queued/dirtyCPU/dirtyIO/offline/empty and concurrent sample barrier",
+        "two logical VM isolation, halted/disposed VM, cancellation while request pending",
+        "stats.errors_full_stacks",
+        "profiles"
+      ],
+      "P6Gate": "Full actual own-state counter model and source-config error branches; no fake static values/estimated global CLR counters",
+      "VerifiedWholeContract": false
+    },
+    {
+      "Id": "stats.garbage_collection",
+      "Selector": "garbage_collection",
+      "Input": "Exact atom; all other types/unknown atoms badarg",
+      "Return": "{Collections,ReclaimedWords,0}|undefined if request unavailable",
+      "EffectOrState": "Original gathers actual VM GC events/reclaimed words; must connect complete owned collector/generation domains and retire protocol,not CLR totals.",
+      "CurrentState": "Known semantic difference: CLR process-global CollectionCount/GetTotalMemory/GetTotalAllocatedBytes estimate,not actual logical VM ERTS collector",
+      "CurrentFiles": [
+        "src/Runtime/Erlang.Runtime.Core/Services/RuntimeStatisticsRegistrations.cs",
+        "src/Runtime/Erlang.Runtime.Core/Services/RuntimeStatistics.cs",
+        "src/Runtime/Erlang.Runtime.Core/Services/RuntimeStatistics.ManagedGarbage457.cs",
+        "src/Runtime/Erlang.Runtime.Core/Services/RuntimeReductionStatistics.cs",
+        "src/Runtime/Erlang.Runtime.Core/Scheduling/RuntimeSchedulerStatistics.cs",
+        "src/Runtime/Erlang.Runtime.Core/Scheduling/RuntimeActorDispatcher.Statistics504.cs"
+      ],
+      "PinnedDispatch": {
+        "Path": "erts/emulator/beam/erl_bif_info.c",
+        "Line": 4235
+      },
+      "RequiredPartitions": [
+        "first/consecutive/interleaved same-selector and other-selector calls",
+        "held/running/queued/dirtyCPU/dirtyIO/offline/empty and concurrent sample barrier",
+        "two logical VM isolation, halted/disposed VM, cancellation while request pending",
+        "stats.errors_full_stacks",
+        "profiles"
+      ],
+      "P6Gate": "Full actual own-state counter model and source-config error branches; no fake static values/estimated global CLR counters",
+      "VerifiedWholeContract": false
+    },
+    {
+      "Id": "stats.reductions",
+      "Selector": "reductions",
+      "Input": "Exact atom; all other types/unknown atoms badarg",
+      "Return": "{Total,SinceLastSameSelector}",
+      "EffectOrState": "Mutates selector-specific baseline globally within VM; reductions includes queued scheduler charges; exact source blocks scheduler progress and traverses normal runqueues (erl_process.c12103-12137).",
+      "CurrentState": "Implemented cooperative VM reductions and separate last-call baselines; exact scheduler barrier and native/dirty charge coverage unverified",
+      "CurrentFiles": [
+        "src/Runtime/Erlang.Runtime.Core/Services/RuntimeStatisticsRegistrations.cs",
+        "src/Runtime/Erlang.Runtime.Core/Services/RuntimeStatistics.cs",
+        "src/Runtime/Erlang.Runtime.Core/Services/RuntimeStatistics.ManagedGarbage457.cs",
+        "src/Runtime/Erlang.Runtime.Core/Services/RuntimeReductionStatistics.cs",
+        "src/Runtime/Erlang.Runtime.Core/Scheduling/RuntimeSchedulerStatistics.cs",
+        "src/Runtime/Erlang.Runtime.Core/Scheduling/RuntimeActorDispatcher.Statistics504.cs"
+      ],
+      "PinnedDispatch": {
+        "Path": "erts/emulator/beam/erl_bif_info.c",
+        "Line": 4240
+      },
+      "RequiredPartitions": [
+        "first/consecutive/interleaved same-selector and other-selector calls",
+        "held/running/queued/dirtyCPU/dirtyIO/offline/empty and concurrent sample barrier",
+        "two logical VM isolation, halted/disposed VM, cancellation while request pending",
+        "stats.errors_full_stacks",
+        "profiles"
+      ],
+      "P6Gate": "Full actual own-state counter model and source-config error branches; no fake static values/estimated global CLR counters",
+      "VerifiedWholeContract": false
+    },
+    {
+      "Id": "stats.exact_reductions",
+      "Selector": "exact_reductions",
+      "Input": "Exact atom; all other types/unknown atoms badarg",
+      "Return": "{Total,SinceLastSameSelector}",
+      "EffectOrState": "Mutates selector-specific baseline globally within VM; reductions includes queued scheduler charges; exact source blocks scheduler progress and traverses normal runqueues (erl_process.c12103-12137).",
+      "CurrentState": "Implemented cooperative VM reductions and separate last-call baselines; exact scheduler barrier and native/dirty charge coverage unverified",
+      "CurrentFiles": [
+        "src/Runtime/Erlang.Runtime.Core/Services/RuntimeStatisticsRegistrations.cs",
+        "src/Runtime/Erlang.Runtime.Core/Services/RuntimeStatistics.cs",
+        "src/Runtime/Erlang.Runtime.Core/Services/RuntimeStatistics.ManagedGarbage457.cs",
+        "src/Runtime/Erlang.Runtime.Core/Services/RuntimeReductionStatistics.cs",
+        "src/Runtime/Erlang.Runtime.Core/Scheduling/RuntimeSchedulerStatistics.cs",
+        "src/Runtime/Erlang.Runtime.Core/Scheduling/RuntimeActorDispatcher.Statistics504.cs"
+      ],
+      "PinnedDispatch": {
+        "Path": "erts/emulator/beam/erl_bif_info.c",
+        "Line": 4254
+      },
+      "RequiredPartitions": [
+        "first/consecutive/interleaved same-selector and other-selector calls",
+        "held/running/queued/dirtyCPU/dirtyIO/offline/empty and concurrent sample barrier",
+        "two logical VM isolation, halted/disposed VM, cancellation while request pending",
+        "stats.errors_full_stacks",
+        "profiles"
+      ],
+      "P6Gate": "Full actual own-state counter model and source-config error branches; no fake static values/estimated global CLR counters",
+      "VerifiedWholeContract": false
+    },
+    {
+      "Id": "stats.runtime",
+      "Selector": "runtime",
+      "Input": "Exact atom; all other types/unknown atoms badarg",
+      "Return": "{TotalMilliseconds,SinceLastCallMilliseconds}",
+      "EffectOrState": "Mutates selector-specific baseline; CPU platform source and startup epoch matter.",
+      "CurrentState": "Implemented elapsed wall clock / .NET host user CPU; own logical VM isolation and source units/baselines/metadata unverified",
+      "CurrentFiles": [
+        "src/Runtime/Erlang.Runtime.Core/Services/RuntimeStatisticsRegistrations.cs",
+        "src/Runtime/Erlang.Runtime.Core/Services/RuntimeStatistics.cs",
+        "src/Runtime/Erlang.Runtime.Core/Services/RuntimeStatistics.ManagedGarbage457.cs",
+        "src/Runtime/Erlang.Runtime.Core/Services/RuntimeReductionStatistics.cs",
+        "src/Runtime/Erlang.Runtime.Core/Scheduling/RuntimeSchedulerStatistics.cs",
+        "src/Runtime/Erlang.Runtime.Core/Scheduling/RuntimeActorDispatcher.Statistics504.cs"
+      ],
+      "PinnedDispatch": {
+        "Path": "erts/emulator/beam/erl_bif_info.c",
+        "Line": 4268
+      },
+      "RequiredPartitions": [
+        "first/consecutive/interleaved same-selector and other-selector calls",
+        "held/running/queued/dirtyCPU/dirtyIO/offline/empty and concurrent sample barrier",
+        "two logical VM isolation, halted/disposed VM, cancellation while request pending",
+        "stats.errors_full_stacks",
+        "profiles"
+      ],
+      "P6Gate": "Full actual own-state counter model and source-config error branches; no fake static values/estimated global CLR counters",
+      "VerifiedWholeContract": false
+    },
+    {
+      "Id": "stats.run_queue",
+      "Selector": "run_queue",
+      "Input": "Exact atom; all other types/unknown atoms badarg",
+      "Return": "nonnegative scalar sum",
+      "EffectOrState": "Observational queue snapshot (pinned run_queue uses atomic_queues_read=1; other queue selectors0); active selectors include running; *_all/run_queues include dirty IO; others exclude dirty IO. Offline normal slots/count and running process semantics require source proof.",
+      "CurrentState": "Implemented actual per-runtime normal/CPU/IO queues; whole source sampling/offline/distribution-system-task partitions unverified",
+      "CurrentFiles": [
+        "src/Runtime/Erlang.Runtime.Core/Services/RuntimeStatisticsRegistrations.cs",
+        "src/Runtime/Erlang.Runtime.Core/Services/RuntimeStatistics.cs",
+        "src/Runtime/Erlang.Runtime.Core/Services/RuntimeStatistics.ManagedGarbage457.cs",
+        "src/Runtime/Erlang.Runtime.Core/Services/RuntimeReductionStatistics.cs",
+        "src/Runtime/Erlang.Runtime.Core/Scheduling/RuntimeSchedulerStatistics.cs",
+        "src/Runtime/Erlang.Runtime.Core/Scheduling/RuntimeActorDispatcher.Statistics504.cs"
+      ],
+      "PinnedDispatch": {
+        "Path": "erts/emulator/beam/erl_bif_info.c",
+        "Line": 4281
+      },
+      "RequiredPartitions": [
+        "first/consecutive/interleaved same-selector and other-selector calls",
+        "held/running/queued/dirtyCPU/dirtyIO/offline/empty and concurrent sample barrier",
+        "two logical VM isolation, halted/disposed VM, cancellation while request pending",
+        "stats.errors_full_stacks",
+        "profiles"
+      ],
+      "P6Gate": "Full actual own-state counter model and source-config error branches; no fake static values/estimated global CLR counters",
+      "VerifiedWholeContract": false
+    },
+    {
+      "Id": "stats.wall_clock",
+      "Selector": "wall_clock",
+      "Input": "Exact atom; all other types/unknown atoms badarg",
+      "Return": "{TotalMilliseconds,SinceLastCallMilliseconds}",
+      "EffectOrState": "Mutates selector-specific baseline; CPU platform source and startup epoch matter.",
+      "CurrentState": "Implemented elapsed wall clock / .NET host user CPU; own logical VM isolation and source units/baselines/metadata unverified",
+      "CurrentFiles": [
+        "src/Runtime/Erlang.Runtime.Core/Services/RuntimeStatisticsRegistrations.cs",
+        "src/Runtime/Erlang.Runtime.Core/Services/RuntimeStatistics.cs",
+        "src/Runtime/Erlang.Runtime.Core/Services/RuntimeStatistics.ManagedGarbage457.cs",
+        "src/Runtime/Erlang.Runtime.Core/Services/RuntimeReductionStatistics.cs",
+        "src/Runtime/Erlang.Runtime.Core/Scheduling/RuntimeSchedulerStatistics.cs",
+        "src/Runtime/Erlang.Runtime.Core/Scheduling/RuntimeActorDispatcher.Statistics504.cs"
+      ],
+      "PinnedDispatch": {
+        "Path": "erts/emulator/beam/erl_bif_info.c",
+        "Line": 4284
+      },
+      "RequiredPartitions": [
+        "first/consecutive/interleaved same-selector and other-selector calls",
+        "held/running/queued/dirtyCPU/dirtyIO/offline/empty and concurrent sample barrier",
+        "two logical VM isolation, halted/disposed VM, cancellation while request pending",
+        "stats.errors_full_stacks",
+        "profiles"
+      ],
+      "P6Gate": "Full actual own-state counter model and source-config error branches; no fake static values/estimated global CLR counters",
+      "VerifiedWholeContract": false
+    },
+    {
+      "Id": "stats.io",
+      "Selector": "io",
+      "Input": "Exact atom; all other types/unknown atoms badarg",
+      "Return": "{{input,Bytes},{output,Bytes}}",
+      "EffectOrState": "Original requests/gathers actual IO byte counters from all normal schedulers; actual driver/port IO per owning VM.",
+      "CurrentState": "Missing: valid selector raisesnotsup",
+      "CurrentFiles": [
+        "src/Runtime/Erlang.Runtime.Core/Services/RuntimeStatisticsRegistrations.cs",
+        "src/Runtime/Erlang.Runtime.Core/Services/RuntimeStatistics.cs",
+        "src/Runtime/Erlang.Runtime.Core/Services/RuntimeStatistics.ManagedGarbage457.cs",
+        "src/Runtime/Erlang.Runtime.Core/Services/RuntimeReductionStatistics.cs",
+        "src/Runtime/Erlang.Runtime.Core/Scheduling/RuntimeSchedulerStatistics.cs",
+        "src/Runtime/Erlang.Runtime.Core/Scheduling/RuntimeActorDispatcher.Statistics504.cs"
+      ],
+      "PinnedDispatch": {
+        "Path": "erts/emulator/beam/erl_bif_info.c",
+        "Line": 4297
+      },
+      "RequiredPartitions": [
+        "first/consecutive/interleaved same-selector and other-selector calls",
+        "held/running/queued/dirtyCPU/dirtyIO/offline/empty and concurrent sample barrier",
+        "two logical VM isolation, halted/disposed VM, cancellation while request pending",
+        "stats.errors_full_stacks",
+        "profiles"
+      ],
+      "P6Gate": "Full actual own-state counter model and source-config error branches; no fake static values/estimated global CLR counters",
+      "VerifiedWholeContract": false
+    },
+    {
+      "Id": "stats.run_queues",
+      "Selector": "run_queues",
+      "Input": "Exact atom; all other types/unknown atoms badarg",
+      "Return": "tuple of per-queue counts",
+      "EffectOrState": "Observational queue snapshot (pinned run_queue uses atomic_queues_read=1; other queue selectors0); active selectors include running; *_all/run_queues include dirty IO; others exclude dirty IO. Offline normal slots/count and running process semantics require source proof.",
+      "CurrentState": "Implemented actual per-runtime normal/CPU/IO queues; whole source sampling/offline/distribution-system-task partitions unverified",
+      "CurrentFiles": [
+        "src/Runtime/Erlang.Runtime.Core/Services/RuntimeStatisticsRegistrations.cs",
+        "src/Runtime/Erlang.Runtime.Core/Services/RuntimeStatistics.cs",
+        "src/Runtime/Erlang.Runtime.Core/Services/RuntimeStatistics.ManagedGarbage457.cs",
+        "src/Runtime/Erlang.Runtime.Core/Services/RuntimeReductionStatistics.cs",
+        "src/Runtime/Erlang.Runtime.Core/Scheduling/RuntimeSchedulerStatistics.cs",
+        "src/Runtime/Erlang.Runtime.Core/Scheduling/RuntimeActorDispatcher.Statistics504.cs"
+      ],
+      "PinnedDispatch": {
+        "Path": "erts/emulator/beam/erl_bif_info.c",
+        "Line": 4301
+      },
+      "RequiredPartitions": [
+        "first/consecutive/interleaved same-selector and other-selector calls",
+        "held/running/queued/dirtyCPU/dirtyIO/offline/empty and concurrent sample barrier",
+        "two logical VM isolation, halted/disposed VM, cancellation while request pending",
+        "stats.errors_full_stacks",
+        "profiles"
+      ],
+      "P6Gate": "Full actual own-state counter model and source-config error branches; no fake static values/estimated global CLR counters",
+      "VerifiedWholeContract": false
+    }
+  ],
+  "ScopeLimitation": "Exhaustive top-level native dispatch plus explicit helper/type/state/config partitions,not a certification that every internal interleaving/numeric value was executed. Raw pinned helper algorithms remain authoritative; P6 must discharge each obligation."
+}

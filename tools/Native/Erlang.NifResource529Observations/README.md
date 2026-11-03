@@ -17,3 +17,5 @@ Only after parent has accepted original results, omit --original-only and provid
 Schema2 driver routes family to resource_observer529:run/5 and both new lifecycle partitions to resource_takeover_observer529:run/6 using the exact same compiled fixture image and real marker paths. The existing source/loader admission and physical runtime/DLL/environment/binary cleanup remain required. Unsupported actual upgrade remains a genuine recorded failure until its separately owned runtime implementation exists; this tooling removes no runtime guard. Both raw official encodings must match byte-for-byte; output normalization is forbidden.
 
 No full contract promotion or compatibility claim follows from this tooling. New partition original goldens are NOT_COLLECTED in the source-only proposal; parent execution is required.
+
+Source configuration dependencies declare TextLF only for csproj/props/targets/json; all executable/fixture inputs remain Raw. Both admission and final recheck enforce the mode and digest. This permits checkout line-ending variation without changing source contents. Native fixture and whole observed ETF bytes are never normalized.

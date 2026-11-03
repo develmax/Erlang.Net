@@ -183,12 +183,17 @@ internal sealed partial class RuntimePorts(ProcessRuntime runtime, object gate)
         }
     }
 
-    private void Close(RuntimePort port, Term reason)
+    private void Close(RuntimePort port, Term reason, RuntimeProcessPayload641? reason641 = null)
     {
         if (!ports.Remove(port.Identity))
             return;
         port.Closed = true;
-        runtime.PortRemoved(port.Identity, port.Links.ToArray(), reason);
+        runtime.PortRemoved(
+            port.Identity,
+            port.Links.ToArray(),
+            reason,
+            reason641
+        );
         port.Links.Clear();
         port.Stop.Cancel();
         port.Writable.TrySetResult();
@@ -299,6 +304,13 @@ internal sealed partial class RuntimePorts(ProcessRuntime runtime, object gate)
     }
 
     public void OwnerTerminated(ProcessContext owner, Term reason)
+        => OwnerTerminated641(owner, reason, null);
+
+    internal void OwnerTerminated641(
+        ProcessContext owner,
+        Term reason,
+        RuntimeProcessPayload641? reason641
+    )
     {
         foreach (PortTerm identity in owner.PortLinks.ToArray())
         {
@@ -307,7 +319,7 @@ internal sealed partial class RuntimePorts(ProcessRuntime runtime, object gate)
                 continue;
             port.Links.Remove(owner.Self);
             if (port.Connected.Equals(owner.Self) || !reason.Equals(Term.A(ProcessExitReasons.Normal)))
-                Close(port, reason);
+                Close(port, reason, reason641);
         }
         owner.PortLinks.Clear();
         owner.PriorityPortLinks.Clear();
@@ -458,6 +470,7 @@ internal sealed partial class RuntimePorts(ProcessRuntime runtime, object gate)
                 {
                     int width = port.Options.PacketBytes;
                     port.OutputBytes += bytes.Length;
+                    runtime.Statistics.RecordOutputBytes(bytes.LongLength);
                     if (width != 0 && (ulong)bytes.Length >= (1UL << (width * PortParameters.ByteBits)))
                     {
                         Close(port, Term.A(PortNames.InvalidValue));
@@ -608,6 +621,7 @@ internal sealed partial class RuntimePorts(ProcessRuntime runtime, object gate)
                     if (port.Closed)
                         return;
                     port.InputBytes += payload.Length;
+                    runtime.Statistics.RecordInputBytes(payload.LongLength);
                     if (port.Lines is null)
                         Deliver(port, payload, null);
                     else
@@ -653,10 +667,28 @@ internal sealed partial class RuntimePorts(ProcessRuntime runtime, object gate)
     }
 
     public void SendExit(ProcessContext sender, PortTerm identity, Term reason)
+        => SendExit641(
+            sender,
+            identity,
+            reason,
+            null
+        );
+
+    internal void SendExit641(
+        ProcessContext sender,
+        PortTerm identity,
+        Term reason,
+        RuntimeProcessPayload641? reason641
+    )
     {
         if (runtime.DriverFrontendForPort422(identity) is { } native)
         {
-            native.QueuePortExit(identity, reason.Equals(Term.A(ProcessExitSignals.Kill)) ? Term.A(ProcessExitReasons.Killed) : reason, sender.Self);
+            native.QueuePortExit(
+                identity,
+                reason.Equals(Term.A(ProcessExitSignals.Kill)) ? Term.A(ProcessExitReasons.Killed) : reason,
+                sender.Self,
+                reason.Equals(Term.A(ProcessExitSignals.Kill)) ? null : reason641
+            );
 
             return;
         }
@@ -666,7 +698,11 @@ internal sealed partial class RuntimePorts(ProcessRuntime runtime, object gate)
                 throw new ErlangException(ErlangErrorReasons.BadArgument);
             RuntimePort? port = Find(identity);
             if (port is not null)
-                Close(port, reason.Equals(Term.A(ProcessExitSignals.Kill)) ? Term.A(ProcessExitReasons.Killed) : reason);
+                Close(
+                    port,
+                    reason.Equals(Term.A(ProcessExitSignals.Kill)) ? Term.A(ProcessExitReasons.Killed) : reason,
+                    reason.Equals(Term.A(ProcessExitSignals.Kill)) ? null : reason641
+                );
         }
     }
 

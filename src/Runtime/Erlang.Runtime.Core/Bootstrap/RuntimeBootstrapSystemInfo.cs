@@ -28,7 +28,13 @@ internal static class RuntimeBootstrapSystemInfo
             result = Term.I(IntPtr.Size);
         else if (query is Atom { Name: DebugCompiled })
             result = CoreModules.Boolean(DebugBuild);
-        else if (query is Atom { Name: RuntimeBootstrapBuildInfo521Names.BuildType or RuntimeBootstrapBuildInfo521Names.EmulatorType })
+        else if (query is Atom { Name: RuntimeVmMetadataNames.BuildType })
+            result = Term.A(DebugBuild ? RuntimeVmMetadataNames.Debug : RuntimeVmMetadataNames.Optimized);
+        else if (query is Atom { Name: RuntimeVmMetadataNames.EmulatorFlavor })
+            result = Term.A(RuntimeVmMetadataNames.Interpreter);
+        else if (query is Atom { Name: RuntimeVmMetadataNames.OtpRelease })
+            result = Term.String(RuntimeDriverFrontendOptionNames424.OtpContractRelease);
+        else if (query is Atom { Name: RuntimeBootstrapBuildInfo521Names.EmulatorType })
             result = Term.A(DebugBuild ? RuntimeBootstrapBuildInfo521Names.Debug
                 : DebugLockNames419.BuildHasLockCounting ? RuntimeBootstrapBuildInfo521Names.LockCounting
                 : RuntimeBootstrapBuildInfo521Names.Optimized);

@@ -1,0 +1,7 @@
+System.InvalidOperationException: Resource529 admission/protocol failed; actual evidence retained.
+   at Erlang.NifNativeBackend.Resource529Driver.<>c__DisplayClass0_2.<<Run>b__6>d.MoveNext() in D:\Distr\Work\Codex\Erlang.Net\w518repair\tools\Native\Erlang.NifNativeBackend\Resource529Driver.cs:line 150
+--- End of stack trace from previous location ---
+   at Erlang.NifNativeBackend.NifNativeHarness.<>c__DisplayClass1_0.<<Context>b__0>d.MoveNext() in D:\Distr\Work\Codex\Erlang.Net\w518repair\tools\Native\Erlang.NifNativeBackend\NifNativeHarness.cs:line 18
+--- End of stack trace from previous location ---
+   at Erlang.NifNativeBackend.NifNativeHarness.Context(ProcessRuntime runtime, Func`2 operation) in D:\Distr\Work\Codex\Erlang.Net\w518repair\tools\Native\Erlang.NifNativeBackend\NifNativeHarness.cs:line 28
+   at Erlang.NifNativeBackend.Resource529Driver.Run(String[] arguments, Func`2 runtimeFactory) in D:\Distr\Work\Codex\Erlang.Net\w518repair\tools\Native\Erlang.NifNativeBackend\Resource529Driver.cs:line 111

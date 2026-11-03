@@ -1,0 +1,233 @@
+{"Partial":true,"SelectedCount":181,"TotalCount":9343}
+PASS runtime/native-store600/ets-source-header-drop-real-payload
+PASS runtime/native-store600/persistent-source-header-drop-real-payload
+PASS runtime/atomics589/public-dictionary-snapshot-host-retains-after-erase-gc
+PASS runtime/atomics590/queue-export-source-drop-destination-retirement
+PASS runtime/atomics590/ets-domain-source-drop-destination-retirement
+PASS runtime/atomics590/persistent-domain-source-drop-destination-retirement
+PASS runtime/atomics591/persistent-get-does-not-export-unused-atomics-key
+PASS runtime/atomics591/persistent-value-selection-preserves-alias-and-host-custody
+PASS runtime/atomics591/public-reservation-still-joins-active-pin
+PASS runtime/atomics591/retained-public-reservation-does-not-block-vm-close
+atomics593 rollback: host roots at late closure=1, after failure=0
+PASS runtime/atomics593/late-export-failure-releases-actual-host-custody
+PASS runtime/atomics593/successful-export-commits-only-returned-wrappers
+atomics594 aggregate route=0, host roots after later-area failure=0
+PASS runtime/atomics594/persistent-get-all-later-area-rollback
+atomics594 ETS aggregate: host roots after malformed later row=0
+PASS runtime/atomics594/ets-backed-snapshot-later-row-rollback
+PASS runtime/atomics586/real-process-headers-share-live-prefix
+PASS runtime/atomics586/foreign-before-stale-header-read
+PASS runtime/atomics586/guest-retirement-ignores-stale-clr-entry
+PASS runtime/atomics586/host-custody-independent-of-guest
+PASS runtime/atomics586/shutdown-waits-outside-runtime-gate
+PASS native-resource575/empty-committed-types-retire-before-vm-shutdown
+PASS native-resource575/pending-rollback-and-new-owner-prevent-premature-detach
+PASS native-resource575/payload-and-physical-invocation-custody-survive-detach
+PASS runtime/native-magic576/actual-wrapper-alias-and-prefix-reader
+PASS runtime/native-magic576/minor-major-and-construction-rollback
+PASS runtime/native-magic576/host-escape-and-foreign-custody
+PASS runtime/native/regex485/binary-captures-whole-176
+PASS runtime/library413/original-re8-inspect-internal-run-import-full-outcomes
+PASS runtime/library412/real-re-core-original-whole-terms-and-stacks
+PASS runtime/ets-match411/native-frame-table-access-and-invalid-map-key
+PASS oracle/compiled-module/counters421-all192-full-typed-raw
+PASS HOST/counters421/owned-native-values-validation-and-foreign-kind
+PASS HOST/counters421/unused-owner-initializer-death-closes-admission-before-disposed
+PASS HOST/counters421/real-lane-add-and-base-put
+PASS HOST/counters421/actual-gc-retires-unreachable-native-array
+PASS HOST/counters421/all-three-shutdown-paths-join-real-leases
+PASS runtime/debug432-real-stopped-entry-dispose-halt-and-initializer-retirement
+PASS runtime/hamt430-real-native-children-census-is-map-and-same
+PASS runtime/atomics595/dirty-copy-host-wrapper-survives-source-drop
+PASS runtime/atomics595/dirty-copy-foreign-before-stale-without-entry-grant
+PASS HOST/ets-retirement407/dispose-halt-initializer-drain
+PASS runtime/library390/original-binary-whole-values-and-stacks
+FAIL runtime/halt-foundation-transfer-admission-and-independent-runtime: Erlang.ErlangException: eacces
+   at Erlang.RuntimeExceptionCapture.InvokeWrapper(ProcessContext context, ErlangFunction body, String module, String function, IReadOnlyList`1 arguments) in D:\Distr\Work\Codex\Erlang.Net\w536\src\Runtime\Erlang.Runtime.Core\Services\RuntimeExceptionCapture.cs:line 182
+   at Erlang.ModuleRegistry.AwaitHaltBoundary(ValueTask`1 pending, ProcessContext context) in D:\Distr\Work\Codex\Erlang.Net\w536\src\Runtime\Erlang.Runtime.Core\Modules\ModuleRegistry.cs:line 530
+   at Erlang.ModuleRegistry.AwaitCallback(ValueTask`1 pending, IDisposable code, ProcessContext context) in D:\Distr\Work\Codex\Erlang.Net\w536\src\Runtime\Erlang.Runtime.Core\Modules\ModuleRegistry.cs:line 540
+   at Erlang.Tests.HaltPortHostChecks.Open(Boolean capture, Boolean held) in D:\Distr\Work\Codex\Erlang.Net\w536\tests\Erlang.Tests\Runtime\Lifecycle\HaltPortHostChecks.cs:line 224
+   at Erlang.Tests.HaltPortHostChecks.Open(Boolean capture, Boolean held) in D:\Distr\Work\Codex\Erlang.Net\w536\tests\Erlang.Tests\Runtime\Lifecycle\HaltPortHostChecks.cs:line 275
+   at Erlang.Tests.HaltPortHostChecks.ImmediateEcho() in D:\Distr\Work\Codex\Erlang.Net\w536\tests\Erlang.Tests\Runtime\Lifecycle\HaltPortHostChecks.cs:line 20
+   at Erlang.Tests.HaltLifecycleHostChecks.Run() in D:\Distr\Work\Codex\Erlang.Net\w536\tests\Erlang.Tests\Runtime\Lifecycle\HaltLifecycleHostChecks.cs:line 15
+   at Program.<Main>$(String[] args) in D:\Distr\Work\Codex\Erlang.Net\w536\tests\Erlang.Tests\Harness\Program.cs:line 7688
+PASS runtime/halt-platform-trace-display-monitor-dispatch-quiescence
+FAIL runtime/halt-live-port-drain-immediate-timeout-and-profile-ownership: Erlang.ErlangException: eacces
+   at Erlang.RuntimeExceptionCapture.InvokeWrapper(ProcessContext context, ErlangFunction body, String module, String function, IReadOnlyList`1 arguments) in D:\Distr\Work\Codex\Erlang.Net\w536\src\Runtime\Erlang.Runtime.Core\Services\RuntimeExceptionCapture.cs:line 182
+   at Erlang.ModuleRegistry.AwaitHaltBoundary(ValueTask`1 pending, ProcessContext context) in D:\Distr\Work\Codex\Erlang.Net\w536\src\Runtime\Erlang.Runtime.Core\Modules\ModuleRegistry.cs:line 530
+   at Erlang.ModuleRegistry.AwaitCallback(ValueTask`1 pending, IDisposable code, ProcessContext context) in D:\Distr\Work\Codex\Erlang.Net\w536\src\Runtime\Erlang.Runtime.Core\Modules\ModuleRegistry.cs:line 540
+   at Erlang.Tests.HaltPortHostChecks.Open(Boolean capture, Boolean held) in D:\Distr\Work\Codex\Erlang.Net\w536\tests\Erlang.Tests\Runtime\Lifecycle\HaltPortHostChecks.cs:line 224
+   at Erlang.Tests.HaltPortHostChecks.Open(Boolean capture, Boolean held) in D:\Distr\Work\Codex\Erlang.Net\w536\tests\Erlang.Tests\Runtime\Lifecycle\HaltPortHostChecks.cs:line 275
+   at Erlang.Tests.HaltPortHostChecks.OrderedDrain() in D:\Distr\Work\Codex\Erlang.Net\w536\tests\Erlang.Tests\Runtime\Lifecycle\HaltPortHostChecks.cs:line 46
+   at Erlang.Tests.HaltPortHostChecks.Run() in D:\Distr\Work\Codex\Erlang.Net\w536\tests\Erlang.Tests\Runtime\Lifecycle\HaltPortHostChecks.cs:line 10
+   at Program.<Main>$(String[] args) in D:\Distr\Work\Codex\Erlang.Net\w536\tests\Erlang.Tests\Harness\Program.cs:line 7688
+PASS runtime/halt-dedicated-raw-process-numeric-errors-abort-and-real-dump
+PASS oracle/compiled-module/erlang-load-nif-indirect-apply-opaque-map-and-fun-arguments
+PASS oracle/compiler-diagnostic/native-record-default-map-comparison
+Observed 204800 bytes for 1024 warmed local/external identifier comparisons on one thread
+PASS 1497 local identity foundation controls; activation/admission not executed
+PASS runtime/local-node-identity-foundation-native-map-order
+PASS runtime/nif-array-callback-empty-null-input
+PASS runtime/nif-array-callback-order-aliases-and-large-arrays
+PASS runtime/nif-array-callback-bounded-count-system-limit
+PASS runtime/nif-array-callback-foreign-expired-and-null-containment
+PASS runtime/nif-type-callback-windows-table-all-term-categories
+PASS runtime/nif-type-callback-windows-environment-independent
+PASS runtime/nif-numeric-windows-environment-lifetime-and-output-containment
+PASS runtime/nif-legacy-string-windows-environmentandcontainment
+PASS runtime/nif-linux-lp64-large-environment-and-expired-owner-containment
+PASS runtime/nif-binary-windows-inspection
+PASS runtime/nif-binary-windows-iolists
+PASS runtime/nif-binary-windows-allocationacrosscalls
+PASS runtime/nif-binary-windows-readonlyreallocation
+PASS runtime/nif-binary-windows-deferredcomposites
+PASS runtime/nif-binary-windows-subviewlifetimes
+PASS runtime/nif-binary-windows-exceptionalcleanup
+PASS runtime/nif-binary-windows-exceptiongraph
+PASS runtime/nif-binary-windows-deepgraph
+PASS runtime/nif-binary-windows-containment
+PASS runtime/nif/map-size-shape-output
+PASS runtime/nif/map-size-pure-environment
+PASS runtime/nif/map-size-owner-lifetime
+PASS runtime/nif/reference-environment-lifetime
+PASS runtime/binary/search/compiled-resource-owner-etf-and-forgery
+PASS runtime/binary/search/options-leftmost-longest-and-trimming
+PASS runtime/binary/search/cooperative-cancellation-unwind
+PASS compiler/binary/search/seven-contracts-and-error-callers
+PASS binary/wrappers-replacement-effects-and-options
+PASS binary/primitive/empty-iodata-copy-common-cancellation-unwind
+PASS binary/wrappers-join-backing-and-callback-context
+PASS binary/primitive/immutable-offset-backing-and-retention
+PASS compiler/binary/insert-true-deferred-call-and-integer-match-pin
+PASS runtime/halt/immediate-election-preserves-first-pending-result
+PASS runtime/process-liveness499/exit-signal-order
+PASS host/nif-map-creation501-actual-slot-and-environment-ownership
+PASS host/nif-map-creation501-invalid-and-retired-environments
+PASS host/nif-map-creation501-process-and-independent-thread-ownership
+PASS host/nif-map-value503-exact-keys-and-unchanged-output
+PASS host/nif-map-value503-map-owner-lifetime-and-hints
+PASS host/nif-map-value503-fresh-pending-binary-key-graphs
+PASS host/nif-map-value503-invalid-owner-and-thread-controls
+PASS host/nif-map-review504/local-fun-unique-and-comparison-preconditions
+PASS host/nif-map-review504/static-indexed-lookup-allocation-scaling
+PASS host/nif-map-review504/static-indexed-misses-and-output-guards
+PASS host/nif-map-review504/collision-cmp-actual-first-role
+PASS host/nif-map-materialized505/physical-flat-layout-and-equality
+PASS host/nif-map-materialized505/buffer-release-and-saved-index
+PASS host/nif-map-materialized505/deep-map-equality
+PASS host/nif-map-materialized505/cross-runtime-and-closed-owner
+PASS host/nif-map-materialized505/duplicate-reference-reentry
+PASS host/nif-map-materialized505/duplicate-reference-factory-and-peer-equality
+PASS native-resource529/logical-name-unlink-live-payload
+PASS native-resource529/held-callback-forked-image-pin
+PASS native-resource531/parallel-host-export-lease-custody
+PASS native-resource535/canonical-readers-public-refusal
+PASS native-resource535/public-reregister-canonical-delegate-opaque
+PASS native-resource535/managed-nif-provider-opaque
+PASS native-resource536/guest-gc-real-normal-auxiliary-once
+PASS native-resource536/held-normal-destructor-physical-close
+PASS native-resource536/non-gc-foreign-context-retained
+PASS native-cons539/resource-copy-and-clear-lifetime
+PASS native-resource524/view-guest-collection
+PASS native-resource524/physical-destructor-image-pin
+PASS native-resource527/magic-header-identity
+PASS native-resource527/create-duplicate-rollback
+PASS native-resource527/takeover-new-physical-destructor
+PASS native-resource528/arena-image-close-foreign-free
+PASS native-resource528/new-destructor-old-child
+PASS runtime/nif516/append-only-hidden-map-and-new-composite
+PASS runtime/nif516/environment-retains-real-slab-until-disposal
+PASS runtime/native-map510/flat-duplicate-occurrences-detach
+PASS runtime/native-map510/hidden-hamt-roots-and-topology
+PASS runtime/native-map510/foreign-domain-fails-closed
+PASS runtime/binary-owned512/native-reference-retains-storage-through-owner-release
+PASS runtime/native-map510/composed-major-binary-lease-hidden-leaf-and-source-close
+PASS host/nif-map-family504/mutation-output
+PASS host/nif-map-family504/arrays-aliases
+PASS host/nif-map-family504/pending-values-replacement
+PASS host/nif-map-family504/copy-boundaries-owners
+PASS host/nif-map-family504/invalid-owners-threads
+PASS host/nif-map-iterator504-all-slots-shapes-and-boundaries
+PASS host/nif-map-iterator504-hints-owner-and-clear-lifetime
+PASS host/nif-map-iterator504-borrowed-pending-value-graphs
+PASS host/nif-map-iterator504-invalid-owner-and-thread-controls
+PASS runtime/counters596/guest-retirement-ignores-stale-clr-entry
+PASS runtime/counters596/active-pin-outlives-last-guest-root
+PASS runtime/counters596/host-custody-independent-of-guest
+PASS runtime/counters596/real-process-headers-share-live-prefix
+PASS runtime/counters596/old-magic-root-survives-minor-not-major
+PASS runtime/counters596/foreign-before-stale-header-read
+PASS runtime/counters596/queue-export-source-drop-destination-retirement
+PASS runtime/counters596/ets-domain-source-drop-destination-retirement
+PASS runtime/counters596/persistent-domain-source-drop-destination-retirement
+PASS runtime/counters596/public-dictionary-getter-host-retains-after-erase-gc
+PASS runtime/counters596/public-dictionary-snapshot-host-retains-after-erase-gc
+PASS runtime/counters596/real-native-five-entrypoints-and-entry-only-refusal
+PASS runtime/counters596/genuine-native-facet-authority-public-reregister-stays-opaque
+counters596 rollback: host roots at late closure=1, after failure=0
+PASS runtime/counters596/late-export-failure-releases-actual-host-custody
+PASS runtime/counters596/successful-export-commits-only-returned-wrappers
+PASS runtime/counters591/actual-binary-prefix-and-source-extents
+PASS runtime/counters591/cacheline-grouping-and-base-physical-cells
+INITIALIZER615 token=False completion=WaitingForActivation disposal=WaitingForActivation
+PASS runtime/initializer615/terminal-mailbox-before-stop-cancel
+PASS runtime/initializer615/live-unrelated-cancellation-remains-visible
+COUNTERS611 route=8 stage=before-host-proof host=1 guest=0 producer=0 pins=0
+COUNTERS611 route=8 stage=after-reader-done host=1 guest=0 producer=0 pins=0
+COUNTERS611 route=8 stage=after-host-drop host=0 guest=0 producer=0 pins=0
+PASS runtime/counters611/public-process-info-dictionary-key-host-custody
+COUNTERS611 route=6 stage=before-host-proof host=1 guest=0 producer=0 pins=0
+COUNTERS611 route=6 stage=after-reader-done host=1 guest=0 producer=0 pins=0
+COUNTERS611 route=6 stage=after-host-drop host=0 guest=0 producer=0 pins=0
+COUNTERS611 route=7 stage=before-host-proof host=1 guest=0 producer=0 pins=0
+COUNTERS611 route=7 stage=after-reader-done host=1 guest=0 producer=0 pins=0
+COUNTERS611 route=7 stage=after-host-drop host=0 guest=0 producer=0 pins=0
+PASS runtime/counters611/component-real-queue-process-info-public-projection
+COUNTERS611 route=0 stage=before-host-proof host=1 guest=0 producer=0 pins=0
+COUNTERS611 route=0 stage=after-reader-done host=1 guest=0 producer=0 pins=0
+COUNTERS611 route=0 stage=after-host-drop host=0 guest=0 producer=0 pins=0
+PASS runtime/counters611/public-receive-callback-host-custody
+COUNTERS611 route=1 stage=before-host-proof host=1 guest=0 producer=0 pins=0
+COUNTERS611 route=1 stage=after-reader-done host=1 guest=0 producer=0 pins=0
+COUNTERS611 route=1 stage=after-host-drop host=0 guest=0 producer=0 pins=0
+PASS runtime/counters611/public-receive-returned-host-custody
+COUNTERS611 route=2 stage=before-host-proof host=1 guest=0 producer=0 pins=0
+COUNTERS611 route=2 stage=after-reader-done host=1 guest=0 producer=0 pins=0
+COUNTERS611 route=2 stage=after-host-drop host=0 guest=0 producer=0 pins=0
+PASS runtime/counters611/public-mailbox-snapshot-host-custody
+COUNTERS611 route=3 stage=before-host-proof host=1 guest=0 producer=0 pins=0
+COUNTERS611 route=3 stage=after-reader-done host=1 guest=0 producer=0 pins=0
+COUNTERS611 route=3 stage=after-host-drop host=0 guest=0 producer=0 pins=0
+PASS runtime/counters611/public-process-info-messages-host-custody
+COUNTERS611 route=4 stage=before-host-proof host=1 guest=0 producer=0 pins=0
+COUNTERS611 route=4 stage=after-reader-done host=1 guest=0 producer=0 pins=0
+COUNTERS611 route=4 stage=after-host-drop host=0 guest=0 producer=0 pins=0
+PASS runtime/counters611/public-process-info-full-host-custody
+COUNTERS611 route=5 stage=before-host-proof host=1 guest=0 producer=0 pins=0
+COUNTERS611 route=5 stage=after-reader-done host=1 guest=0 producer=0 pins=0
+COUNTERS611 route=5 stage=after-host-drop host=0 guest=0 producer=0 pins=0
+PASS runtime/counters611/public-process-info-list-host-custody
+PASS runtime/binary621/genuine-original-seven-search-bodies-public-reregister-opaque
+PASS runtime/binary629/halt-closes-host-program-and-joins-reader
+PASS runtime/binary598/physical-bm-ac-headers-and-gc
+PASS runtime/binary598/active-reader-and-host-store-retirement
+PASS runtime/binary598/host-reservation-shared-alias-transfer-retirement
+PASS runtime/binary-store536/binary-ets-source-header-drop
+PASS runtime/binary-store536/binary-persistent-source-header-drop
+PASS runtime/binary598/pinned-x64-simd-trie-root-bytes-and-cap
+PASS runtime/process-liveness626/real-closed-before-token-cancellation
+PASS runtime/process-liveness626/live-unrelated-cancellation-visible
+PASS runtime/regex597/actual-prefix-header-and-guest-retirement
+PASS runtime/regex597/minor-major-foreign-and-code-reader
+PASS runtime/regex597/public-compile-import-and-closed-host
+PASS runtime/regex599/failed-install-actor-rollback-cleans-real-api
+PASS runtime/regex599/actual-host-reader-handoff-and-native-info
+PASS runtime/regex599/real-header-wins-or-manual-close-latches-before-guest
+PASS runtime/regex599/published-empty-engine-refuses-privileged-rollback
+PASS runtime/regex605/direct-foreign-actor-engine-disposal-settles
+PASS runtime/typed-store600/regex-ets-source-header-drop
+PASS runtime/typed-store600/regex-persistent-source-header-drop
+PASS runtime/counters603/initializer-done-before-global-drain
+PASS runtime/counters603/ordinary-owner-exit-preserves-independent-live-heap
+179/181 passed

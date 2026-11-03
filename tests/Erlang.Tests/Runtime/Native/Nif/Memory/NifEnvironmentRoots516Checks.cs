@@ -102,14 +102,22 @@ internal static class NifEnvironmentRoots516Checks
         await using var actor = new RuntimeNodeFoundationHostActor(runtime);
         await actor.Invoke(context =>
         {
-            Check(typeof(ProcessContext).GetField(HeapField, Members)!.GetValue(context) is null);
+            Check(!(bool)Property(runtime, PrivateProfile));
+            Check((bool)Property(context, StorageBacking));
+            Check(!(bool)Property(context, GuestExecution));
+            object? heap = typeof(ProcessContext).GetField(HeapField, Members)!.GetValue(context);
+            long words = heap is null ? 0 : (long)Property(Property(heap, Snapshot), Words);
             using var environment = (IDisposable)EnvironmentFor(context, Image());
+            Check(!(bool)Property(environment, EnvironmentExecution));
             Term value = Term.Tuple(Term.I(516));
             nuint handle = (nuint)Call(environment, Add, value)!;
             nuint copied = (nuint)Call(environment, Copy, Call(environment, GetValue, handle)!)!;
             Check(ReferenceEquals(value, Call(environment, Get, copied)));
             Check(ReferenceEquals(value, Call(environment, Export, handle)));
-            Check(typeof(ProcessContext).GetField(HeapField, Members)!.GetValue(context) is null);
+            Check(ReferenceEquals(heap, typeof(ProcessContext).GetField(HeapField, Members)!.GetValue(context)));
+            Check(heap is null || (long)Property(Property(heap, Snapshot), Words) == words);
+            Check(!(bool)Property(context, GuestExecution));
+            Check(!(bool)Property(environment, EnvironmentExecution));
 
             return true;
         });

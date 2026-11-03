@@ -128,6 +128,7 @@ internal sealed unsafe partial class NifNativeAllocationOwner
             return Allocate(size);
         lock (gate)
         {
+            RejectMutexAllocationMutation795(pointer);
             if (!owned.TryGetValue(pointer, out nuint previous))
                 throw new InvalidOperationException(NifNativeDiagnostics.ForeignAllocationReallocate);
             ulong backing = BackingRequest(size);
@@ -175,6 +176,7 @@ internal sealed unsafe partial class NifNativeAllocationOwner
             return;
         lock (gate)
         {
+            RejectMutexAllocationMutation795(pointer);
             if (!owned.TryGetValue(pointer, out nuint size))
                 throw new InvalidOperationException(NifNativeDiagnostics.ForeignAllocationFree);
             var next = snapshot with
@@ -200,6 +202,7 @@ internal sealed unsafe partial class NifNativeAllocationOwner
     {
         lock (gate)
         {
+            ReclaimMutexesUnderGate795();
             if (owned.Count == 0)
                 return;
             var next = snapshot with

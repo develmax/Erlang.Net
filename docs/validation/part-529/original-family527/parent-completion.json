@@ -1,0 +1,193 @@
+{
+  "ProtocolSchemaVersion": 2,
+  "OriginalFirst": true,
+  "NormalizationPerformed": false,
+  "SelectedOriginalCount": 3,
+  "SelectedManagedCount": 0,
+  "Phases": {
+    "build-family1": {
+      "Command": [
+        "C:\\Users\\Maksim\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+        "-B",
+        "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tools\\Native\\Erlang.NifResource529Observations\\build-native.py",
+        "--plan",
+        "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tools\\Native\\Erlang.NifResource529Observations\\source-plan.json",
+        "--approved-plan-sha256",
+        "DC7EF627E13794650FD079AEC40EC1C346F20DCDEDCEFADEB630A355B3E0A3F8",
+        "--provider-admission",
+        "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library376-official-compiler\\official-admission.json",
+        "--variant",
+        "family1",
+        "--output",
+        "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\nif-resource529\\original-protocols530\\build-family1"
+      ],
+      "Pid": 71336,
+      "ElapsedSeconds": 3.093999999924563,
+      "TimedOut": false,
+      "Settled": true,
+      "ExitCode": 0,
+      "Failures": [],
+      "StdoutSha256": "C2E96119CB11DF44C11F7841EF6BA91CD3EEAA9AA7D198D97267559DDF537665",
+      "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    "build-handoff1": {
+      "Command": [
+        "C:\\Users\\Maksim\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+        "-B",
+        "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tools\\Native\\Erlang.NifResource529Observations\\build-native.py",
+        "--plan",
+        "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tools\\Native\\Erlang.NifResource529Observations\\source-plan.json",
+        "--approved-plan-sha256",
+        "DC7EF627E13794650FD079AEC40EC1C346F20DCDEDCEFADEB630A355B3E0A3F8",
+        "--provider-admission",
+        "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library376-official-compiler\\official-admission.json",
+        "--variant",
+        "handoff1",
+        "--output",
+        "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\nif-resource529\\original-protocols530\\build-handoff1"
+      ],
+      "Pid": 225060,
+      "ElapsedSeconds": 2.85999999998603,
+      "TimedOut": false,
+      "Settled": true,
+      "ExitCode": 0,
+      "Failures": [],
+      "StdoutSha256": "7F50E556B1C7374549DBCAF77A1A77592A49CF8CC757BCABE334B9D72D6CD02F",
+      "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    "build-handoff2": {
+      "Command": [
+        "C:\\Users\\Maksim\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+        "-B",
+        "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tools\\Native\\Erlang.NifResource529Observations\\build-native.py",
+        "--plan",
+        "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tools\\Native\\Erlang.NifResource529Observations\\source-plan.json",
+        "--approved-plan-sha256",
+        "DC7EF627E13794650FD079AEC40EC1C346F20DCDEDCEFADEB630A355B3E0A3F8",
+        "--provider-admission",
+        "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library376-official-compiler\\official-admission.json",
+        "--variant",
+        "handoff2",
+        "--output",
+        "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\nif-resource529\\original-protocols530\\build-handoff2"
+      ],
+      "Pid": 284872,
+      "ElapsedSeconds": 2.9540000000270084,
+      "TimedOut": false,
+      "Settled": true,
+      "ExitCode": 0,
+      "Failures": [],
+      "StdoutSha256": "1D30B45CF22A6D48B58B22A17B77CCC3D420EACB291A8899CEFDCDBD942927A0",
+      "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    "original-family527": {
+      "Command": [
+        "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library376-official-compiler\\installed\\bin\\erl.exe",
+        "+S",
+        "1:1",
+        "+A",
+        "1",
+        "+SDcpu",
+        "1",
+        "+SDio",
+        "2",
+        "-noshell",
+        "-noinput",
+        "-boot",
+        "no_dot_erlang",
+        "-pa",
+        "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\nif-resource529\\original-protocols530\\original-family527",
+        "-eval",
+        "W=fun(N,V)->ok=file:write_file(N,term_to_binary(V,[{minor_version,2}])) end,try Expected=filename:absname(\"D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/library376-official-compiler/installed\"),Expected=filename:absname(code:root_dir()),8=erlang:system_info(wordsize),W(\"metadata.etf\",{Expected,erlang:system_info(version),erlang:system_info(system_architecture)}),C=[compile:file(F,[return_errors,return_warnings])||F<-[\"native_resource_family527.erl\",\"resource_observer529.erl\"]],W(\"compile.etf\",C),true=lists:all(fun({ok,_,_})->true;({ok,_})->true;(_)->false end,C),W(\"executing-owners.etf\",[{M,code:which(M),M:module_info(md5),M:module_info(compile),M:module_info(attributes),M:module_info(exports)}||M<-[native_resource_family527,resource_observer529]]),V=resource_observer529:run(family527,\"D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/nif-resource529/original-protocols530/build-family1/resource529\",\"D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/nif-resource529/original-protocols530/build-family1/resource529\",<<>>,\"D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/nif-resource529/original-protocols530/original-family527/marker529\"),W(\"observed.etf\",V),ok=file:write_file(\"observed-deterministic.etf\",term_to_binary(V,[deterministic,{minor_version,2}])),Cleanup=[{M,code:delete(M),code:purge(M),code:is_loaded(M)}||M<-[native_resource_family527,resource_observer529]],W(\"cleanup.etf\",Cleanup),true=lists:all(fun({_,_,_,false})->true;(_)->false end,Cleanup),case V of {returned529,_}->halt(0);_->halt(78) end catch Class:Reason:Stack->W(\"entry-failure.etf\",{Class,Reason,Stack}),halt(77) end."
+      ],
+      "Pid": 157260,
+      "ElapsedSeconds": 0.29599999997299165,
+      "TimedOut": false,
+      "Settled": true,
+      "ExitCode": 0,
+      "Failures": [],
+      "StdoutSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+      "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    "original-fresh_load_after_purge": {
+      "Command": [
+        "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library376-official-compiler\\installed\\bin\\erl.exe",
+        "+S",
+        "1:1",
+        "+A",
+        "1",
+        "+SDcpu",
+        "1",
+        "+SDio",
+        "2",
+        "-noshell",
+        "-noinput",
+        "-boot",
+        "no_dot_erlang",
+        "-pa",
+        "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\nif-resource529\\original-protocols530\\original-fresh_load_after_purge",
+        "-eval",
+        "W=fun(N,V)->ok=file:write_file(N,term_to_binary(V,[{minor_version,2}])) end,try Expected=filename:absname(\"D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/library376-official-compiler/installed\"),Expected=filename:absname(code:root_dir()),8=erlang:system_info(wordsize),W(\"metadata.etf\",{Expected,erlang:system_info(version),erlang:system_info(system_architecture)}),C=[compile:file(F,[return_errors,return_warnings])||F<-[\"native_resource_handoff528.erl\",\"resource_handoff_worker528.erl\",\"acquire_handoff_corrected529.erl\",\"resource_takeover_observer529.erl\"]],W(\"compile.etf\",C),true=lists:all(fun({ok,_,_})->true;({ok,_})->true;(_)->false end,C),W(\"executing-owners.etf\",[{M,code:which(M),M:module_info(md5),M:module_info(compile),M:module_info(attributes),M:module_info(exports)}||M<-[native_resource_handoff528,resource_handoff_worker528,acquire_handoff_corrected529,resource_takeover_observer529]]),V=resource_takeover_observer529:run(fresh_load_after_purge,\"D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/nif-resource529/original-protocols530/build-handoff1/resource529\",element(2,file:read_file(\"native_resource_handoff528.beam\")),\"D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/nif-resource529/original-protocols530/build-handoff2/resource529\",\"D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/nif-resource529/original-protocols530/original-fresh_load_after_purge/marker529-first\",\"D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/nif-resource529/original-protocols530/original-fresh_load_after_purge/marker529-second\"),W(\"observed.etf\",V),ok=file:write_file(\"observed-deterministic.etf\",term_to_binary(V,[deterministic,{minor_version,2}])),Cleanup=[{M,code:delete(M),code:purge(M),code:is_loaded(M)}||M<-[native_resource_handoff528,resource_handoff_worker528,acquire_handoff_corrected529,resource_takeover_observer529]],W(\"cleanup.etf\",Cleanup),true=lists:all(fun({_,_,_,false})->true;(_)->false end,Cleanup),case V of {returned529,_}->halt(0);_->halt(78) end catch Class:Reason:Stack->W(\"entry-failure.etf\",{Class,Reason,Stack}),halt(77) end."
+      ],
+      "Pid": 244240,
+      "ElapsedSeconds": 0.3440000000409782,
+      "TimedOut": false,
+      "Settled": true,
+      "ExitCode": 0,
+      "Failures": [],
+      "StdoutSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+      "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    "original-genuine_upgrade": {
+      "Command": [
+        "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library376-official-compiler\\installed\\bin\\erl.exe",
+        "+S",
+        "1:1",
+        "+A",
+        "1",
+        "+SDcpu",
+        "1",
+        "+SDio",
+        "2",
+        "-noshell",
+        "-noinput",
+        "-boot",
+        "no_dot_erlang",
+        "-pa",
+        "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\nif-resource529\\original-protocols530\\original-genuine_upgrade",
+        "-eval",
+        "W=fun(N,V)->ok=file:write_file(N,term_to_binary(V,[{minor_version,2}])) end,try Expected=filename:absname(\"D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/library376-official-compiler/installed\"),Expected=filename:absname(code:root_dir()),8=erlang:system_info(wordsize),W(\"metadata.etf\",{Expected,erlang:system_info(version),erlang:system_info(system_architecture)}),C=[compile:file(F,[return_errors,return_warnings])||F<-[\"native_resource_handoff528.erl\",\"resource_handoff_worker528.erl\",\"acquire_handoff_corrected529.erl\",\"resource_takeover_observer529.erl\"]],W(\"compile.etf\",C),true=lists:all(fun({ok,_,_})->true;({ok,_})->true;(_)->false end,C),W(\"executing-owners.etf\",[{M,code:which(M),M:module_info(md5),M:module_info(compile),M:module_info(attributes),M:module_info(exports)}||M<-[native_resource_handoff528,resource_handoff_worker528,acquire_handoff_corrected529,resource_takeover_observer529]]),V=resource_takeover_observer529:run(genuine_upgrade,\"D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/nif-resource529/original-protocols530/build-handoff1/resource529\",element(2,file:read_file(\"native_resource_handoff528.beam\")),\"D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/nif-resource529/original-protocols530/build-handoff2/resource529\",\"D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/nif-resource529/original-protocols530/original-genuine_upgrade/marker529-first\",\"D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/nif-resource529/original-protocols530/original-genuine_upgrade/marker529-second\"),W(\"observed.etf\",V),ok=file:write_file(\"observed-deterministic.etf\",term_to_binary(V,[deterministic,{minor_version,2}])),Cleanup=[{M,code:delete(M),code:purge(M),code:is_loaded(M)}||M<-[native_resource_handoff528,resource_handoff_worker528,acquire_handoff_corrected529,resource_takeover_observer529]],W(\"cleanup.etf\",Cleanup),true=lists:all(fun({_,_,_,false})->true;(_)->false end,Cleanup),case V of {returned529,_}->halt(0);_->halt(78) end catch Class:Reason:Stack->W(\"entry-failure.etf\",{Class,Reason,Stack}),halt(77) end."
+      ],
+      "Pid": 116588,
+      "ElapsedSeconds": 0.3440000000409782,
+      "TimedOut": false,
+      "Settled": true,
+      "ExitCode": 0,
+      "Failures": [],
+      "StdoutSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+      "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    }
+  },
+  "Originals": {
+    "family527": {
+      "Succeeded": true,
+      "InventorySha256": "8DECC7DE3210F37350DC147973FFE7905182CB46CA3C80A8FAE355D477DDB5E5"
+    },
+    "fresh_load_after_purge": {
+      "Succeeded": true,
+      "InventorySha256": "0A2CAC7A4C035766626F3D264C7EA6E03BDBAE29496E10FA172D7CE9E1EE85FB"
+    },
+    "genuine_upgrade": {
+      "Succeeded": true,
+      "InventorySha256": "678DAB720D45210D233CCC746CA70F4D4732A4D58501B1841E4D210CFFF9FC44"
+    }
+  },
+  "Managed": {},
+  "AllSelectedPassed": true,
+  "Errors": [],
+  "OriginalGoldenState": "ACQUIRED_ONLY_WHERE_SUCCEEDED",
+  "OriginalExecuted": true,
+  "ManagedExecuted": false,
+  "WholeContractsClosed": 0,
+  "FullCompatibilityClaimed": false
+}

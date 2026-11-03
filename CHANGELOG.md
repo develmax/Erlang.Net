@@ -152,4 +152,28 @@ Append numbered English entries only to the last volume. Start the next sequenti
 
 - [0089.md](docs/changelog/0089.md) — parts506–516 (closed; payload roots, trusted transfer, BEAM receive and callback boundaries)
 
-- [0090.md](docs/changelog/0090.md) — parts517–522 (active; resource/native work remains in progress; math acceptance and documentation splits recorded)
+- [0090.md](docs/changelog/0090.md) — parts517–523 (closed; loader metadata, dirty native ABI, shared maps and native spawn contracts)
+
+- [0091.md](docs/changelog/0091.md) — Parts524,526–531 and dated Part523 CI correction (closed)
+
+- [0092.md](docs/changelog/0092.md) — Parts532–534 (closed)
+
+- [0093.md](docs/changelog/0093.md) — Parts534–539 and review/CI corrections (closed)
+
+- [0094.md](docs/changelog/0094.md) — Part539 delivery checkpoints and subsequent Part552 corrections (closed)
+
+- [0095.md](docs/changelog/0095.md) — Historical Part543 records and Part552 readiness/early-binding correction (closed)
+
+- [0096.md](docs/changelog/0096.md) - Part554 integration checkpoints128–224 (closed; continues in0097)
+
+- [0097.md](docs/changelog/0097.md) - Part554 root custody and validation checkpoints through302 (closed; continues in0098)
+
+- [0098.md](docs/changelog/0098.md) - Part554 throughput closure and final activation prerequisites (closed; continues in0099)
+
+- [0099.md](docs/changelog/0099.md) - Part554 final regression and original-OTP acceptance (closed; continues in0100)
+
+- [0100.md](docs/changelog/0100.md) - Part554 accepted GC and Part555 initial NIF validation (closed; continues in0101)
+
+- [0101.md](docs/changelog/0101.md) - Part555 NIF observer and backend validation repairs (closed; continues in0102)
+
+- [0102.md](docs/changelog/0102.md) - Parts555–558 compressed ETS, library compatibility and documentation integration (active)

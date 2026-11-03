@@ -53,6 +53,43 @@ internal static class BeamBinaryHostBytes
         return SetChunk(image, BeamBinaryHostNames.CodeChunk, code);
     }
 
+    internal static byte[] RetainedSourceIdentity()
+    {
+        byte[] image = Image(
+            Join(
+                [BeamBinaryHostNames.ObserverAllocate, .. U(BeamBinaryHostNames.ObserverSlots), .. U(BeamBinaryHostNames.ObserverArity)],
+                [BeamBinaryHostNames.ObserverMove, .. X(1), BeamOpcodeEdgeBytes.Y(0)],
+                Start(0, 1, 0),
+                [BeamBinaryHostNames.ObserverMove, .. X(1), .. X(0),
+             BeamBinaryHostNames.ObserverMove, BeamOpcodeEdgeBytes.Y(0), .. X(1),
+             BeamBinaryHostNames.ObserverDeallocate, .. U(BeamBinaryHostNames.ObserverSlots),
+             BeamBinaryHostNames.ObserverTail, .. U(BeamBinaryHostNames.ObserverArity), .. U(0)]
+            ),
+            arity: BeamBinaryHostNames.ObserverArity
+        );
+        using var atoms = new MemoryStream();
+        string[] names = [BeamOpcodeEdgeNames.Module, BeamOpcodeEdgeNames.Run,
+            BeamOpcodeEdgeNames.Middle, BeamOpcodeEdgeNames.Leaf,
+            BeamOpcodeEdgeNames.Erlang, BeamOpcodeEdgeNames.Length,
+            DebugSame420HostNames.Module, DebugSame420HostNames.Function,
+            .. BeamBinaryHostNames.ExtraAtoms];
+        Write32(atoms, names.Length);
+        foreach (string name in names)
+        {
+            byte[] bytes = Encoding.UTF8.GetBytes(name);
+            atoms.WriteByte(checked((byte)bytes.Length));
+            atoms.Write(bytes);
+        }
+        image = SetChunk(image, BeamBinaryHostNames.Atoms, atoms.ToArray());
+        using var imports = new MemoryStream();
+        foreach (int value in new[] { BeamBinaryHostNames.ObserverImports,
+            BeamBinaryHostNames.ObserverModuleAtom, BeamBinaryHostNames.ObserverFunctionAtom,
+            BeamBinaryHostNames.ObserverArity })
+            Write32(imports, value);
+
+        return SetChunk(image, BeamOpcodeEdgeNames.Imports, imports.ToArray());
+    }
+
     internal static byte[] Start(int live, int source, int destination)
         => Instruction(
             BeamBinaryHostNames.StartOpcode,

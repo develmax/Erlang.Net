@@ -76,7 +76,13 @@ internal static class StringSearch
                 {
                     Term separators = a[^1];
                     int number = function == StringFunctionNames.NthLexeme ? StringLegacy.Count(a[1], 1) : 0;
-                    return await StringLexemes.Run(context, input, separators, function == StringFunctionNames.NthLexeme ? number : null);
+
+                    return await StringLexemes.Run(
+                        context,
+                        input,
+                        separators,
+                        function == StringFunctionNames.NthLexeme ? number : null
+                    );
                 }
             case StringFunctionNames.Find:
             case StringFunctionNames.Split:

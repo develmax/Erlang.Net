@@ -78,9 +78,18 @@ internal static class BeamLoaderDependencies410Checks
         await using var actor = new RuntimeNodeFoundationHostActor(runtime);
         await actor.InvokeAsync(async context =>
         {
-            using SourceCodeLease lease = foreign.Modules.ReserveSourceCode(context, Code(foreign, broad));
-            using IDisposable flow = lease.Attach(broad);
-            Require(ReferenceEquals(context.ExecutingSourceImage(broad), lease.Image));
+            bool refused = false;
+            try
+            {
+                using SourceCodeLease unexpected = foreign.Modules.ReserveSourceCode(context, Code(foreign, broad));
+            }
+            catch (InvalidOperationException)
+            {
+                refused = true;
+            }
+            // A foreign literal arena must be refused before source admission;
+            // no foreign image or dependency declaration can become active.
+            Require(refused && context.ExecutingSourceImage(broad) is null);
             await Refuses(context);
 
             return true;

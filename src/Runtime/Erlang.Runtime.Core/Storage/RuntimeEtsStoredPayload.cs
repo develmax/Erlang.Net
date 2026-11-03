@@ -29,11 +29,12 @@ internal sealed partial class RuntimeEtsStoredPayload : IDisposable
         long keyPosition = 1
     )
     {
-        if (compressed && NativeResourceRoots524.Contains524(root))
+        if (compressed && NativeResourceRoots524.ContainsNativeResourceOnly524(root))
             throw new NotSupportedException(NativeResource524Names.CompressedStorage);
         var indices = new Dictionary<Term, int>(ReferenceEqualityComparer.Instance);
         var completed = new HashSet<Term>(ReferenceEqualityComparer.Instance);
         var nodes = new List<RuntimeEtsStoredNode>();
+        var cleanupFailures = new List<Exception>(1);
         var pending = new Stack<(Term Term, bool Finish)>();
         pending.Push((root, false));
         try
@@ -44,13 +45,15 @@ internal sealed partial class RuntimeEtsStoredPayload : IDisposable
                 if (item.Finish)
                 {
                     int[] ChildIds(IEnumerable<Term> terms) => terms.Select(term => indices[term]).ToArray();
+                    // Reserve error recording before acquiring this node's custody.
+                    cleanupFailures.EnsureCapacity(checked(nodes.Count * 2 + 1));
                     RuntimeEtsStoredNode node = item.Term switch
                     {
                         Nil => new(RuntimeEtsStoredKind.Nil),
                         Atom atom => new(RuntimeEtsStoredKind.Atom, Names: [atom.Name]),
                         Integer integer => new(RuntimeEtsStoredKind.Integer, Bytes: integer.Value.ToByteArray()),
                         FloatTerm number => new(RuntimeEtsStoredKind.Float, FloatBits: BitConverter.DoubleToInt64Bits(number.Value)),
-                        BitString binary when binary.NativeResourceIdentity524 is not null => new(
+                        BitString binary when !compressed && binary.NativeResourceIdentity524 is not null => new(
                             RuntimeEtsStoredKind.NativeBinary524, NativeBinary524: binary.CapturePersistentSlice416()),
                         BitString binary => new(RuntimeEtsStoredKind.Binary, Bytes: binary.ToArray(), BitLength: binary.BitLength),
                         Cons list => new(RuntimeEtsStoredKind.Cons, Children: [indices[list.Head], indices[list.Tail]]),
@@ -67,7 +70,7 @@ internal sealed partial class RuntimeEtsStoredPayload : IDisposable
                             Children: ChildIds(function.Environment),
                             Function: RuntimeStoredFunctionRecipes.Capture(owner, function)
                         ),
-                        Pid or ReferenceTerm or PortTerm => new(RuntimeEtsStoredKind.Identity, Identity: owner.ReserveExternalTerm(item.Term)),
+                        Pid or ReferenceTerm or PortTerm => new(RuntimeEtsStoredKind.Identity, Identity: owner.ReserveStoredTerm591(item.Term)),
                         _ => throw new ArgumentException(RuntimeEtsFoundationNames.UnsupportedTerm)
                     };
                     nodes[indices[item.Term]] = node;
@@ -100,28 +103,65 @@ internal sealed partial class RuntimeEtsStoredPayload : IDisposable
 
             return compressed ? new(EtsCompressedWriter438.Encode(owned, keyPosition, cancellation)) : new(owned);
         }
-        catch
+        catch (Exception primary)
         {
+            cleanupFailures.Add(primary);
             foreach (var node in nodes)
             {
-                node.Identity?.Dispose();
-                node.NativeBinary524?.Backing?.Dispose();
+                try
+                {
+                    node.Identity?.Dispose();
+                }
+                catch (Exception failure)
+                {
+                    cleanupFailures.Add(failure);
+                }
+                try
+                {
+                    node.NativeBinary524?.Backing?.Dispose();
+                }
+                catch (Exception failure)
+                {
+                    cleanupFailures.Add(failure);
+                }
             }
-            throw;
+            if (cleanupFailures.Count == 1) throw;
+            throw new AggregateException(cleanupFailures);
         }
     }
 
     internal Term Materialize(CancellationToken cancellation)
+        => AtomicsHostAggregate594.Publish(transaction => MaterializeSelected594(cancellation, transaction));
+
+    internal Term MaterializeSelected594(CancellationToken cancellation, AtomicsHostCopyTransaction591 transaction)
     {
         RuntimeEtsCompressed438? compressed = Volatile.Read(ref compressed438);
         RuntimeEtsStoredNode[] owned = compressed is null
             ? Volatile.Read(ref nodes) ?? throw new ObjectDisposedException(nameof(RuntimeEtsStoredPayload))
             : EtsCompressedReader438.Decode(compressed, cancellation);
 
-        return MaterializeNodes438(owned, 0, cancellation);
+        return MaterializeNodesSelected594(
+            owned,
+            0,
+            cancellation,
+            transaction
+        );
     }
 
     internal static Term MaterializeNodes438(RuntimeEtsStoredNode[] owned, int root, CancellationToken cancellation)
+        => AtomicsHostAggregate594.Publish(transaction => MaterializeNodesSelected594(
+            owned,
+            root,
+            cancellation,
+            transaction
+        ));
+
+    internal static Term MaterializeNodesSelected594(
+        RuntimeEtsStoredNode[] owned,
+        int root,
+        CancellationToken cancellation,
+        AtomicsHostCopyTransaction591 transaction
+    )
     {
         var values = new Term?[owned.Length];
         var pending = new Stack<(int Index, bool Finish)>();
@@ -161,7 +201,7 @@ internal sealed partial class RuntimeEtsStoredPayload : IDisposable
                     node.Children!.Select((child, index) => new KeyValuePair<Atom, Term>(Term.A(node.Names[index + 2]), values[child]!))
                 ),
                 RuntimeEtsStoredKind.Function => node.Function!.Rebind(Children().ToArray()),
-                RuntimeEtsStoredKind.Identity => OwnedTermInvocation506.AdmitNativeStoredResult524(node.Identity!.Value),
+                RuntimeEtsStoredKind.Identity => OwnedTermInvocation506.AdmitNativeStoredResultSelected594(node.Identity!.Value, transaction),
                 _ => throw new InvalidOperationException()
             };
         }
@@ -171,7 +211,13 @@ internal sealed partial class RuntimeEtsStoredPayload : IDisposable
 
     public void Dispose()
     {
-        Interlocked.Exchange(ref compressed438, null);
+        RuntimeEtsCompressed438? compressed = Interlocked.Exchange(ref compressed438, null);
+        if (compressed is not null)
+        {
+            compressed.Dispose();
+
+            return;
+        }
         RuntimeEtsStoredNode[]? retired = Interlocked.Exchange(ref nodes, null);
         if (retired is null) return;
         var failures = new List<Exception>(retired.Length);

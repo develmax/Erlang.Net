@@ -1,0 +1,34 @@
+{
+  "SourcePin": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "SourceOnly": true,
+  "OriginalExecuted": false,
+  "Finding": "delete_process frees all pending messages via cleanup_queues; inner/middle queues release message fragments and offheap roots. Dead CLR mailbox retention is not OTP exit behavior.",
+  "ImplementationConstraintNotAnOriginalObservation": "Our logical Exit must not wait on an unrelated callback monitor; physical Done must join real cleanup.",
+  "ApiPromotion": false,
+  "Files": [
+    {
+      "PinnedPath": "ad05823719d77c8faee87348ea39513d4e2f99c5:erts/emulator/beam/erl_process.c",
+      "BlobSha256": "89cbdb55be2a97e77b2450bb3d339ca6db934b9c4bf556ead29b4eae88072dc9",
+      "First": 13394,
+      "Last": 13412,
+      "Excerpt": "D:\\Distr\\Work\\Codex\\Erlang.Net\\w504\\artifacts\\resource533-root\\pinned-exit-cleanup\\erl_process.c.txt",
+      "ExcerptSha256": "b509dde0127093176440e79f8e59c576162512b38a98cc1666952be4f871d78a"
+    },
+    {
+      "PinnedPath": "ad05823719d77c8faee87348ea39513d4e2f99c5:erts/emulator/beam/erl_proc_sig_queue.c",
+      "BlobSha256": "8c09013466104034a847e3439df4d31c4d5184d2c46430a3cdb0f86710f2c519",
+      "First": 9588,
+      "Last": 9627,
+      "Excerpt": "D:\\Distr\\Work\\Codex\\Erlang.Net\\w504\\artifacts\\resource533-root\\pinned-exit-cleanup\\erl_proc_sig_queue.c.txt",
+      "ExcerptSha256": "1fb0bb866d4b043299fd61c702644be600f6a53b001ae243062f5721156e7521"
+    },
+    {
+      "PinnedPath": "ad05823719d77c8faee87348ea39513d4e2f99c5:erts/emulator/beam/erl_message.c",
+      "BlobSha256": "b35e3f0a62dcd86e02f2249d917c801f8c16dc8d35f810c46581212e7d9bab49",
+      "First": 209,
+      "Last": 250,
+      "Excerpt": "D:\\Distr\\Work\\Codex\\Erlang.Net\\w504\\artifacts\\resource533-root\\pinned-exit-cleanup\\erl_message.c.txt",
+      "ExcerptSha256": "fe6d2aa5fdb9fc57c0f5c6ff1c5f813e521ace19d1e54208aa36679a50dcc3a3"
+    }
+  ]
+}

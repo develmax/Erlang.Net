@@ -163,7 +163,12 @@ internal sealed partial class NativeDriverPortRegistry422
             }
             try
             {
-                if (row.OpenSucceeded) runtime.PortRemoved(row.Identity, row.Links.ToArray(), row.Reason);
+                if (row.OpenSucceeded) runtime.PortRemoved(
+                    row.Identity,
+                    row.Links.ToArray(),
+                    row.Reason,
+                    row.Reason641
+                );
             }
             catch (Exception failure)
             {
@@ -182,7 +187,7 @@ internal sealed partial class NativeDriverPortRegistry422
         {
             row.Links.Clear();
             row.Data = Nil.Value;
-            row.Reason = Nil.Value;
+            row.ReleaseReason641();
             row.Lines = null;
             row.Command = [];
         }

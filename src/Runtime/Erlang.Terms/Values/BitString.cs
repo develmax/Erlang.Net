@@ -11,15 +11,13 @@ public sealed partial class BitString : Term
     private ReadOnlySpan<byte> bytes => backing.ReadSpan524;
     private readonly long bitOffset;
     private byte[]? normalized;
-    public int BitLength
-    {
-        get;
-    }
+    private readonly int portableBitLength577;
+    public int BitLength => ownedHeapBits?.ReadHeapBitLength() ?? ownedResourceBits577?.ReadResourceBits577().BitLength ?? portableBitLength577;
     public bool IsBinary => BitLength % 8 == 0;
 
     public BitString(ReadOnlySpan<byte> data, int? bitLength = null)
     {
-        BitLength = bitLength ?? checked(data.Length * 8);
+        portableBitLength577 = bitLength ?? checked(data.Length * 8);
         if (BitLength < 0 || BitLength > data.Length * 8 || (BitLength + 7) / 8 != data.Length)
             throw new ErlangException(ErlangErrorReasons.BadArgument);
         var owned = data.ToArray();
@@ -30,7 +28,7 @@ public sealed partial class BitString : Term
 
     public byte[] ToArray()
     {
-        using IDisposable? read = backing.RetainNative524();
+        using IDisposable? read = backing.RetainNativeCopyRead524();
 
         return ByteSpan.ToArray();
     }
@@ -41,8 +39,12 @@ public sealed partial class BitString : Term
     {
         get
         {
-            if (bitOffset % BitStringLayout.BitsPerByte == 0 && IsBinary)
-                return bytes.Slice((int)(bitOffset / BitStringLayout.BitsPerByte), ByteLength);
+            if (ownedHeapBits is not null)
+                return ownedHeapBits.CopyHeapBytes();
+            if (ownedResourceBits577 is not null)
+                return ReadOwnedByteSpan577();
+            if (LogicalBitOffset577 % BitStringLayout.BitsPerByte == 0 && IsBinary)
+                return bytes.Slice((int)(LogicalBitOffset577 / BitStringLayout.BitsPerByte), ByteLength);
             var result = Volatile.Read(ref normalized);
             if (result is null)
             {
@@ -57,13 +59,30 @@ public sealed partial class BitString : Term
         }
     }
 
-    internal int ReferencedByteSize => backing.IsReference ? checked((int)backing.ReferencedByteSize524) : BitLength / BitStringLayout.BitsPerByte;
+    internal int ReferencedByteSize
+    {
+        get
+        {
+            ValidateOwnedBits577();
+
+            return backing.IsReference ? checked((int)backing.ReferencedByteSize524) : BitLength / BitStringLayout.BitsPerByte;
+        }
+    }
 
     public BitString SliceBits(int offset, int count)
     {
         if (offset < 0 || count < 0 || offset > BitLength - count)
             throw new ErlangException(ErlangErrorReasons.BadArgument);
-        var result = new BitString(backing, bitOffset + offset, count);
+        if (ownedHeapBits is not null)
+            return SliceOwnedHeapBits(offset, count);
+        if (ownedResourceBits577 is not null)
+            return SliceOwnedResourceBits577(offset, count);
+        var result = new BitString(
+            backing,
+            LogicalBitOffset577 + offset,
+            count,
+            sliceOrigin577: resourceSliceOrigin577
+        );
         if (count > BitStringStorage.HeapBytes * BitStringLayout.BitsPerByte)
             return result;
 
@@ -74,20 +93,22 @@ public sealed partial class BitString : Term
         BinaryBacking storage,
         long offset,
         int count,
-        object? token = null
+        object? token = null,
+        BitString? sliceOrigin577 = null
     )
     {
         backing = storage;
         writer = token;
+        resourceSliceOrigin577 = sliceOrigin577;
         bitOffset = offset;
-        BitLength = count;
+        portableBitLength577 = count;
     }
 
     private BitString(byte[] ownedBytes, bool takeOwnership)
     {
         var owned = takeOwnership ? ownedBytes : ownedBytes.ToArray();
         backing = new BinaryBacking(owned, owned.Length > BitStringStorage.HeapBytes);
-        BitLength = checked(ownedBytes.Length * BitStringLayout.BitsPerByte);
+        portableBitLength577 = checked(ownedBytes.Length * BitStringLayout.BitsPerByte);
     }
 
     internal static BitString FromOwnedBytes(byte[] bytes) => new(bytes, true);
@@ -139,11 +160,19 @@ public sealed partial class BitString : Term
 
     public void WriteTo(Stream destination)
     {
-        using IDisposable? read = backing.RetainNative524();
+        using IDisposable? read = backing.RetainNativeCopyRead524();
         destination.Write(ByteSpan);
     }
 
-    internal int Bit(int i) => (bytes[(int)((bitOffset + i) / BitStringLayout.BitsPerByte)] >> (BitStringStorage.HighBit - (int)((bitOffset + i) % BitStringLayout.BitsPerByte))) & 1;
+    internal int Bit(int i)
+    {
+        if (ownedHeapBits is not null)
+            return (ownedHeapBits.ReadHeapByte(i / BitStringLayout.BitsPerByte) >> (BitStringStorage.HighBit - i % BitStringLayout.BitsPerByte)) & 1;
+        long absolute497 = LogicalBitOffset577 + i;
+
+        return (backing.ReadByte524((int)(absolute497 / BitStringLayout.BitsPerByte))
+            >> (BitStringStorage.HighBit - (int)(absolute497 % BitStringLayout.BitsPerByte))) & 1;
+    }
 
     public override string ToString()
     {

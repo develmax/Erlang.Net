@@ -1,5 +1,13 @@
 namespace Erlang;
 
+/// <summary>Snapshots a native-record declaration's field collections.</summary>
+/// <remarks>
+/// Field defaults and type Syntax Terms are caller-owned borrowed graphs; this
+/// declaration does not acquire native roots or prolong their source custody.
+/// Keep the supplying frame/image/Host lifetime valid through every use.
+/// Canonical compiled defaults are prepared under their actual defining image
+/// separately from this public metadata container.
+/// </remarks>
 public sealed class NativeRecordDefinition
 {
     public string Name { get; }

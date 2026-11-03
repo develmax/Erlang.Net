@@ -167,6 +167,12 @@ public static class TermOrder
                     if (purpose == TermComparisonPurpose.ExactEquality)
                     {
                         var native = x.NativeEquality505?.Invoke(y) ?? y.NativeEquality505?.Invoke(x);
+                        if (native is null && layoutFactory is not null)
+                        {
+                            mapLayout ??= layoutFactory();
+                            if (mapLayout is ITermMapOrderingLayout physical)
+                                native = physical.ReadExactEqualityPlan(x, y);
+                        }
                         if (native is not null)
                         {
                             if (!native.SameShape)
@@ -177,6 +183,26 @@ public static class TermOrder
                             return 0;
                         }
                     }
+                    if (exact && purpose != TermComparisonPurpose.CanonicalKeyStorage
+                        && x.FlatKeys426 is not null && y.FlatKeys426 is not null)
+                    {
+                        pending.Push(TermMapOrdering.FlatSteps(x, y, exact).GetEnumerator());
+
+                        return 0;
+                    }
+                    if (purpose == TermComparisonPurpose.Ordering
+                        && x.Entries.Count > TermMapOrderParameters.FlatMapMaximumEntries
+                        && layoutFactory is not null)
+                    {
+                        mapLayout ??= layoutFactory();
+                        if (mapLayout is ITermMapOrderingLayout ordering)
+                        {
+                            pending.Push(TermMapOrdering.HashSteps(x, y, exact, ordering).GetEnumerator());
+
+                            return 0;
+                        }
+                    }
+
                     if (purpose == TermComparisonPurpose.NumericEquality
                         && x.Entries.Count > TermMapOrderParameters.FlatMapMaximumEntries
                         && layoutFactory is not null)
@@ -191,10 +217,9 @@ public static class TermOrder
 
                         return 0;
                     }
-                    pending.Push(((purpose == TermComparisonPurpose.Ordering && !exact
+                    pending.Push(((purpose == TermComparisonPurpose.Ordering
                         || purpose == TermComparisonPurpose.NumericEquality)
                         && count == 0 && x.Entries.Count > 1
-                        && x.Entries.Count <= TermMapOrderParameters.FlatMapMaximumEntries
                         ? TermMapOrdering.Steps(x, y, exact)
                         : MapSteps(x, y, exact)).GetEnumerator());
 
@@ -205,14 +230,7 @@ public static class TermOrder
 
                 return 0;
             case (BitString x, BitString y):
-                for (int i = 0; i < Math.Min(x.BitLength, y.BitLength); i++)
-                {
-                    int c = x.Bit(i).CompareTo(y.Bit(i));
-                    if (c != 0)
-                        return c;
-                }
-
-                return x.BitLength.CompareTo(y.BitLength);
+                return x.CompareBits139(y);
             default:
                 throw new NotSupportedException();
         }
@@ -327,7 +345,7 @@ public static class TermOrder
     )
     {
         ITermMapComparisonLayout? mapLayout = null;
-        Func<ITermMapComparisonLayout>? layoutFactory = purpose == TermComparisonPurpose.NumericEquality
+        Func<ITermMapComparisonLayout>? layoutFactory = purpose is TermComparisonPurpose.NumericEquality or TermComparisonPurpose.Ordering or TermComparisonPurpose.ExactEquality
             ? TermMapComparisonEnvironment.Factory : null;
         var scopes = new Stack<TermComparisonScope>();
         scopes.Push(new TermComparisonScope(

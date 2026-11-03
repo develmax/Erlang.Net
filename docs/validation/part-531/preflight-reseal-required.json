@@ -1,0 +1,73 @@
+{
+  "Passed": false,
+  "Checks": [
+    {
+      "Plan": "Erlang.NifMapFamily504Observations",
+      "Passed": true,
+      "Details": {
+        "PlanSha256": "F194115E68A39434099311F979EE5E1C213A757CDE01F2EA4B821D7854C834F2",
+        "VerifiedRows": 211,
+        "NativeExecuted": false
+      }
+    },
+    {
+      "Plan": "Erlang.NifMapMaterialized505Observations",
+      "Passed": true,
+      "Details": {
+        "PlanSha256": "19057746F693E6E10F60397FC3FAC1E0CB6D0BC2F26C58637676F76B50DDBD71",
+        "VerifiedRows": 216,
+        "NativeExecuted": false
+      }
+    },
+    {
+      "Plan": "Erlang.NifMapReentry505Observations",
+      "Passed": true,
+      "Details": {
+        "PlanSha256": "A7115C1942CE0837CE745C42210305C5E332790241EB21F2E4E79BB625615A72",
+        "VerifiedRows": 216,
+        "NativeExecuted": false
+      }
+    },
+    {
+      "Plan": "tools/Runtime/Erlang.OwnedGuest506Observations",
+      "Passed": true,
+      "Details": {
+        "PlanSha256": "B8CE3D59C8357500401D73427C9DA6378EF4B46E1F475DE671FDE3C4C2374F00",
+        "VerifiedRows": 192
+      }
+    },
+    {
+      "Plan": "tools/Native/Erlang.NifVariadic526Observations",
+      "Passed": true,
+      "Details": {
+        "PlanSha256": "40B8F6CD466F019B15947720A090DE52C4CA06DC1F41F106CB395E9B3DA5C8F6",
+        "VerifiedRows": 874
+      }
+    },
+    {
+      "Plan": "Pending",
+      "Passed": true,
+      "Details": {
+        "PlanSha256": "4A938E04161C9E1FE3D5C5D655188FB94EC75A20B6F776DCBD9236A46C3CA313",
+        "VerifiedRows": 3612,
+        "CompleteGitMembershipChecked": false
+      }
+    },
+    {
+      "Plan": "Reallocation",
+      "Passed": false,
+      "Error": "RuntimeError('Reviewed source changed: .gitattributes')"
+    },
+    {
+      "Plan": "Private557",
+      "Passed": false,
+      "Error": "RuntimeError('Source seal differs: .gitattributes')"
+    }
+  ],
+  "ExpectedPlans": 8,
+  "BuildOrVmExecuted": false,
+  "NativeExecuted": false,
+  "SourceHeadAuthenticityClaimed": false,
+  "FullSourceMembershipClaimed": false,
+  "WholeContractsClosed": 0
+}

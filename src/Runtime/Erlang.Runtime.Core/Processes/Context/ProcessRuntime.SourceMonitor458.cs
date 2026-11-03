@@ -9,18 +9,28 @@ public sealed partial class ProcessRuntime
         ProcessMonitorOptions options
     )
     {
-        if (kind == ProcessMonitorKinds.Process)
+        var input641 = PrepareMonitorInput641(owner, target, options);
+        try
         {
-            var connected = await DistributionPending.TrySourceMonitor458(owner, target, options).ConfigureAwait(false);
-            if (connected is not null) return connected;
-        }
+            target = ((TupleTerm)input641.Value641).Items[0];
+            options = PreparedMonitorOptions641(options, input641);
+            if (kind == ProcessMonitorKinds.Process)
+            {
+                var connected = await DistributionPending.TrySourceMonitor458(owner, target, options).ConfigureAwait(false);
+                if (connected is not null) return connected;
+            }
 
-        return MonitorSource(
-            owner,
-            kind,
-            target,
-            options
-        );
+            return MonitorSource(
+                owner,
+                kind,
+                target,
+                options
+            );
+        }
+        finally
+        {
+            input641.Close641();
+        }
     }
 
     private void AddConnectedOriginMonitor458(DistributionProcessMonitor monitor, ProcessMonitorOptions? options)
@@ -29,15 +39,13 @@ public sealed partial class ProcessRuntime
         if (options is null) return;
         monitor.SpawnOptions = true;
         Term reported = monitor.Watched is Atom name ? Term.Tuple(name, monitor.Entry.Node) : monitor.Watched;
-        monitors.Add(
+        AddMonitor641(
             monitor.Reference,
-            new(
-                monitor.Local.Self,
+            CreateMonitorEntry641(
+                monitor.Local,
                 monitor.Watched as Pid,
                 reported,
-                options.Tag,
-                options.Priority,
-                options.AliasMode == ProcessAliasNames.Explicit
+                options
             )
         );
     }

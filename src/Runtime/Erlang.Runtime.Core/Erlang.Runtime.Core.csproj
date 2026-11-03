@@ -10,6 +10,13 @@
           CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest"
           TargetPath="Erlang.Nif.WindowsVariadic.dll" Pack="true" PackagePath="runtimes/win-x64/native/Erlang.Nif.WindowsVariadic.dll" />
   </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="../../Otp/Original/Foundation/Erlang.Otp.Erts.Beam/Otp/ebin/erlang.beam" LogicalName="Erlang.Runtime.PinnedOtp.erlang.beam" />
+    <EmbeddedResource Include="../../Otp/Original/Foundation/Erlang.Otp.Erts.Beam/Otp/src/erlang.erl" LogicalName="Erlang.Runtime.PinnedOtp.erlang.erl" />
+    <EmbeddedResource Include="../../Otp/Original/Foundation/Erlang.Otp.Erts.Beam/provenance.json" LogicalName="Erlang.Runtime.PinnedOtp.erlang.provenance.json" />
+    <EmbeddedResource Include="../../Otp/Original/Foundation/Erlang.Otp.Erts.Beam/Otp/ebin/erts_internal.beam" LogicalName="Erlang.Runtime.PinnedOtp.erts_internal.beam" />
+    <EmbeddedResource Include="../../Otp/Original/Foundation/Erlang.Otp.Erts.Beam/Otp/src/erts_internal.erl" LogicalName="Erlang.Runtime.PinnedOtp.erts_internal.erl" />
+  </ItemGroup>
   <Target Name="RequireWindowsNifVariadicAsset526" BeforeTargets="GenerateNuspec">
     <Error Condition="!Exists('runtimes/win-x64/native/Erlang.Nif.WindowsVariadic.dll')"
            Text="Build/install the Windows NIF variadic runtime asset before packaging Erlang.Runtime.Core." />

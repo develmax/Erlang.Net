@@ -1,50 +1,251 @@
 namespace Erlang;
 
-internal static class NativeResourceRoots524
+internal static partial class NativeResourceRoots524
 {
-    internal static NativeResourcePayload524? Direct524(Term value)
+    internal static void DisposeGuestGraph593(IDisposable? selected)
     {
-        if (value is BitString { NativeResourceIdentity524: NativeResourcePayload524 binary })
-            return binary;
-        if (value is ResourceReferenceTerm resource && resource.ResourceKind == ReferenceResourceKind.NativeResource524)
-            return resource.Entry.Read<NativeResourcePayload524>();
+        if (selected is NativeResourceRootLease524 native) native.DisposeGuestGc536();
+        else if (selected is NativeResourceRootSet524 set) set.DisposeGuestGc593();
+        else selected?.Dispose();
+    }
 
-        return null;
+    internal static NativeResourcePayload524? Direct524(Term value, ProcessRuntime? expected = null)
+    {
+        // Admit backing custody before a live/stale descriptor can read its heap.
+        NativeResourcePayload524? payload = value is BitString { ResourceBacking577.NativeStorage524.ResourceIdentity524: NativeResourcePayload524 binary }
+            ? binary : value is ResourceReferenceTerm resource && resource.ResourceKind == ReferenceResourceKind.NativeResource524
+            ? resource.Entry.Read<NativeResourcePayload524>() : null;
+        if (payload is null)
+            return null;
+        if (expected is not null && !ReferenceEquals(payload.Runtime, expected))
+            throw new NotSupportedException(NativeResource524Names.Foreign);
+        if (value is BitString bits)
+            _ = bits.NativeResourceIdentity524;
+        if (value is ResourceReferenceTerm { OwnedStorage562: { } storage } owned)
+        {
+            if (storage is not ProcessTermSequence506 || storage.Owner is not ProcessTermHeap506 heap)
+                throw new InvalidOperationException(MagicReference576Names.Invalid);
+
+            return heap.ReadMagicPayload576(owned, payload);
+        }
+
+        return payload;
     }
 
     internal static bool Contains524(Term source)
+        => OrdinaryBinaryRoots.Contains(source) || ContainsNativeResourceOnly524(source);
+
+    internal static bool ContainsNativeResourceOnly524(Term source)
     {
         if (!NativeResourceAddresses524.AnyLive524) return false;
-        var seen = new HashSet<Term>(ReferenceEqualityComparer.Instance);
-        var pending = new Stack<Term>();
-        pending.Push(source);
-        while (pending.TryPop(out Term? value))
+        var traversal = new ResourceRootTraversal595(source);
+        while (traversal.TryPop(out Term? value))
         {
-            if (!seen.Add(value)) continue;
             if (Direct524(value) is not null) return true;
-            foreach (Term child in NativeMapOwnedRoots510.Children(value)) pending.Push(child);
+            traversal.EnqueueChildren(value);
         }
 
         return false;
     }
 
-    internal static IDisposable? RetainGraph524(Term source, ProcessRuntime? expected = null)
+    private static IDisposable? RetainGraphBeforePrepared807(
+        Term source,
+        ProcessRuntime? expected = null,
+        bool skipOwnedMagic576 = false,
+        bool hostAtomics586 = false,
+        List<NativeResourceRootLease524>? reservations172 = null
+    )
+    {
+        IDisposable? program = BinaryProgramRoots598.RetainGraph598(
+            source,
+            expected,
+            skipOwnedMagic576,
+            hostAtomics586
+        );
+        IDisposable? existing = null;
+        try
+        {
+            existing = RetainExistingGraph598(
+                source,
+                expected,
+                skipOwnedMagic576,
+                hostAtomics586,
+                reservations172
+            );
+            if (program is null) return existing;
+            if (existing is null) return program;
+
+            return new NativeResourceRootSet524([program, existing]);
+        }
+        catch (Exception original)
+        {
+            Exception? first = null, second = null;
+            try
+            {
+                existing?.Dispose();
+            }
+            catch (Exception error)
+            {
+                first = error;
+            }
+            try
+            {
+                program?.Dispose();
+            }
+            catch (Exception error)
+            {
+                second = error;
+            }
+            if (first is not null || second is not null)
+                throw new AggregateException(new[] { original, first, second }.OfType<Exception>());
+            throw;
+        }
+    }
+
+    private static IDisposable? RetainExistingGraph598(
+        Term source,
+        ProcessRuntime? expected = null,
+        bool skipOwnedMagic576 = false,
+        bool hostAtomics586 = false,
+        List<NativeResourceRootLease524>? reservations172 = null
+    )
+    {
+        IDisposable? regex = ReMagicRoots597.RetainGraph597(
+            source,
+            expected,
+            skipOwnedMagic576,
+            hostAtomics586
+        );
+        IDisposable? existing = null;
+        try
+        {
+            existing = RetainExistingGraph597(
+                source,
+                expected,
+                skipOwnedMagic576,
+                hostAtomics586,
+                reservations172
+            );
+            if (regex is null) return existing;
+            if (existing is null) return regex;
+
+            return new NativeResourceRootSet524([regex, existing]);
+        }
+        catch (Exception original)
+        {
+            Exception? first = null, second = null;
+            try
+            {
+                existing?.Dispose();
+            }
+            catch (Exception error)
+            {
+                first = error;
+            }
+            try
+            {
+                regex?.Dispose();
+            }
+            catch (Exception error)
+            {
+                second = error;
+            }
+            if (first is not null || second is not null)
+                throw new AggregateException(new[] { original, first, second }.OfType<Exception>());
+            throw;
+        }
+    }
+
+    private static IDisposable? RetainExistingGraph597(
+        Term source,
+        ProcessRuntime? expected = null,
+        bool skipOwnedMagic576 = false,
+        bool hostAtomics586 = false,
+        List<NativeResourceRootLease524>? reservations172 = null
+    )
+    {
+        var retained = new IDisposable[3];
+        int count = 0;
+        try
+        {
+            if (AtomicsRoots586.RetainGraph586(
+                source,
+                expected,
+                skipOwnedMagic576,
+                hostAtomics586
+            ) is { } atomics)
+                retained[count++] = atomics;
+            if (CountersRoots596.RetainGraph596(
+                source,
+                expected,
+                skipOwnedMagic576,
+                hostAtomics586
+            ) is { } counters)
+                retained[count++] = counters;
+            if (RetainNativeGraph524(
+                source,
+                expected,
+                skipOwnedMagic576,
+                reservations172
+            ) is { } native)
+                retained[count++] = native;
+            if (count == 0)
+                return null;
+            if (count == 1)
+                return retained[0];
+
+            return new NativeResourceRootSet524(retained[..count]);
+        }
+        catch (Exception original)
+        {
+            // Independent typed acquisitions are rolled back without callback under a registry gate.
+            Exception? firstCleanup = null, secondCleanup = null, thirdCleanup = null;
+            for (int index = count - 1; index >= 0; index--)
+                try
+                {
+                    retained[index].Dispose();
+                }
+                catch (Exception failure)
+                {
+                    if (firstCleanup is null) firstCleanup = failure;
+                    else if (secondCleanup is null) secondCleanup = failure;
+                    else thirdCleanup = failure;
+                }
+            if (thirdCleanup is not null)
+                throw new AggregateException(
+                    original,
+                    firstCleanup!,
+                    secondCleanup!,
+                    thirdCleanup
+                );
+            if (secondCleanup is not null)
+                throw new AggregateException(original, firstCleanup!, secondCleanup);
+            if (firstCleanup is not null)
+                throw new AggregateException(original, firstCleanup);
+            throw;
+        }
+    }
+
+    private static IDisposable? RetainNativeGraph524(
+        Term source,
+        ProcessRuntime? expected,
+        bool skipOwnedMagic576,
+        List<NativeResourceRootLease524>? reservations172 = null
+    )
     {
         if (!NativeResourceAddresses524.AnyLive524) return null;
-        var seen = new HashSet<Term>(ReferenceEqualityComparer.Instance);
         var payloads = new HashSet<NativeResourcePayload524>(ReferenceEqualityComparer.Instance);
-        var pending = new Stack<Term>();
-        pending.Push(source);
-        while (pending.TryPop(out Term? value))
+        var traversal = new ResourceRootTraversal595(source);
+        while (traversal.TryPop(out Term? value))
         {
-            if (!seen.Add(value)) continue;
-            if (Direct524(value) is { } payload)
+            if (Direct524(value, expected) is { } payload
+                && (!skipOwnedMagic576 || !ProcessTermHeap506.HasOwnedMagicReference576(value)))
             {
                 if (expected is not null && !ReferenceEquals(expected, payload.Runtime))
                     throw new NotSupportedException(NativeResource524Names.Foreign);
                 payloads.Add(payload);
             }
-            foreach (Term child in NativeMapOwnedRoots510.Children(value)) pending.Push(child);
+            traversal.EnqueueChildren(value);
         }
         if (payloads.Count == 0) return null;
         var leases = new IDisposable[payloads.Count];
@@ -52,7 +253,15 @@ internal static class NativeResourceRoots524
         try
         {
             foreach (NativeResourcePayload524 payload in payloads)
-                leases[admitted++] = payload.RetainRoot524();
+            {
+                if (reservations172 is null) leases[admitted++] = payload.RetainRoot524();
+                else
+                {
+                    NativeResourceRootLease524 reserved = payload.ReserveRoot821();
+                    leases[admitted++] = reserved;
+                    reservations172.Add(reserved);
+                }
+            }
 
             return new NativeResourceRootSet524(leases);
         }

@@ -1,0 +1,13 @@
+{
+  "Pid": 18208,
+  "Command": [
+    "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library376-official-compiler\\installed\\bin\\erl.exe",
+    "+S",
+    "2:2",
+    "-noshell",
+    "-noinput",
+    "-eval",
+    "Names=[dynamic_apply_caller520,dynamic_apply_target520,acquire520],lists:foreach(fun(M)->{ok,M}=compile:file(atom_to_list(M)++\".erl\",[debug_info,return_errors]),ok end,Names),I=[begin {ok,{M,[{imports,Rows}]}}=beam_lib:chunks(atom_to_list(M)++\".beam\",[imports]),{M,Rows} end||M<-[dynamic_apply_caller520,dynamic_apply_target520]],ok=file:write_file(\"static-imports.etf\",term_to_binary(I)),halt()."
+  ],
+  "StartedUnixSeconds": 1793238087.7846873
+}

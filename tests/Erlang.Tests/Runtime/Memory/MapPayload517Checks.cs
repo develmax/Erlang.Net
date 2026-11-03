@@ -318,7 +318,18 @@ internal static class MapPayload517Checks
                 var map = (MapTerm)adopted.Items[0];
                 Check(ReferenceEquals(map, adopted.Items[1]));
                 if (size <= 32)
-                    Check(ReferenceEquals(map.GetType().GetProperty(FlatKeysProperty, Members)!.GetValue(map), adopted.Items[2]));
+                {
+                    var actualKeys = (TupleTerm)map.GetType().GetProperty(FlatKeysProperty, Members)!.GetValue(map)!;
+                    var adoptedKeys = (TupleTerm)adopted.Items[2];
+                    if (size == 0)
+                    {
+                        Check(actualKeys.Items.Count == 0 && adoptedKeys.Items.Count == 0);
+                        Check((bool)Call(runtime, CanonicalEmptyTuple377, adoptedKeys)!);
+                        Check(ReferenceEquals(adoptedKeys, adopted.Items[3]));
+                    }
+                    else
+                        Check(ReferenceEquals(actualKeys, adoptedKeys));
+                }
                 Check(map.Entries.Count == size);
                 object? storage = map.GetType().GetProperty(OwnedMapStorage, Members)!.GetValue(map);
                 Check((storage is null) == (size == 0));

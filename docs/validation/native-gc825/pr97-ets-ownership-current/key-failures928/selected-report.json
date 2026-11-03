@@ -1,0 +1,93 @@
+{
+  "Partial": true,
+  "SelectedCount": 13,
+  "TotalCount": 9596,
+  "Blocks": [],
+  "ExactCases": [
+    "oracle/compiled-module/ets442-compressed-mutations324-values-stacks-and-own-cursors",
+    "oracle/compiled-module/ets442-compressed156-whole-values-and-stacks",
+    "runtime/atomics590/ets-domain-source-drop-destination-retirement",
+    "runtime/counters596/ets-domain-source-drop-destination-retirement",
+    "runtime/library441/ets-compressed-read-lease-and-canceled-capture",
+    "runtime/library441/ets-compressed-real-storage-and-mutations",
+    "runtime/library442/ets-compressed-authentic-fun-key-value-owned-census",
+    "runtime/library442/ets-compressed-foreign-owner-atomic-refusal",
+    "runtime/library442/ets-compressed-mid-decode-cancellation",
+    "runtime/library442/ets-compressed-mid-encode-cancellation",
+    "runtime/library442/ets-compressed-source-roots-and-owner-resource-release",
+    "runtime/statistics-process-refc-binary-actual-prefix-header-words-and-reclaim",
+    "runtime/typed-store600/regex-ets-source-header-drop"
+  ],
+  "Passed": 10,
+  "Failed": 3,
+  "Tests": [
+    {
+      "Name": "runtime/atomics590/ets-domain-source-drop-destination-retirement",
+      "Status": "Failed",
+      "Error": "System.TimeoutException: The operation has timed out.\r\n   at Erlang.Tests.AtomicsStore590Checks.\u003C\u003Ec__DisplayClass3_0.\u003C\u003CRun\u003Eb__0\u003Ed.MoveNext() in D:\\Distr\\Work\\Codex\\Erlang.Net\\w546\\artifacts\\statistics-full\\main-gc825-integration36\\workspace\\tests\\Erlang.Tests\\Runtime\\Storage\\Atomics\\AtomicsStore590Checks.cs:line 193\r\n--- End of stack trace from previous location ---\r\n   at Erlang.Tests.AtomicsStore590Checks.\u003C\u003Ec__DisplayClass3_0.\u003C\u003CRun\u003Eb__0\u003Ed.MoveNext() in D:\\Distr\\Work\\Codex\\Erlang.Net\\w546\\artifacts\\statistics-full\\main-gc825-integration36\\workspace\\tests\\Erlang.Tests\\Runtime\\Storage\\Atomics\\AtomicsStore590Checks.cs:line 276\r\n--- End of stack trace from previous location ---\r\n   at Erlang.Tests.AtomicsP2a586Checks.Run(Func\u00602 body) in D:\\Distr\\Work\\Codex\\Erlang.Net\\w546\\artifacts\\statistics-full\\main-gc825-integration36\\workspace\\tests\\Erlang.Tests\\Runtime\\Storage\\Atomics\\AtomicsP2a586Checks.cs:line 61\r\n   at Erlang.Tests.AtomicsP2a586Checks.Run(Func\u00602 body) in D:\\Distr\\Work\\Codex\\Erlang.Net\\w546\\artifacts\\statistics-full\\main-gc825-integration36\\workspace\\tests\\Erlang.Tests\\Runtime\\Storage\\Atomics\\AtomicsP2a586Checks.cs:line 71\r\n   at Erlang.Tests.AtomicsStore590Checks.EtsHandoff() in D:\\Distr\\Work\\Codex\\Erlang.Net\\w546\\artifacts\\statistics-full\\main-gc825-integration36\\workspace\\tests\\Erlang.Tests\\Runtime\\Storage\\Atomics\\AtomicsStore590Checks.cs:line 17\r\n   at Program.\u003CMain\u003E$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\w546\\artifacts\\statistics-full\\main-gc825-integration36\\workspace\\tests\\Erlang.Tests\\Harness\\Program.cs:line 16144",
+      "Milliseconds": 10555
+    },
+    {
+      "Name": "runtime/library441/ets-compressed-real-storage-and-mutations",
+      "Status": "Passed",
+      "Milliseconds": 114
+    },
+    {
+      "Name": "runtime/library441/ets-compressed-read-lease-and-canceled-capture",
+      "Status": "Passed",
+      "Milliseconds": 56
+    },
+    {
+      "Name": "runtime/library442/ets-compressed-authentic-fun-key-value-owned-census",
+      "Status": "Passed",
+      "Milliseconds": 493
+    },
+    {
+      "Name": "runtime/library442/ets-compressed-source-roots-and-owner-resource-release",
+      "Status": "Passed",
+      "Milliseconds": 210
+    },
+    {
+      "Name": "runtime/library442/ets-compressed-mid-encode-cancellation",
+      "Status": "Passed",
+      "Milliseconds": 59
+    },
+    {
+      "Name": "runtime/library442/ets-compressed-mid-decode-cancellation",
+      "Status": "Passed",
+      "Milliseconds": 48
+    },
+    {
+      "Name": "runtime/library442/ets-compressed-foreign-owner-atomic-refusal",
+      "Status": "Passed",
+      "Milliseconds": 90
+    },
+    {
+      "Name": "oracle/compiled-module/ets442-compressed-mutations324-values-stacks-and-own-cursors",
+      "Status": "Passed",
+      "Milliseconds": 6876
+    },
+    {
+      "Name": "oracle/compiled-module/ets442-compressed156-whole-values-and-stacks",
+      "Status": "Passed",
+      "Milliseconds": 684
+    },
+    {
+      "Name": "runtime/counters596/ets-domain-source-drop-destination-retirement",
+      "Status": "Failed",
+      "Error": "System.TimeoutException: The operation has timed out.\r\n   at Erlang.Tests.CountersStore596Checks.\u003C\u003Ec__DisplayClass3_0.\u003C\u003CRun\u003Eb__0\u003Ed.MoveNext() in D:\\Distr\\Work\\Codex\\Erlang.Net\\w546\\artifacts\\statistics-full\\main-gc825-integration36\\workspace\\tests\\Erlang.Tests\\Runtime\\Storage\\Counters\\CountersStore596Checks.cs:line 193\r\n--- End of stack trace from previous location ---\r\n   at Erlang.Tests.CountersStore596Checks.\u003C\u003Ec__DisplayClass3_0.\u003C\u003CRun\u003Eb__0\u003Ed.MoveNext() in D:\\Distr\\Work\\Codex\\Erlang.Net\\w546\\artifacts\\statistics-full\\main-gc825-integration36\\workspace\\tests\\Erlang.Tests\\Runtime\\Storage\\Counters\\CountersStore596Checks.cs:line 276\r\n--- End of stack trace from previous location ---\r\n   at Erlang.Tests.CountersCustody596Checks.Run(Func\u00602 body) in D:\\Distr\\Work\\Codex\\Erlang.Net\\w546\\artifacts\\statistics-full\\main-gc825-integration36\\workspace\\tests\\Erlang.Tests\\Runtime\\Storage\\Counters\\CountersCustody596Checks.cs:line 66\r\n   at Erlang.Tests.CountersCustody596Checks.Run(Func\u00602 body) in D:\\Distr\\Work\\Codex\\Erlang.Net\\w546\\artifacts\\statistics-full\\main-gc825-integration36\\workspace\\tests\\Erlang.Tests\\Runtime\\Storage\\Counters\\CountersCustody596Checks.cs:line 76\r\n   at Erlang.Tests.CountersStore596Checks.EtsHandoff() in D:\\Distr\\Work\\Codex\\Erlang.Net\\w546\\artifacts\\statistics-full\\main-gc825-integration36\\workspace\\tests\\Erlang.Tests\\Runtime\\Storage\\Counters\\CountersStore596Checks.cs:line 17\r\n   at Program.\u003CMain\u003E$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\w546\\artifacts\\statistics-full\\main-gc825-integration36\\workspace\\tests\\Erlang.Tests\\Harness\\Program.cs:line 16144",
+      "Milliseconds": 10197
+    },
+    {
+      "Name": "runtime/typed-store600/regex-ets-source-header-drop",
+      "Status": "Failed",
+      "Error": "System.TimeoutException: The operation has timed out.\r\n   at Program.\u003CMain\u003E$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\w546\\artifacts\\statistics-full\\main-gc825-integration36\\workspace\\tests\\Erlang.Tests\\Harness\\Program.cs:line 16144",
+      "Milliseconds": 87313
+    },
+    {
+      "Name": "runtime/statistics-process-refc-binary-actual-prefix-header-words-and-reclaim",
+      "Status": "Passed",
+      "Milliseconds": 83
+    }
+  ]
+}

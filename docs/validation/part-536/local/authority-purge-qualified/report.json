@@ -1,0 +1,19 @@
+{
+  "Partial": true,
+  "SelectedCount": 1,
+  "TotalCount": 9340,
+  "Blocks": [],
+  "ExactCases": [
+    "runtime/binary621/genuine-original-seven-search-bodies-public-reregister-opaque"
+  ],
+  "Passed": 0,
+  "Failed": 1,
+  "Tests": [
+    {
+      "Name": "runtime/binary621/genuine-original-seven-search-bodies-public-reregister-opaque",
+      "Status": "Failed",
+      "Error": "Erlang.ErlangException: {badmatch,{error,badarg,[{binary,match,[not_binary,\u003C\u003C97\u003E\u003E],[]},{binary_search_contract,caller,0,[{file,[98,105,110,97,114,121,95,115,101,97,114,99,104,95,99,111,110,116,114,97,99,116,46,101,114,108]},{line,24}]},{binary_search_contract,failures,0,[{file,[98,105,110,97,114,121,95,115,101,97,114,99,104,95,99,111,110,116,114,97,99,116,46,101,114,108]},{line,21}]},{binary_search_contract,run,0,[{file,[98,105,110,97,114,121,95,115,101,97,114,99,104,95,99,111,110,116,114,97,99,116,46,101,114,108]},{line,18}]}]}}\r\n   at Erlang.ModuleRegistry.AwaitOwnedCall506(ProcessContext context, String module, String function, Term[] arguments, Boolean hostBoundary) in D:\\Distr\\Work\\Codex\\Erlang.Net\\w536\\src\\Runtime\\Erlang.Runtime.Core\\Modules\\ModuleRegistry.OwnedTerms506.cs:line 67\r\n   at Erlang.Tests.RuntimeNodeFoundationHostActor.\u003C\u003Ec__DisplayClass9_0\u00601.\u003C\u003CInvokeAsync\u003Eb__0\u003Ed.MoveNext() in D:\\Distr\\Work\\Codex\\Erlang.Net\\w536\\tests\\Erlang.Tests\\Runtime\\Execution\\RuntimeNodeFoundationHostActor.cs:line 43\r\n--- End of stack trace from previous location ---\r\n   at Erlang.Tests.RuntimeNodeFoundationHostActor.InvokeAsync[T](Func\u00602 command) in D:\\Distr\\Work\\Codex\\Erlang.Net\\w536\\tests\\Erlang.Tests\\Runtime\\Execution\\RuntimeNodeFoundationHostActor.cs:line 51\r\n   at Erlang.Tests.BinarySearchAuthority621Checks.InvokeExistingFixture(ProcessRuntime runtime, RuntimeNodeFoundationHostActor actor) in D:\\Distr\\Work\\Codex\\Erlang.Net\\w536\\tests\\Erlang.Tests\\Otp\\Stdlib\\Binary\\BinarySearchAuthority621Checks.cs:line 84\r\n   at Erlang.Tests.BinarySearchAuthority621Checks.Run() in D:\\Distr\\Work\\Codex\\Erlang.Net\\w536\\tests\\Erlang.Tests\\Otp\\Stdlib\\Binary\\BinarySearchAuthority621Checks.cs:line 79\r\n   at Erlang.Tests.BinarySearchAuthority621Checks.Run()\r\n   at Erlang.Tests.BinarySearchAuthority621Checks.Run() in D:\\Distr\\Work\\Codex\\Erlang.Net\\w536\\tests\\Erlang.Tests\\Otp\\Stdlib\\Binary\\BinarySearchAuthority621Checks.cs:line 79\r\n   at Program.\u003CMain\u003E$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\w536\\tests\\Erlang.Tests\\Harness\\Program.cs:line 7685",
+      "Milliseconds": 1929
+    }
+  ]
+}

@@ -1,6 +1,7 @@
 param(
     [string]$Admission = 'artifacts/library376-official-compiler/official-admission.json',
-    [string]$Output = 'artifacts/string-compatibility'
+    [string]$Output = 'artifacts/string-compatibility',
+    [string]$RunnerDll
 )
 
 $ErrorActionPreference = 'Stop'
@@ -52,14 +53,23 @@ try {
     if ($LASTEXITCODE -ne 0) {
         throw 'Original OTP string acquisition failed.'
     }
-    dotnet build tools/Validation/Erlang.StringCompatibility -m:1 -v:q 2>&1 |
-        Tee-Object -FilePath (Join-Path $outputPath 'build.log')
-    if ($LASTEXITCODE -ne 0) {
-        throw 'String comparison runner build failed.'
+    if ($RunnerDll) {
+        $RunnerDll = [IO.Path]::GetFullPath($RunnerDll)
+        if (-not (Test-Path -LiteralPath $RunnerDll -PathType Leaf)) {
+            throw 'The explicitly selected string runner does not exist.'
+        }
+    }
+    else {
+        dotnet build tools/Validation/Erlang.StringCompatibility -m:1 -v:q 2>&1 |
+            Tee-Object -FilePath (Join-Path $outputPath 'build.log')
+        if ($LASTEXITCODE -ne 0) {
+            throw 'String comparison runner build failed.'
+        }
+        $RunnerDll = [IO.Path]::GetFullPath('tools/Validation/Erlang.StringCompatibility/bin/Debug/net10.0/Erlang.StringCompatibility.dll')
     }
     $failed = $false
     foreach ($backend in @('managed', 'beam')) {
-        dotnet run --project tools/Validation/Erlang.StringCompatibility --no-build -- $repository $outputPath $backend 2>&1 |
+        dotnet $RunnerDll $repository $outputPath $backend 2>&1 |
             Tee-Object -FilePath (Join-Path $outputPath ($backend + '.log'))
         $failed = $failed -or $LASTEXITCODE -ne 0
     }
@@ -68,6 +78,8 @@ try {
         Baseline = $profile.SourceCommit
         ReleaseVersion = $profile.ReleaseVersion
         FixtureSha256 = (Get-FileHash -LiteralPath $fixture -Algorithm SHA256).Hash
+        RunnerDll = $RunnerDll
+        RunnerSha256 = (Get-FileHash -LiteralPath $RunnerDll -Algorithm SHA256).Hash
         OriginalInputs = $selected
         ProviderUnchangedAfterExecution = $true
     } | ConvertTo-Json -Depth 8 | Set-Content -LiteralPath (Join-Path $outputPath 'provenance.json') -Encoding utf8

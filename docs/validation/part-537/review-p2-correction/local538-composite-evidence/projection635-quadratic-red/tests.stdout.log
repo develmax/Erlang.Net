@@ -1,0 +1,21 @@
+{"Partial":true,"SelectedCount":1,"TotalCount":9380}
+Dictionary635 N=128, operation=all_keys, actual visits=17938, limit=5376
+Dictionary635 N=128, operation=matching_keys, actual visits=17940, limit=5376
+Dictionary635 N=128, operation=missing_keys, actual visits=276, limit=5376
+Dictionary635 N=256, operation=all_keys, actual visits=68626, limit=10496
+Dictionary635 N=256, operation=matching_keys, actual visits=68628, limit=10496
+Dictionary635 N=256, operation=missing_keys, actual visits=532, limit=10496
+Dictionary635 N=512, operation=all_keys, actual visits=268306, limit=20736
+Dictionary635 N=512, operation=matching_keys, actual visits=268308, limit=20736
+Dictionary635 N=512, operation=missing_keys, actual visits=1044, limit=20736
+FAIL runtime/dictionary635/linear-key-projection-visits: System.InvalidOperationException: Dictionary635 N=128, operation=all_keys, actual visits=17938, limit=5376
+Dictionary635 N=128, operation=matching_keys, actual visits=17940, limit=5376
+Dictionary635 N=256, operation=all_keys, actual visits=68626, limit=10496
+Dictionary635 N=256, operation=matching_keys, actual visits=68628, limit=10496
+Dictionary635 N=512, operation=all_keys, actual visits=268306, limit=20736
+Dictionary635 N=512, operation=matching_keys, actual visits=268308, limit=20736
+   at Erlang.Tests.DictionaryProjection635Checks.Scaling() in D:\Distr\Work\Codex\Erlang.Net\w518repair\tests\Erlang.Tests\Runtime\Storage\Dictionary\DictionaryProjection635Checks.cs:line 48
+   at Erlang.Tests.DictionaryProjection635Checks.Scaling() in D:\Distr\Work\Codex\Erlang.Net\w518repair\tests\Erlang.Tests\Runtime\Storage\Dictionary\DictionaryProjection635Checks.cs:line 48
+   at Erlang.Tests.DictionaryProjection635Checks.Scaling() in D:\Distr\Work\Codex\Erlang.Net\w518repair\tests\Erlang.Tests\Runtime\Storage\Dictionary\DictionaryProjection635Checks.cs:line 48
+   at Program.<Main>$(String[] args) in D:\Distr\Work\Codex\Erlang.Net\w518repair\tests\Erlang.Tests\Harness\Program.cs:line 7723
+0/1 passed

@@ -21,21 +21,19 @@ internal static class BinarySearchExecution
         for (int position = parsed.Start; position < parsed.End;)
         {
             await work.Step();
-            int length = await pattern.At(
+            BinarySearchHit? next = await BinaryArenaSearch598.FindFirst598(
+                pattern.Backing598.Arena598,
                 subject,
                 position,
                 parsed.End,
-                work
+                work,
+                handle.Reader598
             );
-            if (length == 0)
-            {
-                position++;
-                continue;
-            }
-            found.Add(new(position, length));
+            if (next is not { } hit) break;
+            found.Add(hit);
             if (!parsed.Global)
                 break;
-            position += length;
+            position = checked(hit.Position + hit.Length);
         }
         if (operation == BinarySearchOperation.Split)
             return await BinarySearchResults.Split(

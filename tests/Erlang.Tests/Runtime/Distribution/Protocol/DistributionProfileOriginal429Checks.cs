@@ -17,21 +17,31 @@ internal static class DistributionProfileOriginal429Checks
         {
             runtime = new ProcessRuntime(1);
             ProcessRuntime owner = runtime;
-            await owner.InitializeModulesAsync(registry =>
+            await global::Erlang.Tests.PreparedBeamFixtureScope171.RunAsync(
+                owner,
+                async (registry, scope) =>
             {
-                RuntimeBootstrapDistributionProfile429.Register(owner, registry);
+                await owner.InitializeModulesAsync(_ =>
+                {
+                    RuntimeBootstrapDistributionProfile429.Register(owner, registry);
+                });
                 var declared = new BeamDependencySelection([DistributionProfileOriginal429Names.Runtime, DistributionProfileOriginal429Names.File, DistributionProfileOriginal429Names.Internal]);
-                PreparedBeamImage facet = registry.PrepareBeam(DistributionProfileOriginal429Access.Resource(DistributionProfileOriginal429Names.FacetBeam), declared);
+                PreparedBeamImage facet = scope.Prepare(() => registry.PrepareBeam(DistributionProfileOriginal429Access.Resource(DistributionProfileOriginal429Names.FacetBeam), declared));
                 DistributionProfileOriginal429Access.Require(facet.Name == DistributionProfileOriginal429Names.Internal
                     && facet.NativePrimitiveExports.Count == DistributionProfileOriginal429Names.NativeCount
                     && DistributionProfileOriginal429Names.NativeSignatures.All(signature => facet.NativePrimitiveExports.Contains(signature)));
-                PreparedBeamImage worker = registry.PrepareBeam(DistributionProfileOriginal429Access.Resource(DistributionProfileOriginal429Names.WorkerBeam), declared);
-                DistributionProfileOriginal429Access.Require(registry.PublishPreparedBeam([facet, worker]).Status == BeamPublicationStatus.Published);
-                foreach (var image in new[] { facet, worker })
-                    foreach (var export in registry.Exports.Where(export => export.Module == image.Name))
-                        DistributionProfileOriginal429Access.Require(ReferenceEquals(registry.SourceOwner(export.Module, export.Function, export.Arity), image));
-                DistributionProfileOriginal429Access.Require(registry.Exports.Count(export => export.Module == facet.Name) == DistributionProfileOriginal429Names.FacetExports);
-            });
+                PreparedBeamImage worker = scope.Prepare(() => registry.PrepareBeam(DistributionProfileOriginal429Access.Resource(DistributionProfileOriginal429Names.WorkerBeam), declared));
+
+                return _ =>
+                {
+                    DistributionProfileOriginal429Access.Require(registry.PublishPreparedBeam([facet, worker]).Status == BeamPublicationStatus.Published);
+                    foreach (var image in new[] { facet, worker })
+                        foreach (var export in registry.Exports.Where(export => export.Module == image.Name))
+                            DistributionProfileOriginal429Access.Require(ReferenceEquals(registry.SourceOwner(export.Module, export.Function, export.Arity), image));
+                    DistributionProfileOriginal429Access.Require(registry.Exports.Count(export => export.Module == facet.Name) == DistributionProfileOriginal429Names.FacetExports);
+                };
+            }
+            );
             actor = new RuntimeNodeFoundationHostActor(owner);
             RuntimeNodeFoundationHostActor caller = actor;
 

@@ -1,0 +1,67 @@
+using System.Reflection;
+
+namespace Erlang.Tests;
+
+internal static class CountersPublic611Names
+{
+    internal const string CallbackCase = "runtime/counters611/public-receive-callback-host-custody";
+    internal const string ReturnedCase = "runtime/counters611/public-receive-returned-host-custody";
+    internal const string SnapshotCase = "runtime/counters611/public-mailbox-snapshot-host-custody";
+    internal const string InfoSingleCase = "runtime/counters611/public-process-info-messages-host-custody";
+    internal const string InfoFullCase = "runtime/counters611/public-process-info-full-host-custody";
+    internal const string InfoListCase = "runtime/counters611/public-process-info-list-host-custody";
+    internal const string Module = "counters_public611";
+    internal const string FileName = "counters_public611.erl";
+    internal const string Send = "send";
+    internal const string Take = "take";
+    internal const string Pump = "pump";
+    internal const string PumpDictionary = "pump_dict";
+    internal const string Ready = "ready611";
+    internal const string DictionaryKey = "dictionary";
+    internal const string ItemType = "Erlang.ProcessInfoItem";
+    internal const string Parse = "Parse";
+    internal const string Stop = "stop611";
+    internal const string Tag = "counter611";
+    internal const string Normal = "normal";
+    internal const string ErtsInternal = "erts_internal";
+    internal const string Get = "counters_get";
+    internal const string ErlangModule = "erlang";
+    internal const string ProcessInfo = "process_info";
+    internal const string ProjectionMethod = "ProcessInfo";
+    internal const string ArrayGate = "gate";
+    internal const string HostCount = "hostRoots596";
+    internal const string GuestCount = "guestRoots596";
+    internal const string ProducerCount = "producers596";
+    internal const string PinCount = "active";
+    internal const string BeforeHostProof = "before-host-proof";
+    internal const string AfterReaderDone = "after-reader-done";
+    internal const string AfterHostDrop = "after-host-drop";
+    internal const string Observation = "COUNTERS611 route={0} stage={1} host={2} guest={3} producer={4} pins={5}";
+    internal const string Messages = "messages";
+    internal const string Snapshot = "Snapshot";
+    internal const string Host = "CountersHost596";
+    internal const string Backing = "CountersBacking596";
+    internal const string ArrayProperty = "Array";
+    internal const string Owns = "Owns596";
+    internal const string Allocated = "IsAllocated434";
+    internal const string Retired = "Retired596";
+    internal const string Storage = "OwnedStorage562";
+    internal const string GateReady = "MessageSnapshotRouteReady593";
+    internal const string Drain = "DrainPayloadRoots593";
+    internal const string Failure = "A public counter callback/result did not retain actual Host custody after the last guest root retired.";
+    internal const long Sentinel = 611073;
+    internal const int Callback = 0;
+    internal const int Returned = 1;
+    internal const int MailboxSnapshot = 2;
+    internal const int InfoSingle = 3;
+    internal const int InfoFull = 4;
+    internal const int InfoList = 5;
+    internal const int ComponentSingle = 6;
+    internal const int ComponentList = 7;
+    internal const int InfoKeyed = 8;
+    internal const string InfoKeyedCase = "runtime/counters611/public-process-info-dictionary-key-host-custody";
+    internal const string ComponentCase = "runtime/counters611/component-real-queue-process-info-public-projection";
+    internal const BindingFlags Members = BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Static;
+    internal static readonly TimeSpan Deadline = CountersMagic596Names.Deadline;
+    internal const string Source = "-module(counters_public611). -export([send/1,take/0,pump/0,pump_dict/1]). send(Pid) -> R=erts_internal:counters_new(1), ok=erts_internal:counters_put(R,1,611073), Pid!{counter611,R}, ok. take() -> receive {counter611,_R} -> ok end. pump() -> receive stop611 -> ok end. pump_dict(Ready) -> receive {counter611,R} -> put(counter611,R), Ready!ready611, receive stop611 -> erase(counter611), ok end end.";
+}

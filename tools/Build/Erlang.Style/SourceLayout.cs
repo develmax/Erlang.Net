@@ -15,7 +15,7 @@ public static class SourceLayout
     {
         for (int pass = 0; pass < 32; pass++)
         {
-            string formatted = ApplyPass(source);
+            string formatted = PreserveTokenText(source, ApplyPass(source));
             if (formatted == source)
                 return formatted;
 
@@ -25,15 +25,40 @@ public static class SourceLayout
         throw new InvalidOperationException(StyleDiagnostics.UnstableLayout);
     }
 
+    private static string PreserveTokenText(string source, string formatted)
+    {
+        var options = new CSharpParseOptions(LanguageVersion.Preview);
+        var before = CSharpSyntaxTree.ParseText(source, options).GetRoot().DescendantTokens().ToArray();
+        var root = CSharpSyntaxTree.ParseText(formatted, options).GetRoot();
+        var after = root.DescendantTokens().ToArray();
+        if (before.Length != after.Length)
+            throw new InvalidOperationException(StyleDiagnostics.ChangedTokens);
+        var replacements = new Dictionary<SyntaxToken, SyntaxToken>();
+        for (int index = 0; index < before.Length; index++)
+        {
+            if (before[index].RawKind != after[index].RawKind)
+                throw new InvalidOperationException(StyleDiagnostics.ChangedTokens);
+            if (before[index].Text != after[index].Text)
+                replacements.Add(
+                    after[index],
+                    before[index].WithLeadingTrivia(after[index].LeadingTrivia).WithTrailingTrivia(after[index].TrailingTrivia)
+                );
+        }
+
+        return replacements.Count == 0 ? formatted
+            : root.ReplaceTokens(replacements.Keys, (token, _) => replacements[token]).ToFullString();
+    }
+
     private static string ApplyPass(string source)
     {
-        source = source.Replace("\r\n", "\n").TrimStart(
+        source = source.TrimStart(
             ' ',
             '\t',
             '\r',
             '\n'
         );
-        var root = CSharpSyntaxTree.ParseText(source, new CSharpParseOptions(LanguageVersion.Preview)).GetRoot();
+        var root = NormalizeEndOfLineTrivia(CSharpSyntaxTree.ParseText(source, new CSharpParseOptions(LanguageVersion.Preview)).GetRoot());
+        source = root.ToFullString();
         var insertions = new Dictionary<int, int>();
 
         void BreakBefore(SyntaxToken token, int requiredNewlines)
@@ -131,10 +156,16 @@ public static class SourceLayout
             source = source.Insert(insertion.Key, new string('\n', insertion.Value));
 
         source = IndentWrappedLists(source);
-        source = Formatter.Format(CSharpSyntaxTree.ParseText(source, new CSharpParseOptions(LanguageVersion.Preview)).GetRoot(), Workspace).ToFullString().Replace("\r\n", "\n");
+        source = NormalizeEndOfLineTrivia(Formatter.Format(CSharpSyntaxTree.ParseText(source, new CSharpParseOptions(LanguageVersion.Preview)).GetRoot(), Workspace)).ToFullString();
 
         return source.EndsWith('\n') ? source : source + "\n";
     }
+
+    private static SyntaxNode NormalizeEndOfLineTrivia(SyntaxNode root)
+        => root.ReplaceTrivia(
+            root.DescendantTrivia(descendIntoTrivia: true).Where(trivia => trivia.IsKind(SyntaxKind.EndOfLineTrivia)),
+            (_, _) => SyntaxFactory.EndOfLine("\n")
+        );
 
     private static bool NeedsWrapping(int count, SyntaxNode list) => count >= ManyArguments || count > 1 && list.DescendantTokens().Sum(token => token.Text.Length) > LongListWidth;
 

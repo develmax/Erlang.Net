@@ -9,5 +9,7 @@ internal static class MfaCompatibilityHostNames
     internal const string PendingLimit = "Independent complete contract audit pending";
     internal const string OriginalFile = "original-proof.txt";
     internal const string AuditFile = "audit-proof.txt";
+    internal const string IndexSourcePath = "src/readiness-index-source.cs";
+    internal const string MixedIndexOutput = "mixed-index-output";
     internal const string Failure = "Readiness compatibility admission contract failed";
 }

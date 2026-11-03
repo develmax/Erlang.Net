@@ -6,7 +6,10 @@ internal sealed class PreparedMapGraphUse517 : IDisposable
 {
     private readonly Dictionary<PreparedOwnedMap517, PreparedOwnedMapUse517> uses = new(ReferenceEqualityComparer.Instance);
 
-    internal static PreparedMapGraphUse517 Capture(IEnumerable<PreparedOwnedMap517> plans)
+    private readonly Dictionary<PreparedHamtBitmap785, PreparedHamtBitmapUse785> bitmapUses785 = new(ReferenceEqualityComparer.Instance);
+
+    internal static PreparedMapGraphUse517 Capture(IEnumerable<PreparedOwnedMap517> plans,
+        IEnumerable<PreparedHamtBitmap785>? bitmaps = null)
     {
         var result = new PreparedMapGraphUse517();
         try
@@ -32,6 +35,20 @@ internal sealed class PreparedMapGraphUse517 : IDisposable
                 }
             }
 
+            foreach (var bitmap in bitmaps ?? [])
+            {
+                var use = bitmap.Enter();
+                try
+                {
+                    result.bitmapUses785.Add(bitmap, use);
+                }
+                catch
+                {
+                    use.Dispose();
+                    throw;
+                }
+            }
+
             return result;
         }
         catch (Exception original)
@@ -51,6 +68,9 @@ internal sealed class PreparedMapGraphUse517 : IDisposable
     internal PreparedOwnedMapUse517 For(PreparedOwnedMap517 plan) => uses.TryGetValue(plan, out var use)
         ? use : throw new InvalidOperationException(OwnedMapPayloadNames517.PreparationRequired);
 
+    internal PreparedHamtBitmapUse785 For(PreparedHamtBitmap785 plan) => bitmapUses785.TryGetValue(plan, out var use)
+        ? use : throw new InvalidOperationException(OwnedMapPayloadNames517.PreparationRequired);
+
     public void Dispose()
     {
         List<Exception>? errors = null;
@@ -63,6 +83,16 @@ internal sealed class PreparedMapGraphUse517 : IDisposable
             {
                 (errors ??= new()).Add(error);
             }
+        foreach (var use in bitmapUses785.Values)
+            try
+            {
+                use.Dispose();
+            }
+            catch (Exception error)
+            {
+                (errors ??= new()).Add(error);
+            }
+        bitmapUses785.Clear();
         uses.Clear();
         if (errors is not null)
             throw new AggregateException(errors);

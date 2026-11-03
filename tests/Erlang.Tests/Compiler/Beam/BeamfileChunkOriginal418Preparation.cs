@@ -26,4 +26,14 @@ internal static class BeamfileChunkOriginal418Preparation
         foreach (var export in exports)
             BeamfileChunkOriginal418Access.Require(ReferenceEquals(registry.SourceOwner(export.Module, export.Function, export.Arity), facet));
     }
+
+    internal static PreparedBeamImage Prepare171(ModuleRegistry registry, BeamDependencySelection dependencies, global::Erlang.Tests.PreparedBeamFixtureScope171 scope)
+    {
+        PreparedBeamImage facet = scope.Prepare(() => registry.PrepareBeam(BeamfileChunkOriginal418Access.Resource(BeamfileChunkOriginal418Names.FacetBeam), dependencies));
+        BeamfileChunkOriginal418Access.Require(facet.Name == BeamfileChunkOriginal418Names.Internal
+            && facet.NativePrimitiveExports.Count == BeamfileChunkOriginal418Names.CapturedNatives
+            && facet.NativePrimitiveExports.Contains(new BeamFunctionSignature(BeamfileChunkOriginal418Names.NativeFunction, 2)));
+
+        return facet;
+    }
 }

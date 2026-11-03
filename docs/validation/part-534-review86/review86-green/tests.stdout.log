@@ -1,0 +1,33 @@
+{"Partial":true,"SelectedCount":7,"TotalCount":9322}
+COUNTERS611 route=6 stage=before-host-proof host=1 guest=0 producer=0 pins=0
+COUNTERS611 route=6 stage=after-reader-done host=1 guest=0 producer=0 pins=0
+COUNTERS611 route=6 stage=after-host-drop host=0 guest=0 producer=0 pins=0
+COUNTERS611 route=7 stage=before-host-proof host=1 guest=0 producer=0 pins=0
+COUNTERS611 route=7 stage=after-reader-done host=1 guest=0 producer=0 pins=0
+COUNTERS611 route=7 stage=after-host-drop host=0 guest=0 producer=0 pins=0
+PASS runtime/counters611/component-real-queue-process-info-public-projection
+COUNTERS611 route=0 stage=before-host-proof host=1 guest=0 producer=0 pins=0
+COUNTERS611 route=0 stage=after-reader-done host=1 guest=0 producer=0 pins=0
+COUNTERS611 route=0 stage=after-host-drop host=0 guest=0 producer=0 pins=0
+PASS runtime/counters611/public-receive-callback-host-custody
+COUNTERS611 route=1 stage=before-host-proof host=1 guest=0 producer=0 pins=0
+COUNTERS611 route=1 stage=after-reader-done host=1 guest=0 producer=0 pins=0
+COUNTERS611 route=1 stage=after-host-drop host=0 guest=0 producer=0 pins=0
+PASS runtime/counters611/public-receive-returned-host-custody
+COUNTERS611 route=2 stage=before-host-proof host=1 guest=0 producer=0 pins=0
+COUNTERS611 route=2 stage=after-reader-done host=1 guest=0 producer=0 pins=0
+COUNTERS611 route=2 stage=after-host-drop host=0 guest=0 producer=0 pins=0
+PASS runtime/counters611/public-mailbox-snapshot-host-custody
+COUNTERS611 route=3 stage=before-host-proof host=1 guest=0 producer=0 pins=0
+COUNTERS611 route=3 stage=after-reader-done host=1 guest=0 producer=0 pins=0
+COUNTERS611 route=3 stage=after-host-drop host=0 guest=0 producer=0 pins=0
+PASS runtime/counters611/public-process-info-messages-host-custody
+COUNTERS611 route=4 stage=before-host-proof host=1 guest=0 producer=0 pins=0
+COUNTERS611 route=4 stage=after-reader-done host=1 guest=0 producer=0 pins=0
+COUNTERS611 route=4 stage=after-host-drop host=0 guest=0 producer=0 pins=0
+PASS runtime/counters611/public-process-info-full-host-custody
+COUNTERS611 route=5 stage=before-host-proof host=1 guest=0 producer=0 pins=0
+COUNTERS611 route=5 stage=after-reader-done host=1 guest=0 producer=0 pins=0
+COUNTERS611 route=5 stage=after-host-drop host=0 guest=0 producer=0 pins=0
+PASS runtime/counters611/public-process-info-list-host-custody
+7/7 passed

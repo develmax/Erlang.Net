@@ -1,0 +1,62 @@
+name: Original counters421 genuine DEBUG profile
+on:
+  push:
+    branches: [validation/counters421-debug-original]
+permissions:
+  contents: read
+jobs:
+  original-debug421:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    env:
+      ERLC_USE_SERVER: 'false'
+      PYTHONDONTWRITEBYTECODE: '1'
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - name: Verify exact immutable worker and diagnostic source closure
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(git rev-parse HEAD)" = "$GITHUB_SHA"
+          mkdir -p artifacts/counters421-debug
+          python3 - <<'PY'
+          import hashlib,json,pathlib
+          p=pathlib.Path('tools/Runtime/Erlang.OwnedGuest506Observations/debug421-original-inputs.json')
+          expected='1500727A65C28000235E2445E36A15B0805C3D0E14D28345162722FDE6EC308E'
+          pathlib.Path('artifacts/counters421-debug/diagnostic-inputs.json').write_bytes(p.read_bytes())
+          assert hashlib.sha256(p.read_bytes()).hexdigest().upper()==expected
+          for row in json.loads(p.read_bytes())['Files']:
+              assert hashlib.sha256(pathlib.Path(row['Path']).read_bytes()).hexdigest().upper()==row['Sha256'],row['Path']
+          pathlib.Path('artifacts/counters421-debug/diagnostic-inputs.json').write_bytes(p.read_bytes())
+          PY
+      - name: Build the pinned ordinary prerequisite using the existing owned provider helper
+        shell: bash
+        run: |
+          set -euo pipefail
+          git clone --depth 1 --single-branch --branch OTP-29.1.1 https://github.com/erlang/otp.git artifacts/counters421-otp-source > artifacts/counters421-debug/clone.log 2>&1
+          test "$(git -C artifacts/counters421-otp-source rev-parse HEAD)" = ad05823719d77c8faee87348ea39513d4e2f99c5
+          python3 -B tools/Runtime/Erlang.SchedulerAffinityOriginalObservations/build-original.py \
+            --repository "$GITHUB_WORKSPACE" --expected-head "$GITHUB_SHA" \
+            --manifest-sha256 AEBBA0D2DCF97E1248CA38407E8EBE628EB08F9EA4D13F48EC0C83A7A0364E61 \
+            --otp-source "$GITHUB_WORKSPACE/artifacts/counters421-otp-source" \
+            --prefix "$GITHUB_WORKSPACE/artifacts/counters421-otp" \
+            --output "$GITHUB_WORKSPACE/artifacts/counters421-debug/runtime-build" \
+            > artifacts/counters421-debug/runtime-build.log 2>&1
+      - name: Incrementally build actual DEBUG ERTS and capture unchanged complete observer
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 -B tools/Runtime/Erlang.OwnedGuest506Observations/capture-debug421-original.py \
+            --repository "$GITHUB_WORKSPACE" --expected-head "$GITHUB_SHA" \
+            --manifest-sha256 1500727A65C28000235E2445E36A15B0805C3D0E14D28345162722FDE6EC308E \
+            --otp-source "$GITHUB_WORKSPACE/artifacts/counters421-otp-source" \
+            --output "$GITHUB_WORKSPACE/artifacts/counters421-debug/capture" \
+            > artifacts/counters421-debug/capture.log 2>&1
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: counters421-debug-original
+          path: artifacts/counters421-debug/**
+          if-no-files-found: error

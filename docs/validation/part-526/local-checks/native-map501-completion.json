@@ -1,0 +1,110 @@
+{
+  "Passed": true,
+  "Pin": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "Platform": "windows-x64",
+  "ProviderFiles": 6427,
+  "ProviderBeforeEqual": true,
+  "ProviderAfterEqual": true,
+  "SourcePlanSha256": "079C5F452DAC6362CF0180AD4E6B4FEF3B6159BBF318A135B22D64A64A870E78",
+  "GoldenChecked": true,
+  "WholeRawLoaderComparisons": 2,
+  "NormalizedFields": 0,
+  "NativeLibraryExecuted": true,
+  "Phases": {
+    "build": {
+      "Command": [
+        "C:\\Users\\Maksim\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+        "-B",
+        "D:\\Distr\\Work\\Codex\\Erlang.Net\\w504\\tools\\Native\\Erlang.NifMapCreation501Observations\\build-native.py",
+        "--plan",
+        "D:\\Distr\\Work\\Codex\\Erlang.Net\\w504\\tools\\Native\\Erlang.NifMapCreation501Observations\\source-plan.json",
+        "--approved-plan-sha256",
+        "079C5F452DAC6362CF0180AD4E6B4FEF3B6159BBF318A135B22D64A64A870E78",
+        "--provider-admission",
+        "D:\\Distr\\Work\\Codex\\Erlang.Net\\w504\\artifacts\\library376-official-compiler\\official-admission.json",
+        "--output",
+        "D:\\Distr\\Work\\Codex\\Erlang.Net\\w504\\artifacts\\native-map501\\pr526-style\\build"
+      ],
+      "Pid": 65416,
+      "ElapsedSeconds": 1.8910000000614673,
+      "TimedOut": false,
+      "Settled": true,
+      "ExitCode": 0,
+      "Failures": [],
+      "StdoutSha256": "CB3FFA91B890F2D6799434D73E2DB7035DD6BD73FA1228ADA74EF38298B4C000",
+      "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    "original": {
+      "Command": [
+        "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library376-official-compiler\\installed\\bin\\erl.exe",
+        "+S",
+        "1:1",
+        "+A",
+        "1",
+        "-noshell",
+        "-noinput",
+        "-boot",
+        "no_dot_erlang",
+        "-pa",
+        "D:\\Distr\\Work\\Codex\\Erlang.Net\\w504\\artifacts\\native-map501\\pr526-style\\original",
+        "-eval",
+        "{ok,map_creation501,_}=compile:file(\"map_creation501.erl\",[return_errors,return_warnings]),ok=map_creation501:load(\"D:/Distr/Work/Codex/Erlang.Net/w504/artifacts/native-map501/pr526-style/build/map_creation501\"),ok=prim_file:write_file(\"returned.etf\",term_to_binary(map_creation501:run(),[{minor_version,2}])),halt(0)."
+      ],
+      "Pid": 263972,
+      "ElapsedSeconds": 0.3279999999795109,
+      "TimedOut": false,
+      "Settled": true,
+      "ExitCode": 0,
+      "Failures": [],
+      "StdoutSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+      "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    "ordinary": {
+      "Command": [
+        "dotnet",
+        "exec",
+        "--fx-version",
+        "10.0.11",
+        "D:\\Distr\\Work\\Codex\\Erlang.Net\\w504\\tools\\Native\\Erlang.NifNativeBackend\\bin\\Debug\\net10.0\\Erlang.NifNativeBackend.dll",
+        "--map-creation501",
+        "D:\\Distr\\Work\\Codex\\Erlang.Net\\w504\\artifacts\\native-map501\\pr526-style\\execution-admission.json",
+        "2BF0EE7D0E2CDC9597CDE9856D99BB17399DFBCA759808AD9B2274EF2550A232",
+        "D:\\Distr\\Work\\Codex\\Erlang.Net\\w504\\artifacts\\native-map501\\pr526-style\\ordinary",
+        "ordinary"
+      ],
+      "Pid": 92888,
+      "ElapsedSeconds": 3.781999999890104,
+      "TimedOut": false,
+      "Settled": true,
+      "ExitCode": 0,
+      "Failures": [],
+      "StdoutSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+      "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    "reviewed": {
+      "Command": [
+        "dotnet",
+        "exec",
+        "--fx-version",
+        "10.0.11",
+        "D:\\Distr\\Work\\Codex\\Erlang.Net\\w504\\tools\\Native\\Erlang.NifNativeBackend\\bin\\Debug\\net10.0\\Erlang.NifNativeBackend.dll",
+        "--map-creation501",
+        "D:\\Distr\\Work\\Codex\\Erlang.Net\\w504\\artifacts\\native-map501\\pr526-style\\execution-admission.json",
+        "2BF0EE7D0E2CDC9597CDE9856D99BB17399DFBCA759808AD9B2274EF2550A232",
+        "D:\\Distr\\Work\\Codex\\Erlang.Net\\w504\\artifacts\\native-map501\\pr526-style\\reviewed",
+        "reviewed"
+      ],
+      "Pid": 160540,
+      "ElapsedSeconds": 2.171000000089407,
+      "TimedOut": false,
+      "Settled": true,
+      "ExitCode": 0,
+      "Failures": [],
+      "StdoutSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+      "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    }
+  },
+  "Errors": [],
+  "BroaderMapMutationIterationClaimed": false,
+  "LinuxNativeExecutionClaimed": false
+}

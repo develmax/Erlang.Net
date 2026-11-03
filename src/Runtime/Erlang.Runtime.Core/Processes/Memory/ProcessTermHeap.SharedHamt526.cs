@@ -55,6 +55,7 @@ internal sealed partial class ProcessTermHeap506
                 {
                     ReleaseAllocation519(payload.Slab, payload.AllocationOffset526, payload.AllocationWords526);
                     blocks.Remove(payload.Identity);
+                    ReleaseLiteralBlock801(payload.Identity);
                     oldBlocks508.Remove(payload.Identity);
                     mapHeaders517.Remove(payload.Identity);
                 }
@@ -81,12 +82,12 @@ internal sealed partial class ProcessTermHeap506
         for (int index = 1; index < prepared.Nodes.Length; index++)
         {
             Term term = stored[index] ?? throw new InvalidOperationException(OwnedMapPayloadNames517.InvalidShape);
-            if (!IsOwnedLocal(term) || Storage(term) is not ProcessTermSequence506 payload)
+            if (!IsAuthenticatedLiteral801(term) && !IsOwnedLocal(term) || Storage(term) is not ProcessTermSequence506 payload)
                 throw new InvalidOperationException(OwnedMapPayloadNames517.InvalidShape);
             OwnedMapNodePlan517 shape = prepared.Nodes[index];
             OwnedMapHeaderKind517 kind = shape.Row >= 0 ? OwnedMapHeaderKind517.HamtLeafCons
                 : shape.Collision ? OwnedMapHeaderKind517.HamtCollision : OwnedMapHeaderKind517.HamtBitmap;
-            OwnedMapHeader517 header = ReadMapHeader517(payload);
+            OwnedMapHeader517 header = ((ProcessTermHeap506)payload.Owner).ReadMapHeader517(payload);
             if (header.Kind != kind || header.PairCount != prepared.NodePairCounts526[index]
                 || header.Bitmap != shape.Bitmap || payload.Count != (shape.Row >= 0 ? 2 : shape.Children.Length)
                 || kind == OwnedMapHeaderKind517.HamtLeafCons && term is not Cons
@@ -116,7 +117,7 @@ internal sealed partial class ProcessTermHeap506
         {
             var children = Array.AsReadOnly(prepared.Nodes[index].Children.Select(child => views[child]).ToArray());
             views[index] = new HamtViewNode(new OwnedMapHamtView517(
-                this,
+                (ProcessTermHeap506)payloads[index].Owner,
                 payloads[index],
                 children,
                 stored[index]

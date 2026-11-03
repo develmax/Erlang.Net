@@ -1,0 +1,78 @@
+{
+  "Verdict": "No bounded output blocker; exact22guardedsource-bindingoutputs approved for Root controlled apply only",
+  "ManifestSha256": "7522E31A2EAFE6708EB743EB17B669F5CF4D426268314F05FCF9248FBFB27B72",
+  "Outputs": 22,
+  "SourceGuardsCheckedTwice": 5538,
+  "Actual1106StableBuildFreezeVerified": 13840,
+  "ExactFinalStyledAuxPostimagesVerified": 17,
+  "NewProductionFiles": 1,
+  "NewSourceMembership": {
+    "tools/Native/Erlang.NifMapFamily504Observations/source-plan.json": "Dependencies",
+    "tools/Native/Erlang.NifMapMaterialized505Observations/source-plan.json": "Dependencies",
+    "tools/Native/Erlang.NifMapReentry505Observations/source-plan.json": "Dependencies",
+    "tools/Native/Erlang.NifResource529Observations/source-plan.json": "Dependencies",
+    "docs/mfa-compatibility.json": "VerifiedSourceFiles",
+    "tools/Native/Erlang.NifPendingVarargsObservations/reviewed-source-plan.json": "Files"
+  },
+  "NewMonitor": "345oldprefix+exactnewCore=346",
+  "OldSnapshotsUnchanged": {
+    "docs/validation/native-gc825/pr97-statistics-current953-source.json": "FA0FC7F57975469D3706628188AB32657EC6238E7882A0CC782FA758540CBC40",
+    "docs/validation/native-gc825/pr97-helper-shutdown1012-source.json": "FE828616F801FBE9DB1FD9F8AEB62AFAB40C6CB6BA94AEFB190DA2584C32700A",
+    "docs/validation/native-gc825/pr97-canonical-bif-final-source1047.json": "999F4C46793E130866D9E1E61E2744C7EEC6030E349F4E1E83502A56C84380A6"
+  },
+  "All38ModeAwarePathBindings": 24453,
+  "BytesAndSealedBytes": 10793,
+  "StandaloneCollectorChecks": [
+    "tools/Native/Erlang.NifMapFamily504Observations/source-plan.json",
+    "tools/Native/Erlang.NifMapMaterialized505Observations/source-plan.json",
+    "tools/Native/Erlang.NifMapReentry505Observations/source-plan.json"
+  ],
+  "ExplicitToolReadmeRoots": [
+    "tools/Native/Erlang.NifTermCallbackOriginalObservations/README.md",
+    "tools/Runtime/Erlang.SchedulerAffinityOriginalObservations/README.md"
+  ],
+  "WorkflowExactPins": [
+    {
+      "Workflow": ".github/workflows/nif-pending-native.yml",
+      "Key": "REVIEWED_SOURCE_PLAN_SHA256",
+      "Plan": "tools/Native/Erlang.NifPendingVarargsObservations/reviewed-source-plan.json",
+      "Sha256": "65F95A82659886B7BFD4032E56C36F9F64DA3EB0F88F6C34E6A6244A7006A54D"
+    },
+    {
+      "Workflow": ".github/workflows/nif-reallocation-native.yml",
+      "Key": "REVIEWED_REALLOCATION_PLAN_SHA256",
+      "Plan": "tools/Native/Erlang.NifReallocationObservations/SOURCE-PLAN.json",
+      "Sha256": "28C6115A980A180F0C9299355B953608C18B19E40342E437D1F1F0FBDE566068"
+    },
+    {
+      "Workflow": ".github/workflows/nif-upgrade-integrated.yml",
+      "Key": "INTEGRATED_PLAN",
+      "Plan": "tools/Native/Erlang.NifIntegratedObservations/inputs.json",
+      "Sha256": "73D2149E1C2E16C6B5958BA7309698C308E43A12EEB40394B9BD6BD28E075CE8"
+    },
+    {
+      "Workflow": ".github/workflows/validate.yml",
+      "Plan": "Erlang.NifMapFamily504Observations",
+      "Sha256": "5A9126FAB695141C2F091BE198EBDF06F48FF35B9B2C8F068C9FF8B817BF901E"
+    },
+    {
+      "Workflow": ".github/workflows/validate.yml",
+      "Plan": "Erlang.NifMapMaterialized505Observations",
+      "Sha256": "EC9A7D0D4D20A3885CBA9115A7457467DAE819C1B53797D64052542640481B2E"
+    },
+    {
+      "Workflow": ".github/workflows/validate.yml",
+      "Plan": "Erlang.NifMapReentry505Observations",
+      "Sha256": "86AEE0564243FCDE95EE0D32DDCA9B4C100F12D0B736AA7ABD0A820B9BD134D6"
+    }
+  ],
+  "StatusesHistoriesGoldensAndCounts": "AllJSONnonbindingstructure unchanged exceptprecise6newCoremembers/3freshmonitorrows/Monitor345to346pointer; existingprefix/order/modespreserved.",
+  "Sealers": "All3ASTs onlyfreshmonitorlistelementadd; no runtime/source authority rewrite",
+  "Attributes": "Oneexactlocalfreshmonitorrawrule; root/srcuntouched",
+  "WorkspaceWritten": false,
+  "BuildVmGitCiExecuted": false,
+  "PublicationApproved": false,
+  "ApiDelta": 0,
+  "FullContractDelta": 0,
+  "Limits": "No actualchecker/test/native/CIexecution byreview; actual1106stable sourcefreeze verified. Separate624/Releasecontrols evidence ownedbyRoot."
+}

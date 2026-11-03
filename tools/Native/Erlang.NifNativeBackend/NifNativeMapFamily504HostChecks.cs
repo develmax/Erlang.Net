@@ -381,7 +381,7 @@ internal static unsafe class NifNativeMapFamily504HostChecks
         );
         using var other = new NifNativeCallEnvironment(context.Runtime, image);
         using var table = new NifNativeWindowsCallbacks();
-        table.BindIndependentEnvironments(context.Runtime, owner.Image);
+        table.BindIndependentEnvironments(context.Runtime);
         nuint key = owner.Add(Term.I(1));
         foreach (int size in new[] { 63, 64, 65, 4096 })
         {

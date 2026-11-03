@@ -18,24 +18,42 @@ public sealed partial class RuntimeRegexEngine411
         return ~crc;
     }
 
-    private Term PublishImported413(ReCode411 code)
+    private Term PublishImported413(ProcessContext context, ReCode411 code)
     {
         var payload = new RePattern411(this, code);
         var reference = runtime.ReferenceResources.CreateRegex411(payload);
+        reference = context.AdmitRegexProducer597(reference, code.Backing597);
 
-        return Term.Tuple(
-            Term.A(ReNames411.Pattern),
-            Term.I(code.Captures),
-            Term.I(code.UnicodeMetadata),
-            Term.I(code.Crlf ? 1 : 0),
-            reference
-        );
+        try
+        {
+            return Term.Tuple(
+                Term.A(ReNames411.Pattern),
+                Term.I(code.Captures),
+                Term.I(code.UnicodeMetadata),
+                Term.I(code.Crlf ? 1 : 0),
+                reference
+            );
+        }
+        catch (Exception original)
+        {
+            try
+            {
+                reference.RegexHost597?.Dispose();
+            }
+            catch (Exception cleanup)
+            {
+                throw new AggregateException(original, cleanup);
+            }
+            throw;
+        }
     }
 
     private async ValueTask<Term> Import413Async(ProcessContext context, Term exported)
     {
         Enter(context);
         ReCode411? owned = null;
+        ReMagicHost597? failedHost597 = null;
+        Exception? primary597 = null;
         try
         {
             if (exported is not TupleTerm { Items.Count: 5 } tuple
@@ -91,15 +109,28 @@ public sealed partial class RuntimeRegexEngine411
                 owned = compiled.Code;
             }
             Check(context);
-            var resultTerm = PublishImported413(owned!);
+            var resultTerm = PublishImported413(context, owned!);
+            failedHost597 = ((ResourceReferenceTerm)((TupleTerm)resultTerm).Items[ReMagicNames597.PatternReferenceIndex]).RegexHost597;
+            ReleaseGuest(owned!);
             owned = null;
+
+            failedHost597 = null;
 
             return resultTerm;
         }
+        catch (Exception error)
+        {
+            primary597 = error;
+            throw;
+        }
         finally
         {
-            if (owned is not null) ReleaseGuest(owned);
-            Exit(context);
+            CleanupPublication597(
+                context,
+                owned,
+                failedHost597,
+                primary597
+            );
         }
     }
 }

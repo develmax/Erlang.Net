@@ -65,9 +65,6 @@ Pinned baseline: OTP-29.1.1 (`ad05823719d77c8faee87348ea39513d4e2f99c5`).
 
 ## Needs verification for 100% compatibility
 
-<a id="math"></a>
-
-- [math](api/math/index.md): 26 commands.
 <a id="erlang-2"></a>
 
 - [erlang](api/erlang/index.md): 255 commands.
@@ -116,6 +113,9 @@ Pinned baseline: OTP-29.1.1 (`ad05823719d77c8faee87348ea39513d4e2f99c5`).
 <a id="erts_internal"></a>
 
 - [erts_internal](api/erts_internal/index.md): 7 commands.
+<a id="math"></a>
+
+- [math](api/math/index.md): 26 commands.
 <a id="string"></a>
 
 - [string](api/string/index.md): 1 commands.

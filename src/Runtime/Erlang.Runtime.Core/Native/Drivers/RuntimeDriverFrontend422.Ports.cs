@@ -74,11 +74,17 @@ internal sealed partial class RuntimeDriverFrontend422
 
     internal void QueueClosePort(Term identity) => ports.QueueCloseSignal(identity, Term.A(ProcessExitReasons.Normal), transport);
 
-    internal void QueuePortExit(Term identity, Term reason, Pid sender) => ports.QueueCloseSignal(
+    internal void QueuePortExit(
+        Term identity,
+        Term reason,
+        Pid sender,
+        RuntimeProcessPayload641? reason641 = null
+    ) => ports.QueueCloseSignal(
         identity,
         reason,
         transport,
-        sender
+        sender,
+        reason641
     );
 
     internal async ValueTask AwaitPortCommands(Term identity, CancellationToken cancellation, ProcessContext? caller = null)

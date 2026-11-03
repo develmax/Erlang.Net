@@ -87,7 +87,8 @@ internal static partial class BeamRegisterInterpreter
         IReadOnlyList<Term> environment,
         BeamExecutionIdentity execution,
         long? diagnosticInstructionBudget = null,
-        LocalFunctionInvocation? invocation = null
+        LocalFunctionInvocation? invocation = null,
+        SourceCodeLease? admittedLease647 = null
     )
         => Dispatch432(
             context,
@@ -98,7 +99,8 @@ internal static partial class BeamRegisterInterpreter
             execution,
             SourceCodeAdmissionKind.Function,
             diagnosticInstructionBudget,
-            invocation
+            invocation,
+            admittedLease647
         );
 
     private static async ValueTask<Term> ExecuteCore(
@@ -110,12 +112,13 @@ internal static partial class BeamRegisterInterpreter
         BeamExecutionIdentity execution,
         SourceCodeAdmissionKind admission,
         long? diagnosticInstructionBudget,
-        LocalFunctionInvocation? invocation = null
+        LocalFunctionInvocation? invocation = null,
+        SourceCodeLease? admittedLease647 = null
     )
     {
         context.Cancellation.ThrowIfCancellationRequested();
         using var debugExecution432 = new DebugBreakpointExecution432();
-        using var lease = await context.Runtime.Modules.AcquireSourceEntry(
+        using var lease = admittedLease647 ?? await context.Runtime.Modules.AcquireSourceEntry(
             context,
             execution.Image,
             admission,
@@ -123,8 +126,18 @@ internal static partial class BeamRegisterInterpreter
         );
         using var flow = lease.Attach(execution.Owner);
         BeamRegisterValidation.Validate(code, function);
+        context.Runtime.RegisterLoaderMapKeys565(code);
         await using var wordExecution504 = new ProcessWordExecution504(context.OwnedWords504);
-        var registers = new BeamRegisterState(wordExecution504, context);
+        var registers = new BeamRegisterState(
+            wordExecution504,
+            context,
+            BeamRegisterCapacity273.ForEntry(
+                code,
+                function,
+                arguments.Count,
+                environment.Count
+            )
+        );
         // Admission/import can fail before the ordinary interpreter try/finally.
         // This guard covers imports before the interpreter try/finally.
         using var ownedSetup507 = registers.HasOwnedRoots507 ? registers : null;
@@ -257,7 +270,7 @@ internal static partial class BeamRegisterInterpreter
                             }
                         }
                     }
-                    await context.ReduceAsync();
+                    await context.ExecutionCheckpoint();
                     if (diagnosticInstructionBudget is { } budget && diagnosticSteps++ >= budget)
                     {
                         throw new InvalidOperationException(BeamRegisterNames.DiagnosticBudgetExceeded);
@@ -274,9 +287,47 @@ internal static partial class BeamRegisterInterpreter
                         registers.ClearFloats();
                     switch (instruction.Definition.Name)
                     {
-                        case BeamRecordConstructionNames.Opcode:
-                            registers.Write(operands[BeamRecordConstructionNames.Destination], BeamRecordConstruction.Create(code, registers, operands));
+                        case BeamNativeRecordAccessNames.Elements:
+                            if (!BeamNativeRecordAccess.GetElements(code, registers, operands))
+                                pc = Branch(
+                                    code,
+                                    function,
+                                    operands[BeamNativeRecordAccessNames.Failure],
+                                    new ErlangException(ErlangErrorReasons.FunctionClause)
+                                );
                             break;
+                        case BeamRecordConstructionNames.Opcode:
+                            registers.Write(
+                                operands[BeamRecordConstructionNames.Destination],
+                                await BeamRecordConstruction.Create(
+                                    context,
+                                    execution,
+                                    code,
+                                    registers,
+                                    operands
+                                )
+                            );
+                            break;
+                        case BeamRecordConstructionNames.GetField:
+                            {
+                                Term value;
+                                try
+                                {
+                                    value = BeamRecordConstruction.ReadField(code, registers, operands);
+                                }
+                                catch (ErlangException error)
+                                {
+                                    pc = Branch(
+                                        code,
+                                        function,
+                                        operands[BeamRecordConstructionNames.FieldFailure],
+                                        error
+                                    );
+                                    break;
+                                }
+                                registers.Write(operands[BeamRecordConstructionNames.FieldDestination], value);
+                                break;
+                            }
                         case BeamCollectionOpcodeNames.UpdateRecord:
                             registers.Write(operands[3], BeamCollectionExecution.UpdateRecord(code, registers, operands));
                             break;
@@ -466,7 +517,29 @@ internal static partial class BeamRegisterInterpreter
                                 entries.Add(new(key, Read(code, registers, operands[pair + 1])));
                             }
                             if (!missingExact)
-                                registers.Write(operands[2], new MapTerm(entries));
+                            {
+                                bool dynamicSinglePut = instruction.Definition.Name == BeamGeneralOpcodeNames.MapAssociate
+                                    && operands.Count == BeamMapOperands.SinglePutOperandCount
+                                    && operands[BeamMapOperands.FirstKeyIndex].Kind is not (BeamOperandParameters.Atom or BeamOperandParameters.Nil
+                                        or BeamOperandParameters.Integer or BeamOperandParameters.LiteralValue);
+                                var constructedMap = dynamicSinglePut
+                                    ? RuntimeMapPut.Put(
+                                        context.Runtime,
+                                        sourceMap,
+                                        Read(code, registers, operands[BeamMapOperands.FirstKeyIndex]),
+                                        Read(code, registers, operands[BeamMapOperands.FirstValueIndex])
+                                    )
+                                    : new MapTerm(entries);
+                                if (instruction.Definition.Name == BeamGeneralOpcodeNames.MapAssociate
+                                    && code.LoaderMapKeys565.TryGetValue(instruction.Offset, out TupleTerm? literalKeys))
+                                {
+                                    MapTerm bindings = constructedMap;
+                                    constructedMap = new MapTerm(literalKeys.Items.Select(key =>
+                                        new KeyValuePair<Term, Term>(key, bindings.Get(key))), literalKeys);
+                                }
+
+                                registers.Write(operands[2], constructedMap);
+                            }
                             break;
                         case BeamGeneralOpcodeNames.BinaryBif:
                             BeamExternalImport binaryImport = BeamRegisterValidation.BinaryImport(code, (int)operands[1].Value);
@@ -1038,7 +1111,9 @@ internal static partial class BeamRegisterInterpreter
                                 }
                                 else
                                     functionFrame!.SetContinuation(code, pc);
-                                Term funResult = await callable.Invoke(context, Array.AsReadOnly(funArguments));
+                                Term funResult;
+                                using (tailFun ? null : context.EnterBeamFunAdmission650(callable))
+                                    funResult = await callable.Invoke(context, Array.AsReadOnly(funArguments));
                                 functionFrame?.ClearContinuation();
                                 registers.Write(0, funResult);
                                 if (tailFun && !ReturnToCaller())
@@ -1051,10 +1126,17 @@ internal static partial class BeamRegisterInterpreter
                             break;
                         case BeamLinkNames.Send:
                             {
-                                Term recipient = registers.Export507(registers.Read(0));
+                                Term recipient = registers.Read(0);
                                 Term sentMessage = registers.Read(1);
-                                Term portableMessage507 = registers.Export507(sentMessage);
-                                await ErlangOperatorValues.TrySendAsync(context, recipient, portableMessage507);
+                                if (registers.HasOwnedRoots507)
+                                    await ErlangOperatorValues.TrySendBeam593Async(
+                                        context,
+                                        registers,
+                                        recipient,
+                                        sentMessage
+                                    );
+                                else
+                                    await ErlangOperatorValues.TrySendAsync(context, recipient, sentMessage);
                                 registers.Write(0, sentMessage);
                                 break;
                             }
@@ -1066,22 +1148,31 @@ internal static partial class BeamRegisterInterpreter
                                 BeamReceivePlan plan = instruction.Definition.Name == BeamLinkNames.LoopReceive
                                     ? BeamReceivePlanner.Build(code, function, pc - 1)
                                     : BeamReceivePlanner.BuildDelay(code, function, pc - 1);
-                                using BeamRegisterState before = registers.Clone();
+                                // Pure matching clones its own isolated candidate. The live
+                                // interpreter state remains unchanged until timeout/selection
+                                // commits below, so it already owns the baseline real roots.
+                                // Guest callbacks and rootless/metadata states retain their
+                                // original snapshot/admission behavior (including later activation).
+                                using BeamRegisterState? ownedBaseline = plan.Callback is null && registers.HasOwnedRoots507
+                                    ? null : registers.Clone();
+                                BeamRegisterState before = ownedBaseline ?? registers;
                                 Func<Term, BeamReceiveSelection?> selectMessage = plan.HasMatcher
-                                    ? message => BeamReceiveMatcher.Select(
+                                    ? message => BeamReceiveMatcher.SelectForReceive553(
                                         code,
                                         plan,
                                         before,
                                         message,
-                                        context.Self
+                                        context.Self,
+                                        context
                                     )
                                     : _ => null;
+                                MailboxSelectionAdmission593? admission593 = before.ReceiveAdmission593();
                                 BeamReceiveSelection? selected;
                                 if (plan.Callback is { } callback)
                                 {
                                     Term callbackTimeout = plan.TimeoutOperand is { } timeoutOperand
                                         ? Read(code, before, timeoutOperand) : Term.A(BeamReceiveNames.Infinity);
-                                    selected = await context.ReceiveBeamAsync(
+                                    selected = await context.ReceiveBeamAdmitted593(
                                         message => BeamReceiveCallbackExecution.Select(
                                             context,
                                             code,
@@ -1091,11 +1182,12 @@ internal static partial class BeamRegisterInterpreter
                                             before,
                                             message
                                         ),
-                                        callbackTimeout
+                                        callbackTimeout,
+                                        admission593
                                     );
                                 }
                                 else if (BeamReceivePureBifs.RequiresAsync(code, plan))
-                                    selected = await context.ReceiveBeamGuardAsync(
+                                    selected = await context.ReceiveBeamGuardAdmitted593(
                                         message => BeamReceiveMatcher.SelectAsync(
                                             code,
                                             plan,
@@ -1104,12 +1196,13 @@ internal static partial class BeamRegisterInterpreter
                                             context.Self,
                                             context
                                         ),
-                                        plan.TimeoutOperand is { } asyncTimeout ? Read(code, before, asyncTimeout) : Term.A(BeamReceiveNames.Infinity)
+                                        plan.TimeoutOperand is { } asyncTimeout ? Read(code, before, asyncTimeout) : Term.A(BeamReceiveNames.Infinity),
+                                        admission593
                                     );
                                 else
-                                    selected = plan.TimeoutOperand is { } receiveTimeout
-                                        ? await context.ReceiveErlangAsync(selectMessage, Read(code, before, receiveTimeout))
-                                        : await context.ReceiveAsync(selectMessage);
+                                    selected = await context.ReceiveBeamPure593(selectMessage,
+                                        plan.TimeoutOperand is { } receiveTimeout ? Read(code, before, receiveTimeout) : null,
+                                        admission593);
                                 if (selected is null)
                                 {
                                     if (!plan.HasTimeout)
@@ -1220,16 +1313,20 @@ internal static partial class BeamRegisterInterpreter
                             break;
                         case BeamLinkNames.GuardBif:
                             registers.CheckLive((int)operands[1].Value);
-                            string arithmetic = BeamRegisterValidation.ArithmeticImport(code, (int)operands[2].Value);
+                            BeamExternalImport gcBinary = BeamRegisterValidation.GcBinaryImport815(code, (int)operands[2].Value);
                             try
                             {
-                                Term value = await context.Runtime.Modules.Call(
-                                    context,
-                                    BeamRegisterNames.Erlang,
-                                    arithmetic,
-                                    Read(code, registers, operands[3]),
-                                    Read(code, registers, operands[4])
-                                );
+                                Term left = Read(code, registers, operands[3]);
+                                Term right = Read(code, registers, operands[4]);
+                                Term value = gcBinary.Function == ErlangDataBifNames.BinaryPart
+                                    ? await BeamExternalImports.Invoke(context, gcBinary, [left, right])
+                                    : await context.Runtime.Modules.Call(
+                                        context,
+                                        BeamRegisterNames.Erlang,
+                                        gcBinary.Function,
+                                        left,
+                                        right
+                                    );
                                 registers.Write(operands[5], value);
                             }
                             catch (ErlangException error)
@@ -1248,7 +1345,13 @@ internal static partial class BeamRegisterInterpreter
                         case BeamLinkNames.PutList:
                             Term head = Read(code, registers, operands[0]);
                             Term tail = Read(code, registers, operands[1]);
-                            registers.WriteCons507(operands[2], head, tail);
+                            registers.WriteConsFromOperands537(
+                                operands[2],
+                                operands[0],
+                                operands[1],
+                                head,
+                                tail
+                            );
                             break;
                         case BeamLinkNames.PutTuple:
                             Term[] items = operands.Skip(BeamLinkParameters.TupleListPrefixOperands).Select(operand => Read(code, registers, operand)).ToArray();

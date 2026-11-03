@@ -16,7 +16,14 @@ internal static class BeamListCurrentRoot550Checks
         foreach (bool native in new[] { false, true })
             foreach (bool sourceY in new[] { false, true })
                 foreach (int alias in new[] { 0, 1, 2 })
-                    await WithState(native, async (context, state, registry, heap) =>
+                    await WithState(
+                        native,
+                        async (
+                            context,
+                            state,
+                            registry,
+                            heap
+                        ) =>
                     {
                         object source = Operand(sourceY, 0);
                         object first = alias == 1 ? source : Operand(true, 1);
@@ -25,11 +32,27 @@ internal static class BeamListCurrentRoot550Checks
                         var cell = (Cons)Read(state, sourceY, 0);
                         Term head = cell.Head, tail = cell.Tail;
                         object before = Property(registry, LinearConstruction514Names.Traversal);
-                        Call(state, Pair, Opcode, source, first, second, cell);
+                        Call(
+                            state,
+                            Pair,
+                            Opcode,
+                            source,
+                            first,
+                            second,
+                            cell
+                        );
                         object after = Property(registry, LinearConstruction514Names.Traversal);
                         long retains = Number(after, LinearConstruction514Names.Retains) - Number(before, LinearConstruction514Names.Retains);
                         long visits = Number(after, LinearConstruction514Names.Visits) - Number(before, LinearConstruction514Names.Visits);
-                        string line = string.Format(CultureInfo.InvariantCulture, Observation, native, sourceY, alias, retains, visits);
+                        string line = string.Format(
+                            CultureInfo.InvariantCulture,
+                            Observation,
+                            native,
+                            sourceY,
+                            alias,
+                            retains,
+                            visits
+                        );
                         Console.WriteLine(line);
                         if (retains != (alias == 1 ? FallbackRetains : OrdinaryRetains) || visits <= 0)
                             failures.Add(line);
@@ -39,46 +62,111 @@ internal static class BeamListCurrentRoot550Checks
                         Check(((BitString)((TupleTerm)head).Items[0]).ToArray().Length == BackingBytes);
                         Check(((BitString)((TupleTerm)((Cons)tail).Head).Items[0]).ToArray().Length == BackingBytes);
                         await Task.CompletedTask;
-                    });
+                    }
+                    );
         if (failures.Count != 0)
             throw new InvalidOperationException(string.Join(Environment.NewLine, failures));
     }
 
     internal static async Task Custody()
     {
+        await PutListCustody537();
         foreach (bool sourceY in new[] { false, true })
-            await WithState(false, async (context, state, registry, heap) =>
+            await WithState(
+                false,
+                async (
+                    context,
+                    state,
+                    registry,
+                    heap
+                ) =>
             {
                 Seed(state, sourceY);
                 object source = Operand(sourceY, 0), first = Operand(true, 1), second = Operand(true, 2);
                 var cell = (Cons)Read(state, sourceY, 0);
                 Term head = cell.Head, tail = cell.Tail;
-                Check((bool)Call(state, Proof, source, first, cell)!);
+                Check((bool)Call(
+                    state,
+                    Proof,
+                    source,
+                    first,
+                    cell
+                )!);
                 // Exact current register remains published throughout this
                 // source-preserving interleaving; force real heap collection.
-                Call(state, BeamOwnedRoots507Names.Write, first, head);
+                Call(
+                    state,
+                    BeamOwnedRoots507Names.Write,
+                    first,
+                    head
+                );
                 Call(heap, LinearConstruction514Names.Collect);
                 Check(ReferenceEquals(cell.Tail, tail));
-                Call(state, BeamOwnedRoots507Names.Write, second, tail);
+                Call(
+                    state,
+                    BeamOwnedRoots507Names.Write,
+                    second,
+                    tail
+                );
                 Call(heap, LinearConstruction514Names.Collect);
                 Check(((BitString)((TupleTerm)head).Items[0]).ToArray().Length == BackingBytes);
-                Check(!(bool)Call(state, Proof, source, source, cell)!);
-                Check(!(bool)Call(state, Proof, source, first, new Cons(cell.Head, cell.Tail))!);
-                object typedSame = Construct(BeamOwnedRoots507Names.OperandType, sourceY ? Y : BeamOwnedRoots507Names.X, BigInteger.Zero, 1);
-                Check(!(bool)Call(state, Proof, source, typedSame, cell)!);
+                Check(!(bool)Call(
+                    state,
+                    Proof,
+                    source,
+                    source,
+                    cell
+                )!);
+                Check(!(bool)Call(
+                    state,
+                    Proof,
+                    source,
+                    first,
+                    new Cons(cell.Head, cell.Tail)
+                )!);
+                object typedSame = Construct(
+                    BeamOwnedRoots507Names.OperandType,
+                    sourceY ? Y : BeamOwnedRoots507Names.X,
+                    BigInteger.Zero,
+                    1
+                );
+                Check(!(bool)Call(
+                    state,
+                    Proof,
+                    source,
+                    typedSame,
+                    cell
+                )!);
                 using (var plain = (IDisposable)Construct(BeamOwnedRoots507Names.StateType, null, null))
-                    Check(!(bool)Call(plain, Proof, Operand(false, 0), first, cell)!);
+                    Check(!(bool)Call(
+                        plain,
+                        Proof,
+                        Operand(false, 0),
+                        first,
+                        cell
+                    )!);
                 // Head alias keeps the old fallback, including its actual
                 // temporary root across first-write/collection/second-write.
                 using (var held = (IDisposable)Call(state, Protect, (object)new Term[] { cell })!)
                 {
-                    Call(state, BeamOwnedRoots507Names.Write, source, head);
+                    Call(
+                        state,
+                        BeamOwnedRoots507Names.Write,
+                        source,
+                        head
+                    );
                     Call(heap, LinearConstruction514Names.Collect);
                     Check(ReferenceEquals(cell.Tail, tail));
-                    Call(state, BeamOwnedRoots507Names.Write, second, tail);
+                    Call(
+                        state,
+                        BeamOwnedRoots507Names.Write,
+                        second,
+                        tail
+                    );
                 }
                 await Task.CompletedTask;
-            });
+            }
+            );
     }
 
     internal static async Task ClosedYStore()
@@ -102,7 +190,15 @@ internal static class BeamListCurrentRoot550Checks
                 {
                     // Head(X1) can publish; tail(Y2) hits the genuinely closed
                     // physical store. Source(X0) must remain rooted on failure.
-                    Call(state, Pair, Opcode, source, Operand(false, 1), Operand(true, 2), cell);
+                    Call(
+                        state,
+                        Pair,
+                        Opcode,
+                        source,
+                        Operand(false, 1),
+                        Operand(true, 2),
+                        cell
+                    );
                 }
                 catch (ObjectDisposedException)
                 {
@@ -123,6 +219,83 @@ internal static class BeamListCurrentRoot550Checks
         });
     }
 
+    private static async Task PutListCustody537()
+    {
+        foreach (bool native in new[] { false, true })
+            foreach (bool headY in new[] { false, true })
+                foreach (bool tailY in new[] { false, true })
+                    foreach (int alias in new[] { 0, 1, 2 })
+                        await WithState(
+                            native,
+                            async (
+                                context,
+                                state,
+                                registry,
+                                heap
+                            ) =>
+                        {
+                            object headSource = Operand(headY, 0), tailSource = Operand(tailY, 1);
+                            Call(
+                                state,
+                                headY ? BeamOwnedRoots507Names.WriteY : BeamOwnedRoots507Names.Write,
+                                0,
+                                Term.Tuple(new BitString(new byte[BackingBytes]))
+                            );
+                            Call(
+                                state,
+                                tailY ? BeamOwnedRoots507Names.WriteY : BeamOwnedRoots507Names.Write,
+                                1,
+                                Term.List(Term.Tuple(new BitString(new byte[BackingBytes])))
+                            );
+                            Term head = ReadOperand(state, headSource), tail = ReadOperand(state, tailSource);
+                            Check((bool)Call(
+                                state,
+                                PublishedInput537,
+                                headSource,
+                                head
+                            )!);
+                            Check((bool)Call(
+                                state,
+                                PublishedInput537,
+                                tailSource,
+                                tail
+                            )!);
+                            Check(!(bool)Call(
+                                state,
+                                PublishedInput537,
+                                headSource,
+                                tail
+                            )!);
+                            Check(!(bool)Call(
+                                state,
+                                PublishedInput537,
+                                Operand(false, 2),
+                                Nil.Value
+                            )!);
+                            object destination = alias == 1 ? headSource : alias == 2 ? tailSource : Operand(false, 2);
+                            object before = Property(registry, LinearConstruction514Names.Traversal);
+                            Call(
+                                state,
+                                PutList537,
+                                destination,
+                                headSource,
+                                tailSource,
+                                head,
+                                tail
+                            );
+                            object after = Property(registry, LinearConstruction514Names.Traversal);
+                            Check(Number(after, LinearConstruction514Names.Retains)
+                                - Number(before, LinearConstruction514Names.Retains) == 1);
+                            var result = (Cons)ReadOperand(state, destination);
+                            Check(ReferenceEquals(result.Head, head) && ReferenceEquals(result.Tail, tail));
+                            Call(heap, LinearConstruction514Names.Collect);
+                            Check(((BitString)((TupleTerm)result.Head).Items[0]).ToArray().Length == BackingBytes);
+                            Check(((BitString)((TupleTerm)((Cons)result.Tail).Head).Items[0]).ToArray().Length == BackingBytes);
+                            await Task.CompletedTask;
+                        }
+                        );
+    }
+
     private static async Task WithState(bool native, Func<ProcessContext, object, object, object, Task> body)
     {
         await using var runtime = OwnedGuest506RuntimeFactory.Create();
@@ -135,7 +308,12 @@ internal static class BeamListCurrentRoot550Checks
             try
             {
                 Call(state, BeamOwnedRoots507Names.Allocate, 3);
-                await body(context, state, registry, heap);
+                await body(
+                    context,
+                    state,
+                    registry,
+                    heap
+                );
             }
             finally
             {
@@ -154,11 +332,21 @@ internal static class BeamListCurrentRoot550Checks
     {
         var binary = new BitString(new byte[BackingBytes]);
         Term cell = Term.List(Term.Tuple(binary), Term.Tuple(binary));
-        Call(state, y ? BeamOwnedRoots507Names.WriteY : BeamOwnedRoots507Names.Write, 0, cell);
+        Call(
+            state,
+            y ? BeamOwnedRoots507Names.WriteY : BeamOwnedRoots507Names.Write,
+            0,
+            cell
+        );
     }
 
     private static object Operand(bool y, int index)
-        => Construct(BeamOwnedRoots507Names.OperandType, y ? Y : BeamOwnedRoots507Names.X, new BigInteger(index), null);
+        => Construct(
+            BeamOwnedRoots507Names.OperandType,
+            y ? Y : BeamOwnedRoots507Names.X,
+            new BigInteger(index),
+            null
+        );
 
     private static Term Read(object state, bool y, int index)
         => (Term)Call(state, y ? BeamOwnedRoots507Names.ReadY : BeamOwnedRoots507Names.Read, index)!;
@@ -167,14 +355,23 @@ internal static class BeamListCurrentRoot550Checks
         => Read(state, (string)Property(operand, Kind) == Y, (int)(BigInteger)Property(operand, Value));
 
     private static object Construct(string name, params object?[] arguments)
-        => Activator.CreateInstance(typeof(ProcessRuntime).Assembly.GetType(name, true)!, Members, null, arguments, null)!;
+        => Activator.CreateInstance(
+            typeof(ProcessRuntime).Assembly.GetType(name, true)!,
+            Members,
+            null,
+            arguments,
+            null
+        )!;
 
     private static object? Call(object owner, string name, params object?[] arguments)
     {
         MethodInfo method = owner.GetType().GetMethods(Members).Single(candidate => candidate.Name == name
             && candidate.GetParameters().Length == arguments.Length
             && candidate.GetParameters().Select((parameter, index) => arguments[index] is null || parameter.ParameterType.IsInstanceOfType(arguments[index])).All(match => match));
-        try { return method.Invoke(owner, arguments); }
+        try
+        {
+            return method.Invoke(owner, arguments);
+        }
         catch (TargetInvocationException error) when (error.InnerException is { } inner)
         {
             ExceptionDispatchInfo.Capture(inner).Throw();
@@ -183,6 +380,7 @@ internal static class BeamListCurrentRoot550Checks
     }
 
     private static object Property(object owner, string name) => owner.GetType().GetProperty(name, Members)!.GetValue(owner)!;
+
     private static long Number(object owner, string name) => (long)Property(owner, name);
 
     private static void Check(bool condition)

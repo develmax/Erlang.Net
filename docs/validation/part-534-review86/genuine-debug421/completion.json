@@ -1,0 +1,147 @@
+{
+  "Passed": true,
+  "OriginalOnly": true,
+  "Pin": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "Head": "b8b9757bc923da879eb32cbeed9151cbc7da26e2",
+  "WholeRows": 192,
+  "Profiles": 6,
+  "DebugProfile": {
+    "wordsize": 8,
+    "dirty_cpu_schedulers": 1,
+    "dirty_io_schedulers": 1,
+    "worker_md5": "9FEC2C629760EC17E11996C20047459A",
+    "schedulers": 1,
+    "internal_md5": "9CF068C45137531B626C7A1A6A6F06FB",
+    "architecture": "x86_64-pc-linux-gnu",
+    "executable": "/home/runner/work/Erlang.Net/Erlang.Net/artifacts/counters421-otp-source/bin/x86_64-pc-linux-gnu/beam.debug.smp",
+    "debug_compiled": true,
+    "schedulers_online": 1,
+    "build_type": "debug",
+    "otp_release": "29"
+  },
+  "ActualExecutableSha256": "C308A8AC4E23362FD52002C4E3FD8B2ED6C8577363ECF26B3853C41F1AAE5EFB",
+  "ActualExecutable": "/home/runner/work/Erlang.Net/Erlang.Net/artifacts/counters421-otp-source/bin/x86_64-pc-linux-gnu/beam.debug.smp",
+  "SourceBeforeAfterEqual": true,
+  "RawEtfRewritten": false,
+  "Projection": false,
+  "ManagedExecution": false,
+  "WholeContractsClosed": 0,
+  "ProcessReceipt": {
+    "Arguments": [
+      "/home/runner/work/Erlang.Net/Erlang.Net/artifacts/counters421-otp-source/bin/erl",
+      "-emu_type",
+      "debug",
+      "+S",
+      "1:1",
+      "+SDcpu",
+      "1",
+      "+SDio",
+      "1",
+      "-noshell",
+      "-noinput",
+      "-pa",
+      "/home/runner/work/Erlang.Net/Erlang.Net/artifacts/counters421-debug/capture",
+      "-eval",
+      "\ntrue=erlang:system_info(debug_compiled),\ndebug=erlang:system_info(build_type),\n8=erlang:system_info(wordsize),\n1=erlang:system_info(schedulers),\n1=erlang:system_info(schedulers_online),\n{ok,Exe}=file:read_link(\"/proc/self/exe\"),\nProfile=#{debug_compiled=>erlang:system_info(debug_compiled),\n build_type=>atom_to_binary(erlang:system_info(build_type)),\n wordsize=>erlang:system_info(wordsize),schedulers=>erlang:system_info(schedulers),\n schedulers_online=>erlang:system_info(schedulers_online),\n dirty_cpu_schedulers=>erlang:system_info(dirty_cpu_schedulers),\n dirty_io_schedulers=>erlang:system_info(dirty_io_schedulers),\n architecture=>list_to_binary(erlang:system_info(system_architecture)),\n otp_release=>list_to_binary(erlang:system_info(otp_release)),\n executable=>list_to_binary(Exe),\n worker_md5=>binary:encode_hex(beam_counters421:module_info(md5)),\n internal_md5=>binary:encode_hex(erts_internal:module_info(md5))},\nValues=beam_counters421:run_child(),Stacks=beam_counters421:run_stacks_child(),\n32=length(Values),5=length(Stacks),\ntrue=lists:all(fun({_,_,Rows})->length(Rows)=:=32 end,Stacks),\nok=file:write_file(\"/home/runner/work/Erlang.Net/Erlang.Net/artifacts/counters421-debug/capture/profile.json\",json:encode(Profile)),\nok=file:write_file(\"/home/runner/work/Erlang.Net/Erlang.Net/artifacts/counters421-debug/capture/profile.etf\",term_to_binary(Profile,[deterministic])),\nok=file:write_file(\"/home/runner/work/Erlang.Net/Erlang.Net/artifacts/counters421-debug/capture/values.etf\",term_to_binary(Values,[deterministic])),\nok=file:write_file(\"/home/runner/work/Erlang.Net/Erlang.Net/artifacts/counters421-debug/capture/stacks.etf\",term_to_binary(Stacks,[deterministic])),\nio:format(\"DEBUG421 192 complete rows captured~n\"),halt(0).\n"
+    ],
+    "OwnedPid": 87685,
+    "OwnedProcessGroup": 87685,
+    "ExitCode": 0,
+    "ElapsedSeconds": 0.5274662220000437,
+    "TerminationRequested": false,
+    "RemainingGroupKillRequested": false,
+    "ParentReaped": true,
+    "CleanupFailure": null,
+    "StreamsClosed": true,
+    "StdoutBytes": 36,
+    "StderrBytes": 0,
+    "Scope": "Linux foreground private epmd/erl process groups; automatic epmd daemon disabled"
+  },
+  "Files": [
+    {
+      "Path": "authority.json",
+      "Bytes": 789,
+      "Sha256": "FB4258A0DD680A26B25BB1F6FE2228D37C9E2A173D528E5100D618AC6BE5E9C3"
+    },
+    {
+      "Path": "beam_counters421.beam",
+      "Bytes": 9820,
+      "Sha256": "FA5AEFDBBF574C54EA746A729E3C0FEFFB6CD72B6024FA07E5F3AAF491D9D750"
+    },
+    {
+      "Path": "debug-observer.process.json",
+      "Bytes": 2533,
+      "Sha256": "C91187E607A4120D84B2E12A534F64C94DA809C38236D044EC098F54ED5E623E"
+    },
+    {
+      "Path": "debug-observer.stderr",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "debug-observer.stdout",
+      "Bytes": 36,
+      "Sha256": "72E2BCF312C6A43E2854053D5D5D2F3F2B52B38EF37D306A511FC27818E4FFB6"
+    },
+    {
+      "Path": "make-debug.process.json",
+      "Bytes": 463,
+      "Sha256": "EA37F10839605DFD06469823969F7FF1D7BCA5DE8F0E847211598FA28D682FD0"
+    },
+    {
+      "Path": "make-debug.stderr",
+      "Bytes": 2117,
+      "Sha256": "53715471EBF0B76D93F49A2CAEBFED5F955BC0F3EDF6428B2156B9BEBE9AA0A9"
+    },
+    {
+      "Path": "make-debug.stdout",
+      "Bytes": 117973,
+      "Sha256": "984B643A60FBD770151F5A159DDEFC73D160D5C1A33F8D8134DA564A9339F3F0"
+    },
+    {
+      "Path": "manifest.json",
+      "Bytes": 721,
+      "Sha256": "29599250E14620ED4005D40EC6C2658F56D662FA52C2CF6CCD71F36707351873"
+    },
+    {
+      "Path": "original-completion.json",
+      "Bytes": 3309,
+      "Sha256": "D984F98A984F9D6C21C572DF7C0FC54BDD12D9808A6DABF9BBF76A470E3A6EB8"
+    },
+    {
+      "Path": "profile.etf",
+      "Bytes": 430,
+      "Sha256": "A5E7DD425254D682C2FDFB502F42EB553C64A93040DE00B917FFBA232311C1FC"
+    },
+    {
+      "Path": "profile.json",
+      "Bytes": 424,
+      "Sha256": "245F194CEE927C9BB9E044CC425D3237381D9EF6FA8FFFD1E328CC7868569ABD"
+    },
+    {
+      "Path": "source-after.json",
+      "Bytes": 2484740,
+      "Sha256": "30252CC2D3462C3CF69D548D020FFCF79E7997816A1FE88E3FD9DF021385100A"
+    },
+    {
+      "Path": "source-before.json",
+      "Bytes": 2484740,
+      "Sha256": "30252CC2D3462C3CF69D548D020FFCF79E7997816A1FE88E3FD9DF021385100A"
+    },
+    {
+      "Path": "source.erl",
+      "Bytes": 3923,
+      "Sha256": "60DFBACCA658122068AE895BF6E60FA26B20ADFE5D9DE69EA8E0006ACD0B0A4D"
+    },
+    {
+      "Path": "stacks.etf",
+      "Bytes": 48343,
+      "Sha256": "4CBE366AA1431B245BE8FD2D78FAC7EA1CAE9A9A769B487CC0A205266F1427C6"
+    },
+    {
+      "Path": "values.etf",
+      "Bytes": 13387,
+      "Sha256": "4589030C887DC3DD47919680BA134BE926735406272D767AD5F7B632353291AF"
+    }
+  ]
+}

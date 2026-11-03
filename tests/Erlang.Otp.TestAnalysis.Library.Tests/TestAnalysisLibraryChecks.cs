@@ -100,10 +100,19 @@ internal static class TestAnalysisLibraryChecks
         var runtime = new ProcessRuntime();
         try
         {
-            await runtime.InitializeModulesAsync(registry =>
+            await global::Erlang.Tests.PreparedBeamFixtureScope171.RunAsync(
+                runtime,
+                async (registry, scope) =>
             {
-                RuntimeNativePrimitiveProviders.Register(runtime, registry, RuntimeNativePrimitives.EtsStorageCore | RuntimeNativePrimitives.PersistentTermCore);
-                RuntimeBootstrapFileSystem.Register(runtime, registry);
+                await runtime.InitializeModulesAsync(_ =>
+                {
+                    {
+                        RuntimeNativePrimitiveProviders.Register(runtime, registry, RuntimeNativePrimitives.EtsStorageCore | RuntimeNativePrimitives.PersistentTermCore);
+                    }
+                    {
+                        RuntimeBootstrapFileSystem.Register(runtime, registry);
+                    }
+                });
                 string[] imports = OtpCommonTest.Modules.Concat(OtpDialyzer.Modules).Concat(OtpStdlib.Modules).Concat(OtpKernel.Modules).Concat(OtpCompiler.Modules).Concat(OtpErts.Modules).Concat([Observer, Internal, Initialization, ErlangModule, Crypto, PrettyPrinter]).ToArray();
                 var dependencies = new BeamDependencySelection(imports);
                 byte[][] bytes = [OtpStdlib.ReadImage(Lists), OtpStdlib.ReadImage(OrderedSets), OtpStdlib.ReadImage(Proplists), OtpStdlib.ReadImage(IoLibrary), OtpStdlib.ReadImage(IoFormatter), OtpStdlib.ReadImage(IoPrettyPrinter), OtpStdlib.ReadImage(StringModule), OtpStdlib.ReadImage(Unicode), OtpStdlib.ReadImage(UnicodeUtilities), OtpStdlib.ReadImage(Filename), OtpStdlib.ReadImage(Preprocessor), OtpStdlib.ReadImage(Scanner), OtpStdlib.ReadImage(InputOutput), OtpStdlib.ReadImage(Sets), OtpStdlib.ReadImage(SetFamilies), OtpCompiler.ReadImage(Core), OtpCommonTest.ReadImage(CommonTestConfig), OtpCommonTest.ReadImage(CommonTestGroups), OtpDialyzer.ReadImage(DialyzerOptions), OtpDialyzer.ReadImage(DialyzerUtilities), Resource(ObserverImage)];
@@ -112,20 +121,25 @@ internal static class TestAnalysisLibraryChecks
                 {
                     try
                     {
-                        return registry.PrepareBeam(image, dependencies);
+                        return scope.Prepare(() => registry.PrepareBeam(image, dependencies));
                     }
                     catch (Exception error)
                     {
                         throw new InvalidOperationException(BeamArtifactInspector.Inspect(image).Name, error);
                     }
                 }).ToArray();
-                Check(registry.PublishPreparedBeam(images).Status == BeamPublicationStatus.Published);
-                foreach (PreparedBeamImage image in images)
+
+                return _ =>
                 {
-                    var exports = registry.Exports.Where(export => export.Module == image.Name).ToArray();
-                    Check(exports.Length > 0 && exports.All(export => ReferenceEquals(registry.SourceOwner(export.Module, export.Function, export.Arity), image)));
-                }
-            });
+                    Check(registry.PublishPreparedBeam(images).Status == BeamPublicationStatus.Published);
+                    foreach (PreparedBeamImage image in images)
+                    {
+                        var exports = registry.Exports.Where(export => export.Module == image.Name).ToArray();
+                        Check(exports.Length > 0 && exports.All(export => ReferenceEquals(registry.SourceOwner(export.Module, export.Function, export.Arity), image)));
+                    }
+                };
+            }
+            );
             await TestAnalysisLibraryBoot.Start(runtime, Check);
             var completed = new TaskCompletionSource<Term>(TaskCreationOptions.RunContinuationsAsynchronously);
             ProcessHandle actor = runtime.Spawn(async context =>

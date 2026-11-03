@@ -4,6 +4,7 @@ public sealed partial class ProcessRuntime
 {
     private RuntimeCountersOwner421? counters421;
     private bool countersAdmissionClosed421;
+    private Task? countersShutdown596;
     public RuntimeCountersReport421 CountersStorage421
     {
         get
@@ -50,24 +51,46 @@ public sealed partial class ProcessRuntime
 
     private Task CloseCounters421()
     {
-        // Latch admission even when no owner exists. Initializer termination
-        // can precede the later global disposed transition.
-        countersAdmissionClosed421 = true;
-
-        return counters421?.BeginClose() ?? Task.CompletedTask;
+        lock (gate)
+        {
+            countersAdmissionClosed421 = true;
+            if (countersShutdown596 is not null)
+                return countersShutdown596;
+            RuntimeCountersOwner421? selected = counters421;
+            if (selected is null)
+                return countersShutdown596 = Task.CompletedTask;
+            selected.StopAdmission596();
+            if (ExecutionContext.IsFlowSuppressed())
+                return countersShutdown596 = Task.Run(() => CloseCountersAfterRoots596(selected));
+            using (ExecutionContext.SuppressFlow())
+                return countersShutdown596 = Task.Run(() => CloseCountersAfterRoots596(selected));
+        }
     }
 
-    private Task DrainCounters421()
+    private async Task CloseCountersAfterRoots596(RuntimeCountersOwner421 selected)
     {
-        lock (gate) return CloseCounters421();
+        // Join logical transition publication, then drain real roots without Runtime.gate.
+        lock (gate)
+        {
+        }
+        await DrainOwnedTermContexts506().ConfigureAwait(false);
+        await selected.BeginClose().ConfigureAwait(false);
     }
 
-    private bool CountersRetirementCompleted421 => counters421 is null || counters421.ShutdownCompleted;
+    private Task DrainCounters421() => CloseCounters421();
+
+    private bool CountersRetirementCompleted421 => countersShutdown596?.IsCompletedSuccessfully
+        ?? (counters421 is null || counters421.ShutdownCompleted);
 
     private Task CountersProcessRetirement421(ProcessContext context, Task previous)
     {
-        if (!disposed && !context.Self.Equals(InitializationPid)) return previous;
+        if (context.Self.Equals(InitializationPid))
+            _ = CloseCounters421();
 
-        return Task.WhenAll(previous, CloseCounters421());
+        // Per-process completion must not join the VM-wide root/owner drain.
+        // InitializationEnded and final Dispose/Halt retain their explicit
+        // CloseCounters421/DrainCounters421 calls. Individual roots retire via
+        // the process heap and the backing owner's last-root queue.
+        return previous;
     }
 }

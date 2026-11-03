@@ -1,0 +1,62 @@
+using System.Reflection;
+
+namespace Erlang.Tests;
+
+internal static class OpaqueBoundary602Names
+{
+    internal const BindingFlags Members = BindingFlags.Instance | BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic;
+    internal static readonly TimeSpan Deadline = TimeSpan.FromSeconds(20);
+    internal const string Failure = "Real opaque queue602 custody invariant failed.";
+    internal const string CleanupFailure = "Opaque602 primary and independent cleanup failures.";
+    internal const string GuestModule = "opaque602_send";
+    internal const string Send = "send";
+    internal const string Source = "-module(opaque602_send). -export([send/2]). send(Target, Message) -> Target ! Message, ok.";
+    internal const string GateReady = "MessageSnapshotRouteReady593";
+    internal const string Heap = "TermHeap506";
+    internal const string Reserve = "Reserve";
+    internal const string Set = "Set";
+    internal const string Read = "Read";
+    internal const string Clear = "Clear";
+    internal const string Major = "CollectGeneration508";
+    internal const string Make = "MakeNativeResource524";
+    internal const string NativePointer = "Pointer524";
+    internal const string NativeRetired = "Retired524";
+    internal const string NativeRoots = "roots";
+    internal const string NativeRootType = "Erlang.NativeResourceRoots524";
+    internal const string DirectNative = "Direct524";
+    internal const string AtomicsOwner = "AtomicsOwner413";
+    internal const string Enter = "Enter";
+    internal const string Create = "Create";
+    internal const string BindOwner = "BindOwner586";
+    internal const string Retain = "RetainBacking586";
+    internal const string KindType = "Erlang.AtomicsLeaseKind586";
+    internal const string Producer = "Producer";
+    internal const string RootType = "Erlang.AtomicsGuestRoot413";
+    internal const string CreateReference = "CreateAtomics413";
+    internal const string RootArray = "Array";
+    internal const string AcquirePin = "Acquire";
+    internal const string ArrayMemory = "memory";
+    internal const string ArrayHeader = "Erlang.AtomicsMagicHeader413";
+    internal const string AtomicsRetired = "Retired586";
+    internal const string Allocated = "IsAllocated434";
+    internal const string HostRoots = "hostRoots586";
+    internal const string GuestRoots = "guestRoots586";
+    internal const string Active = "active";
+    internal const string OwnerRetire = "Retire";
+    internal const string AtomicsBacking = "AtomicsBacking586";
+    internal const string AtomicsHost = "AtomicsHost586";
+    internal const string HostOwns = "Owns586";
+    internal const string Storage = "OwnedStorage562";
+    internal const string Gate = "gate";
+    internal const string Messages = "messages";
+    internal const string Custody = "Custody593";
+    internal const string Work = "work";
+    internal const string References = "references";
+    internal const string Close = "CloseForExit593";
+    internal const string Drain = "DrainPayloadRoots593";
+    internal const int Sentinel = 602017;
+    internal const long AtomicsSentinel = 602019;
+    internal const string RejectionCase = "runtime/opaque602/real-native-atomics-hostscope-rejection-rollback";
+    internal const string RetainedCase = "runtime/opaque602/false-throw-retained-host-input-outlives-queue";
+    internal const string CloseCase = "runtime/opaque602/real-atomics-bulk-callback-close-no-guest-operations";
+}

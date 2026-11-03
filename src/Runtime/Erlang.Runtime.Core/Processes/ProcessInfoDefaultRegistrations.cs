@@ -4,7 +4,7 @@ namespace Erlang;
 // Native heap/stack/GC fields remain absent; process_info/2 support is unchanged.
 internal static class ProcessInfoDefaultRegistrations
 {
-    internal static void Register(ModuleRegistry registry) => registry.Register(
+    internal static void Register(ModuleRegistry registry) => registry.RegisterCanonicalRuntimeRead535(
         ErlangModuleNames.Module,
         ProcessInfoNames.Function,
         ProcessInfoDefaultNames.Arity,

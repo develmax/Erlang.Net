@@ -29,6 +29,14 @@ public sealed class ManagedStdlibRegistration456 : IRuntimeManagedLibrary456
                 arity,
                 (context, arguments) => ValueTask.FromResult(body(context, arguments))
             );
+
+        void AddVmSpawn641(string name, Func<ProcessContext, IReadOnlyList<Term>, Term> body)
+            => r.RegisterCanonicalRuntimeRead535(
+                ErlangModuleNames.Module,
+                name,
+                1,
+                (context, arguments) => ValueTask.FromResult(body(context, arguments))
+            );
         Add(
             ListModuleNames.Module,
             ListModuleNames.Reverse,
@@ -83,11 +91,11 @@ public sealed class ManagedStdlibRegistration456 : IRuntimeManagedLibrary456
             1,
             (c, a) => ListBasicOperations.Sum(a[0])
         );
-        Add(
+        r.RegisterCanonicalRead507(
             ListModuleNames.Module,
             ListModuleNames.KeyFind,
             3,
-            (c, a) => ListOperations.KeyFind(a[0], a[1], a[2])
+            (c, a) => ValueTask.FromResult(ListOperations.KeyFind(a[0], a[1], a[2]))
         );
         Add(
             ListModuleNames.Module,
@@ -151,43 +159,37 @@ public sealed class ManagedStdlibRegistration456 : IRuntimeManagedLibrary456
      );
  }
         );
-        Add(
-            ErlangModuleNames.Module,
+        AddVmSpawn641(
             ErlangModuleNames.Spawn,
-            1,
             (c, a) =>
  {
      return ProcessSpawnRegistrations.StartCallback(c, a[0]);
  }
         );
-        Add(
-            ErlangModuleNames.Module,
+        AddVmSpawn641(
             ErlangModuleNames.SpawnLink,
-            1,
             (c, a) =>
  {
      if (a[0] is not FunctionTerm { Arity: 0 } f)
          throw new ErlangException(ErlangErrorReasons.BadArgument);
 
      return c.Runtime.SpawnTraced(
-         child => f.Invoke(child, []),
+         RuntimeVmSpawnInput641.Callback641(f, Array.Empty<Term>()),
          c,
          true,
          SequenceSpawnDescription.Callback(f, SequenceSpawnDescription.DefaultOptions(ErlangModuleNames.SpawnLink))
      ).Pid;
  }
         );
-        Add(
-            ErlangModuleNames.Module,
+        AddVmSpawn641(
             ErlangModuleNames.SpawnMonitor,
-            1,
             (c, a) =>
  {
      if (a[0] is not FunctionTerm { Arity: 0 } f)
          throw new ErlangException(ErlangErrorReasons.BadArgument);
      var spawned = c.Runtime.SpawnMonitorTraced(
          c,
-         child => f.Invoke(child, []),
+         RuntimeVmSpawnInput641.Callback641(f, Array.Empty<Term>()),
          false,
          SequenceSpawnDescription.Callback(f, SequenceSpawnDescription.DefaultOptions(ErlangModuleNames.SpawnMonitor))
      );
@@ -259,7 +261,12 @@ public sealed class ManagedStdlibRegistration456 : IRuntimeManagedLibrary456
             MapModuleNames.Module,
             MapModuleNames.Put,
             3,
-            (c, a) => MapOperations.Put(a[0], a[1], a[2])
+            (c, a) => MapOperations.Put(
+                a[0],
+                a[1],
+                a[2],
+                runtime: c.Runtime
+            )
         );
         Add(
             MapModuleNames.Module,
@@ -300,7 +307,7 @@ public sealed class ManagedStdlibRegistration456 : IRuntimeManagedLibrary456
             MapModuleNames.Module,
             MapModuleNames.Merge,
             2,
-            (c, a) => new MapTerm(MapOperations.RequireMap(a[0]).Entries.Concat(MapOperations.RequireMap(a[1]).Entries))
+            (c, a) => MapOperations.Merge(a[0], a[1], c.Runtime)
         );
         Add(
             MapModuleNames.Module,
@@ -432,7 +439,18 @@ public sealed class ManagedStdlibRegistration456 : IRuntimeManagedLibrary456
                 a[1]
             )
         );
-        foreach (string operation in new[] { ListModuleNames.All, ListModuleNames.Any, ListModuleNames.Partition, ListModuleNames.FilterMap, ListModuleNames.ForEach, ListModuleNames.TakeWhile, ListModuleNames.DropWhile })
+        r.RegisterReviewedManagedLibrary789(
+            ListModuleNames.Module,
+            ListModuleNames.All,
+            2,
+            (c, a) => ListFunctions.Run(
+                c,
+                ListModuleNames.All,
+                a[0],
+                a[1]
+            )
+        );
+        foreach (string operation in new[] { ListModuleNames.Any, ListModuleNames.Partition, ListModuleNames.FilterMap, ListModuleNames.ForEach, ListModuleNames.TakeWhile, ListModuleNames.DropWhile })
             r.Register(
                 ListModuleNames.Module,
                 operation,

@@ -15,3 +15,13 @@ Volumes are approximately 20 KiB, split at paragraph boundaries. Explicit histor
 The [preservation manifest](manifest.json) contains ordered chunk hashes, original snapshot lengths and hashes, and reversible link substitutions. Run `node tools/Validation/check-documentation-layout.cjs` from the repository root to reconstruct all three snapshots in memory, verify license bytes and check local links. The report is saved under `artifacts/documentation-reorganization/verification.json`.
 
 Archived bodies are immutable. Put corrections and subsequent work in the active [changelog](../../CHANGELOG.md).
+
+## Integrated main snapshots
+
+- [AGENTS.md at origin/main](main-agents/index.md)
+- [docs/COMPATIBILITY.md at origin/main](main-compatibility/index.md)
+- [docs/DECISIONS.md at origin/main](main-decisions/index.md)
+- [docs/PROGRESS.md at origin/main](main-progress/index.md)
+- [docs/NEXT_STEPS.md at origin/main](main-next-steps/index.md)
+- [Pre-integration local journal](local-journal-20261103/index.md)
+- [Pre-integration local port register](local-port-register-20261103/index.md)

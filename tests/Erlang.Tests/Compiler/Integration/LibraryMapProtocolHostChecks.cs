@@ -43,6 +43,9 @@ internal static class LibraryMapProtocolHostChecks
         var map = new MapTerm(new Dictionary<Term, Term> { [first] = Term.I(1), [second] = Term.I(2) });
         Term pairs = Cons.From(keys.Select(key => Term.Tuple(key, map.Get(key))));
         await using ProcessRuntime runtime = await Start();
+        await DebugSame420HostAccess.Initialize(runtime);
+        using var guest = Erlang.Differential.GeneratedModuleCompiler.Compile(GuestSource520, GuestFile520);
+        guest.Definition.Register(runtime.Modules);
         await using var actor = new RuntimeNodeFoundationHostActor(runtime);
         await actor.InvokeAsync(async context =>
         {
@@ -119,7 +122,18 @@ internal static class LibraryMapProtocolHostChecks
                     Require(actual.Equals(expected));
                     foreach (Term _ in keys)
                         actual = ((Cons)actual).Tail;
-                    Require(ReferenceEquals(actual, seed));
+                    Require(!ReferenceEquals(actual, seed));
+                    Term guestResult = await runtime.Modules.Call(
+                        context,
+                        GuestModule520,
+                        GuestSeed520,
+                        Term.I(path),
+                        map,
+                        seed
+                    );
+                    Require(guestResult is TupleTerm { Items.Count: 2 } guestPair
+                        && guestPair.Items[0].Equals(Term.A(ErlangBooleanAtoms.True))
+                        && guestPair.Items[1].Equals(expected));
                 }
             }
             var large = new MapTerm(Enumerable.Range(1, FlatMapLimit + 1).Select(number => new KeyValuePair<Term, Term>(Term.I(number), Term.I(-number))));
@@ -131,6 +145,7 @@ internal static class LibraryMapProtocolHostChecks
                 large,
                 Term.A(IteratorMode)
             );
+            Term firstChunk520 = cursor;
             var visited = new HashSet<Term>();
             for (int index = 0; index < FlatMapLimit; index++)
             {
@@ -141,7 +156,16 @@ internal static class LibraryMapProtocolHostChecks
             }
             Require(cursor is Cons { Head: Integer, Tail: MapTerm });
             var continuation = (Cons)cursor;
-            Require(ReferenceEquals(continuation.Tail, large));
+            Require(!ReferenceEquals(continuation.Tail, large));
+            Term guestChunk = await runtime.Modules.Call(
+                context,
+                GuestModule520,
+                GuestCursor520,
+                large
+            );
+            Require(guestChunk is TupleTerm { Items.Count: 2 } guestChunkPair
+                && guestChunkPair.Items[0].Equals(Term.A(ErlangBooleanAtoms.True))
+                && guestChunkPair.Items[1].Equals(firstChunk520));
             Term final = await runtime.Modules.Call(
                 context,
                 Internal,

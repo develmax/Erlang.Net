@@ -1,0 +1,5 @@
+# PR89 P2 correction packet
+
+Apply only these three source/control files plus the one registration. No538 resource-key or539 synchronization class is part of this scoped backport. Reuse the existing transactional bulk guest adoption while the original captured dictionary borrow remains live. Managed Cons objects are staging only, never exported and not the final guest representation. Preserve order/filter/per-item and final cancellation. Existing construction rollback owns failure cleanup.
+
+Actual measurements were executed on the FULL538 composite, not the exact scoped537 final tree. Old projection visits at N128/256/512:17938/68626/268306 (get_keys0);17940/68628/268308 (get_keys1). New counts1811/3603/7187 and1813/3605/7189, with miss276/532/1044; bounds40N+256 unchanged. RED and GREEN preserve whole reports and actual DLL hashes. No timing-derived speedup claim. Exact scoped537 final-head CI/review remain required. Keep finding4409102001 open until those final gates pass. Root538 full273/source-original validation remains separate.

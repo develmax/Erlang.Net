@@ -23,7 +23,10 @@ internal static class NifAllocationDomainHostNames
     internal const string ValidateEntry = "ValidateEntry";
     internal const string WrongEntryModule = "nif_domain_host_metadata_mismatch";
     internal const string ModuleIdentity = "ModuleIdentity";
-    internal const string Initialize = "Initialize";
+    internal const string LifecycleGateType = "Erlang.NifNativeLifecycleGate";
+    internal const string Acquire = "AcquireAsync616";
+    internal const string OpenAndValidate = "OpenAndValidate616";
+    internal const string InitializeLoad = "InitializeLoad616";
     internal const string Allocations = "allocations";
     internal const string Gate = "gate";
     internal const string Disposed = "disposed";

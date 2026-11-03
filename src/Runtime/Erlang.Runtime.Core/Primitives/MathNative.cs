@@ -67,7 +67,7 @@ internal static class MathNative
         MathNativeNames.Exp => Math.Exp,
         MathNativeNames.Floor => Math.Floor,
         MathNativeNames.Log => Math.Log,
-        MathNativeNames.Log2 => Math.Log2,
+        MathNativeNames.Log2 => MathHostSpecialFunctions.Log2,
         MathNativeNames.Log10 => Math.Log10,
         MathNativeNames.Sin => Math.Sin,
         MathNativeNames.Sinh => Math.Sinh,

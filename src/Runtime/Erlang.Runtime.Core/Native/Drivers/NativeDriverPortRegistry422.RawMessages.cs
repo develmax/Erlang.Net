@@ -211,6 +211,7 @@ internal sealed partial class NativeDriverPortRegistry422
                 return;
             }
             row.OutputBytes = checked(row.OutputBytes + bytes.LongLength);
+            runtime.Statistics.RecordOutputBytes(bytes.LongLength);
         }
         await transport.Output(
             row.Native,

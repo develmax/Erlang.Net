@@ -105,14 +105,70 @@ public static class MapOperations
         Term key,
         Term value,
         Term source,
-        bool existing = false
+        bool existing = false,
+        ProcessRuntime? runtime = null
     )
     {
         var map = RequireMap(source);
         if (existing && !map.TryGet(key, out _))
             throw new ErlangException(Term.Tuple(Term.A(ErlangErrorReasons.BadKey), key));
 
-        return new MapTerm(map.Entries.Append(new(key, value)));
+        return runtime is null ? map.SourcePut(key, value) : RuntimeMapPut.Put(
+            runtime,
+            map,
+            key,
+            value
+        );
+    }
+
+    public static MapTerm Merge(Term left, Term right, ProcessRuntime? runtime = null)
+    {
+        MapTerm first = RequireMap(left);
+        MapTerm second = RequireMap(right);
+        if (first.Entries.Count == 0)
+            return second;
+        if (second.Entries.Count == 0)
+            return first;
+        if (first.FlatKeys426 is null || second.FlatKeys426 is null)
+        {
+            if (second.FlatKeys426 is null)
+                return new MapTerm(first.ArithmeticKeyEntries.Concat(second.ArithmeticKeyEntries));
+            MapTerm result = first;
+            foreach (var pair in second.FlatPairs())
+                result = runtime is null ? result.SourcePut(pair.Key, pair.Value) : RuntimeMapPut.Put(
+                    runtime,
+                    result,
+                    pair.Key,
+                    pair.Value
+                );
+
+            return result;
+        }
+        var one = first.FlatPairs();
+        var two = second.FlatPairs();
+        var entries = new List<KeyValuePair<Term, Term>>();
+        int firstIndex = 0;
+        int secondIndex = 0;
+        while (firstIndex < one.Count && secondIndex < two.Count)
+        {
+            Term firstKey = one[firstIndex].Key;
+            Term secondKey = two[secondIndex].Key;
+            int order = firstKey is Atom a && secondKey is Atom b
+                ? AtomNameRegistry.IndexOf(a.Name).CompareTo(AtomNameRegistry.IndexOf(b.Name))
+                : TermOrder.Compare(firstKey, secondKey, true);
+            if (order < 0)
+                entries.Add(one[firstIndex++]);
+            else
+            {
+                entries.Add(two[secondIndex++]);
+                if (order == 0)
+                    firstIndex++;
+            }
+        }
+        entries.AddRange(one.Skip(firstIndex));
+        entries.AddRange(two.Skip(secondIndex));
+
+        return new MapTerm(entries);
     }
 
     public static MapTerm Remove(Term key, Term source) => new(RequireMap(source).Entries.Where(entry => !entry.Key.Equals(key)));

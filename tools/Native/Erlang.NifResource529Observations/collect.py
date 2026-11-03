@@ -6,6 +6,32 @@ ROOT=Path(__file__).resolve().parents[3]
 TOOL=Path(__file__).resolve().parent
 PIN="ad05823719d77c8faee87348ea39513d4e2f99c5"
 def sha(p): return hashlib.sha256(Path(p).read_bytes()).hexdigest().upper()
+def dependency_sha(row):
+ mode=row.get('HashMode','Raw')
+ path=ROOT/row['Path']
+ if mode not in {'Raw','TextLF'} or mode=='TextLF' and path.suffix not in {'.csproj','.props','.targets','.json'}:
+  raise ValueError('Unexpected declared source hash mode')
+ data=path.read_bytes()
+ if mode=='TextLF':data=data.replace(b'\r\n',b'\n')
+ return hashlib.sha256(data).hexdigest().upper()
+
+def dependency_failures(rows):
+ if not isinstance(rows,list) or not rows:
+  return [{'Error':'Source dependency inventory must be a nonempty list'}]
+ failures=[]
+ for row in rows:
+  if not isinstance(row,dict):
+   failures.append({'Error':'Source dependency row must be an object','Row':repr(row)})
+   continue
+  detail={'Path':row.get('Path'),'HashMode':row.get('HashMode','Raw'),'Expected':row.get('Sha256')}
+  try:
+   actual=dependency_sha(row)
+   if actual!=row['Sha256']:
+    failures.append(dict(detail,Actual=actual))
+  except (OSError,ValueError,KeyError,TypeError) as error:
+   failures.append(dict(detail,Error=repr(error)))
+ return failures
+
 def save(p,v): p.write_text(json.dumps(v,indent=2)+"\n")
 def load(n,p):
  s=importlib.util.spec_from_file_location(n,p);m=importlib.util.module_from_spec(s);s.loader.exec_module(m);return m
@@ -13,7 +39,7 @@ def es(p):
  s=str(p).replace("\\","/")
  if any(ord(c)<32 or ord(c)>126 for c in s): raise ValueError("ASCII acquisition paths required")
  return json.dumps(s)
-def expr(job, spec, libraries, directory, installed, modules):
+def expr(job, spec, libraries, directory, installed, modules, stock):
  # Entire actual result is encoded in both profiles, never normalized.
  fresh="<<>>" if job=="family527" else "element(2,file:read_file(\"native_resource_handoff528.beam\"))"
  first=es(libraries[0].with_suffix(""));second=es(libraries[-1].with_suffix(""))
@@ -26,12 +52,20 @@ def expr(job, spec, libraries, directory, installed, modules):
   assert spec['Observer']=='resource_takeover_observer529' and spec['ObserverArity']==6
   call='resource_takeover_observer529:run('+job+','+first+','+fresh+','+second+','+es(str(marker)+'-first')+','+es(str(marker)+'-second')+')'
  files=",".join(es(x+".erl") for x in modules)
+ stock_pairs=','.join('{'+item['Module']+',filename:absname('+es(item['ProviderPath'])+')}' for item in stock)
+ stock_evidence=('Stock=['+stock_pairs+'],W("stock-executing-owners.etf",[begin '
+  +'Running=M:module_info(md5),P=filename:absname(code:which(M)),'
+  +'{ok,{M,Running}}=beam_lib:md5(P),'
+  +'{M,P,Running,M:module_info(compile),M:module_info(attributes),M:module_info(exports)} '
+  +'end||{M,P}<-Stock]),')
+
  return ('W=fun(N,V)->ok=file:write_file(N,term_to_binary(V,[{minor_version,2}])) end,try '
   +'Expected=filename:absname('+es(installed)+'),Expected=filename:absname(code:root_dir()),8=erlang:system_info(wordsize),'
   +'W("metadata.etf",{Expected,erlang:system_info(version),erlang:system_info(system_architecture)}),'
   +'C=[compile:file(F,[return_errors,return_warnings])||F<-['+files+']],W("compile.etf",C),'
   +'true=lists:all(fun({ok,_,_})->true;({ok,_})->true;(_)->false end,C),'
   +'W("executing-owners.etf",[{M,code:which(M),M:module_info(md5),M:module_info(compile),M:module_info(attributes),M:module_info(exports)}||M<-['+','.join(modules)+']]),'
+  +stock_evidence
   +'V='+call+','
   +'W("observed.etf",V),ok=file:write_file("observed-deterministic.etf",term_to_binary(V,[deterministic,{minor_version,2}])),'
   +'Cleanup=[{M,code:delete(M),code:purge(M),code:is_loaded(M)}||M<-['+','.join(modules)+']],W("cleanup.etf",Cleanup),'
@@ -53,6 +87,7 @@ def main():
  a=argparse.ArgumentParser(description=__doc__)
  for n in ['provider-admission','provider-sha256','plan-sha256','output']:a.add_argument('--'+n,required=True)
  a.add_argument('--execute-resource529',action='store_true');a.add_argument('--original-only',action='store_true')
+ a.add_argument('--jobs',nargs='+',choices=['family527','fresh_load_after_purge','genuine_upgrade'],help='Explicit independent protocols; default preserves all three')
  a.add_argument('--dotnet-fx-version',default='10.0.11',help='Exact admitted backend runtime version')
  a.add_argument('--backend');a.add_argument('--backend-sha256');a.add_argument('--backend-manifest');a.add_argument('--backend-manifest-sha256');a.add_argument('--dependency-images',help='Source-bound original/runtime BEAM dependency inventory')
  x=a.parse_args();planpath=TOOL/'source-plan.json'
@@ -61,9 +96,15 @@ def main():
  assert plan['ProtocolSchemaVersion']==2 and plan['OriginalFirstRequired'] is True
  assert set(plan['Variants'])=={'family1','handoff1','handoff2'}
  assert set(plan['Jobs'])=={'family527','fresh_load_after_purge','genuine_upgrade'}
+ names=x.jobs if x.jobs is not None else list(plan['Jobs'])
+ if len(names)!=len(set(names)):
+  raise RuntimeError('Duplicate selected protocols')
+ selected={name:plan['Jobs'][name] for name in names}
+ selected_variants={variant for job in selected.values() for variant in job['Variants']}
  assert plan.get('SealState')=='FINAL_SOURCE_BOUND_NOT_EXECUTED' and plan['Dependencies']
  assert plan['BuildScriptSha256']==sha(TOOL/'build-native.py')
- for row in plan['Dependencies']:assert sha(ROOT/row['Path'])==row['Sha256']
+ dependency_errors=dependency_failures(plan['Dependencies'])
+ if dependency_errors:raise RuntimeError('Source dependency admission failed: '+json.dumps(dependency_errors,sort_keys=True))
  admission=Path(x.provider_admission).resolve();assert sha(admission)==x.provider_sha256.upper()
  provider=json.loads(admission.read_bytes());assert provider['SourceCommit']==PIN and provider['ReleaseTag']=='OTP-29.1.1'
  installed=Path(provider['InstalledOtpRoot']).resolve();manifest=Path(provider['ExecutionManifestPath']);assert sha(manifest)==provider['ExecutionManifestSha256']
@@ -81,7 +122,7 @@ def main():
   dep=json.loads(Path(x.dependency_images).read_bytes())
   for row in dep:assert sha(row['Path'])==row['Sha256']
  out=Path(x.output).resolve();assert out.is_relative_to(ROOT/'artifacts/nif-resource529') and not out.exists();es(out);out.mkdir(parents=True)
- save(out/'provider-before.json',before);save(out/'selection.json',{'Execute':x.execute_resource529,'OriginalOnly':x.original_only,'PlanSha256':sha(planpath),'ProviderSha256':sha(admission),'DependencyImages':dep})
+ save(out/'provider-before.json',before);save(out/'selection.json',{'Execute':x.execute_resource529,'OriginalOnly':x.original_only,'PlanSha256':sha(planpath),'ProviderSha256':sha(admission),'DependencyImages':dep,'SelectedProtocols':list(selected),'SelectedVariants':sorted(selected_variants)})
  if not x.execute_resource529:save(out/'completion.json',{'PreparedOnly':True,'OriginalExecuted':False,'ManagedExecuted':False});return 0
  env=dict(os.environ)
  for k in ['ERL_FLAGS','ERL_AFLAGS','ERL_ZFLAGS','ERL_LIBS','ERL_COMPILER_OPTIONS','ERLC_EMULATOR']:env.pop(k,None)
@@ -93,6 +134,8 @@ def main():
   except Exception as e:phases[name]={'Failed':True,'Error':repr(e)};errors.append(name+': '+repr(e));return False
  try:
   for variant in plan['Variants']:
+   if variant not in selected_variants:
+    continue
    d=out/('build-'+variant)
    ok=phase('build-'+variant,[sys.executable,'-B',str(TOOL/'build-native.py'),'--plan',str(planpath),'--approved-plan-sha256',x.plan_sha256,'--provider-admission',str(admission),'--variant',variant,'--output',str(d)],ROOT)
    if ok:
@@ -100,25 +143,38 @@ def main():
      b=json.loads((d/'build-receipt.json').read_bytes());assert b['Status']=='RESOURCE529_WINDOWS_BUILD_COMPLETE' and b['Variant']==variant and b['LibrarySha256']==sha(d/'resource529.dll')
     except Exception as e:ok=False;errors.append(variant+' receipt: '+repr(e))
    builds[variant]=ok
-  # Acquire all three independent original protocols before launching any managed child.
-  for name,job in plan['Jobs'].items():
+  # Acquire every selected independent original before launching any managed child.
+  for name,job in selected.items():
    if not all(builds[v] for v in job['Variants']):
     originals[name]={'Succeeded':False,'SkippedDependentBuildFailure':True}
     continue
    try:
     d=out/('original-'+name);d.mkdir();libs=[out/('build-'+v)/'resource529.dll' for v in job['Variants']]
     for module in job['Modules']:shutil.copyfile(TOOL/'fixtures'/(module+'.erl'),d/(module+'.erl'))
-    command=[str(installed/'bin/erl.exe'),'+S','1:1','+A','1','+SDcpu','1','+SDio','2','-noshell','-noinput','-boot','no_dot_erlang','-pa',str(d),'-eval',expr(name,job,libs,d,installed,job['Modules'])]
+    stock=[]
+    stock_directory=d/'stock-images'
+    stock_directory.mkdir()
+    for module in job.get('StockModules',['timer']):
+     candidates=list((installed/'lib').glob(('kernel-*' if module=='erts_debug' else 'stdlib-*')+'/ebin/'+module+'.beam'))
+     assert len(candidates)==1,('Provider stock image',module,candidates)
+     source=candidates[0].resolve();relative=source.relative_to(installed).as_posix()
+     assert sha(source)==expected[relative]
+     copied=stock_directory/(module+'.beam');shutil.copyfile(source,copied)
+     assert sha(copied)==expected[relative]
+     stock.append({'Module':module,'ProviderPath':str(source),'ProviderRelativePath':relative,'Path':str(copied.resolve()),'Sha256':sha(copied),'Bytes':copied.stat().st_size})
+    save(d/'stock-images.json',stock)
+
+    command=[str(installed/'bin/erl.exe'),'+S','1:1','+A','1','+SDcpu','1','+SDio','2','-noshell','-noinput','-boot','no_dot_erlang','-pa',str(d),'-eval',expr(name,job,libs,d,installed,job['Modules'],stock)]
     ok=phase('original-'+name,command,d)
-    required=['observed.etf','observed-deterministic.etf','compile.etf','metadata.etf','executing-owners.etf','cleanup.etf']+[m+'.beam' for m in job['Modules']]
+    required=['observed.etf','observed-deterministic.etf','compile.etf','metadata.etf','executing-owners.etf','stock-executing-owners.etf','stock-images.json','cleanup.etf']+[m+'.beam' for m in job['Modules']]
     missing=[s for s in required if not (d/s).is_file()]
     if missing:ok=False;errors.append(name+' missing '+repr(missing))
-    inventory=[{'Path':str(f.resolve()),'Sha256':sha(f),'Bytes':f.stat().st_size} for f in sorted(d.iterdir()) if f.is_file()]
+    inventory=[{'Path':str(f.resolve()),'Sha256':sha(f),'Bytes':f.stat().st_size} for f in sorted(d.rglob('*')) if f.is_file()]
     save(d/'artifacts.json',inventory);originals[name]={'Succeeded':ok,'InventorySha256':sha(d/'artifacts.json')}
    except Exception as e:
     errors.append(name+' independent original: '+repr(e));originals[name]={'Succeeded':False,'Error':repr(e)}
   if not x.original_only:
-   for name,job in plan['Jobs'].items():
+   for name,job in selected.items():
     if not originals.get(name,{}).get('Succeeded'):
      for route in ['ordinary','reviewed']:
       for profile in ['ordinary','private-owned']:
@@ -127,7 +183,22 @@ def main():
     try:
      d=out/('original-'+name);libs=[out/('build-'+v)/'resource529.dll' for v in job['Variants']]
      images=[{'Module':m,'Path':str((d/(m+'.beam')).resolve()),'Sha256':sha(d/(m+'.beam'))} for m in job['Modules']]+dep
-     ad={'Status':'RESOURCE529_SOURCE_BOUND','ProtocolSchemaVersion':2,'Pin':PIN,'Job':name,'Images':images,'Dependencies':[r['Module'] for r in images], 'Libraries':[{'Path':str(lib.resolve()),'Sha256':sha(lib),'BuildReceiptPath':str((lib.parent/'build-receipt.json').resolve()),'BuildReceiptSha256':sha(lib.parent/'build-receipt.json')} for lib in libs], 'OriginalRawPath':str((d/'observed.etf').resolve()),'OriginalDeterministicPath':str((d/'observed-deterministic.etf').resolve()),'OriginalInventoryPath':str((d/'artifacts.json').resolve()),'OriginalInventorySha256':sha(d/'artifacts.json'),'PlanSha256':sha(planpath),'Inputs':backend_inputs+[{'Path':str((out/('build-'+v)/'build-receipt.json').resolve()),'Sha256':sha(out/('build-'+v)/'build-receipt.json')} for v in job['Variants']]}
+     stock=json.loads((d/'stock-images.json').read_bytes())
+     stock_images=[]
+     for item in stock:
+      assert item['Sha256']==expected[item['ProviderRelativePath']]==sha(item['Path'])
+      assert Path(item['Path']).resolve().is_relative_to((d/'stock-images').resolve())
+      stock_images.append({key:item[key] for key in ['Module','Path','Sha256']})
+     by_module={}
+     for item in images+stock_images:
+      prior=by_module.get(item['Module'])
+      assert prior is None or prior['Sha256']==item['Sha256'],('Conflicting image',item['Module'])
+      by_module[item['Module']]=item
+     images=list(by_module.values())
+     reader=load('resource529_imports',TOOL/'replay-family.py')
+     dependencies=sorted({item['Module'] for item in images}|{entry['Module'] for item in images for entry in reader.imports(item['Path'])})
+
+     ad={'Status':'RESOURCE529_SOURCE_BOUND','ProtocolSchemaVersion':2,'Pin':PIN,'Job':name,'Images':images,'Dependencies':dependencies, 'Libraries':[{'Path':str(lib.resolve()),'Sha256':sha(lib),'BuildReceiptPath':str((lib.parent/'build-receipt.json').resolve()),'BuildReceiptSha256':sha(lib.parent/'build-receipt.json')} for lib in libs], 'OriginalRawPath':str((d/'observed.etf').resolve()),'OriginalDeterministicPath':str((d/'observed-deterministic.etf').resolve()),'OriginalInventoryPath':str((d/'artifacts.json').resolve()),'OriginalInventorySha256':sha(d/'artifacts.json'),'PlanSha256':sha(planpath),'Inputs':backend_inputs+[{'Path':str((out/('build-'+v)/'build-receipt.json').resolve()),'Sha256':sha(out/('build-'+v)/'build-receipt.json')} for v in job['Variants']]}
     except Exception as e:
      errors.append(name+' managed admission preparation: '+repr(e))
      for route in ['ordinary','reviewed']:
@@ -153,9 +224,8 @@ def main():
        errors.append(n+' independent managed: '+repr(e));managed[n]={'Succeeded':False,'Error':repr(e)}
 
  finally:
-  for dependency530 in plan['Dependencies']:
-   try:assert sha(ROOT/dependency530['Path'])==dependency530['Sha256']
-   except Exception as e:errors.append('Source closure changed: '+repr(e))
+  for dependency_error in dependency_failures(plan['Dependencies']):
+   errors.append('Source closure changed: '+json.dumps(dependency_error,sort_keys=True))
   for input529 in backend_inputs:
    try:assert sha(input529['Path'])==input529['Sha256']
    except Exception as e:errors.append('Backend closure changed: '+repr(e))
@@ -163,7 +233,7 @@ def main():
    after=inv.inventory(installed);save(out/'provider-after.json',after)
    if after!=before:errors.append('Provider closure changed')
   except Exception as e:errors.append('Provider final inventory: '+repr(e))
-  errors.extend(validate_batch(originals,managed,plan['Jobs'],x.original_only))
-  save(out/'completion.json',{'ProtocolSchemaVersion':2,'OriginalFirst':True,'NormalizationPerformed':False,'SelectedOriginalCount':3,'SelectedManagedCount':0 if x.original_only else 12,'Phases':phases,'Originals':originals,'Managed':managed,'AllSelectedPassed':not errors,'Errors':errors,'OriginalGoldenState':'ACQUIRED_ONLY_WHERE_SUCCEEDED','OriginalExecuted':any(n.startswith('original-') for n in phases),'ManagedExecuted':any(n in phases for n in managed),'WholeContractsClosed':0,'FullCompatibilityClaimed':False})
+  errors.extend(validate_batch(originals,managed,selected,x.original_only))
+  save(out/'completion.json',{'ProtocolSchemaVersion':2,'OriginalFirst':True,'NormalizationPerformed':False,'SelectedOriginalCount':len(selected),'SelectedManagedCount':0 if x.original_only else 4*len(selected),'SelectedProtocols':list(selected),'SelectedVariants':sorted(selected_variants),'Phases':phases,'Originals':originals,'Managed':managed,'AllSelectedPassed':not errors,'Errors':errors,'OriginalGoldenState':'ACQUIRED_ONLY_WHERE_SUCCEEDED','OriginalExecuted':any(n.startswith('original-') for n in phases),'ManagedExecuted':any(n in phases for n in managed),'WholeContractsClosed':0,'FullCompatibilityClaimed':False})
  return 1 if errors else 0
 if __name__=='__main__':sys.exit(main())

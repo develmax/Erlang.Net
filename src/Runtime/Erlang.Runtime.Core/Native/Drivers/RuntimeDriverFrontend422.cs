@@ -36,7 +36,11 @@ internal sealed partial class RuntimeDriverFrontend422
         }
     }
 
-    internal Task ProcessTerminated(ProcessContext context, Term reason)
+    internal Task ProcessTerminated(
+        ProcessContext context,
+        Term reason,
+        RuntimeProcessPayload641? reason641 = null
+    )
     {
         var work = new List<Task>();
         try
@@ -57,7 +61,12 @@ internal sealed partial class RuntimeDriverFrontend422
         }
         try
         {
-            work.Add(ports.OwnerTerminated(context.Self, reason, transport));
+            work.Add(ports.OwnerTerminated(
+                context.Self,
+                reason,
+                transport,
+                reason641
+            ));
         }
         catch (Exception failure)
         {

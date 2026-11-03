@@ -4,7 +4,7 @@ internal static class BinarySearchModule
 {
     internal static void Register(ModuleRegistry registry)
     {
-        registry.Register(
+        registry.RegisterCanonicalRuntimeRead535(
             BinaryModuleNames.Module,
             BinaryModuleNames.CompilePattern,
             1,
@@ -12,19 +12,19 @@ internal static class BinarySearchModule
         );
         foreach (int arity in new[] { 2, 3 })
         {
-            registry.Register(
+            registry.RegisterCanonicalRuntimeRead535(
                 BinaryModuleNames.Module,
                 BinaryModuleNames.Match,
                 arity,
                 (context, arguments) => BinarySearchExecution.Run(context, arguments, BinarySearchOperation.Match)
             );
-            registry.Register(
+            registry.RegisterCanonicalRuntimeRead535(
                 BinaryModuleNames.Module,
                 BinaryModuleNames.Matches,
                 arity,
                 (context, arguments) => BinarySearchExecution.Run(context, arguments, BinarySearchOperation.Matches)
             );
-            registry.Register(
+            registry.RegisterCanonicalRuntimeRead535(
                 BinaryModuleNames.Module,
                 BinaryModuleNames.Split,
                 arity,

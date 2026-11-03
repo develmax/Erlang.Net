@@ -7,5 +7,8 @@ internal enum NifNativeLoadReasonKind
     UndeclaredFunction,
     DuplicateFunction,
     LoadVeto,
+    FutureVersion651,
+    OldVersion651,
+    Variant651,
     IllegalFlags521
 }

@@ -11,6 +11,10 @@ presence and passing value comparisons do not establish 100% OTP compatibility.
 Full exception stacks remain an explicit failing acceptance gate. No API is
 promoted to fully compatible by this port.
 
+The [retained checkpoint](validation/string-port-20261103/README.md) includes
+complete original/actual outcomes, code/build inputs, provenance and explicit
+failed acceptance gates.
+
 ## Explicit alternatives
 
 - C#: `src/Otp/Managed/Erlang.Otp.Stdlib/Text/`. Opt in with
@@ -64,6 +68,26 @@ returns a failing exit code for either category. Full-suite regression, broader
 Unicode conformance/upstream suites, resource/scheduler/backtrace-depth profiles,
 canonical readiness publication and existing startup-selector integration remain
 required acceptance work.
+
+The 2026-11-03 expanded comparison matched **5,226/5,226 values and exception
+class/reason outcomes** in each alternative: 4,193 returned values and 1,033
+exceptions. Complete stacks matched 3/1,033 in C# and 1,020/1,033 for original
+Erlang on .NET. The validator correctly returned failure. These counts are
+finite-corpus evidence, not a module-wide compatibility percentage.
+
+Thirteen additional binary-backing observations cover slices around the 64-byte
+copy boundary, suffix/prefix/search, split/replace/take and trimming. Limited
+binary slices retain the original backing through `SliceBits`; re-encoding an
+equal text would have lost this observable property. The separate 71-export
+smoke plus all backing observations passes on the frozen-runtime build.
+
+The shared checkout entered a concurrent integration merge with conflicts after
+the normal projects had built successfully. The later backing check therefore
+uses a separately rebuilt stdlib and current observer over retained runtime
+assemblies; unrelated stdlib sources are bound to `07da777f6`. Current source
+integration, default registration and canonical readiness are not inferred from
+that isolated check. `-RunnerDll` selects an explicit previously built validator
+without compiling a conflicting checkout. Its hash is retained in provenance.
 
 ## Reference and reuse
 

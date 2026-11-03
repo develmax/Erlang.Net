@@ -64,7 +64,7 @@ internal sealed class HamtIndexOwner429(ProcessRuntime runtime)
             // No owner lock is held while the actual runtime/hash identity
             // provider takes its runtime or KnownNodes locks.
             using var hashes = runtime.MapHashIdentityProvider(OtpMapHashLayoutProtocol.Append);
-            HamtViewEntry[] entries = map.Entries.Select(pair => new HamtViewEntry(pair, hashes.Hash(pair.Key))).ToArray();
+            HamtViewEntry[] entries = map.ArithmeticKeyEntries.Select(pair => new HamtViewEntry(pair, hashes.Hash(pair.Key))).ToArray();
             HamtHashLeases429 ownership = hashes.TransferHamtLeases429(this);
             try
             {
@@ -121,6 +121,20 @@ internal sealed class HamtIndexOwner429(ProcessRuntime runtime)
                 lock (gate) builders--;
                 TrySettle();
             }
+        }
+    }
+
+    internal HamtNodeRead785 AcquireNode785(HamtBitmapTerm429 node)
+    {
+        lock (gate)
+        {
+            ObjectDisposedException.ThrowIf(closing, HamtIndexNames429.Closed);
+            if (!ReferenceEquals(Domain, node.Domain))
+                throw new ArgumentException(HamtIndexNames429.Foreign);
+            var read = new HamtNodeRead785(this);
+            readers = checked(readers + 1);
+
+            return read;
         }
     }
 

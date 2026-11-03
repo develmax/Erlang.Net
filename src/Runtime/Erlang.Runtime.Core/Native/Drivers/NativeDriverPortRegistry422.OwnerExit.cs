@@ -2,7 +2,12 @@ namespace Erlang;
 
 internal sealed partial class NativeDriverPortRegistry422
 {
-    internal Task OwnerTerminated(Pid owner, Term reason, DriverParentPeerTransport422 transport)
+    internal Task OwnerTerminated(
+        Pid owner,
+        Term reason,
+        DriverParentPeerTransport422 transport,
+        RuntimeProcessPayload641? reason641 = null
+    )
     {
         var stopping = new List<NativeDriverPortRow422>();
         lock (gate)
@@ -13,7 +18,7 @@ internal sealed partial class NativeDriverPortRegistry422
                 if (row.Connected.Equals(owner) || !reason.Equals(Term.A(ProcessExitReasons.Normal)))
                 {
                     row.StopRequested = true;
-                    row.Reason = reason;
+                    row.SetReason641(reason, reason641);
                     row.Writable.TrySetResult();
                     stopping.Add(row);
                 }

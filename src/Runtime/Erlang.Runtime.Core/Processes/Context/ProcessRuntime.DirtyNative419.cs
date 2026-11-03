@@ -20,7 +20,7 @@ public sealed partial class ProcessRuntime
             if (!ReferenceEquals(context.Runtime, this)) throw new ArgumentException(DirtyNativeNames419.Foreign, nameof(context));
             RequireEtsFoundationActor(context);
             context.Cancellation.ThrowIfCancellationRequested();
-            owner = dirtyNative419 ??= new(dirtyIoSchedulerCount522);
+            owner = dirtyNative419 ??= new(dirtyIoSchedulerCount522, Statistics.Microstates);
         }
 
         var scheduler = context.ActorTaskScheduler ?? throw new InvalidOperationException(DirtyNativeNames419.NoContext);

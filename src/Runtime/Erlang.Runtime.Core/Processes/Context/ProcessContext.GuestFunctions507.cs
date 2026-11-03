@@ -3,8 +3,11 @@ namespace Erlang;
 public sealed partial class ProcessContext
 {
     internal ValueTask<Term> InvokeGuestFunction507(FunctionTerm function, IReadOnlyList<Term> arguments)
-        => !Runtime.OwnedTermsPilot506 || !RuntimeActorExecutionTurn.IsOwnedBy(this)
+        => !OwnedExecutionEnabled683 || !RuntimeActorExecutionTurn.IsOwnedBy(this)
             || CurrentOwned506 is not { IsDisposed: false }
+            // The optimized external/canonical paths bypass FunctionTerm.Invoke.
+            // Keep its declared-arity failure before any external MFA lookup.
+            || function.Arity != arguments.Count
             ? function.Invoke(this, arguments) : AwaitGuestFunction507(function, arguments);
 
     private async ValueTask<Term> AwaitGuestFunction507(FunctionTerm function, IReadOnlyList<Term> arguments)

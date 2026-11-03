@@ -2,7 +2,7 @@ using System.Numerics;
 
 namespace Erlang;
 
-internal sealed class RuntimeNumericMapLayout(ProcessRuntime runtime) : ITermMapComparisonLayout
+internal sealed class RuntimeNumericMapLayout(ProcessRuntime runtime) : ITermMapOrderingLayout
 {
     private readonly Dictionary<MapTerm, IReadOnlyList<KeyValuePair<Term, Term>>> layouts = new(ReferenceEqualityComparer.Instance);
 
@@ -24,6 +24,33 @@ internal sealed class RuntimeNumericMapLayout(ProcessRuntime runtime) : ITermMap
         layouts.Add(map, result);
 
         return result;
+    }
+
+    public int CompareHashKeys(Term left, Term right)
+    {
+        using var hashes = runtime.MapHashIdentityProvider(OtpMapHashLayoutProtocol.Append);
+        ulong first = hashes.Hash(left);
+        ulong second = hashes.Hash(right);
+        for (int level = 0; level < HamtViewLayout.HashLevels; level++)
+        {
+            int order = (first & HamtViewLayout.NibbleMask).CompareTo(second & HamtViewLayout.NibbleMask);
+            if (order != 0)
+                return order;
+            first >>= HamtViewLayout.NibbleBits;
+            second >>= HamtViewLayout.NibbleBits;
+        }
+
+        return 0;
+    }
+
+    public NativeMapEqualityPlan505? ReadExactEqualityPlan(MapTerm left, MapTerm right)
+    {
+        if (NativeMapMaterialization505.TryRead(left, runtime, out var first))
+            return first.EqualityPlan(right);
+        if (NativeMapMaterialization505.TryRead(right, runtime, out var second))
+            return second.EqualityPlan(left);
+
+        return null;
     }
 
     public void Dispose() => layouts.Clear();

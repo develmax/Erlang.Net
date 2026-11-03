@@ -7,5 +7,5 @@ internal static class BeamDelayBinary411Names
     internal const byte Jump = 61, Move = 64, EqualOpcode = 43, SavePosition = 167;
     internal const string SafeTest = "runtime/beam/delay-binary411/disjoint-binary-and-finite-wait";
     internal const string OpaqueTest = "runtime/beam/delay-binary411/opaque-x-y-context-position-refused";
-    internal const string JoinTest = "runtime/beam/delay-binary411/join-uninitialized-backedge-and-matcher-composition-still-refused";
+    internal const string JoinTest = "runtime/beam/delay-binary411/joins-backedge-refused-and-dead-scratch-matcher-executes";
 }

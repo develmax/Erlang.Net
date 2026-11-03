@@ -161,7 +161,7 @@ public sealed partial class RuntimeDistributionPending
         }
     }
 
-    internal void ProcessTerminated(ProcessContext process, Term reason)
+    internal void ProcessTerminated(ProcessContext process, Term reason, RuntimeProcessPayload641? reason641 = null)
     {
         lock (gate)
         {
@@ -169,7 +169,7 @@ public sealed partial class RuntimeDistributionPending
             nodeMonitors458.RemoveAll(item => ReferenceEquals(item.Owner, process));
             var failures = new List<Exception>();
             RetireStep(() => RetireControllerAdoptions(controller: process));
-            RetireStep(() => ConnectedSpawnOwnerTerminated(process, reason));
+            RetireStep(() => ConnectedSpawnOwnerTerminated(process, reason, reason641));
             if (ReferenceEquals(kernelSetup, process))
             {
                 kernelSetup = null;
@@ -245,7 +245,7 @@ public sealed partial class RuntimeDistributionPending
             entries.Clear();
             pending.Clear();
             controllers.Clear();
-            connectedSpawnRequests.Clear();
+            ClearConnectedSpawnRequests641();
             nodeMonitors458.Clear();
             kernelSetup = null;
         }

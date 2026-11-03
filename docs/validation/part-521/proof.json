@@ -1,0 +1,973 @@
+{
+  "Scope": "BEAM constructor commit candidate; genuine compiled-map two profiles and variadic four routes",
+  "RuntimeSourcePlanSha256": {
+    "tools/Runtime/Erlang.OwnedGuest506Observations/source-plan.json": "E0F71DABABACC97FC1FD0A7597C534D575FE1C3939FAAF2572FC03E36A641DC4",
+    "tools/Native/Erlang.NifPendingVarargsObservations/reviewed-source-plan.json": "3C21B2AE1E06E45730F3FAB85E0687656D2F9473B064CC5FDABCC159D699B43B",
+    "tools/Native/Erlang.NifReallocationObservations/SOURCE-PLAN.json": "703F8A18E68F55FEF9543D171E41B64E4ADCF5A6D6492269ADDC7A0133254B50",
+    "tools/Native/Erlang.NifVariadic526Observations/source-plan.json": "2AADDF97629455DD9491733EEBB64245F965D69DC01D61AC4D0812D9020AD416"
+  },
+  "ApplicableRegressions": 91,
+  "CatalogCount": 9174,
+  "SourceGuards": 1940,
+  "FullContractDelta": 0,
+  "KnownDifferencesRemaining": 24,
+  "KernelBootAccepted": false,
+  "ArchiveSha256": "A8DB5B99E19A71BFEBDA6175D26498F931D54A638EAD51F7A1A7306A330C7070",
+  "Files": [
+    {
+      "Path": "publication/affected-command.json",
+      "Bytes": 8910,
+      "Sha256": "4C94D702F519B2C3F6C01B25FB2E0AB66A1FD66F1697D71699D1E34ADDE3717C"
+    },
+    {
+      "Path": "publication/affected-composed-command.json",
+      "Bytes": 7539,
+      "Sha256": "A57B8718BD76E0D51C0AB4192CB7BC4942C04AEBA4D8A797E40D175750A11356"
+    },
+    {
+      "Path": "publication/affected-composed.json",
+      "Bytes": 20010,
+      "Sha256": "110437AF2E1BD7AB55868DCBC91834727F11D3520389A1F4D6A103AA261FA8D8"
+    },
+    {
+      "Path": "publication/affected-composed.log",
+      "Bytes": 7292,
+      "Sha256": "403FEA95CF1EEACDA8B7A6C6324AAA8D0E42F694291CC245EB8F0881140AC7DC"
+    },
+    {
+      "Path": "publication/affected-final.json",
+      "Bytes": 20014,
+      "Sha256": "AF8FA7AD68E98234473A552C52D7159593E7A30A251E22A4F1C770869DE6964B"
+    },
+    {
+      "Path": "publication/affected-final.log",
+      "Bytes": 7292,
+      "Sha256": "403FEA95CF1EEACDA8B7A6C6324AAA8D0E42F694291CC245EB8F0881140AC7DC"
+    },
+    {
+      "Path": "publication/affected.log",
+      "Bytes": 76,
+      "Sha256": "A9F3A3E0F3E98A6E263312330FF7612B4E8372D28AE7BFCE8B1652BC729A618F"
+    },
+    {
+      "Path": "publication/build.log",
+      "Bytes": 2132,
+      "Sha256": "74BF991E3576345D550FDB59C73E034BDB98990E373E380402C94C7499C3D8F6"
+    },
+    {
+      "Path": "publication/catalog.log",
+      "Bytes": 567727,
+      "Sha256": "A801AB0FDF487D154454CC29844C086E326979B82013329326B310D54C3B0693"
+    },
+    {
+      "Path": "publication/final-build.log",
+      "Bytes": 2132,
+      "Sha256": "D535C73AD4859E82B344D0FC5538FA789C86C367297410AF820B423DFD2A9735"
+    },
+    {
+      "Path": "publication/map-admission.json",
+      "Bytes": 1762,
+      "Sha256": "0AC971C265CAF01223AA03EDCC0E97F154DDF7EE074E603A81F45475306DAB47"
+    },
+    {
+      "Path": "publication/map-adoption.log",
+      "Bytes": 163,
+      "Sha256": "FC3C17FC935928A44D2FCB81D08AF295C77748ED24DDC13DDE2E55E7601E4FDD"
+    },
+    {
+      "Path": "publication/map-comparison.json",
+      "Bytes": 964,
+      "Sha256": "4EBB43820C34C0FFADAC9A9769E7B9DDF21B588A72A9FBE1013054A82509678F"
+    },
+    {
+      "Path": "publication/map-managed.log",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "publication/map-original/completion.json",
+      "Bytes": 3339,
+      "Sha256": "22C955ECAACAD68BEED01086C27FAB52EB94EFEAF276BD12073F83CF052DA318"
+    },
+    {
+      "Path": "publication/map-original/launch-plan.json",
+      "Bytes": 408,
+      "Sha256": "229F1E55FAE093985CBA036503DED72186268C8F90458877CADEE37140CA970D"
+    },
+    {
+      "Path": "publication/map-original/map-routing517/artifacts.json",
+      "Bytes": 2520,
+      "Sha256": "1E49AC876C268500E8F24CE3D194DA04B05137E8D800B7B7DE7A0AC669A34CF1"
+    },
+    {
+      "Path": "publication/map-original/map-routing517/compile.etf",
+      "Bytes": 56,
+      "Sha256": "EF962F0B3FEE6C3DA1BAEC9B67E33DC6D4D89F7CE15E61774A896E55101C775E"
+    },
+    {
+      "Path": "publication/map-original/map-routing517/contract_worker513.beam",
+      "Bytes": 1836,
+      "Sha256": "0C7696D27A08AEF7172726DD8626496185D32E898544079A65072F4F087E87E9"
+    },
+    {
+      "Path": "publication/map-original/map-routing517/contract_worker513.erl",
+      "Bytes": 1294,
+      "Sha256": "D9C30FF09F7F9B5AD29C23A2F5C8D01BFD0E177F836C705E2840963D93BE73C5"
+    },
+    {
+      "Path": "publication/map-original/map-routing517/executing-owners.etf",
+      "Bytes": 847,
+      "Sha256": "6A1133179C0A6049E980643C8A42C04E7288BC3253950760FD61CE54AC7B79BB"
+    },
+    {
+      "Path": "publication/map-original/map-routing517/map_routes517.beam",
+      "Bytes": 2932,
+      "Sha256": "77C7AD9C7B099757B6C524C4555EB8C8B01E87DE4A80DD66368464C56174829A"
+    },
+    {
+      "Path": "publication/map-original/map-routing517/map_routes517.erl",
+      "Bytes": 3705,
+      "Sha256": "743F7C3906BDC33CB91E3E6E71A48E9DBBDBE374994D0FB8469453C80DA470EC"
+    },
+    {
+      "Path": "publication/map-original/map-routing517/metadata.etf",
+      "Bytes": 254,
+      "Sha256": "A9DB9A15EA7C99C385F4C3BAD799DB44EB4D4B883C8EE30B20DC24271667B8CD"
+    },
+    {
+      "Path": "publication/map-original/map-routing517/modules.etf",
+      "Bytes": 305,
+      "Sha256": "F2E36E7AF2E684BDB4E7B696CEF8FBD8B6300008C6AE50B66382EE4DE6D06CCB"
+    },
+    {
+      "Path": "publication/map-original/map-routing517/observed-deterministic.etf",
+      "Bytes": 1712,
+      "Sha256": "2E4699875E26DF40E8969FF4D8380BC65D2CF1E58EFBB9B2B2638151A235A7F7"
+    },
+    {
+      "Path": "publication/map-original/map-routing517/observed.etf",
+      "Bytes": 1712,
+      "Sha256": "A7FFF17A58C0B7D5D158112723CA06934118D4A393CEF33DE5FF77826AA93464"
+    },
+    {
+      "Path": "publication/map-original/map-routing517/original.exit.json",
+      "Bytes": 1952,
+      "Sha256": "DC6222F48C72C1E1D73F19F98D75D3B7BDDE8768454D38243B1E2F4EFA84067C"
+    },
+    {
+      "Path": "publication/map-original/map-routing517/original.live.json",
+      "Bytes": 1702,
+      "Sha256": "B654B82AB3AE8A93F0AAF4C12E5159885472F1A24A4D6C54BBC7D7AD8317EB2F"
+    },
+    {
+      "Path": "publication/map-original/map-routing517/original.stderr.log",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "publication/map-original/map-routing517/original.stdout.log",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "publication/map-original/map-routing517/worker-witnesses.etf",
+      "Bytes": 245,
+      "Sha256": "C4BB26EA043AFAE89D93C101084CC681CA66D8E5307E78CE41965CB87F57900B"
+    },
+    {
+      "Path": "publication/map-original/provider-after.json",
+      "Bytes": 379,
+      "Sha256": "7FB9E744752ACF2CA4E53F78CFD208198152F57237CA0608B9042BF01D6C97A0"
+    },
+    {
+      "Path": "publication/map-original/provider-before.json",
+      "Bytes": 757205,
+      "Sha256": "85ACA44BD321DF9EFD9761906D634C9EF28FE4923E194C6C9EEEE924A43898F0"
+    },
+    {
+      "Path": "publication/map-original.log",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "publication/readiness-admission.json",
+      "Bytes": 368,
+      "Sha256": "BFC3512527300ACADDEE2CF363A09A8C53CD3DFC4A3FDBFCD1629D5D58D004F8"
+    },
+    {
+      "Path": "publication/readiness-admission.log",
+      "Bytes": 128,
+      "Sha256": "8025A10642199F73E974B79758BBAFFFE17FA2888EA50CE91051D84AC3A9A956"
+    },
+    {
+      "Path": "publication/seal-proposal/proposal.json",
+      "Bytes": 3655,
+      "Sha256": "08B97D7B7C19920DABB2D101E413EEEBE4156CCD47EA4043666DB0928D2A4711"
+    },
+    {
+      "Path": "publication/seal-proposal/staged-tree/.github/workflows/nif-pending-native.yml",
+      "Bytes": 6273,
+      "Sha256": "3B6223AA5DB516B3B11FB6A6092FABBBA1E3F1EE6E99615BE64A43282698D5A9"
+    },
+    {
+      "Path": "publication/seal-proposal/staged-tree/.github/workflows/nif-reallocation-native.yml",
+      "Bytes": 5797,
+      "Sha256": "1AB72E5DD1AEAC790428902D624D6752C078C86A857192F5F8FD2E9C2217C8F0"
+    },
+    {
+      "Path": "publication/seal-proposal/staged-tree/docs/mfa-compatibility.json",
+      "Bytes": 1693075,
+      "Sha256": "28E8CDB4241EBB2B35CBC865172A761E339E5C537C832CEE849C18E7980097A1"
+    },
+    {
+      "Path": "publication/seal-proposal/staged-tree/docs/module-readiness.json",
+      "Bytes": 2485864,
+      "Sha256": "23C84C1AB9911264E45F5AE15849113EE7CE09D6F18A54D0248D3D5586FD5BEC"
+    },
+    {
+      "Path": "publication/seal-proposal/staged-tree/tools/Native/Erlang.NifPendingVarargsObservations/reviewed-source-plan.json",
+      "Bytes": 739891,
+      "Sha256": "3C21B2AE1E06E45730F3FAB85E0687656D2F9473B064CC5FDABCC159D699B43B"
+    },
+    {
+      "Path": "publication/seal-proposal/staged-tree/tools/Native/Erlang.NifReallocationObservations/SOURCE-PLAN.json",
+      "Bytes": 768668,
+      "Sha256": "703F8A18E68F55FEF9543D171E41B64E4ADCF5A6D6492269ADDC7A0133254B50"
+    },
+    {
+      "Path": "publication/seal-proposal/staged-tree/tools/Native/Erlang.NifVariadic526Observations/source-plan.json",
+      "Bytes": 204985,
+      "Sha256": "2AADDF97629455DD9491733EEBB64245F965D69DC01D61AC4D0812D9020AD416"
+    },
+    {
+      "Path": "publication/seal-proposal/staged-tree/tools/Runtime/Erlang.OwnedGuest506Observations/seal.py",
+      "Bytes": 7798,
+      "Sha256": "851C17B1243D85D1E75A59029512DE6D29A7719283098FA79462880FD8BF5893"
+    },
+    {
+      "Path": "publication/seal-proposal/staged-tree/tools/Runtime/Erlang.OwnedGuest506Observations/source-plan.json",
+      "Bytes": 27742,
+      "Sha256": "E0F71DABABACC97FC1FD0A7597C534D575FE1C3939FAAF2572FC03E36A641DC4"
+    },
+    {
+      "Path": "publication/seal-proposal.log",
+      "Bytes": 3730,
+      "Sha256": "6D818A89A03547ECAF9DCCB6590AC2D36DA2DB7CB11258878CC3F398781CB4A6"
+    },
+    {
+      "Path": "publication/selection.json",
+      "Bytes": 7588,
+      "Sha256": "E8BBFD28C6B58C50C71CEAB395431117A464CF27CB3C5815082575BD269F0464"
+    },
+    {
+      "Path": "publication/style-write.log",
+      "Bytes": 32,
+      "Sha256": "CD9054A77A078CB0F888BD4ECAC39BE95189F9307EF578F4B6AC97C22A9463B6"
+    },
+    {
+      "Path": "publication/style.log",
+      "Bytes": 148,
+      "Sha256": "FCB90DE8461AD8044624496C9E80B4CD3A8C3666DEAFADCF3F58C052690A38FF"
+    },
+    {
+      "Path": "publication/variadic-final.log",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "publication/variadic.log",
+      "Bytes": 679,
+      "Sha256": "F6B7D52B172167FDE8E1A90584BDF87A655F3D0B609AB3491849D3E06B0001F6"
+    },
+    {
+      "Path": "variadic/artifacts.json",
+      "Bytes": 12453,
+      "Sha256": "9B12B9060BA96D7A56584B8324EFFBD184FBDDE9D88D4C4B6FDBC30F71DCA064"
+    },
+    {
+      "Path": "variadic/build/build-receipt.json",
+      "Bytes": 4520,
+      "Sha256": "363B9DEC3DB221977B267B52CDD629D421700491509F6C9717DA0995C5071352"
+    },
+    {
+      "Path": "variadic/build/compile.stderr",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "variadic/build/compile.stdout",
+      "Bytes": 11,
+      "Sha256": "2F97A77084BA90D92DC3C08EDF2F2487ABDA4D0D36774442AA09E351CF23A4F3"
+    },
+    {
+      "Path": "variadic/build/dependencies.stderr",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "variadic/build/dependencies.stdout",
+      "Bytes": 299,
+      "Sha256": "88BA6BA536FAEF01C897B68E86E014FDF0067A65B84E90A0B11ECE5A7DED11AE"
+    },
+    {
+      "Path": "variadic/build/erl_drv_nif.h",
+      "Bytes": 7102,
+      "Sha256": "E9D4280779E8FD4AC463144F310B4DA2346DD3A18E73D445BF1F88AE3C1F1312"
+    },
+    {
+      "Path": "variadic/build/erl_int_sizes_config.h",
+      "Bytes": 1178,
+      "Sha256": "9CE6329729C2F6AA0B87B2D84608FF547A8A256D02D8E9559DFF874CDB8A9986"
+    },
+    {
+      "Path": "variadic/build/erl_nif.h",
+      "Bytes": 13859,
+      "Sha256": "6CB96C37D306A173EF71946E823829FC21E47CB4A19288B221129EAC2F13B689"
+    },
+    {
+      "Path": "variadic/build/erl_nif_api_funcs.h",
+      "Bytes": 38959,
+      "Sha256": "CF34ADA521AEB0EE00C9936320CD694F9816EDBAB960500453051CEA443DDA11"
+    },
+    {
+      "Path": "variadic/build/exports.stderr",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "variadic/build/exports.stdout",
+      "Bytes": 493,
+      "Sha256": "E896D9FF220215F0BCB98F34E4691171F5447CE2B346721F7DA378887D59876F"
+    },
+    {
+      "Path": "variadic/build/fixture.c",
+      "Bytes": 2034,
+      "Sha256": "64EA4EE3CC4E3DBD6EBD6295E35CE34421E69033468BE13548885D8F8C78D411"
+    },
+    {
+      "Path": "variadic/build/fixture.obj",
+      "Bytes": 6563,
+      "Sha256": "1A3FF5310C261D24BC02927AD01EA28BC34D909465A896782B6F1CBDEB9A0075"
+    },
+    {
+      "Path": "variadic/build/link.stderr",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "variadic/build/link.stdout",
+      "Bytes": 78,
+      "Sha256": "FC2E83EC201E7E99F958789F3477245D6DED93CDC0F95D5DED5BE299B5448ED4"
+    },
+    {
+      "Path": "variadic/build/source-plan.json",
+      "Bytes": 204985,
+      "Sha256": "2AADDF97629455DD9491733EEBB64245F965D69DC01D61AC4D0812D9020AD416"
+    },
+    {
+      "Path": "variadic/build/variadic_family526.dll",
+      "Bytes": 10240,
+      "Sha256": "649C1D115857982B19F60E4A5A3DBB976D0178BAD046EAE90CA09E5A12FEC571"
+    },
+    {
+      "Path": "variadic/build/variadic_family526.erl",
+      "Bytes": 408,
+      "Sha256": "64E4A199BCF0779F3968BC131EB60E62A65CEAC159F57C5F167CD11C5BF605A1"
+    },
+    {
+      "Path": "variadic/build/variadic_family526.exp",
+      "Bytes": 735,
+      "Sha256": "E3F69602634E30098C4828B11CCC1E8C7B64699B1091A3E7E4BBB04A43E86C61"
+    },
+    {
+      "Path": "variadic/build/variadic_family526.lib",
+      "Bytes": 1918,
+      "Sha256": "985C1A8EC34394C1580F28A839ACE675B0DC7C303D102CFBE0C5B7275656C2FB"
+    },
+    {
+      "Path": "variadic/completion.json",
+      "Bytes": 8081,
+      "Sha256": "7A2F827D6BA95438C8F715636F771A1CDC6F9DF7D26F07CF93DD0C15D93D9517"
+    },
+    {
+      "Path": "variadic/execution-admission.json",
+      "Bytes": 4054,
+      "Sha256": "2A7464BD7C3A938A0D8AF41666EBF40655DD49925FBD48B1807BF3942D90E754"
+    },
+    {
+      "Path": "variadic/launch-plan.json",
+      "Bytes": 130,
+      "Sha256": "A6DE3A8274515D720A9A90728E978DAA93BCF190411C109C0BF05C336FFACD6A"
+    },
+    {
+      "Path": "variadic/managed-inputs-after.json",
+      "Bytes": 10162,
+      "Sha256": "78DB1BF60CC639C1AC3AF9D94D7AC04D9B408A8F661E9CF29123C95D09D81718"
+    },
+    {
+      "Path": "variadic/managed-inputs-before.json",
+      "Bytes": 10162,
+      "Sha256": "78DB1BF60CC639C1AC3AF9D94D7AC04D9B408A8F661E9CF29123C95D09D81718"
+    },
+    {
+      "Path": "variadic/ordinary-ordinary/actual/completion.json",
+      "Bytes": 1189,
+      "Sha256": "10D1F8BE4CF54B9CAE7F3409E5EDECCF81B032A7642F8B90A29A2EF8FE738424"
+    },
+    {
+      "Path": "variadic/ordinary-ordinary/actual/observed-deterministic.etf",
+      "Bytes": 564389,
+      "Sha256": "644559845754D866D1383A7D273DFB2E4659CECA6CA75E92851FDEBE55F3DE35"
+    },
+    {
+      "Path": "variadic/ordinary-ordinary/actual/observed.etf",
+      "Bytes": 564389,
+      "Sha256": "644559845754D866D1383A7D273DFB2E4659CECA6CA75E92851FDEBE55F3DE35"
+    },
+    {
+      "Path": "variadic/ordinary-ordinary/actual/runtime-profile.json",
+      "Bytes": 67,
+      "Sha256": "0116A049DD7D65AE33C5D6F1D53363CF29DE3C2B02137D4C39EF3345751C6451"
+    },
+    {
+      "Path": "variadic/ordinary-ordinary/actual/source-owners-before.json",
+      "Bytes": 3730,
+      "Sha256": "79DF0F87AF9BB5BB4D6EB13EE4286F82F19C137A669B840F0BAB7C00A5F9816F"
+    },
+    {
+      "Path": "variadic/ordinary-ordinary/original.exit.json",
+      "Bytes": 924,
+      "Sha256": "DDF5EA03397D6330E1C064B8C9DC447026248E77B487F3E7ECE9F792FC50D3E3"
+    },
+    {
+      "Path": "variadic/ordinary-ordinary/original.live.json",
+      "Bytes": 673,
+      "Sha256": "CA253C3FF0581C4C44A4518F61F24D0874469E842365A07EE6F48B0055866EF9"
+    },
+    {
+      "Path": "variadic/ordinary-ordinary/original.stderr.log",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "variadic/ordinary-ordinary/original.stdout.log",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "variadic/ordinary-reviewed/actual/completion.json",
+      "Bytes": 1189,
+      "Sha256": "06C8B7A0695860F95805340C596F85D4392A77A52F10F81EB4A7E1F04AB919F7"
+    },
+    {
+      "Path": "variadic/ordinary-reviewed/actual/observed-deterministic.etf",
+      "Bytes": 564389,
+      "Sha256": "644559845754D866D1383A7D273DFB2E4659CECA6CA75E92851FDEBE55F3DE35"
+    },
+    {
+      "Path": "variadic/ordinary-reviewed/actual/observed.etf",
+      "Bytes": 564389,
+      "Sha256": "644559845754D866D1383A7D273DFB2E4659CECA6CA75E92851FDEBE55F3DE35"
+    },
+    {
+      "Path": "variadic/ordinary-reviewed/actual/runtime-profile.json",
+      "Bytes": 67,
+      "Sha256": "0116A049DD7D65AE33C5D6F1D53363CF29DE3C2B02137D4C39EF3345751C6451"
+    },
+    {
+      "Path": "variadic/ordinary-reviewed/actual/source-owners-before.json",
+      "Bytes": 3730,
+      "Sha256": "79DF0F87AF9BB5BB4D6EB13EE4286F82F19C137A669B840F0BAB7C00A5F9816F"
+    },
+    {
+      "Path": "variadic/ordinary-reviewed/original.exit.json",
+      "Bytes": 924,
+      "Sha256": "EA4F7F0AA1ECB55513A55C920AFE72B9DB2C0B8DD3453E716E1B7375B61CB0CE"
+    },
+    {
+      "Path": "variadic/ordinary-reviewed/original.live.json",
+      "Bytes": 675,
+      "Sha256": "EC5C8DE11766A144BF07CEEE56F26575EE76C85076B65C6FFD13BB6925791DDC"
+    },
+    {
+      "Path": "variadic/ordinary-reviewed/original.stderr.log",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "variadic/ordinary-reviewed/original.stdout.log",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "variadic/original/cleanup.etf",
+      "Bytes": 23,
+      "Sha256": "44FA3EC6F4663BADEF0A0CEB708E492BA9DF2371A3A208C685F11428DCFE98C3"
+    },
+    {
+      "Path": "variadic/original/compile.etf",
+      "Bytes": 68,
+      "Sha256": "61B0B07FD321575BFF345C16037C193FCEDA2D0BED75A50594F80BFABB665427"
+    },
+    {
+      "Path": "variadic/original/executing-owners.etf",
+      "Bytes": 881,
+      "Sha256": "E29561896A6E2E29897C55B426C3DA2287843B93405E773B1D39726EF5A974C8"
+    },
+    {
+      "Path": "variadic/original/launch.json",
+      "Bytes": 1763,
+      "Sha256": "C031431FFAC8159CAB00CF33D51FACA8AC07B644EEE677ACD48EFEBB27AC805C"
+    },
+    {
+      "Path": "variadic/original/metadata.etf",
+      "Bytes": 123,
+      "Sha256": "098EB09C7FBFFC93E77790228427C1EAEA3F3274F5B58FE26241806FA2F61FF5"
+    },
+    {
+      "Path": "variadic/original/observed-deterministic.etf",
+      "Bytes": 564389,
+      "Sha256": "644559845754D866D1383A7D273DFB2E4659CECA6CA75E92851FDEBE55F3DE35"
+    },
+    {
+      "Path": "variadic/original/observed.etf",
+      "Bytes": 564389,
+      "Sha256": "644559845754D866D1383A7D273DFB2E4659CECA6CA75E92851FDEBE55F3DE35"
+    },
+    {
+      "Path": "variadic/original/original.exit.json",
+      "Bytes": 2061,
+      "Sha256": "0FECE4E420A64D2EBA6194B0B0724E0E7240C5DCF6A63D331AEAFA1F8AD33976"
+    },
+    {
+      "Path": "variadic/original/original.live.json",
+      "Bytes": 1826,
+      "Sha256": "2CF334B8C603F7557B34B0DD754F771893E467E84BA1D672D8DD13E367563207"
+    },
+    {
+      "Path": "variadic/original/original.stderr.log",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "variadic/original/original.stdout.log",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "variadic/original/variadic_family526.beam",
+      "Bytes": 996,
+      "Sha256": "8A8109C7F9D0CBDBF49F3233E046F7F9681E423E4F0E51FBD1AD4FF2CD9657EC"
+    },
+    {
+      "Path": "variadic/original/variadic_family526.erl",
+      "Bytes": 408,
+      "Sha256": "64E4A199BCF0779F3968BC131EB60E62A65CEAC159F57C5F167CD11C5BF605A1"
+    },
+    {
+      "Path": "variadic/original/variadic_family526_driver.beam",
+      "Bytes": 840,
+      "Sha256": "BF368B6390751D8E2EF7B46DCAEB45FBB3FE561F31B41B7213C33429CE2BEDB6"
+    },
+    {
+      "Path": "variadic/original/variadic_family526_driver.erl",
+      "Bytes": 279,
+      "Sha256": "74C3606376626609542C7BC8632FB136ADECFD94C71C0C32B703C77B9CFAEB29"
+    },
+    {
+      "Path": "variadic/prepare/original.exit.json",
+      "Bytes": 1044,
+      "Sha256": "8440C08660A903F7FD7FE4BCB9A58A13E4346B6FF34B2F4BCD6EDD3BFAFFDDD7"
+    },
+    {
+      "Path": "variadic/prepare/original.live.json",
+      "Bytes": 810,
+      "Sha256": "38626388519D65D9B02EECA795487C62D01E020985A4641C9102D1179F181EE6"
+    },
+    {
+      "Path": "variadic/prepare/original.stderr.log",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "variadic/prepare/original.stdout.log",
+      "Bytes": 236,
+      "Sha256": "C45317822768C96052E05F410CD80673A5C0C7099DF7B787471F8CB0011C67ED"
+    },
+    {
+      "Path": "variadic/private-owned-ordinary/actual/completion.json",
+      "Bytes": 1188,
+      "Sha256": "B66C361CAA3CD1EC0E64CADD81DC0C30E4BDF20259645372CEBE906FE5F5794A"
+    },
+    {
+      "Path": "variadic/private-owned-ordinary/actual/observed-deterministic.etf",
+      "Bytes": 564389,
+      "Sha256": "644559845754D866D1383A7D273DFB2E4659CECA6CA75E92851FDEBE55F3DE35"
+    },
+    {
+      "Path": "variadic/private-owned-ordinary/actual/observed.etf",
+      "Bytes": 564389,
+      "Sha256": "644559845754D866D1383A7D273DFB2E4659CECA6CA75E92851FDEBE55F3DE35"
+    },
+    {
+      "Path": "variadic/private-owned-ordinary/actual/runtime-profile.json",
+      "Bytes": 66,
+      "Sha256": "9A2AE41B2F490451E409BDF53540BF83C52288C9498B08A3BCCA62C2FDE921CC"
+    },
+    {
+      "Path": "variadic/private-owned-ordinary/actual/source-owners-before.json",
+      "Bytes": 3730,
+      "Sha256": "79DF0F87AF9BB5BB4D6EB13EE4286F82F19C137A669B840F0BAB7C00A5F9816F"
+    },
+    {
+      "Path": "variadic/private-owned-ordinary/original.exit.json",
+      "Bytes": 933,
+      "Sha256": "A43C0DEE0E411046481BEA09E29FA5CA1CC790998EE8070360FBBAC89CFCF241"
+    },
+    {
+      "Path": "variadic/private-owned-ordinary/original.live.json",
+      "Bytes": 685,
+      "Sha256": "E7922EC211A3852CB0A27DFD91CB20416E82127FF60D59E218CA871226673522"
+    },
+    {
+      "Path": "variadic/private-owned-ordinary/original.stderr.log",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "variadic/private-owned-ordinary/original.stdout.log",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "variadic/private-owned-reviewed/actual/completion.json",
+      "Bytes": 1188,
+      "Sha256": "2E3D5770E797C271ABF62F8BDCE262DA04739C995E8487757B15EDB48D5E6619"
+    },
+    {
+      "Path": "variadic/private-owned-reviewed/actual/observed-deterministic.etf",
+      "Bytes": 564389,
+      "Sha256": "644559845754D866D1383A7D273DFB2E4659CECA6CA75E92851FDEBE55F3DE35"
+    },
+    {
+      "Path": "variadic/private-owned-reviewed/actual/observed.etf",
+      "Bytes": 564389,
+      "Sha256": "644559845754D866D1383A7D273DFB2E4659CECA6CA75E92851FDEBE55F3DE35"
+    },
+    {
+      "Path": "variadic/private-owned-reviewed/actual/runtime-profile.json",
+      "Bytes": 66,
+      "Sha256": "9A2AE41B2F490451E409BDF53540BF83C52288C9498B08A3BCCA62C2FDE921CC"
+    },
+    {
+      "Path": "variadic/private-owned-reviewed/actual/source-owners-before.json",
+      "Bytes": 3730,
+      "Sha256": "79DF0F87AF9BB5BB4D6EB13EE4286F82F19C137A669B840F0BAB7C00A5F9816F"
+    },
+    {
+      "Path": "variadic/private-owned-reviewed/original.exit.json",
+      "Bytes": 933,
+      "Sha256": "A800C480ADC2D891141D0860DFD961AF6FC774CFE28532E4220BA55270C38E86"
+    },
+    {
+      "Path": "variadic/private-owned-reviewed/original.live.json",
+      "Bytes": 685,
+      "Sha256": "89F42E3E2C198B46762A8229FDC0139A996D5ABA6B47A61BF530434131EDBE69"
+    },
+    {
+      "Path": "variadic/private-owned-reviewed/original.stderr.log",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "variadic/private-owned-reviewed/original.stdout.log",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "variadic/provider-after.json",
+      "Bytes": 741931,
+      "Sha256": "29C73BD8BB300A3F6F7CA47B1386837198ED3C00235407C7F0CD1D2A07D80DAF"
+    },
+    {
+      "Path": "variadic/provider-before.json",
+      "Bytes": 757205,
+      "Sha256": "85ACA44BD321DF9EFD9761906D634C9EF28FE4923E194C6C9EEEE924A43898F0"
+    },
+    {
+      "Path": "development548/actual-ordinary/admission.json",
+      "Bytes": 2689246,
+      "Sha256": "212FDC1038DABBDAD0935C8F38042A7B51BB7F7A7604BF87AC99495AD8A64FC4"
+    },
+    {
+      "Path": "development548/actual-ordinary/binary-closure.json",
+      "Bytes": 57043,
+      "Sha256": "998985A90A5937C38DFC7373D2206B0C438530CED664E139D41BFEC66BC3F8AB"
+    },
+    {
+      "Path": "development548/actual-ordinary/boot-constructed548.exit.json",
+      "Bytes": 719,
+      "Sha256": "217816EC463F6A7C8B283C5F4D5EC9EC29F7F90B716F8742FE40E16236930886"
+    },
+    {
+      "Path": "development548/actual-ordinary/boot-constructed548.live.json",
+      "Bytes": 469,
+      "Sha256": "FB61B995FF5283346E7E21B17050A4BEE2859CBC582FBD819FDEACED1C1E5F7D"
+    },
+    {
+      "Path": "development548/actual-ordinary/boot-constructed548.stderr.log",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "development548/actual-ordinary/boot-constructed548.stdout.log",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "development548/actual-ordinary/boot-evidence/boot540-completion.json",
+      "Bytes": 3626,
+      "Sha256": "AAD1BAFFEB313F681A569114B93ABDB584FA7EF50DBCD0E39280A05D361B0CBF"
+    },
+    {
+      "Path": "development548/actual-ordinary/boot-evidence/boot540-failure.txt",
+      "Bytes": 3055,
+      "Sha256": "AE88E20CC92E02480953C574B9DE5A062E185AF5A96F5136BAD002F2118FFE02"
+    },
+    {
+      "Path": "development548/actual-ordinary/boot-evidence/diagnostic541.json",
+      "Bytes": 235,
+      "Sha256": "A923E135BD8C488900BF14837A32774D2DF48D5F81A3B0F86A8AAD9E647D40F8"
+    },
+    {
+      "Path": "development548/actual-ordinary/boot-evidence/eager-images541.json",
+      "Bytes": 51944,
+      "Sha256": "437B767EE447CB3A90EC1C810D147A49EF8EE852514A0E53827486767C14B362"
+    },
+    {
+      "Path": "development548/actual-ordinary/boot-evidence/first-chance541.json",
+      "Bytes": 1349874,
+      "Sha256": "DDBFACABB543FD6220B2BF1CA5D4BABDF23BB691936301A0B83B1B59315BE888"
+    },
+    {
+      "Path": "development548/actual-ordinary/boot-evidence/owners-after-observer.json",
+      "Bytes": 386689,
+      "Sha256": "FCCAF91F05D8E61734F988DE9D9E8EDE51BBE19A15F2A74C0401564BC5F505EE"
+    },
+    {
+      "Path": "development548/actual-ordinary/boot-evidence/owners-before-boot.json",
+      "Bytes": 379886,
+      "Sha256": "EC78213091B27C884A4532C4B335A6F92E37F2C8D331D8F9E28BA65E25F15853"
+    },
+    {
+      "Path": "development548/actual-ordinary/boot-evidence/progress541.json",
+      "Bytes": 20653,
+      "Sha256": "A50B92B36AA18CDD010DB909CDCDD5C151C61702A954A47E4EDB23D54C722778"
+    },
+    {
+      "Path": "development548/actual-ordinary/launch.json",
+      "Bytes": 527,
+      "Sha256": "0C0DF0A803B5107A11A212F1F7C370752B65EF4340BE08D88DEE5E7971FB08EC"
+    },
+    {
+      "Path": "development548/actual-ordinary/observer/completion.json",
+      "Bytes": 3073,
+      "Sha256": "F12313950DE7C6C6192021ABC3DD553ACED599A43E8A50B860553F07AB546714"
+    },
+    {
+      "Path": "development548/actual-ordinary/observer/failure.txt",
+      "Bytes": 1519,
+      "Sha256": "F00FADD08E0126CC59082A8CDBF8ED7B9981367F7DDB0333E78101886AC62C92"
+    },
+    {
+      "Path": "development548/actual-ordinary/observer/physical-retirement.json",
+      "Bytes": 2,
+      "Sha256": "4F53CDA18C2BAA0C0354BB5F9A3ECBE5ED12AB4D8E11BA873C2F11161202B945"
+    },
+    {
+      "Path": "development548/actual-ordinary/source-closure.json",
+      "Bytes": 1761414,
+      "Sha256": "8AA679043EC23E1C07D734C8172621DFF7E1EE9EF80C3EC3955A5D2361AB6E47"
+    },
+    {
+      "Path": "development548/affected-command.json",
+      "Bytes": 8682,
+      "Sha256": "01F127764EA8D0D4777E9D701DA68D907C1A347B64FF7F60B4568F879A5910C7"
+    },
+    {
+      "Path": "development548/affected.json",
+      "Bytes": 23839,
+      "Sha256": "D621E190D2F0EFBBFD57C08C99C7ED02A9655EFD96B1D6127596200F8A969837"
+    },
+    {
+      "Path": "development548/affected.log",
+      "Bytes": 8415,
+      "Sha256": "E8512175FC7BF050843CC2B370A6D908B8C32FDA9F71C432EC2B1D9770C86DFD"
+    },
+    {
+      "Path": "development548/baseline-build.log",
+      "Bytes": 2177,
+      "Sha256": "B0825E459C9AA4E7173937A7C9B98193A8C91CE016E6F0A38B024B1E5C769A34"
+    },
+    {
+      "Path": "development548/baseline-matrix.json",
+      "Bytes": 1390,
+      "Sha256": "F8E88514D14C7067982119AAC3CEA1A5A92524758F99518E5D7345EB84622006"
+    },
+    {
+      "Path": "development548/baseline-matrix.log",
+      "Bytes": 1661,
+      "Sha256": "0CB4E918095FB15BEB9C552259F8B77B640F13D9A09E1F1E1FFC1953C682D721"
+    },
+    {
+      "Path": "development548/beam-constructed-commit/harness-hunk.json",
+      "Bytes": 741,
+      "Sha256": "B71CA09B77733AB6E3D8044545833C57347A29F93DB69084518BBE2887AE32FA"
+    },
+    {
+      "Path": "development548/beam-constructed-commit/package-manifest.json",
+      "Bytes": 2297,
+      "Sha256": "EF6653A791480CC8F53349D76F08FB329323C1F276706760365E30B8ECB0E65C"
+    },
+    {
+      "Path": "development548/beam-constructed-commit/patches.json",
+      "Bytes": 893,
+      "Sha256": "7B79B82A2EF8584ECFF7AAB55267F9E4D6BFFE1F3AE51C183A001049AE880050"
+    },
+    {
+      "Path": "development548/beam-constructed-commit/proof-preimages.json",
+      "Bytes": 1469,
+      "Sha256": "0C645E041D4DFF76E11395A5C7E5E1B53EB8A277803FD116DF5ED6CE03DFB14F"
+    },
+    {
+      "Path": "development548/beam-constructed-commit/PROOF.md",
+      "Bytes": 5973,
+      "Sha256": "B0B67DBB3A881DD3C56D76BBA3A371BE8B8E3E35F9D51BAFA69B8259D07D548C"
+    },
+    {
+      "Path": "development548/beam-constructed-commit/staged-tests/Runtime/Memory/BeamConstructedCommit548Checks.cs",
+      "Bytes": 11440,
+      "Sha256": "C5212B4357185246A84B410682070B331034E7D5888107A8119C3FAB5D711B92"
+    },
+    {
+      "Path": "development548/beam-constructed-commit/staged-tests/Runtime/Memory/BeamConstructedCommit548TestNames.cs",
+      "Bytes": 1201,
+      "Sha256": "63428D19415D27C4EEE9332209A8167AD81951324B6CCCE725F4EDD00C205541"
+    },
+    {
+      "Path": "development548/beam-constructed-commit/staged-tree/src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamConstructedCommit548Names.cs",
+      "Bytes": 199,
+      "Sha256": "1ECCB19D11468FDB4318D755CB510A2EA509CDD2E600058EEF3AB28ACD222C26"
+    },
+    {
+      "Path": "development548/beam-constructed-commit/staged-tree/src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamLocalFrame.Owned507.cs",
+      "Bytes": 1847,
+      "Sha256": "C89EFB6D2C7741A2507C7DCB28633AB92FDA98828625AF1258F671157650B1C3"
+    },
+    {
+      "Path": "development548/beam-constructed-commit/staged-tree/src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamOwnedRoots507.cs",
+      "Bytes": 4096,
+      "Sha256": "ED5C11ECE0D513BC851644404F7D2B2573BF57525BEF53E3772B5B80E84930D8"
+    },
+    {
+      "Path": "development548/beam-constructed-commit/staged-tree/src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamRegisterState.Owned507.cs",
+      "Bytes": 3537,
+      "Sha256": "F0D12581C451DADF57EB487C94C7DB554CEA294CFE4CBBD892BB97A9A648AF3E"
+    },
+    {
+      "Path": "development548/boot-comparison.json",
+      "Bytes": 528,
+      "Sha256": "2D12DCDDAD2A7230798C73E1CAAD458B893A9182F8EEC01D1EC8E151ACA1DD8D"
+    },
+    {
+      "Path": "development548/independent-constructed-review/findings.md",
+      "Bytes": 2543,
+      "Sha256": "42233FBFCF06A166248AD97B27085ADF50E70603F6288F461F571E55217ED608"
+    },
+    {
+      "Path": "development548/independent-constructed-review/manifest.json",
+      "Bytes": 2101,
+      "Sha256": "995575300FFDF702E9F0A9C06513512359577485B2D63DDB0D1114529FE79802"
+    },
+    {
+      "Path": "development548/integrated-build.log",
+      "Bytes": 2177,
+      "Sha256": "DC7501B761EEC5A8B909E0392D6861079DB71A3FB86C4DB2F87A69AB454E4589"
+    },
+    {
+      "Path": "development548/integrated-three.json",
+      "Bytes": 862,
+      "Sha256": "C44B3BECFD64526965390583B8325C5CCEBFD8EC4209CC8D41BE6EC68D53C9CE"
+    },
+    {
+      "Path": "development548/integrated-three.log",
+      "Bytes": 874,
+      "Sha256": "216401CF2073E987E453CE531093D357A481065540B73ED284D1042913B554E1"
+    },
+    {
+      "Path": "development548/primary-before/Program.cs",
+      "Bytes": 335418,
+      "Sha256": "44722306F20F1542B015A961581FC12F263C367245388CF3C03254E2266278C0"
+    },
+    {
+      "Path": "development548/primary-before/src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamLocalFrame.Owned507.cs",
+      "Bytes": 1070,
+      "Sha256": "E4F508643D60ACE7AE328779FB2A53F2FD48AEF3E08240276B1FB0DFA3BB8A1E"
+    },
+    {
+      "Path": "development548/primary-before/src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamOwnedRoots507.cs",
+      "Bytes": 3584,
+      "Sha256": "82D6933D42CF0D5DBDC36DD55DB9C9764181B4A1D90479E637068D9557D7D615"
+    },
+    {
+      "Path": "development548/primary-before/src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamRegisterState.Owned507.cs",
+      "Bytes": 2949,
+      "Sha256": "AFD7B68CD83B564A8F144F6792AC3D3C2D2751277421C24F0CC9F8FD4187BF70"
+    },
+    {
+      "Path": "development548/PROGRESS.md",
+      "Bytes": 1749,
+      "Sha256": "83A31A1C8163E48D912C5C9A4C83973616DAD8EFEE2989DDC1972ACCC1445FEB"
+    },
+    {
+      "Path": "development548/publication-seal-instructions/manifest.json",
+      "Bytes": 611,
+      "Sha256": "88E08348DAC392AF231D6AE0253B29EA2A588373E0DDA73050D92D0D93473D7C"
+    },
+    {
+      "Path": "development548/publication-seal-instructions/prepare-index-seals548.py",
+      "Bytes": 8625,
+      "Sha256": "355F8016E655AB27E1CD46EAC280BCC2C929EC4C8650563A5997AF681CFAB94D"
+    },
+    {
+      "Path": "development548/publication-seal-instructions/prepare-index-seals548.v1-historical.py",
+      "Bytes": 5165,
+      "Sha256": "DC909606CE0CFBA0B4323D7884428B8BB66D83DFFE1FC675C2A2C57F4774A97B"
+    },
+    {
+      "Path": "development548/publication-seal-instructions/README.md",
+      "Bytes": 3219,
+      "Sha256": "4928B33CE5D9615D47BA9CF4BF2617E5A74B9AB44978CD305852645B25B37B67"
+    },
+    {
+      "Path": "managed-map/6e620667-953a-4faf-9a91-b7f8fc654c4a/observed-deterministic.etf",
+      "Bytes": 1712,
+      "Sha256": "2E4699875E26DF40E8969FF4D8380BC65D2CF1E58EFBB9B2B2638151A235A7F7"
+    },
+    {
+      "Path": "managed-map/6e620667-953a-4faf-9a91-b7f8fc654c4a/observed.etf",
+      "Bytes": 1712,
+      "Sha256": "9AD83A80F1902B87267CA648C3CBFB8C1238AE170DDF13B32291B24C25D92A83"
+    },
+    {
+      "Path": "managed-map/e714af74-c9f1-4362-bf67-a45a222ff3c9/observed-deterministic.etf",
+      "Bytes": 1712,
+      "Sha256": "2E4699875E26DF40E8969FF4D8380BC65D2CF1E58EFBB9B2B2638151A235A7F7"
+    },
+    {
+      "Path": "managed-map/e714af74-c9f1-4362-bf67-a45a222ff3c9/observed.etf",
+      "Bytes": 1712,
+      "Sha256": "9AD83A80F1902B87267CA648C3CBFB8C1238AE170DDF13B32291B24C25D92A83"
+    }
+  ]
+}

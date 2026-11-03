@@ -37,11 +37,7 @@ internal static class ProcessLiveness499OrderingChecks
             entered.Set();
             if (!release.Wait(ProcessLiveness499Names.Deadline))
                 throw new InvalidOperationException(ProcessLiveness499Names.Failure);
-            try
-            {
-                await context.Mailbox.ReceiveAsync<Term>(_ => null, TimeSpan.Zero, context.Cancellation);
-            }
-            catch (OperationCanceledException) when (context.Cancellation.IsCancellationRequested) { }
+            await ReceiveForOrdering(runtime, context, context.Cancellation);
 
             return true;
         });
@@ -107,5 +103,27 @@ internal static class ProcessLiveness499OrderingChecks
             if (query is not null && !cancel)
                 await query.WaitAsync(ProcessLiveness499Names.Deadline);
         }
+    }
+
+    internal static async Task ReceiveForOrdering(
+        ProcessRuntime runtime,
+        ProcessContext context,
+        CancellationToken cancellation,
+        Action<bool>? observe = null
+    )
+    {
+        try
+        {
+            await context.Mailbox.ReceiveAsync<Term>(_ => null, TimeSpan.Zero, cancellation);
+        }
+        catch (OperationCanceledException) when (TerminalCancellation(runtime, context, observe)) { }
+    }
+
+    private static bool TerminalCancellation(ProcessRuntime runtime, ProcessContext context, Action<bool>? observe)
+    {
+        bool requested = context.Cancellation.IsCancellationRequested;
+        observe?.Invoke(requested);
+
+        return requested || !runtime.IsAlive(context.Self);
     }
 }

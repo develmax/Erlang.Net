@@ -1,0 +1,9 @@
+# PR97 helper shutdown repair
+
+Exact95ac Linux GC passed26/28 modes, both original425150-result profiles,820,append206,ACK173 and4additional CLI rows. The two managed prepared modes timed out because synchronous VM disposal retained the module monitor while a queued shutdown worker first tried to acquire it for the prewarmed statistics helper. Independent WindowsRelease reproduces both45second timeouts. Failed receipts remain unchanged. N1 and integrated Linux passed; the root agent cancelled the remaining known-bad general run, so no full9596 result exists.
+
+The repair initiates dormant helper close on the original caller and leaves every physical join in the shutdown task. Active/preparing retained-monitor or code-permission callers are refused before helper closing flags change, with an atomic repeated admission check. Existing competing-consume and dormant close assertions remain. Actual GC/trap leases and a genuinely blocked GC preparation verify refusal without VM-state mutation, then normal actor/VM/image/literal cleanup. No fake preparing fields, deadline increase or new catalog registration.
+
+Local final-styled verification passes577distinct affected cases in two disjoint command-length batches and both Release prepared modes. Seven builds and a final post-metadata normal build pass. All83tracked DLL/runtimeconfig payloads used by577 remain byte-identical after metadata;13839non-cache source inputs are recorded. Source admissions13/13,MFA and Resource529 pass. Roslyn preserves7588tokens in5files;3layout postimages are applied.
+
+Full9596 and new exact-head GitHub CI are separate pending gates. Counts remain708registered/180full/504pending/24known; API/full-contract deltas0/0. The next Aux proposal remains artifact-only. LICENSE.local.txt and temporary binary archives are excluded.

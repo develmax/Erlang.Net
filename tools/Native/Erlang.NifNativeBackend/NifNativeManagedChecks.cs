@@ -33,11 +33,11 @@ internal static class NifNativeManagedChecks
         nint shortEntry = Marshal.AllocHGlobal(NifNativeAbi.EntryVersionPrefixBytes);
         try
         {
-            Marshal.WriteInt32(shortEntry, NifNativeAbi.MajorVersion);
+            Marshal.WriteInt32(shortEntry, NifNativeVersion651.MinimumMajor - 1);
             Marshal.WriteInt32(shortEntry, sizeof(int), NifNativeAbi.MinorVersion - 1);
             try
             {
-                NifNativeEntryReader.Read(shortEntry);
+                NifNativeEntryReader.Read(shortEntry, NifNativeNames.Module);
                 throw new InvalidOperationException(NifNativeHarnessNames.Broken);
             }
             catch (NotSupportedException)

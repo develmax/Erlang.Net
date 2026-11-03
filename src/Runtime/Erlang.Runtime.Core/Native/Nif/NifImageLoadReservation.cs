@@ -10,6 +10,13 @@ internal sealed class NifImageLoadReservation : IAsyncDisposable
     private readonly NifImageBindingReservation bindingReservation;
     private readonly TaskCompletionSource<Task> operation = new(TaskCreationOptions.RunContinuationsAsynchronously);
     private int state;
+    private NifNativeUpgradeOperation544? nativeUpgrade544;
+
+    internal void AttachNativeUpgrade544(NifNativeUpgradeOperation544 operation)
+    {
+        if (Interlocked.CompareExchange(ref nativeUpgrade544, operation, null) is not null)
+            throw new InvalidOperationException(NifNativeTransition544Names.Admission);
+    }
 
     internal NifImageLoadReservation(
         ModuleRegistry registry,
@@ -38,6 +45,18 @@ internal sealed class NifImageLoadReservation : IAsyncDisposable
 
     internal bool DriverIsRunning => Volatile.Read(ref state) != NifImageAdmissionStates.Closed;
 
+    internal NifNativeBindingTransition544 PrepareNativeUpgrade544(
+        NifPreparedImageBindings544 prepared,
+        NifNativeLibraryOwner candidate,
+        NativeResourceLoadTransaction527 resources
+    ) => permission.Run(() => registry.PrepareNativeUpgrade544(
+        this,
+        bindingReservation,
+        prepared,
+        candidate,
+        resources
+    ));
+
     internal Task InitializeAndCommitAsync(Func<CancellationToken, ValueTask<NifImageInitialized>> initializer)
     {
         ArgumentNullException.ThrowIfNull(initializer);
@@ -63,25 +82,35 @@ internal sealed class NifImageLoadReservation : IAsyncDisposable
             ArgumentNullException.ThrowIfNull(initialized);
             ArgumentNullException.ThrowIfNull(initialized.Owner);
             ArgumentNullException.ThrowIfNull(initialized.Bindings);
-            // Enumerating initializer-provided collections may execute caller code.
-            // Materialize outside registry and permission ticket monitor scopes.
-            var bindings = initialized.Bindings.ToArray();
-            Generation.Context.Cancellation.ThrowIfCancellationRequested();
-            permission.Run(() =>
+            if (nativeUpgrade544 is { Published544: true } nativeCommit)
             {
-                registry.CommitNifImage(
-                    this,
-                    bindingReservation,
-                    bindings,
-                    initialized.Owner
-                );
+                published = true;
+                if (nativeCommit.Result544.NativePostCommitFailure544 is { } postCommitFailure)
+                    ExceptionDispatchInfo.Capture(postCommitFailure).Throw();
+            }
+            else
+            {
+                // Enumerating initializer-provided collections may execute caller code.
+                // Materialize outside registry and permission ticket monitor scopes.
+                var bindings = initialized.Bindings.ToArray();
+                Generation.Context.Cancellation.ThrowIfCancellationRequested();
+                permission.Run(() =>
+                {
+                    registry.CommitNifImage(
+                        this,
+                        bindingReservation,
+                        bindings,
+                        initialized.Owner
+                    );
 
-                return true;
-            });
-            published = true;
+                    return true;
+                });
+                published = true;
+            }
         }
         catch (Exception error)
         {
+            published |= nativeUpgrade544 is { Published544: true };
             failure = error;
         }
         if (!published && initialized?.Owner is { } owner)

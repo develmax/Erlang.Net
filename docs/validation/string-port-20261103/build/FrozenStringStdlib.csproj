@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <AssemblyName>Erlang.Otp.Stdlib</AssemblyName>
+    <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="source/src/Otp/Managed/Erlang.Otp.Stdlib/**/*.cs" />
+    <Reference Include="Erlang.Runtime"><HintPath>bin/Erlang.Runtime.dll</HintPath></Reference>
+    <Reference Include="Erlang.Terms"><HintPath>bin/Erlang.Terms.dll</HintPath></Reference>
+  </ItemGroup>
+</Project>

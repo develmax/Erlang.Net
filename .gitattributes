@@ -1,4 +1,6 @@
 *.cs -text
+tools/Runtime/Erlang.Dictionary537Observations/** -text
+docs/validation/part-537/** -text
 tools/Native/Erlang.DdllFormatterOriginalObservations/** -text -whitespace
 tools/Collections/Erlang.EtsCompressedOriginalObservations442/** -text -whitespace
 *.beam binary
@@ -351,6 +353,204 @@ docs/validation/part-507/** -text -whitespace
 
 docs/validation/part-514/** -text -whitespace
 
+src/Runtime/Erlang.Runtime.Core/Native/Nif/native/windows_varargs526.c -text
+tools/Native/Erlang.NifNativeBackend/build-windows-varargs526.py -text
+src/Runtime/Erlang.Runtime.Core/Erlang.Runtime.Core.csproj -text
+docs/validation/part-518/** -text -whitespace
+
+docs/validation/part-519/** -text -whitespace
+
+docs/validation/part-520/** -text -whitespace
+
+tools/Native/Erlang.NifPrivateData557Observations/** -text -whitespace
+
+# Preserve the already-admitted BinaryExact native fixture source bytes on every checkout.
+tools/Native/Erlang.NifMakeReferenceOriginalObservations/native/entry_fixture_names.h -text
+tools/Native/Erlang.NifMakeReferenceOriginalObservations/native/make_reference_callback_contract.c -text
+tools/Native/Erlang.NifMapSizeOriginalObservations/native/entry_fixture_names.h -text
+tools/Native/Erlang.NifMapSizeOriginalObservations/native/map_size_callback_contract.c -text
+
+tools/Native/Erlang.NifResource529Observations/** -text -whitespace
+docs/validation/part-529/** -text -whitespace
+docs/validation/part-530/** -text -whitespace
+docs/validation/part-531/** -text -whitespace
+docs/validation/part-532/** -text -whitespace
+docs/remaining-work/contracts-24/** -text -whitespace
+tests/Erlang.Tests/Resources/BeamMixedNative580/** -text -whitespace
+/docs/validation/part-535/** -text
+/docs/validation/part-536/** -text
+/docs/validation/part-535-ci-correction/** -text
+
+# Immutable propagated Part536 evidence
+/docs/validation/part-536-propagated-halt/** -text
+docs/validation/part-538/** -text
+
+tools/Runtime/Erlang.MatchSaved634Observations/** -text
+docs/validation/part-539/** -text
+
+tools/Runtime/Erlang.EtsDispatch540Observations/** -text
+docs/validation/part-540/** -text
+
+# Raw provenance inputs must survive Windows checkout without CRLF conversion.
+/Directory.Build.props -text
+/tests/Erlang.Tests/Erlang.Tests.csproj -text
+docs/validation/part-540-ci-preflight/** -text
+
+tools/Runtime/Erlang.MonitorOriginal645Observations/** -text
+docs/validation/part-541/** -text
+
+tools/Runtime/Erlang.BeamFunction542Observations/** -text
+tests/Erlang.Tests/Fixtures/BeamPassive647/** -text
+docs/validation/part-542/** -text
+
+docs/validation/part-542-owned-correction/** -text
+tools/Runtime/Erlang.BeamFunction542Observations/inputs.json whitespace=trailing-space,space-before-tab,cr-at-eol
+
+# Part543 source-admission inputs are raw-byte contracts on every checkout.
+/.gitattributes -text
+/.github/workflows/nif-make-reference-original.yml -text
+/.github/workflows/nif-map-size-original.yml -text
+/global.json -text
+/tools/Native/Erlang.NifEntryOriginalObservations/build-native.py -text
+/tools/Native/Erlang.NifEntryOriginalObservations/collect.py -text
+/tools/Native/Erlang.NifEntryOriginalObservations/common.py -text
+/tools/Native/Erlang.NifEntryOriginalObservations/native/entry_alpha.c -text
+/tools/Native/Erlang.NifEntryOriginalObservations/native/entry_beta.c -text
+/tools/Native/Erlang.NifEntryOriginalObservations/native/entry_fixture_names.h -text
+/tools/Native/Erlang.NifEntryOriginalObservations/verify-source.py -text
+/tools/Native/Erlang.NifLinuxCallbackFocus/Erlang.NifLinuxCallbackFocus.csproj -text
+/tools/Native/Erlang.NifLinuxCallbackObservations/compare.py -text
+/tools/Native/Erlang.NifMakeReferenceOriginalObservations/build-native.py -text
+/tools/Native/Erlang.NifMakeReferenceOriginalObservations/cases.json -text
+/tools/Native/Erlang.NifMakeReferenceOriginalObservations/collect.py -text
+/tools/Native/Erlang.NifMakeReferenceOriginalObservations/compare.py -text
+/tools/Native/Erlang.NifMakeReferenceOriginalObservations/verify-source.py -text
+/tools/Native/Erlang.NifMapSizeOriginalObservations/build-native.py -text
+/tools/Native/Erlang.NifMapSizeOriginalObservations/cases.json -text
+/tools/Native/Erlang.NifMapSizeOriginalObservations/collect.py -text
+/tools/Native/Erlang.NifMapSizeOriginalObservations/compare.py -text
+/tools/Native/Erlang.NifMapSizeOriginalObservations/verify-source.py -text
+/tools/Native/Erlang.NifOrdinaryLoaderFocus/Erlang.NifOrdinaryLoaderFocus.csproj -text
+/tools/Native/Erlang.NifOrdinaryLoaderObservations/native/baseline.c -text
+/tools/Native/Erlang.NifOrdinaryLoaderObservations/native/dependency.c -text
+/tools/Native/Erlang.NifOrdinaryLoaderObservations/native/entry.c -text
+/tools/Native/Erlang.NifOrdinaryLoaderObservations/native/thread-destructors.cpp -text
+/tools/Native/Erlang.NifOrdinaryLoaderObservations/run.py -text
+/tools/Native/Erlang.NifVersion651Observations/** -text
+/.github/workflows/nif-version651-linux.yml -text
+/tools/Native/Erlang.NifLinuxCallbackObservations/acceptance.py -text
+/tools/Native/Erlang.NifLinuxCallbackObservations/acceptance-inputs.json -text
+/tools/Native/Erlang.NifLinuxCallbackObservations/prepare.py -text
+/tools/Native/Erlang.NifLinuxCallbackObservations/run.py -text
+/tools/Native/Erlang.NifLinuxCallbackObservations/verify-pthread.py -text
+/tools/Native/Erlang.NifMakeReferenceOriginalObservations/common.py -text
+/tools/Native/Erlang.NifMakeReferenceOriginalObservations/manifest.json -text
+/tools/Native/Erlang.NifMapSizeOriginalObservations/common.py -text
+/tools/Native/Erlang.NifMapSizeOriginalObservations/manifest.json -text
+# Scheduler AEBBA authenticates this helper's existing committed LF blob.
+/tools/Distribution/Erlang.GuestConnectedSendObservations/owned_process.py text eol=lf
+
+# Preserve exact compiled gc818 observer and current descriptor source-seal bytes.
+/tools/Compiler/Erlang.GcBinary818Observations/** -text
+/docs/validation/part-552/compiled-binary-part/monitor645-current-source.json -text
+/tools/Build/Erlang.Tool/verify-mfa-source-bindings.py -text
+
+# Exact native callback observer sources and source-bound fixture receipts.
+/tools/Native/Erlang.NifFormat791Observations/** -text
+/tools/Native/Erlang.NifMutex795Observations/** -text
+/tools/Native/Erlang.NifLinuxMutex795Observations/** -text
+
+# Native GC825 permanent observation inputs are sealed as exact raw bytes.
+/tests/Runtime/Erlang.NativeGc.Observations/** -text
+/tests/Runtime/Erlang.NativeGc.TestSupport/** -text
+/tools/Runtime/Erlang.NativeGc825Observations/** -text
+/.github/workflows/native-gc825.yml -text
+
+# Exact final NativeGC825 metadata transport; preserve all previous rules.
+/tools/Native/Erlang.NifPendingVarargsObservations/reviewed-source-plan.json -text
+/tools/Native/Erlang.NifReallocationObservations/SOURCE-PLAN.json -text
+/tools/Native/Erlang.NifEntryOriginalObservations/manifest.json -text
+/tools/Native/Erlang.NifUnixFilenameObservations/manifest.json -text
+/.github/workflows/validate.yml -text
+/.github/workflows/nif-pending-native.yml -text
+/.github/workflows/nif-reallocation-native.yml -text
+/docs/validation/native-gc825/monitor645-final-source.json -text
+/docs/native-infrastructure.json -text
+
+# Exact admitted callback source fixture.
+/tests/Erlang.Tests/Resources/VmCallbackLiteral825/*.erl -text
+
+# Exact final NativeGC825 metadata transport; preserve all previous rules.
+/docs/validation/native-gc825/monitor645-final-source-165.json -text
+/tools/Runtime/Erlang.NativeGc825Observations/collect-ack425.py -text
+/tools/Runtime/Erlang.NativeGc825Observations/ack425-inputs.json -text
+/tools/Runtime/Erlang.NativeGc825Observations/fixtures/ack_receive_trace173.erl -text
+/docs/validation/native-gc825/original-records313/** -text
+
+# Exact final NativeGC825 metadata transport; preserve all previous rules.
+/docs/validation/native-gc825/current-source348.json -text
+/tests/Erlang.Tests/Fixtures/InternalProcessOriginal425/beam_internal_process425.erl -text
+/tests/Erlang.Tests/Fixtures/InternalProcessOriginal425/erts_internal.erl -text
+/tests/Erlang.Tests/Fixtures/InternalProcessOriginal425/stacks.etf -text
+/tests/Erlang.Tests/Fixtures/InternalProcessOriginal425/values.etf -text
+/tests/Runtime/Erlang.NativeGc.Observations/Resources/NativeAppend206/native_append206_observer.beam -text
+/tests/Runtime/Erlang.NativeGc.Observations/Resources/NativeAppend206/native_append206_observer.erl -text
+/tests/Runtime/Erlang.NativeGc.Observations/Resources/NativeAppend206/original-deterministic.etf -text
+/tests/Runtime/Erlang.NativeGc.Observations/Resources/NativeAppend206/original.etf -text
+/tests/Runtime/Erlang.NativeGc.Observations/Resources/NativeAppend206/provenance.json -text
+/tests/Runtime/Erlang.NativeGc.Observations/Resources/NativeRecordDefaults313/Consumer.beam -text
+/tests/Runtime/Erlang.NativeGc.Observations/Resources/NativeRecordDefaults313/FieldObserver331.beam -text
+/tests/Runtime/Erlang.NativeGc.Observations/Resources/NativeRecordDefaults313/FieldOriginal331.etf -text
+/tests/Runtime/Erlang.NativeGc.Observations/Resources/NativeRecordDefaults313/FieldProvenance331.json -text
+/tests/Runtime/Erlang.NativeGc.Observations/Resources/NativeRecordDefaults313/FieldWorker331.beam -text
+/tests/Runtime/Erlang.NativeGc.Observations/Resources/NativeRecordDefaults313/Original.etf -text
+/tests/Runtime/Erlang.NativeGc.Observations/Resources/NativeRecordDefaults313/OwnerV1.beam -text
+/tests/Runtime/Erlang.NativeGc.Observations/Resources/NativeRecordDefaults313/OwnerV2.beam -text
+/tests/Runtime/Erlang.NativeGc.Observations/Resources/NativeRecordDefaults313/Provenance.json -text
+/tests/Runtime/Erlang.NativeGc.Observations/Resources/RegisterCapacity273/register_capacity273_boundary.S -text
+/tests/Runtime/Erlang.NativeGc.Observations/Resources/RegisterCapacity273/register_capacity273_live.S -text
+/tests/Runtime/Erlang.NativeGc.Observations/Resources/RegisterCapacity273/register_capacity273_observer.erl -text
+/tests/Runtime/Erlang.NativeGc.Observations/Resources/RegisterCapacity273/register_capacity273_wide.S -text
+/tests/Erlang.Tests/Resources/NumericContract487/InlineInteger360Disassembly.term -text
+/tests/Erlang.Tests/Resources/NumericContract487/InlineInteger360Original.etf -text
+/tests/Erlang.Tests/Resources/NumericContract487/InlineInteger360Provenance.json -text
+/tests/Erlang.Tests/Resources/NumericContract487/InlineInteger360V1.S -text
+/tests/Erlang.Tests/Resources/NumericContract487/InlineInteger360V1.beam -text
+/tests/Erlang.Tests/Resources/NumericContract487/InlineInteger360V2.S -text
+/tests/Erlang.Tests/Resources/NumericContract487/InlineInteger360V2.beam -text
+
+# Exact final NativeGC825 metadata transport; preserve all previous rules.
+/docs/validation/native-gc825/monitor645-final414-source.json -text
+
+# Exact final NativeGC825 metadata transport; preserve all previous rules.
+/docs/validation/native-gc825/monitor645-final422-source.json -text
+/tests/Erlang.Tests/Resources/Beam/beam_fixture_closure.beam -text
+
+# Exact final NativeGC825 metadata transport; preserve all previous rules.
+/docs/validation/native-gc825/monitor645-final451-source.json -text
+
+# Exact final NativeGC825 metadata transport; preserve all previous rules.
+/docs/validation/native-gc825/monitor645-final457-source.json -text
+
+# Exact final NativeGC825 metadata transport; preserve all previous rules.
+/docs/validation/native-gc825/monitor645-final460-source.json -text
+
+# Exact final NativeGC825 metadata transport; preserve all previous rules.
+/docs/validation/native-gc825/monitor645-final507-source.json -text
+
+# Exact final NativeGC825 metadata transport; preserve all previous rules.
+/docs/validation/native-gc825/newpart554-final579/monitor-source.json -text
+
+# Exact final NativeGC825 metadata transport; preserve all previous rules.
+/docs/validation/native-gc825/newpart554-final586/monitor-source.json -text
+
+# Local documentation snapshot and license byte identities.
 # Preserve historical snapshot and third-party license byte identities.
 docs/history/** -text
 licenses/*.txt -text
+
+# Byte-bound integration review, retained plans and math/ordsets receipts.
+/docs/validation/integration-20261103/** -text -whitespace
+/docs/validation/math-compatibility-20261103/** -text -whitespace
+docs/history/** -text -whitespace
+licenses/*.txt -text -whitespace

@@ -1,0 +1,120 @@
+{
+  "Passed": false,
+  "Checks": [
+    {
+      "Plan": "Erlang.NifMapFamily504Observations",
+      "Passed": true,
+      "Details": {
+        "PlanSha256": "8F0796CC1DBC356FBCDB360189A7C6D72FAC55948866114EB7F4CDB09CB4B3D7",
+        "VerifiedRows": 470,
+        "NativeExecuted": false
+      }
+    },
+    {
+      "Plan": "Erlang.NifMapMaterialized505Observations",
+      "Passed": true,
+      "Details": {
+        "PlanSha256": "1CBE531B6530BC75E05A2E3249CD057355EB0C91C7F431CB1649C5303D6B9AE5",
+        "VerifiedRows": 475,
+        "NativeExecuted": false
+      }
+    },
+    {
+      "Plan": "Erlang.NifMapReentry505Observations",
+      "Passed": true,
+      "Details": {
+        "PlanSha256": "57DC6EC79C93152FB415E97D30019814713FEE802316718FE75D8511D45205E2",
+        "VerifiedRows": 475,
+        "NativeExecuted": false
+      }
+    },
+    {
+      "Plan": "tools/Runtime/Erlang.OwnedGuest506Observations",
+      "Passed": true,
+      "Details": {
+        "PlanSha256": "ADEE936F5D473D8AC5B8F66CCA037505601990EC64AAD4218FE913B8DC9F9744",
+        "VerifiedRows": 734
+      }
+    },
+    {
+      "Plan": "tools/Native/Erlang.NifVariadic526Observations",
+      "Passed": true,
+      "Details": {
+        "PlanSha256": "11888A58E2AF144C671D4EE1D99D1A1A77AEE8A12A1BD925250728E4DAAFCDB2",
+        "VerifiedRows": 874
+      }
+    },
+    {
+      "Plan": "Pending",
+      "Passed": true,
+      "Details": {
+        "PlanSha256": "F52247D1B8075F4559F32371CB59B7D721626DB6F2CA415050C860D38AD54C7E",
+        "VerifiedRows": 4016,
+        "CompleteGitMembershipChecked": false
+      }
+    },
+    {
+      "Plan": "Reallocation",
+      "Passed": false,
+      "Error": "RuntimeError('Reviewed source changed: .gitattributes')"
+    },
+    {
+      "Plan": "Private557",
+      "Passed": false,
+      "Error": "RuntimeError('Source seal differs: .gitattributes')"
+    },
+    {
+      "Plan": "Erlang.Dictionary537Observations",
+      "Passed": true,
+      "Details": {
+        "PlanSha256": "ED5906EC10C50A77C5F0ADEF7F43AB604FBBF9E3665308F6AECF1420A66EAD5F",
+        "VerifiedRows": 5,
+        "BuildOrVmExecuted": false
+      }
+    },
+    {
+      "Plan": "Erlang.MatchSaved634Observations",
+      "Passed": true,
+      "Details": {
+        "PlanSha256": "349AF57FE2E1687D3966E50E66E4F895E471AAC0BDCD68E79EEBB7B74731482B",
+        "VerifiedRows": 31,
+        "BuildOrVmExecuted": false
+      }
+    },
+    {
+      "Plan": "Erlang.EtsDispatch540Observations",
+      "Passed": true,
+      "Details": {
+        "PlanSha256": "118B10C3864158F1E0F6B057CE16C781F208B435FD02E966DECFBDCD292D8854",
+        "VerifiedRows": 130,
+        "BuildOrVmExecuted": false
+      }
+    },
+    {
+      "Plan": "Erlang.MonitorOriginal645Observations",
+      "Passed": true,
+      "Details": {
+        "PlanSha256": "DF0F48CE9691436AA556FB19B1F2EBF0AD63B6625D96A431AB339030D659458E",
+        "VerifiedRows": 13,
+        "BuildOrVmExecuted": false
+      }
+    },
+    {
+      "Plan": "Erlang.BeamFunction542Observations",
+      "Passed": true,
+      "Details": {
+        "PlanSha256": "42711A78FD3D48EAB790EDE2587FE4EF5DFF638DDF039227D99F1199DCB854F3",
+        "VerifiedRows": 37,
+        "BuildOrVmExecuted": false
+      }
+    }
+  ],
+  "ExpectedPlans": 13,
+  "ExpectedNativePlans": 8,
+  "FocusedInputPlans": 5,
+  "BuildOrVmExecuted": false,
+  "NativeExecuted": false,
+  "SourceHeadAuthenticityClaimed": false,
+  "FullSourceMembershipClaimed": false,
+  "WholeContractsClosed": 0
+}

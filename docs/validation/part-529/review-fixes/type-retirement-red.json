@@ -1,0 +1,33 @@
+{
+  "Partial": true,
+  "SelectedCount": 3,
+  "TotalCount": 9218,
+  "Blocks": [],
+  "ExactCases": [
+    "native-resource575/empty-committed-types-retire-before-vm-shutdown",
+    "native-resource575/payload-and-physical-invocation-custody-survive-detach",
+    "native-resource575/pending-rollback-and-new-owner-prevent-premature-detach"
+  ],
+  "Passed": 0,
+  "Failed": 3,
+  "Tests": [
+    {
+      "Name": "native-resource575/empty-committed-types-retire-before-vm-shutdown",
+      "Status": "Failed",
+      "Error": "System.InvalidOperationException: Native resource type retirement did not release its actual domain/registry/handle ownership.\r\n   at Erlang.Tests.NativeResourceTypeRetirement575Checks.Require(Boolean condition) in D:\\Distr\\Work\\Codex\\Erlang.Net\\w504\\tests\\Erlang.Tests\\Runtime\\Native\\Resources\\NativeResourceTypeRetirement575Checks.cs:line 128\r\n   at Erlang.Tests.NativeResourceTypeRetirement575Checks.\u003C\u003Ec.\u003C\u003CRepeatedEmptyRetirement\u003Eb__0_0\u003Ed.MoveNext() in D:\\Distr\\Work\\Codex\\Erlang.Net\\w504\\tests\\Erlang.Tests\\Runtime\\Native\\Resources\\NativeResourceTypeRetirement575Checks.cs:line 26\r\n--- End of stack trace from previous location ---\r\n   at Erlang.Tests.NativeResourceTypeRetirement575Checks.Run(Func\u00602 body) in D:\\Distr\\Work\\Codex\\Erlang.Net\\w504\\tests\\Erlang.Tests\\Runtime\\Native\\Resources\\NativeResourceTypeRetirement575Checks.cs:line 135\r\n   at Erlang.Tests.NativeResourceTypeRetirement575Checks.Run(Func\u00602 body) in D:\\Distr\\Work\\Codex\\Erlang.Net\\w504\\tests\\Erlang.Tests\\Runtime\\Native\\Resources\\NativeResourceTypeRetirement575Checks.cs:line 139\r\n   at Program.\u003CMain\u003E$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\w504\\tests\\Erlang.Tests\\Harness\\Program.cs:line 7387",
+      "Milliseconds": 107
+    },
+    {
+      "Name": "native-resource575/pending-rollback-and-new-owner-prevent-premature-detach",
+      "Status": "Failed",
+      "Error": "System.InvalidOperationException: Native resource type retirement did not release its actual domain/registry/handle ownership.\r\n   at Erlang.Tests.NativeResourceTypeRetirement575Checks.Require(Boolean condition) in D:\\Distr\\Work\\Codex\\Erlang.Net\\w504\\tests\\Erlang.Tests\\Runtime\\Native\\Resources\\NativeResourceTypeRetirement575Checks.cs:line 128\r\n   at Erlang.Tests.NativeResourceTypeRetirement575Checks.\u003C\u003Ec.\u003C\u003CPendingRollbackAndNewOwner\u003Eb__1_0\u003Ed.MoveNext() in D:\\Distr\\Work\\Codex\\Erlang.Net\\w504\\tests\\Erlang.Tests\\Runtime\\Native\\Resources\\NativeResourceTypeRetirement575Checks.cs:line 45\r\n--- End of stack trace from previous location ---\r\n   at Erlang.Tests.NativeResourceTypeRetirement575Checks.Run(Func\u00602 body) in D:\\Distr\\Work\\Codex\\Erlang.Net\\w504\\tests\\Erlang.Tests\\Runtime\\Native\\Resources\\NativeResourceTypeRetirement575Checks.cs:line 135\r\n   at Erlang.Tests.NativeResourceTypeRetirement575Checks.Run(Func\u00602 body) in D:\\Distr\\Work\\Codex\\Erlang.Net\\w504\\tests\\Erlang.Tests\\Runtime\\Native\\Resources\\NativeResourceTypeRetirement575Checks.cs:line 139\r\n   at Program.\u003CMain\u003E$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\w504\\tests\\Erlang.Tests\\Harness\\Program.cs:line 7387",
+      "Milliseconds": 19
+    },
+    {
+      "Name": "native-resource575/payload-and-physical-invocation-custody-survive-detach",
+      "Status": "Failed",
+      "Error": "System.InvalidOperationException: Native resource type retirement did not release its actual domain/registry/handle ownership.\r\n   at Erlang.Tests.NativeResourceTypeRetirement575Checks.Require(Boolean condition) in D:\\Distr\\Work\\Codex\\Erlang.Net\\w504\\tests\\Erlang.Tests\\Runtime\\Native\\Resources\\NativeResourceTypeRetirement575Checks.cs:line 128\r\n   at Erlang.Tests.NativeResourceTypeRetirement575Checks.\u003C\u003Ec.\u003C\u003CHeldPayloadAndInvocation\u003Eb__2_0\u003Ed.MoveNext() in D:\\Distr\\Work\\Codex\\Erlang.Net\\w504\\tests\\Erlang.Tests\\Runtime\\Native\\Resources\\NativeResourceTypeRetirement575Checks.cs:line 73\r\n--- End of stack trace from previous location ---\r\n   at Erlang.Tests.NativeResourceTypeRetirement575Checks.Run(Func\u00602 body) in D:\\Distr\\Work\\Codex\\Erlang.Net\\w504\\tests\\Erlang.Tests\\Runtime\\Native\\Resources\\NativeResourceTypeRetirement575Checks.cs:line 135\r\n   at Erlang.Tests.NativeResourceTypeRetirement575Checks.Run(Func\u00602 body) in D:\\Distr\\Work\\Codex\\Erlang.Net\\w504\\tests\\Erlang.Tests\\Runtime\\Native\\Resources\\NativeResourceTypeRetirement575Checks.cs:line 139\r\n   at Program.\u003CMain\u003E$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\w504\\tests\\Erlang.Tests\\Harness\\Program.cs:line 7387",
+      "Milliseconds": 34
+    }
+  ]
+}

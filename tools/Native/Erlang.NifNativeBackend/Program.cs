@@ -3,29 +3,75 @@ using Erlang.NifNativeBackend;
 
 try
 {
-    if (args.Length != 0 && args[0] == Resource534Names.Mode)
+    if (args.Length != 0 && args[0] == NormalNative697PhysicalNames.Mode)
     {
-        await Resource534Driver.Run(args[1..]);
+        await NifVersion651Driver.Run(args[1..], normalNativePhysical697: true);
 
         return;
     }
+
+    if (args.Length != 0 && args[0] == NativeCallbacks552Names.Mode)
+    {
+        await NativeCallbacks552Checks.Run(args[1..]);
+
+        return;
+    }
+
+    if (args.Length != 0 && args[0] == NifMutexLifecycle795DriverNames.Mode)
+    {
+        await NifMutexLifecycle795Driver.Run(args[1..]);
+
+        return;
+    }
+
+    if (args.Length != 0 && args[0] == NifLinuxMutex795Names.Mode)
+    {
+        await NifLinuxMutex795Driver.Run(args[1..]);
+
+        return;
+    }
+
+    if (args.Length != 0 && args[0] == GcBinary818Names.Mode)
+    {
+        await GcBinary818Driver.Run(args[1..]);
+
+        return;
+    }
+
+    if (args.Length != 0 && args[0] == NifVersion651DriverNames.Mode)
+    {
+        await NifVersion651Driver.Run(args[1..]);
+
+        return;
+    }
+
+    if (args.Length != 0 && args[0] == ResourceQueue593Names.Mode)
+    {
+        await Resource529Driver.RunProtocol(args[1..], protocol: Resource529ProtocolKind.Queue593);
+
+        return;
+    }
+
     if (args.Length != 0 && args[0] == Resource529Names.Mode)
     {
         await Resource529Driver.Run(args[1..]);
 
         return;
     }
+
     if (args.Length != 0 && args[0] == NifDirty521Names.Mode)
     {
         await NifDirty521Driver.Run(
             args[1..],
-            enabled => Task.FromResult(new ProcessRuntime(new ProcessRuntimeOptions { OwnedTermsPilot506 = enabled, DirtyIoSchedulerCount = NifDirty521Names.IoWorkers }))
+            enabled => Task.FromResult(new ProcessRuntime(new ProcessRuntimeOptions
+            {
+                OwnedTermsPilot506 = enabled,
+                DirtyIoSchedulerCount = NifDirty521Names.IoWorkers
+            }))
         );
 
         return;
     }
-    // Optional explicit original-runtime factory can be supplied by the parent
-    // integration. Never silently replace missing original/native code/file roles.
 
     if (args.Length != 0 && args[0] == NifNativeUnixRawPathNames.Mode)
     {
@@ -127,6 +173,7 @@ try
         return;
     }
 
+    await NifVersion651Checks.Run();
     await NifNativeManagedChecks.Run();
     Console.WriteLine(NifNativeHarnessNames.ManagedPass);
     if (args.Length != 0)

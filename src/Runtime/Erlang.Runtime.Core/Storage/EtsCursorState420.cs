@@ -11,7 +11,7 @@ internal sealed class EtsCursorState420
     internal long Count { get; init; }
     internal long Reverse { get; init; }
     internal ReferenceTerm? Reference { get; set; }
-    internal MatchSpecProgram Program { get; init; } = null!;
+    internal EtsCompiledExecutable638 Executable { get; init; }
     internal bool Initial { get; init; }
     internal bool BoundSingle { get; init; }
     internal EtsCursorBounds420? Bounds { get; init; }

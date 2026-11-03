@@ -1,0 +1,127 @@
+{
+  "Names": [
+    "runtime/counters611/public-receive-callback-host-custody",
+    "runtime/counters611/public-receive-returned-host-custody",
+    "runtime/counters611/public-mailbox-snapshot-host-custody",
+    "runtime/counters611/public-process-info-messages-host-custody",
+    "runtime/counters611/public-process-info-full-host-custody",
+    "runtime/counters611/public-process-info-list-host-custody",
+    "runtime/counters611/public-process-info-dictionary-key-host-custody",
+    "runtime/counters611/component-real-queue-process-info-public-projection",
+    "runtime/initializer615/terminal-mailbox-before-stop-cancel",
+    "runtime/initializer615/live-unrelated-cancellation-remains-visible"
+  ],
+  "HostSha256": "A3038CE90D0E7643E94C46547A7C87686FB4EAFA6324BC5930F349F92EF42A94",
+  "HostUnchanged": true,
+  "Receipt": {
+    "Command": [
+      "dotnet",
+      "exec",
+      "--fx-version",
+      "10.0.11",
+      "D:\\Distr\\Work\\Codex\\Erlang.Net\\w504\\tests\\Erlang.Tests\\bin\\Debug\\net10.0\\Erlang.Tests.dll",
+      "--case",
+      "runtime/counters611/public-receive-callback-host-custody",
+      "--case",
+      "runtime/counters611/public-receive-returned-host-custody",
+      "--case",
+      "runtime/counters611/public-mailbox-snapshot-host-custody",
+      "--case",
+      "runtime/counters611/public-process-info-messages-host-custody",
+      "--case",
+      "runtime/counters611/public-process-info-full-host-custody",
+      "--case",
+      "runtime/counters611/public-process-info-list-host-custody",
+      "--case",
+      "runtime/counters611/public-process-info-dictionary-key-host-custody",
+      "--case",
+      "runtime/counters611/component-real-queue-process-info-public-projection",
+      "--case",
+      "runtime/initializer615/terminal-mailbox-before-stop-cancel",
+      "--case",
+      "runtime/initializer615/live-unrelated-cancellation-remains-visible",
+      "--report",
+      "D:\\Distr\\Work\\Codex\\Erlang.Net\\w504\\artifacts\\resource534\\review86-debug-green\\report.json"
+    ],
+    "Pid": 23724,
+    "ElapsedSeconds": 4.843000000000757,
+    "TimedOut": false,
+    "Settled": true,
+    "ExitCode": 0,
+    "Failures": [],
+    "StdoutSha256": "7ACE0C7888D63DF93F52A6BA612C3F83353E4869568820E68C46D169D16B82E8",
+    "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+  },
+  "Actual": {
+    "Partial": true,
+    "SelectedCount": 10,
+    "TotalCount": 9323,
+    "Blocks": [],
+    "ExactCases": [
+      "runtime/counters611/component-real-queue-process-info-public-projection",
+      "runtime/counters611/public-mailbox-snapshot-host-custody",
+      "runtime/counters611/public-process-info-dictionary-key-host-custody",
+      "runtime/counters611/public-process-info-full-host-custody",
+      "runtime/counters611/public-process-info-list-host-custody",
+      "runtime/counters611/public-process-info-messages-host-custody",
+      "runtime/counters611/public-receive-callback-host-custody",
+      "runtime/counters611/public-receive-returned-host-custody",
+      "runtime/initializer615/live-unrelated-cancellation-remains-visible",
+      "runtime/initializer615/terminal-mailbox-before-stop-cancel"
+    ],
+    "Passed": 10,
+    "Failed": 0,
+    "Tests": [
+      {
+        "Name": "runtime/initializer615/terminal-mailbox-before-stop-cancel",
+        "Status": "Passed",
+        "Milliseconds": 1594
+      },
+      {
+        "Name": "runtime/initializer615/live-unrelated-cancellation-remains-visible",
+        "Status": "Passed",
+        "Milliseconds": 8
+      },
+      {
+        "Name": "runtime/counters611/public-process-info-dictionary-key-host-custody",
+        "Status": "Passed",
+        "Milliseconds": 2393
+      },
+      {
+        "Name": "runtime/counters611/component-real-queue-process-info-public-projection",
+        "Status": "Passed",
+        "Milliseconds": 109
+      },
+      {
+        "Name": "runtime/counters611/public-receive-callback-host-custody",
+        "Status": "Passed",
+        "Milliseconds": 37
+      },
+      {
+        "Name": "runtime/counters611/public-receive-returned-host-custody",
+        "Status": "Passed",
+        "Milliseconds": 37
+      },
+      {
+        "Name": "runtime/counters611/public-mailbox-snapshot-host-custody",
+        "Status": "Passed",
+        "Milliseconds": 46
+      },
+      {
+        "Name": "runtime/counters611/public-process-info-messages-host-custody",
+        "Status": "Passed",
+        "Milliseconds": 43
+      },
+      {
+        "Name": "runtime/counters611/public-process-info-full-host-custody",
+        "Status": "Passed",
+        "Milliseconds": 46
+      },
+      {
+        "Name": "runtime/counters611/public-process-info-list-host-custody",
+        "Status": "Passed",
+        "Milliseconds": 38
+      }
+    ]
+  }
+}

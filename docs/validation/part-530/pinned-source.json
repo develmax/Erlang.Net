@@ -1,0 +1,159 @@
+[
+  {
+    "Path": "artifacts/batch562/next-owned-domain-audit/pinned/erl_term.h",
+    "SourcePin": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+    "SHA256": "8E016126FB7A1BC1DB8D31111601C0BEA21D72207211BF91E1F3C127E943B5C2",
+    "Bytes": 59494,
+    "Anchors": [
+      {
+        "Text": "typedef struct {",
+        "Lines": [
+          796,
+          807,
+          818,
+          928,
+          933,
+          938
+        ]
+      },
+      {
+        "Text": "} ErtsMRefThing;",
+        "Lines": [
+          826,
+          942
+        ]
+      },
+      {
+        "Text": "#define write_magic_ref_thing",
+        "Lines": [
+          883,
+          894,
+          953
+        ]
+      },
+      {
+        "Text": "#define ERTS_REF_THING_HEADER",
+        "Lines": [
+          998
+        ]
+      },
+      {
+        "Text": "#define _HEADER_ARITY_OFFS",
+        "Lines": [
+          152
+        ]
+      },
+      {
+        "Text": "#define REF_SUBTAG",
+        "Lines": [
+          136
+        ]
+      },
+      {
+        "Text": "#define BIN_REF_SUBTAG",
+        "Lines": [
+          143
+        ]
+      },
+      {
+        "Text": "#define SUB_BITS_SUBTAG",
+        "Lines": [
+          142
+        ]
+      }
+    ]
+  },
+  {
+    "Path": "artifacts/batch562/next-owned-domain-audit/pinned/erl_bits.h",
+    "SourcePin": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+    "SHA256": "5A72BB9B9C14690D55FF94912FAF3E8F0E9914E155593D2C6AA7474C3FF5BFEC",
+    "Bytes": 27778,
+    "Anchors": [
+      {
+        "Text": "typedef struct erl_sub_bits",
+        "Lines": [
+          60
+        ]
+      },
+      {
+        "Text": "} ErlSubBits;",
+        "Lines": [
+          82
+        ]
+      },
+      {
+        "Text": "} BinRef;",
+        "Lines": [
+          139
+        ]
+      },
+      {
+        "Text": "#define HEADER_SUB_BITS",
+        "Lines": [
+          130
+        ]
+      },
+      {
+        "Text": "#define HEADER_BIN_REF",
+        "Lines": [
+          141
+        ]
+      },
+      {
+        "Text": "#define ERL_REFC_BITS_SIZE",
+        "Lines": [
+          147
+        ]
+      },
+      {
+        "Text": "erl_sub_bits_init(ErlSubBits",
+        "Lines": [
+          98,
+          490
+        ]
+      },
+      {
+        "Text": "sb->start = offset",
+        "Lines": [
+          515
+        ]
+      },
+      {
+        "Text": "sb->base_flags =",
+        "Lines": [
+          395,
+          517,
+          536
+        ]
+      }
+    ]
+  },
+  {
+    "Path": "artifacts/batch520/native-locks/pinned/erl_nif.c",
+    "SourcePin": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+    "SHA256": "66F06AB32AEDB5D1E02140C37E0215E797FB80D78C1AA4091EB52BE01465299A",
+    "Bytes": 197317,
+    "Anchors": [
+      {
+        "Text": "ERL_NIF_TERM enif_make_resource(",
+        "Lines": [
+          3197
+        ]
+      },
+      {
+        "Text": "ERL_NIF_TERM enif_make_resource_binary(",
+        "Lines": [
+          3206
+        ]
+      },
+      {
+        "Text": "erts_wrap_refc_bitstring(&MSO",
+        "Lines": [
+          1739,
+          3216,
+          4410
+        ]
+      }
+    ]
+  }
+]

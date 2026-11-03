@@ -1,0 +1,391 @@
+{
+  "Scope": "Finite read-only source/content preservation audit; candidate12a is UNMERGED and not main/accepted.",
+  "InputManifest": {
+    "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\artifacts\\batch825\\pr101-current-retention1072\\manifest.json",
+    "Sha256": "836263ED67B7ED083380DAACC574A4916FEDB287884127000F817FBA7093B0BB"
+  },
+  "Heads": {
+    "Base": "c369b685c6a2ba6e319d80ae905913a753b6f95c",
+    "Held101": "8918603d1e8ba49797de393b6a7dcc92c1ae66f2",
+    "UnmergedCandidate12a": "12a053c843302d9890faee32fab8204ff14a45ec",
+    "ActualMainAtCapture": "9db75424abe215bff7bd0dcbf576d094e9bfc63e",
+    "CandidateIsMain": false
+  },
+  "Summary": {
+    "HeldChangedPaths": 198,
+    "ExactHeldRetained": 166,
+    "Different": 32,
+    "Missing": 0,
+    "RevertedToOldBase": 0
+  },
+  "Verified32PairsGitBlobIdentity": true,
+  "Exact166RetentionEvidence": "Exact HeldBlob==CandidateBlob identities from root read-only1072 extraction; no redundant blob downloads/read claimed.",
+  "DifferingPaths": [
+    {
+      "Path": ".github/workflows/nif-pending-native.yml",
+      "HeldSha256": "6EE349A9A7FCBCE16356900B2D471BF50CFD25269A22A4DB5F927336B3459468",
+      "CandidateSha256": "B4F39702B4A404694B5F703B77759644945FD861BF5F352763B445DB407CAD10",
+      "Diff": "diffs\\.github\\workflows\\nif-pending-native.yml.diff"
+    },
+    {
+      "Path": ".github/workflows/nif-reallocation-native.yml",
+      "HeldSha256": "A9428C0B30BFAF8CBCA5CF67B64C1E81E2B31E26AC92A2BFDB7AA464C5A9F4AD",
+      "CandidateSha256": "73F0A7841DCF2492079BAF69D6F83D7FF66FF2A2026C846A6591967348CB6262",
+      "Diff": "diffs\\.github\\workflows\\nif-reallocation-native.yml.diff"
+    },
+    {
+      "Path": ".github/workflows/nif-upgrade-integrated.yml",
+      "HeldSha256": "675456B0FC286009B6C2D2A593BEB825FEBA86EBA63553FB338CE2098C49F21F",
+      "CandidateSha256": "A797A9E4BB28E420673AC80A6E6E27CE3F7637C6A0276B53DFFB28733535FE16",
+      "Diff": "diffs\\.github\\workflows\\nif-upgrade-integrated.yml.diff"
+    },
+    {
+      "Path": ".github/workflows/nif-version651-linux.yml",
+      "HeldSha256": "6EEB1F429201E0313337AFA39FAD8E5641B2AE477050908AD2B258AF3761E4A7",
+      "CandidateSha256": "955DD59057B103613409DF16D16B3388B5B07A3CE22D36778FCBA4DDBBE650D1",
+      "Diff": "diffs\\.github\\workflows\\nif-version651-linux.yml.diff"
+    },
+    {
+      "Path": ".github/workflows/validate.yml",
+      "HeldSha256": "602D193753FC9EB4BE163F5FD40D3ADB4876A556FC611724BE5BDC5006F14E75",
+      "CandidateSha256": "DDCCEC1332120C9F9EE2D6F4F885E0E9235D0A346B7F5A75A58601B88AE7F6B1",
+      "Diff": "diffs\\.github\\workflows\\validate.yml.diff"
+    },
+    {
+      "Path": "CHANGELOG.md",
+      "HeldSha256": "B83B74A0A3CCD94A216DEBF7425817A11033EF7B19568772E1B9E251B44E6B6E",
+      "CandidateSha256": "50BFF1F3BA6E60531F914F6E03AA372A9151C78D1ACC53F619F58021D91BBDD7",
+      "Diff": "diffs\\CHANGELOG.md.diff"
+    },
+    {
+      "Path": "docs/changelog/0101.md",
+      "HeldSha256": "B4172610F939A653B9C582CE68F103D6B884A4A2667976B9DA97EA29773935D9",
+      "CandidateSha256": "1151AD2209AB08D31692A953DA9B1B8CB6E7DACF3BB6E6E74C3A1FE04904DEEB",
+      "Diff": "diffs\\docs\\changelog\\0101.md.diff"
+    },
+    {
+      "Path": "docs/mfa-compatibility.json",
+      "HeldSha256": "36BC0149A6E78B8DB09822C60D5BA5F40F5EFEA9A3C1F5A9A22CCF5A88998E42",
+      "CandidateSha256": "E2F7BE0A4B94A989E8D8A01BEAC6010500819B3A6C6665287B8D7CDDFECF31C3",
+      "Diff": "diffs\\docs\\mfa-compatibility.json.diff"
+    },
+    {
+      "Path": "docs/native-infrastructure.json",
+      "HeldSha256": "2733C1E1794AF35BF4F45F4FF00B1B4792221258FA1B5A3C11DDD1DD2A2F249F",
+      "CandidateSha256": "53EE97DFE2CB3E3C90AE59FF65D855F1AA7C434228DC0865B6654CBE856E9189",
+      "Diff": "diffs\\docs\\native-infrastructure.json.diff"
+    },
+    {
+      "Path": "docs/validation/native-gc825/.gitattributes",
+      "HeldSha256": "BD18DE6F692CA803ADBBD6CA0D9377A79EB7D363E3B76B2470988C2F0CBD172B",
+      "CandidateSha256": "AB92EA6A6E366338331172A82AC859AFAC3783C0B10AD2638B1A8F618553D876",
+      "Diff": "diffs\\docs\\validation\\native-gc825\\.gitattributes.diff"
+    },
+    {
+      "Path": "src/.gitattributes",
+      "HeldSha256": "563F2C0D101221665123FE8D354181BE560188FA069E51D446E9160E558EA344",
+      "CandidateSha256": "B2225327D4890ACD041D616A9211451D40618DB0BFDA62402AEA88DBA9AA9B12",
+      "Diff": "diffs\\src\\.gitattributes.diff"
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Modules/ModuleRegistry.NifLifetime.cs",
+      "HeldSha256": "6A62BDA9A16E5525EF3D1A150E15261CEB398DF4923FF4257120B9179096B381",
+      "CandidateSha256": "14B3327E5FD1AC9FCD2278A99A75CA6FDD48F485BFC303B3C8FAFBAE28E2E243",
+      "Diff": "diffs\\src\\Runtime\\Erlang.Runtime.Core\\Modules\\ModuleRegistry.NifLifetime.cs.diff"
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeLibraryOwner.NormalEntry697.cs",
+      "HeldSha256": "BA44E04AB85B4D3F7F2FD072094B344B8461E18EBEF95C86A8B6865C9C6F8043",
+      "CandidateSha256": "CF748A133821D1C6185A97515724D26A7A01B73792FAB36ACC405B1F7C3857ED",
+      "Diff": "diffs\\src\\Runtime\\Erlang.Runtime.Core\\Native\\Nif\\NifNativeLibraryOwner.NormalEntry697.cs.diff"
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.cs",
+      "HeldSha256": "C1D8E9663F334927DCB2FDFE2B1D2109FEC2954A24B60E737E497083C09427B9",
+      "CandidateSha256": "CD558265F92751EA260A20E0395DD29DE3B5586CA65F9596C963DA81E1849BE1",
+      "Diff": "diffs\\src\\Runtime\\Erlang.Runtime.Core\\Processes\\Context\\ProcessRuntime.cs.diff"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Harness/Program.cs",
+      "HeldSha256": "4C0D07006765924ECCDC8207143FD76DAC83032F8A3ED2DFD665816FE0933D85",
+      "CandidateSha256": "6451D6C3D182431CB405439554F26D69AF2607943D10E424F8D34E538538C349",
+      "Diff": "diffs\\tests\\Erlang.Tests\\Harness\\Program.cs.diff"
+    },
+    {
+      "Path": "tools/Native/Erlang.NifIntegratedObservations/inputs.json",
+      "HeldSha256": "3E9E0492F16B9670A1D91AE7D27E137C632C8980A04A9766E234E83E7076F60B",
+      "CandidateSha256": "B8BB6DA949628E4A5315A6CD366DB04DBEACECBA5EBC148F5AD0A0C47EE7E27B",
+      "Diff": "diffs\\tools\\Native\\Erlang.NifIntegratedObservations\\inputs.json.diff"
+    },
+    {
+      "Path": "tools/Native/Erlang.NifMapFamily504Observations/source-plan.json",
+      "HeldSha256": "E4059D0123A20CE3DA6DEC6B7DDC3147E71895ADE8B63F871AC3B6C9894407AA",
+      "CandidateSha256": "42A9A8E64324D9549F1BCCF626699F8BCB88FEF017B3324913526462C22764EE",
+      "Diff": "diffs\\tools\\Native\\Erlang.NifMapFamily504Observations\\source-plan.json.diff"
+    },
+    {
+      "Path": "tools/Native/Erlang.NifMapMaterialized505Observations/source-plan.json",
+      "HeldSha256": "33CD1342934781EB7A9246748E9311995E359AF92068DF6603698FD013CC5F05",
+      "CandidateSha256": "F0697F89014E408688D851C84236486D9B452F3DB2B59065F5582BF83537A43F",
+      "Diff": "diffs\\tools\\Native\\Erlang.NifMapMaterialized505Observations\\source-plan.json.diff"
+    },
+    {
+      "Path": "tools/Native/Erlang.NifMapReentry505Observations/source-plan.json",
+      "HeldSha256": "461CB09E3BF6C6B3810E68D24220A0643E27E938500CA9F3845577DBFDF69486",
+      "CandidateSha256": "CF073825A8FD4420CB832224E85312FB3A58A3AD7B4EE3CCB225B2BF94093989",
+      "Diff": "diffs\\tools\\Native\\Erlang.NifMapReentry505Observations\\source-plan.json.diff"
+    },
+    {
+      "Path": "tools/Native/Erlang.NifPendingVarargsObservations/reviewed-source-plan.json",
+      "HeldSha256": "89BD4A3B141F396A00659F6A1D83A3A57F79167BB7AA2CB6B290FDD87D70375B",
+      "CandidateSha256": "B1B423629489ADF16F3325980BCB9BAB773A481CAEB22468FBE8A0E833206F3E",
+      "Diff": "diffs\\tools\\Native\\Erlang.NifPendingVarargsObservations\\reviewed-source-plan.json.diff"
+    },
+    {
+      "Path": "tools/Native/Erlang.NifPendingVarargsObservations/run-reviewed.py",
+      "HeldSha256": "A282A4A2EEDDA88859BA6442F732F3972B52EDB4F7DC52C6227D819855BEF494",
+      "CandidateSha256": "C50A17F0240ED5FD488B5AD97A78F961967789CBB22669EF73198EA50CBEE650",
+      "Diff": "diffs\\tools\\Native\\Erlang.NifPendingVarargsObservations\\run-reviewed.py.diff"
+    },
+    {
+      "Path": "tools/Native/Erlang.NifPendingVarargsObservations/seal-source-plan.py",
+      "HeldSha256": "1465AF830B154685C26863BAED382E22F3F2E8721F3ED635F04D8D0F37DE45E6",
+      "CandidateSha256": "229DBAB8B9296374AF7CE194A757917CB4A0FCA5C8DC3D717E22A38EFA22D694",
+      "Diff": "diffs\\tools\\Native\\Erlang.NifPendingVarargsObservations\\seal-source-plan.py.diff"
+    },
+    {
+      "Path": "tools/Native/Erlang.NifPrivateData557Observations/source-plan.json",
+      "HeldSha256": "44E3DB798139C4F76D8BCDDE459B5C47CFD2A01DB4FF7F059157D92111F2CD44",
+      "CandidateSha256": "E6578FB2E75055F475B9158A4C97AFF0D4006BEC248A30D38488363913DAE71B",
+      "Diff": "diffs\\tools\\Native\\Erlang.NifPrivateData557Observations\\source-plan.json.diff"
+    },
+    {
+      "Path": "tools/Native/Erlang.NifReallocationObservations/SOURCE-PLAN.json",
+      "HeldSha256": "2DC9729F0511CDA79ABF51E4204DE35B57C8AE84D840F132DEE012303ABFE3E9",
+      "CandidateSha256": "6CC108372CDBB3FDF9FD5425A7A7014A5095799D33B6E88E2F1B32CB8171E4C8",
+      "Diff": "diffs\\tools\\Native\\Erlang.NifReallocationObservations\\SOURCE-PLAN.json.diff"
+    },
+    {
+      "Path": "tools/Native/Erlang.NifResource529Observations/source-plan.json",
+      "HeldSha256": "4E11075152E663C5C244F47AE7E6A919E4E94CC954CE01B5CD0E3E7AA049BF52",
+      "CandidateSha256": "9CC90BCF97D69EAF344CBF8D52B31B5BC90544EFC5A09A945970F5AE5125844D",
+      "Diff": "diffs\\tools\\Native\\Erlang.NifResource529Observations\\source-plan.json.diff"
+    },
+    {
+      "Path": "tools/Native/Erlang.NifVariadic526Observations/source-plan.json",
+      "HeldSha256": "ADD4CDE02FD7D7F9DE65CAB2DA92424B29E549BE64D646C0604A422D588132DB",
+      "CandidateSha256": "2DD9B09A357272700658F3BDE5BDD8670D015420742455710BC8AF8486D78812",
+      "Diff": "diffs\\tools\\Native\\Erlang.NifVariadic526Observations\\source-plan.json.diff"
+    },
+    {
+      "Path": "tools/Runtime/Erlang.BeamFunction542Observations/inputs.json",
+      "HeldSha256": "E303A7094AE573FE94BD6687073C51A9BE190DE6AFD5B5A7834852DD2A53E714",
+      "CandidateSha256": "028AC0CA4F834834DC7FE5AAF3B3C6F2A11ED60A3C593737530DD4C139FB2AC3",
+      "Diff": "diffs\\tools\\Runtime\\Erlang.BeamFunction542Observations\\inputs.json.diff"
+    },
+    {
+      "Path": "tools/Runtime/Erlang.EtsDispatch540Observations/inputs.json",
+      "HeldSha256": "D5E36CEE9D61A88FDAF021881D7EF893BAAEB8283C81407AFC6E6348CF74E37C",
+      "CandidateSha256": "DAE11C4667CFEE95EFEA145D9D384CC800086BC90720B93FA55F30792F9C2CBC",
+      "Diff": "diffs\\tools\\Runtime\\Erlang.EtsDispatch540Observations\\inputs.json.diff"
+    },
+    {
+      "Path": "tools/Runtime/Erlang.MatchSaved634Observations/inputs.json",
+      "HeldSha256": "293DFB8F0D1A17838A9BFA98E16A3733B05C66AB2130EA791017D4E20B50C88A",
+      "CandidateSha256": "7E67596652C2F2BC8CA4C86B9715281A1642E699638B678456D460338E46B0CB",
+      "Diff": "diffs\\tools\\Runtime\\Erlang.MatchSaved634Observations\\inputs.json.diff"
+    },
+    {
+      "Path": "tools/Runtime/Erlang.MonitorOriginal645Observations/inputs.json",
+      "HeldSha256": "EE149A4447BA814BA6B91F60CDA0C6C35456C5F77D6F4F45F1970C9CC4E757E6",
+      "CandidateSha256": "68BD782FBF58028EBFDF63C3DBAB999C08187C31B8D1C09EF05D5F7CD12F527D",
+      "Diff": "diffs\\tools\\Runtime\\Erlang.MonitorOriginal645Observations\\inputs.json.diff"
+    },
+    {
+      "Path": "tools/Runtime/Erlang.OwnedGuest506Observations/seal.py",
+      "HeldSha256": "0F0B99D5E378EC1A01E8F01D713C29A823C67BB7A2D8ADE53FC79572230961F7",
+      "CandidateSha256": "C91DB59B2DD329343D81AB50BC97B9201A90B81EBD614F802101F5014C356B06",
+      "Diff": "diffs\\tools\\Runtime\\Erlang.OwnedGuest506Observations\\seal.py.diff"
+    },
+    {
+      "Path": "tools/Runtime/Erlang.OwnedGuest506Observations/source-plan.json",
+      "HeldSha256": "8E1688F9E822B0FFCE989C0EACB78EB705D455A68B83B800AE69F6CF6872E445",
+      "CandidateSha256": "69814C33AB4CD0497C506E30B0EFA2A2E0A3AE6C65DB65FDA79F31062D20A9F4",
+      "Diff": "diffs\\tools\\Runtime\\Erlang.OwnedGuest506Observations\\source-plan.json.diff"
+    }
+  ],
+  "JSONMemberships": [
+    {
+      "Path": "docs/mfa-compatibility.json",
+      "HeldRows": 4373,
+      "CandidateRows": 4373,
+      "HeldPathModeScopeRootMultiplicityRemoved": 0
+    },
+    {
+      "Path": "docs/native-infrastructure.json",
+      "HeldRows": 366,
+      "CandidateRows": 366,
+      "HeldPathModeScopeRootMultiplicityRemoved": 0
+    },
+    {
+      "Path": "tools/Native/Erlang.NifIntegratedObservations/inputs.json",
+      "HeldRows": 185,
+      "CandidateRows": 188,
+      "HeldPathModeScopeRootMultiplicityRemoved": 0
+    },
+    {
+      "Path": "tools/Native/Erlang.NifMapFamily504Observations/source-plan.json",
+      "HeldRows": 512,
+      "CandidateRows": 556,
+      "HeldPathModeScopeRootMultiplicityRemoved": 0
+    },
+    {
+      "Path": "tools/Native/Erlang.NifMapMaterialized505Observations/source-plan.json",
+      "HeldRows": 525,
+      "CandidateRows": 569,
+      "HeldPathModeScopeRootMultiplicityRemoved": 0
+    },
+    {
+      "Path": "tools/Native/Erlang.NifMapReentry505Observations/source-plan.json",
+      "HeldRows": 519,
+      "CandidateRows": 563,
+      "HeldPathModeScopeRootMultiplicityRemoved": 0
+    },
+    {
+      "Path": "tools/Native/Erlang.NifPendingVarargsObservations/reviewed-source-plan.json",
+      "HeldRows": 4641,
+      "CandidateRows": 4644,
+      "HeldPathModeScopeRootMultiplicityRemoved": 0
+    },
+    {
+      "Path": "tools/Native/Erlang.NifPrivateData557Observations/source-plan.json",
+      "HeldRows": 2882,
+      "CandidateRows": 2882,
+      "HeldPathModeScopeRootMultiplicityRemoved": 0
+    },
+    {
+      "Path": "tools/Native/Erlang.NifReallocationObservations/SOURCE-PLAN.json",
+      "HeldRows": 3347,
+      "CandidateRows": 3347,
+      "HeldPathModeScopeRootMultiplicityRemoved": 0
+    },
+    {
+      "Path": "tools/Native/Erlang.NifResource529Observations/source-plan.json",
+      "HeldRows": 3923,
+      "CandidateRows": 4099,
+      "HeldPathModeScopeRootMultiplicityRemoved": 0
+    },
+    {
+      "Path": "tools/Native/Erlang.NifVariadic526Observations/source-plan.json",
+      "HeldRows": 895,
+      "CandidateRows": 895,
+      "HeldPathModeScopeRootMultiplicityRemoved": 0
+    },
+    {
+      "Path": "tools/Runtime/Erlang.BeamFunction542Observations/inputs.json",
+      "HeldRows": 37,
+      "CandidateRows": 37,
+      "HeldPathModeScopeRootMultiplicityRemoved": 0
+    },
+    {
+      "Path": "tools/Runtime/Erlang.EtsDispatch540Observations/inputs.json",
+      "HeldRows": 130,
+      "CandidateRows": 130,
+      "HeldPathModeScopeRootMultiplicityRemoved": 0
+    },
+    {
+      "Path": "tools/Runtime/Erlang.MatchSaved634Observations/inputs.json",
+      "HeldRows": 31,
+      "CandidateRows": 31,
+      "HeldPathModeScopeRootMultiplicityRemoved": 0
+    },
+    {
+      "Path": "tools/Runtime/Erlang.MonitorOriginal645Observations/inputs.json",
+      "HeldRows": 13,
+      "CandidateRows": 13,
+      "HeldPathModeScopeRootMultiplicityRemoved": 0
+    },
+    {
+      "Path": "tools/Runtime/Erlang.OwnedGuest506Observations/source-plan.json",
+      "HeldRows": 988,
+      "CandidateRows": 991,
+      "HeldPathModeScopeRootMultiplicityRemoved": 0
+    }
+  ],
+  "Sealers": [
+    {
+      "Path": "tools/Native/Erlang.NifPendingVarargsObservations/run-reviewed.py",
+      "HeldCount": 1058,
+      "CandidateCount": 1061,
+      "OrderedTypedPrefixRetained": true,
+      "Added": [
+        "docs/validation/native-gc825/pr97-statistics-current953-source.json",
+        "docs/validation/native-gc825/pr97-helper-shutdown1012-source.json",
+        "docs/validation/native-gc825/pr97-canonical-bif-final-source1047.json"
+      ]
+    },
+    {
+      "Path": "tools/Native/Erlang.NifPendingVarargsObservations/seal-source-plan.py",
+      "HeldCount": 1058,
+      "CandidateCount": 1061,
+      "OrderedTypedPrefixRetained": true,
+      "Added": [
+        "docs/validation/native-gc825/pr97-statistics-current953-source.json",
+        "docs/validation/native-gc825/pr97-helper-shutdown1012-source.json",
+        "docs/validation/native-gc825/pr97-canonical-bif-final-source1047.json"
+      ]
+    },
+    {
+      "Path": "tools/Runtime/Erlang.OwnedGuest506Observations/seal.py",
+      "HeldCount": 881,
+      "CandidateCount": 884,
+      "OrderedTypedPrefixRetained": true,
+      "Added": [
+        "docs/validation/native-gc825/pr97-statistics-current953-source.json",
+        "docs/validation/native-gc825/pr97-helper-shutdown1012-source.json",
+        "docs/validation/native-gc825/pr97-canonical-bif-final-source1047.json"
+      ]
+    }
+  ],
+  "CodeAssessment": [
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Modules/ModuleRegistry.NifLifetime.cs",
+      "Finding": "Held lifecycle behavior retained plus current helper-preparing/use reentrant refusal, actual helper close before queued shutdown work, atomic helper closing/admission recheck and both helper joins. Keep candidate; reverting held file loses accepted949 close protections."
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeLibraryOwner.NormalEntry697.cs",
+      "Finding": "One actual VM UserCpu.Enter scope added around same admitted native invocation; held admission/body retained."
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.cs",
+      "Finding": "Only participant-counters construction and DrainStatisticsTraps added. All held code retained."
+    },
+    {
+      "Path": "tests/Erlang.Tests/Harness/Program.cs",
+      "Finding": "All7441 held nonempty lines retained in order; single362-line registration insertion before catalog. No held test registration removed."
+    }
+  ],
+  "MetadataAndHistory": [
+    "All16 differing JSON files retain every held Path/HashMode/Scope/Root row including multiplicity. MFA/native-infrastructure structures identical after masking binding leaves; no API/status classification change there.",
+    "All three explicit sealers retain old typed ordered prefix1058/1058/881 and append same three new current snapshots. No old snapshot removed/replaced.",
+    "All24 held nonempty0101 lines retained plus41 appended.0100 exact held. CHANGELOG only rotates0101 closed\u21920102 active.",
+    "Raw attributes only append one actual embedded provenance rule and three distinct current monitor rules; held raw rules retained.",
+    "Integrated NIF workflow preserves held body with only live ACCEPTANCE_PLAN and INTEGRATED_PLAN pins changed. Other workflow updates preserve held obligations; validate adds independent passive outcomes with mandatory fail-closed aggregate beforeSDK, not normalized success."
+  ],
+  "MissingUsefulHeld101BehaviorFound": [],
+  "ReconciliationPlan": [
+    "Wait until PR97 exact candidate is accepted and actually merged into main; current12a/CI pending is not enough. Preserve held101 head891 and all failed/current evidence.",
+    "Re-fetch actual accepted main and held101 heads. Refresh this finite audit if either differs. Root owns Git and review lifecycle.",
+    "No cherry-pick or wholesale source transfer from891 indicated. Build a content-preserving two-parent reconciliation commit on PR101 lineage: first parent actual held101 tip, second parent actual accepted main tip. Its tree must equal the reviewed accepted main tree, unless each intentional extra byte is separately reviewed.",
+    "Keep ALL accepted-main additions outside held198path delta, including helper949 shutdown protections, canonical get12a child authority/identity, physical VM/mailbox/collector and strong retained tests, source-plan bindings, raw attributes and fresh snapshots. Never restore old held metadata pins or source snapshots.",
+    "Verify two parent identities, exact tree equality/complete diff, all198 held-content retention, current source/checkout admission and current-head required CI/review. Tree preservation is not a fresh exact-head CI pass. Only then merge updated101 under user ordering."
+  ],
+  "NoMutationOrExecution": true,
+  "ApiDelta": 0,
+  "FullContractDelta": 0,
+  "Limits": [
+    "No W/Git/build/VM/CI mutation or execution.",
+    "32 differing content paths are not an actual Git conflict count.",
+    "This proves bounded preservation, not whole OTP/API compatibility or acceptance of unmerged12a."
+  ]
+}

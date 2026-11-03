@@ -43,7 +43,7 @@ internal static class DynamicApplyBoundary520Checks
         {
             string path = Path.GetFullPath(Path.Combine(repository, input.GetProperty(PathProperty).GetString()!));
             Require(path.StartsWith(repository + Path.DirectorySeparatorChar, StringComparison.OrdinalIgnoreCase)
-                && File.Exists(path) && Digest(path) == input.GetProperty(ShaProperty).GetString());
+                && File.Exists(path) && SourceDigest(path, input) == input.GetProperty(ShaProperty).GetString());
         }
         var images = root.GetProperty(ImagesProperty).EnumerateArray().ToDictionary(image => image.GetProperty(ModuleProperty).GetString()!, StringComparer.Ordinal);
         Require(images.Count == 2 && images.ContainsKey(Caller) && images.ContainsKey(Target));
@@ -70,6 +70,15 @@ internal static class DynamicApplyBoundary520Checks
         string loaderSha = loader.GetProperty(ShaProperty).GetString()!;
         Require(File.Exists(loaderPath) && Digest(loaderPath) == loaderSha);
         byte[] loaderBytes = File.ReadAllBytes(loaderPath);
+        JsonElement nativeMetadata = root.GetProperty(DynamicApplyNativeMetadata527Names.Field);
+        Require(nativeMetadata.GetProperty(ModuleProperty).GetString() == ErlangModule);
+        string metadataName = nativeMetadata.GetProperty(NameProperty).GetString()!;
+        Require(Path.GetFileName(metadataName) == metadataName);
+        string metadataPath = Path.Combine(original, metadataName);
+        Require(File.Exists(metadataPath) && Digest(metadataPath) == nativeMetadata.GetProperty(ShaProperty).GetString());
+        byte[] metadataBytes = File.ReadAllBytes(metadataPath);
+        RuntimeNativeMetadataImage metadataProfile = DynamicApplyNativeMetadata527Admission.Verify(original, nativeMetadata, metadataBytes);
+        Require(metadataProfile.OriginalBeamSha256 == nativeMetadata.GetProperty(ShaProperty).GetString());
         byte[] expectedRaw = File.ReadAllBytes(Path.Combine(original, Raw));
         byte[] expectedDeterministic = File.ReadAllBytes(Path.Combine(original, Deterministic));
         string[] callerImports = DynamicApplyBoundary520Imports.Read(callerBytes);
@@ -79,39 +88,59 @@ internal static class DynamicApplyBoundary520Checks
             .Distinct(StringComparer.Ordinal).Order(StringComparer.Ordinal).ToArray();
         Require(!selected.Contains(Target, StringComparer.Ordinal));
         Directory.CreateDirectory(output);
-        await using var runtime = OwnedGuest506RuntimeFactory.Create(owned);
+        await using var runtime = OwnedGuest506RuntimeFactory.Create(owned, metadataProfile);
         PreparedBeamImage? caller = null, target = null;
-        await runtime.InitializeModulesAsync(registry =>
+        await global::Erlang.Tests.PreparedBeamFixtureScope171.RunAsync(
+            runtime,
+            (registry, scope) =>
         {
             // Actual caller static imports remain [erlang]. Explicit loader
             // authority grants ONLY the admitted ODBC image's imported modules.
             // The dynamic target is absent from that declared selection.
-            PreparedBeamImage prepared = registry.PrepareBeam(callerBytes, new BeamDependencySelection(selected));
+            PreparedBeamImage prepared = scope.Prepare(() => registry.PrepareBeam(callerBytes, new BeamDependencySelection(selected)));
             caller = prepared;
             Require(!registry.HasExport(Target, TargetEcho, 1));
-            Require(registry.PublishPreparedBeam(prepared).Status == BeamPublicationStatus.Published);
-        });
+
+            return ValueTask.FromResult<Action<ModuleRegistry>>(_ =>
+            {
+                Require(registry.PublishPreparedBeam(prepared).Status == BeamPublicationStatus.Published);
+            });
+        }
+        );
         // Separate late publication after the caller has already been prepared.
-        await runtime.InitializeModulesAsync(registry =>
+        await global::Erlang.Tests.PreparedBeamFixtureScope171.RunAsync(
+            runtime,
+            (registry, scope) =>
         {
-            PreparedBeamImage prepared = registry.PrepareBeam(targetBytes, new BeamDependencySelection(new[] { ErlangModule }));
+            PreparedBeamImage prepared = scope.Prepare(() => registry.PrepareBeam(targetBytes, new BeamDependencySelection(new[] { ErlangModule })));
             target = prepared;
-            Require(registry.PublishPreparedBeam(prepared).Status == BeamPublicationStatus.Published);
-        });
+
+            return ValueTask.FromResult<Action<ModuleRegistry>>(_ =>
+            {
+                Require(registry.PublishPreparedBeam(prepared).Status == BeamPublicationStatus.Published);
+            });
+        }
+        );
         Require(caller is not null && target is not null);
         bool hostSelectionRejected = false;
-        await runtime.InitializeModulesAsync(registry =>
+        await global::Erlang.Tests.PreparedBeamFixtureScope171.RunOutsideAsync(
+            runtime,
+            (registry, scope) =>
         {
             Require(!registry.HasExport(LoaderModule, LoaderFunction, 3));
             try
             {
-                _ = registry.PrepareBeam(loaderBytes, new BeamDependencySelection(new[] { ErlangModule }));
+                scope.Prepare(() => registry.PrepareBeam(loaderBytes, new BeamDependencySelection(new[] { ErlangModule })));
             }
             catch (NotSupportedException)
             {
                 hostSelectionRejected = true;
             }
-        });
+
+            return ValueTask.CompletedTask;
+
+        }
+        );
         // Both host and guest loader retain declared dependency authority.
         // Guest loader success below inherits the nearest actual caller's
         // admitted selection; this control keeps the narrow host refusal.
@@ -235,6 +264,20 @@ internal static class DynamicApplyBoundary520Checks
 
     private static bool IsDown(Term value, Pid pid, ReferenceTerm monitor) => value is TupleTerm { Items.Count: 5 } tuple
         && tuple.Items[0].Equals(Term.A(DownTag)) && tuple.Items[1].Equals(monitor) && tuple.Items[3].Equals(pid);
+
+    internal static string SourceDigest(string path, JsonElement input)
+    {
+        string mode = input.TryGetProperty(HashModeProperty, out JsonElement value) ? value.GetString()! : RawMode;
+        Require(mode is RawMode or TextLfMode);
+        byte[] bytes = File.ReadAllBytes(path);
+        if (mode == TextLfMode)
+        {
+            byte[] original = bytes;
+            bytes = original.Where((value, index) => value != 13 || index + 1 == original.Length || original[index + 1] != 10).ToArray();
+        }
+
+        return Convert.ToHexString(SHA256.HashData(bytes));
+    }
 
     private static string Digest(string path) => Convert.ToHexString(SHA256.HashData(File.ReadAllBytes(path)));
 

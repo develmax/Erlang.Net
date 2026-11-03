@@ -226,7 +226,19 @@ internal static class StringUnicode
             remaining = next.Tail;
         }
 
-        return await Encode(context, tail, selected);
+        if (tail is BitString binary)
+        {
+            int bits = 0;
+            foreach (Integer codepoint in selected)
+            {
+                int scalar = (int)codepoint.Value;
+                bits += new System.Text.Rune(scalar).Utf8SequenceLength * UnicodeNativeNames.BitsPerByte;
+            }
+
+            return binary.SliceBits(0, bits);
+        }
+
+        return Cons.From(selected);
     }
 
     private static async ValueTask<Term> ChangeCase(ProcessContext context, Term input, string operation)

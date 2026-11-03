@@ -17,7 +17,12 @@ internal static class BoxedFloat556Checks
         long[] bits = [0, long.MinValue, 0x3ff8000000000000, 1, unchecked((long)0x8000000000000001UL), 0x7fefffffffffffff];
         foreach (long valueBits in bits)
         {
-            Call(roots, Set, slot, new FloatTerm(BitConverter.Int64BitsToDouble(valueBits)));
+            Call(
+                roots,
+                Set,
+                slot,
+                new FloatTerm(BitConverter.Int64BitsToDouble(valueBits))
+            );
             var owned = (FloatTerm)Call(roots, Read, slot)!;
             Check(BitConverter.DoubleToInt64Bits(owned.Value) == valueBits);
             Call(heap, Collect);
@@ -29,17 +34,42 @@ internal static class BoxedFloat556Checks
             int offset = (int)Get(storage, Offset);
             const long replacementBits = 0x4004000000000000;
             lock (Get(heap, HeapGate))
-                Call(cells, WriteNumeric, new nuint[] { unchecked((nuint)replacementBits) }, offset + 1);
+                Call(
+                    cells,
+                    WriteNumeric,
+                    new nuint[] { unchecked((nuint)replacementBits) },
+                    offset + 1
+                );
             Check(BitConverter.DoubleToInt64Bits(owned.Value) == replacementBits);
             lock (Get(heap, HeapGate))
-                Call(cells, WriteNumeric, new nuint[] { unchecked((nuint)valueBits) }, offset + 1);
+                Call(
+                    cells,
+                    WriteNumeric,
+                    new nuint[] { unchecked((nuint)valueBits) },
+                    offset + 1
+                );
             nuint header = (nuint)Call(cells, ReadHeader, offset)!;
             lock (Get(heap, HeapGate))
-                Call(cells, WriteHeaders, new nuint[] { 0 }, offset);
+                Call(
+                    cells,
+                    WriteHeaders,
+                    new nuint[] { 0 },
+                    offset
+                );
             Expect<InvalidOperationException>(() => _ = owned.Value);
             lock (Get(heap, HeapGate))
-                Call(cells, WriteHeaders, new nuint[] { header }, offset);
-            var exported = (FloatTerm)Call(heap, Export, roots, owned)!;
+                Call(
+                    cells,
+                    WriteHeaders,
+                    new nuint[] { header },
+                    offset
+                );
+            var exported = (FloatTerm)Call(
+                heap,
+                Export,
+                roots,
+                owned
+            )!;
             Call(roots, Clear, slot);
             Call(heap, Collect);
             Check(Words(heap, Physical) == 0 && Words(heap, Numeric) == 0);
@@ -59,7 +89,12 @@ internal static class BoxedFloat556Checks
         Check(ReferenceEquals(Call(roots, RetainLocal, portable), portable));
         Check(Words(heap, Physical) == 0);
         int slot = (int)Call(roots, Reserve)!;
-        var graph = (TupleTerm)Call(roots, Adopt, slot, Term.Tuple(portable, portable, new FloatTerm(1.5)))!;
+        var graph = (TupleTerm)Call(
+            roots,
+            Adopt,
+            slot,
+            Term.Tuple(portable, portable, new FloatTerm(1.5))
+        )!;
         Check(ReferenceEquals(graph.Items[0], graph.Items[1])
             && !ReferenceEquals(graph.Items[0], graph.Items[2])
             && !ReferenceEquals(graph.Items[0], portable));
@@ -73,11 +108,21 @@ internal static class BoxedFloat556Checks
         Call(runtime, MarkLiterals, (object)new Term[] { marked });
         long previous = Words(heap, Physical);
         int literalSlot = (int)Call(roots, Reserve)!;
-        Check(ReferenceEquals(Call(roots, Adopt, literalSlot, marked), marked));
+        Check(ReferenceEquals(Call(
+            roots,
+            Adopt,
+            literalSlot,
+            marked
+        ), marked));
         Check(Words(heap, Physical) == previous);
         var equalButDynamic = new FloatTerm(0.5);
         int dynamicSlot = (int)Call(roots, Reserve)!;
-        Check(!ReferenceEquals(Call(roots, Adopt, dynamicSlot, equalButDynamic), equalButDynamic));
+        Check(!ReferenceEquals(Call(
+            roots,
+            Adopt,
+            dynamicSlot,
+            equalButDynamic
+        ), equalButDynamic));
         Check(Words(heap, Physical) == previous + 2);
         roots.Dispose();
         await ((Task)Call(heap, Retire)!).WaitAsync(TimeSpan.FromSeconds(DrainTimeoutSeconds));
@@ -92,18 +137,58 @@ internal static class BoxedFloat556Checks
         IDisposable targetRoots = fixture.EnterRoots(destination);
         int sourceSlot = (int)Call(sourceRoots, Reserve)!;
         int targetSlot = (int)Call(targetRoots, Reserve)!;
-        Call(sourceRoots, Set, sourceSlot, new FloatTerm(3.5));
+        Call(
+            sourceRoots,
+            Set,
+            sourceSlot,
+            new FloatTerm(3.5)
+        );
         var owned = (FloatTerm)Call(sourceRoots, Read, sourceSlot)!;
-        Call(source, CollectGeneration, false, ushort.MaxValue);
-        Call(source, CollectGeneration, false, ushort.MaxValue);
+        Call(
+            source,
+            CollectGeneration,
+            false,
+            ushort.MaxValue
+        );
+        Call(
+            source,
+            CollectGeneration,
+            false,
+            ushort.MaxValue
+        );
         Call(sourceRoots, Clear, sourceSlot);
-        Call(source, CollectGeneration, false, ushort.MaxValue);
+        Call(
+            source,
+            CollectGeneration,
+            false,
+            ushort.MaxValue
+        );
         Check(Words(source, Physical) == 2 && owned.Value == 3.5);
-        Call(sourceRoots, Set, sourceSlot, owned);
-        Expect<InvalidOperationException>(() => Call(targetRoots, Adopt, targetSlot, owned));
+        Call(
+            sourceRoots,
+            Set,
+            sourceSlot,
+            owned
+        );
+        Expect<InvalidOperationException>(() => Call(
+            targetRoots,
+            Adopt,
+            targetSlot,
+            owned
+        ));
         Check(Words(destination, Physical) == 0);
-        var portable = (FloatTerm)Call(source, Export, sourceRoots, owned)!;
-        Call(targetRoots, Set, targetSlot, portable);
+        var portable = (FloatTerm)Call(
+            source,
+            Export,
+            sourceRoots,
+            owned
+        )!;
+        Call(
+            targetRoots,
+            Set,
+            targetSlot,
+            portable
+        );
         var copied = (FloatTerm)Call(targetRoots, Read, targetSlot)!;
         Check(copied.Value == owned.Value && !ReferenceEquals(copied, owned));
         Task retiring = (Task)Call(source, Retire)!;

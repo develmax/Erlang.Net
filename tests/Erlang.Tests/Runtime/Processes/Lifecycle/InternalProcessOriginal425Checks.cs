@@ -17,19 +17,24 @@ internal static class InternalProcessOriginal425Checks
         {
             runtime = new ProcessRuntime(1);
             ProcessRuntime owner = runtime;
-            await owner.InitializeModulesAsync(registry =>
-            {
-                var declared = new BeamDependencySelection(new[] { InternalProcessOriginal425Names.Runtime, InternalProcessOriginal425Names.File, InternalProcessOriginal425Names.Internal });
-                PreparedBeamImage facet = registry.PrepareBeam(InternalProcessOriginal425Access.Resource(InternalProcessOriginal425Names.FacetBeam), declared);
-                PreparedBeamImage worker = registry.PrepareBeam(InternalProcessOriginal425Access.Resource(InternalProcessOriginal425Names.WorkerBeam), declared);
-                InternalProcessOriginal425Access.Require(registry.PublishPreparedBeam(new[] { facet, worker }).Status == BeamPublicationStatus.Published);
-                InternalProcessOriginal425Access.Require(facet.NativePrimitiveExports.Count == InternalProcessOriginal425Names.NativeCount
-                    && InternalProcessOriginal425Names.NativeSignatures.All(signature => facet.NativePrimitiveExports.Contains(signature)));
-                InternalProcessOriginal425Access.Require(registry.Exports.Count(export => export.Module == facet.Name) == InternalProcessOriginal425Names.FacetExports);
-                foreach (var image in new[] { facet, worker })
-                    foreach (var export in registry.Exports.Where(export => export.Module == image.Name))
-                        InternalProcessOriginal425Access.Require(ReferenceEquals(registry.SourceOwner(export.Module, export.Function, export.Arity), image));
-            });
+            var declared = new BeamDependencySelection(new[] { InternalProcessOriginal425Names.Runtime, InternalProcessOriginal425Names.File, InternalProcessOriginal425Names.Internal });
+            await PreparedBeamFixtureImages825.PrepareAndPublishAsync(
+                owner,
+                [InternalProcessOriginal425Access.Resource(InternalProcessOriginal425Names.FacetBeam), InternalProcessOriginal425Access.Resource(InternalProcessOriginal425Names.WorkerBeam)],
+                declared,
+                (registry, images) =>
+                {
+                    PreparedBeamImage facet = images[0];
+                    PreparedBeamImage worker = images[1];
+                    InternalProcessOriginal425Access.Require(registry.PublishPreparedBeam(new[] { facet, worker }).Status == BeamPublicationStatus.Published);
+                    InternalProcessOriginal425Access.Require(facet.NativePrimitiveExports.Count == InternalProcessOriginal425Names.NativeCount
+                        && InternalProcessOriginal425Names.NativeSignatures.All(signature => facet.NativePrimitiveExports.Contains(signature)));
+                    InternalProcessOriginal425Access.Require(registry.Exports.Count(export => export.Module == facet.Name) == InternalProcessOriginal425Names.FacetExports);
+                    foreach (var image in new[] { facet, worker })
+                        foreach (var export in registry.Exports.Where(export => export.Module == image.Name))
+                            InternalProcessOriginal425Access.Require(ReferenceEquals(registry.SourceOwner(export.Module, export.Function, export.Arity), image));
+                }
+            );
             actor = new RuntimeNodeFoundationHostActor(owner);
             RuntimeNodeFoundationHostActor caller = actor;
 

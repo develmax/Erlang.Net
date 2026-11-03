@@ -1,0 +1,57 @@
+{
+  "Verdict": "No bounded source blocker found; five tests-only migrations with exact nullable correction and current1054 token-preserving style chain. Actual replay root-owned.",
+  "VerifiedPostimages": [
+    {
+      "Path": "tests/Erlang.Tests/Compiler/Beam/Binary/BeamBinaryHostChecks.cs",
+      "PacketSha256": "62E9AA095C0D5B8ECB5EC6CCEAD698E33F5CA18C098745859155EFBAB327B000",
+      "StyleBeforeSha256": "62E9AA095C0D5B8ECB5EC6CCEAD698E33F5CA18C098745859155EFBAB327B000",
+      "CurrentSha256": "62E9AA095C0D5B8ECB5EC6CCEAD698E33F5CA18C098745859155EFBAB327B000",
+      "StyleTokensEqual": true
+    },
+    {
+      "Path": "tests/Erlang.Tests/Compiler/Beam/Binary/BeamBinaryHostBytes.cs",
+      "PacketSha256": "19AF54668ED24C81ABF85A673C35D65897A0EEB95FBE965E0FA91B55C09DA095",
+      "StyleBeforeSha256": "19AF54668ED24C81ABF85A673C35D65897A0EEB95FBE965E0FA91B55C09DA095",
+      "CurrentSha256": "2ECC2AC0219EF8664F1B69103409D750BB62E178D700194095E9B1D8D105AD5E",
+      "StyleTokensEqual": true
+    },
+    {
+      "Path": "tests/Erlang.Tests/Compiler/Beam/Binary/BeamBinaryHostNames.cs",
+      "PacketSha256": "44A6229CF3F8C441A90FB809B829EED0115BDF0DBEE6BBFF681EA686FFE50342",
+      "StyleBeforeSha256": "44A6229CF3F8C441A90FB809B829EED0115BDF0DBEE6BBFF681EA686FFE50342",
+      "CurrentSha256": "44A6229CF3F8C441A90FB809B829EED0115BDF0DBEE6BBFF681EA686FFE50342",
+      "StyleTokensEqual": true
+    },
+    {
+      "Path": "tests/Erlang.Tests/Runtime/Memory/BinaryOwned512Checks.cs",
+      "PacketSha256": "6B7777ECABB1F49AF51CE1812CDD73E7731C95E8594E53B639857F2200DF56E0",
+      "StyleBeforeSha256": "242DF43749E17AAB1881493D8D1A4283D6431E9F67A632B8CE89CB14143E4A51",
+      "CurrentSha256": "C4CE1E2053B13FA234F947CED03E16ACE9BC203B68D6E0B2E6192F8305296AAF",
+      "StyleTokensEqual": true
+    },
+    {
+      "Path": "tests/Erlang.Tests/Runtime/Memory/BinaryOwned512Names.cs",
+      "PacketSha256": "A14C6168E4F03AB87D5AF0F2BAA070F15C626CE452009853F327F43FB0C7E0E3",
+      "StyleBeforeSha256": "A14C6168E4F03AB87D5AF0F2BAA070F15C626CE452009853F327F43FB0C7E0E3",
+      "CurrentSha256": "41DD3719FB2A058E79258537558A2175CFA2A4467CA38570780E8808BF1E168B",
+      "StyleTokensEqual": true
+    }
+  ],
+  "StyleManifest": {
+    "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\artifacts\\batch825\\canonical-bif-style1054\\postimages\\manifest.json",
+    "Sha256": "1F629B189D811399045473E3A321C9BF4AA5905E5C2F2347DD27C87220C2B106"
+  },
+  "Findings": [
+    "1044 keeps original sourceRetained image and all reject/Restore/dead-register controls. Public HOST result requires whole binary equality. New observer saves genuine X1 to actual Y0, executes same Start(live0,sourceX1,destX0), then compares X1/Y0 via original DebugSame420 before export; deallocation before tailcall. Atom/import7/8 and arity2 match rebuilt tables.",
+    "DebugSame420HostAccess authenticates actual original embedded module hash, native primitive export and source ownership; no fake HOST identity observer.",
+    "1057 preserves provider alias and two frame-root counts. Sole queued Entry snapshot under M, native payload outside M while queue owns it with no concurrent receiver. CaptureBinaryPayload512 only returns validated descriptor, not an undisposed lease.",
+    "Queued census uses measured native CapacityBytes, nonnull native identity, whole value equality, sufficient capacity, distinct1 and positive references. No guessed128/4096/vacuouszero witness.",
+    "Public receive requires equal bytes plus no native identity/no heap Storage. Dispose both external frames before actorB retirement join; actual registry bytes/distinct/references then allzero, detached HOST/provider bytes remain readable. No premature livequeue DrainRoots/seal.",
+    "SourceAndRollback/NativeLifetime, deadlines, catalog, goldens and production untouched. Idempotent using/awaitusing cleanup retained.",
+    "Exact prestyle BinaryOwned512Checks correction is return value! after actual nonnull check, preserving CRLF in styleBefore. Actual style changes transport/trivia with all tokens/syntax preserved; all five final current raw hashes matched."
+  ],
+  "Limits": [
+    "No reviewer W edits/build/VM/Git/CI/replay.",
+    "No full binary compatibility/GC/performance/API credit."
+  ]
+}

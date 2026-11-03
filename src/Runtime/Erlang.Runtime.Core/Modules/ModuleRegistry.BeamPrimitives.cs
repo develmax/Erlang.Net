@@ -8,7 +8,7 @@ public sealed partial class ModuleRegistry
     {
         var primitives = new Dictionary<(string Function, int Arity), ErlangFunction>();
         var unbound = new List<(string Module, string Name, int Arity)>();
-        var owned507 = owningRuntime?.OwnedTermsPilot506 == true
+        var owned507 = owningRuntime is not null
             ? new Dictionary<ErlangFunction, OwnedBindingKind507>(ReferenceEqualityComparer.Instance) : null;
         lock (gate)
         {
@@ -20,7 +20,7 @@ public sealed partial class ModuleRegistry
                     ErlangFunction canonical = functions[signature];
                     primitives.Add((function.Name, function.Arity), canonical);
                     OwnedBindingKind507 kind = SelectedOwnedBinding507(signature, canonical);
-                    if (owned507 is not null && kind is OwnedBindingKind507.PureAliasRead or OwnedBindingKind507.LocalDictionary or OwnedBindingKind507.RuntimeRead535)
+                    if (owned507 is not null && kind is OwnedBindingKind507.PureAliasRead or OwnedBindingKind507.LocalDictionary or OwnedBindingKind507.RuntimeRead535 or OwnedBindingKind507.LocalMessage or OwnedBindingKind507.LocalListAppend or OwnedBindingKind507.LocalValueBif354 or OwnedBindingKind507.LocalDebugCopy377 or OwnedBindingKind507.LocalOsEnvironment401 or OwnedBindingKind507.ReviewedManagedLibrary)
                         owned507[canonical] = kind;
                 }
                 else if (sourceOwners.GetValueOrDefault(signature) is PreparedBeamImage previous
@@ -29,7 +29,7 @@ public sealed partial class ModuleRegistry
                 {
                     primitives.Add((function.Name, function.Arity), primitive);
                     OwnedBindingKind507 kind = NativeBorrowKind507(previous.ExecutionIdentity, primitive);
-                    if (owned507 is not null && kind is OwnedBindingKind507.PureAliasRead or OwnedBindingKind507.LocalDictionary or OwnedBindingKind507.RuntimeRead535)
+                    if (owned507 is not null && kind is OwnedBindingKind507.PureAliasRead or OwnedBindingKind507.LocalDictionary or OwnedBindingKind507.RuntimeRead535 or OwnedBindingKind507.LocalMessage or OwnedBindingKind507.LocalListAppend or OwnedBindingKind507.LocalValueBif354 or OwnedBindingKind507.LocalDebugCopy377 or OwnedBindingKind507.LocalOsEnvironment401 or OwnedBindingKind507.ReviewedManagedLibrary)
                         owned507[primitive] = kind;
                 }
                 else if (!functions.ContainsKey(signature) && !sourceOwners.ContainsKey(signature)
@@ -102,7 +102,13 @@ public sealed partial class ModuleRegistry
                         signature.Arity,
                         out ErlangFunction os
                     ))
+                {
                     primitives.Add((function.Name, function.Arity), os);
+                    // Exact Windows native stub body captured above. No public
+                    // registration or other OS signature receives this grant.
+                    if (owned507 is not null && signature.Name == OsNativeNames.Env && signature.Arity == 0)
+                        owned507[os] = OwnedBindingKind507.LocalOsEnvironment401;
+                }
                 else if (!functions.ContainsKey(signature) && !sourceOwners.ContainsKey(signature)
                     && NetKernelNative.TryCapture(
                         owningRuntime,
@@ -252,7 +258,10 @@ public sealed partial class ModuleRegistry
                         signature.Arity,
                         out ErlangFunction counters
                     ))
+                {
                     primitives.Add((function.Name, function.Arity), counters);
+                    if (owned507 is not null) owned507[counters] = OwnedBindingKind507.RuntimeRead535;
+                }
                 else if (!functions.ContainsKey(signature) && !sourceOwners.ContainsKey(signature)
                     && AtomicsNative413.TryCapture(
                         owningRuntime,
@@ -261,7 +270,10 @@ public sealed partial class ModuleRegistry
                         signature.Arity,
                         out ErlangFunction atomics
                     ))
+                {
                     primitives.Add((function.Name, function.Arity), atomics);
+                    if (owned507 is not null) owned507[atomics] = OwnedBindingKind507.RuntimeRead535;
+                }
                 else if (!functions.ContainsKey(signature) && !sourceOwners.ContainsKey(signature)
                     && ManagedCollectorNative413.TryCapture(
                         owningRuntime,
@@ -341,6 +353,8 @@ public sealed partial class ModuleRegistry
                     primitives.Add((function.Name, function.Arity), debugSharing425);
                     if (owned507 is not null && (signature.Name is DebugSharingNames425.Flat or DebugSharingNames425.Shared))
                         owned507[debugSharing425] = OwnedBindingKind507.PureAliasRead;
+                    else if (owned507 is not null && signature.Name == DebugSharingNames425.Copy)
+                        owned507[debugSharing425] = OwnedBindingKind507.LocalDebugCopy377;
                 }
                 else if (!functions.ContainsKey(signature) && !sourceOwners.ContainsKey(signature)
                     && DebugDirtyNative424.TryCapture(
@@ -472,21 +486,37 @@ public sealed partial class ModuleRegistry
                         out ErlangFunction allocatorGather434
                     ))
                     primitives.Add((function.Name, function.Arity), allocatorGather434);
+                else if (!functions.ContainsKey(signature) && !sourceOwners.ContainsKey(signature)
+                    && InternalBootstrapNativeCapture.TryCapture(
+                        owningRuntime,
+                        this,
+                        signature.Module,
+                        signature.Name,
+                        signature.Arity,
+                        out ErlangFunction bootstrapPrimitive,
+                        out OwnedBindingKind507 bootstrapKind
+                    ))
+                {
+                    primitives.Add((function.Name, function.Arity), bootstrapPrimitive);
+                    if (owned507 is not null && bootstrapKind != OwnedBindingKind507.Opaque)
+                        owned507[bootstrapPrimitive] = bootstrapKind;
+                }
                 else
                     unbound.Add(signature);
             }
-            if (unbound.Count != 0)
-            {
-                var failure = new NotSupportedException(BeamRegisterNames.Unsupported);
-                failure.Data[BeamNativePrimitiveNames.NativePrimitiveSignature] = Array.AsReadOnly(unbound.ToArray());
+        }
 
-                throw failure;
-            }
+        if (unbound.Count != 0)
+        {
+            var failure = new NotSupportedException(BeamRegisterNames.Unsupported);
+            failure.Data[BeamNativePrimitiveNames.NativePrimitiveSignature] = Array.AsReadOnly(unbound.ToArray());
+            throw failure;
         }
 
         var captured = primitives.ToFrozenDictionary();
         if (owned507 is { Count: > 0 })
             preparedOwnedCapabilities507.Add(captured, new(owned507.ToFrozenDictionary<ErlangFunction, OwnedBindingKind507>(ReferenceEqualityComparer.Instance)));
+
 
         return captured;
     }

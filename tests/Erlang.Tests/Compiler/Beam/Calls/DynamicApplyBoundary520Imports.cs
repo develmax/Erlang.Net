@@ -9,13 +9,13 @@ internal static class DynamicApplyBoundary520Imports
 {
     private const BindingFlags Members = BindingFlags.Instance | BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic;
 
-    internal static string[] Read(byte[] image)
+    internal static string[] Read(byte[] image, EtfDecodeOptions? decoding = null)
     {
         Type reader = typeof(ProcessRuntime).Assembly.GetType(ReaderType, true)!;
         object structure;
         try
         {
-            structure = reader.GetMethod(ReadMethod, Members)!.Invoke(null, new object?[] { (ReadOnlyMemory<byte>)image, null })!;
+            structure = reader.GetMethod(ReadMethod, Members)!.Invoke(null, new object?[] { (ReadOnlyMemory<byte>)image, decoding })!;
         }
         catch (TargetInvocationException error) when (error.InnerException is not null)
         {

@@ -1,0 +1,19 @@
+13394: delete_process(Process* p)
+13395: {
+13396:     ErtsPSD *psd;
+13397:     struct saved_calls *scb;
+13398:     process_breakpoint_trace_t *pbt;
+13399:     Uint32 block_rla_ref = (Uint32) (Uint) p->u.terminate;
+13400: 
+13401:     VERBOSE(DEBUG_PROCESSES, ("Removing process: %T\n",p->common.id));
+13402:     VERBOSE(DEBUG_SHCOPY, ("[pid=%T] delete process: %p %p %p %p\n", p->common.id,
+13403:                            HEAP_START(p), HEAP_END(p), OLD_HEAP(p), OLD_HEND(p)));
+13404: 
+13405:     /* free all pending messages */
+13406:     erts_proc_sig_cleanup_queues(p);
+13407: 
+13408:     /* Cleanup psd */
+13409: 
+13410:     psd = (ErtsPSD *) erts_atomic_read_nob(&p->psd);
+13411:     if (psd) {
+13412:         scb = ERTS_PROC_SET_SAVED_CALLS_BUF(p, NULL);

@@ -9,16 +9,68 @@ public sealed partial class ProcessDictionary : IDictionary<Term, Term>, IReadOn
 {
     private readonly ProcessContext context;
     private readonly object gate = new();
-    private readonly Dictionary<Term, Term> data = new();
-    private readonly Dictionary<Term, (int Key, int Value)> slots = new();
+    private Dictionary<Term, Term> data = new();
+    private Dictionary<Term, (int Key, int Value)> slots = new();
     private ProcessTermFrame506? frame;
     private bool closed;
 
     internal ProcessDictionary(ProcessContext context)
     {
         this.context = context;
-        if (context.Runtime.OwnedTermsPilot506)
+        if (context.VmStorageBackingEnabled)
             frame = context.TermHeap506.Enter();
+    }
+
+    internal void ActivateGenuineVmExecution683()
+    {
+        while (true)
+        {
+            context.Cancellation.ThrowIfCancellationRequested();
+            KeyValuePair<Term, Term>[] snapshot;
+            lock (gate)
+            {
+                CheckOpen();
+                if (frame is not null)
+                    return;
+                snapshot = data.ToArray();
+            }
+            ProcessTermFrame506? selected = context.TermHeap506.Enter();
+            try
+            {
+                var copied = new Dictionary<Term, Term>();
+                var copiedSlots = new Dictionary<Term, (int Key, int Value)>();
+                // Actual import, map planning and typed capture are outside D.
+                foreach (var pair in snapshot)
+                {
+                    int keySlot = selected.Reserve(), valueSlot = selected.Reserve();
+                    selected.SetPrepared(keySlot, pair.Key);
+                    selected.SetPrepared(valueSlot, pair.Value);
+                    Term key = selected.Read(keySlot);
+                    copied.Add(key, selected.Read(valueSlot));
+                    copiedSlots.Add(key, (keySlot, valueSlot));
+                }
+                lock (gate)
+                {
+                    CheckOpen();
+                    if (frame is not null)
+                        return;
+                    if (data.Count != snapshot.Length || snapshot.Any(pair =>
+                        !data.TryGetValue(pair.Key, out Term? current) || !ReferenceEquals(current, pair.Value)))
+                        continue;
+                    // Assignments only: every failed attempt preserves old data.
+                    data = copied;
+                    slots = copiedSlots;
+                    frame = selected;
+                    selected = null;
+
+                    return;
+                }
+            }
+            finally
+            {
+                selected?.Dispose();
+            }
+        }
     }
 
     public Term this[Term key]
@@ -52,17 +104,31 @@ public sealed partial class ProcessDictionary : IDictionary<Term, Term>, IReadOn
 
     private Term Detach(Term value)
     {
-        if (!context.Runtime.OwnedTermsPilot506)
-            return value;
+        using PreparedTermTransfer506? prepared = PrepareDetachedInput586(value, out Term portable);
+
+        return portable;
+    }
+
+    private PreparedTermTransfer506? PrepareDetachedInput586(Term value, out Term portable)
+    {
         ProcessTermBorrow506 borrow;
         lock (gate)
         {
             CheckOpen();
-            borrow = context.TermHeap506.Borrow(frame!, value);
-        }
-        using PreparedTermTransfer506 prepared = context.TermHeap506.PrepareBorrow(borrow);
+            // A concurrent public writer during activation still uses its
+            // original facade; the migration snapshot will retry if changed.
+            if (frame is null)
+            {
+                portable = value;
 
-        return prepared.Portable;
+                return null;
+            }
+            borrow = context.TermHeap506.Borrow(frame, value);
+        }
+        PreparedTermTransfer506 prepared = context.TermHeap506.PrepareBorrowAtomics586(borrow, false);
+        portable = prepared.Portable;
+
+        return prepared;
     }
 
     public bool ContainsKey(Term key)
@@ -97,7 +163,7 @@ public sealed partial class ProcessDictionary : IDictionary<Term, Term>, IReadOn
             }
             borrow = context.TermHeap506.Borrow(frame, found);
         }
-        using PreparedTermTransfer506 prepared = context.TermHeap506.PrepareBorrow(borrow);
+        using PreparedTermTransfer506 prepared = context.TermHeap506.PrepareBorrowAtomics586(borrow, true);
         value = prepared.Portable;
 
         return true;
@@ -110,56 +176,75 @@ public sealed partial class ProcessDictionary : IDictionary<Term, Term>, IReadOn
         bool duplicateReturnsFalse
     )
     {
-        var pair = (TupleTerm)Detach(Term.Tuple(key, value));
+        using PreparedTermTransfer506? prepared = PrepareDetachedInput586(Term.Tuple(key, value), out Term portable);
+        var pair = (TupleTerm)portable;
         Term portableKey = pair.Items[0], portableValue = pair.Items[1];
-        lock (gate)
+        while (true)
         {
-            CheckOpen();
-            bool exists = data.ContainsKey(portableKey);
-            if (addOnly && exists)
+            ProcessTermFrame506? target;
+            lock (gate)
             {
-                if (duplicateReturnsFalse)
-                    return false;
-                throw new ArgumentException(nameof(key));
+                CheckOpen();
+                if (addOnly && data.ContainsKey(portableKey))
+                {
+                    if (duplicateReturnsFalse) return false;
+                    throw new ArgumentException(nameof(key));
+                }
+                target = frame;
             }
-            if (frame is null)
+            // All callable construction/rebinding over actual copied children
+            // completes before D; these are temporary REAL process roots.
+            using PreparedHeapImport? keyImport = target?.PrepareImport(portableKey);
+            using PreparedHeapImport? valueImport = target?.PrepareImport(portableValue);
+            lock (gate)
             {
-                data[portableKey] = portableValue;
+                CheckOpen();
+                if (!ReferenceEquals(frame, target)) continue;
+                bool exists = data.ContainsKey(portableKey);
+                if (addOnly && exists)
+                {
+                    if (duplicateReturnsFalse) return false;
+                    throw new ArgumentException(nameof(key));
+                }
+                if (target is null)
+                {
+                    data[portableKey] = portableValue;
 
-                return true;
-            }
-            if (slots.TryGetValue(portableKey, out var existing))
-            {
-                frame.SetPrepared(existing.Value, portableValue);
-                data[portableKey] = frame.Read(existing.Value);
+                    return true;
+                }
+                if (slots.TryGetValue(portableKey, out var existing))
+                {
+                    target.SetLocalGraph507(existing.Value, valueImport!.Value);
+                    data[portableKey] = target.Read(existing.Value);
 
-                return true;
-            }
-            int keySlot = frame.Reserve(), valueSlot = frame.Reserve();
-            try
-            {
-                frame.SetPrepared(keySlot, portableKey);
-                frame.SetPrepared(valueSlot, portableValue);
-                Term storedKey = frame.Read(keySlot);
-                data.Add(storedKey, frame.Read(valueSlot));
+                    return true;
+                }
+                int keySlot = target.Reserve(), valueSlot = target.Reserve();
                 try
                 {
-                    slots.Add(storedKey, (keySlot, valueSlot));
+                    target.SetLocalGraph507(keySlot, keyImport!.Value);
+                    target.SetLocalGraph507(valueSlot, valueImport!.Value);
+                    Term storedKey = target.Read(keySlot);
+                    data.Add(storedKey, target.Read(valueSlot));
+                    try
+                    {
+                        slots.Add(storedKey, (keySlot, valueSlot));
+                    }
+                    catch
+                    {
+                        data.Remove(storedKey);
+                        throw;
+                    }
                 }
                 catch
                 {
-                    data.Remove(storedKey);
+                    target.Clear(keySlot);
+                    target.Clear(valueSlot);
                     throw;
                 }
-            }
-            catch
-            {
-                frame.Clear(keySlot);
-                frame.Clear(valueSlot);
-                throw;
-            }
 
-            return true;
+                return true;
+            }
         }
     }
 
@@ -252,7 +337,7 @@ public sealed partial class ProcessDictionary : IDictionary<Term, Term>, IReadOn
             // factory or detached-copy callback runs under the dictionary gate.
             borrow = context.TermHeap506.Borrow(frame, Term.Tuple(data.SelectMany(pair => new[] { pair.Key, pair.Value }).ToArray()));
         }
-        using PreparedTermTransfer506 prepared = context.TermHeap506.PrepareBorrow(borrow);
+        using PreparedTermTransfer506 prepared = context.TermHeap506.PrepareBorrowAtomics586(borrow, true);
         var copied = (TupleTerm)prepared.Portable;
 
         return Enumerable.Range(0, copied.Items.Count / 2).Select(index =>

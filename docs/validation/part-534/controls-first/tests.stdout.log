@@ -1,0 +1,28 @@
+{"Partial":true,"SelectedCount":19,"TotalCount":9313}
+PASS runtime/counters596/guest-retirement-ignores-stale-clr-entry
+PASS runtime/counters596/active-pin-outlives-last-guest-root
+PASS runtime/counters596/host-custody-independent-of-guest
+PASS runtime/counters596/real-process-headers-share-live-prefix
+PASS runtime/counters596/old-magic-root-survives-minor-not-major
+PASS runtime/counters596/foreign-before-stale-header-read
+PASS runtime/counters596/queue-export-source-drop-destination-retirement
+PASS runtime/counters596/ets-domain-source-drop-destination-retirement
+PASS runtime/counters596/persistent-domain-source-drop-destination-retirement
+PASS runtime/counters596/public-dictionary-getter-host-retains-after-erase-gc
+PASS runtime/counters596/public-dictionary-snapshot-host-retains-after-erase-gc
+PASS runtime/counters596/real-native-five-entrypoints-and-entry-only-refusal
+FAIL runtime/counters596/genuine-native-facet-authority-public-reregister-stays-opaque: Erlang.ErlangException: badarg
+   at Erlang.ModuleRegistry.DeleteModule(String module) in D:\Distr\Work\Codex\Erlang.Net\w504\src\Runtime\Erlang.Runtime.Core\Modules\ModuleRegistry.cs:line 586
+   at Erlang.Tests.CountersCapability596Checks.<>c.<<ExactPublicationAuthority>b__0_0>d.MoveNext() in D:\Distr\Work\Codex\Erlang.Net\w504\tests\Erlang.Tests\Runtime\Storage\Counters\CountersCapability596Checks.cs:line 28
+--- End of stack trace from previous location ---
+   at Erlang.Tests.CountersCustody596Checks.Run(Func`2 body) in D:\Distr\Work\Codex\Erlang.Net\w504\tests\Erlang.Tests\Runtime\Storage\Counters\CountersCustody596Checks.cs:line 61
+   at Erlang.Tests.CountersCustody596Checks.Run(Func`2 body) in D:\Distr\Work\Codex\Erlang.Net\w504\tests\Erlang.Tests\Runtime\Storage\Counters\CountersCustody596Checks.cs:line 71
+   at Program.<Main>$(String[] args) in D:\Distr\Work\Codex\Erlang.Net\w504\tests\Erlang.Tests\Harness\Program.cs:line 7616
+counters596 rollback: host roots at late closure=1, after failure=0
+PASS runtime/counters596/late-export-failure-releases-actual-host-custody
+PASS runtime/counters596/successful-export-commits-only-returned-wrappers
+PASS runtime/counters591/actual-binary-prefix-and-source-extents
+PASS runtime/counters591/cacheline-grouping-and-base-physical-cells
+PASS runtime/counters603/initializer-done-before-global-drain
+PASS runtime/counters603/ordinary-owner-exit-preserves-independent-live-heap
+18/19 passed

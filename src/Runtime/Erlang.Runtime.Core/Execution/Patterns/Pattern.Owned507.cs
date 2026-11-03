@@ -11,7 +11,7 @@ public abstract partial record Pattern
         Dictionary<string, Term>? keyScope
     )
     {
-        if (context is null || !context.Runtime.OwnedTermsPilot506 || IsCanonicalPattern507)
+        if (context is null || !context.OwnedExecutionEnabled683 || IsCanonicalPattern507)
             return MatchCore(
                 value,
                 bindings,
@@ -51,7 +51,7 @@ public abstract partial record Pattern
         ProcessContext? context,
         Dictionary<string, Term>? keyScope
     )
-        => context is null || !context.Runtime.OwnedTermsPilot506 || IsCanonicalPattern507
+        => context is null || !context.OwnedExecutionEnabled683 || IsCanonicalPattern507
             ? MatchCoreAsync(
                 value,
                 bindings,

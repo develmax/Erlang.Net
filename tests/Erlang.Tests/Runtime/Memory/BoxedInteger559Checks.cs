@@ -35,10 +35,20 @@ internal static class BoxedInteger559Checks
                     {
                         roots = fixture.EnterRoots(heap);
                         int slot = (int)Call(roots, Reserve)!;
-                        Call(roots, route, slot, shapes[shape]);
+                        Call(
+                            roots,
+                            route,
+                            slot,
+                            shapes[shape]
+                        );
                         var actual = (Term)Call(roots, Read, slot)!;
                         Call(heap, Collect);
-                        var portable = (Term)Call(heap, Export, roots, actual)!;
+                        var portable = (Term)Call(
+                            heap,
+                            Export,
+                            roots,
+                            actual
+                        )!;
                         Check(portable.Equals(shapes[shape]));
                         Check(Words(heap, Numeric) == 0);
                         Call(roots, Clear, slot);
@@ -94,7 +104,12 @@ internal static class BoxedInteger559Checks
         ];
         foreach ((BigInteger value, int digits) in cases)
         {
-            Call(roots, Set, slot, new Integer(value));
+            Call(
+                roots,
+                Set,
+                slot,
+                new Integer(value)
+            );
             var owned = (Integer)Call(roots, Read, slot)!;
             Check(owned.Value == value);
             Call(heap, Collect);
@@ -108,7 +123,12 @@ internal static class BoxedInteger559Checks
             lock (Get(heap, HeapGate))
             {
                 low = (nuint)Call(cells, ReadNumeric, offset + 1)!;
-                Call(cells, WriteNumeric, new nuint[] { low ^ MutationMask }, offset + 1);
+                Call(
+                    cells,
+                    WriteNumeric,
+                    new nuint[] { low ^ MutationMask },
+                    offset + 1
+                );
             }
             BigInteger delta = new BigInteger((ulong)MutationMask);
             if ((low & MutationMask) != 0)
@@ -117,23 +137,53 @@ internal static class BoxedInteger559Checks
             nuint header;
             lock (Get(heap, HeapGate))
             {
-                Call(cells, WriteNumeric, new nuint[] { low }, offset + 1);
+                Call(
+                    cells,
+                    WriteNumeric,
+                    new nuint[] { low },
+                    offset + 1
+                );
                 header = (nuint)Call(cells, ReadHeader, offset)!;
-                Call(cells, WriteHeaders, new nuint[] { 0 }, offset);
+                Call(
+                    cells,
+                    WriteHeaders,
+                    new nuint[] { 0 },
+                    offset
+                );
             }
             Expect<InvalidOperationException>(() => _ = owned.Value);
             lock (Get(heap, HeapGate))
-                Call(cells, WriteHeaders, new nuint[] { header }, offset);
+                Call(
+                    cells,
+                    WriteHeaders,
+                    new nuint[] { header },
+                    offset
+                );
             nuint high;
             lock (Get(heap, HeapGate))
             {
                 high = (nuint)Call(cells, ReadNumeric, offset + digits)!;
-                Call(cells, WriteNumeric, new nuint[] { 0 }, offset + digits);
+                Call(
+                    cells,
+                    WriteNumeric,
+                    new nuint[] { 0 },
+                    offset + digits
+                );
             }
             Expect<InvalidOperationException>(() => _ = owned.Value);
             lock (Get(heap, HeapGate))
-                Call(cells, WriteNumeric, new nuint[] { high }, offset + digits);
-            var exported = (Integer)Call(heap, Export, roots, owned)!;
+                Call(
+                    cells,
+                    WriteNumeric,
+                    new nuint[] { high },
+                    offset + digits
+                );
+            var exported = (Integer)Call(
+                heap,
+                Export,
+                roots,
+                owned
+            )!;
             Call(roots, Clear, slot);
             Call(heap, Collect);
             Check(Words(heap, Physical) == 0 && Words(heap, Numeric) == 0);
@@ -153,14 +203,24 @@ internal static class BoxedInteger559Checks
         foreach (BigInteger value in new[] { -(BigInteger.One << 59), (BigInteger.One << 59) - 1, BigInteger.Zero })
         {
             var immediate = new Integer(value);
-            Check(ReferenceEquals(Call(roots, Adopt, slot, immediate), immediate));
+            Check(ReferenceEquals(Call(
+                roots,
+                Adopt,
+                slot,
+                immediate
+            ), immediate));
             Check(Words(heap, Physical) == 0);
         }
         BigInteger magnitude = (BigInteger.One << 130) + 7;
         var portable = new Integer(magnitude);
         Check(ReferenceEquals(Call(roots, RetainLocal, portable), portable));
         Check(Words(heap, Physical) == 0);
-        var graph = (TupleTerm)Call(roots, Adopt, slot, Term.Tuple(portable, portable, new Integer(magnitude)))!;
+        var graph = (TupleTerm)Call(
+            roots,
+            Adopt,
+            slot,
+            Term.Tuple(portable, portable, new Integer(magnitude))
+        )!;
         Check(ReferenceEquals(graph.Items[0], graph.Items[1])
             && !ReferenceEquals(graph.Items[0], graph.Items[2])
             && !ReferenceEquals(graph.Items[0], portable));
@@ -172,11 +232,21 @@ internal static class BoxedInteger559Checks
         Call(runtime, MarkLiterals, (object)new Term[] { marked });
         long previous = Words(heap, Physical);
         int literalSlot = (int)Call(roots, Reserve)!;
-        Check(ReferenceEquals(Call(roots, Adopt, literalSlot, marked), marked));
+        Check(ReferenceEquals(Call(
+            roots,
+            Adopt,
+            literalSlot,
+            marked
+        ), marked));
         Check(Words(heap, Physical) == previous);
         int dynamicSlot = (int)Call(roots, Reserve)!;
         var dynamicEqual = new Integer(-magnitude);
-        Check(!ReferenceEquals(Call(roots, Adopt, dynamicSlot, dynamicEqual), dynamicEqual));
+        Check(!ReferenceEquals(Call(
+            roots,
+            Adopt,
+            dynamicSlot,
+            dynamicEqual
+        ), dynamicEqual));
         Check(Words(heap, Physical) == previous + 4);
         // First forbidden native-digit arity. Check before any slab reservation;
         // no source-valid upper boundary is guessed from a host object size.
@@ -185,7 +255,12 @@ internal static class BoxedInteger559Checks
         var beyond = new Integer(BigInteger.One << MaximumBits);
         try
         {
-            Call(roots, Adopt, limitSlot, beyond);
+            Call(
+                roots,
+                Adopt,
+                limitSlot,
+                beyond
+            );
             throw new InvalidOperationException(Failure);
         }
         catch (ErlangException error)
@@ -197,7 +272,12 @@ internal static class BoxedInteger559Checks
         object custody = Call(failedConstruction, BeginConstruction, portable)!;
         failedConstruction.Dispose();
         lock (Get(heap, HeapGate))
-            Expect<ObjectDisposedException>(() => Call(heap, CreateInteger, magnitude, custody));
+            Expect<ObjectDisposedException>(() => Call(
+                heap,
+                CreateInteger,
+                magnitude,
+                custody
+            ));
         Check(Words(heap, Physical) == before && ((Integer)graph.Items[0]).Value == magnitude);
         roots.Dispose();
         await ((Task)Call(heap, Retire)!).WaitAsync(TimeSpan.FromSeconds(DrainTimeoutSeconds));
@@ -212,18 +292,58 @@ internal static class BoxedInteger559Checks
         int sourceSlot = (int)Call(sourceRoots, Reserve)!;
         int targetSlot = (int)Call(targetRoots, Reserve)!;
         BigInteger value = -(BigInteger.One << 130) - 7;
-        Call(sourceRoots, Set, sourceSlot, new Integer(value));
+        Call(
+            sourceRoots,
+            Set,
+            sourceSlot,
+            new Integer(value)
+        );
         var owned = (Integer)Call(sourceRoots, Read, sourceSlot)!;
-        Call(source, CollectGeneration, false, ushort.MaxValue);
-        Call(source, CollectGeneration, false, ushort.MaxValue);
+        Call(
+            source,
+            CollectGeneration,
+            false,
+            ushort.MaxValue
+        );
+        Call(
+            source,
+            CollectGeneration,
+            false,
+            ushort.MaxValue
+        );
         Call(sourceRoots, Clear, sourceSlot);
-        Call(source, CollectGeneration, false, ushort.MaxValue);
+        Call(
+            source,
+            CollectGeneration,
+            false,
+            ushort.MaxValue
+        );
         Check(Words(source, Physical) == 4 && owned.Value == value);
-        Call(sourceRoots, Set, sourceSlot, owned);
-        Expect<InvalidOperationException>(() => Call(targetRoots, Adopt, targetSlot, owned));
+        Call(
+            sourceRoots,
+            Set,
+            sourceSlot,
+            owned
+        );
+        Expect<InvalidOperationException>(() => Call(
+            targetRoots,
+            Adopt,
+            targetSlot,
+            owned
+        ));
         Check(Words(destination, Physical) == 0);
-        var portable = (Integer)Call(source, Export, sourceRoots, owned)!;
-        Call(targetRoots, Set, targetSlot, portable);
+        var portable = (Integer)Call(
+            source,
+            Export,
+            sourceRoots,
+            owned
+        )!;
+        Call(
+            targetRoots,
+            Set,
+            targetSlot,
+            portable
+        );
         var copied = (Integer)Call(targetRoots, Read, targetSlot)!;
         Check(copied.Value == value && !ReferenceEquals(copied, owned));
         Task retiring = (Task)Call(source, Retire)!;

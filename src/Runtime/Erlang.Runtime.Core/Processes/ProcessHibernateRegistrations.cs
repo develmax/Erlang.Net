@@ -15,7 +15,7 @@ internal static class ProcessHibernateRegistrations
             return Term.A(ProcessHibernateNames.Completed);
         }
         );
-        registry.Register(
+        registry.RegisterCanonicalRuntimeRead535(
             ErlangModuleNames.Module,
             ProcessHibernateNames.Function,
             3,
@@ -33,7 +33,12 @@ internal static class ProcessHibernateRegistrations
             if (remaining is not Nil)
                 throw new ErlangException(values.Count > ProcessHibernateParameters.MaximumCourtesyArity ? ErlangErrorReasons.SystemLimit : ErlangErrorReasons.BadArgument);
 
-            throw new ProcessHibernateTransfer(module.Name, function.Name, values);
+            throw new ProcessHibernateTransfer(
+                module.Name,
+                function.Name,
+                values,
+                context.VmSourceRoot641 && context.CurrentOwned506 is { CanBorrow507: true, BindingKind507: OwnedBindingKind507.RuntimeRead535 }
+            );
         }
         );
     }

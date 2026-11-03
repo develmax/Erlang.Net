@@ -10,16 +10,17 @@ public static class ProcessGarbageCollectionHostChecks
         {
             try
             {
-                int majorBefore = GC.CollectionCount(GC.MaxGeneration);
+                using var witness = new InternalGarbageCollection428HostChecks.PhysicalCollectionWitness(context);
+                long majorBefore = witness.Prepare();
                 Require((await runtime.Modules.Call(context, ErlangModuleNames.Module, ProcessGarbageCollectionNames.Function)).Equals(Term.A(ErlangBooleanAtoms.True)));
-                Require(GC.CollectionCount(GC.MaxGeneration) > majorBefore);
-                int minorBefore = GC.CollectionCount(ProcessGarbageCollectionParameters.ManagedYoungGeneration);
+                witness.Verify(majorBefore);
+                long minorBefore = witness.Prepare();
                 Require((await Collect(
                     context,
                     context.Self,
                     Term.List(Term.Tuple(Term.A(ProcessGarbageCollectionNames.TypeOption), Term.A(ProcessGarbageCollectionNames.Minor)))
                 )).Equals(Term.A(ErlangBooleanAtoms.True)));
-                Require(GC.CollectionCount(ProcessGarbageCollectionParameters.ManagedYoungGeneration) > minorBefore);
+                witness.Verify(minorBefore);
                 for (int round = 0; round < ProcessGarbageCollectionHostParameters.DeathRounds; round++)
                 {
                     var entered = new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);

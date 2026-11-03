@@ -3,6 +3,14 @@ namespace Erlang;
 internal static class DebugDirtyTermCopy424
 {
     internal static Term Copy(ProcessRuntime runtime, Term source)
+        => AtomicsHostAggregate594.Publish(transaction => CopySelected595(runtime, source, transaction));
+
+    internal static Term CopySelected595(
+        ProcessRuntime runtime,
+        Term source,
+        AtomicsHostCopyTransaction591 transaction,
+        DebugCopyDestination391? destination = null
+    )
     {
         // The native copy_struct traversal copies each heap occurrence; do not
         // turn repeated boxed children into a shared memoized output graph.
@@ -17,7 +25,19 @@ internal static class DebugDirtyTermCopy424
                 stack.Push(new(frame.Children[frame.Index]));
                 continue;
             }
-            Term copy = Build(runtime, frame.Source, frame.Copied);
+            Term copy;
+            if (frame.Source is BitString binary)
+                copy = CopyBinary(binary, destination);
+            else
+            {
+                copy = Build(
+                    runtime,
+                    frame.Source,
+                    frame.Copied,
+                    transaction
+                );
+                copy = destination?.Adopt(copy) ?? copy;
+            }
             stack.Pop();
             if (stack.Count == 0)
             {
@@ -30,7 +50,24 @@ internal static class DebugDirtyTermCopy424
         }
     }
 
-    private static Term Build(ProcessRuntime runtime, Term source, Term[] values)
+    private static Term CopyBinary(BitString binary, DebugCopyDestination391? destination)
+    {
+        PersistentBinarySlice416 slice = binary.CapturePersistentSlice416();
+        using PersistentBinaryBacking416? backing = slice.Backing;
+        Term copy = backing is null ? new BitString(binary.ToArray(), binary.BitLength)
+            : backing.Materialize(slice.BitOffset, slice.BitLength);
+
+        // Keep the actual temporary backing interest until the destination's
+        // real native header owns its lease. The copy caller still roots source.
+        return destination?.Adopt(copy) ?? copy;
+    }
+
+    private static Term Build(
+        ProcessRuntime runtime,
+        Term source,
+        Term[] values,
+        AtomicsHostCopyTransaction591 transaction
+    )
     {
         switch (source)
         {
@@ -66,14 +103,28 @@ internal static class DebugDirtyTermCopy424
                     record.IsExported,
                     record.FieldNames.Select((name, index) => new KeyValuePair<Atom, Term>(name, values[index]))
                 );
-            case BitString binary:
-                PersistentBinarySlice416 slice = binary.CapturePersistentSlice416();
+            case ResourceReferenceTerm { ResourceKind: ReferenceResourceKind.Counters421 } counters:
+                _ = CountersRoots596.Direct596(counters, runtime);
 
-                return slice.Backing is null ? new BitString(binary.ToArray(), binary.BitLength)
-                    : slice.Backing.Materialize(slice.BitOffset, slice.BitLength);
+                return CountersRoots596.HostCopy596(counters, transaction);
+            case ResourceReferenceTerm { ResourceKind: ReferenceResourceKind.BinarySearchPattern } program:
+                _ = BinaryProgramRoots598.Direct598(program, runtime);
+
+                return BinaryProgramRoots598.HostCopy598(program, transaction);
+            case ResourceReferenceTerm { ResourceKind: ReferenceResourceKind.Regex411 } regex:
+                _ = ReMagicRoots597.Direct597(regex, runtime);
+
+                return ReMagicRoots597.HostCopy597(regex, transaction);
+            case ResourceReferenceTerm { ResourceKind: ReferenceResourceKind.Atomics413 } atomics:
+                // A copied wrapper owns actual backing custody; the registry
+                // Entry deliberately owns neither a Host nor a Guest root.
+                // Check this VM before reading a potentially stale header.
+                _ = AtomicsRoots586.Direct586(atomics, runtime);
+
+                return AtomicsRoots586.HostCopy586(atomics, transaction);
             case ResourceReferenceTerm resource:
-                // New heap wrapper, same actual authenticated magic resource.
-                // Its strong Entry reference owns payload lifetime naturally.
+                // Preserve the existing distinct-kind copy profile. This is
+                // not a grant to use another typed native resource payload.
                 return new ResourceReferenceTerm(resource.Entry);
             case Pid pid:
                 return pid.LocalIdentity is { } pidOwner ? new Pid(pidOwner, pid.Id) : new Pid(pid.Node, pid.Id, pid.Creation);

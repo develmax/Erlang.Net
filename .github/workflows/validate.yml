@@ -32,7 +32,7 @@ jobs:
           base = os.environ.get('BASE_SHA', '')
           present = bool(base and set(base) != {'0'} and subprocess.run(['git', 'cat-file', '-e', base + '^{commit}'], capture_output=True).returncode == 0)
           changed = subprocess.check_output(['git', 'diff', '--name-only', base, 'HEAD'], text=True).splitlines() if present else []
-          prefixes = ('tools/Runtime/Erlang.OwnedGuest506Observations/', 'tests/Erlang.Tests/Runtime/Memory/Owned', 'src/Runtime/Erlang.Runtime.Core/Processes/Memory/', 'src/Runtime/Erlang.Runtime.Core/Execution/Beam/', 'tools/Runtime/Erlang.ResourceControls504Observations/', 'tools/Runtime/Erlang.SchedulerAffinityOriginalObservations/', 'src/Runtime/Erlang.Runtime.Core/Scheduling/', 'src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.Statistics', 'src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.SchedulerStatistics', 'src/Runtime/Erlang.Runtime.Core/Diagnostics/Tracing/SequenceTraceRegistrations')
+          prefixes = ('src/Runtime/Erlang.Runtime.Core/Storage/RuntimeAtomics', 'src/Runtime/Erlang.Runtime.Core/Processes/ProcessRuntime.cs', 'src/Runtime/Erlang.Runtime.Core/Storage/Atomics', 'src/Runtime/Erlang.Runtime.Core/Services/RuntimeReferenceResources', 'src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.Atomics', 'src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessContext.Atomics', 'src/Runtime/Erlang.Runtime.Core/Primitives/References/ResourceReferenceTerm.cs', 'tests/Erlang.Tests/Runtime/Storage/Atomics/', 'tests/Erlang.Tests/Runtime/Memory/OriginalAtomics', 'tools/Runtime/Erlang.DynamicApply520Observations/', 'tests/Erlang.Tests/Compiler/Beam/Calls/DynamicApply', 'tools/Runtime/Erlang.OwnedGuest506Observations/', 'tests/Erlang.Tests/Runtime/Memory/Owned', 'src/Runtime/Erlang.Runtime.Core/Processes/Memory/', 'src/Runtime/Erlang.Runtime.Core/Execution/Beam/', 'tools/Runtime/Erlang.ResourceControls504Observations/', 'tools/Runtime/Erlang.SchedulerAffinityOriginalObservations/', 'src/Runtime/Erlang.Runtime.Core/Scheduling/', 'src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.Statistics', 'src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.SchedulerStatistics', 'src/Runtime/Erlang.Runtime.Core/Diagnostics/Tracing/SequenceTraceRegistrations')
           selected = [name for name in changed if name.startswith(prefixes) or 'SystemFlag504' in name or 'Owned' in name or name == '.github/workflows/validate.yml']
           required = not present or bool(selected)
           folder = pathlib.Path('artifacts/resource-controls504-original')
@@ -106,17 +106,32 @@ jobs:
         if: ${{ !cancelled() && steps.owned506-admit.outcome == 'success' }}
         with:
           global-json-file: global.json
-      - name: Verify final-source owned506 observer and sender controls on Linux
-        id: owned506-controls
+      - name: Build the shared managed Linux test host once
+        id: managed-linux-build
         if: ${{ !cancelled() && steps.owned506-sdk.outcome == 'success' }}
         continue-on-error: true
         shell: bash
         run: |
           set -euo pipefail
-          dotnet run --project tests/Erlang.Tests/Erlang.Tests.csproj -c Release -- \
+          dotnet build tests/Erlang.Tests/Erlang.Tests.csproj -c Release -m:1 > artifacts/resource-controls504-original/shared-managed-build.log 2>&1
+      - name: Verify final-source owned506 observer and sender controls on Linux
+        id: owned506-controls
+        if: ${{ !cancelled() && steps.managed-linux-build.outcome == 'success' }}
+        continue-on-error: true
+        shell: bash
+        run: |
+          set -euo pipefail
+          dotnet exec --fx-version 10.0.11 tests/Erlang.Tests/bin/Release/net10.0/Erlang.Tests.dll \
             --case runtime/owned-guest506/original-compiled-worker-whole-values-and-stacks \
             --case runtime/owned-guest506/source-message-survives-sender-physical-retirement \
             --case runtime/owned-guest506/nested-foreign-invocation-refuses-enclosing-vm-shutdown \
+            --case runtime/boxed-float556/actual-slab-getter-and-major-gc \
+            --case runtime/boxed-float556/adoption-marker-and-root-only-custody \
+            --case runtime/boxed-float556/foreign-rejection-and-held-retirement \
+            --case runtime/boxed-integer559/actual-slab-getter-and-major-gc \
+            --case runtime/boxed-integer559/adoption-marker-and-root-only-custody \
+            --case runtime/boxed-integer559/foreign-rejection-and-held-retirement \
+            --case runtime/boxed-integer559/nested-immediates-import-and-adoption \
             --report artifacts/resource-controls504-original/owned506-final-controls.json \
             > artifacts/resource-controls504-original/owned506-final-controls.log 2>&1
       - name: Capture fresh dynamic520 whole contracts using the shared Linux OTP
@@ -137,12 +152,11 @@ jobs:
             > artifacts/resource-controls504-original/dynamic520-original.log 2>&1
       - name: Compare both final-source dynamic520 profiles with Linux OTP
         id: dynamic520-controls
-        if: ${{ !cancelled() && steps.dynamic520-original.outcome == 'success' && steps.owned506-sdk.outcome == 'success' }}
+        if: ${{ !cancelled() && steps.dynamic520-original.outcome == 'success' && steps.managed-linux-build.outcome == 'success' }}
         continue-on-error: true
         shell: bash
         run: |
           set -euo pipefail
-          dotnet build tests/Erlang.Tests/Erlang.Tests.csproj -c Release -m:1 > artifacts/resource-controls504-original/dynamic520-build.log 2>&1
           completion="$GITHUB_WORKSPACE/artifacts/resource-controls504-original/dynamic520-original/completion.json"
           completion_sha=$(sha256sum "$completion" | cut -d ' ' -f 1)
           status=0
@@ -153,21 +167,45 @@ jobs:
               > "artifacts/resource-controls504-original/dynamic520-managed-$owned.log" 2>&1; then status=1; fi
           done
           exit "$status"
+      - name: Compare atomics and original counters with the shared Linux OTP
+        id: atomics592-contracts
+        if: ${{ !cancelled() && steps.resource-scope.outputs.required == 'true' && steps.shared-original-build.outcome == 'success' && steps.managed-linux-build.outcome == 'success' && steps.owned506-admit.outcome == 'success' && steps.dynamic520-original.outcome == 'success' }}
+        continue-on-error: true
+        shell: bash
+        run: |
+          set -euo pipefail
+          provider="$GITHUB_WORKSPACE/artifacts/resource-controls504-original/runtime-build/build-receipt.json"
+          provider_sha=$(sha256sum "$provider" | cut -d ' ' -f 1)
+          metadata="$GITHUB_WORKSPACE/artifacts/resource-controls504-original/dynamic520-original/completion.json"
+          metadata_sha=$(sha256sum "$metadata" | cut -d ' ' -f 1)
+          host="$GITHUB_WORKSPACE/tests/Erlang.Tests/bin/Release/net10.0/Erlang.Tests.dll"
+          host_sha=$(sha256sum "$host" | cut -d ' ' -f 1)
+          python3 -B tools/Runtime/Erlang.OwnedGuest506Observations/capture-atomics588.py \
+            --repository "$GITHUB_WORKSPACE" --expected-head "$EXPECTED_HEAD" --source-plan-sha256 "$OWNED506_PLAN_SHA" \
+            --build-receipt "$provider" --otp-source "$GITHUB_WORKSPACE/artifacts/resource-controls504-otp-source" \
+            --admission-sha256 "$provider_sha" --output artifacts/resource-controls504-original/atomics592 \
+            --managed-host "$host" --managed-host-sha256 "$host_sha" --metadata-completion "$metadata" \
+            --metadata-completion-sha256 "$metadata_sha" --own-reference-protocol \
+            > artifacts/resource-controls504-original/atomics592.log 2>&1
       - name: Require every owned506 original and final-control stage
         if: ${{ !cancelled() && steps.resource-scope.outputs.required == 'true' }}
         shell: bash
         env:
           ADMISSION: ${{ steps.owned506-admit.outcome }}
           ORIGINAL: ${{ steps.owned506-original.outcome }}
+          BUILD: ${{ steps.managed-linux-build.outcome }}
           CONTROLS: ${{ steps.owned506-controls.outcome }}
           DYNAMIC_ORIGINAL: ${{ steps.dynamic520-original.outcome }}
           DYNAMIC_CONTROLS: ${{ steps.dynamic520-controls.outcome }}
+          ATOMICS_CONTRACTS: ${{ steps.atomics592-contracts.outcome }}
         run: |
           test "$ADMISSION" = success
           test "$ORIGINAL" = success
+          test "$BUILD" = success
           test "$CONTROLS" = success
           test "$DYNAMIC_ORIGINAL" = success
           test "$DYNAMIC_CONTROLS" = success
+          test "$ATOMICS_CONTRACTS" = success
       - uses: actions/upload-artifact@v7
         if: always()
         with:
@@ -195,6 +233,222 @@ jobs:
         with:
           ref: ${{ github.event.pull_request.head.sha || github.sha }}
           persist-credentials: false
+      - name: Verify Resource529 source admission before any build
+        id: resource529-source-admission
+        continue-on-error: true
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = 'Stop'
+          $plan = 'tools/Native/Erlang.NifResource529Observations/source-plan.json'
+          python -B tools/Native/Erlang.NifResource529Observations/verify-source-plan.py --plan-sha256 (Get-FileHash -LiteralPath $plan -Algorithm SHA256).Hash --output artifacts/nif-resource529/source-preflight.json
+          if ($LASTEXITCODE -ne 0) { throw 'Resource529 source admission failed before build; inspect every dependency diagnostic' }
+      - name: Check all eight native source-plan byte bindings before regression
+        id: focused-source-admission
+        continue-on-error: true
+        if: ${{ !cancelled() }}
+        shell: python
+        run: |
+          """Passive source binding checks only: never calls a collector main/build/VM."""
+          import argparse
+          import hashlib
+          import importlib.util
+          import json
+          import os
+          from pathlib import Path
+          import re
+          import sys
+
+          sys.dont_write_bytecode = True
+          PIN = "ad05823719d77c8faee87348ea39513d4e2f99c5"
+          NATIVE = "tools/Native/"
+          OWNED = "tools/Runtime/Erlang.OwnedGuest506Observations"
+          LEGACY = ["Erlang.NifMapFamily504Observations", "Erlang.NifMapMaterialized505Observations",
+                    "Erlang.NifMapReentry505Observations"]
+
+
+          def digest(path):
+              return hashlib.sha256(path.read_bytes()).hexdigest().upper()
+
+
+          def require(value, message):
+              if not value:
+                  raise ValueError(message)
+
+
+          def module(path, name):
+              spec = importlib.util.spec_from_file_location(name, path)
+              loaded = importlib.util.module_from_spec(spec)
+              spec.loader.exec_module(loaded)
+              return loaded
+
+
+          def plan(root, relative):
+              path = root / relative
+              value = json.loads(path.read_bytes())
+              require(value.get("PinnedCommit", value.get("PinnedOtpCommit")) == PIN, "Wrong source pin")
+              return path, value
+
+
+          def native(root, name, workflow):
+              tool = root / NATIVE / name
+              path, value = plan(root, NATIVE + name + "/source-plan.json")
+              lines = [line for line in workflow.splitlines() if NATIVE + name + "/collect.py" in line]
+              require(len(lines) == 1, "One exact workflow collector invocation required")
+              match = re.search(r"--plan-sha256 ([0-9A-F]{64})", lines[0])
+              require(match is not None and match.group(1) == digest(path), "Workflow source-plan pin differs")
+              collector = module(tool / "collect.py", "preflight_" + name.replace(".", "_"))
+              if name == LEGACY[1]:
+                  rows = collector.sources(root, tool, value)
+              elif name == LEGACY[2]:
+                  rows = collector.dependencies(root, value, False)
+              else:
+                  rows = collector.dependencies(root, value)
+              for prefix, filename in [("NativeSource", None), ("ErlangSource", None),
+                                       ("BuildScript", "build-native.py"), ("Collector", "collect.py")]:
+                  source = tool / filename if filename else root / value[prefix + "Path"]
+                  require(digest(source) == value[prefix + "Sha256"], "Tool source seal differs: " + str(source))
+              if "SealerSha256" in value:
+                  require(digest(tool / "seal.py") == value["SealerSha256"], "Sealer source differs")
+              # Whole owner/env partial membership, including newly added partials.
+              paths = {row["Path"] for row in value["Dependencies"]}
+              folder = root / "src/Runtime/Erlang.Runtime.Core/Native/Nif"
+              required = {p.relative_to(root).as_posix() for pattern in
+                          ["NifNativeLibraryOwner*.cs", "NifNativeCallEnvironment*.cs"] for p in folder.glob(pattern)}
+              require(required.issubset(paths), "Unbound owner/environment partials: " + str(sorted(required - paths)))
+              return dict(PlanSha256=digest(path), VerifiedRows=len(rows), NativeExecuted=False)
+
+
+          def pending(root):
+              relative = NATIVE + "Erlang.NifPendingVarargsObservations"
+              path, value = plan(root, relative + "/reviewed-source-plan.json")
+              workflow = (root / ".github/workflows/nif-pending-native.yml").read_text(encoding="utf-8-sig")
+              match = re.search(r"REVIEWED_SOURCE_PLAN_SHA256: ([0-9A-F]{64})", workflow)
+              require(match is not None and match.group(1) == digest(path), "Pending workflow pin differs")
+              helper = module(root / relative / "run-reviewed.py", "preflight_pending")
+              names = set()
+              for row in value["Files"]:
+                  require(row["Path"] not in names, "Duplicate pending source")
+                  names.add(row["Path"])
+                  source = (root / row["Path"]).resolve()
+                  require(source.is_relative_to(root), "Pending source escapes repository")
+                  actual = helper.record(source, root, row["HashMode"])
+                  actual["Path"] = actual["Path"].replace("\\", "/")
+                  require(actual == row, "Pending source differs: " + row["Path"])
+              # reviewed_inputs invokes git membership enumeration: deliberately not called
+              # by this byte-only preflight. The existing native execution gate keeps it.
+              return dict(PlanSha256=digest(path), VerifiedRows=len(names), CompleteGitMembershipChecked=False)
+
+
+          def reallocation(root):
+              relative = NATIVE + "Erlang.NifReallocationObservations"
+              path, _ = plan(root, relative + "/SOURCE-PLAN.json")
+              workflow = (root / ".github/workflows/nif-reallocation-native.yml").read_text(encoding="utf-8-sig")
+              match = re.search(r"REVIEWED_REALLOCATION_PLAN_SHA256: ([0-9A-F]{64})", workflow)
+              require(match is not None and match.group(1) == digest(path), "Reallocation workflow pin differs")
+              helper = module(root / relative / "reviewed_common.py", "preflight_reallocation")
+              value = helper.verified_plan(root, path, match.group(1))
+              return dict(PlanSha256=digest(path), VerifiedRows=len(value["Files"]))
+
+
+          def focused_inputs(root, name):
+              tool = root / "tools/Runtime" / name
+              path = tool / "inputs.json"
+              value = json.loads(path.read_bytes())
+              require(value.get("Pin", value.get("SourcePin")) == PIN, "Wrong focused source pin")
+              names = set()
+              for row in value["Inputs"]:
+                  require(row["Path"] not in names, "Duplicate focused input: " + row["Path"])
+                  names.add(row["Path"])
+                  target = (root / row["Path"]).resolve()
+                  require(target.is_relative_to(root), "Focused input escapes repository")
+                  require(digest(target) == row["Sha256"], "Focused input differs: " + row["Path"])
+              if "SourceFreezePath" in value:
+                  frozen_path = (root / value["SourceFreezePath"]).resolve()
+                  require(frozen_path.is_relative_to(root), "Focused freeze escapes repository")
+                  require(digest(frozen_path) == value["SourceFreezeSha256"], "Focused freeze hash differs")
+                  frozen = json.loads(frozen_path.read_bytes())
+                  require(len(frozen["Rows"]) == value["SourceFreezeRows"], "Focused freeze count differs")
+                  for row in frozen["Rows"]:
+                      target = (root / row["Path"]).resolve()
+                      require(target.is_relative_to(root), "Frozen source escapes repository")
+                      require(digest(target) == row["Sha256"], "Focused frozen source differs: " + row["Path"])
+              if "RunnerSha256" in value:
+                  require(digest(tool / "run.py") == value["RunnerSha256"], "Focused runner differs")
+              return dict(PlanSha256=digest(path), VerifiedRows=len(names), BuildOrVmExecuted=False)
+
+
+          def main():
+              parser = argparse.ArgumentParser(description=__doc__)
+              parser.add_argument("--repository", type=Path, default=Path(os.environ.get("GITHUB_WORKSPACE", ".")))
+              parser.add_argument("--output", type=Path, default=Path("artifacts/source-plan566/preflight.json"))
+              args = parser.parse_args()
+              root = args.repository.resolve()
+              output = args.output.resolve() if args.output.is_absolute() else root / args.output
+              require(output.resolve().is_relative_to(root / "artifacts") and not output.exists(), "Fresh artifact output required")
+              owned = module(root / OWNED / "collect.py", "preflight_owned506")
+              workflow = (root / ".github/workflows/validate.yml").read_text(encoding="utf-8-sig")
+              checks = [(name, lambda name=name: native(root, name, workflow)) for name in LEGACY]
+              for relative in [OWNED, NATIVE + "Erlang.NifVariadic526Observations"]:
+                  def inputs(relative=relative):
+                      path, value = plan(root, relative + "/source-plan.json")
+                      owned.check_inputs(root, root / relative, value)
+                      return dict(PlanSha256=digest(path), VerifiedRows=len(value["Inputs"]))
+                  checks.append((relative, inputs))
+              checks.extend([("Pending", lambda: pending(root)), ("Reallocation", lambda: reallocation(root))])
+              def private():
+                  relative = NATIVE + "Erlang.NifPrivateData557Observations"
+                  path, _ = plan(root, relative + "/source-plan.json")
+                  evidence = module(root / relative / "evidence.py", "preflight_private557")
+                  files = evidence.package(root, root / relative, digest(path))
+                  return dict(PlanSha256=digest(path), VerifiedFiles=len(files))
+              checks.append(("Private557", private))
+              focused = ["Erlang.Dictionary537Observations", "Erlang.MatchSaved634Observations",
+                         "Erlang.EtsDispatch540Observations", "Erlang.MonitorOriginal645Observations",
+                         "Erlang.BeamFunction542Observations"]
+              checks.extend((name, lambda name=name: focused_inputs(root, name)) for name in focused)
+              outcomes = []
+              for name, check in checks:
+                  try:
+                      outcomes.append(dict(Plan=name, Passed=True, Details=check()))
+                  except Exception as error:
+                      outcomes.append(dict(Plan=name, Passed=False, Error=repr(error)))
+              passed = all(row["Passed"] for row in outcomes)
+              output.parent.mkdir(parents=True, exist_ok=True)
+              output.write_bytes((json.dumps(dict(Passed=passed, Checks=outcomes, ExpectedPlans=len(checks), ExpectedNativePlans=8, FocusedInputPlans=5,
+                  BuildOrVmExecuted=False, NativeExecuted=False, SourceHeadAuthenticityClaimed=False,
+                  FullSourceMembershipClaimed=False, WholeContractsClosed=0), indent=2) + "\n").encode())
+              require(passed, "Source-plan consistency failed; all independent results retained")
+
+
+          if __name__ == "__main__":
+              main()
+      - name: Check current MFA and native source/evidence raw bindings before SDK validation
+        id: mfa-source-admission
+        continue-on-error: true
+        if: ${{ !cancelled() }}
+        shell: python
+        run: |
+          import subprocess,sys
+          subprocess.run([sys.executable, '-B', 'tools/Build/Erlang.Tool/verify-mfa-source-bindings.py', '--repository', '.', '--output', 'artifacts/mfa-source-bindings/preflight.json'], check=True)
+      - name: Require all independent passive source admissions before SDK work
+        if: ${{ !cancelled() }}
+        shell: pwsh
+        env:
+          RESOURCE_SOURCE_OUTCOME: ${{ steps.resource529-source-admission.outcome }}
+          FOCUSED_SOURCE_OUTCOME: ${{ steps.focused-source-admission.outcome }}
+          MFA_SOURCE_OUTCOME: ${{ steps.mfa-source-admission.outcome }}
+        run: |
+          $ErrorActionPreference = 'Stop'
+          $stages = @(
+            @{ Name = 'Resource529'; Outcome = $env:RESOURCE_SOURCE_OUTCOME },
+            @{ Name = 'Focused13'; Outcome = $env:FOCUSED_SOURCE_OUTCOME },
+            @{ Name = 'MfaRawBindings'; Outcome = $env:MFA_SOURCE_OUTCOME }
+          )
+          $failed = @($stages | Where-Object { $_.Outcome -ne 'success' })
+          $directory = 'artifacts/source-plan566'
+          New-Item -ItemType Directory -Path $directory -Force | Out-Null
+          @{ Passed = ($failed.Count -eq 0); Stages = $stages; BuildOrVmExecuted = $false } | ConvertTo-Json -Depth 5 | Set-Content -LiteralPath "$directory/independent-admissions.json" -Encoding utf8
+          if ($failed.Count -ne 0) { throw ('Independent passive source admissions failed: ' + (($failed | ForEach-Object { $_.Name + '=' + $_.Outcome }) -join '; ')) }
       - name: Admit reviewed committed owned506 plan at the exact source head
         id: owned506-admit
         continue-on-error: true
@@ -296,30 +550,40 @@ jobs:
           if ($contractFailures.Count -ne 0) { throw ($contractFailures -join '; ') }
       - shell: pwsh
         run: ./tools/validate.ps1 -TestRuntimeVersion 10.0.11
+      - name: Require the built native host before dependent native comparisons
+        id: native-host-ready
+        if: ${{ !cancelled() && steps.shared-original-provider.outcome == 'success' }}
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = 'Stop'
+          foreach ($file in @('Erlang.NifNativeBackend.dll', 'Erlang.NifNativeBackend.deps.json', 'Erlang.NifNativeBackend.runtimeconfig.json')) {
+            $path = Join-Path 'tools/Native/Erlang.NifNativeBackend/bin/Debug/net10.0' $file
+            if (!(Test-Path -LiteralPath $path)) { throw "Native host preparation failed; dependent execution is blocked: $path" }
+          }
       - name: Compare native empty-map creation with pinned OTP and both loaders
-        if: ${{ !cancelled() }}
+        if: ${{ !cancelled() && steps.native-host-ready.outcome == 'success' }}
         shell: pwsh
         run: |
           if (!(Test-Path tools/Native/Erlang.NifNativeBackend/bin/Debug/net10.0/Erlang.NifNativeBackend.dll) -or !(Test-Path artifacts/library376-official-compiler/official-admission.json)) {
             throw 'Native map501 requires successful host/provider preparation; dependent native execution was not started'
           }
-          python -B tools/Native/Erlang.NifMapCreation501Observations/collect.py --repository $PWD.Path --provider-admission artifacts/library376-official-compiler/official-admission.json --plan-sha256 3E2BAFD2AB62E8588434C07C3CD341D9E429333C6AF4F7916E4D2279D9954579 --output artifacts/native-map501/ci --runtime-version 10.0.11 --check-golden
+          python -B tools/Native/Erlang.NifMapCreation501Observations/collect.py --repository $PWD.Path --provider-admission artifacts/library376-official-compiler/official-admission.json --plan-sha256 079C5F452DAC6362CF0180AD4E6B4FEF3B6159BBF318A135B22D64A64A870E78 --output artifacts/native-map501/ci --runtime-version 10.0.11 --check-golden
           if ($LASTEXITCODE -ne 0) { throw 'Native map501 original/ordinary/reviewed comparison failed; inspect all phase receipts' }
       - name: Compare native map lookup with pinned OTP and both loaders
-        if: ${{ !cancelled() }}
+        if: ${{ !cancelled() && steps.native-host-ready.outcome == 'success' }}
         shell: pwsh
         run: |
           if (!(Test-Path artifacts/library376-official-compiler/official-admission.json)) { throw 'Map lookup503 preparation unavailable; dependent native execution was not started.' }
           python -B tools/Native/Erlang.NifMapValue503Observations/collect.py --repository $PWD.Path --provider-admission artifacts/library376-official-compiler/official-admission.json --plan-sha256 D1A9BE80F21C40E7FD8D84489401BF18F673EA14A5A383FB0170C11766EA204A --output artifacts/native-map503/ci --check-golden
           if ($LASTEXITCODE -ne 0) { throw 'Native map lookup503 comparison failed; independent route results are retained.' }
       - name: Compare the complete native map family with pinned OTP and both loaders
-        if: ${{ !cancelled() }}
+        if: ${{ !cancelled() && steps.native-host-ready.outcome == 'success' }}
         shell: pwsh
         run: |
           if (!(Test-Path artifacts/library376-official-compiler/official-admission.json)) {
             throw 'Map family504 requires successful host/provider preparation; dependent execution was not started'
           }
-          python -B tools/Native/Erlang.NifMapFamily504Observations/collect.py --repository $PWD.Path --provider-admission artifacts/library376-official-compiler/official-admission.json --plan-sha256 27AC013A16D6A0F146B860D9907916EFE48B1642C487D9DBC7EA6518330FACC3 --output artifacts/native-map504/ci --check-golden --both-runtime-profiles516
+          python -B tools/Native/Erlang.NifMapFamily504Observations/collect.py --repository $PWD.Path --provider-admission artifacts/library376-official-compiler/official-admission.json --plan-sha256 5A9126FAB695141C2F091BE198EBDF06F48FF35B9B2C8F068C9FF8B817BF901E --output artifacts/native-map504/ci --check-golden --both-runtime-profiles516
           if ($LASTEXITCODE -ne 0) { throw 'Native map family504 original/ordinary/reviewed comparison failed; all prepared independent route receipts are retained' }
           $comparison516 = Get-Content 'artifacts/native-map504/ci/completion.json' -Raw | ConvertFrom-Json
           if (!$comparison516.Passed -or !$comparison516.BothRuntimeProfiles516 -or $comparison516.ExpectedRawLoaderComparisons -ne 4 -or $comparison516.WholeRawLoaderComparisons -ne 4 -or $comparison516.WholeRawComparisonsByRuntimeProfile.'ordinary-runtime' -ne 2 -or $comparison516.WholeRawComparisonsByRuntimeProfile.'owned-runtime' -ne 2) { throw 'All four runtime-profile/loader comparisons are required' }
@@ -327,20 +591,20 @@ jobs:
             if ($comparison516.ManagedRuntimeProfileReceipts.('ordinary-runtime--' + $route516).OwnedTermsPilot506 -ne $false -or $comparison516.ManagedRuntimeProfileReceipts.('owned-runtime--' + $route516).OwnedTermsPilot506 -ne $true) { throw 'Actual native runtime-profile receipt missing or wrong' }
           }
       - name: Compare source-exact function collision protocol with pinned OTP
-        if: ${{ !cancelled() }}
+        if: ${{ !cancelled() && steps.native-host-ready.outcome == 'success' }}
         shell: pwsh
         run: |
           if (!(Test-Path artifacts/library376-official-compiler/official-admission.json)) { throw 'Collision504 provider preparation missing; dependent execution skipped' }
           python -B tools/Native/Erlang.NifMapCollision504Observations/collect.py --repository $PWD.Path --provider-admission artifacts/library376-official-compiler/official-admission.json --plan-sha256 1E9AFD3B7D49E6EB0D8B30C09C91C718821360533C610D87A62CBE8C056FFAC4 --output artifacts/native-map504/collision-ci --check-golden
           if ($LASTEXITCODE -ne 0) { throw 'Source-exact collision504 original/ordinary/reviewed comparison failed' }
       - name: Compare materialized native maps after return with pinned OTP
-        if: ${{ !cancelled() }}
+        if: ${{ !cancelled() && steps.native-host-ready.outcome == 'success' }}
         shell: pwsh
         run: |
           if (!(Test-Path artifacts/library376-official-compiler/official-admission.json)) {
             throw 'Materialized505 host/provider preparation missing; dependent execution skipped'
           }
-          python -B tools/Native/Erlang.NifMapMaterialized505Observations/collect.py --repository $PWD.Path --provider-admission artifacts/library376-official-compiler/official-admission.json --plan-sha256 B4872E739FCD1015E9BDE3B89D7ED9EC78E76617487D51FC2098AC7DEE8F550F --output artifacts/native-map505/ci --check-golden --both-runtime-profiles516
+          python -B tools/Native/Erlang.NifMapMaterialized505Observations/collect.py --repository $PWD.Path --provider-admission artifacts/library376-official-compiler/official-admission.json --plan-sha256 EC9A7D0D4D20A3885CBA9115A7457467DAE819C1B53797D64052542640481B2E --output artifacts/native-map505/ci --check-golden --both-runtime-profiles516
           if ($LASTEXITCODE -ne 0) { throw 'Materialized505 independent original/ordinary/reviewed comparison failed; inspect retained full results' }
           $comparison516 = Get-Content 'artifacts/native-map505/ci/completion.json' -Raw | ConvertFrom-Json
           if (!$comparison516.Passed -or !$comparison516.BothRuntimeProfiles516 -or $comparison516.ExpectedRawLoaderComparisons -ne 4 -or $comparison516.WholeRawLoaderComparisons -ne 4 -or $comparison516.WholeRawComparisonsByRuntimeProfile.'ordinary-runtime' -ne 2 -or $comparison516.WholeRawComparisonsByRuntimeProfile.'owned-runtime' -ne 2) { throw 'All four runtime-profile/loader comparisons are required' }
@@ -348,21 +612,52 @@ jobs:
             if ($comparison516.ManagedRuntimeProfileReceipts.('ordinary-runtime--' + $route516).OwnedTermsPilot506 -ne $false -or $comparison516.ManagedRuntimeProfileReceipts.('owned-runtime--' + $route516).OwnedTermsPilot506 -ne $true) { throw 'Actual native runtime-profile receipt missing or wrong' }
           }
       - name: Compare duplicate flat-map native reentry with pinned OTP
-        if: ${{ !cancelled() }}
+        if: ${{ !cancelled() && steps.native-host-ready.outcome == 'success' }}
         shell: pwsh
         run: |
           if (!(Test-Path artifacts/library376-official-compiler/official-admission.json)) {
             throw 'Reentry505 host/provider preparation missing; dependent execution skipped'
           }
-          python -B tools/Native/Erlang.NifMapReentry505Observations/collect.py --repository $PWD.Path --provider-admission artifacts/library376-official-compiler/official-admission.json --plan-sha256 4064F3FA04350872DF3D1BD347588CCEDA49C772D6D2DE332E946BC26A528A7E --output artifacts/native-map505/reentry-ci --check-golden --both-runtime-profiles516
+          python -B tools/Native/Erlang.NifMapReentry505Observations/collect.py --repository $PWD.Path --provider-admission artifacts/library376-official-compiler/official-admission.json --plan-sha256 86AEE0564243FCDE95EE0D32DDCA9B4C100F12D0B736AA7ABD0A820B9BD134D6 --output artifacts/native-map505/reentry-ci --check-golden --both-runtime-profiles516
           if ($LASTEXITCODE -ne 0) { throw 'Reentry505 original/ordinary/reviewed comparison failed; independent routes and cleanup retained' }
           $comparison516 = Get-Content 'artifacts/native-map505/reentry-ci/completion.json' -Raw | ConvertFrom-Json
           if (!$comparison516.Passed -or !$comparison516.BothRuntimeProfiles516 -or $comparison516.ExpectedRawLoaderComparisons -ne 4 -or $comparison516.WholeRawLoaderComparisons -ne 4 -or $comparison516.WholeRawComparisonsByRuntimeProfile.'ordinary-runtime' -ne 2 -or $comparison516.WholeRawComparisonsByRuntimeProfile.'owned-runtime' -ne 2) { throw 'All four runtime-profile/loader comparisons are required' }
           foreach ($route516 in @('ordinary','reviewed')) {
             if ($comparison516.ManagedRuntimeProfileReceipts.('ordinary-runtime--' + $route516).OwnedTermsPilot506 -ne $false -or $comparison516.ManagedRuntimeProfileReceipts.('owned-runtime--' + $route516).OwnedTermsPilot506 -ne $true) { throw 'Actual native runtime-profile receipt missing or wrong' }
           }
+      - name: Compare genuine variadic NIF calls with pinned Windows OTP
+        id: variadic526
+        if: ${{ !cancelled() && steps.native-host-ready.outcome == 'success' }}
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = 'Stop'
+          $admission = 'artifacts/library376-official-compiler/official-admission.json'
+          $admissionSha = (Get-FileHash $admission -Algorithm SHA256).Hash
+          $planSha = (Get-FileHash tools/Native/Erlang.NifVariadic526Observations/source-plan.json -Algorithm SHA256).Hash
+          python -B tools/Native/Erlang.NifVariadic526Observations/collect.py --official-admission $admission --admission-sha256 $admissionSha --plan-sha256 $planSha --output artifacts/nif-variadic526/ci --execute-original --with-managed
+          if ($LASTEXITCODE -ne 0) { throw 'Variadic526 original or independent managed comparisons failed; all raw errors retained' }
+          $result = Get-Content artifacts/nif-variadic526/ci/completion.json -Raw | ConvertFrom-Json
+          if (!$result.Passed -or !$result.OriginalExecuted -or !$result.ManagedRequested -or $result.ExpectedManagedRoutes -ne 4 -or $result.MatchedManagedRoutes.Count -ne 4) { throw 'Variadic526 requires all four genuine original/managed comparisons and cleanup' }
+      - name: Compare live NIF private data with pinned Windows OTP
+        id: private557
+        if: ${{ !cancelled() && steps.native-host-ready.outcome == 'success' && steps.shared-original-provider.outcome == 'success' }}
+        continue-on-error: true
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = 'Stop'
+          New-Item -ItemType Directory -Path artifacts/nif-private-data557 -Force | Out-Null
+          $actualHead = git rev-parse HEAD
+          if ($LASTEXITCODE -ne 0 -or $actualHead -ne $env:EXPECTED_HEAD) { throw 'Private557 exact source head differs' }
+          $planSha = python -c "import hashlib,subprocess,sys; print(hashlib.sha256(subprocess.check_output(['git','show',sys.argv[1]+':tools/Native/Erlang.NifPrivateData557Observations/source-plan.json'])).hexdigest().upper())" $env:EXPECTED_HEAD
+          if ($LASTEXITCODE -ne 0) { throw 'Private557 committed source plan could not be read' }
+          $admission = 'artifacts/library376-official-compiler/official-admission.json'
+          $admissionSha = (Get-FileHash $admission -Algorithm SHA256).Hash
+          python -B tools/Native/Erlang.NifPrivateData557Observations/collect.py --official-admission $admission --admission-sha256 $admissionSha --plan-sha256 $planSha --expected-head $env:EXPECTED_HEAD --output artifacts/nif-private-data557/ci --execute-original --with-managed *> artifacts/nif-private-data557/ci.log
+          if ($LASTEXITCODE -ne 0) { throw 'Private557 original or independent managed comparisons failed; complete raw evidence retained' }
+          $result = Get-Content artifacts/nif-private-data557/ci/completion.json -Raw | ConvertFrom-Json
+          if (!$result.Passed -or !$result.OriginalExecuted -or !$result.ManagedRequested -or $result.ExpectedManagedRoutes -ne 4 -or $result.MatchedManagedRoutes.Count -ne 4 -or $result.WholeContractsClosed -ne 0) { throw 'Private557 requires all four actual comparisons and physical cleanup' }
       - name: Verify logical death before physical dirty completion in pinned OTP
-        if: ${{ !cancelled() }}
+        if: ${{ !cancelled() && steps.shared-original-provider.outcome == 'success' }}
         shell: pwsh
         run: |
           if (!(Test-Path artifacts/library376-official-compiler/official-admission.json)) {
@@ -390,8 +685,7 @@ jobs:
         shell: pwsh
         run: |
           $ErrorActionPreference = 'Stop'
-          dotnet build tests/Erlang.Tests/Erlang.Tests.csproj -m:1 *> artifacts/dynamic520/build.log
-          if ($LASTEXITCODE -ne 0) { throw 'Dynamic520 dependent build failed' }
+          if (!(Test-Path 'tests/Erlang.Tests/bin/Debug/net10.0/Erlang.Tests.dll')) { throw 'Shared test host preparation failed; dependent dynamic execution was not started' }
           $completion = Join-Path $PWD.Path 'artifacts/dynamic520/original/completion.json'
           $completionSha = (Get-FileHash $completion -Algorithm SHA256).Hash
           $failures = @()
@@ -401,23 +695,374 @@ jobs:
             if ($LASTEXITCODE -ne 0) { $failures += $owned }
           }
           if ($failures.Count -ne 0) { throw "Dynamic520 failed profiles: $failures" }
+      - name: Compare genuine compiled map worker in both managed profiles
+        id: map519-compiled-worker
+        if: ${{ !cancelled() && steps.shared-original-provider.outcome == 'success' && steps.owned506-admit.outcome == 'success' }}
+        continue-on-error: true
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = 'Stop'
+          $PSNativeCommandUseErrorActionPreference = $false
+          $testDll = 'tests/Erlang.Tests/bin/Debug/net10.0/Erlang.Tests.dll'
+          if (!(Test-Path -LiteralPath $testDll)) { throw 'Final test host missing; dependent execution skipped' }
+          $admission = 'artifacts/library376-official-compiler/official-admission.json'
+          $admissionSha = (Get-FileHash -LiteralPath $admission -Algorithm SHA256).Hash
+          $tool = 'tools/Runtime/Erlang.OwnedGuest506Observations'
+          $plan = "$tool/source-plan.json"
+          $out = 'artifacts/owned506/map519-compiled-worker'
+          python -B "$tool/collect.py" --repository $PWD.Path --expected-head $env:EXPECTED_HEAD --plan-sha256 $env:OWNED506_PLAN_SHA --official-admission $admission --admission-sha256 $admissionSha --output $out --execute-original --compiled-worker --job map-routing517 *> artifacts/owned506/map519-compiled-worker-original.log
+          if ($LASTEXITCODE -ne 0) { throw 'Compiled map original failed; adoption/managed execution skipped' }
+          $completion = "$out/completion.json"
+          $completionSha = (Get-FileHash -LiteralPath $completion -Algorithm SHA256).Hash
+          $adopted = Join-Path $PWD 'artifacts/owned506/map519-admission.json'
+          python -B "$tool/adopt-original.py" --repository $PWD.Path --completion $completion --completion-sha256 $completionSha --source-plan $plan --source-plan-sha256 $env:OWNED506_PLAN_SHA --output $adopted *> artifacts/owned506/map519-adoption.log
+          if ($LASTEXITCODE -ne 0) { throw 'Compiled map adoption failed; managed execution skipped' }
+          $adoptedSha = (Get-FileHash -LiteralPath $adopted -Algorithm SHA256).Hash
+          dotnet exec --fx-version 10.0.11 $testDll --original-map523-child $adopted $adoptedSha *> artifacts/owned506/map519-compiled-worker-managed.log
+          if ($LASTEXITCODE -ne 0) { throw 'Whole compiled map comparison failed' }
+
+      - name: Acquire complete spawn option references and compare malformed contracts
+        id: spawn541-contracts
+        if: ${{ !cancelled() && steps.shared-original-provider.outcome == 'success' && steps.owned506-admit.outcome == 'success' && steps.dynamic520-original.outcome == 'success' }}
+        continue-on-error: true
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = 'Stop'
+          $admission = Join-Path $PWD.Path 'artifacts/library376-official-compiler/official-admission.json'
+          $admissionSha = (Get-FileHash -LiteralPath $admission -Algorithm SHA256).Hash
+          $metadata = Join-Path $PWD.Path 'artifacts/dynamic520/original/completion.json'
+          $metadataSha = (Get-FileHash -LiteralPath $metadata -Algorithm SHA256).Hash
+          python -B tools/Runtime/Erlang.OwnedGuest506Observations/capture-spawn541.py --repository $PWD.Path --expected-head $env:EXPECTED_HEAD --source-plan-sha256 $env:OWNED506_PLAN_SHA --official-admission $admission --admission-sha256 $admissionSha --output artifacts/owned506/spawn541 --proc-lib-backend542 original-proc-lib --managed-host tests/Erlang.Tests/bin/Debug/net10.0/Erlang.Tests.dll --metadata-completion $metadata --metadata-completion-sha256 $metadataSha
+          if ($LASTEXITCODE -ne 0) { throw 'Spawn original/whole managed contract failed; raw failures retained' }
+
+      - name: Compare original boxed-float worker in both runtime profiles
+        id: float556-contracts
+        if: ${{ !cancelled() && steps.shared-original-provider.outcome == 'success' && steps.owned506-admit.outcome == 'success' && steps.dynamic520-original.outcome == 'success' }}
+        continue-on-error: true
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = 'Stop'
+          $admission = Join-Path $PWD.Path 'artifacts/library376-official-compiler/official-admission.json'
+          $admissionSha = (Get-FileHash -LiteralPath $admission -Algorithm SHA256).Hash
+          $metadata = Join-Path $PWD.Path 'artifacts/dynamic520/original/completion.json'
+          $metadataSha = (Get-FileHash -LiteralPath $metadata -Algorithm SHA256).Hash
+          python -B tools/Runtime/Erlang.OwnedGuest506Observations/capture-float556.py --repository $PWD.Path --expected-head $env:EXPECTED_HEAD --source-plan-sha256 $env:OWNED506_PLAN_SHA --official-admission $admission --admission-sha256 $admissionSha --output artifacts/owned506/float556 --managed-host tests/Erlang.Tests/bin/Debug/net10.0/Erlang.Tests.dll --metadata-completion $metadata --metadata-completion-sha256 $metadataSha
+          if ($LASTEXITCODE -ne 0) { throw 'Float556 whole default/deterministic contracts failed; raw failures retained' }
+
+      - name: Compare original boxed-integer worker in both runtime profiles
+        id: integer559-contracts
+        if: ${{ !cancelled() && steps.shared-original-provider.outcome == 'success' && steps.owned506-admit.outcome == 'success' && steps.dynamic520-original.outcome == 'success' }}
+        continue-on-error: true
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = 'Stop'
+          $admission = Join-Path $PWD.Path 'artifacts/library376-official-compiler/official-admission.json'
+          $admissionSha = (Get-FileHash -LiteralPath $admission -Algorithm SHA256).Hash
+          $metadata = Join-Path $PWD.Path 'artifacts/dynamic520/original/completion.json'
+          $metadataSha = (Get-FileHash -LiteralPath $metadata -Algorithm SHA256).Hash
+          python -B tools/Runtime/Erlang.OwnedGuest506Observations/capture-integer559.py --repository $PWD.Path --expected-head $env:EXPECTED_HEAD --source-plan-sha256 $env:OWNED506_PLAN_SHA --official-admission $admission --admission-sha256 $admissionSha --output artifacts/owned506/integer559 --managed-host tests/Erlang.Tests/bin/Debug/net10.0/Erlang.Tests.dll --metadata-completion $metadata --metadata-completion-sha256 $metadataSha
+          if ($LASTEXITCODE -ne 0) { throw 'Integer559 whole default/deterministic contracts failed; raw failures retained' }
+
+      - name: Compare ordinary references and loader-owned map keys with pinned OTP
+        id: reference528-contracts
+        if: ${{ !cancelled() && steps.shared-original-provider.outcome == 'success' && steps.owned506-admit.outcome == 'success' && steps.dynamic520-original.outcome == 'success' }}
+        continue-on-error: true
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = 'Stop'
+          $admission = Join-Path $PWD.Path 'artifacts/library376-official-compiler/official-admission.json'
+          $admissionSha = (Get-FileHash -LiteralPath $admission -Algorithm SHA256).Hash
+          $metadata = Join-Path $PWD.Path 'artifacts/dynamic520/original/completion.json'
+          $metadataSha = (Get-FileHash -LiteralPath $metadata -Algorithm SHA256).Hash
+          $failures = @()
+          foreach ($job in @('ordinary-reference563', 'loader-map-keys565')) {
+            python -B tools/Runtime/Erlang.OwnedGuest506Observations/capture-reference563.py --repository $PWD.Path --expected-head $env:EXPECTED_HEAD --source-plan-sha256 $env:OWNED506_PLAN_SHA --official-admission $admission --admission-sha256 $admissionSha --job $job --output "artifacts/owned506/reference528-$job" --managed-host tests/Erlang.Tests/bin/Debug/net10.0/Erlang.Tests.dll --metadata-completion $metadata --metadata-completion-sha256 $metadataSha
+            if ($LASTEXITCODE -ne 0) { $failures += $job }
+          }
+          if ($failures.Count -ne 0) { throw "Required reference/map whole comparisons failed: $($failures -join ', ')" }
+
+      # Integrate into the existing Windows local-regressions job. Reuse its
+      # admitted provider and final native backend; no extra OTP install/job.
+      - name: Acquire selected original resource family527
+        id: resource529-original
+        if: ${{ !cancelled() && steps.native-host-ready.outcome == 'success' && steps.shared-original-provider.outcome == 'success' }}
+        continue-on-error: true
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = 'Stop'
+          $head529 = git rev-parse HEAD
+          if ($LASTEXITCODE -ne 0 -or $head529 -ne $env:EXPECTED_HEAD) { throw 'Resource529 checkout differs from expected head' }
+          $plan529 = 'tools/Native/Erlang.NifResource529Observations/source-plan.json'
+          $planHash529 = python -c "import hashlib,subprocess,sys; print(hashlib.sha256(subprocess.check_output(['git','show',sys.argv[1]+':'+sys.argv[2]])).hexdigest().upper())" $env:EXPECTED_HEAD $plan529
+          if ($LASTEXITCODE -ne 0) { throw 'Resource529 committed final plan unavailable' }
+          $provider529 = 'artifacts/library376-official-compiler/official-admission.json'
+          $providerHash529 = (Get-FileHash -LiteralPath $provider529 -Algorithm SHA256).Hash
+          python -B tools/Native/Erlang.NifResource529Observations/collect.py --provider-admission $provider529 --provider-sha256 $providerHash529 --plan-sha256 $planHash529 --output artifacts/nif-resource529/ci --jobs family527 --original-only --execute-resource529
+          if ($LASTEXITCODE -ne 0) { throw 'Resource529 original family failed; dependent managed execution blocked' }
+          $original529 = Get-Content artifacts/nif-resource529/ci/completion.json -Raw | ConvertFrom-Json
+          if (!$original529.AllSelectedPassed -or !$original529.OriginalExecuted -or $original529.SelectedOriginalCount -ne 1 -or $original529.SelectedManagedCount -ne 0 -or @($original529.SelectedProtocols).Count -ne 1 -or $original529.SelectedProtocols[0] -ne 'family527' -or !$original529.Originals.family527.Succeeded -or $original529.NormalizationPerformed -or $original529.WholeContractsClosed -ne 0) { throw 'Resource529 selected original receipt rejected' }
+
+      - name: Compare resource family527 through both private-owned loaders
+        id: resource529-managed
+        if: ${{ !cancelled() && steps.resource529-original.outcome == 'success' && steps.native-host-ready.outcome == 'success' }}
+        continue-on-error: true
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = 'Stop'
+          $backend529 = Join-Path $PWD 'tools/Native/Erlang.NifNativeBackend/bin/Debug/net10.0/Erlang.NifNativeBackend.dll'
+          $backendHash529 = (Get-FileHash -LiteralPath $backend529 -Algorithm SHA256).Hash
+          $originalRoot529 = Join-Path $PWD 'artifacts/nif-resource529/ci'
+          $completionHash529 = (Get-FileHash -LiteralPath (Join-Path $originalRoot529 'completion.json') -Algorithm SHA256).Hash
+          $errors529 = @()
+          foreach ($route529 in @('ordinary', 'reviewed')) {
+            try {
+              $out529 = Join-Path $PWD ('artifacts/resource529/ci-' + $route529)
+              python -B tools/Native/Erlang.NifResource529Observations/replay-family.py --repository $PWD.Path --backend $backend529 --backend-sha256 $backendHash529 --original $originalRoot529 --approved-original-completion-sha256 $completionHash529 --route $route529 --output $out529 --execute-private-family533
+              if ($LASTEXITCODE -ne 0) { throw ('Resource529 actual child failed: ' + $route529) }
+              $receipt529 = Get-Content (Join-Path $out529 'managed/completion.json') -Raw | ConvertFrom-Json
+              if (!$receipt529.Captured -or !$receipt529.RawWholeEqual -or !$receipt529.DeterministicWholeEqual -or !$receipt529.PhysicalCleanupPassed -or !$receipt529.AllFiniteChecksPassed -or !$receipt529.OwnedProfile -or $receipt529.Route -ne $route529 -or $receipt529.Job -ne 'family527' -or $receipt529.NormalizationPerformed -or $receipt529.FullCompatibilityClaimed -or $receipt529.WholeContractsClosed -ne 0) { throw ('Resource529 whole-value or cleanup gate failed: ' + $route529) }
+            } catch {
+              $errors529 += $_.Exception.ToString()
+            }
+          }
+          if ($errors529.Count -ne 0) { throw ($errors529 -join "`n") }
+
+
+      - name: Capture original native queue593 with the existing native fixture
+        id: queue593-original
+        if: ${{ !cancelled() && steps.resource529-original.outcome == 'success' }}
+        continue-on-error: true
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = 'Stop'
+          $provider = Join-Path $PWD.Path 'artifacts/library376-official-compiler/official-admission.json'
+          $providerSha = (Get-FileHash -LiteralPath $provider -Algorithm SHA256).Hash
+          $retained = Join-Path $PWD.Path 'artifacts/nif-resource529/ci'
+          $retainedSha = (Get-FileHash -LiteralPath (Join-Path $retained 'completion.json') -Algorithm SHA256).Hash
+          $planSha = (Get-FileHash -LiteralPath 'tools/Native/Erlang.NifResource529Observations/source-plan.json' -Algorithm SHA256).Hash
+          python -B tools/Native/Erlang.NifResource529Observations/capture-queue593.py --repository $PWD.Path --expected-head $env:EXPECTED_HEAD --source-plan-sha256 $planSha --provider-admission $provider --provider-sha256 $providerSha --retained-original $retained --retained-completion-sha256 $retainedSha --output artifacts/nif-resource529/queue593-ci --execute-queue593
+          if ($LASTEXITCODE -ne 0) { throw 'Original native queue593 observation or physical cleanup failed' }
+      - name: Compare both native queue593 loader routes
+        id: queue593-managed
+        if: ${{ !cancelled() && steps.queue593-original.outcome == 'success' && steps.native-host-ready.outcome == 'success' }}
+        continue-on-error: true
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = 'Stop'
+          $provider = Join-Path $PWD.Path 'artifacts/library376-official-compiler/official-admission.json'
+          $providerSha = (Get-FileHash -LiteralPath $provider -Algorithm SHA256).Hash
+          $original = Join-Path $PWD.Path 'artifacts/nif-resource529/queue593-ci'
+          $originalSha = (Get-FileHash -LiteralPath (Join-Path $original 'completion.json') -Algorithm SHA256).Hash
+          $planSha = (Get-FileHash -LiteralPath 'tools/Native/Erlang.NifResource529Observations/source-plan.json' -Algorithm SHA256).Hash
+          $backend = Join-Path $PWD.Path 'tools/Native/Erlang.NifNativeBackend/bin/Debug/net10.0/Erlang.NifNativeBackend.dll'
+          $backendSha = (Get-FileHash -LiteralPath $backend -Algorithm SHA256).Hash
+          python -B tools/Native/Erlang.NifResource529Observations/replay-queue593.py --repository $PWD.Path --expected-head $env:EXPECTED_HEAD --source-plan-sha256 $planSha --provider-admission $provider --provider-sha256 $providerSha --original $original --approved-original-completion-sha256 $originalSha --backend $backend --backend-sha256 $backendSha --output artifacts/resource529/queue593-ci --execute-queue593
+          if ($LASTEXITCODE -ne 0) { throw 'At least one independently collected native queue593 loader route failed' }
+
+      - name: Compare atomics and original counters with the admitted Windows provider
+        id: atomics592-contracts
+        if: ${{ !cancelled() && steps.shared-original-provider.outcome == 'success' && steps.owned506-admit.outcome == 'success' && steps.dynamic520-original.outcome == 'success' }}
+        continue-on-error: true
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = 'Stop'
+          $provider = Join-Path $PWD.Path 'artifacts/library376-official-compiler/official-admission.json'
+          $providerSha = (Get-FileHash -LiteralPath $provider -Algorithm SHA256).Hash
+          $metadata = Join-Path $PWD.Path 'artifacts/dynamic520/original/completion.json'
+          $metadataSha = (Get-FileHash -LiteralPath $metadata -Algorithm SHA256).Hash
+          $hostPath = Join-Path $PWD.Path 'tests/Erlang.Tests/bin/Debug/net10.0/Erlang.Tests.dll'
+          $hostSha = (Get-FileHash -LiteralPath $hostPath -Algorithm SHA256).Hash
+          python -B tools/Runtime/Erlang.OwnedGuest506Observations/capture-atomics588.py --repository $PWD.Path --expected-head $env:EXPECTED_HEAD --source-plan-sha256 $env:OWNED506_PLAN_SHA --official-admission $provider --admission-sha256 $providerSha --output artifacts/owned506/atomics592 --managed-host $hostPath --managed-host-sha256 $hostSha --metadata-completion $metadata --metadata-completion-sha256 $metadataSha --own-reference-protocol *> artifacts/owned506/atomics592.log
+          if ($LASTEXITCODE -ne 0) { throw 'Atomics original and two independently collected final-source profiles did not pass' }
+      - name: Build matching OPT runtime for original counters native-family comparison
+        id: counters610-release
+        if: ${{ !cancelled() && steps.shared-original-provider.outcome == 'success' && steps.owned506-admit.outcome == 'success' && steps.dynamic520-original.outcome == 'success' }}
+        continue-on-error: true
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = 'Stop'
+          $env:DOTNET_PROCESSOR_COUNT = '1'
+          $env:DOTNET_GCConserveMemory = '9'
+          dotnet build tests/Erlang.Tests/Erlang.Tests.csproj -c Release -m:1 --no-restore -p:UseSharedCompilation=false -p:BuildInParallel=false --verbosity quiet *> artifacts/owned506/counters610-release-build.log
+          if ($LASTEXITCODE -ne 0) { throw 'Matching OPT managed runtime preparation failed; counters replay must not run' }
+      - name: Compare complete counters native family and physical cleanup in both profiles
+        id: counters610-contracts
+        if: ${{ !cancelled() && steps.counters610-release.outcome == 'success' }}
+        continue-on-error: true
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = 'Stop'
+          $env:DOTNET_PROCESSOR_COUNT = '2'
+          $provider = Join-Path $PWD.Path 'artifacts/library376-official-compiler/official-admission.json'
+          $providerSha = (Get-FileHash -LiteralPath $provider -Algorithm SHA256).Hash
+          $metadata = Join-Path $PWD.Path 'artifacts/dynamic520/original/completion.json'
+          $metadataSha = (Get-FileHash -LiteralPath $metadata -Algorithm SHA256).Hash
+          $hostPath = Join-Path $PWD.Path 'tests/Erlang.Tests/bin/Release/net10.0/Erlang.Tests.dll'
+          $hostSha = (Get-FileHash -LiteralPath $hostPath -Algorithm SHA256).Hash
+          python -B tools/Runtime/Erlang.OwnedGuest506Observations/capture-counters610.py --repository $PWD.Path --expected-head $env:EXPECTED_HEAD --source-plan-sha256 $env:OWNED506_PLAN_SHA --official-admission $provider --admission-sha256 $providerSha --output artifacts/owned506/counters610 --managed-host $hostPath --managed-host-sha256 $hostSha --metadata-completion $metadata --metadata-completion-sha256 $metadataSha *> artifacts/owned506/counters610.log
+          if ($LASTEXITCODE -ne 0) { throw 'Counters native-family original and independent ordinary/private comparisons or cleanup failed' }
+      - name: Capture five unchanged regex observer modes with the admitted Windows OTP
+        id: regex613-original
+        if: ${{ !cancelled() && steps.shared-original-provider.outcome == 'success' && steps.owned506-admit.outcome == 'success' }}
+        continue-on-error: true
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = 'Stop'
+          $env:DOTNET_PROCESSOR_COUNT = '2'
+          $provider = Join-Path $PWD.Path 'artifacts/library376-official-compiler/official-admission.json'
+          $providerSha = (Get-FileHash -LiteralPath $provider -Algorithm SHA256).Hash
+          python -B tools/Runtime/Erlang.OwnedGuest506Observations/capture-regex613-original.py --repository $PWD.Path --official-admission $provider --admission-sha256 $providerSha --plan tools/Runtime/Erlang.OwnedGuest506Observations/regex613-reuse-plan.json --plan-sha256 B6F8D5B46EBD94F2A61C11C0BBD7140FC85CE713B96F9C781F5918DA3EF0F372 --output artifacts/owned506/regex613-original *> artifacts/owned506/regex613-original.log
+          if ($LASTEXITCODE -ne 0) { throw 'Fresh regex original modes failed; all independent receipts are retained' }
+      - name: Capture the three existing managed regex groups in one owned source window
+        id: regex613-managed
+        if: ${{ !cancelled() && steps.owned506-admit.outcome == 'success' }}
+        continue-on-error: true
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = 'Stop'
+          python -B tools/Runtime/Erlang.OwnedGuest506Observations/run-regex613-managed-ci.py --repository $PWD.Path --output artifacts/owned506/regex613-managed *> artifacts/owned506/regex613-managed.log
+          if ($LASTEXITCODE -ne 0) { throw 'Existing regex groups or their owned current-source window did not pass' }
+      - name: Require all 524 fresh whole regex contracts and physical cleanup
+        id: regex613-compare
+        if: ${{ !cancelled() && steps.regex613-original.outcome == 'success' && steps.regex613-managed.outcome == 'success' }}
+        continue-on-error: true
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = 'Stop'
+          $runtime = Join-Path $PWD.Path 'tests/Erlang.Tests/bin/Debug/net10.0/Erlang.Runtime.dll'
+          $runtimeSha = (Get-FileHash -LiteralPath $runtime -Algorithm SHA256).Hash
+          python -B tools/Runtime/Erlang.OwnedGuest506Observations/compare-regex613-existing.py --repository $PWD.Path --original artifacts/owned506/regex613-original --managed-frame artifacts/owned506/regex613-managed/frame.json --runtime-sha256 $runtimeSha --output artifacts/owned506/regex613-comparison
+          if ($LASTEXITCODE -ne 0) { throw 'Fresh whole regex values/stacks, source-window or actual cleanup comparison failed' }
+      - name: Capture both unchanged binary390 observer modes with admitted Windows OTP
+        id: binary619-original
+        if: ${{ !cancelled() && steps.shared-original-provider.outcome == 'success' && steps.owned506-admit.outcome == 'success' }}
+        continue-on-error: true
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = 'Stop'
+          $env:DOTNET_PROCESSOR_COUNT = '2'
+          $provider = Join-Path $PWD.Path 'artifacts/library376-official-compiler/official-admission.json'
+          $providerSha = (Get-FileHash -LiteralPath $provider -Algorithm SHA256).Hash
+          python -B tools/Runtime/Erlang.OwnedGuest506Observations/capture-binary619-original.py --repository $PWD.Path --official-admission $provider --admission-sha256 $providerSha --plan tools/Runtime/Erlang.OwnedGuest506Observations/binary619-reuse-plan.json --plan-sha256 0E58CB1E7CB10D4F650F06289D20E29FE0B67A7A4DCF0EB6F39B2D90BA9189C4 --output artifacts/owned506/binary619-original *> artifacts/owned506/binary619-original.log
+          if ($LASTEXITCODE -ne 0) { throw 'Fresh binary original modes failed; independent receipts are retained' }
+      - name: Capture existing managed binary390 in one owned current-source window
+        id: binary619-managed
+        if: ${{ !cancelled() && steps.owned506-admit.outcome == 'success' }}
+        continue-on-error: true
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = 'Stop'
+          python -B tools/Runtime/Erlang.OwnedGuest506Observations/run-binary619-managed-ci.py --repository $PWD.Path --output artifacts/owned506/binary619-managed *> artifacts/owned506/binary619-managed.log
+          if ($LASTEXITCODE -ne 0) { throw 'Existing binary390 or its owned source window did not pass' }
+      - name: Require all 564 fresh whole binary contracts and actual cleanup
+        id: binary619-compare
+        if: ${{ !cancelled() && steps.binary619-original.outcome == 'success' && steps.binary619-managed.outcome == 'success' }}
+        continue-on-error: true
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = 'Stop'
+          $runtime = Join-Path $PWD.Path 'tests/Erlang.Tests/bin/Debug/net10.0/Erlang.Runtime.dll'
+          $runtimeSha = (Get-FileHash -LiteralPath $runtime -Algorithm SHA256).Hash
+          python -B tools/Runtime/Erlang.OwnedGuest506Observations/compare-binary619-existing.py --repository $PWD.Path --original artifacts/owned506/binary619-original --managed-frame artifacts/owned506/binary619-managed/frame.json --runtime-sha256 $runtimeSha --output artifacts/owned506/binary619-comparison
+          if ($LASTEXITCODE -ne 0) { throw 'Whole binary values/stacks, source-window or actual cleanup comparison failed' }
+      - name: Compare fresh compiled original dictionary605 with exact managed observer
+        id: dictionary537-contracts
+        if: ${{ !cancelled() && steps.shared-original-provider.outcome == 'success' && steps.owned506-admit.outcome == 'success' }}
+        continue-on-error: true
+        shell: pwsh
+        run: |
+          $provider = Join-Path $PWD.Path 'artifacts/library376-official-compiler/official-admission.json'
+          $providerSha = (Get-FileHash -Algorithm SHA256 -LiteralPath $provider).Hash
+          python -B tools/Runtime/Erlang.Dictionary537Observations/run.py --repository $PWD.Path --official-admission $provider --admission-sha256 $providerSha --output artifacts/owned506/dictionary537 *> artifacts/owned506/dictionary537.log
+          if ($LASTEXITCODE -ne 0) { throw 'Dictionary original compile/replay/whole Outcome comparison failed; all route receipts retained' }
+      - name: Compare fresh original saved match constants with internal native component
+        id: match634-contracts
+        if: ${{ !cancelled() && steps.shared-original-provider.outcome == 'success' && steps.owned506-admit.outcome == 'success' }}
+        continue-on-error: true
+        shell: pwsh
+        run: |
+          $provider = Join-Path $PWD.Path 'artifacts/library376-official-compiler/official-admission.json'
+          $providerSha = (Get-FileHash -Algorithm SHA256 -LiteralPath $provider).Hash
+          python -B tools/Runtime/Erlang.MatchSaved634Observations/run.py --repository $PWD.Path --official-admission $provider --admission-sha256 $providerSha --output artifacts/owned506/match634 *> artifacts/owned506/match634.log
+          if ($LASTEXITCODE -ne 0) { throw 'Saved match constant original/internal comparison failed; independent route receipts retained' }
+      - name: Compare fresh original compiled ETS Run and cursor streams
+        id: ets540-contracts
+        if: ${{ !cancelled() && steps.shared-original-provider.outcome == 'success' && steps.owned506-admit.outcome == 'success' }}
+        continue-on-error: true
+        shell: pwsh
+        run: |
+          $provider = Join-Path $PWD.Path 'artifacts/library376-official-compiler/official-admission.json'
+          $providerSha = (Get-FileHash -Algorithm SHA256 -LiteralPath $provider).Hash
+          python -B tools/Runtime/Erlang.EtsDispatch540Observations/run.py --repository $PWD.Path --official-admission $provider --admission-sha256 $providerSha --output artifacts/owned506/ets540 *> artifacts/owned506/ets540.log
+          if ($LASTEXITCODE -ne 0) { throw 'Fresh ETS Run/cursor whole value/stack comparison failed; independent receipts retained' }
+      - name: Compare fresh original public monitor roles and current managed whole outcomes
+        id: monitor645-contracts
+        if: ${{ !cancelled() && steps.shared-original-provider.outcome == 'success' && steps.owned506-admit.outcome == 'success' }}
+        continue-on-error: true
+        shell: pwsh
+        run: |
+          $provider = Join-Path $PWD.Path 'artifacts/library376-official-compiler/official-admission.json'
+          $providerSha = (Get-FileHash -Algorithm SHA256 -LiteralPath $provider).Hash
+          $monitorInputs = Get-Content -Raw -LiteralPath 'tools/Runtime/Erlang.MonitorOriginal645Observations/inputs.json' | ConvertFrom-Json
+          $freeze = Join-Path $PWD.Path ([string]$monitorInputs.SourceFreezePath)
+          $freezeSha = [string]$monitorInputs.SourceFreezeSha256
+          if ($freezeSha -notmatch '^[0-9A-Fa-f]{64}$' -or (Get-FileHash -Algorithm SHA256 -LiteralPath $freeze).Hash -ne $freezeSha) { throw 'Sealed monitor source freeze differs; no comparison executed' }
+          python -B tools/Runtime/Erlang.MonitorOriginal645Observations/run.py --repository $PWD.Path --official-admission $provider --admission-sha256 $providerSha --source-freeze $freeze --source-freeze-sha256 $freezeSha --output artifacts/owned506/monitor645 *> artifacts/owned506/monitor645.log
+          if ($LASTEXITCODE -ne 0) { throw 'Fresh monitor original/managed whole-outcome comparison failed; independent receipts retained' }
+      - name: Compare fresh original BEAM function admission and complete stacks
+        id: beam542-contracts
+        if: ${{ !cancelled() && steps.shared-original-provider.outcome == 'success' && steps.owned506-admit.outcome == 'success' }}
+        continue-on-error: true
+        shell: pwsh
+        run: |
+          $provider = Join-Path $PWD.Path 'artifacts/library376-official-compiler/official-admission.json'
+          $providerSha = (Get-FileHash -Algorithm SHA256 -LiteralPath $provider).Hash
+          python -B tools/Runtime/Erlang.BeamFunction542Observations/run.py --repository $PWD.Path --official-admission $provider --admission-sha256 $providerSha --output artifacts/owned506/beam542 *> artifacts/owned506/beam542.log
+          if ($LASTEXITCODE -ne 0) { throw 'Fresh BEAM function whole outcome/stack comparison failed; independent receipts retained' }
       - name: Require owned506 original source and full original batch
         if: ${{ !cancelled() }}
         shell: pwsh
         env:
           ADMISSION: ${{ steps.owned506-admit.outcome }}
+          MAP_COMPILED: ${{ steps.map519-compiled-worker.outcome }}
           ORIGINAL: ${{ steps.owned506-original.outcome }}
+          SPAWN_CONTRACTS: ${{ steps.spawn541-contracts.outcome }}
         run: |
-          if ($env:ADMISSION -ne 'success' -or $env:ORIGINAL -ne 'success') { throw 'Owned506 required acquisition stages did not pass' }
+          if ($env:SPAWN_CONTRACTS -ne 'success') { throw 'Required spawn contract stage failed' }
+          if ('${{ steps.atomics592-contracts.outcome }}' -ne 'success') { throw 'Required atomics original/protocol/closure stages did not pass' }
+          if ('${{ steps.counters610-release.outcome }}' -ne 'success' -or '${{ steps.counters610-contracts.outcome }}' -ne 'success') { throw 'Required matching OPT counters preparation and both complete original-backed profiles did not pass' }
+          if ('${{ steps.regex613-original.outcome }}' -ne 'success' -or '${{ steps.regex613-managed.outcome }}' -ne 'success' -or '${{ steps.regex613-compare.outcome }}' -ne 'success') { throw 'Required regex original modes, current managed source window and all whole contracts did not pass' }
+          if ('${{ steps.binary619-original.outcome }}' -ne 'success' -or '${{ steps.binary619-managed.outcome }}' -ne 'success' -or '${{ steps.binary619-compare.outcome }}' -ne 'success') { throw 'Required binary original modes, current managed source window and all whole contracts did not pass' }
+          if ('${{ steps.dictionary537-contracts.outcome }}' -ne 'success') { throw 'Required fresh dictionary comparison did not pass' }
+          if ('${{ steps.match634-contracts.outcome }}' -ne 'success') { throw 'Required internal native saved-match constant comparison did not pass' }
+          if ('${{ steps.ets540-contracts.outcome }}' -ne 'success') { throw 'Required fresh ETS Run/cursor comparisons did not pass' }
+          if ('${{ steps.monitor645-contracts.outcome }}' -ne 'success') { throw 'Required fresh monitor original and current managed comparisons did not pass' }
+          if ('${{ steps.beam542-contracts.outcome }}' -ne 'success') { throw 'Required fresh BEAM function original/managed outcome and stack comparisons did not pass' }
+          if ('${{ steps.resource529-original.outcome }}' -ne 'success' -or '${{ steps.resource529-managed.outcome }}' -ne 'success') { throw 'Both selected resource529 original and managed routes must pass' }
+          if ('${{ steps.queue593-original.outcome }}' -ne 'success' -or '${{ steps.queue593-managed.outcome }}' -ne 'success') { throw 'Native queue593 original and both final loader comparisons must pass' }
+          if ('${{ steps.reference528-contracts.outcome }}' -ne 'success') { throw 'Required ordinary-reference/loader-map original and both profiles did not pass' }
+          if ('${{ steps.float556-contracts.outcome }}' -ne 'success') { throw 'Required boxed-float original and both managed profiles did not pass' }
+          if ('${{ steps.integer559-contracts.outcome }}' -ne 'success') { throw 'Required boxed-integer original and both managed profiles did not pass' }
+          if ($env:ADMISSION -ne 'success' -or $env:ORIGINAL -ne 'success' -or $env:MAP_COMPILED -ne 'success') { throw 'Owned506 required acquisition/compiled-map stages did not pass' }
           if ('${{ steps.dynamic520-original.outcome }}' -ne 'success' -or '${{ steps.dynamic520-controls.outcome }}' -ne 'success') { throw 'Dynamic520 required original and managed stages did not pass' }
+          if ('${{ steps.private557.outcome }}' -ne 'success') { throw 'Private557 required original acquisition and four independent managed routes did not pass' }
       - uses: actions/upload-artifact@v7
         if: always()
         with:
           name: validation
           path: |
+            artifacts/source-plan566/**
+            artifacts/mfa-source-bindings/**
+            artifacts/nif-resource529/ci/
+            artifacts/nif-resource529/queue593-ci/
+            artifacts/resource529/
             artifacts/owned506/**
             artifacts/dynamic520/**
+            artifacts/map-routing517/**
+            artifacts/nif-variadic526/**
+            artifacts/nif-private-data557/**
             artifacts/tests.json
+            artifacts/library421-counters-permanent/**
             artifacts/native-map501/ci/**
             artifacts/process-retirement502/ci/**
             artifacts/native-map503/ci/**

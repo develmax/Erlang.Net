@@ -1,0 +1,32 @@
+{"Partial":true,"SelectedCount":13,"TotalCount":9596}
+FAIL runtime/atomics590/ets-domain-source-drop-destination-retirement: System.TimeoutException: The operation has timed out.
+   at Erlang.Tests.AtomicsStore590Checks.<>c__DisplayClass3_0.<<Run>b__0>d.MoveNext() in D:\Distr\Work\Codex\Erlang.Net\w546\artifacts\statistics-full\main-gc825-integration36\workspace\tests\Erlang.Tests\Runtime\Storage\Atomics\AtomicsStore590Checks.cs:line 193
+--- End of stack trace from previous location ---
+   at Erlang.Tests.AtomicsStore590Checks.<>c__DisplayClass3_0.<<Run>b__0>d.MoveNext() in D:\Distr\Work\Codex\Erlang.Net\w546\artifacts\statistics-full\main-gc825-integration36\workspace\tests\Erlang.Tests\Runtime\Storage\Atomics\AtomicsStore590Checks.cs:line 276
+--- End of stack trace from previous location ---
+   at Erlang.Tests.AtomicsP2a586Checks.Run(Func`2 body) in D:\Distr\Work\Codex\Erlang.Net\w546\artifacts\statistics-full\main-gc825-integration36\workspace\tests\Erlang.Tests\Runtime\Storage\Atomics\AtomicsP2a586Checks.cs:line 61
+   at Erlang.Tests.AtomicsP2a586Checks.Run(Func`2 body) in D:\Distr\Work\Codex\Erlang.Net\w546\artifacts\statistics-full\main-gc825-integration36\workspace\tests\Erlang.Tests\Runtime\Storage\Atomics\AtomicsP2a586Checks.cs:line 71
+   at Erlang.Tests.AtomicsStore590Checks.EtsHandoff() in D:\Distr\Work\Codex\Erlang.Net\w546\artifacts\statistics-full\main-gc825-integration36\workspace\tests\Erlang.Tests\Runtime\Storage\Atomics\AtomicsStore590Checks.cs:line 17
+   at Program.<Main>$(String[] args) in D:\Distr\Work\Codex\Erlang.Net\w546\artifacts\statistics-full\main-gc825-integration36\workspace\tests\Erlang.Tests\Harness\Program.cs:line 16144
+PASS runtime/library441/ets-compressed-real-storage-and-mutations
+PASS runtime/library441/ets-compressed-read-lease-and-canceled-capture
+PASS runtime/library442/ets-compressed-authentic-fun-key-value-owned-census
+PASS runtime/library442/ets-compressed-source-roots-and-owner-resource-release
+PASS runtime/library442/ets-compressed-mid-encode-cancellation
+PASS runtime/library442/ets-compressed-mid-decode-cancellation
+PASS runtime/library442/ets-compressed-foreign-owner-atomic-refusal
+PASS oracle/compiled-module/ets442-compressed-mutations324-values-stacks-and-own-cursors
+PASS oracle/compiled-module/ets442-compressed156-whole-values-and-stacks
+FAIL runtime/counters596/ets-domain-source-drop-destination-retirement: System.TimeoutException: The operation has timed out.
+   at Erlang.Tests.CountersStore596Checks.<>c__DisplayClass3_0.<<Run>b__0>d.MoveNext() in D:\Distr\Work\Codex\Erlang.Net\w546\artifacts\statistics-full\main-gc825-integration36\workspace\tests\Erlang.Tests\Runtime\Storage\Counters\CountersStore596Checks.cs:line 193
+--- End of stack trace from previous location ---
+   at Erlang.Tests.CountersStore596Checks.<>c__DisplayClass3_0.<<Run>b__0>d.MoveNext() in D:\Distr\Work\Codex\Erlang.Net\w546\artifacts\statistics-full\main-gc825-integration36\workspace\tests\Erlang.Tests\Runtime\Storage\Counters\CountersStore596Checks.cs:line 276
+--- End of stack trace from previous location ---
+   at Erlang.Tests.CountersCustody596Checks.Run(Func`2 body) in D:\Distr\Work\Codex\Erlang.Net\w546\artifacts\statistics-full\main-gc825-integration36\workspace\tests\Erlang.Tests\Runtime\Storage\Counters\CountersCustody596Checks.cs:line 66
+   at Erlang.Tests.CountersCustody596Checks.Run(Func`2 body) in D:\Distr\Work\Codex\Erlang.Net\w546\artifacts\statistics-full\main-gc825-integration36\workspace\tests\Erlang.Tests\Runtime\Storage\Counters\CountersCustody596Checks.cs:line 76
+   at Erlang.Tests.CountersStore596Checks.EtsHandoff() in D:\Distr\Work\Codex\Erlang.Net\w546\artifacts\statistics-full\main-gc825-integration36\workspace\tests\Erlang.Tests\Runtime\Storage\Counters\CountersStore596Checks.cs:line 17
+   at Program.<Main>$(String[] args) in D:\Distr\Work\Codex\Erlang.Net\w546\artifacts\statistics-full\main-gc825-integration36\workspace\tests\Erlang.Tests\Harness\Program.cs:line 16144
+FAIL runtime/typed-store600/regex-ets-source-header-drop: System.TimeoutException: The operation has timed out.
+   at Program.<Main>$(String[] args) in D:\Distr\Work\Codex\Erlang.Net\w546\artifacts\statistics-full\main-gc825-integration36\workspace\tests\Erlang.Tests\Harness\Program.cs:line 16144
+PASS runtime/statistics-process-refc-binary-actual-prefix-header-words-and-reclaim
+10/13 passed

@@ -1,0 +1,14 @@
+{"Partial":true,"SelectedCount":2,"TotalCount":9335}
+FAIL runtime/process-liveness626/real-closed-before-token-cancellation: System.OperationCanceledException: The operation was canceled.
+   at Erlang.Mailbox.ThrowIfHalted() in D:\Distr\Work\Codex\Erlang.Net\w518repair\src\Runtime\Erlang.Runtime.Core\Processes\Mailbox.cs:line 56
+   at Erlang.Mailbox.ReceiveMarkedCore593[T](Func`2 select, Nullable`1 timeout, CancellationToken cancellation, Func`1 resolveTimeout, ReceiveMarkerState markerSelection, MailboxSelectionAdmission593 admission593) in D:\Distr\Work\Codex\Erlang.Net\w518repair\src\Runtime\Erlang.Runtime.Core\Processes\Mailbox.cs:line 683
+   at Erlang.Mailbox.ReceiveCore593[T](Func`2 select, Nullable`1 timeout, CancellationToken cancellation, Func`1 resolveTimeout, Boolean rescanRemovedCandidate, MailboxSelectionAdmission593 admission593) in D:\Distr\Work\Codex\Erlang.Net\w518repair\src\Runtime\Erlang.Runtime.Core\Processes\Mailbox.ReceiveMarkers.cs:line 203
+   at Erlang.Mailbox.ReceiveAsync[T](Func`2 select, Nullable`1 timeout, CancellationToken cancellation) in D:\Distr\Work\Codex\Erlang.Net\w518repair\src\Runtime\Erlang.Runtime.Core\Processes\Mailbox.cs:line 609
+   at Erlang.Tests.ProcessLiveness499OrderingChecks.ReceiveForOrdering(ProcessRuntime runtime, ProcessContext context, CancellationToken cancellation, Action`1 observe) in D:\Distr\Work\Codex\Erlang.Net\w518repair\tests\Erlang.Tests\Runtime\Processes\Lifecycle\ProcessLiveness499OrderingChecks.cs:line 117
+   at Erlang.Tests.ProcessLiveness626Checks.ClosedBeforeToken() in D:\Distr\Work\Codex\Erlang.Net\w518repair\tests\Erlang.Tests\Runtime\Processes\Lifecycle\ProcessLiveness626Checks.cs:line 54
+   at Erlang.Tests.ProcessLiveness626Checks.ClosedBeforeToken() in D:\Distr\Work\Codex\Erlang.Net\w518repair\tests\Erlang.Tests\Runtime\Processes\Lifecycle\ProcessLiveness626Checks.cs:line 55
+   at Erlang.Tests.ProcessLiveness626Checks.ClosedBeforeToken() in D:\Distr\Work\Codex\Erlang.Net\w518repair\tests\Erlang.Tests\Runtime\Processes\Lifecycle\ProcessLiveness626Checks.cs:line 55
+   at Erlang.Tests.ProcessLiveness626Checks.ClosedBeforeToken() in D:\Distr\Work\Codex\Erlang.Net\w518repair\tests\Erlang.Tests\Runtime\Processes\Lifecycle\ProcessLiveness626Checks.cs:line 55
+   at Program.<Main>$(String[] args) in D:\Distr\Work\Codex\Erlang.Net\w518repair\tests\Erlang.Tests\Harness\Program.cs:line 7680
+PASS runtime/process-liveness626/live-unrelated-cancellation-visible
+1/2 passed

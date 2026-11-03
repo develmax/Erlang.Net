@@ -1,0 +1,202 @@
+{
+  "ReadOnly": true,
+  "ComparedBaseline": "b2632bf9665d860070393b686714fec97bb263bf",
+  "ObservedHead": "375efd736f64815355aeb304a4b207b246149407",
+  "BeforeBuildScriptSha256": "5D1C2D76D798BA611C3A12FD6CCBAF79116CAC7C2DAA5FCA5EE2B127661D941E",
+  "AfterBuildScriptSha256": "469F49760013986AC821E29849ABB1C00B975CA2A5DE6BD8B9EC24658CE7D40E",
+  "AstIdenticalIgnoringSourceLocations": true,
+  "DirectBuildScriptSealMatches": true,
+  "WorkflowPlanPinMatches": true,
+  "FiveCascadeDeclaredRows": 10341,
+  "Plans": [
+    {
+      "Plan": "tools/Runtime/Erlang.OwnedGuest506Observations/source-plan.json",
+      "DeclaredRows": 158,
+      "Mismatches": [],
+      "Sha256": "55256007DE5494EA26A8B1FBE8B6C5A1B3A8EF8F592950D948400EFA19D9804C"
+    },
+    {
+      "Plan": "tools/Native/Erlang.NifPendingVarargsObservations/reviewed-source-plan.json",
+      "DeclaredRows": 3190,
+      "Mismatches": [],
+      "Sha256": "B6E00FE6F6EB8AAE77A2071EE5069EBF70C1F85E252B6ECBE79C041A385D74BC"
+    },
+    {
+      "Plan": "tools/Native/Erlang.NifReallocationObservations/SOURCE-PLAN.json",
+      "DeclaredRows": 3297,
+      "Mismatches": [],
+      "Sha256": "B4F923694E1E74829C024BFE6A84449D1E09F545511BD94A27354908704122B8"
+    },
+    {
+      "Plan": "tools/Native/Erlang.NifVariadic526Observations/source-plan.json",
+      "DeclaredRows": 861,
+      "Mismatches": [],
+      "Sha256": "32AF216C34B5C33252B95B2791C0BEE2EDA1D6D2F3337B56D0CFBF24EF9E5E84"
+    },
+    {
+      "Plan": "tools/Native/Erlang.NifPrivateData557Observations/source-plan.json",
+      "DeclaredRows": 2835,
+      "Mismatches": [],
+      "Sha256": "98C97DD3F90B448AC1EE9D9061F1E84D500531AC32BA45CCC72EDC08AB38719A"
+    }
+  ],
+  "RootEightPlanReceiptAllPassed": true,
+  "DocManifestMismatches": [],
+  "RecoveryCountsVerified": true,
+  "ChangedFilesSinceBase": [
+    ".github/workflows/nif-pending-native.yml",
+    ".github/workflows/nif-reallocation-native.yml",
+    ".github/workflows/validate.yml",
+    "docs/PROGRESS.md",
+    "docs/changelog/0091.md",
+    "docs/native-infrastructure.json",
+    "docs/validation/part-526/README.md",
+    "docs/validation/part-526/audit-at-capture/REPORT.md",
+    "docs/validation/part-526/audit-at-capture/branch-inventory-manifest.json",
+    "docs/validation/part-526/audit-at-capture/branch-usefulness-readonly.md",
+    "docs/validation/part-526/audit-at-capture/local-delete-stage1.json",
+    "docs/validation/part-526/audit-at-capture/manifest.json",
+    "docs/validation/part-526/audit-at-capture/pr74-77-manifest.json",
+    "docs/validation/part-526/audit-at-capture/pr74-77-review.md",
+    "docs/validation/part-526/audit-at-capture/prs69-73-REPORT.md",
+    "docs/validation/part-526/audit-at-capture/prs69-73-manifest.json",
+    "docs/validation/part-526/audit-at-capture/remote-delete-verified.json",
+    "docs/validation/part-526/final77-review/REVIEW.md",
+    "docs/validation/part-526/final77-review/manifest.json",
+    "docs/validation/part-526/final77-review/stale-informational-bytes.json",
+    "docs/validation/part-526/local-checks/cascade-final/proof.json",
+    "docs/validation/part-526/local-checks/cascade-sizes/proof.json",
+    "docs/validation/part-526/local-checks/informational-sizes.json",
+    "docs/validation/part-526/local-checks/native-map501-build-receipt.json",
+    "docs/validation/part-526/local-checks/native-map501-completion.json",
+    "docs/validation/part-526/local-checks/preflight-final.json",
+    "docs/validation/part-526/local-checks/preflight-sizes.json",
+    "docs/validation/part-526/local-checks/preflight.json",
+    "docs/validation/part-526/local-checks/style-equivalence.json",
+    "docs/validation/part-526/manifest.json",
+    "tools/Native/Erlang.NifMapCreation501Observations/build-native.py",
+    "tools/Native/Erlang.NifMapCreation501Observations/source-plan.json",
+    "tools/Native/Erlang.NifMapFamily504Observations/source-plan.json",
+    "tools/Native/Erlang.NifMapMaterialized505Observations/source-plan.json",
+    "tools/Native/Erlang.NifMapReentry505Observations/source-plan.json",
+    "tools/Native/Erlang.NifPendingVarargsObservations/reviewed-source-plan.json",
+    "tools/Native/Erlang.NifPrivateData557Observations/source-plan.json",
+    "tools/Native/Erlang.NifReallocationObservations/SOURCE-PLAN.json",
+    "tools/Runtime/Erlang.OwnedGuest506Observations/source-plan.json"
+  ],
+  "NoBuildVmNativeOrCiExecutedByReviewer": true,
+  "LatestRootEightPlanReceipt": "preflight-sizes.json",
+  "LatestRootEightPlanReceiptSha256": "B56630ACCFBB4428BE0EAA6DFB6698AFF5B21BA1595716339CECB12F4DBF3F58",
+  "InformationalSizeChecks": [
+    {
+      "Plan": "tools/Native/Erlang.NifMapFamily504Observations/source-plan.json",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/OwnedTermTransfer506.cs",
+      "DeclaredNormalizedBytes": 2393,
+      "SourceHashMatches": true
+    },
+    {
+      "Plan": "tools/Native/Erlang.NifMapFamily504Observations/source-plan.json",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessTermFrame.Guest507.cs",
+      "DeclaredNormalizedBytes": 3793,
+      "SourceHashMatches": true
+    },
+    {
+      "Plan": "tools/Native/Erlang.NifMapFamily504Observations/source-plan.json",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessTermFrame.Source511.cs",
+      "DeclaredNormalizedBytes": 4901,
+      "SourceHashMatches": true
+    },
+    {
+      "Plan": "tools/Native/Erlang.NifMapFamily504Observations/source-plan.json",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessTermHeap.DebugWords526.cs",
+      "DeclaredNormalizedBytes": 4794,
+      "SourceHashMatches": true
+    },
+    {
+      "Plan": "tools/Native/Erlang.NifMapFamily504Observations/source-plan.json",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessTermHeap.Guest507.cs",
+      "DeclaredNormalizedBytes": 3268,
+      "SourceHashMatches": true
+    },
+    {
+      "Plan": "tools/Native/Erlang.NifMapFamily504Observations/source-plan.json",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessTermSequence506.cs",
+      "DeclaredNormalizedBytes": 1261,
+      "SourceHashMatches": true
+    },
+    {
+      "Plan": "tools/Native/Erlang.NifMapMaterialized505Observations/source-plan.json",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/OwnedTermTransfer506.cs",
+      "DeclaredNormalizedBytes": 2393,
+      "SourceHashMatches": true
+    },
+    {
+      "Plan": "tools/Native/Erlang.NifMapMaterialized505Observations/source-plan.json",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessTermFrame.Guest507.cs",
+      "DeclaredNormalizedBytes": 3793,
+      "SourceHashMatches": true
+    },
+    {
+      "Plan": "tools/Native/Erlang.NifMapMaterialized505Observations/source-plan.json",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessTermFrame.Source511.cs",
+      "DeclaredNormalizedBytes": 4901,
+      "SourceHashMatches": true
+    },
+    {
+      "Plan": "tools/Native/Erlang.NifMapMaterialized505Observations/source-plan.json",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessTermHeap.DebugWords526.cs",
+      "DeclaredNormalizedBytes": 4794,
+      "SourceHashMatches": true
+    },
+    {
+      "Plan": "tools/Native/Erlang.NifMapMaterialized505Observations/source-plan.json",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessTermHeap.Guest507.cs",
+      "DeclaredNormalizedBytes": 3268,
+      "SourceHashMatches": true
+    },
+    {
+      "Plan": "tools/Native/Erlang.NifMapMaterialized505Observations/source-plan.json",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessTermSequence506.cs",
+      "DeclaredNormalizedBytes": 1261,
+      "SourceHashMatches": true
+    },
+    {
+      "Plan": "tools/Native/Erlang.NifMapReentry505Observations/source-plan.json",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/OwnedTermTransfer506.cs",
+      "DeclaredNormalizedBytes": 2393,
+      "SourceHashMatches": true
+    },
+    {
+      "Plan": "tools/Native/Erlang.NifMapReentry505Observations/source-plan.json",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessTermFrame.Guest507.cs",
+      "DeclaredNormalizedBytes": 3793,
+      "SourceHashMatches": true
+    },
+    {
+      "Plan": "tools/Native/Erlang.NifMapReentry505Observations/source-plan.json",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessTermFrame.Source511.cs",
+      "DeclaredNormalizedBytes": 4901,
+      "SourceHashMatches": true
+    },
+    {
+      "Plan": "tools/Native/Erlang.NifMapReentry505Observations/source-plan.json",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessTermHeap.DebugWords526.cs",
+      "DeclaredNormalizedBytes": 4794,
+      "SourceHashMatches": true
+    },
+    {
+      "Plan": "tools/Native/Erlang.NifMapReentry505Observations/source-plan.json",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessTermHeap.Guest507.cs",
+      "DeclaredNormalizedBytes": 3268,
+      "SourceHashMatches": true
+    },
+    {
+      "Plan": "tools/Native/Erlang.NifMapReentry505Observations/source-plan.json",
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessTermSequence506.cs",
+      "DeclaredNormalizedBytes": 1261,
+      "SourceHashMatches": true
+    }
+  ],
+  "Part524CsharpProjectBuildEntriesCompared": 11506,
+  "Part524CsharpProjectBuildEntriesIdentical": true
+}

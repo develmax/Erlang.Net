@@ -1,0 +1,38 @@
+{
+  "HostUnchanged": true,
+  "Names": [
+    "runtime/mailbox606/pending-admission-self-exit-normal-and-bounded",
+    "runtime/mailbox606/deferred-release-self-exit-complete-and-discard-once",
+    "runtime/mailbox606/late-deferred-send-after-owner-done-releases-outside-monitor",
+    "runtime/mailbox606/bulk-commit-observer-close-exact-removal-and-cleanup"
+  ],
+  "Receipt": {
+    "Command": [
+      "dotnet",
+      "exec",
+      "--fx-version",
+      "10.0.11",
+      "D:\\Distr\\Work\\Codex\\Erlang.Net\\w518repair\\tests\\Erlang.Tests\\bin\\Debug\\net10.0\\Erlang.Tests.dll",
+      "--case",
+      "runtime/mailbox606/pending-admission-self-exit-normal-and-bounded",
+      "--case",
+      "runtime/mailbox606/deferred-release-self-exit-complete-and-discard-once",
+      "--case",
+      "runtime/mailbox606/late-deferred-send-after-owner-done-releases-outside-monitor",
+      "--case",
+      "runtime/mailbox606/bulk-commit-observer-close-exact-removal-and-cleanup",
+      "--report",
+      "D:\\Distr\\Work\\Codex\\Erlang.Net\\w518repair\\artifacts\\resource533\\bulk606-meaningful-red-and-clone-green\\focus-report.json"
+    ],
+    "Pid": 29108,
+    "ElapsedSeconds": 0.8279999999999745,
+    "TimedOut": false,
+    "Settled": true,
+    "ExitCode": 1,
+    "Failures": [],
+    "StdoutSha256": "D088E2001D5135AE364FD8DE30C72442A2D512B8B5BDA8902206100747CADD7A",
+    "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+  },
+  "Passed": 3,
+  "Failed": 1
+}

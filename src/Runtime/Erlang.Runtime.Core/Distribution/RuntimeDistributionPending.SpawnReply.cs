@@ -25,56 +25,72 @@ public sealed partial class RuntimeDistributionPending
             !ReferenceEquals(request.Entry, entry) || !ReferenceEquals(request.Connection, connected) ||
             request.ConnectionId != entry.ConnectionId || !request.Owner.Self.Equals(owner) || request.Replied)
             return;
-        request.Replied = true;
-        request.Child = result as Pid;
-        request.ReplyFlags = flags;
-        if (request.Abandoned || request.OwnerExitReason is not null)
+        var terminal641 = request.OwnerExitCustody641?.Borrow641(null);
+        var dispatch641 = request.Abandoned || request.OwnerExitReason is not null
+                ? null : request.MonitorCustody641?.Borrow641(null);
+        try
         {
-            connectedSpawnRequests.Remove(reference);
-            CleanupUndeliveredSpawnReply(request);
-
-            return;
-        }
-        if (result is Atom)
-        {
-            connectedSpawnRequests.Remove(reference);
-            if (request.Options.ErrorReply)
-                request.Owner.Mailbox.SendTraced(
-                    Term.Tuple(
-                        request.Options.Tag,
-                        reference,
-                        Term.A(ProcessSpawnRequestNames.Error),
-                        result
-                    ),
-                    trace.Token,
-                    trace.Preserve,
-                    from: entry.Node
-                );
-
-            return;
-        }
-        runtime.InstallConnectedSpawnReplyRelations(request, (Pid)result, flags);
-        request.Owner.Mailbox.SendPending(
-            Term.Tuple(
-                request.Options.Tag,
-                reference,
-                Term.A(ProcessSpawnRequestNames.Success),
-                result
-            ),
-            () =>
+            request.Replied = true;
+            request.Child = result as Pid;
+            request.ReplyFlags = flags;
+            if (request.Abandoned || request.OwnerExitReason is not null)
             {
-                lock (gate)
-                {
-                    if (!connectedSpawnRequests.Remove(reference, out var current) || !ReferenceEquals(current, request))
-                        return null;
+                RemoveConnectedSpawnRequest641(reference);
+                CleanupUndeliveredSpawnReply(request, terminal641);
 
-                    return request.Options.SuccessReply ? false : null;
-                }
-            },
-            trace.Token,
-            trace.Preserve,
-            from: result
-        );
+                return;
+            }
+            if (result is Atom)
+            {
+                RemoveConnectedSpawnRequest641(reference);
+                if (request.Options.ErrorReply)
+                    runtime.SendMonitorPayload641(
+                        request.Owner,
+                        Term.Tuple(
+                            dispatch641 is null ? request.Options.Tag : ((TupleTerm)dispatch641.Value641).Items[0],
+                            reference,
+                            Term.A(ProcessSpawnRequestNames.Error),
+                            result
+                        ),
+                        null,
+                        dispatch641,
+                        token: trace.Token,
+                        preserve: trace.Preserve,
+                        from: entry.Node
+                    );
+
+                return;
+            }
+            runtime.InstallConnectedSpawnReplyRelations(request, (Pid)result, flags);
+            runtime.SendMonitorPayload641(
+                request.Owner,
+                Term.Tuple(
+                    dispatch641 is null ? request.Options.Tag : ((TupleTerm)dispatch641.Value641).Items[0],
+                    reference,
+                    Term.A(ProcessSpawnRequestNames.Success),
+                    result
+                ),
+                () =>
+                {
+                    lock (gate)
+                    {
+                        if (!RemoveConnectedSpawnRequest641(reference, out var current) || !ReferenceEquals(current, request))
+                            return null;
+
+                        return request.Options.SuccessReply ? false : null;
+                    }
+                },
+                dispatch641,
+                token: trace.Token,
+                preserve: trace.Preserve,
+                from: result
+            );
+        }
+        finally
+        {
+            dispatch641?.Close641();
+            terminal641?.Close641();
+        }
     }
 
     internal bool IsPendingConnectedSpawn(ProcessContext owner, ReferenceTerm reference)
@@ -91,18 +107,27 @@ public sealed partial class RuntimeDistributionPending
                 !ReferenceEquals(request.Owner, owner) || request.Abandoned)
                 return false;
             request.Abandoned = true;
+            request.MonitorCustody641?.Close641();
             if (request.Replied)
             {
-                connectedSpawnRequests.Remove(reference);
-                runtime.RemoveConnectedSpawnReplyRelations(request);
-                CleanupUndeliveredSpawnReply(request);
+                var terminal641 = request.OwnerExitCustody641?.Borrow641(null);
+                try
+                {
+                    RemoveConnectedSpawnRequest641(reference);
+                    runtime.RemoveConnectedSpawnReplyRelations(request);
+                    CleanupUndeliveredSpawnReply(request, terminal641);
+                }
+                finally
+                {
+                    terminal641?.Close641();
+                }
             }
 
             return true;
         }
     }
 
-    private void CleanupUndeliveredSpawnReply(DistributionSpawnRequest request)
+    private void CleanupUndeliveredSpawnReply(DistributionSpawnRequest request, RuntimeProcessPayload641? terminal641)
     {
         if (request.Child is not { } child ||
             !IsConnectedSignalGeneration(request.Entry, request.Connection, request.ConnectionId))
@@ -132,7 +157,8 @@ public sealed partial class RuntimeDistributionPending
                     child,
                     request.OwnerExitReason ?? Term.A(ProcessSpawnRequestNames.Abandoned)
                 ),
-                request.Owner.Self
+                request.Owner.Self,
+                terminal641
             );
     }
 }

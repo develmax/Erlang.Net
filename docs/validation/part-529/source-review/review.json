@@ -1,0 +1,1256 @@
+{
+  "ReviewedPacket": "5AB1B089556C8F03E612E047151BCCDAACE7020C02649179058AFE7D74CF0CA5",
+  "ReadOnly": true,
+  "BuildVmNativeOrGitMutation": false,
+  "Guards": [
+    {
+      "Target": "src/Compiler/Erlang.Compiler/Execution/Execution.cs",
+      "PreimageMatches": true,
+      "PayloadMatches": true
+    },
+    {
+      "Target": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamRegisterInterpreter.cs",
+      "PreimageMatches": true,
+      "PayloadMatches": true
+    },
+    {
+      "Target": "src/Runtime/Erlang.Runtime.Core/Modules/ModuleRegistry.BeamPrimitives.cs",
+      "PreimageMatches": true,
+      "PayloadMatches": true
+    },
+    {
+      "Target": "src/Runtime/Erlang.Runtime.Core/Modules/ModuleRegistry.NifLifetime.cs",
+      "PreimageMatches": true,
+      "PayloadMatches": true
+    },
+    {
+      "Target": "src/Runtime/Erlang.Runtime.Core/Modules/ModuleRegistry.OwnedBindings507.cs",
+      "PreimageMatches": true,
+      "PayloadMatches": true
+    },
+    {
+      "Target": "src/Runtime/Erlang.Runtime.Core/Modules/ModuleRegistry.RuntimeRead535.cs",
+      "PreimageMatches": true,
+      "PayloadMatches": true
+    },
+    {
+      "Target": "src/Runtime/Erlang.Runtime.Core/Modules/OwnedBindingKind507.cs",
+      "PreimageMatches": true,
+      "PayloadMatches": true
+    },
+    {
+      "Target": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifImageBindings.Guest535.cs",
+      "PreimageMatches": true,
+      "PayloadMatches": true
+    },
+    {
+      "Target": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifImageBindings.LogicalRetirement529.cs",
+      "PreimageMatches": true,
+      "PayloadMatches": true
+    },
+    {
+      "Target": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifImageBindings.Resource524.cs",
+      "PreimageMatches": true,
+      "PayloadMatches": true
+    },
+    {
+      "Target": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifImageBindings.ResourceLoad527.cs",
+      "PreimageMatches": true,
+      "PayloadMatches": true
+    },
+    {
+      "Target": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifImageBindings.cs",
+      "PreimageMatches": true,
+      "PayloadMatches": true
+    },
+    {
+      "Target": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifImageCall.cs",
+      "PreimageMatches": true,
+      "PayloadMatches": true
+    },
+    {
+      "Target": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifImageLoadReservation.cs",
+      "PreimageMatches": true,
+      "PayloadMatches": true
+    },
+    {
+      "Target": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifImageRetirementState529.cs",
+      "PreimageMatches": true,
+      "PayloadMatches": true
+    },
+    {
+      "Target": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeAbi.cs",
+      "PreimageMatches": true,
+      "PayloadMatches": true
+    },
+    {
+      "Target": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeAllocationAddresses528.cs",
+      "PreimageMatches": true,
+      "PayloadMatches": true
+    },
+    {
+      "Target": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeAllocationArena528Names.cs",
+      "PreimageMatches": true,
+      "PayloadMatches": true
+    },
+    {
+      "Target": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeAllocationDomain.Arena528.cs",
+      "PreimageMatches": true,
+      "PayloadMatches": true
+    },
+    {
+      "Target": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeAllocationDomain.cs",
+      "PreimageMatches": true,
+      "PayloadMatches": true
+    },
+    {
+      "Target": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeAllocationMutation528.cs",
+      "PreimageMatches": true,
+      "PayloadMatches": true
+    },
+    {
+      "Target": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeAllocationOwner.Arena528.cs",
+      "PreimageMatches": true,
+      "PayloadMatches": true
+    },
+    {
+      "Target": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeAllocationOwner.cs",
+      "PreimageMatches": true,
+      "PayloadMatches": true
+    },
+    {
+      "Target": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeBinaryStorage.Native524.cs",
+      "PreimageMatches": true,
+      "PayloadMatches": true
+    },
+    {
+      "Target": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeBinaryStorage.cs",
+      "PreimageMatches": true,
+      "PayloadMatches": true
+    },
+    {
+      "Target": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeBridgeTable.cs",
+      "PreimageMatches": true,
+      "PayloadMatches": true
+    },
+    {
+      "Target": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeCallEnvironment.Native524.cs",
+      "PreimageMatches": true,
+      "PayloadMatches": true
+    },
+    {
+      "Target": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeCallEnvironment.OwnedRoots516.cs",
+      "PreimageMatches": true,
+      "PayloadMatches": true
+    },
+    {
+      "Target": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeCallEnvironment.ResourceCallback524.cs",
+      "PreimageMatches": true,
+      "PayloadMatches": true
+    },
+    {
+      "Target": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeCallEnvironment.cs",
+      "PreimageMatches": true,
+      "PayloadMatches": true
+    },
+    {
+      "Target": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeCallbackScope.cs",
+      "PreimageMatches": true,
+      "PayloadMatches": true
+    },
+    {
+      "Target": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeExportRegistration.cs",
+      "PreimageMatches": true,
+      "PayloadMatches": true
+    },
+    {
+      "Target": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeImageInitializer.cs",
+      "PreimageMatches": true,
+      "PayloadMatches": true
+    },
+    {
+      "Target": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeLibraryOwner.Guest535.cs",
+      "PreimageMatches": true,
+      "PayloadMatches": true
+    },
+    {
+      "Target": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeLibraryOwner.ResourceAdapter524.cs",
+      "PreimageMatches": true,
+      "PayloadMatches": true
+    },
+    {
+      "Target": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeLibraryOwner.ResourceLoad527.cs",
+      "PreimageMatches": true,
+      "PayloadMatches": true
+    },
+    {
+      "Target": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeLibraryOwner.cs",
+      "PreimageMatches": true,
+      "PayloadMatches": true
+    },
+    {
+      "Target": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeListCellCallbacks.cs",
+      "PreimageMatches": true,
+      "PayloadMatches": true
+    },
+    {
+      "Target": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeNames.cs",
+      "PreimageMatches": true,
+      "PayloadMatches": true
+    },
+    {
+      "Target": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativePrimitiveCallbacks.cs",
+      "PreimageMatches": true,
+      "PayloadMatches": true
+    },
+    {
+      "Target": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeResource527Callbacks.cs",
+      "PreimageMatches": true,
+      "PayloadMatches": true
+    },
+    {
+      "Target": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeResource527Layout.cs",
+      "PreimageMatches": true,
+      "PayloadMatches": true
+    },
+    {
+      "Target": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeResource527Registration.cs",
+      "PreimageMatches": true,
+      "PayloadMatches": true
+    },
+    {
+      "Target": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeResourceImage524.cs",
+      "PreimageMatches": true,
+      "PayloadMatches": true
+    },
+    {
+      "Target": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeResourceType527Callbacks.cs",
+      "PreimageMatches": true,
+      "PayloadMatches": true
+    },
+    {
+      "Target": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeThreadType521Callbacks.cs",
+      "PreimageMatches": true,
+      "PayloadMatches": true
+    },
+    {
+      "Target": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeWindowsCallbackLayout.cs",
+      "PreimageMatches": true,
+      "PayloadMatches": true
+    },
+    {
+      "Target": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeWindowsCallbacks.cs",
+      "PreimageMatches": true,
+      "PayloadMatches": true
+    },
+    {
+      "Target": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifResourceImagePin524.cs",
+      "PreimageMatches": true,
+      "PayloadMatches": true
+    },
+    {
+      "Target": "src/Runtime/Erlang.Runtime.Core/Native/Resources/NativeResource524Names.cs",
+      "PreimageMatches": true,
+      "PayloadMatches": true
+    },
+    {
+      "Target": "src/Runtime/Erlang.Runtime.Core/Native/Resources/NativeResource527Names.cs",
+      "PreimageMatches": true,
+      "PayloadMatches": true
+    },
+    {
+      "Target": "src/Runtime/Erlang.Runtime.Core/Native/Resources/NativeResourceAddresses524.cs",
+      "PreimageMatches": true,
+      "PayloadMatches": true
+    },
+    {
+      "Target": "src/Runtime/Erlang.Runtime.Core/Native/Resources/NativeResourceAllocationEpoch527.cs",
+      "PreimageMatches": true,
+      "PayloadMatches": true
+    },
+    {
+      "Target": "src/Runtime/Erlang.Runtime.Core/Native/Resources/NativeResourceAllocator527.cs",
+      "PreimageMatches": true,
+      "PayloadMatches": true
+    },
+    {
+      "Target": "src/Runtime/Erlang.Runtime.Core/Native/Resources/NativeResourceBinaryStorage524.cs",
+      "PreimageMatches": true,
+      "PayloadMatches": true
+    },
+    {
+      "Target": "src/Runtime/Erlang.Runtime.Core/Native/Resources/NativeResourceCallbackVersion527.cs",
+      "PreimageMatches": true,
+      "PayloadMatches": true
+    },
+    {
+      "Target": "src/Runtime/Erlang.Runtime.Core/Native/Resources/NativeResourceCallbacks527.cs",
+      "PreimageMatches": true,
+      "PayloadMatches": true
+    },
+    {
+      "Target": "src/Runtime/Erlang.Runtime.Core/Native/Resources/NativeResourceDomain.Physical528.cs",
+      "PreimageMatches": true,
+      "PayloadMatches": true
+    },
+    {
+      "Target": "src/Runtime/Erlang.Runtime.Core/Native/Resources/NativeResourceDomain.Types527.cs",
+      "PreimageMatches": true,
+      "PayloadMatches": true
+    },
+    {
+      "Target": "src/Runtime/Erlang.Runtime.Core/Native/Resources/NativeResourceDomain524.cs",
+      "PreimageMatches": true,
+      "PayloadMatches": true
+    },
+    {
+      "Target": "src/Runtime/Erlang.Runtime.Core/Native/Resources/NativeResourceDomainSnapshot524.cs",
+      "PreimageMatches": true,
+      "PayloadMatches": true
+    },
+    {
+      "Target": "src/Runtime/Erlang.Runtime.Core/Native/Resources/NativeResourceHeader524.cs",
+      "PreimageMatches": true,
+      "PayloadMatches": true
+    },
+    {
+      "Target": "src/Runtime/Erlang.Runtime.Core/Native/Resources/NativeResourceImageNamesRetirement529.cs",
+      "PreimageMatches": true,
+      "PayloadMatches": true
+    },
+    {
+      "Target": "src/Runtime/Erlang.Runtime.Core/Native/Resources/NativeResourceImages524.cs",
+      "PreimageMatches": true,
+      "PayloadMatches": true
+    },
+    {
+      "Target": "src/Runtime/Erlang.Runtime.Core/Native/Resources/NativeResourceLoadTransaction527.cs",
+      "PreimageMatches": true,
+      "PayloadMatches": true
+    },
+    {
+      "Target": "src/Runtime/Erlang.Runtime.Core/Native/Resources/NativeResourceMagic527.cs",
+      "PreimageMatches": true,
+      "PayloadMatches": true
+    },
+    {
+      "Target": "src/Runtime/Erlang.Runtime.Core/Native/Resources/NativeResourceMagicHeader527.cs",
+      "PreimageMatches": true,
+      "PayloadMatches": true
+    },
+    {
+      "Target": "src/Runtime/Erlang.Runtime.Core/Native/Resources/NativeResourceOpenFlags527.cs",
+      "PreimageMatches": true,
+      "PayloadMatches": true
+    },
+    {
+      "Target": "src/Runtime/Erlang.Runtime.Core/Native/Resources/NativeResourcePayload524.cs",
+      "PreimageMatches": true,
+      "PayloadMatches": true
+    },
+    {
+      "Target": "src/Runtime/Erlang.Runtime.Core/Native/Resources/NativeResourcePublication527.cs",
+      "PreimageMatches": true,
+      "PayloadMatches": true
+    },
+    {
+      "Target": "src/Runtime/Erlang.Runtime.Core/Native/Resources/NativeResourceRootLease524.cs",
+      "PreimageMatches": true,
+      "PayloadMatches": true
+    },
+    {
+      "Target": "src/Runtime/Erlang.Runtime.Core/Native/Resources/NativeResourceRootSet524.cs",
+      "PreimageMatches": true,
+      "PayloadMatches": true
+    },
+    {
+      "Target": "src/Runtime/Erlang.Runtime.Core/Native/Resources/NativeResourceRoots524.cs",
+      "PreimageMatches": true,
+      "PayloadMatches": true
+    },
+    {
+      "Target": "src/Runtime/Erlang.Runtime.Core/Native/Resources/NativeResourceType524.cs",
+      "PreimageMatches": true,
+      "PayloadMatches": true
+    },
+    {
+      "Target": "src/Runtime/Erlang.Runtime.Core/Native/Resources/NativeResourceTypeLease524.cs",
+      "PreimageMatches": true,
+      "PayloadMatches": true
+    },
+    {
+      "Target": "src/Runtime/Erlang.Runtime.Core/Native/Resources/NativeResourceTypeOpen527.cs",
+      "PreimageMatches": true,
+      "PayloadMatches": true
+    },
+    {
+      "Target": "src/Runtime/Erlang.Runtime.Core/Native/Resources/NativeResourceTypeTable527.cs",
+      "PreimageMatches": true,
+      "PayloadMatches": true
+    },
+    {
+      "Target": "src/Runtime/Erlang.Runtime.Core/Native/Resources/NativeResourceTypeTable529.Names.cs",
+      "PreimageMatches": true,
+      "PayloadMatches": true
+    },
+    {
+      "Target": "src/Runtime/Erlang.Runtime.Core/Native/Resources/NativeResourceTypes527.cs",
+      "PreimageMatches": true,
+      "PayloadMatches": true
+    },
+    {
+      "Target": "src/Runtime/Erlang.Runtime.Core/Native/Resources/NativeTermHostScope524.cs",
+      "PreimageMatches": true,
+      "PayloadMatches": true
+    },
+    {
+      "Target": "src/Runtime/Erlang.Runtime.Core/Native/Resources/NifNativeResourceImage.Allocation528.cs",
+      "PreimageMatches": true,
+      "PayloadMatches": true
+    },
+    {
+      "Target": "src/Runtime/Erlang.Runtime.Core/Native/Resources/NifNativeResourceImage.Load527.cs",
+      "PreimageMatches": true,
+      "PayloadMatches": true
+    },
+    {
+      "Target": "src/Runtime/Erlang.Runtime.Core/Primitives/Binary/BinaryModule.cs",
+      "PreimageMatches": true,
+      "PayloadMatches": true
+    },
+    {
+      "Target": "src/Runtime/Erlang.Runtime.Core/Primitives/CoreModules.cs",
+      "PreimageMatches": true,
+      "PayloadMatches": true
+    },
+    {
+      "Target": "src/Runtime/Erlang.Runtime.Core/Primitives/ErlangDataRegistrations.cs",
+      "PreimageMatches": true,
+      "PayloadMatches": true
+    },
+    {
+      "Target": "src/Runtime/Erlang.Runtime.Core/Primitives/ReferenceResourceKind.cs",
+      "PreimageMatches": true,
+      "PayloadMatches": true
+    },
+    {
+      "Target": "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessContext.GuestNif535.cs",
+      "PreimageMatches": true,
+      "PayloadMatches": true
+    },
+    {
+      "Target": "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.Halt.cs",
+      "PreimageMatches": true,
+      "PayloadMatches": true
+    },
+    {
+      "Target": "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.NativeAllocationArena528.cs",
+      "PreimageMatches": true,
+      "PayloadMatches": true
+    },
+    {
+      "Target": "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.NativeResourceDispatch536.cs",
+      "PreimageMatches": true,
+      "PayloadMatches": true
+    },
+    {
+      "Target": "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.NativeResources524.cs",
+      "PreimageMatches": true,
+      "PayloadMatches": true
+    },
+    {
+      "Target": "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.NifLifetime.cs",
+      "PreimageMatches": true,
+      "PayloadMatches": true
+    },
+    {
+      "Target": "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.cs",
+      "PreimageMatches": true,
+      "PayloadMatches": true
+    },
+    {
+      "Target": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/OwnedTermDetachedCopy506.cs",
+      "PreimageMatches": true,
+      "PayloadMatches": true
+    },
+    {
+      "Target": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/OwnedTermInvocation.Native524.cs",
+      "PreimageMatches": true,
+      "PayloadMatches": true
+    },
+    {
+      "Target": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/OwnedTermInvocation506.cs",
+      "PreimageMatches": true,
+      "PayloadMatches": true
+    },
+    {
+      "Target": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessBinaryLease512.cs",
+      "PreimageMatches": true,
+      "PayloadMatches": true
+    },
+    {
+      "Target": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessBinaryRegistry512.cs",
+      "PreimageMatches": true,
+      "PayloadMatches": true
+    },
+    {
+      "Target": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessNativeCollection524.cs",
+      "PreimageMatches": true,
+      "PayloadMatches": true
+    },
+    {
+      "Target": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessNativeHeader524.cs",
+      "PreimageMatches": true,
+      "PayloadMatches": true
+    },
+    {
+      "Target": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessNativePublication524.cs",
+      "PreimageMatches": true,
+      "PayloadMatches": true
+    },
+    {
+      "Target": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessTermFrame.Binary512.cs",
+      "PreimageMatches": true,
+      "PayloadMatches": true
+    },
+    {
+      "Target": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessTermHeap.Generations508.cs",
+      "PreimageMatches": true,
+      "PayloadMatches": true
+    },
+    {
+      "Target": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessTermHeap.Native524.cs",
+      "PreimageMatches": true,
+      "PayloadMatches": true
+    },
+    {
+      "Target": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessTermHeap506.cs",
+      "PreimageMatches": true,
+      "PayloadMatches": true
+    },
+    {
+      "Target": "src/Runtime/Erlang.Runtime.Core/Scheduling/NativeResource536Names.cs",
+      "PreimageMatches": true,
+      "PayloadMatches": true
+    },
+    {
+      "Target": "src/Runtime/Erlang.Runtime.Core/Scheduling/NativeResourceDispatcherLease536.cs",
+      "PreimageMatches": true,
+      "PayloadMatches": true
+    },
+    {
+      "Target": "src/Runtime/Erlang.Runtime.Core/Scheduling/RuntimeActorDispatcher.NativeResources536.cs",
+      "PreimageMatches": true,
+      "PayloadMatches": true
+    },
+    {
+      "Target": "src/Runtime/Erlang.Runtime.Core/Scheduling/RuntimeActorDispatcher.cs",
+      "PreimageMatches": true,
+      "PayloadMatches": true
+    },
+    {
+      "Target": "src/Runtime/Erlang.Runtime.Core/Scheduling/RuntimeNormalAuxiliaryTurn536.cs",
+      "PreimageMatches": true,
+      "PayloadMatches": true
+    },
+    {
+      "Target": "src/Runtime/Erlang.Runtime.Core/Scheduling/RuntimeSchedulerAuxiliary420.cs",
+      "PreimageMatches": true,
+      "PayloadMatches": true
+    },
+    {
+      "Target": "src/Runtime/Erlang.Runtime.Core/Services/RuntimeExternalTermReservation.cs",
+      "PreimageMatches": true,
+      "PayloadMatches": true
+    },
+    {
+      "Target": "src/Runtime/Erlang.Runtime.Core/Services/RuntimeReferenceResources.Native524.cs",
+      "PreimageMatches": true,
+      "PayloadMatches": true
+    },
+    {
+      "Target": "src/Runtime/Erlang.Runtime.Core/Services/RuntimeReferenceResources.cs",
+      "PreimageMatches": true,
+      "PayloadMatches": true
+    },
+    {
+      "Target": "src/Runtime/Erlang.Runtime.Core/Storage/PersistentArenaRoot416.cs",
+      "PreimageMatches": true,
+      "PayloadMatches": true
+    },
+    {
+      "Target": "src/Runtime/Erlang.Runtime.Core/Storage/PersistentArenaRootBuilder416.cs",
+      "PreimageMatches": true,
+      "PayloadMatches": true
+    },
+    {
+      "Target": "src/Runtime/Erlang.Runtime.Core/Storage/RuntimeEtsStoredKind.cs",
+      "PreimageMatches": true,
+      "PayloadMatches": true
+    },
+    {
+      "Target": "src/Runtime/Erlang.Runtime.Core/Storage/RuntimeEtsStoredNode.cs",
+      "PreimageMatches": true,
+      "PayloadMatches": true
+    },
+    {
+      "Target": "src/Runtime/Erlang.Runtime.Core/Storage/RuntimeEtsStoredPayload.cs",
+      "PreimageMatches": true,
+      "PayloadMatches": true
+    },
+    {
+      "Target": "src/Runtime/Erlang.Terms/Values/Binary/BinaryBacking.Native524.cs",
+      "PreimageMatches": true,
+      "PayloadMatches": true
+    },
+    {
+      "Target": "src/Runtime/Erlang.Terms/Values/Binary/BinaryBacking.cs",
+      "PreimageMatches": true,
+      "PayloadMatches": true
+    },
+    {
+      "Target": "src/Runtime/Erlang.Terms/Values/Binary/BinaryPayloadHandle512.cs",
+      "PreimageMatches": true,
+      "PayloadMatches": true
+    },
+    {
+      "Target": "src/Runtime/Erlang.Terms/Values/Binary/INativeBinaryStorage524.cs",
+      "PreimageMatches": true,
+      "PayloadMatches": true
+    },
+    {
+      "Target": "src/Runtime/Erlang.Terms/Values/Binary/NativeBinary524Names.cs",
+      "PreimageMatches": true,
+      "PayloadMatches": true
+    },
+    {
+      "Target": "src/Runtime/Erlang.Terms/Values/Binary/PersistentBinaryBacking416.cs",
+      "PreimageMatches": true,
+      "PayloadMatches": true
+    },
+    {
+      "Target": "src/Runtime/Erlang.Terms/Values/BitString.Native524.cs",
+      "PreimageMatches": true,
+      "PayloadMatches": true
+    },
+    {
+      "Target": "src/Runtime/Erlang.Terms/Values/BitString.PersistentStorage416.cs",
+      "PreimageMatches": true,
+      "PayloadMatches": true
+    },
+    {
+      "Target": "src/Runtime/Erlang.Terms/Values/BitString.cs",
+      "PreimageMatches": true,
+      "PayloadMatches": true
+    },
+    {
+      "Target": "tests/Erlang.Tests/Runtime/Native/Resources/NativeCons539CaseNames.cs",
+      "PreimageMatches": true,
+      "PayloadMatches": true
+    },
+    {
+      "Target": "tests/Erlang.Tests/Runtime/Native/Resources/NativeCons539ResourceChecks.cs",
+      "PreimageMatches": true,
+      "PayloadMatches": true
+    },
+    {
+      "Target": "tests/Erlang.Tests/Runtime/Native/Resources/NativeCons539ResourceNames.cs",
+      "PreimageMatches": true,
+      "PayloadMatches": true
+    },
+    {
+      "Target": "tests/Erlang.Tests/Runtime/Native/Resources/NativeGuest535Checks.cs",
+      "PreimageMatches": true,
+      "PayloadMatches": true
+    },
+    {
+      "Target": "tests/Erlang.Tests/Runtime/Native/Resources/NativeGuest535Names.cs",
+      "PreimageMatches": true,
+      "PayloadMatches": true
+    },
+    {
+      "Target": "tests/Erlang.Tests/Runtime/Native/Resources/NativeHostScope531Access.cs",
+      "PreimageMatches": true,
+      "PayloadMatches": true
+    },
+    {
+      "Target": "tests/Erlang.Tests/Runtime/Native/Resources/NativeHostScope531Checks.cs",
+      "PreimageMatches": true,
+      "PayloadMatches": true
+    },
+    {
+      "Target": "tests/Erlang.Tests/Runtime/Native/Resources/NativeHostScope531Names.cs",
+      "PreimageMatches": true,
+      "PayloadMatches": true
+    },
+    {
+      "Target": "tests/Erlang.Tests/Runtime/Native/Resources/NativeResource524Access.cs",
+      "PreimageMatches": true,
+      "PayloadMatches": true
+    },
+    {
+      "Target": "tests/Erlang.Tests/Runtime/Native/Resources/NativeResource524Checks.cs",
+      "PreimageMatches": true,
+      "PayloadMatches": true
+    },
+    {
+      "Target": "tests/Erlang.Tests/Runtime/Native/Resources/NativeResource524ImageOwner.cs",
+      "PreimageMatches": true,
+      "PayloadMatches": true
+    },
+    {
+      "Target": "tests/Erlang.Tests/Runtime/Native/Resources/NativeResource524Names.cs",
+      "PreimageMatches": true,
+      "PayloadMatches": true
+    },
+    {
+      "Target": "tests/Erlang.Tests/Runtime/Native/Resources/NativeResource527Access.cs",
+      "PreimageMatches": true,
+      "PayloadMatches": true
+    },
+    {
+      "Target": "tests/Erlang.Tests/Runtime/Native/Resources/NativeResource527Checks.cs",
+      "PreimageMatches": true,
+      "PayloadMatches": true
+    },
+    {
+      "Target": "tests/Erlang.Tests/Runtime/Native/Resources/NativeResource527PendingImage.cs",
+      "PreimageMatches": true,
+      "PayloadMatches": true
+    },
+    {
+      "Target": "tests/Erlang.Tests/Runtime/Native/Resources/NativeResource527TestLayout.cs",
+      "PreimageMatches": true,
+      "PayloadMatches": true
+    },
+    {
+      "Target": "tests/Erlang.Tests/Runtime/Native/Resources/NativeResource536Access.cs",
+      "PreimageMatches": true,
+      "PayloadMatches": true
+    },
+    {
+      "Target": "tests/Erlang.Tests/Runtime/Native/Resources/NativeResource536Checks.cs",
+      "PreimageMatches": true,
+      "PayloadMatches": true
+    },
+    {
+      "Target": "tests/Erlang.Tests/Runtime/Native/Resources/NativeResource536TestNames.cs",
+      "PreimageMatches": true,
+      "PayloadMatches": true
+    },
+    {
+      "Target": "tests/Erlang.Tests/Runtime/Native/Resources/NativeResourceArena528Access.cs",
+      "PreimageMatches": true,
+      "PayloadMatches": true
+    },
+    {
+      "Target": "tests/Erlang.Tests/Runtime/Native/Resources/NativeResourceArena528Checks.cs",
+      "PreimageMatches": true,
+      "PayloadMatches": true
+    },
+    {
+      "Target": "tests/Erlang.Tests/Runtime/Native/Resources/NativeResourceArena528Names.cs",
+      "PreimageMatches": true,
+      "PayloadMatches": true
+    },
+    {
+      "Target": "tests/Erlang.Tests/Runtime/Native/Resources/NativeResourceLogical529Checks.cs",
+      "PreimageMatches": true,
+      "PayloadMatches": true
+    },
+    {
+      "Target": "tests/Erlang.Tests/Runtime/Native/Resources/NativeResourceLogical529Names.cs",
+      "PreimageMatches": true,
+      "PayloadMatches": true
+    },
+    {
+      "Target": "tests/Erlang.Tests/Runtime/Native/Resources/NativeResourceScope528Names.cs",
+      "PreimageMatches": true,
+      "PayloadMatches": true
+    },
+    {
+      "Target": "tools/Native/Erlang.NifNativeBackend/native/nif_bridge_api.h",
+      "PreimageMatches": true,
+      "PayloadMatches": true
+    },
+    {
+      "Target": "tools/Native/Erlang.NifNativeBackend/native/nif_bridge_exports.c",
+      "PreimageMatches": true,
+      "PayloadMatches": true
+    },
+    {
+      "Target": "tools/Native/Erlang.NifNativeBackend/Resource529Driver.cs",
+      "PreimageMatches": true,
+      "PayloadMatches": true
+    },
+    {
+      "Target": "tools/Native/Erlang.NifNativeBackend/Resource529Names.cs",
+      "PreimageMatches": true,
+      "PayloadMatches": true
+    },
+    {
+      "Target": "tools/Native/Erlang.NifNativeBackend/NifConsCell539HostChecks.cs",
+      "PreimageMatches": true,
+      "PayloadMatches": true
+    },
+    {
+      "Target": "tools/Native/Erlang.NifNativeBackend/NifConsCell539HostEntry.cs",
+      "PreimageMatches": true,
+      "PayloadMatches": true
+    },
+    {
+      "Target": "tools/Native/Erlang.NifNativeBackend/NifConsCell539HostNames.cs",
+      "PreimageMatches": true,
+      "PayloadMatches": true
+    },
+    {
+      "Target": "tools/Native/Erlang.NifNativeBackend/NifNativeBridgeFixedHostChecks.cs",
+      "PreimageMatches": true,
+      "PayloadMatches": true
+    },
+    {
+      "Target": "tools/Native/Erlang.NifNativeBackend/NifNativeBridgeFixedHostNames.cs",
+      "PreimageMatches": true,
+      "PayloadMatches": true
+    },
+    {
+      "Target": "tests/Erlang.Tests/Runtime/Native/Resources/NativeResourceAllocation570Checks.cs",
+      "PreimageMatches": true,
+      "PayloadMatches": true
+    },
+    {
+      "Target": "tests/Erlang.Tests/Runtime/Native/Resources/NativeResourceAllocation570Names.cs",
+      "PreimageMatches": true,
+      "PayloadMatches": true
+    },
+    {
+      "Target": "tools/Native/Erlang.NifNativeBackend/Program.cs",
+      "PreimageMatches": true,
+      "PayloadMatches": true
+    },
+    {
+      "Target": "tests/Erlang.Tests/Harness/Program.cs",
+      "PreimageMatches": true,
+      "PayloadMatches": true
+    }
+  ],
+  "AllGuardsMatch": true,
+  "ReviewedSources": [
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Resources/NativeResourcePayload524.cs",
+      "SHA256": "4DD69DBC44E6043ADFAC85CDF18D451983D2AFCBBC8E1A1C3D037E6A51BBE69D",
+      "Anchors": [
+        {
+          "Text": "RetainRoot524",
+          "Lines": [
+            122
+          ]
+        },
+        {
+          "Text": "QueueIfDead524",
+          "Lines": [
+            148,
+            167,
+            188
+          ]
+        },
+        {
+          "Text": "Complete524",
+          "Lines": [
+            227
+          ]
+        },
+        {
+          "Text": "AbandonUnpublished524",
+          "Lines": [
+            202
+          ]
+        }
+      ]
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Resources/NativeResourceType524.cs",
+      "SHA256": "1FA37755BF1687E7156A1D64314216413B94DBB7D840D8D8097418CB65E89EF4",
+      "Anchors": [
+        {
+          "Text": "CaptureCallback529",
+          "Lines": [
+            170,
+            191,
+            198
+          ]
+        },
+        {
+          "Text": "RetainPayload524",
+          "Lines": [
+            115
+          ]
+        },
+        {
+          "Text": "Destroy524",
+          "Lines": [
+            189
+          ]
+        },
+        {
+          "Text": "DynamicCall527",
+          "Lines": [
+            196
+          ]
+        }
+      ]
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Resources/NativeResourceTypeTable527.cs",
+      "SHA256": "6D1935152862FF49EF796767D412E5BBCCEE3C46D75DE2FE25BEEDCB3738BF6A",
+      "Anchors": [
+        {
+          "Text": "BeginLoad527",
+          "Lines": [
+            38
+          ]
+        },
+        {
+          "Text": "TryRetireEmpty527",
+          "Lines": [
+            98,
+            131
+          ]
+        },
+        {
+          "Text": "BeginClose527",
+          "Lines": [
+            114
+          ]
+        }
+      ]
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Resources/NativeResourceLoadTransaction527.cs",
+      "SHA256": "95393B6BBA361EACE3F71748156A926EB8FACFC7FB0AF11DA30039B246A2C478",
+      "Anchors": [
+        {
+          "Text": "Open527",
+          "Lines": [
+            9,
+            28,
+            84,
+            86,
+            103,
+            111,
+            160,
+            206
+          ]
+        },
+        {
+          "Text": "PreparePublication527",
+          "Lines": [
+            81
+          ]
+        },
+        {
+          "Text": "FinishPublication527",
+          "Lines": [
+            103
+          ]
+        },
+        {
+          "Text": "public void Dispose",
+          "Lines": [
+            153
+          ]
+        }
+      ]
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Resources/NativeResourceImageNamesRetirement529.cs",
+      "SHA256": "4596EE6902722E797193DAEF02B03756C55BDE26C7D069A119877674D49EC424",
+      "Anchors": [
+        {
+          "Text": "Commit529",
+          "Lines": [
+            30
+          ]
+        },
+        {
+          "Text": "Finish529",
+          "Lines": [
+            37
+          ]
+        }
+      ]
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifImageBindings.LogicalRetirement529.cs",
+      "SHA256": "DEAB931BC31E834D5942D194E7E35EC753DC0D9350D60330BB614FE9FFCFF13F",
+      "Anchors": [
+        {
+          "Text": "CloseAdmission529",
+          "Lines": [
+            21
+          ]
+        }
+      ]
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifImageBindings.cs",
+      "SHA256": "D23E9E1089A0DDD9603C3DCC161FB888269E6DFDEF321364B60833BC4434E10A",
+      "Anchors": [
+        {
+          "Text": "resourcePublication?.Commit527",
+          "Lines": [
+            101
+          ]
+        },
+        {
+          "Text": "state.Names529?.Finish529",
+          "Lines": [
+            179
+          ]
+        },
+        {
+          "Text": "await drain",
+          "Lines": [
+            209
+          ]
+        },
+        {
+          "Text": "cleanup.DisposeAsync",
+          "Lines": [
+            225
+          ]
+        }
+      ]
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeAllocationDomain.Arena528.cs",
+      "SHA256": "2986586414FBB12C2D991A46DDAA9866EE8870A28D6DCA79EA09F9D5FED42FC4",
+      "Anchors": [
+        {
+          "Text": "ReclaimFinal528",
+          "Lines": [
+            51
+          ]
+        },
+        {
+          "Text": "PhysicalImageClosed528",
+          "Lines": [
+            66
+          ]
+        }
+      ]
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeAllocationOwner.cs",
+      "SHA256": "5228FE1ED3A8B14299070C005BB42D4C8EB4742B5976E3107505A8C6AB7310B1",
+      "Anchors": [
+        {
+          "Text": "Allocate(nuint",
+          "Lines": [
+            78
+          ]
+        },
+        {
+          "Text": "Reallocate(nint",
+          "Lines": [
+            125
+          ]
+        },
+        {
+          "Text": "Free(nint",
+          "Lines": [
+            172
+          ]
+        },
+        {
+          "Text": "ReclaimAll",
+          "Lines": [
+            199
+          ]
+        }
+      ]
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeAllocationOwner.Arena528.cs",
+      "SHA256": "60929B486B0EAC4C0C76AEE2E9BD08A8E7656A825DBA0D04B6045C288138AA7F",
+      "Anchors": [
+        {
+          "Text": "FreeFromCurrentScope528",
+          "Lines": [
+            43
+          ]
+        },
+        {
+          "Text": "ReallocateShared528",
+          "Lines": [
+            60
+          ]
+        }
+      ]
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessTermHeap.Native524.cs",
+      "SHA256": "9CDCB9A5A1910B0056490478763214FCD0B6622FC8C9B04BBB08A6DA74D8AC84",
+      "Anchors": [
+        {
+          "Text": "PrepareNativeHeaders524",
+          "Lines": [
+            10
+          ]
+        },
+        {
+          "Text": "PrepareNativeCollection524",
+          "Lines": [
+            84
+          ]
+        },
+        {
+          "Text": "CommitNativeCollection524",
+          "Lines": [
+            105
+          ]
+        },
+        {
+          "Text": "RetireNativeHeaders524",
+          "Lines": [
+            123
+          ]
+        }
+      ]
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/ProcessTermHeap.Generations508.cs",
+      "SHA256": "6F563C0FF62816FDCCEA384642E604916FE66EB8BA3F7EF1AEE0CD60BDA4ABBA",
+      "Anchors": [
+        {
+          "Text": "PrepareNativeCollection524",
+          "Lines": [
+            76
+          ]
+        },
+        {
+          "Text": "nativeCollection?.Commit524",
+          "Lines": [
+            87
+          ]
+        },
+        {
+          "Text": "reclaimedAllocationWords567",
+          "Lines": [
+            10,
+            83,
+            106
+          ]
+        }
+      ]
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Resources/NativeTermHostScope524.cs",
+      "SHA256": "774EAAA23368458664B0D6B0C7B4C4C54637F39C3751EAE19D3B9D4D5EC2DCD6",
+      "Anchors": [
+        {
+          "Text": "Admit524",
+          "Lines": [
+            26,
+            35,
+            38
+          ]
+        },
+        {
+          "Text": "RetainGraph524",
+          "Lines": [
+            43
+          ]
+        },
+        {
+          "Text": "public void Dispose",
+          "Lines": [
+            62
+          ]
+        }
+      ]
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Scheduling/RuntimeActorDispatcher.cs",
+      "SHA256": "7B402EBC30970D055014E6F86C933ED25B8F48EA1588628E9584796E56A890B1",
+      "Anchors": [
+        {
+          "Text": "nativeResourceOwners536 != 0",
+          "Lines": [
+            553
+          ]
+        }
+      ]
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Scheduling/RuntimeActorDispatcher.NativeResources536.cs",
+      "SHA256": "14C6AC8FA4DCAB9E3551A61AEF6A8B62E1F8B5ABA4D84D4A45C8CB5B30980602",
+      "Anchors": [
+        {
+          "Text": "DispatchNativeResource536",
+          "Lines": [
+            20
+          ]
+        },
+        {
+          "Text": "ReleaseNativeResourceOwner536",
+          "Lines": [
+            46
+          ]
+        }
+      ]
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.cs",
+      "SHA256": "DF9CAB17C3699C69F976FD80222B4D8E9E295A3D001B5A1862F8048393C723FC",
+      "Anchors": [
+        {
+          "Text": "NativeMetadataImage527 = options.NativeMetadataImage",
+          "Lines": [
+            182
+          ]
+        },
+        {
+          "Text": "ReferenceTerm.CreateOrdinaryLocal562",
+          "Lines": [
+            1196
+          ]
+        },
+        {
+          "Text": "CloseNativeResources524",
+          "Lines": [
+            1726,
+            1878
+          ]
+        },
+        {
+          "Text": "FinalizeNativeAllocationArena528",
+          "Lines": [
+            1837
+          ]
+        }
+      ]
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamRegisterInterpreter.cs",
+      "SHA256": "1C458A83AB9A8AD9A1833A5D8F91510838E66876F5CA189886D09FA9CFFB63DB",
+      "Anchors": [
+        {
+          "Text": "RegisterLoaderMapKeys565",
+          "Lines": [
+            126
+          ]
+        },
+        {
+          "Text": "code.LoaderMapKeys565.TryGetValue",
+          "Lines": [
+            473
+          ]
+        }
+      ]
+    }
+  ],
+  "BlockingFindings": [],
+  "ExecutionClaim": false,
+  "WholeContractPromotions": 0
+}

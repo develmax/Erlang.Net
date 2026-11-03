@@ -6,13 +6,16 @@ internal sealed class PersistentTermReadSnapshot(RuntimeEtsReadLease?[] leases) 
 
     internal TupleTerm?[] Materialize(CancellationToken cancellation)
     {
-        var current = owned ?? throw new ObjectDisposedException(nameof(PersistentTermReadSnapshot));
-        var pairs = new TupleTerm?[current.Length];
-        for (int index = 0; index < current.Length; index++)
-            if (current[index] is { } lease)
-                pairs[index] = (TupleTerm)lease.Materialize(cancellation);
+        return AtomicsHostAggregate594.Publish(transaction =>
+        {
+            var current = owned ?? throw new ObjectDisposedException(nameof(PersistentTermReadSnapshot));
+            var pairs = new TupleTerm?[current.Length];
+            for (int index = 0; index < current.Length; index++)
+                if (current[index] is { } lease)
+                    pairs[index] = (TupleTerm)lease.MaterializeSelected594(cancellation, transaction);
 
-        return pairs;
+            return pairs;
+        });
     }
 
     public void Dispose()

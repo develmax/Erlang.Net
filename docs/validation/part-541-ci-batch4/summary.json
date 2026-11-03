@@ -1,0 +1,141 @@
+{
+  "Passed": true,
+  "Profiles": [
+    {
+      "Configuration": "Debug",
+      "DistinctAccepted": 378,
+      "FinalBlocksWithoutRetries": true,
+      "OriginalWholeTestAnalysisRows": 2463,
+      "FreshMonitorRows": 10,
+      "TestAnalysisSeconds": 7.687999999994645,
+      "ManagedMonitorFamilies": [
+        "atomics",
+        "counters",
+        "regex",
+        "binary",
+        "ordinary_reference_control"
+      ]
+    },
+    {
+      "Configuration": "Release",
+      "DistinctAccepted": 378,
+      "FinalBlocksWithoutRetries": true,
+      "OriginalWholeTestAnalysisRows": 2463,
+      "FreshMonitorRows": 10,
+      "TestAnalysisSeconds": 7.7810000000026776,
+      "ManagedMonitorFamilies": [
+        "atomics",
+        "counters",
+        "regex",
+        "binary",
+        "ordinary_reference_control"
+      ]
+    }
+  ],
+  "Current89Sha256": "A3B36A79E53BD6BB062ED0EF6C6771B6C4214C807CC5E9870DEB3F9A123081F0",
+  "SourceRows": [
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.MonitorPayload641.cs",
+      "Sha256": "36B232235656BB0C6B1D06573852B17432F9225C235AF2CD96DEE91CB7FF5E5E"
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.PayloadMonitorDown.cs",
+      "Sha256": "0FE62AE54A35702500F4243C084FFCABCB605761040F4091DD2A04F8915A40ED"
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.cs",
+      "Sha256": "1A68BD831F4B8098C22B5F751907D2D9CE5ECC5865F528B72B3E4E28CE28E99D"
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/MailboxGraphSnapshot593.cs",
+      "Sha256": "C1659C9C165D1D8F5C2817E61F4F3604FFC10969754F40E12909AC1AE1F96F13"
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/MailboxPayloadLease593.cs",
+      "Sha256": "29AD195D9B9410C8382C30B73F70B244D87D0CF48A9FF43343E03A8E25F019FB"
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/RuntimeProcessPayload641.cs",
+      "Sha256": "2DE213866E09702BF63FAABA0869D78835890E71D9A522BBB777D61739A25D30"
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/RuntimeProcessPayloadGroup641.cs",
+      "Sha256": "73963608972754C7BFD65E45ED1CB72B0B33C839EA224846D1E4565AB976F9A4"
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Memory/RuntimeProcessPayloadWork641.cs",
+      "Sha256": "DEC48C2447A7A6862A6290DC7542CECA3841BD6E2BBC39E7C6D13414271931EF"
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/RuntimeMailboxRootOwner.Graph593.cs",
+      "Sha256": "5741373632A55401F6D376AB0F86C12A639347D249AC76D5169B4E6D3FDD459E"
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/RuntimeMailboxRootOwner.Interests593.cs",
+      "Sha256": "657017CD59A95F8B6F45093D93C11DB1ACCE68609788AE2D1B8681EB6577E3D8"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Harness/Program.cs",
+      "Sha256": "C4A33390B0388D6D4BAE92BC47180FEEB84A6C3323E3D7D349F277E57508DD79"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Runtime/Bootstrap/ManagedCollectorPrestart415Checks.cs",
+      "Sha256": "D70753B0A07FA25A8DD75B759F4DD5CE0E0CC69B879A6D4354F62CFE73F222D4"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Runtime/Processes/Identity/IdentifierObservationShutdownHostChecks.cs",
+      "Sha256": "4E66D5956DC11703A5024A74C40BBC44957A133DC79311322CD20391EE48CBBB"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Runtime/Processes/Signals/CancellationFailure669Checks.cs",
+      "Sha256": "833C5EB99398EC8810B7D882C9B358EB34B04E4F5B5F99FDACDCD80CF4994998"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Runtime/Processes/Signals/CancellationFailure669Names.cs",
+      "Sha256": "1E35973C0DFACDBEA2A41969AD49F548BD10859D1175563833D5AA5D0E0EF9B0"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Runtime/Processes/Signals/MonitorShutdown652Checks.cs",
+      "Sha256": "7950D4459445C3D79717B9B8945AA55B0D91AEA27CCE2EB7E0C1F8D49696378F"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Runtime/Processes/Signals/MonitorShutdown652Names.cs",
+      "Sha256": "DAE8689789BFBE59B4442131423F8D6EC8A0F729EC7A3913A7DAF90A94C82BA7"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Runtime/Processes/Signals/Nonblocking641Checks.cs",
+      "Sha256": "01F1324134C8FC2B59949D370D585E48EB012EA26840DCF15B6710E9F6CB9BA9"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Runtime/Processes/Signals/Nonblocking641Names.cs",
+      "Sha256": "56A4727F656CFF6E01AB71DA32F68D26065CA11F74C33C7966F8A45EF11697EC"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Runtime/Processes/Signals/Nonblocking641Probe.cs",
+      "Sha256": "A3607667B12AFA6B7CAD6E4D8D5DC223F040689F9688CE2426A5D05694AEE6D1"
+    }
+  ],
+  "Metadata": {
+    "ExactMembers": 4000,
+    "EveryHashAndLengthVerified": true,
+    "SourceGuards": 2220,
+    "MfaStatuses": {
+      "Verified compatible": 180,
+      "Needs verification": 504,
+      "Known differences": 24
+    },
+    "WholeContractsClosed": 0
+  },
+  "ExpectedCatalog": 9432,
+  "OriginalFourCiFailuresReproduced": true,
+  "IntermediateRestoredDownOld593ResourceRed": true,
+  "OlderRuntimeCancellationRed": true,
+  "OriginalRegexTimeoutRetained": true,
+  "Async641DependencyStarvationWitnessCaptured": true,
+  "ApiDelta": 0,
+  "WholeContractDelta": 0,
+  "KnownDifferences": 24,
+  "FullCiPending": true,
+  "NativeNifOriginalPhysicalProofClaimed": false,
+  "InitializationEndedExceptionalLoopResilienceExtended": false
+}

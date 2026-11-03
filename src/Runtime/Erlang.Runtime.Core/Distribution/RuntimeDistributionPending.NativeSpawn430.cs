@@ -10,54 +10,68 @@ public sealed partial class RuntimeDistributionPending
         bool request
     )
     {
-        ValueTask<ReferenceTerm?> operation;
-        lock (gate)
+        var input641 = RuntimeProcessPayload641.Prepare641(runtime, caller, Term.Tuple(options.Tag, options.Spawn.MonitorOptions.Tag));
+        try
         {
-            RequireOpen();
-            caller.Cancellation.ThrowIfCancellationRequested();
-            RequireProcess(caller);
-            if (!runtime.IsDistributionAlive) return runtime.FailNativeDistSpawn430(
-                caller,
-                options,
-                DistSpawn430Names.NoConnection,
-                options.Spawn.Monitor,
-                request
-            );
-            if (!entries.TryGetValue(node.Name, out var weak) || !weak.TryGetTarget(out var entry)) throw new NotSupportedException(DistSpawn430Names.Pending);
-            if (entry.State == DistributionPendingState.Exiting) return runtime.FailNativeDistSpawn430(
-                caller,
-                options,
-                DistSpawn430Names.NoConnection,
-                options.Spawn.Monitor,
-                request
-            );
-            if (entry.Connected is not { } connected || !IsConnectedSignalGeneration(entry, connected, entry.ConnectionId)) throw new NotSupportedException(DistSpawn430Names.Pending);
-            if ((connected.Flags & DistributionPassThroughFlags.Spawn) == 0) return runtime.FailNativeDistSpawn430(
-                caller,
-                options,
-                DistSpawn430Names.NotSupported,
-                options.Spawn.Monitor,
-                request
-            );
-            // Existing owner reserves the actual request/reference/output ticket synchronously
-            // under this same gate; payload encoding and physical publication await outside.
-            operation = caller.AsyncDistribution
-             ? StartNativeDistSpawnAsynchronously430(
-                 caller,
-                 entry,
-                 connected,
-                 description,
-                 options
-             )
-             : TryStartConnectedSpawnRequestAsync(
-                 caller,
-                 node.Name,
-                 description,
-                 options
-             );
-        }
-        ReferenceTerm reference = await operation ?? throw new InvalidOperationException(DistSpawn430Names.Pending);
+            ValueTask<ReferenceTerm?> operation;
+            lock (gate)
+            {
+                RequireOpen();
+                caller.Cancellation.ThrowIfCancellationRequested();
+                RequireProcess(caller);
+                if (!runtime.IsDistributionAlive) return runtime.FailNativeDistSpawn430(
+                    caller,
+                    options,
+                    DistSpawn430Names.NoConnection,
+                    options.Spawn.Monitor,
+                    request,
+                    input641
+                );
+                if (!entries.TryGetValue(node.Name, out var weak) || !weak.TryGetTarget(out var entry)) throw new NotSupportedException(DistSpawn430Names.Pending);
+                if (entry.State == DistributionPendingState.Exiting) return runtime.FailNativeDistSpawn430(
+                    caller,
+                    options,
+                    DistSpawn430Names.NoConnection,
+                    options.Spawn.Monitor,
+                    request,
+                    input641
+                );
+                if (entry.Connected is not { } connected || !IsConnectedSignalGeneration(entry, connected, entry.ConnectionId)) throw new NotSupportedException(DistSpawn430Names.Pending);
+                if ((connected.Flags & DistributionPassThroughFlags.Spawn) == 0) return runtime.FailNativeDistSpawn430(
+                    caller,
+                    options,
+                    DistSpawn430Names.NotSupported,
+                    options.Spawn.Monitor,
+                    request,
+                    input641
+                );
+                // Existing owner reserves the actual request/reference/output ticket synchronously
+                // under this same gate; payload encoding and physical publication await outside.
+                operation = caller.AsyncDistribution
+                 ? StartNativeDistSpawnAsynchronously430(
+                     caller,
+                     entry,
+                     connected,
+                     description,
+                     options,
+                     input641
+                 )
+                 : TryStartConnectedSpawnRequestAsync(
+                     caller,
+                     node.Name,
+                     description,
+                     options,
+                     input641
+                 );
+            }
+            ReferenceTerm reference = await operation ?? throw new InvalidOperationException(DistSpawn430Names.Pending);
 
-        return request ? reference : Term.Tuple(reference, Term.A(options.Spawn.Monitor ? ErlangBooleanAtoms.True : ErlangBooleanAtoms.False));
+            return request ? reference : Term.Tuple(reference, Term.A(options.Spawn.Monitor ? ErlangBooleanAtoms.True : ErlangBooleanAtoms.False));
+
+        }
+        finally
+        {
+            input641.Close641();
+        }
     }
 }

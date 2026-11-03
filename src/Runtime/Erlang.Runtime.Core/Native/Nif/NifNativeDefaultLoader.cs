@@ -30,7 +30,7 @@ internal static class NifNativeDefaultLoader
 
         try
         {
-            await using var reservation = await context.Runtime.Modules.ReserveNifImageAsync(context);
+            await using var reservation = await context.Runtime.Modules.ReserveNativeNifImage544Async(context);
             if (!ReferenceEquals(reservation.Image, caller.Image))
                 throw new NifImageAdmissionException(NifImageAdmissionFailure.GenerationChanged);
             await reservation.InitializeAndCommitAsync(cancellation => NifNativeImageInitializer.InitializeAsync(
@@ -54,6 +54,10 @@ internal static class NifNativeDefaultLoader
         {
             return Error(failure.PublicReason.Category, failure.PublicReason.Format(context.Runtime));
         }
+        catch (NifNativeUpgradeVetoException544 failure)
+        {
+            return Error(failure.Category544, failure.Reason544);
+        }
         catch (NifImageAdmissionException failure) when (failure.Failure is
             NifImageAdmissionFailure.OldCode or NifImageAdmissionFailure.Reload or NifImageAdmissionFailure.UpgradeUnsupported)
         {
@@ -64,7 +68,7 @@ internal static class NifNativeDefaultLoader
                 _ => NifNativeDefaultLoaderNames.Upgrade
             };
 
-            return Error(category, failure.Message);
+            return Error(category, NifNativeAdmissionReason544.Format(failure.Failure, context.Runtime, caller.Image.Module));
         }
         catch (NotSupportedException failure) when (failure.Message is
             NifNativeDiagnostics.UnsupportedNativeEntry or NifNativeDiagnostics.NoDeclaredNif or

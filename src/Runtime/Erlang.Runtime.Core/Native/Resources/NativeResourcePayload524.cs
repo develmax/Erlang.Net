@@ -2,7 +2,7 @@ using System.Runtime.InteropServices;
 
 namespace Erlang;
 
-internal sealed unsafe class NativeResourcePayload524
+internal sealed unsafe partial class NativeResourcePayload524
 {
     private readonly object gate = new();
     private readonly NativeResourceDomain524 domain;
@@ -13,7 +13,7 @@ internal sealed unsafe class NativeResourcePayload524
     private readonly TaskCompletionSource retired524 = new(TaskCreationOptions.RunContinuationsAsynchronously);
     internal Task Retired524 => retired524.Task;
     internal NativeResourcePayload524? NextRetirement524;
-    internal bool GuestGcRetirement536;
+    internal bool NormalSchedulerRetirement536;
     internal NativeResourcePayload524? NextFailure524;
     internal Exception? Failure524;
     internal Exception? DestructorFailure527;
@@ -129,7 +129,7 @@ internal sealed unsafe class NativeResourcePayload524
             _ = checked(native + next);
             roots = next;
             UpdatePhysicalCount527();
-            lease.Admit524();
+            lease.SetState821(NativeResourceRootLeaseState821.Admitted);
         }
 
         return lease;
@@ -148,7 +148,7 @@ internal sealed unsafe class NativeResourcePayload524
             retire = QueueIfDead524();
         }
         if (retire)
-            domain.Enqueue524(this);
+            domain.Enqueue524(this, runOnNormalScheduler: true);
     }
 
     internal void ReleaseRoot524() => ReleaseRootCore536(false);

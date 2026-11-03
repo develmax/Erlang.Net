@@ -27,7 +27,7 @@ public sealed partial class ModuleRegistry
         lock (gate)
         {
             var key = (module, function, arity);
-            if (owningRuntime?.OwnedTermsPilot506 == true && functions.TryGetValue(key, out var selected)
+            if (owningRuntime is not null && functions.TryGetValue(key, out var selected)
                 && ReferenceEquals(selected, body) && sourceOwners.TryGetValue(key, out var currentOwner)
                 && ReferenceEquals(currentOwner, owner))
                 ownedBindings507[key] = new(
@@ -55,7 +55,7 @@ public sealed partial class ModuleRegistry
         lock (gate)
         {
             var key = (module, function, arity);
-            if (owningRuntime?.OwnedTermsPilot506 == true && functions.TryGetValue(key, out var selected)
+            if (owningRuntime is not null && functions.TryGetValue(key, out var selected)
                 && ReferenceEquals(selected, body) && !sourceOwners.ContainsKey(key))
                 ownedBindings507[key] = new(
                     body,
@@ -82,13 +82,41 @@ public sealed partial class ModuleRegistry
         lock (gate)
         {
             var key = (module, function, arity);
-            if (owningRuntime?.OwnedTermsPilot506 == true && functions.TryGetValue(key, out var selected)
+            if (owningRuntime is not null && functions.TryGetValue(key, out var selected)
                 && ReferenceEquals(selected, body) && !sourceOwners.ContainsKey(key))
                 ownedBindings507[key] = new(
                     body,
                     codeImages[module],
                     null,
                     OwnedBindingKind507.PureAliasRead
+                );
+        }
+    }
+
+    // Exact reviewed managed bodies retain guest inputs and adopt fresh output scaffolding.
+    internal void RegisterReviewedManagedLibrary789(
+        string module,
+        string function,
+        int arity,
+        ErlangFunction body
+    )
+    {
+        Register(
+            module,
+            function,
+            arity,
+            body
+        );
+        lock (gate)
+        {
+            var key = (module, function, arity);
+            if (owningRuntime is not null && functions.TryGetValue(key, out var selected)
+                && ReferenceEquals(selected, body) && !sourceOwners.ContainsKey(key))
+                ownedBindings507[key] = new(
+                    body,
+                    codeImages[module],
+                    null,
+                    OwnedBindingKind507.ReviewedManagedLibrary
                 );
         }
     }
@@ -103,9 +131,8 @@ public sealed partial class ModuleRegistry
 
     private void BindPreparedOwnedBodies507(PreparedBeamImage image)
     {
-        if (owningRuntime?.OwnedTermsPilot506 != true)
+        if (owningRuntime is null)
             return;
-        bool pureGuestImage = image.ExecutionIdentity.NativePrimitives.Values.All(body => NativeBorrowKind507(image.ExecutionIdentity, body) != OwnedBindingKind507.Opaque);
         for (int index = 0; index < image.Code.Exports.Count; index++)
         {
             BeamLinkedFunction function = image.Code.Exports[index];
@@ -118,7 +145,9 @@ public sealed partial class ModuleRegistry
             if (image.ExecutionIdentity.NativePrimitives.TryGetValue((function.Name, function.Arity), out var primitive))
                 kind = NativeBorrowKind507(image.ExecutionIdentity, primitive);
             else
-                kind = pureGuestImage ? OwnedBindingKind507.PreparedGuest : OwnedBindingKind507.Opaque;
+                // This body executes admitted BEAM instructions. Every local native
+                // entry independently applies its exact captured primitive capability.
+                kind = OwnedBindingKind507.PreparedGuest;
             // Retain exact canonical publication authority even when currently
             // opaque. Only a later genuine image-bound NIF may upgrade its OWN entry.
             ownedBindings507[key] = new(

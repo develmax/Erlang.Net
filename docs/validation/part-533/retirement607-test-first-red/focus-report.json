@@ -1,0 +1,26 @@
+{
+  "Partial": true,
+  "SelectedCount": 2,
+  "TotalCount": 9294,
+  "Blocks": [],
+  "ExactCases": [
+    "runtime/mailbox606/foreign-runtime-dispose-inside-actor-settles",
+    "scheduler/physical-mailbox-retirement-finishes-with-bound-lane-offline607"
+  ],
+  "Passed": 0,
+  "Failed": 2,
+  "Tests": [
+    {
+      "Name": "scheduler/physical-mailbox-retirement-finishes-with-bound-lane-offline607",
+      "Status": "Failed",
+      "Error": "System.TimeoutException: The operation has timed out.\r\n   at Erlang.Tests.SchedulerControlCalls.Normal(ProcessHandle process) in D:\\Distr\\Work\\Codex\\Erlang.Net\\w518repair\\tests\\Erlang.Tests\\Runtime\\Scheduling\\SchedulerControlCalls.cs:line 47\r\n   at Erlang.Tests.SchedulerRetirement607Checks.Run() in D:\\Distr\\Work\\Codex\\Erlang.Net\\w518repair\\tests\\Erlang.Tests\\Runtime\\Scheduling\\SchedulerRetirement607Checks.cs:line 61\r\n   at Erlang.Tests.SchedulerRetirement607Checks.Run() in D:\\Distr\\Work\\Codex\\Erlang.Net\\w518repair\\tests\\Erlang.Tests\\Runtime\\Scheduling\\SchedulerRetirement607Checks.cs:line 92\r\n   at Program.\u003CMain\u003E$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\w518repair\\tests\\Erlang.Tests\\Harness\\Program.cs:line 7596",
+      "Milliseconds": 10110
+    },
+    {
+      "Name": "runtime/mailbox606/foreign-runtime-dispose-inside-actor-settles",
+      "Status": "Failed",
+      "Error": "System.TimeoutException: The operation has timed out.\r\n   at Erlang.Tests.ForeignRuntimeDrain606Checks.\u003C\u003Ec__DisplayClass0_0.\u003CRun\u003Eb__0(ProcessContext context) in D:\\Distr\\Work\\Codex\\Erlang.Net\\w518repair\\tests\\Erlang.Tests\\Runtime\\Storage\\Mailbox\\ForeignRuntimeDrain606Checks.cs:line 24\r\n--- End of stack trace from previous location ---\r\n   at Erlang.Tests.ForeignRuntimeDrain606Checks.Run() in D:\\Distr\\Work\\Codex\\Erlang.Net\\w518repair\\tests\\Erlang.Tests\\Runtime\\Storage\\Mailbox\\ForeignRuntimeDrain606Checks.cs:line 45\r\n   at Erlang.Tests.ForeignRuntimeDrain606Checks.Run() in D:\\Distr\\Work\\Codex\\Erlang.Net\\w518repair\\tests\\Erlang.Tests\\Runtime\\Storage\\Mailbox\\ForeignRuntimeDrain606Checks.cs:line 47\r\n   at Program.\u003CMain\u003E$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\w518repair\\tests\\Erlang.Tests\\Harness\\Program.cs:line 7596",
+      "Milliseconds": 4022
+    }
+  ]
+}

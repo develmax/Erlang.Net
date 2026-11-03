@@ -11,14 +11,16 @@ internal static class CountersHost421Checks
         var actor = new RuntimeNodeFoundationHostActor(runtime);
         try
         {
-            _ = await actor.Invoke(context =>
+            _ = await actor.InvokeAsync(async context =>
             {
                 object gate = typeof(ProcessRuntime).GetField(CountersHost421Names.RuntimeGate, CountersHost421Names.Members)!.GetValue(runtime)!;
-                lock (gate)
+                var initialOwner = typeof(ProcessRuntime).GetField(CountersHost421Names.Owner, CountersHost421Names.Members)!;
+                lock (gate) CountersHost421Access.Require(initialOwner.GetValue(runtime) is null);
+                await CountersInitializer356Access.KillAndAssert(
+                    runtime,
+                    () =>
                 {
                     var field = typeof(ProcessRuntime).GetField(CountersHost421Names.Owner, CountersHost421Names.Members)!;
-                    CountersHost421Access.Require(field.GetValue(runtime) is null);
-                    runtime.Exit(context, runtime.InitializationPid, Term.A(CountersHost421Names.Kill));
                     // Keep the actual shared gate until the surviving actor has
                     // tested admission, before initializer global cleanup runs.
                     bool refused = false;
@@ -33,6 +35,7 @@ internal static class CountersHost421Checks
                     CountersHost421Access.Require(refused && field.GetValue(runtime) is null
                         && !runtime.IsAlive(runtime.InitializationPid) && runtime.CountersStorage421.Closed);
                 }
+                );
 
                 return true;
             });
@@ -85,7 +88,11 @@ internal static class CountersHost421Checks
             reference
         );
         CountersHost421Access.Require(info.TryGet(Term.A(CountersHost421Names.Memory), out var memory)
-            && memory!.Equals(new Integer(runtime.CountersStorage421.OwnedNativeBytes)));
+            && memory is Integer originalBytes
+            && originalBytes.Value + System.Runtime.InteropServices.Marshal.OffsetOf(
+                typeof(ProcessRuntime).Assembly.GetType(CountersPrefix591Names.PrefixType, true)!,
+                CountersPrefix591Names.DestructorField
+            ).ToInt64() == runtime.CountersStorage421.OwnedNativeBytes);
         foreach (Term index in new Term[] { Term.I(0), Term.I(-1), Term.I(10), Nil.Value, new Integer(BigInteger.One << 64) })
             await CountersHost421Access.BadArgument(
                 actor,
@@ -281,7 +288,13 @@ internal static class CountersHost421Checks
                     }
                     using var stop = new CancellationTokenSource(CountersHost421Names.Deadline);
                     while (!runtime.CountersStorage421.Closed) await Task.Delay(1, stop.Token);
-                    CountersHost421Access.Require(!closing.IsCompleted && !actor.Process.Completion.IsCompleted);
+                    // Global invocation and actual array pins have different
+                    // actor-retirement dependencies. Both must keep their real
+                    // VM resource alive until this held lease is released.
+                    var heldReport = runtime.CountersStorage421;
+                    CountersHost421Access.Require(!closing.IsCompleted
+                        && (invocation ? heldReport.ActiveInvocations > 0
+                            : heldReport.LiveArrays > 0 && heldReport.OwnedNativeBytes > 0));
                     held.Dispose();
                     held = null;
                     await closing.WaitAsync(CountersHost421Names.Deadline);

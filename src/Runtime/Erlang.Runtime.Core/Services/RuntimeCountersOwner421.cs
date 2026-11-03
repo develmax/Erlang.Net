@@ -7,7 +7,9 @@ internal sealed partial class RuntimeCountersOwner421
     private readonly LinkedList<CountersArray421> order = new();
     private int active;
     private bool closed;
+    private bool draining596;
     private bool drained;
+    private LinkedListNode<CountersArray421>? retirementCursor590;
     private long created, freed;
     private ulong bytes;
     internal RuntimeCountersReport421 Report
@@ -74,15 +76,60 @@ internal sealed partial class RuntimeCountersOwner421
 
     internal void Retire(CountersArray421 array)
     {
-        // Keep the record in the owner set until its actual free has completed; concurrent runtime Close must join it.
-        array.Close();
-        lock (gate)
+        // Physical Close may report a callback error AFTER its finally freed
+        // native memory. The identity must still retire in that case.
+        Exception? closeFailure = null;
+        Exception? referenceFailure = null;
+        try
         {
-            if (!arrays.Remove(array, out var link)) return;
-            order.Remove(link);
-            bytes -= array.AllocatedBytes;
-            freed++;
+            array.Close();
         }
+        catch (Exception failure)
+        {
+            closeFailure = failure;
+        }
+        if (!array.IsAllocated434)
+        {
+            try
+            {
+                // No owner/array gate is held across reference-registry cleanup.
+                array.ForgetReference596();
+            }
+            catch (Exception failure)
+            {
+                referenceFailure = failure;
+            }
+            if (referenceFailure is null)
+            {
+                lock (gate)
+                {
+                    if (arrays.Remove(array, out var link))
+                    {
+                        // Direct Retire can remove the next node while Close
+                        // is physically retiring another allocation.
+                        if (ReferenceEquals(retirementCursor590, link))
+                            retirementCursor590 = link.Next;
+                        order.Remove(link);
+                        bytes -= array.AllocatedBytes;
+                        freed++;
+                    }
+                }
+            }
+        }
+        // Keep unresolved arrays registered; never count an attempted free as
+        // success. Aggregate only after physical/reference cleanup was attempted.
+        if (closeFailure is not null && referenceFailure is not null)
+            throw new AggregateException(closeFailure, referenceFailure);
+        if (closeFailure is not null)
+            System.Runtime.ExceptionServices.ExceptionDispatchInfo.Capture(closeFailure).Throw();
+        if (referenceFailure is not null)
+            System.Runtime.ExceptionServices.ExceptionDispatchInfo.Capture(referenceFailure).Throw();
+    }
+
+    internal void StopAdmission596()
+    {
+        lock (gate)
+            closed = true;
     }
 
     internal void Close()
@@ -92,24 +139,30 @@ internal sealed partial class RuntimeCountersOwner421
         var failures = new List<Exception>();
         lock (gate)
         {
-            if (closed)
+            if (draining596)
             {
                 while (!drained) Monitor.Wait(gate);
 
                 return;
             }
             closed = true;
-            while (active != 0) Monitor.Wait(gate);
+            draining596 = true;
+            while (active != 0 || retirementWorkers596 != 0) Monitor.Wait(gate);
         }
         try
         {
+            lock (gate)
+                retirementCursor590 = order.First;
             while (true)
             {
                 CountersArray421 array;
                 lock (gate)
                 {
-                    if (order.First is null) break;
-                    array = order.First.Value;
+                    LinkedListNode<CountersArray421>? current = retirementCursor590;
+                    if (current is null)
+                        break;
+                    retirementCursor590 = current.Next;
+                    array = current.Value;
                 }
                 try
                 {
@@ -118,14 +171,8 @@ internal sealed partial class RuntimeCountersOwner421
                 catch (Exception error)
                 {
                     failures.Add(error);
-                    // Native memory Close has completed its finally barrier even when destruction reports failure.
-                    lock (gate)
-                        if (arrays.Remove(array, out var link))
-                        {
-                            order.Remove(link);
-                            bytes -= array.AllocatedBytes;
-                            freed++;
-                        }
+                    // Retire owns actual-free/reference accounting. Continue
+                    // once per node; unresolved ownership stays registered.
                 }
             }
         }
@@ -133,10 +180,13 @@ internal sealed partial class RuntimeCountersOwner421
         {
             lock (gate)
             {
+                retirementCursor590 = null;
                 drained = true;
                 Monitor.PulseAll(gate);
             }
         }
+        if (retirementFailure596 is { } retirementFailure)
+            failures.Add(retirementFailure);
         if (failures.Count != 0) throw new AggregateException(failures);
     }
 }

@@ -63,7 +63,9 @@ internal static class QueueHigherListCalls
                 owner,
                 2,
                 line,
-                []
+                [],
+                guest507: all && context.CurrentOwned506 is
+                { IsDisposed: false, CanBorrow507: true, BindingKind507: OwnedBindingKind507.ReviewedManagedLibrary }
             );
             if (!QueueHigherExecution.True(value) && !QueueHigherExecution.False(value))
                 throw QueueHigherTrace.Case(

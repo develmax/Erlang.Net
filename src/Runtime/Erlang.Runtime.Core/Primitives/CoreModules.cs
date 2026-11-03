@@ -75,8 +75,7 @@ public static class CoreModules
             (c, a) => a[0] is Integer i && a[1] is TupleTerm t && i.Value > 0 && i.Value <= t.Items.Count ? t.Items[(int)i.Value - 1] : throw new ErlangException(ErlangErrorReasons.BadArgument)
         );
         r.SealElementSourceContract();
-        Add(
-            ErlangModuleNames.Module,
+        AddRead507(
             ErlangModuleNames.TupleSize,
             1,
             (c, a) => a[0] is TupleTerm t
@@ -186,8 +185,7 @@ public static class CoreModules
                     Term.Tuple(Term.A(ErlangErrorReasons.BadMap), a[0])
                 )
         );
-        Add(
-            ErlangModuleNames.Module,
+        AddRead507(
             ErlangModuleNames.MapGet,
             2,
             (c, a) => a[1] is MapTerm m ? m.Get(a[0]) : throw new ErlangException(Term.Tuple(Term.A(ErlangErrorReasons.BadMap), a[1]))
@@ -263,7 +261,7 @@ public static class CoreModules
      return Term.A(ErlangBooleanAtoms.True);
  }
         );
-        r.Register(
+        r.RegisterCanonicalRuntimeRead535(
             ErlangModuleNames.Module,
             ErlangModuleNames.Monitor,
             2,
@@ -321,13 +319,12 @@ public static class CoreModules
      return Boolean(previous);
  }
         );
-        Add(
-            ErlangModuleNames.Module,
+        AddRuntimeRead535(
             ErlangModuleNames.Exit,
             1,
             (c, a) => throw new ErlangException(a[0], ErlangExceptionClasses.Exit)
         );
-        r.Register(
+        r.RegisterCanonicalRuntimeRead535(
             ErlangModuleNames.Module,
             ErlangModuleNames.Exit,
             2,
@@ -344,14 +341,12 @@ public static class CoreModules
      return Term.A(ErlangBooleanAtoms.True);
  }
         );
-        Add(
-            ErlangModuleNames.Module,
+        AddRuntimeRead535(
             ErlangModuleNames.Error,
             1,
             (c, a) => throw new ErlangException(a[0])
         );
-        Add(
-            ErlangModuleNames.Module,
+        AddRuntimeRead535(
             ErlangModuleNames.Throw,
             1,
             (c, a) => throw new ErlangException(a[0], ErlangExceptionClasses.Throw)
@@ -428,7 +423,7 @@ public static class CoreModules
         ErlangLoadNifRegistrations.Register(r);
         RuntimeManagedLibraries456.Register(r, RuntimeManagedLibraryStage456.Modules);
         foreach (string operation in new[] { TimerModuleNames.SendAfter, TimerModuleNames.StartTimer })
-            r.Register(
+            r.RegisterCanonicalRuntimeRead535(
                 ErlangModuleNames.Module,
                 operation,
                 3,

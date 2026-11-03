@@ -19,7 +19,7 @@ public sealed partial class ModuleRegistry
                 body
             );
             var key = (module, function, arity);
-            if (owningRuntime?.OwnedTermsPilot506 == true && functions.TryGetValue(key, out var selected)
+            if (owningRuntime is not null && functions.TryGetValue(key, out var selected)
                 && ReferenceEquals(selected, body) && !sourceOwners.ContainsKey(key))
                 ownedBindings507[key] = new(
                     body,

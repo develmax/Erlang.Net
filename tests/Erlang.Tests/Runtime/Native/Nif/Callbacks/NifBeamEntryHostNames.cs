@@ -26,6 +26,8 @@ internal static class NifBeamEntryHostNames
     internal const string Separator = ".";
     internal const string LocalModule = "beam_fixture_local";
     internal const string ClosureModule = "beam_fixture_closure";
+    internal const string ClosureChangedModule677 = "beam_fixture_closure_changed677";
+    internal const string ClosureChangedHash677 = "F3B5D46FCEF7BC1B60C3F746F711E519AFA60797778066EE454ADBA8E7A2A333";
     internal const string LocalHash = "416FAD0864C315006459121BDA80A36475EFC67B49EFE7B6DC247DC1CA0D702B";
     internal const string ClosureHash = "99A54BA32C5BD185F23550303E7036F451D52609376D8A738CF19EA3BBDD76F9";
     internal const string Kill = "kill";

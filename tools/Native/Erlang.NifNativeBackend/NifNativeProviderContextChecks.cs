@@ -14,7 +14,8 @@ internal static class NifNativeProviderContextChecks
             Type gate = copy.GetType(NifNativeFenceNames.GateType)!;
             Type platform = copy.GetType(NifNativeFenceNames.PlatformType)!;
             Refused(gate, NifNativeFenceNames.VerifyProvider, []);
-            Refused(gate, NifNativeFenceNames.Enter, [CancellationToken.None]);
+            Refused(gate, NifNativeFenceNames.AcquireActorAdmission, [CancellationToken.None]);
+            Refused(gate, NifNativeFenceNames.AcquireHostAdmission, []);
             Refused(platform, NifNativeFenceNames.VerifyPlatform, []);
         }
         finally
@@ -27,7 +28,9 @@ internal static class NifNativeProviderContextChecks
     {
         try
         {
-            type.GetMethod(method, NifNativeFenceNames.StaticMembers)!.Invoke(null, arguments);
+            MethodInfo entry = type.GetMethod(method, NifNativeFenceNames.StaticMembers)
+                ?? throw new InvalidOperationException(NifNativeHarnessNames.Broken);
+            entry.Invoke(null, arguments);
         }
         catch (TargetInvocationException failure) when (failure.InnerException is NotSupportedException error
             && error.Message == NifNativeLifecycleNames.ProviderContext)

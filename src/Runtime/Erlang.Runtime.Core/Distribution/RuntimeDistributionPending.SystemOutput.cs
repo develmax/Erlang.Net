@@ -7,7 +7,8 @@ public sealed partial class RuntimeDistributionPending
         DistributionConnectedEntry connected,
         uint connectionId,
         TupleTerm control,
-        Pid sender
+        Pid sender,
+        RuntimeProcessPayload641? custody641 = null
     )
     {
         lock (gate)
@@ -16,13 +17,17 @@ public sealed partial class RuntimeDistributionPending
                 return;
             var resource = runtime.ReferenceResources.AcquireDistributionEntry(entry.Reference)
                 ?? throw new InvalidOperationException(DistributionOutputLifecycleDiagnostics.Retired);
+            RuntimeProcessPayload641? output641 = null;
+            DistributionOutputTicket? reserved641 = null;
             try
             {
+                output641 = custody641?.Borrow641(null);
                 // Reserve logical order and pin the generation before returning accepted input.
                 // No encoding or capacity wait runs in the input handler's call.
                 var snapshot = runtime.LocalIdentity.Snapshot;
                 var producer = new object();
                 var ticket = ReserveOwnedOutput(connected, producer);
+                reserved641 = ticket;
                 Task previous = connected.SystemOutput;
                 connected.SystemOutput = ticket.Completion.Task;
                 Action start = () => _ = PublishSystemControl(
@@ -34,14 +39,24 @@ public sealed partial class RuntimeDistributionPending
                     connectionId,
                     control,
                     sender,
-                    snapshot
+                    snapshot,
+                    output641
                 );
                 if (!DistributionOutputTransferScope.TryAdd(this, start))
                     StartTransferredOutput(start);
+                // The accepted actual publication now owns this metadata record.
             }
-            catch
+            catch (Exception error)
             {
-                resource.Dispose();
+                output641?.Close641();
+                try
+                {
+                    if (reserved641 is not null) ReleaseOwnedOutput(connected, reserved641, error);
+                }
+                finally
+                {
+                    resource.Dispose();
+                }
                 throw;
             }
         }
@@ -56,7 +71,8 @@ public sealed partial class RuntimeDistributionPending
         uint connectionId,
         TupleTerm control,
         Pid sender,
-        LocalNodeSnapshot snapshot
+        LocalNodeSnapshot snapshot,
+        RuntimeProcessPayload641? output641
     )
     {
         Exception? failure = null;
@@ -108,7 +124,14 @@ public sealed partial class RuntimeDistributionPending
         }
         finally
         {
-            ReleaseOwnedOutput(connected, ticket, failure);
+            try
+            {
+                ReleaseOwnedOutput(connected, ticket, failure);
+            }
+            finally
+            {
+                output641?.Close641();
+            }
         }
     }
 

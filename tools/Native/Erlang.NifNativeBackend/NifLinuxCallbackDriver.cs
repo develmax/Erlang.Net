@@ -19,7 +19,18 @@ internal static class NifLinuxCallbackDriver
         Verify(admission.BridgePath, admission.BridgeSha256);
         Verify(admission.BridgeReceiptPath, admission.BridgeReceiptSha256);
         using var bridgeProof = JsonDocument.Parse(File.ReadAllBytes(admission.BridgeReceiptPath));
-        Require(bridgeProof.RootElement.GetProperty(NifLinuxCallbackNames.StatusProperty).GetString() == NifLinuxCallbackNames.BridgeBuildStatus);
+        string? bridgeStatus = bridgeProof.RootElement.GetProperty(NifLinuxCallbackNames.StatusProperty).GetString();
+        Require(bridgeStatus is NifLinuxCallbackNames.BridgeBuildStatus or NifLinuxCallbackNames.ReusedBridgeStatus);
+        if (bridgeStatus == NifLinuxCallbackNames.ReusedBridgeStatus)
+        {
+            Require(!bridgeProof.RootElement.GetProperty(NifLinuxCallbackNames.CompileExecuted).GetBoolean());
+            string parentPath = bridgeProof.RootElement.GetProperty(NifLinuxCallbackNames.ParentReceiptPath).GetString()!;
+            Verify(parentPath, bridgeProof.RootElement.GetProperty(NifLinuxCallbackNames.ParentReceiptHash).GetString()!);
+            using var parentProof = JsonDocument.Parse(File.ReadAllBytes(parentPath));
+            Require(parentProof.RootElement.GetProperty(NifLinuxCallbackNames.StatusProperty).GetString() == NifLinuxCallbackNames.ParentBridgeStatus);
+            Require(parentProof.RootElement.GetProperty(NifLinuxCallbackNames.SubjectHeadProperty).GetString() == admission.SubjectHead);
+            Require(parentProof.RootElement.GetProperty(NifLinuxCallbackNames.BridgeHashProperty).GetString() == admission.BridgeSha256);
+        }
         Require(bridgeProof.RootElement.GetProperty(NifLinuxCallbackNames.SubjectHeadProperty).GetString() == (admission.BridgeSubjectHead ?? admission.SubjectHead));
         Require(bridgeProof.RootElement.GetProperty(NifLinuxCallbackNames.BridgeHashProperty).GetString() == admission.BridgeSha256);
         foreach (var image in admission.Images)

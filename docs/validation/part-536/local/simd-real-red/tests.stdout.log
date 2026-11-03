@@ -1,0 +1,10 @@
+{"Partial":true,"SelectedCount":1,"TotalCount":9339}
+FAIL runtime/binary598/pinned-x64-simd-trie-root-bytes-and-cap: System.InvalidOperationException: Binary598 actual arena/root invariant failed.
+   at Erlang.Tests.BinaryArena598Checks.Require(Boolean value) in D:\Distr\Work\Codex\Erlang.Net\w536\tests\Erlang.Tests\Otp\Stdlib\Binary\BinaryArena598Checks.cs:line 133
+   at Erlang.Tests.BinaryArena598Checks.<>c__DisplayClass3_0.<<AcRootMetadata>b__2>d.MoveNext() in D:\Distr\Work\Codex\Erlang.Net\w536\tests\Erlang.Tests\Otp\Stdlib\Binary\BinaryArena598Checks.cs:line 107
+--- End of stack trace from previous location ---
+   at Erlang.Tests.BinaryArena598Fixture.Run(Term input, Func`2 body) in D:\Distr\Work\Codex\Erlang.Net\w536\tests\Erlang.Tests\Otp\Stdlib\Binary\BinaryArena598Fixture.cs:line 58
+   at Erlang.Tests.BinaryArena598Fixture.Run(Term input, Func`2 body) in D:\Distr\Work\Codex\Erlang.Net\w536\tests\Erlang.Tests\Otp\Stdlib\Binary\BinaryArena598Fixture.cs:line 69
+   at Erlang.Tests.BinaryArena598Checks.AcRootMetadata() in D:\Distr\Work\Codex\Erlang.Net\w536\tests\Erlang.Tests\Otp\Stdlib\Binary\BinaryArena598Checks.cs:line 101
+   at Program.<Main>$(String[] args) in D:\Distr\Work\Codex\Erlang.Net\w536\tests\Erlang.Tests\Harness\Program.cs:line 7684
+0/1 passed

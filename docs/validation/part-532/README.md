@@ -1,0 +1,19 @@
+# Part532: physical atomics backing and explicit custody
+
+Final local regression: **9263/9263**, all9236 authenticated Part531 test names retained,27 added groups. The first final regression (9258 pass/3 fail) is preserved. It exposed dirty atomics copies, shared-graph auxiliary allocation and the reflection-visible Copy/2 signature; corrected source passes the complete unchanged previous catalog. The shared-edge allocation check retains its1MiB budget; actual corrected allocation is2456 bytes.
+
+Atomics now use one real72+8N x64 Binary/magic allocation, orig_size40+8N and real three-word owned headers. Producer, guest, host, store and active-operation custody is explicit; guest lifetime is not delegated to a CLR finalizer. Host wrappers have independent custody. Constructor rollback, dictionary exports, public versus internal reservations, selected persistent output and whole aggregate rollback have reproduced failing controls and corrected passing reports.
+
+The fresh atomics observer uses actual loaded original atomics/counters images and exact owner/body/metadata admission. Both ordinary and private-owned profiles pass default/deterministic whole streams under the explicit six-reference-number protocol. Each stream is14817 bytes. Strict literal byte equality remains false: exactly six12-byte reference-number spans use one validated cross-VM bijection; every other byte, frame, error and opaque binary is exact. Raw evidence is retained unchanged; no whole contract is promoted.
+
+Fresh retained family527 compares both ordinary and reviewed native loaders with genuine original OTP: full5224-byte raw and deterministic streams match exactly; actual physical cleanup passes for both. This is a finite retained resource fixture, not complete ordinary guest-send custody or general native compatibility.
+
+Source preflight passes eight gates; exact pending membership3686 and2073 source guards match current source. Reference baseline OTP29.1.1 ad05823719d77c8faee87348ea39513d4e2f99c5. Registered708/verified180/pending504/known24 remain unchanged; API/full-contract deltas0/0. Part533 coherent guest send/receive and non-direct dictionary paths, counters custody and remaining producer families are open. Current-head GitHub CI/review/merge are separate delivery gates recorded in the PR.
+
+All copied evidence bytes are listed in manifest.json. Original artifact inventories retain their original absolute execution paths; this package is a byte-identical evidence archive, not an execution replay directory. Failed and superseded intermediate controls are deliberately retained.
+
+## CI correction: source-built initial stock identities
+
+First exact-head CI40736337976 failed the new Linux original atomics step before subject execution: its embedded preloaded module MD5 differs from the separately installed stock BEAM MD5. The dependent managed routes were correctly skipped; failed original/process/completion bytes are retained in linux-first. The original installed file itself was not changed.
+
+The explicit source-built stock profile now binds initial-preloaded MD5 separately to the load receipt's first MD5, then requires the loaded second MD5, complete before/after owners and all managed metadata to equal the actual copied installed image. The profile is bound to the authenticated Linux build-provider snapshot/admission, not inferred from a post-failure mismatch. The official Windows profile still requires identical initial/file/loaded identities. Actual preloaded erlang native metadata stays unchanged. A fresh Windows original+ordinary/private replay passes on the correction (windows-identity-revision); its raw evidence and strict equality flags remain unchanged in meaning. Corrected Linux/current-head CI is still required. No API/full-contract classification changes.

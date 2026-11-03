@@ -5,11 +5,11 @@ internal sealed class DebugDirtyCopyFrame424
     internal DebugDirtyCopyFrame424(Term source)
     {
         Source = source;
-        Children = ChildrenOf(source);
+        Children = ReadChildren(source);
         Copied = new Term[Children.Length];
     }
 
-    internal static Term[] ChildrenOf(Term source) => source switch
+    internal static Term[] ReadChildren(Term source) => source switch
     {
         Cons list => [list.Head, list.Tail],
         TupleTerm tuple => tuple.Items.ToArray(),

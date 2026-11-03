@@ -8,6 +8,46 @@ public sealed partial record ModuleDefinition
     LocalFunctionIdentity? ISourceLocalFunctionResolver.ResolveLocalIdentity(LocalFunctionIdentity identity, int arity)
         => LocalFunctionEntries.Resolve(this, identity, arity)?.Identity;
 
+    FunctionTerm? ISourceLocalFunctionResolver.ReconstructPublicLocal414(
+        ProcessRuntime runtime,
+        LocalFunctionIdentity identity,
+        int arity,
+        IReadOnlyList<Term> environment,
+        ModuleCodeImage image
+    )
+    {
+        var entry = LocalFunctionEntries.Resolve(this, identity, arity);
+        if (entry is null) return null;
+        var resolved = entry.Value;
+        string[] names;
+        if (resolved.Named is not null)
+            names = [];
+        else
+        {
+            string[]? captures = ClosureCaptures.Names(resolved.Anonymous!);
+            if (captures is null)
+            {
+                Semantics.Validate(this);
+                captures = ClosureCaptures.Names(resolved.Anonymous!);
+            }
+            if (captures is null) return null;
+            names = captures;
+        }
+        if (names.Length != environment.Count) return null;
+
+        return SourceStoredFunctionRecipe.CreatePublicReceiver414(
+            runtime.Functions,
+            this,
+            resolved.Identity,
+            resolved.Anonymous,
+            resolved.Named,
+            names,
+            image,
+            arity,
+            environment
+        );
+    }
+
     FunctionTerm? ISourceLocalFunctionResolver.ResolveLocalFunction(
         LocalFunctionIdentity identity,
         int arity,
