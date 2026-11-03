@@ -1,5 +1,7 @@
 # Compatibility overview
 
+Draft Part568 prepares the bulk physical-occurrence runtime patch in a separate PR to main. Ordsets stays6 Verified/15 KnownDifferences; current whole ETF replay remains RED. See [evidence and open acceptance gates](validation/part-568/ordsets-bulk/README.md).
+
 ## Current state and sources
 
 The integration also retains accepted main [PR103 native async/cancellation work](validation/part-557/REPORT.md). Its bounded controls and remaining public statistics contracts keep their original scope; [all incoming compatibility records](history/main-103-compatibility/index.md) remain intact. A new combined-source CI report is required before treating the earlier PR102 full report as current.

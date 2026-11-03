@@ -40,7 +40,8 @@ internal static class OrdsetFullExecution
             await context.ReduceAsync();
             if (first is Cons one && second is Cons two)
             {
-                int comparison = TermOrder.Compare(one.Head, two.Head);
+                int comparison = TermOrder.Compare(one.Head, two.Head) < 0 ? -1
+                    : TermOrder.Compare(two.Head, one.Head) < 0 ? 1 : 0;
                 if (function == OrdsetFullNames.Subset && comparison < 0)
                     return CoreModules.Boolean(false);
                 if (function == OrdsetFullNames.Disjoint && comparison == 0)
@@ -126,10 +127,9 @@ internal static class OrdsetFullExecution
                     OrdsetFullNames.DeleteLine,
                     pending
                 );
-            int comparison = TermOrder.Compare(element, cell.Head);
-            if (comparison <= 0)
+            if (TermOrder.Compare(cell.Head, element) >= 0)
             {
-                result = comparison == 0 ? cell.Tail : set;
+                result = TermOrder.Compare(element, cell.Head) < 0 ? set : cell.Tail;
                 break;
             }
             prefix.Add(cell.Head);

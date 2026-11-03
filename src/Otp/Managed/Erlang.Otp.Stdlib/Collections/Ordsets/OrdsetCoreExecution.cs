@@ -60,10 +60,13 @@ internal static class OrdsetCoreExecution
         while (remaining is Cons cell)
         {
             await context.ReduceAsync();
-            int comparison = TermOrder.Compare(element, cell.Head);
-            if (comparison <= 0)
-                return CoreModules.Boolean(comparison == 0);
-            remaining = cell.Tail;
+            if (TermOrder.Compare(cell.Head, element) < 0)
+            {
+                remaining = cell.Tail;
+                continue;
+            }
+
+            return CoreModules.Boolean(TermOrder.Compare(element, cell.Head) >= 0);
         }
         if (remaining is not Nil)
             throw OrdsetCoreTrace.Clause(
@@ -97,14 +100,14 @@ internal static class OrdsetCoreExecution
                     OrdsetCoreNames.AddElementLine,
                     prefix.Count
                 );
-            int comparison = TermOrder.Compare(element, cell.Head);
-            if (comparison <= 0)
+            if (TermOrder.Compare(cell.Head, element) < 0)
             {
-                result = comparison == 0 ? remaining : new Cons(element, remaining);
-                break;
+                prefix.Add(cell.Head);
+                remaining = cell.Tail;
+                continue;
             }
-            prefix.Add(cell.Head);
-            remaining = cell.Tail;
+            result = TermOrder.Compare(element, cell.Head) < 0 ? new Cons(element, remaining) : remaining;
+            break;
         }
         for (int index = prefix.Count - 1; index >= 0; index--)
             result = new Cons(prefix[index], result);

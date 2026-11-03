@@ -1,5 +1,7 @@
 # Project progress
 
+Draft Part568 prepares the bulk physical-occurrence runtime patch in a separate PR to main. Ordsets stays6 Verified/15 KnownDifferences; current whole ETF replay remains RED. See [evidence and open acceptance gates](validation/part-568/ordsets-bulk/README.md).
+
 ## Current status sources
 
 - [Accepted main PR103](https://github.com/develmax/Erlang.Net/pull/103): native async accounting, independent logical/physical port closure, pending RPC shutdown and final microstate cancellation. See the [retained report](validation/part-557/REPORT.md) and [exact incoming progress snapshot](history/main-103-progress/index.md). These bounded results do not close the whole statistics contract.

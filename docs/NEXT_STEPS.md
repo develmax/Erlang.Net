@@ -1,5 +1,7 @@
 # Next steps
 
+Draft Part568 prepares the bulk physical-occurrence runtime patch in a separate PR to main. Ordsets stays6 Verified/15 KnownDifferences; current whole ETF replay remains RED. See [evidence and open acceptance gates](validation/part-568/ordsets-bulk/README.md).
+
 ## Executable queue
 
 - Validate the combined PR102/main0386ff27 source package, including the accepted [native async/cancellation contracts](validation/part-557/REPORT.md). Keep the [incoming next-step history](history/main-103-next-steps/index.md), existing library scope and unresolved public statistics contracts. The separate persistent-poll owner retains shared runtime/checklist ownership; do not start a competing full run on the PC.

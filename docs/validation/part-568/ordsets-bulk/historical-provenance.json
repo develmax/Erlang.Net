@@ -1,0 +1,11 @@
+{
+  "PinnedCommit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "ProviderFilesVerifiedBeforeAndAfter": 6427,
+  "Expression": "{ok,ordsets_core_worker}=compile:file(\"D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/tests/Erlang.Tests/Resources/OrdsetsCompatibility/ordsets_core_worker.erl\",[debug_info,{outdir,\"D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/ordsets-native-selection-audit/from-list-source-boundaries\"}]),{ok,from_list_source_boundaries}=compile:file(\"D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/ordsets-native-selection-audit/from-list-source-boundaries/from_list_source_boundaries.erl\",[debug_info,{outdir,\"D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/ordsets-native-selection-audit/from-list-source-boundaries\"}]),Bytes=ordsets_core_worker:run(from_list_source_boundaries,run),ok=file:write_file(\"original.etf\",Bytes),io:format(\"12 source-boundary rows~n\"),halt().",
+  "ExitCode": 0,
+  "SourceSha256": "32B53035716577521D1A1964D84D4CF5A5EFF4AC146A67C9E9D0A543FDB476D8",
+  "BeamSha256": "9CDA8D7675D878BDB8DA158263E5F5A233D542F5F3E726CFE4654A121EAF5203",
+  "OriginalSha256": "A81660921ECF0E4287D062DBFB58A56020DD17C742363334162C9B087D663D28",
+  "WorkerSourceSha256": "748B235945D498FC4F30D34FB15DF67B5BE9B7E2EDB0171D2B10D19A8FC9C1D0",
+  "WorkerBeamSha256": "0BA953CAEA920ABEB0133FE6271393A117F1C1463BF1F93A5EBBF92E9975C447"
+}
