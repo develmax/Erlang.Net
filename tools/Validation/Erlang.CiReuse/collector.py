@@ -141,10 +141,12 @@ def collect(root, fingerprint, job):
                   if len(line.split()) == 2 and line.split()[1] == tree} - {commit, head}
     if len(equivalent) > 10:
         raise ValueError("Equivalent-tree history exceeds bounded evidence collection")
+    history_snapshots = {}
     for previous in sorted(equivalent):
         history = api.pages("actions/runs?head_sha=" + urllib.parse.quote(previous), "workflow_runs")
         if any(run.get("path") in REQUIRED and (run.get("status") != "completed" or run.get("conclusion") != "success" or run.get("run_attempt") != 1) for run in history):
             raise ValueError("Earlier equivalent-tree validation is unsuccessful or incomplete")
+        history_snapshots[previous] = run_snapshot(history)
     runs = api.pages("actions/runs?head_sha=" + urllib.parse.quote(head), "workflow_runs")
     if any(run.get("path") in REQUIRED and run.get("run_attempt") != 1 for run in runs):
         raise ValueError("Repeated attempt requires full validation of tested-head evidence")
@@ -189,6 +191,10 @@ def collect(root, fingerprint, job):
         if (fresh.get("run_attempt") != run["attempt"] or fresh.get("head_sha") != head
                 or fresh.get("status") != "completed" or fresh.get("conclusion") != "success"):
             raise ValueError("Producer completion changed during admission")
+    for previous, before in history_snapshots.items():
+        refreshed = api.pages("actions/runs?head_sha=" + urllib.parse.quote(previous), "workflow_runs")
+        if run_snapshot(refreshed) != before:
+            raise ValueError("Equivalent-tree workflows changed during admission")
     refreshed_current = api.pages("actions/runs?head_sha=" + urllib.parse.quote(commit), "workflow_runs")
     if run_snapshot(refreshed_current) != run_snapshot(current_runs):
         raise ValueError("Merge workflows changed during admission")
