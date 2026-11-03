@@ -1,0 +1,14 @@
+{
+  "SourceHead": "6c966ada688cf35f9202febf8029872015825671",
+  "Scenario": "Mocked sibling starts during receipt download after initial main-run listing",
+  "ActualGitHubRunsStarted": 0,
+  "ProductionSourceChanged": false,
+  "Observed": {
+    "late_sibling_exists": true,
+    "main_run_list_reads": 1,
+    "Reuse": true,
+    "Reasons": []
+  },
+  "ExpectedForAdmissionTimeSnapshot": "Reject reuse when refreshed main-run listing contains the incomplete sibling",
+  "SuggestedControl": "Re-fetch current merge and producer head runs immediately before admission; test a late incomplete or failed sibling and a late producer rerun"
+}

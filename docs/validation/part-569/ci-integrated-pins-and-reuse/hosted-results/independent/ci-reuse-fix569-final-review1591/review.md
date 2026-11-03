@@ -1,0 +1,15 @@
+# Final bounded guard review1591
+
+Verdict: no findings in the requested change. The concrete equivalent-ancestor re-fetch gap from1590 is closed by inspection.
+
+Exact head `b073ced4eb6298405fd4b5fe2902ab206becef56`, base `1a85b50ffb9e14c9d17fa3a0ddec7110af15218d`. Collector Git blob `7c74996bd0e1665e24c904e9f844929f99e7f395`, SHA256 `C8F035D3D5B10E69C4AFD61999FF251EB44CEE4CD66C5A42D9F9B328E96F5B92`. Before collector SHA256 `CCD2CAFA709257AFE7EBB0249671BCBFFB031D049C465F7FDBF45CA571DBAABF`. Raw sources, reviewed collector/test diff and scope bindings retained here.
+
+The only collector change adds `history_snapshots`, captures each already-admitted equivalent ancestor's required-run snapshot, and re-fetches/compares every captured ancestor after ZIP capture and concrete producer revalidation, before final current-merge comparison/admission. Therefore the exact1590 counterexample now produces changed-during-admission fallback: a previously green ancestor's new sibling, failure, pending state or changed attempt modifies the retained snapshot. Existing initial completed/success/attempt1 checks remain unchanged. Missing/unavailable API data still throws and requires full validation.
+
+The source-level control changes correctly distinguish producer run100 from consumer merge run900, so the current-run exemption no longer relies on an accidentally shared identifier. The late-history control introduces an ancestor into the actual mocked Git history, initially returns success, then changes its result only after actual ZIP retrieval in the fixture. The late-concrete-producer control keeps the run-list response unchanged but changes the concrete producer's attempt to2 after ZIP capture; the existing concrete re-fetch rejects it. The earlier late sibling and list-change cases remain. These are reviewed control definitions; reviewer did not execute them or independently certify the reported19 passing controls.
+
+No unrelated collector semantics were added in this diff. Whole-matrix and artifact digest/provenance checks are unchanged from1590. Production src diff against1a85 is empty. No runtime/C#/Erlang/native test body was altered by this bounded guard fix. This review does not seek an atomic GitHub API transaction or claim protection against changes after the final observations.
+
+Old controls.json Git blob remains unchanged; controls-final.json/txt are separate newly added paths. Archived1586 review bytes independently retain SHA256 `207EECA3C4219BF1925BC30536CF35A085BEFD8F509F7147156BC63EA81E0617`; archived1590 retains `4B986FEB2C04833EDA13F35049B68CCFC4E7C8819B3742747C9A799125C50468`. Earlier findings and their source snapshots remain historical evidence rather than overwritten passing results.
+
+Read-only explicit Git object inspection only. No tests, network, CI/full run, shared-file edits, Git mutation or formal GitHub approval. Hosted acceptance and the reported local controls remain separate evidence.
