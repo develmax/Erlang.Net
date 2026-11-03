@@ -80,12 +80,16 @@ for (const source of manifest.sources) {
         'Original snapshot reconstruction failed: ' + source.source);
 }
 for (const license of manifest.licenses) {
-    check(fs.existsSync(license.to) && sha(fs.readFileSync(license.to)) === license.sha256,
+    const present = fs.existsSync(license.to);
+    check((license.local && !present) || (present && sha(fs.readFileSync(license.to)) === license.sha256),
         'License bytes changed: ' + license.to);
     check(!fs.existsSync(license.from), 'License still present at old path: ' + license.from);
 }
 const entryFiles = ['AGENTS.md', 'docs/PROGRESS.md', 'docs/NEXT_STEPS.md', 'docs/COMPATIBILITY.md', 'docs/DECISIONS.md', 'docs/decisions/index.md',
     ...fs.readdirSync('docs/decisions').filter(file => file.endsWith('.md') && file !== 'index.md').map(file => 'docs/decisions/' + file),
+    'docs/validation/integration-20261103/README.md',
+    'docs/validation/integration-20261103/math-ci-41631118602/README.md',
+    'docs/changelog/0102.md',
     'docs/history/index.md', 'docs/documentation-layout.md', 'docs/license-audit.md', 'licenses/README.md',
     ...manifest.sources.map(item => path.posix.dirname(item.chunks[0].file) + '/index.md')];
 for (const file of entryFiles) {

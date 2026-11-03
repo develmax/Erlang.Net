@@ -78,7 +78,7 @@ jobs:
         shell: bash
         env:
           PYTHONDONTWRITEBYTECODE: '1'
-          GROUP_LEADER_SOURCE_PLAN_SHA256: ACEE30ABEDDF9EF2572F50D0008699ADDE9B9F02C44470AD7C8E2AC5F58F948F
+          GROUP_LEADER_SOURCE_PLAN_SHA256: 5E2585A2EE7FCDC9076F424B4F764E4E588EFBD7387F91FB860DF6200263D785
         run: |
           set -euo pipefail
           python3 -B tools/Distribution/Erlang.GroupLeaderOutboundObservations/collect.py \
@@ -93,7 +93,7 @@ jobs:
         shell: bash
         env:
           PYTHONDONTWRITEBYTECODE: '1'
-          GUEST_CONNECTED_SEND_SOURCE_PLAN_SHA256: 7E14E4D608DAB6DC61AC1C08CFD53183CE9979FDCA178D2E84CB19811FA45399
+          GUEST_CONNECTED_SEND_SOURCE_PLAN_SHA256: 69B8194CEB5A7C9FFF5B9602639F2D338D44E1AF2215EDC9D58E0D134779692C
         run: |
           set -euo pipefail
           python3 -B tools/Distribution/Erlang.GuestConnectedSendObservations/collect.py \
@@ -139,7 +139,7 @@ jobs:
         shell: bash
         env:
           PYTHONDONTWRITEBYTECODE: '1'
-          CONTROL_WAIT_SOURCE_PLAN_SHA256: 146C1DFA51058C54D8C72DAFEAAB24D82F5684B3EA5C9CB0CE1B35724D070705
+          CONTROL_WAIT_SOURCE_PLAN_SHA256: 26208F9FDE08667BCC6FB8FD208054F7F463B3B0295F339E58529945DF396522
         run: |
           set -euo pipefail
           python3 -B tools/Distribution/Erlang.DistributionControlWaitObservations/collect.py \
@@ -155,7 +155,7 @@ jobs:
         shell: bash
         env:
           PYTHONDONTWRITEBYTECODE: '1'
-          LINK_RETENTION_SOURCE_PLAN_SHA256: A62852C3F0148AD1381F62CD470BE858C03B9502613C1761E88718E4A5CAC323
+          LINK_RETENTION_SOURCE_PLAN_SHA256: 7F8545D383D9804BEDA7428DE62F03F1053A08ED9A653E171B9005793CB44574
         run: |
           set -euo pipefail
           python3 -B tools/Distribution/Erlang.DistributionLinkRetentionObservations/collect.py \

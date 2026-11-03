@@ -554,3 +554,10 @@ licenses/*.txt -text
 /docs/validation/math-compatibility-20261103/** -text -whitespace
 docs/history/** -text -whitespace
 licenses/*.txt -text -whitespace
+
+/docs/validation/part-520/math-port/** -text -whitespace
+
+# Source-bound tooling/workflows retain committed raw bytes on every platform.
+/tools/** -text
+/.github/workflows/** -text
+/docs/validation/part-557/ordsets/** -text -whitespace

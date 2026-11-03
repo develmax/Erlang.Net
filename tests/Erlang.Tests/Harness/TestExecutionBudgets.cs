@@ -19,7 +19,8 @@ internal static class TestExecutionBudgets
             + TimeSpan.FromSeconds(TestExecutionBudgetNames.FullComparisonPreparationSeconds500),
         TupleContract488Names.Test => BeamOrdsetsCoreHostNames.Deadline + BeamOrdsetsCoreHostNames.Deadline
             + TimeSpan.FromSeconds(TestExecutionBudgetNames.FullComparisonPreparationSeconds500),
-        OrdsetsCompatibilityNames.ManagedCase or OrdsetsCompatibilityNames.BeamCase => OrdsetsCompatibilityNames.Deadline
+        _ when name.StartsWith(OrdsetsCompatibilityNames.ManagedCase + "/", StringComparison.Ordinal)
+            || name.StartsWith(OrdsetsCompatibilityNames.BeamCase + "/", StringComparison.Ordinal) => OrdsetsCompatibilityNames.Deadline
             + OrdsetsCompatibilityNames.Deadline
             + TimeSpan.FromSeconds(TestExecutionBudgetNames.FullComparisonPreparationSeconds500),
         _ => TimeSpan.FromSeconds(TestExecutionBudgetNames.DefaultSeconds)

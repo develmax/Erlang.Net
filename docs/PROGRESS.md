@@ -2,6 +2,8 @@
 
 ## Current status sources
 
+- [Integration PR #102](https://github.com/develmax/Erlang.Net/pull/102): documentation/history split and local libraries are combined; final-head delivery gates are tracked in the PR and [integration evidence](validation/integration-20261103/README.md).
+
 - [ordsets verification](ORDSETS_COMPATIBILITY.md): all 21 APIs have a permanent whole-result/stack/effect corpus; the managed merge stack discrepancy is repaired. Universal compatibility acceptance remains open.
 
 - [math backends](math-backends.md): complete 26-MFA managed surface and retained original Erlang selection; differential corpus passed, full compatibility acceptance remains open.

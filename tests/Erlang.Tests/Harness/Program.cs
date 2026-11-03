@@ -464,8 +464,18 @@ var tests = new List<(string Name, Func<Task> Body)>();
 Test(Erlang.Tests.MathBackendNames.ManagedWhole, Erlang.Tests.LibraryDependencyOriginalHostChecks.MathManagedWhole);
 Test(Erlang.Tests.MathBackendNames.ManagedSelection, Erlang.Tests.MathBackendChecks.ManagedSelection);
 Test(Erlang.Tests.MathLog2OtpNames.Test, Erlang.Tests.MathLog2OtpChecks.Run);
-Test(Erlang.Tests.OrdsetsCompatibilityNames.ManagedCase, () => Erlang.Tests.OrdsetsCompatibilityChecks.Run(false));
-Test(Erlang.Tests.OrdsetsCompatibilityNames.BeamCase, () => Erlang.Tests.OrdsetsCompatibilityChecks.Run(true));
+foreach (int part in Enumerable.Range(0, Erlang.Tests.OrdsetsCompatibilityNames.PartCount))
+{
+    int selectedPart = part;
+    Test(
+        Erlang.Tests.OrdsetsCompatibilityNames.ManagedCase + "/" + selectedPart,
+        () => Erlang.Tests.OrdsetsCompatibilityChecks.Run(false, selectedPart)
+    );
+    Test(
+        Erlang.Tests.OrdsetsCompatibilityNames.BeamCase + "/" + selectedPart,
+        () => Erlang.Tests.OrdsetsCompatibilityChecks.Run(true, selectedPart)
+    );
+}
 foreach (int termShard in Enumerable.Range(0, Erlang.Tests.OrdsetsTermContractNames.ShardCount))
 {
     Test(Erlang.Tests.OrdsetsTermContractNames.TestPrefix + termShard, () => Erlang.Tests.OrdsetsTermContractChecks.Run(termShard));

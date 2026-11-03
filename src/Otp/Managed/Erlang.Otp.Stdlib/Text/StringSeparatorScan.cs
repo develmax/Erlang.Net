@@ -52,7 +52,10 @@ internal static class StringSeparatorScan
             }
             else
             {
-                byte[] bytes = rest.ToArray();
+                byte[] bytes = rest.SliceBits(
+                    0,
+                    Math.Min(rest.BitLength, StringUtf8Parameters.MaximumCodepointBits)
+                ).ToArray();
                 if (Rune.DecodeFromUtf8(bytes, out _, out _) != System.Buffers.OperationStatus.Done)
                 {
                     throw new ErlangException(Term.Tuple(Term.A(ErlangErrorReasons.BadArgument), rest));

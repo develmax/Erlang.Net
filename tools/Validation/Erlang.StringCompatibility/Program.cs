@@ -30,6 +30,13 @@ string foundation = Path.Combine(repository, "src/Otp/Original/Foundation/Erlang
 await runtime.InitializeModulesAsync(registry =>
 {
     RuntimeNativePrimitiveProviders.RegisterCatalog(runtime, registry);
+    if (managed)
+    {
+        StringModule.Register(registry);
+    }
+});
+ModuleRegistry registry = runtime.Modules;
+{
     string[] names = managed ? ["unicode", "unicode_util", "erts_internal"] : ["unicode", "unicode_util", "erts_internal", "string"];
     var dependencies = new BeamDependencySelection(Directory.EnumerateFiles(Path.Combine(repository, "src/Otp/Original"), "*.beam", SearchOption.AllDirectories)
         .Select(path => Path.GetFileNameWithoutExtension(path)).Append("erlang").Append(StringCompatibilityNames.Observer));
@@ -44,12 +51,7 @@ await runtime.InitializeModulesAsync(registry =>
     {
         throw new InvalidOperationException(StringCompatibilityDiagnostics.PublicationRefused);
     }
-    if (managed)
-    {
-        StringModule.Register(registry);
-    }
-
-});
+}
 Console.WriteLine($"{args[2]}: executing {rows.Length} cases");
 
 var observations = new List<Term>();

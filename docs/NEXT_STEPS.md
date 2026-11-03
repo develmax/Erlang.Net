@@ -2,6 +2,8 @@
 
 ## Executable queue
 
+- Finish final-head regression, native/source gates and current review for [PR #102](https://github.com/develmax/Erlang.Net/pull/102), then merge into the repository default branch `main`. Preserve later concurrent work until its own acceptance.
+
 - Close the [ordsets acceptance gates](ORDSETS_COMPATIBILITY.md): shared term ordering/equality and `lists` helper closure, followed by complete regression and readiness publication. Preserve the exact OTP corpus and repaired native reverse source frames.
 
 - Complete the [math backend acceptance gates](math-backends.md): platform numerical audit and complete regression/readiness publication. The 26 exports must not be presented as 100% semantic compatibility.

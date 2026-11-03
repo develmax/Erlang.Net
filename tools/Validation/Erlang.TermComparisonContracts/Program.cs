@@ -2,7 +2,12 @@ using System.Globalization;
 using Erlang.Tools;
 
 if (args is not [TermComparisonProbeNames.ManagedSwitch or TermComparisonProbeNames.BeamSwitch, var shardText]
-    || !int.TryParse(shardText, NumberStyles.None, CultureInfo.InvariantCulture, out int shard))
+    || !int.TryParse(
+        shardText,
+        NumberStyles.None,
+        CultureInfo.InvariantCulture,
+        out int shard
+    ))
 {
     Console.Error.WriteLine(TermComparisonProbeNames.Usage);
 

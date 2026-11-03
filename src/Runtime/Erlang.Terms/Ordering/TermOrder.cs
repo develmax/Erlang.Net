@@ -197,7 +197,12 @@ public static class TermOrder
                         mapLayout ??= layoutFactory();
                         if (mapLayout is ITermMapOrderingLayout ordering)
                         {
-                            pending.Push(TermMapOrdering.HashSteps(x, y, exact, ordering).GetEnumerator());
+                            pending.Push(TermMapOrdering.HashSteps(
+                                x,
+                                y,
+                                exact,
+                                ordering
+                            ).GetEnumerator());
 
                             return 0;
                         }
