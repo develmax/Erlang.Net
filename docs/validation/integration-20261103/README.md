@@ -36,3 +36,5 @@ No new runtime dependency, third-party license change, NuGet publication or comp
 ## Subsequent pattern-search review fix
 
 [Raw5226+13 comparison, permanent allocation RED/GREEN and source review](string-pattern-review/README.md) record the second StringP2 correction. The earlier9680 report remains the pre-fix window; current9681 full regression and fresh final-head CI/review are required before merge.
+
+[Post-ACK timeout protocol](proc-lib-timeout-protocol/README.md) preserves the failed def183876 full CI, exact old-fixture pinned OTP RED, corrected protocol reference repetitions, focused .NET controls and an explicit source-attribution correction. Runtime semantics and deadlines are unchanged. [Math matrix](math-ci-41674636411/README.md) records the successful def183876 three-platform run; it does not override the failed full regression gate.

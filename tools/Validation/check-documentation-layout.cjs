@@ -108,9 +108,17 @@ const flatAuditRoot = 'docs/validation/integration-20261103/native-flat-order-pe
 const flatAudit = JSON.parse(read(flatAuditRoot + 'source-classification.json'));
 check(sha(require('node:zlib').gunzipSync(fs.readFileSync(flatAuditRoot + 'pinned-ordsets.erl.gz')))
     === flatAudit.PinnedOrdsetsSourceSha256.toLowerCase(), 'Pinned ordsets source archive changed');
+const procRoot = 'docs/validation/integration-20261103/proc-lib-timeout-protocol/';
+for (const member of JSON.parse(read(procRoot + 'manifest.json')).Files) {
+    const packed = fs.readFileSync(procRoot + member.Archive);
+    const raw = require('node:zlib').gunzipSync(packed);
+    check(sha(packed) === member.ArchiveSha256.toLowerCase()
+        && raw.length === member.Bytes && sha(raw) === member.Sha256.toLowerCase(),
+        'Proc-lib protocol evidence changed: ' + member.Archive);
+}
 const patternRoot = 'docs/validation/integration-20261103/string-pattern-review/';
 const patternManifest = JSON.parse(read(patternRoot + 'manifest.json'));
-for (const member of patternManifest.Files) {
+for (const member of [...patternManifest.Files, ...JSON.parse(read(patternRoot + 'environment.json')).Files, ...JSON.parse(read(patternRoot + 'catch-environment.json')).Files]) {
     const packed = fs.readFileSync(patternRoot + member.Archive);
     const raw = require('node:zlib').gunzipSync(packed);
     check(sha(packed) === member.ArchiveSha256.toLowerCase()
@@ -126,6 +134,8 @@ const entryFiles = ['AGENTS.md', 'docs/PROGRESS.md', 'docs/NEXT_STEPS.md', 'docs
     ...fs.readdirSync('docs/decisions').filter(file => file.endsWith('.md') && file !== 'index.md').map(file => 'docs/decisions/' + file),
     'docs/validation/integration-20261103/README.md',
     'docs/validation/integration-20261103/string-pattern-review/README.md',
+    'docs/validation/integration-20261103/proc-lib-timeout-protocol/README.md',
+    'docs/validation/integration-20261103/math-ci-41674636411/README.md',
     'docs/validation/integration-20261103/native-flat-order-all-apis/README.md',
     'docs/validation/integration-20261103/atomic-native-caller/README.md',
     'docs/validation/integration-20261103/math-ci-41638368916/README.md',

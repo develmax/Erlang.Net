@@ -1,0 +1,19 @@
+{
+  "Head": "def18387622c957c6e61a8ef077e0732c19947e3",
+  "Run": 41674636384,
+  "Job": 126052003800,
+  "Artifact": 13254073464,
+  "ZipSha256": "F0FB045DA1A092850F699583914923119FCB760B3371AB978B483A8814B3D39B",
+  "RawTestsSha256": "44CFB41FF5594B4E63CDD0322B7AAE6A00D8DB4835B025C4D9EC2CE341AA7215",
+  "Passed": 9680,
+  "Failed": 1,
+  "Tests": 9681,
+  "Failures": [
+    {
+      "Name": "oracle/compiled-module/proc-lib-stop-after-ack-timeout-waits-for-real-down",
+      "Status": "Failed",
+      "Error": "System.InvalidOperationException: Expected {ok,ok}, got {error,error,{badmatch,{'EXIT',{timeout_value,[{proc_lib,stop,3,[]},{oracle_proc_stop,run,0,[{file,[100,105,102,102,101,114,101,110,116,105,97,108,46,101,114,108]},{line,1}]}]}}}}\r\n   at Program.<<Main>$>g__Check|0_19(Boolean value, String message) in D:\\a\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Harness\\Program.cs:line 4393\r\n   at Program.<<Main>$>g__Equal|0_20(Term a, Term b) in D:\\a\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Harness\\Program.cs:line 4397\r\n   at Program.<>c__DisplayClass0_88.<<<Main>$>b__582>d.MoveNext() in D:\\a\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Harness\\Program.cs:line 12188\r\n--- End of stack trace from previous location ---\r\n   at Program.<Main>$(String[] args) in D:\\a\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Harness\\Program.cs:line 16205",
+      "Milliseconds": 65
+    }
+  ]
+}
