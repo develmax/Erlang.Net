@@ -56,16 +56,16 @@ also covers distinct `umerge2_1/5` reverse sites at lines 3462 and 3464.
 
 ## Acceptance scope
 
-The current ledger has 6 verified APIs, 12 requiring verification and 3 with known differences. This
+The current ledger has 6 verified APIs and15 with known differences. This
 checkpoint adds differential evidence; a finite successful corpus does not
 establish a universal compatibility proof.
 
 | APIs | Existing status | Remaining general contract |
 | --- | --- | --- |
 | `new/0`, `is_empty/1`, `to_list/1`, `size/1`, `fold/3`, `filter/2` | Verified compatible | Preserve existing evidence and regression gates |
-| `add_element/2`, `del_element/2`, `union/2`, `intersection/1,2`, `is_disjoint/2`, `subtract/2`, `is_subset/2` | Needs verification | Complete shared term-order domain and source continuation proof |
+| `add_element/2`, `del_element/2`, `union/2`, `intersection/1,2`, `is_disjoint/2`, `subtract/2`, `is_subset/2` | Known differences | Complete shared term-order domain and source continuation proof |
 | `is_equal/2`, `is_element/2`, `is_set/1` | Known differences | Repair the known native flatmap physical-key numeric/order discrepancy; complete compound equality and native HAMT/function-key coverage |
-| `from_list/1`, `union/1`, `map/2`, `filtermap/2` | Needs verification | Complete dependent `lists` sorting/merge/helper partitions and applicable comparison/callback contracts |
+| `from_list/1`, `union/1`, `map/2`, `filtermap/2` | Known differences | Complete dependent `lists` sorting/merge/helper partitions and applicable comparison/callback contracts |
 
 All 21 APIs are available; API and full-contract counters each change by zero.
 Cross-platform acceptance, complete project validation and canonical readiness
@@ -80,3 +80,5 @@ See [checkpoint evidence](validation/part-557/ordsets/README.md) and
 ## Existing native flatmap boundary
 
 [Preserved native witness and source history](validation/integration-20261103/native-flat-order-pending/README.md) identify a pre-existing mismatch in numeric/order comparisons after a native binary-key mutation. The current corpus does not close this physical-layout contract; is_equal/is_element/is_set are classified as known differences; other shared comparison-dependent APIs remain pending. A separate source fix and full validation are required.
+
+[The supplemental all21-API native observer](validation/integration-20261103/native-flat-order-all-apis/README.md) supplies actual counterexamples for all15 formerly pending/known MFAs. Current counts are6 verified/15 known differences/0 pending. Earlier finite corpora and the3-known checkpoint are preserved with their exact scopes. The isolated physical-key fix is outside this integration.

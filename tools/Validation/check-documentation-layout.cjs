@@ -108,9 +108,25 @@ const flatAuditRoot = 'docs/validation/integration-20261103/native-flat-order-pe
 const flatAudit = JSON.parse(read(flatAuditRoot + 'source-classification.json'));
 check(sha(require('node:zlib').gunzipSync(fs.readFileSync(flatAuditRoot + 'pinned-ordsets.erl.gz')))
     === flatAudit.PinnedOrdsetsSourceSha256.toLowerCase(), 'Pinned ordsets source archive changed');
+const patternRoot = 'docs/validation/integration-20261103/string-pattern-review/';
+const patternManifest = JSON.parse(read(patternRoot + 'manifest.json'));
+for (const member of patternManifest.Files) {
+    const packed = fs.readFileSync(patternRoot + member.Archive);
+    const raw = require('node:zlib').gunzipSync(packed);
+    check(sha(packed) === member.ArchiveSha256.toLowerCase()
+        && raw.length === member.Bytes && sha(raw) === member.Sha256.toLowerCase(),
+        'Pattern-search archive changed: ' + member.Path);
+}
+const nativeAllRoot = 'docs/validation/integration-20261103/native-flat-order-all-apis/';
+const nativeAllArchive = JSON.parse(read(nativeAllRoot + 'archive.json'));
+check(sha(fs.readFileSync(nativeAllRoot + nativeAllArchive.Archive)) === nativeAllArchive.Sha256.toLowerCase()
+    && sha(fs.readFileSync(nativeAllRoot + nativeAllArchive.Manifest)) === nativeAllArchive.ManifestSha256.toLowerCase(),
+    'Supplemental native all-API archive changed');
 const entryFiles = ['AGENTS.md', 'docs/PROGRESS.md', 'docs/NEXT_STEPS.md', 'docs/COMPATIBILITY.md', 'docs/DECISIONS.md', 'docs/decisions/index.md',
     ...fs.readdirSync('docs/decisions').filter(file => file.endsWith('.md') && file !== 'index.md').map(file => 'docs/decisions/' + file),
     'docs/validation/integration-20261103/README.md',
+    'docs/validation/integration-20261103/string-pattern-review/README.md',
+    'docs/validation/integration-20261103/native-flat-order-all-apis/README.md',
     'docs/validation/integration-20261103/atomic-native-caller/README.md',
     'docs/validation/integration-20261103/math-ci-41638368916/README.md',
     'docs/validation/integration-20261103/ordsets-owner-handoff/README.md',

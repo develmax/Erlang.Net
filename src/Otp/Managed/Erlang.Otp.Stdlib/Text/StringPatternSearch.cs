@@ -69,16 +69,15 @@ internal static class StringPatternSearch
         BitString binary,
         int start,
         Term continuation,
-        IReadOnlyList<Term> needle
+        StringBinarySearchBuffer search
     )
     {
-        byte[] bytes = binary.ToArray();
-        string text = string.Concat((continuation is Nil ? needle : needle.Take(1)).Cast<Integer>().Select(cp => char.ConvertFromUtf32((int)cp.Value)));
-        byte[] pattern = Encoding.UTF8.GetBytes(text);
+        ReadOnlyMemory<byte> bytes = search.Read(binary);
+        byte[] pattern = search.Pattern(continuation is not Nil);
         int position = start;
         while (position <= bytes.Length - pattern.Length)
         {
-            int relative = bytes.AsSpan(position).IndexOf(pattern);
+            int relative = bytes.Span[position..].IndexOf(pattern);
             if (relative < 0)
             {
                 break;
@@ -86,7 +85,7 @@ internal static class StringPatternSearch
             int at = position + relative;
             BitString suffix = binary.SliceBits(at * 8, binary.BitLength - at * 8);
             Term candidate = continuation is Nil ? suffix : new Cons(suffix, continuation);
-            Term? after = await Prefix(context, candidate, needle);
+            Term? after = await Prefix(context, candidate, search.Needle);
             if (after is not null)
             {
                 return new StringBinaryMatch(
@@ -143,6 +142,7 @@ internal static class StringPatternSearch
     )
     {
         Term result = Term.A(StringTextAtoms.NoMatch);
+        var search = new StringBinarySearchBuffer(needle);
         while (true)
         {
             if (input is Cons { Head: BitString binary } binaryCell)
@@ -152,7 +152,7 @@ internal static class StringPatternSearch
                     binary,
                     0,
                     binaryCell.Tail,
-                    needle
+                    search
                 );
                 if (match.Matched)
                 {
@@ -176,7 +176,7 @@ internal static class StringPatternSearch
                     bin,
                     0,
                     Nil.Value,
-                    needle
+                    search
                 );
                 if (!match.Matched)
                 {
@@ -219,6 +219,7 @@ internal static class StringPatternSearch
         string where
     )
     {
+        var search = new StringBinarySearchBuffer(needle);
         Term input = original;
         Term current = Nil.Value;
         Term accumulated = Nil.Value;
@@ -235,7 +236,7 @@ internal static class StringPatternSearch
                     binary,
                     start,
                     continuation,
-                    needle
+                    search
                 );
                 if (!match.Matched)
                 {

@@ -4,7 +4,7 @@ Baseline: **OTP-29.1.1** (`ad05823719d77c8faee87348ea39513d4e2f99c5`).
 
 Registration and passing selected tests do not establish full compatibility. This index separates every registered command by its audited status. The [complete ledger report](API_COMPATIBILITY.md) records scope, evidence and remaining checks for each command.
 
-**180 commands 100% compatible; 27 with known differences; 526 needing verification for 100% compatibility.**
+**180 commands 100% compatible; 39 with known differences; 514 needing verification for 100% compatibility.**
 
 100% compatible applies to the complete observable contract on the supported Erlang term model. It does not assert identical VM internals, timing or performance. Known differences require implementation changes and verification before promotion; pending commands require a complete contract audit and original OTP comparisons.
 
@@ -193,7 +193,7 @@ Registration and passing selected tests do not establish full compatibility. Thi
 | `queue:tail/1` | [Scope, evidence and remaining checks](API_COMPATIBILITY.md#100-compatible) |
 | `queue:to_list/1` | [Scope, evidence and remaining checks](API_COMPATIBILITY.md#100-compatible) |
 
-## Known differences (27)
+## Known differences (39)
 
 | Command | Details |
 | --- | --- |
@@ -210,9 +210,21 @@ Registration and passing selected tests do not establish full compatibility. Thi
 | `erlang:spawn_request/5` | [Scope, evidence and remaining checks](API_COMPATIBILITY.md#known-differences) |
 | `erlang:statistics/1` | [Scope, evidence and remaining checks](API_COMPATIBILITY.md#known-differences) |
 | `erlang:system_flag/2` | [Scope, evidence and remaining checks](API_COMPATIBILITY.md#known-differences) |
+| `ordsets:add_element/2` | [Scope, evidence and remaining checks](API_COMPATIBILITY.md#known-differences) |
+| `ordsets:del_element/2` | [Scope, evidence and remaining checks](API_COMPATIBILITY.md#known-differences) |
+| `ordsets:filtermap/2` | [Scope, evidence and remaining checks](API_COMPATIBILITY.md#known-differences) |
+| `ordsets:from_list/1` | [Scope, evidence and remaining checks](API_COMPATIBILITY.md#known-differences) |
+| `ordsets:intersection/1` | [Scope, evidence and remaining checks](API_COMPATIBILITY.md#known-differences) |
+| `ordsets:intersection/2` | [Scope, evidence and remaining checks](API_COMPATIBILITY.md#known-differences) |
+| `ordsets:is_disjoint/2` | [Scope, evidence and remaining checks](API_COMPATIBILITY.md#known-differences) |
 | `ordsets:is_element/2` | [Scope, evidence and remaining checks](API_COMPATIBILITY.md#known-differences) |
 | `ordsets:is_equal/2` | [Scope, evidence and remaining checks](API_COMPATIBILITY.md#known-differences) |
 | `ordsets:is_set/1` | [Scope, evidence and remaining checks](API_COMPATIBILITY.md#known-differences) |
+| `ordsets:is_subset/2` | [Scope, evidence and remaining checks](API_COMPATIBILITY.md#known-differences) |
+| `ordsets:map/2` | [Scope, evidence and remaining checks](API_COMPATIBILITY.md#known-differences) |
+| `ordsets:subtract/2` | [Scope, evidence and remaining checks](API_COMPATIBILITY.md#known-differences) |
+| `ordsets:union/1` | [Scope, evidence and remaining checks](API_COMPATIBILITY.md#known-differences) |
+| `ordsets:union/2` | [Scope, evidence and remaining checks](API_COMPATIBILITY.md#known-differences) |
 | `proc_lib:hibernate/3` | [Scope, evidence and remaining checks](API_COMPATIBILITY.md#known-differences) |
 | `proc_lib:init_p/3` | [Scope, evidence and remaining checks](API_COMPATIBILITY.md#known-differences) |
 | `proc_lib:init_p/5` | [Scope, evidence and remaining checks](API_COMPATIBILITY.md#known-differences) |
@@ -225,7 +237,7 @@ Registration and passing selected tests do not establish full compatibility. Thi
 | `proc_lib:start_monitor/5` | [Scope, evidence and remaining checks](API_COMPATIBILITY.md#known-differences) |
 | `proc_lib:wake_up/3` | [Scope, evidence and remaining checks](API_COMPATIBILITY.md#known-differences) |
 
-## Needs verification for 100% compatibility (526)
+## Needs verification for 100% compatibility (514)
 
 | Command | Details |
 | --- | --- |
@@ -688,18 +700,6 @@ Registration and passing selected tests do not establish full compatibility. Thi
 | `math:tan/1` | [Scope, evidence and remaining checks](API_COMPATIBILITY.md#needs-verification-for-100-compatibility) |
 | `math:tanh/1` | [Scope, evidence and remaining checks](API_COMPATIBILITY.md#needs-verification-for-100-compatibility) |
 | `math:tau/0` | [Scope, evidence and remaining checks](API_COMPATIBILITY.md#needs-verification-for-100-compatibility) |
-| `ordsets:add_element/2` | [Scope, evidence and remaining checks](API_COMPATIBILITY.md#needs-verification-for-100-compatibility) |
-| `ordsets:del_element/2` | [Scope, evidence and remaining checks](API_COMPATIBILITY.md#needs-verification-for-100-compatibility) |
-| `ordsets:filtermap/2` | [Scope, evidence and remaining checks](API_COMPATIBILITY.md#needs-verification-for-100-compatibility) |
-| `ordsets:from_list/1` | [Scope, evidence and remaining checks](API_COMPATIBILITY.md#needs-verification-for-100-compatibility) |
-| `ordsets:intersection/1` | [Scope, evidence and remaining checks](API_COMPATIBILITY.md#needs-verification-for-100-compatibility) |
-| `ordsets:intersection/2` | [Scope, evidence and remaining checks](API_COMPATIBILITY.md#needs-verification-for-100-compatibility) |
-| `ordsets:is_disjoint/2` | [Scope, evidence and remaining checks](API_COMPATIBILITY.md#needs-verification-for-100-compatibility) |
-| `ordsets:is_subset/2` | [Scope, evidence and remaining checks](API_COMPATIBILITY.md#needs-verification-for-100-compatibility) |
-| `ordsets:map/2` | [Scope, evidence and remaining checks](API_COMPATIBILITY.md#needs-verification-for-100-compatibility) |
-| `ordsets:subtract/2` | [Scope, evidence and remaining checks](API_COMPATIBILITY.md#needs-verification-for-100-compatibility) |
-| `ordsets:union/1` | [Scope, evidence and remaining checks](API_COMPATIBILITY.md#needs-verification-for-100-compatibility) |
-| `ordsets:union/2` | [Scope, evidence and remaining checks](API_COMPATIBILITY.md#needs-verification-for-100-compatibility) |
 | `proc_lib:format/1` | [Scope, evidence and remaining checks](API_COMPATIBILITY.md#needs-verification-for-100-compatibility) |
 | `proc_lib:format/2` | [Scope, evidence and remaining checks](API_COMPATIBILITY.md#needs-verification-for-100-compatibility) |
 | `proc_lib:format/3` | [Scope, evidence and remaining checks](API_COMPATIBILITY.md#needs-verification-for-100-compatibility) |

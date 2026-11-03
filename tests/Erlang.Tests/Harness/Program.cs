@@ -467,6 +467,8 @@ Test(Erlang.Tests.MathLog2OtpNames.Test, Erlang.Tests.MathLog2OtpChecks.Run);
 Test(Erlang.Tests.NativeBindingSelectionNames.Test, Erlang.Tests.NativeBindingSelectionChecks.Run);
 Test(Erlang.Tests.NativeBindingSelectionNames.RaceTest, Erlang.Tests.NativeBindingSelectionChecks.Race);
 
+Test(Erlang.Tests.StringPatternAllocationNames.Test, Erlang.Tests.StringPatternAllocationChecks.Run);
+
 foreach (int part in Enumerable.Range(0, Erlang.Tests.OrdsetsCompatibilityNames.PartCount))
 {
     int selectedPart = part;

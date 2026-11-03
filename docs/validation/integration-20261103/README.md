@@ -30,3 +30,9 @@ No new runtime dependency, third-party license change, NuGet publication or comp
 ## Final local checkpoint
 
 [Complete final regression report](revalidation/merge-full.json.gz) and [log](revalidation/merge-full.log.gz) record9680/9680 passed,0 failed on the fixed integration source window. The real runner emitted733 supported MFAs; canonical strict readiness regenerated against the explicit9263-test/708-MFA previous snapshot. Registered APIs increase25, with no complete-contract promotion. The known native flatmap discrepancy is recorded as3 known differences. Final published-head CI/review remains required before merge.
+
+[Supplemental native all21-API evidence](native-flat-order-all-apis/README.md) supplies actual row counterexamples for all15 affected ordsets APIs and corrects the current ledger to6 verified/15 Known differences. The full immutable archive preserves old/fixed lab source identities and raw streams; the physical-key candidate is not applied in this integration.
+
+## Subsequent pattern-search review fix
+
+[Raw5226+13 comparison, permanent allocation RED/GREEN and source review](string-pattern-review/README.md) record the second StringP2 correction. The earlier9680 report remains the pre-fix window; current9681 full regression and fresh final-head CI/review are required before merge.
