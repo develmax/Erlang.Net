@@ -18,6 +18,18 @@ internal static class EtsCompressed441Names
     internal const string Acquire = "AcquireRead", StoredType = "Erlang.RuntimeEtsStoredObject", Accounting = "accounting";
     internal const string Options = "coreOptions407", TryGet = "TryGetValue", Census = "CoreOwnedCensus420", Bytes = "Bytes";
     internal const string RuntimeGate = "gate", ExtentType = "Erlang.RuntimeManagedObjectExtent420", Measure = "Measure", Memory = "memory";
+    internal const string CustodyUpdateCounter = "CoreUpdateCounter417";
+    internal const string CustodyUpdateElement = "CoreUpdateElement414";
+    internal const string CustodyTraverse = "CoreTraverse416";
+    internal const string CustodyRemove = "CoreRemove414";
+    internal const string CustodyInfo = "CoreInfo420";
+    internal const string CustodyData = "data";
+    internal const int CustodyPrintedArgument = 3;
+    internal const int CustodyField = 3;
+    internal const int CustodyInitial = 0;
+    internal const int CustodyIncrement = 1;
+    internal const int CustodyUpdated = 2;
+    internal const int CustodyNonmatch = 3;
     internal const string Failure = "Actual compressed ETS storage control failed";
     internal const int KeyField = 2, ValueField = 1, RepetitiveBytes = 32768;
     internal static readonly string[] Kinds = ["set", "ordered_set", "bag", "duplicate_bag"];

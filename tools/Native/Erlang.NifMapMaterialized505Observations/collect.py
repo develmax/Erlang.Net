@@ -39,10 +39,16 @@ def dependencies(root, rows):
         path = (root / row['Path']).resolve()
         require(path.is_relative_to(root), 'dependency escapes root')
         raw = path.read_bytes()
-        require(row['HashMode'] == 'TextLF', 'declared dependency hash mode')
-        actual = hashlib.sha256(raw.replace(b'\r\n', b'\n')).hexdigest().upper()
+        mode = row['HashMode']
+        if mode == 'Raw':
+            selected = raw
+        elif mode == 'TextLF':
+            selected = raw.replace(b'\r\n', b'\n')
+        else:
+            raise RuntimeError('declared dependency hash mode')
+        actual = hashlib.sha256(selected).hexdigest().upper()
         require(actual == row['Sha256'], 'dependency seal: ' + row['Path'])
-        proof.append(dict(Path=row['Path'], HashMode='TextLF', PlannedSha256=actual,
+        proof.append(dict(Path=row['Path'], HashMode=mode, PlannedSha256=actual,
             ActualRawSha256=sha(path), ActualRawBytes=len(raw)))
     return proof
 

@@ -14,6 +14,9 @@ internal static class BinaryOwned512Names
     internal const string CapacityBytes = "CapacityBytes";
     internal const string ReferenceCounted = "ReferenceCounted";
     internal const string Storage = "Storage";
+    internal const string MailboxGate = "gate";
+    internal const string MailboxMessages = "messages";
+    internal const string MailboxEntryValue = "Value";
     internal const string DictionaryGate = "gate";
     internal const string DictionaryData = "data";
     internal const string DictionaryKey = "binary_root512";

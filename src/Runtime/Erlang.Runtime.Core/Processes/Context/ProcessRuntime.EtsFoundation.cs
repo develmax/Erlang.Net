@@ -38,7 +38,8 @@ public sealed partial class ProcessRuntime
             DrainHamtIndex429(),
             DrainDriverFrontend422(),
             DrainCodePurger432(),
-            DrainAllocatorGather434()
+            DrainAllocatorGather434(),
+            DrainStatisticsTraps()
         );
         try
         {

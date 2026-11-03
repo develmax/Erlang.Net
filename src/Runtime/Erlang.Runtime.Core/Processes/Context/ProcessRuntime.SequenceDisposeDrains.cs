@@ -32,6 +32,7 @@ public sealed partial class ProcessRuntime
             DrainDriverFrontend422(),
             DrainCodePurger432(),
             DrainAllocatorGather434(),
+            DrainStatisticsTraps(),
             DrainOwnedTermContexts506()
         ).ConfigureAwait(false);
         if (ownsStandardStreams)

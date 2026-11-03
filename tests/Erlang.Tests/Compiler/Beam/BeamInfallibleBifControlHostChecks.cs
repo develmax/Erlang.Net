@@ -10,6 +10,7 @@ internal static class BeamInfallibleBifControlHostChecks
         foreach ((string function, int arity) in new[] { (Get, 1), (Min, 2), (Max, 2) })
         {
             await using var runtime = new ProcessRuntime();
+            await DebugSame420HostAccess.Initialize(runtime);
             runtime.Modules.DeleteModule(ErlangModuleNames.Module);
             int overrides = 0;
             runtime.Modules.Register(
@@ -25,6 +26,10 @@ internal static class BeamInfallibleBifControlHostChecks
             BeamModule opcode = BeamModule.Prepare(BeamInfallibleBifControlBytes.Image(function, arity));
             BeamModule remote = BeamModule.Prepare(BeamInfallibleBifControlBytes.Remote(function, arity));
             Require(opcode.Supports(BeamOpcodeEdgeNames.Run, arity) && remote.Supports(BeamOpcodeEdgeNames.Run, arity));
+            BeamModule identity = BeamModule.Prepare(BeamInfallibleBifControlBytes.Identity(function, arity),
+                new BeamDependencySelection([DebugSame420HostNames.Module]));
+            Require(identity.Supports(BeamOpcodeEdgeNames.Run, arity));
+            object? measuredHeap = null;
             await using var actor = new RuntimeNodeFoundationHostActor(runtime);
             await actor.InvokeAsync(async context =>
             {
@@ -33,9 +38,42 @@ internal static class BeamInfallibleBifControlHostChecks
                 Term[] arguments = arity == 1 ? [first] : [first, second];
                 Term expected = arity == 1 ? stored : first;
                 Term result = await opcode.Invoke(context, BeamOpcodeEdgeNames.Run, arguments);
-                Require(result.Equals(expected) && ReferenceEquals(result, expected) && overrides == 0);
+                Require(result.Equals(expected) && overrides == 0);
                 if (arity == 1)
+                {
+                    // Boxed Host results detach at the public boundary. Observe
+                    // actual boxed word identity INSIDE genuine guest execution.
+                    Require((await identity.Invoke(context, BeamOpcodeEdgeNames.Run, first))
+                        .Equals(Term.A(ErlangBooleanAtoms.True)));
+                    // The cold invocation above warms the actual original same
+                    // primitive and frame machinery before the bounded window.
+                    measuredHeap = BeamBinaryHostAccess.Property(context, HeapProperty);
+                    var before = Memory(measuredHeap);
+                    Require((await identity.Invoke(context, BeamOpcodeEdgeNames.Run, first))
+                        .Equals(Term.A(ErlangBooleanAtoms.True)));
+                    var after = Memory(measuredHeap);
+                    Require(after.Words == before.Words && after.Collections == before.Collections
+                        && after.Frames == before.Frames && after.Blocks == before.Blocks);
+                    Require(overrides == 0);
                     Require((await opcode.Invoke(context, BeamOpcodeEdgeNames.Run, Term.I(2))).Equals(Term.A(ProcessDictionaryAtoms.Undefined)));
+                }
+                else
+                {
+                    Require(result is Integer);
+                    Term firstBox = Term.Tuple(Term.I(394));
+                    Term secondBox = Term.Tuple(Term.I(394));
+                    Require(!ReferenceEquals(firstBox, secondBox));
+                    // Equal distinct boxes distinguish the selected argument;
+                    // the observer executes before either public result export.
+                    Require((await identity.Invoke(
+                        context,
+                        BeamOpcodeEdgeNames.Run,
+                        firstBox,
+                        secondBox
+                    ))
+                        .Equals(Term.A(ErlangBooleanAtoms.True)));
+                    Require(overrides == 0);
+                }
                 bool failed = false;
                 try
                 {
@@ -64,6 +102,26 @@ internal static class BeamInfallibleBifControlHostChecks
 
                 return true;
             });
+            if (measuredHeap is not null)
+            {
+                await actor.DisposeAsync();
+                var retired = Memory(measuredHeap);
+                Require(retired.Words == 0 && retired.Blocks == 0 && retired.Frames == 0);
+            }
+        }
+    }
+
+    private static (long Words, long Collections, long Frames, long Blocks) Memory(object heap)
+    {
+        lock (BeamBinaryHostAccess.Property(heap, HeapGateProperty))
+        {
+            object snapshot = BeamBinaryHostAccess.Property(heap, HeapSnapshotProperty);
+            object generations = BeamBinaryHostAccess.Property(heap, GenerationsProperty);
+
+            return (Convert.ToInt64(BeamBinaryHostAccess.Property(snapshot, HeapWordsProperty)),
+                Convert.ToInt64(BeamBinaryHostAccess.Property(generations, CollectionsProperty)),
+                Convert.ToInt64(BeamBinaryHostAccess.Property(snapshot, HeapFramesProperty)),
+                Convert.ToInt64(BeamBinaryHostAccess.Property(snapshot, HeapBlocksProperty)));
         }
     }
 

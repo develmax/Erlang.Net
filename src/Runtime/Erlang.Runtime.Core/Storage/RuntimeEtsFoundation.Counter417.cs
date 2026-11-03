@@ -25,6 +25,7 @@ internal sealed partial class RuntimeEtsFoundation
         }
         while (true)
         {
+            using var planningCopies = new AtomicsHostCopyTransaction591();
             context.Cancellation.ThrowIfCancellationRequested();
             RuntimeEtsObjectSlot? original = null;
             TupleTerm value;
@@ -35,7 +36,7 @@ internal sealed partial class RuntimeEtsFoundation
                 foreach (var slot in CoreRows420(table))
                 {
                     context.Cancellation.ThrowIfCancellationRequested();
-                    var row = CoreRead407(slot.Payload, context.Cancellation);
+                    var row = CoreReadSelected594(slot.Payload, context.Cancellation, planningCopies);
                     if (!EtsCorePlanner407.SameKey(CoreKey407(row, metadata.KeyPosition), key, metadata.Kind)) continue;
                     original = slot;
                     break;
@@ -48,7 +49,7 @@ internal sealed partial class RuntimeEtsFoundation
                     fields[(int)metadata.KeyPosition - 1] = key;
                     value = new TupleTerm(fields);
                 }
-                else value = CoreRead407(original.Payload, context.Cancellation);
+                else value = CoreReadSelected594(original.Payload, context.Cancellation, planningCopies);
             }
             // Source validates every operation against the original tuple before mutation.
             TupleTerm changed = EtsCounterPlan417.Apply(
@@ -83,7 +84,7 @@ internal sealed partial class RuntimeEtsFoundation
                     foreach (var slot in CoreRows420(table))
                     {
                         context.Cancellation.ThrowIfCancellationRequested();
-                        var row = CoreRead407(slot.Payload, context.Cancellation);
+                        var row = CoreReadSelected594(slot.Payload, context.Cancellation, planningCopies);
                         if (EtsCorePlanner407.SameKey(CoreKey407(row, metadata.KeyPosition), key, metadata.Kind))
                         {
                             current = slot;

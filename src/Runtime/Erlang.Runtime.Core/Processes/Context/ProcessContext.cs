@@ -19,8 +19,10 @@ public sealed partial class ProcessContext : ITermExecutionContext
             Owner = pid,
             Runtime593 = runtime,
             IncomingTerm = Runtime.ObserveIncomingTerm,
+            TrySendBacked = (message, priority) => Runtime.TrySendBackedRawMailbox(this, message, priority),
             HaltRequested = () => Runtime.IsHaltRequested,
             ProcessSignals = () => Runtime.AdmitSignals(this),
+            ProcessStoragePolicies = () => Runtime.DrainMessageQueuePoliciesAsync(this),
             PendingSignalAdded428 = priority => Runtime.NotifyDirtySignalHandler428(this, priority),
             WaitForExecution = WaitIfSuspended,
             SuspensionTime = () => Interlocked.Read(ref cumulativeSuspensionTicks),
@@ -468,6 +470,8 @@ public sealed partial class ProcessContext : ITermExecutionContext
         {
             Runtime.ThrowIfHalted();
             Cancellation.ThrowIfCancellationRequested();
+            if (Mailbox.HasMessageQueuePolicyWork)
+                return ChargeAfterStoragePolicies(count, capToRemainingSlice);
             if (SuspensionRequested)
                 return ChargeAfterSuspension156(count, capToRemainingSlice);
 
@@ -482,6 +486,17 @@ public sealed partial class ProcessContext : ITermExecutionContext
 
             return completion.Task;
         }
+    }
+
+    private async ValueTask ChargeAfterStoragePolicies(int count, bool capToRemainingSlice)
+    {
+        Runtime.AdmitSignals(this);
+        await Runtime.DrainMessageQueuePoliciesAsync(this);
+        Runtime.ThrowIfHalted();
+        Cancellation.ThrowIfCancellationRequested();
+        if (SuspensionRequested)
+            await WaitIfSuspended();
+        await ChargeReady156(count, capToRemainingSlice);
     }
 
     private async ValueTask ChargeAfterSuspension156(int count, bool capToRemainingSlice)

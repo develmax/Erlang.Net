@@ -485,6 +485,21 @@ public sealed partial class ModuleRegistry
                         out ErlangFunction allocatorGather434
                     ))
                     primitives.Add((function.Name, function.Arity), allocatorGather434);
+                else if (!functions.ContainsKey(signature) && !sourceOwners.ContainsKey(signature)
+                    && InternalBootstrapNativeCapture.TryCapture(
+                        owningRuntime,
+                        this,
+                        signature.Module,
+                        signature.Name,
+                        signature.Arity,
+                        out ErlangFunction bootstrapPrimitive,
+                        out OwnedBindingKind507 bootstrapKind
+                    ))
+                {
+                    primitives.Add((function.Name, function.Arity), bootstrapPrimitive);
+                    if (owned507 is not null && bootstrapKind != OwnedBindingKind507.Opaque)
+                        owned507[bootstrapPrimitive] = bootstrapKind;
+                }
                 else
                     throw new NotSupportedException(BeamRegisterNames.Unsupported);
             }

@@ -9,6 +9,10 @@ internal sealed partial class BeamRegisterState
 
     private void WriteXSlot507(int index, BeamRegisterSlot value, bool adopt)
     {
+        if (!adopt && value.Kind == BeamRegisterSlotKind.Term && values[index].Kind == BeamRegisterSlotKind.Term
+            && ReferenceEquals(values[index].ReadTerm(), value.ReadTerm())
+            && roots507?.KeepsPublishedTerm550(index, value.ReadTerm()) == true)
+            return;
         BeamRegisterSlot prepared = roots507?.Prepare(index, value, adopt) ?? value;
         try
         {

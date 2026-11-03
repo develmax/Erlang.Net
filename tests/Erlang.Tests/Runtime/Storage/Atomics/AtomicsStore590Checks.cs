@@ -11,16 +11,21 @@ internal static class AtomicsStore590Checks
 {
     internal static Task QueueHandoff() => Run(0);
 
-    internal static Task EtsHandoff() => Run(1);
+    internal static async Task EtsHandoff()
+    {
+        await Run(1);
+        await Run(1, compressed: true);
+        await Run(1, compressed: true, keyIdentity: true);
+    }
 
     internal static Task PersistentHandoff() => Run(2);
 
-    private static Task Run(int route) => AtomicsP2a586Checks.Run(async fixture =>
+    private static Task Run(int route, bool compressed = false, bool keyIdentity = false) => AtomicsP2a586Checks.Run(async fixture =>
     {
         var failures = new List<Exception>();
         RuntimeNodeFoundationHostActor? sender = null, receiver = null;
         IDisposable? sourceFrame = null, destinationFrame = null, producer = null, transportCarrier = null, returnedCarrier = null;
-        Func<Task>? removeStore = null;
+        Func<Task>? removeStore = null, exerciseStore = null;
         try
         {
             producer = fixture.Lease(AtomicsP2a586Names.ProducerKind);
@@ -62,28 +67,136 @@ internal static class AtomicsStore590Checks
             else if (route == 1)
             {
                 object store = EtsFoundation405Access.Get(fixture.Runtime);
-                Term table = await sender.Invoke(context => EtsFoundation405Access.Create(store, context));
-                removeStore = async () =>
+                if (compressed)
                 {
-                    await sender.Invoke(context => EtsFoundation405Access.Invoke(
+                    Term table = await sender.Invoke(context => (Term)EtsFoundation405Access.Invoke(
                         store,
-                        EtsFoundation405Names.Destroy,
+                        EtsKeyKernel407Names.New,
                         context,
-                        table
+                        Term.A(Key),
+                        Term.List(Term.A(EtsCompressed441Names.Compressed), Term.A(EtsTraversal416HostNames.Ordered))
+                    )!);
+                    removeStore = async () =>
+                    {
+                        await sender.Invoke(context => EtsFoundation405Access.Invoke(
+                            store,
+                            EtsKeyKernel407Names.DeleteTable,
+                            context,
+                            table
+                        ));
+                    };
+                    TupleTerm row = keyIdentity
+                        ? Term.Tuple(source, key, Term.I(EtsCompressed441Names.CustodyInitial))
+                        : Term.Tuple(key, source, Term.I(EtsCompressed441Names.CustodyInitial));
+                    await sender.InvokeAsync(context => ((ValueTask<Term>)EtsFoundation405Access.Invoke(
+                        store,
+                        EtsKeyKernel407Names.Insert,
+                        context,
+                        table,
+                        row
+                    )!).AsTask());
+                    Term lookupKey = keyIdentity ? fixture.Reference : key;
+                    exerciseStore = async () =>
+                    {
+                        Term incremented = await sender.InvokeAsync(context => ((ValueTask<Term>)EtsFoundation405Access.Invoke(
+                            store,
+                            EtsCompressed441Names.CustodyUpdateCounter,
+                            context,
+                            table,
+                            lookupKey,
+                            Term.Tuple(Term.I(EtsCompressed441Names.CustodyField), Term.I(EtsCompressed441Names.CustodyIncrement)),
+                            false,
+                            Nil.Value
+                        )!).AsTask());
+                        Require(incremented.Equals(Term.I(EtsCompressed441Names.CustodyIncrement)));
+                        Term updated = await sender.InvokeAsync(context => ((ValueTask<Term>)EtsFoundation405Access.Invoke(
+                            store,
+                            EtsCompressed441Names.CustodyUpdateElement,
+                            context,
+                            table,
+                            lookupKey,
+                            Term.Tuple(Term.I(EtsCompressed441Names.CustodyField), Term.I(EtsCompressed441Names.CustodyUpdated)),
+                            false,
+                            Nil.Value
+                        )!).AsTask());
+                        Require(updated.Equals(Term.A(ErlangBooleanAtoms.True)));
+                        Term next = await sender.Invoke(context => (Term)EtsFoundation405Access.Invoke(
+                            store,
+                            EtsCompressed441Names.CustodyTraverse,
+                            context,
+                            table,
+                            lookupKey,
+                            true,
+                            false,
+                            false
+                        )!);
+                        Require(next.Equals(Term.A(EtsTraversal416HostNames.End)));
+                        TupleTerm unmatched = keyIdentity
+                            ? Term.Tuple(fixture.Reference, key, Term.I(EtsCompressed441Names.CustodyNonmatch))
+                            : Term.Tuple(key, fixture.Reference, Term.I(EtsCompressed441Names.CustodyNonmatch));
+                        Term removed = await sender.InvokeAsync(context => ((ValueTask<Term>)EtsFoundation405Access.Invoke(
+                            store,
+                            EtsCompressed441Names.CustodyRemove,
+                            context,
+                            table,
+                            unmatched,
+                            false
+                        )!).AsTask());
+                        Require(removed.Equals(Term.A(ErlangBooleanAtoms.True)));
+                        await sender.Invoke(context =>
+                        {
+                            object?[] arguments = [context, table, Term.A(EtsCompressed441Names.CustodyData), null];
+                            var printed = (Term)EtsFoundation405Access.Invoke(
+                                store,
+                                EtsCompressed441Names.CustodyInfo,
+                                arguments
+                            )!;
+                            Require(printed.Equals(Term.A(ErlangBooleanAtoms.True))
+                                && arguments[EtsCompressed441Names.CustodyPrintedArgument] is byte[] { Length: > 0 });
+
+                            return true;
+                        });
+                    };
+                    read = () => receiver.Invoke(context =>
+                    {
+                        var restoredRow = (TupleTerm)Cons.Items((Term)EtsFoundation405Access.Invoke(
+                            store,
+                            EtsKeyKernel407Names.Lookup,
+                            context,
+                            table,
+                            lookupKey
+                        )!).Single();
+                        Require(restoredRow.Items[EtsCompressed441Names.CustodyField - 1]
+                            .Equals(Term.I(EtsCompressed441Names.CustodyUpdated)));
+
+                        return restoredRow.Items[keyIdentity ? 0 : 1];
+                    });
+                }
+                else
+                {
+                    Term table = await sender.Invoke(context => EtsFoundation405Access.Create(store, context));
+                    removeStore = async () =>
+                    {
+                        await sender.Invoke(context => EtsFoundation405Access.Invoke(
+                            store,
+                            EtsFoundation405Names.Destroy,
+                            context,
+                            table
+                        ));
+                    };
+                    long slot = await sender.Invoke(context => EtsFoundation405Access.Store(
+                        store,
+                        context,
+                        table,
+                        Term.Tuple(key, source)
                     ));
-                };
-                long slot = await sender.Invoke(context => EtsFoundation405Access.Store(
-                    store,
-                    context,
-                    table,
-                    Term.Tuple(key, source)
-                ));
-                read = () => receiver.Invoke(context => ((TupleTerm)EtsFoundation405Access.Read(
-                    store,
-                    context,
-                    table,
-                    slot
-                )).Items[1]);
+                    read = () => receiver.Invoke(context => ((TupleTerm)EtsFoundation405Access.Read(
+                        store,
+                        context,
+                        table,
+                        slot
+                    )).Items[1]);
+                }
             }
             else
             {
@@ -118,6 +231,7 @@ internal static class AtomicsStore590Checks
             // The source header is retired BEFORE the destination reads.
             // A store must retain backing plus a valid reconstructable identity,
             // not merely the old source wrapper whose words are now stale.
+            if (exerciseStore is not null) await exerciseStore();
             Term restored = await read();
             if (restored is ResourceReferenceTerm restoredReference)
                 returnedCarrier = typeof(ResourceReferenceTerm).GetProperty(HostCarrier, Members)!.GetValue(restoredReference) as IDisposable;

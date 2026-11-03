@@ -50,15 +50,37 @@ internal static class BinaryOwned512Checks
         Call(frameA, Clear, slotA);
         Check((long)Property(Property(heapA, BinarySnapshot), ReferenceBytes) == 0);
         Check((long)Property(Total(runtime), ReferenceBytes) == PayloadBytes);
-        // A pending mailbox value and exported host wrapper own the actual
-        // managed backing independently of explicit guest-frame root leases.
+        // Public send prepares a real recipient fragment. Its queued native
+        // backing must remain rooted after the explicit provider slots clear.
         contextB.Mailbox.Send(slice);
+        BitString queued = QueuedBinary(contextB.Mailbox);
+        object queuedPayload = Call(queued, Capture)!;
+        long queuedCapacity = (long)Property(queuedPayload, CapacityBytes);
+        Check(queued.Equals(slice)
+            && Property(queuedPayload, NativeIdentity) is not null
+            && queuedCapacity >= slice.ToArray().Length);
         Call(frameB, Clear, slotB);
         Call(heapA, Collect);
         Call(heapB, Collect);
-        Check((long)Property(Total(runtime), ReferenceBytes) == 0);
+        object pending = Total(runtime);
+        Check((long)Property(pending, ReferenceBytes) == queuedCapacity
+            && (int)Property(pending, Distinct) == 1
+            && (long)Property(pending, References) > 0);
         Term? received = await contextB.Mailbox.ReceiveAsync<Term>(value => value, TimeSpan.Zero);
-        Check(received is BitString message && ReferenceEquals(Backing(message), Backing(binary)));
+        Check(received is BitString);
+        var message = (BitString)received!;
+        Check(message.Equals(slice)
+            && Property(Call(message, Capture)!, NativeIdentity) is null
+            && heapB.GetType().GetMethod(Storage, Static)!.Invoke(null, [message]) is null);
+        // Drop the external test frames before joining actual process/queue
+        // retirement; otherwise those frames themselves keep the heap open.
+        frameA.Dispose();
+        frameB.Dispose();
+        await actorB.DisposeAsync();
+        Check((long)Property(Total(runtime), ReferenceBytes) == 0
+            && (int)Property(Total(runtime), Distinct) == 0
+            && (long)Property(Total(runtime), References) == 0);
+        Check(message.Equals(slice) && message.ToArray().All(value => value == 0));
         Check(binary.ToArray().SequenceEqual(data) && slice.ToArray().All(value => value == 0));
     }
 
@@ -177,6 +199,23 @@ internal static class BinaryOwned512Checks
         Check(copied.Length == PayloadBytes);
 
         return Task.CompletedTask;
+    }
+
+    private static BitString QueuedBinary(Mailbox mailbox)
+    {
+        // This test has one sender and no concurrent receiver. Snapshot only
+        // the Entry reference under M, then inspect native payload outside M.
+        object entry;
+        object mailboxGate = mailbox.GetType().GetField(MailboxGate, Members)!.GetValue(mailbox)!;
+        lock (mailboxGate)
+        {
+            var messages = (System.Collections.IEnumerable)mailbox.GetType().GetField(MailboxMessages, Members)!.GetValue(mailbox)!;
+            entry = messages.Cast<object>().Single();
+        }
+        var value = (BitString)Property(entry, MailboxEntryValue);
+        Check(value is not null);
+
+        return value!;
     }
 
     private static object Backing(BitString value) => Property(Call(value, Capture)!, Identity);

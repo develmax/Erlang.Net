@@ -2,6 +2,7 @@ namespace Erlang.Tests;
 
 internal static class BeamPositionOwner398Names
 {
+    internal const byte Move = 64;
     internal const byte SavePosition = 167;
     internal const byte RestorePosition = 168;
     internal const byte ExtractTail = 165;

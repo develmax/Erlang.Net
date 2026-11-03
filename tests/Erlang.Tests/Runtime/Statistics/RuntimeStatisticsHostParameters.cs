@@ -10,12 +10,7 @@ internal static class RuntimeStatisticsHostParameters
     public static readonly TimeSpan BusyInterval = TimeSpan.FromMilliseconds(2);
     public static readonly TimeSpan Timeout = TimeSpan.FromSeconds(20);
     public const string Failure = "Statistics actual shared clock/user CPU contract failed";
-    public static readonly string[] PhysicalKeys =
-    [
-        RuntimeStatisticsNames.ContextSwitches,
-        RuntimeStatisticsNames.Io,
-        RuntimeStatisticsNames.MicrostateAccounting,
-        RuntimeStatisticsNames.SchedulerWallTime,
-        RuntimeStatisticsNames.SchedulerWallTimeAll
-    ];
+    public const string Input = "input";
+    public const string Output = "output";
+    public const int MicrostateFields = 3;
 }

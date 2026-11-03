@@ -1,0 +1,290 @@
+{
+  "Scope": "Completed local correction of eight exact949 Windows regression failures; new exact-head CI/review/merge remain pending",
+  "PreviousHead": "949fb98f72b44b4313f7854207a63b9140427974",
+  "PreviousCi": {
+    "FullRegressionPassed": 9588,
+    "FullRegressionTotal": 9596,
+    "Failed": 8,
+    "N1Green": 41574613962,
+    "IntegratedGreen": 41574611809,
+    "GcGreen": 41574613915,
+    "GeneralFailed": 41574613839,
+    "IndependentWindowsNativeComparisons": "All successful; only validate.ps1 failed; setup-dotnet post step skipped"
+  },
+  "Local": {
+    "EightOriginalFailuresPass": true,
+    "DistinctAffectedCases": 610,
+    "DisjointBatchSizes": [
+      394,
+      216
+    ],
+    "RetainedPrevious577": true,
+    "NeighborCases": 30,
+    "Full9596Claimed": false,
+    "ReleaseControls": [
+      {
+        "Command": [
+          "C:\\Program Files\\dotnet\\dotnet.exe",
+          "exec",
+          "--fx-version",
+          "10.0.11",
+          "--roll-forward",
+          "Disable",
+          "D:\\Distr\\Work\\Codex\\Erlang.Net\\w546\\artifacts\\statistics-full\\main-gc825-integration36\\workspace\\tests\\Runtime\\Erlang.NativeGc.Observations\\bin\\Release\\net10.0\\Erlang.Tests.dll",
+          "preparedNative810"
+        ],
+        "Pid": 56500,
+        "ExitCode": 0,
+        "ElapsedSeconds": 1.889999999999418,
+        "TimedOut": false,
+        "ForcedCleanup": false,
+        "ActiveProcessesAfter": 0,
+        "ResourcesClosed": true,
+        "Errors": [],
+        "TotalProcesses": 2,
+        "UserCpuSeconds": 1.0,
+        "KernelCpuSeconds": 0.78125,
+        "PeakJobCommitBytes": 55169024,
+        "PeakProcessCommitBytes": 48562176,
+        "StdoutSha256": "204E5DBFF2D294E291322F04DF780ACE1002570472666B73E07E94E253BB35F6",
+        "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+      },
+      {
+        "Command": [
+          "C:\\Program Files\\dotnet\\dotnet.exe",
+          "exec",
+          "--fx-version",
+          "10.0.11",
+          "--roll-forward",
+          "Disable",
+          "D:\\Distr\\Work\\Codex\\Erlang.Net\\w546\\artifacts\\statistics-full\\main-gc825-integration36\\workspace\\tests\\Runtime\\Erlang.NativeGc.Observations\\bin\\Release\\net10.0\\Erlang.Tests.dll",
+          "preparedAdmission810"
+        ],
+        "Pid": 46368,
+        "ExitCode": 0,
+        "ElapsedSeconds": 1.187999999994645,
+        "TimedOut": false,
+        "ForcedCleanup": false,
+        "ActiveProcessesAfter": 0,
+        "ResourcesClosed": true,
+        "Errors": [],
+        "TotalProcesses": 2,
+        "UserCpuSeconds": 0.84375,
+        "KernelCpuSeconds": 0.40625,
+        "PeakJobCommitBytes": 49352704,
+        "PeakProcessCommitBytes": 42741760,
+        "StdoutSha256": "D59E681E9D3436D8DBDBD0A24F14647E0AD715D8B56827C35AA4E2F51554D188",
+        "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+      }
+    ],
+    "SevenFinalBuildsPass": true,
+    "FinalNormalBuild": {
+      "Command": [
+        "C:\\Program Files\\dotnet\\dotnet.exe",
+        "build",
+        "tests/Erlang.Tests/Erlang.Tests.csproj",
+        "--no-restore",
+        "-m:1",
+        "--nologo",
+        "--disable-build-servers"
+      ],
+      "Pid": 46532,
+      "ExitCode": 0,
+      "ElapsedSeconds": 2.5789999999979045,
+      "TimedOut": false,
+      "ForcedCleanup": false,
+      "ActiveProcessesAfter": 0,
+      "ResourcesClosed": true,
+      "Errors": [],
+      "TotalProcesses": 2,
+      "UserCpuSeconds": 2.15625,
+      "KernelCpuSeconds": 0.59375,
+      "PeakJobCommitBytes": 117063680,
+      "PeakProcessCommitBytes": 110432256,
+      "StdoutSha256": "B06F99A5AAB3688C53503CF463335693C528CA7C01345155D34EBA846B06CB3D",
+      "StderrSha256": "43C8897FC50560E217AACE8984EC7E1AA8DF8EC13D3B6AAEE346A300D0D3EEAD"
+    },
+    "FinalNonCacheSourceInputs": 13839,
+    "UnchangedExecutedRuntimePayloads": 83,
+    "SourceFreezeSha256": "899F75E9197D78A48C1B80A3CA960303DA47E7FC5AC8A36BCE69BB61C9CA9F21",
+    "Admissions": {
+      "focused13": {
+        "Passed": true,
+        "ExitCode": 0,
+        "FailureCount": 0,
+        "Checks": [
+          {
+            "Plan": "Erlang.NifMapFamily504Observations",
+            "Passed": true
+          },
+          {
+            "Plan": "Erlang.NifMapMaterialized505Observations",
+            "Passed": true
+          },
+          {
+            "Plan": "Erlang.NifMapReentry505Observations",
+            "Passed": true
+          },
+          {
+            "Plan": "tools/Runtime/Erlang.OwnedGuest506Observations",
+            "Passed": true
+          },
+          {
+            "Plan": "tools/Native/Erlang.NifVariadic526Observations",
+            "Passed": true
+          },
+          {
+            "Plan": "Pending",
+            "Passed": true
+          },
+          {
+            "Plan": "Reallocation",
+            "Passed": true
+          },
+          {
+            "Plan": "Private557",
+            "Passed": true
+          },
+          {
+            "Plan": "Erlang.Dictionary537Observations",
+            "Passed": true
+          },
+          {
+            "Plan": "Erlang.MatchSaved634Observations",
+            "Passed": true
+          },
+          {
+            "Plan": "Erlang.EtsDispatch540Observations",
+            "Passed": true
+          },
+          {
+            "Plan": "Erlang.MonitorOriginal645Observations",
+            "Passed": true
+          },
+          {
+            "Plan": "Erlang.BeamFunction542Observations",
+            "Passed": true
+          }
+        ]
+      },
+      "mfa": {
+        "Passed": true,
+        "ExitCode": 0,
+        "FailureCount": 0,
+        "Checks": []
+      },
+      "resource529": {
+        "Passed": true,
+        "ExitCode": 0,
+        "FailureCount": 0,
+        "Checks": []
+      }
+    }
+  },
+  "ProductionRepair": "Canonical PreparedGuest get uses only a fresh real LocalDictionary child, retains actual value into parent before child retirement, preserves parent authority and existing public/opaque fallback. No generic admission widening.",
+  "Tests": "Genuine original same/2 checks guest identities before public export. Actual process GC witnesses allocation blocks/reclamation/rooted survivors rather than global CLR counters. Binary mailbox test proves real queued native capacity/roots then physical retirement and detached HOST survival. Offline worker requires actual dictionary frame ownership/membership without execution admission. Negative controls, deadlines, original fixtures/goldens and catalog remain.",
+  "DraftFailure": "1053 nullable CS8603 after a non-annotated non-null assertion; only null-forgiving return suppression corrected, then1061 build and1060 eight-case pass. Original draft failure retained.",
+  "Style": {
+    "Files": 18,
+    "UnchangedRoslynTokens": 16623,
+    "TriviaPostimages": 10
+  },
+  "Metadata": "17 reviewed postimages; old953/1012 history preserved; distinct1047 monitor snapshot; actual Tool README roots, mode-aware SealedBytes/Bytes and CollectorSha256 checked.",
+  "Receipts": [
+    {
+      "Path": "ci949/failure-inventory.json",
+      "Sha256": "59ADF88F986608AAEB1AE77675B08932443102DE40D9284A958D318782F6BB49",
+      "Bytes": 1421
+    },
+    {
+      "Path": "ci949/jobs.json",
+      "Sha256": "26E16040A134E27840E7BEE39B78312A26A3C100EE20D8F62766D36090FA2D6C",
+      "Bytes": 25343
+    },
+    {
+      "Path": "ci949/runs.json",
+      "Sha256": "C9EE6C8EE88D88CF18C9A7334CEC975E7A614771D8B879E4F16167423FD2B42E",
+      "Bytes": 1418
+    },
+    {
+      "Path": "eight-controls1060.json",
+      "Sha256": "966C2295B331E9D66BF4E47A05544CBC59AC58575FD464631962FF61E78AC678",
+      "Bytes": 1835
+    },
+    {
+      "Path": "affected/batch0-report.json",
+      "Sha256": "C887FEB70016370C0A067FDA462D0384178D6D29CF551173281FE9AFC637D9F0",
+      "Bytes": 87158
+    },
+    {
+      "Path": "affected/batch1-report.json",
+      "Sha256": "4807336D0F0DEC99DEE55E312F23AA0DECEB81A755891E13EA68CDEF1F79680F",
+      "Bytes": 47314
+    },
+    {
+      "Path": "source/admissions1065.json",
+      "Sha256": "AAE0DD8EE18AE6EDD8F10DF31617E53D0220F94FA56251ED6B4F72094B375838",
+      "Bytes": 5743
+    },
+    {
+      "Path": "source/mfa.json",
+      "Sha256": "1081EACC41F14F96DFD4AE4099FAB02A0587F42FECAF438C35932D9D8C1FF0BC",
+      "Bytes": 987
+    },
+    {
+      "Path": "source/resource529.json",
+      "Sha256": "AE84FD532CB9E706C731CA5FEA10E2C2129F04F04C28AF2AE904DF7B253E3C27",
+      "Bytes": 314
+    },
+    {
+      "Path": "review/canonical-get1038.json",
+      "Sha256": "E06B225F5FD00B3B0D59AF31416334CF1B0D16120A8D0C8D2B6436E163C81768",
+      "Bytes": 2600
+    },
+    {
+      "Path": "review/binary1059.json",
+      "Sha256": "25ED0A62989074C679926F7EC86A9D0EF81C95B120464EB303F6DF2E33663139",
+      "Bytes": 4305
+    },
+    {
+      "Path": "review/metadata1064.json",
+      "Sha256": "A9A9048AB1D75B35A28B4A07932268DD7FD810D63B95A6F5DE503323ABB40FB9",
+      "Bytes": 2576
+    },
+    {
+      "Path": "style1054.json",
+      "Sha256": "1F629B189D811399045473E3A321C9BF4AA5905E5C2F2347DD27C87220C2B106",
+      "Bytes": 14263
+    },
+    {
+      "Path": "metadata1063.json",
+      "Sha256": "D5BE4D1690F5CA949351A89D3D16AB18580F7C79955178124C21408A0EC001AA",
+      "Bytes": 17140
+    },
+    {
+      "Path": "red/original-five1029.json",
+      "Sha256": "CF178371C8D8F7975F32547C06C355A4AD0AD65CEE08855EF4F572F5068284D4",
+      "Bytes": 13174
+    },
+    {
+      "Path": "red/additional-three1046.json",
+      "Sha256": "381B0F7C4B8393EAA0DBA4B39E336B4B4A9B8C0308F5D4021AD90ACF3C623C10",
+      "Bytes": 4758
+    },
+    {
+      "Path": "red/nullable-build1053.log",
+      "Sha256": "14F486782E25B2850A3409C21D865B0C4C57C714F0E65FD04AFF1E4360593797",
+      "Bytes": 3633
+    }
+  ],
+  "ApiDelta": 0,
+  "FullContractDelta": 0,
+  "Counts": {
+    "Registered": 708,
+    "Full": 180,
+    "Pending": 504,
+    "Known": 24
+  },
+  "Merged": false,
+  "AuxSuccessor": "1023 source-reviewed artifact only; not integrated or executed"
+}

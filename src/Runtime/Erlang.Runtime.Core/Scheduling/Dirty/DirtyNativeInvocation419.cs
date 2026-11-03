@@ -60,6 +60,7 @@ internal sealed class DirtyNativeInvocation419
                 Volatile.Write(ref physicallyExecuting423, 1);
                 try
                 {
+                    using var cpu = Owner.Runtime.Statistics.UserCpu.Enter();
                     using var mapComparison = RuntimeNumericMapComparison.EnterThread(Owner.Runtime);
                     using var scheduled = Owner.EnterScheduledNativeSource419(site);
                     try

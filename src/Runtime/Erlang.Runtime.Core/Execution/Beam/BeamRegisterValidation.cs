@@ -55,7 +55,14 @@ internal static class BeamRegisterValidation
                 var operands = instruction.Operands;
                 switch (instruction.Definition.Name)
                 {
+                    case BeamNativeRecordAccessNames.Elements:
+                        Branch(code, function, operands[BeamNativeRecordAccessNames.Failure]);
+                        Source(operands[BeamNativeRecordAccessNames.Source]);
+                        for (int field = BeamNativeRecordAccessNames.FirstField; field < operands.Count; field += BeamNativeRecordAccessNames.FieldWidth)
+                            Destination(operands[field + BeamNativeRecordAccessNames.DestinationOffset]);
+                        break;
                     case BeamRecordConstructionNames.Opcode:
+                        Source(operands[BeamRecordConstructionNames.Source]);
                         Live(operands[BeamRecordConstructionNames.Live]);
                         for (int field = BeamRecordConstructionNames.FirstField; field < operands.Count; field += BeamRecordConstructionNames.FieldWidth)
                             Source(operands[field + 1]);

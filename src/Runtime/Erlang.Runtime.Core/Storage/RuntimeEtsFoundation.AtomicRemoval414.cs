@@ -13,6 +13,7 @@ internal sealed partial class RuntimeEtsFoundation
         Term result;
         lock (gate)
         {
+            using var comparisonCopies = new AtomicsHostCopyTransaction591();
             var table = CoreResolve407(context, identifier, true);
             var metadata = coreOptions407.GetValue(table, _ => throw new InvalidOperationException());
             TupleTerm? exact = null;
@@ -28,7 +29,10 @@ internal sealed partial class RuntimeEtsFoundation
             foreach (var current in CoreRows420(table))
             {
                 context.Cancellation.ThrowIfCancellationRequested();
-                TupleTerm row = CoreRead407(current.Payload, context.Cancellation);
+                // take returns actual rows, so retain its existing public output custody.
+                TupleTerm row = take
+                    ? CoreRead407(current.Payload, context.Cancellation)
+                    : CoreReadSelected594(current.Payload, context.Cancellation, comparisonCopies);
                 bool matches = take
                     ? EtsCorePlanner407.SameKey(CoreKey407(row, metadata.KeyPosition), argument, metadata.Kind)
                     : row.Equals(exact);

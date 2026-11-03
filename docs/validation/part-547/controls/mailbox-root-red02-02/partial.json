@@ -1,0 +1,26 @@
+{
+  "Partial": true,
+  "SelectedCount": 2,
+  "TotalCount": 9537,
+  "Blocks": [],
+  "ExactCases": [
+    "runtime/mailbox-actual-off-heap-value-and-host-escape",
+    "runtime/mailbox-actual-on-heap-value-and-host-escape"
+  ],
+  "Passed": 0,
+  "Failed": 2,
+  "Tests": [
+    {
+      "Name": "runtime/mailbox-actual-on-heap-value-and-host-escape",
+      "Status": "Failed",
+      "Error": "System.InvalidOperationException: Actual logical VM user CPU attribution contract failed\r\n   at Erlang.NifNativeBackend.CpuStatisticsAccess.Require(Boolean value) in D:\\Distr\\Work\\Codex\\Erlang.Net\\w546\\tools\\Native\\Erlang.NifNativeBackend\\CpuStatisticsAccess.cs:line 10\r\n   at Erlang.NifNativeBackend.MailboxBackingChecks.Run(ProcessMessageQueueDataMode411 mode) in D:\\Distr\\Work\\Codex\\Erlang.Net\\w546\\tools\\Native\\Erlang.NifNativeBackend\\MailboxBackingChecks.cs:line 56\r\n   at Erlang.NifNativeBackend.MailboxBackingChecks.Run(ProcessMessageQueueDataMode411 mode) in D:\\Distr\\Work\\Codex\\Erlang.Net\\w546\\tools\\Native\\Erlang.NifNativeBackend\\MailboxBackingChecks.cs:line 94\r\n   at Erlang.NifNativeBackend.MailboxBackingChecks.Run(ProcessMessageQueueDataMode411 mode) in D:\\Distr\\Work\\Codex\\Erlang.Net\\w546\\tools\\Native\\Erlang.NifNativeBackend\\MailboxBackingChecks.cs:line 94\r\n   at Program.\u003CMain\u003E$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\w546\\tests\\Erlang.Tests\\Harness\\Program.cs:line 8057",
+      "Milliseconds": 288
+    },
+    {
+      "Name": "runtime/mailbox-actual-off-heap-value-and-host-escape",
+      "Status": "Failed",
+      "Error": "System.InvalidOperationException: Actual logical VM user CPU attribution contract failed\r\n   at Erlang.NifNativeBackend.CpuStatisticsAccess.Require(Boolean value) in D:\\Distr\\Work\\Codex\\Erlang.Net\\w546\\tools\\Native\\Erlang.NifNativeBackend\\CpuStatisticsAccess.cs:line 10\r\n   at Erlang.NifNativeBackend.MailboxBackingChecks.Run(ProcessMessageQueueDataMode411 mode) in D:\\Distr\\Work\\Codex\\Erlang.Net\\w546\\tools\\Native\\Erlang.NifNativeBackend\\MailboxBackingChecks.cs:line 56\r\n   at Erlang.NifNativeBackend.MailboxBackingChecks.Run(ProcessMessageQueueDataMode411 mode) in D:\\Distr\\Work\\Codex\\Erlang.Net\\w546\\tools\\Native\\Erlang.NifNativeBackend\\MailboxBackingChecks.cs:line 94\r\n   at Erlang.NifNativeBackend.MailboxBackingChecks.Run(ProcessMessageQueueDataMode411 mode) in D:\\Distr\\Work\\Codex\\Erlang.Net\\w546\\tools\\Native\\Erlang.NifNativeBackend\\MailboxBackingChecks.cs:line 94\r\n   at Program.\u003CMain\u003E$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\w546\\tests\\Erlang.Tests\\Harness\\Program.cs:line 8057",
+      "Milliseconds": 30
+    }
+  ]
+}

@@ -118,6 +118,17 @@ internal sealed partial class RuntimeEtsFoundation
         return (TupleTerm)lease.Materialize(cancellation);
     }
 
+    private static TupleTerm CoreReadSelected594(
+        RuntimeEtsStoredObject value,
+        CancellationToken cancellation,
+        AtomicsHostCopyTransaction591 transaction
+    )
+    {
+        using var lease = value.Acquire();
+
+        return (TupleTerm)lease.MaterializeSelected594(cancellation, transaction);
+    }
+
     private static Term CoreKey407(TupleTerm value, long position)
     {
         if (position <= 0 || position > value.Items.Count) throw new RuntimeEtsCoreFailure407(RuntimeEtsCoreCause407.BadObject);
@@ -212,8 +223,9 @@ internal sealed partial class RuntimeEtsFoundation
                 var table = CoreResolve407(context, identifier, true);
                 if (!ReferenceEquals(table, admitted)) throw new RuntimeEtsCoreFailure407(RuntimeEtsCoreCause407.Id);
                 var existing = CoreRows420(table).ToArray();
-                var oldValues = existing.Select(slot => CoreRead407(slot.Payload, context.Cancellation)).ToArray();
-                var newValues = staged.Select(payload => CoreRead407(payload, context.Cancellation)).ToArray();
+                using var planningCopies = new AtomicsHostCopyTransaction591();
+                var oldValues = existing.Select(slot => CoreReadSelected594(slot.Payload, context.Cancellation, planningCopies)).ToArray();
+                var newValues = staged.Select(payload => CoreReadSelected594(payload, context.Cancellation, planningCopies)).ToArray();
                 var plan = EtsCorePlanner407.Plan(
                     oldValues,
                     newValues,
@@ -304,6 +316,7 @@ internal sealed partial class RuntimeEtsFoundation
         Task retirement;
         lock (gate)
         {
+            using var planningCopies = new AtomicsHostCopyTransaction591();
             var table = CoreResolve407(context, identifier, true);
             var metadata = coreOptions407.GetValue(table, _ => throw new InvalidOperationException());
             var next = new Dictionary<long, RuntimeEtsObjectSlot>();
@@ -311,7 +324,7 @@ internal sealed partial class RuntimeEtsFoundation
             foreach (var old in CoreRows420(table))
             {
                 context.Cancellation.ThrowIfCancellationRequested();
-                var value = CoreRead407(old.Payload, context.Cancellation);
+                var value = CoreReadSelected594(old.Payload, context.Cancellation, planningCopies);
                 if (EtsCorePlanner407.SameKey(CoreKey407(value, metadata.KeyPosition), key, metadata.Kind)) removed.Add(old.Payload);
                 else
                 {

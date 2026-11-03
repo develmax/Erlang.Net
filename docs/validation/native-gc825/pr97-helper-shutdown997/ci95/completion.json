@@ -1,0 +1,910 @@
+{
+  "Passed": false,
+  "SubjectHead": "95ac72b9efd2a27386c9eee5e5b332c3612bfa48",
+  "OtpPin": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "FrameworkVersion": "10.0.11",
+  "ModeCount": 28,
+  "PassedModes": 26,
+  "Whole820Equal": true,
+  "WholeAppend206Equal": true,
+  "Capacity273WholeTupleAccepted": true,
+  "AdditionalCliRows": 4,
+  "PassedAdditionalCliRows": 4,
+  "Whole425BothProfiles": true,
+  "Whole425OutcomeRowsPerProfile": 150,
+  "Ack173OwnIdProtocolBothProfiles": true,
+  "WholeRawTraceAcrossVmsEqualClaimed": false,
+  "FullCompatibilityClaimed": false,
+  "PublicGcAllRootsClaimed": false,
+  "Results": [
+    {
+      "Name": "original820-process",
+      "Passed": true,
+      "Executed": true,
+      "Errors": [],
+      "ReceiptPath": "/home/runner/work/Erlang.Net/Erlang.Net/artifacts/native-gc825/collection/original820-process/process.process.json",
+      "ReceiptSha256": "016A75B52ED58B48D8BDBED6961FFB309B93F36DED69FE09DFEECC59A0838940",
+      "StdoutSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+      "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Name": "original820-preparation",
+      "Passed": true,
+      "Executed": true,
+      "Errors": [],
+      "Fixtures": [
+        {
+          "Path": "tests/Runtime/Erlang.NativeGc.Observations/Resources/Original820/source_literalpool_subject820.erl",
+          "SourceSha256": "2598A49849BB73555442EAA3A46C0F5230939DF4081B7BEC1A51F18367BE1D8D",
+          "CopiedSha256": "2598A49849BB73555442EAA3A46C0F5230939DF4081B7BEC1A51F18367BE1D8D"
+        },
+        {
+          "Path": "tests/Runtime/Erlang.NativeGc.Observations/Resources/Original820/source_literalpool_probe820.erl",
+          "SourceSha256": "7E13BCB6F721C2355947D93FA695D28E471E87797B80471677BCC79A01DEE9A7",
+          "CopiedSha256": "7E13BCB6F721C2355947D93FA695D28E471E87797B80471677BCC79A01DEE9A7"
+        }
+      ],
+      "Products": [
+        {
+          "Path": "compile.etf",
+          "Bytes": 81,
+          "Sha256": "3D474104EB780F4A37CA24E5982C0D96EE954DBD59396236310808B73884CA1C"
+        },
+        {
+          "Path": "outcome.etf",
+          "Bytes": 1685,
+          "Sha256": "CB1CAF3CB1DC942F156CABC37BAE482F15DA16A146C3AC59188E1B0CB6FCFB66"
+        },
+        {
+          "Path": "outcome-deterministic.etf",
+          "Bytes": 1685,
+          "Sha256": "CB1CAF3CB1DC942F156CABC37BAE482F15DA16A146C3AC59188E1B0CB6FCFB66"
+        }
+      ],
+      "SamePinnedProvider": true
+    },
+    {
+      "Name": "original-capacity273-process",
+      "Passed": true,
+      "Executed": true,
+      "Errors": [],
+      "ReceiptPath": "/home/runner/work/Erlang.Net/Erlang.Net/artifacts/native-gc825/collection/original-capacity273-process/process.process.json",
+      "ReceiptSha256": "0E38CF7153C4959B3A3A723FB32C116B4CF42EA919609D54FB665DB928E05081",
+      "StdoutSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+      "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Name": "original-capacity273-preparation",
+      "Passed": true,
+      "Executed": true,
+      "Errors": [],
+      "Fixtures": [
+        {
+          "Path": "tests/Runtime/Erlang.NativeGc.Observations/Resources/RegisterCapacity273/register_capacity273_observer.erl",
+          "SourceSha256": "A6856E5FA20A52D1ECC3D12243354D4889E108212BC77398856383845C067B4A",
+          "CopiedSha256": "A6856E5FA20A52D1ECC3D12243354D4889E108212BC77398856383845C067B4A"
+        },
+        {
+          "Path": "tests/Runtime/Erlang.NativeGc.Observations/Resources/RegisterCapacity273/register_capacity273_wide.S",
+          "SourceSha256": "B7F91625F371C9BBD64930407AD535CEEE65C26D37193D4113B11B9D7B8EB77A",
+          "CopiedSha256": "B7F91625F371C9BBD64930407AD535CEEE65C26D37193D4113B11B9D7B8EB77A"
+        },
+        {
+          "Path": "tests/Runtime/Erlang.NativeGc.Observations/Resources/RegisterCapacity273/register_capacity273_boundary.S",
+          "SourceSha256": "3C78362161FF6E6E7B9FABB6EA759245CE135226F67C275CE4EA27F4B7235475",
+          "CopiedSha256": "3C78362161FF6E6E7B9FABB6EA759245CE135226F67C275CE4EA27F4B7235475"
+        },
+        {
+          "Path": "tests/Runtime/Erlang.NativeGc.Observations/Resources/RegisterCapacity273/register_capacity273_live.S",
+          "SourceSha256": "E420A9D1DEDD07C95F4EDB1F7BD1B50FE9264518F8A2852297B7F1BBF42764EB",
+          "CopiedSha256": "E420A9D1DEDD07C95F4EDB1F7BD1B50FE9264518F8A2852297B7F1BBF42764EB"
+        }
+      ],
+      "Products": [
+        {
+          "Path": "compile.etf",
+          "Bytes": 151,
+          "Sha256": "2BF0DDDC5CB6EC68D3D4F7E5F1207566F16E0E80923E0126DD2178AD14F2D200"
+        },
+        {
+          "Path": "original.etf",
+          "Bytes": 188,
+          "Sha256": "ACB24F697135987E66698A19140867D132527AE5899FEF17D6F4103F2270990C"
+        },
+        {
+          "Path": "original-deterministic.etf",
+          "Bytes": 188,
+          "Sha256": "ACB24F697135987E66698A19140867D132527AE5899FEF17D6F4103F2270990C"
+        },
+        {
+          "Path": "register_capacity273_observer.beam",
+          "Bytes": 2600,
+          "Sha256": "35498BF41847C511112E51C3F2886668B29CA378158416CFCD891A46ECD87111"
+        },
+        {
+          "Path": "register_capacity273_wide.beam",
+          "Bytes": 512,
+          "Sha256": "A9ACA0233B9E4B83D590760F5EBB6D0A58103F04440647948F741A1102F9B5BE"
+        },
+        {
+          "Path": "register_capacity273_boundary.beam",
+          "Bytes": 412,
+          "Sha256": "08F23C30F64D274C37E69DBBA65110BF7D8EADA1A3532F9536BCEB5533B50110"
+        },
+        {
+          "Path": "register_capacity273_live.beam",
+          "Bytes": 388,
+          "Sha256": "1D617B965D756506402231CEDB6386951C64B5C2247ABCBEA1EFA54FDEB19181"
+        }
+      ],
+      "SamePinnedProvider": true
+    },
+    {
+      "Name": "original-append206-process",
+      "Passed": true,
+      "Executed": true,
+      "Errors": [],
+      "ReceiptPath": "/home/runner/work/Erlang.Net/Erlang.Net/artifacts/native-gc825/collection/original-append206-process/process.process.json",
+      "ReceiptSha256": "F9B179A48287A0FC5F2510D6C5062316F08BB7BEAE92813C6FDB81F826C1ED90",
+      "StdoutSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+      "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Name": "original-append206-preparation",
+      "Passed": true,
+      "Executed": true,
+      "Errors": [],
+      "Fixtures": [
+        {
+          "Path": "tests/Runtime/Erlang.NativeGc.Observations/Resources/NativeAppend206/native_append206_observer.erl",
+          "SourceSha256": "22F24F38DBC16796F3C967454296E47C731E58242181E46FA73499CC7597E01E",
+          "CopiedSha256": "22F24F38DBC16796F3C967454296E47C731E58242181E46FA73499CC7597E01E"
+        }
+      ],
+      "Products": [
+        {
+          "Path": "compile.etf",
+          "Bytes": 35,
+          "Sha256": "E0E298A46298F4CE9396B508F27DEB48D10BD411FCD8E1F9F4D4BBC0FDD3ED2F"
+        },
+        {
+          "Path": "native_append206_observer.beam",
+          "Bytes": 3804,
+          "Sha256": "CD257E99DEFCACF7C9F95F29D87DAEA4D020543B4CA210991A2EBE051BCBC2B5"
+        },
+        {
+          "Path": "original.etf",
+          "Bytes": 63467,
+          "Sha256": "3B92D7EE8A3ADB4D88ED1EBCE1AF01F0D69AD4EACFAA63EE5EB85164FBF9E0A3"
+        },
+        {
+          "Path": "original-deterministic.etf",
+          "Bytes": 63467,
+          "Sha256": "3B92D7EE8A3ADB4D88ED1EBCE1AF01F0D69AD4EACFAA63EE5EB85164FBF9E0A3"
+        }
+      ],
+      "SamePinnedProvider": true
+    },
+    {
+      "Name": "original425-compile-process",
+      "Passed": true,
+      "Executed": true,
+      "Errors": [],
+      "ReceiptPath": "/home/runner/work/Erlang.Net/Erlang.Net/artifacts/native-gc825/collection/original425-compile-process/process.process.json",
+      "ReceiptSha256": "1297F34B0B864063592CEBAE174326720C732A004736096F60F29C553DB50B1D",
+      "StdoutSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+      "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Name": "original425-compile-preparation",
+      "Passed": true,
+      "Executed": true,
+      "Errors": [],
+      "Fixtures": [
+        {
+          "Path": "tests/Erlang.Tests/Fixtures/InternalProcessOriginal425/beam_internal_process425.erl",
+          "SourceSha256": "B35D23F9A64F68DB2302F1875BB50705843A4AD52A5ACFE8819D26E78757CDDA",
+          "CopiedSha256": "B35D23F9A64F68DB2302F1875BB50705843A4AD52A5ACFE8819D26E78757CDDA"
+        },
+        {
+          "Path": "tests/Erlang.Tests/Fixtures/InternalProcessOriginal425/erts_internal.erl",
+          "SourceSha256": "0B1B7A9118C86476D5AD75E9B2D1C8B5472CCA180E517C37CA9ADD39408B83D8",
+          "CopiedSha256": "0B1B7A9118C86476D5AD75E9B2D1C8B5472CCA180E517C37CA9ADD39408B83D8"
+        }
+      ],
+      "Products": [
+        {
+          "Path": "compile.etf",
+          "Bytes": 62,
+          "Sha256": "8059B08D610A232D79C4C8A5CAC7FBC6E6F25F03C3C40FE69CE2B5BADE44327C"
+        },
+        {
+          "Path": "beam_internal_process425.beam",
+          "Bytes": 8836,
+          "Sha256": "9040E9D7F04F0DD0C3AD12585C42AFC23F6A6B3FDF27FF230D7DEB8CD0A2CDB4"
+        },
+        {
+          "Path": "managed-facet/erts_internal.beam",
+          "Bytes": 1356,
+          "Sha256": "A10CF08F5CF31996A73E2174C5DF71BA04E89BEAFA8EA1CD35ACE25B8310CB87"
+        }
+      ],
+      "SamePinnedProvider": true
+    },
+    {
+      "Name": "original173-compile-process",
+      "Passed": true,
+      "Executed": true,
+      "Errors": [],
+      "ReceiptPath": "/home/runner/work/Erlang.Net/Erlang.Net/artifacts/native-gc825/collection/original173-compile-process/process.process.json",
+      "ReceiptSha256": "A62C03569E9CC42B56E92C5B6AADEE5F465FE25BB983469BAB4201CDCA9DFCBF",
+      "StdoutSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+      "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Name": "original173-compile-preparation",
+      "Passed": true,
+      "Executed": true,
+      "Errors": [],
+      "Fixtures": [
+        {
+          "Path": "tools/Runtime/Erlang.NativeGc825Observations/fixtures/ack_receive_trace173.erl",
+          "SourceSha256": "8C9DE70008DFBA22AFE1276438C3BD272ACE2BF424049FD839121B15D8783075",
+          "CopiedSha256": "8C9DE70008DFBA22AFE1276438C3BD272ACE2BF424049FD839121B15D8783075"
+        }
+      ],
+      "Products": [
+        {
+          "Path": "compile.etf",
+          "Bytes": 30,
+          "Sha256": "345480338E897AE06D0DB4752185CFABA067885FA09C2433DB8EA33FCAD5BF0B"
+        },
+        {
+          "Path": "ack_receive_trace173.beam",
+          "Bytes": 8068,
+          "Sha256": "0A4FD62CB9D91EFBD160D876507466A8BE9BF2F160FEE34C35F2EB8B26AFA69A"
+        }
+      ],
+      "SamePinnedProvider": true
+    },
+    {
+      "Name": "original425-values-stacks-process",
+      "Passed": true,
+      "Executed": true,
+      "Errors": [],
+      "ReceiptPath": "/home/runner/work/Erlang.Net/Erlang.Net/artifacts/native-gc825/collection/original425-values-stacks-process/process.process.json",
+      "ReceiptSha256": "49D2A38C5D7D370613ACD98526FD3CECA5122327CADD7122035E5AD74C4AF631",
+      "StdoutSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+      "StderrSha256": "6BEC70109487DE203AD049076F9A88C78EFBB4F32AC50C3D4F1C8D3508404C6B"
+    },
+    {
+      "Name": "original425-values-stacks",
+      "Passed": true,
+      "Executed": true,
+      "SamePinnedProvider": true,
+      "SourceCompilationSeparateFromObservation": true,
+      "Errors": [],
+      "Products": [
+        {
+          "Path": "values.etf",
+          "Bytes": 1842,
+          "Sha256": "22FD63321F8888EA543B85BA2331382F6E3A826023C3AF6A828AB4FA54138760"
+        },
+        {
+          "Path": "stacks.etf",
+          "Bytes": 7869,
+          "Sha256": "5E7964EF422E1578CA4A326A0D96DEA1A0416302E6D8EE43F1A598970CD98894"
+        }
+      ]
+    },
+    {
+      "Name": "original173-own-id-traces-process",
+      "Passed": true,
+      "Executed": true,
+      "Errors": [],
+      "ReceiptPath": "/home/runner/work/Erlang.Net/Erlang.Net/artifacts/native-gc825/collection/original173-own-id-traces-process/process.process.json",
+      "ReceiptSha256": "991CE6BBF98FCCF22B3F652202880D9964F680D1245764484846CFD299BAF321",
+      "StdoutSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+      "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Name": "original173-own-id-traces",
+      "Passed": true,
+      "Executed": true,
+      "SamePinnedProvider": true,
+      "SourceCompilationSeparateFromObservation": true,
+      "Errors": [],
+      "Products": [
+        {
+          "Path": "values.etf",
+          "Bytes": 331,
+          "Sha256": "EA05FB489B64050CA2643DC38FBEB3A6ECA93793967DBC4E7C7FE003B4326F26"
+        },
+        {
+          "Path": "trace-pairs.etf",
+          "Bytes": 647,
+          "Sha256": "17E3734B2EC6EF090386CCCDD9247C0BC3B5283B2191241EB2E4298C7B16C7F4"
+        },
+        {
+          "Path": "whole.etf",
+          "Bytes": 979,
+          "Sha256": "16D00DE7756F165953A489A7E3542DB5ADF15F11AA522363852D833149DF9F76"
+        }
+      ]
+    },
+    {
+      "Name": "dotnet-info",
+      "Passed": true,
+      "Executed": true,
+      "Errors": [],
+      "ReceiptPath": "/home/runner/work/Erlang.Net/Erlang.Net/artifacts/native-gc825/collection/dotnet-info/process.process.json",
+      "ReceiptSha256": "C38252BBB574AAF085147754315079AF0D47738A1C1B74B7F9A3404AA3D26BD8",
+      "StdoutSha256": "F89E4AB626F74DAEE3CC123F707E229C11A075413911445596F9CAA60D49DF06",
+      "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Name": "dotnet-runtimes",
+      "Passed": true,
+      "Executed": true,
+      "Errors": [],
+      "ReceiptPath": "/home/runner/work/Erlang.Net/Erlang.Net/artifacts/native-gc825/collection/dotnet-runtimes/process.process.json",
+      "ReceiptSha256": "FDABA24E6B2E5D0BACD7AA4FEF85E15DD06BCD0D7FAC100BE54A140DAE141365",
+      "StdoutSha256": "3274C606300D64D8AFDFC2D0CC15B111783BD871ED7EE2BB4AA676B417CDB29A",
+      "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Name": "managed-build",
+      "Passed": true,
+      "Executed": true,
+      "Errors": [],
+      "ReceiptPath": "/home/runner/work/Erlang.Net/Erlang.Net/artifacts/native-gc825/collection/managed-build/process.process.json",
+      "ReceiptSha256": "4CDAA35B05CF3276ADAF5DA0CC4A13B28D1ABE3ED83569A2BE0A7EB12F02303F",
+      "StdoutSha256": "CC7B2332255B3414A8F1AAED107EA2BFDF5A094C8D01F3CE2CE16A18A5432431",
+      "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Name": "literal800",
+      "Passed": true,
+      "Executed": true,
+      "Errors": [],
+      "ReceiptPath": "/home/runner/work/Erlang.Net/Erlang.Net/artifacts/native-gc825/collection/literal800/process.process.json",
+      "ReceiptSha256": "F28D8867EBB431B032F5B0E370A01F91C1BE97AA3BF74FECE32B3ED1D751741E",
+      "StdoutSha256": "4AE63541C736191E9E6CE97C7BC90B3A4A5657563538045751F999A7270E3129",
+      "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Name": "lifetime801",
+      "Passed": true,
+      "Executed": true,
+      "Errors": [],
+      "ReceiptPath": "/home/runner/work/Erlang.Net/Erlang.Net/artifacts/native-gc825/collection/lifetime801/process.process.json",
+      "ReceiptSha256": "AA7CA1F05ED5F09C5C0A4ED038D76C6482B8524D51C222A52630983BE397CE3E",
+      "StdoutSha256": "B342D1C1BD5857BCC35FE003AEDE6C771CF7611D7951F07EE7DDFB004BE279B6",
+      "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Name": "empty803",
+      "Passed": true,
+      "Executed": true,
+      "Errors": [],
+      "ReceiptPath": "/home/runner/work/Erlang.Net/Erlang.Net/artifacts/native-gc825/collection/empty803/process.process.json",
+      "ReceiptSha256": "A4015574C02B9238EE5D2D6C4D5DB16851DC36CD0BCF5CEB15F0272FD6F7B1FF",
+      "StdoutSha256": "CEB7BDB191D87EAE71359D23745A83A25ECC9F148914F994D4379E0A0DA6EF4C",
+      "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Name": "binary805",
+      "Passed": true,
+      "Executed": true,
+      "Errors": [],
+      "ReceiptPath": "/home/runner/work/Erlang.Net/Erlang.Net/artifacts/native-gc825/collection/binary805/process.process.json",
+      "ReceiptSha256": "C1064FE32CBC74E02C9E1D743129DC2D5782EA567B2E39B420251810F8AEBB00",
+      "StdoutSha256": "BC236788CE0D77E2CA58738ED8C78B3236B4ADD0FDA476BD6BB014987C4D7E52",
+      "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Name": "halt811",
+      "Passed": true,
+      "Executed": true,
+      "Errors": [],
+      "ReceiptPath": "/home/runner/work/Erlang.Net/Erlang.Net/artifacts/native-gc825/collection/halt811/process.process.json",
+      "ReceiptSha256": "C39E40126299B7C731A5B94EE42520E1F6A60E7D43B5F3EF93FB54E74D9FF2C1",
+      "StdoutSha256": "1BC568AAF826F6CA9489715AA4338ABEC3E37D748A1E710863C9E0B6D2209B8E",
+      "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Name": "tokenMutable550",
+      "Passed": true,
+      "Executed": true,
+      "Errors": [],
+      "ReceiptPath": "/home/runner/work/Erlang.Net/Erlang.Net/artifacts/native-gc825/collection/tokenMutable550/process.process.json",
+      "ReceiptSha256": "40295BB7DB57A63390C63356A53F75C53BCB742C6B41E9B4A61B8761A77C5355",
+      "StdoutSha256": "2EFE4FE9DD56F514FD693F2796E991A9D5A5897FE0D95B7CB7F05FD3E266C3B2",
+      "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Name": "tokenLiteral814",
+      "Passed": true,
+      "Executed": true,
+      "Errors": [],
+      "ReceiptPath": "/home/runner/work/Erlang.Net/Erlang.Net/artifacts/native-gc825/collection/tokenLiteral814/process.process.json",
+      "ReceiptSha256": "D4773C0B6C879C5101CDFE6DBA92BD8EE1922F1077A9E000C917CC9631D15E22",
+      "StdoutSha256": "413916E0C5BA7927F89BEEE811F454B276D1EF8AC83FFB22D881FB993BC8DAF2",
+      "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Name": "trace817",
+      "Passed": true,
+      "Executed": true,
+      "Errors": [],
+      "ReceiptPath": "/home/runner/work/Erlang.Net/Erlang.Net/artifacts/native-gc825/collection/trace817/process.process.json",
+      "ReceiptSha256": "30680EC58DEE0DEC70A046F5E8E13E41339E6EAACC3E5467C35FC735A995BD5E",
+      "StdoutSha256": "BDEE08C5DAF0A5CA6029852D623AE005B1E6950039A68F80D07AB6C2A6320577",
+      "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Name": "prefix817",
+      "Passed": true,
+      "Executed": true,
+      "Errors": [],
+      "ReceiptPath": "/home/runner/work/Erlang.Net/Erlang.Net/artifacts/native-gc825/collection/prefix817/process.process.json",
+      "ReceiptSha256": "B62E726726FB512C27DFB4F158A163304EC49D95781B62B1AFDCF1A681823015",
+      "StdoutSha256": "8E248A625DB58FED7F1888D64BD529A72DE5803243E27F5B2D165BE3A070BD4B",
+      "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Name": "priority817",
+      "Passed": true,
+      "Executed": true,
+      "Errors": [],
+      "ReceiptPath": "/home/runner/work/Erlang.Net/Erlang.Net/artifacts/native-gc825/collection/priority817/process.process.json",
+      "ReceiptSha256": "3D5037F3D61BC87130ABF690AEEC6312ED6CA53DEDCB71FBDC68023DE4CB712E",
+      "StdoutSha256": "712145EDAB76BEE67A27B1BDF230B1BA58D01745C792165155EF672D34CB423D",
+      "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Name": "onheap817",
+      "Passed": true,
+      "Executed": true,
+      "Errors": [],
+      "ReceiptPath": "/home/runner/work/Erlang.Net/Erlang.Net/artifacts/native-gc825/collection/onheap817/process.process.json",
+      "ReceiptSha256": "01A4104F93FAFD525DDD4A02A851A7B7CBE1B1F40269086CC3A8807471135419",
+      "StdoutSha256": "787408EB5E642B14399A4C352A50D36977834B2A805EB3511AC93087AA944755",
+      "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Name": "preparedNative810",
+      "Passed": false,
+      "Executed": true,
+      "Errors": [
+        "TimeoutError('Owned original process deadline: /home/runner/work/Erlang.Net/Erlang.Net/artifacts/native-gc825/collection/preparedNative810/process')",
+        "Non-normal process settlement: AssertionError()"
+      ],
+      "ReceiptPath": "/home/runner/work/Erlang.Net/Erlang.Net/artifacts/native-gc825/collection/preparedNative810/process.process.json",
+      "ReceiptSha256": "A107BBFB1F5291A2EC00FF7983EB41E89DBA7787C036B86DF01E16FB2A4CC7FF",
+      "StdoutSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+      "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Name": "preparedBuilder810",
+      "Passed": true,
+      "Executed": true,
+      "Errors": [],
+      "ReceiptPath": "/home/runner/work/Erlang.Net/Erlang.Net/artifacts/native-gc825/collection/preparedBuilder810/process.process.json",
+      "ReceiptSha256": "C6EA425A503C31B5E9548FCC18C7AB2D90A722163E60C27EDE856B5A8F45B797",
+      "StdoutSha256": "ABFFA5B97B55A0994DEEB64D046637F5AB166AF6B169746B5571852EA19807DD",
+      "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Name": "preparedAdmission810",
+      "Passed": false,
+      "Executed": true,
+      "Errors": [
+        "TimeoutError('Owned original process deadline: /home/runner/work/Erlang.Net/Erlang.Net/artifacts/native-gc825/collection/preparedAdmission810/process')",
+        "Non-normal process settlement: AssertionError()"
+      ],
+      "ReceiptPath": "/home/runner/work/Erlang.Net/Erlang.Net/artifacts/native-gc825/collection/preparedAdmission810/process.process.json",
+      "ReceiptSha256": "C3190E808C4A3ADFE80C0DB1DC9E69446D5444F784D514E13779F2461D873CCD",
+      "StdoutSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+      "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Name": "sourceLiteral819",
+      "Passed": true,
+      "Executed": true,
+      "Errors": [],
+      "ReceiptPath": "/home/runner/work/Erlang.Net/Erlang.Net/artifacts/native-gc825/collection/sourceLiteral819/process.process.json",
+      "ReceiptSha256": "CC04D811B5F702FFBF5E9A4CF0069E5D800DAD3C75806450518A9272597C5A3E",
+      "StdoutSha256": "D132CA8D3720A5DFF6FC043D12E85FFAC7E4D888245620D29C4F955BD9AD85FC",
+      "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Name": "sourceParser820",
+      "Passed": true,
+      "Executed": true,
+      "Errors": [],
+      "ReceiptPath": "/home/runner/work/Erlang.Net/Erlang.Net/artifacts/native-gc825/collection/sourceParser820/process.process.json",
+      "ReceiptSha256": "04B2A4374F54EFCA5AB61E6B3253413C58EB682B7B7920CB4ECE5FBDE02EA213",
+      "StdoutSha256": "1EA6BB698D4F410C344910BC887D47B8A1661F00F502B9061A66AB05F4D458F4",
+      "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Name": "sourceDeep820",
+      "Passed": true,
+      "Executed": true,
+      "Errors": [],
+      "ReceiptPath": "/home/runner/work/Erlang.Net/Erlang.Net/artifacts/native-gc825/collection/sourceDeep820/process.process.json",
+      "ReceiptSha256": "6EEA43C40D5D28F92A466B5176C5CE840442091F01C2B2600B356D461459F59F",
+      "StdoutSha256": "CEF30BCFC548FFEAFF64855C65B654637CE7F3A081FC54C4515DF866B202D716",
+      "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Name": "suspensionRoot821",
+      "Passed": true,
+      "Executed": true,
+      "Errors": [],
+      "ReceiptPath": "/home/runner/work/Erlang.Net/Erlang.Net/artifacts/native-gc825/collection/suspensionRoot821/process.process.json",
+      "ReceiptSha256": "664634A7DA95B371CD0A5C67E9006CAA7694F2B04878A5E6895A0177E683DD8C",
+      "StdoutSha256": "36B5742A6CDD30D62031AD6AB538D27A53A0D81A7B4B0A3E27FA672AC9D60E73",
+      "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Name": "resource524Guest",
+      "Passed": true,
+      "Executed": true,
+      "Errors": [],
+      "ReceiptPath": "/home/runner/work/Erlang.Net/Erlang.Net/artifacts/native-gc825/collection/resource524Guest/process.process.json",
+      "ReceiptSha256": "5F27921770B7416E0CA3AACD61C47C87B8152EA8E3F24D9B6AB83E3495ACEB62",
+      "StdoutSha256": "701956D73261D700CB1FDBCB85861C2A90EBA8C99D151B532E968D716EA164C6",
+      "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Name": "resource524Image",
+      "Passed": true,
+      "Executed": true,
+      "Errors": [],
+      "ReceiptPath": "/home/runner/work/Erlang.Net/Erlang.Net/artifacts/native-gc825/collection/resource524Image/process.process.json",
+      "ReceiptSha256": "E1BA440057BD71539ABF885143CF7C86C42B0B2E6211777BCFE93A09E3A76BE8",
+      "StdoutSha256": "8820E534DBF91C4BA500E11FC20FA77D1AD400C3B9A41FB0E550E0C0EA4FD905",
+      "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Name": "nativeBinaryInfo822",
+      "Passed": true,
+      "Executed": true,
+      "Errors": [],
+      "ReceiptPath": "/home/runner/work/Erlang.Net/Erlang.Net/artifacts/native-gc825/collection/nativeBinaryInfo822/process.process.json",
+      "ReceiptSha256": "07387B0A0E36557E39FA72C453F014F516C66F1E7DDE15D037F6CF2177217BF1",
+      "StdoutSha256": "4531874BB52A67C5EC7172AF8D37D9BC48F61DDE6C56B1AD81E8851A63A38242",
+      "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Name": "binaryOwner823",
+      "Passed": true,
+      "Executed": true,
+      "Errors": [],
+      "ReceiptPath": "/home/runner/work/Erlang.Net/Erlang.Net/artifacts/native-gc825/collection/binaryOwner823/process.process.json",
+      "ReceiptSha256": "7AA3CBECDCF5D382F36AD56333CD31F0785C5762159D1C2169BA7341023B1D73",
+      "StdoutSha256": "F2946E2DF862F0A50E8FCA4BCEEE10152EDB294527D8EBF49C55016C9247A088",
+      "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Name": "sourceObserver820",
+      "Passed": true,
+      "Executed": true,
+      "Errors": [],
+      "ReceiptPath": "/home/runner/work/Erlang.Net/Erlang.Net/artifacts/native-gc825/collection/sourceObserver820/process.process.json",
+      "ReceiptSha256": "AC2576939733938BB8983EE6224DCCE8E4048723922CFB4276A0D707C9F7FF32",
+      "StdoutSha256": "0D61DB99D99FF61E45F17C494AB8C5C595675FC6BFF66178AFBDF59E6F0D200E",
+      "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Name": "controlRoots826",
+      "Passed": true,
+      "Executed": true,
+      "Errors": [],
+      "ReceiptPath": "/home/runner/work/Erlang.Net/Erlang.Net/artifacts/native-gc825/collection/controlRoots826/process.process.json",
+      "ReceiptSha256": "6AC97F4DCF0B272F006FF4760963A9006E2D3FBC97CAA0C5D3BA60F4EC019270",
+      "StdoutSha256": "4AC4B59BB1ECC9D543C77DDFD75713784717829B9496BE3BCBE9092C6AF4CAEE",
+      "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Name": "hostCopy827",
+      "Passed": true,
+      "Executed": true,
+      "Errors": [],
+      "ReceiptPath": "/home/runner/work/Erlang.Net/Erlang.Net/artifacts/native-gc825/collection/hostCopy827/process.process.json",
+      "ReceiptSha256": "95F1B3DCD874D51BFB9A2410CD2FC4736E9F2E92E28E5DE19348E5B93FC12716",
+      "StdoutSha256": "C91006BCC0F1E7260BD13E2B24D7238168670F38E983078BEA9DA6D3A814C89E",
+      "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Name": "sourceLocation146",
+      "Passed": true,
+      "Executed": true,
+      "Errors": [],
+      "ReceiptPath": "/home/runner/work/Erlang.Net/Erlang.Net/artifacts/native-gc825/collection/sourceLocation146/process.process.json",
+      "ReceiptSha256": "16A4909CF320578BF8DC1FB503FBD84032A09C2D005435865CDFA3B0B1FE8980",
+      "StdoutSha256": "57C1E6FEF83E9DBB2759AFC4B63E63E73911EB2DAF7CABEFB6F987B536EC83EC",
+      "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Name": "functionUnique212",
+      "Passed": true,
+      "Executed": true,
+      "Errors": [],
+      "ReceiptPath": "/home/runner/work/Erlang.Net/Erlang.Net/artifacts/native-gc825/collection/functionUnique212/process.process.json",
+      "ReceiptSha256": "6BD7B33AB873D0A9718013A53F408A1D2EFB51366A012A856942F117A0ABA6D1",
+      "StdoutSha256": "4C19431E469515A618E352E0520B4B14DAF2E958C8A4690F64262920FCB836A4",
+      "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Name": "capacity273",
+      "Passed": true,
+      "Executed": true,
+      "Errors": [],
+      "ReceiptPath": "/home/runner/work/Erlang.Net/Erlang.Net/artifacts/native-gc825/collection/capacity273/process.process.json",
+      "ReceiptSha256": "721B18DC21005748956ECBCECCFB307CADAD8A0267DCE48E1405BB33EB876612",
+      "StdoutSha256": "80AE250E61F43790D5C5FAA54E93DAD86BBCB02CB60EE110F921AA90C162956E",
+      "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Name": "ack425-ordinary",
+      "Passed": true,
+      "Executed": true,
+      "Errors": [],
+      "ReceiptPath": "/home/runner/work/Erlang.Net/Erlang.Net/artifacts/native-gc825/collection/ack425-ordinary/process.process.json",
+      "ReceiptSha256": "A9CA62A6B249D581CE9F572FE8C997F4301B3E501D89941EC4F659497CB575DB",
+      "StdoutSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+      "StderrSha256": "2482CB67C18BC494CE6C3F680D8D139301D0FD3B504EA3E4D2287BE1E489A550",
+      "ManagedCompletionSha256": "03189B45787E411712DAADD0E75EE5748C7FBDCDD2A51508103EDF83A5A760A6"
+    },
+    {
+      "Name": "ack425-private-owned",
+      "Passed": true,
+      "Executed": true,
+      "Errors": [],
+      "ReceiptPath": "/home/runner/work/Erlang.Net/Erlang.Net/artifacts/native-gc825/collection/ack425-private-owned/process.process.json",
+      "ReceiptSha256": "8662AF145108E9C8D6568B99AEF73CAC7E1B269E634E81C77066B0DB72DF75AA",
+      "StdoutSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+      "StderrSha256": "2482CB67C18BC494CE6C3F680D8D139301D0FD3B504EA3E4D2287BE1E489A550",
+      "ManagedCompletionSha256": "E255B5CA2148D59894307783C21C2E8FE3907A7921709D00C26F9F3105AACEF5"
+    },
+    {
+      "Name": "ack173-ordinary",
+      "Passed": true,
+      "Executed": true,
+      "Errors": [],
+      "ReceiptPath": "/home/runner/work/Erlang.Net/Erlang.Net/artifacts/native-gc825/collection/ack173-ordinary/process.process.json",
+      "ReceiptSha256": "6BB679E706C0B3E2A9C9CD8B29E41DD37453D66E82179E58661F8EB0EDC45318",
+      "StdoutSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+      "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+      "ManagedCompletionSha256": "FEA4F7D410C7DB9BAADDE25387AE9D1121279AE074018E5CFADD37559E45411C"
+    },
+    {
+      "Name": "ack173-private-owned",
+      "Passed": true,
+      "Executed": true,
+      "Errors": [],
+      "ReceiptPath": "/home/runner/work/Erlang.Net/Erlang.Net/artifacts/native-gc825/collection/ack173-private-owned/process.process.json",
+      "ReceiptSha256": "D7F73456104380478990C1A2FCDEB96105D99D14B9170A285548C0BE5CE7EA27",
+      "StdoutSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+      "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+      "ManagedCompletionSha256": "F04B5F976189F3D743361AF90CAD51A54115484608D5C7057F718482138AE82A"
+    },
+    {
+      "Name": "whole425-ordinary-values.etf",
+      "Passed": true,
+      "OriginalExecuted": true,
+      "ManagedExecuted": true,
+      "WholeRawEtf": true,
+      "Projection": false,
+      "FieldsDropped": false,
+      "OutcomeRowsPerProfile": 150,
+      "OriginalSha256": "22FD63321F8888EA543B85BA2331382F6E3A826023C3AF6A828AB4FA54138760",
+      "ManagedSha256": "22FD63321F8888EA543B85BA2331382F6E3A826023C3AF6A828AB4FA54138760",
+      "OriginalBytes": 1842,
+      "ManagedBytes": 1842
+    },
+    {
+      "Name": "whole425-ordinary-stacks.etf",
+      "Passed": true,
+      "OriginalExecuted": true,
+      "ManagedExecuted": true,
+      "WholeRawEtf": true,
+      "Projection": false,
+      "FieldsDropped": false,
+      "OutcomeRowsPerProfile": 150,
+      "OriginalSha256": "5E7964EF422E1578CA4A326A0D96DEA1A0416302E6D8EE43F1A598970CD98894",
+      "ManagedSha256": "5E7964EF422E1578CA4A326A0D96DEA1A0416302E6D8EE43F1A598970CD98894",
+      "OriginalBytes": 7869,
+      "ManagedBytes": 7869
+    },
+    {
+      "Name": "ack173-own-id-ordinary",
+      "Passed": true,
+      "OriginalExecuted": true,
+      "ManagedExecuted": true,
+      "WholeVerdictEtf": true,
+      "CompleteOwnExpectedTracePairsRequired": true,
+      "WholeRawTraceAcrossVmsEqualClaimed": false,
+      "PosthocIdentifierNormalization": false,
+      "UnmodifiedRawTraceEvidence": [
+        {
+          "Origin": "original",
+          "Path": "original173-compile/trace-pairs.etf",
+          "Bytes": 647,
+          "Sha256": "17E3734B2EC6EF090386CCCDD9247C0BC3B5283B2191241EB2E4298C7B16C7F4"
+        },
+        {
+          "Origin": "original",
+          "Path": "original173-compile/whole.etf",
+          "Bytes": 979,
+          "Sha256": "16D00DE7756F165953A489A7E3542DB5ADF15F11AA522363852D833149DF9F76"
+        },
+        {
+          "Origin": "managed",
+          "Path": "managed-ack173-ordinary/trace-pairs.etf",
+          "Bytes": 647,
+          "Sha256": "251AACAE2CEDB784E2B07B2A51475BD1C5EF8018DB8F52E42A2EA93FA52B9BA8"
+        },
+        {
+          "Origin": "managed",
+          "Path": "managed-ack173-ordinary/whole.etf",
+          "Bytes": 979,
+          "Sha256": "AD50449AEB942DA855812646A582BF022046A1505C56228D08C108137631AF00"
+        }
+      ],
+      "OriginalVerdictSha256": "EA05FB489B64050CA2643DC38FBEB3A6ECA93793967DBC4E7C7FE003B4326F26",
+      "ManagedVerdictSha256": "EA05FB489B64050CA2643DC38FBEB3A6ECA93793967DBC4E7C7FE003B4326F26",
+      "OriginalBytes": 331,
+      "ManagedBytes": 331
+    },
+    {
+      "Name": "whole425-private-owned-values.etf",
+      "Passed": true,
+      "OriginalExecuted": true,
+      "ManagedExecuted": true,
+      "WholeRawEtf": true,
+      "Projection": false,
+      "FieldsDropped": false,
+      "OutcomeRowsPerProfile": 150,
+      "OriginalSha256": "22FD63321F8888EA543B85BA2331382F6E3A826023C3AF6A828AB4FA54138760",
+      "ManagedSha256": "22FD63321F8888EA543B85BA2331382F6E3A826023C3AF6A828AB4FA54138760",
+      "OriginalBytes": 1842,
+      "ManagedBytes": 1842
+    },
+    {
+      "Name": "whole425-private-owned-stacks.etf",
+      "Passed": true,
+      "OriginalExecuted": true,
+      "ManagedExecuted": true,
+      "WholeRawEtf": true,
+      "Projection": false,
+      "FieldsDropped": false,
+      "OutcomeRowsPerProfile": 150,
+      "OriginalSha256": "5E7964EF422E1578CA4A326A0D96DEA1A0416302E6D8EE43F1A598970CD98894",
+      "ManagedSha256": "5E7964EF422E1578CA4A326A0D96DEA1A0416302E6D8EE43F1A598970CD98894",
+      "OriginalBytes": 7869,
+      "ManagedBytes": 7869
+    },
+    {
+      "Name": "ack173-own-id-private-owned",
+      "Passed": true,
+      "OriginalExecuted": true,
+      "ManagedExecuted": true,
+      "WholeVerdictEtf": true,
+      "CompleteOwnExpectedTracePairsRequired": true,
+      "WholeRawTraceAcrossVmsEqualClaimed": false,
+      "PosthocIdentifierNormalization": false,
+      "UnmodifiedRawTraceEvidence": [
+        {
+          "Origin": "original",
+          "Path": "original173-compile/trace-pairs.etf",
+          "Bytes": 647,
+          "Sha256": "17E3734B2EC6EF090386CCCDD9247C0BC3B5283B2191241EB2E4298C7B16C7F4"
+        },
+        {
+          "Origin": "original",
+          "Path": "original173-compile/whole.etf",
+          "Bytes": 979,
+          "Sha256": "16D00DE7756F165953A489A7E3542DB5ADF15F11AA522363852D833149DF9F76"
+        },
+        {
+          "Origin": "managed",
+          "Path": "managed-ack173-private-owned/trace-pairs.etf",
+          "Bytes": 647,
+          "Sha256": "251AACAE2CEDB784E2B07B2A51475BD1C5EF8018DB8F52E42A2EA93FA52B9BA8"
+        },
+        {
+          "Origin": "managed",
+          "Path": "managed-ack173-private-owned/whole.etf",
+          "Bytes": 979,
+          "Sha256": "AD50449AEB942DA855812646A582BF022046A1505C56228D08C108137631AF00"
+        }
+      ],
+      "OriginalVerdictSha256": "EA05FB489B64050CA2643DC38FBEB3A6ECA93793967DBC4E7C7FE003B4326F26",
+      "ManagedVerdictSha256": "EA05FB489B64050CA2643DC38FBEB3A6ECA93793967DBC4E7C7FE003B4326F26",
+      "OriginalBytes": 331,
+      "ManagedBytes": 331
+    },
+    {
+      "Name": "whole820-comparison",
+      "Passed": true,
+      "OriginalExecuted": true,
+      "ManagedExecuted": true,
+      "NormalizationPerformed": false,
+      "FieldsDropped": false,
+      "OriginalSha256": "CB1CAF3CB1DC942F156CABC37BAE482F15DA16A146C3AC59188E1B0CB6FCFB66",
+      "ManagedSha256": "CB1CAF3CB1DC942F156CABC37BAE482F15DA16A146C3AC59188E1B0CB6FCFB66",
+      "OriginalBytes": 1685,
+      "ManagedBytes": 1685,
+      "OriginalDeterministicSha256": "CB1CAF3CB1DC942F156CABC37BAE482F15DA16A146C3AC59188E1B0CB6FCFB66"
+    },
+    {
+      "Name": "whole-append206-ordinary-raw",
+      "Passed": true,
+      "OriginalExecuted": true,
+      "ManagedExecuted": true,
+      "ManagedModePassed": true,
+      "ExpectedRows": 164,
+      "NormalizationPerformed": false,
+      "FieldsDropped": false,
+      "FramesProjected": false,
+      "WholeBytesEqual": true,
+      "OriginalSha256": "3B92D7EE8A3ADB4D88ED1EBCE1AF01F0D69AD4EACFAA63EE5EB85164FBF9E0A3",
+      "ManagedSha256": "3B92D7EE8A3ADB4D88ED1EBCE1AF01F0D69AD4EACFAA63EE5EB85164FBF9E0A3",
+      "OriginalBytes": 63467,
+      "ManagedBytes": 63467
+    },
+    {
+      "Name": "whole-append206-ordinary-deterministic",
+      "Passed": true,
+      "OriginalExecuted": true,
+      "ManagedExecuted": true,
+      "ManagedModePassed": true,
+      "ExpectedRows": 164,
+      "NormalizationPerformed": false,
+      "FieldsDropped": false,
+      "FramesProjected": false,
+      "WholeBytesEqual": true,
+      "OriginalSha256": "3B92D7EE8A3ADB4D88ED1EBCE1AF01F0D69AD4EACFAA63EE5EB85164FBF9E0A3",
+      "ManagedSha256": "3B92D7EE8A3ADB4D88ED1EBCE1AF01F0D69AD4EACFAA63EE5EB85164FBF9E0A3",
+      "OriginalBytes": 63467,
+      "ManagedBytes": 63467
+    },
+    {
+      "Name": "whole-append206-private-owned-raw",
+      "Passed": true,
+      "OriginalExecuted": true,
+      "ManagedExecuted": true,
+      "ManagedModePassed": true,
+      "ExpectedRows": 164,
+      "NormalizationPerformed": false,
+      "FieldsDropped": false,
+      "FramesProjected": false,
+      "WholeBytesEqual": true,
+      "OriginalSha256": "3B92D7EE8A3ADB4D88ED1EBCE1AF01F0D69AD4EACFAA63EE5EB85164FBF9E0A3",
+      "ManagedSha256": "3B92D7EE8A3ADB4D88ED1EBCE1AF01F0D69AD4EACFAA63EE5EB85164FBF9E0A3",
+      "OriginalBytes": 63467,
+      "ManagedBytes": 63467
+    },
+    {
+      "Name": "whole-append206-private-owned-deterministic",
+      "Passed": true,
+      "OriginalExecuted": true,
+      "ManagedExecuted": true,
+      "ManagedModePassed": true,
+      "ExpectedRows": 164,
+      "NormalizationPerformed": false,
+      "FieldsDropped": false,
+      "FramesProjected": false,
+      "WholeBytesEqual": true,
+      "OriginalSha256": "3B92D7EE8A3ADB4D88ED1EBCE1AF01F0D69AD4EACFAA63EE5EB85164FBF9E0A3",
+      "ManagedSha256": "3B92D7EE8A3ADB4D88ED1EBCE1AF01F0D69AD4EACFAA63EE5EB85164FBF9E0A3",
+      "OriginalBytes": 63467,
+      "ManagedBytes": 63467
+    }
+  ],
+  "Errors": []
+}

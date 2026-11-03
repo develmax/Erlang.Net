@@ -44,7 +44,7 @@ public sealed partial class ProcessRuntime
     {
         if (enabled) await EnsureDirtyWallTimeReady(context);
         using StatisticsTrapAdmission helper = await Modules.AdmitStatisticsTrap(context, StatisticsTrapNames.AwaitWallTime, 2);
-        var trap = new StatisticsTrapRequest(this, context, MakeReference());
+        await using var trap = new StatisticsTrapRequest(this, context, MakeReference());
         lock (gate)
             RequireWallTimeActor(context);
         bool previous;
@@ -135,7 +135,7 @@ public sealed partial class ProcessRuntime
         }
         await EnsureDirtyWallTimeReady(context);
         using StatisticsTrapAdmission helper = await Modules.AdmitStatisticsTrap(context, StatisticsTrapNames.GatherWallTime, 1);
-        var trap = new StatisticsTrapRequest(this, context, MakeReference());
+        await using var trap = new StatisticsTrapRequest(this, context, MakeReference());
         var observation = new RuntimeWallTimeObservation(ActorDispatchCapacity);
         lock (gate)
         {

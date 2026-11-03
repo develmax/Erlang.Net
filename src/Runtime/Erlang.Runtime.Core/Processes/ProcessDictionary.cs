@@ -17,7 +17,7 @@ public sealed partial class ProcessDictionary : IDictionary<Term, Term>, IReadOn
     internal ProcessDictionary(ProcessContext context)
     {
         this.context = context;
-        if (context.OwnedExecutionEnabled683)
+        if (context.VmStorageBackingEnabled)
             frame = context.TermHeap506.Enter();
     }
 
@@ -176,59 +176,75 @@ public sealed partial class ProcessDictionary : IDictionary<Term, Term>, IReadOn
         bool duplicateReturnsFalse
     )
     {
-        // Keep the input borrow through destination publication and rollback.
-        // A detached facade alone must not become a guest ownership root.
         using PreparedTermTransfer506? prepared = PrepareDetachedInput586(Term.Tuple(key, value), out Term portable);
         var pair = (TupleTerm)portable;
         Term portableKey = pair.Items[0], portableValue = pair.Items[1];
-        lock (gate)
+        while (true)
         {
-            CheckOpen();
-            bool exists = data.ContainsKey(portableKey);
-            if (addOnly && exists)
+            ProcessTermFrame506? target;
+            lock (gate)
             {
-                if (duplicateReturnsFalse)
-                    return false;
-                throw new ArgumentException(nameof(key));
+                CheckOpen();
+                if (addOnly && data.ContainsKey(portableKey))
+                {
+                    if (duplicateReturnsFalse) return false;
+                    throw new ArgumentException(nameof(key));
+                }
+                target = frame;
             }
-            if (frame is null)
+            // All callable construction/rebinding over actual copied children
+            // completes before D; these are temporary REAL process roots.
+            using PreparedHeapImport? keyImport = target?.PrepareImport(portableKey);
+            using PreparedHeapImport? valueImport = target?.PrepareImport(portableValue);
+            lock (gate)
             {
-                data[portableKey] = portableValue;
+                CheckOpen();
+                if (!ReferenceEquals(frame, target)) continue;
+                bool exists = data.ContainsKey(portableKey);
+                if (addOnly && exists)
+                {
+                    if (duplicateReturnsFalse) return false;
+                    throw new ArgumentException(nameof(key));
+                }
+                if (target is null)
+                {
+                    data[portableKey] = portableValue;
 
-                return true;
-            }
-            if (slots.TryGetValue(portableKey, out var existing))
-            {
-                frame.SetPrepared(existing.Value, portableValue);
-                data[portableKey] = frame.Read(existing.Value);
+                    return true;
+                }
+                if (slots.TryGetValue(portableKey, out var existing))
+                {
+                    target.SetLocalGraph507(existing.Value, valueImport!.Value);
+                    data[portableKey] = target.Read(existing.Value);
 
-                return true;
-            }
-            int keySlot = frame.Reserve(), valueSlot = frame.Reserve();
-            try
-            {
-                frame.SetPrepared(keySlot, portableKey);
-                frame.SetPrepared(valueSlot, portableValue);
-                Term storedKey = frame.Read(keySlot);
-                data.Add(storedKey, frame.Read(valueSlot));
+                    return true;
+                }
+                int keySlot = target.Reserve(), valueSlot = target.Reserve();
                 try
                 {
-                    slots.Add(storedKey, (keySlot, valueSlot));
+                    target.SetLocalGraph507(keySlot, keyImport!.Value);
+                    target.SetLocalGraph507(valueSlot, valueImport!.Value);
+                    Term storedKey = target.Read(keySlot);
+                    data.Add(storedKey, target.Read(valueSlot));
+                    try
+                    {
+                        slots.Add(storedKey, (keySlot, valueSlot));
+                    }
+                    catch
+                    {
+                        data.Remove(storedKey);
+                        throw;
+                    }
                 }
                 catch
                 {
-                    data.Remove(storedKey);
+                    target.Clear(keySlot);
+                    target.Clear(valueSlot);
                     throw;
                 }
-            }
-            catch
-            {
-                frame.Clear(keySlot);
-                frame.Clear(valueSlot);
-                throw;
-            }
 
-            return true;
+                return true;
+            }
         }
     }
 

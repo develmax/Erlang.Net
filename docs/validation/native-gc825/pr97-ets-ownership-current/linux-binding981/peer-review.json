@@ -1,0 +1,49 @@
+{
+  "Manifest981Sha256": "B2E88EFB4D1F4DFD8E8906E19ADC49646682DED14696BF6772C41B8CE917A586",
+  "GeneratorSha256": "3001B11BA4F4D4D522DDEAC3F942608770B17898EB097B5408C95B83505D8964",
+  "Verdict": "No blocker in actual21 guarded payloads; approve controlled parent application only.",
+  "ActualBindingRowsVerifiedWithScopedConsumers": 9720,
+  "ActualModeSizeFieldsVerified": 9355,
+  "Rows": 21,
+  "JSONChangedLeaves": 54,
+  "OnlyBindingLeavesChanged": true,
+  "JSONKeysRowsOrderModesStatusesHistoryUnchanged": true,
+  "WorkflowNonhashBytesUnchanged": true,
+  "TwoToolReadmeRepairs": [
+    {
+      "Plan": "tools/Runtime/Erlang.SchedulerAffinityOriginalObservations/manifest.json",
+      "ConsumerRoot": "Tool",
+      "Before": {
+        "Path": "README.md",
+        "Bytes": 9133,
+        "Sha256": "9D80F1B98E9F382DBFCB2A43A85D8E5B589FBD9C1B7D1D03F1EEE91CD1D0395C"
+      },
+      "After": {
+        "Path": "README.md",
+        "Bytes": 3677,
+        "Sha256": "C21F5CA5CED8349CA0A264F91BA0E7D0A4F3DBDFB24635DEEC253EA54A6168B7"
+      }
+    },
+    {
+      "Plan": "tools/Native/Erlang.NifTermCallbackOriginalObservations/manifest.json",
+      "ConsumerRoot": "Tool",
+      "Before": {
+        "Path": "README.md",
+        "Bytes": 9133,
+        "Sha256": "9D80F1B98E9F382DBFCB2A43A85D8E5B589FBD9C1B7D1D03F1EEE91CD1D0395C"
+      },
+      "After": {
+        "Path": "README.md",
+        "Bytes": 2707,
+        "Sha256": "6F90D582F16EB178D0D877A214534A8757406F296E741AB7DC731854DB83CD7A"
+      }
+    }
+  ],
+  "SchedulerAcceptedManifestRestoredSha256": "AEBBA0D2DCF97E1248CA38407E8EBE628EB08F9EA4D13F48EC0C83A7A0364E61",
+  "ValidateYmlModified": false,
+  "Interpretation": "validate literal was already accepted AEBBA; corrected actual Scheduler manifest now matches it. No workflow literal repair performed despite old manifest boolean wording.",
+  "PreimagesVerifiedBeforeAfter": true,
+  "WorkspaceWrites": false,
+  "BuildVmGitCiExecuted": false,
+  "PublicationApproved": false
+}

@@ -41,7 +41,13 @@ internal static class OrdinaryVm686Checks
             // this neither grants guest execution nor implies worker entry.
             Require((bool)Property(fixture.Context!, StorageEnabled) && heap is not null && fixture.RegistryContainsChild());
             Require(fixture.EnabledNow() == pure);
-            Require((Field(fixture.Context!.Dictionary, DictionaryFrame) is not null) == pure);
+            // Storage and its registered dictionary root exist at process birth,
+            // independently of the worker's genuine execution admission.
+            object dictionaryFrame = Field(fixture.Context!.Dictionary, DictionaryFrame)!;
+            Require(dictionaryFrame is not null && ReferenceEquals(Field(dictionaryFrame, DictionaryOwner), heap));
+            lock (Property(heap!, HeapGate))
+                Require(((System.Collections.IEnumerable)Field(heap!, HeapFrames)!).Cast<object>()
+                    .Any(frame => ReferenceEquals(frame, dictionaryFrame)));
             object input = Field(fixture.Context, Input)!;
             object prepared = Field(input, Prepared)!;
             object? graph = Property(prepared, Graph);

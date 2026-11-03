@@ -20,7 +20,7 @@ public sealed partial class ProcessRuntime
         {
             RequireEtsFoundationActor(context);
             context.Cancellation.ThrowIfCancellationRequested();
-            owner = dirtyNative419 ??= new(dirtyIoSchedulerCount522);
+            owner = dirtyNative419 ??= new(dirtyIoSchedulerCount522, Statistics.Microstates);
         }
         // Queries admit the configured physical lanes too. Counts therefore
         // never borrow normal dispatcher capacity or claim nonexistent lanes.

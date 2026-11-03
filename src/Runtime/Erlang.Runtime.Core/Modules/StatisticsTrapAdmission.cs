@@ -1,11 +1,56 @@
 namespace Erlang;
 
-internal sealed class StatisticsTrapAdmission(ModuleRegistry registry, PreparedBeamImage image) : IDisposable
+internal sealed class StatisticsTrapAdmission(
+    ModuleRegistry registry,
+    ProcessContext caller,
+    PreparedBeamImage image,
+    SourceCodeLease lease,
+    string function,
+    int arity
+) : IDisposable
 {
     private ModuleRegistry? owner = registry;
+    private int started;
     internal PreparedBeamImage Image { get; } = image;
+    internal SourceCodeLease Lease { get; } = lease;
 
-    internal bool IsCurrentFor(ModuleRegistry registry) => ReferenceEquals(Volatile.Read(ref owner), registry);
+    internal bool TryStart(
+        ModuleRegistry registry,
+        ProcessContext context,
+        string requestedFunction,
+        int requestedArity
+    )
+        => ReferenceEquals(Volatile.Read(ref owner), registry) && ReferenceEquals(caller, context)
+            && function == requestedFunction && arity == requestedArity
+            && Interlocked.CompareExchange(ref started, 1, 0) == 0;
 
-    public void Dispose() => Interlocked.Exchange(ref owner, null)?.ReleaseStatisticsTrapUse();
+    public void Dispose()
+    {
+        ModuleRegistry? registry = Interlocked.Exchange(ref owner, null);
+        if (registry is null) return;
+        Exception? leaseFailure = null;
+        Exception? releaseFailure = null;
+        try
+        {
+            Lease.Dispose();
+        }
+        catch (Exception error)
+        {
+            leaseFailure = error;
+        }
+        try
+        {
+            registry.ReleaseStatisticsTrapUse();
+        }
+        catch (Exception error)
+        {
+            releaseFailure = error;
+        }
+        if (leaseFailure is not null && releaseFailure is not null)
+            throw new AggregateException(leaseFailure, releaseFailure);
+        if (leaseFailure is not null)
+            System.Runtime.ExceptionServices.ExceptionDispatchInfo.Capture(leaseFailure).Throw();
+        if (releaseFailure is not null)
+            System.Runtime.ExceptionServices.ExceptionDispatchInfo.Capture(releaseFailure).Throw();
+    }
 }

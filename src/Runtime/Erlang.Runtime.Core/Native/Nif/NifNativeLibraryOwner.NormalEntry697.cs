@@ -14,6 +14,7 @@ internal sealed unsafe partial class NifNativeLibraryOwner
         // Acquired before any native-owner gate; active through actual native
         // return and synchronous environment/result custody cleanup.
         using var admission = context.Runtime.EnterNormalNative697(context);
+        using var cpu = context.Runtime.Statistics.UserCpu.Enter();
 
         return Invoke(
             context,
