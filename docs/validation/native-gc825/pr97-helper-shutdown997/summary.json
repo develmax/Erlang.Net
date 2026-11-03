@@ -1,0 +1,274 @@
+{
+  "Scope": "Completed local helper shutdown repair; exact next publication-head Linux/Windows CI and review still required",
+  "PreviousHead": "95ac72b9efd2a27386c9eee5e5b332c3612bfa48",
+  "PreviousCi": {
+    "GcRun": 41569376252,
+    "GcModesPassed": 26,
+    "GcModesTotal": 28,
+    "Whole820": true,
+    "WholeAppend206": true,
+    "Whole425Both150": true,
+    "Ack173Both": true,
+    "AdditionalCli": 4,
+    "N1Green": 41569376274,
+    "IntegratedGreen": 41569374620,
+    "GeneralCancelled": 41569376276,
+    "CancellationReason": "Root stopped known-bad source after confirmed GC failure and independent Windows reproduction; no full9596 result"
+  },
+  "Local": {
+    "DistinctAffectedCases": 577,
+    "DisjointBatches": 2,
+    "BatchSizes": [
+      394,
+      183
+    ],
+    "Full9596Claimed": false,
+    "ReleaseControls": [
+      {
+        "Command": [
+          "C:\\Program Files\\dotnet\\dotnet.exe",
+          "exec",
+          "--fx-version",
+          "10.0.11",
+          "--roll-forward",
+          "Disable",
+          "D:\\Distr\\Work\\Codex\\Erlang.Net\\w546\\artifacts\\statistics-full\\main-gc825-integration36\\workspace\\tests\\Runtime\\Erlang.NativeGc.Observations\\bin\\Release\\net10.0\\Erlang.Tests.dll",
+          "preparedNative810"
+        ],
+        "Pid": 42536,
+        "ExitCode": 0,
+        "ElapsedSeconds": 1.9220000000059372,
+        "TimedOut": false,
+        "ForcedCleanup": false,
+        "ActiveProcessesAfter": 0,
+        "ResourcesClosed": true,
+        "Errors": [],
+        "TotalProcesses": 2,
+        "UserCpuSeconds": 1.015625,
+        "KernelCpuSeconds": 0.765625,
+        "PeakJobCommitBytes": 55664640,
+        "PeakProcessCommitBytes": 49045504,
+        "StdoutSha256": "204E5DBFF2D294E291322F04DF780ACE1002570472666B73E07E94E253BB35F6",
+        "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+      },
+      {
+        "Command": [
+          "C:\\Program Files\\dotnet\\dotnet.exe",
+          "exec",
+          "--fx-version",
+          "10.0.11",
+          "--roll-forward",
+          "Disable",
+          "D:\\Distr\\Work\\Codex\\Erlang.Net\\w546\\artifacts\\statistics-full\\main-gc825-integration36\\workspace\\tests\\Runtime\\Erlang.NativeGc.Observations\\bin\\Release\\net10.0\\Erlang.Tests.dll",
+          "preparedAdmission810"
+        ],
+        "Pid": 19108,
+        "ExitCode": 0,
+        "ElapsedSeconds": 1.125,
+        "TimedOut": false,
+        "ForcedCleanup": false,
+        "ActiveProcessesAfter": 0,
+        "ResourcesClosed": true,
+        "Errors": [],
+        "TotalProcesses": 2,
+        "UserCpuSeconds": 0.640625,
+        "KernelCpuSeconds": 0.484375,
+        "PeakJobCommitBytes": 49369088,
+        "PeakProcessCommitBytes": 42754048,
+        "StdoutSha256": "D59E681E9D3436D8DBDBD0A24F14647E0AD715D8B56827C35AA4E2F51554D188",
+        "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+      }
+    ],
+    "ActualActiveHelpers": [
+      "GC",
+      "statistics trap"
+    ],
+    "ActualPreparingHelpers": [
+      "GC via real source ticket"
+    ],
+    "TrapPreparingClaimed": false,
+    "UnchangedRuntimePayloadsAfterMetadata": 83,
+    "SevenBuildPreparationPassed": true,
+    "FinalNormalBuild": {
+      "Command": [
+        "C:\\Program Files\\dotnet\\dotnet.exe",
+        "build",
+        "tests/Erlang.Tests/Erlang.Tests.csproj",
+        "--no-restore",
+        "-m:1",
+        "--nologo",
+        "--disable-build-servers"
+      ],
+      "Pid": 49224,
+      "ExitCode": 0,
+      "ElapsedSeconds": 2.4689999999973224,
+      "TimedOut": false,
+      "ForcedCleanup": false,
+      "ActiveProcessesAfter": 0,
+      "ResourcesClosed": true,
+      "Errors": [],
+      "TotalProcesses": 2,
+      "UserCpuSeconds": 2.171875,
+      "KernelCpuSeconds": 0.46875,
+      "PeakJobCommitBytes": 117293056,
+      "PeakProcessCommitBytes": 110616576,
+      "StdoutSha256": "C9D2DBA216C48580CB178354B92733D8FC497ED41897FD8F7845B348D8640AE7",
+      "StderrSha256": "43C8897FC50560E217AACE8984EC7E1AA8DF8EC13D3B6AAEE346A300D0D3EEAD"
+    },
+    "FinalNonCacheSourceInputs": 13839,
+    "SourceFreezeSha256": "E95B11F9ADA9BB4BAD53FABE207492CAE9807B69239102A5A2972FA4DCE58CFC",
+    "Admissions": {
+      "focused13": {
+        "Passed": true,
+        "ExitCode": 0,
+        "FailureCount": 0,
+        "Checks": [
+          {
+            "Plan": "Erlang.NifMapFamily504Observations",
+            "Passed": true
+          },
+          {
+            "Plan": "Erlang.NifMapMaterialized505Observations",
+            "Passed": true
+          },
+          {
+            "Plan": "Erlang.NifMapReentry505Observations",
+            "Passed": true
+          },
+          {
+            "Plan": "tools/Runtime/Erlang.OwnedGuest506Observations",
+            "Passed": true
+          },
+          {
+            "Plan": "tools/Native/Erlang.NifVariadic526Observations",
+            "Passed": true
+          },
+          {
+            "Plan": "Pending",
+            "Passed": true
+          },
+          {
+            "Plan": "Reallocation",
+            "Passed": true
+          },
+          {
+            "Plan": "Private557",
+            "Passed": true
+          },
+          {
+            "Plan": "Erlang.Dictionary537Observations",
+            "Passed": true
+          },
+          {
+            "Plan": "Erlang.MatchSaved634Observations",
+            "Passed": true
+          },
+          {
+            "Plan": "Erlang.EtsDispatch540Observations",
+            "Passed": true
+          },
+          {
+            "Plan": "Erlang.MonitorOriginal645Observations",
+            "Passed": true
+          },
+          {
+            "Plan": "Erlang.BeamFunction542Observations",
+            "Passed": true
+          }
+        ]
+      },
+      "mfa": {
+        "Passed": true,
+        "ExitCode": 0,
+        "FailureCount": 0,
+        "Checks": []
+      },
+      "resource529": {
+        "Passed": true,
+        "ExitCode": 0,
+        "FailureCount": 0,
+        "Checks": []
+      }
+    },
+    "KnownDraftBuildFailure": "1008 nullable test dereference fixed by assertion-compatible null-forgiving operator in both fixture copies; no runtime workaround"
+  },
+  "Implementation": "Start dormant helper retirement on original shutdown caller before queuing physical joins. Atomically reject retained-M/code-permission close with actual active/preparing helpers before setting helper closing flags; repeat check at closing cut. Preserve all physical reservations/retirements/helper joins and previous admission guards. No fixture/deadline removal.",
+  "Metadata": "Distinct1012 snapshot; old953 unchanged; explicit actual Tool README roots, CollectorSha256 checks and SealedBytes preservation",
+  "Receipts": [
+    {
+      "Path": "ci95/completion.json",
+      "Sha256": "27A69100F0ADE94DA8647C0BEAAFC2CD6AA6DB78B7221AF2474AA08C797ED7E8",
+      "Bytes": 40189
+    },
+    {
+      "Path": "ci95/preparedNative810.json",
+      "Sha256": "2A1199B41B3D7DC16314FE1A2DB8E8BFBF6522B4C6C5A3067522969AF660E81F",
+      "Bytes": 694
+    },
+    {
+      "Path": "ci95/preparedAdmission810.json",
+      "Sha256": "6DBBA39297BD2D3D724C6497F2764B575CE3E222AAE470A6F1A73F9205F5CEB4",
+      "Bytes": 703
+    },
+    {
+      "Path": "windows-before996.json",
+      "Sha256": "9C149B90FC479DC0B06C5885E9174F8EB73329D4F46E915EE932E9BC03A4F84F",
+      "Bytes": 3096
+    },
+    {
+      "Path": "affected/batch0-report.json",
+      "Sha256": "64DF3A79FB54389E2D0062507941C26D7D87B5C9DD3CFCD36E3D2AFEE650F384",
+      "Bytes": 87143
+    },
+    {
+      "Path": "affected/batch1-report.json",
+      "Sha256": "90D1BF12520E23C7598B37D1D3E8BE15CD4D0CE380519221180D98EFD5C2EEB6",
+      "Bytes": 40402
+    },
+    {
+      "Path": "source-admissions1016.json",
+      "Sha256": "8EB9C6D3636E187E609B2117EE439AD4D7AF7CF7AD2788CE39126C91265C93AD",
+      "Bytes": 5719
+    },
+    {
+      "Path": "source/mfa.json",
+      "Sha256": "1081EACC41F14F96DFD4AE4099FAB02A0587F42FECAF438C35932D9D8C1FF0BC",
+      "Bytes": 987
+    },
+    {
+      "Path": "source/resource529.json",
+      "Sha256": "B4957BA3B67A3A962803A084C0723C0402A26F7F8655A164F05DFBC4E077BBAF",
+      "Bytes": 314
+    },
+    {
+      "Path": "review/shutdown1000.json",
+      "Sha256": "2F1F3CD057D091D80CD8D583FD828CCB87A0604460E4574FD6AE8249D42F6FE1",
+      "Bytes": 5056
+    },
+    {
+      "Path": "review/metadata1014.json",
+      "Sha256": "24B211756EA726275CA8545D7EC435187AAEB39E4DE05A6F783DD55CDF7C3907",
+      "Bytes": 1368
+    },
+    {
+      "Path": "metadata1012.json",
+      "Sha256": "CCF07837919643AC04249812063EFFEF8FC757FD3CB72BB25FFEA8E8E3F90A41",
+      "Bytes": 20428
+    },
+    {
+      "Path": "style1010.json",
+      "Sha256": "BB17A41E9DA4DA2644185F9D0A83DF9D71738EF12A9F81A77CEBB61B42887BD4",
+      "Bytes": 7499
+    }
+  ],
+  "ApiDelta": 0,
+  "FullContractDelta": 0,
+  "Counts": {
+    "Registered": 708,
+    "Full": 180,
+    "Pending": 504,
+    "Known": 24
+  },
+  "Merged": false,
+  "AuxSuccessor": "Separate artifact-only996 proposal, not integrated or executed"
+}
