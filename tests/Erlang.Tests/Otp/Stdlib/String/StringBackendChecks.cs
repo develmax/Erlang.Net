@@ -95,7 +95,7 @@ internal static class StringBackendChecks
         Require(refused && ordinary.Modules.Exports.Count(export => export.Module == StringModule.Name) == 1);
     }
 
-    private static RuntimeLibrarySelection Selection(bool managed) => new([
+    internal static RuntimeLibrarySelection Selection(bool managed) => new([
         RuntimeModuleSelection.Managed("erlang"),
         RuntimeModuleSelection.Managed("lists"),
         RuntimeModuleSelection.Beam("unicode", Original("unicode"), ["lists", "unicode_util"]),

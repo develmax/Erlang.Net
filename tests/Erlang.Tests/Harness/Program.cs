@@ -466,6 +466,10 @@ Test(Erlang.Tests.StringBackendNames.BeamTest, () => Erlang.Tests.StringBackendC
 Test(Erlang.Tests.StringBackendNames.RefusalTest, Erlang.Tests.StringBackendChecks.Refusals);
 Test(Erlang.Tests.StringBackendNames.ManagedJaroTest, () => Erlang.Tests.StringBackendChecks.Jaro(true));
 Test(Erlang.Tests.StringBackendNames.BeamJaroTest, () => Erlang.Tests.StringBackendChecks.Jaro(false));
+Test(Erlang.Tests.StringCooperationNames.ListLength, () => Erlang.Tests.StringCooperationChecks.Run(false, false));
+Test(Erlang.Tests.StringCooperationNames.BinaryLength, () => Erlang.Tests.StringCooperationChecks.Run(true, false));
+Test(Erlang.Tests.StringCooperationNames.ListReverse, () => Erlang.Tests.StringCooperationChecks.Run(false, true));
+Test(Erlang.Tests.StringCooperationNames.BinaryReverse, () => Erlang.Tests.StringCooperationChecks.Run(true, true));
 Test(Erlang.Tests.MathBackendNames.ManagedWhole, Erlang.Tests.LibraryDependencyOriginalHostChecks.MathManagedWhole);
 Test(Erlang.Tests.MathBackendNames.ManagedSelection, Erlang.Tests.MathBackendChecks.ManagedSelection);
 Test(Erlang.Tests.MathLog2OtpNames.Test, Erlang.Tests.MathLog2OtpChecks.Run);

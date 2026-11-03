@@ -51,6 +51,7 @@ internal static class StringModernExecution
                     count++;
                     cp = nextCp;
                     rest = nextRest;
+                    await context.ReduceAsync();
                     continue;
                 }
                 Term cluster;
@@ -113,6 +114,7 @@ internal static class StringModernExecution
                 accumulated = reverse ? new Cons(first.Head, accumulated) : accumulated;
                 input = first.Tail;
                 count++;
+                await context.ReduceAsync();
                 continue;
             }
             Cons? next = await StringUnicode.Next(

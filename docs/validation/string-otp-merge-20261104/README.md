@@ -17,3 +17,10 @@ are recorded here separately. No compatibility status or default backend is chan
 from case counts. The exact-head CI and review gates must pass before merge.
 
 Current isolated build passes with0 warnings/errors. [Seven focused tests](focused-tests.json) pass, including the unchanged main allocation limits. Reusing each successfully compiled search pattern within one operation reduces the measured512KiB repeated-search allocation from2461297400 to2047696672 bytes (limit2147483648); actual native match and source error scopes remain. [Reviewed source guards](source-guard-review.json) and [raw admission](source-bindings.json) pass5400 rows without classification changes. Old publication-resource and actual allocation failures remain in local logs; no thresholds are raised.
+
+The current review correction restores scheduler cooperation for ASCII length
+and reverse. Four new public reduction-counter tests pass, while the same tests
+fail4/4 with the preceding assembly. Separate reviewed source admission receipts
+cover13 passive plans,4200 Resource529 dependencies and5400 MFA/native rows.
+Source-plan refresh archives retain prior bytes without promoting contracts.
+The reviewed full regression and OTP replay remain pending at this checkpoint.
