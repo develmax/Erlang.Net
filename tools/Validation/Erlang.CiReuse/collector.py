@@ -75,6 +75,12 @@ def git(root, *args):
     return subprocess.check_output(["git", "-C", str(root), *args], text=True, stderr=subprocess.STDOUT).strip()
 
 
+def run_snapshot(runs):
+    fields = ["id", "path", "event", "head_sha", "run_attempt", "status", "conclusion"]
+    return sorted([tuple(run.get(field) for field in fields) for run in runs if run.get("path") in REQUIRED],
+                  key=lambda row: str(row[0]))
+
+
 def normalize_run(api, run, head, repository):
     if run.get("head_repository", {}).get("full_name") != repository:
         raise ValueError("Workflow head belongs to another repository")
@@ -111,6 +117,8 @@ def collect(root, fingerprint, job):
     for run in current_runs:
         if run.get("path") in REQUIRED and run.get("conclusion") in ("failure", "timed_out", "cancelled", "action_required"):
             raise ValueError("Existing unsuccessful merge validation requires full validation: " + str(run["id"]))
+        if run.get("path") in REQUIRED and run.get("run_attempt") != 1:
+            raise ValueError("Repeated merge validation attempt requires full validation")
         if run.get("path") in REQUIRED and str(run.get("id")) != os.environ.get("GITHUB_RUN_ID"):
             if run.get("status") != "completed" or run.get("conclusion") != "success":
                 raise ValueError("Other merge validation is incomplete or ambiguous")
@@ -135,9 +143,11 @@ def collect(root, fingerprint, job):
         raise ValueError("Equivalent-tree history exceeds bounded evidence collection")
     for previous in sorted(equivalent):
         history = api.pages("actions/runs?head_sha=" + urllib.parse.quote(previous), "workflow_runs")
-        if any(run.get("path") in REQUIRED and run.get("conclusion") != "success" for run in history):
+        if any(run.get("path") in REQUIRED and (run.get("status") != "completed" or run.get("conclusion") != "success" or run.get("run_attempt") != 1) for run in history):
             raise ValueError("Earlier equivalent-tree validation is unsuccessful or incomplete")
     runs = api.pages("actions/runs?head_sha=" + urllib.parse.quote(head), "workflow_runs")
+    if any(run.get("path") in REQUIRED and run.get("run_attempt") != 1 for run in runs):
+        raise ValueError("Repeated attempt requires full validation of tested-head evidence")
     if any(run.get("path") in REQUIRED and (run.get("status") != "completed" or run.get("conclusion") != "success") for run in runs):
         raise ValueError("Unsuccessful or incomplete tested-head evidence requires full validation")
     selected = []
@@ -169,6 +179,19 @@ def collect(root, fingerprint, job):
         receipt = json.loads(archive.read("receipt.json"))
     if receipt.get("Head") != head or receipt.get("Run") != validation["run_id"] or receipt.get("Attempt") != validation["attempt"]:
         raise ValueError("Receipt producer head/run/attempt differs")
+    # Downloading the artifact may take time. Do not admit an earlier API snapshot
+    # after a producer rerun or a new merge validation has appeared meanwhile.
+    refreshed_head = api.pages("actions/runs?head_sha=" + urllib.parse.quote(head), "workflow_runs")
+    if run_snapshot(refreshed_head) != run_snapshot(runs):
+        raise ValueError("Tested-head workflows changed during admission")
+    for run in selected:
+        fresh = api.get("actions/runs/" + str(run["run_id"]))
+        if (fresh.get("run_attempt") != run["attempt"] or fresh.get("head_sha") != head
+                or fresh.get("status") != "completed" or fresh.get("conclusion") != "success"):
+            raise ValueError("Producer completion changed during admission")
+    refreshed_current = api.pages("actions/runs?head_sha=" + urllib.parse.quote(commit), "workflow_runs")
+    if run_snapshot(refreshed_current) != run_snapshot(current_runs):
+        raise ValueError("Merge workflows changed during admission")
     context = dict(event=os.environ["GITHUB_EVENT_NAME"], ref=os.environ["GITHUB_REF"], repository=repository,
                    commit=commit, parents=parents, base_is_ancestor_of_pr=ancestor, tree=tree, job=job,
                    fingerprint=fingerprint, fingerprint_complete=True)
