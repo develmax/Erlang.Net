@@ -184,7 +184,7 @@ internal static class OwnedTermDetachedCopy506
                 // public/foreign use after VM teardown. Preserve the copied raw
                 // topology as metadata for same-VM cursors. Never deduplicate a
                 // source whose current key identities now collide.
-                var logical = new MapTerm(raw.Entries);
+                var logical = new MapTerm(raw.ArithmeticKeyEntries);
                 if (logical.Entries.Count == raw.Entries.Count && PreservesFlatKeyOrder517(raw, logical))
                     copy = NativeMapMaterialization505.PublishLogicalEscape517(raw, logical);
             }

@@ -187,11 +187,7 @@ internal static class Readiness
         {
             Entries = registered.Select(entry => compatibilityByMfa[Key(entry.Module, entry.Function, entry.Arity)]).ToArray()
         };
-        await File.WriteAllTextAsync(
-            Path.Combine(output, MfaCompatibilityNames.Report),
-            MfaCompatibilityMarkdown.Generate(outputLedger),
-            new UTF8Encoding(false)
-        );
+        await MfaCompatibilityDocuments.Write(outputLedger, docs, output);
         await File.WriteAllTextAsync(
             Path.Combine(output, MfaCompatibilityIndexNames.File),
             MfaCompatibilityIndexMarkdown.Generate(outputLedger),

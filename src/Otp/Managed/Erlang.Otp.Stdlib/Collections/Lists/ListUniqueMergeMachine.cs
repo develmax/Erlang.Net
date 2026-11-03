@@ -1233,7 +1233,9 @@ internal static class ListUniqueMergeMachine
                                     context,
                                     vT2,
                                     vM,
-                                    continuations
+                                    continuations,
+                                    state,
+                                    ListUniqueMergeNames.UmergeLeftDuplicateReverseLine
                                 );
                                 complete = true;
                                 break;
@@ -1246,7 +1248,9 @@ internal static class ListUniqueMergeMachine
                                     context,
                                     vT2,
                                     new Cons(vH2, vM),
-                                    continuations
+                                    continuations,
+                                    state,
+                                    ListUniqueMergeNames.UmergeLeftReverseLine
                                 );
                                 complete = true;
                                 break;
@@ -1284,7 +1288,9 @@ internal static class ListUniqueMergeMachine
                                     context,
                                     vT1,
                                     new Cons(vH1, vM),
-                                    continuations
+                                    continuations,
+                                    state,
+                                    ListUniqueMergeNames.UmergeRightReverseLine
                                 );
                                 complete = true;
                                 break;
@@ -1322,7 +1328,9 @@ internal static class ListUniqueMergeMachine
                                     context,
                                     vT2,
                                     new Cons(vH2, vM),
-                                    continuations
+                                    continuations,
+                                    state,
+                                    ListUniqueMergeNames.ReverseUmergeLeftReverseLine
                                 );
                                 complete = true;
                                 break;
@@ -1368,7 +1376,9 @@ internal static class ListUniqueMergeMachine
                                     context,
                                     vT1,
                                     new Cons(vH1, vM),
-                                    continuations
+                                    continuations,
+                                    state,
+                                    ListUniqueMergeNames.ReverseUmergeRightDuplicateReverseLine
                                 );
                                 complete = true;
                                 break;
@@ -1381,7 +1391,9 @@ internal static class ListUniqueMergeMachine
                                     context,
                                     vT1,
                                     new Cons(vH1, new Cons(vH2M, vM)),
-                                    continuations
+                                    continuations,
+                                    state,
+                                    ListUniqueMergeNames.ReverseUmergeRightReverseLine
                                 );
                                 complete = true;
                                 break;

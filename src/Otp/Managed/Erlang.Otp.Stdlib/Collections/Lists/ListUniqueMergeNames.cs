@@ -45,6 +45,12 @@ internal static class ListUniqueMergeNames
     internal const int CallLine3315 = 3315;
     internal const int CallLine3317 = 3317;
     internal const int CallLine3319 = 3319;
+    internal const int UmergeLeftDuplicateReverseLine = 3462;
+    internal const int UmergeLeftReverseLine = 3464;
+    internal const int UmergeRightReverseLine = 3471;
+    internal const int ReverseUmergeLeftReverseLine = 3481;
+    internal const int ReverseUmergeRightDuplicateReverseLine = 3491;
+    internal const int ReverseUmergeRightReverseLine = 3493;
 
     internal static string Function(ListUniqueMergeState state) => state switch
     {

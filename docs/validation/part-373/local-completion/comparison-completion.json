@@ -1,0 +1,94 @@
+{
+  "Status": "DATA_COMPARISON_CLOSED_WITH_EXPLICIT_IDENTITY_AND_OWN_STATE_PROTOCOL",
+  "Examined": 6384,
+  "StrictRawTypedEqual": 6011,
+  "SourceBoundNamedFunIdentity": 331,
+  "PriorBoundCoreOpaqueIdentity": 6,
+  "SourceProtocolSavedEntry": 36,
+  "RawDifferencesPreserved": 36,
+  "ResidualDifferences": 0,
+  "Values": {
+    "Total": 1064,
+    "Strict": 1057,
+    "Bound": 7,
+    "Differences": 0
+  },
+  "NegativeControls": {
+    "SourceFun": 9,
+    "OwnState": 20,
+    "AllReject": true
+  },
+  "IndependentCurrentSourceReview": {
+    "Path": "artifacts/queue373-native-bridge-protocol-review2/source-review.json",
+    "Sha256": "F57A038C2B3466F9292E53750ED4BD092C44BA94A4B0E7B6FA326AA37871FF39"
+  },
+  "FirstOutsideScopeFailurePreserved": "own-third1/summary.json",
+  "SuccessorScopeRationale": "Existing prior policy2 already declares queue_long out_rear_64017 andto_list_rear_64017. Fresh bridge review2 proves general original-call decomposition. Sourceprotocol successor2 restores those exacthashbound policyentries, not native cutpoints.",
+  "FramesNormalized": false,
+  "CapturedFieldsRewritten": false,
+  "EmpiricalBudgetTelemetryClaimed": false,
+  "WholeModuleCompatibilityPromoted": false,
+  "RootOwnedProcessAndBuildSourceAdmissionPending": true,
+  "Bindings": [
+    {
+      "Path": "compare.py",
+      "Sha256": "B362AD4A30E676E79386E45544828BFC8B160712599A44B40E815A8A0B77C565"
+    },
+    {
+      "Path": "helper-bindings.json",
+      "Sha256": "0F958674083496ADC7561F29E40F5BF51FCC13AF7823BDBA27B56A8295DED881"
+    },
+    {
+      "Path": "compare-own-state.py",
+      "Sha256": "C6997E777AA6376593BBE7C73A2D67B1FAAE4F71287140A4A665C9803C43893B"
+    },
+    {
+      "Path": "own-helper-bindings.json",
+      "Sha256": "EFB16EC062B06B7C054F2F54DA1A80CD30AB793D6D5C63B66EE6FF88D035A138"
+    },
+    {
+      "Path": "compare-own-state2.py",
+      "Sha256": "89E515F48A0DF7C777B9D8EF07826EAD02AF9F46DCEB74E369A4AB54DB5AF1DB"
+    },
+    {
+      "Path": "own-helper-bindings2.json",
+      "Sha256": "0E3B4D83B181483F9EC820C4606E7085AD6291BD5A11FD547F9295464910C119"
+    },
+    {
+      "Path": "all-third1/summary.json",
+      "Sha256": "1FDA7874853B6943590C74E72E181F2C55C673AFAF63AFD28869D4960B40AF43"
+    },
+    {
+      "Path": "all-third1/observations.json",
+      "Sha256": "D54220BB1AB0088CC4C9D6E3FA05CA491D3FFF9277318296ED4C65D098B62817"
+    },
+    {
+      "Path": "all-third1/differences.json",
+      "Sha256": "81BF5CB5F84C925939F5A2D570F08F8682C45FAD247B87F9D4D9E37C6917EC9B"
+    },
+    {
+      "Path": "all-third1/input-bindings.json",
+      "Sha256": "DA9256A737022DFFE975FD1386E926DF1164CFD7F4A2BA485E67EEF6CB078632"
+    },
+    {
+      "Path": "own-third1/summary.json",
+      "Sha256": "B82E6C2F39EEA3E2F8218A7CD8959A39FC55839E621D7AD979F91318269895A3"
+    },
+    {
+      "Path": "own-third1/own-state-observations.json",
+      "Sha256": "93738EED91B2B68B0F3FF68E74A5A558778A14166775FF571322A6872F66B513"
+    },
+    {
+      "Path": "own-third2/summary.json",
+      "Sha256": "A6D5A0AF89A549290FC511F02F4DA1839A2BB9BB8422557F4F807CF10EA94305"
+    },
+    {
+      "Path": "own-third2/own-state-observations.json",
+      "Sha256": "30885812DF4F70E58F61888045A94AAE6CE8FF4030A62AD0CF865C04EBE47D7D"
+    },
+    {
+      "Path": "core-third1/summary.json",
+      "Sha256": "BC1DDCB27E0B8D492E1B3C9AD18410E5A5BEADA34F5A85721D541D3B382F30B8"
+    }
+  ]
+}

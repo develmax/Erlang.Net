@@ -4,6 +4,14 @@ namespace Erlang;
 
 internal static class MathHostSpecialFunctions
 {
+    internal static double Log2(double value)
+    {
+        // The pinned official Windows OTP build uses erl_math.c's !HAVE_LOG2 path.
+        return OperatingSystem.IsWindows()
+            ? Math.Log(value) / MathNativeConstants.NaturalLogOfTwo
+            : Math.Log2(value);
+    }
+
     internal static double Erf(double value)
     {
         if (OperatingSystem.IsWindows())

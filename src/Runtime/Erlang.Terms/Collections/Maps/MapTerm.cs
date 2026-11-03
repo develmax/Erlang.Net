@@ -49,9 +49,9 @@ public sealed partial class MapTerm : Term
         // when an internal node identity later publishes a different epoch.
         // Keep exact code identity for dictionary storage and arithmetic term
         // key order for comparison as separate views of the same bindings.
-        ArithmeticKeyEntries = d.Count < 2 || d.Count > TermMapOrderParameters.FlatMapMaximumEntries
+        ArithmeticKeyEntries = HasStrictArithmeticOrder(Entries, ref context)
             ? Entries
-            : Array.AsReadOnly(Entries.OrderBy(
+            : Array.AsReadOnly(d.OrderBy(
                 entry => entry.Key,
                 Comparer<Term>.Create((left, right) => TermOrder.CompareSnapshot(
                     left,
@@ -62,7 +62,7 @@ public sealed partial class MapTerm : Term
             ).ToArray());
         if (d.Count <= TermMapOrderParameters.FlatMapMaximumEntries)
         {
-            var keys = Entries.OrderBy(
+            var keys = d.OrderBy(
                 entry => entry.Key,
                 Comparer<Term>.Create((left, right) => left is Atom first && right is Atom second
                     ? AtomNameRegistry.IndexOf(first.Name).CompareTo(AtomNameRegistry.IndexOf(second.Name))

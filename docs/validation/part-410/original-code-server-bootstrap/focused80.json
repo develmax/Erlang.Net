@@ -1,0 +1,492 @@
+{
+  "Partial": true,
+  "SelectedCount": 80,
+  "TotalCount": 8458,
+  "Blocks": [],
+  "ExactCases": [
+    "HOST/beam410/original-prim-file-exact33-nif-declarations",
+    "HOST/beam410/raw-nif-marker-eligibility-and-entry",
+    "HOST/bootstrap410/system-pid-foreign-wire-collision-and-old-creation",
+    "HOST/ets-key407/code-server-default-vectors",
+    "HOST/ets-key407/four-families-atomic-batch",
+    "HOST/ets-key407/protection-public-delete",
+    "HOST/ets-owned-array406/copy-out-root-survives-payload",
+    "HOST/ets-owned-array406/last-read-lease-roots",
+    "HOST/ets-retirement407/async-public-delete-name-generation",
+    "HOST/ets-retirement407/dispose-halt-initializer-drain",
+    "HOST/ets-retirement407/owner-down-after-owned-drain",
+    "HOST/ets-retirement407/sparse-rows-and-held-reader",
+    "HOST/ets-select409/detached-function-after-delete",
+    "HOST/ets-select409/general-match-program",
+    "HOST/ets-select409/native-errors-access-precedence",
+    "HOST/loader410/ended-source-lease-cannot-lend-declarations",
+    "HOST/loader410/foreign-registry-source-cannot-lend-declarations",
+    "HOST/loader410/host-native-image-cannot-lend-declarations",
+    "HOST/loader410/nearest-empty-source-shadows-broader-outer",
+    "HOST/loader410/source-declared-dependency-inherits-and-publishes",
+    "HOST/loader410/undeclared-pure-import-refuses",
+    "HOST/persistent-term408/actual-runtime-lifecycle-and-held-reader",
+    "HOST/persistent-term408/exact-values-and-owned-copy",
+    "HOST/persistent-term408/process-independent-and-atomic-new",
+    "HOST/persistent-term408/retired-read-lease-and-close",
+    "HOST/prim-file410/encoding-native-owner-routing",
+    "HOST/prim-file410/raw-word-and-filename-validation",
+    "HOST/prim-file410/source-composition-not-general-nfc",
+    "HOST/prim-file410/windows-native-files-and-validation",
+    "compiler/nif-declaration-control-metadata-and-ownership",
+    "runtime/default-nif-source-route-policy-filename-and-code-admission",
+    "runtime/direct-source-load-nif-exact-caller-capability",
+    "runtime/library-manifest389/beam-owned-images-and-actual-source-owners",
+    "runtime/library-manifest389/invalid-schema-path-hash-and-dependencies",
+    "runtime/library-manifest389/managed-and-explicit-mixed-projects",
+    "runtime/library-manifest389/valid-hash-wrong-module-refuses-startup",
+    "runtime/library-selection/cancellation-and-post-start-token-lifetime",
+    "runtime/library-selection/defaults-and-explicit-managed",
+    "runtime/library-selection/explicit-mixed-dependency",
+    "runtime/library-selection/invalid-request-and-no-fallback",
+    "runtime/library-selection/no-bootstrap-generation-and-first-reload",
+    "runtime/library-selection/original-images-both-request-orders",
+    "runtime/library-selection/owned-inputs-and-runtime-isolation",
+    "runtime/library-selection/public-factory-cancel-after-purger-permit",
+    "runtime/library-selection/public-factory-cancel-during-setup",
+    "runtime/library395/frame-Admission",
+    "runtime/library405/owned-storage-cancellation-close-and-halt",
+    "runtime/library405/owned-storage-detached-graph-and-rollback",
+    "runtime/library405/owned-storage-resource-retention-and-read-lease",
+    "runtime/library405/owned-storage-table-identity-and-owner-death",
+    "runtime/library406/beam-fun-detached-env-resource-and-authenticity",
+    "runtime/library406/beam-fun-stored-original-image-purge-entry",
+    "runtime/library407/fun-entry-load-purge-without-construction-history",
+    "runtime/library407/fun-entry-prepare-and-publication-preflight-boundaries",
+    "runtime/library407/fun-entry-publication-safe-external-lock-order",
+    "runtime/library407/isolated-ets-kernel-original-whole-terms-and-stacks",
+    "runtime/library407/original-beam-restored-fun-entry-and-purge",
+    "runtime/library407/original-functions-whole-terms-and-stacks",
+    "runtime/library407/restored-function-storage-no-sdk-callback-on-read",
+    "runtime/library407/source-and-external-function-storage",
+    "runtime/library409/isolated-ets-select-original-whole-terms-and-stacks",
+    "runtime/library410/windows-original-filename-helpers-whole-terms-and-stacks",
+    "runtime/native-provider408/configured-native-fourteen",
+    "runtime/native-provider408/default-unchanged",
+    "runtime/native-provider408/idempotent-and-displaced-binding",
+    "runtime/native-provider408/invalid-and-foreign-selection",
+    "runtime/native-provider408/original-seven-stub-refused",
+    "runtime/native-provider408/outer-transaction-rollback",
+    "runtime/native-provider408/process-and-runtime-lifecycle",
+    "runtime/native-provider408/selected-original-manifest-consumer",
+    "runtime/native-provider408/source-owner-refusal",
+    "runtime/native-provider408/strict-factory-and-cancellation",
+    "runtime/nif-beam-exact-image-entry-and-closure-routing",
+    "runtime/nif-caller-image-reservation-generation-and-cleanup",
+    "runtime/nif-image-attachment-transactions-and-quiescence",
+    "runtime/nif-prepared-image-owner-without-global-exports",
+    "runtime/original-code-server410/interactive-app-73-whole",
+    "runtime/original-code-server410/interactive-empty-73-whole",
+    "runtime/otp-bootstrap410/original-init-loader-code-server-whole61",
+    "runtime/otp-bootstrap410/preflight-and-cancelled-original-boot-cleanup"
+  ],
+  "Passed": 80,
+  "Failed": 0,
+  "Tests": [
+    {
+      "Name": "runtime/original-code-server410/interactive-empty-73-whole",
+      "Status": "Passed",
+      "Milliseconds": 1457
+    },
+    {
+      "Name": "runtime/original-code-server410/interactive-app-73-whole",
+      "Status": "Passed",
+      "Milliseconds": 1276
+    },
+    {
+      "Name": "HOST/loader410/source-declared-dependency-inherits-and-publishes",
+      "Status": "Passed",
+      "Milliseconds": 7
+    },
+    {
+      "Name": "HOST/loader410/undeclared-pure-import-refuses",
+      "Status": "Passed",
+      "Milliseconds": 5
+    },
+    {
+      "Name": "HOST/loader410/host-native-image-cannot-lend-declarations",
+      "Status": "Passed",
+      "Milliseconds": 3
+    },
+    {
+      "Name": "HOST/loader410/foreign-registry-source-cannot-lend-declarations",
+      "Status": "Passed",
+      "Milliseconds": 4
+    },
+    {
+      "Name": "HOST/loader410/ended-source-lease-cannot-lend-declarations",
+      "Status": "Passed",
+      "Milliseconds": 2
+    },
+    {
+      "Name": "HOST/loader410/nearest-empty-source-shadows-broader-outer",
+      "Status": "Passed",
+      "Milliseconds": 3
+    },
+    {
+      "Name": "runtime/otp-bootstrap410/preflight-and-cancelled-original-boot-cleanup",
+      "Status": "Passed",
+      "Milliseconds": 678
+    },
+    {
+      "Name": "HOST/beam410/original-prim-file-exact33-nif-declarations",
+      "Status": "Passed",
+      "Milliseconds": 12
+    },
+    {
+      "Name": "HOST/beam410/raw-nif-marker-eligibility-and-entry",
+      "Status": "Passed",
+      "Milliseconds": 13
+    },
+    {
+      "Name": "HOST/bootstrap410/system-pid-foreign-wire-collision-and-old-creation",
+      "Status": "Passed",
+      "Milliseconds": 5
+    },
+    {
+      "Name": "runtime/library410/windows-original-filename-helpers-whole-terms-and-stacks",
+      "Status": "Passed",
+      "Milliseconds": 1049
+    },
+    {
+      "Name": "runtime/otp-bootstrap410/original-init-loader-code-server-whole61",
+      "Status": "Passed",
+      "Milliseconds": 775
+    },
+    {
+      "Name": "HOST/prim-file410/encoding-native-owner-routing",
+      "Status": "Passed",
+      "Milliseconds": 3
+    },
+    {
+      "Name": "HOST/prim-file410/raw-word-and-filename-validation",
+      "Status": "Passed",
+      "Milliseconds": 3
+    },
+    {
+      "Name": "HOST/prim-file410/source-composition-not-general-nfc",
+      "Status": "Passed",
+      "Milliseconds": 2
+    },
+    {
+      "Name": "HOST/prim-file410/windows-native-files-and-validation",
+      "Status": "Passed",
+      "Milliseconds": 7
+    },
+    {
+      "Name": "runtime/native-provider408/default-unchanged",
+      "Status": "Passed",
+      "Milliseconds": 8
+    },
+    {
+      "Name": "runtime/native-provider408/configured-native-fourteen",
+      "Status": "Passed",
+      "Milliseconds": 19
+    },
+    {
+      "Name": "runtime/native-provider408/invalid-and-foreign-selection",
+      "Status": "Passed",
+      "Milliseconds": 3
+    },
+    {
+      "Name": "runtime/native-provider408/source-owner-refusal",
+      "Status": "Passed",
+      "Milliseconds": 1
+    },
+    {
+      "Name": "runtime/native-provider408/idempotent-and-displaced-binding",
+      "Status": "Passed",
+      "Milliseconds": 2
+    },
+    {
+      "Name": "runtime/native-provider408/outer-transaction-rollback",
+      "Status": "Passed",
+      "Milliseconds": 6
+    },
+    {
+      "Name": "runtime/native-provider408/original-seven-stub-refused",
+      "Status": "Passed",
+      "Milliseconds": 18
+    },
+    {
+      "Name": "runtime/native-provider408/process-and-runtime-lifecycle",
+      "Status": "Passed",
+      "Milliseconds": 3
+    },
+    {
+      "Name": "runtime/native-provider408/strict-factory-and-cancellation",
+      "Status": "Passed",
+      "Milliseconds": 1
+    },
+    {
+      "Name": "runtime/native-provider408/selected-original-manifest-consumer",
+      "Status": "Passed",
+      "Milliseconds": 143
+    },
+    {
+      "Name": "runtime/library409/isolated-ets-select-original-whole-terms-and-stacks",
+      "Status": "Passed",
+      "Milliseconds": 84
+    },
+    {
+      "Name": "HOST/ets-select409/general-match-program",
+      "Status": "Passed",
+      "Milliseconds": 4
+    },
+    {
+      "Name": "HOST/ets-select409/native-errors-access-precedence",
+      "Status": "Passed",
+      "Milliseconds": 4
+    },
+    {
+      "Name": "HOST/ets-select409/detached-function-after-delete",
+      "Status": "Passed",
+      "Milliseconds": 5
+    },
+    {
+      "Name": "HOST/persistent-term408/actual-runtime-lifecycle-and-held-reader",
+      "Status": "Passed",
+      "Milliseconds": 177
+    },
+    {
+      "Name": "runtime/library407/isolated-ets-kernel-original-whole-terms-and-stacks",
+      "Status": "Passed",
+      "Milliseconds": 53
+    },
+    {
+      "Name": "HOST/persistent-term408/exact-values-and-owned-copy",
+      "Status": "Passed",
+      "Milliseconds": 3
+    },
+    {
+      "Name": "HOST/persistent-term408/process-independent-and-atomic-new",
+      "Status": "Passed",
+      "Milliseconds": 3
+    },
+    {
+      "Name": "HOST/persistent-term408/retired-read-lease-and-close",
+      "Status": "Passed",
+      "Milliseconds": 2
+    },
+    {
+      "Name": "runtime/library407/fun-entry-load-purge-without-construction-history",
+      "Status": "Passed",
+      "Milliseconds": 14
+    },
+    {
+      "Name": "runtime/library407/fun-entry-prepare-and-publication-preflight-boundaries",
+      "Status": "Passed",
+      "Milliseconds": 4
+    },
+    {
+      "Name": "runtime/library407/fun-entry-publication-safe-external-lock-order",
+      "Status": "Passed",
+      "Milliseconds": 9
+    },
+    {
+      "Name": "HOST/ets-key407/code-server-default-vectors",
+      "Status": "Passed",
+      "Milliseconds": 4
+    },
+    {
+      "Name": "HOST/ets-key407/four-families-atomic-batch",
+      "Status": "Passed",
+      "Milliseconds": 7
+    },
+    {
+      "Name": "HOST/ets-key407/protection-public-delete",
+      "Status": "Passed",
+      "Milliseconds": 5
+    },
+    {
+      "Name": "runtime/library407/original-functions-whole-terms-and-stacks",
+      "Status": "Passed",
+      "Milliseconds": 519
+    },
+    {
+      "Name": "runtime/library407/source-and-external-function-storage",
+      "Status": "Passed",
+      "Milliseconds": 101
+    },
+    {
+      "Name": "runtime/library407/restored-function-storage-no-sdk-callback-on-read",
+      "Status": "Passed",
+      "Milliseconds": 3
+    },
+    {
+      "Name": "runtime/library407/original-beam-restored-fun-entry-and-purge",
+      "Status": "Passed",
+      "Milliseconds": 10
+    },
+    {
+      "Name": "HOST/ets-retirement407/owner-down-after-owned-drain",
+      "Status": "Passed",
+      "Milliseconds": 33
+    },
+    {
+      "Name": "HOST/ets-retirement407/async-public-delete-name-generation",
+      "Status": "Passed",
+      "Milliseconds": 37
+    },
+    {
+      "Name": "HOST/ets-retirement407/sparse-rows-and-held-reader",
+      "Status": "Passed",
+      "Milliseconds": 43
+    },
+    {
+      "Name": "HOST/ets-retirement407/dispose-halt-initializer-drain",
+      "Status": "Passed",
+      "Milliseconds": 115
+    },
+    {
+      "Name": "runtime/library406/beam-fun-detached-env-resource-and-authenticity",
+      "Status": "Passed",
+      "Milliseconds": 44
+    },
+    {
+      "Name": "runtime/library406/beam-fun-stored-original-image-purge-entry",
+      "Status": "Passed",
+      "Milliseconds": 5
+    },
+    {
+      "Name": "HOST/ets-owned-array406/last-read-lease-roots",
+      "Status": "Passed",
+      "Milliseconds": 27
+    },
+    {
+      "Name": "HOST/ets-owned-array406/copy-out-root-survives-payload",
+      "Status": "Passed",
+      "Milliseconds": 24
+    },
+    {
+      "Name": "runtime/library405/owned-storage-detached-graph-and-rollback",
+      "Status": "Passed",
+      "Milliseconds": 66
+    },
+    {
+      "Name": "runtime/library405/owned-storage-table-identity-and-owner-death",
+      "Status": "Passed",
+      "Milliseconds": 5
+    },
+    {
+      "Name": "runtime/library405/owned-storage-resource-retention-and-read-lease",
+      "Status": "Passed",
+      "Milliseconds": 17
+    },
+    {
+      "Name": "runtime/library405/owned-storage-cancellation-close-and-halt",
+      "Status": "Passed",
+      "Milliseconds": 6
+    },
+    {
+      "Name": "runtime/library395/frame-Admission",
+      "Status": "Passed",
+      "Milliseconds": 3
+    },
+    {
+      "Name": "runtime/library-selection/defaults-and-explicit-managed",
+      "Status": "Passed",
+      "Milliseconds": 9
+    },
+    {
+      "Name": "runtime/library-selection/original-images-both-request-orders",
+      "Status": "Passed",
+      "Milliseconds": 71
+    },
+    {
+      "Name": "runtime/library-selection/explicit-mixed-dependency",
+      "Status": "Passed",
+      "Milliseconds": 1105
+    },
+    {
+      "Name": "runtime/library-selection/owned-inputs-and-runtime-isolation",
+      "Status": "Passed",
+      "Milliseconds": 43
+    },
+    {
+      "Name": "runtime/library-selection/invalid-request-and-no-fallback",
+      "Status": "Passed",
+      "Milliseconds": 84
+    },
+    {
+      "Name": "runtime/library-selection/no-bootstrap-generation-and-first-reload",
+      "Status": "Passed",
+      "Milliseconds": 54
+    },
+    {
+      "Name": "runtime/library-selection/cancellation-and-post-start-token-lifetime",
+      "Status": "Passed",
+      "Milliseconds": 24
+    },
+    {
+      "Name": "runtime/library-selection/public-factory-cancel-during-setup",
+      "Status": "Passed",
+      "Milliseconds": 11
+    },
+    {
+      "Name": "runtime/library-selection/public-factory-cancel-after-purger-permit",
+      "Status": "Passed",
+      "Milliseconds": 37
+    },
+    {
+      "Name": "compiler/nif-declaration-control-metadata-and-ownership",
+      "Status": "Passed",
+      "Milliseconds": 4
+    },
+    {
+      "Name": "runtime/nif-image-attachment-transactions-and-quiescence",
+      "Status": "Passed",
+      "Milliseconds": 12
+    },
+    {
+      "Name": "runtime/nif-caller-image-reservation-generation-and-cleanup",
+      "Status": "Passed",
+      "Milliseconds": 29
+    },
+    {
+      "Name": "runtime/direct-source-load-nif-exact-caller-capability",
+      "Status": "Passed",
+      "Milliseconds": 206
+    },
+    {
+      "Name": "runtime/nif-beam-exact-image-entry-and-closure-routing",
+      "Status": "Passed",
+      "Milliseconds": 20
+    },
+    {
+      "Name": "runtime/nif-prepared-image-owner-without-global-exports",
+      "Status": "Passed",
+      "Milliseconds": 51
+    },
+    {
+      "Name": "runtime/default-nif-source-route-policy-filename-and-code-admission",
+      "Status": "Passed",
+      "Milliseconds": 295
+    },
+    {
+      "Name": "runtime/library-manifest389/beam-owned-images-and-actual-source-owners",
+      "Status": "Passed",
+      "Milliseconds": 36
+    },
+    {
+      "Name": "runtime/library-manifest389/managed-and-explicit-mixed-projects",
+      "Status": "Passed",
+      "Milliseconds": 37
+    },
+    {
+      "Name": "runtime/library-manifest389/invalid-schema-path-hash-and-dependencies",
+      "Status": "Passed",
+      "Milliseconds": 29
+    },
+    {
+      "Name": "runtime/library-manifest389/valid-hash-wrong-module-refuses-startup",
+      "Status": "Passed",
+      "Milliseconds": 8
+    }
+  ]
+}

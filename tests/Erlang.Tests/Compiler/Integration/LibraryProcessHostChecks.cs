@@ -157,7 +157,7 @@ internal static class LibraryProcessHostChecks
                     {
                         foreach (var export in registry.Exports.Where(export => export.Module == image.Name))
                             Require(ReferenceEquals(registry.SourceOwner(image.Name, export.Function, export.Arity), image));
-                        Require(image.NativePrimitiveExports.Count == (image.Name == StringModule ? 1 : 0));
+                        Require(image.NativePrimitiveExports.Count == (image.Name == LibraryProcessNames.StringModule ? 1 : 0));
                     }
                 };
             }

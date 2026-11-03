@@ -1,0 +1,24 @@
+{
+  "Command": [
+    "C:/Program Files/dotnet/dotnet.exe",
+    "tests/Erlang.Tests/bin/Debug/net10.0/Erlang.Tests.dll",
+    "--case",
+    "runtime/halt/immediate-election-preserves-first-pending-result",
+    "--case",
+    "runtime/halt-foundation-transfer-admission-and-independent-runtime",
+    "--case",
+    "runtime/halt-live-port-drain-immediate-timeout-and-profile-ownership",
+    "--case",
+    "runtime/halt-platform-trace-display-monitor-dispatch-quiescence",
+    "--report",
+    "artifacts/library379-implementation/halt-election-fix/fixed/focused-outcomes.json"
+  ],
+  "Pid": 18224,
+  "ElapsedSeconds": 11.139999999955762,
+  "TimedOut": false,
+  "Settled": true,
+  "ExitCode": 0,
+  "Failures": [],
+  "StdoutSha256": "3159AD0F9BBA0AEE4BAE8C8BDF1838170724DE29C3F06D8C69D3C6509164409E",
+  "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+}

@@ -1,0 +1,54 @@
+{"Partial":true,"SelectedCount":45,"TotalCount":9633}
+PASS runtime/math/managed-whole-otp-terms
+PASS runtime/math/managed-startup-selection
+PASS runtime/math/pinned-windows-log2-rounding-both-backends
+PASS runtime/library394/original-math-whole-terms
+FAIL runtime/library394/original-math-strict-startup-owner: System.InvalidOperationException: Startup library selection check failed
+   at Erlang.Tests.LibrarySelectionHostData.Require(Boolean condition) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\tests\Erlang.Tests\Compiler\Integration\LibrarySelectionHostData.cs:line 39
+   at Erlang.Tests.LibrarySelectionPolicyOriginalMathChecks.<>c__DisplayClass0_0.<OriginalMath24>b__1(ModuleRegistry registry) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\tests\Erlang.Tests\Compiler\Integration\LibrarySelectionPolicyOriginalMathChecks.cs:line 40
+   at Erlang.ModuleRegistry.Apply(Action`1 configure) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\src\Runtime\Erlang.Runtime.Core\Modules\ModuleRegistry.cs:line 853
+   at Erlang.RuntimeInitializer.Run() in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\src\Runtime\Erlang.Runtime.Core\Bootstrap\RuntimeInitializer.cs:line 71
+   at Erlang.Tests.LibrarySelectionPolicyOriginalMathChecks.OriginalMath24(ReadOnlyMemory`1 image, IEnumerable`1 dependencyModules, IEnumerable`1 dependencyChoices) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\tests\Erlang.Tests\Compiler\Integration\LibrarySelectionPolicyOriginalMathChecks.cs:line 31
+   at Erlang.Tests.LibrarySelectionPolicyOriginalMathChecks.OriginalMath24(ReadOnlyMemory`1 image, IEnumerable`1 dependencyModules, IEnumerable`1 dependencyChoices) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\tests\Erlang.Tests\Compiler\Integration\LibrarySelectionPolicyOriginalMathChecks.cs:line 49
+   at Program.<Main>$(String[] args) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\tests\Erlang.Tests\Harness\Program.cs:line 16170
+PASS runtime/math392/badarg-badarith-precedence-and-nearest-even
+PASS runtime/math392/signedzero-underflow-and-truncating-remainder
+PASS runtime/math392/system-crt-erf-erfc-real-bindings
+PASS runtime/library394/selection/ManagedRuntimeDependency
+PASS runtime/library394/selection/NativeBootstrapOwnership
+PASS runtime/library394/selection/ExplicitPureCycle
+PASS runtime/library394/selection/StrictMissingWrapperSelection
+PASS runtime/library394/selection/FactoryRefusals
+PASS runtime/library394/selection/BootstrapBodyMutation
+PASS runtime/library394/selection/ManagedWrapperUnbound
+PASS runtime/library394/selection/MissingCaptureAndExport
+PASS runtime/library394/selection/SourceOwnerAndOldGeneration
+PASS runtime/library394/selection/NativeSourceOwner
+PASS runtime/library394/selection/MissingSelectedMfa
+PASS mfa/math:acos/1
+PASS mfa/math:acosh/1
+PASS mfa/math:asin/1
+PASS mfa/math:asinh/1
+PASS mfa/math:atan/1
+PASS mfa/math:atan2/2
+PASS mfa/math:atanh/1
+PASS mfa/math:ceil/1
+PASS mfa/math:cos/1
+PASS mfa/math:cosh/1
+PASS mfa/math:erf/1
+PASS mfa/math:erfc/1
+PASS mfa/math:exp/1
+PASS mfa/math:floor/1
+PASS mfa/math:fmod/2
+PASS mfa/math:log/1
+PASS mfa/math:log10/1
+PASS mfa/math:log2/1
+PASS mfa/math:pi/0
+PASS mfa/math:pow/2
+PASS mfa/math:sin/1
+PASS mfa/math:sinh/1
+PASS mfa/math:sqrt/1
+PASS mfa/math:tan/1
+PASS mfa/math:tanh/1
+PASS mfa/math:tau/0
+44/45 passed

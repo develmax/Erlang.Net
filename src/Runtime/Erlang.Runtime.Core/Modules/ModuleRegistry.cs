@@ -287,6 +287,24 @@ public sealed partial class ModuleRegistry
         Term[] arguments,
         out ModuleCallDispatchKind dispatch,
         out bool selectedElementSourceContract
+    ) => CallWithDispatch(
+        context,
+        module,
+        function,
+        arguments,
+        out dispatch,
+        out selectedElementSourceContract,
+        null
+    );
+
+    internal ValueTask<Term> CallWithDispatch(
+        ProcessContext context,
+        string module,
+        string function,
+        Term[] arguments,
+        out ModuleCallDispatchKind dispatch,
+        out bool selectedElementSourceContract,
+        Func<ProcessContext, IDisposable>? nativeCaller
     )
     {
         using var atomScope = new AtomNameScope(context.Runtime.AtomNames);
@@ -301,6 +319,7 @@ public sealed partial class ModuleRegistry
         bool handler = false;
         bool nativeErrorBoundary = false;
         bool sourceWrapperBoundary = false;
+        bool selectedNativeEntry = false;
         bool hostErrorHandler = false;
         OwnedBindingKind507 ownedKind507 = OwnedBindingKind507.Opaque;
         Atom selectedHandler = context.ErrorHandler;
@@ -346,6 +365,8 @@ public sealed partial class ModuleRegistry
             }
             if (!handler && body is not null)
                 ownedKind507 = SelectedOwnedBinding507((module, function, arguments.Length), body);
+            selectedNativeEntry = nativeCaller is not null && !handler
+                && IsNativeEntry(module, function, arguments.Length);
         }
 
         if (sourceWrapperBoundary)
@@ -370,6 +391,21 @@ public sealed partial class ModuleRegistry
                 values
             );
         }
+
+        if (selectedNativeEntry)
+            return InvokeAdmittedWithNativeCallerScope(
+                context,
+                module,
+                function,
+                arguments,
+                body!,
+                image,
+                code,
+                handler,
+                hostErrorHandler,
+                ownedKind507,
+                nativeCaller!
+            );
 
         return InvokeAdmittedSelection(
             context,

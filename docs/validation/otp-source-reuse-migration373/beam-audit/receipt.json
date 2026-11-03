@@ -1,0 +1,2217 @@
+{
+  "Status": "ACTUAL_PINNED_QUEUE_IMAGE_DECODED_PREPARE_REJECTED_NOT_EXECUTED",
+  "PinnedOtp": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "Queue": {
+    "Path": "docs\\validation\\part-368\\original-receipts-and-raw\\artifact-12117323576\\capture\\queue-installed.beam",
+    "Sha256": "759B1FE208F8A0DE292147EB00FFCE98F929263ADCFCD4AABB485E3B3EB4538D",
+    "Bytes": 27544,
+    "DecodedInstructions": 2068,
+    "WholeImageOpcodeNames": [
+      {
+        "Name": "allocate",
+        "Count": 29
+      },
+      {
+        "Name": "allocate_heap",
+        "Count": 2
+      },
+      {
+        "Name": "badmatch",
+        "Count": 21
+      },
+      {
+        "Name": "bif1",
+        "Count": 1
+      },
+      {
+        "Name": "call",
+        "Count": 18
+      },
+      {
+        "Name": "call_ext",
+        "Count": 44
+      },
+      {
+        "Name": "call_ext_last",
+        "Count": 7
+      },
+      {
+        "Name": "call_ext_only",
+        "Count": 38
+      },
+      {
+        "Name": "call_fun2",
+        "Count": 5
+      },
+      {
+        "Name": "call_last",
+        "Count": 1
+      },
+      {
+        "Name": "call_only",
+        "Count": 14
+      },
+      {
+        "Name": "case_end",
+        "Count": 5
+      },
+      {
+        "Name": "deallocate",
+        "Count": 76
+      },
+      {
+        "Name": "func_info",
+        "Count": 50
+      },
+      {
+        "Name": "gc_bif1",
+        "Count": 18
+      },
+      {
+        "Name": "gc_bif2",
+        "Count": 22
+      },
+      {
+        "Name": "get_hd",
+        "Count": 4
+      },
+      {
+        "Name": "get_list",
+        "Count": 40
+      },
+      {
+        "Name": "get_tl",
+        "Count": 21
+      },
+      {
+        "Name": "get_tuple_element",
+        "Count": 97
+      },
+      {
+        "Name": "init_yregs",
+        "Count": 25
+      },
+      {
+        "Name": "int_code_end",
+        "Count": 1
+      },
+      {
+        "Name": "is_atom",
+        "Count": 6
+      },
+      {
+        "Name": "is_eq_exact",
+        "Count": 17
+      },
+      {
+        "Name": "is_function2",
+        "Count": 7
+      },
+      {
+        "Name": "is_ge",
+        "Count": 3
+      },
+      {
+        "Name": "is_integer",
+        "Count": 1
+      },
+      {
+        "Name": "is_list",
+        "Count": 61
+      },
+      {
+        "Name": "is_lt",
+        "Count": 2
+      },
+      {
+        "Name": "is_nil",
+        "Count": 91
+      },
+      {
+        "Name": "is_nonempty_list",
+        "Count": 66
+      },
+      {
+        "Name": "is_tagged_tuple",
+        "Count": 1
+      },
+      {
+        "Name": "is_tuple",
+        "Count": 47
+      },
+      {
+        "Name": "jump",
+        "Count": 13
+      },
+      {
+        "Name": "label",
+        "Count": 288
+      },
+      {
+        "Name": "line",
+        "Count": 188
+      },
+      {
+        "Name": "move",
+        "Count": 230
+      },
+      {
+        "Name": "put_list",
+        "Count": 82
+      },
+      {
+        "Name": "put_tuple2",
+        "Count": 103
+      },
+      {
+        "Name": "return",
+        "Count": 128
+      },
+      {
+        "Name": "select_val",
+        "Count": 5
+      },
+      {
+        "Name": "swap",
+        "Count": 8
+      },
+      {
+        "Name": "test_arity",
+        "Count": 46
+      },
+      {
+        "Name": "test_heap",
+        "Count": 125
+      },
+      {
+        "Name": "trim",
+        "Count": 11
+      }
+    ],
+    "UniqueOpcodes": 45,
+    "Imports": [
+      {
+        "Module": "erlang",
+        "Function": "is_list",
+        "Arity": 1
+      },
+      {
+        "Module": "erlang",
+        "Function": "error",
+        "Arity": 2
+      },
+      {
+        "Module": "erlang",
+        "Function": "length",
+        "Arity": 1
+      },
+      {
+        "Module": "erlang",
+        "Function": "+",
+        "Arity": 2
+      },
+      {
+        "Module": "lists",
+        "Function": "reverse",
+        "Arity": 2
+      },
+      {
+        "Module": "erlang",
+        "Function": "++",
+        "Arity": 2
+      },
+      {
+        "Module": "erlang",
+        "Function": "div",
+        "Arity": 2
+      },
+      {
+        "Module": "lists",
+        "Function": "split",
+        "Arity": 2
+      },
+      {
+        "Module": "lists",
+        "Function": "member",
+        "Arity": 2
+      },
+      {
+        "Module": "lists",
+        "Function": "last",
+        "Arity": 1
+      },
+      {
+        "Module": "erlang",
+        "Function": "-",
+        "Arity": 2
+      },
+      {
+        "Module": "lists",
+        "Function": "filtermap",
+        "Arity": 2
+      },
+      {
+        "Module": "lists",
+        "Function": "foldl",
+        "Arity": 3
+      },
+      {
+        "Module": "lists",
+        "Function": "foldr",
+        "Arity": 3
+      },
+      {
+        "Module": "lists",
+        "Function": "any",
+        "Arity": 2
+      },
+      {
+        "Module": "lists",
+        "Function": "all",
+        "Arity": 2
+      },
+      {
+        "Module": "erlang",
+        "Function": "get_module_info",
+        "Arity": 1
+      },
+      {
+        "Module": "erlang",
+        "Function": "get_module_info",
+        "Arity": 2
+      }
+    ],
+    "ExportCount": 40,
+    "UserApiExportCount": 38,
+    "Prepared": false,
+    "FirstRejectedInstruction": {
+      "Index": 10,
+      "Offset": 25,
+      "Opcode": "is_tuple",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    "ActualSourceDefaultRoleProbes": 456,
+    "UnsupportedRoleKinds": {
+      "bif1": 1,
+      "call_last": 1,
+      "case_end": 5,
+      "gc_bif1": 18,
+      "get_hd": 4,
+      "get_list": 40,
+      "get_tl": 21,
+      "is_atom": 6,
+      "is_function2": 7,
+      "is_ge": 3,
+      "is_list": 61,
+      "is_lt": 2,
+      "is_nil": 91,
+      "is_nonempty_list": 66,
+      "is_tuple": 47,
+      "jump": 13,
+      "select_val": 5,
+      "swap": 8,
+      "test_arity": 46,
+      "trim": 11
+    },
+    "ImportCallSiteCounts": [
+      {
+        "Opcode": "bif1",
+        "Module": "erlang",
+        "Function": "is_list",
+        "Arity": 1,
+        "Count": 1
+      },
+      {
+        "Opcode": "call_ext",
+        "Module": "erlang",
+        "Function": "++",
+        "Arity": 2,
+        "Count": 1
+      },
+      {
+        "Opcode": "call_ext",
+        "Module": "lists",
+        "Function": "all",
+        "Arity": 2,
+        "Count": 1
+      },
+      {
+        "Opcode": "call_ext",
+        "Module": "lists",
+        "Function": "any",
+        "Arity": 2,
+        "Count": 1
+      },
+      {
+        "Opcode": "call_ext",
+        "Module": "lists",
+        "Function": "filtermap",
+        "Arity": 2,
+        "Count": 1
+      },
+      {
+        "Opcode": "call_ext",
+        "Module": "lists",
+        "Function": "foldl",
+        "Arity": 3,
+        "Count": 1
+      },
+      {
+        "Opcode": "call_ext",
+        "Module": "lists",
+        "Function": "last",
+        "Arity": 1,
+        "Count": 2
+      },
+      {
+        "Opcode": "call_ext",
+        "Module": "lists",
+        "Function": "member",
+        "Arity": 2,
+        "Count": 1
+      },
+      {
+        "Opcode": "call_ext",
+        "Module": "lists",
+        "Function": "reverse",
+        "Arity": 2,
+        "Count": 21
+      },
+      {
+        "Opcode": "call_ext",
+        "Module": "lists",
+        "Function": "split",
+        "Arity": 2,
+        "Count": 15
+      },
+      {
+        "Opcode": "call_ext_last",
+        "Module": "erlang",
+        "Function": "++",
+        "Arity": 2,
+        "Count": 2
+      },
+      {
+        "Opcode": "call_ext_last",
+        "Module": "lists",
+        "Function": "all",
+        "Arity": 2,
+        "Count": 1
+      },
+      {
+        "Opcode": "call_ext_last",
+        "Module": "lists",
+        "Function": "any",
+        "Arity": 2,
+        "Count": 1
+      },
+      {
+        "Opcode": "call_ext_last",
+        "Module": "lists",
+        "Function": "foldr",
+        "Arity": 3,
+        "Count": 1
+      },
+      {
+        "Opcode": "call_ext_last",
+        "Module": "lists",
+        "Function": "member",
+        "Arity": 2,
+        "Count": 1
+      },
+      {
+        "Opcode": "call_ext_last",
+        "Module": "lists",
+        "Function": "reverse",
+        "Arity": 2,
+        "Count": 1
+      },
+      {
+        "Opcode": "call_ext_only",
+        "Module": "erlang",
+        "Function": "error",
+        "Arity": 2,
+        "Count": 34
+      },
+      {
+        "Opcode": "call_ext_only",
+        "Module": "erlang",
+        "Function": "get_module_info",
+        "Arity": 1,
+        "Count": 1
+      },
+      {
+        "Opcode": "call_ext_only",
+        "Module": "erlang",
+        "Function": "get_module_info",
+        "Arity": 2,
+        "Count": 1
+      },
+      {
+        "Opcode": "call_ext_only",
+        "Module": "lists",
+        "Function": "last",
+        "Arity": 1,
+        "Count": 2
+      },
+      {
+        "Opcode": "gc_bif1",
+        "Module": "erlang",
+        "Function": "length",
+        "Arity": 1,
+        "Count": 18
+      },
+      {
+        "Opcode": "gc_bif2",
+        "Module": "erlang",
+        "Function": "+",
+        "Arity": 2,
+        "Count": 1
+      },
+      {
+        "Opcode": "gc_bif2",
+        "Module": "erlang",
+        "Function": "-",
+        "Arity": 2,
+        "Count": 6
+      },
+      {
+        "Opcode": "gc_bif2",
+        "Module": "erlang",
+        "Function": "div",
+        "Arity": 2,
+        "Count": 15
+      }
+    ],
+    "ReachableExecutionClosure": "NOT_EXECUTED_WHOLE_IMAGE_INVENTORY_ONLY"
+  },
+  "Support": {
+    "DecoderCatalogCount": 191,
+    "CatalogDefinitions": [
+      {
+        "Opcode": 1,
+        "Name": "label",
+        "Arity": 1
+      },
+      {
+        "Opcode": 2,
+        "Name": "func_info",
+        "Arity": 3
+      },
+      {
+        "Opcode": 3,
+        "Name": "int_code_end",
+        "Arity": 0
+      },
+      {
+        "Opcode": 4,
+        "Name": "call",
+        "Arity": 2
+      },
+      {
+        "Opcode": 5,
+        "Name": "call_last",
+        "Arity": 3
+      },
+      {
+        "Opcode": 6,
+        "Name": "call_only",
+        "Arity": 2
+      },
+      {
+        "Opcode": 7,
+        "Name": "call_ext",
+        "Arity": 2
+      },
+      {
+        "Opcode": 8,
+        "Name": "call_ext_last",
+        "Arity": 3
+      },
+      {
+        "Opcode": 9,
+        "Name": "bif0",
+        "Arity": 2
+      },
+      {
+        "Opcode": 10,
+        "Name": "bif1",
+        "Arity": 4
+      },
+      {
+        "Opcode": 11,
+        "Name": "bif2",
+        "Arity": 5
+      },
+      {
+        "Opcode": 12,
+        "Name": "allocate",
+        "Arity": 2
+      },
+      {
+        "Opcode": 13,
+        "Name": "allocate_heap",
+        "Arity": 3
+      },
+      {
+        "Opcode": 14,
+        "Name": "allocate_zero",
+        "Arity": 2
+      },
+      {
+        "Opcode": 15,
+        "Name": "allocate_heap_zero",
+        "Arity": 3
+      },
+      {
+        "Opcode": 16,
+        "Name": "test_heap",
+        "Arity": 2
+      },
+      {
+        "Opcode": 17,
+        "Name": "init",
+        "Arity": 1
+      },
+      {
+        "Opcode": 18,
+        "Name": "deallocate",
+        "Arity": 1
+      },
+      {
+        "Opcode": 19,
+        "Name": "return",
+        "Arity": 0
+      },
+      {
+        "Opcode": 20,
+        "Name": "send",
+        "Arity": 0
+      },
+      {
+        "Opcode": 21,
+        "Name": "remove_message",
+        "Arity": 0
+      },
+      {
+        "Opcode": 22,
+        "Name": "timeout",
+        "Arity": 0
+      },
+      {
+        "Opcode": 23,
+        "Name": "loop_rec",
+        "Arity": 2
+      },
+      {
+        "Opcode": 24,
+        "Name": "loop_rec_end",
+        "Arity": 1
+      },
+      {
+        "Opcode": 25,
+        "Name": "wait",
+        "Arity": 1
+      },
+      {
+        "Opcode": 26,
+        "Name": "wait_timeout",
+        "Arity": 2
+      },
+      {
+        "Opcode": 27,
+        "Name": "m_plus",
+        "Arity": 4
+      },
+      {
+        "Opcode": 28,
+        "Name": "m_minus",
+        "Arity": 4
+      },
+      {
+        "Opcode": 29,
+        "Name": "m_times",
+        "Arity": 4
+      },
+      {
+        "Opcode": 30,
+        "Name": "m_div",
+        "Arity": 4
+      },
+      {
+        "Opcode": 31,
+        "Name": "int_div",
+        "Arity": 4
+      },
+      {
+        "Opcode": 32,
+        "Name": "int_rem",
+        "Arity": 4
+      },
+      {
+        "Opcode": 33,
+        "Name": "int_band",
+        "Arity": 4
+      },
+      {
+        "Opcode": 34,
+        "Name": "int_bor",
+        "Arity": 4
+      },
+      {
+        "Opcode": 35,
+        "Name": "int_bxor",
+        "Arity": 4
+      },
+      {
+        "Opcode": 36,
+        "Name": "int_bsl",
+        "Arity": 4
+      },
+      {
+        "Opcode": 37,
+        "Name": "int_bsr",
+        "Arity": 4
+      },
+      {
+        "Opcode": 38,
+        "Name": "int_bnot",
+        "Arity": 3
+      },
+      {
+        "Opcode": 39,
+        "Name": "is_lt",
+        "Arity": 3
+      },
+      {
+        "Opcode": 40,
+        "Name": "is_ge",
+        "Arity": 3
+      },
+      {
+        "Opcode": 41,
+        "Name": "is_eq",
+        "Arity": 3
+      },
+      {
+        "Opcode": 42,
+        "Name": "is_ne",
+        "Arity": 3
+      },
+      {
+        "Opcode": 43,
+        "Name": "is_eq_exact",
+        "Arity": 3
+      },
+      {
+        "Opcode": 44,
+        "Name": "is_ne_exact",
+        "Arity": 3
+      },
+      {
+        "Opcode": 45,
+        "Name": "is_integer",
+        "Arity": 2
+      },
+      {
+        "Opcode": 46,
+        "Name": "is_float",
+        "Arity": 2
+      },
+      {
+        "Opcode": 47,
+        "Name": "is_number",
+        "Arity": 2
+      },
+      {
+        "Opcode": 48,
+        "Name": "is_atom",
+        "Arity": 2
+      },
+      {
+        "Opcode": 49,
+        "Name": "is_pid",
+        "Arity": 2
+      },
+      {
+        "Opcode": 50,
+        "Name": "is_reference",
+        "Arity": 2
+      },
+      {
+        "Opcode": 51,
+        "Name": "is_port",
+        "Arity": 2
+      },
+      {
+        "Opcode": 52,
+        "Name": "is_nil",
+        "Arity": 2
+      },
+      {
+        "Opcode": 53,
+        "Name": "is_binary",
+        "Arity": 2
+      },
+      {
+        "Opcode": 54,
+        "Name": "is_constant",
+        "Arity": 2
+      },
+      {
+        "Opcode": 55,
+        "Name": "is_list",
+        "Arity": 2
+      },
+      {
+        "Opcode": 56,
+        "Name": "is_nonempty_list",
+        "Arity": 2
+      },
+      {
+        "Opcode": 57,
+        "Name": "is_tuple",
+        "Arity": 2
+      },
+      {
+        "Opcode": 58,
+        "Name": "test_arity",
+        "Arity": 3
+      },
+      {
+        "Opcode": 59,
+        "Name": "select_val",
+        "Arity": 3
+      },
+      {
+        "Opcode": 60,
+        "Name": "select_tuple_arity",
+        "Arity": 3
+      },
+      {
+        "Opcode": 61,
+        "Name": "jump",
+        "Arity": 1
+      },
+      {
+        "Opcode": 62,
+        "Name": "catch",
+        "Arity": 2
+      },
+      {
+        "Opcode": 63,
+        "Name": "catch_end",
+        "Arity": 1
+      },
+      {
+        "Opcode": 64,
+        "Name": "move",
+        "Arity": 2
+      },
+      {
+        "Opcode": 65,
+        "Name": "get_list",
+        "Arity": 3
+      },
+      {
+        "Opcode": 66,
+        "Name": "get_tuple_element",
+        "Arity": 3
+      },
+      {
+        "Opcode": 67,
+        "Name": "set_tuple_element",
+        "Arity": 3
+      },
+      {
+        "Opcode": 68,
+        "Name": "put_string",
+        "Arity": 3
+      },
+      {
+        "Opcode": 69,
+        "Name": "put_list",
+        "Arity": 3
+      },
+      {
+        "Opcode": 70,
+        "Name": "put_tuple",
+        "Arity": 2
+      },
+      {
+        "Opcode": 71,
+        "Name": "put",
+        "Arity": 1
+      },
+      {
+        "Opcode": 72,
+        "Name": "badmatch",
+        "Arity": 1
+      },
+      {
+        "Opcode": 73,
+        "Name": "if_end",
+        "Arity": 0
+      },
+      {
+        "Opcode": 74,
+        "Name": "case_end",
+        "Arity": 1
+      },
+      {
+        "Opcode": 75,
+        "Name": "call_fun",
+        "Arity": 1
+      },
+      {
+        "Opcode": 76,
+        "Name": "make_fun",
+        "Arity": 3
+      },
+      {
+        "Opcode": 77,
+        "Name": "is_function",
+        "Arity": 2
+      },
+      {
+        "Opcode": 78,
+        "Name": "call_ext_only",
+        "Arity": 2
+      },
+      {
+        "Opcode": 79,
+        "Name": "bs_start_match",
+        "Arity": 2
+      },
+      {
+        "Opcode": 80,
+        "Name": "bs_get_integer",
+        "Arity": 5
+      },
+      {
+        "Opcode": 81,
+        "Name": "bs_get_float",
+        "Arity": 5
+      },
+      {
+        "Opcode": 82,
+        "Name": "bs_get_binary",
+        "Arity": 5
+      },
+      {
+        "Opcode": 83,
+        "Name": "bs_skip_bits",
+        "Arity": 4
+      },
+      {
+        "Opcode": 84,
+        "Name": "bs_test_tail",
+        "Arity": 2
+      },
+      {
+        "Opcode": 85,
+        "Name": "bs_save",
+        "Arity": 1
+      },
+      {
+        "Opcode": 86,
+        "Name": "bs_restore",
+        "Arity": 1
+      },
+      {
+        "Opcode": 87,
+        "Name": "bs_init",
+        "Arity": 2
+      },
+      {
+        "Opcode": 88,
+        "Name": "bs_final",
+        "Arity": 2
+      },
+      {
+        "Opcode": 89,
+        "Name": "bs_put_integer",
+        "Arity": 5
+      },
+      {
+        "Opcode": 90,
+        "Name": "bs_put_binary",
+        "Arity": 5
+      },
+      {
+        "Opcode": 91,
+        "Name": "bs_put_float",
+        "Arity": 5
+      },
+      {
+        "Opcode": 92,
+        "Name": "bs_put_string",
+        "Arity": 2
+      },
+      {
+        "Opcode": 93,
+        "Name": "bs_need_buf",
+        "Arity": 1
+      },
+      {
+        "Opcode": 94,
+        "Name": "fclearerror",
+        "Arity": 0
+      },
+      {
+        "Opcode": 95,
+        "Name": "fcheckerror",
+        "Arity": 1
+      },
+      {
+        "Opcode": 96,
+        "Name": "fmove",
+        "Arity": 2
+      },
+      {
+        "Opcode": 97,
+        "Name": "fconv",
+        "Arity": 2
+      },
+      {
+        "Opcode": 98,
+        "Name": "fadd",
+        "Arity": 4
+      },
+      {
+        "Opcode": 99,
+        "Name": "fsub",
+        "Arity": 4
+      },
+      {
+        "Opcode": 100,
+        "Name": "fmul",
+        "Arity": 4
+      },
+      {
+        "Opcode": 101,
+        "Name": "fdiv",
+        "Arity": 4
+      },
+      {
+        "Opcode": 102,
+        "Name": "fnegate",
+        "Arity": 3
+      },
+      {
+        "Opcode": 103,
+        "Name": "make_fun2",
+        "Arity": 1
+      },
+      {
+        "Opcode": 104,
+        "Name": "try",
+        "Arity": 2
+      },
+      {
+        "Opcode": 105,
+        "Name": "try_end",
+        "Arity": 1
+      },
+      {
+        "Opcode": 106,
+        "Name": "try_case",
+        "Arity": 1
+      },
+      {
+        "Opcode": 107,
+        "Name": "try_case_end",
+        "Arity": 1
+      },
+      {
+        "Opcode": 108,
+        "Name": "raise",
+        "Arity": 2
+      },
+      {
+        "Opcode": 109,
+        "Name": "bs_init2",
+        "Arity": 6
+      },
+      {
+        "Opcode": 110,
+        "Name": "bs_bits_to_bytes",
+        "Arity": 3
+      },
+      {
+        "Opcode": 111,
+        "Name": "bs_add",
+        "Arity": 5
+      },
+      {
+        "Opcode": 112,
+        "Name": "apply",
+        "Arity": 1
+      },
+      {
+        "Opcode": 113,
+        "Name": "apply_last",
+        "Arity": 2
+      },
+      {
+        "Opcode": 114,
+        "Name": "is_boolean",
+        "Arity": 2
+      },
+      {
+        "Opcode": 115,
+        "Name": "is_function2",
+        "Arity": 3
+      },
+      {
+        "Opcode": 116,
+        "Name": "bs_start_match2",
+        "Arity": 5
+      },
+      {
+        "Opcode": 117,
+        "Name": "bs_get_integer2",
+        "Arity": 7
+      },
+      {
+        "Opcode": 118,
+        "Name": "bs_get_float2",
+        "Arity": 7
+      },
+      {
+        "Opcode": 119,
+        "Name": "bs_get_binary2",
+        "Arity": 7
+      },
+      {
+        "Opcode": 120,
+        "Name": "bs_skip_bits2",
+        "Arity": 5
+      },
+      {
+        "Opcode": 121,
+        "Name": "bs_test_tail2",
+        "Arity": 3
+      },
+      {
+        "Opcode": 122,
+        "Name": "bs_save2",
+        "Arity": 2
+      },
+      {
+        "Opcode": 123,
+        "Name": "bs_restore2",
+        "Arity": 2
+      },
+      {
+        "Opcode": 124,
+        "Name": "gc_bif1",
+        "Arity": 5
+      },
+      {
+        "Opcode": 125,
+        "Name": "gc_bif2",
+        "Arity": 6
+      },
+      {
+        "Opcode": 126,
+        "Name": "bs_final2",
+        "Arity": 2
+      },
+      {
+        "Opcode": 127,
+        "Name": "bs_bits_to_bytes2",
+        "Arity": 2
+      },
+      {
+        "Opcode": 128,
+        "Name": "put_literal",
+        "Arity": 2
+      },
+      {
+        "Opcode": 129,
+        "Name": "is_bitstr",
+        "Arity": 2
+      },
+      {
+        "Opcode": 130,
+        "Name": "bs_context_to_binary",
+        "Arity": 1
+      },
+      {
+        "Opcode": 131,
+        "Name": "bs_test_unit",
+        "Arity": 3
+      },
+      {
+        "Opcode": 132,
+        "Name": "bs_match_string",
+        "Arity": 4
+      },
+      {
+        "Opcode": 133,
+        "Name": "bs_init_writable",
+        "Arity": 0
+      },
+      {
+        "Opcode": 134,
+        "Name": "bs_append",
+        "Arity": 8
+      },
+      {
+        "Opcode": 135,
+        "Name": "bs_private_append",
+        "Arity": 6
+      },
+      {
+        "Opcode": 136,
+        "Name": "trim",
+        "Arity": 2
+      },
+      {
+        "Opcode": 137,
+        "Name": "bs_init_bits",
+        "Arity": 6
+      },
+      {
+        "Opcode": 138,
+        "Name": "bs_get_utf8",
+        "Arity": 5
+      },
+      {
+        "Opcode": 139,
+        "Name": "bs_skip_utf8",
+        "Arity": 4
+      },
+      {
+        "Opcode": 140,
+        "Name": "bs_get_utf16",
+        "Arity": 5
+      },
+      {
+        "Opcode": 141,
+        "Name": "bs_skip_utf16",
+        "Arity": 4
+      },
+      {
+        "Opcode": 142,
+        "Name": "bs_get_utf32",
+        "Arity": 5
+      },
+      {
+        "Opcode": 143,
+        "Name": "bs_skip_utf32",
+        "Arity": 4
+      },
+      {
+        "Opcode": 144,
+        "Name": "bs_utf8_size",
+        "Arity": 3
+      },
+      {
+        "Opcode": 145,
+        "Name": "bs_put_utf8",
+        "Arity": 3
+      },
+      {
+        "Opcode": 146,
+        "Name": "bs_utf16_size",
+        "Arity": 3
+      },
+      {
+        "Opcode": 147,
+        "Name": "bs_put_utf16",
+        "Arity": 3
+      },
+      {
+        "Opcode": 148,
+        "Name": "bs_put_utf32",
+        "Arity": 3
+      },
+      {
+        "Opcode": 149,
+        "Name": "on_load",
+        "Arity": 0
+      },
+      {
+        "Opcode": 150,
+        "Name": "recv_mark",
+        "Arity": 1
+      },
+      {
+        "Opcode": 151,
+        "Name": "recv_set",
+        "Arity": 1
+      },
+      {
+        "Opcode": 152,
+        "Name": "gc_bif3",
+        "Arity": 7
+      },
+      {
+        "Opcode": 153,
+        "Name": "line",
+        "Arity": 1
+      },
+      {
+        "Opcode": 154,
+        "Name": "put_map_assoc",
+        "Arity": 5
+      },
+      {
+        "Opcode": 155,
+        "Name": "put_map_exact",
+        "Arity": 5
+      },
+      {
+        "Opcode": 156,
+        "Name": "is_map",
+        "Arity": 2
+      },
+      {
+        "Opcode": 157,
+        "Name": "has_map_fields",
+        "Arity": 3
+      },
+      {
+        "Opcode": 158,
+        "Name": "get_map_elements",
+        "Arity": 3
+      },
+      {
+        "Opcode": 159,
+        "Name": "is_tagged_tuple",
+        "Arity": 4
+      },
+      {
+        "Opcode": 160,
+        "Name": "build_stacktrace",
+        "Arity": 0
+      },
+      {
+        "Opcode": 161,
+        "Name": "raw_raise",
+        "Arity": 0
+      },
+      {
+        "Opcode": 162,
+        "Name": "get_hd",
+        "Arity": 2
+      },
+      {
+        "Opcode": 163,
+        "Name": "get_tl",
+        "Arity": 2
+      },
+      {
+        "Opcode": 164,
+        "Name": "put_tuple2",
+        "Arity": 2
+      },
+      {
+        "Opcode": 165,
+        "Name": "bs_get_tail",
+        "Arity": 3
+      },
+      {
+        "Opcode": 166,
+        "Name": "bs_start_match3",
+        "Arity": 4
+      },
+      {
+        "Opcode": 167,
+        "Name": "bs_get_position",
+        "Arity": 3
+      },
+      {
+        "Opcode": 168,
+        "Name": "bs_set_position",
+        "Arity": 2
+      },
+      {
+        "Opcode": 169,
+        "Name": "swap",
+        "Arity": 2
+      },
+      {
+        "Opcode": 170,
+        "Name": "bs_start_match4",
+        "Arity": 4
+      },
+      {
+        "Opcode": 171,
+        "Name": "make_fun3",
+        "Arity": 3
+      },
+      {
+        "Opcode": 172,
+        "Name": "init_yregs",
+        "Arity": 1
+      },
+      {
+        "Opcode": 173,
+        "Name": "recv_marker_bind",
+        "Arity": 2
+      },
+      {
+        "Opcode": 174,
+        "Name": "recv_marker_clear",
+        "Arity": 1
+      },
+      {
+        "Opcode": 175,
+        "Name": "recv_marker_reserve",
+        "Arity": 1
+      },
+      {
+        "Opcode": 176,
+        "Name": "recv_marker_use",
+        "Arity": 1
+      },
+      {
+        "Opcode": 177,
+        "Name": "bs_create_bin",
+        "Arity": 6
+      },
+      {
+        "Opcode": 178,
+        "Name": "call_fun2",
+        "Arity": 3
+      },
+      {
+        "Opcode": 179,
+        "Name": "nif_start",
+        "Arity": 0
+      },
+      {
+        "Opcode": 180,
+        "Name": "badrecord",
+        "Arity": 1
+      },
+      {
+        "Opcode": 181,
+        "Name": "update_record",
+        "Arity": 5
+      },
+      {
+        "Opcode": 182,
+        "Name": "bs_match",
+        "Arity": 3
+      },
+      {
+        "Opcode": 183,
+        "Name": "executable_line",
+        "Arity": 2
+      },
+      {
+        "Opcode": 184,
+        "Name": "debug_line",
+        "Arity": 4
+      },
+      {
+        "Opcode": 185,
+        "Name": "bif3",
+        "Arity": 6
+      },
+      {
+        "Opcode": 186,
+        "Name": "is_any_native_record",
+        "Arity": 2
+      },
+      {
+        "Opcode": 187,
+        "Name": "is_native_record",
+        "Arity": 4
+      },
+      {
+        "Opcode": 188,
+        "Name": "get_record_elements",
+        "Arity": 3
+      },
+      {
+        "Opcode": 189,
+        "Name": "put_record",
+        "Arity": 6
+      },
+      {
+        "Opcode": 190,
+        "Name": "is_record_accessible",
+        "Arity": 3
+      },
+      {
+        "Opcode": 191,
+        "Name": "get_record_field",
+        "Arity": 5
+      }
+    ],
+    "RoleCases": [
+      "allocate",
+      "allocate_heap",
+      "badmatch",
+      "bif0",
+      "call",
+      "call_ext",
+      "call_ext_last",
+      "call_ext_only",
+      "call_fun2",
+      "call_only",
+      "deallocate",
+      "func_info",
+      "gc_bif2",
+      "get_tuple_element",
+      "init_yregs",
+      "int_code_end",
+      "is_eq_exact",
+      "is_integer",
+      "is_pid",
+      "is_tagged_tuple",
+      "label",
+      "line",
+      "loop_rec",
+      "loop_rec_end",
+      "make_fun3",
+      "move",
+      "nif_start",
+      "on_load",
+      "put_list",
+      "put_tuple2",
+      "remove_message",
+      "return",
+      "send",
+      "test_heap",
+      "timeout",
+      "wait_timeout"
+    ],
+    "ValidatorCases": [
+      {
+        "Name": "on_load",
+        "Line": 38
+      },
+      {
+        "Name": "init_yregs",
+        "Line": 42
+      },
+      {
+        "Name": "is_pid",
+        "Line": 44
+      },
+      {
+        "Name": "is_tagged_tuple",
+        "Line": 48
+      },
+      {
+        "Name": "get_tuple_element",
+        "Line": 53
+      },
+      {
+        "Name": "badmatch",
+        "Line": 57
+      },
+      {
+        "Name": "call_ext",
+        "Line": 60
+      },
+      {
+        "Name": "call_ext_last",
+        "Line": 61
+      },
+      {
+        "Name": "nif_start",
+        "Line": 64
+      },
+      {
+        "Name": "label",
+        "Line": 65
+      },
+      {
+        "Name": "line",
+        "Line": 66
+      },
+      {
+        "Name": "return",
+        "Line": 67
+      },
+      {
+        "Name": "allocate_heap",
+        "Line": 69
+      },
+      {
+        "Name": "allocate",
+        "Line": 74
+      },
+      {
+        "Name": "deallocate",
+        "Line": 79
+      },
+      {
+        "Name": "bif0",
+        "Line": 83
+      },
+      {
+        "Name": "send",
+        "Line": 87
+      },
+      {
+        "Name": "loop_rec",
+        "Line": 88
+      },
+      {
+        "Name": "remove_message",
+        "Line": 90
+      },
+      {
+        "Name": "loop_rec_end",
+        "Line": 91
+      },
+      {
+        "Name": "wait_timeout",
+        "Line": 92
+      },
+      {
+        "Name": "timeout",
+        "Line": 93
+      },
+      {
+        "Name": "move",
+        "Line": 97
+      },
+      {
+        "Name": "make_fun3",
+        "Line": 101
+      },
+      {
+        "Name": "call_fun2",
+        "Line": 109
+      },
+      {
+        "Name": "call",
+        "Line": 117
+      },
+      {
+        "Name": "call_only",
+        "Line": 118
+      },
+      {
+        "Name": "is_integer",
+        "Line": 121
+      },
+      {
+        "Name": "is_eq_exact",
+        "Line": 125
+      },
+      {
+        "Name": "call_ext_only",
+        "Line": 130
+      },
+      {
+        "Name": "gc_bif2",
+        "Line": 133
+      },
+      {
+        "Name": "test_heap",
+        "Line": 141
+      },
+      {
+        "Name": "put_list",
+        "Line": 144
+      },
+      {
+        "Name": "put_tuple2",
+        "Line": 149
+      }
+    ],
+    "InterpreterDirectCases": [
+      {
+        "Name": "nif_start",
+        "Line": 181
+      },
+      {
+        "Name": "on_load",
+        "Line": 182
+      },
+      {
+        "Name": "init_yregs",
+        "Line": 184
+      },
+      {
+        "Name": "badmatch",
+        "Line": 188
+      },
+      {
+        "Name": "is_pid",
+        "Line": 190
+      },
+      {
+        "Name": "is_tagged_tuple",
+        "Line": 199
+      },
+      {
+        "Name": "get_tuple_element",
+        "Line": 211
+      },
+      {
+        "Name": "call_ext",
+        "Line": 214
+      },
+      {
+        "Name": "call_ext_last",
+        "Line": 215
+      },
+      {
+        "Name": "label",
+        "Line": 245
+      },
+      {
+        "Name": "line",
+        "Line": 246
+      },
+      {
+        "Name": "allocate",
+        "Line": 248
+      },
+      {
+        "Name": "allocate_heap",
+        "Line": 249
+      },
+      {
+        "Name": "deallocate",
+        "Line": 260
+      },
+      {
+        "Name": "make_fun3",
+        "Line": 270
+      },
+      {
+        "Name": "call_fun2",
+        "Line": 280
+      },
+      {
+        "Name": "bif0",
+        "Line": 289
+      },
+      {
+        "Name": "send",
+        "Line": 293
+      },
+      {
+        "Name": "loop_rec",
+        "Line": 301
+      },
+      {
+        "Name": "move",
+        "Line": 318
+      },
+      {
+        "Name": "return",
+        "Line": 321
+      },
+      {
+        "Name": "call",
+        "Line": 326
+      },
+      {
+        "Name": "call_only",
+        "Line": 327
+      },
+      {
+        "Name": "is_integer",
+        "Line": 343
+      },
+      {
+        "Name": "is_eq_exact",
+        "Line": 354
+      },
+      {
+        "Name": "call_ext_only",
+        "Line": 365
+      },
+      {
+        "Name": "gc_bif2",
+        "Line": 374
+      },
+      {
+        "Name": "test_heap",
+        "Line": 398
+      },
+      {
+        "Name": "put_list",
+        "Line": 401
+      },
+      {
+        "Name": "put_tuple2",
+        "Line": 406
+      }
+    ],
+    "ReceivePlanOnly": [
+      "remove_message",
+      "loop_rec_end",
+      "wait_timeout",
+      "timeout"
+    ],
+    "CatalogIsNotExecutionSupport": true
+  },
+  "LoadedAssemblyInputs": [
+    {
+      "Path": "src/Erlang.Runtime/bin/Debug/net10.0/Erlang.Runtime.dll",
+      "Sha256": "691B6DC5A350335122D18041A652556911147A1E2B893227C5BF4FCCAA34AAC5"
+    },
+    {
+      "Path": "src/Erlang.Runtime/bin/Debug/net10.0/Erlang.Serialization.dll",
+      "Sha256": "9F2B86747E29DADAFAB088D0BEF441FDC3744E74F221CA6D911D9E0AA3D4ACAF"
+    },
+    {
+      "Path": "src/Erlang.Runtime/bin/Debug/net10.0/Erlang.Terms.dll",
+      "Sha256": "6B6FEA2B0051C7E4E773AE472CBD7CA4D39EA00BEDA655AEE4D03700ABF519C6"
+    }
+  ],
+  "ReaderAndRelatedSourceSnapshot": [
+    {
+      "Path": "src/Erlang.Runtime/BeamAllocationDiagnostics.cs",
+      "Sha256": "595BCEB9DB4DA6D4198E58528243D265647F5AFF56C14295CC5503A388A5BD71"
+    },
+    {
+      "Path": "src/Erlang.Runtime/BeamAllocationWire.cs",
+      "Sha256": "2E3C9FAE4660EA22F06746CD031A82934B21C4B36D6A20BAB28743AAA5D990D0"
+    },
+    {
+      "Path": "src/Erlang.Runtime/BeamCallContinuation.cs",
+      "Sha256": "3374A95EC7BDF30EEA157C5C5FFC61C763D9FB992CE085B0797383B4778448EA"
+    },
+    {
+      "Path": "src/Erlang.Runtime/BeamCallFrame.cs",
+      "Sha256": "E7A403D2D19F9CD21FCF37E1D9B08FCADB72FB1727C8B8B138BF70A8B3DB1C08"
+    },
+    {
+      "Path": "src/Erlang.Runtime/BeamChecksumReader.cs",
+      "Sha256": "2AA1490EFE157367006B54DF45852E2222FEFBA5F636D24F6D20689D5594743E"
+    },
+    {
+      "Path": "src/Erlang.Runtime/BeamChecksumWire.cs",
+      "Sha256": "E79592274367212EE2F70A6F2A73AC82645548CF5DDC0CD3D71385D402427BEA"
+    },
+    {
+      "Path": "src/Erlang.Runtime/BeamChunk.cs",
+      "Sha256": "153365B8ACCACA0196F355DB226F63716E0F55B4FA1762F4A9A61F6911F6B198"
+    },
+    {
+      "Path": "src/Erlang.Runtime/BeamClosureBinding.cs",
+      "Sha256": "1804378206117D78162575A4B0C4DB4582F3B5AAA2AC05BA85F704449D105FB3"
+    },
+    {
+      "Path": "src/Erlang.Runtime/BeamClosureDiagnostics.cs",
+      "Sha256": "EACDD78CD44D84B1D21110E5D62F566992D0C60D0D8E00A31B0804714A50728E"
+    },
+    {
+      "Path": "src/Erlang.Runtime/BeamClosureFactory.cs",
+      "Sha256": "CC7F8FA1092FF058CF842F79766CA373B534918250673B63BEF8F7ACDDB4EFB8"
+    },
+    {
+      "Path": "src/Erlang.Runtime/BeamClrLimits.cs",
+      "Sha256": "9E7CBF05E02E8E0BE876252E281DA76726A2875BFB113C73DD4729F9B1B12295"
+    },
+    {
+      "Path": "src/Erlang.Runtime/BeamCodeHeader.cs",
+      "Sha256": "7CC1DECA39449AC8ABA236535FC5DE687F82F3B925FAF0D6BBF97A807C540728"
+    },
+    {
+      "Path": "src/Erlang.Runtime/BeamCompactReader.cs",
+      "Sha256": "D40A2FC1059C3FF6BBBFBB5C943729402BC9DBECDAC4CBBEFDD4F880BEBDBB23"
+    },
+    {
+      "Path": "src/Erlang.Runtime/BeamCompactValue.cs",
+      "Sha256": "C19668B942811B6554EBDF2F8C55615F98BD8FCD0FC9C3AF85EEF9DACBBF0C0F"
+    },
+    {
+      "Path": "src/Erlang.Runtime/BeamCursor.cs",
+      "Sha256": "1140F65DB8FD6DB7165AC17A1EA4EC41E74A4036C878ED542B79AC70E0B6BB09"
+    },
+    {
+      "Path": "src/Erlang.Runtime/BeamCursorWire.cs",
+      "Sha256": "7491623005D36E211E8C12D1E3D6C9E0862701D21DE42D759C94F4C00F0A4477"
+    },
+    {
+      "Path": "src/Erlang.Runtime/BeamDecodedMetadata.cs",
+      "Sha256": "F82EBBCD26FD8FB076C0D6DA3EDA3E181B2C87D3050DEEA6FC1093E174C172A0"
+    },
+    {
+      "Path": "src/Erlang.Runtime/BeamDeflateFormat.cs",
+      "Sha256": "728CA33C78F5EB068B3D8E8AED28F4551A446CCA0C14C71DD6039CE4E7C49406"
+    },
+    {
+      "Path": "src/Erlang.Runtime/BeamDiagnostics.cs",
+      "Sha256": "24AFD1500A7BAFF1F2DB413964CBCEB68C3ED8F4A2E7313AA5D1B531C7F83847"
+    },
+    {
+      "Path": "src/Erlang.Runtime/BeamExecutionIdentity.cs",
+      "Sha256": "E41400B2F27013865271C75DD79FF4895E8173D54577B59413F89D13E979ACFC"
+    },
+    {
+      "Path": "src/Erlang.Runtime/BeamExport.cs",
+      "Sha256": "E646E6DB0E29A067ACE079D54564F2320808EDC675023EFF3E1E7567EB026052"
+    },
+    {
+      "Path": "src/Erlang.Runtime/BeamExternalImport.cs",
+      "Sha256": "898AF0987E988AB0EC2690243FFD0A8D8A70DE2F24FF51B1AF05AB404B38224D"
+    },
+    {
+      "Path": "src/Erlang.Runtime/BeamExternalImports.cs",
+      "Sha256": "933307F1F93FC873DE1417B40847D9F0878E9FE5AB08C553F5E65D68F0F97804"
+    },
+    {
+      "Path": "src/Erlang.Runtime/BeamFrameParameters.cs",
+      "Sha256": "3DADED54CFA456BFAFB075A19D9AFDAC5C97FFF5B320B62D996CC44FC53C2611"
+    },
+    {
+      "Path": "src/Erlang.Runtime/BeamFrameValidation.cs",
+      "Sha256": "9FBE10C9CC2EEBF86CAE29605ED989FFB2E04D9656DA3C2A508ECCDD34E93CB8"
+    },
+    {
+      "Path": "src/Erlang.Runtime/BeamFunctionSignature.cs",
+      "Sha256": "22B41E6FA6B33C6EEC00D6EC53E71E57F6BC6E65B9A176D9311B6198B510F120"
+    },
+    {
+      "Path": "src/Erlang.Runtime/BeamGeneratedMetadata.cs",
+      "Sha256": "BD84E57E24E1E0890E6170C62AD483023FA6B3CD6EDC6D6B33BE136615EC1B8B"
+    },
+    {
+      "Path": "src/Erlang.Runtime/BeamGzipFormat.cs",
+      "Sha256": "27C55FCC5DC7407203B27063BD1B47276E1A9EA34C1C938271B63384A1AB162A"
+    },
+    {
+      "Path": "src/Erlang.Runtime/BeamGzipMembers.cs",
+      "Sha256": "3125013ECBB9DEC0E3C5E2E6E78BB2994A232ED7AEDDE116EA873C691D31E055"
+    },
+    {
+      "Path": "src/Erlang.Runtime/BeamIffWire.cs",
+      "Sha256": "02B07BBB74E64F2911A1802F62429FF554DD036C1B552876FD068939C54E2557"
+    },
+    {
+      "Path": "src/Erlang.Runtime/BeamImport.cs",
+      "Sha256": "E4A2A9B03665A79579DDEB444BBDE5E5E8241165858174CAFDDF10AAB7952834"
+    },
+    {
+      "Path": "src/Erlang.Runtime/BeamInstruction.cs",
+      "Sha256": "159E8CA91C5B2709EC954D7964D1246E9A951DD54C76E040A2CF85FAF232ABAF"
+    },
+    {
+      "Path": "src/Erlang.Runtime/BeamInstructionReader.cs",
+      "Sha256": "20F76CCA225EA1F9001ABCBEF50399F0B9FD2BF8D2FC0C689FA432776B9E05B5"
+    },
+    {
+      "Path": "src/Erlang.Runtime/BeamIntegerNormalization.cs",
+      "Sha256": "C693225146E74052769D947A62E83B152B74AEF797E29685E0E7AF576C3503A6"
+    },
+    {
+      "Path": "src/Erlang.Runtime/BeamLambdaDiagnostics.cs",
+      "Sha256": "492ED46A33A4D7FB52586D68C139910D519633C6DB694639B289287374D61B76"
+    },
+    {
+      "Path": "src/Erlang.Runtime/BeamLambdaEntry.cs",
+      "Sha256": "373043705F705E4A2C8F366FF1321926FE169838602BA706F4DADDFD0A3E995D"
+    },
+    {
+      "Path": "src/Erlang.Runtime/BeamLambdaNames.cs",
+      "Sha256": "1F7903AF7AA780FB623638C22F621C3CFC2DCF30C19A716ECF0725A631BB111F"
+    },
+    {
+      "Path": "src/Erlang.Runtime/BeamLambdaReader.cs",
+      "Sha256": "96945ACCBD97A294EB5CE9C307794FFAC6F372D928B08AF474EEA42062B9CE78"
+    },
+    {
+      "Path": "src/Erlang.Runtime/BeamLambdaWire.cs",
+      "Sha256": "5D470C7E0961DEFB5B790D55E9BEDB8D4F6DD7F771B3B91FEDFE1668DACF1A51"
+    },
+    {
+      "Path": "src/Erlang.Runtime/BeamLinkDiagnostics.cs",
+      "Sha256": "EAC9D390E5134402654377A7A6092AF6D0E3A31E632ECB9DBD7147E2A8DA71C6"
+    },
+    {
+      "Path": "src/Erlang.Runtime/BeamLinkedCode.cs",
+      "Sha256": "8B35012C096302E68CAAC36D8D3D7768059BE9ACD5DB56CE680ECFDCE0D1E906"
+    },
+    {
+      "Path": "src/Erlang.Runtime/BeamLinkedCodeReader.cs",
+      "Sha256": "695C7903A526B9A907ADDEC2E2ADCD1591E5DE7DE9735E62D637A60027C948B4"
+    },
+    {
+      "Path": "src/Erlang.Runtime/BeamLinkedFunction.cs",
+      "Sha256": "8B35D2DEC08D7B801CCD41011B4BF19F6F4753805DDBB3D0802B938D709FF3D0"
+    },
+    {
+      "Path": "src/Erlang.Runtime/BeamLinkNames.cs",
+      "Sha256": "C44E90A722DBCF019FFC2A1AF930D65376FE9ED78D6C06FD339A3224EF114B21"
+    },
+    {
+      "Path": "src/Erlang.Runtime/BeamLinkParameters.cs",
+      "Sha256": "132F9D99DF4CA85D4DEE18A472C2890B90E1AEFE58327854170E655B3447084C"
+    },
+    {
+      "Path": "src/Erlang.Runtime/BeamLiteralDiagnostics.cs",
+      "Sha256": "6EAC9A3DD3F42BA377D9A76D8B5844B4D36AA50BCAB76D5FEEB202C5E0F0EA9B"
+    },
+    {
+      "Path": "src/Erlang.Runtime/BeamLiteralLimits.cs",
+      "Sha256": "90C11325234B861C8B8A03F18F26582F44248036F1A0CDF88A09F389C05CA4C8"
+    },
+    {
+      "Path": "src/Erlang.Runtime/BeamLiteralReader.cs",
+      "Sha256": "2F004409AF810F71CE85F78DF2DC45CFEEF1F1696C1D48A0225B1C9DB41495FE"
+    },
+    {
+      "Path": "src/Erlang.Runtime/BeamLiteralWire.cs",
+      "Sha256": "DA945E6416245E883C8394F8F6D4BFCABC72483F3F813115EA1E6AEBE2A30D41"
+    },
+    {
+      "Path": "src/Erlang.Runtime/BeamLoaderApi.cs",
+      "Sha256": "8F9E3CB5BF0EE6B27986A468AFB5C736077CEFA29CA70A5707A0C3CF044B9BEC"
+    },
+    {
+      "Path": "src/Erlang.Runtime/BeamLoaderDiagnostics.cs",
+      "Sha256": "D6E2CEC793B8C35A51F5E58EFCA0CD2F988F99B3B415C81D73BC0ED2F594CC11"
+    },
+    {
+      "Path": "src/Erlang.Runtime/BeamLoaderNames.cs",
+      "Sha256": "6219C643389D2395AB5F23E2D70CB68505023B6689DD6B5814CF4FE919AED479"
+    },
+    {
+      "Path": "src/Erlang.Runtime/BeamLoaderRegistrations.cs",
+      "Sha256": "FDED0B9B1E3F0BAD69F2E445E0FAE588CE9DCDDBCFE0776BA610A4A5A78648E5"
+    },
+    {
+      "Path": "src/Erlang.Runtime/BeamLocalFrame.cs",
+      "Sha256": "FE9E57E5E61736E0F0664AE6C64E9EB7D0D67FA1D700C41A69EEE4C5741EAE15"
+    },
+    {
+      "Path": "src/Erlang.Runtime/BeamMetadataProvenance.cs",
+      "Sha256": "DFF77EA0F55C007FAF328E86DA007FC43EC705464DD23E2769A8746DCCF7384C"
+    },
+    {
+      "Path": "src/Erlang.Runtime/BeamMetadataWire.cs",
+      "Sha256": "79E385D180F7E90C54DAFE9F4822482F1E95EC53664318F34AA1087C1874D904"
+    },
+    {
+      "Path": "src/Erlang.Runtime/BeamModule.cs",
+      "Sha256": "36C8AA2E7EF9113AAF796A3F3F9097639EE79C28A91460E3D52321C41889F1F1"
+    },
+    {
+      "Path": "src/Erlang.Runtime/BeamModuleDiagnostics.cs",
+      "Sha256": "AD0E1ABECB824AE6DCA49BA56EDCE73D1595574B6BDBAEEDD0B7F8F84FD4655C"
+    },
+    {
+      "Path": "src/Erlang.Runtime/BeamNifNames.cs",
+      "Sha256": "EFD77C425FE671E53EA508DF0F714FDBD6F8C9A99CA929044861B14930D7256E"
+    },
+    {
+      "Path": "src/Erlang.Runtime/BeamOnLoadCallbackAbortedException.cs",
+      "Sha256": "BC310A94B4E6016832B3D40C877CFD9854FB1631635D55897D57064AE53025F4"
+    },
+    {
+      "Path": "src/Erlang.Runtime/BeamOnLoadCallbackOutcome.cs",
+      "Sha256": "7C488012F810072870A4A29211D3F6A7BA9CCF46193F18F3783A06CCABD0D20C"
+    },
+    {
+      "Path": "src/Erlang.Runtime/BeamOnLoadDiagnostics.cs",
+      "Sha256": "D1F1B264B74E468CC27D91029D162A70D87F3F83C055B6C5F50B38F5DB72B6E9"
+    },
+    {
+      "Path": "src/Erlang.Runtime/BeamOnLoadMetadata.cs",
+      "Sha256": "9F45A16AB3D5AD32EFA1E6E6090C2EDC286F72A58AA32C36180284B363CEE13F"
+    },
+    {
+      "Path": "src/Erlang.Runtime/BeamOnLoadNames.cs",
+      "Sha256": "4F2D65B2543E7378969B3BD38A10FCB0FA85A0C50AD4B0797D70F5E9153F2039"
+    },
+    {
+      "Path": "src/Erlang.Runtime/BeamOnLoadPhase.cs",
+      "Sha256": "71F5CDCFD6F0979EB9345094F656AA8FAA0A83F722EBAE6A0D47ECBC495E7AB8"
+    },
+    {
+      "Path": "src/Erlang.Runtime/BeamOnLoadResult.cs",
+      "Sha256": "D3F0B0758267DDDAB0158507418F4D322031F54AB54B7078F79A34E561B270F8"
+    },
+    {
+      "Path": "src/Erlang.Runtime/BeamOnLoadTicket.cs",
+      "Sha256": "E90795397DC6C621539FAF615960944DB51959E028AC37B13A271D1DD2A6A31B"
+    },
+    {
+      "Path": "src/Erlang.Runtime/BeamOpcodeCatalog.cs",
+      "Sha256": "27B191C843B088C4252125EC7A317ACB3282B4A0D2E3487C906B5522D10DE844"
+    },
+    {
+      "Path": "src/Erlang.Runtime/BeamOpcodeDefinition.cs",
+      "Sha256": "12E1607FD5D3C962FE9078EDA820DB9CD43EE0E7CF117AE6748DCA203D3211AA"
+    },
+    {
+      "Path": "src/Erlang.Runtime/BeamOperand.cs",
+      "Sha256": "C9AE1276143297202D3EBA18203014C6458456E5531BA252D58883928C1B83B5"
+    },
+    {
+      "Path": "src/Erlang.Runtime/BeamOperandParameters.cs",
+      "Sha256": "CA5368EE470EB05E644352671C2CCE7013BCF853D597C802DBEF8B0614B6E4D0"
+    },
+    {
+      "Path": "src/Erlang.Runtime/BeamPendingGeneration.cs",
+      "Sha256": "202B2F1094AC63DA67271044019825B4689EDA6C6918B9245FAF41C976F6862C"
+    },
+    {
+      "Path": "src/Erlang.Runtime/BeamPreparationNames.cs",
+      "Sha256": "F3171AD31311A546A88858843C962D55A8B0B38577C729ABB8527BDEF740A239"
+    },
+    {
+      "Path": "src/Erlang.Runtime/BeamPreparedMetadata.cs",
+      "Sha256": "BC41A20930F9849EA86E5865CF8CA4AE3FF7F8B3D5BFA1F9D1BD0EE0484BC807"
+    },
+    {
+      "Path": "src/Erlang.Runtime/BeamPublicationMetadata.cs",
+      "Sha256": "AF6706C54BA4DB4469FE2EB7291406228C63818C166D41707F592A3D9625EE91"
+    },
+    {
+      "Path": "src/Erlang.Runtime/BeamPublicationResult.cs",
+      "Sha256": "E3D19CCF6E81A308A1B9A7668DC2BE06E756DD2F4B3B3244FDE1C588BCA791E2"
+    },
+    {
+      "Path": "src/Erlang.Runtime/BeamPublicationStatus.cs",
+      "Sha256": "0F2A3300C1F7DC1DFFD9033298FAA6AC04CFAA4EFDC89994A758065FE99E0B0A"
+    },
+    {
+      "Path": "src/Erlang.Runtime/BeamReceiveMatcher.cs",
+      "Sha256": "78C49881A236FC36834440A3BE3C213A3E4C10FDBF98450C1CC6EAD74D2F9506"
+    },
+    {
+      "Path": "src/Erlang.Runtime/BeamReceiveNames.cs",
+      "Sha256": "65277EFE7DA8B789CFDD626BC2434249289D32B79A371CFB647BA9AFFE5511D1"
+    },
+    {
+      "Path": "src/Erlang.Runtime/BeamReceivePlan.cs",
+      "Sha256": "E7299EA8FAAD90A35749D53B13718AE5480BC19D6A48D33149D22277DB44AB25"
+    },
+    {
+      "Path": "src/Erlang.Runtime/BeamReceivePlanner.cs",
+      "Sha256": "6AEB47449D53896F4C4EC2008DA3EDAA2C00BE8E41A4F77ADEC55314A41AD57A"
+    },
+    {
+      "Path": "src/Erlang.Runtime/BeamReceiveSelection.cs",
+      "Sha256": "5C53DF96F6045278B8AF7980A8C4812C661DD654E7CA6B47F7A71E26D352526A"
+    },
+    {
+      "Path": "src/Erlang.Runtime/BeamRegisterInterpreter.cs",
+      "Sha256": "681DA249CEFC0856835B8890787160675E6B5FE4B7A571724BC4FA248557C27C"
+    },
+    {
+      "Path": "src/Erlang.Runtime/BeamRegisterNames.cs",
+      "Sha256": "86289DA75EC3171026778E91EF66DCFB066780265CCE625566A937CA554E8DF1"
+    },
+    {
+      "Path": "src/Erlang.Runtime/BeamRegisterState.cs",
+      "Sha256": "50AE68A6E593A54292CD2DCBB3A79E895EB63BA9868B94A60CE3FA1DC84C595C"
+    },
+    {
+      "Path": "src/Erlang.Runtime/BeamRegisterValidation.cs",
+      "Sha256": "A56AC55F7C9A10F2767976ADB5F4633A0541213B9AD8B019F94FAFCFAED0123B"
+    },
+    {
+      "Path": "src/Erlang.Runtime/BeamStructure.cs",
+      "Sha256": "0D22C3E2C11866FE69D09CAA764478DC6EE6A1C09F220D6D58974180E51E0A87"
+    },
+    {
+      "Path": "src/Erlang.Runtime/BeamStructureReader.cs",
+      "Sha256": "B9C6F54E67BC699E62EB1E90BB950973CB5C337B2FCA327E6EB8D636E2F7F172"
+    },
+    {
+      "Path": "src/Erlang.Runtime/BeamTypeEntry.cs",
+      "Sha256": "F9D6F9E3112DCBFC6FB536C6DF958D882FD171A714B2036C5D6D26DF3561BAD1"
+    },
+    {
+      "Path": "src/Erlang.Runtime/BeamTypeTable.cs",
+      "Sha256": "7925B27EFD8CA5CE2B71EFAF8CD05738FCFF8F3FADCCE55B63BBBC7CB9F7BBB1"
+    },
+    {
+      "Path": "src/Erlang.Runtime/BeamTypeTableReader.cs",
+      "Sha256": "DE8EE95DE9A8816245A8E5DFBF5CD6D369FD566B4678B24B10B61A2F437DAECC"
+    },
+    {
+      "Path": "src/Erlang.Runtime/BeamTypeWire.cs",
+      "Sha256": "443F434BA2DD52FB00F29A28A5FE2214436B9B7F767793FFD339D1BBE6248F1F"
+    },
+    {
+      "Path": "src/Erlang.Runtime/BeamWire.cs",
+      "Sha256": "08A22C10F6752B8D1D32FAB6C65216FAF240E19650FFB81D2C401FE5D4179CD6"
+    },
+    {
+      "Path": "src/Erlang.Runtime/BeamZeroFrame.cs",
+      "Sha256": "A44EA317CE72989B217A8B8C70BCC6F96F27BEEB8D8AD418F6A27241AC1AFA12"
+    },
+    {
+      "Path": "src/Erlang.Runtime/BeamZeroFrameValidation.cs",
+      "Sha256": "DD8E25029919677F7A0F2E20CBBB4FDA2987AF11EC135BA248DD42478D64F798"
+    },
+    {
+      "Path": "src/Erlang.Runtime/BeamZlibMemberBoundary.cs",
+      "Sha256": "0BD81A55E5D54B72DDF66C399011D949F584C6CA728D6D12C9C01094C441056A"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ModuleRegistry.cs",
+      "Sha256": "D1980A12DECDEA5902CB18E67EB12537F818FFC8E7FAF270D2A8E93A56E4B9FB"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ModuleRegistry.PreparedBeam.cs",
+      "Sha256": "879FF3ECAFF6C5984F31A07A7E50F11935E51F045CE2363856D137DAAEE1564C"
+    },
+    {
+      "Path": "src/Erlang.Runtime/PreparedBeamImage.cs",
+      "Sha256": "1FD7E4CFF24BC874CE484A136364A2E5E45406D91EBF0F699E98E6C9478E14F0"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProcessContext.cs",
+      "Sha256": "B58A954048225AB378EDF0C91299A6E72E7EE5187DF4B73813DADEFEA4BB7AD4"
+    },
+    {
+      "Path": "src/Erlang.Runtime/RuntimeActorExecutionTurn.cs",
+      "Sha256": "BFF1DE27732D09F82DE3BA2870606C162C498EA7529682BA7A8A8170BFF55207"
+    },
+    {
+      "Path": "tests/Erlang.Tests/ActualMinimalBeamGuestSendHostChecks.cs",
+      "Sha256": "10D6B21529B0E024EBE65720E918C52F9BD6FCB78932B97C359323478306B0FA"
+    },
+    {
+      "Path": "tests/Erlang.Tests/ActualMinimalBeamGuestSendHostNames.cs",
+      "Sha256": "ADD3A809FE829919378E92B154513705BBB76FA0BDD4B06F9B74010B9D1E82EA"
+    }
+  ],
+  "EvidenceInputs": [
+    {
+      "Path": "artifacts/architecture373-queue-beam-admission1/receipt.json",
+      "Sha256": "7E4C472EB1EFAE459E81317644C57DD16CAAE5D12288E1EB00E5A582528FAC1B"
+    },
+    {
+      "Path": "artifacts/architecture373-queue-beam-admission1.ps1",
+      "Sha256": "4B79B27CD665FE7F6F88BEAB2905F492B917DABFE63B5B5D0D25B7A42FD37628"
+    },
+    {
+      "Path": "docs/validation/part-368/original-receipts-and-raw/artifact-12117323576/capture/inputs.json",
+      "Sha256": "FA691CF1593750E7E69E243BBFC9E8DE5B53A47F9DB6D03AEEEA65784653EBF3"
+    },
+    {
+      "Path": "docs/validation/part-371/evidence/canonical-final/tests.json",
+      "Sha256": "92DEF8AB74582369590749CAF98EF604904AE96242E715C28A4ED1D378E652A3"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/Beam/guest_connected_bang322.provenance.json",
+      "Sha256": "3718A2F53E9BF8B19110BD33AD00FC5D487AB285C9DAEE87EE8494FC21FAB631"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/Beam/guest_connected_bang322.beam",
+      "Sha256": "AAADAC2F0BE0422FC84C4B79F398DD6EDD5B0D35778D925A0A4BC2D0BF2FE7E5"
+    }
+  ],
+  "SourceSnapshotIsNotANewBuildProof": true,
+  "StructureAndInstructionReaderMethodsExecuted": true,
+  "SourceDefaultRoleMethodProbesExecuted": true,
+  "GuestExecuted": false,
+  "NativeVmExecuted": false,
+  "BuildExecuted": false,
+  "ProductionChanged": false,
+  "CiDispatched": false,
+  "Published": false
+}

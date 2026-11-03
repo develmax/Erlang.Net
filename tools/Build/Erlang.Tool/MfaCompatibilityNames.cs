@@ -4,6 +4,7 @@ internal static class MfaCompatibilityNames
     public const int Sha256Length = 64;
     public const string File = "mfa-compatibility.json";
     public const string Report = "API_COMPATIBILITY.md";
+    public const string Command = "api-compatibility";
     public const string Verified = "Verified compatible";
     public const string Pending = "Needs verification";
     public const string Different = "Known differences";

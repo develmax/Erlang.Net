@@ -1,0 +1,36 @@
+{
+  "PassiveAuditOnly": true,
+  "ExactlyOnceCurrentRegistryAndLedgerSet": 699,
+  "Modules": 18,
+  "RegistrationSignaturesAndFileHashesValidated": 699,
+  "PinnedExactArityDefinitionsLocated": 699,
+  "CurrentCSharpFileHashesValidated": 181,
+  "NativeAndPureSharedFiles": 36,
+  "ClassificationCounts": {
+    "native/runtime": 311,
+    "pure Erlang": 382,
+    "mixed": 2,
+    "uncertain": 4
+  },
+  "UnresolvedCurrentMfaRegistrations": 0,
+  "UnrelatedDynamicFactoryExtractionNotCurrentMfa": [
+    {
+      "Path": "src/Erlang.Runtime/ProplistFamilyToMapFunction.cs",
+      "Line": 28,
+      "Call": "Register",
+      "RawSignature": [
+        "identity",
+        "ProplistFamilyFoldNames.CallbackArity",
+        "ProplistFamilyFoldNames.EnvironmentCount"
+      ]
+    }
+  ],
+  "FreshRuntimeExecutionOrCompilerAdmissionProven": false,
+  "NoCompatibilityLedgerPromotion": true,
+  "Limitations": [
+    "Static immediate registration route only; downstream full method graph and mutable live dispatch not executed.",
+    "Pinned .erl classification is entry-body scope; preprocessing and transitive original-source feasibility remain separate admission gates.",
+    "No original Erlang/BEAM backend acceptance inferred from source-like C# metadata or existing differential results on C# handlers.",
+    "File/MFA counts are not engineering effort or completion percentages."
+  ]
+}

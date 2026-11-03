@@ -170,5 +170,14 @@ def main():
         except Exception as error:errors.append(dict(Stage="source-final",Error=repr(error)))
         save(out/"source-inputs.json",sourcebefore)
         save(out/"completion.json",dict(Passed=not errors,Configuration=args.configuration,PlanSha256=args.plan_sha256,ExecutionTools=execution_tools,Stages=stages,Errors=errors,Scope="Actual Windows child async; same original native fixture,23 independently retained cases: original8, eight pending-RPC public phase/cause cases, five actual gate controls and two unpublished no-op release cases. No raw topology/timing/fullstatistics, mid-native-body cancellation or Linux claim"))
-    if errors:raise RuntimeError("Strict async microstate observation failed; all independent outcomes retained")
+    if errors:
+        print(json.dumps(dict(AsyncMicrostateFailure=True,Errors=errors),ensure_ascii=True)[:16384],flush=True)
+        observation_file=out/"observations.json"
+        if observation_file.is_file():
+            try:
+                failed_observation=json.loads(observation_file.read_bytes())
+                print(json.dumps(dict(ObservationErrors=failed_observation.get("Errors",[]),FailedCases=[case for case in failed_observation.get("Cases",[]) if not case.get("Passed",False)]),ensure_ascii=True)[:16384],flush=True)
+            except Exception as summary_error:
+                print("Cannot read retained observation summary: "+repr(summary_error),flush=True)
+        raise RuntimeError("Strict async microstate observation failed; all independent outcomes retained")
 if __name__=="__main__":main()

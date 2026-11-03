@@ -1,5 +1,7 @@
 # License audit
 
+Retained license texts and third-party notices are now collected in [licenses/](../licenses/README.md). Package license names are unchanged; the owner-local draft remains excluded from Git and packaging.
+
 Reference baseline OTP-29.1.1 is Apache-2.0 (`LICENSE.txt` in pinned archive). `OTP-LICENSE.txt` preserves that license verbatim. Module inventory metadata is derived from the source snapshot. Reference implementation files consulted include the language expressions manual, lists BIF source, gen_server/supervisor sources and bif.tab. Runtime/compiler code in this repository is an original implementation of those contracts, not copied source blocks. Future direct ports must retain file copyrights/SPDX notices, identify modifications and preserve applicable NOTICE material.
 
 The build tool package redistributes the pinned SDK's Microsoft.CodeAnalysis assemblies. Their local product version is `5.9.0-1.26379.115+14fbf8d5271c98133561eb55185fdb05b286f578`. `ROSLYN-LICENSE.txt` preserves the MIT notice from the [official upstream license](https://github.com/dotnet/roslyn/blob/main/License.txt); the exact product-commit URL was unavailable during this audit. `DOTNET-LICENSE.txt` is the installed Microsoft .NET Library license, not an MIT notice, and `DOTNET-ThirdPartyNotices.txt` is copied verbatim from the installed distribution. Keep all these artifacts in local packages. The selected public license for the repository's original code is still pending owner choice; no public release is performed.

@@ -1,0 +1,28 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup><OutputType>Exe</OutputType></PropertyGroup>
+  <ItemGroup Condition="'$(RuntimeSnapshotDirectory)' == ''">
+    <ProjectReference Include="../../../src/Runtime/Erlang.Terms/Erlang.Terms.csproj" />
+    <ProjectReference Include="../../../src/Runtime/Erlang.Serialization/Erlang.Serialization.csproj" />
+    <ProjectReference Include="../../../src/Runtime/Erlang.Runtime.Core/Erlang.Runtime.Core.csproj" />
+    <ProjectReference Include="../../../src/Otp/Managed/Erlang.Otp.Stdlib/Erlang.Otp.Stdlib.csproj" />
+    <ProjectReference Include="../../../src/Otp/Managed/Erlang.Otp.Kernel/Erlang.Otp.Kernel.csproj" />
+    <ProjectReference Include="../../../src/Otp/Managed/Erlang.Otp.Behaviours/Erlang.Otp.Behaviours.csproj" />
+  </ItemGroup>
+  <ItemGroup Condition="'$(RuntimeSnapshotDirectory)' != ''">
+    <Reference Include="Erlang.Terms"><HintPath>$(RuntimeSnapshotDirectory)/Erlang.Terms.dll</HintPath></Reference>
+    <Reference Include="Erlang.Serialization"><HintPath>$(RuntimeSnapshotDirectory)/Erlang.Serialization.dll</HintPath></Reference>
+    <Reference Include="Erlang.Runtime"><HintPath>$(RuntimeSnapshotDirectory)/Erlang.Runtime.dll</HintPath></Reference>
+    <Reference Include="Erlang.Otp.Stdlib"><HintPath>$(RuntimeSnapshotDirectory)/Erlang.Otp.Stdlib.dll</HintPath></Reference>
+    <Reference Include="Erlang.Otp.Kernel"><HintPath>$(RuntimeSnapshotDirectory)/Erlang.Otp.Kernel.dll</HintPath></Reference>
+    <Reference Include="Erlang.Otp.Behaviours"><HintPath>$(RuntimeSnapshotDirectory)/Erlang.Otp.Behaviours.dll</HintPath></Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="../../../tests/Erlang.Tests/Compiler/Beam/BeamOrdsetsCoreHostNames.cs" Link="BeamOrdsetsCoreHostNames.cs" />
+    <EmbeddedResource Include="../../../tests/Erlang.Tests/Resources/BeamOrdsets381/ordsets.beam;../../../tests/Erlang.Tests/Resources/BeamOrdsets381/lists.beam" LogicalName="Erlang.Tests.BeamOrdsets381.%(Filename)%(Extension)" />
+    <Compile Include="../../../tests/Erlang.Tests/Otp/Stdlib/Ordsets/OrdsetsTermContractChecks.cs" Link="OrdsetsTermContractChecks.cs" />
+    <Compile Include="../../../tests/Erlang.Tests/Otp/Stdlib/Ordsets/OrdsetsTermContractNames.cs" Link="OrdsetsTermContractNames.cs" />
+    <EmbeddedResource Include="../../../tests/Erlang.Tests/Resources/OrdsetsTermContracts/probes.etf" LogicalName="Erlang.Tests.OrdsetsTermContracts.probes.etf" />
+    <EmbeddedResource Include="../../../tests/Erlang.Tests/Resources/OrdsetsTermContracts/matrix.etf" LogicalName="Erlang.Tests.OrdsetsTermContracts.matrix.etf" />
+    <EmbeddedResource Include="../../../tests/Erlang.Tests/Resources/OrdsetsTermContracts/ordsets_term_contracts.beam" LogicalName="Erlang.Tests.OrdsetsTermContracts.ordsets_term_contracts.beam" />
+  </ItemGroup>
+</Project>

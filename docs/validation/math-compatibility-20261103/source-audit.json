@@ -1,0 +1,291 @@
+{
+  "Reference": "OTP-29.1.1/ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "ReferenceSources": [
+    "lib/stdlib/src/math.erl",
+    "erts/emulator/beam/erl_math.c",
+    "erts/emulator/sys/win32/erl_win_sys.h"
+  ],
+  "Domain": "26 mathematical MFA contracts over supported valid Erlang terms and declared standard host profiles",
+  "ArgumentPartitions": [
+    "finite binary64 floats, including both zeros and subnormals",
+    "integers exactly convertible or rounded nearest-even to finite binary64",
+    "integer conversion overflow raises badarith before examining later arguments",
+    "all other term categories raise badarg, preserving left-to-right conversion precedence"
+  ],
+  "ResultRule": "Generic math_call_1/2 reject nonfinite results and permit finite underflow. Pinned OTP also has explicit errno checks for acos/asin; target-host acceptance must include their finite/subnormal behavior. Arbitrary C90/Solaris/custom-build profiles are not established by these standard-profile receipts.",
+  "Constants": "pi/tau have exact pinned binary64 values; BEAM executes original literal bodies",
+  "HostMapping": "System.Math host functions, C# truncating remainder, native CRT/libm erf/erfc, and pinned Windows log(x)/ln(2) log2 branch",
+  "WholeErrorsAndStacks": "248 whole cases at default depth and five stack profiles match in both choices",
+  "IndependentBackendProof": "Explicit selected backend, original-image SHA, current image, no old generation,24 native captures and every export owner checked",
+  "KnownFixedDifference": "Windows log2 direct primitive differed from pinned HAVE_LOG2-disabled expression;2785 same-corpus baseline mismatches,0 fixed",
+  "RuntimeProvenance": "Loaded Runtime/Terms/Serialization/CoreLib/validator SHA, framework, OS, architecture recorded per comparison",
+  "Rows": [
+    {
+      "Function": "acos",
+      "Arity": 1,
+      "BackendChoices": [
+        "Managed",
+        "Beam"
+      ],
+      "WindowsComparison": "Passed",
+      "PlatformAcceptance": "Pending exact-head Windows/Linux/macOS CI"
+    },
+    {
+      "Function": "acosh",
+      "Arity": 1,
+      "BackendChoices": [
+        "Managed",
+        "Beam"
+      ],
+      "WindowsComparison": "Passed",
+      "PlatformAcceptance": "Pending exact-head Windows/Linux/macOS CI"
+    },
+    {
+      "Function": "asin",
+      "Arity": 1,
+      "BackendChoices": [
+        "Managed",
+        "Beam"
+      ],
+      "WindowsComparison": "Passed",
+      "PlatformAcceptance": "Pending exact-head Windows/Linux/macOS CI"
+    },
+    {
+      "Function": "asinh",
+      "Arity": 1,
+      "BackendChoices": [
+        "Managed",
+        "Beam"
+      ],
+      "WindowsComparison": "Passed",
+      "PlatformAcceptance": "Pending exact-head Windows/Linux/macOS CI"
+    },
+    {
+      "Function": "atan",
+      "Arity": 1,
+      "BackendChoices": [
+        "Managed",
+        "Beam"
+      ],
+      "WindowsComparison": "Passed",
+      "PlatformAcceptance": "Pending exact-head Windows/Linux/macOS CI"
+    },
+    {
+      "Function": "atanh",
+      "Arity": 1,
+      "BackendChoices": [
+        "Managed",
+        "Beam"
+      ],
+      "WindowsComparison": "Passed",
+      "PlatformAcceptance": "Pending exact-head Windows/Linux/macOS CI"
+    },
+    {
+      "Function": "ceil",
+      "Arity": 1,
+      "BackendChoices": [
+        "Managed",
+        "Beam"
+      ],
+      "WindowsComparison": "Passed",
+      "PlatformAcceptance": "Pending exact-head Windows/Linux/macOS CI"
+    },
+    {
+      "Function": "cos",
+      "Arity": 1,
+      "BackendChoices": [
+        "Managed",
+        "Beam"
+      ],
+      "WindowsComparison": "Passed",
+      "PlatformAcceptance": "Pending exact-head Windows/Linux/macOS CI"
+    },
+    {
+      "Function": "cosh",
+      "Arity": 1,
+      "BackendChoices": [
+        "Managed",
+        "Beam"
+      ],
+      "WindowsComparison": "Passed",
+      "PlatformAcceptance": "Pending exact-head Windows/Linux/macOS CI"
+    },
+    {
+      "Function": "erf",
+      "Arity": 1,
+      "BackendChoices": [
+        "Managed",
+        "Beam"
+      ],
+      "WindowsComparison": "Passed",
+      "PlatformAcceptance": "Pending exact-head Windows/Linux/macOS CI"
+    },
+    {
+      "Function": "erfc",
+      "Arity": 1,
+      "BackendChoices": [
+        "Managed",
+        "Beam"
+      ],
+      "WindowsComparison": "Passed",
+      "PlatformAcceptance": "Pending exact-head Windows/Linux/macOS CI"
+    },
+    {
+      "Function": "exp",
+      "Arity": 1,
+      "BackendChoices": [
+        "Managed",
+        "Beam"
+      ],
+      "WindowsComparison": "Passed",
+      "PlatformAcceptance": "Pending exact-head Windows/Linux/macOS CI"
+    },
+    {
+      "Function": "floor",
+      "Arity": 1,
+      "BackendChoices": [
+        "Managed",
+        "Beam"
+      ],
+      "WindowsComparison": "Passed",
+      "PlatformAcceptance": "Pending exact-head Windows/Linux/macOS CI"
+    },
+    {
+      "Function": "log",
+      "Arity": 1,
+      "BackendChoices": [
+        "Managed",
+        "Beam"
+      ],
+      "WindowsComparison": "Passed",
+      "PlatformAcceptance": "Pending exact-head Windows/Linux/macOS CI"
+    },
+    {
+      "Function": "log2",
+      "Arity": 1,
+      "BackendChoices": [
+        "Managed",
+        "Beam"
+      ],
+      "WindowsComparison": "Passed",
+      "PlatformAcceptance": "Pending exact-head Windows/Linux/macOS CI"
+    },
+    {
+      "Function": "log10",
+      "Arity": 1,
+      "BackendChoices": [
+        "Managed",
+        "Beam"
+      ],
+      "WindowsComparison": "Passed",
+      "PlatformAcceptance": "Pending exact-head Windows/Linux/macOS CI"
+    },
+    {
+      "Function": "sin",
+      "Arity": 1,
+      "BackendChoices": [
+        "Managed",
+        "Beam"
+      ],
+      "WindowsComparison": "Passed",
+      "PlatformAcceptance": "Pending exact-head Windows/Linux/macOS CI"
+    },
+    {
+      "Function": "sinh",
+      "Arity": 1,
+      "BackendChoices": [
+        "Managed",
+        "Beam"
+      ],
+      "WindowsComparison": "Passed",
+      "PlatformAcceptance": "Pending exact-head Windows/Linux/macOS CI"
+    },
+    {
+      "Function": "sqrt",
+      "Arity": 1,
+      "BackendChoices": [
+        "Managed",
+        "Beam"
+      ],
+      "WindowsComparison": "Passed",
+      "PlatformAcceptance": "Pending exact-head Windows/Linux/macOS CI"
+    },
+    {
+      "Function": "tan",
+      "Arity": 1,
+      "BackendChoices": [
+        "Managed",
+        "Beam"
+      ],
+      "WindowsComparison": "Passed",
+      "PlatformAcceptance": "Pending exact-head Windows/Linux/macOS CI"
+    },
+    {
+      "Function": "tanh",
+      "Arity": 1,
+      "BackendChoices": [
+        "Managed",
+        "Beam"
+      ],
+      "WindowsComparison": "Passed",
+      "PlatformAcceptance": "Pending exact-head Windows/Linux/macOS CI"
+    },
+    {
+      "Function": "atan2",
+      "Arity": 2,
+      "BackendChoices": [
+        "Managed",
+        "Beam"
+      ],
+      "WindowsComparison": "Passed",
+      "PlatformAcceptance": "Pending exact-head Windows/Linux/macOS CI"
+    },
+    {
+      "Function": "fmod",
+      "Arity": 2,
+      "BackendChoices": [
+        "Managed",
+        "Beam"
+      ],
+      "WindowsComparison": "Passed",
+      "PlatformAcceptance": "Pending exact-head Windows/Linux/macOS CI"
+    },
+    {
+      "Function": "pow",
+      "Arity": 2,
+      "BackendChoices": [
+        "Managed",
+        "Beam"
+      ],
+      "WindowsComparison": "Passed",
+      "PlatformAcceptance": "Pending exact-head Windows/Linux/macOS CI"
+    },
+    {
+      "Function": "pi",
+      "Arity": 0,
+      "BackendChoices": [
+        "Managed",
+        "Beam"
+      ],
+      "WindowsComparison": "Passed",
+      "PlatformAcceptance": "Pending exact-head Windows/Linux/macOS CI"
+    },
+    {
+      "Function": "tau",
+      "Arity": 0,
+      "BackendChoices": [
+        "Managed",
+        "Beam"
+      ],
+      "WindowsComparison": "Passed",
+      "PlatformAcceptance": "Pending exact-head Windows/Linux/macOS CI"
+    }
+  ],
+  "Remaining": [
+    "genuine supported-platform execution receipts on final published sources",
+    "platform CRT/libm and compiler configuration closure",
+    "current final-head aggregate CI and review",
+    "main merge"
+  ],
+  "WholeModuleVerified": false
+}

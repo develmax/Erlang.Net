@@ -1,0 +1,22 @@
+{
+  "Baseline": "OTP-29.1.1",
+  "OriginalMathSourceBlob": "8f11f332b90cf1971ab1124bcb3cf6c90139a589",
+  "ShippedMathSourceBlob": "8f11f332b90cf1971ab1124bcb3cf6c90139a589",
+  "OriginalSourceUnchanged": true,
+  "ReferenceSources": [
+    "lib/stdlib/src/math.erl",
+    "erts/emulator/beam/erl_math.c"
+  ],
+  "SourcePartitions": [
+    "pi/0 and tau/0 are zero-argument literal float functions",
+    "24 other operations are native stubs in original math.erl",
+    "erl_math.c converts numeric arguments left to right; nonnumeric terms badarg and integer conversion overflow badarith",
+    "Nonfinite numeric results badarith; finite underflow is accepted",
+    "Native host floating-point routines and all platform-specific exceptional behavior still require platform acceptance"
+  ],
+  "ReuseSources": [
+    "https://github.com/dotnet/runtime/blob/v10.0.0/src/coreclr/System.Private.CoreLib/src/System/Math.CoreCLR.cs",
+    "https://github.com/dotnet/runtime/blob/v10.0.0/src/coreclr/classlibnative/float/floatdouble.cpp"
+  ],
+  "CompleteContractAudit": false
+}

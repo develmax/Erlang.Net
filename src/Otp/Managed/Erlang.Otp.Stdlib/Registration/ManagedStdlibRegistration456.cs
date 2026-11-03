@@ -261,7 +261,12 @@ public sealed class ManagedStdlibRegistration456 : IRuntimeManagedLibrary456
             MapModuleNames.Module,
             MapModuleNames.Put,
             3,
-            (c, a) => MapOperations.Put(a[0], a[1], a[2])
+            (c, a) => MapOperations.Put(
+                a[0],
+                a[1],
+                a[2],
+                runtime: c.Runtime
+            )
         );
         Add(
             MapModuleNames.Module,
@@ -302,7 +307,7 @@ public sealed class ManagedStdlibRegistration456 : IRuntimeManagedLibrary456
             MapModuleNames.Module,
             MapModuleNames.Merge,
             2,
-            (c, a) => new MapTerm(MapOperations.RequireMap(a[0]).Entries.Concat(MapOperations.RequireMap(a[1]).Entries))
+            (c, a) => MapOperations.Merge(a[0], a[1], c.Runtime)
         );
         Add(
             MapModuleNames.Module,

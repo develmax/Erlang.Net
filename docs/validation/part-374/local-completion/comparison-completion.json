@@ -1,0 +1,93 @@
+{
+  "Status": "DATA_COMPARISON_CLOSED_UNDER_FRESH374_IDENTITY_AND_OWN_STATE_PROTOCOL",
+  "Examined": 6384,
+  "StrictRawTypedEqual": 6003,
+  "NamedSourceFunIdentity": 331,
+  "PriorBoundCoreOpaqueIdentity": 6,
+  "SourceProtocolSavedEntry": 44,
+  "RawDifferencesPreserved": 44,
+  "ResidualDifferences": 0,
+  "NativeCallerFix": {
+    "Case": "short_reverse_direct",
+    "AllSixValueAndDepthObservationsStrict": true,
+    "PreviouslyFailingCallerDepthsNowStrict": [
+      "default",
+      2,
+      8
+    ],
+    "NoFrameCountDifferencesRemain": true
+  },
+  "Values": {
+    "Total": 1064,
+    "Strict": 1057,
+    "Bound": 7,
+    "Differences": 0
+  },
+  "SourceReview": {
+    "Path": "artifacts/lists374-final-guard-protocol-review2/source-review.json",
+    "Sha256": "1738363CEE869B403EB6AE89DBA84DD9BA9014955B2195F3B6AFFE2397E0727B",
+    "ProductionSourceBindings": 52,
+    "EveryCapturedCompiledWorkerSourceMatchesFrozenOriginalFixtureManifest": true,
+    "Previous373SourceReviewUsed": false
+  },
+  "NegativeControls": {
+    "NamedSourceFun": 9,
+    "OwnState": 20,
+    "AllRejected": true
+  },
+  "FramesDroppedOrNormalized": false,
+  "NativeCutpointsSeeded": false,
+  "BudgetTelemetryFabricated": false,
+  "WholeModuleCompatiblePromoted": false,
+  "RootBuildOwnedProcessAndFinalSourceAdmissionPending": true,
+  "Bindings": [
+    {
+      "Path": "compare.py",
+      "Sha256": "7CE7A1E802F99B826B79AAAE5858EDF5A252B9F6CB7DABDE914E852D43FC3941"
+    },
+    {
+      "Path": "helper-bindings.json",
+      "Sha256": "0F958674083496ADC7561F29E40F5BF51FCC13AF7823BDBA27B56A8295DED881"
+    },
+    {
+      "Path": "compare-own-state.py",
+      "Sha256": "FA544A1397B00566B9F895F1D9E2E2F3E49A87FACD59DE664A241656FA93F1BB"
+    },
+    {
+      "Path": "own-helper-bindings2.json",
+      "Sha256": "0E3B4D83B181483F9EC820C4606E7085AD6291BD5A11FD547F9295464910C119"
+    },
+    {
+      "Path": "all-second1/summary.json",
+      "Sha256": "85599B035DF2EBB767950235DA5E6AE3D6010B78710EA5F1A775B3AE0382654F"
+    },
+    {
+      "Path": "all-second1/observations.json",
+      "Sha256": "4554C3911034E33735EF90A5379C28E6E31321E4A88A3D904788C5E6DDA2285A"
+    },
+    {
+      "Path": "all-second1/differences.json",
+      "Sha256": "D72519F1D87BF2C1845D2773D139D48320075A7C79A8AAA8CCC640D05049A342"
+    },
+    {
+      "Path": "all-second1/input-bindings.json",
+      "Sha256": "AC7BD42A64FCDE1FA81B1D1CF4349A19E8F36A5BC9A1A8EA4ADF61F97718CFD2"
+    },
+    {
+      "Path": "core-second1/summary.json",
+      "Sha256": "BDB07C6F47EFD43E9EF3BB40E193594C212B53560FD88EFB92FFC78955B011F5"
+    },
+    {
+      "Path": "own-second1/summary.json",
+      "Sha256": "FA5AB1B0D86421E4D12A456017050ECA9E1ABCE134EB00416C1AE5E34E7C4B9C"
+    },
+    {
+      "Path": "own-second1/own-state-observations.json",
+      "Sha256": "C29A16D56D1B300A2381730A8A74E2A7B6661302E0713A8259DE11CE4C521AF3"
+    },
+    {
+      "Path": "first-completion.json",
+      "Sha256": "110996FB1CFF0649F459B0E47670ADF81771D67A0089656C0849131B83E566AE"
+    }
+  ]
+}

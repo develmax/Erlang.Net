@@ -1,0 +1,235 @@
+{
+  "Status": "SOURCE_AUDIT_NOT_EXECUTION_OR_COMPATIBILITY_PROMOTION",
+  "ReviewerSubjectExecutions": 0,
+  "RuntimeProductionDeltas": [
+    {
+      "Path": "src/Erlang.Runtime/BeamExternalImports.cs",
+      "Before377Sha256": "2B37A300AE3BDB78E42D904A7C5ADDB17DC220C93697B50AEF938F4DA425835D",
+      "CurrentSha256": "85CF2AE8424A053F72237692B28565617FCF0A18B06C7D0DC14D083EAF99293B",
+      "CurrentBytes": 3456,
+      "NewSince377": false,
+      "ExistingGuard": true,
+      "Review": "Adds only source import admission of existing erlang:spawn/1; delegates to existing actual registry implementation. No API implementation or status changed."
+    },
+    {
+      "Path": "src/Erlang.Runtime/BeamFrameIdentity.cs",
+      "Before377Sha256": null,
+      "CurrentSha256": "8952BBD43C1BB16619D6BFC0A0854912A8C780878A8EC5C34E45C0AC6DECA221",
+      "CurrentBytes": 63,
+      "NewSince377": true,
+      "ExistingGuard": false,
+      "Review": "New private typed-handler/trace/tail/no-return support closure; no exported MFA or compatibility status promotion."
+    },
+    {
+      "Path": "src/Erlang.Runtime/BeamFrameValidation.cs",
+      "Before377Sha256": "E37EFB502CBAFB0A0A291A10910F2FD84703A74EE252EB6FA5D49C6154DB2700",
+      "CurrentSha256": "129126AD8453F36C0AA5D764B0FAED0C6024BC0DF2FEDCC6F38C552473BCEB42",
+      "CurrentBytes": 36139,
+      "NewSince377": false,
+      "ExistingGuard": true,
+      "Review": "Adds separate typed exceptional CFG and narrowly proven no-return successor pruning; unchanged legacy no-try validation path retained. New raw/tag states remain non-Term; explicit receive+try refusal."
+    },
+    {
+      "Path": "src/Erlang.Runtime/BeamFunTailProtocol.cs",
+      "Before377Sha256": null,
+      "CurrentSha256": "2CA0F8CFE95CA63DA4660505BE5C700A40485D2CB63B4D7FD067C3BF8E1BE7D4",
+      "CurrentBytes": 582,
+      "NewSince377": true,
+      "ExistingGuard": false,
+      "Review": "New private typed-handler/trace/tail/no-return support closure; no exported MFA or compatibility status promotion."
+    },
+    {
+      "Path": "src/Erlang.Runtime/BeamHandlerCheckpoint.cs",
+      "Before377Sha256": null,
+      "CurrentSha256": "539A2E0D053C4BB77E18D7177B59DB26DAE1F7BE2586A2D61716D10CACE7E7E1",
+      "CurrentBytes": 240,
+      "NewSince377": true,
+      "ExistingGuard": false,
+      "Review": "New private typed-handler/trace/tail/no-return support closure; no exported MFA or compatibility status promotion."
+    },
+    {
+      "Path": "src/Erlang.Runtime/BeamHandlerTag.cs",
+      "Before377Sha256": null,
+      "CurrentSha256": "AE273CF01235BA1C20843FF2D8B01D03D4795A2B7F89D5BFD431AFA71D77894B",
+      "CurrentBytes": 243,
+      "NewSince377": true,
+      "ExistingGuard": false,
+      "Review": "New private typed-handler/trace/tail/no-return support closure; no exported MFA or compatibility status promotion."
+    },
+    {
+      "Path": "src/Erlang.Runtime/BeamLinkedCodeReader.cs",
+      "Before377Sha256": "6346168AD8338C12911D105389AB6309374A9BBF0C6C0778CCC09A43FD7E7FD6",
+      "CurrentSha256": "210CABB0B74052E9E8C5DB284EEB4EF13CDCD144D7F5741C33E224AACF7E2C8D",
+      "CurrentBytes": 21467,
+      "NewSince377": false,
+      "ExistingGuard": true,
+      "Review": "Adds operand-role decoding/admission for actual try family; retains existing bounds/function-label checks."
+    },
+    {
+      "Path": "src/Erlang.Runtime/BeamLocalFrame.cs",
+      "Before377Sha256": "F60393C7C2F6444341B97DEA75ED4202CCDA8230EFC9D702FFBE664028D2D356",
+      "CurrentSha256": "06DD1129B87ECABD0FC37CE3C0B8AD03D517AAE36B0DD738C8DE7D0E2E0CB4F3",
+      "CurrentBytes": 3535,
+      "NewSince377": false,
+      "ExistingGuard": true,
+      "Review": "Preserves ordinary Term APIs with one-reference typed slots, lazy identity and count-backed tag checks; clone/trim preserve identities and invalid tag destruction refused."
+    },
+    {
+      "Path": "src/Erlang.Runtime/BeamNoReturnAnalysis.cs",
+      "Before377Sha256": null,
+      "CurrentSha256": "6679E886A58486B2374CCD132F87B67BBBE9A8A5FD2651CDC218EF6E8AD07046",
+      "CurrentBytes": 1520,
+      "NewSince377": true,
+      "ExistingGuard": false,
+      "Review": "New private typed-handler/trace/tail/no-return support closure; no exported MFA or compatibility status promotion."
+    },
+    {
+      "Path": "src/Erlang.Runtime/BeamReceiveMatcher.cs",
+      "Before377Sha256": "78C49881A236FC36834440A3BE3C213A3E4C10FDBF98450C1CC6EAD74D2F9506",
+      "CurrentSha256": "BC5DC2651AF29BD4BCFE33ADE8C9AD8612A72397F785B0A04D4F7A1ED7770EF6",
+      "CurrentBytes": 3469,
+      "NewSince377": false,
+      "ExistingGuard": false,
+      "Review": "Adds only nonempty-list test: Cons succeeds including improper nonempty lists; Nil and other terms branch to existing failure label. Existing message selection/removal path unchanged."
+    },
+    {
+      "Path": "src/Erlang.Runtime/BeamReceivePlanner.cs",
+      "Before377Sha256": "6AEB47449D53896F4C4EC2008DA3EDAA2C00BE8E41A4F77ADEC55314A41AD57A",
+      "CurrentSha256": "34FB6A67716BCD41BA86C518CB881155EBAA624909F80662C5EF90BF1A62FD57",
+      "CurrentBytes": 5578,
+      "NewSince377": false,
+      "ExistingGuard": false,
+      "Review": "Admits the same new Cons test within existing bounded acyclic matcher planning, validates operand source and visits both successors. Existing cycle/range/success/rejection checks retained."
+    },
+    {
+      "Path": "src/Erlang.Runtime/BeamRegisterInterpreter.cs",
+      "Before377Sha256": "9852866D3248C4DAA4A331B4542589D64FB9FDE0ADD7B9265E746B2D85317B73",
+      "CurrentSha256": "EBACE6062984349E77BE48987AFCD0016D3DC7AC32300442105D233E6624CEE8",
+      "CurrentBytes": 43619,
+      "NewSince377": false,
+      "ExistingGuard": true,
+      "Review": "Adds catch/resume/unwind protocol with ErlangException-only catches; raw trace/tag transport and source-captured rethrow; exact pinned tail fun peephole with dispatch failures retaining caller. Existing direct term/native helpers remain called."
+    },
+    {
+      "Path": "src/Erlang.Runtime/BeamRegisterProtocolNames.cs",
+      "Before377Sha256": null,
+      "CurrentSha256": "7C8B004AD0B1F33822D578CCA66C680890261638BC7884148E94D1ADB945E14A",
+      "CurrentBytes": 379,
+      "NewSince377": true,
+      "ExistingGuard": false,
+      "Review": "New private typed-handler/trace/tail/no-return support closure; no exported MFA or compatibility status promotion."
+    },
+    {
+      "Path": "src/Erlang.Runtime/BeamRegisterSlot.cs",
+      "Before377Sha256": null,
+      "CurrentSha256": "23936AFE408396E27BF12B2C1094D687F078B067B2E42ED0EE84A1A617087407",
+      "CurrentBytes": 1964,
+      "NewSince377": true,
+      "ExistingGuard": false,
+      "Review": "New private typed-handler/trace/tail/no-return support closure; no exported MFA or compatibility status promotion."
+    },
+    {
+      "Path": "src/Erlang.Runtime/BeamRegisterSlotKind.cs",
+      "Before377Sha256": null,
+      "CurrentSha256": "1158789F3EBBF2198F4B999A25DD948042CF4CF82145DF54DD263C7BB66858A5",
+      "CurrentBytes": 115,
+      "NewSince377": true,
+      "ExistingGuard": false,
+      "Review": "New private typed-handler/trace/tail/no-return support closure; no exported MFA or compatibility status promotion."
+    },
+    {
+      "Path": "src/Erlang.Runtime/BeamRegisterState.cs",
+      "Before377Sha256": "E05F0E78081A1FB12401ECBF3118F5BA883CBBD22DA456ECFD77CE7CA14B195E",
+      "CurrentSha256": "0F26AAE227B546D771DA18A7A51CC01CF64348D48962DFFFAF0EF000561B2C80",
+      "CurrentBytes": 6314,
+      "NewSince377": false,
+      "ExistingGuard": true,
+      "Review": "Single-reference typed register backing preserves Term APIs and legacy clone; explicit raw move/swap/marker/unwind APIs, array-clear dead-X handling, scoped handler identity checks."
+    },
+    {
+      "Path": "src/Erlang.Runtime/BeamRegisterValidation.cs",
+      "Before377Sha256": "F2A07BBFCD493D80BDE816401D833170F37A17613AD1FE84040398840C221EBB",
+      "CurrentSha256": "291219A4958F57588F6967F319CC4257CD9E023D0E408B38D502A775ACDBEB90",
+      "CurrentBytes": 17165,
+      "NewSince377": false,
+      "ExistingGuard": true,
+      "Review": "Adds try-family operand validation and existing erlang:get/1 unary import admission. No implementation of get changed; source call uses existing registry/native error capture."
+    },
+    {
+      "Path": "src/Erlang.Runtime/BeamSavedTrace.cs",
+      "Before377Sha256": null,
+      "CurrentSha256": "89C85C9B11E51C00BF294973C83CACCCAF9BA5EF8E621B602EAF1F60B88C6F6F",
+      "CurrentBytes": 776,
+      "NewSince377": true,
+      "ExistingGuard": false,
+      "Review": "New private typed-handler/trace/tail/no-return support closure; no exported MFA or compatibility status promotion."
+    },
+    {
+      "Path": "src/Erlang.Runtime/BeamTryExecution.cs",
+      "Before377Sha256": null,
+      "CurrentSha256": "52A3826477BE22F081F90DB19E0336D56AD26E5E049BB07020F06443BE0CE7F1",
+      "CurrentBytes": 440,
+      "NewSince377": true,
+      "ExistingGuard": false,
+      "Review": "New private typed-handler/trace/tail/no-return support closure; no exported MFA or compatibility status promotion."
+    },
+    {
+      "Path": "src/Erlang.Runtime/BeamTryNames.cs",
+      "Before377Sha256": null,
+      "CurrentSha256": "B8E7334E72368A24AAB7762452A0310B94938DE8C14369DF57B8823E176D7BAF",
+      "CurrentBytes": 398,
+      "NewSince377": true,
+      "ExistingGuard": false,
+      "Review": "New private typed-handler/trace/tail/no-return support closure; no exported MFA or compatibility status promotion."
+    },
+    {
+      "Path": "src/Erlang.Runtime/BeamTryParameters.cs",
+      "Before377Sha256": null,
+      "CurrentSha256": "EAF3F617AF66539DBFCFD8F8B746E6B5D09BD5DB000BFFFD3A1FA4174F8C84DB",
+      "CurrentBytes": 499,
+      "NewSince377": true,
+      "ExistingGuard": false,
+      "Review": "New private typed-handler/trace/tail/no-return support closure; no exported MFA or compatibility status promotion."
+    }
+  ],
+  "LocalNoReturn": {
+    "ProvenSubset": "Only literal sequential Label/Line/Move body ending external tail call to canonical erlang:error/1,2, throw/1 or exit/1.",
+    "ConservativeRejections": [
+      "normal return",
+      "any test/branch/jump",
+      "allocation/deallocation",
+      "local recursion/forward chain",
+      "other remote call",
+      "error/3"
+    ],
+    "Soundness": "Every admitted entry path before terminal call is sequential; moves cannot manufacture normal return. Reachable callee is separately validated. Canonical terminal primitive never returns normally. Import metadata arity/name are checked.",
+    "ScopeBoundary": "Assumes canonical nonreturning core identities, as existing direct import no-return proof already does. No arbitrary host replacement or new compiler/source-policy identity claim."
+  },
+  "ReceiveDelta": {
+    "Success": "Any Cons, including improper nonempty list",
+    "Failure": "Nil and all non-Cons terms",
+    "Planner": "Adds same two-successor type test to existing acyclic matcher; no side-effect or message removal change.",
+    "Composition": "Receive+try remains explicitly refused by exceptional frame validator."
+  },
+  "GuardEquivalenceBoundary": "Existing direct API helpers/contracts remain unchanged. Shared compiled-source route gained scoped new execution; source hashes alone do not re-prove every existing complete contract. Root final canonical regression/package validation remains required before final acceptance.",
+  "EvidenceBindings": [
+    {
+      "Path": "artifacts/library378-implementation/compare3.json",
+      "Sha256": "E2BD1CE7260F3AD85E47AAC7357FC5CB9FD7D6602ECCC0B2E94D601CA90FCAC7"
+    },
+    {
+      "Path": "artifacts/library378-final-runtime-review1/review.json",
+      "Sha256": "E63AA38CBB7B91545E1C441BB1263C0EC7CE862875066C285F2B591432B7D4AB"
+    },
+    {
+      "Path": "artifacts/library378-raise-source-review1/authority.json",
+      "Sha256": "C89699B45C86ECA7E7E31CB135E6B452EDBD8550F9E9F060D31EFAC8F6BD5B12"
+    },
+    {
+      "Path": "artifacts/library378-fun-tail-source-review1/authority.json",
+      "Sha256": "6215CBB6EAF6063D798F40D9462039E44700CBFFCC93941BBA6AF6E523CF030B"
+    }
+  ],
+  "NoApiPromotion": true,
+  "MfaEntriesUntouched": true
+}

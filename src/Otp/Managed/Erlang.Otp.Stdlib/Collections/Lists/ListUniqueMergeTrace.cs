@@ -54,16 +54,27 @@ internal static class ListUniqueMergeTrace
         ProcessContext context,
         Term list,
         Term tail,
-        IEnumerable<ListUniqueMergeContinuation> continuations
+        IEnumerable<ListUniqueMergeContinuation> continuations,
+        ListUniqueMergeState? caller = null,
+        int line = 0
     )
     {
         using var scope = new ListUniqueMergeScope(context, continuations);
 
-        return await context.Runtime.Modules.Call(
+        // The registry selects the body and native marker under one gate.
+        // A replacement after selection must not change this invocation's PC.
+        return await context.Runtime.Modules.CallWithNativeCallerScope(
             context,
             ListModuleNames.Module,
             ListModuleNames.Reverse,
-            [list, tail]
+            [list, tail],
+            caller is { } state ? current => current.EnterGeneratedFunction(
+                ListModuleNames.Module,
+                ListUniqueMergeNames.Function(state),
+                ListUniqueMergeNames.Arity(state),
+                Location(line),
+                identities.GetOrAdd((state, line), _ => new object())
+            ) : null
         );
     }
 

@@ -1,0 +1,54 @@
+namespace Erlang;
+
+internal static class StringFunctionNames
+{
+    internal const string Casefold = "casefold";
+    internal const string Centre = "centre";
+    internal const string Chars = "chars";
+    internal const string Chomp = "chomp";
+    internal const string Chr = "chr";
+    internal const string Concat = "concat";
+    internal const string Copies = "copies";
+    internal const string Cspan = "cspan";
+    internal const string Equal = "equal";
+    internal const string Find = "find";
+    internal const string IsEmpty = "is_empty";
+    internal const string JaroSimilarity = "jaro_similarity";
+    internal const string Join = "join";
+    internal const string Left = "left";
+    internal const string Len = "len";
+    internal const string Length = "length";
+    internal const string Lexemes = "lexemes";
+    internal const string ListToFloat = "list_to_float";
+    internal const string ListToInteger = "list_to_integer";
+    internal const string Lowercase = "lowercase";
+    internal const string NextCodepoint = "next_codepoint";
+    internal const string NextGrapheme = "next_grapheme";
+    internal const string NthLexeme = "nth_lexeme";
+    internal const string Pad = "pad";
+    internal const string Prefix = "prefix";
+    internal const string Rchr = "rchr";
+    internal const string Replace = "replace";
+    internal const string Reverse = "reverse";
+    internal const string Right = "right";
+    internal const string Rstr = "rstr";
+    internal const string Slice = "slice";
+    internal const string Span = "span";
+    internal const string Split = "split";
+    internal const string Str = "str";
+    internal const string Strip = "strip";
+    internal const string SubString = "sub_string";
+    internal const string SubWord = "sub_word";
+    internal const string Substr = "substr";
+    internal const string Take = "take";
+    internal const string Titlecase = "titlecase";
+    internal const string ToFloat = "to_float";
+    internal const string ToGraphemes = "to_graphemes";
+    internal const string ToInteger = "to_integer";
+    internal const string ToLower = "to_lower";
+    internal const string ToUpper = "to_upper";
+    internal const string Tokens = "tokens";
+    internal const string Trim = "trim";
+    internal const string Uppercase = "uppercase";
+    internal const string Words = "words";
+}

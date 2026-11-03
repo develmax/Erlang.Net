@@ -4,6 +4,10 @@ on:
     branches: [main]
   pull_request:
   workflow_dispatch:
+permissions:
+  contents: read
+  actions: read
+  pull-requests: read
 concurrency:
   group: validate-${{ github.event.pull_request.number || github.ref }}
   cancel-in-progress: true
@@ -231,6 +235,7 @@ jobs:
     steps:
       - uses: actions/checkout@v7
         with:
+          fetch-depth: 0
           ref: ${{ github.event.pull_request.head.sha || github.sha }}
           persist-credentials: false
       - name: Verify Resource529 source admission before any build
@@ -548,11 +553,27 @@ jobs:
             if ($LASTEXITCODE -ne 0) { $contractFailures += "Original atom-capacity route failed: $creator" }
           }
           if ($contractFailures.Count -ne 0) { throw ($contractFailures -join '; ') }
+      - name: Check fail-closed CI reuse policy and resolve dependency inputs
+        shell: pwsh
+        run: |
+          python -B -m unittest discover -s tools/Validation/Erlang.CiReuse -p 'test_*.py' -v
+          if ($LASTEXITCODE -ne 0) { throw 'CI reuse policy controls failed' }
+          dotnet restore Erlang.Net.slnx -m:1
+          if ($LASTEXITCODE -ne 0) { throw 'Resolved dependency preparation failed' }
+      - name: Admit identical completed PR evidence or require full validation
+        id: ci-reuse
+        shell: pwsh
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          python -B tools/Validation/Erlang.CiReuse/main.py prepare --repository . --provider-admission artifacts/library376-official-compiler/official-admission.json --job local-regressions --output artifacts/ci-reuse/local-regressions
+          if ($LASTEXITCODE -ne 0) { throw 'CI reuse admission entry failed' }
       - shell: pwsh
+        if: steps.ci-reuse.outputs.reuse != 'true'
         run: ./tools/validate.ps1 -TestRuntimeVersion 10.0.11
       - name: Require the built native host before dependent native comparisons
         id: native-host-ready
-        if: ${{ !cancelled() && steps.shared-original-provider.outcome == 'success' }}
+        if: ${{ steps.ci-reuse.outputs.reuse != 'true' && (!cancelled() && steps.shared-original-provider.outcome == 'success') }}
         shell: pwsh
         run: |
           $ErrorActionPreference = 'Stop'
@@ -561,7 +582,7 @@ jobs:
             if (!(Test-Path -LiteralPath $path)) { throw "Native host preparation failed; dependent execution is blocked: $path" }
           }
       - name: Compare native empty-map creation with pinned OTP and both loaders
-        if: ${{ !cancelled() && steps.native-host-ready.outcome == 'success' }}
+        if: ${{ steps.ci-reuse.outputs.reuse != 'true' && (!cancelled() && steps.native-host-ready.outcome == 'success') }}
         shell: pwsh
         run: |
           if (!(Test-Path tools/Native/Erlang.NifNativeBackend/bin/Debug/net10.0/Erlang.NifNativeBackend.dll) -or !(Test-Path artifacts/library376-official-compiler/official-admission.json)) {
@@ -570,20 +591,20 @@ jobs:
           python -B tools/Native/Erlang.NifMapCreation501Observations/collect.py --repository $PWD.Path --provider-admission artifacts/library376-official-compiler/official-admission.json --plan-sha256 079C5F452DAC6362CF0180AD4E6B4FEF3B6159BBF318A135B22D64A64A870E78 --output artifacts/native-map501/ci --runtime-version 10.0.11 --check-golden
           if ($LASTEXITCODE -ne 0) { throw 'Native map501 original/ordinary/reviewed comparison failed; inspect all phase receipts' }
       - name: Compare native map lookup with pinned OTP and both loaders
-        if: ${{ !cancelled() && steps.native-host-ready.outcome == 'success' }}
+        if: ${{ steps.ci-reuse.outputs.reuse != 'true' && (!cancelled() && steps.native-host-ready.outcome == 'success') }}
         shell: pwsh
         run: |
           if (!(Test-Path artifacts/library376-official-compiler/official-admission.json)) { throw 'Map lookup503 preparation unavailable; dependent native execution was not started.' }
           python -B tools/Native/Erlang.NifMapValue503Observations/collect.py --repository $PWD.Path --provider-admission artifacts/library376-official-compiler/official-admission.json --plan-sha256 D1A9BE80F21C40E7FD8D84489401BF18F673EA14A5A383FB0170C11766EA204A --output artifacts/native-map503/ci --check-golden
           if ($LASTEXITCODE -ne 0) { throw 'Native map lookup503 comparison failed; independent route results are retained.' }
       - name: Compare the complete native map family with pinned OTP and both loaders
-        if: ${{ !cancelled() && steps.native-host-ready.outcome == 'success' }}
+        if: ${{ steps.ci-reuse.outputs.reuse != 'true' && (!cancelled() && steps.native-host-ready.outcome == 'success') }}
         shell: pwsh
         run: |
           if (!(Test-Path artifacts/library376-official-compiler/official-admission.json)) {
             throw 'Map family504 requires successful host/provider preparation; dependent execution was not started'
           }
-          python -B tools/Native/Erlang.NifMapFamily504Observations/collect.py --repository $PWD.Path --provider-admission artifacts/library376-official-compiler/official-admission.json --plan-sha256 48C54813CFD59B765C9AB608905147985CB6C1969F881E52007B8B0ACE769CCA --output artifacts/native-map504/ci --check-golden --both-runtime-profiles516
+          python -B tools/Native/Erlang.NifMapFamily504Observations/collect.py --repository $PWD.Path --provider-admission artifacts/library376-official-compiler/official-admission.json --plan-sha256 E243C93C68463105F68AF3C342A7F199E60F1B336A46FDD2BBB7BEA523224975 --output artifacts/native-map504/ci --check-golden --both-runtime-profiles516
           if ($LASTEXITCODE -ne 0) { throw 'Native map family504 original/ordinary/reviewed comparison failed; all prepared independent route receipts are retained' }
           $comparison516 = Get-Content 'artifacts/native-map504/ci/completion.json' -Raw | ConvertFrom-Json
           if (!$comparison516.Passed -or !$comparison516.BothRuntimeProfiles516 -or $comparison516.ExpectedRawLoaderComparisons -ne 4 -or $comparison516.WholeRawLoaderComparisons -ne 4 -or $comparison516.WholeRawComparisonsByRuntimeProfile.'ordinary-runtime' -ne 2 -or $comparison516.WholeRawComparisonsByRuntimeProfile.'owned-runtime' -ne 2) { throw 'All four runtime-profile/loader comparisons are required' }
@@ -591,20 +612,20 @@ jobs:
             if ($comparison516.ManagedRuntimeProfileReceipts.('ordinary-runtime--' + $route516).OwnedTermsPilot506 -ne $false -or $comparison516.ManagedRuntimeProfileReceipts.('owned-runtime--' + $route516).OwnedTermsPilot506 -ne $true) { throw 'Actual native runtime-profile receipt missing or wrong' }
           }
       - name: Compare source-exact function collision protocol with pinned OTP
-        if: ${{ !cancelled() && steps.native-host-ready.outcome == 'success' }}
+        if: ${{ steps.ci-reuse.outputs.reuse != 'true' && (!cancelled() && steps.native-host-ready.outcome == 'success') }}
         shell: pwsh
         run: |
           if (!(Test-Path artifacts/library376-official-compiler/official-admission.json)) { throw 'Collision504 provider preparation missing; dependent execution skipped' }
           python -B tools/Native/Erlang.NifMapCollision504Observations/collect.py --repository $PWD.Path --provider-admission artifacts/library376-official-compiler/official-admission.json --plan-sha256 1E9AFD3B7D49E6EB0D8B30C09C91C718821360533C610D87A62CBE8C056FFAC4 --output artifacts/native-map504/collision-ci --check-golden
           if ($LASTEXITCODE -ne 0) { throw 'Source-exact collision504 original/ordinary/reviewed comparison failed' }
       - name: Compare materialized native maps after return with pinned OTP
-        if: ${{ !cancelled() && steps.native-host-ready.outcome == 'success' }}
+        if: ${{ steps.ci-reuse.outputs.reuse != 'true' && (!cancelled() && steps.native-host-ready.outcome == 'success') }}
         shell: pwsh
         run: |
           if (!(Test-Path artifacts/library376-official-compiler/official-admission.json)) {
             throw 'Materialized505 host/provider preparation missing; dependent execution skipped'
           }
-          python -B tools/Native/Erlang.NifMapMaterialized505Observations/collect.py --repository $PWD.Path --provider-admission artifacts/library376-official-compiler/official-admission.json --plan-sha256 7016B40801E87AA30F384E9ACF58ACD47B31D026AC6CAD7DAAFE18A76A69D6AB --output artifacts/native-map505/ci --check-golden --both-runtime-profiles516
+          python -B tools/Native/Erlang.NifMapMaterialized505Observations/collect.py --repository $PWD.Path --provider-admission artifacts/library376-official-compiler/official-admission.json --plan-sha256 E395C9595F0C835467F20CF3E4A265506957F05301AA4043E231B93E37FDEF5D --output artifacts/native-map505/ci --check-golden --both-runtime-profiles516
           if ($LASTEXITCODE -ne 0) { throw 'Materialized505 independent original/ordinary/reviewed comparison failed; inspect retained full results' }
           $comparison516 = Get-Content 'artifacts/native-map505/ci/completion.json' -Raw | ConvertFrom-Json
           if (!$comparison516.Passed -or !$comparison516.BothRuntimeProfiles516 -or $comparison516.ExpectedRawLoaderComparisons -ne 4 -or $comparison516.WholeRawLoaderComparisons -ne 4 -or $comparison516.WholeRawComparisonsByRuntimeProfile.'ordinary-runtime' -ne 2 -or $comparison516.WholeRawComparisonsByRuntimeProfile.'owned-runtime' -ne 2) { throw 'All four runtime-profile/loader comparisons are required' }
@@ -612,13 +633,13 @@ jobs:
             if ($comparison516.ManagedRuntimeProfileReceipts.('ordinary-runtime--' + $route516).OwnedTermsPilot506 -ne $false -or $comparison516.ManagedRuntimeProfileReceipts.('owned-runtime--' + $route516).OwnedTermsPilot506 -ne $true) { throw 'Actual native runtime-profile receipt missing or wrong' }
           }
       - name: Compare duplicate flat-map native reentry with pinned OTP
-        if: ${{ !cancelled() && steps.native-host-ready.outcome == 'success' }}
+        if: ${{ steps.ci-reuse.outputs.reuse != 'true' && (!cancelled() && steps.native-host-ready.outcome == 'success') }}
         shell: pwsh
         run: |
           if (!(Test-Path artifacts/library376-official-compiler/official-admission.json)) {
             throw 'Reentry505 host/provider preparation missing; dependent execution skipped'
           }
-          python -B tools/Native/Erlang.NifMapReentry505Observations/collect.py --repository $PWD.Path --provider-admission artifacts/library376-official-compiler/official-admission.json --plan-sha256 7BD88173D3DADF2025650276C915E0F506E010E54696A807DFF24B7051046AFD --output artifacts/native-map505/reentry-ci --check-golden --both-runtime-profiles516
+          python -B tools/Native/Erlang.NifMapReentry505Observations/collect.py --repository $PWD.Path --provider-admission artifacts/library376-official-compiler/official-admission.json --plan-sha256 07FF7D587B7EA3BDC73571EC6F223D1B20D5FFC80EC25D5DFD0A823C8DC231D5 --output artifacts/native-map505/reentry-ci --check-golden --both-runtime-profiles516
           if ($LASTEXITCODE -ne 0) { throw 'Reentry505 original/ordinary/reviewed comparison failed; independent routes and cleanup retained' }
           $comparison516 = Get-Content 'artifacts/native-map505/reentry-ci/completion.json' -Raw | ConvertFrom-Json
           if (!$comparison516.Passed -or !$comparison516.BothRuntimeProfiles516 -or $comparison516.ExpectedRawLoaderComparisons -ne 4 -or $comparison516.WholeRawLoaderComparisons -ne 4 -or $comparison516.WholeRawComparisonsByRuntimeProfile.'ordinary-runtime' -ne 2 -or $comparison516.WholeRawComparisonsByRuntimeProfile.'owned-runtime' -ne 2) { throw 'All four runtime-profile/loader comparisons are required' }
@@ -627,7 +648,7 @@ jobs:
           }
       - name: Compare genuine variadic NIF calls with pinned Windows OTP
         id: variadic526
-        if: ${{ !cancelled() && steps.native-host-ready.outcome == 'success' }}
+        if: ${{ steps.ci-reuse.outputs.reuse != 'true' && (!cancelled() && steps.native-host-ready.outcome == 'success') }}
         shell: pwsh
         run: |
           $ErrorActionPreference = 'Stop'
@@ -640,7 +661,7 @@ jobs:
           if (!$result.Passed -or !$result.OriginalExecuted -or !$result.ManagedRequested -or $result.ExpectedManagedRoutes -ne 4 -or $result.MatchedManagedRoutes.Count -ne 4) { throw 'Variadic526 requires all four genuine original/managed comparisons and cleanup' }
       - name: Compare live NIF private data with pinned Windows OTP
         id: private557
-        if: ${{ !cancelled() && steps.native-host-ready.outcome == 'success' && steps.shared-original-provider.outcome == 'success' }}
+        if: ${{ steps.ci-reuse.outputs.reuse != 'true' && (!cancelled() && steps.native-host-ready.outcome == 'success' && steps.shared-original-provider.outcome == 'success') }}
         continue-on-error: true
         shell: pwsh
         run: |
@@ -657,7 +678,7 @@ jobs:
           $result = Get-Content artifacts/nif-private-data557/ci/completion.json -Raw | ConvertFrom-Json
           if (!$result.Passed -or !$result.OriginalExecuted -or !$result.ManagedRequested -or $result.ExpectedManagedRoutes -ne 4 -or $result.MatchedManagedRoutes.Count -ne 4 -or $result.WholeContractsClosed -ne 0) { throw 'Private557 requires all four actual comparisons and physical cleanup' }
       - name: Verify logical death before physical dirty completion in pinned OTP
-        if: ${{ !cancelled() && steps.shared-original-provider.outcome == 'success' }}
+        if: ${{ steps.ci-reuse.outputs.reuse != 'true' && (!cancelled() && steps.shared-original-provider.outcome == 'success') }}
         shell: pwsh
         run: |
           if (!(Test-Path artifacts/library376-official-compiler/official-admission.json)) {
@@ -667,7 +688,7 @@ jobs:
           if ($LASTEXITCODE -ne 0) { throw 'Retirement502 controlled original protocol failed; inspect native markers and owned-process receipt' }
       - name: Capture dynamic520 contracts with the shared Windows OTP
         id: dynamic520-original
-        if: ${{ !cancelled() && steps.shared-original-provider.outcome == 'success' }}
+        if: ${{ steps.ci-reuse.outputs.reuse != 'true' && (!cancelled() && steps.shared-original-provider.outcome == 'success') }}
         continue-on-error: true
         shell: pwsh
         run: |
@@ -680,7 +701,7 @@ jobs:
           if ($LASTEXITCODE -ne 0) { throw 'Dynamic520 original acquisition failed' }
       - name: Compare both final-source dynamic520 profiles with Windows OTP
         id: dynamic520-controls
-        if: ${{ !cancelled() && steps.dynamic520-original.outcome == 'success' }}
+        if: ${{ steps.ci-reuse.outputs.reuse != 'true' && (!cancelled() && steps.dynamic520-original.outcome == 'success') }}
         continue-on-error: true
         shell: pwsh
         run: |
@@ -697,7 +718,7 @@ jobs:
           if ($failures.Count -ne 0) { throw "Dynamic520 failed profiles: $failures" }
       - name: Compare genuine compiled map worker in both managed profiles
         id: map519-compiled-worker
-        if: ${{ !cancelled() && steps.shared-original-provider.outcome == 'success' && steps.owned506-admit.outcome == 'success' }}
+        if: ${{ steps.ci-reuse.outputs.reuse != 'true' && (!cancelled() && steps.shared-original-provider.outcome == 'success' && steps.owned506-admit.outcome == 'success') }}
         continue-on-error: true
         shell: pwsh
         run: |
@@ -723,7 +744,7 @@ jobs:
 
       - name: Acquire complete spawn option references and compare malformed contracts
         id: spawn541-contracts
-        if: ${{ !cancelled() && steps.shared-original-provider.outcome == 'success' && steps.owned506-admit.outcome == 'success' && steps.dynamic520-original.outcome == 'success' }}
+        if: ${{ steps.ci-reuse.outputs.reuse != 'true' && (!cancelled() && steps.shared-original-provider.outcome == 'success' && steps.owned506-admit.outcome == 'success' && steps.dynamic520-original.outcome == 'success') }}
         continue-on-error: true
         shell: pwsh
         run: |
@@ -737,7 +758,7 @@ jobs:
 
       - name: Compare original boxed-float worker in both runtime profiles
         id: float556-contracts
-        if: ${{ !cancelled() && steps.shared-original-provider.outcome == 'success' && steps.owned506-admit.outcome == 'success' && steps.dynamic520-original.outcome == 'success' }}
+        if: ${{ steps.ci-reuse.outputs.reuse != 'true' && (!cancelled() && steps.shared-original-provider.outcome == 'success' && steps.owned506-admit.outcome == 'success' && steps.dynamic520-original.outcome == 'success') }}
         continue-on-error: true
         shell: pwsh
         run: |
@@ -751,7 +772,7 @@ jobs:
 
       - name: Compare original boxed-integer worker in both runtime profiles
         id: integer559-contracts
-        if: ${{ !cancelled() && steps.shared-original-provider.outcome == 'success' && steps.owned506-admit.outcome == 'success' && steps.dynamic520-original.outcome == 'success' }}
+        if: ${{ steps.ci-reuse.outputs.reuse != 'true' && (!cancelled() && steps.shared-original-provider.outcome == 'success' && steps.owned506-admit.outcome == 'success' && steps.dynamic520-original.outcome == 'success') }}
         continue-on-error: true
         shell: pwsh
         run: |
@@ -765,7 +786,7 @@ jobs:
 
       - name: Compare ordinary references and loader-owned map keys with pinned OTP
         id: reference528-contracts
-        if: ${{ !cancelled() && steps.shared-original-provider.outcome == 'success' && steps.owned506-admit.outcome == 'success' && steps.dynamic520-original.outcome == 'success' }}
+        if: ${{ steps.ci-reuse.outputs.reuse != 'true' && (!cancelled() && steps.shared-original-provider.outcome == 'success' && steps.owned506-admit.outcome == 'success' && steps.dynamic520-original.outcome == 'success') }}
         continue-on-error: true
         shell: pwsh
         run: |
@@ -785,7 +806,7 @@ jobs:
       # admitted provider and final native backend; no extra OTP install/job.
       - name: Acquire selected original resource family527
         id: resource529-original
-        if: ${{ !cancelled() && steps.native-host-ready.outcome == 'success' && steps.shared-original-provider.outcome == 'success' }}
+        if: ${{ steps.ci-reuse.outputs.reuse != 'true' && (!cancelled() && steps.native-host-ready.outcome == 'success' && steps.shared-original-provider.outcome == 'success') }}
         continue-on-error: true
         shell: pwsh
         run: |
@@ -804,7 +825,7 @@ jobs:
 
       - name: Compare resource family527 through both private-owned loaders
         id: resource529-managed
-        if: ${{ !cancelled() && steps.resource529-original.outcome == 'success' && steps.native-host-ready.outcome == 'success' }}
+        if: ${{ steps.ci-reuse.outputs.reuse != 'true' && (!cancelled() && steps.resource529-original.outcome == 'success' && steps.native-host-ready.outcome == 'success') }}
         continue-on-error: true
         shell: pwsh
         run: |
@@ -830,7 +851,7 @@ jobs:
 
       - name: Capture original native queue593 with the existing native fixture
         id: queue593-original
-        if: ${{ !cancelled() && steps.resource529-original.outcome == 'success' }}
+        if: ${{ steps.ci-reuse.outputs.reuse != 'true' && (!cancelled() && steps.resource529-original.outcome == 'success') }}
         continue-on-error: true
         shell: pwsh
         run: |
@@ -844,7 +865,7 @@ jobs:
           if ($LASTEXITCODE -ne 0) { throw 'Original native queue593 observation or physical cleanup failed' }
       - name: Compare both native queue593 loader routes
         id: queue593-managed
-        if: ${{ !cancelled() && steps.queue593-original.outcome == 'success' && steps.native-host-ready.outcome == 'success' }}
+        if: ${{ steps.ci-reuse.outputs.reuse != 'true' && (!cancelled() && steps.queue593-original.outcome == 'success' && steps.native-host-ready.outcome == 'success') }}
         continue-on-error: true
         shell: pwsh
         run: |
@@ -861,7 +882,7 @@ jobs:
 
       - name: Compare atomics and original counters with the admitted Windows provider
         id: atomics592-contracts
-        if: ${{ !cancelled() && steps.shared-original-provider.outcome == 'success' && steps.owned506-admit.outcome == 'success' && steps.dynamic520-original.outcome == 'success' }}
+        if: ${{ steps.ci-reuse.outputs.reuse != 'true' && (!cancelled() && steps.shared-original-provider.outcome == 'success' && steps.owned506-admit.outcome == 'success' && steps.dynamic520-original.outcome == 'success') }}
         continue-on-error: true
         shell: pwsh
         run: |
@@ -876,7 +897,7 @@ jobs:
           if ($LASTEXITCODE -ne 0) { throw 'Atomics original and two independently collected final-source profiles did not pass' }
       - name: Build matching OPT runtime for original counters native-family comparison
         id: counters610-release
-        if: ${{ !cancelled() && steps.shared-original-provider.outcome == 'success' && steps.owned506-admit.outcome == 'success' && steps.dynamic520-original.outcome == 'success' }}
+        if: ${{ steps.ci-reuse.outputs.reuse != 'true' && (!cancelled() && steps.shared-original-provider.outcome == 'success' && steps.owned506-admit.outcome == 'success' && steps.dynamic520-original.outcome == 'success') }}
         continue-on-error: true
         shell: pwsh
         run: |
@@ -887,7 +908,7 @@ jobs:
           if ($LASTEXITCODE -ne 0) { throw 'Matching OPT managed runtime preparation failed; counters replay must not run' }
       - name: Compare complete counters native family and physical cleanup in both profiles
         id: counters610-contracts
-        if: ${{ !cancelled() && steps.counters610-release.outcome == 'success' }}
+        if: ${{ steps.ci-reuse.outputs.reuse != 'true' && (!cancelled() && steps.counters610-release.outcome == 'success') }}
         continue-on-error: true
         shell: pwsh
         run: |
@@ -903,7 +924,7 @@ jobs:
           if ($LASTEXITCODE -ne 0) { throw 'Counters native-family original and independent ordinary/private comparisons or cleanup failed' }
       - name: Capture five unchanged regex observer modes with the admitted Windows OTP
         id: regex613-original
-        if: ${{ !cancelled() && steps.shared-original-provider.outcome == 'success' && steps.owned506-admit.outcome == 'success' }}
+        if: ${{ steps.ci-reuse.outputs.reuse != 'true' && (!cancelled() && steps.shared-original-provider.outcome == 'success' && steps.owned506-admit.outcome == 'success') }}
         continue-on-error: true
         shell: pwsh
         run: |
@@ -915,7 +936,7 @@ jobs:
           if ($LASTEXITCODE -ne 0) { throw 'Fresh regex original modes failed; all independent receipts are retained' }
       - name: Capture the three existing managed regex groups in one owned source window
         id: regex613-managed
-        if: ${{ !cancelled() && steps.owned506-admit.outcome == 'success' }}
+        if: ${{ steps.ci-reuse.outputs.reuse != 'true' && (!cancelled() && steps.owned506-admit.outcome == 'success') }}
         continue-on-error: true
         shell: pwsh
         run: |
@@ -924,7 +945,7 @@ jobs:
           if ($LASTEXITCODE -ne 0) { throw 'Existing regex groups or their owned current-source window did not pass' }
       - name: Require all 524 fresh whole regex contracts and physical cleanup
         id: regex613-compare
-        if: ${{ !cancelled() && steps.regex613-original.outcome == 'success' && steps.regex613-managed.outcome == 'success' }}
+        if: ${{ steps.ci-reuse.outputs.reuse != 'true' && (!cancelled() && steps.regex613-original.outcome == 'success' && steps.regex613-managed.outcome == 'success') }}
         continue-on-error: true
         shell: pwsh
         run: |
@@ -935,7 +956,7 @@ jobs:
           if ($LASTEXITCODE -ne 0) { throw 'Fresh whole regex values/stacks, source-window or actual cleanup comparison failed' }
       - name: Capture both unchanged binary390 observer modes with admitted Windows OTP
         id: binary619-original
-        if: ${{ !cancelled() && steps.shared-original-provider.outcome == 'success' && steps.owned506-admit.outcome == 'success' }}
+        if: ${{ steps.ci-reuse.outputs.reuse != 'true' && (!cancelled() && steps.shared-original-provider.outcome == 'success' && steps.owned506-admit.outcome == 'success') }}
         continue-on-error: true
         shell: pwsh
         run: |
@@ -947,7 +968,7 @@ jobs:
           if ($LASTEXITCODE -ne 0) { throw 'Fresh binary original modes failed; independent receipts are retained' }
       - name: Capture existing managed binary390 in one owned current-source window
         id: binary619-managed
-        if: ${{ !cancelled() && steps.owned506-admit.outcome == 'success' }}
+        if: ${{ steps.ci-reuse.outputs.reuse != 'true' && (!cancelled() && steps.owned506-admit.outcome == 'success') }}
         continue-on-error: true
         shell: pwsh
         run: |
@@ -956,7 +977,7 @@ jobs:
           if ($LASTEXITCODE -ne 0) { throw 'Existing binary390 or its owned source window did not pass' }
       - name: Require all 564 fresh whole binary contracts and actual cleanup
         id: binary619-compare
-        if: ${{ !cancelled() && steps.binary619-original.outcome == 'success' && steps.binary619-managed.outcome == 'success' }}
+        if: ${{ steps.ci-reuse.outputs.reuse != 'true' && (!cancelled() && steps.binary619-original.outcome == 'success' && steps.binary619-managed.outcome == 'success') }}
         continue-on-error: true
         shell: pwsh
         run: |
@@ -967,7 +988,7 @@ jobs:
           if ($LASTEXITCODE -ne 0) { throw 'Whole binary values/stacks, source-window or actual cleanup comparison failed' }
       - name: Compare fresh compiled original dictionary605 with exact managed observer
         id: dictionary537-contracts
-        if: ${{ !cancelled() && steps.shared-original-provider.outcome == 'success' && steps.owned506-admit.outcome == 'success' }}
+        if: ${{ steps.ci-reuse.outputs.reuse != 'true' && (!cancelled() && steps.shared-original-provider.outcome == 'success' && steps.owned506-admit.outcome == 'success') }}
         continue-on-error: true
         shell: pwsh
         run: |
@@ -977,7 +998,7 @@ jobs:
           if ($LASTEXITCODE -ne 0) { throw 'Dictionary original compile/replay/whole Outcome comparison failed; all route receipts retained' }
       - name: Compare fresh original saved match constants with internal native component
         id: match634-contracts
-        if: ${{ !cancelled() && steps.shared-original-provider.outcome == 'success' && steps.owned506-admit.outcome == 'success' }}
+        if: ${{ steps.ci-reuse.outputs.reuse != 'true' && (!cancelled() && steps.shared-original-provider.outcome == 'success' && steps.owned506-admit.outcome == 'success') }}
         continue-on-error: true
         shell: pwsh
         run: |
@@ -987,7 +1008,7 @@ jobs:
           if ($LASTEXITCODE -ne 0) { throw 'Saved match constant original/internal comparison failed; independent route receipts retained' }
       - name: Compare fresh original compiled ETS Run and cursor streams
         id: ets540-contracts
-        if: ${{ !cancelled() && steps.shared-original-provider.outcome == 'success' && steps.owned506-admit.outcome == 'success' }}
+        if: ${{ steps.ci-reuse.outputs.reuse != 'true' && (!cancelled() && steps.shared-original-provider.outcome == 'success' && steps.owned506-admit.outcome == 'success') }}
         continue-on-error: true
         shell: pwsh
         run: |
@@ -997,7 +1018,7 @@ jobs:
           if ($LASTEXITCODE -ne 0) { throw 'Fresh ETS Run/cursor whole value/stack comparison failed; independent receipts retained' }
       - name: Compare fresh original public monitor roles and current managed whole outcomes
         id: monitor645-contracts
-        if: ${{ !cancelled() && steps.shared-original-provider.outcome == 'success' && steps.owned506-admit.outcome == 'success' }}
+        if: ${{ steps.ci-reuse.outputs.reuse != 'true' && (!cancelled() && steps.shared-original-provider.outcome == 'success' && steps.owned506-admit.outcome == 'success') }}
         continue-on-error: true
         shell: pwsh
         run: |
@@ -1011,7 +1032,7 @@ jobs:
           if ($LASTEXITCODE -ne 0) { throw 'Fresh monitor original/managed whole-outcome comparison failed; independent receipts retained' }
       - name: Compare fresh original BEAM function admission and complete stacks
         id: beam542-contracts
-        if: ${{ !cancelled() && steps.shared-original-provider.outcome == 'success' && steps.owned506-admit.outcome == 'success' }}
+        if: ${{ steps.ci-reuse.outputs.reuse != 'true' && (!cancelled() && steps.shared-original-provider.outcome == 'success' && steps.owned506-admit.outcome == 'success') }}
         continue-on-error: true
         shell: pwsh
         run: |
@@ -1020,7 +1041,7 @@ jobs:
           python -B tools/Runtime/Erlang.BeamFunction542Observations/run.py --repository $PWD.Path --official-admission $provider --admission-sha256 $providerSha --output artifacts/owned506/beam542 *> artifacts/owned506/beam542.log
           if ($LASTEXITCODE -ne 0) { throw 'Fresh BEAM function whole outcome/stack comparison failed; independent receipts retained' }
       - name: Require owned506 original source and full original batch
-        if: ${{ !cancelled() }}
+        if: ${{ steps.ci-reuse.outputs.reuse != 'true' && (!cancelled()) }}
         shell: pwsh
         env:
           ADMISSION: ${{ steps.owned506-admit.outcome }}
@@ -1046,6 +1067,20 @@ jobs:
           if ($env:ADMISSION -ne 'success' -or $env:ORIGINAL -ne 'success' -or $env:MAP_COMPILED -ne 'success') { throw 'Owned506 required acquisition/compiled-map stages did not pass' }
           if ('${{ steps.dynamic520-original.outcome }}' -ne 'success' -or '${{ steps.dynamic520-controls.outcome }}' -ne 'success') { throw 'Dynamic520 required original and managed stages did not pass' }
           if ('${{ steps.private557.outcome }}' -ne 'success') { throw 'Private557 required original acquisition and four independent managed routes did not pass' }
+      - name: Record reused exact-input success without creating review approval
+        if: steps.ci-reuse.outputs.reuse == 'true'
+        shell: pwsh
+        run: Get-Content -Raw artifacts/ci-reuse/local-regressions/decision.json
+      - name: Seal successful PR validation inputs for equivalent main merge
+        if: ${{ success() && github.event_name == 'pull_request' && steps.ci-reuse.outputs.reuse != 'true' }}
+        shell: pwsh
+        run: python -B tools/Validation/Erlang.CiReuse/main.py seal --repository . --provider-admission artifacts/library376-official-compiler/official-admission.json --job local-regressions --output artifacts/ci-reuse/local-regressions
+      - uses: actions/upload-artifact@v7
+        if: ${{ success() && github.event_name == 'pull_request' }}
+        with:
+          name: ci-reuse-v1-local-regressions
+          path: artifacts/ci-reuse/local-regressions/receipt.json
+          if-no-files-found: ignore
       - uses: actions/upload-artifact@v7
         if: always()
         with:
@@ -1143,6 +1178,8 @@ jobs:
             artifacts/preprocessing-disabled.log
             artifacts/library376-official-compiler/ci-provider-ready.json
             artifacts/runtime-profile.log
+            artifacts/async-microstates/**
+            artifacts/ci-reuse/**
             artifacts/library437-ddll-same-host-original1/**
             artifacts/library442-ets-same-host-original1/**
             artifacts/library442-ets-compressed-permanent/**

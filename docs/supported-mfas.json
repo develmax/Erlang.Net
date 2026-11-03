@@ -1180,15 +1180,6 @@
   },
   {
     "Module": "erlang",
-    "Function": "\u002B\u002B",
-    "Arity": 2,
-    "Status": "Implemented",
-    "CompatibilityLedger": "mfa-compatibility.json",
-    "Evidence": "mfa/erlang:\u002B\u002B/2",
-    "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
-  },
-  {
-    "Module": "erlang",
     "Function": "--",
     "Arity": 2,
     "Status": "Implemented",
@@ -1401,6 +1392,15 @@
     "Status": "Implemented",
     "CompatibilityLedger": "mfa-compatibility.json",
     "Evidence": "mfa/erlang:list_to_tuple/1",
+    "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
+  },
+  {
+    "Module": "erlang",
+    "Function": "\u002B\u002B",
+    "Arity": 2,
+    "Status": "Implemented",
+    "CompatibilityLedger": "mfa-compatibility.json",
+    "Evidence": "mfa/erlang:\u002B\u002B/2",
     "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
   },
   {
@@ -3664,11 +3664,236 @@
   },
   {
     "Module": "math",
+    "Function": "acos",
+    "Arity": 1,
+    "Status": "Implemented",
+    "CompatibilityLedger": "mfa-compatibility.json",
+    "Evidence": "mfa/math:acos/1",
+    "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
+  },
+  {
+    "Module": "math",
+    "Function": "acosh",
+    "Arity": 1,
+    "Status": "Implemented",
+    "CompatibilityLedger": "mfa-compatibility.json",
+    "Evidence": "mfa/math:acosh/1",
+    "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
+  },
+  {
+    "Module": "math",
+    "Function": "asin",
+    "Arity": 1,
+    "Status": "Implemented",
+    "CompatibilityLedger": "mfa-compatibility.json",
+    "Evidence": "mfa/math:asin/1",
+    "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
+  },
+  {
+    "Module": "math",
+    "Function": "asinh",
+    "Arity": 1,
+    "Status": "Implemented",
+    "CompatibilityLedger": "mfa-compatibility.json",
+    "Evidence": "mfa/math:asinh/1",
+    "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
+  },
+  {
+    "Module": "math",
+    "Function": "atan",
+    "Arity": 1,
+    "Status": "Implemented",
+    "CompatibilityLedger": "mfa-compatibility.json",
+    "Evidence": "mfa/math:atan/1",
+    "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
+  },
+  {
+    "Module": "math",
+    "Function": "atanh",
+    "Arity": 1,
+    "Status": "Implemented",
+    "CompatibilityLedger": "mfa-compatibility.json",
+    "Evidence": "mfa/math:atanh/1",
+    "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
+  },
+  {
+    "Module": "math",
+    "Function": "ceil",
+    "Arity": 1,
+    "Status": "Implemented",
+    "CompatibilityLedger": "mfa-compatibility.json",
+    "Evidence": "mfa/math:ceil/1",
+    "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
+  },
+  {
+    "Module": "math",
+    "Function": "cos",
+    "Arity": 1,
+    "Status": "Implemented",
+    "CompatibilityLedger": "mfa-compatibility.json",
+    "Evidence": "mfa/math:cos/1",
+    "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
+  },
+  {
+    "Module": "math",
+    "Function": "cosh",
+    "Arity": 1,
+    "Status": "Implemented",
+    "CompatibilityLedger": "mfa-compatibility.json",
+    "Evidence": "mfa/math:cosh/1",
+    "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
+  },
+  {
+    "Module": "math",
+    "Function": "erf",
+    "Arity": 1,
+    "Status": "Implemented",
+    "CompatibilityLedger": "mfa-compatibility.json",
+    "Evidence": "mfa/math:erf/1",
+    "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
+  },
+  {
+    "Module": "math",
+    "Function": "erfc",
+    "Arity": 1,
+    "Status": "Implemented",
+    "CompatibilityLedger": "mfa-compatibility.json",
+    "Evidence": "mfa/math:erfc/1",
+    "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
+  },
+  {
+    "Module": "math",
+    "Function": "exp",
+    "Arity": 1,
+    "Status": "Implemented",
+    "CompatibilityLedger": "mfa-compatibility.json",
+    "Evidence": "mfa/math:exp/1",
+    "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
+  },
+  {
+    "Module": "math",
+    "Function": "floor",
+    "Arity": 1,
+    "Status": "Implemented",
+    "CompatibilityLedger": "mfa-compatibility.json",
+    "Evidence": "mfa/math:floor/1",
+    "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
+  },
+  {
+    "Module": "math",
     "Function": "log",
     "Arity": 1,
     "Status": "Implemented",
     "CompatibilityLedger": "mfa-compatibility.json",
     "Evidence": "mfa/math:log/1",
+    "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
+  },
+  {
+    "Module": "math",
+    "Function": "log2",
+    "Arity": 1,
+    "Status": "Implemented",
+    "CompatibilityLedger": "mfa-compatibility.json",
+    "Evidence": "mfa/math:log2/1",
+    "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
+  },
+  {
+    "Module": "math",
+    "Function": "log10",
+    "Arity": 1,
+    "Status": "Implemented",
+    "CompatibilityLedger": "mfa-compatibility.json",
+    "Evidence": "mfa/math:log10/1",
+    "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
+  },
+  {
+    "Module": "math",
+    "Function": "sin",
+    "Arity": 1,
+    "Status": "Implemented",
+    "CompatibilityLedger": "mfa-compatibility.json",
+    "Evidence": "mfa/math:sin/1",
+    "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
+  },
+  {
+    "Module": "math",
+    "Function": "sinh",
+    "Arity": 1,
+    "Status": "Implemented",
+    "CompatibilityLedger": "mfa-compatibility.json",
+    "Evidence": "mfa/math:sinh/1",
+    "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
+  },
+  {
+    "Module": "math",
+    "Function": "sqrt",
+    "Arity": 1,
+    "Status": "Implemented",
+    "CompatibilityLedger": "mfa-compatibility.json",
+    "Evidence": "mfa/math:sqrt/1",
+    "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
+  },
+  {
+    "Module": "math",
+    "Function": "tan",
+    "Arity": 1,
+    "Status": "Implemented",
+    "CompatibilityLedger": "mfa-compatibility.json",
+    "Evidence": "mfa/math:tan/1",
+    "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
+  },
+  {
+    "Module": "math",
+    "Function": "tanh",
+    "Arity": 1,
+    "Status": "Implemented",
+    "CompatibilityLedger": "mfa-compatibility.json",
+    "Evidence": "mfa/math:tanh/1",
+    "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
+  },
+  {
+    "Module": "math",
+    "Function": "atan2",
+    "Arity": 2,
+    "Status": "Implemented",
+    "CompatibilityLedger": "mfa-compatibility.json",
+    "Evidence": "mfa/math:atan2/2",
+    "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
+  },
+  {
+    "Module": "math",
+    "Function": "fmod",
+    "Arity": 2,
+    "Status": "Implemented",
+    "CompatibilityLedger": "mfa-compatibility.json",
+    "Evidence": "mfa/math:fmod/2",
+    "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
+  },
+  {
+    "Module": "math",
+    "Function": "pow",
+    "Arity": 2,
+    "Status": "Implemented",
+    "CompatibilityLedger": "mfa-compatibility.json",
+    "Evidence": "mfa/math:pow/2",
+    "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
+  },
+  {
+    "Module": "math",
+    "Function": "pi",
+    "Arity": 0,
+    "Status": "Implemented",
+    "CompatibilityLedger": "mfa-compatibility.json",
+    "Evidence": "mfa/math:pi/0",
+    "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
+  },
+  {
+    "Module": "math",
+    "Function": "tau",
+    "Arity": 0,
+    "Status": "Implemented",
+    "CompatibilityLedger": "mfa-compatibility.json",
+    "Evidence": "mfa/math:tau/0",
     "Limits": "Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending"
   },
   {

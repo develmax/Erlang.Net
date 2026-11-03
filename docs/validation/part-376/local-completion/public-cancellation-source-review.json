@@ -1,0 +1,44 @@
+{
+  "Schema": "library376-public-selector-cancellation-final-source-review-v2",
+  "MandatoryFindings": [],
+  "SingleLaneObservationOrderingClosed": true,
+  "CleanupObserverFailuresCannotSkipDisposal": true,
+  "PrivateFinishSignaturePreserved": true,
+  "ObserverDefaultNull": true,
+  "PublicCallbackSurfaceAdded": false,
+  "Coverage": "Two actual public factory cancellation schedules, setup and acquired codePurger semaphore permit",
+  "Files": [
+    {
+      "Path": "src/Erlang.Runtime/LibraryStartupObservationNames.cs",
+      "Sha256": "475128877A96319DA18D68C2CDDB755CD890D8AFFBB54C77AC3448213B711CA4"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProcessRuntime.LibrarySelection.cs",
+      "Sha256": "907537F2F876E06CBE6EB73D7BC675D5C428F2897B8B146B277393583EF1B486"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProcessRuntime.LibrarySelectionObservation.cs",
+      "Sha256": "561B59F9EB0F08BF2665A472BBD80F1B3F700F230A6BF9D53B44F2BBB4134912"
+    },
+    {
+      "Path": "tests/Erlang.Tests/LibrarySelectionPublicCancellationAccess.cs",
+      "Sha256": "A375EFB4390CCBAC6BB06ED7FE3B0B6474DD4A1391867DD5E24D73EB3F71DAEA"
+    },
+    {
+      "Path": "tests/Erlang.Tests/LibrarySelectionPublicCancellationChecks.cs",
+      "Sha256": "0E666C49D054CEE1C08CB0EF146DC3FC034744DFAD74B41AD692E2E3695D6FD2"
+    },
+    {
+      "Path": "tests/Erlang.Tests/LibrarySelectionPublicCancellationFixture.cs",
+      "Sha256": "BCC81647D1B350C0CBAB2756CD0D162F5515AC47F797B78E05070A39020AB680"
+    },
+    {
+      "Path": "tests/Erlang.Tests/LibrarySelectionPublicCancellationNames.cs",
+      "Sha256": "78E153F217168512C7123E3A665FBFAF3A6CB8D4042E74127D87324D8C4919C6"
+    }
+  ],
+  "ProductEditsByReviewer": 0,
+  "TestEditsByReviewer": 0,
+  "BuildsByReviewer": 0,
+  "ExecutionsByReviewer": 0
+}

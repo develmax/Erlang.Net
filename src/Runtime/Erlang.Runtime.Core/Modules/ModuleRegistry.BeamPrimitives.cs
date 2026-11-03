@@ -7,6 +7,7 @@ public sealed partial class ModuleRegistry
     internal IReadOnlyDictionary<(string Function, int Arity), ErlangFunction> CaptureBeamPrimitives(BeamLinkedCode code)
     {
         var primitives = new Dictionary<(string Function, int Arity), ErlangFunction>();
+        var unbound = new List<(string Module, string Name, int Arity)>();
         var owned507 = owningRuntime is not null
             ? new Dictionary<ErlangFunction, OwnedBindingKind507>(ReferenceEqualityComparer.Instance) : null;
         lock (gate)
@@ -501,13 +502,21 @@ public sealed partial class ModuleRegistry
                         owned507[bootstrapPrimitive] = bootstrapKind;
                 }
                 else
-                    throw new NotSupportedException(BeamRegisterNames.Unsupported);
+                    unbound.Add(signature);
             }
+        }
+
+        if (unbound.Count != 0)
+        {
+            var failure = new NotSupportedException(BeamRegisterNames.Unsupported);
+            failure.Data[BeamNativePrimitiveNames.NativePrimitiveSignature] = Array.AsReadOnly(unbound.ToArray());
+            throw failure;
         }
 
         var captured = primitives.ToFrozenDictionary();
         if (owned507 is { Count: > 0 })
             preparedOwnedCapabilities507.Add(captured, new(owned507.ToFrozenDictionary<ErlangFunction, OwnedBindingKind507>(ReferenceEqualityComparer.Instance)));
+
 
         return captured;
     }

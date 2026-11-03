@@ -1,0 +1,207 @@
+{
+  "Input": "docs\\validation\\part-368\\original-receipts-and-raw\\artifact-12117323576\\capture\\queue-installed.beam",
+  "InputBytes": 27544,
+  "InputSha256": "759B1FE208F8A0DE292147EB00FFCE98F929263ADCFCD4AABB485E3B3EB4538D",
+  "RuntimeSha256": "691B6DC5A350335122D18041A652556911147A1E2B893227C5BF4FCCAA34AAC5",
+  "PowerShell": "7.6.5",
+  "DotNet": ".NET 10.0.11",
+  "Executed": false,
+  "ProductionChanged": false,
+  "StructureRead": true,
+  "InstructionRead": true,
+  "InstructionCount": 2068,
+  "OpcodeInventory": [
+    {
+      "Name": "allocate",
+      "Count": 29
+    },
+    {
+      "Name": "allocate_heap",
+      "Count": 2
+    },
+    {
+      "Name": "badmatch",
+      "Count": 21
+    },
+    {
+      "Name": "bif1",
+      "Count": 1
+    },
+    {
+      "Name": "call",
+      "Count": 18
+    },
+    {
+      "Name": "call_ext",
+      "Count": 44
+    },
+    {
+      "Name": "call_ext_last",
+      "Count": 7
+    },
+    {
+      "Name": "call_ext_only",
+      "Count": 38
+    },
+    {
+      "Name": "call_fun2",
+      "Count": 5
+    },
+    {
+      "Name": "call_last",
+      "Count": 1
+    },
+    {
+      "Name": "call_only",
+      "Count": 14
+    },
+    {
+      "Name": "case_end",
+      "Count": 5
+    },
+    {
+      "Name": "deallocate",
+      "Count": 76
+    },
+    {
+      "Name": "func_info",
+      "Count": 50
+    },
+    {
+      "Name": "gc_bif1",
+      "Count": 18
+    },
+    {
+      "Name": "gc_bif2",
+      "Count": 22
+    },
+    {
+      "Name": "get_hd",
+      "Count": 4
+    },
+    {
+      "Name": "get_list",
+      "Count": 40
+    },
+    {
+      "Name": "get_tl",
+      "Count": 21
+    },
+    {
+      "Name": "get_tuple_element",
+      "Count": 97
+    },
+    {
+      "Name": "init_yregs",
+      "Count": 25
+    },
+    {
+      "Name": "int_code_end",
+      "Count": 1
+    },
+    {
+      "Name": "is_atom",
+      "Count": 6
+    },
+    {
+      "Name": "is_eq_exact",
+      "Count": 17
+    },
+    {
+      "Name": "is_function2",
+      "Count": 7
+    },
+    {
+      "Name": "is_ge",
+      "Count": 3
+    },
+    {
+      "Name": "is_integer",
+      "Count": 1
+    },
+    {
+      "Name": "is_list",
+      "Count": 61
+    },
+    {
+      "Name": "is_lt",
+      "Count": 2
+    },
+    {
+      "Name": "is_nil",
+      "Count": 91
+    },
+    {
+      "Name": "is_nonempty_list",
+      "Count": 66
+    },
+    {
+      "Name": "is_tagged_tuple",
+      "Count": 1
+    },
+    {
+      "Name": "is_tuple",
+      "Count": 47
+    },
+    {
+      "Name": "jump",
+      "Count": 13
+    },
+    {
+      "Name": "label",
+      "Count": 288
+    },
+    {
+      "Name": "line",
+      "Count": 188
+    },
+    {
+      "Name": "move",
+      "Count": 230
+    },
+    {
+      "Name": "put_list",
+      "Count": 82
+    },
+    {
+      "Name": "put_tuple2",
+      "Count": 103
+    },
+    {
+      "Name": "return",
+      "Count": 128
+    },
+    {
+      "Name": "select_val",
+      "Count": 5
+    },
+    {
+      "Name": "swap",
+      "Count": 8
+    },
+    {
+      "Name": "test_arity",
+      "Count": 46
+    },
+    {
+      "Name": "test_heap",
+      "Count": 125
+    },
+    {
+      "Name": "trim",
+      "Count": 11
+    }
+  ],
+  "PrepareFailure": [
+    {
+      "Type": "System.Management.Automation.MethodInvocationException",
+      "Message": "Exception calling \"Invoke\" with \"2\" argument(s): \"Unsupported BEAM opcode role in bounded linker\"",
+      "Stack": "   at System.Management.Automation.ExceptionHandlingOps.CheckActionPreference(FunctionContext funcContext, Exception exception)\r\n   at System.Management.Automation.Interpreter.ActionCallInstruction`2.Run(InterpretedFrame frame)\r\n   at System.Management.Automation.Interpreter.EnterTryCatchFinallyInstruction.Run(InterpretedFrame frame)\r\n   at System.Management.Automation.Interpreter.EnterTryCatchFinallyInstruction.Run(InterpretedFrame frame)"
+    },
+    {
+      "Type": "System.NotSupportedException",
+      "Message": "Unsupported BEAM opcode role in bounded linker",
+      "Stack": "   at Erlang.BeamLinkedCodeReader.ValidateRoles(BeamInstruction instruction, BeamStructure structure, IReadOnlyDictionary`2 functions, IReadOnlyList`1 lambdas) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\src\\Erlang.Runtime\\BeamLinkedCodeReader.cs:line 294\r\n   at Erlang.BeamLinkedCodeReader.Read(BeamStructure structure) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\src\\Erlang.Runtime\\BeamLinkedCodeReader.cs:line 92\r\n   at Erlang.BeamModule.Prepare(ReadOnlyMemory`1 bytes) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\src\\Erlang.Runtime\\BeamModule.cs:line 41\r\n   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)\r\n   at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)"
+    }
+  ]
+}

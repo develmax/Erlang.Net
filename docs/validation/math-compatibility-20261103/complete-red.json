@@ -1,0 +1,69 @@
+{
+  "Backend": "Managed",
+  "Count": 502772,
+  "Failed": 2785,
+  "FailureCounts": {
+    "log2": 2785
+  },
+  "Samples": [
+    {
+      "Function": "log2",
+      "Input": [
+        "1.0000000000000002"
+      ],
+      "Expected": "83680277026F6B463CB71547652B82FE",
+      "Actual": "83680277026F6B463CB71547652B82FD"
+    },
+    {
+      "Function": "log2",
+      "Input": [
+        "36028797018963967"
+      ],
+      "Expected": "83680277026F6B46404B800000000001",
+      "Actual": "83680277026F6B46404B800000000000"
+    },
+    {
+      "Function": "log2",
+      "Input": [
+        "36028797018963968"
+      ],
+      "Expected": "83680277026F6B46404B800000000001",
+      "Actual": "83680277026F6B46404B800000000000"
+    },
+    {
+      "Function": "log2",
+      "Input": [
+        "36028797018963969"
+      ],
+      "Expected": "83680277026F6B46404B800000000001",
+      "Actual": "83680277026F6B46404B800000000000"
+    },
+    {
+      "Function": "log2",
+      "Input": [
+        "288230376151711743"
+      ],
+      "Expected": "83680277026F6B46404D000000000001",
+      "Actual": "83680277026F6B46404D000000000000"
+    }
+  ],
+  "WholeValues": true,
+  "WholeStacks": true,
+  "OracleMetadata": "{\u003C\u003C50,57,46,49,46,49,10\u003E\u003E,[69,114,108,97,110,103,47,79,84,80,32,50,57,32,91,101,114,116,115,45,49,55,46,49,93,32,91,115,111,117,114,99,101,93,32,91,54,52,45,98,105,116,93,32,91,115,109,112,58,49,54,58,49,54,93,32,91,100,115,58,49,54,58,49,54,58,49,48,93,32,91,97,115,121,110,99,45,116,104,114,101,97,100,115,58,49,93,32,91,106,105,116,58,110,115,93,10],[120,56,54,95,54,52,45,112,99,45,119,105,110,100,111,119,115]}",
+  "OracleSha256": "F95938296E6E50114A189C0937D71A8B63F01DB8D9A407F4AADED292FC48902D",
+  "OracleReceiptSha256": "8B1CA1FF5B15DDAB7A297C41D180ADB9A2AAB6DDD1B8BB39AF3B81E88B661113",
+  "MathImageSha256": "6096D864A1CFF42F9680A060AD34AE8D5340B7E1EFC2945BED52E00B80902D6A",
+  "RuntimeSha256": "BCA95E689797AC4FCFE064391A7F49AEE6E91763CB64ED33FA488066C56BC791",
+  "TermsSha256": "ADDB02C8127976CC2EE12BB3449100552A799DB87EF445C82B00EE77A87C2542",
+  "SerializationSha256": "8917F285FC0998F6060C203249482CA7EE084E24B5853881C8B8904CA13CADAD",
+  "Framework": ".NET 10.0.11",
+  "Architecture": "X64",
+  "OperatingSystem": "Microsoft Windows 10.0.19045",
+  "CoreLibrarySha256": "ED80A1A5DD066C0407AD59686F9AF90A4F3E55DBF3E4C973B53CC8C9D0706F82",
+  "ManagedAssemblies": [
+    {
+      "AssemblyName": "Erlang.Runtime, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
+      "ModuleVersionId": "6dd6b147-6990-46a4-901f-8c05b9d77cb4"
+    }
+  ]
+}

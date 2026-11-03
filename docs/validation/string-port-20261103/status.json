@@ -1,0 +1,35 @@
+{
+  "Status": "Partially compatible",
+  "Baseline": "OTP-29.1.1/ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "ReferenceExports": 71,
+  "OptInCallableExports": 71,
+  "FullCompatibilityEstablished": false,
+  "DefaultRegistryChanged": false,
+  "CasesPerBackend": 5226,
+  "BackingObservationsPerBackend": 13,
+  "Managed": {
+    "ValuesMatched": 4193,
+    "ExceptionReasonsMatched": 1033,
+    "FullStacksMatched": 3,
+    "StackDifferences": 1030,
+    "BackingMatched": true,
+    "AssemblySha256": "5A52295A740A5EA3B901D248F87FBA8A290C56D11BE49484BECC698AC2E1D4AE"
+  },
+  "OriginalOnDotNet": {
+    "ValuesMatched": 4193,
+    "ExceptionReasonsMatched": 1033,
+    "FullStacksMatched": 1020,
+    "StackDifferences": 13,
+    "BackingMatched": true
+  },
+  "RetainedGroupsPassed": 5,
+  "RetainedGroupsTotal": 5,
+  "CombinedSourceMergeConflictedDuringValidation": true,
+  "RuntimeAssemblySourceProvenance": "Retained runtime DLLs; unrelated stdlib source snapshot 07da777f6 plus current string overlay",
+  "Pending": [
+    "Exact source/helper/native exception stacks",
+    "Startup-selector and canonical registry/readiness integration",
+    "Combined-source build and full regression after concurrent merge",
+    "Broader upstream, Unicode, mixed-data/resource/scheduler/backtrace-depth/platform acceptance"
+  ]
+}

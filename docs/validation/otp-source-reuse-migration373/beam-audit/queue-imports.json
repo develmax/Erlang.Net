@@ -1,0 +1,4412 @@
+{
+  "Status": "ACTUAL_EXISTING_STRUCTURE_READER_IMPORT_EXPORT_INVENTORY",
+  "Input": "docs\\validation\\part-368\\original-receipts-and-raw\\artifact-12117323576\\capture\\queue-installed.beam",
+  "InputSha256": "759B1FE208F8A0DE292147EB00FFCE98F929263ADCFCD4AABB485E3B3EB4538D",
+  "RuntimeSha256": "691B6DC5A350335122D18041A652556911147A1E2B893227C5BF4FCCAA34AAC5",
+  "Module": "queue",
+  "Imports": [
+    {
+      "Module": "erlang",
+      "Function": "is_list",
+      "Arity": 1
+    },
+    {
+      "Module": "erlang",
+      "Function": "error",
+      "Arity": 2
+    },
+    {
+      "Module": "erlang",
+      "Function": "length",
+      "Arity": 1
+    },
+    {
+      "Module": "erlang",
+      "Function": "+",
+      "Arity": 2
+    },
+    {
+      "Module": "lists",
+      "Function": "reverse",
+      "Arity": 2
+    },
+    {
+      "Module": "erlang",
+      "Function": "++",
+      "Arity": 2
+    },
+    {
+      "Module": "erlang",
+      "Function": "div",
+      "Arity": 2
+    },
+    {
+      "Module": "lists",
+      "Function": "split",
+      "Arity": 2
+    },
+    {
+      "Module": "lists",
+      "Function": "member",
+      "Arity": 2
+    },
+    {
+      "Module": "lists",
+      "Function": "last",
+      "Arity": 1
+    },
+    {
+      "Module": "erlang",
+      "Function": "-",
+      "Arity": 2
+    },
+    {
+      "Module": "lists",
+      "Function": "filtermap",
+      "Arity": 2
+    },
+    {
+      "Module": "lists",
+      "Function": "foldl",
+      "Arity": 3
+    },
+    {
+      "Module": "lists",
+      "Function": "foldr",
+      "Arity": 3
+    },
+    {
+      "Module": "lists",
+      "Function": "any",
+      "Arity": 2
+    },
+    {
+      "Module": "lists",
+      "Function": "all",
+      "Arity": 2
+    },
+    {
+      "Module": "erlang",
+      "Function": "get_module_info",
+      "Arity": 1
+    },
+    {
+      "Module": "erlang",
+      "Function": "get_module_info",
+      "Arity": 2
+    }
+  ],
+  "Exports": [
+    {
+      "Function": "module_info",
+      "Arity": 1,
+      "EntryLabel": 288
+    },
+    {
+      "Function": "module_info",
+      "Arity": 0,
+      "EntryLabel": 286
+    },
+    {
+      "Function": "init",
+      "Arity": 1,
+      "EntryLabel": 284
+    },
+    {
+      "Function": "lait",
+      "Arity": 1,
+      "EntryLabel": 282
+    },
+    {
+      "Function": "liat",
+      "Arity": 1,
+      "EntryLabel": 280
+    },
+    {
+      "Function": "last",
+      "Arity": 1,
+      "EntryLabel": 278
+    },
+    {
+      "Function": "daeh",
+      "Arity": 1,
+      "EntryLabel": 276
+    },
+    {
+      "Function": "snoc",
+      "Arity": 2,
+      "EntryLabel": 274
+    },
+    {
+      "Function": "tail",
+      "Arity": 1,
+      "EntryLabel": 272
+    },
+    {
+      "Function": "head",
+      "Arity": 1,
+      "EntryLabel": 268
+    },
+    {
+      "Function": "cons",
+      "Arity": 2,
+      "EntryLabel": 266
+    },
+    {
+      "Function": "delete_with_r",
+      "Arity": 2,
+      "EntryLabel": 249
+    },
+    {
+      "Function": "delete_with",
+      "Arity": 2,
+      "EntryLabel": 235
+    },
+    {
+      "Function": "delete_r",
+      "Arity": 2,
+      "EntryLabel": 222
+    },
+    {
+      "Function": "delete",
+      "Arity": 2,
+      "EntryLabel": 208
+    },
+    {
+      "Function": "all",
+      "Arity": 2,
+      "EntryLabel": 204
+    },
+    {
+      "Function": "any",
+      "Arity": 2,
+      "EntryLabel": 200
+    },
+    {
+      "Function": "fold",
+      "Arity": 3,
+      "EntryLabel": 197
+    },
+    {
+      "Function": "filtermap",
+      "Arity": 2,
+      "EntryLabel": 178
+    },
+    {
+      "Function": "filter",
+      "Arity": 2,
+      "EntryLabel": 148
+    },
+    {
+      "Function": "split",
+      "Arity": 2,
+      "EntryLabel": 121
+    },
+    {
+      "Function": "join",
+      "Arity": 2,
+      "EntryLabel": 116
+    },
+    {
+      "Function": "reverse",
+      "Arity": 1,
+      "EntryLabel": 113
+    },
+    {
+      "Function": "drop_r",
+      "Arity": 1,
+      "EntryLabel": 101
+    },
+    {
+      "Function": "drop",
+      "Arity": 1,
+      "EntryLabel": 89
+    },
+    {
+      "Function": "peek_r",
+      "Arity": 1,
+      "EntryLabel": 83
+    },
+    {
+      "Function": "peek",
+      "Arity": 1,
+      "EntryLabel": 77
+    },
+    {
+      "Function": "get_r",
+      "Arity": 1,
+      "EntryLabel": 71
+    },
+    {
+      "Function": "get",
+      "Arity": 1,
+      "EntryLabel": 62
+    },
+    {
+      "Function": "out_r",
+      "Arity": 1,
+      "EntryLabel": 49
+    },
+    {
+      "Function": "out",
+      "Arity": 1,
+      "EntryLabel": 36
+    },
+    {
+      "Function": "in_r",
+      "Arity": 2,
+      "EntryLabel": 32
+    },
+    {
+      "Function": "in",
+      "Arity": 2,
+      "EntryLabel": 28
+    },
+    {
+      "Function": "member",
+      "Arity": 2,
+      "EntryLabel": 24
+    },
+    {
+      "Function": "from_list",
+      "Arity": 1,
+      "EntryLabel": 17
+    },
+    {
+      "Function": "to_list",
+      "Arity": 1,
+      "EntryLabel": 14
+    },
+    {
+      "Function": "len",
+      "Arity": 1,
+      "EntryLabel": 11
+    },
+    {
+      "Function": "is_empty",
+      "Arity": 1,
+      "EntryLabel": 7
+    },
+    {
+      "Function": "is_queue",
+      "Arity": 1,
+      "EntryLabel": 4
+    },
+    {
+      "Function": "new",
+      "Arity": 0,
+      "EntryLabel": 2
+    }
+  ],
+  "SourceDefaultRoleFailureProbe": "Actual rejected instruction objects; only source-default opcode cases; no supported-role validation fabricated",
+  "RoleFailures": [
+    {
+      "Index": 10,
+      "Offset": 25,
+      "Opcode": "is_tuple",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 11,
+      "Offset": 28,
+      "Opcode": "test_arity",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 13,
+      "Offset": 36,
+      "Opcode": "is_list",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 15,
+      "Offset": 43,
+      "Opcode": "bif1",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 24,
+      "Offset": 65,
+      "Opcode": "is_tuple",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 25,
+      "Offset": 68,
+      "Opcode": "test_arity",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 28,
+      "Offset": 80,
+      "Opcode": "is_nil",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 29,
+      "Offset": 83,
+      "Opcode": "is_nil",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 33,
+      "Offset": 92,
+      "Opcode": "is_list",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 34,
+      "Offset": 95,
+      "Opcode": "is_list",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 47,
+      "Offset": 129,
+      "Opcode": "is_tuple",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 48,
+      "Offset": 132,
+      "Opcode": "test_arity",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 50,
+      "Offset": 140,
+      "Opcode": "is_list",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 52,
+      "Offset": 147,
+      "Opcode": "is_list",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 54,
+      "Offset": 152,
+      "Opcode": "gc_bif1",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 55,
+      "Offset": 160,
+      "Opcode": "gc_bif1",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 68,
+      "Offset": 207,
+      "Opcode": "is_tuple",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 69,
+      "Offset": 210,
+      "Opcode": "test_arity",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 71,
+      "Offset": 218,
+      "Opcode": "is_list",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 73,
+      "Offset": 225,
+      "Opcode": "is_list",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 93,
+      "Offset": 285,
+      "Opcode": "is_list",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 94,
+      "Offset": 289,
+      "Opcode": "is_nonempty_list",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 95,
+      "Offset": 293,
+      "Opcode": "get_list",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 96,
+      "Offset": 297,
+      "Opcode": "is_nonempty_list",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 97,
+      "Offset": 301,
+      "Opcode": "get_tl",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 98,
+      "Offset": 304,
+      "Opcode": "is_nil",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 104,
+      "Offset": 325,
+      "Opcode": "is_nil",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 110,
+      "Offset": 344,
+      "Opcode": "gc_bif1",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 114,
+      "Offset": 368,
+      "Opcode": "swap",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 116,
+      "Offset": 374,
+      "Opcode": "is_tuple",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 117,
+      "Offset": 378,
+      "Opcode": "test_arity",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 143,
+      "Offset": 457,
+      "Opcode": "is_tuple",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 144,
+      "Offset": 461,
+      "Opcode": "test_arity",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 146,
+      "Offset": 470,
+      "Opcode": "is_list",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 148,
+      "Offset": 478,
+      "Opcode": "is_list",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 173,
+      "Offset": 558,
+      "Opcode": "is_tuple",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 174,
+      "Offset": 562,
+      "Opcode": "test_arity",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 177,
+      "Offset": 575,
+      "Opcode": "is_nonempty_list",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 178,
+      "Offset": 579,
+      "Opcode": "get_tl",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 179,
+      "Offset": 582,
+      "Opcode": "is_nil",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 180,
+      "Offset": 586,
+      "Opcode": "is_nil",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 186,
+      "Offset": 607,
+      "Opcode": "is_list",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 187,
+      "Offset": 611,
+      "Opcode": "is_list",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 203,
+      "Offset": 666,
+      "Opcode": "is_tuple",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 204,
+      "Offset": 670,
+      "Opcode": "test_arity",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 207,
+      "Offset": 683,
+      "Opcode": "is_nil",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 208,
+      "Offset": 687,
+      "Opcode": "is_nonempty_list",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 209,
+      "Offset": 691,
+      "Opcode": "get_tl",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 210,
+      "Offset": 694,
+      "Opcode": "is_nil",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 216,
+      "Offset": 715,
+      "Opcode": "is_list",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 217,
+      "Offset": 719,
+      "Opcode": "is_list",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 233,
+      "Offset": 774,
+      "Opcode": "is_tuple",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 234,
+      "Offset": 778,
+      "Opcode": "test_arity",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 237,
+      "Offset": 791,
+      "Opcode": "is_nonempty_list",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 238,
+      "Offset": 795,
+      "Opcode": "get_list",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 239,
+      "Offset": 799,
+      "Opcode": "is_nil",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 240,
+      "Offset": 803,
+      "Opcode": "is_nil",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 246,
+      "Offset": 828,
+      "Opcode": "is_nil",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 253,
+      "Offset": 850,
+      "Opcode": "is_nonempty_list",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 255,
+      "Offset": 857,
+      "Opcode": "get_list",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 263,
+      "Offset": 890,
+      "Opcode": "is_nil",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 264,
+      "Offset": 894,
+      "Opcode": "is_nil",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 268,
+      "Offset": 906,
+      "Opcode": "is_nonempty_list",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 269,
+      "Offset": 910,
+      "Opcode": "get_list",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 270,
+      "Offset": 914,
+      "Opcode": "is_nil",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 271,
+      "Offset": 918,
+      "Opcode": "is_list",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 275,
+      "Offset": 932,
+      "Opcode": "is_nonempty_list",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 276,
+      "Offset": 936,
+      "Opcode": "get_list",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 277,
+      "Offset": 940,
+      "Opcode": "is_nonempty_list",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 278,
+      "Offset": 944,
+      "Opcode": "get_tl",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 279,
+      "Offset": 947,
+      "Opcode": "is_nil",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 283,
+      "Offset": 964,
+      "Opcode": "jump",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 285,
+      "Offset": 970,
+      "Opcode": "is_nil",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 288,
+      "Offset": 983,
+      "Opcode": "jump",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 291,
+      "Offset": 992,
+      "Opcode": "gc_bif1",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 294,
+      "Offset": 1012,
+      "Opcode": "is_tuple",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 295,
+      "Offset": 1016,
+      "Opcode": "test_arity",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 303,
+      "Offset": 1047,
+      "Opcode": "jump",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 313,
+      "Offset": 1082,
+      "Opcode": "is_list",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 335,
+      "Offset": 1158,
+      "Opcode": "is_tuple",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 336,
+      "Offset": 1162,
+      "Opcode": "test_arity",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 339,
+      "Offset": 1175,
+      "Opcode": "is_nonempty_list",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 340,
+      "Offset": 1179,
+      "Opcode": "get_list",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 341,
+      "Offset": 1183,
+      "Opcode": "is_nil",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 342,
+      "Offset": 1187,
+      "Opcode": "is_list",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 346,
+      "Offset": 1201,
+      "Opcode": "is_nonempty_list",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 347,
+      "Offset": 1205,
+      "Opcode": "get_list",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 348,
+      "Offset": 1209,
+      "Opcode": "is_nonempty_list",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 349,
+      "Offset": 1213,
+      "Opcode": "get_tl",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 350,
+      "Offset": 1216,
+      "Opcode": "is_nil",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 354,
+      "Offset": 1233,
+      "Opcode": "jump",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 356,
+      "Offset": 1239,
+      "Opcode": "is_nil",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 359,
+      "Offset": 1252,
+      "Opcode": "jump",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 362,
+      "Offset": 1260,
+      "Opcode": "gc_bif1",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 366,
+      "Offset": 1283,
+      "Opcode": "is_tuple",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 367,
+      "Offset": 1287,
+      "Opcode": "test_arity",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 375,
+      "Offset": 1317,
+      "Opcode": "jump",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 385,
+      "Offset": 1352,
+      "Opcode": "is_list",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 392,
+      "Offset": 1382,
+      "Opcode": "is_nil",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 393,
+      "Offset": 1386,
+      "Opcode": "is_nonempty_list",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 394,
+      "Offset": 1390,
+      "Opcode": "get_list",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 395,
+      "Offset": 1394,
+      "Opcode": "is_nil",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 407,
+      "Offset": 1437,
+      "Opcode": "is_nonempty_list",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 409,
+      "Offset": 1444,
+      "Opcode": "get_list",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 417,
+      "Offset": 1477,
+      "Opcode": "is_nil",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 436,
+      "Offset": 1534,
+      "Opcode": "is_tuple",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 437,
+      "Offset": 1538,
+      "Opcode": "test_arity",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 440,
+      "Offset": 1551,
+      "Opcode": "is_nil",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 441,
+      "Offset": 1555,
+      "Opcode": "is_nil",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 447,
+      "Offset": 1576,
+      "Opcode": "is_list",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 448,
+      "Offset": 1580,
+      "Opcode": "is_list",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 462,
+      "Offset": 1627,
+      "Opcode": "is_nonempty_list",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 463,
+      "Offset": 1631,
+      "Opcode": "get_hd",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 466,
+      "Offset": 1638,
+      "Opcode": "is_nonempty_list",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 467,
+      "Offset": 1642,
+      "Opcode": "get_list",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 468,
+      "Offset": 1646,
+      "Opcode": "is_nil",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 477,
+      "Offset": 1672,
+      "Opcode": "jump",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 482,
+      "Offset": 1689,
+      "Opcode": "is_tuple",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 483,
+      "Offset": 1693,
+      "Opcode": "test_arity",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 486,
+      "Offset": 1706,
+      "Opcode": "is_nonempty_list",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 487,
+      "Offset": 1710,
+      "Opcode": "get_hd",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 488,
+      "Offset": 1713,
+      "Opcode": "is_list",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 492,
+      "Offset": 1724,
+      "Opcode": "is_nil",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 493,
+      "Offset": 1728,
+      "Opcode": "is_nonempty_list",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 494,
+      "Offset": 1732,
+      "Opcode": "get_list",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 495,
+      "Offset": 1736,
+      "Opcode": "is_nil",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 502,
+      "Offset": 1756,
+      "Opcode": "is_nil",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 517,
+      "Offset": 1807,
+      "Opcode": "is_tuple",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 518,
+      "Offset": 1811,
+      "Opcode": "test_arity",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 521,
+      "Offset": 1824,
+      "Opcode": "is_nil",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 522,
+      "Offset": 1828,
+      "Opcode": "is_nil",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 526,
+      "Offset": 1840,
+      "Opcode": "is_nonempty_list",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 527,
+      "Offset": 1844,
+      "Opcode": "get_hd",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 528,
+      "Offset": 1847,
+      "Opcode": "is_list",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 533,
+      "Offset": 1865,
+      "Opcode": "is_nonempty_list",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 534,
+      "Offset": 1869,
+      "Opcode": "get_list",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 535,
+      "Offset": 1873,
+      "Opcode": "is_nil",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 536,
+      "Offset": 1877,
+      "Opcode": "is_nil",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 541,
+      "Offset": 1895,
+      "Opcode": "is_nil",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 560,
+      "Offset": 1957,
+      "Opcode": "is_tuple",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 561,
+      "Offset": 1961,
+      "Opcode": "test_arity",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 564,
+      "Offset": 1974,
+      "Opcode": "is_nonempty_list",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 565,
+      "Offset": 1978,
+      "Opcode": "get_hd",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 566,
+      "Offset": 1981,
+      "Opcode": "is_list",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 571,
+      "Offset": 1999,
+      "Opcode": "is_nil",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 572,
+      "Offset": 2003,
+      "Opcode": "is_nonempty_list",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 573,
+      "Offset": 2007,
+      "Opcode": "get_list",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 574,
+      "Offset": 2011,
+      "Opcode": "is_nil",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 588,
+      "Offset": 2057,
+      "Opcode": "is_nil",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 601,
+      "Offset": 2099,
+      "Opcode": "is_tuple",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 602,
+      "Offset": 2103,
+      "Opcode": "test_arity",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 605,
+      "Offset": 2116,
+      "Opcode": "is_nonempty_list",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 606,
+      "Offset": 2120,
+      "Opcode": "get_list",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 607,
+      "Offset": 2124,
+      "Opcode": "is_nil",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 608,
+      "Offset": 2128,
+      "Opcode": "is_nil",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 609,
+      "Offset": 2132,
+      "Opcode": "jump",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 611,
+      "Offset": 2138,
+      "Opcode": "is_nil",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 618,
+      "Offset": 2160,
+      "Opcode": "is_nonempty_list",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 620,
+      "Offset": 2167,
+      "Opcode": "get_tl",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 626,
+      "Offset": 2186,
+      "Opcode": "is_nil",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 627,
+      "Offset": 2190,
+      "Opcode": "is_nil",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 633,
+      "Offset": 2211,
+      "Opcode": "is_nonempty_list",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 634,
+      "Offset": 2215,
+      "Opcode": "get_tl",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 635,
+      "Offset": 2218,
+      "Opcode": "is_nil",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 636,
+      "Offset": 2222,
+      "Opcode": "is_list",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 637,
+      "Offset": 2226,
+      "Opcode": "is_nonempty_list",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 638,
+      "Offset": 2230,
+      "Opcode": "get_list",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 639,
+      "Offset": 2234,
+      "Opcode": "is_nonempty_list",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 640,
+      "Offset": 2238,
+      "Opcode": "get_tl",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 641,
+      "Offset": 2241,
+      "Opcode": "is_nil",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 647,
+      "Offset": 2262,
+      "Opcode": "is_nil",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 653,
+      "Offset": 2282,
+      "Opcode": "gc_bif1",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 658,
+      "Offset": 2309,
+      "Opcode": "is_tuple",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 659,
+      "Offset": 2313,
+      "Opcode": "test_arity",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 673,
+      "Offset": 2358,
+      "Opcode": "is_list",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 693,
+      "Offset": 2421,
+      "Opcode": "is_tuple",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 694,
+      "Offset": 2425,
+      "Opcode": "test_arity",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 697,
+      "Offset": 2438,
+      "Opcode": "is_nonempty_list",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 698,
+      "Offset": 2442,
+      "Opcode": "get_tl",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 699,
+      "Offset": 2445,
+      "Opcode": "is_nil",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 700,
+      "Offset": 2449,
+      "Opcode": "is_list",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 701,
+      "Offset": 2453,
+      "Opcode": "is_nonempty_list",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 702,
+      "Offset": 2457,
+      "Opcode": "get_list",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 703,
+      "Offset": 2461,
+      "Opcode": "is_nonempty_list",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 704,
+      "Offset": 2465,
+      "Opcode": "get_tl",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 705,
+      "Offset": 2468,
+      "Opcode": "is_nil",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 711,
+      "Offset": 2489,
+      "Opcode": "is_nil",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 717,
+      "Offset": 2508,
+      "Opcode": "gc_bif1",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 723,
+      "Offset": 2538,
+      "Opcode": "is_tuple",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 724,
+      "Offset": 2542,
+      "Opcode": "test_arity",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 735,
+      "Offset": 2578,
+      "Opcode": "is_list",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 740,
+      "Offset": 2595,
+      "Opcode": "is_nil",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 741,
+      "Offset": 2599,
+      "Opcode": "is_nonempty_list",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 742,
+      "Offset": 2603,
+      "Opcode": "get_list",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 743,
+      "Offset": 2607,
+      "Opcode": "is_nil",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 754,
+      "Offset": 2640,
+      "Opcode": "is_nonempty_list",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 756,
+      "Offset": 2647,
+      "Opcode": "get_tl",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 762,
+      "Offset": 2666,
+      "Opcode": "is_nil",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 783,
+      "Offset": 2732,
+      "Opcode": "is_tuple",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 784,
+      "Offset": 2736,
+      "Opcode": "test_arity",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 786,
+      "Offset": 2745,
+      "Opcode": "is_list",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 788,
+      "Offset": 2753,
+      "Opcode": "is_list",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 802,
+      "Offset": 2800,
+      "Opcode": "is_tuple",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 803,
+      "Offset": 2804,
+      "Opcode": "test_arity",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 807,
+      "Offset": 2823,
+      "Opcode": "is_list",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 808,
+      "Offset": 2827,
+      "Opcode": "is_list",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 811,
+      "Offset": 2835,
+      "Opcode": "is_nil",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 812,
+      "Offset": 2839,
+      "Opcode": "is_nil",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 813,
+      "Offset": 2843,
+      "Opcode": "is_tuple",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 814,
+      "Offset": 2847,
+      "Opcode": "test_arity",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 816,
+      "Offset": 2856,
+      "Opcode": "is_list",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 818,
+      "Offset": 2864,
+      "Opcode": "is_list",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 822,
+      "Offset": 2875,
+      "Opcode": "is_tuple",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 823,
+      "Offset": 2879,
+      "Opcode": "test_arity",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 824,
+      "Offset": 2884,
+      "Opcode": "is_list",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 825,
+      "Offset": 2888,
+      "Opcode": "is_list",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 827,
+      "Offset": 2896,
+      "Opcode": "is_list",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 829,
+      "Offset": 2904,
+      "Opcode": "is_list",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 857,
+      "Offset": 2996,
+      "Opcode": "is_tuple",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 858,
+      "Offset": 3000,
+      "Opcode": "test_arity",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 860,
+      "Offset": 3009,
+      "Opcode": "is_list",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 862,
+      "Offset": 3017,
+      "Opcode": "is_list",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 867,
+      "Offset": 3035,
+      "Opcode": "is_tuple",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 868,
+      "Offset": 3039,
+      "Opcode": "test_arity",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 870,
+      "Offset": 3048,
+      "Opcode": "is_ge",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 872,
+      "Offset": 3059,
+      "Opcode": "is_list",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 874,
+      "Offset": 3067,
+      "Opcode": "is_list",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 876,
+      "Offset": 3074,
+      "Opcode": "gc_bif1",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 877,
+      "Offset": 3082,
+      "Opcode": "is_lt",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 878,
+      "Offset": 3091,
+      "Opcode": "is_nonempty_list",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 879,
+      "Offset": 3095,
+      "Opcode": "get_list",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 889,
+      "Offset": 3134,
+      "Opcode": "is_lt",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 891,
+      "Offset": 3146,
+      "Opcode": "gc_bif1",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 895,
+      "Offset": 3179,
+      "Opcode": "is_ge",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 903,
+      "Offset": 3211,
+      "Opcode": "is_ge",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 904,
+      "Offset": 3218,
+      "Opcode": "is_nonempty_list",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 905,
+      "Offset": 3222,
+      "Opcode": "get_list",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 911,
+      "Offset": 3248,
+      "Opcode": "swap",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 912,
+      "Offset": 3251,
+      "Opcode": "swap",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 922,
+      "Offset": 3285,
+      "Opcode": "is_nonempty_list",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 923,
+      "Offset": 3289,
+      "Opcode": "get_list",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 924,
+      "Offset": 3293,
+      "Opcode": "is_nonempty_list",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 925,
+      "Offset": 3297,
+      "Opcode": "get_tl",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 926,
+      "Offset": 3300,
+      "Opcode": "is_nil",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 931,
+      "Offset": 3322,
+      "Opcode": "jump",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 937,
+      "Offset": 3345,
+      "Opcode": "is_tuple",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 938,
+      "Offset": 3349,
+      "Opcode": "test_arity",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 947,
+      "Offset": 3382,
+      "Opcode": "jump",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 952,
+      "Offset": 3400,
+      "Opcode": "jump",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 956,
+      "Offset": 3413,
+      "Opcode": "is_nonempty_list",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 957,
+      "Offset": 3417,
+      "Opcode": "get_list",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 958,
+      "Offset": 3421,
+      "Opcode": "is_nonempty_list",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 959,
+      "Offset": 3425,
+      "Opcode": "get_tl",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 960,
+      "Offset": 3428,
+      "Opcode": "is_nil",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 968,
+      "Offset": 3457,
+      "Opcode": "is_nil",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 976,
+      "Offset": 3485,
+      "Opcode": "gc_bif1",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 981,
+      "Offset": 3512,
+      "Opcode": "is_tuple",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 982,
+      "Offset": 3516,
+      "Opcode": "test_arity",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 1028,
+      "Offset": 3672,
+      "Opcode": "is_nonempty_list",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 1029,
+      "Offset": 3676,
+      "Opcode": "get_list",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 1037,
+      "Offset": 3709,
+      "Opcode": "jump",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 1049,
+      "Offset": 3758,
+      "Opcode": "is_nonempty_list",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 1050,
+      "Offset": 3762,
+      "Opcode": "get_list",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 1058,
+      "Offset": 3795,
+      "Opcode": "jump",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 1063,
+      "Offset": 3812,
+      "Opcode": "is_tuple",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 1064,
+      "Offset": 3816,
+      "Opcode": "test_arity",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 1065,
+      "Offset": 3821,
+      "Opcode": "is_function2",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 1067,
+      "Offset": 3830,
+      "Opcode": "is_list",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 1069,
+      "Offset": 3838,
+      "Opcode": "is_list",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 1076,
+      "Offset": 3861,
+      "Opcode": "swap",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 1081,
+      "Offset": 3878,
+      "Opcode": "is_nil",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 1082,
+      "Offset": 3882,
+      "Opcode": "is_nonempty_list",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 1083,
+      "Offset": 3886,
+      "Opcode": "get_list",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 1084,
+      "Offset": 3890,
+      "Opcode": "is_nonempty_list",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 1085,
+      "Offset": 3894,
+      "Opcode": "get_tl",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 1086,
+      "Offset": 3897,
+      "Opcode": "is_nil",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 1094,
+      "Offset": 3924,
+      "Opcode": "gc_bif1",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 1098,
+      "Offset": 3948,
+      "Opcode": "trim",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 1100,
+      "Offset": 3954,
+      "Opcode": "is_tuple",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 1101,
+      "Offset": 3958,
+      "Opcode": "test_arity",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 1121,
+      "Offset": 4019,
+      "Opcode": "is_nil",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 1122,
+      "Offset": 4025,
+      "Opcode": "is_nonempty_list",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 1123,
+      "Offset": 4029,
+      "Opcode": "get_list",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 1124,
+      "Offset": 4033,
+      "Opcode": "is_nonempty_list",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 1125,
+      "Offset": 4037,
+      "Opcode": "get_tl",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 1126,
+      "Offset": 4040,
+      "Opcode": "is_nil",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 1133,
+      "Offset": 4063,
+      "Opcode": "is_nil",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 1140,
+      "Offset": 4085,
+      "Opcode": "gc_bif1",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 1142,
+      "Offset": 4102,
+      "Opcode": "swap",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 1144,
+      "Offset": 4109,
+      "Opcode": "trim",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 1146,
+      "Offset": 4115,
+      "Opcode": "is_tuple",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 1147,
+      "Offset": 4119,
+      "Opcode": "test_arity",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 1179,
+      "Offset": 4220,
+      "Opcode": "is_nonempty_list",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 1183,
+      "Offset": 4234,
+      "Opcode": "get_list",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 1189,
+      "Offset": 4257,
+      "Opcode": "is_nonempty_list",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 1190,
+      "Offset": 4261,
+      "Opcode": "get_list",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 1191,
+      "Offset": 4265,
+      "Opcode": "is_nil",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 1195,
+      "Offset": 4278,
+      "Opcode": "trim",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 1203,
+      "Offset": 4301,
+      "Opcode": "is_atom",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 1204,
+      "Offset": 4305,
+      "Opcode": "select_val",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 1209,
+      "Offset": 4331,
+      "Opcode": "trim",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 1217,
+      "Offset": 4354,
+      "Opcode": "is_nil",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 1221,
+      "Offset": 4367,
+      "Opcode": "call_last",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 1223,
+      "Offset": 4375,
+      "Opcode": "is_nonempty_list",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 1227,
+      "Offset": 4388,
+      "Opcode": "trim",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 1234,
+      "Offset": 4411,
+      "Opcode": "is_nil",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 1239,
+      "Offset": 4425,
+      "Opcode": "case_end",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 1244,
+      "Offset": 4441,
+      "Opcode": "is_nonempty_list",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 1248,
+      "Offset": 4455,
+      "Opcode": "get_list",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 1257,
+      "Offset": 4489,
+      "Opcode": "is_nonempty_list",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 1258,
+      "Offset": 4493,
+      "Opcode": "get_list",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 1259,
+      "Offset": 4497,
+      "Opcode": "is_nil",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 1265,
+      "Offset": 4514,
+      "Opcode": "is_atom",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 1266,
+      "Offset": 4518,
+      "Opcode": "select_val",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 1273,
+      "Offset": 4548,
+      "Opcode": "is_nil",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 1279,
+      "Offset": 4564,
+      "Opcode": "is_nonempty_list",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 1284,
+      "Offset": 4581,
+      "Opcode": "is_nil",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 1289,
+      "Offset": 4595,
+      "Opcode": "case_end",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 1294,
+      "Offset": 4611,
+      "Opcode": "is_tuple",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 1295,
+      "Offset": 4615,
+      "Opcode": "test_arity",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 1296,
+      "Offset": 4620,
+      "Opcode": "is_function2",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 1298,
+      "Offset": 4629,
+      "Opcode": "is_list",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 1300,
+      "Offset": 4637,
+      "Opcode": "is_list",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 1307,
+      "Offset": 4659,
+      "Opcode": "swap",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 1312,
+      "Offset": 4676,
+      "Opcode": "is_nil",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 1313,
+      "Offset": 4682,
+      "Opcode": "is_nonempty_list",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 1314,
+      "Offset": 4686,
+      "Opcode": "get_list",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 1315,
+      "Offset": 4690,
+      "Opcode": "is_nonempty_list",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 1316,
+      "Offset": 4694,
+      "Opcode": "get_tl",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 1317,
+      "Offset": 4697,
+      "Opcode": "is_nil",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 1324,
+      "Offset": 4720,
+      "Opcode": "is_nil",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 1330,
+      "Offset": 4739,
+      "Opcode": "is_nil",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 1336,
+      "Offset": 4755,
+      "Opcode": "gc_bif1",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 1340,
+      "Offset": 4779,
+      "Opcode": "trim",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 1342,
+      "Offset": 4785,
+      "Opcode": "is_tuple",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 1343,
+      "Offset": 4789,
+      "Opcode": "test_arity",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 1354,
+      "Offset": 4825,
+      "Opcode": "is_nil",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 1355,
+      "Offset": 4829,
+      "Opcode": "get_list",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 1356,
+      "Offset": 4833,
+      "Opcode": "is_nonempty_list",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 1357,
+      "Offset": 4837,
+      "Opcode": "get_tl",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 1358,
+      "Offset": 4840,
+      "Opcode": "is_nil",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 1366,
+      "Offset": 4868,
+      "Opcode": "gc_bif1",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 1368,
+      "Offset": 4885,
+      "Opcode": "swap",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 1370,
+      "Offset": 4892,
+      "Opcode": "trim",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 1372,
+      "Offset": 4898,
+      "Opcode": "is_tuple",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 1373,
+      "Offset": 4902,
+      "Opcode": "test_arity",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 1410,
+      "Offset": 5018,
+      "Opcode": "is_nonempty_list",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 1414,
+      "Offset": 5032,
+      "Opcode": "get_list",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 1423,
+      "Offset": 5066,
+      "Opcode": "is_tuple",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 1431,
+      "Offset": 5095,
+      "Opcode": "select_val",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 1442,
+      "Offset": 5132,
+      "Opcode": "is_nil",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 1446,
+      "Offset": 5143,
+      "Opcode": "case_end",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 1451,
+      "Offset": 5159,
+      "Opcode": "is_tuple",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 1452,
+      "Offset": 5163,
+      "Opcode": "test_arity",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 1453,
+      "Offset": 5168,
+      "Opcode": "is_function2",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 1455,
+      "Offset": 5177,
+      "Opcode": "is_list",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 1457,
+      "Offset": 5185,
+      "Opcode": "is_list",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 1481,
+      "Offset": 5264,
+      "Opcode": "is_tuple",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 1482,
+      "Offset": 5268,
+      "Opcode": "test_arity",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 1483,
+      "Offset": 5273,
+      "Opcode": "is_function2",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 1485,
+      "Offset": 5282,
+      "Opcode": "is_list",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 1487,
+      "Offset": 5290,
+      "Opcode": "is_list",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 1513,
+      "Offset": 5373,
+      "Opcode": "is_tuple",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 1514,
+      "Offset": 5377,
+      "Opcode": "test_arity",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 1515,
+      "Offset": 5382,
+      "Opcode": "is_function2",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 1517,
+      "Offset": 5391,
+      "Opcode": "is_list",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 1519,
+      "Offset": 5399,
+      "Opcode": "is_list",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 1546,
+      "Offset": 5485,
+      "Opcode": "is_tuple",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 1547,
+      "Offset": 5489,
+      "Opcode": "test_arity",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 1549,
+      "Offset": 5498,
+      "Opcode": "is_list",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 1551,
+      "Offset": 5506,
+      "Opcode": "is_list",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 1560,
+      "Offset": 5535,
+      "Opcode": "is_atom",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 1567,
+      "Offset": 5564,
+      "Opcode": "is_atom",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 1573,
+      "Offset": 5584,
+      "Opcode": "is_nil",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 1574,
+      "Offset": 5588,
+      "Opcode": "is_nonempty_list",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 1575,
+      "Offset": 5592,
+      "Opcode": "get_list",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 1576,
+      "Offset": 5596,
+      "Opcode": "is_nonempty_list",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 1577,
+      "Offset": 5600,
+      "Opcode": "get_tl",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 1578,
+      "Offset": 5603,
+      "Opcode": "is_nil",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 1585,
+      "Offset": 5626,
+      "Opcode": "is_nil",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 1592,
+      "Offset": 5647,
+      "Opcode": "gc_bif1",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 1595,
+      "Offset": 5667,
+      "Opcode": "trim",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 1597,
+      "Offset": 5673,
+      "Opcode": "is_tuple",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 1598,
+      "Offset": 5677,
+      "Opcode": "test_arity",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 1614,
+      "Offset": 5728,
+      "Opcode": "is_nil",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 1615,
+      "Offset": 5732,
+      "Opcode": "is_nonempty_list",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 1616,
+      "Offset": 5736,
+      "Opcode": "get_list",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 1617,
+      "Offset": 5740,
+      "Opcode": "is_nonempty_list",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 1618,
+      "Offset": 5744,
+      "Opcode": "get_tl",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 1619,
+      "Offset": 5747,
+      "Opcode": "is_nil",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 1626,
+      "Offset": 5770,
+      "Opcode": "is_nil",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 1633,
+      "Offset": 5792,
+      "Opcode": "gc_bif1",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 1637,
+      "Offset": 5816,
+      "Opcode": "trim",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 1639,
+      "Offset": 5822,
+      "Opcode": "is_tuple",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 1640,
+      "Offset": 5826,
+      "Opcode": "test_arity",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 1676,
+      "Offset": 5937,
+      "Opcode": "is_tuple",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 1677,
+      "Offset": 5941,
+      "Opcode": "test_arity",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 1679,
+      "Offset": 5950,
+      "Opcode": "is_list",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 1681,
+      "Offset": 5958,
+      "Opcode": "is_list",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 1703,
+      "Offset": 6036,
+      "Opcode": "is_nonempty_list",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 1704,
+      "Offset": 6040,
+      "Opcode": "get_list",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 1722,
+      "Offset": 6093,
+      "Opcode": "is_nil",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 1729,
+      "Offset": 6115,
+      "Opcode": "is_nonempty_list",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 1732,
+      "Offset": 6125,
+      "Opcode": "get_list",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 1751,
+      "Offset": 6180,
+      "Opcode": "is_nil",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 1758,
+      "Offset": 6202,
+      "Opcode": "is_tuple",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 1759,
+      "Offset": 6206,
+      "Opcode": "test_arity",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 1760,
+      "Offset": 6211,
+      "Opcode": "is_function2",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 1762,
+      "Offset": 6220,
+      "Opcode": "is_list",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 1764,
+      "Offset": 6228,
+      "Opcode": "is_list",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 1773,
+      "Offset": 6257,
+      "Opcode": "is_atom",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 1780,
+      "Offset": 6286,
+      "Opcode": "is_atom",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 1786,
+      "Offset": 6306,
+      "Opcode": "is_nil",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 1787,
+      "Offset": 6310,
+      "Opcode": "is_nonempty_list",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 1788,
+      "Offset": 6314,
+      "Opcode": "get_list",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 1789,
+      "Offset": 6318,
+      "Opcode": "is_nonempty_list",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 1790,
+      "Offset": 6322,
+      "Opcode": "get_tl",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 1791,
+      "Offset": 6325,
+      "Opcode": "is_nil",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 1798,
+      "Offset": 6348,
+      "Opcode": "is_nil",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 1805,
+      "Offset": 6369,
+      "Opcode": "gc_bif1",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 1808,
+      "Offset": 6389,
+      "Opcode": "trim",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 1810,
+      "Offset": 6395,
+      "Opcode": "is_tuple",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 1811,
+      "Offset": 6399,
+      "Opcode": "test_arity",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 1827,
+      "Offset": 6450,
+      "Opcode": "is_nil",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 1828,
+      "Offset": 6454,
+      "Opcode": "is_nonempty_list",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 1829,
+      "Offset": 6458,
+      "Opcode": "get_list",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 1830,
+      "Offset": 6462,
+      "Opcode": "is_nonempty_list",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 1831,
+      "Offset": 6466,
+      "Opcode": "get_tl",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 1832,
+      "Offset": 6469,
+      "Opcode": "is_nil",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 1839,
+      "Offset": 6492,
+      "Opcode": "is_nil",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 1846,
+      "Offset": 6514,
+      "Opcode": "gc_bif1",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 1850,
+      "Offset": 6538,
+      "Opcode": "trim",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 1852,
+      "Offset": 6544,
+      "Opcode": "is_tuple",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 1853,
+      "Offset": 6548,
+      "Opcode": "test_arity",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 1889,
+      "Offset": 6659,
+      "Opcode": "is_tuple",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 1890,
+      "Offset": 6663,
+      "Opcode": "test_arity",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 1891,
+      "Offset": 6668,
+      "Opcode": "is_function2",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 1893,
+      "Offset": 6677,
+      "Opcode": "is_list",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 1895,
+      "Offset": 6685,
+      "Opcode": "is_list",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 1917,
+      "Offset": 6763,
+      "Opcode": "is_nonempty_list",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 1920,
+      "Offset": 6773,
+      "Opcode": "get_list",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 1925,
+      "Offset": 6793,
+      "Opcode": "select_val",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 1945,
+      "Offset": 6859,
+      "Opcode": "is_nil",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 1950,
+      "Offset": 6873,
+      "Opcode": "case_end",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 1955,
+      "Offset": 6889,
+      "Opcode": "is_nonempty_list",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 1958,
+      "Offset": 6899,
+      "Opcode": "get_list",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 1968,
+      "Offset": 6939,
+      "Opcode": "select_val",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 1982,
+      "Offset": 6982,
+      "Opcode": "is_nil",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 1986,
+      "Offset": 6993,
+      "Opcode": "case_end",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 1996,
+      "Offset": 7027,
+      "Opcode": "is_tuple",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 1997,
+      "Offset": 7031,
+      "Opcode": "test_arity",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 2000,
+      "Offset": 7044,
+      "Opcode": "is_nil",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 2001,
+      "Offset": 7048,
+      "Opcode": "is_nil",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 2007,
+      "Offset": 7069,
+      "Opcode": "is_list",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 2008,
+      "Offset": 7073,
+      "Opcode": "is_list",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    },
+    {
+      "Index": 2027,
+      "Offset": 7138,
+      "Opcode": "swap",
+      "ErrorType": "System.NotSupportedException",
+      "Error": "Unsupported BEAM opcode role in bounded linker"
+    }
+  ],
+  "ImportSites": [
+    {
+      "Index": 15,
+      "Opcode": "bif1",
+      "Module": "erlang",
+      "Function": "is_list",
+      "Arity": 1
+    },
+    {
+      "Index": 42,
+      "Opcode": "call_ext_only",
+      "Module": "erlang",
+      "Function": "error",
+      "Arity": 2
+    },
+    {
+      "Index": 54,
+      "Opcode": "gc_bif1",
+      "Module": "erlang",
+      "Function": "length",
+      "Arity": 1
+    },
+    {
+      "Index": 55,
+      "Opcode": "gc_bif1",
+      "Module": "erlang",
+      "Function": "length",
+      "Arity": 1
+    },
+    {
+      "Index": 56,
+      "Opcode": "gc_bif2",
+      "Module": "erlang",
+      "Function": "+",
+      "Arity": 2
+    },
+    {
+      "Index": 63,
+      "Opcode": "call_ext_only",
+      "Module": "erlang",
+      "Function": "error",
+      "Arity": 2
+    },
+    {
+      "Index": 79,
+      "Opcode": "call_ext",
+      "Module": "lists",
+      "Function": "reverse",
+      "Arity": 2
+    },
+    {
+      "Index": 82,
+      "Opcode": "call_ext_last",
+      "Module": "erlang",
+      "Function": "++",
+      "Arity": 2
+    },
+    {
+      "Index": 88,
+      "Opcode": "call_ext_only",
+      "Module": "erlang",
+      "Function": "error",
+      "Arity": 2
+    },
+    {
+      "Index": 110,
+      "Opcode": "gc_bif1",
+      "Module": "erlang",
+      "Function": "length",
+      "Arity": 1
+    },
+    {
+      "Index": 113,
+      "Opcode": "gc_bif2",
+      "Module": "erlang",
+      "Function": "div",
+      "Arity": 2
+    },
+    {
+      "Index": 115,
+      "Opcode": "call_ext",
+      "Module": "lists",
+      "Function": "split",
+      "Arity": 2
+    },
+    {
+      "Index": 122,
+      "Opcode": "call_ext",
+      "Module": "lists",
+      "Function": "reverse",
+      "Arity": 2
+    },
+    {
+      "Index": 135,
+      "Opcode": "call_ext_only",
+      "Module": "erlang",
+      "Function": "error",
+      "Arity": 2
+    },
+    {
+      "Index": 154,
+      "Opcode": "call_ext",
+      "Module": "lists",
+      "Function": "member",
+      "Arity": 2
+    },
+    {
+      "Index": 161,
+      "Opcode": "call_ext_last",
+      "Module": "lists",
+      "Function": "member",
+      "Arity": 2
+    },
+    {
+      "Index": 168,
+      "Opcode": "call_ext_only",
+      "Module": "erlang",
+      "Function": "error",
+      "Arity": 2
+    },
+    {
+      "Index": 198,
+      "Opcode": "call_ext_only",
+      "Module": "erlang",
+      "Function": "error",
+      "Arity": 2
+    },
+    {
+      "Index": 228,
+      "Opcode": "call_ext_only",
+      "Module": "erlang",
+      "Function": "error",
+      "Arity": 2
+    },
+    {
+      "Index": 252,
+      "Opcode": "call_ext",
+      "Module": "lists",
+      "Function": "reverse",
+      "Arity": 2
+    },
+    {
+      "Index": 291,
+      "Opcode": "gc_bif1",
+      "Module": "erlang",
+      "Function": "length",
+      "Arity": 1
+    },
+    {
+      "Index": 292,
+      "Opcode": "gc_bif2",
+      "Module": "erlang",
+      "Function": "div",
+      "Arity": 2
+    },
+    {
+      "Index": 293,
+      "Opcode": "call_ext",
+      "Module": "lists",
+      "Function": "split",
+      "Arity": 2
+    },
+    {
+      "Index": 300,
+      "Opcode": "call_ext",
+      "Module": "lists",
+      "Function": "reverse",
+      "Arity": 2
+    },
+    {
+      "Index": 324,
+      "Opcode": "call_ext_only",
+      "Module": "erlang",
+      "Function": "error",
+      "Arity": 2
+    },
+    {
+      "Index": 362,
+      "Opcode": "gc_bif1",
+      "Module": "erlang",
+      "Function": "length",
+      "Arity": 1
+    },
+    {
+      "Index": 363,
+      "Opcode": "gc_bif2",
+      "Module": "erlang",
+      "Function": "div",
+      "Arity": 2
+    },
+    {
+      "Index": 365,
+      "Opcode": "call_ext",
+      "Module": "lists",
+      "Function": "split",
+      "Arity": 2
+    },
+    {
+      "Index": 372,
+      "Opcode": "call_ext",
+      "Module": "lists",
+      "Function": "reverse",
+      "Arity": 2
+    },
+    {
+      "Index": 406,
+      "Opcode": "call_ext",
+      "Module": "lists",
+      "Function": "reverse",
+      "Arity": 2
+    },
+    {
+      "Index": 425,
+      "Opcode": "call_ext_only",
+      "Module": "erlang",
+      "Function": "error",
+      "Arity": 2
+    },
+    {
+      "Index": 445,
+      "Opcode": "call_ext_only",
+      "Module": "erlang",
+      "Function": "error",
+      "Arity": 2
+    },
+    {
+      "Index": 457,
+      "Opcode": "call_ext_only",
+      "Module": "erlang",
+      "Function": "error",
+      "Arity": 2
+    },
+    {
+      "Index": 473,
+      "Opcode": "call_ext_only",
+      "Module": "lists",
+      "Function": "last",
+      "Arity": 1
+    },
+    {
+      "Index": 500,
+      "Opcode": "call_ext_only",
+      "Module": "lists",
+      "Function": "last",
+      "Arity": 1
+    },
+    {
+      "Index": 506,
+      "Opcode": "call_ext_only",
+      "Module": "erlang",
+      "Function": "error",
+      "Arity": 2
+    },
+    {
+      "Index": 512,
+      "Opcode": "call_ext_only",
+      "Module": "erlang",
+      "Function": "error",
+      "Arity": 2
+    },
+    {
+      "Index": 545,
+      "Opcode": "call_ext",
+      "Module": "lists",
+      "Function": "last",
+      "Arity": 1
+    },
+    {
+      "Index": 555,
+      "Opcode": "call_ext_only",
+      "Module": "erlang",
+      "Function": "error",
+      "Arity": 2
+    },
+    {
+      "Index": 582,
+      "Opcode": "call_ext",
+      "Module": "lists",
+      "Function": "last",
+      "Arity": 1
+    },
+    {
+      "Index": 596,
+      "Opcode": "call_ext_only",
+      "Module": "erlang",
+      "Function": "error",
+      "Arity": 2
+    },
+    {
+      "Index": 617,
+      "Opcode": "call_ext",
+      "Module": "lists",
+      "Function": "reverse",
+      "Arity": 2
+    },
+    {
+      "Index": 631,
+      "Opcode": "call_ext_only",
+      "Module": "erlang",
+      "Function": "error",
+      "Arity": 2
+    },
+    {
+      "Index": 653,
+      "Opcode": "gc_bif1",
+      "Module": "erlang",
+      "Function": "length",
+      "Arity": 1
+    },
+    {
+      "Index": 656,
+      "Opcode": "gc_bif2",
+      "Module": "erlang",
+      "Function": "div",
+      "Arity": 2
+    },
+    {
+      "Index": 657,
+      "Opcode": "call_ext",
+      "Module": "lists",
+      "Function": "split",
+      "Arity": 2
+    },
+    {
+      "Index": 664,
+      "Opcode": "call_ext",
+      "Module": "lists",
+      "Function": "reverse",
+      "Arity": 2
+    },
+    {
+      "Index": 682,
+      "Opcode": "call_ext_only",
+      "Module": "erlang",
+      "Function": "error",
+      "Arity": 2
+    },
+    {
+      "Index": 717,
+      "Opcode": "gc_bif1",
+      "Module": "erlang",
+      "Function": "length",
+      "Arity": 1
+    },
+    {
+      "Index": 720,
+      "Opcode": "gc_bif2",
+      "Module": "erlang",
+      "Function": "div",
+      "Arity": 2
+    },
+    {
+      "Index": 722,
+      "Opcode": "call_ext",
+      "Module": "lists",
+      "Function": "split",
+      "Arity": 2
+    },
+    {
+      "Index": 729,
+      "Opcode": "call_ext",
+      "Module": "lists",
+      "Function": "reverse",
+      "Arity": 2
+    },
+    {
+      "Index": 753,
+      "Opcode": "call_ext",
+      "Module": "lists",
+      "Function": "reverse",
+      "Arity": 2
+    },
+    {
+      "Index": 766,
+      "Opcode": "call_ext_only",
+      "Module": "erlang",
+      "Function": "error",
+      "Arity": 2
+    },
+    {
+      "Index": 772,
+      "Opcode": "call_ext_only",
+      "Module": "erlang",
+      "Function": "error",
+      "Arity": 2
+    },
+    {
+      "Index": 797,
+      "Opcode": "call_ext_only",
+      "Module": "erlang",
+      "Function": "error",
+      "Arity": 2
+    },
+    {
+      "Index": 836,
+      "Opcode": "call_ext",
+      "Module": "lists",
+      "Function": "reverse",
+      "Arity": 2
+    },
+    {
+      "Index": 840,
+      "Opcode": "call_ext",
+      "Module": "erlang",
+      "Function": "++",
+      "Arity": 2
+    },
+    {
+      "Index": 851,
+      "Opcode": "call_ext_only",
+      "Module": "erlang",
+      "Function": "error",
+      "Arity": 2
+    },
+    {
+      "Index": 876,
+      "Opcode": "gc_bif1",
+      "Module": "erlang",
+      "Function": "length",
+      "Arity": 1
+    },
+    {
+      "Index": 881,
+      "Opcode": "gc_bif2",
+      "Module": "erlang",
+      "Function": "-",
+      "Arity": 2
+    },
+    {
+      "Index": 891,
+      "Opcode": "gc_bif1",
+      "Module": "erlang",
+      "Function": "length",
+      "Arity": 1
+    },
+    {
+      "Index": 893,
+      "Opcode": "gc_bif2",
+      "Module": "erlang",
+      "Function": "-",
+      "Arity": 2
+    },
+    {
+      "Index": 894,
+      "Opcode": "gc_bif2",
+      "Module": "erlang",
+      "Function": "-",
+      "Arity": 2
+    },
+    {
+      "Index": 901,
+      "Opcode": "call_ext_only",
+      "Module": "erlang",
+      "Function": "error",
+      "Arity": 2
+    },
+    {
+      "Index": 907,
+      "Opcode": "gc_bif2",
+      "Module": "erlang",
+      "Function": "-",
+      "Arity": 2
+    },
+    {
+      "Index": 934,
+      "Opcode": "gc_bif2",
+      "Module": "erlang",
+      "Function": "div",
+      "Arity": 2
+    },
+    {
+      "Index": 936,
+      "Opcode": "call_ext",
+      "Module": "lists",
+      "Function": "split",
+      "Arity": 2
+    },
+    {
+      "Index": 943,
+      "Opcode": "call_ext",
+      "Module": "lists",
+      "Function": "reverse",
+      "Arity": 2
+    },
+    {
+      "Index": 976,
+      "Opcode": "gc_bif1",
+      "Module": "erlang",
+      "Function": "length",
+      "Arity": 1
+    },
+    {
+      "Index": 977,
+      "Opcode": "gc_bif2",
+      "Module": "erlang",
+      "Function": "div",
+      "Arity": 2
+    },
+    {
+      "Index": 980,
+      "Opcode": "call_ext",
+      "Module": "lists",
+      "Function": "split",
+      "Arity": 2
+    },
+    {
+      "Index": 987,
+      "Opcode": "call_ext",
+      "Module": "lists",
+      "Function": "reverse",
+      "Arity": 2
+    },
+    {
+      "Index": 1004,
+      "Opcode": "call_ext_only",
+      "Module": "erlang",
+      "Function": "error",
+      "Arity": 2
+    },
+    {
+      "Index": 1031,
+      "Opcode": "gc_bif2",
+      "Module": "erlang",
+      "Function": "-",
+      "Arity": 2
+    },
+    {
+      "Index": 1052,
+      "Opcode": "gc_bif2",
+      "Module": "erlang",
+      "Function": "-",
+      "Arity": 2
+    },
+    {
+      "Index": 1094,
+      "Opcode": "gc_bif1",
+      "Module": "erlang",
+      "Function": "length",
+      "Arity": 1
+    },
+    {
+      "Index": 1095,
+      "Opcode": "gc_bif2",
+      "Module": "erlang",
+      "Function": "div",
+      "Arity": 2
+    },
+    {
+      "Index": 1099,
+      "Opcode": "call_ext",
+      "Module": "lists",
+      "Function": "split",
+      "Arity": 2
+    },
+    {
+      "Index": 1106,
+      "Opcode": "call_ext",
+      "Module": "lists",
+      "Function": "reverse",
+      "Arity": 2
+    },
+    {
+      "Index": 1140,
+      "Opcode": "gc_bif1",
+      "Module": "erlang",
+      "Function": "length",
+      "Arity": 1
+    },
+    {
+      "Index": 1141,
+      "Opcode": "gc_bif2",
+      "Module": "erlang",
+      "Function": "div",
+      "Arity": 2
+    },
+    {
+      "Index": 1145,
+      "Opcode": "call_ext",
+      "Module": "lists",
+      "Function": "split",
+      "Arity": 2
+    },
+    {
+      "Index": 1152,
+      "Opcode": "call_ext",
+      "Module": "lists",
+      "Function": "reverse",
+      "Arity": 2
+    },
+    {
+      "Index": 1168,
+      "Opcode": "call_ext_only",
+      "Module": "erlang",
+      "Function": "error",
+      "Arity": 2
+    },
+    {
+      "Index": 1232,
+      "Opcode": "call_ext_last",
+      "Module": "erlang",
+      "Function": "++",
+      "Arity": 2
+    },
+    {
+      "Index": 1282,
+      "Opcode": "call_ext_last",
+      "Module": "lists",
+      "Function": "reverse",
+      "Arity": 2
+    },
+    {
+      "Index": 1306,
+      "Opcode": "call_ext",
+      "Module": "lists",
+      "Function": "filtermap",
+      "Arity": 2
+    },
+    {
+      "Index": 1336,
+      "Opcode": "gc_bif1",
+      "Module": "erlang",
+      "Function": "length",
+      "Arity": 1
+    },
+    {
+      "Index": 1337,
+      "Opcode": "gc_bif2",
+      "Module": "erlang",
+      "Function": "div",
+      "Arity": 2
+    },
+    {
+      "Index": 1341,
+      "Opcode": "call_ext",
+      "Module": "lists",
+      "Function": "split",
+      "Arity": 2
+    },
+    {
+      "Index": 1348,
+      "Opcode": "call_ext",
+      "Module": "lists",
+      "Function": "reverse",
+      "Arity": 2
+    },
+    {
+      "Index": 1366,
+      "Opcode": "gc_bif1",
+      "Module": "erlang",
+      "Function": "length",
+      "Arity": 1
+    },
+    {
+      "Index": 1367,
+      "Opcode": "gc_bif2",
+      "Module": "erlang",
+      "Function": "div",
+      "Arity": 2
+    },
+    {
+      "Index": 1371,
+      "Opcode": "call_ext",
+      "Module": "lists",
+      "Function": "split",
+      "Arity": 2
+    },
+    {
+      "Index": 1378,
+      "Opcode": "call_ext",
+      "Module": "lists",
+      "Function": "reverse",
+      "Arity": 2
+    },
+    {
+      "Index": 1399,
+      "Opcode": "call_ext_only",
+      "Module": "erlang",
+      "Function": "error",
+      "Arity": 2
+    },
+    {
+      "Index": 1463,
+      "Opcode": "call_ext",
+      "Module": "lists",
+      "Function": "foldl",
+      "Arity": 3
+    },
+    {
+      "Index": 1468,
+      "Opcode": "call_ext_last",
+      "Module": "lists",
+      "Function": "foldr",
+      "Arity": 3
+    },
+    {
+      "Index": 1476,
+      "Opcode": "call_ext_only",
+      "Module": "erlang",
+      "Function": "error",
+      "Arity": 2
+    },
+    {
+      "Index": 1493,
+      "Opcode": "call_ext",
+      "Module": "lists",
+      "Function": "any",
+      "Arity": 2
+    },
+    {
+      "Index": 1501,
+      "Opcode": "call_ext_last",
+      "Module": "lists",
+      "Function": "any",
+      "Arity": 2
+    },
+    {
+      "Index": 1508,
+      "Opcode": "call_ext_only",
+      "Module": "erlang",
+      "Function": "error",
+      "Arity": 2
+    },
+    {
+      "Index": 1525,
+      "Opcode": "call_ext",
+      "Module": "lists",
+      "Function": "all",
+      "Arity": 2
+    },
+    {
+      "Index": 1530,
+      "Opcode": "call_ext_last",
+      "Module": "lists",
+      "Function": "all",
+      "Arity": 2
+    },
+    {
+      "Index": 1541,
+      "Opcode": "call_ext_only",
+      "Module": "erlang",
+      "Function": "error",
+      "Arity": 2
+    },
+    {
+      "Index": 1592,
+      "Opcode": "gc_bif1",
+      "Module": "erlang",
+      "Function": "length",
+      "Arity": 1
+    },
+    {
+      "Index": 1593,
+      "Opcode": "gc_bif2",
+      "Module": "erlang",
+      "Function": "div",
+      "Arity": 2
+    },
+    {
+      "Index": 1596,
+      "Opcode": "call_ext",
+      "Module": "lists",
+      "Function": "split",
+      "Arity": 2
+    },
+    {
+      "Index": 1603,
+      "Opcode": "call_ext",
+      "Module": "lists",
+      "Function": "reverse",
+      "Arity": 2
+    },
+    {
+      "Index": 1633,
+      "Opcode": "gc_bif1",
+      "Module": "erlang",
+      "Function": "length",
+      "Arity": 1
+    },
+    {
+      "Index": 1634,
+      "Opcode": "gc_bif2",
+      "Module": "erlang",
+      "Function": "div",
+      "Arity": 2
+    },
+    {
+      "Index": 1638,
+      "Opcode": "call_ext",
+      "Module": "lists",
+      "Function": "split",
+      "Arity": 2
+    },
+    {
+      "Index": 1645,
+      "Opcode": "call_ext",
+      "Module": "lists",
+      "Function": "reverse",
+      "Arity": 2
+    },
+    {
+      "Index": 1665,
+      "Opcode": "call_ext_only",
+      "Module": "erlang",
+      "Function": "error",
+      "Arity": 2
+    },
+    {
+      "Index": 1698,
+      "Opcode": "call_ext_only",
+      "Module": "erlang",
+      "Function": "error",
+      "Arity": 2
+    },
+    {
+      "Index": 1805,
+      "Opcode": "gc_bif1",
+      "Module": "erlang",
+      "Function": "length",
+      "Arity": 1
+    },
+    {
+      "Index": 1806,
+      "Opcode": "gc_bif2",
+      "Module": "erlang",
+      "Function": "div",
+      "Arity": 2
+    },
+    {
+      "Index": 1809,
+      "Opcode": "call_ext",
+      "Module": "lists",
+      "Function": "split",
+      "Arity": 2
+    },
+    {
+      "Index": 1816,
+      "Opcode": "call_ext",
+      "Module": "lists",
+      "Function": "reverse",
+      "Arity": 2
+    },
+    {
+      "Index": 1846,
+      "Opcode": "gc_bif1",
+      "Module": "erlang",
+      "Function": "length",
+      "Arity": 1
+    },
+    {
+      "Index": 1847,
+      "Opcode": "gc_bif2",
+      "Module": "erlang",
+      "Function": "div",
+      "Arity": 2
+    },
+    {
+      "Index": 1851,
+      "Opcode": "call_ext",
+      "Module": "lists",
+      "Function": "split",
+      "Arity": 2
+    },
+    {
+      "Index": 1858,
+      "Opcode": "call_ext",
+      "Module": "lists",
+      "Function": "reverse",
+      "Arity": 2
+    },
+    {
+      "Index": 1878,
+      "Opcode": "call_ext_only",
+      "Module": "erlang",
+      "Function": "error",
+      "Arity": 2
+    },
+    {
+      "Index": 1912,
+      "Opcode": "call_ext_only",
+      "Module": "erlang",
+      "Function": "error",
+      "Arity": 2
+    },
+    {
+      "Index": 2005,
+      "Opcode": "call_ext_only",
+      "Module": "erlang",
+      "Function": "error",
+      "Arity": 2
+    },
+    {
+      "Index": 2017,
+      "Opcode": "call_ext_only",
+      "Module": "erlang",
+      "Function": "error",
+      "Arity": 2
+    },
+    {
+      "Index": 2059,
+      "Opcode": "call_ext_only",
+      "Module": "erlang",
+      "Function": "get_module_info",
+      "Arity": 1
+    },
+    {
+      "Index": 2066,
+      "Opcode": "call_ext_only",
+      "Module": "erlang",
+      "Function": "get_module_info",
+      "Arity": 2
+    }
+  ],
+  "GuestExecuted": false,
+  "BuildExecuted": false,
+  "ProductionChanged": false,
+  "OpcodeImplementationAdded": false
+}

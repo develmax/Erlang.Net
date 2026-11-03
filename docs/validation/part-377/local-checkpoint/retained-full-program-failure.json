@@ -1,0 +1,52 @@
+{
+  "Status": "FAIL_NATIVE_PACKET",
+  "DriverCases": 1,
+  "DriverCasePassed": 0,
+  "SuccessfulDriverCases": 1,
+  "RawEtfPairsCompared": 0,
+  "RawEtfEqual": 0,
+  "Checks": 1,
+  "Passed": 0,
+  "SealedOriginalsUnchanged": true,
+  "Cases": [
+    {
+      "Name": "spawned_child_metadata_stack",
+      "ExpectedSuccess": true,
+      "Passed": false,
+      "InputBefore": {
+        "include/metadata.hrl": "18136B3F556978BEF34AE082545496C91300CDAC3DFB60FBA2519855B8C645BC",
+        "src/driver_case.erl": "C2F8016C6D48D346037C126EBF5C1835E073F5D79566AB0C7BF1A00D71C7BE4F"
+      },
+      "Error": "RuntimeError('Unexpected owned process outcome: managed-observer')",
+      "InputAfter": {
+        "include/metadata.hrl": "18136B3F556978BEF34AE082545496C91300CDAC3DFB60FBA2519855B8C645BC",
+        "src/driver_case.erl": "C2F8016C6D48D346037C126EBF5C1835E073F5D79566AB0C7BF1A00D71C7BE4F"
+      },
+      "InputUnchanged": true,
+      "SentinelAbsentAtSettlement": true
+    }
+  ],
+  "Processes": [
+    {
+      "Name": "driver",
+      "Receipt": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-child-stack-execution1\\cases\\spawned_child_metadata_stack\\driver.exit.json",
+      "ExpectedExit": 0,
+      "HelperRaised": null
+    },
+    {
+      "Name": "original-observer",
+      "Receipt": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-child-stack-execution1\\cases\\spawned_child_metadata_stack\\original-observer.exit.json",
+      "ExpectedExit": 0,
+      "HelperRaised": null
+    },
+    {
+      "Name": "managed-observer",
+      "Receipt": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-child-stack-execution1\\cases\\spawned_child_metadata_stack\\managed-observer.exit.json",
+      "ExpectedExit": 0,
+      "HelperRaised": "RuntimeError('Owned stage failed; all available raw evidence retained: managed-observer')"
+    }
+  ],
+  "No40ComparisonClaim": true,
+  "NotProductionDriverIntegration": true,
+  "StackFieldsRemovedOrNormalized": false
+}

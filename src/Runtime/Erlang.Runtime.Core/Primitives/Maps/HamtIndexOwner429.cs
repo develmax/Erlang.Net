@@ -64,7 +64,7 @@ internal sealed class HamtIndexOwner429(ProcessRuntime runtime)
             // No owner lock is held while the actual runtime/hash identity
             // provider takes its runtime or KnownNodes locks.
             using var hashes = runtime.MapHashIdentityProvider(OtpMapHashLayoutProtocol.Append);
-            HamtViewEntry[] entries = map.Entries.Select(pair => new HamtViewEntry(pair, hashes.Hash(pair.Key))).ToArray();
+            HamtViewEntry[] entries = map.ArithmeticKeyEntries.Select(pair => new HamtViewEntry(pair, hashes.Hash(pair.Key))).ToArray();
             HamtHashLeases429 ownership = hashes.TransferHamtLeases429(this);
             try
             {

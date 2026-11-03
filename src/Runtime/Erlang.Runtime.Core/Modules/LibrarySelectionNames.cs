@@ -10,7 +10,8 @@ internal static class LibrarySelectionNames
         ProplistModuleNames.Module,
         OrdsetCoreNames.Module,
         MapModuleNames.Module,
-        BinaryModuleNames.Module
+        BinaryModuleNames.Module,
+        MathNativeNames.Module
     ];
     internal const string Request = "Invalid startup library selection";
     internal const string BeamOnly = "Selected library requires the original BEAM backend";

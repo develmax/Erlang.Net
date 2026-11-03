@@ -1,0 +1,21 @@
+{
+  "Status": "FAILED_NOOP_HARNESS_INPUT_SET_CHANGED",
+  "RequestDiff": {
+    "ReservedOutputPaths": {
+      "Before": [
+        "Directory.Build.props",
+        "Modules/beam-build-state.json",
+        "Source/resource378.erl"
+      ],
+      "After": [
+        "Directory.Build.props",
+        "Modules/beam-build-state.json",
+        "Source/resource378.erl",
+        "actual-tool.txt"
+      ]
+    }
+  },
+  "Reason": "The probe wrote actual-tool.txt inside the consumer after its first evaluation. The next evaluation correctly admitted a new ordinary SDK copy destination, invalidating the resource request. Move the diagnostic marker outside the consumer in a fresh successor; do not weaken cache input identity.",
+  "NativeSourceChildren": 2,
+  "NativeApplicationChildren": 3
+}

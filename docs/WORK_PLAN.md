@@ -1,3 +1,7 @@
+## Current package execution plan — 2026-11-03
+
+Apply the [batched validation policy](engineering/BATCHED_VALIDATION_POLICY.md) to the existing closure matrix and remaining-work queue. Plan connected large packages with approximately 60% new API/capability work including complete validation and 40% existing-contract closure. Declare dependencies and focused iteration checks; freeze and run one complete ready-package gate. Implement four or five balanced independent groups, one minimal read-only build payload per compatible matrix boundary and strict exact-catalog aggregation; measure total setup/build/materialization/execution/cleanup against an equivalent serial baseline, with approximately 20 minutes as a goal. Existing mandatory CI stays active until the reviewed replacement and required statuses are operational; post-merge deduplication is conditional on complete equivalence proof. CI owner (#102, w-docs) implements CI/helpers. Show stage, completion denominator, API/full-contract deltas, remaining obligations and next measurable result. This planning update grants no compatibility credit.
+
 ## Mandatory acceptance of all 24 known differences — 2026-10-30
 
 Finish and verify every remaining Known-difference API against pinned original OTP 29.1.1 (`ad05823719d77c8faee87348ea39513d4e2f99c5`). Reuse the existing [24-contract closure matrix](remaining-work/contracts-24/current-closure/README.md), its partitions and the existing remaining-work queue; do not create a parallel queue.

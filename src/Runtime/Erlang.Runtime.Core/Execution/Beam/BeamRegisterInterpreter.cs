@@ -518,7 +518,18 @@ internal static partial class BeamRegisterInterpreter
                             }
                             if (!missingExact)
                             {
-                                var constructedMap = new MapTerm(entries);
+                                bool dynamicSinglePut = instruction.Definition.Name == BeamGeneralOpcodeNames.MapAssociate
+                                    && operands.Count == BeamMapOperands.SinglePutOperandCount
+                                    && operands[BeamMapOperands.FirstKeyIndex].Kind is not (BeamOperandParameters.Atom or BeamOperandParameters.Nil
+                                        or BeamOperandParameters.Integer or BeamOperandParameters.LiteralValue);
+                                var constructedMap = dynamicSinglePut
+                                    ? RuntimeMapPut.Put(
+                                        context.Runtime,
+                                        sourceMap,
+                                        Read(code, registers, operands[BeamMapOperands.FirstKeyIndex]),
+                                        Read(code, registers, operands[BeamMapOperands.FirstValueIndex])
+                                    )
+                                    : new MapTerm(entries);
                                 if (instruction.Definition.Name == BeamGeneralOpcodeNames.MapAssociate
                                     && code.LoaderMapKeys565.TryGetValue(instruction.Offset, out TupleTerm? literalKeys))
                                 {

@@ -1,0 +1,47 @@
+{
+  "Passed": true,
+  "PackageSha256": "63BE1AB34C90CA9EFBEF29920A7418569E0C341281950923C2BCF5DC1E2668D5",
+  "RuntimeSha256": "9E3E219BC266BD55A16ED8A89FD395DEF677560CBDB7725970EAAA2600CAD295",
+  "Results": [
+    {
+      "Command": [
+        "C:/Program Files/dotnet/dotnet.exe",
+        "restore",
+        "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library375-implementation\\package-selector-consumer\\Consumer.csproj",
+        "--configfile",
+        "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library375-implementation\\package-selector-consumer\\NuGet.Config",
+        "--force"
+      ],
+      "ExitCode": 0,
+      "Stdout": "  \u041e\u043f\u0440\u0435\u0434\u0435\u043b\u0435\u043d\u0438\u0435 \u043f\u0440\u043e\u0435\u043a\u0442\u043e\u0432 \u0434\u043b\u044f \u0432\u043e\u0441\u0441\u0442\u0430\u043d\u043e\u0432\u043b\u0435\u043d\u0438\u044f...\n  \u0412\u043e\u0441\u0441\u0442\u0430\u043d\u043e\u0432\u043b\u0435\u043d D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library375-implementation\\package-selector-consumer\\Consumer.csproj (\u0437\u0430 382\u00a0\u043c\u0441).\n",
+      "Stderr": ""
+    },
+    {
+      "Command": [
+        "C:/Program Files/dotnet/dotnet.exe",
+        "build",
+        "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library375-implementation\\package-selector-consumer\\Consumer.csproj",
+        "-m:1",
+        "--no-restore",
+        "--disable-build-servers",
+        "-nr:false",
+        "--nologo",
+        "-p:UseSharedCompilation=false"
+      ],
+      "ExitCode": 0,
+      "Stdout": "  Consumer -> D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library375-implementation\\package-selector-consumer\\bin\\Debug\\net10.0\\Consumer.dll\n\n\u0421\u0431\u043e\u0440\u043a\u0430 \u0443\u0441\u043f\u0435\u0448\u043d\u043e \u0437\u0430\u0432\u0435\u0440\u0448\u0435\u043d\u0430.\n    \u041f\u0440\u0435\u0434\u0443\u043f\u0440\u0435\u0436\u0434\u0435\u043d\u0438\u0439: 0\n    \u041e\u0448\u0438\u0431\u043e\u043a: 0\n\n\u041f\u0440\u043e\u0448\u043b\u043e \u0432\u0440\u0435\u043c\u0435\u043d\u0438 00:00:02.49\n",
+      "Stderr": ""
+    },
+    {
+      "Command": [
+        "C:/Program Files/dotnet/dotnet.exe",
+        "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library375-implementation\\package-selector-consumer\\bin\\Debug\\net10.0\\Consumer.dll",
+        "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Resources\\Beam\\otp_lists374.beam",
+        "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Resources\\Beam\\otp_queue373.beam"
+      ],
+      "ExitCode": 0,
+      "Stdout": "PACKAGED_SELECTOR_BEAM_PASS\n",
+      "Stderr": ""
+    }
+  ]
+}

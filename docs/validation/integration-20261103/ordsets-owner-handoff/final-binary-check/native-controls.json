@@ -1,0 +1,336 @@
+{
+  "Partial": true,
+  "SelectedCount": 54,
+  "TotalCount": 9666,
+  "Blocks": [],
+  "ExactCases": [
+    "compiler/comparison482/failable-bif-roots-refused",
+    "compiler/comparison482/opaque-operand-refused",
+    "compiler/comparison482/original-crashdump-image-publication",
+    "compiler/comparison482/out-of-range-destination-refused",
+    "compiler/comparison482/uninitialized-gc-roots-refused",
+    "compiler/comparison482/uninitialized-operand-refused",
+    "compiler/frame481/context-forgery-overwrite-position-and-cycle-refused",
+    "compiler/frame481/finite-swap-before-caught-exit",
+    "compiler/frame481/nil-atom-context-forwarding-resume-and-nofail",
+    "compiler/frame481/original-ssl-and-leex-publication",
+    "compiler/frame481/swap-return-uninitialized-and-unknown-tail-refused",
+    "host/nif-map-family504/arrays-aliases",
+    "host/nif-map-family504/copy-boundaries-owners",
+    "host/nif-map-family504/invalid-owners-threads",
+    "host/nif-map-family504/mutation-output",
+    "host/nif-map-family504/pending-values-replacement",
+    "map-size528/retained-hamt-words-and-cleanup-pass",
+    "oracle/compiled-module/comparison482-eight-bifs-whole-values-and-stacks",
+    "oracle/compiled-module/comparison482-original-crashdump-whole-values-and-stacks",
+    "oracle/compiled-module/erlang-match-flatmap-dynamic-a-before-z",
+    "oracle/compiled-module/erlang-match-flatmap-dynamic-diagnostic-order",
+    "oracle/compiled-module/erlang-match-flatmap-dynamic-z-before-a",
+    "oracle/compiled-module/erlang-match-flatmap-mixed-numeric-atom-actions",
+    "oracle/compiled-module/erlang-match-flatmap-numeric-diagnostic-order",
+    "oracle/compiled-module/erlang-match-flatmap-numeric-nested-tuple-actions",
+    "oracle/compiled-module/erlang-match-flatmap-numeric-reverse-construction",
+    "oracle/compiled-module/erlang-match-flatmap-numeric-three-actions",
+    "oracle/compiled-module/erlang-match-spec-table-numeric-equality",
+    "oracle/compiled-module/erlang-native-record-numeric-equality",
+    "oracle/compiled-module/frame481-context-forwarding-whole-values-and-stacks",
+    "oracle/compiled-module/frame481-original-ssl-extensions-whole-values-and-stacks",
+    "oracle/compiled-module/frame481-record-throw-whole-values-effects-and-stacks",
+    "oracle/compiled-module/hamt430-native3-all258-raw-full-stacks-and-own4",
+    "oracle/compiled-module/process-error-handler-exported-external-fun-entry",
+    "runtime/beam-fun-entry-pending-purge-active-continuation",
+    "runtime/hamt429-concurrent-publication-held-read-runtime-close",
+    "runtime/hamt429-owned-index-cursor-lookup-and-child-identities",
+    "runtime/hamt429-real-map-gc-escaped-node-epoch-release",
+    "runtime/hamt430-real-native-children-census-is-map-and-same",
+    "runtime/hamt430-real-word-view-identity-type-protocol-and-errors",
+    "runtime/library390/maps-own-atom-layout-and-hamt-chunks",
+    "runtime/library407/fun-entry-load-purge-without-construction-history",
+    "runtime/library407/fun-entry-prepare-and-publication-preflight-boundaries",
+    "runtime/library407/fun-entry-publication-safe-external-lock-order",
+    "runtime/library407/original-beam-restored-fun-entry-and-purge",
+    "runtime/local-node-identity-foundation-native-map-order",
+    "runtime/map517/hamt-node-custody",
+    "runtime/map523/all-flat-hamt-boundaries-adopt-import-escape",
+    "runtime/native-map510/composed-major-binary-lease-hidden-leaf-and-source-close",
+    "runtime/native-map510/flat-duplicate-occurrences-detach",
+    "runtime/native-map510/foreign-domain-fails-closed",
+    "runtime/native-map510/hidden-hamt-roots-and-topology",
+    "runtime/review498-imported-flat-map-copy",
+    "terms/exact-numeric-equality"
+  ],
+  "Passed": 54,
+  "Failed": 0,
+  "Tests": [
+    {
+      "Name": "oracle/compiled-module/frame481-context-forwarding-whole-values-and-stacks",
+      "Status": "Passed",
+      "Milliseconds": 1378
+    },
+    {
+      "Name": "oracle/compiled-module/frame481-record-throw-whole-values-effects-and-stacks",
+      "Status": "Passed",
+      "Milliseconds": 307
+    },
+    {
+      "Name": "oracle/compiled-module/frame481-original-ssl-extensions-whole-values-and-stacks",
+      "Status": "Passed",
+      "Milliseconds": 1477
+    },
+    {
+      "Name": "compiler/frame481/original-ssl-and-leex-publication",
+      "Status": "Passed",
+      "Milliseconds": 689
+    },
+    {
+      "Name": "oracle/compiled-module/comparison482-eight-bifs-whole-values-and-stacks",
+      "Status": "Passed",
+      "Milliseconds": 342
+    },
+    {
+      "Name": "oracle/compiled-module/comparison482-original-crashdump-whole-values-and-stacks",
+      "Status": "Passed",
+      "Milliseconds": 824
+    },
+    {
+      "Name": "compiler/comparison482/original-crashdump-image-publication",
+      "Status": "Passed",
+      "Milliseconds": 468
+    },
+    {
+      "Name": "compiler/comparison482/uninitialized-operand-refused",
+      "Status": "Passed",
+      "Milliseconds": 104
+    },
+    {
+      "Name": "compiler/comparison482/opaque-operand-refused",
+      "Status": "Passed",
+      "Milliseconds": 108
+    },
+    {
+      "Name": "compiler/comparison482/uninitialized-gc-roots-refused",
+      "Status": "Passed",
+      "Milliseconds": 98
+    },
+    {
+      "Name": "compiler/comparison482/failable-bif-roots-refused",
+      "Status": "Passed",
+      "Milliseconds": 106
+    },
+    {
+      "Name": "compiler/comparison482/out-of-range-destination-refused",
+      "Status": "Passed",
+      "Milliseconds": 106
+    },
+    {
+      "Name": "compiler/frame481/nil-atom-context-forwarding-resume-and-nofail",
+      "Status": "Passed",
+      "Milliseconds": 133
+    },
+    {
+      "Name": "compiler/frame481/context-forgery-overwrite-position-and-cycle-refused",
+      "Status": "Passed",
+      "Milliseconds": 7
+    },
+    {
+      "Name": "compiler/frame481/finite-swap-before-caught-exit",
+      "Status": "Passed",
+      "Milliseconds": 97
+    },
+    {
+      "Name": "compiler/frame481/swap-return-uninitialized-and-unknown-tail-refused",
+      "Status": "Passed",
+      "Milliseconds": 1
+    },
+    {
+      "Name": "runtime/hamt429-owned-index-cursor-lookup-and-child-identities",
+      "Status": "Passed",
+      "Milliseconds": 219
+    },
+    {
+      "Name": "runtime/hamt429-real-map-gc-escaped-node-epoch-release",
+      "Status": "Passed",
+      "Milliseconds": 118
+    },
+    {
+      "Name": "runtime/hamt429-concurrent-publication-held-read-runtime-close",
+      "Status": "Passed",
+      "Milliseconds": 137
+    },
+    {
+      "Name": "runtime/hamt430-real-native-children-census-is-map-and-same",
+      "Status": "Passed",
+      "Milliseconds": 144
+    },
+    {
+      "Name": "runtime/hamt430-real-word-view-identity-type-protocol-and-errors",
+      "Status": "Passed",
+      "Milliseconds": 199
+    },
+    {
+      "Name": "oracle/compiled-module/hamt430-native3-all258-raw-full-stacks-and-own4",
+      "Status": "Passed",
+      "Milliseconds": 5365
+    },
+    {
+      "Name": "runtime/library407/fun-entry-load-purge-without-construction-history",
+      "Status": "Passed",
+      "Milliseconds": 54
+    },
+    {
+      "Name": "runtime/library407/fun-entry-prepare-and-publication-preflight-boundaries",
+      "Status": "Passed",
+      "Milliseconds": 63
+    },
+    {
+      "Name": "runtime/library407/fun-entry-publication-safe-external-lock-order",
+      "Status": "Passed",
+      "Milliseconds": 50
+    },
+    {
+      "Name": "runtime/library407/original-beam-restored-fun-entry-and-purge",
+      "Status": "Passed",
+      "Milliseconds": 74
+    },
+    {
+      "Name": "runtime/library390/maps-own-atom-layout-and-hamt-chunks",
+      "Status": "Passed",
+      "Milliseconds": 2469
+    },
+    {
+      "Name": "runtime/beam-fun-entry-pending-purge-active-continuation",
+      "Status": "Passed",
+      "Milliseconds": 213
+    },
+    {
+      "Name": "terms/exact-numeric-equality",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-native-record-numeric-equality",
+      "Status": "Passed",
+      "Milliseconds": 186
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-match-spec-table-numeric-equality",
+      "Status": "Passed",
+      "Milliseconds": 137
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-match-flatmap-numeric-reverse-construction",
+      "Status": "Passed",
+      "Milliseconds": 125
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-match-flatmap-numeric-three-actions",
+      "Status": "Passed",
+      "Milliseconds": 123
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-match-flatmap-mixed-numeric-atom-actions",
+      "Status": "Passed",
+      "Milliseconds": 125
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-match-flatmap-dynamic-z-before-a",
+      "Status": "Passed",
+      "Milliseconds": 158
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-match-flatmap-dynamic-a-before-z",
+      "Status": "Passed",
+      "Milliseconds": 164
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-match-flatmap-numeric-diagnostic-order",
+      "Status": "Passed",
+      "Milliseconds": 153
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-match-flatmap-dynamic-diagnostic-order",
+      "Status": "Passed",
+      "Milliseconds": 174
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-match-flatmap-numeric-nested-tuple-actions",
+      "Status": "Passed",
+      "Milliseconds": 127
+    },
+    {
+      "Name": "oracle/compiled-module/process-error-handler-exported-external-fun-entry",
+      "Status": "Passed",
+      "Milliseconds": 173
+    },
+    {
+      "Name": "runtime/local-node-identity-foundation-native-map-order",
+      "Status": "Passed",
+      "Milliseconds": 128
+    },
+    {
+      "Name": "runtime/map517/hamt-node-custody",
+      "Status": "Passed",
+      "Milliseconds": 102
+    },
+    {
+      "Name": "runtime/map523/all-flat-hamt-boundaries-adopt-import-escape",
+      "Status": "Passed",
+      "Milliseconds": 106
+    },
+    {
+      "Name": "map-size528/retained-hamt-words-and-cleanup-pass",
+      "Status": "Passed",
+      "Milliseconds": 99
+    },
+    {
+      "Name": "runtime/native-map510/flat-duplicate-occurrences-detach",
+      "Status": "Passed",
+      "Milliseconds": 89
+    },
+    {
+      "Name": "runtime/native-map510/hidden-hamt-roots-and-topology",
+      "Status": "Passed",
+      "Milliseconds": 93
+    },
+    {
+      "Name": "runtime/native-map510/foreign-domain-fails-closed",
+      "Status": "Passed",
+      "Milliseconds": 180
+    },
+    {
+      "Name": "runtime/native-map510/composed-major-binary-lease-hidden-leaf-and-source-close",
+      "Status": "Passed",
+      "Milliseconds": 96
+    },
+    {
+      "Name": "host/nif-map-family504/mutation-output",
+      "Status": "Passed",
+      "Milliseconds": 134
+    },
+    {
+      "Name": "host/nif-map-family504/arrays-aliases",
+      "Status": "Passed",
+      "Milliseconds": 88
+    },
+    {
+      "Name": "host/nif-map-family504/pending-values-replacement",
+      "Status": "Passed",
+      "Milliseconds": 96
+    },
+    {
+      "Name": "host/nif-map-family504/copy-boundaries-owners",
+      "Status": "Passed",
+      "Milliseconds": 108
+    },
+    {
+      "Name": "host/nif-map-family504/invalid-owners-threads",
+      "Status": "Passed",
+      "Milliseconds": 193
+    },
+    {
+      "Name": "runtime/review498-imported-flat-map-copy",
+      "Status": "Passed",
+      "Milliseconds": 188
+    }
+  ]
+}

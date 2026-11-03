@@ -14,7 +14,8 @@ internal static class MfaCompatibility
         string docs,
         string tag,
         string commit,
-        IReadOnlySet<string> registered
+        IReadOnlySet<string> registered,
+        bool validateSourceBindings = true
     )
     {
         MfaCompatibilityLedger ledger;
@@ -65,7 +66,8 @@ internal static class MfaCompatibility
                     Sha256 = source.Sha256,
                     Scope = MfaCompatibilityNames.SourceBindingScope
                 },
-                evidenceHashes
+                evidenceHashes,
+                validateSourceBindings
             );
         }
         if (!found.SetEquals(registered))
@@ -74,13 +76,21 @@ internal static class MfaCompatibility
         return ledger;
     }
 
-    private static void ValidateEvidence(string docs, MfaCompatibilityEvidence evidence, Dictionary<string, string> hashes)
+    private static void ValidateEvidence(
+        string docs,
+        MfaCompatibilityEvidence evidence,
+        Dictionary<string, string> hashes,
+        bool validateFile = true
+    )
     {
         if (evidence is null || evidence.Kind is not (MfaCompatibilityNames.OriginalComparison or MfaCompatibilityNames.Audit or MfaCompatibilityNames.SourceReview or MfaCompatibilityNames.LocalValidation) ||
             string.IsNullOrWhiteSpace(evidence.Scope) || string.IsNullOrWhiteSpace(evidence.Path) ||
             System.IO.Path.IsPathRooted(evidence.Path) || evidence.Path.Split('/', '\\').Any(part => part is ".." or "." or "") ||
             evidence.Sha256 is null || evidence.Sha256.Length != MfaCompatibilityNames.Sha256Length || evidence.Sha256.Any(value => !char.IsAsciiHexDigit(value)))
             throw new InvalidOperationException(MfaCompatibilityNames.Invalid);
+        if (!validateFile)
+            return;
+
         string root = System.IO.Path.TrimEndingDirectorySeparator(System.IO.Path.GetFullPath(docs)) + System.IO.Path.DirectorySeparatorChar;
         string path = System.IO.Path.GetFullPath(System.IO.Path.Combine(docs, evidence.Path));
         if (!path.StartsWith(root, StringComparison.OrdinalIgnoreCase) || !File.Exists(path))

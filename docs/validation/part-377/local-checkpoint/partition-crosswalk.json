@@ -1,0 +1,1636 @@
+{
+  "Status": "SEALED_FINAL_PASSIVE_PARTITION_AUDIT4_36OF40_NO_BLANKET100",
+  "RequiredPartitionCount": 40,
+  "Counts": {
+    "FULL": 36,
+    "PARTIAL": 4
+  },
+  "Rubric": "FULL means named RequiredObservation is actually covered at stated evidence layer only, never complete language/API/stage compatibility. PARTIAL includes source-only/component/synthetic/historical/incomplete branch controls. UNEXECUTED means no actual required observation; related receipts may exist but are explicitly insufficient.",
+  "CurrentToolSha256": "EA6DA4CEA80719052C3B867604E05D8FFA7442B482A44C727BF450B633F662DC",
+  "NativeOwnedReceiptsPassivelyVerified": 38,
+  "NativeRawEtfPairsPassivelyVerified": 7,
+  "Partitions": [
+    {
+      "Group": "original-preprocessor-and-runtime",
+      "Name": "constant_header_macro",
+      "SourceDerivedReason": "epp define expansion",
+      "RequiredObservation": "Original epp forms+original/managed compiled call outcome agree.",
+      "Executed": true,
+      "Status": "FULL",
+      "ActualEvidence": [
+        "artifacts/library377-implementation/native-controls1/completion.json"
+      ],
+      "ObservedAssertions": "nested_header: original epp forms retained and seven-case rawETF packet includes nested constant expansion.",
+      "RemainingMinimalControl": null
+    },
+    {
+      "Group": "original-preprocessor-and-runtime",
+      "Name": "function_like_macro",
+      "SourceDerivedReason": "epp expands source-defined parameter macros",
+      "RequiredObservation": "Argument substitution and nested macro output observed, not just BEAM acceptance.",
+      "Executed": true,
+      "Status": "FULL",
+      "ActualEvidence": [
+        "artifacts/library377-implementation/native-controls1/completion.json",
+        "artifacts/library377-missing-native-execution1/completion.json"
+      ],
+      "ObservedAssertions": "Actual19packet scoped observation: nested_parameter_macro. All12successful original/.NET rawETF pairs equal; complete native diagnostic artifacts retained for expected negatives. Aggregate packet FAIL18/19 is preserved because separate unused malformed macro expectation was wrong, not reclassified pass.",
+      "RemainingMinimalControl": null
+    },
+    {
+      "Group": "original-preprocessor-and-runtime",
+      "Name": "conditional_defined_undefined",
+      "SourceDerivedReason": "epp macro environment includes typed request predefs",
+      "RequiredObservation": "Both source branches with changed definitions yield original outcomes.",
+      "Executed": true,
+      "Status": "FULL",
+      "ActualEvidence": [
+        "artifacts/library377-implementation/native-controls1/completion.json",
+        "artifacts/library377-missing-native-execution1/completion.json"
+      ],
+      "ObservedAssertions": "Actual19packet scoped observation: ifdef_present and ifdef_absent with native distinct bytes. All12successful original/.NET rawETF pairs equal; complete native diagnostic artifacts retained for expected negatives. Aggregate packet FAIL18/19 is preserved because separate unused malformed macro expectation was wrong, not reclassified pass.",
+      "RemainingMinimalControl": null
+    },
+    {
+      "Group": "original-preprocessor-and-runtime",
+      "Name": "undef_then_redefine",
+      "SourceDerivedReason": "epp macro state mutates in source order",
+      "RequiredObservation": "Correct final expansion and duplicate definition diagnostics.",
+      "Executed": true,
+      "Status": "FULL",
+      "ActualEvidence": [
+        "artifacts/library377-missing-native-execution1/completion.json"
+      ],
+      "ObservedAssertions": "Actual19packet scoped observation: undef_then_redefine plus duplicate_source_define_diagnostic. All12successful original/.NET rawETF pairs equal; complete native diagnostic artifacts retained for expected negatives. Aggregate packet FAIL18/19 is preserved because separate unused malformed macro expectation was wrong, not reclassified pass.",
+      "RemainingMinimalControl": null
+    },
+    {
+      "Group": "original-preprocessor-and-runtime",
+      "Name": "builtin_file_line_module_function",
+      "SourceDerivedReason": "epp predefined and per-file annotations",
+      "RequiredObservation": "Stable relative FILE, actual LINE/MODULE/FUNCTION_NAME/FUNCTION_ARITY plus full compiled error metadata.",
+      "Executed": true,
+      "Status": "FULL",
+      "ActualEvidence": [
+        "artifacts/library377-implementation/native-controls1/completion.json",
+        "artifacts/library377-missing-native-execution1/completion.json",
+        "artifacts/library377-child-stack-execution1/completion.json",
+        "artifacts/library377-leaf-stack-execution2/completion.json"
+      ],
+      "ObservedAssertions": "All5builtin values measured in native semanticpacket; new guest ONLY metadata_fail/0 has headerbuiltin reason. Actual native spawn_monitor DOWN reason and .NET ProcessHandle.Completion WHOLE reason match rawETF including nonempty complete leaf stack/file/line. No frame stripping. Earlier try/receive full-program linker rejection remains separate unsupported-control-flow gate.",
+      "RemainingMinimalControl": null,
+      "FixtureScope": "Actual uncaught leaf process error metadata/entire stack only; does not certify arbitrary try/receive programs."
+    },
+    {
+      "Group": "original-preprocessor-and-runtime",
+      "Name": "nested_include_current_directory",
+      "SourceDerivedReason": "epp enter_file2 replaces dynamic head",
+      "RequiredObservation": "Two same-name headers in different directories select exactly pinned current-header-directory behavior.",
+      "Executed": true,
+      "Status": "FULL",
+      "ActualEvidence": [
+        "artifacts/library377-implementation/native-controls1/completion.json",
+        "artifacts/library377-missing-native-execution1/completion.json"
+      ],
+      "ObservedAssertions": "Actual19packet scoped observation: nested_dynamic_head_replacement competing3locations. All12successful original/.NET rawETF pairs equal; complete native diagnostic artifacts retained for expected negatives. Aggregate packet FAIL18/19 is preserved because separate unused malformed macro expectation was wrong, not reclassified pass.",
+      "RemainingMinimalControl": null
+    },
+    {
+      "Group": "original-preprocessor-and-runtime",
+      "Name": "effective_include_order_shadow",
+      "SourceDerivedReason": "epp path_open list order",
+      "RequiredObservation": "Two declared search roots with same header; swap explicit roots and prove each selected output.",
+      "Executed": true,
+      "Status": "FULL",
+      "ActualEvidence": [
+        "artifacts/library377-implementation/input-probes2/results.json",
+        "artifacts/library377-missing-native-execution1/completion.json"
+      ],
+      "ObservedAssertions": "Actual19packet scoped observation: search_left_first/search_right_first actual native outputs distinct. All12successful original/.NET rawETF pairs equal; complete native diagnostic artifacts retained for expected negatives. Aggregate packet FAIL18/19 is preserved because separate unused malformed macro expectation was wrong, not reclassified pass.",
+      "RemainingMinimalControl": null
+    },
+    {
+      "Group": "original-preprocessor-and-runtime",
+      "Name": "adjacent_include_strings",
+      "SourceDerivedReason": "epp coalesce_strings precedes literal match",
+      "RequiredObservation": "Same source behavior for adjacent literal string tokens; no substring parser approximation.",
+      "Executed": true,
+      "Status": "FULL",
+      "ActualEvidence": [
+        "artifacts/library377-missing-native-execution1/completion.json"
+      ],
+      "ObservedAssertions": "Actual19packet scoped observation: adjacent_literal_include_strings. All12successful original/.NET rawETF pairs equal; complete native diagnostic artifacts retained for expected negatives. Aggregate packet FAIL18/19 is preserved because separate unused malformed macro expectation was wrong, not reclassified pass.",
+      "RemainingMinimalControl": null
+    },
+    {
+      "Group": "original-preprocessor-and-runtime",
+      "Name": "guarded_repeat_include",
+      "SourceDerivedReason": "epp conditional macro state spans included files",
+      "RequiredObservation": "Header guard handles repeated include without manual graph-cycle refusal.",
+      "Executed": true,
+      "Status": "FULL",
+      "ActualEvidence": [
+        "artifacts/library377-missing-native-execution1/completion.json"
+      ],
+      "ObservedAssertions": "Actual19packet scoped observation: guarded_repeated_include. All12successful original/.NET rawETF pairs equal; complete native diagnostic artifacts retained for expected negatives. Aggregate packet FAIL18/19 is preserved because separate unused malformed macro expectation was wrong, not reclassified pass.",
+      "RemainingMinimalControl": null
+    },
+    {
+      "Group": "original-preprocessor-and-runtime",
+      "Name": "nested_include_depth_boundary",
+      "SourceDerivedReason": "epp rejects when saved include stack length reaches eight",
+      "RequiredObservation": "Original returned error and complete location captured for just-under/at/over depth.",
+      "Executed": true,
+      "Status": "FULL",
+      "ActualEvidence": [
+        "artifacts/library377-missing-native-execution1/completion.json"
+      ],
+      "ObservedAssertions": "Actual19packet scoped observation: include_depth_7 and8 actualsuccess,9 diagnostic CompileInvoked=false. All12successful original/.NET rawETF pairs equal; complete native diagnostic artifacts retained for expected negatives. Aggregate packet FAIL18/19 is preserved because separate unused malformed macro expectation was wrong, not reclassified pass.",
+      "RemainingMinimalControl": null
+    },
+    {
+      "Group": "original-preprocessor-and-runtime",
+      "Name": "header_syntax_error",
+      "SourceDerivedReason": "epp returns structured file/line error forms",
+      "RequiredObservation": "No compile:forms invocation, complete native diagnostic retained, no manifest promotion.",
+      "Executed": true,
+      "Status": "FULL",
+      "ActualEvidence": [
+        "artifacts/library377-missing-native-execution1/completion.json",
+        "artifacts/library377-header-diagnostic-execution1/completion.json"
+      ],
+      "ObservedAssertions": "Corrected onecase -define(VALUE). produces actual native epp baddefine error at include/broken.hrl line1; CompileInvoked=false, rawEPP ETF unchanged. Previous unused malformed macro expectation failure retained, not reclassified.",
+      "RemainingMinimalControl": null
+    },
+    {
+      "Group": "original-preprocessor-and-runtime",
+      "Name": "undefined_macro_error",
+      "SourceDerivedReason": "epp macro definition failure",
+      "RequiredObservation": "Original diagnostic file/line/name retained; no fallback compilation.",
+      "Executed": true,
+      "Status": "FULL",
+      "ActualEvidence": [
+        "artifacts/library377-implementation/native-controls1/completion.json"
+      ],
+      "ObservedAssertions": "undefined_macro actual expanded_form_policy refusal, CompileInvoked=false; raw193byte EppResult ETF retained.",
+      "RemainingMinimalControl": null
+    },
+    {
+      "Group": "cache-and-dependency-identity",
+      "Name": "unchanged_rebuild",
+      "SourceDerivedReason": "complete captured bytes and config unchanged",
+      "RequiredObservation": "Executed child compilers=0; output/module digest verified.",
+      "Executed": true,
+      "Status": "FULL",
+      "ActualEvidence": [
+        "artifacts/library377-cli-cache-controls1/completion.json"
+      ],
+      "ObservedAssertions": "All nine realCLI warm_baseline steps have zero NewNativeProcessReceipts; final/current tool SHA EA6DA4...; state/evidence real recovery tested.",
+      "RemainingMinimalControl": null
+    },
+    {
+      "Group": "cache-and-dependency-identity",
+      "Name": "direct_header_change",
+      "SourceDerivedReason": "module bytes unchanged but declared header hash changed",
+      "RequiredObservation": "Recompile; output function changes according to original.",
+      "Executed": true,
+      "Status": "FULL",
+      "ActualEvidence": [
+        "artifacts/library377-implementation/input-probes2/results.json",
+        "artifacts/library377-implementation/cli-cases1/completion.json",
+        "artifacts/library377-cache-successor-execution1/completion.json",
+        "artifacts/library377-project-cache-specifics-execution1/completion.json",
+        "artifacts/library377-final-identity-values-execution1/completion.json"
+      ],
+      "ObservedAssertions": "Retained A2module actual used-header change now observed without recompilation: both produced modules run in original observer and .NET replay;2wholeETF pairs equal independent required {ok,{first,changed_header}}. Earlier2compiler/headerhash invalidation evidence retained.",
+      "RemainingMinimalControl": null
+    },
+    {
+      "Group": "cache-and-dependency-identity",
+      "Name": "transitive_header_change",
+      "SourceDerivedReason": "header includes header; complete closure captured",
+      "RequiredObservation": "Recompile even when root source and direct header bytes unchanged.",
+      "Executed": true,
+      "Status": "FULL",
+      "ActualEvidence": [
+        "artifacts/library377-implementation/cli-cases1/completion.json",
+        "artifacts/library377-implementation/msbuild-controls1/completion.json"
+      ],
+      "ObservedAssertions": "Final MSBuild transitive-header change and restore compile and actual away-run values pass, preserving root/direct headers. Sevenbranches21steps current source control packet, separately scoped from original equivalence.",
+      "RemainingMinimalControl": null
+    },
+    {
+      "Group": "cache-and-dependency-identity",
+      "Name": "unused_declared_header_change",
+      "SourceDerivedReason": "V1 conservatively hashes complete declared closure",
+      "RequiredObservation": "All modules invalidated; explicit correctness/performance boundary.",
+      "Executed": true,
+      "Status": "FULL",
+      "ActualEvidence": [
+        "artifacts/library377-cache-successor-execution1/completion.json",
+        "artifacts/library377-project-cache-specifics-execution1/completion.json"
+      ],
+      "ObservedAssertions": "Actual A2module global closure: unused_changed executes2compilers/skips0, new global fingerprint, BEAM identities same; final_warm executes0/skips2. No whole performance claim.",
+      "RemainingMinimalControl": null
+    },
+    {
+      "Group": "cache-and-dependency-identity",
+      "Name": "declared_header_added_removed",
+      "SourceDerivedReason": "negative search candidates can change selection",
+      "RequiredObservation": "Inventory/path change invalidates; missing selected header cannot reuse cache.",
+      "Executed": true,
+      "Status": "FULL",
+      "ActualEvidence": [
+        "artifacts/library377-implementation/native-controls1/completion.json",
+        "artifacts/library377-cache-successor-execution1/completion.json",
+        "artifacts/library377-project-cache-specifics-execution1/completion.json",
+        "artifacts/library377-selected-header-removal1/completion.json"
+      ],
+      "ObservedAssertions": "Actual warm selected header declaration omission exits1 with0nativechildren and previous BEAM/state unchanged. Restored original declaration warm exits0 with0children/unchanged state. Combined actual2module unused add/remove inventory invalidation closes named partition.",
+      "RemainingMinimalControl": null
+    },
+    {
+      "Group": "cache-and-dependency-identity",
+      "Name": "include_roots_reordered",
+      "SourceDerivedReason": "ordered search path is semantic input",
+      "RequiredObservation": "Fingerprint differs even with identical set of file hashes.",
+      "Executed": true,
+      "Status": "FULL",
+      "ActualEvidence": [
+        "artifacts/library377-implementation/input-probes2/results.json"
+      ],
+      "ObservedAssertions": "fingerprint-include-directory-order actual component assertion verifies changed order affects configuration even unchanged file set.",
+      "RemainingMinimalControl": null
+    },
+    {
+      "Group": "cache-and-dependency-identity",
+      "Name": "macro_value_type_changed",
+      "SourceDerivedReason": "predefs abstract values differ by Erlang type",
+      "RequiredObservation": "atom/integer/string differences invalidate and produce native values.",
+      "Executed": true,
+      "Status": "FULL",
+      "ActualEvidence": [
+        "artifacts/library377-implementation/native-controls1/completion.json",
+        "artifacts/library377-implementation/input-probes2/results.json",
+        "artifacts/library377-cli-cache-controls1/completion.json",
+        "artifacts/library377-cache-successor-execution1/completion.json",
+        "artifacts/library377-missing-native-execution1/completion.json",
+        "artifacts/library377-project-cache-specifics-execution1/completion.json"
+      ],
+      "ObservedAssertions": "Actual B same macro transitions Atom/Integer/String/Absent each invokes1compiler; four actual original/managed WHOLE ETF pairs equal independent source-required values. Final_warm0/skips1.",
+      "RemainingMinimalControl": null
+    },
+    {
+      "Group": "cache-and-dependency-identity",
+      "Name": "macro_presence_changed",
+      "SourceDerivedReason": "undefined vs default true controls ifdef",
+      "RequiredObservation": "Adding/removing a definition invalidates, no silent true coercion.",
+      "Executed": true,
+      "Status": "FULL",
+      "ActualEvidence": [
+        "artifacts/library377-implementation/input-probes2/results.json",
+        "artifacts/library377-implementation/native-controls1/completion.json",
+        "artifacts/library377-cache-successor-execution1/completion.json",
+        "artifacts/library377-missing-native-execution1/completion.json"
+      ],
+      "ObservedAssertions": "Actual current omitted-definition cachecase invalidates and changesBEAM; independent native ifdefpresent/absent both compare raw equal and native outputs differ. Scoped presence/branch requirement observed.",
+      "RemainingMinimalControl": null
+    },
+    {
+      "Group": "cache-and-dependency-identity",
+      "Name": "driver_policy_compiler_identity_changed",
+      "SourceDerivedReason": "expanded-form policy and driver determine outputs",
+      "RequiredObservation": "New policy/driver/executable/closure identity invalidates current cache.",
+      "Executed": true,
+      "Status": "FULL",
+      "ActualEvidence": [
+        "artifacts/library377-implementation/evidence-probes1/completion.json",
+        "artifacts/library377-cli-cache-controls1/completion.json",
+        "artifacts/library377-implementation/restricted-cases1/completion.json",
+        "artifacts/library377-cache-successor-execution1/completion.json",
+        "artifacts/library377-final-identity-values-execution1/completion.json"
+      ],
+      "ObservedAssertions": "Actual private tool dependency closure identity changed by an owned unusedDLL addition: native receipt counts2cold/0warm/1changed/0finalwarm; module configuration invalidates. ToolDLL remains exact EA6...; no installed/compiler writes, no new source-policy/compiler compatibility claim. This is real ToolDependencies identity witness for the original cache-identity observation, not requirement to invent/execute future policy versions.",
+      "RemainingMinimalControl": null
+    },
+    {
+      "Group": "cache-and-dependency-identity",
+      "Name": "output_tamper",
+      "SourceDerivedReason": "existing376 ownership output digest gate",
+      "RequiredObservation": "Changed BEAM cannot be credited as unchanged successful output.",
+      "Executed": true,
+      "Status": "FULL",
+      "ActualEvidence": [
+        "artifacts/library377-implementation/evidence-probes1/completion.json",
+        "artifacts/library377-cache-successor-execution1/completion.json"
+      ],
+      "ObservedAssertions": "Actual current final_output_tampered modifies producedBEAM;1realmodulechild repairs same validoutput; warm afterchange0children. Syntheticmetadata validation is additional, no longer sole evidence.",
+      "RemainingMinimalControl": null
+    },
+    {
+      "Group": "explicit-policy-refusals",
+      "Name": "undeclared_header",
+      "SourceDerivedReason": "owned tree contains only declared closure",
+      "RequiredObservation": "Refuse before any compile/promotion; no ambient file lookup success.",
+      "Executed": true,
+      "Status": "FULL",
+      "ActualEvidence": [
+        "artifacts/library377-implementation/native-controls1/completion.json"
+      ],
+      "ObservedAssertions": "missing_declared_header raw input_admission, CompileInvoked=false, no accepted BEAM; complete input unchanged.",
+      "RemainingMinimalControl": null
+    },
+    {
+      "Group": "explicit-policy-refusals",
+      "Name": "include_escape",
+      "SourceDerivedReason": "file:path_open would otherwise reach relative paths",
+      "RequiredObservation": "Normalized candidate outside root refused explicitly.",
+      "Executed": true,
+      "Status": "FULL",
+      "ActualEvidence": [
+        "artifacts/library377-implementation/native-controls1/completion.json"
+      ],
+      "ObservedAssertions": "escape_refused actual input_admission; no compile/no input writes.",
+      "RemainingMinimalControl": null
+    },
+    {
+      "Group": "explicit-policy-refusals",
+      "Name": "include_lib_unconfigured",
+      "SourceDerivedReason": "epp can resolve code:lib_dir dynamically",
+      "RequiredObservation": "V1 unsupported diagnostic; no installed library fallback.",
+      "Executed": true,
+      "Status": "FULL",
+      "ActualEvidence": [
+        "artifacts/library377-implementation/native-controls1/completion.json",
+        "artifacts/library377-implementation/input-probes2/results.json"
+      ],
+      "ObservedAssertions": "include_lib_refused actual input_admission and component refusal; no installed library lookup fallback.",
+      "RemainingMinimalControl": null
+    },
+    {
+      "Group": "explicit-policy-refusals",
+      "Name": "environment_include",
+      "SourceDerivedReason": "epp expand_var uses inherited environment",
+      "RequiredObservation": "V1 rejects variable syntax; changing environment cannot alter outputs.",
+      "Executed": true,
+      "Status": "FULL",
+      "ActualEvidence": [
+        "artifacts/library377-implementation/native-controls1/completion.json",
+        "artifacts/library377-policy-real-controls1/completion.json"
+      ],
+      "ObservedAssertions": "Actual currentCLI environment_a/environment_b each exits1 with0nativechildren, explicit raw variableinclude refusal invariant under two controlled envvalues.",
+      "RemainingMinimalControl": null
+    },
+    {
+      "Group": "explicit-policy-refusals",
+      "Name": "transform_root_attribute",
+      "SourceDerivedReason": "compile transforms source compile attributes",
+      "RequiredObservation": "Refuse before transform callback; side-effect sentinel remains absent.",
+      "Executed": true,
+      "Status": "FULL",
+      "ActualEvidence": [
+        "artifacts/library377-implementation/native-controls1/completion.json"
+      ],
+      "ObservedAssertions": "root_transform_refused actual raw refusal, sentinel absent; separate positive compile:forms transform proves sensitivity.",
+      "RemainingMinimalControl": null
+    },
+    {
+      "Group": "explicit-policy-refusals",
+      "Name": "transform_in_active_header",
+      "SourceDerivedReason": "epp contributes source attributes from includes",
+      "RequiredObservation": "Expanded form gate refuses before transform callback/sentinel.",
+      "Executed": true,
+      "Status": "PARTIAL",
+      "ActualEvidence": [
+        "artifacts/library377-implementation/native-controls1/completion.json"
+      ],
+      "ObservedAssertions": "header_transform_refused rejects raw input_admission before EPP, sentinel absent; planned text explicitly asks expanded-form gate route.",
+      "RemainingMinimalControl": "No weakening raw admission to reach later branch. Retain later expanded-form route unexercised; earlier actual public refusal satisfies current bounded policy.",
+      "PublicPropertyStatus": "FULL_MEASURED_EARLIER_RAW_REFUSAL",
+      "DefensiveBranchCoverage": "UNEXERCISED_LATER_EXPANDED_FORM_BRANCH",
+      "IsMissingPublicRefusal": false
+    },
+    {
+      "Group": "explicit-policy-refusals",
+      "Name": "macro_generated_transform",
+      "SourceDerivedReason": "raw lexical attribute allowlist alone is insufficient",
+      "RequiredObservation": "Raw form-name macro policy or expanded-form gate refuses; no transform execution.",
+      "Executed": true,
+      "Status": "FULL",
+      "ActualEvidence": [
+        "artifacts/library377-implementation/native-controls1/completion.json"
+      ],
+      "ObservedAssertions": "macro_attribute_refused uses explicitly permitted raw macro-name refusal, sentinel absent and positive sensitivity present.",
+      "RemainingMinimalControl": null
+    },
+    {
+      "Group": "explicit-policy-refusals",
+      "Name": "request_transform_option",
+      "SourceDerivedReason": "compiler transforms options too",
+      "RequiredObservation": "Strict request schema rejects option; no arbitrary extra argument channel.",
+      "Executed": true,
+      "Status": "FULL",
+      "ActualEvidence": [
+        "artifacts/library377-implementation/native-controls1/completion.json",
+        "artifacts/library377-implementation/input-probes2/results.json"
+      ],
+      "ObservedAssertions": "unknown_key_refused rejects ExtraCompilerOptions strictschema at request phase; component unknown field also refused.",
+      "RemainingMinimalControl": null
+    },
+    {
+      "Group": "explicit-policy-refusals",
+      "Name": "on_load_attribute",
+      "SourceDerivedReason": "existing output preparation refuses on_load only after compiler",
+      "RequiredObservation": "Expanded-form gate refuses earlier and old output preparation remains mandatory.",
+      "Executed": true,
+      "Status": "PARTIAL",
+      "ActualEvidence": [
+        "artifacts/library377-implementation/native-controls1/completion.json"
+      ],
+      "ObservedAssertions": "on_load_refused raw input_admission, not observed expanded-form gate or retained output gate.",
+      "RemainingMinimalControl": "No weakening raw admission to reach later branch. Retain later expanded-form route unexercised; earlier actual public refusal satisfies current bounded policy.",
+      "PublicPropertyStatus": "FULL_MEASURED_EARLIER_RAW_REFUSAL",
+      "DefensiveBranchCoverage": "UNEXERCISED_LATER_EXPANDED_FORM_BRANCH",
+      "IsMissingPublicRefusal": false
+    },
+    {
+      "Group": "explicit-policy-refusals",
+      "Name": "case_or_reparse_alias",
+      "SourceDerivedReason": "platform paths can alias under native filesystem",
+      "RequiredObservation": "Refuse duplicate/case/reparse mapping; no duplicate logical identity.",
+      "Executed": true,
+      "Status": "FULL",
+      "ActualEvidence": [
+        "artifacts/library377-implementation/input-probes2/results.json",
+        "artifacts/library377-implementation/restricted-cases1/completion.json",
+        "artifacts/library377-policy-real-controls1/completion.json"
+      ],
+      "ObservedAssertions": "Actual CLI junction and case_alias each refuses with0nativechildren; parent-level setup/ownership exercised, not source-only aliases.",
+      "RemainingMinimalControl": null
+    },
+    {
+      "Group": "explicit-policy-refusals",
+      "Name": "duplicate_predefined_macro",
+      "SourceDerivedReason": "native epp reports redefine/predefined collisions",
+      "RequiredObservation": "No silent last-wins dedup; request/native error explicitly retained.",
+      "Executed": true,
+      "Status": "FULL",
+      "ActualEvidence": [
+        "artifacts/library377-missing-native-execution1/completion.json"
+      ],
+      "ObservedAssertions": "Actual19packet scoped observation: duplicate_request_define and predefined_module_redefinition. All12successful original/.NET rawETF pairs equal; complete native diagnostic artifacts retained for expected negatives. Aggregate packet FAIL18/19 is preserved because separate unused malformed macro expectation was wrong, not reclassified pass.",
+      "RemainingMinimalControl": null
+    },
+    {
+      "Group": "explicit-policy-refusals",
+      "Name": "inactive_unsupported_attribute",
+      "SourceDerivedReason": "V1 may conservatively refuse raw attributes",
+      "RequiredObservation": "Explicit scoped refusal instead of hidden full-language support claim.",
+      "Executed": true,
+      "Status": "FULL",
+      "ActualEvidence": [
+        "artifacts/library377-missing-native-execution1/completion.json"
+      ],
+      "ObservedAssertions": "Actual19packet scoped observation: inactive_unsupported_compile raw refusal and sentinel absent. All12successful original/.NET rawETF pairs equal; complete native diagnostic artifacts retained for expected negatives. Aggregate packet FAIL18/19 is preserved because separate unused malformed macro expectation was wrong, not reclassified pass.",
+      "RemainingMinimalControl": null
+    },
+    {
+      "Group": "ownership-and-project-gates",
+      "Name": "live_input_changes_after_snapshot",
+      "SourceDerivedReason": "child must consume captured bytes only",
+      "RequiredObservation": "Result tied to one complete snapshot, never mixture of live header/source revisions; current-input recheck policy observable.",
+      "Executed": true,
+      "Status": "FULL",
+      "ActualEvidence": [
+        "artifacts/library377-implementation/input-probes2/results.json",
+        "artifacts/library377-live-mutation-execution1/completion.json"
+      ],
+      "ObservedAssertions": "Actual CLI sampled aftersnapshot live-header mutation: owned old snapshot compiled, live recheck refuses/no manifest promotion, recovery passes. This is one observed real schedule, explicitly not deterministic barrier or exhaustive racecoverage.",
+      "RemainingMinimalControl": null
+    },
+    {
+      "Group": "ownership-and-project-gates",
+      "Name": "owned_stage_changes_during_child",
+      "SourceDerivedReason": "snapshot hash before/after brackets child",
+      "RequiredObservation": "Added/deleted/changed staged file rejects acceptance.",
+      "Executed": true,
+      "Status": "PARTIAL",
+      "ActualEvidence": [
+        "artifacts/library377-implementation/input-probes2/results.json",
+        "artifacts/library377-live-mutation-execution1/completion.json",
+        "artifacts/library377-process-execution1/completion.json",
+        "artifacts/library377-owned-file-mutation-execution1/completion.json"
+      ],
+      "ObservedAssertions": "Actual CLI owned-file add/delete sampled after snapshot each fails and recovers, plus earlier change control; no native start barrier, marker future/notfinished alone does not prove mutation during active nativechild.",
+      "RemainingMinimalControl": "Keep actual aftersnapshot publicproperty evidence; exact during-native-child schedule remains unexercised unless actual start/phase handoff is measured.",
+      "PublicPropertyStatus": "MEASURED_AFTER_SNAPSHOT_CHANGE_ADD_DELETE_REFUSAL",
+      "ScheduleBoundary": "RaceSensitiveNoDeterministicBarrierClaim=true; no automatic retries"
+    },
+    {
+      "Group": "ownership-and-project-gates",
+      "Name": "compiler_closure_changes",
+      "SourceDerivedReason": "current whole-installed-tree admission remains",
+      "RequiredObservation": "Any changed installed file invalidates admission.",
+      "Executed": true,
+      "Status": "FULL",
+      "ActualEvidence": [
+        "artifacts/library377-implementation/restricted-cases1/completion.json"
+      ],
+      "ObservedAssertions": "Actual restricted CLI extra installed file and changed compilerBEAM both exit1 with0nativechildren and unchanged outputs; shared closure gate, restored compiler reported.",
+      "RemainingMinimalControl": null
+    },
+    {
+      "Group": "ownership-and-project-gates",
+      "Name": "preprocess_compile_timeout",
+      "SourceDerivedReason": "existing owned process cleanup remains",
+      "RequiredObservation": "No accepted manifest or new outputs; owned child cleanup receipt retained.",
+      "Executed": true,
+      "Status": "PARTIAL",
+      "ActualEvidence": [
+        "artifacts/library377-implementation/restricted-cases1/completion.json",
+        "artifacts/library377-process-execution1/completion.json"
+      ],
+      "ObservedAssertions": "Actual120second RunEpp/process-wrapper timeout uses an explicitly own synthetic nonOTP worker. It proves bounded wrapper diagnostics/cleanup only; no original full-orchestration timeout/manifest outcome.",
+      "RemainingMinimalControl": "Preserve wrapper proof and defer explicit original full-orchestration timeout/no promotion; do not relabel sampled/nonOTP control.",
+      "PublicPropertyStatus": "MEASURED_PROCESS_WRAPPER_TIMEOUT_ONLY",
+      "OriginalOrchestrationTimeoutExercised": false
+    },
+    {
+      "Group": "ownership-and-project-gates",
+      "Name": "msbuild_headers_with_spaces",
+      "SourceDerivedReason": "task forwards paths as structured data",
+      "RequiredObservation": "Source/header/include root with spaces preserved without shell interpretation.",
+      "Executed": true,
+      "Status": "FULL",
+      "ActualEvidence": [
+        "artifacts/library377-implementation/msbuild-controls1/completion.json",
+        "artifacts/library377-cold-package1/completion.json"
+      ],
+      "ObservedAssertions": "Actual project with spaces means absolute source/header/owned/include-root prefixes containspaces;21MSBuildsteps and6coldPackageReference consumer steps include publish/away, actual default packagedtool EA6SHA/no repofallback.",
+      "RemainingMinimalControl": null
+    },
+    {
+      "Group": "ownership-and-project-gates",
+      "Name": "restricted_mode_regression",
+      "SourceDerivedReason": "existing opt-out gate frozen",
+      "RequiredObservation": "Prior module/export-only project path unchanged; unsupported headers still explicitly refused there.",
+      "Executed": true,
+      "Status": "FULL",
+      "ActualEvidence": [
+        "artifacts/library377-implementation/restricted-cases1/completion.json"
+      ],
+      "ObservedAssertions": "Actual18 restricted cases cover clean/noop/edit/remove/readd/errors/quotedinclude/macros/closure/env; outputs preserved on second child failure.",
+      "RemainingMinimalControl": null
+    }
+  ],
+  "Bindings": [
+    {
+      "Path": "artifacts/library377-cache-successor-execution1/completion.json",
+      "Bytes": 74870,
+      "Sha256": "4A295E9AE1BBA9B90715D1AC3ACEF70F613CEDD94C2038E9DD58031908689D5F"
+    },
+    {
+      "Path": "artifacts/library377-child-stack-execution1/completion.json",
+      "Bytes": 2060,
+      "Sha256": "67E6152AD842C28A8CF0E297A645CB849DA3009AEFEA929C6C7EA4F3A7C7971A"
+    },
+    {
+      "Path": "artifacts/library377-cli-cache-controls1/completion.json",
+      "Bytes": 16020,
+      "Sha256": "72654AE273A3548EC4F6A38741F1682A81E8822150E058F33137DF17B904D736"
+    },
+    {
+      "Path": "artifacts/library377-cold-package1/completion.json",
+      "Bytes": 8570,
+      "Sha256": "603BC864D69E5C70A0AA55442A5AAE1D1D1D563DE172979078B9C01078EF2F6D"
+    },
+    {
+      "Path": "artifacts/library377-header-diagnostic-execution1/cases/invalid_header_define_directive/actual-header-diagnostic.json",
+      "Bytes": 278,
+      "Sha256": "14632DE440B7088C616C4528C9BE18B058C0BDEF277988DAEA2BB6821AB9DD57"
+    },
+    {
+      "Path": "artifacts/library377-header-diagnostic-execution1/cases/invalid_header_define_directive/driver.exit.json",
+      "Bytes": 887,
+      "Sha256": "4590E9AB05950C4500784CDC5893AEDF8E4AF595C27208A28D35E717EC48A249"
+    },
+    {
+      "Path": "artifacts/library377-header-diagnostic-execution1/completion.json",
+      "Bytes": 1446,
+      "Sha256": "CB21DEA4A1E9F3A88387A3C3093905266F95BFBDA9584D8375A81FD5F4C47AA7"
+    },
+    {
+      "Path": "artifacts/library377-implementation/cli-cases1/completion.json",
+      "Bytes": 3349,
+      "Sha256": "332F2F77B335E591A8A637B7B4E889A452E7793D20ECC64181AB0D4F39F48A61"
+    },
+    {
+      "Path": "artifacts/library377-implementation/evidence-probes1/completion.json",
+      "Bytes": 5438,
+      "Sha256": "D42D1A2AB7FC23EE803F764F2B7A2211D25AF38947DB995CCF76063608E46453"
+    },
+    {
+      "Path": "artifacts/library377-implementation/input-probes2/results.json",
+      "Bytes": 2872,
+      "Sha256": "2AFDDC32B0D529C87CE7D2272517ADAB1EE2A869D0AE0C27B15DDB8B240453C1"
+    },
+    {
+      "Path": "artifacts/library377-implementation/msbuild-controls1/completion.json",
+      "Bytes": 32509,
+      "Sha256": "DFFD8CDC9DF53D034E0F57D7F16DB4F04F0AD6BCCBC29F1EF2CDD4DB4962DB42"
+    },
+    {
+      "Path": "artifacts/library377-implementation/native-controls1/cases/behaviour_refused/driver.exit.json",
+      "Bytes": 881,
+      "Sha256": "11EA3F0DB54E992AE3272BB02B94393E08D74505336E6345608A8BD3D828A14B"
+    },
+    {
+      "Path": "artifacts/library377-implementation/native-controls1/cases/behaviour_refused/observed-report.json",
+      "Bytes": 1339,
+      "Sha256": "1C99A422221FAB1D8D4C476DEA6EEC24201DA626EB482D64428CEDEB39803575"
+    },
+    {
+      "Path": "artifacts/library377-implementation/native-controls1/cases/conditional_reserved_tokens/driver.exit.json",
+      "Bytes": 892,
+      "Sha256": "AE2E10E3347B6E356202EC717D427C7CD034F9047F74BF645F5F77C423848CD8"
+    },
+    {
+      "Path": "artifacts/library377-implementation/native-controls1/cases/conditional_reserved_tokens/managed-observer.exit.json",
+      "Bytes": 877,
+      "Sha256": "9A6B3C58C871EA7B92EAB4C762415E0AD3643B9D717262BD1E793E65129DE947"
+    },
+    {
+      "Path": "artifacts/library377-implementation/native-controls1/cases/conditional_reserved_tokens/managed.etf",
+      "Bytes": 12,
+      "Sha256": "575D5A7B6D09C6794A5AE49DE59D6CA2D92B479B07FEBD1AB238A72239AF0B85"
+    },
+    {
+      "Path": "artifacts/library377-implementation/native-controls1/cases/conditional_reserved_tokens/observed-report.json",
+      "Bytes": 1774,
+      "Sha256": "60C84437F435D2852F8C5459E3D0FC9EA2A86BC98C30E70597D8FB27216460A7"
+    },
+    {
+      "Path": "artifacts/library377-implementation/native-controls1/cases/conditional_reserved_tokens/original-observer.exit.json",
+      "Bytes": 1096,
+      "Sha256": "C863F1A9FB106205E57C334E281A8FE1F966BA48FC971DD1FC868D1FFFE75C38"
+    },
+    {
+      "Path": "artifacts/library377-implementation/native-controls1/cases/conditional_reserved_tokens/original.etf",
+      "Bytes": 12,
+      "Sha256": "575D5A7B6D09C6794A5AE49DE59D6CA2D92B479B07FEBD1AB238A72239AF0B85"
+    },
+    {
+      "Path": "artifacts/library377-implementation/native-controls1/cases/conditional_reserved_tokens/output/compile-result.etf",
+      "Bytes": 518,
+      "Sha256": "155AB9185131CF26B7C450E31B96EE78DE1C087903D25AA97D4E62D13C2B6975"
+    },
+    {
+      "Path": "artifacts/library377-implementation/native-controls1/cases/conditional_reserved_tokens/output/epp-result.etf",
+      "Bytes": 209,
+      "Sha256": "B1A2614B9BE5D14BFB0E7CB9F6AAA1C818179405D36F5A7381924786E94CB584"
+    },
+    {
+      "Path": "artifacts/library377-implementation/native-controls1/cases/conditional_reserved_tokens/output/validated-forms.etf",
+      "Bytes": 203,
+      "Sha256": "C45636F57E7940817A4F71AE66C977A6D068F5859471F26004ECC1CFA20E2BA7"
+    },
+    {
+      "Path": "artifacts/library377-implementation/native-controls1/cases/environment_include_refused/driver.exit.json",
+      "Bytes": 891,
+      "Sha256": "B893CCD23B5B580D3E7B56A62BE94AEBBC2FB4E415D83DBB5102CD66580098DD"
+    },
+    {
+      "Path": "artifacts/library377-implementation/native-controls1/cases/environment_include_refused/observed-report.json",
+      "Bytes": 1349,
+      "Sha256": "33A2FEEF8985346038FC53B7552850E761F7841A04540F0D99B6884B3B301365"
+    },
+    {
+      "Path": "artifacts/library377-implementation/native-controls1/cases/escape_refused/driver.exit.json",
+      "Bytes": 878,
+      "Sha256": "806291E478B92090B9C998BA5549423EF06870720D286FFB589C3EA797331435"
+    },
+    {
+      "Path": "artifacts/library377-implementation/native-controls1/cases/escape_refused/observed-report.json",
+      "Bytes": 1468,
+      "Sha256": "ED4592504A83A5F9D88F41260713506096C57571BEBD6A1005B8AC3196BC1A18"
+    },
+    {
+      "Path": "artifacts/library377-implementation/native-controls1/cases/function_macro/driver.exit.json",
+      "Bytes": 878,
+      "Sha256": "B26B0F6FB77D27CAEE66B5242F408B91FCF017176233FDBA7A480D5C26ED6569"
+    },
+    {
+      "Path": "artifacts/library377-implementation/native-controls1/cases/function_macro/managed-observer.exit.json",
+      "Bytes": 866,
+      "Sha256": "543394548CB97F3E5C310B288A988C6CC5C23DBA18BCA6F87087F8BB47B338FD"
+    },
+    {
+      "Path": "artifacts/library377-implementation/native-controls1/cases/function_macro/managed.etf",
+      "Bytes": 21,
+      "Sha256": "CB131A13EAF54EC381BF2A8722EB03F869188C69BF3B7A9CC0977209BC18B9FB"
+    },
+    {
+      "Path": "artifacts/library377-implementation/native-controls1/cases/function_macro/observed-report.json",
+      "Bytes": 2058,
+      "Sha256": "4FE8180868965A657305B90CDDC304DEAEF122D2442B090C5DA56706AF9C057F"
+    },
+    {
+      "Path": "artifacts/library377-implementation/native-controls1/cases/function_macro/original-observer.exit.json",
+      "Bytes": 1069,
+      "Sha256": "65014B2C9B4215C7ACE5A370855A6E5D3798B2E4D9F58C15E139F098AB3D83DE"
+    },
+    {
+      "Path": "artifacts/library377-implementation/native-controls1/cases/function_macro/original.etf",
+      "Bytes": 21,
+      "Sha256": "CB131A13EAF54EC381BF2A8722EB03F869188C69BF3B7A9CC0977209BC18B9FB"
+    },
+    {
+      "Path": "artifacts/library377-implementation/native-controls1/cases/function_macro/output/compile-result.etf",
+      "Bytes": 550,
+      "Sha256": "32FFCAEBBFB616D2D0EEC91146D01A7CFE01DF6D3F0D78351475FCB27E1A4963"
+    },
+    {
+      "Path": "artifacts/library377-implementation/native-controls1/cases/function_macro/output/epp-result.etf",
+      "Bytes": 338,
+      "Sha256": "B1059C28B65AB9BC586CCDE1F8CB6BC4F1AE04792B7873879C802DCBC757E9DA"
+    },
+    {
+      "Path": "artifacts/library377-implementation/native-controls1/cases/function_macro/output/validated-forms.etf",
+      "Bytes": 332,
+      "Sha256": "87BCDCF66B643EC14086981E4B15F63C62F07F43253EF26AA4909C8F4029C7F4"
+    },
+    {
+      "Path": "artifacts/library377-implementation/native-controls1/cases/header_transform_refused/driver.exit.json",
+      "Bytes": 888,
+      "Sha256": "D69CCFD57BDA6EE9973DEEBBEB2E1366D6B5A2E3BA15926D908998459C2C4AB9"
+    },
+    {
+      "Path": "artifacts/library377-implementation/native-controls1/cases/header_transform_refused/observed-report.json",
+      "Bytes": 1346,
+      "Sha256": "ACEC3C9D230BEEBD27B576E983C37BB0FF13D85E0391339FB4D6977729FF7123"
+    },
+    {
+      "Path": "artifacts/library377-implementation/native-controls1/cases/include_lib_refused/driver.exit.json",
+      "Bytes": 883,
+      "Sha256": "2A213612B2904AF0E5E7875360BA36B878C66CDBB34C80942346FF13A2EA07FD"
+    },
+    {
+      "Path": "artifacts/library377-implementation/native-controls1/cases/include_lib_refused/observed-report.json",
+      "Bytes": 1341,
+      "Sha256": "BB9DE719C4C52B35A4858BD7F7C25A99FA4625AB9C8F651CCBC1D01C94D6E9D4"
+    },
+    {
+      "Path": "artifacts/library377-implementation/native-controls1/cases/macro_attribute_refused/driver.exit.json",
+      "Bytes": 888,
+      "Sha256": "AA1683F7C369B9175AAE848C04D4F3744E2A2F961CA45E4CC7B6DD7C8AC59791"
+    },
+    {
+      "Path": "artifacts/library377-implementation/native-controls1/cases/macro_attribute_refused/observed-report.json",
+      "Bytes": 1365,
+      "Sha256": "575564250EB8BF3BB9B5C3F1AE912F6DE4A8DFFE333920DA0B74DDFBDF344085"
+    },
+    {
+      "Path": "artifacts/library377-implementation/native-controls1/cases/missing_declared_header/driver.exit.json",
+      "Bytes": 888,
+      "Sha256": "8439E37890EB5D8E2823FC2A1CAF448593322433B278C13536144D97FDAEB2A1"
+    },
+    {
+      "Path": "artifacts/library377-implementation/native-controls1/cases/missing_declared_header/observed-report.json",
+      "Bytes": 1369,
+      "Sha256": "31195CF822C686FEEF5DCEBC0B68CBE7391F731C46F65645C0B8AB19F3F80DAB"
+    },
+    {
+      "Path": "artifacts/library377-implementation/native-controls1/cases/native_compile_diagnostics/driver.exit.json",
+      "Bytes": 889,
+      "Sha256": "E125CB4644EED51B82FCED2584D2BB8CB7C46B8F3B7DD5A3673CCA8FADC2BB2F"
+    },
+    {
+      "Path": "artifacts/library377-implementation/native-controls1/cases/native_compile_diagnostics/observed-report.json",
+      "Bytes": 2434,
+      "Sha256": "6A8EE64B4B42802738CC62C2727F8DE86AA5066DFEDEE0074FF8FD1C594E41EF"
+    },
+    {
+      "Path": "artifacts/library377-implementation/native-controls1/cases/native_compile_diagnostics/output/compile-result.etf",
+      "Bytes": 111,
+      "Sha256": "94DBD2356AAC68422066EA4F2CDC6C3C71D3692F97DA0C746B1710D9C73E7A1B"
+    },
+    {
+      "Path": "artifacts/library377-implementation/native-controls1/cases/native_compile_diagnostics/output/epp-result.etf",
+      "Bytes": 239,
+      "Sha256": "0A886C57D1733CC035AA57BF44C05C7ACAD9726C036ED9E6B8ABBF16E2462E6B"
+    },
+    {
+      "Path": "artifacts/library377-implementation/native-controls1/cases/native_compile_diagnostics/output/validated-forms.etf",
+      "Bytes": 233,
+      "Sha256": "CE115B0FA92D9BCF33C1B7F2BB95C12D90D7424D8B559873DB2380134E017134"
+    },
+    {
+      "Path": "artifacts/library377-implementation/native-controls1/cases/native_file_annotations/driver.exit.json",
+      "Bytes": 888,
+      "Sha256": "DB00F469520EEC0B5D127A4FB4FA19891F05196B8B4A0C94459CFA679DD6A1A4"
+    },
+    {
+      "Path": "artifacts/library377-implementation/native-controls1/cases/native_file_annotations/managed-observer.exit.json",
+      "Bytes": 885,
+      "Sha256": "98DB3A9093BA33AC165995727924FA3C35D4EF08BCBFE24A4E3E4E5C1794DC2B"
+    },
+    {
+      "Path": "artifacts/library377-implementation/native-controls1/cases/native_file_annotations/managed.etf",
+      "Bytes": 59,
+      "Sha256": "C1FE4FE8FD7809368ACAE9FFBA17645EC2F3249355A404282A8EB072EDAFBAAC"
+    },
+    {
+      "Path": "artifacts/library377-implementation/native-controls1/cases/native_file_annotations/observed-report.json",
+      "Bytes": 2075,
+      "Sha256": "DE32443E04C11A4BD278CEAB7488FA29027CBDE1345CFE31EC648653BCC2FD8D"
+    },
+    {
+      "Path": "artifacts/library377-implementation/native-controls1/cases/native_file_annotations/original-observer.exit.json",
+      "Bytes": 1087,
+      "Sha256": "3A507E3AD86F340F6AE3486D831EE93392F1336C321B3F916E1F58D24A70D077"
+    },
+    {
+      "Path": "artifacts/library377-implementation/native-controls1/cases/native_file_annotations/original.etf",
+      "Bytes": 59,
+      "Sha256": "C1FE4FE8FD7809368ACAE9FFBA17645EC2F3249355A404282A8EB072EDAFBAAC"
+    },
+    {
+      "Path": "artifacts/library377-implementation/native-controls1/cases/native_file_annotations/output/compile-result.etf",
+      "Bytes": 590,
+      "Sha256": "2292628AA7C4BDD20609331B31C2295803BA2D04AEC87F0332899A25C942F081"
+    },
+    {
+      "Path": "artifacts/library377-implementation/native-controls1/cases/native_file_annotations/output/epp-result.etf",
+      "Bytes": 421,
+      "Sha256": "538CA455B5240AAEAF8A0FF4D639049D1E9FEE0EAF1C4D1783BFD8A8757FFE97"
+    },
+    {
+      "Path": "artifacts/library377-implementation/native-controls1/cases/native_file_annotations/output/validated-forms.etf",
+      "Bytes": 415,
+      "Sha256": "CAE07C258426B07D5B8B17A2471288CBB4F53698C7D6535DC7EAD935061EDFE8"
+    },
+    {
+      "Path": "artifacts/library377-implementation/native-controls1/cases/nested_header/driver.exit.json",
+      "Bytes": 878,
+      "Sha256": "450D4B60F622BB4C7CF607B34D2E45042BA20DAAE60046C2C7EFB43FA2F475C6"
+    },
+    {
+      "Path": "artifacts/library377-implementation/native-controls1/cases/nested_header/managed-observer.exit.json",
+      "Bytes": 864,
+      "Sha256": "74A99CADCD00A1082DE3EDCEBB3532970E960BC6EC4EEE5754E0E35E2DC66F5F"
+    },
+    {
+      "Path": "artifacts/library377-implementation/native-controls1/cases/nested_header/managed.etf",
+      "Bytes": 22,
+      "Sha256": "B89D6CA7443205A26686CFE8645C25C285F11A60E2FA67DAE7C8C84E3F82DAEC"
+    },
+    {
+      "Path": "artifacts/library377-implementation/native-controls1/cases/nested_header/observed-report.json",
+      "Bytes": 2347,
+      "Sha256": "00878258106C00969B9A971FA6A8995B7B71B2565D2A517CD21050394AFEB3D2"
+    },
+    {
+      "Path": "artifacts/library377-implementation/native-controls1/cases/nested_header/original-observer.exit.json",
+      "Bytes": 1068,
+      "Sha256": "2CE89A6A923C9FFCC44E61BF651BD102C87918F0F56974608655521365EBA813"
+    },
+    {
+      "Path": "artifacts/library377-implementation/native-controls1/cases/nested_header/original.etf",
+      "Bytes": 22,
+      "Sha256": "B89D6CA7443205A26686CFE8645C25C285F11A60E2FA67DAE7C8C84E3F82DAEC"
+    },
+    {
+      "Path": "artifacts/library377-implementation/native-controls1/cases/nested_header/output/compile-result.etf",
+      "Bytes": 550,
+      "Sha256": "DD122610010717CD5CF69C9C80F9DF4ABD2C5E5594ABF8B82A45479398A73076"
+    },
+    {
+      "Path": "artifacts/library377-implementation/native-controls1/cases/nested_header/output/epp-result.etf",
+      "Bytes": 436,
+      "Sha256": "9A150CFFE1978C2FAEEFEA665C78A93AD63470662A6F648E0B14CA4E1C463B89"
+    },
+    {
+      "Path": "artifacts/library377-implementation/native-controls1/cases/nested_header/output/validated-forms.etf",
+      "Bytes": 430,
+      "Sha256": "781EA5807537ADF7D96FD544D83DB21E15A4DB0EBA43B23040162D5283E73857"
+    },
+    {
+      "Path": "artifacts/library377-implementation/native-controls1/cases/noenv_ignores_transform_environment/driver.exit.json",
+      "Bytes": 899,
+      "Sha256": "1DB9B2B5C17569A1940534D24C3B24E90E720017872EA6135A007F9810A31A76"
+    },
+    {
+      "Path": "artifacts/library377-implementation/native-controls1/cases/noenv_ignores_transform_environment/managed-observer.exit.json",
+      "Bytes": 908,
+      "Sha256": "3F196D3E1371F5A9CB0998130047218120A6E10B1FBDF0E7124ACCB6D01EE9EA"
+    },
+    {
+      "Path": "artifacts/library377-implementation/native-controls1/cases/noenv_ignores_transform_environment/managed.etf",
+      "Bytes": 14,
+      "Sha256": "57BF7A379C9AE104EF2203D0B1A49C5C08B6CF5581EA5BEDAEA2866D8E9FAD41"
+    },
+    {
+      "Path": "artifacts/library377-implementation/native-controls1/cases/noenv_ignores_transform_environment/observed-report.json",
+      "Bytes": 1765,
+      "Sha256": "1F5CF50DE017606E83E317BD03672A2B3CBFBBFC8738EEB2670D4B82E0417E24"
+    },
+    {
+      "Path": "artifacts/library377-implementation/native-controls1/cases/noenv_ignores_transform_environment/original-observer.exit.json",
+      "Bytes": 1112,
+      "Sha256": "B2B7A7FA943FD56E230CA2FC388577B39783E90B38BFD8A37920D3B19A42495B"
+    },
+    {
+      "Path": "artifacts/library377-implementation/native-controls1/cases/noenv_ignores_transform_environment/original.etf",
+      "Bytes": 14,
+      "Sha256": "57BF7A379C9AE104EF2203D0B1A49C5C08B6CF5581EA5BEDAEA2866D8E9FAD41"
+    },
+    {
+      "Path": "artifacts/library377-implementation/native-controls1/cases/noenv_ignores_transform_environment/output/compile-result.etf",
+      "Bytes": 518,
+      "Sha256": "204B71B0AFABEF1C30A4AC9DEE07852AF8ED302ADA7ABAFDB21A4C6895473169"
+    },
+    {
+      "Path": "artifacts/library377-implementation/native-controls1/cases/noenv_ignores_transform_environment/output/epp-result.etf",
+      "Bytes": 211,
+      "Sha256": "A4D55B9F9E5725A4B601855A241F9F473AD4FF97CCB6E3D90CBA9A224A2E96E2"
+    },
+    {
+      "Path": "artifacts/library377-implementation/native-controls1/cases/noenv_ignores_transform_environment/output/validated-forms.etf",
+      "Bytes": 205,
+      "Sha256": "8CDF9FDE19BAEB4B79A0C4AF40791FD57F37B02EE03059B8BCC538DB02769980"
+    },
+    {
+      "Path": "artifacts/library377-implementation/native-controls1/cases/noncanonical_integer_refused/driver.exit.json",
+      "Bytes": 893,
+      "Sha256": "899A8B3F6C636A8759DD8E3B2E0B71281E89A5F7DA3812494112BB1C881D5023"
+    },
+    {
+      "Path": "artifacts/library377-implementation/native-controls1/cases/noncanonical_integer_refused/observed-report.json",
+      "Bytes": 1546,
+      "Sha256": "9DB7E13DE00DB804A1B0C038EDB517B68B70A7E40DEAC9AF121EDC328DF5713E"
+    },
+    {
+      "Path": "artifacts/library377-implementation/native-controls1/cases/on_load_refused/driver.exit.json",
+      "Bytes": 880,
+      "Sha256": "419913E958905F35BC1338AB68F04F3E0FAC8A5075677A0F8EF7ACBDA6D991B2"
+    },
+    {
+      "Path": "artifacts/library377-implementation/native-controls1/cases/on_load_refused/observed-report.json",
+      "Bytes": 1337,
+      "Sha256": "1EE3B4AAE8CD0486B36D67CDCECED9E197530398D4C4115F846EEEE0D096DAC5"
+    },
+    {
+      "Path": "artifacts/library377-implementation/native-controls1/cases/ordinary_same_forms/driver.exit.json",
+      "Bytes": 882,
+      "Sha256": "09F498C9008FD40BE4832882D3D0214E939C0FAF9C5F618668A4AEDF2DAD8E1D"
+    },
+    {
+      "Path": "artifacts/library377-implementation/native-controls1/cases/ordinary_same_forms/managed-observer.exit.json",
+      "Bytes": 862,
+      "Sha256": "D91827630B751645D5FE94A8DBDA4F091EF909BB2EBC9C1471FA1CBDD956DB47"
+    },
+    {
+      "Path": "artifacts/library377-implementation/native-controls1/cases/ordinary_same_forms/managed.etf",
+      "Bytes": 23,
+      "Sha256": "5E5F3080FF49FBC1B9E580B70A308479B2D6820757060AF80B4D4450870EC9AE"
+    },
+    {
+      "Path": "artifacts/library377-implementation/native-controls1/cases/ordinary_same_forms/observed-report.json",
+      "Bytes": 1749,
+      "Sha256": "4AED19138E35FC771A1D0CB2842ED7AEDFCEF40F1CB3ACFDD2D89BA56D84991E"
+    },
+    {
+      "Path": "artifacts/library377-implementation/native-controls1/cases/ordinary_same_forms/original-observer.exit.json",
+      "Bytes": 1078,
+      "Sha256": "DBB2D65CA61EE4A2FCA5FAC18C198F98C81293E8519DB1F9D3178476FD42E513"
+    },
+    {
+      "Path": "artifacts/library377-implementation/native-controls1/cases/ordinary_same_forms/original.etf",
+      "Bytes": 23,
+      "Sha256": "5E5F3080FF49FBC1B9E580B70A308479B2D6820757060AF80B4D4450870EC9AE"
+    },
+    {
+      "Path": "artifacts/library377-implementation/native-controls1/cases/ordinary_same_forms/output/compile-result.etf",
+      "Bytes": 526,
+      "Sha256": "F69E5B092F42A27E3452C8187F541A42A1BC66616F417C2A428134C3B373FFCB"
+    },
+    {
+      "Path": "artifacts/library377-implementation/native-controls1/cases/ordinary_same_forms/output/epp-result.etf",
+      "Bytes": 220,
+      "Sha256": "73AA05D1B30DF2F12A41BCA20F64DA9557EA9FE6A3095D0B0C4C91D7654F1F18"
+    },
+    {
+      "Path": "artifacts/library377-implementation/native-controls1/cases/ordinary_same_forms/output/validated-forms.etf",
+      "Bytes": 214,
+      "Sha256": "A42B1A7C495490CA59AE8B60FEDE0D8ACB3ECE9E570F8807498C5FD468B08DF7"
+    },
+    {
+      "Path": "artifacts/library377-implementation/native-controls1/cases/root_transform_refused/driver.exit.json",
+      "Bytes": 886,
+      "Sha256": "1E9868FFC79B0F53D07882613EC779F1406D727F9CE0387A53C0A94D3A5C134C"
+    },
+    {
+      "Path": "artifacts/library377-implementation/native-controls1/cases/root_transform_refused/observed-report.json",
+      "Bytes": 1344,
+      "Sha256": "4A9BEE800C58AC77C378417000630D7764247EA876E2897D59CB0FA4172FAC91"
+    },
+    {
+      "Path": "artifacts/library377-implementation/native-controls1/cases/source_digest_refused/driver.exit.json",
+      "Bytes": 885,
+      "Sha256": "7AF79D486A38FBF35BE28013D6EC8837E1BBF4F9C2971EBA79DA98E6C0ECC434"
+    },
+    {
+      "Path": "artifacts/library377-implementation/native-controls1/cases/source_digest_refused/observed-report.json",
+      "Bytes": 1271,
+      "Sha256": "E12F3F4969E8D65750C440A2BA91738F74B11FDA600DCFF191E6936427DDFB40"
+    },
+    {
+      "Path": "artifacts/library377-implementation/native-controls1/cases/typed_definitions/driver.exit.json",
+      "Bytes": 881,
+      "Sha256": "8B7CC93149A0309DA7BC1EE37BB4AF38C82F4216FC90118D7339C1BD9B10CC9B"
+    },
+    {
+      "Path": "artifacts/library377-implementation/native-controls1/cases/typed_definitions/managed-observer.exit.json",
+      "Bytes": 872,
+      "Sha256": "DBF4488B702FA76969E0C6B60DAEC12BC4F2A3819DBF30F8F50CC7E3DAD53C9A"
+    },
+    {
+      "Path": "artifacts/library377-implementation/native-controls1/cases/typed_definitions/managed.etf",
+      "Bytes": 37,
+      "Sha256": "54D858D1DAF230CC0E25D252E2AD2137512DABB4884408846006D5622217FFD1"
+    },
+    {
+      "Path": "artifacts/library377-implementation/native-controls1/cases/typed_definitions/observed-report.json",
+      "Bytes": 1803,
+      "Sha256": "BD8BB600D548380A5994EB272188F1D9DB411C3E0FB7B1E71E8F67F7211EAF4A"
+    },
+    {
+      "Path": "artifacts/library377-implementation/native-controls1/cases/typed_definitions/original-observer.exit.json",
+      "Bytes": 1076,
+      "Sha256": "98EDDA174CABF7FD5BA4FD64ED08C74BCC7CA2A96E9E69D2BF7F4049E9D2C16A"
+    },
+    {
+      "Path": "artifacts/library377-implementation/native-controls1/cases/typed_definitions/original.etf",
+      "Bytes": 37,
+      "Sha256": "54D858D1DAF230CC0E25D252E2AD2137512DABB4884408846006D5622217FFD1"
+    },
+    {
+      "Path": "artifacts/library377-implementation/native-controls1/cases/typed_definitions/output/compile-result.etf",
+      "Bytes": 566,
+      "Sha256": "5CEE270A00C85C2A8F3DED7C93D0878CA48927C23EAB770B3D7059FABF0D3B66"
+    },
+    {
+      "Path": "artifacts/library377-implementation/native-controls1/cases/typed_definitions/output/epp-result.etf",
+      "Bytes": 294,
+      "Sha256": "1C948F52070D6BC7EFDA58A18064F0DE5F38F54D1715FCA4A6327D2370A5B231"
+    },
+    {
+      "Path": "artifacts/library377-implementation/native-controls1/cases/typed_definitions/output/validated-forms.etf",
+      "Bytes": 288,
+      "Sha256": "BCECED7CDCE2E114DC8113218445526B71CF0009A339E451AE22281F775CE7B2"
+    },
+    {
+      "Path": "artifacts/library377-implementation/native-controls1/cases/undefined_macro/driver.exit.json",
+      "Bytes": 880,
+      "Sha256": "BF2AFAE44B3F80705D99F6EDEA765808827E599AC3858859601F5079C3F0837D"
+    },
+    {
+      "Path": "artifacts/library377-implementation/native-controls1/cases/undefined_macro/observed-report.json",
+      "Bytes": 2166,
+      "Sha256": "87487501C1D280959143B3AA5CFCDD7E6650A747EB6E9ABBE4348EF0B36C18FC"
+    },
+    {
+      "Path": "artifacts/library377-implementation/native-controls1/cases/undefined_macro/output/epp-result.etf",
+      "Bytes": 193,
+      "Sha256": "8B06E01AC092C5B9771EC1D1F99112EC05B6969B3C8776D4C8D8A6DB732DCE05"
+    },
+    {
+      "Path": "artifacts/library377-implementation/native-controls1/cases/unknown_key_refused/driver.exit.json",
+      "Bytes": 883,
+      "Sha256": "27E74474AC1729FC737DEFADA23BCB499005327E7E8B46BC1804D181887CB559"
+    },
+    {
+      "Path": "artifacts/library377-implementation/native-controls1/cases/unknown_key_refused/observed-report.json",
+      "Bytes": 899,
+      "Sha256": "72EFAC9C6853988BF5FCFB0F8BC95E4FF4E29C4F94C9FA030FE8471FD46D19CD"
+    },
+    {
+      "Path": "artifacts/library377-implementation/native-controls1/cases/wrong_module_after_epp/driver.exit.json",
+      "Bytes": 886,
+      "Sha256": "68FE56E18EAB7C94F365D4254DAC7DAC4875E1CF134FEEF4D2D5A65127F7F915"
+    },
+    {
+      "Path": "artifacts/library377-implementation/native-controls1/cases/wrong_module_after_epp/observed-report.json",
+      "Bytes": 2086,
+      "Sha256": "3512D4ADFBEC9478FB6A547B373AA7957E8278E33359A1D39A34B88DACEFDA59"
+    },
+    {
+      "Path": "artifacts/library377-implementation/native-controls1/cases/wrong_module_after_epp/output/epp-result.etf",
+      "Bytes": 208,
+      "Sha256": "1EC53D98BB953C5ED7560DD0C314C8FA6B71C5A60840B2CB03AF22584AC5AA35"
+    },
+    {
+      "Path": "artifacts/library377-implementation/native-controls1/completion.json",
+      "Bytes": 25253,
+      "Sha256": "2398A28B24C4CC3C3AF5D700D69F1775191EA2C5C74725157E1A43B0D42E5ADF"
+    },
+    {
+      "Path": "artifacts/library377-implementation/native-controls1/positive-transform.exit.json",
+      "Bytes": 916,
+      "Sha256": "BBCD7D3FF056CCC465D02E5AAEF4D796DA6E7A3E11E2A9925FA0BA34188841D0"
+    },
+    {
+      "Path": "artifacts/library377-implementation/native-controls1/trusted/sentinel-compile.exit.json",
+      "Bytes": 743,
+      "Sha256": "EF15DA97FC20F9D51F734919E898403744292F0502505D270AB50AC50E538C03"
+    },
+    {
+      "Path": "artifacts/library377-implementation/restricted-cases1/completion.json",
+      "Bytes": 18943,
+      "Sha256": "A934D646F39E8988D0D4E750AD0E57A228DDEEAEDF6882F9EB574D177039C81A"
+    },
+    {
+      "Path": "artifacts/library377-include-proposal1/test-partitions.json",
+      "Bytes": 12896,
+      "Sha256": "EE6456335EE572CEEA538D3C37E678CC9D9F0FFA2327D30A2D99BDF5F6D81F6F"
+    },
+    {
+      "Path": "artifacts/library377-leaf-stack-execution2/cases/leaf_process_exit_metadata/driver.exit.json",
+      "Bytes": 868,
+      "Sha256": "7D324A9FEA74D614FCE59F9FE6C7077C534021AED8BC15ED37D6C70DE8297B9F"
+    },
+    {
+      "Path": "artifacts/library377-leaf-stack-execution2/cases/leaf_process_exit_metadata/managed-observer.exit.json",
+      "Bytes": 889,
+      "Sha256": "9A6602428714944A8475F27A8222151B48B2A6C49F082B76B0F77DFC138D78D5"
+    },
+    {
+      "Path": "artifacts/library377-leaf-stack-execution2/cases/leaf_process_exit_metadata/managed.etf",
+      "Bytes": 143,
+      "Sha256": "1D105A43A5D25BEBD9087FFC32EEBFC548E6084B53B79E6DD872A6BF83218C8D"
+    },
+    {
+      "Path": "artifacts/library377-leaf-stack-execution2/cases/leaf_process_exit_metadata/original-observer.exit.json",
+      "Bytes": 1065,
+      "Sha256": "52AE7896E337BF0E4FF371CD913D64C5C1E2867337E9E30C3E800BA58D343361"
+    },
+    {
+      "Path": "artifacts/library377-leaf-stack-execution2/cases/leaf_process_exit_metadata/original.etf",
+      "Bytes": 143,
+      "Sha256": "1D105A43A5D25BEBD9087FFC32EEBFC548E6084B53B79E6DD872A6BF83218C8D"
+    },
+    {
+      "Path": "artifacts/library377-leaf-stack-execution2/completion.json",
+      "Bytes": 2403,
+      "Sha256": "F211D1D48A0D5496581D7ACAD01B047393E4DC6BFCC3456B56203CFB0AC60B88"
+    },
+    {
+      "Path": "artifacts/library377-leaf-stack-execution2/trusted/leaf-observer-compile.exit.json",
+      "Bytes": 703,
+      "Sha256": "63D7AFB38604788C8560395F322B347E6B84401B25B7C372D153E8DA8FD94D62"
+    },
+    {
+      "Path": "artifacts/library377-live-mutation-execution1/completion.json",
+      "Bytes": 19044,
+      "Sha256": "0835D144DD143C0AA5744306DFFC7948AD04201F0EF611F5B91493AF926D05AD"
+    },
+    {
+      "Path": "artifacts/library377-missing-native-execution1/cases/adjacent_literal_include_strings/driver.exit.json",
+      "Bytes": 881,
+      "Sha256": "C3E45A50C2C6AAD037E6C8F2E8EE958A1240A9DB8315763FCE029F0CA8A6A122"
+    },
+    {
+      "Path": "artifacts/library377-missing-native-execution1/cases/adjacent_literal_include_strings/managed.etf",
+      "Bytes": 17,
+      "Sha256": "78222B46C1461A3972C5B4BC46CD7151CB22F664608B31E38664A3EE43013B81"
+    },
+    {
+      "Path": "artifacts/library377-missing-native-execution1/cases/adjacent_literal_include_strings/original.etf",
+      "Bytes": 17,
+      "Sha256": "78222B46C1461A3972C5B4BC46CD7151CB22F664608B31E38664A3EE43013B81"
+    },
+    {
+      "Path": "artifacts/library377-missing-native-execution1/cases/builtin_module_function_file_line/driver.exit.json",
+      "Bytes": 883,
+      "Sha256": "0335802D7F03DDF75718EB103A3A968A46501553449DFE4EE89E1AA8818F249D"
+    },
+    {
+      "Path": "artifacts/library377-missing-native-execution1/cases/builtin_module_function_file_line/managed.etf",
+      "Bytes": 55,
+      "Sha256": "077E5E61FAE9A29B18426A72D8D328D3D2B5A81698B03EC9D45ADEB641C0FD1C"
+    },
+    {
+      "Path": "artifacts/library377-missing-native-execution1/cases/builtin_module_function_file_line/original.etf",
+      "Bytes": 55,
+      "Sha256": "077E5E61FAE9A29B18426A72D8D328D3D2B5A81698B03EC9D45ADEB641C0FD1C"
+    },
+    {
+      "Path": "artifacts/library377-missing-native-execution1/cases/duplicate_request_define/driver.exit.json",
+      "Bytes": 874,
+      "Sha256": "C9B84AB78CD03482C9FB8D04F13C705EC45467BE079F3A9C1D3848C2664FA91C"
+    },
+    {
+      "Path": "artifacts/library377-missing-native-execution1/cases/duplicate_source_define_diagnostic/driver.exit.json",
+      "Bytes": 884,
+      "Sha256": "3BB24D25C0D88FA3B6926FD016B5141AAFB82FFC8E957324AB17326112470AB6"
+    },
+    {
+      "Path": "artifacts/library377-missing-native-execution1/cases/guarded_repeated_include/driver.exit.json",
+      "Bytes": 874,
+      "Sha256": "69F11039D80DCAB29C63438303871733E5427CF9111A0403047AA25A016FCD96"
+    },
+    {
+      "Path": "artifacts/library377-missing-native-execution1/cases/guarded_repeated_include/managed.etf",
+      "Bytes": 16,
+      "Sha256": "3405A4D341252187E2D05067C3588FF5E083F1680F8C7CD2D6CD662FDA95D7C4"
+    },
+    {
+      "Path": "artifacts/library377-missing-native-execution1/cases/guarded_repeated_include/original.etf",
+      "Bytes": 16,
+      "Sha256": "3405A4D341252187E2D05067C3588FF5E083F1680F8C7CD2D6CD662FDA95D7C4"
+    },
+    {
+      "Path": "artifacts/library377-missing-native-execution1/cases/header_syntax_error/driver.exit.json",
+      "Bytes": 869,
+      "Sha256": "A15BC2B077DE8939FBE354668687B25665BE68D84DC819F84B963BFCB065BDC4"
+    },
+    {
+      "Path": "artifacts/library377-missing-native-execution1/cases/header_undefined_macro/driver.exit.json",
+      "Bytes": 873,
+      "Sha256": "12FD2DC004E22A63AE47474FC16D2E89407BA0A74368895B2622F52135B0690F"
+    },
+    {
+      "Path": "artifacts/library377-missing-native-execution1/cases/ifdef_absent/driver.exit.json",
+      "Bytes": 848,
+      "Sha256": "374FCE79962F779C399F69C95F5B975435A55E1818ED7D5C6BD68E3ADFC34424"
+    },
+    {
+      "Path": "artifacts/library377-missing-native-execution1/cases/ifdef_absent/managed.etf",
+      "Bytes": 18,
+      "Sha256": "B1FDE400F592E58B0DFE75B216F1F044772383198FFEF665B36023D8CA9CD7EA"
+    },
+    {
+      "Path": "artifacts/library377-missing-native-execution1/cases/ifdef_absent/original.etf",
+      "Bytes": 18,
+      "Sha256": "B1FDE400F592E58B0DFE75B216F1F044772383198FFEF665B36023D8CA9CD7EA"
+    },
+    {
+      "Path": "artifacts/library377-missing-native-execution1/cases/ifdef_present/driver.exit.json",
+      "Bytes": 849,
+      "Sha256": "84035A2366F9CAE783BEC7DA1AB094CB0A267AC4E1E50029F602B421A14B1927"
+    },
+    {
+      "Path": "artifacts/library377-missing-native-execution1/cases/ifdef_present/managed.etf",
+      "Bytes": 16,
+      "Sha256": "9E6DA8111C9B899621484BC772711A59B818C77BB61F5DD466113C12D8B6961A"
+    },
+    {
+      "Path": "artifacts/library377-missing-native-execution1/cases/ifdef_present/original.etf",
+      "Bytes": 16,
+      "Sha256": "9E6DA8111C9B899621484BC772711A59B818C77BB61F5DD466113C12D8B6961A"
+    },
+    {
+      "Path": "artifacts/library377-missing-native-execution1/cases/inactive_unsupported_compile/driver.exit.json",
+      "Bytes": 878,
+      "Sha256": "BDC04CAC12FA6C8B009EEE2FB9D154DCCD16257A439F0603A7B837CE852A2BFF"
+    },
+    {
+      "Path": "artifacts/library377-missing-native-execution1/cases/include_depth_7/driver.exit.json",
+      "Bytes": 866,
+      "Sha256": "DE6791C3B3B46A8DB5E48F55AA87DF85A31C5C0F976F492FC3664E5B93D0CDF8"
+    },
+    {
+      "Path": "artifacts/library377-missing-native-execution1/cases/include_depth_7/managed.etf",
+      "Bytes": 13,
+      "Sha256": "C1819B25AB592581156B54358CE705B7BB5D28623C9077D435B7F03558200DCA"
+    },
+    {
+      "Path": "artifacts/library377-missing-native-execution1/cases/include_depth_7/original.etf",
+      "Bytes": 13,
+      "Sha256": "C1819B25AB592581156B54358CE705B7BB5D28623C9077D435B7F03558200DCA"
+    },
+    {
+      "Path": "artifacts/library377-missing-native-execution1/cases/include_depth_8/driver.exit.json",
+      "Bytes": 866,
+      "Sha256": "BF2D56ACC471D981C22D8FA4DC49630BC35BDB569D43A64BFDE597C046122BC7"
+    },
+    {
+      "Path": "artifacts/library377-missing-native-execution1/cases/include_depth_8/managed.etf",
+      "Bytes": 13,
+      "Sha256": "C1819B25AB592581156B54358CE705B7BB5D28623C9077D435B7F03558200DCA"
+    },
+    {
+      "Path": "artifacts/library377-missing-native-execution1/cases/include_depth_8/original.etf",
+      "Bytes": 13,
+      "Sha256": "C1819B25AB592581156B54358CE705B7BB5D28623C9077D435B7F03558200DCA"
+    },
+    {
+      "Path": "artifacts/library377-missing-native-execution1/cases/include_depth_9/driver.exit.json",
+      "Bytes": 866,
+      "Sha256": "BDF365BAFB4C488A70FAAD3B973CF041E4EEDB56A5D0F920D944C9E0F994B7E6"
+    },
+    {
+      "Path": "artifacts/library377-missing-native-execution1/cases/nested_dynamic_head_replacement/driver.exit.json",
+      "Bytes": 882,
+      "Sha256": "211BF981D6ED16E75B0A9BA118E06DD77606C949D41293082F0760113726F980"
+    },
+    {
+      "Path": "artifacts/library377-missing-native-execution1/cases/nested_dynamic_head_replacement/managed.etf",
+      "Bytes": 23,
+      "Sha256": "D5DBDA992270F3DF6BB6DA0567F11D5613F7BB785C010CD587F812C01FF20F60"
+    },
+    {
+      "Path": "artifacts/library377-missing-native-execution1/cases/nested_dynamic_head_replacement/original.etf",
+      "Bytes": 23,
+      "Sha256": "D5DBDA992270F3DF6BB6DA0567F11D5613F7BB785C010CD587F812C01FF20F60"
+    },
+    {
+      "Path": "artifacts/library377-missing-native-execution1/cases/nested_parameter_macro/driver.exit.json",
+      "Bytes": 872,
+      "Sha256": "967EE30BE6AC79CD31CAC2D1575B94A268B6D099C79B3CD08E97FE97926F5B04"
+    },
+    {
+      "Path": "artifacts/library377-missing-native-execution1/cases/nested_parameter_macro/managed.etf",
+      "Bytes": 30,
+      "Sha256": "93758990DA74233F367B192F2AD832822118F3BB7EEA9D497FE67770E81E07BB"
+    },
+    {
+      "Path": "artifacts/library377-missing-native-execution1/cases/nested_parameter_macro/original.etf",
+      "Bytes": 30,
+      "Sha256": "93758990DA74233F367B192F2AD832822118F3BB7EEA9D497FE67770E81E07BB"
+    },
+    {
+      "Path": "artifacts/library377-missing-native-execution1/cases/predefined_module_redefinition/driver.exit.json",
+      "Bytes": 881,
+      "Sha256": "0625A3346B48EF45E715B321DB94D747BFEC14C53C5FFCDE211951645345ADFC"
+    },
+    {
+      "Path": "artifacts/library377-missing-native-execution1/cases/search_left_first/driver.exit.json",
+      "Bytes": 868,
+      "Sha256": "17D3F027E51F49675207CD116D3E42FCBDDF4349906A560D27E75BE09513F500"
+    },
+    {
+      "Path": "artifacts/library377-missing-native-execution1/cases/search_left_first/managed.etf",
+      "Bytes": 13,
+      "Sha256": "4105DEAEED86562A74857A76D5B281C513F1D4F172CF8FE93B1B39C83229D73B"
+    },
+    {
+      "Path": "artifacts/library377-missing-native-execution1/cases/search_left_first/original.etf",
+      "Bytes": 13,
+      "Sha256": "4105DEAEED86562A74857A76D5B281C513F1D4F172CF8FE93B1B39C83229D73B"
+    },
+    {
+      "Path": "artifacts/library377-missing-native-execution1/cases/search_right_first/driver.exit.json",
+      "Bytes": 869,
+      "Sha256": "E9B79008E97961B6160B73464A19DC2D2AAE7194E50B2172840077ADE167B5B2"
+    },
+    {
+      "Path": "artifacts/library377-missing-native-execution1/cases/search_right_first/managed.etf",
+      "Bytes": 14,
+      "Sha256": "4AD1252507C3241F2DA1FE9690526E0B35CAA0A83619CEE0A9CB7C64511154E7"
+    },
+    {
+      "Path": "artifacts/library377-missing-native-execution1/cases/search_right_first/original.etf",
+      "Bytes": 14,
+      "Sha256": "4AD1252507C3241F2DA1FE9690526E0B35CAA0A83619CEE0A9CB7C64511154E7"
+    },
+    {
+      "Path": "artifacts/library377-missing-native-execution1/cases/undef_then_redefine/driver.exit.json",
+      "Bytes": 870,
+      "Sha256": "987A66544AA8D0EF227657852A34CDCFD5570AC5B1F371C7A7AE9554B2112A9D"
+    },
+    {
+      "Path": "artifacts/library377-missing-native-execution1/cases/undef_then_redefine/managed.etf",
+      "Bytes": 12,
+      "Sha256": "FDEE899A18727D1D94CA0738824CF50DF8B08838E12F8A2B7277F7540B76850C"
+    },
+    {
+      "Path": "artifacts/library377-missing-native-execution1/cases/undef_then_redefine/original.etf",
+      "Bytes": 12,
+      "Sha256": "FDEE899A18727D1D94CA0738824CF50DF8B08838E12F8A2B7277F7540B76850C"
+    },
+    {
+      "Path": "artifacts/library377-missing-native-execution1/completion.json",
+      "Bytes": 32635,
+      "Sha256": "E2F2F7C86468C69BF29168071847813D34127467209B774902CA5E83420F221A"
+    },
+    {
+      "Path": "artifacts/library377-owned-file-mutation-execution1/completion.json",
+      "Bytes": 18896,
+      "Sha256": "6176771868F0685CC0D51539AEE90195B9A37CFF620D4D219274DD6DF41AFE7D"
+    },
+    {
+      "Path": "artifacts/library377-owned-file-mutation-execution1/owned_file_added/cold.exit.json",
+      "Bytes": 652,
+      "Sha256": "06D712A4FE4FB3F412B11BFAB365B0D49165BE4000DFA54BCE6E0830870A0AD6"
+    },
+    {
+      "Path": "artifacts/library377-owned-file-mutation-execution1/owned_file_added/mutated.exit.json",
+      "Bytes": 655,
+      "Sha256": "BD8AB9D55320C7F2FA38A6415FA836836AC53EE4C71DEA2E25BABC457DCB5DE9"
+    },
+    {
+      "Path": "artifacts/library377-owned-file-mutation-execution1/owned_file_added/recovery.exit.json",
+      "Bytes": 644,
+      "Sha256": "ABABEE05E46251CA750CFAFAE324B7CE34B938E2D41C32D55E526E434CADD8FC"
+    },
+    {
+      "Path": "artifacts/library377-owned-file-mutation-execution1/owned_file_added/recovery_warm.exit.json",
+      "Bytes": 661,
+      "Sha256": "232D8E11E24A00CBB29BB0D878559B3A03F1DA4481300E30825456DB9C65CF4F"
+    },
+    {
+      "Path": "artifacts/library377-owned-file-mutation-execution1/owned_file_added/warm_baseline.exit.json",
+      "Bytes": 661,
+      "Sha256": "951A266BFA2CC93B291AA39163E8115FE6BF07163501FFE1EA0580AF82E51051"
+    },
+    {
+      "Path": "artifacts/library377-owned-file-mutation-execution1/owned_file_deleted/cold.exit.json",
+      "Bytes": 653,
+      "Sha256": "E87970740B45CDE15E8B156BDB34D7282DC14D3EA56160BBDFFB6AA2DEBBE5D3"
+    },
+    {
+      "Path": "artifacts/library377-owned-file-mutation-execution1/owned_file_deleted/mutated.exit.json",
+      "Bytes": 656,
+      "Sha256": "28F78C851883FC48A6CAEC43B6A2708860E58B53620DCB15B3C514E9608C166F"
+    },
+    {
+      "Path": "artifacts/library377-owned-file-mutation-execution1/owned_file_deleted/recovery.exit.json",
+      "Bytes": 658,
+      "Sha256": "3587BF28FA35FF1DCD373C1A5258FED0835A8DAB31B8358646DA5170C27DD0DF"
+    },
+    {
+      "Path": "artifacts/library377-owned-file-mutation-execution1/owned_file_deleted/recovery_warm.exit.json",
+      "Bytes": 662,
+      "Sha256": "BD43E8476866CBB4FCA926C5C23EF0F141E9550808D9732914526E5721831B37"
+    },
+    {
+      "Path": "artifacts/library377-owned-file-mutation-execution1/owned_file_deleted/warm_baseline.exit.json",
+      "Bytes": 651,
+      "Sha256": "836B5E274207FCDA76A2E16AF6227602C8D45026D5A9AB2FC123B4C88F2F12F6"
+    },
+    {
+      "Path": "artifacts/library377-policy-real-controls1/completion.json",
+      "Bytes": 3694,
+      "Sha256": "17F919E347B711464D3C4FAFE57CF8130226F603DA0122BA5BAD65D2DEDB7855"
+    },
+    {
+      "Path": "artifacts/library377-process-execution1/completion.json",
+      "Bytes": 779,
+      "Sha256": "55E330C8DCF4F1A1166702897012311CB331350904690C1A8CB1425234A8B48A"
+    },
+    {
+      "Path": "artifacts/library377-project-cache-specifics-execution1/completion.json",
+      "Bytes": 15739,
+      "Sha256": "EB530A2B0DE2BEEBDE271255B88E45A586A8D5AE47461598E5144189BA749650"
+    },
+    {
+      "Path": "artifacts/library377-project-cache-specifics-execution1/macro_type_original_whole_etf/macro_absent.managed.etf",
+      "Bytes": 33,
+      "Sha256": "4A530D2198144E4C72FDD87CE8DEA8F7E27CF950CD252B1B98F94B3A2C6C17B0"
+    },
+    {
+      "Path": "artifacts/library377-project-cache-specifics-execution1/macro_type_original_whole_etf/macro_absent.original.etf",
+      "Bytes": 33,
+      "Sha256": "4A530D2198144E4C72FDD87CE8DEA8F7E27CF950CD252B1B98F94B3A2C6C17B0"
+    },
+    {
+      "Path": "artifacts/library377-project-cache-specifics-execution1/macro_type_original_whole_etf/macro_atom.managed.etf",
+      "Bytes": 30,
+      "Sha256": "2C4E354DAEC1FA8C068885FD7506C1EE7CFEB61DB63AC1F30D33697F1B2A8FF6"
+    },
+    {
+      "Path": "artifacts/library377-project-cache-specifics-execution1/macro_type_original_whole_etf/macro_atom.original.etf",
+      "Bytes": 30,
+      "Sha256": "2C4E354DAEC1FA8C068885FD7506C1EE7CFEB61DB63AC1F30D33697F1B2A8FF6"
+    },
+    {
+      "Path": "artifacts/library377-project-cache-specifics-execution1/macro_type_original_whole_etf/macro_integer.managed.etf",
+      "Bytes": 28,
+      "Sha256": "AEE6E64532DA516F77A1C20876F72CB422CA2CA1163FDE997B78C798277161F8"
+    },
+    {
+      "Path": "artifacts/library377-project-cache-specifics-execution1/macro_type_original_whole_etf/macro_integer.original.etf",
+      "Bytes": 28,
+      "Sha256": "AEE6E64532DA516F77A1C20876F72CB422CA2CA1163FDE997B78C798277161F8"
+    },
+    {
+      "Path": "artifacts/library377-project-cache-specifics-execution1/macro_type_original_whole_etf/macro_string.managed.etf",
+      "Bytes": 31,
+      "Sha256": "4254C4E7A9791F1306DF69AAD4E27F91E96F232450A28C583EACBABD8167A54D"
+    },
+    {
+      "Path": "artifacts/library377-project-cache-specifics-execution1/macro_type_original_whole_etf/macro_string.original.etf",
+      "Bytes": 31,
+      "Sha256": "4254C4E7A9791F1306DF69AAD4E27F91E96F232450A28C583EACBABD8167A54D"
+    },
+    {
+      "Path": "artifacts/library377-final-identity-values-execution1/completion.json",
+      "Bytes": 7334,
+      "Sha256": "0BD6AD217957DD221C0D56C0FCF94C66215EBB7AB09DB5877DD5A1E158C59303"
+    },
+    {
+      "Path": "artifacts/library377-final-identity-values-execution1/private_tool_dependency_identity/compiled/.work-10af71181e384fcd9381e06040f0e172/driver-bootstrap/compiler.process.json",
+      "Bytes": 1889,
+      "Sha256": "9D63DC2FB45AC4A8807535FA7DB89CF24054FBDB034F2AD94C2EC296285376A4"
+    },
+    {
+      "Path": "artifacts/library377-final-identity-values-execution1/private_tool_dependency_identity/compiled/.work-10af71181e384fcd9381e06040f0e172/modules/identity_guest377/compiler.process.json",
+      "Bytes": 1993,
+      "Sha256": "C20A48DAC6325627C264DDBED3354693CFF37BFAEE9E1A164FA5BB626B503ED5"
+    },
+    {
+      "Path": "artifacts/library377-final-identity-values-execution1/private_tool_dependency_identity/compiled/.work-fff97479d7244c23998f4f2f77043d80/modules/identity_guest377/compiler.process.json",
+      "Bytes": 1993,
+      "Sha256": "B1C61E0642DD4D5B2F877B594997E2B6B70D71F038426359680FA47682AF39E0"
+    },
+    {
+      "Path": "artifacts/library377-final-identity-values-execution1/retained_direct_header_values/cache_guest_a377.managed.etf",
+      "Bytes": 32,
+      "Sha256": "9B39F6663887F757961D792D29483C98391AE55C0DB3A2B358979D8BB16747E2"
+    },
+    {
+      "Path": "artifacts/library377-final-identity-values-execution1/retained_direct_header_values/cache_guest_a377.original.etf",
+      "Bytes": 32,
+      "Sha256": "9B39F6663887F757961D792D29483C98391AE55C0DB3A2B358979D8BB16747E2"
+    },
+    {
+      "Path": "artifacts/library377-final-identity-values-execution1/retained_direct_header_values/cache_guest_b377.managed.etf",
+      "Bytes": 32,
+      "Sha256": "9B39F6663887F757961D792D29483C98391AE55C0DB3A2B358979D8BB16747E2"
+    },
+    {
+      "Path": "artifacts/library377-final-identity-values-execution1/retained_direct_header_values/cache_guest_b377.original.etf",
+      "Bytes": 32,
+      "Sha256": "9B39F6663887F757961D792D29483C98391AE55C0DB3A2B358979D8BB16747E2"
+    },
+    {
+      "Path": "artifacts/library377-final-identity-values-execution1/retained_transitive_header_value/hello_include.beam",
+      "Bytes": 548,
+      "Sha256": "30630D9F6FD8B7BC1B7AFCA9DD08610CF135A796B02630F1DD460048DE10B89A"
+    },
+    {
+      "Path": "artifacts/library377-final-identity-values-execution1/retained_transitive_header_value/transitive_378.managed.etf",
+      "Bytes": 39,
+      "Sha256": "58AF7DAFF2716B424C6C7FA8C9F2DD36C9FF4F4777517AD84B7F9409187C0AA9"
+    },
+    {
+      "Path": "artifacts/library377-final-identity-values-execution1/retained_transitive_header_value/transitive_378.original.etf",
+      "Bytes": 39,
+      "Sha256": "58AF7DAFF2716B424C6C7FA8C9F2DD36C9FF4F4777517AD84B7F9409187C0AA9"
+    },
+    {
+      "Path": "artifacts/library377-project-cache-specifics-execution1/two_modules_global_closure/compiled/cache_guest_a377.beam",
+      "Bytes": 520,
+      "Sha256": "9EDCE0797618189937B69890B241BE3DA3A24222FBDB57C2338A211D82E8C1E4"
+    },
+    {
+      "Path": "artifacts/library377-project-cache-specifics-execution1/two_modules_global_closure/compiled/cache_guest_b377.beam",
+      "Bytes": 520,
+      "Sha256": "5782211F2C64DE2590B4C188766E7ABF07634A96B62F3ADE47F2D786F18A17CB"
+    },
+    {
+      "Path": "artifacts/library377-selected-header-removal1/completion.json",
+      "Bytes": 2177,
+      "Sha256": "CC57396EBCAEFE34374ADFB538D416314C5DCA229FC26560D5230111EEA318D2"
+    }
+  ],
+  "PendingExcluded": "No pending identity/header/leaf observation inferred; exact new actual packets verified. Root final solution/full8056 canonical execution remains separate and cannot be certified by passive audit. No377 acceptance by reviewer.",
+  "NoSubjectExecutionByReviewer": true,
+  "No377Acceptance": true,
+  "PreviousAuditSha256": "53C5B024AF7D735E0A026DE9A8AE50AE16341E6D275EACC0FF759FC6109177ED",
+  "AdditionalNativeRawPairsPassivelyVerified": 12,
+  "RetainedActualFailures": [
+    {
+      "Path": "artifacts/library377-missing-native-execution1/completion.json",
+      "Failure": "18/19driver cases; unused malformed macro expected error incorrectly.12rawpairs allmatch."
+    },
+    {
+      "Path": "artifacts/library377-child-stack-execution1/completion.json",
+      "Failure": "whole guest .NET boundedlinker rejection; no stackpair."
+    },
+    {
+      "Path": "artifacts/library377-leaf-stack1",
+      "Failure": "author pre-write LF vs persistedCRLF sealing error before native; explicit successor2 corrects actual bytes."
+    }
+  ],
+  "MinimalRemainingCount": 4,
+  "RemainingOriginalPlanItems": [
+    "transform_in_active_header",
+    "on_load_attribute",
+    "owned_stage_changes_during_child",
+    "preprocess_compile_timeout"
+  ],
+  "DefensiveBranchesUnexercisedWithPublicPropertyMeasured": [
+    "transform_in_active_header",
+    "on_load_attribute"
+  ],
+  "RemainingOtherExactPlanItems": [
+    "owned_stage_changes_during_child",
+    "preprocess_compile_timeout"
+  ],
+  "AdditionalFinalRawPairsPassivelyVerified": 5,
+  "SourceRuntimeBoundary": "Production Runtime unchanged frozen376 according to Root; new leaf fixture separate from retained unsupported full try/receive program. Runtime role implementation planned later378, not silently admitted.",
+  "AdditionalFinalIdentityValueRawPairsPassivelyVerified": 3,
+  "NoBlanket100Percent": true
+}

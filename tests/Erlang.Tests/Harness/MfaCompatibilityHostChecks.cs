@@ -121,6 +121,23 @@ public static class MfaCompatibilityHostChecks
         Reject(ledger with { Entries = [verified], VerifiedSourceFiles = [] });
         File.WriteAllText(sourcePath, MfaCompatibilityNames.Pending);
         Reject(ledger with { Entries = [verified] });
+        // Historical rendering keeps source hashes; readiness still rejects the changed implementation.
+        MfaCompatibility.Load(
+            docs,
+            MfaCompatibilityHostNames.Tag,
+            MfaCompatibilityHostNames.Commit,
+            registered,
+            validateSourceBindings: false
+        );
+        File.WriteAllText(Path.Combine(docs, MfaCompatibilityHostNames.AuditFile), MfaCompatibilityNames.Pending);
+        MustReject(() => MfaCompatibility.Load(
+            docs,
+            MfaCompatibilityHostNames.Tag,
+            MfaCompatibilityHostNames.Commit,
+            registered,
+            validateSourceBindings: false
+        ));
+        File.WriteAllText(Path.Combine(docs, MfaCompatibilityHostNames.AuditFile), MfaCompatibilityHostNames.Scope);
         File.WriteAllText(sourcePath, MfaCompatibilityHostNames.Scope);
         Reject(ledger with { Entries = [verified with { Limits = [MfaCompatibilityHostNames.PendingLimit] }] });
         Reject(ledger with { Entries = [verified with { Evidence = [original] }] });
@@ -193,7 +210,7 @@ public static class MfaCompatibilityHostChecks
             Require(module.GetProperty("RegisteredMfas").GetInt32() == module.GetProperty("NeedsVerificationMfas").GetInt32());
         string summary = File.ReadAllText(Path.Combine(output, ReadinessText.ReportMarkdown));
         Require(summary.IndexOf(ReadinessText.ModuleHeading, StringComparison.Ordinal) < summary.IndexOf(ReadinessText.ComponentHeading, StringComparison.Ordinal));
-        string commands = File.ReadAllText(Path.Combine(output, MfaCompatibilityNames.Report));
+        string commands = string.Join("\n", Directory.GetFiles(output, "*.md", SearchOption.AllDirectories).Select(File.ReadAllText));
         Require(ledger.Entries.All(value => commands.Contains(value.Key, StringComparison.Ordinal)));
         foreach (string command in new[] { "erlang:</2", "erlang:>/2", "erlang:=</2", "erlang:>=/2" })
             Require(commands.Contains("| `" + command + "` |", StringComparison.Ordinal));
@@ -205,6 +222,25 @@ public static class MfaCompatibilityHostChecks
             testPath,
             ledger
         );
+
+        string sentinel = Path.Combine(output, "api", "user-notes.md");
+        File.WriteAllText(sentinel, MfaCompatibilityHostNames.Scope);
+        string[] previous = JsonSerializer.Deserialize<string[]>(File.ReadAllText(Path.Combine(output, "api", "generated-files.json")))!;
+        var proof = new MfaCompatibilityEvidence
+        {
+            Kind = MfaCompatibilityNames.Audit,
+            Path = "proof with spaces.json",
+            Sha256 = new string('a', MfaCompatibilityNames.Sha256Length),
+            Scope = "Evidence <scope> | preserved"
+        };
+        var reduced = ledger with { Entries = ledger.Entries.Take(2).Select(entry => entry with { Evidence = [proof], Scope = "Contract <scope> | preserved" }).ToArray() };
+        await MfaCompatibilityDocuments.Write(reduced, docs, output);
+        var generated = MfaCompatibilityDocuments.Generate(reduced, docs, output);
+        Require(File.ReadAllText(sentinel) == MfaCompatibilityHostNames.Scope);
+        Require(previous.Where(file => file.StartsWith("api/", StringComparison.Ordinal) && !generated.ContainsKey(file)).All(file => !File.Exists(Path.Combine(output, file))));
+        Require(generated.Keys.Count(file => file.StartsWith("api/evidence/", StringComparison.Ordinal)) == 1);
+        string proofPage = generated.Single(file => file.Key.StartsWith("api/evidence/", StringComparison.Ordinal)).Value;
+        Require(proofPage.Contains(proof.Sha256, StringComparison.Ordinal) && proofPage.Contains("Evidence &lt;scope&gt; \\| preserved", StringComparison.Ordinal));
         Write(Path.Combine(docs, MfaCompatibilityNames.File), ledger with { Commit = new string('0', 40) });
         string invalidOutput = Path.Combine(root, "invalid-output");
         bool rejected = false;

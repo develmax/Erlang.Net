@@ -23,7 +23,7 @@ internal static class OtpMapHashLayoutProtocol
 
             return;
         }
-        HamtViewEntry[] entries = map.Entries
+        HamtViewEntry[] entries = map.ArithmeticKeyEntries
             .Select(pair => new HamtViewEntry(pair, internalHash(pair.Key)))
             .ToArray();
         HamtViewNode root = HamtCursorView.Branch(entries, 0);
@@ -77,7 +77,7 @@ internal static class OtpMapHashLayoutProtocol
 
     private static IReadOnlyList<KeyValuePair<Term, Term>> SortedFlatEntries(MapTerm map, OtpMapHashState64 state)
     {
-        return map.Entries
+        return map.ArithmeticKeyEntries
             .OrderBy(pair => pair.Key, Comparer<Term>.Create((left, right) => FlatKeyOrder(left, right, state)))
             .ToArray();
     }

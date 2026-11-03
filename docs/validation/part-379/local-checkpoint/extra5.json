@@ -1,0 +1,51 @@
+{
+  "Passed": true,
+  "Total": 5,
+  "Cases": [
+    {
+      "Name": "cold-extra-cli",
+      "Passed": true,
+      "Detail": {
+        "Seconds": 10.203,
+        "ExitCode": 0,
+        "ExpectedFailure": null
+      }
+    },
+    {
+      "Name": "remove-config-owned-only",
+      "Passed": true,
+      "Detail": {
+        "Seconds": 6.5,
+        "ExitCode": 0,
+        "ExpectedFailure": null
+      }
+    },
+    {
+      "Name": "version-change-removes-only-old-owned-layout",
+      "Passed": true,
+      "Detail": {
+        "Seconds": 6.141,
+        "ExitCode": 0,
+        "ExpectedFailure": null
+      }
+    },
+    {
+      "Name": "malformed-driver-cache-refused-before-native",
+      "Passed": true,
+      "Detail": {
+        "Seconds": 2.516,
+        "ExitCode": 1,
+        "ExpectedFailure": "RuntimeError('Owned stage failed; all available raw evidence retained: malformed-driver-state')"
+      }
+    },
+    {
+      "Name": "simultaneous-two-descriptors-refused-before-native",
+      "Passed": true,
+      "Detail": {
+        "ExitCode": 1,
+        "NativeChildren": 0
+      }
+    }
+  ],
+  "ToolSha256": "7F9B14E7F04AD23D9A9C10B5B6A2E71BA714AD2E17A1B7B5916155944A7BFC53"
+}

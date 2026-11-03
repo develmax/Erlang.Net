@@ -1,0 +1,249 @@
+{
+  "CurrentRegisteredSubset": 699,
+  "FamilyPartitionExactlyOnce": true,
+  "NativeLaneIsNotPureModuleMigration": true,
+  "Plan": [
+    {
+      "Order": "P0",
+      "Family": "Shared runtime/compiler/loader admission",
+      "Modules": [],
+      "RegisteredMfasInCurrentSubset": 0,
+      "EntryClassificationCounts": {},
+      "Prerequisites": [
+        "Real preprocessing/includes/macros/conditional compilation; preserve functional compile options and source filenames/lines.",
+        "Parse unchanged pinned module and its required dependency closure, with no temporary function-only snippets or semantic attribute stripping.",
+        "Emit/load generated .NET module with original source-owner/code-image metadata and real Erlang call graph.",
+        "Validate native BIF/NIF/intrinsic stub preservation before any original library module can shadow runtime primitives.",
+        "Track unsupported language/runtime operations as shared prerequisites, not opportunities to hand-port that pure library function to C#."
+      ],
+      "GateSequence": [
+        "Identify and implement missing runtime/compiler/preprocessor/loader/native-binding capabilities.",
+        "Execute unchanged pinned original Erlang/BEAM module on our runtime; identify generated C#/IL as a distinct path.",
+        "Run shared semantic cases with separate acceptance receipts for each backend: values/errors/options/full stacks/resources/affected regression.",
+        "Review explicit per-module backend selection, same-MFA provenance/diagnostics, and rollback; no hidden BEAM-to-C# handler fallback.",
+        "Preserve maintained C# and original backend alternatives; this plan authorizes no retirement or deletion."
+      ],
+      "NoSwitchDeleteOrPublishAuthorized": true
+    },
+    {
+      "Order": "F1",
+      "Family": "Queue",
+      "Modules": [
+        "queue"
+      ],
+      "RegisteredMfasInCurrentSubset": 38,
+      "EntryClassificationCounts": {
+        "pure Erlang": 38
+      },
+      "Prerequisites": [
+        "First coherent original-source family: all38 registered queue exports, plus original private helpers from the same file.",
+        "Audit actual required list primitives, comparison/error semantics and process execution/scheduling under the unchanged original source."
+      ],
+      "GateSequence": [
+        "Identify and implement missing runtime/compiler/preprocessor/loader/native-binding capabilities.",
+        "Execute unchanged pinned original Erlang/BEAM module on our runtime; identify generated C#/IL as a distinct path.",
+        "Run shared semantic cases with separate acceptance receipts for each backend: values/errors/options/full stacks/resources/affected regression.",
+        "Review explicit per-module backend selection, same-MFA provenance/diagnostics, and rollback; no hidden BEAM-to-C# handler fallback.",
+        "Preserve maintained C# and original backend alternatives; this plan authorizes no retirement or deletion."
+      ],
+      "NoSwitchDeleteOrPublishAuthorized": true
+    },
+    {
+      "Order": "F2",
+      "Family": "Ordsets",
+      "Modules": [
+        "ordsets"
+      ],
+      "RegisteredMfasInCurrentSubset": 21,
+      "EntryClassificationCounts": {
+        "pure Erlang": 21
+      },
+      "Prerequisites": [
+        "Reuse unchanged21-export original module and all private helpers; retain C# term comparison/HAMT/runtime primitives.",
+        "Do not confuse current manually ported source frames or complete current-backend contracts with admission of original ordsets.erl."
+      ],
+      "GateSequence": [
+        "Identify and implement missing runtime/compiler/preprocessor/loader/native-binding capabilities.",
+        "Execute unchanged pinned original Erlang/BEAM module on our runtime; identify generated C#/IL as a distinct path.",
+        "Run shared semantic cases with separate acceptance receipts for each backend: values/errors/options/full stacks/resources/affected regression.",
+        "Review explicit per-module backend selection, same-MFA provenance/diagnostics, and rollback; no hidden BEAM-to-C# handler fallback.",
+        "Preserve maintained C# and original backend alternatives; this plan authorizes no retirement or deletion."
+      ],
+      "NoSwitchDeleteOrPublishAuthorized": true
+    },
+    {
+      "Order": "F3",
+      "Family": "Proplists",
+      "Modules": [
+        "proplists"
+      ],
+      "RegisteredMfasInCurrentSubset": 22,
+      "EntryClassificationCounts": {
+        "pure Erlang": 22
+      },
+      "Prerequisites": [
+        "Original22-export module plus actual lists/maps/iterator dependencies; include complete failure stacks and own-state raw iterator protocol."
+      ],
+      "GateSequence": [
+        "Identify and implement missing runtime/compiler/preprocessor/loader/native-binding capabilities.",
+        "Execute unchanged pinned original Erlang/BEAM module on our runtime; identify generated C#/IL as a distinct path.",
+        "Run shared semantic cases with separate acceptance receipts for each backend: values/errors/options/full stacks/resources/affected regression.",
+        "Review explicit per-module backend selection, same-MFA provenance/diagnostics, and rollback; no hidden BEAM-to-C# handler fallback.",
+        "Preserve maintained C# and original backend alternatives; this plan authorizes no retirement or deletion."
+      ],
+      "NoSwitchDeleteOrPublishAuthorized": true
+    },
+    {
+      "Order": "F4",
+      "Family": "Lists",
+      "Modules": [
+        "lists"
+      ],
+      "RegisteredMfasInCurrentSubset": 91,
+      "EntryClassificationCounts": {
+        "pure Erlang": 86,
+        "native/runtime": 5
+      },
+      "Prerequisites": [
+        "Reuse86 ordinary Erlang entry bodies; preserve5 pinned native/runtime entries.",
+        "Original internal helper/source frame behavior follows the compiled original call graph; do not keep rewriting private Erlang algorithms in C#."
+      ],
+      "GateSequence": [
+        "Identify and implement missing runtime/compiler/preprocessor/loader/native-binding capabilities.",
+        "Execute unchanged pinned original Erlang/BEAM module on our runtime; identify generated C#/IL as a distinct path.",
+        "Run shared semantic cases with separate acceptance receipts for each backend: values/errors/options/full stacks/resources/affected regression.",
+        "Review explicit per-module backend selection, same-MFA provenance/diagnostics, and rollback; no hidden BEAM-to-C# handler fallback.",
+        "Preserve maintained C# and original backend alternatives; this plan authorizes no retirement or deletion."
+      ],
+      "NoSwitchDeleteOrPublishAuthorized": true
+    },
+    {
+      "Order": "F5",
+      "Family": "Mixed wrapper modules",
+      "Modules": [
+        "maps",
+        "binary"
+      ],
+      "RegisteredMfasInCurrentSubset": 65,
+      "EntryClassificationCounts": {
+        "native/runtime": 34,
+        "pure Erlang": 31
+      },
+      "Prerequisites": [
+        "Original maps22 Erlang bodies andbinary9 Erlang bodies share modules with12 and22 native/runtime entries respectively.",
+        "Module admission must preserve each native entry; whole-module blanket replacement is forbidden before separate binding proof."
+      ],
+      "GateSequence": [
+        "Identify and implement missing runtime/compiler/preprocessor/loader/native-binding capabilities.",
+        "Execute unchanged pinned original Erlang/BEAM module on our runtime; identify generated C#/IL as a distinct path.",
+        "Run shared semantic cases with separate acceptance receipts for each backend: values/errors/options/full stacks/resources/affected regression.",
+        "Review explicit per-module backend selection, same-MFA provenance/diagnostics, and rollback; no hidden BEAM-to-C# handler fallback.",
+        "Preserve maintained C# and original backend alternatives; this plan authorizes no retirement or deletion."
+      ],
+      "NoSwitchDeleteOrPublishAuthorized": true
+    },
+    {
+      "Order": "F6",
+      "Family": "OTP process and behaviour families",
+      "Modules": [
+        "proc_lib",
+        "gen_server",
+        "supervisor",
+        "sys"
+      ],
+      "RegisteredMfasInCurrentSubset": 65,
+      "EntryClassificationCounts": {
+        "pure Erlang": 65
+      },
+      "Prerequisites": [
+        "Compile original proc_lib/gen/gen_server/supervisor/sys/helper dependency graph against existing process/monitor/alias/system protocol foundations.",
+        "Retain C# actor/scheduler/host integration and existing adapters as transitional/reference backend until separate parity and binding decisions."
+      ],
+      "GateSequence": [
+        "Identify and implement missing runtime/compiler/preprocessor/loader/native-binding capabilities.",
+        "Execute unchanged pinned original Erlang/BEAM module on our runtime; identify generated C#/IL as a distinct path.",
+        "Run shared semantic cases with separate acceptance receipts for each backend: values/errors/options/full stacks/resources/affected regression.",
+        "Review explicit per-module backend selection, same-MFA provenance/diagnostics, and rollback; no hidden BEAM-to-C# handler fallback.",
+        "Preserve maintained C# and original backend alternatives; this plan authorizes no retirement or deletion."
+      ],
+      "NoSwitchDeleteOrPublishAuthorized": true
+    },
+    {
+      "Order": "F7",
+      "Family": "Kernel services and IO",
+      "Modules": [
+        "logger",
+        "error_logger",
+        "application",
+        "erpc",
+        "rpc",
+        "io"
+      ],
+      "RegisteredMfasInCurrentSubset": 38,
+      "EntryClassificationCounts": {
+        "pure Erlang": 38
+      },
+      "Prerequisites": [
+        "Prove the required original service/dependency closure; current registered API subset is not the whole module.",
+        "Keep host IO/application bootstrap, transport and native/runtime service boundaries in C# as required."
+      ],
+      "GateSequence": [
+        "Identify and implement missing runtime/compiler/preprocessor/loader/native-binding capabilities.",
+        "Execute unchanged pinned original Erlang/BEAM module on our runtime; identify generated C#/IL as a distinct path.",
+        "Run shared semantic cases with separate acceptance receipts for each backend: values/errors/options/full stacks/resources/affected regression.",
+        "Review explicit per-module backend selection, same-MFA provenance/diagnostics, and rollback; no hidden BEAM-to-C# handler fallback.",
+        "Preserve maintained C# and original backend alternatives; this plan authorizes no retirement or deletion."
+      ],
+      "NoSwitchDeleteOrPublishAuthorized": true
+    },
+    {
+      "Order": "F8",
+      "Family": "Preloaded Erlang facade",
+      "Modules": [
+        "erlang"
+      ],
+      "RegisteredMfasInCurrentSubset": 351,
+      "EntryClassificationCounts": {
+        "native/runtime": 264,
+        "pure Erlang": 81,
+        "mixed": 2,
+        "uncertain": 4
+      },
+      "Prerequisites": [
+        "Separate264 runtime/native entries,81 ordinary Erlang bodies,2 mixed min/max entries and4 self-delegating/intrinsic-uncertain entries (derive actual count from crosswalk).",
+        "Do not load all erlang.erl stubs over native runtime handlers. Prove compiler/loader intrinsic treatment and source wrappers per family."
+      ],
+      "GateSequence": [
+        "Identify and implement missing runtime/compiler/preprocessor/loader/native-binding capabilities.",
+        "Execute unchanged pinned original Erlang/BEAM module on our runtime; identify generated C#/IL as a distinct path.",
+        "Run shared semantic cases with separate acceptance receipts for each backend: values/errors/options/full stacks/resources/affected regression.",
+        "Review explicit per-module backend selection, same-MFA provenance/diagnostics, and rollback; no hidden BEAM-to-C# handler fallback.",
+        "Preserve maintained C# and original backend alternatives; this plan authorizes no retirement or deletion."
+      ],
+      "NoSwitchDeleteOrPublishAuthorized": true
+    },
+    {
+      "Order": "R",
+      "Family": "Native record primitives",
+      "Modules": [
+        "records"
+      ],
+      "RegisteredMfasInCurrentSubset": 8,
+      "EntryClassificationCounts": {
+        "native/runtime": 8
+      },
+      "Prerequisites": [
+        "Keep8 native/runtime entries in the VM/BIF lane; original records.erl NIF stubs are declarations, not reusable pure implementations."
+      ],
+      "GateSequence": [
+        "Identify and implement missing runtime/compiler/preprocessor/loader/native-binding capabilities.",
+        "Execute unchanged pinned original Erlang/BEAM module on our runtime; identify generated C#/IL as a distinct path.",
+        "Run shared semantic cases with separate acceptance receipts for each backend: values/errors/options/full stacks/resources/affected regression.",
+        "Review explicit per-module backend selection, same-MFA provenance/diagnostics, and rollback; no hidden BEAM-to-C# handler fallback.",
+        "Preserve maintained C# and original backend alternatives; this plan authorizes no retirement or deletion."
+      ],
+      "NoSwitchDeleteOrPublishAuthorized": true
+    }
+  ],
+  "BackendPolicy": "Preserve maintained C# and original Erlang/BEAM as explicit selectable per-module alternatives under the same MFA; generated C#/IL is a separately identified third path. No hidden fallback or retirement/deletion milestone."
+}

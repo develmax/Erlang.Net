@@ -1,0 +1,1651 @@
+[
+  {
+    "Module": "application",
+    "Prepared": true,
+    "HasOnLoad": false,
+    "Native": []
+  },
+  {
+    "Module": "application_controller",
+    "Prepared": true,
+    "HasOnLoad": false,
+    "Native": []
+  },
+  {
+    "Module": "application_master",
+    "Prepared": true,
+    "HasOnLoad": false,
+    "Native": []
+  },
+  {
+    "Module": "application_starter",
+    "Prepared": true,
+    "HasOnLoad": false,
+    "Native": []
+  },
+  {
+    "Module": "argparse",
+    "Prepared": false,
+    "Failure": "System.IO.InvalidDataException: The BEAM frame or Y-register ownership is unsupported\r\n   at Erlang.BeamFrameValidation.\u003CValidateExceptionalEntry\u003Eg__Enqueue|5_2(Int32 pc, ExceptionalState next, Boolean exceptional, \u003C\u003Ec__DisplayClass5_0\u0026) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\src\\Erlang.Runtime\\BeamFrameValidation.cs:line 529\r\n   at Erlang.BeamFrameValidation.ValidateExceptionalEntry(BeamLinkedCode code, BeamLinkedFunction function, IReadOnlyDictionary\u00602 receives, BigInteger entryContexts) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\src\\Erlang.Runtime\\BeamFrameValidation.cs:line 1393\r\n   at Erlang.BeamFrameValidation.ValidateExceptional(BeamLinkedCode code, BeamLinkedFunction function, IReadOnlyDictionary\u00602 receives) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\src\\Erlang.Runtime\\BeamFrameValidation.cs:line 402\r\n   at Erlang.BeamFrameValidation.Validate(BeamLinkedCode code, BeamLinkedFunction function, IReadOnlyDictionary\u00602 receives) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\src\\Erlang.Runtime\\BeamFrameValidation.cs:line 23\r\n   at Erlang.BeamRegisterValidation.Validate(BeamLinkedCode code, BeamLinkedFunction entry) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\src\\Erlang.Runtime\\BeamRegisterValidation.cs:line 438\r\n   at Erlang.ModuleRegistry.PrepareBeam(ReadOnlyMemory\u00601 bytes, BeamDependencySelection dependencies) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\src\\Erlang.Runtime\\ModuleRegistry.PreparedBeam.cs:line 27\r\n   at Program.\u003CMain\u003E$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library411-standard-probe\\Program.cs:line 42"
+  },
+  {
+    "Module": "array",
+    "Prepared": true,
+    "HasOnLoad": false,
+    "Native": []
+  },
+  {
+    "Module": "atomics",
+    "Prepared": false,
+    "Failure": "System.NotSupportedException: Unsupported reachable BEAM register instruction\r\n   at Erlang.ModuleRegistry.CaptureBeamPrimitives(BeamLinkedCode code) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\src\\Erlang.Runtime\\ModuleRegistry.BeamPrimitives.cs:line 111\r\n   at Erlang.PreparedBeamImage..ctor(ModuleRegistry owner, BeamLinkedCode code, BeamPreparedMetadata metadata) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\src\\Erlang.Runtime\\PreparedBeamImage.cs:line 16\r\n   at Erlang.ModuleRegistry.PrepareBeam(ReadOnlyMemory\u00601 bytes, BeamDependencySelection dependencies) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\src\\Erlang.Runtime\\ModuleRegistry.PreparedBeam.cs:line 29\r\n   at Program.\u003CMain\u003E$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library411-standard-probe\\Program.cs:line 42"
+  },
+  {
+    "Module": "auth",
+    "Prepared": true,
+    "HasOnLoad": false,
+    "Native": []
+  },
+  {
+    "Module": "base64",
+    "Prepared": true,
+    "HasOnLoad": false,
+    "Native": []
+  },
+  {
+    "Module": "beam_asm",
+    "Prepared": true,
+    "HasOnLoad": false,
+    "Native": []
+  },
+  {
+    "Module": "beam_bounds",
+    "Prepared": true,
+    "HasOnLoad": false,
+    "Native": []
+  },
+  {
+    "Module": "beam_call_types",
+    "Prepared": true,
+    "HasOnLoad": false,
+    "Native": []
+  },
+  {
+    "Module": "beam_core_to_ssa",
+    "Prepared": true,
+    "HasOnLoad": false,
+    "Native": []
+  },
+  {
+    "Module": "beam_dict",
+    "Prepared": true,
+    "HasOnLoad": false,
+    "Native": []
+  },
+  {
+    "Module": "beam_doc",
+    "Prepared": true,
+    "HasOnLoad": false,
+    "Native": []
+  },
+  {
+    "Module": "beam_lib",
+    "Prepared": true,
+    "HasOnLoad": false,
+    "Native": []
+  },
+  {
+    "Module": "beam_listing",
+    "Prepared": true,
+    "HasOnLoad": false,
+    "Native": []
+  },
+  {
+    "Module": "beam_opcodes",
+    "Prepared": true,
+    "HasOnLoad": false,
+    "Native": []
+  },
+  {
+    "Module": "beam_ssa",
+    "Prepared": true,
+    "HasOnLoad": false,
+    "Native": []
+  },
+  {
+    "Module": "beam_ssa_check",
+    "Prepared": true,
+    "HasOnLoad": false,
+    "Native": []
+  },
+  {
+    "Module": "beam_ssa_codegen",
+    "Prepared": true,
+    "HasOnLoad": false,
+    "Native": []
+  },
+  {
+    "Module": "beam_ssa_pp",
+    "Prepared": true,
+    "HasOnLoad": false,
+    "Native": []
+  },
+  {
+    "Module": "beam_types",
+    "Prepared": true,
+    "HasOnLoad": false,
+    "Native": []
+  },
+  {
+    "Module": "beam_utils",
+    "Prepared": true,
+    "HasOnLoad": false,
+    "Native": []
+  },
+  {
+    "Module": "beam_validator",
+    "Prepared": true,
+    "HasOnLoad": false,
+    "Native": []
+  },
+  {
+    "Module": "binary",
+    "Prepared": true,
+    "HasOnLoad": false,
+    "Native": [
+      "BeamFunctionSignature { Name = encode_unsigned, Arity = 1 }",
+      "BeamFunctionSignature { Name = matches, Arity = 3 }",
+      "BeamFunctionSignature { Name = matches, Arity = 2 }",
+      "BeamFunctionSignature { Name = copy, Arity = 1 }",
+      "BeamFunctionSignature { Name = match, Arity = 2 }",
+      "BeamFunctionSignature { Name = decode_unsigned, Arity = 1 }",
+      "BeamFunctionSignature { Name = part, Arity = 3 }",
+      "BeamFunctionSignature { Name = list_to_bin, Arity = 1 }",
+      "BeamFunctionSignature { Name = decode_unsigned, Arity = 2 }",
+      "BeamFunctionSignature { Name = copy, Arity = 2 }",
+      "BeamFunctionSignature { Name = compile_pattern, Arity = 1 }",
+      "BeamFunctionSignature { Name = at, Arity = 2 }",
+      "BeamFunctionSignature { Name = part, Arity = 2 }",
+      "BeamFunctionSignature { Name = last, Arity = 1 }",
+      "BeamFunctionSignature { Name = longest_common_suffix, Arity = 1 }",
+      "BeamFunctionSignature { Name = split, Arity = 2 }",
+      "BeamFunctionSignature { Name = split, Arity = 3 }",
+      "BeamFunctionSignature { Name = longest_common_prefix, Arity = 1 }",
+      "BeamFunctionSignature { Name = encode_unsigned, Arity = 2 }",
+      "BeamFunctionSignature { Name = referenced_byte_size, Arity = 1 }",
+      "BeamFunctionSignature { Name = first, Arity = 1 }",
+      "BeamFunctionSignature { Name = match, Arity = 3 }"
+    ]
+  },
+  {
+    "Module": "c",
+    "Prepared": true,
+    "HasOnLoad": false,
+    "Native": []
+  },
+  {
+    "Module": "calendar",
+    "Prepared": true,
+    "HasOnLoad": false,
+    "Native": []
+  },
+  {
+    "Module": "cerl",
+    "Prepared": true,
+    "HasOnLoad": false,
+    "Native": []
+  },
+  {
+    "Module": "cerl_clauses",
+    "Prepared": true,
+    "HasOnLoad": false,
+    "Native": []
+  },
+  {
+    "Module": "cerl_inline",
+    "Prepared": true,
+    "HasOnLoad": false,
+    "Native": []
+  },
+  {
+    "Module": "cerl_trees",
+    "Prepared": true,
+    "HasOnLoad": false,
+    "Native": []
+  },
+  {
+    "Module": "code",
+    "Prepared": true,
+    "HasOnLoad": false,
+    "Native": [
+      "BeamFunctionSignature { Name = get_coverage, Arity = 2 }",
+      "BeamFunctionSignature { Name = get_coverage_mode, Arity = 0 }",
+      "BeamFunctionSignature { Name = get_coverage_mode, Arity = 1 }",
+      "BeamFunctionSignature { Name = set_coverage_mode, Arity = 1 }",
+      "BeamFunctionSignature { Name = reset_coverage, Arity = 1 }",
+      "BeamFunctionSignature { Name = coverage_support, Arity = 0 }",
+      "BeamFunctionSignature { Name = get_debug_info, Arity = 1 }"
+    ]
+  },
+  {
+    "Module": "code_server",
+    "Prepared": true,
+    "HasOnLoad": false,
+    "Native": []
+  },
+  {
+    "Module": "compile",
+    "Prepared": true,
+    "HasOnLoad": false,
+    "Native": []
+  },
+  {
+    "Module": "core_lib",
+    "Prepared": true,
+    "HasOnLoad": false,
+    "Native": []
+  },
+  {
+    "Module": "core_lint",
+    "Prepared": true,
+    "HasOnLoad": false,
+    "Native": []
+  },
+  {
+    "Module": "core_parse",
+    "Prepared": true,
+    "HasOnLoad": false,
+    "Native": []
+  },
+  {
+    "Module": "core_pp",
+    "Prepared": true,
+    "HasOnLoad": false,
+    "Native": []
+  },
+  {
+    "Module": "core_scan",
+    "Prepared": true,
+    "HasOnLoad": false,
+    "Native": []
+  },
+  {
+    "Module": "counters",
+    "Prepared": true,
+    "HasOnLoad": false,
+    "Native": []
+  },
+  {
+    "Module": "crypto",
+    "Prepared": true,
+    "HasOnLoad": true,
+    "Native": []
+  },
+  {
+    "Module": "crypto_ec_curves",
+    "Prepared": true,
+    "HasOnLoad": false,
+    "Native": []
+  },
+  {
+    "Module": "data_publisher",
+    "Prepared": true,
+    "HasOnLoad": false,
+    "Native": []
+  },
+  {
+    "Module": "dets",
+    "Prepared": true,
+    "HasOnLoad": false,
+    "Native": []
+  },
+  {
+    "Module": "dets_server",
+    "Prepared": true,
+    "HasOnLoad": false,
+    "Native": []
+  },
+  {
+    "Module": "dets_sup",
+    "Prepared": true,
+    "HasOnLoad": false,
+    "Native": []
+  },
+  {
+    "Module": "dets_utils",
+    "Prepared": true,
+    "HasOnLoad": false,
+    "Native": []
+  },
+  {
+    "Module": "dets_v9",
+    "Prepared": true,
+    "HasOnLoad": false,
+    "Native": []
+  },
+  {
+    "Module": "dict",
+    "Prepared": true,
+    "HasOnLoad": false,
+    "Native": []
+  },
+  {
+    "Module": "digraph",
+    "Prepared": true,
+    "HasOnLoad": false,
+    "Native": []
+  },
+  {
+    "Module": "digraph_utils",
+    "Prepared": true,
+    "HasOnLoad": false,
+    "Native": []
+  },
+  {
+    "Module": "disk_log",
+    "Prepared": true,
+    "HasOnLoad": false,
+    "Native": []
+  },
+  {
+    "Module": "disk_log_1",
+    "Prepared": true,
+    "HasOnLoad": false,
+    "Native": []
+  },
+  {
+    "Module": "disk_log_server",
+    "Prepared": true,
+    "HasOnLoad": false,
+    "Native": []
+  },
+  {
+    "Module": "disk_log_sup",
+    "Prepared": true,
+    "HasOnLoad": false,
+    "Native": []
+  },
+  {
+    "Module": "dist_ac",
+    "Prepared": true,
+    "HasOnLoad": false,
+    "Native": []
+  },
+  {
+    "Module": "dist_util",
+    "Prepared": true,
+    "HasOnLoad": false,
+    "Native": []
+  },
+  {
+    "Module": "edlin",
+    "Prepared": true,
+    "HasOnLoad": false,
+    "Native": []
+  },
+  {
+    "Module": "edlin_context",
+    "Prepared": true,
+    "HasOnLoad": false,
+    "Native": []
+  },
+  {
+    "Module": "edlin_expand",
+    "Prepared": true,
+    "HasOnLoad": false,
+    "Native": []
+  },
+  {
+    "Module": "edlin_key",
+    "Prepared": true,
+    "HasOnLoad": false,
+    "Native": []
+  },
+  {
+    "Module": "edlin_type_suggestion",
+    "Prepared": true,
+    "HasOnLoad": false,
+    "Native": []
+  },
+  {
+    "Module": "epp",
+    "Prepared": true,
+    "HasOnLoad": false,
+    "Native": []
+  },
+  {
+    "Module": "erl_abstract_code",
+    "Prepared": true,
+    "HasOnLoad": false,
+    "Native": []
+  },
+  {
+    "Module": "erl_anno",
+    "Prepared": true,
+    "HasOnLoad": false,
+    "Native": []
+  },
+  {
+    "Module": "erl_bifs",
+    "Prepared": true,
+    "HasOnLoad": false,
+    "Native": []
+  },
+  {
+    "Module": "erl_bits",
+    "Prepared": true,
+    "HasOnLoad": false,
+    "Native": []
+  },
+  {
+    "Module": "erl_boot_server",
+    "Prepared": true,
+    "HasOnLoad": false,
+    "Native": []
+  },
+  {
+    "Module": "erl_compile",
+    "Prepared": true,
+    "HasOnLoad": false,
+    "Native": []
+  },
+  {
+    "Module": "erl_compile_server",
+    "Prepared": true,
+    "HasOnLoad": false,
+    "Native": []
+  },
+  {
+    "Module": "erl_ddll",
+    "Prepared": false,
+    "Failure": "System.NotSupportedException: Unsupported reachable BEAM register instruction\r\n   at Erlang.ModuleRegistry.CaptureBeamPrimitives(BeamLinkedCode code) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\src\\Erlang.Runtime\\ModuleRegistry.BeamPrimitives.cs:line 111\r\n   at Erlang.PreparedBeamImage..ctor(ModuleRegistry owner, BeamLinkedCode code, BeamPreparedMetadata metadata) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\src\\Erlang.Runtime\\PreparedBeamImage.cs:line 16\r\n   at Erlang.ModuleRegistry.PrepareBeam(ReadOnlyMemory\u00601 bytes, BeamDependencySelection dependencies) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\src\\Erlang.Runtime\\ModuleRegistry.PreparedBeam.cs:line 29\r\n   at Program.\u003CMain\u003E$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library411-standard-probe\\Program.cs:line 42"
+  },
+  {
+    "Module": "erl_debugger",
+    "Prepared": false,
+    "Failure": "System.NotSupportedException: Unsupported reachable BEAM register instruction\r\n   at Erlang.ModuleRegistry.CaptureBeamPrimitives(BeamLinkedCode code) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\src\\Erlang.Runtime\\ModuleRegistry.BeamPrimitives.cs:line 111\r\n   at Erlang.PreparedBeamImage..ctor(ModuleRegistry owner, BeamLinkedCode code, BeamPreparedMetadata metadata) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\src\\Erlang.Runtime\\PreparedBeamImage.cs:line 16\r\n   at Erlang.ModuleRegistry.PrepareBeam(ReadOnlyMemory\u00601 bytes, BeamDependencySelection dependencies) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\src\\Erlang.Runtime\\ModuleRegistry.PreparedBeam.cs:line 29\r\n   at Program.\u003CMain\u003E$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library411-standard-probe\\Program.cs:line 42"
+  },
+  {
+    "Module": "erl_distribution",
+    "Prepared": true,
+    "HasOnLoad": false,
+    "Native": []
+  },
+  {
+    "Module": "erl_epmd",
+    "Prepared": true,
+    "HasOnLoad": false,
+    "Native": []
+  },
+  {
+    "Module": "erl_error",
+    "Prepared": true,
+    "HasOnLoad": false,
+    "Native": []
+  },
+  {
+    "Module": "erl_erts_errors",
+    "Prepared": true,
+    "HasOnLoad": false,
+    "Native": []
+  },
+  {
+    "Module": "erl_eval",
+    "Prepared": true,
+    "HasOnLoad": false,
+    "Native": []
+  },
+  {
+    "Module": "erl_expand_records",
+    "Prepared": true,
+    "HasOnLoad": false,
+    "Native": []
+  },
+  {
+    "Module": "erl_features",
+    "Prepared": true,
+    "HasOnLoad": false,
+    "Native": []
+  },
+  {
+    "Module": "erl_init",
+    "Prepared": true,
+    "HasOnLoad": false,
+    "Native": []
+  },
+  {
+    "Module": "erl_internal",
+    "Prepared": true,
+    "HasOnLoad": false,
+    "Native": []
+  },
+  {
+    "Module": "erl_kernel_errors",
+    "Prepared": true,
+    "HasOnLoad": false,
+    "Native": []
+  },
+  {
+    "Module": "erl_lint",
+    "Prepared": true,
+    "HasOnLoad": false,
+    "Native": []
+  },
+  {
+    "Module": "erl_parse",
+    "Prepared": true,
+    "HasOnLoad": false,
+    "Native": []
+  },
+  {
+    "Module": "erl_posix_msg",
+    "Prepared": true,
+    "HasOnLoad": false,
+    "Native": []
+  },
+  {
+    "Module": "erl_pp",
+    "Prepared": true,
+    "HasOnLoad": false,
+    "Native": []
+  },
+  {
+    "Module": "erl_prim_loader",
+    "Prepared": true,
+    "HasOnLoad": false,
+    "Native": []
+  },
+  {
+    "Module": "erl_reply",
+    "Prepared": true,
+    "HasOnLoad": false,
+    "Native": []
+  },
+  {
+    "Module": "erl_scan",
+    "Prepared": true,
+    "HasOnLoad": false,
+    "Native": []
+  },
+  {
+    "Module": "erl_signal_handler",
+    "Prepared": true,
+    "HasOnLoad": false,
+    "Native": []
+  },
+  {
+    "Module": "erl_stdlib_errors",
+    "Prepared": true,
+    "HasOnLoad": false,
+    "Native": []
+  },
+  {
+    "Module": "erl_tar",
+    "Prepared": true,
+    "HasOnLoad": false,
+    "Native": []
+  },
+  {
+    "Module": "erl_tracer",
+    "Prepared": true,
+    "HasOnLoad": false,
+    "Native": []
+  },
+  {
+    "Module": "erpc",
+    "Prepared": true,
+    "HasOnLoad": false,
+    "Native": []
+  },
+  {
+    "Module": "error_handler",
+    "Prepared": true,
+    "HasOnLoad": false,
+    "Native": []
+  },
+  {
+    "Module": "error_logger",
+    "Prepared": true,
+    "HasOnLoad": false,
+    "Native": [
+      "BeamFunctionSignature { Name = warning_map, Arity = 0 }"
+    ]
+  },
+  {
+    "Module": "error_logger_file_h",
+    "Prepared": true,
+    "HasOnLoad": false,
+    "Native": []
+  },
+  {
+    "Module": "error_logger_tty_h",
+    "Prepared": true,
+    "HasOnLoad": false,
+    "Native": []
+  },
+  {
+    "Module": "erts_code_purger",
+    "Prepared": true,
+    "HasOnLoad": false,
+    "Native": []
+  },
+  {
+    "Module": "erts_debug",
+    "Prepared": false,
+    "Failure": "System.NotSupportedException: Unsupported reachable BEAM register instruction\r\n   at Erlang.ModuleRegistry.CaptureBeamPrimitives(BeamLinkedCode code) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\src\\Erlang.Runtime\\ModuleRegistry.BeamPrimitives.cs:line 111\r\n   at Erlang.PreparedBeamImage..ctor(ModuleRegistry owner, BeamLinkedCode code, BeamPreparedMetadata metadata) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\src\\Erlang.Runtime\\PreparedBeamImage.cs:line 16\r\n   at Erlang.ModuleRegistry.PrepareBeam(ReadOnlyMemory\u00601 bytes, BeamDependencySelection dependencies) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\src\\Erlang.Runtime\\ModuleRegistry.PreparedBeam.cs:line 29\r\n   at Program.\u003CMain\u003E$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library411-standard-probe\\Program.cs:line 42"
+  },
+  {
+    "Module": "erts_dirty_process_signal_handler",
+    "Prepared": true,
+    "HasOnLoad": false,
+    "Native": []
+  },
+  {
+    "Module": "erts_internal",
+    "Prepared": false,
+    "Failure": "System.NotSupportedException: Unsupported reachable BEAM register instruction\r\n   at Erlang.ModuleRegistry.CaptureBeamPrimitives(BeamLinkedCode code) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\src\\Erlang.Runtime\\ModuleRegistry.BeamPrimitives.cs:line 111\r\n   at Erlang.PreparedBeamImage..ctor(ModuleRegistry owner, BeamLinkedCode code, BeamPreparedMetadata metadata) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\src\\Erlang.Runtime\\PreparedBeamImage.cs:line 16\r\n   at Erlang.ModuleRegistry.PrepareBeam(ReadOnlyMemory\u00601 bytes, BeamDependencySelection dependencies) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\src\\Erlang.Runtime\\ModuleRegistry.PreparedBeam.cs:line 29\r\n   at Program.\u003CMain\u003E$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library411-standard-probe\\Program.cs:line 42"
+  },
+  {
+    "Module": "erts_literal_area_collector",
+    "Prepared": false,
+    "Failure": "System.NotSupportedException: Unsupported reachable BEAM register instruction\r\n   at Erlang.ModuleRegistry.CaptureBeamPrimitives(BeamLinkedCode code) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\src\\Erlang.Runtime\\ModuleRegistry.BeamPrimitives.cs:line 111\r\n   at Erlang.PreparedBeamImage..ctor(ModuleRegistry owner, BeamLinkedCode code, BeamPreparedMetadata metadata) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\src\\Erlang.Runtime\\PreparedBeamImage.cs:line 16\r\n   at Erlang.ModuleRegistry.PrepareBeam(ReadOnlyMemory\u00601 bytes, BeamDependencySelection dependencies) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\src\\Erlang.Runtime\\ModuleRegistry.PreparedBeam.cs:line 29\r\n   at Program.\u003CMain\u003E$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library411-standard-probe\\Program.cs:line 42"
+  },
+  {
+    "Module": "erts_trace_cleaner",
+    "Prepared": false,
+    "Failure": "System.NotSupportedException: Unsupported reachable BEAM register instruction\r\n   at Erlang.ModuleRegistry.CaptureBeamPrimitives(BeamLinkedCode code) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\src\\Erlang.Runtime\\ModuleRegistry.BeamPrimitives.cs:line 111\r\n   at Erlang.PreparedBeamImage..ctor(ModuleRegistry owner, BeamLinkedCode code, BeamPreparedMetadata metadata) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\src\\Erlang.Runtime\\PreparedBeamImage.cs:line 16\r\n   at Erlang.ModuleRegistry.PrepareBeam(ReadOnlyMemory\u00601 bytes, BeamDependencySelection dependencies) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\src\\Erlang.Runtime\\ModuleRegistry.PreparedBeam.cs:line 29\r\n   at Program.\u003CMain\u003E$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library411-standard-probe\\Program.cs:line 42"
+  },
+  {
+    "Module": "escript",
+    "Prepared": true,
+    "HasOnLoad": false,
+    "Native": []
+  },
+  {
+    "Module": "ets",
+    "Prepared": false,
+    "Failure": "System.NotSupportedException: Unsupported reachable BEAM register instruction\r\n   at Erlang.ModuleRegistry.CaptureBeamPrimitives(BeamLinkedCode code) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\src\\Erlang.Runtime\\ModuleRegistry.BeamPrimitives.cs:line 111\r\n   at Erlang.PreparedBeamImage..ctor(ModuleRegistry owner, BeamLinkedCode code, BeamPreparedMetadata metadata) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\src\\Erlang.Runtime\\PreparedBeamImage.cs:line 16\r\n   at Erlang.ModuleRegistry.PrepareBeam(ReadOnlyMemory\u00601 bytes, BeamDependencySelection dependencies) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\src\\Erlang.Runtime\\ModuleRegistry.PreparedBeam.cs:line 29\r\n   at Program.\u003CMain\u003E$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library411-standard-probe\\Program.cs:line 42"
+  },
+  {
+    "Module": "eval_bits",
+    "Prepared": true,
+    "HasOnLoad": false,
+    "Native": []
+  },
+  {
+    "Module": "file",
+    "Prepared": true,
+    "HasOnLoad": false,
+    "Native": [
+      "BeamFunctionSignature { Name = native_name_encoding, Arity = 0 }"
+    ]
+  },
+  {
+    "Module": "file_io_server",
+    "Prepared": true,
+    "HasOnLoad": false,
+    "Native": []
+  },
+  {
+    "Module": "file_server",
+    "Prepared": true,
+    "HasOnLoad": false,
+    "Native": []
+  },
+  {
+    "Module": "file_sorter",
+    "Prepared": true,
+    "HasOnLoad": false,
+    "Native": []
+  },
+  {
+    "Module": "filelib",
+    "Prepared": true,
+    "HasOnLoad": false,
+    "Native": []
+  },
+  {
+    "Module": "filename",
+    "Prepared": true,
+    "HasOnLoad": false,
+    "Native": []
+  },
+  {
+    "Module": "gb_sets",
+    "Prepared": true,
+    "HasOnLoad": false,
+    "Native": []
+  },
+  {
+    "Module": "gb_trees",
+    "Prepared": true,
+    "HasOnLoad": false,
+    "Native": []
+  },
+  {
+    "Module": "gen",
+    "Prepared": true,
+    "HasOnLoad": false,
+    "Native": []
+  },
+  {
+    "Module": "gen_event",
+    "Prepared": true,
+    "HasOnLoad": false,
+    "Native": []
+  },
+  {
+    "Module": "gen_fsm",
+    "Prepared": true,
+    "HasOnLoad": false,
+    "Native": []
+  },
+  {
+    "Module": "gen_sctp",
+    "Prepared": true,
+    "HasOnLoad": false,
+    "Native": []
+  },
+  {
+    "Module": "gen_server",
+    "Prepared": true,
+    "HasOnLoad": false,
+    "Native": []
+  },
+  {
+    "Module": "gen_statem",
+    "Prepared": true,
+    "HasOnLoad": false,
+    "Native": []
+  },
+  {
+    "Module": "gen_tcp",
+    "Prepared": true,
+    "HasOnLoad": false,
+    "Native": []
+  },
+  {
+    "Module": "gen_tcp_socket",
+    "Prepared": true,
+    "HasOnLoad": false,
+    "Native": []
+  },
+  {
+    "Module": "gen_udp",
+    "Prepared": true,
+    "HasOnLoad": false,
+    "Native": []
+  },
+  {
+    "Module": "gen_udp_socket",
+    "Prepared": true,
+    "HasOnLoad": false,
+    "Native": []
+  },
+  {
+    "Module": "global",
+    "Prepared": true,
+    "HasOnLoad": false,
+    "Native": []
+  },
+  {
+    "Module": "global_group",
+    "Prepared": true,
+    "HasOnLoad": false,
+    "Native": []
+  },
+  {
+    "Module": "global_search",
+    "Prepared": true,
+    "HasOnLoad": false,
+    "Native": []
+  },
+  {
+    "Module": "graph",
+    "Prepared": true,
+    "HasOnLoad": false,
+    "Native": []
+  },
+  {
+    "Module": "group",
+    "Prepared": true,
+    "HasOnLoad": false,
+    "Native": []
+  },
+  {
+    "Module": "group_history",
+    "Prepared": true,
+    "HasOnLoad": false,
+    "Native": []
+  },
+  {
+    "Module": "heart",
+    "Prepared": true,
+    "HasOnLoad": false,
+    "Native": []
+  },
+  {
+    "Module": "inet",
+    "Prepared": true,
+    "HasOnLoad": false,
+    "Native": []
+  },
+  {
+    "Module": "inet6_sctp",
+    "Prepared": true,
+    "HasOnLoad": false,
+    "Native": []
+  },
+  {
+    "Module": "inet6_tcp",
+    "Prepared": true,
+    "HasOnLoad": false,
+    "Native": []
+  },
+  {
+    "Module": "inet6_tcp_dist",
+    "Prepared": true,
+    "HasOnLoad": false,
+    "Native": []
+  },
+  {
+    "Module": "inet6_udp",
+    "Prepared": true,
+    "HasOnLoad": false,
+    "Native": []
+  },
+  {
+    "Module": "inet_config",
+    "Prepared": true,
+    "HasOnLoad": false,
+    "Native": []
+  },
+  {
+    "Module": "inet_db",
+    "Prepared": true,
+    "HasOnLoad": false,
+    "Native": []
+  },
+  {
+    "Module": "inet_dns",
+    "Prepared": true,
+    "HasOnLoad": false,
+    "Native": []
+  },
+  {
+    "Module": "inet_dns_tsig",
+    "Prepared": true,
+    "HasOnLoad": false,
+    "Native": []
+  },
+  {
+    "Module": "inet_epmd_dist",
+    "Prepared": true,
+    "HasOnLoad": false,
+    "Native": []
+  },
+  {
+    "Module": "inet_epmd_socket",
+    "Prepared": false,
+    "Failure": "System.IO.InvalidDataException: The BEAM frame or Y-register ownership is unsupported\r\n   at Erlang.BeamFrameValidation.\u003CValidateExceptionalEntry\u003Eg__Enqueue|5_2(Int32 pc, ExceptionalState next, Boolean exceptional, \u003C\u003Ec__DisplayClass5_0\u0026) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\src\\Erlang.Runtime\\BeamFrameValidation.cs:line 529\r\n   at Erlang.BeamFrameValidation.ValidateExceptionalEntry(BeamLinkedCode code, BeamLinkedFunction function, IReadOnlyDictionary\u00602 receives, BigInteger entryContexts) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\src\\Erlang.Runtime\\BeamFrameValidation.cs:line 1393\r\n   at Erlang.BeamFrameValidation.ValidateExceptional(BeamLinkedCode code, BeamLinkedFunction function, IReadOnlyDictionary\u00602 receives) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\src\\Erlang.Runtime\\BeamFrameValidation.cs:line 402\r\n   at Erlang.BeamFrameValidation.Validate(BeamLinkedCode code, BeamLinkedFunction function, IReadOnlyDictionary\u00602 receives) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\src\\Erlang.Runtime\\BeamFrameValidation.cs:line 23\r\n   at Erlang.BeamRegisterValidation.Validate(BeamLinkedCode code, BeamLinkedFunction entry) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\src\\Erlang.Runtime\\BeamRegisterValidation.cs:line 438\r\n   at Erlang.BeamPublicationMetadata.Read(BeamLinkedCode code, EtfDecodeOptions decoding) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\src\\Erlang.Runtime\\BeamPublicationMetadata.cs:line 12\r\n   at Erlang.ModuleRegistry.PrepareBeam(ReadOnlyMemory\u00601 bytes, BeamDependencySelection dependencies) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\src\\Erlang.Runtime\\ModuleRegistry.PreparedBeam.cs:line 22\r\n   at Program.\u003CMain\u003E$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library411-standard-probe\\Program.cs:line 42"
+  },
+  {
+    "Module": "inet_gethost_native",
+    "Prepared": true,
+    "HasOnLoad": false,
+    "Native": []
+  },
+  {
+    "Module": "inet_hosts",
+    "Prepared": true,
+    "HasOnLoad": false,
+    "Native": []
+  },
+  {
+    "Module": "inet_parse",
+    "Prepared": true,
+    "HasOnLoad": false,
+    "Native": []
+  },
+  {
+    "Module": "inet_res",
+    "Prepared": true,
+    "HasOnLoad": false,
+    "Native": []
+  },
+  {
+    "Module": "inet_sctp",
+    "Prepared": true,
+    "HasOnLoad": false,
+    "Native": []
+  },
+  {
+    "Module": "inet_tcp",
+    "Prepared": true,
+    "HasOnLoad": false,
+    "Native": []
+  },
+  {
+    "Module": "inet_tcp_dist",
+    "Prepared": true,
+    "HasOnLoad": false,
+    "Native": []
+  },
+  {
+    "Module": "inet_udp",
+    "Prepared": true,
+    "HasOnLoad": false,
+    "Native": []
+  },
+  {
+    "Module": "init",
+    "Prepared": true,
+    "HasOnLoad": false,
+    "Native": []
+  },
+  {
+    "Module": "io",
+    "Prepared": true,
+    "HasOnLoad": false,
+    "Native": [
+      "BeamFunctionSignature { Name = printable_range, Arity = 0 }"
+    ]
+  },
+  {
+    "Module": "io_ansi",
+    "Prepared": true,
+    "HasOnLoad": false,
+    "Native": []
+  },
+  {
+    "Module": "io_lib",
+    "Prepared": true,
+    "HasOnLoad": false,
+    "Native": []
+  },
+  {
+    "Module": "io_lib_format",
+    "Prepared": true,
+    "HasOnLoad": false,
+    "Native": []
+  },
+  {
+    "Module": "io_lib_fread",
+    "Prepared": true,
+    "HasOnLoad": false,
+    "Native": []
+  },
+  {
+    "Module": "io_lib_pretty",
+    "Prepared": true,
+    "HasOnLoad": false,
+    "Native": []
+  },
+  {
+    "Module": "json",
+    "Prepared": true,
+    "HasOnLoad": false,
+    "Native": []
+  },
+  {
+    "Module": "kernel",
+    "Prepared": true,
+    "HasOnLoad": false,
+    "Native": []
+  },
+  {
+    "Module": "kernel_config",
+    "Prepared": true,
+    "HasOnLoad": false,
+    "Native": []
+  },
+  {
+    "Module": "kernel_refc",
+    "Prepared": true,
+    "HasOnLoad": false,
+    "Native": []
+  },
+  {
+    "Module": "lists",
+    "Prepared": true,
+    "HasOnLoad": false,
+    "Native": [
+      "BeamFunctionSignature { Name = keyfind, Arity = 3 }",
+      "BeamFunctionSignature { Name = keymember, Arity = 3 }",
+      "BeamFunctionSignature { Name = keysearch, Arity = 3 }",
+      "BeamFunctionSignature { Name = member, Arity = 2 }",
+      "BeamFunctionSignature { Name = reverse, Arity = 2 }"
+    ]
+  },
+  {
+    "Module": "local_tcp",
+    "Prepared": true,
+    "HasOnLoad": false,
+    "Native": []
+  },
+  {
+    "Module": "local_udp",
+    "Prepared": true,
+    "HasOnLoad": false,
+    "Native": []
+  },
+  {
+    "Module": "log_mf_h",
+    "Prepared": true,
+    "HasOnLoad": false,
+    "Native": []
+  },
+  {
+    "Module": "logger",
+    "Prepared": true,
+    "HasOnLoad": false,
+    "Native": []
+  },
+  {
+    "Module": "logger_backend",
+    "Prepared": true,
+    "HasOnLoad": false,
+    "Native": []
+  },
+  {
+    "Module": "logger_config",
+    "Prepared": true,
+    "HasOnLoad": false,
+    "Native": []
+  },
+  {
+    "Module": "logger_disk_log_h",
+    "Prepared": true,
+    "HasOnLoad": false,
+    "Native": []
+  },
+  {
+    "Module": "logger_filters",
+    "Prepared": true,
+    "HasOnLoad": false,
+    "Native": []
+  },
+  {
+    "Module": "logger_formatter",
+    "Prepared": true,
+    "HasOnLoad": false,
+    "Native": []
+  },
+  {
+    "Module": "logger_h_common",
+    "Prepared": true,
+    "HasOnLoad": false,
+    "Native": []
+  },
+  {
+    "Module": "logger_handler",
+    "Prepared": true,
+    "HasOnLoad": false,
+    "Native": []
+  },
+  {
+    "Module": "logger_handler_watcher",
+    "Prepared": true,
+    "HasOnLoad": false,
+    "Native": []
+  },
+  {
+    "Module": "logger_olp",
+    "Prepared": true,
+    "HasOnLoad": false,
+    "Native": []
+  },
+  {
+    "Module": "logger_proxy",
+    "Prepared": true,
+    "HasOnLoad": false,
+    "Native": []
+  },
+  {
+    "Module": "logger_server",
+    "Prepared": true,
+    "HasOnLoad": false,
+    "Native": []
+  },
+  {
+    "Module": "logger_simple_h",
+    "Prepared": true,
+    "HasOnLoad": false,
+    "Native": []
+  },
+  {
+    "Module": "logger_std_h",
+    "Prepared": true,
+    "HasOnLoad": false,
+    "Native": []
+  },
+  {
+    "Module": "logger_sup",
+    "Prepared": true,
+    "HasOnLoad": false,
+    "Native": []
+  },
+  {
+    "Module": "man_docs",
+    "Prepared": true,
+    "HasOnLoad": false,
+    "Native": []
+  },
+  {
+    "Module": "maps",
+    "Prepared": true,
+    "HasOnLoad": false,
+    "Native": [
+      "BeamFunctionSignature { Name = is_key, Arity = 2 }",
+      "BeamFunctionSignature { Name = merge, Arity = 2 }",
+      "BeamFunctionSignature { Name = find, Arity = 2 }",
+      "BeamFunctionSignature { Name = remove, Arity = 2 }",
+      "BeamFunctionSignature { Name = from_keys, Arity = 2 }",
+      "BeamFunctionSignature { Name = keys, Arity = 1 }",
+      "BeamFunctionSignature { Name = from_list, Arity = 1 }",
+      "BeamFunctionSignature { Name = values, Arity = 1 }",
+      "BeamFunctionSignature { Name = put, Arity = 3 }",
+      "BeamFunctionSignature { Name = take, Arity = 2 }",
+      "BeamFunctionSignature { Name = update, Arity = 3 }",
+      "BeamFunctionSignature { Name = get, Arity = 2 }"
+    ]
+  },
+  {
+    "Module": "math",
+    "Prepared": true,
+    "HasOnLoad": false,
+    "Native": [
+      "BeamFunctionSignature { Name = sin, Arity = 1 }",
+      "BeamFunctionSignature { Name = acosh, Arity = 1 }",
+      "BeamFunctionSignature { Name = atan2, Arity = 2 }",
+      "BeamFunctionSignature { Name = ceil, Arity = 1 }",
+      "BeamFunctionSignature { Name = cos, Arity = 1 }",
+      "BeamFunctionSignature { Name = exp, Arity = 1 }",
+      "BeamFunctionSignature { Name = floor, Arity = 1 }",
+      "BeamFunctionSignature { Name = atanh, Arity = 1 }",
+      "BeamFunctionSignature { Name = acos, Arity = 1 }",
+      "BeamFunctionSignature { Name = sqrt, Arity = 1 }",
+      "BeamFunctionSignature { Name = atan, Arity = 1 }",
+      "BeamFunctionSignature { Name = cosh, Arity = 1 }",
+      "BeamFunctionSignature { Name = erfc, Arity = 1 }",
+      "BeamFunctionSignature { Name = tan, Arity = 1 }",
+      "BeamFunctionSignature { Name = log2, Arity = 1 }",
+      "BeamFunctionSignature { Name = log, Arity = 1 }",
+      "BeamFunctionSignature { Name = tanh, Arity = 1 }",
+      "BeamFunctionSignature { Name = erf, Arity = 1 }",
+      "BeamFunctionSignature { Name = sinh, Arity = 1 }",
+      "BeamFunctionSignature { Name = asinh, Arity = 1 }",
+      "BeamFunctionSignature { Name = pow, Arity = 2 }",
+      "BeamFunctionSignature { Name = log10, Arity = 1 }",
+      "BeamFunctionSignature { Name = asin, Arity = 1 }",
+      "BeamFunctionSignature { Name = fmod, Arity = 2 }"
+    ]
+  },
+  {
+    "Module": "ms_transform",
+    "Prepared": true,
+    "HasOnLoad": false,
+    "Native": []
+  },
+  {
+    "Module": "net",
+    "Prepared": true,
+    "HasOnLoad": false,
+    "Native": []
+  },
+  {
+    "Module": "net_adm",
+    "Prepared": true,
+    "HasOnLoad": false,
+    "Native": []
+  },
+  {
+    "Module": "net_kernel",
+    "Prepared": true,
+    "HasOnLoad": false,
+    "Native": [
+      "BeamFunctionSignature { Name = dflag_unicode_io, Arity = 1 }"
+    ]
+  },
+  {
+    "Module": "orddict",
+    "Prepared": true,
+    "HasOnLoad": false,
+    "Native": []
+  },
+  {
+    "Module": "ordsets",
+    "Prepared": true,
+    "HasOnLoad": false,
+    "Native": []
+  },
+  {
+    "Module": "os",
+    "Prepared": true,
+    "HasOnLoad": false,
+    "Native": [
+      "BeamFunctionSignature { Name = env, Arity = 0 }",
+      "BeamFunctionSignature { Name = getenv, Arity = 1 }",
+      "BeamFunctionSignature { Name = getpid, Arity = 0 }",
+      "BeamFunctionSignature { Name = perf_counter, Arity = 0 }",
+      "BeamFunctionSignature { Name = putenv, Arity = 2 }",
+      "BeamFunctionSignature { Name = system_time, Arity = 0 }",
+      "BeamFunctionSignature { Name = system_time, Arity = 1 }",
+      "BeamFunctionSignature { Name = timestamp, Arity = 0 }",
+      "BeamFunctionSignature { Name = unsetenv, Arity = 1 }",
+      "BeamFunctionSignature { Name = set_signal, Arity = 2 }"
+    ]
+  },
+  {
+    "Module": "otp_internal",
+    "Prepared": true,
+    "HasOnLoad": false,
+    "Native": []
+  },
+  {
+    "Module": "peer",
+    "Prepared": true,
+    "HasOnLoad": false,
+    "Native": []
+  },
+  {
+    "Module": "persistent_term",
+    "Prepared": false,
+    "Failure": "System.NotSupportedException: Unsupported reachable BEAM register instruction\r\n   at Erlang.ModuleRegistry.CaptureBeamPrimitives(BeamLinkedCode code) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\src\\Erlang.Runtime\\ModuleRegistry.BeamPrimitives.cs:line 111\r\n   at Erlang.PreparedBeamImage..ctor(ModuleRegistry owner, BeamLinkedCode code, BeamPreparedMetadata metadata) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\src\\Erlang.Runtime\\PreparedBeamImage.cs:line 16\r\n   at Erlang.ModuleRegistry.PrepareBeam(ReadOnlyMemory\u00601 bytes, BeamDependencySelection dependencies) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\src\\Erlang.Runtime\\ModuleRegistry.PreparedBeam.cs:line 29\r\n   at Program.\u003CMain\u003E$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library411-standard-probe\\Program.cs:line 42"
+  },
+  {
+    "Module": "pg",
+    "Prepared": true,
+    "HasOnLoad": false,
+    "Native": []
+  },
+  {
+    "Module": "pg2",
+    "Prepared": true,
+    "HasOnLoad": false,
+    "Native": []
+  },
+  {
+    "Module": "pool",
+    "Prepared": true,
+    "HasOnLoad": false,
+    "Native": []
+  },
+  {
+    "Module": "prim_buffer",
+    "Prepared": true,
+    "HasOnLoad": false,
+    "Native": []
+  },
+  {
+    "Module": "prim_eval",
+    "Prepared": true,
+    "HasOnLoad": false,
+    "Native": []
+  },
+  {
+    "Module": "prim_file",
+    "Prepared": true,
+    "HasOnLoad": false,
+    "Native": [
+      "BeamFunctionSignature { Name = internal_name2native, Arity = 1 }",
+      "BeamFunctionSignature { Name = internal_native2name, Arity = 1 }",
+      "BeamFunctionSignature { Name = internal_normalize_utf8, Arity = 1 }",
+      "BeamFunctionSignature { Name = is_translatable, Arity = 1 }"
+    ]
+  },
+  {
+    "Module": "prim_inet",
+    "Prepared": true,
+    "HasOnLoad": false,
+    "Native": []
+  },
+  {
+    "Module": "prim_net",
+    "Prepared": true,
+    "HasOnLoad": false,
+    "Native": []
+  },
+  {
+    "Module": "prim_socket",
+    "Prepared": true,
+    "HasOnLoad": false,
+    "Native": []
+  },
+  {
+    "Module": "prim_tty",
+    "Prepared": true,
+    "HasOnLoad": false,
+    "Native": []
+  },
+  {
+    "Module": "prim_tty_sighandler",
+    "Prepared": true,
+    "HasOnLoad": false,
+    "Native": []
+  },
+  {
+    "Module": "prim_zip",
+    "Prepared": true,
+    "HasOnLoad": false,
+    "Native": []
+  },
+  {
+    "Module": "proc_lib",
+    "Prepared": true,
+    "HasOnLoad": false,
+    "Native": []
+  },
+  {
+    "Module": "proplists",
+    "Prepared": true,
+    "HasOnLoad": false,
+    "Native": []
+  },
+  {
+    "Module": "qlc",
+    "Prepared": true,
+    "HasOnLoad": false,
+    "Native": []
+  },
+  {
+    "Module": "qlc_pt",
+    "Prepared": true,
+    "HasOnLoad": false,
+    "Native": []
+  },
+  {
+    "Module": "queue",
+    "Prepared": true,
+    "HasOnLoad": false,
+    "Native": []
+  },
+  {
+    "Module": "ram_file",
+    "Prepared": true,
+    "HasOnLoad": false,
+    "Native": []
+  },
+  {
+    "Module": "rand",
+    "Prepared": true,
+    "HasOnLoad": false,
+    "Native": []
+  },
+  {
+    "Module": "random",
+    "Prepared": true,
+    "HasOnLoad": false,
+    "Native": []
+  },
+  {
+    "Module": "raw_file_io",
+    "Prepared": true,
+    "HasOnLoad": false,
+    "Native": []
+  },
+  {
+    "Module": "raw_file_io_compressed",
+    "Prepared": true,
+    "HasOnLoad": false,
+    "Native": []
+  },
+  {
+    "Module": "raw_file_io_deflate",
+    "Prepared": true,
+    "HasOnLoad": false,
+    "Native": []
+  },
+  {
+    "Module": "raw_file_io_delayed",
+    "Prepared": true,
+    "HasOnLoad": false,
+    "Native": []
+  },
+  {
+    "Module": "raw_file_io_inflate",
+    "Prepared": true,
+    "HasOnLoad": false,
+    "Native": []
+  },
+  {
+    "Module": "raw_file_io_list",
+    "Prepared": true,
+    "HasOnLoad": false,
+    "Native": []
+  },
+  {
+    "Module": "re",
+    "Prepared": false,
+    "Failure": "System.NotSupportedException: Unsupported reachable BEAM register instruction\r\n   at Erlang.ModuleRegistry.CaptureBeamPrimitives(BeamLinkedCode code) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\src\\Erlang.Runtime\\ModuleRegistry.BeamPrimitives.cs:line 111\r\n   at Erlang.PreparedBeamImage..ctor(ModuleRegistry owner, BeamLinkedCode code, BeamPreparedMetadata metadata) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\src\\Erlang.Runtime\\PreparedBeamImage.cs:line 16\r\n   at Erlang.ModuleRegistry.PrepareBeam(ReadOnlyMemory\u00601 bytes, BeamDependencySelection dependencies) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\src\\Erlang.Runtime\\ModuleRegistry.PreparedBeam.cs:line 29\r\n   at Program.\u003CMain\u003E$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library411-standard-probe\\Program.cs:line 42"
+  },
+  {
+    "Module": "rec_env",
+    "Prepared": true,
+    "HasOnLoad": false,
+    "Native": []
+  },
+  {
+    "Module": "records",
+    "Prepared": true,
+    "HasOnLoad": false,
+    "Native": [
+      "BeamFunctionSignature { Name = get, Arity = 2 }",
+      "BeamFunctionSignature { Name = get_module, Arity = 1 }",
+      "BeamFunctionSignature { Name = get_name, Arity = 1 }",
+      "BeamFunctionSignature { Name = get_field_names, Arity = 1 }",
+      "BeamFunctionSignature { Name = is_exported, Arity = 1 }",
+      "BeamFunctionSignature { Name = create, Arity = 4 }",
+      "BeamFunctionSignature { Name = update, Arity = 4 }",
+      "BeamFunctionSignature { Name = get_definition, Arity = 2 }"
+    ]
+  },
+  {
+    "Module": "rpc",
+    "Prepared": true,
+    "HasOnLoad": false,
+    "Native": []
+  },
+  {
+    "Module": "seq_trace",
+    "Prepared": true,
+    "HasOnLoad": false,
+    "Native": []
+  },
+  {
+    "Module": "sets",
+    "Prepared": true,
+    "HasOnLoad": false,
+    "Native": []
+  },
+  {
+    "Module": "shell",
+    "Prepared": true,
+    "HasOnLoad": false,
+    "Native": []
+  },
+  {
+    "Module": "shell_default",
+    "Prepared": true,
+    "HasOnLoad": false,
+    "Native": []
+  },
+  {
+    "Module": "shell_docs",
+    "Prepared": true,
+    "HasOnLoad": false,
+    "Native": []
+  },
+  {
+    "Module": "shell_docs_markdown",
+    "Prepared": true,
+    "HasOnLoad": false,
+    "Native": []
+  },
+  {
+    "Module": "slave",
+    "Prepared": true,
+    "HasOnLoad": false,
+    "Native": []
+  },
+  {
+    "Module": "socket",
+    "Prepared": true,
+    "HasOnLoad": false,
+    "Native": []
+  },
+  {
+    "Module": "socket_registry",
+    "Prepared": true,
+    "HasOnLoad": false,
+    "Native": []
+  },
+  {
+    "Module": "sofs",
+    "Prepared": true,
+    "HasOnLoad": false,
+    "Native": []
+  },
+  {
+    "Module": "standard_error",
+    "Prepared": true,
+    "HasOnLoad": false,
+    "Native": []
+  },
+  {
+    "Module": "string",
+    "Prepared": true,
+    "HasOnLoad": false,
+    "Native": [
+      "BeamFunctionSignature { Name = list_to_float, Arity = 1 }"
+    ]
+  },
+  {
+    "Module": "supervisor",
+    "Prepared": true,
+    "HasOnLoad": false,
+    "Native": []
+  },
+  {
+    "Module": "supervisor_bridge",
+    "Prepared": true,
+    "HasOnLoad": false,
+    "Native": []
+  },
+  {
+    "Module": "sys",
+    "Prepared": true,
+    "HasOnLoad": false,
+    "Native": []
+  },
+  {
+    "Module": "sys_core_fold",
+    "Prepared": true,
+    "HasOnLoad": false,
+    "Native": []
+  },
+  {
+    "Module": "sys_core_fold_lists",
+    "Prepared": true,
+    "HasOnLoad": false,
+    "Native": []
+  },
+  {
+    "Module": "sys_core_inline",
+    "Prepared": true,
+    "HasOnLoad": false,
+    "Native": []
+  },
+  {
+    "Module": "sys_coverage",
+    "Prepared": true,
+    "HasOnLoad": false,
+    "Native": []
+  },
+  {
+    "Module": "sys_messages",
+    "Prepared": true,
+    "HasOnLoad": false,
+    "Native": []
+  },
+  {
+    "Module": "timer",
+    "Prepared": true,
+    "HasOnLoad": false,
+    "Native": []
+  },
+  {
+    "Module": "trace",
+    "Prepared": true,
+    "HasOnLoad": false,
+    "Native": []
+  },
+  {
+    "Module": "unicode",
+    "Prepared": true,
+    "HasOnLoad": false,
+    "Native": [
+      "BeamFunctionSignature { Name = bin_is_7bit, Arity = 1 }",
+      "BeamFunctionSignature { Name = characters_to_binary, Arity = 2 }",
+      "BeamFunctionSignature { Name = characters_to_list, Arity = 2 }"
+    ]
+  },
+  {
+    "Module": "unicode_util",
+    "Prepared": true,
+    "HasOnLoad": false,
+    "Native": []
+  },
+  {
+    "Module": "uri_string",
+    "Prepared": false,
+    "Failure": "System.IO.InvalidDataException: The BEAM frame or Y-register ownership is unsupported\r\n   at Erlang.BeamFrameValidation.\u003C\u003Ec__DisplayClass5_1.\u003CValidateExceptionalEntry\u003Eg__LocalArguments|18(BeamOperand arity, BeamOperand target, \u003C\u003Ec__DisplayClass5_0\u0026) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\src\\Erlang.Runtime\\BeamFrameValidation.cs:line 734\r\n   at Erlang.BeamFrameValidation.ValidateExceptionalEntry(BeamLinkedCode code, BeamLinkedFunction function, IReadOnlyDictionary\u00602 receives, BigInteger entryContexts) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\src\\Erlang.Runtime\\BeamFrameValidation.cs:line 1373\r\n   at Erlang.BeamFrameValidation.ValidateExceptional(BeamLinkedCode code, BeamLinkedFunction function, IReadOnlyDictionary\u00602 receives) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\src\\Erlang.Runtime\\BeamFrameValidation.cs:line 402\r\n   at Erlang.BeamFrameValidation.Validate(BeamLinkedCode code, BeamLinkedFunction function, IReadOnlyDictionary\u00602 receives) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\src\\Erlang.Runtime\\BeamFrameValidation.cs:line 23\r\n   at Erlang.BeamRegisterValidation.Validate(BeamLinkedCode code, BeamLinkedFunction entry) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\src\\Erlang.Runtime\\BeamRegisterValidation.cs:line 438\r\n   at Erlang.ModuleRegistry.PrepareBeam(ReadOnlyMemory\u00601 bytes, BeamDependencySelection dependencies) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\src\\Erlang.Runtime\\ModuleRegistry.PreparedBeam.cs:line 27\r\n   at Program.\u003CMain\u003E$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library411-standard-probe\\Program.cs:line 42"
+  },
+  {
+    "Module": "user_drv",
+    "Prepared": true,
+    "HasOnLoad": false,
+    "Native": []
+  },
+  {
+    "Module": "user_sup",
+    "Prepared": true,
+    "HasOnLoad": false,
+    "Native": []
+  },
+  {
+    "Module": "v3_core",
+    "Prepared": true,
+    "HasOnLoad": false,
+    "Native": []
+  },
+  {
+    "Module": "win32reg",
+    "Prepared": true,
+    "HasOnLoad": false,
+    "Native": []
+  },
+  {
+    "Module": "wrap_log_reader",
+    "Prepared": true,
+    "HasOnLoad": false,
+    "Native": []
+  },
+  {
+    "Module": "zip",
+    "Prepared": true,
+    "HasOnLoad": false,
+    "Native": []
+  },
+  {
+    "Module": "zlib",
+    "Prepared": true,
+    "HasOnLoad": false,
+    "Native": []
+  },
+  {
+    "Module": "zstd",
+    "Prepared": true,
+    "HasOnLoad": true,
+    "Native": []
+  }
+]

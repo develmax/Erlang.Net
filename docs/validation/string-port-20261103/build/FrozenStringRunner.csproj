@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <AssemblyName>Erlang.StringCompatibility</AssemblyName>
+    <OutputType>Exe</OutputType>
+    <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="../../../tools/Validation/Erlang.StringCompatibility/*.cs" />
+    <Reference Include="Erlang.Runtime"><HintPath>bin/Erlang.Runtime.dll</HintPath></Reference>
+    <Reference Include="Erlang.Terms"><HintPath>bin/Erlang.Terms.dll</HintPath></Reference>
+    <Reference Include="Erlang.Serialization"><HintPath>bin/Erlang.Serialization.dll</HintPath></Reference>
+    <Reference Include="Erlang.Runtime.Bundle"><HintPath>bin/Erlang.Runtime.Bundle.dll</HintPath></Reference>
+    <None Include="bin/Erlang.Nif.WindowsVariadic.dll" Link="Erlang.Nif.WindowsVariadic.dll" CopyToOutputDirectory="PreserveNewest" />
+    <ProjectReference Include="FrozenStringStdlib.csproj" />
+  </ItemGroup>
+</Project>

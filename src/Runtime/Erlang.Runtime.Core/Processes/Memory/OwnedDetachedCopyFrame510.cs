@@ -18,6 +18,10 @@ internal sealed class OwnedDetachedCopyFrame510
             NativeMap = new(runtime, map);
             Children = NativeMap.Children;
         }
+        else if (source is MapTerm portable)
+            // Reconstructing from canonical code-identity order would reorder
+            // distinct keys whose Erlang comparison is zero at opaque calls.
+            Children = portable.ArithmeticKeyEntries.SelectMany(pair => new[] { pair.Key, pair.Value }).ToArray();
         else
             Children = new DebugDirtyCopyFrame424(source).Children;
         Copied = new Term[Children.Length];

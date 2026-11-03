@@ -10,7 +10,7 @@ internal static class LibrarySelectionPolicyNegativeChecks
 {
     internal static Task FactoryRefusals()
     {
-        foreach (string module in new[] { StringModule, MathModule, PureModule })
+        foreach (string module in new[] { LibrarySelectionPolicyControlNames.StringModuleName, PureModule })
             RejectFactory(() => RuntimeModuleSelection.Managed(module));
         RejectFactory(() => new RuntimeLibrarySelection([
             RuntimeModuleSelection.Beam(PureModule, Identity(PureModule, PeerModule, Run), [PeerModule])
@@ -25,12 +25,15 @@ internal static class LibrarySelectionPolicyNegativeChecks
         await runtime.InitializeModulesAsync(registry =>
         {
             // Deliberately inject stale binding state; test actual policy after releasing M.
-            Bodies(registry)[(StringModule, StringNative, 1)] = (_, _) => ValueTask.FromResult<Term>(Term.I(7));
+            Bodies(registry)[(LibrarySelectionPolicyControlNames.StringModuleName, StringNative, 1)] = (_, _) => ValueTask.FromResult<Term>(Term.I(7));
         });
         RejectPrepare(
             runtime.Modules,
             new RuntimeLibrarySelection([
-            RuntimeModuleSelection.Beam(StringModule, NativeStub(StringModule, StringNative))
+            RuntimeModuleSelection.Beam(
+                LibrarySelectionPolicyControlNames.StringModuleName,
+                NativeStub(LibrarySelectionPolicyControlNames.StringModuleName, StringNative)
+            )
         ]),
             StringOwnerFailure
         );
@@ -51,11 +54,11 @@ internal static class LibrarySelectionPolicyNegativeChecks
     {
         await using var runtime = new ProcessRuntime();
         // Same MFA, ordinary identity body: actual missing primitive capture.
-        byte[] uncaptured = Identity(StringModule, RuntimeModule, BeamOpcodeEdgeNames.Length);
+        byte[] uncaptured = Identity(LibrarySelectionPolicyControlNames.StringModuleName, RuntimeModule, BeamOpcodeEdgeNames.Length);
         uncaptured = RenameRunExport(uncaptured, StringNative);
         RejectPrepare(
             runtime.Modules,
-            new RuntimeLibrarySelection([RuntimeModuleSelection.Beam(StringModule, uncaptured)]),
+            new RuntimeLibrarySelection([RuntimeModuleSelection.Beam(LibrarySelectionPolicyControlNames.StringModuleName, uncaptured)]),
             StringPreparationFailure,
             StringPrimitiveFailure
         );
@@ -63,7 +66,10 @@ internal static class LibrarySelectionPolicyNegativeChecks
         RejectPrepare(
             runtime.Modules,
             new RuntimeLibrarySelection([
-            RuntimeModuleSelection.Beam(StringModule, Identity(StringModule, RuntimeModule, BeamOpcodeEdgeNames.Length))
+            RuntimeModuleSelection.Beam(
+                LibrarySelectionPolicyControlNames.StringModuleName,
+                Identity(LibrarySelectionPolicyControlNames.StringModuleName, RuntimeModule, BeamOpcodeEdgeNames.Length)
+            )
         ]),
             StringPreparationFailure,
             StringMissingExportFailure
@@ -100,18 +106,21 @@ internal static class LibrarySelectionPolicyNegativeChecks
 
     internal static async Task NativeSourceOwner()
     {
-        byte[] image = NativeStub(StringModule, StringNative);
+        byte[] image = NativeStub(LibrarySelectionPolicyControlNames.StringModuleName, StringNative);
         await using var runtime = await ProcessRuntime.CreateAsync(new RuntimeLibrarySelection([
-            RuntimeModuleSelection.Beam(StringModule, image)
+            RuntimeModuleSelection.Beam(LibrarySelectionPolicyControlNames.StringModuleName, image)
         ]));
         await runtime.InitializeModulesAsync(registry =>
         {
-            var original = (PreparedBeamImage)registry.SourceOwner(StringModule, StringNative, 1)!;
-            Require(!registry.HasOldCode(StringModule));
+            var original = (PreparedBeamImage)registry.SourceOwner(LibrarySelectionPolicyControlNames.StringModuleName, StringNative, 1)!;
+            Require(!registry.HasOldCode(LibrarySelectionPolicyControlNames.StringModuleName));
             Require(original.NativePrimitiveExports.Count == 1);
         });
-        RejectPrepare(runtime.Modules,
-            new RuntimeLibrarySelection([RuntimeModuleSelection.Beam(StringModule, image)]), StringOwnerFailure);
+        RejectPrepare(
+            runtime.Modules,
+            new RuntimeLibrarySelection([RuntimeModuleSelection.Beam(LibrarySelectionPolicyControlNames.StringModuleName, image)]),
+            StringOwnerFailure
+        );
     }
 
     internal static async Task MissingSelectedMfa()

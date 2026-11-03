@@ -14,6 +14,14 @@ using Erlang.Compiler;
 
 using Erlang.Otp;
 
+if (args.Length > 0 && args[0] == Erlang.Tests.ResourceBoot540Names.ChildSwitch)
+    return await Erlang.Tests.ResourceBoot540ChildMain.Run(args);
+
+if (args.Length > 0 && args[0] == Erlang.Tests.ManagedContractBatch513Names.ChildSwitch)
+    return await Erlang.Tests.ManagedContractBatch513ChildMain.Run(args);
+
+
+
 
 
 if (args is [Erlang.Tests.OriginalCounters610Names.ChildSwitch, var countersRepository610,
@@ -453,6 +461,53 @@ catch (ArgumentException failure)
 
 
 var tests = new List<(string Name, Func<Task> Body)>();
+Test(Erlang.Tests.MathBackendNames.ManagedWhole, Erlang.Tests.LibraryDependencyOriginalHostChecks.MathManagedWhole);
+Test(Erlang.Tests.MathBackendNames.ManagedSelection, Erlang.Tests.MathBackendChecks.ManagedSelection);
+Test(Erlang.Tests.MathLog2OtpNames.Test, Erlang.Tests.MathLog2OtpChecks.Run);
+Test(Erlang.Tests.NativeBindingSelectionNames.Test, Erlang.Tests.NativeBindingSelectionChecks.Run);
+Test(Erlang.Tests.NativeBindingSelectionNames.RaceTest, Erlang.Tests.NativeBindingSelectionChecks.Race);
+
+Test(Erlang.Tests.StringPatternAllocationNames.Test, Erlang.Tests.StringPatternAllocationChecks.Run);
+Test(Erlang.Tests.StringSeparatorAllocationNames.Test, Erlang.Tests.StringSeparatorAllocationChecks.Run);
+
+foreach (int part in Enumerable.Range(0, Erlang.Tests.OrdsetsCompatibilityNames.PartCount))
+{
+    int selectedPart = part;
+    Test(
+        Erlang.Tests.OrdsetsCompatibilityNames.ManagedCase + "/" + selectedPart,
+        () => Erlang.Tests.OrdsetsCompatibilityChecks.Run(false, selectedPart)
+    );
+    Test(
+        Erlang.Tests.OrdsetsCompatibilityNames.BeamCase + "/" + selectedPart,
+        () => Erlang.Tests.OrdsetsCompatibilityChecks.Run(true, selectedPart)
+    );
+}
+foreach (int termShard in Enumerable.Range(0, Erlang.Tests.OrdsetsTermContractNames.ShardCount))
+{
+    Test(Erlang.Tests.OrdsetsTermContractNames.TestPrefix + termShard, () => Erlang.Tests.OrdsetsTermContractChecks.Run(termShard));
+    Test(
+        Erlang.Tests.OrdsetsTermContractNames.BeamTestPrefix + termShard,
+        () => Erlang.Tests.OrdsetsTermContractChecks.Run(termShard, true)
+    );
+}
+Test(
+    Erlang.Tests.ManagedCaptureTrace520Names.FailureTest,
+    Erlang.Tests.ManagedCaptureTrace520Checks.TraceFailuresNeverSkipRetirement
+);
+Test(
+    Erlang.Tests.ManagedCaptureTrace520Names.CleanTest,
+    Erlang.Tests.ManagedCaptureTrace520Checks.TraceFailureDoesNotMislabelCleanRetirement
+);
+Test(Erlang.Tests.BuildProfile521Names.BuildTest, Erlang.Tests.BuildProfile521Checks.OwnBuildProfile);
+Test(Erlang.Tests.BuildProfile521Names.SmpTest, Erlang.Tests.BuildProfile521Checks.SmpAtOneOnline);
+Test(
+    Erlang.Tests.ManagedContractBatch513Names.CleanupTest,
+    Erlang.Tests.ManagedCaptureEvidence520Checks.CleanupFailuresRetainPrimary
+);
+Test(
+    Erlang.Tests.ManagedContractBatch513Names.WitnessTest,
+    Erlang.Tests.ManagedCaptureEvidence520Checks.WitnessAttemptPrecedesFailure
+);
 
 Test(
 
@@ -7309,6 +7364,13 @@ foreach (var export in exportRegistry.Exports.Where(export => Erlang.Tests.Funct
         async () =>
 
     {
+        if (export.Module == Erlang.Tests.MathBackendNames.Module)
+        {
+            await Erlang.Tests.MathBackendChecks.Mfa(export.Function, export.Arity);
+
+            return;
+        }
+
 
         if (Erlang.Tests.LibraryStringFloatMfaContracts.Owns(export.Module, export.Function, export.Arity))
 

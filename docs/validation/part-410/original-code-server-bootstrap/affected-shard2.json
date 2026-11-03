@@ -1,0 +1,972 @@
+{
+  "Partial": true,
+  "SelectedCount": 160,
+  "TotalCount": 8456,
+  "Blocks": [],
+  "ExactCases": [
+    "BEAM captured closure actual native result, immutable environment and lifecycle",
+    "host/loader-consumption-and-closure-gate-ordering",
+    "host/loader-local-reference-canonicalization-and-live-resources",
+    "host/module-registry-image-lease-cleanup",
+    "mfa/erlang:call_on_load_function/1",
+    "oracle/compiled-module/apply-invalid-function-precedes-cap",
+    "oracle/compiled-module/compiler-function-resolution-comprehension-private",
+    "oracle/compiled-module/compiler-function-resolution-dynamic-loaded",
+    "oracle/compiled-module/compiler-function-resolution-forward",
+    "oracle/compiled-module/compiler-function-resolution-nested-private",
+    "oracle/compiled-module/compiler-function-resolution-private-loaded",
+    "oracle/compiled-module/compiler-function-resolution-qualified-loaded",
+    "oracle/compiled-module/compiler-function-resolution-recursive",
+    "oracle/compiled-module/compiler-function-resolution-remote-missing",
+    "oracle/compiled-module/erlang-additional-type-predicate-is-function-term-partitions",
+    "oracle/compiled-module/erlang-apply-forwarded-frame-invalid-function-keeps-apply-frame",
+    "oracle/compiled-module/erlang-code-purge-badarg-10",
+    "oracle/compiled-module/erlang-code-purge-badarg-11",
+    "oracle/compiled-module/erlang-code-purge-badarg-12",
+    "oracle/compiled-module/erlang-code-purge-badarg-13",
+    "oracle/compiled-module/erlang-code-purge-badarg-14",
+    "oracle/compiled-module/erlang-code-purge-badarg-15",
+    "oracle/compiled-module/erlang-code-purge-badarg-16",
+    "oracle/compiled-module/erlang-code-purge-badarg-17",
+    "oracle/compiled-module/erlang-code-purge-badarg-18",
+    "oracle/compiled-module/erlang-code-purge-badarg-7",
+    "oracle/compiled-module/erlang-code-purge-badarg-8",
+    "oracle/compiled-module/erlang-code-purge-badarg-9",
+    "oracle/compiled-module/erlang-code-purge-deleted-tail",
+    "oracle/compiled-module/erlang-code-purge-error-info",
+    "oracle/compiled-module/erlang-code-purge-heap-anonymous",
+    "oracle/compiled-module/erlang-code-purge-heap-named",
+    "oracle/compiled-module/erlang-code-purge-old-local-tail",
+    "oracle/compiled-module/erlang-code-purge-old-receive",
+    "oracle/compiled-module/erlang-code-purge-old-trap-exit",
+    "oracle/compiled-module/erlang-code-purge-unqualified-tail",
+    "oracle/compiled-module/erlang-etf-closure-executes",
+    "oracle/compiled-module/erlang-fun-info-local-function-env",
+    "oracle/compiled-module/erlang-function-make_fun-bad-256",
+    "oracle/compiled-module/erlang-function-make_fun-bad-atom-arity",
+    "oracle/compiled-module/erlang-function-make_fun-bad-big",
+    "oracle/compiled-module/erlang-function-make_fun-bad-float-arity",
+    "oracle/compiled-module/erlang-function-make_fun-bad-negative",
+    "oracle/compiled-module/erlang-function-make_fun-bad-wrapped-arity",
+    "oracle/compiled-module/erlang-gather-gc-result-invalid-reference-function-clause",
+    "oracle/compiled-module/erlang-identifier-text-bad-input-0",
+    "oracle/compiled-module/erlang-identifier-text-bad-input-1",
+    "oracle/compiled-module/erlang-identifier-text-bad-input-10",
+    "oracle/compiled-module/erlang-identifier-text-bad-input-11",
+    "oracle/compiled-module/erlang-identifier-text-bad-input-12",
+    "oracle/compiled-module/erlang-identifier-text-bad-input-13",
+    "oracle/compiled-module/erlang-identifier-text-bad-input-14",
+    "oracle/compiled-module/erlang-identifier-text-bad-input-15",
+    "oracle/compiled-module/erlang-identifier-text-bad-input-16",
+    "oracle/compiled-module/erlang-identifier-text-bad-input-17",
+    "oracle/compiled-module/erlang-identifier-text-bad-input-18",
+    "oracle/compiled-module/erlang-identifier-text-bad-input-19",
+    "oracle/compiled-module/erlang-identifier-text-bad-input-2",
+    "oracle/compiled-module/erlang-identifier-text-bad-input-3",
+    "oracle/compiled-module/erlang-identifier-text-bad-input-4",
+    "oracle/compiled-module/erlang-identifier-text-bad-input-5",
+    "oracle/compiled-module/erlang-identifier-text-bad-input-6",
+    "oracle/compiled-module/erlang-identifier-text-bad-input-7",
+    "oracle/compiled-module/erlang-identifier-text-bad-input-8",
+    "oracle/compiled-module/erlang-identifier-text-bad-input-9",
+    "oracle/compiled-module/erlang-identifier-text-bad-pid-syntax-0",
+    "oracle/compiled-module/erlang-identifier-text-bad-pid-syntax-1",
+    "oracle/compiled-module/erlang-identifier-text-bad-pid-syntax-10",
+    "oracle/compiled-module/erlang-identifier-text-bad-pid-syntax-11",
+    "oracle/compiled-module/erlang-identifier-text-bad-pid-syntax-2",
+    "oracle/compiled-module/erlang-identifier-text-bad-pid-syntax-3",
+    "oracle/compiled-module/erlang-identifier-text-bad-pid-syntax-4",
+    "oracle/compiled-module/erlang-identifier-text-bad-pid-syntax-5",
+    "oracle/compiled-module/erlang-identifier-text-bad-pid-syntax-6",
+    "oracle/compiled-module/erlang-identifier-text-bad-pid-syntax-7",
+    "oracle/compiled-module/erlang-identifier-text-bad-pid-syntax-8",
+    "oracle/compiled-module/erlang-identifier-text-bad-pid-syntax-9",
+    "oracle/compiled-module/erlang-identifier-text-bad-port-syntax-0",
+    "oracle/compiled-module/erlang-identifier-text-bad-port-syntax-1",
+    "oracle/compiled-module/erlang-identifier-text-bad-port-syntax-2",
+    "oracle/compiled-module/erlang-identifier-text-bad-port-syntax-3",
+    "oracle/compiled-module/erlang-identifier-text-bad-port-syntax-4",
+    "oracle/compiled-module/erlang-identifier-text-bad-port-syntax-5",
+    "oracle/compiled-module/erlang-identifier-text-bad-port-syntax-6",
+    "oracle/compiled-module/erlang-identifier-text-bad-port-syntax-7",
+    "oracle/compiled-module/erlang-identifier-text-bad-port-syntax-8",
+    "oracle/compiled-module/erlang-identifier-text-bad-port-syntax-9",
+    "oracle/compiled-module/erlang-identifier-text-bad-print-type-0",
+    "oracle/compiled-module/erlang-identifier-text-bad-print-type-1",
+    "oracle/compiled-module/erlang-identifier-text-bad-print-type-10",
+    "oracle/compiled-module/erlang-identifier-text-bad-print-type-11",
+    "oracle/compiled-module/erlang-identifier-text-bad-print-type-2",
+    "oracle/compiled-module/erlang-identifier-text-bad-print-type-3",
+    "oracle/compiled-module/erlang-identifier-text-bad-print-type-4",
+    "oracle/compiled-module/erlang-identifier-text-bad-print-type-5",
+    "oracle/compiled-module/erlang-identifier-text-bad-print-type-6",
+    "oracle/compiled-module/erlang-identifier-text-bad-print-type-7",
+    "oracle/compiled-module/erlang-identifier-text-bad-print-type-8",
+    "oracle/compiled-module/erlang-identifier-text-bad-print-type-9",
+    "oracle/compiled-module/erlang-identifier-text-pid-64-byte-bound",
+    "oracle/compiled-module/erlang-identifier-text-pid-channel-unsigned-wrap",
+    "oracle/compiled-module/erlang-identifier-text-pid-disconnected-foreign",
+    "oracle/compiled-module/erlang-identifier-text-pid-leading-zeroes",
+    "oracle/compiled-module/erlang-identifier-text-pid-local-value",
+    "oracle/compiled-module/erlang-identifier-text-pid-maximum-fields",
+    "oracle/compiled-module/erlang-identifier-text-pid-native-zero-atom-channel",
+    "oracle/compiled-module/erlang-identifier-text-pid-null-terminator",
+    "oracle/compiled-module/erlang-identifier-text-pid-number-unsigned-wrap",
+    "oracle/compiled-module/erlang-identifier-text-pid-old-local-creation",
+    "oracle/compiled-module/erlang-identifier-text-pid-round-trip",
+    "oracle/compiled-module/erlang-identifier-text-pid-serial-unsigned-wrap",
+    "oracle/compiled-module/erlang-identifier-text-port-38-byte-bound",
+    "oracle/compiled-module/erlang-identifier-text-port-channel-unsigned-wrap",
+    "oracle/compiled-module/erlang-identifier-text-port-disconnected-foreign",
+    "oracle/compiled-module/erlang-identifier-text-port-leading-zeroes",
+    "oracle/compiled-module/erlang-identifier-text-port-local-value",
+    "oracle/compiled-module/erlang-identifier-text-port-maximum-id",
+    "oracle/compiled-module/erlang-identifier-text-port-native-zero-atom-channel",
+    "oracle/compiled-module/erlang-identifier-text-port-null-terminator",
+    "oracle/compiled-module/erlang-identifier-text-port-number-unsigned-wrap",
+    "oracle/compiled-module/erlang-identifier-text-port-old-local-creation",
+    "oracle/compiled-module/erlang-identifier-text-port-round-trip",
+    "oracle/compiled-module/erlang-module-information-functions",
+    "oracle/compiled-module/erlang-native-record-syntax-closure-pattern",
+    "oracle/compiled-module/erlang-nif-declaration-duplicate-function-fallback",
+    "oracle/compiled-module/erlang-process-trace-function-query",
+    "oracle/compiled-module/identifier-order-pid-creation-after-payload",
+    "oracle/compiled-module/identifier-order-pid-equal-payload-node-creation",
+    "oracle/compiled-module/identifier-order-pid-node-after-payload",
+    "oracle/compiled-module/identifier-order-pid-number-before-creation",
+    "oracle/compiled-module/identifier-order-pid-number-before-node",
+    "oracle/compiled-module/identifier-order-pid-serial-before-node",
+    "oracle/compiled-module/identifier-order-pid-serial-before-number",
+    "oracle/compiled-module/identifier-order-pid-unicode-node",
+    "oracle/compiled-module/identifier-order-port-creation-before-id",
+    "oracle/compiled-module/identifier-order-port-node-before-id",
+    "oracle/compiled-module/identifier-order-port-unicode-node",
+    "oracle/compiled-module/non-tail-recursion-try-after-error-and-throw-cleanup-once",
+    "oracle/compiled-module/non-tail-recursion-try-after-normal-return-cleanup-order",
+    "oracle/compiled-module/proc-lib-local-nonlist-arguments-function-clause",
+    "oracle/compiled-module/proc-lib-local-spawn-invalid-fun-function-clause",
+    "oracle/compiled-module/proc-lib-local-spawn-invalid-module-function-clause",
+    "oracle/compiled-module/proc-lib-metadata-initial-call-unguarded-module-and-function-fields",
+    "oracle/compiled-module/proc-lib-metadata-invalid-input-function-clause",
+    "oracle/compiled-module/proc-lib-options-spawn-opt-function-arity-fails-in-child",
+    "oracle/compiled-module/proc-lib-options-spawn-opt-two-function-guard",
+    "oracle/compiled-module/proc-lib-startup-invalid-mfa-function-clause",
+    "oracle/compiled-module/proc-lib-startup-zero-timeout-monitor-cleanup",
+    "oracle/compiled-module/proc-node-invalid-function",
+    "oracle/compiled-module/rpc-zero-timeout-real-child-cleanup",
+    "oracle/compiler-diagnostic/function-resolution-aborted-loaded-source",
+    "oracle/compiler-diagnostic/function-resolution-iterator-not-auto-imported",
+    "oracle/compiler-diagnostic/function-resolution-loaded-wrong-arity",
+    "oracle/compiler-diagnostic/function-resolution-nested-loaded",
+    "oracle/compiler-diagnostic/function-resolution-next-not-auto-imported",
+    "oracle/compiler-diagnostic/function-resolution-unknown-local",
+    "oracle/compiler-diagnostic/function-resolution-wrong-arity-bif",
+    "runtime/distribution-pending-owned-resource-generation-kernel-controller-lifecycle",
+    "runtime/local-text-identifiers-retain-epoch-and-owned-registration",
+    "runtime/owned-reference-live-ETF-text-prepared-resource-lifetime"
+  ],
+  "Passed": 160,
+  "Failed": 0,
+  "Tests": [
+    {
+      "Name": "oracle/compiled-module/erlang-function-make_fun-bad-float-arity",
+      "Status": "Passed",
+      "Milliseconds": 1172
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-function-make_fun-bad-atom-arity",
+      "Status": "Passed",
+      "Milliseconds": 44
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-function-make_fun-bad-negative",
+      "Status": "Passed",
+      "Milliseconds": 50
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-function-make_fun-bad-256",
+      "Status": "Passed",
+      "Milliseconds": 25
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-function-make_fun-bad-wrapped-arity",
+      "Status": "Passed",
+      "Milliseconds": 29
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-function-make_fun-bad-big",
+      "Status": "Passed",
+      "Milliseconds": 31
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-fun-info-local-function-env",
+      "Status": "Passed",
+      "Milliseconds": 59
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-etf-closure-executes",
+      "Status": "Passed",
+      "Milliseconds": 68
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-identifier-text-pid-round-trip",
+      "Status": "Passed",
+      "Milliseconds": 32
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-identifier-text-pid-local-value",
+      "Status": "Passed",
+      "Milliseconds": 47
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-identifier-text-pid-maximum-fields",
+      "Status": "Passed",
+      "Milliseconds": 49
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-identifier-text-pid-leading-zeroes",
+      "Status": "Passed",
+      "Milliseconds": 34
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-identifier-text-pid-64-byte-bound",
+      "Status": "Passed",
+      "Milliseconds": 35
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-identifier-text-pid-number-unsigned-wrap",
+      "Status": "Passed",
+      "Milliseconds": 40
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-identifier-text-pid-serial-unsigned-wrap",
+      "Status": "Passed",
+      "Milliseconds": 49
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-identifier-text-pid-channel-unsigned-wrap",
+      "Status": "Passed",
+      "Milliseconds": 39
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-identifier-text-pid-null-terminator",
+      "Status": "Passed",
+      "Milliseconds": 33
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-identifier-text-port-round-trip",
+      "Status": "Passed",
+      "Milliseconds": 29
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-identifier-text-port-local-value",
+      "Status": "Passed",
+      "Milliseconds": 37
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-identifier-text-port-maximum-id",
+      "Status": "Passed",
+      "Milliseconds": 65
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-identifier-text-port-leading-zeroes",
+      "Status": "Passed",
+      "Milliseconds": 41
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-identifier-text-port-38-byte-bound",
+      "Status": "Passed",
+      "Milliseconds": 36
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-identifier-text-port-number-unsigned-wrap",
+      "Status": "Passed",
+      "Milliseconds": 41
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-identifier-text-port-channel-unsigned-wrap",
+      "Status": "Passed",
+      "Milliseconds": 39
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-identifier-text-port-null-terminator",
+      "Status": "Passed",
+      "Milliseconds": 38
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-identifier-text-pid-old-local-creation",
+      "Status": "Passed",
+      "Milliseconds": 57
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-identifier-text-port-old-local-creation",
+      "Status": "Passed",
+      "Milliseconds": 46
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-identifier-text-pid-disconnected-foreign",
+      "Status": "Passed",
+      "Milliseconds": 45
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-identifier-text-port-disconnected-foreign",
+      "Status": "Passed",
+      "Milliseconds": 52
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-identifier-text-pid-native-zero-atom-channel",
+      "Status": "Passed",
+      "Milliseconds": 42
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-identifier-text-port-native-zero-atom-channel",
+      "Status": "Passed",
+      "Milliseconds": 40
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-identifier-text-bad-input-0",
+      "Status": "Passed",
+      "Milliseconds": 23
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-identifier-text-bad-input-1",
+      "Status": "Passed",
+      "Milliseconds": 23
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-identifier-text-bad-input-2",
+      "Status": "Passed",
+      "Milliseconds": 31
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-identifier-text-bad-input-3",
+      "Status": "Passed",
+      "Milliseconds": 27
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-identifier-text-bad-input-4",
+      "Status": "Passed",
+      "Milliseconds": 27
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-identifier-text-bad-input-5",
+      "Status": "Passed",
+      "Milliseconds": 35
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-identifier-text-bad-input-6",
+      "Status": "Passed",
+      "Milliseconds": 29
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-identifier-text-bad-input-7",
+      "Status": "Passed",
+      "Milliseconds": 30
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-identifier-text-bad-input-8",
+      "Status": "Passed",
+      "Milliseconds": 33
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-identifier-text-bad-input-9",
+      "Status": "Passed",
+      "Milliseconds": 34
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-identifier-text-bad-input-10",
+      "Status": "Passed",
+      "Milliseconds": 68
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-identifier-text-bad-input-11",
+      "Status": "Passed",
+      "Milliseconds": 27
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-identifier-text-bad-input-12",
+      "Status": "Passed",
+      "Milliseconds": 33
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-identifier-text-bad-input-13",
+      "Status": "Passed",
+      "Milliseconds": 28
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-identifier-text-bad-input-14",
+      "Status": "Passed",
+      "Milliseconds": 26
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-identifier-text-bad-input-15",
+      "Status": "Passed",
+      "Milliseconds": 26
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-identifier-text-bad-input-16",
+      "Status": "Passed",
+      "Milliseconds": 29
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-identifier-text-bad-input-17",
+      "Status": "Passed",
+      "Milliseconds": 27
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-identifier-text-bad-input-18",
+      "Status": "Passed",
+      "Milliseconds": 37
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-identifier-text-bad-input-19",
+      "Status": "Passed",
+      "Milliseconds": 36
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-identifier-text-bad-pid-syntax-0",
+      "Status": "Passed",
+      "Milliseconds": 32
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-identifier-text-bad-pid-syntax-1",
+      "Status": "Passed",
+      "Milliseconds": 36
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-identifier-text-bad-pid-syntax-2",
+      "Status": "Passed",
+      "Milliseconds": 33
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-identifier-text-bad-pid-syntax-3",
+      "Status": "Passed",
+      "Milliseconds": 33
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-identifier-text-bad-pid-syntax-4",
+      "Status": "Passed",
+      "Milliseconds": 32
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-identifier-text-bad-pid-syntax-5",
+      "Status": "Passed",
+      "Milliseconds": 29
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-identifier-text-bad-pid-syntax-6",
+      "Status": "Passed",
+      "Milliseconds": 30
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-identifier-text-bad-pid-syntax-7",
+      "Status": "Passed",
+      "Milliseconds": 31
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-identifier-text-bad-pid-syntax-8",
+      "Status": "Passed",
+      "Milliseconds": 34
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-identifier-text-bad-pid-syntax-9",
+      "Status": "Passed",
+      "Milliseconds": 41
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-identifier-text-bad-pid-syntax-10",
+      "Status": "Passed",
+      "Milliseconds": 34
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-identifier-text-bad-pid-syntax-11",
+      "Status": "Passed",
+      "Milliseconds": 32
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-identifier-text-bad-port-syntax-0",
+      "Status": "Passed",
+      "Milliseconds": 35
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-identifier-text-bad-port-syntax-1",
+      "Status": "Passed",
+      "Milliseconds": 47
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-identifier-text-bad-port-syntax-2",
+      "Status": "Passed",
+      "Milliseconds": 49
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-identifier-text-bad-port-syntax-3",
+      "Status": "Passed",
+      "Milliseconds": 41
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-identifier-text-bad-port-syntax-4",
+      "Status": "Passed",
+      "Milliseconds": 33
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-identifier-text-bad-port-syntax-5",
+      "Status": "Passed",
+      "Milliseconds": 39
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-identifier-text-bad-port-syntax-6",
+      "Status": "Passed",
+      "Milliseconds": 40
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-identifier-text-bad-port-syntax-7",
+      "Status": "Passed",
+      "Milliseconds": 46
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-identifier-text-bad-port-syntax-8",
+      "Status": "Passed",
+      "Milliseconds": 37
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-identifier-text-bad-port-syntax-9",
+      "Status": "Passed",
+      "Milliseconds": 43
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-identifier-text-bad-print-type-0",
+      "Status": "Passed",
+      "Milliseconds": 61
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-identifier-text-bad-print-type-1",
+      "Status": "Passed",
+      "Milliseconds": 41
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-identifier-text-bad-print-type-2",
+      "Status": "Passed",
+      "Milliseconds": 41
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-identifier-text-bad-print-type-3",
+      "Status": "Passed",
+      "Milliseconds": 33
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-identifier-text-bad-print-type-4",
+      "Status": "Passed",
+      "Milliseconds": 29
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-identifier-text-bad-print-type-5",
+      "Status": "Passed",
+      "Milliseconds": 47
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-identifier-text-bad-print-type-6",
+      "Status": "Passed",
+      "Milliseconds": 29
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-identifier-text-bad-print-type-7",
+      "Status": "Passed",
+      "Milliseconds": 35
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-identifier-text-bad-print-type-8",
+      "Status": "Passed",
+      "Milliseconds": 41
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-identifier-text-bad-print-type-9",
+      "Status": "Passed",
+      "Milliseconds": 38
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-identifier-text-bad-print-type-10",
+      "Status": "Passed",
+      "Milliseconds": 31
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-identifier-text-bad-print-type-11",
+      "Status": "Passed",
+      "Milliseconds": 29
+    },
+    {
+      "Name": "oracle/compiled-module/compiler-function-resolution-qualified-loaded",
+      "Status": "Passed",
+      "Milliseconds": 29
+    },
+    {
+      "Name": "oracle/compiled-module/compiler-function-resolution-private-loaded",
+      "Status": "Passed",
+      "Milliseconds": 27
+    },
+    {
+      "Name": "oracle/compiled-module/compiler-function-resolution-forward",
+      "Status": "Passed",
+      "Milliseconds": 32
+    },
+    {
+      "Name": "oracle/compiled-module/compiler-function-resolution-recursive",
+      "Status": "Passed",
+      "Milliseconds": 41
+    },
+    {
+      "Name": "oracle/compiled-module/compiler-function-resolution-nested-private",
+      "Status": "Passed",
+      "Milliseconds": 44
+    },
+    {
+      "Name": "oracle/compiled-module/compiler-function-resolution-comprehension-private",
+      "Status": "Passed",
+      "Milliseconds": 91
+    },
+    {
+      "Name": "oracle/compiled-module/compiler-function-resolution-dynamic-loaded",
+      "Status": "Passed",
+      "Milliseconds": 39
+    },
+    {
+      "Name": "oracle/compiled-module/compiler-function-resolution-remote-missing",
+      "Status": "Passed",
+      "Milliseconds": 40
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-module-information-functions",
+      "Status": "Passed",
+      "Milliseconds": 59
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-code-purge-deleted-tail",
+      "Status": "Passed",
+      "Milliseconds": 69
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-code-purge-heap-named",
+      "Status": "Passed",
+      "Milliseconds": 33
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-code-purge-heap-anonymous",
+      "Status": "Passed",
+      "Milliseconds": 33
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-code-purge-unqualified-tail",
+      "Status": "Passed",
+      "Milliseconds": 28
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-code-purge-old-receive",
+      "Status": "Passed",
+      "Milliseconds": 43
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-code-purge-old-trap-exit",
+      "Status": "Passed",
+      "Milliseconds": 34
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-code-purge-old-local-tail",
+      "Status": "Passed",
+      "Milliseconds": 75
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-code-purge-badarg-7",
+      "Status": "Passed",
+      "Milliseconds": 34
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-code-purge-badarg-8",
+      "Status": "Passed",
+      "Milliseconds": 32
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-code-purge-badarg-9",
+      "Status": "Passed",
+      "Milliseconds": 42
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-code-purge-badarg-10",
+      "Status": "Passed",
+      "Milliseconds": 34
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-code-purge-badarg-11",
+      "Status": "Passed",
+      "Milliseconds": 32
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-code-purge-badarg-12",
+      "Status": "Passed",
+      "Milliseconds": 30
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-code-purge-badarg-13",
+      "Status": "Passed",
+      "Milliseconds": 32
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-code-purge-badarg-14",
+      "Status": "Passed",
+      "Milliseconds": 29
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-code-purge-badarg-15",
+      "Status": "Passed",
+      "Milliseconds": 29
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-code-purge-badarg-16",
+      "Status": "Passed",
+      "Milliseconds": 41
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-code-purge-badarg-17",
+      "Status": "Passed",
+      "Milliseconds": 34
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-code-purge-badarg-18",
+      "Status": "Passed",
+      "Milliseconds": 33
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-code-purge-error-info",
+      "Status": "Passed",
+      "Milliseconds": 58
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-native-record-syntax-closure-pattern",
+      "Status": "Passed",
+      "Milliseconds": 67
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-process-trace-function-query",
+      "Status": "Passed",
+      "Milliseconds": 82
+    },
+    {
+      "Name": "oracle/compiled-module/identifier-order-pid-serial-before-node",
+      "Status": "Passed",
+      "Milliseconds": 129
+    },
+    {
+      "Name": "oracle/compiled-module/identifier-order-pid-number-before-node",
+      "Status": "Passed",
+      "Milliseconds": 102
+    },
+    {
+      "Name": "oracle/compiled-module/identifier-order-pid-serial-before-number",
+      "Status": "Passed",
+      "Milliseconds": 110
+    },
+    {
+      "Name": "oracle/compiled-module/identifier-order-pid-number-before-creation",
+      "Status": "Passed",
+      "Milliseconds": 114
+    },
+    {
+      "Name": "oracle/compiled-module/identifier-order-pid-node-after-payload",
+      "Status": "Passed",
+      "Milliseconds": 122
+    },
+    {
+      "Name": "oracle/compiled-module/identifier-order-pid-creation-after-payload",
+      "Status": "Passed",
+      "Milliseconds": 102
+    },
+    {
+      "Name": "oracle/compiled-module/identifier-order-pid-unicode-node",
+      "Status": "Passed",
+      "Milliseconds": 116
+    },
+    {
+      "Name": "oracle/compiled-module/identifier-order-port-unicode-node",
+      "Status": "Passed",
+      "Milliseconds": 136
+    },
+    {
+      "Name": "oracle/compiled-module/identifier-order-port-node-before-id",
+      "Status": "Passed",
+      "Milliseconds": 127
+    },
+    {
+      "Name": "oracle/compiled-module/identifier-order-port-creation-before-id",
+      "Status": "Passed",
+      "Milliseconds": 154
+    },
+    {
+      "Name": "oracle/compiled-module/identifier-order-pid-equal-payload-node-creation",
+      "Status": "Passed",
+      "Milliseconds": 123
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-gather-gc-result-invalid-reference-function-clause",
+      "Status": "Passed",
+      "Milliseconds": 91
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-apply-forwarded-frame-invalid-function-keeps-apply-frame",
+      "Status": "Passed",
+      "Milliseconds": 87
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-nif-declaration-duplicate-function-fallback",
+      "Status": "Passed",
+      "Milliseconds": 63
+    },
+    {
+      "Name": "oracle/compiled-module/non-tail-recursion-try-after-normal-return-cleanup-order",
+      "Status": "Passed",
+      "Milliseconds": 68
+    },
+    {
+      "Name": "oracle/compiled-module/non-tail-recursion-try-after-error-and-throw-cleanup-once",
+      "Status": "Passed",
+      "Milliseconds": 131
+    },
+    {
+      "Name": "oracle/compiled-module/proc-lib-local-spawn-invalid-fun-function-clause",
+      "Status": "Passed",
+      "Milliseconds": 143
+    },
+    {
+      "Name": "oracle/compiled-module/proc-lib-local-spawn-invalid-module-function-clause",
+      "Status": "Passed",
+      "Milliseconds": 127
+    },
+    {
+      "Name": "oracle/compiled-module/proc-lib-local-nonlist-arguments-function-clause",
+      "Status": "Passed",
+      "Milliseconds": 73
+    },
+    {
+      "Name": "oracle/compiled-module/proc-lib-startup-zero-timeout-monitor-cleanup",
+      "Status": "Passed",
+      "Milliseconds": 138
+    },
+    {
+      "Name": "oracle/compiled-module/proc-lib-startup-invalid-mfa-function-clause",
+      "Status": "Passed",
+      "Milliseconds": 101
+    },
+    {
+      "Name": "oracle/compiled-module/proc-lib-options-spawn-opt-function-arity-fails-in-child",
+      "Status": "Passed",
+      "Milliseconds": 133
+    },
+    {
+      "Name": "oracle/compiled-module/proc-lib-options-spawn-opt-two-function-guard",
+      "Status": "Passed",
+      "Milliseconds": 61
+    },
+    {
+      "Name": "oracle/compiled-module/proc-lib-metadata-initial-call-unguarded-module-and-function-fields",
+      "Status": "Passed",
+      "Milliseconds": 81
+    },
+    {
+      "Name": "oracle/compiled-module/proc-lib-metadata-invalid-input-function-clause",
+      "Status": "Passed",
+      "Milliseconds": 98
+    },
+    {
+      "Name": "oracle/compiled-module/proc-node-invalid-function",
+      "Status": "Passed",
+      "Milliseconds": 39
+    },
+    {
+      "Name": "oracle/compiled-module/apply-invalid-function-precedes-cap",
+      "Status": "Passed",
+      "Milliseconds": 144
+    },
+    {
+      "Name": "oracle/compiled-module/rpc-zero-timeout-real-child-cleanup",
+      "Status": "Passed",
+      "Milliseconds": 127
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-additional-type-predicate-is-function-term-partitions",
+      "Status": "Passed",
+      "Milliseconds": 339
+    },
+    {
+      "Name": "oracle/compiler-diagnostic/function-resolution-aborted-loaded-source",
+      "Status": "Passed",
+      "Milliseconds": 1
+    },
+    {
+      "Name": "oracle/compiler-diagnostic/function-resolution-nested-loaded",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "oracle/compiler-diagnostic/function-resolution-iterator-not-auto-imported",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "oracle/compiler-diagnostic/function-resolution-next-not-auto-imported",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "oracle/compiler-diagnostic/function-resolution-loaded-wrong-arity",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "oracle/compiler-diagnostic/function-resolution-unknown-local",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "oracle/compiler-diagnostic/function-resolution-wrong-arity-bif",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "BEAM captured closure actual native result, immutable environment and lifecycle",
+      "Status": "Passed",
+      "Milliseconds": 77
+    },
+    {
+      "Name": "host/module-registry-image-lease-cleanup",
+      "Status": "Passed",
+      "Milliseconds": 25
+    },
+    {
+      "Name": "runtime/owned-reference-live-ETF-text-prepared-resource-lifetime",
+      "Status": "Passed",
+      "Milliseconds": 266
+    },
+    {
+      "Name": "mfa/erlang:call_on_load_function/1",
+      "Status": "Passed",
+      "Milliseconds": 20
+    },
+    {
+      "Name": "host/loader-consumption-and-closure-gate-ordering",
+      "Status": "Passed",
+      "Milliseconds": 18
+    },
+    {
+      "Name": "host/loader-local-reference-canonicalization-and-live-resources",
+      "Status": "Passed",
+      "Milliseconds": 6
+    },
+    {
+      "Name": "runtime/distribution-pending-owned-resource-generation-kernel-controller-lifecycle",
+      "Status": "Passed",
+      "Milliseconds": 37
+    },
+    {
+      "Name": "runtime/local-text-identifiers-retain-epoch-and-owned-registration",
+      "Status": "Passed",
+      "Milliseconds": 35
+    }
+  ]
+}

@@ -1,0 +1,56 @@
+{
+  "Purpose": "Proposal only: do not overwrite shared ledger or promote universal compatibility",
+  "Version": "OTP-29.1.1",
+  "OwnedSourceBindings": [
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Primitives/Collections/CollectionMathBridge.cs",
+      "Sha256": "BF03137E18293571D4366A8ED6C3FC7764DA73E2D18FF234DC83E370CFEFA1E7"
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Primitives/MathNativeNames.cs",
+      "Sha256": "37B0013E83AD9CF9A37DEA5E7623E183D2F6F659E96DE81F2434052873C03BCC"
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Modules/LibrarySelectionNames.cs",
+      "Sha256": "64F783935CCA6EBE78408BDA7F2B059A757AF5D0AD53F8FC994282B966D1F983"
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Primitives/MathNative.cs",
+      "Sha256": "7CE2DB1888BFA8D0A35A9F007D80939B177CF2F8528BF58AE34E2B7D9E632F70"
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Primitives/MathHostSpecialFunctions.cs",
+      "Sha256": "CF80FFCD67BA7CB3C964EA0851F5FAD5012EE3814D343FA21B6BFDBCBFF1DE06"
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Primitives/MathNativeConstants.cs",
+      "Sha256": "5DFB5ABBE5CEC608306254AB347D107F4C53DAE77BBBD538B0E0B084996F00EF"
+    }
+  ],
+  "MathEntries": 26,
+  "CurrentClassification": "Needs verification",
+  "ProposedAdditionalEvidence": [
+    {
+      "Kind": "OriginalOtpComparison",
+      "Path": "validation/math-compatibility-20261103/summary.json",
+      "Sha256": "321D4BDE65402912FF1B5251189DCEDADD6F926DF0780153980664127E1A60E3",
+      "Scope": "Fresh official Windows OTP29.1.1 observations: both selected backends match502772 numeric/type/error cases plus248 whole values and5stack profiles; not final-head/platform-wide acceptance"
+    },
+    {
+      "Kind": "LocalValidation",
+      "Path": "validation/math-compatibility-20261103/isolated-affected.json",
+      "Sha256": "00B4BEA72285C90BF0D4150F9E5051D20A0266E97A1C2A7A6B1D83919516C8FD",
+      "Scope": "45/45 source-matched affected checks, all26 direct MFAs, public backend selection, original24 native captures and pure pi/tau ownership; shared merged source, not publication-head full regression"
+    },
+    {
+      "Kind": "SourceReview",
+      "Path": "validation/math-compatibility-20261103/source-audit.json",
+      "Sha256": "8B69FE5B7998B2B59DE6264E95800BE235B89555F14BB9D8F65F1A73346E093E",
+      "Scope": "Pinned native-wrapper/constant/argument/conversion/error/backend audit; genuine Linux/macOS and exact-head receipts still required"
+    }
+  ],
+  "ApiDeltaFromMain": 25,
+  "FullCompatibilityDeltaNow": 0,
+  "ReadyToIncludeInSharedPr": true,
+  "ProductionAndToolEditsFrozen": true
+}

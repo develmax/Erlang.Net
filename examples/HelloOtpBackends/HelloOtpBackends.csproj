@@ -26,7 +26,7 @@
       <Dependencies Condition="'$(QueueBackend)' == 'Beam'">lists</Dependencies>
     </ErlangLibrary>
     <ErlangBeam Include="Modules/backend_project389.beam" />
-    <None Include="../../docs/OTP-LICENSE.txt" Link="licenses/OTP-LICENSE.txt" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" Condition="'$(UseInstalledPackage)' != 'true'" />
+    <None Include="../../licenses/OTP-LICENSE.txt" Link="licenses/OTP-LICENSE.txt" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" Condition="'$(UseInstalledPackage)' != 'true'" />
   </ItemGroup>
   <Import Project="../../build/Erlang.Net.targets" Condition="'$(UseInstalledPackage)' != 'true'" />
 </Project>

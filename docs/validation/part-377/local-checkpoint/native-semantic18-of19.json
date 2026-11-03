@@ -1,0 +1,680 @@
+{
+  "Status": "FAIL_NATIVE_PACKET",
+  "DriverCases": 19,
+  "DriverCasePassed": 18,
+  "SuccessfulDriverCases": 12,
+  "RawEtfPairsCompared": 12,
+  "RawEtfEqual": 12,
+  "Sensitivity": {
+    "Name": "positive-original-forms-transform-sensitivity",
+    "Passed": true,
+    "SentinelSha256": "36F0714ECF0BBA5DF032D2E886EE5DC74D9A39A863D235C9FF79CE53C10B2E54"
+  },
+  "ChecksIncludingSensitivity": 20,
+  "PassedIncludingSensitivity": 19,
+  "SealedOriginalsUnchanged": true,
+  "Cases": [
+    {
+      "Name": "undef_then_redefine",
+      "ExpectedSuccess": true,
+      "Passed": true,
+      "InputBefore": {
+        "src/driver_case.erl": "60D4512192271F3BD061B4FB76538D5D6B38C779F9728B73F6F3F9343A614EC9"
+      },
+      "OriginalEtfSha256": "FDEE899A18727D1D94CA0738824CF50DF8B08838E12F8A2B7277F7540B76850C",
+      "ManagedEtfSha256": "FDEE899A18727D1D94CA0738824CF50DF8B08838E12F8A2B7277F7540B76850C",
+      "RawEtfEqual": true,
+      "SentinelAbsent": true,
+      "InputAfter": {
+        "src/driver_case.erl": "60D4512192271F3BD061B4FB76538D5D6B38C779F9728B73F6F3F9343A614EC9"
+      },
+      "InputUnchanged": true,
+      "SentinelAbsentAtSettlement": true
+    },
+    {
+      "Name": "duplicate_source_define_diagnostic",
+      "ExpectedSuccess": false,
+      "Passed": true,
+      "InputBefore": {
+        "src/driver_case.erl": "43F0AFAC85732AEC291040F5EF730EE84D381585C5432DB4E0174A4D1C859088"
+      },
+      "SentinelAbsent": true,
+      "InputAfter": {
+        "src/driver_case.erl": "43F0AFAC85732AEC291040F5EF730EE84D381585C5432DB4E0174A4D1C859088"
+      },
+      "InputUnchanged": true,
+      "SentinelAbsentAtSettlement": true
+    },
+    {
+      "Name": "ifdef_present",
+      "ExpectedSuccess": true,
+      "Passed": true,
+      "InputBefore": {
+        "src/driver_case.erl": "069BC7895DEC7D0CDB3835BE7896144754AE0359AA656F89BADC5E7CCD67FC5E"
+      },
+      "OriginalEtfSha256": "9E6DA8111C9B899621484BC772711A59B818C77BB61F5DD466113C12D8B6961A",
+      "ManagedEtfSha256": "9E6DA8111C9B899621484BC772711A59B818C77BB61F5DD466113C12D8B6961A",
+      "RawEtfEqual": true,
+      "SentinelAbsent": true,
+      "InputAfter": {
+        "src/driver_case.erl": "069BC7895DEC7D0CDB3835BE7896144754AE0359AA656F89BADC5E7CCD67FC5E"
+      },
+      "InputUnchanged": true,
+      "SentinelAbsentAtSettlement": true
+    },
+    {
+      "Name": "ifdef_absent",
+      "ExpectedSuccess": true,
+      "Passed": true,
+      "InputBefore": {
+        "src/driver_case.erl": "069BC7895DEC7D0CDB3835BE7896144754AE0359AA656F89BADC5E7CCD67FC5E"
+      },
+      "OriginalEtfSha256": "B1FDE400F592E58B0DFE75B216F1F044772383198FFEF665B36023D8CA9CD7EA",
+      "ManagedEtfSha256": "B1FDE400F592E58B0DFE75B216F1F044772383198FFEF665B36023D8CA9CD7EA",
+      "RawEtfEqual": true,
+      "SentinelAbsent": true,
+      "InputAfter": {
+        "src/driver_case.erl": "069BC7895DEC7D0CDB3835BE7896144754AE0359AA656F89BADC5E7CCD67FC5E"
+      },
+      "InputUnchanged": true,
+      "SentinelAbsentAtSettlement": true
+    },
+    {
+      "Name": "builtin_module_function_file_line",
+      "ExpectedSuccess": true,
+      "Passed": true,
+      "InputBefore": {
+        "src/driver_case.erl": "0FB76E11FF19A37CEE5FE0D4B4D1CE4EA9D4D2650AB19EAA806A1A1A05DB458F"
+      },
+      "OriginalEtfSha256": "077E5E61FAE9A29B18426A72D8D328D3D2B5A81698B03EC9D45ADEB641C0FD1C",
+      "ManagedEtfSha256": "077E5E61FAE9A29B18426A72D8D328D3D2B5A81698B03EC9D45ADEB641C0FD1C",
+      "RawEtfEqual": true,
+      "SentinelAbsent": true,
+      "InputAfter": {
+        "src/driver_case.erl": "0FB76E11FF19A37CEE5FE0D4B4D1CE4EA9D4D2650AB19EAA806A1A1A05DB458F"
+      },
+      "InputUnchanged": true,
+      "SentinelAbsentAtSettlement": true
+    },
+    {
+      "Name": "nested_parameter_macro",
+      "ExpectedSuccess": true,
+      "Passed": true,
+      "InputBefore": {
+        "include/macro.hrl": "FC7BF860494F3B52B2842DED7F02F59CA6487976356A6E184270EBAD896CE3FE",
+        "src/driver_case.erl": "CBF554145A5067F74245E2D05581F63C8E836B5699D966179A161E42CE05AC46"
+      },
+      "OriginalEtfSha256": "93758990DA74233F367B192F2AD832822118F3BB7EEA9D497FE67770E81E07BB",
+      "ManagedEtfSha256": "93758990DA74233F367B192F2AD832822118F3BB7EEA9D497FE67770E81E07BB",
+      "RawEtfEqual": true,
+      "SentinelAbsent": true,
+      "InputAfter": {
+        "include/macro.hrl": "FC7BF860494F3B52B2842DED7F02F59CA6487976356A6E184270EBAD896CE3FE",
+        "src/driver_case.erl": "CBF554145A5067F74245E2D05581F63C8E836B5699D966179A161E42CE05AC46"
+      },
+      "InputUnchanged": true,
+      "SentinelAbsentAtSettlement": true
+    },
+    {
+      "Name": "search_left_first",
+      "ExpectedSuccess": true,
+      "Passed": true,
+      "InputBefore": {
+        "left/value.hrl": "73E29FF6261ABBAF6264A78CEB9B8871B92AFEE7D09DAA0BB4A755B8E5DE2643",
+        "right/value.hrl": "1AF3B617C6FB0FFC9613A595D094D5734F2C5D327633733F90717F68AA0CD561",
+        "src/driver_case.erl": "5A25B56A0844994503A661560E8DA4E24A922F6D6A7D1182E1B8AC59F5DE2978"
+      },
+      "OriginalEtfSha256": "4105DEAEED86562A74857A76D5B281C513F1D4F172CF8FE93B1B39C83229D73B",
+      "ManagedEtfSha256": "4105DEAEED86562A74857A76D5B281C513F1D4F172CF8FE93B1B39C83229D73B",
+      "RawEtfEqual": true,
+      "SentinelAbsent": true,
+      "InputAfter": {
+        "left/value.hrl": "73E29FF6261ABBAF6264A78CEB9B8871B92AFEE7D09DAA0BB4A755B8E5DE2643",
+        "right/value.hrl": "1AF3B617C6FB0FFC9613A595D094D5734F2C5D327633733F90717F68AA0CD561",
+        "src/driver_case.erl": "5A25B56A0844994503A661560E8DA4E24A922F6D6A7D1182E1B8AC59F5DE2978"
+      },
+      "InputUnchanged": true,
+      "SentinelAbsentAtSettlement": true
+    },
+    {
+      "Name": "search_right_first",
+      "ExpectedSuccess": true,
+      "Passed": true,
+      "InputBefore": {
+        "left/value.hrl": "73E29FF6261ABBAF6264A78CEB9B8871B92AFEE7D09DAA0BB4A755B8E5DE2643",
+        "right/value.hrl": "1AF3B617C6FB0FFC9613A595D094D5734F2C5D327633733F90717F68AA0CD561",
+        "src/driver_case.erl": "5A25B56A0844994503A661560E8DA4E24A922F6D6A7D1182E1B8AC59F5DE2978"
+      },
+      "OriginalEtfSha256": "4AD1252507C3241F2DA1FE9690526E0B35CAA0A83619CEE0A9CB7C64511154E7",
+      "ManagedEtfSha256": "4AD1252507C3241F2DA1FE9690526E0B35CAA0A83619CEE0A9CB7C64511154E7",
+      "RawEtfEqual": true,
+      "SentinelAbsent": true,
+      "InputAfter": {
+        "left/value.hrl": "73E29FF6261ABBAF6264A78CEB9B8871B92AFEE7D09DAA0BB4A755B8E5DE2643",
+        "right/value.hrl": "1AF3B617C6FB0FFC9613A595D094D5734F2C5D327633733F90717F68AA0CD561",
+        "src/driver_case.erl": "5A25B56A0844994503A661560E8DA4E24A922F6D6A7D1182E1B8AC59F5DE2978"
+      },
+      "InputUnchanged": true,
+      "SentinelAbsentAtSettlement": true
+    },
+    {
+      "Name": "nested_dynamic_head_replacement",
+      "ExpectedSuccess": true,
+      "Passed": true,
+      "InputBefore": {
+        "fallback/value.hrl": "792FCFA5B42643DB46A59F1172CDF9B5490D8DDE51FAD03A3101D4A62BEAF5A1",
+        "include/outer/first.hrl": "DF489B463FDE91E261B2C297FEFC7F5D52FE3782321BF94C3E300FBEB93D6147",
+        "include/outer/value.hrl": "C5DB26F5473A0F3643481C776C052F4FDB6D9A4A90F7FFBECBE1DB038AB3BC3A",
+        "src/driver_case.erl": "71BBC93C8BB7AEB720C0F01F88A977561F8BB40FDF7EA7F958CBB1AA0810EED7",
+        "src/value.hrl": "E7FB5BA3308D0B59C54660807F4D8DDFE51E3542367415729E2F362730D8CB3C"
+      },
+      "OriginalEtfSha256": "D5DBDA992270F3DF6BB6DA0567F11D5613F7BB785C010CD587F812C01FF20F60",
+      "ManagedEtfSha256": "D5DBDA992270F3DF6BB6DA0567F11D5613F7BB785C010CD587F812C01FF20F60",
+      "RawEtfEqual": true,
+      "SentinelAbsent": true,
+      "InputAfter": {
+        "fallback/value.hrl": "792FCFA5B42643DB46A59F1172CDF9B5490D8DDE51FAD03A3101D4A62BEAF5A1",
+        "include/outer/first.hrl": "DF489B463FDE91E261B2C297FEFC7F5D52FE3782321BF94C3E300FBEB93D6147",
+        "include/outer/value.hrl": "C5DB26F5473A0F3643481C776C052F4FDB6D9A4A90F7FFBECBE1DB038AB3BC3A",
+        "src/driver_case.erl": "71BBC93C8BB7AEB720C0F01F88A977561F8BB40FDF7EA7F958CBB1AA0810EED7",
+        "src/value.hrl": "E7FB5BA3308D0B59C54660807F4D8DDFE51E3542367415729E2F362730D8CB3C"
+      },
+      "InputUnchanged": true,
+      "SentinelAbsentAtSettlement": true
+    },
+    {
+      "Name": "adjacent_literal_include_strings",
+      "ExpectedSuccess": true,
+      "Passed": true,
+      "InputBefore": {
+        "include/value.hrl": "9D24C2C9E39040290BD3F275BDB64E574E009405906B2DA29CAE9A09AD2F093F",
+        "src/driver_case.erl": "31B7B685821A3D3B60AAEF3914EF426D2B0D2B3C4A74196D95B65EBED959A1CB"
+      },
+      "OriginalEtfSha256": "78222B46C1461A3972C5B4BC46CD7151CB22F664608B31E38664A3EE43013B81",
+      "ManagedEtfSha256": "78222B46C1461A3972C5B4BC46CD7151CB22F664608B31E38664A3EE43013B81",
+      "RawEtfEqual": true,
+      "SentinelAbsent": true,
+      "InputAfter": {
+        "include/value.hrl": "9D24C2C9E39040290BD3F275BDB64E574E009405906B2DA29CAE9A09AD2F093F",
+        "src/driver_case.erl": "31B7B685821A3D3B60AAEF3914EF426D2B0D2B3C4A74196D95B65EBED959A1CB"
+      },
+      "InputUnchanged": true,
+      "SentinelAbsentAtSettlement": true
+    },
+    {
+      "Name": "guarded_repeated_include",
+      "ExpectedSuccess": true,
+      "Passed": true,
+      "InputBefore": {
+        "include/guard.hrl": "1D58A2DFB05BA380156C3185EADAF1C430B3AF7D6B528B092E622FC97A2EE50F",
+        "src/driver_case.erl": "B1C8FB784E10E1EE20C289AC568131B149A5512A7E4255BB475BDDE2EDE1385A"
+      },
+      "OriginalEtfSha256": "3405A4D341252187E2D05067C3588FF5E083F1680F8C7CD2D6CD662FDA95D7C4",
+      "ManagedEtfSha256": "3405A4D341252187E2D05067C3588FF5E083F1680F8C7CD2D6CD662FDA95D7C4",
+      "RawEtfEqual": true,
+      "SentinelAbsent": true,
+      "InputAfter": {
+        "include/guard.hrl": "1D58A2DFB05BA380156C3185EADAF1C430B3AF7D6B528B092E622FC97A2EE50F",
+        "src/driver_case.erl": "B1C8FB784E10E1EE20C289AC568131B149A5512A7E4255BB475BDDE2EDE1385A"
+      },
+      "InputUnchanged": true,
+      "SentinelAbsentAtSettlement": true
+    },
+    {
+      "Name": "include_depth_7",
+      "ExpectedSuccess": true,
+      "Passed": true,
+      "InputBefore": {
+        "include/depth1.hrl": "2C42C55E13A587F34189210D07B629315A64ED3E2301B79F92769D074E10EE32",
+        "include/depth2.hrl": "E66CB31B8028F0741E8BCF31E0B2623D03FEA61BD252C63B977C2947E493D3FD",
+        "include/depth3.hrl": "21F6FBD7B61EDF557207E73D899769A01F1E0374205FD89BA6250CB173209EE1",
+        "include/depth4.hrl": "04F2CEC89C1C38312B7F3343841D2FD02BBCFD77340EA7EB60FB110D507B5CA4",
+        "include/depth5.hrl": "31894D19D7E775867CA7324332149A0F83BE226FB0A70A119F2A7CE35E1E5761",
+        "include/depth6.hrl": "DA8F9C9E8F9E6EB4946F7B24C92DCE71DE353D2ED01EC693DAF395176A76FF04",
+        "include/depth7.hrl": "E24197552E28F9D4B8EEF4CBB4B62D7AF8A065A90E02A87FFECE7CDDFD0D56C6",
+        "src/driver_case.erl": "F61C4142923B1B7421EF0745E1210160E5A0C12A1CBD8514D70CDDFB3EE9F039"
+      },
+      "OriginalEtfSha256": "C1819B25AB592581156B54358CE705B7BB5D28623C9077D435B7F03558200DCA",
+      "ManagedEtfSha256": "C1819B25AB592581156B54358CE705B7BB5D28623C9077D435B7F03558200DCA",
+      "RawEtfEqual": true,
+      "SentinelAbsent": true,
+      "InputAfter": {
+        "include/depth1.hrl": "2C42C55E13A587F34189210D07B629315A64ED3E2301B79F92769D074E10EE32",
+        "include/depth2.hrl": "E66CB31B8028F0741E8BCF31E0B2623D03FEA61BD252C63B977C2947E493D3FD",
+        "include/depth3.hrl": "21F6FBD7B61EDF557207E73D899769A01F1E0374205FD89BA6250CB173209EE1",
+        "include/depth4.hrl": "04F2CEC89C1C38312B7F3343841D2FD02BBCFD77340EA7EB60FB110D507B5CA4",
+        "include/depth5.hrl": "31894D19D7E775867CA7324332149A0F83BE226FB0A70A119F2A7CE35E1E5761",
+        "include/depth6.hrl": "DA8F9C9E8F9E6EB4946F7B24C92DCE71DE353D2ED01EC693DAF395176A76FF04",
+        "include/depth7.hrl": "E24197552E28F9D4B8EEF4CBB4B62D7AF8A065A90E02A87FFECE7CDDFD0D56C6",
+        "src/driver_case.erl": "F61C4142923B1B7421EF0745E1210160E5A0C12A1CBD8514D70CDDFB3EE9F039"
+      },
+      "InputUnchanged": true,
+      "SentinelAbsentAtSettlement": true
+    },
+    {
+      "Name": "include_depth_8",
+      "ExpectedSuccess": true,
+      "Passed": true,
+      "InputBefore": {
+        "include/depth1.hrl": "2C42C55E13A587F34189210D07B629315A64ED3E2301B79F92769D074E10EE32",
+        "include/depth2.hrl": "E66CB31B8028F0741E8BCF31E0B2623D03FEA61BD252C63B977C2947E493D3FD",
+        "include/depth3.hrl": "21F6FBD7B61EDF557207E73D899769A01F1E0374205FD89BA6250CB173209EE1",
+        "include/depth4.hrl": "04F2CEC89C1C38312B7F3343841D2FD02BBCFD77340EA7EB60FB110D507B5CA4",
+        "include/depth5.hrl": "31894D19D7E775867CA7324332149A0F83BE226FB0A70A119F2A7CE35E1E5761",
+        "include/depth6.hrl": "DA8F9C9E8F9E6EB4946F7B24C92DCE71DE353D2ED01EC693DAF395176A76FF04",
+        "include/depth7.hrl": "3472B86B0E6CAC569408F773AD993FADC06979C323BB246882F063ED6DC9D574",
+        "include/depth8.hrl": "E24197552E28F9D4B8EEF4CBB4B62D7AF8A065A90E02A87FFECE7CDDFD0D56C6",
+        "src/driver_case.erl": "F61C4142923B1B7421EF0745E1210160E5A0C12A1CBD8514D70CDDFB3EE9F039"
+      },
+      "OriginalEtfSha256": "C1819B25AB592581156B54358CE705B7BB5D28623C9077D435B7F03558200DCA",
+      "ManagedEtfSha256": "C1819B25AB592581156B54358CE705B7BB5D28623C9077D435B7F03558200DCA",
+      "RawEtfEqual": true,
+      "SentinelAbsent": true,
+      "InputAfter": {
+        "include/depth1.hrl": "2C42C55E13A587F34189210D07B629315A64ED3E2301B79F92769D074E10EE32",
+        "include/depth2.hrl": "E66CB31B8028F0741E8BCF31E0B2623D03FEA61BD252C63B977C2947E493D3FD",
+        "include/depth3.hrl": "21F6FBD7B61EDF557207E73D899769A01F1E0374205FD89BA6250CB173209EE1",
+        "include/depth4.hrl": "04F2CEC89C1C38312B7F3343841D2FD02BBCFD77340EA7EB60FB110D507B5CA4",
+        "include/depth5.hrl": "31894D19D7E775867CA7324332149A0F83BE226FB0A70A119F2A7CE35E1E5761",
+        "include/depth6.hrl": "DA8F9C9E8F9E6EB4946F7B24C92DCE71DE353D2ED01EC693DAF395176A76FF04",
+        "include/depth7.hrl": "3472B86B0E6CAC569408F773AD993FADC06979C323BB246882F063ED6DC9D574",
+        "include/depth8.hrl": "E24197552E28F9D4B8EEF4CBB4B62D7AF8A065A90E02A87FFECE7CDDFD0D56C6",
+        "src/driver_case.erl": "F61C4142923B1B7421EF0745E1210160E5A0C12A1CBD8514D70CDDFB3EE9F039"
+      },
+      "InputUnchanged": true,
+      "SentinelAbsentAtSettlement": true
+    },
+    {
+      "Name": "include_depth_9",
+      "ExpectedSuccess": false,
+      "Passed": true,
+      "InputBefore": {
+        "include/depth1.hrl": "2C42C55E13A587F34189210D07B629315A64ED3E2301B79F92769D074E10EE32",
+        "include/depth2.hrl": "E66CB31B8028F0741E8BCF31E0B2623D03FEA61BD252C63B977C2947E493D3FD",
+        "include/depth3.hrl": "21F6FBD7B61EDF557207E73D899769A01F1E0374205FD89BA6250CB173209EE1",
+        "include/depth4.hrl": "04F2CEC89C1C38312B7F3343841D2FD02BBCFD77340EA7EB60FB110D507B5CA4",
+        "include/depth5.hrl": "31894D19D7E775867CA7324332149A0F83BE226FB0A70A119F2A7CE35E1E5761",
+        "include/depth6.hrl": "DA8F9C9E8F9E6EB4946F7B24C92DCE71DE353D2ED01EC693DAF395176A76FF04",
+        "include/depth7.hrl": "3472B86B0E6CAC569408F773AD993FADC06979C323BB246882F063ED6DC9D574",
+        "include/depth8.hrl": "5ADAD2834321E533B074017AE372D7E3896671D8ED46214FFD580016E38334D0",
+        "include/depth9.hrl": "E24197552E28F9D4B8EEF4CBB4B62D7AF8A065A90E02A87FFECE7CDDFD0D56C6",
+        "src/driver_case.erl": "F61C4142923B1B7421EF0745E1210160E5A0C12A1CBD8514D70CDDFB3EE9F039"
+      },
+      "SentinelAbsent": true,
+      "InputAfter": {
+        "include/depth1.hrl": "2C42C55E13A587F34189210D07B629315A64ED3E2301B79F92769D074E10EE32",
+        "include/depth2.hrl": "E66CB31B8028F0741E8BCF31E0B2623D03FEA61BD252C63B977C2947E493D3FD",
+        "include/depth3.hrl": "21F6FBD7B61EDF557207E73D899769A01F1E0374205FD89BA6250CB173209EE1",
+        "include/depth4.hrl": "04F2CEC89C1C38312B7F3343841D2FD02BBCFD77340EA7EB60FB110D507B5CA4",
+        "include/depth5.hrl": "31894D19D7E775867CA7324332149A0F83BE226FB0A70A119F2A7CE35E1E5761",
+        "include/depth6.hrl": "DA8F9C9E8F9E6EB4946F7B24C92DCE71DE353D2ED01EC693DAF395176A76FF04",
+        "include/depth7.hrl": "3472B86B0E6CAC569408F773AD993FADC06979C323BB246882F063ED6DC9D574",
+        "include/depth8.hrl": "5ADAD2834321E533B074017AE372D7E3896671D8ED46214FFD580016E38334D0",
+        "include/depth9.hrl": "E24197552E28F9D4B8EEF4CBB4B62D7AF8A065A90E02A87FFECE7CDDFD0D56C6",
+        "src/driver_case.erl": "F61C4142923B1B7421EF0745E1210160E5A0C12A1CBD8514D70CDDFB3EE9F039"
+      },
+      "InputUnchanged": true,
+      "SentinelAbsentAtSettlement": true
+    },
+    {
+      "Name": "header_syntax_error",
+      "ExpectedSuccess": false,
+      "Passed": false,
+      "InputBefore": {
+        "include/broken.hrl": "14F1562BF7D3027A01E29CD901FB7BAED7E3265F6A015EDE185A9E886ABA6B57",
+        "src/driver_case.erl": "40D3A8E3549E58AE98AE444ED8C34B09363B3EEAA372E18A7A78B6986FEFCBAA"
+      },
+      "Error": "RuntimeError('Unexpected owned process outcome: driver')",
+      "InputAfter": {
+        "include/broken.hrl": "14F1562BF7D3027A01E29CD901FB7BAED7E3265F6A015EDE185A9E886ABA6B57",
+        "src/driver_case.erl": "40D3A8E3549E58AE98AE444ED8C34B09363B3EEAA372E18A7A78B6986FEFCBAA"
+      },
+      "InputUnchanged": true,
+      "SentinelAbsentAtSettlement": true
+    },
+    {
+      "Name": "header_undefined_macro",
+      "ExpectedSuccess": false,
+      "Passed": true,
+      "InputBefore": {
+        "include/broken.hrl": "D65291802F2E16358B4AC1E3A1E5265EB09E5A07A67FD17767F4F425F37F7C72",
+        "src/driver_case.erl": "D8BD524246F32E0C54AD185B9545078D16D17CC62B5ABCA810B101517B8E5BAA"
+      },
+      "SentinelAbsent": true,
+      "InputAfter": {
+        "include/broken.hrl": "D65291802F2E16358B4AC1E3A1E5265EB09E5A07A67FD17767F4F425F37F7C72",
+        "src/driver_case.erl": "D8BD524246F32E0C54AD185B9545078D16D17CC62B5ABCA810B101517B8E5BAA"
+      },
+      "InputUnchanged": true,
+      "SentinelAbsentAtSettlement": true
+    },
+    {
+      "Name": "duplicate_request_define",
+      "ExpectedSuccess": false,
+      "Passed": true,
+      "InputBefore": {
+        "src/driver_case.erl": "43DFA07B5CDFF51D6F89ED8F52098E45992D34A4BBDDE01AAA4BF0A270B969C4"
+      },
+      "SentinelAbsent": true,
+      "InputAfter": {
+        "src/driver_case.erl": "43DFA07B5CDFF51D6F89ED8F52098E45992D34A4BBDDE01AAA4BF0A270B969C4"
+      },
+      "InputUnchanged": true,
+      "SentinelAbsentAtSettlement": true
+    },
+    {
+      "Name": "predefined_module_redefinition",
+      "ExpectedSuccess": false,
+      "Passed": true,
+      "InputBefore": {
+        "src/driver_case.erl": "06A058BF8EA958DCE882C0E4B0396A68BFBA57869C77E6186C1FA367530223E2"
+      },
+      "SentinelAbsent": true,
+      "InputAfter": {
+        "src/driver_case.erl": "06A058BF8EA958DCE882C0E4B0396A68BFBA57869C77E6186C1FA367530223E2"
+      },
+      "InputUnchanged": true,
+      "SentinelAbsentAtSettlement": true
+    },
+    {
+      "Name": "inactive_unsupported_compile",
+      "ExpectedSuccess": false,
+      "Passed": true,
+      "InputBefore": {
+        "src/driver_case.erl": "516FB506542E04A1ED4CF3B5FF217F8C2CC3B2F55FE434C9999AA02E84284EE3"
+      },
+      "SentinelAbsent": true,
+      "InputAfter": {
+        "src/driver_case.erl": "516FB506542E04A1ED4CF3B5FF217F8C2CC3B2F55FE434C9999AA02E84284EE3"
+      },
+      "InputUnchanged": true,
+      "SentinelAbsentAtSettlement": true
+    }
+  ],
+  "DistinctNativeOutcomeGroups": [
+    {
+      "Left": "ifdef_present",
+      "Right": "ifdef_absent",
+      "ActualNativeBytesDistinct": true
+    },
+    {
+      "Left": "search_left_first",
+      "Right": "search_right_first",
+      "ActualNativeBytesDistinct": true
+    }
+  ],
+  "Processes": [
+    {
+      "Name": "sentinel-compile",
+      "Receipt": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-missing-native-execution1\\trusted\\sentinel-compile.exit.json",
+      "ExpectedExit": 0,
+      "HelperRaised": null
+    },
+    {
+      "Name": "driver",
+      "Receipt": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-missing-native-execution1\\cases\\undef_then_redefine\\driver.exit.json",
+      "ExpectedExit": 0,
+      "HelperRaised": null
+    },
+    {
+      "Name": "original-observer",
+      "Receipt": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-missing-native-execution1\\cases\\undef_then_redefine\\original-observer.exit.json",
+      "ExpectedExit": 0,
+      "HelperRaised": null
+    },
+    {
+      "Name": "managed-observer",
+      "Receipt": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-missing-native-execution1\\cases\\undef_then_redefine\\managed-observer.exit.json",
+      "ExpectedExit": 0,
+      "HelperRaised": null
+    },
+    {
+      "Name": "driver",
+      "Receipt": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-missing-native-execution1\\cases\\duplicate_source_define_diagnostic\\driver.exit.json",
+      "ExpectedExit": 1,
+      "HelperRaised": "RuntimeError('Owned stage failed; all available raw evidence retained: driver')"
+    },
+    {
+      "Name": "driver",
+      "Receipt": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-missing-native-execution1\\cases\\ifdef_present\\driver.exit.json",
+      "ExpectedExit": 0,
+      "HelperRaised": null
+    },
+    {
+      "Name": "original-observer",
+      "Receipt": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-missing-native-execution1\\cases\\ifdef_present\\original-observer.exit.json",
+      "ExpectedExit": 0,
+      "HelperRaised": null
+    },
+    {
+      "Name": "managed-observer",
+      "Receipt": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-missing-native-execution1\\cases\\ifdef_present\\managed-observer.exit.json",
+      "ExpectedExit": 0,
+      "HelperRaised": null
+    },
+    {
+      "Name": "driver",
+      "Receipt": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-missing-native-execution1\\cases\\ifdef_absent\\driver.exit.json",
+      "ExpectedExit": 0,
+      "HelperRaised": null
+    },
+    {
+      "Name": "original-observer",
+      "Receipt": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-missing-native-execution1\\cases\\ifdef_absent\\original-observer.exit.json",
+      "ExpectedExit": 0,
+      "HelperRaised": null
+    },
+    {
+      "Name": "managed-observer",
+      "Receipt": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-missing-native-execution1\\cases\\ifdef_absent\\managed-observer.exit.json",
+      "ExpectedExit": 0,
+      "HelperRaised": null
+    },
+    {
+      "Name": "driver",
+      "Receipt": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-missing-native-execution1\\cases\\builtin_module_function_file_line\\driver.exit.json",
+      "ExpectedExit": 0,
+      "HelperRaised": null
+    },
+    {
+      "Name": "original-observer",
+      "Receipt": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-missing-native-execution1\\cases\\builtin_module_function_file_line\\original-observer.exit.json",
+      "ExpectedExit": 0,
+      "HelperRaised": null
+    },
+    {
+      "Name": "managed-observer",
+      "Receipt": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-missing-native-execution1\\cases\\builtin_module_function_file_line\\managed-observer.exit.json",
+      "ExpectedExit": 0,
+      "HelperRaised": null
+    },
+    {
+      "Name": "driver",
+      "Receipt": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-missing-native-execution1\\cases\\nested_parameter_macro\\driver.exit.json",
+      "ExpectedExit": 0,
+      "HelperRaised": null
+    },
+    {
+      "Name": "original-observer",
+      "Receipt": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-missing-native-execution1\\cases\\nested_parameter_macro\\original-observer.exit.json",
+      "ExpectedExit": 0,
+      "HelperRaised": null
+    },
+    {
+      "Name": "managed-observer",
+      "Receipt": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-missing-native-execution1\\cases\\nested_parameter_macro\\managed-observer.exit.json",
+      "ExpectedExit": 0,
+      "HelperRaised": null
+    },
+    {
+      "Name": "driver",
+      "Receipt": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-missing-native-execution1\\cases\\search_left_first\\driver.exit.json",
+      "ExpectedExit": 0,
+      "HelperRaised": null
+    },
+    {
+      "Name": "original-observer",
+      "Receipt": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-missing-native-execution1\\cases\\search_left_first\\original-observer.exit.json",
+      "ExpectedExit": 0,
+      "HelperRaised": null
+    },
+    {
+      "Name": "managed-observer",
+      "Receipt": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-missing-native-execution1\\cases\\search_left_first\\managed-observer.exit.json",
+      "ExpectedExit": 0,
+      "HelperRaised": null
+    },
+    {
+      "Name": "driver",
+      "Receipt": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-missing-native-execution1\\cases\\search_right_first\\driver.exit.json",
+      "ExpectedExit": 0,
+      "HelperRaised": null
+    },
+    {
+      "Name": "original-observer",
+      "Receipt": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-missing-native-execution1\\cases\\search_right_first\\original-observer.exit.json",
+      "ExpectedExit": 0,
+      "HelperRaised": null
+    },
+    {
+      "Name": "managed-observer",
+      "Receipt": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-missing-native-execution1\\cases\\search_right_first\\managed-observer.exit.json",
+      "ExpectedExit": 0,
+      "HelperRaised": null
+    },
+    {
+      "Name": "driver",
+      "Receipt": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-missing-native-execution1\\cases\\nested_dynamic_head_replacement\\driver.exit.json",
+      "ExpectedExit": 0,
+      "HelperRaised": null
+    },
+    {
+      "Name": "original-observer",
+      "Receipt": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-missing-native-execution1\\cases\\nested_dynamic_head_replacement\\original-observer.exit.json",
+      "ExpectedExit": 0,
+      "HelperRaised": null
+    },
+    {
+      "Name": "managed-observer",
+      "Receipt": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-missing-native-execution1\\cases\\nested_dynamic_head_replacement\\managed-observer.exit.json",
+      "ExpectedExit": 0,
+      "HelperRaised": null
+    },
+    {
+      "Name": "driver",
+      "Receipt": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-missing-native-execution1\\cases\\adjacent_literal_include_strings\\driver.exit.json",
+      "ExpectedExit": 0,
+      "HelperRaised": null
+    },
+    {
+      "Name": "original-observer",
+      "Receipt": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-missing-native-execution1\\cases\\adjacent_literal_include_strings\\original-observer.exit.json",
+      "ExpectedExit": 0,
+      "HelperRaised": null
+    },
+    {
+      "Name": "managed-observer",
+      "Receipt": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-missing-native-execution1\\cases\\adjacent_literal_include_strings\\managed-observer.exit.json",
+      "ExpectedExit": 0,
+      "HelperRaised": null
+    },
+    {
+      "Name": "driver",
+      "Receipt": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-missing-native-execution1\\cases\\guarded_repeated_include\\driver.exit.json",
+      "ExpectedExit": 0,
+      "HelperRaised": null
+    },
+    {
+      "Name": "original-observer",
+      "Receipt": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-missing-native-execution1\\cases\\guarded_repeated_include\\original-observer.exit.json",
+      "ExpectedExit": 0,
+      "HelperRaised": null
+    },
+    {
+      "Name": "managed-observer",
+      "Receipt": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-missing-native-execution1\\cases\\guarded_repeated_include\\managed-observer.exit.json",
+      "ExpectedExit": 0,
+      "HelperRaised": null
+    },
+    {
+      "Name": "driver",
+      "Receipt": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-missing-native-execution1\\cases\\include_depth_7\\driver.exit.json",
+      "ExpectedExit": 0,
+      "HelperRaised": null
+    },
+    {
+      "Name": "original-observer",
+      "Receipt": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-missing-native-execution1\\cases\\include_depth_7\\original-observer.exit.json",
+      "ExpectedExit": 0,
+      "HelperRaised": null
+    },
+    {
+      "Name": "managed-observer",
+      "Receipt": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-missing-native-execution1\\cases\\include_depth_7\\managed-observer.exit.json",
+      "ExpectedExit": 0,
+      "HelperRaised": null
+    },
+    {
+      "Name": "driver",
+      "Receipt": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-missing-native-execution1\\cases\\include_depth_8\\driver.exit.json",
+      "ExpectedExit": 0,
+      "HelperRaised": null
+    },
+    {
+      "Name": "original-observer",
+      "Receipt": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-missing-native-execution1\\cases\\include_depth_8\\original-observer.exit.json",
+      "ExpectedExit": 0,
+      "HelperRaised": null
+    },
+    {
+      "Name": "managed-observer",
+      "Receipt": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-missing-native-execution1\\cases\\include_depth_8\\managed-observer.exit.json",
+      "ExpectedExit": 0,
+      "HelperRaised": null
+    },
+    {
+      "Name": "driver",
+      "Receipt": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-missing-native-execution1\\cases\\include_depth_9\\driver.exit.json",
+      "ExpectedExit": 1,
+      "HelperRaised": "RuntimeError('Owned stage failed; all available raw evidence retained: driver')"
+    },
+    {
+      "Name": "driver",
+      "Receipt": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-missing-native-execution1\\cases\\header_syntax_error\\driver.exit.json",
+      "ExpectedExit": 1,
+      "HelperRaised": null
+    },
+    {
+      "Name": "driver",
+      "Receipt": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-missing-native-execution1\\cases\\header_undefined_macro\\driver.exit.json",
+      "ExpectedExit": 1,
+      "HelperRaised": "RuntimeError('Owned stage failed; all available raw evidence retained: driver')"
+    },
+    {
+      "Name": "driver",
+      "Receipt": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-missing-native-execution1\\cases\\duplicate_request_define\\driver.exit.json",
+      "ExpectedExit": 1,
+      "HelperRaised": "RuntimeError('Owned stage failed; all available raw evidence retained: driver')"
+    },
+    {
+      "Name": "driver",
+      "Receipt": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-missing-native-execution1\\cases\\predefined_module_redefinition\\driver.exit.json",
+      "ExpectedExit": 1,
+      "HelperRaised": "RuntimeError('Owned stage failed; all available raw evidence retained: driver')"
+    },
+    {
+      "Name": "driver",
+      "Receipt": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-missing-native-execution1\\cases\\inactive_unsupported_compile\\driver.exit.json",
+      "ExpectedExit": 1,
+      "HelperRaised": "RuntimeError('Owned stage failed; all available raw evidence retained: driver')"
+    },
+    {
+      "Name": "positive-transform",
+      "Receipt": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-missing-native-execution1\\positive-transform.exit.json",
+      "ExpectedExit": 0,
+      "HelperRaised": null
+    }
+  ],
+  "No40ComparisonClaim": true,
+  "NotProductionDriverIntegration": true
+}

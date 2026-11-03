@@ -25,7 +25,7 @@
     <ErlangLibrary Include="maps" Backend="Beam" Image="../../src/Otp/Original/Foundation/Erlang.Otp.Stdlib.Beam/Otp/maps.beam" Sha256="DCDBAF8551AE63258BDA7BC1415C7DCD2D3310AAA9036A34BD09F24E90966454" Dependencies="lists" />
     <ErlangLibrary Include="proplists" Backend="Beam" Image="../../src/Otp/Original/Foundation/Erlang.Otp.Stdlib.Beam/Otp/proplists.beam" Sha256="E77939A89B0ECAB0986CA46DFEDD04DEB4C1FB8ED406BB0568F83523E3A9B5D1" Dependencies="lists;maps;sets" />
     <ErlangLibrary Include="binary" Backend="Beam" Image="../../src/Otp/Original/Foundation/Erlang.Otp.Stdlib.Beam/Otp/binary.beam" Sha256="E398EE7CFEEFFBE73A47AF70BFCB7D7BE1B221F101F7BC52ABF28EE70DB19553" Dependencies="lists" />
-    <None Include="../../docs/OTP-LICENSE.txt" Link="licenses/OTP-LICENSE.txt" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" Condition="'$(UseInstalledPackage)' != 'true'" />
+    <None Include="../../licenses/OTP-LICENSE.txt" Link="licenses/OTP-LICENSE.txt" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" Condition="'$(UseInstalledPackage)' != 'true'" />
   </ItemGroup>
   <Import Project="../../build/Erlang.Net.targets" Condition="'$(UseInstalledPackage)' != 'true'" />
 </Project>

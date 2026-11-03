@@ -1,0 +1,83 @@
+name: Pinned OTP math compatibility
+on:
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - '.github/workflows/math-compatibility.yml'
+      - 'src/Runtime/**'
+      - 'tools/Validation/Erlang.MathCompatibility/**'
+      - 'tools/capture-math-compatibility.ps1'
+      - 'tests/Erlang.Tests/Resources/LibraryDependencies392/beam_math_observer392.erl'
+permissions:
+  contents: read
+concurrency:
+  group: math-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+jobs:
+  math:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [windows-latest, ubuntu-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+          persist-credentials: false
+      - uses: actions/setup-dotnet@v6
+        with:
+          global-json-file: global.json
+      - name: Admit the exact official Windows oracle archive
+        if: runner.os == 'Windows'
+        shell: pwsh
+        run: |
+          ./tools/prepare-regex-provider.ps1 -Repository $env:GITHUB_WORKSPACE
+          $profile = Get-Content artifacts/library376-official-compiler/official-admission.json -Raw | ConvertFrom-Json
+          "MATH_ERL=$($profile.InstalledOtpRoot)/bin/erl.exe" >> $env:GITHUB_ENV
+      - name: Build the Unix oracle from the exact OTP source commit
+        if: runner.os != 'Windows'
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p artifacts
+          git clone --depth 1 --branch OTP-29.1.1 https://github.com/erlang/otp.git artifacts/math-otp-source
+          test "$(git -C artifacts/math-otp-source rev-parse HEAD)" = ad05823719d77c8faee87348ea39513d4e2f99c5
+          (
+            cd artifacts/math-otp-source
+            ./configure --prefix="$GITHUB_WORKSPACE/artifacts/math-otp" --without-javac --without-wx --without-odbc --without-debugger --without-observer --without-et --without-ssl --without-crypto --without-ssh
+            make -j2
+            make install
+          ) 2>&1 | tee artifacts/math-otp-build.log
+          echo "MATH_ERL=$GITHUB_WORKSPACE/artifacts/math-otp/bin/erl" >> "$GITHUB_ENV"
+      - name: Build the actual managed math validator
+        id: build
+        shell: pwsh
+        run: |
+          dotnet build tools/Validation/Erlang.MathCompatibility -m:1 -v:minimal
+          if ($LASTEXITCODE -ne 0) { throw 'Managed math validator build failed' }
+      - name: Capture complete native numeric and full-stack observations
+        id: capture
+        shell: pwsh
+        run: |
+          ./tools/capture-math-compatibility.ps1 -ErlangExecutable $env:MATH_ERL -Output artifacts/math-compatibility
+      - name: Compare both explicitly selected backends independently
+        if: success() && steps.build.outcome == 'success' && steps.capture.outcome == 'success'
+        shell: pwsh
+        run: |
+          $failed = $false
+          foreach ($backend in @('managed','beam')) {
+            dotnet tools/Validation/Erlang.MathCompatibility/bin/Debug/net10.0/Erlang.MathCompatibility.dll $backend artifacts/math-compatibility "artifacts/math-compatibility/$backend.json"
+            if ($LASTEXITCODE -ne 0) { $failed = $true }
+          }
+          if ($failed) { throw 'At least one explicitly selected math backend differs from pinned OTP' }
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: math-${{ runner.os }}-${{ runner.arch }}
+          path: |
+            artifacts/math-compatibility/**
+            artifacts/math-otp-build.log
+            artifacts/math-otp-source/erts/config.h
+            artifacts/math-otp-source/erts/**/config.h

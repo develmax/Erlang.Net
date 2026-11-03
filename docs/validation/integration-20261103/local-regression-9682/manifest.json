@@ -1,0 +1,64 @@
+{
+  "Status": "FAILED_COMPLETE_LOCAL_REPORT_NOT_CANONICAL_ACCEPTANCE",
+  "SourceCommit": "ad791db4222edddb99a08d0b6e43f0a7e43f193b",
+  "Passed": 9681,
+  "Failed": 1,
+  "Tests": 9682,
+  "Failures": [
+    {
+      "Name": "runtime/beam/lifecycle388/original-alternating-nontail-and-full-trace",
+      "Status": "Failed",
+      "Error": "System.TimeoutException: The operation has timed out.\r\n   at Program.<Main>$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\w-docs\\tests\\Erlang.Tests\\Harness\\Program.cs:line 16206",
+      "Milliseconds": 15090
+    }
+  ],
+  "IsolatedPassed": 1,
+  "IsolatedFailed": 0,
+  "IsolatedMilliseconds": 10497,
+  "SameBinaries": true,
+  "RuntimeAndCompilerTreesComparedWithEarlierGreen0e": {
+    "src/Runtime": [
+      "247ecd697ff9db1eed73a3849a8d9b88d2d8c4ed",
+      "247ecd697ff9db1eed73a3849a8d9b88d2d8c4ed"
+    ],
+    "src/Compiler": [
+      "0ed21df9f23d9dffec63288b1ce75a0df1567eb6",
+      "0ed21df9f23d9dffec63288b1ce75a0df1567eb6"
+    ]
+  },
+  "PriorGreenCaseMilliseconds": 12865,
+  "RuntimeOrExpectedValuesOrDeadlinesChanged": false,
+  "GenuineGreenWholeReportStillRequired": true,
+  "Files": [
+    {
+      "Archive": "tests.json.gz",
+      "Bytes": 1350262,
+      "Sha256": "AF7FD220A6663AA0CE2B006F54591A8DE15B62DC768B3D5F60B516B46685E0A7",
+      "ArchiveSha256": "76922314FC08E440A1B01F3BB54FFE6BED2CB7ABE37746261546122DF45D8555"
+    },
+    {
+      "Archive": "tests.log.gz",
+      "Bytes": 616702,
+      "Sha256": "3C9EE9E4427602A574F236C13CCAD18D5F2A2A57A45BBFABD2F5B845AEF241BA",
+      "ArchiveSha256": "8B782A31B449EA9003E20FC0CD477895BCCEA2F31E6C6214A7035BF2A57E2F02"
+    },
+    {
+      "Archive": "lifecycle-isolated.json.gz",
+      "Bytes": 398,
+      "Sha256": "3727883B062566F2016AADE63043024293579F549536126DF90A2AF8C88135FE",
+      "ArchiveSha256": "4163E0CBA8E10F59E106C53714EF61FBBB81542FF8229B658731AFDA5CD0DD90"
+    },
+    {
+      "Archive": "lifecycle-isolated.log.gz",
+      "Bytes": 142,
+      "Sha256": "0BA29D43B9C92E71C421362B185CD0BE213A117B721A2DEFAD6106333CD21824",
+      "ArchiveSha256": "8E4C95D60DE70C04EAE7284650504288BBE7DB0E76DE5FB2C67E79C3AFF4AD2C"
+    },
+    {
+      "Archive": "running-inputs.json.gz",
+      "Bytes": 3482,
+      "Sha256": "185AB44033F86CBF328A89D8E5A98C5FAD63ED2B761C949409EB29C9F0115F33",
+      "ArchiveSha256": "D460F06B8BF0B8FF06779996A36A491AB46C0673D5F600A98E249572E2259634"
+    }
+  ]
+}

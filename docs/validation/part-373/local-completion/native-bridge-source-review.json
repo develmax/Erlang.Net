@@ -1,0 +1,185 @@
+{
+  "Schema": "queue373-native-bridge-own-state-protocol-review-v2",
+  "Status": "source-reviewed-final-current-bindings-execution-comparator-pending",
+  "PinnedOtp": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "ActualOwnTrapEntrySnapshotsSourceReviewed": true,
+  "EveryBudgetHeapStateDifferenceExplained": true,
+  "AssertionScope": "Source applicability only for first-frame reverse/member badarg arguments satisfying independent original-call decomposition; not actual comparator result or per-case telemetry",
+  "NativePartitionSeededIntoMain": false,
+  "SourceBindingCount": 38,
+  "OldWaiverReused": false,
+  "AnyAllInitialListGuardIssueResolved": true,
+  "NewBudgetTelemetryClaimed": false,
+  "PermittedFrames": [
+    "lists:reverse/2",
+    "lists:member/2"
+  ],
+  "RequiredComparisonLabel": "SOURCE_PROTOCOL_SAVED_ENTRY",
+  "ImplementedApiDelta": 0,
+  "VerifiedContractDelta": 0,
+  "Builds": 0,
+  "Executions": 0,
+  "ProductEdits": 0,
+  "Files": [
+    {
+      "Path": "src/Erlang.Runtime/CoreModules.cs",
+      "Sha256": "058DCBF2B5DF9A50564A9C21143A53C60875DF6D13E2A5EC621FABD96F13D278"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProcessContext.cs",
+      "Sha256": "B450E104DDE1E3B8E6C717D3BA8ABB584C01F25291EBCC0833892F27F5F3B2E9"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProcessContext.ListTraversal.cs",
+      "Sha256": "762E8A8590A6C47D40A8B9BEEFB6ECFD6E149A7A8B05E8F3A333AB330DE8283C"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProcessContext.BeamFrames.cs",
+      "Sha256": "4843E41F55B0547C2D2FBD9D0F670C09FBACC7BF5BA851137C7D58A949842FFD"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProcessContext.SourceLocations.cs",
+      "Sha256": "D6F1417262F40797A249BB8472297C05F2323CC467AD44DA2CE01D6114BADBCE"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProcessContext.GeneratedFrames.cs",
+      "Sha256": "C16FF0A3AFA8CC509DF58DC7E8263145B29122F8C80921F8085367B0F335205A"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ListFunctions.cs",
+      "Sha256": "B4BD810C38C1FAC756A8C1B88AC4011DCBF6349CAF4A12160F963757071AC0A3"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ListPredicateExecution.cs",
+      "Sha256": "BA50251A96B4B89AA35550CC28B32788CD20B8582ED15AD0D6DAC2CD9BB480E3"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ListPredicateSource.cs",
+      "Sha256": "4863FE28D02351E494C1E3C6441BEEA6E2D003E415AC2411FD0D2DAEE36AB9AE"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ListNativeTraversal.cs",
+      "Sha256": "64D5F62272DF55AED6E059513F19803C92AD91F7B5B078BBD1B20EEE3D51F96F"
+    },
+    {
+      "Path": "src/Erlang.Runtime/QueueMemberExecution.cs",
+      "Sha256": "2E3201EA4E5B7397A0292C7A25F831DD86C1C1EB4675B6623091B193C53CDB69"
+    },
+    {
+      "Path": "src/Erlang.Runtime/QueueMemberParameters.cs",
+      "Sha256": "B3017E2964385DB8583EC266104D092F6F8D3BE39B49505F5164D4EF871E7B80"
+    },
+    {
+      "Path": "src/Erlang.Runtime/QueueCoreReverse.cs",
+      "Sha256": "06FFD9CDC6466BA3770465B2D6F382A159B6004491A820C721A9551131601EF7"
+    },
+    {
+      "Path": "src/Erlang.Runtime/QueueCoreReverseEntry.cs",
+      "Sha256": "F5082B18C00C2098EEB28ABB1C3A4BB77012671296A565847457998B60B04B01"
+    },
+    {
+      "Path": "src/Erlang.Runtime/QueueCoreReverseParameters.cs",
+      "Sha256": "7CF481B69DCB307C23846AD505CDF4A06A4A55B24B2CE9C7D2DFA6062104F79B"
+    },
+    {
+      "Path": "src/Erlang.Runtime/QueueCoreTrace.cs",
+      "Sha256": "61B3BA76001585F516938154949F467AF9CDA890C5863539B36A1DE5618C6E66"
+    },
+    {
+      "Path": "src/Erlang.Runtime/QueueHigherListCalls.cs",
+      "Sha256": "C8716E5F4105A9A2EC06EEC503E165259A9E5595106916F55AB577D26C898594"
+    },
+    {
+      "Path": "src/Erlang.Runtime/QueueHigherTrace.cs",
+      "Sha256": "E7C6F93F9067A19E5DF45EE37F44B288E6A8D2A4BC1E043055F1F37D80BBEA38"
+    },
+    {
+      "Path": "src/Erlang.Runtime/QueueHigherSource.cs",
+      "Sha256": "024F8A1B569F64B2A728347D8B704D4C310E35803CD00C70C99B350C62B6A6F2"
+    },
+    {
+      "Path": "src/Erlang.Runtime/QueueHigherExecution.cs",
+      "Sha256": "B74A47E477486A7480BA7AD7C355803B3E199E1C4B253EB5ADD0DAE46F8A082E"
+    },
+    {
+      "Path": "src/Erlang.Runtime/RuntimeExceptionCapture.cs",
+      "Sha256": "BDA882AF75249C5C067BEB61A842C5D4D4D9E5599303AF9F7F2FF8C99F19112F"
+    },
+    {
+      "Path": "src/Erlang.Runtime/NativeBuiltinCatalog.cs",
+      "Sha256": "17D47C563EAC30308F96719F5232FDB6FAB84C4F5EF195F4FA146823993BBDBF"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ModuleRegistry.cs",
+      "Sha256": "D1980A12DECDEA5902CB18E67EB12537F818FFC8E7FAF270D2A8E93A56E4B9FB"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ModuleRegistry.NativeEntries.cs",
+      "Sha256": "80A3907A05A27A2FABC36FF106210A2A7F9547574E9B91FEEECDBB8E54C4F254"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ModuleRegistry.PreparedBeam.cs",
+      "Sha256": "717B3952AC19D5E3695381F6912A98D2819D154AFF62F275D61CAF4F1C869363"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ModuleRegistry.SourceEntry.cs",
+      "Sha256": "6621B046FE530DD5537565E441DBD8112D9DEDE58F3C973109276B9E62A6324B"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ModuleRegistry.ProcessScheduling.cs",
+      "Sha256": "ED6529031DDB176F6E518831149A6B34C20D5903A5808CC34F9B21E7BAC39D2B"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ModuleCodeImage.cs",
+      "Sha256": "8991A332CFCF0C1468D278DA957031213918288FBE942B5C61816C5F2781E250"
+    },
+    {
+      "Path": "src/Erlang.Runtime/BeamRegisterInterpreter.cs",
+      "Sha256": "AC6CDB02773DB98DBFFEE2DC8344A93FC0D11434B5F148E9D554506FF2171871"
+    },
+    {
+      "Path": "src/Erlang.Runtime/BeamRegisterValidation.cs",
+      "Sha256": "39DC16079D6251C2CA3B990591D692BBC7F3E43592D90B6886FA60A8AFE4747C"
+    },
+    {
+      "Path": "src/Erlang.Runtime/BeamFrameValidation.cs",
+      "Sha256": "7D4CDA0C81F900B135497188EE21A55F4962E16A6E10420A2401867F77ECCAA9"
+    },
+    {
+      "Path": "src/Erlang.Runtime/BeamLinkedCodeReader.cs",
+      "Sha256": "3544D57740F574AE2E7DD2FD98FC745923670B24340F51D472A5D6F09B58C635"
+    },
+    {
+      "Path": "src/Erlang.Runtime/BeamLinkedCode.cs",
+      "Sha256": "0CEA1C8006E2152A8513B14CBE74DFEFAEBF09D771788882AA34D3BC429C2C76"
+    },
+    {
+      "Path": "src/Erlang.Runtime/BeamExternalImports.cs",
+      "Sha256": "04CB91BF5AA9E382484EAED2DF4BA65C338785EB06E654FB6307835A74C9B381"
+    },
+    {
+      "Path": "src/Erlang.Runtime/BeamFunctionScope.cs",
+      "Sha256": "2A19360B54055A1905BF187A65DD6C2F41D6AC6A58C69782A0FFDD0ECFE88F92"
+    },
+    {
+      "Path": "src/Erlang.Runtime/BeamModule.cs",
+      "Sha256": "90F389C157EE6A970A8D4043690F1DBD11D128AEA9EB1456B76444D329480B90"
+    },
+    {
+      "Path": "src/Erlang.Runtime/BeamDependencySelection.cs",
+      "Sha256": "A0CB6AFF8A17D64E57DFC55C7DCF5CDF5ACE8CAE42F2AD8BBF97A7F0194936C1"
+    },
+    {
+      "Path": "src/Erlang.Runtime/SourceCodeLease.cs",
+      "Sha256": "9ED64B70D41436C98DD6E0C38AEFBE622D16E24456D62A10B8D00CB70CFBDCD5"
+    },
+    {
+      "Path": "artifacts/queue373-native-bridge-protocol-review1/README.md",
+      "Sha256": "112FD66A43D4E5AC931A06191C187A08035296BD3DF85AFB1DA56489C11C5F61"
+    },
+    {
+      "Path": "artifacts/queue373-native-bridge-protocol-review2/README.md",
+      "Sha256": "4E170978B3118E65C61B0AF60920DD7079A73225378FF8A87030D6115E9E58B4"
+    }
+  ]
+}

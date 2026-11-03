@@ -25,7 +25,7 @@ internal static class LibrarySelectionPolicyOriginalMathChecks
         {
             before = Bodies(registry).Where(pair => pair.Key.Module == MathModule)
                 .ToDictionary(pair => (pair.Key.Function, pair.Key.Arity), pair => pair.Value);
-            Require(before.Count == 1 && before.ContainsKey((MathNative, 1)));
+            Require(before.Count == 26 && before.ContainsKey((MathNative, 1)));
         });
         using var plan = (IDisposable)Prepare(runtime.Modules, request);
         await runtime.InitializeModulesAsync(registry =>
@@ -37,6 +37,13 @@ internal static class LibrarySelectionPolicyOriginalMathChecks
             Require(captured.Count == OriginalMathPrimitiveCount);
             foreach (var pair in before!)
             {
+                if (pair.Key.Arity == 0)
+                {
+                    Require(pair.Key.Function is MathBackendNames.Pi or MathBackendNames.Tau);
+                    Require(!captured.ContainsKey(pair.Key));
+                    Require(ReferenceEquals(registry.SourceOwner(MathModule, pair.Key.Function, pair.Key.Arity), prepared));
+                    continue;
+                }
                 Require(captured.TryGetValue(pair.Key, out ErlangFunction? body) && ReferenceEquals(pair.Value, body));
                 Require(ReferenceEquals(registry.SourceOwner(MathModule, pair.Key.Function, pair.Key.Arity), prepared));
             }

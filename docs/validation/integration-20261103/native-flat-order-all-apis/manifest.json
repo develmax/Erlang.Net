@@ -1,0 +1,341 @@
+{
+  "PinnedCommit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "Status": "Frozen supplemental witness, not source promotion or post-merge full",
+  "Indexing": "GlobalRowIndex and LayoutIndex are zero-based; byte spans half-open in unchanged original/before ETF files",
+  "RowsPerBackend": 168,
+  "Layouts": 8,
+  "RegisteredMFAs": 21,
+  "BeforeDifferentRawRowsPerBackend": 60,
+  "AfterWholeEtfMatchesBothBackends": true,
+  "AfterEtfSha256": "983546B90E4115D712796388B4072C3CEEAABDB7F74FE0C7A03E924813BA6988",
+  "InputArgumentsByteIdenticalEveryRow": true,
+  "MfaToActualRowIndices": {
+    "ordsets:is_set/1": [
+      25,
+      67,
+      109,
+      151
+    ],
+    "ordsets:is_equal/2": [
+      26,
+      68,
+      110,
+      152
+    ],
+    "ordsets:is_element/2": [
+      27,
+      69,
+      111,
+      153
+    ],
+    "ordsets:add_element/2": [
+      28,
+      70,
+      112,
+      154
+    ],
+    "ordsets:del_element/2": [
+      29,
+      71,
+      113,
+      155
+    ],
+    "ordsets:union/2": [
+      30,
+      72,
+      114,
+      156
+    ],
+    "ordsets:intersection/2": [
+      31,
+      73,
+      115,
+      157
+    ],
+    "ordsets:intersection/1": [
+      32,
+      74,
+      116,
+      158
+    ],
+    "ordsets:is_disjoint/2": [
+      33,
+      75,
+      117,
+      159
+    ],
+    "ordsets:subtract/2": [
+      34,
+      76,
+      118,
+      160
+    ],
+    "ordsets:is_subset/2": [
+      35,
+      77,
+      119,
+      161
+    ],
+    "ordsets:from_list/1": [
+      36,
+      78,
+      120,
+      162
+    ],
+    "ordsets:union/1": [
+      37,
+      79,
+      121,
+      163
+    ],
+    "ordsets:map/2": [
+      38,
+      80,
+      122,
+      164
+    ],
+    "ordsets:filtermap/2": [
+      39,
+      81,
+      123,
+      165
+    ]
+  },
+  "Libraries": [
+    {
+      "Assembly": "Erlang.Terms.dll",
+      "BaselineSha256": "DDB878812555E89758A4B909051CAD64558934B276CA9BC0A7FECB0C929AAD01",
+      "CandidateSha256": "CE7DE8571D7A5F86E330AD0F47D63FA72127671DD11ABE91C553A5C5D635634F",
+      "Unchanged": false
+    },
+    {
+      "Assembly": "Erlang.Runtime.dll",
+      "BaselineSha256": "5B997FA63894AE1708BFA30D5C9F0A87E8CC0B5FD9DA7E80AE399BF696712D20",
+      "CandidateSha256": "5B997FA63894AE1708BFA30D5C9F0A87E8CC0B5FD9DA7E80AE399BF696712D20",
+      "Unchanged": true
+    },
+    {
+      "Assembly": "Erlang.Serialization.dll",
+      "BaselineSha256": "901310DE0B138F84CDAD28A17C1774996A394C27A4D7619A5B8A61029FDB4787",
+      "CandidateSha256": "901310DE0B138F84CDAD28A17C1774996A394C27A4D7619A5B8A61029FDB4787",
+      "Unchanged": true
+    },
+    {
+      "Assembly": "Erlang.Otp.Stdlib.dll",
+      "BaselineSha256": "FCB1B256846F283B80A02CFCCD7062CC3884DB461DF5658859EAF5CE1518FBE3",
+      "CandidateSha256": "FCB1B256846F283B80A02CFCCD7062CC3884DB461DF5658859EAF5CE1518FBE3",
+      "Unchanged": true
+    },
+    {
+      "Assembly": "Erlang.Otp.Kernel.dll",
+      "BaselineSha256": "E2B71EE1A82F8FD32006CF87416B10F220BCF0AAE1AD8ACFDE9CD90C995051E3",
+      "CandidateSha256": "E2B71EE1A82F8FD32006CF87416B10F220BCF0AAE1AD8ACFDE9CD90C995051E3",
+      "Unchanged": true
+    },
+    {
+      "Assembly": "Erlang.Otp.Behaviours.dll",
+      "BaselineSha256": "AC4E8B24E4B410BD7405F2D5A1940B009CB7AB4E878EA4FF84486519522E16EE",
+      "CandidateSha256": "AC4E8B24E4B410BD7405F2D5A1940B009CB7AB4E878EA4FF84486519522E16EE",
+      "Unchanged": true
+    }
+  ],
+  "ProbeAssemblySha256": "4AC476B046126BAC905F89CB990E0CC077081437D3FD8B8B1877DE678192E49A",
+  "CandidateSourceFiles": [
+    {
+      "Path": "src/Runtime/Erlang.Terms/Collections/Maps/MapTerm.FlatArithmeticOrder.cs",
+      "Sha256": "7A64203309F6E260216CC7316DCC678023C5A376171A0D608864812B5EBBC9EA",
+      "OwnerBaseSha256": null
+    },
+    {
+      "Path": "src/Runtime/Erlang.Terms/Collections/Maps/TermMapOrdering.cs",
+      "Sha256": "84B601C99330811690CE1F0BB790766EA0FE54392761FD861D8076CC75247C34",
+      "OwnerBaseSha256": "BADEA41841F9CF505B57E97E1534F26E05F5076B8D0183F2233FD9E4DE5F2EBF"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Runtime/Native/Nif/Maps/NifNativeFlatOrderTestNames.cs",
+      "Sha256": "2C3E4D31FEC5434F924502E8276127DD925C8D9DD0D5296E3994053892D8A167",
+      "OwnerBaseSha256": null
+    },
+    {
+      "Path": "tools/Native/Erlang.NifNativeBackend/NifNativeFlatOrderHostChecks.cs",
+      "Sha256": "9A1A718CC27B28D6CFF2A6AAEFC9869384AFF324F1335D2CFFB1668EB10D9F5D",
+      "OwnerBaseSha256": null
+    },
+    {
+      "Path": "tools/Native/Erlang.NifNativeBackend/NifNativeFlatOrderNames.cs",
+      "Sha256": "5178694219E192AD80F530638B068773AEEBBE793BB7C90B825EAD2D10CE172E",
+      "OwnerBaseSha256": null
+    }
+  ],
+  "CandidateSourceManifestSha256": "2D3C560720E48DE6E8A32C80EF777DEFEACFAD772037C8344032D80860EAB5C4",
+  "BaselineSnapshotDescription": "Existing matching-owner6DLL lab snapshot, owner source plus atomic native-selection overlay; NOT claimed as a build of final merged main",
+  "BaselineRuntimeBuildEvidence": "../owner-final-build.log and ../handoff/manifest.json",
+  "FixtureProvenance": {
+    "PinnedCommit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+    "ProviderFilesVerifiedBeforeAndAfter": 6427,
+    "NativeLibrarySha256": "BF4363ED4CE351BCCDEF1958C6BB4E33726D0ADDAD5D035F1C939195A6935AD2",
+    "NativeSourceSha256": "F690E594CA11F00CA2D591EB3F926DEAF3641F8F82EDE2561187CB0B2DD96BE8",
+    "NativeErlangSourceSha256": "9CDCE822E2153AF0BB3F3A512FB038CC0F928C46D6A610F8B80577DBF88A1199",
+    "ObserverSourceSha256": "36700239009CD680976CE77DF64D54E5E90C631BE8981197B7635D236D1EF157",
+    "ObserverBeamSha256": "14316852EEA4503227D5BB325BA35E6027083872D281BC3C4A0487F48CDA30AA",
+    "OriginalSha256": "983546B90E4115D712796388B4072C3CEEAABDB7F74FE0C7A03E924813BA6988",
+    "Expression": "{ok,map_postreturn505}=compile:file(\"D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/native-map505/original1/build/map_postreturn505.erl\",[debug_info,{outdir,\"D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/ordsets-native-selection-audit/native-api-corpus\"}]),{ok,ordsets_native_flat_observer}=compile:file(\"D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/ordsets-native-selection-audit/native-api-corpus/ordsets_native_flat_observer.erl\",[debug_info,{outdir,\"D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/ordsets-native-selection-audit/native-api-corpus\"}]),ok=map_postreturn505:load(\"D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/native-map505/original1/build/map_postreturn505\"),Rows=[begin {M,_,_}=map_postreturn505:make(N,B,T),{N,B,T,ordsets_native_flat_observer:run(M)} end || N<-[2,32],B<-[64,65],T<-[0,128]],168=lists:sum([length(R)||{_,_,_,R}<-Rows]),ok=file:write_file(\"original.etf\",term_to_binary(Rows,[deterministic])),io:format(\"168 complete outcomes,21 APIs,8 native layouts~n\"),halt().",
+    "ExitCode": 0,
+    "Outcomes": 168,
+    "APIs": 21,
+    "NativeLayouts": 8,
+    "Comparison": "Whole deterministic ETF of input arguments,values,exception classes/reasons/full stacks and callback effects; no filtering or normalization"
+  },
+  "Files": [
+    {
+      "Path": "after.log",
+      "Bytes": 623,
+      "Sha256": "522BD24B8E6B52E9516BEDDBF2A38E55FAB47776899DB1CD611A530EBB1B6D0D"
+    },
+    {
+      "Path": "Beam.actual.etf",
+      "Bytes": 623991,
+      "Sha256": "983546B90E4115D712796388B4072C3CEEAABDB7F74FE0C7A03E924813BA6988"
+    },
+    {
+      "Path": "Beam.json",
+      "Bytes": 350,
+      "Sha256": "ADBD15AC793B8C7ADC273B52A0442B354A8F4AF7B303629653C877A0BC4C7375"
+    },
+    {
+      "Path": "before/Beam.actual.etf",
+      "Bytes": 594695,
+      "Sha256": "F649BD3158A4BFBF66A4989A1C535D28CC1A77B1743C2D616B83960576B24611"
+    },
+    {
+      "Path": "before/Beam.json",
+      "Bytes": 351,
+      "Sha256": "0EA4442157E391C9837D12B436BEDF951A34766A718AAC8E541A88C232E730B0"
+    },
+    {
+      "Path": "before/Managed.actual.etf",
+      "Bytes": 594695,
+      "Sha256": "F649BD3158A4BFBF66A4989A1C535D28CC1A77B1743C2D616B83960576B24611"
+    },
+    {
+      "Path": "before/Managed.json",
+      "Bytes": 354,
+      "Sha256": "1E52A722B4758E63026833838FA6C690D7A9B4BCB48591E31B4D90492F216757"
+    },
+    {
+      "Path": "before.log",
+      "Bytes": 625,
+      "Sha256": "19F1FE7F006349533ACDE56416F4EAE5BF05A62E6ED2D59915D0BE754F5F9F7B"
+    },
+    {
+      "Path": "build.log",
+      "Bytes": 152,
+      "Sha256": "650A417A68190CE186F5550E323AB2904BF98056764519A3B9320E156745F59D"
+    },
+    {
+      "Path": "candidate-source/src/Runtime/Erlang.Terms/Collections/Maps/MapTerm.FlatArithmeticOrder.cs",
+      "Bytes": 2039,
+      "Sha256": "7A64203309F6E260216CC7316DCC678023C5A376171A0D608864812B5EBBC9EA"
+    },
+    {
+      "Path": "candidate-source/src/Runtime/Erlang.Terms/Collections/Maps/TermMapOrdering.cs",
+      "Bytes": 5325,
+      "Sha256": "84B601C99330811690CE1F0BB790766EA0FE54392761FD861D8076CC75247C34"
+    },
+    {
+      "Path": "candidate-source/tests/Erlang.Tests/Runtime/Native/Nif/Maps/NifNativeFlatOrderTestNames.cs",
+      "Bytes": 363,
+      "Sha256": "2C3E4D31FEC5434F924502E8276127DD925C8D9DD0D5296E3994053892D8A167"
+    },
+    {
+      "Path": "candidate-source/tools/Native/Erlang.NifNativeBackend/NifNativeFlatOrderHostChecks.cs",
+      "Bytes": 6930,
+      "Sha256": "9A1A718CC27B28D6CFF2A6AAEFC9869384AFF324F1335D2CFFB1668EB10D9F5D"
+    },
+    {
+      "Path": "candidate-source/tools/Native/Erlang.NifNativeBackend/NifNativeFlatOrderNames.cs",
+      "Bytes": 1046,
+      "Sha256": "5178694219E192AD80F530638B068773AEEBBE793BB7C90B825EAD2D10CE172E"
+    },
+    {
+      "Path": "capture.py",
+      "Bytes": 2830,
+      "Sha256": "F840698E625222D60C102288F2EF9E7A0A8634AD908A2461A8DFDA6C72D760AC"
+    },
+    {
+      "Path": "Managed.actual.etf",
+      "Bytes": 623991,
+      "Sha256": "983546B90E4115D712796388B4072C3CEEAABDB7F74FE0C7A03E924813BA6988"
+    },
+    {
+      "Path": "Managed.json",
+      "Bytes": 353,
+      "Sha256": "D8D93E9A0050427BA85170060348213BB7E72E8F2819340EF1DC26A62A72EB15"
+    },
+    {
+      "Path": "NativeApiProbe.csproj",
+      "Bytes": 1138,
+      "Sha256": "93B05C8891ECB8B4F57BB6D9E30AB724462700C83E1FDB4EE246368BAD0A5F84"
+    },
+    {
+      "Path": "ordsets_native_flat_observer.beam",
+      "Bytes": 3920,
+      "Sha256": "14316852EEA4503227D5BB325BA35E6027083872D281BC3C4A0487F48CDA30AA"
+    },
+    {
+      "Path": "ordsets_native_flat_observer.erl",
+      "Bytes": 1229,
+      "Sha256": "36700239009CD680976CE77DF64D54E5E90C631BE8981197B7635D236D1EF157"
+    },
+    {
+      "Path": "original-producer/build-receipt.json",
+      "Bytes": 4523,
+      "Sha256": "77403CEBE08390876371BAE208227BB485289098702FCA9EA9D3CEE57669130E"
+    },
+    {
+      "Path": "original-producer/fixture.c",
+      "Bytes": 1636,
+      "Sha256": "F690E594CA11F00CA2D591EB3F926DEAF3641F8F82EDE2561187CB0B2DD96BE8"
+    },
+    {
+      "Path": "original-producer/map_postreturn505.erl",
+      "Bytes": 1539,
+      "Sha256": "9CDCE822E2153AF0BB3F3A512FB038CC0F928C46D6A610F8B80577DBF88A1199"
+    },
+    {
+      "Path": "original.etf",
+      "Bytes": 623991,
+      "Sha256": "983546B90E4115D712796388B4072C3CEEAABDB7F74FE0C7A03E924813BA6988"
+    },
+    {
+      "Path": "original.stderr",
+      "Bytes": 0,
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "Path": "original.stdout",
+      "Bytes": 47,
+      "Sha256": "76D0DE6F47064A9ABB0EE4BCCB7585DCA0B13375D5181479453F66CEBE735AA0"
+    },
+    {
+      "Path": "Program.cs",
+      "Bytes": 5134,
+      "Sha256": "07BF0263FF3B4A8101AF5A31863A4701090B600D8C175C89937E39B55FDD4625"
+    },
+    {
+      "Path": "provenance.json",
+      "Bytes": 1975,
+      "Sha256": "11D3E3253265A3EF3EE56E4070DDD5B03737A207DFE46DCDB2ACF4A8400B6CAE"
+    },
+    {
+      "Path": "raw-row-differences.json",
+      "Bytes": 46885,
+      "Sha256": "542218B1963F93E6E480FAFFCE4EE216105CF2840BD294CAA5E3AC1821F13F45"
+    },
+    {
+      "Path": "raw_row_diff.py",
+      "Bytes": 3401,
+      "Sha256": "FB583F7A43AEC3B8165693B39B67434F6BE181F528A42C559018C985828BEECC"
+    }
+  ]
+}

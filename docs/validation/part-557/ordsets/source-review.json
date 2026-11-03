@@ -1,0 +1,53 @@
+{
+  "PinnedOtpCommit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "Status": "Reviewed native reverse frame correction; finite evidence does not establish full compatibility",
+  "Changes": [
+    {
+      "Path": "src/Otp/Managed/Erlang.Otp.Stdlib/Collections/Lists/ListUniqueMergeMachine.cs",
+      "BeforeSha256": "CC34DC2E305980E59BF9E23970A4159522F158358FB3C1397DD7887CF7E1FA36",
+      "AfterSha256": "A6E8CB3B6168A2DA71CC5756F8C15DC8ED937563C9E02365D97CA6E335257940"
+    },
+    {
+      "Path": "src/Otp/Managed/Erlang.Otp.Stdlib/Collections/Lists/ListUniqueMergeNames.cs",
+      "BeforeSha256": "013F108DD7B448960A1D5F2EAE100875610DCAB320A099EEADFF955673D741A4",
+      "AfterSha256": "0099F85D1507314E10062D9A077E118AA041D44CDE1D9DC8C4B3423B3748EE45"
+    },
+    {
+      "Path": "src/Otp/Managed/Erlang.Otp.Stdlib/Collections/Lists/ListUniqueMergeTrace.cs",
+      "BeforeSha256": "EEA02651A68D3970C4AFD55C5D4ADC1D739D91F566978841815ADC226921DB3F",
+      "AfterSha256": "2258AA3593826BC71865720CCD3F2CE8AFA18F635BE8D06C37190209CD443983"
+    }
+  ],
+  "ReferenceLines": {
+    "UmergeLeftDuplicateReverseLine": 3462,
+    "UmergeLeftReverseLine": 3464,
+    "UmergeRightReverseLine": 3471,
+    "ReverseUmergeLeftReverseLine": 3481,
+    "ReverseUmergeRightDuplicateReverseLine": 3491,
+    "ReverseUmergeRightReverseLine": 3493
+  },
+  "ReviewedInvariants": [
+    "Only six terminal reverse calls receive their current state and source call PC.",
+    "The two non-tail reverse call sites retain their existing pending continuation and do not gain duplicate frames.",
+    "Current source frame is conditional on the actual native reverse registration.",
+    "Merge state transitions, arguments, comparison/equality operations, duplicate representatives and dynamic remote call remain unchanged.",
+    "Scope disposal preserves source frame cleanup during success, error and cancellation.",
+    "Existing verified MFA status/scope/limits stay unchanged."
+  ],
+  "Remaining": [
+    "Full shared term-order/equality and lists helper-domain closure",
+    "Complete canonical regression/readiness and external CI",
+    "Actual atomically selected native target under concurrent module replacement remains governed by existing registry call protocol"
+  ],
+  "Validation": {
+    "FinalAffectedReport": "final-affected.json",
+    "Passed": 870,
+    "Failed": 0,
+    "ObservationsPerBackend": 12247,
+    "Backends": [
+      "Managed",
+      "Beam"
+    ],
+    "CanonicalReadiness": "Not regenerated: no complete green test report; concurrent merge has unresolved canonical-document conflicts"
+  }
+}

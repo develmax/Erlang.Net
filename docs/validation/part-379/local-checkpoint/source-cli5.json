@@ -1,0 +1,101 @@
+{
+  "Passed": true,
+  "Scope": "Integrated CLI include/epp/cache gates only; MSBuild/package/full40 partitions pending",
+  "Steps": [
+    {
+      "Name": "fresh",
+      "ExitCode": 0,
+      "Seconds": 11.65600000001723,
+      "NativeProcessReceiptsAdded": 2,
+      "NativeReceipts": [
+        ".work-b39c563dc97a447e808c1d241363c819\\driver-bootstrap\\compiler.process.json",
+        ".work-b39c563dc97a447e808c1d241363c819\\modules\\hello_include\\compiler.process.json"
+      ]
+    },
+    {
+      "Name": "noop",
+      "ExitCode": 0,
+      "Seconds": 5.01600000000326,
+      "NativeProcessReceiptsAdded": 0,
+      "NativeReceipts": []
+    },
+    {
+      "Name": "transitive-header-change",
+      "ExitCode": 0,
+      "Seconds": 8.438000000023749,
+      "NativeProcessReceiptsAdded": 1,
+      "NativeReceipts": [
+        ".work-9e0bec17488e4b7d9a48a2a363c1f919\\modules\\hello_include\\compiler.process.json"
+      ]
+    },
+    {
+      "Name": "typed-macro-change",
+      "ExitCode": 0,
+      "Seconds": 8.65600000001723,
+      "NativeProcessReceiptsAdded": 1,
+      "NativeReceipts": [
+        ".work-495cb979b2b3496599924a506b4a1ceb\\modules\\hello_include\\compiler.process.json"
+      ]
+    },
+    {
+      "Name": "final-noop",
+      "ExitCode": 0,
+      "Seconds": 4.921999999962281,
+      "NativeProcessReceiptsAdded": 0,
+      "NativeReceipts": []
+    }
+  ],
+  "ToolSha256": "7F9B14E7F04AD23D9A9C10B5B6A2E71BA714AD2E17A1B7B5916155944A7BFC53",
+  "FreshModuleBeamSha256": "6C70FC6159374370050A5BAE4A1BAC2A8231D9612DECE5D9A50D5E975BD65D8B",
+  "MatchesPreviouslyComparedPrototypeBeam": true,
+  "NoopZeroNativeChildren": true,
+  "TransitiveHeaderInvalidates": true,
+  "TypedMacroInvalidates": true,
+  "ExplicitEmptyFirstIncludeDirectorySupported": true,
+  "ManifestPreprocessing": {
+    "Policy": "DeclaredIncludesV1",
+    "ClosureSha256": "1E86A2B63FEA4CA9ACD15FAFFC8641EBE1BCD2905C5C0F0CD619619305BA8F38",
+    "RuntimeSha256": "D91699E88F417E00470D224934D47CD92358CC1B3B37CA1F15BCF5D4731D8F4E",
+    "DriverSourceSha256": "568BFDA2058CE03449D285BFA5CDB58987F84911EEE854ADDF31252702E73765",
+    "DriverBeamSha256": "4DF2F57F8BD17EF48B2C828EE57C2E18F184B55954BAFC44807D9E70688A9D0B",
+    "Inputs": [
+      {
+        "LogicalPath": "include/nested/payload.hrl",
+        "Bytes": 36,
+        "Sha256": "89443754C9274244259F4A60E4BD5AE5B5E657B2414A0A19BF8BDC0E62B921AD"
+      },
+      {
+        "LogicalPath": "include/version.hrl",
+        "Bytes": 121,
+        "Sha256": "3F6783FE5D12F3C86086D4A06AE0FB81F66FAEFD46E1912E420BD48141B04E85"
+      },
+      {
+        "LogicalPath": "src/hello_include.erl",
+        "Bytes": 122,
+        "Sha256": "026A76267A509CEBDA49F8C3614CAE4E59D39C56C0B757AEB3523EEAC35AECBE"
+      }
+    ],
+    "Includes": [
+      {
+        "Includer": "include/version.hrl",
+        "Offset": 79,
+        "Literal": "nested/payload.hrl",
+        "Candidates": [
+          "include/nested/payload.hrl"
+        ],
+        "Selected": "include/nested/payload.hrl"
+      },
+      {
+        "Includer": "src/hello_include.erl",
+        "Offset": 46,
+        "Literal": "version.hrl",
+        "Candidates": [
+          "src/version.hrl",
+          "empty/version.hrl",
+          "include/version.hrl"
+        ],
+        "Selected": "include/version.hrl"
+      }
+    ]
+  }
+}

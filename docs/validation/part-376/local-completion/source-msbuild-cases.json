@@ -1,0 +1,138 @@
+{
+  "Passed": true,
+  "Steps": [
+    {
+      "Name": "clean",
+      "ExitCode": 0,
+      "Seconds": 0.9380000000237487,
+      "NativeCompilerReceiptsAdded": 0,
+      "Completions": []
+    },
+    {
+      "Name": "initial-build",
+      "ExitCode": 0,
+      "Seconds": 43.46899999998277,
+      "NativeCompilerReceiptsAdded": 3,
+      "Completions": [
+        {
+          "Status": "PASS_BUILD_ONLY",
+          "ExecutedCompilers": 3,
+          "Skipped": 0,
+          "Manifest": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library376-implementation\\msbuild-source-cases2\\project with spaces\\obj\\Debug\\net10.0\\beam\\beam-build-state.json",
+          "ConfigurationSha256": "B73C5DA62785562EACFEC6AD87E53F2DFD310424BD9E7E6D04D0E1EC03B3B798"
+        }
+      ]
+    },
+    {
+      "Name": "no-op",
+      "ExitCode": 0,
+      "Seconds": 4.125,
+      "NativeCompilerReceiptsAdded": 0,
+      "Completions": [
+        {
+          "Status": "PASS_BUILD_ONLY",
+          "ExecutedCompilers": 0,
+          "Skipped": 3,
+          "Manifest": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library376-implementation\\msbuild-source-cases2\\project with spaces\\obj\\Debug\\net10.0\\beam\\beam-build-state.json",
+          "ConfigurationSha256": "B73C5DA62785562EACFEC6AD87E53F2DFD310424BD9E7E6D04D0E1EC03B3B798"
+        }
+      ]
+    },
+    {
+      "Name": "one-source-change",
+      "ExitCode": 0,
+      "Seconds": 5.85999999998603,
+      "NativeCompilerReceiptsAdded": 1,
+      "Completions": [
+        {
+          "Status": "PASS_BUILD_ONLY",
+          "ExecutedCompilers": 1,
+          "Skipped": 2,
+          "Manifest": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library376-implementation\\msbuild-source-cases2\\project with spaces\\obj\\Debug\\net10.0\\beam\\beam-build-state.json",
+          "ConfigurationSha256": "B73C5DA62785562EACFEC6AD87E53F2DFD310424BD9E7E6D04D0E1EC03B3B798"
+        }
+      ]
+    },
+    {
+      "Name": "second-child-failure",
+      "ExitCode": 1,
+      "Seconds": 6.48499999998603,
+      "NativeCompilerReceiptsAdded": 2,
+      "Completions": []
+    },
+    {
+      "Name": "restore-source",
+      "ExitCode": 0,
+      "Seconds": 5.797000000020489,
+      "NativeCompilerReceiptsAdded": 1,
+      "Completions": [
+        {
+          "Status": "PASS_BUILD_ONLY",
+          "ExecutedCompilers": 1,
+          "Skipped": 2,
+          "Manifest": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library376-implementation\\msbuild-source-cases2\\project with spaces\\obj\\Debug\\net10.0\\beam\\beam-build-state.json",
+          "ConfigurationSha256": "B73C5DA62785562EACFEC6AD87E53F2DFD310424BD9E7E6D04D0E1EC03B3B798"
+        }
+      ]
+    },
+    {
+      "Name": "away-run",
+      "ExitCode": 0,
+      "Seconds": 0.7029999999795109,
+      "NativeCompilerReceiptsAdded": 0,
+      "Completions": []
+    },
+    {
+      "Name": "publish",
+      "ExitCode": 0,
+      "Seconds": 4.0310000000172295,
+      "NativeCompilerReceiptsAdded": 0,
+      "Completions": [
+        {
+          "Status": "PASS_BUILD_ONLY",
+          "ExecutedCompilers": 0,
+          "Skipped": 3,
+          "Manifest": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library376-implementation\\msbuild-source-cases2\\project with spaces\\obj\\Debug\\net10.0\\beam\\beam-build-state.json",
+          "ConfigurationSha256": "B73C5DA62785562EACFEC6AD87E53F2DFD310424BD9E7E6D04D0E1EC03B3B798"
+        }
+      ]
+    },
+    {
+      "Name": "published-away-run",
+      "ExitCode": 0,
+      "Seconds": 0.6560000000172295,
+      "NativeCompilerReceiptsAdded": 0,
+      "Completions": []
+    },
+    {
+      "Name": "clean-again",
+      "ExitCode": 0,
+      "Seconds": 1.0,
+      "NativeCompilerReceiptsAdded": 0,
+      "Completions": []
+    },
+    {
+      "Name": "rebuild-after-clean",
+      "ExitCode": 0,
+      "Seconds": 28.39100000000326,
+      "NativeCompilerReceiptsAdded": 3,
+      "Completions": [
+        {
+          "Status": "PASS_BUILD_ONLY",
+          "ExecutedCompilers": 3,
+          "Skipped": 0,
+          "Manifest": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library376-implementation\\msbuild-source-cases2\\project with spaces\\obj\\Debug\\net10.0\\beam\\beam-build-state.json",
+          "ConfigurationSha256": "B73C5DA62785562EACFEC6AD87E53F2DFD310424BD9E7E6D04D0E1EC03B3B798"
+        }
+      ]
+    }
+  ],
+  "NoopHashAndMtimeStable": true,
+  "OtherModulesStableOnSingleChange": true,
+  "FailedBuildDidNotPromoteOrCopy": true,
+  "PublishedResources": 4,
+  "AwayRuntimeRuns": 2,
+  "ProductionOriginalVM": false,
+  "CleanRemovesGeneratedOutputsAndState": true,
+  "InputFixturesUnchanged": true
+}

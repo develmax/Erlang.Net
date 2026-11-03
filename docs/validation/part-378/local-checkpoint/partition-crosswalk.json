@@ -1,0 +1,352 @@
+{
+  "Status": "SCOPED_SOURCE_PARTITION_CHECKPOINT_NOT_WHOLE_COMPATIBILITY",
+  "RuntimeSha256": "268E63153E64B8103DB66D496FCE6E0973590F01718FB613C3FEB7E385E87A11",
+  "Partitions": [
+    {
+      "Name": "normal-body",
+      "OriginalRequired": "Protected fun returns arbitrary term; try_end removes tag, no X clobber or handler entry.",
+      "Status": "FULL",
+      "EvidenceLayer": "NATIVE_WHOLE_ETF_AND_MANAGED_HOST",
+      "ExactControls": "normal_body; host-callback-normal; storage ordinary Term reference/clone",
+      "ObservedBoundedResult": "Exact protected tuple/atom return branch and generic Term transport source path.",
+      "Remaining": null
+    },
+    {
+      "Name": "error-class",
+      "OriginalRequired": "Source error(reason) and badarg BIF with exact reason/error_info/source line.",
+      "Status": "PARTIAL",
+      "EvidenceLayer": "NATIVE_WHOLE_ETF",
+      "ExactControls": "error_class",
+      "ObservedBoundedResult": "Actual error/1 whole class/reason/trace equal.",
+      "Remaining": "Add badarg BIF and error_info variants with whole original traces."
+    },
+    {
+      "Name": "throw-class",
+      "OriginalRequired": "throw(reason) caught distinctly from error/exit.",
+      "Status": "FULL",
+      "EvidenceLayer": "NATIVE_WHOLE_ETF",
+      "ExactControls": "throw_class",
+      "ObservedBoundedResult": "Actual throw distinguished from error/exit.",
+      "Remaining": null
+    },
+    {
+      "Name": "exit-class",
+      "OriginalRequired": "catchable exit(reason), distinct from fatal process termination.",
+      "Status": "FULL",
+      "EvidenceLayer": "NATIVE_WHOLE_ETF",
+      "ExactControls": "exit_class",
+      "ObservedBoundedResult": "Catchable exit distinguished; fatal cancellation is separate managed control.",
+      "Remaining": null
+    },
+    {
+      "Name": "unmatched-class",
+      "OriginalRequired": "Inner handler rejects class; outer handler receives original trace unchanged.",
+      "Status": "FULL",
+      "EvidenceLayer": "NATIVE_WHOLE_ETF",
+      "ExactControls": "unmatched_class",
+      "ObservedBoundedResult": "Inner rejected class rethrows unchanged original whole trace to outer.",
+      "Remaining": null
+    },
+    {
+      "Name": "nested-lifo",
+      "OriginalRequired": "Nearest nested try tag wins; outer remains active after inner try_case.",
+      "Status": "FULL",
+      "EvidenceLayer": "NATIVE_WHOLE_ETF",
+      "ExactControls": "nested_lifo",
+      "ObservedBoundedResult": "Inner consumed; outer catches later error.",
+      "Remaining": null
+    },
+    {
+      "Name": "handler-throws",
+      "OriginalRequired": "Exception from catch clause reaches outer handler, never re-enters consumed inner tag.",
+      "Status": "FULL",
+      "EvidenceLayer": "NATIVE_WHOLE_ETF",
+      "ExactControls": "handler_throws",
+      "ObservedBoundedResult": "Catch clause throws to outer, consumed inner not reentered.",
+      "Remaining": null
+    },
+    {
+      "Name": "try-of-mismatch",
+      "OriginalRequired": "Successful body unmatched of clause produces try_clause outside its own catch scope; verify with outer collector.",
+      "Status": "FULL",
+      "EvidenceLayer": "NATIVE_WHOLE_ETF",
+      "ExactControls": "try_of_mismatch",
+      "ObservedBoundedResult": "try_clause escapes own catch to capture/2.",
+      "Remaining": null
+    },
+    {
+      "Name": "after-normal",
+      "OriginalRequired": "After side effect runs once; protected return preserved.",
+      "Status": "FULL",
+      "EvidenceLayer": "NATIVE_WHOLE_ETF",
+      "ExactControls": "after_normal",
+      "ObservedBoundedResult": "Side effect count one; protected result preserved.",
+      "Remaining": null
+    },
+    {
+      "Name": "after-failure",
+      "OriginalRequired": "After runs once then original class/reason/trace propagates.",
+      "Status": "FULL",
+      "EvidenceLayer": "NATIVE_WHOLE_ETF",
+      "ExactControls": "after_failure",
+      "ObservedBoundedResult": "Side effect count one; original failure/trace propagated.",
+      "Remaining": null
+    },
+    {
+      "Name": "after-replaces",
+      "OriginalRequired": "Exception from after replaces original exception with after source location.",
+      "Status": "FULL",
+      "EvidenceLayer": "NATIVE_WHOLE_ETF",
+      "ExactControls": "after_replaces",
+      "ObservedBoundedResult": "After exception replaces original, including whole trace.",
+      "Remaining": null
+    },
+    {
+      "Name": "explicit-raise",
+      "OriginalRequired": "erlang:raise/3 exact given stack, error_info and nonstandard valid stack frames preserved.",
+      "Status": "PARTIAL",
+      "EvidenceLayer": "NATIVE_WHOLE_ETF",
+      "ExactControls": "explicit_raise",
+      "ObservedBoundedResult": "One supplied MFA4 literal stack preserved.",
+      "Remaining": "Add error_info/nonstandard valid frame shapes and full raise variants."
+    },
+    {
+      "Name": "raw-raise",
+      "OriginalRequired": "Actual compiled raw_raise if emitted; valid class preserves original raw trace, invalid class stores badarg and continues.",
+      "Status": "PARTIAL",
+      "EvidenceLayer": "NATIVE_WHOLE_ETF_AND_STATIC",
+      "ExactControls": "reraised; RawRaise-invalid-class-fallthrough-positive",
+      "ObservedBoundedResult": "Actual valid raw_raise native whole result; invalid-class edge only static.",
+      "Remaining": "Execute invalid-class raw_raise fallthrough against original; no static-as-execution credit."
+    },
+    {
+      "Name": "call-unwind",
+      "OriginalRequired": "Non-tail local nested calls restore handler function, continuation and owning Y frame.",
+      "Status": "FULL",
+      "EvidenceLayer": "NATIVE_WHOLE_ETF",
+      "ExactControls": "call_unwind",
+      "ObservedBoundedResult": "Non-tail local descendant restores scope/CP/Y owner on sampled call path.",
+      "Remaining": null
+    },
+    {
+      "Name": "remote-await",
+      "OriginalRequired": "Cross-module/fun/native failures after an actual async await unwind to local handler.",
+      "Status": "PARTIAL",
+      "EvidenceLayer": "MANAGED_HOST",
+      "ExactControls": "async-host-erlang-exception-caught",
+      "ObservedBoundedResult": "Actual await pending before release; caught failure and zero image leases.",
+      "Remaining": "Cross-module/native entry async failure plus original whole trace comparison."
+    },
+    {
+      "Name": "native-primitive-entry",
+      "OriginalRequired": "Native replacement failure on function-entry path participates in installed caller handler correctly.",
+      "Status": "NOTEXECUTED",
+      "EvidenceLayer": "SOURCE_ONLY",
+      "ExactControls": null,
+      "ObservedBoundedResult": "No actual execution.NativePrimitives function-entry failure witness.",
+      "Remaining": "Exercise distinct native function-entry path under installed caller handler."
+    },
+    {
+      "Name": "tail-path",
+      "OriginalRequired": "Tail calls preserve or remove handler ownership exactly according to verified frame/tag layout.",
+      "Status": "FULL",
+      "EvidenceLayer": "NATIVE_WHOLE_ETF_AND_MANAGED_HOST",
+      "ExactControls": "tail_unwind; tail-rejection-retains-source-caller; tail-return-restores-local-continuation",
+      "ObservedBoundedResult": "Adjacent loader peephole body trace; badfun/badarity retain caller; async normal return restores ancestor continuation.",
+      "Remaining": null
+    },
+    {
+      "Name": "trace-depth",
+      "OriginalRequired": "Whole traces at default/0/1/2/8 depth; capture at throwing site, not after handler work.",
+      "Status": "PARTIAL",
+      "EvidenceLayer": "NATIVE_DEFAULT_ONLY",
+      "ExactControls": "whole17 default traces",
+      "ObservedBoundedResult": "Actual complete default traces equal; no projection.",
+      "Remaining": "Run original/managed explicit depth 0/1/2/8 profiles; default is not those profiles."
+    },
+    {
+      "Name": "saved-trace-lifetime",
+      "OriginalRequired": "Store trace through Y moves/other calls and build later without new capture.",
+      "Status": "FULL",
+      "EvidenceLayer": "NATIVE_WHOLE_ETF_AND_COMPILED_SOURCE",
+      "ExactControls": "saved_trace; compiled indices511-516",
+      "ObservedBoundedResult": "Raw X2 saved in Y2 across keep_marker local call, restored to X0 then built.",
+      "Remaining": null
+    },
+    {
+      "Name": "receive-clone",
+      "OriginalRequired": "Receive inside active try clones registers but leaves tag/frame checkpoint coherent.",
+      "Status": "NOTEXECUTED",
+      "EvidenceLayer": "ADMISSION_REFUSAL_AND_STORAGE_ONLY",
+      "ExactControls": null,
+      "ObservedBoundedResult": "Same-function receive+try explicitly refused; clone storage control is not positive guest execution.",
+      "Remaining": "Implement/review composition and execute original/managed active-tag receive clone."
+    },
+    {
+      "Name": "trim-tag",
+      "OriginalRequired": "Frame trim preserves relocated active tag identity; invalid trimmed-away tag is refused statically.",
+      "Status": "PARTIAL",
+      "EvidenceLayer": "STORAGE_AND_STATIC",
+      "ExactControls": "clone-removal-independent-trim-relocates-two-tags; trim-away-tag-refused",
+      "ObservedBoundedResult": "Storage tag relocation and static drop refusal passed.",
+      "Remaining": "Execute compiled active-tag trim with native whole outcome."
+    },
+    {
+      "Name": "deep-trampoline",
+      "OriginalRequired": "Deep local recursion throws to outer handler without CLR recursion or leaked frames.",
+      "Status": "PARTIAL",
+      "EvidenceLayer": "NATIVE_BOUNDED_DEPTH8",
+      "ExactControls": "deep_unwind",
+      "ObservedBoundedResult": "Fixture descend_depth(8) actual equal.",
+      "Remaining": "Measure genuinely deep trampoline/resource closure; do not claim arbitrary recursion."
+    },
+    {
+      "Name": "cancellation",
+      "OriginalRequired": "Cancel during awaited protected work; cancellation bypasses Erlang catch and source leases/scopes settle.",
+      "Status": "FULL",
+      "EvidenceLayer": "MANAGED_LIFECYCLE_HOST",
+      "ExactControls": "kill-physically-unwinds-callback-image",
+      "ObservedBoundedResult": "Await cancelled; callback and operation finally settle, no Erlang catch conversion, leases zero, fresh call works.",
+      "Remaining": null
+    },
+    {
+      "Name": "stale-tag-refusal",
+      "OriginalRequired": "Malformed/wrong/Y-overwritten tag, unmatched try_case/end and direct branch to handler rejected.",
+      "Status": "FULL",
+      "EvidenceLayer": "STORAGE_AND_STATIC",
+      "ExactControls": "foreign-or-consumed-tag-removal-refuses; overwritten-tag-refused; Case-without-exception-refused; End-without-tag-refused; ordinary-jump-to-handler-refused",
+      "ObservedBoundedResult": "Exact named malformed tag/control-flow shapes rejected at storage/static layers.",
+      "Remaining": null
+    },
+    {
+      "Name": "dead-x-refusal",
+      "OriginalRequired": "After build_stacktrace or try_case, dead X registers cannot be consumed as previously initialized values.",
+      "Status": "FULL",
+      "EvidenceLayer": "STORAGE_AND_STATIC",
+      "ExactControls": "Case-dead-X3-refused; Build-dead-X1-refused; sparse-clear-retains-trace-marker-term-and-clears-rest",
+      "ObservedBoundedResult": "Static dead reads refused; actual register clear retains only requested typed slots.",
+      "Remaining": null
+    },
+    {
+      "Name": "cross-image-identity",
+      "OriginalRequired": "Prepared BEAM source owner/lease identity preserved across catch and replacement/module lifecycle.",
+      "Status": "PARTIAL",
+      "EvidenceLayer": "MANAGED_SAME_IMAGE_LIFECYCLE",
+      "ExactControls": "host-clr-failure-bypasses-handler; kill-physically-unwinds-callback-image",
+      "ObservedBoundedResult": "Same-image owner/lease released and fresh invocation works.",
+      "Remaining": "Cross-image replacement/purge/multiple generations during caught work."
+    },
+    {
+      "Name": "uncaught-regression",
+      "OriginalRequired": "Existing no-handler error/throw/exit full frames and outward publication remain identical.",
+      "Status": "PARTIAL",
+      "EvidenceLayer": "MANAGED_HOST_AND_COMPONENTS",
+      "ExactControls": "tail-rejection-retains-source-caller; final components",
+      "ObservedBoundedResult": "Uncaught host badfun/badarity exact reason/whole caller trace; sampled components pass.",
+      "Remaining": "Broader uncaught error/throw/exit native matrix; full8080 in flight is not credited here."
+    }
+  ],
+  "Counts": {
+    "FULL": 16,
+    "PARTIAL": 9,
+    "NOTEXECUTED": 2
+  },
+  "Rubric": "FULL covers the named bounded observation at its explicitly stated evidence layer plus reviewed source path. It does not quantify all terms, opcodes, contexts, language, API or stage compatibility. PARTIAL retains unmet clauses from OriginalRequired; NOTEXECUTED has no positive actual required observation. Static/storage positives never substitute for guest/native execution.",
+  "ApiDelta": 0,
+  "FullApiContractDelta": 0,
+  "FullCanonical8080Credit": false,
+  "NativePairs": [
+    {
+      "Original": "artifacts/library378-implementation/original-capture1/original.etf",
+      "Managed": "artifacts/library378-implementation/final-components1/managed17/managed-outcomes.etf",
+      "Sha256": "F903B83BDD5EC649CB6C2ADE6C9870DAA963C445FA917E9E54F913A3F30476BC",
+      "Bytes": 4629,
+      "Cases": 17
+    },
+    {
+      "Original": "artifacts/library377-child-stack-execution1/cases/spawned_child_metadata_stack/original.etf",
+      "Managed": "artifacts/library378-implementation/final-components1/restored377.etf",
+      "Sha256": "9227334B5DD5164D649533F11C4FB72335E321830AE53C00A487E167E0D90F88",
+      "Bytes": 236,
+      "Scope": "Restores exact former guest, does not close four377 partials"
+    }
+  ],
+  "Preserved377Partials": [
+    {
+      "Group": "explicit-policy-refusals",
+      "Name": "transform_in_active_header",
+      "SourceDerivedReason": "epp contributes source attributes from includes",
+      "RequiredObservation": "Expanded form gate refuses before transform callback/sentinel.",
+      "Executed": true,
+      "Status": "PARTIAL",
+      "ActualEvidence": [
+        "artifacts/library377-implementation/native-controls1/completion.json"
+      ],
+      "ObservedAssertions": "header_transform_refused rejects raw input_admission before EPP, sentinel absent; planned text explicitly asks expanded-form gate route.",
+      "RemainingMinimalControl": "No weakening raw admission to reach later branch. Retain later expanded-form route unexercised; earlier actual public refusal satisfies current bounded policy.",
+      "PublicPropertyStatus": "FULL_MEASURED_EARLIER_RAW_REFUSAL",
+      "DefensiveBranchCoverage": "UNEXERCISED_LATER_EXPANDED_FORM_BRANCH",
+      "IsMissingPublicRefusal": false
+    },
+    {
+      "Group": "explicit-policy-refusals",
+      "Name": "on_load_attribute",
+      "SourceDerivedReason": "existing output preparation refuses on_load only after compiler",
+      "RequiredObservation": "Expanded-form gate refuses earlier and old output preparation remains mandatory.",
+      "Executed": true,
+      "Status": "PARTIAL",
+      "ActualEvidence": [
+        "artifacts/library377-implementation/native-controls1/completion.json"
+      ],
+      "ObservedAssertions": "on_load_refused raw input_admission, not observed expanded-form gate or retained output gate.",
+      "RemainingMinimalControl": "No weakening raw admission to reach later branch. Retain later expanded-form route unexercised; earlier actual public refusal satisfies current bounded policy.",
+      "PublicPropertyStatus": "FULL_MEASURED_EARLIER_RAW_REFUSAL",
+      "DefensiveBranchCoverage": "UNEXERCISED_LATER_EXPANDED_FORM_BRANCH",
+      "IsMissingPublicRefusal": false
+    },
+    {
+      "Group": "ownership-and-project-gates",
+      "Name": "owned_stage_changes_during_child",
+      "SourceDerivedReason": "snapshot hash before/after brackets child",
+      "RequiredObservation": "Added/deleted/changed staged file rejects acceptance.",
+      "Executed": true,
+      "Status": "PARTIAL",
+      "ActualEvidence": [
+        "artifacts/library377-implementation/input-probes2/results.json",
+        "artifacts/library377-live-mutation-execution1/completion.json",
+        "artifacts/library377-process-execution1/completion.json",
+        "artifacts/library377-owned-file-mutation-execution1/completion.json"
+      ],
+      "ObservedAssertions": "Actual CLI owned-file add/delete sampled after snapshot each fails and recovers, plus earlier change control; no native start barrier, marker future/notfinished alone does not prove mutation during active nativechild.",
+      "RemainingMinimalControl": "Keep actual aftersnapshot publicproperty evidence; exact during-native-child schedule remains unexercised unless actual start/phase handoff is measured.",
+      "PublicPropertyStatus": "MEASURED_AFTER_SNAPSHOT_CHANGE_ADD_DELETE_REFUSAL",
+      "ScheduleBoundary": "RaceSensitiveNoDeterministicBarrierClaim=true; no automatic retries"
+    },
+    {
+      "Group": "ownership-and-project-gates",
+      "Name": "preprocess_compile_timeout",
+      "SourceDerivedReason": "existing owned process cleanup remains",
+      "RequiredObservation": "No accepted manifest or new outputs; owned child cleanup receipt retained.",
+      "Executed": true,
+      "Status": "PARTIAL",
+      "ActualEvidence": [
+        "artifacts/library377-implementation/restricted-cases1/completion.json",
+        "artifacts/library377-process-execution1/completion.json"
+      ],
+      "ObservedAssertions": "Actual120second RunEpp/process-wrapper timeout uses an explicitly own synthetic nonOTP worker. It proves bounded wrapper diagnostics/cleanup only; no original full-orchestration timeout/manifest outcome.",
+      "RemainingMinimalControl": "Preserve wrapper proof and defer explicit original full-orchestration timeout/no promotion; do not relabel sampled/nonOTP control.",
+      "PublicPropertyStatus": "MEASURED_PROCESS_WRAPPER_TIMEOUT_ONLY",
+      "OriginalOrchestrationTimeoutExercised": false
+    }
+  ],
+  "AdditionalAdmissionBoundary": "Same-function receive+try refused. Mixed ordinary/raw CFG join conservatively refused; no implicit Term conversion or raw leak. Neither refusal is positive compatibility execution.",
+  "ExplicitUnclaimed": [
+    "arbitrary recursion depth",
+    "explicit trace-depth profiles0/1/2/8",
+    "all native-entry paths",
+    "all cross-image lifecycle states",
+    "full explicit raise stack-form contract",
+    "runtime invalid-class raw_raise fallthrough"
+  ],
+  "EarlierEvidence": "compare2 tail_unwind mismatch and earlier captures remain failures/intermediate evidence, not relabeled final. compare3 older-runtime pass is not the final runtime identity receipt."
+}

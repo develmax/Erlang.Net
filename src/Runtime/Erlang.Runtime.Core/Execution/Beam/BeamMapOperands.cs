@@ -2,6 +2,10 @@ namespace Erlang;
 
 internal static class BeamMapOperands
 {
+    internal const int SinglePutOperandCount = 7;
+    internal const int FirstKeyIndex = 5;
+    internal const int FirstValueIndex = 6;
+
     internal static void ValidateKeys(
         BeamStructure structure,
         IReadOnlyList<BeamOperand> operands,
