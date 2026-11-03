@@ -1,0 +1,18 @@
+{
+  "Scope": "Terminology correction for immutable sensitivity1078/1079 receipts; no result, code, deadline or assertion changed.",
+  "MeaningfulControls": [
+    {
+      "Mutation": "wrong-unmanaged-role",
+      "Report": "aux-sensitivity1078/wrong-unmanaged-role-report.json",
+      "ActualFailure": "Actual own-thread managed observation guard rejects the wrongly classified Aux record during the public microstate request."
+    },
+    {
+      "Mutation": "missing-normal-wait-pump",
+      "Report": "aux-sensitivity1079/missing-normal-wait-pump-report.json",
+      "ActualFailure": "System.TimeoutException at the unchanged test-level Await ACK deadline while a real normal destructor is held. Removing the control pump prevents timely real Aux ACK."
+    }
+  ],
+  "Clarification": "The earlier phrase 'not infrastructure/timeout/forced cleanup' means no outer owned-process timeout or forced cleanup. The second expected semantic failure DOES use the existing operation-level timeout assertion. Do not describe it as a non-timeout assertion failure or as an external process timeout.",
+  "Restoration": "All experimental source bytes were restored and a clean build completed before the subsequent 48/48 affected run1083. Published PR97 sources were not changed.",
+  "DraftHarness": "1078 correctly completed the first mutation, then rejected an ambiguous global replacement for the second (two occurrences) and restored/rebuilt. 1079 confines the second mutation to CompleteNormalWithControlPump989 and reuses the first genuine result; no duplicate first run."
+}

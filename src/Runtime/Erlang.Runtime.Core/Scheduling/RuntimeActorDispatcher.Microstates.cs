@@ -30,6 +30,7 @@ internal sealed partial class RuntimeActorDispatcher
             {
                 // BIF-requested exchange precedes the source local-TSD no-op.
                 if (!request.Prepare()) return null;
+                request.PublishAuxiliary989();
                 batch.State = RuntimeSchedulerAuxiliaryState420.Published;
                 for (int index = 0; index < lanes.Length; index++)
                     if (lanes[index].Identity != ownLane)

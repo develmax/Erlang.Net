@@ -25,5 +25,30 @@ public static class MicrostateFeatureChecks
         MicrostateTestAccess.Boolean(await MicrostateTestAccess.Set(runtime, Term.A(MicrostateCaseNames.Reset)), false);
         CpuStatisticsAccess.Require(MicrostateTestAccess.Parse(await MicrostateTestAccess.Sample(runtime))
             .All(value => value.Counters.Values.All(counter => counter.IsZero)));
+        await LateAuxiliary989(runtime);
     }
+
+    private static async Task LateAuxiliary989(ProcessRuntime runtime)
+    {
+        CpuStatisticsAccess.Require(!runtime.HasNativeResources524);
+        MicrostateTestAccess.Boolean(await MicrostateTestAccess.Set(runtime, CoreModules.Boolean(true)), false);
+        NativeResourceDomain524 auxiliary = runtime.NativeResources524;
+        await auxiliary.Ready989.WaitAsync(CpuStatisticsParameters.Deadline);
+        MicrostateSample first = MicrostateTestAccess.Parse(await MicrostateTestAccess.Sample(runtime))
+            .Single(value => value.Type == MicrostateCaseNames.Aux);
+        CpuStatisticsAccess.Require(first.Counters.Values.All(value => value.IsZero));
+        // Pinned late managed registration starts perf=0/TSD none. A repeated
+        // normal enable is a no-op, not permission to seed another thread.
+        MicrostateTestAccess.Boolean(await MicrostateTestAccess.Set(runtime, CoreModules.Boolean(true)), true);
+        MicrostateSample noOp = MicrostateTestAccess.Parse(await MicrostateTestAccess.Sample(runtime))
+            .Single(value => value.Type == MicrostateCaseNames.Aux);
+        CpuStatisticsAccess.Require(noOp.Identity == first.Identity && noOp.Counters.Values.All(value => value.IsZero));
+        MicrostateTestAccess.Boolean(await MicrostateTestAccess.Set(runtime, CoreModules.Boolean(false)), true);
+        MicrostateTestAccess.Boolean(await MicrostateTestAccess.Set(runtime, CoreModules.Boolean(true)), false);
+        _ = await CpuHostUserWork.Burn(CpuUserTimeProbe.CalibrateWork());
+        MicrostateSample attached = MicrostateTestAccess.Parse(await MicrostateTestAccess.Sample(runtime))
+            .Single(value => value.Type == MicrostateCaseNames.Aux);
+        CpuStatisticsAccess.Require(attached.Identity == first.Identity && attached.Counters.Values.Any(value => value > 0));
+    }
+
 }

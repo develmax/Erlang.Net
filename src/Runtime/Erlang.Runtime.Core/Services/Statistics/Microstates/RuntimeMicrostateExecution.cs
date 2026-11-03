@@ -25,9 +25,45 @@ internal static class RuntimeMicrostateExecution
         RuntimeMicrostate state,
         RuntimeMicrostateThreadIdentity thread,
         int? configuredIdentity
+    ) => AttachClassifiedWorker989(
+        owner,
+        type,
+        state,
+        thread,
+        configuredIdentity,
+        type == RuntimeMicrostateNames.Scheduler
+    );
+
+    internal static RuntimeMicrostateScope AttachManagedWorker989(
+        RuntimeMicrostateAccounting owner,
+        string type,
+        RuntimeMicrostate state,
+        RuntimeMicrostateThreadIdentity thread,
+        int? configuredIdentity
+    ) => AttachClassifiedWorker989(
+        owner,
+        type,
+        state,
+        thread,
+        configuredIdentity,
+        true
+    );
+
+    private static RuntimeMicrostateScope AttachClassifiedWorker989(
+        RuntimeMicrostateAccounting owner,
+        string type,
+        RuntimeMicrostate state,
+        RuntimeMicrostateThreadIdentity thread,
+        int? configuredIdentity,
+        bool managed
     )
     {
-        RuntimeMicrostateRecord record = owner.RegisterWorker(type, thread, configuredIdentity);
+        RuntimeMicrostateRecord record = owner.RegisterClassifiedWorker989(
+            type,
+            thread,
+            configuredIdentity,
+            managed
+        );
         RuntimeMicrostateScope? previous = current;
         RuntimeMicrostate? paused = previous?.State;
         if (previous?.Record is { } previousRecord) previousRecord.Owner.Pause(previousRecord);

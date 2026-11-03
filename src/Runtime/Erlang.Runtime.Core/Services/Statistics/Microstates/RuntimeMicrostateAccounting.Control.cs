@@ -4,10 +4,10 @@ internal sealed partial class RuntimeMicrostateAccounting
 {
     internal RuntimeMicrostateRequest CreateRequest(RuntimeMicrostateAction action, int normalCapacity) => new(this, action, normalCapacity);
 
-    private RuntimeMicrostateRecord Caller()
+    private RuntimeMicrostateRecord Caller(string expectedType = RuntimeMicrostateNames.Scheduler)
     {
         RuntimeMicrostateRecord? record = RuntimeMicrostateExecution.Current?.Record;
-        if (record is null || !record.Managed || !ReferenceEquals(record.Owner, this)
+        if (record is null || !record.Managed || record.Type != expectedType || !ReferenceEquals(record.Owner, this)
             || !ReferenceEquals(record.PhysicalThread, RuntimeMicrostateThreadIdentity.Current))
             throw new InvalidOperationException(RuntimeNormalObservationNames.Requester);
 
@@ -37,9 +37,14 @@ internal sealed partial class RuntimeMicrostateAccounting
     internal void ApplyNormal(RuntimeMicrostateRequest request) => _ = ApplyNormalSnapshot(request);
 
     internal RuntimeMicrostateSnapshot? ApplyNormalSnapshot(RuntimeMicrostateRequest request)
+        => ApplyManagedSnapshot989(request, Caller());
+
+    internal RuntimeMicrostateSnapshot? ApplyAuxiliarySnapshot989(RuntimeMicrostateRequest request)
+        => ApplyManagedSnapshot989(request, Caller(RuntimeMicrostateNames.Auxiliary));
+
+    private RuntimeMicrostateSnapshot? ApplyManagedSnapshot989(RuntimeMicrostateRequest request, RuntimeMicrostateRecord record)
     {
         RuntimeMicrostateSnapshot? result = null;
-        RuntimeMicrostateRecord record = Caller();
         lock (gate)
         {
             switch (request.Action)

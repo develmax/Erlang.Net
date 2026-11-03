@@ -1,3 +1,22 @@
+# Current compatibility boundary — Part556 (local gates complete, 2026-11-03)
+
+PR97 is merged into `main` as `881fa0cfd222c7335729f19b07c7a6e2e279a58b`. Its accepted tree equals reviewed head `12a053c843302d9890faee32fab8204ff14a45ec`. Exact-head CI passed all four workflows/six jobs, including 9,596/9,596 Windows tests, 1,321/1,321 configured original images and 176/176 regex observations. These are PR97 results; they do not certify the new Part556 source.
+
+Part556 adds managed accounting/control admission to the real lazy native-resource Aux worker. Actual worker readiness, preallocated queued control ownership, public request ACK, normal-destructor control pumping, cancellation/close and independent physical cleanup are implemented. The existing lazy topology is preserved. The 17 reviewed source/test postimages have exact candidate-to-style hash provenance and must all match the genuine final workspace build freeze before source resealing.
+
+Isolated final Debug and Release validation each passed 48/48 selected cases, with eight isolated builds and two Release prepared-helper controls. Separately, the current workspace passes seven builds, 624/624 unique affected cases (394 + 230 disjoint groups), and two Release prepared-helper controls. Reviewed metadata has 22 outputs, 24,453 checked bindings, 10,793 checked size fields, all 17 final source guards and a distinct 346-row monitor snapshot with history preserved. Actual source admissions pass all 13 plans plus MFA and Resource. Final normal build1115 is clean with 13,840 stable inputs; the 83 DLL/runtimeconfig files match the 624-case execution. These are local results, not a new full regression or fresh pinned-OTP MSACC differential. Source analysis1099 is source-only. Exact publication-head checkout/proof, review and CI remain mandatory future gates.
+
+Registry counts remain 708 registered / 180 verified full contracts / 504 pending / 24 known differences. `erlang` remains 351 present / 83 full contracts / 255 pending / 13 known differences. API and full-contract deltas are 0/0. Routes exist for all 20 `statistics/1` selectors; the whole statistics contract is not accepted.
+
+The Aux controls exercise genuine worker ownership, queued tickets, actual public accounting requests, physical callback/image/process retirement and zero final native/heap/trap census. They do not establish complete default service topology, poll/async/native-child accounting, every feature profile, complete statistics semantics or cross-platform equivalence.
+
+The original library architecture remains unchanged: OTP library modules execute as Erlang/BEAM on the .NET runtime; C# implements runtime/BIF/native integration. No full NIF module, execution of every TLS function, C++ TLS compatibility or performance improvement is claimed by this increment.
+
+# Historical checkpoints (preserved verbatim)
+
+
+Original OTP source, upstream provenance and existing license handling remain preserved. No new dependency is introduced. [Part556 validation](validation/part-556/REPORT.md) · [Summary](validation/part-556/summary.json).
+
 # Active implementation checkpoint — Part533 (2026-10-29)
 
 Part533 final local gates pass9294/9294 (+31), preserving every9263 authenticated previous CI name. Supported local guest sends, snapshots and process_info replies use explicit custody; physical queue retirement runs outside runtime monitors and actor scheduler affinity. Actual Source/originalBEAM lifetimes, fresh atomics/counters and both real native-loader whole streams/cleanup pass. Failed whole runs and meaningful controls remain preserved. API/full deltas0/0;708registered/180verified/504pending/24known. Current-head CI/review/merge are separate PR gates.

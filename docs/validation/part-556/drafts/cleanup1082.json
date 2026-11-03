@@ -1,0 +1,27 @@
+{
+  "Candidate": "D:\\Distr\\Work\\Codex\\Erlang.Net\\artifacts\\batch825\\statistics-aux-ack-controls1080b\\manifest.json",
+  "CandidateSha256": "2EED31E0B57202CC5913CA1A06EEEDD713F47F37A1F773410923D30C02824771",
+  "Verdict": "Hold pending a narrow cleanup successor; actual protocol observations are meaningful but exceptional cleanup is not independent.",
+  "Blockers": [
+    {
+      "Path": "tests/Erlang.Tests/Runtime/Native/Resources/NativeResource536Checks.cs",
+      "Method": "HeldActualAuxiliaryAcknowledgment finally block",
+      "Finding": "Initial ReleaseNative try/finally root.Dispose precedes the later independent cleanup block. If either throws, later payload/image joins, runtime/actor cleanup and GC.KeepAlive(callback) are skipped; cleanup exception masks original assertion/cancellation. awaitusing runtime is not a substitute for guaranteed callback delegate lifetime through physical destructor completion.",
+      "Required": "Track primary and each cleanup failure; always release signal then attempt native release, root release, real payload/image join, runtime/actor close and KeepAlive independently. Throw/aggregate after all mandatory attempts; do not discard original failure."
+    },
+    {
+      "Path": "tests/Erlang.Tests/Runtime/Native/Resources/NativeResource536Checks.cs",
+      "Method": "HeldActualAuxiliaryAcknowledgment setup",
+      "Finding": "Allocate and RetainRoot are before protected try. If root retention fails after native allocation, no local release of real native producer is attempted.",
+      "Required": "Move actual postallocation setup into owned cleanup region with nullable tracked root/payload; preserve one real native producer release and actual retirement. No fake root."
+    }
+  ],
+  "PositiveSourceProof": [
+    "Actual destructor is selected by native producer release plus last real retained root, with real resource domain readiness, ThreadType and Aux lane observed on callback. No forged worker flags.",
+    "Public system_flag on real Foundation actor creates actual request; inbox observed under actual domain gate, then real Completion held pending while callback blocks worker. No manual Execute/ACK/ticket mutation.",
+    "Actual caller Exit(kill) or runtime Dispose must cancel real context while ticket/process/invocation/image/VM close stay pending; release then owning worker executes ACK and real lifecycle settles.",
+    "Final checks require worker joined/domain complete, zero native bytes/resources/pending and process frames/words/blocks, trapUses0. Same deadlines/catalog and old nonGC control remain.",
+    "Does not pretend late-worker/no-autoattach or default topology is fully compatible."
+  ],
+  "Execution": "No W/source/build/VM/Git/CI operations by reviewer; actual shadow validation root-owned."
+}

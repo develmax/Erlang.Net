@@ -25,64 +25,76 @@ public sealed partial class ProcessRuntime
 
     private async ValueTask<Term> RequestMicrostates(ProcessContext context, RuntimeMicrostateAction action)
     {
-        lock (gate)
+        while (true)
         {
-            RequireEtsFoundationActor(context);
-            context.Cancellation.ThrowIfCancellationRequested();
-        }
-        string helper = action == RuntimeMicrostateAction.Gather
-            ? StatisticsTrapNames.GatherMicrostates : StatisticsTrapNames.AwaitMicrostates;
-        using StatisticsTrapAdmission source = await Modules.AdmitStatisticsTrap(context, helper,
-            action == RuntimeMicrostateAction.Gather ? 2 : 3);
-        RuntimeMicrostateRequest request = Statistics.Microstates.CreateRequest(action, ActorDispatchCapacity);
-        await using var trap = new StatisticsTrapRequest(this, context);
-        RuntimeSchedulerAuxiliaryBatch420 batch = actorDispatcher.PrepareAuxiliary420(request.Normal);
-        request.BindStatisticsTrap(batch, trap);
-        int? ownLane;
-        try
-        {
+            NativeResourceDomain524? auxiliary;
             lock (gate)
             {
                 RequireEtsFoundationActor(context);
                 context.Cancellation.ThrowIfCancellationRequested();
-                ownLane = actorDispatcher.PublishMicrostateRequest(context, batch, request);
+                auxiliary = nativeResources524;
             }
-        }
-        catch (Exception error)
-        {
-            var failures = new List<Exception> { error };
+            if (auxiliary is not null) await auxiliary.Ready989.WaitAsync(context.Cancellation);
+            string helper = action == RuntimeMicrostateAction.Gather
+                ? StatisticsTrapNames.GatherMicrostates : StatisticsTrapNames.AwaitMicrostates;
+            using StatisticsTrapAdmission source = await Modules.AdmitStatisticsTrap(context, helper,
+                action == RuntimeMicrostateAction.Gather ? 2 : 3);
+            RuntimeMicrostateRequest request = Statistics.Microstates.CreateRequest(action, ActorDispatchCapacity);
+            request.BindAuxiliary989(auxiliary?.PrepareMicrostate989(request));
+            await using var trap = new StatisticsTrapRequest(this, context);
+            RuntimeSchedulerAuxiliaryBatch420 batch = actorDispatcher.PrepareAuxiliary420(request.Normal);
+            request.BindStatisticsTrap(batch, trap);
+            int? ownLane = null;
+            bool retry = false;
             try
             {
-                batch.Abort(error);
+                lock (gate)
+                {
+                    RequireEtsFoundationActor(context);
+                    context.Cancellation.ThrowIfCancellationRequested();
+                    if (!ReferenceEquals(auxiliary, nativeResources524)) retry = true;
+                    else ownLane = actorDispatcher.PublishMicrostateRequest(context, batch, request);
+                }
             }
-            catch (Exception abort)
+            catch (Exception error)
             {
-                failures.Add(abort);
+                var failures = new List<Exception> { error };
+                try
+                {
+                    batch.Abort(error);
+                }
+                catch (Exception abort)
+                {
+                    failures.Add(abort);
+                }
+                request.AbortStatisticsTrap(error);
+
+                return await trap.FailAndDrain(failures.Count == 1 ? error : new AggregateException(failures));
             }
-            request.AbortStatisticsTrap(error);
+            // A lazy owner can be created only once. Retry before Prepare/requested
+            // exchange; prepared trap disposal settles provisional callbacks/work.
+            if (retry) continue;
+            if (ownLane is null)
+                return CoreModules.Boolean(request.Previous);
+            request.RunSourcePhase(() => batch.Work[ownLane.Value - ProcessSchedulerNames.First].Execute(ownLane.Value));
+            Term[] arguments;
+            try
+            {
+                arguments = action == RuntimeMicrostateAction.Gather
+                    ? [trap.Reference, Term.I(request.ReplyCount)]
+                    : [trap.Reference, CoreModules.Boolean(request.Previous), Term.I(request.ReplyCount)];
+            }
+            catch (Exception error)
+            {
+                return await trap.FailAndDrain(error);
+            }
 
-            return await trap.FailAndDrain(failures.Count == 1 ? error : new AggregateException(failures));
+            return await trap.RunHelper(
+                source,
+                helper,
+                request.Completion,
+                arguments
+            );
         }
-        if (ownLane is null)
-            return CoreModules.Boolean(request.Previous);
-        request.RunSourcePhase(() => batch.Work[ownLane.Value - ProcessSchedulerNames.First].Execute(ownLane.Value));
-        Term[] arguments;
-        try
-        {
-            arguments = action == RuntimeMicrostateAction.Gather
-                ? [trap.Reference, Term.I(request.ReplyCount)]
-                : [trap.Reference, CoreModules.Boolean(request.Previous), Term.I(request.ReplyCount)];
-        }
-        catch (Exception error)
-        {
-            return await trap.FailAndDrain(error);
-        }
-
-        return await trap.RunHelper(
-            source,
-            helper,
-            request.Completion,
-            arguments
-        );
     }
 }
