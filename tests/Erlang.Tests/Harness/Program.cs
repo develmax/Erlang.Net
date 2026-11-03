@@ -15897,6 +15897,26 @@ try
         NifNativeBackend::Erlang.NifNativeBackend.QueuedWallTimeSnapshotChecks.Run
     );
     Test(
+        NifNativeBackend::Erlang.NifNativeBackend.MicrostateSourceTailCaseNames.SuccessfulPhasesCase,
+        NifNativeBackend::Erlang.NifNativeBackend.MicrostateSourceTailChecks.SuccessfulPhases
+    );
+    Test(
+        NifNativeBackend::Erlang.NifNativeBackend.MicrostateSourceTailCaseNames.WithheldCloseCase,
+        NifNativeBackend::Erlang.NifNativeBackend.MicrostateSourceTailChecks.WithheldClose
+    );
+    Test(
+        NifNativeBackend::Erlang.NifNativeBackend.MicrostateSourceTailCaseNames.RunningCloseCase,
+        NifNativeBackend::Erlang.NifNativeBackend.MicrostateSourceTailChecks.RunningClose
+    );
+    Test(
+        NifNativeBackend::Erlang.NifNativeBackend.MicrostateSourceTailCaseNames.FirstFailureCase,
+        NifNativeBackend::Erlang.NifNativeBackend.MicrostateSourceTailChecks.FirstFailure
+    );
+    Test(
+        NifNativeBackend::Erlang.NifNativeBackend.MicrostateSourceTailCaseNames.FinishFailureCase,
+        NifNativeBackend::Erlang.NifNativeBackend.MicrostateSourceTailChecks.FinishFailure
+    );
+    Test(
         NifNativeBackend::Erlang.NifNativeBackend.MicrostateCaseNames.Cache,
         NifNativeBackend::Erlang.NifNativeBackend.MicrostateCacheChecks.Run
     );

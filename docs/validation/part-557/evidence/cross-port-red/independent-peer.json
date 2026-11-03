@@ -1,0 +1,105 @@
+{
+  "ArtifactOnly": true,
+  "NoBuildVmGitCiExecuted": true,
+  "OriginalSha256": "8C17AAD3CCA3724450002E9EAB43D913B011E3A350B73124B49490D4012FB17C",
+  "OwnSha256": "D433D21200CA139C824C5C005A5F69E07F436A7E7BB9B9A8BF499C2CD36E28FC",
+  "ObserverSourceSha256": "3B32CAB7A2881E42A2C0C51B3E2415EA865868245C5867BC922F0CB3398F7DB0",
+  "ObserverBeamSha256": "E536792AAAAFEE9FF8A4CA1E0B830158CB55EDC0E0C3A302B1D75214B8C4A0A9",
+  "HarnessSourceSha256": "47C294A28904B5003A933926A3CE08A33439EC1375E9B3017B97CCCF7304FD4A",
+  "RootReviewSha256": "EEE539AE232B232ED5B1973209AA17B282CC4BDD8B05F3F24F81824516C872DA",
+  "DriverDllSha256": "1270EED4C67771FBA915B656A542E30E4AC2690FC2882EF4883265C3DC43D73B",
+  "DriverSourceSha256": "FF950E351E571563C3FBE6A873E70479D2F28C6F0A0D819AC33E8003A6C16D67",
+  "Result": "Confirmed semantic RED: original both B-close reply+DOWN occur while unrelated A remains held; own neither arrives before release.",
+  "OriginalHeldSnapshot": {
+    "freed": 0,
+    "local_jobs": 1,
+    "actual_native_tid": 2362717857472,
+    "live_states": 3,
+    "released": 0,
+    "live_jobs": 2,
+    "invoked": 1,
+    "returned": 0,
+    "ready": 0
+  },
+  "OriginalFinalNative": {
+    "invoked": 2,
+    "returned": 2,
+    "freed": 2,
+    "local_jobs": 0,
+    "live_jobs": 0,
+    "ready": 1,
+    "released": 0,
+    "live_states": 1,
+    "actual_native_tid": 0
+  },
+  "OwnReason": "{queued_port_close_waited_for_unrelated_held_job,undefined,undefined}",
+  "OwnStackFrames": 4,
+  "Stages": [
+    {
+      "Name": "beam",
+      "ReceiptSha256": "16C3B93EB04697B4454437B457C7A5222E7CD83F3387BD7AEFC87D7044B4BD37",
+      "ExitCode": 0,
+      "ForcedCleanup": false,
+      "ActiveProcessesAfter": 0,
+      "ResourcesClosed": true
+    },
+    {
+      "Name": "original",
+      "ReceiptSha256": "CF10398E4F3D6A75AB7C6FA670ADFDAD51C3AA52BA9907358C7DD373B986D348",
+      "ExitCode": 0,
+      "ForcedCleanup": false,
+      "ActiveProcessesAfter": 0,
+      "ResourcesClosed": true
+    },
+    {
+      "Name": "build",
+      "ReceiptSha256": "CE09F5B33FC2CFF4B8EC9C70FCC70E3C845FDF5313F5FE9CB065CD54D686F6BB",
+      "ExitCode": 0,
+      "ForcedCleanup": false,
+      "ActiveProcessesAfter": 0,
+      "ResourcesClosed": true
+    },
+    {
+      "Name": "own",
+      "ReceiptSha256": "77AD07E65D15FEE7EC84B07CF5D791A17CFFB0BB7C7196DB0C2906C89BB1F4C3",
+      "ExitCode": 0,
+      "ForcedCleanup": false,
+      "ActiveProcessesAfter": 0,
+      "ResourcesClosed": true
+    }
+  ],
+  "ProviderProfile": "OFFICIAL_WINDOWS_ARCHIVE_FULL_6427",
+  "ProviderDeclaredInventoryCount": 6427,
+  "CleanupProof": "Own run rethrows this exact original body error only after all seven independently captured cleanup actions return. NativeJoin and final predicates execute before rethrow. Harness then actually unloads fixture, joins actor and await-using VM; owned exit0/unforced/Job0 confirms physical family cleanup. Own final native map is not separately exported on failure; do not claim directly recorded native final map.",
+  "SourceHashes": [
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Drivers/ErlDriverHostEngine420.Shutdown.cs",
+      "Sha256": "A26BFBBEA744F3B2DAF1B62C197C1A1C9F19115676DCA14FA12B74F0F2E674FD"
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Drivers/ErlDriverAsyncServices420.PortRetirement1200.cs",
+      "Sha256": "3C648BCC108AB2B39B0BBA1F713465BDD09E7CCC0A0DF0E86DB98FC89BD965C7"
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Drivers/ErlDriverHostEngine420.Requests.cs",
+      "Sha256": "F95D211CF2326B1E6E895000FE70AF8B27E4288A95D20566E7598B13F18F966E"
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Native/Drivers/DriverParentPeerTransport422.cs",
+      "Sha256": "19EFDC4020492B30FC0CFF63E976C47127021B983A6C9C1BC5D11483003CB8C9"
+    }
+  ],
+  "SourceCause": "RetirePort awaits async.RemovePortAsync1200(port) pending job.Done tasks before emitting PortStopped. Parent public lifetime relies on physical ACK, coupling B logical close to its queued native job behind held A.",
+  "FixConstraints": [
+    "Logical closed event follows actual stop and retires public usability once; never forge physical Stopped.",
+    "Retain real row/data/image/PDL through accepted jobs/callbacks. Closed queued job frees without ready callback: final ready1/freed2.",
+    "VM close, driver unload and kill preserve physical Stopped/drain after logical DOWN.",
+    "Retained asyncReady lookup cannot expose logically closed port; duplicate/failed-start settles both domains."
+  ],
+  "Limits": [
+    "No TID normalization/raw ETF rewriting.",
+    "Process exit0 intentionally captures real Erlang semantic error; not a passing comparison.",
+    "This audit did not independently rehash6427 provider files or execute anything.",
+    "Root proposed1311 source not yet reviewed."
+  ]
+}

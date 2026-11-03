@@ -1,0 +1,137 @@
+{
+  "ArtifactOnly": true,
+  "NoBuildVmGitCiExecuted": true,
+  "Result": "Finite force-unload behavior matches; complete raw output is NOT equal and full exception stack is NOT equal across capture-vs-HOST invocation contexts.",
+  "OriginalEtfSha256": "5AC9094704E1A0AEF74161FAA5F6838A963E8EB4ADBCF77BE39A40857FD19FBB",
+  "OwnEtfSha256": "3BB293D63CBE5D4BE8EB14ACFE83328DD8B9026B07C27AA24B40F19E77E81FCB",
+  "RawWholeEqual": false,
+  "ObserverSourceSha256": "4AB3EC95DD0F60656FEE001D7911B78CF21CABAA954E4310D822F7BF650E5AC2",
+  "ObserverBeamSha256": "7EBFF674B1799A70CE44C13994338B9322875A9BE4A1CA71560539DA32ECCCEC",
+  "HarnessSourceSha256": "0C8CB58EA1A8B7568AA679D9BC29D047737BF36F3B517D53200F6BE0F3239747",
+  "RootReviewSha256": "53532B169D33C01CC4800B0829CB88E08F6F71EAA5B5180552A32643961C1C11",
+  "AllFixedFieldsEqual": [
+    "witnesses",
+    "baseline",
+    "root_owned_sole_load",
+    "queued_b",
+    "actual_thread_pool_size",
+    "driver_unloaded_observed",
+    "port_count_before",
+    "cleanup",
+    "both_ports_dead"
+  ],
+  "FiveActualWitnesses": {
+    "a_down": "driver_unloaded",
+    "b_down": "driver_unloaded",
+    "a_exit": "driver_unloaded",
+    "b_exit": "driver_unloaded",
+    "driver_down": "unloaded"
+  },
+  "EventOrderChecks": [
+    {
+      "VM": "Original",
+      "ObservedEventKinds": [
+        "EXIT:firstObservedPort",
+        "DOWN:firstObservedPort",
+        "EXIT:secondObservedPort",
+        "DOWN:secondObservedPort",
+        "DOWN:driver"
+      ],
+      "AllFiveWitnesses": true,
+      "DistinctPorts": true,
+      "DistinctMonitorRefs": true,
+      "DriverRefMatchesActualTryUnloadRef": true,
+      "OpaquePortAndRefValuesUnmodified": true
+    },
+    {
+      "VM": "Own",
+      "ObservedEventKinds": [
+        "EXIT:firstObservedPort",
+        "DOWN:firstObservedPort",
+        "EXIT:secondObservedPort",
+        "DOWN:secondObservedPort",
+        "DOWN:driver"
+      ],
+      "AllFiveWitnesses": true,
+      "DistinctPorts": true,
+      "DistinctMonitorRefs": true,
+      "DriverRefMatchesActualTryUnloadRef": true,
+      "OpaquePortAndRefValuesUnmodified": true
+    }
+  ],
+  "TryUnload": "Both{ok,pending_driver,actualVMReference}; each driverDOWN uses its same reference",
+  "PostUnloadInfoException": {
+    "ClassReasonEqual": true,
+    "Class": "error",
+    "Reason": "badarg",
+    "OriginalFrames": 8,
+    "OwnFrames": 6,
+    "AllSixOwnFramesExactlyOriginalPrefix": true,
+    "OriginalExtraFrames": [
+      [
+        "async_force_unload1320",
+        "attempt",
+        1
+      ],
+      [
+        "async_force_unload1320",
+        "capture",
+        2
+      ]
+    ],
+    "ContextDifference": "Original capture/2 calls attempt(run); own HOST actor directly invokes run. No suffix stripped or normalized in stored ETF."
+  },
+  "Stages": [
+    {
+      "Name": "beam",
+      "ReceiptSha256": "108484EF8E46CE332B1AC5FCE5B0FA46685554A83BBC822C03B6F6CEA3A89EF1",
+      "ExitCode": 0,
+      "JobActive": 0,
+      "ForcedCleanup": false,
+      "ResourcesClosed": true
+    },
+    {
+      "Name": "original",
+      "ReceiptSha256": "8DE250A2CB781A1E3A23B08E8D35212A12ACFF1AC1E83A1536849EB28C1872C3",
+      "ExitCode": 0,
+      "JobActive": 0,
+      "ForcedCleanup": false,
+      "ResourcesClosed": true
+    },
+    {
+      "Name": "build",
+      "ReceiptSha256": "A30B611E24F2D19F186A54262B74CEBA264F5973159F9EAA416CC35ADDCF4774",
+      "ExitCode": 0,
+      "JobActive": 0,
+      "ForcedCleanup": false,
+      "ResourcesClosed": true
+    },
+    {
+      "Name": "own",
+      "ReceiptSha256": "D9F04AAAB24E9E8A3FAD92C49E63AC78B94A6FD036DA1E3324260A46B8A5B58A",
+      "ExitCode": 0,
+      "JobActive": 0,
+      "ForcedCleanup": false,
+      "ResourcesClosed": true
+    }
+  ],
+  "PackageManifestSha256": "8C5CCAC11F696786F32BE77F7B515F8E768E75CDF7F7799325569293F6152C8C",
+  "PackageAllMembersMatch": true,
+  "CopiedRuntimeAssemblyHashes": {
+    "Erlang.Runtime.dll": "A167128A8B1A4EDAD0CE68F97E7160E3E20EEBC775F5A3D41EA1C04DAA166F4A",
+    "Erlang.Terms.dll": "A48B94CF8A62FC4A781A0BDD0E73D439455A4F1E75A79E88EE2A5C8D92188C82",
+    "Erlang.Serialization.dll": "70D262165BB832EA2DB0110D041C5D51D11C66424514A142D38C681EDD5CCE7E",
+    "Erlang.Otp.Stdlib.dll": "5DD525BC65EEE793CB8488F8E4B85A53B13684100CB09F9A5D67D4D541F326EA"
+  },
+  "RootReportedInputsStable": true,
+  "ProviderProfile": "OFFICIAL_WINDOWS_ARCHIVE_FULL_6427",
+  "ProviderDeclaredFiles": 6427,
+  "Limits": [
+    "Local Debug actual A1 with unchanged genuine1137 fixture only; no Release/Linux/full statistics/whole contract/CI claim.",
+    "Opaque Ports/References remain raw, VM-relative. Event comparisons use first/second observed-port roles, not unexported A/B identity claims.",
+    "Snapshot native TIDs are0 in baseline/queued B, checked unchanged; no measured positive held-A TID exported here and no cross-VM TID equality claim.",
+    "No native post-unload counter snapshot exists; actual unload monitor, unchanged C finish guard, strict post-run not_loaded and physical VM/process cleanup establish bounded lifecycle.",
+    "Provider6427 declaration retained from Root receipt; this peer did not rehash entire external provider.",
+    "Old1334 fixture-name failure retained; no changed witness count/reason/deadline."
+  ]
+}

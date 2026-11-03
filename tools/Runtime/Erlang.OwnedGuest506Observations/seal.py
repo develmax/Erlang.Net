@@ -895,6 +895,8 @@ DEPENDENCIES = [
     'docs/validation/native-gc825/pr97-helper-shutdown1012-source.json',
     'docs/validation/native-gc825/pr97-canonical-bif-final-source1047.json',
     'docs/validation/native-gc825/pr97-aux-final-source1098.json',
+    'docs/validation/native-gc825/part557-final-source1304.json',
+    'docs/validation/native-gc825/part557-logical-final-source1354.json',
 ]
 
 

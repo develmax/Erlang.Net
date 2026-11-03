@@ -281,6 +281,7 @@ internal sealed partial class RuntimeDriverFrontend422
         {
             closing = true;
             ready = false;
+            SealAsyncAccounting1170();
             retirementRequested.TrySetResult();
 
             return retirement;

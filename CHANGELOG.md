@@ -176,4 +176,4 @@ Append numbered English entries only to the last volume. Start the next sequenti
 
 - [0101.md](docs/changelog/0101.md) - Part555 NIF observer and backend validation repairs (closed; continues in0102)
 
-- [0102.md](docs/changelog/0102.md) - Part555 compressed ETS ownership and current integration validation (active)
+- [0102.md](docs/changelog/0102.md) - Parts555-557: compressed ETS ownership, real Aux/native async accounting and logical port closure (active)

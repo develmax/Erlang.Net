@@ -6,6 +6,7 @@ internal static class RuntimeMicrostateNames
     internal const string DirtyCpu = "dirty_cpu_scheduler";
     internal const string DirtyIo = "dirty_io_scheduler";
     internal const string Auxiliary = "aux";
+    internal const string Async = "async";
     internal const string Reset = "reset";
     internal const string Type = "type";
     internal const string Identity = "id";

@@ -7,6 +7,8 @@ internal sealed partial class ErlDriverHostEngine420
         cancellation.ThrowIfCancellationRequested();
         if (request.Kind != ErlDriverHostKind420.Request || request.Name is not null && request.Operation != ErlDriverHostOperation420.Load)
             throw new InvalidDataException(ErlDriverHostNames420.InvalidFrame);
+        if (IsAsyncAccounting1151(request.Operation))
+            return await HandleAsyncAccounting1151(request).ConfigureAwait(false);
         byte[]? data = null;
         int result = 0;
         switch (request.Operation)

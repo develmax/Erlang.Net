@@ -32,5 +32,10 @@ internal enum ErlDriverHostOperation420
     CommitChild455,
     AbortChild455,
     DecodeExternal455,
-    DistributionOutput457
+    DistributionOutput457,
+    AsyncAccountingCapture1151,
+    AsyncAccountingApply1151,
+    AsyncAccountingFinish1151,
+    AsyncAccountingRelease1151,
+    PortClosed1311
 }

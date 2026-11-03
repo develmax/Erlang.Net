@@ -1,3 +1,17 @@
+# Current decisions - Part557 (local gates complete, 2026-11-03)
+
+Part556 is merged at main099042a95b429eed11a5a37482a21277bafeced3; post-merge CI41600159974 is green. Part557 is a separate locally validated increment and is not yet published/merged.
+
+Real persistent native async workers now participate in authenticated accounting and physical cleanup. Public/logical port closure is independent of late native job retirement; driver-image and PDL ownership remain until physical completion. The reproduced queued-B/held-A difference is fixed, with public port_info/ports/DDLL counts checked against pinned OTP.
+
+Actual final native observations pass7/7 in Debug1347 and Release1348. Normal builds pass;97 distinct affected tests pass in Debug1342 and Release1351. The isolated catalog is9601; no full9601 run is claimed. The force-unload probe matches five required notifications but retains the different capture/host stack contexts. Cohort1262 failed after3600.047seconds with zero tests; no speedup or enabled prototype is claimed.
+
+Accepted counts remain708 registered /180 full /504 pending /24 known differences; erlang351 present /83 full /255 pending /13 known. API/full-contract deltas0/0. This closes bounded implementation/regression checks, not the whole statistics contract. Last full-suite/readiness evidence remains historical until exact-head CI completes; partial97 reports cannot replace canonical full-suite readiness evidence.
+
+[Part557 report](validation/part-557/REPORT.md) · [Summary](validation/part-557/summary.json). Prior checkpoints below retain their original scope.
+
+Keep upstream Erlang/BEAM libraries and C# runtime/native integration. Separate logical public death from physical native ownership. Reuse the genuine existing bridge and driver fixture. Restrict compiler ancillary retirement to its explicitly reviewed owner profile; generic runtime cleanup remains strict. No new production dependency or license change is introduced.
+
 # Current decisions — Part556 (local gates complete, 2026-11-03)
 
 PR97 is merged into `main` as `881fa0cfd222c7335729f19b07c7a6e2e279a58b`. Its accepted tree equals reviewed head `12a053c843302d9890faee32fab8204ff14a45ec`. Exact-head CI passed all four workflows/six jobs, including 9,596/9,596 Windows tests, 1,321/1,321 configured original images and 176/176 regex observations. These are PR97 results; they do not certify the new Part556 source.
