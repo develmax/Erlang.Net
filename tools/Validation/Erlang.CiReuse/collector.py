@@ -79,6 +79,8 @@ def normalize_run(api, run, head, repository):
     if run.get("head_repository", {}).get("full_name") != repository:
         raise ValueError("Workflow head belongs to another repository")
     attempt = run["run_attempt"]
+    if attempt != 1:
+        raise ValueError("Repeated attempt cannot prove absence of an unexplained earlier failure")
     # Re-fetch the concrete run; list results alone do not establish current completion.
     fresh = api.get("actions/runs/" + str(run["id"]))
     if fresh["run_attempt"] != attempt or fresh["head_sha"] != head:
@@ -122,7 +124,17 @@ def collect(root, fingerprint, job):
                               stdout=subprocess.PIPE, stderr=subprocess.PIPE).returncode == 0
     tree = git(root, "rev-parse", commit + "^{tree}")
     tested_tree = git(root, "rev-parse", head + "^{tree}")
+    equivalent = {line.split()[0] for line in git(root, "log", "--format=%H %T", commit).splitlines()
+                  if len(line.split()) == 2 and line.split()[1] == tree} - {commit, head}
+    if len(equivalent) > 10:
+        raise ValueError("Equivalent-tree history exceeds bounded evidence collection")
+    for previous in sorted(equivalent):
+        history = api.pages("actions/runs?head_sha=" + urllib.parse.quote(previous), "workflow_runs")
+        if any(run.get("path") in REQUIRED and run.get("conclusion") != "success" for run in history):
+            raise ValueError("Earlier equivalent-tree validation is unsuccessful or incomplete")
     runs = api.pages("actions/runs?head_sha=" + urllib.parse.quote(head), "workflow_runs")
+    if any(run.get("path") in REQUIRED and run.get("conclusion") in ("failure", "timed_out", "cancelled", "action_required") for run in runs):
+        raise ValueError("Unsuccessful tested-head evidence requires full validation")
     selected = []
     for path in REQUIRED:
         matches = [run for run in runs if run.get("path") == path and run.get("event") in EVENTS[path]]

@@ -55,12 +55,16 @@ class WorkflowLifecycleTests(unittest.TestCase):
                                  path=path, event=sorted(EVENTS[path])[0], status="completed", conclusion="success"))
 
             class API:
+                prior_failure = False
+
                 def __init__(self, repository, token):
                     pass
 
                 def pages(self, path, key=None):
                     if path == "actions/runs?head_sha=merge":
                         return []
+                    if path == "actions/runs?head_sha=prior":
+                        return [dict(path=".github/workflows/validate.yml", conclusion="failure")]
                     if path == "commits/merge/pulls":
                         return [dict(number=102, merged_at="2026-11-03", merge_commit_sha="merge")]
                     if path.startswith("actions/runs?head_sha="):
@@ -89,12 +93,21 @@ class WorkflowLifecycleTests(unittest.TestCase):
             def git(root, *args):
                 if args[0] == "show":
                     return "base head"
+                if args[0] == "log":
+                    return "prior tree" if API.prior_failure else "head tree"
                 return "tree"
 
             env.update(GITHUB_EVENT_NAME="push", GITHUB_SHA="merge", GITHUB_REF="refs/heads/main", GH_TOKEN="test-only")
             with patch.dict(os.environ, env), patch.object(collector, "GitHub", API), patch.object(collector, "git", git), \
                     patch.object(collector.subprocess, "run", return_value=type("Result", (), {"returncode": 0})()):
                 result = collector.collect(Path(folder), fingerprint, "local-regressions")
+                API.prior_failure = True
+                with self.assertRaisesRegex(ValueError, "equivalent-tree"):
+                    collector.collect(Path(folder), fingerprint, "local-regressions")
+                API.prior_failure = False
+                runs[0]["run_attempt"] = 2
+                with self.assertRaisesRegex(ValueError, "Repeated attempt"):
+                    collector.collect(Path(folder), fingerprint, "local-regressions")
             self.assertTrue(result["Reuse"], result)
             self.assertEqual(result["Origin"]["Artifact"], 99)
 

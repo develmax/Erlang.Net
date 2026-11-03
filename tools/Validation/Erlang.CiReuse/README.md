@@ -17,7 +17,8 @@ two-parent merge, tested base ancestry, identical complete Git tree, identical
 fingerprint, latest successful attempts of all five workflows and their exact
 job matrix (including manually dispatched integrated Linux NIF), plus the
 receipt artifact's origin, attempt and official ZIP digest. Existing failed,
-timed-out, cancelled or action-required validation of the merge prevents reuse.
+timed-out, cancelled or action-required validation of the merge or an earlier identical tree prevents reuse. Repeated
+workflow attempts also fall back because an earlier failure is not explained.
 Missing metadata, API access, artifacts or environment identity falls back to
 the complete existing body. A changed runner image also runs the full body.
 
