@@ -313,6 +313,7 @@ internal static class StringModernExecution
                         cp = next;
                         rest = following;
                         count--;
+                        await context.ReduceAsync();
                         continue;
                     }
                     Term cluster;
@@ -416,6 +417,7 @@ internal static class StringModernExecution
                 cp = next;
                 rest = following;
                 count--;
+                await context.ReduceAsync();
                 continue;
             }
             Term cluster;

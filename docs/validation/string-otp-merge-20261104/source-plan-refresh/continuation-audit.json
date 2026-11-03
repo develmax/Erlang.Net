@@ -1,7 +1,216 @@
 {
   "Status": "SOURCE_IDENTITIES_ONLY_NO_EXECUTION_OR_PROMOTION",
-  "PriorAudit": "docs/validation/string-otp-merge-20261104/source-plan-refresh/8D7310B36940552E0FD107206CA791F17C0E9A9C5B7CE12BE11564542A6C738F.json",
-  "ArchivedOriginals": {},
-  "Changes": [],
+  "PriorAudit": "docs/validation/string-otp-merge-20261104/source-plan-refresh/7AEF9F14BF9A0396E24EB27F2FBADBBD67ED7A38BC39BFF895E506D4119E6DD4.json",
+  "ArchivedOriginals": {
+    "tools/Native/Erlang.NifIntegratedObservations/inputs.json": "docs/validation/string-otp-merge-20261104/source-plan-refresh/0A47CE28309A60E8DF3D808E4C48202FE093E3871C7676515A0BFBE89A5CDE2F.json",
+    "tools/Native/Erlang.NifPendingVarargsObservations/reviewed-source-plan.json": "docs/validation/string-otp-merge-20261104/source-plan-refresh/6B195C0F8E6666A1D8D599132EA01DA2750CFA4B681A54EEA3D225DB08616649.json",
+    "tools/Native/Erlang.NifReallocationObservations/SOURCE-PLAN.json": "docs/validation/string-otp-merge-20261104/source-plan-refresh/AD41CBDE1C9E830F2E3B10FA963CF5CD51ACD07F3FE5B48BB43C44F4D14B9E5D.json",
+    "tools/Native/Erlang.NifResource529Observations/source-plan.json": "docs/validation/string-otp-merge-20261104/source-plan-refresh/D4E8EF364D706428FA96F4F76B4138CF28AD26D53CAF2F5C006A72DF709C8425.json",
+    "tools/Runtime/Erlang.BeamFunction542Observations/inputs.json": "docs/validation/string-otp-merge-20261104/source-plan-refresh/C95F038DB9F66C1DBF0B9F3B6C91507306D6A266B881CF75C5EEDA3EF6EB967E.json",
+    "tools/Runtime/Erlang.EtsDispatch540Observations/inputs.json": "docs/validation/string-otp-merge-20261104/source-plan-refresh/5EE612F2C55589B2CFF4B9CA3EFE07B4F681BDB7E3792706C22EA184DF72CA34.json",
+    "tools/Runtime/Erlang.MatchSaved634Observations/inputs.json": "docs/validation/string-otp-merge-20261104/source-plan-refresh/B6763E31A7FCC37E35924E8AF2DA77C7E276AB47B62F0DE706F9ABABA49518FD.json",
+    "tools/Runtime/Erlang.MonitorOriginal645Observations/inputs.json": "docs/validation/string-otp-merge-20261104/source-plan-refresh/95B2BA644E481821DCBC08AC61E56BDC8BF658A5973A8F26DC90FF41BC154E50.json",
+    "tools/Runtime/Erlang.OwnedGuest506Observations/source-plan.json": "docs/validation/string-otp-merge-20261104/source-plan-refresh/2AB0990DCD03BE74CB9643DAAEFBA20F2EADEF765B553C8FAFDDF31BF66D09C1.json"
+  },
+  "Changes": [
+    {
+      "Manifest": "docs/validation/string-otp-merge-20261104/source-plan-refresh/Erlang.MonitorOriginal645Observations-current-source.json",
+      "Path": "tests/Erlang.Tests/Harness/Program.cs",
+      "Before": "BF6C0DB257A4979046C8C75F5C3151F76B9E127B5DF03360459F747F9F549AAC",
+      "After": "D86452343FA23A86F32FAAB5724398D8922B044215397E1660722CC1E177805C"
+    },
+    {
+      "Manifest": "tools/Native/Erlang.NifIntegratedObservations/inputs.json",
+      "Path": "tests/Erlang.Tests/Harness/Program.cs",
+      "Before": "BF6C0DB257A4979046C8C75F5C3151F76B9E127B5DF03360459F747F9F549AAC",
+      "After": "D86452343FA23A86F32FAAB5724398D8922B044215397E1660722CC1E177805C"
+    },
+    {
+      "Manifest": "tools/Native/Erlang.NifPendingVarargsObservations/reviewed-source-plan.json",
+      "Path": "src/Otp/Managed/Erlang.Otp.Stdlib/Text/StringModernExecution.cs",
+      "Before": "62AD74C9092E816F82A998E9355B6DD3889F246089578D1308CA1358B2906681",
+      "After": "822628E33A48242981B83C121E6F4BBB11CE188A6E3AB2B3F6C1CA7FDC3010DD"
+    },
+    {
+      "Manifest": "tools/Native/Erlang.NifPendingVarargsObservations/reviewed-source-plan.json",
+      "Path": "tests/Erlang.Tests/Harness/Program.cs",
+      "Before": "BF6C0DB257A4979046C8C75F5C3151F76B9E127B5DF03360459F747F9F549AAC",
+      "After": "D86452343FA23A86F32FAAB5724398D8922B044215397E1660722CC1E177805C"
+    },
+    {
+      "Manifest": "tools/Native/Erlang.NifPendingVarargsObservations/reviewed-source-plan.json",
+      "Path": "tools/Native/Erlang.NifIntegratedObservations/inputs.json",
+      "Before": "0A47CE28309A60E8DF3D808E4C48202FE093E3871C7676515A0BFBE89A5CDE2F",
+      "After": "4264FF251A986EA3823A180A5347084316445198215060F772290E6CF062462E"
+    },
+    {
+      "Manifest": "tools/Native/Erlang.NifReallocationObservations/SOURCE-PLAN.json",
+      "Path": "tests/Erlang.Tests/Harness/Program.cs",
+      "Before": "BF6C0DB257A4979046C8C75F5C3151F76B9E127B5DF03360459F747F9F549AAC",
+      "After": "D86452343FA23A86F32FAAB5724398D8922B044215397E1660722CC1E177805C"
+    },
+    {
+      "Manifest": "tools/Native/Erlang.NifReallocationObservations/SOURCE-PLAN.json",
+      "Path": "tools/Native/Erlang.NifPendingVarargsObservations/reviewed-source-plan.json",
+      "Before": "6B195C0F8E6666A1D8D599132EA01DA2750CFA4B681A54EEA3D225DB08616649",
+      "After": "EA9F786548BE553BBDBF6EA2AC0BE53CB68F5879307C7B0B90F9D9F340BCB889"
+    },
+    {
+      "Manifest": "tools/Native/Erlang.NifResource529Observations/source-plan.json",
+      "Path": "tests/Erlang.Tests/Harness/Program.cs",
+      "Before": "BF6C0DB257A4979046C8C75F5C3151F76B9E127B5DF03360459F747F9F549AAC",
+      "After": "D86452343FA23A86F32FAAB5724398D8922B044215397E1660722CC1E177805C"
+    },
+    {
+      "Manifest": "tools/Native/Erlang.NifResource529Observations/source-plan.json",
+      "Path": "src/Otp/Managed/Erlang.Otp.Stdlib/Text/StringModernExecution.cs",
+      "Before": "62AD74C9092E816F82A998E9355B6DD3889F246089578D1308CA1358B2906681",
+      "After": "822628E33A48242981B83C121E6F4BBB11CE188A6E3AB2B3F6C1CA7FDC3010DD"
+    },
+    {
+      "Manifest": "tools/Runtime/Erlang.BeamFunction542Observations/inputs.json",
+      "Path": "tests/Erlang.Tests/Harness/Program.cs",
+      "Before": "BF6C0DB257A4979046C8C75F5C3151F76B9E127B5DF03360459F747F9F549AAC",
+      "After": "D86452343FA23A86F32FAAB5724398D8922B044215397E1660722CC1E177805C"
+    },
+    {
+      "Manifest": "tools/Runtime/Erlang.EtsDispatch540Observations/inputs.json",
+      "Path": "tests/Erlang.Tests/Harness/Program.cs",
+      "Before": "BF6C0DB257A4979046C8C75F5C3151F76B9E127B5DF03360459F747F9F549AAC",
+      "After": "D86452343FA23A86F32FAAB5724398D8922B044215397E1660722CC1E177805C"
+    },
+    {
+      "Manifest": "tools/Runtime/Erlang.MatchSaved634Observations/inputs.json",
+      "Path": "tests/Erlang.Tests/Harness/Program.cs",
+      "Before": "BF6C0DB257A4979046C8C75F5C3151F76B9E127B5DF03360459F747F9F549AAC",
+      "After": "D86452343FA23A86F32FAAB5724398D8922B044215397E1660722CC1E177805C"
+    },
+    {
+      "Manifest": "tools/Runtime/Erlang.OwnedGuest506Observations/source-plan.json",
+      "Path": "tests/Erlang.Tests/Harness/Program.cs",
+      "Before": "BF6C0DB257A4979046C8C75F5C3151F76B9E127B5DF03360459F747F9F549AAC",
+      "After": "D86452343FA23A86F32FAAB5724398D8922B044215397E1660722CC1E177805C"
+    },
+    {
+      "Manifest": "tools/Runtime/Erlang.OwnedGuest506Observations/source-plan.json",
+      "Path": "tools/Runtime/Erlang.MatchSaved634Observations/inputs.json",
+      "Before": "B6763E31A7FCC37E35924E8AF2DA77C7E276AB47B62F0DE706F9ABABA49518FD",
+      "After": "D9AF341757333DAD41503CECEB4C629D75E5639AD3CD606D6152EE8BF56B8309"
+    },
+    {
+      "Manifest": "tools/Runtime/Erlang.OwnedGuest506Observations/source-plan.json",
+      "Path": "tools/Runtime/Erlang.EtsDispatch540Observations/inputs.json",
+      "Before": "5EE612F2C55589B2CFF4B9CA3EFE07B4F681BDB7E3792706C22EA184DF72CA34",
+      "After": "EE397C737D370477837CF563EA494350CFFAF886E6B09A6057760EFC398AAFA8"
+    },
+    {
+      "Manifest": "tools/Runtime/Erlang.OwnedGuest506Observations/source-plan.json",
+      "Path": "tools/Runtime/Erlang.MonitorOriginal645Observations/inputs.json",
+      "Before": "95B2BA644E481821DCBC08AC61E56BDC8BF658A5973A8F26DC90FF41BC154E50",
+      "After": "130B5AEAB2C4D39C84D41F3DEB73E98E8F96D5C841C9FC54F6096183D351F40C"
+    },
+    {
+      "Manifest": "tools/Runtime/Erlang.OwnedGuest506Observations/source-plan.json",
+      "Path": "tools/Runtime/Erlang.BeamFunction542Observations/inputs.json",
+      "Before": "C95F038DB9F66C1DBF0B9F3B6C91507306D6A266B881CF75C5EEDA3EF6EB967E",
+      "After": "1A16869AE8788D90E2D38FF9B1CA1429A8A383F0138AFFD887FC0500B04FFA59"
+    },
+    {
+      "Manifest": "tools/Runtime/Erlang.OwnedGuest506Observations/source-plan.json",
+      "Path": "tools/Native/Erlang.NifIntegratedObservations/inputs.json",
+      "Before": "0A47CE28309A60E8DF3D808E4C48202FE093E3871C7676515A0BFBE89A5CDE2F",
+      "After": "4264FF251A986EA3823A180A5347084316445198215060F772290E6CF062462E"
+    },
+    {
+      "Manifest": "tools/Native/Erlang.NifIntegratedObservations/inputs.json",
+      "Path": "tools/Native/Erlang.NifResource529Observations/source-plan.json",
+      "Before": "D4E8EF364D706428FA96F4F76B4138CF28AD26D53CAF2F5C006A72DF709C8425",
+      "After": "842B2EC488BA5D138B9830E1DA89E3343FE263F7780816C11162CEB4949A6FFA"
+    },
+    {
+      "Manifest": "tools/Native/Erlang.NifPendingVarargsObservations/reviewed-source-plan.json",
+      "Path": "tools/Native/Erlang.NifIntegratedObservations/inputs.json",
+      "Before": "4264FF251A986EA3823A180A5347084316445198215060F772290E6CF062462E",
+      "After": "931DECA28C2B83873FDCB944ECF619E333129244A2CF5AC88608516AAEF948BA"
+    },
+    {
+      "Manifest": "tools/Native/Erlang.NifPendingVarargsObservations/reviewed-source-plan.json",
+      "Path": "tools/Native/Erlang.NifResource529Observations/source-plan.json",
+      "Before": "D4E8EF364D706428FA96F4F76B4138CF28AD26D53CAF2F5C006A72DF709C8425",
+      "After": "842B2EC488BA5D138B9830E1DA89E3343FE263F7780816C11162CEB4949A6FFA"
+    },
+    {
+      "Manifest": "tools/Native/Erlang.NifPendingVarargsObservations/reviewed-source-plan.json",
+      "Path": "tools/Runtime/Erlang.BeamFunction542Observations/inputs.json",
+      "Before": "C95F038DB9F66C1DBF0B9F3B6C91507306D6A266B881CF75C5EEDA3EF6EB967E",
+      "After": "1A16869AE8788D90E2D38FF9B1CA1429A8A383F0138AFFD887FC0500B04FFA59"
+    },
+    {
+      "Manifest": "tools/Native/Erlang.NifPendingVarargsObservations/reviewed-source-plan.json",
+      "Path": "tools/Runtime/Erlang.EtsDispatch540Observations/inputs.json",
+      "Before": "5EE612F2C55589B2CFF4B9CA3EFE07B4F681BDB7E3792706C22EA184DF72CA34",
+      "After": "EE397C737D370477837CF563EA494350CFFAF886E6B09A6057760EFC398AAFA8"
+    },
+    {
+      "Manifest": "tools/Native/Erlang.NifPendingVarargsObservations/reviewed-source-plan.json",
+      "Path": "tools/Runtime/Erlang.MatchSaved634Observations/inputs.json",
+      "Before": "B6763E31A7FCC37E35924E8AF2DA77C7E276AB47B62F0DE706F9ABABA49518FD",
+      "After": "D9AF341757333DAD41503CECEB4C629D75E5639AD3CD606D6152EE8BF56B8309"
+    },
+    {
+      "Manifest": "tools/Native/Erlang.NifPendingVarargsObservations/reviewed-source-plan.json",
+      "Path": "tools/Runtime/Erlang.MonitorOriginal645Observations/inputs.json",
+      "Before": "95B2BA644E481821DCBC08AC61E56BDC8BF658A5973A8F26DC90FF41BC154E50",
+      "After": "130B5AEAB2C4D39C84D41F3DEB73E98E8F96D5C841C9FC54F6096183D351F40C"
+    },
+    {
+      "Manifest": "tools/Native/Erlang.NifPendingVarargsObservations/reviewed-source-plan.json",
+      "Path": "tools/Runtime/Erlang.OwnedGuest506Observations/source-plan.json",
+      "Before": "2AB0990DCD03BE74CB9643DAAEFBA20F2EADEF765B553C8FAFDDF31BF66D09C1",
+      "After": "CBC65455D560E0673A380B6E76F1767861D86F23AE6571D3B12C5296C31D6ADC"
+    },
+    {
+      "Manifest": "tools/Native/Erlang.NifReallocationObservations/SOURCE-PLAN.json",
+      "Path": ".github/workflows/nif-pending-native.yml",
+      "Before": "D2638B64A44A44B68521B96FF2152EC3B4FF2382A659A2532E373DC7A348FC46",
+      "After": "1259489D47CD8C173BF2B513556B5B5D5DC0581BE61695FCBC9F7365A9966650"
+    },
+    {
+      "Manifest": "tools/Native/Erlang.NifReallocationObservations/SOURCE-PLAN.json",
+      "Path": "tools/Native/Erlang.NifPendingVarargsObservations/reviewed-source-plan.json",
+      "Before": "EA9F786548BE553BBDBF6EA2AC0BE53CB68F5879307C7B0B90F9D9F340BCB889",
+      "After": "23BE8DDE1CDF18879364ED31561DD3E16E3F2AE35164554AB5FEAEF1BF9C768E"
+    },
+    {
+      "Manifest": "tools/Runtime/Erlang.OwnedGuest506Observations/source-plan.json",
+      "Path": "tools/Native/Erlang.NifIntegratedObservations/inputs.json",
+      "Before": "4264FF251A986EA3823A180A5347084316445198215060F772290E6CF062462E",
+      "After": "931DECA28C2B83873FDCB944ECF619E333129244A2CF5AC88608516AAEF948BA"
+    },
+    {
+      "Manifest": "tools/Native/Erlang.NifPendingVarargsObservations/reviewed-source-plan.json",
+      "Path": "tools/Runtime/Erlang.OwnedGuest506Observations/source-plan.json",
+      "Before": "CBC65455D560E0673A380B6E76F1767861D86F23AE6571D3B12C5296C31D6ADC",
+      "After": "6F72433129FF6D8DA7C5CA813DA6C6BBEF6F3D48A5A9BE5BE552C5BFAE34EB03"
+    },
+    {
+      "Manifest": "tools/Native/Erlang.NifReallocationObservations/SOURCE-PLAN.json",
+      "Path": ".github/workflows/nif-pending-native.yml",
+      "Before": "1259489D47CD8C173BF2B513556B5B5D5DC0581BE61695FCBC9F7365A9966650",
+      "After": "7DC177578987EFF813ED35A74FDE5E846326B95EAFB3D8A4C9136744409E6BC8"
+    },
+    {
+      "Manifest": "tools/Native/Erlang.NifReallocationObservations/SOURCE-PLAN.json",
+      "Path": "tools/Native/Erlang.NifPendingVarargsObservations/reviewed-source-plan.json",
+      "Before": "23BE8DDE1CDF18879364ED31561DD3E16E3F2AE35164554AB5FEAEF1BF9C768E",
+      "After": "9B33C5535DF6E7BF94280DA59CF39C4D0E468C7D6987BC7C1F7B08CA7A1732B3"
+    },
+    {
+      "Manifest": "tools/Native/Erlang.NifReallocationObservations/SOURCE-PLAN.json",
+      "Path": ".github/workflows/nif-pending-native.yml",
+      "Before": "7DC177578987EFF813ED35A74FDE5E846326B95EAFB3D8A4C9136744409E6BC8",
+      "After": "034EAABFD1C7B2094300B22A5F06B7C8FFA7895582E6C90CB7AE7D4694ED3CF4"
+    }
+  ],
   "AddedSourceMembership": "String helpers, source reverse wrappers and CPU reader implementation in their existing owner closures"
 }

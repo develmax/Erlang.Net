@@ -470,6 +470,8 @@ Test(Erlang.Tests.StringCooperationNames.ListLength, () => Erlang.Tests.StringCo
 Test(Erlang.Tests.StringCooperationNames.BinaryLength, () => Erlang.Tests.StringCooperationChecks.Run(true, false));
 Test(Erlang.Tests.StringCooperationNames.ListReverse, () => Erlang.Tests.StringCooperationChecks.Run(false, true));
 Test(Erlang.Tests.StringCooperationNames.BinaryReverse, () => Erlang.Tests.StringCooperationChecks.Run(true, true));
+Test(Erlang.Tests.StringCooperationNames.SliceDrop, () => Erlang.Tests.StringCooperationChecks.RunSlice(false));
+Test(Erlang.Tests.StringCooperationNames.SliceKeep, () => Erlang.Tests.StringCooperationChecks.RunSlice(true));
 Test(Erlang.Tests.MathBackendNames.ManagedWhole, Erlang.Tests.LibraryDependencyOriginalHostChecks.MathManagedWhole);
 Test(Erlang.Tests.MathBackendNames.ManagedSelection, Erlang.Tests.MathBackendChecks.ManagedSelection);
 Test(Erlang.Tests.MathLog2OtpNames.Test, Erlang.Tests.MathLog2OtpChecks.Run);

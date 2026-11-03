@@ -13,4 +13,9 @@ internal static class StringCooperationNames
     internal const string BinaryLength = "runtime/string/cooperative-ascii-binary-length";
     internal const string ListReverse = "runtime/string/cooperative-ascii-list-reverse";
     internal const string BinaryReverse = "runtime/string/cooperative-ascii-binary-reverse";
+    internal const string Slice = "slice";
+    internal const int BitsPerByte = 8;
+    internal const int SliceInputCharacters = 2 * Characters;
+    internal const string SliceDrop = "runtime/string/cooperative-ascii-binary-slice-drop";
+    internal const string SliceKeep = "runtime/string/cooperative-ascii-binary-slice-keep";
 }
