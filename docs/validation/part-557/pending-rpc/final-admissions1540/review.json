@@ -1,0 +1,269 @@
+{
+  "Passed": true,
+  "Tree": "a2d6365a4b35ffb08ea53ac64530674dc6252dc4",
+  "Processes": {
+    "focused13": {
+      "Command": [
+        "C:\\Users\\Maksim\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+        "-B",
+        "D:\\Distr\\Work\\Codex\\Erlang.Net\\artifacts\\batch825\\final-delivery-source1536\\extracted\\focused13.py"
+      ],
+      "Pid": 29448,
+      "ExitCode": 0,
+      "ElapsedSeconds": 7.0789999999979045,
+      "TimedOut": false,
+      "ForcedCleanup": false,
+      "ActiveProcessesAfter": 0,
+      "ResourcesClosed": true,
+      "Errors": [],
+      "TotalProcesses": 2,
+      "UserCpuSeconds": 2.359375,
+      "KernelCpuSeconds": 4.546875,
+      "PeakJobCommitBytes": 26820608,
+      "PeakProcessCommitBytes": 20148224,
+      "StdoutSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+      "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    "mfa-native": {
+      "Command": [
+        "C:\\Users\\Maksim\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+        "-B",
+        "D:\\Distr\\Work\\Codex\\Erlang.Net\\artifacts\\batch825\\final-delivery-source1536\\extracted\\mfa-native.py"
+      ],
+      "Pid": 29584,
+      "ExitCode": 0,
+      "ElapsedSeconds": 0.5309999999881256,
+      "TimedOut": false,
+      "ForcedCleanup": false,
+      "ActiveProcessesAfter": 0,
+      "ResourcesClosed": true,
+      "Errors": [],
+      "TotalProcesses": 3,
+      "UserCpuSeconds": 0.265625,
+      "KernelCpuSeconds": 0.15625,
+      "PeakJobCommitBytes": 34119680,
+      "PeakProcessCommitBytes": 19820544,
+      "StdoutSha256": "B44AA26620ED852C325484034204120105597B24876A2B59DFC6476B4531B5B3",
+      "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    "resource529": {
+      "Command": [
+        "C:\\Users\\Maksim\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+        "-B",
+        "D:\\Distr\\Work\\Codex\\Erlang.Net\\artifacts\\batch825\\c1537\\tools\\Native\\Erlang.NifResource529Observations\\verify-source-plan.py",
+        "--plan-sha256",
+        "EAFF8CDD09AD9159D87863F4E08749E82190FF0C7DF4F6DD413D6B884A6B8CF0",
+        "--output",
+        "D:\\Distr\\Work\\Codex\\Erlang.Net\\artifacts\\batch825\\c1537\\artifacts\\resource529\\preflight.json"
+      ],
+      "Pid": 65492,
+      "ExitCode": 0,
+      "ElapsedSeconds": 0.40700000000651926,
+      "TimedOut": false,
+      "ForcedCleanup": false,
+      "ActiveProcessesAfter": 0,
+      "ResourcesClosed": true,
+      "Errors": [],
+      "TotalProcesses": 2,
+      "UserCpuSeconds": 0.09375,
+      "KernelCpuSeconds": 0.21875,
+      "PeakJobCommitBytes": 21278720,
+      "PeakProcessCommitBytes": 14594048,
+      "StdoutSha256": "C7240EA4E8CB98326FE5F903EE7F948F6083B2F2661DCC3DB26BDCBF0F5B883F",
+      "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    }
+  },
+  "Reports": {
+    "focused13": {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\artifacts\\batch825\\c1537\\artifacts\\source-plan566\\preflight.json",
+      "Sha256": "221D3D67F0310C142571586DB82C2410DFDE22768388C9419ADAC45E57E30544",
+      "Report": {
+        "Passed": true,
+        "Checks": [
+          {
+            "Plan": "Erlang.NifMapFamily504Observations",
+            "Passed": true,
+            "Details": {
+              "PlanSha256": "48C54813CFD59B765C9AB608905147985CB6C1969F881E52007B8B0ACE769CCA",
+              "VerifiedRows": 557,
+              "NativeExecuted": false
+            }
+          },
+          {
+            "Plan": "Erlang.NifMapMaterialized505Observations",
+            "Passed": true,
+            "Details": {
+              "PlanSha256": "7016B40801E87AA30F384E9ACF58ACD47B31D026AC6CAD7DAAFE18A76A69D6AB",
+              "VerifiedRows": 564,
+              "NativeExecuted": false
+            }
+          },
+          {
+            "Plan": "Erlang.NifMapReentry505Observations",
+            "Passed": true,
+            "Details": {
+              "PlanSha256": "7BD88173D3DADF2025650276C915E0F506E010E54696A807DFF24B7051046AFD",
+              "VerifiedRows": 564,
+              "NativeExecuted": false
+            }
+          },
+          {
+            "Plan": "tools/Runtime/Erlang.OwnedGuest506Observations",
+            "Passed": true,
+            "Details": {
+              "PlanSha256": "77A88995B67D8FE9F78A89B39CD441A12AD48B7EFEE7B43D69DB990C99F7C394",
+              "VerifiedRows": 998
+            }
+          },
+          {
+            "Plan": "tools/Native/Erlang.NifVariadic526Observations",
+            "Passed": true,
+            "Details": {
+              "PlanSha256": "FF02AD11932F757A0B47F0925FC86AEAA7A79B4991D811A4FFE0A0CC49950161",
+              "VerifiedRows": 903
+            }
+          },
+          {
+            "Plan": "Pending",
+            "Passed": true,
+            "Details": {
+              "PlanSha256": "9577A10B8A19FE724CC2AF1D87265CB2CA57DC55F4D23AF1E180E220E16C3022",
+              "VerifiedRows": 4820,
+              "CompleteGitMembershipChecked": false
+            }
+          },
+          {
+            "Plan": "Reallocation",
+            "Passed": true,
+            "Details": {
+              "PlanSha256": "BEEED03A5FB20C189C64EE785E19FEE0D55BF0DA5B10A796AF30DCEF92C0070B",
+              "VerifiedRows": 3347
+            }
+          },
+          {
+            "Plan": "Private557",
+            "Passed": true,
+            "Details": {
+              "PlanSha256": "0E742DCD6CBA32D72972B73B0F564C7D15EF39FD8E5DBBF4687C8B64B80721BE",
+              "VerifiedFiles": 2924
+            }
+          },
+          {
+            "Plan": "Erlang.Dictionary537Observations",
+            "Passed": true,
+            "Details": {
+              "PlanSha256": "1B907F03F31FDBE47112A4E27BBA68E9581628911469970A82EDD025A171F5E6",
+              "VerifiedRows": 5,
+              "BuildOrVmExecuted": false
+            }
+          },
+          {
+            "Plan": "Erlang.MatchSaved634Observations",
+            "Passed": true,
+            "Details": {
+              "PlanSha256": "C24F7506D3DC9193BE6B4D8A8A105A8FDD70FC4A667436F564E23C7E33C0B98C",
+              "VerifiedRows": 31,
+              "BuildOrVmExecuted": false
+            }
+          },
+          {
+            "Plan": "Erlang.EtsDispatch540Observations",
+            "Passed": true,
+            "Details": {
+              "PlanSha256": "444375475464969EEA0ABA38B398FB8EB56F359515AA59C0797D882FACDA5EA8",
+              "VerifiedRows": 130,
+              "BuildOrVmExecuted": false
+            }
+          },
+          {
+            "Plan": "Erlang.MonitorOriginal645Observations",
+            "Passed": true,
+            "Details": {
+              "PlanSha256": "F20ABA27FAEDD384E7301A65005B7D65407829CA6360284479DAB82FA5B47668",
+              "VerifiedRows": 13,
+              "BuildOrVmExecuted": false
+            }
+          },
+          {
+            "Plan": "Erlang.BeamFunction542Observations",
+            "Passed": true,
+            "Details": {
+              "PlanSha256": "42478F04FFB7B1FFFE19CB662C36DF0A2B291DA30D68664DF9D1EC980B22E352",
+              "VerifiedRows": 37,
+              "BuildOrVmExecuted": false
+            }
+          }
+        ],
+        "ExpectedPlans": 13,
+        "ExpectedNativePlans": 8,
+        "FocusedInputPlans": 5,
+        "BuildOrVmExecuted": false,
+        "NativeExecuted": false,
+        "SourceHeadAuthenticityClaimed": false,
+        "FullSourceMembershipClaimed": false,
+        "WholeContractsClosed": 0
+      }
+    },
+    "mfa-native": {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\artifacts\\batch825\\c1537\\artifacts\\mfa-source-bindings\\preflight.json",
+      "Sha256": "E230113A1971F9561017751E43295E382E83DF86E6049FB67AC578722B9C7608",
+      "Report": {
+        "Passed": true,
+        "Scope": "EARLY_CURRENT_MFA_AND_NATIVE_RAW_BINDINGS_ONLY",
+        "Mfa": {
+          "Passed": true,
+          "Scope": "EARLY_RAW_SOURCE_AND_EVIDENCE_BINDINGS_ONLY",
+          "VerifiedSourceFiles": 2264,
+          "AllSourceEvidenceRows": 4411,
+          "UniqueRawFiles": 2436,
+          "Failures": [],
+          "RawBytesOnly": true,
+          "TextNormalizationPerformed": false,
+          "ClassificationOrRegistryValidationPerformed": false,
+          "FullReadinessReplaced": false,
+          "BuildSdkOrProductVmExecuted": false
+        },
+        "Native": {
+          "Passed": true,
+          "AllSourceEvidenceRows": 341,
+          "UniqueRawFiles": 312,
+          "CurrentBoundSourceFiles": 294,
+          "Failures": [],
+          "HistoricalSourceEquivalenceValidatedAsCurrent": false
+        },
+        "AllSourceEvidenceRows": 4752,
+        "Failures": [],
+        "RawBytesOnly": true,
+        "TextNormalizationPerformed": false,
+        "ClassificationOrRegistryValidationPerformed": false,
+        "FullReadinessReplaced": false,
+        "BuildSdkOrProductVmExecuted": false
+      }
+    },
+    "resource529": {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\artifacts\\batch825\\c1537\\artifacts\\resource529\\preflight.json",
+      "Sha256": "C7240EA4E8CB98326FE5F903EE7F948F6083B2F2661DCC3DB26BDCBF0F5B883F",
+      "Report": {
+        "Passed": true,
+        "PlanSha256": "EAFF8CDD09AD9159D87863F4E08749E82190FF0C7DF4F6DD413D6B884A6B8CF0",
+        "Dependencies": 4141,
+        "Failures": [],
+        "BuildOrVmExecuted": false,
+        "NativeExecuted": false,
+        "SourcePlanWritten": false,
+        "FullSourceMembershipClaimed": false,
+        "WholeContractsClosed": 0
+      }
+    }
+  },
+  "Failures": [],
+  "ExactPendingMembership": 4820,
+  "PendingCheckSource": "D:\\Distr\\Work\\Codex\\Erlang.Net\\artifacts\\batch825\\final-delivery-source1536\\checkout-review.json",
+  "PendingCheckSourceSha256": "236A2A65BCCBDE1E3F68BAE5A00D64221D35AFA6B4AAEA2174C3D735978E706F",
+  "RequiredPassiveChecks": 16,
+  "IndependentCommandsExecuted": 3,
+  "AllIndependentResultsCollected": true,
+  "NoBuildVmOrNativeRun": true,
+  "MutationGuardRawInventoryIsNotTransportAcceptance": true,
+  "Scope": "Actual exact-current-workflow passive13+MFA/native+Resource checks, plus the actual configured checkout REAL Pending membership check. No whole VM/build/full-contract or cross-platform raw mutation-guard claim."
+}

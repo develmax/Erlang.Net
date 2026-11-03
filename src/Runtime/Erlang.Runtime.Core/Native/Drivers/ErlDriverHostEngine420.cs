@@ -76,7 +76,7 @@ internal sealed partial class ErlDriverHostEngine420
                 engine.bridge,
                 engine.fault
             );
-            engine.async = new(
+            engine.async = ErlDriverAsyncServices420.CreateAccounted1151(
                 engine.AcquireRead,
                 engine.bridge,
                 engine.tokens,

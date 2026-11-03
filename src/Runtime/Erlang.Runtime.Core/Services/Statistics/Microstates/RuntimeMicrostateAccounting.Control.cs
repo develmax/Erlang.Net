@@ -21,7 +21,7 @@ internal sealed partial class RuntimeMicrostateAccounting
         {
             RequireProvider();
             // Complete all preparation before the source BIF requested exchange.
-            request.Unmanaged = records.Values.Where(record => !record.Managed).ToArray();
+            request.Unmanaged = unmanagedRecords1171.ToArray();
             request.ReserveUnmanaged(request.Unmanaged.Length);
             if (request.Action is RuntimeMicrostateAction.Enable or RuntimeMicrostateAction.Disable)
             {

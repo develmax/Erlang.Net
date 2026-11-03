@@ -1,0 +1,65 @@
+{
+  "ExpectedOldRedReproduced": true,
+  "Scope": "Actual realClose waiter timeout in old1320; complete owned cleanup. Not outertimeout/processhang.",
+  "Build": {
+    "Command": [
+      "C:\\Program Files\\dotnet\\dotnet.exe",
+      "build",
+      "D:\\Distr\\Work\\Codex\\Erlang.Net\\artifacts\\batch825\\child-rollback-old-red1387\\Probe.csproj",
+      "-m:1",
+      "--disable-build-servers",
+      "--nologo"
+    ],
+    "Pid": 26208,
+    "ExitCode": 0,
+    "ElapsedSeconds": 5.687000000005355,
+    "TimedOut": false,
+    "ForcedCleanup": false,
+    "ActiveProcessesAfter": 0,
+    "ResourcesClosed": true,
+    "Errors": [],
+    "TotalProcesses": 4,
+    "UserCpuSeconds": 5.75,
+    "KernelCpuSeconds": 0.96875,
+    "PeakJobCommitBytes": 147214336,
+    "PeakProcessCommitBytes": 80187392,
+    "StdoutSha256": "DF30D184361675BF69A132BCA1987DBFE27B0EDD7B0E0751CB9F451E8F7EA124",
+    "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+  },
+  "OldExecution": {
+    "Command": [
+      "C:\\Program Files\\dotnet\\dotnet.exe",
+      "exec",
+      "--fx-version",
+      "10.0.11",
+      "--roll-forward",
+      "Disable",
+      "D:\\Distr\\Work\\Codex\\Erlang.Net\\artifacts\\batch825\\child-rollback-old-red1387\\bin\\Debug\\net10.0\\Erlang.AsyncMicrostateValidation.dll",
+      "D:\\Distr\\Work\\Codex\\Erlang.Net\\artifacts\\batch825\\child-rollback-old-red1387\\inputs.json"
+    ],
+    "Pid": 19848,
+    "ExitCode": 1,
+    "ElapsedSeconds": 9.922000000020489,
+    "TimedOut": false,
+    "ForcedCleanup": false,
+    "ActiveProcessesAfter": 0,
+    "ResourcesClosed": true,
+    "Errors": [],
+    "TotalProcesses": 4,
+    "UserCpuSeconds": 5.5625,
+    "KernelCpuSeconds": 0.890625,
+    "PeakJobCommitBytes": 89018368,
+    "PeakProcessCommitBytes": 64679936,
+    "StdoutSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+    "StderrSha256": "3D8A326C3BB103B30FFE172AE9BBB51B2F11363DDC41F04740F3C33E53BD1290"
+  },
+  "RawLogs": {
+    "D:\\Distr\\Work\\Codex\\Erlang.Net\\artifacts\\batch825\\child-rollback-old-red1387\\build.stderr.log": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+    "D:\\Distr\\Work\\Codex\\Erlang.Net\\artifacts\\batch825\\child-rollback-old-red1387\\build.stdout.log": "DF30D184361675BF69A132BCA1987DBFE27B0EDD7B0E0751CB9F451E8F7EA124",
+    "D:\\Distr\\Work\\Codex\\Erlang.Net\\artifacts\\batch825\\child-rollback-old-red1387\\old.stderr.log": "3D8A326C3BB103B30FFE172AE9BBB51B2F11363DDC41F04740F3C33E53BD1290",
+    "D:\\Distr\\Work\\Codex\\Erlang.Net\\artifacts\\batch825\\child-rollback-old-red1387\\old.stdout.log": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+  },
+  "PackageManifestSha256": "8C5CCAC11F696786F32BE77F7B515F8E768E75CDF7F7799325569293F6152C8C",
+  "PostExecutionReceiptRecovery": "Initial driver failed only after execution while hashing a string path with read_bytes. Original logs/exit receipts preserved, execution not rerun.",
+  "ProductionSourceStillUnchangedBeforeThisRecord": true
+}

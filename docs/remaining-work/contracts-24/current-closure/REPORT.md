@@ -1,3 +1,114 @@
+## Current checkpoint1367: local Part557 gates complete
+
+- [x] Complete real persistent async worker accounting and physical ownership; retain authentic worker/thread identities.
+- [x] Reproduce and fix queued-port logical close independently of unrelated held native work; preserve late physical job/image/PDL retirement.
+- [x] Complete final native original comparisons: Debug1347 7/7 and Release1348 7/7; independent final evidence review1353 passes. Declaration-only successor1352 preserves all78 execution inputs.
+- [x] Complete final post-metadata builds1363/1365 and affected regression1364/1366:97/97 each profile, explicit83 runtime DLL/runtimeconfig hashes unchanged per execution. No full9601 suite claim.
+- [x] Complete guarded metadata1354/1361:34outputs,5615rawguards,118finite sources,82CSharp paths. Independent peer1359 verifies24456hashbindings and10467sizefields; historical1304 unchanged.
+- [x] Complete actual final source admission1362:13/13 plans, MFA and Resource, zero failures.
+- [x] Record the genuine force-unload five-event comparison and its unresolved8-vs6 context stack difference; retain all raw results and earlier failures. Cohort experiment failed3600.047seconds/0tests and stays disabled.
+- [ ] Finish exact raw committed tree and affected checkout proof; publish Part557 and require current-head CI/review before merge.
+- [ ] Finish whole statistics: in-flightRPC cancellation, actualpersistentpollprovider, defaulttopology, LinuxDriverHost and remainingS0-S5/platform/backendmatrix. Current cancel proof is after remote-token release at queued final normalACK.
+
+Accepted main099042a remains708 registered /180 full /504 pending /24 known; erlang351/83/255/13. API/full deltas0/0. Part557 remains locally complete and unpublished at this checkpoint. Prior checkpoints below are historical.
+
+## Current checkpoint 1350: real async workers and logical port close
+
+- [x] Part556 is accepted in main099042a95b429eed11a5a37482a21277bafeced3; post-merge CI41600159974 passed all three jobs.
+- [x] Integrate genuine persistent native async worker accounting with authenticated capture/apply/finish/release ownership and physical shutdown. No fabricated native thread roles.
+- [x] Integrate five permanent source-tail tests, bringing this isolated catalog to9601. The full9601 suite has not run.
+- [x] Complete original +A1/+A2 comparisons and actual queued-normal-ACK caller-cancel/VM-close and child-exit/wrong-epoch cleanup cases: Debug1333 and Release1338 each7/7. The seventh case includes the additional public port_info/ports/DDLL-count predicates.
+- [x] Reproduce the concrete cross-port close difference1310 against original OTP; keep the failed own result. Correct logical/public close separately from physical async completion, preserving driver-image/PDL references until late native jobs finish. Debug1339 clean build and97/97 affected cases1342 pass.
+- [x] Check finite layout1343:19 C# files,12920 lexical tokens unchanged, zero syntax errors. Only one observer file changes whitespace1344; runtime/native source bytes and DriverHost packages stay unchanged. Refresh the78-row source plan1346.
+- [x] Complete force-unload behavior1341 after correcting the observer's driver-name atom pattern. Both VMs emit all five required events and physically clean up. Whole output is NOT equal: the capture wrapper adds two original stack frames; raw results remain intact and no full-stack promotion is made.
+- [x] Complete explicit compiler ancillary ownership1289/1291. Raw forced-retirement receipts remain explicit; ordinary observer/runtime cleanup still rejects forced termination. Earlier compiler-drain failures remain failures.
+- [x] Finish the cohort1262 experiment: FAILED after3600.047 seconds, zero tests executed. Retain timeout/cleanup evidence. Do not enable the prototype or claim a speedup.
+- [ ] Complete Release normal build and97 affected cases on the post-logical-close runtime.
+- [ ] Complete native seven-case checks on the final whitespace-formatted observer (Debug1347 passed; Release1348 running at this checkpoint), independent evidence review, fresh global source admissions and exact committed checkout bindings.
+- [ ] Publish English Part557 changelog/evidence, require green exact-head CI and current review, then merge. Part557 is not yet published or merged.
+- [ ] Whole statistics remains open: in-flight RPC cancellation cutpoints, actual persistent poll provider, default topology, Linux DriverHost and remaining S0-S5 matrix. Current cancellation proof occurs after remote-token release, at the queued final normal ACK.
+
+Readiness on accepted main remains708 registered /180 full /504 pending /24 known differences; erlang351 present /83 full /255 pending /13 known. API/full-contract deltas0/0. The separate PR102 is still open; exact head f3c4b8ca has two failed workflows and is not merged. No promotion is borrowed from that unaccepted tree.
+
+## Current checkpoint 1287: permanent integration and compiler-owned cleanup
+
+- [x] Part556 is merged at main099042a95b429eed11a5a37482a21277bafeced3. The separate post-merge CI41600159974 succeeds in all three jobs.
+- [x] Integrate five permanent source-tail scenarios: catalog9601, affected53/53 on pre-final source1259/1260. The full9601 suite has not run.
+- [x] Integrate the six-case native observer with its own friend assembly identity and actual package references. Fresh Debug and Release DriverHost packages1268 build successfully with unchanged inputs.
+- [x] Correct absolute process application paths and dependency-aware preparation. Actual failed Debug1269/1281 retains four blocked dependent scenarios and independently executes both component cases successfully.
+- [x] Prove the remaining compiler descendant is actual owned MSVC vctip.exe, using same-Job membership and limited executable-image inspection1285. Telemetry-shell optout alone does not fix it. Diagnostic90s1286 also fails; no longer timeout or natural-exit claim is adopted.
+- [x] Apply finite formatting1284 to47 of62 selected C# files. All111105 RawKind/Text tokens and syntax checks remain equal; this does not replace final builds or execution.
+- [ ] Finish explicit fixture-compiler ancillary ownership, without accepting unknown processes, weakening ordinary runtime cleanup, changing shared settings or relabeling earlier RED receipts.
+- [ ] Finish per-owner constants and statement layout in the new observer, refresh source-plan pins, rebuild final packages and execute all six cases in actual Debug and Release against fresh original OTP outcomes.
+- [ ] Finish mandatory final-source regressions, source admissions, English changelog, exact-head CI, review and accepted publication.
+- [ ] Finish cohort1262 pilot. Both copies reached the last109729-file member at14:46:19MSK; verification still has no projection receipt. No shard test or speedup is yet proved. The prototype is separately versioned and does not modify current runtime sources or readiness reports.
+- [ ] Whole statistics remains open: in-flight RPC cancellation cutpoints, actual persistent poll provider, default topology, Linux DriverHost and the remaining S0-S5 matrix.
+
+Part557 remains unpublished. API/full-contract deltas remain0/0;708 registered/180 full/504 pending/24 known differences. Native compiler setup errors are retained, not treated as runtime mismatches or successful full comparisons.
+
+## Current checkpoint 1265: permanent tests and real cancellation
+
+- [x] Complete the public cancellation check at the final queued normal ACK: caller kill returns `killed`; VM close returns `shutdown`. Both actual scenarios pass in 1244 and independent review 1246. A genuine native job and normal auxiliary destructor remain held until the real release. Trap, tail, operation, resource, heap, helper, frontend and child cleanup fences complete.
+- [x] Preserve the exact scope: the remote token was already released before this queued ACK. Cancellation during an in-flight RPC is still a separate open check.
+- [x] Integrate five permanent source-tail tests in categorized backend files. Build 1259 passes; the actual catalog contains 9601 cases; all 53 distinct affected cases pass in 1260. The full 9601-case regression has not run yet.
+- [x] Complete one actual clean cohort build at 82da5c71b68f1208ced72cc98b00ccb106ca0658: 163.219 seconds; 101653 tracked files and 5.674 GB remain unchanged; the SDK remains unchanged; all owned descendants exit.
+- [x] Prepare a fresh clone-local original provider using the standard verifier: 6427 files match the pinned archive. No installer, original VM, PATH or registry change is claimed.
+- [x] Seal the actual build with a separately hashed external verifier. The 78 raw assets resolve no packages. The built subject and its original receipt are preserved; this is not acceptance of an integrated final commit.
+- [ ] Finish the four-case pilot with two independent private workers. Each view contains 109729 files and 7.500 GB. Catalog listing and resource admission passed; projection and execution are still running. No full union or speedup is claimed.
+- [ ] Integrate the permanent native observation tool after its peer fixes. Then run actual Debug and Release profiles, refresh final source provenance, run mandatory exact-head GitHub CI and publish the accepted unit.
+- [ ] Complete the remaining in-flight RPC cutpoints, real poll provider, default topology, Linux driver child and full S0-S5 matrix. Source maps 1247/1248 are research, not implementation credit.
+
+The current unmanaged order audit found no production inversion: late resource Aux is managed; fixed local dirty workers start before the child. Future late unmanaged providers need a separate ordered registry design.
+
+Failed fixture attempts 1237, 1238 and 1242 remain retained. Production cancellation was not loosened: the probe validates the exact existing mailbox halt origin, actual canceled caller and actual exit reason. Its final snapshot observes the same saved resource domain after close rather than calling a disposed lazy getter.
+
+Part 556 remains merged and green at main099042a9. Part 557 remains unpublished. Registry counts stay 708 registered / 180 verified / 504 pending / 24 known differences; API and full-contract deltas are 0/0.
+
+## Checkpoint1228 - two real capture-client fault controls completed
+
+- [x] Actual admitted Count2/lease1 capture followed by verified owned-child exit rejects Apply; successful-only physical child exit/cleanup and lease0 are observed.
+- [x] Wrong-epoch authenticated component request rejects through real EOF/quarantine; unknown/timeout/cancellation errors cannot count as successful transport rejection. Known Release/VM transport faults are retained. Independent review1223 confirms2/2; no public-cancel/held-job orderly-cleanup claim.
+- [ ] Public caller cancellation and VM-close while a genuine normal ACK remains withheld: source-linked536 proposal in progress, not executed.
+- [ ] Complete remaining original full profiles, source resealing, CI and accepted publication.
+- [ ] Actual cohort pilot/full serial-parallel timing remains open. Clean local candidate82da is unpublished; its first source/SDK preparation has measured964.9s/11.365GB reads before actual build. Reviewed timing-only proposal1226b remains unapplied until this owner settles. No speedup claim.
+
+Main099042a9 remains merged/green. Part557 remains unpublished. API/full deltas0/0; registry708/180/504/24 unchanged.
+
+## Current checkpoint1217 — actual original observer and three runtime corrections
+
+- [x] Fix system_info(thread_pool_size) to read the configured published frontend pool count. The no-child0 profile remains explicitly separate from original default/+A0.
+- [x] Reproduce the real owner-close late SchedulePortTask failure1199; retain the closing parent port row until every accepted async job has settled its actual Done task after native stop sealed new submissions. Native data, worker-image and PDL owners stay alive through actual free/ready cleanup.
+- [x] Execute the unchanged original BEAM observer with the genuine driver_async DLL on current parent-identical Debug child binaries, A1/A2 (1209). All12 scenario rows return; A1 keyed-two-lane and separate-zero omissions remain explicit. Final native counts match retained originals:8freed/7ready and11freed/10ready.
+- [x] Compare every recorded predicate/flag field against retained pinned OTP captures:15 A1 and17 A2 match. Retain18 entire raw microstate collections per profile, without timing/topology normalization; these full raw collections are unequal.
+- [x] Reproduce the missing port_control wrapper location1204, implement the shared source-proven badarg_with_info location1206 and verify all8 exception frames/class/reason/arguments match originals in both profiles (independent1210). The original raw encoded port is equal under the explicitly documented live fixture-role correspondence; that is not cross-VM object identity.
+- [x] Re-run affected48/48 (1211) and actual source-tail5/5 (1212) on final build1207, with stable source/runtime inputs and settled owned process families.
+- [x] Execute35/35 finite actual cohort verifier controls (1198), covering unexpected private source/props/targets, SDK/workload mutations and override rejection. No .NET/cohort/full-regression/performance credit is granted by these controls.
+- [ ] Execute deterministic public caller cancellation and VM close while a genuine normal ACK and real child token are outstanding. A held async invoke alone must not be used as evidence of a pending unmanaged control.
+- [ ] Execute genuine owned-child/transport failure and strict malformed-operation negatives while an actual capture/token is admitted; verify physical cleanup, not synthetic empty success.
+- [ ] Finish poll/Linux/default topology and the existing full S0-S5 selector matrix, reseal final source provenance, run mandatory exact-head CI and publish only accepted completed units.
+- [ ] Run one actual clean exact-SHA cohort preparation/build, private-worker pilots, matched serial/full parallel union and resource/duration comparison. Managed worktree creation rejected the nested repository; the first local clone retained its long-path failure. A new independent local clone enables core.longpaths before checkout. Shared source HEAD/index remain unchanged.
+
+Part556 remains merged/main-green. Part557 remains unpublished. Registry708/180/504/24 and API/full deltas0/0 are unchanged; no whole statistics compatibility or speedup is claimed.
+
+## Current integrated checkpoint 1197 (supersedes preparation-only text below)
+
+- [x] Part556 is merged as main099042a9; fresh post-merge CI41600159974 has all three jobs successful.
+- [x] Apply guarded native, typed-owner, child IPC, parent IPC and original-lane source-tail source packets to the working integration tree.
+- [x] Integrate exact remote reply cardinality, raw signed counter interpretation, own-normal → remote Finish → parent Finish and physical operation draining.
+- [x] Compile the real combined runtime; execute 48/48 affected no-child lifecycle checks (1176).
+- [x] Execute five actual source-tail scenarios (1181): helper success/cardinality, withheld close, close during a running first callback, first callback failure and Finish failure. All registries drain; all owned processes exit.
+- [x] Publish a local Debug DriverHost package with four parent-identical runtime DLLs and the exact unchanged genuine four-source native bridge (1184). This is a local test package, not repository publication.
+- [x] Execute real authenticated parent/child Capture/Apply/Finish/Release through public statistics/system_flag for A1 and A2 (1190): 16 complete ETF outcomes, disabled zero, enabled positive counters, disabled frozen async rows, reset zero. Independent review1191 confirms evidence and scope.
+- [ ] Finish the unchanged original BEAM observer with genuine held/keyed driver_async jobs. Its first actual run1194 exposed missing system_info(thread_pool_size), with full Erlang error stack/ETF retained; narrow fix1195 is compiling1196.
+- [ ] Execute actual combined held-job cancellation, child/transport failure and shutdown/close races; prove native/image/PDL/roster/physical-child retirement.
+- [ ] Compare complete public outcomes and stacks against OTP29.1.1, then execute final-source Debug/Release/CI gates before compatibility credit or publication.
+- [ ] Complete poll, Linux native-child, default topology and all remaining selector/platform profiles in the existing S0-S5 plan.
+- [ ] Finish actual cohort769 single-build preparation, negative controls, pilots, exact-union aggregate and matched serial/parallel full measurements. No performance gain is claimed.
+
+Retained failures:1183 lacked restored DriverHost assets;1185/1188 identify sandbox CurrentUserOnly pipe denial;1189 over-constrained ordering of unrelated scheduler replies;1192 omitted unused observer import declarations;1194 records the actual missing runtime query. No runtime authentication or assertion deadline was weakened. Full public outputs are retained; checking frozen async rows does not certify equality of the nondeterministic complete scheduler-response order.
+
+Registry stays708/180/504/24; API/full-contract deltas0/0. Part557 remains unpublished and whole statistics remains open.
+
 ## GC helper blocked-close and private-binding controls completed (scoped)
 
 Execution811 passes genuine VMshutdown while a real source-stage ticket blocks helper preparation. The producer drains BEFORE that ticket is released; shutdown joins afterward and GC helper uses are zero. Execution813 passes configured1/2/4 normal schedulers, independently preserves all351 erlang delegate bindings and current public erlang code-image identity, and verifies actual private PreparedBeamImage owner disposal on VMclose. All executed DLL hashes are equal before/after813. The failed812 dictionary-enumeration harness is retained;813 corrects its typed enumeration only, with no runtime edits. Actual runtime source remains build805, normal process receipts are settled with0 active descendants and closed handles.

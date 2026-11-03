@@ -1,0 +1,45 @@
+{
+  "Passed": true,
+  "Scope": "Actual final Debug normal build after exact caller-cancellation Task-state assertion correction and metadata1529; production/native93 unchanged. Final101/checkout/currentCI required; prior23 reuse needs exact runtime/input checks.",
+  "Capacity": {
+    "Requested": 1,
+    "Workers": 1,
+    "LogicalCpuCount": 16,
+    "AvailablePhysical": 6281420800,
+    "AvailableCommit": 24450428928,
+    "Policy": "Maximum2; require4CPUs/8GiB available physical/12GiB available commit, otherwise serial"
+  },
+  "Build": {
+    "Command": [
+      "C:\\Program Files\\dotnet\\dotnet.exe",
+      "build",
+      "tests/Erlang.Tests/Erlang.Tests.csproj",
+      "--no-restore",
+      "-m:1",
+      "--nologo",
+      "--disable-build-servers"
+    ],
+    "Pid": 26968,
+    "ExitCode": 0,
+    "ElapsedSeconds": 32.75,
+    "TimedOut": false,
+    "ForcedCleanup": false,
+    "ActiveProcessesAfter": 0,
+    "ResourcesClosed": true,
+    "Errors": [],
+    "TotalProcesses": 14,
+    "UserCpuSeconds": 112.46875,
+    "KernelCpuSeconds": 5.375,
+    "PeakJobCommitBytes": 1033707520,
+    "PeakProcessCommitBytes": 925233152,
+    "StdoutSha256": "F388DB14CDB7702528C88FB610EB4A6AA3CAF655F369F5CCB7161EC6B7D7D6C6",
+    "StderrSha256": "43C8897FC50560E217AACE8984EC7E1AA8DF8EC13D3B6AAEE346A300D0D3EEAD"
+  },
+  "DerivedSummary": true,
+  "OriginalReviewSha256": "57BA00E2C1F4EB4D09F027D5C25AA45966A966FCF0D874CD53AA130C59BCD3B6",
+  "OriginalReviewBytes": 7296979,
+  "SourceBeforeCount": 13911,
+  "SourceAfterCount": 13911,
+  "SourceBeforeEqualsAfter": true,
+  "CompleteRawSourceProof": "final-delivery-source1536/source-proof.json"
+}

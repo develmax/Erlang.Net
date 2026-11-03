@@ -1,0 +1,70 @@
+{
+  "Verdict": "No blocker in bounded20-path pre-integration proposal. Every current W before guard and proposed payload hash/size matched; mandatory21 roster and helper dependencies align. Final formatting/reseal/build/execution still required.",
+  "ManifestSha256": {
+    "pending-rpc-gate1427": "FB48894044D1B024FC386721199B815B84369F00C2025738BB9420753EF699D1",
+    "pending-rpc-retirement-fix1455": "B443EF714E7E8BFD1056BC4C07FED56D43B2C0A61F9FDCE89D062846F51114D4",
+    "pending-rpc-matrix1441": "564A52EE0AAAE5EA837C0074663D82B80BEBBE8D129C551E4220C0522A0AC01A",
+    "pending-rpc-controls1468": "7C0E16F6E3B2A67C82A81BED941A2A7B626B9B7757B3A4E510EB7DD00C4B1973",
+    "pending-rpc-registration1471": "54812A771AD6729EAF1DBEE29D74F5FEB6905A523AC0E8F4863CF36637694693",
+    "pending-rpc-tail-test1473": "029F8EA15885702CA6A65D5BDF6AA87DD292B5006185BAC4C2F9FBBC34711F81"
+  },
+  "UniquePathsVerified": 20,
+  "AllBeforeGuardsCurrent": true,
+  "AllPayloadHashesAndBytesMatched": true,
+  "NoDuplicatePaths": true,
+  "Registration": {
+    "ProgramResolvedCaseOrder": [
+      "original-driver-A1",
+      "original-driver-A2",
+      "public-queued-ack-cancel",
+      "public-queued-ack-close",
+      "component-child-exit",
+      "component-wrong-epoch",
+      "original-queued-port-close-A1",
+      "component-child-reservation-rollback",
+      "public-pending-rpc-capture-kill",
+      "public-pending-rpc-capture-close",
+      "public-pending-rpc-apply-kill",
+      "public-pending-rpc-apply-close",
+      "public-pending-rpc-finish-kill",
+      "public-pending-rpc-finish-close",
+      "public-pending-rpc-release-kill",
+      "public-pending-rpc-release-close",
+      "component-pending-rpc-gate-unarmed",
+      "component-pending-rpc-gate-wrong-operation",
+      "component-pending-rpc-gate-dispose-before",
+      "component-pending-rpc-gate-duplicate-release",
+      "component-pending-rpc-gate-child-death"
+    ],
+    "CollectorCaseOrderExact": true,
+    "SourcePlanCaseOrderExact": true,
+    "UniqueCases": 21,
+    "OriginalEightOrderUnchanged": true,
+    "NewEightMatrixThenFiveControls": true,
+    "New13DependOnNativeAndObserverBeamPreparation": true,
+    "IndependentExistingCasesNotBlanketSkipped": true,
+    "SourcePlanOriginal81PathOrderAndHashModesPreserved": true,
+    "New12GuardPathsExact": true,
+    "ShapeOnlyNotExecutable": true,
+    "SourcePlanInputs": 93,
+    "ActiveSourcePlanAndWrapperPinStillRequireActualReseal": true,
+    "NormalCsprojDefaultCompileIncludesAllNewHelpers": true
+  },
+  "Unit1473": {
+    "Diff": "Exactly replaces expected generic ObjectDisposedException for two real shutdown cases with exact requester token OperationCanceledException, after waiting actual Cancellation.IsCancellationRequested.",
+    "ExactStoredFailureContainmentPreserved": true,
+    "SentinelFirstAndFinishFailuresStillExact": true,
+    "RunningCallbackPhysicalJoinAssertionsUnchanged": true,
+    "HeapAndOtherDrainAssertionsUnchanged": true,
+    "NoExpectedWhitelistBroadened": true
+  },
+  "RuntimeAndHelperReview": "Previous bounded source audits1429/1430/1446/1472 remain applicable; gate1427 keeps actual pending ownership and full revalidation; retirement1455 preallocates actual per-requester cause before effects and preserves real worker/callback failures; matrix1441/controls1468 assert actual source-owned state and raw failure identities with physical joins.",
+  "RequiredAfterApply": [
+    "Format modified C# under repository style without changing behavior.",
+    "Seal actual93 input hashes; update all actual dependent source snapshots/workflow pins, no null shape hashes admitted.",
+    "Build same exact runtime into parent and child packages.",
+    "Execute canonical final21 gate Debug+Release and existing source-tail/affected101 regressions.",
+    "Current exact-head GitHub CI and review before acceptance."
+  ],
+  "Scope": "Static artifact pre-integration audit, no W/Git/CI changes or new execution. No full API compatibility/promotion, native call-count, heap-counter or performance claim."
+}

@@ -78,7 +78,7 @@ internal sealed partial class RuntimeDdllParent422
                                 options.Reload == ErlDriverWait420.PendingDriver ? DdllParentAtoms422.PendingDriver : DdllParentAtoms422.PendingProcess,
                                 options.Monitor == ErlDriverWait420.None ? null : AddMonitor(row, context.Self, DdllParentReferenceKind422.AwaitingLoad)
                             );
-                            if (row.KillPorts && row.Ports.Count != 0) kill = row;
+                            if (row.KillPorts && row.ActivePortCount1311 != 0) kill = row;
                             QueueRetirement(row);
                         }
                         else

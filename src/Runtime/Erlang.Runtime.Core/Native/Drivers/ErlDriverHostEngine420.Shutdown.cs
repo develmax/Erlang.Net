@@ -8,6 +8,20 @@ internal sealed partial class ErlDriverHostEngine420
         // still owns the parent queue permit that admits those cleanup jobs.
         await Task.Yield();
         var failures = new List<Exception>();
+        // Native stop has completed. Publish logical death before waiting for
+        // independent async data/image/PDL owners queued behind other ports.
+        try
+        {
+            await peer.SendEventAsync(Event(
+                ErlDriverHostOperation420.PortClosed1311,
+                port.Identity,
+                ErlDriverPrimitiveWire420.Encode(new ErlDriverClosed1311(true))
+            )).ConfigureAwait(false);
+        }
+        catch (Exception failure)
+        {
+            failures.Add(failure);
+        }
         try
         {
             if (timers is not null) await timers.RemovePortAsync(port.NativePort).ConfigureAwait(false);
@@ -27,6 +41,14 @@ internal sealed partial class ErlDriverHostEngine420
         try
         {
             monitors?.RemovePort(port.NativePort);
+        }
+        catch (Exception failure)
+        {
+            failures.Add(failure);
+        }
+        try
+        {
+            if (async is not null) await async.RemovePortAsync1200(port).ConfigureAwait(false);
         }
         catch (Exception failure)
         {
@@ -69,6 +91,7 @@ internal sealed partial class ErlDriverHostEngine420
         {
             if (close is not null) return close;
             closing = true;
+            SealAsyncAccounting1151();
             bool suppress = !ExecutionContext.IsFlowSuppressed();
             AsyncFlowControl flow = default;
             try
@@ -89,6 +112,14 @@ internal sealed partial class ErlDriverHostEngine420
     {
         await Task.Yield();
         var failures = new List<Exception>();
+        try
+        {
+            await asyncAccountingDrained1151.Task.ConfigureAwait(false);
+        }
+        catch (Exception failure)
+        {
+            failures.Add(failure);
+        }
         ErlDriverPort420[] owned;
         lock (gate) owned = ports.Values.ToArray();
         foreach (var port in owned)
