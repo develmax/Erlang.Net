@@ -11,7 +11,8 @@ internal sealed class RuntimeMicrostateRequest
     private readonly List<RuntimeMicrostateSnapshot> snapshots = new();
     private readonly List<Exception> failures = new();
     private StatisticsTrapRequest? statisticsTrap;
-    internal int ReplyCount => checked(normalCapacity + (Action == RuntimeMicrostateAction.Gather ? Unmanaged.Length : 0));
+    private NativeResourceMicrostateWork989? auxiliary989;
+    internal int ReplyCount => checked(normalCapacity + (auxiliary989 is null ? 0 : 1) + (Action == RuntimeMicrostateAction.Gather ? Unmanaged.Length : 0));
     internal RuntimeMicrostateAction Action { get; }
     internal bool Previous { get; set; }
     internal bool NoOp { get; set; }
@@ -27,11 +28,16 @@ internal sealed class RuntimeMicrostateRequest
 
     internal void ReserveUnmanaged(int count)
     {
-        snapshots.EnsureCapacity(checked(normalCapacity + count));
-        failures.EnsureCapacity(checked(count + 2));
+        snapshots.EnsureCapacity(checked(normalCapacity + count + (auxiliary989 is null ? 0 : 1)));
+        failures.EnsureCapacity(checked(count + 3));
     }
 
-    internal void Bind(Task normalCompletion) => Completion = Task.WhenAll(normalCompletion, synchronous.Task);
+    internal void BindAuxiliary989(NativeResourceMicrostateWork989? auxiliary) => auxiliary989 = auxiliary;
+
+    internal void PublishAuxiliary989() => auxiliary989?.Publish();
+
+    internal void Bind(Task normalCompletion)
+        => Completion = Task.WhenAll(normalCompletion, synchronous.Task, auxiliary989?.Completion ?? Task.CompletedTask);
 
     internal void BindStatisticsTrap(RuntimeSchedulerAuxiliaryBatch420 batch, StatisticsTrapRequest trap)
     {
@@ -50,6 +56,7 @@ internal sealed class RuntimeMicrostateRequest
         }
         finally
         {
+            auxiliary989?.AbortPrepared(error);
             synchronous.TrySetException(error);
         }
     }
@@ -67,6 +74,12 @@ internal sealed class RuntimeMicrostateRequest
     internal void Normal(int unusedLaneIdentity)
     {
         RuntimeMicrostateSnapshot? snapshot = owner.ApplyNormalSnapshot(this);
+        statisticsTrap?.Reply(snapshot?.ToTerm());
+    }
+
+    internal void Auxiliary989()
+    {
+        RuntimeMicrostateSnapshot? snapshot = owner.ApplyAuxiliarySnapshot989(this);
         statisticsTrap?.Reply(snapshot?.ToTerm());
     }
 

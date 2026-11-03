@@ -1,0 +1,35 @@
+{
+  "Candidate": "D:\\Distr\\Work\\Codex\\Erlang.Net\\artifacts\\batch825\\statistics-aux-ack-controls1080c\\manifest.json",
+  "CandidateSha256": "B23B93DBE4D648194DF309BC3483B9A87150C625AF97476424B77341255E3B39",
+  "Verdict": "No remaining bounded source blocker found; closes both1082 cleanup findings. Shadow compilation/race execution remains root-owned.",
+  "VerifiedCandidatePostimages": [
+    {
+      "Path": "tests/Erlang.Tests/Runtime/Native/Resources/NativeResource536Checks.cs",
+      "BeforeSha256": "5D7A15EA8489B0BB1EA2B9BF41EDC2F5675F8B0649BD48CE1CB2ED9DC6DF2010",
+      "AfterSha256": "A6F588C7D735F9DB1D0CED92BB59319DA6333BA0B1C7FAD27D96B84C8668813F",
+      "Bytes": 16354,
+      "Payload": "D:\\Distr\\Work\\Codex\\Erlang.Net\\artifacts\\batch825\\statistics-aux-ack-controls1080c\\payload\\tests\\Erlang.Tests\\Runtime\\Native\\Resources\\NativeResource536Checks.cs",
+      "Base": "AUX1023 exact reviewed postimage"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Runtime/Native/Resources/NativeResource536TestNames.cs",
+      "BeforeSha256": "9656E657ECCCD7693E0066CFE5910938FC9FA585C42498D1EE839F8C12432E54",
+      "AfterSha256": "F3F002E5D797ADA14C292B5EC18F4B3D31554AD0D4AB4C891B48D39595F29951",
+      "Bytes": 3314,
+      "Payload": "D:\\Distr\\Work\\Codex\\Erlang.Net\\artifacts\\batch825\\statistics-aux-ack-controls1080c\\payload\\tests\\Erlang.Tests\\Runtime\\Native\\Resources\\NativeResource536TestNames.cs",
+      "Base": "AUX1023 exact reviewed postimage"
+    }
+  ],
+  "CleanupProof": [
+    "Eight exception slots allocated before any runtime/native ownership; exactly eight independent cleanup try/catch sites, each can record at most one failure. No allocation while recording into reserved slots.",
+    "Runtime/actors/provider/Allocate/RetainRoot all inside protected acquisition try. Successful payload acquisition tracked immediately; RetainRoot failure now releases actual producer, joins actual payload/image and closes runtime.",
+    "Release signal attempted first; native producer/root release, actual payload retirement, image retirement, VM close, both actors all attempted independently. Any failure no longer skips later ownership joins.",
+    "GC.KeepAlive(callback) follows all mandatory cleanup attempts. Primary error retained; EDI used alone or AggregateException after all attempts. Expected actor cancellation suppression stays limited to actor Dispose cancellation.",
+    "Public request/inbox ticket/pending/kill/close/finalzero assertions unchanged from1080b; no manual ACK or fake phase. Physical ProcessHandle.Completion premise previously proven in1082 physical-completion-proof.json."
+  ],
+  "RemainingValidation": [
+    "Root actual shadow build and both kill/VMclose cases; do not treat source review as pass.",
+    "Native callback/delegate lifetime through real physical close and final zero queue/worker/native/heap/trap census as authored."
+  ],
+  "Scope": "No W/source edits, build, VM, Git or CI by reviewer. No whole topology/fullMSACC compatibility claim."
+}

@@ -1,3 +1,20 @@
+# Current checkpoint — Part556 Aux lifecycle (local gates complete, 2026-11-03)
+
+PR97 is merged into `main` as `881fa0cfd222c7335729f19b07c7a6e2e279a58b`. Its accepted tree equals reviewed head `12a053c843302d9890faee32fab8204ff14a45ec`. Exact-head CI passed all four workflows/six jobs, including 9,596/9,596 Windows tests, 1,321/1,321 configured original images and 176/176 regex observations. These are PR97 results; they do not certify the new Part556 source.
+
+Part556 adds managed accounting/control admission to the real lazy native-resource Aux worker. Actual worker readiness, preallocated queued control ownership, public request ACK, normal-destructor control pumping, cancellation/close and independent physical cleanup are implemented. The existing lazy topology is preserved. The 17 reviewed source/test postimages have exact candidate-to-style hash provenance and must all match the genuine final workspace build freeze before source resealing.
+
+Isolated final Debug and Release validation each passed 48/48 selected cases, with eight isolated builds and two Release prepared-helper controls. Separately, the current workspace passes seven builds, 624/624 unique affected cases (394 + 230 disjoint groups), and two Release prepared-helper controls. Reviewed metadata has 22 outputs, 24,453 checked bindings, 10,793 checked size fields, all 17 final source guards and a distinct 346-row monitor snapshot with history preserved. Actual source admissions pass all 13 plans plus MFA and Resource. Final normal build1115 is clean with 13,840 stable inputs; the 83 DLL/runtimeconfig files match the 624-case execution. These are local results, not a new full regression or fresh pinned-OTP MSACC differential. Source analysis1099 is source-only. Exact publication-head checkout/proof, review and CI remain mandatory future gates.
+
+Registry counts remain 708 registered / 180 verified full contracts / 504 pending / 24 known differences. `erlang` remains 351 present / 83 full contracts / 255 pending / 13 known differences. API and full-contract deltas are 0/0. Routes exist for all 20 `statistics/1` selectors; the whole statistics contract is not accepted.
+
+Next measurable result: publish one PR101 successor, prove its exact committed tree/checkout, then complete fresh exact-head CI and review. The held PR101 ancestry is retained through an unpublished two-parent reconciliation object; it is not a published or merged PR101 result.
+
+# Historical checkpoints (preserved verbatim)
+
+
+Original OTP source, upstream provenance and existing license handling remain preserved. No new dependency is introduced. [Part556 validation](validation/part-556/REPORT.md) · [Summary](validation/part-556/summary.json).
+
 Part553 scoped native checkpoint: bridge 9/496, Windows adapter 2/48 and optional Linux mutex 1/56. Builds, five host groups, fresh original whole 41 formatter plus8 mutex observations, failed-initialization 4 and 24 RAW/deterministic pairs pass. The full affected native block now passes174/174 with 6964 source/DLL inputs unchanged and settled exit0, after retained schema failures and a diagnosed MixedNif686 reflection-constructor timeout. The fixture-only correction preserves production semantics and the 15-second deadline. Actual final 13/4714 checks pass; full Readiness reuses authentic prior CI9451 evidence, not a fresh full-suite run. Final Part553 CI and actual Linux795/pthread/ordinary-loader/cleanup remain pending. API/full deltas 0/0; 708 registered / 180 verified / 504 pending / 24 known unchanged. No full formatter/TLS/NIF/upgrade544 or public-GC claim. [Part553 scope](validation/part-553/native-callbacks.md).
 
 Part552 standalone delivery: compiled gc_bif2 binary_part/2 now uses the existing native entry. Main-based builds pass; fresh pinned original38 whole results/full stacks match BOTH profiles; existing eight opcode controls pass separately. API/full deltas0/0;708registered/180verified/504pending/24known unchanged. Local source-plan closure passes13/13; exact-head GitHub CI remains pending. Experimental GC/native/root work is excluded. See validation/part-552/compiled-binary-part.md.

@@ -15,6 +15,7 @@ public sealed partial class ProcessRuntime
         // Do not depend on a generic disposal prefix completing successfully before
         // requesting BOTH real worker owners to stop. Each operation is independent.
         Capture(() => DisposeAsync().AsTask());
+        Capture(() => CloseNativeResources524());
         Capture(() => actorDispatcher.CompleteWhenIdle());
         DirtyNativeOwner419? dirty;
         lock (gate)
@@ -81,6 +82,7 @@ public sealed partial class ProcessRuntime
         failures.Enqueue(startup);
         CloseConstructorOsEnvironment(failures);
         var drains = new List<Task>();
+        Capture(() => CloseNativeResources524());
         if (actorDispatcher is { } dispatcher)
             Capture(() => dispatcher.CompleteWhenIdle());
         Capture(() => Modules.CloseSourceMutationsAsync());

@@ -1066,6 +1066,7 @@ EXPLICIT_REVIEWED_INPUTS = frozenset((
     'docs/validation/native-gc825/pr97-statistics-current953-source.json',
     'docs/validation/native-gc825/pr97-helper-shutdown1012-source.json',
     'docs/validation/native-gc825/pr97-canonical-bif-final-source1047.json',
+    'docs/validation/native-gc825/pr97-aux-final-source1098.json',
 ))
 
 

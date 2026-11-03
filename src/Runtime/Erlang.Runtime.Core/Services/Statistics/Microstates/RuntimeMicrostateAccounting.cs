@@ -20,7 +20,32 @@ internal sealed partial class RuntimeMicrostateAccounting
         return AttachCore(type, state, identity);
     }
 
+    internal RuntimeMicrostateScope? AttachManagedWorker989(string type, int identity, RuntimeMicrostate state)
+    {
+        ArgumentOutOfRangeException.ThrowIfNegativeOrZero(identity);
+
+        return AttachClassifiedCore989(
+            type,
+            state,
+            identity,
+            true
+        );
+    }
+
     private RuntimeMicrostateScope? AttachCore(string type, RuntimeMicrostate state, int? configuredIdentity)
+        => AttachClassifiedCore989(
+            type,
+            state,
+            configuredIdentity,
+            type == RuntimeMicrostateNames.Scheduler
+        );
+
+    private RuntimeMicrostateScope? AttachClassifiedCore989(
+        string type,
+        RuntimeMicrostate state,
+        int? configuredIdentity,
+        bool managed
+    )
     {
         RuntimeMicrostateThreadIdentity thread;
         try
@@ -35,13 +60,21 @@ internal sealed partial class RuntimeMicrostateAccounting
             return null;
         }
 
-        return RuntimeMicrostateExecution.AttachConfiguredWorker(
-            this,
-            type,
-            state,
-            thread,
-            configuredIdentity
-        );
+        return managed == true
+            ? RuntimeMicrostateExecution.AttachManagedWorker989(
+                this,
+                type,
+                state,
+                thread,
+                configuredIdentity
+            )
+            : RuntimeMicrostateExecution.AttachConfiguredWorker(
+                this,
+                type,
+                state,
+                thread,
+                configuredIdentity
+            );
     }
 
     private void RequireProvider()
@@ -54,12 +87,26 @@ internal sealed partial class RuntimeMicrostateAccounting
         => RegisterWorker(type, thread, null);
 
     internal RuntimeMicrostateRecord RegisterWorker(string type, RuntimeMicrostateThreadIdentity thread, int? configuredIdentity)
+        => RegisterClassifiedWorker989(
+            type,
+            thread,
+            configuredIdentity,
+            type == RuntimeMicrostateNames.Scheduler
+        );
+
+    internal RuntimeMicrostateRecord RegisterClassifiedWorker989(
+        string type,
+        RuntimeMicrostateThreadIdentity thread,
+        int? configuredIdentity,
+        bool managed
+    )
     {
         lock (gate)
         {
             if (records.TryGetValue((thread, type), out var existing))
             {
-                if (configuredIdentity is { } expected && existing.Identity != expected)
+                if (existing.Managed != managed
+                    || configuredIdentity is { } expected && existing.Identity != expected)
                     throw new InvalidOperationException(RuntimeMicrostateNames.ThreadMismatch);
 
                 return existing;
@@ -72,7 +119,8 @@ internal sealed partial class RuntimeMicrostateAccounting
                 this,
                 type,
                 identity,
-                thread
+                thread,
+                managed
             );
             records.EnsureCapacity(records.Count + 1);
             identities.EnsureCapacity(identities.Count + 1);

@@ -6,9 +6,25 @@ internal sealed class RuntimeMicrostateRecord(
     RuntimeMicrostateAccounting owner,
     string type,
     int identity,
-    RuntimeMicrostateThreadIdentity physicalThread
+    RuntimeMicrostateThreadIdentity physicalThread,
+    bool managed
 )
 {
+    internal RuntimeMicrostateRecord(
+        RuntimeMicrostateAccounting owner,
+        string type,
+        int identity,
+        RuntimeMicrostateThreadIdentity physicalThread
+    ) : this(
+        owner,
+        type,
+        identity,
+        physicalThread,
+        type == RuntimeMicrostateNames.Scheduler
+    )
+    {
+    }
+
     internal RuntimeMicrostateAccounting Owner { get; } = owner;
     internal string Type { get; } = type;
     internal int Identity { get; } = identity;
@@ -17,6 +33,6 @@ internal sealed class RuntimeMicrostateRecord(
     internal RuntimeMicrostate State = RuntimeMicrostate.Other;
     internal BigInteger LastCounter;
     internal bool Active;
-    internal bool Managed => Type == RuntimeMicrostateNames.Scheduler;
+    internal bool Managed { get; } = managed;
     internal bool ManagedAttached;
 }

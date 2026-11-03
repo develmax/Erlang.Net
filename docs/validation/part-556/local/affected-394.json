@@ -1,0 +1,2376 @@
+{
+  "Partial": true,
+  "SelectedCount": 394,
+  "TotalCount": 9596,
+  "Blocks": [],
+  "ExactCases": [
+    "BEAM receive actual mailbox, native value and controlled lifecycle",
+    "Mailbox callbacks outside lock with precedence, identity and lifecycle revalidation",
+    "beam/native-record-original-get-elements-update-and-gc-whole-outcome",
+    "beam/native-record-original-get-elements-update-operand-guards",
+    "beam/prepared-validation-exact-owner-entry-clone-mutable-ir-and-input-buffer-isolation",
+    "beam/unchanged-register-real-root-typed-cell-handler-clone-and-closed",
+    "compiler/direct-evaluate-cancel-real-frame-retirement",
+    "compiler/direct-evaluate-off-actor-host-behavior-preserved",
+    "compiler/direct-evaluate-ordinary-roots-custom-pattern-host-return",
+    "compiler/direct-invoke-unregistered-definition-roots-host-function",
+    "compiler/direct-public-error-export-and-beam-validation-precedence",
+    "compiler/direct-raw-beam-ordinary-roots-before-gc-host-return",
+    "compiler/native-record-cross-module-current-definitions-and-captured-values",
+    "compiler/opaque-host-identity-provider-call-count-preserved",
+    "compiler/opaque-host-local-identity-argument-preserved",
+    "host/mailbox427-published-halt-before-completed-control-return",
+    "mailbox/actual-start-timer-wrapped-backing",
+    "mailbox/actual-timer-off-heap-backing",
+    "mailbox/actual-timer-on-heap-backing",
+    "mailbox/cancel",
+    "mailbox/concurrent-arrival",
+    "mailbox/deferred-off-heap-actual-value",
+    "mailbox/deferred-on-heap-actual-value",
+    "mailbox/deferred-release-mode-revalidation",
+    "mailbox/language-exit-pending-off-heap-backing",
+    "mailbox/language-exit-pending-on-heap-backing",
+    "mailbox/later-match-preserves-order",
+    "mailbox/local-down-off-heap-actual-backing",
+    "mailbox/local-down-on-heap-actual-backing",
+    "mailbox/local-exit-off-heap-actual-backing",
+    "mailbox/local-exit-on-heap-actual-backing",
+    "mailbox/monitor-down-pending-off-heap-backing",
+    "mailbox/monitor-down-pending-on-heap-backing",
+    "mailbox/plain-portable-preparation-keeps-real-copy-and-occurrence-ownership",
+    "mailbox/policy-off-to-on-gc-adoption",
+    "mailbox/policy-on-to-off-existing-physical-message",
+    "mailbox/policy-real-marker-fences-later-admission-until-batched-movement",
+    "mailbox/policy-requested-reversal-keeps-effective-off-until-real-move-and-post-gc-import",
+    "mailbox/raw-owner-off-heap-actual-value",
+    "mailbox/raw-owner-on-heap-actual-value",
+    "mailbox/raw-priority-actual-value",
+    "mailbox/sender-order-stress",
+    "mailbox/timeout",
+    "mailbox/zero-timeout-retains",
+    "mfa/erlang:garbage_collect/0",
+    "mfa/erlang:garbage_collect/1",
+    "mfa/erlang:garbage_collect/2",
+    "mfa/erlang:garbage_collect_message_area/0",
+    "native-resource544/domain-close-before-upgrade-admission-rejected",
+    "native-resource544/preadmitted-upgrade-across-domain-close",
+    "native/owned-list-append776/physical-prefix-and-opaque-replay",
+    "oracle/compiled-module/erlang-basic-dictionary-exact",
+    "oracle/compiled-module/erlang-gc-dictionary-preserved",
+    "oracle/compiled-module/erlang-gc-mailbox-preserved",
+    "oracle/compiled-module/erlang-native-record-access-anonymous-foreign-private",
+    "oracle/compiled-module/erlang-native-record-access-anonymous-local-private-update-and-pattern",
+    "oracle/compiled-module/erlang-native-record-access-anonymous-missing-field-actual-identity",
+    "oracle/compiled-module/erlang-native-record-access-anonymous-non-record-types",
+    "oracle/compiled-module/erlang-native-record-access-anonymous-qualified-identity-and-export",
+    "oracle/compiled-module/erlang-native-record-access-anonymous-read-keeps-update-permission",
+    "oracle/compiled-module/erlang-native-record-access-local-name-foreign-private-access-only",
+    "oracle/compiled-module/erlang-native-record-access-local-name-mismatch-and-actual-field-identity",
+    "oracle/compiled-module/erlang-native-record-completion-bitwise-operators",
+    "oracle/compiled-module/erlang-native-record-completion-boolean-operators",
+    "oracle/compiled-module/erlang-native-record-completion-comparison-operators",
+    "oracle/compiled-module/erlang-native-record-completion-nested-scalar-fold",
+    "oracle/compiled-module/erlang-native-record-completion-parenthesized",
+    "oracle/compiled-module/erlang-native-record-completion-scalar-append",
+    "oracle/compiled-module/erlang-native-record-completion-string-binary",
+    "oracle/compiled-module/erlang-native-record-completion-typed-binary",
+    "oracle/compiled-module/erlang-native-record-completion-typed-containers",
+    "oracle/compiled-module/erlang-native-record-completion-typed-export-default",
+    "oracle/compiled-module/erlang-native-record-completion-typed-remote-fun",
+    "oracle/compiled-module/erlang-native-record-completion-typed-required",
+    "oracle/compiled-module/erlang-native-record-completion-typed-union-range",
+    "oracle/compiled-module/erlang-native-record-create-badfield",
+    "oracle/compiled-module/erlang-native-record-create-duplicates",
+    "oracle/compiled-module/erlang-native-record-create-error-order",
+    "oracle/compiled-module/erlang-native-record-create-invalid-options",
+    "oracle/compiled-module/erlang-native-record-empty",
+    "oracle/compiled-module/erlang-native-record-etf-exact-empty",
+    "oracle/compiled-module/erlang-native-record-etf-invalid-flags",
+    "oracle/compiled-module/erlang-native-record-etf-roundtrip",
+    "oracle/compiled-module/erlang-native-record-get-errors",
+    "oracle/compiled-module/erlang-native-record-hash-multi-field-numeric",
+    "oracle/compiled-module/erlang-native-record-hash-single-field-numeric",
+    "oracle/compiled-module/erlang-native-record-hashes",
+    "oracle/compiled-module/erlang-native-record-introspection",
+    "oracle/compiled-module/erlang-native-record-introspection-errors",
+    "oracle/compiled-module/erlang-native-record-numeric-equality",
+    "oracle/compiled-module/erlang-native-record-order",
+    "oracle/compiled-module/erlang-native-record-predicate-guard",
+    "oracle/compiled-module/erlang-native-record-predicate-one",
+    "oracle/compiled-module/erlang-native-record-predicate-three",
+    "oracle/compiled-module/erlang-native-record-predicate-two",
+    "oracle/compiled-module/erlang-native-record-syntax-anonymous-foreign",
+    "oracle/compiled-module/erlang-native-record-syntax-anonymous-local-private",
+    "oracle/compiled-module/erlang-native-record-syntax-anonymous-private-match",
+    "oracle/compiled-module/erlang-native-record-syntax-captured-layout",
+    "oracle/compiled-module/erlang-native-record-syntax-closure-pattern",
+    "oracle/compiled-module/erlang-native-record-syntax-comprehension-pattern",
+    "oracle/compiled-module/erlang-native-record-syntax-default-signed-zero",
+    "oracle/compiled-module/erlang-native-record-syntax-definition-errors",
+    "oracle/compiled-module/erlang-native-record-syntax-definition-exported",
+    "oracle/compiled-module/erlang-native-record-syntax-definition-private",
+    "oracle/compiled-module/erlang-native-record-syntax-external-create-error-order",
+    "oracle/compiled-module/erlang-native-record-syntax-external-create-missing",
+    "oracle/compiled-module/erlang-native-record-syntax-external-empty-match-private",
+    "oracle/compiled-module/erlang-native-record-syntax-external-exported-access-update",
+    "oracle/compiled-module/erlang-native-record-syntax-external-private-create",
+    "oracle/compiled-module/erlang-native-record-syntax-external-private-permissions",
+    "oracle/compiled-module/erlang-native-record-syntax-external-self-create",
+    "oracle/compiled-module/erlang-native-record-syntax-guard-access",
+    "oracle/compiled-module/erlang-native-record-syntax-imported-access",
+    "oracle/compiled-module/erlang-native-record-syntax-literal-defaults",
+    "oracle/compiled-module/erlang-native-record-syntax-local-create",
+    "oracle/compiled-module/erlang-native-record-syntax-local-predicate",
+    "oracle/compiled-module/erlang-native-record-syntax-local-update",
+    "oracle/compiled-module/erlang-native-record-syntax-names",
+    "oracle/compiled-module/erlang-native-record-syntax-pattern-binding",
+    "oracle/compiled-module/erlang-native-record-syntax-pattern-captured-fields",
+    "oracle/compiled-module/erlang-native-record-syntax-quoted-underscore-name",
+    "oracle/compiled-module/erlang-native-record-syntax-source-order-create",
+    "oracle/compiled-module/erlang-native-record-syntax-update-evaluation-order",
+    "oracle/compiled-module/erlang-native-record-update",
+    "oracle/compiled-module/erlang-native-record-update-errors",
+    "oracle/compiled-module/erlang-native-record-update-wildcard",
+    "oracle/compiled-module/erlang-preloaded-dictionary-pure",
+    "oracle/compiled-module/erlang-process-display-owner-unrelated-mailbox",
+    "oracle/compiled-module/erlang-process-info-observable-current-other",
+    "oracle/compiled-module/erlang-process-info-observable-current-self",
+    "oracle/compiled-module/erlang-process-info-observable-dictionary-absent",
+    "oracle/compiled-module/erlang-process-info-observable-dictionary-empty",
+    "oracle/compiled-module/erlang-process-info-observable-dictionary-exact",
+    "oracle/compiled-module/erlang-process-info-observable-dictionary-lookup",
+    "oracle/compiled-module/erlang-process-info-observable-dictionary-lookup-list",
+    "oracle/compiled-module/erlang-process-info-observable-dictionary-other",
+    "oracle/compiled-module/erlang-process-info-observable-dictionary-real",
+    "oracle/compiled-module/erlang-process-info-observable-dictionary-update",
+    "oracle/compiled-module/erlang-process-info-observable-stack-default-depth",
+    "oracle/compiled-module/erlang-process-info-observable-stack-other",
+    "oracle/compiled-module/erlang-process-info-observable-stack-self",
+    "oracle/compiled-module/erlang-seq-system-info-owner-dictionary",
+    "oracle/compiled-module/erlang-seq-system-send-after-expiry",
+    "oracle/compiled-module/erlang-seq-system-start-timer-expiry",
+    "oracle/compiled-module/fullsweep_default_snapshot",
+    "oracle/compiled-module/fullsweep_process_domain",
+    "oracle/compiled-module/fullsweep_request_forms",
+    "oracle/compiled-module/fullsweep_spawn_forms",
+    "oracle/compiled-module/proc-lib-metadata-improper-list-error-before-full-dictionary-fallback",
+    "oracle/compiled-module/proc-lib-metadata-initial-call-dictionary-dummy-arguments",
+    "oracle/compiled-module/proc-lib-metadata-initial-call-specific-dictionary-key",
+    "oracle/compiled-module/proc-lib-metadata-invalid-full-dictionary-value-raises",
+    "oracle/compiled-module/proc-lib-metadata-label-live-child-dictionary-query",
+    "oracle/compiled-module/proc-lib-metadata-label-observes-direct-process-dictionary-writes",
+    "oracle/compiled-module/proc-lib-metadata-malformed-full-dictionary-item-false",
+    "oracle/compiled-module/proc-lib-metadata-specific-key-wins-over-earlier-full-dictionary",
+    "oracle/compiled-module/proc-lib-stop-mailbox-order",
+    "oracle/compiled-module/receive483-binary-and-function-guards-whole-mailbox",
+    "oracle/compiled-module/runtime-timer-send-after",
+    "oracle/compiled-module/runtime-timer-start-timer",
+    "oracle/compiler-diagnostic/native-record-default-call",
+    "oracle/compiler-diagnostic/native-record-default-integer-binary",
+    "oracle/compiler-diagnostic/native-record-default-list-operator",
+    "oracle/compiler-diagnostic/native-record-default-map-comparison",
+    "oracle/compiler-diagnostic/native-record-default-short-circuit",
+    "oracle/compiler-diagnostic/native-record-default-string-comparison",
+    "oracle/compiler-diagnostic/native-record-duplicate-import",
+    "oracle/compiler-diagnostic/native-record-field-index",
+    "oracle/compiler-diagnostic/native-record-guard-create",
+    "oracle/compiler-diagnostic/native-record-import-after-local",
+    "oracle/compiler-diagnostic/native-record-local-after-import",
+    "oracle/compiler-diagnostic/native-record-quoted-underscore-construction-validator",
+    "oracle/compiler-diagnostic/native-record-record-info",
+    "oracle/compiler-diagnostic/native-record-required-field",
+    "oracle/compiler-diagnostic/native-record-tuple-export",
+    "oracle/compiler-diagnostic/native-record-type-arity",
+    "oracle/compiler-diagnostic/native-record-undefined-export",
+    "oracle/compiler-diagnostic/native-record-unknown-construction-field",
+    "oracle/compiler-diagnostic/native-record-wildcard-init",
+    "runtime/alias-priority-mailbox-removal-and-wakeup",
+    "runtime/allocation567/failed-publication-not-garbage-collection",
+    "runtime/allocator-query-owned-mailbox-transport",
+    "runtime/atom-vm494-binary-to-atom1-exhaustion",
+    "runtime/atom-vm494-binary-to-atom2-exhaustion",
+    "runtime/atom-vm494-exhaustion-stops-one-vm-and-host-survives",
+    "runtime/atom-vm494-host-and-cross-vm-atom-import",
+    "runtime/atom-vm494-isolated-tables-and-async-scopes",
+    "runtime/atom-vm494-name-binary-identity-is-local",
+    "runtime/atom-vm494-safe-etf-uses-destination-table",
+    "runtime/atomics589/public-dictionary-getter-host-retains-after-erase-gc",
+    "runtime/atomics589/public-dictionary-snapshot-host-retains-after-erase-gc",
+    "runtime/beam-list550/closed-y-store-publication-rollback",
+    "runtime/beam-list550/current-root-pair-publication-matrix",
+    "runtime/beam-list550/gc-custody-and-exact-root-refusal",
+    "runtime/beam-receive557/actual-current-close-order-and-gc",
+    "runtime/beam-receive557/pending-generation-and-real-504-rollback",
+    "runtime/beam-receive557/source-state-retirement-and-legacy-baseline",
+    "runtime/beam-receive557/three-generations-siblings-and-aba",
+    "runtime/beam/current-stacktrace-actual-adjacent-continuations",
+    "runtime/beam/receive484/length-plus-whole-mailbox",
+    "runtime/binary-wrapper/exact-delegate-capability-and-public-replay-refusal",
+    "runtime/binary-wrapper/nested-public-part-override-stays-opaque",
+    "runtime/counters596/public-dictionary-getter-host-retains-after-erase-gc",
+    "runtime/counters596/public-dictionary-snapshot-host-retains-after-erase-gc",
+    "runtime/counters611/public-mailbox-snapshot-host-custody",
+    "runtime/counters611/public-process-info-dictionary-key-host-custody",
+    "runtime/counters680/ordinary-dictionary-counter-survives-real-hibernate-and-retires",
+    "runtime/dictionary538/atomics-resource-key-selected-list-last-root",
+    "runtime/dictionary538/binary-resource-key-selected-list-last-root",
+    "runtime/dictionary538/counters-resource-key-selected-list-last-root",
+    "runtime/dictionary538/native-resource-key-selected-list-last-root",
+    "runtime/dictionary538/regex-resource-key-selected-list-last-root",
+    "runtime/dictionary627/atomics-keys-guest-only",
+    "runtime/dictionary627/binary-keys-source-frame-clear-retirement",
+    "runtime/dictionary627/counters-keys-source-frame-clear-retirement",
+    "runtime/dictionary627/exact-original-observer-whole-outcome",
+    "runtime/dictionary627/native-keys-guest-only",
+    "runtime/dictionary627/native-keys-owner-exit",
+    "runtime/dictionary627/public-same-body-replacement-opaque",
+    "runtime/dictionary627/regex-keys-source-frame-clear-retirement",
+    "runtime/dictionary635/linear-key-projection-visits",
+    "runtime/dist-spawn430-genuine-notalive-and-badopt-mailbox-protocol",
+    "runtime/fullsweep-zero-real-major-collection",
+    "runtime/immediate-cons-closure-real-collector-live-stale-foreign-and-boxed-head",
+    "runtime/immutable-nested-closure-real-collector-native-stale-foreign-and-mutable-input",
+    "runtime/initializer615/terminal-mailbox-before-stop-cancel",
+    "runtime/library441/ets-compressed-read-lease-and-canceled-capture",
+    "runtime/library441/ets-compressed-real-storage-and-mutations",
+    "runtime/library442/ets-compressed-authentic-fun-key-value-owned-census",
+    "runtime/library442/ets-compressed-source-roots-and-owner-resource-release",
+    "runtime/mailbox-actual-off-heap-value-and-host-escape",
+    "runtime/mailbox-actual-on-heap-value-and-host-escape",
+    "runtime/mailbox/callback399/cancellation-reset",
+    "runtime/mailbox/callback399/current-save-priority",
+    "runtime/mailbox/callback399/deferred-priority",
+    "runtime/mailbox/callback399/exception-nested-save",
+    "runtime/mailbox/callback399/marker-priority",
+    "runtime/mailbox/callback399/nested-current-consume",
+    "runtime/mailbox/callback399/priority-source-repeats",
+    "runtime/mailbox/deferred-backed-partial-complete-error-drain",
+    "runtime/mailbox/deferred-backed-release-complete-errors-drain",
+    "runtime/mailbox/deferred-prepare-release-complete-errors-drain",
+    "runtime/mailbox/receive-markers381/control-only-wait",
+    "runtime/mailbox/receive-markers381/deferred-physical-order",
+    "runtime/mailbox/receive-markers381/deferred-priority-refused",
+    "runtime/mailbox/receive-markers381/duplicate-binding-refused",
+    "runtime/mailbox/receive-markers381/invalid-and-foreign",
+    "runtime/mailbox/receive-markers381/pass-expiration",
+    "runtime/mailbox/receive-markers381/position-and-clear",
+    "runtime/mailbox/receive-markers381/priority-refusal-after-await",
+    "runtime/mailbox/receive-markers381/priority-refusal-after-execution-wait",
+    "runtime/mailbox/receive-markers381/priority-refusal-before-use",
+    "runtime/mailbox/receive-markers381/removal-and-expiration",
+    "runtime/mailbox593/drain-does-not-join-other-recipient",
+    "runtime/mailbox593/final-recipient-settles-actual-roots",
+    "runtime/mailbox593/recipient-ready-fallback-and-errors",
+    "runtime/mailbox593/specific-ready-root-fallback-retains-failure",
+    "runtime/mailbox601/cancel-after-native-reply-publication-and-target-exit",
+    "runtime/mailbox601/cancel-before-target-capture-releases-request",
+    "runtime/mailbox601/cancel-during-real-ets-target-retirement-gap",
+    "runtime/mailbox601/default-mixed-process-info-preserves-public-callback",
+    "runtime/mailbox601/default-process-info-private-reply-no-owned-heap",
+    "runtime/mailbox601/mixed-native-and-plain-snapshot-identity",
+    "runtime/mailbox601/mutual-process-info-control-signal-liveness",
+    "runtime/mailbox601/opaque-remove-releases-all-operations-before-callback",
+    "runtime/mailbox601/plain-public-callback-snapshot-identity",
+    "runtime/mailbox601/public-reregister-process-info-stays-opaque",
+    "runtime/mailbox601/public-snapshot-retains-origin-across-dequeue",
+    "runtime/mailbox601/remote-process-info-original-reply-order",
+    "runtime/mailbox601/source-remote-process-info-roots-native-messages",
+    "runtime/mailbox601/source-self-process-info-and-trusted-receive",
+    "runtime/mailbox601/target-done-before-requester-consumes-native-reply",
+    "runtime/mailbox601/target-exit-before-capture-replies-undefined",
+    "runtime/mailbox606/bulk-commit-observer-close-exact-removal-and-cleanup",
+    "runtime/mailbox606/deferred-release-self-exit-complete-and-discard-once",
+    "runtime/mailbox606/foreign-runtime-dispose-inside-actor-settles",
+    "runtime/mailbox606/late-deferred-send-after-owner-done-releases-outside-monitor",
+    "runtime/mailbox606/pending-admission-self-exit-normal-and-bounded",
+    "runtime/nif-bound-independent-immediate-tuple-copy",
+    "runtime/nif-normal697/cancellation-early-close",
+    "runtime/nif-normal697/counted-host-same-context",
+    "runtime/nif-normal697/pending-auxiliary-continuation",
+    "runtime/normal-barrier-actual-turns-auxiliary-and-dirty",
+    "runtime/normal-barrier-concurrent-request-cancellation",
+    "runtime/normal-barrier-reentry-and-retirement",
+    "runtime/owned-guest506/compiled-payload-roots-dictionary-and-host-export",
+    "runtime/owned-guest506/concurrent-host-dictionary-writes-and-real-collection",
+    "runtime/owned-guest506/process-info-dictionary-races-return-and-kill",
+    "runtime/payload641/rootless-publication-after-mailbox-close-settles",
+    "runtime/process-self-and-dictionary",
+    "runtime/re412/initializer-close",
+    "runtime/resource519/real-garbage-collect-keeps-hidden-map-binary-live",
+    "runtime/resource519/real-garbage-collect-reclaims-unrooted-owned-cells",
+    "runtime/self-message-canonical-exact-delegate-and-public-replay-refusal",
+    "runtime/statistics-canonical-source-fun-real-entry-environment-birth-and-gc",
+    "runtime/statistics-context-selection/adjacent-same-epoch",
+    "runtime/statistics-context-selection/initializer-and-inline-excluded",
+    "runtime/statistics-context-selection/interleaved-same-epoch",
+    "runtime/statistics-cpu-active-sample-no-double-count",
+    "runtime/statistics-cpu-generic-auxiliary-and-no-vm-backlink",
+    "runtime/statistics-cpu-nested-vm-and-exception-restoration",
+    "runtime/statistics-cpu-real-dirty-burn-and-blocked-user-time",
+    "runtime/statistics-cpu-two-vms-and-host-user-time-isolation",
+    "runtime/statistics-external-identifiers-actual-node-header-birth-live-dead-reclaim",
+    "runtime/statistics-external-identifiers-real-cross-heap-node-lease-host-escape",
+    "runtime/statistics-external-identifiers-vm-close-real-node-drain",
+    "runtime/statistics-group-leader-foreign-pid-physical-root-and-detached-host-snapshot",
+    "runtime/statistics-group-leader-spawn-inheritance-independent-physical-roots-and-close",
+    "runtime/statistics-msacc-actual-normal-aux-dirty-producers",
+    "runtime/statistics-msacc-capacity-one-same-actor-enable-work-actual-idle",
+    "runtime/statistics-msacc-default-feature-reset-and-caller-exit",
+    "runtime/statistics-msacc-dirty-io-physical-worker-id-out-of-order-birth",
+    "runtime/statistics-msacc-duplicate-id-distinct-physical-threads-rejected",
+    "runtime/statistics-msacc-normal-physical-worker-id-out-of-order-birth",
+    "runtime/statistics-msacc-real-thread-nested-vm-and-host-exclusion",
+    "runtime/statistics-msacc-thread-cache-does-not-retain-vm",
+    "runtime/statistics-native-record-copied-actual-children-detached-host-escape",
+    "runtime/statistics-native-record-genuine-source-wait-vm-close-and-stale-read",
+    "runtime/statistics-native-record-real-instance-definition-order-pointers-and-reclaim",
+    "runtime/statistics-native-record-source-birth-update-getters-live-gc-and-return",
+    "runtime/statistics-native-writable-genuine-source-wait-vm-close-real-retirement",
+    "runtime/statistics-native-writable-partial-byte-actual-flags-and-payload",
+    "runtime/statistics-opaque-sdk-external-function-real-kind-header-no-canonical-admission",
+    "runtime/statistics-ordinary-refc-writable-origin-preserves-append-token-capacity-aliases",
+    "runtime/statistics-process-heap-bits-physical-inline-birth-and-reclaim",
+    "runtime/statistics-process-heap-bits-preserve-small-reference-shape",
+    "runtime/statistics-process-heap-bits-transfer-detached-escape-and-bits",
+    "runtime/statistics-process-refc-binary-actual-prefix-header-words-and-reclaim",
+    "runtime/statistics-process-refc-binary-queue-graph-transfer-and-host-escape",
+    "runtime/statistics-process-refc-binary-vm-close-waits-real-interest",
+    "runtime/statistics-process-refc-short-view-preserves-native-subbits",
+    "runtime/statistics-self-on-heap-send-real-same-graph-no-pin-no-refcount-inflation",
+    "runtime/statistics-source-fun-import-actual-copied-env-dictionary-and-reclaim",
+    "runtime/statistics-trap/actual-callback-replies-and-exact-ref-cleanup",
+    "runtime/statistics-trap/authentic-private-and-preloaded-image",
+    "runtime/statistics-trap/callback-fault-interrupts-real-receive",
+    "runtime/statistics-trap/close-waits-for-helper-and-callbacks",
+    "runtime/statistics-trap/immediate-halt-joins-held-callback",
+    "runtime/statistics-trap/private-installer-primitives-no-publication",
+    "runtime/statistics-trap/real-requester-kill-drains-callbacks",
+    "runtime/statistics-two-owners-real-clock-user-cpu-cursors",
+    "runtime/statistics-walltime-concurrent-owner-linearization",
+    "runtime/statistics-walltime-dirty-snapshot-precedes-blocked-normal-ack",
+    "runtime/statistics-walltime-gather-wait-services-owner-process-info",
+    "runtime/statistics-walltime-internal-repeat-awaits-real-normal-ack",
+    "runtime/statistics-walltime-managed-wait-reports-waiting-and-services-control",
+    "runtime/statistics-walltime-native-wait-services-owner-process-info",
+    "runtime/statistics-walltime-public-nested-owner-and-exit",
+    "runtime/statistics-walltime-real-dirty-inflight-and-persistent-timers",
+    "runtime/statistics/build-metadata-actual-assembly-abi-two-vm-profiles",
+    "runtime/statistics/ordinary-beam-original-values-stacks-and-instruction-gc",
+    "runtime/statistics/ordinary-beam-target-safe-collection-requests",
+    "runtime/statistics/ordinary-source-real-collector-before-gc",
+    "runtime/statistics/ordinary-source-target-safe-collection-requests",
+    "runtime/statistics/owned-beam-target-safe-collection-requests",
+    "runtime/statistics/owned-source-target-safe-collection-requests",
+    "runtime/timer628/five-families-cancel-after-source-erase-and-gc/atomics",
+    "runtime/timer628/five-families-cancel-after-source-erase-and-gc/binary",
+    "runtime/timer628/five-families-cancel-after-source-erase-and-gc/counters",
+    "runtime/timer628/five-families-cancel-after-source-erase-and-gc/native",
+    "runtime/timer628/five-families-cancel-after-source-erase-and-gc/regex",
+    "runtime/timer628/five-families-owner-exit-pending-payload/atomics",
+    "runtime/timer628/five-families-owner-exit-pending-payload/binary",
+    "runtime/timer628/five-families-owner-exit-pending-payload/counters",
+    "runtime/timer628/five-families-owner-exit-pending-payload/native",
+    "runtime/timer628/five-families-owner-exit-pending-payload/regex",
+    "runtime/timer628/five-families-source-erase-gc-and-fire/atomics",
+    "runtime/timer628/five-families-source-erase-gc-and-fire/binary",
+    "runtime/timer628/five-families-source-erase-gc-and-fire/counters",
+    "runtime/timer628/five-families-source-erase-gc-and-fire/native",
+    "runtime/timer628/five-families-source-erase-gc-and-fire/regex",
+    "runtime/timer628/five-families-vm-close-joins-payload-retirement/atomics",
+    "runtime/timer628/five-families-vm-close-joins-payload-retirement/binary",
+    "runtime/timer628/five-families-vm-close-joins-payload-retirement/counters",
+    "runtime/timer628/five-families-vm-close-joins-payload-retirement/native",
+    "runtime/timer628/five-families-vm-close-joins-payload-retirement/regex",
+    "runtime/timer628/public-same-delegate-alias-remains-opaque",
+    "runtime/trusted-guest507/dictionary-no-payload-copy-and-root-slot-reuse",
+    "runtime/trusted-guest507/source-dictionary-and-pure-read-aliases",
+    "runtime/vm-storage/actual-dictionary-borrow-delays-physical-drain",
+    "runtime/vm-storage/actual-dispatch-admission-rollback",
+    "runtime/vm-storage/born-before-pure-host-body",
+    "runtime/vm-storage/pure-host-dictionary-real-collection",
+    "runtime/vm-storage/two-vms-and-host-clr-gc-isolation",
+    "runtime/worker-lifecycle/close-versus-actual-ready",
+    "runtime/worker-lifecycle/constructor-original-argument-error-type",
+    "runtime/worker-lifecycle/independent-entry-errors-aggregate",
+    "runtime/worker-lifecycle/partial-dirty-entry-failure",
+    "runtime/worker-lifecycle/partial-normal-entry-failure",
+    "runtime/worker-lifecycle/prefix-and-initializer-rollback",
+    "scheduler/initializer-mailbox-readmission-reentry",
+    "scheduler/physical-mailbox-retirement-finishes-with-bound-lane-offline607",
+    "terms/native-record-immutable-snapshot-and-wire-rejection"
+  ],
+  "Passed": 394,
+  "Failed": 0,
+  "Tests": [
+    {
+      "Name": "runtime/mailbox601/opaque-remove-releases-all-operations-before-callback",
+      "Status": "Passed",
+      "Milliseconds": 339
+    },
+    {
+      "Name": "runtime/mailbox601/public-snapshot-retains-origin-across-dequeue",
+      "Status": "Passed",
+      "Milliseconds": 190
+    },
+    {
+      "Name": "runtime/mailbox601/plain-public-callback-snapshot-identity",
+      "Status": "Passed",
+      "Milliseconds": 106
+    },
+    {
+      "Name": "runtime/mailbox601/mixed-native-and-plain-snapshot-identity",
+      "Status": "Passed",
+      "Milliseconds": 125
+    },
+    {
+      "Name": "runtime/mailbox601/default-mixed-process-info-preserves-public-callback",
+      "Status": "Passed",
+      "Milliseconds": 106
+    },
+    {
+      "Name": "runtime/mailbox601/cancel-after-native-reply-publication-and-target-exit",
+      "Status": "Passed",
+      "Milliseconds": 116
+    },
+    {
+      "Name": "runtime/mailbox601/target-exit-before-capture-replies-undefined",
+      "Status": "Passed",
+      "Milliseconds": 98
+    },
+    {
+      "Name": "runtime/mailbox601/target-done-before-requester-consumes-native-reply",
+      "Status": "Passed",
+      "Milliseconds": 114
+    },
+    {
+      "Name": "scheduler/physical-mailbox-retirement-finishes-with-bound-lane-offline607",
+      "Status": "Passed",
+      "Milliseconds": 61
+    },
+    {
+      "Name": "runtime/mailbox606/foreign-runtime-dispose-inside-actor-settles",
+      "Status": "Passed",
+      "Milliseconds": 69
+    },
+    {
+      "Name": "runtime/mailbox606/bulk-commit-observer-close-exact-removal-and-cleanup",
+      "Status": "Passed",
+      "Milliseconds": 203
+    },
+    {
+      "Name": "runtime/mailbox606/pending-admission-self-exit-normal-and-bounded",
+      "Status": "Passed",
+      "Milliseconds": 589
+    },
+    {
+      "Name": "runtime/mailbox606/deferred-release-self-exit-complete-and-discard-once",
+      "Status": "Passed",
+      "Milliseconds": 410
+    },
+    {
+      "Name": "runtime/mailbox606/late-deferred-send-after-owner-done-releases-outside-monitor",
+      "Status": "Passed",
+      "Milliseconds": 106
+    },
+    {
+      "Name": "runtime/mailbox601/cancel-during-real-ets-target-retirement-gap",
+      "Status": "Passed",
+      "Milliseconds": 70
+    },
+    {
+      "Name": "runtime/mailbox601/source-remote-process-info-roots-native-messages",
+      "Status": "Passed",
+      "Milliseconds": 1269
+    },
+    {
+      "Name": "runtime/mailbox601/source-self-process-info-and-trusted-receive",
+      "Status": "Passed",
+      "Milliseconds": 175
+    },
+    {
+      "Name": "runtime/mailbox601/public-reregister-process-info-stays-opaque",
+      "Status": "Passed",
+      "Milliseconds": 151
+    },
+    {
+      "Name": "runtime/mailbox601/default-process-info-private-reply-no-owned-heap",
+      "Status": "Passed",
+      "Milliseconds": 105
+    },
+    {
+      "Name": "runtime/mailbox601/mutual-process-info-control-signal-liveness",
+      "Status": "Passed",
+      "Milliseconds": 102
+    },
+    {
+      "Name": "runtime/mailbox601/remote-process-info-original-reply-order",
+      "Status": "Passed",
+      "Milliseconds": 109
+    },
+    {
+      "Name": "runtime/mailbox601/cancel-before-target-capture-releases-request",
+      "Status": "Passed",
+      "Milliseconds": 99
+    },
+    {
+      "Name": "runtime/mailbox593/recipient-ready-fallback-and-errors",
+      "Status": "Passed",
+      "Milliseconds": 2
+    },
+    {
+      "Name": "runtime/mailbox593/drain-does-not-join-other-recipient",
+      "Status": "Passed",
+      "Milliseconds": 1
+    },
+    {
+      "Name": "runtime/mailbox593/final-recipient-settles-actual-roots",
+      "Status": "Passed",
+      "Milliseconds": 99
+    },
+    {
+      "Name": "runtime/mailbox593/specific-ready-root-fallback-retains-failure",
+      "Status": "Passed",
+      "Milliseconds": 1
+    },
+    {
+      "Name": "runtime/atomics589/public-dictionary-getter-host-retains-after-erase-gc",
+      "Status": "Passed",
+      "Milliseconds": 110
+    },
+    {
+      "Name": "runtime/atomics589/public-dictionary-snapshot-host-retains-after-erase-gc",
+      "Status": "Passed",
+      "Milliseconds": 99
+    },
+    {
+      "Name": "runtime/beam/receive484/length-plus-whole-mailbox",
+      "Status": "Passed",
+      "Milliseconds": 4213
+    },
+    {
+      "Name": "oracle/compiled-module/receive483-binary-and-function-guards-whole-mailbox",
+      "Status": "Passed",
+      "Milliseconds": 387
+    },
+    {
+      "Name": "runtime/re412/initializer-close",
+      "Status": "Passed",
+      "Milliseconds": 1709
+    },
+    {
+      "Name": "runtime/library441/ets-compressed-real-storage-and-mutations",
+      "Status": "Passed",
+      "Milliseconds": 101
+    },
+    {
+      "Name": "runtime/library441/ets-compressed-read-lease-and-canceled-capture",
+      "Status": "Passed",
+      "Milliseconds": 29
+    },
+    {
+      "Name": "runtime/library442/ets-compressed-authentic-fun-key-value-owned-census",
+      "Status": "Passed",
+      "Milliseconds": 37
+    },
+    {
+      "Name": "runtime/library442/ets-compressed-source-roots-and-owner-resource-release",
+      "Status": "Passed",
+      "Milliseconds": 173
+    },
+    {
+      "Name": "host/mailbox427-published-halt-before-completed-control-return",
+      "Status": "Passed",
+      "Milliseconds": 1
+    },
+    {
+      "Name": "runtime/dist-spawn430-genuine-notalive-and-badopt-mailbox-protocol",
+      "Status": "Passed",
+      "Milliseconds": 92
+    },
+    {
+      "Name": "runtime/mailbox/callback399/current-save-priority",
+      "Status": "Passed",
+      "Milliseconds": 3
+    },
+    {
+      "Name": "runtime/mailbox/callback399/priority-source-repeats",
+      "Status": "Passed",
+      "Milliseconds": 1
+    },
+    {
+      "Name": "runtime/mailbox/callback399/exception-nested-save",
+      "Status": "Passed",
+      "Milliseconds": 1
+    },
+    {
+      "Name": "runtime/mailbox/callback399/cancellation-reset",
+      "Status": "Passed",
+      "Milliseconds": 2
+    },
+    {
+      "Name": "runtime/mailbox/callback399/marker-priority",
+      "Status": "Passed",
+      "Milliseconds": 90
+    },
+    {
+      "Name": "runtime/mailbox/callback399/deferred-priority",
+      "Status": "Passed",
+      "Milliseconds": 7
+    },
+    {
+      "Name": "runtime/mailbox/callback399/nested-current-consume",
+      "Status": "Passed",
+      "Milliseconds": 1
+    },
+    {
+      "Name": "runtime/statistics-two-owners-real-clock-user-cpu-cursors",
+      "Status": "Passed",
+      "Milliseconds": 291
+    },
+    {
+      "Name": "terms/native-record-immutable-snapshot-and-wire-rejection",
+      "Status": "Passed",
+      "Milliseconds": 2
+    },
+    {
+      "Name": "compiler/native-record-cross-module-current-definitions-and-captured-values",
+      "Status": "Passed",
+      "Milliseconds": 123
+    },
+    {
+      "Name": "runtime/normal-barrier-actual-turns-auxiliary-and-dirty",
+      "Status": "Passed",
+      "Milliseconds": 48
+    },
+    {
+      "Name": "runtime/normal-barrier-concurrent-request-cancellation",
+      "Status": "Passed",
+      "Milliseconds": 39
+    },
+    {
+      "Name": "runtime/normal-barrier-reentry-and-retirement",
+      "Status": "Passed",
+      "Milliseconds": 33
+    },
+    {
+      "Name": "runtime/nif-normal697/counted-host-same-context",
+      "Status": "Passed",
+      "Milliseconds": 40
+    },
+    {
+      "Name": "runtime/nif-normal697/pending-auxiliary-continuation",
+      "Status": "Passed",
+      "Milliseconds": 32
+    },
+    {
+      "Name": "runtime/nif-normal697/cancellation-early-close",
+      "Status": "Passed",
+      "Milliseconds": 70
+    },
+    {
+      "Name": "runtime/alias-priority-mailbox-removal-and-wakeup",
+      "Status": "Passed",
+      "Milliseconds": 1
+    },
+    {
+      "Name": "mailbox/later-match-preserves-order",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "mailbox/zero-timeout-retains",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "mailbox/timeout",
+      "Status": "Passed",
+      "Milliseconds": 26
+    },
+    {
+      "Name": "mailbox/concurrent-arrival",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "mailbox/cancel",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "mailbox/sender-order-stress",
+      "Status": "Passed",
+      "Milliseconds": 36
+    },
+    {
+      "Name": "runtime/process-self-and-dictionary",
+      "Status": "Passed",
+      "Milliseconds": 84
+    },
+    {
+      "Name": "mfa/erlang:garbage_collect/0",
+      "Status": "Passed",
+      "Milliseconds": 151
+    },
+    {
+      "Name": "mfa/erlang:garbage_collect/1",
+      "Status": "Passed",
+      "Milliseconds": 117
+    },
+    {
+      "Name": "mfa/erlang:garbage_collect/2",
+      "Status": "Passed",
+      "Milliseconds": 123
+    },
+    {
+      "Name": "mfa/erlang:garbage_collect_message_area/0",
+      "Status": "Passed",
+      "Milliseconds": 128
+    },
+    {
+      "Name": "oracle/compiled-module/runtime-timer-send-after",
+      "Status": "Passed",
+      "Milliseconds": 145
+    },
+    {
+      "Name": "oracle/compiled-module/runtime-timer-start-timer",
+      "Status": "Passed",
+      "Milliseconds": 118
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-basic-dictionary-exact",
+      "Status": "Passed",
+      "Milliseconds": 126
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-preloaded-dictionary-pure",
+      "Status": "Passed",
+      "Milliseconds": 108
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-gc-mailbox-preserved",
+      "Status": "Passed",
+      "Milliseconds": 122
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-gc-dictionary-preserved",
+      "Status": "Passed",
+      "Milliseconds": 121
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-native-record-predicate-one",
+      "Status": "Passed",
+      "Milliseconds": 125
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-native-record-predicate-two",
+      "Status": "Passed",
+      "Milliseconds": 128
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-native-record-predicate-three",
+      "Status": "Passed",
+      "Milliseconds": 126
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-native-record-predicate-guard",
+      "Status": "Passed",
+      "Milliseconds": 122
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-native-record-introspection",
+      "Status": "Passed",
+      "Milliseconds": 119
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-native-record-empty",
+      "Status": "Passed",
+      "Milliseconds": 113
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-native-record-update",
+      "Status": "Passed",
+      "Milliseconds": 127
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-native-record-update-wildcard",
+      "Status": "Passed",
+      "Milliseconds": 108
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-native-record-create-error-order",
+      "Status": "Passed",
+      "Milliseconds": 116
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-native-record-create-badfield",
+      "Status": "Passed",
+      "Milliseconds": 132
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-native-record-create-invalid-options",
+      "Status": "Passed",
+      "Milliseconds": 117
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-native-record-create-duplicates",
+      "Status": "Passed",
+      "Milliseconds": 128
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-native-record-introspection-errors",
+      "Status": "Passed",
+      "Milliseconds": 126
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-native-record-update-errors",
+      "Status": "Passed",
+      "Milliseconds": 114
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-native-record-get-errors",
+      "Status": "Passed",
+      "Milliseconds": 135
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-native-record-order",
+      "Status": "Passed",
+      "Milliseconds": 130
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-native-record-numeric-equality",
+      "Status": "Passed",
+      "Milliseconds": 128
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-native-record-etf-roundtrip",
+      "Status": "Passed",
+      "Milliseconds": 180
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-native-record-etf-exact-empty",
+      "Status": "Passed",
+      "Milliseconds": 125
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-native-record-etf-invalid-flags",
+      "Status": "Passed",
+      "Milliseconds": 120
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-native-record-hashes",
+      "Status": "Passed",
+      "Milliseconds": 121
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-native-record-hash-single-field-numeric",
+      "Status": "Passed",
+      "Milliseconds": 117
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-native-record-hash-multi-field-numeric",
+      "Status": "Passed",
+      "Milliseconds": 120
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-native-record-syntax-local-create",
+      "Status": "Passed",
+      "Milliseconds": 136
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-native-record-syntax-literal-defaults",
+      "Status": "Passed",
+      "Milliseconds": 144
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-native-record-syntax-names",
+      "Status": "Passed",
+      "Milliseconds": 145
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-native-record-syntax-local-update",
+      "Status": "Passed",
+      "Milliseconds": 126
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-native-record-syntax-pattern-binding",
+      "Status": "Passed",
+      "Milliseconds": 123
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-native-record-syntax-pattern-captured-fields",
+      "Status": "Passed",
+      "Milliseconds": 120
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-native-record-syntax-guard-access",
+      "Status": "Passed",
+      "Milliseconds": 119
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-native-record-syntax-local-predicate",
+      "Status": "Passed",
+      "Milliseconds": 110
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-native-record-syntax-definition-private",
+      "Status": "Passed",
+      "Milliseconds": 117
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-native-record-syntax-definition-exported",
+      "Status": "Passed",
+      "Milliseconds": 139
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-native-record-syntax-external-self-create",
+      "Status": "Passed",
+      "Milliseconds": 152
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-native-record-syntax-external-private-create",
+      "Status": "Passed",
+      "Milliseconds": 115
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-native-record-syntax-external-create-missing",
+      "Status": "Passed",
+      "Milliseconds": 117
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-native-record-syntax-external-create-error-order",
+      "Status": "Passed",
+      "Milliseconds": 111
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-native-record-syntax-external-exported-access-update",
+      "Status": "Passed",
+      "Milliseconds": 114
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-native-record-syntax-external-private-permissions",
+      "Status": "Passed",
+      "Milliseconds": 122
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-native-record-syntax-external-empty-match-private",
+      "Status": "Passed",
+      "Milliseconds": 118
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-native-record-syntax-anonymous-local-private",
+      "Status": "Passed",
+      "Milliseconds": 130
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-native-record-syntax-anonymous-foreign",
+      "Status": "Passed",
+      "Milliseconds": 160
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-native-record-syntax-anonymous-private-match",
+      "Status": "Passed",
+      "Milliseconds": 121
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-native-record-syntax-definition-errors",
+      "Status": "Passed",
+      "Milliseconds": 116
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-native-record-syntax-captured-layout",
+      "Status": "Passed",
+      "Milliseconds": 137
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-native-record-syntax-source-order-create",
+      "Status": "Passed",
+      "Milliseconds": 128
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-native-record-syntax-closure-pattern",
+      "Status": "Passed",
+      "Milliseconds": 125
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-native-record-syntax-comprehension-pattern",
+      "Status": "Passed",
+      "Milliseconds": 139
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-native-record-syntax-imported-access",
+      "Status": "Passed",
+      "Milliseconds": 138
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-native-record-syntax-update-evaluation-order",
+      "Status": "Passed",
+      "Milliseconds": 149
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-native-record-syntax-default-signed-zero",
+      "Status": "Passed",
+      "Milliseconds": 149
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-native-record-syntax-quoted-underscore-name",
+      "Status": "Passed",
+      "Milliseconds": 128
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-process-info-observable-dictionary-empty",
+      "Status": "Passed",
+      "Milliseconds": 140
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-process-info-observable-dictionary-real",
+      "Status": "Passed",
+      "Milliseconds": 142
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-process-info-observable-dictionary-lookup",
+      "Status": "Passed",
+      "Milliseconds": 148
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-process-info-observable-dictionary-absent",
+      "Status": "Passed",
+      "Milliseconds": 135
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-process-info-observable-dictionary-exact",
+      "Status": "Passed",
+      "Milliseconds": 136
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-process-info-observable-dictionary-lookup-list",
+      "Status": "Passed",
+      "Milliseconds": 133
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-process-info-observable-dictionary-update",
+      "Status": "Passed",
+      "Milliseconds": 135
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-process-info-observable-current-self",
+      "Status": "Passed",
+      "Milliseconds": 148
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-process-info-observable-stack-self",
+      "Status": "Passed",
+      "Milliseconds": 134
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-process-info-observable-stack-default-depth",
+      "Status": "Passed",
+      "Milliseconds": 133
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-process-info-observable-dictionary-other",
+      "Status": "Passed",
+      "Milliseconds": 175
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-process-info-observable-current-other",
+      "Status": "Passed",
+      "Milliseconds": 130
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-process-info-observable-stack-other",
+      "Status": "Passed",
+      "Milliseconds": 146
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-native-record-completion-typed-required",
+      "Status": "Passed",
+      "Milliseconds": 144
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-native-record-completion-typed-export-default",
+      "Status": "Passed",
+      "Milliseconds": 120
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-native-record-completion-typed-union-range",
+      "Status": "Passed",
+      "Milliseconds": 144
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-native-record-completion-typed-containers",
+      "Status": "Passed",
+      "Milliseconds": 172
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-native-record-completion-typed-remote-fun",
+      "Status": "Passed",
+      "Milliseconds": 171
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-native-record-completion-typed-binary",
+      "Status": "Passed",
+      "Milliseconds": 128
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-native-record-completion-parenthesized",
+      "Status": "Passed",
+      "Milliseconds": 115
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-native-record-completion-boolean-operators",
+      "Status": "Passed",
+      "Milliseconds": 115
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-native-record-completion-comparison-operators",
+      "Status": "Passed",
+      "Milliseconds": 110
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-native-record-completion-bitwise-operators",
+      "Status": "Passed",
+      "Milliseconds": 112
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-native-record-completion-scalar-append",
+      "Status": "Passed",
+      "Milliseconds": 109
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-native-record-completion-nested-scalar-fold",
+      "Status": "Passed",
+      "Milliseconds": 139
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-native-record-completion-string-binary",
+      "Status": "Passed",
+      "Milliseconds": 180
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-seq-system-info-owner-dictionary",
+      "Status": "Passed",
+      "Milliseconds": 131
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-seq-system-send-after-expiry",
+      "Status": "Passed",
+      "Milliseconds": 116
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-seq-system-start-timer-expiry",
+      "Status": "Passed",
+      "Milliseconds": 126
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-native-record-access-anonymous-foreign-private",
+      "Status": "Passed",
+      "Milliseconds": 122
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-native-record-access-anonymous-missing-field-actual-identity",
+      "Status": "Passed",
+      "Milliseconds": 117
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-native-record-access-anonymous-non-record-types",
+      "Status": "Passed",
+      "Milliseconds": 126
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-native-record-access-anonymous-local-private-update-and-pattern",
+      "Status": "Passed",
+      "Milliseconds": 125
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-native-record-access-anonymous-qualified-identity-and-export",
+      "Status": "Passed",
+      "Milliseconds": 117
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-native-record-access-anonymous-read-keeps-update-permission",
+      "Status": "Passed",
+      "Milliseconds": 114
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-native-record-access-local-name-foreign-private-access-only",
+      "Status": "Passed",
+      "Milliseconds": 120
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-native-record-access-local-name-mismatch-and-actual-field-identity",
+      "Status": "Passed",
+      "Milliseconds": 112
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-process-display-owner-unrelated-mailbox",
+      "Status": "Passed",
+      "Milliseconds": 117
+    },
+    {
+      "Name": "oracle/compiled-module/proc-lib-metadata-initial-call-dictionary-dummy-arguments",
+      "Status": "Passed",
+      "Milliseconds": 154
+    },
+    {
+      "Name": "oracle/compiled-module/proc-lib-metadata-initial-call-specific-dictionary-key",
+      "Status": "Passed",
+      "Milliseconds": 143
+    },
+    {
+      "Name": "oracle/compiled-module/proc-lib-metadata-specific-key-wins-over-earlier-full-dictionary",
+      "Status": "Passed",
+      "Milliseconds": 144
+    },
+    {
+      "Name": "oracle/compiled-module/proc-lib-metadata-malformed-full-dictionary-item-false",
+      "Status": "Passed",
+      "Milliseconds": 157
+    },
+    {
+      "Name": "oracle/compiled-module/proc-lib-metadata-improper-list-error-before-full-dictionary-fallback",
+      "Status": "Passed",
+      "Milliseconds": 151
+    },
+    {
+      "Name": "oracle/compiled-module/proc-lib-metadata-invalid-full-dictionary-value-raises",
+      "Status": "Passed",
+      "Milliseconds": 142
+    },
+    {
+      "Name": "oracle/compiled-module/proc-lib-metadata-label-observes-direct-process-dictionary-writes",
+      "Status": "Passed",
+      "Milliseconds": 152
+    },
+    {
+      "Name": "oracle/compiled-module/proc-lib-metadata-label-live-child-dictionary-query",
+      "Status": "Passed",
+      "Milliseconds": 167
+    },
+    {
+      "Name": "oracle/compiled-module/proc-lib-stop-mailbox-order",
+      "Status": "Passed",
+      "Milliseconds": 140
+    },
+    {
+      "Name": "oracle/compiler-diagnostic/native-record-required-field",
+      "Status": "Passed",
+      "Milliseconds": 1
+    },
+    {
+      "Name": "oracle/compiler-diagnostic/native-record-default-call",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "oracle/compiler-diagnostic/native-record-field-index",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "oracle/compiler-diagnostic/native-record-wildcard-init",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "oracle/compiler-diagnostic/native-record-record-info",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "oracle/compiler-diagnostic/native-record-guard-create",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "oracle/compiler-diagnostic/native-record-tuple-export",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "oracle/compiler-diagnostic/native-record-undefined-export",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "oracle/compiler-diagnostic/native-record-default-list-operator",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "oracle/compiler-diagnostic/native-record-default-map-comparison",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "oracle/compiler-diagnostic/native-record-default-short-circuit",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "oracle/compiler-diagnostic/native-record-default-integer-binary",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "oracle/compiler-diagnostic/native-record-default-string-comparison",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "oracle/compiler-diagnostic/native-record-type-arity",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "oracle/compiler-diagnostic/native-record-unknown-construction-field",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "oracle/compiler-diagnostic/native-record-import-after-local",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "oracle/compiler-diagnostic/native-record-local-after-import",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "oracle/compiler-diagnostic/native-record-duplicate-import",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "oracle/compiler-diagnostic/native-record-quoted-underscore-construction-validator",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "BEAM receive actual mailbox, native value and controlled lifecycle",
+      "Status": "Passed",
+      "Milliseconds": 106
+    },
+    {
+      "Name": "Mailbox callbacks outside lock with precedence, identity and lifecycle revalidation",
+      "Status": "Passed",
+      "Milliseconds": 154
+    },
+    {
+      "Name": "runtime/allocator-query-owned-mailbox-transport",
+      "Status": "Passed",
+      "Milliseconds": 773
+    },
+    {
+      "Name": "scheduler/initializer-mailbox-readmission-reentry",
+      "Status": "Passed",
+      "Milliseconds": 26
+    },
+    {
+      "Name": "oracle/compiled-module/fullsweep_process_domain",
+      "Status": "Passed",
+      "Milliseconds": 146
+    },
+    {
+      "Name": "oracle/compiled-module/fullsweep_spawn_forms",
+      "Status": "Passed",
+      "Milliseconds": 130
+    },
+    {
+      "Name": "oracle/compiled-module/fullsweep_request_forms",
+      "Status": "Passed",
+      "Milliseconds": 136
+    },
+    {
+      "Name": "oracle/compiled-module/fullsweep_default_snapshot",
+      "Status": "Passed",
+      "Milliseconds": 122
+    },
+    {
+      "Name": "runtime/fullsweep-zero-real-major-collection",
+      "Status": "Passed",
+      "Milliseconds": 87
+    },
+    {
+      "Name": "runtime/nif-bound-independent-immediate-tuple-copy",
+      "Status": "Passed",
+      "Milliseconds": 98
+    },
+    {
+      "Name": "runtime/mailbox/receive-markers381/position-and-clear",
+      "Status": "Passed",
+      "Milliseconds": 80
+    },
+    {
+      "Name": "runtime/mailbox/receive-markers381/removal-and-expiration",
+      "Status": "Passed",
+      "Milliseconds": 84
+    },
+    {
+      "Name": "runtime/mailbox/receive-markers381/invalid-and-foreign",
+      "Status": "Passed",
+      "Milliseconds": 79
+    },
+    {
+      "Name": "runtime/mailbox/receive-markers381/pass-expiration",
+      "Status": "Passed",
+      "Milliseconds": 88
+    },
+    {
+      "Name": "runtime/mailbox/receive-markers381/duplicate-binding-refused",
+      "Status": "Passed",
+      "Milliseconds": 91
+    },
+    {
+      "Name": "runtime/mailbox/receive-markers381/control-only-wait",
+      "Status": "Passed",
+      "Milliseconds": 80
+    },
+    {
+      "Name": "runtime/mailbox/receive-markers381/priority-refusal-before-use",
+      "Status": "Passed",
+      "Milliseconds": 85
+    },
+    {
+      "Name": "runtime/mailbox/receive-markers381/priority-refusal-after-await",
+      "Status": "Passed",
+      "Milliseconds": 84
+    },
+    {
+      "Name": "runtime/mailbox/receive-markers381/deferred-physical-order",
+      "Status": "Passed",
+      "Milliseconds": 79
+    },
+    {
+      "Name": "runtime/mailbox/receive-markers381/deferred-priority-refused",
+      "Status": "Passed",
+      "Milliseconds": 81
+    },
+    {
+      "Name": "runtime/mailbox/receive-markers381/priority-refusal-after-execution-wait",
+      "Status": "Passed",
+      "Milliseconds": 144
+    },
+    {
+      "Name": "runtime/atom-vm494-isolated-tables-and-async-scopes",
+      "Status": "Passed",
+      "Milliseconds": 172
+    },
+    {
+      "Name": "runtime/atom-vm494-host-and-cross-vm-atom-import",
+      "Status": "Passed",
+      "Milliseconds": 167
+    },
+    {
+      "Name": "runtime/atom-vm494-name-binary-identity-is-local",
+      "Status": "Passed",
+      "Milliseconds": 179
+    },
+    {
+      "Name": "runtime/atom-vm494-exhaustion-stops-one-vm-and-host-survives",
+      "Status": "Passed",
+      "Milliseconds": 405
+    },
+    {
+      "Name": "runtime/atom-vm494-binary-to-atom1-exhaustion",
+      "Status": "Passed",
+      "Milliseconds": 402
+    },
+    {
+      "Name": "runtime/atom-vm494-binary-to-atom2-exhaustion",
+      "Status": "Passed",
+      "Milliseconds": 406
+    },
+    {
+      "Name": "runtime/atom-vm494-safe-etf-uses-destination-table",
+      "Status": "Passed",
+      "Milliseconds": 164
+    },
+    {
+      "Name": "runtime/owned-guest506/compiled-payload-roots-dictionary-and-host-export",
+      "Status": "Passed",
+      "Milliseconds": 153
+    },
+    {
+      "Name": "runtime/trusted-guest507/source-dictionary-and-pure-read-aliases",
+      "Status": "Passed",
+      "Milliseconds": 168
+    },
+    {
+      "Name": "runtime/trusted-guest507/dictionary-no-payload-copy-and-root-slot-reuse",
+      "Status": "Passed",
+      "Milliseconds": 139
+    },
+    {
+      "Name": "runtime/allocation567/failed-publication-not-garbage-collection",
+      "Status": "Passed",
+      "Milliseconds": 84
+    },
+    {
+      "Name": "runtime/beam-list550/current-root-pair-publication-matrix",
+      "Status": "Passed",
+      "Milliseconds": 1032
+    },
+    {
+      "Name": "runtime/beam-receive557/actual-current-close-order-and-gc",
+      "Status": "Passed",
+      "Milliseconds": 671
+    },
+    {
+      "Name": "runtime/beam-receive557/three-generations-siblings-and-aba",
+      "Status": "Passed",
+      "Milliseconds": 327
+    },
+    {
+      "Name": "runtime/beam-receive557/pending-generation-and-real-504-rollback",
+      "Status": "Passed",
+      "Milliseconds": 248
+    },
+    {
+      "Name": "runtime/beam-receive557/source-state-retirement-and-legacy-baseline",
+      "Status": "Passed",
+      "Milliseconds": 201
+    },
+    {
+      "Name": "runtime/beam-list550/gc-custody-and-exact-root-refusal",
+      "Status": "Passed",
+      "Milliseconds": 2199
+    },
+    {
+      "Name": "runtime/beam-list550/closed-y-store-publication-rollback",
+      "Status": "Passed",
+      "Milliseconds": 91
+    },
+    {
+      "Name": "native-resource544/preadmitted-upgrade-across-domain-close",
+      "Status": "Passed",
+      "Milliseconds": 93
+    },
+    {
+      "Name": "native-resource544/domain-close-before-upgrade-admission-rejected",
+      "Status": "Passed",
+      "Milliseconds": 110
+    },
+    {
+      "Name": "runtime/resource519/real-garbage-collect-reclaims-unrooted-owned-cells",
+      "Status": "Passed",
+      "Milliseconds": 85
+    },
+    {
+      "Name": "runtime/resource519/real-garbage-collect-keeps-hidden-map-binary-live",
+      "Status": "Passed",
+      "Milliseconds": 97
+    },
+    {
+      "Name": "runtime/owned-guest506/concurrent-host-dictionary-writes-and-real-collection",
+      "Status": "Passed",
+      "Milliseconds": 182
+    },
+    {
+      "Name": "runtime/owned-guest506/process-info-dictionary-races-return-and-kill",
+      "Status": "Passed",
+      "Milliseconds": 129
+    },
+    {
+      "Name": "runtime/counters596/public-dictionary-getter-host-retains-after-erase-gc",
+      "Status": "Passed",
+      "Milliseconds": 88
+    },
+    {
+      "Name": "runtime/counters596/public-dictionary-snapshot-host-retains-after-erase-gc",
+      "Status": "Passed",
+      "Milliseconds": 83
+    },
+    {
+      "Name": "runtime/initializer615/terminal-mailbox-before-stop-cancel",
+      "Status": "Passed",
+      "Milliseconds": 100
+    },
+    {
+      "Name": "runtime/counters611/public-process-info-dictionary-key-host-custody",
+      "Status": "Passed",
+      "Milliseconds": 139
+    },
+    {
+      "Name": "runtime/counters611/public-mailbox-snapshot-host-custody",
+      "Status": "Passed",
+      "Milliseconds": 133
+    },
+    {
+      "Name": "runtime/dictionary538/native-resource-key-selected-list-last-root",
+      "Status": "Passed",
+      "Milliseconds": 122
+    },
+    {
+      "Name": "runtime/dictionary538/atomics-resource-key-selected-list-last-root",
+      "Status": "Passed",
+      "Milliseconds": 112
+    },
+    {
+      "Name": "runtime/dictionary538/counters-resource-key-selected-list-last-root",
+      "Status": "Passed",
+      "Milliseconds": 120
+    },
+    {
+      "Name": "runtime/dictionary538/regex-resource-key-selected-list-last-root",
+      "Status": "Passed",
+      "Milliseconds": 1615
+    },
+    {
+      "Name": "runtime/dictionary538/binary-resource-key-selected-list-last-root",
+      "Status": "Passed",
+      "Milliseconds": 125
+    },
+    {
+      "Name": "runtime/dictionary635/linear-key-projection-visits",
+      "Status": "Passed",
+      "Milliseconds": 133
+    },
+    {
+      "Name": "runtime/counters680/ordinary-dictionary-counter-survives-real-hibernate-and-retires",
+      "Status": "Passed",
+      "Milliseconds": 128
+    },
+    {
+      "Name": "runtime/payload641/rootless-publication-after-mailbox-close-settles",
+      "Status": "Passed",
+      "Milliseconds": 83
+    },
+    {
+      "Name": "runtime/dictionary627/exact-original-observer-whole-outcome",
+      "Status": "Passed",
+      "Milliseconds": 282
+    },
+    {
+      "Name": "runtime/dictionary627/native-keys-guest-only",
+      "Status": "Passed",
+      "Milliseconds": 117
+    },
+    {
+      "Name": "runtime/dictionary627/native-keys-owner-exit",
+      "Status": "Passed",
+      "Milliseconds": 117
+    },
+    {
+      "Name": "runtime/dictionary627/public-same-body-replacement-opaque",
+      "Status": "Passed",
+      "Milliseconds": 133
+    },
+    {
+      "Name": "runtime/dictionary627/atomics-keys-guest-only",
+      "Status": "Passed",
+      "Milliseconds": 125
+    },
+    {
+      "Name": "runtime/dictionary627/counters-keys-source-frame-clear-retirement",
+      "Status": "Passed",
+      "Milliseconds": 119
+    },
+    {
+      "Name": "runtime/dictionary627/regex-keys-source-frame-clear-retirement",
+      "Status": "Passed",
+      "Milliseconds": 1584
+    },
+    {
+      "Name": "runtime/dictionary627/binary-keys-source-frame-clear-retirement",
+      "Status": "Passed",
+      "Milliseconds": 111
+    },
+    {
+      "Name": "runtime/timer628/five-families-source-erase-gc-and-fire/native",
+      "Status": "Passed",
+      "Milliseconds": 380
+    },
+    {
+      "Name": "runtime/timer628/five-families-cancel-after-source-erase-and-gc/native",
+      "Status": "Passed",
+      "Milliseconds": 131
+    },
+    {
+      "Name": "runtime/timer628/five-families-owner-exit-pending-payload/native",
+      "Status": "Passed",
+      "Milliseconds": 125
+    },
+    {
+      "Name": "runtime/timer628/five-families-vm-close-joins-payload-retirement/native",
+      "Status": "Passed",
+      "Milliseconds": 122
+    },
+    {
+      "Name": "runtime/timer628/five-families-source-erase-gc-and-fire/atomics",
+      "Status": "Passed",
+      "Milliseconds": 401
+    },
+    {
+      "Name": "runtime/timer628/five-families-cancel-after-source-erase-and-gc/atomics",
+      "Status": "Passed",
+      "Milliseconds": 128
+    },
+    {
+      "Name": "runtime/timer628/five-families-owner-exit-pending-payload/atomics",
+      "Status": "Passed",
+      "Milliseconds": 118
+    },
+    {
+      "Name": "runtime/timer628/five-families-vm-close-joins-payload-retirement/atomics",
+      "Status": "Passed",
+      "Milliseconds": 121
+    },
+    {
+      "Name": "runtime/timer628/five-families-source-erase-gc-and-fire/counters",
+      "Status": "Passed",
+      "Milliseconds": 382
+    },
+    {
+      "Name": "runtime/timer628/five-families-cancel-after-source-erase-and-gc/counters",
+      "Status": "Passed",
+      "Milliseconds": 119
+    },
+    {
+      "Name": "runtime/timer628/five-families-owner-exit-pending-payload/counters",
+      "Status": "Passed",
+      "Milliseconds": 116
+    },
+    {
+      "Name": "runtime/timer628/five-families-vm-close-joins-payload-retirement/counters",
+      "Status": "Passed",
+      "Milliseconds": 133
+    },
+    {
+      "Name": "runtime/timer628/five-families-source-erase-gc-and-fire/regex",
+      "Status": "Passed",
+      "Milliseconds": 1845
+    },
+    {
+      "Name": "runtime/timer628/five-families-cancel-after-source-erase-and-gc/regex",
+      "Status": "Passed",
+      "Milliseconds": 1572
+    },
+    {
+      "Name": "runtime/timer628/five-families-owner-exit-pending-payload/regex",
+      "Status": "Passed",
+      "Milliseconds": 1569
+    },
+    {
+      "Name": "runtime/timer628/five-families-vm-close-joins-payload-retirement/regex",
+      "Status": "Passed",
+      "Milliseconds": 1595
+    },
+    {
+      "Name": "runtime/timer628/five-families-source-erase-gc-and-fire/binary",
+      "Status": "Passed",
+      "Milliseconds": 382
+    },
+    {
+      "Name": "runtime/timer628/five-families-cancel-after-source-erase-and-gc/binary",
+      "Status": "Passed",
+      "Milliseconds": 121
+    },
+    {
+      "Name": "runtime/timer628/five-families-owner-exit-pending-payload/binary",
+      "Status": "Passed",
+      "Milliseconds": 118
+    },
+    {
+      "Name": "runtime/timer628/five-families-vm-close-joins-payload-retirement/binary",
+      "Status": "Passed",
+      "Milliseconds": 117
+    },
+    {
+      "Name": "runtime/timer628/public-same-delegate-alias-remains-opaque",
+      "Status": "Passed",
+      "Milliseconds": 122
+    },
+    {
+      "Name": "runtime/mailbox-actual-on-heap-value-and-host-escape",
+      "Status": "Passed",
+      "Milliseconds": 28
+    },
+    {
+      "Name": "runtime/mailbox-actual-off-heap-value-and-host-escape",
+      "Status": "Passed",
+      "Milliseconds": 28
+    },
+    {
+      "Name": "mailbox/deferred-on-heap-actual-value",
+      "Status": "Passed",
+      "Milliseconds": 27
+    },
+    {
+      "Name": "mailbox/deferred-off-heap-actual-value",
+      "Status": "Passed",
+      "Milliseconds": 27
+    },
+    {
+      "Name": "mailbox/deferred-release-mode-revalidation",
+      "Status": "Passed",
+      "Milliseconds": 36
+    },
+    {
+      "Name": "mailbox/raw-owner-on-heap-actual-value",
+      "Status": "Passed",
+      "Milliseconds": 38
+    },
+    {
+      "Name": "mailbox/raw-owner-off-heap-actual-value",
+      "Status": "Passed",
+      "Milliseconds": 22
+    },
+    {
+      "Name": "mailbox/raw-priority-actual-value",
+      "Status": "Passed",
+      "Milliseconds": 26
+    },
+    {
+      "Name": "mailbox/local-exit-on-heap-actual-backing",
+      "Status": "Passed",
+      "Milliseconds": 24
+    },
+    {
+      "Name": "mailbox/local-exit-off-heap-actual-backing",
+      "Status": "Passed",
+      "Milliseconds": 24
+    },
+    {
+      "Name": "mailbox/local-down-on-heap-actual-backing",
+      "Status": "Passed",
+      "Milliseconds": 22
+    },
+    {
+      "Name": "mailbox/local-down-off-heap-actual-backing",
+      "Status": "Passed",
+      "Milliseconds": 25
+    },
+    {
+      "Name": "mailbox/language-exit-pending-on-heap-backing",
+      "Status": "Passed",
+      "Milliseconds": 31
+    },
+    {
+      "Name": "mailbox/language-exit-pending-off-heap-backing",
+      "Status": "Passed",
+      "Milliseconds": 21
+    },
+    {
+      "Name": "mailbox/monitor-down-pending-on-heap-backing",
+      "Status": "Passed",
+      "Milliseconds": 28
+    },
+    {
+      "Name": "mailbox/monitor-down-pending-off-heap-backing",
+      "Status": "Passed",
+      "Milliseconds": 21
+    },
+    {
+      "Name": "mailbox/policy-on-to-off-existing-physical-message",
+      "Status": "Passed",
+      "Milliseconds": 173
+    },
+    {
+      "Name": "mailbox/policy-off-to-on-gc-adoption",
+      "Status": "Passed",
+      "Milliseconds": 162
+    },
+    {
+      "Name": "mailbox/policy-requested-reversal-keeps-effective-off-until-real-move-and-post-gc-import",
+      "Status": "Passed",
+      "Milliseconds": 163
+    },
+    {
+      "Name": "mailbox/policy-real-marker-fences-later-admission-until-batched-movement",
+      "Status": "Passed",
+      "Milliseconds": 170
+    },
+    {
+      "Name": "runtime/statistics/ordinary-source-real-collector-before-gc",
+      "Status": "Passed",
+      "Milliseconds": 247
+    },
+    {
+      "Name": "runtime/statistics/ordinary-source-target-safe-collection-requests",
+      "Status": "Passed",
+      "Milliseconds": 158
+    },
+    {
+      "Name": "runtime/statistics/owned-source-target-safe-collection-requests",
+      "Status": "Passed",
+      "Milliseconds": 144
+    },
+    {
+      "Name": "runtime/statistics/ordinary-beam-target-safe-collection-requests",
+      "Status": "Passed",
+      "Milliseconds": 93
+    },
+    {
+      "Name": "runtime/statistics/owned-beam-target-safe-collection-requests",
+      "Status": "Passed",
+      "Milliseconds": 87
+    },
+    {
+      "Name": "runtime/statistics/ordinary-beam-original-values-stacks-and-instruction-gc",
+      "Status": "Passed",
+      "Milliseconds": 208
+    },
+    {
+      "Name": "runtime/vm-storage/born-before-pure-host-body",
+      "Status": "Passed",
+      "Milliseconds": 22
+    },
+    {
+      "Name": "runtime/vm-storage/pure-host-dictionary-real-collection",
+      "Status": "Passed",
+      "Milliseconds": 25
+    },
+    {
+      "Name": "runtime/vm-storage/two-vms-and-host-clr-gc-isolation",
+      "Status": "Passed",
+      "Milliseconds": 72
+    },
+    {
+      "Name": "runtime/vm-storage/actual-dictionary-borrow-delays-physical-drain",
+      "Status": "Passed",
+      "Milliseconds": 20
+    },
+    {
+      "Name": "runtime/vm-storage/actual-dispatch-admission-rollback",
+      "Status": "Passed",
+      "Milliseconds": 24
+    },
+    {
+      "Name": "runtime/mailbox/deferred-prepare-release-complete-errors-drain",
+      "Status": "Passed",
+      "Milliseconds": 48
+    },
+    {
+      "Name": "runtime/mailbox/deferred-backed-release-complete-errors-drain",
+      "Status": "Passed",
+      "Milliseconds": 48
+    },
+    {
+      "Name": "runtime/mailbox/deferred-backed-partial-complete-error-drain",
+      "Status": "Passed",
+      "Milliseconds": 47
+    },
+    {
+      "Name": "runtime/statistics-trap/authentic-private-and-preloaded-image",
+      "Status": "Passed",
+      "Milliseconds": 106
+    },
+    {
+      "Name": "runtime/statistics-trap/actual-callback-replies-and-exact-ref-cleanup",
+      "Status": "Passed",
+      "Milliseconds": 36
+    },
+    {
+      "Name": "runtime/statistics-trap/callback-fault-interrupts-real-receive",
+      "Status": "Passed",
+      "Milliseconds": 132
+    },
+    {
+      "Name": "runtime/statistics-trap/real-requester-kill-drains-callbacks",
+      "Status": "Passed",
+      "Milliseconds": 30
+    },
+    {
+      "Name": "runtime/statistics-trap/close-waits-for-helper-and-callbacks",
+      "Status": "Passed",
+      "Milliseconds": 30
+    },
+    {
+      "Name": "runtime/statistics-trap/immediate-halt-joins-held-callback",
+      "Status": "Passed",
+      "Milliseconds": 30
+    },
+    {
+      "Name": "runtime/statistics-trap/private-installer-primitives-no-publication",
+      "Status": "Passed",
+      "Milliseconds": 52
+    },
+    {
+      "Name": "runtime/binary-wrapper/exact-delegate-capability-and-public-replay-refusal",
+      "Status": "Passed",
+      "Milliseconds": 25
+    },
+    {
+      "Name": "runtime/binary-wrapper/nested-public-part-override-stays-opaque",
+      "Status": "Passed",
+      "Milliseconds": 55
+    },
+    {
+      "Name": "runtime/beam/current-stacktrace-actual-adjacent-continuations",
+      "Status": "Passed",
+      "Milliseconds": 88
+    },
+    {
+      "Name": "runtime/statistics-process-refc-short-view-preserves-native-subbits",
+      "Status": "Passed",
+      "Milliseconds": 79
+    },
+    {
+      "Name": "runtime/statistics-ordinary-refc-writable-origin-preserves-append-token-capacity-aliases",
+      "Status": "Passed",
+      "Milliseconds": 331
+    },
+    {
+      "Name": "runtime/statistics-native-writable-partial-byte-actual-flags-and-payload",
+      "Status": "Passed",
+      "Milliseconds": 264
+    },
+    {
+      "Name": "runtime/statistics-native-writable-genuine-source-wait-vm-close-real-retirement",
+      "Status": "Passed",
+      "Milliseconds": 273
+    },
+    {
+      "Name": "runtime/statistics-self-on-heap-send-real-same-graph-no-pin-no-refcount-inflation",
+      "Status": "Passed",
+      "Milliseconds": 492
+    },
+    {
+      "Name": "runtime/self-message-canonical-exact-delegate-and-public-replay-refusal",
+      "Status": "Passed",
+      "Milliseconds": 85
+    },
+    {
+      "Name": "mailbox/actual-timer-on-heap-backing",
+      "Status": "Passed",
+      "Milliseconds": 24
+    },
+    {
+      "Name": "mailbox/actual-timer-off-heap-backing",
+      "Status": "Passed",
+      "Milliseconds": 43
+    },
+    {
+      "Name": "mailbox/actual-start-timer-wrapped-backing",
+      "Status": "Passed",
+      "Milliseconds": 22
+    },
+    {
+      "Name": "runtime/worker-lifecycle/constructor-original-argument-error-type",
+      "Status": "Passed",
+      "Milliseconds": 7
+    },
+    {
+      "Name": "runtime/worker-lifecycle/partial-normal-entry-failure",
+      "Status": "Passed",
+      "Milliseconds": 10
+    },
+    {
+      "Name": "runtime/worker-lifecycle/partial-dirty-entry-failure",
+      "Status": "Passed",
+      "Milliseconds": 2
+    },
+    {
+      "Name": "runtime/worker-lifecycle/prefix-and-initializer-rollback",
+      "Status": "Passed",
+      "Milliseconds": 55
+    },
+    {
+      "Name": "runtime/worker-lifecycle/close-versus-actual-ready",
+      "Status": "Passed",
+      "Milliseconds": 1
+    },
+    {
+      "Name": "runtime/worker-lifecycle/independent-entry-errors-aggregate",
+      "Status": "Passed",
+      "Milliseconds": 1
+    },
+    {
+      "Name": "runtime/statistics/build-metadata-actual-assembly-abi-two-vm-profiles",
+      "Status": "Passed",
+      "Milliseconds": 167
+    },
+    {
+      "Name": "runtime/statistics-walltime-native-wait-services-owner-process-info",
+      "Status": "Passed",
+      "Milliseconds": 31
+    },
+    {
+      "Name": "runtime/statistics-walltime-gather-wait-services-owner-process-info",
+      "Status": "Passed",
+      "Milliseconds": 35
+    },
+    {
+      "Name": "runtime/statistics-walltime-managed-wait-reports-waiting-and-services-control",
+      "Status": "Passed",
+      "Milliseconds": 36
+    },
+    {
+      "Name": "runtime/statistics-walltime-internal-repeat-awaits-real-normal-ack",
+      "Status": "Passed",
+      "Milliseconds": 30
+    },
+    {
+      "Name": "runtime/statistics-walltime-dirty-snapshot-precedes-blocked-normal-ack",
+      "Status": "Passed",
+      "Milliseconds": 248
+    },
+    {
+      "Name": "runtime/statistics-msacc-thread-cache-does-not-retain-vm",
+      "Status": "Passed",
+      "Milliseconds": 470
+    },
+    {
+      "Name": "runtime/statistics-msacc-default-feature-reset-and-caller-exit",
+      "Status": "Passed",
+      "Milliseconds": 542
+    },
+    {
+      "Name": "runtime/statistics-msacc-actual-normal-aux-dirty-producers",
+      "Status": "Passed",
+      "Milliseconds": 794
+    },
+    {
+      "Name": "runtime/statistics-msacc-real-thread-nested-vm-and-host-exclusion",
+      "Status": "Passed",
+      "Milliseconds": 798
+    },
+    {
+      "Name": "runtime/statistics-msacc-capacity-one-same-actor-enable-work-actual-idle",
+      "Status": "Passed",
+      "Milliseconds": 844
+    },
+    {
+      "Name": "runtime/statistics-msacc-normal-physical-worker-id-out-of-order-birth",
+      "Status": "Passed",
+      "Milliseconds": 4
+    },
+    {
+      "Name": "runtime/statistics-msacc-dirty-io-physical-worker-id-out-of-order-birth",
+      "Status": "Passed",
+      "Milliseconds": 1
+    },
+    {
+      "Name": "runtime/statistics-msacc-duplicate-id-distinct-physical-threads-rejected",
+      "Status": "Passed",
+      "Milliseconds": 1
+    },
+    {
+      "Name": "runtime/statistics-canonical-source-fun-real-entry-environment-birth-and-gc",
+      "Status": "Passed",
+      "Milliseconds": 243
+    },
+    {
+      "Name": "runtime/statistics-source-fun-import-actual-copied-env-dictionary-and-reclaim",
+      "Status": "Passed",
+      "Milliseconds": 238
+    },
+    {
+      "Name": "runtime/statistics-opaque-sdk-external-function-real-kind-header-no-canonical-admission",
+      "Status": "Passed",
+      "Milliseconds": 87
+    },
+    {
+      "Name": "runtime/statistics-external-identifiers-actual-node-header-birth-live-dead-reclaim",
+      "Status": "Passed",
+      "Milliseconds": 90
+    },
+    {
+      "Name": "runtime/statistics-external-identifiers-real-cross-heap-node-lease-host-escape",
+      "Status": "Passed",
+      "Milliseconds": 84
+    },
+    {
+      "Name": "runtime/statistics-external-identifiers-vm-close-real-node-drain",
+      "Status": "Passed",
+      "Milliseconds": 92
+    },
+    {
+      "Name": "native/owned-list-append776/physical-prefix-and-opaque-replay",
+      "Status": "Passed",
+      "Milliseconds": 296
+    },
+    {
+      "Name": "beam/prepared-validation-exact-owner-entry-clone-mutable-ir-and-input-buffer-isolation",
+      "Status": "Passed",
+      "Milliseconds": 196
+    },
+    {
+      "Name": "beam/unchanged-register-real-root-typed-cell-handler-clone-and-closed",
+      "Status": "Passed",
+      "Milliseconds": 221
+    },
+    {
+      "Name": "runtime/immutable-nested-closure-real-collector-native-stale-foreign-and-mutable-input",
+      "Status": "Passed",
+      "Milliseconds": 173
+    },
+    {
+      "Name": "runtime/immediate-cons-closure-real-collector-live-stale-foreign-and-boxed-head",
+      "Status": "Passed",
+      "Milliseconds": 186
+    },
+    {
+      "Name": "mailbox/plain-portable-preparation-keeps-real-copy-and-occurrence-ownership",
+      "Status": "Passed",
+      "Milliseconds": 183
+    },
+    {
+      "Name": "beam/native-record-original-get-elements-update-and-gc-whole-outcome",
+      "Status": "Passed",
+      "Milliseconds": 194
+    },
+    {
+      "Name": "beam/native-record-original-get-elements-update-operand-guards",
+      "Status": "Passed",
+      "Milliseconds": 1
+    },
+    {
+      "Name": "runtime/statistics-native-record-real-instance-definition-order-pointers-and-reclaim",
+      "Status": "Passed",
+      "Milliseconds": 175
+    },
+    {
+      "Name": "runtime/statistics-native-record-copied-actual-children-detached-host-escape",
+      "Status": "Passed",
+      "Milliseconds": 195
+    },
+    {
+      "Name": "runtime/statistics-native-record-source-birth-update-getters-live-gc-and-return",
+      "Status": "Passed",
+      "Milliseconds": 245
+    },
+    {
+      "Name": "runtime/statistics-native-record-genuine-source-wait-vm-close-and-stale-read",
+      "Status": "Passed",
+      "Milliseconds": 245
+    },
+    {
+      "Name": "runtime/statistics-group-leader-foreign-pid-physical-root-and-detached-host-snapshot",
+      "Status": "Passed",
+      "Milliseconds": 167
+    },
+    {
+      "Name": "runtime/statistics-group-leader-spawn-inheritance-independent-physical-roots-and-close",
+      "Status": "Passed",
+      "Milliseconds": 190
+    },
+    {
+      "Name": "runtime/statistics-process-refc-binary-actual-prefix-header-words-and-reclaim",
+      "Status": "Passed",
+      "Milliseconds": 99
+    },
+    {
+      "Name": "runtime/statistics-process-refc-binary-queue-graph-transfer-and-host-escape",
+      "Status": "Passed",
+      "Milliseconds": 92
+    },
+    {
+      "Name": "runtime/statistics-process-refc-binary-vm-close-waits-real-interest",
+      "Status": "Passed",
+      "Milliseconds": 88
+    },
+    {
+      "Name": "runtime/statistics-process-heap-bits-preserve-small-reference-shape",
+      "Status": "Passed",
+      "Milliseconds": 94
+    },
+    {
+      "Name": "runtime/statistics-process-heap-bits-physical-inline-birth-and-reclaim",
+      "Status": "Passed",
+      "Milliseconds": 95
+    },
+    {
+      "Name": "runtime/statistics-process-heap-bits-transfer-detached-escape-and-bits",
+      "Status": "Passed",
+      "Milliseconds": 89
+    },
+    {
+      "Name": "runtime/statistics-walltime-public-nested-owner-and-exit",
+      "Status": "Passed",
+      "Milliseconds": 42
+    },
+    {
+      "Name": "runtime/statistics-walltime-concurrent-owner-linearization",
+      "Status": "Passed",
+      "Milliseconds": 34
+    },
+    {
+      "Name": "runtime/statistics-walltime-real-dirty-inflight-and-persistent-timers",
+      "Status": "Passed",
+      "Milliseconds": 282
+    },
+    {
+      "Name": "compiler/opaque-host-local-identity-argument-preserved",
+      "Status": "Passed",
+      "Milliseconds": 125
+    },
+    {
+      "Name": "compiler/opaque-host-identity-provider-call-count-preserved",
+      "Status": "Passed",
+      "Milliseconds": 109
+    },
+    {
+      "Name": "compiler/direct-evaluate-ordinary-roots-custom-pattern-host-return",
+      "Status": "Passed",
+      "Milliseconds": 174
+    },
+    {
+      "Name": "compiler/direct-invoke-unregistered-definition-roots-host-function",
+      "Status": "Passed",
+      "Milliseconds": 199
+    },
+    {
+      "Name": "compiler/direct-raw-beam-ordinary-roots-before-gc-host-return",
+      "Status": "Passed",
+      "Milliseconds": 168
+    },
+    {
+      "Name": "compiler/direct-public-error-export-and-beam-validation-precedence",
+      "Status": "Passed",
+      "Milliseconds": 172
+    },
+    {
+      "Name": "compiler/direct-evaluate-cancel-real-frame-retirement",
+      "Status": "Passed",
+      "Milliseconds": 178
+    },
+    {
+      "Name": "compiler/direct-evaluate-off-actor-host-behavior-preserved",
+      "Status": "Passed",
+      "Milliseconds": 89
+    },
+    {
+      "Name": "runtime/statistics-cpu-two-vms-and-host-user-time-isolation",
+      "Status": "Passed",
+      "Milliseconds": 779
+    },
+    {
+      "Name": "runtime/statistics-cpu-active-sample-no-double-count",
+      "Status": "Passed",
+      "Milliseconds": 248
+    },
+    {
+      "Name": "runtime/statistics-cpu-nested-vm-and-exception-restoration",
+      "Status": "Passed",
+      "Milliseconds": 750
+    },
+    {
+      "Name": "runtime/statistics-cpu-generic-auxiliary-and-no-vm-backlink",
+      "Status": "Passed",
+      "Milliseconds": 476
+    },
+    {
+      "Name": "runtime/statistics-cpu-real-dirty-burn-and-blocked-user-time",
+      "Status": "Passed",
+      "Milliseconds": 445
+    },
+    {
+      "Name": "runtime/statistics-context-selection/interleaved-same-epoch",
+      "Status": "Passed",
+      "Milliseconds": 28
+    },
+    {
+      "Name": "runtime/statistics-context-selection/adjacent-same-epoch",
+      "Status": "Passed",
+      "Milliseconds": 18
+    },
+    {
+      "Name": "runtime/statistics-context-selection/initializer-and-inline-excluded",
+      "Status": "Passed",
+      "Milliseconds": 24
+    }
+  ]
+}

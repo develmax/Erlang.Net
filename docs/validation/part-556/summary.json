@@ -1,0 +1,679 @@
+{
+  "Part": 556,
+  "Status": "Local component complete; publication exact-head CI/review/merge pending",
+  "BaseMain": "881fa0cfd222c7335729f19b07c7a6e2e279a58b",
+  "HistoryReconciliation": "093f725f1bb29443c67eea2154e34bf8e28b643d",
+  "ProductionFiles": 14,
+  "TestFiles": 3,
+  "NewSourceFiles": 1,
+  "SourceOnlyPinnedReference": "OTP-29.1.1/ad05823719d77c8faee87348ea39513d4e2f99c5; not a new original MSACC execution",
+  "Local": {
+    "CurrentWDistinctAffectedGroups": 624,
+    "DisjointBatches": [
+      394,
+      230
+    ],
+    "RetainsPrevious610": true,
+    "CurrentWReleasePrepared": [
+      {
+        "Command": [
+          "C:\\Program Files\\dotnet\\dotnet.exe",
+          "exec",
+          "--fx-version",
+          "10.0.11",
+          "--roll-forward",
+          "Disable",
+          "D:\\Distr\\Work\\Codex\\Erlang.Net\\w546\\artifacts\\statistics-full\\main-gc825-integration36\\workspace\\tests\\Runtime\\Erlang.NativeGc.Observations\\bin\\Release\\net10.0\\Erlang.Tests.dll",
+          "preparedNative810"
+        ],
+        "Pid": 20324,
+        "ExitCode": 0,
+        "ElapsedSeconds": 2.0460000000020955,
+        "TimedOut": false,
+        "ForcedCleanup": false,
+        "ActiveProcessesAfter": 0,
+        "ResourcesClosed": true,
+        "Errors": [],
+        "TotalProcesses": 2,
+        "UserCpuSeconds": 0.96875,
+        "KernelCpuSeconds": 0.71875,
+        "PeakJobCommitBytes": 55115776,
+        "PeakProcessCommitBytes": 48488448,
+        "StdoutSha256": "204E5DBFF2D294E291322F04DF780ACE1002570472666B73E07E94E253BB35F6",
+        "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+      },
+      {
+        "Command": [
+          "C:\\Program Files\\dotnet\\dotnet.exe",
+          "exec",
+          "--fx-version",
+          "10.0.11",
+          "--roll-forward",
+          "Disable",
+          "D:\\Distr\\Work\\Codex\\Erlang.Net\\w546\\artifacts\\statistics-full\\main-gc825-integration36\\workspace\\tests\\Runtime\\Erlang.NativeGc.Observations\\bin\\Release\\net10.0\\Erlang.Tests.dll",
+          "preparedAdmission810"
+        ],
+        "Pid": 19708,
+        "ExitCode": 0,
+        "ElapsedSeconds": 1.0939999999973224,
+        "TimedOut": false,
+        "ForcedCleanup": false,
+        "ActiveProcessesAfter": 0,
+        "ResourcesClosed": true,
+        "Errors": [],
+        "TotalProcesses": 2,
+        "UserCpuSeconds": 0.78125,
+        "KernelCpuSeconds": 0.453125,
+        "PeakJobCommitBytes": 49152000,
+        "PeakProcessCommitBytes": 42524672,
+        "StdoutSha256": "D59E681E9D3436D8DBDBD0A24F14647E0AD715D8B56827C35AA4E2F51554D188",
+        "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+      }
+    ],
+    "CurrentWSevenBuilds": true,
+    "CurrentWFinalPostMetadataBuild": {
+      "Command": [
+        "C:\\Program Files\\dotnet\\dotnet.exe",
+        "build",
+        "tests/Erlang.Tests/Erlang.Tests.csproj",
+        "--no-restore",
+        "-m:1",
+        "--nologo",
+        "--disable-build-servers"
+      ],
+      "Pid": 21664,
+      "ExitCode": 0,
+      "ElapsedSeconds": 2.485000000000582,
+      "TimedOut": false,
+      "ForcedCleanup": false,
+      "ActiveProcessesAfter": 0,
+      "ResourcesClosed": true,
+      "Errors": [],
+      "TotalProcesses": 2,
+      "UserCpuSeconds": 2.0625,
+      "KernelCpuSeconds": 0.59375,
+      "PeakJobCommitBytes": 114765824,
+      "PeakProcessCommitBytes": 108146688,
+      "StdoutSha256": "C9D2DBA216C48580CB178354B92733D8FC497ED41897FD8F7845B348D8640AE7",
+      "StderrSha256": "43C8897FC50560E217AACE8984EC7E1AA8DF8EC13D3B6AAEE346A300D0D3EEAD"
+    },
+    "CurrentWNonCacheInputs": 13840,
+    "RuntimePayloadsIdenticalAfterMetadata": 83,
+    "SourceFreezeSha256": "DED75E3250492C942038CAB1820C5B8EBB3DE64F261312C7DBF8D1D0350DF12F",
+    "IsolatedProfiles": [
+      {
+        "Profile": "Debug",
+        "Passed": 48,
+        "Process": {
+          "Command": [
+            "C:\\Program Files\\dotnet\\dotnet.exe",
+            "exec",
+            "--fx-version",
+            "10.0.11",
+            "--roll-forward",
+            "Disable",
+            "D:\\Distr\\Work\\Codex\\Erlang.Net\\artifacts\\batch825\\aux-source-experiment1070\\workspace\\tests\\Erlang.Tests\\bin\\Debug\\net10.0\\Erlang.Tests.dll",
+            "--case",
+            "native-resource575/empty-committed-types-retire-before-vm-shutdown",
+            "--case",
+            "native-resource575/pending-rollback-and-new-owner-prevent-premature-detach",
+            "--case",
+            "native-resource575/payload-and-physical-invocation-custody-survive-detach",
+            "--case",
+            "native-resource529/logical-name-unlink-live-payload",
+            "--case",
+            "native-resource529/held-callback-forked-image-pin",
+            "--case",
+            "native-resource531/parallel-host-export-lease-custody",
+            "--case",
+            "native-resource535/canonical-readers-public-refusal",
+            "--case",
+            "native-resource535/public-reregister-canonical-delegate-opaque",
+            "--case",
+            "native-resource535/managed-nif-provider-opaque",
+            "--case",
+            "native-resource536/guest-gc-real-normal-auxiliary-once",
+            "--case",
+            "native-resource536/held-normal-destructor-physical-close",
+            "--case",
+            "native-resource536/non-gc-foreign-context-retained",
+            "--case",
+            "native-resource524/view-guest-collection",
+            "--case",
+            "native-resource524/physical-destructor-image-pin",
+            "--case",
+            "native-resource527/magic-header-identity",
+            "--case",
+            "native-resource527/create-duplicate-rollback",
+            "--case",
+            "native-resource527/takeover-new-physical-destructor",
+            "--case",
+            "native-resource544/preadmitted-upgrade-across-domain-close",
+            "--case",
+            "native-resource544/domain-close-before-upgrade-admission-rejected",
+            "--case",
+            "native-resource528/arena-image-close-foreign-free",
+            "--case",
+            "native-resource528/new-destructor-old-child",
+            "--case",
+            "runtime/worker-lifecycle/constructor-original-argument-error-type",
+            "--case",
+            "runtime/worker-lifecycle/partial-normal-entry-failure",
+            "--case",
+            "runtime/worker-lifecycle/partial-dirty-entry-failure",
+            "--case",
+            "runtime/worker-lifecycle/prefix-and-initializer-rollback",
+            "--case",
+            "runtime/worker-lifecycle/close-versus-actual-ready",
+            "--case",
+            "runtime/worker-lifecycle/independent-entry-errors-aggregate",
+            "--case",
+            "runtime/statistics-walltime-native-wait-services-owner-process-info",
+            "--case",
+            "runtime/statistics-walltime-gather-wait-services-owner-process-info",
+            "--case",
+            "runtime/statistics-walltime-managed-wait-reports-waiting-and-services-control",
+            "--case",
+            "runtime/statistics-walltime-internal-repeat-awaits-real-normal-ack",
+            "--case",
+            "runtime/statistics-walltime-dirty-snapshot-precedes-blocked-normal-ack",
+            "--case",
+            "runtime/statistics-msacc-thread-cache-does-not-retain-vm",
+            "--case",
+            "runtime/statistics-msacc-default-feature-reset-and-caller-exit",
+            "--case",
+            "runtime/statistics-msacc-actual-normal-aux-dirty-producers",
+            "--case",
+            "runtime/statistics-msacc-real-thread-nested-vm-and-host-exclusion",
+            "--case",
+            "runtime/statistics-msacc-capacity-one-same-actor-enable-work-actual-idle",
+            "--case",
+            "runtime/statistics-msacc-normal-physical-worker-id-out-of-order-birth",
+            "--case",
+            "runtime/statistics-msacc-dirty-io-physical-worker-id-out-of-order-birth",
+            "--case",
+            "runtime/statistics-msacc-duplicate-id-distinct-physical-threads-rejected",
+            "--case",
+            "runtime/statistics-walltime-public-nested-owner-and-exit",
+            "--case",
+            "runtime/statistics-walltime-concurrent-owner-linearization",
+            "--case",
+            "runtime/statistics-walltime-real-dirty-inflight-and-persistent-timers",
+            "--case",
+            "runtime/statistics-cpu-two-vms-and-host-user-time-isolation",
+            "--case",
+            "runtime/statistics-cpu-active-sample-no-double-count",
+            "--case",
+            "runtime/statistics-cpu-nested-vm-and-exception-restoration",
+            "--case",
+            "runtime/statistics-cpu-generic-auxiliary-and-no-vm-backlink",
+            "--case",
+            "runtime/statistics-cpu-real-dirty-burn-and-blocked-user-time",
+            "--report",
+            "D:\\Distr\\Work\\Codex\\Erlang.Net\\artifacts\\batch825\\aux-final-profiles1097\\Debug-report.json"
+          ],
+          "Pid": 48244,
+          "ExitCode": 0,
+          "ElapsedSeconds": 13.062000000005355,
+          "TimedOut": false,
+          "ForcedCleanup": false,
+          "ActiveProcessesAfter": 0,
+          "ResourcesClosed": true,
+          "Errors": [],
+          "TotalProcesses": 2,
+          "UserCpuSeconds": 13.390625,
+          "KernelCpuSeconds": 3.109375,
+          "PeakJobCommitBytes": 259518464,
+          "PeakProcessCommitBytes": 252882944,
+          "StdoutSha256": "7A6228B25011E0DBB381D670709DF202092F3D569B273A4710360AC0D8CD57C0",
+          "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+        }
+      },
+      {
+        "Profile": "Release",
+        "Passed": 48,
+        "Process": {
+          "Command": [
+            "C:\\Program Files\\dotnet\\dotnet.exe",
+            "exec",
+            "--fx-version",
+            "10.0.11",
+            "--roll-forward",
+            "Disable",
+            "D:\\Distr\\Work\\Codex\\Erlang.Net\\artifacts\\batch825\\aux-source-experiment1070\\workspace\\tests\\Erlang.Tests\\bin\\Release\\net10.0\\Erlang.Tests.dll",
+            "--case",
+            "native-resource575/empty-committed-types-retire-before-vm-shutdown",
+            "--case",
+            "native-resource575/pending-rollback-and-new-owner-prevent-premature-detach",
+            "--case",
+            "native-resource575/payload-and-physical-invocation-custody-survive-detach",
+            "--case",
+            "native-resource529/logical-name-unlink-live-payload",
+            "--case",
+            "native-resource529/held-callback-forked-image-pin",
+            "--case",
+            "native-resource531/parallel-host-export-lease-custody",
+            "--case",
+            "native-resource535/canonical-readers-public-refusal",
+            "--case",
+            "native-resource535/public-reregister-canonical-delegate-opaque",
+            "--case",
+            "native-resource535/managed-nif-provider-opaque",
+            "--case",
+            "native-resource536/guest-gc-real-normal-auxiliary-once",
+            "--case",
+            "native-resource536/held-normal-destructor-physical-close",
+            "--case",
+            "native-resource536/non-gc-foreign-context-retained",
+            "--case",
+            "native-resource524/view-guest-collection",
+            "--case",
+            "native-resource524/physical-destructor-image-pin",
+            "--case",
+            "native-resource527/magic-header-identity",
+            "--case",
+            "native-resource527/create-duplicate-rollback",
+            "--case",
+            "native-resource527/takeover-new-physical-destructor",
+            "--case",
+            "native-resource544/preadmitted-upgrade-across-domain-close",
+            "--case",
+            "native-resource544/domain-close-before-upgrade-admission-rejected",
+            "--case",
+            "native-resource528/arena-image-close-foreign-free",
+            "--case",
+            "native-resource528/new-destructor-old-child",
+            "--case",
+            "runtime/worker-lifecycle/constructor-original-argument-error-type",
+            "--case",
+            "runtime/worker-lifecycle/partial-normal-entry-failure",
+            "--case",
+            "runtime/worker-lifecycle/partial-dirty-entry-failure",
+            "--case",
+            "runtime/worker-lifecycle/prefix-and-initializer-rollback",
+            "--case",
+            "runtime/worker-lifecycle/close-versus-actual-ready",
+            "--case",
+            "runtime/worker-lifecycle/independent-entry-errors-aggregate",
+            "--case",
+            "runtime/statistics-walltime-native-wait-services-owner-process-info",
+            "--case",
+            "runtime/statistics-walltime-gather-wait-services-owner-process-info",
+            "--case",
+            "runtime/statistics-walltime-managed-wait-reports-waiting-and-services-control",
+            "--case",
+            "runtime/statistics-walltime-internal-repeat-awaits-real-normal-ack",
+            "--case",
+            "runtime/statistics-walltime-dirty-snapshot-precedes-blocked-normal-ack",
+            "--case",
+            "runtime/statistics-msacc-thread-cache-does-not-retain-vm",
+            "--case",
+            "runtime/statistics-msacc-default-feature-reset-and-caller-exit",
+            "--case",
+            "runtime/statistics-msacc-actual-normal-aux-dirty-producers",
+            "--case",
+            "runtime/statistics-msacc-real-thread-nested-vm-and-host-exclusion",
+            "--case",
+            "runtime/statistics-msacc-capacity-one-same-actor-enable-work-actual-idle",
+            "--case",
+            "runtime/statistics-msacc-normal-physical-worker-id-out-of-order-birth",
+            "--case",
+            "runtime/statistics-msacc-dirty-io-physical-worker-id-out-of-order-birth",
+            "--case",
+            "runtime/statistics-msacc-duplicate-id-distinct-physical-threads-rejected",
+            "--case",
+            "runtime/statistics-walltime-public-nested-owner-and-exit",
+            "--case",
+            "runtime/statistics-walltime-concurrent-owner-linearization",
+            "--case",
+            "runtime/statistics-walltime-real-dirty-inflight-and-persistent-timers",
+            "--case",
+            "runtime/statistics-cpu-two-vms-and-host-user-time-isolation",
+            "--case",
+            "runtime/statistics-cpu-active-sample-no-double-count",
+            "--case",
+            "runtime/statistics-cpu-nested-vm-and-exception-restoration",
+            "--case",
+            "runtime/statistics-cpu-generic-auxiliary-and-no-vm-backlink",
+            "--case",
+            "runtime/statistics-cpu-real-dirty-burn-and-blocked-user-time",
+            "--report",
+            "D:\\Distr\\Work\\Codex\\Erlang.Net\\artifacts\\batch825\\aux-final-profiles1097\\Release-report.json"
+          ],
+          "Pid": 9052,
+          "ExitCode": 0,
+          "ElapsedSeconds": 13.125,
+          "TimedOut": false,
+          "ForcedCleanup": false,
+          "ActiveProcessesAfter": 0,
+          "ResourcesClosed": true,
+          "Errors": [],
+          "TotalProcesses": 2,
+          "UserCpuSeconds": 12.84375,
+          "KernelCpuSeconds": 3.03125,
+          "PeakJobCommitBytes": 256815104,
+          "PeakProcessCommitBytes": 250187776,
+          "StdoutSha256": "7A6228B25011E0DBB381D670709DF202092F3D569B273A4710360AC0D8CD57C0",
+          "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+        }
+      }
+    ],
+    "IsolatedPreparedControls": [
+      {
+        "Command": [
+          "C:\\Program Files\\dotnet\\dotnet.exe",
+          "exec",
+          "--fx-version",
+          "10.0.11",
+          "--roll-forward",
+          "Disable",
+          "D:\\Distr\\Work\\Codex\\Erlang.Net\\artifacts\\batch825\\aux-source-experiment1070\\workspace\\tests\\Runtime\\Erlang.NativeGc.Observations\\bin\\Release\\net10.0\\Erlang.Tests.dll",
+          "preparedNative810"
+        ],
+        "Pid": 56500,
+        "ExitCode": 0,
+        "ElapsedSeconds": 2.25,
+        "TimedOut": false,
+        "ForcedCleanup": false,
+        "ActiveProcessesAfter": 0,
+        "ResourcesClosed": true,
+        "Errors": [],
+        "TotalProcesses": 2,
+        "UserCpuSeconds": 1.125,
+        "KernelCpuSeconds": 0.859375,
+        "PeakJobCommitBytes": 55156736,
+        "PeakProcessCommitBytes": 48566272,
+        "StdoutSha256": "204E5DBFF2D294E291322F04DF780ACE1002570472666B73E07E94E253BB35F6",
+        "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+      },
+      {
+        "Command": [
+          "C:\\Program Files\\dotnet\\dotnet.exe",
+          "exec",
+          "--fx-version",
+          "10.0.11",
+          "--roll-forward",
+          "Disable",
+          "D:\\Distr\\Work\\Codex\\Erlang.Net\\artifacts\\batch825\\aux-source-experiment1070\\workspace\\tests\\Runtime\\Erlang.NativeGc.Observations\\bin\\Release\\net10.0\\Erlang.Tests.dll",
+          "preparedAdmission810"
+        ],
+        "Pid": 40156,
+        "ExitCode": 0,
+        "ElapsedSeconds": 1.1720000000059372,
+        "TimedOut": false,
+        "ForcedCleanup": false,
+        "ActiveProcessesAfter": 0,
+        "ResourcesClosed": true,
+        "Errors": [],
+        "TotalProcesses": 2,
+        "UserCpuSeconds": 0.8125,
+        "KernelCpuSeconds": 0.4375,
+        "PeakJobCommitBytes": 49217536,
+        "PeakProcessCommitBytes": 42590208,
+        "StdoutSha256": "D59E681E9D3436D8DBDBD0A24F14647E0AD715D8B56827C35AA4E2F51554D188",
+        "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+      }
+    ],
+    "ActualSourceAdmissions": {
+      "focused13": {
+        "Passed": true,
+        "ExitCode": 0,
+        "FailureCount": 0,
+        "Checks": [
+          {
+            "Plan": "Erlang.NifMapFamily504Observations",
+            "Passed": true
+          },
+          {
+            "Plan": "Erlang.NifMapMaterialized505Observations",
+            "Passed": true
+          },
+          {
+            "Plan": "Erlang.NifMapReentry505Observations",
+            "Passed": true
+          },
+          {
+            "Plan": "tools/Runtime/Erlang.OwnedGuest506Observations",
+            "Passed": true
+          },
+          {
+            "Plan": "tools/Native/Erlang.NifVariadic526Observations",
+            "Passed": true
+          },
+          {
+            "Plan": "Pending",
+            "Passed": true
+          },
+          {
+            "Plan": "Reallocation",
+            "Passed": true
+          },
+          {
+            "Plan": "Private557",
+            "Passed": true
+          },
+          {
+            "Plan": "Erlang.Dictionary537Observations",
+            "Passed": true
+          },
+          {
+            "Plan": "Erlang.MatchSaved634Observations",
+            "Passed": true
+          },
+          {
+            "Plan": "Erlang.EtsDispatch540Observations",
+            "Passed": true
+          },
+          {
+            "Plan": "Erlang.MonitorOriginal645Observations",
+            "Passed": true
+          },
+          {
+            "Plan": "Erlang.BeamFunction542Observations",
+            "Passed": true
+          }
+        ]
+      },
+      "mfa": {
+        "Passed": true,
+        "ExitCode": 0,
+        "FailureCount": 0,
+        "Checks": []
+      },
+      "resource529": {
+        "Passed": true,
+        "ExitCode": 0,
+        "FailureCount": 0,
+        "Checks": []
+      }
+    },
+    "Style": {
+      "Files": 17,
+      "Tokens": 11322,
+      "LayoutPostimages": 7
+    },
+    "ActualMetadata": {
+      "Outputs": 22,
+      "Bindings": 24453,
+      "Sizes": 10793,
+      "ActualNewConsumerRows": 6,
+      "NewMonitorMembers": 346,
+      "HistoricalPrefixPreserved": 345
+    }
+  },
+  "Behavior": "Actual managed Aux worker registration/readiness; real queued control ownership and physical completion; normal-destructor wait/control pump; source-defined late enable semantics; real caller kill and VM close retain queued ACK/native/image/process custody until actual completion. No worker/reply proxy.",
+  "SensitiveFailureControls": {
+    "WrongRole": "Rejected by actual own-thread observation guard",
+    "MissingPump": "Existing operation-level ACK timeout; outer process does not time out and resources close",
+    "Correction": "negative/scope-correction1084.json"
+  },
+  "Remaining": [
+    "Real poll/async/native-child services and authenticated child sampling/lifecycle",
+    "Complete default service topology and feature profiles",
+    "Complete20selector statistics values/errors/stacks/state/platform/backend matrix",
+    "Fresh original MSACC execution and current publication-head CI/review/merge"
+  ],
+  "WholeStatisticsAccepted": false,
+  "WholeNifOrCppTlsAccepted": false,
+  "PerformanceClaim": false,
+  "OriginalLibraryArchitecture": "Unchanged OTP Erlang/BEAM modules on .NET; C#runtime/BIF/integration",
+  "NoNewProductionDependency": true,
+  "NoLicenseLocal": true,
+  "ApiDelta": 0,
+  "FullContractDelta": 0,
+  "Counts": {
+    "Registered": 708,
+    "Full": 180,
+    "Pending": 504,
+    "Known": 24
+  },
+  "ErLangCounts": {
+    "Registered": 351,
+    "Full": 83,
+    "Pending": 255,
+    "Known": 13
+  },
+  "Receipts": [
+    {
+      "Path": "local/affected-394.json",
+      "Sha256": "462573B298D8D713A6B018D39ECE302AAB27542FB70FEFE55ED6CCE133CDE646",
+      "Bytes": 87144
+    },
+    {
+      "Path": "local/affected-230.json",
+      "Sha256": "481AAE71E71DC6142CD58BBEF75EC8527F85E55CD25B7D6497A486626DBAB7CC",
+      "Bytes": 50168
+    },
+    {
+      "Path": "isolated/Debug-48.json",
+      "Sha256": "D26EDBF43622DE7B58A481CD84C9D2B91C64CC87B4EA83083CE6914FD213654E",
+      "Bytes": 10402
+    },
+    {
+      "Path": "isolated/Release-48.json",
+      "Sha256": "8FAFB5F069B5A26435E3C008673E0E7341788AF3C3B8A192144AAB8B5071FB48",
+      "Bytes": 10401
+    },
+    {
+      "Path": "source/admissions1114.json",
+      "Sha256": "A56772B53F7D8AED778C8C4827DE9614B0D76C2A17C3D356B45A5246C9F8E53B",
+      "Bytes": 5722
+    },
+    {
+      "Path": "source/mfa.json",
+      "Sha256": "4C6EEEA3DF37281D6522A6AD04F13FB505B8D43E8EF1A994D71D14B1426E4799",
+      "Bytes": 987
+    },
+    {
+      "Path": "source/resource529.json",
+      "Sha256": "EF9DBFB5408D2C6D710904FB8A39BD8836F5EACF19D57ADF9598E8D233D846DB",
+      "Bytes": 314
+    },
+    {
+      "Path": "review/source1024.json",
+      "Sha256": "225210CF11161B09892368286F7D2B52C81B08CB9654D01A782C1A3381495098",
+      "Bytes": 9465
+    },
+    {
+      "Path": "review/cleanup1086.json",
+      "Sha256": "1AE58AC2962B20FCE6270BC6A03208E3B49216AC28C2A9EA51968CBD77D5A1B5",
+      "Bytes": 3065
+    },
+    {
+      "Path": "review/constants1094.json",
+      "Sha256": "666770E9D52F87B7C1B4E21431573888D2A4B7157EF4A99E779372F652F74D9E",
+      "Bytes": 9432
+    },
+    {
+      "Path": "review/recipe1101.json",
+      "Sha256": "699FE308721E8914248C72B7294C2C061711075DB50B9B9A9951ECB006D4129E",
+      "Bytes": 2153
+    },
+    {
+      "Path": "review/metadata1111.json",
+      "Sha256": "2201F53597A180E00E68D9F16C8A2EB2E782520FC2145D86AA71928A1F4869F3",
+      "Bytes": 4167
+    },
+    {
+      "Path": "style1095.json",
+      "Sha256": "7F3758329BC43893B6686D7B8C8AF1A2318564757C85003752FA35DD34F5EB95",
+      "Bytes": 13743
+    },
+    {
+      "Path": "metadata1109.json",
+      "Sha256": "7522E31A2EAFE6708EB743EB17B669F5CF4D426268314F05FCF9248FBFB27B72",
+      "Bytes": 19976
+    },
+    {
+      "Path": "source/candidate1091b.json",
+      "Sha256": "C84756A5F90829AE08B653935989C50A5AD2EF137861B7E56815220AE2620DEB",
+      "Bytes": 9537
+    },
+    {
+      "Path": "reference/provenance1099.json",
+      "Sha256": "A27A1BCA657B289A8C70DF8542653423CC89EBFDB6789CD3EABBC2D77DC9B692",
+      "Bytes": 619
+    },
+    {
+      "Path": "negative/wrong-unmanaged-role.json",
+      "Sha256": "E237E6C2DBF5644CC55D91553C830F5D714509DA4DA6DCF44694892EE569D623",
+      "Bytes": 6816
+    },
+    {
+      "Path": "negative/wrong-unmanaged-role.log",
+      "Sha256": "F779118389A931EA2C173637EB2DE91EDC1513EC2935F9EB73A7C3D4413A12B3",
+      "Bytes": 6095
+    },
+    {
+      "Path": "negative/missing-normal-wait-pump.json",
+      "Sha256": "2031E2CE592FB13F05B1275C9B5F1CC2B5CB18BEBABE19EDA8888BF66E37A7F3",
+      "Bytes": 1201
+    },
+    {
+      "Path": "negative/missing-normal-wait-pump.log",
+      "Sha256": "532D1A2CBDC62E29437CCA54C05FEAA21DE336B8BE4F315C79DEE13D2ABC0C1B",
+      "Bytes": 884
+    },
+    {
+      "Path": "negative/scope-correction1084.json",
+      "Sha256": "97C4CB87D910B351F7EFEB1C58BAFEE2606586AF23E422CD1447010C253CFE60",
+      "Bytes": 1567
+    },
+    {
+      "Path": "drafts/cleanup1082.json",
+      "Sha256": "CA965C5B73D43BA8D375E31FF78BE452CF8EAC38A5E83005B7248C8BE0BCD91B",
+      "Bytes": 2825
+    },
+    {
+      "Path": "drafts/guard-gap1085.json",
+      "Sha256": "71A2FFA4C67ABCBA51BEF77B6F72DCC75A6B7444B99E69B798F96C3379032C8B",
+      "Bytes": 2558
+    },
+    {
+      "Path": "drafts/missing-fixture1074.log",
+      "Sha256": "F96BAD7FFA0F594DC0529936497510E99A01EF871FD4079619B2649E958D8DD1",
+      "Bytes": 2529
+    },
+    {
+      "Path": "drafts/raw-fixture-correction1077.json",
+      "Sha256": "D25B4469C10534A832D6A7AAEBADDB0ABCF7D576220EEF0B03A44809C5C68F10",
+      "Bytes": 35833
+    },
+    {
+      "Path": "history/retention1072.json",
+      "Sha256": "836263ED67B7ED083380DAACC574A4916FEDB287884127000F817FBA7093B0BB",
+      "Bytes": 81704
+    },
+    {
+      "Path": "history/retention1073.json",
+      "Sha256": "7814B12A1688E39F5442E90C801FCB4A99F2E069CBC8D9954963921BC05C826B",
+      "Bytes": 20763
+    },
+    {
+      "Path": "history/reconciliation1104.json",
+      "Sha256": "E12F3E421A7FB9B684A7AE0D38100B9890308467BCB60E3F07FE3831EBDA4FF5",
+      "Bytes": 1002
+    }
+  ],
+  "DocumentationGateSnapshot": "documentation-gates1116.json"
+}

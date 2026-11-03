@@ -2,6 +2,12 @@ namespace Erlang;
 
 internal static class NativeResource524Names
 {
+    internal const int PreparedMicrostate989 = 0;
+    internal const int QueuedMicrostate989 = 1;
+    internal const int RunningMicrostate989 = 2;
+    internal const int CompletedMicrostate989 = 3;
+    internal const int AuxiliaryMicrostateIdentity989 = 1;
+
     internal const string ImageUnavailable = "Native resource callback image is not available for a physical pin.";
     internal const string Closed = "Native resource domain is closing.";
     internal const string Retired = "Native resource payload has retired.";
