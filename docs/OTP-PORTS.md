@@ -922,7 +922,7 @@ Pinned OTP commit ad05823719d77c8faee87348ea39513d4e2f99c5 stores ErlFunEntry.un
 The .NET adaptation snapshots LocalFunctionIdentity.Unique at ctor/init/with boundaries, preserving byte order and all legacy fields. Canonical128-bit UUIDs follow the original value rule; arbitrary noncanonical C# metadata preserves its full bitlength and existing ETF refusal. The snapshot copies under genuine source heap/literal/backing reads and grants no native alias/callable authority. Pure immutable CLR input is safely shared. Lazy identity providers, opaque callbacks, FunctionTerm.Identity, recipe provenance and actual Environment roots retain their contracts. Source-only provenance is not a whole API compatibility claim; local lifecycle/controlled pre-fix evidence and final CI are recorded separately in active changelog0097.
 
 
-## Parts560–562 — selectable string alternative and source-contract corrections
+## String local receipts560–562 — selectable alternative and source-contract corrections
 
 The user-requested C# alternative in
 `src/Otp/Managed/Erlang.Otp.Stdlib/Text/String*.cs` adapts the algorithms,
@@ -930,7 +930,7 @@ clause/guard ordering, defaults, obsolete Latin1 behavior and helper/error
 locations of pinned OTP29.1.1 `lib/stdlib/src/string.erl`, Ericsson AB1996–2026,
 Apache-2.0. This is an altered C# implementation, not unchanged Erlang execution.
 Its iterative continuation scopes and ordered Jaro position queues preserve the
-observable source behavior while using CLR storage/control flow. Part562 repairs
+observable source behavior while using CLR storage/control flow. Local receipt562 repairs
 converted-pattern terms, real binary primitives/list membership, lazy consumed
 prefixes and numeric-prefix traversal. Unicode mapping/normalization remains in
 the unchanged original `unicode.erl`/`unicode_util.erl` images.
@@ -947,5 +947,6 @@ Original Erlang sources/images and Apache-2.0 license text remain available.
 There is explicit startup/MSBuild backend choice and no production external-VM
 fallback. Physical ERTS resource/timing and universal platform/decimal equivalence
 are not established by finite reports. No public package or owner-local license
-is introduced by these adaptations. See validation/part-560/string/,
-validation/part-561/ and validation/part-562/ for measured scopes and failures.
+is introduced by these adaptations. See the retained historical local-receipt
+archive and current [integration evidence](validation/string-otp-merge-20261104/README.md)
+for their separate measured scopes and failures.

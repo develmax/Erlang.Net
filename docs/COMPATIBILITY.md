@@ -2,7 +2,7 @@
 
 ## Current state and sources
 
-- [String integration](validation/string-otp-merge-20261104/README.md): all71 APIs retain C# and original Erlang/BEAM selection. Historical all-API receipts remain source-bound; current main integration keeps native-caller/async fixes and allocation controls. Fresh PR CI/review gates are tracked separately.
+- [String integration](validation/string-otp-merge-20261104/README.md): both71-API alternatives retain explicit selection;9706 full tests and separate8522/depth comparisons per backend pass. Source identities and limitations remain explicit; final delivery is tracked in [PR105](https://github.com/develmax/Erlang.Net/pull/105).
 
 The integration also retains accepted main [PR103 native async/cancellation work](validation/part-557/REPORT.md). Its bounded controls and remaining public statistics contracts keep their original scope; [all incoming compatibility records](history/main-103-compatibility/index.md) remain intact. A new combined-source CI report is required before treating the earlier PR102 full report as current.
 

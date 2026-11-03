@@ -1,33 +1,65 @@
-# String OTP integration — 2026-11-04
+# String OTP integration - 2026-11-04
 
-The C# alternative and original Erlang/BEAM preserve all71 exports of OTP29.1.1.
-This isolated branch starts at main f0c23d603 and excludes parallel map/ordsets
-proposals. It retains main native-caller/async corrections and allocation controls.
+The C# alternative and original Erlang/BEAM retain all71 exports of pinned
+OTP29.1.1. Startup/MSBuild selection is integrated. Original sources/images,
+main's native-caller/async changes and unchanged allocation limits are retained.
+No backend default or compatibility classification is changed.
+
+Implementation and local validation are complete. The final published head's
+review, required CI and merge state are tracked in
+[PR105](https://github.com/develmax/Erlang.Net/pull/105).
+
+## Current measured acceptance
+
+- [Full regression](full-tests.json.gz):9706 unique tests pass,0 failures,
+  2010.215 summed harness seconds. This is an actual uninterrupted complete run,
+  not composed from focused receipts. No OOM or stack-overflow process crash.
+- [Input integrity](input-integrity.json):14198 source/test/tool/example inputs
+  and60 assembly/configuration files remain unchanged across retained checks;
+  [exact identities](source-and-assembly-freeze.json.gz) preserve the scope.
+- [Both backend comparisons](final-otp-comparison.json) independently match8522
+  complete outcomes each:6364 values and2158 exceptions/full stacks, covering
+  all71 exports and binary backing. Raw original/actual ETF, hashes, upstream
+  acquisition and dependency identities remain in
+  [the comparison archive](final-otp-comparison.tar.gz).
+- Six depths0,1,2,3,8,32 independently match23 observations each (22 exceptions
+  and one lazy malformed-suffix value), per backend. The unchanged upstream
+  suite executes44 testcase functions and supplies2112 unique exported calls.
+- [All71 API table](final-api-audit.md) binds119 public source clauses to the
+  [current handler catalog](final-source-catalog.json) and measured outcomes.
+- [Fourteen cooperation tests](cooperation14-tests.json) pass through actual
+  process_info(reductions). Old-assembly negative controls reproduce all14
+  omissions in their applicable preceding assemblies:4 length/reverse,2 slice,
+  and8 raw/equality/empty-fragment cases. No runtime timeout is raised.
+- Both MSBuild examples pass with equal results:
+  [Managed](example-managed.json), [Beam](example-beam.json).
+- [Build](final-build.log):0 warnings/errors. Canonical readiness is regenerated
+  from9706 actual tests against the exact immutable previous9682 CI report.
+  [Readiness admission](readiness-admission.json) retains all733 command records,
+  registered733/21modules, delta0; the default string row remains the native
+  list_to_float/1, separate from71 opt-in exports.
+
+See [final gates](final-gates.json), [raw test log](full-test-log.txt.gz) and
+[local SDK/runtime](local-dotnet-info.txt). Summed test durations are not a
+performance comparison or universal input/platform/resource proof. Classifications
+remain unchanged. Current code identity is801d77a20945dc6801bde2654c22f89d173de0bc;
+subsequent checkpoint documentation does not change the tested implementation.
+
+## Preserved history
 
 The [historical API table](historical-api-audit.md),
 [historical summary](historical-audit-summary.json) and
-[complete local receipt archive](historical-string-receipts.tar.gz) preserve the
-2026-11-03 working-tree audit:37145 observations per backend and9649 full tests.
-Their source/assembly identities precede integration and are **not** current-head
-acceptance. The archive preserves local part labels560/561/562; the existing main
-changelog entries with those numbers remain unchanged.
+[original local receipt archive](historical-string-receipts.tar.gz) retain the
+2026-11-03 audit:37145 observations per backend and9649 full tests. These belong
+to their original source/assembly identities, rather than current main acceptance.
+Local receipt labels560/561/562 do not replace existing main journal parts.
 
-Current merged-source build, focused tests, source admission and CI/review receipts
-are recorded here separately. No compatibility status or default backend is changed
-from case counts. The exact-head CI and review gates must pass before merge.
-
-Current isolated build passes with0 warnings/errors. [Seven focused tests](focused-tests.json) pass, including the unchanged main allocation limits. Reusing each successfully compiled search pattern within one operation reduces the measured512KiB repeated-search allocation from2461297400 to2047696672 bytes (limit2147483648); actual native match and source error scopes remain. [Reviewed source guards](source-guard-review.json) and [raw admission](source-bindings.json) pass5400 rows without classification changes. Old publication-resource and actual allocation failures remain in local logs; no thresholds are raised.
-
-The current review correction restores scheduler cooperation for ASCII length
-and reverse. Four new public reduction-counter tests pass, while the same tests
-fail4/4 with the preceding assembly. Separate reviewed source admission receipts
-cover13 passive plans,4200 Resource529 dependencies and5400 MFA/native rows.
-Source-plan refresh archives retain prior bytes without promoting contracts.
-The reviewed full regression and OTP replay remain pending at this checkpoint.
-
-Current cooperation closure: length/reverse, binary slice, direct-list equality,
-raw trim/take and empty-fragment continuation paths have explicit checkpoints.
-The14 public reduction tests pass. Negative controls reproduce all14 omissions
-in the applicable prior assemblies. Pre-cooperation comparison receipts are
-labelled separately; final9706 regression and exact-assembly OTP replay are
-pending. Superseded development runs are not acceptance.
+Pre-cooperation comparisons are separately labelled. Superseded partial runs,
+including the isolated setup's18 failures and the invalid focused-runner option,
+remain in [development receipts](superseded-development-runs.tar.gz); they are not
+acceptance. Full standard-path probe builds and the admitted provider profile
+resolve that setup; unchanged port checks and provider smoke pass. Source-plan
+predecessors and current source-only seals remain in source-plan-refresh/,
+without fabricating native execution or promoting any contracts. The observed
+repeated-search allocation regression is repaired within the unchanged2GiB
+limit by operation-local successful compiled-pattern reuse.

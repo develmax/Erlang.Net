@@ -54,4 +54,4 @@ the edge corpus and every expanded depth report for both backends. It rejects
 stale handler hashes, mixed assembly identities, missing exports, differences
 and partial/listed/failed full-test reports. It produces the per-API review table
 and machine-readable evidence index. Counts include repeated seeds; they do not
-promote compatibility classifications. See [Part562](../../../docs/validation/part-562/README.md).
+promote compatibility classifications. See [current all71 audit](../../../docs/validation/string-otp-merge-20261104/final-api-audit.md).
