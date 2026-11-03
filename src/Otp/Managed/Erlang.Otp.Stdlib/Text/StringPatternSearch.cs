@@ -338,6 +338,7 @@ internal static class StringPatternSearch
                 {
                     input = match.Continuation;
                 }
+                await context.ReduceAsync();
                 continue;
             }
             if (input is BitString { IsBinary: true } bin)
@@ -362,6 +363,7 @@ internal static class StringPatternSearch
                     return result;
                 }
                 input = (await StringUnicode.Next(context, match.At, false))!.Tail;
+                await context.ReduceAsync();
                 continue;
             }
             if (input is not (Cons or Nil))
@@ -470,6 +472,7 @@ internal static class StringPatternSearch
                     current = new Cons(binary.SliceBits(0, match.ConsumedBytes * 8), current);
                     input = match.Continuation;
                     start = 0;
+                    await context.ReduceAsync();
                     continue;
                 }
                 Term before = binaryList
@@ -515,6 +518,7 @@ internal static class StringPatternSearch
                     }
                     current = Nil.Value;
                 }
+                await context.ReduceAsync();
                 continue;
             }
             if (input is not (Cons or Nil))
@@ -587,6 +591,7 @@ internal static class StringPatternSearch
                     current = Nil.Value;
                     input = rest;
                     start = 0;
+                    await context.ReduceAsync();
                     continue;
                 }
             }

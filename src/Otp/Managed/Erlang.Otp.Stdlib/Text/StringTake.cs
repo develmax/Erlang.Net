@@ -20,6 +20,7 @@ internal static class StringTake
             {
                 reverse = new Cons(raw.Head, reverse);
                 input = raw.Tail;
+                await context.ReduceAsync();
                 continue;
             }
             bool binaryList = input is Cons { Head: BitString { IsBinary: true } };
@@ -59,6 +60,7 @@ internal static class StringTake
                     );
                     reverse = new Cons(combined, reverse);
                     input = scan.Remainder;
+                    await context.ReduceAsync();
                     continue;
                 }
                 var at = (Cons)scan.Remainder;
@@ -140,6 +142,7 @@ internal static class StringTake
                 pending.Add((raw.Head, false, true));
                 sourcePending.Push(StringSeparatorSource.TakeTrailingRawRecursion);
                 tail = raw.Tail;
+                await context.ReduceAsync();
                 continue;
             }
             if (tail is BitString { IsBinary: true } || tail is Cons { Head: BitString { IsBinary: true } })

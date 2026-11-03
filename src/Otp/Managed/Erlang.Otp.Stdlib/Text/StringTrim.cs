@@ -28,6 +28,7 @@ internal static class StringTrim
                     return new BitString([]);
                 }
                 input = scan.Remainder;
+                await context.ReduceAsync();
                 continue;
             }
             if (input is not (Cons or Nil))
@@ -94,6 +95,7 @@ internal static class StringTrim
                         pending.Add((scalar.Head, matches, true));
                         singlePending.Push(matches ? StringSeparatorSource.TrimSingleEqualRecursion : StringSeparatorSource.TrimSingleRecursion);
                         input = scalar.Tail;
+                        await context.ReduceAsync();
                         continue;
                     }
                 }
@@ -104,6 +106,7 @@ internal static class StringTrim
                 pending.Add((raw.Head, false, true));
                 sourcePending.Push(StringSeparatorSource.TrimTrailingRawRecursion);
                 input = raw.Tail;
+                await context.ReduceAsync();
                 continue;
             }
             if (input is BitString { IsBinary: true } || input is Cons { Head: BitString { IsBinary: true } })

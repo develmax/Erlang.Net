@@ -24,3 +24,10 @@ fail4/4 with the preceding assembly. Separate reviewed source admission receipts
 cover13 passive plans,4200 Resource529 dependencies and5400 MFA/native rows.
 Source-plan refresh archives retain prior bytes without promoting contracts.
 The reviewed full regression and OTP replay remain pending at this checkpoint.
+
+Current cooperation closure: length/reverse, binary slice, direct-list equality,
+raw trim/take and empty-fragment continuation paths have explicit checkpoints.
+The14 public reduction tests pass. Negative controls reproduce all14 omissions
+in the applicable prior assemblies. Pre-cooperation comparison receipts are
+labelled separately; final9706 regression and exact-assembly OTP replay are
+pending. Superseded development runs are not acceptance.

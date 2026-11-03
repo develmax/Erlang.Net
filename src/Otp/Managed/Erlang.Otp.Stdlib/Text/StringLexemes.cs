@@ -69,6 +69,7 @@ internal static class StringLexemes
                         return number is null ? Cons.From(result) : new BitString([]);
                     }
                     input = scan.Remainder;
+                    await context.ReduceAsync();
                     continue;
                 }
                 input = listBinary ? scan.Remainder : ((Cons)scan.Remainder).Head;
@@ -105,6 +106,7 @@ internal static class StringLexemes
                 if (separators.Contains(next.Head))
                 {
                     input = next.Tail;
+                    await context.ReduceAsync();
                     continue;
                 }
                 if (number > 1)
@@ -119,6 +121,7 @@ internal static class StringLexemes
                         input = await Skip(context, next.Tail, separators);
                     }
                     number--;
+                    await context.ReduceAsync();
                     continue;
                 }
             }
@@ -134,6 +137,7 @@ internal static class StringLexemes
                     input = await Skip(context, input, separators);
                 }
                 number--;
+                await context.ReduceAsync();
                 continue;
             }
             await separators.Compile(context, helper, 3);
@@ -206,6 +210,7 @@ internal static class StringLexemes
                     }
                     reverse = new Cons(binary, reverse);
                     input = continuation;
+                    await context.ReduceAsync();
                     continue;
                 }
                 var at = (Cons)scan.Remainder;
@@ -302,6 +307,7 @@ internal static class StringLexemes
                         return new BitString([]);
                     }
                     input = continuation;
+                    await context.ReduceAsync();
                     continue;
                 }
 

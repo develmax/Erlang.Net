@@ -1,0 +1,68 @@
+{
+  "Partial": true,
+  "SelectedCount": 8,
+  "TotalCount": 9706,
+  "Blocks": [],
+  "ExactCases": [
+    "runtime/string/cooperative-empty-binary-fragments-lexemes",
+    "runtime/string/cooperative-empty-binary-fragments-trim",
+    "runtime/string/cooperative-list-equal-three-false",
+    "runtime/string/cooperative-list-equal-two",
+    "runtime/string/cooperative-list-take-leading-complement",
+    "runtime/string/cooperative-list-take-trailing",
+    "runtime/string/cooperative-list-trim-multiple",
+    "runtime/string/cooperative-list-trim-single"
+  ],
+  "Passed": 0,
+  "Failed": 8,
+  "Tests": [
+    {
+      "Name": "runtime/string/cooperative-list-trim-single",
+      "Status": "Failed",
+      "Error": "System.InvalidOperationException: String ASCII traversal must charge reductions without changing its result\r\n   at Erlang.Tests.StringCooperationChecks.\u003C\u003Ec__DisplayClass2_1.\u003C\u003CRunScan\u003Eb__0\u003Ed.MoveNext()\r\n--- End of stack trace from previous location ---\r\n   at Erlang.Tests.RuntimeNodeFoundationHostActor.\u003C\u003Ec__DisplayClass9_0\u00601.\u003C\u003CInvokeAsync\u003Eb__0\u003Ed.MoveNext()\r\n--- End of stack trace from previous location ---\r\n   at Erlang.Tests.RuntimeNodeFoundationHostActor.InvokeAsync[T](Func\u00602 command)\r\n   at Erlang.Tests.StringCooperationChecks.RunScan(Boolean trim, Boolean multipleOrComplement)\r\n   at Erlang.Tests.StringCooperationChecks.RunScan(Boolean trim, Boolean multipleOrComplement)\r\n   at Erlang.Tests.StringCooperationChecks.RunScan(Boolean trim, Boolean multipleOrComplement)\r\n   at Program.\u003CMain\u003E$(String[] args)",
+      "Milliseconds": 1871
+    },
+    {
+      "Name": "runtime/string/cooperative-list-trim-multiple",
+      "Status": "Failed",
+      "Error": "System.InvalidOperationException: String ASCII traversal must charge reductions without changing its result\r\n   at Erlang.Tests.StringCooperationChecks.\u003C\u003Ec__DisplayClass2_1.\u003C\u003CRunScan\u003Eb__0\u003Ed.MoveNext()\r\n--- End of stack trace from previous location ---\r\n   at Erlang.Tests.RuntimeNodeFoundationHostActor.\u003C\u003Ec__DisplayClass9_0\u00601.\u003C\u003CInvokeAsync\u003Eb__0\u003Ed.MoveNext()\r\n--- End of stack trace from previous location ---\r\n   at Erlang.Tests.RuntimeNodeFoundationHostActor.InvokeAsync[T](Func\u00602 command)\r\n   at Erlang.Tests.StringCooperationChecks.RunScan(Boolean trim, Boolean multipleOrComplement)\r\n   at Erlang.Tests.StringCooperationChecks.RunScan(Boolean trim, Boolean multipleOrComplement)\r\n   at Erlang.Tests.StringCooperationChecks.RunScan(Boolean trim, Boolean multipleOrComplement)\r\n   at Program.\u003CMain\u003E$(String[] args)",
+      "Milliseconds": 716
+    },
+    {
+      "Name": "runtime/string/cooperative-list-take-leading-complement",
+      "Status": "Failed",
+      "Error": "System.InvalidOperationException: String ASCII traversal must charge reductions without changing its result\r\n   at Erlang.Tests.StringCooperationChecks.\u003C\u003Ec__DisplayClass2_1.\u003C\u003CRunScan\u003Eb__0\u003Ed.MoveNext()\r\n--- End of stack trace from previous location ---\r\n   at Erlang.Tests.RuntimeNodeFoundationHostActor.\u003C\u003Ec__DisplayClass9_0\u00601.\u003C\u003CInvokeAsync\u003Eb__0\u003Ed.MoveNext()\r\n--- End of stack trace from previous location ---\r\n   at Erlang.Tests.RuntimeNodeFoundationHostActor.InvokeAsync[T](Func\u00602 command)\r\n   at Erlang.Tests.StringCooperationChecks.RunScan(Boolean trim, Boolean multipleOrComplement)\r\n   at Erlang.Tests.StringCooperationChecks.RunScan(Boolean trim, Boolean multipleOrComplement)\r\n   at Erlang.Tests.StringCooperationChecks.RunScan(Boolean trim, Boolean multipleOrComplement)\r\n   at Program.\u003CMain\u003E$(String[] args)",
+      "Milliseconds": 575
+    },
+    {
+      "Name": "runtime/string/cooperative-list-take-trailing",
+      "Status": "Failed",
+      "Error": "System.InvalidOperationException: String ASCII traversal must charge reductions without changing its result\r\n   at Erlang.Tests.StringCooperationChecks.\u003C\u003Ec__DisplayClass2_1.\u003C\u003CRunScan\u003Eb__0\u003Ed.MoveNext()\r\n--- End of stack trace from previous location ---\r\n   at Erlang.Tests.RuntimeNodeFoundationHostActor.\u003C\u003Ec__DisplayClass9_0\u00601.\u003C\u003CInvokeAsync\u003Eb__0\u003Ed.MoveNext()\r\n--- End of stack trace from previous location ---\r\n   at Erlang.Tests.RuntimeNodeFoundationHostActor.InvokeAsync[T](Func\u00602 command)\r\n   at Erlang.Tests.StringCooperationChecks.RunScan(Boolean trim, Boolean multipleOrComplement)\r\n   at Erlang.Tests.StringCooperationChecks.RunScan(Boolean trim, Boolean multipleOrComplement)\r\n   at Erlang.Tests.StringCooperationChecks.RunScan(Boolean trim, Boolean multipleOrComplement)\r\n   at Program.\u003CMain\u003E$(String[] args)",
+      "Milliseconds": 467
+    },
+    {
+      "Name": "runtime/string/cooperative-list-equal-two",
+      "Status": "Failed",
+      "Error": "System.InvalidOperationException: String ASCII traversal must charge reductions without changing its result\r\n   at Erlang.Tests.StringCooperationChecks.\u003C\u003Ec__DisplayClass3_1.\u003C\u003CRunEqual\u003Eb__0\u003Ed.MoveNext()\r\n--- End of stack trace from previous location ---\r\n   at Erlang.Tests.RuntimeNodeFoundationHostActor.\u003C\u003Ec__DisplayClass9_0\u00601.\u003C\u003CInvokeAsync\u003Eb__0\u003Ed.MoveNext()\r\n--- End of stack trace from previous location ---\r\n   at Erlang.Tests.RuntimeNodeFoundationHostActor.InvokeAsync[T](Func\u00602 command)\r\n   at Erlang.Tests.StringCooperationChecks.RunEqual(Boolean explicitCase)\r\n   at Erlang.Tests.StringCooperationChecks.RunEqual(Boolean explicitCase)\r\n   at Erlang.Tests.StringCooperationChecks.RunEqual(Boolean explicitCase)\r\n   at Program.\u003CMain\u003E$(String[] args)",
+      "Milliseconds": 470
+    },
+    {
+      "Name": "runtime/string/cooperative-list-equal-three-false",
+      "Status": "Failed",
+      "Error": "System.InvalidOperationException: String ASCII traversal must charge reductions without changing its result\r\n   at Erlang.Tests.StringCooperationChecks.\u003C\u003Ec__DisplayClass3_1.\u003C\u003CRunEqual\u003Eb__0\u003Ed.MoveNext()\r\n--- End of stack trace from previous location ---\r\n   at Erlang.Tests.RuntimeNodeFoundationHostActor.\u003C\u003Ec__DisplayClass9_0\u00601.\u003C\u003CInvokeAsync\u003Eb__0\u003Ed.MoveNext()\r\n--- End of stack trace from previous location ---\r\n   at Erlang.Tests.RuntimeNodeFoundationHostActor.InvokeAsync[T](Func\u00602 command)\r\n   at Erlang.Tests.StringCooperationChecks.RunEqual(Boolean explicitCase)\r\n   at Erlang.Tests.StringCooperationChecks.RunEqual(Boolean explicitCase)\r\n   at Erlang.Tests.StringCooperationChecks.RunEqual(Boolean explicitCase)\r\n   at Program.\u003CMain\u003E$(String[] args)",
+      "Milliseconds": 441
+    },
+    {
+      "Name": "runtime/string/cooperative-empty-binary-fragments-trim",
+      "Status": "Failed",
+      "Error": "System.InvalidOperationException: String ASCII traversal must charge reductions without changing its result\r\n   at Erlang.Tests.StringCooperationChecks.\u003C\u003Ec__DisplayClass4_1.\u003C\u003CRunFragments\u003Eb__0\u003Ed.MoveNext()\r\n--- End of stack trace from previous location ---\r\n   at Erlang.Tests.RuntimeNodeFoundationHostActor.\u003C\u003Ec__DisplayClass9_0\u00601.\u003C\u003CInvokeAsync\u003Eb__0\u003Ed.MoveNext()\r\n--- End of stack trace from previous location ---\r\n   at Erlang.Tests.RuntimeNodeFoundationHostActor.InvokeAsync[T](Func\u00602 command)\r\n   at Erlang.Tests.StringCooperationChecks.RunFragments(Boolean trim)\r\n   at Erlang.Tests.StringCooperationChecks.RunFragments(Boolean trim)\r\n   at Erlang.Tests.StringCooperationChecks.RunFragments(Boolean trim)\r\n   at Program.\u003CMain\u003E$(String[] args)",
+      "Milliseconds": 475
+    },
+    {
+      "Name": "runtime/string/cooperative-empty-binary-fragments-lexemes",
+      "Status": "Failed",
+      "Error": "System.InvalidOperationException: String ASCII traversal must charge reductions without changing its result\r\n   at Erlang.Tests.StringCooperationChecks.\u003C\u003Ec__DisplayClass4_1.\u003C\u003CRunFragments\u003Eb__0\u003Ed.MoveNext()\r\n--- End of stack trace from previous location ---\r\n   at Erlang.Tests.RuntimeNodeFoundationHostActor.\u003C\u003Ec__DisplayClass9_0\u00601.\u003C\u003CInvokeAsync\u003Eb__0\u003Ed.MoveNext()\r\n--- End of stack trace from previous location ---\r\n   at Erlang.Tests.RuntimeNodeFoundationHostActor.InvokeAsync[T](Func\u00602 command)\r\n   at Erlang.Tests.StringCooperationChecks.RunFragments(Boolean trim)\r\n   at Erlang.Tests.StringCooperationChecks.RunFragments(Boolean trim)\r\n   at Erlang.Tests.StringCooperationChecks.RunFragments(Boolean trim)\r\n   at Program.\u003CMain\u003E$(String[] args)",
+      "Milliseconds": 432
+    }
+  ]
+}

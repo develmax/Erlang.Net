@@ -95,6 +95,7 @@ internal static class StringModernExecution
                 {
                     cp = point;
                     rest = remaining;
+                    await context.ReduceAsync();
                     continue;
                 }
                 var error = (TupleTerm)next;
@@ -359,6 +360,7 @@ internal static class StringModernExecution
                         cp = first;
                         rest = remaining;
                         count--;
+                        await context.ReduceAsync();
                         continue;
                     }
                     throw StringSourceTrace.Error(

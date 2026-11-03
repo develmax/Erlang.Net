@@ -44,6 +44,7 @@ internal static class StringComparisonExecution
                     }
                     left = lc.Tail;
                     right = rc.Tail;
+                    await context.ReduceAsync();
                     continue;
                 }
                 if (left is Nil)
