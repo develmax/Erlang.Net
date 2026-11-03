@@ -2,6 +2,8 @@
 
 ## Current state and sources
 
+- [String integration](validation/string-otp-merge-20261104/README.md): all71 APIs retain C# and original Erlang/BEAM selection. Historical all-API receipts remain source-bound; current main integration keeps native-caller/async fixes and allocation controls. Fresh PR CI/review gates are tracked separately.
+
 The integration also retains accepted main [PR103 native async/cancellation work](validation/part-557/REPORT.md). Its bounded controls and remaining public statistics contracts keep their original scope; [all incoming compatibility records](history/main-103-compatibility/index.md) remain intact. A new combined-source CI report is required before treating the earlier PR102 full report as current.
 
 Current [ordsets verification](ORDSETS_COMPATIBILITY.md) covers all 21 APIs with exact outcomes/stacks/effects and repairs native reverse source frames. Universal acceptance remains open.

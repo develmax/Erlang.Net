@@ -20,7 +20,7 @@ public static partial class RuntimeNativePrimitiveProviders
 
     internal static void Validate(RuntimeNativePrimitives selection)
     {
-        if ((selection & ~(RuntimeNativePrimitives.PersistentTermCore | RuntimeNativePrimitives.EtsStorageCore)) != 0)
+        if ((selection & ~(RuntimeNativePrimitives.PersistentTermCore | RuntimeNativePrimitives.EtsStorageCore | RuntimeNativePrimitives.InternalScalars413)) != 0)
             throw new ArgumentOutOfRangeException(nameof(selection));
     }
 }

@@ -37,9 +37,9 @@ public static class RuntimeLibraryManifest
                 throw new InvalidDataException(LibraryManifestNames.Invalid);
             if (row.Backend == RuntimeModuleBackend.Managed)
             {
-                if (row.Image is not null || row.Sha256 is not null || row.Dependencies.Length != 0)
+                if (row.Image is not null || row.Sha256 is not null)
                     throw new InvalidDataException(LibraryManifestNames.Invalid);
-                choices.Add(RuntimeModuleSelection.Managed(row.Module));
+                choices.Add(RuntimeModuleSelection.Managed(row.Module, row.Dependencies));
                 continue;
             }
             if (row.Backend != RuntimeModuleBackend.Beam || string.IsNullOrWhiteSpace(row.Image)

@@ -104,3 +104,5 @@ case conversion are not substitutes for the pinned OTP Unicode rules. No new
 package dependency or performance advantage is claimed. Upstream Ericsson/
 Erlang contributors' Apache-2.0 attribution and packaged notices are retained;
 see [OTP ports](OTP-PORTS.md) and [licenses](../licenses/README.md).
+
+Current [isolated string integration](validation/string-otp-merge-20261104/README.md) preserves the complete source audit, both backend choices and main allocation/native-caller corrections. Historical reports are not relabelled as current-head CI.

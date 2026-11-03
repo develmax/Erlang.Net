@@ -851,3 +851,39 @@ Reuse the same reviewed StringBinarySearchBuffer and platform IndexOf for member
 ## CI evidence reuse and async diagnostic retention - 2026-11-04
 
 Reuse Python standard-library JSON/XML/hashlib/urllib/zipfile and existing Git/dotnet APIs. No new package or copied dependency is introduced. Actual restored NuGet package bytes are fingerprinted under their existing licenses. Workflow/job conclusions and raw reports remain authoritative; conditional main reuse does not generate review approvals or change public OTP contracts. Keep pinned OTP29.1.1 unchanged.
+
+
+## Part560 — string source-stack parity and explicit dual backend
+
+Pinned OTP29.1.1 string.erl and lists.erl are the owning algorithm/error-location sources; the unchanged string_SUITE.erl is retained under its Apache-2.0 notice and exact upstream blob/hash. The user's explicit string-port request authorizes the manual C# alternative while preserving original Erlang/BEAM. No policy change for other pure modules is inferred. BCL String APIs and Rune classification are not substitutes for OTP chardata, graphemes, case mapping or normalization; reuse the pinned unicode/unicode_util images on .NET. Reuse the existing source-call execution frames, tail-call scopes, native lists traversal and bit-syntax UTF-8 encoder/error-info capture. Collections, BigInteger, Rune UTF-8 decoding and immutable binary slices are existing platform facilities; no production dependency is added. The oracle is development-only and production never falls back to original string or an external VM.
+
+Compiled binary patterns are actual native resources. Compare their complete stack-containing terms only after live binary:match queries establish the admitted one-to-one resource binding; retain raw stacks and reject modified frames/bindings/queries. Expose both backends through the existing startup/manifest/MSBuild mechanism, require explicit Unicode/list dependencies and record actual identities. Retain the default native-only registration profile and distinguish it from the71 selectable exports. Whole ERTS resource/timing and unmeasured platform equivalence are outside this finite acceptance.
+
+The complete regression also exposed imported logical flat maps with atom keys retaining a different runtime's atom-index order. Reuse canonical name-keyed pairs for exact equality only when both maps are ordinary logical flat maps with exclusively atom keys; names identify atoms across these runtime tables. Preserve native physical comparison and all other key shapes. The existing imported-copy regression and all twelve independently captured term-contract shards validate this narrow correction; a rejected broad logical-map shortcut is retained as failed evidence.
+
+## Part561 — Windows thread CPU observation under resource pressure
+
+Inspect the existing Process.Threads-based provider and Microsoft documentation for [OpenThread](https://learn.microsoft.com/en-us/windows/win32/api/processthreadsapi/nf-processthreadsapi-openthread) and [GetThreadTimes](https://learn.microsoft.com/en-us/windows/win32/api/processthreadsapi/nf-processthreadsapi-getthreadtimes). Query the exact Windows thread with THREAD_QUERY_LIMITED_INFORMATION and retain its real user time in100ns ticks through an owned SafeFileHandle. This removes the observed failing whole-process diagnostics enumeration without replacing measured CPU time with wall time or swallowing OutOfMemory. No third-party code/package is copied or introduced; use the existing OS/BCL facilities. Keep the Unix provider and nested ownership accounting. The preceding fatal Roslyn stack overflow is not assumed to have the same cause; its exact interrupted fixture first passes unchanged in a fresh process. Preserve that distinction in evidence.
+
+## Part562 — All71 string source contracts
+
+Review all119 public clauses of pinned `lib/stdlib/src/string.erl`, its reached
+helpers and native `erts/emulator/beam/bif.c` float parser plus Windows
+`erts/emulator/sys/win32/sys_float.c`. Preserve the existing Apache-2.0 source,
+notices and original images. Continue the user-requested C# alternative beside
+original Erlang; no broader pure-module port policy change is inferred.
+Existing BCL string/search/set APIs cannot reproduce the observed lazy malformed
+chardata behavior, native compiled-pattern identity, list-membership failures or
+source helper frames. Reuse actual selected `binary:compile_pattern`,
+`binary:match`, `lists:member`, pinned Unicode modules, the existing ETF function
+factory and source continuations. Keep Rune only for bounded UTF8 scalar decode
+and BigInteger for exact integer arithmetic. No package or alternate Unicode,
+normalization, number-parser or collection dependency is introduced.
+
+The real 4096-digit timeout justifies removing repeated prefix traversals rather
+than increasing a worker budget. Source-level dispatch must retain conversion
+error tuples, original separator-list shape and `cp_prefix` continuation equality.
+The independent oracle generators and per-API summary use existing Erlang,
+PowerShell and Python standard libraries only. Finite same-platform comparisons
+do not certify all IEEE conversions, other operating systems or physical ERTS
+resource ceilings. See [Part562](validation/part-562/README.md).

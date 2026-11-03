@@ -36,13 +36,17 @@ public sealed partial class ModuleRegistry
         return image;
     }
 
-    private void RequireStartupNativeBootstrap(string module, PreparedBeamImage prepared)
+    private void RequireStartupNativeBootstrap(string module, PreparedBeamImage prepared, bool primitivesOnly)
     {
         foreach (var entry in functions.Where(pair => pair.Key.Module == module))
+        {
+            if (primitivesOnly && !IsNativeEntry(entry.Key.Module, entry.Key.Function, entry.Key.Arity))
+                continue;
             if (!prepared.ExecutionIdentity.NativePrimitives.TryGetValue((entry.Key.Function, entry.Key.Arity), out ErlangFunction? body)
                 || !ReferenceEquals(body, entry.Value))
                 throw new InvalidDataException(LibrarySelectionNames.Primitive + LibrarySelectionNames.ContextSeparator + module
                     + LibrarySelectionNames.FunctionSeparator + entry.Key.Function + LibrarySelectionNames.AritySeparator + entry.Key.Arity);
+        }
     }
 
     private static InvalidOperationException StartupOwnerFailure(string module)

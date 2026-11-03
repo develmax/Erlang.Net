@@ -1,0 +1,9 @@
+{"Partial":true,"SelectedCount":2,"TotalCount":9692}
+FAIL runtime/string/pattern-search/reuses-immutable-binary-buffer: System.IO.InvalidDataException: Repeated string search result or allocation budget differs
+   at Erlang.Tests.StringPatternAllocationChecks.<>c__DisplayClass0_0.<<Run>b__1>d.MoveNext() in D:\Distr\Work\Codex\Erlang.Net\string-otp-merge\tests\Erlang.Tests\Otp\Stdlib\String\StringPatternAllocationChecks.cs:line 84
+--- End of stack trace from previous location ---
+   at Erlang.Tests.StringPatternAllocationChecks.Run() in D:\Distr\Work\Codex\Erlang.Net\string-otp-merge\tests\Erlang.Tests\Otp\Stdlib\String\StringPatternAllocationChecks.cs:line 94
+   at Erlang.Tests.StringPatternAllocationChecks.Run() in D:\Distr\Work\Codex\Erlang.Net\string-otp-merge\tests\Erlang.Tests\Otp\Stdlib\String\StringPatternAllocationChecks.cs:line 95
+   at Program.<Main>$(String[] args) in D:\Distr\Work\Codex\Erlang.Net\string-otp-merge\tests\Erlang.Tests\Harness\Program.cs:line 16231
+PASS runtime/string/separator-search/reuses-immutable-binary-buffer
+1/2 passed

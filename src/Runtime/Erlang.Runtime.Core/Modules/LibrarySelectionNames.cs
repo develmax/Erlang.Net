@@ -11,8 +11,10 @@ internal static class LibrarySelectionNames
         OrdsetCoreNames.Module,
         MapModuleNames.Module,
         BinaryModuleNames.Module,
-        MathNativeNames.Module
+        MathNativeNames.Module,
+        StringFloatNativeNames.Module
     ];
+    internal static readonly string[] StringDependencies = [ListModuleNames.Module, UnicodeNativeNames.Module, "unicode_util"];
     internal const string Request = "Invalid startup library selection";
     internal const string BeamOnly = "Selected library requires the original BEAM backend";
     internal const string Phase = "Startup library selection failed";

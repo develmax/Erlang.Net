@@ -2,6 +2,8 @@
 
 ## Executable queue
 
+- [String integration](validation/string-otp-merge-20261104/README.md): all71 APIs retain C# and original Erlang/BEAM selection. Historical all-API receipts remain source-bound; current main integration keeps native-caller/async fixes and allocation controls. Fresh PR CI/review gates are tracked separately.
+
 - Validate the combined PR102/main0386ff27 source package, including the accepted [native async/cancellation contracts](validation/part-557/REPORT.md). Keep the [incoming next-step history](history/main-103-next-steps/index.md), existing library scope and unresolved public statistics contracts. The separate persistent-poll owner retains shared runtime/checklist ownership; do not start a competing full run on the PC.
 
 - Follow [integration evidence](validation/integration-20261103/README.md) and [PR #102](https://github.com/develmax/Erlang.Net/pull/102) for the exact source checkpoint and delivery state. Continue the module acceptance tasks below after its recorded merge gates pass; preserve later isolated proposals until their own acceptance.

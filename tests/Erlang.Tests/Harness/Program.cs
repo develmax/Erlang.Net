@@ -461,6 +461,11 @@ catch (ArgumentException failure)
 
 
 var tests = new List<(string Name, Func<Task> Body)>();
+Test(Erlang.Tests.StringBackendNames.ManagedTest, () => Erlang.Tests.StringBackendChecks.Run(true));
+Test(Erlang.Tests.StringBackendNames.BeamTest, () => Erlang.Tests.StringBackendChecks.Run(false));
+Test(Erlang.Tests.StringBackendNames.RefusalTest, Erlang.Tests.StringBackendChecks.Refusals);
+Test(Erlang.Tests.StringBackendNames.ManagedJaroTest, () => Erlang.Tests.StringBackendChecks.Jaro(true));
+Test(Erlang.Tests.StringBackendNames.BeamJaroTest, () => Erlang.Tests.StringBackendChecks.Jaro(false));
 Test(Erlang.Tests.MathBackendNames.ManagedWhole, Erlang.Tests.LibraryDependencyOriginalHostChecks.MathManagedWhole);
 Test(Erlang.Tests.MathBackendNames.ManagedSelection, Erlang.Tests.MathBackendChecks.ManagedSelection);
 Test(Erlang.Tests.MathLog2OtpNames.Test, Erlang.Tests.MathLog2OtpChecks.Run);

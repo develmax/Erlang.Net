@@ -31,15 +31,15 @@ public sealed class BeamLibraryBuildTask : Microsoft.Build.Utilities.Task
                     .Split(';', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
                 if (backend == nameof(RuntimeModuleBackend.Managed))
                 {
-                    if (image.Length != 0 || hash.Length != 0 || dependencies.Length != 0)
+                    if (image.Length != 0 || hash.Length != 0)
                         throw new InvalidDataException(BeamLibraryBuildNames.Invalid);
-                    choices.Add(RuntimeModuleSelection.Managed(item.ItemSpec));
+                    choices.Add(RuntimeModuleSelection.Managed(item.ItemSpec, dependencies));
                     modules.Add(new(
                         item.ItemSpec,
                         RuntimeModuleBackend.Managed,
                         null,
                         null,
-                        []
+                        dependencies
                     ));
                 }
                 else if (backend == nameof(RuntimeModuleBackend.Beam))

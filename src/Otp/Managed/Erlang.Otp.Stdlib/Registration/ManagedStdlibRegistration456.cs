@@ -11,6 +11,7 @@ public sealed class ManagedStdlibRegistration456 : IRuntimeManagedLibrary456
             case RuntimeManagedLibraryStage456.Collections: RegisterCollections(r); break;
             case RuntimeManagedLibraryStage456.Modules: RegisterModules(r); break;
             case RuntimeManagedLibraryStage456.BinaryWrappers: BinaryWrappersModule.Register(r); break;
+            case RuntimeManagedLibraryStage456.String: StringModule.Register(r); break;
             default: throw new ArgumentOutOfRangeException(nameof(stage));
         }
     }
@@ -37,11 +38,11 @@ public sealed class ManagedStdlibRegistration456 : IRuntimeManagedLibrary456
                 1,
                 (context, arguments) => ValueTask.FromResult(body(context, arguments))
             );
-        Add(
+        r.Register(
             ListModuleNames.Module,
             ListModuleNames.Reverse,
             1,
-            (c, a) => ListOperations.Reverse(a[0])
+            (c, a) => ListReverseSourceExecution.Run(c, a[0])
         );
         r.Register(
             ListModuleNames.Module,
