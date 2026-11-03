@@ -4,6 +4,8 @@ Draft Part568 prepares the bulk physical-occurrence runtime patch in a separate 
 
 ## Current state and sources
 
+The [Part569 hosted receipts](validation/part-569/ci-integrated-pins-and-reuse/hosted-results/README.md) retain complete9687 unit results and separately scoped native/async focused gates. The original overall main pipeline is RED; repair-head delivery acceptance remains pending. No ledger status or complete-module credit changes.
+
 The integration also retains accepted main [PR103 native async/cancellation work](validation/part-557/REPORT.md). Its bounded controls and remaining public statistics contracts keep their original scope; [all incoming compatibility records](history/main-103-compatibility/index.md) remain intact. A new combined-source CI report is required before treating the earlier PR102 full report as current.
 
 Current [ordsets verification](ORDSETS_COMPATIBILITY.md) covers all 21 APIs with exact outcomes/stacks/effects and repairs native reverse source frames. Universal acceptance remains open.

@@ -1,0 +1,350 @@
+{
+  "Passed": true,
+  "Configuration": "Release",
+  "PlanSha256": "711A00FEE7695A4DD4D1362933CA755EE7029271FF97B9AB49843DA8D155E644",
+  "ExecutionTools": {
+    "dotnet": {
+      "Path": "C:\\Program Files\\dotnet\\dotnet.exe",
+      "Sha256": "AB1B71FD3DD71062E074C9FAB8312081A81B7F2B3E0327C48C4D249C8D1A3135",
+      "Bytes": 167208
+    },
+    "cmd": {
+      "Path": "C:\\Windows\\System32\\cmd.exe",
+      "Sha256": "64AFC6DB3AAD1289533662E2D79E27DD55C7DCDB8CD918B08E145AD82AD5ACB4",
+      "Bytes": 339968
+    },
+    "vswhere": {
+      "Path": "C:\\Program Files (x86)\\Microsoft Visual Studio\\Installer\\vswhere.exe",
+      "Sha256": "C54F3B7C9164EA9A0DB8641E81ECDDA80C2664EF5A47C4191406F848CC07C662",
+      "Bytes": 469456
+    },
+    "vcvars": {
+      "Path": "C:\\Program Files\\Microsoft Visual Studio\\18\\Enterprise\\VC\\Auxiliary\\Build\\vcvars64.bat",
+      "Sha256": "6B516D8FCF543C14B2D861E1F45661E0029230FE0DC48E86CE78522801822209",
+      "Bytes": 39
+    },
+    "compiler": {
+      "Path": "C:\\Program Files\\Microsoft Visual Studio\\18\\Enterprise\\VC\\Tools\\MSVC\\14.51.36231\\bin\\Hostx64\\x64\\cl.exe",
+      "Sha256": "B0A1818EBAE6DA7F18230A84E76CE839212584AC4C2AB55B97A0D5268085DA57",
+      "Bytes": 893288
+    },
+    "compiler-ancillary": {
+      "Path": "C:\\Program Files\\Microsoft Visual Studio\\18\\Enterprise\\VC\\Tools\\MSVC\\14.51.36231\\bin\\Hostx64\\x64\\vctip.exe",
+      "Sha256": "41FE46F8A0B41F6DD94C68C85FBA20A10AACB662A9EF04784A632E37F3692371",
+      "Bytes": 514528
+    }
+  },
+  "Stages": [
+    {
+      "Name": "vswhere",
+      "Passed": true,
+      "Process": {
+        "Command": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Installer\\vswhere.exe",
+          "-latest",
+          "-products",
+          "*",
+          "-requires",
+          "Microsoft.VisualStudio.Component.VC.Tools.x86.x64",
+          "-property",
+          "installationPath"
+        ],
+        "Pid": 964,
+        "ExitCode": 0,
+        "ElapsedSeconds": 0.07800000000003138,
+        "TimedOut": false,
+        "ForcedCleanup": false,
+        "ActiveProcessesAfter": 0,
+        "ResourcesClosed": true,
+        "Errors": [],
+        "TotalProcesses": 2,
+        "UserCpuSeconds": 0.015625,
+        "KernelCpuSeconds": 0.015625,
+        "PeakJobCommitBytes": 5918720,
+        "PeakProcessCommitBytes": 4620288,
+        "StdoutSha256": "964D8E70B4AA4D9AA7404BE8E37FDD78B159937B9533B22EA21393A90DA78E75",
+        "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+      }
+    },
+    {
+      "Name": "fixture-native",
+      "Passed": true,
+      "Process": {
+        "Command": [
+          "C:\\Windows\\System32\\cmd.exe",
+          "/d",
+          "/c",
+          "D:\\a\\Erlang.Net\\Erlang.Net\\subject\\artifacts\\async-microstates\\e7fd9173fee54eefb1ea22a5a357b944\\compile-fixture.cmd"
+        ],
+        "Pid": 1732,
+        "ExitCode": 0,
+        "ElapsedSeconds": 1.3899999999999864,
+        "TimedOut": false,
+        "ForcedCleanup": false,
+        "ActiveProcessesAfter": 0,
+        "ResourcesClosed": true,
+        "Errors": [],
+        "TotalProcesses": 40,
+        "UserCpuSeconds": 0.515625,
+        "KernelCpuSeconds": 0.796875,
+        "PeakJobCommitBytes": 46026752,
+        "PeakProcessCommitBytes": 37396480,
+        "CompilerRetirement": {
+          "PolicyVersion": 1,
+          "Kind": "DeclaredMSVCCompilerAncillary",
+          "Success": true,
+          "Disposition": "Natural",
+          "OutputBeforeRetirement": {
+            "Path": "D:\\a\\Erlang.Net\\Erlang.Net\\subject\\artifacts\\async-microstates\\e7fd9173fee54eefb1ea22a5a357b944\\fixtures\\async_msacc1127_drv.dll",
+            "Bytes": 12800,
+            "Sha256": "D5B13078A2F9C7326DC64DA17BA445ADFE183DFA5F5838C78AAE04FF3B3A5C68"
+          },
+          "ObservedJobPids": [],
+          "NaturalDescendantsExit": true,
+          "TerminationRequested": false,
+          "InspectionHandleClosed": true
+        },
+        "NaturalDescendantsExit": true,
+        "StdoutSha256": "B26893C5419684211A7009D54F9FC30CF12E6ABAFEFC1098ACF7C0D52DA6650E",
+        "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+      }
+    },
+    {
+      "Name": "fixture-beam",
+      "Passed": true,
+      "Process": {
+        "Command": [
+          "D:\\a\\Erlang.Net\\Erlang.Net\\subject\\artifacts\\library376-official-compiler\\installed\\bin\\erlc.exe",
+          "+debug_info",
+          "-o",
+          "D:\\a\\Erlang.Net\\Erlang.Net\\subject\\artifacts\\async-microstates\\e7fd9173fee54eefb1ea22a5a357b944\\fixtures",
+          "D:\\a\\Erlang.Net\\Erlang.Net\\subject\\artifacts\\async-microstates\\e7fd9173fee54eefb1ea22a5a357b944\\fixtures\\async_msacc1127.erl"
+        ],
+        "Pid": 8108,
+        "ExitCode": 0,
+        "ElapsedSeconds": 0.4379999999999882,
+        "TimedOut": false,
+        "ForcedCleanup": false,
+        "ActiveProcessesAfter": 0,
+        "ResourcesClosed": true,
+        "Errors": [],
+        "TotalProcesses": 3,
+        "UserCpuSeconds": 0.34375,
+        "KernelCpuSeconds": 0.109375,
+        "PeakJobCommitBytes": 42905600,
+        "PeakProcessCommitBytes": 40718336,
+        "StdoutSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+        "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+      }
+    },
+    {
+      "Name": "fixture-queued-port-beam",
+      "Passed": true,
+      "Process": {
+        "Command": [
+          "D:\\a\\Erlang.Net\\Erlang.Net\\subject\\artifacts\\library376-official-compiler\\installed\\bin\\erlc.exe",
+          "+debug_info",
+          "-o",
+          "D:\\a\\Erlang.Net\\Erlang.Net\\subject\\artifacts\\async-microstates\\e7fd9173fee54eefb1ea22a5a357b944\\fixtures",
+          "D:\\a\\Erlang.Net\\Erlang.Net\\subject\\artifacts\\async-microstates\\e7fd9173fee54eefb1ea22a5a357b944\\fixtures\\async_cross_port1307.erl"
+        ],
+        "Pid": 2112,
+        "ExitCode": 0,
+        "ElapsedSeconds": 0.375,
+        "TimedOut": false,
+        "ForcedCleanup": false,
+        "ActiveProcessesAfter": 0,
+        "ResourcesClosed": true,
+        "Errors": [],
+        "TotalProcesses": 3,
+        "UserCpuSeconds": 0.328125,
+        "KernelCpuSeconds": 0.078125,
+        "PeakJobCommitBytes": 42741760,
+        "PeakProcessCommitBytes": 40570880,
+        "StdoutSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+        "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+      }
+    },
+    {
+      "Name": "original-A1",
+      "Passed": true,
+      "Process": {
+        "Command": [
+          "D:\\a\\Erlang.Net\\Erlang.Net\\subject\\artifacts\\library376-official-compiler\\installed\\bin\\erl.exe",
+          "+S",
+          "2:2",
+          "+A",
+          "1",
+          "-noshell",
+          "-noinput",
+          "-pa",
+          "D:\\a\\Erlang.Net\\Erlang.Net\\subject\\artifacts\\async-microstates\\e7fd9173fee54eefb1ea22a5a357b944\\fixtures",
+          "-s",
+          "async_msacc1127",
+          "main",
+          "-extra",
+          "D:\\a\\Erlang.Net\\Erlang.Net\\subject\\artifacts\\async-microstates\\e7fd9173fee54eefb1ea22a5a357b944\\fixtures",
+          "D:\\a\\Erlang.Net\\Erlang.Net\\subject\\artifacts\\async-microstates\\e7fd9173fee54eefb1ea22a5a357b944\\original-A1.etf"
+        ],
+        "Pid": 4312,
+        "ExitCode": 0,
+        "ElapsedSeconds": 0.375,
+        "TimedOut": false,
+        "ForcedCleanup": false,
+        "ActiveProcessesAfter": 0,
+        "ResourcesClosed": true,
+        "Errors": [],
+        "TotalProcesses": 2,
+        "UserCpuSeconds": 0.1875,
+        "KernelCpuSeconds": 0.125,
+        "PeakJobCommitBytes": 52174848,
+        "PeakProcessCommitBytes": 50855936,
+        "StdoutSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+        "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+      }
+    },
+    {
+      "Name": "original-A2",
+      "Passed": true,
+      "Process": {
+        "Command": [
+          "D:\\a\\Erlang.Net\\Erlang.Net\\subject\\artifacts\\library376-official-compiler\\installed\\bin\\erl.exe",
+          "+S",
+          "2:2",
+          "+A",
+          "2",
+          "-noshell",
+          "-noinput",
+          "-pa",
+          "D:\\a\\Erlang.Net\\Erlang.Net\\subject\\artifacts\\async-microstates\\e7fd9173fee54eefb1ea22a5a357b944\\fixtures",
+          "-s",
+          "async_msacc1127",
+          "main",
+          "-extra",
+          "D:\\a\\Erlang.Net\\Erlang.Net\\subject\\artifacts\\async-microstates\\e7fd9173fee54eefb1ea22a5a357b944\\fixtures",
+          "D:\\a\\Erlang.Net\\Erlang.Net\\subject\\artifacts\\async-microstates\\e7fd9173fee54eefb1ea22a5a357b944\\original-A2.etf"
+        ],
+        "Pid": 7144,
+        "ExitCode": 0,
+        "ElapsedSeconds": 0.375,
+        "TimedOut": false,
+        "ForcedCleanup": false,
+        "ActiveProcessesAfter": 0,
+        "ResourcesClosed": true,
+        "Errors": [],
+        "TotalProcesses": 2,
+        "UserCpuSeconds": 0.15625,
+        "KernelCpuSeconds": 0.09375,
+        "PeakJobCommitBytes": 52285440,
+        "PeakProcessCommitBytes": 50962432,
+        "StdoutSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+        "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+      }
+    },
+    {
+      "Name": "original-queued-port-close-A1",
+      "Passed": true,
+      "Process": {
+        "Command": [
+          "D:\\a\\Erlang.Net\\Erlang.Net\\subject\\artifacts\\library376-official-compiler\\installed\\bin\\erl.exe",
+          "+S",
+          "2:2",
+          "+A",
+          "1",
+          "-noshell",
+          "-noinput",
+          "-pa",
+          "D:\\a\\Erlang.Net\\Erlang.Net\\subject\\artifacts\\async-microstates\\e7fd9173fee54eefb1ea22a5a357b944\\fixtures",
+          "-s",
+          "async_cross_port1307",
+          "main",
+          "-extra",
+          "D:\\a\\Erlang.Net\\Erlang.Net\\subject\\artifacts\\async-microstates\\e7fd9173fee54eefb1ea22a5a357b944\\fixtures",
+          "D:\\a\\Erlang.Net\\Erlang.Net\\subject\\artifacts\\async-microstates\\e7fd9173fee54eefb1ea22a5a357b944\\original-queued-port-close.etf"
+        ],
+        "Pid": 3628,
+        "ExitCode": 0,
+        "ElapsedSeconds": 0.2189999999999941,
+        "TimedOut": false,
+        "ForcedCleanup": false,
+        "ActiveProcessesAfter": 0,
+        "ResourcesClosed": true,
+        "Errors": [],
+        "TotalProcesses": 2,
+        "UserCpuSeconds": 0.203125,
+        "KernelCpuSeconds": 0.046875,
+        "PeakJobCommitBytes": 52101120,
+        "PeakProcessCommitBytes": 50794496,
+        "StdoutSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+        "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+      }
+    },
+    {
+      "Name": "observer-build",
+      "Passed": true,
+      "Process": {
+        "Command": [
+          "C:\\Program Files\\dotnet\\dotnet.exe",
+          "build",
+          "D:\\a\\Erlang.Net\\Erlang.Net\\subject\\tools\\Validation\\Erlang.AsyncMicrostateValidation\\Erlang.AsyncMicrostateValidation.csproj",
+          "-c",
+          "Release",
+          "-m:1",
+          "-nodeReuse:false",
+          "-p:UseSharedCompilation=false",
+          "-p:ReviewedPackageRoot=D:\\a\\Erlang.Net\\Erlang.Net\\subject\\artifacts\\async-focused-current\\package-preparation\\23eb078a506f43aebff5d6333a2d4461\\package",
+          "--nologo"
+        ],
+        "Pid": 5280,
+        "ExitCode": 0,
+        "ElapsedSeconds": 3.812000000000012,
+        "TimedOut": false,
+        "ForcedCleanup": false,
+        "ActiveProcessesAfter": 0,
+        "ResourcesClosed": true,
+        "Errors": [],
+        "TotalProcesses": 4,
+        "UserCpuSeconds": 5.0,
+        "KernelCpuSeconds": 1.03125,
+        "PeakJobCommitBytes": 166993920,
+        "PeakProcessCommitBytes": 103514112,
+        "StdoutSha256": "0CB374DD09E5A55DBD556ADCD6415E8ED77C474EC9CC0EF1FFF3B36DD5C2C1D0",
+        "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+      }
+    },
+    {
+      "Name": "observer-execute",
+      "Passed": true,
+      "Process": {
+        "Command": [
+          "C:\\Program Files\\dotnet\\dotnet.exe",
+          "exec",
+          "--fx-version",
+          "10.0.11",
+          "--roll-forward",
+          "Disable",
+          "D:\\a\\Erlang.Net\\Erlang.Net\\subject\\tools\\Validation\\Erlang.AsyncMicrostateValidation\\bin\\Release\\net10.0\\Erlang.AsyncMicrostateValidation.dll",
+          "D:\\a\\Erlang.Net\\Erlang.Net\\subject\\artifacts\\async-microstates\\e7fd9173fee54eefb1ea22a5a357b944\\inputs.json",
+          "D:\\a\\Erlang.Net\\Erlang.Net\\subject\\artifacts\\async-microstates\\e7fd9173fee54eefb1ea22a5a357b944\\observations.json"
+        ],
+        "Pid": 2480,
+        "ExitCode": 0,
+        "ElapsedSeconds": 26.718999999999994,
+        "TimedOut": false,
+        "ForcedCleanup": false,
+        "ActiveProcessesAfter": 0,
+        "ResourcesClosed": true,
+        "Errors": [],
+        "TotalProcesses": 48,
+        "UserCpuSeconds": 16.453125,
+        "KernelCpuSeconds": 6.1875,
+        "PeakJobCommitBytes": 99860480,
+        "PeakProcessCommitBytes": 98541568,
+        "StdoutSha256": "675C52E342492301DD2AEC126558D2730D94926ADC361E920E21983D049FEF98",
+        "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+      }
+    }
+  ],
+  "Errors": [],
+  "Scope": "Actual Windows child async; same original native fixture,23 independently retained cases: original8, eight pending-RPC public phase/cause cases, five actual gate controls and two unpublished no-op release cases. No raw topology/timing/fullstatistics, mid-native-body cancellation or Linux claim"
+}

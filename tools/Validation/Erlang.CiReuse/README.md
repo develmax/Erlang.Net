@@ -30,3 +30,9 @@ The positive collector lifecycle uses a controlled API double and is not live
 GitHub admission evidence. A real successful PR receipt and subsequent eligible
 merge are required to establish hosted end-to-end reuse. The receipt is a
 provenance record, never a replacement or composition of raw test reports.
+
+Passive controls also compare every integrated workflow plan pin and its admitted
+source/driver bytes. Retry-history checks cover every required current, historical
+equivalent-tree and producer run. After artifact download the collector rereads
+producer lists/concrete attempts, equivalent-ancestor histories and merge lists; any change falls back. These
+are bounded consistent API snapshots, not an atomic GitHub transaction.

@@ -4,7 +4,7 @@ param(
     [ValidateSet('Debug','Release')][string]$Configuration = 'Release',
     [string]$Output = 'artifacts/async-microstates',
     [string]$Python = 'python',
-    [string]$PlanSha256 = 'A372441817625B01B55D221001E3B74733A4DED4887B303D604764C3037AEB99'
+    [string]$PlanSha256 = '711A00FEE7695A4DD4D1362933CA755EE7029271FF97B9AB49843DA8D155E644'
 )
 $ErrorActionPreference = 'Stop'
 $repository = [IO.Path]::GetFullPath((Join-Path $PSScriptRoot '..'))

@@ -1,0 +1,16 @@
+{
+  "Tests": 20,
+  "Passed": true,
+  "RuntimeSourceChanged": false,
+  "HostedAcceptancePending": true,
+  "ActualFailureRun": 41723631184,
+  "Artifact": 13274900591,
+  "ArtifactBytes": 20981714,
+  "ArtifactSha256": "FBB9BF003254344879B52389C3DA4F1F4FA54A279DA671ED6E89134F765A980D",
+  "Reasons": [
+    "Root=Packet .gitattributes had incorrectly been bound to repository root by the generic updater",
+    "N2 WrongEntryNativeBuildPlans retained obsolete N1 Windows/Linux producer plan hashes"
+  ],
+  "Correction": "Correct typed roots and producer dependency closure without changing raw hash modes, scope or runtime; preserve original plans content-addressed",
+  "IndependentReviewScope": "Earlier1591 covers collector, not this subsequent nested-plan correction"
+}
