@@ -23,8 +23,16 @@ public sealed partial class ProcessRuntime
 
                 return DebugSharingCopy425.Copy(this, arguments[0], flag.Name == ErlangBooleanAtoms.True);
             }
-            ulong words = function == DebugSharingNames425.Flat
-                ? DebugSharingSize425.Flat(arguments[0]) : DebugSharingSize425.Shared(this, arguments[0]);
+            ulong words = 0;
+            if (!(OwnedTermsPilot506 && RuntimeActorExecutionTurn.IsOwnedBy(context)
+                && context.TermHeap506.TryReadPhysicalSize526(
+                    context,
+                    arguments[0],
+                    function == DebugSharingNames425.Flat,
+                    out words
+                )))
+                words = function == DebugSharingNames425.Flat
+                    ? DebugSharingSize425.Flat(this, arguments[0]) : DebugSharingSize425.Shared(this, arguments[0]);
 
             return new Integer(new BigInteger(words));
         }

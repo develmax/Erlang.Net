@@ -36,6 +36,8 @@ internal sealed class NifNativeCallbackScope : IDisposable
     internal void RestoreEnvironment(NifNativeCallEnvironment? environment)
         => InvocationEnvironment = environment;
 
+    internal static NifNativeCallbackScope? TryCurrent528 => current;
+
     internal static NifNativeCallbackScope Current
         => current ?? throw new InvalidOperationException(NifNativeDiagnostics.NativeThreadUnsupported);
 

@@ -23,7 +23,7 @@ internal sealed unsafe partial class NifNativeBinaryStorage
         get
         {
             lock (gate)
-                return pointer != 0 ? (byte*)pointer : throw new InvalidOperationException(NifNativeBinaryNames.ExpiredStorage);
+                return pointer != 0 || nativeBorrow524 is not null ? (byte*)pointer : throw new InvalidOperationException(NifNativeBinaryNames.ExpiredStorage);
         }
     }
 
@@ -59,12 +59,15 @@ internal sealed unsafe partial class NifNativeBinaryStorage
     {
         lock (gate)
         {
-            if (pointer == 0)
+            if (pointer == 0 && nativeBorrow524 is null)
                 throw new InvalidOperationException(NifNativeBinaryNames.ExpiredStorage);
             if (offset > size || length > size - offset)
                 throw new InvalidOperationException(NifNativeBinaryNames.SubBinaryRange);
             if (length > NifNativeBinaryNames.MaximumTermBytes)
                 throw new NotSupportedException(NifNativeBinaryNames.TermSizeBoundary);
+            if (nativeBorrowView524 is { } native)
+                return native.SliceBits(checked((int)offset * BitStringLayout.BitsPerByte),
+                    checked((int)length * BitStringLayout.BitsPerByte));
             if (length <= NifNativeBinaryNames.SmallSubBinaryBytes)
                 return new BitString(new ReadOnlySpan<byte>((byte*)pointer + offset, (int)length));
             if (size > (nuint)Array.MaxLength)
@@ -79,7 +82,7 @@ internal sealed unsafe partial class NifNativeBinaryStorage
     {
         lock (gate)
         {
-            if (pointer == 0)
+            if (pointer == 0 && nativeBorrow524 is null)
                 throw new InvalidOperationException(NifNativeBinaryNames.ExpiredStorage);
             environmentReferences = checked(environmentReferences + 1);
         }
@@ -117,6 +120,7 @@ internal sealed unsafe partial class NifNativeBinaryStorage
     {
         if (nativeOwned || environmentReferences != 0)
             return;
+        if (ReleaseBorrowed524()) return;
         nint previous = pointer;
         pointer = 0;
         NativeMemory.Free((void*)previous);

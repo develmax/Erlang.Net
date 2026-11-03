@@ -1,0 +1,75 @@
+{
+  "Status": "TEST_ONLY_OWN_FLAT_EXPECTATION_SOURCE_REVIEW_PROPOSED",
+  "PinnedOtp": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "ProductionChangeWarrantedByReportedFailure": false,
+  "SortExpectedOnly": true,
+  "SortActual": false,
+  "FixedExpectedValuesPreserved": true,
+  "CursorAcceptancePreserved": true,
+  "ErrorAndStackChecksPreserved": true,
+  "HistoricalFlatCohort": [
+    {
+      "File": "returned.etf",
+      "Total": 6,
+      "WholeExact": 6
+    },
+    {
+      "File": "stack-observations.etf",
+      "Total": 30,
+      "WholeExact": 30
+    }
+  ],
+  "HistoricalOtherResidualsCleared": false,
+  "TestEdits": 0,
+  "ProductionEdits": 0,
+  "Builds": 0,
+  "Executions": 0,
+  "ImplementedApiDelta": 0,
+  "VerifiedContractDelta": 0,
+  "Review": {
+    "Path": "artifacts/proplists374-flat-expectation-review1/README.md",
+    "Sha256": "B1D9FB0B83B04B40779E01AAF2B16BF5EAA2546E521DA4DE4947ADE4D86DD55C"
+  },
+  "Files": [
+    {
+      "Path": "src/Erlang.Runtime/MapIteration.cs",
+      "Sha256": "CDB92A0172BA8EE4685D9906AF038B4C314969005CC50236C7377578814375A6"
+    },
+    {
+      "Path": "src/Erlang.Runtime/OtpMapHashLayoutProtocol.cs",
+      "Sha256": "D48BAB9B14D75AAECC6982C2D1346982F8B43F602AB880E8A767925180151E94"
+    },
+    {
+      "Path": "src/Erlang.Runtime/OtpMapOwnAtomIdentityProvider.cs",
+      "Sha256": "6BB2D5C94314EBD31BB695555CD4C12E2004E6E7A259D65E62B50B0C0B2F8641"
+    },
+    {
+      "Path": "src/Erlang.Terms/AtomNameRegistry.cs",
+      "Sha256": "7F1A44DB0AE44B65028BB15597AD0E10762DDA67FFF085E195329E9A4AFB34E2"
+    },
+    {
+      "Path": "tests/Erlang.Tests/ProplistIteratorHostChecks.cs",
+      "Sha256": "38BEE669A91C93BB139DE4C446632BC2B89CB3A427DF1E0B7D42E65A9391B80E"
+    },
+    {
+      "Path": "tests/Erlang.Tests/ProplistFlatIteratorTestNames.cs",
+      "Sha256": "2F00B55B90977537CC8A5A0319A566D96F8A8CF33EDA51FD9760D821910419B7"
+    },
+    {
+      "Path": "tests/Erlang.Tests/ProplistOwnFlatCursorHostChecks.cs",
+      "Sha256": "6F64307241F9944290F141EB4CB987B218E0919B7AEFF0FC10AC888171AA5A30"
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/ProplistFamily/proplists_flat_iterator_contract.erl",
+      "Sha256": "DA0C0BF86429A60C1F74BA5174C01A2D9048C03BC3EB455A5C0EB2CAF31BF9D1"
+    },
+    {
+      "Path": "docs/validation/part-366/source-review/source-review.json",
+      "Sha256": "B3A55F4C3F24BFB7FDAAF98C6356EA03793276E7AAE515CAB09B8CA60F5E8FE5"
+    },
+    {
+      "Path": "docs/validation/part-366/final-main-replay/replay5-comparison.json",
+      "Sha256": "2DBD8BDF3827B152B89E85149E18E2CE5DB3D43E68F1FD81AD1A8F40CCD1E4F4"
+    }
+  ]
+}

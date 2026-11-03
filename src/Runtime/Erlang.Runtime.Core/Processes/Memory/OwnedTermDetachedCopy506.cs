@@ -19,6 +19,16 @@ internal static class OwnedTermDetachedCopy506
             }
             Term copy = frame.NativeMap is { } nativeMap
                 ? nativeMap.Build(frame.Copied) : Build(runtime, frame.Source, frame.Copied);
+            if (frame.NativeMap is not null && frame.Source is MapTerm { IsOrdinaryLogicalMap517: true } && copy is MapTerm raw)
+            {
+                // Ordinary maps keep the legacy portable dictionary facade for
+                // public/foreign use after VM teardown. Preserve the copied raw
+                // topology as metadata for same-VM cursors. Never deduplicate a
+                // source whose current key identities now collide.
+                var logical = new MapTerm(raw.Entries);
+                if (logical.Entries.Count == raw.Entries.Count && PreservesFlatKeyOrder517(raw, logical))
+                    copy = NativeMapMaterialization505.PublishLogicalEscape517(raw, logical);
+            }
             stack.Pop();
             if (stack.Count == 0)
             {
@@ -30,6 +40,19 @@ internal static class OwnedTermDetachedCopy506
             parent.Copied[parent.Index++] = copy;
         }
 
+    }
+
+    private static bool PreservesFlatKeyOrder517(MapTerm source, MapTerm logical)
+    {
+        if (source.FlatKeys426 is not { } sourceKeys)
+            return true;
+        if (logical.FlatKeys426 is not { } logicalKeys || sourceKeys.Items.Count != logicalKeys.Items.Count)
+            return false;
+        for (int index = 0; index < sourceKeys.Items.Count; index++)
+            if (!ReferenceEquals(sourceKeys.Items[index], logicalKeys.Items[index]))
+                return false;
+
+        return true;
     }
 
     private static Term Build(ProcessRuntime runtime, Term source, Term[] values)
@@ -59,8 +82,11 @@ internal static class OwnedTermDetachedCopy506
                     values
                 );
             case MapTerm:
-                return new MapTerm(Enumerable.Range(0, values.Length / 2)
-                    .Select(index => new KeyValuePair<Term, Term>(values[index * 2], values[index * 2 + 1])));
+                var physical = Enumerable.Range(0, values.Length / 2)
+                    .Select(index => new KeyValuePair<Term, Term>(values[index * 2], values[index * 2 + 1])).ToArray();
+                var logical = new MapTerm(physical);
+
+                return logical.Entries.Count == physical.Length ? logical : MapTerm.FromNativeLayout504(physical);
             case NativeRecordTerm record:
                 return new NativeRecordTerm(
                     record.Module,
@@ -68,6 +94,8 @@ internal static class OwnedTermDetachedCopy506
                     record.IsExported,
                     record.FieldNames.Select((name, index) => new KeyValuePair<Atom, Term>(name, values[index]))
                 );
+            case BitString binary when binary.NativeResourceIdentity524 is not null:
+                return binary.CloneNativeView524();
             case BitString binary:
                 PersistentBinarySlice416 slice = binary.CapturePersistentSlice416();
 
@@ -75,7 +103,7 @@ internal static class OwnedTermDetachedCopy506
                     : slice.Backing.Materialize(slice.BitOffset, slice.BitLength);
             case ResourceReferenceTerm resource:
                 // New heap wrapper, same actual authenticated magic resource.
-                // Its strong Entry reference owns payload lifetime naturally.
+                // Native resource lifetime is held separately by actual root/store leases.
                 return new ResourceReferenceTerm(resource.Entry);
             case Pid pid:
                 return pid.LocalIdentity is { } pidOwner ? new Pid(pidOwner, pid.Id) : new Pid(pid.Node, pid.Id, pid.Creation);

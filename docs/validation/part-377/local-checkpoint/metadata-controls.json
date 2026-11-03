@@ -1,0 +1,193 @@
+{
+  "Status": "PASS_METADATA_CONTROLS",
+  "SubjectAssembly": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tools\\Erlang.BeamBuild\\bin\\Debug\\net10.0\\Erlang.BeamBuild.dll",
+  "SubjectSha256": "EA6DA4CEA80719052C3B867604E05D8FFA7442B482A44C727BF450B633F662DC",
+  "SubjectModuleVersionId": "c677f4ef-6ee3-466e-9400-0077f0a15c5f",
+  "Scope": "Real production validator invoked by reflection; synthetic metadata fixtures; no compiler, no ETF semantic admission, no cache/orchestrator execution",
+  "Examined": 26,
+  "Failures": 0,
+  "Outcomes": [
+    {
+      "Name": "cold_valid_report",
+      "ExpectedAccept": true,
+      "ActualAccept": true,
+      "Passed": true,
+      "Error": null
+    },
+    {
+      "Name": "warm_after_beam_move",
+      "ExpectedAccept": true,
+      "ActualAccept": true,
+      "Passed": true,
+      "Error": null
+    },
+    {
+      "Name": "missing_cached_request_validator_layer",
+      "ExpectedAccept": false,
+      "ActualAccept": false,
+      "Passed": true,
+      "Error": "System.IO.InvalidDataException"
+    },
+    {
+      "Name": "missing_cached_report_validator_layer",
+      "ExpectedAccept": false,
+      "ActualAccept": false,
+      "Passed": true,
+      "Error": "System.IO.InvalidDataException"
+    },
+    {
+      "Name": "missing_cached_etf_validator_layer",
+      "ExpectedAccept": false,
+      "ActualAccept": false,
+      "Passed": true,
+      "Error": "System.IO.InvalidDataException"
+    },
+    {
+      "Name": "wrong_report_request_hash",
+      "ExpectedAccept": false,
+      "ActualAccept": false,
+      "Passed": true,
+      "Error": "System.IO.InvalidDataException"
+    },
+    {
+      "Name": "wrong_expected_request_hash",
+      "ExpectedAccept": false,
+      "ActualAccept": false,
+      "Passed": true,
+      "Error": "System.IO.InvalidDataException"
+    },
+    {
+      "Name": "wrong_source",
+      "ExpectedAccept": false,
+      "ActualAccept": false,
+      "Passed": true,
+      "Error": "System.IO.InvalidDataException"
+    },
+    {
+      "Name": "wrong_module",
+      "ExpectedAccept": false,
+      "ActualAccept": false,
+      "Passed": true,
+      "Error": "System.IO.InvalidDataException"
+    },
+    {
+      "Name": "wrong_owned_root",
+      "ExpectedAccept": false,
+      "ActualAccept": false,
+      "Passed": true,
+      "Error": "System.IO.InvalidDataException"
+    },
+    {
+      "Name": "wrong_include_order_or_content",
+      "ExpectedAccept": false,
+      "ActualAccept": false,
+      "Passed": true,
+      "Error": "System.IO.InvalidDataException"
+    },
+    {
+      "Name": "missing_inventory_row",
+      "ExpectedAccept": false,
+      "ActualAccept": false,
+      "Passed": true,
+      "Error": "System.IO.InvalidDataException"
+    },
+    {
+      "Name": "duplicate_inventory_row",
+      "ExpectedAccept": false,
+      "ActualAccept": false,
+      "Passed": true,
+      "Error": "System.IO.InvalidDataException"
+    },
+    {
+      "Name": "wrong_input_sha",
+      "ExpectedAccept": false,
+      "ActualAccept": false,
+      "Passed": true,
+      "Error": "System.IO.InvalidDataException"
+    },
+    {
+      "Name": "wrong_input_bytes",
+      "ExpectedAccept": false,
+      "ActualAccept": false,
+      "Passed": true,
+      "Error": "System.IO.InvalidDataException"
+    },
+    {
+      "Name": "changed_etf_bytes",
+      "ExpectedAccept": false,
+      "ActualAccept": false,
+      "Passed": true,
+      "Error": "System.IO.InvalidDataException"
+    },
+    {
+      "Name": "wrong_etf_sha",
+      "ExpectedAccept": false,
+      "ActualAccept": false,
+      "Passed": true,
+      "Error": "System.IO.InvalidDataException"
+    },
+    {
+      "Name": "wrong_etf_bytes",
+      "ExpectedAccept": false,
+      "ActualAccept": false,
+      "Passed": true,
+      "Error": "System.IO.InvalidDataException"
+    },
+    {
+      "Name": "wrong_etf_filename_or_escape",
+      "ExpectedAccept": false,
+      "ActualAccept": false,
+      "Passed": true,
+      "Error": "System.IO.InvalidDataException"
+    },
+    {
+      "Name": "stale_cached_report_hash",
+      "ExpectedAccept": false,
+      "ActualAccept": false,
+      "Passed": true,
+      "Error": "System.IO.InvalidDataException"
+    },
+    {
+      "Name": "false_success_flag",
+      "ExpectedAccept": false,
+      "ActualAccept": false,
+      "Passed": true,
+      "Error": "System.IO.InvalidDataException"
+    },
+    {
+      "Name": "wrong_compiler_entry",
+      "ExpectedAccept": false,
+      "ActualAccept": false,
+      "Passed": true,
+      "Error": "System.IO.InvalidDataException"
+    },
+    {
+      "Name": "changed_fixed_options",
+      "ExpectedAccept": false,
+      "ActualAccept": false,
+      "Passed": true,
+      "Error": "System.IO.InvalidDataException"
+    },
+    {
+      "Name": "wrong_actual_beam_hash",
+      "ExpectedAccept": false,
+      "ActualAccept": false,
+      "Passed": true,
+      "Error": "System.IO.InvalidDataException"
+    },
+    {
+      "Name": "wrong_actual_beam_size",
+      "ExpectedAccept": false,
+      "ActualAccept": false,
+      "Passed": true,
+      "Error": "System.IO.InvalidDataException"
+    },
+    {
+      "Name": "duplicate_json_property",
+      "ExpectedAccept": false,
+      "ActualAccept": false,
+      "Passed": true,
+      "Error": "System.IO.InvalidDataException"
+    }
+  ]
+}

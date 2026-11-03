@@ -7,6 +7,12 @@ using Erlang;
 using Erlang.Compiler;
 using Erlang.Otp;
 
+if (args.Length > 0 && args[0] == Erlang.Tests.ResourceBoot540Names.ChildSwitch)
+    return await Erlang.Tests.ResourceBoot540ChildMain.Run(args);
+
+if (args.Length > 0 && args[0] == Erlang.Tests.ManagedContractBatch513Names.ChildSwitch)
+    return await Erlang.Tests.ManagedContractBatch513ChildMain.Run(args);
+
 if (args.Length > 0 && args[0] == Erlang.Tests.TermOrderHostNames.ChildSwitch)
     return Erlang.Tests.TermOrderProbeHostMain.Run(args);
 
@@ -39,6 +45,13 @@ if (args is [Erlang.Tests.DynamicApplyBoundary520Names.ChildSwitch, var reposito
         bool.Parse(owned),
         output
     );
+
+    return 0;
+}
+
+if (args is [Erlang.Tests.MapRouting517TestNames.OriginalChildMode, var admission, var admissionSha])
+{
+    await Erlang.Tests.MapRouting517Checks.OriginalBeamProducer(admission, admissionSha);
 
     return 0;
 }
@@ -1060,6 +1073,8 @@ Test("runtime/library395/frame-Admission", Erlang.Tests.BeamFrameJoin394Checks.A
 Test(Erlang.Tests.BeamLiteralFailure467Names.AdmissionTest, Erlang.Tests.BeamLiteralFailure467Checks.Admission);
 Test("runtime/library395/frame-ActualBodyOverride", Erlang.Tests.BeamFrameJoin394Checks.ActualBodyOverride);
 Test(Erlang.Tests.LibraryDependencyOriginalNames.Math394Test, Erlang.Tests.LibraryDependencyOriginalHostChecks.Math394Whole);
+Test(Erlang.Tests.MathBackendNames.ManagedWhole, Erlang.Tests.LibraryDependencyOriginalHostChecks.MathManagedWhole);
+Test(Erlang.Tests.MathBackendNames.ManagedSelection, Erlang.Tests.MathBackendChecks.ManagedSelection);
 Test(
     Erlang.Tests.LibraryDependencyOriginalNames.Math394OwnerTest,
     Erlang.Tests.LibraryDependencyOriginalHostChecks.Math394Owner
@@ -3303,6 +3318,12 @@ foreach (var export in exportRegistry.Exports.Where(export => Erlang.Tests.Funct
         $"mfa/{export.Module}:{export.Function}/{export.Arity}",
         async () =>
     {
+        if (export.Module == Erlang.Tests.MathBackendNames.Module)
+        {
+            await Erlang.Tests.MathBackendChecks.Mfa(export.Function, export.Arity);
+
+            return;
+        }
         if (Erlang.Tests.LibraryStringFloatMfaContracts.Owns(export.Module, export.Function, export.Arity))
         {
             await Erlang.Tests.LibraryStringFloatMfaContracts.Run();
@@ -6591,6 +6612,8 @@ try
     Test(Erlang.Tests.BoundedBifHostNames.TestName, Erlang.Tests.BoundedBifHostChecks.Run);
 
     Test(Erlang.Tests.OrdsetFullHostNames.Test, Erlang.Tests.OrdsetFullHostChecks.Run);
+    Test(Erlang.Tests.OrdsetsCompatibilityNames.ManagedCase, () => Erlang.Tests.OrdsetsCompatibilityChecks.Run(false));
+    Test(Erlang.Tests.OrdsetsCompatibilityNames.BeamCase, () => Erlang.Tests.OrdsetsCompatibilityChecks.Run(true));
 
     Test(Erlang.Tests.NumericSourceContractHostNames.Test, Erlang.Tests.NumericSourceContractHostChecks.Run);
 
@@ -6996,6 +7019,144 @@ try
     Test(Erlang.Tests.TrustedGuest507Names.OverrideTest, Erlang.Tests.TrustedGuest507Checks.OpaqueOverride);
     Test(Erlang.Tests.HybridBoundary507Names.Test, Erlang.Tests.HybridBoundary507Checks.MutablePatterns);
     Test(Erlang.Tests.HybridKeyScope507Names.Test, Erlang.Tests.HybridKeyScope507Checks.Parity);
+    Test(Erlang.Tests.WindowsVariadic526Names.Test, Erlang.Tests.WindowsVariadic526Checks.RequiredSlots);
+    Test(Erlang.Tests.BeamOrdinaryBinaryReceive525Names.Test, Erlang.Tests.BeamOrdinaryBinaryReceive525Checks.OriginalWholeImage);
+    Test(Erlang.Tests.DirtyIoConcurrency522Names.HeldTest, Erlang.Tests.DirtyIoConcurrency522Checks.HeldIoLeavesRealControlLane);
+    Test(Erlang.Tests.DirtyIoConcurrency522Names.CloseTest, Erlang.Tests.DirtyIoConcurrency522Checks.CloseJoinsEveryIoWorker);
+    Test(
+        Erlang.Tests.ManagedCaptureTrace520Names.FailureTest,
+        Erlang.Tests.ManagedCaptureTrace520Checks.TraceFailuresNeverSkipRetirement
+    );
+    Test(
+        Erlang.Tests.ManagedCaptureTrace520Names.CleanTest,
+        Erlang.Tests.ManagedCaptureTrace520Checks.TraceFailureDoesNotMislabelCleanRetirement
+    );
+    Test(Erlang.Tests.BuildProfile521Names.BuildTest, Erlang.Tests.BuildProfile521Checks.OwnBuildProfile);
+    Test(Erlang.Tests.BuildProfile521Names.SmpTest, Erlang.Tests.BuildProfile521Checks.SmpAtOneOnline);
+    Test(
+        Erlang.Tests.ManagedContractBatch513Names.CleanupTest,
+        Erlang.Tests.ManagedCaptureEvidence520Checks.CleanupFailuresRetainPrimary
+    );
+    Test(
+        Erlang.Tests.ManagedContractBatch513Names.WitnessTest,
+        Erlang.Tests.ManagedCaptureEvidence520Checks.WitnessAttemptPrecedesFailure
+    );
+    Test(
+        Erlang.Tests.ManagedContractBatch513Names.PhysicalReleaseTest,
+        Erlang.Tests.NifPhysicalCustody521Checks.DeferredPhysicalRelease
+    );
+    Test(
+        Erlang.Tests.ManagedContractBatch513Names.PhysicalCleanupTest,
+        Erlang.Tests.NifPhysicalCustody521Checks.CleanupFailureStillReleasesImage
+    );
+    Test(
+        Erlang.Tests.ManagedContractBatch513Names.PhysicalRetentionTest,
+        Erlang.Tests.NifPhysicalCustody521Checks.FinalBookkeepingFailureRetainsImage
+    );
+    Test(Erlang.Tests.OrdinaryReference562TestNames.PhysicalCase, Erlang.Tests.OrdinaryReference562Checks.PhysicalAndRetirement);
+    Test(
+        Erlang.Tests.OrdinaryReference562TestNames.ImportCase,
+        Erlang.Tests.OrdinaryReference562Checks.AdoptionImportAndRollback
+    );
+    Test(
+        Erlang.Tests.OrdinaryReference562TestNames.ProvenanceCase,
+        Erlang.Tests.OrdinaryReference562Checks.ProvenanceIdentityAndForeign
+    );
+    Test(
+        Erlang.Tests.BoxedInteger559TestNames.TransferCase,
+        Erlang.Tests.BoxedInteger559Checks.ImmediateChildrenImportAndAdoption
+    );
+    Test(Erlang.Tests.BoxedInteger559TestNames.PhysicalCase, Erlang.Tests.BoxedInteger559Checks.PayloadAndCollection);
+    Test(Erlang.Tests.BoxedInteger559TestNames.AdoptionCase, Erlang.Tests.BoxedInteger559Checks.ImmediateAliasLiteralAndLimits);
+    Test(Erlang.Tests.BoxedInteger559TestNames.LifetimeCase, Erlang.Tests.BoxedInteger559Checks.ForeignAndHeldRetirement);
+    Test(Erlang.Tests.BoxedFloat556Names.PhysicalCase, Erlang.Tests.BoxedFloat556Checks.PhysicalGetterAndGc);
+    Test(Erlang.Tests.BoxedFloat556Names.AdoptionCase, Erlang.Tests.BoxedFloat556Checks.AdoptionAndRootOnly);
+    Test(Erlang.Tests.BoxedFloat556Names.LifetimeCase, Erlang.Tests.BoxedFloat556Checks.ForeignAndHeldRetirement);
+    Test(Erlang.Tests.BeamListCurrentRoot550Names.MatrixTest, Erlang.Tests.BeamListCurrentRoot550Checks.Matrix);
+    Test(Erlang.Tests.BeamListCurrentRoot550Names.CustodyTest, Erlang.Tests.BeamListCurrentRoot550Checks.Custody);
+    Test(Erlang.Tests.BeamListCurrentRoot550Names.FailureTest, Erlang.Tests.BeamListCurrentRoot550Checks.ClosedYStore);
+    Test(
+        Erlang.Tests.BeamConstructedCommit548TestNames.MatrixTest,
+        Erlang.Tests.BeamConstructedCommit548Checks.PublicationMatrix
+    );
+    Test(
+        Erlang.Tests.BeamConstructedCommit548TestNames.RollbackTest,
+        Erlang.Tests.BeamConstructedCommit548Checks.ClosedPhysicalStoreRollsBack
+    );
+    Test(
+        Erlang.Tests.BeamConstructedCommit548TestNames.GuardTest,
+        Erlang.Tests.BeamConstructedCommit548Checks.StaleCandidateRejected
+    );
+    Test(Erlang.Tests.MapPayload517Names.FlatTest, Erlang.Tests.MapPayload517Checks.FlatOccurrenceCustody);
+    Test(Erlang.Tests.MapPayload517Names.HamtTest, Erlang.Tests.MapPayload517Checks.HamtNodeCustody);
+    Test(Erlang.Tests.MapPayload517Names.RawTest, Erlang.Tests.MapPayload517Checks.RawInteriorRetainsOnlySubtree);
+    Test(Erlang.Tests.MapPayload517Names.RollbackTest, Erlang.Tests.MapPayload517Checks.PostAllocationHeaderFaultRollsBack);
+    Test(Erlang.Tests.MapPayload517Names.BoundaryTest, Erlang.Tests.MapPayload517Checks.FlatHamtBoundaryRoutes);
+    Test(Erlang.Tests.MapRouting517TestNames.SourceTest, Erlang.Tests.MapRouting517Checks.SourceProducer);
+    Test(Erlang.Tests.OwnedWords526Names.Test, Erlang.Tests.OwnedWords526Checks.PhysicalHeadersAndRetirement);
+    Test(Erlang.Tests.MapSharingSize528Names.Test, Erlang.Tests.MapSharingSize528Checks.Run);
+    Test(Erlang.Tests.NativeResourceLogical529Names.UnlinkTest, Erlang.Tests.NativeResourceLogical529Checks.UnlinkLivePayload);
+    Test(Erlang.Tests.NativeResourceLogical529Names.CallbackTest, Erlang.Tests.NativeResourceLogical529Checks.HeldCallbackPin);
+    Test(Erlang.Tests.NativeHostScope531Names.Test, Erlang.Tests.NativeHostScope531Checks.ParallelExports);
+    Test(Erlang.Tests.NativeGuest535Names.ReadersTest, Erlang.Tests.NativeGuest535Checks.ReadersAndPublicRefusal);
+    Test(Erlang.Tests.NativeGuest535Names.ReregisterTest, Erlang.Tests.NativeGuest535Checks.PublicReregisterStaysOpaque);
+    Test(Erlang.Tests.NativeGuest535Names.FakeTest, Erlang.Tests.NativeGuest535Checks.ManagedNifProviderStaysOpaque);
+    Test(
+        Erlang.Tests.NativeResource536TestNames.NormalTest,
+        Erlang.Tests.NativeResource536Checks.GuestGcUsesActualNormalAuxiliaryOnce
+    );
+    Test(
+        Erlang.Tests.NativeResource536TestNames.HeldTest,
+        Erlang.Tests.NativeResource536Checks.HeldNormalDestructorKeepsImageAndClosePhysical
+    );
+    Test(
+        Erlang.Tests.NativeResource536TestNames.ForeignTest,
+        Erlang.Tests.NativeResource536Checks.NonGcRouteIsNotSilentlyReclassified
+    );
+    Test(
+        Erlang.Tests.NativeCons539CaseNames.Shape,
+        NifNativeBackend::Erlang.NifNativeBackend.NifConsCell539HostEntry.ShapeAndAbi
+    );
+    Test(
+        Erlang.Tests.NativeCons539CaseNames.Pending,
+        NifNativeBackend::Erlang.NifNativeBackend.NifConsCell539HostEntry.PendingHeadAndImproperTail
+    );
+    Test(
+        Erlang.Tests.NativeCons539CaseNames.Owners,
+        NifNativeBackend::Erlang.NifNativeBackend.NifConsCell539HostEntry.InvalidOwnersAndThreads
+    );
+    Test(
+        Erlang.Tests.NativeCons539CaseNames.Resource,
+        Erlang.Tests.NativeCons539ResourceChecks.CopiedCellKeepsResourceUntilLastEnvironmentClear
+    );
+    Test(
+        Erlang.Tests.NativeResourceScope528Names.ViewAndGuestCollection,
+        Erlang.Tests.NativeResource524Checks.ViewAndGuestCollection
+    );
+    Test(
+        Erlang.Tests.NativeResourceScope528Names.PhysicalDestructorPinsImage,
+        Erlang.Tests.NativeResource524Checks.PhysicalDestructorPinsImage
+    );
+    Test(
+        Erlang.Tests.NativeResourceScope528Names.PhysicalMagicHeaderAndIdentity,
+        Erlang.Tests.NativeResource527Checks.PhysicalMagicHeaderAndIdentity
+    );
+    Test(
+        Erlang.Tests.NativeResourceScope528Names.CreateDuplicateOrderAndRollback,
+        Erlang.Tests.NativeResource527Checks.CreateDuplicateOrderAndRollback
+    );
+    Test(
+        Erlang.Tests.NativeResourceScope528Names.TakeoverUsesNewPhysicalDestructor,
+        Erlang.Tests.NativeResource527Checks.TakeoverUsesNewPhysicalDestructor
+    );
+    Test(
+        Erlang.Tests.NativeResourceScope528Names.ArenaSurvivesImageCloseAndSupportsForeignFree,
+        Erlang.Tests.NativeResourceArena528Checks.ArenaSurvivesImageCloseAndSupportsForeignFree
+    );
+    Test(
+        Erlang.Tests.NativeResourceScope528Names.NewDestructorFreesOldImageChildAllocation,
+        Erlang.Tests.NativeResourceArena528Checks.NewDestructorFreesOldImageChildAllocation
+    );
     Test(Erlang.Tests.AllocatorFirstFit519Names.MixedTest, Erlang.Tests.AllocatorFirstFit519Checks.MixedFirstFit);
     Test(Erlang.Tests.AllocatorFirstFit519Names.FragmentedTest, Erlang.Tests.AllocatorFirstFit519Checks.FragmentedLinearScan);
     Test(Erlang.Tests.AllocatorFirstFit519Names.HeapTest, Erlang.Tests.AllocatorFirstFit519Checks.HeapLinearScan);

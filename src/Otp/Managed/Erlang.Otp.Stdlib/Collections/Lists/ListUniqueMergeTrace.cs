@@ -54,10 +54,25 @@ internal static class ListUniqueMergeTrace
         ProcessContext context,
         Term list,
         Term tail,
-        IEnumerable<ListUniqueMergeContinuation> continuations
+        IEnumerable<ListUniqueMergeContinuation> continuations,
+        ListUniqueMergeState? caller = null,
+        int line = 0
     )
     {
         using var scope = new ListUniqueMergeScope(context, continuations);
+        // Native reverse errors retain the helper's current source PC even
+        // though a successful reverse returns directly from that helper.
+        using var current = caller is { } state && context.Runtime.Modules.IsNativeEntry(
+            ListModuleNames.Module,
+            ListModuleNames.Reverse,
+            2
+        ) ? context.EnterGeneratedFunction(
+            ListModuleNames.Module,
+            ListUniqueMergeNames.Function(state),
+            ListUniqueMergeNames.Arity(state),
+            Location(line),
+            identities.GetOrAdd((state, line), _ => new object())
+        ) : null;
 
         return await context.Runtime.Modules.Call(
             context,

@@ -6,10 +6,11 @@ internal sealed partial class ProcessTermFrame506
 
     internal Term AdoptExpression511(Term value)
     {
+        int slot = Reserve();
+        Term result = AdoptGuestInto507(slot, value);
         lock (owner.Gate)
         {
-            int slot = Reserve();
-            Term result = AdoptGuestInto507(slot, value);
+            ObjectDisposedException.ThrowIf(disposed, this);
             sourceExpressionSlots511.Add(slot);
 
             return result;
@@ -59,12 +60,12 @@ internal sealed partial class ProcessTermFrame506
                 throw new InvalidOperationException(ProcessTermConstruction514Names.InvalidCustody);
             if (!owner.IsOwnedLocal(value))
                 return;
-            if (value is not (Cons or TupleTerm))
+            if (value is not (Cons or TupleTerm or MapTerm or HamtBitmapTerm429 or FloatTerm or Integer or ReferenceTerm))
                 throw new InvalidOperationException(ProcessTermConstruction514Names.InvalidCustody);
-            // Only tuple/cons containers are created by this adopter. Their
-            // direct children must come from the rooted input or earlier nodes;
+            // Admitted containers and zero-child boxed numerics are created here.
+            // Direct children must come from the rooted input or earlier nodes;
             // no new binary backing can enter through this capability.
-            foreach (Term child in NativeMapOwnedRoots510.Children(value))
+            foreach (Term child in ProcessTermHeap506.DirectConstructionChildren517(value))
                 if (!custody.Contains(child))
                     throw new InvalidOperationException(ProcessTermConstruction514Names.UnadmittedChild);
             int slot = Reserve();

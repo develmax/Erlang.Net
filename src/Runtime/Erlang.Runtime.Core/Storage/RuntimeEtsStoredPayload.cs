@@ -29,6 +29,8 @@ internal sealed partial class RuntimeEtsStoredPayload : IDisposable
         long keyPosition = 1
     )
     {
+        if (compressed && NativeResourceRoots524.Contains524(root))
+            throw new NotSupportedException(NativeResource524Names.CompressedStorage);
         var indices = new Dictionary<Term, int>(ReferenceEqualityComparer.Instance);
         var completed = new HashSet<Term>(ReferenceEqualityComparer.Instance);
         var nodes = new List<RuntimeEtsStoredNode>();
@@ -48,6 +50,8 @@ internal sealed partial class RuntimeEtsStoredPayload : IDisposable
                         Atom atom => new(RuntimeEtsStoredKind.Atom, Names: [atom.Name]),
                         Integer integer => new(RuntimeEtsStoredKind.Integer, Bytes: integer.Value.ToByteArray()),
                         FloatTerm number => new(RuntimeEtsStoredKind.Float, FloatBits: BitConverter.DoubleToInt64Bits(number.Value)),
+                        BitString binary when binary.NativeResourceIdentity524 is not null => new(
+                            RuntimeEtsStoredKind.NativeBinary524, NativeBinary524: binary.CapturePersistentSlice416()),
                         BitString binary => new(RuntimeEtsStoredKind.Binary, Bytes: binary.ToArray(), BitLength: binary.BitLength),
                         Cons list => new(RuntimeEtsStoredKind.Cons, Children: [indices[list.Head], indices[list.Tail]]),
                         TupleTerm tuple => new(RuntimeEtsStoredKind.Tuple, Children: ChildIds(tuple.Items)),
@@ -98,7 +102,11 @@ internal sealed partial class RuntimeEtsStoredPayload : IDisposable
         }
         catch
         {
-            foreach (var node in nodes) node.Identity?.Dispose();
+            foreach (var node in nodes)
+            {
+                node.Identity?.Dispose();
+                node.NativeBinary524?.Backing?.Dispose();
+            }
             throw;
         }
     }
@@ -138,6 +146,9 @@ internal sealed partial class RuntimeEtsStoredPayload : IDisposable
                 RuntimeEtsStoredKind.Atom => Term.A(node.Names![0]),
                 RuntimeEtsStoredKind.Integer => new Integer(new BigInteger(node.Bytes!)),
                 RuntimeEtsStoredKind.Float => new FloatTerm(BitConverter.Int64BitsToDouble(node.FloatBits)),
+                RuntimeEtsStoredKind.NativeBinary524 => OwnedTermInvocation506.AdmitNativeStoredResult524(
+                    node.NativeBinary524!.Value.Backing!.Materialize(
+                        node.NativeBinary524.Value.BitOffset, node.NativeBinary524.Value.BitLength)),
                 RuntimeEtsStoredKind.Binary => new BitString(node.Bytes!, node.BitLength),
                 RuntimeEtsStoredKind.Cons => new Cons(values[node.Children![0]]!, values[node.Children[1]]!),
                 RuntimeEtsStoredKind.Tuple => new TupleTerm(Children()),
@@ -150,7 +161,7 @@ internal sealed partial class RuntimeEtsStoredPayload : IDisposable
                     node.Children!.Select((child, index) => new KeyValuePair<Atom, Term>(Term.A(node.Names[index + 2]), values[child]!))
                 ),
                 RuntimeEtsStoredKind.Function => node.Function!.Rebind(Children().ToArray()),
-                RuntimeEtsStoredKind.Identity => node.Identity!.Value,
+                RuntimeEtsStoredKind.Identity => OwnedTermInvocation506.AdmitNativeStoredResult524(node.Identity!.Value),
                 _ => throw new InvalidOperationException()
             };
         }
@@ -160,9 +171,29 @@ internal sealed partial class RuntimeEtsStoredPayload : IDisposable
 
     public void Dispose()
     {
-        // Nodes exclusively own managed reservations/bindings. Dropping the last
-        // payload root relinquishes the graph; this does not force physical GC.
         Interlocked.Exchange(ref compressed438, null);
-        Interlocked.Exchange(ref nodes, null);
+        RuntimeEtsStoredNode[]? retired = Interlocked.Exchange(ref nodes, null);
+        if (retired is null) return;
+        var failures = new List<Exception>(retired.Length);
+        foreach (RuntimeEtsStoredNode node in retired)
+        {
+            try
+            {
+                node.Identity?.Dispose();
+            }
+            catch (Exception error)
+            {
+                failures.Add(error);
+            }
+            try
+            {
+                node.NativeBinary524?.Backing?.Dispose();
+            }
+            catch (Exception error)
+            {
+                failures.Add(error);
+            }
+        }
+        if (failures.Count != 0) throw new AggregateException(failures);
     }
 }

@@ -4,6 +4,606 @@
   "Commit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
   "Entries": [
     {
+      "Module": "math",
+      "Function": "acos",
+      "Arity": 1,
+      "Status": "Needs verification",
+      "Scope": "Complete callable managed surface with explicit original Erlang/BEAM alternative. Current Windows OTP 29.1.1 corpus compares values, errors and full stacks, including IEEE payloads; finite witnesses do not establish platform-wide floating point compatibility.",
+      "Evidence": [
+        {
+          "Kind": "OriginalOtpComparison",
+          "Path": "validation/part-520/math-port/provenance.json",
+          "Sha256": "423752C83EEDB21C043C4ADBA99A433C022E6C8E5A50C9B02F3523C727EE5787",
+          "Scope": "Fresh pinned official Windows OTP output reproduces the retained248-case values and five stack profiles byte for byte."
+        },
+        {
+          "Kind": "LocalValidation",
+          "Path": "validation/part-520/math-port/final-affected.json",
+          "Sha256": "FE216472D95F83C92C20B232B899440F6302957CD632CDBB93D8B2D3489CF384",
+          "Scope": "Final-source44/44 affected groups,26 direct MFA calls and both backends matching1488 complete outcomes each, including IEEE payloads."
+        }
+      ],
+      "Limits": [
+        "Complete platform-specific floating point and error metadata audit remains pending; no whole-module 100% claim."
+      ]
+    },
+    {
+      "Module": "math",
+      "Function": "acosh",
+      "Arity": 1,
+      "Status": "Needs verification",
+      "Scope": "Complete callable managed surface with explicit original Erlang/BEAM alternative. Current Windows OTP 29.1.1 corpus compares values, errors and full stacks, including IEEE payloads; finite witnesses do not establish platform-wide floating point compatibility.",
+      "Evidence": [
+        {
+          "Kind": "OriginalOtpComparison",
+          "Path": "validation/part-520/math-port/provenance.json",
+          "Sha256": "423752C83EEDB21C043C4ADBA99A433C022E6C8E5A50C9B02F3523C727EE5787",
+          "Scope": "Fresh pinned official Windows OTP output reproduces the retained248-case values and five stack profiles byte for byte."
+        },
+        {
+          "Kind": "LocalValidation",
+          "Path": "validation/part-520/math-port/final-affected.json",
+          "Sha256": "FE216472D95F83C92C20B232B899440F6302957CD632CDBB93D8B2D3489CF384",
+          "Scope": "Final-source44/44 affected groups,26 direct MFA calls and both backends matching1488 complete outcomes each, including IEEE payloads."
+        }
+      ],
+      "Limits": [
+        "Complete platform-specific floating point and error metadata audit remains pending; no whole-module 100% claim."
+      ]
+    },
+    {
+      "Module": "math",
+      "Function": "asin",
+      "Arity": 1,
+      "Status": "Needs verification",
+      "Scope": "Complete callable managed surface with explicit original Erlang/BEAM alternative. Current Windows OTP 29.1.1 corpus compares values, errors and full stacks, including IEEE payloads; finite witnesses do not establish platform-wide floating point compatibility.",
+      "Evidence": [
+        {
+          "Kind": "OriginalOtpComparison",
+          "Path": "validation/part-520/math-port/provenance.json",
+          "Sha256": "423752C83EEDB21C043C4ADBA99A433C022E6C8E5A50C9B02F3523C727EE5787",
+          "Scope": "Fresh pinned official Windows OTP output reproduces the retained248-case values and five stack profiles byte for byte."
+        },
+        {
+          "Kind": "LocalValidation",
+          "Path": "validation/part-520/math-port/final-affected.json",
+          "Sha256": "FE216472D95F83C92C20B232B899440F6302957CD632CDBB93D8B2D3489CF384",
+          "Scope": "Final-source44/44 affected groups,26 direct MFA calls and both backends matching1488 complete outcomes each, including IEEE payloads."
+        }
+      ],
+      "Limits": [
+        "Complete platform-specific floating point and error metadata audit remains pending; no whole-module 100% claim."
+      ]
+    },
+    {
+      "Module": "math",
+      "Function": "asinh",
+      "Arity": 1,
+      "Status": "Needs verification",
+      "Scope": "Complete callable managed surface with explicit original Erlang/BEAM alternative. Current Windows OTP 29.1.1 corpus compares values, errors and full stacks, including IEEE payloads; finite witnesses do not establish platform-wide floating point compatibility.",
+      "Evidence": [
+        {
+          "Kind": "OriginalOtpComparison",
+          "Path": "validation/part-520/math-port/provenance.json",
+          "Sha256": "423752C83EEDB21C043C4ADBA99A433C022E6C8E5A50C9B02F3523C727EE5787",
+          "Scope": "Fresh pinned official Windows OTP output reproduces the retained248-case values and five stack profiles byte for byte."
+        },
+        {
+          "Kind": "LocalValidation",
+          "Path": "validation/part-520/math-port/final-affected.json",
+          "Sha256": "FE216472D95F83C92C20B232B899440F6302957CD632CDBB93D8B2D3489CF384",
+          "Scope": "Final-source44/44 affected groups,26 direct MFA calls and both backends matching1488 complete outcomes each, including IEEE payloads."
+        }
+      ],
+      "Limits": [
+        "Complete platform-specific floating point and error metadata audit remains pending; no whole-module 100% claim."
+      ]
+    },
+    {
+      "Module": "math",
+      "Function": "atan",
+      "Arity": 1,
+      "Status": "Needs verification",
+      "Scope": "Complete callable managed surface with explicit original Erlang/BEAM alternative. Current Windows OTP 29.1.1 corpus compares values, errors and full stacks, including IEEE payloads; finite witnesses do not establish platform-wide floating point compatibility.",
+      "Evidence": [
+        {
+          "Kind": "OriginalOtpComparison",
+          "Path": "validation/part-520/math-port/provenance.json",
+          "Sha256": "423752C83EEDB21C043C4ADBA99A433C022E6C8E5A50C9B02F3523C727EE5787",
+          "Scope": "Fresh pinned official Windows OTP output reproduces the retained248-case values and five stack profiles byte for byte."
+        },
+        {
+          "Kind": "LocalValidation",
+          "Path": "validation/part-520/math-port/final-affected.json",
+          "Sha256": "FE216472D95F83C92C20B232B899440F6302957CD632CDBB93D8B2D3489CF384",
+          "Scope": "Final-source44/44 affected groups,26 direct MFA calls and both backends matching1488 complete outcomes each, including IEEE payloads."
+        }
+      ],
+      "Limits": [
+        "Complete platform-specific floating point and error metadata audit remains pending; no whole-module 100% claim."
+      ]
+    },
+    {
+      "Module": "math",
+      "Function": "atanh",
+      "Arity": 1,
+      "Status": "Needs verification",
+      "Scope": "Complete callable managed surface with explicit original Erlang/BEAM alternative. Current Windows OTP 29.1.1 corpus compares values, errors and full stacks, including IEEE payloads; finite witnesses do not establish platform-wide floating point compatibility.",
+      "Evidence": [
+        {
+          "Kind": "OriginalOtpComparison",
+          "Path": "validation/part-520/math-port/provenance.json",
+          "Sha256": "423752C83EEDB21C043C4ADBA99A433C022E6C8E5A50C9B02F3523C727EE5787",
+          "Scope": "Fresh pinned official Windows OTP output reproduces the retained248-case values and five stack profiles byte for byte."
+        },
+        {
+          "Kind": "LocalValidation",
+          "Path": "validation/part-520/math-port/final-affected.json",
+          "Sha256": "FE216472D95F83C92C20B232B899440F6302957CD632CDBB93D8B2D3489CF384",
+          "Scope": "Final-source44/44 affected groups,26 direct MFA calls and both backends matching1488 complete outcomes each, including IEEE payloads."
+        }
+      ],
+      "Limits": [
+        "Complete platform-specific floating point and error metadata audit remains pending; no whole-module 100% claim."
+      ]
+    },
+    {
+      "Module": "math",
+      "Function": "ceil",
+      "Arity": 1,
+      "Status": "Needs verification",
+      "Scope": "Complete callable managed surface with explicit original Erlang/BEAM alternative. Current Windows OTP 29.1.1 corpus compares values, errors and full stacks, including IEEE payloads; finite witnesses do not establish platform-wide floating point compatibility.",
+      "Evidence": [
+        {
+          "Kind": "OriginalOtpComparison",
+          "Path": "validation/part-520/math-port/provenance.json",
+          "Sha256": "423752C83EEDB21C043C4ADBA99A433C022E6C8E5A50C9B02F3523C727EE5787",
+          "Scope": "Fresh pinned official Windows OTP output reproduces the retained248-case values and five stack profiles byte for byte."
+        },
+        {
+          "Kind": "LocalValidation",
+          "Path": "validation/part-520/math-port/final-affected.json",
+          "Sha256": "FE216472D95F83C92C20B232B899440F6302957CD632CDBB93D8B2D3489CF384",
+          "Scope": "Final-source44/44 affected groups,26 direct MFA calls and both backends matching1488 complete outcomes each, including IEEE payloads."
+        }
+      ],
+      "Limits": [
+        "Complete platform-specific floating point and error metadata audit remains pending; no whole-module 100% claim."
+      ]
+    },
+    {
+      "Module": "math",
+      "Function": "cos",
+      "Arity": 1,
+      "Status": "Needs verification",
+      "Scope": "Complete callable managed surface with explicit original Erlang/BEAM alternative. Current Windows OTP 29.1.1 corpus compares values, errors and full stacks, including IEEE payloads; finite witnesses do not establish platform-wide floating point compatibility.",
+      "Evidence": [
+        {
+          "Kind": "OriginalOtpComparison",
+          "Path": "validation/part-520/math-port/provenance.json",
+          "Sha256": "423752C83EEDB21C043C4ADBA99A433C022E6C8E5A50C9B02F3523C727EE5787",
+          "Scope": "Fresh pinned official Windows OTP output reproduces the retained248-case values and five stack profiles byte for byte."
+        },
+        {
+          "Kind": "LocalValidation",
+          "Path": "validation/part-520/math-port/final-affected.json",
+          "Sha256": "FE216472D95F83C92C20B232B899440F6302957CD632CDBB93D8B2D3489CF384",
+          "Scope": "Final-source44/44 affected groups,26 direct MFA calls and both backends matching1488 complete outcomes each, including IEEE payloads."
+        }
+      ],
+      "Limits": [
+        "Complete platform-specific floating point and error metadata audit remains pending; no whole-module 100% claim."
+      ]
+    },
+    {
+      "Module": "math",
+      "Function": "cosh",
+      "Arity": 1,
+      "Status": "Needs verification",
+      "Scope": "Complete callable managed surface with explicit original Erlang/BEAM alternative. Current Windows OTP 29.1.1 corpus compares values, errors and full stacks, including IEEE payloads; finite witnesses do not establish platform-wide floating point compatibility.",
+      "Evidence": [
+        {
+          "Kind": "OriginalOtpComparison",
+          "Path": "validation/part-520/math-port/provenance.json",
+          "Sha256": "423752C83EEDB21C043C4ADBA99A433C022E6C8E5A50C9B02F3523C727EE5787",
+          "Scope": "Fresh pinned official Windows OTP output reproduces the retained248-case values and five stack profiles byte for byte."
+        },
+        {
+          "Kind": "LocalValidation",
+          "Path": "validation/part-520/math-port/final-affected.json",
+          "Sha256": "FE216472D95F83C92C20B232B899440F6302957CD632CDBB93D8B2D3489CF384",
+          "Scope": "Final-source44/44 affected groups,26 direct MFA calls and both backends matching1488 complete outcomes each, including IEEE payloads."
+        }
+      ],
+      "Limits": [
+        "Complete platform-specific floating point and error metadata audit remains pending; no whole-module 100% claim."
+      ]
+    },
+    {
+      "Module": "math",
+      "Function": "erf",
+      "Arity": 1,
+      "Status": "Needs verification",
+      "Scope": "Complete callable managed surface with explicit original Erlang/BEAM alternative. Current Windows OTP 29.1.1 corpus compares values, errors and full stacks, including IEEE payloads; finite witnesses do not establish platform-wide floating point compatibility.",
+      "Evidence": [
+        {
+          "Kind": "OriginalOtpComparison",
+          "Path": "validation/part-520/math-port/provenance.json",
+          "Sha256": "423752C83EEDB21C043C4ADBA99A433C022E6C8E5A50C9B02F3523C727EE5787",
+          "Scope": "Fresh pinned official Windows OTP output reproduces the retained248-case values and five stack profiles byte for byte."
+        },
+        {
+          "Kind": "LocalValidation",
+          "Path": "validation/part-520/math-port/final-affected.json",
+          "Sha256": "FE216472D95F83C92C20B232B899440F6302957CD632CDBB93D8B2D3489CF384",
+          "Scope": "Final-source44/44 affected groups,26 direct MFA calls and both backends matching1488 complete outcomes each, including IEEE payloads."
+        }
+      ],
+      "Limits": [
+        "Complete platform-specific floating point and error metadata audit remains pending; no whole-module 100% claim."
+      ]
+    },
+    {
+      "Module": "math",
+      "Function": "erfc",
+      "Arity": 1,
+      "Status": "Needs verification",
+      "Scope": "Complete callable managed surface with explicit original Erlang/BEAM alternative. Current Windows OTP 29.1.1 corpus compares values, errors and full stacks, including IEEE payloads; finite witnesses do not establish platform-wide floating point compatibility.",
+      "Evidence": [
+        {
+          "Kind": "OriginalOtpComparison",
+          "Path": "validation/part-520/math-port/provenance.json",
+          "Sha256": "423752C83EEDB21C043C4ADBA99A433C022E6C8E5A50C9B02F3523C727EE5787",
+          "Scope": "Fresh pinned official Windows OTP output reproduces the retained248-case values and five stack profiles byte for byte."
+        },
+        {
+          "Kind": "LocalValidation",
+          "Path": "validation/part-520/math-port/final-affected.json",
+          "Sha256": "FE216472D95F83C92C20B232B899440F6302957CD632CDBB93D8B2D3489CF384",
+          "Scope": "Final-source44/44 affected groups,26 direct MFA calls and both backends matching1488 complete outcomes each, including IEEE payloads."
+        }
+      ],
+      "Limits": [
+        "Complete platform-specific floating point and error metadata audit remains pending; no whole-module 100% claim."
+      ]
+    },
+    {
+      "Module": "math",
+      "Function": "exp",
+      "Arity": 1,
+      "Status": "Needs verification",
+      "Scope": "Complete callable managed surface with explicit original Erlang/BEAM alternative. Current Windows OTP 29.1.1 corpus compares values, errors and full stacks, including IEEE payloads; finite witnesses do not establish platform-wide floating point compatibility.",
+      "Evidence": [
+        {
+          "Kind": "OriginalOtpComparison",
+          "Path": "validation/part-520/math-port/provenance.json",
+          "Sha256": "423752C83EEDB21C043C4ADBA99A433C022E6C8E5A50C9B02F3523C727EE5787",
+          "Scope": "Fresh pinned official Windows OTP output reproduces the retained248-case values and five stack profiles byte for byte."
+        },
+        {
+          "Kind": "LocalValidation",
+          "Path": "validation/part-520/math-port/final-affected.json",
+          "Sha256": "FE216472D95F83C92C20B232B899440F6302957CD632CDBB93D8B2D3489CF384",
+          "Scope": "Final-source44/44 affected groups,26 direct MFA calls and both backends matching1488 complete outcomes each, including IEEE payloads."
+        }
+      ],
+      "Limits": [
+        "Complete platform-specific floating point and error metadata audit remains pending; no whole-module 100% claim."
+      ]
+    },
+    {
+      "Module": "math",
+      "Function": "floor",
+      "Arity": 1,
+      "Status": "Needs verification",
+      "Scope": "Complete callable managed surface with explicit original Erlang/BEAM alternative. Current Windows OTP 29.1.1 corpus compares values, errors and full stacks, including IEEE payloads; finite witnesses do not establish platform-wide floating point compatibility.",
+      "Evidence": [
+        {
+          "Kind": "OriginalOtpComparison",
+          "Path": "validation/part-520/math-port/provenance.json",
+          "Sha256": "423752C83EEDB21C043C4ADBA99A433C022E6C8E5A50C9B02F3523C727EE5787",
+          "Scope": "Fresh pinned official Windows OTP output reproduces the retained248-case values and five stack profiles byte for byte."
+        },
+        {
+          "Kind": "LocalValidation",
+          "Path": "validation/part-520/math-port/final-affected.json",
+          "Sha256": "FE216472D95F83C92C20B232B899440F6302957CD632CDBB93D8B2D3489CF384",
+          "Scope": "Final-source44/44 affected groups,26 direct MFA calls and both backends matching1488 complete outcomes each, including IEEE payloads."
+        }
+      ],
+      "Limits": [
+        "Complete platform-specific floating point and error metadata audit remains pending; no whole-module 100% claim."
+      ]
+    },
+    {
+      "Module": "math",
+      "Function": "log2",
+      "Arity": 1,
+      "Status": "Needs verification",
+      "Scope": "Complete callable managed surface with explicit original Erlang/BEAM alternative. Current Windows OTP 29.1.1 corpus compares values, errors and full stacks, including IEEE payloads; finite witnesses do not establish platform-wide floating point compatibility.",
+      "Evidence": [
+        {
+          "Kind": "OriginalOtpComparison",
+          "Path": "validation/part-520/math-port/provenance.json",
+          "Sha256": "423752C83EEDB21C043C4ADBA99A433C022E6C8E5A50C9B02F3523C727EE5787",
+          "Scope": "Fresh pinned official Windows OTP output reproduces the retained248-case values and five stack profiles byte for byte."
+        },
+        {
+          "Kind": "LocalValidation",
+          "Path": "validation/part-520/math-port/final-affected.json",
+          "Sha256": "FE216472D95F83C92C20B232B899440F6302957CD632CDBB93D8B2D3489CF384",
+          "Scope": "Final-source44/44 affected groups,26 direct MFA calls and both backends matching1488 complete outcomes each, including IEEE payloads."
+        }
+      ],
+      "Limits": [
+        "Complete platform-specific floating point and error metadata audit remains pending; no whole-module 100% claim."
+      ]
+    },
+    {
+      "Module": "math",
+      "Function": "log10",
+      "Arity": 1,
+      "Status": "Needs verification",
+      "Scope": "Complete callable managed surface with explicit original Erlang/BEAM alternative. Current Windows OTP 29.1.1 corpus compares values, errors and full stacks, including IEEE payloads; finite witnesses do not establish platform-wide floating point compatibility.",
+      "Evidence": [
+        {
+          "Kind": "OriginalOtpComparison",
+          "Path": "validation/part-520/math-port/provenance.json",
+          "Sha256": "423752C83EEDB21C043C4ADBA99A433C022E6C8E5A50C9B02F3523C727EE5787",
+          "Scope": "Fresh pinned official Windows OTP output reproduces the retained248-case values and five stack profiles byte for byte."
+        },
+        {
+          "Kind": "LocalValidation",
+          "Path": "validation/part-520/math-port/final-affected.json",
+          "Sha256": "FE216472D95F83C92C20B232B899440F6302957CD632CDBB93D8B2D3489CF384",
+          "Scope": "Final-source44/44 affected groups,26 direct MFA calls and both backends matching1488 complete outcomes each, including IEEE payloads."
+        }
+      ],
+      "Limits": [
+        "Complete platform-specific floating point and error metadata audit remains pending; no whole-module 100% claim."
+      ]
+    },
+    {
+      "Module": "math",
+      "Function": "sin",
+      "Arity": 1,
+      "Status": "Needs verification",
+      "Scope": "Complete callable managed surface with explicit original Erlang/BEAM alternative. Current Windows OTP 29.1.1 corpus compares values, errors and full stacks, including IEEE payloads; finite witnesses do not establish platform-wide floating point compatibility.",
+      "Evidence": [
+        {
+          "Kind": "OriginalOtpComparison",
+          "Path": "validation/part-520/math-port/provenance.json",
+          "Sha256": "423752C83EEDB21C043C4ADBA99A433C022E6C8E5A50C9B02F3523C727EE5787",
+          "Scope": "Fresh pinned official Windows OTP output reproduces the retained248-case values and five stack profiles byte for byte."
+        },
+        {
+          "Kind": "LocalValidation",
+          "Path": "validation/part-520/math-port/final-affected.json",
+          "Sha256": "FE216472D95F83C92C20B232B899440F6302957CD632CDBB93D8B2D3489CF384",
+          "Scope": "Final-source44/44 affected groups,26 direct MFA calls and both backends matching1488 complete outcomes each, including IEEE payloads."
+        }
+      ],
+      "Limits": [
+        "Complete platform-specific floating point and error metadata audit remains pending; no whole-module 100% claim."
+      ]
+    },
+    {
+      "Module": "math",
+      "Function": "sinh",
+      "Arity": 1,
+      "Status": "Needs verification",
+      "Scope": "Complete callable managed surface with explicit original Erlang/BEAM alternative. Current Windows OTP 29.1.1 corpus compares values, errors and full stacks, including IEEE payloads; finite witnesses do not establish platform-wide floating point compatibility.",
+      "Evidence": [
+        {
+          "Kind": "OriginalOtpComparison",
+          "Path": "validation/part-520/math-port/provenance.json",
+          "Sha256": "423752C83EEDB21C043C4ADBA99A433C022E6C8E5A50C9B02F3523C727EE5787",
+          "Scope": "Fresh pinned official Windows OTP output reproduces the retained248-case values and five stack profiles byte for byte."
+        },
+        {
+          "Kind": "LocalValidation",
+          "Path": "validation/part-520/math-port/final-affected.json",
+          "Sha256": "FE216472D95F83C92C20B232B899440F6302957CD632CDBB93D8B2D3489CF384",
+          "Scope": "Final-source44/44 affected groups,26 direct MFA calls and both backends matching1488 complete outcomes each, including IEEE payloads."
+        }
+      ],
+      "Limits": [
+        "Complete platform-specific floating point and error metadata audit remains pending; no whole-module 100% claim."
+      ]
+    },
+    {
+      "Module": "math",
+      "Function": "sqrt",
+      "Arity": 1,
+      "Status": "Needs verification",
+      "Scope": "Complete callable managed surface with explicit original Erlang/BEAM alternative. Current Windows OTP 29.1.1 corpus compares values, errors and full stacks, including IEEE payloads; finite witnesses do not establish platform-wide floating point compatibility.",
+      "Evidence": [
+        {
+          "Kind": "OriginalOtpComparison",
+          "Path": "validation/part-520/math-port/provenance.json",
+          "Sha256": "423752C83EEDB21C043C4ADBA99A433C022E6C8E5A50C9B02F3523C727EE5787",
+          "Scope": "Fresh pinned official Windows OTP output reproduces the retained248-case values and five stack profiles byte for byte."
+        },
+        {
+          "Kind": "LocalValidation",
+          "Path": "validation/part-520/math-port/final-affected.json",
+          "Sha256": "FE216472D95F83C92C20B232B899440F6302957CD632CDBB93D8B2D3489CF384",
+          "Scope": "Final-source44/44 affected groups,26 direct MFA calls and both backends matching1488 complete outcomes each, including IEEE payloads."
+        }
+      ],
+      "Limits": [
+        "Complete platform-specific floating point and error metadata audit remains pending; no whole-module 100% claim."
+      ]
+    },
+    {
+      "Module": "math",
+      "Function": "tan",
+      "Arity": 1,
+      "Status": "Needs verification",
+      "Scope": "Complete callable managed surface with explicit original Erlang/BEAM alternative. Current Windows OTP 29.1.1 corpus compares values, errors and full stacks, including IEEE payloads; finite witnesses do not establish platform-wide floating point compatibility.",
+      "Evidence": [
+        {
+          "Kind": "OriginalOtpComparison",
+          "Path": "validation/part-520/math-port/provenance.json",
+          "Sha256": "423752C83EEDB21C043C4ADBA99A433C022E6C8E5A50C9B02F3523C727EE5787",
+          "Scope": "Fresh pinned official Windows OTP output reproduces the retained248-case values and five stack profiles byte for byte."
+        },
+        {
+          "Kind": "LocalValidation",
+          "Path": "validation/part-520/math-port/final-affected.json",
+          "Sha256": "FE216472D95F83C92C20B232B899440F6302957CD632CDBB93D8B2D3489CF384",
+          "Scope": "Final-source44/44 affected groups,26 direct MFA calls and both backends matching1488 complete outcomes each, including IEEE payloads."
+        }
+      ],
+      "Limits": [
+        "Complete platform-specific floating point and error metadata audit remains pending; no whole-module 100% claim."
+      ]
+    },
+    {
+      "Module": "math",
+      "Function": "tanh",
+      "Arity": 1,
+      "Status": "Needs verification",
+      "Scope": "Complete callable managed surface with explicit original Erlang/BEAM alternative. Current Windows OTP 29.1.1 corpus compares values, errors and full stacks, including IEEE payloads; finite witnesses do not establish platform-wide floating point compatibility.",
+      "Evidence": [
+        {
+          "Kind": "OriginalOtpComparison",
+          "Path": "validation/part-520/math-port/provenance.json",
+          "Sha256": "423752C83EEDB21C043C4ADBA99A433C022E6C8E5A50C9B02F3523C727EE5787",
+          "Scope": "Fresh pinned official Windows OTP output reproduces the retained248-case values and five stack profiles byte for byte."
+        },
+        {
+          "Kind": "LocalValidation",
+          "Path": "validation/part-520/math-port/final-affected.json",
+          "Sha256": "FE216472D95F83C92C20B232B899440F6302957CD632CDBB93D8B2D3489CF384",
+          "Scope": "Final-source44/44 affected groups,26 direct MFA calls and both backends matching1488 complete outcomes each, including IEEE payloads."
+        }
+      ],
+      "Limits": [
+        "Complete platform-specific floating point and error metadata audit remains pending; no whole-module 100% claim."
+      ]
+    },
+    {
+      "Module": "math",
+      "Function": "atan2",
+      "Arity": 2,
+      "Status": "Needs verification",
+      "Scope": "Complete callable managed surface with explicit original Erlang/BEAM alternative. Current Windows OTP 29.1.1 corpus compares values, errors and full stacks, including IEEE payloads; finite witnesses do not establish platform-wide floating point compatibility.",
+      "Evidence": [
+        {
+          "Kind": "OriginalOtpComparison",
+          "Path": "validation/part-520/math-port/provenance.json",
+          "Sha256": "423752C83EEDB21C043C4ADBA99A433C022E6C8E5A50C9B02F3523C727EE5787",
+          "Scope": "Fresh pinned official Windows OTP output reproduces the retained248-case values and five stack profiles byte for byte."
+        },
+        {
+          "Kind": "LocalValidation",
+          "Path": "validation/part-520/math-port/final-affected.json",
+          "Sha256": "FE216472D95F83C92C20B232B899440F6302957CD632CDBB93D8B2D3489CF384",
+          "Scope": "Final-source44/44 affected groups,26 direct MFA calls and both backends matching1488 complete outcomes each, including IEEE payloads."
+        }
+      ],
+      "Limits": [
+        "Complete platform-specific floating point and error metadata audit remains pending; no whole-module 100% claim."
+      ]
+    },
+    {
+      "Module": "math",
+      "Function": "fmod",
+      "Arity": 2,
+      "Status": "Needs verification",
+      "Scope": "Complete callable managed surface with explicit original Erlang/BEAM alternative. Current Windows OTP 29.1.1 corpus compares values, errors and full stacks, including IEEE payloads; finite witnesses do not establish platform-wide floating point compatibility.",
+      "Evidence": [
+        {
+          "Kind": "OriginalOtpComparison",
+          "Path": "validation/part-520/math-port/provenance.json",
+          "Sha256": "423752C83EEDB21C043C4ADBA99A433C022E6C8E5A50C9B02F3523C727EE5787",
+          "Scope": "Fresh pinned official Windows OTP output reproduces the retained248-case values and five stack profiles byte for byte."
+        },
+        {
+          "Kind": "LocalValidation",
+          "Path": "validation/part-520/math-port/final-affected.json",
+          "Sha256": "FE216472D95F83C92C20B232B899440F6302957CD632CDBB93D8B2D3489CF384",
+          "Scope": "Final-source44/44 affected groups,26 direct MFA calls and both backends matching1488 complete outcomes each, including IEEE payloads."
+        }
+      ],
+      "Limits": [
+        "Complete platform-specific floating point and error metadata audit remains pending; no whole-module 100% claim."
+      ]
+    },
+    {
+      "Module": "math",
+      "Function": "pow",
+      "Arity": 2,
+      "Status": "Needs verification",
+      "Scope": "Complete callable managed surface with explicit original Erlang/BEAM alternative. Current Windows OTP 29.1.1 corpus compares values, errors and full stacks, including IEEE payloads; finite witnesses do not establish platform-wide floating point compatibility.",
+      "Evidence": [
+        {
+          "Kind": "OriginalOtpComparison",
+          "Path": "validation/part-520/math-port/provenance.json",
+          "Sha256": "423752C83EEDB21C043C4ADBA99A433C022E6C8E5A50C9B02F3523C727EE5787",
+          "Scope": "Fresh pinned official Windows OTP output reproduces the retained248-case values and five stack profiles byte for byte."
+        },
+        {
+          "Kind": "LocalValidation",
+          "Path": "validation/part-520/math-port/final-affected.json",
+          "Sha256": "FE216472D95F83C92C20B232B899440F6302957CD632CDBB93D8B2D3489CF384",
+          "Scope": "Final-source44/44 affected groups,26 direct MFA calls and both backends matching1488 complete outcomes each, including IEEE payloads."
+        }
+      ],
+      "Limits": [
+        "Complete platform-specific floating point and error metadata audit remains pending; no whole-module 100% claim."
+      ]
+    },
+    {
+      "Module": "math",
+      "Function": "pi",
+      "Arity": 0,
+      "Status": "Needs verification",
+      "Scope": "Complete callable managed surface with explicit original Erlang/BEAM alternative. Current Windows OTP 29.1.1 corpus compares values, errors and full stacks, including IEEE payloads; finite witnesses do not establish platform-wide floating point compatibility.",
+      "Evidence": [
+        {
+          "Kind": "OriginalOtpComparison",
+          "Path": "validation/part-520/math-port/provenance.json",
+          "Sha256": "423752C83EEDB21C043C4ADBA99A433C022E6C8E5A50C9B02F3523C727EE5787",
+          "Scope": "Fresh pinned official Windows OTP output reproduces the retained248-case values and five stack profiles byte for byte."
+        },
+        {
+          "Kind": "LocalValidation",
+          "Path": "validation/part-520/math-port/final-affected.json",
+          "Sha256": "FE216472D95F83C92C20B232B899440F6302957CD632CDBB93D8B2D3489CF384",
+          "Scope": "Final-source44/44 affected groups,26 direct MFA calls and both backends matching1488 complete outcomes each, including IEEE payloads."
+        }
+      ],
+      "Limits": [
+        "Complete platform-specific floating point and error metadata audit remains pending; no whole-module 100% claim."
+      ]
+    },
+    {
+      "Module": "math",
+      "Function": "tau",
+      "Arity": 0,
+      "Status": "Needs verification",
+      "Scope": "Complete callable managed surface with explicit original Erlang/BEAM alternative. Current Windows OTP 29.1.1 corpus compares values, errors and full stacks, including IEEE payloads; finite witnesses do not establish platform-wide floating point compatibility.",
+      "Evidence": [
+        {
+          "Kind": "OriginalOtpComparison",
+          "Path": "validation/part-520/math-port/provenance.json",
+          "Sha256": "423752C83EEDB21C043C4ADBA99A433C022E6C8E5A50C9B02F3523C727EE5787",
+          "Scope": "Fresh pinned official Windows OTP output reproduces the retained248-case values and five stack profiles byte for byte."
+        },
+        {
+          "Kind": "LocalValidation",
+          "Path": "validation/part-520/math-port/final-affected.json",
+          "Sha256": "FE216472D95F83C92C20B232B899440F6302957CD632CDBB93D8B2D3489CF384",
+          "Scope": "Final-source44/44 affected groups,26 direct MFA calls and both backends matching1488 complete outcomes each, including IEEE payloads."
+        }
+      ],
+      "Limits": [
+        "Complete platform-specific floating point and error metadata audit remains pending; no whole-module 100% claim."
+      ]
+    },
+    {
       "Module": "erlang",
       "Function": "self",
       "Arity": 0,
@@ -20498,7 +21098,20 @@
       "Arity": 1,
       "Status": "Needs verification",
       "Scope": "Explicit runtime primitive/compiler-helper boundary supporting original selected OTP libraries. Direct MFA presence and finite original-module execution do not establish this command's entire public contract.",
-      "Evidence": [],
+      "Evidence": [
+        {
+          "Kind": "OriginalOtpComparison",
+          "Path": "validation/part-520/math-port/provenance.json",
+          "Sha256": "423752C83EEDB21C043C4ADBA99A433C022E6C8E5A50C9B02F3523C727EE5787",
+          "Scope": "Fresh pinned official Windows OTP output reproduces the retained248-case values and five stack profiles byte for byte."
+        },
+        {
+          "Kind": "LocalValidation",
+          "Path": "validation/part-520/math-port/final-affected.json",
+          "Sha256": "FE216472D95F83C92C20B232B899440F6302957CD632CDBB93D8B2D3489CF384",
+          "Scope": "Final-source44/44 affected groups,26 direct MFA calls and both backends matching1488 complete outcomes each, including IEEE payloads."
+        }
+      ],
       "Limits": [
         "Complete source branch, argument/error/stack, resource and scheduler contract audit remains pending.",
         "For cursor helpers, protocol uses runtime-own atom/hash identity; scheduler reduction-dependent nonzero chunk quotas and all direct helper metadata are not claimed equivalent."
@@ -22513,7 +23126,7 @@
     },
     {
       "Path": "src/Runtime/Erlang.Runtime.Core/Modules/LibrarySelectionNames.cs",
-      "Sha256": "2AD26474CB6749F8116B6B45F9EEB59E444F07DA4F57CABCAD86F4BA4E0D54EA"
+      "Sha256": "64F783935CCA6EBE78408BDA7F2B059A757AF5D0AD53F8FC994282B966D1F983"
     },
     {
       "Path": "src/Runtime/Erlang.Runtime.Core/Modules/LibraryStartupObservationNames.cs",
@@ -24637,7 +25250,7 @@
     },
     {
       "Path": "src/Runtime/Erlang.Runtime.Core/Primitives/Collections/CollectionMathBridge.cs",
-      "Sha256": "3BB18B10D33F280793C12EC95827BA1F943FAB75E98E7FAA3DE58B948157EEF7"
+      "Sha256": "BF03137E18293571D4366A8ED6C3FC7764DA73E2D18FF234DC83E370CFEFA1E7"
     },
     {
       "Path": "src/Runtime/Erlang.Runtime.Core/Primitives/Collections/CollectionMathNames.cs",
@@ -25053,7 +25666,7 @@
     },
     {
       "Path": "src/Runtime/Erlang.Runtime.Core/Primitives/MathNativeNames.cs",
-      "Sha256": "3F686C22674EA5EA7021DF5C4F570EF4329FA441BF2668391751D2C7D8186348"
+      "Sha256": "37B0013E83AD9CF9A37DEA5E7623E183D2F6F659E96DE81F2434052873C03BCC"
     },
     {
       "Path": "src/Runtime/Erlang.Runtime.Core/Primitives/RecordPredicateParameters.cs",

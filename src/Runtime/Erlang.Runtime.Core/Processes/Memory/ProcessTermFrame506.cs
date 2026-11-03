@@ -41,19 +41,38 @@ internal sealed partial class ProcessTermFrame506 : IDisposable
             }
         }
         using PreparedTermTransfer506 prepared = owner.Prepare(this, value);
+        using PreparedMapGraph517 maps = owner.PrepareMapGraph517(prepared.Portable, false);
+        using PreparedMapGraphUse517 admitted = maps.AdmitBuilds517();
+        using ProcessTermFrame506 construction = owner.Enter();
         lock (owner.Gate)
         {
             ValidateSlot(slot);
-            PublishRoot512(slot, owner.ImportPrepared(prepared.Portable));
+            ProcessTermConstruction514 custody = construction.BeginConstruction514(prepared.Portable);
+            PublishRoot512(slot, owner.ImportPrepared(
+                prepared.Portable,
+                maps,
+                custody,
+                admitted
+            ));
         }
     }
 
     internal void SetPrepared(int slot, Term portable)
     {
+        using ProcessTermBorrow506 borrow = owner.Borrow(this, portable);
+        using PreparedMapGraph517 maps = owner.PrepareMapGraph517(portable, false);
+        using PreparedMapGraphUse517 admitted = maps.AdmitBuilds517();
+        using ProcessTermFrame506 construction = owner.Enter();
         lock (owner.Gate)
         {
             ValidateSlot(slot);
-            PublishRoot512(slot, owner.ImportPrepared(portable));
+            ProcessTermConstruction514 custody = construction.BeginConstruction514(portable);
+            PublishRoot512(slot, owner.ImportPrepared(
+                portable,
+                maps,
+                custody,
+                admitted
+            ));
         }
     }
 

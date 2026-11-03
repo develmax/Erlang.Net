@@ -27,12 +27,23 @@ public sealed partial class ModuleRegistry
                 ))).ToArray();
             InstallPreloaded(target =>
             {
-                foreach (var row in staged) target.Register(
-                    row.Key.Module,
-                    row.Key.Function,
-                    row.Key.Arity,
-                    row.Binding.Body
-                );
+                foreach (var row in staged)
+                {
+                    if (row.Key.Function == HamtNativeNames430.Children)
+                        target.RegisterCanonicalRead507(
+                            row.Key.Module,
+                            row.Key.Function,
+                            row.Key.Arity,
+                            row.Binding.Body
+                        );
+                    else
+                        target.Register(
+                            row.Key.Module,
+                            row.Key.Function,
+                            row.Key.Arity,
+                            row.Binding.Body
+                        );
+                }
             });
         });
     }

@@ -1,0 +1,522 @@
+{
+  "Utc": "2026-10-18T12:39:23.5453522Z",
+  "RuntimeSha256": "DF097C2B3DD335045D32526BC00D936695314EC970F2234C3711DF9B66DC231F",
+  "RoleSourceSha256": "3544D57740F574AE2E7DD2FD98FC745923670B24340F51D472A5D6F09B58C635",
+  "Note": "Static role names plus real decoder/Prepare admission only. No guest invocation or build. No complete validator/operand/import or execution proof.",
+  "Results": [
+    {
+      "Module": "ordsets",
+      "Input": "docs/validation/part-371/evidence/ordsets371-original1/download/run-39113248779/artifact-12131801263/ordsets-capture/ordsets-installed.beam",
+      "Bytes": 10796,
+      "Sha256": "28F740F20AF350D97B0FCF54691FD978CA3B2760849B42241822E7A575608FA4",
+      "Executed": false,
+      "BuildExecuted": false,
+      "ProductionChanged": false,
+      "Decoded": true,
+      "Instructions": 377,
+      "OpcodeInventory": [
+        {
+          "Name": "allocate",
+          "Count": 11,
+          "HasRoleCase": true
+        },
+        {
+          "Name": "bif2",
+          "Count": 3,
+          "HasRoleCase": false
+        },
+        {
+          "Name": "call",
+          "Count": 9,
+          "HasRoleCase": true
+        },
+        {
+          "Name": "call_ext",
+          "Count": 2,
+          "HasRoleCase": true
+        },
+        {
+          "Name": "call_ext_only",
+          "Count": 6,
+          "HasRoleCase": true
+        },
+        {
+          "Name": "call_last",
+          "Count": 4,
+          "HasRoleCase": true
+        },
+        {
+          "Name": "call_only",
+          "Count": 11,
+          "HasRoleCase": true
+        },
+        {
+          "Name": "deallocate",
+          "Count": 7,
+          "HasRoleCase": true
+        },
+        {
+          "Name": "func_info",
+          "Count": 25,
+          "HasRoleCase": true
+        },
+        {
+          "Name": "gc_bif1",
+          "Count": 1,
+          "HasRoleCase": true
+        },
+        {
+          "Name": "get_list",
+          "Count": 18,
+          "HasRoleCase": true
+        },
+        {
+          "Name": "int_code_end",
+          "Count": 1,
+          "HasRoleCase": true
+        },
+        {
+          "Name": "is_ge",
+          "Count": 2,
+          "HasRoleCase": true
+        },
+        {
+          "Name": "is_list",
+          "Count": 2,
+          "HasRoleCase": true
+        },
+        {
+          "Name": "is_lt",
+          "Count": 15,
+          "HasRoleCase": true
+        },
+        {
+          "Name": "is_ne_exact",
+          "Count": 2,
+          "HasRoleCase": false
+        },
+        {
+          "Name": "is_nil",
+          "Count": 14,
+          "HasRoleCase": true
+        },
+        {
+          "Name": "is_nonempty_list",
+          "Count": 18,
+          "HasRoleCase": true
+        },
+        {
+          "Name": "label",
+          "Count": 86,
+          "HasRoleCase": true
+        },
+        {
+          "Name": "line",
+          "Count": 38,
+          "HasRoleCase": true
+        },
+        {
+          "Name": "move",
+          "Count": 49,
+          "HasRoleCase": true
+        },
+        {
+          "Name": "put_list",
+          "Count": 9,
+          "HasRoleCase": true
+        },
+        {
+          "Name": "return",
+          "Count": 34,
+          "HasRoleCase": true
+        },
+        {
+          "Name": "swap",
+          "Count": 1,
+          "HasRoleCase": true
+        },
+        {
+          "Name": "test_heap",
+          "Count": 9,
+          "HasRoleCase": true
+        }
+      ],
+      "Imports": [
+        {
+          "Module": "erlang",
+          "Function": "=:=",
+          "Arity": 2
+        },
+        {
+          "Module": "erlang",
+          "Function": "length",
+          "Arity": 1
+        },
+        {
+          "Module": "erlang",
+          "Function": "==",
+          "Arity": 2
+        },
+        {
+          "Module": "lists",
+          "Function": "usort",
+          "Arity": 1
+        },
+        {
+          "Module": "lists",
+          "Function": "umerge",
+          "Arity": 1
+        },
+        {
+          "Module": "lists",
+          "Function": "foldl",
+          "Arity": 3
+        },
+        {
+          "Module": "lists",
+          "Function": "filter",
+          "Arity": 2
+        },
+        {
+          "Module": "lists",
+          "Function": "map",
+          "Arity": 2
+        },
+        {
+          "Module": "lists",
+          "Function": "filtermap",
+          "Arity": 2
+        },
+        {
+          "Module": "erlang",
+          "Function": "get_module_info",
+          "Arity": 1
+        },
+        {
+          "Module": "erlang",
+          "Function": "get_module_info",
+          "Arity": 2
+        }
+      ],
+      "Failure": [
+        {
+          "Type": "System.Management.Automation.MethodInvocationException",
+          "Message": "Exception calling \"Invoke\" with \"2\" argument(s): \"Unsupported BEAM opcode role in bounded linker\"",
+          "Stack": "   at System.Management.Automation.ExceptionHandlingOps.CheckActionPreference(FunctionContext funcContext, Exception exception)\r\n   at System.Management.Automation.Interpreter.ActionCallInstruction`2.Run(InterpretedFrame frame)\r\n   at System.Management.Automation.Interpreter.EnterTryCatchFinallyInstruction.Run(InterpretedFrame frame)\r\n   at System.Management.Automation.Interpreter.EnterTryCatchFinallyInstruction.Run(InterpretedFrame frame)"
+        },
+        {
+          "Type": "System.NotSupportedException",
+          "Message": "Unsupported BEAM opcode role in bounded linker",
+          "Stack": "   at Erlang.BeamLinkedCodeReader.ValidateRoles(BeamInstruction instruction, BeamStructure structure, IReadOnlyDictionary`2 functions, IReadOnlyList`1 lambdas) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\src\\Erlang.Runtime\\BeamLinkedCodeReader.cs:line 380\r\n   at Erlang.BeamLinkedCodeReader.Read(BeamStructure structure) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\src\\Erlang.Runtime\\BeamLinkedCodeReader.cs:line 92\r\n   at Erlang.BeamModule.Prepare(ReadOnlyMemory`1 bytes, BeamDependencySelection dependencies) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\src\\Erlang.Runtime\\BeamModule.cs:line 47\r\n   at Erlang.BeamModule.Prepare(ReadOnlyMemory`1 bytes) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\src\\Erlang.Runtime\\BeamModule.cs:line 41\r\n   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)\r\n   at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)"
+        }
+      ]
+    },
+    {
+      "Module": "proplists",
+      "Input": "docs/validation/part-362/original/producer/capture/proplists-installed.beam",
+      "Bytes": 18920,
+      "Sha256": "B027D227385C342C4153C0CA8627E6E8428FAA4A88F879E3C85A098067FF1882",
+      "Executed": false,
+      "BuildExecuted": false,
+      "ProductionChanged": false,
+      "Decoded": true,
+      "Instructions": 973,
+      "OpcodeInventory": [
+        {
+          "Name": "allocate",
+          "Count": 37,
+          "HasRoleCase": true
+        },
+        {
+          "Name": "bif1",
+          "Count": 15,
+          "HasRoleCase": true
+        },
+        {
+          "Name": "bif2",
+          "Count": 18,
+          "HasRoleCase": false
+        },
+        {
+          "Name": "call",
+          "Count": 42,
+          "HasRoleCase": true
+        },
+        {
+          "Name": "call_ext",
+          "Count": 7,
+          "HasRoleCase": true
+        },
+        {
+          "Name": "call_ext_last",
+          "Count": 3,
+          "HasRoleCase": true
+        },
+        {
+          "Name": "call_ext_only",
+          "Count": 13,
+          "HasRoleCase": true
+        },
+        {
+          "Name": "call_last",
+          "Count": 13,
+          "HasRoleCase": true
+        },
+        {
+          "Name": "call_only",
+          "Count": 24,
+          "HasRoleCase": true
+        },
+        {
+          "Name": "deallocate",
+          "Count": 21,
+          "HasRoleCase": true
+        },
+        {
+          "Name": "func_info",
+          "Count": 44,
+          "HasRoleCase": true
+        },
+        {
+          "Name": "get_list",
+          "Count": 25,
+          "HasRoleCase": true
+        },
+        {
+          "Name": "get_tuple_element",
+          "Count": 23,
+          "HasRoleCase": true
+        },
+        {
+          "Name": "has_map_fields",
+          "Count": 2,
+          "HasRoleCase": false
+        },
+        {
+          "Name": "init_yregs",
+          "Count": 1,
+          "HasRoleCase": true
+        },
+        {
+          "Name": "int_code_end",
+          "Count": 1,
+          "HasRoleCase": true
+        },
+        {
+          "Name": "is_atom",
+          "Count": 18,
+          "HasRoleCase": true
+        },
+        {
+          "Name": "is_eq_exact",
+          "Count": 24,
+          "HasRoleCase": true
+        },
+        {
+          "Name": "is_ge",
+          "Count": 15,
+          "HasRoleCase": true
+        },
+        {
+          "Name": "is_list",
+          "Count": 3,
+          "HasRoleCase": true
+        },
+        {
+          "Name": "is_map",
+          "Count": 2,
+          "HasRoleCase": false
+        },
+        {
+          "Name": "is_ne_exact",
+          "Count": 3,
+          "HasRoleCase": false
+        },
+        {
+          "Name": "is_nil",
+          "Count": 22,
+          "HasRoleCase": true
+        },
+        {
+          "Name": "is_nonempty_list",
+          "Count": 25,
+          "HasRoleCase": true
+        },
+        {
+          "Name": "is_tuple",
+          "Count": 6,
+          "HasRoleCase": true
+        },
+        {
+          "Name": "label",
+          "Count": 169,
+          "HasRoleCase": true
+        },
+        {
+          "Name": "line",
+          "Count": 86,
+          "HasRoleCase": true
+        },
+        {
+          "Name": "make_fun3",
+          "Count": 1,
+          "HasRoleCase": true
+        },
+        {
+          "Name": "move",
+          "Count": 143,
+          "HasRoleCase": true
+        },
+        {
+          "Name": "put_list",
+          "Count": 23,
+          "HasRoleCase": true
+        },
+        {
+          "Name": "put_map_assoc",
+          "Count": 2,
+          "HasRoleCase": false
+        },
+        {
+          "Name": "put_map_exact",
+          "Count": 1,
+          "HasRoleCase": false
+        },
+        {
+          "Name": "put_tuple2",
+          "Count": 15,
+          "HasRoleCase": true
+        },
+        {
+          "Name": "return",
+          "Count": 63,
+          "HasRoleCase": true
+        },
+        {
+          "Name": "select_val",
+          "Count": 1,
+          "HasRoleCase": true
+        },
+        {
+          "Name": "swap",
+          "Count": 9,
+          "HasRoleCase": true
+        },
+        {
+          "Name": "test_arity",
+          "Count": 11,
+          "HasRoleCase": true
+        },
+        {
+          "Name": "test_heap",
+          "Count": 36,
+          "HasRoleCase": true
+        },
+        {
+          "Name": "trim",
+          "Count": 6,
+          "HasRoleCase": true
+        }
+      ],
+      "Imports": [
+        {
+          "Module": "erlang",
+          "Function": "tuple_size",
+          "Arity": 1
+        },
+        {
+          "Module": "erlang",
+          "Function": "element",
+          "Arity": 2
+        },
+        {
+          "Module": "erlang",
+          "Function": "++",
+          "Arity": 2
+        },
+        {
+          "Module": "erlang",
+          "Function": "=:=",
+          "Arity": 2
+        },
+        {
+          "Module": "sets",
+          "Function": "new",
+          "Arity": 0
+        },
+        {
+          "Module": "sets",
+          "Function": "to_list",
+          "Arity": 1
+        },
+        {
+          "Module": "sets",
+          "Function": "add_element",
+          "Arity": 2
+        },
+        {
+          "Module": "erlang",
+          "Function": "setelement",
+          "Arity": 3
+        },
+        {
+          "Module": "maps",
+          "Function": "from_keys",
+          "Arity": 2
+        },
+        {
+          "Module": "lists",
+          "Function": "reverse",
+          "Arity": 1
+        },
+        {
+          "Module": "erlang",
+          "Function": "map_get",
+          "Arity": 2
+        },
+        {
+          "Module": "lists",
+          "Function": "foldr",
+          "Arity": 3
+        },
+        {
+          "Module": "maps",
+          "Function": "to_list",
+          "Arity": 1
+        },
+        {
+          "Module": "erlang",
+          "Function": "get_module_info",
+          "Arity": 1
+        },
+        {
+          "Module": "erlang",
+          "Function": "get_module_info",
+          "Arity": 2
+        },
+        {
+          "Module": "erlang",
+          "Function": "error",
+          "Arity": 1
+        },
+        {
+          "Module": "maps",
+          "Function": "remove",
+          "Arity": 2
+        }
+      ],
+      "Failure": [
+        {
+          "Type": "System.Management.Automation.MethodInvocationException",
+          "Message": "Exception calling \"Invoke\" with \"2\" argument(s): \"Unsupported BEAM opcode role in bounded linker\"",
+          "Stack": "   at System.Management.Automation.ExceptionHandlingOps.CheckActionPreference(FunctionContext funcContext, Exception exception)\r\n   at System.Management.Automation.Interpreter.ActionCallInstruction`2.Run(InterpretedFrame frame)\r\n   at System.Management.Automation.Interpreter.EnterTryCatchFinallyInstruction.Run(InterpretedFrame frame)\r\n   at System.Management.Automation.Interpreter.EnterTryCatchFinallyInstruction.Run(InterpretedFrame frame)"
+        },
+        {
+          "Type": "System.NotSupportedException",
+          "Message": "Unsupported BEAM opcode role in bounded linker",
+          "Stack": "   at Erlang.BeamLinkedCodeReader.ValidateRoles(BeamInstruction instruction, BeamStructure structure, IReadOnlyDictionary`2 functions, IReadOnlyList`1 lambdas) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\src\\Erlang.Runtime\\BeamLinkedCodeReader.cs:line 380\r\n   at Erlang.BeamLinkedCodeReader.Read(BeamStructure structure) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\src\\Erlang.Runtime\\BeamLinkedCodeReader.cs:line 92\r\n   at Erlang.BeamModule.Prepare(ReadOnlyMemory`1 bytes, BeamDependencySelection dependencies) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\src\\Erlang.Runtime\\BeamModule.cs:line 47\r\n   at Erlang.BeamModule.Prepare(ReadOnlyMemory`1 bytes) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\src\\Erlang.Runtime\\BeamModule.cs:line 41\r\n   at InvokeStub_BeamModule.Prepare(Object, Span`1)\r\n   at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)"
+        }
+      ]
+    }
+  ]
+}

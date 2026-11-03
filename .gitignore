@@ -16,3 +16,14 @@ src/Erlang.Otp.Observer.Beam/Otp/priv/bin/*
 !src/Erlang.Otp.Observer.Beam/Otp/priv/bin/cdv.bat
 !src/Erlang.Otp.Observer.Beam/Otp/priv/bin/etop
 !src/Erlang.Otp.Observer.Beam/Otp/priv/bin/etop.bat
+
+# Owner-local license; not a public package license.
+/licenses/LICENSE.local.txt
+
+# Local native build products and VM crash dump.
+/child_port455.exp
+/child_port455.lib
+/erl_crash.dump
+
+# Materialized historical source copies remain local; committed proof archives stay tracked.
+docs/validation/**/snapshot/

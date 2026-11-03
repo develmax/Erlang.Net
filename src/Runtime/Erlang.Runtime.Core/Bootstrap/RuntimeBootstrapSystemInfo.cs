@@ -28,6 +28,12 @@ internal static class RuntimeBootstrapSystemInfo
             result = Term.I(IntPtr.Size);
         else if (query is Atom { Name: DebugCompiled })
             result = CoreModules.Boolean(DebugBuild);
+        else if (query is Atom { Name: RuntimeBootstrapBuildInfo521Names.BuildType or RuntimeBootstrapBuildInfo521Names.EmulatorType })
+            result = Term.A(DebugBuild ? RuntimeBootstrapBuildInfo521Names.Debug
+                : DebugLockNames419.BuildHasLockCounting ? RuntimeBootstrapBuildInfo521Names.LockCounting
+                : RuntimeBootstrapBuildInfo521Names.Optimized);
+        else if (query is Atom { Name: RuntimeBootstrapBuildInfo521Names.SmpSupport })
+            result = CoreModules.Boolean(true);
         else if (query is Atom { Name: OsType })
             result = OperatingSystem.IsWindows() ? Term.Tuple(Term.A(Windows), Term.A(WindowsNt))
                 : OperatingSystem.IsLinux() ? Term.Tuple(Term.A(Unix), Term.A(Linux))

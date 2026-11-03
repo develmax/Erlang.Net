@@ -1,0 +1,252 @@
+{
+  "Status": "SOURCE_REVIEW_IDENTIFIED_DRAIN_GAP_REPAIRED_EXECUTION_GATES_PENDING",
+  "Scope": "Current styled eleven startup selector files and bound existing ownership/lifecycle dependencies. Read-only independent review, not build/OTP/execution acceptance.",
+  "ProductionEdits": false,
+  "BuildOrSubjectExecution": false,
+  "SelectorFileCount": 11,
+  "Bindings": [
+    {
+      "Path": "src/Erlang.Runtime/LibrarySelectionNames.cs",
+      "Bytes": 1378,
+      "Sha256": "6E9FFD74B93BA4397226008F821AF5232D01719975F176959FA658F163C60A24",
+      "Role": "NewSelector",
+      "PredecessorUnchanged": true
+    },
+    {
+      "Path": "src/Erlang.Runtime/ModuleRegistry.LibrarySelection.cs",
+      "Bytes": 7344,
+      "Sha256": "E69E6F7CCCDFCA22311A4A5618F1939F50F2B827F5E763BFAF662B505370740E",
+      "Role": "NewSelector",
+      "PredecessorUnchanged": false
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProcessRuntime.LibrarySelection.cs",
+      "Bytes": 5374,
+      "Sha256": "EE0BD02D53F833440A890A3EABC2D39CA173B47DC9C65E9369F3E375F10FAE44",
+      "Role": "NewSelector",
+      "PredecessorUnchanged": false
+    },
+    {
+      "Path": "src/Erlang.Runtime/RuntimeLibraryAssemblyIdentity.cs",
+      "Bytes": 115,
+      "Sha256": "49BB56B4FB0AE486CC72D0368475B045E8898D83D86E2F718E88D9EEF86E4990",
+      "Role": "NewSelector",
+      "PredecessorUnchanged": true
+    },
+    {
+      "Path": "src/Erlang.Runtime/RuntimeLibraryDependencySnapshot.cs",
+      "Bytes": 119,
+      "Sha256": "874AAD6304D6B43DEEC8CBDC424B09B3ED30A91A1FCB59513D37CA0B970EEE14",
+      "Role": "NewSelector",
+      "PredecessorUnchanged": true
+    },
+    {
+      "Path": "src/Erlang.Runtime/RuntimeLibraryModuleSnapshot.cs",
+      "Bytes": 1783,
+      "Sha256": "6D2E4A6AA7FE98146CDA0A51DCEA731325ED7EA3EFBBA97D4B035970EDBB750A",
+      "Role": "NewSelector",
+      "PredecessorUnchanged": true
+    },
+    {
+      "Path": "src/Erlang.Runtime/RuntimeLibraryPreparedSelection.cs",
+      "Bytes": 727,
+      "Sha256": "DF3F18219564F26FB2818B7B41FF5A49EFC4A580023F11BE9C43D44F478D59C3",
+      "Role": "NewSelector",
+      "PredecessorUnchanged": true
+    },
+    {
+      "Path": "src/Erlang.Runtime/RuntimeLibrarySelection.cs",
+      "Bytes": 1119,
+      "Sha256": "5B179A56E0A40508C09A31F0C1E6F4815736DF6240397F80486F3177B3AB9149",
+      "Role": "NewSelector",
+      "PredecessorUnchanged": true
+    },
+    {
+      "Path": "src/Erlang.Runtime/RuntimeLibrarySelectionSnapshot.cs",
+      "Bytes": 486,
+      "Sha256": "709054E009F1AD47CBF0BF19DD8E3F36FF7EAA18234CE9AA757CBD61167430D0",
+      "Role": "NewSelector",
+      "PredecessorUnchanged": true
+    },
+    {
+      "Path": "src/Erlang.Runtime/RuntimeModuleBackend.cs",
+      "Bytes": 78,
+      "Sha256": "5B2DEC9EE4742B283C07F6667A0E98C7EAA882CCED6FD6DD20609ACF9E6855A8",
+      "Role": "NewSelector",
+      "PredecessorUnchanged": true
+    },
+    {
+      "Path": "src/Erlang.Runtime/RuntimeModuleSelection.cs",
+      "Bytes": 2215,
+      "Sha256": "59BBAC7FCD6BF93B6159B95A69EA3C3CABC921C55C7C82A7A64406BBD766D162",
+      "Role": "NewSelector",
+      "PredecessorUnchanged": false
+    },
+    {
+      "Path": "src/Erlang.Runtime/RuntimeInitializer.cs",
+      "Bytes": 5200,
+      "Sha256": "685F52710E32B35367066F07351B9CFD1170DD0842530B12DED2002BFC1F2339",
+      "Role": "ExistingLifecycleOrImmutableDependency",
+      "PredecessorUnchanged": true
+    },
+    {
+      "Path": "src/Erlang.Runtime/ModuleRegistry.cs",
+      "Bytes": 29472,
+      "Sha256": "D1980A12DECDEA5902CB18E67EB12537F818FFC8E7FAF270D2A8E93A56E4B9FB",
+      "Role": "ExistingLifecycleOrImmutableDependency",
+      "PredecessorUnchanged": true
+    },
+    {
+      "Path": "src/Erlang.Runtime/ModuleRegistry.PreparedBeam.cs",
+      "Bytes": 4516,
+      "Sha256": "717B3952AC19D5E3695381F6912A98D2819D154AFF62F275D61CAF4F1C869363",
+      "Role": "ExistingLifecycleOrImmutableDependency",
+      "PredecessorUnchanged": true
+    },
+    {
+      "Path": "src/Erlang.Runtime/ModuleRegistry.NativeEntries.cs",
+      "Bytes": 924,
+      "Sha256": "F7F9076EE06E32EFE076743E2D049744461501DE6A66AF43752078C948D0BA0E",
+      "Role": "ExistingLifecycleOrImmutableDependency",
+      "PredecessorUnchanged": true
+    },
+    {
+      "Path": "src/Erlang.Runtime/ModuleRegistry.BeamPrimitives.cs",
+      "Bytes": 1417,
+      "Sha256": "FFCAAE733C3B79F8BC26691599C46A1B2EE4C40D1692838ED3F047FFC6FA261E",
+      "Role": "ExistingLifecycleOrImmutableDependency",
+      "PredecessorUnchanged": true
+    },
+    {
+      "Path": "src/Erlang.Runtime/PreparedBeamImage.cs",
+      "Bytes": 2385,
+      "Sha256": "A4FE192BEA270B1FB32DC9E9E5DAEC67B085B1240539EB90D3B0400BAD4E53C2",
+      "Role": "ExistingLifecycleOrImmutableDependency",
+      "PredecessorUnchanged": true
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProcessRuntime.cs",
+      "Bytes": 65699,
+      "Sha256": "6240A6D51E58590C6EEF506711218557F1FCA6886C99668A3BF12AEDB4A59CA9",
+      "Role": "ExistingLifecycleOrImmutableDependency",
+      "PredecessorUnchanged": true
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProcessRuntime.CodePurge.cs",
+      "Bytes": 1702,
+      "Sha256": "5B152DAEED8C7397CD20C9413B2DFFA41B9D28ED4A639B3FA7B373CE37CBF14E",
+      "Role": "ExistingLifecycleOrImmutableDependency",
+      "PredecessorUnchanged": true
+    },
+    {
+      "Path": "src/Erlang.Runtime/ModuleCodeImage.cs",
+      "Bytes": 508,
+      "Sha256": "8991A332CFCF0C1468D278DA957031213918288FBE942B5C61816C5F2781E250",
+      "Role": "ExistingLifecycleOrImmutableDependency",
+      "PredecessorUnchanged": true
+    },
+    {
+      "Path": "src/Erlang.Terms/BitString.cs",
+      "Bytes": 5166,
+      "Sha256": "C116132F26E54C2FEE15E312027B9E244A23370A08348370B142F3C84A74C9A5",
+      "Role": "ExistingLifecycleOrImmutableDependency",
+      "PredecessorUnchanged": true
+    },
+    {
+      "Path": "src/Erlang.Runtime/RuntimeActorDispatcher.cs",
+      "Bytes": 18490,
+      "Sha256": "D3881FBEBEFE67842B552F19ECEBED406A556F1A5CD90657267142310E0222B0",
+      "Role": "LifecycleReviewDependency",
+      "PredecessorUnchanged": false
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProcessRuntime.ActorDispatch.cs",
+      "Bytes": 1207,
+      "Sha256": "F9BBA1D57DC3E1B412DBD460E768D1984B9E8472FD54FF4DF8F0D6A5A88D44B3",
+      "Role": "LifecycleReviewDependency",
+      "PredecessorUnchanged": false
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProcessRuntime.ExitContinuation.cs",
+      "Bytes": 6357,
+      "Sha256": "B1169DC5D5C56D3CD065FC4C5BE22DAAFF364659ECC25AA9A4E4864A433544DB",
+      "Role": "LifecycleReviewDependency",
+      "PredecessorUnchanged": false
+    },
+    {
+      "Path": "tests/Erlang.Tests/LibrarySelectionHostChecks.cs",
+      "Bytes": 11771,
+      "Sha256": "E022AFB9EECF34AA0AEB09A9DE1C2011D3B337D276CF2CA853C9AE74F7C01D22",
+      "Role": "LifecycleReviewDependency",
+      "PredecessorUnchanged": false
+    },
+    {
+      "Path": "tests/Erlang.Tests/InitializationLifecycleChecks.cs",
+      "Bytes": 6878,
+      "Sha256": "7476C04CF0E0849467650D46FB840F95FFD302B37227F6BA92CC7B0ED69F87FF",
+      "Role": "LifecycleReviewDependency",
+      "PredecessorUnchanged": false
+    }
+  ],
+  "ReviewedPartitions": [
+    {
+      "Area": "Immutable owned input and receipt",
+      "Conclusion": "Input byte arrays and enumerable collections copied at construction; sealed selectors and read-only copied snapshots. Prepared plan dictionaries frozen. No public mutable delegate/image buffer is exposed. Receipt ModuleCodeImage is identity, native MD5 distinct from input SHA. Snapshot is startup history, not current hot-reload state."
+    },
+    {
+      "Area": "Atomic publication",
+      "Conclusion": "Prepare all choices and all exact import dependencies inside RuntimeInitializer Configure->ModuleRegistry.Apply before one sorted PublishPreparedBeam. Existing registry rollback restores functions/native/errors/intrinsics/descriptors/owners/images/old generations. No await under writer lock; purge begins after setup completes. Internal helper requires initializer transaction precondition; not a public concurrent switch API."
+    },
+    {
+      "Area": "Pure/native dependency and no substitution",
+      "Conclusion": "Pure BeamImport requires explicitly selected and declared module plus exact export MFA. Self imports implicit; qualified real native table may bypass pure dependency. Selected BEAM target checked against its captured native table rather than arbitrary managed method. Only get_module_info/1,2 has generated metadata exemption. All current managed library signatures required in selected image, matching name and no on_load required. Failure throws and disposes private runtime; no Managed retry or wrapper fallback."
+    },
+    {
+      "Area": "Old code and semaphore ownership",
+      "Conclusion": "Worker acquires codePurger before existing checked PreparePurgeAsync/PurgeCodeImageProcesses/FinishPurgeAsync. Failed purge restores fence via existing finally. Semaphore admission task observed in finally even if cancellation wins, release only on successful acquisition. No blind deletion of oldCode. Success awaits normal process exit and actual Unwound before exposing snapshot."
+    },
+    {
+      "Area": "Cancellation setup",
+      "Conclusion": "Already canceled checked before runtime allocation. Cancellation checked before preparation and before publish, caller setup WaitAsync cancelable. Preparation/link/register synchronous: interruption is not intra-parser; cleanup may wait writer drain. Catch observes queued setup after disposal. No external private-runtime observer exists in factory API."
+    },
+    {
+      "Area": "Cancellation cleanup boundary",
+      "Conclusion": "Factory catch independently collects DisposeAsync failure, then if runtime.disposed separately awaits actorDispatcher.Completion without caller cancellation, collecting dispatcher failure too; queued setup observed afterwards. Disposed becomes true in DisposeRuntimeCoreAsync before CompleteWhenIdle and guest termination under runtime gate. This closes prior gap even when later Dispose cleanup throws after retirement. Dispatcher active count tracks unwrapped actor bodies and CompleteIfIdle requires all actor/lane work settled. If disposal fails before core retirement (disposed=false), no dispatcher drain is claimed and error is aggregated. Private newly created factory runtime cannot enter successful halt path through exposed host API before return; no new global Dispose behavior."
+    },
+    {
+      "Area": "Existing cancellation tests",
+      "Conclusion": "LibrarySelectionHostChecks.Cancellation tests pre-canceled entry and token cancellation after successful returned runtime only. It does not currently cover setup-in-progress, purge-admission wait, cancellation/acquisition race, or physical private-worker drain. InitializationLifecycleChecks.ShutdownPending supplies existing bounded sync initializer barrier pattern for component tests; it does not observe this private factory worker."
+    }
+  ],
+  "Findings": [
+    {
+      "Id": "LIFECYCLE-1",
+      "Severity": "REPAIRED_SOURCE_EXECUTION_GATE_PENDING",
+      "ConfirmedExecutedBug": false,
+      "Paths": [
+        "src/Erlang.Runtime/ProcessRuntime.LibrarySelection.cs",
+        "src/Erlang.Runtime/ProcessRuntime.cs"
+      ],
+      "Requirement": "Before declaring cancellation resource cleanup complete, deterministically observe factory-owned worker Unwound and semaphore settlement, or explicitly narrow claim to disposal/cancellation request. Prefer local factory-owned drain, if actual test proves issue, over unrelated global disposal refactor.",
+      "Resolution": "Independent actor drain after disposal when runtime.disposed, including post-retirement Dispose failure. Root-owned source change reviewed; tests still root-owned."
+    }
+  ],
+  "Gates": [
+    "Exact missing-export and on_load rejection fixtures (source gates reviewed, existing Refusals lacks these targeted packets).",
+    "Deterministic setup cancellation and held purge-admission cancellation; physical worker and initializer unwind, source-purge fence completion and semaphore count restored.",
+    "Existing both order/mixed/immutability/reload tests plus original retained capture replay on final production source; static review is not compatibility promotion."
+  ],
+  "ProposedTestsFile": "bounded-test-recipes.json",
+  "Limitations": [
+    "No build or test executed by this reviewer.",
+    "Existing source dependency hashes do not prove lifecycle schedule behavior.",
+    "Complete module export preservation is admission policy, not proof all APIs are OTP compatible."
+  ],
+  "PredecessorReviewSha256": "4B9EC7ADA79039FEBF43B330C1BA0EA7996B6299E6B0DC4A80C9F8A8C120E990",
+  "AdditionalSourceProof": {
+    "Dispatcher": "Dispatch tracks unwrapped actor body, Released decrements active and CompleteIfIdle completes only after all actor/lane work drained. ProcessRuntime spawned actor finally removes executing context and resolves Unwound before body completion. Factory observes queued setup after owned actor drain.",
+    "CleanupFailureScope": "Dispose and dispatcher failures both accumulated along with primary error. Before core retirement failure remains explicit, not misrepresented as drained.",
+    "NoCompatibilityClaim": true,
+    "DisposedRead": "Factory sequentially awaits DisposeAsync then reads private disposed; core write under gate precedes asynchronous return. This is not an unsynchronized external hot-switch API."
+  }
+}

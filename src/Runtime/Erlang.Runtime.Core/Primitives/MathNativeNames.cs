@@ -3,6 +3,8 @@ namespace Erlang;
 internal static class MathNativeNames
 {
     internal const string Module = "math";
+    internal const string Pi = "pi";
+    internal const string Tau = "tau";
     internal const string Acos = "acos";
     internal const string Acosh = "acosh";
     internal const string Asin = "asin";
@@ -27,6 +29,31 @@ internal static class MathNativeNames
     internal const string Sqrt = "sqrt";
     internal const string Tan = "tan";
     internal const string Tanh = "tanh";
+    internal static readonly string[] UnaryFunctions =
+    [
+        Acos,
+        Acosh,
+        Asin,
+        Asinh,
+        Atan,
+        Atanh,
+        Ceil,
+        Cos,
+        Cosh,
+        Erf,
+        Erfc,
+        Exp,
+        Floor,
+        Log,
+        Log2,
+        Log10,
+        Sin,
+        Sinh,
+        Sqrt,
+        Tan,
+        Tanh,
+    ];
+    internal static readonly string[] BinaryFunctions = [Atan2, Fmod, Pow];
     internal const string WindowsRuntime = "ucrtbase.dll";
     internal const string LinuxMath = "libm.so.6";
     internal const string MacRuntime = "/usr/lib/libSystem.B.dylib";

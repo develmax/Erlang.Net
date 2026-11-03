@@ -12,6 +12,13 @@ internal static class ErlangDataRegistrations
             arity,
             (_, arguments) => ValueTask.FromResult(body(arguments))
         );
+
+        void Read535(string name, int arity, Func<IReadOnlyList<Term>, Term> body) => registry.RegisterCanonicalRuntimeRead535(
+            ErlangModuleNames.Module,
+            name,
+            arity,
+            (_, arguments) => ValueTask.FromResult(body(arguments))
+        );
         foreach (int arity in new[] { 1, 2 })
         {
             Add(
@@ -42,7 +49,7 @@ internal static class ErlangDataRegistrations
         Add(ErlangDataBifNames.ListToBitstring, 1, arguments => ErlangIoData.Flatten(arguments[0], true, true));
         Add(ErlangDataBifNames.IolistToIovec, 1, arguments => ErlangIoData.Iovec(arguments[0]));
         Add(ErlangDataBifNames.IolistSize, 1, arguments => ErlangIoData.Size(arguments[0]));
-        Add(ErlangDataBifNames.BinaryToList, 1, arguments => ErlangIoData.ToList(arguments[0], false));
+        Read535(ErlangDataBifNames.BinaryToList, 1, arguments => ErlangIoData.ToList(arguments[0], false));
         Add(ErlangDataBifNames.BinaryToList, 3, arguments => ErlangIoData.SliceList(arguments));
         Add(ErlangDataBifNames.BitstringToList, 1, arguments => ErlangIoData.ToList(arguments[0], true));
         Add(ErlangDataBifNames.BinaryPart, 3, arguments => ErlangIoData.Part(arguments[0], arguments[1], arguments[2]));

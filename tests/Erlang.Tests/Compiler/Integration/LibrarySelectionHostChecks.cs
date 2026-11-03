@@ -116,7 +116,7 @@ internal static class LibrarySelectionHostChecks
 
     internal static async Task Refusals()
     {
-        Reject(() => RuntimeModuleSelection.Managed(LibrarySelectionPolicyControlNames.StringModule));
+        Reject(() => RuntimeModuleSelection.Managed(LibrarySelectionPolicyControlNames.StringModuleName));
         Reject(() => RuntimeModuleSelection.Managed(LibrarySelectionHostNames.Missing));
         Reject(() => new RuntimeLibrarySelection([RuntimeModuleSelection.Managed(ListBeamHostNames.Module), RuntimeModuleSelection.Managed(ListBeamHostNames.Module)]));
         Reject(() => new RuntimeLibrarySelection([RuntimeModuleSelection.Beam(QueueModuleNames.Module, Queue(), [ListBeamHostNames.Module])]));

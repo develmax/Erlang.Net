@@ -25,10 +25,8 @@ internal sealed unsafe partial class NifNativeCallEnvironment : IDisposable
     {
         get;
     }
-    internal nint PrivateData
-    {
-        get;
-    }
+    private readonly nint privateDataSnapshot557;
+    internal nint PrivateData => initializingOwner557?.ReadInitializingPrivateData557() ?? privateDataSnapshot557;
     internal NifNativeFailureState Failure { get; }
     private readonly int threadId = Environment.CurrentManagedThreadId;
     internal bool IsIndependent { get; }
@@ -73,7 +71,7 @@ internal sealed unsafe partial class NifNativeCallEnvironment : IDisposable
         Failure = failure;
         Runtime = runtime;
         Image = image;
-        PrivateData = privateData;
+        privateDataSnapshot557 = privateData;
         IsIndependent = independent;
         pointer = (nint)NativeMemory.Alloc(NifNativeAbi.EnvironmentStorageBytes);
         if (pointer == 0)
@@ -243,6 +241,22 @@ internal sealed unsafe partial class NifNativeCallEnvironment : IDisposable
         inspectedBinaries ??= new(ReferenceEqualityComparer.Instance);
         if (inspectedBinaries.TryGetValue(binary, out var existing))
             return existing;
+        NifNativeBinaryStorage? borrowed = NifNativeBinaryStorage.Borrow524(binary);
+        if (borrowed is not null)
+        {
+            try
+            {
+                RetainBinaryStorage(borrowed);
+                inspectedBinaries.Add(binary, borrowed);
+
+                return borrowed;
+            }
+            catch
+            {
+                borrowed.ReleaseUnowned();
+                throw;
+            }
+        }
         var storage = CreateBinaryStorage((nuint)binary.ByteSpan.Length);
         binary.ByteSpan.CopyTo(new Span<byte>(storage.Pointer, binary.ByteSpan.Length));
         inspectedBinaries.Add(binary, storage);
@@ -306,6 +320,7 @@ internal sealed unsafe partial class NifNativeCallEnvironment : IDisposable
         pendingReasonHandle = 0;
         pendingReasonVersion = 0;
         ClearGuestRootInventory516();
+        ClearNativeRoots524();
         Interlocked.Exchange(ref guestRoots516, null)?.Dispose();
     }
 

@@ -25,6 +25,8 @@ internal static class LibraryDependencyOriginalHostChecks
 
     internal static Task Math394Whole() => Compare(Math394);
 
+    internal static Task MathManagedWhole() => Compare(Math394, true);
+
     internal static Task Math394Owner() => LibrarySelectionPolicyOriginalMathChecks.OriginalMath24(Read(MathModule + Beam), [], []);
 
     internal static Task Binary395Whole() => Compare(Binary395);
@@ -93,9 +95,9 @@ internal static class LibraryDependencyOriginalHostChecks
 
     internal static byte[] ReadRetainedResource(string name) => Read(name);
 
-    private static async Task Compare(LibraryDependencyOriginalSuite suite)
+    private static async Task Compare(LibraryDependencyOriginalSuite suite, bool managedMath = false)
     {
-        await using ProcessRuntime runtime = await Start(suite);
+        await using ProcessRuntime runtime = await Start(suite, managedMath);
         await using var actor = new RuntimeNodeFoundationHostActor(runtime);
         await actor.InvokeAsync(async context =>
         {
@@ -127,6 +129,12 @@ internal static class LibraryDependencyOriginalHostChecks
                 Require(left.Equals(right));
             }
             Require(originalStacks.Equals(actualStacks));
+            if (ReferenceEquals(suite, Math394))
+            {
+                // Compare IEEE payloads as well as terms, including the sign of zero.
+                Require(ExternalTermFormat.Encode(original).AsSpan().SequenceEqual(ExternalTermFormat.Encode(actual)));
+                Require(ExternalTermFormat.Encode(originalStacks).AsSpan().SequenceEqual(ExternalTermFormat.Encode(actualStacks)));
+            }
 
             return true;
         }).WaitAsync(Deadline);
@@ -160,7 +168,7 @@ internal static class LibraryDependencyOriginalHostChecks
         return result.ToArray();
     }
 
-    private static async Task<ProcessRuntime> Start(LibraryDependencyOriginalSuite suite)
+    private static async Task<ProcessRuntime> Start(LibraryDependencyOriginalSuite suite, bool managedMath = false)
     {
         bool requiresCodeServer = suite.AdditionalLibraries.Contains(IoPrintableOriginal404Names.CodeModule, StringComparer.Ordinal);
         var runtime = suite.PrintableRange is { } range
@@ -193,6 +201,7 @@ internal static class LibraryDependencyOriginalHostChecks
                 Require(declared.Length >= 180 && declared.Distinct(StringComparer.Ordinal).Count() == declared.Length);
                 var dependencies = new BeamDependencySelection(declared.Concat([ErlangModuleNames.Module]).Concat(suite.Fixtures));
                 string[] modules = Libraries.Concat(suite.AdditionalLibraries).Concat(suite.Fixtures)
+                    .Where(module => !managedMath || module != MathModule)
                     .Where(module => !requiresCodeServer || !CodeServerRuntime410Names.Modules.Contains(module, StringComparer.Ordinal))
                     .ToArray();
                 PreparedBeamImage[] images = modules.Select(module => registry.PrepareBeam(

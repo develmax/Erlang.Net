@@ -53,7 +53,11 @@ public sealed partial class ModuleRegistry
             return pending.Completion;
         if (nifCompletedRetirements is not null && nifCompletedRetirements.TryGetValue(image, out var completed))
             return completed.Completion;
+        nifRetirements.EnsureCapacity(checked(nifRetirements.Count + 1));
         var operation = new NifRetirementOperation(this, image, bindings!);
+        // Close guest admission and unlink old-owned resource names before
+        // logical purge returns. Do not wait for native calls or image unload.
+        bindings!.CloseAdmission529();
         nifRetirements.Add(image, operation);
         operation.Start();
 

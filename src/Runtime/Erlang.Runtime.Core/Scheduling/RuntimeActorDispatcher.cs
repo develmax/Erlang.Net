@@ -440,7 +440,18 @@ internal sealed partial class RuntimeActorDispatcher
             }
             try
             {
-                if (auxiliary is not null) auxiliary.Execute(lane.Identity);
+                if (auxiliary is not null)
+                {
+                    try
+                    {
+                        using var normalAuxiliary536 = RuntimeNormalAuxiliaryTurn536.Enter536(auxiliary.ResourceRuntime536, lane.Identity);
+                        auxiliary.Execute(lane.Identity);
+                    }
+                    catch (Exception error)
+                    {
+                        auxiliary.Fail(error);
+                    }
+                }
                 else scheduler!.Execute(task!, lane.Identity);
             }
             finally
@@ -539,7 +550,7 @@ internal sealed partial class RuntimeActorDispatcher
 
     private void CompleteIfIdle()
     {
-        if (!retiring || driverOwners422 != 0 || active != 0 || !initializerStop.IsCompleted || lanes.Any(lane => lane.Pumping || !lane.Empty))
+        if (!retiring || nativeResourceOwners536 != 0 || driverOwners422 != 0 || active != 0 || !initializerStop.IsCompleted || lanes.Any(lane => lane.Pumping || !lane.Empty))
             return;
         if (initializerStop.Exception is { } failure)
             completion.TrySetException(failure.InnerExceptions);

@@ -4,6 +4,8 @@ public sealed class ProcessRuntimeOptions
 {
     internal bool OwnedTermsPilot506 { get; init; }
 
+    public int DirtyIoSchedulerCount { get; init; } = DirtyNativePoolParameters522.DefaultIoWorkers;
+
     public int MaximumAtoms { get; init; } = AtomTableLimits.MaximumNames;
 
     public RuntimeWarningMapping WarningMapping { get; }

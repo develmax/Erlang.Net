@@ -4,17 +4,22 @@ namespace Erlang;
 internal sealed class DirtyNativeWorker419
 {
     private readonly DirtyNativeOwner419 owner;
-    private readonly SemaphoreSlim signal = new(0);
+    private readonly DirtyNativeQueue522 queue522;
+    private int releasedQueue522;
+    private bool joined522;
     private readonly Thread thread;
     private bool started;
-    internal LinkedList<DirtyNativeInvocation419> Queue { get; } = new();
+    internal LinkedList<DirtyNativeInvocation419> Queue => queue522.Items;
+    internal bool Joined522 => Volatile.Read(ref joined522);
     internal TaskCompletionSource Quiesced { get; } = new(TaskCreationOptions.RunContinuationsAsynchronously);
     internal DirtyNativeKind419 Kind { get; }
     internal bool Alive => thread.IsAlive;
     internal int ThreadId => thread.ManagedThreadId;
 
-    internal DirtyNativeWorker419(DirtyNativeOwner419 owner, DirtyNativeKind419 kind)
+    internal DirtyNativeWorker419(DirtyNativeOwner419 owner, DirtyNativeKind419 kind, DirtyNativeQueue522? sharedQueue = null)
     {
+        queue522 = sharedQueue ?? new DirtyNativeQueue522();
+        queue522.AddMember();
         this.owner = owner;
         Kind = kind;
         thread = new(Run) { IsBackground = true, Name = kind == DirtyNativeKind419.Cpu ? DirtyNativeNames419.CpuThread : DirtyNativeNames419.IoThread };
@@ -26,11 +31,11 @@ internal sealed class DirtyNativeWorker419
         started = true;
     }
 
-    internal void SignalLocked() => signal.Release();
+    internal void SignalLocked() => queue522.Signal.Release();
 
     internal void CloseLocked()
     {
-        if (started) signal.Release(); else Quiesced.TrySetResult();
+        if (started) queue522.Signal.Release(); else Quiesced.TrySetResult();
     }
 
     private void Run()
@@ -40,7 +45,7 @@ internal sealed class DirtyNativeWorker419
         {
             while (true)
             {
-                signal.Wait();
+                queue522.Signal.Wait();
                 if (!ExecuteOne()) break;
             }
         }
@@ -79,7 +84,12 @@ internal sealed class DirtyNativeWorker419
     internal void Join()
     {
         if (started) thread.Join();
+        Volatile.Write(ref joined522, true);
     }
 
-    internal void DisposeSignal() => signal.Dispose();
+    internal void DisposeSignal()
+    {
+        if (Interlocked.Exchange(ref releasedQueue522, 1) == 0)
+            queue522.RemoveMember();
+    }
 }

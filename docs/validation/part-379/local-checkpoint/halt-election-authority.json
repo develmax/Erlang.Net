@@ -1,0 +1,52 @@
+{
+  "PinnedCommit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "Method": "Read-only exact pinned source objects; no native execution",
+  "Sources": [
+    {
+      "Path": "erts/emulator/beam/bif.c",
+      "GitBlob": "cfb013f98303838e8a30e2688eac1122eb9865f2",
+      "Sha256": "4DF5E1065391F693F73E5A7303F0C1993E67C7DD4B4AF151C43121CA913EF9CC",
+      "Excerpts": [
+        {
+          "StartLine": 4313,
+          "EndLine": 4378,
+          "Text": "    int flush = 1;\n    ErtsMonotonicTime halt_flush_timeout = -1; /* default infinity */\n\n    for (optlist = BIF_ARG_2;\n\t is_list(optlist);\n\t optlist = CDR(list_val(optlist))) {\n\tEterm *tp, opt = CAR(list_val(optlist));\n\tif (is_not_tuple(opt))\n\t    goto bad_options;\n\ttp = tuple_val(opt);\n\tif (tp[0] != make_arityval(2))\n            goto bad_options;\n\tif (tp[1] == am_flush) {\n\t    if (tp[2] == am_true)\n\t\tflush = 1;\n\t    else if (tp[2] == am_false)\n\t\tflush = 0;\n\t    else\n                goto bad_options;\n\t}\n\telse if (tp[1] == am_flush_timeout) {\n            Uint32 tmo;\n            if (!term_to_Uint32(tp[2], &tmo))\n                goto bad_options;\n            halt_flush_timeout = (ErtsMonotonicTime) tmo;\n\t}\n\telse\n            goto bad_options;\n    }\n    if (is_not_nil(optlist))\n        goto bad_options;\n\n#if defined(BEAMASM) && defined(BEAMASM_DUMP_SIZES)\n    beamasm_dump_sizes();\n#endif\n\n    if (term_to_Uint_mask(BIF_ARG_1, &code)) {\n\tint pos_int_code = (int) (code & INT_MAX);\n\tVERBOSE(DEBUG_SYSTEM,\n\t\t(\"System halted by BIF halt(%T, %T)\\n\", BIF_ARG_1, BIF_ARG_2));\n\tif (flush) {\n\t    erts_halt(pos_int_code, halt_flush_timeout);\n            /* We lost race against other halt call.\n               Suspend this process and do a dummy trap while waiting\n               for other halt call to terminate the beam. */\n            erts_suspend(BIF_P, ERTS_PROC_LOCK_MAIN, NULL);\n\t    ERTS_BIF_YIELD2(BIF_TRAP_EXPORT(BIF_halt_2), BIF_P, am_undefined, am_undefined);\n\t}\n\telse {\n\t    erts_proc_unlock(BIF_P, ERTS_PROC_LOCK_MAIN);\n            erts_exit(pos_int_code, \"\");\n\t}\n    }\n    else if (ERTS_IS_ATOM_STR(\"abort\", BIF_ARG_1)) {\n\tVERBOSE(DEBUG_SYSTEM,\n\t\t(\"System halted by BIF halt(%T, %T)\\n\", BIF_ARG_1, BIF_ARG_2));\n\terts_proc_unlock(BIF_P, ERTS_PROC_LOCK_MAIN);\n\terts_exit(ERTS_ABORT_EXIT, \"\");\n    }\n    else if (is_list(BIF_ARG_1) || BIF_ARG_1 == NIL) {\n#       define HALT_MSG_SIZE 1023\n        static byte halt_msg[4*HALT_MSG_SIZE+1];\n        Sint written;\n\n        if (erts_unicode_list_to_buf(BIF_ARG_1, halt_msg, 4 * HALT_MSG_SIZE,\n                                     HALT_MSG_SIZE, &written) == -1 ) {"
+        }
+      ]
+    },
+    {
+      "Path": "erts/emulator/beam/erl_process.c",
+      "GitBlob": "0201ea38d25b67d08bc5115d6763f6b57f4b376a",
+      "Sha256": "89CBDB55BE2A97E77B2450BB3D339CA6DB934B9C4BF556EAD29B4EAE88072DC9",
+      "Excerpts": [
+        {
+          "StartLine": 15220,
+          "EndLine": 15253,
+          "Text": "}\n\n/*\n * A nice system halt closing all open port goes as follows:\n * 1) This function schedules the aux work ERTS_SSI_AUX_WORK_REAP_PORTS\n *    on all schedulers, then schedules itself out.\n * 2) All shedulers detect this and set the flag ERTS_RUNQ_FLG_HALTING\n *    on their run queue. The last scheduler sets all non-closed ports\n *    ERTS_PORT_SFLG_HALT. Global atomic erts_halt_progress is used\n *    as refcount to determine which is last.\n * 3) While the run queues has flag ERTS_RUNQ_FLG_HALTING no processes\n *    will be scheduled, only ports.\n * 4) When the last port closes that scheduler calls erlang:halt/1.\n *    The same global atomic is used as refcount.\n *\n * A BIF that calls this should make sure to schedule out to never come back:\n *    erts_halt(code);\n *    ERTS_BIF_YIELD1(BIF_TRAP_EXPORT(BIF_erlang_halt_1), BIF_P, NIL);\n */\nvoid erts_halt(int code, ErtsMonotonicTime htmo)\n{\n    if (-1 == erts_atomic32_cmpxchg_acqb(&erts_halt_progress,\n\t\t\t\t\t     erts_no_schedulers,\n\t\t\t\t\t     -1)) {\n        ErtsMonotonicTime tmo = erts_halt_flush_timeout;\n        if (tmo < 0 || (htmo >= 0 && htmo < tmo))\n            tmo = htmo;\n        if (tmo >= 0)\n            erts_start_timer_callback(tmo, erts_halt_flush_timeout_callback, NULL);\n        notify_reap_ports_relb();\n        ERTS_RUNQ_FLGS_SET(ERTS_DIRTY_CPU_RUNQ, ERTS_RUNQ_FLG_HALTING);\n        ERTS_RUNQ_FLGS_SET(ERTS_DIRTY_IO_RUNQ, ERTS_RUNQ_FLG_HALTING);\n\terts_halt_code = code;\n        erts_nif_notify_halt();"
+        }
+      ]
+    },
+    {
+      "Path": "erts/emulator/beam/erl_init.c",
+      "GitBlob": "3d246468859c25f1b25c63d9995a9f4bec702d18",
+      "Sha256": "427B8918B7300B6998B2B1D5123A2904C59A67BA917E20461C9300B62D38B027",
+      "Excerpts": [
+        {
+          "Text": "system_cleanup(int flush)\n{\n    /*\n     * Make sure only one thread exits the runtime system.\n     */\n    if (erts_atomic_inc_read_nob(&exiting) != 1) {\n\t/*\n\t * Another thread is currently exiting the system;\n\t * wait for it to do its job.\n\t */\n\tif (erts_thr_progress_is_managed_thread()) {\n\t    /*\n\t     * The exiting thread might be waiting for\n\t     * us to block; need to update status...\n\t     */\n\t    erts_thr_progress_active(erts_thr_prgr_data(NULL), 0);\n\t    erts_thr_progress_prepare_wait(erts_thr_prgr_data(NULL));\n\t}\n\t/* Wait forever... */\n\twhile (1)\n\t    erts_milli_sleep(10000000);\n    }\n\n    /* No cleanup wanted if ...\n     * 1. we are about to do an abnormal exit\n     * 2. we haven't finished initializing, or\n     * 3. another thread than the main thread is performing the exit\n     *    (in threaded non smp case).\n     */\n\n    if (!flush || !erts_initialized)",
+          "StartLine": 2644,
+          "EndLine": 2674
+        },
+        {
+          "Text": "static int erts_exit_code;\n\nstatic __decl_noreturn void __noreturn\nerts_exit_vv(int n, int flush, const char *fmt, va_list args1, va_list args2)\n{\n    system_cleanup(flush);\n\n    if (fmt != NULL && *fmt != '\\0')\n\terl_error(fmt, args2);\t/* Print error message. */\n\n    erts_exit_code = n;\n\n    /* Produce an Erlang crash dump if error */\n    if (((n == ERTS_ERROR_EXIT && erts_no_crash_dump == 0) || n == ERTS_DUMP_EXIT)\n\t&& erts_initialized) {\n\terl_crash_dump_v((char*) NULL, 0, fmt, args1);\n    }\n\n    erts_exit_epilogue(flush);\n}\n",
+          "StartLine": 2705,
+          "EndLine": 2725
+        },
+        {
+          "Text": "/* Exit without flushing */\n__decl_noreturn void __noreturn erts_exit(int n, const char *fmt, ...)\n{\n    va_list args1, args2;\n    va_start(args1, fmt);\n    va_start(args2, fmt);\n    erts_exit_vv(n, 0, fmt, args1, args2);\n    va_end(args2);\n    va_end(args1);\n}\n\n/*\n * Exit after flushing. This is a continuation of erts_halt() and wont\n * work properly if called by its own without proper initialization\n * as made in erts_halt().\n */\n__decl_noreturn void __noreturn erts_flush_exit(int n, char *fmt, ...)\n{\n    va_list args1, args2;\n    va_start(args1, fmt);\n    va_start(args2, fmt);\n    erts_exit_vv(n, 1, fmt, args1, args2);\n    va_end(args2);\n    va_end(args1);\n}\n\nvoid erts_halt_flush_timeout_callback(void *arg)\n{\n    _exit(ERTS_HALT_FLUSH_TIMEOUT_EXIT_CODE);\n}",
+          "StartLine": 2745,
+          "EndLine": 2777
+        }
+      ]
+    }
+  ]
+}

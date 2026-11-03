@@ -119,13 +119,14 @@ public sealed partial class ModuleRegistry
                 kind = NativeBorrowKind507(image.ExecutionIdentity, primitive);
             else
                 kind = pureGuestImage ? OwnedBindingKind507.PreparedGuest : OwnedBindingKind507.Opaque;
-            if (kind != OwnedBindingKind507.Opaque)
-                ownedBindings507[key] = new(
-                    body,
-                    image.ExecutionIdentity.Image,
-                    image.ExecutionIdentity.Owner,
-                    kind
-                );
+            // Retain exact canonical publication authority even when currently
+            // opaque. Only a later genuine image-bound NIF may upgrade its OWN entry.
+            ownedBindings507[key] = new(
+                body,
+                image.ExecutionIdentity.Image,
+                image.ExecutionIdentity.Owner,
+                kind
+            );
         }
     }
 
@@ -138,6 +139,11 @@ public sealed partial class ModuleRegistry
         if (binding.SourceOwner is not null && (!sourceOwners.TryGetValue(key, out var owner)
             || !ReferenceEquals(owner, binding.SourceOwner)))
             return OwnedBindingKind507.Opaque;
+
+        if (binding.Kind == OwnedBindingKind507.Opaque && binding.SourceOwner is PreparedBeamImage
+            && NifImageBindingStore.TryGetValue(binding.Image, out var native535)
+            && native535!.HasGuestNative535(key.Function, key.Arity))
+            return OwnedBindingKind507.PreparedGuest;
 
         return binding.Kind;
     }

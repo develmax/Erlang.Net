@@ -12,5 +12,6 @@ internal enum RuntimeEtsStoredKind
     Map,
     NativeRecord,
     Function,
-    Identity
+    Identity,
+    NativeBinary524
 }

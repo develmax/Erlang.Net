@@ -1,0 +1,154 @@
+{
+  "Status": "PASS_SCOPED_CLI_PACKET",
+  "ToolSha256": "7F9B14E7F04AD23D9A9C10B5B6A2E71BA714AD2E17A1B7B5916155944A7BFC53",
+  "RuntimeSha256": "897181D2747427D534BBA6727D3FAAAB6D21B359CBD02753D0B5E96DBA083146",
+  "Cases": [
+    {
+      "Name": "cold-cli",
+      "Passed": true,
+      "Detail": {
+        "Seconds": 9.578,
+        "ExitCode": 0,
+        "ExpectedFailure": null
+      }
+    },
+    {
+      "Name": "warm-zero-native-zero-stable-writes",
+      "Passed": true,
+      "Detail": {
+        "Seconds": 5.859,
+        "ExitCode": 0,
+        "ExpectedFailure": null,
+        "NativeChildrenAdded": 0,
+        "StableWrites": 0
+      }
+    },
+    {
+      "Name": "unknown-live-input-ignored",
+      "Passed": true,
+      "Detail": {
+        "Seconds": 6.047,
+        "ExitCode": 0,
+        "ExpectedFailure": null
+      }
+    },
+    {
+      "Name": "priv-change-rebuild",
+      "Passed": true,
+      "Detail": {
+        "Seconds": 8.562,
+        "ExitCode": 0,
+        "ExpectedFailure": null
+      }
+    },
+    {
+      "Name": "config-order-preserved-unapplied",
+      "Passed": true,
+      "Detail": {
+        "Seconds": 8.235,
+        "ExitCode": 0,
+        "ExpectedFailure": null
+      }
+    },
+    {
+      "Name": "stale-owned-only-delete-unknown-sentinel-preserved",
+      "Passed": true,
+      "Detail": {
+        "Seconds": 8.391,
+        "ExitCode": 0,
+        "ExpectedFailure": null
+      }
+    },
+    {
+      "Name": "malformed-config-preserves-accepted-package",
+      "Passed": true,
+      "Detail": {
+        "Seconds": 6.625,
+        "ExitCode": 1,
+        "ExpectedFailure": "RuntimeError('Owned stage failed; all available raw evidence retained: bad-config')"
+      }
+    },
+    {
+      "Name": "parsed-module-mismatch-preserves-package",
+      "Passed": true,
+      "Detail": {
+        "Seconds": 6.532,
+        "ExitCode": 1,
+        "ExpectedFailure": "RuntimeError('Owned stage failed; all available raw evidence retained: bad-modules')"
+      }
+    },
+    {
+      "Name": "edited-output-refused-before-native",
+      "Passed": true,
+      "Detail": {
+        "Seconds": 0.484,
+        "ExitCode": 1,
+        "ExpectedFailure": "RuntimeError('Owned stage failed; all available raw evidence retained: edited-output')"
+      }
+    },
+    {
+      "Name": "edited-driver-refused-without-overwrite",
+      "Passed": true,
+      "Detail": {
+        "Seconds": 2.984,
+        "ExitCode": 1,
+        "ExpectedFailure": "RuntimeError('Owned stage failed; all available raw evidence retained: edited-driver')"
+      }
+    },
+    {
+      "Name": "missing-owned-output-restored",
+      "Passed": true,
+      "Detail": {
+        "Seconds": 7.219,
+        "ExitCode": 0,
+        "ExpectedFailure": null
+      }
+    },
+    {
+      "Name": "public-manifest-relative-only",
+      "Passed": true,
+      "Detail": {
+        "RelativeInventory": true
+      }
+    },
+    {
+      "Name": "unowned-destination-refused-before-native",
+      "Passed": true,
+      "Detail": {
+        "Seconds": 0.484,
+        "ExitCode": 1,
+        "ExpectedFailure": "RuntimeError('Owned stage failed; all available raw evidence retained: run')"
+      }
+    },
+    {
+      "Name": "unowned-driver-refused-before-native",
+      "Passed": true,
+      "Detail": {
+        "Seconds": 2.813,
+        "ExitCode": 1,
+        "ExpectedFailure": "RuntimeError('Owned stage failed; all available raw evidence retained: run')"
+      }
+    },
+    {
+      "Name": "concrete-app-alternative",
+      "Passed": true,
+      "Detail": {
+        "Seconds": 8.703,
+        "ExitCode": 0,
+        "ExpectedFailure": null
+      }
+    },
+    {
+      "Name": "zero-module-data-only-app",
+      "Passed": true,
+      "Detail": {
+        "Seconds": 8.953,
+        "ExitCode": 0,
+        "ExpectedFailure": null
+      }
+    }
+  ],
+  "Passed": 16,
+  "Total": 16,
+  "ApplicationControllerExecuted": false
+}

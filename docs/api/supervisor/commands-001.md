@@ -1,0 +1,24 @@
+# supervisor: commands — 1
+
+Generated from the baseline-bound compatibility ledger. Edit the ledger, then regenerate. Rendering this snapshot does not revalidate current implementation bindings, refresh runtime registration counts or grant compatibility credit.
+
+[Module index](index.md) · [All modules](../../API_COMPATIBILITY.md)
+
+| Command | Compatibility | Audited scope | Evidence | Unresolved limits |
+| --- | --- | --- | --- | --- |
+| `supervisor:start_link/2` | Needs verification for 100% compatibility | Complete command contract against the pinned OTP baseline has not yet been independently audited. | Pending audit | Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending |
+| `supervisor:start_link/3` | Needs verification for 100% compatibility | Complete command contract against the pinned OTP baseline has not yet been independently audited. | Pending audit | Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending |
+| `supervisor:which_children/1` | Needs verification for 100% compatibility | Complete command contract against the pinned OTP baseline has not yet been independently audited. | Pending audit | Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending |
+| `supervisor:count_children/1` | Needs verification for 100% compatibility | Complete command contract against the pinned OTP baseline has not yet been independently audited. | Pending audit | Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending |
+| `supervisor:check_childspecs/1` | Needs verification for 100% compatibility | Complete command contract against the pinned OTP baseline has not yet been independently audited. | Pending audit | Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending |
+| `supervisor:check_childspecs/2` | Needs verification for 100% compatibility | Complete command contract against the pinned OTP baseline has not yet been independently audited. | Pending audit | Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending |
+| `supervisor:start_child/2` | Needs verification for 100% compatibility | Complete command contract against the pinned OTP baseline has not yet been independently audited. | Pending audit | Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending |
+| `supervisor:terminate_child/2` | Needs verification for 100% compatibility | Complete command contract against the pinned OTP baseline has not yet been independently audited. | Pending audit | Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending |
+| `supervisor:restart_child/2` | Needs verification for 100% compatibility | Complete command contract against the pinned OTP baseline has not yet been independently audited. | Pending audit | Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending |
+| `supervisor:delete_child/2` | Needs verification for 100% compatibility | Complete command contract against the pinned OTP baseline has not yet been independently audited. | Pending audit | Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending |
+| `supervisor:get_childspec/2` | Needs verification for 100% compatibility | Complete command contract against the pinned OTP baseline has not yet been independently audited. | Pending audit | Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending |
+| `supervisor:which_child/2` | Needs verification for 100% compatibility | Complete command contract against the pinned OTP baseline has not yet been independently audited. | Pending audit | Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending |
+| `supervisor:stop/1` | Needs verification for 100% compatibility | Complete command contract against the pinned OTP baseline has not yet been independently audited. | Pending audit | Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending |
+| `supervisor:stop/3` | Needs verification for 100% compatibility | Complete command contract against the pinned OTP baseline has not yet been independently audited. | Pending audit | Single direct contract case plus feature regressions; complete error/options and OTP differential verification pending |
+
+

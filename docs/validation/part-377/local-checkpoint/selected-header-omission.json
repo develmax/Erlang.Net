@@ -1,0 +1,53 @@
+{
+  "Passed": true,
+  "Cases": [
+    {
+      "Name": "selected_removed",
+      "Passed": true,
+      "ExpectedExit": 1,
+      "NativeChildren": 0,
+      "PriorOutputsAndStateUnchanged": true,
+      "ActualExit": {
+        "Command": [
+          "C:/Program Files/dotnet/dotnet.exe",
+          "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tools\\Erlang.BeamBuild\\bin\\Debug\\net10.0\\Erlang.BeamBuild.dll",
+          "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-selected-header-removal1\\selected-header-removed.request.json"
+        ],
+        "Pid": 249356,
+        "ElapsedSeconds": 2.235000000044238,
+        "TimedOut": false,
+        "Settled": true,
+        "ExitCode": 1,
+        "Failures": [],
+        "StdoutSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+        "StderrSha256": "CEB0E363D7B45B76D4FB7CCE7EFEEA7C7518355935311A5289CF48666E557E60"
+      },
+      "ExpectedNonzeroRaised": true
+    },
+    {
+      "Name": "restored_declaration_warm",
+      "Passed": true,
+      "ExpectedExit": 0,
+      "NativeChildren": 0,
+      "PriorOutputsAndStateUnchanged": true,
+      "ActualExit": {
+        "Command": [
+          "C:/Program Files/dotnet/dotnet.exe",
+          "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tools\\Erlang.BeamBuild\\bin\\Debug\\net10.0\\Erlang.BeamBuild.dll",
+          "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-project-cache-specifics-execution1\\two_modules_global_closure\\final_warm.request.json"
+        ],
+        "Pid": 268760,
+        "ElapsedSeconds": 3.375,
+        "TimedOut": false,
+        "Settled": true,
+        "ExitCode": 0,
+        "Failures": [],
+        "StdoutSha256": "41E1566422B91735417CF6E261D9BDE709822E2F6505A3CA6289B7A17BB585C9",
+        "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+      },
+      "ExpectedNonzeroRaised": false
+    }
+  ],
+  "ToolSha256": "EA6DA4CEA80719052C3B867604E05D8FFA7442B482A44C727BF450B633F662DC",
+  "Scope": "Warm selected header declaration removal and restored reuse; source/evidence bytes not changed"
+}

@@ -1,0 +1,61 @@
+{
+  "Passed": true,
+  "Cases": [
+    {
+      "Name": "concrete-appsrc",
+      "Passed": true,
+      "ExpectedNativeExit": 0,
+      "ActualExit": 0,
+      "ResultSha256": "BA4BDCEEF8B2895C16B9FFACFFF28EE098495734A13A4CC43DBB5B30281B0398",
+      "ResultBytes": 406,
+      "ExpectedProcessFailure": null,
+      "RequestSha256": "D9533200B372237AEA07275362A705E87C8D0BCC2D38BBB06703CECAFD8A4D50"
+    },
+    {
+      "Name": "concrete-app",
+      "Passed": true,
+      "ExpectedNativeExit": 0,
+      "ActualExit": 0,
+      "ResultSha256": "BA4BDCEEF8B2895C16B9FFACFFF28EE098495734A13A4CC43DBB5B30281B0398",
+      "ResultBytes": 406,
+      "ExpectedProcessFailure": null,
+      "RequestSha256": "60588A2FB1DD3D6E70FAFF19EA3A8A88D3838ABDF34500EDACE79A354C4E7F3E"
+    },
+    {
+      "Name": "descriptor-two-terms",
+      "Passed": true,
+      "ExpectedNativeExit": 1,
+      "ActualExit": 1,
+      "ResultSha256": "F2B7A5C79460DB838AB9816A9A66AD067AEE236539EF1C2AB4A25F97343226E2",
+      "ResultBytes": 493,
+      "ExpectedProcessFailure": "RuntimeError('Owned stage failed; all available raw evidence retained: original-parser')",
+      "RequestSha256": "207EDF2686D385FC0D344AA41BE97CE98D4B8A83738800E5D59D0C85B16A997E"
+    },
+    {
+      "Name": "malformed-config",
+      "Passed": true,
+      "ExpectedNativeExit": 1,
+      "ActualExit": 1,
+      "ResultSha256": "912F9BD442C5273E1865F6B297156309C923A6C9BF34DBE6250BF71FA2E5A83E",
+      "ResultBytes": 653,
+      "ExpectedProcessFailure": "RuntimeError('Owned stage failed; all available raw evidence retained: original-parser')",
+      "RequestSha256": "13BA7D38C2D1A8F62DA77BCC87465AEE736A59C14A1BDDFA66781949444138AA"
+    },
+    {
+      "Name": "nonliteral-descriptor",
+      "Passed": true,
+      "ExpectedNativeExit": 1,
+      "ActualExit": 1,
+      "ResultSha256": "A0537BC17D63FA3996514BD413395BAC5430BB05882E286849AECD40CF04D3FB",
+      "ResultBytes": 514,
+      "ExpectedProcessFailure": "RuntimeError('Owned stage failed; all available raw evidence retained: original-parser')",
+      "RequestSha256": "E7D6A0BAA9325CE9A0392BA91E323549764B0138F23A362AB4B8A2352A008A6B"
+    }
+  ],
+  "CompilerClosureFiles": 6427,
+  "OriginalRuntimeSha256": "D91699E88F417E00470D224934D47CD92358CC1B3B37CA1F15BCF5D4731D8F4E",
+  "CompilerSha256": "8F1CD8036F83AC45C4A3173DF965F6503059EB99E0C14322A5D376EDC8CF7769",
+  "DriverSourceSha256": "878E7BFC1344C2561856081AAE8C9DA60E970ABE6F11D5F7E71779C54DCA738B",
+  "DriverBeamSha256": "46E146EB86D5D3DBF2D1130AA42E9C8BF6D6F62579101ECBE3624EFBE4E82B74",
+  "Scope": "Original parse-only resource driver prototype; no integrated resource builder/controller or managed guest execution credit"
+}

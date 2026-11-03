@@ -22,6 +22,23 @@ internal sealed partial class BeamRegisterState
         }
     }
 
+    // Called only immediately after roots507.Tuple/Cons publishes Candidate.
+    // The producer's outer catch performs the same rollback as ordinary writes.
+    private void CommitConstructedX548(int index, Term value)
+    {
+        try
+        {
+            roots507!.RequireConstructedCandidate548(index, value);
+            values[index] = BeamRegisterSlot.FromTerm(value);
+            roots507.Commit(index);
+        }
+        catch
+        {
+            roots507?.Rollback(index);
+            throw;
+        }
+    }
+
     internal void ApplyLiveHint507(int count)
     {
         CheckLive(count);
@@ -40,6 +57,39 @@ internal sealed partial class BeamRegisterState
 
     internal IDisposable? Protect507(params Term[] values)
         => roots507?.Protect(Term.Tuple(values));
+
+    internal bool CanReuseListSource550(BeamOperand source, BeamOperand firstDestination, Term cell)
+    {
+        if (source.Kind == firstDestination.Kind && source.Value == firstDestination.Value)
+            return false;
+        // TypeIndex annotates a register; it does not identify a separate slot.
+        if (source.Kind == BeamOperandParameters.X)
+            return roots507?.HoldsPublishedTerm550((int)source.Value, cell) == true;
+        if (source.Kind == BeamOperandParameters.Y && frames.TryPeek(out BeamLocalFrame? local))
+            return local.HoldsPublishedTerm550((int)source.Value, cell);
+
+        return false;
+    }
+
+    internal void WriteListParts550(
+        string opcode,
+        BeamOperand source,
+        BeamOperand firstDestination,
+        BeamOperand? secondDestination,
+        Cons cell
+    )
+    {
+        bool pair = opcode == BeamGeneralOpcodeNames.GetList;
+        if (pair && secondDestination is null)
+            throw new InvalidDataException(BeamRegisterNames.Unsupported);
+        bool sourceKeepsCustody = pair && CanReuseListSource550(source, firstDestination, cell);
+        using var temporary = HasOwnedRoots507 && !sourceKeepsCustody ? Protect507(cell) : null;
+        Term head = cell.Head;
+        Term tail = cell.Tail;
+        Write(firstDestination, opcode == BeamGeneralOpcodeNames.GetTail ? tail : head);
+        if (pair)
+            Write(secondDestination!, tail);
+    }
 
     internal void WriteTuple507(BeamOperand destination, IReadOnlyList<Term> children)
     {
@@ -60,7 +110,7 @@ internal sealed partial class BeamRegisterState
         try
         {
             Term value = roots507?.Tuple(index, children) ?? new TupleTerm(children);
-            WriteXSlot507(index, BeamRegisterSlot.FromTerm(value), false);
+            CommitConstructedX548(index, value);
         }
         catch
         {
@@ -88,7 +138,7 @@ internal sealed partial class BeamRegisterState
         try
         {
             Term value = roots507?.Cons(index, head, tail) ?? new Cons(head, tail);
-            WriteXSlot507(index, BeamRegisterSlot.FromTerm(value), false);
+            CommitConstructedX548(index, value);
         }
         catch
         {

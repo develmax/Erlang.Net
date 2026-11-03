@@ -26,7 +26,8 @@ public static class BinaryModule
         Add(BinaryModuleNames.EncodeUnsigned, 2, (c, a) => BinaryUnsigned.Encode(c, a[0], a[1]));
         Add(BinaryModuleNames.LongestCommonPrefix, 1, (c, a) => BinaryPrimitiveOperations.Common(c, a[0], false));
         Add(BinaryModuleNames.LongestCommonSuffix, 1, (c, a) => BinaryPrimitiveOperations.Common(c, a[0], true));
-        Add(
+        registry.RegisterCanonicalRuntimeRead535(
+            BinaryModuleNames.Module,
             BinaryModuleNames.ReferencedByteSize,
             1,
             (_, a) => ValueTask.FromResult<Term>(Term.I(ErlangIoData.Bits(a[0]).ReferencedByteSize))

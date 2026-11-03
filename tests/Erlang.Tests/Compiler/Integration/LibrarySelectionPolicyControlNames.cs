@@ -3,7 +3,7 @@ namespace Erlang.Tests;
 internal static class LibrarySelectionPolicyControlNames
 {
     internal const string RuntimeModule = "erlang";
-    internal const string StringModule = "string";
+    internal const string StringModuleName = "string";
     internal const string MathModule = "math";
     internal const string PureModule = "library393_pure";
     internal const string PeerModule = "library393_peer";

@@ -46,6 +46,15 @@ internal sealed unsafe partial class NifNativeAllocationOwner
             if (snapshot != default)
                 throw new InvalidOperationException(NifNativeAllocationDomainDiagnostics.ExistingAllocationHistory);
             long membership = allocationDomain.Join();
+            try
+            {
+                allocationDomain.RegisterOwner528(membership, this);
+            }
+            catch
+            {
+                allocationDomain.EndMembership(membership, default);
+                throw;
+            }
             domain = allocationDomain;
             domainMembership = membership;
         }
@@ -85,16 +94,21 @@ internal sealed unsafe partial class NifNativeAllocationOwner
                 AllocatedBackingRequestBytes = checked(snapshot.AllocatedBackingRequestBytes + backing),
                 SuccessfulAllocations = checked(snapshot.SuccessfulAllocations + 1)
             };
+            owned.EnsureCapacity(checked(owned.Count + 1));
             using var change = domain?.BeginChange(domainMembership, snapshot, next);
+            using var pointers = domain?.BeginPointerMutation528(domainMembership, this, 1);
             nint pointer = (nint)NativeMemory.Alloc((nuint)backing);
             if (pointer != 0)
             {
                 try
                 {
                     owned.Add(pointer, size);
+                    pointers?.Add528(pointer);
                 }
                 catch
                 {
+                    owned.Remove(pointer);
+                    pointers?.Remove528(pointer);
                     NativeMemory.Free((void*)pointer);
                     throw;
                 }
@@ -133,6 +147,7 @@ internal sealed unsafe partial class NifNativeAllocationOwner
             };
             owned.EnsureCapacity(checked(owned.Count + 1));
             using var change = domain?.BeginChange(domainMembership, snapshot, next);
+            using var pointers = domain?.BeginPointerMutation528(domainMembership, this, 1);
             nint resized = (nint)NativeMemory.Realloc((void*)pointer, (nuint)backing);
             if (resized == 0)
                 return 0;
@@ -144,6 +159,8 @@ internal sealed unsafe partial class NifNativeAllocationOwner
                 // The default nint comparer has no user callback; no rollback can revive pointer.
                 owned.Add(resized, size);
                 owned.Remove(pointer);
+                pointers?.Remove528(pointer);
+                pointers?.Add528(resized);
             }
             snapshot = next;
             change?.Commit();
@@ -170,7 +187,9 @@ internal sealed unsafe partial class NifNativeAllocationOwner
                 ReleasedAllocations = checked(snapshot.ReleasedAllocations + 1)
             };
             using var change = domain?.BeginChange(domainMembership, snapshot, next);
+            using var pointers = domain?.BeginPointerMutation528(domainMembership, this, 0);
             owned.Remove(pointer);
+            pointers?.Remove528(pointer);
             NativeMemory.Free((void*)pointer);
             snapshot = next;
             change?.Commit();
@@ -193,8 +212,12 @@ internal sealed unsafe partial class NifNativeAllocationOwner
                 ReleasedAllocations = checked(snapshot.ReleasedAllocations + snapshot.Count)
             };
             using var change = domain?.BeginChange(domainMembership, snapshot, next);
+            using var pointers = domain?.BeginPointerMutation528(domainMembership, this, 0);
             foreach (nint pointer in owned.Keys)
+            {
+                pointers?.Remove528(pointer);
                 NativeMemory.Free((void*)pointer);
+            }
             owned.Clear();
             snapshot = next;
             change?.Commit();

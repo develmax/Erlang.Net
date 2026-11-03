@@ -1,0 +1,1316 @@
+{
+  "Passed": true,
+  "Examined": 10,
+  "SubjectToolPath": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tools\\Erlang.BeamBuild\\bin\\Debug\\net10.0\\Erlang.BeamBuild.dll",
+  "SubjectToolSha256": "EA6DA4CEA80719052C3B867604E05D8FFA7442B482A44C727BF450B633F662DC",
+  "RunnerSha256": "9589470E499C30EA4264C04CA90995002C34FFEC600DA874AB60ADCB4D61B07D",
+  "OwnedHelperSha256": "C66ACEC6FFE57C57EFAABC96FD1DB00598D7AAD7D05C2EA814A146B759D4171A",
+  "Scope": "Actual single-module CLI global declared-closure/cache controls; no multi-module transaction or full OTP equivalence claim.",
+  "IndependentCasesAttempted": true,
+  "DependentStepsStopOnFailure": true,
+  "Outcomes": [
+    {
+      "Name": "used_header_changed",
+      "Passed": true,
+      "ExpectedBeam": "different",
+      "Steps": [
+        {
+          "Step": "cold",
+          "Receipt": {
+            "Command": [
+              "C:\\Program Files\\dotnet\\dotnet.exe",
+              "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tools\\Erlang.BeamBuild\\bin\\Debug\\net10.0\\Erlang.BeamBuild.dll",
+              "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-cache-successor-execution1\\used_header_changed\\cold.request.json"
+            ],
+            "Pid": 299624,
+            "ElapsedSeconds": 9.327999999979511,
+            "TimedOut": false,
+            "Settled": true,
+            "ExitCode": 0,
+            "Failures": [],
+            "StdoutSha256": "6905E5B983EE0835C9E5A87652ABF5813C23C854012079A200083FEF2329669D",
+            "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+          },
+          "ReceiptPath": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-cache-successor-execution1\\used_header_changed\\cold.exit.json",
+          "ReceiptSha256": "1DE17BEFFCF1A2BE18714EFDBB2F622CBE8C946DE88021460064CC7E337AB5C8",
+          "HelperRaised": null,
+          "NativeReceipts": [
+            {
+              "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-cache-successor-execution1\\used_header_changed\\compiled\\.work-58ea320181fe483d9c7b3cd02c1f44e9\\driver-bootstrap\\compiler.process.json",
+              "Sha256": "3FDCF779905A6B29D55CADB836906521752FA6B40B6BA86C0DFD2C13C47522A4"
+            },
+            {
+              "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-cache-successor-execution1\\used_header_changed\\compiled\\.work-58ea320181fe483d9c7b3cd02c1f44e9\\modules\\cache_successor377\\compiler.process.json",
+              "Sha256": "5AEE270CBC9C68F416AA6BEC994E1C2F51D5880862D1906C72BAFC36767EC489"
+            }
+          ],
+          "Summary": {
+            "ExecutedCompilers": 1,
+            "Skipped": 0,
+            "Manifest": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-cache-successor-execution1\\used_header_changed\\compiled\\beam-build-state.json"
+          }
+        },
+        {
+          "Step": "warm_baseline",
+          "Receipt": {
+            "Command": [
+              "C:\\Program Files\\dotnet\\dotnet.exe",
+              "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tools\\Erlang.BeamBuild\\bin\\Debug\\net10.0\\Erlang.BeamBuild.dll",
+              "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-cache-successor-execution1\\used_header_changed\\warm_baseline.request.json"
+            ],
+            "Pid": 304076,
+            "ElapsedSeconds": 3.8429999999934807,
+            "TimedOut": false,
+            "Settled": true,
+            "ExitCode": 0,
+            "Failures": [],
+            "StdoutSha256": "96276F738B019A15123A469CDB65D874965D45CA7CF72CC7327230A54EA6FB12",
+            "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+          },
+          "ReceiptPath": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-cache-successor-execution1\\used_header_changed\\warm_baseline.exit.json",
+          "ReceiptSha256": "648A7E99F8432ECFEB61A2EECF39BDDC205125D8F17C3DCCE331B7DD5AD06D5A",
+          "HelperRaised": null,
+          "NativeReceipts": [],
+          "Summary": {
+            "ExecutedCompilers": 0,
+            "Skipped": 1,
+            "Manifest": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-cache-successor-execution1\\used_header_changed\\compiled\\beam-build-state.json"
+          }
+        },
+        {
+          "Step": "mutated",
+          "Receipt": {
+            "Command": [
+              "C:\\Program Files\\dotnet\\dotnet.exe",
+              "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tools\\Erlang.BeamBuild\\bin\\Debug\\net10.0\\Erlang.BeamBuild.dll",
+              "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-cache-successor-execution1\\used_header_changed\\mutated.request.json"
+            ],
+            "Pid": 272952,
+            "ElapsedSeconds": 7.73399999999674,
+            "TimedOut": false,
+            "Settled": true,
+            "ExitCode": 0,
+            "Failures": [],
+            "StdoutSha256": "6905E5B983EE0835C9E5A87652ABF5813C23C854012079A200083FEF2329669D",
+            "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+          },
+          "ReceiptPath": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-cache-successor-execution1\\used_header_changed\\mutated.exit.json",
+          "ReceiptSha256": "E92DFC2473FEC4B75B0A49E048BFB6A87D19BFAFE1947B33F26355888BC856D3",
+          "HelperRaised": null,
+          "NativeReceipts": [
+            {
+              "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-cache-successor-execution1\\used_header_changed\\compiled\\.work-f1df655a235f4ca482a99e91d7957250\\modules\\cache_successor377\\compiler.process.json",
+              "Sha256": "E3A2CE4696C73A3C44DB73E1B9D450371FEE780FECD02C070A6C9AEC906F2B38"
+            }
+          ],
+          "Summary": {
+            "ExecutedCompilers": 1,
+            "Skipped": 0,
+            "Manifest": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-cache-successor-execution1\\used_header_changed\\compiled\\beam-build-state.json"
+          }
+        },
+        {
+          "Step": "warm_after_change",
+          "Receipt": {
+            "Command": [
+              "C:\\Program Files\\dotnet\\dotnet.exe",
+              "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tools\\Erlang.BeamBuild\\bin\\Debug\\net10.0\\Erlang.BeamBuild.dll",
+              "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-cache-successor-execution1\\used_header_changed\\warm_after_change.request.json"
+            ],
+            "Pid": 227148,
+            "ElapsedSeconds": 4.4060000000172295,
+            "TimedOut": false,
+            "Settled": true,
+            "ExitCode": 0,
+            "Failures": [],
+            "StdoutSha256": "96276F738B019A15123A469CDB65D874965D45CA7CF72CC7327230A54EA6FB12",
+            "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+          },
+          "ReceiptPath": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-cache-successor-execution1\\used_header_changed\\warm_after_change.exit.json",
+          "ReceiptSha256": "99E47402D1915A1F9D29D76E87FB9CB17E5BE4FA2E9F3FB453A44D8DC16F6F54",
+          "HelperRaised": null,
+          "NativeReceipts": [],
+          "Summary": {
+            "ExecutedCompilers": 0,
+            "Skipped": 1,
+            "Manifest": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-cache-successor-execution1\\used_header_changed\\compiled\\beam-build-state.json"
+          }
+        }
+      ]
+    },
+    {
+      "Name": "unused_declared_header_changed",
+      "Passed": true,
+      "ExpectedBeam": "same",
+      "Steps": [
+        {
+          "Step": "cold",
+          "Receipt": {
+            "Command": [
+              "C:\\Program Files\\dotnet\\dotnet.exe",
+              "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tools\\Erlang.BeamBuild\\bin\\Debug\\net10.0\\Erlang.BeamBuild.dll",
+              "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-cache-successor-execution1\\unused_declared_header_changed\\cold.request.json"
+            ],
+            "Pid": 294700,
+            "ElapsedSeconds": 10.85899999999674,
+            "TimedOut": false,
+            "Settled": true,
+            "ExitCode": 0,
+            "Failures": [],
+            "StdoutSha256": "51812BCB8FE9823776A1A5B5EE64DEC70CE8AF7DDE305637EAAE05CD9A822FDC",
+            "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+          },
+          "ReceiptPath": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-cache-successor-execution1\\unused_declared_header_changed\\cold.exit.json",
+          "ReceiptSha256": "138DFAF170A8891F7FA0B89B0435F6E30287D6F04856D77A39A700865FDC75BB",
+          "HelperRaised": null,
+          "NativeReceipts": [
+            {
+              "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-cache-successor-execution1\\unused_declared_header_changed\\compiled\\.work-513b5cf0cbbf433c910765e95608ec56\\driver-bootstrap\\compiler.process.json",
+              "Sha256": "DF598552C7590C59FDFCC047ED2A9A9B4D6734E3FD9F7DE3186C8068E45A15E7"
+            },
+            {
+              "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-cache-successor-execution1\\unused_declared_header_changed\\compiled\\.work-513b5cf0cbbf433c910765e95608ec56\\modules\\cache_successor377\\compiler.process.json",
+              "Sha256": "F7D92C31401AD16925F115B52F5FCF15F82516A50222F9492EDF5B433EBD0B97"
+            }
+          ],
+          "Summary": {
+            "ExecutedCompilers": 1,
+            "Skipped": 0,
+            "Manifest": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-cache-successor-execution1\\unused_declared_header_changed\\compiled\\beam-build-state.json"
+          }
+        },
+        {
+          "Step": "warm_baseline",
+          "Receipt": {
+            "Command": [
+              "C:\\Program Files\\dotnet\\dotnet.exe",
+              "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tools\\Erlang.BeamBuild\\bin\\Debug\\net10.0\\Erlang.BeamBuild.dll",
+              "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-cache-successor-execution1\\unused_declared_header_changed\\warm_baseline.request.json"
+            ],
+            "Pid": 16272,
+            "ElapsedSeconds": 4.35999999998603,
+            "TimedOut": false,
+            "Settled": true,
+            "ExitCode": 0,
+            "Failures": [],
+            "StdoutSha256": "8A1D44B7EE2D6CBCFA672F04D0097DBE5909BAF28AFEF5CB80DA5FE16461E492",
+            "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+          },
+          "ReceiptPath": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-cache-successor-execution1\\unused_declared_header_changed\\warm_baseline.exit.json",
+          "ReceiptSha256": "F458A358E65829D0D731C70FE498C9EFFDD0C65B869A23F41532D1609B22DA50",
+          "HelperRaised": null,
+          "NativeReceipts": [],
+          "Summary": {
+            "ExecutedCompilers": 0,
+            "Skipped": 1,
+            "Manifest": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-cache-successor-execution1\\unused_declared_header_changed\\compiled\\beam-build-state.json"
+          }
+        },
+        {
+          "Step": "mutated",
+          "Receipt": {
+            "Command": [
+              "C:\\Program Files\\dotnet\\dotnet.exe",
+              "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tools\\Erlang.BeamBuild\\bin\\Debug\\net10.0\\Erlang.BeamBuild.dll",
+              "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-cache-successor-execution1\\unused_declared_header_changed\\mutated.request.json"
+            ],
+            "Pid": 306728,
+            "ElapsedSeconds": 7.827999999979511,
+            "TimedOut": false,
+            "Settled": true,
+            "ExitCode": 0,
+            "Failures": [],
+            "StdoutSha256": "51812BCB8FE9823776A1A5B5EE64DEC70CE8AF7DDE305637EAAE05CD9A822FDC",
+            "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+          },
+          "ReceiptPath": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-cache-successor-execution1\\unused_declared_header_changed\\mutated.exit.json",
+          "ReceiptSha256": "4A217FC4E3BB3A46E81259A198FF799355996C17D2506F4703DA1D6E83651F30",
+          "HelperRaised": null,
+          "NativeReceipts": [
+            {
+              "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-cache-successor-execution1\\unused_declared_header_changed\\compiled\\.work-1d266d898d664c0b8918c2aa364b2d73\\modules\\cache_successor377\\compiler.process.json",
+              "Sha256": "61D146D13072D94A484BEA7E4FECFE30204C15464836056836B0019E01EC98DA"
+            }
+          ],
+          "Summary": {
+            "ExecutedCompilers": 1,
+            "Skipped": 0,
+            "Manifest": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-cache-successor-execution1\\unused_declared_header_changed\\compiled\\beam-build-state.json"
+          }
+        },
+        {
+          "Step": "warm_after_change",
+          "Receipt": {
+            "Command": [
+              "C:\\Program Files\\dotnet\\dotnet.exe",
+              "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tools\\Erlang.BeamBuild\\bin\\Debug\\net10.0\\Erlang.BeamBuild.dll",
+              "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-cache-successor-execution1\\unused_declared_header_changed\\warm_after_change.request.json"
+            ],
+            "Pid": 275132,
+            "ElapsedSeconds": 4.10899999999674,
+            "TimedOut": false,
+            "Settled": true,
+            "ExitCode": 0,
+            "Failures": [],
+            "StdoutSha256": "8A1D44B7EE2D6CBCFA672F04D0097DBE5909BAF28AFEF5CB80DA5FE16461E492",
+            "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+          },
+          "ReceiptPath": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-cache-successor-execution1\\unused_declared_header_changed\\warm_after_change.exit.json",
+          "ReceiptSha256": "E79685FDE4E4F2A6F121EE691CC4406E85AAF5225A762D3B148BDD091D12ADF9",
+          "HelperRaised": null,
+          "NativeReceipts": [],
+          "Summary": {
+            "ExecutedCompilers": 0,
+            "Skipped": 1,
+            "Manifest": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-cache-successor-execution1\\unused_declared_header_changed\\compiled\\beam-build-state.json"
+          }
+        }
+      ]
+    },
+    {
+      "Name": "declared_header_added",
+      "Passed": true,
+      "ExpectedBeam": "same",
+      "Steps": [
+        {
+          "Step": "cold",
+          "Receipt": {
+            "Command": [
+              "C:\\Program Files\\dotnet\\dotnet.exe",
+              "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tools\\Erlang.BeamBuild\\bin\\Debug\\net10.0\\Erlang.BeamBuild.dll",
+              "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-cache-successor-execution1\\declared_header_added\\cold.request.json"
+            ],
+            "Pid": 284012,
+            "ElapsedSeconds": 12.64100000000326,
+            "TimedOut": false,
+            "Settled": true,
+            "ExitCode": 0,
+            "Failures": [],
+            "StdoutSha256": "20EE2D158BEF682BA872283A7AA10615A1A85AA2F75264289D9EEF75A1DEFD36",
+            "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+          },
+          "ReceiptPath": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-cache-successor-execution1\\declared_header_added\\cold.exit.json",
+          "ReceiptSha256": "C66178271F79FCBF26940FCFEB95F252FD1DB79E0C858C95DC191D131DB49ADF",
+          "HelperRaised": null,
+          "NativeReceipts": [
+            {
+              "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-cache-successor-execution1\\declared_header_added\\compiled\\.work-fb17f27383de491092ab2bc0251ff244\\driver-bootstrap\\compiler.process.json",
+              "Sha256": "07E3CEF25EE6008184F33CEAA5E335584553BED20308F6003C1CC0EF2C834912"
+            },
+            {
+              "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-cache-successor-execution1\\declared_header_added\\compiled\\.work-fb17f27383de491092ab2bc0251ff244\\modules\\cache_successor377\\compiler.process.json",
+              "Sha256": "1A75DBD45F71F2923E08FEFBD949749A5D0FB88A7361BEE828136AB7EEA2918C"
+            }
+          ],
+          "Summary": {
+            "ExecutedCompilers": 1,
+            "Skipped": 0,
+            "Manifest": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-cache-successor-execution1\\declared_header_added\\compiled\\beam-build-state.json"
+          }
+        },
+        {
+          "Step": "warm_baseline",
+          "Receipt": {
+            "Command": [
+              "C:\\Program Files\\dotnet\\dotnet.exe",
+              "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tools\\Erlang.BeamBuild\\bin\\Debug\\net10.0\\Erlang.BeamBuild.dll",
+              "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-cache-successor-execution1\\declared_header_added\\warm_baseline.request.json"
+            ],
+            "Pid": 280252,
+            "ElapsedSeconds": 4.171999999962281,
+            "TimedOut": false,
+            "Settled": true,
+            "ExitCode": 0,
+            "Failures": [],
+            "StdoutSha256": "BB4A059F9FB3B74E374F99614DE0E939DFFFCF03DCC0723C922C0CFD50B1F04B",
+            "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+          },
+          "ReceiptPath": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-cache-successor-execution1\\declared_header_added\\warm_baseline.exit.json",
+          "ReceiptSha256": "B1BA017373D30089A12EE9CCF1CF5E268F209602CF979C5C05D5BE51ACC57163",
+          "HelperRaised": null,
+          "NativeReceipts": [],
+          "Summary": {
+            "ExecutedCompilers": 0,
+            "Skipped": 1,
+            "Manifest": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-cache-successor-execution1\\declared_header_added\\compiled\\beam-build-state.json"
+          }
+        },
+        {
+          "Step": "mutated",
+          "Receipt": {
+            "Command": [
+              "C:\\Program Files\\dotnet\\dotnet.exe",
+              "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tools\\Erlang.BeamBuild\\bin\\Debug\\net10.0\\Erlang.BeamBuild.dll",
+              "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-cache-successor-execution1\\declared_header_added\\mutated.request.json"
+            ],
+            "Pid": 32840,
+            "ElapsedSeconds": 7.688000000023749,
+            "TimedOut": false,
+            "Settled": true,
+            "ExitCode": 0,
+            "Failures": [],
+            "StdoutSha256": "20EE2D158BEF682BA872283A7AA10615A1A85AA2F75264289D9EEF75A1DEFD36",
+            "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+          },
+          "ReceiptPath": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-cache-successor-execution1\\declared_header_added\\mutated.exit.json",
+          "ReceiptSha256": "C480DE5F4A564E26DB1776FDFBF799D399F2EAA3940A5F0B24E1370309A4B649",
+          "HelperRaised": null,
+          "NativeReceipts": [
+            {
+              "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-cache-successor-execution1\\declared_header_added\\compiled\\.work-a91d65266cb74dc78d67932e418f4fbd\\modules\\cache_successor377\\compiler.process.json",
+              "Sha256": "4251697CF4C250C1500CE4703F7D7A8729C86378D83D56092BFE4D26A3EFBB81"
+            }
+          ],
+          "Summary": {
+            "ExecutedCompilers": 1,
+            "Skipped": 0,
+            "Manifest": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-cache-successor-execution1\\declared_header_added\\compiled\\beam-build-state.json"
+          }
+        },
+        {
+          "Step": "warm_after_change",
+          "Receipt": {
+            "Command": [
+              "C:\\Program Files\\dotnet\\dotnet.exe",
+              "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tools\\Erlang.BeamBuild\\bin\\Debug\\net10.0\\Erlang.BeamBuild.dll",
+              "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-cache-successor-execution1\\declared_header_added\\warm_after_change.request.json"
+            ],
+            "Pid": 207292,
+            "ElapsedSeconds": 4.14100000000326,
+            "TimedOut": false,
+            "Settled": true,
+            "ExitCode": 0,
+            "Failures": [],
+            "StdoutSha256": "BB4A059F9FB3B74E374F99614DE0E939DFFFCF03DCC0723C922C0CFD50B1F04B",
+            "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+          },
+          "ReceiptPath": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-cache-successor-execution1\\declared_header_added\\warm_after_change.exit.json",
+          "ReceiptSha256": "9B1051BD6CF1069C3EE17EFFF3D3C4ECFB791E511898406264634D7BAAAF66DB",
+          "HelperRaised": null,
+          "NativeReceipts": [],
+          "Summary": {
+            "ExecutedCompilers": 0,
+            "Skipped": 1,
+            "Manifest": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-cache-successor-execution1\\declared_header_added\\compiled\\beam-build-state.json"
+          }
+        }
+      ]
+    },
+    {
+      "Name": "declared_header_removed",
+      "Passed": true,
+      "ExpectedBeam": "same",
+      "Steps": [
+        {
+          "Step": "cold",
+          "Receipt": {
+            "Command": [
+              "C:\\Program Files\\dotnet\\dotnet.exe",
+              "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tools\\Erlang.BeamBuild\\bin\\Debug\\net10.0\\Erlang.BeamBuild.dll",
+              "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-cache-successor-execution1\\declared_header_removed\\cold.request.json"
+            ],
+            "Pid": 243832,
+            "ElapsedSeconds": 9.702999999979511,
+            "TimedOut": false,
+            "Settled": true,
+            "ExitCode": 0,
+            "Failures": [],
+            "StdoutSha256": "755B7B8BF4E44A1DFFDBD129D2582B531FDD9678CC8D58E0FE450E26D2E11A5A",
+            "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+          },
+          "ReceiptPath": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-cache-successor-execution1\\declared_header_removed\\cold.exit.json",
+          "ReceiptSha256": "B7078B11BE470050BCD7DAD11536531902E20514CD7B80FBA1AD98E20D627589",
+          "HelperRaised": null,
+          "NativeReceipts": [
+            {
+              "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-cache-successor-execution1\\declared_header_removed\\compiled\\.work-07b974daa5454a1a99cea1825d1595f6\\driver-bootstrap\\compiler.process.json",
+              "Sha256": "9CCB95634DBB3AB67971414C5C1D5BE0BF50A1F8AB691A142D1A4632561A2717"
+            },
+            {
+              "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-cache-successor-execution1\\declared_header_removed\\compiled\\.work-07b974daa5454a1a99cea1825d1595f6\\modules\\cache_successor377\\compiler.process.json",
+              "Sha256": "E4B32FF77E07A4B96DBD51F95BB6CC63446D00E41BD5DC7F92ED9127DF2EB110"
+            }
+          ],
+          "Summary": {
+            "ExecutedCompilers": 1,
+            "Skipped": 0,
+            "Manifest": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-cache-successor-execution1\\declared_header_removed\\compiled\\beam-build-state.json"
+          }
+        },
+        {
+          "Step": "warm_baseline",
+          "Receipt": {
+            "Command": [
+              "C:\\Program Files\\dotnet\\dotnet.exe",
+              "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tools\\Erlang.BeamBuild\\bin\\Debug\\net10.0\\Erlang.BeamBuild.dll",
+              "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-cache-successor-execution1\\declared_header_removed\\warm_baseline.request.json"
+            ],
+            "Pid": 305268,
+            "ElapsedSeconds": 4.39100000000326,
+            "TimedOut": false,
+            "Settled": true,
+            "ExitCode": 0,
+            "Failures": [],
+            "StdoutSha256": "397F84848863995ECD94D0EB7761D7844FEFD3C31B2D05BE252FA9F18BE492DF",
+            "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+          },
+          "ReceiptPath": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-cache-successor-execution1\\declared_header_removed\\warm_baseline.exit.json",
+          "ReceiptSha256": "BEE5DAC937D519F9302F07241E7607BE5EA139C6E8AD52BF9FF373DB96B61F38",
+          "HelperRaised": null,
+          "NativeReceipts": [],
+          "Summary": {
+            "ExecutedCompilers": 0,
+            "Skipped": 1,
+            "Manifest": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-cache-successor-execution1\\declared_header_removed\\compiled\\beam-build-state.json"
+          }
+        },
+        {
+          "Step": "mutated",
+          "Receipt": {
+            "Command": [
+              "C:\\Program Files\\dotnet\\dotnet.exe",
+              "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tools\\Erlang.BeamBuild\\bin\\Debug\\net10.0\\Erlang.BeamBuild.dll",
+              "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-cache-successor-execution1\\declared_header_removed\\mutated.request.json"
+            ],
+            "Pid": 307976,
+            "ElapsedSeconds": 8.40600000001723,
+            "TimedOut": false,
+            "Settled": true,
+            "ExitCode": 0,
+            "Failures": [],
+            "StdoutSha256": "755B7B8BF4E44A1DFFDBD129D2582B531FDD9678CC8D58E0FE450E26D2E11A5A",
+            "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+          },
+          "ReceiptPath": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-cache-successor-execution1\\declared_header_removed\\mutated.exit.json",
+          "ReceiptSha256": "19B7C89E225CDB77B82663945157011ADF4F68BFC678719ACC8FDC8EB0903439",
+          "HelperRaised": null,
+          "NativeReceipts": [
+            {
+              "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-cache-successor-execution1\\declared_header_removed\\compiled\\.work-cc278c99a36842a8b7e9d605a850aed8\\modules\\cache_successor377\\compiler.process.json",
+              "Sha256": "C49F84C2C475EEF218DEE32982961A7D367171FB290181CC7B82A0CD96C526FB"
+            }
+          ],
+          "Summary": {
+            "ExecutedCompilers": 1,
+            "Skipped": 0,
+            "Manifest": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-cache-successor-execution1\\declared_header_removed\\compiled\\beam-build-state.json"
+          }
+        },
+        {
+          "Step": "warm_after_change",
+          "Receipt": {
+            "Command": [
+              "C:\\Program Files\\dotnet\\dotnet.exe",
+              "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tools\\Erlang.BeamBuild\\bin\\Debug\\net10.0\\Erlang.BeamBuild.dll",
+              "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-cache-successor-execution1\\declared_header_removed\\warm_after_change.request.json"
+            ],
+            "Pid": 265376,
+            "ElapsedSeconds": 4.860000000044238,
+            "TimedOut": false,
+            "Settled": true,
+            "ExitCode": 0,
+            "Failures": [],
+            "StdoutSha256": "397F84848863995ECD94D0EB7761D7844FEFD3C31B2D05BE252FA9F18BE492DF",
+            "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+          },
+          "ReceiptPath": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-cache-successor-execution1\\declared_header_removed\\warm_after_change.exit.json",
+          "ReceiptSha256": "A5A578F3514F4AF1B8E23BF91D09D369EED730E2A605D5A3B201D41972546CEA",
+          "HelperRaised": null,
+          "NativeReceipts": [],
+          "Summary": {
+            "ExecutedCompilers": 0,
+            "Skipped": 1,
+            "Manifest": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-cache-successor-execution1\\declared_header_removed\\compiled\\beam-build-state.json"
+          }
+        }
+      ]
+    },
+    {
+      "Name": "macro_kind_atom_to_string_same_text",
+      "Passed": true,
+      "ExpectedBeam": "different",
+      "Steps": [
+        {
+          "Step": "cold",
+          "Receipt": {
+            "Command": [
+              "C:\\Program Files\\dotnet\\dotnet.exe",
+              "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tools\\Erlang.BeamBuild\\bin\\Debug\\net10.0\\Erlang.BeamBuild.dll",
+              "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-cache-successor-execution1\\macro_kind_atom_to_string_same_text\\cold.request.json"
+            ],
+            "Pid": 278512,
+            "ElapsedSeconds": 10.313000000023749,
+            "TimedOut": false,
+            "Settled": true,
+            "ExitCode": 0,
+            "Failures": [],
+            "StdoutSha256": "495D27845D008305BEECE681E0797185AA5393A42BDBCBA9ADF225CB47558487",
+            "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+          },
+          "ReceiptPath": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-cache-successor-execution1\\macro_kind_atom_to_string_same_text\\cold.exit.json",
+          "ReceiptSha256": "77D8AE0E32D08C28C695440341E95D7A54C48B59D559592EC30FE30FFECCCBCE",
+          "HelperRaised": null,
+          "NativeReceipts": [
+            {
+              "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-cache-successor-execution1\\macro_kind_atom_to_string_same_text\\compiled\\.work-0c54b70a00064152863f5c6159b4474d\\driver-bootstrap\\compiler.process.json",
+              "Sha256": "4EC318F191E2084D86B786733AE1ACCB662E09CA9742AF5DFB78CD23149D8143"
+            },
+            {
+              "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-cache-successor-execution1\\macro_kind_atom_to_string_same_text\\compiled\\.work-0c54b70a00064152863f5c6159b4474d\\modules\\cache_successor377\\compiler.process.json",
+              "Sha256": "BE820A216C562BF67406BF0AA662BEC127322BBDE6936584910CEDAC95DF9FBB"
+            }
+          ],
+          "Summary": {
+            "ExecutedCompilers": 1,
+            "Skipped": 0,
+            "Manifest": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-cache-successor-execution1\\macro_kind_atom_to_string_same_text\\compiled\\beam-build-state.json"
+          }
+        },
+        {
+          "Step": "warm_baseline",
+          "Receipt": {
+            "Command": [
+              "C:\\Program Files\\dotnet\\dotnet.exe",
+              "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tools\\Erlang.BeamBuild\\bin\\Debug\\net10.0\\Erlang.BeamBuild.dll",
+              "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-cache-successor-execution1\\macro_kind_atom_to_string_same_text\\warm_baseline.request.json"
+            ],
+            "Pid": 306288,
+            "ElapsedSeconds": 4.562999999965541,
+            "TimedOut": false,
+            "Settled": true,
+            "ExitCode": 0,
+            "Failures": [],
+            "StdoutSha256": "C651C84450DE3F3C1869FE95905667BF31D88D80D2D6BF06354C3D4125C82C00",
+            "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+          },
+          "ReceiptPath": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-cache-successor-execution1\\macro_kind_atom_to_string_same_text\\warm_baseline.exit.json",
+          "ReceiptSha256": "E3DFDD87EC07EB87C1D3B6B51A96A3E84FE84D168294A4F950B91E425A86A854",
+          "HelperRaised": null,
+          "NativeReceipts": [],
+          "Summary": {
+            "ExecutedCompilers": 0,
+            "Skipped": 1,
+            "Manifest": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-cache-successor-execution1\\macro_kind_atom_to_string_same_text\\compiled\\beam-build-state.json"
+          }
+        },
+        {
+          "Step": "mutated",
+          "Receipt": {
+            "Command": [
+              "C:\\Program Files\\dotnet\\dotnet.exe",
+              "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tools\\Erlang.BeamBuild\\bin\\Debug\\net10.0\\Erlang.BeamBuild.dll",
+              "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-cache-successor-execution1\\macro_kind_atom_to_string_same_text\\mutated.request.json"
+            ],
+            "Pid": 305000,
+            "ElapsedSeconds": 8.125,
+            "TimedOut": false,
+            "Settled": true,
+            "ExitCode": 0,
+            "Failures": [],
+            "StdoutSha256": "495D27845D008305BEECE681E0797185AA5393A42BDBCBA9ADF225CB47558487",
+            "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+          },
+          "ReceiptPath": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-cache-successor-execution1\\macro_kind_atom_to_string_same_text\\mutated.exit.json",
+          "ReceiptSha256": "00053F60109B00E34B0A14E41530A6C8532D1257B3A959436FC9B39A8941A40B",
+          "HelperRaised": null,
+          "NativeReceipts": [
+            {
+              "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-cache-successor-execution1\\macro_kind_atom_to_string_same_text\\compiled\\.work-45bee83eaf6046d4934c7731ea6fc9f2\\modules\\cache_successor377\\compiler.process.json",
+              "Sha256": "67E723EF722FEC78CCE0397D755C475C884A2DED39C814D2B13B6DD312250E0F"
+            }
+          ],
+          "Summary": {
+            "ExecutedCompilers": 1,
+            "Skipped": 0,
+            "Manifest": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-cache-successor-execution1\\macro_kind_atom_to_string_same_text\\compiled\\beam-build-state.json"
+          }
+        },
+        {
+          "Step": "warm_after_change",
+          "Receipt": {
+            "Command": [
+              "C:\\Program Files\\dotnet\\dotnet.exe",
+              "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tools\\Erlang.BeamBuild\\bin\\Debug\\net10.0\\Erlang.BeamBuild.dll",
+              "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-cache-successor-execution1\\macro_kind_atom_to_string_same_text\\warm_after_change.request.json"
+            ],
+            "Pid": 278116,
+            "ElapsedSeconds": 4.0939999999827705,
+            "TimedOut": false,
+            "Settled": true,
+            "ExitCode": 0,
+            "Failures": [],
+            "StdoutSha256": "C651C84450DE3F3C1869FE95905667BF31D88D80D2D6BF06354C3D4125C82C00",
+            "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+          },
+          "ReceiptPath": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-cache-successor-execution1\\macro_kind_atom_to_string_same_text\\warm_after_change.exit.json",
+          "ReceiptSha256": "C663A3F9A8CAC4028C9912668D1163D5F414C71623C1D365D663B87A8CB7E0BB",
+          "HelperRaised": null,
+          "NativeReceipts": [],
+          "Summary": {
+            "ExecutedCompilers": 0,
+            "Skipped": 1,
+            "Manifest": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-cache-successor-execution1\\macro_kind_atom_to_string_same_text\\compiled\\beam-build-state.json"
+          }
+        }
+      ]
+    },
+    {
+      "Name": "macro_omitted_ifdef_fallback",
+      "Passed": true,
+      "ExpectedBeam": "different",
+      "Steps": [
+        {
+          "Step": "cold",
+          "Receipt": {
+            "Command": [
+              "C:\\Program Files\\dotnet\\dotnet.exe",
+              "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tools\\Erlang.BeamBuild\\bin\\Debug\\net10.0\\Erlang.BeamBuild.dll",
+              "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-cache-successor-execution1\\macro_omitted_ifdef_fallback\\cold.request.json"
+            ],
+            "Pid": 236288,
+            "ElapsedSeconds": 10.71899999998277,
+            "TimedOut": false,
+            "Settled": true,
+            "ExitCode": 0,
+            "Failures": [],
+            "StdoutSha256": "0545CF04F853113D134EFEC9E6CE1522C9C70E99DA6310A57AF26BB58B3A06C2",
+            "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+          },
+          "ReceiptPath": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-cache-successor-execution1\\macro_omitted_ifdef_fallback\\cold.exit.json",
+          "ReceiptSha256": "FF9E51024E10153BFF849C0D591B9522EBD52F4DC02D9CB9C07D412C41DBED38",
+          "HelperRaised": null,
+          "NativeReceipts": [
+            {
+              "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-cache-successor-execution1\\macro_omitted_ifdef_fallback\\compiled\\.work-9be4bed23a734d279490d4d993d380e4\\driver-bootstrap\\compiler.process.json",
+              "Sha256": "05B36FF0FD6A83EC55EC84FA8FB9EE658258D4CA9C96FBE4F05546D1EFCA415D"
+            },
+            {
+              "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-cache-successor-execution1\\macro_omitted_ifdef_fallback\\compiled\\.work-9be4bed23a734d279490d4d993d380e4\\modules\\cache_successor377\\compiler.process.json",
+              "Sha256": "B1B07A60C044AE757649DDFE3F72AA509416070C5EC79283D2A0AEC14E274E04"
+            }
+          ],
+          "Summary": {
+            "ExecutedCompilers": 1,
+            "Skipped": 0,
+            "Manifest": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-cache-successor-execution1\\macro_omitted_ifdef_fallback\\compiled\\beam-build-state.json"
+          }
+        },
+        {
+          "Step": "warm_baseline",
+          "Receipt": {
+            "Command": [
+              "C:\\Program Files\\dotnet\\dotnet.exe",
+              "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tools\\Erlang.BeamBuild\\bin\\Debug\\net10.0\\Erlang.BeamBuild.dll",
+              "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-cache-successor-execution1\\macro_omitted_ifdef_fallback\\warm_baseline.request.json"
+            ],
+            "Pid": 305460,
+            "ElapsedSeconds": 4.48399999999674,
+            "TimedOut": false,
+            "Settled": true,
+            "ExitCode": 0,
+            "Failures": [],
+            "StdoutSha256": "B7DF18FD7E405CB43E7A9763C9DFF8779212F1641D89D1CCB38FE8D7AA5AD158",
+            "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+          },
+          "ReceiptPath": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-cache-successor-execution1\\macro_omitted_ifdef_fallback\\warm_baseline.exit.json",
+          "ReceiptSha256": "B88C87910E41B39D3EECBE64E2D6683931CADFEFDCAB18D02C2B972262091F38",
+          "HelperRaised": null,
+          "NativeReceipts": [],
+          "Summary": {
+            "ExecutedCompilers": 0,
+            "Skipped": 1,
+            "Manifest": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-cache-successor-execution1\\macro_omitted_ifdef_fallback\\compiled\\beam-build-state.json"
+          }
+        },
+        {
+          "Step": "mutated",
+          "Receipt": {
+            "Command": [
+              "C:\\Program Files\\dotnet\\dotnet.exe",
+              "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tools\\Erlang.BeamBuild\\bin\\Debug\\net10.0\\Erlang.BeamBuild.dll",
+              "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-cache-successor-execution1\\macro_omitted_ifdef_fallback\\mutated.request.json"
+            ],
+            "Pid": 308212,
+            "ElapsedSeconds": 8.188000000023749,
+            "TimedOut": false,
+            "Settled": true,
+            "ExitCode": 0,
+            "Failures": [],
+            "StdoutSha256": "0545CF04F853113D134EFEC9E6CE1522C9C70E99DA6310A57AF26BB58B3A06C2",
+            "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+          },
+          "ReceiptPath": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-cache-successor-execution1\\macro_omitted_ifdef_fallback\\mutated.exit.json",
+          "ReceiptSha256": "AB9597059EA76B883A8B88DDEDFD5C8632DFB8C8BFFD294020C7858E967C7711",
+          "HelperRaised": null,
+          "NativeReceipts": [
+            {
+              "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-cache-successor-execution1\\macro_omitted_ifdef_fallback\\compiled\\.work-28c4543697fd45768679584e118f01aa\\modules\\cache_successor377\\compiler.process.json",
+              "Sha256": "F11CE684E7C10E8E5C37A361342AD839BD620A5154BDBD77C174E00E6E36D93E"
+            }
+          ],
+          "Summary": {
+            "ExecutedCompilers": 1,
+            "Skipped": 0,
+            "Manifest": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-cache-successor-execution1\\macro_omitted_ifdef_fallback\\compiled\\beam-build-state.json"
+          }
+        },
+        {
+          "Step": "warm_after_change",
+          "Receipt": {
+            "Command": [
+              "C:\\Program Files\\dotnet\\dotnet.exe",
+              "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tools\\Erlang.BeamBuild\\bin\\Debug\\net10.0\\Erlang.BeamBuild.dll",
+              "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-cache-successor-execution1\\macro_omitted_ifdef_fallback\\warm_after_change.request.json"
+            ],
+            "Pid": 300028,
+            "ElapsedSeconds": 4.157000000006519,
+            "TimedOut": false,
+            "Settled": true,
+            "ExitCode": 0,
+            "Failures": [],
+            "StdoutSha256": "B7DF18FD7E405CB43E7A9763C9DFF8779212F1641D89D1CCB38FE8D7AA5AD158",
+            "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+          },
+          "ReceiptPath": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-cache-successor-execution1\\macro_omitted_ifdef_fallback\\warm_after_change.exit.json",
+          "ReceiptSha256": "EF355663D89D4269164F0C0E30EB66B5B63868675BCBC0B4C119B9048AB4AD5D",
+          "HelperRaised": null,
+          "NativeReceipts": [],
+          "Summary": {
+            "ExecutedCompilers": 0,
+            "Skipped": 1,
+            "Manifest": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-cache-successor-execution1\\macro_omitted_ifdef_fallback\\compiled\\beam-build-state.json"
+          }
+        }
+      ]
+    },
+    {
+      "Name": "shadow_include_root_order",
+      "Passed": true,
+      "ExpectedBeam": "different",
+      "Steps": [
+        {
+          "Step": "cold",
+          "Receipt": {
+            "Command": [
+              "C:\\Program Files\\dotnet\\dotnet.exe",
+              "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tools\\Erlang.BeamBuild\\bin\\Debug\\net10.0\\Erlang.BeamBuild.dll",
+              "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-cache-successor-execution1\\shadow_include_root_order\\cold.request.json"
+            ],
+            "Pid": 293368,
+            "ElapsedSeconds": 10.297000000020489,
+            "TimedOut": false,
+            "Settled": true,
+            "ExitCode": 0,
+            "Failures": [],
+            "StdoutSha256": "3FE4EF4BD8D1AC993A8E6E4A89769349B0B4338F1C8318E5B26A6A13D44F1570",
+            "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+          },
+          "ReceiptPath": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-cache-successor-execution1\\shadow_include_root_order\\cold.exit.json",
+          "ReceiptSha256": "F5529A79D3B9818FA70E15B12DB6364DB331F97CD409D2E526E9A9D4AB92FACC",
+          "HelperRaised": null,
+          "NativeReceipts": [
+            {
+              "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-cache-successor-execution1\\shadow_include_root_order\\compiled\\.work-bf682afbc40140a5be8ddeb70a8e445b\\driver-bootstrap\\compiler.process.json",
+              "Sha256": "6A87B27872142673E4500E5E6948565E534DF684FDD212ED0C5FF0F818049282"
+            },
+            {
+              "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-cache-successor-execution1\\shadow_include_root_order\\compiled\\.work-bf682afbc40140a5be8ddeb70a8e445b\\modules\\cache_successor377\\compiler.process.json",
+              "Sha256": "0A769FDB9D37F5944B4AF50765AFB654D25BD5DFA781AAAA41A32E90433D77BD"
+            }
+          ],
+          "Summary": {
+            "ExecutedCompilers": 1,
+            "Skipped": 0,
+            "Manifest": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-cache-successor-execution1\\shadow_include_root_order\\compiled\\beam-build-state.json"
+          }
+        },
+        {
+          "Step": "warm_baseline",
+          "Receipt": {
+            "Command": [
+              "C:\\Program Files\\dotnet\\dotnet.exe",
+              "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tools\\Erlang.BeamBuild\\bin\\Debug\\net10.0\\Erlang.BeamBuild.dll",
+              "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-cache-successor-execution1\\shadow_include_root_order\\warm_baseline.request.json"
+            ],
+            "Pid": 285284,
+            "ElapsedSeconds": 3.9689999999827705,
+            "TimedOut": false,
+            "Settled": true,
+            "ExitCode": 0,
+            "Failures": [],
+            "StdoutSha256": "0124796D154D865CFB2EA9D1AF8D5E1D0BF094456CC2215F9F09EA8A7E5831EB",
+            "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+          },
+          "ReceiptPath": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-cache-successor-execution1\\shadow_include_root_order\\warm_baseline.exit.json",
+          "ReceiptSha256": "755D32A53F6718980C7AF915F95645DE33CBB824F62D4D967350341BA6994514",
+          "HelperRaised": null,
+          "NativeReceipts": [],
+          "Summary": {
+            "ExecutedCompilers": 0,
+            "Skipped": 1,
+            "Manifest": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-cache-successor-execution1\\shadow_include_root_order\\compiled\\beam-build-state.json"
+          }
+        },
+        {
+          "Step": "mutated",
+          "Receipt": {
+            "Command": [
+              "C:\\Program Files\\dotnet\\dotnet.exe",
+              "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tools\\Erlang.BeamBuild\\bin\\Debug\\net10.0\\Erlang.BeamBuild.dll",
+              "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-cache-successor-execution1\\shadow_include_root_order\\mutated.request.json"
+            ],
+            "Pid": 305344,
+            "ElapsedSeconds": 7.9060000000172295,
+            "TimedOut": false,
+            "Settled": true,
+            "ExitCode": 0,
+            "Failures": [],
+            "StdoutSha256": "3FE4EF4BD8D1AC993A8E6E4A89769349B0B4338F1C8318E5B26A6A13D44F1570",
+            "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+          },
+          "ReceiptPath": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-cache-successor-execution1\\shadow_include_root_order\\mutated.exit.json",
+          "ReceiptSha256": "5059DB055CF8A8A06A69D455141C1B6B0A1738313412F8E59F0AE21B9B8666E4",
+          "HelperRaised": null,
+          "NativeReceipts": [
+            {
+              "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-cache-successor-execution1\\shadow_include_root_order\\compiled\\.work-bc5212abb24b4e8c80f517d2a55587cf\\modules\\cache_successor377\\compiler.process.json",
+              "Sha256": "AC5B813346074F5FDD420ED12B8BE42E187826EDE96211A46DCC1D6417E8AA3E"
+            }
+          ],
+          "Summary": {
+            "ExecutedCompilers": 1,
+            "Skipped": 0,
+            "Manifest": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-cache-successor-execution1\\shadow_include_root_order\\compiled\\beam-build-state.json"
+          }
+        },
+        {
+          "Step": "warm_after_change",
+          "Receipt": {
+            "Command": [
+              "C:\\Program Files\\dotnet\\dotnet.exe",
+              "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tools\\Erlang.BeamBuild\\bin\\Debug\\net10.0\\Erlang.BeamBuild.dll",
+              "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-cache-successor-execution1\\shadow_include_root_order\\warm_after_change.request.json"
+            ],
+            "Pid": 307896,
+            "ElapsedSeconds": 3.9689999999827705,
+            "TimedOut": false,
+            "Settled": true,
+            "ExitCode": 0,
+            "Failures": [],
+            "StdoutSha256": "0124796D154D865CFB2EA9D1AF8D5E1D0BF094456CC2215F9F09EA8A7E5831EB",
+            "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+          },
+          "ReceiptPath": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-cache-successor-execution1\\shadow_include_root_order\\warm_after_change.exit.json",
+          "ReceiptSha256": "0B8A313CC09950409ECCCBAD45C0169B10DCAA964CE11D71F940898007474FEF",
+          "HelperRaised": null,
+          "NativeReceipts": [],
+          "Summary": {
+            "ExecutedCompilers": 0,
+            "Skipped": 1,
+            "Manifest": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-cache-successor-execution1\\shadow_include_root_order\\compiled\\beam-build-state.json"
+          }
+        }
+      ]
+    },
+    {
+      "Name": "final_output_tampered",
+      "Passed": true,
+      "ExpectedBeam": "same",
+      "Steps": [
+        {
+          "Step": "cold",
+          "Receipt": {
+            "Command": [
+              "C:\\Program Files\\dotnet\\dotnet.exe",
+              "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tools\\Erlang.BeamBuild\\bin\\Debug\\net10.0\\Erlang.BeamBuild.dll",
+              "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-cache-successor-execution1\\final_output_tampered\\cold.request.json"
+            ],
+            "Pid": 309576,
+            "ElapsedSeconds": 9.186999999976251,
+            "TimedOut": false,
+            "Settled": true,
+            "ExitCode": 0,
+            "Failures": [],
+            "StdoutSha256": "AAD783CC634758F3EB8254D8CB8831FA581DB184F0362F2A43E61189C793698B",
+            "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+          },
+          "ReceiptPath": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-cache-successor-execution1\\final_output_tampered\\cold.exit.json",
+          "ReceiptSha256": "EE7B784EEC1DDA0D1C1D0C2918B704D199BFD18BD26F3DA184D3D197DF1200C3",
+          "HelperRaised": null,
+          "NativeReceipts": [
+            {
+              "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-cache-successor-execution1\\final_output_tampered\\compiled\\.work-5fdd383209404a5998564e3210a2331b\\driver-bootstrap\\compiler.process.json",
+              "Sha256": "812D14F1BC01159EA939D8A2FF0B843BB55A3C8E48A4AE57310A4785987EF40E"
+            },
+            {
+              "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-cache-successor-execution1\\final_output_tampered\\compiled\\.work-5fdd383209404a5998564e3210a2331b\\modules\\cache_successor377\\compiler.process.json",
+              "Sha256": "7DF9FDA46B67648DA7B36C3A0A9D3ED51E7351C481134CB5479FD5F0EDB01DBA"
+            }
+          ],
+          "Summary": {
+            "ExecutedCompilers": 1,
+            "Skipped": 0,
+            "Manifest": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-cache-successor-execution1\\final_output_tampered\\compiled\\beam-build-state.json"
+          }
+        },
+        {
+          "Step": "warm_baseline",
+          "Receipt": {
+            "Command": [
+              "C:\\Program Files\\dotnet\\dotnet.exe",
+              "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tools\\Erlang.BeamBuild\\bin\\Debug\\net10.0\\Erlang.BeamBuild.dll",
+              "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-cache-successor-execution1\\final_output_tampered\\warm_baseline.request.json"
+            ],
+            "Pid": 89144,
+            "ElapsedSeconds": 4.062000000034459,
+            "TimedOut": false,
+            "Settled": true,
+            "ExitCode": 0,
+            "Failures": [],
+            "StdoutSha256": "48FDEBD415A32340FDB18A7D9F2C15CE95E61CA5A1E72E4920085ABB45277242",
+            "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+          },
+          "ReceiptPath": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-cache-successor-execution1\\final_output_tampered\\warm_baseline.exit.json",
+          "ReceiptSha256": "CA7A93E4F03AB52990B70C50CDCD73FD99BC73899CF648092104D8A22B7DAB64",
+          "HelperRaised": null,
+          "NativeReceipts": [],
+          "Summary": {
+            "ExecutedCompilers": 0,
+            "Skipped": 1,
+            "Manifest": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-cache-successor-execution1\\final_output_tampered\\compiled\\beam-build-state.json"
+          }
+        },
+        {
+          "Step": "mutated",
+          "Receipt": {
+            "Command": [
+              "C:\\Program Files\\dotnet\\dotnet.exe",
+              "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tools\\Erlang.BeamBuild\\bin\\Debug\\net10.0\\Erlang.BeamBuild.dll",
+              "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-cache-successor-execution1\\final_output_tampered\\mutated.request.json"
+            ],
+            "Pid": 22948,
+            "ElapsedSeconds": 8.796999999962281,
+            "TimedOut": false,
+            "Settled": true,
+            "ExitCode": 0,
+            "Failures": [],
+            "StdoutSha256": "AAD783CC634758F3EB8254D8CB8831FA581DB184F0362F2A43E61189C793698B",
+            "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+          },
+          "ReceiptPath": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-cache-successor-execution1\\final_output_tampered\\mutated.exit.json",
+          "ReceiptSha256": "BF4244433AE7CE9F89FA749A96EE8916623A72988908D45EC29861D43BE3105E",
+          "HelperRaised": null,
+          "NativeReceipts": [
+            {
+              "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-cache-successor-execution1\\final_output_tampered\\compiled\\.work-722054b7e8dd46d7b4207faf99d39b8e\\modules\\cache_successor377\\compiler.process.json",
+              "Sha256": "EA272792368712B2F1DE94453C7F561D8291037B20C6DC1612DE169BBB489028"
+            }
+          ],
+          "Summary": {
+            "ExecutedCompilers": 1,
+            "Skipped": 0,
+            "Manifest": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-cache-successor-execution1\\final_output_tampered\\compiled\\beam-build-state.json"
+          }
+        },
+        {
+          "Step": "warm_after_change",
+          "Receipt": {
+            "Command": [
+              "C:\\Program Files\\dotnet\\dotnet.exe",
+              "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tools\\Erlang.BeamBuild\\bin\\Debug\\net10.0\\Erlang.BeamBuild.dll",
+              "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-cache-successor-execution1\\final_output_tampered\\warm_after_change.request.json"
+            ],
+            "Pid": 235484,
+            "ElapsedSeconds": 3.922000000020489,
+            "TimedOut": false,
+            "Settled": true,
+            "ExitCode": 0,
+            "Failures": [],
+            "StdoutSha256": "48FDEBD415A32340FDB18A7D9F2C15CE95E61CA5A1E72E4920085ABB45277242",
+            "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+          },
+          "ReceiptPath": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-cache-successor-execution1\\final_output_tampered\\warm_after_change.exit.json",
+          "ReceiptSha256": "9A55B026FAD2975423C68670AFE4B263F7EBF40CBB65531B20545AAB24F083E2",
+          "HelperRaised": null,
+          "NativeReceipts": [],
+          "Summary": {
+            "ExecutedCompilers": 0,
+            "Skipped": 1,
+            "Manifest": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-cache-successor-execution1\\final_output_tampered\\compiled\\beam-build-state.json"
+          }
+        }
+      ]
+    },
+    {
+      "Name": "prior_row_configuration_tampered",
+      "Passed": true,
+      "ExpectedBeam": "same",
+      "Steps": [
+        {
+          "Step": "cold",
+          "Receipt": {
+            "Command": [
+              "C:\\Program Files\\dotnet\\dotnet.exe",
+              "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tools\\Erlang.BeamBuild\\bin\\Debug\\net10.0\\Erlang.BeamBuild.dll",
+              "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-cache-successor-execution1\\prior_row_configuration_tampered\\cold.request.json"
+            ],
+            "Pid": 309496,
+            "ElapsedSeconds": 9.75,
+            "TimedOut": false,
+            "Settled": true,
+            "ExitCode": 0,
+            "Failures": [],
+            "StdoutSha256": "76F5547202C0A4EF820229A731EE6BAF638972FF6F8F17D5D91D20437526454B",
+            "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+          },
+          "ReceiptPath": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-cache-successor-execution1\\prior_row_configuration_tampered\\cold.exit.json",
+          "ReceiptSha256": "F570EF588D6F3C191F2782A94FF2C22490FD4220D83F9DC0FB36B909549B771C",
+          "HelperRaised": null,
+          "NativeReceipts": [
+            {
+              "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-cache-successor-execution1\\prior_row_configuration_tampered\\compiled\\.work-73ad8f7e38a143528dfaf507c8fedb63\\driver-bootstrap\\compiler.process.json",
+              "Sha256": "4E9BA478ABD6E555C15CC8C6A79EAA3881D00D565DBE96CC44794A350AEDF29B"
+            },
+            {
+              "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-cache-successor-execution1\\prior_row_configuration_tampered\\compiled\\.work-73ad8f7e38a143528dfaf507c8fedb63\\modules\\cache_successor377\\compiler.process.json",
+              "Sha256": "CD7AB34856B8DDE754C938B42B3DBF861B6397ED7016AA6DE5B39C4592D651F2"
+            }
+          ],
+          "Summary": {
+            "ExecutedCompilers": 1,
+            "Skipped": 0,
+            "Manifest": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-cache-successor-execution1\\prior_row_configuration_tampered\\compiled\\beam-build-state.json"
+          }
+        },
+        {
+          "Step": "warm_baseline",
+          "Receipt": {
+            "Command": [
+              "C:\\Program Files\\dotnet\\dotnet.exe",
+              "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tools\\Erlang.BeamBuild\\bin\\Debug\\net10.0\\Erlang.BeamBuild.dll",
+              "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-cache-successor-execution1\\prior_row_configuration_tampered\\warm_baseline.request.json"
+            ],
+            "Pid": 310228,
+            "ElapsedSeconds": 4.375,
+            "TimedOut": false,
+            "Settled": true,
+            "ExitCode": 0,
+            "Failures": [],
+            "StdoutSha256": "6DE0C35796D11E3B024BAEA7A25A3A7EF8A4A97D8F8C7FFAF0DD344CC7EC6A0A",
+            "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+          },
+          "ReceiptPath": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-cache-successor-execution1\\prior_row_configuration_tampered\\warm_baseline.exit.json",
+          "ReceiptSha256": "AB2DBE0C4E7E07EC1D3B6CF1546376D9117A3F24831E902134AD2B99B7059733",
+          "HelperRaised": null,
+          "NativeReceipts": [],
+          "Summary": {
+            "ExecutedCompilers": 0,
+            "Skipped": 1,
+            "Manifest": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-cache-successor-execution1\\prior_row_configuration_tampered\\compiled\\beam-build-state.json"
+          }
+        },
+        {
+          "Step": "mutated",
+          "Receipt": {
+            "Command": [
+              "C:\\Program Files\\dotnet\\dotnet.exe",
+              "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tools\\Erlang.BeamBuild\\bin\\Debug\\net10.0\\Erlang.BeamBuild.dll",
+              "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-cache-successor-execution1\\prior_row_configuration_tampered\\mutated.request.json"
+            ],
+            "Pid": 278784,
+            "ElapsedSeconds": 7.48399999999674,
+            "TimedOut": false,
+            "Settled": true,
+            "ExitCode": 0,
+            "Failures": [],
+            "StdoutSha256": "76F5547202C0A4EF820229A731EE6BAF638972FF6F8F17D5D91D20437526454B",
+            "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+          },
+          "ReceiptPath": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-cache-successor-execution1\\prior_row_configuration_tampered\\mutated.exit.json",
+          "ReceiptSha256": "CC2804F36BFF12EB7C7D69A55D9C379EE17E9623D5401CA5C5A239422575B984",
+          "HelperRaised": null,
+          "NativeReceipts": [
+            {
+              "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-cache-successor-execution1\\prior_row_configuration_tampered\\compiled\\.work-02b42db2588a4b9e8ea71c98716ccabc\\modules\\cache_successor377\\compiler.process.json",
+              "Sha256": "87964BC45008C2247BDC04BE74BC4DD038DE4A19348D79E7FAB6CAA628B77E03"
+            }
+          ],
+          "Summary": {
+            "ExecutedCompilers": 1,
+            "Skipped": 0,
+            "Manifest": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-cache-successor-execution1\\prior_row_configuration_tampered\\compiled\\beam-build-state.json"
+          }
+        },
+        {
+          "Step": "warm_after_change",
+          "Receipt": {
+            "Command": [
+              "C:\\Program Files\\dotnet\\dotnet.exe",
+              "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tools\\Erlang.BeamBuild\\bin\\Debug\\net10.0\\Erlang.BeamBuild.dll",
+              "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-cache-successor-execution1\\prior_row_configuration_tampered\\warm_after_change.request.json"
+            ],
+            "Pid": 232212,
+            "ElapsedSeconds": 4.047000000020489,
+            "TimedOut": false,
+            "Settled": true,
+            "ExitCode": 0,
+            "Failures": [],
+            "StdoutSha256": "6DE0C35796D11E3B024BAEA7A25A3A7EF8A4A97D8F8C7FFAF0DD344CC7EC6A0A",
+            "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+          },
+          "ReceiptPath": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-cache-successor-execution1\\prior_row_configuration_tampered\\warm_after_change.exit.json",
+          "ReceiptSha256": "DF9837B6F31BDF027F768E1482E03C670209858CF62DD60F0D4FD5CD589FD78E",
+          "HelperRaised": null,
+          "NativeReceipts": [],
+          "Summary": {
+            "ExecutedCompilers": 0,
+            "Skipped": 1,
+            "Manifest": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-cache-successor-execution1\\prior_row_configuration_tampered\\compiled\\beam-build-state.json"
+          }
+        }
+      ]
+    },
+    {
+      "Name": "cached_driver_beam_tampered",
+      "Passed": true,
+      "ExpectedBeam": "trusted_recovery",
+      "Steps": [
+        {
+          "Step": "cold",
+          "Receipt": {
+            "Command": [
+              "C:\\Program Files\\dotnet\\dotnet.exe",
+              "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tools\\Erlang.BeamBuild\\bin\\Debug\\net10.0\\Erlang.BeamBuild.dll",
+              "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-cache-successor-execution1\\cached_driver_beam_tampered\\cold.request.json"
+            ],
+            "Pid": 131384,
+            "ElapsedSeconds": 9.670999999972992,
+            "TimedOut": false,
+            "Settled": true,
+            "ExitCode": 0,
+            "Failures": [],
+            "StdoutSha256": "A614288FCF88C05BA1EE350D84909CF3958A84B8A3F9991007EC15A0A8B4846E",
+            "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+          },
+          "ReceiptPath": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-cache-successor-execution1\\cached_driver_beam_tampered\\cold.exit.json",
+          "ReceiptSha256": "F813AD4EB2C5077253163170F672F81D81F82FBF79AAF4792F26A1471CAE3A46",
+          "HelperRaised": null,
+          "NativeReceipts": [
+            {
+              "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-cache-successor-execution1\\cached_driver_beam_tampered\\compiled\\.work-0e946499dec843ffa99d7f3cbc6810bf\\driver-bootstrap\\compiler.process.json",
+              "Sha256": "59B46ECBBC006A7E6B687FB1B0D82A563BDD0160E10971E96CED15A8491B5D76"
+            },
+            {
+              "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-cache-successor-execution1\\cached_driver_beam_tampered\\compiled\\.work-0e946499dec843ffa99d7f3cbc6810bf\\modules\\cache_successor377\\compiler.process.json",
+              "Sha256": "223A491F291C1EA449AC5CA9363590C2581C62D89EA7840CCDB625590983CB74"
+            }
+          ],
+          "Summary": {
+            "ExecutedCompilers": 1,
+            "Skipped": 0,
+            "Manifest": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-cache-successor-execution1\\cached_driver_beam_tampered\\compiled\\beam-build-state.json"
+          }
+        },
+        {
+          "Step": "warm_baseline",
+          "Receipt": {
+            "Command": [
+              "C:\\Program Files\\dotnet\\dotnet.exe",
+              "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tools\\Erlang.BeamBuild\\bin\\Debug\\net10.0\\Erlang.BeamBuild.dll",
+              "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-cache-successor-execution1\\cached_driver_beam_tampered\\warm_baseline.request.json"
+            ],
+            "Pid": 88224,
+            "ElapsedSeconds": 3.8589999999967404,
+            "TimedOut": false,
+            "Settled": true,
+            "ExitCode": 0,
+            "Failures": [],
+            "StdoutSha256": "9F1232180F1141AEA407D312EA6F782237096BE06C76E3DAE115890832387469",
+            "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+          },
+          "ReceiptPath": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-cache-successor-execution1\\cached_driver_beam_tampered\\warm_baseline.exit.json",
+          "ReceiptSha256": "31F7EFF28A5237AFBC12739C492CBCAB67BE8FE8A224849C0B402900CE36EE82",
+          "HelperRaised": null,
+          "NativeReceipts": [],
+          "Summary": {
+            "ExecutedCompilers": 0,
+            "Skipped": 1,
+            "Manifest": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-cache-successor-execution1\\cached_driver_beam_tampered\\compiled\\beam-build-state.json"
+          }
+        },
+        {
+          "Step": "mutated",
+          "Receipt": {
+            "Command": [
+              "C:\\Program Files\\dotnet\\dotnet.exe",
+              "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tools\\Erlang.BeamBuild\\bin\\Debug\\net10.0\\Erlang.BeamBuild.dll",
+              "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-cache-successor-execution1\\cached_driver_beam_tampered\\mutated.request.json"
+            ],
+            "Pid": 308792,
+            "ElapsedSeconds": 9.09399999998277,
+            "TimedOut": false,
+            "Settled": true,
+            "ExitCode": 0,
+            "Failures": [],
+            "StdoutSha256": "A614288FCF88C05BA1EE350D84909CF3958A84B8A3F9991007EC15A0A8B4846E",
+            "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+          },
+          "ReceiptPath": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-cache-successor-execution1\\cached_driver_beam_tampered\\mutated.exit.json",
+          "ReceiptSha256": "E3B8521E89293DF63E02E533090CAD26D4B1840CE2C68906CE547A646248B42A",
+          "HelperRaised": null,
+          "NativeReceipts": [
+            {
+              "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-cache-successor-execution1\\cached_driver_beam_tampered\\compiled\\.work-86814b6ad4394451888f61a2cd4a1c5a\\driver-bootstrap\\compiler.process.json",
+              "Sha256": "6FC993A639F9F7A5161B9720BE8F08EEB6EE0B58124E905B518D78BE8E4C6DE8"
+            },
+            {
+              "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-cache-successor-execution1\\cached_driver_beam_tampered\\compiled\\.work-86814b6ad4394451888f61a2cd4a1c5a\\modules\\cache_successor377\\compiler.process.json",
+              "Sha256": "51E0E961EBE9F625168FF9B1AC7886EB777FD70378BE07CAF4BF9B9DD7570BCD"
+            }
+          ],
+          "Summary": {
+            "ExecutedCompilers": 1,
+            "Skipped": 0,
+            "Manifest": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-cache-successor-execution1\\cached_driver_beam_tampered\\compiled\\beam-build-state.json"
+          },
+          "DriverRecovery": {
+            "BeforeCanonicalSha256": "FD4053E7B8124782058316BEEC6BB2209AE2EB5BD970BA73707FA02231425BE9",
+            "TamperedSha256": "D97329BA0DB599EA3C783E4B7B3CCE44B684C141A629B5182A914D3B2BDA4254",
+            "RepairedSha256": "F92D8DA220319E4A192D181EB88B39B6F1B2A99FF4B259FE9537FC7A6150DAB4",
+            "ModuleConfigurationChanged": true,
+            "ExpectedNativeCountFromActualCanonicalIdentity": 2,
+            "TrustedSourceSha256": "568BFDA2058CE03449D285BFA5CDB58987F84911EEE854ADDF31252702E73765",
+            "ProofBoundary": "Actual admitted bootstrap receipts plus source-reviewed Prepare/Validate ordering; no independent byte instrumentation inside loaded native VM."
+          }
+        },
+        {
+          "Step": "warm_after_change",
+          "Receipt": {
+            "Command": [
+              "C:\\Program Files\\dotnet\\dotnet.exe",
+              "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tools\\Erlang.BeamBuild\\bin\\Debug\\net10.0\\Erlang.BeamBuild.dll",
+              "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-cache-successor-execution1\\cached_driver_beam_tampered\\warm_after_change.request.json"
+            ],
+            "Pid": 253284,
+            "ElapsedSeconds": 3.8130000000237487,
+            "TimedOut": false,
+            "Settled": true,
+            "ExitCode": 0,
+            "Failures": [],
+            "StdoutSha256": "9F1232180F1141AEA407D312EA6F782237096BE06C76E3DAE115890832387469",
+            "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+          },
+          "ReceiptPath": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-cache-successor-execution1\\cached_driver_beam_tampered\\warm_after_change.exit.json",
+          "ReceiptSha256": "6F10523BA4233AA340B735F208302CAC82C7BCBA328BC40C017D454C3DD04C1F",
+          "HelperRaised": null,
+          "NativeReceipts": [],
+          "Summary": {
+            "ExecutedCompilers": 0,
+            "Skipped": 1,
+            "Manifest": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-cache-successor-execution1\\cached_driver_beam_tampered\\compiled\\beam-build-state.json"
+          }
+        }
+      ]
+    }
+  ]
+}

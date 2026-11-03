@@ -1,0 +1,26 @@
+[
+  {
+    "Section": "BIF_RETTYPE io_printable_range_0",
+    "BodyTextEqualToLive": true,
+    "PinnedBody": "BIF_RETTYPE io_printable_range_0(BIF_ALIST_0)\n{\n    if (erts_get_printable_characters() == ERL_PRINTABLE_CHARACTERS_UNICODE) {\n\tBIF_RET(am_unicode);\n    } else {\n\tBIF_RET(am_latin1);\n    }\n}",
+    "Authority": "PINNED bytes regardless of equality"
+  },
+  {
+    "Section": "void erts_set_printable_characters",
+    "BodyTextEqualToLive": true,
+    "PinnedBody": "void erts_set_printable_characters(int range) {\n    /* Not an atomic */\n    printable_character_set = range;\n}",
+    "Authority": "PINNED bytes regardless of equality"
+  },
+  {
+    "Section": "int erts_get_printable_characters",
+    "BodyTextEqualToLive": true,
+    "PinnedBody": "int erts_get_printable_characters(void) {\n    return  printable_character_set;\n}",
+    "Authority": "PINNED bytes regardless of equality"
+  },
+  {
+    "Section": "startup valid range mapping",
+    "BodyTextEqualToLive": true,
+    "PinnedBody": "\t    if (!sys_strncmp(argv[i],\"-pc\",3)) {\n\t\tint printable_chars = ERL_PRINTABLE_CHARACTERS_LATIN1;\n\t\targ = get_arg(argv[i]+3, argv[i+1], &i);\n\t\tif (!sys_strcmp(arg,\"unicode\")) {\n\t\t    printable_chars = ERL_PRINTABLE_CHARACTERS_UNICODE;\n\t\t} else if (sys_strcmp(arg,\"latin1\")) {\n\t\t    erts_fprintf(stderr, \"bad range of printable \"\n\t\t\t\t \"characters: %s\\n\", arg);\n\t\t    erts_usage();\n\t\t}\n\t\terts_set_printable_characters(printable_chars);\n\t    }",
+    "Authority": "PINNED bytes regardless of equality"
+  }
+]

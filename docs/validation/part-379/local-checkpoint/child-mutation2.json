@@ -1,0 +1,341 @@
+{
+  "Passed": true,
+  "ToolSha256": "7F9B14E7F04AD23D9A9C10B5B6A2E71BA714AD2E17A1B7B5916155944A7BFC53",
+  "OwnedHelperSha256": "C66ACEC6FFE57C57EFAABC96FD1DB00598D7AAD7D05C2EA814A146B759D4171A",
+  "RunnerSha256": "2EC71ACD9E7FE4DBC0881AFECD2300729B53F1A90DE4BA58227330FBA68FEAD7",
+  "ObserverSha256": "07EEC5DC0BDC572D6D2FC84999151FDBD2905A713D91C270D460FDC7DC120361",
+  "NoAutomaticRetries": true,
+  "NoInjectedBarrier": true,
+  "NoSuspension": true,
+  "OriginalParserInstructionAtMutationProven": false,
+  "Outcomes": [
+    {
+      "Name": "live_resource_during_owned_original_child",
+      "Status": "PROVEN_SCOPED_OWNED_CHILD_MUTATION_REFUSAL",
+      "Passed": true,
+      "Barrier": {
+        "MutationAttempted": true,
+        "OwnedChildProven": true,
+        "CoverageClaimed": true,
+        "NoExactParserInstructionClaim": true,
+        "RequestMarkerIsNotChildProof": true,
+        "PaddedDescriptorBytes": 14680298,
+        "PaddedDescriptorSha256": "FA2D146E410D64E61A417FFCE406B3DD717CD7353891A2DA1045565A48100769",
+        "CliLiveReceipt": {
+          "Pid": 308064,
+          "Command": [
+            "C:\\Program Files\\dotnet\\dotnet.exe",
+            "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tools\\Erlang.BeamBuild\\bin\\Debug\\net10.0\\Erlang.BeamBuild.dll",
+            "--application-request",
+            "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library379-implementation\\child-mutation2\\live_resource_during_owned_original_child\\mutation.json"
+          ],
+          "StartedUnixSeconds": 1792351208.5015662
+        },
+        "ParentPidChain": [
+          308064,
+          289596
+        ],
+        "BeforeMutation": [
+          {
+            "Pid": 308064,
+            "Executable": "C:\\Program Files\\dotnet\\dotnet.exe",
+            "CreationFileTime": 134368248084969327,
+            "CreationUnixSeconds": 1792351208.4969327,
+            "ObservedUnixSeconds": 1792351213.8070533,
+            "ObservedMonotonic": 278206.64,
+            "SameRetainedHandleAlive": true
+          },
+          {
+            "Pid": 289596,
+            "Executable": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library376-official-compiler\\installed\\bin\\erl.exe",
+            "CreationFileTime": 134368248137615860,
+            "CreationUnixSeconds": 1792351213.761586,
+            "ObservedUnixSeconds": 1792351213.8075538,
+            "ObservedMonotonic": 278206.64,
+            "SameRetainedHandleAlive": true
+          }
+        ],
+        "RequestMarker": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library379-implementation\\child-mutation2\\live_resource_during_owned_original_child\\output\\.application-stage-2b47684f216442cbbfecc9401a8bdbb9\\request.etf",
+        "OwnedDescriptor": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library379-implementation\\child-mutation2\\live_resource_during_owned_original_child\\output\\.application-stage-2b47684f216442cbbfecc9401a8bdbb9\\inputs\\source\\app\\beam_resource378.app.src",
+        "MutationTarget": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library379-implementation\\child-mutation2\\live_resource_during_owned_original_child\\Resources\\app\\beam_resource378.app.src",
+        "NativeExecutableSha256": "D91699E88F417E00470D224934D47CD92358CC1B3B37CA1F15BCF5D4731D8F4E",
+        "MutationStartMonotonic": 278206.64,
+        "MutationEndMonotonic": 278206.64,
+        "AfterMutation": [
+          {
+            "Pid": 308064,
+            "Executable": "C:\\Program Files\\dotnet\\dotnet.exe",
+            "CreationFileTime": 134368248084969327,
+            "CreationUnixSeconds": 1792351208.4969327,
+            "ObservedUnixSeconds": 1792351213.8135545,
+            "ObservedMonotonic": 278206.64,
+            "SameRetainedHandleAlive": true
+          },
+          {
+            "Pid": 289596,
+            "Executable": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library376-official-compiler\\installed\\bin\\erl.exe",
+            "CreationFileTime": 134368248137615860,
+            "CreationUnixSeconds": 1792351213.761586,
+            "ObservedUnixSeconds": 1792351213.8140604,
+            "ObservedMonotonic": 278206.64,
+            "SameRetainedHandleAlive": true
+          }
+        ],
+        "TargetSha256AfterMutation": "05A5B518E25D7E3AAE355445A88F3D1F39350F1EFC58C0D5C459D820B3F6DB14",
+        "FutureDoneAfterObservation": false,
+        "NativeReceipts": [
+          {
+            "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library379-implementation\\child-mutation2\\live_resource_during_owned_original_child\\output\\.application-stage-2b47684f216442cbbfecc9401a8bdbb9\\compiler.process.json",
+            "Sha256": "F2E926D001DDA83D1770C11B550BB01D42BC3F2ACD54025D4E08C63C789D6497"
+          }
+        ]
+      },
+      "Steps": [
+        {
+          "Label": "cold",
+          "Receipt": {
+            "Command": [
+              "C:\\Program Files\\dotnet\\dotnet.exe",
+              "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tools\\Erlang.BeamBuild\\bin\\Debug\\net10.0\\Erlang.BeamBuild.dll",
+              "--application-request",
+              "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library379-implementation\\child-mutation2\\live_resource_during_owned_original_child\\cold.json"
+            ],
+            "Pid": 309984,
+            "ElapsedSeconds": 7.5,
+            "TimedOut": false,
+            "Settled": true,
+            "ExitCode": 0,
+            "Failures": [],
+            "StdoutSha256": "F2C18F4C21AD98DB989593BFF9EEB3B443B0B3267EA35E6295BF96A5641D5CFC",
+            "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+          },
+          "ExpectedProcessFailure": null
+        },
+        {
+          "Label": "warm",
+          "Receipt": {
+            "Command": [
+              "C:\\Program Files\\dotnet\\dotnet.exe",
+              "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tools\\Erlang.BeamBuild\\bin\\Debug\\net10.0\\Erlang.BeamBuild.dll",
+              "--application-request",
+              "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library379-implementation\\child-mutation2\\live_resource_during_owned_original_child\\warm.json"
+            ],
+            "Pid": 280556,
+            "ElapsedSeconds": 5.063000000023749,
+            "TimedOut": false,
+            "Settled": true,
+            "ExitCode": 0,
+            "Failures": [],
+            "StdoutSha256": "37BC9362B1A1858790D7B2D22A5632C400F1243A0A60D67F2EF21BB572BBF195",
+            "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+          },
+          "ExpectedProcessFailure": null
+        },
+        {
+          "Label": "mutation",
+          "Receipt": {
+            "Command": [
+              "C:\\Program Files\\dotnet\\dotnet.exe",
+              "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tools\\Erlang.BeamBuild\\bin\\Debug\\net10.0\\Erlang.BeamBuild.dll",
+              "--application-request",
+              "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library379-implementation\\child-mutation2\\live_resource_during_owned_original_child\\mutation.json"
+            ],
+            "Pid": 308064,
+            "ElapsedSeconds": 10.375,
+            "TimedOut": false,
+            "Settled": true,
+            "ExitCode": 1,
+            "Failures": [],
+            "StdoutSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+            "StderrSha256": "695FC1F95C545DCB50B20A0DB12F2AA74E63E42E79A201F6F46EED7866DE37DC"
+          },
+          "ExpectedProcessFailure": "RuntimeError('Owned stage failed; all available raw evidence retained: mutation')"
+        },
+        {
+          "Label": "recovery",
+          "Receipt": {
+            "Command": [
+              "C:\\Program Files\\dotnet\\dotnet.exe",
+              "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tools\\Erlang.BeamBuild\\bin\\Debug\\net10.0\\Erlang.BeamBuild.dll",
+              "--application-request",
+              "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library379-implementation\\child-mutation2\\live_resource_during_owned_original_child\\recovery.json"
+            ],
+            "Pid": 304880,
+            "ElapsedSeconds": 4.73399999999674,
+            "TimedOut": false,
+            "Settled": true,
+            "ExitCode": 0,
+            "Failures": [],
+            "StdoutSha256": "37BC9362B1A1858790D7B2D22A5632C400F1243A0A60D67F2EF21BB572BBF195",
+            "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+          },
+          "ExpectedProcessFailure": null
+        }
+      ]
+    },
+    {
+      "Name": "owned_resource_during_owned_original_child",
+      "Status": "PROVEN_SCOPED_OWNED_CHILD_MUTATION_REFUSAL",
+      "Passed": true,
+      "Barrier": {
+        "MutationAttempted": true,
+        "OwnedChildProven": true,
+        "CoverageClaimed": true,
+        "NoExactParserInstructionClaim": true,
+        "RequestMarkerIsNotChildProof": true,
+        "PaddedDescriptorBytes": 14680298,
+        "PaddedDescriptorSha256": "FA2D146E410D64E61A417FFCE406B3DD717CD7353891A2DA1045565A48100769",
+        "CliLiveReceipt": {
+          "Pid": 299076,
+          "Command": [
+            "C:\\Program Files\\dotnet\\dotnet.exe",
+            "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tools\\Erlang.BeamBuild\\bin\\Debug\\net10.0\\Erlang.BeamBuild.dll",
+            "--application-request",
+            "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library379-implementation\\child-mutation2\\owned_resource_during_owned_original_child\\mutation.json"
+          ],
+          "StartedUnixSeconds": 1792351236.1180394
+        },
+        "ParentPidChain": [
+          299076,
+          308176
+        ],
+        "BeforeMutation": [
+          {
+            "Pid": 299076,
+            "Executable": "C:\\Program Files\\dotnet\\dotnet.exe",
+            "CreationFileTime": 134368248361152081,
+            "CreationUnixSeconds": 1792351236.1152081,
+            "ObservedUnixSeconds": 1792351240.0270514,
+            "ObservedMonotonic": 278232.859,
+            "SameRetainedHandleAlive": true
+          },
+          {
+            "Pid": 308176,
+            "Executable": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library376-official-compiler\\installed\\bin\\erl.exe",
+            "CreationFileTime": 134368248400070717,
+            "CreationUnixSeconds": 1792351240.0070717,
+            "ObservedUnixSeconds": 1792351240.0270514,
+            "ObservedMonotonic": 278232.859,
+            "SameRetainedHandleAlive": true
+          }
+        ],
+        "RequestMarker": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library379-implementation\\child-mutation2\\owned_resource_during_owned_original_child\\output\\.application-stage-0e83988ef5c34f2aaca7ba7dfae6d369\\request.etf",
+        "OwnedDescriptor": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library379-implementation\\child-mutation2\\owned_resource_during_owned_original_child\\output\\.application-stage-0e83988ef5c34f2aaca7ba7dfae6d369\\inputs\\source\\app\\beam_resource378.app.src",
+        "MutationTarget": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library379-implementation\\child-mutation2\\owned_resource_during_owned_original_child\\output\\.application-stage-0e83988ef5c34f2aaca7ba7dfae6d369\\inputs\\source\\app\\beam_resource378.app.src",
+        "NativeExecutableSha256": "D91699E88F417E00470D224934D47CD92358CC1B3B37CA1F15BCF5D4731D8F4E",
+        "MutationStartMonotonic": 278232.859,
+        "MutationEndMonotonic": 278232.859,
+        "AfterMutation": [
+          {
+            "Pid": 299076,
+            "Executable": "C:\\Program Files\\dotnet\\dotnet.exe",
+            "CreationFileTime": 134368248361152081,
+            "CreationUnixSeconds": 1792351236.1152081,
+            "ObservedUnixSeconds": 1792351240.035051,
+            "ObservedMonotonic": 278232.859,
+            "SameRetainedHandleAlive": true
+          },
+          {
+            "Pid": 308176,
+            "Executable": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library376-official-compiler\\installed\\bin\\erl.exe",
+            "CreationFileTime": 134368248400070717,
+            "CreationUnixSeconds": 1792351240.0070717,
+            "ObservedUnixSeconds": 1792351240.035551,
+            "ObservedMonotonic": 278232.859,
+            "SameRetainedHandleAlive": true
+          }
+        ],
+        "TargetSha256AfterMutation": "05A5B518E25D7E3AAE355445A88F3D1F39350F1EFC58C0D5C459D820B3F6DB14",
+        "FutureDoneAfterObservation": false,
+        "NativeReceipts": [
+          {
+            "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library379-implementation\\child-mutation2\\owned_resource_during_owned_original_child\\output\\.application-stage-0e83988ef5c34f2aaca7ba7dfae6d369\\compiler.process.json",
+            "Sha256": "6DF857CCD1ECCB3F53B3C7E9511A086D6465E120CE6CFED420D4A600B82DEC4E"
+          }
+        ]
+      },
+      "Steps": [
+        {
+          "Label": "cold",
+          "Receipt": {
+            "Command": [
+              "C:\\Program Files\\dotnet\\dotnet.exe",
+              "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tools\\Erlang.BeamBuild\\bin\\Debug\\net10.0\\Erlang.BeamBuild.dll",
+              "--application-request",
+              "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library379-implementation\\child-mutation2\\owned_resource_during_owned_original_child\\cold.json"
+            ],
+            "Pid": 298656,
+            "ElapsedSeconds": 8.0,
+            "TimedOut": false,
+            "Settled": true,
+            "ExitCode": 0,
+            "Failures": [],
+            "StdoutSha256": "F2C18F4C21AD98DB989593BFF9EEB3B443B0B3267EA35E6295BF96A5641D5CFC",
+            "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+          },
+          "ExpectedProcessFailure": null
+        },
+        {
+          "Label": "warm",
+          "Receipt": {
+            "Command": [
+              "C:\\Program Files\\dotnet\\dotnet.exe",
+              "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tools\\Erlang.BeamBuild\\bin\\Debug\\net10.0\\Erlang.BeamBuild.dll",
+              "--application-request",
+              "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library379-implementation\\child-mutation2\\owned_resource_during_owned_original_child\\warm.json"
+            ],
+            "Pid": 240876,
+            "ElapsedSeconds": 4.4060000000172295,
+            "TimedOut": false,
+            "Settled": true,
+            "ExitCode": 0,
+            "Failures": [],
+            "StdoutSha256": "37BC9362B1A1858790D7B2D22A5632C400F1243A0A60D67F2EF21BB572BBF195",
+            "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+          },
+          "ExpectedProcessFailure": null
+        },
+        {
+          "Label": "mutation",
+          "Receipt": {
+            "Command": [
+              "C:\\Program Files\\dotnet\\dotnet.exe",
+              "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tools\\Erlang.BeamBuild\\bin\\Debug\\net10.0\\Erlang.BeamBuild.dll",
+              "--application-request",
+              "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library379-implementation\\child-mutation2\\owned_resource_during_owned_original_child\\mutation.json"
+            ],
+            "Pid": 299076,
+            "ElapsedSeconds": 8.094000000040978,
+            "TimedOut": false,
+            "Settled": true,
+            "ExitCode": 1,
+            "Failures": [],
+            "StdoutSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+            "StderrSha256": "477AB4F4036220F5A58B9AB4586BD66DED4B3D24FB7A73087B2BFB24D23C2D3D"
+          },
+          "ExpectedProcessFailure": "RuntimeError('Owned stage failed; all available raw evidence retained: mutation')"
+        },
+        {
+          "Label": "recovery",
+          "Receipt": {
+            "Command": [
+              "C:\\Program Files\\dotnet\\dotnet.exe",
+              "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tools\\Erlang.BeamBuild\\bin\\Debug\\net10.0\\Erlang.BeamBuild.dll",
+              "--application-request",
+              "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library379-implementation\\child-mutation2\\owned_resource_during_owned_original_child\\recovery.json"
+            ],
+            "Pid": 260304,
+            "ElapsedSeconds": 4.079000000027008,
+            "TimedOut": false,
+            "Settled": true,
+            "ExitCode": 0,
+            "Failures": [],
+            "StdoutSha256": "37BC9362B1A1858790D7B2D22A5632C400F1243A0A60D67F2EF21BB572BBF195",
+            "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+          },
+          "ExpectedProcessFailure": null
+        }
+      ]
+    }
+  ]
+}

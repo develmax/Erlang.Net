@@ -10,7 +10,7 @@ internal static class LibrarySelectionPolicyNegativeChecks
 {
     internal static Task FactoryRefusals()
     {
-        foreach (string module in new[] { StringModule, MathModule, PureModule })
+        foreach (string module in new[] { StringModuleName, PureModule })
             RejectFactory(() => RuntimeModuleSelection.Managed(module));
         RejectFactory(() => new RuntimeLibrarySelection([
             RuntimeModuleSelection.Beam(PureModule, Identity(PureModule, PeerModule, Run), [PeerModule])
@@ -25,10 +25,13 @@ internal static class LibrarySelectionPolicyNegativeChecks
         await runtime.InitializeModulesAsync(registry =>
         {
             // Deliberately inject stale binding state. Register itself uses Add and cannot replace a key.
-            Bodies(registry)[(StringModule, StringNative, 1)] = (_, _) => ValueTask.FromResult<Term>(Term.I(7));
-            RejectPrepare(registry, new RuntimeLibrarySelection([
-                RuntimeModuleSelection.Beam(StringModule, NativeStub(StringModule, StringNative))
-            ]));
+            Bodies(registry)[(StringModuleName, StringNative, 1)] = (_, _) => ValueTask.FromResult<Term>(Term.I(7));
+            RejectPrepare(
+                registry,
+                new RuntimeLibrarySelection([
+                RuntimeModuleSelection.Beam(StringModuleName, NativeStub(StringModuleName, StringNative))
+            ])
+            );
         });
     }
 
@@ -48,14 +51,14 @@ internal static class LibrarySelectionPolicyNegativeChecks
         await runtime.InitializeModulesAsync(registry =>
         {
             // Same MFA as the bootstrap, but an ordinary identity body cannot capture its primitive.
-            byte[] uncaptured = Identity(StringModule, RuntimeModule, BeamOpcodeEdgeNames.Length);
+            byte[] uncaptured = Identity(StringModuleName, RuntimeModule, BeamOpcodeEdgeNames.Length);
             uncaptured = RenameRunExport(uncaptured, StringNative);
-            RejectPrepare(registry, new RuntimeLibrarySelection([RuntimeModuleSelection.Beam(StringModule, uncaptured)]));
+            RejectPrepare(registry, new RuntimeLibrarySelection([RuntimeModuleSelection.Beam(StringModuleName, uncaptured)]));
             // Different export: retains the existing missing-bootstrap-export refusal independently.
             RejectPrepare(
                 registry,
                 new RuntimeLibrarySelection([
-                RuntimeModuleSelection.Beam(StringModule, Identity(StringModule, RuntimeModule, BeamOpcodeEdgeNames.Length))
+                RuntimeModuleSelection.Beam(StringModuleName, Identity(StringModuleName, RuntimeModule, BeamOpcodeEdgeNames.Length))
             ])
             );
         });
@@ -80,16 +83,16 @@ internal static class LibrarySelectionPolicyNegativeChecks
 
     internal static async Task NativeSourceOwner()
     {
-        byte[] image = NativeStub(StringModule, StringNative);
+        byte[] image = NativeStub(StringModuleName, StringNative);
         await using var runtime = await ProcessRuntime.CreateAsync(new RuntimeLibrarySelection([
-            RuntimeModuleSelection.Beam(StringModule, image)
+            RuntimeModuleSelection.Beam(StringModuleName, image)
         ]));
         await runtime.InitializeModulesAsync(registry =>
         {
-            var original = (PreparedBeamImage)registry.SourceOwner(StringModule, StringNative, 1)!;
-            Require(!registry.HasOldCode(StringModule));
+            var original = (PreparedBeamImage)registry.SourceOwner(StringModuleName, StringNative, 1)!;
+            Require(!registry.HasOldCode(StringModuleName));
             Require(original.NativePrimitiveExports.Count == 1);
-            RejectPrepare(registry, new RuntimeLibrarySelection([RuntimeModuleSelection.Beam(StringModule, image)]));
+            RejectPrepare(registry, new RuntimeLibrarySelection([RuntimeModuleSelection.Beam(StringModuleName, image)]));
         });
     }
 

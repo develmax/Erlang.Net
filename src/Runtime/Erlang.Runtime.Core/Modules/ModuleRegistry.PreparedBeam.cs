@@ -36,7 +36,8 @@ public sealed partial class ModuleRegistry
         return new PreparedBeamImage(
             this,
             code,
-            metadata
+            metadata,
+            Convert.ToHexString(System.Security.Cryptography.SHA256.HashData(owned))
         );
     }
 

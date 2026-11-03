@@ -1,0 +1,114 @@
+{
+  "Status": "PASS",
+  "Groups": [
+    {
+      "Name": "no-application",
+      "Passed": true,
+      "DependentStepsSkippedAfterFailure": true,
+      "Subcases": [],
+      "ElapsedSeconds": 62.60999999998603
+    },
+    {
+      "Name": "source-warm",
+      "Passed": true,
+      "DependentStepsSkippedAfterFailure": true,
+      "Subcases": [],
+      "ElapsedSeconds": 33.54599999997299
+    },
+    {
+      "Name": "alternatives",
+      "Passed": true,
+      "DependentStepsSkippedAfterFailure": true,
+      "Subcases": [
+        {
+          "Name": "retained",
+          "Passed": true
+        },
+        {
+          "Name": "explicit-app",
+          "Passed": true
+        },
+        {
+          "Name": "data-only",
+          "Passed": true
+        }
+      ],
+      "ElapsedSeconds": 46.40700000000652
+    },
+    {
+      "Name": "placement-refusals",
+      "Passed": true,
+      "DependentStepsSkippedAfterFailure": true,
+      "Subcases": [
+        {
+          "Name": "module-link",
+          "Passed": true
+        },
+        {
+          "Name": "module-targetpath",
+          "Passed": true
+        },
+        {
+          "Name": "inferred-none",
+          "Passed": true
+        },
+        {
+          "Name": "case-alias-target",
+          "Passed": true
+        },
+        {
+          "Name": "copied-content",
+          "Passed": true
+        },
+        {
+          "Name": "selected-content",
+          "Passed": true
+        }
+      ],
+      "ElapsedSeconds": 21.78200000000652
+    },
+    {
+      "Name": "overlap-refusals",
+      "Passed": true,
+      "DependentStepsSkippedAfterFailure": true,
+      "Subcases": [
+        {
+          "Name": "equal",
+          "Passed": true
+        },
+        {
+          "Name": "output-child",
+          "Passed": true
+        },
+        {
+          "Name": "source-parent",
+          "Passed": true
+        }
+      ],
+      "ElapsedSeconds": 17.32799999997951
+    },
+    {
+      "Name": "resource-config-edits",
+      "Passed": true,
+      "DependentStepsSkippedAfterFailure": true,
+      "Subcases": [],
+      "ElapsedSeconds": 77.54700000002049
+    },
+    {
+      "Name": "publish-clean",
+      "Passed": true,
+      "DependentStepsSkippedAfterFailure": true,
+      "Subcases": [],
+      "ElapsedSeconds": 49.10999999998603
+    }
+  ],
+  "FinalGuards": {
+    "BaselineUnchanged": true,
+    "ToolDllsUnchanged": true,
+    "ProductionSourcesUnchanged": true,
+    "PropertiesUnchanged": true
+  },
+  "Scope": "Actual MSBuild app package/run/refusal/publish/clean controls; no application-controller/config application or universal compatibility credit",
+  "CompatibilityStatusesPromoted": false,
+  "ColdNugetConsumerExecuted": false
+}

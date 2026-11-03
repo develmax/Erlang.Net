@@ -1,0 +1,1649 @@
+{
+  "Status": "PASS_DECODE_AND_MEASURED_ROLE_NAME_INVENTORY_ONLY",
+  "Runtime": {
+    "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/src/Erlang.Runtime/bin/Debug/net10.0/Erlang.Runtime.dll",
+    "Sha256": "7DB051FD08B623902BE88AD8DBEBCE0AAD4B1EAF6CF187078BD13539C0724C65",
+    "Mvid": "4eaabc87-f83d-49a0-a87f-ea2948f6b3d7"
+  },
+  "InputBeam": {
+    "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/library377-child-stack-execution1/cases/spawned_child_metadata_stack/output/driver_case.beam",
+    "Bytes": 912,
+    "Sha256": "E0D1528C8450152A5BBDABECE90870B8066EA82114D6791F3DF4D51BC7F16DBA"
+  },
+  "ValidatorSource": {
+    "Path": "D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/src/Erlang.Runtime/BeamLinkedCodeReader.cs",
+    "Sha256": "6346168AD8338C12911D105389AB6309374A9BBF0C6C0778CCC09A43FD7E7FD6",
+    "ExactFileSha256": "6346168AD8338C12911D105389AB6309374A9BBF0C6C0778CCC09A43FD7E7FD6",
+    "ExtractedMethodSha256": "003415DE02172711492629F14EDD340092B9C8FED99E4BDB4F31FB6AE2F0B2F9"
+  },
+  "ValidatorConstants": {
+    "BeamGeneralOpcodeNames.NilTest": "is_nil",
+    "BeamGeneralOpcodeNames.NonemptyListTest": "is_nonempty_list",
+    "BeamGeneralOpcodeNames.ListTest": "is_list",
+    "BeamGeneralOpcodeNames.TupleTest": "is_tuple",
+    "BeamGeneralOpcodeNames.FloatTest": "is_float",
+    "BeamGeneralOpcodeNames.AtomTest": "is_atom",
+    "BeamGeneralOpcodeNames.TupleArity": "test_arity",
+    "BeamGeneralOpcodeNames.FunctionTest": "is_function2",
+    "BeamGeneralOpcodeNames.ArithmeticEqual": "is_eq",
+    "BeamGeneralOpcodeNames.ExactNotEqual": "is_ne_exact",
+    "BeamGeneralOpcodeNames.GreaterOrEqual": "is_ge",
+    "BeamGeneralOpcodeNames.Less": "is_lt",
+    "BeamGeneralOpcodeNames.GetList": "get_list",
+    "BeamGeneralOpcodeNames.GetHead": "get_hd",
+    "BeamGeneralOpcodeNames.GetTail": "get_tl",
+    "BeamGeneralOpcodeNames.Swap": "swap",
+    "BeamGeneralOpcodeNames.Trim": "trim",
+    "BeamGeneralOpcodeNames.Jump": "jump",
+    "BeamGeneralOpcodeNames.SelectValue": "select_val",
+    "BeamGeneralOpcodeNames.BinaryBif": "bif2",
+    "BeamGeneralOpcodeNames.DynamicCall": "call_fun",
+    "BeamGeneralOpcodeNames.MapFields": "has_map_fields",
+    "BeamGeneralOpcodeNames.MapAssociate": "put_map_assoc",
+    "BeamGeneralOpcodeNames.UnaryBif": "bif1",
+    "BeamGeneralOpcodeNames.UnaryGcBif": "gc_bif1",
+    "BeamGeneralOpcodeNames.LocalLast": "call_last",
+    "BeamGeneralOpcodeNames.CaseEnd": "case_end",
+    "BeamLinkNames.Label": "label",
+    "BeamLinkNames.Line": "line",
+    "BeamLinkNames.FunctionInfo": "func_info",
+    "BeamLinkNames.CodeEnd": "int_code_end",
+    "BeamLinkNames.Return": "return",
+    "BeamLinkNames.Send": "send",
+    "BeamLinkNames.RemoveMessage": "remove_message",
+    "BeamLinkNames.Timeout": "timeout",
+    "BeamNifNames.Start": "nif_start",
+    "BeamLinkNames.OnLoad": "on_load",
+    "BeamOnLoadNames.InitY": "init_yregs",
+    "BeamOnLoadNames.PidTest": "is_pid",
+    "BeamOnLoadNames.TaggedTupleTest": "is_tagged_tuple",
+    "BeamOnLoadNames.TupleElement": "get_tuple_element",
+    "BeamOnLoadNames.BadMatch": "badmatch",
+    "BeamOnLoadNames.ExternalLast": "call_ext_last",
+    "BeamLinkNames.Move": "move",
+    "BeamLinkNames.IntegerTest": "is_integer",
+    "BeamLinkNames.EqualityTest": "is_eq_exact",
+    "BeamLinkNames.AllocateHeap": "allocate_heap",
+    "BeamLinkNames.HeapTest": "test_heap",
+    "BeamLinkNames.Allocate": "allocate",
+    "BeamLinkNames.Deallocate": "deallocate",
+    "BeamLinkNames.PutList": "put_list",
+    "BeamLinkNames.PutTuple": "put_tuple2",
+    "BeamLinkNames.LoopReceive": "loop_rec",
+    "BeamLinkNames.LoopReceiveEnd": "loop_rec_end",
+    "BeamLinkNames.WaitTimeout": "wait_timeout",
+    "BeamRegisterNames.Call": "call",
+    "BeamLinkNames.LocalCall": "call_only",
+    "BeamLinkNames.ExternalCall": "call_ext",
+    "BeamLinkNames.ExternalTailCall": "call_ext_only",
+    "BeamLinkNames.GuardBif": "gc_bif2",
+    "BeamLinkNames.Bif": "bif0",
+    "BeamLambdaNames.Create": "make_fun3",
+    "BeamLambdaNames.Call": "call_fun2"
+  },
+  "ActualInstructionCount": 75,
+  "ActualOpcodeNameCount": 31,
+  "Counts": {
+    "allocate": 1,
+    "allocate_heap": 1,
+    "bif0": 1,
+    "build_stacktrace": 1,
+    "call": 1,
+    "call_ext": 1,
+    "call_ext_last": 1,
+    "call_ext_only": 3,
+    "deallocate": 2,
+    "func_info": 5,
+    "get_tuple_element": 4,
+    "init_yregs": 1,
+    "int_code_end": 1,
+    "is_eq_exact": 2,
+    "is_nonempty_list": 1,
+    "is_tagged_tuple": 2,
+    "label": 14,
+    "line": 10,
+    "loop_rec": 1,
+    "loop_rec_end": 1,
+    "make_fun3": 1,
+    "move": 10,
+    "put_tuple2": 1,
+    "remove_message": 1,
+    "return": 2,
+    "send": 1,
+    "test_heap": 1,
+    "timeout": 1,
+    "try": 1,
+    "try_case": 1,
+    "wait_timeout": 1
+  },
+  "UnsupportedRoleNames": [
+    {
+      "Name": "build_stacktrace",
+      "Count": 1,
+      "CodeOffsets": [
+        197
+      ]
+    },
+    {
+      "Name": "try",
+      "Count": 1,
+      "CodeOffsets": [
+        176
+      ]
+    },
+    {
+      "Name": "try_case",
+      "Count": 1,
+      "CodeOffsets": [
+        186
+      ]
+    }
+  ],
+  "Imports": [
+    {
+      "Index": 0,
+      "Module": "erlang",
+      "Function": "self",
+      "Arity": 0
+    },
+    {
+      "Index": 1,
+      "Module": "erlang",
+      "Function": "spawn",
+      "Arity": 1
+    },
+    {
+      "Index": 2,
+      "Module": "erlang",
+      "Function": "error",
+      "Arity": 1
+    },
+    {
+      "Index": 3,
+      "Module": "erlang",
+      "Function": "get_module_info",
+      "Arity": 1
+    },
+    {
+      "Index": 4,
+      "Module": "erlang",
+      "Function": "get_module_info",
+      "Arity": 2
+    }
+  ],
+  "Instructions": [
+    {
+      "Index": 0,
+      "CodeOffset": 0,
+      "Opcode": 1,
+      "Name": "label",
+      "DeclaredArity": 1,
+      "Obsolete": false,
+      "RoleNamePresentInActualValidatorSwitch": true,
+      "Operands": [
+        {
+          "Kind": "unsigned",
+          "Value": "1",
+          "TypeIndex": null
+        }
+      ]
+    },
+    {
+      "Index": 1,
+      "CodeOffset": 2,
+      "Opcode": 153,
+      "Name": "line",
+      "DeclaredArity": 1,
+      "Obsolete": false,
+      "RoleNamePresentInActualValidatorSwitch": true,
+      "Operands": [
+        {
+          "Kind": "unsigned",
+          "Value": "1",
+          "TypeIndex": null
+        }
+      ]
+    },
+    {
+      "Index": 2,
+      "CodeOffset": 4,
+      "Opcode": 2,
+      "Name": "func_info",
+      "DeclaredArity": 3,
+      "Obsolete": false,
+      "RoleNamePresentInActualValidatorSwitch": true,
+      "Operands": [
+        {
+          "Kind": "atom",
+          "Value": "1",
+          "TypeIndex": null
+        },
+        {
+          "Kind": "atom",
+          "Value": "2",
+          "TypeIndex": null
+        },
+        {
+          "Kind": "unsigned",
+          "Value": "0",
+          "TypeIndex": null
+        }
+      ]
+    },
+    {
+      "Index": 3,
+      "CodeOffset": 8,
+      "Opcode": 1,
+      "Name": "label",
+      "DeclaredArity": 1,
+      "Obsolete": false,
+      "RoleNamePresentInActualValidatorSwitch": true,
+      "Operands": [
+        {
+          "Kind": "unsigned",
+          "Value": "2",
+          "TypeIndex": null
+        }
+      ]
+    },
+    {
+      "Index": 4,
+      "CodeOffset": 10,
+      "Opcode": 13,
+      "Name": "allocate_heap",
+      "DeclaredArity": 3,
+      "Obsolete": false,
+      "RoleNamePresentInActualValidatorSwitch": true,
+      "Operands": [
+        {
+          "Kind": "unsigned",
+          "Value": "0",
+          "TypeIndex": null
+        },
+        {
+          "Kind": "unsigned",
+          "Value": "3",
+          "TypeIndex": null
+        },
+        {
+          "Kind": "unsigned",
+          "Value": "0",
+          "TypeIndex": null
+        }
+      ]
+    },
+    {
+      "Index": 5,
+      "CodeOffset": 21,
+      "Opcode": 9,
+      "Name": "bif0",
+      "DeclaredArity": 2,
+      "Obsolete": false,
+      "RoleNamePresentInActualValidatorSwitch": true,
+      "Operands": [
+        {
+          "Kind": "unsigned",
+          "Value": "0",
+          "TypeIndex": null
+        },
+        {
+          "Kind": "x",
+          "Value": "0",
+          "TypeIndex": null
+        }
+      ]
+    },
+    {
+      "Index": 6,
+      "CodeOffset": 24,
+      "Opcode": 171,
+      "Name": "make_fun3",
+      "DeclaredArity": 3,
+      "Obsolete": false,
+      "RoleNamePresentInActualValidatorSwitch": true,
+      "Operands": [
+        {
+          "Kind": "unsigned",
+          "Value": "0",
+          "TypeIndex": null
+        },
+        {
+          "Kind": "x",
+          "Value": "0",
+          "TypeIndex": null
+        },
+        {
+          "Kind": "argument-count",
+          "Value": "1",
+          "TypeIndex": null
+        },
+        {
+          "Kind": "x",
+          "Value": "0",
+          "TypeIndex": null
+        }
+      ]
+    },
+    {
+      "Index": 7,
+      "CodeOffset": 30,
+      "Opcode": 153,
+      "Name": "line",
+      "DeclaredArity": 1,
+      "Obsolete": false,
+      "RoleNamePresentInActualValidatorSwitch": true,
+      "Operands": [
+        {
+          "Kind": "unsigned",
+          "Value": "2",
+          "TypeIndex": null
+        }
+      ]
+    },
+    {
+      "Index": 8,
+      "CodeOffset": 32,
+      "Opcode": 7,
+      "Name": "call_ext",
+      "DeclaredArity": 2,
+      "Obsolete": false,
+      "RoleNamePresentInActualValidatorSwitch": true,
+      "Operands": [
+        {
+          "Kind": "unsigned",
+          "Value": "1",
+          "TypeIndex": null
+        },
+        {
+          "Kind": "unsigned",
+          "Value": "1",
+          "TypeIndex": null
+        }
+      ]
+    },
+    {
+      "Index": 9,
+      "CodeOffset": 35,
+      "Opcode": 1,
+      "Name": "label",
+      "DeclaredArity": 1,
+      "Obsolete": false,
+      "RoleNamePresentInActualValidatorSwitch": true,
+      "Operands": [
+        {
+          "Kind": "unsigned",
+          "Value": "3",
+          "TypeIndex": null
+        }
+      ]
+    },
+    {
+      "Index": 10,
+      "CodeOffset": 37,
+      "Opcode": 23,
+      "Name": "loop_rec",
+      "DeclaredArity": 2,
+      "Obsolete": false,
+      "RoleNamePresentInActualValidatorSwitch": true,
+      "Operands": [
+        {
+          "Kind": "label",
+          "Value": "5",
+          "TypeIndex": null
+        },
+        {
+          "Kind": "x",
+          "Value": "0",
+          "TypeIndex": null
+        }
+      ]
+    },
+    {
+      "Index": 11,
+      "CodeOffset": 40,
+      "Opcode": 159,
+      "Name": "is_tagged_tuple",
+      "DeclaredArity": 4,
+      "Obsolete": false,
+      "RoleNamePresentInActualValidatorSwitch": true,
+      "Operands": [
+        {
+          "Kind": "label",
+          "Value": "4",
+          "TypeIndex": null
+        },
+        {
+          "Kind": "x",
+          "Value": "0",
+          "TypeIndex": null
+        },
+        {
+          "Kind": "unsigned",
+          "Value": "3",
+          "TypeIndex": null
+        },
+        {
+          "Kind": "atom",
+          "Value": "6",
+          "TypeIndex": null
+        }
+      ]
+    },
+    {
+      "Index": 12,
+      "CodeOffset": 45,
+      "Opcode": 66,
+      "Name": "get_tuple_element",
+      "DeclaredArity": 3,
+      "Obsolete": false,
+      "RoleNamePresentInActualValidatorSwitch": true,
+      "Operands": [
+        {
+          "Kind": "x",
+          "Value": "0",
+          "TypeIndex": null
+        },
+        {
+          "Kind": "unsigned",
+          "Value": "1",
+          "TypeIndex": null
+        },
+        {
+          "Kind": "x",
+          "Value": "1",
+          "TypeIndex": null
+        }
+      ]
+    },
+    {
+      "Index": 13,
+      "CodeOffset": 49,
+      "Opcode": 66,
+      "Name": "get_tuple_element",
+      "DeclaredArity": 3,
+      "Obsolete": false,
+      "RoleNamePresentInActualValidatorSwitch": true,
+      "Operands": [
+        {
+          "Kind": "x",
+          "Value": "0",
+          "TypeIndex": null
+        },
+        {
+          "Kind": "unsigned",
+          "Value": "2",
+          "TypeIndex": null
+        },
+        {
+          "Kind": "x",
+          "Value": "2",
+          "TypeIndex": null
+        }
+      ]
+    },
+    {
+      "Index": 14,
+      "CodeOffset": 53,
+      "Opcode": 159,
+      "Name": "is_tagged_tuple",
+      "DeclaredArity": 4,
+      "Obsolete": false,
+      "RoleNamePresentInActualValidatorSwitch": true,
+      "Operands": [
+        {
+          "Kind": "label",
+          "Value": "4",
+          "TypeIndex": null
+        },
+        {
+          "Kind": "x",
+          "Value": "1",
+          "TypeIndex": null
+        },
+        {
+          "Kind": "unsigned",
+          "Value": "5",
+          "TypeIndex": null
+        },
+        {
+          "Kind": "atom",
+          "Value": "1",
+          "TypeIndex": null
+        }
+      ]
+    },
+    {
+      "Index": 15,
+      "CodeOffset": 58,
+      "Opcode": 66,
+      "Name": "get_tuple_element",
+      "DeclaredArity": 3,
+      "Obsolete": false,
+      "RoleNamePresentInActualValidatorSwitch": true,
+      "Operands": [
+        {
+          "Kind": "x",
+          "Value": "1",
+          "TypeIndex": null
+        },
+        {
+          "Kind": "unsigned",
+          "Value": "3",
+          "TypeIndex": null
+        },
+        {
+          "Kind": "x",
+          "Value": "3",
+          "TypeIndex": null
+        }
+      ]
+    },
+    {
+      "Index": 16,
+      "CodeOffset": 62,
+      "Opcode": 66,
+      "Name": "get_tuple_element",
+      "DeclaredArity": 3,
+      "Obsolete": false,
+      "RoleNamePresentInActualValidatorSwitch": true,
+      "Operands": [
+        {
+          "Kind": "x",
+          "Value": "1",
+          "TypeIndex": null
+        },
+        {
+          "Kind": "unsigned",
+          "Value": "4",
+          "TypeIndex": null
+        },
+        {
+          "Kind": "x",
+          "Value": "1",
+          "TypeIndex": null
+        }
+      ]
+    },
+    {
+      "Index": 17,
+      "CodeOffset": 66,
+      "Opcode": 43,
+      "Name": "is_eq_exact",
+      "DeclaredArity": 3,
+      "Obsolete": false,
+      "RoleNamePresentInActualValidatorSwitch": true,
+      "Operands": [
+        {
+          "Kind": "label",
+          "Value": "4",
+          "TypeIndex": null
+        },
+        {
+          "Kind": "x",
+          "Value": "3",
+          "TypeIndex": null
+        },
+        {
+          "Kind": "atom",
+          "Value": "7",
+          "TypeIndex": null
+        }
+      ]
+    },
+    {
+      "Index": 18,
+      "CodeOffset": 70,
+      "Opcode": 43,
+      "Name": "is_eq_exact",
+      "DeclaredArity": 3,
+      "Obsolete": false,
+      "RoleNamePresentInActualValidatorSwitch": true,
+      "Operands": [
+        {
+          "Kind": "label",
+          "Value": "4",
+          "TypeIndex": null
+        },
+        {
+          "Kind": "x",
+          "Value": "1",
+          "TypeIndex": null
+        },
+        {
+          "Kind": "integer",
+          "Value": "0",
+          "TypeIndex": null
+        }
+      ]
+    },
+    {
+      "Index": 19,
+      "CodeOffset": 74,
+      "Opcode": 56,
+      "Name": "is_nonempty_list",
+      "DeclaredArity": 2,
+      "Obsolete": false,
+      "RoleNamePresentInActualValidatorSwitch": true,
+      "Operands": [
+        {
+          "Kind": "label",
+          "Value": "4",
+          "TypeIndex": null
+        },
+        {
+          "Kind": "x",
+          "Value": "2",
+          "TypeIndex": null
+        }
+      ]
+    },
+    {
+      "Index": 20,
+      "CodeOffset": 77,
+      "Opcode": 21,
+      "Name": "remove_message",
+      "DeclaredArity": 0,
+      "Obsolete": false,
+      "RoleNamePresentInActualValidatorSwitch": true,
+      "Operands": []
+    },
+    {
+      "Index": 21,
+      "CodeOffset": 78,
+      "Opcode": 18,
+      "Name": "deallocate",
+      "DeclaredArity": 1,
+      "Obsolete": false,
+      "RoleNamePresentInActualValidatorSwitch": true,
+      "Operands": [
+        {
+          "Kind": "unsigned",
+          "Value": "0",
+          "TypeIndex": null
+        }
+      ]
+    },
+    {
+      "Index": 22,
+      "CodeOffset": 80,
+      "Opcode": 19,
+      "Name": "return",
+      "DeclaredArity": 0,
+      "Obsolete": false,
+      "RoleNamePresentInActualValidatorSwitch": true,
+      "Operands": []
+    },
+    {
+      "Index": 23,
+      "CodeOffset": 81,
+      "Opcode": 1,
+      "Name": "label",
+      "DeclaredArity": 1,
+      "Obsolete": false,
+      "RoleNamePresentInActualValidatorSwitch": true,
+      "Operands": [
+        {
+          "Kind": "unsigned",
+          "Value": "4",
+          "TypeIndex": null
+        }
+      ]
+    },
+    {
+      "Index": 24,
+      "CodeOffset": 83,
+      "Opcode": 24,
+      "Name": "loop_rec_end",
+      "DeclaredArity": 1,
+      "Obsolete": false,
+      "RoleNamePresentInActualValidatorSwitch": true,
+      "Operands": [
+        {
+          "Kind": "label",
+          "Value": "3",
+          "TypeIndex": null
+        }
+      ]
+    },
+    {
+      "Index": 25,
+      "CodeOffset": 85,
+      "Opcode": 1,
+      "Name": "label",
+      "DeclaredArity": 1,
+      "Obsolete": false,
+      "RoleNamePresentInActualValidatorSwitch": true,
+      "Operands": [
+        {
+          "Kind": "unsigned",
+          "Value": "5",
+          "TypeIndex": null
+        }
+      ]
+    },
+    {
+      "Index": 26,
+      "CodeOffset": 87,
+      "Opcode": 26,
+      "Name": "wait_timeout",
+      "DeclaredArity": 2,
+      "Obsolete": false,
+      "RoleNamePresentInActualValidatorSwitch": true,
+      "Operands": [
+        {
+          "Kind": "label",
+          "Value": "3",
+          "TypeIndex": null
+        },
+        {
+          "Kind": "integer",
+          "Value": "5000",
+          "TypeIndex": null
+        }
+      ]
+    },
+    {
+      "Index": 27,
+      "CodeOffset": 92,
+      "Opcode": 22,
+      "Name": "timeout",
+      "DeclaredArity": 0,
+      "Obsolete": false,
+      "RoleNamePresentInActualValidatorSwitch": true,
+      "Operands": []
+    },
+    {
+      "Index": 28,
+      "CodeOffset": 93,
+      "Opcode": 64,
+      "Name": "move",
+      "DeclaredArity": 2,
+      "Obsolete": false,
+      "RoleNamePresentInActualValidatorSwitch": true,
+      "Operands": [
+        {
+          "Kind": "atom",
+          "Value": "8",
+          "TypeIndex": null
+        },
+        {
+          "Kind": "x",
+          "Value": "0",
+          "TypeIndex": null
+        }
+      ]
+    },
+    {
+      "Index": 29,
+      "CodeOffset": 96,
+      "Opcode": 153,
+      "Name": "line",
+      "DeclaredArity": 1,
+      "Obsolete": false,
+      "RoleNamePresentInActualValidatorSwitch": true,
+      "Operands": [
+        {
+          "Kind": "unsigned",
+          "Value": "3",
+          "TypeIndex": null
+        }
+      ]
+    },
+    {
+      "Index": 30,
+      "CodeOffset": 98,
+      "Opcode": 8,
+      "Name": "call_ext_last",
+      "DeclaredArity": 3,
+      "Obsolete": false,
+      "RoleNamePresentInActualValidatorSwitch": true,
+      "Operands": [
+        {
+          "Kind": "unsigned",
+          "Value": "1",
+          "TypeIndex": null
+        },
+        {
+          "Kind": "unsigned",
+          "Value": "2",
+          "TypeIndex": null
+        },
+        {
+          "Kind": "unsigned",
+          "Value": "0",
+          "TypeIndex": null
+        }
+      ]
+    },
+    {
+      "Index": 31,
+      "CodeOffset": 102,
+      "Opcode": 1,
+      "Name": "label",
+      "DeclaredArity": 1,
+      "Obsolete": false,
+      "RoleNamePresentInActualValidatorSwitch": true,
+      "Operands": [
+        {
+          "Kind": "unsigned",
+          "Value": "6",
+          "TypeIndex": null
+        }
+      ]
+    },
+    {
+      "Index": 32,
+      "CodeOffset": 104,
+      "Opcode": 153,
+      "Name": "line",
+      "DeclaredArity": 1,
+      "Obsolete": false,
+      "RoleNamePresentInActualValidatorSwitch": true,
+      "Operands": [
+        {
+          "Kind": "unsigned",
+          "Value": "4",
+          "TypeIndex": null
+        }
+      ]
+    },
+    {
+      "Index": 33,
+      "CodeOffset": 106,
+      "Opcode": 2,
+      "Name": "func_info",
+      "DeclaredArity": 3,
+      "Obsolete": false,
+      "RoleNamePresentInActualValidatorSwitch": true,
+      "Operands": [
+        {
+          "Kind": "atom",
+          "Value": "1",
+          "TypeIndex": null
+        },
+        {
+          "Kind": "atom",
+          "Value": "7",
+          "TypeIndex": null
+        },
+        {
+          "Kind": "unsigned",
+          "Value": "0",
+          "TypeIndex": null
+        }
+      ]
+    },
+    {
+      "Index": 34,
+      "CodeOffset": 110,
+      "Opcode": 1,
+      "Name": "label",
+      "DeclaredArity": 1,
+      "Obsolete": false,
+      "RoleNamePresentInActualValidatorSwitch": true,
+      "Operands": [
+        {
+          "Kind": "unsigned",
+          "Value": "7",
+          "TypeIndex": null
+        }
+      ]
+    },
+    {
+      "Index": 35,
+      "CodeOffset": 112,
+      "Opcode": 64,
+      "Name": "move",
+      "DeclaredArity": 2,
+      "Obsolete": false,
+      "RoleNamePresentInActualValidatorSwitch": true,
+      "Operands": [
+        {
+          "Kind": "literal",
+          "Value": "0",
+          "TypeIndex": null
+        },
+        {
+          "Kind": "x",
+          "Value": "0",
+          "TypeIndex": null
+        }
+      ]
+    },
+    {
+      "Index": 36,
+      "CodeOffset": 116,
+      "Opcode": 153,
+      "Name": "line",
+      "DeclaredArity": 1,
+      "Obsolete": false,
+      "RoleNamePresentInActualValidatorSwitch": true,
+      "Operands": [
+        {
+          "Kind": "unsigned",
+          "Value": "5",
+          "TypeIndex": null
+        }
+      ]
+    },
+    {
+      "Index": 37,
+      "CodeOffset": 118,
+      "Opcode": 78,
+      "Name": "call_ext_only",
+      "DeclaredArity": 2,
+      "Obsolete": false,
+      "RoleNamePresentInActualValidatorSwitch": true,
+      "Operands": [
+        {
+          "Kind": "unsigned",
+          "Value": "1",
+          "TypeIndex": null
+        },
+        {
+          "Kind": "unsigned",
+          "Value": "2",
+          "TypeIndex": null
+        }
+      ]
+    },
+    {
+      "Index": 38,
+      "CodeOffset": 121,
+      "Opcode": 1,
+      "Name": "label",
+      "DeclaredArity": 1,
+      "Obsolete": false,
+      "RoleNamePresentInActualValidatorSwitch": true,
+      "Operands": [
+        {
+          "Kind": "unsigned",
+          "Value": "8",
+          "TypeIndex": null
+        }
+      ]
+    },
+    {
+      "Index": 39,
+      "CodeOffset": 123,
+      "Opcode": 153,
+      "Name": "line",
+      "DeclaredArity": 1,
+      "Obsolete": false,
+      "RoleNamePresentInActualValidatorSwitch": true,
+      "Operands": [
+        {
+          "Kind": "unsigned",
+          "Value": "0",
+          "TypeIndex": null
+        }
+      ]
+    },
+    {
+      "Index": 40,
+      "CodeOffset": 125,
+      "Opcode": 2,
+      "Name": "func_info",
+      "DeclaredArity": 3,
+      "Obsolete": false,
+      "RoleNamePresentInActualValidatorSwitch": true,
+      "Operands": [
+        {
+          "Kind": "atom",
+          "Value": "1",
+          "TypeIndex": null
+        },
+        {
+          "Kind": "atom",
+          "Value": "9",
+          "TypeIndex": null
+        },
+        {
+          "Kind": "unsigned",
+          "Value": "0",
+          "TypeIndex": null
+        }
+      ]
+    },
+    {
+      "Index": 41,
+      "CodeOffset": 129,
+      "Opcode": 1,
+      "Name": "label",
+      "DeclaredArity": 1,
+      "Obsolete": false,
+      "RoleNamePresentInActualValidatorSwitch": true,
+      "Operands": [
+        {
+          "Kind": "unsigned",
+          "Value": "9",
+          "TypeIndex": null
+        }
+      ]
+    },
+    {
+      "Index": 42,
+      "CodeOffset": 131,
+      "Opcode": 64,
+      "Name": "move",
+      "DeclaredArity": 2,
+      "Obsolete": false,
+      "RoleNamePresentInActualValidatorSwitch": true,
+      "Operands": [
+        {
+          "Kind": "atom",
+          "Value": "1",
+          "TypeIndex": null
+        },
+        {
+          "Kind": "x",
+          "Value": "0",
+          "TypeIndex": null
+        }
+      ]
+    },
+    {
+      "Index": 43,
+      "CodeOffset": 134,
+      "Opcode": 78,
+      "Name": "call_ext_only",
+      "DeclaredArity": 2,
+      "Obsolete": false,
+      "RoleNamePresentInActualValidatorSwitch": true,
+      "Operands": [
+        {
+          "Kind": "unsigned",
+          "Value": "1",
+          "TypeIndex": null
+        },
+        {
+          "Kind": "unsigned",
+          "Value": "3",
+          "TypeIndex": null
+        }
+      ]
+    },
+    {
+      "Index": 44,
+      "CodeOffset": 137,
+      "Opcode": 1,
+      "Name": "label",
+      "DeclaredArity": 1,
+      "Obsolete": false,
+      "RoleNamePresentInActualValidatorSwitch": true,
+      "Operands": [
+        {
+          "Kind": "unsigned",
+          "Value": "10",
+          "TypeIndex": null
+        }
+      ]
+    },
+    {
+      "Index": 45,
+      "CodeOffset": 139,
+      "Opcode": 153,
+      "Name": "line",
+      "DeclaredArity": 1,
+      "Obsolete": false,
+      "RoleNamePresentInActualValidatorSwitch": true,
+      "Operands": [
+        {
+          "Kind": "unsigned",
+          "Value": "0",
+          "TypeIndex": null
+        }
+      ]
+    },
+    {
+      "Index": 46,
+      "CodeOffset": 141,
+      "Opcode": 2,
+      "Name": "func_info",
+      "DeclaredArity": 3,
+      "Obsolete": false,
+      "RoleNamePresentInActualValidatorSwitch": true,
+      "Operands": [
+        {
+          "Kind": "atom",
+          "Value": "1",
+          "TypeIndex": null
+        },
+        {
+          "Kind": "atom",
+          "Value": "9",
+          "TypeIndex": null
+        },
+        {
+          "Kind": "unsigned",
+          "Value": "1",
+          "TypeIndex": null
+        }
+      ]
+    },
+    {
+      "Index": 47,
+      "CodeOffset": 145,
+      "Opcode": 1,
+      "Name": "label",
+      "DeclaredArity": 1,
+      "Obsolete": false,
+      "RoleNamePresentInActualValidatorSwitch": true,
+      "Operands": [
+        {
+          "Kind": "unsigned",
+          "Value": "11",
+          "TypeIndex": null
+        }
+      ]
+    },
+    {
+      "Index": 48,
+      "CodeOffset": 147,
+      "Opcode": 64,
+      "Name": "move",
+      "DeclaredArity": 2,
+      "Obsolete": false,
+      "RoleNamePresentInActualValidatorSwitch": true,
+      "Operands": [
+        {
+          "Kind": "x",
+          "Value": "0",
+          "TypeIndex": null
+        },
+        {
+          "Kind": "x",
+          "Value": "1",
+          "TypeIndex": null
+        }
+      ]
+    },
+    {
+      "Index": 49,
+      "CodeOffset": 150,
+      "Opcode": 64,
+      "Name": "move",
+      "DeclaredArity": 2,
+      "Obsolete": false,
+      "RoleNamePresentInActualValidatorSwitch": true,
+      "Operands": [
+        {
+          "Kind": "atom",
+          "Value": "1",
+          "TypeIndex": null
+        },
+        {
+          "Kind": "x",
+          "Value": "0",
+          "TypeIndex": null
+        }
+      ]
+    },
+    {
+      "Index": 50,
+      "CodeOffset": 153,
+      "Opcode": 78,
+      "Name": "call_ext_only",
+      "DeclaredArity": 2,
+      "Obsolete": false,
+      "RoleNamePresentInActualValidatorSwitch": true,
+      "Operands": [
+        {
+          "Kind": "unsigned",
+          "Value": "2",
+          "TypeIndex": null
+        },
+        {
+          "Kind": "unsigned",
+          "Value": "4",
+          "TypeIndex": null
+        }
+      ]
+    },
+    {
+      "Index": 51,
+      "CodeOffset": 156,
+      "Opcode": 1,
+      "Name": "label",
+      "DeclaredArity": 1,
+      "Obsolete": false,
+      "RoleNamePresentInActualValidatorSwitch": true,
+      "Operands": [
+        {
+          "Kind": "unsigned",
+          "Value": "12",
+          "TypeIndex": null
+        }
+      ]
+    },
+    {
+      "Index": 52,
+      "CodeOffset": 158,
+      "Opcode": 153,
+      "Name": "line",
+      "DeclaredArity": 1,
+      "Obsolete": false,
+      "RoleNamePresentInActualValidatorSwitch": true,
+      "Operands": [
+        {
+          "Kind": "unsigned",
+          "Value": "2",
+          "TypeIndex": null
+        }
+      ]
+    },
+    {
+      "Index": 53,
+      "CodeOffset": 160,
+      "Opcode": 2,
+      "Name": "func_info",
+      "DeclaredArity": 3,
+      "Obsolete": false,
+      "RoleNamePresentInActualValidatorSwitch": true,
+      "Operands": [
+        {
+          "Kind": "atom",
+          "Value": "1",
+          "TypeIndex": null
+        },
+        {
+          "Kind": "atom",
+          "Value": "11",
+          "TypeIndex": null
+        },
+        {
+          "Kind": "unsigned",
+          "Value": "1",
+          "TypeIndex": null
+        }
+      ]
+    },
+    {
+      "Index": 54,
+      "CodeOffset": 164,
+      "Opcode": 1,
+      "Name": "label",
+      "DeclaredArity": 1,
+      "Obsolete": false,
+      "RoleNamePresentInActualValidatorSwitch": true,
+      "Operands": [
+        {
+          "Kind": "unsigned",
+          "Value": "13",
+          "TypeIndex": null
+        }
+      ]
+    },
+    {
+      "Index": 55,
+      "CodeOffset": 166,
+      "Opcode": 12,
+      "Name": "allocate",
+      "DeclaredArity": 2,
+      "Obsolete": false,
+      "RoleNamePresentInActualValidatorSwitch": true,
+      "Operands": [
+        {
+          "Kind": "unsigned",
+          "Value": "3",
+          "TypeIndex": null
+        },
+        {
+          "Kind": "unsigned",
+          "Value": "1",
+          "TypeIndex": null
+        }
+      ]
+    },
+    {
+      "Index": 56,
+      "CodeOffset": 169,
+      "Opcode": 172,
+      "Name": "init_yregs",
+      "DeclaredArity": 1,
+      "Obsolete": false,
+      "RoleNamePresentInActualValidatorSwitch": true,
+      "Operands": [
+        {
+          "Kind": "argument-count",
+          "Value": "1",
+          "TypeIndex": null
+        },
+        {
+          "Kind": "y",
+          "Value": "0",
+          "TypeIndex": null
+        }
+      ]
+    },
+    {
+      "Index": 57,
+      "CodeOffset": 173,
+      "Opcode": 64,
+      "Name": "move",
+      "DeclaredArity": 2,
+      "Obsolete": false,
+      "RoleNamePresentInActualValidatorSwitch": true,
+      "Operands": [
+        {
+          "Kind": "x",
+          "Value": "0",
+          "TypeIndex": null
+        },
+        {
+          "Kind": "y",
+          "Value": "1",
+          "TypeIndex": null
+        }
+      ]
+    },
+    {
+      "Index": 58,
+      "CodeOffset": 176,
+      "Opcode": 104,
+      "Name": "try",
+      "DeclaredArity": 2,
+      "Obsolete": false,
+      "RoleNamePresentInActualValidatorSwitch": false,
+      "Operands": [
+        {
+          "Kind": "y",
+          "Value": "2",
+          "TypeIndex": null
+        },
+        {
+          "Kind": "label",
+          "Value": "14",
+          "TypeIndex": null
+        }
+      ]
+    },
+    {
+      "Index": 59,
+      "CodeOffset": 179,
+      "Opcode": 153,
+      "Name": "line",
+      "DeclaredArity": 1,
+      "Obsolete": false,
+      "RoleNamePresentInActualValidatorSwitch": true,
+      "Operands": [
+        {
+          "Kind": "unsigned",
+          "Value": "6",
+          "TypeIndex": null
+        }
+      ]
+    },
+    {
+      "Index": 60,
+      "CodeOffset": 181,
+      "Opcode": 4,
+      "Name": "call",
+      "DeclaredArity": 2,
+      "Obsolete": false,
+      "RoleNamePresentInActualValidatorSwitch": true,
+      "Operands": [
+        {
+          "Kind": "unsigned",
+          "Value": "0",
+          "TypeIndex": null
+        },
+        {
+          "Kind": "label",
+          "Value": "7",
+          "TypeIndex": null
+        }
+      ]
+    },
+    {
+      "Index": 61,
+      "CodeOffset": 184,
+      "Opcode": 1,
+      "Name": "label",
+      "DeclaredArity": 1,
+      "Obsolete": false,
+      "RoleNamePresentInActualValidatorSwitch": true,
+      "Operands": [
+        {
+          "Kind": "unsigned",
+          "Value": "14",
+          "TypeIndex": null
+        }
+      ]
+    },
+    {
+      "Index": 62,
+      "CodeOffset": 186,
+      "Opcode": 106,
+      "Name": "try_case",
+      "DeclaredArity": 1,
+      "Obsolete": false,
+      "RoleNamePresentInActualValidatorSwitch": false,
+      "Operands": [
+        {
+          "Kind": "y",
+          "Value": "2",
+          "TypeIndex": null
+        }
+      ]
+    },
+    {
+      "Index": 63,
+      "CodeOffset": 188,
+      "Opcode": 64,
+      "Name": "move",
+      "DeclaredArity": 2,
+      "Obsolete": false,
+      "RoleNamePresentInActualValidatorSwitch": true,
+      "Operands": [
+        {
+          "Kind": "x",
+          "Value": "0",
+          "TypeIndex": null
+        },
+        {
+          "Kind": "y",
+          "Value": "0",
+          "TypeIndex": null
+        }
+      ]
+    },
+    {
+      "Index": 64,
+      "CodeOffset": 191,
+      "Opcode": 64,
+      "Name": "move",
+      "DeclaredArity": 2,
+      "Obsolete": false,
+      "RoleNamePresentInActualValidatorSwitch": true,
+      "Operands": [
+        {
+          "Kind": "x",
+          "Value": "1",
+          "TypeIndex": null
+        },
+        {
+          "Kind": "y",
+          "Value": "2",
+          "TypeIndex": null
+        }
+      ]
+    },
+    {
+      "Index": 65,
+      "CodeOffset": 194,
+      "Opcode": 64,
+      "Name": "move",
+      "DeclaredArity": 2,
+      "Obsolete": false,
+      "RoleNamePresentInActualValidatorSwitch": true,
+      "Operands": [
+        {
+          "Kind": "x",
+          "Value": "2",
+          "TypeIndex": null
+        },
+        {
+          "Kind": "x",
+          "Value": "0",
+          "TypeIndex": null
+        }
+      ]
+    },
+    {
+      "Index": 66,
+      "CodeOffset": 197,
+      "Opcode": 160,
+      "Name": "build_stacktrace",
+      "DeclaredArity": 0,
+      "Obsolete": false,
+      "RoleNamePresentInActualValidatorSwitch": false,
+      "Operands": []
+    },
+    {
+      "Index": 67,
+      "CodeOffset": 198,
+      "Opcode": 16,
+      "Name": "test_heap",
+      "DeclaredArity": 2,
+      "Obsolete": false,
+      "RoleNamePresentInActualValidatorSwitch": true,
+      "Operands": [
+        {
+          "Kind": "unsigned",
+          "Value": "4",
+          "TypeIndex": null
+        },
+        {
+          "Kind": "unsigned",
+          "Value": "1",
+          "TypeIndex": null
+        }
+      ]
+    },
+    {
+      "Index": 68,
+      "CodeOffset": 201,
+      "Opcode": 164,
+      "Name": "put_tuple2",
+      "DeclaredArity": 2,
+      "Obsolete": false,
+      "RoleNamePresentInActualValidatorSwitch": true,
+      "Operands": [
+        {
+          "Kind": "x",
+          "Value": "1",
+          "TypeIndex": null
+        },
+        {
+          "Kind": "argument-count",
+          "Value": "3",
+          "TypeIndex": null
+        },
+        {
+          "Kind": "y",
+          "Value": "0",
+          "TypeIndex": null
+        },
+        {
+          "Kind": "y",
+          "Value": "2",
+          "TypeIndex": null
+        },
+        {
+          "Kind": "x",
+          "Value": "0",
+          "TypeIndex": null
+        }
+      ]
+    },
+    {
+      "Index": 69,
+      "CodeOffset": 208,
+      "Opcode": 64,
+      "Name": "move",
+      "DeclaredArity": 2,
+      "Obsolete": false,
+      "RoleNamePresentInActualValidatorSwitch": true,
+      "Operands": [
+        {
+          "Kind": "y",
+          "Value": "1",
+          "TypeIndex": null
+        },
+        {
+          "Kind": "x",
+          "Value": "0",
+          "TypeIndex": null
+        }
+      ]
+    },
+    {
+      "Index": 70,
+      "CodeOffset": 211,
+      "Opcode": 153,
+      "Name": "line",
+      "DeclaredArity": 1,
+      "Obsolete": false,
+      "RoleNamePresentInActualValidatorSwitch": true,
+      "Operands": [
+        {
+          "Kind": "unsigned",
+          "Value": "7",
+          "TypeIndex": null
+        }
+      ]
+    },
+    {
+      "Index": 71,
+      "CodeOffset": 213,
+      "Opcode": 20,
+      "Name": "send",
+      "DeclaredArity": 0,
+      "Obsolete": false,
+      "RoleNamePresentInActualValidatorSwitch": true,
+      "Operands": []
+    },
+    {
+      "Index": 72,
+      "CodeOffset": 214,
+      "Opcode": 18,
+      "Name": "deallocate",
+      "DeclaredArity": 1,
+      "Obsolete": false,
+      "RoleNamePresentInActualValidatorSwitch": true,
+      "Operands": [
+        {
+          "Kind": "unsigned",
+          "Value": "3",
+          "TypeIndex": null
+        }
+      ]
+    },
+    {
+      "Index": 73,
+      "CodeOffset": 216,
+      "Opcode": 19,
+      "Name": "return",
+      "DeclaredArity": 0,
+      "Obsolete": false,
+      "RoleNamePresentInActualValidatorSwitch": true,
+      "Operands": []
+    },
+    {
+      "Index": 74,
+      "CodeOffset": 217,
+      "Opcode": 3,
+      "Name": "int_code_end",
+      "DeclaredArity": 0,
+      "Obsolete": false,
+      "RoleNamePresentInActualValidatorSwitch": true,
+      "Operands": []
+    }
+  ],
+  "RoleOperandValidationExecuted": false,
+  "WholeImagePrepareSucceeded": false,
+  "GuestExecuted": false,
+  "OriginalVmExecuted": false,
+  "Limit": "Name presence does not prove operand roles/frame/link/import/execution admission; whole-image inventory is not reachable-path execution"
+}

@@ -1,0 +1,40 @@
+{
+  "Status": "PASS_ACTUAL_HEADER_DIAGNOSTIC",
+  "DriverCases": 1,
+  "DriverCasePassed": 1,
+  "SuccessfulDriverCases": 0,
+  "RawEtfPairsCompared": 0,
+  "RawEtfEqual": 0,
+  "Checks": 1,
+  "Passed": 1,
+  "SealedOriginalsUnchanged": true,
+  "Cases": [
+    {
+      "Name": "invalid_header_define_directive",
+      "ExpectedSuccess": false,
+      "Passed": true,
+      "InputBefore": {
+        "include/broken.hrl": "B89E4139BA42FFB4F9BC6141BA357931493C732BAF101F40983D74F50F7C5A61",
+        "src/driver_case.erl": "A58DECFD5378FF606B1EAE5EC096E7CFA80CE6F4BDD8F93342A899892109B32A"
+      },
+      "SentinelAbsent": true,
+      "InputAfter": {
+        "include/broken.hrl": "B89E4139BA42FFB4F9BC6141BA357931493C732BAF101F40983D74F50F7C5A61",
+        "src/driver_case.erl": "A58DECFD5378FF606B1EAE5EC096E7CFA80CE6F4BDD8F93342A899892109B32A"
+      },
+      "InputUnchanged": true,
+      "SentinelAbsentAtSettlement": true
+    }
+  ],
+  "Processes": [
+    {
+      "Name": "driver",
+      "Receipt": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-header-diagnostic-execution1\\cases\\invalid_header_define_directive\\driver.exit.json",
+      "ExpectedExit": 1,
+      "HelperRaised": "RuntimeError('Owned stage failed; all available raw evidence retained: driver')"
+    }
+  ],
+  "No40ComparisonClaim": true,
+  "NotProductionDriverIntegration": true,
+  "StackFieldsRemovedOrNormalized": false
+}

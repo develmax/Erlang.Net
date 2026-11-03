@@ -18,6 +18,27 @@ try
 
         return 0;
     }
+    if (args[0] == MfaCompatibilityNames.Command)
+    {
+        if (args.Length != 3)
+            throw new ArgumentException(ToolDiagnostics.ApiCompatibilityArguments);
+
+        string docs = Path.GetFullPath(args[1]);
+        var baseline = JsonSerializer.Deserialize<JsonElement>(File.ReadAllText(Path.Combine(Directory.GetParent(docs)!.FullName, ReadinessText.BaselineFile)));
+        // Documentation-only generation preserves the ledger snapshot; readiness separately validates the actual runtime registry.
+        var snapshot = JsonSerializer.Deserialize<MfaCompatibilityLedger>(File.ReadAllText(Path.Combine(docs, MfaCompatibilityNames.File)))!;
+        var keys = snapshot.Entries.Select(entry => entry.Key).ToHashSet(StringComparer.Ordinal);
+        var ledger = MfaCompatibility.Load(
+            docs,
+            baseline.GetProperty("tag").GetString()!,
+            baseline.GetProperty("commit").GetString()!,
+            keys,
+            validateSourceBindings: false
+        );
+        await MfaCompatibilityDocuments.Write(ledger, docs, Path.GetFullPath(args[2]));
+
+        return 0;
+    }
     if (args[0] == ReadinessText.Command)
     {
         if (args.Length != 4)

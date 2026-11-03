@@ -20,12 +20,13 @@ public sealed partial class ProcessRuntime
         {
             RequireEtsFoundationActor(context);
             context.Cancellation.ThrowIfCancellationRequested();
-            owner = dirtyNative419 ??= new();
+            owner = dirtyNative419 ??= new(dirtyIoSchedulerCount522);
         }
         // Queries admit the configured physical lanes too. Counts therefore
         // never borrow normal dispatcher capacity or claim nonexistent lanes.
         owner.EnsureStarted();
-        result = Term.I(DirtyNativeSchedulerNames419.WorkersPerKind);
+        result = Term.I(atom.Name == DirtyNativeSchedulerNames419.Io
+            ? owner.IoWorkerCount522 : DirtyNativeSchedulerNames419.WorkersPerKind);
 
         return true;
     }

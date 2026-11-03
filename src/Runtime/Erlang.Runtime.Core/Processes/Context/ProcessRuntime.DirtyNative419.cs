@@ -10,7 +10,8 @@ public sealed partial class ProcessRuntime
         string module,
         string function,
         IReadOnlyList<Term> arguments,
-        Func<ProcessContext, IReadOnlyList<Term>, Term> body
+        Func<ProcessContext, IReadOnlyList<Term>, Term> body,
+        Action<Task>? physicalSettlement521 = null
     )
     {
         DirtyNativeOwner419 owner;
@@ -19,7 +20,7 @@ public sealed partial class ProcessRuntime
             if (!ReferenceEquals(context.Runtime, this)) throw new ArgumentException(DirtyNativeNames419.Foreign, nameof(context));
             RequireEtsFoundationActor(context);
             context.Cancellation.ThrowIfCancellationRequested();
-            owner = dirtyNative419 ??= new();
+            owner = dirtyNative419 ??= new(dirtyIoSchedulerCount522);
         }
 
         var scheduler = context.ActorTaskScheduler ?? throw new InvalidOperationException(DirtyNativeNames419.NoContext);
@@ -29,7 +30,8 @@ public sealed partial class ProcessRuntime
             module,
             function,
             arguments,
-            body
+            body,
+            physicalSettlement521
         );
 
         // The physical callback stays on its owned CPU/IO worker. Its process

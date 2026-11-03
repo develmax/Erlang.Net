@@ -28,6 +28,7 @@ internal sealed partial class NifNativeAllocationDomain
         Monitor.Enter(gate);
         try
         {
+            ObjectDisposedException.ThrowIf(finalRetirement528, NifNativeAllocationArena528Names.Closed);
             long membership = checked(nextMembership + 1);
             owners.Add(membership, default);
             nextMembership = membership;
@@ -90,7 +91,10 @@ internal sealed partial class NifNativeAllocationDomain
             RequireOwner(membership, owner);
             if (owner.Count != 0 || owner.RequestedBytes != 0 || owner.BackingRequestBytes != 0)
                 throw new InvalidOperationException(NifNativeAllocationDomainDiagnostics.NonemptyMembership);
+            long nextRevision528 = checked(ownerRevision528 + 1);
             owners.Remove(membership);
+            actualOwners528.Remove(membership);
+            ownerRevision528 = nextRevision528;
             scanOwners434.Remove(membership);
         }
         finally

@@ -1,0 +1,19 @@
+{
+  "Partial": true,
+  "SelectedCount": 1,
+  "TotalCount": 8081,
+  "Blocks": [],
+  "ExactCases": [
+    "runtime/halt/immediate-election-preserves-first-pending-result"
+  ],
+  "Passed": 0,
+  "Failed": 1,
+  "Tests": [
+    {
+      "Name": "runtime/halt/immediate-election-preserves-first-pending-result",
+      "Status": "Failed",
+      "Error": "System.InvalidOperationException: Pending halt election contract failed\r\n   at Erlang.Tests.HaltElectionHostChecks.Require(Boolean condition) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\HaltElectionHostChecks.cs:line 61\r\n   at Erlang.Tests.HaltElectionHostChecks.PendingImmediateIsFinal() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\HaltElectionHostChecks.cs:line 24\r\n   at Erlang.Tests.HaltElectionHostChecks.PendingImmediateIsFinal() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\HaltElectionHostChecks.cs:line 30\r\n   at Erlang.Tests.HaltElectionHostChecks.Run() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\HaltElectionHostChecks.cs:line 9\r\n   at Program.\u003CMain\u003E$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Program.cs:line 5430",
+      "Milliseconds": 48
+    }
+  ]
+}

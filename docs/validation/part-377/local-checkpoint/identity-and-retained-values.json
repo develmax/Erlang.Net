@@ -1,0 +1,120 @@
+{
+  "Passed": true,
+  "Branches": 3,
+  "RunnerSha256": "0FDAD3EF9309DF4AC4DA327224011D457DC98824BA1DFD0F8E4C21385FE2B615",
+  "SubjectToolSha256": "EA6DA4CEA80719052C3B867604E05D8FFA7442B482A44C727BF450B633F662DC",
+  "RuntimeSha256": "D91699E88F417E00470D224934D47CD92358CC1B3B37CA1F15BCF5D4731D8F4E",
+  "InstalledClosureCheckedAroundOriginalChildren": true,
+  "NoInstalledWrites": true,
+  "NoCompilerOrWholeApiCompatibilityClaim": true,
+  "Outcomes": [
+    {
+      "Name": "private_tool_dependency_identity",
+      "Passed": true,
+      "Steps": [
+        {
+          "Name": "cold",
+          "Summary": {
+            "ExecutedCompilers": 1,
+            "Skipped": 0,
+            "Manifest": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-final-identity-values-execution1\\private_tool_dependency_identity\\compiled\\beam-build-state.json"
+          },
+          "NativeReceipts": [
+            {
+              "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-final-identity-values-execution1\\private_tool_dependency_identity\\compiled\\.work-10af71181e384fcd9381e06040f0e172\\driver-bootstrap\\compiler.process.json",
+              "Sha256": "9D63DC2FB45AC4A8807535FA7DB89CF24054FBDB034F2AD94C2EC296285376A4"
+            },
+            {
+              "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-final-identity-values-execution1\\private_tool_dependency_identity\\compiled\\.work-10af71181e384fcd9381e06040f0e172\\modules\\identity_guest377\\compiler.process.json",
+              "Sha256": "C20A48DAC6325627C264DDBED3354693CFF37BFAEE9E1A164FA5BB626B503ED5"
+            }
+          ]
+        },
+        {
+          "Name": "warm",
+          "Summary": {
+            "ExecutedCompilers": 0,
+            "Skipped": 1,
+            "Manifest": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-final-identity-values-execution1\\private_tool_dependency_identity\\compiled\\beam-build-state.json"
+          },
+          "NativeReceipts": []
+        },
+        {
+          "Name": "unused_owned_dependency_added",
+          "Summary": {
+            "ExecutedCompilers": 1,
+            "Skipped": 0,
+            "Manifest": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-final-identity-values-execution1\\private_tool_dependency_identity\\compiled\\beam-build-state.json"
+          },
+          "NativeReceipts": [
+            {
+              "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-final-identity-values-execution1\\private_tool_dependency_identity\\compiled\\.work-fff97479d7244c23998f4f2f77043d80\\modules\\identity_guest377\\compiler.process.json",
+              "Sha256": "B1C61E0642DD4D5B2F877B594997E2B6B70D71F038426359680FA47682AF39E0"
+            }
+          ]
+        },
+        {
+          "Name": "final_warm",
+          "Summary": {
+            "ExecutedCompilers": 0,
+            "Skipped": 1,
+            "Manifest": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-final-identity-values-execution1\\private_tool_dependency_identity\\compiled\\beam-build-state.json"
+          },
+          "NativeReceipts": []
+        }
+      ],
+      "AddedOwnedDllSha256": "734F5343EBF168332C2409AE57EED8B8DE5695FCB29560776966E861E713D455",
+      "ActualToolSha256": "EA6DA4CEA80719052C3B867604E05D8FFA7442B482A44C727BF450B633F662DC",
+      "Scope": "Actual ToolDependencies identity changed; no new compiler/source policy claim and no explicit loading of added unused DLL."
+    },
+    {
+      "Name": "retained_direct_header_values",
+      "Passed": true,
+      "NoRecompilation": true,
+      "Comparisons": [
+        {
+          "Name": "cache_guest_a377",
+          "BeamPath": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-project-cache-specifics-execution1\\two_modules_global_closure\\compiled\\cache_guest_a377.beam",
+          "BeamSha256": "9EDCE0797618189937B69890B241BE3DA3A24222FBDB57C2338A211D82E8C1E4",
+          "OriginalPath": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-final-identity-values-execution1\\retained_direct_header_values\\cache_guest_a377.original.etf",
+          "ManagedPath": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-final-identity-values-execution1\\retained_direct_header_values\\cache_guest_a377.managed.etf",
+          "OriginalSha256": "9B39F6663887F757961D792D29483C98391AE55C0DB3A2B358979D8BB16747E2",
+          "ManagedSha256": "9B39F6663887F757961D792D29483C98391AE55C0DB3A2B358979D8BB16747E2",
+          "WholeEtfEqual": true,
+          "RequiredWholeEtfHex": "83680277026F6B680277056669727374770E6368616E6765645F686561646572",
+          "RequiredWholeEtfEqual": true
+        },
+        {
+          "Name": "cache_guest_b377",
+          "BeamPath": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-project-cache-specifics-execution1\\two_modules_global_closure\\compiled\\cache_guest_b377.beam",
+          "BeamSha256": "5782211F2C64DE2590B4C188766E7ABF07634A96B62F3ADE47F2D786F18A17CB",
+          "OriginalPath": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-final-identity-values-execution1\\retained_direct_header_values\\cache_guest_b377.original.etf",
+          "ManagedPath": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-final-identity-values-execution1\\retained_direct_header_values\\cache_guest_b377.managed.etf",
+          "OriginalSha256": "9B39F6663887F757961D792D29483C98391AE55C0DB3A2B358979D8BB16747E2",
+          "ManagedSha256": "9B39F6663887F757961D792D29483C98391AE55C0DB3A2B358979D8BB16747E2",
+          "WholeEtfEqual": true,
+          "RequiredWholeEtfHex": "83680277026F6B680277056669727374770E6368616E6765645F686561646572",
+          "RequiredWholeEtfEqual": true
+        }
+      ]
+    },
+    {
+      "Name": "retained_transitive_header_value",
+      "Passed": true,
+      "NoRecompilation": true,
+      "RetainedCompileResultSha256": "B3C2C8F566FD6A653C6D424F1263096B6562905CEDB8CA1CC22435D6BCFB69A3",
+      "Comparison": {
+        "Name": "transitive_378",
+        "BeamPath": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-final-identity-values-execution1\\retained_transitive_header_value\\hello_include.beam",
+        "BeamSha256": "30630D9F6FD8B7BC1B7AFCA9DD08610CF135A796B02630F1DD460048DE10B89A",
+        "OriginalPath": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-final-identity-values-execution1\\retained_transitive_header_value\\transitive_378.original.etf",
+        "ManagedPath": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-final-identity-values-execution1\\retained_transitive_header_value\\transitive_378.managed.etf",
+        "OriginalSha256": "58AF7DAFF2716B424C6C7FA8C9F2DD36C9FF4F4777517AD84B7F9409187C0AA9",
+        "ManagedSha256": "58AF7DAFF2716B424C6C7FA8C9F2DD36C9FF4F4777517AD84B7F9409187C0AA9",
+        "WholeEtfEqual": true,
+        "RequiredWholeEtfHex": "83680277026F6B6803770568656C6C6F68027708696E636C75646564620000017A770474657374",
+        "RequiredWholeEtfEqual": true
+      }
+    }
+  ]
+}

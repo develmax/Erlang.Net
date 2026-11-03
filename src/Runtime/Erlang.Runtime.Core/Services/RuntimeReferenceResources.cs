@@ -126,8 +126,11 @@ public sealed partial class RuntimeReferenceResources
         {
             closed = true;
             foreach (var weak in entries.Values)
-                if (weak.TryGetTarget(out var entry))
+                if (weak.TryGetTarget(out var entry) && entry.Kind != ReferenceResourceKind.NativeResource524)
                     entry.Close();
+            // Native entries stay readable by already-admitted guest roots until
+            // real physical resource retirement. The strong identity index is
+            // removed by ForgetNativeResource524; closed admission cannot add one.
             entries.Clear();
         }
     }

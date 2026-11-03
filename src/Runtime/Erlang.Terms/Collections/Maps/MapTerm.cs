@@ -29,6 +29,7 @@ public sealed partial class MapTerm : Term
         bool rebaseCopiedFlatKeys
     )
     {
+        IsOrdinaryLogicalMap517 = true;
         var d = new Dictionary<Term, Term>();
         foreach (var entry in entries)
             d[entry.Key] = entry.Value;

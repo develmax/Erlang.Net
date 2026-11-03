@@ -13,5 +13,6 @@ public enum ReferenceResourceKind
     Atomics413,
     CompiledMatchSpecification419,
     Counters421,
-    TraceSession425
+    TraceSession425,
+    NativeResource524
 }

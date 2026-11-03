@@ -1,0 +1,65 @@
+{
+  "Passed": true,
+  "Cases": [
+    {
+      "Name": "linked",
+      "ExitCode": 0,
+      "ExpectedDiagnostic": null,
+      "Passed": true,
+      "Seconds": 2.4839999999967404
+    },
+    {
+      "Name": "collision",
+      "ExitCode": 1,
+      "ExpectedDiagnostic": "copy destinations must be unique",
+      "Passed": true,
+      "Seconds": 1.0309999999590218
+    },
+    {
+      "Name": "missing",
+      "ExitCode": 1,
+      "ExpectedDiagnostic": "retained asset is missing",
+      "Passed": true,
+      "Seconds": 1.0790000000270084
+    },
+    {
+      "Name": "extension",
+      "ExitCode": 1,
+      "ExpectedDiagnostic": "requires an explicit .beam",
+      "Passed": true,
+      "Seconds": 1.1400000000139698
+    },
+    {
+      "Name": "source",
+      "ExitCode": 1,
+      "ExpectedDiagnostic": "separate admitted original compiler route",
+      "Passed": true,
+      "Seconds": 1.0
+    },
+    {
+      "Name": "beammetadata",
+      "ExitCode": 1,
+      "ExpectedDiagnostic": "placement metadata on the corresponding None",
+      "Passed": true,
+      "Seconds": 1.0160000000032596
+    },
+    {
+      "Name": "escape",
+      "ExitCode": 1,
+      "ExpectedDiagnostic": "stay within the output directory",
+      "Passed": true,
+      "Seconds": 1.0469999999622814
+    },
+    {
+      "Name": "optout",
+      "ExitCode": 0,
+      "ExpectedDiagnostic": null,
+      "Passed": true,
+      "Seconds": 2.2339999999967404
+    }
+  ],
+  "Builds": 8,
+  "TargetSha256": "1232E807D5D09814062021B379D3088A126E42B91E71126B44F35638AEAAFBE2",
+  "RuntimeChanged": false,
+  "SourceCompilationExecuted": false
+}

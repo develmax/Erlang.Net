@@ -1,0 +1,140 @@
+{
+  "Status": "SCOPED_LOCAL_RESOURCE_CHECKPOINT_NOT_WHOLE16_COMPATIBILITY",
+  "Counts": {
+    "FULL": 14,
+    "PARTIAL": 2
+  },
+  "Whole16Accepted": false,
+  "Partitions": [
+    {
+      "Name": "ordinary-project-defaults-unchanged",
+      "OriginalRequired": "No app items/import: existing retained/source target outputs, metadata, child counts and old regression remain unchanged.",
+      "Status": "FULL",
+      "EvidenceLayer": "MSBUILD_AND_RETAINED_SOURCE_BOUNDARIES",
+      "Evidence": "msbuild7.json/no-application; source-cli5.json; unchanged retained target source",
+      "Remaining": null
+    },
+    {
+      "Name": "single-concrete-appsrc-layout",
+      "OriginalRequired": "Exact fixture source/app/priv/config bytes captured; .app.src bytes equal ebin/App.app, module-list order unchanged, exact one BEAM and two ordered configs; resource manifest binds all hashes.",
+      "Status": "FULL",
+      "EvidenceLayer": "ACTUAL_NATIVE_PARSER_AND_PROJECT_OUTPUTS",
+      "Evidence": "native-parser5.json; parsed41.json; msbuild7.json/source-warm",
+      "Remaining": null
+    },
+    {
+      "Name": "explicit-app-alternative",
+      "OriginalRequired": "Equivalent concrete .app copied unchanged; simultaneous .app and .app.src for same owner refuses before copy.",
+      "Status": "FULL",
+      "EvidenceLayer": "ACTUAL_CLI_AND_MSBUILD",
+      "Evidence": "cli16.json/concrete-app; msbuild7.json/alternatives; extra5.json/two-descriptors",
+      "Remaining": null
+    },
+    {
+      "Name": "fresh-actual-module-and-data",
+      "OriginalRequired": "Explicit .NET host loads exact packaged BEAM and invokes resource378:hello/0, reads declared priv bytes through host API; no application/code facade is called or credited.",
+      "Status": "FULL",
+      "EvidenceLayer": "ACTUAL_PUBLISHED_DOTNET_EXECUTION",
+      "Evidence": "msbuild7.json/source-warm,publish-clean; cold-package6.json away runs",
+      "Remaining": null
+    },
+    {
+      "Name": "noop-zero-native-and-writes",
+      "OriginalRequired": "Identical rebuild: zero resource-validator children; source compiler separately zero; all generated/copied file hashes+mtimes and resource manifest bytes stable.",
+      "Status": "PARTIAL",
+      "EvidenceLayer": "ACTUAL_FINAL_OUTPUT_NOOP_WITH_PRIVATE_STAGING_WRITES",
+      "Evidence": "cli16.json/warm; msbuild7.json/source-warm; cold-package6.json",
+      "Remaining": "Zero native children and unchanged accepted final outputs/state are proven. Every warm invocation still writes its request and private input/diagnostic stage; literal zero total generated/copied writes is not achieved."
+    },
+    {
+      "Name": "priv-change-only-resource-invalidation",
+      "OriginalRequired": "One priv byte edit updates own snapshot/manifest/final bytes; source BEAM digest+mtime stable; validator count measured; revert rebuild and actual read verified.",
+      "Status": "FULL",
+      "EvidenceLayer": "ACTUAL_MSBUILD_AND_NATIVE_RECEIPT_INVENTORY",
+      "Evidence": "msbuild7.json/resource-config-edits; structural-gates.json",
+      "Remaining": null
+    },
+    {
+      "Name": "config-byte-and-order-invalidation",
+      "OriginalRequired": "Config byte edit and declared config order change independently alter resource identity; files remain exact/unmerged; existing application env remains unchanged by packaging.",
+      "Status": "FULL",
+      "EvidenceLayer": "ACTUAL_MSBUILD_INERT_DATA_AND_SOURCE_PATH_REVIEW",
+      "Evidence": "msbuild7.json/resource-config-edits; cli16.json/config-order",
+      "Remaining": null
+    },
+    {
+      "Name": "descriptor-identity-and-terms-refusals",
+      "OriginalRequired": "Name/filename/version/module mismatch, duplicate key/module, malformed term, two terms, unsupported placeholder/template refuse without accepted cache/copy; distinguish SDK policy from original controller errors.",
+      "Status": "FULL",
+      "EvidenceLayer": "NATIVE_NEGATIVES_AND_ACTUAL_MANAGED_GUARDS",
+      "Evidence": "native-parser5.json; parsed41.json; input40.json; cli16.json/module mismatch",
+      "Remaining": null
+    },
+    {
+      "Name": "module-ownership-and-missing-beam",
+      "OriginalRequired": "Descriptor names exactly declared actual images; missing/extra module, duplicate module owner across descriptors and altered BEAM digest refuse.",
+      "Status": "FULL",
+      "EvidenceLayer": "ACTUAL_REQUEST_SNAPSHOT_AND_PARSED_GUARDS",
+      "Evidence": "input40.json/module mutation,name,hash; parsed41.json/module sets; extra5.json/two-descriptors",
+      "Remaining": null
+    },
+    {
+      "Name": "path-and-metadata-collisions",
+      "OriginalRequired": "Reparse/parent/rooted/case-alias paths and collisions with ebin/app/beam/config/manifest/ordinary None output refuse; existing None metadata preserved unless explicit app-mode placement accepted.",
+      "Status": "FULL",
+      "EvidenceLayer": "ACTUAL_INPUT_JUNCTION_AND_MSBUILD_REFUSALS",
+      "Evidence": "input40.json; msbuild7.json/placement-refusals,overlap-refusals",
+      "Remaining": null
+    },
+    {
+      "Name": "snapshot-mutation-before-promotion",
+      "OriginalRequired": "Controlled live/owned declared-file mutation during resource child is detected by real settlement path, not relabeled from sampled standalone validators; old accepted output/manifest unchanged.",
+      "Status": "FULL",
+      "EvidenceLayer": "ACTUAL_ORIGINAL_CHILD_LIFETIME_AND_REAL_SETTLEMENT",
+      "Evidence": "child-mutation2.json/live and owned; retained same-handle observations",
+      "Remaining": null
+    },
+    {
+      "Name": "stale-removal-ownership",
+      "OriginalRequired": "Remove declared priv/config: only old unchanged manifest-owned output removed; unrelated sentinel survives; user-edited old output causes preflight refusal before new promotion.",
+      "Status": "FULL",
+      "EvidenceLayer": "ACTUAL_CLI_AND_SDK_CLEAN",
+      "Evidence": "cli16.json/stale priv,edited output; extra5.json/config deletion,version; msbuild7.json/publish-clean",
+      "Remaining": null
+    },
+    {
+      "Name": "publish-away-identity",
+      "OriginalRequired": "Fresh publish preserves exact layout+bytes; actual .NET module/data checks from unrelated cwd pass; entire build-tool/original erl/erlc/compiler/driver families absent.",
+      "Status": "FULL",
+      "EvidenceLayer": "ACTUAL_PUBLISHED_DOTNET_PROCESS_AND_FILE_HASHES",
+      "Evidence": "msbuild7.json/publish-clean; cold-package6.json/published-away-run",
+      "Remaining": null
+    },
+    {
+      "Name": "clean-and-rebuild",
+      "OriginalRequired": "Clean removes only registered owned artifacts/state, leaves source/unrelated files; rebuild reproduces resources; bootstrap/compile/validation counts recorded separately.",
+      "Status": "FULL",
+      "EvidenceLayer": "ACTUAL_SDK_FILEWRITES_CLEAN_AND_REBUILD",
+      "Evidence": "msbuild7.json/publish-clean",
+      "Remaining": null
+    },
+    {
+      "Name": "cold-package-consumer",
+      "OriginalRequired": "Isolated package-reference project restores only intended local packages; opt-in targets/tasks/resources available, same build/publish/away checks and no tool leakage. Separate from repo ProjectReference.",
+      "Status": "FULL",
+      "EvidenceLayer": "ISOLATED_LOCAL_NUGET_AND_PUBLISHED_DOTNET_EXECUTION",
+      "Evidence": "cold-package6.json; exact actual packaged task and dependency hashes",
+      "Remaining": null
+    },
+    {
+      "Name": "resource-child-failure-and-timeout",
+      "OriginalRequired": "Existing actual process wrapper failure/timeout plus resource-builder failure prove no accepted final manifest/copy; collect independent logs/cleanup; synthetic wrapper test is not original parser compatibility.",
+      "Status": "PARTIAL",
+      "EvidenceLayer": "ACTUAL_NATIVE_FAILURE_PLUS_UNCHANGED_TIMEOUT_SOURCE",
+      "Evidence": "native-parser5.json/failures; cli16.json/malformed-config; unchanged RunCore body; prior worker timeout is distinct",
+      "Remaining": "Actual resource-child failures preserve the previous accepted outputs. The shared120s worker timeout is inherited, but a full resource orchestration timeout using an admitted original child was not executed."
+    }
+  ],
+  "Scope": "FULL means the named finite SDK V1 source/observation layer only. No controller/startup/config application, arbitrary templates, general releases or language/API promotion.",
+  "PublishedTreeQualification": "The relative application-resources.json does not imply a source-free or absolute-path-free publish tree: own .erl source and Modules/beam-build-state.json diagnostics remain intentionally visible. Public managed Erlang.Compiler.dll is a separate legitimate package library."
+}

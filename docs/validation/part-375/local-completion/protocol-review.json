@@ -1,0 +1,564 @@
+{
+  "Schema": "library375-selector-and-native-own-state-protocol-v1",
+  "Status": "SOURCE_APPLICABILITY_REVIEW_ONLY_FRESH_CAPTURE_GATE_PENDING",
+  "PinnedOtp": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "SourceBindingCount": 72,
+  "AllChangedProductionPathsReviewed": true,
+  "ResolvedFindings": [
+    "NATIVE_PRIMITIVE_RELOAD_CAPTURE",
+    "DIRECT_NATIVE_STUB_CAPABILITY_SCOPE",
+    "MAP_ASSOC_ALL_Y_INITIALIZATION_ADMISSION",
+    "QUALIFIED_PREPARED_NATIVE_CLASSIFICATION"
+  ],
+  "ActualOwnTrapEntrySnapshotsSourceReviewed": true,
+  "EveryBudgetHeapStateDifferenceExplained": true,
+  "AssertionScope": "Source applicability only: first reverse/member badarg frame effective args passing exact call-origin/decomposition predicates; not actual observation admission or fabricated budget telemetry",
+  "NativePartitionSeededIntoMain": false,
+  "OriginalListsSha256": "010FDB0A6C1441732EDF18934061E4C9B180FE9E3DAA9A93A7458E91352F1FCC",
+  "OriginalQueueSha256": "759B1FE208F8A0DE292147EB00FFCE98F929263ADCFCD4AABB485E3B3EB4538D",
+  "NativePrimitiveBoundaryCount": 5,
+  "PermittedFrames": [
+    "lists:reverse/2",
+    "lists:member/2"
+  ],
+  "PermittedDifference": "FIRST_FRAME_EFFECTIVE_ARGUMENTS_ONLY",
+  "StackShapeDifferencesPermitted": false,
+  "CallerMetadataDifferencesPermitted": false,
+  "RequiredComparisonLabel": "SOURCE_PROTOCOL_SAVED_ENTRY",
+  "GuardLedgerMutated": false,
+  "IndependentIlComparisonPerformed": false,
+  "Builds": 0,
+  "GuestExecutions": 0,
+  "NativeExecutions": 0,
+  "ProductEdits": 0,
+  "ImplementedApiDelta": 0,
+  "VerifiedContractDelta": 0,
+  "Files": [
+    {
+      "Path": "src/Erlang.Runtime/BeamDependencySelection.cs",
+      "Bytes": 534,
+      "Sha256": "A0CB6AFF8A17D64E57DFC55C7DCF5CDF5ACE8CAE42F2AD8BBF97A7F0194936C1",
+      "ReviewRole": "Unchanged374PrimitiveInterpreterAndScope"
+    },
+    {
+      "Path": "src/Erlang.Runtime/BeamExecutionIdentity.cs",
+      "Bytes": 322,
+      "Sha256": "78F26295947AC57FAD8C5599DFBCC38EA47589DD61FA6A069ED040A7C8563509",
+      "ReviewRole": "Unchanged374PrimitiveInterpreterAndScope"
+    },
+    {
+      "Path": "src/Erlang.Runtime/BeamExternalImports.cs",
+      "Bytes": 3429,
+      "Sha256": "2B37A300AE3BDB78E42D904A7C5ADDB17DC220C93697B50AEF938F4DA425835D",
+      "ReviewRole": "Unchanged374PrimitiveInterpreterAndScope"
+    },
+    {
+      "Path": "src/Erlang.Runtime/BeamFrameValidation.cs",
+      "Bytes": 11153,
+      "Sha256": "E37EFB502CBAFB0A0A291A10910F2FD84703A74EE252EB6FA5D49C6154DB2700",
+      "ReviewRole": "Unchanged374PrimitiveInterpreterAndScope"
+    },
+    {
+      "Path": "src/Erlang.Runtime/BeamFunctionScope.cs",
+      "Bytes": 1247,
+      "Sha256": "2A19360B54055A1905BF187A65DD6C2F41D6AC6A58C69782A0FFDD0ECFE88F92",
+      "ReviewRole": "Unchanged374PrimitiveInterpreterAndScope"
+    },
+    {
+      "Path": "src/Erlang.Runtime/BeamGeneralOpcodeNames.cs",
+      "Bytes": 1466,
+      "Sha256": "801FFD9E0E4426332689162CB95F1E855D1DFBF568C58056483C8B4ABAD94422",
+      "ReviewRole": "Unchanged374PrimitiveInterpreterAndScope"
+    },
+    {
+      "Path": "src/Erlang.Runtime/BeamGeneralTests.cs",
+      "Bytes": 1726,
+      "Sha256": "19ECF99CA27CFA6BAC15BC6515CA46C241507030F98E3F58E00D27C0D47DDA31",
+      "ReviewRole": "Unchanged374PrimitiveInterpreterAndScope"
+    },
+    {
+      "Path": "src/Erlang.Runtime/BeamLineNames.cs",
+      "Bytes": 300,
+      "Sha256": "465F59785E930A4588A7057A702B8D04F3F30D047454D2D3BD6840F5F14A61BE",
+      "ReviewRole": "Unchanged374PrimitiveInterpreterAndScope"
+    },
+    {
+      "Path": "src/Erlang.Runtime/BeamLineTableReader.cs",
+      "Bytes": 3081,
+      "Sha256": "C1117C50A40AB701A8DD7E0058A5486567D9D2AB09C2D0982DB012FC92F7663E",
+      "ReviewRole": "Unchanged374PrimitiveInterpreterAndScope"
+    },
+    {
+      "Path": "src/Erlang.Runtime/BeamLinkedCode.cs",
+      "Bytes": 724,
+      "Sha256": "0CEA1C8006E2152A8513B14CBE74DFEFAEBF09D771788882AA34D3BC429C2C76",
+      "ReviewRole": "Unchanged374PrimitiveInterpreterAndScope"
+    },
+    {
+      "Path": "src/Erlang.Runtime/BeamLinkedCodeReader.cs",
+      "Bytes": 20655,
+      "Sha256": "6346168AD8338C12911D105389AB6309374A9BBF0C6C0778CCC09A43FD7E7FD6",
+      "ReviewRole": "Unchanged374PrimitiveInterpreterAndScope"
+    },
+    {
+      "Path": "src/Erlang.Runtime/BeamLocalFrame.cs",
+      "Bytes": 1074,
+      "Sha256": "F60393C7C2F6444341B97DEA75ED4202CCDA8230EFC9D702FFBE664028D2D356",
+      "ReviewRole": "Unchanged374PrimitiveInterpreterAndScope"
+    },
+    {
+      "Path": "src/Erlang.Runtime/BeamMapOperands.cs",
+      "Bytes": 1207,
+      "Sha256": "4F665F6B953E13D0E99D0ECFD69953759A71947299DFB218AB8CE2DD0EBD5EB3",
+      "ReviewRole": "Unchanged374PrimitiveInterpreterAndScope"
+    },
+    {
+      "Path": "src/Erlang.Runtime/BeamModule.cs",
+      "Bytes": 3448,
+      "Sha256": "4F03D158A448856A24871269BD3DD26494EA3CDE58BE15A9BECFAD09E6A5DCB3",
+      "ReviewRole": "Unchanged374PrimitiveInterpreterAndScope"
+    },
+    {
+      "Path": "src/Erlang.Runtime/BeamNativePrimitives.cs",
+      "Bytes": 1359,
+      "Sha256": "174F7DE349955A1F6EEB276AC5C4994307EE1511E829B2758CEF6CBE430A86CF",
+      "ReviewRole": "Unchanged374PrimitiveInterpreterAndScope"
+    },
+    {
+      "Path": "src/Erlang.Runtime/BeamRegisterInterpreter.cs",
+      "Bytes": 33443,
+      "Sha256": "9852866D3248C4DAA4A331B4542589D64FB9FDE0ADD7B9265E746B2D85317B73",
+      "ReviewRole": "Unchanged374PrimitiveInterpreterAndScope"
+    },
+    {
+      "Path": "src/Erlang.Runtime/BeamRegisterState.cs",
+      "Bytes": 1879,
+      "Sha256": "E05F0E78081A1FB12401ECBF3118F5BA883CBBD22DA456ECFD77CE7CA14B195E",
+      "ReviewRole": "Unchanged374PrimitiveInterpreterAndScope"
+    },
+    {
+      "Path": "src/Erlang.Runtime/BeamRegisterValidation.cs",
+      "Bytes": 15914,
+      "Sha256": "F2A07BBFCD493D80BDE816401D833170F37A17613AD1FE84040398840C221EBB",
+      "ReviewRole": "Unchanged374PrimitiveInterpreterAndScope"
+    },
+    {
+      "Path": "src/Erlang.Runtime/BeamSelectValueValidation.cs",
+      "Bytes": 1059,
+      "Sha256": "B79FD56BECCBECE878C161F1A1BD9EA667D380FD7A83B4286E387897ABDF8A02",
+      "ReviewRole": "Unchanged374PrimitiveInterpreterAndScope"
+    },
+    {
+      "Path": "src/Erlang.Runtime/CoreModules.cs",
+      "Bytes": 31690,
+      "Sha256": "058DCBF2B5DF9A50564A9C21143A53C60875DF6D13E2A5EC621FABD96F13D278",
+      "ReviewRole": "Unchanged374PrimitiveInterpreterAndScope"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ListFunctions.cs",
+      "Bytes": 5573,
+      "Sha256": "B4BD810C38C1FAC756A8C1B88AC4011DCBF6349CAF4A12160F963757071AC0A3",
+      "ReviewRole": "Unchanged374PrimitiveInterpreterAndScope"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ListLastExecution.cs",
+      "Bytes": 1121,
+      "Sha256": "07E1AA010E601B9C2ACE9115C9BB36346EFFBEAC13D325B7BA05E23B470B1051",
+      "ReviewRole": "Unchanged374PrimitiveInterpreterAndScope"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ListLastSource.cs",
+      "Bytes": 410,
+      "Sha256": "894218DC1DF8DA23CF663224C432F6A361B802E1B1BB57BEF4E40CD8F49379EE",
+      "ReviewRole": "Unchanged374PrimitiveInterpreterAndScope"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ListNativeTraversal.cs",
+      "Bytes": 602,
+      "Sha256": "64D5F62272DF55AED6E059513F19803C92AD91F7B5B078BBD1B20EEE3D51F96F",
+      "ReviewRole": "Unchanged374PrimitiveInterpreterAndScope"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ListPredicateExecution.cs",
+      "Bytes": 1204,
+      "Sha256": "BA50251A96B4B89AA35550CC28B32788CD20B8582ED15AD0D6DAC2CD9BB480E3",
+      "ReviewRole": "Unchanged374PrimitiveInterpreterAndScope"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ListPredicateSource.cs",
+      "Bytes": 233,
+      "Sha256": "4863FE28D02351E494C1E3C6441BEEA6E2D003E415AC2411FD0D2DAEE36AB9AE",
+      "ReviewRole": "Unchanged374PrimitiveInterpreterAndScope"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ModuleCodeImage.cs",
+      "Bytes": 508,
+      "Sha256": "8991A332CFCF0C1468D278DA957031213918288FBE942B5C61816C5F2781E250",
+      "Role": "ExistingLifecycleOrImmutableDependency",
+      "PredecessorUnchanged": true,
+      "ReviewRole": "ExistingLifecycleOrImmutableDependency"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ModuleRegistry.BeamPrimitives.cs",
+      "Bytes": 1417,
+      "Sha256": "FFCAAE733C3B79F8BC26691599C46A1B2EE4C40D1692838ED3F047FFC6FA261E",
+      "Role": "ExistingLifecycleOrImmutableDependency",
+      "PredecessorUnchanged": true,
+      "ReviewRole": "ExistingLifecycleOrImmutableDependency"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ModuleRegistry.cs",
+      "Bytes": 29472,
+      "Sha256": "D1980A12DECDEA5902CB18E67EB12537F818FFC8E7FAF270D2A8E93A56E4B9FB",
+      "Role": "ExistingLifecycleOrImmutableDependency",
+      "PredecessorUnchanged": true,
+      "ReviewRole": "ExistingLifecycleOrImmutableDependency"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ModuleRegistry.NativeEntries.cs",
+      "Bytes": 924,
+      "Sha256": "F7F9076EE06E32EFE076743E2D049744461501DE6A66AF43752078C948D0BA0E",
+      "Role": "ExistingLifecycleOrImmutableDependency",
+      "PredecessorUnchanged": true,
+      "ReviewRole": "ExistingLifecycleOrImmutableDependency"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ModuleRegistry.PreparedBeam.cs",
+      "Bytes": 4516,
+      "Sha256": "717B3952AC19D5E3695381F6912A98D2819D154AFF62F275D61CAF4F1C869363",
+      "Role": "ExistingLifecycleOrImmutableDependency",
+      "PredecessorUnchanged": true,
+      "ReviewRole": "ExistingLifecycleOrImmutableDependency"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ModuleRegistry.ProcessScheduling.cs",
+      "Bytes": 2189,
+      "Sha256": "ED6529031DDB176F6E518831149A6B34C20D5903A5808CC34F9B21E7BAC39D2B",
+      "ReviewRole": "Unchanged374PrimitiveInterpreterAndScope"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ModuleRegistry.SourceEntry.cs",
+      "Bytes": 873,
+      "Sha256": "6621B046FE530DD5537565E441DBD8112D9DEDE58F3C973109276B9E62A6324B",
+      "ReviewRole": "Unchanged374PrimitiveInterpreterAndScope"
+    },
+    {
+      "Path": "src/Erlang.Runtime/NativeBuiltinCatalog.cs",
+      "Bytes": 21505,
+      "Sha256": "17D47C563EAC30308F96719F5232FDB6FAB84C4F5EF195F4FA146823993BBDBF",
+      "ReviewRole": "Unchanged374PrimitiveInterpreterAndScope"
+    },
+    {
+      "Path": "src/Erlang.Runtime/PreparedBeamImage.cs",
+      "Bytes": 2385,
+      "Sha256": "A4FE192BEA270B1FB32DC9E9E5DAEC67B085B1240539EB90D3B0400BAD4E53C2",
+      "Role": "ExistingLifecycleOrImmutableDependency",
+      "PredecessorUnchanged": true,
+      "ReviewRole": "ExistingLifecycleOrImmutableDependency"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProcessContext.BeamFrames.cs",
+      "Bytes": 1739,
+      "Sha256": "AE65E16248DC60C0BAB113A877DD348ABF50794CC1A2FE6144F7B7B6CB68F763",
+      "ReviewRole": "Unchanged374PrimitiveInterpreterAndScope"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProcessContext.cs",
+      "Bytes": 17064,
+      "Sha256": "B450E104DDE1E3B8E6C717D3BA8ABB584C01F25291EBCC0833892F27F5F3B2E9",
+      "ReviewRole": "Unchanged374PrimitiveInterpreterAndScope"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProcessContext.GeneratedFrames.cs",
+      "Bytes": 1196,
+      "Sha256": "C16FF0A3AFA8CC509DF58DC7E8263145B29122F8C80921F8085367B0F335205A",
+      "ReviewRole": "Unchanged374PrimitiveInterpreterAndScope"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProcessContext.ListTraversal.cs",
+      "Bytes": 297,
+      "Sha256": "762E8A8590A6C47D40A8B9BEEFB6ECFD6E149A7A8B05E8F3A333AB330DE8283C",
+      "ReviewRole": "Unchanged374PrimitiveInterpreterAndScope"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProcessContext.SourceLocations.cs",
+      "Bytes": 1361,
+      "Sha256": "D6F1417262F40797A249BB8472297C05F2323CC467AD44DA2CE01D6114BADBCE",
+      "ReviewRole": "Unchanged374PrimitiveInterpreterAndScope"
+    },
+    {
+      "Path": "src/Erlang.Runtime/QueueCoreReverse.cs",
+      "Bytes": 1716,
+      "Sha256": "06FFD9CDC6466BA3770465B2D6F382A159B6004491A820C721A9551131601EF7",
+      "ReviewRole": "Unchanged374PrimitiveInterpreterAndScope"
+    },
+    {
+      "Path": "src/Erlang.Runtime/QueueCoreReverseEntry.cs",
+      "Bytes": 226,
+      "Sha256": "F5082B18C00C2098EEB28ABB1C3A4BB77012671296A565847457998B60B04B01",
+      "ReviewRole": "Unchanged374PrimitiveInterpreterAndScope"
+    },
+    {
+      "Path": "src/Erlang.Runtime/QueueCoreReverseParameters.cs",
+      "Bytes": 119,
+      "Sha256": "7CF481B69DCB307C23846AD505CDF4A06A4A55B24B2CE9C7D2DFA6062104F79B",
+      "ReviewRole": "Unchanged374PrimitiveInterpreterAndScope"
+    },
+    {
+      "Path": "src/Erlang.Runtime/QueueCoreTrace.cs",
+      "Bytes": 3429,
+      "Sha256": "61B3BA76001585F516938154949F467AF9CDA890C5863539B36A1DE5618C6E66",
+      "ReviewRole": "Unchanged374PrimitiveInterpreterAndScope"
+    },
+    {
+      "Path": "src/Erlang.Runtime/QueueHigherExecution.cs",
+      "Bytes": 9924,
+      "Sha256": "B74A47E477486A7480BA7AD7C355803B3E199E1C4B253EB5ADD0DAE46F8A082E",
+      "ReviewRole": "Unchanged374PrimitiveInterpreterAndScope"
+    },
+    {
+      "Path": "src/Erlang.Runtime/QueueHigherListCalls.cs",
+      "Bytes": 3124,
+      "Sha256": "C8716E5F4105A9A2EC06EEC503E165259A9E5595106916F55AB577D26C898594",
+      "ReviewRole": "Unchanged374PrimitiveInterpreterAndScope"
+    },
+    {
+      "Path": "src/Erlang.Runtime/QueueHigherSource.cs",
+      "Bytes": 3382,
+      "Sha256": "024F8A1B569F64B2A728347D8B704D4C310E35803CD00C70C99B350C62B6A6F2",
+      "ReviewRole": "Unchanged374PrimitiveInterpreterAndScope"
+    },
+    {
+      "Path": "src/Erlang.Runtime/QueueHigherTrace.cs",
+      "Bytes": 3408,
+      "Sha256": "E7C6F93F9067A19E5DF45EE37F44B288E6A8D2A4BC1E043055F1F37D80BBEA38",
+      "ReviewRole": "Unchanged374PrimitiveInterpreterAndScope"
+    },
+    {
+      "Path": "src/Erlang.Runtime/QueueMemberExecution.cs",
+      "Bytes": 2646,
+      "Sha256": "2E3201EA4E5B7397A0292C7A25F831DD86C1C1EB4675B6623091B193C53CDB69",
+      "ReviewRole": "Unchanged374PrimitiveInterpreterAndScope"
+    },
+    {
+      "Path": "src/Erlang.Runtime/QueueMemberParameters.cs",
+      "Bytes": 114,
+      "Sha256": "B3017E2964385DB8583EC266104D092F6F8D3BE39B49505F5164D4EF871E7B80",
+      "ReviewRole": "Unchanged374PrimitiveInterpreterAndScope"
+    },
+    {
+      "Path": "src/Erlang.Runtime/RuntimeExceptionCapture.cs",
+      "Bytes": 7225,
+      "Sha256": "BDA882AF75249C5C067BEB61A842C5D4D4D9E5599303AF9F7F2FF8C99F19112F",
+      "ReviewRole": "Unchanged374PrimitiveInterpreterAndScope"
+    },
+    {
+      "Path": "src/Erlang.Runtime/SourceCodeLease.cs",
+      "Bytes": 546,
+      "Sha256": "9ED64B70D41436C98DD6E0C38AEFBE622D16E24456D62A10B8D00CB70CFBDCD5",
+      "ReviewRole": "Unchanged374PrimitiveInterpreterAndScope"
+    },
+    {
+      "Path": "src/Erlang.Runtime/LibrarySelectionNames.cs",
+      "Bytes": 1378,
+      "Sha256": "6E9FFD74B93BA4397226008F821AF5232D01719975F176959FA658F163C60A24",
+      "Role": "NewSelector",
+      "PredecessorUnchanged": true,
+      "ReviewRole": "NewSelector"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ModuleRegistry.LibrarySelection.cs",
+      "Bytes": 7344,
+      "Sha256": "E69E6F7CCCDFCA22311A4A5618F1939F50F2B827F5E763BFAF662B505370740E",
+      "Role": "NewSelector",
+      "PredecessorUnchanged": false,
+      "ReviewRole": "NewSelector"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProcessRuntime.LibrarySelection.cs",
+      "Bytes": 5374,
+      "Sha256": "EE0BD02D53F833440A890A3EABC2D39CA173B47DC9C65E9369F3E375F10FAE44",
+      "Role": "NewSelector",
+      "PredecessorUnchanged": false,
+      "ReviewRole": "NewSelector"
+    },
+    {
+      "Path": "src/Erlang.Runtime/RuntimeLibraryAssemblyIdentity.cs",
+      "Bytes": 115,
+      "Sha256": "49BB56B4FB0AE486CC72D0368475B045E8898D83D86E2F718E88D9EEF86E4990",
+      "Role": "NewSelector",
+      "PredecessorUnchanged": true,
+      "ReviewRole": "NewSelector"
+    },
+    {
+      "Path": "src/Erlang.Runtime/RuntimeLibraryDependencySnapshot.cs",
+      "Bytes": 119,
+      "Sha256": "874AAD6304D6B43DEEC8CBDC424B09B3ED30A91A1FCB59513D37CA0B970EEE14",
+      "Role": "NewSelector",
+      "PredecessorUnchanged": true,
+      "ReviewRole": "NewSelector"
+    },
+    {
+      "Path": "src/Erlang.Runtime/RuntimeLibraryModuleSnapshot.cs",
+      "Bytes": 1783,
+      "Sha256": "6D2E4A6AA7FE98146CDA0A51DCEA731325ED7EA3EFBBA97D4B035970EDBB750A",
+      "Role": "NewSelector",
+      "PredecessorUnchanged": true,
+      "ReviewRole": "NewSelector"
+    },
+    {
+      "Path": "src/Erlang.Runtime/RuntimeLibraryPreparedSelection.cs",
+      "Bytes": 727,
+      "Sha256": "DF3F18219564F26FB2818B7B41FF5A49EFC4A580023F11BE9C43D44F478D59C3",
+      "Role": "NewSelector",
+      "PredecessorUnchanged": true,
+      "ReviewRole": "NewSelector"
+    },
+    {
+      "Path": "src/Erlang.Runtime/RuntimeLibrarySelection.cs",
+      "Bytes": 1119,
+      "Sha256": "5B179A56E0A40508C09A31F0C1E6F4815736DF6240397F80486F3177B3AB9149",
+      "Role": "NewSelector",
+      "PredecessorUnchanged": true,
+      "ReviewRole": "NewSelector"
+    },
+    {
+      "Path": "src/Erlang.Runtime/RuntimeLibrarySelectionSnapshot.cs",
+      "Bytes": 486,
+      "Sha256": "709054E009F1AD47CBF0BF19DD8E3F36FF7EAA18234CE9AA757CBD61167430D0",
+      "Role": "NewSelector",
+      "PredecessorUnchanged": true,
+      "ReviewRole": "NewSelector"
+    },
+    {
+      "Path": "src/Erlang.Runtime/RuntimeModuleBackend.cs",
+      "Bytes": 78,
+      "Sha256": "5B2DEC9EE4742B283C07F6667A0E98C7EAA882CCED6FD6DD20609ACF9E6855A8",
+      "Role": "NewSelector",
+      "PredecessorUnchanged": true,
+      "ReviewRole": "NewSelector"
+    },
+    {
+      "Path": "src/Erlang.Runtime/RuntimeModuleSelection.cs",
+      "Bytes": 2215,
+      "Sha256": "59BBAC7FCD6BF93B6159B95A69EA3C3CABC921C55C7C82A7A64406BBD766D162",
+      "Role": "NewSelector",
+      "PredecessorUnchanged": false,
+      "ReviewRole": "NewSelector"
+    },
+    {
+      "Path": "src/Erlang.Runtime/RuntimeInitializer.cs",
+      "Bytes": 5200,
+      "Sha256": "685F52710E32B35367066F07351B9CFD1170DD0842530B12DED2002BFC1F2339",
+      "Role": "ExistingLifecycleOrImmutableDependency",
+      "PredecessorUnchanged": true,
+      "ReviewRole": "ExistingLifecycleOrImmutableDependency"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProcessRuntime.cs",
+      "Bytes": 65699,
+      "Sha256": "6240A6D51E58590C6EEF506711218557F1FCA6886C99668A3BF12AEDB4A59CA9",
+      "Role": "ExistingLifecycleOrImmutableDependency",
+      "PredecessorUnchanged": true,
+      "ReviewRole": "ExistingLifecycleOrImmutableDependency"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProcessRuntime.CodePurge.cs",
+      "Bytes": 1702,
+      "Sha256": "5B152DAEED8C7397CD20C9413B2DFFA41B9D28ED4A639B3FA7B373CE37CBF14E",
+      "Role": "ExistingLifecycleOrImmutableDependency",
+      "PredecessorUnchanged": true,
+      "ReviewRole": "ExistingLifecycleOrImmutableDependency"
+    },
+    {
+      "Path": "src/Erlang.Terms/BitString.cs",
+      "Bytes": 5166,
+      "Sha256": "C116132F26E54C2FEE15E312027B9E244A23370A08348370B142F3C84A74C9A5",
+      "Role": "ExistingLifecycleOrImmutableDependency",
+      "PredecessorUnchanged": true,
+      "ReviewRole": "ExistingLifecycleOrImmutableDependency"
+    },
+    {
+      "Path": "src/Erlang.Runtime/RuntimeActorDispatcher.cs",
+      "Bytes": 18490,
+      "Sha256": "D3881FBEBEFE67842B552F19ECEBED406A556F1A5CD90657267142310E0222B0",
+      "Role": "LifecycleReviewDependency",
+      "PredecessorUnchanged": false,
+      "ReviewRole": "LifecycleReviewDependency"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProcessRuntime.ActorDispatch.cs",
+      "Bytes": 1207,
+      "Sha256": "F9BBA1D57DC3E1B412DBD460E768D1984B9E8472FD54FF4DF8F0D6A5A88D44B3",
+      "Role": "LifecycleReviewDependency",
+      "PredecessorUnchanged": false,
+      "ReviewRole": "LifecycleReviewDependency"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProcessRuntime.ExitContinuation.cs",
+      "Bytes": 6357,
+      "Sha256": "B1169DC5D5C56D3CD065FC4C5BE22DAAFF364659ECC25AA9A4E4864A433544DB",
+      "Role": "LifecycleReviewDependency",
+      "PredecessorUnchanged": false,
+      "ReviewRole": "LifecycleReviewDependency"
+    },
+    {
+      "Path": "tests/Erlang.Tests/LibrarySelectionHostChecks.cs",
+      "Bytes": 11771,
+      "Sha256": "E022AFB9EECF34AA0AEB09A9DE1C2011D3B337D276CF2CA853C9AE74F7C01D22",
+      "Role": "LifecycleReviewDependency",
+      "PredecessorUnchanged": false,
+      "ReviewRole": "LifecycleReviewDependency"
+    },
+    {
+      "Path": "tests/Erlang.Tests/InitializationLifecycleChecks.cs",
+      "Bytes": 6878,
+      "Sha256": "7476C04CF0E0849467650D46FB840F95FFD302B37227F6BA92CC7B0ED69F87FF",
+      "Role": "LifecycleReviewDependency",
+      "PredecessorUnchanged": false,
+      "ReviewRole": "LifecycleReviewDependency"
+    }
+  ],
+  "Unchanged374SourceBindings": 52,
+  "NewSelectorFiles": 11,
+  "PredecessorReview": {
+    "Path": "artifacts/lists374-final-guard-protocol-review2/source-review.json",
+    "Sha256": "1738363CEE869B403EB6AE89DBA84DD9BA9014955B2195F3B6AFFE2397E0727B"
+  },
+  "SelectorIndependentReview": {
+    "Path": "artifacts/library375-startup-selector-independent-review3/source-review.json",
+    "Sha256": "68EDD1FA8545DAF6FA7DF29085F8A89776E66D3C2B95A87A49B1B0A70FABDEAB"
+  },
+  "PostIndependentReviewDeltas": [
+    {
+      "Path": "src/Erlang.Runtime/ModuleRegistry.LibrarySelection.cs",
+      "PredecessorSha256": "8977A4A5B4A724141A275424D190402A80457377DDF8DE0DBA8FE0A9CC36F72F",
+      "CurrentSha256": "E69E6F7CCCDFCA22311A4A5618F1939F50F2B827F5E763BFAF662B505370740E",
+      "BeforeArtifact": "artifacts/library375-startup-selector-candidate1/source/ModuleRegistry.LibrarySelection.cs",
+      "Review": "Formatting only; lexical tokens identical."
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProcessRuntime.LibrarySelection.cs",
+      "PredecessorSha256": "6BEE711BDB19C69A380A690F75EDD900E2E20FC89779D8C299B4AE34CFAE45B6",
+      "CurrentSha256": "EE0BD02D53F833440A890A3EABC2D39CA173B47DC9C65E9369F3E375F10FAE44",
+      "BeforeArtifact": "artifacts/library375-startup-selector-candidate1/source/ProcessRuntime.LibrarySelection.cs",
+      "Review": "Cleanup failure path now separately attempts checked runtime disposal and, once disposed, waits actual actor dispatcher Completion; aggregates all cleanup/drain errors with original before observing setup. Successful startup/selected image snapshot/native BIF dispatch path unchanged. Failure/cancellation lifecycle runtime proof remains Root gate; no saved-entry permission added."
+    },
+    {
+      "Path": "src/Erlang.Runtime/RuntimeModuleSelection.cs",
+      "PredecessorSha256": "0AB903DB5543BD37DD8EB780BA5DF098968F84D31FCAEEBFA35BFA9AFF05A6FD",
+      "CurrentSha256": "59BBAC7FCD6BF93B6159B95A69EA3C3CABC921C55C7C82A7A64406BBD766D162",
+      "BeforeArtifact": "artifacts/library375-startup-selector-candidate1/source/RuntimeModuleSelection.cs",
+      "Review": "Formatting only; lexical tokens identical."
+    }
+  ],
+  "SelectorProtocolReview": "Read current ModuleRegistry.LibrarySelection PrepareStartupLibraries/ValidateStartupImport/PublishStartupLibraries/CaptureStartupLibraries and ProcessRuntime.CreateAsync/FinishStartupLibraries. Success path selects exact two unchanged prepared BEAM images; successful checked bootstrap purge is completed before exposing runtime. Every selected current image/owner and captured native body must match. Pure body interpreter, five actual native kernels, reduction charging, native classification and error frame constructors are all byte-identical to final374 review. Startup factory does not introduce native partition data or mutate native entries. Fresh per-image identity admission is mandatory. Scope remains FIRST_FRAME_EFFECTIVE_ARGUMENTS_ONLY for declared reverse/member badarg call origins; stack shape/callers/metadata/every word otherwise exact.",
+  "FreshIdentityAdmission": "selector-admission.py requires actual StartupFactory/current-owner flags, exact queue40/lists93 export sets with no duplicates, exact image/hash/MD5 links, exact queue->listsBeam dependency and five primitive signatures. Existing raw comparator still verifies capture seal/profile/actual DLL closure/original bytes/FUN source code identities.",
+  "NoExecutionByReview": true,
+  "FailureCleanupProofBoundary": "Current cleanup successor source reviewed separately above; this success-cohort passive receipt does not replace deterministic failure/cancellation/worker-unwind HOST controls.",
+  "Predecessor375Review": {
+    "Path": "artifacts/library375-passive-proposal1/source-review.json",
+    "Sha256": "751F4ACFA858533444740A1D1F23B53275CC8F82B81062275F78D768E1E380E0"
+  },
+  "CaptureEligibility": "Only fresh final captures2 made after Root rebuild of final selector cleanup source. Earlier captures1 retain diagnostic-only status; their raw6384comparison cannot be relabelled final."
+}

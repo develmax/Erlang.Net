@@ -86,6 +86,7 @@ public sealed partial class ProcessRuntime
             CloseCollectors413();
             _ = CloseCodePurger432();
             ProcessTracing.CloseTraceSessions425();
+            _ = CloseNativeResources524();
             ReferenceResources.Close();
             stopped = processes.Values.ToArray();
             executions = executingProcesses.Select(process => process.Unwound.Task).ToArray();
@@ -283,8 +284,19 @@ public sealed partial class ProcessRuntime
                     DrainDriverFrontend422(),
                     DrainCodePurger432(),
                     DrainAllocatorGather434(),
-                    DrainOwnedTermContexts506()
+                    DrainOwnedTermContexts506(),
+                    DrainNativeResources524()
                 ).ConfigureAwait(false);
+            }
+            catch (Exception exception)
+            {
+                failures.Add(exception);
+            }
+            bool nativeImagesSettled528 = false;
+            try
+            {
+                await Task.WhenAll(sourceShutdown, nativeShutdown, DrainAutomaticNifShutdown()).ConfigureAwait(false);
+                nativeImagesSettled528 = true;
             }
             catch (Exception exception)
             {
@@ -292,11 +304,11 @@ public sealed partial class ProcessRuntime
             }
             try
             {
-                await Task.WhenAll(sourceShutdown, nativeShutdown, DrainAutomaticNifShutdown()).ConfigureAwait(false);
+                FinalizeNativeAllocationArena528(nativeImagesSettled528);
             }
-            catch (Exception exception)
+            catch (Exception error)
             {
-                failures.Add(exception);
+                failures.Add(error);
             }
             if (ownsStandardStreams)
                 StandardStreams.Dispose();

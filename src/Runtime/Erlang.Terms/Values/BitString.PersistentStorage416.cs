@@ -13,7 +13,7 @@ public sealed partial class BitString
 
     internal static BitString FromPersistentBacking416(BinaryBacking storage, long offset, int count)
     {
-        if (offset < 0 || count < 0 || offset > (long)storage.Buffer.Length * BitStringLayout.BitsPerByte - count)
+        if (offset < 0 || count < 0 || offset > (long)storage.Length524 * BitStringLayout.BitsPerByte - count)
             throw new InvalidDataException(PersistentBinaryStorageNames416.InvalidRange);
 
         return new(storage, offset, count);

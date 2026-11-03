@@ -5,9 +5,11 @@ public sealed partial class PreparedBeamImage : ISourceLocalFunctionResolver
     internal PreparedBeamImage(
         ModuleRegistry owner,
         BeamLinkedCode code,
-        BeamPreparedMetadata metadata
+        BeamPreparedMetadata metadata,
+        string originalBeamSha256
     )
     {
+        OriginalBeamSha256 = originalBeamSha256;
         Owner = owner;
         Code = code;
         Descriptor = metadata.Descriptor;
@@ -60,6 +62,8 @@ public sealed partial class PreparedBeamImage : ISourceLocalFunctionResolver
     public IReadOnlyList<BeamFunctionSignature> NativePrimitiveExports => Array.AsReadOnly(
         ExecutionIdentity.NativePrimitives.Keys.Select(key => new BeamFunctionSignature(key.Function, key.Arity)).ToArray()
     );
+    public string OriginalBeamSha256 { get; }
+
     public string Name => Code.Structure.Atoms[1]!;
     public BitString NativeMd5 => Descriptor.Fingerprint;
     public Term Attributes => Descriptor.Attributes!;

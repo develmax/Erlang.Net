@@ -244,8 +244,13 @@ internal static partial class BeamRegisterInterpreter
                             if (native is not null)
                             {
                                 Term[] nativeArguments = Enumerable.Range(0, function.Arity).Select(registers.Read).ToArray();
-                                nativeArguments = registers.ExportArguments507(nativeArguments);
-                                registers.Write(0, await native.InvokeAsync(context, nativeArguments));
+                                if (registers.HasOwnedRoots507 && native.GuestNative535)
+                                    registers.Write(0, await context.InvokeImageNif535(native, nativeArguments));
+                                else
+                                {
+                                    nativeArguments = registers.ExportArguments507(nativeArguments);
+                                    registers.Write(0, await native.InvokeAsync(context, nativeArguments));
+                                }
                                 if (!ReturnToCaller())
                                     return registers.CompleteGuestReturn507(registers.Read(0));
                                 continue;
@@ -345,12 +350,13 @@ internal static partial class BeamRegisterInterpreter
                             {
                                 if (Read(code, registers, operands[0]) is not Cons cell)
                                     throw new InvalidDataException(BeamRegisterNames.Unsupported);
-                                using var cellRoots507 = registers.HasOwnedRoots507 ? registers.Protect507(cell) : null;
-                                Term cellHead = cell.Head;
-                                Term cellTail = cell.Tail;
-                                registers.Write(operands[1], instruction.Definition.Name == BeamGeneralOpcodeNames.GetTail ? cellTail : cellHead);
-                                if (instruction.Definition.Name == BeamGeneralOpcodeNames.GetList)
-                                    registers.Write(operands[2], cellTail);
+                                registers.WriteListParts550(
+                                    instruction.Definition.Name,
+                                    operands[0],
+                                    operands[1],
+                                    instruction.Definition.Name == BeamGeneralOpcodeNames.GetList ? operands[2] : null,
+                                    cell
+                                );
                                 break;
                             }
                         case BeamGeneralOpcodeNames.Swap:

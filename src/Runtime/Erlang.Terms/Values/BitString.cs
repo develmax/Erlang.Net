@@ -8,7 +8,7 @@ public sealed partial class BitString : Term
 {
     private readonly BinaryBacking backing;
     private readonly object? writer;
-    private byte[] bytes => backing.Buffer;
+    private ReadOnlySpan<byte> bytes => backing.ReadSpan524;
     private readonly long bitOffset;
     private byte[]? normalized;
     public int BitLength
@@ -23,12 +23,17 @@ public sealed partial class BitString : Term
         if (BitLength < 0 || BitLength > data.Length * 8 || (BitLength + 7) / 8 != data.Length)
             throw new ErlangException(ErlangErrorReasons.BadArgument);
         var owned = data.ToArray();
+        if (owned.Length > 0 && BitLength % 8 != 0)
+            owned[^1] &= (byte)(0xff << (8 - BitLength % 8));
         backing = new BinaryBacking(owned, owned.Length > BitStringStorage.HeapBytes);
-        if (bytes.Length > 0 && BitLength % 8 != 0)
-            bytes[^1] &= (byte)(0xff << (8 - BitLength % 8));
     }
 
-    public byte[] ToArray() => ByteSpan.ToArray();
+    public byte[] ToArray()
+    {
+        using IDisposable? read = backing.RetainNative524();
+
+        return ByteSpan.ToArray();
+    }
 
     internal int ByteLength => (int)(((long)BitLength + BitStringStorage.ByteRoundingOffset) / BitStringLayout.BitsPerByte);
 
@@ -37,7 +42,7 @@ public sealed partial class BitString : Term
         get
         {
             if (bitOffset % BitStringLayout.BitsPerByte == 0 && IsBinary)
-                return bytes.AsSpan((int)(bitOffset / BitStringLayout.BitsPerByte), ByteLength);
+                return bytes.Slice((int)(bitOffset / BitStringLayout.BitsPerByte), ByteLength);
             var result = Volatile.Read(ref normalized);
             if (result is null)
             {
@@ -52,7 +57,7 @@ public sealed partial class BitString : Term
         }
     }
 
-    internal int ReferencedByteSize => backing.IsReference ? bytes.Length : BitLength / BitStringLayout.BitsPerByte;
+    internal int ReferencedByteSize => backing.IsReference ? checked((int)backing.ReferencedByteSize524) : BitLength / BitStringLayout.BitsPerByte;
 
     public BitString SliceBits(int offset, int count)
     {
@@ -132,7 +137,11 @@ public sealed partial class BitString : Term
 
     internal BitString ByteView() => IsBinary ? this : FromOwnedBytes(ToArray());
 
-    public void WriteTo(Stream destination) => destination.Write(ByteSpan);
+    public void WriteTo(Stream destination)
+    {
+        using IDisposable? read = backing.RetainNative524();
+        destination.Write(ByteSpan);
+    }
 
     internal int Bit(int i) => (bytes[(int)((bitOffset + i) / BitStringLayout.BitsPerByte)] >> (BitStringStorage.HighBit - (int)((bitOffset + i) % BitStringLayout.BitsPerByte))) & 1;
 

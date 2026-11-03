@@ -18,7 +18,7 @@ internal static class DirtyNative419Access
     {
         Assembly assembly = typeof(ProcessRuntime).Assembly;
         object value = Enum.Parse(assembly.GetType(DirtyNative419Names.Kind, true)!, kind);
-        object pending = typeof(ProcessRuntime).GetMethod(DirtyNative419Names.Schedule, DirtyNative419Names.Members)!.Invoke(context.Runtime, [context, value, DirtyNative419Names.Runtime, DirtyNative419Names.Schedule, arguments, body])!;
+        object pending = typeof(ProcessRuntime).GetMethod(DirtyNative419Names.Schedule, DirtyNative419Names.Members)!.Invoke(context.Runtime, [context, value, DirtyNative419Names.Runtime, DirtyNative419Names.Schedule, arguments, body, null])!;
 
         return await (ValueTask<Term>)pending;
     }

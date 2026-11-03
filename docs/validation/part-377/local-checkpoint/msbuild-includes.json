@@ -1,0 +1,756 @@
+{
+  "Status": "PASS_MSBUILD_INCLUDES_CONTROLS",
+  "Branches": [
+    {
+      "Name": "fresh-build-and-actual-run",
+      "Status": "PASS"
+    },
+    {
+      "Name": "noop-zero-native-and-stable-assets",
+      "Status": "PASS"
+    },
+    {
+      "Name": "transitive-header-change-and-revert-actual-values",
+      "Status": "PASS"
+    },
+    {
+      "Name": "typed-macro-change-and-revert-actual-values",
+      "Status": "PASS"
+    },
+    {
+      "Name": "include-order-invalidates-and-reverts",
+      "Status": "PASS"
+    },
+    {
+      "Name": "publish-and-runtime-away-from-source",
+      "Status": "PASS"
+    },
+    {
+      "Name": "clean-and-rebuild",
+      "Status": "PASS"
+    }
+  ],
+  "Steps": [
+    {
+      "Name": "fresh-build",
+      "Label": "01-fresh-build",
+      "StartedUnixSeconds": 1792340902.9946892,
+      "OwnedExit": {
+        "Command": [
+          "C:\\Program Files\\dotnet\\dotnet.exe",
+          "build",
+          "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-implementation\\msbuild-controls1\\project with spaces\\HelloBeamIncludes.csproj",
+          "-c",
+          "Debug",
+          "-m:1",
+          "--disable-build-servers",
+          "-nr:false",
+          "--nologo",
+          "-p:UseSharedCompilation=false",
+          "-p:ErlangBeamCompilerProps=D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-implementation\\local-includes-compiler.props",
+          "-p:ErlangBeamBuildToolPath=D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tools\\Erlang.BeamBuild\\bin\\Debug\\net10.0\\Erlang.BeamBuild.dll"
+        ],
+        "Pid": 30984,
+        "ElapsedSeconds": 11.28100000001723,
+        "TimedOut": false,
+        "Settled": true,
+        "ExitCode": 0,
+        "Failures": [],
+        "StdoutSha256": "AE352744BE83478B8AC0CEA862010EB72358E1387F511094F6F50AE1B1E963E5",
+        "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+      },
+      "NativeProcessReceiptsAdded": 2,
+      "NativeReceipts": [
+        {
+          "Path": "project with spaces\\obj\\Debug\\net10.0\\beam\\.work-a741fe31fa164b46b9de3b6360fe49c3\\driver-bootstrap\\compiler.process.json",
+          "Sha256": "9C1160A9D35D8C0644B518F520822A09E8DC31D980DC696950AF383F04023878"
+        },
+        {
+          "Path": "project with spaces\\obj\\Debug\\net10.0\\beam\\.work-a741fe31fa164b46b9de3b6360fe49c3\\modules\\hello_include\\compiler.process.json",
+          "Sha256": "F4AF6004874A4900F031266818E8C4E72DA7C7BB98696AA151876FD124FF5BED"
+        }
+      ],
+      "Completions": [
+        {
+          "Status": "PASS_BUILD_ONLY",
+          "ExecutedCompilers": 1,
+          "Skipped": 0,
+          "Manifest": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-implementation\\msbuild-controls1\\project with spaces\\obj\\Debug\\net10.0\\beam\\beam-build-state.json",
+          "ConfigurationSha256": "4BEC2554666871CB3F7E6EA12B30CBB4EF360C74513B67D7267333645989D57E"
+        }
+      ],
+      "Passed": true
+    },
+    {
+      "Name": "fresh-away-run",
+      "Label": "02-fresh-away-run",
+      "StartedUnixSeconds": 1792340914.2921782,
+      "OwnedExit": {
+        "Command": [
+          "C:\\Program Files\\dotnet\\dotnet.exe",
+          "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-implementation\\msbuild-controls1\\project with spaces\\bin\\Debug\\net10.0\\HelloBeamIncludes.dll"
+        ],
+        "Pid": 260496,
+        "ElapsedSeconds": 0.6089999999967404,
+        "TimedOut": false,
+        "Settled": true,
+        "ExitCode": 0,
+        "Failures": [],
+        "StdoutSha256": "B616891814E87F9156058D454385DA20AE64ED949411D1AC9CC5DA563B936C7C",
+        "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+      },
+      "NativeProcessReceiptsAdded": 0,
+      "NativeReceipts": [],
+      "Completions": [],
+      "Passed": true
+    },
+    {
+      "Name": "noop-build",
+      "Label": "03-noop-build",
+      "StartedUnixSeconds": 1792340914.9181674,
+      "OwnedExit": {
+        "Command": [
+          "C:\\Program Files\\dotnet\\dotnet.exe",
+          "build",
+          "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-implementation\\msbuild-controls1\\project with spaces\\HelloBeamIncludes.csproj",
+          "-c",
+          "Debug",
+          "-m:1",
+          "--disable-build-servers",
+          "-nr:false",
+          "--nologo",
+          "-p:UseSharedCompilation=false",
+          "-p:ErlangBeamCompilerProps=D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-implementation\\local-includes-compiler.props",
+          "-p:ErlangBeamBuildToolPath=D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tools\\Erlang.BeamBuild\\bin\\Debug\\net10.0\\Erlang.BeamBuild.dll"
+        ],
+        "Pid": 298744,
+        "ElapsedSeconds": 5.061999999976251,
+        "TimedOut": false,
+        "Settled": true,
+        "ExitCode": 0,
+        "Failures": [],
+        "StdoutSha256": "2BF6F97D4B7FB496D8E540D05E4AF5A8BDCE7795D911FF1C9EF8977571817635",
+        "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+      },
+      "NativeProcessReceiptsAdded": 0,
+      "NativeReceipts": [],
+      "Completions": [
+        {
+          "Status": "PASS_BUILD_ONLY",
+          "ExecutedCompilers": 0,
+          "Skipped": 1,
+          "Manifest": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-implementation\\msbuild-controls1\\project with spaces\\obj\\Debug\\net10.0\\beam\\beam-build-state.json",
+          "ConfigurationSha256": "4BEC2554666871CB3F7E6EA12B30CBB4EF360C74513B67D7267333645989D57E"
+        }
+      ],
+      "Passed": true
+    },
+    {
+      "Name": "noop-away-run",
+      "Label": "04-noop-away-run",
+      "StartedUnixSeconds": 1792340919.9932334,
+      "OwnedExit": {
+        "Command": [
+          "C:\\Program Files\\dotnet\\dotnet.exe",
+          "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-implementation\\msbuild-controls1\\project with spaces\\bin\\Debug\\net10.0\\HelloBeamIncludes.dll"
+        ],
+        "Pid": 300888,
+        "ElapsedSeconds": 0.23399999999674037,
+        "TimedOut": false,
+        "Settled": true,
+        "ExitCode": 0,
+        "Failures": [],
+        "StdoutSha256": "B616891814E87F9156058D454385DA20AE64ED949411D1AC9CC5DA563B936C7C",
+        "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+      },
+      "NativeProcessReceiptsAdded": 0,
+      "NativeReceipts": [],
+      "Completions": [],
+      "Passed": true
+    },
+    {
+      "Name": "transitive-header-build",
+      "Label": "05-transitive-header-build",
+      "StartedUnixSeconds": 1792340920.2442954,
+      "OwnedExit": {
+        "Command": [
+          "C:\\Program Files\\dotnet\\dotnet.exe",
+          "build",
+          "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-implementation\\msbuild-controls1\\project with spaces\\HelloBeamIncludes.csproj",
+          "-c",
+          "Debug",
+          "-m:1",
+          "--disable-build-servers",
+          "-nr:false",
+          "--nologo",
+          "-p:UseSharedCompilation=false",
+          "-p:ErlangBeamCompilerProps=D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-implementation\\local-includes-compiler.props",
+          "-p:ErlangBeamBuildToolPath=D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tools\\Erlang.BeamBuild\\bin\\Debug\\net10.0\\Erlang.BeamBuild.dll"
+        ],
+        "Pid": 226764,
+        "ElapsedSeconds": 9.875,
+        "TimedOut": false,
+        "Settled": true,
+        "ExitCode": 0,
+        "Failures": [],
+        "StdoutSha256": "F6C5F3EA115C0A67CA5C10F2E7991FDAC61A76E16AE3C64749843AAE1F1DCDB2",
+        "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+      },
+      "NativeProcessReceiptsAdded": 1,
+      "NativeReceipts": [
+        {
+          "Path": "project with spaces\\obj\\Debug\\net10.0\\beam\\.work-821516886fd847d38543ac366f972f57\\modules\\hello_include\\compiler.process.json",
+          "Sha256": "A96F332756662FF58ABD17334FD49A126752A5905D9ED9C0666FCC804E967845"
+        }
+      ],
+      "Completions": [
+        {
+          "Status": "PASS_BUILD_ONLY",
+          "ExecutedCompilers": 1,
+          "Skipped": 0,
+          "Manifest": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-implementation\\msbuild-controls1\\project with spaces\\obj\\Debug\\net10.0\\beam\\beam-build-state.json",
+          "ConfigurationSha256": "7E0F0CC75799648B1EDE580FA8A47946AB283DB360ECEF518985AEA99953E6B6"
+        }
+      ],
+      "Passed": true
+    },
+    {
+      "Name": "transitive-header-actual-run",
+      "Label": "06-transitive-header-actual-run",
+      "StartedUnixSeconds": 1792340930.128454,
+      "OwnedExit": {
+        "Command": [
+          "C:\\Program Files\\dotnet\\dotnet.exe",
+          "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-implementation\\msbuild-controls1\\project with spaces\\bin\\Debug\\net10.0\\HelloBeamIncludes.dll"
+        ],
+        "Pid": 1948,
+        "ElapsedSeconds": 0.32800000003771856,
+        "TimedOut": false,
+        "Settled": true,
+        "ExitCode": 0,
+        "Failures": [],
+        "StdoutSha256": "B616891814E87F9156058D454385DA20AE64ED949411D1AC9CC5DA563B936C7C",
+        "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+      },
+      "NativeProcessReceiptsAdded": 0,
+      "NativeReceipts": [],
+      "Completions": [],
+      "Passed": true
+    },
+    {
+      "Name": "transitive-header-restore-build",
+      "Label": "07-transitive-header-restore-build",
+      "StartedUnixSeconds": 1792340930.4579628,
+      "OwnedExit": {
+        "Command": [
+          "C:\\Program Files\\dotnet\\dotnet.exe",
+          "build",
+          "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-implementation\\msbuild-controls1\\project with spaces\\HelloBeamIncludes.csproj",
+          "-c",
+          "Debug",
+          "-m:1",
+          "--disable-build-servers",
+          "-nr:false",
+          "--nologo",
+          "-p:UseSharedCompilation=false",
+          "-p:ErlangBeamCompilerProps=D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-implementation\\local-includes-compiler.props",
+          "-p:ErlangBeamBuildToolPath=D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tools\\Erlang.BeamBuild\\bin\\Debug\\net10.0\\Erlang.BeamBuild.dll"
+        ],
+        "Pid": 285816,
+        "ElapsedSeconds": 9.514999999955762,
+        "TimedOut": false,
+        "Settled": true,
+        "ExitCode": 0,
+        "Failures": [],
+        "StdoutSha256": "296E01DEB89F80C9873853CD8CE8651EBE490E15B0A4EF41C6A75146E6AF9D60",
+        "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+      },
+      "NativeProcessReceiptsAdded": 1,
+      "NativeReceipts": [
+        {
+          "Path": "project with spaces\\obj\\Debug\\net10.0\\beam\\.work-e62b4596ee2e4b3b812bdc37f3e7af21\\modules\\hello_include\\compiler.process.json",
+          "Sha256": "84465B4C1A987905E2FCA1DB0C5D6097E572D25757D9C6D6034BB25F16239ABC"
+        }
+      ],
+      "Completions": [
+        {
+          "Status": "PASS_BUILD_ONLY",
+          "ExecutedCompilers": 1,
+          "Skipped": 0,
+          "Manifest": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-implementation\\msbuild-controls1\\project with spaces\\obj\\Debug\\net10.0\\beam\\beam-build-state.json",
+          "ConfigurationSha256": "4BEC2554666871CB3F7E6EA12B30CBB4EF360C74513B67D7267333645989D57E"
+        }
+      ],
+      "Passed": true
+    },
+    {
+      "Name": "transitive-header-restore-actual-run",
+      "Label": "08-transitive-header-restore-actual-run",
+      "StartedUnixSeconds": 1792340939.9759312,
+      "OwnedExit": {
+        "Command": [
+          "C:\\Program Files\\dotnet\\dotnet.exe",
+          "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-implementation\\msbuild-controls1\\project with spaces\\bin\\Debug\\net10.0\\HelloBeamIncludes.dll"
+        ],
+        "Pid": 42932,
+        "ElapsedSeconds": 0.32800000003771856,
+        "TimedOut": false,
+        "Settled": true,
+        "ExitCode": 0,
+        "Failures": [],
+        "StdoutSha256": "B616891814E87F9156058D454385DA20AE64ED949411D1AC9CC5DA563B936C7C",
+        "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+      },
+      "NativeProcessReceiptsAdded": 0,
+      "NativeReceipts": [],
+      "Completions": [],
+      "Passed": true
+    },
+    {
+      "Name": "typed-macro-build",
+      "Label": "09-typed-macro-build",
+      "StartedUnixSeconds": 1792340940.3149376,
+      "OwnedExit": {
+        "Command": [
+          "C:\\Program Files\\dotnet\\dotnet.exe",
+          "build",
+          "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-implementation\\msbuild-controls1\\project with spaces\\HelloBeamIncludes.csproj",
+          "-c",
+          "Debug",
+          "-m:1",
+          "--disable-build-servers",
+          "-nr:false",
+          "--nologo",
+          "-p:UseSharedCompilation=false",
+          "-p:ErlangBeamCompilerProps=D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-implementation\\local-includes-compiler.props",
+          "-p:ErlangBeamBuildToolPath=D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tools\\Erlang.BeamBuild\\bin\\Debug\\net10.0\\Erlang.BeamBuild.dll"
+        ],
+        "Pid": 306524,
+        "ElapsedSeconds": 10.905999999959022,
+        "TimedOut": false,
+        "Settled": true,
+        "ExitCode": 0,
+        "Failures": [],
+        "StdoutSha256": "AAA782130D579BD142AE673512E93A08144D063121D9C66AB0A3BF1F7E88B2D6",
+        "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+      },
+      "NativeProcessReceiptsAdded": 1,
+      "NativeReceipts": [
+        {
+          "Path": "project with spaces\\obj\\Debug\\net10.0\\beam\\.work-96f6db1df4c4456e82e10f4d1ada10d8\\modules\\hello_include\\compiler.process.json",
+          "Sha256": "8EC087C7392DEE77DF96A4E8AD3E4F3FF166C45261F105F22609BDED37F4E5DA"
+        }
+      ],
+      "Completions": [
+        {
+          "Status": "PASS_BUILD_ONLY",
+          "ExecutedCompilers": 1,
+          "Skipped": 0,
+          "Manifest": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-implementation\\msbuild-controls1\\project with spaces\\obj\\Debug\\net10.0\\beam\\beam-build-state.json",
+          "ConfigurationSha256": "E21D99DBF8E6F6050047C1BF7B962507EE922D9D359F00C0DE7022C2FF683504"
+        }
+      ],
+      "Passed": true
+    },
+    {
+      "Name": "typed-macro-actual-run",
+      "Label": "10-typed-macro-actual-run",
+      "StartedUnixSeconds": 1792340951.224907,
+      "OwnedExit": {
+        "Command": [
+          "C:\\Program Files\\dotnet\\dotnet.exe",
+          "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-implementation\\msbuild-controls1\\project with spaces\\bin\\Debug\\net10.0\\HelloBeamIncludes.dll"
+        ],
+        "Pid": 303140,
+        "ElapsedSeconds": 0.2970000000204891,
+        "TimedOut": false,
+        "Settled": true,
+        "ExitCode": 0,
+        "Failures": [],
+        "StdoutSha256": "B616891814E87F9156058D454385DA20AE64ED949411D1AC9CC5DA563B936C7C",
+        "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+      },
+      "NativeProcessReceiptsAdded": 0,
+      "NativeReceipts": [],
+      "Completions": [],
+      "Passed": true
+    },
+    {
+      "Name": "typed-macro-restore-build",
+      "Label": "11-typed-macro-restore-build",
+      "StartedUnixSeconds": 1792340951.5339108,
+      "OwnedExit": {
+        "Command": [
+          "C:\\Program Files\\dotnet\\dotnet.exe",
+          "build",
+          "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-implementation\\msbuild-controls1\\project with spaces\\HelloBeamIncludes.csproj",
+          "-c",
+          "Debug",
+          "-m:1",
+          "--disable-build-servers",
+          "-nr:false",
+          "--nologo",
+          "-p:UseSharedCompilation=false",
+          "-p:ErlangBeamCompilerProps=D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-implementation\\local-includes-compiler.props",
+          "-p:ErlangBeamBuildToolPath=D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tools\\Erlang.BeamBuild\\bin\\Debug\\net10.0\\Erlang.BeamBuild.dll"
+        ],
+        "Pid": 220788,
+        "ElapsedSeconds": 9.89100000000326,
+        "TimedOut": false,
+        "Settled": true,
+        "ExitCode": 0,
+        "Failures": [],
+        "StdoutSha256": "B7E43A11AC6E0F0B23C15173D006882C0B8B974DDEEEC5062DB44BCD3C506C23",
+        "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+      },
+      "NativeProcessReceiptsAdded": 1,
+      "NativeReceipts": [
+        {
+          "Path": "project with spaces\\obj\\Debug\\net10.0\\beam\\.work-c95520d5bc674d4295d0c3ba2063c58f\\modules\\hello_include\\compiler.process.json",
+          "Sha256": "5CF955024F0FA51DA326B27A0ED9868D710293858DF965F71A0EDFC78462108A"
+        }
+      ],
+      "Completions": [
+        {
+          "Status": "PASS_BUILD_ONLY",
+          "ExecutedCompilers": 1,
+          "Skipped": 0,
+          "Manifest": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-implementation\\msbuild-controls1\\project with spaces\\obj\\Debug\\net10.0\\beam\\beam-build-state.json",
+          "ConfigurationSha256": "4BEC2554666871CB3F7E6EA12B30CBB4EF360C74513B67D7267333645989D57E"
+        }
+      ],
+      "Passed": true
+    },
+    {
+      "Name": "typed-macro-restore-actual-run",
+      "Label": "12-typed-macro-restore-actual-run",
+      "StartedUnixSeconds": 1792340961.432072,
+      "OwnedExit": {
+        "Command": [
+          "C:\\Program Files\\dotnet\\dotnet.exe",
+          "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-implementation\\msbuild-controls1\\project with spaces\\bin\\Debug\\net10.0\\HelloBeamIncludes.dll"
+        ],
+        "Pid": 128892,
+        "ElapsedSeconds": 0.375,
+        "TimedOut": false,
+        "Settled": true,
+        "ExitCode": 0,
+        "Failures": [],
+        "StdoutSha256": "B616891814E87F9156058D454385DA20AE64ED949411D1AC9CC5DA563B936C7C",
+        "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+      },
+      "NativeProcessReceiptsAdded": 0,
+      "NativeReceipts": [],
+      "Completions": [],
+      "Passed": true
+    },
+    {
+      "Name": "include-order-build",
+      "Label": "13-include-order-build",
+      "StartedUnixSeconds": 1792340961.8130708,
+      "OwnedExit": {
+        "Command": [
+          "C:\\Program Files\\dotnet\\dotnet.exe",
+          "build",
+          "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-implementation\\msbuild-controls1\\project with spaces\\HelloBeamIncludes.csproj",
+          "-c",
+          "Debug",
+          "-m:1",
+          "--disable-build-servers",
+          "-nr:false",
+          "--nologo",
+          "-p:UseSharedCompilation=false",
+          "-p:ErlangBeamCompilerProps=D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-implementation\\local-includes-compiler.props",
+          "-p:ErlangBeamBuildToolPath=D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tools\\Erlang.BeamBuild\\bin\\Debug\\net10.0\\Erlang.BeamBuild.dll"
+        ],
+        "Pid": 273796,
+        "ElapsedSeconds": 10.187999999965541,
+        "TimedOut": false,
+        "Settled": true,
+        "ExitCode": 0,
+        "Failures": [],
+        "StdoutSha256": "75DA7ADAE6106B4B2E6E103992D0469BFA5E97103AC264627091DD9C03FE0A60",
+        "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+      },
+      "NativeProcessReceiptsAdded": 1,
+      "NativeReceipts": [
+        {
+          "Path": "project with spaces\\obj\\Debug\\net10.0\\beam\\.work-74362eed1af0465d925dd5cc1580847d\\modules\\hello_include\\compiler.process.json",
+          "Sha256": "C674B0395E32E33CCFD4867C9B22EF973B65C4DA10BD0A84D0C4F758834AF85E"
+        }
+      ],
+      "Completions": [
+        {
+          "Status": "PASS_BUILD_ONLY",
+          "ExecutedCompilers": 1,
+          "Skipped": 0,
+          "Manifest": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-implementation\\msbuild-controls1\\project with spaces\\obj\\Debug\\net10.0\\beam\\beam-build-state.json",
+          "ConfigurationSha256": "AA474F4B0BB0C6F14F1B33C29116EF1F911D6666E02B7AF9F823C79F1FDCF299"
+        }
+      ],
+      "Passed": true
+    },
+    {
+      "Name": "include-order-actual-run",
+      "Label": "14-include-order-actual-run",
+      "StartedUnixSeconds": 1792340972.0065625,
+      "OwnedExit": {
+        "Command": [
+          "C:\\Program Files\\dotnet\\dotnet.exe",
+          "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-implementation\\msbuild-controls1\\project with spaces\\bin\\Debug\\net10.0\\HelloBeamIncludes.dll"
+        ],
+        "Pid": 17004,
+        "ElapsedSeconds": 0.28200000000651926,
+        "TimedOut": false,
+        "Settled": true,
+        "ExitCode": 0,
+        "Failures": [],
+        "StdoutSha256": "B616891814E87F9156058D454385DA20AE64ED949411D1AC9CC5DA563B936C7C",
+        "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+      },
+      "NativeProcessReceiptsAdded": 0,
+      "NativeReceipts": [],
+      "Completions": [],
+      "Passed": true
+    },
+    {
+      "Name": "include-order-restore-build",
+      "Label": "15-include-order-restore-build",
+      "StartedUnixSeconds": 1792340972.302086,
+      "OwnedExit": {
+        "Command": [
+          "C:\\Program Files\\dotnet\\dotnet.exe",
+          "build",
+          "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-implementation\\msbuild-controls1\\project with spaces\\HelloBeamIncludes.csproj",
+          "-c",
+          "Debug",
+          "-m:1",
+          "--disable-build-servers",
+          "-nr:false",
+          "--nologo",
+          "-p:UseSharedCompilation=false",
+          "-p:ErlangBeamCompilerProps=D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-implementation\\local-includes-compiler.props",
+          "-p:ErlangBeamBuildToolPath=D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tools\\Erlang.BeamBuild\\bin\\Debug\\net10.0\\Erlang.BeamBuild.dll"
+        ],
+        "Pid": 309932,
+        "ElapsedSeconds": 9.46799999999348,
+        "TimedOut": false,
+        "Settled": true,
+        "ExitCode": 0,
+        "Failures": [],
+        "StdoutSha256": "24070003C7C121CFA6F6C9D88EF6EE8875BA79FD7F2937DB4C4799CB095FD452",
+        "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+      },
+      "NativeProcessReceiptsAdded": 1,
+      "NativeReceipts": [
+        {
+          "Path": "project with spaces\\obj\\Debug\\net10.0\\beam\\.work-8db93c0483e24d7dbfe849359ad62925\\modules\\hello_include\\compiler.process.json",
+          "Sha256": "93F9773E669A1E6009BF36EBEBD9AB1CC227853C948CC0BF76A900234767DF92"
+        }
+      ],
+      "Completions": [
+        {
+          "Status": "PASS_BUILD_ONLY",
+          "ExecutedCompilers": 1,
+          "Skipped": 0,
+          "Manifest": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-implementation\\msbuild-controls1\\project with spaces\\obj\\Debug\\net10.0\\beam\\beam-build-state.json",
+          "ConfigurationSha256": "4BEC2554666871CB3F7E6EA12B30CBB4EF360C74513B67D7267333645989D57E"
+        }
+      ],
+      "Passed": true
+    },
+    {
+      "Name": "include-order-restore-actual-run",
+      "Label": "16-include-order-restore-actual-run",
+      "StartedUnixSeconds": 1792340981.7758565,
+      "OwnedExit": {
+        "Command": [
+          "C:\\Program Files\\dotnet\\dotnet.exe",
+          "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-implementation\\msbuild-controls1\\project with spaces\\bin\\Debug\\net10.0\\HelloBeamIncludes.dll"
+        ],
+        "Pid": 15348,
+        "ElapsedSeconds": 0.3279999999795109,
+        "TimedOut": false,
+        "Settled": true,
+        "ExitCode": 0,
+        "Failures": [],
+        "StdoutSha256": "B616891814E87F9156058D454385DA20AE64ED949411D1AC9CC5DA563B936C7C",
+        "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+      },
+      "NativeProcessReceiptsAdded": 0,
+      "NativeReceipts": [],
+      "Completions": [],
+      "Passed": true
+    },
+    {
+      "Name": "publish",
+      "Label": "17-publish",
+      "StartedUnixSeconds": 1792340982.1132503,
+      "OwnedExit": {
+        "Command": [
+          "C:\\Program Files\\dotnet\\dotnet.exe",
+          "publish",
+          "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-implementation\\msbuild-controls1\\project with spaces\\HelloBeamIncludes.csproj",
+          "-c",
+          "Debug",
+          "--no-self-contained",
+          "-o",
+          "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-implementation\\msbuild-controls1\\published",
+          "-m:1",
+          "--disable-build-servers",
+          "-nr:false",
+          "--nologo",
+          "-p:UseSharedCompilation=false",
+          "-p:ErlangBeamCompilerProps=D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-implementation\\local-includes-compiler.props",
+          "-p:ErlangBeamBuildToolPath=D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tools\\Erlang.BeamBuild\\bin\\Debug\\net10.0\\Erlang.BeamBuild.dll"
+        ],
+        "Pid": 306236,
+        "ElapsedSeconds": 5.594000000040978,
+        "TimedOut": false,
+        "Settled": true,
+        "ExitCode": 0,
+        "Failures": [],
+        "StdoutSha256": "D13F21BC111EB3665826570016060A46D1F348BC10D45C3D97BEC5B9D3047D3B",
+        "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+      },
+      "NativeProcessReceiptsAdded": 0,
+      "NativeReceipts": [],
+      "Completions": [
+        {
+          "Status": "PASS_BUILD_ONLY",
+          "ExecutedCompilers": 0,
+          "Skipped": 1,
+          "Manifest": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-implementation\\msbuild-controls1\\project with spaces\\obj\\Debug\\net10.0\\beam\\beam-build-state.json",
+          "ConfigurationSha256": "4BEC2554666871CB3F7E6EA12B30CBB4EF360C74513B67D7267333645989D57E"
+        }
+      ],
+      "Passed": true
+    },
+    {
+      "Name": "published-away-run",
+      "Label": "18-published-away-run",
+      "StartedUnixSeconds": 1792340987.7205489,
+      "OwnedExit": {
+        "Command": [
+          "C:\\Program Files\\dotnet\\dotnet.exe",
+          "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-implementation\\msbuild-controls1\\published\\HelloBeamIncludes.dll"
+        ],
+        "Pid": 279480,
+        "ElapsedSeconds": 0.6100000000442378,
+        "TimedOut": false,
+        "Settled": true,
+        "ExitCode": 0,
+        "Failures": [],
+        "StdoutSha256": "B616891814E87F9156058D454385DA20AE64ED949411D1AC9CC5DA563B936C7C",
+        "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+      },
+      "NativeProcessReceiptsAdded": 0,
+      "NativeReceipts": [],
+      "Completions": [],
+      "Passed": true
+    },
+    {
+      "Name": "clean",
+      "Label": "19-clean",
+      "StartedUnixSeconds": 1792340988.343179,
+      "OwnedExit": {
+        "Command": [
+          "C:\\Program Files\\dotnet\\dotnet.exe",
+          "clean",
+          "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-implementation\\msbuild-controls1\\project with spaces\\HelloBeamIncludes.csproj",
+          "-c",
+          "Debug",
+          "-m:1",
+          "--disable-build-servers",
+          "-nr:false",
+          "--nologo",
+          "-p:UseSharedCompilation=false",
+          "-p:ErlangBeamCompilerProps=D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-implementation\\local-includes-compiler.props"
+        ],
+        "Pid": 305672,
+        "ElapsedSeconds": 0.9220000000204891,
+        "TimedOut": false,
+        "Settled": true,
+        "ExitCode": 0,
+        "Failures": [],
+        "StdoutSha256": "3A196A7C425C1D1B5DC5816BBF807FC0F26A675615A951F208387BD8A19AE28E",
+        "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+      },
+      "NativeProcessReceiptsAdded": 0,
+      "NativeReceipts": [],
+      "Completions": [],
+      "Passed": true
+    },
+    {
+      "Name": "clean-rebuild",
+      "Label": "20-clean-rebuild",
+      "StartedUnixSeconds": 1792340989.2853923,
+      "OwnedExit": {
+        "Command": [
+          "C:\\Program Files\\dotnet\\dotnet.exe",
+          "build",
+          "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-implementation\\msbuild-controls1\\project with spaces\\HelloBeamIncludes.csproj",
+          "-c",
+          "Debug",
+          "-m:1",
+          "--disable-build-servers",
+          "-nr:false",
+          "--nologo",
+          "-p:UseSharedCompilation=false",
+          "-p:ErlangBeamCompilerProps=D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-implementation\\local-includes-compiler.props",
+          "-p:ErlangBeamBuildToolPath=D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tools\\Erlang.BeamBuild\\bin\\Debug\\net10.0\\Erlang.BeamBuild.dll"
+        ],
+        "Pid": 28464,
+        "ElapsedSeconds": 29.21899999998277,
+        "TimedOut": false,
+        "Settled": true,
+        "ExitCode": 0,
+        "Failures": [],
+        "StdoutSha256": "65C0FE441ED053C8C25393D35A1DFE811C790B64E83BF8FA5566C87AFFBD26FA",
+        "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+      },
+      "NativeProcessReceiptsAdded": 1,
+      "NativeReceipts": [
+        {
+          "Path": "project with spaces\\obj\\Debug\\net10.0\\beam\\.work-339cbee8408b43748e537e97989fdfab\\modules\\hello_include\\compiler.process.json",
+          "Sha256": "30B06974D7F2BD4DA04BFFB70FBE745B70E131CB26FB0EEF5C46BC499AC40014"
+        }
+      ],
+      "Completions": [
+        {
+          "Status": "PASS_BUILD_ONLY",
+          "ExecutedCompilers": 1,
+          "Skipped": 0,
+          "Manifest": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-implementation\\msbuild-controls1\\project with spaces\\obj\\Debug\\net10.0\\beam\\beam-build-state.json",
+          "ConfigurationSha256": "4BEC2554666871CB3F7E6EA12B30CBB4EF360C74513B67D7267333645989D57E"
+        }
+      ],
+      "Passed": true
+    },
+    {
+      "Name": "clean-rebuild-away-run",
+      "Label": "21-clean-rebuild-away-run",
+      "StartedUnixSeconds": 1792341018.5179296,
+      "OwnedExit": {
+        "Command": [
+          "C:\\Program Files\\dotnet\\dotnet.exe",
+          "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-implementation\\msbuild-controls1\\project with spaces\\bin\\Debug\\net10.0\\HelloBeamIncludes.dll"
+        ],
+        "Pid": 296388,
+        "ElapsedSeconds": 0.5779999999795109,
+        "TimedOut": false,
+        "Settled": true,
+        "ExitCode": 0,
+        "Failures": [],
+        "StdoutSha256": "B616891814E87F9156058D454385DA20AE64ED949411D1AC9CC5DA563B936C7C",
+        "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+      },
+      "NativeProcessReceiptsAdded": 0,
+      "NativeReceipts": [],
+      "Completions": [],
+      "Passed": true
+    }
+  ],
+  "OriginalExampleInputsUnchanged": true,
+  "Scope": "Fresh source MSBuild build/cache/invalidation/package/runtime gates; not complete compiler/OTP compatibility"
+}

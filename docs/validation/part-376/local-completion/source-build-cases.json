@@ -1,0 +1,529 @@
+{
+  "Passed": true,
+  "Cases": [
+    {
+      "Name": "clean",
+      "Passed": true,
+      "ExitCode": 0,
+      "Seconds": 8.25,
+      "NativeProcessReceiptsAdded": 2,
+      "Summary": {
+        "ExecutedCompilers": 2,
+        "Skipped": 0,
+        "Manifest": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library376-implementation\\source-build-cases2\\output modules\\beam-build-state.json"
+      },
+      "Before": {},
+      "After": {
+        "beam_fixture_add.beam": {
+          "Sha256": "4338C0D576B57770B1B0AE2F3209548C03C8112FA466D63EDC82D8BF5FF7F70F",
+          "MtimeNs": 1792336564794812300
+        },
+        "beam_fixture_constant.beam": {
+          "Sha256": "E30AB31878BA8D4E89A9ECBC1FF2641F9699609F63C54331C475B613EF62F957",
+          "MtimeNs": 1792336566701807800
+        }
+      }
+    },
+    {
+      "Name": "noop",
+      "Passed": true,
+      "ExitCode": 0,
+      "Seconds": 2.2810000000172295,
+      "NativeProcessReceiptsAdded": 0,
+      "Summary": {
+        "ExecutedCompilers": 0,
+        "Skipped": 2,
+        "Manifest": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library376-implementation\\source-build-cases2\\output modules\\beam-build-state.json"
+      },
+      "Before": {
+        "beam_fixture_add.beam": {
+          "Sha256": "4338C0D576B57770B1B0AE2F3209548C03C8112FA466D63EDC82D8BF5FF7F70F",
+          "MtimeNs": 1792336564794812300
+        },
+        "beam_fixture_constant.beam": {
+          "Sha256": "E30AB31878BA8D4E89A9ECBC1FF2641F9699609F63C54331C475B613EF62F957",
+          "MtimeNs": 1792336566701807800
+        }
+      },
+      "After": {
+        "beam_fixture_add.beam": {
+          "Sha256": "4338C0D576B57770B1B0AE2F3209548C03C8112FA466D63EDC82D8BF5FF7F70F",
+          "MtimeNs": 1792336564794812300
+        },
+        "beam_fixture_constant.beam": {
+          "Sha256": "E30AB31878BA8D4E89A9ECBC1FF2641F9699609F63C54331C475B613EF62F957",
+          "MtimeNs": 1792336566701807800
+        }
+      }
+    },
+    {
+      "Name": "one-source-change",
+      "Passed": true,
+      "ExitCode": 0,
+      "Seconds": 4.186999999976251,
+      "NativeProcessReceiptsAdded": 1,
+      "Summary": {
+        "ExecutedCompilers": 1,
+        "Skipped": 1,
+        "Manifest": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library376-implementation\\source-build-cases2\\output modules\\beam-build-state.json"
+      },
+      "Before": {
+        "beam_fixture_add.beam": {
+          "Sha256": "4338C0D576B57770B1B0AE2F3209548C03C8112FA466D63EDC82D8BF5FF7F70F",
+          "MtimeNs": 1792336564794812300
+        },
+        "beam_fixture_constant.beam": {
+          "Sha256": "E30AB31878BA8D4E89A9ECBC1FF2641F9699609F63C54331C475B613EF62F957",
+          "MtimeNs": 1792336566701807800
+        }
+      },
+      "After": {
+        "beam_fixture_add.beam": {
+          "Sha256": "0200049A168EDF6FC899BEDFF51A3E1979E4000684012D758CA34BF0CE77AF67",
+          "MtimeNs": 1792336573041793400
+        },
+        "beam_fixture_constant.beam": {
+          "Sha256": "E30AB31878BA8D4E89A9ECBC1FF2641F9699609F63C54331C475B613EF62F957",
+          "MtimeNs": 1792336566701807800
+        }
+      }
+    },
+    {
+      "Name": "deleted-output",
+      "Passed": true,
+      "ExitCode": 0,
+      "Seconds": 4.14100000000326,
+      "NativeProcessReceiptsAdded": 1,
+      "Summary": {
+        "ExecutedCompilers": 1,
+        "Skipped": 1,
+        "Manifest": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library376-implementation\\source-build-cases2\\output modules\\beam-build-state.json"
+      },
+      "Before": {
+        "beam_fixture_constant.beam": {
+          "Sha256": "E30AB31878BA8D4E89A9ECBC1FF2641F9699609F63C54331C475B613EF62F957",
+          "MtimeNs": 1792336566701807800
+        }
+      },
+      "After": {
+        "beam_fixture_add.beam": {
+          "Sha256": "04036C7E84BE10F31D967D009332FD6478F1560DE6E02DBA514078CA0C5F85C0",
+          "MtimeNs": 1792336577222283900
+        },
+        "beam_fixture_constant.beam": {
+          "Sha256": "E30AB31878BA8D4E89A9ECBC1FF2641F9699609F63C54331C475B613EF62F957",
+          "MtimeNs": 1792336566701807800
+        }
+      }
+    },
+    {
+      "Name": "removed-input",
+      "Passed": true,
+      "ExitCode": 0,
+      "Seconds": 2.3130000000237487,
+      "NativeProcessReceiptsAdded": 0,
+      "Summary": {
+        "ExecutedCompilers": 0,
+        "Skipped": 1,
+        "Manifest": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library376-implementation\\source-build-cases2\\output modules\\beam-build-state.json"
+      },
+      "Before": {
+        "beam_fixture_add.beam": {
+          "Sha256": "04036C7E84BE10F31D967D009332FD6478F1560DE6E02DBA514078CA0C5F85C0",
+          "MtimeNs": 1792336577222283900
+        },
+        "beam_fixture_constant.beam": {
+          "Sha256": "E30AB31878BA8D4E89A9ECBC1FF2641F9699609F63C54331C475B613EF62F957",
+          "MtimeNs": 1792336566701807800
+        }
+      },
+      "After": {
+        "beam_fixture_add.beam": {
+          "Sha256": "04036C7E84BE10F31D967D009332FD6478F1560DE6E02DBA514078CA0C5F85C0",
+          "MtimeNs": 1792336577222283900
+        }
+      }
+    },
+    {
+      "Name": "readded-input",
+      "Passed": true,
+      "ExitCode": 0,
+      "Seconds": 4.4060000000172295,
+      "NativeProcessReceiptsAdded": 1,
+      "Summary": {
+        "ExecutedCompilers": 1,
+        "Skipped": 1,
+        "Manifest": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library376-implementation\\source-build-cases2\\output modules\\beam-build-state.json"
+      },
+      "Before": {
+        "beam_fixture_add.beam": {
+          "Sha256": "04036C7E84BE10F31D967D009332FD6478F1560DE6E02DBA514078CA0C5F85C0",
+          "MtimeNs": 1792336577222283900
+        }
+      },
+      "After": {
+        "beam_fixture_add.beam": {
+          "Sha256": "04036C7E84BE10F31D967D009332FD6478F1560DE6E02DBA514078CA0C5F85C0",
+          "MtimeNs": 1792336577222283900
+        },
+        "beam_fixture_constant.beam": {
+          "Sha256": "634F1F6E207DAFFE460C069097B857ADD35E8E4273D42A9ADE87CB494A031868",
+          "MtimeNs": 1792336583739770400
+        }
+      }
+    },
+    {
+      "Name": "second-child-error",
+      "Passed": true,
+      "ExitCode": 1,
+      "Seconds": 5.905999999959022,
+      "NativeProcessReceiptsAdded": 2,
+      "Summary": null,
+      "Before": {
+        "beam_fixture_add.beam": {
+          "Sha256": "04036C7E84BE10F31D967D009332FD6478F1560DE6E02DBA514078CA0C5F85C0",
+          "MtimeNs": 1792336577222283900
+        },
+        "beam_fixture_constant.beam": {
+          "Sha256": "634F1F6E207DAFFE460C069097B857ADD35E8E4273D42A9ADE87CB494A031868",
+          "MtimeNs": 1792336583739770400
+        }
+      },
+      "After": {
+        "beam_fixture_add.beam": {
+          "Sha256": "04036C7E84BE10F31D967D009332FD6478F1560DE6E02DBA514078CA0C5F85C0",
+          "MtimeNs": 1792336577222283900
+        },
+        "beam_fixture_constant.beam": {
+          "Sha256": "634F1F6E207DAFFE460C069097B857ADD35E8E4273D42A9ADE87CB494A031868",
+          "MtimeNs": 1792336583739770400
+        }
+      }
+    },
+    {
+      "Name": "comment-between-dash-quoted",
+      "Passed": true,
+      "ExitCode": 1,
+      "Seconds": 1.6410000000032596,
+      "NativeProcessReceiptsAdded": 0,
+      "Summary": null,
+      "Before": {
+        "beam_fixture_add.beam": {
+          "Sha256": "04036C7E84BE10F31D967D009332FD6478F1560DE6E02DBA514078CA0C5F85C0",
+          "MtimeNs": 1792336577222283900
+        },
+        "beam_fixture_constant.beam": {
+          "Sha256": "634F1F6E207DAFFE460C069097B857ADD35E8E4273D42A9ADE87CB494A031868",
+          "MtimeNs": 1792336583739770400
+        }
+      },
+      "After": {
+        "beam_fixture_add.beam": {
+          "Sha256": "04036C7E84BE10F31D967D009332FD6478F1560DE6E02DBA514078CA0C5F85C0",
+          "MtimeNs": 1792336577222283900
+        },
+        "beam_fixture_constant.beam": {
+          "Sha256": "634F1F6E207DAFFE460C069097B857ADD35E8E4273D42A9ADE87CB494A031868",
+          "MtimeNs": 1792336583739770400
+        }
+      }
+    },
+    {
+      "Name": "comment-before-arguments",
+      "Passed": true,
+      "ExitCode": 1,
+      "Seconds": 1.437000000034459,
+      "NativeProcessReceiptsAdded": 0,
+      "Summary": null,
+      "Before": {
+        "beam_fixture_add.beam": {
+          "Sha256": "04036C7E84BE10F31D967D009332FD6478F1560DE6E02DBA514078CA0C5F85C0",
+          "MtimeNs": 1792336577222283900
+        },
+        "beam_fixture_constant.beam": {
+          "Sha256": "634F1F6E207DAFFE460C069097B857ADD35E8E4273D42A9ADE87CB494A031868",
+          "MtimeNs": 1792336583739770400
+        }
+      },
+      "After": {
+        "beam_fixture_add.beam": {
+          "Sha256": "04036C7E84BE10F31D967D009332FD6478F1560DE6E02DBA514078CA0C5F85C0",
+          "MtimeNs": 1792336577222283900
+        },
+        "beam_fixture_constant.beam": {
+          "Sha256": "634F1F6E207DAFFE460C069097B857ADD35E8E4273D42A9ADE87CB494A031868",
+          "MtimeNs": 1792336583739770400
+        }
+      }
+    },
+    {
+      "Name": "quoted-include",
+      "Passed": true,
+      "ExitCode": 1,
+      "Seconds": 1.4059999999590218,
+      "NativeProcessReceiptsAdded": 0,
+      "Summary": null,
+      "Before": {
+        "beam_fixture_add.beam": {
+          "Sha256": "04036C7E84BE10F31D967D009332FD6478F1560DE6E02DBA514078CA0C5F85C0",
+          "MtimeNs": 1792336577222283900
+        },
+        "beam_fixture_constant.beam": {
+          "Sha256": "634F1F6E207DAFFE460C069097B857ADD35E8E4273D42A9ADE87CB494A031868",
+          "MtimeNs": 1792336583739770400
+        }
+      },
+      "After": {
+        "beam_fixture_add.beam": {
+          "Sha256": "04036C7E84BE10F31D967D009332FD6478F1560DE6E02DBA514078CA0C5F85C0",
+          "MtimeNs": 1792336577222283900
+        },
+        "beam_fixture_constant.beam": {
+          "Sha256": "634F1F6E207DAFFE460C069097B857ADD35E8E4273D42A9ADE87CB494A031868",
+          "MtimeNs": 1792336583739770400
+        }
+      }
+    },
+    {
+      "Name": "macro",
+      "Passed": true,
+      "ExitCode": 1,
+      "Seconds": 1.6410000000032596,
+      "NativeProcessReceiptsAdded": 0,
+      "Summary": null,
+      "Before": {
+        "beam_fixture_add.beam": {
+          "Sha256": "04036C7E84BE10F31D967D009332FD6478F1560DE6E02DBA514078CA0C5F85C0",
+          "MtimeNs": 1792336577222283900
+        },
+        "beam_fixture_constant.beam": {
+          "Sha256": "634F1F6E207DAFFE460C069097B857ADD35E8E4273D42A9ADE87CB494A031868",
+          "MtimeNs": 1792336583739770400
+        }
+      },
+      "After": {
+        "beam_fixture_add.beam": {
+          "Sha256": "04036C7E84BE10F31D967D009332FD6478F1560DE6E02DBA514078CA0C5F85C0",
+          "MtimeNs": 1792336577222283900
+        },
+        "beam_fixture_constant.beam": {
+          "Sha256": "634F1F6E207DAFFE460C069097B857ADD35E8E4273D42A9ADE87CB494A031868",
+          "MtimeNs": 1792336583739770400
+        }
+      }
+    },
+    {
+      "Name": "restore-valid",
+      "Passed": true,
+      "ExitCode": 0,
+      "Seconds": 4.73399999999674,
+      "NativeProcessReceiptsAdded": 1,
+      "Summary": {
+        "ExecutedCompilers": 1,
+        "Skipped": 1,
+        "Manifest": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library376-implementation\\source-build-cases2\\output modules\\beam-build-state.json"
+      },
+      "Before": {
+        "beam_fixture_add.beam": {
+          "Sha256": "04036C7E84BE10F31D967D009332FD6478F1560DE6E02DBA514078CA0C5F85C0",
+          "MtimeNs": 1792336577222283900
+        },
+        "beam_fixture_constant.beam": {
+          "Sha256": "634F1F6E207DAFFE460C069097B857ADD35E8E4273D42A9ADE87CB494A031868",
+          "MtimeNs": 1792336583739770400
+        }
+      },
+      "After": {
+        "beam_fixture_add.beam": {
+          "Sha256": "14629DAA835C126F82846ACD7C97635E8639D3BCCDEAB8F9015C4462250B70CB",
+          "MtimeNs": 1792336600597730700
+        },
+        "beam_fixture_constant.beam": {
+          "Sha256": "634F1F6E207DAFFE460C069097B857ADD35E8E4273D42A9ADE87CB494A031868",
+          "MtimeNs": 1792336583739770400
+        }
+      }
+    },
+    {
+      "Name": "receipt-sha-refusal",
+      "Passed": true,
+      "ExitCode": 1,
+      "Seconds": 0.14000000001396984,
+      "NativeProcessReceiptsAdded": 0,
+      "Summary": null,
+      "Before": {
+        "beam_fixture_add.beam": {
+          "Sha256": "14629DAA835C126F82846ACD7C97635E8639D3BCCDEAB8F9015C4462250B70CB",
+          "MtimeNs": 1792336600597730700
+        },
+        "beam_fixture_constant.beam": {
+          "Sha256": "634F1F6E207DAFFE460C069097B857ADD35E8E4273D42A9ADE87CB494A031868",
+          "MtimeNs": 1792336583739770400
+        }
+      },
+      "After": {
+        "beam_fixture_add.beam": {
+          "Sha256": "14629DAA835C126F82846ACD7C97635E8639D3BCCDEAB8F9015C4462250B70CB",
+          "MtimeNs": 1792336600597730700
+        },
+        "beam_fixture_constant.beam": {
+          "Sha256": "634F1F6E207DAFFE460C069097B857ADD35E8E4273D42A9ADE87CB494A031868",
+          "MtimeNs": 1792336583739770400
+        }
+      }
+    },
+    {
+      "Name": "extra-compiler-file",
+      "Passed": true,
+      "ExitCode": 1,
+      "Seconds": 1.5619999999762513,
+      "NativeProcessReceiptsAdded": 0,
+      "Summary": null,
+      "Before": {
+        "beam_fixture_add.beam": {
+          "Sha256": "14629DAA835C126F82846ACD7C97635E8639D3BCCDEAB8F9015C4462250B70CB",
+          "MtimeNs": 1792336600597730700
+        },
+        "beam_fixture_constant.beam": {
+          "Sha256": "634F1F6E207DAFFE460C069097B857ADD35E8E4273D42A9ADE87CB494A031868",
+          "MtimeNs": 1792336583739770400
+        }
+      },
+      "After": {
+        "beam_fixture_add.beam": {
+          "Sha256": "14629DAA835C126F82846ACD7C97635E8639D3BCCDEAB8F9015C4462250B70CB",
+          "MtimeNs": 1792336600597730700
+        },
+        "beam_fixture_constant.beam": {
+          "Sha256": "634F1F6E207DAFFE460C069097B857ADD35E8E4273D42A9ADE87CB494A031868",
+          "MtimeNs": 1792336583739770400
+        }
+      }
+    },
+    {
+      "Name": "compiler-beam-content-change",
+      "Passed": true,
+      "ExitCode": 1,
+      "Seconds": 1.4530000000377186,
+      "NativeProcessReceiptsAdded": 0,
+      "Summary": null,
+      "Before": {
+        "beam_fixture_add.beam": {
+          "Sha256": "14629DAA835C126F82846ACD7C97635E8639D3BCCDEAB8F9015C4462250B70CB",
+          "MtimeNs": 1792336600597730700
+        },
+        "beam_fixture_constant.beam": {
+          "Sha256": "634F1F6E207DAFFE460C069097B857ADD35E8E4273D42A9ADE87CB494A031868",
+          "MtimeNs": 1792336583739770400
+        }
+      },
+      "After": {
+        "beam_fixture_add.beam": {
+          "Sha256": "14629DAA835C126F82846ACD7C97635E8639D3BCCDEAB8F9015C4462250B70CB",
+          "MtimeNs": 1792336600597730700
+        },
+        "beam_fixture_constant.beam": {
+          "Sha256": "634F1F6E207DAFFE460C069097B857ADD35E8E4273D42A9ADE87CB494A031868",
+          "MtimeNs": 1792336583739770400
+        }
+      }
+    },
+    {
+      "Name": "controlled-environment",
+      "Passed": true,
+      "ExitCode": 0,
+      "Seconds": 6.562999999965541,
+      "NativeProcessReceiptsAdded": 2,
+      "Summary": {
+        "ExecutedCompilers": 2,
+        "Skipped": 0,
+        "Manifest": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library376-implementation\\source-build-cases2\\controlled environment output\\beam-build-state.json"
+      },
+      "Before": {
+        "beam_fixture_add.beam": {
+          "Sha256": "14629DAA835C126F82846ACD7C97635E8639D3BCCDEAB8F9015C4462250B70CB",
+          "MtimeNs": 1792336600597730700
+        },
+        "beam_fixture_constant.beam": {
+          "Sha256": "634F1F6E207DAFFE460C069097B857ADD35E8E4273D42A9ADE87CB494A031868",
+          "MtimeNs": 1792336583739770400
+        }
+      },
+      "After": {
+        "beam_fixture_add.beam": {
+          "Sha256": "14629DAA835C126F82846ACD7C97635E8639D3BCCDEAB8F9015C4462250B70CB",
+          "MtimeNs": 1792336600597730700
+        },
+        "beam_fixture_constant.beam": {
+          "Sha256": "634F1F6E207DAFFE460C069097B857ADD35E8E4273D42A9ADE87CB494A031868",
+          "MtimeNs": 1792336583739770400
+        }
+      }
+    },
+    {
+      "Name": "final-noop",
+      "Passed": true,
+      "ExitCode": 0,
+      "Seconds": 2.5,
+      "NativeProcessReceiptsAdded": 0,
+      "Summary": {
+        "ExecutedCompilers": 0,
+        "Skipped": 2,
+        "Manifest": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library376-implementation\\source-build-cases2\\output modules\\beam-build-state.json"
+      },
+      "Before": {
+        "beam_fixture_add.beam": {
+          "Sha256": "14629DAA835C126F82846ACD7C97635E8639D3BCCDEAB8F9015C4462250B70CB",
+          "MtimeNs": 1792336600597730700
+        },
+        "beam_fixture_constant.beam": {
+          "Sha256": "634F1F6E207DAFFE460C069097B857ADD35E8E4273D42A9ADE87CB494A031868",
+          "MtimeNs": 1792336583739770400
+        }
+      },
+      "After": {
+        "beam_fixture_add.beam": {
+          "Sha256": "14629DAA835C126F82846ACD7C97635E8639D3BCCDEAB8F9015C4462250B70CB",
+          "MtimeNs": 1792336600597730700
+        },
+        "beam_fixture_constant.beam": {
+          "Sha256": "634F1F6E207DAFFE460C069097B857ADD35E8E4273D42A9ADE87CB494A031868",
+          "MtimeNs": 1792336583739770400
+        }
+      }
+    },
+    {
+      "Name": "windows-case-colliding-module-refusal",
+      "Passed": true,
+      "ExitCode": 1,
+      "Seconds": 0.15600000001722947,
+      "NativeProcessReceiptsAdded": 0,
+      "Summary": null,
+      "Before": {
+        "beam_fixture_add.beam": {
+          "Sha256": "14629DAA835C126F82846ACD7C97635E8639D3BCCDEAB8F9015C4462250B70CB",
+          "MtimeNs": 1792336600597730700
+        },
+        "beam_fixture_constant.beam": {
+          "Sha256": "634F1F6E207DAFFE460C069097B857ADD35E8E4273D42A9ADE87CB494A031868",
+          "MtimeNs": 1792336583739770400
+        }
+      },
+      "After": {
+        "beam_fixture_add.beam": {
+          "Sha256": "14629DAA835C126F82846ACD7C97635E8639D3BCCDEAB8F9015C4462250B70CB",
+          "MtimeNs": 1792336600597730700
+        },
+        "beam_fixture_constant.beam": {
+          "Sha256": "634F1F6E207DAFFE460C069097B857ADD35E8E4273D42A9ADE87CB494A031868",
+          "MtimeNs": 1792336583739770400
+        }
+      }
+    }
+  ],
+  "ApiDelta": 0,
+  "FullContractDelta": 0,
+  "OriginalSourcesUntouched": true,
+  "OfficialCompilerDependencyRestored": true,
+  "TimeoutProcessTreeTestsExecuted": false
+}

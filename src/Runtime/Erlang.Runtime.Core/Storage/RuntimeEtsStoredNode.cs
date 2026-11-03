@@ -9,5 +9,6 @@ internal readonly record struct RuntimeEtsStoredNode(
     string[]? Names = null,
     bool Exported = false,
     RuntimeExternalTermReservation? Identity = null,
-    IRuntimeStoredFunctionRecipe? Function = null
+    IRuntimeStoredFunctionRecipe? Function = null,
+    PersistentBinarySlice416? NativeBinary524 = null
 );

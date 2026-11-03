@@ -46,7 +46,7 @@ internal static unsafe class NifNativePrimitiveCallbacks
                 throw new InvalidOperationException(NifNativeDiagnostics.ReallocationNotGranted);
             try
             {
-                return scope.Allocations.Reallocate(pointer, size);
+                return scope.Allocations.ReallocateShared528(pointer, size);
             }
             catch (OutOfMemoryException)
             {
@@ -67,7 +67,7 @@ internal static unsafe class NifNativePrimitiveCallbacks
     {
         try
         {
-            NifNativeCallbackScope.Current.Allocations.Free(pointer);
+            NifNativeAllocationOwner.FreeFromCurrentScope528(pointer);
         }
         catch (Exception exception)
         {

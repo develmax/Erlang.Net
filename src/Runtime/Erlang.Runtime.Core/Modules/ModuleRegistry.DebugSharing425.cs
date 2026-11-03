@@ -24,12 +24,22 @@ public sealed partial class ModuleRegistry
             InstallPreloaded(registry =>
             {
                 foreach (var entry in staged)
-                    registry.Register(
-                        DebugSharingNames425.Module,
-                        entry.Signature.Function,
-                        entry.Signature.Arity,
-                        entry.Binding.Body
-                    );
+                {
+                    if (entry.Signature.Function is DebugSharingNames425.Flat or DebugSharingNames425.Shared)
+                        registry.RegisterCanonicalRead507(
+                            DebugSharingNames425.Module,
+                            entry.Signature.Function,
+                            entry.Signature.Arity,
+                            entry.Binding.Body
+                        );
+                    else
+                        registry.Register(
+                            DebugSharingNames425.Module,
+                            entry.Signature.Function,
+                            entry.Signature.Arity,
+                            entry.Binding.Body
+                        );
+                }
             });
         });
     }

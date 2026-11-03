@@ -1,0 +1,61 @@
+{
+  "Status": "PASS_LEAF_PROCESS_EXIT_STACK_RAW",
+  "DriverCases": 1,
+  "DriverCasePassed": 1,
+  "SuccessfulDriverCases": 1,
+  "RawEtfPairsCompared": 1,
+  "RawEtfEqual": 1,
+  "Checks": 1,
+  "Passed": 1,
+  "SealedOriginalsUnchanged": true,
+  "Cases": [
+    {
+      "Name": "leaf_process_exit_metadata",
+      "ExpectedSuccess": true,
+      "Passed": true,
+      "InputBefore": {
+        "include/metadata.hrl": "18136B3F556978BEF34AE082545496C91300CDAC3DFB60FBA2519855B8C645BC",
+        "src/driver_case.erl": "5125419FD9DC6911B61E2D0D33A5D1DF9D48BD76FBE89C3C0F8AB42425002C9A"
+      },
+      "OriginalEtfSha256": "1D105A43A5D25BEBD9087FFC32EEBFC548E6084B53B79E6DD872A6BF83218C8D",
+      "ManagedEtfSha256": "1D105A43A5D25BEBD9087FFC32EEBFC548E6084B53B79E6DD872A6BF83218C8D",
+      "RawEtfEqual": true,
+      "SentinelAbsent": true,
+      "InputAfter": {
+        "include/metadata.hrl": "18136B3F556978BEF34AE082545496C91300CDAC3DFB60FBA2519855B8C645BC",
+        "src/driver_case.erl": "5125419FD9DC6911B61E2D0D33A5D1DF9D48BD76FBE89C3C0F8AB42425002C9A"
+      },
+      "InputUnchanged": true,
+      "SentinelAbsentAtSettlement": true
+    }
+  ],
+  "Processes": [
+    {
+      "Name": "leaf-observer-compile",
+      "Receipt": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-leaf-stack-execution2\\trusted\\leaf-observer-compile.exit.json",
+      "ExpectedExit": 0,
+      "HelperRaised": null
+    },
+    {
+      "Name": "driver",
+      "Receipt": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-leaf-stack-execution2\\cases\\leaf_process_exit_metadata\\driver.exit.json",
+      "ExpectedExit": 0,
+      "HelperRaised": null
+    },
+    {
+      "Name": "original-observer",
+      "Receipt": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-leaf-stack-execution2\\cases\\leaf_process_exit_metadata\\original-observer.exit.json",
+      "ExpectedExit": 0,
+      "HelperRaised": null
+    },
+    {
+      "Name": "managed-observer",
+      "Receipt": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-leaf-stack-execution2\\cases\\leaf_process_exit_metadata\\managed-observer.exit.json",
+      "ExpectedExit": 0,
+      "HelperRaised": null
+    }
+  ],
+  "No40ComparisonClaim": true,
+  "NotProductionDriverIntegration": true,
+  "StackFieldsRemovedOrNormalized": false
+}

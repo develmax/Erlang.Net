@@ -15,7 +15,7 @@ public sealed partial class ModuleRegistry
             if (functions.ContainsKey(key) || sourceOwners.ContainsKey(key))
                 throw new InvalidOperationException(MapKeysNames426.Conflict);
             var next = new MapKeysBinding426(runtime);
-            InstallPreloaded(target => target.Register(
+            InstallPreloaded(target => target.RegisterCanonicalRead507(
                 key.Item1,
                 key.Item2,
                 key.Item3,

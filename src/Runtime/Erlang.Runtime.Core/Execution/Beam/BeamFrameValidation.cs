@@ -450,6 +450,8 @@ internal static class BeamFrameValidation
             .Take(function.EndInstructionIndex - function.FirstInstructionIndex)
             .Any(instruction => BeamReceiveBinaryPairs.IsBinary(instruction.Definition.Name));
         bool delayOnlyBinary = hasBinary && receives.Count != 0 && receives.Values.All(plan => !plan.HasMatcher);
+        bool ordinaryBinaryScratch = hasBinary && receives.Count != 0
+            && BeamReceiveBinaryPairs.HasOrdinaryScratch(code, function, receives);
         if (receives.Count != 0 && hasBinary)
             BeamReceiveBinaryPairs.ValidateFunction(code, function, receives);
 
@@ -985,6 +987,11 @@ internal static class BeamFrameValidation
                     Roots();
                     BeamReceivePlan receive = receives[state.Pc];
                     if (delayOnlyBinary && state.EverOpaqueInFunction)
+                        throw new NotSupportedException(BeamOnLoadDiagnostics.Frame);
+                    // A normal binary block may precede a receive only after
+                    // every mutable context and saved position has been killed.
+                    // In particular, candidate X overwrite is not a liveness proof.
+                    if (ordinaryBinaryScratch && (state.ContextX | state.ContextY | state.PositionX | state.PositionY) != BigInteger.Zero)
                         throw new NotSupportedException(BeamOnLoadDiagnostics.Frame);
                     if (receive.TimeoutOperand is { } receiveTimeout)
                     {

@@ -71,7 +71,13 @@ internal sealed partial class OwnedTermInvocation506 : IDisposable
         }
     }
 
-    internal Term Export(Term value) => context.TermHeap506.Export(Frame, value);
+    internal Term Export(Term value)
+    {
+        Term portable = context.TermHeap506.Export(Frame, value);
+
+        return NativeResourceRoots524.Contains524(portable)
+            ? NativeTermHostScope524.AdmitCurrent524(Runtime, portable) : portable;
+    }
 
     internal Term Complete(Term value)
     {

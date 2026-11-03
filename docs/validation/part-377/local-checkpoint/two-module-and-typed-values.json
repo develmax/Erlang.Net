@@ -1,0 +1,259 @@
+{
+  "Passed": true,
+  "Branches": 2,
+  "SubjectToolSha256": "EA6DA4CEA80719052C3B867604E05D8FFA7442B482A44C727BF450B633F662DC",
+  "RunnerSha256": "AC0AB8279E7C7551C29AE90737DAD23349D2DB7C6078647F25B54621EEB80314",
+  "AdmissionSha256": "41CCC2FDE5493D85BEAA21996E12D0885D2919B0D4BF44137D0673DCDC9D5EA6",
+  "ExecutionManifestSha256": "AF5EA3DA317E2ABC8A0CF1874D4E6BFB93AC1A47E864A7B92BBE7A03D1607E99",
+  "RuntimeSha256": "D91699E88F417E00470D224934D47CD92358CC1B3B37CA1F15BCF5D4731D8F4E",
+  "RawWholeEtfPairs": 4,
+  "NoInstalledWrites": true,
+  "NoCompleteApiOrWholeLanguageClaim": true,
+  "Outcomes": [
+    {
+      "Name": "two_modules_global_closure",
+      "Passed": true,
+      "Steps": [
+        {
+          "Name": "cold",
+          "NativeReceipts": [
+            {
+              "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-project-cache-specifics-execution1\\two_modules_global_closure\\compiled\\.work-2737abf785774c1ea344b937266b7d85\\driver-bootstrap\\compiler.process.json",
+              "Sha256": "BF0AAFC07BE0CABFDD351485D9B25069A6EA02E5F308A497BD90F2A4CF7E069D"
+            },
+            {
+              "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-project-cache-specifics-execution1\\two_modules_global_closure\\compiled\\.work-2737abf785774c1ea344b937266b7d85\\modules\\cache_guest_a377\\compiler.process.json",
+              "Sha256": "608149E48AE96A5A12607C801B61583FDD78EE4BE068DB48DA0BFEFD7A5CECEC"
+            },
+            {
+              "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-project-cache-specifics-execution1\\two_modules_global_closure\\compiled\\.work-2737abf785774c1ea344b937266b7d85\\modules\\cache_guest_b377\\compiler.process.json",
+              "Sha256": "C105FB68CB4A8CFDEF73BD584E855437A16C72B80D41AE83EB3279101EB72389"
+            }
+          ],
+          "Summary": {
+            "ExecutedCompilers": 2,
+            "Skipped": 0,
+            "Manifest": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-project-cache-specifics-execution1\\two_modules_global_closure\\compiled\\beam-build-state.json"
+          }
+        },
+        {
+          "Name": "warm",
+          "NativeReceipts": [],
+          "Summary": {
+            "ExecutedCompilers": 0,
+            "Skipped": 2,
+            "Manifest": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-project-cache-specifics-execution1\\two_modules_global_closure\\compiled\\beam-build-state.json"
+          }
+        },
+        {
+          "Name": "unused_changed",
+          "NativeReceipts": [
+            {
+              "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-project-cache-specifics-execution1\\two_modules_global_closure\\compiled\\.work-62f1d308f8324ab8bc0457fa45780cd1\\modules\\cache_guest_a377\\compiler.process.json",
+              "Sha256": "B5DE87735EAF2CC5E32F661BC871A6D212815A8A00AF70B30C6374CEAA29FD05"
+            },
+            {
+              "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-project-cache-specifics-execution1\\two_modules_global_closure\\compiled\\.work-62f1d308f8324ab8bc0457fa45780cd1\\modules\\cache_guest_b377\\compiler.process.json",
+              "Sha256": "BB881E2C10DB70ABDD5CDC56D58259C9393FF4BFDA41295CEE9C1670F9C78A40"
+            }
+          ],
+          "Summary": {
+            "ExecutedCompilers": 2,
+            "Skipped": 0,
+            "Manifest": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-project-cache-specifics-execution1\\two_modules_global_closure\\compiled\\beam-build-state.json"
+          }
+        },
+        {
+          "Name": "used_changed",
+          "NativeReceipts": [
+            {
+              "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-project-cache-specifics-execution1\\two_modules_global_closure\\compiled\\.work-c0b206f695134ec2acdc6e41c6e653e6\\modules\\cache_guest_a377\\compiler.process.json",
+              "Sha256": "0ED5EBBBDC05DBCB6FD9B2B3234CAC1A580F7CD5BE1BABBCB6B2B58EB52E9246"
+            },
+            {
+              "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-project-cache-specifics-execution1\\two_modules_global_closure\\compiled\\.work-c0b206f695134ec2acdc6e41c6e653e6\\modules\\cache_guest_b377\\compiler.process.json",
+              "Sha256": "0765131222D6438D189A01D0BC24980A243E7F061C4500D507F155927777B28B"
+            }
+          ],
+          "Summary": {
+            "ExecutedCompilers": 2,
+            "Skipped": 0,
+            "Manifest": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-project-cache-specifics-execution1\\two_modules_global_closure\\compiled\\beam-build-state.json"
+          }
+        },
+        {
+          "Name": "unused_removed",
+          "NativeReceipts": [
+            {
+              "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-project-cache-specifics-execution1\\two_modules_global_closure\\compiled\\.work-fa2da32185bf485799c6f3ca9bc0e17c\\modules\\cache_guest_a377\\compiler.process.json",
+              "Sha256": "F08908CE5C490AB3C41A87A13138F19FDB3EC514713AC20C931E1F4EBE90E153"
+            },
+            {
+              "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-project-cache-specifics-execution1\\two_modules_global_closure\\compiled\\.work-fa2da32185bf485799c6f3ca9bc0e17c\\modules\\cache_guest_b377\\compiler.process.json",
+              "Sha256": "15AED8E90E921C42C5F6968F3FE60A509A2504CA744C237041A8F4D27EB2C4A5"
+            }
+          ],
+          "Summary": {
+            "ExecutedCompilers": 2,
+            "Skipped": 0,
+            "Manifest": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-project-cache-specifics-execution1\\two_modules_global_closure\\compiled\\beam-build-state.json"
+          }
+        },
+        {
+          "Name": "unused_added",
+          "NativeReceipts": [
+            {
+              "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-project-cache-specifics-execution1\\two_modules_global_closure\\compiled\\.work-c43976c10e1e495d8c7b8b5f7b898a62\\modules\\cache_guest_a377\\compiler.process.json",
+              "Sha256": "4EEAB0806414AFD31509AF988F41679BBF2617D876F112BF4024E26BA15A419D"
+            },
+            {
+              "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-project-cache-specifics-execution1\\two_modules_global_closure\\compiled\\.work-c43976c10e1e495d8c7b8b5f7b898a62\\modules\\cache_guest_b377\\compiler.process.json",
+              "Sha256": "FC54C9E9BA3972E5724A95958C53AEA4939866363B61AFE939EF0A8D03439CCB"
+            }
+          ],
+          "Summary": {
+            "ExecutedCompilers": 2,
+            "Skipped": 0,
+            "Manifest": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-project-cache-specifics-execution1\\two_modules_global_closure\\compiled\\beam-build-state.json"
+          }
+        },
+        {
+          "Name": "final_warm",
+          "NativeReceipts": [],
+          "Summary": {
+            "ExecutedCompilers": 0,
+            "Skipped": 2,
+            "Manifest": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-project-cache-specifics-execution1\\two_modules_global_closure\\compiled\\beam-build-state.json"
+          }
+        }
+      ]
+    },
+    {
+      "Name": "macro_type_original_whole_etf",
+      "Passed": true,
+      "Steps": [
+        {
+          "Name": "macro_atom",
+          "NativeReceipts": [
+            {
+              "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-project-cache-specifics-execution1\\macro_type_original_whole_etf\\compiled\\.work-9d259710d11e4945bb6de6c8bb4a586f\\driver-bootstrap\\compiler.process.json",
+              "Sha256": "CC324D73C22A8D0216003AB9A6886FAF54E22E855C769B657F2A14642B02A637"
+            },
+            {
+              "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-project-cache-specifics-execution1\\macro_type_original_whole_etf\\compiled\\.work-9d259710d11e4945bb6de6c8bb4a586f\\modules\\macro_value_guest377\\compiler.process.json",
+              "Sha256": "650EBD96BCBD46B5E71925CEEAA148058C6FB52C6C8D610CB2895EA2E5C9A014"
+            }
+          ],
+          "Summary": {
+            "ExecutedCompilers": 1,
+            "Skipped": 0,
+            "Manifest": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-project-cache-specifics-execution1\\macro_type_original_whole_etf\\compiled\\beam-build-state.json"
+          }
+        },
+        {
+          "Name": "macro_integer",
+          "NativeReceipts": [
+            {
+              "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-project-cache-specifics-execution1\\macro_type_original_whole_etf\\compiled\\.work-e501931b79c74c3b97750dca3903067c\\modules\\macro_value_guest377\\compiler.process.json",
+              "Sha256": "962E433A169F9DDC38DE41F1B71B617D419887C5182F8925D6D4A615C3D21B5E"
+            }
+          ],
+          "Summary": {
+            "ExecutedCompilers": 1,
+            "Skipped": 0,
+            "Manifest": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-project-cache-specifics-execution1\\macro_type_original_whole_etf\\compiled\\beam-build-state.json"
+          }
+        },
+        {
+          "Name": "macro_string",
+          "NativeReceipts": [
+            {
+              "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-project-cache-specifics-execution1\\macro_type_original_whole_etf\\compiled\\.work-5cfa039d579047b8b4f8e9f3caded8e5\\modules\\macro_value_guest377\\compiler.process.json",
+              "Sha256": "C27A92864D63F538DFCD4459A36739034022E9238AFCFDF29BD73F1B3E840F27"
+            }
+          ],
+          "Summary": {
+            "ExecutedCompilers": 1,
+            "Skipped": 0,
+            "Manifest": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-project-cache-specifics-execution1\\macro_type_original_whole_etf\\compiled\\beam-build-state.json"
+          }
+        },
+        {
+          "Name": "macro_absent",
+          "NativeReceipts": [
+            {
+              "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-project-cache-specifics-execution1\\macro_type_original_whole_etf\\compiled\\.work-d1cb21b8d2cd4db3a85606e2a6d23cf0\\modules\\macro_value_guest377\\compiler.process.json",
+              "Sha256": "E50B67CFB8D4A10EAB2416C60E409423F83FB34105234636EB8251C1A7BA3071"
+            }
+          ],
+          "Summary": {
+            "ExecutedCompilers": 1,
+            "Skipped": 0,
+            "Manifest": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-project-cache-specifics-execution1\\macro_type_original_whole_etf\\compiled\\beam-build-state.json"
+          }
+        },
+        {
+          "Name": "final_warm",
+          "NativeReceipts": [],
+          "Summary": {
+            "ExecutedCompilers": 0,
+            "Skipped": 1,
+            "Manifest": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-project-cache-specifics-execution1\\macro_type_original_whole_etf\\compiled\\beam-build-state.json"
+          }
+        }
+      ],
+      "Comparisons": [
+        {
+          "Kind": "Atom",
+          "BeamSha256": "868D9B98DA96E47BB3EEA12D3C0D214AC901E4D122F6DEFA45994B99EDDC3DDD",
+          "OriginalPath": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-project-cache-specifics-execution1\\macro_type_original_whole_etf\\macro_atom.original.etf",
+          "ManagedPath": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-project-cache-specifics-execution1\\macro_type_original_whole_etf\\macro_atom.managed.etf",
+          "OriginalSha256": "2C4E354DAEC1FA8C068885FD7506C1EE7CFEB61DB63AC1F30D33697F1B2A8FF6",
+          "ManagedSha256": "2C4E354DAEC1FA8C068885FD7506C1EE7CFEB61DB63AC1F30D33697F1B2A8FF6",
+          "WholeEtfEqual": true,
+          "RequiredObservation": "{ok,{first,header_value}}",
+          "ExpectedWholeEtfHex": "83680277026F6B680277056669727374770C6865616465725F76616C7565",
+          "ExactRequiredWholeEtf": true
+        },
+        {
+          "Kind": "Integer",
+          "BeamSha256": "CEEADD890ACBA5D884F32B0FA1E01FCCCA2E7DA6B0498835EC1440D528DC3109",
+          "OriginalPath": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-project-cache-specifics-execution1\\macro_type_original_whole_etf\\macro_integer.original.etf",
+          "ManagedPath": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-project-cache-specifics-execution1\\macro_type_original_whole_etf\\macro_integer.managed.etf",
+          "OriginalSha256": "AEE6E64532DA516F77A1C20876F72CB422CA2CA1163FDE997B78C798277161F8",
+          "ManagedSha256": "AEE6E64532DA516F77A1C20876F72CB422CA2CA1163FDE997B78C798277161F8",
+          "WholeEtfEqual": true,
+          "RequiredObservation": "{ok,{377,header_value}}",
+          "ExpectedWholeEtfHex": "83680277026F6B68026200000179770C6865616465725F76616C7565",
+          "ExactRequiredWholeEtf": true
+        },
+        {
+          "Kind": "String",
+          "BeamSha256": "93662C3DB730B11371A2BAEF9181ABD4B92B8DC14F5C0585CA5208E5E004591A",
+          "OriginalPath": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-project-cache-specifics-execution1\\macro_type_original_whole_etf\\macro_string.original.etf",
+          "ManagedPath": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-project-cache-specifics-execution1\\macro_type_original_whole_etf\\macro_string.managed.etf",
+          "OriginalSha256": "4254C4E7A9791F1306DF69AAD4E27F91E96F232450A28C583EACBABD8167A54D",
+          "ManagedSha256": "4254C4E7A9791F1306DF69AAD4E27F91E96F232450A28C583EACBABD8167A54D",
+          "WholeEtfEqual": true,
+          "RequiredObservation": "{ok,{\"first\",header_value}}",
+          "ExpectedWholeEtfHex": "83680277026F6B68026B00056669727374770C6865616465725F76616C7565",
+          "ExactRequiredWholeEtf": true
+        },
+        {
+          "Kind": "Absent",
+          "BeamSha256": "ACF6A00D70F1956F17E021E1B3EDD54A6436D52ABD801C36029500C24BDD05B4",
+          "OriginalPath": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-project-cache-specifics-execution1\\macro_type_original_whole_etf\\macro_absent.original.etf",
+          "ManagedPath": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-project-cache-specifics-execution1\\macro_type_original_whole_etf\\macro_absent.managed.etf",
+          "OriginalSha256": "4A530D2198144E4C72FDD87CE8DEA8F7E27CF950CD252B1B98F94B3A2C6C17B0",
+          "ManagedSha256": "4A530D2198144E4C72FDD87CE8DEA8F7E27CF950CD252B1B98F94B3A2C6C17B0",
+          "WholeEtfEqual": true,
+          "RequiredObservation": "{ok,{fallback,header_value}}",
+          "ExpectedWholeEtfHex": "83680277026F6B6802770866616C6C6261636B770C6865616465725F76616C7565",
+          "ExactRequiredWholeEtf": true
+        }
+      ],
+      "ObserverSha256": "35DAB1ADCDEE85A62E9A69308724DFB7B595F730EE50824B033B34525AFE86DB",
+      "ReplaySha256": "C679A3B650BE770D4F22D030C372CE9B12A29FCCE1C4881D995722F95E2271B0"
+    }
+  ]
+}

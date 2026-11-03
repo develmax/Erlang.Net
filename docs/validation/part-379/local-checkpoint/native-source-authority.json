@@ -1,0 +1,101 @@
+{
+  "Status": "CORRECTED_PINNED_SOURCE_APPENDIX_ONLY",
+  "SupersedesOnly": "artifacts/library379-application-driver-candidate1/source-authority.json",
+  "OriginalFrozenUnchanged": true,
+  "Correction": "Initial appendix erroneously used working-tree line offsets against different pinned bytes. file.erl2287 is unrelated documentation and2915 starts eval_stream vicinity; neither is evidence for consult. Current anchors are asserted against byte-exact Git objects.",
+  "Sources": [
+    {
+      "Path": "lib/kernel/src/file.erl",
+      "Commit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+      "Blob": "bac83444cf5974b3f9a14057f5b4f4ec8c792001",
+      "Sha256": "A8FDD9F93BEDE84B1D1D00FFA92163826DC452703F50DA12A85C2A8D82058E04",
+      "Lines": [
+        2272,
+        2280
+      ],
+      "Anchor": "consult(File) ->",
+      "Excerpt": "consult(File) ->\n    case open(File, [read]) of\n\t{ok, Fd} ->\n\t    R = consult_stream(Fd),\n\t    _ = close(Fd),\n\t    R;\n\tError ->\n\t    Error\n    end.",
+      "Link": "https://github.com/erlang/otp/blob/ad05823719d77c8faee87348ea39513d4e2f99c5/lib/kernel/src/file.erl#L2272-L2280"
+    },
+    {
+      "Path": "lib/kernel/src/file.erl",
+      "Commit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+      "Blob": "bac83444cf5974b3f9a14057f5b4f4ec8c792001",
+      "Sha256": "A8FDD9F93BEDE84B1D1D00FFA92163826DC452703F50DA12A85C2A8D82058E04",
+      "Lines": [
+        2900,
+        2914
+      ],
+      "Anchor": "consult_stream(Fd) ->",
+      "Excerpt": "consult_stream(Fd) ->\n    _ = epp:set_encoding(Fd),\n    consult_stream(Fd, 1, []).\n\nconsult_stream(Fd, Line, Acc) ->\n    case io:read(Fd, '', Line) of\n\t{ok,Term,EndLine} ->\n\t    consult_stream(Fd, EndLine, [Term|Acc]);\n\t{error,Error} ->\n\t    {error,Error};\n\t{error,Error,_Line} ->\n\t    {error,Error};\n\t{eof,_Line} ->\n\t    {ok,lists:reverse(Acc)}\n    end.",
+      "Link": "https://github.com/erlang/otp/blob/ad05823719d77c8faee87348ea39513d4e2f99c5/lib/kernel/src/file.erl#L2900-L2914"
+    },
+    {
+      "Path": "lib/stdlib/src/io.erl",
+      "Commit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+      "Blob": "3d724060260b269706d98a342a293344dd97848e",
+      "Sha256": "076B1496BF625657B1EACEB9C598C3169D439C7E42567B35EDAF6E96483C2449",
+      "Lines": [
+        731,
+        732
+      ],
+      "Anchor": "read(Io, Prompt, Pos0) ->",
+      "Excerpt": "read(Io, Prompt, Pos0) ->\n    read(Io, Prompt, Pos0, []).",
+      "Link": "https://github.com/erlang/otp/blob/ad05823719d77c8faee87348ea39513d4e2f99c5/lib/stdlib/src/io.erl#L731-L732"
+    },
+    {
+      "Path": "lib/stdlib/src/io.erl",
+      "Commit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+      "Blob": "3d724060260b269706d98a342a293344dd97848e",
+      "Sha256": "076B1496BF625657B1EACEB9C598C3169D439C7E42567B35EDAF6E96483C2449",
+      "Lines": [
+        763,
+        777
+      ],
+      "Anchor": "read(Io, Prompt, Pos0, Options) ->",
+      "Excerpt": "read(Io, Prompt, Pos0, Options) ->\n    Args = [Pos0,Options],\n    case request(Io, {get_until,unicode,Prompt,erl_scan,tokens,Args}) of\n\t{ok,Toks,EndLocation} ->\n            case erl_parse:parse_term(Toks) of\n                {ok,Term} -> {ok,Term,EndLocation};\n                {error,ErrorInfo} -> {error,ErrorInfo,EndLocation}\n            end;\n\t{error,_E,_EndLocation} = Error ->\n\t    Error;\n\t{eof,_EndLocation} = Eof ->\n\t    Eof;\n\tOther ->\n\t    Other\n    end.",
+      "Link": "https://github.com/erlang/otp/blob/ad05823719d77c8faee87348ea39513d4e2f99c5/lib/stdlib/src/io.erl#L763-L777"
+    },
+    {
+      "Path": "lib/stdlib/src/erl_parse.yrl",
+      "Commit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+      "Blob": "9568548462589177d3a3bf0ae5075ae6ebe3304a",
+      "Sha256": "59339E13BB69E0E539B2EF7088AB9115C31CA8CAB47900E1752AA6755C53DB69",
+      "Lines": [
+        1492,
+        1505
+      ],
+      "Anchor": "parse_term(Tokens) ->",
+      "Excerpt": "parse_term(Tokens) ->\n    ?ANNO_CHECK(Tokens),\n    A = erl_anno:new(0),\n    case parse([{atom,A,f},{'(',A},{')',A},{'->',A}|Tokens]) of\n\t{ok,{function,_Af,f,0,[{clause,_Ac,[],[],[Expr]}]}} ->\n\t    try normalise(Expr) of\n\t\tTerm -> {ok,Term}\n\t    catch\n\t\t_:_R -> {error,{first_location(Expr),?MODULE,\"bad term\"}}\n\t    end;\n\t{ok,{function,_Af,f,0,[{clause,_Ac,[],[],[_E1,E2|_Es]}]}} ->\n\t    {error,{first_location(E2),?MODULE,\"bad term\"}};\n\t{error,_} = Err -> Err\n    end.",
+      "Link": "https://github.com/erlang/otp/blob/ad05823719d77c8faee87348ea39513d4e2f99c5/lib/stdlib/src/erl_parse.yrl#L1492-L1505"
+    },
+    {
+      "Path": "lib/kernel/src/application_controller.erl",
+      "Commit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+      "Blob": "108d7c0d8e14ee191546a77bea0738482b5149ba",
+      "Sha256": "1E35868C4C2898305EAF9DE240F14CEED0B225AC55FEB937573B27ADBF3B18D6",
+      "Lines": [
+        1533,
+        1549
+      ],
+      "Anchor": "prim_consult(FullName) ->",
+      "Excerpt": "prim_consult(FullName) ->\n    case erl_prim_loader:read_file(FullName) of\n\t{ok, Bin} ->\n            case file_binary_to_list(Bin) of\n                {ok, String} ->\n                    case erl_scan:string(String) of\n                        {ok, Tokens, _EndLine} ->\n                            prim_parse(Tokens, []);\n                        {error, Reason, _EndLine} ->\n                            {error, Reason}\n                    end;\n                error ->\n                    error\n            end;\n\terror ->\n\t    {error, enoent}\n    end.",
+      "Link": "https://github.com/erlang/otp/blob/ad05823719d77c8faee87348ea39513d4e2f99c5/lib/kernel/src/application_controller.erl#L1533-L1549"
+    },
+    {
+      "Path": "lib/kernel/src/application_controller.erl",
+      "Commit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+      "Blob": "108d7c0d8e14ee191546a77bea0738482b5149ba",
+      "Sha256": "1E35868C4C2898305EAF9DE240F14CEED0B225AC55FEB937573B27ADBF3B18D6",
+      "Lines": [
+        1551,
+        1569
+      ],
+      "Anchor": "prim_parse(Tokens, Acc) ->",
+      "Excerpt": "prim_parse(Tokens, Acc) ->\n    case lists:splitwith(fun(T) -> element(1,T) =/= dot end, Tokens) of\n\t{[], []} ->\n\t    {ok, lists:reverse(Acc)};\n\t{Tokens2, [{dot,_} = Dot | Rest]} ->\n\t    case erl_parse:parse_term(Tokens2 ++ [Dot]) of\n\t\t{ok, Term} ->\n\t\t    prim_parse(Rest, [Term | Acc]);\n\t\t{error, _R} = Error ->\n\t\t    Error\n\t    end;\n\t{Tokens2, []} ->\n\t    case erl_parse:parse_term(Tokens2) of\n\t\t{ok, Term} ->\n\t\t    {ok, lists:reverse([Term | Acc])};\n\t\t{error, _R} = Error ->\n\t\t    Error\n\t    end\n    end.",
+      "Link": "https://github.com/erlang/otp/blob/ad05823719d77c8faee87348ea39513d4e2f99c5/lib/kernel/src/application_controller.erl#L1551-L1569"
+    }
+  ],
+  "Conclusion": "Pinned file:consult opens read, calls consult_stream, closes file. consult_stream sets encoding then io:read only; io:read tokenizes with erl_scan and calls erl_parse:parse_term, which normalises a single literal expression. This path does not call eval_stream/erl_eval. Controller prim_consult separately uses erl_prim_loader, erl_scan:string and prim_parse/erl_parse:parse_term. Native parse-only driver is not full controller equivalence.",
+  "Execution": "No build, native or managed subject execution"
+}

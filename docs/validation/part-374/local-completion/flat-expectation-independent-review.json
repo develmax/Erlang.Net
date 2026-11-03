@@ -1,0 +1,391 @@
+{
+  "Status": "TEST_ONLY_EXPECTATION_FIX_REVIEWED_FINAL_FULL2_PENDING",
+  "OwnBuildExecutionEdits": false,
+  "SourceReview": {
+    "Scope": "Only flat fixture successful literal expectations ordered by currentVMatomindices before exactcomparison; actualresults are never reordered.",
+    "AtomKeyValueMultiplicityKept": true,
+    "OtherProfileSameLiteralReference": true,
+    "NullErrorExpectationsUnchanged": true,
+    "ControlsSource": "Wrongorder/value/missing/duplicate remain unequal, independent fresh atomindexorder, otherprofile returns same reference.",
+    "Authority": "OtpMapHashLayoutProtocol.FlatKeyOrder ->OtpMapOwnAtomIdentityProvider ->AtomNameRegistry.IndexOf matches expectation authority.",
+    "ProductionLogicChangedForThisFix": false
+  },
+  "OwnedFreshProcessProof": [
+    {
+      "Label": "lists374-flat-baseline-a-first5",
+      "Mode": "baseline",
+      "Order": "a-first",
+      "A": 956,
+      "B": 957,
+      "ExitCode": 0,
+      "SubjectFailureNotHarnessFailure": false,
+      "Assemblies": [
+        {
+          "Location": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\lists374-implementation\\flat-order-baseline-physical\\Erlang.Terms.dll",
+          "Sha256": "19D95BE29D868B057B698F8BA316BC093C4FA63AA7A2D29ABF618CD370C2F9BA"
+        },
+        {
+          "Location": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\lists374-implementation\\flat-order-baseline-physical\\Erlang.Tests.dll",
+          "Sha256": "C9A961A388A8B71271E7D31713E0F8F7175CAD15BFAF7C3CEB20B3237C023EBC"
+        },
+        {
+          "Location": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\lists374-implementation\\flat-order-baseline-physical\\Erlang.Runtime.dll",
+          "Sha256": "DF097C2B3DD335045D32526BC00D936695314EC970F2234C3711DF9B66DC231F"
+        },
+        {
+          "Location": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\lists374-implementation\\flat-order-baseline-physical\\Erlang.Compiler.dll",
+          "Sha256": "A6AD44E58E409D64C873D61A60E87542959392B3AE770B31357D5DD845F58370"
+        },
+        {
+          "Location": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\lists374-implementation\\flat-order-baseline-physical\\Erlang.Serialization.dll",
+          "Sha256": "FD442ABC2CE6CAE9205994D6C1FD25DF3E4D32B1105BF0C198DF9A90FE6B5A37"
+        }
+      ],
+      "ReceiptSha256": "A3196ABD982D80401C32BA3108CF0CCBC554FFAA7531C51C1F2E74F4E7282CBE"
+    },
+    {
+      "Label": "lists374-flat-baseline-b-first5",
+      "Mode": "baseline",
+      "Order": "b-first",
+      "A": 957,
+      "B": 956,
+      "ExitCode": 1,
+      "SubjectFailureNotHarnessFailure": true,
+      "Assemblies": [
+        {
+          "Location": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\lists374-implementation\\flat-order-baseline-physical\\Erlang.Terms.dll",
+          "Sha256": "19D95BE29D868B057B698F8BA316BC093C4FA63AA7A2D29ABF618CD370C2F9BA"
+        },
+        {
+          "Location": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\lists374-implementation\\flat-order-baseline-physical\\Erlang.Tests.dll",
+          "Sha256": "C9A961A388A8B71271E7D31713E0F8F7175CAD15BFAF7C3CEB20B3237C023EBC"
+        },
+        {
+          "Location": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\lists374-implementation\\flat-order-baseline-physical\\Erlang.Runtime.dll",
+          "Sha256": "DF097C2B3DD335045D32526BC00D936695314EC970F2234C3711DF9B66DC231F"
+        },
+        {
+          "Location": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\lists374-implementation\\flat-order-baseline-physical\\Erlang.Compiler.dll",
+          "Sha256": "A6AD44E58E409D64C873D61A60E87542959392B3AE770B31357D5DD845F58370"
+        },
+        {
+          "Location": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\lists374-implementation\\flat-order-baseline-physical\\Erlang.Serialization.dll",
+          "Sha256": "FD442ABC2CE6CAE9205994D6C1FD25DF3E4D32B1105BF0C198DF9A90FE6B5A37"
+        }
+      ],
+      "ReceiptSha256": "0801050441F2BF539EF84AF461334B8A2135520C157500E73DC497C2D43B4EC6"
+    },
+    {
+      "Label": "lists374-flat-current-a-first1",
+      "Mode": "current",
+      "Order": "a-first",
+      "A": 956,
+      "B": 957,
+      "ExitCode": 0,
+      "SubjectFailureNotHarnessFailure": false,
+      "Assemblies": [
+        {
+          "Location": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\lists374-implementation\\flat-order-probe\\bin\\Debug\\net10.0\\Erlang.Terms.dll",
+          "Sha256": "19D95BE29D868B057B698F8BA316BC093C4FA63AA7A2D29ABF618CD370C2F9BA"
+        },
+        {
+          "Location": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\lists374-implementation\\flat-order-probe\\bin\\Debug\\net10.0\\Erlang.Tests.dll",
+          "Sha256": "ADE7988C87847A2E348F29F059A4628BE09E8862066F4D4E38CC0A2C69EB6E0B"
+        },
+        {
+          "Location": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\lists374-implementation\\flat-order-probe\\bin\\Debug\\net10.0\\Erlang.Runtime.dll",
+          "Sha256": "97001055686BA785913691DB99ECA8D541CCCC4E786E420596A4DF70C2072A1A"
+        },
+        {
+          "Location": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\lists374-implementation\\flat-order-probe\\bin\\Debug\\net10.0\\Erlang.Compiler.dll",
+          "Sha256": "466FEA3198ED9AE8B00DE3AF8A7A22DE9F6F671A57E5D4574395393CD9E372C2"
+        },
+        {
+          "Location": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\lists374-implementation\\flat-order-probe\\bin\\Debug\\net10.0\\Erlang.Serialization.dll",
+          "Sha256": "FD442ABC2CE6CAE9205994D6C1FD25DF3E4D32B1105BF0C198DF9A90FE6B5A37"
+        }
+      ],
+      "ReceiptSha256": "1849A9C683677C1222C8B2CEC9A39FB6AD92139F6638B701EFD28C6420099309"
+    },
+    {
+      "Label": "lists374-flat-current-b-first1",
+      "Mode": "current",
+      "Order": "b-first",
+      "A": 957,
+      "B": 956,
+      "ExitCode": 0,
+      "SubjectFailureNotHarnessFailure": false,
+      "Assemblies": [
+        {
+          "Location": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\lists374-implementation\\flat-order-probe\\bin\\Debug\\net10.0\\Erlang.Terms.dll",
+          "Sha256": "19D95BE29D868B057B698F8BA316BC093C4FA63AA7A2D29ABF618CD370C2F9BA"
+        },
+        {
+          "Location": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\lists374-implementation\\flat-order-probe\\bin\\Debug\\net10.0\\Erlang.Tests.dll",
+          "Sha256": "ADE7988C87847A2E348F29F059A4628BE09E8862066F4D4E38CC0A2C69EB6E0B"
+        },
+        {
+          "Location": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\lists374-implementation\\flat-order-probe\\bin\\Debug\\net10.0\\Erlang.Runtime.dll",
+          "Sha256": "97001055686BA785913691DB99ECA8D541CCCC4E786E420596A4DF70C2072A1A"
+        },
+        {
+          "Location": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\lists374-implementation\\flat-order-probe\\bin\\Debug\\net10.0\\Erlang.Compiler.dll",
+          "Sha256": "466FEA3198ED9AE8B00DE3AF8A7A22DE9F6F671A57E5D4574395393CD9E372C2"
+        },
+        {
+          "Location": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\lists374-implementation\\flat-order-probe\\bin\\Debug\\net10.0\\Erlang.Serialization.dll",
+          "Sha256": "FD442ABC2CE6CAE9205994D6C1FD25DF3E4D32B1105BF0C198DF9A90FE6B5A37"
+        }
+      ],
+      "ReceiptSha256": "D39A9CA873EC47A9AC7DC3BFE70D31B65032FDD4CF595FEFCDFBD94BE2D1EF8A"
+    }
+  ],
+  "Earlier1Through4": "Excluded harness failures, not subject proof.",
+  "BaselineCoreFiveAssembliesByteMatchFrozen373": true,
+  "AllPhysicalDependencyFilesByteMatchFrozenClaimed": false,
+  "PhysicalFrozenMatchingNames": [
+    "Erlang.Compiler.dll",
+    "Erlang.Runtime.dll",
+    "Erlang.Serialization.dll",
+    "Erlang.Terms.dll",
+    "Erlang.Tests.dll"
+  ],
+  "CurrentRuntimeSha256": "97001055686BA785913691DB99ECA8D541CCCC4E786E420596A4DF70C2072A1A",
+  "RuntimeMatchesCapture2": true,
+  "ProductionGuards539AllValid": true,
+  "Fresh374Review52SourcesAllValid": true,
+  "FocusedReport2Of2": true,
+  "FocusedStandaloneOwnedReceiptLocated": false,
+  "FocusedReceiptLimit": "Focused report checked; four freshprocess probes have ownedreceipts; full2 is comprehensive remaining gate.",
+  "FirstFull7915Of7916Retained": true,
+  "Full2Status": "PENDING_ROOT_ADMISSION_NOT_CLAIMED_PASSED",
+  "QueueLists6384ComparisonUnchanged": true,
+  "NoNormalizationOrCompatibilityPromotion": true,
+  "Bindings": [
+    {
+      "Path": "tests/Erlang.Tests/ProplistFlatCursorExpectation.cs",
+      "Sha256": "B78F00DDF8B09B1BFB361B79228BF68A6B92D15AC34D95C86C123CC1D22E7C9E",
+      "Bytes": 774
+    },
+    {
+      "Path": "tests/Erlang.Tests/ProplistIteratorHostChecks.cs",
+      "Sha256": "4A2E5CDE27966EF3117188C01512BA000A1C63738CECA0F7B5785B78F5B40790",
+      "Bytes": 5751
+    },
+    {
+      "Path": "tests/Erlang.Tests/ProplistFlatExpectationHostChecks.cs",
+      "Sha256": "8B7146BF45DEA01972C21609BDFB70E9D94654B49A11201BE87B39003243E991",
+      "Bytes": 1541
+    },
+    {
+      "Path": "tests/Erlang.Tests/ProplistFlatExpectationNames.cs",
+      "Sha256": "C694514CF377A6742EB686910071AB2C5C6FF0DF2B53043ACF05A92BE61C98A3",
+      "Bytes": 371
+    },
+    {
+      "Path": "tests/Erlang.Tests/Program.cs",
+      "Sha256": "74D63483548DFA861ABAF7E5322860E9F7632C138186F6358E6DE08ABCF2DF8B",
+      "Bytes": 214658
+    },
+    {
+      "Path": "tests/Erlang.Tests/ProplistFlatIteratorTestNames.cs",
+      "Sha256": "2F00B55B90977537CC8A5A0319A566D96F8A8CF33EDA51FD9760D821910419B7",
+      "Bytes": 651
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/ProplistFamily/proplists_flat_iterator_contract.erl",
+      "Sha256": "DA0C0BF86429A60C1F74BA5174C01A2D9048C03BC3EB455A5C0EB2CAF31BF9D1",
+      "Bytes": 1175
+    },
+    {
+      "Path": "src/Erlang.Runtime/OtpMapHashLayoutProtocol.cs",
+      "Sha256": "D48BAB9B14D75AAECC6982C2D1346982F8B43F602AB880E8A767925180151E94",
+      "Bytes": 3604
+    },
+    {
+      "Path": "src/Erlang.Runtime/OtpMapOwnAtomIdentityProvider.cs",
+      "Sha256": "6BB2D5C94314EBD31BB695555CD4C12E2004E6E7A259D65E62B50B0C0B2F8641",
+      "Bytes": 818
+    },
+    {
+      "Path": "artifacts/lists374-implementation/flat-order-baseline-physical/Erlang.Terms.dll",
+      "Sha256": "19D95BE29D868B057B698F8BA316BC093C4FA63AA7A2D29ABF618CD370C2F9BA",
+      "Bytes": 123904
+    },
+    {
+      "Path": "artifacts/lists374-implementation/flat-order-baseline-physical/Erlang.Tests.dll",
+      "Sha256": "C9A961A388A8B71271E7D31713E0F8F7175CAD15BFAF7C3CEB20B3237C023EBC",
+      "Bytes": 5233664
+    },
+    {
+      "Path": "artifacts/lists374-implementation/flat-order-baseline-physical/Erlang.Runtime.dll",
+      "Sha256": "DF097C2B3DD335045D32526BC00D936695314EC970F2234C3711DF9B66DC231F",
+      "Bytes": 1966592
+    },
+    {
+      "Path": "artifacts/lists374-implementation/flat-order-baseline-physical/Erlang.Compiler.dll",
+      "Sha256": "A6AD44E58E409D64C873D61A60E87542959392B3AE770B31357D5DD845F58370",
+      "Bytes": 467456
+    },
+    {
+      "Path": "artifacts/lists374-implementation/flat-order-baseline-physical/Erlang.Serialization.dll",
+      "Sha256": "FD442ABC2CE6CAE9205994D6C1FD25DF3E4D32B1105BF0C198DF9A90FE6B5A37",
+      "Bytes": 76288
+    },
+    {
+      "Path": "artifacts/binary-integration369/lists374-flat-baseline-a-first5/execution.exit.json",
+      "Sha256": "A3196ABD982D80401C32BA3108CF0CCBC554FFAA7531C51C1F2E74F4E7282CBE",
+      "Bytes": 494
+    },
+    {
+      "Path": "artifacts/binary-integration369/lists374-flat-baseline-a-first5/execution.live.json",
+      "Sha256": "767A2EE79DC385CE90310E960E5F7C47DAFFAE4369F53026A3A84A49C1147C67",
+      "Bytes": 245
+    },
+    {
+      "Path": "artifacts/binary-integration369/lists374-flat-baseline-a-first5/execution.stdout.log",
+      "Sha256": "EF524A6EC768A3F52B21EA1CF58BE6DC629E757D7E8706C6E777B86BE333243E",
+      "Bytes": 1316
+    },
+    {
+      "Path": "artifacts/binary-integration369/lists374-flat-baseline-a-first5/execution.stderr.log",
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+      "Bytes": 0
+    },
+    {
+      "Path": "artifacts/binary-integration369/lists374-flat-baseline-b-first5/execution.exit.json",
+      "Sha256": "0801050441F2BF539EF84AF461334B8A2135520C157500E73DC497C2D43B4EC6",
+      "Bytes": 495
+    },
+    {
+      "Path": "artifacts/binary-integration369/lists374-flat-baseline-b-first5/execution.live.json",
+      "Sha256": "51073307DD0BF03714C48C45BA3CFD8801C6E8391689F8C1C781556557437AAA",
+      "Bytes": 246
+    },
+    {
+      "Path": "artifacts/binary-integration369/lists374-flat-baseline-b-first5/execution.stdout.log",
+      "Sha256": "82A7B48B08F6FAC6A0E85FFA5F5C3A76B54C2457043A3A5F99C87090FFBCAD8E",
+      "Bytes": 3837
+    },
+    {
+      "Path": "artifacts/binary-integration369/lists374-flat-baseline-b-first5/execution.stderr.log",
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+      "Bytes": 0
+    },
+    {
+      "Path": "artifacts/lists374-implementation/flat-order-probe/bin/Debug/net10.0/Erlang.Terms.dll",
+      "Sha256": "19D95BE29D868B057B698F8BA316BC093C4FA63AA7A2D29ABF618CD370C2F9BA",
+      "Bytes": 123904
+    },
+    {
+      "Path": "artifacts/lists374-implementation/flat-order-probe/bin/Debug/net10.0/Erlang.Tests.dll",
+      "Sha256": "ADE7988C87847A2E348F29F059A4628BE09E8862066F4D4E38CC0A2C69EB6E0B",
+      "Bytes": 5418496
+    },
+    {
+      "Path": "artifacts/lists374-implementation/flat-order-probe/bin/Debug/net10.0/Erlang.Runtime.dll",
+      "Sha256": "97001055686BA785913691DB99ECA8D541CCCC4E786E420596A4DF70C2072A1A",
+      "Bytes": 1976832
+    },
+    {
+      "Path": "artifacts/lists374-implementation/flat-order-probe/bin/Debug/net10.0/Erlang.Compiler.dll",
+      "Sha256": "466FEA3198ED9AE8B00DE3AF8A7A22DE9F6F671A57E5D4574395393CD9E372C2",
+      "Bytes": 467456
+    },
+    {
+      "Path": "artifacts/lists374-implementation/flat-order-probe/bin/Debug/net10.0/Erlang.Serialization.dll",
+      "Sha256": "FD442ABC2CE6CAE9205994D6C1FD25DF3E4D32B1105BF0C198DF9A90FE6B5A37",
+      "Bytes": 76288
+    },
+    {
+      "Path": "artifacts/binary-integration369/lists374-flat-current-a-first1/execution.exit.json",
+      "Sha256": "1849A9C683677C1222C8B2CEC9A39FB6AD92139F6638B701EFD28C6420099309",
+      "Bytes": 486
+    },
+    {
+      "Path": "artifacts/binary-integration369/lists374-flat-current-a-first1/execution.live.json",
+      "Sha256": "537DAB92F5AE02B3C17AB099DB4346FF6DACDF9D69DB46CCEA84BFAEC1C59014",
+      "Bytes": 251
+    },
+    {
+      "Path": "artifacts/binary-integration369/lists374-flat-current-a-first1/execution.stdout.log",
+      "Sha256": "ECB81B28D94A5E3E2257669D55FC734AC06999882E2FED6C4033BE4003648BFD",
+      "Bytes": 1360
+    },
+    {
+      "Path": "artifacts/binary-integration369/lists374-flat-current-a-first1/execution.stderr.log",
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+      "Bytes": 0
+    },
+    {
+      "Path": "artifacts/binary-integration369/lists374-flat-current-b-first1/execution.exit.json",
+      "Sha256": "D39A9CA873EC47A9AC7DC3BFE70D31B65032FDD4CF595FEFCDFBD94BE2D1EF8A",
+      "Bytes": 499
+    },
+    {
+      "Path": "artifacts/binary-integration369/lists374-flat-current-b-first1/execution.live.json",
+      "Sha256": "5F55466E043B2D348718F28B31EBC8D85118B0CAFC7901F5D3D06315E21B5E60",
+      "Bytes": 250
+    },
+    {
+      "Path": "artifacts/binary-integration369/lists374-flat-current-b-first1/execution.stdout.log",
+      "Sha256": "D8CEDE9CD42200C2B574FA0366F9B84DC8A1F7B8F0BFC8949C29D2BB41E48068",
+      "Bytes": 1360
+    },
+    {
+      "Path": "artifacts/binary-integration369/lists374-flat-current-b-first1/execution.stderr.log",
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+      "Bytes": 0
+    },
+    {
+      "Path": "artifacts/lists374-implementation/flat-order-baseline-physical/physical-bindings.json",
+      "Sha256": "E0460B445CB18CB5FE30173EA8952253D094DDB819A880466826465A05A09A64",
+      "Bytes": 2081
+    },
+    {
+      "Path": "artifacts/lists374-implementation/flat-order-probe/Program.cs",
+      "Sha256": "AB8DF897516B0577651210C95FCCEBEFA27146E3FA0A3B0D2D872C2D5411A23E",
+      "Bytes": 1219
+    },
+    {
+      "Path": "artifacts/lists374-implementation/freeze-baseline-probe.py",
+      "Sha256": "581A5C2ED1C8E91327D39AE19CF67218AA87E9EA020F891A2E612319616C77B1",
+      "Bytes": 762
+    },
+    {
+      "Path": "src/Erlang.Runtime/bin/Debug/net10.0/Erlang.Runtime.dll",
+      "Sha256": "97001055686BA785913691DB99ECA8D541CCCC4E786E420596A4DF70C2072A1A",
+      "Bytes": 1976832
+    },
+    {
+      "Path": "artifacts/lists374-implementation/replay-core2/queue_core/queue-beam-backend.json",
+      "Sha256": "40CB4A37D625ADD61952293B1317E4569F23E6EF67F8737D1C230F20240A8F3B",
+      "Bytes": 6289
+    },
+    {
+      "Path": "artifacts/lists374-implementation/flat-expectation-focused1.json",
+      "Sha256": "C9123DDDBF5C62F2D62101760ACEC5D9BBA69674F1085330646EEEAADD2830AD",
+      "Bytes": 582
+    },
+    {
+      "Path": "artifacts/lists374-implementation/final-full1.json",
+      "Sha256": "ED49BC45904DCEC27532AC9CE8C318A795F9190643639A820A6A1ABBEA08F019",
+      "Bytes": 1098873
+    },
+    {
+      "Path": "artifacts/lists374-passive-proposal1/second-completion.json",
+      "Sha256": "41C3155CA87BE418693BBBFBF92C094446E84C8D9F94FCC67B83829FEFB9DB29",
+      "Bytes": 2991
+    },
+    {
+      "Path": "artifacts/lists374-passive-proposal1/all-second1/summary.json",
+      "Sha256": "85599B035DF2EBB767950235DA5E6AE3D6010B78710EA5F1A775B3AE0382654F",
+      "Bytes": 4103
+    },
+    {
+      "Path": "artifacts/lists374-passive-proposal1/own-second1/summary.json",
+      "Sha256": "FA5AB1B0D86421E4D12A456017050ECA9E1ABCE134EB00416C1AE5E34E7C4B9C",
+      "Bytes": 2689
+    }
+  ]
+}

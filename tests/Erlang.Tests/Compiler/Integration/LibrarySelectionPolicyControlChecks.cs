@@ -22,7 +22,8 @@ internal static class LibrarySelectionPolicyControlChecks
 
     internal static async Task NativeBootstrapOwnership()
     {
-        foreach (var target in new[] { (StringModule, StringNative), (MathModule, MathNative) })
+        // math now has a complete managed surface; its real-image capture is checked separately.
+        foreach (var target in new[] { (StringModuleName, StringNative) })
         {
             byte[] image = NativeStub(target.Item1, target.Item2);
             await using var runtime = await ProcessRuntime.CreateAsync(new RuntimeLibrarySelection([

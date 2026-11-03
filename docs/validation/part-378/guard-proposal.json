@@ -1,0 +1,123 @@
+{
+  "Status": "SOURCE_REVIEWED_PROPOSAL_FINAL_REGRESSION_PENDING_ROOT",
+  "BaseLedgerPath": "docs/mfa-compatibility.json",
+  "BaseLedgerSha256": "5D10BEBE6DFF014A3557EC27A6C0091C5C8C08D5145D088EB7E3C952B737470E",
+  "EntriesCount": 699,
+  "EntriesCanonicalSha256Unchanged": "3BFAA0ABE50317BA248C867ED57E5B631DE0F0FDB0E800967BD79C25C42CF71B",
+  "StatusesUnchanged": {
+    "Verified compatible": 118,
+    "Needs verification": 551,
+    "Known differences": 30
+  },
+  "ExistingPathsPreserved": 555,
+  "ReviewedUpdates": [
+    {
+      "Path": "src/Erlang.Runtime/BeamExternalImports.cs",
+      "Before": "2B37A300AE3BDB78E42D904A7C5ADDB17DC220C93697B50AEF938F4DA425835D",
+      "After": "85CF2AE8424A053F72237692B28565617FCF0A18B06C7D0DC14D083EAF99293B",
+      "Review": "Adds only source import admission of existing erlang:spawn/1; delegates to existing actual registry implementation. No API implementation or status changed."
+    },
+    {
+      "Path": "src/Erlang.Runtime/BeamFrameValidation.cs",
+      "Before": "E37EFB502CBAFB0A0A291A10910F2FD84703A74EE252EB6FA5D49C6154DB2700",
+      "After": "129126AD8453F36C0AA5D764B0FAED0C6024BC0DF2FEDCC6F38C552473BCEB42",
+      "Review": "Adds separate typed exceptional CFG and narrowly proven no-return successor pruning; unchanged legacy no-try validation path retained. New raw/tag states remain non-Term; explicit receive+try refusal."
+    },
+    {
+      "Path": "src/Erlang.Runtime/BeamLinkedCodeReader.cs",
+      "Before": "6346168AD8338C12911D105389AB6309374A9BBF0C6C0778CCC09A43FD7E7FD6",
+      "After": "210CABB0B74052E9E8C5DB284EEB4EF13CDCD144D7F5741C33E224AACF7E2C8D",
+      "Review": "Adds operand-role decoding/admission for actual try family; retains existing bounds/function-label checks."
+    },
+    {
+      "Path": "src/Erlang.Runtime/BeamLocalFrame.cs",
+      "Before": "F60393C7C2F6444341B97DEA75ED4202CCDA8230EFC9D702FFBE664028D2D356",
+      "After": "06DD1129B87ECABD0FC37CE3C0B8AD03D517AAE36B0DD738C8DE7D0E2E0CB4F3",
+      "Review": "Preserves ordinary Term APIs with one-reference typed slots, lazy identity and count-backed tag checks; clone/trim preserve identities and invalid tag destruction refused."
+    },
+    {
+      "Path": "src/Erlang.Runtime/BeamRegisterInterpreter.cs",
+      "Before": "9852866D3248C4DAA4A331B4542589D64FB9FDE0ADD7B9265E746B2D85317B73",
+      "After": "EBACE6062984349E77BE48987AFCD0016D3DC7AC32300442105D233E6624CEE8",
+      "Review": "Adds catch/resume/unwind protocol with ErlangException-only catches; raw trace/tag transport and source-captured rethrow; exact pinned tail fun peephole with dispatch failures retaining caller. Existing direct term/native helpers remain called."
+    },
+    {
+      "Path": "src/Erlang.Runtime/BeamRegisterState.cs",
+      "Before": "E05F0E78081A1FB12401ECBF3118F5BA883CBBD22DA456ECFD77CE7CA14B195E",
+      "After": "0F26AAE227B546D771DA18A7A51CC01CF64348D48962DFFFAF0EF000561B2C80",
+      "Review": "Single-reference typed register backing preserves Term APIs and legacy clone; explicit raw move/swap/marker/unwind APIs, array-clear dead-X handling, scoped handler identity checks."
+    },
+    {
+      "Path": "src/Erlang.Runtime/BeamRegisterValidation.cs",
+      "Before": "F2A07BBFCD493D80BDE816401D833170F37A17613AD1FE84040398840C221EBB",
+      "After": "291219A4958F57588F6967F319CC4257CD9E023D0E408B38D502A775ACDBEB90",
+      "Review": "Adds try-family operand validation and existing erlang:get/1 unary import admission. No implementation of get changed; source call uses existing registry/native error capture."
+    }
+  ],
+  "Additions": [
+    {
+      "Path": "src/Erlang.Runtime/BeamFrameIdentity.cs",
+      "Sha256": "8952BBD43C1BB16619D6BFC0A0854912A8C780878A8EC5C34E45C0AC6DECA221"
+    },
+    {
+      "Path": "src/Erlang.Runtime/BeamFunTailProtocol.cs",
+      "Sha256": "2CA0F8CFE95CA63DA4660505BE5C700A40485D2CB63B4D7FD067C3BF8E1BE7D4"
+    },
+    {
+      "Path": "src/Erlang.Runtime/BeamHandlerCheckpoint.cs",
+      "Sha256": "539A2E0D053C4BB77E18D7177B59DB26DAE1F7BE2586A2D61716D10CACE7E7E1"
+    },
+    {
+      "Path": "src/Erlang.Runtime/BeamHandlerTag.cs",
+      "Sha256": "AE273CF01235BA1C20843FF2D8B01D03D4795A2B7F89D5BFD431AFA71D77894B"
+    },
+    {
+      "Path": "src/Erlang.Runtime/BeamNoReturnAnalysis.cs",
+      "Sha256": "6679E886A58486B2374CCD132F87B67BBBE9A8A5FD2651CDC218EF6E8AD07046"
+    },
+    {
+      "Path": "src/Erlang.Runtime/BeamReceiveMatcher.cs",
+      "Sha256": "BC5DC2651AF29BD4BCFE33ADE8C9AD8612A72397F785B0A04D4F7A1ED7770EF6"
+    },
+    {
+      "Path": "src/Erlang.Runtime/BeamReceivePlanner.cs",
+      "Sha256": "34FB6A67716BCD41BA86C518CB881155EBAA624909F80662C5EF90BF1A62FD57"
+    },
+    {
+      "Path": "src/Erlang.Runtime/BeamRegisterProtocolNames.cs",
+      "Sha256": "7C8B004AD0B1F33822D578CCA66C680890261638BC7884148E94D1ADB945E14A"
+    },
+    {
+      "Path": "src/Erlang.Runtime/BeamRegisterSlot.cs",
+      "Sha256": "23936AFE408396E27BF12B2C1094D687F078B067B2E42ED0EE84A1A617087407"
+    },
+    {
+      "Path": "src/Erlang.Runtime/BeamRegisterSlotKind.cs",
+      "Sha256": "1158789F3EBBF2198F4B999A25DD948042CF4CF82145DF54DD263C7BB66858A5"
+    },
+    {
+      "Path": "src/Erlang.Runtime/BeamSavedTrace.cs",
+      "Sha256": "89C85C9B11E51C00BF294973C83CACCCAF9BA5EF8E621B602EAF1F60B88C6F6F"
+    },
+    {
+      "Path": "src/Erlang.Runtime/BeamTryExecution.cs",
+      "Sha256": "52A3826477BE22F081F90DB19E0336D56AD26E5E049BB07020F06443BE0CE7F1"
+    },
+    {
+      "Path": "src/Erlang.Runtime/BeamTryNames.cs",
+      "Sha256": "B8E7334E72368A24AAB7762452A0310B94938DE8C14369DF57B8823E176D7BAF"
+    },
+    {
+      "Path": "src/Erlang.Runtime/BeamTryParameters.cs",
+      "Sha256": "EAF3F617AF66539DBFCFD8F8B746E6B5D09BD5DB000BFFFD3A1FA4174F8C84DB"
+    }
+  ],
+  "ProposedTotal": 569,
+  "ReplacementFieldOnly": "VerifiedSourceFiles",
+  "MfaEntriesPromoted": 0,
+  "NewMfasClaimed": 0,
+  "SourceArchivePath": "docs/validation/part-377/local-checkpoint/runtime-test-build-sources.zip",
+  "SourceArchiveSha256": "3EA42FFCA69DAF1FF0EA8A58FB6D157318F3806D5B0DB9CE5E8F3DD1B75526DC",
+  "ProposedArrayPath": "verified-source-files.proposed.json",
+  "ProposedArraySha256": "68C9DFC5C6E5CC05AEA70D80BD194B84ECF72E3C1A28BC55CCA88E23DDF1B80B"
+}

@@ -7,7 +7,7 @@ internal static class NativeMapOwnedRoots510
     internal static Term[] Children(Term value)
     {
         if (value is not MapTerm map || !NativeMapMaterialization505.TryRead(map, null, out var layout))
-            return new DebugDirtyCopyFrame424(value).Children;
+            return DebugDirtyCopyFrame424.ChildrenOf(value);
         var roots = new List<Term>();
         foreach (var pair in map.Entries)
         {

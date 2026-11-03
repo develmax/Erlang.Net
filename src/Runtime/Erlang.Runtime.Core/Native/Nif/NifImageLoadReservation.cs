@@ -30,6 +30,7 @@ internal sealed class NifImageLoadReservation : IAsyncDisposable
     {
         get;
     }
+    internal NifImageBindingReservation ResourceBindingReservation527 => bindingReservation;
     internal ModuleCodeImage Image => Generation.Caller.Image;
     internal NifImageAdmissionOrigin Origin => Generation.Origin;
 

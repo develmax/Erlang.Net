@@ -1,0 +1,319 @@
+{
+  "Passed": true,
+  "Examined": 2,
+  "SubjectToolPath": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tools\\Erlang.BeamBuild\\bin\\Debug\\net10.0\\Erlang.BeamBuild.dll",
+  "SubjectToolSha256": "EA6DA4CEA80719052C3B867604E05D8FFA7442B482A44C727BF450B633F662DC",
+  "RunnerSha256": "8E935909D9894C174358F7A4D2328BA72E2E524DEE457E3225E8B1DE66624252",
+  "OwnedHelperSha256": "C66ACEC6FFE57C57EFAABC96FD1DB00598D7AAD7D05C2EA814A146B759D4171A",
+  "RaceSensitiveNoDeterministicBarrierClaim": true,
+  "NoAutomaticRetries": true,
+  "Outcomes": [
+    {
+      "Name": "live_header_after_snapshot",
+      "Passed": true,
+      "Barrier": {
+        "Observed": true,
+        "MutationAttempted": true,
+        "CoverageClaimed": true,
+        "MarkerPath": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-live-mutation-execution1\\live_header_after_snapshot\\compiled\\.work-7389f6e4b761462186322a58e305dce0\\modules\\mutation_probe377\\epp-request.json",
+        "MarkerSha256": "70395284B4BC40298C0330FC563FE538D32B1EEACFE719F947614EE74A7545D8",
+        "MonotonicObserved": 268223.75,
+        "NativeReceiptPresentAtObservation": false,
+        "FutureDoneAtObservation": false,
+        "OwnedHeaderPath": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-live-mutation-execution1\\live_header_after_snapshot\\compiled\\.work-7389f6e4b761462186322a58e305dce0\\inputs\\include\\values.hrl",
+        "OwnedHeaderBeforeSha256": "1E77C42726FCB32B80DA85533AF519A3B3E1993CAC1AC45DFB5E7645B9CE6AF4",
+        "LiveHeaderBeforeSha256": "1E77C42726FCB32B80DA85533AF519A3B3E1993CAC1AC45DFB5E7645B9CE6AF4",
+        "MutationTarget": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-live-mutation-execution1\\live_header_after_snapshot\\project\\include\\values.hrl",
+        "MutationSha256": "30E0D9CD3CED27241BF230890EBBC4B43265A64A8B067602F289497607995C33",
+        "MonotonicMutated": 268223.75,
+        "NativeReceiptPresentAfterMutation": false,
+        "FutureDoneAfterMutation": false,
+        "NativeOwnedSnapshotCompiled": true
+      },
+      "Steps": [
+        {
+          "Name": "cold",
+          "ReceiptPath": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-live-mutation-execution1\\live_header_after_snapshot\\cold.exit.json",
+          "ReceiptSha256": "86CF06ABA31CBC2B9C54816AF56D28AFEFAAA4468DB1A4C8C1E8AD9E4E0017E8",
+          "Receipt": {
+            "Command": [
+              "C:\\Program Files\\dotnet\\dotnet.exe",
+              "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tools\\Erlang.BeamBuild\\bin\\Debug\\net10.0\\Erlang.BeamBuild.dll",
+              "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-live-mutation-execution1\\live_header_after_snapshot\\cold.request.json"
+            ],
+            "Pid": 28644,
+            "ElapsedSeconds": 8.297000000020489,
+            "TimedOut": false,
+            "Settled": true,
+            "ExitCode": 0,
+            "Failures": [],
+            "StdoutSha256": "53C51B24D3DDB9F2F2DC8D86BFFFAD914274EB4BF02E2DB443E5D5A909906B88",
+            "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+          },
+          "HelperRaised": null,
+          "NativeReceipts": [
+            {
+              "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-live-mutation-execution1\\live_header_after_snapshot\\compiled\\.work-77cb23dc13c847f8b625663d657ade43\\driver-bootstrap\\compiler.process.json",
+              "Sha256": "0839C749F02163528C7E23BFB694437972F96EC670BB3210472E443AD76B68EB"
+            },
+            {
+              "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-live-mutation-execution1\\live_header_after_snapshot\\compiled\\.work-77cb23dc13c847f8b625663d657ade43\\modules\\mutation_probe377\\compiler.process.json",
+              "Sha256": "55A8F89D9BB53BEA16B5DD0538CFFC4B6EBD9D855B0AFB078AD072BDABD23FF6"
+            }
+          ]
+        },
+        {
+          "Name": "warm_baseline",
+          "ReceiptPath": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-live-mutation-execution1\\live_header_after_snapshot\\warm_baseline.exit.json",
+          "ReceiptSha256": "950DBED5DD75D09B410F8D4B47EC12BEA1DFA818E7BAD2B74CFC097661352AA6",
+          "Receipt": {
+            "Command": [
+              "C:\\Program Files\\dotnet\\dotnet.exe",
+              "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tools\\Erlang.BeamBuild\\bin\\Debug\\net10.0\\Erlang.BeamBuild.dll",
+              "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-live-mutation-execution1\\live_header_after_snapshot\\warm_baseline.request.json"
+            ],
+            "Pid": 308364,
+            "ElapsedSeconds": 3.375,
+            "TimedOut": false,
+            "Settled": true,
+            "ExitCode": 0,
+            "Failures": [],
+            "StdoutSha256": "B18A385025AFA43141572E45B41BDA7A590EA37B8AE143901361D953EFC7B83C",
+            "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+          },
+          "HelperRaised": null,
+          "NativeReceipts": []
+        },
+        {
+          "Name": "mutated",
+          "ReceiptPath": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-live-mutation-execution1\\live_header_after_snapshot\\mutated.exit.json",
+          "ReceiptSha256": "CA99D6074F858CC8C63D39C4840A996F1873709C45759539EFCD2A85127B8F83",
+          "Receipt": {
+            "Command": [
+              "C:\\Program Files\\dotnet\\dotnet.exe",
+              "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tools\\Erlang.BeamBuild\\bin\\Debug\\net10.0\\Erlang.BeamBuild.dll",
+              "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-live-mutation-execution1\\live_header_after_snapshot\\mutated.request.json"
+            ],
+            "Pid": 18020,
+            "ElapsedSeconds": 5.875,
+            "TimedOut": false,
+            "Settled": true,
+            "ExitCode": 1,
+            "Failures": [],
+            "StdoutSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+            "StderrSha256": "51E3827A25507F9B2DA16AFBA409F32ACD97F3B91B3CCDF70D188E10E076BFF6"
+          },
+          "HelperRaised": "RuntimeError('Owned stage failed; all available raw evidence retained: mutated')",
+          "NativeReceipts": [
+            {
+              "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-live-mutation-execution1\\live_header_after_snapshot\\compiled\\.work-7389f6e4b761462186322a58e305dce0\\modules\\mutation_probe377\\compiler.process.json",
+              "Sha256": "F6B6F81583CE331F13C0877E1B84C9FD24B389C67BEC0E64294F375EB91FCFE2"
+            }
+          ]
+        },
+        {
+          "Name": "recovery",
+          "ReceiptPath": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-live-mutation-execution1\\live_header_after_snapshot\\recovery.exit.json",
+          "ReceiptSha256": "83934AEDFCB349247BE45B39D93AEC251D246FD5AE7E8F42C484B4E03E2BECD5",
+          "Receipt": {
+            "Command": [
+              "C:\\Program Files\\dotnet\\dotnet.exe",
+              "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tools\\Erlang.BeamBuild\\bin\\Debug\\net10.0\\Erlang.BeamBuild.dll",
+              "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-live-mutation-execution1\\live_header_after_snapshot\\recovery.request.json"
+            ],
+            "Pid": 190260,
+            "ElapsedSeconds": 6.561999999976251,
+            "TimedOut": false,
+            "Settled": true,
+            "ExitCode": 0,
+            "Failures": [],
+            "StdoutSha256": "53C51B24D3DDB9F2F2DC8D86BFFFAD914274EB4BF02E2DB443E5D5A909906B88",
+            "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+          },
+          "HelperRaised": null,
+          "NativeReceipts": [
+            {
+              "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-live-mutation-execution1\\live_header_after_snapshot\\compiled\\.work-c7a54b4d997046df8f49c1e64271c306\\modules\\mutation_probe377\\compiler.process.json",
+              "Sha256": "43D09AADEE537B643081120E20EB05ED50B27E34AC4421DC870972E6D6155BAF"
+            }
+          ]
+        },
+        {
+          "Name": "recovery_warm",
+          "ReceiptPath": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-live-mutation-execution1\\live_header_after_snapshot\\recovery_warm.exit.json",
+          "ReceiptSha256": "47E13E64185E564A4C52A6F08B1EEA59EF62D927D5F5FE19A72B670CC6B27E72",
+          "Receipt": {
+            "Command": [
+              "C:\\Program Files\\dotnet\\dotnet.exe",
+              "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tools\\Erlang.BeamBuild\\bin\\Debug\\net10.0\\Erlang.BeamBuild.dll",
+              "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-live-mutation-execution1\\live_header_after_snapshot\\recovery_warm.request.json"
+            ],
+            "Pid": 271816,
+            "ElapsedSeconds": 3.3119999999762513,
+            "TimedOut": false,
+            "Settled": true,
+            "ExitCode": 0,
+            "Failures": [],
+            "StdoutSha256": "B18A385025AFA43141572E45B41BDA7A590EA37B8AE143901361D953EFC7B83C",
+            "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+          },
+          "HelperRaised": null,
+          "NativeReceipts": []
+        }
+      ]
+    },
+    {
+      "Name": "owned_header_after_snapshot",
+      "Passed": true,
+      "Barrier": {
+        "Observed": true,
+        "MutationAttempted": true,
+        "CoverageClaimed": true,
+        "MarkerPath": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-live-mutation-execution1\\owned_header_after_snapshot\\compiled\\.work-ce8517f6df204427a4f479bd4c9479c6\\modules\\mutation_probe377\\epp-request.json",
+        "MarkerSha256": "788DD1BF0FD08EEDAB9AA438428E49F291AD6297163B19C6E0BF05616B06E2F8",
+        "MonotonicObserved": 268251.421,
+        "NativeReceiptPresentAtObservation": false,
+        "FutureDoneAtObservation": false,
+        "OwnedHeaderPath": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-live-mutation-execution1\\owned_header_after_snapshot\\compiled\\.work-ce8517f6df204427a4f479bd4c9479c6\\inputs\\include\\values.hrl",
+        "OwnedHeaderBeforeSha256": "1E77C42726FCB32B80DA85533AF519A3B3E1993CAC1AC45DFB5E7645B9CE6AF4",
+        "LiveHeaderBeforeSha256": "1E77C42726FCB32B80DA85533AF519A3B3E1993CAC1AC45DFB5E7645B9CE6AF4",
+        "MutationTarget": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-live-mutation-execution1\\owned_header_after_snapshot\\compiled\\.work-ce8517f6df204427a4f479bd4c9479c6\\inputs\\include\\values.hrl",
+        "MutationSha256": "30E0D9CD3CED27241BF230890EBBC4B43265A64A8B067602F289497607995C33",
+        "MonotonicMutated": 268251.437,
+        "NativeReceiptPresentAfterMutation": false,
+        "FutureDoneAfterMutation": false
+      },
+      "Steps": [
+        {
+          "Name": "cold",
+          "ReceiptPath": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-live-mutation-execution1\\owned_header_after_snapshot\\cold.exit.json",
+          "ReceiptSha256": "6DD867289D24FDB1E77F76A0F2F2A6CA01FD61FFDEE2E70F5D1FE7972134154C",
+          "Receipt": {
+            "Command": [
+              "C:\\Program Files\\dotnet\\dotnet.exe",
+              "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tools\\Erlang.BeamBuild\\bin\\Debug\\net10.0\\Erlang.BeamBuild.dll",
+              "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-live-mutation-execution1\\owned_header_after_snapshot\\cold.request.json"
+            ],
+            "Pid": 244560,
+            "ElapsedSeconds": 8.438000000023749,
+            "TimedOut": false,
+            "Settled": true,
+            "ExitCode": 0,
+            "Failures": [],
+            "StdoutSha256": "15B4E9BF57BD9CB04270AD67B52536A2188669DD405892B2B3C95E81E1AA7C3A",
+            "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+          },
+          "HelperRaised": null,
+          "NativeReceipts": [
+            {
+              "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-live-mutation-execution1\\owned_header_after_snapshot\\compiled\\.work-bb8f25858d3a4f65adbac76d9c147e77\\driver-bootstrap\\compiler.process.json",
+              "Sha256": "1D56EC4E14830E87C37D8B2FB68ED09B555F5890933B5B382329024F5D2DC5D9"
+            },
+            {
+              "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-live-mutation-execution1\\owned_header_after_snapshot\\compiled\\.work-bb8f25858d3a4f65adbac76d9c147e77\\modules\\mutation_probe377\\compiler.process.json",
+              "Sha256": "1EA043DFADB0CC4DA8663F2DFA39CD6F3E65BA7D814E6A4DDC6D4585087A98CA"
+            }
+          ]
+        },
+        {
+          "Name": "warm_baseline",
+          "ReceiptPath": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-live-mutation-execution1\\owned_header_after_snapshot\\warm_baseline.exit.json",
+          "ReceiptSha256": "4DD278FB8438694AE5FCC9B1BC678966A1B7DDA7D1DDD83F8530704A602B119F",
+          "Receipt": {
+            "Command": [
+              "C:\\Program Files\\dotnet\\dotnet.exe",
+              "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tools\\Erlang.BeamBuild\\bin\\Debug\\net10.0\\Erlang.BeamBuild.dll",
+              "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-live-mutation-execution1\\owned_header_after_snapshot\\warm_baseline.request.json"
+            ],
+            "Pid": 290920,
+            "ElapsedSeconds": 3.4689999999827705,
+            "TimedOut": false,
+            "Settled": true,
+            "ExitCode": 0,
+            "Failures": [],
+            "StdoutSha256": "24F3E6A5D23FEB2C33D392511DDE564008728437970F8B1DF9AA8B29587E2EAB",
+            "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+          },
+          "HelperRaised": null,
+          "NativeReceipts": []
+        },
+        {
+          "Name": "mutated",
+          "ReceiptPath": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-live-mutation-execution1\\owned_header_after_snapshot\\mutated.exit.json",
+          "ReceiptSha256": "9C0470D6830AE621893AA584BE357C0C05368D1C920AF93D56D986FD4C732099",
+          "Receipt": {
+            "Command": [
+              "C:\\Program Files\\dotnet\\dotnet.exe",
+              "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tools\\Erlang.BeamBuild\\bin\\Debug\\net10.0\\Erlang.BeamBuild.dll",
+              "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-live-mutation-execution1\\owned_header_after_snapshot\\mutated.request.json"
+            ],
+            "Pid": 306660,
+            "ElapsedSeconds": 4.25,
+            "TimedOut": false,
+            "Settled": true,
+            "ExitCode": 1,
+            "Failures": [],
+            "StdoutSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+            "StderrSha256": "C752FA918BAA0E9660AD57C223DEC946B67FDBE0ACD88946A8E1143ABFFD36D4"
+          },
+          "HelperRaised": "RuntimeError('Owned stage failed; all available raw evidence retained: mutated')",
+          "NativeReceipts": [
+            {
+              "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-live-mutation-execution1\\owned_header_after_snapshot\\compiled\\.work-ce8517f6df204427a4f479bd4c9479c6\\modules\\mutation_probe377\\compiler.process.json",
+              "Sha256": "BE8D2EFE6D64747D9E32DE7075845FF188822512CBEE582D8E5301A2AFEB2CB2"
+            }
+          ]
+        },
+        {
+          "Name": "recovery",
+          "ReceiptPath": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-live-mutation-execution1\\owned_header_after_snapshot\\recovery.exit.json",
+          "ReceiptSha256": "1F5DA2D6FAB9933CF02132D3424A22FFAA269612599DC1DA3377E2B729F41C63",
+          "Receipt": {
+            "Command": [
+              "C:\\Program Files\\dotnet\\dotnet.exe",
+              "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tools\\Erlang.BeamBuild\\bin\\Debug\\net10.0\\Erlang.BeamBuild.dll",
+              "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-live-mutation-execution1\\owned_header_after_snapshot\\recovery.request.json"
+            ],
+            "Pid": 271212,
+            "ElapsedSeconds": 6.75,
+            "TimedOut": false,
+            "Settled": true,
+            "ExitCode": 0,
+            "Failures": [],
+            "StdoutSha256": "15B4E9BF57BD9CB04270AD67B52536A2188669DD405892B2B3C95E81E1AA7C3A",
+            "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+          },
+          "HelperRaised": null,
+          "NativeReceipts": [
+            {
+              "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-live-mutation-execution1\\owned_header_after_snapshot\\compiled\\.work-7079be7373c8442fa784c6f043ab9f24\\modules\\mutation_probe377\\compiler.process.json",
+              "Sha256": "5D57F1D53707E0C6FBD26C212BA8FCF0D0D9E04F4B5226BCA2A2DC7E3EF48D89"
+            }
+          ]
+        },
+        {
+          "Name": "recovery_warm",
+          "ReceiptPath": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-live-mutation-execution1\\owned_header_after_snapshot\\recovery_warm.exit.json",
+          "ReceiptSha256": "35FC39416DB318A6640C049E4E9C585420FF86769DF37116D6CDE91CB7195457",
+          "Receipt": {
+            "Command": [
+              "C:\\Program Files\\dotnet\\dotnet.exe",
+              "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tools\\Erlang.BeamBuild\\bin\\Debug\\net10.0\\Erlang.BeamBuild.dll",
+              "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\library377-live-mutation-execution1\\owned_header_after_snapshot\\recovery_warm.request.json"
+            ],
+            "Pid": 308896,
+            "ElapsedSeconds": 3.5,
+            "TimedOut": false,
+            "Settled": true,
+            "ExitCode": 0,
+            "Failures": [],
+            "StdoutSha256": "24F3E6A5D23FEB2C33D392511DDE564008728437970F8B1DF9AA8B29587E2EAB",
+            "StderrSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+          },
+          "HelperRaised": null,
+          "NativeReceipts": []
+        }
+      ]
+    }
+  ]
+}

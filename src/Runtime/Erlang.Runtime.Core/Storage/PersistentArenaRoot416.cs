@@ -6,11 +6,13 @@ internal sealed class PersistentArenaRoot416(PersistentArenaRootKind416 kind, ob
     internal PersistentArenaRootKind416 Kind { get; } = kind;
 
     internal BitString Binary(long offset, int length)
-        => Require<PersistentBinaryBacking416>(PersistentArenaRootKind416.Binary).Materialize(offset, length);
+        => (BitString)OwnedTermInvocation506.AdmitNativeStoredResult524(
+            Require<PersistentBinaryBacking416>(PersistentArenaRootKind416.Binary).Materialize(offset, length));
 
     internal Term Identifier(byte[] bytes) => Require<PersistentIdentifierRoot416>(PersistentArenaRootKind416.Identifier).Materialize(bytes);
 
-    internal Term Identity() => Require<RuntimeExternalTermReservation>(PersistentArenaRootKind416.Identity).Value;
+    internal Term Identity() => OwnedTermInvocation506.AdmitNativeStoredResult524(
+        Require<RuntimeExternalTermReservation>(PersistentArenaRootKind416.Identity).Value);
 
     internal FunctionTerm Function(IReadOnlyList<Term> environment)
         => Require<IRuntimeStoredFunctionRecipe>(PersistentArenaRootKind416.Function).Rebind(environment);
@@ -27,7 +29,6 @@ internal sealed class PersistentArenaRoot416(PersistentArenaRootKind416 kind, ob
     {
         object? old = Interlocked.Exchange(ref owned, null);
         if (old is IDisposable reservation) reservation.Dispose();
-        // Binary backing and trusted factory recipes are ordinary managed owner roots.
-        // They hold no independently disposable native allocation or source ENV.
+        // Native backing reservations are real disposable allocation roots.
     }
 }

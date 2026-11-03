@@ -16,7 +16,7 @@
     <EmbeddedResource Include="Otp/ebin/*" LogicalName="Erlang.Otp.Sasl.Beam.%(Filename)%(Extension)" />
     <EmbeddedResource Include="catalog.json" LogicalName="Erlang.Otp.Sasl.Beam.catalog.json" />
     <None Include="README.md" Pack="true" PackagePath="/" />
-    <None Include="../../../../../docs/OTP-LICENSE.txt" Pack="true" PackagePath="/" />
+    <None Include="../../../../../licenses/OTP-LICENSE.txt" Pack="true" PackagePath="/" />
     <None Update="Otp/src/*" Pack="true" PackagePath="otp/src/%(Filename)%(Extension)" />
     <None Update="Otp/include/*" Pack="true" PackagePath="otp/include/%(Filename)%(Extension)" />
     <None Update="provenance.json;catalog.json" Pack="true" PackagePath="otp/" />

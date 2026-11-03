@@ -3,7 +3,13 @@ namespace Erlang;
 internal sealed partial class DirtyNativeOwner419
 {
     private readonly object gate = new();
-    private readonly DirtyNativeWorker419 cpu, io;
+    private readonly DirtyNativeWorker419 cpu;
+    private readonly DirtyNativeWorker419 io;
+    private readonly DirtyNativeWorker419[] ioWorkers522;
+    private readonly DirtyNativeWorker419[] workers522;
+    private readonly Task quiescence522;
+    private readonly List<Exception> retirementErrors522;
+    internal int IoWorkerCount522 => ioWorkers522.Length;
     private readonly HashSet<DirtyNativeInvocation419> invocations = new();
     private bool started, closed;
     internal Task Completion { get; }
@@ -22,24 +28,44 @@ internal sealed partial class DirtyNativeOwner419
         if (started) return;
         try
         {
-            cpu.StartLocked();
-            io.StartLocked();
+            foreach (DirtyNativeWorker419 worker in workers522)
+                worker.StartLocked();
             started = true;
         }
         catch
         {
             closed = true;
-            cpu.CloseLocked();
-            io.CloseLocked();
+            foreach (DirtyNativeWorker419 worker in workers522)
+                worker.CloseLocked();
             throw;
         }
     }
 
-    internal DirtyNativeOwner419()
+    internal DirtyNativeOwner419() : this(DirtyNativePoolParameters522.DefaultIoWorkers)
     {
+    }
+
+    internal DirtyNativeOwner419(int ioWorkerCount)
+    {
+        ArgumentOutOfRangeException.ThrowIfLessThan(ioWorkerCount, DirtyNativePoolParameters522.MinimumIoWorkers);
+        ArgumentOutOfRangeException.ThrowIfGreaterThan(ioWorkerCount, DirtyNativePoolParameters522.MaximumIoWorkers);
         cpu = new(this, DirtyNativeKind419.Cpu);
-        io = new(this, DirtyNativeKind419.Io);
+        ioWorkers522 = new DirtyNativeWorker419[ioWorkerCount];
+        workers522 = new DirtyNativeWorker419[checked(ioWorkerCount + 1)];
+        workers522[0] = cpu;
+        var sharedIo = new DirtyNativeQueue522();
+        for (int index = 0; index < ioWorkers522.Length; index++)
+        {
+            ioWorkers522[index] = new(this, DirtyNativeKind419.Io, sharedIo);
+            workers522[index + 1] = ioWorkers522[index];
+        }
+        io = ioWorkers522[0];
+        // Allocate join bookkeeping before the owner can start/publish work.
+        retirementErrors522 = new List<Exception>(checked(workers522.Length * 2 + 1));
+        quiescence522 = Task.WhenAll(workers522.Select(worker => worker.Quiesced.Task).ToArray());
         Completion = DirtyNativeOwnerFlow419.Start(JoinAsync);
+        if (Completion.IsFaulted)
+            Completion.GetAwaiter().GetResult();
     }
 
     internal Task<Term> Enqueue(
@@ -48,7 +74,8 @@ internal sealed partial class DirtyNativeOwner419
         string module,
         string function,
         IReadOnlyList<Term> arguments,
-        Func<ProcessContext, IReadOnlyList<Term>, Term> body
+        Func<ProcessContext, IReadOnlyList<Term>, Term> body,
+        Action<Task>? physicalSettlement521 = null
     )
     {
         lock (gate)
@@ -74,6 +101,8 @@ internal sealed partial class DirtyNativeOwner419
             LinkedListNode<DirtyNativeInvocation419>? node = null;
             try
             {
+                // Record physical custody before any worker can see the call.
+                physicalSettlement521?.Invoke(call.Settled.Task);
                 node = new(call);
                 invocations.Add(call);
                 worker.Queue.AddLast(node);
@@ -99,8 +128,8 @@ internal sealed partial class DirtyNativeOwner419
             if (!closed)
             {
                 closed = true;
-                cpu.CloseLocked();
-                io.CloseLocked();
+                foreach (DirtyNativeWorker419 worker in workers522)
+                    worker.CloseLocked();
             }
 
             return Completion;
@@ -152,8 +181,8 @@ internal sealed partial class DirtyNativeOwner419
                 abandoned.Add(i.Value);
                 io.Queue.RemoveFirst();
             }
-            cpu.CloseLocked();
-            io.CloseLocked();
+            foreach (DirtyNativeWorker419 worker in workers522)
+                worker.CloseLocked();
         }
         foreach (var call in abandoned)
         {
@@ -179,7 +208,7 @@ internal sealed partial class DirtyNativeOwner419
             invocations.Count(call => !call.Running),
             invocations.Count(call => call.Running),
             cpu.Alive,
-            io.Alive,
+            ioWorkers522.Any(worker => worker.Alive),
             cpu.ThreadId,
             io.ThreadId,
             Completion.IsCompletedSuccessfully
@@ -188,47 +217,38 @@ internal sealed partial class DirtyNativeOwner419
 
     private async Task JoinAsync()
     {
-        var failures = new List<Exception>();
+        List<Exception> failures = retirementErrors522;
         try
         {
-            await Task.WhenAll(cpu.Quiesced.Task, io.Quiesced.Task).ConfigureAwait(false);
+            await quiescence522.ConfigureAwait(false);
         }
         catch (Exception error)
         {
             failures.Add(error);
         }
-        try
+        foreach (DirtyNativeWorker419 worker in workers522)
         {
-            cpu.Join();
+            try
+            {
+                worker.Join();
+            }
+            catch (Exception error)
+            {
+                failures.Add(error);
+            }
         }
-        catch (Exception error)
+        foreach (DirtyNativeWorker419 worker in workers522)
         {
-            failures.Add(error);
+            try
+            {
+                worker.DisposeSignal();
+            }
+            catch (Exception error)
+            {
+                failures.Add(error);
+            }
         }
-        try
-        {
-            io.Join();
-        }
-        catch (Exception error)
-        {
-            failures.Add(error);
-        }
-        try
-        {
-            cpu.DisposeSignal();
-        }
-        catch (Exception error)
-        {
-            failures.Add(error);
-        }
-        try
-        {
-            io.DisposeSignal();
-        }
-        catch (Exception error)
-        {
-            failures.Add(error);
-        }
-        if (failures.Count != 0) throw new AggregateException(failures);
+        if (failures.Count != 0)
+            throw new AggregateException(failures);
     }
 }

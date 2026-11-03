@@ -1,0 +1,64 @@
+{
+  "Status": "FINAL_SOURCE_REVIEW_NO_NEW_NATIVE_ELECTION_ACQUISITION",
+  "Conclusion": "Runtime election bug; existing initializer first-immediate winner assertion is valid",
+  "NativeModel": {
+    "FlushElection": "erts_halt_progress CAS selects only the first pending flushing request; it has not yet elected final exit owner",
+    "FinalExitElection": "system_cleanup(flush) increments exiting before any cleanup. Only first proceeds, later exit calls wait forever. erts_exit_vv stores only elected owner status after this gate",
+    "ImmediateTakeover": "An immediate request may reach final exiting election while the previously selected flushing halt is still draining ports; it cannot replace an already elected immediate exit owner"
+  },
+  "ManagedMismatchAtInitialRead": "RequestHalt allowed any later !Flush request to replace haltResult until asynchronous FinishHalt completed, including when first request was already immediate",
+  "InitialTestValidBecause": "InitializeModulesAsync uses Action configure; RequestImmediateHalt returns after recording/scheduling its finisher, not after its task completes. Awaited initializer action completion establishes first request happened but does not force finisher first; later contender may expose real incorrect overwrite.",
+  "MinimalGuard": "Under runtime gate, remember whether selected request is still a pending flush. Initialize from first effective options.Flush, permit immediate takeover only in that state, clear on immediate takeover and final completion election. Preserve pre-election argument validation and existing port flush takeover.",
+  "DeterministicControl": "Hold runtime gate reentrantly while issuing requests. FinishHalt first calls RuntimeTimers.StopForHaltAsync locking the same gate, so completion cannot race ahead. No sleeps/retries/global thread-pool settings/new runtime hook. Source-bound to current finisher ordering; proposed tests assert pending precondition.",
+  "CurrentReadHasPendingFlushField": true,
+  "RequiredRetainedTests": [
+    "HaltLifecycleHostChecks.InitializerAndElection",
+    "HaltPortHostChecks.ImmediatePreemptsOrderly",
+    "HaltPortHostChecks.Deadline",
+    "HaltPortHostChecks.HeldOwnerCancellation variants"
+  ],
+  "NativeExecutionPerformed": false,
+  "TestExecutionPerformed": false,
+  "ProductionEdits": false,
+  "Files": [
+    {
+      "Path": "src/Erlang.Runtime/ProcessRuntime.Halt.cs",
+      "Sha256": "702A18A71E3992B4E80CE0A87C86E99AF1C525DD7388A38139DACA73FEA9E331"
+    },
+    {
+      "Path": "src/Erlang.Runtime/RuntimeTimers.cs",
+      "Sha256": "BBC44D8FB055BE6A36A90E0E1F9CB0A1C4A9457A9974B5B20D7D9D645FFFF6DB"
+    },
+    {
+      "Path": "src/Erlang.Runtime/ProcessRuntime.cs",
+      "Sha256": "6240A6D51E58590C6EEF506711218557F1FCA6886C99668A3BF12AEDB4A59CA9"
+    },
+    {
+      "Path": "src/Erlang.Runtime/RuntimeInitializer.cs",
+      "Sha256": "685F52710E32B35367066F07351B9CFD1170DD0842530B12DED2002BFC1F2339"
+    },
+    {
+      "Path": "tests/Erlang.Tests/HaltLifecycleHostChecks.cs",
+      "Sha256": "2C5C434D0B8CC1BADDE99F174BB3BE63116F5DA5E1BCC5E56F27013F47B2F480"
+    },
+    {
+      "Path": "tests/Erlang.Tests/HaltPortHostChecks.cs",
+      "Sha256": "CCFD9EFF8FBBFBFBB3D13F72A96DEF1DA218D089C32B36B70B99D5AE71D3F637"
+    }
+  ],
+  "ReviewedFix": {
+    "Preserved": "Argument validation precedes election; nonnumeric effective flush remains false; ports force-halt on takeover retained; same completion task returned; asynchronous physical cleanup and HaltQuiescence unchanged.",
+    "Finding": "Matches minimal source model: field is accessed under runtime gate; initial effective Flush selects pending phase; immediate takeover requires/clears pending phase; final orderly/deadline election clears pending phase. No first-immediate override remains.",
+    "Limit": "Static review proves this narrow election correction, not complete native halt scheduling/cleanup equivalence. No new original VM election observation collected.",
+    "SourcePath": "src/Erlang.Runtime/ProcessRuntime.Halt.cs"
+  },
+  "RetainedActualFailure": {
+    "Sha256": "5D77731649670E3F4E0237F66399639FCE32AA9E5EE3CFE0853305AF998F7E6B",
+    "OwnedReceipt": "artifacts/binary-integration369/library379-halt-old-witness1/execution.exit.json",
+    "OwnedReceiptSha256": "08FE8ED49DA120B97358CAC5421A03D843703BAFB72B4EE370345F8F933CADED",
+    "Observation": "One selected permanent case failed deterministically at PendingImmediateIsFinal line24 before finisher release; old runtime first-immediate result was overwritten/completed by second request.",
+    "HelperExecuted": false,
+    "Path": "artifacts/library379-implementation/halt-election-fix/old-runtime-witness/focused-outcomes.json"
+  },
+  "PredecessorCorrection": "review1 retained untouched. Its last erl_init.c excerpt range2778..2808 was empty; successor supplies actual erts_exit_vv2705..2725 and immediate/flush entry points2745..2777. Same pinned blobs. Do not cite nonexistent2778range."
+}
