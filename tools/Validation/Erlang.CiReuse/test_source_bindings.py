@@ -1,11 +1,27 @@
 from pathlib import Path
 import re
+import hashlib
+import tempfile
 import unittest
 
-from source_bindings import verify
+from source_bindings import qualified_inputs, verify
 
 
 class IntegratedBindingsTests(unittest.TestCase):
+    def test_packet_attribute_never_resolves_to_repository_attribute(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            packet = root / "packet"
+            packet.mkdir()
+            (root / ".gitattributes").write_bytes(b"repository attributes")
+            (packet / ".gitattributes").write_bytes(b"packet attributes")
+            row = dict(Root="Packet", Path=".gitattributes",
+                       Sha256=hashlib.sha256(b"repository attributes").hexdigest().upper())
+            with self.assertRaisesRegex(ValueError, "Qualified source bytes differ"):
+                qualified_inputs(root, packet, [row])
+            row["Sha256"] = hashlib.sha256(b"packet attributes").hexdigest().upper()
+            qualified_inputs(root, packet, [row])
+
     def test_actual_committed_workflow_matches_all_dependency_bytes(self):
         root = Path(__file__).resolve().parents[3]
         result = verify(root)

@@ -1,0 +1,13 @@
+Traceback (most recent call last):
+  File "/home/runner/work/Erlang.Net/Erlang.Net/tools/Native/Erlang.NifUpgradeObservations/collect-original.py", line 121, in <module>
+    if __name__=='__main__':raise SystemExit(main())
+                                             ~~~~^^
+  File "/home/runner/work/Erlang.Net/Erlang.Net/tools/Native/Erlang.NifUpgradeObservations/collect-original.py", line 18, in main
+    need(wrong_build['Passed'] and wrong_build['Pin']==PIN and wrong_build['Status']==('VERSION651_LINUX_BUILD' if linux else 'VERSION651_WINDOWS_BUILD')
+    ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+         and wrong_build['PlanSha256']==plan['WrongEntryNativeBuildPlans']['Linux' if linux else 'Windows'] and wrong_build['SubjectHead']==HEAD,'Wrong-entry N1 source producer differs')
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/work/Erlang.Net/Erlang.Net/tools/Native/Erlang.NifUpgradeObservations/common.py", line 16, in need
+    if not value:raise RuntimeError(why)
+                 ^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: Wrong-entry N1 source producer differs
