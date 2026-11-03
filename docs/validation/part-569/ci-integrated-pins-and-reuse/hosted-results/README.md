@@ -1,0 +1,11 @@
+# Actual hosted results before the final repair PR
+
+The complete original main-f0 unit report contains9687 distinct Passed rows,0 Failed and no Partial field. [Raw unit report](main-f0-tests9687.json.gz) SHA5CEFA5776A63992677AB0EB4C213FAC31C5F0E48DC6B27B77AFE772B8F082DD5; [complete job log](main-41719715112.log.gz) retains the later caller-pin refusal. Official validation ZIP13275418867 SHA0F19DC2733A60B2E3003D96BCCC9947CD23F667BC1A90CC141B5C1FFF3DC71C2 remains under the recorded GitHub artifact ID and local verified archive. Overall Validate is RED. Do not compose this report with later focused controls into a full pass.
+
+[Integrated native artifact](integrated-41727887154.zip), run41727887154 on exact7cd478612, passes all6 cohort checks and13 independently hash-verified report links: N1/N2/ENV/N2Strict/EnvStrict/Managed582 and adjacent controls. N1 has42 original/84 comparisons plus4 module-text/8 comparisons,38 binary rows in two profiles and4 mutex routes; N2 has12/24 and ENV2/4. Scope remains bounded, API/full-contract deltas0/0. All original failures remain in earlier directories.
+
+[Focused async artifact](async-41731211934.zip) uses recipe5ede342c7 and exact subject0acbc26ad, actual caller default with no PlanSha256 override. Ordered23/23 cases,9 natural stages,93 source preflight rows and unchanged provider inventory pass. All stages exit0, no timeout/forced cleanup, active processes0, resources closed, no primary/diagnostic errors. This is focused execution and does not explain the earlier0386 aggregate173 failure.
+
+Readiness is regenerated from the untouched full unit report against immutable previous9263/708, using a fresh Erlang.Tool build with0 warnings/errors. It records9687/733/+25/2269 source files; it does not certify the overall failed pipeline. The old generated files are retained as before.gz. Compatibility ledger rows and API/evidence rendering remain unchanged.
+
+[Summary](summary.json) keeps source trees and acceptance scopes separate. [Verified targeted receipt links](verified-targeted-success.json), raw prior reviews and independent Math3OS/6report3016632-outcome audit are preserved. Final repair-head mandatory CI/review and real hosted reuse admission remain pending.

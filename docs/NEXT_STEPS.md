@@ -2,6 +2,8 @@
 
 ## Executable queue
 
+- Complete the frozen Part569 CI repair acceptance and merge after current mandatory checks/review. [Actual evidence](validation/part-569/ci-integrated-pins-and-reuse/hosted-results/README.md) separates passed9687 units/native cohort/async23 from the still-failed original main pipeline; do not retry unchanged or promote whole-module status.
+
 - Validate the combined PR102/main0386ff27 source package, including the accepted [native async/cancellation contracts](validation/part-557/REPORT.md). Keep the [incoming next-step history](history/main-103-next-steps/index.md), existing library scope and unresolved public statistics contracts. The separate persistent-poll owner retains shared runtime/checklist ownership; do not start a competing full run on the PC.
 
 - Follow [integration evidence](validation/integration-20261103/README.md) and [PR #102](https://github.com/develmax/Erlang.Net/pull/102) for the exact source checkpoint and delivery state. Continue the module acceptance tasks below after its recorded merge gates pass; preserve later isolated proposals until their own acceptance.

@@ -40,3 +40,8 @@ The generic refresher had incorrectly chosen repository-root .gitattributes for 
 Completed main41719715112 log confirms9687/9687 actual unit rows and1321/1321 configured catalog/native9/9/cleanup pass, followed by Source-plan byte pin differs at collect.py:38 before the async observer ran. This is separate from the older main41706938411 aggregate173 error; its old cause remains unproven. [Caller correction and complete literal audit](powershell-consumer-correction/summary.json) preserve the old A372 default, actual711A plan,93 matching source rows, genuine RED/GREEN and official log scope. Only the default literal changes; caller is outside its own plan, so no self-hash cycle.
 
 Scan7508 active executable source files/390 full64hex literals against238 known historical source-plan digests: exactly one stale-plan consumer candidate before correction, zero after. Unrelated immutable ZIP/golden digests are not rewritten or claimed validated by this mapping audit. Permanent early checks now cover the actual PS default and deliberately stale input. Review1593 also identified role fields previously checked only when present; known N2/ENV original/managed roles now require their native/original/wrong-entry links, with8 deletion negatives. All22 controls pass. Fresh actual async23 and whole-package hosted acceptance remain pending.
+
+
+## Hosted controls and readiness
+
+[Actual hosted results](hosted-results/README.md) retain the untouched9687-row unit report, complete failed-main job log, passed native cohort on7cd, passed ordered async23 on0ac, fresh generated readiness and all source/provenance boundaries. These independent successes are not composed into a full pipeline pass. Final frozen repair-head CI and current review remain pending.
