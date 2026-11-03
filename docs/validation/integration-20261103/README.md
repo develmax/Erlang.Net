@@ -10,3 +10,23 @@
 - [Roslyn layout equivalence](revalidation/style-equivalence.log) confirms identical token kinds/text and directives in the six layout-only changes. Intentional review/harness changes are described separately.
 
 No new runtime dependency, third-party license change, NuGet publication or complete-module compatibility promotion is introduced here. Final full regression, fresh CI, source/metadata admission and review are delivery gates. Later concurrent source edits in the original shared checkout are preserved separately; this revalidation uses the isolated integration snapshot.
+
+## Coordinated final-source revalidation
+
+[Owner handoff](ordsets-owner-handoff/README.md) preserves all19 frozen source members and the unchanged matrix/probe hashes. [Independent final binary check](ordsets-owner-handoff/final-binary-check/summary.json) records36100 pairs per backend, ten genuine guest probes per backend and54 native/equality controls against the supplied binary identities. The integration keeps the earlier public API checks over every matrix pair as well.
+
+[Logical-map fix and initial full failures](host-map-equality/summary.json) distinguish the missing local provider from actual equality regressions, and retain the rejected intermediate guard. Native physical equality plans retain priority; ordinary logical maps use structural equality, including cross-VM imports. [Native capture-plan links](host-map-equality/native-plan-link-fix.json) explain the rejected stale build receipt; skipped comparisons are not counted as native acceptance.
+
+[Second successful Math matrix](math-ci-41638368916/README.md) belongs to exact headf3c4b8ca. Current full/regression and final-head CI status remain in the PR; these earlier-head receipts do not certify a later commit. The source-binding concurrency audit requested separately remains a future isolated proposal; no21/21 ordsets promotion is made here.
+
+## Atomic native-caller race closure
+
+[Immutable atomic handoff and source audit](atomic-native-caller/README.md) preserve the deterministic baseline/control witness and exact four-production/six-test snapshot. Selection/body/native marker now share one gate; caller scope enters outside the gate before tracing/admission. Code leases/source flow and owned binding identities retain their prior protocols. The matching-ABI broader replay and two new permanent cases passed. Post-fix full9680 and final-head CI/review remain separate delivery requirements.
+
+## Retained existing contract gap
+
+[Native flatmap ordering witness](native-flat-order-pending/README.md) records a genuine pinned-OTP/current candidate discrepancy and Git-verified source-only presence in accepted main. It remains a separate pending physical-layout contract; no compatibility status is promoted and no old binary execution is fabricated.
+
+## Final local checkpoint
+
+[Complete final regression report](revalidation/merge-full.json.gz) and [log](revalidation/merge-full.log.gz) record9680/9680 passed,0 failed on the fixed integration source window. The real runner emitted733 supported MFAs; canonical strict readiness regenerated against the explicit9263-test/708-MFA previous snapshot. Registered APIs increase25, with no complete-contract promotion. The known native flatmap discrepancy is recorded as3 known differences. Final published-head CI/review remains required before merge.

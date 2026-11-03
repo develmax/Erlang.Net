@@ -39,6 +39,7 @@ if check:
     retained = json.loads((FIXTURE / "provenance.json").read_text())
     for name, digest in retained["Files"].items():
         assert sha(FIXTURE / name) == digest, name
+probe_destination = OUTPUT / "probes-repeat.etf" if check else FIXTURE / "probes.etf"
 compile_expression = "" if check else (
     '{ok,ordsets_term_contracts}=compile:file("ordsets_term_contracts.erl",'
     '[debug_info,report_errors,report_warnings]),'
@@ -47,7 +48,10 @@ expression = compile_expression + (
     '{Pool,Rows}=ordsets_term_contracts:run(),'
     'ok=file:write_file(' + json.dumps(destination.as_posix()) +
     ',term_to_binary(Rows,[deterministic])),'
-    'io:format("~p terms, ~p pairs~n",[length(Pool),length(Rows)]),halt().'
+    'Probes=ordsets_term_contracts:ordsets_probes(),'
+    'ok=file:write_file(' + json.dumps(probe_destination.as_posix()) +
+    ',term_to_binary(Probes,[deterministic])),'
+    'io:format("~p terms, ~p pairs, ~p guest probes~n",[length(Pool),length(Rows),length(Probes)]),halt().' 
 )
 result = subprocess.run(
     [str(provider / "bin/erl.exe"), "+S", "2:2", "-noshell", "-eval", expression],
@@ -66,12 +70,15 @@ receipt = {
     "ExitCode": result.returncode,
     "Stdout": result.stdout.decode(errors="replace"),
     "InputProtocol": "Replay unchanged pool/0 BEAM; ETF transports scalar expected matrix only",
-    "Contracts": ["term order", "numeric equality", "exact equality", "ordsets membership", "ordsets sortedness"],
-    "Files": {name: sha(FIXTURE / name) for name in ["ordsets_term_contracts.erl", "ordsets_term_contracts.beam", "matrix.etf"]},
+    "Contracts": ["term order", "numeric equality", "exact equality"],
+    "GuestApiProbeCount": 10,
+    "Files": {name: sha(FIXTURE / name) for name in ["ordsets_term_contracts.erl", "ordsets_term_contracts.beam", "matrix.etf", "probes.etf"]},
 }
 if check:
     assert destination.read_bytes() == (FIXTURE / "matrix.etf").read_bytes()
+    assert probe_destination.read_bytes() == (FIXTURE / "probes.etf").read_bytes()
     receipt["WholeMatrixReproducedByteForByte"] = True
+    receipt["WholeGuestProbesReproducedByteForByte"] = True
     target = OUTPUT / "terms-oracle-repeat.json"
 else:
     target = FIXTURE / "provenance.json"

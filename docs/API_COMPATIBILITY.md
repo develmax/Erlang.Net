@@ -26,7 +26,7 @@ Pinned baseline: OTP-29.1.1 (`ad05823719d77c8faee87348ea39513d4e2f99c5`).
 | [logger](api/logger/index.md) | 26 | 0 | 0 | 26 |
 | [maps](api/maps/index.md) | 34 | 0 | 0 | 34 |
 | [math](api/math/index.md) | 26 | 0 | 0 | 26 |
-| [ordsets](api/ordsets/index.md) | 21 | 6 | 0 | 15 |
+| [ordsets](api/ordsets/index.md) | 21 | 6 | 3 | 12 |
 | [proc_lib](api/proc_lib/index.md) | 39 | 0 | 11 | 28 |
 | [proplists](api/proplists/index.md) | 22 | 22 | 0 | 0 |
 | [queue](api/queue/index.md) | 38 | 38 | 0 | 0 |
@@ -41,15 +41,15 @@ Pinned baseline: OTP-29.1.1 (`ad05823719d77c8faee87348ea39513d4e2f99c5`).
 <a id="erlang"></a>
 
 - [erlang](api/erlang/index.md): 83 commands.
+<a id="binary"></a>
+
+- [binary](api/binary/index.md): 31 commands.
 <a id="proplists"></a>
 
 - [proplists](api/proplists/index.md): 22 commands.
 <a id="queue"></a>
 
 - [queue](api/queue/index.md): 38 commands.
-<a id="binary"></a>
-
-- [binary](api/binary/index.md): 31 commands.
 <a id="ordsets"></a>
 
 - [ordsets](api/ordsets/index.md): 6 commands.
@@ -59,6 +59,9 @@ Pinned baseline: OTP-29.1.1 (`ad05823719d77c8faee87348ea39513d4e2f99c5`).
 <a id="erlang-1"></a>
 
 - [erlang](api/erlang/index.md): 13 commands.
+<a id="ordsets-1"></a>
+
+- [ordsets](api/ordsets/index.md): 3 commands.
 <a id="proc_lib"></a>
 
 - [proc_lib](api/proc_lib/index.md): 11 commands.
@@ -74,9 +77,21 @@ Pinned baseline: OTP-29.1.1 (`ad05823719d77c8faee87348ea39513d4e2f99c5`).
 <a id="maps"></a>
 
 - [maps](api/maps/index.md): 34 commands.
+<a id="erts_internal"></a>
+
+- [erts_internal](api/erts_internal/index.md): 7 commands.
+<a id="math"></a>
+
+- [math](api/math/index.md): 26 commands.
+<a id="string"></a>
+
+- [string](api/string/index.md): 1 commands.
 <a id="records"></a>
 
 - [records](api/records/index.md): 8 commands.
+<a id="ordsets-2"></a>
+
+- [ordsets](api/ordsets/index.md): 12 commands.
 <a id="io"></a>
 
 - [io](api/io/index.md): 1 commands.
@@ -107,15 +122,3 @@ Pinned baseline: OTP-29.1.1 (`ad05823719d77c8faee87348ea39513d4e2f99c5`).
 <a id="rpc"></a>
 
 - [rpc](api/rpc/index.md): 2 commands.
-<a id="ordsets-1"></a>
-
-- [ordsets](api/ordsets/index.md): 15 commands.
-<a id="erts_internal"></a>
-
-- [erts_internal](api/erts_internal/index.md): 7 commands.
-<a id="math"></a>
-
-- [math](api/math/index.md): 26 commands.
-<a id="string"></a>
-
-- [string](api/string/index.md): 1 commands.

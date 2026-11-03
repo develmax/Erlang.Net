@@ -16,26 +16,45 @@ public sealed partial class ModuleRegistry
             false
         );
 
+    internal ValueTask<Term> CallWithNativeCallerScope(
+        ProcessContext context,
+        string module,
+        string function,
+        Term[] arguments,
+        Func<ProcessContext, IDisposable>? nativeCaller
+    ) => CallOwnedBridge506(
+        context,
+        module,
+        function,
+        arguments,
+        true,
+        nativeCaller
+    );
+
     private ValueTask<Term> CallOwnedBridge506(
         ProcessContext context,
         string module,
         string function,
         Term[] arguments,
-        bool hostBoundary
+        bool hostBoundary,
+        Func<ProcessContext, IDisposable>? nativeCaller = null
     ) => context.OwnedExecutionEnabled683
         ? AwaitOwnedCall506(
             context,
             module,
             function,
             arguments,
-            hostBoundary
+            hostBoundary,
+            nativeCaller
         )
         : CallWithDispatch(
             context,
             module,
             function,
             arguments,
-            out _
+            out _,
+            out _,
+            nativeCaller
         );
 
     private async ValueTask<Term> AwaitOwnedCall506(
@@ -43,7 +62,8 @@ public sealed partial class ModuleRegistry
         string module,
         string function,
         Term[] arguments,
-        bool hostBoundary
+        bool hostBoundary,
+        Func<ProcessContext, IDisposable>? nativeCaller = null
     )
     {
         using OwnedTermInvocation506 owned = hostBoundary
@@ -59,7 +79,9 @@ public sealed partial class ModuleRegistry
                 module,
                 function,
                 selectedArguments,
-                out _
+                out _,
+                out _,
+                nativeCaller
             );
 
             return hostBoundary ? owned.Complete(result) : owned.CompleteGuest507(result);

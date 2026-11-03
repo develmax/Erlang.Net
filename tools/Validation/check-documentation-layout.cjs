@@ -85,11 +85,39 @@ for (const license of manifest.licenses) {
         'License bytes changed: ' + license.to);
     check(!fs.existsSync(license.from), 'License still present at old path: ' + license.from);
 }
+const planArchive = 'docs/validation/integration-20261103/source-plan-refresh';
+for (const name of fs.readdirSync(planArchive)) {
+    if (/^[A-F0-9]{64}\.json$/.test(name))
+        check(sha(fs.readFileSync(path.posix.join(planArchive, name))) === name.slice(0, 64).toLowerCase(),
+            'Archived source plan bytes changed: ' + name);
+}
+for (const archiveName of ['ordsets-owner-handoff', 'atomic-native-caller', 'native-flat-order-pending']) {
+    const ownerArchive = 'docs/validation/integration-20261103/' + archiveName;
+    const ownerManifest = JSON.parse(read(path.posix.join(ownerArchive, 'source-archive.json')));
+    check(sha(fs.readFileSync(path.posix.join(ownerArchive, 'manifest.json')))
+        === ownerManifest.OriginalManifestSha256.toLowerCase(), 'Owner manifest bytes changed: ' + archiveName);
+    for (const member of ownerManifest.Files) {
+        const packed = fs.readFileSync(path.posix.join(ownerArchive, member.Archive));
+        const raw = require('node:zlib').gunzipSync(packed);
+        check(sha(packed) === member.ArchiveSha256.toLowerCase()
+            && raw.length === member.Bytes && sha(raw) === member.Sha256.toLowerCase(),
+            'Owner source archive bytes changed: ' + member.Path);
+    }
+}
+const flatAuditRoot = 'docs/validation/integration-20261103/native-flat-order-pending/';
+const flatAudit = JSON.parse(read(flatAuditRoot + 'source-classification.json'));
+check(sha(require('node:zlib').gunzipSync(fs.readFileSync(flatAuditRoot + 'pinned-ordsets.erl.gz')))
+    === flatAudit.PinnedOrdsetsSourceSha256.toLowerCase(), 'Pinned ordsets source archive changed');
 const entryFiles = ['AGENTS.md', 'docs/PROGRESS.md', 'docs/NEXT_STEPS.md', 'docs/COMPATIBILITY.md', 'docs/DECISIONS.md', 'docs/decisions/index.md',
     ...fs.readdirSync('docs/decisions').filter(file => file.endsWith('.md') && file !== 'index.md').map(file => 'docs/decisions/' + file),
     'docs/validation/integration-20261103/README.md',
+    'docs/validation/integration-20261103/atomic-native-caller/README.md',
+    'docs/validation/integration-20261103/math-ci-41638368916/README.md',
+    'docs/validation/integration-20261103/ordsets-owner-handoff/README.md',
+    'docs/validation/integration-20261103/native-flat-order-pending/README.md',
+    'docs/ORDSETS_COMPATIBILITY.md',
     'docs/validation/integration-20261103/math-ci-41631118602/README.md',
-    'docs/changelog/0102.md',
+    'docs/changelog/0102.md', 'docs/changelog/0103.md',
     'docs/history/index.md', 'docs/documentation-layout.md', 'docs/license-audit.md', 'licenses/README.md',
     ...manifest.sources.map(item => path.posix.dirname(item.chunks[0].file) + '/index.md')];
 for (const file of entryFiles) {

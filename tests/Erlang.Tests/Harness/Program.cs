@@ -464,6 +464,9 @@ var tests = new List<(string Name, Func<Task> Body)>();
 Test(Erlang.Tests.MathBackendNames.ManagedWhole, Erlang.Tests.LibraryDependencyOriginalHostChecks.MathManagedWhole);
 Test(Erlang.Tests.MathBackendNames.ManagedSelection, Erlang.Tests.MathBackendChecks.ManagedSelection);
 Test(Erlang.Tests.MathLog2OtpNames.Test, Erlang.Tests.MathLog2OtpChecks.Run);
+Test(Erlang.Tests.NativeBindingSelectionNames.Test, Erlang.Tests.NativeBindingSelectionChecks.Run);
+Test(Erlang.Tests.NativeBindingSelectionNames.RaceTest, Erlang.Tests.NativeBindingSelectionChecks.Race);
+
 foreach (int part in Enumerable.Range(0, Erlang.Tests.OrdsetsCompatibilityNames.PartCount))
 {
     int selectedPart = part;

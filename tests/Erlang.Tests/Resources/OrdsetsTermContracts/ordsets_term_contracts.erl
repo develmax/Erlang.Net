@@ -1,5 +1,5 @@
 -module(ordsets_term_contracts).
--export([run/0,pool/0]).
+-export([run/0,pool/0,ordsets_probes/0]).
 -record #r{z,a}.
 -export_record([r]).
 -record #q{a}.
@@ -8,6 +8,20 @@ run() ->
     Pool=pool(),
     {Pool,[{I,J,sign(X,Y),X==Y,X=:=Y} || {I,X} <- enumerate(Pool,0),
                                          {J,Y} <- enumerate(Pool,0)]}.
+
+ordsets_probes() ->
+    A=fake_fun(0,1,[]), B=fake_fun(255,2,[]),
+    C=fake_fun(127,2,[]), D=fake_fun(128,1,[]),
+    Pairs=[{A,D},{fake_fun(0,1,[1]),fake_fun(0,1,[1.0])},
+           {[1],[1.0]},{-0.0,0.0},{#{1=>a},#{1.0=>a}},
+           {#{A=>0,B=>1},#{C=>1,D=>0}},
+           {#{A=>0,D=>1},#{D=>0,A=>1}},
+           {grow(33,#{A=>0,D=>1}),grow(33,#{D=>0,A=>1})},
+           {#{#{A=>0,B=>1}=>0},#{#{C=>1,D=>0}=>0}},
+           {record([z,a],[1,2]),record([a,z],[2,1])}],
+    [{I,sign(X,Y),X==Y,X=:=Y,ordsets:is_equal([X],[Y]),
+      ordsets:is_element(X,[Y]),ordsets:is_set([X,Y])}
+        || {I,{X,Y}} <- enumerate(Pairs,0)].
 
 pool() ->
     A = fake_fun(0,1,[]), B = fake_fun(255,2,[]),

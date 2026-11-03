@@ -183,7 +183,7 @@ public static class TermOrder
                             return 0;
                         }
                     }
-                    if (exact && purpose != TermComparisonPurpose.CanonicalKeyStorage
+                    if (exact && purpose is not (TermComparisonPurpose.CanonicalKeyStorage or TermComparisonPurpose.ExactEquality)
                         && x.FlatKeys426 is not null && y.FlatKeys426 is not null)
                     {
                         pending.Push(TermMapOrdering.FlatSteps(x, y, exact).GetEnumerator());

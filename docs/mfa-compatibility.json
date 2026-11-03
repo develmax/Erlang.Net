@@ -22424,8 +22424,8 @@
       "Module": "ordsets",
       "Function": "is_element",
       "Arity": 2,
-      "Status": "Needs verification",
-      "Scope": "Implemented source port; all 21 APIs have actual pinned OTP finite value/full-stack comparisons. This is not a whole-domain compatibility claim.",
+      "Status": "Known differences",
+      "Scope": "Implemented source port; all 21 APIs have actual pinned OTP finite value/full-stack comparisons. This is not a whole-domain compatibility claim. Known native flatmap numeric/order discrepancy after a supported physical binary-key mutation; see current source audit.",
       "Evidence": [
         {
           "Kind": "SourceReview",
@@ -22468,10 +22468,23 @@
           "Path": "validation/part-557/ordsets/final-affected.json",
           "Sha256": "8D83DDFA4E836E31219E906B89B854532E626D6CCB91CC620EC86D9CEC32CD72",
           "Scope": "870/870 collection/comparison/dependency groups, explicitly partial; not canonical readiness evidence."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/integration-20261103/native-flat-order-pending/source-classification.json",
+          "Sha256": "C338AEBE9E72F487F586D831A0FB7ED72FD4A75D54706552D123085DDB8D89DA",
+          "Scope": "Genuine native witness, Git-verified pre-existing source branch and pinned ordsets clause derivation. is_equal/is_element directly observed; reverse is_set derived from the observed strict order, not a fabricated extra oracle."
+        },
+        {
+          "Kind": "OriginalOtpComparison",
+          "Path": "validation/integration-20261103/native-flat-order-pending/manifest.json",
+          "Sha256": "BECB51FE7A9C4A8847A5EDA4D45FB0C8A14B2098D2F50B1EDA62B5C901788465",
+          "Scope": "Pinned admitted505 real native map: positive order and false numeric/exact equality; public is_equal/is_element false. Captured is_set([M,F]) false agrees and is not itself claimed a mismatch."
         }
       ],
       "Limits": [
-        "Whole-domain source dependency closure remains pending: complete term ordering/equality including HAMT map keys and all function terms, dependent lists private helper/error paths, or length trapping/resource lifetime as applicable. Finite samples do not establish these general contracts."
+        "Whole-domain source dependency closure remains pending: complete term ordering/equality including HAMT map keys and all function terms, dependent lists private helper/error paths, or length trapping/resource lifetime as applicable. Finite samples do not establish these general contracts.",
+        "Known difference: physical non-atom flat-key order is sorted for numeric/order comparison; is_equal/is_element disagree with pinned native OTP, and is_set([F,M]) follows the source-derived wrong order. Separate fix and complete contract validation required."
       ]
     },
     {
@@ -22572,8 +22585,8 @@
       "Module": "ordsets",
       "Function": "is_equal",
       "Arity": 2,
-      "Status": "Needs verification",
-      "Scope": "Implemented source port; all 21 APIs have actual pinned OTP finite value/full-stack comparisons. This is not a whole-domain compatibility claim.",
+      "Status": "Known differences",
+      "Scope": "Implemented source port; all 21 APIs have actual pinned OTP finite value/full-stack comparisons. This is not a whole-domain compatibility claim. Known native flatmap numeric/order discrepancy after a supported physical binary-key mutation; see current source audit.",
       "Evidence": [
         {
           "Kind": "SourceReview",
@@ -22616,18 +22629,31 @@
           "Path": "validation/part-557/ordsets/final-affected.json",
           "Sha256": "8D83DDFA4E836E31219E906B89B854532E626D6CCB91CC620EC86D9CEC32CD72",
           "Scope": "870/870 collection/comparison/dependency groups, explicitly partial; not canonical readiness evidence."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/integration-20261103/native-flat-order-pending/source-classification.json",
+          "Sha256": "C338AEBE9E72F487F586D831A0FB7ED72FD4A75D54706552D123085DDB8D89DA",
+          "Scope": "Genuine native witness, Git-verified pre-existing source branch and pinned ordsets clause derivation. is_equal/is_element directly observed; reverse is_set derived from the observed strict order, not a fabricated extra oracle."
+        },
+        {
+          "Kind": "OriginalOtpComparison",
+          "Path": "validation/integration-20261103/native-flat-order-pending/manifest.json",
+          "Sha256": "BECB51FE7A9C4A8847A5EDA4D45FB0C8A14B2098D2F50B1EDA62B5C901788465",
+          "Scope": "Pinned admitted505 real native map: positive order and false numeric/exact equality; public is_equal/is_element false. Captured is_set([M,F]) false agrees and is not itself claimed a mismatch."
         }
       ],
       "Limits": [
-        "Whole-domain source dependency closure remains pending: complete term ordering/equality including HAMT map keys and all function terms, dependent lists private helper/error paths, or length trapping/resource lifetime as applicable. Finite samples do not establish these general contracts."
+        "Whole-domain source dependency closure remains pending: complete term ordering/equality including HAMT map keys and all function terms, dependent lists private helper/error paths, or length trapping/resource lifetime as applicable. Finite samples do not establish these general contracts.",
+        "Known difference: physical non-atom flat-key order is sorted for numeric/order comparison; is_equal/is_element disagree with pinned native OTP, and is_set([F,M]) follows the source-derived wrong order. Separate fix and complete contract validation required."
       ]
     },
     {
       "Module": "ordsets",
       "Function": "is_set",
       "Arity": 1,
-      "Status": "Needs verification",
-      "Scope": "Implemented source port; all 21 APIs have actual pinned OTP finite value/full-stack comparisons. This is not a whole-domain compatibility claim.",
+      "Status": "Known differences",
+      "Scope": "Implemented source port; all 21 APIs have actual pinned OTP finite value/full-stack comparisons. This is not a whole-domain compatibility claim. Known native flatmap numeric/order discrepancy after a supported physical binary-key mutation; see current source audit.",
       "Evidence": [
         {
           "Kind": "SourceReview",
@@ -22670,10 +22696,23 @@
           "Path": "validation/part-557/ordsets/final-affected.json",
           "Sha256": "8D83DDFA4E836E31219E906B89B854532E626D6CCB91CC620EC86D9CEC32CD72",
           "Scope": "870/870 collection/comparison/dependency groups, explicitly partial; not canonical readiness evidence."
+        },
+        {
+          "Kind": "SourceReview",
+          "Path": "validation/integration-20261103/native-flat-order-pending/source-classification.json",
+          "Sha256": "C338AEBE9E72F487F586D831A0FB7ED72FD4A75D54706552D123085DDB8D89DA",
+          "Scope": "Genuine native witness, Git-verified pre-existing source branch and pinned ordsets clause derivation. is_equal/is_element directly observed; reverse is_set derived from the observed strict order, not a fabricated extra oracle."
+        },
+        {
+          "Kind": "OriginalOtpComparison",
+          "Path": "validation/integration-20261103/native-flat-order-pending/manifest.json",
+          "Sha256": "BECB51FE7A9C4A8847A5EDA4D45FB0C8A14B2098D2F50B1EDA62B5C901788465",
+          "Scope": "Pinned admitted505 real native map: positive order and false numeric/exact equality; public is_equal/is_element false. Captured is_set([M,F]) false agrees and is not itself claimed a mismatch."
         }
       ],
       "Limits": [
-        "Whole-domain source dependency closure remains pending: complete term ordering/equality including HAMT map keys and all function terms, dependent lists private helper/error paths, or length trapping/resource lifetime as applicable. Finite samples do not establish these general contracts."
+        "Whole-domain source dependency closure remains pending: complete term ordering/equality including HAMT map keys and all function terms, dependent lists private helper/error paths, or length trapping/resource lifetime as applicable. Finite samples do not establish these general contracts.",
+        "Known difference: physical non-atom flat-key order is sorted for numeric/order comparison; is_equal/is_element disagree with pinned native OTP, and is_set([F,M]) follows the source-derived wrong order. Separate fix and complete contract validation required."
       ]
     },
     {
@@ -25132,7 +25171,7 @@
     },
     {
       "Path": "src/Otp/Managed/Erlang.Otp.Stdlib/Collections/Lists/ListUniqueMergeTrace.cs",
-      "Sha256": "2258AA3593826BC71865720CCD3F2CE8AFA18F635BE8D06C37190209CD443983"
+      "Sha256": "2AF9AA9F324523650186A6156EB4F2EB4D89C6562C05AF2AC8FBDF47ED39C5C4"
     },
     {
       "Path": "src/Otp/Managed/Erlang.Otp.Stdlib/Collections/Maps/MapOperations.cs",
@@ -26948,7 +26987,7 @@
     },
     {
       "Path": "src/Runtime/Erlang.Runtime.Core/Modules/ModuleRegistry.OwnedTerms506.cs",
-      "Sha256": "5C3158575C663DC37199A5AE364D5EEF8B1B86A90C5CAB361CE55F678DE54BA3"
+      "Sha256": "4FE2170FE6AC80665A5013F248C2151943E813B49418605CA3C8900BA8CC2010"
     },
     {
       "Path": "src/Runtime/Erlang.Runtime.Core/Modules/ModuleRegistry.PreparedBeam.cs",
@@ -27000,7 +27039,7 @@
     },
     {
       "Path": "src/Runtime/Erlang.Runtime.Core/Modules/ModuleRegistry.cs",
-      "Sha256": "EEE9544CFF146315D07E36A61932764BCECA9A0233E80B785EC47324D5185864"
+      "Sha256": "2E6AC42C04E15FEFBAF246DD7787DB342A61F07488BC76AA2E4A64DBAE63634C"
     },
     {
       "Path": "src/Runtime/Erlang.Runtime.Core/Modules/OwnedBinding507.cs",
@@ -33184,7 +33223,7 @@
     },
     {
       "Path": "src/Runtime/Erlang.Terms/Collections/Maps/MapTerm.Native504.cs",
-      "Sha256": "617C15E350A55AD3CBDC62FD65092D67EC4779AF9F6DA7925087A327CA45C6AC"
+      "Sha256": "99C5CACAD2B8B22D9E2F10A3A902F25D448E207799B2BA8A877C11443A8A6EF7"
     },
     {
       "Path": "src/Runtime/Erlang.Terms/Collections/Maps/MapTerm.NativeCopy510.cs",
@@ -33196,7 +33235,7 @@
     },
     {
       "Path": "src/Runtime/Erlang.Terms/Collections/Maps/MapTerm.cs",
-      "Sha256": "1FD50F4975490C5CD26389B459EAC5501E6CA09A04DD06BB7B483933D1942C0D"
+      "Sha256": "5EB39B361ABF0B1371ADA4FA3FF091BD7BB55E1C68D5C328DBA9FC97E7AEBEFB"
     },
     {
       "Path": "src/Runtime/Erlang.Terms/Collections/Maps/NativeMapEqualityPlan505.cs",
@@ -33328,7 +33367,7 @@
     },
     {
       "Path": "src/Runtime/Erlang.Terms/Ordering/TermOrder.cs",
-      "Sha256": "972500D20431DE02F0279A7BD427A954655B8045A5693B81BF9671B9C10DFB43"
+      "Sha256": "09562A2FB60DA9A96D6B8DB0FDE6E34756A9079B0A7A8F5A0E2B40632A9DC4A6"
     },
     {
       "Path": "src/Runtime/Erlang.Terms/Protocols/Distribution/NodeComparisonContext.cs",
@@ -33561,6 +33600,14 @@
     {
       "Path": "src/Otp/Managed/Erlang.Otp.Stdlib/Text/StringUtf8Parameters.cs",
       "Sha256": "4DA18B8FFE03039CEA406CD2E2D2794A6ED2B7C58969A04CE5ABBE2EBCF36674"
+    },
+    {
+      "Path": "src/Runtime/Erlang.Terms/Collections/Maps/MapTerm.ArithmeticOrder.cs",
+      "Sha256": "22B72CB4BCA93CAC49EF47A9B6361F247B52FEF5DC511214D89558936DBE3768"
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Modules/ModuleRegistry.NativeCallerScope.cs",
+      "Sha256": "FEB454DCF08BA793D2C366FE30A3C978E016EA10CCB560C3BE0F7E6CD1CA3653"
     }
   ]
 }
