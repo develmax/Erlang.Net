@@ -45,15 +45,18 @@ public static class MapIteration
             Term keys = state.Head;
             if (keys is Integer path)
             {
-                if (map.Entries.Count <= MapIteratorLayout.FlatMapMaximumEntries
+                IReadOnlyList<KeyValuePair<Term, Term>>? flatEntries = map.PreservedFlatPairs426;
+                if (flatEntries is null && map.Entries.Count <= MapIteratorLayout.FlatMapMaximumEntries
                     && NativeMapMaterialization505.TryRead(map, runtime, out var saved))
+                    flatEntries = saved.PhysicalEntries;
+                if (flatEntries is not null)
                 {
                     if (path.Value < 0 || path.Value > map.Entries.Count)
                         throw new ErlangException(ErlangErrorReasons.BadArgument);
                     Term physical = Term.A(MapIteratorAtoms.None);
-                    for (int pairIndex = saved.PhysicalEntries.Count - 1; pairIndex >= 0; pairIndex--)
+                    for (int pairIndex = flatEntries.Count - 1; pairIndex >= 0; pairIndex--)
                     {
-                        var entry = saved.PhysicalEntries[pairIndex];
+                        var entry = flatEntries[pairIndex];
                         physical = Term.Tuple(entry.Key, entry.Value, physical);
                     }
 

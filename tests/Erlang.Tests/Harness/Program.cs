@@ -483,6 +483,7 @@ foreach (int part in Enumerable.Range(0, Erlang.Tests.OrdsetsCompatibilityNames.
     );
 }
 Test(Erlang.Tests.BulkMapSourceNames.Case, Erlang.Tests.BulkMapSourceChecks.Run);
+Test(Erlang.Tests.BulkMapPhysicalNames.Case, Erlang.Tests.BulkMapPhysicalChecks.Run);
 foreach (int termShard in Enumerable.Range(0, Erlang.Tests.OrdsetsTermContractNames.ShardCount))
 {
     Test(Erlang.Tests.OrdsetsTermContractNames.TestPrefix + termShard, () => Erlang.Tests.OrdsetsTermContractChecks.Run(termShard));

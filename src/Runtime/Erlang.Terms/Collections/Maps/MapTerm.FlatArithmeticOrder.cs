@@ -6,12 +6,14 @@ public sealed partial class MapTerm
 
     internal IReadOnlyList<KeyValuePair<Term, Term>> FlatArithmeticPairs()
     {
-        var known = Volatile.Read(ref flatArithmeticPairs);
+        bool cache = OwnedMapPayload517 is null;
+        var known = cache ? Volatile.Read(ref flatArithmeticPairs) : null;
         if (known is not null)
             return known;
 
         if (CanReuseArithmeticFlatPairs())
-            return Interlocked.CompareExchange(ref flatArithmeticPairs, ArithmeticKeyEntries, null) ?? ArithmeticKeyEntries;
+            return !cache ? ArithmeticKeyEntries
+                : Interlocked.CompareExchange(ref flatArithmeticPairs, ArithmeticKeyEntries, null) ?? ArithmeticKeyEntries;
 
         // utils.c retains the physical numeric/rest partitions. Only atom
         // keys are compared by name instead of their physical atom indexes.
@@ -37,7 +39,7 @@ public sealed partial class MapTerm
         }
         IReadOnlyList<KeyValuePair<Term, Term>> result = Array.AsReadOnly(pairs);
 
-        return Interlocked.CompareExchange(ref flatArithmeticPairs, result, null) ?? result;
+        return !cache ? result : Interlocked.CompareExchange(ref flatArithmeticPairs, result, null) ?? result;
     }
 
     private bool CanReuseArithmeticFlatPairs()
@@ -54,7 +56,9 @@ public sealed partial class MapTerm
                 if (ordered is not Atom)
                     return false;
             }
-            else if (!ReferenceEquals(physical, ordered))
+            else if (!ReferenceEquals(physical, ordered)
+                || PreservedFlatPairs426 is { } preserved
+                    && !ReferenceEquals(preserved[index].Value, ArithmeticKeyEntries[index].Value))
                 return false;
         }
 

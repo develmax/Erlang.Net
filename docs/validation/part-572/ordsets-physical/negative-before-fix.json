@@ -1,0 +1,19 @@
+{
+  "Partial": true,
+  "SelectedCount": 1,
+  "TotalCount": 9689,
+  "Blocks": [],
+  "ExactCases": [
+    "runtime/maps-source-flat-physical-values-through-copy"
+  ],
+  "Passed": 0,
+  "Failed": 1,
+  "Tests": [
+    {
+      "Name": "runtime/maps-source-flat-physical-values-through-copy",
+      "Status": "Failed",
+      "Error": "System.IO.InvalidDataException: Source flat map lost its physical value sequence\r\n   at Erlang.Tests.BulkMapPhysicalChecks.RequireValues(Term list) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\ordsets-bulk-mr\\tests\\Erlang.Tests\\Otp\\Stdlib\\Ordsets\\BulkMapPhysicalChecks.cs:line 65\r\n   at Erlang.Tests.BulkMapPhysicalChecks.\u003C\u003Ec__DisplayClass0_0.\u003C\u003CRun\u003Eb__2\u003Ed.MoveNext() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\ordsets-bulk-mr\\tests\\Erlang.Tests\\Otp\\Stdlib\\Ordsets\\BulkMapPhysicalChecks.cs:line 29\r\n--- End of stack trace from previous location ---\r\n   at Erlang.Tests.BulkMapPhysicalChecks.Run() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\ordsets-bulk-mr\\tests\\Erlang.Tests\\Otp\\Stdlib\\Ordsets\\BulkMapPhysicalChecks.cs:line 56\r\n   at Erlang.Tests.BulkMapPhysicalChecks.Run() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\ordsets-bulk-mr\\tests\\Erlang.Tests\\Otp\\Stdlib\\Ordsets\\BulkMapPhysicalChecks.cs:line 57\r\n   at Program.\u003CMain\u003E$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\ordsets-bulk-mr\\tests\\Erlang.Tests\\Harness\\Program.cs:line 16228",
+      "Milliseconds": 484
+    }
+  ]
+}

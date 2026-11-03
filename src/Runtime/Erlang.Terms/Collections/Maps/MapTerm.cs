@@ -111,16 +111,17 @@ public sealed partial class MapTerm : Term
         if (logical.Entries.Count != physical.Count)
             return FromNativeLayout504(physical);
 
-        return new MapTerm(logical, new TupleTerm(physical.Select(pair => pair.Key)));
+        return new MapTerm(logical, physical);
     }
 
-    private MapTerm(MapTerm logical, TupleTerm physicalKeys)
+    private MapTerm(MapTerm logical, IReadOnlyList<KeyValuePair<Term, Term>> physical)
     {
         IsOrdinaryLogicalMap517 = true;
         lookup = logical.lookup;
         Entries = logical.Entries;
         ArithmeticKeyEntries = logical.ArithmeticKeyEntries;
-        FlatKeys426 = physicalKeys;
+        preservedFlatPairs426 = Array.AsReadOnly(physical.ToArray());
+        FlatKeys426 = new TupleTerm(preservedFlatPairs426.Select(pair => pair.Key));
     }
 
     public Term Get(Term key) => TryGet(key, out var value) ? value! : throw new ErlangException(Term.Tuple(Term.A(ErlangErrorReasons.BadKey), key));
