@@ -50,3 +50,8 @@ Before publication, consume the guarded copy-list, complete exact committed chec
 ## Publication source proof
 
 The [candidate raw tree](publication/source-tree1372.json) matches all13902 final build inputs and344 changed source/documentation paths. The [configured affected checkout](publication/affected-checkout1373.json) passes284 raw-critical byte checks and all78 declared native input guards. Its six LF/CRLF differences remain explicit. These are source/transport checks, not another runtime execution or a full checkout build. Only documentation/evidence will be added after this candidate; the final commit and exact-headCI/review must still be verified.
+
+
+## Pending RPC final checkpoint (Part557)
+
+See [pending RPC correction and final local validation](pending-rpc/REPORT.md). Both configurations pass 23/23 native scenarios and 101/101 affected regressions. This supersedes the in-flight cancellation blocker above; whole statistics and exact new-head CI/review remain separate. Earlier raw evidence is preserved.

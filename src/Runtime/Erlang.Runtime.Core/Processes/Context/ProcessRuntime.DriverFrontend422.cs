@@ -18,8 +18,11 @@ public sealed partial class ProcessRuntime
         }
     }
 
-    internal async ValueTask InstallDriverFrontend422(DriverFrontendConfiguration422 configuration,
-        CancellationToken cancellation)
+    internal async ValueTask InstallDriverFrontend422(
+        DriverFrontendConfiguration422 configuration,
+        CancellationToken cancellation,
+        ErlDriverHostResponseGate1427? responseAdmission = null
+    )
     {
         BeginDriverFrontendInstall422();
         RuntimeDriverFrontend422? pending = null;
@@ -30,7 +33,8 @@ public sealed partial class ProcessRuntime
                 this,
                 gate,
                 configuration,
-                cancellation
+                cancellation,
+                responseAdmission
             ).ConfigureAwait(false);
             lock (gate)
             {

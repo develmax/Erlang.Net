@@ -56,6 +56,10 @@ internal static class MicrostateSourceTailLifecycleChecks
         int ownCalls = 0, finishCalls = 0, helperRows = 0, expectedRows = 0;
         byte[]? helperEtf = null;
         bool actualPhysicalSource = false, tailFailureInspected = false;
+        bool ownedShutdownCancellationInspected = false;
+        bool gracefulShutdownMode = mode is MicrostateSourceTailCaseNames.WithheldClose or MicrostateSourceTailCaseNames.RunningClose;
+        Exception? inspectedTailFailure = null;
+        CancellationToken inspectedRequesterCancellation = default;
         try
         {
             runtime = new ProcessRuntime(MicrostateSourceTailCaseNames.NormalWorkers);
@@ -200,13 +204,27 @@ internal static class MicrostateSourceTailLifecycleChecks
                 Exception expected = mode is MicrostateSourceTailCaseNames.FirstFailure or MicrostateSourceTailCaseNames.FinishFailure
                     ? sentinel : prepared.Tail.Failure ?? throw new InvalidOperationException(MicrostateSourceTailCaseNames.Contract);
                 if (mode is MicrostateSourceTailCaseNames.WithheldClose or MicrostateSourceTailCaseNames.RunningClose)
-                    Require(expected is ObjectDisposedException closed && closed.ObjectName == nameof(RuntimeMicrostateSourceTail1149));
+                {
+                    await WaitUntil(() => prepared.Context.Cancellation.IsCancellationRequested).ConfigureAwait(false);
+                    inspectedRequesterCancellation = prepared.Context.Cancellation;
+                    Require(expected is OperationCanceledException canceled
+                        && ReferenceEquals(expected, prepared.Tail.Failure)
+                        && ReferenceEquals(expected, prepared.Tail.RetirementCancellation)
+                        && canceled.CancellationToken == inspectedRequesterCancellation
+                        && inspectedRequesterCancellation.IsCancellationRequested
+                        && prepared.Tail.Completion.IsCanceled);
+                    ownedShutdownCancellationInspected = true;
+                }
                 if (!Contains(error, expected))
                     throw new AggregateException(error, new InvalidOperationException(MicrostateSourceTailCaseNames.Contract));
+                inspectedTailFailure = expected;
                 tailFailureInspected = true;
             }
             Require(mode == MicrostateSourceTailCaseNames.SuccessfulPhases
-                ? prepared.Tail.Completion.IsCompletedSuccessfully : prepared.Tail.Completion.IsFaulted);
+                ? prepared.Tail.Completion.IsCompletedSuccessfully
+                : gracefulShutdownMode
+                    ? prepared.Tail.Completion.IsCanceled && ownedShutdownCancellationInspected
+                    : prepared.Tail.Completion.IsFaulted);
             await actor.Completion.WaitAsync(MicrostateSourceTailCaseNames.Deadline).ConfigureAwait(false);
             closing ??= runtime.DisposeAsync().AsTask();
             await closing.WaitAsync(MicrostateSourceTailCaseNames.Deadline).ConfigureAwait(false);
@@ -250,7 +268,16 @@ internal static class MicrostateSourceTailLifecycleChecks
             {
                 if (prepared is not null) await prepared.Tail.Completion.WaitAsync(MicrostateSourceTailCaseNames.Deadline).ConfigureAwait(false);
             }
-            catch (Exception error) when (prepared?.Tail.Completion.IsFaulted == true && tailFailureInspected)
+            catch (Exception error) when (tailFailureInspected && prepared is not null
+                && (prepared.Tail.Completion.IsFaulted
+                    || gracefulShutdownMode && ownedShutdownCancellationInspected
+                        && prepared.Tail.Completion.IsCanceled
+                        && inspectedRequesterCancellation.IsCancellationRequested
+                        && inspectedTailFailure is OperationCanceledException inspectedCancellation
+                        && inspectedCancellation.CancellationToken == inspectedRequesterCancellation
+                        && ReferenceEquals(prepared.Tail.Failure, inspectedTailFailure)
+                        && ReferenceEquals(inspectedTailFailure, prepared.Tail.RetirementCancellation)
+                        && Contains(error, inspectedTailFailure)))
             {
                 _ = error;
             }

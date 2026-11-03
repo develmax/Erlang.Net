@@ -85,11 +85,17 @@ internal sealed partial class RuntimeActorDispatcher
     {
         lock (gate)
         {
-            if (!ReferenceEquals(tail.Owner, this) || !tail.Registered) throw tail.Invalid;
+            if (!ReferenceEquals(tail.Owner, this)) throw tail.Invalid;
+            // A genuine pending source RPC may resume after its own tail has
+            // terminally retired and released registration. Preserve that actual
+            // outcome rather than replacing it with an invalid-turn exception.
+            if (tail.State == RuntimeMicrostateSourceTail1149.Phase.Terminal && tail.Failure is { } terminalFailure)
+                System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw(terminalFailure);
+            if (!tail.Registered) throw tail.Invalid;
             if (retiring)
             {
-                RejectMicrostateSourceTailUnderGate1149(tail, tail.Closed);
-                throw tail.Closed;
+                RejectMicrostateSourceTailUnderGate1149(tail, tail.RetirementCancellation);
+                System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw(tail.Failure ?? tail.RetirementCancellation);
             }
             var expected = first ? RuntimeMicrostateSourceTail1149.Phase.Withheld : RuntimeMicrostateSourceTail1149.Phase.FirstDone;
             if (tail.State != expected) throw tail.Invalid;
@@ -181,6 +187,12 @@ internal sealed partial class RuntimeActorDispatcher
         }
         else if (tail.OwnsBatch && tail.Lane != 0) tail.Batch.Work[tail.Lane - ProcessSchedulerNames.First].Fail(tail.Failure);
         tail.SettledUnderGate(tail.Failure);
+    }
+
+    private void RetireMicrostateSourceTailsUnderGate1149()
+    {
+        foreach (var tail in sourceTails1149)
+            RejectMicrostateSourceTailUnderGate1149(tail, tail.RetirementCancellation);
     }
 
     private void RejectAllMicrostateSourceTailsUnderGate1149(Exception error)

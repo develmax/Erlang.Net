@@ -27,6 +27,17 @@ public sealed partial class ProcessRuntime
 
     private async ValueTask<Term> RequestMicrostates(ProcessContext context, RuntimeMicrostateAction action)
     {
+        // The helper may have returned before the genuine producer/capture
+        // release finishes. Core includes all physical joins and await-using
+        // cleanup, including the no-op path that never invokes a helper.
+        Term result = await RequestMicrostatesCore(context, action);
+        context.Cancellation.ThrowIfCancellationRequested();
+
+        return result;
+    }
+
+    private async ValueTask<Term> RequestMicrostatesCore(ProcessContext context, RuntimeMicrostateAction action)
+    {
         while (true)
         {
             await using var trap = new StatisticsTrapRequest(this, context);

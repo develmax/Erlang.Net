@@ -1,0 +1,59 @@
+System.AggregateException: One or more errors occurred. (One or more errors occurred. (Public/producer failure is unrelated to the injected termination.) (One or more errors occurred. (Normal observation requires the actual own normal execution turn) (One or more errors occurred. (Normal observation requires the actual own normal execution turn) (Cannot access a disposed object.
+Object name: 'RuntimeMicrostateSourceTail1149'.)))) (One or more errors occurred. (Normal observation requires the actual own normal execution turn) (Cannot access a disposed object.
+Object name: 'RuntimeMicrostateSourceTail1149'.))
+ ---> System.AggregateException: One or more errors occurred. (Public/producer failure is unrelated to the injected termination.) (One or more errors occurred. (Normal observation requires the actual own normal execution turn) (One or more errors occurred. (Normal observation requires the actual own normal execution turn) (Cannot access a disposed object.
+Object name: 'RuntimeMicrostateSourceTail1149'.)))
+ ---> System.InvalidOperationException: Public/producer failure is unrelated to the injected termination.
+   --- End of inner exception stack trace ---
+   at Erlang.Validation.AsyncMicrostates.PendingRpcMatrixChecks1441.Run(JsonElement input, String mode) in D:\Distr\Work\Codex\Erlang.Net\artifacts\batch825\pending-rpc-matrix1441\payload\tools\Validation\Erlang.AsyncMicrostateValidation\PendingRpcMatrixChecks1441.cs:line 309
+ ---> (Inner Exception #1) System.AggregateException: One or more errors occurred. (Normal observation requires the actual own normal execution turn) (One or more errors occurred. (Normal observation requires the actual own normal execution turn) (Cannot access a disposed object.
+Object name: 'RuntimeMicrostateSourceTail1149'.))
+ ---> System.InvalidOperationException: Normal observation requires the actual own normal execution turn
+   at Erlang.RuntimeActorDispatcher.QueueMicrostateSourceTail1149(RuntimeMicrostateSourceTail1149 tail, Boolean first) in D:\Distr\Work\Codex\Erlang.Net\w546\artifacts\statistics-full\main-gc825-integration36\workspace\src\Runtime\Erlang.Runtime.Core\Scheduling\RuntimeActorDispatcher.MicrostateSourceTail1149.cs:line 88
+   at Erlang.RuntimeMicrostateSourceTail1149.QueueFirst() in D:\Distr\Work\Codex\Erlang.Net\w546\artifacts\statistics-full\main-gc825-integration36\workspace\src\Runtime\Erlang.Runtime.Core\Scheduling\RuntimeMicrostateSourceTail1149.cs:line 74
+   at Erlang.RuntimeMicrostateOperation1171.Run() in D:\Distr\Work\Codex\Erlang.Net\w546\artifacts\statistics-full\main-gc825-integration36\workspace\src\Runtime\Erlang.Runtime.Core\Services\Statistics\Microstates\RuntimeMicrostateOperation1171.cs:line 113
+   --- End of inner exception stack trace ---
+   at Erlang.StatisticsTrapFailures.ThrowIfAny() in D:\Distr\Work\Codex\Erlang.Net\w546\artifacts\statistics-full\main-gc825-integration36\workspace\src\Runtime\Erlang.Runtime.Core\Services\Statistics\StatisticsTrapFailures.cs:line 21
+   at Erlang.StatisticsTrapRequest.Finish(Func`1 helper, Task physicalCompletion, Exception primary) in D:\Distr\Work\Codex\Erlang.Net\w546\artifacts\statistics-full\main-gc825-integration36\workspace\src\Runtime\Erlang.Runtime.Core\Services\Statistics\StatisticsTrapRequest.cs:line 195
+   at Erlang.StatisticsTrapRequest.FailAndDrain(Exception primary) in D:\Distr\Work\Codex\Erlang.Net\w546\artifacts\statistics-full\main-gc825-integration36\workspace\src\Runtime\Erlang.Runtime.Core\Services\Statistics\StatisticsTrapRequest.cs:line 87
+   at Erlang.ProcessRuntime.RequestMicrostates(ProcessContext context, RuntimeMicrostateAction action) in D:\Distr\Work\Codex\Erlang.Net\w546\artifacts\statistics-full\main-gc825-integration36\workspace\src\Runtime\Erlang.Runtime.Core\Processes\Context\ProcessRuntime.Microstates.cs:line 101
+   at Erlang.ProcessRuntime.RequestMicrostates(ProcessContext context, RuntimeMicrostateAction action) in D:\Distr\Work\Codex\Erlang.Net\w546\artifacts\statistics-full\main-gc825-integration36\workspace\src\Runtime\Erlang.Runtime.Core\Processes\Context\ProcessRuntime.Microstates.cs:line 118
+   at Erlang.ProcessRuntime.RequestMicrostates(ProcessContext context, RuntimeMicrostateAction action) in D:\Distr\Work\Codex\Erlang.Net\w546\artifacts\statistics-full\main-gc825-integration36\workspace\src\Runtime\Erlang.Runtime.Core\Processes\Context\ProcessRuntime.Microstates.cs:line 125
+   at Erlang.RuntimeExceptionCapture.AwaitNative(ValueTask`1 pending, ProcessContext context, ErlangExecutionFrame frame, String module, String function, IReadOnlyList`1 arguments) in D:\Distr\Work\Codex\Erlang.Net\w546\artifacts\statistics-full\main-gc825-integration36\workspace\src\Runtime\Erlang.Runtime.Core\Services\RuntimeExceptionCapture.cs:line 149
+   at Erlang.ModuleRegistry.AwaitHaltBoundary(ValueTask`1 pending, ProcessContext context) in D:\Distr\Work\Codex\Erlang.Net\w546\artifacts\statistics-full\main-gc825-integration36\workspace\src\Runtime\Erlang.Runtime.Core\Modules\ModuleRegistry.cs:line 584
+   at Erlang.ModuleRegistry.AwaitCallback(ValueTask`1 pending, IDisposable code, ProcessContext context) in D:\Distr\Work\Codex\Erlang.Net\w546\artifacts\statistics-full\main-gc825-integration36\workspace\src\Runtime\Erlang.Runtime.Core\Modules\ModuleRegistry.cs:line 594
+   at Erlang.Validation.AsyncMicrostates.PendingRpcMatrixChecks1441.<>c__DisplayClass8_2.<<Run>b__10>d.MoveNext() in D:\Distr\Work\Codex\Erlang.Net\artifacts\batch825\pending-rpc-matrix1441\payload\tools\Validation\Erlang.AsyncMicrostateValidation\PendingRpcMatrixChecks1441.cs:line 212
+ ---> (Inner Exception #1) System.AggregateException: One or more errors occurred. (Normal observation requires the actual own normal execution turn) (Cannot access a disposed object.
+Object name: 'RuntimeMicrostateSourceTail1149'.)
+ ---> System.InvalidOperationException: Normal observation requires the actual own normal execution turn
+   at Erlang.RuntimeActorDispatcher.QueueMicrostateSourceTail1149(RuntimeMicrostateSourceTail1149 tail, Boolean first) in D:\Distr\Work\Codex\Erlang.Net\w546\artifacts\statistics-full\main-gc825-integration36\workspace\src\Runtime\Erlang.Runtime.Core\Scheduling\RuntimeActorDispatcher.MicrostateSourceTail1149.cs:line 88
+   at Erlang.RuntimeMicrostateSourceTail1149.QueueFirst() in D:\Distr\Work\Codex\Erlang.Net\w546\artifacts\statistics-full\main-gc825-integration36\workspace\src\Runtime\Erlang.Runtime.Core\Scheduling\RuntimeMicrostateSourceTail1149.cs:line 74
+   at Erlang.RuntimeMicrostateOperation1171.Run() in D:\Distr\Work\Codex\Erlang.Net\w546\artifacts\statistics-full\main-gc825-integration36\workspace\src\Runtime\Erlang.Runtime.Core\Services\Statistics\Microstates\RuntimeMicrostateOperation1171.cs:line 113
+   --- End of inner exception stack trace ---
+   at Erlang.StatisticsTrapFailures.ThrowIfAny() in D:\Distr\Work\Codex\Erlang.Net\w546\artifacts\statistics-full\main-gc825-integration36\workspace\src\Runtime\Erlang.Runtime.Core\Services\Statistics\StatisticsTrapFailures.cs:line 21
+   at Erlang.RuntimeMicrostateOperation1171.Run() in D:\Distr\Work\Codex\Erlang.Net\w546\artifacts\statistics-full\main-gc825-integration36\workspace\src\Runtime\Erlang.Runtime.Core\Services\Statistics\Microstates\RuntimeMicrostateOperation1171.cs:line 243
+   at Erlang.Validation.AsyncMicrostates.PendingRpcMatrixChecks1441.<>c__DisplayClass8_1.<<Run>g__JoinOwned|1>d.MoveNext() in D:\Distr\Work\Codex\Erlang.Net\artifacts\batch825\pending-rpc-matrix1441\payload\tools\Validation\Erlang.AsyncMicrostateValidation\PendingRpcMatrixChecks1441.cs:line 133
+ ---> (Inner Exception #1) System.ObjectDisposedException: Cannot access a disposed object.
+Object name: 'RuntimeMicrostateSourceTail1149'.
+   at Erlang.RuntimeMicrostateOperation1171.Run() in D:\Distr\Work\Codex\Erlang.Net\w546\artifacts\statistics-full\main-gc825-integration36\workspace\src\Runtime\Erlang.Runtime.Core\Services\Statistics\Microstates\RuntimeMicrostateOperation1171.cs:line 224<---
+<---
+<---
+
+   --- End of inner exception stack trace ---
+   at Erlang.Validation.AsyncMicrostates.PendingRpcMatrixChecks1441.Run(JsonElement input, String mode) in D:\Distr\Work\Codex\Erlang.Net\artifacts\batch825\pending-rpc-matrix1441\payload\tools\Validation\Erlang.AsyncMicrostateValidation\PendingRpcMatrixChecks1441.cs:line 348
+   at Program.<Main>$(String[] args) in D:\Distr\Work\Codex\Erlang.Net\artifacts\batch825\pending-rpc-matrix-runner1447\Program.cs:line 7
+ ---> (Inner Exception #1) System.AggregateException: One or more errors occurred. (Normal observation requires the actual own normal execution turn) (Cannot access a disposed object.
+Object name: 'RuntimeMicrostateSourceTail1149'.)
+ ---> System.InvalidOperationException: Normal observation requires the actual own normal execution turn
+   at Erlang.RuntimeActorDispatcher.QueueMicrostateSourceTail1149(RuntimeMicrostateSourceTail1149 tail, Boolean first) in D:\Distr\Work\Codex\Erlang.Net\w546\artifacts\statistics-full\main-gc825-integration36\workspace\src\Runtime\Erlang.Runtime.Core\Scheduling\RuntimeActorDispatcher.MicrostateSourceTail1149.cs:line 88
+   at Erlang.RuntimeMicrostateSourceTail1149.QueueFirst() in D:\Distr\Work\Codex\Erlang.Net\w546\artifacts\statistics-full\main-gc825-integration36\workspace\src\Runtime\Erlang.Runtime.Core\Scheduling\RuntimeMicrostateSourceTail1149.cs:line 74
+   at Erlang.RuntimeMicrostateOperation1171.Run() in D:\Distr\Work\Codex\Erlang.Net\w546\artifacts\statistics-full\main-gc825-integration36\workspace\src\Runtime\Erlang.Runtime.Core\Services\Statistics\Microstates\RuntimeMicrostateOperation1171.cs:line 113
+   --- End of inner exception stack trace ---
+   at Erlang.StatisticsTrapFailures.ThrowIfAny() in D:\Distr\Work\Codex\Erlang.Net\w546\artifacts\statistics-full\main-gc825-integration36\workspace\src\Runtime\Erlang.Runtime.Core\Services\Statistics\StatisticsTrapFailures.cs:line 21
+   at Erlang.RuntimeMicrostateOperation1171.Run() in D:\Distr\Work\Codex\Erlang.Net\w546\artifacts\statistics-full\main-gc825-integration36\workspace\src\Runtime\Erlang.Runtime.Core\Services\Statistics\Microstates\RuntimeMicrostateOperation1171.cs:line 243
+   at Erlang.Validation.AsyncMicrostates.PendingRpcMatrixChecks1441.<>c__DisplayClass8_1.<<Run>g__JoinOwned|1>d.MoveNext() in D:\Distr\Work\Codex\Erlang.Net\artifacts\batch825\pending-rpc-matrix1441\payload\tools\Validation\Erlang.AsyncMicrostateValidation\PendingRpcMatrixChecks1441.cs:line 133
+ ---> (Inner Exception #1) System.ObjectDisposedException: Cannot access a disposed object.
+Object name: 'RuntimeMicrostateSourceTail1149'.
+   at Erlang.RuntimeMicrostateOperation1171.Run() in D:\Distr\Work\Codex\Erlang.Net\w546\artifacts\statistics-full\main-gc825-integration36\workspace\src\Runtime\Erlang.Runtime.Core\Services\Statistics\Microstates\RuntimeMicrostateOperation1171.cs:line 224<---
+<---
+

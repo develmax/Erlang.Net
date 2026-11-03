@@ -1,0 +1,25 @@
+{
+  "ArtifactOnly": true,
+  "Compiled": false,
+  "Executed": false,
+  "Rows": [
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.Microstates.cs",
+      "BeforeSha256": "7CE76FCC9724406A174B773F50335F688DC1E8EBD5DEF8164BDCF328A7E11D18",
+      "AfterSha256": "88A540FF52B601E52C3D595C725EA5A1278EE4811A568244BDC5AD5B192568A5",
+      "Payload": "D:\\Distr\\Work\\Codex\\Erlang.Net\\artifacts\\batch825\\pending-rpc-return-fix1498\\payload\\src\\Runtime\\Erlang.Runtime.Core\\Processes\\Context\\ProcessRuntime.Microstates.cs",
+      "Bytes": 6414
+    }
+  ],
+  "ReadOnlySourceGuards": [
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Services/Statistics/StatisticsTrapRequest.cs",
+      "Sha256": "71576EEC507F7C29719001EF94EC608EF0EF01E5999ECA3DE9333F0414F0DFA2"
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Services/Statistics/Microstates/RuntimeMicrostateOperation1171.cs",
+      "Sha256": "B531E9DE3B9248616787FD25646273E3C5109000831296DD0A5AA36591400AA2"
+    }
+  ],
+  "Scope": "One-file public microstate successful-return ownership correction. Core original body unchanged except method rename; wrapper checks exact requester cancellation only after entire Core and all await-using physical cleanup succeed. Real errors propagate unchanged; no classifier/native/auth/physical-join change. Root actual same frozen observer RED-to-GREEN required."
+}

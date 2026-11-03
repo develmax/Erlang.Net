@@ -4,6 +4,9 @@ from pathlib import Path
 from types import SimpleNamespace
 from windows_process import run
 PIN="ad05823719d77c8faee87348ea39513d4e2f99c5"
+LEGACY_CASE_ROSTER = ('original-driver-A1', 'original-driver-A2', 'public-queued-ack-cancel', 'public-queued-ack-close', 'component-child-exit', 'component-wrong-epoch', 'original-queued-port-close-A1', 'component-child-reservation-rollback')
+PENDING_CASE_ROSTER = ('public-pending-rpc-capture-kill', 'public-pending-rpc-capture-close', 'public-pending-rpc-apply-kill', 'public-pending-rpc-apply-close', 'public-pending-rpc-finish-kill', 'public-pending-rpc-finish-close', 'public-pending-rpc-release-kill', 'public-pending-rpc-release-close', 'component-pending-rpc-gate-unarmed', 'component-pending-rpc-gate-wrong-operation', 'component-pending-rpc-gate-dispose-before', 'component-pending-rpc-gate-duplicate-release', 'component-pending-rpc-gate-child-death', 'public-pending-rpc-noop-release-kill', 'public-pending-rpc-noop-release-close')
+EXPECTED_CASE_ROSTER = LEGACY_CASE_ROSTER + PENDING_CASE_ROSTER
 def need(value,why):
     if not value:raise ValueError(why)
 def sha(path,mode="Raw"):
@@ -33,7 +36,7 @@ def main():
     args=parser.parse_args();repo=args.repository.resolve();tool=Path(__file__).resolve().parent;out=args.output.resolve();planpath=tool/"source-plan.json"
     need(os.name=="nt"and sys.maxsize>2**32,"Actual native DriverHost Linux is unsupported; this gate is Windowsx64 only")
     need(sys.dont_write_bytecode,"Use Python -B");need(sha(planpath)==args.plan_sha256.upper(),"Source-plan byte pin differs")
-    plan=json.loads(planpath.read_bytes());need(plan["Version"]==1 and plan["OtpPin"]==PIN,"Wrong source plan");sealed(plan,repo)
+    plan=json.loads(planpath.read_bytes());need(plan["Version"]==1 and plan["OtpPin"]==PIN,"Wrong source plan");need(plan["Cases"]==list(EXPECTED_CASE_ROSTER),"Source-plan exact mandatory23 roster differs");sealed(plan,repo)
     need(not out.exists()and out.is_relative_to(repo/"artifacts"),"Fresh repository artifact output required");out.mkdir(parents=True)
     errors=[];stages=[];before=None;after=None;package=None;packagebefore=None;observer_inputs=None;execution_tools={};sourcebefore=[dict(Path=r["Path"],Sha256=sha(repo/r["Path"],r["HashMode"]),HashMode=r["HashMode"])for r in plan["Inputs"]]
     env={k:v for k,v in os.environ.items()if not any(secret in k.upper()for secret in ["TOKEN","PASSWORD","SECRET","CREDENTIAL"])}
@@ -119,7 +122,7 @@ def main():
         for count in [1,2]:
             if not original_ready[count]:unavailable["original-driver-A"+str(count)]="Prerequisite original-A"+str(count)+" failed or was blocked"
         if not(native_ready and beam_ready):
-            for name in ["public-queued-ack-cancel","public-queued-ack-close"]:unavailable[name]="Fixture native/BEAM prerequisite failed"
+            for name in ["public-queued-ack-cancel","public-queued-ack-close",*PENDING_CASE_ROSTER]:unavailable[name]="Fixture native/BEAM prerequisite failed"
         project=tool/"Erlang.AsyncMicrostateValidation.csproj"
         built=stage("observer-build",[dotnet,"build",project,"-c",args.configuration,"-m:1","-nodeReuse:false","-p:UseSharedCompilation=false","-p:ReviewedPackageRoot="+str(package.parent),"--nologo"],cwd=repo,timeout=120)
         if built is None:skipped("observer-execute",["observer-build"])
@@ -144,7 +147,7 @@ def main():
         setting=dict(QueuedPortCloseBeam=str(fixtures/"async_cross_port1307.beam"),OriginalQueuedPortClose=str(queued_original),QueuedPortCloseOwnEtf=str(out/"own-queued-port-close.etf"),UnavailableCases=unavailable,ObserverAssemblyPath=str(dll),PackageManifest=str(package),DdllBeam=str(repo/"src/Otp/Original/Foundation/Erlang.Otp.Kernel.Beam/Otp/ebin/erl_ddll.beam"),ObserverBeam=str(fixtures/"async_msacc1127.beam"),DriverDirectory=str(fixtures),OriginalA1=str(out/"original-A1.etf"),OriginalA2=str(out/"original-A2.etf"),Configuration=args.configuration,Guards=[dict(Path=p,Sha256=h)for p,h in sorted(guards.items())],AssemblyGuards=[dict(Name=f,Sha256=sha(package.parent/f))for f in ["Erlang.Runtime.dll","Erlang.Terms.dll","Erlang.Serialization.dll","Erlang.Otp.Stdlib.dll"]])
         save(out/"inputs.json",setting)
         stage("observer-execute",[dotnet,"exec","--fx-version","10.0.11","--roll-forward","Disable",dll,out/"inputs.json",out/"observations.json"],cwd=repo,timeout=300)
-        observation=json.loads((out/"observations.json").read_bytes());need(observation["Passed"] and [c["Name"] for c in observation["Cases"]] == ["original-driver-A1","original-driver-A2","public-queued-ack-cancel","public-queued-ack-close","component-child-exit","component-wrong-epoch","original-queued-port-close-A1","component-child-reservation-rollback"] and all(c["Passed"]for c in observation["Cases"]) and not observation["Errors"],"Mandatory independent observations failed")
+        observation=json.loads((out/"observations.json").read_bytes());need(observation["Passed"] and [c["Name"] for c in observation["Cases"]] == list(EXPECTED_CASE_ROSTER) and all(c["Passed"]for c in observation["Cases"]) and not observation["Errors"],"Mandatory independent23 observations failed")
     except Exception as error:errors.append(dict(Stage="composition",Error=repr(error)))
     finally:
         for name,row in execution_tools.items():
@@ -166,6 +169,6 @@ def main():
         try:sealed(plan,repo)
         except Exception as error:errors.append(dict(Stage="source-final",Error=repr(error)))
         save(out/"source-inputs.json",sourcebefore)
-        save(out/"completion.json",dict(Passed=not errors,Configuration=args.configuration,PlanSha256=args.plan_sha256,ExecutionTools=execution_tools,Stages=stages,Errors=errors,Scope="Actual Windows child async; same original native fixture, seven independent cases including queued unrelated-port close. No raw topology/timing/fullstatistics or Linux claim"))
+        save(out/"completion.json",dict(Passed=not errors,Configuration=args.configuration,PlanSha256=args.plan_sha256,ExecutionTools=execution_tools,Stages=stages,Errors=errors,Scope="Actual Windows child async; same original native fixture,23 independently retained cases: original8, eight pending-RPC public phase/cause cases, five actual gate controls and two unpublished no-op release cases. No raw topology/timing/fullstatistics, mid-native-body cancellation or Linux claim"))
     if errors:raise RuntimeError("Strict async microstate observation failed; all independent outcomes retained")
 if __name__=="__main__":main()

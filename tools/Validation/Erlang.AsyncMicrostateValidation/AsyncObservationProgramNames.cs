@@ -27,7 +27,7 @@ internal static class AsyncObservationProgramNames
     internal const string PublicCloseCase = "public-queued-ack-close";
     internal const string ComponentChildExitCase = "component-child-exit";
     internal const string ComponentWrongEpochCase = "component-wrong-epoch";
-    internal const string Scope = "Windows real child async predicates/full raw observations and strict physical negative fences; no raw topology/timing normalization or whole statistics acceptance";
+    internal const string Scope = "Windows23 independent child cases: original raw predicates, queued-normal-ACK fences, genuine pending-RPC four-phase kill/close matrix, five gate controls and two unpublished no-op release cases; no raw topology/timing normalization, mid-native-body cancellation or whole statistics acceptance";
     internal const int ArgumentCount = 2;
     internal const int InputsArgumentIndex = 0;
     internal const int ReportArgumentIndex = 1;

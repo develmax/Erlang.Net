@@ -24,6 +24,7 @@ internal sealed class RuntimeMicrostateSourceTail1149
     internal readonly RuntimeSchedulerAuxiliary420 FirstWork, SecondWork;
     internal readonly InvalidOperationException Invalid = new(RuntimeNormalObservationNames.Requester);
     internal readonly ObjectDisposedException Closed = new(nameof(RuntimeMicrostateSourceTail1149));
+    internal readonly OperationCanceledException RetirementCancellation;
     private readonly TaskCompletionSource first = new(TaskCreationOptions.RunContinuationsAsynchronously);
     private readonly TaskCompletionSource settled = new(TaskCreationOptions.RunContinuationsAsynchronously);
     internal Phase State;
@@ -55,6 +56,9 @@ internal sealed class RuntimeMicrostateSourceTail1149
     {
         Owner = owner;
         Requester = requester;
+        // Dispatcher retirement is committed before the runtime cancels actors.
+        // Allocate the exact owner-token cause before registration or effects.
+        RetirementCancellation = new(requester.Cancellation);
         Runtime = requester.Runtime;
         Batch = batch;
         Request = request;

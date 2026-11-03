@@ -9,7 +9,8 @@ internal static class RuntimeBootstrapDriverFrontend422
         ProcessRuntime runtime,
         ModuleRegistry registry,
         DriverFrontendConfiguration422 configuration,
-        CancellationToken cancellation
+        CancellationToken cancellation,
+        ErlDriverHostResponseGate1427? responseAdmission = null
     )
     {
         ArgumentNullException.ThrowIfNull(runtime);
@@ -19,6 +20,6 @@ internal static class RuntimeBootstrapDriverFrontend422
             throw new ArgumentException(DriverParentWireNames422.Foreign, nameof(registry));
         registry.RequireDriverFrontendCaller422();
 
-        return runtime.InstallDriverFrontend422(configuration, cancellation);
+        return runtime.InstallDriverFrontend422(configuration, cancellation, responseAdmission);
     }
 }

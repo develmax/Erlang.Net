@@ -156,6 +156,66 @@ await Case(
     AsyncChildRollbackNames.CaseName,
     () => AsyncChildRollbackChecks.Run(input)
 );
+await Case(
+    AsyncPendingRpcCaseNames1471.CaptureKillCase,
+    () => PendingRpcMatrixChecks1441.Run(input, AsyncPendingRpcNames1441.CaptureKill)
+);
+await Case(
+    AsyncPendingRpcCaseNames1471.CaptureCloseCase,
+    () => PendingRpcMatrixChecks1441.Run(input, AsyncPendingRpcNames1441.CaptureClose)
+);
+await Case(
+    AsyncPendingRpcCaseNames1471.ApplyKillCase,
+    () => PendingRpcMatrixChecks1441.Run(input, AsyncPendingRpcNames1441.ApplyKill)
+);
+await Case(
+    AsyncPendingRpcCaseNames1471.ApplyCloseCase,
+    () => PendingRpcMatrixChecks1441.Run(input, AsyncPendingRpcNames1441.ApplyClose)
+);
+await Case(
+    AsyncPendingRpcCaseNames1471.FinishKillCase,
+    () => PendingRpcMatrixChecks1441.Run(input, AsyncPendingRpcNames1441.FinishKill)
+);
+await Case(
+    AsyncPendingRpcCaseNames1471.FinishCloseCase,
+    () => PendingRpcMatrixChecks1441.Run(input, AsyncPendingRpcNames1441.FinishClose)
+);
+await Case(
+    AsyncPendingRpcCaseNames1471.ReleaseKillCase,
+    () => PendingRpcMatrixChecks1441.Run(input, AsyncPendingRpcNames1441.ReleaseKill)
+);
+await Case(
+    AsyncPendingRpcCaseNames1471.ReleaseCloseCase,
+    () => PendingRpcMatrixChecks1441.Run(input, AsyncPendingRpcNames1441.ReleaseClose)
+);
+await Case(
+    AsyncPendingRpcCaseNames1471.UnarmedCase,
+    () => PendingRpcGateControls1465.Run(input, AsyncGateControlNames1465.Unarmed)
+);
+await Case(
+    AsyncPendingRpcCaseNames1471.WrongOperationCase,
+    () => PendingRpcGateControls1465.Run(input, AsyncGateControlNames1465.WrongOperation)
+);
+await Case(
+    AsyncPendingRpcCaseNames1471.DisposeBeforeCase,
+    () => PendingRpcGateControls1465.Run(input, AsyncGateControlNames1465.DisposeBefore)
+);
+await Case(
+    AsyncPendingRpcCaseNames1471.DuplicateReleaseCase,
+    () => PendingRpcGateControls1465.Run(input, AsyncGateControlNames1465.DuplicateRelease)
+);
+await Case(
+    AsyncPendingRpcCaseNames1471.ChildDeathCase,
+    () => PendingRpcGateControls1465.Run(input, AsyncGateControlNames1465.ChildDeath)
+);
+await Case(
+    AsyncPendingRpcCaseNames1471.NoOpReleaseKillCase,
+    () => PendingRpcMatrixChecks1441.Run(input, AsyncPendingRpcNames1441.ReleaseKill, noOp: true)
+);
+await Case(
+    AsyncPendingRpcCaseNames1471.NoOpReleaseCloseCase,
+    () => PendingRpcMatrixChecks1441.Run(input, AsyncPendingRpcNames1441.ReleaseClose, noOp: true)
+);
 File.WriteAllText(
     args[AsyncObservationProgramNames.ReportArgumentIndex],
     JsonSerializer.Serialize(

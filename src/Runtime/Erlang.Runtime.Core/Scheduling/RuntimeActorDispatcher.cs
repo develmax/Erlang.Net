@@ -570,13 +570,15 @@ internal sealed partial class RuntimeActorDispatcher
     public Task CompleteWhenIdle()
     {
         var normalBarrierFailure696 = new ObjectDisposedException(RuntimeNormalBarrierNames696.Lease);
-        var sourceTailFailure1149 = new ObjectDisposedException(nameof(RuntimeMicrostateSourceTail1149));
         lock (gate)
         {
             if (completion.Task.IsCompleted)
                 return completion.Task;
             retiring = true;
-            RejectAllMicrostateSourceTailsUnderGate1149(sourceTailFailure1149);
+            // Graceful retirement belongs to each real requesting actor. Its
+            // token is canceled by the committed runtime shutdown immediately
+            // after dispatcher retirement; do not borrow a foreign/global cause.
+            RetireMicrostateSourceTailsUnderGate1149();
             RetirePendingNormalBarriers696(normalBarrierFailure696);
             CloseNormalNativeUnderGate697();
             StopInitializerAfterGuests();

@@ -1,0 +1,62 @@
+{
+  "Verdict": "Actual canonical native23 Debug and Release passed. All93 native declared source inputs and all four packaged/runtime assembly hashes remain unchanged after test-only1526; native23 rerun is not justified solely by this unrelated unit change. Final normal/affected101 and source-tree/CI binding still required.",
+  "Results": [
+    {
+      "Configuration": "Debug",
+      "ObservationDirectory": "D:\\Distr\\Work\\Codex\\Erlang.Net\\w546\\artifacts\\statistics-full\\main-gc825-integration36\\workspace\\artifacts\\async-return-final-debug1517\\5123bd955a1b4fd99c84265d613c353f",
+      "ObservationsSha256": "363222C6C02603E1927210683CDBBF25F3D0E1FC9263DBDEA05B2B8A8F9E8FE3",
+      "CompletionSha256": "FFF0ABB022DFE4B67BB6D44053C907C64C2654F381E7538D1D6055A7FBFA2C85",
+      "PlanSha256": "A372441817625B01B55D221001E3B74733A4DED4887B303D604764C3037AEB99",
+      "Cases": 23,
+      "AllPassed": true,
+      "All93DeclaredInputHashesMatchCurrent": true,
+      "PackageManifestSha256": "BBF3F01208324F1FF215195388F097053ACC2C8B632C6914934B5547E626ED71",
+      "PackageFilesVerified": 20,
+      "RuntimeFourHashes": {
+        "Erlang.Runtime.dll": "94116116B52B8E7AACAC94B70CEE8B45F87DE1DF31CD2CBF9EEFB607A0265014",
+        "Erlang.Terms.dll": "A48B94CF8A62FC4A781A0BDD0E73D439455A4F1E75A79E88EE2A5C8D92188C82",
+        "Erlang.Serialization.dll": "70D262165BB832EA2DB0110D041C5D51D11C66424514A142D38C681EDD5CCE7E",
+        "Erlang.Otp.Stdlib.dll": "00397448DA0A598F2FCE9C3779DF54B38E32735C3FD99EA1588BB07995558465"
+      },
+      "OuterElapsedSeconds": 39.125,
+      "OuterNaturalCleanup": true
+    },
+    {
+      "Configuration": "Release",
+      "ObservationDirectory": "D:\\Distr\\Work\\Codex\\Erlang.Net\\w546\\artifacts\\statistics-full\\main-gc825-integration36\\workspace\\artifacts\\async-return-final-release1518\\21afd63b604f444490623c93c504be1c",
+      "ObservationsSha256": "3977ADA1009106CE5C2F9E65CEB8CCED50443E2FBC3B0D7189CC066835223E18",
+      "CompletionSha256": "1F451F818C58E2460B3BFEF70C35EF6864F4311C7D60A5C14B932A358B5A35F2",
+      "PlanSha256": "A372441817625B01B55D221001E3B74733A4DED4887B303D604764C3037AEB99",
+      "Cases": 23,
+      "AllPassed": true,
+      "All93DeclaredInputHashesMatchCurrent": true,
+      "PackageManifestSha256": "EEA49404B24B474F108FF8B55BC0365621C61A1491F666BB94E578140575ADE1",
+      "PackageFilesVerified": 20,
+      "RuntimeFourHashes": {
+        "Erlang.Runtime.dll": "49834294632F6D65C001D7794CB3189F6311CB02F90A9161E8BE6932066AD7FE",
+        "Erlang.Terms.dll": "24637BBC1F5A801C541D01B84391768BBD279C2A27FE059C018A00377FF23B9C",
+        "Erlang.Serialization.dll": "BCC97E2D1C219902CAB4A43F1CBBE2507192591BDFA2ECA26BEEDFF622506141",
+        "Erlang.Otp.Stdlib.dll": "8542269733744CC5B06A8B50FC409255C2C02BBA8E6443FCC740BC0727660F2D"
+      },
+      "OuterElapsedSeconds": 52.734000000025844,
+      "OuterNaturalCleanup": true
+    }
+  ],
+  "OriginalEqualityBoundary": "Three original-reference comparisons plus20 public/component controls, not23 full OTP-equal contracts. Actual native callbacks/cleanup and raw outcomes retained; compiler-only ancillary process policy remains separately declared.",
+  "1526AppliedTestOnly": {
+    "ManifestSha256": "703319C5B78212C02CD7AD872F35CC583C91D54560409FF3B1EC6C6C6281F363",
+    "AppliedAfterSha256": "F80FF3FB6136758BE0159EF5732A8EE14D3D9BEF7F00C095EF8A10DF1553430E",
+    "ActualPayloadAndWorkspaceMatch": true,
+    "ProductionRuntimeGuardsUnchanged": 2,
+    "StrictStateDistinction": "Two graceful shutdown cases require observed actual requester cancellation, exact same storedFailure and RetirementCancellation object, exact token, caught error Contains identity, and Tail.Completion.IsCanceled. Callback sentinel failures still require Faulted; success requires successful completion.",
+    "FinallyFilter": "Only previously inspected same-owned cancellation with actual Canceled state/token/requester/cause identity is suppressed; unrelated cancellation/timeout/error remains failure. Existing previously inspected Faulted path preserved.",
+    "PhysicalProofPreserved": "Real running callback release/join, callback counts, registry/request/batch drain, actual process heap roots/words/blocks and helper-use assertions unchanged.",
+    "NoBroadErrorOrSuccessRelaxation": true
+  },
+  "Outstanding": [
+    "Preserve old99/101 as strict test expectation failure evidence; new final101 in both profiles still mandatory.",
+    "Final normal builds and source metadata after1529; native93 and four DLL hashes must remain identical for reuse.",
+    "Exact final Git tree/source input binding and exact-head CI/review."
+  ],
+  "WorkspaceGitCiWrites": false
+}
