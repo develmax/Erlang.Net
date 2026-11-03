@@ -139,7 +139,8 @@ internal sealed partial class RuntimeDriverFrontend422
         ProcessRuntime runtime,
         object gate,
         DriverFrontendConfiguration422 configuration,
-        CancellationToken cancellation
+        CancellationToken cancellation,
+        ErlDriverHostResponseGate1427? responseAdmission = null
     )
     {
         cancellation.ThrowIfCancellationRequested();
@@ -165,7 +166,8 @@ internal sealed partial class RuntimeDriverFrontend422
                     await prepared.Task.ConfigureAwait(false);
                     await owner!.Event(message, token).ConfigureAwait(false);
                 },
-                cancellation
+                cancellation,
+                responseAdmission
             ).ConfigureAwait(false);
             owner = new(
                 runtime,
@@ -281,6 +283,7 @@ internal sealed partial class RuntimeDriverFrontend422
         {
             closing = true;
             ready = false;
+            SealAsyncAccounting1170();
             retirementRequested.TrySetResult();
 
             return retirement;

@@ -1,0 +1,14 @@
+Traceback (most recent call last):
+  File "D:\Distr\Work\Codex\Erlang.Net\w546\artifacts\statistics-full\main-gc825-integration36\workspace\tools\Validation\Erlang.AsyncMicrostateValidation\collect.py", line 174, in <module>
+    if __name__=="__main__":main()
+                            ^^^^^^
+  File "D:\Distr\Work\Codex\Erlang.Net\w546\artifacts\statistics-full\main-gc825-integration36\workspace\tools\Validation\Erlang.AsyncMicrostateValidation\collect.py", line 173, in main
+    if errors:raise RuntimeError("Strict async microstate observation failed; all independent outcomes retained")
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: Strict async microstate observation failed; all independent outcomes retained
+Exception: D:\Distr\Work\Codex\Erlang.Net\w546\artifacts\statistics-full\main-gc825-integration36\workspace\tools\validate-async-microstates.ps1:15
+Line |
+  15 |  … DE -ne 0) { throw "Strict actual async microstate comparison failed:  …
+     |                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | Strict actual async microstate comparison failed:
+     | D:\Distr\Work\Codex\Erlang.Net\w546\artifacts\statistics-full\main-gc825-integration36\workspace\artifacts\async-rpc-final-debug1494\321d8ec6c7e34459aac1f7ee7baea55a

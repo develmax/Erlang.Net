@@ -2,6 +2,8 @@
 
 ## Current state and sources
 
+The integration also retains accepted main [PR103 native async/cancellation work](validation/part-557/REPORT.md). Its bounded controls and remaining public statistics contracts keep their original scope; [all incoming compatibility records](history/main-103-compatibility/index.md) remain intact. A new combined-source CI report is required before treating the earlier PR102 full report as current.
+
 Current [ordsets verification](ORDSETS_COMPATIBILITY.md) covers all 21 APIs with exact outcomes/stacks/effects and repairs native reverse source frames. Universal acceptance remains open.
 
 Compatibility is baseline-bound and tracked per command. A registered API, a prepared original image, a finite comparison and full contract acceptance are separate claims. Read each source with its revision and recorded limitations.

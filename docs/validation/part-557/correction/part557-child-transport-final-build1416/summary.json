@@ -1,0 +1,45 @@
+{
+  "Passed": true,
+  "Scope": "Actual final common-rollback Debug normal build aftercombinedmetadata1400c+fourthrawrule1400d applied1413; fullcheckout15/101affected/exactcommitCI stillrequired.",
+  "Capacity": {
+    "Requested": 1,
+    "Workers": 1,
+    "LogicalCpuCount": 16,
+    "AvailablePhysical": 32960851968,
+    "AvailableCommit": 30907494400,
+    "Policy": "Maximum2; require4CPUs/8GiB available physical/12GiB available commit, otherwise serial"
+  },
+  "Build": {
+    "Command": [
+      "C:\\Program Files\\dotnet\\dotnet.exe",
+      "build",
+      "tests/Erlang.Tests/Erlang.Tests.csproj",
+      "--no-restore",
+      "-m:1",
+      "--nologo",
+      "--disable-build-servers"
+    ],
+    "Pid": 45908,
+    "ExitCode": 0,
+    "ElapsedSeconds": 3.0160000000032596,
+    "TimedOut": false,
+    "ForcedCleanup": false,
+    "ActiveProcessesAfter": 0,
+    "ResourcesClosed": true,
+    "Errors": [],
+    "TotalProcesses": 2,
+    "UserCpuSeconds": 2.765625,
+    "KernelCpuSeconds": 0.515625,
+    "PeakJobCommitBytes": 113070080,
+    "PeakProcessCommitBytes": 106377216,
+    "StdoutSha256": "4D97436AE0AA8913579A933C45F8546C19BF6C42A5D5DA7CB25796197C13F3A2",
+    "StderrSha256": "43C8897FC50560E217AACE8984EC7E1AA8DF8EC13D3B6AAEE346A300D0D3EEAD"
+  },
+  "DerivedSummary": true,
+  "OriginalReviewSha256": "1976ACEE160E7C0D85B291A9B62ABE732A5D99E5F15C2E6FD291AFE51D15473C",
+  "OriginalReviewBytes": 7293189,
+  "SourceBeforeCount": 13904,
+  "SourceAfterCount": 13904,
+  "SourceBeforeEqualsAfter": true,
+  "CompleteSourceMapProof": "../part557-incremental-build-proof1421/review.json"
+}

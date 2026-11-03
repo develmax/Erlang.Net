@@ -1,0 +1,57 @@
+{
+  "Passed": true,
+  "NativePlanBytesAnd93DeclaredInputsUnchanged": true,
+  "NativePlanSha256": "A372441817625B01B55D221001E3B74733A4DED4887B303D604764C3037AEB99",
+  "FinalNormalBuilds": "1532 Debug and1533 Release",
+  "Profiles": [
+    {
+      "Configuration": "Debug",
+      "Cases": 23,
+      "ActualObservationSha256": "363222C6C02603E1927210683CDBBF25F3D0E1FC9263DBDEA05B2B8A8F9E8FE3",
+      "UnchangedRuntimeAssemblies": [
+        {
+          "Name": "Erlang.Runtime.dll",
+          "Sha256": "94116116B52B8E7AACAC94B70CEE8B45F87DE1DF31CD2CBF9EEFB607A0265014"
+        },
+        {
+          "Name": "Erlang.Terms.dll",
+          "Sha256": "A48B94CF8A62FC4A781A0BDD0E73D439455A4F1E75A79E88EE2A5C8D92188C82"
+        },
+        {
+          "Name": "Erlang.Serialization.dll",
+          "Sha256": "70D262165BB832EA2DB0110D041C5D51D11C66424514A142D38C681EDD5CCE7E"
+        },
+        {
+          "Name": "Erlang.Otp.Stdlib.dll",
+          "Sha256": "00397448DA0A598F2FCE9C3779DF54B38E32735C3FD99EA1588BB07995558465"
+        }
+      ],
+      "OriginalProcessReceiptSha256": "A365FE89364C2CF445342784906D0972360709A873C9EA1DA869A32466CAEA99"
+    },
+    {
+      "Configuration": "Release",
+      "Cases": 23,
+      "ActualObservationSha256": "3977ADA1009106CE5C2F9E65CEB8CCED50443E2FBC3B0D7189CC066835223E18",
+      "UnchangedRuntimeAssemblies": [
+        {
+          "Name": "Erlang.Runtime.dll",
+          "Sha256": "49834294632F6D65C001D7794CB3189F6311CB02F90A9161E8BE6932066AD7FE"
+        },
+        {
+          "Name": "Erlang.Terms.dll",
+          "Sha256": "24637BBC1F5A801C541D01B84391768BBD279C2A27FE059C018A00377FF23B9C"
+        },
+        {
+          "Name": "Erlang.Serialization.dll",
+          "Sha256": "BCC97E2D1C219902CAB4A43F1CBBE2507192591BDFA2ECA26BEEDFF622506141"
+        },
+        {
+          "Name": "Erlang.Otp.Stdlib.dll",
+          "Sha256": "8542269733744CC5B06A8B50FC409255C2C02BBA8E6443FCC740BC0727660F2D"
+        }
+      ],
+      "OriginalProcessReceiptSha256": "8B8F881824D15D8782BCE12B24D3EAC9D405D3B8DBB0E6EFAD4C6ABAD9D368AD"
+    }
+  ],
+  "Scope": "Retain actual23D/R executions1517/1518 after ONE test-only assertion change and source-metadata refresh: all93 declared inputs and four actual runtime/package DLLs per profile match. No rerun credit for changed tests; final101D/R must independently pass."
+}

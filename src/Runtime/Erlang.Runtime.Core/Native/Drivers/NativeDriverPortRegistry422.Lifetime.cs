@@ -101,6 +101,7 @@ internal sealed partial class NativeDriverPortRegistry422
                 row.Closing = true;
             }
             if (row.PhysicallyStopped) FinishStopped(row);
+            else if (row.LogicalStopReceived1311 && row.OpenSucceeded) FinishLogicalStopped1311(row);
             failedStart = row.Stopped.Task;
         }
         if (result.StartError != 0)
@@ -144,52 +145,31 @@ internal sealed partial class NativeDriverPortRegistry422
 
     private void FinishStopped(NativeDriverPortRow422 row)
     {
-        if (row.ChildAttempt455 is { } attempt) attempt.Row = null;
-        native.Remove(row.Native);
-        ports.Remove(row.Identity);
-        row.Writable.TrySetResult();
         try
         {
-            List<Exception>? failures = null;
-            // Dist retirement precedes linked-port notifications, but a failing
-            // callback cannot leave a physical row or its stop waiter stranded.
-            try
-            {
-                row.Distribution457?.PortStopped(row.Reason);
-            }
-            catch (Exception failure)
-            {
-                (failures ??= []).Add(failure);
-            }
-            try
-            {
-                if (row.OpenSucceeded) runtime.PortRemoved(
-                    row.Identity,
-                    row.Links.ToArray(),
-                    row.Reason,
-                    row.Reason641
-                );
-            }
-            catch (Exception failure)
-            {
-                (failures ??= []).Add(failure);
-            }
-            if (row.CleanupStatus != 0) (failures ??= []).Add(new IOException(NativeDriverPortNames422.NativeCleanupFailed));
-            if (failures is { Count: 1 }) throw failures[0];
-            if (failures is not null) throw new AggregateException(failures);
-            row.Stopped.TrySetResult();
+            var failures = row.PhysicalCloseFailures1311;
+            FinishLogicalStopped1311(row);
+            if (!row.Closed1311.Task.IsCompleted)
+                throw new InvalidDataException(DriverParentWireNames422.Invalid);
+            if (row.Closed1311.Task.Exception is { } logicalFailure) failures.Add(logicalFailure);
+            if (row.CleanupStatus != 0) failures.Add(new IOException(NativeDriverPortNames422.NativeCleanupFailed));
+            if (failures.Count == 0) row.Stopped.TrySetResult();
+            else row.Stopped.TrySetException(failures);
         }
         catch (Exception failure)
         {
+            row.Closed1311.TrySetException(failure);
             row.Stopped.TrySetException(failure);
         }
         finally
         {
-            row.Links.Clear();
-            row.Data = Nil.Value;
-            row.ReleaseReason641();
-            row.Lines = null;
-            row.Command = [];
+            // Keep a failed/unsettled row discoverable by the actual child-exit
+            // reclamation path; never remove the only owner of a pending waiter.
+            if (row.Stopped.Task.IsCompleted && row.Closed1311.Task.IsCompleted)
+            {
+                if (row.ChildAttempt455 is { } attempt) attempt.Row = null;
+                native.Remove(row.Native);
+            }
         }
     }
 
@@ -198,13 +178,13 @@ internal sealed partial class NativeDriverPortRegistry422
         bool send;
         lock (gate)
         {
-            send = !row.PhysicallyStopped;
+            send = !row.LogicalStopReceived1311 && !row.PhysicallyStopped;
             row.Closing = true;
             row.Writable.TrySetResult();
         }
         if (send) await transport.Close(row.Native).ConfigureAwait(false);
-        // Close response releases its normal permit before delayed cleanup jobs
-        // are awaited. Those jobs can require that exact normal queue.
-        await row.Stopped.Task.ConfigureAwait(false);
+        // Public close observes native stop, independently of late jobs. VM
+        // shutdown and force paths separately join the retained physical ACK.
+        await row.Closed1311.Task.ConfigureAwait(false);
     }
 }

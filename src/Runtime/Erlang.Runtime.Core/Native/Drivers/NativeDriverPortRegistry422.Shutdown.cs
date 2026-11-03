@@ -7,7 +7,7 @@ internal sealed partial class NativeDriverPortRegistry422
         NativeDriverPortRow422[] rows;
         lock (gate)
         {
-            rows = native.Values.Where(row => row.Native.Driver == driver.Identity).ToArray();
+            rows = native.Values.Where(row => row.Native.Driver == driver.Identity && !row.LogicalClosePublished1311).ToArray();
             foreach (var row in rows)
             {
                 row.StopRequested = true;
@@ -16,7 +16,7 @@ internal sealed partial class NativeDriverPortRegistry422
             }
         }
 
-        return CloseRows(rows, transport);
+        return CloseRows(rows, transport, waitPhysical: false);
     }
 
     internal Task CloseAll(DriverParentPeerTransport422 transport)
@@ -36,7 +36,11 @@ internal sealed partial class NativeDriverPortRegistry422
         return CloseRows(rows, transport);
     }
 
-    private async Task CloseRows(NativeDriverPortRow422[] rows, DriverParentPeerTransport422 transport)
+    private async Task CloseRows(
+        NativeDriverPortRow422[] rows,
+        DriverParentPeerTransport422 transport,
+        bool waitPhysical = true
+    )
     {
         // Stage every stop before waiting one final ACK. Stop callbacks and
         // async/select/process_exit cleanup remain on the real retained queue.
@@ -57,6 +61,16 @@ internal sealed partial class NativeDriverPortRegistry422
             try
             {
                 await task.ConfigureAwait(false);
+            }
+            catch (Exception failure)
+            {
+                failures.Add(failure);
+            }
+        foreach (var row in rows)
+            try
+            {
+                // Logical port death is not proof of late async/select cleanup.
+                if (waitPhysical) await row.Stopped.Task.ConfigureAwait(false);
             }
             catch (Exception failure)
             {
@@ -86,6 +100,7 @@ internal sealed partial class NativeDriverPortRegistry422
                 row.Closing = true;
                 row.PhysicallyStopped = true;
                 row.Writable.TrySetResult();
+                row.Closed1311.TrySetException(failure);
                 row.Stopped.TrySetException(failure);
                 row.Links.Clear();
                 row.Lines = null;

@@ -52,3 +52,5 @@ if ($status -ne 0) { throw "Configured original catalog failed: $run" }
 Copy-Item -LiteralPath (Join-Path $run 'results/comparison.json') -Destination (Join-Path $root 'latest.json')
 [ordered]@{ Directory = $run; Manifest = $manifest } | ConvertTo-Json | Set-Content -LiteralPath (Join-Path $root 'latest-run.json') -Encoding utf8
 Write-Host "Configured original catalog: 1321/1321, native execution and cleanup verified: $run"
+
+& (Join-Path $PSScriptRoot 'validate-async-microstates.ps1') -Admission $Admission -PackageManifest $manifest -Configuration Release -Python $Python

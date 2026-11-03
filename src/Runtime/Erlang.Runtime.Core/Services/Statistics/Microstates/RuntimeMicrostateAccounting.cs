@@ -6,6 +6,7 @@ internal sealed partial class RuntimeMicrostateAccounting
 {
     private readonly object gate = new();
     private readonly Dictionary<(RuntimeMicrostateThreadIdentity Thread, string Type), RuntimeMicrostateRecord> records = new();
+    private readonly LinkedList<RuntimeMicrostateRecord> unmanagedRecords1171 = new();
     private readonly Dictionary<string, int> identities = new(StringComparer.Ordinal);
     private int requested, instrumentationEnabled;
     private Exception? unavailable;
@@ -122,10 +123,12 @@ internal sealed partial class RuntimeMicrostateAccounting
                 thread,
                 managed
             );
+            LinkedListNode<RuntimeMicrostateRecord>? unmanagedNode = managed ? null : new(record);
             records.EnsureCapacity(records.Count + 1);
             identities.EnsureCapacity(identities.Count + 1);
             identities[type] = Math.Max(identities.GetValueOrDefault(type), identity);
             records.Add((thread, type), record);
+            if (unmanagedNode is not null) unmanagedRecords1171.AddFirst(unmanagedNode);
 
             return record;
         }

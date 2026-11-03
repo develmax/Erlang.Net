@@ -846,3 +846,8 @@ Reuse the existing System.MemoryExtensions.IndexOf and UTF-8 encoder (platform f
 ## Part564 - Repeated String separator searches
 
 Reuse the same reviewed StringBinarySearchBuffer and platform IndexOf for member separator searches. StringTrim/StringTake retain a buffer across their binary loop; StringLexemes owns one across Run, Pick and Skip. Nonmember UTF-8 decoding retains the bounded prefix reader, and pattern creation/Unicode calls stay in their original order. No new dependency, copied reference implementation, native boundary grant or licensing change is introduced. Existing readonly-backing identity/range checks, byte-proven copied suffixes and fallback reads remain the ownership contract. This closes another repeated-copy path in the existing managed alternative, without changing pinned original Erlang or promising linear whole-runtime work.
+
+
+## CI evidence reuse and async diagnostic retention - 2026-11-04
+
+Reuse Python standard-library JSON/XML/hashlib/urllib/zipfile and existing Git/dotnet APIs. No new package or copied dependency is introduced. Actual restored NuGet package bytes are fingerprinted under their existing licenses. Workflow/job conclusions and raw reports remain authoritative; conditional main reuse does not generate review approvals or change public OTP contracts. Keep pinned OTP29.1.1 unchanged.

@@ -1,3 +1,7 @@
+## Current batching and validation policy — 2026-11-03
+
+Follow [Batched validation and delivery policy](docs/engineering/BATCHED_VALIDATION_POLICY.md): connected delivery packages with 60% new APIs/capabilities including full validation and 40% existing-contract closure, declared dependency-focused iteration checks and one complete final package gate. Target four or five measured independent full groups and approximately 20 minutes end to end; enforce exact coverage, bounded resources and isolated/exclusive lanes. Shared CI/helper changes and dispatch remain with the existing CI owner (#102, w-docs); root owns runtime integration and its separate focused poll experiment. Existing required workflows remain mandatory until reviewed replacements are active. Post-merge reuse requires explicit whole-input/matrix/review equivalence proof, never a matching SHA or DLL alone. No unchanged retry without proven transient cause. Preserve full public pinned-OTP GC/scheduler/resource contracts, raw failures and registry classifications. Historical checkpoints below retain their original scopes.
+
 # Project instructions
 
 ## Layout

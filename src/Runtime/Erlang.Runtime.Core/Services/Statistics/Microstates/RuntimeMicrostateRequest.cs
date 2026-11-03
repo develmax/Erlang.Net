@@ -2,7 +2,7 @@ namespace Erlang;
 
 // Temporary admitted operation only. No process/worker back-link is installed
 // in permanent accounting records. Completion includes real normal callbacks.
-internal sealed class RuntimeMicrostateRequest
+internal sealed partial class RuntimeMicrostateRequest
 {
     private readonly object gate = new();
     private readonly RuntimeMicrostateAccounting owner;
@@ -12,7 +12,7 @@ internal sealed class RuntimeMicrostateRequest
     private readonly List<Exception> failures = new();
     private StatisticsTrapRequest? statisticsTrap;
     private NativeResourceMicrostateWork989? auxiliary989;
-    internal int ReplyCount => checked(normalCapacity + (auxiliary989 is null ? 0 : 1) + (Action == RuntimeMicrostateAction.Gather ? Unmanaged.Length : 0));
+    internal int ReplyCount => checked(normalCapacity + (auxiliary989 is null ? 0 : 1) + (Action == RuntimeMicrostateAction.Gather ? checked(Unmanaged.Length + remoteCount1171) : 0));
     internal RuntimeMicrostateAction Action { get; }
     internal bool Previous { get; set; }
     internal bool NoOp { get; set; }
@@ -28,8 +28,8 @@ internal sealed class RuntimeMicrostateRequest
 
     internal void ReserveUnmanaged(int count)
     {
-        snapshots.EnsureCapacity(checked(normalCapacity + count + (auxiliary989 is null ? 0 : 1)));
-        failures.EnsureCapacity(checked(count + 3));
+        snapshots.EnsureCapacity(checked(normalCapacity + count + (auxiliary989 is null ? 0 : 1) + (Action == RuntimeMicrostateAction.Gather ? remoteCount1171 : 0)));
+        failures.EnsureCapacity(checked(count + remoteCount1171 + RuntimeMicrostateOperationNames1171.SourceFailureReserve));
     }
 
     internal void BindAuxiliary989(NativeResourceMicrostateWork989? auxiliary) => auxiliary989 = auxiliary;
@@ -50,15 +50,34 @@ internal sealed class RuntimeMicrostateRequest
 
     internal void AbortStatisticsTrap(Exception error)
     {
+        Exception? reporting = null;
+        Exception? auxiliary = null;
         try
         {
             Failure(error);
         }
-        finally
+        catch (Exception failure)
+        {
+            reporting = failure;
+        }
+        try
         {
             auxiliary989?.AbortPrepared(error);
+        }
+        catch (Exception failure)
+        {
+            auxiliary = failure;
+        }
+        finally
+        {
             synchronous.TrySetException(error);
         }
+
+        if (reporting is null && auxiliary is null) return;
+        var errors = new StatisticsTrapFailures();
+        if (reporting is not null) errors.Add(reporting);
+        if (auxiliary is not null) errors.Add(auxiliary);
+        errors.ThrowIfAny();
     }
 
     internal bool Prepare()
@@ -96,19 +115,7 @@ internal sealed class RuntimeMicrostateRequest
 
     internal void RunSourcePhase(Action ownNormal)
     {
-        foreach (RuntimeMicrostateRecord record in Unmanaged)
-        {
-            try
-            {
-                RuntimeMicrostateSnapshot? snapshot = owner.ApplyUnmanagedSnapshot(this, record);
-                if (Action == RuntimeMicrostateAction.Gather)
-                    statisticsTrap?.Reply(snapshot!.ToTerm());
-            }
-            catch (Exception error)
-            {
-                Failure(error);
-            }
-        }
+        ApplyLocalUnmanaged1171();
         try
         {
             ownNormal();
@@ -117,23 +124,7 @@ internal sealed class RuntimeMicrostateRequest
         {
             Failure(error);
         }
-        try
-        {
-            owner.FinishRequest(this);
-        }
-        catch (Exception error)
-        {
-            Failure(error);
-        }
-        finally
-        {
-            lock (gate)
-            {
-                if (failures.Count == 0) synchronous.TrySetResult();
-                else if (statisticsTrap is null) synchronous.TrySetException(new AggregateException(failures));
-                else synchronous.TrySetException(failures);
-            }
-        }
+        FinishSourcePhase1171();
     }
 
     internal Term Result()

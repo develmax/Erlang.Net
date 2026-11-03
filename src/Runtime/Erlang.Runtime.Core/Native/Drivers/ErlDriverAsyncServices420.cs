@@ -2,7 +2,7 @@ using System.Runtime.InteropServices;
 
 namespace Erlang;
 
-internal sealed class ErlDriverAsyncServices420
+internal sealed partial class ErlDriverAsyncServices420
 {
     private readonly object gate = new();
     private readonly Dictionary<int, ErlDriverAsyncJob420> pending = new();
@@ -25,7 +25,30 @@ internal sealed class ErlDriverAsyncServices420
         ErlDriverPdlServices420 pdl,
         ErlDriverServiceFault420 fault
     )
+        : this(
+            acquire,
+            bridge,
+            tokens,
+            asyncThreads,
+            jobs,
+            pdl,
+            fault,
+            false
+        )
+    { }
+
+    private ErlDriverAsyncServices420(
+        Func<nint, ErlDriverPortReadLease420?> acquire,
+        ErlDriverThreadBridge420 bridge,
+        ErlDriverTermTokens420 tokens,
+        uint asyncThreads,
+        ErlDriverPortJobs420 jobs,
+        ErlDriverPdlServices420 pdl,
+        ErlDriverServiceFault420 fault,
+        bool accounted1151
+    )
     {
+        accountingConfigured1151 = accounted1151;
         this.acquire = acquire;
         this.bridge = bridge;
         this.tokens = tokens;
@@ -37,12 +60,21 @@ internal sealed class ErlDriverAsyncServices420
             [nameof(ErlDriverCallbackTypes420.driver_async_port_key)] = new ErlDriverCallbackTypes420.driver_async_port_key(PortKey),
             [nameof(ErlDriverCallbackTypes420.driver_async)] = new ErlDriverCallbackTypes420.driver_async(Submit)
         };
-        if (asyncThreads != 0) pool = new(
-            bridge,
-            asyncThreads,
-            Completed,
-            fault
-        );
+        if (asyncThreads != 0)
+        {
+            if (accounted1151) accounting1151 = new(
+                bridge,
+                asyncThreads,
+                Completed,
+                fault
+            );
+            else pool = new(
+                bridge,
+                asyncThreads,
+                Completed,
+                fault
+            );
+        }
     }
 
     internal IReadOnlyDictionary<string, Delegate> Callbacks { get; }
@@ -88,7 +120,7 @@ internal sealed class ErlDriverAsyncServices420
             var invoker = Work(invoke);
             var freer = free == nint.Zero ? null : Work(free);
             lock (gate) ObjectDisposedException.ThrowIf(closing, this);
-            if (pool is null)
+            if (pool is null && accounting1151 is null)
             {
                 if (key != nint.Zero) Marshal.WriteInt32(key, 0);
                 invoker(data);
@@ -115,8 +147,8 @@ internal sealed class ErlDriverAsyncServices420
                 int identity = next == int.MaxValue ? 1 : next + 1;
                 while (pending.ContainsKey(identity)) identity = identity == int.MaxValue ? 1 : identity + 1;
                 next = identity;
-                lane = key == nint.Zero ? (uint)identity % pool.Lanes
-                    : unchecked((uint)Marshal.ReadInt32(key)) % pool.Lanes;
+                lane = key == nint.Zero ? (uint)identity % AsyncLanes1151
+                    : unchecked((uint)Marshal.ReadInt32(key)) % AsyncLanes1151;
                 if (key != nint.Zero) Marshal.WriteInt32(key, unchecked((int)lane));
                 job = new(
                     identity,
@@ -130,7 +162,7 @@ internal sealed class ErlDriverAsyncServices420
                 ulong nativeOwner = bridge.ReadOwner();
                 // Keep native acceptance and shutdown admission under one lock.
                 // A worker completion may wait this lock, but submit never waits it.
-                pool.Submit(
+                SubmitAsync1151(
                     lane,
                     nativeOwner,
                     checked((ulong)identity),
@@ -262,6 +294,7 @@ internal sealed class ErlDriverAsyncServices420
     {
         lock (gate) closing = true;
         if (pool is not null) await pool.CloseAsync().ConfigureAwait(false);
+        if (accounting1151 is not null) await accounting1151.CloseAsync().ConfigureAwait(false);
         Task[] completions;
         lock (gate) completions = pending.Values.Select(job => job.Done.Task).ToArray();
         await Task.WhenAll(completions).ConfigureAwait(false);

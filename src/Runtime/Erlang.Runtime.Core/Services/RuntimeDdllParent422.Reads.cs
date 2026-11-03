@@ -41,7 +41,7 @@ internal sealed partial class RuntimeDdllParent422
                     : row.KillPorts ? Term.List(Term.A(DdllParentAtoms422.KillPorts)) : Nil.Value;
             case DdllParentAtoms422.PortCount:
                 return row.Linked ? Term.A(DdllParentAtoms422.Linked)
-                    : permanent ? Term.A(DdllParentAtoms422.Permanent) : Term.I(row.Ports.Count);
+                    : permanent ? Term.A(DdllParentAtoms422.Permanent) : Term.I(row.ActivePortCount1311);
             case DdllParentAtoms422.Linked:
                 return CoreModules.Boolean(row.Linked);
             case DdllParentAtoms422.Permanent:

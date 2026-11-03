@@ -1,0 +1,133 @@
+{
+  "Part": 557,
+  "Status": "Local final integrated source admissions, builds and selected regressions complete; exact committed checkout, CI/review/merge remain required",
+  "ApiDelta": 0,
+  "FullContractDelta": 0,
+  "ReadinessUnchanged": {
+    "Registered": 708,
+    "Full": 180,
+    "Pending": 504,
+    "KnownDifferences": 24,
+    "ErlangPresent": 351,
+    "ErlangFull": 83,
+    "ErlangPending": 255,
+    "ErlangKnownDifferences": 13
+  },
+  "OriginalOtp": "OTP-29.1.1/ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "LocalWindows": {
+    "NativeObserver": [
+      {
+        "Configuration": "Debug",
+        "Cases": 7,
+        "Passed": true,
+        "Evidence": "evidence/native-debug/completion.json",
+        "ExecutedPlanSha256": "B248DC0BA74E48BF5DF3FB28B9C9A5A207F230183FA5A6F2485AE06BC5AA7B36"
+      },
+      {
+        "Configuration": "Release",
+        "Cases": 7,
+        "Passed": true,
+        "Evidence": "evidence/native-release/completion.json",
+        "ExecutedPlanSha256": "B248DC0BA74E48BF5DF3FB28B9C9A5A207F230183FA5A6F2485AE06BC5AA7B36"
+      }
+    ],
+    "AffectedRegression": {
+      "Debug": {
+        "Passed": 97,
+        "Selected": 97
+      },
+      "Release": {
+        "Passed": 97,
+        "Selected": 97
+      },
+      "Catalog": 9601,
+      "FullCatalogExecuted": false
+    },
+    "CrossPortClose": {
+      "RetainedRed": "evidence/cross-port-red/own.etf",
+      "CorrectedPermanentCase": "original-queued-port-close-A1",
+      "DebugAndRelease": true,
+      "FinalObserverExtendedWithPublicCustodyChecks": true
+    },
+    "ForceUnload": {
+      "FiveWitnessesMatch": true,
+      "RawWholeEqual": false,
+      "PostUnloadBadargFrames": {
+        "Original": 8,
+        "Own": 6,
+        "OwnSixEqualOriginalPrefix": true
+      },
+      "ContextAlignmentOpen": true
+    },
+    "CompilerAncillary": {
+      "ExplicitDeclaredRetirementOnly": true,
+      "RawForcedCleanupPreserved": true,
+      "NaturalCompletionClaimed": false,
+      "OtherStagesRequireUnforced": true
+    },
+    "CohortPrototype": {
+      "Passed": false,
+      "TimeoutSeconds": 3600.047,
+      "TestsExecuted": 0,
+      "Enabled": false,
+      "SpeedupClaimed": false
+    }
+  },
+  "Open": [
+    "In-flight RPC cancellation and additional cutpoints",
+    "Actual persistent poll provider",
+    "Default configured service topology and missing feature profiles",
+    "Linux native DriverHost",
+    "Remaining S0-S5 complete statistics matrix",
+    "Force observer identical invocation-context comparison",
+    "Exact committed checkout transport/source proof and exact-head CI/review/merge"
+  ],
+  "Architecture": "C# runtime/BIF implementations with unchanged pure OTP Erlang/BEAM resources; no new dependency or public function API",
+  "EvidenceCopyList": "evidence-copy-list.json",
+  "FinalIntegration": {
+    "Metadata": {
+      "Outputs": 34,
+      "Reviewed": "evidence/final-metadata-peer/review.json",
+      "Applied": "evidence/final-metadata-apply/review.json"
+    },
+    "SourceAdmissions": {
+      "Passed": true,
+      "FocusedNativePlans": 13,
+      "Additional": [
+        "MFA",
+        "Resource529"
+      ],
+      "Receipt": "evidence/final-admissions/review.json"
+    },
+    "Builds": {
+      "Debug1363": true,
+      "Release1365": true,
+      "SourceEntries": 13902,
+      "AllFourPrePostMapsEqual": true,
+      "CanonicalMap": "evidence/final-integration/canonical-source-map13902.json"
+    },
+    "AffectedRegression": {
+      "Debug1364": {
+        "Passed": 97,
+        "Selected": 97,
+        "RuntimeFilesBeforeAfter": 83
+      },
+      "Release1366": {
+        "Passed": 97,
+        "Selected": 97,
+        "RuntimeFilesBeforeAfter": 83
+      },
+      "Catalog": 9601,
+      "FullCatalogExecuted": false
+    },
+    "Native7BothProfiles": "Earlier actual1347/1348 preserved, same runtime C#; no re-execution claim after metadata-only integration",
+    "Remaining": [
+      "Exact committed checkout transport/source proofs",
+      "Mandatory exact-head CI",
+      "Current review",
+      "Merge"
+    ]
+  },
+  "EvidenceBytes": 17424207,
+  "EvidenceCopies": 198
+}

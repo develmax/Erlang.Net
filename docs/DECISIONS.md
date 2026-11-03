@@ -2,6 +2,8 @@
 
 ## Current decisions
 
+Accepted main [PR103](https://github.com/develmax/Erlang.Net/pull/103) adds native async accounting/cancellation records. Their [complete original decisions](history/main-103-decisions/index.md) are preserved separately from the six architecture records below; bounded native controls do not establish whole statistics acceptance.
+
 The [decision index](decisions/index.md) contains separate documents for:
 
 - [Baseline and immutable term model](decisions/0001-baseline-and-term-model.md)

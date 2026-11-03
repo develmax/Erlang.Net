@@ -2,6 +2,8 @@
 
 ## Current status sources
 
+- [Accepted main PR103](https://github.com/develmax/Erlang.Net/pull/103): native async accounting, independent logical/physical port closure, pending RPC shutdown and final microstate cancellation. See the [retained report](validation/part-557/REPORT.md) and [exact incoming progress snapshot](history/main-103-progress/index.md). These bounded results do not close the whole statistics contract.
+
 - [Integration PR #102](https://github.com/develmax/Erlang.Net/pull/102): documentation/history split and local libraries are combined; final-head delivery gates are tracked in the PR and [integration evidence](validation/integration-20261103/README.md).
 
 - [ordsets verification](ORDSETS_COMPATIBILITY.md): all 21 APIs have a permanent whole-result/stack/effect corpus; the managed merge stack discrepancy is repaired. Universal compatibility acceptance remains open.

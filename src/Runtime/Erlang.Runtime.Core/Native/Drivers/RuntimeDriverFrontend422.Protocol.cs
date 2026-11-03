@@ -183,6 +183,14 @@ internal sealed partial class RuntimeDriverFrontend422
             case ErlDriverHostOperation420.PortOutput:
                 ports.Output(identity, ErlDriverPrimitiveWire420.Decode<ErlDriverOutput420>(message.Data));
                 break;
+            case ErlDriverHostOperation420.PortClosed1311:
+                {
+                    var stopped = ErlDriverPrimitiveWire420.Decode<ErlDriverClosed1311>(message.Data);
+                    if (!stopped.NativeStopped) throw new InvalidDataException(DriverParentWireNames422.Invalid);
+                    monitors.PortStopped(identity);
+                    ports.Closed1311(identity, stopped);
+                    break;
+                }
             case ErlDriverHostOperation420.PortStopped:
                 monitors.PortStopped(identity);
                 ports.Stopped(identity, ErlDriverPrimitiveWire420.Decode<ErlDriverStopped420>(message.Data));

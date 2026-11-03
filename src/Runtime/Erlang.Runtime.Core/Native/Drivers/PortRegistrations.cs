@@ -36,7 +36,11 @@ internal static class PortRegistrations
                             Cons.From(arguments),
                             new MapTerm(entries),
                             function,
-                            function == PortNames.Open ? PortErrorSourceLocations.Open(exception.Reason) : null
+                            function == PortNames.Open ? PortErrorSourceLocations.Open(exception.Reason)
+                                : function == PortNames.Control && reason is Atom { Name: ErlangErrorReasons.BadArgument }
+                                    ? context.Runtime.NativeMetadataImage527?.BadargInfoLocation545
+                                        ?? ErlangErrorHelperMetadata.BadArgumentWithInfo
+                                    : null
                         )
                     };
                 }

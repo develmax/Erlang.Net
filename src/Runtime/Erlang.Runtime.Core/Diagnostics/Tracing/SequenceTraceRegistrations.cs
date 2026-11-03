@@ -75,6 +75,8 @@ internal static class SequenceTraceRegistrations
             ? ValueTask.FromResult<Term>(Term.I(context.Runtime.AtomCount))
             : arguments[0] is Atom { Name: AtomRegistryInfoNames.AtomLimit }
             ? ValueTask.FromResult<Term>(Term.I(context.Runtime.AtomLimit))
+            : arguments[0] is Atom { Name: RuntimeDriverSystemInfoNames1195.ThreadPoolSize }
+            ? ValueTask.FromResult(context.Runtime.ReadDriverThreadPoolSize1195(context))
             : arguments[0] is Atom { Name: RuntimeLocalNodeAdmissionNames.Creation } ? ValueTask.FromResult<Term>(Term.I(context.Runtime.LocalIdentity.Snapshot.Creation))
             : arguments[0] is Atom { Name: CodePurgerNames432.Outstanding }
             ? ValueTask.FromResult(context.Runtime.ReadSystemRequestWindow432(context))

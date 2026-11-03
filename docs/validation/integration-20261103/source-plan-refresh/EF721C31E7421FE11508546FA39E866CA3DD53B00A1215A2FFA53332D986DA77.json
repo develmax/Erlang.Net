@@ -1,0 +1,69 @@
+{
+  "Status": "SOURCE_IDENTITIES_ONLY_NO_EXECUTION_OR_PROMOTION",
+  "PriorAudit": "docs/validation/integration-20261103/source-plan-refresh/0D8B2C669E4F42F4C4E670A0E76F9E57B2423A708CB5FEC5443D36F8A2708DC6.json",
+  "ArchivedOriginals": {
+    "tools/Native/Erlang.NifPendingVarargsObservations/reviewed-source-plan.json": "docs/validation/integration-20261103/source-plan-refresh/5202B0C4291F465621065B169AB11669497373C383DA5D97D1719BBFC80DCD6D.json",
+    "tools/Native/Erlang.NifPrivateData557Observations/source-plan.json": "docs/validation/integration-20261103/source-plan-refresh/F6FB2DB15E8A2F61A469832A2DE01884202E3633688E6377E9DBD0DDE5483CBC.json",
+    "tools/Native/Erlang.NifReallocationObservations/SOURCE-PLAN.json": "docs/validation/integration-20261103/source-plan-refresh/2C5E1B898AD44A2D2D07882F29799E75FF84000A3D08AA821F9CF028E8B7DA04.json",
+    "tools/Runtime/Erlang.MonitorOriginal645Observations/inputs.json": "docs/validation/integration-20261103/source-plan-refresh/AF050FAAE8C87C232689CDAD8958540A219917752AD6D85AE58F20F69BE14864.json",
+    "tools/Runtime/Erlang.OwnedGuest506Observations/source-plan.json": "docs/validation/integration-20261103/source-plan-refresh/F509E6F671EA75A5C637E6BAA606817718F72674C6DD56CF219C5DB7C069DD73.json",
+    "tools/Validation/Erlang.AsyncMicrostateValidation/source-plan.json": "docs/validation/integration-20261103/source-plan-refresh/C9CC103DA913BA3F6132815759FAC184E3BC67C435CD3389EAAA25957CFEFE48.json"
+  },
+  "Changes": [
+    {
+      "Manifest": "docs/validation/integration-20261103/source-plan-refresh/Erlang.MonitorOriginal645Observations-current-source.json",
+      "Path": "tools/Validation/Erlang.AsyncMicrostateValidation/collect.py",
+      "Before": "83B4CF81BF4D69D22FF606AF84D85B7A30308BA2A4C812A295A2865EEE72FA29",
+      "After": "E1A4A8C7348E48492E1A2E5D0F12D6FD4D94FD207F3A9918BE3051F43B829566"
+    },
+    {
+      "Manifest": "tools/Native/Erlang.NifPrivateData557Observations/source-plan.json",
+      "Path": ".github/workflows/validate.yml",
+      "Before": "626FD17C7BD020C72E07C93F7E4F4090FFFD6515EB072CC50B03543A07ECC779",
+      "After": "BF78A19B99E29F190B99D2B909BD46F09305D303BFB1BEB0DED97CC368961200"
+    },
+    {
+      "Manifest": "tools/Runtime/Erlang.OwnedGuest506Observations/source-plan.json",
+      "Path": "tools/Runtime/Erlang.MonitorOriginal645Observations/inputs.json",
+      "Before": "AF050FAAE8C87C232689CDAD8958540A219917752AD6D85AE58F20F69BE14864",
+      "After": "BF511CCF5D1E2B4B469950057FD8002907D4C84F547A1DC7DB580CC205921064"
+    },
+    {
+      "Manifest": "tools/Runtime/Erlang.OwnedGuest506Observations/source-plan.json",
+      "Path": ".github/workflows/validate.yml",
+      "Before": "626FD17C7BD020C72E07C93F7E4F4090FFFD6515EB072CC50B03543A07ECC779",
+      "After": "BF78A19B99E29F190B99D2B909BD46F09305D303BFB1BEB0DED97CC368961200"
+    },
+    {
+      "Manifest": "tools/Validation/Erlang.AsyncMicrostateValidation/source-plan.json",
+      "Path": "tools/Validation/Erlang.AsyncMicrostateValidation/collect.py",
+      "Before": "83B4CF81BF4D69D22FF606AF84D85B7A30308BA2A4C812A295A2865EEE72FA29",
+      "After": "E1A4A8C7348E48492E1A2E5D0F12D6FD4D94FD207F3A9918BE3051F43B829566"
+    },
+    {
+      "Manifest": "tools/Native/Erlang.NifPendingVarargsObservations/reviewed-source-plan.json",
+      "Path": "tools/Runtime/Erlang.MonitorOriginal645Observations/inputs.json",
+      "Before": "AF050FAAE8C87C232689CDAD8958540A219917752AD6D85AE58F20F69BE14864",
+      "After": "BF511CCF5D1E2B4B469950057FD8002907D4C84F547A1DC7DB580CC205921064"
+    },
+    {
+      "Manifest": "tools/Native/Erlang.NifPendingVarargsObservations/reviewed-source-plan.json",
+      "Path": "tools/Runtime/Erlang.OwnedGuest506Observations/source-plan.json",
+      "Before": "F509E6F671EA75A5C637E6BAA606817718F72674C6DD56CF219C5DB7C069DD73",
+      "After": "AFAF3A097105FC668EA65FD7998BCBF9759CB6244DDFD3529C4A9E6C0C7E15E1"
+    },
+    {
+      "Manifest": "tools/Native/Erlang.NifReallocationObservations/SOURCE-PLAN.json",
+      "Path": "tools/Native/Erlang.NifPendingVarargsObservations/reviewed-source-plan.json",
+      "Before": "5202B0C4291F465621065B169AB11669497373C383DA5D97D1719BBFC80DCD6D",
+      "After": "D6FCBD172A240E5A32CDDE14FFDA9D28A090C6CD1A45644826A61935CB197301"
+    },
+    {
+      "Manifest": "tools/Native/Erlang.NifReallocationObservations/SOURCE-PLAN.json",
+      "Path": ".github/workflows/nif-pending-native.yml",
+      "Before": "C7D1D3EE3CC4A319C05485DEB5593C9AEADED58FAADBF880AC020D7CC28007B6",
+      "After": "A5B428777E154E9D894E2182A2DFE865BC9D5386DE58678F78A6E708C2FCC585"
+    }
+  ],
+  "AddedSourceMembership": "StringUtf8Parameters.cs and MapTerm.ArithmeticOrder.cs in their existing caller source closures"
+}
