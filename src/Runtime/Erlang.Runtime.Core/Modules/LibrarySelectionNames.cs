@@ -5,6 +5,7 @@ internal static class LibrarySelectionNames
     internal static readonly string[] ManagedModules =
     [
         ErlangModuleNames.Module,
+        InterpreterCodeNativeNames.Module,
         ListModuleNames.Module,
         QueueModuleNames.Module,
         ProplistModuleNames.Module,
@@ -18,6 +19,7 @@ internal static class LibrarySelectionNames
     ];
     internal static readonly string[] StringDependencies = [ListModuleNames.Module, UnicodeNativeNames.Module, "unicode_util"];
     internal static readonly string[] UnicodeDependencies = [ListModuleNames.Module, "unicode_util"];
+    internal static readonly string[] CodeDependencies = CodeLibraryDependencies.Required;
     internal const string Request = "Invalid startup library selection";
     internal const string BeamOnly = "Selected library requires the original BEAM backend";
     internal const string Phase = "Startup library selection failed";

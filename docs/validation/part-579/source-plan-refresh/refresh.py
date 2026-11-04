@@ -4,6 +4,19 @@ root=pathlib.Path.cwd()
 out=root/'docs/validation/part-579/source-plan-refresh'
 out.mkdir(parents=True,exist_ok=True)
 sha=lambda b:hashlib.sha256(b).hexdigest().upper()
+monitor=root/'tools/Runtime/Erlang.MonitorOriginal645Observations/inputs.json'
+monitor_inputs=json.loads(monitor.read_bytes())
+oldpath=monitor_inputs['SourceFreezePath']
+newpath='docs/validation/part-579/source-plan-refresh/monitor-current-source.json'
+if oldpath!=newpath:
+ old=json.loads((root/oldpath).read_bytes())
+ new=dict(Scope='PR109 code integration current source identities only; no execution or compatibility promotion',
+  PinnedOtpCommit=old['PinnedOtpCommit'],ParentPath=oldpath,ParentSha256=sha((root/oldpath).read_bytes()),
+  Rows=[dict(Path=x['Path'],Sha256=sha((root/x['Path']).read_bytes())) for x in old['Rows']])
+ (root/newpath).write_bytes((json.dumps(new,indent=2)+'\n').encode())
+ raw=monitor.read_bytes()
+ raw=raw.replace(oldpath.encode(),newpath.encode()).replace(monitor_inputs['SourceFreezeSha256'].encode(),sha((root/newpath).read_bytes()).encode())
+ monitor.write_bytes(raw)
 names=[
  'Native/Erlang.NifIntegratedObservations/inputs.json',
  'Native/Erlang.NifVersion651Observations/inputs.json',
@@ -60,9 +73,10 @@ def refresh(p):
      block=match.group(0)
      if not re.search(r'"Sha256"\s*:\s*"'+x['Sha256']+'"',block):return block
      block=re.sub(r'("Sha256"\s*:\s*")[^"]+',lambda m:m[1]+digest,block)
-     if 'Bytes'in x:block=re.sub(r'("Bytes"\s*:\s*)\d+',lambda m:m[1]+str(len(data)),block)
+     for byte_field in ('Bytes','SealedBytes'):
+      if byte_field in x:block=re.sub(r'('+byte_field+r'"\s*:\s*)\d+',lambda m:m[1]+str(len(data)),block)
      return block
-    if digest!=x['Sha256'].upper() or ('Bytes'in x and x['Bytes']!=len(data)):
+    if digest!=x['Sha256'].upper() or any(key in x and x[key]!=len(data) for key in ('Bytes','SealedBytes')):
      text,count=re.subn(pattern,update,text)
      if not count:raise ValueError('No object span: '+x['Path'])
      changes.append(dict(Path=x['Path'],Before=x['Sha256'],After=digest,HashMode=x.get('HashMode','Raw')))

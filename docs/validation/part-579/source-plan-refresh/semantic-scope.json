@@ -1,0 +1,790 @@
+{
+  "Passed": true,
+  "NewAttributeRule": "/docs/validation/part-579/** -text -whitespace",
+  "Checks": [
+    {
+      "Path": ".github/workflows/nif-pending-native.yml",
+      "OnlyExistingHashPinsChanged": true
+    },
+    {
+      "Path": ".github/workflows/nif-reallocation-native.yml",
+      "OnlyExistingHashPinsChanged": true
+    },
+    {
+      "Path": ".github/workflows/nif-upgrade-integrated.yml",
+      "OnlyExistingHashPinsChanged": true
+    },
+    {
+      "Path": ".github/workflows/nif-version651-linux.yml",
+      "OnlyExistingHashPinsChanged": true
+    },
+    {
+      "Path": ".github/workflows/validate.yml",
+      "OnlyExistingHashPinsChanged": true
+    },
+    {
+      "Path": "docs/mfa-compatibility.json",
+      "MembershipAndAcceptancePreserved": true,
+      "Changes": [
+        {
+          "Path": "/VerifiedSourceFiles/180/Sha256",
+          "Kind": "identity"
+        },
+        {
+          "Path": "/VerifiedSourceFiles/382/Sha256",
+          "Kind": "identity"
+        },
+        {
+          "Path": "/VerifiedSourceFiles/503/Sha256",
+          "Kind": "identity"
+        },
+        {
+          "Path": "/VerifiedSourceFiles/604/Sha256",
+          "Kind": "identity"
+        },
+        {
+          "Path": "/VerifiedSourceFiles/1396/Sha256",
+          "Kind": "identity"
+        },
+        {
+          "Path": "/VerifiedSourceFiles/1820/Sha256",
+          "Kind": "identity"
+        }
+      ]
+    },
+    {
+      "Path": "docs/native-infrastructure.json",
+      "MembershipAndAcceptancePreserved": true,
+      "Changes": [
+        {
+          "Path": "/Entries/21/SourceBindings/6/Sha256",
+          "Kind": "identity"
+        },
+        {
+          "Path": "/Entries/21/SourceBindings/173/Sha256",
+          "Kind": "identity"
+        }
+      ]
+    },
+    {
+      "Path": "tools/Native/Erlang.NifIntegratedObservations/inputs.json",
+      "MembershipAndAcceptancePreserved": true,
+      "Changes": [
+        {
+          "Path": "/Inputs/71/Sha256",
+          "Kind": "identity"
+        },
+        {
+          "Path": "/Inputs/126/Sha256",
+          "Kind": "identity"
+        },
+        {
+          "Path": "/Inputs/157/Sha256",
+          "Kind": "identity"
+        },
+        {
+          "Path": "/Inputs/159/Sha256",
+          "Kind": "identity"
+        },
+        {
+          "Path": "/PlanPins/NATIVE_PLAN/Sha256",
+          "Kind": "identity"
+        },
+        {
+          "Path": "/PlanPins/CAPTURE_PLAN/Sha256",
+          "Kind": "identity"
+        },
+        {
+          "Path": "/PlanPins/ACCEPTANCE_PLAN/Sha256",
+          "Kind": "identity"
+        },
+        {
+          "Path": "/PlanPins/N2_ORIGINAL_PLAN/Sha256",
+          "Kind": "identity"
+        },
+        {
+          "Path": "/PlanPins/N2_MANAGED_PLAN/Sha256",
+          "Kind": "identity"
+        }
+      ]
+    },
+    {
+      "Path": "tools/Native/Erlang.NifLinuxCallbackObservations/acceptance-inputs.json",
+      "MembershipAndAcceptancePreserved": true,
+      "Changes": [
+        {
+          "Path": "/N1BuildPlanSha256",
+          "Kind": "identity"
+        },
+        {
+          "Path": "/FixtureManifests/Erlang.NifMapSizeOriginalObservations",
+          "Kind": "identity"
+        },
+        {
+          "Path": "/FixtureManifests/Erlang.NifMakeReferenceOriginalObservations",
+          "Kind": "identity"
+        },
+        {
+          "Path": "/Files/33/Sha256",
+          "Kind": "identity"
+        },
+        {
+          "Path": "/Files/44/Sha256",
+          "Kind": "identity"
+        },
+        {
+          "Path": "/Files/91/Bytes",
+          "Kind": "byte-count"
+        },
+        {
+          "Path": "/Files/91/Sha256",
+          "Kind": "identity"
+        }
+      ]
+    },
+    {
+      "Path": "tools/Native/Erlang.NifMakeReferenceOriginalObservations/manifest.json",
+      "MembershipAndAcceptancePreserved": true,
+      "Changes": [
+        {
+          "Path": "/Dependencies/21/Bytes",
+          "Kind": "byte-count"
+        },
+        {
+          "Path": "/Dependencies/21/Sha256",
+          "Kind": "identity"
+        }
+      ]
+    },
+    {
+      "Path": "tools/Native/Erlang.NifMapFamily504Observations/source-plan.json",
+      "MembershipAndAcceptancePreserved": true,
+      "Changes": [
+        {
+          "Path": "/Dependencies/408/Bytes",
+          "Kind": "byte-count"
+        },
+        {
+          "Path": "/Dependencies/408/Sha256",
+          "Kind": "identity"
+        }
+      ]
+    },
+    {
+      "Path": "tools/Native/Erlang.NifMapMaterialized505Observations/source-plan.json",
+      "MembershipAndAcceptancePreserved": true,
+      "Changes": [
+        {
+          "Path": "/Dependencies/413/Bytes",
+          "Kind": "byte-count"
+        },
+        {
+          "Path": "/Dependencies/413/Sha256",
+          "Kind": "identity"
+        }
+      ]
+    },
+    {
+      "Path": "tools/Native/Erlang.NifMapReentry505Observations/source-plan.json",
+      "MembershipAndAcceptancePreserved": true,
+      "Changes": [
+        {
+          "Path": "/Dependencies/413/Bytes",
+          "Kind": "byte-count"
+        },
+        {
+          "Path": "/Dependencies/413/Sha256",
+          "Kind": "identity"
+        }
+      ]
+    },
+    {
+      "Path": "tools/Native/Erlang.NifMapSizeOriginalObservations/manifest.json",
+      "MembershipAndAcceptancePreserved": true,
+      "Changes": [
+        {
+          "Path": "/Dependencies/21/Bytes",
+          "Kind": "byte-count"
+        },
+        {
+          "Path": "/Dependencies/21/Sha256",
+          "Kind": "identity"
+        }
+      ]
+    },
+    {
+      "Path": "tools/Native/Erlang.NifPendingVarargsObservations/reviewed-source-plan.json",
+      "MembershipAndAcceptancePreserved": true,
+      "Changes": [
+        {
+          "Path": "/Files/427/Bytes",
+          "Kind": "byte-count"
+        },
+        {
+          "Path": "/Files/427/Sha256",
+          "Kind": "identity"
+        },
+        {
+          "Path": "/Files/1054/Bytes",
+          "Kind": "byte-count"
+        },
+        {
+          "Path": "/Files/1054/Sha256",
+          "Kind": "identity"
+        },
+        {
+          "Path": "/Files/1271/Bytes",
+          "Kind": "byte-count"
+        },
+        {
+          "Path": "/Files/1271/Sha256",
+          "Kind": "identity"
+        },
+        {
+          "Path": "/Files/1437/Bytes",
+          "Kind": "byte-count"
+        },
+        {
+          "Path": "/Files/1437/Sha256",
+          "Kind": "identity"
+        },
+        {
+          "Path": "/Files/2533/Bytes",
+          "Kind": "byte-count"
+        },
+        {
+          "Path": "/Files/2533/Sha256",
+          "Kind": "identity"
+        },
+        {
+          "Path": "/Files/3307/Bytes",
+          "Kind": "byte-count"
+        },
+        {
+          "Path": "/Files/3307/Sha256",
+          "Kind": "identity"
+        },
+        {
+          "Path": "/Files/3946/Bytes",
+          "Kind": "byte-count"
+        },
+        {
+          "Path": "/Files/3946/Sha256",
+          "Kind": "identity"
+        },
+        {
+          "Path": "/Files/4378/Sha256",
+          "Kind": "identity"
+        },
+        {
+          "Path": "/Files/4381/Sha256",
+          "Kind": "identity"
+        },
+        {
+          "Path": "/Files/4392/Sha256",
+          "Kind": "identity"
+        },
+        {
+          "Path": "/Files/4395/Sha256",
+          "Kind": "identity"
+        },
+        {
+          "Path": "/Files/4398/Sha256",
+          "Kind": "identity"
+        },
+        {
+          "Path": "/Files/4400/Sha256",
+          "Kind": "identity"
+        },
+        {
+          "Path": "/Files/4406/Sha256",
+          "Kind": "identity"
+        },
+        {
+          "Path": "/Files/4775/Sha256",
+          "Kind": "identity"
+        },
+        {
+          "Path": "/Files/4778/Sha256",
+          "Kind": "identity"
+        },
+        {
+          "Path": "/Files/4809/Sha256",
+          "Kind": "identity"
+        },
+        {
+          "Path": "/Files/4811/Sha256",
+          "Kind": "identity"
+        },
+        {
+          "Path": "/Files/4819/Sha256",
+          "Kind": "identity"
+        },
+        {
+          "Path": "/Files/4834/Sha256",
+          "Kind": "identity"
+        },
+        {
+          "Path": "/Files/4835/Sha256",
+          "Kind": "identity"
+        },
+        {
+          "Path": "/Files/4836/Sha256",
+          "Kind": "identity"
+        },
+        {
+          "Path": "/Files/4841/Sha256",
+          "Kind": "identity"
+        },
+        {
+          "Path": "/Files/4848/Sha256",
+          "Kind": "identity"
+        },
+        {
+          "Path": "/Files/4851/Sha256",
+          "Kind": "identity"
+        },
+        {
+          "Path": "/Files/4854/Sha256",
+          "Kind": "identity"
+        },
+        {
+          "Path": "/Files/4875/Sha256",
+          "Kind": "identity"
+        }
+      ]
+    },
+    {
+      "Path": "tools/Native/Erlang.NifPrivateData557Observations/source-plan.json",
+      "MembershipAndAcceptancePreserved": true,
+      "Changes": [
+        {
+          "Path": "/Inputs/11/Sha256",
+          "Kind": "identity"
+        },
+        {
+          "Path": "/Inputs/12/Sha256",
+          "Kind": "identity"
+        },
+        {
+          "Path": "/Inputs/534/Sha256",
+          "Kind": "identity"
+        },
+        {
+          "Path": "/Inputs/713/Sha256",
+          "Kind": "identity"
+        },
+        {
+          "Path": "/Inputs/844/Sha256",
+          "Kind": "identity"
+        },
+        {
+          "Path": "/Inputs/1700/Sha256",
+          "Kind": "identity"
+        },
+        {
+          "Path": "/Inputs/2185/Sha256",
+          "Kind": "identity"
+        }
+      ]
+    },
+    {
+      "Path": "tools/Native/Erlang.NifReallocationObservations/SOURCE-PLAN.json",
+      "MembershipAndAcceptancePreserved": true,
+      "Changes": [
+        {
+          "Path": "/Files/0/Bytes",
+          "Kind": "byte-count"
+        },
+        {
+          "Path": "/Files/0/Sha256",
+          "Kind": "identity"
+        },
+        {
+          "Path": "/Files/1/Sha256",
+          "Kind": "identity"
+        },
+        {
+          "Path": "/Files/394/Bytes",
+          "Kind": "byte-count"
+        },
+        {
+          "Path": "/Files/394/Sha256",
+          "Kind": "identity"
+        },
+        {
+          "Path": "/Files/737/Bytes",
+          "Kind": "byte-count"
+        },
+        {
+          "Path": "/Files/737/Sha256",
+          "Kind": "identity"
+        },
+        {
+          "Path": "/Files/914/Bytes",
+          "Kind": "byte-count"
+        },
+        {
+          "Path": "/Files/914/Sha256",
+          "Kind": "identity"
+        },
+        {
+          "Path": "/Files/1044/Bytes",
+          "Kind": "byte-count"
+        },
+        {
+          "Path": "/Files/1044/Sha256",
+          "Kind": "identity"
+        },
+        {
+          "Path": "/Files/1888/Bytes",
+          "Kind": "byte-count"
+        },
+        {
+          "Path": "/Files/1888/Sha256",
+          "Kind": "identity"
+        },
+        {
+          "Path": "/Files/2338/Bytes",
+          "Kind": "byte-count"
+        },
+        {
+          "Path": "/Files/2338/Sha256",
+          "Kind": "identity"
+        },
+        {
+          "Path": "/Files/2828/Bytes",
+          "Kind": "byte-count"
+        },
+        {
+          "Path": "/Files/2828/Sha256",
+          "Kind": "identity"
+        },
+        {
+          "Path": "/Files/2963/Sha256",
+          "Kind": "identity"
+        },
+        {
+          "Path": "/Files/2970/Sha256",
+          "Kind": "identity"
+        },
+        {
+          "Path": "/Files/2973/Sha256",
+          "Kind": "identity"
+        },
+        {
+          "Path": "/Files/2975/Sha256",
+          "Kind": "identity"
+        },
+        {
+          "Path": "/Files/2983/Sha256",
+          "Kind": "identity"
+        },
+        {
+          "Path": "/Files/3192/Bytes",
+          "Kind": "byte-count"
+        },
+        {
+          "Path": "/Files/3192/Sha256",
+          "Kind": "identity"
+        },
+        {
+          "Path": "/Files/3222/Sha256",
+          "Kind": "identity"
+        }
+      ]
+    },
+    {
+      "Path": "tools/Native/Erlang.NifResource529Observations/source-plan.json",
+      "MembershipAndAcceptancePreserved": true,
+      "Changes": [
+        {
+          "Path": "/Dependencies/398/Sha256",
+          "Kind": "identity"
+        },
+        {
+          "Path": "/Dependencies/920/Sha256",
+          "Kind": "identity"
+        },
+        {
+          "Path": "/Dependencies/1129/Sha256",
+          "Kind": "identity"
+        },
+        {
+          "Path": "/Dependencies/1293/Sha256",
+          "Kind": "identity"
+        },
+        {
+          "Path": "/Dependencies/2310/Sha256",
+          "Kind": "identity"
+        },
+        {
+          "Path": "/Dependencies/3071/Sha256",
+          "Kind": "identity"
+        },
+        {
+          "Path": "/Dependencies/3942/Sha256",
+          "Kind": "identity"
+        }
+      ]
+    },
+    {
+      "Path": "tools/Native/Erlang.NifUnixFilenameObservations/manifest.json",
+      "MembershipAndAcceptancePreserved": true,
+      "Changes": [
+        {
+          "Path": "/Files/0/Bytes",
+          "Kind": "byte-count"
+        },
+        {
+          "Path": "/Files/0/Sha256",
+          "Kind": "identity"
+        }
+      ]
+    },
+    {
+      "Path": "tools/Native/Erlang.NifUpgradeObservations/inputs.json",
+      "MembershipAndAcceptancePreserved": true,
+      "Changes": [
+        {
+          "Path": "/OriginalPlanSha256",
+          "Kind": "identity"
+        },
+        {
+          "Path": "/WrongEntryNativeBuildPlans/Windows",
+          "Kind": "identity"
+        },
+        {
+          "Path": "/WrongEntryNativeBuildPlans/Linux",
+          "Kind": "identity"
+        },
+        {
+          "Path": "/Inputs/14/Sha256",
+          "Kind": "identity"
+        }
+      ]
+    },
+    {
+      "Path": "tools/Native/Erlang.NifUpgradeObservations/original-inputs.json",
+      "MembershipAndAcceptancePreserved": true,
+      "Changes": [
+        {
+          "Path": "/WrongEntryNativeBuildPlans/Windows",
+          "Kind": "identity"
+        },
+        {
+          "Path": "/WrongEntryNativeBuildPlans/Linux",
+          "Kind": "identity"
+        }
+      ]
+    },
+    {
+      "Path": "tools/Native/Erlang.NifVariadic526Observations/source-plan.json",
+      "MembershipAndAcceptancePreserved": true,
+      "Changes": [
+        {
+          "Path": "/Inputs/63/Sha256",
+          "Kind": "identity"
+        },
+        {
+          "Path": "/Inputs/497/Sha256",
+          "Kind": "identity"
+        }
+      ]
+    },
+    {
+      "Path": "tools/Native/Erlang.NifVersion651Observations/build-inputs.json",
+      "MembershipAndAcceptancePreserved": true,
+      "Changes": [
+        {
+          "Path": "/Inputs/8/Sha256",
+          "Kind": "identity"
+        }
+      ]
+    },
+    {
+      "Path": "tools/Native/Erlang.NifVersion651Observations/inputs.json",
+      "MembershipAndAcceptancePreserved": true,
+      "Changes": [
+        {
+          "Path": "/BuildPlanSha256",
+          "Kind": "identity"
+        },
+        {
+          "Path": "/Inputs/2/Sha256",
+          "Kind": "identity"
+        },
+        {
+          "Path": "/Inputs/16/Sha256",
+          "Kind": "identity"
+        }
+      ]
+    },
+    {
+      "Path": "tools/Native/Erlang.NifVersion651Observations/linux-build-inputs.json",
+      "MembershipAndAcceptancePreserved": true,
+      "Changes": [
+        {
+          "Path": "/Inputs/13/Sha256",
+          "Kind": "identity"
+        }
+      ]
+    },
+    {
+      "Path": "tools/Native/Erlang.NifVersion651Observations/linux-inputs.json",
+      "MembershipAndAcceptancePreserved": true,
+      "Changes": [
+        {
+          "Path": "/BuildPlanSha256",
+          "Kind": "identity"
+        },
+        {
+          "Path": "/Inputs/2/Sha256",
+          "Kind": "identity"
+        },
+        {
+          "Path": "/Inputs/17/Sha256",
+          "Kind": "identity"
+        },
+        {
+          "Path": "/Inputs/28/Sha256",
+          "Kind": "identity"
+        }
+      ]
+    },
+    {
+      "Path": "tools/Runtime/Erlang.BeamFunction542Observations/inputs.json",
+      "MembershipAndAcceptancePreserved": true,
+      "Changes": [
+        {
+          "Path": "/Inputs/9/Sha256",
+          "Kind": "identity"
+        },
+        {
+          "Path": "/Inputs/24/Sha256",
+          "Kind": "identity"
+        }
+      ]
+    },
+    {
+      "Path": "tools/Runtime/Erlang.EtsDispatch540Observations/inputs.json",
+      "MembershipAndAcceptancePreserved": true,
+      "Changes": [
+        {
+          "Path": "/Inputs/20/Sha256",
+          "Kind": "identity"
+        },
+        {
+          "Path": "/Inputs/51/Sha256",
+          "Kind": "identity"
+        }
+      ]
+    },
+    {
+      "Path": "tools/Runtime/Erlang.MatchSaved634Observations/inputs.json",
+      "MembershipAndAcceptancePreserved": true,
+      "Changes": [
+        {
+          "Path": "/Inputs/16/Sha256",
+          "Kind": "identity"
+        },
+        {
+          "Path": "/Inputs/24/Sha256",
+          "Kind": "identity"
+        }
+      ]
+    },
+    {
+      "Path": "tools/Runtime/Erlang.MonitorOriginal645Observations/inputs.json",
+      "MembershipAndAcceptancePreserved": true,
+      "Changes": [
+        {
+          "Path": "/Inputs/11/Sha256",
+          "Kind": "identity"
+        },
+        {
+          "Path": "/SourceFreezePath",
+          "Kind": "successor-freeze"
+        },
+        {
+          "Path": "/SourceFreezeSha256",
+          "Kind": "identity"
+        }
+      ]
+    },
+    {
+      "Path": "tools/Runtime/Erlang.OwnedGuest506Observations/source-plan.json",
+      "MembershipAndAcceptancePreserved": true,
+      "Changes": [
+        {
+          "Path": "/Inputs/209/Sha256",
+          "Kind": "identity"
+        },
+        {
+          "Path": "/Inputs/209/SealedBytes",
+          "Kind": "byte-count"
+        },
+        {
+          "Path": "/Inputs/309/SealedBytes",
+          "Kind": "byte-count"
+        },
+        {
+          "Path": "/Inputs/483/SealedBytes",
+          "Kind": "byte-count"
+        },
+        {
+          "Path": "/Inputs/559/SealedBytes",
+          "Kind": "byte-count"
+        },
+        {
+          "Path": "/Inputs/593/Sha256",
+          "Kind": "identity"
+        },
+        {
+          "Path": "/Inputs/593/SealedBytes",
+          "Kind": "byte-count"
+        },
+        {
+          "Path": "/Inputs/666/Sha256",
+          "Kind": "identity"
+        },
+        {
+          "Path": "/Inputs/680/Sha256",
+          "Kind": "identity"
+        },
+        {
+          "Path": "/Inputs/683/Sha256",
+          "Kind": "identity"
+        },
+        {
+          "Path": "/Inputs/683/SealedBytes",
+          "Kind": "byte-count"
+        },
+        {
+          "Path": "/Inputs/749/Sha256",
+          "Kind": "identity"
+        },
+        {
+          "Path": "/Inputs/778/Sha256",
+          "Kind": "identity"
+        },
+        {
+          "Path": "/Inputs/793/Sha256",
+          "Kind": "identity"
+        },
+        {
+          "Path": "/Inputs/922/Sha256",
+          "Kind": "identity"
+        },
+        {
+          "Path": "/Inputs/978/Sha256",
+          "Kind": "identity"
+        },
+        {
+          "Path": "/Inputs/980/Sha256",
+          "Kind": "identity"
+        }
+      ]
+    }
+  ]
+}

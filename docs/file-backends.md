@@ -52,7 +52,7 @@ are not normalized.
 
 ## Focused evidence and unfinished acceptance
 
-The [Part578 receipt](validation/part-578/README.md) records 408 exact observations
+The [Part580 receipt](validation/part-580/README.md) records 408 exact observations
 per backend, with zero differences. These include full exception stacks,
 descriptor algorithms/effects, recursive deletion dispatch, monitored processes,
 sendfile callback results and real Windows whole-file reads, directory listings,

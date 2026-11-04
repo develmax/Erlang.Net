@@ -1,6 +1,8 @@
 # Compatibility overview
 
-[Part579](validation/part-579/README.md) repairs PR110 source admission and producer pins; runtime behavior and compatibility classifications are unchanged. Final-head hosted CI remains required.
+[Part582](validation/part-582/README.md) reconciles file PR110 with code main, retains both backend selections and refreshes source/producer identities. Connected validation and final-head hosted CI apply; compatibility classifications remain unchanged.
+
+[Part581](validation/part-581/README.md) repairs PR110 source admission and producer pins; runtime behavior and compatibility classifications are unchanged. Final-head hosted CI remains required.
 
 Part574 consolidates the final Linux descriptor poll source and audits stale branches. Exact-head Linux/original replay, CI, review and merge remain pending; no API/full-contract promotion. See [branch decisions and acceptance gates](validation/part-574/README.md).
 
@@ -8,7 +10,9 @@ Draft Part568 prepares the bulk physical-occurrence runtime patch in a separate 
 
 ## Current state and sources
 
-The [file alternative](file-backends.md) retains the original Erlang image beside the 69-export C# surface. Literal extraction preserves pinned values and exception frames. Both implementations match 408 exact focused observations; five independent complete filesystem cycles still fail in each backend because native/provider closure is incomplete. This is not 100% compatibility. See [Part578](validation/part-578/README.md).
+The [file alternative](file-backends.md) retains the original Erlang image beside the 69-export C# surface. Literal extraction preserves pinned values and exception frames. Both implementations match 408 exact focused observations; five independent complete filesystem cycles still fail in each backend because native/provider closure is incomplete. This is not 100% compatibility. See [Part580](validation/part-580/README.md).
+
+The [code backend](validation/code-port-20261104/README.md) retains original Erlang beside69 selectable C# exports (62 library/7 shared native signatures). Both backends match156 complete outcomes and25 lifecycle results;17 connected groups pass. Native JIT capability, full release/docs/platform/resource acceptance remain separate.
 
 - [Downstream CI producer repair](validation/part-577/README.md): reconcile the remaining native/integrated producer identities and monitor completed final-head workflows.
 

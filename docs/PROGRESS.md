@@ -1,6 +1,8 @@
 # Project progress
 
-[Part579](validation/part-579/README.md) repairs PR110 source admission and producer pins; runtime behavior and compatibility classifications are unchanged. Final-head hosted CI remains required.
+[Part582](validation/part-582/README.md) reconciles file PR110 with code main, retains both backend selections and refreshes source/producer identities. Connected validation and final-head hosted CI apply; compatibility classifications remain unchanged.
+
+[Part581](validation/part-581/README.md) repairs PR110 source admission and producer pins; runtime behavior and compatibility classifications are unchanged. Final-head hosted CI remains required.
 
 Part574 consolidates the final Linux descriptor poll source and audits stale branches. Exact-head Linux/original replay, CI, review and merge remain pending; no API/full-contract promotion. See [branch decisions and acceptance gates](validation/part-574/README.md).
 
@@ -8,7 +10,11 @@ Draft Part568 prepares the bulk physical-occurrence runtime patch in a separate 
 
 ## Current status sources
 
-- [File alternatives](file-backends.md): selectable C# surface for all 69 exports, unchanged original Erlang and semantic owners for protocol/layout/source/configuration values. Both backends match 408 focused observations; five complete filesystem cycles remain failing native/provider gates. See [Part578](validation/part-578/README.md); no full-compatibility or global-readiness promotion.
+- [File alternatives](file-backends.md): selectable C# surface for all 69 exports, unchanged original Erlang and semantic owners for protocol/layout/source/configuration values. Both backends match 408 focused observations; five complete filesystem cycles remain failing native/provider gates. See [Part580](validation/part-580/README.md); no full-compatibility or global-readiness promotion.
+
+- [PR109 CI/review repair](validation/part-579/README.md): refreshed existing source-plan identities and fixed module_status helper stacks. Both backends pass159 complete outcomes plus25 lifecycle results;17 focused groups and passive source admissions pass locally. Hosted final-head CI remains pending.
+
+- [Selectable code backend](validation/code-port-20261104/README.md): all69 exports,156 full observations and25 lifecycle results per backend;17 connected groups pass on isolated current-main composition. Domain literals are named; universal/JIT/platform acceptance remains open.
 
 - [Downstream CI producer repair](validation/part-577/README.md): reconcile the remaining native/integrated producer identities and monitor completed final-head workflows.
 

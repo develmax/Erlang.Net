@@ -427,4 +427,5 @@
   <Compile Include="../../tools/Validation/Erlang.StringCompatibility/StringResourceComparison.cs" Link="Otp/Stdlib/String/StringResourceComparison.cs" />
 </ItemGroup>
 <ItemGroup><EmbeddedResource Include="Resources/OrdsetsBulkSource/inputs-and-original.etf" LogicalName="Erlang.Tests.OrdsetsBulkSource.inputs-and-original.etf" /></ItemGroup>
+<ItemGroup><EmbeddedResource Include="Resources/CodeBackend/*" LogicalName="Erlang.Tests.CodeBackend.%(Filename)%(Extension)" /></ItemGroup>
 </Project>

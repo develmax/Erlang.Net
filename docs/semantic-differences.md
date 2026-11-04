@@ -1,6 +1,10 @@
-File Part578: C# and original alternatives retain separate identities and match 408 exact focused observations after literal extraction. All five independent complete filesystem cycles still fail in each backend on incomplete native/provider support. No 100% compatibility or global readiness claim. See [contract and remaining gates](file-backends.md).
+File Part580: C# and original alternatives retain separate identities and match 408 exact focused observations after literal extraction. All five independent complete filesystem cycles still fail in each backend on incomplete native/provider support. No 100% compatibility or global readiness claim. See [contract and remaining gates](file-backends.md).
 
-[Part579](validation/part-579/README.md) repairs PR110 source admission and producer pins; runtime behavior and compatibility classifications are unchanged. Final-head hosted CI remains required.
+[Part582](validation/part-582/README.md) reconciles file PR110 with code main, retains both backend selections and refreshes source/producer identities. Connected validation and final-head hosted CI apply; compatibility classifications remain unchanged.
+
+[Part581](validation/part-581/README.md) repairs PR110 source admission and producer pins; runtime behavior and compatibility classifications are unchanged. Final-head hosted CI remains required.
+
+Code backend publication (2026-11-04): all69 signatures have C#/original alternatives;156 full observations and25 lifecycle results pass per backend on current main, alongside17 connected groups. Existing non-BEAMASM coverage/debug differs from OTP JIT; full release/docs/gzip/platform/resource acceptance remains open. See [code receipt](validation/code-port-20261104/README.md).
 
 PR108 CI follow-up: complete downstream producer bindings and early N1 producer rejection; [evidence and final CI gate](validation/part-577/README.md). Unicode implementation and compatibility classifications are unchanged.
 
