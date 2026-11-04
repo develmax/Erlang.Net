@@ -1,5 +1,7 @@
 # Next steps
 
+Part591: review the isolated [DETS backend PR](dets-backends.md) and its focused OTP receipts. Keep full upstream-suite/resource/platform/interleaving and release-manifest startup acceptance explicit; preserve backend selection and do not promote canonical readiness from partial reports.
+
 Part589 updates ASN.1 PR118 from timer main29b92f63d, retaining both components and the qualified file atom. Fresh focused build,65 checks/26 OTP outcomes and passive bindings pass. [Evidence](validation/part-589/README.md).
 
 Part588 fixes the ASN.1 consumer CS0119 exposed after the file backend was added: qualify the existing file atom constant. Focused build and65 checks/26 fresh OTP outcomes pass; no runtime or compatibility change. [Evidence](validation/part-588/README.md).

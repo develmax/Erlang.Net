@@ -18,10 +18,12 @@ internal static class LibrarySelectionNames
         FileNameEncodingNames.Module,
         GenEventLibraryModuleNames.Module,
         GenStatemLibraryNames.Module,
-        TimerLibraryModuleNames.Module
+        TimerLibraryModuleNames.Module,
+        DetsLibraryModuleNames.Module
     ];
     internal static readonly string[] StringDependencies = [ListModuleNames.Module, UnicodeNativeNames.Module, "unicode_util"];
     internal static readonly string[] UnicodeDependencies = [ListModuleNames.Module, "unicode_util"];
+    internal static readonly string[] DetsDependencies = DetsLibraryModuleNames.Required;
     internal static readonly string[] CodeDependencies = CodeLibraryDependencies.Required;
     internal const string Request = "Invalid startup library selection";
     internal const string BeamOnly = "Selected library requires the original BEAM backend";

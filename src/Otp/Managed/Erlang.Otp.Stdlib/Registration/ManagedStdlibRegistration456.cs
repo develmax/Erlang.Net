@@ -9,6 +9,7 @@ public sealed class ManagedStdlibRegistration456 : IRuntimeManagedLibrary456
         switch (stage)
         {
             case RuntimeManagedLibraryStage456.Collections: RegisterCollections(r); break;
+            case RuntimeManagedLibraryStage456.Dets: DetsModule.Register(r); break;
             case RuntimeManagedLibraryStage456.Code: CodeModule.Register(r); break;
             case RuntimeManagedLibraryStage456.Modules: RegisterModules(r); break;
             case RuntimeManagedLibraryStage456.BinaryWrappers: BinaryWrappersModule.Register(r); break;

@@ -150,6 +150,11 @@ internal static partial class BeamRegisterInterpreter
         {
             registers.Write(arguments.Count + index, environment[index]);
         }
+        // Register/frame liveness owns these terms from this point onward.
+        // Completed async invocations must not retain a second copy of their
+        // incoming magic references in the state-machine argument fields.
+        arguments = Array.Empty<Term>();
+        environment = Array.Empty<Term>();
         var continuations = new Stack<BeamCallContinuation>();
         var callFrames = new Stack<BeamCallFrame>();
         var functionFrames = new Stack<BeamFunctionScope>();
@@ -182,6 +187,7 @@ internal static partial class BeamRegisterInterpreter
         bool ReturnToCaller()
         {
             registers.ClearFloats();
+            registers.ClearXExcept(0);
             functionFrame?.Dispose();
             functionFrame = null;
             if (!continuations.TryPop(out BeamCallContinuation? continuation))
@@ -228,6 +234,7 @@ internal static partial class BeamRegisterInterpreter
                                         primitiveArguments
                                     )
                                 );
+                            primitiveArguments = Array.Empty<Term>();
                             entering = false;
                             if (!ReturnToCaller())
                                 return registers.CompleteGuestReturn507(registers.Read(0));
@@ -264,6 +271,7 @@ internal static partial class BeamRegisterInterpreter
                                     nativeArguments = registers.ExportArguments507(nativeArguments);
                                     registers.Write(0, await native.InvokeAsync(context, nativeArguments));
                                 }
+                                nativeArguments = Array.Empty<Term>();
                                 if (!ReturnToCaller())
                                     return registers.CompleteGuestReturn507(registers.Read(0));
                                 continue;
@@ -1032,10 +1040,12 @@ internal static partial class BeamRegisterInterpreter
                                 registers.Deallocate(externalLastFrame.Slots);
                             }
                             registers.Write(0, imported);
+                            imported = Nil.Value;
+                            importedArguments = Array.Empty<Term>();
                             if (instruction.Definition.Name == BeamOnLoadNames.ExternalLast)
                             {
                                 if (!ReturnToCaller())
-                                    return registers.CompleteGuestReturn507(imported);
+                                    return registers.CompleteGuestReturn507(registers.Read(0));
                             }
                             break;
                         case BeamLinkNames.Label:
@@ -1121,8 +1131,13 @@ internal static partial class BeamRegisterInterpreter
                                     funResult = await context.InvokeGuestFunction507(callable, Array.AsReadOnly(funArguments));
                                 functionFrame?.ClearContinuation();
                                 registers.Write(0, funResult);
+                                registers.ClearXExcept(0);
+                                funArguments = Array.Empty<Term>();
+                                callee = Nil.Value;
+                                callable = null!;
+                                funResult = Nil.Value;
                                 if (tailFun && !ReturnToCaller())
-                                    return registers.CompleteGuestReturn507(funResult);
+                                    return registers.CompleteGuestReturn507(registers.Read(0));
                                 break;
                             }
                         case BeamLinkNames.Bif:
@@ -1280,6 +1295,7 @@ internal static partial class BeamRegisterInterpreter
                             functionFrame = null;
                             entering = true;
                             function = code.Functions.Single(target => target.EntryLabel == operands[1].Value);
+                            registers.ClearXExcept(Enumerable.Range(0, function.Arity).ToArray());
                             pc = function.FirstInstructionIndex;
                             break;
                         case BeamLinkNames.IntegerTest:
@@ -1325,8 +1341,10 @@ internal static partial class BeamRegisterInterpreter
                             using (BeamExternalImports.IsNativePrimitive(tailImport) ? context.EnterBeamNativeCallSite419(code, pc - 1) : null)
                                 externalResult = await BeamExternalImports.Invoke(context, tailImport, tailArguments);
                             registers.Write(0, externalResult);
+                            externalResult = Nil.Value;
+                            tailArguments = Array.Empty<Term>();
                             if (!ReturnToCaller())
-                                return registers.CompleteGuestReturn507(externalResult);
+                                return registers.CompleteGuestReturn507(registers.Read(0));
                             break;
                         case BeamLinkNames.GuardBif:
                             registers.CheckLive((int)operands[1].Value);

@@ -4,6 +4,8 @@ internal static class TestExecutionBudgets
 {
     internal static TimeSpan For(string name) => name switch
     {
+        DetsBackendChecks.ManagedTest or DetsBackendChecks.OriginalTest
+            or DetsBackendChecks.ManagedSuiteTest or DetsBackendChecks.OriginalSuiteTest => TimeSpan.FromSeconds(600),
         HaltSubprocessHostNames.Test => TimeSpan.FromSeconds(HaltSubprocessHostNames.OuterHostBudgetSeconds),
         BeamLifecycleHostNames.DeepTest => BeamLifecycleHostNames.Deadline
             + TimeSpan.FromSeconds(TestExecutionBudgetNames.DeepPreparationAndCleanupSeconds),

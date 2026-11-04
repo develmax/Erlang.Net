@@ -30,7 +30,10 @@ internal sealed partial class RuntimePorts(ProcessRuntime runtime, object gate)
             PortChildProcess process;
             try
             {
-                process = PortChildProcess.Start(options, runtime.DescriptorPolling558);
+                bool ram = runtime.Modules.HasBootstrapFileSystem && options.Name == RamFileDriverProtocol.Name
+                    && specification is TupleTerm { Items.Count: 2 } command
+                    && command.Items[0] is Atom { Name: PortNames.Spawn };
+                process = ram ? new RamFilePortProcess(options.Binary) : PortChildProcess.Start(options, runtime.DescriptorPolling558);
             }
             catch (Win32Exception exception)
             {
@@ -60,8 +63,11 @@ internal sealed partial class RuntimePorts(ProcessRuntime runtime, object gate)
                 );
                 ports.Add(identity, port);
                 owner.PortLinks.Add(identity);
-                port.Pump = Task.Run(() => Pump(port));
-                Track(port.Pump);
+                if (process is not RamFilePortProcess)
+                {
+                    port.Pump = Task.Run(() => Pump(port));
+                    Track(port.Pump);
+                }
 
                 return identity;
             }
@@ -466,6 +472,20 @@ internal sealed partial class RuntimePorts(ProcessRuntime runtime, object gate)
                     runtime.ThrowIfHalted();
                 if (port.Closed)
                     throw new ErlangException(ErlangErrorReasons.BadArgument);
+                if (port.Process is RamFilePortProcess ram)
+                {
+                    Term? response = ram.Command(bytes);
+                    port.OutputBytes += bytes.Length;
+                    runtime.Statistics.RecordOutputBytes(bytes.LongLength);
+                    if (response is not null)
+                    {
+                        port.InputBytes += ram.ResponseBytes;
+                        runtime.Statistics.RecordInputBytes(ram.ResponseBytes);
+                        runtime.SendPortNotification(port.Connected, Term.Tuple(port.Identity, Term.Tuple(Term.A(PortNames.Data), response)));
+                    }
+
+                    return Term.A(ErlangBooleanAtoms.True);
+                }
                 if (!port.Busy)
                 {
                     int width = port.Options.PacketBytes;

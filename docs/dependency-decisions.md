@@ -940,3 +940,12 @@ pinning. Original OTP helpers and source/BEAM remain unchanged. See Part587.
 
 
 Timer PR113: the user explicitly requested a full C# timer port with retained Erlang/BEAM and selectable implementation. This is the overriding authorization for this module; the general pure-OTP policy remains. See [timer backend and review evidence](timer-backends.md).
+
+
+## Part591 — DETS backend and connected native dependencies
+
+Inspect pinned OTP29.1.1/ad05823719d77c8faee87348ea39513d4e2f99c5 dets/dets_v9/dets_utils/dets_server/dets_sup, prim_file/prim_buffer and ram_file_drv sources. The user explicitly authorizes this C# alternative. Retain Apache-2.0 notices and all original sources/BEAM. BCL FileStream/MemoryStream and BinaryPrimitives implement host I/O and wire access; canonical phash/phash2 and match specs remain shared runtime primitives. No new package or private persistence format. Keep original dets_server/dets_sup as common registry/supervisor dependencies on .NET. The C# dispatcher/worker/file engine never falls back to original dets/dets_v9/dets_utils; production requires no external ERTS.
+
+Extend the existing declared-NIF owner reservation and weak typed resources for prim_file storage and all9 prim_buffer primitives. Implement the actual ram_file_drv command/response protocol through RuntimePorts, preserving owner links/monitors/cleanup; preserve main's descriptor-polling path for ordinary ports. No Erlang file-server/ETS/CT replacement or second port registry.
+
+Unchanged dets_SUITE repair_continuation exposes dead match-program retention. Clear dead caller-save registers and completed argument/result temporaries; retain main's newer bad-function admission. Run actual guest heap collection first, with a supplemental CLR interop sweep only when legacy managed compiled-match/file/buffer payloads exist. Retained local/remote references must survive; serialized dead references must not resurrect payloads. Existing owned/native resource leases remain authoritative. The four-mode oracle and connected internal-GC/ETS tests cover this boundary. No actor/GC framework substitution.
