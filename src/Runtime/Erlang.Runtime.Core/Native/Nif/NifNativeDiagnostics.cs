@@ -9,7 +9,7 @@ internal static class NifNativeDiagnostics
     internal const string DisposedLibrary = "Native image library owner is closed.";
     internal const string BridgeContract = "Native bridge registration, symbols or ABI contract mismatch.";
     internal const string BridgeLifetime = "A collectible managed provider cannot own process-global native exports.";
-    internal const string UnsupportedPlatform = "Internal native backend supports only Windows x64 or Linux x64 glibc.";
+    internal const string UnsupportedPlatform = "Native NIF loading requires Windows x64/ARM64 or a 64-bit Linux, macOS or FreeBSD .NET host; target native bridge assets are required.";
     internal const string VariadicBoundary = "Native variadic argument count exceeds the bounded bridge profile.";
     internal const string NativeThreadUnsupported = "NIF native threads are outside this fixture ABI subset.";
     internal const string DuplicateEnvironment = "Duplicate native environment address.";
