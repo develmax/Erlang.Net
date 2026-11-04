@@ -1101,7 +1101,7 @@ internal static partial class BeamRegisterInterpreter
                                     out int funSlots
                                 );
                                 if (callee is not FunctionTerm callable)
-                                    throw BeamFunctionCallErrors.BadFunction(context, callee);
+                                    throw BeamFunctionCallErrors.BadFunction(context, callee, tailPosition);
                                 Term[] funArguments = Enumerable.Range(0, arity).Select(registers.Read).ToArray();
                                 if (callable.Arity != arity)
                                 {
