@@ -182,4 +182,6 @@ Append numbered English entries only to the last volume. Start the next sequenti
 
 - [0104.md](docs/changelog/0104.md) - Parts568,572–577 ordsets, string, descriptor polling, Unicode integration and CI repairs (closed; continues in0105)
 
-- [0105.md](docs/changelog/0105.md) - Parts578–583 code/file backends, CI repairs, main reconciliation and checkout byte preservation (active; includes Parts584–586 gen_event/Monitor repairs and Part587 gen_statem sys continuation fix)
+- [0105.md](docs/changelog/0105.md) - Parts578–583 code/file backends, CI repairs, main reconciliation and checkout byte preservation (closed; continues in0106; includes Parts584–586 gen_event/Monitor repairs and Part587 gen_statem sys continuation fix)
+
+- [0106.md](docs/changelog/0106.md) - Timer publication and PR113 review/main reconciliation (active)

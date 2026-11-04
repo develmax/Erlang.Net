@@ -1087,6 +1087,11 @@ internal static partial class BeamRegisterInterpreter
                                 if (callee is not FunctionTerm callable)
                                     throw BeamFunctionCallErrors.BadFunction(context, callee);
                                 Term[] funArguments = Enumerable.Range(0, arity).Select(registers.Read).ToArray();
+                                if (callable.Arity != arity)
+                                {
+                                    throw ErlangFunctionCallErrors.Capture(context, Term.Tuple(
+                                        Term.A(ErlangErrorReasons.BadArity), Term.Tuple(callable, Cons.From(funArguments))));
+                                }
                                 using var funRoots507 = registers.HasOwnedRoots507 ? registers.Protect507(callee, Term.Tuple(funArguments)) : null;
                                 bool tailFun = BeamFunTailProtocol.TryDeallocation(
                                     code,
