@@ -10,5 +10,7 @@ public enum RuntimeManagedLibraryStage456
     Code,
     File,
     GenEvent,
+    GenStatem,
+    Timer,
     Ets
 }

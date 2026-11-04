@@ -21,7 +21,7 @@ library_sha = digest(runner.parent / "Erlang.Otp.Stdlib.dll")
 runtime_sha = digest(runner.parent / "Erlang.Runtime.dll")
 reports = []
 for backend in ("Managed", "Beam"):
-    for suffix, cases, effects in (("", 355, 8), ("-browse", 0, 12), ("-files", 0, 75)):
+    for suffix, cases, effects in (("", 355, 8), ("-browse", 0, 12), ("-files", 0, 76)):
         name = backend + suffix + "-report.json"
         row = json.loads((directory / name).read_text(encoding="utf-8-sig"))
         require(row["Backend"] == backend and row["CompleteCorpus"], name + ": partial or wrong backend")

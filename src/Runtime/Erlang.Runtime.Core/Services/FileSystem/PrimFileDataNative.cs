@@ -2,7 +2,7 @@ using System.Runtime.InteropServices;
 
 namespace Erlang;
 
-internal static class PrimFileDataNative
+internal static partial class PrimFileDataNative
 {
     [DllImport(PrimFileDataNativeNames.Library, EntryPoint = PrimFileDataNativeNames.Delete, CharSet = CharSet.Unicode, SetLastError = true, ExactSpelling = true)]
     [return: MarshalAs(UnmanagedType.Bool)]

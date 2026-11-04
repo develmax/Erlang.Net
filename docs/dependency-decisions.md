@@ -908,8 +908,35 @@ The user's explicit file-port request authorizes this managed alternative beside
 ## code C# backend publication — 2026-11-04
 
 Inspect pinned OTP29.1.1 code.erl, code_server.erl and eep48.hrl alongside the existing native loader/purger. Retain original code_server and explicit helpers rather than substituting CLR assembly loading or filesystem state. Reuse existing runtime primitives; no package. Preserve Apache-2.0 notices and original assets. Name public API, server protocol, dependency calls, source positions, AST/monitor layouts and EEP48 fields separately; do not merge equal text with different roles. The C# string/number catalogs are scoped to their semantic owners, and existing FunctionCodeLayout supplies the closure digest width. Seven native coverage/debug signatures keep the existing non-BEAMASM profile. The user authorizes this module port and PR; universal OTP acceptance and full regression are not inferred from the focused corpus.
+## gen_statem C# alternative and semantic constants — 2026-11-04
+
+Inspect the pinned Apache-2.0 OTP-29.1.1 `lib/stdlib/src/gen_statem.erl` and its
+existing original BEAM, plus the repository's explicit library selection,
+source continuations, mailbox/timer/alias and gen/sys/proc_lib implementations.
+Existing .NET BCL Queue/Dictionary/Task/CancellationToken services (MIT .NET
+runtime, existing license texts) provide storage and async mechanics; none
+implements OTP action ordering, postponed events, sys records, source frames or
+timeout semantics. Reuse these services and original helper modules rather than
+introducing a second scheduler or an external state-machine package. Implement
+the user-requested module contract directly from pinned OTP and preserve its
+notices. No package, license selection or external runtime dependency is added.
+
+Keep semantic catalogs in the owning product or validation domain. SDK Roslyn
+layout tooling already exists and is reused on this delivery package only.
+PowerShell/Python standard libraries capture/admit the original OTP corpus; no
+mock production MFA substitutes are introduced. The BEAM badfun frame fix is a
+shared runtime correction required by this module's exact-stack comparison.
+See [decision0007](decisions/0007-gen-statem-alternatives.md) and
+[gen_statem publication](validation/gen-statem-port-20261104/README.md) for acceptance scope and remaining gates.
+
+## gen_statem sys continuation repair — 2026-11-04
+
+Reuse the existing owned-control-transfer protocol and BCL AsyncLocal/Exception;
+no library or scheduler package. Preserve the original proc_lib error handler
+and pinned source frames by keeping the trampoline inside the module, rather
+than introducing a new process-root transfer. The permanent actual-continuation
+probe distinguishes managed machine retention from opaque native-fun allocator
+pinning. Original OTP helpers and source/BEAM remain unchanged. See Part587.
 
 
-### ETS Part586 — explicit library alternative and connected runtime reuse
-
-Port pinned OTP-29.1.1 ets.erl (Apache-2.0, Ericsson AB) without changing the original source/BEAM. Reuse all51 existing C# ETS primitives, exact Erlang terms, ETF, PCRE2 and original disk_log/file/DETS/QLC helpers. Existing BCL/native writable prim_file/prim_buffer resources are necessary shared prerequisites for actual dump/DETS interoperability; do not include their unrelated C# library drafts. No third-party package or private persistence format is introduced. Catalogs separately own functions, dependency modules, atoms, fields, exception classes, callbacks, source coordinates, terminal/query text, continuation layout and QLC function identity. The validator owns its protocol names, paths, diagnostics and timeouts. Releasing consumed prepared-image producer leases is part of the validator's resource ownership, not a runtime shutdown bypass. Both runtime function-application errors retain the source call frames required by the original ETS callback contract.
+Timer PR113: the user explicitly requested a full C# timer port with retained Erlang/BEAM and selectable implementation. This is the overriding authorization for this module; the general pure-OTP policy remains. See [timer backend and review evidence](timer-backends.md).

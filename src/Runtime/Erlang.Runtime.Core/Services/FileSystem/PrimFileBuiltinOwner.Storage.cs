@@ -22,11 +22,18 @@ internal sealed partial class PrimFileBuiltinOwner
     {
         try
         {
-            if (operation is PrimFileBuiltinNames.Delete or PrimFileBuiltinNames.Rename)
+            if (operation is PrimFileBuiltinNames.Delete or PrimFileBuiltinNames.Rename or PrimFileBuiltinNames.MakeDirectory or PrimFileBuiltinNames.RemoveDirectory)
             {
                 if (!PrimFileWindowsPaths410.Marshal(arguments[0], out string path, out string error))
                 {
                     return PrimFileWindowsErrors410.Tuple(error);
+                }
+                if (operation is PrimFileBuiltinNames.MakeDirectory or PrimFileBuiltinNames.RemoveDirectory)
+                {
+                    bool success = operation == PrimFileBuiltinNames.MakeDirectory
+                        ? PrimFileDataNative.MakeDirectory(path) : PrimFileDataNative.DeleteDirectory(path);
+
+                    return success ? Term.A(CommonAtomNames.Ok) : PrimFileWindowsErrors410.Last(Marshal.GetLastPInvokeError());
                 }
                 if (operation == PrimFileBuiltinNames.Delete)
                 {
@@ -37,9 +44,8 @@ internal sealed partial class PrimFileBuiltinOwner
                 {
                     return PrimFileWindowsErrors410.Tuple(error);
                 }
-                File.Move(path, target, overwrite: true);
 
-                return Term.A(CommonAtomNames.Ok);
+                return PrimFileDataNative.Rename(path, target);
             }
             if (operation == PrimFileBuiltinNames.Open)
             {
@@ -143,32 +149,31 @@ internal sealed partial class PrimFileBuiltinOwner
                             {
                                 return PrimFileWindowsErrors410.Tuple(PrimFileWindowsErrors410.BadDescriptor);
                             }
-                            long position = stream.Position;
                             bool positioned = operation == PrimFileBuiltinNames.Pwrite;
-                            try
+                            // Preserve the cursor behavior of Windows OTP efile_pwritev.
+                            if (positioned)
                             {
-                                if (positioned)
+                                stream.Position = Long(arguments[1]);
+                            }
+                            foreach (BitString bytes in ErlangIoData.Segments(arguments[positioned ? 2 : 1], false, false))
+                            {
+                                if (file.Append && !positioned)
                                 {
-                                    stream.Position = Long(arguments[1]);
+                                    int error = PrimFileDataNative.Append(stream, bytes.ByteSpan);
+                                    if (error != 0)
+                                    {
+                                        return PrimFileWindowsErrors410.Last(error);
+                                    }
                                 }
-                                else if (file.Append)
-                                {
-                                    stream.Position = stream.Length;
-                                }
-                                foreach (BitString bytes in ErlangIoData.Segments(arguments[positioned ? 2 : 1], false, false))
+                                else
                                 {
                                     stream.Write(bytes.ByteSpan);
                                 }
+                            }
 
-                                return Term.A(CommonAtomNames.Ok);
-                            }
-                            finally
-                            {
-                                if (positioned)
-                                {
-                                    stream.Position = position;
-                                }
-                            }
+                            return Term.A(CommonAtomNames.Ok);
+
+
                         }
                     case PrimFileBuiltinNames.Indirect:
                         {

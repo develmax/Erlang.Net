@@ -1,6 +1,6 @@
 %% Focused ETS port observations. Test infrastructure; not a replacement ETS backend.
 -module(ets_port_cases).
--export([write/1,capture/2,worker/3,scenario/1,scenario_worker/2,fold/2,init/1,init_broken/1,make_dump/1,verify_dump/1]).
+-export([write/1,write_review/1,capture/2,worker/3,scenario/1,scenario_worker/2,fold/2,init/1,init_broken/1,make_dump/1,verify_dump/1]).
 
 write(Directory) ->
     Foreign=filename:join(Directory,"original.dump"),
@@ -23,7 +23,7 @@ write(Directory) ->
         {corrupt_dump,filename:join(Directory,"filesystem"),Kind,V} ||
             Kind<-[bad_header,count_mismatch,missing_footer,bad_footer_count,bad_footer_md5,future_version,bad_existing,
                    missing_name,bad_named,bad_compressed,bad_read_tuple],V<-[false,true]]++[
-        {private_save,filename:join(Directory,"filesystem")}]],
+        {private_save,filename:join(Directory,"filesystem")},{native_file_review,filename:join(Directory,"filesystem")}]],
     ok=file:write_file(filename:join(Directory,"filesystem.etf"),term_to_binary(FileRows)),
     BrowseCases=[{browse,Height,Width,Inputs} || {Height,Width,Inputs} <- [
         {40,80,["q\n"]},{2,30,["p2\n","c\n","q\n"]},{2,30,["pbad\n","q\n"]},
@@ -101,6 +101,11 @@ scenario_worker(Scenario,To) ->
     Result=try scenario(Scenario) catch C:R:S -> {exception,C,R,S} end,
     To!{self(),Result}.
 
+scenario({native_file_review,Directory}) -> review_files(Directory);
+scenario({append_review,Directory}) -> review_append_writers(filename:join(Directory,"append-review"));
+scenario({rename_review,Directory}) ->
+    S=filename:join(Directory,"rename-source"),T=filename:join(Directory,"rename-target"),
+    {file:rename(S,T),file:read_file(filename:join(T,"payload")),review_exists(S)};
 scenario(storage) ->
     [begin
          T=ets:new(ets_port_test,[Type,named_table,public]),
@@ -275,3 +280,58 @@ init_broken(read) -> {[{kept,7}|bad],fun(close)->put(closed,true) end};
 init_broken(close) -> ok.
 drain(_, '$end_of_table') -> [];
 drain(F,{Rows,C}) -> Rows++drain(F,apply(ets,F,[C])).
+
+%% Review regression: real directories and independent raw append resources.
+write_review(Directory) ->
+    D=filename:join(Directory,"filesystem"),_=file:make_dir(D),
+    S=filename:join(D,"rename-source"),T=filename:join(D,"rename-target"),
+    _=file:delete(filename:join(S,"payload")),_=file:del_dir(S),
+    _=file:delete(filename:join(T,"payload")),_=file:del_dir(T),
+    ok=file:make_dir(S),ok=file:write_file(filename:join(S,"payload"),<<"kept">>),
+    Cases=[{append_review,D},{rename_review,D}],
+    ok=file:write_file(filename:join(Directory,"filesystem.etf"),term_to_binary([{C,scenario_capture(C)}||C<-Cases])).
+
+review_files(Directory) ->
+    D=filename:join(Directory,"review"),_=file:make_dir(D),
+    Names=["source","target","empty_source","empty_target","full_source","full_target"],
+    lists:foreach(fun(N)->P=filename:join(D,N),_=file:delete(filename:join(P,"payload")),_=file:del_dir(P) end,Names),
+    S=filename:join(D,"source"),T=filename:join(D,"target"),
+    ok=file:make_dir(S),ok=file:write_file(filename:join(S,"payload"),<<"kept">>),
+    Rename=file:rename(S,T),RenamedData=file:read_file(filename:join(T,"payload")),
+    ES=filename:join(D,"empty_source"),ET=filename:join(D,"empty_target"),
+    ok=file:make_dir(ES),ok=file:make_dir(ET),EmptyRename=file:rename(ES,ET),
+    FS=filename:join(D,"full_source"),FT=filename:join(D,"full_target"),
+    ok=file:make_dir(FS),ok=file:make_dir(FT),ok=file:write_file(filename:join(FT,"payload"),<<"target">>),
+    FullRename=file:rename(FS,FT),
+    Cursor=review_append_cursor(filename:join(D,"cursor")),
+    Concurrent=review_append_writers(filename:join(D,"append")),
+    {{Rename,RenamedData,review_exists(S),review_exists(T)},
+     {EmptyRename,review_exists(ES),review_exists(ET)},
+     {FullRename,file:read_file(filename:join(FT,"payload"))},Cursor,Concurrent}.
+
+review_exists(P) -> case file:read_file_info(P) of {ok,_}->true;{error,enoent}->false;Other->Other end.
+
+review_append_cursor(P) ->
+    ok=file:write_file(P,<<"old">>),{ok,F}=file:open(P,[raw,binary,read,append]),
+    {ok,0}=file:position(F,0),A=file:write(F,<<"X">>),AP=file:position(F,cur),
+    B=file:pwrite(F,0,<<"Q">>),BP=file:position(F,cur),
+    C=file:write(F,<<"Y">>),CP=file:position(F,cur),ok=file:close(F),
+    {A,AP,B,BP,C,CP,file:read_file(P)}.
+
+review_append_writers(P) ->
+    ok=file:write_file(P,<<>>),Parent=self(),WriterCount=8,RowsPerWriter=512,
+    Writers=[spawn(fun()->
+        {ok,F}=file:open(P,[raw,binary,append]),Parent!{ready,self()},
+        receive go -> ok end,
+        Outcome=(catch begin lists:foreach(fun(I)->ok=file:write(F,<<W:32,I:32,0:192>>) end,lists:seq(1,RowsPerWriter)),file:close(F) end),
+        Parent!{written,self(),Outcome}
+    end)||W<-lists:seq(1,WriterCount)],
+    lists:foreach(fun(Pid)->receive {ready,Pid}->ok end end,Writers),
+    lists:foreach(fun(Pid)->Pid!go end,Writers),
+    Results=[receive {written,Pid,R}->R end||Pid<-Writers],
+    {ok,Bytes}=file:read_file(P),Rows=review_records(Bytes,[]),
+    Expected=[{W,I}||W<-lists:seq(1,WriterCount),I<-lists:seq(1,RowsPerWriter)],
+    {byte_size(Bytes),length(Rows),length(lists:usort(Rows)),lists:sort(Rows)=:=Expected,Results}.
+
+review_records(<<W:32,I:32,0:192,Rest/binary>>,Acc) -> review_records(Rest,[{W,I}|Acc]);
+review_records(<<>>,Acc) -> Acc.

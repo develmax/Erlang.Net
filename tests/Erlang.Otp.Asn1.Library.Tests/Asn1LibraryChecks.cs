@@ -126,7 +126,7 @@ internal static class Asn1LibraryChecks
                         RuntimeBootstrapEtsInfo420.Register(runtime, registry);
                     }
                 });
-                string[] imports = OtpAsn1.Modules.Concat(OtpStdlib.Modules).Concat([Observer, Internal, ErlangModule, FileModule, DiskLog]).ToArray();
+                string[] imports = OtpAsn1.Modules.Concat(OtpStdlib.Modules).Concat([Observer, Internal, ErlangModule, Asn1LibraryNames.FileModule, DiskLog]).ToArray();
                 var dependencies = new BeamDependencySelection(imports);
                 byte[][] bytes = [OtpStdlib.ReadImage(Lists), OtpStdlib.ReadImage(Ets), OtpAsn1.ReadImage(ExternalTransform), OtpAsn1.ReadImage(CompilerTable), Resource(ObserverImage)];
                 PreparedBeamImage[] images = bytes.Select(image =>

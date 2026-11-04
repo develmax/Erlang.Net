@@ -1,7 +1,14 @@
 # Next steps
 
-- Preserve [ETS Part586](validation/ets-main-reconcile-20261104/README.md) focused acceptance; complete broader upstream/concurrency/platform/resource/metadata/startup-manifest gates before claiming 100% OTP compatibility. Inspect final PR checks/review separately; no full local regression requested.
+ETS PR116 review fixes: see [current evidence](validation/ets-review-20261104/README.md). Original Erlang remains selectable; directory rename and OS-atomic append are connected native acceptance scopes.
 
+Part589 updates ASN.1 PR118 from timer main29b92f63d, retaining both components and the qualified file atom. Fresh focused build,65 checks/26 OTP outcomes and passive bindings pass. [Evidence](validation/part-589/README.md).
+
+Part588 fixes the ASN.1 consumer CS0119 exposed after the file backend was added: qualify the existing file atom constant. Focused build and65 checks/26 fresh OTP outcomes pass; no runtime or compatibility change. [Evidence](validation/part-588/README.md).
+
+[Part587](validation/part-587/README.md) fixes the gen_statem sys continuation review finding:97 retained managed machines become1 after32 generations. Both backends pass74+311 full observations/scenarios. Final-head hosted review/CI and wider OTP acceptance remain separate.
+
+[gen_statem merge repair](validation/gen-statem-merge-20261104/README.md) reconciles gen_statem PR112 with code/file/gen_event main and refreshes declared source identities. Prior module comparisons remain historical; final-head hosted checks and the sys continuation review finding remain open.
 Part586 fixes the omitted Monitor source-freeze manifest behind main CI41836436436 and adds a committed-manifest guard. No runtime or compatibility change. [Failure and focused validation](validation/part-586/README.md).
 
 PR111 Part585 reconciles code/file/gen_event on current main, refreshes declared source/producer pins and checks the retained BEAM image hash. Fresh105/105 per backend passes; final-head CI remains required. [Repair evidence](validation/part-585/README.md).
@@ -21,9 +28,12 @@ Draft Part568 prepares the bulk physical-occurrence runtime patch in a separate 
 
 ## Executable queue
 
+- Complete final-head CI for [PR114 analysis consumer boot/layout repair](validation/code-testanalysis-ci-20261104/README.md), preserving the unchanged2463-case oracle and original code routing. No full local regression or compatibility promotion.
+
 - Preserve [file literal ownership and focused acceptance](validation/part-580/README.md); run the permanent literal audit when editing this module. Complete prim_file/prim_buffer/RAM native support, then replay the five independent raw/normal/RAM/consult/compressed gates in both backends. Keep verification focused and leave full compatibility/readiness unpromoted while the gates fail.
 
 - Complete [code acceptance](validation/code-port-20261104/README.md) beyond the passing69-export/156+25 corpus: full consumer startup closure, documentation/gzip dependencies, platform errors, races and upstream code_SUITE. Preserve selected code:is_loaded routing and semantic literal ownership; no100% promotion from finite counts.
+- Review the scoped gen_statem PR and its [gen_statem publication receipt](validation/gen-statem-port-20261104/README.md). Preserve explicit backend selection and original OTP assets; full upstream-suite, distributed/global/via, resource/platform and metadata acceptance remain separate work.
 
 - [Downstream CI producer repair](validation/part-577/README.md): reconcile the remaining native/integrated producer identities and monitor completed final-head workflows.
 
@@ -57,3 +67,6 @@ All previous plans, including unfinished scope and handoffs, remain in [ordered 
 Keep only current priorities and links here. Maintain detailed plans in remaining-work/, and record completed steps in the active changelog volume.
 
 - Complete the frozen Part569 CI repair acceptance and merge after current mandatory checks/review. [Actual evidence](validation/part-569/ci-integrated-pins-and-reuse/hosted-results/README.md) separates passed9687 units/native cohort/async23 from the still-failed original main pipeline; do not retry unchanged or promote whole-module status.
+
+
+Timer PR113: the user explicitly requested a full C# timer port with retained Erlang/BEAM and selectable implementation. This is the overriding authorization for this module; the general pure-OTP policy remains. See [timer backend and review evidence](timer-backends.md).

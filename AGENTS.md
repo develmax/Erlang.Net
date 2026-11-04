@@ -24,6 +24,8 @@ Review and merge gate:
 
 ## Architecture and precedence
 
+**Explicit ETS exception:** the user requested a complete C# port of ETS while retaining the selectable original Erlang implementation. This authorizes the ETS managed library layer (including folds, persistence control flow, QLC and browsing) in addition to shared runtime primitives. Preserve unchanged pinned Erlang/BEAM assets and explicit backend selection. This scoped instruction takes precedence over the general pure-module policy below and does not authorize unrelated module ports.
+
 The user explicitly confirmed: "OTP-модули остаются на Erlang; C# — runtime/BIF". This later instruction supersedes the earlier work.md direction to manually translate pure Erlang OTP-library logic into C#. Do not silently rewrite the historical work.md or describe the previous work as upstream Erlang execution.
 
 Keep pinned upstream pure Erlang modules as Erlang sources. Audit original Erlang -> BEAM -> our .NET runtime as the upstream alternative, while retaining our source compiler path. C# implements runtime semantics, native BIF/NIF primitives and host integration. Executing a BEAM asset in our runtime does not mean depending on the original ERTS VM in production. An original compiler can be a build-time dependency; self-hosting that compiler is a separate unproven milestone. Original OTP remains the development oracle.
