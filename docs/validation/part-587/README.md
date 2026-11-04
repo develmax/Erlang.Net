@@ -41,3 +41,19 @@ admitted as evidence about managed continuation reachability. A smaller graph
 walk cap rejected the old unbounded chain before yielding a count; the bounded
 100000-node probe yields the admitted97/1 results. Old overwritten report copies
 from failed early attempts are not used in the acceptance summary.
+
+Final evidence: [97/1 acceptance](retention-acceptance.json),
+[old library](admitted-reproduced.json), [fixed library](local-retention.json),
+[Managed](Managed-report.json), [Beam](Beam-report.json),
+[source/export audit](source-audit.json), [whole module admission](acceptance.json),
+[13 passive plans](passive-final-current.json), [Resource529](resource-final.json),
+[5400 raw bindings](mfa-final-current.json) and [23 committed-candidate controls](ci-final.log).
+[Identity-only scope](source-plan-refresh/final-semantic-scope.json) preserves
+membership/statuses/workflow logic. Earlier failed probes are in diagnostics.zip.
+
+The latest main b317a9c2f adds the Monitor-manifest/checkout guard repair only;
+product and runner sources remain identical to the passing comparisons. Preserve
+main's independently allocated Part586 receipt; the earlier gen_statem merge
+receipt now lives in [its own namespace](../gen-statem-merge-20261104/README.md).
+An immutable legacy freeze alias preserves Part587's already-recorded parent hash.
+The new guard passes against the committed candidate, not uncommitted manifest bytes.

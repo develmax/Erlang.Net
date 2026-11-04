@@ -17,6 +17,12 @@ class IntegratedBindingsTests(unittest.TestCase):
             value = json.loads(manifest.read_bytes())
             if "SourceFreezePath" not in value:
                 continue
+            relative = manifest.relative_to(root).as_posix()
+            committed = subprocess.check_output([
+                "git", "cat-file", "--filters", "HEAD:" + relative
+            ], cwd=root)
+            self.assertEqual(manifest.read_bytes(), committed,
+                             "Source-freeze manifest differs from the committed checkout: " + relative)
             path = value["SourceFreezePath"]
             for mode in ("true", "false"):
                 with self.subTest(path=path, autocrlf=mode):

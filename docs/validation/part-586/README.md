@@ -1,40 +1,31 @@
-# PR112 main conflict and source-identity repair
+# Part586: commit the omitted Monitor manifest
 
-Merge main c6ce68bfc into PR112, preserving code/file/gen_event/gen_statem startup
-selection and registration together. Keep main enum values and append GenStatem.
-Keep the main BEAM send-error source capture and the PR badfun frame correction.
-No gen_statem engine behavior changes in this repair.
+Run41836436436 on merged main c6ce68bfc7ca29726d1a6f804ba9bc323b3e5795
+fails before SDK work. The uploaded source-plan566/preflight.json proves three
+failures: Owned506 and Pending reject Monitor inputs.json, while Monitor uses
+the predecessor freeze whose registration hash is obsolete. Resource529 and
+all5400 MFA/native raw bindings pass. Preserve the hosted failure here.
 
-The branches independently allocated Part580. Main's file evidence stays at its
-original path. All nineteen earlier gen_statem publication files are preserved
-byte-for-byte under [the dedicated gen_statem namespace](../gen-statem-port-20261104/README.md).
-Its original changelog narrative is preserved there separately. Old source and
-assembly receipts remain historical evidence, not results for this merge head.
+The previous PR111 helper changed Monitor inputs.json before initializing its
+audit. Publication selected paths from that audit and omitted this manifest.
+The dependent plans already bind the desired manifest bytes. Commit its exact
+Part585 SourceFreezePath and SourceFreezeSha256; do not recalculate expected
+values around the stale predecessor, change any acceptance gate or overwrite
+the historical freezes. No product/runtime behavior changes.
 
-Start source plans from main's current policy/membership, refresh declared
-digests, Bytes/SealedBytes and producer/workflow pins, and give the monitor freeze
-a successor with preserved parent path/hash. The structural scope proof permits
-only those changes; no status, membership, execution flag, workflow logic or
-trigger is changed. Original OTP29.1.1 source/BEAM assets are unchanged. No new
-package or license decision; reuse the existing main source-admission helper.
+Strengthen the CIReuse checkout-filter test to compare each working source-freeze
+manifest with its filtered HEAD content before checking its referenced freeze.
+The new guard rejects the previous candidate that omitted the manifest. This
+checks publication input identity as well as checkout behavior.
 
-Ordinary Release builds of tests and runner pass with zero warnings/errors and
-no exclusions. Four exact function-call/continuation tests pass. The original
-corpus `system` scenario passes separately with Managed and Beam; those subset
-reports explicitly remain incomplete. Full regression, full311-scenario/74-API
-replay, readiness regeneration and manual CI dispatch are unrun in this urgent
-conflict/hash repair. Prior whole-module results keep their original scope.
+Reproduction from the committed main manifest produces the same three passive
+failures. Restoring the intended manifest makes all13 passive checks pass.
+The final isolated committed-tree CIReuse result is retained separately. SDK
+build, product VM, full regression and readiness refresh are unnecessary for
+this manifest/test-only repair and were not run. Hosted final-head CI remains
+required; prior gen_event timing limitations and compatibility scope stand.
 
-Commands: `dotnet build tests/Erlang.Tests -c Release --nologo -m:1 -nr:false -v q`;
-the same build for tools/Validation/Erlang.GenStatemCompatibility; exact four
-`--case` names in focused.json; run the compatibility DLL with repository,
-original admitted corpus, backend and `system`; Resource529 verify-source-plan.py;
-unchanged13-plan passive admission extracted from validate.yml;
-verify-mfa-source-bindings.py; unittest discover under Erlang.CiReuse.
-
-The initial CI-reuse control invocation failed because its new monitor receipt
-was not yet in HEAD. Rerun against the committed candidate is the accepted result;
-the original failure remains in ci-controls.log. Hosted checks/review still apply.
-The separate review finding about retained async sys continuations remains open;
-this repair does not claim it is fixed or resolve its thread. No merge or package
-publication is performed. Push this repair immediately to existing PR112.
+Final isolated committed candidate:23/23 CIReuse tests and13/13 passive
+source admissions pass. Monitor manifest checkout bytes match the intended
+E5EA62E9EC7E72A85439BCC2A1D5DD9B4A722931F7762AA33F1CE448648135FB
+identity with core.autocrlf=true and false. No dependent hash changes are needed.

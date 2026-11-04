@@ -2,7 +2,8 @@
 
 [Part587](validation/part-587/README.md) fixes the gen_statem sys continuation review finding:97 retained managed machines become1 after32 generations. Both backends pass74+311 full observations/scenarios. Final-head hosted review/CI and wider OTP acceptance remain separate.
 
-[Part586](validation/part-586/README.md) reconciles gen_statem PR112 with code/file/gen_event main and refreshes declared source identities. Prior module comparisons remain historical; final-head hosted checks and the sys continuation review finding remain open.
+[gen_statem merge repair](validation/gen-statem-merge-20261104/README.md) reconciles gen_statem PR112 with code/file/gen_event main and refreshes declared source identities. Prior module comparisons remain historical; final-head hosted checks and the sys continuation review finding remain open.
+Part586 fixes the omitted Monitor source-freeze manifest behind main CI41836436436 and adds a committed-manifest guard. No runtime or compatibility change. [Failure and focused validation](validation/part-586/README.md).
 
 PR111 Part585 reconciles code/file/gen_event on current main, refreshes declared source/producer pins and checks the retained BEAM image hash. Fresh105/105 per backend passes; final-head CI remains required. [Repair evidence](validation/part-585/README.md).
 

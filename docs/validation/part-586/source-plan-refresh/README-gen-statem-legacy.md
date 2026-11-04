@@ -1,0 +1,1 @@
+This immutable gen_statem freeze alias predates the independent main Part586 allocation. Preserve its bytes and path for the already committed Part587 ParentPath/ParentSha256 link. The original merge receipt lives at ../../gen-statem-merge-20261104/README.md; main Part586 is the gen_event Monitor-manifest repair.
