@@ -2,6 +2,37 @@ namespace Erlang;
 
 internal static class CodeSource
 {
+    internal static ErlangException InvalidModuleStatus(ProcessContext context, Term module, int comprehensionDepth)
+    {
+        ErlangException error = Capture(
+            context,
+            CodeApiNames.IsLoaded,
+            [module],
+            Term.A(ErlangErrorReasons.FunctionClause),
+            CodeSourceLocations.IsLoadedClause
+        );
+        var frames = Cons.Items(error.StackTraceTerm).ToList();
+
+        Term Continuation(string function, int line)
+            => Term.Tuple(
+                Term.A(CodeModule.Name),
+                Term.A(function),
+                Term.I(2),
+                Term.List(
+                    Term.Tuple(Term.A(CodeSourceFields.File), Term.String(CodeSourceFields.FileName)),
+                    Term.Tuple(Term.A(CodeSourceFields.Line), Term.I(line))
+                )
+            );
+        frames.Insert(1, Continuation(CodeApiNames.ModuleStatus, CodeSourceLocations.ModuleStatusLoadedCall));
+        for (int i = 0; i < Math.Min(comprehensionDepth, context.Runtime.BacktraceDepth); i++)
+        {
+            frames.Insert(2, Continuation(CodeSourceFunctions.ModuleStatusListComprehension, CodeSourceLocations.ModuleStatusListCall));
+        }
+
+        return new ErlangException(ErlangErrorReasons.FunctionClause)
+            .WithCapturedStack(Cons.From(frames.Take(Math.Max(CodeSourceLocations.MinimumBacktraceFrames, context.Runtime.BacktraceDepth))));
+    }
+
     internal static ErlangException Partition(
         ProcessContext context,
         string operation,

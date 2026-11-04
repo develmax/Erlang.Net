@@ -198,17 +198,27 @@ public static partial class CodeModule
         var rows = new List<Term>();
         foreach (Term module in Cons.Items(input))
         {
-            rows.Add(Term.Tuple(module, await ModuleStatus(context, module, Cons.From(cache))));
+            rows.Add(Term.Tuple(module, await ModuleStatus(
+                context,
+                module,
+                Cons.From(cache),
+                rows.Count + 1
+            )));
         }
 
         return Cons.From(rows);
     }
 
-    private static async ValueTask<Term> ModuleStatus(ProcessContext context, Term module, Term paths)
+    private static async ValueTask<Term> ModuleStatus(
+        ProcessContext context,
+        Term module,
+        Term paths,
+        int comprehensionDepth = 0
+    )
     {
         if (module is not Atom atom)
         {
-            throw new ErlangException(ErlangErrorReasons.FunctionClause);
+            throw CodeSource.InvalidModuleStatus(context, module, comprehensionDepth);
         }
         Term loaded = await Call(
             context,

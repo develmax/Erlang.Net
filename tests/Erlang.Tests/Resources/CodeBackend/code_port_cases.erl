@@ -58,7 +58,8 @@ cases() ->
      {add_paths,[[]]}, {add_pathsa,[[]]}, {add_pathsz,[[]]},
      {add_path,[[]]}, {add_patha,[[]]}, {add_pathz,[[]]},
      {del_paths,[[]]}, {del_path,[missing_code_port]},
-     {stick_mod,[missing_code_port]}, {unstick_mod,[missing_code_port]}].
+     {stick_mod,[missing_code_port]}, {unstick_mod,[missing_code_port]},
+     {module_status,[42]}, {module_status,[[42]]}, {module_status,[[missing_code_port,42]]}].
 
 write_lifecycle(Directory) ->
     {ok,Bytes} = file:read_file(filename:join(Directory,"code_port_loaded.beam")),

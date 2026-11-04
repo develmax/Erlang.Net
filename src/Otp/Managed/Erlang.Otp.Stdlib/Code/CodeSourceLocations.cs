@@ -47,6 +47,8 @@ internal static class CodeSourceLocations
     internal const int WhereIsFileSearchClause = 1817;
     internal const int GetDocumentationClause = 1860;
     internal const int GetDocumentationOptionsClause = 1864;
+    internal const int ModuleStatusLoadedCall = 2094;
+    internal const int ModuleStatusListCall = 2087;
     internal const int UnknownLine = 0;
     internal const int MinimumBacktraceFrames = 1;
 }

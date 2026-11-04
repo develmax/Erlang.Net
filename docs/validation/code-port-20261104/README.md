@@ -9,7 +9,15 @@ Read the [backend contract](../../code-backends.md) and
 [API inventory](api-inventory.md). The inventory proves signature equality,
 not universal OTP equivalence. The registered default MFA ledger is unchanged.
 
-## PR publication over current main
+## CI and review follow-up
+
+[Part579](../part-579/README.md) repairs the stale CI source plans and the reviewed
+module_status error stacks. Both backends now match159 complete observations plus
+the25-result lifecycle;17 focused groups and all passive admissions pass locally.
+Earlier publication receipts below remain immutable evidence of their own head.
+Hosted final-head CI completion is tracked separately.
+
+## Initial PR publication over current main
 
 The isolated branch starts at main `67809531b` and contains only the code port,
 its integration, tests and documentation. The ordinary test-project build passes
