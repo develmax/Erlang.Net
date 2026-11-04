@@ -6,6 +6,8 @@ Draft Part568 prepares the bulk physical-occurrence runtime patch in a separate 
 
 ## Executable queue
 
+- Preserve [file literal ownership and focused acceptance](validation/part-578/README.md); run the permanent literal audit when editing this module. Complete prim_file/prim_buffer/RAM native support, then replay the five independent raw/normal/RAM/consult/compressed gates in both backends. Keep verification focused and leave full compatibility/readiness unpromoted while the gates fail.
+
 - [Downstream CI producer repair](validation/part-577/README.md): reconcile the remaining native/integrated producer identities and monitor completed final-head workflows.
 
 - [Unicode CI repairs](validation/part-576/README.md): linear conversion accumulation, 20 focused groups, retained OTP buffer observations and refreshed source-plan bindings; final-head CI remains the delivery gate.

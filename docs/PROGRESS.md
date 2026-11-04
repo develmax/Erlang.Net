@@ -6,6 +6,8 @@ Draft Part568 prepares the bulk physical-occurrence runtime patch in a separate 
 
 ## Current status sources
 
+- [File alternatives](file-backends.md): selectable C# surface for all 69 exports, unchanged original Erlang and semantic owners for protocol/layout/source/configuration values. Both backends match 408 focused observations; five complete filesystem cycles remain failing native/provider gates. See [Part578](validation/part-578/README.md); no full-compatibility or global-readiness promotion.
+
 - [Downstream CI producer repair](validation/part-577/README.md): reconcile the remaining native/integrated producer identities and monitor completed final-head workflows.
 
 - [Unicode CI repairs](validation/part-576/README.md): linear conversion accumulation, 20 focused groups, retained OTP buffer observations and refreshed source-plan bindings; final-head CI remains the delivery gate.
