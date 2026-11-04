@@ -1,10 +1,18 @@
 # Next steps
 
+[Part583](validation/part-583/README.md) repairs Windows checkout conversion of the Part582 source freeze. Raw source admission remains strict; no compatibility status is promoted.
+
+[Part582](validation/part-582/README.md) reconciles file PR110 with code main, retains both backend selections and refreshes source/producer identities. Connected validation and final-head hosted CI apply; compatibility classifications remain unchanged.
+
+[Part581](validation/part-581/README.md) repairs PR110 source admission and producer pins; runtime behavior and compatibility classifications are unchanged. Final-head hosted CI remains required.
+
 Part574 consolidates the final Linux descriptor poll source and audits stale branches. Exact-head Linux/original replay, CI, review and merge remain pending; no API/full-contract promotion. See [branch decisions and acceptance gates](validation/part-574/README.md).
 
 Draft Part568 prepares the bulk physical-occurrence runtime patch in a separate PR to main. Ordsets stays6 Verified/15 KnownDifferences; current whole ETF replay remains RED. See [evidence and open acceptance gates](validation/part-568/ordsets-bulk/README.md).
 
 ## Executable queue
+
+- Preserve [file literal ownership and focused acceptance](validation/part-580/README.md); run the permanent literal audit when editing this module. Complete prim_file/prim_buffer/RAM native support, then replay the five independent raw/normal/RAM/consult/compressed gates in both backends. Keep verification focused and leave full compatibility/readiness unpromoted while the gates fail.
 
 - Complete [code acceptance](validation/code-port-20261104/README.md) beyond the passing69-export/156+25 corpus: full consumer startup closure, documentation/gzip dependencies, platform errors, races and upstream code_SUITE. Preserve selected code:is_loaded routing and semantic literal ownership; no100% promotion from finite counts.
 

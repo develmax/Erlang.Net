@@ -18,8 +18,18 @@ internal static class RuntimeManagedLibraries456
             ?? throw new InvalidOperationException(RuntimeManagedLibraryNames456.InvalidEntry);
     });
 
+    private static readonly Lazy<IRuntimeManagedLibrary456> Kernel = new(() =>
+    {
+        AssemblyLoadContext context = AssemblyLoadContext.GetLoadContext(typeof(ModuleRegistry).Assembly)!;
+        Assembly assembly = context.LoadFromAssemblyName(new AssemblyName(RuntimeManagedLibraryNames456.KernelAssembly));
+        Type entry = assembly.GetType(RuntimeManagedLibraryNames456.KernelEntry, throwOnError: true)!;
+
+        return Activator.CreateInstance(entry) as IRuntimeManagedLibrary456
+            ?? throw new InvalidOperationException(RuntimeManagedLibraryNames456.InvalidEntry);
+    });
+
     internal static void Register(ModuleRegistry registry, RuntimeManagedLibraryStage456 stage)
-        => Stdlib.Value.Register(registry, stage);
+        => (stage == RuntimeManagedLibraryStage456.File ? Kernel.Value : Stdlib.Value).Register(registry, stage);
 
     internal static Assembly StdlibAssembly => Stdlib.Value.GetType().Assembly;
 }

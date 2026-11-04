@@ -4,11 +4,31 @@ import hashlib
 import tempfile
 import json
 import unittest
+import subprocess
 
 from source_bindings import powershell_pin, qualified_inputs, require_producer_fields, verify
 
 
 class IntegratedBindingsTests(unittest.TestCase):
+    def test_current_source_freezes_survive_windows_checkout_filters(self):
+        root = Path(__file__).resolve().parents[3]
+        checked = 0
+        for manifest in sorted(root.glob("tools/Runtime/*/inputs.json")):
+            value = json.loads(manifest.read_bytes())
+            if "SourceFreezePath" not in value:
+                continue
+            path = value["SourceFreezePath"]
+            for mode in ("true", "false"):
+                with self.subTest(path=path, autocrlf=mode):
+                    data = subprocess.check_output([
+                        "git", "-c", "core.autocrlf=" + mode,
+                        "cat-file", "--filters", "HEAD:" + path
+                    ], cwd=root)
+                    self.assertEqual(hashlib.sha256(data).hexdigest().upper(),
+                                     value["SourceFreezeSha256"])
+            checked += 1
+        self.assertGreater(checked, 0)
+
     def test_known_producer_roles_cannot_drop_required_fields(self):
         root = Path(__file__).resolve().parents[3]
         pins = json.loads((root / "tools/Native/Erlang.NifIntegratedObservations/inputs.json").read_bytes())["PlanPins"]
