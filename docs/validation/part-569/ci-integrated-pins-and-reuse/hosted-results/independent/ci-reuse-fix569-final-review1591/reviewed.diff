@@ -1,0 +1,80 @@
+diff --git a/tools/Validation/Erlang.CiReuse/collector.py b/tools/Validation/Erlang.CiReuse/collector.py
+index 05a2904bd..7c74996bd 100644
+--- a/tools/Validation/Erlang.CiReuse/collector.py
++++ b/tools/Validation/Erlang.CiReuse/collector.py
+@@ -141,10 +141,12 @@ def collect(root, fingerprint, job):
+                   if len(line.split()) == 2 and line.split()[1] == tree} - {commit, head}
+     if len(equivalent) > 10:
+         raise ValueError("Equivalent-tree history exceeds bounded evidence collection")
++    history_snapshots = {}
+     for previous in sorted(equivalent):
+         history = api.pages("actions/runs?head_sha=" + urllib.parse.quote(previous), "workflow_runs")
+         if any(run.get("path") in REQUIRED and (run.get("status") != "completed" or run.get("conclusion") != "success" or run.get("run_attempt") != 1) for run in history):
+             raise ValueError("Earlier equivalent-tree validation is unsuccessful or incomplete")
++        history_snapshots[previous] = run_snapshot(history)
+     runs = api.pages("actions/runs?head_sha=" + urllib.parse.quote(head), "workflow_runs")
+     if any(run.get("path") in REQUIRED and run.get("run_attempt") != 1 for run in runs):
+         raise ValueError("Repeated attempt requires full validation of tested-head evidence")
+@@ -189,6 +191,10 @@ def collect(root, fingerprint, job):
+         if (fresh.get("run_attempt") != run["attempt"] or fresh.get("head_sha") != head
+                 or fresh.get("status") != "completed" or fresh.get("conclusion") != "success"):
+             raise ValueError("Producer completion changed during admission")
++    for previous, before in history_snapshots.items():
++        refreshed = api.pages("actions/runs?head_sha=" + urllib.parse.quote(previous), "workflow_runs")
++        if run_snapshot(refreshed) != before:
++            raise ValueError("Equivalent-tree workflows changed during admission")
+     refreshed_current = api.pages("actions/runs?head_sha=" + urllib.parse.quote(commit), "workflow_runs")
+     if run_snapshot(refreshed_current) != run_snapshot(current_runs):
+         raise ValueError("Merge workflows changed during admission")
+diff --git a/tools/Validation/Erlang.CiReuse/test_lifecycle.py b/tools/Validation/Erlang.CiReuse/test_lifecycle.py
+index d731b2d5a..5e05dddd9 100644
+--- a/tools/Validation/Erlang.CiReuse/test_lifecycle.py
++++ b/tools/Validation/Erlang.CiReuse/test_lifecycle.py
+@@ -79,7 +79,7 @@ class WorkflowLifecycleTests(unittest.TestCase):
+ 
+                 def pages(self, path, key=None):
+                     if path == "actions/runs?head_sha=merge":
+-                        values = [dict(id=100, path=".github/workflows/validate.yml", status="in_progress", conclusion=None,
++                        values = [dict(id=900, path=".github/workflows/validate.yml", status="in_progress", conclusion=None,
+                                        run_attempt=API.current_attempt)]
+                         if API.downloaded and API.late in ("incomplete", "failure"):
+                             values.append(dict(id=999, path=".github/workflows/validate.yml", run_attempt=1,
+@@ -88,7 +88,7 @@ class WorkflowLifecycleTests(unittest.TestCase):
+                         return values
+                     if path == "actions/runs?head_sha=prior":
+                         return [dict(path=".github/workflows/validate.yml", status="completed",
+-                                     conclusion="success" if API.prior_failure == "retry" else "failure",
++                                     conclusion="failure" if API.prior_failure is True or (API.downloaded and API.late == "history") else "success",
+                                      run_attempt=2 if API.prior_failure == "retry" else 1)]
+                     if path == "commits/merge/pulls":
+                         return [dict(number=102, merged_at="2026-11-03", merge_commit_sha="merge")]
+@@ -113,7 +113,10 @@ class WorkflowLifecycleTests(unittest.TestCase):
+                         return dict(merged=True, number=102, merge_commit_sha="merge", base=dict(ref="main"),
+                                     head=dict(sha="head", repo=dict(full_name="owner/repo")))
+                     if path.startswith("actions/runs/"):
+-                        return next(run for run in runs if run["id"] == int(path.split("/")[2]))
++                        value = copy.deepcopy(next(run for run in runs if run["id"] == int(path.split("/")[2])))
++                        if API.downloaded and API.late == "concrete":
++                            value["run_attempt"] = 2
++                        return value
+                     if path == "actions/artifacts/99/zip":
+                         API.downloaded = True
+                         return archive_bytes
+@@ -123,14 +126,14 @@ class WorkflowLifecycleTests(unittest.TestCase):
+                 if args[0] == "show":
+                     return "base head"
+                 if args[0] == "log":
+-                    return "prior tree" if API.prior_failure else "head tree"
++                    return "prior tree" if API.prior_failure or API.late == "history" else "head tree"
+                 return "tree"
+ 
+-            env.update(GITHUB_EVENT_NAME="push", GITHUB_SHA="merge", GITHUB_REF="refs/heads/main", GH_TOKEN="test-only")
++            env.update(GITHUB_EVENT_NAME="push", GITHUB_SHA="merge", GITHUB_REF="refs/heads/main", GH_TOKEN="test-only", GITHUB_RUN_ID="900")
+             with patch.dict(os.environ, env), patch.object(collector, "GitHub", API), patch.object(collector, "git", git), \
+                     patch.object(collector.subprocess, "run", return_value=type("Result", (), {"returncode": 0})()):
+                 result = collector.collect(Path(folder), fingerprint, "local-regressions")
+-                for late in ["incomplete", "failure", "producer"]:
++                for late in ["incomplete", "failure", "producer", "concrete", "history"]:
+                     API.late = late
+                     API.downloaded = False
+                     with self.assertRaisesRegex(ValueError, "changed during admission"):

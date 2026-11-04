@@ -34,7 +34,7 @@ review, required CI and merge state are tracked in
 - Both MSBuild examples pass with equal results:
   [Managed](example-managed.json), [Beam](example-beam.json).
 - [Build](final-build.log):0 warnings/errors. Canonical readiness is regenerated
-  from9706 actual tests against the exact immutable previous9682 CI report.
+  from9706 actual tests against the exact immutable previous9687 main unit report.
   [Readiness admission](readiness-admission.json) retains all733 command records,
   registered733/21modules, delta0; the default string row remains the native
   list_to_float/1, separate from71 opt-in exports.
@@ -42,8 +42,11 @@ review, required CI and merge state are tracked in
 See [final gates](final-gates.json), [raw test log](full-test-log.txt.gz) and
 [local SDK/runtime](local-dotnet-info.txt). Summed test durations are not a
 performance comparison or universal input/platform/resource proof. Classifications
-remain unchanged. Current code identity is801d77a20945dc6801bde2654c22f89d173de0bc;
-subsequent checkpoint documentation does not change the tested implementation.
+remain unchanged. Current implementation identity is801d77a20945dc6801bde2654c22f89d173de0bc.
+Accepted main106 changes CI/helpers/source-plan metadata only: the production
+src/tests/build/examples trees remain identical. The original local run retains
+its source/input identity; new combined-head CI is required for the infrastructure.
+See [reconciliation proof](main106-reconciliation/functional-tree-identity.json).
 
 ## Preserved history
 

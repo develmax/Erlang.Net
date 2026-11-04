@@ -25,3 +25,5 @@ All previous plans, including unfinished scope and handoffs, remain in [ordered 
 ## Maintenance
 
 Keep only current priorities and links here. Maintain detailed plans in remaining-work/, and record completed steps in the active changelog volume.
+
+- Complete the frozen Part569 CI repair acceptance and merge after current mandatory checks/review. [Actual evidence](validation/part-569/ci-integrated-pins-and-reuse/hosted-results/README.md) separates passed9687 units/native cohort/async23 from the still-failed original main pipeline; do not retry unchanged or promote whole-module status.

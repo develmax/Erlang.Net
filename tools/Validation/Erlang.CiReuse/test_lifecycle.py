@@ -22,7 +22,7 @@ class WorkflowLifecycleTests(unittest.TestCase):
                 pass
 
             def pages(self, path, key=None):
-                return [dict(id=89, path=".github/workflows/validate.yml", status="in_progress", conclusion=None)]
+                return [dict(id=89, path=".github/workflows/validate.yml", status="in_progress", conclusion=None, run_attempt=1)]
 
         env = dict(GITHUB_EVENT_NAME="push", GITHUB_REF="refs/heads/main", GITHUB_SHA="merge",
                    GITHUB_REPOSITORY="owner/repo", GH_TOKEN="test-only", GITHUB_RUN_ID="90", GITHUB_RUN_ATTEMPT="1")
@@ -70,19 +70,33 @@ class WorkflowLifecycleTests(unittest.TestCase):
 
             class API:
                 prior_failure = False
+                current_attempt = 1
+                late = None
+                downloaded = False
 
                 def __init__(self, repository, token):
                     pass
 
                 def pages(self, path, key=None):
                     if path == "actions/runs?head_sha=merge":
-                        return [dict(id=100, path=".github/workflows/validate.yml", status="in_progress", conclusion=None)]
+                        values = [dict(id=900, path=".github/workflows/validate.yml", status="in_progress", conclusion=None,
+                                       run_attempt=API.current_attempt)]
+                        if API.downloaded and API.late in ("incomplete", "failure"):
+                            values.append(dict(id=999, path=".github/workflows/validate.yml", run_attempt=1,
+                                               status="in_progress" if API.late == "incomplete" else "completed",
+                                               conclusion=None if API.late == "incomplete" else "failure"))
+                        return values
                     if path == "actions/runs?head_sha=prior":
-                        return [dict(path=".github/workflows/validate.yml", conclusion="failure")]
+                        return [dict(path=".github/workflows/validate.yml", status="completed",
+                                     conclusion="failure" if API.prior_failure is True or (API.downloaded and API.late == "history") else "success",
+                                     run_attempt=2 if API.prior_failure == "retry" else 1)]
                     if path == "commits/merge/pulls":
                         return [dict(number=102, merged_at="2026-11-03", merge_commit_sha="merge")]
                     if path.startswith("actions/runs?head_sha="):
-                        return copy.deepcopy(runs)
+                        values = copy.deepcopy(runs)
+                        if API.downloaded and API.late == "producer":
+                            values[0]["run_attempt"] = 2
+                        return values
                     if path.endswith("/jobs"):
                         number = int(path.split("/")[2]); run = next(run for run in runs if run["id"] == number)
                         return [dict(name=name, status="completed", conclusion="success",
@@ -99,8 +113,12 @@ class WorkflowLifecycleTests(unittest.TestCase):
                         return dict(merged=True, number=102, merge_commit_sha="merge", base=dict(ref="main"),
                                     head=dict(sha="head", repo=dict(full_name="owner/repo")))
                     if path.startswith("actions/runs/"):
-                        return next(run for run in runs if run["id"] == int(path.split("/")[2]))
+                        value = copy.deepcopy(next(run for run in runs if run["id"] == int(path.split("/")[2])))
+                        if API.downloaded and API.late == "concrete":
+                            value["run_attempt"] = 2
+                        return value
                     if path == "actions/artifacts/99/zip":
+                        API.downloaded = True
                         return archive_bytes
                     raise AssertionError(path)
 
@@ -108,14 +126,29 @@ class WorkflowLifecycleTests(unittest.TestCase):
                 if args[0] == "show":
                     return "base head"
                 if args[0] == "log":
-                    return "prior tree" if API.prior_failure else "head tree"
+                    return "prior tree" if API.prior_failure or API.late == "history" else "head tree"
                 return "tree"
 
-            env.update(GITHUB_EVENT_NAME="push", GITHUB_SHA="merge", GITHUB_REF="refs/heads/main", GH_TOKEN="test-only")
+            env.update(GITHUB_EVENT_NAME="push", GITHUB_SHA="merge", GITHUB_REF="refs/heads/main", GH_TOKEN="test-only", GITHUB_RUN_ID="900")
             with patch.dict(os.environ, env), patch.object(collector, "GitHub", API), patch.object(collector, "git", git), \
                     patch.object(collector.subprocess, "run", return_value=type("Result", (), {"returncode": 0})()):
                 result = collector.collect(Path(folder), fingerprint, "local-regressions")
+                for late in ["incomplete", "failure", "producer", "concrete", "history"]:
+                    API.late = late
+                    API.downloaded = False
+                    with self.assertRaisesRegex(ValueError, "changed during admission"):
+                        collector.collect(Path(folder), fingerprint, "local-regressions")
+                API.late = None
+                API.downloaded = False
                 API.prior_failure = True
+                with self.assertRaisesRegex(ValueError, "equivalent-tree"):
+                    collector.collect(Path(folder), fingerprint, "local-regressions")
+                API.prior_failure = False
+                API.current_attempt = 2
+                with self.assertRaisesRegex(ValueError, "Repeated merge"):
+                    collector.collect(Path(folder), fingerprint, "local-regressions")
+                API.current_attempt = 1
+                API.prior_failure = "retry"
                 with self.assertRaisesRegex(ValueError, "equivalent-tree"):
                     collector.collect(Path(folder), fingerprint, "local-regressions")
                 API.prior_failure = False
