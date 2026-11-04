@@ -1,0 +1,473 @@
+{
+  "Baseline": "OTP-29.1.1",
+  "Commit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "ReferenceSha256": "D079229DAF06F480F4A6EA3F346713043984EBD06B1E2ED86C89EC95A47BF1AB",
+  "ExportCount": 22,
+  "Apis": [
+    {
+      "Name": "bin_is_7bit",
+      "Arity": 1,
+      "Native": true,
+      "Contract": "Shared native primitive; upstream wrapper remains a native binding",
+      "SourceClausesForName": [
+        {
+          "Line": 141,
+          "Head": "bin_is_7bit(_)"
+        }
+      ]
+    },
+    {
+      "Name": "bom_to_encoding",
+      "Arity": 1,
+      "Native": false,
+      "Contract": "Ordered BOM prefixes or exact encoding aliases; original function_clause arguments and source location",
+      "SourceClausesForName": [
+        {
+          "Line": 386,
+          "Head": "bom_to_encoding(<<239,187,191,_/binary>>)"
+        },
+        {
+          "Line": 388,
+          "Head": "bom_to_encoding(<<0,0,254,255,_/binary>>)"
+        },
+        {
+          "Line": 390,
+          "Head": "bom_to_encoding(<<255,254,0,0,_/binary>>)"
+        },
+        {
+          "Line": 392,
+          "Head": "bom_to_encoding(<<254,255,_/binary>>)"
+        },
+        {
+          "Line": 394,
+          "Head": "bom_to_encoding(<<255,254,_/binary>>)"
+        },
+        {
+          "Line": 396,
+          "Head": "bom_to_encoding(Bin) when is_binary(Bin)"
+        }
+      ]
+    },
+    {
+      "Name": "category",
+      "Arity": 1,
+      "Native": false,
+      "Contract": "Inclusive integer codepoint guards, ASCII fast paths and exact pinned Unicode property/category dispatch",
+      "SourceClausesForName": [
+        {
+          "Line": 827,
+          "Head": "category(Char) when ?IS_CP(Char)"
+        },
+        {
+          "Line": 829,
+          "Head": "category(Term)"
+        }
+      ]
+    },
+    {
+      "Name": "characters_to_binary",
+      "Arity": 1,
+      "Native": false,
+      "Contract": "Wrapper/trap dispatch, encoding aliases, exact partial conversions and ml_map residual structure; fake-stack versus error_with_info distinction",
+      "SourceClausesForName": [
+        {
+          "Line": 153,
+          "Head": "characters_to_binary(_, _)"
+        },
+        {
+          "Line": 305,
+          "Head": "characters_to_binary(ML)"
+        },
+        {
+          "Line": 345,
+          "Head": "characters_to_binary(ML, InEncoding, OutEncoding)"
+        }
+      ]
+    },
+    {
+      "Name": "characters_to_binary",
+      "Arity": 2,
+      "Native": true,
+      "Contract": "Shared native primitive; upstream wrapper remains a native binding",
+      "SourceClausesForName": [
+        {
+          "Line": 153,
+          "Head": "characters_to_binary(_, _)"
+        },
+        {
+          "Line": 305,
+          "Head": "characters_to_binary(ML)"
+        },
+        {
+          "Line": 345,
+          "Head": "characters_to_binary(ML, InEncoding, OutEncoding)"
+        }
+      ]
+    },
+    {
+      "Name": "characters_to_binary",
+      "Arity": 3,
+      "Native": false,
+      "Contract": "Wrapper/trap dispatch, encoding aliases, exact partial conversions and ml_map residual structure; fake-stack versus error_with_info distinction",
+      "SourceClausesForName": [
+        {
+          "Line": 153,
+          "Head": "characters_to_binary(_, _)"
+        },
+        {
+          "Line": 305,
+          "Head": "characters_to_binary(ML)"
+        },
+        {
+          "Line": 345,
+          "Head": "characters_to_binary(ML, InEncoding, OutEncoding)"
+        }
+      ]
+    },
+    {
+      "Name": "characters_to_binary_int",
+      "Arity": 2,
+      "Native": false,
+      "Contract": "Wrapper/trap dispatch, encoding aliases, exact partial conversions and ml_map residual structure; fake-stack versus error_with_info distinction",
+      "SourceClausesForName": [
+        {
+          "Line": 861,
+          "Head": "characters_to_binary_int(ML, InEncoding)"
+        },
+        {
+          "Line": 882,
+          "Head": "characters_to_binary_int(ML, InEncoding, OutEncoding) when\n      InEncoding =:= latin1, OutEncoding =:= unicode;\n      InEncoding =:= latin1, OutEncoding =:= utf8;\n      InEncoding =:= unicode, OutEncoding =:= unicode;\n      InEncoding =:= unicode, OutEncoding =:= utf8;\n      InEncoding =:= utf8, OutEncoding =:= unicode;\n      InEncoding =:= utf8, OutEncoding =:= utf8"
+        },
+        {
+          "Line": 891,
+          "Head": "characters_to_binary_int(ML, InEncoding, OutEncoding)"
+        }
+      ]
+    },
+    {
+      "Name": "characters_to_list",
+      "Arity": 1,
+      "Native": false,
+      "Contract": "Wrapper/trap dispatch, encoding aliases, exact partial conversions and ml_map residual structure; fake-stack versus error_with_info distinction",
+      "SourceClausesForName": [
+        {
+          "Line": 276,
+          "Head": "characters_to_list(_, _)"
+        },
+        {
+          "Line": 289,
+          "Head": "characters_to_list(ML)"
+        }
+      ]
+    },
+    {
+      "Name": "characters_to_list",
+      "Arity": 2,
+      "Native": true,
+      "Contract": "Shared native primitive; upstream wrapper remains a native binding",
+      "SourceClausesForName": [
+        {
+          "Line": 276,
+          "Head": "characters_to_list(_, _)"
+        },
+        {
+          "Line": 289,
+          "Head": "characters_to_list(ML)"
+        }
+      ]
+    },
+    {
+      "Name": "characters_to_list_int",
+      "Arity": 2,
+      "Native": false,
+      "Contract": "Wrapper/trap dispatch, encoding aliases, exact partial conversions and ml_map residual structure; fake-stack versus error_with_info distinction",
+      "SourceClausesForName": [
+        {
+          "Line": 840,
+          "Head": "characters_to_list_int(ML, Encoding)"
+        }
+      ]
+    },
+    {
+      "Name": "characters_to_nfc_binary",
+      "Arity": 1,
+      "Native": false,
+      "Contract": "Streaming normalization; pinned unicode_util, flattened list output or 200-grapheme binary rows; error residual and badarg source metadata",
+      "SourceClausesForName": [
+        {
+          "Line": 615,
+          "Head": "characters_to_nfc_binary(CD)"
+        },
+        {
+          "Line": 623,
+          "Head": "characters_to_nfc_binary(CD, N, Row, Acc) when N > 0"
+        },
+        {
+          "Line": 629,
+          "Head": "characters_to_nfc_binary(CD, _, Row, Acc)"
+        }
+      ]
+    },
+    {
+      "Name": "characters_to_nfc_list",
+      "Arity": 1,
+      "Native": false,
+      "Contract": "Streaming normalization; pinned unicode_util, flattened list output or 200-grapheme binary rows; error residual and badarg source metadata",
+      "SourceClausesForName": [
+        {
+          "Line": 584,
+          "Head": "characters_to_nfc_list(CD)"
+        },
+        {
+          "Line": 592,
+          "Head": "characters_to_nfc_list(CD, Acc)"
+        }
+      ]
+    },
+    {
+      "Name": "characters_to_nfd_binary",
+      "Arity": 1,
+      "Native": false,
+      "Contract": "Streaming normalization; pinned unicode_util, flattened list output or 200-grapheme binary rows; error residual and badarg source metadata",
+      "SourceClausesForName": [
+        {
+          "Line": 484,
+          "Head": "characters_to_nfd_binary(CD)"
+        },
+        {
+          "Line": 492,
+          "Head": "characters_to_nfd_binary(CD, N, Row, Acc) when N > 0"
+        },
+        {
+          "Line": 498,
+          "Head": "characters_to_nfd_binary(CD, _, Row, Acc)"
+        }
+      ]
+    },
+    {
+      "Name": "characters_to_nfd_list",
+      "Arity": 1,
+      "Native": false,
+      "Contract": "Streaming normalization; pinned unicode_util, flattened list output or 200-grapheme binary rows; error residual and badarg source metadata",
+      "SourceClausesForName": [
+        {
+          "Line": 453,
+          "Head": "characters_to_nfd_list(CD)"
+        },
+        {
+          "Line": 461,
+          "Head": "characters_to_nfd_list(CD, Acc)"
+        }
+      ]
+    },
+    {
+      "Name": "characters_to_nfkc_binary",
+      "Arity": 1,
+      "Native": false,
+      "Contract": "Streaming normalization; pinned unicode_util, flattened list output or 200-grapheme binary rows; error residual and badarg source metadata",
+      "SourceClausesForName": [
+        {
+          "Line": 679,
+          "Head": "characters_to_nfkc_binary(CD)"
+        },
+        {
+          "Line": 687,
+          "Head": "characters_to_nfkc_binary(CD, N, Row, Acc) when N > 0"
+        },
+        {
+          "Line": 693,
+          "Head": "characters_to_nfkc_binary(CD, _, Row, Acc)"
+        }
+      ]
+    },
+    {
+      "Name": "characters_to_nfkc_list",
+      "Arity": 1,
+      "Native": false,
+      "Contract": "Streaming normalization; pinned unicode_util, flattened list output or 200-grapheme binary rows; error residual and badarg source metadata",
+      "SourceClausesForName": [
+        {
+          "Line": 648,
+          "Head": "characters_to_nfkc_list(CD)"
+        },
+        {
+          "Line": 656,
+          "Head": "characters_to_nfkc_list(CD, Acc)"
+        }
+      ]
+    },
+    {
+      "Name": "characters_to_nfkd_binary",
+      "Arity": 1,
+      "Native": false,
+      "Contract": "Streaming normalization; pinned unicode_util, flattened list output or 200-grapheme binary rows; error residual and badarg source metadata",
+      "SourceClausesForName": [
+        {
+          "Line": 550,
+          "Head": "characters_to_nfkd_binary(CD)"
+        },
+        {
+          "Line": 558,
+          "Head": "characters_to_nfkd_binary(CD, N, Row, Acc) when N > 0"
+        },
+        {
+          "Line": 564,
+          "Head": "characters_to_nfkd_binary(CD, _, Row, Acc)"
+        }
+      ]
+    },
+    {
+      "Name": "characters_to_nfkd_list",
+      "Arity": 1,
+      "Native": false,
+      "Contract": "Streaming normalization; pinned unicode_util, flattened list output or 200-grapheme binary rows; error residual and badarg source metadata",
+      "SourceClausesForName": [
+        {
+          "Line": 518,
+          "Head": "characters_to_nfkd_list(CD)"
+        },
+        {
+          "Line": 526,
+          "Head": "characters_to_nfkd_list(CD, Acc)"
+        }
+      ]
+    },
+    {
+      "Name": "encoding_to_bom",
+      "Arity": 1,
+      "Native": false,
+      "Contract": "Ordered BOM prefixes or exact encoding aliases; original function_clause arguments and source location",
+      "SourceClausesForName": [
+        {
+          "Line": 416,
+          "Head": "encoding_to_bom(unicode)"
+        },
+        {
+          "Line": 418,
+          "Head": "encoding_to_bom(utf8)"
+        },
+        {
+          "Line": 420,
+          "Head": "encoding_to_bom(utf16)"
+        },
+        {
+          "Line": 422,
+          "Head": "encoding_to_bom({utf16,big})"
+        },
+        {
+          "Line": 424,
+          "Head": "encoding_to_bom({utf16,little})"
+        },
+        {
+          "Line": 426,
+          "Head": "encoding_to_bom(utf32)"
+        },
+        {
+          "Line": 428,
+          "Head": "encoding_to_bom({utf32,big})"
+        },
+        {
+          "Line": 430,
+          "Head": "encoding_to_bom({utf32,little})"
+        },
+        {
+          "Line": 432,
+          "Head": "encoding_to_bom(latin1)"
+        }
+      ]
+    },
+    {
+      "Name": "is_id_continue",
+      "Arity": 1,
+      "Native": false,
+      "Contract": "Inclusive integer codepoint guards, ASCII fast paths and exact pinned Unicode property/category dispatch",
+      "SourceClausesForName": [
+        {
+          "Line": 780,
+          "Head": "is_id_continue(X)\n  when X =:= 48; X =:= 49; X =:= 50; X =:= 51; X =:= 52; X =:= 53; X =:= 54;\n       X =:= 55; X =:= 56; X =:= 57; X =:= 65; X =:= 66; X =:= 67; X =:= 68;\n       X =:= 69; X =:= 70; X =:= 71; X =:= 72; X =:= 73; X =:= 74; X =:= 75;\n       X =:= 76; X =:= 77; X =:= 78; X =:= 79; X =:= 80; X =:= 81; X =:= 82;\n       X =:= 83; X =:= 84; X =:= 85; X =:= 86; X =:= 87; X =:= 88; X =:= 89;\n       X =:= 90; X =:= 95; X =:= 97; X =:= 98; X =:= 99; X =:= 100; X =:= 101;\n       X =:= 102; X =:= 103; X =:= 104; X =:= 105; X =:= 106; X =:= 107;\n       X =:= 108; X =:= 109; X =:= 110; X =:= 111; X =:= 112; X =:= 113;\n       X =:= 114; X =:= 115; X =:= 116; X =:= 117; X =:= 118; X =:= 119;\n       X =:= 120; X =:= 121; X =:= 122"
+        },
+        {
+          "Line": 792,
+          "Head": "is_id_continue(Char) when is_integer(Char, 0, 127)"
+        },
+        {
+          "Line": 794,
+          "Head": "is_id_continue(Char) when ?IS_CP(Char)"
+        },
+        {
+          "Line": 806,
+          "Head": "is_id_continue(Term)"
+        }
+      ]
+    },
+    {
+      "Name": "is_id_start",
+      "Arity": 1,
+      "Native": false,
+      "Contract": "Inclusive integer codepoint guards, ASCII fast paths and exact pinned Unicode property/category dispatch",
+      "SourceClausesForName": [
+        {
+          "Line": 740,
+          "Head": "is_id_start(X)  %% ASCII optimizations\n  when X =:= 65; X =:= 66; X =:= 67; X =:= 68; X =:= 69; X =:= 70; X =:= 71;\n       X =:= 72; X =:= 73; X =:= 74; X =:= 75; X =:= 76; X =:= 77; X =:= 78;\n       X =:= 79; X =:= 80; X =:= 81; X =:= 82; X =:= 83; X =:= 84; X =:= 85;\n       X =:= 86; X =:= 87; X =:= 88; X =:= 89; X =:= 90; X =:= 97; X =:= 98;\n       X =:= 99; X =:= 100; X =:= 101; X =:= 102; X =:= 103; X =:= 104; X =:= 105;\n       X =:= 106; X =:= 107; X =:= 108; X =:= 109; X =:= 110; X =:= 111; X =:= 112;\n       X =:= 113; X =:= 114; X =:= 115; X =:= 116; X =:= 117; X =:= 118; X =:= 119;\n       X =:= 120; X =:= 121; X =:= 122"
+        },
+        {
+          "Line": 750,
+          "Head": "is_id_start(Char) when is_integer(Char, 0, 127)"
+        },
+        {
+          "Line": 752,
+          "Head": "is_id_start(Char) when ?IS_CP(Char)"
+        },
+        {
+          "Line": 759,
+          "Head": "is_id_start(Term)"
+        }
+      ]
+    },
+    {
+      "Name": "is_whitespace",
+      "Arity": 1,
+      "Native": false,
+      "Contract": "Inclusive integer codepoint guards, ASCII fast paths and exact pinned Unicode property/category dispatch",
+      "SourceClausesForName": [
+        {
+          "Line": 711,
+          "Head": "is_whitespace(X) %% ASCII (and low number) Optimizations\n  when X =:= 9; X =:= 10; X =:= 11; X =:= 12; X =:= 13; X =:= 32;\n       X =:= 133; X =:= 160"
+        },
+        {
+          "Line": 715,
+          "Head": "is_whitespace(Char) when is_integer(Char, 0, 5000)"
+        },
+        {
+          "Line": 717,
+          "Head": "is_whitespace(Char) when ?IS_CP(Char)"
+        },
+        {
+          "Line": 719,
+          "Head": "is_whitespace(Term)"
+        }
+      ]
+    }
+  ],
+  "Sources": {
+    "src/Otp/Managed/Erlang.Otp.Stdlib/Text/UnicodeConversion.cs": "0DEBDC5F328D254C5E67AB74C3EEA6124B5493A23CAFDC62C8250FA7CF6BED02",
+    "src/Otp/Managed/Erlang.Otp.Stdlib/Text/UnicodeEncoding.cs": "6B122664B6DE8AF614E2495E55FF97C1365B880846BC2E51087A212BF9E30C88",
+    "src/Otp/Managed/Erlang.Otp.Stdlib/Text/UnicodeModule.cs": "CE7824E00E4CE818F40CF34FCB169527D6328F9AB6A53169F5F4518ECB126DA9",
+    "src/Otp/Managed/Erlang.Otp.Stdlib/Text/UnicodeNames.cs": "4BA8C2BB37E22139C78F2058E39184D72FB548170CA46321A23F4A4FFC59907F",
+    "src/Otp/Managed/Erlang.Otp.Stdlib/Text/UnicodeSource.cs": "C0AC7FD599EFE8D720640F1D4150117F3B3E7A1C2EA7E0D9E3CCEB71D90EF263",
+    "src/Runtime/Erlang.Runtime.Core/Primitives/UnicodeNative.cs": "52C367643BCDC95FE384181D1010BFADCB2CEF999F473B83A6656A922867C492",
+    "src/Runtime/Erlang.Runtime.Core/Primitives/UnicodeNativeNames.cs": "830512C478A4F367510D09E7608DB40AF4F41813A7DB4199B9D231C1FCD5BA86",
+    "src/Runtime/Erlang.Runtime.Core/Primitives/UnicodeNativeTraversal.cs": "7ED0008D130804F8AAC373056517B50E93F1D91EE4E6797F3CCCAF87041AFA6E",
+    "src/Runtime/Erlang.Runtime.Core/Modules/ModuleRegistry.Unicode.cs": "DA4F27B3CD0004389393B4B777CBE03D5FDF4674E091C19F1226CBEFCAFAE77C",
+    "src/Runtime/Erlang.Runtime.Core/Modules/ModuleRegistry.BeamPrimitives.cs": "59399AE67FF9035884376EB13BEABF716150323C40672DAEDC65AEA63B17798F",
+    "src/Runtime/Erlang.Runtime.Core/Modules/ModuleRegistry.LibrarySelectionOwners.cs": "C78751A0D9CFDCCB4DB33F11ABF9B929FF18878007DD375027E8574B374B73E5",
+    "src/Runtime/Erlang.Runtime.Core/Modules/LibrarySelectionNames.cs": "7237A79F0DC70B9FD3270C24397D351334BC2D2A3F1B413FA155ABCBB655A12C",
+    "src/Runtime/Erlang.Runtime.Core/Modules/RuntimeManagedLibraryStage456.cs": "9DB6F8832276CC0C3B4D93C42ACB5B83F51C254DE86B75C820E19B85EF9CF9E1",
+    "src/Runtime/Erlang.Runtime.Core/Services/RuntimeModuleSelection.cs": "DE22E5397A453ED7CB341152261DFB3C05EA797476E058B0B8462D735FE5F267",
+    "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.LibrarySelection.cs": "BFD234E70B5DD18F8EC4A7444279FE9ACCB4F0CCB77A572210EFC8E4CE3EAD5A",
+    "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamBinaryExecution.cs": "76C507FF37BB7721BA29EDC8C87F1626225B39339CB7949348E800EC25659C04",
+    "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamRegisterInterpreter.cs": "9C2CBE54CBE53970B5F3696F7A30175CB8BDF59F9A170907D1CAFB57E8DBDD6B",
+    "src/Otp/Managed/Erlang.Otp.Stdlib/Registration/ManagedStdlibRegistration456.cs": "2F4C534EE95E93F35140A5E32F0178FF97CF4D4A441C1711036C11E1063D76D7"
+  },
+  "Acceptance": "Source inventory and finite comparisons do not certify universal compatibility"
+}

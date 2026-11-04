@@ -6,6 +6,9 @@ Draft Part568 prepares the bulk physical-occurrence runtime patch in a separate 
 
 ## Current state and sources
 
+- [Unicode alternatives](validation/unicode-port-20261104/PUBLICATION.md): complete 22-export C# surface and retained original Erlang; focused validation and prior working-corpus evidence are tracked separately.
+
+
 - [String integration](validation/string-otp-merge-20261104/README.md): both71-API alternatives retain explicit selection;9706 full tests and separate8522/depth comparisons per backend pass. Source identities and limitations remain explicit; final delivery is tracked in [PR105](https://github.com/develmax/Erlang.Net/pull/105).
 
 The integration also retains accepted main [PR103 native async/cancellation work](validation/part-557/REPORT.md). Its bounded controls and remaining public statistics contracts keep their original scope; [all incoming compatibility records](history/main-103-compatibility/index.md) remain intact. A new combined-source CI report is required before treating the earlier PR102 full report as current.

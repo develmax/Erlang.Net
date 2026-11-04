@@ -6,6 +6,9 @@ Draft Part568 prepares the bulk physical-occurrence runtime patch in a separate 
 
 ## Executable queue
 
+- [Unicode alternatives](validation/unicode-port-20261104/PUBLICATION.md): complete 22-export C# surface and retained original Erlang; focused validation and prior working-corpus evidence are tracked separately.
+
+
 - Preserve both explicit [string backends](string-backends.md) and their [source-bound local acceptance](validation/string-otp-merge-20261104/README.md). Final delivery is tracked in [PR105](https://github.com/develmax/Erlang.Net/pull/105); further work must retain value/error/full-stack, backing and scheduler/resource controls.
 
 - Validate the combined PR102/main0386ff27 source package, including the accepted [native async/cancellation contracts](validation/part-557/REPORT.md). Keep the [incoming next-step history](history/main-103-next-steps/index.md), existing library scope and unresolved public statistics contracts. The separate persistent-poll owner retains shared runtime/checklist ownership; do not start a competing full run on the PC.

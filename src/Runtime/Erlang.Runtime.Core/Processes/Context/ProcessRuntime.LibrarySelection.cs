@@ -62,6 +62,11 @@ public sealed partial class ProcessRuntime
             setup = runtime.InitializeModulesAsync(registry =>
             {
                 RuntimeNativePrimitiveProviders.Register(runtime, registry, options.NativePrimitives);
+                if (libraries.Modules.Any(choice => choice.Module == UnicodeNativeNames.Module && choice.Backend == RuntimeModuleBackend.Managed))
+                {
+                    registry.InstallManagedUnicodePrimitives();
+                    RuntimeManagedLibraries456.Register(registry, RuntimeManagedLibraryStage456.Unicode);
+                }
                 if (libraries.Modules.Any(choice => choice.Module == StringFloatNativeNames.Module && choice.Backend == RuntimeModuleBackend.Managed))
                     RuntimeManagedLibraries456.Register(registry, RuntimeManagedLibraryStage456.String);
                 if (options.BootstrapFileSystem)

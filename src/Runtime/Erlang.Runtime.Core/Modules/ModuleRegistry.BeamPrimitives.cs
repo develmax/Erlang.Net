@@ -51,7 +51,13 @@ public sealed partial class ModuleRegistry
                     )
                     && code.Exports.Any(export => export.Name == UnicodeNativeNames.ToBinaryTrap && export.Arity == 2)
                     && code.Exports.Any(export => export.Name == UnicodeNativeNames.ToListTrap && export.Arity == 2))
+                {
                     primitives.Add((function.Name, function.Arity), unicode);
+                    if (owned507 is not null)
+                    {
+                        owned507[unicode] = OwnedBindingKind507.ReviewedManagedLibrary;
+                    }
+                }
                 else if (!functions.ContainsKey(signature) && !sourceOwners.ContainsKey(signature)
                     && MathNative.TryCapture(
                         signature.Module,

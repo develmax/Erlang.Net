@@ -893,3 +893,7 @@ resource ceilings. See the [retained string integration and local-receipt archiv
 ### Part574: reuse existing final poll implementation and original fixtures
 
 Reuse the repository-owned3da2 Linux poll runtime and existing descriptor oracle fixtures. Preserve pinned OTP29.1.1 and notices. No third-party library, license selection, source-language library rewrite or external publication is added. Historical54/54 remains old-source evidence; fresh integrated CI is required.
+
+## Unicode C# alternative — 2026-11-04
+
+Audit pinned OTP-29.1.1 lib/stdlib/src/unicode.erl and the existing UnicodeNative/UnicodeNativeTraversal BIFs. System.Text.Encoding and String.Normalize use platform Unicode data and replacement/error contracts that differ from OTP; do not use them as library implementations. Reuse Rune solely for strict bounded scalar decoding/encoding and BinaryPrimitives for endian words (existing .NET BCL, MIT). Port ml_map and cbv behavior directly from the Apache-2.0 OTP source, preserving notices. Reuse the explicitly selected pinned unicode_util module for normalization and classification, matching the established string dependency boundary. No new package or Unicode database. Retain original Erlang/BEAM without mutation and require explicit dependencies for the new managed selection. This user-requested module port does not change the policy for other pure OTP modules.

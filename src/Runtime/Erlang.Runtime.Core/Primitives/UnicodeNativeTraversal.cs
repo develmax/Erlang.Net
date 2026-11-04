@@ -93,7 +93,14 @@ internal sealed class UnicodeNativeTraversal(ProcessContext context, bool latin1
             }
         }
         else
-            result = new BitString(bytes.ToArray());
+        {
+            byte[] encoded = bytes.ToArray();
+            // OTP returns the original binary (also for a singleton binary list)
+            // when its bytes already are the complete UTF8 result. Backing size
+            // and source sharing remain observable through binary primitives.
+            result = !latin1 && !error && pending.Count == 0 && subject is BitString { IsBinary: true } original
+                && original.ByteSpan.SequenceEqual(encoded) ? original : new BitString(encoded);
+        }
         if (error)
         {
             while (parents.TryPop(out Term? parent))

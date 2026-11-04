@@ -12,7 +12,7 @@ public sealed partial class ModuleRegistry
         bool managed = LibrarySelectionNames.ManagedModules.Contains(module, StringComparer.Ordinal);
         if (oldCode.ContainsKey(module) || sourceOwners.Keys.Any(key => key.Module == module))
             throw StartupOwnerFailure(module);
-        if (!managed && !hasImage && !preloaded && !loaded && entries.Length == 0)
+        if (!hasImage && !preloaded && !loaded && entries.Length == 0)
         {
             if (choice.Backend != RuntimeModuleBackend.Beam)
                 throw StartupOwnerFailure(module);

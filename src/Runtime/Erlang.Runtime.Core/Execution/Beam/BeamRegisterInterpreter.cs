@@ -1113,7 +1113,7 @@ internal static partial class BeamRegisterInterpreter
                                     functionFrame!.SetContinuation(code, pc);
                                 Term funResult;
                                 using (tailFun ? null : context.EnterBeamFunAdmission650(callable))
-                                    funResult = await callable.Invoke(context, Array.AsReadOnly(funArguments));
+                                    funResult = await context.InvokeGuestFunction507(callable, Array.AsReadOnly(funArguments));
                                 functionFrame?.ClearContinuation();
                                 registers.Write(0, funResult);
                                 if (tailFun && !ReturnToCaller())
