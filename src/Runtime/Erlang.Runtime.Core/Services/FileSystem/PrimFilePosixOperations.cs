@@ -68,7 +68,7 @@ internal static class PrimFilePosixOperations
         bool read = Has(PrimFileBuiltinNames.ReadMode) || !write;
         int flags = (read ? PrimFilePosixNames.ReadFlag : 0) | (write ? PrimFilePosixNames.WriteFlag : 0)
             | (append ? PrimFilePosixNames.AppendFlag : 0) | (Has(PrimFileBuiltinNames.ExclusiveMode) ? PrimFilePosixNames.ExclusiveFlag : 0)
-            | (Has("sync") ? PrimFilePosixNames.SyncFlag : 0);
+            | (Has(PrimFilePosixNames.SyncMode) ? PrimFilePosixNames.SyncFlag : 0);
         int error = PrimFilePosixNative.Open(path, flags, out int fd);
         if (error != 0)
         {
@@ -129,22 +129,22 @@ internal static class PrimFilePosixOperations
     {
         string kind = info.Type switch
         {
-            PrimFilePosixNames.DirectoryType => "directory",
-            PrimFilePosixNames.RegularType => "regular",
-            PrimFilePosixNames.SymlinkType => "symlink",
-            PrimFilePosixNames.DeviceType => "device",
-            _ => "other"
+            PrimFilePosixNames.DirectoryType => PrimFilePosixNames.Directory,
+            PrimFilePosixNames.RegularType => PrimFilePosixNames.Regular,
+            PrimFilePosixNames.SymlinkType => PrimFilePosixNames.Symlink,
+            PrimFilePosixNames.DeviceType => PrimFilePosixNames.Device,
+            _ => PrimFilePosixNames.Other
         };
         string access = info.Access switch
         {
-            1 => "read",
-            2 => "write",
-            3 => "read_write",
-            _ => "none"
+            1 => PrimFilePosixNames.ReadAccess,
+            2 => PrimFilePosixNames.WriteAccess,
+            3 => PrimFilePosixNames.ReadWriteAccess,
+            _ => PrimFilePosixNames.NoAccess
         };
 
         return Term.Tuple(
-            Term.A("file_info"),
+            Term.A(PrimFilePosixNames.FileInfoRecord),
             Term.I(info.Size),
             Term.A(kind),
             Term.A(access),

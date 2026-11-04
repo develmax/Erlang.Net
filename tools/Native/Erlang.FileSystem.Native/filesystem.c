@@ -12,6 +12,12 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdio.h>
+#include <limits.h>
+#ifdef __APPLE__
+#include <crt_externs.h>
+#else
+extern char **environ;
+#endif
 #include "filesystem.h"
 
 int enfs_abi(void) { return (int)sizeof(enfs_info); }
@@ -28,22 +34,35 @@ int enfs_open(const char *path, int mode, int *fd) {
     int value = open(path, flags, 0666);
     if (value < 0) return errno;
     struct stat st;
-    if (fstat(value, &st) < 0) { int e = errno; close(value); return e; }
-    if (S_ISDIR(st.st_mode)) { close(value); return EISDIR; }
+    if (fstat(value, &st) < 0) {
+        int error = errno;
+        close(value);
+        return error;
+    }
+    if (S_ISDIR(st.st_mode)) {
+        close(value);
+        return EISDIR;
+    }
     *fd = value;
     return 0;
 }
 int enfs_read(int fd, uint8_t *buffer, int count, int positioned, int64_t offset, int *actual) {
     ssize_t n;
-    do { n = positioned ? pread(fd, buffer, (size_t)count, (off_t)offset) : read(fd, buffer, (size_t)count); } while (n < 0 && errno == EINTR);
+    do {
+        n = positioned ? pread(fd, buffer, (size_t)count, (off_t)offset) : read(fd, buffer, (size_t)count);
+    } while (n < 0 && errno == EINTR);
     if (n < 0) return errno;
-    *actual = (int)n; return 0;
+    *actual = (int)n;
+    return 0;
 }
 int enfs_write(int fd, const uint8_t *buffer, int count, int positioned, int64_t offset) {
     int done = 0;
     while (done < count) {
         ssize_t n = positioned ? pwrite(fd, buffer + done, (size_t)(count-done), (off_t)(offset+done)) : write(fd, buffer + done, (size_t)(count-done));
-        if (n < 0) { if (errno == EINTR) continue; return errno; }
+        if (n < 0) {
+            if (errno == EINTR) continue;
+            return errno;
+        }
         if (n == 0) return EIO;
         done += (int)n;
     }
@@ -52,7 +71,8 @@ int enfs_write(int fd, const uint8_t *buffer, int count, int positioned, int64_t
 int enfs_seek(int fd, int64_t offset, int origin, int64_t *position) {
     off_t n = lseek(fd, (off_t)offset, origin);
     if (n == (off_t)-1) return errno;
-    *position = (int64_t)n; return 0;
+    *position = (int64_t)n;
+    return 0;
 }
 int enfs_truncate(int fd) {
     off_t position = lseek(fd, 0, SEEK_CUR);
@@ -61,7 +81,8 @@ int enfs_truncate(int fd) {
 }
 int enfs_sync(int fd, int data_only) {
 #ifdef __APPLE__
-    (void)data_only; return fsync(fd) < 0 ? errno : 0;
+    (void)data_only;
+    return fsync(fd) < 0 ? errno : 0;
 #else
     return (data_only ? fdatasync(fd) : fsync(fd)) < 0 ? errno : 0;
 #endif
@@ -87,7 +108,13 @@ static int handle_access(const struct stat *st) {
         int member = st->st_gid == getegid();
         int count = getgroups(0,NULL);
         gid_t *groups = count > 0 ? malloc((size_t)count*sizeof(gid_t)) : NULL;
-        if (groups) { count=getgroups(count,groups); for (int i=0;i<count;i++) if(groups[i]==st->st_gid) member=1; free(groups); }
+        if (groups) {
+            count = getgroups(count, groups);
+            for (int i = 0; i < count; i++) {
+                if (groups[i] == st->st_gid) member = 1;
+            }
+            free(groups);
+        }
         bits = member ? st->st_mode >> 3 : st->st_mode;
     }
     return ((bits & 4) ? 1 : 0) | ((bits & 2) ? 2 : 0);
@@ -98,26 +125,93 @@ int enfs_stat(const char *path, int fd, int follow, enfs_info *info) {
     if (result < 0) return errno;
     info->type = S_ISDIR(st.st_mode) ? ENFS_DIRECTORY : S_ISREG(st.st_mode) ? ENFS_REGULAR : S_ISLNK(st.st_mode) ? ENFS_SYMLINK : (S_ISCHR(st.st_mode)||S_ISBLK(st.st_mode)) ? ENFS_DEVICE : ENFS_OTHER;
     info->access = fd >= 0 ? handle_access(&st) : ((access(path,R_OK)==0 ? 1 : 0) | (access(path,W_OK)==0 ? 2 : 0));
-    info->size=st.st_size; info->atime=st.st_atime; info->mtime=st.st_mtime; info->ctime=st.st_ctime;
-    info->mode=st.st_mode; info->links=st.st_nlink; info->dev=st.st_dev; info->rdev=st.st_rdev;
-    info->inode=st.st_ino; info->uid=st.st_uid; info->gid=st.st_gid;
+    info->size = st.st_size;
+    info->atime = st.st_atime;
+    info->mtime = st.st_mtime;
+    info->ctime = st.st_ctime;
+    info->mode = st.st_mode;
+    info->links = st.st_nlink;
+    info->dev = st.st_dev;
+    info->rdev = st.st_rdev;
+    info->inode = st.st_ino;
+    info->uid = st.st_uid;
+    info->gid = st.st_gid;
     return 0;
 }
 int enfs_cwd(uint8_t *buffer, int capacity, int *length) {
     if (!getcwd((char*)buffer,(size_t)capacity)) return errno;
-    *length=(int)strlen((char*)buffer); return 0;
+    *length = (int)strlen((char*)buffer);
+    return 0;
 }
-typedef struct { DIR *dir; struct dirent *pending; } enfs_dir;
+typedef struct {
+    DIR *dir;
+    struct dirent *pending;
+} enfs_dir;
 int enfs_opendir(const char *path, void **result) {
-    DIR *dir=opendir(path); if (!dir) return errno;
-    enfs_dir *state=calloc(1,sizeof(enfs_dir)); if(!state) { closedir(dir); return ENOMEM; }
-    state->dir=dir; *result=state; return 0;
+    DIR *dir = opendir(path);
+    if (!dir) return errno;
+    enfs_dir *state = calloc(1, sizeof(enfs_dir));
+    if (!state) {
+        closedir(dir);
+        return ENOMEM;
+    }
+    state->dir = dir;
+    *result = state;
+    return 0;
 }
 int enfs_readdir(void *handle, uint8_t *buffer, int capacity, int *length) {
-    enfs_dir *state=handle;
-    if(!state->pending) { errno=0; state->pending=readdir(state->dir); if(!state->pending) { *length=-1; return errno; } }
-    size_t size=strlen(state->pending->d_name);
-    if(size>(size_t)capacity) return ERANGE;
-    memcpy(buffer,state->pending->d_name,size); *length=(int)size; state->pending=NULL; return 0;
+    enfs_dir *state = handle;
+    if (!state->pending) {
+        errno = 0;
+        state->pending = readdir(state->dir);
+        if (!state->pending) {
+            *length = -1;
+            return errno;
+        }
+    }
+    size_t size = strlen(state->pending->d_name);
+    if (size > (size_t)capacity) return ERANGE;
+    memcpy(buffer, state->pending->d_name, size);
+    *length = (int)size;
+    state->pending = NULL;
+    return 0;
 }
-void enfs_closedir(void *handle) { enfs_dir *state=handle; closedir(state->dir); free(state); }
+void enfs_closedir(void *handle) {
+    enfs_dir *state = handle;
+    closedir(state->dir);
+    free(state);
+}
+
+/* Capture the host byte environment once; runtime mutations stay isolated. */
+int enfs_env_snapshot(uint8_t **result, int *length) {
+#ifdef __APPLE__
+    char **entries = *_NSGetEnviron();
+#else
+    char **entries = environ;
+#endif
+    size_t size = 0;
+    for (char **entry = entries; entry && *entry; entry++) {
+        size_t count = strlen(*entry) + 1;
+        if (count > (size_t)INT_MAX - size) return EOVERFLOW;
+        size += count;
+    }
+    uint8_t *copy = malloc(size ? size : 1);
+    if (!copy) return ENOMEM;
+    size_t position = 0;
+    for (char **entry = entries; entry && *entry; entry++) {
+        size_t count = strlen(*entry) + 1;
+        if (count > size - position) {
+            free(copy);
+            return EAGAIN;
+        }
+        memcpy(copy + position, *entry, count);
+        position += count;
+    }
+    *result = copy;
+    *length = (int)position;
+    return 0;
+}
+
+void enfs_env_free(void *buffer) {
+    free(buffer);
+}

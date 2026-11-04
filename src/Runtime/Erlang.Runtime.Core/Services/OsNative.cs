@@ -19,6 +19,14 @@ internal static class OsNative
         out ErlangFunction body
     )
     {
+        if (UnixOsNative.TryCapture(
+            owner,
+            module,
+            function,
+            arity,
+            out body
+        ))
+            return true;
         if (OperatingSystem.IsWindows() && owner is not null && owner.OsEnvironment is not null && module == OsNativeNames.Module && Signature(function, arity))
         {
             body = (context, arguments) =>

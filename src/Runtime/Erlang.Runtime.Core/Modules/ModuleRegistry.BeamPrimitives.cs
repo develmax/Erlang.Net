@@ -112,7 +112,7 @@ public sealed partial class ModuleRegistry
                     primitives.Add((function.Name, function.Arity), os);
                     // Exact Windows native stub body captured above. No public
                     // registration or other OS signature receives this grant.
-                    if (owned507 is not null && signature.Name == OsNativeNames.Env && signature.Arity == 0)
+                    if (owned507 is not null && OperatingSystem.IsWindows() && signature.Name == OsNativeNames.Env && signature.Arity == 0)
                         owned507[os] = OwnedBindingKind507.LocalOsEnvironment401;
                 }
                 else if (!functions.ContainsKey(signature) && !sourceOwners.ContainsKey(signature)

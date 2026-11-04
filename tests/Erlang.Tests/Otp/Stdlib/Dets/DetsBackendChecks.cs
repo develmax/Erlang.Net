@@ -102,19 +102,22 @@ internal static class DetsBackendChecks
             RegexNative411Access.Admission(),
             (owner, registry) =>
         {
-            RuntimeBootstrapEtsQueries414.Register(owner, registry);
-            RuntimeBootstrapEtsMutations414.Register(owner, registry);
-            RuntimeBootstrapEtsTraversal416.Register(owner, registry);
-            RuntimeBootstrapEtsCounter417.Register(owner, registry);
-            RuntimeBootstrapEtsRename418.Register(owner, registry);
-            RuntimeBootstrapEtsHeir419.Register(owner, registry);
-            RuntimeBootstrapEtsCompiled419.Register(owner, registry);
-            RuntimeBootstrapEtsAll420.Register(owner, registry);
-            RuntimeBootstrapEtsFixation420.Register(owner, registry);
-            RuntimeBootstrapEtsCursor420.Register(owner, registry);
-            RuntimeBootstrapEtsReplace420.Register(owner, registry);
-            RuntimeBootstrapEtsInspection420.Register(owner, registry);
-            RuntimeBootstrapEtsInfo420.Register(owner, registry);
+            owner.InitializeModulesAsync(_ =>
+            {
+                RuntimeBootstrapEtsQueries414.Register(owner, registry);
+                RuntimeBootstrapEtsMutations414.Register(owner, registry);
+                RuntimeBootstrapEtsTraversal416.Register(owner, registry);
+                RuntimeBootstrapEtsCounter417.Register(owner, registry);
+                RuntimeBootstrapEtsRename418.Register(owner, registry);
+                RuntimeBootstrapEtsHeir419.Register(owner, registry);
+                RuntimeBootstrapEtsCompiled419.Register(owner, registry);
+                RuntimeBootstrapEtsAll420.Register(owner, registry);
+                RuntimeBootstrapEtsFixation420.Register(owner, registry);
+                RuntimeBootstrapEtsCursor420.Register(owner, registry);
+                RuntimeBootstrapEtsReplace420.Register(owner, registry);
+                RuntimeBootstrapEtsInspection420.Register(owner, registry);
+                RuntimeBootstrapEtsInfo420.Register(owner, registry);
+            }).GetAwaiter().GetResult();
 
             return registry.PrepareBeam(
                 File.ReadAllBytes(Path.Combine(repository,

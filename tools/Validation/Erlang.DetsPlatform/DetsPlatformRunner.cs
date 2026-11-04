@@ -26,6 +26,7 @@ internal static class DetsPlatformRunner
         {
             if (name == "dets" && managed) continue;
             if (!assets.TryGetValue(name, out string? path)) continue;
+            Console.WriteLine("Prepare original module " + name);
             prepared.Add(runtime.Modules.PrepareBeam(File.ReadAllBytes(path), dependencies));
         }
         await runtime.InitializeModulesAsync(registry =>
@@ -99,6 +100,17 @@ internal static class DetsPlatformRunner
                 ), "directory rename");
                 Ok(await Call("file", "del_dir", Term.String(folder + "-moved")), "rmdir");
                 Ok(await Call("file", "delete", Term.String(probe)), "unlink");
+                Term environmentKey = Term.String("ERLANG_NET_DETS_PLATFORM_PROBE");
+                Check((await Call(
+                    "os",
+                    "putenv",
+                    environmentKey,
+                    Term.String("dets-value")
+                )).Equals(Term.A("true")), "runtime environment put");
+                Check((await Call("os", "getenv", environmentKey)).Equals(Term.String("dets-value")), "runtime environment get");
+                Check((await Call("os", "unsetenv", environmentKey)).Equals(Term.A("true")), "runtime environment unset");
+                Check((await Call("os", "getenv", environmentKey)).Equals(Term.A("false")), "runtime environment absent");
+                Check(await Call("os", "getpid") is Cons, "native process id");
                 foreach (string kind in new[] { "set", "bag", "duplicate_bag" })
                 {
                     Term table = Term.A("portable_" + kind);
