@@ -62,6 +62,11 @@ public sealed partial class ProcessRuntime
             setup = runtime.InitializeModulesAsync(registry =>
             {
                 RuntimeNativePrimitiveProviders.Register(runtime, registry, options.NativePrimitives);
+                if (libraries.Modules.Any(choice => choice.Module == FileNameEncodingNames.Module && choice.Backend == RuntimeModuleBackend.Managed))
+                {
+                    registry.InstallManagedFilePrimitive();
+                    RuntimeManagedLibraries456.Register(registry, RuntimeManagedLibraryStage456.File);
+                }
                 if (libraries.Modules.Any(choice => choice.Module == InterpreterCodeNativeNames.Module && choice.Backend == RuntimeModuleBackend.Managed))
                 {
                     RuntimeManagedLibraries456.Register(registry, RuntimeManagedLibraryStage456.Code);
@@ -73,6 +78,10 @@ public sealed partial class ProcessRuntime
                 }
                 if (libraries.Modules.Any(choice => choice.Module == StringFloatNativeNames.Module && choice.Backend == RuntimeModuleBackend.Managed))
                     RuntimeManagedLibraries456.Register(registry, RuntimeManagedLibraryStage456.String);
+                if (libraries.Modules.Any(choice => choice.Module == GenEventLibraryModuleNames.Module && choice.Backend == RuntimeModuleBackend.Managed))
+                {
+                    RuntimeManagedLibraries456.Register(registry, RuntimeManagedLibraryStage456.GenEvent);
+                }
                 if (libraries.Modules.Any(choice => choice.Module == GenStatemLibraryNames.Module && choice.Backend == RuntimeModuleBackend.Managed))
                     RuntimeManagedLibraries456.Register(registry, RuntimeManagedLibraryStage456.GenStatem);
                 if (options.BootstrapFileSystem)

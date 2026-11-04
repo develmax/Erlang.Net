@@ -29,7 +29,7 @@ as distinct frames even when both frames have identical source coordinates. Full
 stack equality must not remove either frame to make an observation pass.
 
 Reuse and license decisions are in [dependency decisions](../dependency-decisions.md).
-The [Part580 receipt](../validation/part-580/README.md) records finite focused
+The [gen_statem publication receipt](../validation/gen-statem-port-20261104/README.md) records finite focused
 acceptance. It does not certify universal OTP compatibility, metadata identity,
 resource/platform parity or the complete upstream suite. No generated global
 readiness/API classification is promoted and no package is published.

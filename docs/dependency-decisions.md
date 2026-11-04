@@ -1,5 +1,7 @@
 # Dependency and compatibility decisions
 
+Part584 — The user explicitly requests a manual C# gen_event alternative while keeping original Erlang selectable. Reuse the existing term/process/module/BEAM runtime and original gen/proc_lib/sys/io/Unicode dependencies. BCL events and actor frameworks do not preserve the OTP handler, mailbox, callback and link contract, so they are not substituted. No new package or external C# library is introduced. Pin OTP29.1.1/ad05823719d77c8faee87348ea39513d4e2f99c5; preserve Apache-2.0 notices in the retained source/fixtures and derived implementation. Semantic catalogs separate equal strings/numbers by contract. Finite Windows comparisons and the retained timing failure do not certify universal parity. [Evidence](validation/part-584/README.md).
+
 Part568 draft - Adapt pinned OTP-29.1.1 erl_map.c/utils.c bulk sort/adjacent-EQ compaction in C# runtime. Reuse existing map hash provider, owner admission/close, hash leases and native materialization; inspect signed fun comparison/hash, source guards and physical copy order. Retain Apache-2.0 notices; no new package or production ERTS dependency. Actual-address C replay is limited source evidence, not a context-independent golden or21/21 proof. [Draft evidence](validation/part-568/ordsets-bulk/README.md).
 
 Part533 — Reuse the existing typed backing/root, guest-frame, native environment and provider collectors. Distinguish recipient completion from shared origin lifetime; external Host custody is explicit. Runtime-owned cleanup must not inherit a retiring actor scheduler or its private authority. Use existing .NET10 ForceYielding/context suppression and explicit own-VM atom scope for exit construction; await only the specific ETS queue observation fence before mailbox capture. No new dependency/package, alternate production BEAM VM, license header or package publication. Finite foundation evidence does not promote whole API contracts.
@@ -898,6 +900,10 @@ Reuse the repository-owned3da2 Linux poll runtime and existing descriptor oracle
 
 Audit pinned OTP-29.1.1 lib/stdlib/src/unicode.erl and the existing UnicodeNative/UnicodeNativeTraversal BIFs. System.Text.Encoding and String.Normalize use platform Unicode data and replacement/error contracts that differ from OTP; do not use them as library implementations. Reuse Rune solely for strict bounded scalar decoding/encoding and BinaryPrimitives for endian words (existing .NET BCL, MIT). Port ml_map and cbv behavior directly from the Apache-2.0 OTP source, preserving notices. Reuse the explicitly selected pinned unicode_util module for normalization and classification, matching the established string dependency boundary. No new package or Unicode database. Retain original Erlang/BEAM without mutation and require explicit dependencies for the new managed selection. This user-requested module port does not change the policy for other pure OTP modules.
 
+## Part580 — file alternatives and semantic literal ownership — 2026-11-04
+
+The user's explicit file-port request authorizes this managed alternative beside pinned OTP29.1.1 file.erl/file.beam (Ericsson, Apache-2.0); original assets remain unchanged. Inspect file.erl, file/file_int headers and existing runtime filename/prim_file providers. BCL File/Directory/FileStream do not reproduce process I/O, descriptor routing or the distributed file server, so reuse selected OTP dependencies and runtime primitives. BigInteger and BinaryPrimitives supply unbounded length arithmetic and big-endian words; no new package. Semantic constants are grouped by actual protocol/layout/source/configuration ownership, without merging equal text from different contracts. Erlang oracle fixtures remain independent literal inputs. Existing missing filesystem NIF/driver/resource support stays an explicit failing gate; finite focus checks do not certify universal compatibility.
+
 
 ## code C# backend publication — 2026-11-04
 
@@ -921,4 +927,4 @@ PowerShell/Python standard libraries capture/admit the original OTP corpus; no
 mock production MFA substitutes are introduced. The BEAM badfun frame fix is a
 shared runtime correction required by this module's exact-stack comparison.
 See [decision0007](decisions/0007-gen-statem-alternatives.md) and
-[Part580](validation/part-580/README.md) for acceptance scope and remaining gates.
+[gen_statem publication](validation/gen-statem-port-20261104/README.md) for acceptance scope and remaining gates.

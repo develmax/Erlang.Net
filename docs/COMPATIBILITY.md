@@ -1,13 +1,28 @@
 # Compatibility overview
 
+[Part586](validation/part-586/README.md) reconciles gen_statem PR112 with code/file/gen_event main and refreshes declared source identities. Prior module comparisons remain historical; final-head hosted checks and the sys continuation review finding remain open.
+
+PR111 Part585 reconciles code/file/gen_event on current main, refreshes declared source/producer pins and checks the retained BEAM image hash. Fresh105/105 per backend passes; final-head CI remains required. [Repair evidence](validation/part-585/README.md).
+
+
+gen_event Part584: all44 non-metadata exports have explicit C#/original BEAM alternatives. Primary105/105 per backend passes; Managed depth3 is104/105 because an upstream zero-timeout assumption races an already queued response. Whole-module/scheduling compatibility remains partial. [Finite evidence](validation/part-584/README.md).
+
+[Part583](validation/part-583/README.md) repairs Windows checkout conversion of the Part582 source freeze. Raw source admission remains strict; no compatibility status is promoted.
+
+[Part582](validation/part-582/README.md) reconciles file PR110 with code main, retains both backend selections and refreshes source/producer identities. Connected validation and final-head hosted CI apply; compatibility classifications remain unchanged.
+
+[Part581](validation/part-581/README.md) repairs PR110 source admission and producer pins; runtime behavior and compatibility classifications are unchanged. Final-head hosted CI remains required.
+
 Part574 consolidates the final Linux descriptor poll source and audits stale branches. Exact-head Linux/original replay, CI, review and merge remain pending; no API/full-contract promotion. See [branch decisions and acceptance gates](validation/part-574/README.md).
 
 Draft Part568 prepares the bulk physical-occurrence runtime patch in a separate PR to main. Ordsets stays6 Verified/15 KnownDifferences; current whole ETF replay remains RED. See [evidence and open acceptance gates](validation/part-568/ordsets-bulk/README.md).
 
 ## Current state and sources
 
+The [file alternative](file-backends.md) retains the original Erlang image beside the 69-export C# surface. Literal extraction preserves pinned values and exception frames. Both implementations match 408 exact focused observations; five independent complete filesystem cycles still fail in each backend because native/provider closure is incomplete. This is not 100% compatibility. See [Part580](validation/part-580/README.md).
+
 The [code backend](validation/code-port-20261104/README.md) retains original Erlang beside69 selectable C# exports (62 library/7 shared native signatures). Both backends match156 complete outcomes and25 lifecycle results;17 connected groups pass. Native JIT capability, full release/docs/platform/resource acceptance remain separate.
-- gen_statem has forty selectable exports, with semantic constants for protocol/function/status/format/source/record and validation contracts. [Part580](validation/part-580/README.md) tracks finite focused comparisons; no universal compatibility or ledger promotion is claimed.
+- gen_statem has forty selectable exports, with semantic constants for protocol/function/status/format/source/record and validation contracts. [gen_statem publication](validation/gen-statem-port-20261104/README.md) tracks finite focused comparisons; no universal compatibility or ledger promotion is claimed.
 
 - [Downstream CI producer repair](validation/part-577/README.md): reconcile the remaining native/integrated producer identities and monitor completed final-head workflows.
 

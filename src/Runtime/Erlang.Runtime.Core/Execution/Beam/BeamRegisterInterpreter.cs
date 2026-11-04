@@ -1128,15 +1128,27 @@ internal static partial class BeamRegisterInterpreter
                             {
                                 Term recipient = registers.Read(0);
                                 Term sentMessage = registers.Read(1);
-                                if (registers.HasOwnedRoots507)
-                                    await ErlangOperatorValues.TrySendBeam593Async(
-                                        context,
-                                        registers,
-                                        recipient,
-                                        sentMessage
+                                try
+                                {
+                                    if (registers.HasOwnedRoots507)
+                                        await ErlangOperatorValues.TrySendBeam593Async(
+                                            context,
+                                            registers,
+                                            recipient,
+                                            sentMessage
+                                        );
+                                    else
+                                        await ErlangOperatorValues.TrySendAsync(context, recipient, sentMessage);
+                                }
+                                catch (ErlangException error)
+                                {
+                                    throw context.CaptureNativeFailure(
+                                        error,
+                                        ErlangModuleNames.Module,
+                                        ErlangBasicBifNames.Send,
+                                        [registers.Export507(recipient), registers.Export507(sentMessage)]
                                     );
-                                else
-                                    await ErlangOperatorValues.TrySendAsync(context, recipient, sentMessage);
+                                }
                                 registers.Write(0, sentMessage);
                                 break;
                             }

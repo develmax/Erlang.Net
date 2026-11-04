@@ -3,6 +3,20 @@
   "Components": [
     {
       "Status": "Partially compatible",
+      "Project": "src/Otp/Managed/Erlang.Otp.Stdlib",
+      "Remaining": [
+        "Managed depth3 zero-timeout upstream testcase race; whole-suite/scheduling/distribution/resources/cross-platform equivalence unproved."
+      ],
+      "Implemented": [
+        "Part584: explicit C#/retained BEAM alternatives,44 non-metadata exports; clean primary105/105 per backend; semantic literal ownership and nine-file audit. Depth0,1,2,8,32 both pass; Managed depth3 remains104/105. See validation/part-584."
+      ],
+      "Id": "GenEvent",
+      "TestPrefixes": [
+        "gen_event/"
+      ]
+    },
+    {
+      "Status": "Partially compatible",
       "Project": "src/Runtime/Erlang.Terms",
       "Remaining": [
         "Full configurable atom/resource/fatal-exhaustion semantics and native loaded-module lifecycle;distributed identity",
@@ -742,11 +756,13 @@
       "Project": "src/Otp/Managed/Erlang.Otp.Kernel",
       "Status": "Partially compatible",
       "Remaining": [
-        "C# application/logging/RPC alternatives are isolated; original BEAM kernel boot and distribution acceptance remain separate."
+        "C# application/logging/RPC alternatives are isolated; original BEAM kernel boot and distribution acceptance remain separate.",
+        "File: complete native/provider closure and five failing raw/normal/RAM/consult/compressed cycles in both backends; metadata/source-stack/platform/resource acceptance remains open. See file-backends.md."
       ],
       "Id": "C# kernel",
       "Implemented": [
-        "Application environment, logging and RPC implementations with a public registration entry"
+        "Application environment, logging and RPC implementations with a public registration entry",
+        "File: 69 selectable exports with unchanged original Erlang and explicit semantic literal owners. Both backends match 408 focused observations; no full compatibility or canonical readiness promotion."
       ],
       "TestPrefixes": [
         "runtime/erpc/",

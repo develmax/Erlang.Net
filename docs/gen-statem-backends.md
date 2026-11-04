@@ -53,7 +53,7 @@ are explicit rather than computed by subtraction. Upstream Apache-2.0 notices ar
 
 ## Focused evidence and limits
 
-[Part580](validation/part-580/README.md) binds source, corpus, original images and
+[gen_statem publication](validation/gen-statem-port-20261104/README.md) binds source, corpus, original images and
 assemblies. Each backend passes seventy-four complete API observations and 311
 engine scenarios against the same original OTP corpus. Error observations
 compare complete stack-containing terms. This includes a 256-case event/mode
