@@ -180,4 +180,4 @@ Append numbered English entries only to the last volume. Start the next sequenti
 
 - [0103.md](docs/changelog/0103.md) - Parts560–567 and569 coordinated snapshot, String allocation, main reconciliation and CI evidence/pin corrections (closed; continues in0104)
 
-- [0104.md](docs/changelog/0104.md) - Parts568 and572 ordsets bulk occurrence and physical-copy corrections (active)
+- [0104.md](docs/changelog/0104.md) - Parts568,572–573 ordsets corrections and string integration (active)

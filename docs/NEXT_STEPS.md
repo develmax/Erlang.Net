@@ -4,7 +4,7 @@ Draft Part568 prepares the bulk physical-occurrence runtime patch in a separate 
 
 ## Executable queue
 
-- Complete the frozen Part569 CI repair acceptance and merge after current mandatory checks/review. [Actual evidence](validation/part-569/ci-integrated-pins-and-reuse/hosted-results/README.md) separates passed9687 units/native cohort/async23 from the still-failed original main pipeline; do not retry unchanged or promote whole-module status.
+- Preserve both explicit [string backends](string-backends.md) and their [source-bound local acceptance](validation/string-otp-merge-20261104/README.md). Final delivery is tracked in [PR105](https://github.com/develmax/Erlang.Net/pull/105); further work must retain value/error/full-stack, backing and scheduler/resource controls.
 
 - Validate the combined PR102/main0386ff27 source package, including the accepted [native async/cancellation contracts](validation/part-557/REPORT.md). Keep the [incoming next-step history](history/main-103-next-steps/index.md), existing library scope and unresolved public statistics contracts. The separate persistent-poll owner retains shared runtime/checklist ownership; do not start a competing full run on the PC.
 
@@ -27,3 +27,5 @@ All previous plans, including unfinished scope and handoffs, remain in [ordered 
 ## Maintenance
 
 Keep only current priorities and links here. Maintain detailed plans in remaining-work/, and record completed steps in the active changelog volume.
+
+- Complete the frozen Part569 CI repair acceptance and merge after current mandatory checks/review. [Actual evidence](validation/part-569/ci-integrated-pins-and-reuse/hosted-results/README.md) separates passed9687 units/native cohort/async23 from the still-failed original main pipeline; do not retry unchanged or promote whole-module status.

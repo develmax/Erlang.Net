@@ -12,6 +12,15 @@ public sealed partial class ModuleRegistry
         using var source = EnterSourceMutation();
         Apply(target =>
         {
+            if ((selection & RuntimeNativePrimitives.InternalScalars413) != 0)
+            {
+                InstallInternalScalars413(runtime);
+                foreach (var signature in ErtsInternalScalarNativeNames413.Signatures)
+                {
+                    var key = (ErtsInternalScalarNativeNames413.Module, signature.Function, signature.Arity);
+                    runtimeErrorBindings[key] = runtimeErrorBindings[key] with { Provider = RuntimeNativePrimitives.InternalScalars413 };
+                }
+            }
             if ((selection & RuntimeNativePrimitives.PersistentTermCore) != 0)
             {
                 var bodies = new Dictionary<(string Function, int Arity), ErlangFunction>();
@@ -159,6 +168,12 @@ public sealed partial class ModuleRegistry
 
             if (Complete(ReNames411.Module, RuntimeNativePrimitives.RegexCore411, ReFacetNames411.Signatures))
                 selection |= RuntimeNativePrimitives.RegexCore411;
+            if (Complete(
+                ErtsInternalScalarNativeNames413.Module,
+                RuntimeNativePrimitives.InternalScalars413,
+                ErtsInternalScalarNativeNames413.Signatures
+            ))
+                selection |= RuntimeNativePrimitives.InternalScalars413;
 
             return new(selection, bindings);
         }

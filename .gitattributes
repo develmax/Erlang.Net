@@ -567,3 +567,9 @@ docs/validation/part-557/** -text -whitespace
 /tools/validate-async-microstates.ps1 -text
 /tools/validate-otp-catalog.ps1 -text
 /tools/Validation/Erlang.OtpCatalogValidation/build-native.py -text
+
+# Byte-bound string audit and isolated merge evidence.
+/docs/validation/string-otp-merge-20261104/** -text -whitespace
+/tests/Erlang.Tests/Resources/StringBackend/** -text
+/tools/Validation/Erlang.StringCompatibility/*.erl -text
+/tools/Validation/Erlang.StringCompatibility/Reference/*.erl -text -whitespace

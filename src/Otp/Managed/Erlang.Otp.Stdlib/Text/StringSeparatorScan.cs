@@ -1,11 +1,13 @@
-using System.Text;
-
 namespace Erlang;
 
 internal static class StringSeparatorScan
 {
     internal static async ValueTask<HashSet<Term>> FirstCodepoints(ProcessContext context, HashSet<Term> separators)
     {
+        if (separators is StringSeparatorSet actual)
+        {
+            return Cons.Items(await actual.Codepoints(context)).ToHashSet();
+        }
         var result = new HashSet<Term>();
         foreach (Term separator in separators)
         {
@@ -20,90 +22,109 @@ internal static class StringSeparatorScan
         BitString binary,
         Term continuation,
         HashSet<Term> separators,
-        bool member,
-        StringBinarySearchBuffer buffer
+        bool member
     )
     {
-        var patterns = new List<byte[]>();
-        foreach (Term separator in separators)
+        StringSeparatorSet pattern = StringSeparatorSet.From(separators);
+        if (!member)
         {
-            Term first = separator is Integer ? separator : (await StringUnicode.Next(context, separator, false))!.Head;
-            patterns.Add(Encoding.UTF8.GetBytes(char.ConvertFromUtf32((int)((Integer)first).Value)));
+            return await StringInverseBinaryScan.Run(
+                context,
+                binary,
+                continuation,
+                pattern
+            );
         }
+        ErlangExecutionFrame? caller = context.CaptureExecutionChain();
+        await pattern.Compile(context, caller?.Function ?? StringSeparatorSource.SearchLoop, caller?.Arity ?? 5);
         BitString rest = binary;
         while (rest.BitLength > 0)
         {
-            if (member)
+            Term matched;
+            using (StringSourceTrace.Scope(
+                context,
+                StringSeparatorSource.SearchLoop,
+                5,
+                StringSeparatorSource.SearchMatch
+            ))
             {
-                ReadOnlyMemory<byte> bytes = buffer.Read(rest);
-                int position = -1;
-                foreach (byte[] pattern in patterns)
-                {
-                    int candidate = bytes.Span.IndexOf(pattern);
-                    if (candidate >= 0 && (position < 0 || candidate < position))
-                    {
-                        position = candidate;
-                    }
-                }
-                if (position < 0)
-                {
-                    return (false, continuation);
-                }
-                rest = rest.SliceBits(position * 8, rest.BitLength - position * 8);
+                matched = await context.Runtime.Modules.Call(
+                    context,
+                    BinaryModuleNames.Module,
+                    BinaryModuleNames.Match,
+                    rest,
+                    pattern.Compiled!
+                );
             }
-            else
-            {
-                byte[] bytes = rest.SliceBits(
-                    0,
-                    Math.Min(rest.BitLength, StringUtf8Parameters.MaximumCodepointBits)
-                ).ToArray();
-                if (Rune.DecodeFromUtf8(bytes, out _, out _) != System.Buffers.OperationStatus.Done)
-                {
-                    throw new ErlangException(Term.Tuple(Term.A(ErlangErrorReasons.BadArgument), rest));
-                }
-            }
+            if (matched is not TupleTerm pair)
+                return (false, continuation);
+            int position = (int)((Integer)pair.Items[0]).Value;
+            rest = rest.SliceBits(position * UnicodeNativeNames.BitsPerByte, rest.BitLength - position * UnicodeNativeNames.BitsPerByte);
             Term at = continuation is Nil ? rest : new Cons(rest, continuation);
-            Term value = await StringUnicode.Utility(context, StringUnicodeDependencyNames.Grapheme, at);
+            int line = continuation is Nil ? StringSeparatorSource.SearchGc : StringSeparatorSource.SearchListGc;
+            Term value;
+            using (StringSourceTrace.Scope(
+                context,
+                StringSeparatorSource.SearchLoop,
+                5,
+                line
+            ))
+            {
+                value = await StringUnicode.Utility(context, StringUnicodeDependencyNames.Grapheme, at);
+            }
             if (value is not Cons next)
-            {
-                if (!member && separators.Count == 1)
-                {
-                    return (true, new Cons(rest, continuation));
-                }
-
-                throw new ErlangException(Term.Tuple(Term.A(ErlangErrorReasons.BadMatch), value));
-            }
-            if (separators.Contains(next.Head) == member)
-            {
+                throw StringSourceTrace.Error(
+                    context,
+                    Term.Tuple(Term.A(ErlangErrorReasons.BadMatch), value),
+                    StringSeparatorSource.SearchLoop,
+                    5,
+                    line
+                );
+            if (await pattern.Member(
+                context,
+                next.Head,
+                StringSeparatorSource.SearchLoop,
+                5,
+                continuation is Nil ? StringSeparatorSource.SearchMember : StringSeparatorSource.SearchListMember
+            ))
                 return (true, new Cons(rest, continuation));
-            }
             if (next.Tail is BitString remainder && continuation is Nil)
-            {
                 rest = remainder;
-            }
             else if (next.Tail is Cons { Head: BitString remaining } cell && cell.Tail.Equals(continuation))
-            {
                 rest = remaining;
-            }
             else
-            {
                 return (false, next.Tail);
-            }
             await context.ReduceAsync();
         }
 
         return (false, continuation);
     }
 
-    internal static async ValueTask<Term> UsedPrefix(ProcessContext context, Term original, Term continuation)
+    internal static async ValueTask<(bool Found, Term Remainder)> ScanFor(
+        ProcessContext context,
+        BitString binary,
+        Term continuation,
+        HashSet<Term> separators,
+        bool member,
+        string function,
+        int arity,
+        int line
+    )
     {
-        if (StringUnicode.IsEmpty(continuation))
-        {
-            return original;
-        }
-        List<Term> all = await StringUnicode.Elements(context, original, false);
-        List<Term> remaining = await StringUnicode.Elements(context, continuation, false);
+        using var call = StringSourceTrace.Scope(
+            context,
+            function,
+            arity,
+            line
+        );
 
-        return Cons.From(all.Take(all.Count - remaining.Count));
+        return await Scan(
+            context,
+            binary,
+            continuation,
+            separators,
+            member
+        );
     }
+
 }

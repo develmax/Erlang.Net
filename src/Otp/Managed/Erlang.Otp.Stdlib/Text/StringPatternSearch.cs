@@ -48,12 +48,31 @@ internal static class StringPatternSearch
         return Term.List(Cons.From(Cons.Items(reverse).Reverse()), binary);
     }
 
-    internal static async ValueTask<Term?> Prefix(ProcessContext context, Term input, IReadOnlyList<Term> needle)
+    internal static async ValueTask<Term?> Prefix(ProcessContext context, Term input, StringSearchPattern needle)
     {
+        if (!needle.HasHead)
+        {
+            throw StringSourceTrace.Clause(
+                context,
+                StringSearchSource.Prefix,
+                [input, needle.Original],
+                StringSearchSource.PrefixHead
+            );
+        }
         Term tail = input;
         for (int index = 0; index < needle.Count; index++)
         {
-            Term result = await StringUnicode.Utility(context, index == needle.Count - 1 ? StringUnicodeDependencyNames.Grapheme : StringUnicodeDependencyNames.Codepoint, tail);
+            bool last = index == needle.Count - 1;
+            Term result;
+            using (StringSourceTrace.Scope(
+                context,
+                StringSearchSource.Prefix,
+                2,
+                last ? StringSearchSource.PrefixGc : StringSearchSource.PrefixCp
+            ))
+            {
+                result = await StringUnicode.Utility(context, last ? StringUnicodeDependencyNames.Grapheme : StringUnicodeDependencyNames.Codepoint, tail);
+            }
             if (result is not Cons next || !next.Head.Equals(needle[index]))
             {
                 return null;
@@ -66,26 +85,143 @@ internal static class StringPatternSearch
 
     private static async ValueTask<StringBinaryMatch> BinarySearch(
         ProcessContext context,
-        BitString binary,
+        Term input,
         int start,
         Term continuation,
-        StringBinarySearchBuffer search
+        StringSearchPattern needle
     )
     {
-        ReadOnlyMemory<byte> bytes = search.Read(binary);
-        byte[] pattern = search.Pattern(continuation is not Nil);
-        int position = start;
-        while (position <= bytes.Length - pattern.Length)
+        if (continuation is not Nil && !needle.HasHead)
         {
-            int relative = bytes.Span[position..].IndexOf(pattern);
-            if (relative < 0)
+            throw StringSourceTrace.Clause(
+                context,
+                StringSearchSource.BinarySearch,
+                [input, Term.I(start), continuation, needle.Original],
+                StringSearchSource.BinarySearchHead
+            );
+        }
+        Term? compiled = continuation is Nil ? needle.FullCompiled : needle.InitialCompiled;
+        if (compiled is null)
+        {
+            using (StringSourceTrace.Scope(
+                context,
+                StringSearchSource.BinarySearch,
+                4,
+                continuation is Nil ? StringSearchSource.BinaryCompile : StringSearchSource.BinaryFirstCompile
+            ))
+            {
+                Term encoded;
+                if (continuation is Nil)
+                {
+                    encoded = await context.Runtime.Modules.Call(
+                        context,
+                        UnicodeNativeNames.Module,
+                        UnicodeNativeNames.ToBinary,
+                        needle.Original
+                    );
+                }
+                else
+                {
+                    try
+                    {
+                        encoded = BeamBinaryConstructionValues.Utf8(needle[0]);
+                    }
+                    catch (ErlangException error)
+                    {
+                        throw BeamBinaryConstructionValues.CaptureFailure(
+                            context,
+                            error,
+                            1,
+                            BeamBinaryNames.Utf8Segment,
+                            needle[0]
+                        );
+                    }
+                }
+                compiled = await context.Runtime.Modules.Call(
+                    context,
+                    BinaryModuleNames.Module,
+                    BinaryModuleNames.CompilePattern,
+                    encoded
+                );
+                if (continuation is Nil)
+                    needle.FullCompiled = compiled;
+                else
+                    needle.InitialCompiled = compiled;
+            }
+        }
+        if (input is not BitString { IsBinary: true } binary)
+        {
+            throw StringSourceTrace.Error(
+                context,
+                Term.Tuple(Term.A(ErlangErrorReasons.BadMatch), input),
+                continuation is Nil ? StringSearchSource.BinarySingle : StringSearchSource.BinaryMultiple,
+                continuation is Nil ? 4 : 5,
+                continuation is Nil ? StringSearchSource.BinaryBadMatch : StringSearchSource.BinaryMultipleBadMatch
+            );
+        }
+        int byteLength = binary.BitLength / UnicodeNativeNames.BitsPerByte;
+        int position = start;
+        while (position <= byteLength)
+        {
+            Term found;
+            using (StringSourceTrace.Scope(
+                context,
+                continuation is Nil ? StringSearchSource.BinarySingle : StringSearchSource.BinaryMultiple,
+                continuation is Nil ? 4 : 5,
+                continuation is Nil ? StringSearchSource.BinaryMatch : StringSearchSource.BinaryMultipleMatch
+            ))
+            {
+                found = await context.Runtime.Modules.Call(
+                    context,
+                    BinaryModuleNames.Module,
+                    BinaryModuleNames.Match,
+                    binary.SliceBits(position * UnicodeNativeNames.BitsPerByte, binary.BitLength - position * UnicodeNativeNames.BitsPerByte),
+                    compiled
+                );
+            }
+            if (found is not TupleTerm match)
             {
                 break;
             }
+            int relative = (int)((Integer)match.Items[0]).Value;
             int at = position + relative;
             BitString suffix = binary.SliceBits(at * 8, binary.BitLength - at * 8);
             Term candidate = continuation is Nil ? suffix : new Cons(suffix, continuation);
-            Term? after = await Prefix(context, candidate, search.Needle);
+            Cons? cluster = null;
+            if (continuation is not Nil)
+            {
+                Term gc;
+                using (StringSourceTrace.Scope(
+                    context,
+                    StringSearchSource.BinaryMultiple,
+                    5,
+                    StringSearchSource.BinaryMultipleGc
+                ))
+                {
+                    gc = await StringUnicode.Utility(context, StringUnicodeDependencyNames.Grapheme, suffix);
+                }
+                cluster = gc as Cons;
+                if (cluster is null)
+                {
+                    throw StringSourceTrace.Error(
+                        context,
+                        Term.Tuple(Term.A(ErlangErrorReasons.BadMatch), gc),
+                        StringSearchSource.BinaryMultiple,
+                        5,
+                        StringSearchSource.BinaryMultipleGc
+                    );
+                }
+            }
+            Term? after;
+            using (StringSourceTrace.Scope(
+                context,
+                continuation is Nil ? StringSearchSource.BinarySingle : StringSearchSource.BinaryMultiple,
+                continuation is Nil ? 4 : 5,
+                continuation is Nil ? StringSearchSource.BinarySinglePrefix : StringSearchSource.BinaryMultiplePrefix
+            ))
+            {
+                after = await Prefix(context, candidate, needle);
+            }
             if (after is not null)
             {
                 return new StringBinaryMatch(
@@ -97,14 +233,28 @@ internal static class StringPatternSearch
                     continuation
                 );
             }
-            Cons? next = await StringUnicode.Next(context, suffix, continuation is not Nil);
+            Cons? next = cluster;
+            if (continuation is Nil)
+            {
+                if (!StringModernExecution.Decode(suffix, out Integer skipped, out BitString remaining))
+                {
+                    throw StringSourceTrace.Error(
+                        context,
+                        Term.Tuple(Term.A(ErlangErrorReasons.BadMatch), suffix),
+                        StringSearchSource.BinarySingle,
+                        4,
+                        StringSearchSource.BinarySingleAdvance
+                    );
+                }
+                next = new Cons(skipped, remaining);
+            }
             if (next is null)
             {
                 break;
             }
             if (next.Tail is BitString remainder)
             {
-                position = bytes.Length - remainder.BitLength / 8;
+                position = byteLength - remainder.BitLength / 8;
             }
             else if (continuation is Nil)
             {
@@ -129,7 +279,7 @@ internal static class StringPatternSearch
             new BitString([]),
             Nil.Value,
             Nil.Value,
-            bytes.Length,
+            byteLength,
             continuation
         );
     }
@@ -137,22 +287,43 @@ internal static class StringPatternSearch
     internal static async ValueTask<Term> Find(
         ProcessContext context,
         Term input,
-        IReadOnlyList<Term> needle,
+        StringSearchPattern needle,
         bool trailing
     )
     {
         Term result = Term.A(StringTextAtoms.NoMatch);
-        var search = new StringBinarySearchBuffer(needle);
         while (true)
         {
-            if (input is Cons { Head: BitString binary } binaryCell)
+            if (!needle.HasHead)
             {
-                StringBinaryMatch match = await BinarySearch(
+                bool listBinary = input is Cons { Head: BitString { IsBinary: true } };
+                Term searchInput = listBinary ? ((Cons)input).Head : input;
+                Term continuation = listBinary ? ((Cons)input).Tail : Nil.Value;
+                StringBinaryMatch empty = await BinarySearchFor(
+                    context,
+                    searchInput,
+                    0,
+                    continuation,
+                    needle,
+                    trailing ? StringSearchSource.FindTrailing : StringSearchSource.FindLeading,
+                    trailing ? 3 : 2,
+                    trailing ? listBinary ? StringSearchSource.FindTrailingListBinary : StringSearchSource.FindTrailingBinary
+                        : listBinary ? StringSearchSource.FindLeadingListBinary : StringSearchSource.FindLeadingBinary
+                );
+
+                return empty.Matched ? empty.At : result;
+            }
+            if (input is Cons { Head: BitString { IsBinary: true } binary } binaryCell)
+            {
+                StringBinaryMatch match = await BinarySearchFor(
                     context,
                     binary,
                     0,
                     binaryCell.Tail,
-                    search
+                    needle,
+                    trailing ? StringSearchSource.FindTrailing : StringSearchSource.FindLeading,
+                    trailing ? 3 : 2,
+                    trailing ? StringSearchSource.FindTrailingListBinary : StringSearchSource.FindLeadingListBinary
                 );
                 if (match.Matched)
                 {
@@ -167,16 +338,20 @@ internal static class StringPatternSearch
                 {
                     input = match.Continuation;
                 }
+                await context.ReduceAsync();
                 continue;
             }
-            if (input is BitString bin)
+            if (input is BitString { IsBinary: true } bin)
             {
-                StringBinaryMatch match = await BinarySearch(
+                StringBinaryMatch match = await BinarySearchFor(
                     context,
                     bin,
                     0,
                     Nil.Value,
-                    search
+                    needle,
+                    trailing ? StringSearchSource.FindTrailing : StringSearchSource.FindLeading,
+                    trailing ? 3 : 2,
+                    trailing ? StringSearchSource.FindTrailingBinary : StringSearchSource.FindLeadingBinary
                 );
                 if (!match.Matched)
                 {
@@ -188,18 +363,55 @@ internal static class StringPatternSearch
                     return result;
                 }
                 input = (await StringUnicode.Next(context, match.At, false))!.Tail;
+                await context.ReduceAsync();
                 continue;
             }
             if (input is not (Cons or Nil))
             {
-                throw new ErlangException(Term.Tuple(Term.A(ErlangErrorReasons.BadMatch), input));
+                using var call = StringSourceTrace.Scope(
+                    context,
+                    trailing ? StringSearchSource.FindTrailing : StringSearchSource.FindLeading,
+                    trailing ? 3 : 2,
+                    trailing ? StringSearchSource.FindTrailingBinary : StringSearchSource.FindLeadingBinary
+                );
+                throw StringSourceTrace.Error(
+                    context,
+                    Term.Tuple(Term.A(ErlangErrorReasons.BadMatch), input),
+                    StringSearchSource.BinarySingle,
+                    4,
+                    StringSearchSource.BinaryBadMatch
+                );
             }
-            Cons? next = input is Cons { Head: Integer } direct ? direct : await StringUnicode.Next(context, input, false);
+            bool directInput = input is Cons { Head: Integer };
+            Cons? next = directInput ? (Cons)input : await StringUnicode.Next(
+                context,
+                input,
+                false,
+                new StringSourceStep(
+                    trailing ? StringSearchSource.FindTrailing : StringSearchSource.FindLeading,
+                    trailing ? 3 : 2,
+                    trailing ? StringSearchSource.FindTrailingCp : StringSearchSource.FindLeadingCp,
+                    trailing ? StringSearchSource.FindTrailingCp : StringSearchSource.FindLeadingCp,
+                    true
+                )
+            );
             if (next is null)
             {
                 return result;
             }
-            if (next.Head.Equals(needle[0]) && await Prefix(context, input, needle) is not null)
+            Term? matched = null;
+            if (next.Head.Equals(needle[0]))
+            {
+                using var call = StringSourceTrace.Scope(
+                    context,
+                    trailing ? StringSearchSource.FindTrailing : StringSearchSource.FindLeading,
+                    trailing ? 3 : 2,
+                    trailing ? directInput ? StringSearchSource.FindTrailingPrefix : StringSearchSource.FindTrailingNestedPrefix
+                        : directInput ? StringSearchSource.FindLeadingPrefix : StringSearchSource.FindLeadingNestedPrefix
+                );
+                matched = await Prefix(context, input, needle);
+            }
+            if (matched is not null)
             {
                 result = input;
                 if (!trailing)
@@ -215,28 +427,40 @@ internal static class StringPatternSearch
     internal static async ValueTask<Term> Split(
         ProcessContext context,
         Term original,
-        IReadOnlyList<Term> needle,
-        string where
+        StringSearchPattern needle,
+        Term whereTerm
     )
     {
-        var search = new StringBinarySearchBuffer(needle);
+        string where = whereTerm is Atom atom ? atom.Name : "";
         Term input = original;
         Term current = Nil.Value;
         Term accumulated = Nil.Value;
         int start = 0;
         while (true)
         {
-            bool binaryList = input is Cons { Head: BitString };
-            BitString? binary = binaryList ? (BitString)((Cons)input).Head : input as BitString;
+            bool binaryList = input is Cons { Head: BitString { IsBinary: true } };
+            if (!needle.HasHead && !binaryList)
+            {
+                throw StringSourceTrace.Clause(
+                    context,
+                    StringSearchSource.Split,
+                    [input, needle.Original, Term.I(start), whereTerm, current, accumulated],
+                    StringSearchSource.SplitHead
+                );
+            }
+            BitString? binary = binaryList ? (BitString)((Cons)input).Head : input is BitString { IsBinary: true } binaryValue ? binaryValue : null;
             if (binary is not null)
             {
                 Term continuation = binaryList ? ((Cons)input).Tail : Nil.Value;
-                StringBinaryMatch match = await BinarySearch(
+                StringBinaryMatch match = await BinarySearchFor(
                     context,
                     binary,
                     start,
                     continuation,
-                    search
+                    needle,
+                    StringSearchSource.Split,
+                    6,
+                    binaryList ? StringSearchSource.SplitListBinary : StringSearchSource.SplitBinary
                 );
                 if (!match.Matched)
                 {
@@ -248,11 +472,22 @@ internal static class StringPatternSearch
                     current = new Cons(binary.SliceBits(0, match.ConsumedBytes * 8), current);
                     input = match.Continuation;
                     start = 0;
+                    await context.ReduceAsync();
                     continue;
                 }
                 Term before = binaryList
                     ? match.Before.BitLength == 0 ? current : new Cons(match.Before, current)
                     : new Cons(match.Before, current);
+                if (where is not (StringTextAtoms.Leading or StringTextAtoms.Trailing or StringTextAtoms.All))
+                {
+                    throw StringSourceTrace.Error(
+                        context,
+                        Term.Tuple(Term.A(ErlangErrorReasons.CaseClause), whereTerm),
+                        StringSearchSource.Split,
+                        6,
+                        binaryList ? StringSearchSource.SplitListDirection : StringSearchSource.SplitBinaryDirection
+                    );
+                }
                 Term head = !binaryList && where == StringTextAtoms.Trailing ? BinaryToken(match.Before, current) : Reverse(before);
                 if (where == StringTextAtoms.Leading)
                 {
@@ -283,20 +518,65 @@ internal static class StringPatternSearch
                     }
                     current = Nil.Value;
                 }
+                await context.ReduceAsync();
                 continue;
             }
             if (input is not (Cons or Nil))
             {
-                throw new ErlangException(Term.Tuple(Term.A(ErlangErrorReasons.BadMatch), input));
+                using var call = StringSourceTrace.Scope(
+                    context,
+                    StringSearchSource.Split,
+                    6,
+                    StringSearchSource.SplitBinary
+                );
+                throw StringSourceTrace.Error(
+                    context,
+                    Term.Tuple(Term.A(ErlangErrorReasons.BadMatch), input),
+                    StringSearchSource.BinarySingle,
+                    4,
+                    StringSearchSource.BinaryBadMatch
+                );
             }
-            Cons? nextCell = input is Cons { Head: Integer } direct ? direct : await StringUnicode.Next(context, input, false);
+            bool directCell = input is Cons { Head: Integer };
+            Cons? nextCell = directCell ? (Cons)input : await StringUnicode.Next(
+                context,
+                input,
+                false,
+                new StringSourceStep(
+                    StringSearchSource.Split,
+                    6,
+                    StringSearchSource.SplitCp,
+                    StringSearchSource.SplitCp,
+                    true
+                )
+            );
             if (nextCell is null)
             {
                 break;
             }
-            Term? rest = nextCell.Head.Equals(needle[0]) ? await Prefix(context, input, needle) : null;
+            Term? rest = null;
+            if (nextCell.Head.Equals(needle[0]))
+            {
+                using var call = StringSourceTrace.Scope(
+                    context,
+                    StringSearchSource.Split,
+                    6,
+                    directCell ? StringSearchSource.SplitPrefix : StringSearchSource.SplitNestedPrefix
+                );
+                rest = await Prefix(context, input, needle);
+            }
             if (rest is not null)
             {
+                if (where is not (StringTextAtoms.Leading or StringTextAtoms.Trailing or StringTextAtoms.All))
+                {
+                    throw StringSourceTrace.Error(
+                        context,
+                        Term.Tuple(Term.A(ErlangErrorReasons.CaseClause), whereTerm),
+                        StringSearchSource.Split,
+                        6,
+                        directCell ? StringSearchSource.SplitScalarDirection : StringSearchSource.SplitNestedDirection
+                    );
+                }
                 if (where == StringTextAtoms.Leading)
                 {
                     return Term.List(Reverse(current), rest);
@@ -311,6 +591,7 @@ internal static class StringPatternSearch
                     current = Nil.Value;
                     input = rest;
                     start = 0;
+                    await context.ReduceAsync();
                     continue;
                 }
             }
@@ -325,5 +606,32 @@ internal static class StringPatternSearch
         }
 
         return where == StringTextAtoms.Trailing ? accumulated : Cons.From(Cons.Items(new Cons(Reverse(current), accumulated)).Reverse());
+    }
+
+    private static async ValueTask<StringBinaryMatch> BinarySearchFor(
+        ProcessContext context,
+        Term binary,
+        int start,
+        Term continuation,
+        StringSearchPattern needle,
+        string function,
+        int arity,
+        int line
+    )
+    {
+        using var call = StringSourceTrace.Scope(
+            context,
+            function,
+            arity,
+            line
+        );
+
+        return await BinarySearch(
+            context,
+            binary,
+            start,
+            continuation,
+            needle
+        );
     }
 }

@@ -4,7 +4,7 @@ Draft Part568 prepares the bulk physical-occurrence runtime patch in a separate 
 
 ## Current status sources
 
-PR102 is merged as f0c23d603. Its complete unit report passed9687/9687, while overall main Validate failed before async observer execution on a stale caller pin. The [repair evidence](validation/part-569/ci-integrated-pins-and-reuse/hosted-results/README.md) records corrected native cohort and async23 focused successes. Final repair-head whole CI/current review remain pending; generated readiness is unit evidence, not a whole-pipeline acceptance claim.
+- [String integration](validation/string-otp-merge-20261104/README.md): both71-API alternatives retain explicit selection;9706 full tests and separate8522/depth comparisons per backend pass. Source identities and limitations remain explicit; final delivery is tracked in [PR105](https://github.com/develmax/Erlang.Net/pull/105).
 
 - [Accepted main PR103](https://github.com/develmax/Erlang.Net/pull/103): native async accounting, independent logical/physical port closure, pending RPC shutdown and final microstate cancellation. See the [retained report](validation/part-557/REPORT.md) and [exact incoming progress snapshot](history/main-103-progress/index.md). These bounded results do not close the whole statistics contract.
 
@@ -28,3 +28,5 @@ The previous progress document started at Part485; the maintained work queue and
 ## Updating progress
 
 Keep this page as a short entry point. Put new work results in the active changelog volume and update the owning readiness or remaining-work document. Link to evidence instead of copying checkpoint narratives here.
+
+PR102 is merged as f0c23d603. Its complete unit report passed9687/9687, while overall main Validate failed before async observer execution on a stale caller pin. The [repair evidence](validation/part-569/ci-integrated-pins-and-reuse/hosted-results/README.md) records corrected native cohort and async23 focused successes. Final repair-head whole CI/current review remain pending; generated readiness is unit evidence, not a whole-pipeline acceptance claim.

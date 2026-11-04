@@ -1,0 +1,57 @@
+test_content_change_without_declared_tree_change_is_detected (test_dependencies.DependencyTests.test_content_change_without_declared_tree_change_is_detected) ... ok
+test_missing_assets_or_package_never_becomes_empty_success (test_dependencies.DependencyTests.test_missing_assets_or_package_never_becomes_empty_success) ... ok
+test_partially_restored_solution_is_rejected (test_dependencies.DependencyTests.test_partially_restored_solution_is_rejected) ... ok
+test_existing_merge_failure_cannot_reuse_old_pr_success (test_lifecycle.WorkflowLifecycleTests.test_existing_merge_failure_cannot_reuse_old_pr_success) ... ok
+test_failed_recapture_removes_stale_receipt (test_lifecycle.WorkflowLifecycleTests.test_failed_recapture_removes_stale_receipt) ... ok
+test_missing_fresh_assets_never_seals_a_receipt (test_lifecycle.WorkflowLifecycleTests.test_missing_fresh_assets_never_seals_a_receipt) ... ok
+test_other_incomplete_merge_run_is_not_ignored (test_lifecycle.WorkflowLifecycleTests.test_other_incomplete_merge_run_is_not_ignored) ... ok
+test_prepare_seal_and_verified_collector_reuse (test_lifecycle.WorkflowLifecycleTests.test_prepare_seal_and_verified_collector_reuse) ... ok
+test_artifact_provenance_and_attempt (test_policy.AdmissionTests.test_artifact_provenance_and_attempt) ... ok
+test_changed_main_and_tree (test_policy.AdmissionTests.test_changed_main_and_tree) ... ok
+test_every_input_mismatch_fails_closed (test_policy.AdmissionTests.test_every_input_mismatch_fails_closed) ... ok
+test_exact_proven_equivalence (test_policy.AdmissionTests.test_exact_proven_equivalence) ... ok
+test_manual_integrated_matrix_is_required (test_policy.AdmissionTests.test_manual_integrated_matrix_is_required) ... ok
+test_matching_missing_or_false_declared_fingerprints_are_rejected (test_policy.AdmissionTests.test_matching_missing_or_false_declared_fingerprints_are_rejected) ... ok
+test_missing_failed_timedout_or_untrusted_evidence (test_policy.AdmissionTests.test_missing_failed_timedout_or_untrusted_evidence) ... ok
+test_actual_committed_workflow_matches_all_dependency_bytes (test_source_bindings.IntegratedBindingsTests.test_actual_committed_workflow_matches_all_dependency_bytes) ... ERROR
+test_known_producer_roles_cannot_drop_required_fields (test_source_bindings.IntegratedBindingsTests.test_known_producer_roles_cannot_drop_required_fields) ... ok
+test_packet_attribute_never_resolves_to_repository_attribute (test_source_bindings.IntegratedBindingsTests.test_packet_attribute_never_resolves_to_repository_attribute) ... ok
+test_stale_or_missing_environment_pin_is_rejected_before_execution (test_source_bindings.IntegratedBindingsTests.test_stale_or_missing_environment_pin_is_rejected_before_execution) ... FAIL
+test_stale_powershell_caller_is_rejected_before_observer_execution (test_source_bindings.IntegratedBindingsTests.test_stale_powershell_caller_is_rejected_before_observer_execution) ... ok
+test_storage_request_has_no_github_authorization (test_transport.TransportTests.test_storage_request_has_no_github_authorization) ... ok
+test_untrusted_or_downgraded_redirect_is_rejected (test_transport.TransportTests.test_untrusted_or_downgraded_redirect_is_rejected) ... ok
+
+======================================================================
+ERROR: test_actual_committed_workflow_matches_all_dependency_bytes (test_source_bindings.IntegratedBindingsTests.test_actual_committed_workflow_matches_all_dependency_bytes)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\Distr\Work\Codex\Erlang.Net\string-otp-merge\tools\Validation\Erlang.CiReuse\test_source_bindings.py", line 52, in test_actual_committed_workflow_matches_all_dependency_bytes
+    result = verify(root)
+             ^^^^^^^^^^^^
+  File "D:\Distr\Work\Codex\Erlang.Net\string-otp-merge\tools\Validation\Erlang.CiReuse\source_bindings.py", line 77, in verify
+    workflow_pin(key, row["Sha256"])
+  File "D:\Distr\Work\Codex\Erlang.Net\string-otp-merge\tools\Validation\Erlang.CiReuse\source_bindings.py", line 69, in workflow_pin
+    raise ValueError("Integrated workflow pin differs: " + key)
+ValueError: Integrated workflow pin differs: NATIVE_PLAN
+
+======================================================================
+FAIL: test_stale_or_missing_environment_pin_is_rejected_before_execution (test_source_bindings.IntegratedBindingsTests.test_stale_or_missing_environment_pin_is_rejected_before_execution)
+----------------------------------------------------------------------
+ValueError: Integrated workflow pin differs: NATIVE_PLAN
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\Distr\Work\Codex\Erlang.Net\string-otp-merge\tools\Validation\Erlang.CiReuse\test_source_bindings.py", line 63, in test_stale_or_missing_environment_pin_is_rejected_before_execution
+    with self.assertRaisesRegex(ValueError, key):
+AssertionError: "ENV709_NATIVE_PLAN" does not match "Integrated workflow pin differs: NATIVE_PLAN"
+
+----------------------------------------------------------------------
+Ran 22 tests in 0.101s
+
+FAILED (failures=1, errors=1)
+No reusable receipt issued: FileNotFoundError: [Errno 2] No such file or directory: 'C:\\Users\\Maksim\\AppData\\Local\\Temp\\tmphyne0eha\\inputs.json'
+{"Reuse": false, "Reasons": ["ValueError: resolved assets missing"]}
+No reusable receipt issued: FileNotFoundError: [Errno 2] No such file or directory: 'C:\\Users\\Maksim\\AppData\\Local\\Temp\\tmp1mx5rsum\\inputs.json'
+{"Reuse": false, "Reasons": ["PR/manual runs always execute required checks"]}
+Reusable input receipt sealed; GitHub job/workflow conclusions remain authoritative

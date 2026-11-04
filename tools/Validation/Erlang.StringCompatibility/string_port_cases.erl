@@ -41,7 +41,27 @@ worker(F, Args, Parent) ->
 outcome(F,Args) ->
     try apply(string,F,Args) of
         Value -> {ok,Value}
-    catch Class:Reason:Stack -> {exception,Class,Reason,Stack}
+    catch Class:Reason:Stack -> exception_result(Class,Reason,Stack)
+    end.
+
+exception_result(Class,Reason,Stack) ->
+    case [P || P <- lists:usort(compiled_patterns(Stack)), live_compiled_pattern(P)] of
+        [] -> {exception,Class,Reason,Stack};
+        Patterns ->
+            Subjects = [<<>>,<<"a b\t\r\nabc">>,<<0,255,32,0>>,<<" ">>,<<"missing">>],
+            Bindings = [{Pattern,[{S,binary:match(S,Pattern)} || S <- Subjects]} || Pattern <- Patterns],
+            {exception,Class,Reason,Stack,{compiled_pattern_bindings,Bindings}}
+    end.
+
+compiled_patterns({Tag,Ref}=Pattern) when (Tag =:= bm orelse Tag =:= ac), is_reference(Ref) -> [Pattern];
+compiled_patterns(T) when is_tuple(T) -> compiled_patterns(tuple_to_list(T));
+compiled_patterns([H|T]) -> compiled_patterns(H) ++ compiled_patterns(T);
+compiled_patterns(_) -> [].
+
+live_compiled_pattern(Pattern) ->
+    try binary:match(<<>>,Pattern) of
+        _ -> true
+    catch error:badarg -> false
     end.
 
 cases() ->
@@ -96,7 +116,22 @@ cases() ->
     Numbers = [{F,[T]} || T <- ["", "+", "-", "--1", "123", "+123x", "1.2e", "1.2e+", "1,5x", "1.0e9999", "-0.0x",
         <<"123x">>, [<<"12">>,"3x"], [49,<<"23">>,120], [49|tail], <<255>>],
         F <- [to_float,to_integer,list_to_float,list_to_integer]],
-    Smoke ++ Unary ++ Slices ++ Searches ++ Takes ++ Trim ++ Equal ++ Numbers ++ extra_cases(Texts).
+    Smoke ++ Unary ++ Slices ++ Searches ++ Takes ++ Trim ++ Equal ++ Numbers ++ extra_cases(Texts) ++ argument_controls(Smoke) ++
+        [{length,[binary:copy(<<0>>,64*1024)]}].
+
+argument_controls(Smoke) ->
+    Values = [invalid,{},-1,0,1.5,<<1:1>>,<<0:1>>,[97|invalid]],
+    [{nth_lexeme,["a b",1 bsl 80," "]}] ++
+    [{take,["a",[invalid],true]}, {take,["a",[[]],true]},
+     {take,[<<"a">>,[-1],true]}, {take,[<<"a">>,[1114112],true]},
+     {take,[<<"a">>,[97,-1],true]}, {take,[<<"a">>,[55296],true]},
+     {take,["a",[[97]|invalid],true]}, {lexemes,["a",[<<255>>]]},
+     {split,["abc",[invalid],all]}, {prefix,["abc",[invalid]]},
+     {trim,["a",trailing,[invalid]]}] ++
+    [{take,[<<0:1>>,[]]}, {slice,[<<0:1>>,0,0]}, {slice,[<<0:1>>,0,1]}] ++
+    [{F,replace_argument(Args,N,V)} || {F,Args} <- Smoke, N <- lists:seq(1,length(Args)), V <- Values].
+
+replace_argument(Args,N,V) -> lists:sublist(Args,N-1) ++ [V|lists:nthtail(N,Args)].
 
 extra_cases(Texts) ->
     LegacyTexts = [[],"abba",[97,223,255,256],[a,b,a], [97|tail], <<"abc">>, invalid],

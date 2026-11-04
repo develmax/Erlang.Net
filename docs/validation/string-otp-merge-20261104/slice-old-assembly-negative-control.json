@@ -1,0 +1,26 @@
+{
+  "Partial": true,
+  "SelectedCount": 2,
+  "TotalCount": 9698,
+  "Blocks": [],
+  "ExactCases": [
+    "runtime/string/cooperative-ascii-binary-slice-drop",
+    "runtime/string/cooperative-ascii-binary-slice-keep"
+  ],
+  "Passed": 0,
+  "Failed": 2,
+  "Tests": [
+    {
+      "Name": "runtime/string/cooperative-ascii-binary-slice-drop",
+      "Status": "Failed",
+      "Error": "System.InvalidOperationException: String ASCII traversal must charge reductions without changing its result\r\n   at Erlang.Tests.StringCooperationChecks.\u003C\u003Ec__DisplayClass1_1.\u003C\u003CRunSlice\u003Eb__0\u003Ed.MoveNext() in D:\\Distr\\Work\\Codex\\Erlang.Net\\string-otp-merge\\tests\\Erlang.Tests\\Otp\\Stdlib\\String\\StringCooperationChecks.cs:line 59\r\n--- End of stack trace from previous location ---\r\n   at Erlang.Tests.RuntimeNodeFoundationHostActor.\u003C\u003Ec__DisplayClass9_0\u00601.\u003C\u003CInvokeAsync\u003Eb__0\u003Ed.MoveNext() in D:\\Distr\\Work\\Codex\\Erlang.Net\\string-otp-merge\\tests\\Erlang.Tests\\Runtime\\Execution\\RuntimeNodeFoundationHostActor.cs:line 43\r\n--- End of stack trace from previous location ---\r\n   at Erlang.Tests.RuntimeNodeFoundationHostActor.InvokeAsync[T](Func\u00602 command) in D:\\Distr\\Work\\Codex\\Erlang.Net\\string-otp-merge\\tests\\Erlang.Tests\\Runtime\\Execution\\RuntimeNodeFoundationHostActor.cs:line 51\r\n   at Erlang.Tests.StringCooperationChecks.RunSlice(Boolean keep) in D:\\Distr\\Work\\Codex\\Erlang.Net\\string-otp-merge\\tests\\Erlang.Tests\\Otp\\Stdlib\\String\\StringCooperationChecks.cs:line 44\r\n   at Erlang.Tests.StringCooperationChecks.RunSlice(Boolean keep) in D:\\Distr\\Work\\Codex\\Erlang.Net\\string-otp-merge\\tests\\Erlang.Tests\\Otp\\Stdlib\\String\\StringCooperationChecks.cs:line 44\r\n   at Erlang.Tests.StringCooperationChecks.RunSlice(Boolean keep) in D:\\Distr\\Work\\Codex\\Erlang.Net\\string-otp-merge\\tests\\Erlang.Tests\\Otp\\Stdlib\\String\\StringCooperationChecks.cs:line 44\r\n   at Program.\u003CMain\u003E$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\string-otp-merge\\tests\\Erlang.Tests\\Harness\\Program.cs:line 16237",
+      "Milliseconds": 1915
+    },
+    {
+      "Name": "runtime/string/cooperative-ascii-binary-slice-keep",
+      "Status": "Failed",
+      "Error": "System.InvalidOperationException: String ASCII traversal must charge reductions without changing its result\r\n   at Erlang.Tests.StringCooperationChecks.\u003C\u003Ec__DisplayClass1_1.\u003C\u003CRunSlice\u003Eb__0\u003Ed.MoveNext() in D:\\Distr\\Work\\Codex\\Erlang.Net\\string-otp-merge\\tests\\Erlang.Tests\\Otp\\Stdlib\\String\\StringCooperationChecks.cs:line 59\r\n--- End of stack trace from previous location ---\r\n   at Erlang.Tests.RuntimeNodeFoundationHostActor.\u003C\u003Ec__DisplayClass9_0\u00601.\u003C\u003CInvokeAsync\u003Eb__0\u003Ed.MoveNext() in D:\\Distr\\Work\\Codex\\Erlang.Net\\string-otp-merge\\tests\\Erlang.Tests\\Runtime\\Execution\\RuntimeNodeFoundationHostActor.cs:line 43\r\n--- End of stack trace from previous location ---\r\n   at Erlang.Tests.RuntimeNodeFoundationHostActor.InvokeAsync[T](Func\u00602 command) in D:\\Distr\\Work\\Codex\\Erlang.Net\\string-otp-merge\\tests\\Erlang.Tests\\Runtime\\Execution\\RuntimeNodeFoundationHostActor.cs:line 51\r\n   at Erlang.Tests.StringCooperationChecks.RunSlice(Boolean keep) in D:\\Distr\\Work\\Codex\\Erlang.Net\\string-otp-merge\\tests\\Erlang.Tests\\Otp\\Stdlib\\String\\StringCooperationChecks.cs:line 44\r\n   at Erlang.Tests.StringCooperationChecks.RunSlice(Boolean keep) in D:\\Distr\\Work\\Codex\\Erlang.Net\\string-otp-merge\\tests\\Erlang.Tests\\Otp\\Stdlib\\String\\StringCooperationChecks.cs:line 44\r\n   at Erlang.Tests.StringCooperationChecks.RunSlice(Boolean keep) in D:\\Distr\\Work\\Codex\\Erlang.Net\\string-otp-merge\\tests\\Erlang.Tests\\Otp\\Stdlib\\String\\StringCooperationChecks.cs:line 44\r\n   at Program.\u003CMain\u003E$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\string-otp-merge\\tests\\Erlang.Tests\\Harness\\Program.cs:line 16237",
+      "Milliseconds": 747
+    }
+  ]
+}

@@ -1,0 +1,66 @@
+{
+  "Partial": true,
+  "SelectedCount": 9,
+  "TotalCount": 9698,
+  "Blocks": [],
+  "ExactCases": [
+    "HOST/internal-ports416/bad-flags-before-real-blocked-command-queue",
+    "HOST/internal-ports416/connect-after-real-queued-close-and-invalid-target-order",
+    "runtime/internal-ports416/real-open-command-connect-info-close-and-child-exit",
+    "runtime/string/cooperative-ascii-binary-length",
+    "runtime/string/cooperative-ascii-binary-reverse",
+    "runtime/string/cooperative-ascii-binary-slice-drop",
+    "runtime/string/cooperative-ascii-binary-slice-keep",
+    "runtime/string/cooperative-ascii-list-length",
+    "runtime/string/cooperative-ascii-list-reverse"
+  ],
+  "Passed": 9,
+  "Failed": 0,
+  "Tests": [
+    {
+      "Name": "runtime/string/cooperative-ascii-list-length",
+      "Status": "Passed",
+      "Milliseconds": 1728
+    },
+    {
+      "Name": "runtime/string/cooperative-ascii-binary-length",
+      "Status": "Passed",
+      "Milliseconds": 678
+    },
+    {
+      "Name": "runtime/string/cooperative-ascii-list-reverse",
+      "Status": "Passed",
+      "Milliseconds": 475
+    },
+    {
+      "Name": "runtime/string/cooperative-ascii-binary-reverse",
+      "Status": "Passed",
+      "Milliseconds": 461
+    },
+    {
+      "Name": "runtime/string/cooperative-ascii-binary-slice-drop",
+      "Status": "Passed",
+      "Milliseconds": 440
+    },
+    {
+      "Name": "runtime/string/cooperative-ascii-binary-slice-keep",
+      "Status": "Passed",
+      "Milliseconds": 401
+    },
+    {
+      "Name": "runtime/internal-ports416/real-open-command-connect-info-close-and-child-exit",
+      "Status": "Passed",
+      "Milliseconds": 126
+    },
+    {
+      "Name": "HOST/internal-ports416/bad-flags-before-real-blocked-command-queue",
+      "Status": "Passed",
+      "Milliseconds": 125
+    },
+    {
+      "Name": "HOST/internal-ports416/connect-after-real-queued-close-and-invalid-target-order",
+      "Status": "Passed",
+      "Milliseconds": 114
+    }
+  ]
+}

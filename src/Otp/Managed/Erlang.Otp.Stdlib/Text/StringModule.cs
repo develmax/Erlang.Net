@@ -25,6 +25,9 @@ public static class StringModule
 
     /// <summary>Opt in before loading an original string image; no automatic backend fallback is performed.</summary>
     public static void Register(ModuleRegistry registry)
+        => registry.InstallSourceWrappers(RegisterExports);
+
+    private static void RegisterExports(ModuleRegistry registry)
     {
         foreach (var export in Exports)
         {
@@ -44,18 +47,19 @@ public static class StringModule
         }
     }
 
-    public static ValueTask<Term> Invoke(ProcessContext context, string function, IReadOnlyList<Term> arguments)
+    public static async ValueTask<Term> Invoke(ProcessContext context, string function, IReadOnlyList<Term> arguments)
     {
         if (!Exports.Contains((function, arguments.Count)))
         {
             throw new ErlangException(ErlangErrorReasons.UndefinedFunction);
         }
 
+        using var tail = context.EnterSourceTailCall(Name, function);
         if (StringLegacy.Owns(function))
         {
-            return ValueTask.FromResult(StringLegacy.Invoke(function, arguments));
+            return await StringLegacyExecution.Invoke(context, function, arguments);
         }
 
-        return StringUnicode.Invoke(context, function, arguments);
+        return await StringUnicode.Invoke(context, function, arguments);
     }
 }

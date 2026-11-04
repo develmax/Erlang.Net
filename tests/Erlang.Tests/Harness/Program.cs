@@ -461,6 +461,25 @@ catch (ArgumentException failure)
 
 
 var tests = new List<(string Name, Func<Task> Body)>();
+Test(Erlang.Tests.StringBackendNames.ManagedTest, () => Erlang.Tests.StringBackendChecks.Run(true));
+Test(Erlang.Tests.StringBackendNames.BeamTest, () => Erlang.Tests.StringBackendChecks.Run(false));
+Test(Erlang.Tests.StringBackendNames.RefusalTest, Erlang.Tests.StringBackendChecks.Refusals);
+Test(Erlang.Tests.StringBackendNames.ManagedJaroTest, () => Erlang.Tests.StringBackendChecks.Jaro(true));
+Test(Erlang.Tests.StringBackendNames.BeamJaroTest, () => Erlang.Tests.StringBackendChecks.Jaro(false));
+Test(Erlang.Tests.StringCooperationNames.ListLength, () => Erlang.Tests.StringCooperationChecks.Run(false, false));
+Test(Erlang.Tests.StringCooperationNames.BinaryLength, () => Erlang.Tests.StringCooperationChecks.Run(true, false));
+Test(Erlang.Tests.StringCooperationNames.ListReverse, () => Erlang.Tests.StringCooperationChecks.Run(false, true));
+Test(Erlang.Tests.StringCooperationNames.BinaryReverse, () => Erlang.Tests.StringCooperationChecks.Run(true, true));
+Test(Erlang.Tests.StringCooperationNames.SliceDrop, () => Erlang.Tests.StringCooperationChecks.RunSlice(false));
+Test(Erlang.Tests.StringCooperationNames.SliceKeep, () => Erlang.Tests.StringCooperationChecks.RunSlice(true));
+Test(Erlang.Tests.StringCooperationNames.TrimSingle, () => Erlang.Tests.StringCooperationChecks.RunScan(true, false));
+Test(Erlang.Tests.StringCooperationNames.TrimMultiple, () => Erlang.Tests.StringCooperationChecks.RunScan(true, true));
+Test(Erlang.Tests.StringCooperationNames.TakeLeading, () => Erlang.Tests.StringCooperationChecks.RunScan(false, true));
+Test(Erlang.Tests.StringCooperationNames.TakeTrailing, () => Erlang.Tests.StringCooperationChecks.RunScan(false, false));
+Test(Erlang.Tests.StringCooperationNames.EqualTwo, () => Erlang.Tests.StringCooperationChecks.RunEqual(false));
+Test(Erlang.Tests.StringCooperationNames.EqualThree, () => Erlang.Tests.StringCooperationChecks.RunEqual(true));
+Test(Erlang.Tests.StringCooperationNames.TrimFragments, () => Erlang.Tests.StringCooperationChecks.RunFragments(true));
+Test(Erlang.Tests.StringCooperationNames.LexemeFragments, () => Erlang.Tests.StringCooperationChecks.RunFragments(false));
 Test(Erlang.Tests.MathBackendNames.ManagedWhole, Erlang.Tests.LibraryDependencyOriginalHostChecks.MathManagedWhole);
 Test(Erlang.Tests.MathBackendNames.ManagedSelection, Erlang.Tests.MathBackendChecks.ManagedSelection);
 Test(Erlang.Tests.MathLog2OtpNames.Test, Erlang.Tests.MathLog2OtpChecks.Run);

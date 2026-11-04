@@ -1,0 +1,16 @@
+{
+  "Manifest": "tools\\Native\\Erlang.NifResource529Observations\\source-plan.json",
+  "Removed": [
+    {
+      "Path": "src/Otp/Managed/Erlang.Otp.Stdlib/Text/StringLegacySearch.cs",
+      "HashMode": "Raw",
+      "Sha256": "AD66FEE001DF612BDB8B618670345A0D23CA490FD361650E469EF9F70B222AF8"
+    },
+    {
+      "Path": "src/Otp/Managed/Erlang.Otp.Stdlib/Text/StringLegacyWords.cs",
+      "HashMode": "Raw",
+      "Sha256": "EDE7886B833CA169FB1727E86CFF6668805DE738D5236E45A02EE23306ED2BBE"
+    }
+  ],
+  "Reason": "Replaced legacy source owners; execution helpers are already bound in current owner closure"
+}

@@ -420,5 +420,10 @@
 <ItemGroup><EmbeddedResource Include="Resources/OrdsetsCompatibility/*" LogicalName="Erlang.Tests.OrdsetsCompatibility.%(Filename)%(Extension)" /></ItemGroup>
 <ItemGroup><EmbeddedResource Include="Resources/OrdsetsTermContracts/matrix.etf;Resources/OrdsetsTermContracts/probes.etf;Resources/OrdsetsTermContracts/ordsets_term_contracts.beam" LogicalName="Erlang.Tests.OrdsetsTermContracts.%(Filename)%(Extension)" /></ItemGroup>
 <ItemGroup><EmbeddedResource Include="../../src/Otp/Original/Foundation/Erlang.Otp.Erts.Beam/Otp/ebin/erts_internal.beam" LogicalName="Erlang.Tests.StringPatternAllocation.erts_internal.beam" /></ItemGroup>
+<ItemGroup>
+  <EmbeddedResource Include="Resources/StringBackend/*" LogicalName="Erlang.Tests.StringBackend.%(Filename)%(Extension)" />
+  <EmbeddedResource Include="../../src/Otp/Original/Foundation/Erlang.Otp.Stdlib.Beam/Otp/string.beam;../../src/Otp/Original/Foundation/Erlang.Otp.Stdlib.Beam/Otp/unicode.beam;../../src/Otp/Original/Foundation/Erlang.Otp.Stdlib.Beam/Otp/unicode_util.beam" LogicalName="Erlang.Tests.StringBackend.%(Filename)%(Extension)" />
+  <Compile Include="../../tools/Validation/Erlang.StringCompatibility/StringResourceComparison.cs" Link="Otp/Stdlib/String/StringResourceComparison.cs" />
+</ItemGroup>
 <ItemGroup><EmbeddedResource Include="Resources/OrdsetsBulkSource/inputs-and-original.etf" LogicalName="Erlang.Tests.OrdsetsBulkSource.inputs-and-original.etf" /></ItemGroup>
 </Project>
