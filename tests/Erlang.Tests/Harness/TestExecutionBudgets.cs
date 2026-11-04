@@ -6,6 +6,11 @@ internal static class TestExecutionBudgets
     {
         DetsBackendChecks.ManagedTest or DetsBackendChecks.OriginalTest
             or DetsBackendChecks.ManagedSuiteTest or DetsBackendChecks.OriginalSuiteTest => TimeSpan.FromSeconds(600),
+        // Cold native fixture/source compilation, the gated callback phase and
+        // final physical drain need separate allowances. Phase watchdogs stay fixed.
+        TimerCallback539Names.Cancel or TimerCallback539Names.Close => TimerCallback539Names.Deadline
+            + TimerCallback539Names.Deadline
+            + TimeSpan.FromSeconds(TestExecutionBudgetNames.FullComparisonPreparationSeconds500),
         UnicodeUtilUnalignedNames.Test => UnicodeUtilUnalignedNames.Deadline,
         _ when name.StartsWith(UnicodeUtilBackendNames.Managed + "/", StringComparison.Ordinal)
             || name.StartsWith(UnicodeUtilBackendNames.Beam + "/", StringComparison.Ordinal) => UnicodeUtilBackendNames.CorpusDeadline,

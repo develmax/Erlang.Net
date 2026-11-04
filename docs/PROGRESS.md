@@ -1,5 +1,7 @@
 # Project progress
 
+Part596 fixes PR119 test synchronization: await physical dirty-handler unwind and give the two timer539 cases an outer preparation/phase/drain budget while preserving internal watchdogs and assertions. Production source is unchanged. See [failure analysis and focused evidence](validation/part-596/README.md); fresh hosted checks remain pending.
+
 Part595 repairs the remaining PR119 CI function407 failure: original OTP confirms one tail-badfun source frame, including the exact synthetic image. Focused6/6 and complete66/66 raw/typed outcomes pass. See [native proof and receipt](validation/part-595/README.md); fresh hosted checks remain pending.
 
 Part594 repairs the four CI failures reported for PR119: complete badfun/badarity/apply stacks and bounded Jaro actor batches. Focused final-source checks are recorded in [the repair receipt](validation/part-594/README.md); full hosted validation remains separate.
