@@ -10,7 +10,7 @@ internal static class UnicodeBackendChecks
         var selection = new RuntimeLibrarySelection([
             RuntimeModuleSelection.Managed("erlang"),
             RuntimeModuleSelection.Managed("lists"),
-            RuntimeModuleSelection.Beam("unicode_util", Original("unicode_util"), ["lists"]),
+            managed ? RuntimeModuleSelection.Managed("unicode_util") : RuntimeModuleSelection.Beam("unicode_util", Original("unicode_util"), ["lists"]),
             managed ? RuntimeModuleSelection.Managed("unicode", ["lists", "unicode_util"])
                 : RuntimeModuleSelection.Beam("unicode", Original("unicode"), ["lists", "unicode_util"]),
             RuntimeModuleSelection.Managed("string", ["erlang", "lists", "unicode", "unicode_util"])

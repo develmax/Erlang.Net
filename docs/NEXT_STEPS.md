@@ -22,6 +22,7 @@ Draft Part568 prepares the bulk physical-occurrence runtime patch in a separate 
 - Preserve [file literal ownership and focused acceptance](validation/part-580/README.md); run the permanent literal audit when editing this module. Complete prim_file/prim_buffer/RAM native support, then replay the five independent raw/normal/RAM/consult/compressed gates in both backends. Keep verification focused and leave full compatibility/readiness unpromoted while the gates fail.
 
 - Complete [code acceptance](validation/code-port-20261104/README.md) beyond the passing69-export/156+25 corpus: full consumer startup closure, documentation/gzip dependencies, platform errors, races and upstream code_SUITE. Preserve selected code:is_loaded routing and semantic literal ownership; no100% promotion from finite counts.
+- [Managed Unicode utility](validation/part-587/README.md): all20 utility exports are ported to C#; both managed modules form an Erlang-free dependency closure. Original modules and explicit mixed/backend selection remain supported. Final related acceptance and PR/CI gates are tracked in that receipt.
 
 - [Downstream CI producer repair](validation/part-577/README.md): reconcile the remaining native/integrated producer identities and monitor completed final-head workflows.
 

@@ -24,6 +24,7 @@ Draft Part568 prepares the bulk physical-occurrence runtime patch in a separate 
 - [PR109 CI/review repair](validation/part-579/README.md): refreshed existing source-plan identities and fixed module_status helper stacks. Both backends pass159 complete outcomes plus25 lifecycle results;17 focused groups and passive source admissions pass locally. Hosted final-head CI remains pending.
 
 - [Selectable code backend](validation/code-port-20261104/README.md): all69 exports,156 full observations and25 lifecycle results per backend;17 connected groups pass on isolated current-main composition. Domain literals are named; universal/JIT/platform acceptance remains open.
+- [Managed Unicode utility](validation/part-587/README.md): all20 utility exports are ported to C#; both managed modules form an Erlang-free dependency closure. Original modules and explicit mixed/backend selection remain supported. Final related acceptance and PR/CI gates are tracked in that receipt.
 
 - [Downstream CI producer repair](validation/part-577/README.md): reconcile the remaining native/integrated producer identities and monitor completed final-head workflows.
 

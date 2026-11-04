@@ -9,9 +9,11 @@ internal static class StringBackendChecks
 
     internal static Task Jaro(bool managed) => Run(managed, true);
 
-    private static async Task Run(bool managed, bool jaro)
+    internal static Task ManagedUnicode() => Run(true, false, true);
+
+    private static async Task Run(bool managed, bool jaro, bool managedUnicode = false)
     {
-        await using ProcessRuntime runtime = await ProcessRuntime.CreateAsync(Selection(managed), RuntimeNativePrimitives.InternalScalars413, CancellationToken.None);
+        await using ProcessRuntime runtime = await ProcessRuntime.CreateAsync(Selection(managed, managedUnicode), RuntimeNativePrimitives.InternalScalars413, CancellationToken.None);
         RuntimeLibraryModuleSnapshot selected = runtime.LibrarySelection.Modules.Single(module => module.Module == StringModule.Name);
         Require(selected.Backend == (managed ? RuntimeModuleBackend.Managed : RuntimeModuleBackend.Beam));
         Require(selected.InputSha256 == (managed ? null : Digests[StringModule.Name]));
@@ -22,6 +24,10 @@ internal static class StringBackendChecks
         {
             Require(managed ? runtime.Modules.SourceOwner(StringModule.Name, export.Name, export.Arity) is null
                 : runtime.Modules.SourceOwner(StringModule.Name, export.Name, export.Arity) is PreparedBeamImage);
+        }
+        if (managedUnicode)
+        {
+            Require(runtime.LibrarySelection.Modules.All(module => module.Backend == RuntimeModuleBackend.Managed && module.InputSha256 is null));
         }
         using PreparedBeamImage observer = runtime.Modules.PrepareBeam(
             Read(Observer + ".beam"),
@@ -95,11 +101,13 @@ internal static class StringBackendChecks
         Require(refused && ordinary.Modules.Exports.Count(export => export.Module == StringModule.Name) == 1);
     }
 
-    internal static RuntimeLibrarySelection Selection(bool managed) => new([
+    internal static RuntimeLibrarySelection Selection(bool managed, bool managedUnicode = false) => new([
         RuntimeModuleSelection.Managed("erlang"),
         RuntimeModuleSelection.Managed("lists"),
-        RuntimeModuleSelection.Beam("unicode", Original("unicode"), ["lists", "unicode_util"]),
-        RuntimeModuleSelection.Beam("unicode_util", Original("unicode_util"), ["lists"]),
+        managedUnicode ? RuntimeModuleSelection.Managed("unicode", ["lists", "unicode_util"])
+            : RuntimeModuleSelection.Beam("unicode", Original("unicode"), ["lists", "unicode_util"]),
+        managedUnicode ? RuntimeModuleSelection.Managed("unicode_util")
+            : RuntimeModuleSelection.Beam("unicode_util", Original("unicode_util"), ["lists"]),
         managed ? RuntimeModuleSelection.Managed(StringModule.Name, Dependencies)
             : RuntimeModuleSelection.Beam(StringModule.Name, Original(StringModule.Name), Dependencies)
     ]);

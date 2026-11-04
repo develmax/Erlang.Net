@@ -71,6 +71,8 @@ public sealed partial class ProcessRuntime
                 {
                     RuntimeManagedLibraries456.Register(registry, RuntimeManagedLibraryStage456.Code);
                 }
+                if (libraries.Modules.Any(choice => choice.Module == "unicode_util" && choice.Backend == RuntimeModuleBackend.Managed))
+                    RuntimeManagedLibraries456.Register(registry, RuntimeManagedLibraryStage456.UnicodeUtil);
                 if (libraries.Modules.Any(choice => choice.Module == UnicodeNativeNames.Module && choice.Backend == RuntimeModuleBackend.Managed))
                 {
                     registry.InstallManagedUnicodePrimitives();

@@ -8,7 +8,8 @@
     <ProjectReference Include="../../src/Runtime/Erlang.Runtime/Erlang.Runtime.csproj" />
     <ErlangLibrary Include="erlang" Backend="Managed" />
     <ErlangLibrary Include="lists" Backend="Managed" />
-    <ErlangLibrary Include="unicode_util" Backend="Beam" Image="../../src/Otp/Original/Foundation/Erlang.Otp.Stdlib.Beam/Otp/unicode_util.beam" Sha256="5CDC886E30216B5DE33B6F4BDC1DEA006EAA3392EC4A83EC90CD7B946B5759FF" Dependencies="lists" />
+    <ErlangLibrary Include="unicode_util" Backend="Managed" Condition="'$(UnicodeBackend)' == 'Managed'" />
+    <ErlangLibrary Include="unicode_util" Backend="Beam" Image="../../src/Otp/Original/Foundation/Erlang.Otp.Stdlib.Beam/Otp/unicode_util.beam" Sha256="5CDC886E30216B5DE33B6F4BDC1DEA006EAA3392EC4A83EC90CD7B946B5759FF" Dependencies="lists" Condition="'$(UnicodeBackend)' == 'Beam'" />
     <ErlangLibrary Include="unicode" Backend="Managed" Dependencies="lists;unicode_util" Condition="'$(UnicodeBackend)' == 'Managed'" />
     <ErlangLibrary Include="unicode" Backend="Beam" Image="../../src/Otp/Original/Foundation/Erlang.Otp.Stdlib.Beam/Otp/unicode.beam" Sha256="2495812294976A34AE904E7709B75348F3DDDF3B950413199867A78E093A4379" Dependencies="lists;unicode_util" Condition="'$(UnicodeBackend)' == 'Beam'" />
   </ItemGroup>
