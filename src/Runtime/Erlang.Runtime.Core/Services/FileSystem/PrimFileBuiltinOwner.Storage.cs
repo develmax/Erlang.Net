@@ -145,13 +145,7 @@ internal sealed partial class PrimFileBuiltinOwner
 
                         return Term.A(CommonAtomNames.Ok);
                     case PrimFileBuiltinNames.Truncate:
-                        if (!stream.CanWrite)
-                        {
-                            return PrimFileWindowsErrors410.Tuple(PrimFileWindowsNames410.Denied);
-                        }
-                        stream.SetLength(stream.Position);
-
-                        return Term.A(CommonAtomNames.Ok);
+                        return RuntimeFileOperations.TruncateFile(stream);
                     case PrimFileBuiltinNames.Read:
                         return Read(stream, Size(arguments[1]));
                     case PrimFileBuiltinNames.Pread:

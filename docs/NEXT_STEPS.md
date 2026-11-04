@@ -1,8 +1,8 @@
 # Next steps
 
-Part593: DETS review fixes/current-main reconciliation and Windows/Linux/macOS bootstrap file implementations are integrated. Windows standalone57 checks per backend and the review regression pass. Dedicated Unix platform execution/source-plan refresh remain pending; see [checkpoint](validation/dets-reconciliation-20261104/README.md). No full regression.
+Part593: bootstrap files and DETS now execute on Windows/Linux/macOS; selectable C#/original Erlang implementations are preserved. Both review findings are fixed. Five DETS groups, four connected groups and the Windows21-scenario primary corpus per backend pass. Linux/macOS73 managed/85 original platform assertions and bidirectional file interchange pass; the expanded final matrix and independent Darwin unlink oracle are being collected. Exact source/pin/census checks pass. See [current evidence](validation/dets-reconciliation-20261104/README.md); no full local regression or universal compatibility promotion.
 
-Part592: execute the standalone prim_file deletion probe on Linux and macOS; retain separate OS receipts. Extend the remaining bootstrap path/info/raw-file/native-admission platform boundaries before advertising complete Unix DETS startup. Preserve focused checks and existing C#/Erlang selection.
+Earlier local Part592: deletion-only portability work is superseded by Part593. Preserve separate host receipts, focused checks and C#/Erlang selection.
 
 Part591: review the isolated [DETS backend PR](dets-backends.md) and its focused OTP receipts. Keep full upstream-suite/resource/platform/interleaving and release-manifest startup acceptance explicit; preserve backend selection and do not promote canonical readiness from partial reports.
 

@@ -24,10 +24,9 @@ internal static class PrimFileDeleteNativeOracle
     {
         string source = Path.Combine(repository, PrimFileDeleteContractNames.Capture, PrimFileDeleteNativeOracleNames.Source);
         string executable = Path.Combine(output, PrimFileDeleteNativeOracleNames.Executable);
-        _ = await Execute(
-            PrimFileDeleteNativeOracleNames.Compiler,
-            ["-std=c11", "-O2", "-pthread", "-Wall", "-Wextra", "-Werror", source, "-o", executable]
-        );
+        var compilerArguments = new List<string> { "-std=c11", "-O2", "-Wall", "-Wextra", "-Werror", source, "-o", executable };
+        if (OperatingSystem.IsLinux()) compilerArguments.Add("-pthread");
+        _ = await Execute(PrimFileDeleteNativeOracleNames.Compiler, compilerArguments);
         string raw = await Execute(executable, [output]);
         using JsonDocument result = JsonDocument.Parse(raw);
         int one = result.RootElement.GetProperty(PrimFileDeleteNativeOracleNames.OneSuccess).GetInt32();

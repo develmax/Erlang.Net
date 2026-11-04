@@ -278,7 +278,7 @@ internal static class PrimFilePosixOperations
             case PrimFileBuiltinNames.Sync:
                 return Status(PrimFilePosixNative.Sync(fd, Number(arguments[1]) != 0 ? 1 : 0));
             case PrimFileBuiltinNames.Truncate:
-                return Status(PrimFilePosixNative.Truncate(fd));
+                return RuntimeFileOperations.TruncatePosix(file.Handle);
             case PrimFileBuiltinNames.Read:
                 return Read(fd, Count(arguments[1]));
             case PrimFileBuiltinNames.Pread:

@@ -324,7 +324,8 @@ internal sealed partial class DetsTableWorker
                 }
                 if (file.ReadOnly)
                 {
-                    failure = Error(Term.Tuple(Term.Tuple(Term.A(DetsFailureNames.FileError), options.File, Error(Term.A(DetsFailureNames.AccessDenied))), options.File));
+                    Term error = options.RamFile ? Error(Term.A(DetsFailureNames.AccessDenied)) : RuntimeFileOperations.TruncateFile((FileStream)stream!);
+                    failure = Error(Term.Tuple(Term.Tuple(Term.A(DetsFailureNames.FileError), options.File, error), options.File));
 
                     return failure;
                 }

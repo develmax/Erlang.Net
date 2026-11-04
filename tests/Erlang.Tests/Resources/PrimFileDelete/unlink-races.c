@@ -2,6 +2,7 @@
  * No managed bindings or ERTS dependency participate in these races. */
 #define _POSIX_C_SOURCE 200809L
 #include <pthread.h>
+#include <sys/stat.h>
 #include <fcntl.h>
 #include <unistd.h>
 #include <errno.h>
@@ -43,6 +44,18 @@ int main(int argc, char **argv) {
     if (initial < 0) return 3;
     close(initial);
     if (unlink(path) != 0 || unlink(path) != -1 || errno != ENOENT) return 7;
+    snprintf(path, size, "%s/native-readonly", argv[1]);
+    int writer = open(path, O_WRONLY | O_CREAT | O_EXCL, 0600);
+    if (writer < 0 || write(writer, "\1", 1) != 1) return 8;
+    close(writer);
+    int reader = open(path, O_RDONLY);
+    if (reader < 0) return 8;
+    int truncate_result = ftruncate(reader, 0);
+    int truncate_error = errno;
+    struct stat info;
+    if (truncate_result == 0 || fstat(reader, &info) != 0 || info.st_size != 1) return 8;
+    close(reader);
+    if (unlink(path) != 0) return 8;
     int single = 0;
     int both = 0;
     for (int round = 0; round < rounds; round++) {
@@ -76,7 +89,7 @@ int main(int argc, char **argv) {
         else return 5;
         if (access(path, F_OK) == 0 || errno != ENOENT) return 6;
     }
-    printf("{\"Rounds\":%d,\"OneSuccess\":%d,\"BothSuccess\":%d,\"SequentialVerified\":true}\n", rounds, single, both);
+    printf("{\"Rounds\":%d,\"OneSuccess\":%d,\"BothSuccess\":%d,\"SequentialVerified\":true,\"ReadonlyTruncateErrno\":%d}\n", rounds, single, both, truncate_error);
     free(path);
     return 0;
 }

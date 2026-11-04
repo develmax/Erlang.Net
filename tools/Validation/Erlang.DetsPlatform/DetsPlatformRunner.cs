@@ -8,7 +8,7 @@ internal static class DetsPlatformRunner
     internal static async Task Run(string repository, string output, bool managed)
     {
         await using var runtime = new ProcessRuntime();
-        var corpus = new DetsPlatformCorpus(repository);
+        var corpus = new DetsPlatformCorpus(repository, output);
         var prepared = new List<PreparedBeamImage>();
         var assets = Directory.EnumerateFiles(Path.Combine(repository, "src/Otp/Original/Foundation"), "*.beam", SearchOption.AllDirectories)
             .GroupBy(Path.GetFileNameWithoutExtension).ToDictionary(group => group.Key!, group => group.First(), StringComparer.Ordinal);
