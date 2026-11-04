@@ -80,7 +80,7 @@ Apache2.0 notices. Production registration loads C# algorithms and data only.
 Work slices use the runtime reduction/cancellation infrastructure; malformed inputs
 retain original source frames rather than exposing C# implementation frames.
 
-The [Part587 acceptance receipt](validation/part-587/README.md) records the new
+The [Part588 acceptance receipt](validation/part-588/README.md) records the new
 fully managed closure separately from historical mixed-backend observations below.
 Its finite-domain table audit covers every codepoint, all eight transition probes
 per codepoint, the complete pinned normalization/grapheme conformance files, and

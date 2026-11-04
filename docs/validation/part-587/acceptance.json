@@ -1,67 +1,18 @@
 {
-  "Passed": true,
   "Baseline": "OTP-29.1.1",
-  "UnicodeVersion": "17.0",
-  "BaseCommit": "b317a9c2f",
-  "CurrentHeadCiClaimed": false,
-  "FullLocalRegressionExecuted": false,
-  "GlobalReadinessPromoted": false,
-  "FocusedGroups": 28,
-  "UtilityCorePerBackend": 14801,
-  "ManagedCodepoints": 1114112,
-  "ManagedGraphemeTransitions": 8912896,
-  "ManagedConformanceCases": 401446,
-  "ManagedLongCases": 55,
-  "Examples": 2,
-  "UnicodeConsumers": [
-    {
-      "Backend": "Managed",
-      "Corpus": "contracts.etf",
-      "Cases": 490,
-      "BackingProbes": 29,
-      "Report": "unicode-Managed-contracts.etf-report.json",
-      "ReportSha256": "676E5AE7D6951A0EDFC7C65EB412836FCE5A70A95F108E44ECCA491FB3B25500"
-    },
-    {
-      "Backend": "Managed",
-      "Corpus": "upstream-suite-original.etf",
-      "Cases": 711,
-      "BackingProbes": 29,
-      "Report": "unicode-Managed-upstream-suite-original.etf-report.json",
-      "ReportSha256": "E8F69268A022F715AB66B47BC3BC4394F67B3BFEC6AB675F474508F9D143E250"
-    },
-    {
-      "Backend": "Managed",
-      "Corpus": "extra.etf",
-      "Cases": 408,
-      "BackingProbes": 29,
-      "Report": "unicode-Managed-extra.etf-report.json",
-      "ReportSha256": "44232CF539CBE778E33B6D4D8737377AF5B8D2F3DAC654D53E74591110856AD1"
-    },
-    {
-      "Backend": "Beam",
-      "Corpus": "contracts.etf",
-      "Cases": 490,
-      "BackingProbes": 29,
-      "Report": "unicode-Beam-contracts.etf-report.json",
-      "ReportSha256": "9CF9EA011C65ECAC99B8F987C45D39F01685A75AF26038AF0260DEED0EE7D6BC"
-    },
-    {
-      "Backend": "Beam",
-      "Corpus": "upstream-suite-original.etf",
-      "Cases": 711,
-      "BackingProbes": 29,
-      "Report": "unicode-Beam-upstream-suite-original.etf-report.json",
-      "ReportSha256": "F58600F333A132BD8DCF57C38E3AD66E9DD68A432E3E314CBE76D6034DC0E598"
-    },
-    {
-      "Backend": "Beam",
-      "Corpus": "extra.etf",
-      "Cases": 408,
-      "BackingProbes": 29,
-      "Report": "unicode-Beam-extra.etf-report.json",
-      "ReportSha256": "10F2A688411B7B2712F71DB1BB5A1163BA0A94EA22221509D6AB2208045F94DE"
-    }
-  ],
-  "EarlierSourceEvidence": "earlier-source"
+  "Commit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "Exports": 40,
+  "ApiCasesPerBackend": 74,
+  "EngineScenariosPerBackend": 311,
+  "BothFocusedReportsComplete": true,
+  "UniversalOtpCompatibilityCertified": false,
+  "SourceAuditSha256": "0539CDB2E2086CCFC7FE98F49BAE61A8810A596FD9996A401743F8B739A62D45",
+  "ProvenanceSha256": "DF5C6BB09DA781B2DA2E5F7645195C918E173525C800608A0D4FA23ED2750486",
+  "Reports": {
+    "Managed": "129F195E56FCE4EF7BEC8D85209977BA7C3FE76DFBBCB579C276709304EA38D8",
+    "Beam": "DD13F677228B2F6E58E26BC9F8B6683D9029BFA508B255AD973FCDCBC7DB8017"
+  },
+  "ManagedAssemblySha256": "FAE3E4E1446916A133C3968E3EA899299E37F06C7FA3FAD596F49F8E6FEF52CC",
+  "RuntimeAssemblySha256": "A5418C344254DF5662A0D1D22FE560F174F222E2BB4A56F3B29968E3780CB3B3",
+  "Scope": "Same-platform complete terms and stacks in the focused corpus; full regression and global readiness deliberately unrun."
 }

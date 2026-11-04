@@ -210,7 +210,20 @@ internal static class UnicodeUtilTraversal
 
     internal static bool Decode(BitString binary, out Term cp, out Term rest)
     {
-        OperationStatus status = Rune.DecodeFromUtf8(binary.ByteSpan, out Rune rune, out int consumed);
+        // ByteSpan normalizes an entire unaligned payload. Read only the UTF8
+        // lookahead, while keeping the original binary as the tail's owner.
+        Span<byte> prefix = stackalloc byte[UnicodeUtilNames.MaximumUtf8ScalarBytes];
+        int length = Math.Min(binary.BitLength / UnicodeUtilNames.BitsPerByte, prefix.Length);
+        for (int index = 0; index < length; index++)
+        {
+            int value = 0;
+            for (int bit = 0; bit < UnicodeUtilNames.BitsPerByte; bit++)
+            {
+                value = (value << 1) | binary.Bit(index * UnicodeUtilNames.BitsPerByte + bit);
+            }
+            prefix[index] = (byte)value;
+        }
+        OperationStatus status = Rune.DecodeFromUtf8(prefix[..length], out Rune rune, out int consumed);
         cp = Term.I(rune.Value);
         rest = status == OperationStatus.Done ? binary.SliceBits(consumed * UnicodeUtilNames.BitsPerByte,
             binary.BitLength - consumed * UnicodeUtilNames.BitsPerByte) : binary;

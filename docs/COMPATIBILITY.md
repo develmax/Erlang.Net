@@ -1,5 +1,8 @@
 # Compatibility overview
 
+[Part587](validation/part-587/README.md) fixes the gen_statem sys continuation review finding:97 retained managed machines become1 after32 generations. Both backends pass74+311 full observations/scenarios. Final-head hosted review/CI and wider OTP acceptance remain separate.
+
+[gen_statem merge repair](validation/gen-statem-merge-20261104/README.md) reconciles gen_statem PR112 with code/file/gen_event main and refreshes declared source identities. Prior module comparisons remain historical; final-head hosted checks and the sys continuation review finding remain open.
 Part586 fixes the omitted Monitor source-freeze manifest behind main CI41836436436 and adds a committed-manifest guard. No runtime or compatibility change. [Failure and focused validation](validation/part-586/README.md).
 
 PR111 Part585 reconciles code/file/gen_event on current main, refreshes declared source/producer pins and checks the retained BEAM image hash. Fresh105/105 per backend passes; final-head CI remains required. [Repair evidence](validation/part-585/README.md).
@@ -22,6 +25,7 @@ Draft Part568 prepares the bulk physical-occurrence runtime patch in a separate 
 The [file alternative](file-backends.md) retains the original Erlang image beside the 69-export C# surface. Literal extraction preserves pinned values and exception frames. Both implementations match 408 exact focused observations; five independent complete filesystem cycles still fail in each backend because native/provider closure is incomplete. This is not 100% compatibility. See [Part580](validation/part-580/README.md).
 
 The [code backend](validation/code-port-20261104/README.md) retains original Erlang beside69 selectable C# exports (62 library/7 shared native signatures). Both backends match156 complete outcomes and25 lifecycle results;17 connected groups pass. Native JIT capability, full release/docs/platform/resource acceptance remain separate.
+- gen_statem has forty selectable exports, with semantic constants for protocol/function/status/format/source/record and validation contracts. [gen_statem publication](validation/gen-statem-port-20261104/README.md) tracks finite focused comparisons; no universal compatibility or ledger promotion is claimed.
 
 - [Downstream CI producer repair](validation/part-577/README.md): reconcile the remaining native/integrated producer identities and monitor completed final-head workflows.
 

@@ -22,6 +22,7 @@ internal static class UnicodeUtilNames
     internal const int AsciiMaximum = 127;
     internal const int WorkSlice = 1024;
     internal const int BitsPerByte = 8;
+    internal const int MaximumUtf8ScalarBytes = 4;
     internal const int Zwj = 0x200d;
     internal const int RegionalFirst = 0x1f1e6;
     internal const int RegionalLast = 0x1f1ff;

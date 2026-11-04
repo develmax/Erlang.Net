@@ -4,6 +4,7 @@ internal static class TestExecutionBudgets
 {
     internal static TimeSpan For(string name) => name switch
     {
+        UnicodeUtilUnalignedNames.Test => UnicodeUtilUnalignedNames.Deadline,
         _ when name.StartsWith(UnicodeUtilBackendNames.Managed + "/", StringComparison.Ordinal)
             || name.StartsWith(UnicodeUtilBackendNames.Beam + "/", StringComparison.Ordinal) => UnicodeUtilBackendNames.CorpusDeadline,
         StringBackendNames.ManagedUnicodeTest => StringBackendNames.ManagedUnicodeDeadline,

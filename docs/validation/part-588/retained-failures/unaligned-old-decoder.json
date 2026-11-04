@@ -1,0 +1,19 @@
+{
+  "Partial": true,
+  "SelectedCount": 1,
+  "TotalCount": 9726,
+  "Blocks": [],
+  "ExactCases": [
+    "runtime/unicode-util/unaligned-utf8-prefix-linear-allocation-and-backing"
+  ],
+  "Passed": 0,
+  "Failed": 1,
+  "Tests": [
+    {
+      "Name": "runtime/unicode-util/unaligned-utf8-prefix-linear-allocation-and-backing",
+      "Status": "Failed",
+      "Error": "System.InvalidOperationException: Unicode utility unaligned traversal changes values, backing or allocation scaling\r\n   at Erlang.Tests.UnicodeUtilUnalignedChecks.Require(Boolean condition) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\unicode-pr-ready\\tests\\Erlang.Tests\\Otp\\Stdlib\\Unicode\\UnicodeUtilUnalignedChecks.cs:line 67\r\n   at Erlang.Tests.UnicodeUtilUnalignedChecks.Run() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\unicode-pr-ready\\tests\\Erlang.Tests\\Otp\\Stdlib\\Unicode\\UnicodeUtilUnalignedChecks.cs:line 41\r\n   at Erlang.Tests.UnicodeUtilUnalignedChecks.Run() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\unicode-pr-ready\\tests\\Erlang.Tests\\Otp\\Stdlib\\Unicode\\UnicodeUtilUnalignedChecks.cs:line 50\r\n   at Erlang.Tests.UnicodeUtilUnalignedChecks.Run() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\unicode-pr-ready\\tests\\Erlang.Tests\\Otp\\Stdlib\\Unicode\\UnicodeUtilUnalignedChecks.cs:line 50\r\n   at Program.\u003CMain\u003E$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\unicode-pr-ready\\tests\\Erlang.Tests\\Harness\\Program.cs:line 16269",
+      "Milliseconds": 1816
+    }
+  ]
+}

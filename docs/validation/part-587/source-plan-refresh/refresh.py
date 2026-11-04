@@ -4,6 +4,19 @@ root=pathlib.Path.cwd()
 out=root/'docs/validation/part-587/source-plan-refresh'
 out.mkdir(parents=True,exist_ok=True)
 sha=lambda b:hashlib.sha256(b).hexdigest().upper()
+monitor=root/'tools/Runtime/Erlang.MonitorOriginal645Observations/inputs.json'
+monitor_inputs=json.loads(monitor.read_bytes())
+oldpath=monitor_inputs['SourceFreezePath']
+newpath='docs/validation/part-587/source-plan-refresh/monitor-current-source.json'
+if oldpath!=newpath:
+ old=json.loads((root/oldpath).read_bytes())
+ new=dict(Scope='PR112 sys continuation review repair current source identities only; no execution or compatibility promotion',
+  PinnedOtpCommit=old['PinnedOtpCommit'],ParentPath=oldpath,ParentSha256=sha((root/oldpath).read_bytes()),
+  Rows=[dict(Path=x['Path'],Sha256=sha((root/x['Path']).read_bytes())) for x in old['Rows']])
+ (root/newpath).write_bytes((json.dumps(new,indent=2)+'\n').encode())
+ raw=monitor.read_bytes()
+ raw=raw.replace(oldpath.encode(),newpath.encode()).replace(monitor_inputs['SourceFreezeSha256'].encode(),sha((root/newpath).read_bytes()).encode())
+ monitor.write_bytes(raw)
 names=[
  'Native/Erlang.NifIntegratedObservations/inputs.json',
  'Native/Erlang.NifVersion651Observations/inputs.json',
@@ -38,22 +51,6 @@ names=[
  'Native/Erlang.NifLinuxCallbackObservations/acceptance-inputs.json',
  'Runtime/Erlang.SchedulerAffinityOriginalObservations/manifest.json']
 paths=[root/'tools'/n for n in names]+[root/'docs/mfa-compatibility.json',root/'docs/native-infrastructure.json']
-# Publish a new monitor receipt; historical source freezes are immutable.
-monitor_parent=root/'docs/validation/part-585/source-plan-refresh/monitor-current-source.json'
-monitor_current=out/'monitor-current-source.json'
-monitor=json.loads(monitor_parent.read_bytes())
-monitor['Scope']='Part587 current declared source identities only; no native execution or compatibility promotion'
-monitor['ParentPath']=monitor_parent.relative_to(root).as_posix()
-monitor['ParentSha256']=sha(monitor_parent.read_bytes())
-for row in monitor['Rows']:
- row['Sha256']=sha((root/row['Path']).read_bytes())
-monitor_current.write_bytes((json.dumps(monitor,indent=2)+'\n').encode())
-monitor_plan=root/'tools/Runtime/Erlang.MonitorOriginal645Observations/inputs.json'
-raw=monitor_plan.read_text()
-raw=re.sub(r'("SourceFreezePath"\s*:\s*")[^"]+',lambda m:m[1]+monitor_current.relative_to(root).as_posix(),raw)
-raw=re.sub(r'("SourceFreezeSha256"\s*:\s*")[^"]+',lambda m:m[1]+sha(monitor_current.read_bytes()),raw)
-monitor_plan.write_bytes(raw.encode())
-
 audit_path=out/'refresh-audit.json'
 audit=json.loads(audit_path.read_bytes())['Updates'] if audit_path.exists() else []
 def refresh(p):
@@ -76,9 +73,10 @@ def refresh(p):
      block=match.group(0)
      if not re.search(r'"Sha256"\s*:\s*"'+x['Sha256']+'"',block):return block
      block=re.sub(r'("Sha256"\s*:\s*")[^"]+',lambda m:m[1]+digest,block)
-     if 'Bytes'in x:block=re.sub(r'("Bytes"\s*:\s*)\d+',lambda m:m[1]+str(len(data)),block)
+     for byte_field in ('Bytes','SealedBytes'):
+      if byte_field in x:block=re.sub(r'('+byte_field+r'"\s*:\s*)\d+',lambda m:m[1]+str(len(data)),block)
      return block
-    if digest!=x['Sha256'].upper() or ('Bytes'in x and x['Bytes']!=len(data)):
+    if digest!=x['Sha256'].upper() or any(key in x and x[key]!=len(data) for key in ('Bytes','SealedBytes')):
      text,count=re.subn(pattern,update,text)
      if not count:raise ValueError('No object span: '+x['Path'])
      changes.append(dict(Path=x['Path'],Before=x['Sha256'],After=digest,HashMode=x.get('HashMode','Raw')))
@@ -144,5 +142,5 @@ for iteration in range(15):
  if text.encode()!=raw:p.write_bytes(text.encode());audit.append(dict(Plan=p.relative_to(root).as_posix(),ExplicitMapPins=True))
  if len(audit)==before:break
 else:raise ValueError('Dependency pins did not stabilize')
-(out/'refresh-audit.json').write_bytes((json.dumps(dict(Scope='Declared source identities and existing pins only',NativeExecuted=False,AcceptanceStatusesChanged=False,FullMembershipClaimed=False,MonitorSourceFreeze=dict(Path=monitor_current.relative_to(root).as_posix(),ParentPath=monitor['ParentPath'],ParentSha256=monitor['ParentSha256'],Rows=len(monitor['Rows'])),Iterations=iteration+1,Updates=audit),indent=2)+'\n').encode())
+(out/'refresh-audit.json').write_bytes((json.dumps(dict(Scope='Declared source identities and existing pins only',NativeExecuted=False,AcceptanceStatusesChanged=False,FullMembershipClaimed=False,Iterations=iteration+1,Updates=audit),indent=2)+'\n').encode())
 print('Stabilized',iteration+1,'iterations;',len(audit),'updates')

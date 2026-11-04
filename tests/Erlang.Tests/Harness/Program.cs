@@ -469,6 +469,7 @@ Test(Erlang.Tests.UnicodeBackendNames.ManagedTest, () => Erlang.Tests.UnicodeBac
 Test(Erlang.Tests.UnicodeBackendNames.BeamTest, () => Erlang.Tests.UnicodeBackendChecks.Run(false));
 Test(Erlang.Tests.UnicodeBackendNames.RefusalTest, Erlang.Tests.UnicodeBackendChecks.Refusals);
 Test(Erlang.Tests.UnicodeBackendNames.GrowthTest, Erlang.Tests.UnicodeGrowthChecks.Run);
+Test(Erlang.Tests.UnicodeUtilUnalignedNames.Test, Erlang.Tests.UnicodeUtilUnalignedChecks.Run);
 for (int unicodePartition = 0; unicodePartition < Erlang.Tests.UnicodeUtilBackendNames.Partitions; unicodePartition++)
 {
     int partition = unicodePartition;

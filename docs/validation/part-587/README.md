@@ -1,176 +1,59 @@
-# Managed Unicode utility and Erlang-free Unicode closure
+# gen_statem sys continuation review repair
 
-## Scope and baseline
+Address review4467799778. Replace the nested await from Message to the original
+sys handler with an internal IOwnedControlTransfer506 carrier. A module driver
+catches that carrier after old Message/Run/sys/system_continue invocations unwind,
+then executes the next real sys call. Nested system_continue uses the existing
+driver for the same ProcessContext. The carrier publishes its complete term
+payload through existing owned invocation boundaries. No public OTP export changes.
 
-Part 587 ports every public `unicode_util` export (20 signatures) to C# and retains
-all 22 existing `unicode` exports. The unchanged original `.erl` and `.beam` files
-remain selectable for each module. The acceptance baseline is OTP 29.1.1,
-`ad05823719d77c8faee87348ea39513d4e2f99c5`, Unicode 17.0. This is the user's explicit
-exception to the general pure-Erlang module policy. No package dependency is added.
-The existing default registry and global MFA classifications are not promoted.
+Keep the original proc_lib exception handler outside the driver. Unwinding to the
+process dispatcher instead was rejected: it dropped the required
+proc_lib:init_p_do_apply/3 source frame in sys_error_once. The final implementation
+does not change the shared runtime. Original Erlang/BEAM bytes are unchanged.
 
-Implementation is complete before acceptance execution: lazy cp/cpl traversal,
-all grapheme states, canonical/compatibility normalization, full casing mappings,
-lookup/category/width/identifier/whitespace predicates and spec version. Algorithms
-execute in C# against embedded pinned data, never through an Erlang evaluator or
-platform-dependent .NET normalization/casing/classification database. Iterative
-work slices preserve runtime scheduling/cancellation and avoid CLR recursion on
-long prepend, Hangul and deeply nested chardata. Source continuations retain OTP
-function names, clauses, original locations and complete error stack behavior.
+The permanent Managed sys_retention probe runs32 generations with get_state,
+get_status, suspend and resume. It walks actual Task continuations from the idle
+mailbox, excluding unrelated term/runtime/ExecutionContext graphs, and counts
+reachable GenStatemMachine instances. The original library retains97; the repaired
+one retains1 with the same runtime. A zero-machine observation is not accepted:
+the probe waits for the successor to attach its mailbox awaiter. Clean stop must
+invoke terminate exactly once. This is a host retention test, not an OTP corpus row.
 
-## Production and backend boundary
+Ordinary Release runner build: zero warnings/errors. Both explicitly selected
+backends pass74/74 complete API observations and311/311 engine scenarios against
+the unchanged admitted original OTP corpus, including full exception stacks and
+sys_error_once. Full global regression/readiness and manual CI dispatch are unrun.
+Final source/producer pins and their passive admission are saved separately;
+required hosted final-head checks and review remain gates. No review thread is
+resolved and no merge/package publication is performed.
 
-Select `Managed("unicode_util")` and
-`Managed("unicode", ["lists", "unicode_util"])` alongside managed erlang/lists.
-No Erlang source, BEAM asset, Erlang compiler or original VM is needed to start
-or execute that application. Data generation and original-OTP observations are
-development activities. The permanent production smoke executes NFC before
-loading the Erlang observer, verifies every selected module is managed, rejects
-BEAM source ownership and checks null BEAM input identities.
+Commands: ordinary Release build of tools/Validation/Erlang.GenStatemCompatibility
+with `--nologo -m:1 -nr:false -v q`; invoke the DLL with repository, admitted corpus,
+Managed or Beam; add Managed's fourth argument `sys_retention` for the retention
+probe. The same new validator is also run in an isolated directory with the
+original saved C# library and the same final runtime to reproduce the failure.
+No product source is rewound for that comparison.
 
-Selecting original images explicitly retains original Erlang execution on .NET.
-Mixed selections are supported; there is no implicit fallback or live backend
-switch. The existing mixed string corpus is retained, and a separate string
-consumer test exercises managed string/unicode/utility together. The MSBuild
-example chooses both managed modules by default and both originals for `Beam`.
-See [selection examples](../../unicode-backends.md).
+Retain rejected probes and original failures separately. Early weak-reference
+native-fun payload probes also measured opaque dispatch/heap pins and are not
+admitted as evidence about managed continuation reachability. A smaller graph
+walk cap rejected the old unbounded chain before yielding a count; the bounded
+100000-node probe yields the admitted97/1 results. Old overwritten report copies
+from failed early attempts are not used in the acceptance summary.
 
-## Independent data and oracle acquisition
+Final evidence: [97/1 acceptance](retention-acceptance.json),
+[old library](admitted-reproduced.json), [fixed library](local-retention.json),
+[Managed](Managed-report.json), [Beam](Beam-report.json),
+[source/export audit](source-audit.json), [whole module admission](acceptance.json),
+[13 passive plans](passive-final-current.json), [Resource529](resource-final.json),
+[5400 raw bindings](mfa-final-current.json) and [23 committed-candidate controls](ci-final.log).
+[Identity-only scope](source-plan-refresh/final-semantic-scope.json) preserves
+membership/statuses/workflow logic. Earlier failed probes are in diagnostics.zip.
 
-The exact pinned `gen_unicode_mod.escript` and its pinned uc_spec inputs generate
-`unicode_util.erl` byte-for-byte identical to the retained upstream source:
-`82CDA59A022D642B61A858407043E06B775D9602CEDAFC3EDF58577622F79870`.
-The strict extractor produces 4,144 category ranges, 6,878 normalization entries,
-3,037 case entries and 961 composition pairs in an 89,285-byte gzip resource.
-The gzip independently reproduces byte-for-byte. Original Apache 2.0 and
-Unicode 3.0 notices remain under licenses/.
-
-The official admitted OTP 29.1.1 provider is checked against all 6,427 execution
-files before and after acquisition. The reference checkout is read-only. The
-original observer is compiled with relative source names and identical worker
-bodies on both runtimes. `provenance.json` binds the provider execution manifest,
-source pin, exact capture command and every input/output hash. Runtime-local
-transport pids stay outside compared outcomes; no stack frames are stripped.
-
-ETF cannot preserve subbinary parent ownership. Backing descriptors reconstruct
-the identical parent, subbinary, short copy and unaligned source **inside each
-runtime**, and the observer recursively compares `binary:referenced_byte_size`
-alongside the complete returned value. Fixture ETF is decoded under the receiving
-runtime's atom table, as real incoming ETF is; comparison remains exact term
-comparison and real `=:=`. Neither correction normalizes observed outcomes.
-
-## Acceptance partitions
-
-- Core:14,801 original observations covering all 20 exports, malformed single-byte
-  UTF8, scalars, boundaries, improper/nested/split inputs, every grapheme state,
-  invalid suffixes, exact errors/full stacks and backing metadata.
-- Long:55 original observations over 12,000 prepends, Hangul leads, combining
-  marks, trailing errors and 200 levels of ETF nesting. A permanent managed-only
-  smoke additionally constructs12,000 levels directly without ETF's nesting cap.
-- Tables: all 1,114,112 codepoints, including surrogate/unassigned values, compare
-  category, complete lookup maps, integer/list case shapes and all five Boolean
-  predicates. Independent original SHA256 chunks also include eight complete
-  grapheme results per codepoint: 8,912,896 transition probes. Integer/list result
-  shape participates in the digest; there is no textual normalization.
-- Conformance:400,680 normalization comparisons (20 per 20,034 Unicode 17 rows)
-  plus 766 grapheme rows, using complete pinned upstream conformance files.
-- Connected Unicode and string consumers: explicit exact-case harness selection,
-  original Unicode corpus replay, native conversion, backing, growth/cancellation,
-  original image/source ownership and both MSBuild choices.
-- Two deliberate get_case mutations (changed fold and missing fold key) must fail
-  the actual equality comparator in each core/long backend run.
-
-Final reports and executed command lists are retained with their actual assembly,
-resource, corpus and source identities. A passing source-plan admission is not a
-runtime comparison. No full local regression or manually dispatched workflow is
-run; existing required automatic PR workflows remain delivery gates.
-
-## Retained failures and corrections
-
-Initial compilation failures and exact-outcome differences remain in the working
-artifacts. Frozen representative failures are retained here. Early discrepancies
-revealed missing internal source frames, clause locations, full width-tail
-traversal and fixture atom-table/backing admission. All were corrected against
-unaltered original outcomes; golden outputs were not edited.
-
-The expanded finite-domain GC audit then detected one failing 4,096-codepoint
-chunk. A targeted 32,768-result replay isolated exactly six Balinese consonants
-(U+1B0D..U+1B12) followed by Devanagari linker/consonant. Original generated Boolean
-clauses overlap broad ranges with singleton clauses; sorting without merging
-violates binary-search assumptions. The extractor now coalesces overlapping and
-adjacent ranges, the loader rejects overlapping data, and six permanent cases
-retain the original cross-script behavior. The exhaustive rerun passes.
-
-The first connected harness attempt exceeded its shared 15-second smoke budget
-for the new 14,801-row corpora. Its raw failure is preserved. Complete utility
-corpora are divided into four exhaustive interleaved partitions per backend,
-each with a bounded two-minute outer budget; the new complete
-managed string consumer has two minutes. Actor-command and cleanup limits and
-all other test budgets are unchanged. Final connected execution is serialized.
-
-## Compatibility and delivery limits
-
-The20/20 utility and 22/22 Unicode implementation surfaces are complete. Acceptance
-is pinned to OTP 29.1.1/Unicode 17.0 and the exact partitions recorded above. Finite
-witnesses, even an exhaustive codepoint domain, do not constitute a mathematical
-proof over all arbitrarily nested terms, all possible sequences, all platforms
-and physical ERTS resource states. No universal 100% claim, unrelated API credit,
-full-project readiness refresh, cross-platform receipt, merge or package
-publication follows from these local results. Current-head required CI and review
-must be checked independently after PR publication.
-
-## Main integration
-
-The work started on main 67809531b. During acceptance, code/file/gen_event and
-their source-admission repairs merged through b317a9c2f. Part numbers 578–586 were
-already used, so this work is Part 587. Earlier reports and plan proofs retain
-their original assembly/source scope under earlier-source. The combined candidate
-preserves every incoming backend and original artifact, then rebuilds and repeats
-the dependent Unicode/utility acceptance before publication. No earlier receipt
-is presented as current-head CI.
-
-## Current candidate results
-
-On the combined b317a9c2f-based candidate, all 28 explicitly selected harness
-cases pass. Four interleaved utility partitions per backend cover every one of
-the 14,801 original rows exactly once (measured partition times 14–44 seconds in
-the earlier-source run, with bounded two-minute outer budgets). No other harness
-case or full local regression is run.
-
-Both current utility backends pass 14,801 complete outcomes, including errors,
-full source stacks and backing metadata. The current managed assembly also
-passes all 1,114,112 codepoint rows / 8,912,896 transition probes, all 401,446
-conformance comparisons and all 55 long cases. Each core/long run retains two
-comparator-negative controls. Current report filenames start with integrated-.
-
-Both current MSBuild examples build and run with identical results. The managed
-manifest selects only managed erlang/lists/unicode/utility, has no image/hash
-inputs and produces no BEAM files. The original example keeps both pinned images.
-
-Earlier-source evidence separately records 66,458 original Unicode observations
-per backend (65,339 primary + 711 upstream suite + 408 long), plus the 490-case
-permanent subset and 29 backing probes. Both earlier utility backends also pass
-all 55 long rows. These are retained with their actual assembly identities;
-they are not relabelled as the combined candidate. The combined candidate
-repeats the 490/711/408 dependent Unicode partitions independently per backend;
-all1,609 observations per backend pass with29 backing probes.
-
-## Reproduction
-
-Extract oracle-inputs.zip into a fresh artifact directory; the manifest binds
-every original input byte. Build the focused utility validator, then run:
-
-```powershell
-dotnet run --project tools/Validation/Erlang.UnicodeUtilCompatibility -- . artifacts/utility-oracle Managed core
-dotnet run --project tools/Validation/Erlang.UnicodeUtilCompatibility -- . artifacts/utility-oracle Beam core
-dotnet run --project tools/Validation/Erlang.UnicodeUtilCompatibility -- . artifacts/utility-oracle Managed tables
-dotnet run --project tools/Validation/Erlang.UnicodeUtilCompatibility -- . artifacts/utility-oracle Managed conformance
-dotnet run --project tools/Validation/Erlang.UnicodeUtilCompatibility -- . artifacts/utility-oracle Managed long
-```
-
-The retained oracle-capture.py is the original working capture script for the
-previously admitted local provider; its absolute/provider assumptions are recorded
-in provenance. It is development evidence, not a production dependency. The data
-extractor can independently regenerate the gzip from the retained original
-unicode_util.erl without executing Erlang. Current source-only admissions and
-explicit producer-pin refresh scripts are under source-plan-refresh/.
+The latest main b317a9c2f adds the Monitor-manifest/checkout guard repair only;
+product and runner sources remain identical to the passing comparisons. Preserve
+main's independently allocated Part586 receipt; the earlier gen_statem merge
+receipt now lives in [its own namespace](../gen-statem-merge-20261104/README.md).
+An immutable legacy freeze alias preserves Part587's already-recorded parent hash.
+The new guard passes against the committed candidate, not uncommitted manifest bytes.
