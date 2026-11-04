@@ -69,6 +69,7 @@ public sealed partial class ProcessRuntime
             StopLocalNode();
             localNodeEvents?.Close();
             disposed = true;
+            BeginDescriptorPollingShutdown558();
             StopMailboxRootAdmission593();
             StopProcessPayloadAdmission641();
             StopOrdinaryBinaryAdmission();
@@ -299,6 +300,7 @@ public sealed partial class ProcessRuntime
                     CloseSavedMatchPrograms634(),
                     DrainSystemTasks428(),
                     DrainDirtyNative419(),
+                    DrainDescriptorPolling558(),
                     DrainDebugDispatch432(),
                     DrainCounters421(),
                     DrainMailboxRoots593(),

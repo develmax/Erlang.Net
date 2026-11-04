@@ -1806,6 +1806,7 @@ public sealed partial class ProcessRuntime : IAsyncDisposable
                 CloseSavedMatchPrograms634(),
                 DrainSystemTasks428(),
                 DrainDirtyNative419(),
+                DrainDescriptorPolling558(),
                 DrainDebugDispatch432(),
                 DrainCounters421(),
                 DrainMailboxRoots593(),

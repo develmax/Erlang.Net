@@ -14,6 +14,7 @@ public sealed partial class ProcessRuntime
         StopLocalNode();
         localNodeEvents?.Close();
         disposed = true;
+        BeginDescriptorPollingShutdown558();
         StopMailboxRootAdmission593();
         StopProcessPayloadAdmission641();
         StopOrdinaryBinaryAdmission();

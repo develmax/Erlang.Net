@@ -1,0 +1,453 @@
+{
+  "main": "381868fee71e09c31bf14a21c7dc401e254c466c",
+  "branches": [
+    {
+      "name": "backup/local-before-main-20261103",
+      "sha": "07da777f6148b1cfc33d89d07dfdf26aa4a0e589",
+      "ancestor": false,
+      "uniquePatches": [
+        "+ 07da777f6148b1cfc33d89d07dfdf26aa4a0e589"
+      ],
+      "commits": [
+        "07da777f6 Integrate local runtime work and split documentation state from history"
+      ],
+      "files": [
+        ".gitattributes",
+        ".gitignore",
+        "AGENTS.md",
+        "CHANGELOG.md",
+        "docs/API_COMPATIBILITY.md",
+        "docs/COMPATIBILITY.md",
+        "docs/DECISIONS.md",
+        "docs/NEXT_STEPS.md",
+        "docs/OTP-PORTS.md",
+        "docs/PROGRESS.md",
+        "docs/api/README.md",
+        "docs/api/application/commands-001.md",
+        "docs/api/application/index.md",
+        "docs/api/binary/commands-001.md",
+        "docs/api/binary/index.md",
+        "docs/api/erlang/binary-and-encoding-001.md",
+        "docs/api/erlang/binary-and-encoding-002.md",
+        "docs/api/erlang/code-and-native-001.md",
+        "docs/api/erlang/diagnostics-and-memory-001.md",
+        "docs/api/erlang/distribution-001.md"
+      ],
+      "fileCount": 79508,
+      "fileListSha256": "BAF043D8D2E8ABC2E45C4F1BBB7CB88E92E190D62641EDC717AAC2C0D095BF29",
+      "completeFileList": "Preserved in original local audit; omitted from repository summary because these are obsolete historical snapshots, not new source."
+    },
+    {
+      "name": "feature/gc-record-roots-549",
+      "sha": "629390c7c28cfa9bb1ef9abe2873a5e4747dc68f",
+      "ancestor": false,
+      "uniquePatches": [
+        "+ 629390c7c28cfa9bb1ef9abe2873a5e4747dc68f"
+      ],
+      "commits": [
+        "629390c7c fix: execute binary_part/2 through compiled gc_bif2"
+      ],
+      "files": [
+        "CHANGELOG.md",
+        "docs/changelog/0099.md",
+        "docs/validation/part-552/compiled-binary-part.md",
+        "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamRegisterInterpreter.cs",
+        "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamRegisterValidation.cs",
+        "tools/Compiler/Erlang.GcBinary818Observations/README.md",
+        "tools/Compiler/Erlang.GcBinary818Observations/collect.py",
+        "tools/Compiler/Erlang.GcBinary818Observations/fixtures/gc_binary818.erl",
+        "tools/Compiler/Erlang.GcBinary818Observations/fixtures/gc_binary818_original.erl",
+        "tools/Native/Erlang.NifNativeBackend/GcBinary818Driver.cs",
+        "tools/Native/Erlang.NifNativeBackend/GcBinary818Names.cs",
+        "tools/Native/Erlang.NifNativeBackend/Program.cs"
+      ],
+      "fileCount": 12,
+      "fileListSha256": "39A1836E761D9E50D4968B96DF7070335DF7F10B1492DF99CBB4AAC4A31089CC"
+    },
+    {
+      "name": "feature/monitor-reason-custody-541",
+      "sha": "c6b7cc809e41ee9f4f5759184d10d52dd8c48531",
+      "ancestor": true,
+      "uniquePatches": [],
+      "commits": [],
+      "files": [],
+      "fileCount": 0,
+      "fileListSha256": "01BA4719C80B6FE911B091A7C05124B64EEECE964E09C058EF8F9805DACA546B"
+    },
+    {
+      "name": "feature/nif-independent-atoms-546",
+      "sha": "3364c3050947c00084c19b446f98a05878b2512f",
+      "ancestor": true,
+      "uniquePatches": [],
+      "commits": [],
+      "files": [],
+      "fileCount": 0,
+      "fileListSha256": "01BA4719C80B6FE911B091A7C05124B64EEECE964E09C058EF8F9805DACA546B"
+    },
+    {
+      "name": "feature/nif-init-progress-582",
+      "sha": "d935dad2cf2b1ffefab1789f2418833671148659",
+      "ancestor": false,
+      "uniquePatches": [
+        "+ 2d6a478203d05015cdc4839f281c9c6a7667af8d",
+        "+ d935dad2cf2b1ffefab1789f2418833671148659"
+      ],
+      "commits": [
+        "d935dad2c test: control scheduler placement in original NIF initialization observation",
+        "2d6a47820 test: observe original NIF initialization progress in isolated CI"
+      ],
+      "files": [
+        ".github/workflows/nif-version651-linux.yml",
+        "docs/changelog/0100.md",
+        "tools/Native/Erlang.NifInitProgress582Observations/.gitattributes",
+        "tools/Native/Erlang.NifInitProgress582Observations/README.md",
+        "tools/Native/Erlang.NifInitProgress582Observations/fixture-provenance.json",
+        "tools/Native/Erlang.NifInitProgress582Observations/fixtures/init_ack582.c",
+        "tools/Native/Erlang.NifInitProgress582Observations/fixtures/init_ack582.erl",
+        "tools/Native/Erlang.NifInitProgress582Observations/fixtures/init_observer582.erl",
+        "tools/Native/Erlang.NifInitProgress582Observations/fixtures/init_progress582.h",
+        "tools/Native/Erlang.NifInitProgress582Observations/fixtures/init_subject582.c",
+        "tools/Native/Erlang.NifInitProgress582Observations/fixtures/init_subject582.erl",
+        "tools/Native/Erlang.NifInitProgress582Observations/inputs.json",
+        "tools/Native/Erlang.NifInitProgress582Observations/run-original.py"
+      ],
+      "fileCount": 13,
+      "fileListSha256": "638914512E4F19ED006A34668B6AF7E497D7D46537FB52CFFB640B11C4D5DC91"
+    },
+    {
+      "name": "feature/nif-options-543",
+      "sha": "48c8d2eef46db86a346add0c56e78d37e88e119b",
+      "ancestor": true,
+      "uniquePatches": [],
+      "commits": [],
+      "files": [],
+      "fileCount": 0,
+      "fileListSha256": "01BA4719C80B6FE911B091A7C05124B64EEECE964E09C058EF8F9805DACA546B"
+    },
+    {
+      "name": "feature/nif-version-543",
+      "sha": "a9b8374142c0150c92441c72077757a21bc8c6d4",
+      "ancestor": true,
+      "uniquePatches": [],
+      "commits": [],
+      "files": [],
+      "fileCount": 0,
+      "fileListSha256": "01BA4719C80B6FE911B091A7C05124B64EEECE964E09C058EF8F9805DACA546B"
+    },
+    {
+      "name": "feature/runtime-custody-542",
+      "sha": "4de41c4fafce7ebcbd2cde41e53fa46bdf6ebd53",
+      "ancestor": true,
+      "uniquePatches": [],
+      "commits": [],
+      "files": [],
+      "fileCount": 0,
+      "fileListSha256": "01BA4719C80B6FE911B091A7C05124B64EEECE964E09C058EF8F9805DACA546B"
+    },
+    {
+      "name": "feature/string-otp-audit-20261104",
+      "sha": "8b63cd461f0ce3e4f14aa838847876dcf2d9973e",
+      "ancestor": true,
+      "uniquePatches": [],
+      "commits": [],
+      "files": [],
+      "fileCount": 0,
+      "fileListSha256": "01BA4719C80B6FE911B091A7C05124B64EEECE964E09C058EF8F9805DACA546B"
+    },
+    {
+      "name": "fix/ci97-focused-source-plans",
+      "sha": "3ccee87c46bd688381943fb2783c5bc48d5a5cb5",
+      "ancestor": true,
+      "uniquePatches": [],
+      "commits": [],
+      "files": [],
+      "fileCount": 0,
+      "fileListSha256": "01BA4719C80B6FE911B091A7C05124B64EEECE964E09C058EF8F9805DACA546B"
+    },
+    {
+      "name": "fix/ordsets-bulk-physical-occurrences",
+      "sha": "76270cfcc3138afc1ebafb972f73312cb34c0219",
+      "ancestor": true,
+      "uniquePatches": [],
+      "commits": [],
+      "files": [],
+      "fileCount": 0,
+      "fileListSha256": "01BA4719C80B6FE911B091A7C05124B64EEECE964E09C058EF8F9805DACA546B"
+    },
+    {
+      "name": "integration/all-local-docs-20261103",
+      "sha": "20e02eb941ef3b99cb675827ef0f20663da7c04b",
+      "ancestor": true,
+      "uniquePatches": [],
+      "commits": [],
+      "files": [],
+      "fileCount": 0,
+      "fileListSha256": "01BA4719C80B6FE911B091A7C05124B64EEECE964E09C058EF8F9805DACA546B"
+    },
+    {
+      "name": "main",
+      "sha": "332be1a94d0b4eac0b60599045a1523d1c8a782a",
+      "ancestor": true,
+      "uniquePatches": [],
+      "commits": [],
+      "files": [],
+      "fileCount": 0,
+      "fileListSha256": "01BA4719C80B6FE911B091A7C05124B64EEECE964E09C058EF8F9805DACA546B"
+    },
+    {
+      "name": "validation/async-main-diagnostic-558",
+      "sha": "423e5766fcbd70cb8cf9139b762a36d58d265123",
+      "ancestor": false,
+      "uniquePatches": [
+        "+ 423e5766fcbd70cb8cf9139b762a36d58d265123"
+      ],
+      "commits": [
+        "423e5766f ci: retain exact-main async23 diagnostic without repeating full regression"
+      ],
+      "files": [
+        ".github/recipes/async0386/prepare-package.ps1",
+        ".github/recipes/async0386/run-focused.ps1",
+        ".github/workflows/allocation-diagnostic.yml"
+      ],
+      "fileCount": 3,
+      "fileListSha256": "334C6678E8CF2D19A1FAEA9D9F82E505059607F4C2FE5ECDD51A135089B68245"
+    },
+    {
+      "name": "validation/async-source-pin-569",
+      "sha": "5ede342c75687fa1a705586373517f58bf75ed48",
+      "ancestor": false,
+      "uniquePatches": [
+        "+ 5ede342c75687fa1a705586373517f58bf75ed48"
+      ],
+      "commits": [
+        "5ede342c7 Reuse reviewed exact-subject async23 recipe to verify corrected default pin"
+      ],
+      "files": [
+        ".github/recipes/async-current/prepare-package.ps1",
+        ".github/recipes/async-current/run-focused.ps1",
+        ".github/workflows/allocation-diagnostic.yml"
+      ],
+      "fileCount": 3,
+      "fileListSha256": "C6E7F414EF1E28B1C5ACBD3C74D0B499A6A92CCA9EC7665A812DBC9953CD5DF0"
+    },
+    {
+      "name": "validation/persistent-poll-558",
+      "sha": "b0b650a2842de1c2af0a6e36587c9c317fcc0b51",
+      "ancestor": false,
+      "uniquePatches": [
+        "+ 23636c1dda29450de4af59d5c960c0d58943c208",
+        "+ b0b650a2842de1c2af0a6e36587c9c317fcc0b51"
+      ],
+      "commits": [
+        "b0b650a28 ci: narrow poll component checkout without changing tested sources",
+        "23636c1dd test: exercise genuine Linux descriptor poll and pre-fix cancellation (Part558 preview)"
+      ],
+      "files": [
+        ".github/workflows/allocation-diagnostic.yml",
+        "tools/Validation/Erlang.DescriptorPollValidation/Erlang.DescriptorPollValidation.csproj",
+        "tools/Validation/Erlang.DescriptorPollValidation/README.md",
+        "tools/Validation/Erlang.DescriptorPollValidation/ROOT-ADAPTATIONS.md",
+        "tools/Validation/Erlang.DescriptorPollValidation/harness/LinuxDescriptorPollProbe1557.cs",
+        "tools/Validation/Erlang.DescriptorPollValidation/harness/PollHarnessCases1557.cs",
+        "tools/Validation/Erlang.DescriptorPollValidation/harness/PollHarnessFixture1557.cs",
+        "tools/Validation/Erlang.DescriptorPollValidation/harness/PollHarnessNames1557.cs",
+        "tools/Validation/Erlang.DescriptorPollValidation/harness/PollHarnessNative1557.cs",
+        "tools/Validation/Erlang.DescriptorPollValidation/harness/PollHarnessPipe1557.cs",
+        "tools/Validation/Erlang.DescriptorPollValidation/harness/Program.cs",
+        "tools/Validation/Erlang.DescriptorPollValidation/instrumentation.json",
+        "tools/Validation/Erlang.DescriptorPollValidation/run-ci.py",
+        "tools/Validation/Erlang.DescriptorPollValidation/source-plan.json",
+        "tools/Validation/Erlang.DescriptorPollValidation/verify-ci.py",
+        "tools/Validation/Erlang.DescriptorPollValidation/versions/green1558/LinuxDescriptorPollNames1554.cs",
+        "tools/Validation/Erlang.DescriptorPollValidation/versions/green1558/LinuxDescriptorPollNative1554.cs",
+        "tools/Validation/Erlang.DescriptorPollValidation/versions/green1558/LinuxDescriptorPollOwner1554.cs",
+        "tools/Validation/Erlang.DescriptorPollValidation/versions/green1558/LinuxDescriptorPollService1554.cs",
+        "tools/Validation/Erlang.DescriptorPollValidation/versions/green1558/LinuxDescriptorPollWait1554.cs",
+        "tools/Validation/Erlang.DescriptorPollValidation/versions/old1554/LinuxDescriptorPollNames1554.cs",
+        "tools/Validation/Erlang.DescriptorPollValidation/versions/old1554/LinuxDescriptorPollNative1554.cs",
+        "tools/Validation/Erlang.DescriptorPollValidation/versions/old1554/LinuxDescriptorPollOwner1554.cs",
+        "tools/Validation/Erlang.DescriptorPollValidation/versions/old1554/LinuxDescriptorPollService1554.cs",
+        "tools/Validation/Erlang.DescriptorPollValidation/versions/old1554/LinuxDescriptorPollWait1554.cs"
+      ],
+      "fileCount": 25,
+      "fileListSha256": "DD04CB8EF6D0FF8E82BC9BBE50262217C58D5C09605C3B149FC742161BB778C2"
+    },
+    {
+      "name": "validation/poll-fd-558",
+      "sha": "0c22fac86e32cb8a03ed525ed89befdd1c763aed",
+      "ancestor": false,
+      "uniquePatches": [
+        "+ 0ac7272f478641047545a8df5c72edb04256aae6",
+        "+ 0c22fac86e32cb8a03ed525ed89befdd1c763aed"
+      ],
+      "commits": [
+        "0c22fac86 test: compare existing descriptor fixtures against pinned original OTP",
+        "0ac7272f4 test: exercise integrated Linux poll and logical VM shutdown ownership"
+      ],
+      "files": [
+        ".github/workflows/allocation-diagnostic.yml",
+        "src/Runtime/Erlang.Runtime.Core/Native/Drivers/Descriptors/DescriptorPortResource.cs",
+        "src/Runtime/Erlang.Runtime.Core/Native/Drivers/Descriptors/DescriptorPortStream.cs",
+        "src/Runtime/Erlang.Runtime.Core/Native/Drivers/Descriptors/Polling/DescriptorPollRuntimeLifetime558.cs",
+        "src/Runtime/Erlang.Runtime.Core/Native/Drivers/Descriptors/Polling/LinuxDescriptorPollNames.cs",
+        "src/Runtime/Erlang.Runtime.Core/Native/Drivers/Descriptors/Polling/LinuxDescriptorPollNative.cs",
+        "src/Runtime/Erlang.Runtime.Core/Native/Drivers/Descriptors/Polling/LinuxDescriptorPollOwner.cs",
+        "src/Runtime/Erlang.Runtime.Core/Native/Drivers/Descriptors/Polling/LinuxDescriptorPollService.cs",
+        "src/Runtime/Erlang.Runtime.Core/Native/Drivers/Descriptors/Polling/LinuxDescriptorPollWait.cs",
+        "src/Runtime/Erlang.Runtime.Core/Native/Drivers/PortChildProcess.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.ConstructorRollback.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.DescriptorPolling558.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.Halt.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.SequenceDisposeDrains.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.SequenceInitializationEnded.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.SequenceLogicalShutdown.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.WorkerBootstrap.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.cs",
+        "src/Runtime/Erlang.Runtime.Core/Scheduling/RuntimeWorkerCreationNames.cs",
+        "src/Runtime/Erlang.Runtime.Core/Services/RuntimePorts.cs",
+        "tools/Validation/Erlang.DescriptorPollFdValidation/Erlang.DescriptorPollFdValidation.csproj",
+        "tools/Validation/Erlang.DescriptorPollFdValidation/Program.cs",
+        "tools/Validation/Erlang.DescriptorPollFdValidation/README.md",
+        "tools/Validation/Erlang.DescriptorPollFdValidation/run-ci.py",
+        "tools/Validation/Erlang.DescriptorPollFdValidation/source-plan.json",
+        "tools/Validation/Erlang.DescriptorPollIntegratedValidation/ADAPTATION.md",
+        "tools/Validation/Erlang.DescriptorPollIntegratedValidation/Erlang.DescriptorPollIntegratedValidation.csproj",
+        "tools/Validation/Erlang.DescriptorPollIntegratedValidation/harness/LinuxDescriptorPollProbe1557.cs",
+        "tools/Validation/Erlang.DescriptorPollIntegratedValidation/harness/PollHarnessCases1557.cs",
+        "tools/Validation/Erlang.DescriptorPollIntegratedValidation/harness/PollHarnessFixture1557.cs",
+        "tools/Validation/Erlang.DescriptorPollIntegratedValidation/harness/PollHarnessNames1557.cs",
+        "tools/Validation/Erlang.DescriptorPollIntegratedValidation/harness/PollHarnessNative1557.cs",
+        "tools/Validation/Erlang.DescriptorPollIntegratedValidation/harness/PollHarnessPipe1557.cs",
+        "tools/Validation/Erlang.DescriptorPollIntegratedValidation/harness/Program.cs",
+        "tools/Validation/Erlang.DescriptorPollVmValidation/Erlang.DescriptorPollVmValidation.csproj",
+        "tools/Validation/Erlang.DescriptorPollVmValidation/README.md",
+        "tools/Validation/Erlang.DescriptorPollVmValidation/existing/WorkerLifecycleAccess.cs",
+        "tools/Validation/Erlang.DescriptorPollVmValidation/existing/WorkerLifecycleNames.cs",
+        "tools/Validation/Erlang.DescriptorPollVmValidation/harness/PollVmChecks1570.cs",
+        "tools/Validation/Erlang.DescriptorPollVmValidation/harness/PollVmNames1570.cs",
+        "tools/Validation/Erlang.DescriptorPollVmValidation/harness/Program.cs",
+        "tools/Validation/Erlang.DescriptorPollVmValidation/run-ci.py",
+        "tools/Validation/Erlang.DescriptorPollVmValidation/source-plan.json",
+        "tools/Validation/Erlang.DescriptorPollVmValidation/verify-ci.py"
+      ],
+      "fileCount": 44,
+      "fileListSha256": "2E873CB7D6464FBB0766E33B34D1BF8549A2BD3CA4432F4D4605C5465A08EC09"
+    },
+    {
+      "name": "validation/poll-final-custody-558",
+      "sha": "3da2bc7aa096de36b9bbc7c2f3b848333835cb35",
+      "ancestor": false,
+      "uniquePatches": [
+        "+ 3da2bc7aa096de36b9bbc7c2f3b848333835cb35"
+      ],
+      "commits": [
+        "3da2bc7aa test: verify final poll shutdown custody and existing descriptor oracle corpus"
+      ],
+      "files": [
+        ".github/workflows/allocation-diagnostic.yml",
+        "src/Runtime/Erlang.Runtime.Core/Native/Drivers/Descriptors/DescriptorPortResource.cs",
+        "src/Runtime/Erlang.Runtime.Core/Native/Drivers/Descriptors/DescriptorPortStream.cs",
+        "src/Runtime/Erlang.Runtime.Core/Native/Drivers/Descriptors/Polling/DescriptorPollRuntimeLifetime558.cs",
+        "src/Runtime/Erlang.Runtime.Core/Native/Drivers/Descriptors/Polling/LinuxDescriptorPollNames.cs",
+        "src/Runtime/Erlang.Runtime.Core/Native/Drivers/Descriptors/Polling/LinuxDescriptorPollNative.cs",
+        "src/Runtime/Erlang.Runtime.Core/Native/Drivers/Descriptors/Polling/LinuxDescriptorPollOwner.cs",
+        "src/Runtime/Erlang.Runtime.Core/Native/Drivers/Descriptors/Polling/LinuxDescriptorPollService.cs",
+        "src/Runtime/Erlang.Runtime.Core/Native/Drivers/Descriptors/Polling/LinuxDescriptorPollWait.cs",
+        "src/Runtime/Erlang.Runtime.Core/Native/Drivers/PortChildProcess.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.ConstructorRollback.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.DescriptorPolling558.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.Halt.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.SequenceDisposeDrains.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.SequenceInitializationEnded.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.SequenceLogicalShutdown.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.WorkerBootstrap.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.cs",
+        "src/Runtime/Erlang.Runtime.Core/Scheduling/RuntimeWorkerCreationNames.cs",
+        "src/Runtime/Erlang.Runtime.Core/Services/RuntimePorts.cs",
+        "tools/Validation/Erlang.DescriptorPollFdValidation/DescriptorPollFdValidationNames.cs",
+        "tools/Validation/Erlang.DescriptorPollFdValidation/Erlang.DescriptorPollFdValidation.csproj",
+        "tools/Validation/Erlang.DescriptorPollFdValidation/Program.cs",
+        "tools/Validation/Erlang.DescriptorPollFdValidation/README.md",
+        "tools/Validation/Erlang.DescriptorPollFdValidation/run-ci.py",
+        "tools/Validation/Erlang.DescriptorPollFdValidation/source-plan.json",
+        "tools/Validation/Erlang.DescriptorPollIntegratedValidation/ADAPTATION.md",
+        "tools/Validation/Erlang.DescriptorPollIntegratedValidation/Erlang.DescriptorPollIntegratedValidation.csproj",
+        "tools/Validation/Erlang.DescriptorPollIntegratedValidation/harness/LinuxDescriptorPollProbe1557.cs",
+        "tools/Validation/Erlang.DescriptorPollIntegratedValidation/harness/PollHarnessCases1557.cs",
+        "tools/Validation/Erlang.DescriptorPollIntegratedValidation/harness/PollHarnessFixture1557.cs",
+        "tools/Validation/Erlang.DescriptorPollIntegratedValidation/harness/PollHarnessNames1557.cs",
+        "tools/Validation/Erlang.DescriptorPollIntegratedValidation/harness/PollHarnessNative1557.cs",
+        "tools/Validation/Erlang.DescriptorPollIntegratedValidation/harness/PollHarnessPipe1557.cs",
+        "tools/Validation/Erlang.DescriptorPollIntegratedValidation/harness/Program.cs",
+        "tools/Validation/Erlang.DescriptorPollVmValidation/Erlang.DescriptorPollVmValidation.csproj",
+        "tools/Validation/Erlang.DescriptorPollVmValidation/README.md",
+        "tools/Validation/Erlang.DescriptorPollVmValidation/existing/WorkerLifecycleAccess.cs",
+        "tools/Validation/Erlang.DescriptorPollVmValidation/existing/WorkerLifecycleNames.cs",
+        "tools/Validation/Erlang.DescriptorPollVmValidation/harness/PollVmChecks1570.cs",
+        "tools/Validation/Erlang.DescriptorPollVmValidation/harness/PollVmNames1570.cs",
+        "tools/Validation/Erlang.DescriptorPollVmValidation/harness/Program.cs",
+        "tools/Validation/Erlang.DescriptorPollVmValidation/run-ci.py",
+        "tools/Validation/Erlang.DescriptorPollVmValidation/source-plan.json",
+        "tools/Validation/Erlang.DescriptorPollVmValidation/verify-ci.py"
+      ],
+      "fileCount": 45,
+      "fileListSha256": "3E5A6A7A4DB8F75C0BB01C0671699D2B096FBD02207913E3297C81F153996D6D"
+    },
+    {
+      "name": "validation/poll-runtime-558",
+      "sha": "0ac7272f478641047545a8df5c72edb04256aae6",
+      "ancestor": false,
+      "uniquePatches": [
+        "+ 0ac7272f478641047545a8df5c72edb04256aae6"
+      ],
+      "commits": [
+        "0ac7272f4 test: exercise integrated Linux poll and logical VM shutdown ownership"
+      ],
+      "files": [
+        ".github/workflows/allocation-diagnostic.yml",
+        "src/Runtime/Erlang.Runtime.Core/Native/Drivers/Descriptors/DescriptorPortResource.cs",
+        "src/Runtime/Erlang.Runtime.Core/Native/Drivers/Descriptors/DescriptorPortStream.cs",
+        "src/Runtime/Erlang.Runtime.Core/Native/Drivers/Descriptors/Polling/DescriptorPollRuntimeLifetime558.cs",
+        "src/Runtime/Erlang.Runtime.Core/Native/Drivers/Descriptors/Polling/LinuxDescriptorPollNames.cs",
+        "src/Runtime/Erlang.Runtime.Core/Native/Drivers/Descriptors/Polling/LinuxDescriptorPollNative.cs",
+        "src/Runtime/Erlang.Runtime.Core/Native/Drivers/Descriptors/Polling/LinuxDescriptorPollOwner.cs",
+        "src/Runtime/Erlang.Runtime.Core/Native/Drivers/Descriptors/Polling/LinuxDescriptorPollService.cs",
+        "src/Runtime/Erlang.Runtime.Core/Native/Drivers/Descriptors/Polling/LinuxDescriptorPollWait.cs",
+        "src/Runtime/Erlang.Runtime.Core/Native/Drivers/PortChildProcess.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.ConstructorRollback.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.DescriptorPolling558.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.Halt.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.SequenceDisposeDrains.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.SequenceInitializationEnded.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.SequenceLogicalShutdown.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.WorkerBootstrap.cs",
+        "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.cs",
+        "src/Runtime/Erlang.Runtime.Core/Scheduling/RuntimeWorkerCreationNames.cs",
+        "src/Runtime/Erlang.Runtime.Core/Services/RuntimePorts.cs",
+        "tools/Validation/Erlang.DescriptorPollIntegratedValidation/ADAPTATION.md",
+        "tools/Validation/Erlang.DescriptorPollIntegratedValidation/Erlang.DescriptorPollIntegratedValidation.csproj",
+        "tools/Validation/Erlang.DescriptorPollIntegratedValidation/harness/LinuxDescriptorPollProbe1557.cs",
+        "tools/Validation/Erlang.DescriptorPollIntegratedValidation/harness/PollHarnessCases1557.cs",
+        "tools/Validation/Erlang.DescriptorPollIntegratedValidation/harness/PollHarnessFixture1557.cs",
+        "tools/Validation/Erlang.DescriptorPollIntegratedValidation/harness/PollHarnessNames1557.cs",
+        "tools/Validation/Erlang.DescriptorPollIntegratedValidation/harness/PollHarnessNative1557.cs",
+        "tools/Validation/Erlang.DescriptorPollIntegratedValidation/harness/PollHarnessPipe1557.cs",
+        "tools/Validation/Erlang.DescriptorPollIntegratedValidation/harness/Program.cs",
+        "tools/Validation/Erlang.DescriptorPollVmValidation/Erlang.DescriptorPollVmValidation.csproj",
+        "tools/Validation/Erlang.DescriptorPollVmValidation/README.md",
+        "tools/Validation/Erlang.DescriptorPollVmValidation/existing/WorkerLifecycleAccess.cs",
+        "tools/Validation/Erlang.DescriptorPollVmValidation/existing/WorkerLifecycleNames.cs",
+        "tools/Validation/Erlang.DescriptorPollVmValidation/harness/PollVmChecks1570.cs",
+        "tools/Validation/Erlang.DescriptorPollVmValidation/harness/PollVmNames1570.cs",
+        "tools/Validation/Erlang.DescriptorPollVmValidation/harness/Program.cs",
+        "tools/Validation/Erlang.DescriptorPollVmValidation/run-ci.py",
+        "tools/Validation/Erlang.DescriptorPollVmValidation/source-plan.json",
+        "tools/Validation/Erlang.DescriptorPollVmValidation/verify-ci.py"
+      ],
+      "fileCount": 39,
+      "fileListSha256": "C269767038DB21BCBBACFE7D2BCECA516DFCC41B28B8AF04B415106694E70DF4"
+    }
+  ],
+  "OriginalFullAuditSha256": "DF092B729F2FECB6C6BA0A61DEBA8944B8745F93BB435DD070930A8FD6D3B8F5",
+  "OriginalFullAuditLocation": "artifacts/branch-cleanup-20261104/local-audit.json (owner-local recovery evidence)"
+}
