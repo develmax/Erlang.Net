@@ -182,4 +182,6 @@ Append numbered English entries only to the last volume. Start the next sequenti
 
 - [0104.md](docs/changelog/0104.md) - Parts568,572–577 ordsets, string, descriptor polling, Unicode integration and CI repairs (closed; continues in0105)
 
-- [0105.md](docs/changelog/0105.md) - Parts578–579 code backend publication, literal ownership and CI/review repairs (active)
+- [0105.md](docs/changelog/0105.md) - Parts578–579 code backend publication, literal ownership and CI/review repairs (closed; continues in0106)
+
+- [0106.md](docs/changelog/0106.md) - Part581 timer semantic constants and scoped publication (active)

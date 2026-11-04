@@ -902,3 +902,7 @@ Audit pinned OTP-29.1.1 lib/stdlib/src/unicode.erl and the existing UnicodeNativ
 ## code C# backend publication — 2026-11-04
 
 Inspect pinned OTP29.1.1 code.erl, code_server.erl and eep48.hrl alongside the existing native loader/purger. Retain original code_server and explicit helpers rather than substituting CLR assembly loading or filesystem state. Reuse existing runtime primitives; no package. Preserve Apache-2.0 notices and original assets. Name public API, server protocol, dependency calls, source positions, AST/monitor layouts and EEP48 fields separately; do not merge equal text with different roles. The C# string/number catalogs are scoped to their semantic owners, and existing FunctionCodeLayout supplies the closure digest width. Seven native coverage/debug signatures keep the existing non-BEAMASM profile. The user authorizes this module port and PR; universal OTP acceptance and full regression are not inferred from the focused corpus.
+
+## Part581 — timer semantic constants and scoped publication
+
+Reuse existing runtime module/BIF/operator/error/boolean catalogs. Give timer API, request, reference, action/result, child specification, time conversion, closure and source-location values distinct semantic owners; equal literals alone are not a reuse criterion. Validator bootstrap composes existing public ETS primitives and does not require the concurrent ETS module port. No new library/package/license change. Preserve pinned OTP29.1.1 Apache-2.0 assets and reference suites.

@@ -6,6 +6,8 @@ Draft Part568 prepares the bulk physical-occurrence runtime patch in a separate 
 
 ## Current status sources
 
+- [Part581 timer publication](validation/part-581/README.md):36 selectable managed exports with retained original Erlang. Semantic constants replace inline protocol/source/time/closure values. Clean main-scoped build passes without exclusions; both backends pass728 primary observations,11 scenarios,47 upstream tests and depth0/1/2/3/8/32 profiles. Global readiness/full regression and universal compatibility are separate.
+
 - [PR109 CI/review repair](validation/part-579/README.md): refreshed existing source-plan identities and fixed module_status helper stacks. Both backends pass159 complete outcomes plus25 lifecycle results;17 focused groups and passive source admissions pass locally. Hosted final-head CI remains pending.
 
 - [Selectable code backend](validation/code-port-20261104/README.md): all69 exports,156 full observations and25 lifecycle results per backend;17 connected groups pass on isolated current-main composition. Domain literals are named; universal/JIT/platform acceptance remains open.

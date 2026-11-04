@@ -10,7 +10,27 @@ internal static class ErlangClockRegistrations
             arity,
             (_, arguments) => ValueTask.FromResult(body(arguments))
         );
-        Add(ErlangClockNames.Convert, 3, ErlangClockState.Convert);
+        registry.Register(
+            ErlangModuleNames.Module,
+            ErlangClockNames.Convert,
+            3,
+            (context, arguments) =>
+        {
+            try
+            {
+                return ValueTask.FromResult(ErlangClockState.Convert(arguments));
+            }
+            catch (ErlangException error)
+            {
+                throw error.WithCapturedStack(context.CaptureErrorStack(
+                    Cons.From(arguments),
+                    ErlangClockSourceLocation.ErrorInfo,
+                    ErlangClockNames.Convert,
+                    ErlangClockSourceLocation.Convert
+                ));
+            }
+        }
+        );
         foreach (string clock in new[] { ErlangClockNames.MonotonicTime, ErlangClockNames.SystemTime, ErlangClockNames.TimeOffset })
         {
             Add(clock, 0, arguments => ErlangClockState.Clock(clock, arguments));
