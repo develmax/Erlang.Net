@@ -928,3 +928,12 @@ mock production MFA substitutes are introduced. The BEAM badfun frame fix is a
 shared runtime correction required by this module's exact-stack comparison.
 See [decision0007](decisions/0007-gen-statem-alternatives.md) and
 [gen_statem publication](validation/gen-statem-port-20261104/README.md) for acceptance scope and remaining gates.
+
+## gen_statem sys continuation repair — 2026-11-04
+
+Reuse the existing owned-control-transfer protocol and BCL AsyncLocal/Exception;
+no library or scheduler package. Preserve the original proc_lib error handler
+and pinned source frames by keeping the trampoline inside the module, rather
+than introducing a new process-root transfer. The permanent actual-continuation
+probe distinguishes managed machine retention from opaque native-fun allocator
+pinning. Original OTP helpers and source/BEAM remain unchanged. See Part587.

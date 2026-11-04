@@ -11,6 +11,8 @@ if (args.Length is < GenStatemValidationLimits.RequiredArguments or > GenStatemV
 string repository = Path.GetFullPath(args[0]);
 string directory = Path.GetFullPath(args[1]);
 bool managed = args[2] == GenStatemValidationBaseline.ManagedBackend;
+bool retentionOnly = args.Length == GenStatemValidationLimits.ArgumentsWithScenario && args[3] == GenStatemRetentionNames.Scenario;
+var retention = new GenStatemRetentionChecks();
 string stdlib = Path.Combine(repository, GenStatemValidationPaths.Stdlib);
 string kernel = Path.Combine(repository, GenStatemValidationPaths.Kernel);
 string erts = Path.Combine(repository, GenStatemValidationPaths.Erts);
@@ -31,6 +33,10 @@ await runtime.InitializeModulesAsync(registry =>
 {
     GenStatemValidationPrimitives.Register(runtime, registry);
     RuntimeBootstrapFileSystem.Register(runtime, registry);
+    if (retentionOnly)
+    {
+        retention.Register(registry);
+    }
 });
 foreach (string module in helpers.Concat(managed ? [] : new[] { GenStatemModule.Name }).Concat([GenStatemValidationModules.GenStatemPortCases, GenStatemValidationModules.GenStatemPortSecond]))
 {
@@ -132,6 +138,20 @@ using (var bootDeadline = new CancellationTokenSource(GenStatemValidationLimits.
     {
         throw new InvalidOperationException(GenStatemValidationDiagnostics.BootEnded);
     }
+}
+if (retentionOnly)
+{
+    await retention.Run(runtime, directory);
+    await Run(async context => await runtime.Modules.Call(
+        context,
+        GenStatemValidationModules.Erlang,
+        GenStatemValidationProtocol.Send,
+        environment.Pid,
+        Term.A(GenStatemValidationProtocol.Done)
+    ));
+    await environment.Completion.WaitAsync(GenStatemValidationLimits.OperationDeadline);
+
+    return GenStatemValidationLimits.SuccessExitCode;
 }
 Term[] effects = Cons.Items(runtime.ImportExternalTerm(File.ReadAllBytes(Path.Combine(directory, GenStatemValidationPaths.Effects))).Term).ToArray();
 var failures = new List<object>();

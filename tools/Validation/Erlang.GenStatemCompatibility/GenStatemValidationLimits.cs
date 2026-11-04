@@ -7,4 +7,5 @@ internal static class GenStatemValidationLimits
     internal const int UsageExitCode = 2;
     internal static readonly TimeSpan OperationDeadline = TimeSpan.FromSeconds(10);
     internal static readonly TimeSpan BootDeadline = TimeSpan.FromSeconds(30);
+    internal static readonly TimeSpan RetentionDeadline = TimeSpan.FromSeconds(30);
 }

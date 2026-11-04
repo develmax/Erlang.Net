@@ -33,3 +33,11 @@ The corpus has 74 API rows and 311 scenarios, including a 256-case mode/event
 matrix. A full focused pass is separate from full upstream-suite acceptance,
 native resource and platform parity, metadata parity and global regression.
 See [backend scope](../../../docs/gen-statem-backends.md).
+
+The Managed-only `sys_retention` fourth argument runs a native-callback lifecycle
+probe using the real original sys/gen/proc_lib closure. It installs32 successive
+states and repeatedly gets state/status and suspends/resumes the process. A
+bounded walk from the actual mailbox Task counts retained managed machine
+instances, and stop must execute terminate exactly once. This host retention
+check is separate from OTP differential corpus counts. See Part587 for its
+old-library reproduction, exact assembly hashes and retained failed prototypes.

@@ -398,12 +398,12 @@ internal sealed partial class GenStatemMachine(ProcessContext context)
             }
             if (tuple.Items.Count == 3 && Is(tuple.Items[0], GenStatemProtocolAtoms.System))
             {
-                // sys tail-transfers ownership to system_continue/system_terminate.
-                // An exception from that successor must not terminate this old state again.
+                // Unwind this machine before sys starts its successor. The driver
+                // catches only our control transfer; Erlang errors keep their stacks.
                 terminating = true;
-                await Call(
-                    GenStatemDependencyNames.Sys,
-                    GenStatemFunctionNames.HandleSystemMsg,
+                throw new GenStatemSystemTransfer(
+                    context,
+                    [
                     tuple.Items[2],
                     tuple.Items[1],
                     Parent,
@@ -411,9 +411,8 @@ internal sealed partial class GenStatemMachine(ProcessContext context)
                     debug,
                     Snapshot(),
                     Boolean(hibernate)
+                ]
                 );
-
-                return null;
             }
             if (tuple.Items.Count == 3 && Is(tuple.Items[0], GenStatemProtocolAtoms.EXIT) && tuple.Items[1].Equals(Parent))
             {

@@ -75,3 +75,8 @@ processing rather than substitute return values.
 Full regression and global readiness regeneration were deliberately not run,
 as requested. No compatibility-ledger classification is promoted from corpus
 counts. The previous generated readiness snapshot remains historical.
+
+The [sys continuation fix](validation/part-587/README.md) retains the original
+proc_lib handler while unwinding completed managed loops through a module driver.
+The32-generation retention probe changes97 reachable machines to1; both complete
+module comparisons remain74 API observations plus311 engine scenarios per backend.

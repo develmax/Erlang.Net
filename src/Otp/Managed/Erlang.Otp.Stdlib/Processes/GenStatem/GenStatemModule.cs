@@ -45,6 +45,14 @@ public static class GenStatemModule
         }
         try
         {
+            if (!GenStatemExecution.IsActive(context) && function is GenStatemFunctionNames.InitIt or GenStatemFunctionNames.EnterLoop or GenStatemFunctionNames.SystemContinue)
+            {
+                ValueTask<Term> execution = GenStatemExecution.Run(context, function, arguments);
+                arguments = Array.Empty<Term>();
+
+                return await execution;
+            }
+
             return await InvokeCore(context, function, arguments);
         }
         catch (ErlangException error) when (error.ExceptionClass == ErlangExceptionClasses.Error
@@ -61,7 +69,7 @@ public static class GenStatemModule
         }
     }
 
-    private static async ValueTask<Term> InvokeCore(ProcessContext context, string function, IReadOnlyList<Term> arguments)
+    internal static async ValueTask<Term> InvokeCore(ProcessContext context, string function, IReadOnlyList<Term> arguments)
     {
         Term[] a = arguments.ToArray();
         switch (function)

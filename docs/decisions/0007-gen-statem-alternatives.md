@@ -33,3 +33,10 @@ The [gen_statem publication receipt](../validation/gen-statem-port-20261104/READ
 acceptance. It does not certify universal OTP compatibility, metadata identity,
 resource/platform parity or the complete upstream suite. No generated global
 readiness/API classification is promoted and no package is published.
+
+The [sys review repair](../validation/part-587/README.md) uses an owned control
+transfer to unwind machine/sys invocations to a module driver. The original
+proc_lib exception handler remains outside that driver. New sys calls start
+after prior managed invocations finish; no process-root/hibernation semantics
+are changed. A bounded actual Task-continuation probe proves that routine sys
+monitoring keeps one machine rather than an ever-growing chain.
