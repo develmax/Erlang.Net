@@ -182,4 +182,4 @@ Append numbered English entries only to the last volume. Start the next sequenti
 
 - [0104.md](docs/changelog/0104.md) - Parts568,572–577 ordsets, string, descriptor polling, Unicode integration and CI repairs (closed)
 
-- [0105.md](docs/changelog/0105.md) - Part578 file alternatives and semantic literal ownership (active)
+- [0105.md](docs/changelog/0105.md) - Parts578–579 file alternatives, semantic literal ownership and source admission repair (active)

@@ -1,5 +1,7 @@
 File Part578: C# and original alternatives retain separate identities and match 408 exact focused observations after literal extraction. All five independent complete filesystem cycles still fail in each backend on incomplete native/provider support. No 100% compatibility or global readiness claim. See [contract and remaining gates](file-backends.md).
 
+[Part579](validation/part-579/README.md) repairs PR110 source admission and producer pins; runtime behavior and compatibility classifications are unchanged. Final-head hosted CI remains required.
+
 PR108 CI follow-up: complete downstream producer bindings and early N1 producer rejection; [evidence and final CI gate](validation/part-577/README.md). Unicode implementation and compatibility classifications are unchanged.
 
 Unicode PR108 follow-up: conversion accumulation is linear while preserving OTP segment-boundary capacity. Source-plan gates and the inherited String documentation pin are repaired; see [focused evidence](validation/part-576/README.md). No compatibility classification is promoted.
