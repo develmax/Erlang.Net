@@ -493,6 +493,8 @@ Test(Erlang.Tests.DetsBackendChecks.OriginalTest, Erlang.Tests.DetsBackendChecks
 Test(Erlang.Tests.DetsBackendChecks.ManagedSuiteTest, Erlang.Tests.DetsBackendChecks.ManagedSuite);
 Test(Erlang.Tests.DetsBackendChecks.OriginalSuiteTest, Erlang.Tests.DetsBackendChecks.OriginalSuite);
 Test(Erlang.Tests.DetsMagicLifetimeChecks.Test, Erlang.Tests.DetsMagicLifetimeChecks.Run);
+Test(Erlang.Tests.PrimFileDeleteContractNames.HostTest, Erlang.Tests.PrimFileDeletePlatformChecks.Host);
+Test(Erlang.Tests.PrimFileDeleteContractNames.MappingTest, Erlang.Tests.PrimFileDeletePlatformChecks.Mapping);
 Test(Erlang.Tests.MathBackendNames.ManagedWhole, Erlang.Tests.LibraryDependencyOriginalHostChecks.MathManagedWhole);
 Test(Erlang.Tests.MathBackendNames.ManagedSelection, Erlang.Tests.MathBackendChecks.ManagedSelection);
 Test(Erlang.Tests.MathLog2OtpNames.Test, Erlang.Tests.MathLog2OtpChecks.Run);

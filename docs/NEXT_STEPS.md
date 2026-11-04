@@ -1,5 +1,7 @@
 # Next steps
 
+Part592: execute the standalone prim_file deletion probe on Linux and macOS; retain separate OS receipts. Extend the remaining bootstrap path/info/raw-file/native-admission platform boundaries before advertising complete Unix DETS startup. Preserve focused checks and existing C#/Erlang selection.
+
 Part591: review the isolated [DETS backend PR](dets-backends.md) and its focused OTP receipts. Keep full upstream-suite/resource/platform/interleaving and release-manifest startup acceptance explicit; preserve backend selection and do not promote canonical readiness from partial reports.
 
 Part589 updates ASN.1 PR118 from timer main29b92f63d, retaining both components and the qualified file atom. Fresh focused build,65 checks/26 OTP outcomes and passive bindings pass. [Evidence](validation/part-589/README.md).

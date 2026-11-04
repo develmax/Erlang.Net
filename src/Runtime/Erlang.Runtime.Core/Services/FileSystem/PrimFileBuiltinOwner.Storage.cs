@@ -1,7 +1,6 @@
 // Native file operations needed by pinned OTP DETS; derived from prim_file_nif.c,
 // Apache-2.0, Ericsson AB. Erlang library wrappers remain unchanged.
 using System.Buffers.Binary;
-using System.Runtime.InteropServices;
 
 namespace Erlang;
 
@@ -22,16 +21,15 @@ internal sealed partial class PrimFileBuiltinOwner
     {
         try
         {
-            if (operation is PrimFileBuiltinNames.Delete or PrimFileBuiltinNames.Rename)
+            if (operation == PrimFileBuiltinNames.Delete)
+            {
+                return PrimFileDeleteOperations.Delete(arguments[0], context.Cancellation);
+            }
+            if (operation == PrimFileBuiltinNames.Rename)
             {
                 if (!PrimFileWindowsPaths410.Marshal(arguments[0], out string path, out string error))
                 {
                     return PrimFileWindowsErrors410.Tuple(error);
-                }
-                if (operation == PrimFileBuiltinNames.Delete)
-                {
-                    return PrimFileDataNative.Delete(path) ? Term.A(CommonAtomNames.Ok)
-                        : PrimFileWindowsErrors410.Last(Marshal.GetLastPInvokeError());
                 }
                 if (!PrimFileWindowsPaths410.Marshal(arguments[1], out string target, out error))
                 {

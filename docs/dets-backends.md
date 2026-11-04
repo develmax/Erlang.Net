@@ -63,3 +63,22 @@ OTP executable is a development oracle only. See the
 [acceptance record](validation/dets-port-20261104/README.md) for exact tested
 scope, identities and limitations. Finite Windows checks cannot establish a
 universal 100% compatibility claim across all schedules, resources and systems.
+
+
+## Platform deletion boundary
+
+`del_file_nif` now calls `PrimFileDeleteOperations`. That shared C# boundary
+selects a Windows or Unix implementation before any path marshalling and builds
+`ok` or `{error, Reason}` uniformly. Windows uses UTF16/path handling and
+DeleteFileW, with OTP directory/invalid-name error adjustments. Linux/macOS use
+libc unlink with the original NUL-terminated byte sequence. There is no filename
+UTF8 decode/re-encode, File.Exists precheck or Win32 call in the Unix branch.
+Linux and Darwin errno values are mapped independently; EISDIR becomes EPERM,
+and unknown numbers retain OTP errno_N formatting.
+
+This is the deletion boundary, not a promotion of the entire runtime. The older
+bootstrap filesystem registration still explicitly requires Windows, and other
+path/info/raw-file/kernel/native-admission boundaries retain platform gates.
+A Unix unlink implementation does not make complete DETS/kernel startup on
+Linux/macOS accepted. The standalone portable probe exercises this operation
+without that Windows bootstrap profile. See the [current platform receipt](validation/prim-file-platform-delete-20261104/README.md).

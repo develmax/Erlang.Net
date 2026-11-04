@@ -1,0 +1,8 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup><OutputType>Exe</OutputType></PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="../../../src/Runtime/Erlang.Runtime/Erlang.Runtime.csproj" />
+    <Compile Include="../../../tests/Erlang.Tests/Runtime/Bootstrap/PrimFileDeletePlatformChecks.cs" Link="PrimFileDeletePlatformChecks.cs" />
+    <Compile Include="../../../tests/Erlang.Tests/Runtime/Bootstrap/PrimFileDeleteContractNames.cs" Link="PrimFileDeleteContractNames.cs" />
+  </ItemGroup>
+</Project>
