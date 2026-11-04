@@ -1,4 +1,5 @@
 Code backend publication (2026-11-04): all69 signatures have C#/original alternatives;156 full observations and25 lifecycle results pass per backend on current main, alongside17 connected groups. Existing non-BEAMASM coverage/debug differs from OTP JIT; full release/docs/gzip/platform/resource acceptance remains open. See [code receipt](validation/code-port-20261104/README.md).
+gen_statem: retain both explicit alternatives and complete stack comparisons, including duplicate failed-fun/caller frames. Focused evidence and remaining upstream/platform/resource/distribution/metadata limits are recorded in [Part580](validation/part-580/README.md); global classifications stay unchanged.
 
 PR108 CI follow-up: complete downstream producer bindings and early N1 producer rejection; [evidence and final CI gate](validation/part-577/README.md). Unicode implementation and compatibility classifications are unchanged.
 

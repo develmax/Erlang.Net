@@ -1085,7 +1085,7 @@ internal static partial class BeamRegisterInterpreter
                                 if (!dynamicCall && operands[0].Kind == BeamOperandParameters.Unsigned)
                                     BeamClosureFactory.RequireKnownTarget(callee, code, (int)operands[0].Value);
                                 if (callee is not FunctionTerm callable)
-                                    throw new ErlangException(Term.Tuple(Term.A(ErlangErrorReasons.BadFunction), callee));
+                                    throw BeamFunctionCallErrors.BadFunction(context, callee);
                                 Term[] funArguments = Enumerable.Range(0, arity).Select(registers.Read).ToArray();
                                 using var funRoots507 = registers.HasOwnedRoots507 ? registers.Protect507(callee, Term.Tuple(funArguments)) : null;
                                 bool tailFun = BeamFunTailProtocol.TryDeallocation(

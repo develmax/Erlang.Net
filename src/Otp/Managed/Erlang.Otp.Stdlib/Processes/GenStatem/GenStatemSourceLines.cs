@@ -1,0 +1,72 @@
+namespace Erlang;
+
+// Observable stack locations in the pinned OTP-29.1.1 gen_statem.erl.
+// These are source coordinates, never offsets derived from another clause.
+internal static class GenStatemSourceLines
+{
+    internal const int StartAnonymousError = 2235;
+    internal const int StartNamedError = 2258;
+    internal const int StartLinkAnonymousError = 2276;
+    internal const int StartLinkNamedError = 2399;
+    internal const int StartMonitorAnonymousError = 2417;
+    internal const int StartMonitorNamedError = 2448;
+    internal const int CallTimeoutError = 2589;
+    internal const int SendRequestError = 2634;
+    internal const int SendRequestCollectionError = 2667;
+    internal const int WaitResponseError = 2722;
+    internal const int WaitResponseCollectionError = 2797;
+    internal const int ReceiveResponseError = 2854;
+    internal const int ReceiveResponseCollectionError = 2931;
+    internal const int CheckResponseError = 2967;
+    internal const int CheckResponseCollectionError = 3033;
+    internal const int RequestCollectionSizeError = 3071;
+    internal const int RequestCollectionAddError = 3091;
+    internal const int RequestCollectionToListError = 3110;
+    internal const int CastClause = 2505;
+    internal const int ReplyClause = 3129;
+    internal const int EnterLoopModuleGuard = 3236;
+    internal const int EnterLoopParent = 3237;
+    internal const int EnterLoopProcessName = 3238;
+    internal const int EnterLoopDebugOptions = 3239;
+    internal const int EnterLoopHibernateAfter = 3240;
+    internal const int CallDelegation = 3254;
+    internal const int EnterCallbackMode = 3297;
+    internal const int SystemGetState = 3424;
+    internal const int SystemReplaceStateClause = 3428;
+    internal const int SystemReplaceStateFunction = 3431;
+    internal const int StateFunctionsCallback = 3741;
+    internal const int HandleEventCallback = 3743;
+    internal const int InvalidStateEnterReturn = 3805;
+    internal const int InvalidCallbackReturn = 3895;
+    internal const int EnterPostponeAction = 3983;
+    internal const int ChangeCallbackModule = 4007;
+    internal const int EnterChangeModuleAction = 4030;
+    internal const int PopCallbackModule = 4040;
+    internal const int EnterPopModuleAction = 4064;
+    internal const int InvalidTimeoutOptions = 4130;
+    internal const int InvalidTimeoutType = 4141;
+    internal const int InvalidTimeoutAction = 4166;
+    internal const int InvalidTimeoutCancel = 4190;
+    internal const int InvalidAction = 4214;
+    internal const int InvalidReply = 4244;
+    internal const int InvalidNextEvent = 4295;
+    internal const int InvalidCallbackModeEntry = 4856;
+    internal const int MissingCallbackMode = 4866;
+    internal const int ErrorInfoLog = 4983;
+    internal const int FormatLogOptions = 5098;
+    internal const int FormatLog = 5106;
+    internal const int FormatLogMultiClause = 5177;
+    internal const int SendRequestDelegation = 2631;
+    internal const int SendRequestCollectionDelegation = 2664;
+    internal const int WaitResponseDelegation = 2719;
+    internal const int WaitResponseCollectionDelegation = 2794;
+    internal const int ReceiveResponseDelegation = 2851;
+    internal const int ReceiveResponseCollectionDelegation = 2928;
+    internal const int CheckResponseDelegation = 2964;
+    internal const int CheckResponseCollectionDelegation = 3030;
+    internal const int RequestCollectionSizeDelegation = 3069;
+    internal const int RequestCollectionAddDelegation = 3089;
+    internal const int RequestCollectionToListDelegation = 3108;
+    internal const int Unavailable = 0;
+    internal const int InlineFrame = 0;
+}

@@ -7,6 +7,7 @@ Draft Part568 prepares the bulk physical-occurrence runtime patch in a separate 
 ## Executable queue
 
 - Complete [code acceptance](validation/code-port-20261104/README.md) beyond the passing69-export/156+25 corpus: full consumer startup closure, documentation/gzip dependencies, platform errors, races and upstream code_SUITE. Preserve selected code:is_loaded routing and semantic literal ownership; no100% promotion from finite counts.
+- Review the scoped gen_statem PR and its [Part580 receipt](validation/part-580/README.md). Preserve explicit backend selection and original OTP assets; full upstream-suite, distributed/global/via, resource/platform and metadata acceptance remain separate work.
 
 - [Downstream CI producer repair](validation/part-577/README.md): reconcile the remaining native/integrated producer identities and monitor completed final-head workflows.
 

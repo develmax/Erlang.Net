@@ -902,3 +902,23 @@ Audit pinned OTP-29.1.1 lib/stdlib/src/unicode.erl and the existing UnicodeNativ
 ## code C# backend publication — 2026-11-04
 
 Inspect pinned OTP29.1.1 code.erl, code_server.erl and eep48.hrl alongside the existing native loader/purger. Retain original code_server and explicit helpers rather than substituting CLR assembly loading or filesystem state. Reuse existing runtime primitives; no package. Preserve Apache-2.0 notices and original assets. Name public API, server protocol, dependency calls, source positions, AST/monitor layouts and EEP48 fields separately; do not merge equal text with different roles. The C# string/number catalogs are scoped to their semantic owners, and existing FunctionCodeLayout supplies the closure digest width. Seven native coverage/debug signatures keep the existing non-BEAMASM profile. The user authorizes this module port and PR; universal OTP acceptance and full regression are not inferred from the focused corpus.
+## gen_statem C# alternative and semantic constants — 2026-11-04
+
+Inspect the pinned Apache-2.0 OTP-29.1.1 `lib/stdlib/src/gen_statem.erl` and its
+existing original BEAM, plus the repository's explicit library selection,
+source continuations, mailbox/timer/alias and gen/sys/proc_lib implementations.
+Existing .NET BCL Queue/Dictionary/Task/CancellationToken services (MIT .NET
+runtime, existing license texts) provide storage and async mechanics; none
+implements OTP action ordering, postponed events, sys records, source frames or
+timeout semantics. Reuse these services and original helper modules rather than
+introducing a second scheduler or an external state-machine package. Implement
+the user-requested module contract directly from pinned OTP and preserve its
+notices. No package, license selection or external runtime dependency is added.
+
+Keep semantic catalogs in the owning product or validation domain. SDK Roslyn
+layout tooling already exists and is reused on this delivery package only.
+PowerShell/Python standard libraries capture/admit the original OTP corpus; no
+mock production MFA substitutes are introduced. The BEAM badfun frame fix is a
+shared runtime correction required by this module's exact-stack comparison.
+See [decision0007](decisions/0007-gen-statem-alternatives.md) and
+[Part580](validation/part-580/README.md) for acceptance scope and remaining gates.

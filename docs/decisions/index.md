@@ -11,4 +11,6 @@ These documents distinguish current policy from the original decision record. Ne
 | [0005-packaging-and-delivery](0005-packaging-and-delivery.md) | Packaging, licensing and delivery |
 | [0006-pattern-scope](0006-pattern-scope.md) | Pattern scope and closure binding |
 
+| [0007-gen-statem-alternatives](0007-gen-statem-alternatives.md) | Explicit gen_statem alternatives and semantic constants |
+
 [Decision entry page](../DECISIONS.md) · [Complete history](../history/decisions/index.md)

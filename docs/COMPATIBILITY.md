@@ -7,6 +7,7 @@ Draft Part568 prepares the bulk physical-occurrence runtime patch in a separate 
 ## Current state and sources
 
 The [code backend](validation/code-port-20261104/README.md) retains original Erlang beside69 selectable C# exports (62 library/7 shared native signatures). Both backends match156 complete outcomes and25 lifecycle results;17 connected groups pass. Native JIT capability, full release/docs/platform/resource acceptance remain separate.
+- gen_statem has forty selectable exports, with semantic constants for protocol/function/status/format/source/record and validation contracts. [Part580](validation/part-580/README.md) tracks finite focused comparisons; no universal compatibility or ledger promotion is claimed.
 
 - [Downstream CI producer repair](validation/part-577/README.md): reconcile the remaining native/integrated producer identities and monitor completed final-head workflows.
 
