@@ -1,5 +1,7 @@
 # Project progress
 
+Draft Part568 prepares the bulk physical-occurrence runtime patch in a separate PR to main. Ordsets stays6 Verified/15 KnownDifferences; current whole ETF replay remains RED. See [evidence and open acceptance gates](validation/part-568/ordsets-bulk/README.md).
+
 ## Current status sources
 
 - [String integration](validation/string-otp-merge-20261104/README.md): both71-API alternatives retain explicit selection;9706 full tests and separate8522/depth comparisons per backend pass. Source identities and limitations remain explicit; final delivery is tracked in [PR105](https://github.com/develmax/Erlang.Net/pull/105).

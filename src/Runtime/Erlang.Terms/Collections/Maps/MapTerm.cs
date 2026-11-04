@@ -62,17 +62,32 @@ public sealed partial class MapTerm : Term
             ).ToArray());
         if (d.Count <= TermMapOrderParameters.FlatMapMaximumEntries)
         {
-            var keys = d.OrderBy(
-                entry => entry.Key,
-                Comparer<Term>.Create((left, right) => left is Atom first && right is Atom second
-                    ? AtomNameRegistry.IndexOf(first.Name).CompareTo(AtomNameRegistry.IndexOf(second.Name))
-                    : TermOrder.CompareSnapshot(
-                        left,
-                        right,
-                        true,
-                        ref context
-                    ))
-            ).Select(entry => entry.Key).ToArray();
+            var keys = d.Keys.ToArray();
+            // ERTS flatmap_from_validated_list inserts each incoming key by
+            // comparing backwards. Non-total fun arithmetic makes the chosen
+            // algorithm and operand direction observable.
+            for (int index = 1; index < keys.Length; index++)
+            {
+                Term key = keys[index];
+                int hole = index;
+                while (hole > 0)
+                {
+                    Term previous = keys[hole - 1];
+                    int comparison = key is Atom first && previous is Atom second
+                        ? AtomNameRegistry.IndexOf(first.Name).CompareTo(AtomNameRegistry.IndexOf(second.Name))
+                        : TermOrder.CompareSnapshot(
+                            key,
+                            previous,
+                            true,
+                            ref context
+                        );
+                    if (comparison >= 0)
+                        break;
+                    keys[hole] = previous;
+                    hole--;
+                }
+                keys[hole] = key;
+            }
             if (copiedFlatKeys is not null && (copiedFlatKeys.Items.Count != keys.Length
                 || keys.Where((key, index) => !ReferenceEquals(key, copiedFlatKeys.Items[index])).Any()))
             {
@@ -86,6 +101,27 @@ public sealed partial class MapTerm : Term
         }
         else if (copiedFlatKeys is not null)
             throw new ArgumentException(MapFlatKeyNames426.InvalidCopiedKeys, nameof(copiedFlatKeys));
+    }
+
+    // This boundary already has the source builder/copy's physical order.
+    // Re-sorting is not idempotent for admitted non-total local-fun keys.
+    internal static MapTerm FromSourceFlatPairs(IReadOnlyList<KeyValuePair<Term, Term>> physical)
+    {
+        var logical = new MapTerm(physical);
+        if (logical.Entries.Count != physical.Count)
+            return FromNativeLayout504(physical);
+
+        return new MapTerm(logical, physical);
+    }
+
+    private MapTerm(MapTerm logical, IReadOnlyList<KeyValuePair<Term, Term>> physical)
+    {
+        IsOrdinaryLogicalMap517 = true;
+        lookup = logical.lookup;
+        Entries = logical.Entries;
+        ArithmeticKeyEntries = logical.ArithmeticKeyEntries;
+        preservedFlatPairs426 = Array.AsReadOnly(physical.ToArray());
+        FlatKeys426 = new TupleTerm(preservedFlatPairs426.Select(pair => pair.Key));
     }
 
     public Term Get(Term key) => TryGet(key, out var value) ? value! : throw new ErlangException(Term.Tuple(Term.A(ErlangErrorReasons.BadKey), key));

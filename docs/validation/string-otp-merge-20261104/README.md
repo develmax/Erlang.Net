@@ -5,11 +5,13 @@ OTP29.1.1. Startup/MSBuild selection is integrated. Original sources/images,
 main's native-caller/async changes and unchanged allocation limits are retained.
 No backend default or compatibility classification is changed.
 
-Implementation and local validation are complete. The final published head's
+The original string implementation checkpoint passed local validation. Main104
+subsequently changed shared runtime maps/ordsets; combined validation is pending.
+The final published head's
 review, required CI and merge state are tracked in
 [PR105](https://github.com/develmax/Erlang.Net/pull/105).
 
-## Current measured acceptance
+## Retained pre-main104 measured acceptance
 
 - [Full regression](full-tests.json.gz):9706 unique tests pass,0 failures,
   2010.215 summed harness seconds. This is an actual uninterrupted complete run,
@@ -66,3 +68,13 @@ predecessors and current source-only seals remain in source-plan-refresh/,
 without fabricating native execution or promoting any contracts. The observed
 repeated-search allocation regression is repaired within the unchanged2GiB
 limit by operation-local successful compiled-pattern reuse.
+
+## Current reconciliation
+
+[Accepted main104 reconciliation](main104-reconciliation/README.md) retains
+both implementations and all accepted bulk-map fixes. Current build and23
+focused contracts pass; the combined9708-case full gate is pending. Previous
+9706/8522 reports retain their original source identities. Do not compose
+focused reports into a full pass. Fresh OTP replay and CI follow the new head.
+
+Fresh main104 OTP replay completed: each backend matches all 8522 complete outcomes across all 71 exports, including 2158 full exception stacks; all six separate depth profiles match 23 cases per backend. All 14 reports pass with zero value/reason/stack differences and preserved binary backing. Current Stdlib assembly SHA256: 40F84CFA3D5111D966A14D0EC5913F257A6EEADE41209389DA472CAD0EEEA720. Raw replay and provenance: main104-reconciliation/otp-replay.tar.gz. Combined full 9708-case CI remains pending.

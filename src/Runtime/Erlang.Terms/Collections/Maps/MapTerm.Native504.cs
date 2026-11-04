@@ -49,6 +49,9 @@ public sealed partial class MapTerm
             ))
         ).ToArray());
         if (captured.Length <= TermMapOrderParameters.FlatMapMaximumEntries)
+        {
+            preservedFlatPairs426 = Array.AsReadOnly(captured);
             FlatKeys426 = new TupleTerm(captured.Select(entry => entry.Key));
+        }
     }
 }

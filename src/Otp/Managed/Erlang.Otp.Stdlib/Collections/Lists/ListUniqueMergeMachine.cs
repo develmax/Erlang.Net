@@ -70,7 +70,7 @@ internal static class ListUniqueMergeMachine
                                 complete = true;
                                 break;
                             }
-                            if (TermOrder.Compare(x, y) > 0)
+                            if (TermOrder.Compare(y, x) < 0)
                             {
                                 if (rest is Nil)
                                     result = new Cons(y, new Cons(x, Nil.Value));
@@ -158,7 +158,7 @@ internal static class ListUniqueMergeMachine
                 case ListUniqueMergeState.Usplit_15:
                     {
                         {
-                            if (arguments[0] is var vX && arguments[1] is var vY && arguments[2] is Cons cell0 && cell0.Head is var vZ && cell0.Tail is var vL && arguments[3] is var vR && arguments[4] is var vRs && TermOrder.Compare(vZ, vY) > 0)
+                            if (arguments[0] is var vX && arguments[1] is var vY && arguments[2] is Cons cell0 && cell0.Head is var vZ && cell0.Tail is var vL && arguments[3] is var vR && arguments[4] is var vRs && TermOrder.Compare(vY, vZ) < 0)
                             {
                                 state = ListUniqueMergeState.Usplit_15;
                                 arguments = [vY, vZ, vL, new Cons(vX, vR), vRs];
@@ -174,7 +174,7 @@ internal static class ListUniqueMergeMachine
                             }
                         }
                         {
-                            if (arguments[0] is var vX && arguments[1] is var vY && arguments[2] is Cons cell0 && cell0.Head is var vZ && cell0.Tail is var vL && arguments[3] is var vR && arguments[4] is var vRs && TermOrder.Compare(vZ, vX) > 0)
+                            if (arguments[0] is var vX && arguments[1] is var vY && arguments[2] is Cons cell0 && cell0.Head is var vZ && cell0.Tail is var vL && arguments[3] is var vR && arguments[4] is var vRs && TermOrder.Compare(vX, vZ) < 0)
                             {
                                 state = ListUniqueMergeState.Usplit_15;
                                 arguments = [vZ, vY, vL, new Cons(vX, vR), vRs];
@@ -223,7 +223,7 @@ internal static class ListUniqueMergeMachine
                 case ListUniqueMergeState.Usplit_1_16:
                     {
                         {
-                            if (arguments[0] is var vX && arguments[1] is var vY && arguments[2] is Cons cell0 && cell0.Head is var vZ && cell0.Tail is var vL && arguments[3] is var vR && arguments[4] is var vRs && arguments[5] is var vS && TermOrder.Compare(vZ, vY) > 0)
+                            if (arguments[0] is var vX && arguments[1] is var vY && arguments[2] is Cons cell0 && cell0.Head is var vZ && cell0.Tail is var vL && arguments[3] is var vR && arguments[4] is var vRs && arguments[5] is var vS && TermOrder.Compare(vY, vZ) < 0)
                             {
                                 state = ListUniqueMergeState.Usplit_1_16;
                                 arguments = [vY, vZ, vL, new Cons(vX, vR), vRs, vS];
@@ -239,7 +239,7 @@ internal static class ListUniqueMergeMachine
                             }
                         }
                         {
-                            if (arguments[0] is var vX && arguments[1] is var vY && arguments[2] is Cons cell0 && cell0.Head is var vZ && cell0.Tail is var vL && arguments[3] is var vR && arguments[4] is var vRs && arguments[5] is var vS && TermOrder.Compare(vZ, vX) > 0)
+                            if (arguments[0] is var vX && arguments[1] is var vY && arguments[2] is Cons cell0 && cell0.Head is var vZ && cell0.Tail is var vL && arguments[3] is var vR && arguments[4] is var vRs && arguments[5] is var vS && TermOrder.Compare(vX, vZ) < 0)
                             {
                                 state = ListUniqueMergeState.Usplit_1_16;
                                 arguments = [vZ, vY, vL, new Cons(vX, vR), vRs, vS];
@@ -255,7 +255,7 @@ internal static class ListUniqueMergeMachine
                             }
                         }
                         {
-                            if (arguments[0] is var vX && arguments[1] is var vY && arguments[2] is Cons cell0 && cell0.Head is var vZ && cell0.Tail is var vL && arguments[3] is var vR && arguments[4] is var vRs && arguments[5] is var vS && TermOrder.Compare(vZ, vS) > 0)
+                            if (arguments[0] is var vX && arguments[1] is var vY && arguments[2] is Cons cell0 && cell0.Head is var vZ && cell0.Tail is var vL && arguments[3] is var vR && arguments[4] is var vRs && arguments[5] is var vS && TermOrder.Compare(vS, vZ) < 0)
                             {
                                 state = ListUniqueMergeState.Usplit_15;
                                 arguments = [vS, vZ, vL, Nil.Value, new Cons(new Cons(vY, new Cons(vX, vR)), vRs)];
@@ -695,7 +695,7 @@ internal static class ListUniqueMergeMachine
                 case ListUniqueMergeState.Umerge3_17:
                     {
                         {
-                            if (arguments[0] is Cons cell0 && cell0.Head is var vH1 && cell0.Tail is var vT1 && arguments[1] is var vHdM && arguments[2] is var vT2 && arguments[3] is var vH2 && arguments[4] is var vM && arguments[5] is var vT3 && arguments[6] is var vH3 && TermOrder.Compare(vH1, vH2) <= 0)
+                            if (arguments[0] is Cons cell0 && cell0.Head is var vH1 && cell0.Tail is var vT1 && arguments[1] is var vHdM && arguments[2] is var vT2 && arguments[3] is var vH2 && arguments[4] is var vM && arguments[5] is var vT3 && arguments[6] is var vH3 && TermOrder.Compare(vH2, vH1) >= 0)
                             {
                                 state = ListUniqueMergeState.Umerge3_128;
                                 arguments = [vT1, vH1, vT2, vH2, vM, vT3, vH3, vHdM];
@@ -727,7 +727,7 @@ internal static class ListUniqueMergeMachine
                             }
                         }
                         {
-                            if (arguments[0] is Nil && arguments[1] is var v_HdM && arguments[2] is var vT2 && arguments[3] is var vH2 && arguments[4] is var vM && arguments[5] is var vT3 && arguments[6] is var vH3 && TermOrder.Compare(vH2, vH3) <= 0)
+                            if (arguments[0] is Nil && arguments[1] is var v_HdM && arguments[2] is var vT2 && arguments[3] is var vH2 && arguments[4] is var vM && arguments[5] is var vT3 && arguments[6] is var vH3 && TermOrder.Compare(vH3, vH2) >= 0)
                             {
                                 state = ListUniqueMergeState.Umerge2_15;
                                 arguments = [vT2, vT3, new Cons(vH2, vM), vH2, vH3];
@@ -760,7 +760,7 @@ internal static class ListUniqueMergeMachine
                 case ListUniqueMergeState.Umerge3_27:
                     {
                         {
-                            if (arguments[0] is var vT1 && arguments[1] is var vH1 && arguments[2] is Cons cell0 && cell0.Head is var vH2 && cell0.Tail is var vT2 && arguments[3] is var vHdM && arguments[4] is var vM && arguments[5] is var vT3 && arguments[6] is var vH3 && TermOrder.Compare(vH1, vH2) <= 0)
+                            if (arguments[0] is var vT1 && arguments[1] is var vH1 && arguments[2] is Cons cell0 && cell0.Head is var vH2 && cell0.Tail is var vT2 && arguments[3] is var vHdM && arguments[4] is var vM && arguments[5] is var vT3 && arguments[6] is var vH3 && TermOrder.Compare(vH2, vH1) >= 0)
                             {
                                 state = ListUniqueMergeState.Umerge3_128;
                                 arguments = [vT1, vH1, vT2, vH2, vM, vT3, vH3, vHdM];
@@ -776,7 +776,7 @@ internal static class ListUniqueMergeMachine
                             }
                         }
                         {
-                            if (arguments[0] is var vT1 && arguments[1] is var vH1 && arguments[2] is Nil && arguments[3] is var v_HdM && arguments[4] is var vM && arguments[5] is var vT3 && arguments[6] is var vH3 && TermOrder.Compare(vH1, vH3) <= 0)
+                            if (arguments[0] is var vT1 && arguments[1] is var vH1 && arguments[2] is Nil && arguments[3] is var v_HdM && arguments[4] is var vM && arguments[5] is var vT3 && arguments[6] is var vH3 && TermOrder.Compare(vH3, vH1) >= 0)
                             {
                                 state = ListUniqueMergeState.Umerge2_15;
                                 arguments = [vT1, vT3, new Cons(vH1, vM), vH1, vH3];
@@ -809,7 +809,7 @@ internal static class ListUniqueMergeMachine
                 case ListUniqueMergeState.Umerge3_128:
                     {
                         {
-                            if (arguments[0] is var vT1 && arguments[1] is var vH1 && arguments[2] is var vT2 && arguments[3] is var vH2 && arguments[4] is var vM && arguments[5] is var vT3 && arguments[6] is var vH3 && arguments[7] is var v_HdM && TermOrder.Compare(vH1, vH3) <= 0)
+                            if (arguments[0] is var vT1 && arguments[1] is var vH1 && arguments[2] is var vT2 && arguments[3] is var vH2 && arguments[4] is var vM && arguments[5] is var vT3 && arguments[6] is var vH3 && arguments[7] is var v_HdM && TermOrder.Compare(vH3, vH1) >= 0)
                             {
                                 state = ListUniqueMergeState.Umerge3_17;
                                 arguments = [vT1, vH1, vT2, vH2, new Cons(vH1, vM), vT3, vH3];
@@ -842,7 +842,7 @@ internal static class ListUniqueMergeMachine
                 case ListUniqueMergeState.Umerge3_12_36:
                     {
                         {
-                            if (arguments[0] is var vT1 && arguments[1] is var vH1 && arguments[2] is var vT2 && arguments[3] is var vH2 && arguments[4] is var vM && arguments[5] is Cons cell0 && cell0.Head is var vH3 && cell0.Tail is var vT3 && TermOrder.Compare(vH1, vH3) <= 0)
+                            if (arguments[0] is var vT1 && arguments[1] is var vH1 && arguments[2] is var vT2 && arguments[3] is var vH2 && arguments[4] is var vM && arguments[5] is Cons cell0 && cell0.Head is var vH3 && cell0.Tail is var vT3 && TermOrder.Compare(vH3, vH1) >= 0)
                             {
                                 state = ListUniqueMergeState.Umerge3_17;
                                 arguments = [vT1, vH1, vT2, vH2, new Cons(vH1, vM), vT3, vH3];
@@ -875,7 +875,7 @@ internal static class ListUniqueMergeMachine
                 case ListUniqueMergeState.Umerge3_218:
                     {
                         {
-                            if (arguments[0] is var vT1 && arguments[1] is var vH1 && arguments[2] is var vT2 && arguments[3] is var vH2 && arguments[4] is var vM && arguments[5] is var vT3 && arguments[6] is var vH3 && arguments[7] is var v_HdM && TermOrder.Compare(vH2, vH3) <= 0)
+                            if (arguments[0] is var vT1 && arguments[1] is var vH1 && arguments[2] is var vT2 && arguments[3] is var vH2 && arguments[4] is var vM && arguments[5] is var vT3 && arguments[6] is var vH3 && arguments[7] is var v_HdM && TermOrder.Compare(vH3, vH2) >= 0)
                             {
                                 state = ListUniqueMergeState.Umerge3_27;
                                 arguments = [vT1, vH1, vT2, vH2, new Cons(vH2, vM), vT3, vH3];
@@ -908,7 +908,7 @@ internal static class ListUniqueMergeMachine
                 case ListUniqueMergeState.Umerge3_21_36:
                     {
                         {
-                            if (arguments[0] is var vT1 && arguments[1] is var vH1 && arguments[2] is var vT2 && arguments[3] is var vH2 && arguments[4] is var vM && arguments[5] is Cons cell0 && cell0.Head is var vH3 && cell0.Tail is var vT3 && TermOrder.Compare(vH2, vH3) <= 0)
+                            if (arguments[0] is var vT1 && arguments[1] is var vH1 && arguments[2] is var vT2 && arguments[3] is var vH2 && arguments[4] is var vM && arguments[5] is Cons cell0 && cell0.Head is var vH3 && cell0.Tail is var vT3 && TermOrder.Compare(vH3, vH2) >= 0)
                             {
                                 state = ListUniqueMergeState.Umerge3_27;
                                 arguments = [vT1, vH1, vT2, vH2, new Cons(vH2, vM), vT3, vH3];
@@ -941,7 +941,7 @@ internal static class ListUniqueMergeMachine
                 case ListUniqueMergeState.Rumerge3_16:
                     {
                         {
-                            if (arguments[0] is Cons cell0 && cell0.Head is var vH1 && cell0.Tail is var vT1 && arguments[1] is var vT2 && arguments[2] is var vH2 && arguments[3] is var vM && arguments[4] is var vT3 && arguments[5] is var vH3 && TermOrder.Compare(vH1, vH2) <= 0)
+                            if (arguments[0] is Cons cell0 && cell0.Head is var vH1 && cell0.Tail is var vT1 && arguments[1] is var vT2 && arguments[2] is var vH2 && arguments[3] is var vM && arguments[4] is var vT3 && arguments[5] is var vH3 && TermOrder.Compare(vH2, vH1) >= 0)
                             {
                                 state = ListUniqueMergeState.Rumerge3_12a7;
                                 arguments = [vT1, vH1, vT2, vH2, vM, vT3, vH3];
@@ -949,7 +949,7 @@ internal static class ListUniqueMergeMachine
                             }
                         }
                         {
-                            if (arguments[0] is Cons cell0 && cell0.Head is var vH1 && cell0.Tail is var vT1 && arguments[1] is var vT2 && arguments[2] is var vH2 && arguments[3] is var vM && arguments[4] is var vT3 && arguments[5] is var vH3 && TermOrder.Compare(vH1, vH3) <= 0)
+                            if (arguments[0] is Cons cell0 && cell0.Head is var vH1 && cell0.Tail is var vT1 && arguments[1] is var vT2 && arguments[2] is var vH2 && arguments[3] is var vM && arguments[4] is var vT3 && arguments[5] is var vH3 && TermOrder.Compare(vH3, vH1) >= 0)
                             {
                                 state = ListUniqueMergeState.Rumerge3_21_37;
                                 arguments = [vT1, vT2, vH2, vM, vT3, vH3, vH1];
@@ -965,7 +965,7 @@ internal static class ListUniqueMergeMachine
                             }
                         }
                         {
-                            if (arguments[0] is Nil && arguments[1] is var vT2 && arguments[2] is var vH2 && arguments[3] is var vM && arguments[4] is var vT3 && arguments[5] is var vH3 && TermOrder.Compare(vH2, vH3) <= 0)
+                            if (arguments[0] is Nil && arguments[1] is var vT2 && arguments[2] is var vH2 && arguments[3] is var vM && arguments[4] is var vT3 && arguments[5] is var vH3 && TermOrder.Compare(vH3, vH2) >= 0)
                             {
                                 state = ListUniqueMergeState.Rumerge2_25;
                                 arguments = [vT2, vT3, vM, vH3, vH2];
@@ -990,7 +990,7 @@ internal static class ListUniqueMergeMachine
                 case ListUniqueMergeState.Rumerge3_12a7:
                     {
                         {
-                            if (arguments[0] is var vT1 && arguments[1] is var vH1 && arguments[2] is var vT2 && arguments[3] is var vH2 && arguments[4] is var vM && arguments[5] is var vT3 && arguments[6] is var vH3 && TermOrder.Compare(vH2, vH3) <= 0)
+                            if (arguments[0] is var vT1 && arguments[1] is var vH1 && arguments[2] is var vT2 && arguments[3] is var vH2 && arguments[4] is var vM && arguments[5] is var vT3 && arguments[6] is var vH3 && TermOrder.Compare(vH3, vH2) >= 0)
                             {
                                 state = ListUniqueMergeState.Rumerge3_12_37;
                                 arguments = [vT1, vT2, vH2, vM, vT3, vH3, vH1];
@@ -1015,7 +1015,7 @@ internal static class ListUniqueMergeMachine
                 case ListUniqueMergeState.Rumerge3_27:
                     {
                         {
-                            if (arguments[0] is var vT1 && arguments[1] is Cons cell0 && cell0.Head is var vH2 && cell0.Tail is var vT2 && arguments[2] is var vH2M && arguments[3] is var vM && arguments[4] is var vT3 && arguments[5] is var vH3 && arguments[6] is var vH1 && TermOrder.Compare(vH1, vH2) <= 0)
+                            if (arguments[0] is var vT1 && arguments[1] is Cons cell0 && cell0.Head is var vH2 && cell0.Tail is var vT2 && arguments[2] is var vH2M && arguments[3] is var vM && arguments[4] is var vT3 && arguments[5] is var vH3 && arguments[6] is var vH1 && TermOrder.Compare(vH2, vH1) >= 0)
                             {
                                 state = ListUniqueMergeState.Rumerge3_12b8;
                                 arguments = [vT1, vH1, vT2, vH2, vM, vT3, vH3, vH2M];
@@ -1031,7 +1031,7 @@ internal static class ListUniqueMergeMachine
                             }
                         }
                         {
-                            if (arguments[0] is var vT1 && arguments[1] is Cons cell0 && cell0.Head is var vH2 && cell0.Tail is var vT2 && arguments[2] is var vH2M && arguments[3] is var vM && arguments[4] is var vT3 && arguments[5] is var vH3 && arguments[6] is var vH1 && TermOrder.Compare(vH1, vH3) <= 0)
+                            if (arguments[0] is var vT1 && arguments[1] is Cons cell0 && cell0.Head is var vH2 && cell0.Tail is var vT2 && arguments[2] is var vH2M && arguments[3] is var vM && arguments[4] is var vT3 && arguments[5] is var vH3 && arguments[6] is var vH1 && TermOrder.Compare(vH3, vH1) >= 0)
                             {
                                 state = ListUniqueMergeState.Rumerge3_21_37;
                                 arguments = [vT1, vT2, vH2, new Cons(vH2M, vM), vT3, vH3, vH1];
@@ -1055,7 +1055,7 @@ internal static class ListUniqueMergeMachine
                             }
                         }
                         {
-                            if (arguments[0] is var vT1 && arguments[1] is Nil && arguments[2] is var vH2M && arguments[3] is var vM && arguments[4] is var vT3 && arguments[5] is var vH3 && arguments[6] is var vH1 && TermOrder.Compare(vH1, vH3) <= 0)
+                            if (arguments[0] is var vT1 && arguments[1] is Nil && arguments[2] is var vH2M && arguments[3] is var vM && arguments[4] is var vT3 && arguments[5] is var vH3 && arguments[6] is var vH1 && TermOrder.Compare(vH3, vH1) >= 0)
                             {
                                 state = ListUniqueMergeState.Rumerge2_25;
                                 arguments = [vT1, vT3, new Cons(vH2M, vM), vH3, vH1];
@@ -1080,7 +1080,7 @@ internal static class ListUniqueMergeMachine
                 case ListUniqueMergeState.Rumerge3_12b8:
                     {
                         {
-                            if (arguments[0] is var vT1 && arguments[1] is var vH1 && arguments[2] is var vT2 && arguments[3] is var vH2 && arguments[4] is var vM && arguments[5] is var vT3 && arguments[6] is var vH3 && arguments[7] is var vH2M && TermOrder.Compare(vH2, vH3) <= 0)
+                            if (arguments[0] is var vT1 && arguments[1] is var vH1 && arguments[2] is var vT2 && arguments[3] is var vH2 && arguments[4] is var vM && arguments[5] is var vT3 && arguments[6] is var vH3 && arguments[7] is var vH2M && TermOrder.Compare(vH3, vH2) >= 0)
                             {
                                 state = ListUniqueMergeState.Rumerge3_12_37;
                                 arguments = [vT1, vT2, vH2, new Cons(vH2M, vM), vT3, vH3, vH1];
@@ -1105,7 +1105,7 @@ internal static class ListUniqueMergeMachine
                 case ListUniqueMergeState.Rumerge3_12_37:
                     {
                         {
-                            if (arguments[0] is var vT1 && arguments[1] is var vT2 && arguments[2] is var vH2 && arguments[3] is var vM && arguments[4] is Cons cell0 && cell0.Head is var vH3 && cell0.Tail is var vT3 && arguments[5] is var vH3M && arguments[6] is var vH1 && TermOrder.Compare(vH2, vH3) <= 0)
+                            if (arguments[0] is var vT1 && arguments[1] is var vT2 && arguments[2] is var vH2 && arguments[3] is var vM && arguments[4] is Cons cell0 && cell0.Head is var vH3 && cell0.Tail is var vT3 && arguments[5] is var vH3M && arguments[6] is var vH1 && TermOrder.Compare(vH3, vH2) >= 0)
                             {
                                 state = ListUniqueMergeState.Rumerge3_12_37;
                                 arguments = [vT1, vT2, vH2, new Cons(vH3M, vM), vT3, vH3, vH1];
@@ -1154,7 +1154,7 @@ internal static class ListUniqueMergeMachine
                 case ListUniqueMergeState.Rumerge3_21_37:
                     {
                         {
-                            if (arguments[0] is var vT1 && arguments[1] is var vT2 && arguments[2] is var vH2 && arguments[3] is var vM && arguments[4] is Cons cell0 && cell0.Head is var vH3 && cell0.Tail is var vT3 && arguments[5] is var vH3M && arguments[6] is var vH1 && TermOrder.Compare(vH1, vH3) <= 0)
+                            if (arguments[0] is var vT1 && arguments[1] is var vT2 && arguments[2] is var vH2 && arguments[3] is var vM && arguments[4] is Cons cell0 && cell0.Head is var vH3 && cell0.Tail is var vT3 && arguments[5] is var vH3M && arguments[6] is var vH1 && TermOrder.Compare(vH3, vH1) >= 0)
                             {
                                 state = ListUniqueMergeState.Rumerge3_21_37;
                                 arguments = [vT1, vT2, vH2, new Cons(vH3M, vM), vT3, vH3, vH1];
@@ -1203,7 +1203,7 @@ internal static class ListUniqueMergeMachine
                 case ListUniqueMergeState.Umerge2_15:
                     {
                         {
-                            if (arguments[0] is Cons cell0 && cell0.Head is var vH1 && cell0.Tail is var vT1 && arguments[1] is var vT2 && arguments[2] is var vM && arguments[3] is var v_HdM && arguments[4] is var vH2 && TermOrder.Compare(vH1, vH2) <= 0)
+                            if (arguments[0] is Cons cell0 && cell0.Head is var vH1 && cell0.Tail is var vT1 && arguments[1] is var vT2 && arguments[2] is var vM && arguments[3] is var v_HdM && arguments[4] is var vH2 && TermOrder.Compare(vH2, vH1) >= 0)
                             {
                                 state = ListUniqueMergeState.Umerge2_15;
                                 arguments = [vT1, vT2, new Cons(vH1, vM), vH1, vH2];
@@ -1266,7 +1266,7 @@ internal static class ListUniqueMergeMachine
                 case ListUniqueMergeState.Umerge2_24:
                     {
                         {
-                            if (arguments[0] is var vT1 && arguments[1] is Cons cell0 && cell0.Head is var vH2 && cell0.Tail is var vT2 && arguments[2] is var vM && arguments[3] is var vH1 && TermOrder.Compare(vH1, vH2) <= 0)
+                            if (arguments[0] is var vT1 && arguments[1] is Cons cell0 && cell0.Head is var vH2 && cell0.Tail is var vT2 && arguments[2] is var vM && arguments[3] is var vH1 && TermOrder.Compare(vH2, vH1) >= 0)
                             {
                                 state = ListUniqueMergeState.Umerge2_15;
                                 arguments = [vT1, vT2, new Cons(vH1, vM), vH1, vH2];
@@ -1306,7 +1306,7 @@ internal static class ListUniqueMergeMachine
                 case ListUniqueMergeState.Rumerge2_14:
                     {
                         {
-                            if (arguments[0] is Cons cell0 && cell0.Head is var vH1 && cell0.Tail is var vT1 && arguments[1] is var vT2 && arguments[2] is var vM && arguments[3] is var vH2 && TermOrder.Compare(vH1, vH2) <= 0)
+                            if (arguments[0] is Cons cell0 && cell0.Head is var vH1 && cell0.Tail is var vT1 && arguments[1] is var vT2 && arguments[2] is var vM && arguments[3] is var vH2 && TermOrder.Compare(vH2, vH1) >= 0)
                             {
                                 state = ListUniqueMergeState.Rumerge2_25;
                                 arguments = [vT1, vT2, vM, vH2, vH1];
@@ -1346,7 +1346,7 @@ internal static class ListUniqueMergeMachine
                 case ListUniqueMergeState.Rumerge2_25:
                     {
                         {
-                            if (arguments[0] is var vT1 && arguments[1] is Cons cell0 && cell0.Head is var vH2 && cell0.Tail is var vT2 && arguments[2] is var vM && arguments[3] is var vH2M && arguments[4] is var vH1 && TermOrder.Compare(vH1, vH2) <= 0)
+                            if (arguments[0] is var vT1 && arguments[1] is Cons cell0 && cell0.Head is var vH2 && cell0.Tail is var vT2 && arguments[2] is var vM && arguments[3] is var vH2M && arguments[4] is var vH1 && TermOrder.Compare(vH2, vH1) >= 0)
                             {
                                 state = ListUniqueMergeState.Rumerge2_25;
                                 arguments = [vT1, vT2, new Cons(vH2M, vM), vH2, vH1];

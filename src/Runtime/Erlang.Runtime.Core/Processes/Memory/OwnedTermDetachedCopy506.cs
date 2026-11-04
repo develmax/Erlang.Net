@@ -252,9 +252,11 @@ internal static class OwnedTermDetachedCopy506
                     node.Bitmap,
                     values
                 );
-            case MapTerm:
+            case MapTerm originalMap:
                 var physical = Enumerable.Range(0, values.Length / 2)
                     .Select(index => new KeyValuePair<Term, Term>(values[index * 2], values[index * 2 + 1])).ToArray();
+                if (originalMap.FlatKeys426 is not null)
+                    return MapTerm.FromSourceFlatPairs(physical);
                 var logical = new MapTerm(physical);
 
                 return logical.Entries.Count == physical.Length ? logical : MapTerm.FromNativeLayout504(physical);

@@ -1,5 +1,7 @@
 # Next steps
 
+Draft Part568 prepares the bulk physical-occurrence runtime patch in a separate PR to main. Ordsets stays6 Verified/15 KnownDifferences; current whole ETF replay remains RED. See [evidence and open acceptance gates](validation/part-568/ordsets-bulk/README.md).
+
 ## Executable queue
 
 - Preserve both explicit [string backends](string-backends.md) and their [source-bound local acceptance](validation/string-otp-merge-20261104/README.md). Final delivery is tracked in [PR105](https://github.com/develmax/Erlang.Net/pull/105); further work must retain value/error/full-stack, backing and scheduler/resource controls.
