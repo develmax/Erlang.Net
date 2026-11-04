@@ -76,9 +76,17 @@ UTF8 decode/re-encode, File.Exists precheck or Win32 call in the Unix branch.
 Linux and Darwin errno values are mapped independently; EISDIR becomes EPERM,
 and unknown numbers retain OTP errno_N formatting.
 
-This is the deletion boundary, not a promotion of the entire runtime. The older
-bootstrap filesystem registration still explicitly requires Windows, and other
-path/info/raw-file/kernel/native-admission boundaries retain platform gates.
-A Unix unlink implementation does not make complete DETS/kernel startup on
-Linux/macOS accepted. The standalone portable probe exercises this operation
-without that Windows bootstrap profile. See the [current platform receipt](validation/prim-file-platform-delete-20261104/README.md).
+The bootstrap filesystem now supports Windows, Linux and macOS. On Unix the
+SDK builds a small POSIX adapter with the host C compiler, keeping stat/dirent
+layouts inside native code. Common C# operations use raw byte paths, checked
+metadata ABI, positioned I/O, sync/truncate, directory operations and native errno.
+No Win32 call is made on Unix. The helper is copied transitively to application
+build/publish output; a host C compiler is required when building on Unix.
+
+DETS can run in a library host with original file_server/dets supervisors and
+explicit native dependencies, without full kernel/TTY/regex bootstrap. ETS
+allocator admission stays strict when memory is measured; unrelated ETS
+information registration no longer demands a particular Windows CLR binary.
+The dedicated three-OS workflow executes both backend choices and filesystem
+probes. See the [platform evidence](validation/dets-reconciliation-20261104/README.md)
+for actual results and outstanding acceptance gates.

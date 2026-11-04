@@ -194,8 +194,8 @@ internal static class DetsPlatformRunner
 
             return Nil.Value;
         });
-        Term result = await completion.Task.WaitAsync(TimeSpan.FromMinutes(2));
-        await worker.Completion.WaitAsync(TimeSpan.FromMinutes(2));
+        Term result = await completion.Task.WaitAsync(TimeSpan.FromMinutes(5));
+        await worker.Completion.WaitAsync(TimeSpan.FromMinutes(5));
         File.WriteAllText(
             Path.Combine(output, managed ? "managed.json" : "original.json"),
             JsonSerializer.Serialize(

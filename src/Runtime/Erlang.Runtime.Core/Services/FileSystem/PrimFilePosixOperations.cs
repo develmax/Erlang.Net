@@ -122,7 +122,7 @@ internal static class PrimFilePosixOperations
             out var info
         );
 
-        return error == 0 ? Ok(Info(info)) : Error(error);
+        return error == 0 ? Info(info) : Error(error);
     }
 
     private static Term Info(PrimFilePosixInfo info)
@@ -315,7 +315,7 @@ internal static class PrimFilePosixOperations
                     out var info
                 );
 
-                return error == 0 ? Ok(Info(info)) : Error(error);
+                return error == 0 ? Info(info) : Error(error);
             case PrimFileBuiltinNames.Handle:
                 return new BitString(BitConverter.GetBytes(fd));
             case PrimFileBuiltinNames.Indirect:

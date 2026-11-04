@@ -1,4 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup><OutputType>Exe</OutputType></PropertyGroup>
   <ItemGroup><ProjectReference Include="../../../src/Runtime/Erlang.Runtime/Erlang.Runtime.csproj" /></ItemGroup>
+  <ItemGroup>
+    <Compile Include="../../../tests/Erlang.Tests/Otp/Stdlib/Dets/DetsReviewRegressionChecks.cs" Link="DetsReviewRegressionChecks.cs" />
+  </ItemGroup>
 </Project>
