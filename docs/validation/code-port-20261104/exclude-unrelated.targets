@@ -1,0 +1,8 @@
+<Project>
+  <Target Name="CodePortFocusedCompile" BeforeTargets="CoreCompile">
+    <ItemGroup>
+      <Compile Remove="$(MSBuildProjectDirectory)/Storage/Dets/**/*.cs" />
+      <Compile Remove="Storage/Dets/**/*.cs" />
+    </ItemGroup>
+  </Target>
+</Project>

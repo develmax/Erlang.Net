@@ -461,6 +461,10 @@ catch (ArgumentException failure)
 
 
 var tests = new List<(string Name, Func<Task> Body)>();
+Test(Erlang.Tests.CodeBackendNames.Managed, () => Erlang.Tests.CodeBackendChecks.Run(true));
+Test(Erlang.Tests.CodeBackendNames.Beam, () => Erlang.Tests.CodeBackendChecks.Run(false));
+Test(Erlang.Tests.CodeBackendNames.Refusals, Erlang.Tests.CodeBackendChecks.CheckRefusals);
+Test(Erlang.Tests.CodeBackendNames.Native, Erlang.Tests.CodeBackendChecks.CheckNativeProfile);
 Test(Erlang.Tests.UnicodeBackendNames.ManagedTest, () => Erlang.Tests.UnicodeBackendChecks.Run(true));
 Test(Erlang.Tests.UnicodeBackendNames.BeamTest, () => Erlang.Tests.UnicodeBackendChecks.Run(false));
 Test(Erlang.Tests.UnicodeBackendNames.RefusalTest, Erlang.Tests.UnicodeBackendChecks.Refusals);

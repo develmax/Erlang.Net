@@ -62,6 +62,10 @@ public sealed partial class ProcessRuntime
             setup = runtime.InitializeModulesAsync(registry =>
             {
                 RuntimeNativePrimitiveProviders.Register(runtime, registry, options.NativePrimitives);
+                if (libraries.Modules.Any(choice => choice.Module == InterpreterCodeNativeNames.Module && choice.Backend == RuntimeModuleBackend.Managed))
+                {
+                    RuntimeManagedLibraries456.Register(registry, RuntimeManagedLibraryStage456.Code);
+                }
                 if (libraries.Modules.Any(choice => choice.Module == UnicodeNativeNames.Module && choice.Backend == RuntimeModuleBackend.Managed))
                 {
                     registry.InstallManagedUnicodePrimitives();

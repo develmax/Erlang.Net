@@ -6,6 +6,8 @@ Draft Part568 prepares the bulk physical-occurrence runtime patch in a separate 
 
 ## Executable queue
 
+- Complete [code acceptance](validation/code-port-20261104/README.md) beyond the passing69-export/156+25 corpus: full consumer startup closure, documentation/gzip dependencies, platform errors, races and upstream code_SUITE. Preserve selected code:is_loaded routing and semantic literal ownership; no100% promotion from finite counts.
+
 - [Downstream CI producer repair](validation/part-577/README.md): reconcile the remaining native/integrated producer identities and monitor completed final-head workflows.
 
 - [Unicode CI repairs](validation/part-576/README.md): linear conversion accumulation, 20 focused groups, retained OTP buffer observations and refreshed source-plan bindings; final-head CI remains the delivery gate.

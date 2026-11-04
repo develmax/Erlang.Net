@@ -30,6 +30,9 @@ public sealed class RuntimeModuleSelection
             throw new ArgumentException(LibrarySelectionNames.Dependency, nameof(dependencies));
         if (backend == RuntimeModuleBackend.Beam && bytes.IsEmpty)
             throw new ArgumentException(LibrarySelectionNames.Request, nameof(bytes));
+        if (backend == RuntimeModuleBackend.Managed && module == InterpreterCodeNativeNames.Module
+            && !LibrarySelectionNames.CodeDependencies.All(value => requested.Contains(value, StringComparer.Ordinal)))
+            throw new ArgumentException(LibrarySelectionNames.Dependency, nameof(dependencies));
         Module = module;
         Backend = backend;
         image = bytes.ToArray();
