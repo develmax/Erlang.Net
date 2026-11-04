@@ -39,7 +39,7 @@ jobs:
           git clone --depth 1 --branch OTP-29.1.1 https://github.com/erlang/otp.git artifacts/nif-platform-ci/otp
           test "$(git -C artifacts/nif-platform-ci/otp rev-parse HEAD)" = ad05823719d77c8faee87348ea39513d4e2f99c5
           cd artifacts/nif-platform-ci/otp
-          ./configure --prefix="$GITHUB_WORKSPACE/artifacts/nif-platform-ci/installed" --without-javac --without-wx --without-odbc --without-ssl --without-termcap --disable-jit
+          ./configure --prefix="$GITHUB_WORKSPACE/artifacts/nif-platform-ci/installed" --without-javac --without-wx --without-odbc --without-debugger --without-observer --without-et --without-ssl --without-termcap --disable-jit
           make -j4
           make install
       - name: Build and smoke-test native bridge on the target
@@ -57,6 +57,20 @@ jobs:
             "$GITHUB_WORKSPACE/artifacts/nif-platform-ci/native/nif_platform_probe.so" \
             > artifacts/nif-platform-ci/managed-checks.json
           python3 -c "import json; p=json.load(open('artifacts/nif-platform-ci/managed-checks.json')); assert p['Architecture']=='${{ matrix.arch }}'; assert all(x['Passed'] for x in p['Results'])"
+      - name: Compare a real native image on OTP and our BEAM runtime
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 tools/Native/Erlang.NifPlatformValidation/build-platform-fixture.py \
+            --repository . --otp-root artifacts/nif-platform-ci/installed/lib/erlang \
+            --bridge artifacts/nif-platform-ci/native/Erlang.NifBridge.so \
+            --output artifacts/nif-platform-ci/image
+          dotnet tools/Native/Erlang.NifPlatformValidation/bin/Debug/net10.0/Erlang.NifNativeBackend.dll \
+            --image artifacts/nif-platform-ci/image/ebin/nif_platform_fixture.beam \
+            artifacts/nif-platform-ci/image/managed/nif_platform_fixture.so \
+            artifacts/nif-platform-ci/image/managed.etf \
+            > artifacts/nif-platform-ci/image/managed-checks.json
+          cmp artifacts/nif-platform-ci/image/original.etf artifacts/nif-platform-ci/image/managed.etf
       - uses: actions/upload-artifact@v7
         if: always()
         with:
@@ -64,6 +78,7 @@ jobs:
           path: |
             artifacts/nif-platform-ci/native
             artifacts/nif-platform-ci/managed-checks.json
+            artifacts/nif-platform-ci/image
   native-windows-arm64:
     runs-on: windows-11-arm
     timeout-minutes: 25

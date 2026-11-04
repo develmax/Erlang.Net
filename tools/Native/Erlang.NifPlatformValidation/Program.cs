@@ -3,6 +3,22 @@ using System.Runtime.InteropServices;
 using System.Text.Json;
 using Erlang;
 
+if (args is ["--image", var beam, var library, var imageOutput])
+{
+    try
+    {
+        await NifPlatformImageChecks.Run(beam, library, imageOutput);
+        Console.WriteLine(JsonSerializer.Serialize(new { Passed = true, Architecture = RuntimeInformation.ProcessArchitecture.ToString() }));
+    }
+    catch (Exception error)
+    {
+        Console.WriteLine(JsonSerializer.Serialize(new { Passed = false, Error = error.ToString() }));
+        Environment.ExitCode = 1;
+    }
+
+    return;
+}
+
 var results = new List<object>();
 int failed = 0;
 void Check(string name, Action test)
