@@ -1,0 +1,13 @@
+namespace Erlang;
+
+public sealed class ManagedKernelRegistration : IRuntimeManagedLibrary456
+{
+    public void Register(ModuleRegistry registry, RuntimeManagedLibraryStage456 stage)
+    {
+        if (stage != RuntimeManagedLibraryStage456.File)
+        {
+            throw new ArgumentOutOfRangeException(nameof(stage));
+        }
+        FileModule.Register(registry);
+    }
+}

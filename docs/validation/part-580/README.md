@@ -1,11 +1,65 @@
-# PR109 follow-up: original common_test/dialyzer boot
+# Part580 — file literal ownership and scoped PR evidence
 
-The Windows job [126570358234](https://github.com/develmax/Erlang.Net/actions/runs/41828811531/job/126570358234) on `0d492c8e0394b39a0784bb962fb3c7d231d18ed7` passed the repaired source admissions but failed `validate.ps1` in `Erlang.Otp.TestAnalysis.Library.Tests`, at the whole-outcome comparison.
+Date:2026-11-04. Base:67809531bb2603202937ca0562e9dcf54174e298.
+Reference:OTP29.1.1/ad05823719d77c8faee87348ea39513d4e2f99c5.
+Literal cleanup is complete; **100% file compatibility is not achieved**.
 
-The failure reproduces locally. Original `ct_groups:make_conf/4` calls the selected original `code:is_loaded/1`, which reaches `code_server:is_loaded/1`. The test's partial boot started only `file_server_2`; its missing `code_server` ETS table produced `badarg` instead of the original returned configurations. The former unconditional import shortcut had concealed this missing dependency.
+## Results
 
-The fix starts the unchanged original `code_server` through a boot `kernelProcess` instruction. The unchanged observer image is written into the boot directory and loaded by original `init` through `primLoad`, so `init:fetch_loaded/0` reports its filename to the server. It is no longer prepublished outside boot. Assertions check its absence before boot, actual BEAM ownership afterward and the live server. The original 2463-case ETF and observer sources/BEAM remain unchanged.
+| Check | Actual result |
+| --- | --- |
+| Clean validator/dependency build |0 warnings/errors |
+| Test project compilation |0 warnings/errors |
+| C# / original BEAM library corpus |408 exact comparisons per backend,0 differences/skips |
+| Five connected regression cases |5/5 passing; Partial=true,9712 available cases |
+| Literal audit |8 behavior/admission files,0 findings |
+| Literal-audit controls |embedded atom and4096 rejected; documentation comment accepted |
+| Corpus/source digest controls |both rejected for the intended digest reason; no success report |
+| SDK layout |0 files need formatting |
+| Full filesystem cycles |raw/normal/RAM/consult/compressed each fail in each backend |
 
-Validation: ordinary build of the affected test project, no source exclusions; the entire common_test/dialyzer group matches all 2463 original outcomes/stacks and identical raw ETF bytes. `testanalysis.json` records source/result hashes and the local failing/successful comparison. Full local regression was not run. Hosted follow-up CI remains a separate gate.
+Each complete cycle uses a fresh runtime. These ten failures preserve the existing
+native/provider gaps; they are neither omitted nor accepted as expected API
+values. In particular ordinary/raw opening reaches missing prim_file:open_nif/2,
+and the RAM driver fails. Complete parser/compression/socket effects and native
+resources/ownership/source-stack/platform/metadata acceptance remain open.
 
-PR109 was already merged externally as `91c05943d4dba4c912a76f80ac5e6d778bffe4b3` while its checks were still running. This follow-up targets current `main`; it does not imply approval, merge, review resolution or broader compatibility promotion.
+The main corpus includes69 exports, complete captured exception stacks,
+descriptor/copy effects, positional batches, unsigned indirect headers,
+monitored process termination, recursive deletion, callback sendfile restoration,
+server command payloads and available real Windows read/info/list/getcwd paths.
+Validation-only devices exercise protocols and are not production substitutes.
+Both hosts reset fixture access time before each observation; returned timestamps
+and stacks are compared unchanged. Original source/image are not modified.
+
+## Reproduction
+
+```powershell
+dotnet build tools/Validation/Erlang.FileCompatibility -m:1
+dotnet build tests/Erlang.Tests -m:1
+py -3 tools/Validation/audit-file-literals.py . --self-test
+pwsh -File tools/validate-file-original.ps1 -Admission <official-admission.json> -Output artifacts/file-fresh -CaptureOnly
+dotnet tools/Validation/Erlang.FileCompatibility/bin/Debug/net10.0/Erlang.FileCompatibility.dll . artifacts/file-fresh Managed
+dotnet tools/Validation/Erlang.FileCompatibility/bin/Debug/net10.0/Erlang.FileCompatibility.dll . artifacts/file-fresh Beam
+# Each backend, each gate index0 through4; nonzero is currently required by the actual differences:
+dotnet tools/Validation/Erlang.FileCompatibility/bin/Debug/net10.0/Erlang.FileCompatibility.dll . artifacts/file-fresh Managed runtime-gates.etf 0
+```
+
+The exact regression selection is in `connected-tests.json`. It contains four
+prim_file410 host controls and `runtime/library396/file-encoding-private-source-owner`.
+The literal audit intentionally permits obvious small tuple/argument indexes and
+arithmetic identities; named source/MFA/protocol/layout/configuration values stay
+with semantic owners. Independent Erlang fixtures retain concrete reference inputs.
+
+`provenance.json` authenticates captured source/image/corpus identities and the
+official provider closure checked before/after capture. The passing reports and
+ten `*-runtime-gates-N.json` reports record actual assembly hashes. `source-bindings.json`
+binds the task's source inputs; `runner-bindings.json` binds executable dependencies.
+Negative-control logs, build/style/audit logs and raw ETF/BEAM bytes are retained
+alongside this receipt. Recreated filesystem metadata needs fresh acquisition;
+replaying copied ETF bytes at a different fixture location is not equivalent.
+
+Full local regression/global readiness/manual CI dispatch were not run. No
+compatibility classification or performance claim is promoted. See the
+[backend guide](../../file-backends.md) and [English changelog](../../changelog/0105.md).
+PR creation is authorized; merging and NuGet publication are not part of this part.

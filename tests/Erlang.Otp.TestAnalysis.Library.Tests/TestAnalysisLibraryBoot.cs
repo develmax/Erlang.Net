@@ -47,8 +47,12 @@ internal static class TestAnalysisLibraryBoot
                 Term.Tuple(Term.A(PrimitiveLoad), Term.List(Term.A(TestAnalysisLibraryNames.Observer))),
                 Term.Tuple(Term.A(LoadCompleted)),
                 Term.Tuple(Term.A(KernelProcess), Term.A(FileServer), Term.Tuple(Term.A(FileServerModule), Term.A(StartLink), Nil.Value)),
-                Term.Tuple(Term.A(KernelProcess), Term.A(CodeServer), Term.Tuple(Term.A(CodeServer), Term.A(StartLink),
-                    Term.List(Term.List(Text(directory), Term.A(Embedded))))),
+                Term.Tuple(
+                    Term.A(KernelProcess),
+                    Term.A(CodeServer),
+                    Term.Tuple(Term.A(CodeServer), Term.A(StartLink),
+                    Term.List(Term.List(Text(directory), Term.A(Embedded))))
+                ),
                 Term.Tuple(Term.A(Progress), Term.A(Started))
             )
         );

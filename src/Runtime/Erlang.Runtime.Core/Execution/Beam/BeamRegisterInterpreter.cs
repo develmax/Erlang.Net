@@ -1085,8 +1085,13 @@ internal static partial class BeamRegisterInterpreter
                                 if (!dynamicCall && operands[0].Kind == BeamOperandParameters.Unsigned)
                                     BeamClosureFactory.RequireKnownTarget(callee, code, (int)operands[0].Value);
                                 if (callee is not FunctionTerm callable)
-                                    throw new ErlangException(Term.Tuple(Term.A(ErlangErrorReasons.BadFunction), callee));
+                                    throw BeamFunctionCallErrors.BadFunction(context, callee);
                                 Term[] funArguments = Enumerable.Range(0, arity).Select(registers.Read).ToArray();
+                                if (callable.Arity != arity)
+                                {
+                                    throw ErlangFunctionCallErrors.Capture(context, Term.Tuple(
+                                        Term.A(ErlangErrorReasons.BadArity), Term.Tuple(callable, Cons.From(funArguments))));
+                                }
                                 using var funRoots507 = registers.HasOwnedRoots507 ? registers.Protect507(callee, Term.Tuple(funArguments)) : null;
                                 bool tailFun = BeamFunTailProtocol.TryDeallocation(
                                     code,
@@ -1128,15 +1133,27 @@ internal static partial class BeamRegisterInterpreter
                             {
                                 Term recipient = registers.Read(0);
                                 Term sentMessage = registers.Read(1);
-                                if (registers.HasOwnedRoots507)
-                                    await ErlangOperatorValues.TrySendBeam593Async(
-                                        context,
-                                        registers,
-                                        recipient,
-                                        sentMessage
+                                try
+                                {
+                                    if (registers.HasOwnedRoots507)
+                                        await ErlangOperatorValues.TrySendBeam593Async(
+                                            context,
+                                            registers,
+                                            recipient,
+                                            sentMessage
+                                        );
+                                    else
+                                        await ErlangOperatorValues.TrySendAsync(context, recipient, sentMessage);
+                                }
+                                catch (ErlangException error)
+                                {
+                                    throw context.CaptureNativeFailure(
+                                        error,
+                                        ErlangModuleNames.Module,
+                                        ErlangBasicBifNames.Send,
+                                        [registers.Export507(recipient), registers.Export507(sentMessage)]
                                     );
-                                else
-                                    await ErlangOperatorValues.TrySendAsync(context, recipient, sentMessage);
+                                }
                                 registers.Write(0, sentMessage);
                                 break;
                             }

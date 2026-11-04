@@ -1,0 +1,18 @@
+test_current_source_freezes_survive_windows_checkout_filters (test_source_bindings.IntegratedBindingsTests.test_current_source_freezes_survive_windows_checkout_filters) ... 
+  test_current_source_freezes_survive_windows_checkout_filters (test_source_bindings.IntegratedBindingsTests.test_current_source_freezes_survive_windows_checkout_filters) (path='docs/validation/part-582/source-plan-refresh/monitor-current-source.json', autocrlf='true') ... FAIL
+
+======================================================================
+FAIL: test_current_source_freezes_survive_windows_checkout_filters (test_source_bindings.IntegratedBindingsTests.test_current_source_freezes_survive_windows_checkout_filters) (path='docs/validation/part-582/source-plan-refresh/monitor-current-source.json', autocrlf='true')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\Distr\Work\Codex\Erlang.Net\file-pr-constants\tools\Validation\Erlang.CiReuse\test_source_bindings.py", line 27, in test_current_source_freezes_survive_windows_checkout_filters
+    self.assertEqual(hashlib.sha256(data).hexdigest().upper(),
+AssertionError: 'AC9D33B746168A0845ACB0868D9437B4F624E389E643D1B8E650F7E28B624E4E' != '5CBD99529AD75E6563CA6A0CD7949ED78BE6F0434DC00949F64B497B89DB3775'
+- AC9D33B746168A0845ACB0868D9437B4F624E389E643D1B8E650F7E28B624E4E
++ 5CBD99529AD75E6563CA6A0CD7949ED78BE6F0434DC00949F64B497B89DB3775
+
+
+----------------------------------------------------------------------
+Ran 1 test in 1.060s
+
+FAILED (failures=1)

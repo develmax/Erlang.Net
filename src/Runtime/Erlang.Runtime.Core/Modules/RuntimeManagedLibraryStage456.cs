@@ -7,5 +7,9 @@ public enum RuntimeManagedLibraryStage456
     BinaryWrappers,
     String,
     Unicode,
-    Code
+    Code,
+    File,
+    GenEvent,
+    GenStatem,
+    Timer
 }
