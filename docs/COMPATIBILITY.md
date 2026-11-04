@@ -1,5 +1,9 @@
 # Compatibility overview
 
+Part589 updates ASN.1 PR118 from timer main29b92f63d, retaining both components and the qualified file atom. Fresh focused build,65 checks/26 OTP outcomes and passive bindings pass. [Evidence](validation/part-589/README.md).
+
+Part588 fixes the ASN.1 consumer CS0119 exposed after the file backend was added: qualify the existing file atom constant. Focused build and65 checks/26 fresh OTP outcomes pass; no runtime or compatibility change. [Evidence](validation/part-588/README.md).
+
 [Part587](validation/part-587/README.md) fixes the gen_statem sys continuation review finding:97 retained managed machines become1 after32 generations. Both backends pass74+311 full observations/scenarios. Final-head hosted review/CI and wider OTP acceptance remain separate.
 
 [gen_statem merge repair](validation/gen-statem-merge-20261104/README.md) reconciles gen_statem PR112 with code/file/gen_event main and refreshes declared source identities. Prior module comparisons remain historical; final-head hosted checks and the sys continuation review finding remain open.
