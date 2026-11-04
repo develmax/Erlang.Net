@@ -101,7 +101,9 @@ No full regression or global readiness refresh is included. Physical resource,
 scheduler, metadata, platform-wide and complete contract acceptance remain open.
 
 
-The current-main publication successor is [Part584](validation/ets-pr-20261104/README.md).
+The current-main publication successor is [ETS PR116](validation/ets-pr-20261104/README.md).
 It replaces inline protocol strings, source lines and semantic numbers with
 owning catalogs and uses an ordinary build without draft exclusions. The old
 Part569 receipt remains historical evidence of its frozen assemblies.
+
+Current PR116 source after main reconciliation: [Part586](validation/ets-main-reconcile-20261104/README.md).

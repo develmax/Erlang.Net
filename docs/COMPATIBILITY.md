@@ -1,6 +1,13 @@
 # Compatibility overview
 
-[ETS Part584](validation/ets-pr-20261104/README.md) retains explicit Managed/Beam selection and the unchanged OTP-29.1.1 source. All ETS protocol strings, source coordinates, format/chunk/display values and QLC identities have domain names. Acceptance is scoped; universal OTP compatibility remains open.
+[ETS Part586](validation/ets-main-reconcile-20261104/README.md) retains explicit Managed/Beam selection and the unchanged OTP-29.1.1 source. All ETS protocol strings, source coordinates, format/chunk/display values and QLC identities have domain names. Acceptance is scoped; universal OTP compatibility remains open.
+
+Part586 fixes the omitted Monitor source-freeze manifest behind main CI41836436436 and adds a committed-manifest guard. No runtime or compatibility change. [Failure and focused validation](validation/part-586/README.md).
+
+PR111 Part585 reconciles code/file/gen_event on current main, refreshes declared source/producer pins and checks the retained BEAM image hash. Fresh105/105 per backend passes; final-head CI remains required. [Repair evidence](validation/part-585/README.md).
+
+
+gen_event Part584: all44 non-metadata exports have explicit C#/original BEAM alternatives. Primary105/105 per backend passes; Managed depth3 is104/105 because an upstream zero-timeout assumption races an already queued response. Whole-module/scheduling compatibility remains partial. [Finite evidence](validation/part-584/README.md).
 
 [Part583](validation/part-583/README.md) repairs Windows checkout conversion of the Part582 source freeze. Raw source admission remains strict; no compatibility status is promoted.
 

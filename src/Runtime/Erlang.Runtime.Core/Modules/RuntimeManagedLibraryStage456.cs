@@ -9,5 +9,6 @@ public enum RuntimeManagedLibraryStage456
     Unicode,
     Code,
     File,
+    GenEvent,
     Ets
 }

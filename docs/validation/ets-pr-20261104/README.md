@@ -1,3 +1,5 @@
+Historical initial PR116 receipt. Current source successor: [Part586](../ets-main-reconcile-20261104/README.md).
+
 # ETS selectable backends and semantic constants — Part584, 2026-11-04
 
 All25 ETS library exports are implemented in C# over51 shared primitives.

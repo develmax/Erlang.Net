@@ -3,6 +3,20 @@
   "Components": [
     {
       "Status": "Partially compatible",
+      "Project": "src/Otp/Managed/Erlang.Otp.Stdlib",
+      "Remaining": [
+        "Managed depth3 zero-timeout upstream testcase race; whole-suite/scheduling/distribution/resources/cross-platform equivalence unproved."
+      ],
+      "Implemented": [
+        "Part584: explicit C#/retained BEAM alternatives,44 non-metadata exports; clean primary105/105 per backend; semantic literal ownership and nine-file audit. Depth0,1,2,8,32 both pass; Managed depth3 remains104/105. See validation/part-584."
+      ],
+      "Id": "GenEvent",
+      "TestPrefixes": [
+        "gen_event/"
+      ]
+    },
+    {
+      "Status": "Partially compatible",
       "Project": "src/Runtime/Erlang.Terms",
       "Remaining": [
         "Full configurable atom/resource/fatal-exhaustion semantics and native loaded-module lifecycle;distributed identity",
@@ -720,7 +734,7 @@
       "Status": "Partially compatible",
       "Remaining": [
         "C# library alternatives are isolated from VM/native primitives; complete OTP contracts remain per-module and separate from project extraction.",
-        "ETS Part584: full upstream/concurrency/platform/resource/metadata and complete startup-manifest acceptance remain; finite differential scope is not100% OTP compatibility."
+        "ETS Part586: full upstream/concurrency/platform/resource/metadata and complete startup-manifest acceptance remain; finite differential scope is not100% OTP compatibility."
       ],
       "Id": "C# stdlib",
       "Implemented": [
@@ -728,7 +742,7 @@
         "Existing collection, binary wrapper and process library implementations in their own assembly",
         "Unicode: complete optional 22-export managed surface beside original Erlang; focused acceptance tracked separately in validation/unicode-port-20261104/PUBLICATION.md. No default MFA or whole-contract status promotion.",
         "Part573: all71 string exports retain explicit C# and original Erlang/BEAM selection, source-correct errors/stacks and cooperative traversal checkpoints. Same-source8522 complete outcomes and six depth profiles independently match each backend;9706 full tests pass. Default registration and compatibility classifications are unchanged.",
-        "Part584 ETS: all25 C# library bodies over51 shared primitives, explicit unchanged original BEAM alternative and named semantic literals. Scoped current-main receipt at docs/validation/ets-pr-20261104; no canonical readiness promotion."
+        "Part586 ETS: all25 C# library bodies over51 shared primitives, explicit unchanged original BEAM alternative and named semantic literals. Scoped current-main receipt at docs/validation/ets-pr-20261104; no canonical readiness promotion."
       ],
       "TestPrefixes": [
         "otp/code/",

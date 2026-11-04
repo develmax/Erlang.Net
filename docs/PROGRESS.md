@@ -1,6 +1,13 @@
 # Project progress
 
-- [Part584 ETS](validation/ets-pr-20261104/README.md): selectable C# library (25 exports over 51 shared primitives), original Erlang retained; semantic literal catalogs and ordinary current-main focused acceptance. No canonical readiness regeneration or universal compatibility claim.
+- [Part586 ETS](validation/ets-main-reconcile-20261104/README.md): selectable C# library (25 exports over 51 shared primitives), original Erlang retained; semantic literal catalogs and ordinary current-main focused acceptance. No canonical readiness regeneration or universal compatibility claim.
+
+Part586 fixes the omitted Monitor source-freeze manifest behind main CI41836436436 and adds a committed-manifest guard. No runtime or compatibility change. [Failure and focused validation](validation/part-586/README.md).
+
+PR111 Part585 reconciles code/file/gen_event on current main, refreshes declared source/producer pins and checks the retained BEAM image hash. Fresh105/105 per backend passes; final-head CI remains required. [Repair evidence](validation/part-585/README.md).
+
+
+Part584 adds selectable C# gen_event alongside retained Erlang/BEAM and removes magic literals using semantic owners. Clean focused build and primary105/105 per backend pass; Managed depth3 retains an upstream zero-timeout race (104/105). [Evidence and open gate](validation/part-584/README.md).
 
 [Part583](validation/part-583/README.md) repairs Windows checkout conversion of the Part582 source freeze. Raw source admission remains strict; no compatibility status is promoted.
 
