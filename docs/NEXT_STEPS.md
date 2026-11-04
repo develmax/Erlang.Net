@@ -6,6 +6,8 @@ Draft Part568 prepares the bulk physical-occurrence runtime patch in a separate 
 
 ## Executable queue
 
+- Complete hosted CI for the [analysis-library boot repair](validation/part-580/README.md), delivered separately after PR109 merged. Preserve the unchanged2463-case oracle and selected original code routing; local focused success does not establish whole-pipeline acceptance.
+
 - Complete [code acceptance](validation/code-port-20261104/README.md) beyond the passing69-export/156+25 corpus: full consumer startup closure, documentation/gzip dependencies, platform errors, races and upstream code_SUITE. Preserve selected code:is_loaded routing and semantic literal ownership; no100% promotion from finite counts.
 
 - [Downstream CI producer repair](validation/part-577/README.md): reconcile the remaining native/integrated producer identities and monitor completed final-head workflows.

@@ -6,7 +6,7 @@ Draft Part568 prepares the bulk physical-occurrence runtime patch in a separate 
 
 ## Current state and sources
 
-The [code backend](validation/code-port-20261104/README.md) retains original Erlang beside69 selectable C# exports (62 library/7 shared native signatures). Both backends match156 complete outcomes and25 lifecycle results;17 connected groups pass. Native JIT capability, full release/docs/platform/resource acceptance remain separate.
+The [code backend](validation/code-port-20261104/README.md) retains original Erlang beside69 selectable C# exports (62 library/7 shared native signatures). Both backends match159 complete outcomes and25 lifecycle results after the [source-stack repair](validation/part-579/README.md);17 connected groups pass. The [analysis consumer boot repair](validation/part-580/README.md) matches2463 unchanged original outcomes locally. Native JIT capability, whole hosted CI, full release/docs/platform/resource acceptance remain separate.
 
 - [Downstream CI producer repair](validation/part-577/README.md): reconcile the remaining native/integrated producer identities and monitor completed final-head workflows.
 

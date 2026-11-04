@@ -1,0 +1,53 @@
+{
+  "FailedJob": "https://github.com/develmax/Erlang.Net/actions/runs/41828811531/job/126570358234",
+  "FailedStep": "Run ./tools/validate.ps1 -TestRuntimeVersion 10.0.11",
+  "FailedGroup": "Erlang.Otp.TestAnalysis.Library.Tests",
+  "OriginalCases": 2463,
+  "OriginalFixtureChanged": false,
+  "Files": {
+    "Original": {
+      "Path": "tests/Erlang.Otp.TestAnalysis.Library.Tests/Fixtures/original-values.etf",
+      "Bytes": 1150566,
+      "Sha256": "c4ed56e9c3c32d0831fd1f785dda1d730654ec6ab9de10a5f7fdca024263b2b7"
+    },
+    "Before": {
+      "Path": "artifacts/code-ci-repair/testanalysis/managed-values.etf",
+      "Bytes": 1188600,
+      "Sha256": "919a6733552790a85c142ba2ef0831f0ee700e1e9facb8b6aad07e267266b37a"
+    },
+    "After": {
+      "Path": "artifacts/code-ci-repair/testanalysis-final/managed-values.etf",
+      "Bytes": 1150566,
+      "Sha256": "c4ed56e9c3c32d0831fd1f785dda1d730654ec6ab9de10a5f7fdca024263b2b7"
+    }
+  },
+  "BeforeMatchesOriginal": false,
+  "AfterMatchesOriginal": true,
+  "SourceFiles": [
+    {
+      "Path": "tests/Erlang.Otp.TestAnalysis.Library.Tests/PreparedBeamFixtureScope171.cs",
+      "Sha256": "4d9840aac5a426bac379f23c96c1af96a95f89b0cc4a537c95529ce18597bcc3"
+    },
+    {
+      "Path": "tests/Erlang.Otp.TestAnalysis.Library.Tests/Program.cs",
+      "Sha256": "aa2eb1400a1f332f3e027ddb85bec229770d9104576bc5e4393479e04839ef4b"
+    },
+    {
+      "Path": "tests/Erlang.Otp.TestAnalysis.Library.Tests/TestAnalysisLibraryBoot.cs",
+      "Sha256": "8d076b33383082ab6ce139ed91a01a40c6d62ffd3126c596426bcc5b98039a24"
+    },
+    {
+      "Path": "tests/Erlang.Otp.TestAnalysis.Library.Tests/TestAnalysisLibraryBootNames.cs",
+      "Sha256": "213541aa428001cd4283fc69816dbab7cb3e70562fce884599392e9adaecc894"
+    },
+    {
+      "Path": "tests/Erlang.Otp.TestAnalysis.Library.Tests/TestAnalysisLibraryChecks.cs",
+      "Sha256": "6b50047c49c480b11ef8f97c48c32a75b420bdfe6573ea054515ee40f6454618"
+    },
+    {
+      "Path": "tests/Erlang.Otp.TestAnalysis.Library.Tests/TestAnalysisLibraryNames.cs",
+      "Sha256": "9fb22ec4161040cd805bf6773780fe2d36cef21052a26b20d53f95e311b9ea30"
+    }
+  ],
+  "FullLocalRegressionRun": false
+}

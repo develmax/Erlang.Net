@@ -32,6 +32,10 @@ internal static class TestAnalysisLibraryBoot
         await initializer.Completion.WaitAsync(TimeSpan.FromSeconds(20));
         string directory = System.IO.Path.Combine(System.IO.Path.GetTempPath(), DirectoryPrefix + Guid.NewGuid().ToString(GuidFormat));
         Directory.CreateDirectory(directory);
+        using (Stream image = typeof(TestAnalysisLibraryBoot).Assembly.GetManifestResourceStream(
+            TestAnalysisLibraryNames.Prefix + TestAnalysisLibraryNames.ObserverImage)!)
+        using (Stream file = File.Create(System.IO.Path.Combine(directory, TestAnalysisLibraryNames.Observer + BeamExtension)))
+            image.CopyTo(file);
 
         Term Text(string value) => Term.String(value);
         Term script = Term.Tuple(
@@ -40,9 +44,11 @@ internal static class TestAnalysisLibraryBoot
             Term.List(
                 Term.Tuple(Term.A(Preloaded), Nil.Value),
                 Term.Tuple(Term.A(ScriptPath), Term.List(Text(directory))),
-                Term.Tuple(Term.A(PrimitiveLoad), Nil.Value),
+                Term.Tuple(Term.A(PrimitiveLoad), Term.List(Term.A(TestAnalysisLibraryNames.Observer))),
                 Term.Tuple(Term.A(LoadCompleted)),
                 Term.Tuple(Term.A(KernelProcess), Term.A(FileServer), Term.Tuple(Term.A(FileServerModule), Term.A(StartLink), Nil.Value)),
+                Term.Tuple(Term.A(KernelProcess), Term.A(CodeServer), Term.Tuple(Term.A(CodeServer), Term.A(StartLink),
+                    Term.List(Term.List(Text(directory), Term.A(Embedded))))),
                 Term.Tuple(Term.A(Progress), Term.A(Started))
             )
         );
@@ -55,10 +61,12 @@ internal static class TestAnalysisLibraryBoot
             RuntimeOtpBootSession session = await runtime.StartOtpBootAsync(arguments.Select(value => new BitString(Encoding.UTF8.GetBytes(value))), cancellation.Token);
             check(!session.Completion.IsCompleted && runtime.WhereIs(Init).Equals(session.InitializationProcess));
             check(runtime.WhereIs(FileServer) is Pid server && runtime.IsAlive(server));
+            check(runtime.WhereIs(CodeServer) is Pid codeServer && runtime.IsAlive(codeServer));
         }
         finally
         {
             File.Delete(boot + BootExtension);
+            File.Delete(System.IO.Path.Combine(directory, TestAnalysisLibraryNames.Observer + BeamExtension));
             Directory.Delete(directory);
         }
     }
