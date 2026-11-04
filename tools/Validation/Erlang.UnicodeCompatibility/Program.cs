@@ -20,7 +20,7 @@ byte[] Original(string name) => File.ReadAllBytes(Path.Combine(foundation, name 
 RuntimeLibrarySelection Selection(bool useManaged) => new([
     RuntimeModuleSelection.Managed("erlang"),
     RuntimeModuleSelection.Managed("lists"),
-    RuntimeModuleSelection.Beam("unicode_util", Original("unicode_util"), ["lists"]),
+    managed ? RuntimeModuleSelection.Managed("unicode_util") : RuntimeModuleSelection.Beam("unicode_util", Original("unicode_util"), ["lists"]),
     useManaged ? RuntimeModuleSelection.Managed("unicode", ["lists", "unicode_util"])
         : RuntimeModuleSelection.Beam("unicode", Original("unicode"), ["lists", "unicode_util"])
 ]);

@@ -29,8 +29,11 @@ internal static class PrimFileBuiltinNames
     internal const string DelayedClose = "delayed_close_nif";
     internal const string HandleInfo = "read_handle_info_nif";
     internal const string Handle = "get_handle_nif";
+    internal const string MakeDirectory = "make_dir_nif";
+    internal const string RemoveDirectory = "del_dir_nif";
     internal static readonly (string Name, int Arity)[] StorageSignatures =
     [
+        (MakeDirectory, 1), (RemoveDirectory, 1),
         (Open, 2), (Close, 1), (Read, 2), (Write, 2), (Pread, 3), (Pwrite, 3),
         (Seek, 3), (Sync, 2), (Truncate, 1), (Indirect, 3), (Delete, 1), (Rename, 2),
         (DelayedClose, 1), (HandleInfo, 1), (Handle, 1)

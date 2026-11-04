@@ -1,8 +1,12 @@
 # Project progress
 
+Part593: DETS review fixes/current-main reconciliation and Windows/Linux/macOS bootstrap file implementations are integrated. Windows standalone57 checks per backend and the review regression pass. Dedicated Unix platform execution/source-plan refresh remain pending; see [checkpoint](validation/dets-reconciliation-20261104/README.md). No full regression.
+
 Part592 splits prim_file deletion into a common C# result boundary and Windows/POSIX implementations. Unix unlink preserves raw filename bytes and uses separate Linux/Darwin errno tables; Windows directory/invalid-name errors now follow OTP. Focused Windows native-OTP and cross-ABI/path evidence is recorded in [the receipt](validation/prim-file-platform-delete-20261104/README.md). The complete bootstrap filesystem profile remains Windows-only; Unix native execution/full DETS startup is unverified.
 
 Part591 DETS adds all64 explicit exports through selectable C#/original Erlang alternatives, native v9 incremental storage and connected file/buffer/RAM/resource-lifetime primitives. Focused backend/upstream/interchange acceptance and limitations are in [the receipt](validation/dets-publication-20261104/README.md). Original Erlang is unchanged; no full regression or global readiness refresh.
+
+ETS PR116 review fixes: see [current evidence](validation/ets-review-20261104/README.md). Original Erlang remains selectable; directory rename and OS-atomic append are connected native acceptance scopes.
 
 Part589 updates ASN.1 PR118 from timer main29b92f63d, retaining both components and the qualified file atom. Fresh focused build,65 checks/26 OTP outcomes and passive bindings pass. [Evidence](validation/part-589/README.md).
 
@@ -29,6 +33,8 @@ Part574 consolidates the final Linux descriptor poll source and audits stale bra
 Draft Part568 prepares the bulk physical-occurrence runtime patch in a separate PR to main. Ordsets stays6 Verified/15 KnownDifferences; current whole ETF replay remains RED. See [evidence and open acceptance gates](validation/part-568/ordsets-bulk/README.md).
 
 ## Current status sources
+
+- [Managed Unicode utility](validation/part-591/README.md): all20 C# utility exports, an Erlang-free managed closure and retained original/backend selection; current evidence and delivery gates remain explicit.
 
 - [PR114 analysis consumer CI](validation/code-testanalysis-ci-20261104/README.md): original code_server boot repair passes235 checks and2463 unchanged original outcomes in hosted CI; reconcile main and repair its remaining source-layout failure. Final-head CI remains required.
 

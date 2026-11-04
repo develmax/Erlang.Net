@@ -11,6 +11,7 @@ public sealed class ManagedStdlibRegistration456 : IRuntimeManagedLibrary456
             case RuntimeManagedLibraryStage456.Collections: RegisterCollections(r); break;
             case RuntimeManagedLibraryStage456.Dets: DetsModule.Register(r); break;
             case RuntimeManagedLibraryStage456.Code: CodeModule.Register(r); break;
+            case RuntimeManagedLibraryStage456.Ets: EtsModule.Register(r); break;
             case RuntimeManagedLibraryStage456.Modules: RegisterModules(r); break;
             case RuntimeManagedLibraryStage456.BinaryWrappers: BinaryWrappersModule.Register(r); break;
             case RuntimeManagedLibraryStage456.String: StringModule.Register(r); break;
@@ -18,6 +19,7 @@ public sealed class ManagedStdlibRegistration456 : IRuntimeManagedLibrary456
             case RuntimeManagedLibraryStage456.GenEvent: GenEventModule.Register(r); break;
             case RuntimeManagedLibraryStage456.GenStatem: GenStatemModule.Register(r); break;
             case RuntimeManagedLibraryStage456.Timer: TimerLibrary.Register(r); break;
+            case RuntimeManagedLibraryStage456.UnicodeUtil: UnicodeUtilModule.Register(r); break;
             default: throw new ArgumentOutOfRangeException(nameof(stage));
         }
     }

@@ -1,8 +1,12 @@
 # Next steps
 
+Part593: DETS review fixes/current-main reconciliation and Windows/Linux/macOS bootstrap file implementations are integrated. Windows standalone57 checks per backend and the review regression pass. Dedicated Unix platform execution/source-plan refresh remain pending; see [checkpoint](validation/dets-reconciliation-20261104/README.md). No full regression.
+
 Part592: execute the standalone prim_file deletion probe on Linux and macOS; retain separate OS receipts. Extend the remaining bootstrap path/info/raw-file/native-admission platform boundaries before advertising complete Unix DETS startup. Preserve focused checks and existing C#/Erlang selection.
 
 Part591: review the isolated [DETS backend PR](dets-backends.md) and its focused OTP receipts. Keep full upstream-suite/resource/platform/interleaving and release-manifest startup acceptance explicit; preserve backend selection and do not promote canonical readiness from partial reports.
+
+ETS PR116 review fixes: see [current evidence](validation/ets-review-20261104/README.md). Original Erlang remains selectable; directory rename and OS-atomic append are connected native acceptance scopes.
 
 Part589 updates ASN.1 PR118 from timer main29b92f63d, retaining both components and the qualified file atom. Fresh focused build,65 checks/26 OTP outcomes and passive bindings pass. [Evidence](validation/part-589/README.md).
 
@@ -29,6 +33,8 @@ Part574 consolidates the final Linux descriptor poll source and audits stale bra
 Draft Part568 prepares the bulk physical-occurrence runtime patch in a separate PR to main. Ordsets stays6 Verified/15 KnownDifferences; current whole ETF replay remains RED. See [evidence and open acceptance gates](validation/part-568/ordsets-bulk/README.md).
 
 ## Executable queue
+
+- [Managed Unicode utility](validation/part-591/README.md): all20 C# utility exports, an Erlang-free managed closure and retained original/backend selection; current evidence and delivery gates remain explicit.
 
 - Complete final-head CI for [PR114 analysis consumer boot/layout repair](validation/code-testanalysis-ci-20261104/README.md), preserving the unchanged2463-case oracle and original code routing. No full local regression or compatibility promotion.
 

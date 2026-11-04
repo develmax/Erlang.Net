@@ -106,6 +106,19 @@ internal sealed class DetsV9File
 
     internal void Touch() => MarkDirty();
 
+    internal byte[] ReadCollection(long address)
+    {
+        uint size = Word(address);
+        if (size < DetsV9Layout.ObjectHeaderBytes || size > int.MaxValue
+            || address < allocator.Base || address + size > stream.Length
+            || Word(address + DetsV9Layout.WordBytes) != DetsV9Layout.Active)
+        {
+            throw new DetsFileException(DetsFileReasons.BadObject);
+        }
+
+        return ReadBlock(address, (int)size, (int)size);
+    }
+
     internal uint Slot(Term key)
     {
         uint hash = HashMethod == 1 ? ErlangPortableHash.Phash2(key)
@@ -130,7 +143,8 @@ internal sealed class DetsV9File
             stream,
             decode,
             allowDirty: true,
-            runtime: runtime
+            runtime: runtime,
+            liveSlotCount: Next
         ).ReadSlot(slot);
 
     internal IReadOnlyList<Term> Lookup(Term key)
@@ -472,8 +486,8 @@ internal sealed class DetsV9File
             DetsV9Writer.PutWord(stream, part + segment % DetsV9Layout.SegmentsPerPart * DetsV9Layout.WordBytes, destination);
             uint start = N;
             Next += DetsV9Layout.SlotsPerSegment;
-            // Permit the common slot reader to see the new directory before splitting.
-            DetsV9Writer.PutWord(stream, DetsV9Layout.NextOffset, Next);
+            // Keep the last saved header (and its digest) intact until Save.
+            // Dirty readers receive current addressing from this worker instead.
             for (uint offset = 0; offset < DetsV9Layout.SlotsPerSegment; offset++)
             {
                 uint oldSlot = start + offset;
@@ -496,8 +510,6 @@ internal sealed class DetsV9File
                 M *= 2;
                 N = 0;
             }
-            DetsV9Writer.PutWord(stream, DetsV9Layout.MOffset, M);
-            DetsV9Writer.PutWord(stream, DetsV9Layout.NOffset, N);
             extra -= DetsV9Layout.SlotsPerSegment;
         }
     }

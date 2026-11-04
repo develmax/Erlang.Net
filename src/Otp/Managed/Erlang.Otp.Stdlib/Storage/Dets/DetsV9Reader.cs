@@ -10,6 +10,7 @@ internal sealed class DetsV9Reader
     private readonly Stream stream;
     private readonly EtfDecodeOptions decodeOptions;
     private readonly long dataEnd;
+    private readonly uint slotCount;
     private readonly ProcessRuntime? runtime;
     private readonly Dictionary<uint, long> segments = new();
 
@@ -17,13 +18,15 @@ internal sealed class DetsV9Reader
         Stream stream,
         EtfDecodeOptions? decodeOptions = null,
         bool allowDirty = false,
-        ProcessRuntime? runtime = null
+        ProcessRuntime? runtime = null,
+        uint? liveSlotCount = null
     )
     {
         this.stream = stream;
         this.runtime = runtime;
         this.decodeOptions = decodeOptions ?? new EtfDecodeOptions();
         Header = DetsV9Header.Read(stream);
+        slotCount = allowDirty && liveSlotCount is { } live ? live : Header.Next;
         if (!allowDirty)
         {
             Header.Validate();
@@ -36,7 +39,7 @@ internal sealed class DetsV9Reader
 
     public IReadOnlyList<Term> ReadSlot(uint slot)
     {
-        if (slot >= Header.Next)
+        if (slot >= slotCount)
         {
             throw new ArgumentOutOfRangeException(nameof(slot));
         }

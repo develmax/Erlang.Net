@@ -6,6 +6,10 @@ internal static class TestExecutionBudgets
     {
         DetsBackendChecks.ManagedTest or DetsBackendChecks.OriginalTest
             or DetsBackendChecks.ManagedSuiteTest or DetsBackendChecks.OriginalSuiteTest => TimeSpan.FromSeconds(600),
+        UnicodeUtilUnalignedNames.Test => UnicodeUtilUnalignedNames.Deadline,
+        _ when name.StartsWith(UnicodeUtilBackendNames.Managed + "/", StringComparison.Ordinal)
+            || name.StartsWith(UnicodeUtilBackendNames.Beam + "/", StringComparison.Ordinal) => UnicodeUtilBackendNames.CorpusDeadline,
+        StringBackendNames.ManagedUnicodeTest => StringBackendNames.ManagedUnicodeDeadline,
         HaltSubprocessHostNames.Test => TimeSpan.FromSeconds(HaltSubprocessHostNames.OuterHostBudgetSeconds),
         BeamLifecycleHostNames.DeepTest => BeamLifecycleHostNames.Deadline
             + TimeSpan.FromSeconds(TestExecutionBudgetNames.DeepPreparationAndCleanupSeconds),

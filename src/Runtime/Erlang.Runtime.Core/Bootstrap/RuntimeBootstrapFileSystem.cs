@@ -11,8 +11,9 @@ public static class RuntimeBootstrapFileSystem
         ArgumentNullException.ThrowIfNull(registry);
         if (!ReferenceEquals(runtime.Modules, registry))
             throw new ArgumentException(RuntimeBootstrapFileNames.ForeignRegistry, nameof(registry));
-        if (!OperatingSystem.IsWindows())
-            throw new PlatformNotSupportedException(RuntimeBootstrapFileNames.WindowsRequired);
+        if (!OperatingSystem.IsWindows() && !OperatingSystem.IsLinux() && !OperatingSystem.IsMacOS())
+            throw new PlatformNotSupportedException(RuntimeBootstrapFileNames.UnsupportedPlatform);
+        if (!OperatingSystem.IsWindows()) PrimFilePosixOperations.Admit();
         runtime.RequireNativePrimitiveRegistration();
         registry.InstallBootstrapFileSystem();
     }

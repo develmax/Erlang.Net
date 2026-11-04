@@ -1,5 +1,7 @@
 Part589 updates ASN.1 PR118 from timer main29b92f63d, retaining both components and the qualified file atom. Fresh focused build,65 checks/26 OTP outcomes and passive bindings pass. [Evidence](validation/part-589/README.md).
 
+Part593: DETS review fixes/current-main reconciliation and Windows/Linux/macOS bootstrap file implementations are integrated. Windows standalone57 checks per backend and the review regression pass. Dedicated Unix platform execution/source-plan refresh remain pending; see [checkpoint](validation/dets-reconciliation-20261104/README.md). No full regression.
+
 Part592 splits prim_file deletion into a common C# result boundary and Windows/POSIX implementations. Unix unlink preserves raw filename bytes and uses separate Linux/Darwin errno tables; Windows directory/invalid-name errors now follow OTP. Focused Windows native-OTP and cross-ABI/path evidence is recorded in [the receipt](validation/prim-file-platform-delete-20261104/README.md). The complete bootstrap filesystem profile remains Windows-only; Unix native execution/full DETS startup is unverified.
 
 Part591 DETS adds all64 explicit exports through selectable C#/original Erlang alternatives, native v9 incremental storage and connected file/buffer/RAM/resource-lifetime primitives. Focused backend/upstream/interchange acceptance and limitations are in [the receipt](validation/dets-publication-20261104/README.md). Original Erlang is unchanged; no full regression or global readiness refresh.
@@ -13,6 +15,8 @@ PR111 Part585 reconciles code/file/gen_event on current main, refreshes declared
 gen_event Part584 retains a scheduling-sensitive upstream_call failure at gen_event_SUITE.erl:853 (depth3 Managed): wait_response(...,0) can see an already queued reply where the testcase expected timeout. No expected values or stacks are normalized. Primary105/105 per backend passes, while universal scheduling/resource/distribution parity is unproved. [Evidence](validation/part-584/README.md).
 
 File Part580: C# and original alternatives retain separate identities and match 408 exact focused observations after literal extraction. All five independent complete filesystem cycles still fail in each backend on incomplete native/provider support. No 100% compatibility or global readiness claim. See [contract and remaining gates](file-backends.md).
+
+ETS Part586 preserves OTP source exception coordinates through named catalogs, including the two distinct failed function-application frames. Original BEAM and C# retain separate acceptance. Table references are alpha-renamed; i/0 projects only its fixed header and table presence. [Evidence](validation/ets-pr-20261104/README.md).
 
 [Part583](validation/part-583/README.md) repairs Windows checkout conversion of the Part582 source freeze. Raw source admission remains strict; no compatibility status is promoted.
 

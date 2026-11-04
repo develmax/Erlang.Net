@@ -21,4 +21,19 @@
     <Error Condition="!Exists('runtimes/win-x64/native/Erlang.Nif.WindowsVariadic.dll')"
            Text="Build/install the Windows NIF variadic runtime asset before packaging Erlang.Runtime.Core." />
   </Target>
+  <PropertyGroup Condition="$([MSBuild]::IsOSPlatform('Linux')) Or $([MSBuild]::IsOSPlatform('OSX'))">
+    <PosixFileExtension>.so</PosixFileExtension>
+    <PosixFileLinkFlag>-shared</PosixFileLinkFlag>
+    <PosixFileExtension Condition="$([MSBuild]::IsOSPlatform('OSX'))">.dylib</PosixFileExtension>
+    <PosixFileLinkFlag Condition="$([MSBuild]::IsOSPlatform('OSX'))">-dynamiclib</PosixFileLinkFlag>
+    <PosixFileSource>$(MSBuildProjectDirectory)/../../../tools/Native/Erlang.FileSystem.Native</PosixFileSource>
+    <PosixFileOutput>$(BaseIntermediateOutputPath)$(Configuration)/native/libErlang.FileSystem.Native$(PosixFileExtension)</PosixFileOutput>
+  </PropertyGroup>
+  <ItemGroup Condition="'$(PosixFileExtension)' != ''">
+    <Content Include="$(PosixFileOutput)" Link="libErlang.FileSystem.Native$(PosixFileExtension)" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" />
+  </ItemGroup>
+  <Target Name="BuildPosixFileBoundary" BeforeTargets="CoreCompile;GetCopyToOutputDirectoryItems" Condition="'$(PosixFileExtension)' != ''" Inputs="$(PosixFileSource)/filesystem.c;$(PosixFileSource)/filesystem.h" Outputs="$(PosixFileOutput)">
+    <MakeDir Directories="$([System.IO.Path]::GetDirectoryName('$(PosixFileOutput)'))" />
+    <Exec Command="cc -std=c11 -O2 -fPIC -Wall -Wextra -Werror $(PosixFileLinkFlag) &quot;$(PosixFileSource)/filesystem.c&quot; -o &quot;$(PosixFileOutput)&quot;" />
+  </Target>
 </Project>

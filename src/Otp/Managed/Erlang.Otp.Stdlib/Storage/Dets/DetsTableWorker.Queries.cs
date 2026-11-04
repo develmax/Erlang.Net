@@ -283,8 +283,9 @@ internal sealed partial class DetsTableWorker
         while (cursor < mapBytes.Length)
         {
             uint address = BinaryPrimitives.ReadUInt32BigEndian(mapBytes.AsSpan(cursor));
-            uint size = BinaryPrimitives.ReadUInt32BigEndian(mapBytes.AsSpan(cursor + DetsV9Layout.WordBytes));
-            byte[] bytes = file.ReadBlock(address, checked((int)size), checked((int)size));
+            // A fixed table can replace an unread collection in the same block.
+            // The allocation map preserves its address, not an immutable size.
+            byte[] bytes = file.ReadCollection(address);
             var objects = DetsV9Recovery.DecodeCollection(
                 bytes,
                 file.Type,

@@ -2,6 +2,7 @@ namespace Erlang;
 
 internal static class PrimFileWindowsErrors410
 {
+    internal const string NotDirectory = "enotdir";
     internal const string Executable = "enoexec";
     internal const string TooManyFiles = "emfile";
     internal const string BadDescriptor = "ebadf";

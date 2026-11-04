@@ -1,0 +1,67 @@
+{
+  "Baseline": "OTP-29.1.1",
+  "PublicExports": 76,
+  "LibraryExports": 25,
+  "NativeExports": 51,
+  "FocusedAccepted": true,
+  "FullOtpCompatibility": false,
+  "Reports": [
+    {
+      "Report": "Managed-report.json",
+      "Cases": 355,
+      "Effects": 8
+    },
+    {
+      "Report": "Managed-browse-report.json",
+      "Cases": 0,
+      "Effects": 12
+    },
+    {
+      "Report": "Managed-files-report.json",
+      "Cases": 0,
+      "Effects": 76
+    },
+    {
+      "Report": "Beam-report.json",
+      "Cases": 355,
+      "Effects": 8
+    },
+    {
+      "Report": "Beam-browse-report.json",
+      "Cases": 0,
+      "Effects": 12
+    },
+    {
+      "Report": "Beam-files-report.json",
+      "Cases": 0,
+      "Effects": 76
+    }
+  ],
+  "FilesystemGates": [
+    {
+      "Backend": "Managed",
+      "Cases": 76,
+      "Passed": 76,
+      "Failures": 0
+    },
+    {
+      "Backend": "Beam",
+      "Cases": 76,
+      "Passed": 76,
+      "Failures": 0
+    }
+  ],
+  "DumpInteroperabilityAccepted": true,
+  "Remaining": [
+    "Full upstream ETS suite and platform/resource/scheduling/metadata/whole-contract acceptance",
+    "Whole startup-manifest dependency closure and exact scoped publication"
+  ],
+  "Unrun": [
+    "Full regression",
+    "Global readiness refresh",
+    "Publication CI/review"
+  ],
+  "ManagedAssemblySha256": "5CB8365FF78FF1C2B5C1BD905FF0FD838E0CB2D2DE97D048871BBCD1BDC4C0DF",
+  "RuntimeAssemblySha256": "7DA40AA53CD1D607A358CAA90417FA89762120E5B1530A884ED765365663E5C6",
+  "ValidatorAssemblySha256": "925C3AAA02D685BD4B102974F438619D2F98EA39C38019544FD93EE7A2061D19"
+}

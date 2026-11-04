@@ -1,6 +1,7 @@
 // Native file operations needed by pinned OTP DETS; derived from prim_file_nif.c,
 // Apache-2.0, Ericsson AB. Erlang library wrappers remain unchanged.
 using System.Buffers.Binary;
+using System.Runtime.InteropServices;
 
 namespace Erlang;
 
@@ -25,19 +26,47 @@ internal sealed partial class PrimFileBuiltinOwner
             {
                 return PrimFileDeleteOperations.Delete(arguments[0], context.Cancellation);
             }
-            if (operation == PrimFileBuiltinNames.Rename)
+            if (!OperatingSystem.IsWindows())
+            {
+                if (operation == PrimFileBuiltinNames.Open)
+                {
+                    if (!PrimFilePosixOperations.Open(
+                        arguments[0],
+                        arguments[1],
+                        out var resource,
+                        out Term result
+                    )) return result;
+                    runtime.RegisterRawFile(context, resource!);
+                    lock (fileResources)
+                    {
+                        fileResources.RemoveAll(weak => !weak.TryGetTarget(out _));
+                        fileResources.Add(new(resource!));
+                    }
+
+                    return Term.Tuple(Term.A(CommonAtomNames.Ok), runtime.ReferenceResources.CreateFile(resource!));
+                }
+                if (operation is PrimFileBuiltinNames.Rename or PrimFileBuiltinNames.MakeDirectory or PrimFileBuiltinNames.RemoveDirectory)
+                    return PrimFilePosixOperations.PathOperation(operation, arguments[0], operation == PrimFileBuiltinNames.Rename ? arguments[1] : null);
+            }
+            if (operation is PrimFileBuiltinNames.Rename or PrimFileBuiltinNames.MakeDirectory or PrimFileBuiltinNames.RemoveDirectory)
             {
                 if (!PrimFileWindowsPaths410.Marshal(arguments[0], out string path, out string error))
                 {
                     return PrimFileWindowsErrors410.Tuple(error);
                 }
+                if (operation is PrimFileBuiltinNames.MakeDirectory or PrimFileBuiltinNames.RemoveDirectory)
+                {
+                    bool success = operation == PrimFileBuiltinNames.MakeDirectory
+                        ? PrimFileDataNative.MakeDirectory(path) : PrimFileDataNative.DeleteDirectory(path);
+
+                    return success ? Term.A(CommonAtomNames.Ok) : PrimFileWindowsErrors410.Last(Marshal.GetLastPInvokeError());
+                }
                 if (!PrimFileWindowsPaths410.Marshal(arguments[1], out string target, out error))
                 {
                     return PrimFileWindowsErrors410.Tuple(error);
                 }
-                File.Move(path, target, overwrite: true);
 
-                return Term.A(CommonAtomNames.Ok);
+                return PrimFileDataNative.Rename(path, target);
             }
             if (operation == PrimFileBuiltinNames.Open)
             {
@@ -90,6 +119,7 @@ internal sealed partial class PrimFileBuiltinOwner
                 {
                     return PrimFileWindowsErrors410.Tuple(PrimFileWindowsErrors410.BadDescriptor);
                 }
+                if (!OperatingSystem.IsWindows()) return PrimFilePosixOperations.Storage(file, operation, arguments);
                 var stream = file.Stream;
                 switch (operation)
                 {
@@ -145,32 +175,31 @@ internal sealed partial class PrimFileBuiltinOwner
                             {
                                 return PrimFileWindowsErrors410.Tuple(PrimFileWindowsErrors410.BadDescriptor);
                             }
-                            long position = stream.Position;
                             bool positioned = operation == PrimFileBuiltinNames.Pwrite;
-                            try
+                            // Preserve the cursor behavior of Windows OTP efile_pwritev.
+                            if (positioned)
                             {
-                                if (positioned)
+                                stream.Position = Long(arguments[1]);
+                            }
+                            foreach (BitString bytes in ErlangIoData.Segments(arguments[positioned ? 2 : 1], false, false))
+                            {
+                                if (file.Append && !positioned)
                                 {
-                                    stream.Position = Long(arguments[1]);
+                                    int error = PrimFileDataNative.Append(stream, bytes.ByteSpan);
+                                    if (error != 0)
+                                    {
+                                        return PrimFileWindowsErrors410.Last(error);
+                                    }
                                 }
-                                else if (file.Append)
-                                {
-                                    stream.Position = stream.Length;
-                                }
-                                foreach (BitString bytes in ErlangIoData.Segments(arguments[positioned ? 2 : 1], false, false))
+                                else
                                 {
                                     stream.Write(bytes.ByteSpan);
                                 }
+                            }
 
-                                return Term.A(CommonAtomNames.Ok);
-                            }
-                            finally
-                            {
-                                if (positioned)
-                                {
-                                    stream.Position = position;
-                                }
-                            }
+                            return Term.A(CommonAtomNames.Ok);
+
+
                         }
                     case PrimFileBuiltinNames.Indirect:
                         {

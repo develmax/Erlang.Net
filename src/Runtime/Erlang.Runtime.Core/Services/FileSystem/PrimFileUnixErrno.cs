@@ -10,6 +10,12 @@ internal static class PrimFileUnixErrno
         {
             return PrimFileDeleteNames.Permission;
         }
+
+        return Error(error, darwin);
+    }
+
+    internal static string Error(int error, bool darwin)
+    {
         var names = darwin ? PrimFileDarwinErrno.Names : PrimFileLinuxErrno.Names;
 
         return names.TryGetValue(error, out string? name) ? name : PrimFileDeleteNames.UnknownError(error);

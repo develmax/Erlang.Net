@@ -469,6 +469,20 @@ Test(Erlang.Tests.UnicodeBackendNames.ManagedTest, () => Erlang.Tests.UnicodeBac
 Test(Erlang.Tests.UnicodeBackendNames.BeamTest, () => Erlang.Tests.UnicodeBackendChecks.Run(false));
 Test(Erlang.Tests.UnicodeBackendNames.RefusalTest, Erlang.Tests.UnicodeBackendChecks.Refusals);
 Test(Erlang.Tests.UnicodeBackendNames.GrowthTest, Erlang.Tests.UnicodeGrowthChecks.Run);
+Test(Erlang.Tests.UnicodeUtilUnalignedNames.Test, Erlang.Tests.UnicodeUtilUnalignedChecks.Run);
+for (int unicodePartition = 0; unicodePartition < Erlang.Tests.UnicodeUtilBackendNames.Partitions; unicodePartition++)
+{
+    int partition = unicodePartition;
+    Test(
+        Erlang.Tests.UnicodeUtilBackendNames.Managed + "/part-" + (partition + 1),
+        () => Erlang.Tests.UnicodeUtilBackendChecks.Run(true, partition)
+    );
+    Test(
+        Erlang.Tests.UnicodeUtilBackendNames.Beam + "/part-" + (partition + 1),
+        () => Erlang.Tests.UnicodeUtilBackendChecks.Run(false, partition)
+    );
+}
+Test(Erlang.Tests.StringBackendNames.ManagedUnicodeTest, Erlang.Tests.StringBackendChecks.ManagedUnicode);
 Test(Erlang.Tests.StringBackendNames.ManagedTest, () => Erlang.Tests.StringBackendChecks.Run(true));
 Test(Erlang.Tests.StringBackendNames.BeamTest, () => Erlang.Tests.StringBackendChecks.Run(false));
 Test(Erlang.Tests.StringBackendNames.RefusalTest, Erlang.Tests.StringBackendChecks.Refusals);
@@ -493,6 +507,7 @@ Test(Erlang.Tests.DetsBackendChecks.OriginalTest, Erlang.Tests.DetsBackendChecks
 Test(Erlang.Tests.DetsBackendChecks.ManagedSuiteTest, Erlang.Tests.DetsBackendChecks.ManagedSuite);
 Test(Erlang.Tests.DetsBackendChecks.OriginalSuiteTest, Erlang.Tests.DetsBackendChecks.OriginalSuite);
 Test(Erlang.Tests.DetsMagicLifetimeChecks.Test, Erlang.Tests.DetsMagicLifetimeChecks.Run);
+Test(Erlang.Tests.DetsReviewRegressionChecks.Test, Erlang.Tests.DetsReviewRegressionChecks.Run);
 Test(Erlang.Tests.PrimFileDeleteContractNames.HostTest, Erlang.Tests.PrimFileDeletePlatformChecks.Host);
 Test(Erlang.Tests.PrimFileDeleteContractNames.MappingTest, Erlang.Tests.PrimFileDeletePlatformChecks.Mapping);
 Test(Erlang.Tests.MathBackendNames.ManagedWhole, Erlang.Tests.LibraryDependencyOriginalHostChecks.MathManagedWhole);
