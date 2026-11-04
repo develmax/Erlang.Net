@@ -295,7 +295,7 @@ public sealed class ManagedStdlibRegistration456 : IRuntimeManagedLibrary456
             MapModuleNames.Module,
             MapModuleNames.FromList,
             1,
-            (c, a) => MapOperations.FromList(a[0])
+            (c, a) => MapOperations.FromList(a[0], c.Runtime)
         );
         Add(
             MapModuleNames.Module,

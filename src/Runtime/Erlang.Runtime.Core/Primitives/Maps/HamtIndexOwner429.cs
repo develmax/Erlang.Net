@@ -2,7 +2,7 @@ using System.Runtime.CompilerServices;
 
 namespace Erlang;
 
-internal sealed class HamtIndexOwner429(ProcessRuntime runtime)
+internal sealed partial class HamtIndexOwner429(ProcessRuntime runtime)
 {
     private readonly object gate = new();
     internal object Domain { get; } = new();

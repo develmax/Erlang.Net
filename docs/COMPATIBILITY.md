@@ -1,5 +1,7 @@
 # Compatibility overview
 
+Draft Part568 prepares the bulk physical-occurrence runtime patch in a separate PR to main. Ordsets stays6 Verified/15 KnownDifferences; current whole ETF replay remains RED. See [evidence and open acceptance gates](validation/part-568/ordsets-bulk/README.md).
+
 ## Current state and sources
 
 The [Part569 hosted receipts](validation/part-569/ci-integrated-pins-and-reuse/hosted-results/README.md) retain complete9687 unit results and separately scoped native/async focused gates. The original overall main pipeline is RED; repair-head delivery acceptance remains pending. No ledger status or complete-module credit changes.

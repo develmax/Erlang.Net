@@ -1,0 +1,55 @@
+using Erlang;
+using System.Security.Cryptography;
+using System.Text.Json;
+string directory = Path.GetFullPath("artifacts/bulk-replay");
+bool failed=false;
+foreach(bool original in new[]{false,true})
+{
+    string backend=original?"Beam":"Managed";
+    try
+    {
+        byte[] ordsets=File.ReadAllBytes("tests/Erlang.Tests/Resources/BeamOrdsets381/ordsets.beam");
+        byte[] lists=File.ReadAllBytes("tests/Erlang.Tests/Resources/BeamOrdsets381/lists.beam");
+        await using var runtime=await ProcessRuntime.CreateAsync(new RuntimeLibrarySelection(original
+            ? [RuntimeModuleSelection.Beam("ordsets",ordsets,["lists"]),RuntimeModuleSelection.Beam("lists",lists)]
+            : [RuntimeModuleSelection.Managed("ordsets"),RuntimeModuleSelection.Managed("lists")]));
+        var events = new List<JsonElement>();
+        var observerProperty = typeof(ProcessRuntime).GetProperty("MapSourceSortObserver", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic)!;
+        Type observerType = observerProperty.PropertyType;
+        Type eventType = observerType.GenericTypeArguments[0];
+        var parameter = System.Linq.Expressions.Expression.Parameter(eventType);
+        Action<object> capture = value => events.Add(JsonSerializer.SerializeToElement(value, eventType));
+        var callback = System.Linq.Expressions.Expression.Lambda(observerType,
+            System.Linq.Expressions.Expression.Invoke(System.Linq.Expressions.Expression.Constant(capture),
+                System.Linq.Expressions.Expression.Convert(parameter, typeof(object))), parameter).Compile();
+        observerProperty.SetValue(runtime, callback);
+        PreparedBeamImage image=runtime.Modules.PrepareBeam(File.ReadAllBytes(Path.Combine(directory,"from_list_source_boundaries.beam")),
+            new BeamDependencySelection(["from_list_source_boundaries","ordsets","lists","maps","erlang"]));
+        if(runtime.Modules.PublishPreparedBeam([image]).Status!=BeamPublicationStatus.Published)throw new InvalidDataException("Publication failed");
+        PreparedBeamImage worker=runtime.Modules.PrepareBeam(File.ReadAllBytes(Path.Combine(directory,"ordsets_core_worker.beam")),new BeamDependencySelection(["ordsets_core_worker","from_list_source_boundaries","erlang"]));
+        if(runtime.Modules.PublishPreparedBeam([worker]).Status!=BeamPublicationStatus.Published)throw new InvalidDataException("Worker publication failed");
+        var completed=new TaskCompletionSource<byte[]>(TaskCreationOptions.RunContinuationsAsynchronously);
+        var actor=runtime.Spawn(async context=>
+        {
+            try
+            {
+                Term result=await runtime.Modules.Call(context,"ordsets_core_worker","run",Term.A("from_list_source_boundaries"),Term.A("run"));
+                completed.TrySetResult(((BitString)result).ToArray());
+            }
+            catch(Exception e){completed.TrySetException(e);}
+            return Nil.Value;
+        });
+        byte[] actual=await completed.Task.WaitAsync(TimeSpan.FromSeconds(30));
+        await actor.Completion.WaitAsync(TimeSpan.FromSeconds(30));
+        File.WriteAllText(Path.Combine(directory, backend+".sort-events.json"), JsonSerializer.Serialize(events));
+        byte[] expected=File.ReadAllBytes(Path.Combine(directory,"original.etf"));
+        File.WriteAllBytes(Path.Combine(directory,backend+".actual.etf"),actual);
+        bool match=actual.AsSpan().SequenceEqual(expected);
+        var receipt=new {Backend=backend,WholeEtfMatches=match,ActualSha256=Convert.ToHexString(SHA256.HashData(actual)),ExpectedSha256=Convert.ToHexString(SHA256.HashData(expected)),Terms=typeof(TermOrder).Assembly.ManifestModule.ModuleVersionId};
+        File.WriteAllText(Path.Combine(directory,backend+".json"),JsonSerializer.Serialize(receipt));
+        Console.WriteLine(JsonSerializer.Serialize(receipt));
+        failed|=!match;
+    }
+    catch(Exception e){failed=true;Console.WriteLine(backend+" FAIL "+e);}
+}
+return failed?1:0;
