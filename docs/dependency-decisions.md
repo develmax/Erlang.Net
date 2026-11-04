@@ -1,5 +1,22 @@
 # Dependency and compatibility decisions
 
+## Managed unicode_util — 2026-11-04
+
+The user requests a C# unicode_util alternative and an Erlang-free managed
+Unicode dependency closure. Preserve both original modules/images. Use the exact
+OTP29.1.1 generator and Unicode17.0 inputs at
+ad05823719d77c8faee87348ea39513d4e2f99c5; generate immutable C# data and port lazy
+traversal, grapheme, normalization and case algorithms. .NET StringInfo,
+Normalize, CharUnicodeInfo and casing APIs use runtime-dependent Unicode versions
+and do not preserve OTP chardata/error/tail contracts; do not use them for these
+semantics. Reuse existing Terms, strict Rune decoding, source frames and explicit
+module selection. No new package or production Erlang dependency. Preserve OTP
+Apache-2.0 and Unicode data notices. Exhaustive table/domain validation and pinned
+conformance corpora are required; API counts do not close compatibility.
+
+
+## Earlier decisions
+
 Part584 — The user explicitly requests a manual C# gen_event alternative while keeping original Erlang selectable. Reuse the existing term/process/module/BEAM runtime and original gen/proc_lib/sys/io/Unicode dependencies. BCL events and actor frameworks do not preserve the OTP handler, mailbox, callback and link contract, so they are not substituted. No new package or external C# library is introduced. Pin OTP29.1.1/ad05823719d77c8faee87348ea39513d4e2f99c5; preserve Apache-2.0 notices in the retained source/fixtures and derived implementation. Semantic catalogs separate equal strings/numbers by contract. Finite Windows comparisons and the retained timing failure do not certify universal parity. [Evidence](validation/part-584/README.md).
 
 Part568 draft - Adapt pinned OTP-29.1.1 erl_map.c/utils.c bulk sort/adjacent-EQ compaction in C# runtime. Reuse existing map hash provider, owner admission/close, hash leases and native materialization; inspect signed fun comparison/hash, source guards and physical copy order. Retain Apache-2.0 notices; no new package or production ERTS dependency. Actual-address C replay is limited source evidence, not a context-independent golden or21/21 proof. [Draft evidence](validation/part-568/ordsets-bulk/README.md).

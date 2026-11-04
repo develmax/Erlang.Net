@@ -2,6 +2,8 @@ namespace Erlang.Tests;
 
 internal static class StringBackendNames
 {
+    internal const string ManagedUnicodeTest = "runtime/string/managed-unicode-and-utility-closure";
+    internal static readonly TimeSpan ManagedUnicodeDeadline = TimeSpan.FromMinutes(2);
     internal const string ManagedTest = "runtime/string/managed-selection-and-original-contracts";
     internal const string BeamTest = "runtime/string/original-selection-and-original-contracts";
     internal const string ManagedJaroTest = "runtime/string/managed-jaro-indexed-resource-contract";

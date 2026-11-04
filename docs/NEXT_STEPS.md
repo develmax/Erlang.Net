@@ -26,6 +26,8 @@ Draft Part568 prepares the bulk physical-occurrence runtime patch in a separate 
 
 ## Executable queue
 
+- [Managed Unicode utility](validation/part-591/README.md): all20 C# utility exports, an Erlang-free managed closure and retained original/backend selection; current evidence and delivery gates remain explicit.
+
 - Complete final-head CI for [PR114 analysis consumer boot/layout repair](validation/code-testanalysis-ci-20261104/README.md), preserving the unchanged2463-case oracle and original code routing. No full local regression or compatibility promotion.
 
 - Preserve [file literal ownership and focused acceptance](validation/part-580/README.md); run the permanent literal audit when editing this module. Complete prim_file/prim_buffer/RAM native support, then replay the five independent raw/normal/RAM/consult/compressed gates in both backends. Keep verification focused and leave full compatibility/readiness unpromoted while the gates fail.
