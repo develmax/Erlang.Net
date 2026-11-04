@@ -1,3 +1,7 @@
+PR111 Part585 reconciles code/file/gen_event on current main, refreshes declared source/producer pins and checks the retained BEAM image hash. Fresh105/105 per backend passes; final-head CI remains required. [Repair evidence](validation/part-585/README.md).
+
+gen_event Part584 retains a scheduling-sensitive upstream_call failure at gen_event_SUITE.erl:853 (depth3 Managed): wait_response(...,0) can see an already queued reply where the testcase expected timeout. No expected values or stacks are normalized. Primary105/105 per backend passes, while universal scheduling/resource/distribution parity is unproved. [Evidence](validation/part-584/README.md).
+
 File Part580: C# and original alternatives retain separate identities and match 408 exact focused observations after literal extraction. All five independent complete filesystem cycles still fail in each backend on incomplete native/provider support. No 100% compatibility or global readiness claim. See [contract and remaining gates](file-backends.md).
 
 [Part583](validation/part-583/README.md) repairs Windows checkout conversion of the Part582 source freeze. Raw source admission remains strict; no compatibility status is promoted.

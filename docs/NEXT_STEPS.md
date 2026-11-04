@@ -1,5 +1,10 @@
 # Next steps
 
+PR111 Part585 reconciles code/file/gen_event on current main, refreshes declared source/producer pins and checks the retained BEAM image hash. Fresh105/105 per backend passes; final-head CI remains required. [Repair evidence](validation/part-585/README.md).
+
+
+Part584: review the selectable gen_event implementation and semantic constants PR; investigate the retained Managed depth3 zero-timeout upstream failure before merge. Primary105/105 per backend passes; no full regression/readiness refresh was run. [Scope and reports](validation/part-584/README.md).
+
 [Part583](validation/part-583/README.md) repairs Windows checkout conversion of the Part582 source freeze. Raw source admission remains strict; no compatibility status is promoted.
 
 [Part582](validation/part-582/README.md) reconciles file PR110 with code main, retains both backend selections and refreshes source/producer identities. Connected validation and final-head hosted CI apply; compatibility classifications remain unchanged.
