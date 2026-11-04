@@ -1,5 +1,8 @@
 # Project progress
 
+[Part587](validation/part-587/README.md) fixes the gen_statem sys continuation review finding:97 retained managed machines become1 after32 generations. Both backends pass74+311 full observations/scenarios. Final-head hosted review/CI and wider OTP acceptance remain separate.
+
+[gen_statem merge repair](validation/gen-statem-merge-20261104/README.md) reconciles gen_statem PR112 with code/file/gen_event main and refreshes declared source identities. Prior module comparisons remain historical; final-head hosted checks and the sys continuation review finding remain open.
 Part586 fixes the omitted Monitor source-freeze manifest behind main CI41836436436 and adds a committed-manifest guard. No runtime or compatibility change. [Failure and focused validation](validation/part-586/README.md).
 
 PR111 Part585 reconciles code/file/gen_event on current main, refreshes declared source/producer pins and checks the retained BEAM image hash. Fresh105/105 per backend passes; final-head CI remains required. [Repair evidence](validation/part-585/README.md).
@@ -24,6 +27,7 @@ Draft Part568 prepares the bulk physical-occurrence runtime patch in a separate 
 - [PR109 CI/review repair](validation/part-579/README.md): refreshed existing source-plan identities and fixed module_status helper stacks. Both backends pass159 complete outcomes plus25 lifecycle results;17 focused groups and passive source admissions pass locally. Hosted final-head CI remains pending.
 
 - [Selectable code backend](validation/code-port-20261104/README.md): all69 exports,156 full observations and25 lifecycle results per backend;17 connected groups pass on isolated current-main composition. Domain literals are named; universal/JIT/platform acceptance remains open.
+- The opt-in gen_statem C# port and retained Erlang alternative are prepared with semantic constant owners; focused acceptance and PR delivery are recorded in [gen_statem publication](validation/gen-statem-port-20261104/README.md).
 
 - [Downstream CI producer repair](validation/part-577/README.md): reconcile the remaining native/integrated producer identities and monitor completed final-head workflows.
 

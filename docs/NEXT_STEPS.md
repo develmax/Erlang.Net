@@ -1,5 +1,8 @@
 # Next steps
 
+[Part587](validation/part-587/README.md) fixes the gen_statem sys continuation review finding:97 retained managed machines become1 after32 generations. Both backends pass74+311 full observations/scenarios. Final-head hosted review/CI and wider OTP acceptance remain separate.
+
+[gen_statem merge repair](validation/gen-statem-merge-20261104/README.md) reconciles gen_statem PR112 with code/file/gen_event main and refreshes declared source identities. Prior module comparisons remain historical; final-head hosted checks and the sys continuation review finding remain open.
 Part586 fixes the omitted Monitor source-freeze manifest behind main CI41836436436 and adds a committed-manifest guard. No runtime or compatibility change. [Failure and focused validation](validation/part-586/README.md).
 
 PR111 Part585 reconciles code/file/gen_event on current main, refreshes declared source/producer pins and checks the retained BEAM image hash. Fresh105/105 per backend passes; final-head CI remains required. [Repair evidence](validation/part-585/README.md).
@@ -22,6 +25,7 @@ Draft Part568 prepares the bulk physical-occurrence runtime patch in a separate 
 - Preserve [file literal ownership and focused acceptance](validation/part-580/README.md); run the permanent literal audit when editing this module. Complete prim_file/prim_buffer/RAM native support, then replay the five independent raw/normal/RAM/consult/compressed gates in both backends. Keep verification focused and leave full compatibility/readiness unpromoted while the gates fail.
 
 - Complete [code acceptance](validation/code-port-20261104/README.md) beyond the passing69-export/156+25 corpus: full consumer startup closure, documentation/gzip dependencies, platform errors, races and upstream code_SUITE. Preserve selected code:is_loaded routing and semantic literal ownership; no100% promotion from finite counts.
+- Review the scoped gen_statem PR and its [gen_statem publication receipt](validation/gen-statem-port-20261104/README.md). Preserve explicit backend selection and original OTP assets; full upstream-suite, distributed/global/via, resource/platform and metadata acceptance remain separate work.
 
 - [Downstream CI producer repair](validation/part-577/README.md): reconcile the remaining native/integrated producer identities and monitor completed final-head workflows.
 

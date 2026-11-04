@@ -2,6 +2,8 @@
 
 ## Current decisions
 
+[gen_statem alternatives and constant ownership](decisions/0007-gen-statem-alternatives.md) record the module-specific user authorization, retained OTP assets, runtime reuse and finite acceptance scope.
+
 Accepted main [PR103](https://github.com/develmax/Erlang.Net/pull/103) adds native async accounting/cancellation records. Their [complete original decisions](history/main-103-decisions/index.md) are preserved separately from the six architecture records below; bounded native controls do not establish whole statistics acceptance.
 
 The [decision index](decisions/index.md) contains separate documents for:

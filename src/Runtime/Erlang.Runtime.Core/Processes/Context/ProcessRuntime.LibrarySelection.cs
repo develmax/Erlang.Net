@@ -82,6 +82,8 @@ public sealed partial class ProcessRuntime
                 {
                     RuntimeManagedLibraries456.Register(registry, RuntimeManagedLibraryStage456.GenEvent);
                 }
+                if (libraries.Modules.Any(choice => choice.Module == GenStatemLibraryNames.Module && choice.Backend == RuntimeModuleBackend.Managed))
+                    RuntimeManagedLibraries456.Register(registry, RuntimeManagedLibraryStage456.GenStatem);
                 if (options.BootstrapFileSystem)
                     RuntimeBootstrapFileSystem.Register(runtime, registry);
                 observer?.Invoke(LibraryStartupObservationNames.SetupBeforePrepare, runtime, null);
