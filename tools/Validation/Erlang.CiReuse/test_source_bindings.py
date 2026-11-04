@@ -13,6 +13,8 @@ class IntegratedBindingsTests(unittest.TestCase):
         root = Path(__file__).resolve().parents[3]
         pins = json.loads((root / "tools/Native/Erlang.NifIntegratedObservations/inputs.json").read_bytes())["PlanPins"]
         roles = {
+            "CAPTURE_PLAN": ["BuildPlanSha256"],
+            "ACCEPTANCE_PLAN": ["N1BuildPlanSha256", "OriginalPlanSha256", "FixtureManifests"],
             "N2_ORIGINAL_PLAN": ["NativeBuildPlanSha256", "WrongEntryNativeBuildPlans"],
             "N2_MANAGED_PLAN": ["NativeBuildPlanSha256", "OriginalPlanSha256", "WrongEntryNativeBuildPlans"],
             "ENV709_ORIGINAL_PLAN": ["NativeBuildPlanSha256"],

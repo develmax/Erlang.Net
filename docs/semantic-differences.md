@@ -1,3 +1,5 @@
+PR108 CI follow-up: complete downstream producer bindings and early N1 producer rejection; [evidence and final CI gate](validation/part-577/README.md). Unicode implementation and compatibility classifications are unchanged.
+
 Unicode PR108 follow-up: conversion accumulation is linear while preserving OTP segment-boundary capacity. Source-plan gates and the inherited String documentation pin are repaired; see [focused evidence](validation/part-576/README.md). No compatibility classification is promoted.
 
 Unicode: all 22 exports have explicit Managed/Beam alternatives; see [publication scope](validation/unicode-port-20261104/PUBLICATION.md). Prior finite comparisons do not establish universal or rebased-head acceptance.

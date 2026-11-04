@@ -1,0 +1,35 @@
+No reusable receipt issued: FileNotFoundError: [Errno 2] No such file or directory: 'C:\\Users\\Maksim\\AppData\\Local\\Temp\\tmpvvm2wnb5\\inputs.json'
+{"Reuse": false, "Reasons": ["ValueError: resolved assets missing"]}
+...............E..F...
+No reusable receipt issued: FileNotFoundError: [Errno 2] No such file or directory: 'C:\\Users\\Maksim\\AppData\\Local\\Temp\\tmpotet60i5\\inputs.json'
+{"Reuse": false, "Reasons": ["PR/manual runs always execute required checks"]}
+Reusable input receipt sealed; GitHub job/workflow conclusions remain authoritative
+======================================================================
+ERROR: test_actual_committed_workflow_matches_all_dependency_bytes (test_source_bindings.IntegratedBindingsTests.test_actual_committed_workflow_matches_all_dependency_bytes)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\unicode-pr-ready\tools\Validation\Erlang.CiReuse\test_source_bindings.py", line 54, in test_actual_committed_workflow_matches_all_dependency_bytes
+    result = verify(root)
+             ^^^^^^^^^^^^
+  File "D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\unicode-pr-ready\tools\Validation\Erlang.CiReuse\source_bindings.py", line 75, in verify
+    workflow_pin("INTEGRATED_PLAN", source_sha(str(plan_path.relative_to(root))))
+  File "D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\unicode-pr-ready\tools\Validation\Erlang.CiReuse\source_bindings.py", line 71, in workflow_pin
+    raise ValueError("Integrated workflow pin differs: " + key)
+ValueError: Integrated workflow pin differs: INTEGRATED_PLAN
+
+======================================================================
+FAIL: test_stale_or_missing_environment_pin_is_rejected_before_execution (test_source_bindings.IntegratedBindingsTests.test_stale_or_missing_environment_pin_is_rejected_before_execution)
+----------------------------------------------------------------------
+ValueError: Integrated workflow pin differs: INTEGRATED_PLAN
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\unicode-pr-ready\tools\Validation\Erlang.CiReuse\test_source_bindings.py", line 65, in test_stale_or_missing_environment_pin_is_rejected_before_execution
+    with self.assertRaisesRegex(ValueError, key):
+AssertionError: "ENV709_NATIVE_PLAN" does not match "Integrated workflow pin differs: INTEGRATED_PLAN"
+
+----------------------------------------------------------------------
+Ran 22 tests in 0.109s
+
+FAILED (failures=1, errors=1)

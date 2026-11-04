@@ -6,6 +6,8 @@ import re
 
 
 PRODUCER_FIELDS = {
+    "CAPTURE_PLAN": {"BuildPlanSha256"},
+    "ACCEPTANCE_PLAN": {"N1BuildPlanSha256", "OriginalPlanSha256", "FixtureManifests"},
     "N2_ORIGINAL_PLAN": {"NativeBuildPlanSha256", "WrongEntryNativeBuildPlans"},
     "N2_MANAGED_PLAN": {"NativeBuildPlanSha256", "OriginalPlanSha256", "WrongEntryNativeBuildPlans"},
     "ENV709_ORIGINAL_PLAN": {"NativeBuildPlanSha256"},
@@ -79,6 +81,16 @@ def verify(repository, workflow_text=None):
         dependency = json.loads(dependency_path.read_bytes())
         require_producer_fields(key, dependency)
         qualified_inputs(root, dependency_path.parent, dependency.get("Inputs", []))
+        if key == "CAPTURE_PLAN" and dependency["BuildPlanSha256"] != plan["PlanPins"]["NATIVE_PLAN"]["Sha256"]:
+            raise ValueError("Native producer plan differs: " + key)
+        if key == "ACCEPTANCE_PLAN":
+            if dependency["N1BuildPlanSha256"] != plan["PlanPins"]["NATIVE_PLAN"]["Sha256"]:
+                raise ValueError("Native producer plan differs: " + key)
+            if dependency["OriginalPlanSha256"] != plan["PlanPins"]["ORIGINAL_PLAN"]["Sha256"]:
+                raise ValueError("Original producer plan differs: " + key)
+            for name, digest in dependency["FixtureManifests"].items():
+                if source_sha("tools/Native/" + name + "/manifest.json") != digest:
+                    raise ValueError("Fixture producer manifest differs: " + name)
         if key in ("N2_ORIGINAL_PLAN", "N2_MANAGED_PLAN"):
             expected = {
                 "Windows": source_sha("tools/Native/Erlang.NifVersion651Observations/build-inputs.json"),
