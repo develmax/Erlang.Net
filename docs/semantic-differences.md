@@ -1,3 +1,5 @@
+gen_event Part580 retains a scheduling-sensitive upstream_call failure at gen_event_SUITE.erl:853 (depth3 Managed): wait_response(...,0) can see an already queued reply where the testcase expected timeout. No expected values or stacks are normalized. Primary105/105 per backend passes, while universal scheduling/resource/distribution parity is unproved. [Evidence](validation/part-580/README.md).
+
 Code backend publication (2026-11-04): all69 signatures have C#/original alternatives;156 full observations and25 lifecycle results pass per backend on current main, alongside17 connected groups. Existing non-BEAMASM coverage/debug differs from OTP JIT; full release/docs/gzip/platform/resource acceptance remains open. See [code receipt](validation/code-port-20261104/README.md).
 
 PR108 CI follow-up: complete downstream producer bindings and early N1 producer rejection; [evidence and final CI gate](validation/part-577/README.md). Unicode implementation and compatibility classifications are unchanged.

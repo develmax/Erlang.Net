@@ -3,6 +3,20 @@
   "Components": [
     {
       "Status": "Partially compatible",
+      "Project": "src/Otp/Managed/Erlang.Otp.Stdlib",
+      "Remaining": [
+        "Managed depth3 zero-timeout upstream testcase race; whole-suite/scheduling/distribution/resources/cross-platform equivalence unproved."
+      ],
+      "Implemented": [
+        "Part580: explicit C#/retained BEAM alternatives,44 non-metadata exports; clean primary105/105 per backend; semantic literal ownership and nine-file audit. Depth0,1,2,8,32 both pass; Managed depth3 remains104/105. See validation/part-580."
+      ],
+      "Id": "GenEvent",
+      "TestPrefixes": [
+        "gen_event/"
+      ]
+    },
+    {
+      "Status": "Partially compatible",
       "Project": "src/Runtime/Erlang.Terms",
       "Remaining": [
         "Full configurable atom/resource/fatal-exhaustion semantics and native loaded-module lifecycle;distributed identity",

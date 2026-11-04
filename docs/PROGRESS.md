@@ -1,5 +1,7 @@
 # Project progress
 
+Part580 adds selectable C# gen_event alongside retained Erlang/BEAM and removes magic literals using semantic owners. Clean focused build and primary105/105 per backend pass; Managed depth3 retains an upstream zero-timeout race (104/105). [Evidence and open gate](validation/part-580/README.md).
+
 Part574 consolidates the final Linux descriptor poll source and audits stale branches. Exact-head Linux/original replay, CI, review and merge remain pending; no API/full-contract promotion. See [branch decisions and acceptance gates](validation/part-574/README.md).
 
 Draft Part568 prepares the bulk physical-occurrence runtime patch in a separate PR to main. Ordsets stays6 Verified/15 KnownDifferences; current whole ETF replay remains RED. See [evidence and open acceptance gates](validation/part-568/ordsets-bulk/README.md).

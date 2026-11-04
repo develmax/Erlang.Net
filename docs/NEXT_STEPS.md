@@ -1,5 +1,7 @@
 # Next steps
 
+Part580: review the selectable gen_event implementation and semantic constants PR; investigate the retained Managed depth3 zero-timeout upstream failure before merge. Primary105/105 per backend passes; no full regression/readiness refresh was run. [Scope and reports](validation/part-580/README.md).
+
 Part574 consolidates the final Linux descriptor poll source and audits stale branches. Exact-head Linux/original replay, CI, review and merge remain pending; no API/full-contract promotion. See [branch decisions and acceptance gates](validation/part-574/README.md).
 
 Draft Part568 prepares the bulk physical-occurrence runtime patch in a separate PR to main. Ordsets stays6 Verified/15 KnownDifferences; current whole ETF replay remains RED. See [evidence and open acceptance gates](validation/part-568/ordsets-bulk/README.md).
