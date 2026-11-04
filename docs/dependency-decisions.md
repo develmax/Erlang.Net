@@ -937,3 +937,6 @@ and pinned source frames by keeping the trampoline inside the module, rather
 than introducing a new process-root transfer. The permanent actual-continuation
 probe distinguishes managed machine retention from opaque native-fun allocator
 pinning. Original OTP helpers and source/BEAM remain unchanged. See Part587.
+
+
+Timer PR113: the user explicitly requested a full C# timer port with retained Erlang/BEAM and selectable implementation. This is the overriding authorization for this module; the general pure-OTP policy remains. See [timer backend and review evidence](timer-backends.md).

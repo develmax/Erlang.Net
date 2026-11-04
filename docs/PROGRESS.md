@@ -1,5 +1,7 @@
 # Project progress
 
+Part589 updates ASN.1 PR118 from timer main29b92f63d, retaining both components and the qualified file atom. Fresh focused build,65 checks/26 OTP outcomes and passive bindings pass. [Evidence](validation/part-589/README.md).
+
 Part588 fixes the ASN.1 consumer CS0119 exposed after the file backend was added: qualify the existing file atom constant. Focused build and65 checks/26 fresh OTP outcomes pass; no runtime or compatibility change. [Evidence](validation/part-588/README.md).
 
 [Part587](validation/part-587/README.md) fixes the gen_statem sys continuation review finding:97 retained managed machines become1 after32 generations. Both backends pass74+311 full observations/scenarios. Final-head hosted review/CI and wider OTP acceptance remain separate.
@@ -64,3 +66,6 @@ The previous progress document started at Part485; the maintained work queue and
 Keep this page as a short entry point. Put new work results in the active changelog volume and update the owning readiness or remaining-work document. Link to evidence instead of copying checkpoint narratives here.
 
 PR102 is merged as f0c23d603. Its complete unit report passed9687/9687, while overall main Validate failed before async observer execution on a stale caller pin. The [repair evidence](validation/part-569/ci-integrated-pins-and-reuse/hosted-results/README.md) records corrected native cohort and async23 focused successes. Final repair-head whole CI/current review remain pending; generated readiness is unit evidence, not a whole-pipeline acceptance claim.
+
+
+Timer PR113: the user explicitly requested a full C# timer port with retained Erlang/BEAM and selectable implementation. This is the overriding authorization for this module; the general pure-OTP policy remains. See [timer backend and review evidence](timer-backends.md).
