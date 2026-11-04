@@ -1,3 +1,5 @@
+Unicode PR108 follow-up: conversion accumulation is linear while preserving OTP segment-boundary capacity. Source-plan gates and the inherited String documentation pin are repaired; see [focused evidence](validation/part-576/README.md). No compatibility classification is promoted.
+
 Unicode: all 22 exports have explicit Managed/Beam alternatives; see [publication scope](validation/unicode-port-20261104/PUBLICATION.md). Prior finite comparisons do not establish universal or rebased-head acceptance.
 
 Current string integration: all71 C# APIs and original Erlang/BEAM are explicitly selectable. Source errors/full stacks, lazy chardata, numeric and Jaro behavior match the retained8522-case/depth comparisons for both backends;14 cooperation tests and9706 full tests pass. Existing allocation limits and native-caller/async semantics remain. Finite results and original receipts retain their scope; classifications remain unchanged. See [current evidence](validation/string-otp-merge-20261104/README.md).

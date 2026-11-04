@@ -464,6 +464,7 @@ var tests = new List<(string Name, Func<Task> Body)>();
 Test(Erlang.Tests.UnicodeBackendNames.ManagedTest, () => Erlang.Tests.UnicodeBackendChecks.Run(true));
 Test(Erlang.Tests.UnicodeBackendNames.BeamTest, () => Erlang.Tests.UnicodeBackendChecks.Run(false));
 Test(Erlang.Tests.UnicodeBackendNames.RefusalTest, Erlang.Tests.UnicodeBackendChecks.Refusals);
+Test(Erlang.Tests.UnicodeBackendNames.GrowthTest, Erlang.Tests.UnicodeGrowthChecks.Run);
 Test(Erlang.Tests.StringBackendNames.ManagedTest, () => Erlang.Tests.StringBackendChecks.Run(true));
 Test(Erlang.Tests.StringBackendNames.BeamTest, () => Erlang.Tests.StringBackendChecks.Run(false));
 Test(Erlang.Tests.StringBackendNames.RefusalTest, Erlang.Tests.StringBackendChecks.Refusals);

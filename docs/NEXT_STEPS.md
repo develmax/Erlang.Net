@@ -6,6 +6,8 @@ Draft Part568 prepares the bulk physical-occurrence runtime patch in a separate 
 
 ## Executable queue
 
+- [Unicode CI repairs](validation/part-576/README.md): linear conversion accumulation, 20 focused groups, retained OTP buffer observations and refreshed source-plan bindings; final-head CI remains the delivery gate.
+
 - [Unicode alternatives](validation/unicode-port-20261104/PUBLICATION.md): complete 22-export C# surface and retained original Erlang; focused validation and prior working-corpus evidence are tracked separately.
 
 

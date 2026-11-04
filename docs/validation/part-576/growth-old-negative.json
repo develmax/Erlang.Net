@@ -1,0 +1,19 @@
+{
+  "Partial": true,
+  "SelectedCount": 1,
+  "TotalCount": 9712,
+  "Blocks": [],
+  "ExactCases": [
+    "runtime/unicode/large-integer-list-linear-allocation-and-append-backing"
+  ],
+  "Passed": 0,
+  "Failed": 1,
+  "Tests": [
+    {
+      "Name": "runtime/unicode/large-integer-list-linear-allocation-and-append-backing",
+      "Status": "Failed",
+      "Error": "System.InvalidOperationException: Unicode large conversion value, append backing or allocation scaling differs\r\n   at Erlang.Tests.UnicodeGrowthChecks.Require(Boolean condition) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\unicode-pr-ready\\tests\\Erlang.Tests\\Otp\\Stdlib\\Unicode\\UnicodeGrowthChecks.cs:line 74\r\n   at Erlang.Tests.UnicodeGrowthChecks.Run() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\unicode-pr-ready\\tests\\Erlang.Tests\\Otp\\Stdlib\\Unicode\\UnicodeGrowthChecks.cs:line 47\r\n   at Erlang.Tests.UnicodeGrowthChecks.Run() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\unicode-pr-ready\\tests\\Erlang.Tests\\Otp\\Stdlib\\Unicode\\UnicodeGrowthChecks.cs:line 52\r\n   at Erlang.Tests.UnicodeGrowthChecks.Run() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\unicode-pr-ready\\tests\\Erlang.Tests\\Otp\\Stdlib\\Unicode\\UnicodeGrowthChecks.cs:line 52\r\n   at Program.\u003CMain\u003E$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\unicode-pr-ready\\tests\\Erlang.Tests\\Harness\\Program.cs:line 16251",
+      "Milliseconds": 4872
+    }
+  ]
+}

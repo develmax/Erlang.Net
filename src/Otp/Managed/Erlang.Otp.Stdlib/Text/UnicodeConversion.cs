@@ -4,7 +4,7 @@ namespace Erlang;
 internal sealed class UnicodeConversion(ProcessContext context, UnicodeEncoding input, UnicodeEncoding output)
 {
     private readonly List<byte> bytes = new();
-    private BitString accumulator = new(Array.Empty<byte>());
+    private int capacity;
     private BitString? incomplete;
     private int missing;
     private int work;
@@ -135,7 +135,7 @@ internal sealed class UnicodeConversion(ProcessContext context, UnicodeEncoding 
             }
             cursor = Nil.Value;
         }
-        Term converted = accumulator;
+        Term converted = Build();
         if (error is not null)
         {
             while (parents.TryPop(out Term? parent))
@@ -159,10 +159,32 @@ internal sealed class UnicodeConversion(ProcessContext context, UnicodeEncoding 
 
     private void Commit()
     {
-        if (bytes.Count != accumulator.ByteLength)
+        // Each OTP append determines capacity at a semantic segment boundary.
+        // Track those boundaries without copying the accumulated payload.
+        if (bytes.Count <= capacity)
         {
-            accumulator = BitString.FromValidatedAppend(accumulator, new BitString(bytes.ToArray()));
+            return;
         }
+        double desired = bytes.Count <= BinaryBackingParameters.LargeGrowthThreshold
+            ? bytes.Count * 2d : bytes.Count * BinaryBackingParameters.LargeGrowthFactor;
+        if (desired > Array.MaxLength)
+        {
+            throw new ErlangException(ErlangErrorReasons.SystemLimit);
+        }
+        capacity = Math.Max(BinaryBackingParameters.MinimumAppendBytes, (int)desired);
+    }
+
+    private BitString Build()
+    {
+        if (bytes.Count == 0)
+        {
+            return new BitString(Array.Empty<byte>());
+        }
+        // Materialize once, retaining a genuine writable result and its exact
+        // OTP capacity for both inspection and subsequent guest appends.
+        BitString writable = BitString.InitializeWritable(capacity);
+
+        return BitString.FromValidatedAppend(writable, new BitString(System.Runtime.InteropServices.CollectionsMarshal.AsSpan(bytes)));
     }
 
     private Term? DecodeCore(BitString binary)

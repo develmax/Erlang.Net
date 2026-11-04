@@ -1,0 +1,11 @@
+{"Partial":true,"SelectedCount":1,"TotalCount":9712}
+FAIL runtime/unicode/large-integer-list-linear-allocation-and-append-backing: System.NotSupportedException: The BEAM external import is outside the supported host subset
+   at Erlang.BeamExternalImports.Resolve(BeamLinkedCode code, String module, String function, Int32 arity) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\unicode-pr-ready\src\Runtime\Erlang.Runtime.Core\Execution\Beam\BeamExternalImports.cs:line 40
+   at Erlang.BeamExternalImports.Resolve(BeamLinkedCode code, Int32 index) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\unicode-pr-ready\src\Runtime\Erlang.Runtime.Core\Execution\Beam\BeamExternalImports.cs:line 11
+   at Erlang.BeamRegisterValidation.ValidateCore(BeamLinkedCode code, BeamLinkedFunction entry, HashSet`1 visited) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\unicode-pr-ready\src\Runtime\Erlang.Runtime.Core\Execution\Beam\BeamRegisterValidation.cs:line 368
+   at Erlang.BeamRegisterValidation.PreparationBatch476.Validate(BeamLinkedFunction entry) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\unicode-pr-ready\src\Runtime\Erlang.Runtime.Core\Execution\Beam\BeamRegisterValidation.cs:line 487
+   at Erlang.ModuleRegistry.PrepareBeam(ReadOnlyMemory`1 bytes, BeamDependencySelection dependencies) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\unicode-pr-ready\src\Runtime\Erlang.Runtime.Core\Modules\ModuleRegistry.PreparedBeam.cs:line 37
+   at Erlang.Tests.UnicodeGrowthChecks.Run() in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\unicode-pr-ready\tests\Erlang.Tests\Otp\Stdlib\Unicode\UnicodeGrowthChecks.cs:line 17
+   at Erlang.Tests.UnicodeGrowthChecks.Run() in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\unicode-pr-ready\tests\Erlang.Tests\Otp\Stdlib\Unicode\UnicodeGrowthChecks.cs:line 42
+   at Program.<Main>$(String[] args) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\unicode-pr-ready\tests\Erlang.Tests\Harness\Program.cs:line 16251
+0/1 passed
