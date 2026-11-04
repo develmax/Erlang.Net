@@ -1,7 +1,5 @@
 # Dependency and compatibility decisions
 
-Part584 — The user explicitly requests a manual C# gen_event alternative while keeping original Erlang selectable. Reuse the existing term/process/module/BEAM runtime and original gen/proc_lib/sys/io/Unicode dependencies. BCL events and actor frameworks do not preserve the OTP handler, mailbox, callback and link contract, so they are not substituted. No new package or external C# library is introduced. Pin OTP29.1.1/ad05823719d77c8faee87348ea39513d4e2f99c5; preserve Apache-2.0 notices in the retained source/fixtures and derived implementation. Semantic catalogs separate equal strings/numbers by contract. Finite Windows comparisons and the retained timing failure do not certify universal parity. [Evidence](validation/part-584/README.md).
-
 ## Managed unicode_util — 2026-11-04
 
 The user requests a C# unicode_util alternative and an Erlang-free managed
@@ -16,7 +14,10 @@ module selection. No new package or production Erlang dependency. Preserve OTP
 Apache-2.0 and Unicode data notices. Exhaustive table/domain validation and pinned
 conformance corpora are required; API counts do not close compatibility.
 
+
 ## Earlier decisions
+
+Part584 — The user explicitly requests a manual C# gen_event alternative while keeping original Erlang selectable. Reuse the existing term/process/module/BEAM runtime and original gen/proc_lib/sys/io/Unicode dependencies. BCL events and actor frameworks do not preserve the OTP handler, mailbox, callback and link contract, so they are not substituted. No new package or external C# library is introduced. Pin OTP29.1.1/ad05823719d77c8faee87348ea39513d4e2f99c5; preserve Apache-2.0 notices in the retained source/fixtures and derived implementation. Semantic catalogs separate equal strings/numbers by contract. Finite Windows comparisons and the retained timing failure do not certify universal parity. [Evidence](validation/part-584/README.md).
 
 Part568 draft - Adapt pinned OTP-29.1.1 erl_map.c/utils.c bulk sort/adjacent-EQ compaction in C# runtime. Reuse existing map hash provider, owner admission/close, hash leases and native materialization; inspect signed fun comparison/hash, source guards and physical copy order. Retain Apache-2.0 notices; no new package or production ERTS dependency. Actual-address C replay is limited source evidence, not a context-independent golden or21/21 proof. [Draft evidence](validation/part-568/ordsets-bulk/README.md).
 
@@ -953,3 +954,6 @@ and pinned source frames by keeping the trampoline inside the module, rather
 than introducing a new process-root transfer. The permanent actual-continuation
 probe distinguishes managed machine retention from opaque native-fun allocator
 pinning. Original OTP helpers and source/BEAM remain unchanged. See Part587.
+
+
+Timer PR113: the user explicitly requested a full C# timer port with retained Erlang/BEAM and selectable implementation. This is the overriding authorization for this module; the general pure-OTP policy remains. See [timer backend and review evidence](timer-backends.md).

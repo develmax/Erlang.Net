@@ -1,3 +1,7 @@
+Part589 updates ASN.1 PR118 from timer main29b92f63d, retaining both components and the qualified file atom. Fresh focused build,65 checks/26 OTP outcomes and passive bindings pass. [Evidence](validation/part-589/README.md).
+
+Part588 fixes the ASN.1 consumer CS0119 exposed after the file backend was added: qualify the existing file atom constant. Focused build and65 checks/26 fresh OTP outcomes pass; no runtime or compatibility change. [Evidence](validation/part-588/README.md).
+
 Part586 fixes the omitted Monitor source-freeze manifest behind main CI41836436436 and adds a committed-manifest guard. No runtime or compatibility change. [Failure and focused validation](validation/part-586/README.md).
 
 PR111 Part585 reconciles code/file/gen_event on current main, refreshes declared source/producer pins and checks the retained BEAM image hash. Fresh105/105 per backend passes; final-head CI remains required. [Repair evidence](validation/part-585/README.md).
@@ -968,3 +972,6 @@ The observed safe comparison before an uninitialized Y destination no longer pro
 The [pinned witness and source classification](validation/integration-20261103/native-flat-order-pending/README.md) identify known numeric/order differences for supported native materialized maps with changed binary keys. ordsets:is_equal/2 and is_element/2 disagree in actual public observations; is_set/1 on reverse-ordered operands follows directly from pinned source and the observed strict order. These3 APIs are Known differences, with6 verified and12 still pending. This pre-existing main branch is retained explicitly until a separate physical-key-order fix and full validation.
 
 The [later all21-API native observer](validation/integration-20261103/native-flat-order-all-apis/README.md) expands actual counterexamples to all15 comparison-dependent ordsets MFAs. Current classification is6 verified/15 Known differences/0 pending; the earlier narrower3-known audit remains historical evidence. The separate candidate fix has not been applied here.
+
+
+Timer PR113: the user explicitly requested a full C# timer port with retained Erlang/BEAM and selectable implementation. This is the overriding authorization for this module; the general pure-OTP policy remains. See [timer backend and review evidence](timer-backends.md).
