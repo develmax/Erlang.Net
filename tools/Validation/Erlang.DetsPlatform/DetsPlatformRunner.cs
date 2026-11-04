@@ -99,6 +99,89 @@ internal static class DetsPlatformRunner
                     Term.String(folder + "-moved")
                 ), "directory rename");
                 Ok(await Call("file", "del_dir", Term.String(folder + "-moved")), "rmdir");
+                Term opened = await Call(
+                    "file",
+                    "open",
+                    Term.String(probe),
+                    Term.List(
+                        Term.A("read"),
+                        Term.A("write"),
+                        Term.A("raw"),
+                        Term.A("binary")
+                    )
+                );
+                Check(opened is TupleTerm { Items.Count: 2 } handle && handle.Items[0].Equals(Term.A("ok")), "raw open");
+                Term descriptor = ((TupleTerm)opened).Items[1];
+                Check(
+                    (await Call(
+                        "file",
+                        "read",
+                        descriptor,
+                        Term.I(2)
+                    )).Equals(Term.Tuple(Term.A("ok"), new BitString(new byte[] { 0, 7 }))),
+                    "sequential first read"
+                );
+                Check(
+                    (await Call(
+                        "file",
+                        "read",
+                        descriptor,
+                        Term.I(1)
+                    )).Equals(Term.Tuple(Term.A("ok"), new BitString(new byte[] { 255 }))),
+                    "sequential second read advances cursor"
+                );
+                Check(
+                    (await Call(
+                        "file",
+                        "pread",
+                        descriptor,
+                        Term.I(0),
+                        Term.I(1)
+                    )).Equals(Term.Tuple(Term.A("ok"), new BitString(new byte[] { 0 }))),
+                    "positioned read"
+                );
+                Check(
+                    (await Call(
+                        "file",
+                        "position",
+                        descriptor,
+                        Term.Tuple(Term.A("cur"), Term.I(0))
+                    )).Equals(Term.Tuple(Term.A("ok"), Term.I(3))),
+                    "pread preserves cursor"
+                );
+                Ok(await Call(
+                    "file",
+                    "pwrite",
+                    descriptor,
+                    Term.I(1),
+                    new BitString(new byte[] { 8 })
+                ), "positioned write");
+                Check(
+                    (await Call(
+                        "file",
+                        "position",
+                        descriptor,
+                        Term.Tuple(Term.A("cur"), Term.I(0))
+                    )).Equals(Term.Tuple(Term.A("ok"), Term.I(OperatingSystem.IsWindows() ? 2 : 3))),
+                    "native pwrite cursor"
+                );
+                Check(
+                    (await Call(
+                        "file",
+                        "position",
+                        descriptor,
+                        Term.Tuple(Term.A("bof"), Term.I(1))
+                    )).Equals(Term.Tuple(Term.A("ok"), Term.I(1))),
+                    "seek before truncate"
+                );
+                Ok(await Call("file", "truncate", descriptor), "truncate at cursor");
+                Check((await Call(
+                    "file",
+                    "read",
+                    descriptor,
+                    Term.I(1)
+                )).Equals(Term.A("eof")), "truncated EOF");
+                Ok(await Call("file", "close", descriptor), "raw close");
                 Ok(await Call("file", "delete", Term.String(probe)), "unlink");
                 Term environmentKey = Term.String("ERLANG_NET_DETS_PLATFORM_PROBE");
                 Check((await Call(
@@ -194,7 +277,36 @@ internal static class DetsPlatformRunner
                         Term.I(1)
                     ), "delete");
                     Ok(await Call("dets", "close", table), "final close");
-
+                    if (!managed)
+                    {
+                        Term foreignOptions = Term.List(
+                            Term.Tuple(Term.A("file"), Term.String(Path.Combine(output, "managed-" + kind + ".dets"))),
+                            Term.Tuple(Term.A("type"), Term.A(kind)),
+                            Term.Tuple(Term.A("access"), Term.A("read"))
+                        );
+                        Check((await Call(
+                            "dets",
+                            "open_file",
+                            table,
+                            foreignOptions
+                        )).Equals(Term.Tuple(Term.A("ok"), table)), "original opens C# file");
+                        Check(
+                            Cons.Items(await Call(
+                                "dets",
+                                "lookup",
+                                table,
+                                Term.I(500)
+                            )).Contains(Term.Tuple(Term.I(500), Term.I(99))),
+                            "original reads C# replacement"
+                        );
+                        Check((await Call(
+                            "dets",
+                            "lookup",
+                            table,
+                            Term.I(1)
+                        )).Equals(Nil.Value), "original reads C# deletion");
+                        Ok(await Call("dets", "close", table), "foreign close");
+                    }
                 }
                 Check((runtime.Modules.SourceOwner("dets", "open_file", 2) is PreparedBeamImage) != managed, "selected backend identity");
                 completion.TrySetResult(Term.I(checks));

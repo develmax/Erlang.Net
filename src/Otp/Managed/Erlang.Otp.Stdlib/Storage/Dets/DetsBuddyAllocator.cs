@@ -28,8 +28,7 @@ internal sealed class DetsBuddyAllocator
         foreach (var block in blocks.OrderBy(block => block.Address))
         {
             if (block.Exponent is < 0 or > DetsV9Layout.MaximumCollectionExponent
-                || block.Address < previousEnd || (block.Address - allocationBase) % (1L << block.Exponent) != 0
-                || block.Address + (1L << block.Exponent) > allocationBase + DetsV9Layout.AddressSpaceBytes)
+                || block.Address < previousEnd)
             {
                 throw new DetsFileException(DetsFileReasons.BadFreelists);
             }
@@ -86,7 +85,6 @@ internal sealed class DetsBuddyAllocator
     internal void Release(long address, int exponent)
     {
         if (exponent is < 0 or > DetsV9Layout.MaximumCollectionExponent || address < Base
-            || (address - Base) % (1L << exponent) != 0
             || address - Base >= DetsV9Layout.AddressSpaceBytes)
         {
             throw new DetsFileException(DetsFileReasons.BadFreelists);

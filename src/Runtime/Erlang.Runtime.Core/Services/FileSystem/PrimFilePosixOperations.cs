@@ -23,7 +23,7 @@ internal static class PrimFilePosixOperations
 
     private static Term Status(int error) => error == 0 ? Term.A(CommonAtomNames.Ok) : Error(error);
 
-    private static int Fd(PrimFileDataResource file) => checked((int)file.Stream.SafeFileHandle.DangerousGetHandle());
+    private static int Fd(PrimFileDataResource file) => checked((int)file.Handle.DangerousGetHandle());
 
     private static long Number(Term term) => term is Integer n && n.Value >= long.MinValue && n.Value <= long.MaxValue ? (long)n.Value : throw new ErlangException(ErlangErrorReasons.BadArgument);
 

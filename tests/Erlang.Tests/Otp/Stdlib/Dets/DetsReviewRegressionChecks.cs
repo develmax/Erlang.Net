@@ -1,5 +1,7 @@
 using System.Reflection;
 using System.Runtime.ExceptionServices;
+using System.Security.Cryptography;
+using System.Text.Json;
 using Erlang;
 
 namespace Erlang.Tests;
@@ -51,6 +53,7 @@ internal static class DetsReviewRegressionChecks
 
     internal static Task Run()
     {
+        OriginalReopenedFiles();
         foreach (string kind in new[] { "Set", "Bag", "DuplicateBag" })
         {
             using var source = new MemoryStream();
@@ -116,5 +119,52 @@ internal static class DetsReviewRegressionChecks
         Require(((IEnumerable<Term>)Call(Open(fixedFile), "Objects")!).Single().Equals(after), "scan did not corrupt table");
 
         return Task.CompletedTask;
+    }
+
+    private static void OriginalReopenedFiles()
+    {
+        DirectoryInfo? root = new(AppContext.BaseDirectory);
+        while (root is not null && !File.Exists(Path.Combine(root.FullName, "reference-baseline.json"))) root = root.Parent;
+        Require(root is not null, "repository for native fixtures");
+        string directory = Path.Combine(root!.FullName, "tests/Erlang.Tests/Resources/DetsReopened");
+        using JsonDocument provenance = JsonDocument.Parse(File.ReadAllBytes(Path.Combine(directory, "provenance.json")));
+        Require(
+            provenance.RootElement.GetProperty("SourceCommit").GetString() == "ad05823719d77c8faee87348ea39513d4e2f99c5",
+            "native fixture pin"
+        );
+        foreach (JsonElement item in provenance.RootElement.GetProperty("Files").EnumerateArray())
+        {
+            string name = item.GetProperty("Path").GetString()!;
+            byte[] bytes = File.ReadAllBytes(Path.Combine(directory, name));
+            Require(Convert.ToHexString(SHA256.HashData(bytes)) == item.GetProperty("Sha256").GetString(), "native fixture identity " + name);
+            if (!name.EndsWith(".dets", StringComparison.Ordinal)) continue;
+            using var stream = new MemoryStream();
+            stream.Write(bytes);
+            object table = Open(stream);
+            int count = name == "set.dets" ? 1199 : 1200;
+            Require(((IEnumerable<Term>)Call(table, "Objects")!).Count() == count, "native reopened free-list read " + name);
+            Require(
+                ((IReadOnlyList<Term>)Call(table, "Lookup", Term.I(500))!).Contains(Term.Tuple(Term.I(500), Term.I(99))),
+                "native replacement " + name
+            );
+            Term key = Term.A("large_foreign");
+            _ = Call(
+                table,
+                "Insert",
+                new Term[] { Term.Tuple(key, new BitString(new byte[10000])) },
+                false
+            );
+            _ = Call(table, "Save", true);
+            table = Open(stream);
+            Require(((IEnumerable<Term>)Call(table, "Objects")!).Count() == count + 1, "native allocation after reopen " + name);
+            _ = Call(
+                table,
+                "Delete",
+                key,
+                null
+            );
+            _ = Call(table, "Save", true);
+            Require(((IEnumerable<Term>)Call(Open(stream), "Objects")!).Count() == count, "native large-block release " + name);
+        }
     }
 }

@@ -8,6 +8,7 @@ try
     File.WriteAllText(Path.Combine(output, "review-regressions.json"), "{\"Passed\":true,\"Scenario\":\"growth-and-fixed-collection\"}\n");
     await DetsPlatformRunner.Run(repository, output, true);
     await DetsPlatformRunner.Run(repository, output, false);
+    DetsPlatformInterchange.Verify(output);
     Console.WriteLine("PASS managed and original DETS platform contracts");
 
     return 0;

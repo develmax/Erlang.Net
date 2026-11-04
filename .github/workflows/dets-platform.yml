@@ -6,7 +6,10 @@ on:
       - 'src/Otp/Managed/Erlang.Otp.Stdlib/Storage/Dets/**'
       - 'tools/Native/Erlang.FileSystem.Native/**'
       - 'tools/Validation/Erlang.DetsPlatform/**'
+      - 'tools/Validation/Erlang.DetsCompatibility/ReflectedDetsFile.cs'
       - 'tools/Validation/Erlang.PrimFilePlatform/**'
+      - 'tests/Erlang.Tests/Otp/Stdlib/Dets/**'
+      - 'tests/Erlang.Tests/Resources/DetsReopened/**'
       - 'tests/Erlang.Tests/Runtime/Bootstrap/PrimFileDelete*'
       - '.github/workflows/dets-platform.yml'
   workflow_dispatch:

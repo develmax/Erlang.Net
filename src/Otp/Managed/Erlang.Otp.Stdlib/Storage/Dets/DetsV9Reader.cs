@@ -188,9 +188,9 @@ internal sealed class DetsV9Reader
             for (long offset = DetsV9Layout.FreeHeaderBytes; offset < bytes; offset += DetsV9Layout.WordBytes)
             {
                 long address = Word(position + offset);
-                if (address <= previousAddress || address < Header.Base
-                    || (address - Header.Base) % (1L << exponent) != 0
-                    || address - Header.Base + (1L << exponent) > DetsV9Layout.AddressSpaceBytes)
+                // OTP resets head.base to the legacy base when loading free
+                // lists. Saved addresses can retain a different original base.
+                if (address <= previousAddress || address < Header.Base)
                 {
                     throw new DetsFileException(DetsFileReasons.BadFreelists);
                 }

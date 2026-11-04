@@ -184,4 +184,4 @@ Append numbered English entries only to the last volume. Start the next sequenti
 
 - [0105.md](docs/changelog/0105.md) - Parts578–583 code/file backends, CI repairs, main reconciliation and checkout byte preservation (closed; continues in0106; includes Parts584–586 gen_event/Monitor repairs and Part587 gen_statem sys continuation fix)
 
-- [0106.md](docs/changelog/0106.md) - Timer publication, PR113 reconciliation and Parts588-589 ASN.1 build repair/main update and Part590 analysis consumer CI reconciliation (active; includes Part591 managed Unicode utility)
+- [0106.md](docs/changelog/0106.md) - Timer publication, PR113 reconciliation and Parts588-589 ASN.1 build repair/main update and Part590 analysis consumer CI reconciliation (active; includes Part591 managed Unicode utility, Part592 ETS reconciliation and Part593 DETS review/POSIX filesystem)
