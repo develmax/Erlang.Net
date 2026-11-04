@@ -1,5 +1,7 @@
 File Part580: C# and original alternatives retain separate identities and match 408 exact focused observations after literal extraction. All five independent complete filesystem cycles still fail in each backend on incomplete native/provider support. No 100% compatibility or global readiness claim. See [contract and remaining gates](file-backends.md).
 
+[Part583](validation/part-583/README.md) repairs Windows checkout conversion of the Part582 source freeze. Raw source admission remains strict; no compatibility status is promoted.
+
 [Part582](validation/part-582/README.md) reconciles file PR110 with code main, retains both backend selections and refreshes source/producer identities. Connected validation and final-head hosted CI apply; compatibility classifications remain unchanged.
 
 [Part581](validation/part-581/README.md) repairs PR110 source admission and producer pins; runtime behavior and compatibility classifications are unchanged. Final-head hosted CI remains required.
