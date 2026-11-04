@@ -1,6 +1,6 @@
 # Next steps
 
-Part593: bootstrap files and DETS now execute on Windows/Linux/macOS; selectable C#/original Erlang implementations are preserved. Both review findings are fixed. Five DETS groups, four connected groups and the Windows21-scenario primary corpus per backend pass. Linux/macOS73 managed/85 original platform assertions and bidirectional file interchange pass; the expanded final matrix and independent Darwin unlink oracle are being collected. Exact source/pin/census checks pass. See [current evidence](validation/dets-reconciliation-20261104/README.md); no full local regression or universal compatibility promotion.
+Part593 complete for the targeted platform package: Windows/Linux/macOS each pass74 managed/86 original grouped checks,21 whole OTP scenarios/full error stacks per backend and bidirectional files. Both review findings, native cursors, reopened free lists and readonly errno are fixed; C#/Erlang selection remains. Descriptor54/54 and exact source/pin/census checks pass. See [bound receipts](validation/dets-reconciliation-20261104/README.md). No full local regression or universal compatibility promotion.
 
 Earlier local Part592: deletion-only portability work is superseded by Part593. Preserve separate host receipts, focused checks and C#/Erlang selection.
 

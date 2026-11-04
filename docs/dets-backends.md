@@ -90,3 +90,9 @@ information registration no longer demands a particular Windows CLR binary.
 The dedicated three-OS workflow executes both backend choices and filesystem
 probes. See the [platform evidence](validation/dets-reconciliation-20261104/README.md)
 for actual results and outstanding acceptance gates.
+
+Final targeted Windows/Linux/macOS acceptance passes both backends:74/86 grouped
+assertions,21 primary scenarios with complete error stacks, all3 bidirectional
+file types and permanent review/native-reopen regressions. Native Unix C probes
+independently bind readonly errno and deletion races. See the
+[final receipts](validation/dets-reconciliation-20261104/README.md).
