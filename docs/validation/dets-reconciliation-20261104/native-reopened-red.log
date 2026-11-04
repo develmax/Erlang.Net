@@ -1,0 +1,16 @@
+System.Reflection.TargetInvocationException: Exception has been thrown by the target of an invocation.
+ ---> Erlang.DetsFileException: bad_freelists
+   at Erlang.DetsV9Reader.ReadFreeBlocks()
+   at Erlang.DetsV9File..ctor(Stream stream, Boolean readOnly, EtfDecodeOptions decode, ProcessRuntime runtime)
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Constructor(Object obj, IntPtr* args)
+   at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)
+   --- End of inner exception stack trace ---
+   at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)
+   at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   at System.Reflection.RuntimeConstructorInfo.Invoke(BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   at System.RuntimeType.CreateInstanceImpl(BindingFlags bindingAttr, Binder binder, Object[] args, CultureInfo culture)
+   at System.Activator.CreateInstance(Type type, BindingFlags bindingAttr, Binder binder, Object[] args, CultureInfo culture)
+   at Erlang.Tests.DetsReviewRegressionChecks.Open(Stream stream) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\dets-pr-20261104\tests\Erlang.Tests\Otp\Stdlib\Dets\DetsReviewRegressionChecks.cs:line 46
+   at Erlang.Tests.DetsReviewRegressionChecks.OriginalReopenedFiles() in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\dets-pr-20261104\tests\Erlang.Tests\Otp\Stdlib\Dets\DetsReviewRegressionChecks.cs:line 140
+   at Erlang.Tests.DetsReviewRegressionChecks.Run() in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\dets-pr-20261104\tests\Erlang.Tests\Otp\Stdlib\Dets\DetsReviewRegressionChecks.cs:line 56
+   at Program.<Main>$(String[] args) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\dets-pr-20261104\tools\Validation\Erlang.DetsPlatform\Program.cs:line 7

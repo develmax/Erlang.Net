@@ -1,0 +1,100 @@
+// Source positions from pinned OTP-29.1.1 dets.erl; Apache-2.0, Ericsson AB.
+namespace Erlang;
+
+internal static class DetsSourceLines
+{
+    internal const int InlineBadArgument = 1968;
+    internal const int ExitBadArgument = 1980;
+    internal const int InvalidFileArgument = 1960;
+    internal const int InvalidOpenName = 1041;
+    internal const int InvalidOpenOptions = 1126;
+    internal const int InvalidFixBoolean = 1217;
+    internal const int InvalidRepairContinuation = 1189;
+    internal const int InvalidBindingsContinuation = 874;
+    internal const int InvalidObjectContinuation = 987;
+    internal const int InvalidSelectContinuation = 1297;
+    internal const int InvalidSlot = 1331;
+    internal const int InvalidBchunk = 335;
+    internal const int InvalidKeys = 803;
+    internal const int InvalidEtsSource = 489;
+    internal const int InvalidEtsTarget = 1524;
+    internal const int InvalidInitializeFunction = 692;
+    internal const int InvalidInitializeOptions = 684;
+    internal const int InvalidTableOptions = 1437;
+    internal const int DeleteAllBadArgument = 377;
+    internal const int FoldCall = 473;
+    internal const int TraverseCall = 1592;
+    internal const int TraverseCallback = 1581;
+    internal const int ToEtsCallback = 1526;
+    internal const int TraverseWorkerCall = 1641;
+    internal const int FoldCallback = 1675;
+
+    internal static int Line(string function, int arity) => (function, arity) switch
+    {
+        (DetsFunctions.AddUser, 3) => 290,
+        (DetsFunctions.All, 0) => 296,
+        (DetsFunctions.Bchunk, 2) => 331,
+        (DetsFunctions.Close, 1) => 348,
+        (DetsFunctions.Delete, 2) => 363,
+        (DetsFunctions.DeleteAllObjects, 1) => 377,
+        (DetsFunctions.DeleteObject, 2) => 395,
+        (DetsFunctions.FileInfo, 1) => 3931,
+        (DetsFunctions.First, 1) => 440,
+        (DetsFunctions.Foldl, 3) => 473,
+        (DetsFunctions.Foldr, 3) => 458,
+        (DetsFunctions.FromEts, 2) => 500,
+        (DetsFunctions.Fsck, 1) => 404,
+        (DetsFunctions.Fsck, 2) => 399,
+        (DetsFunctions.GetHeadField, 2) => 3941,
+        (DetsFunctions.Info, 1) => 532,
+        (DetsFunctions.Info, 2) => 596,
+        (DetsFunctions.Init, 2) => 1991,
+        (DetsFunctions.InitTable, 2) => 627,
+        (DetsFunctions.InitTable, 3) => 684,
+        (DetsFunctions.Insert, 2) => 705,
+        (DetsFunctions.InsertNew, 2) => 721,
+        (DetsFunctions.InternalClose, 1) => 726,
+        (DetsFunctions.InternalOpen, 3) => 730,
+        (DetsFunctions.IsCompatibleBchunkFormat, 2) => 744,
+        (DetsFunctions.IsDetsFile, 1) => 751,
+        (DetsFunctions.IstartLink, 1) => 1342,
+        (DetsFunctions.Lookup, 2) => 794,
+        (DetsFunctions.LookupKeys, 2) => 801,
+        (DetsFunctions.Match, 1) => 872,
+        (DetsFunctions.Match, 2) => 820,
+        (DetsFunctions.Match, 3) => 853,
+        (DetsFunctions.MatchDelete, 2) => 889,
+        (DetsFunctions.MatchObject, 1) => 985,
+        (DetsFunctions.MatchObject, 2) => 933,
+        (DetsFunctions.MatchObject, 3) => 966,
+        (DetsFunctions.Member, 2) => 999,
+        (DetsFunctions.Next, 2) => 1014,
+        (DetsFunctions.OpenFile, 1) => 1041,
+        (DetsFunctions.OpenFile, 2) => 1126,
+        (DetsFunctions.Pid2Name, 1) => 1141,
+        (DetsFunctions.RemoveUser, 2) => 1145,
+        (DetsFunctions.RepairContinuation, 2) => 1178,
+        (DetsFunctions.SafeFixtable, 2) => 1215,
+        (DetsFunctions.Select, 1) => 1295,
+        (DetsFunctions.Select, 2) => 1240,
+        (DetsFunctions.Select, 3) => 1277,
+        (DetsFunctions.SelectDelete, 2) => 1315,
+        (DetsFunctions.Slot, 2) => 1329,
+        (DetsFunctions.Start, 0) => 1334,
+        (DetsFunctions.Stop, 0) => 1338,
+        (DetsFunctions.Sync, 1) => 1358,
+        (DetsFunctions.SystemCodeChange, 4) => 2461,
+        (DetsFunctions.SystemContinue, 3) => 2449,
+        (DetsFunctions.SystemTerminate, 4) => 2453,
+        (DetsFunctions.Table, 1) => 1365,
+        (DetsFunctions.Table, 2) => 1437,
+        (DetsFunctions.ToEts, 2) => 1524,
+        (DetsFunctions.Traverse, 2) => 1592,
+        (DetsFunctions.UpdateCounter, 3) => 1613,
+        (DetsFunctions.Verbose, 0) => 1616,
+        (DetsFunctions.Verbose, 1) => 1620,
+        (DetsFunctions.View, 1) => 3949,
+        (DetsFunctions.Where, 2) => 1633,
+        _ => throw new ArgumentOutOfRangeException(nameof(function))
+    };
+}

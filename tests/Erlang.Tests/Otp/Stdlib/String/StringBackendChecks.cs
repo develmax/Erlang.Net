@@ -40,7 +40,7 @@ internal static class StringBackendChecks
         if (!jaro)
             Require(rows.Cast<TupleTerm>().Select(row => (((Atom)row.Items[0]).Name, Cons.Items(row.Items[1]).Count())).Distinct().Count() == StringModule.Exports.Count);
         await using var actor = new RuntimeNodeFoundationHostActor(runtime);
-        foreach (Term[] batch in rows.Chunk(CasesPerActorCommand))
+        foreach (Term[] batch in rows.Chunk(jaro ? 1 : CasesPerActorCommand))
         {
             await actor.InvokeAsync(async context =>
             {

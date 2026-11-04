@@ -44,7 +44,10 @@ internal sealed class PrimBufferBuiltinOwner(ProcessRuntime runtime) : IAsyncDis
         }
         if (function == PrimBufferBuiltinNames.Unlock)
         {
-            Volatile.Write(ref buffer.Locked, 0);
+            if (Interlocked.CompareExchange(ref buffer.Locked, 0, 1) == 0)
+            {
+                throw new ErlangException(PrimBufferBuiltinNames.LockOrderViolation);
+            }
 
             return Term.A(CommonAtomNames.Ok);
         }
@@ -54,29 +57,45 @@ internal sealed class PrimBufferBuiltinOwner(ProcessRuntime runtime) : IAsyncDis
             {
                 case PrimBufferBuiltinNames.Size: return Term.I(buffer.Size);
                 case PrimBufferBuiltinNames.Write:
-                    BitString[] segments = ErlangIoData.Segments(arguments[1], false, false).ToArray();
-                    foreach (BitString segment in segments)
+                    Term remainingInput = arguments[1];
+                    do
                     {
-                        if (segment.BitLength == 0)
+                        var values = new List<BitString>();
+                        for (int index = 0; index < PrimBufferBuiltinNames.InspectionVectorElements && remainingInput is Cons item; index++)
                         {
-                            continue;
+                            if (item.Head is not BitString { IsBinary: true } value)
+                            {
+                                throw new ErlangException(ErlangErrorReasons.BadArgument);
+                            }
+                            values.Add(value);
+                            remainingInput = item.Tail;
                         }
-                        buffer.Segments.Enqueue(segment);
-                        buffer.Size += segment.BitLength / BitStringLayout.BitsPerByte;
+                        if (remainingInput is not Cons and not Nil)
+                        {
+                            throw new ErlangException(ErlangErrorReasons.BadArgument);
+                        }
+                        buffer.Write(values);
                     }
+                    while (remainingInput is not Nil);
 
                     return Term.A(CommonAtomNames.Ok);
                 case PrimBufferBuiltinNames.Peek:
+                    buffer.FlushAccumulator();
                     if (buffer.Segments.Count == 0)
                     {
-                        return new BitString(Array.Empty<byte>());
+                        throw new ErlangException(ErlangErrorReasons.BadArgument);
                     }
                     BitString head = buffer.Segments.Peek();
 
                     return head.SliceBits(buffer.HeadOffset * BitStringLayout.BitsPerByte, head.BitLength - buffer.HeadOffset * BitStringLayout.BitsPerByte);
                 case PrimBufferBuiltinNames.Read:
                 case PrimBufferBuiltinNames.Skip:
-                    if (arguments[1] is not Integer count || count.Value < 0 || count.Value > buffer.Size || count.Value > int.MaxValue)
+                    if (arguments[1] is not Integer count || count.Value < 0 || count.Value > ulong.MaxValue)
+                    {
+                        throw new ErlangException(ErlangErrorReasons.BadArgument);
+                    }
+                    buffer.FlushAccumulator();
+                    if (count.Value > buffer.Size || count.Value > int.MaxValue)
                     {
                         throw new ErlangException(ErlangErrorReasons.BadArgument);
                     }
@@ -108,6 +127,7 @@ internal sealed class PrimBufferBuiltinOwner(ProcessRuntime runtime) : IAsyncDis
                     {
                         throw new ErlangException(ErlangErrorReasons.BadArgument);
                     }
+                    buffer.FlushAccumulator();
                     long offset = 0;
                     int skip = buffer.HeadOffset;
                     foreach (BitString segment in buffer.Segments)

@@ -22,7 +22,33 @@ internal sealed partial class PrimFileBuiltinOwner
     {
         try
         {
-            if (operation is PrimFileBuiltinNames.Delete or PrimFileBuiltinNames.Rename or PrimFileBuiltinNames.MakeDirectory or PrimFileBuiltinNames.RemoveDirectory)
+            if (operation == PrimFileBuiltinNames.Delete)
+            {
+                return PrimFileDeleteOperations.Delete(arguments[0], context.Cancellation);
+            }
+            if (!OperatingSystem.IsWindows())
+            {
+                if (operation == PrimFileBuiltinNames.Open)
+                {
+                    if (!PrimFilePosixOperations.Open(
+                        arguments[0],
+                        arguments[1],
+                        out var resource,
+                        out Term result
+                    )) return result;
+                    runtime.RegisterRawFile(context, resource!);
+                    lock (fileResources)
+                    {
+                        fileResources.RemoveAll(weak => !weak.TryGetTarget(out _));
+                        fileResources.Add(new(resource!));
+                    }
+
+                    return Term.Tuple(Term.A(CommonAtomNames.Ok), runtime.ReferenceResources.CreateFile(resource!));
+                }
+                if (operation is PrimFileBuiltinNames.Rename or PrimFileBuiltinNames.MakeDirectory or PrimFileBuiltinNames.RemoveDirectory)
+                    return PrimFilePosixOperations.PathOperation(operation, arguments[0], operation == PrimFileBuiltinNames.Rename ? arguments[1] : null);
+            }
+            if (operation is PrimFileBuiltinNames.Rename or PrimFileBuiltinNames.MakeDirectory or PrimFileBuiltinNames.RemoveDirectory)
             {
                 if (!PrimFileWindowsPaths410.Marshal(arguments[0], out string path, out string error))
                 {
@@ -34,11 +60,6 @@ internal sealed partial class PrimFileBuiltinOwner
                         ? PrimFileDataNative.MakeDirectory(path) : PrimFileDataNative.DeleteDirectory(path);
 
                     return success ? Term.A(CommonAtomNames.Ok) : PrimFileWindowsErrors410.Last(Marshal.GetLastPInvokeError());
-                }
-                if (operation == PrimFileBuiltinNames.Delete)
-                {
-                    return PrimFileDataNative.Delete(path) ? Term.A(CommonAtomNames.Ok)
-                        : PrimFileWindowsErrors410.Last(Marshal.GetLastPInvokeError());
                 }
                 if (!PrimFileWindowsPaths410.Marshal(arguments[1], out string target, out error))
                 {
@@ -98,6 +119,7 @@ internal sealed partial class PrimFileBuiltinOwner
                 {
                     return PrimFileWindowsErrors410.Tuple(PrimFileWindowsErrors410.BadDescriptor);
                 }
+                if (!OperatingSystem.IsWindows()) return PrimFilePosixOperations.Storage(file, operation, arguments);
                 var stream = file.Stream;
                 switch (operation)
                 {
@@ -123,9 +145,7 @@ internal sealed partial class PrimFileBuiltinOwner
 
                         return Term.A(CommonAtomNames.Ok);
                     case PrimFileBuiltinNames.Truncate:
-                        stream.SetLength(stream.Position);
-
-                        return Term.A(CommonAtomNames.Ok);
+                        return RuntimeFileOperations.TruncateFile(stream);
                     case PrimFileBuiltinNames.Read:
                         return Read(stream, Size(arguments[1]));
                     case PrimFileBuiltinNames.Pread:

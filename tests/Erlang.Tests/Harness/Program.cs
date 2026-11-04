@@ -502,6 +502,14 @@ Test(Erlang.Tests.StringCooperationNames.EqualTwo, () => Erlang.Tests.StringCoop
 Test(Erlang.Tests.StringCooperationNames.EqualThree, () => Erlang.Tests.StringCooperationChecks.RunEqual(true));
 Test(Erlang.Tests.StringCooperationNames.TrimFragments, () => Erlang.Tests.StringCooperationChecks.RunFragments(true));
 Test(Erlang.Tests.StringCooperationNames.LexemeFragments, () => Erlang.Tests.StringCooperationChecks.RunFragments(false));
+Test(Erlang.Tests.DetsBackendChecks.ManagedTest, Erlang.Tests.DetsBackendChecks.Managed);
+Test(Erlang.Tests.DetsBackendChecks.OriginalTest, Erlang.Tests.DetsBackendChecks.Original);
+Test(Erlang.Tests.DetsBackendChecks.ManagedSuiteTest, Erlang.Tests.DetsBackendChecks.ManagedSuite);
+Test(Erlang.Tests.DetsBackendChecks.OriginalSuiteTest, Erlang.Tests.DetsBackendChecks.OriginalSuite);
+Test(Erlang.Tests.DetsMagicLifetimeChecks.Test, Erlang.Tests.DetsMagicLifetimeChecks.Run);
+Test(Erlang.Tests.DetsReviewRegressionChecks.Test, Erlang.Tests.DetsReviewRegressionChecks.Run);
+Test(Erlang.Tests.PrimFileDeleteContractNames.HostTest, Erlang.Tests.PrimFileDeletePlatformChecks.Host);
+Test(Erlang.Tests.PrimFileDeleteContractNames.MappingTest, Erlang.Tests.PrimFileDeletePlatformChecks.Mapping);
 Test(Erlang.Tests.MathBackendNames.ManagedWhole, Erlang.Tests.LibraryDependencyOriginalHostChecks.MathManagedWhole);
 Test(Erlang.Tests.MathBackendNames.ManagedSelection, Erlang.Tests.MathBackendChecks.ManagedSelection);
 Test(Erlang.Tests.MathLog2OtpNames.Test, Erlang.Tests.MathLog2OtpChecks.Run);

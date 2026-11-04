@@ -5,9 +5,14 @@ namespace Erlang.Tests;
 
 internal static class KernelBootOriginal453Runtime
 {
-    internal static async Task<ProcessRuntime> Create(string admission)
+    internal static async Task<ProcessRuntime> Create(string admission, Func<ProcessRuntime, ModuleRegistry, PreparedBeamImage>? prepareEts = null)
     {
-        ProcessRuntime runtime = await StandardBootOriginal412Runtime.Create(admission, true, true);
+        ProcessRuntime runtime = await StandardBootOriginal412Runtime.Create(
+            admission,
+            true,
+            true,
+            prepareEts: prepareEts
+        );
         try
         {
             await global::Erlang.Tests.PreparedBeamFixtureScope171.RunAsync(
@@ -23,7 +28,10 @@ internal static class KernelBootOriginal453Runtime
                         RuntimeBootstrapAtomics.Register(runtime, registry);
                     }
                     {
-                        RuntimeBootstrapEtsInspection420.Register(runtime, registry);
+                        if (prepareEts is null)
+                        {
+                            RuntimeBootstrapEtsInspection420.Register(runtime, registry);
+                        }
                     }
                 });
                 string[] modules = JsonSerializer.Deserialize<string[]>(StandardBootOriginal412Access.Resource(StandardBootOriginal412Names.Dependencies))!;

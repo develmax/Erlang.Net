@@ -1,5 +1,17 @@
 # Next steps
 
+Part596 fixes PR119 test synchronization: await physical dirty-handler unwind and give the two timer539 cases an outer preparation/phase/drain budget while preserving internal watchdogs and assertions. Production source is unchanged. See [failure analysis and focused evidence](validation/part-596/README.md); fresh hosted checks remain pending.
+
+Part595 repairs the remaining PR119 CI function407 failure: original OTP confirms one tail-badfun source frame, including the exact synthetic image. Focused6/6 and complete66/66 raw/typed outcomes pass. See [native proof and receipt](validation/part-595/README.md); fresh hosted checks remain pending.
+
+Part594 repairs the four CI failures reported for PR119: complete badfun/badarity/apply stacks and bounded Jaro actor batches. Focused final-source checks are recorded in [the repair receipt](validation/part-594/README.md); full hosted validation remains separate.
+
+Part593 complete for the targeted platform package: Windows/Linux/macOS each pass74 managed/86 original grouped checks,21 whole OTP scenarios/full error stacks per backend and bidirectional files. Both review findings, native cursors, reopened free lists and readonly errno are fixed; C#/Erlang selection remains. Descriptor54/54 and exact source/pin/census checks pass. See [bound receipts](validation/dets-reconciliation-20261104/README.md). No full local regression or universal compatibility promotion.
+
+Earlier local Part592: deletion-only portability work is superseded by Part593. Preserve separate host receipts, focused checks and C#/Erlang selection.
+
+Part591: review the isolated [DETS backend PR](dets-backends.md) and its focused OTP receipts. Keep full upstream-suite/resource/platform/interleaving and release-manifest startup acceptance explicit; preserve backend selection and do not promote canonical readiness from partial reports.
+
 ETS PR116 review fixes: see [current evidence](validation/ets-review-20261104/README.md). Original Erlang remains selectable; directory rename and OS-atomic append are connected native acceptance scopes.
 
 Part589 updates ASN.1 PR118 from timer main29b92f63d, retaining both components and the qualified file atom. Fresh focused build,65 checks/26 OTP outcomes and passive bindings pass. [Evidence](validation/part-589/README.md).

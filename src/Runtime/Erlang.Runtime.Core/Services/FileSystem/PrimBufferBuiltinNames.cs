@@ -5,6 +5,9 @@ internal static class PrimBufferBuiltinNames
     internal const string LockAcquired = "acquired";
     internal const string LockBusy = "busy";
     internal const string NotFound = "not_found";
+    internal const string LockOrderViolation = "lock_order_violation";
+    internal const int WriteAccumulatorBytes = 2 << 10;
+    internal const int InspectionVectorElements = 64;
     internal const string Module = "prim_buffer";
     internal const string New = "new";
     internal const string Size = "size";

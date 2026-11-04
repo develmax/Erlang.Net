@@ -4,8 +4,8 @@ internal static class BeamFunctionCallErrors
 {
     private const int MinimumCapturedFrames = 1;
 
-    // A rejected fun application and its suspended source caller are distinct
-    // frames for a non-tail call. A tail call has no suspended caller frame.
+    // Non-tail fun rejection retains a separate application frame.
+    // A tail rejection retains its source MFA without duplicating that frame.
     internal static ErlangException BadFunction(ProcessContext context, Term callee, bool tailPosition)
     {
         Term reason = Term.Tuple(Term.A(ErlangErrorReasons.BadFunction), callee);

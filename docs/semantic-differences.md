@@ -1,5 +1,11 @@
 Part589 updates ASN.1 PR118 from timer main29b92f63d, retaining both components and the qualified file atom. Fresh focused build,65 checks/26 OTP outcomes and passive bindings pass. [Evidence](validation/part-589/README.md).
 
+Part593 complete for the targeted platform package: Windows/Linux/macOS each pass74 managed/86 original grouped checks,21 whole OTP scenarios/full error stacks per backend and bidirectional files. Both review findings, native cursors, reopened free lists and readonly errno are fixed; C#/Erlang selection remains. Descriptor54/54 and exact source/pin/census checks pass. See [bound receipts](validation/dets-reconciliation-20261104/README.md). No full local regression or universal compatibility promotion.
+
+Part592 splits prim_file deletion into a common C# result boundary and Windows/POSIX implementations. Unix unlink preserves raw filename bytes and uses separate Linux/Darwin errno tables; Windows directory/invalid-name errors now follow OTP. Focused Windows native-OTP and cross-ABI/path evidence is recorded in [the receipt](validation/prim-file-platform-delete-20261104/README.md). This earlier deletion-only checkpoint is superseded by Part593; full Unix file bindings are now implemented and targeted host execution is in progress.
+
+Part591 DETS adds all64 explicit exports through selectable C#/original Erlang alternatives, native v9 incremental storage and connected file/buffer/RAM/resource-lifetime primitives. Focused backend/upstream/interchange acceptance and limitations are in [the receipt](validation/dets-publication-20261104/README.md). Original Erlang is unchanged; no full regression or global readiness refresh.
+
 Part588 fixes the ASN.1 consumer CS0119 exposed after the file backend was added: qualify the existing file atom constant. Focused build and65 checks/26 fresh OTP outcomes pass; no runtime or compatibility change. [Evidence](validation/part-588/README.md).
 
 Part586 fixes the omitted Monitor source-freeze manifest behind main CI41836436436 and adds a committed-manifest guard. No runtime or compatibility change. [Failure and focused validation](validation/part-586/README.md).
