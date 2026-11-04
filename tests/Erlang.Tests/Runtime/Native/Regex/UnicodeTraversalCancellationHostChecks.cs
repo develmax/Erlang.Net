@@ -13,7 +13,7 @@ internal static class UnicodeTraversalCancellationHostChecks
     {
         await using var runtime = new ProcessRuntime();
         string[] dependencies = JsonSerializer.Deserialize<string[]>(Read("dependencies.json"))!;
-        PreparedBeamImage image = runtime.Modules.PrepareBeam(Read(UnicodeModule + ".beam"), new BeamDependencySelection(dependencies));
+        PreparedBeamImage image = runtime.Modules.PrepareBeam(Read(UnicodeTraversalCancellationNames.UnicodeModule + ".beam"), new BeamDependencySelection(dependencies));
         Require(image.NativePrimitiveExports.Count == 3);
         Require(runtime.Modules.PublishPreparedBeam(image).Status == BeamPublicationStatus.Published);
         await using var controller = new RuntimeNodeFoundationHostActor(runtime);
@@ -34,7 +34,7 @@ internal static class UnicodeTraversalCancellationHostChecks
             {
                 Term result = await runtime.Modules.Call(
                     context,
-                    UnicodeModule,
+                    UnicodeTraversalCancellationNames.UnicodeModule,
                     Function,
                     input,
                     Term.A(Encoding)
@@ -98,7 +98,7 @@ internal static class UnicodeTraversalCancellationHostChecks
                 Require(context.Mailbox.Count == 0);
                 Term fresh = await runtime.Modules.Call(
                     context,
-                    UnicodeModule,
+                    UnicodeTraversalCancellationNames.UnicodeModule,
                     Function,
                     Term.List(Term.I(65)),
                     Term.A(Encoding)

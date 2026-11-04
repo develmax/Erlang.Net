@@ -724,6 +724,7 @@
       "Id": "C# stdlib",
       "Implemented": [
         "Existing collection, binary wrapper and process library implementations in their own assembly",
+        "Unicode: complete optional 22-export managed surface beside original Erlang; focused acceptance tracked separately in validation/unicode-port-20261104/PUBLICATION.md. No default MFA or whole-contract status promotion.",
         "Part573: all71 string exports retain explicit C# and original Erlang/BEAM selection, source-correct errors/stacks and cooperative traversal checkpoints. Same-source8522 complete outcomes and six depth profiles independently match each backend;9706 full tests pass. Default registration and compatibility classifications are unchanged."
       ],
       "TestPrefixes": [
@@ -731,7 +732,8 @@
         "runtime/proplists/",
         "runtime/lists/",
         "runtime/ordsets/",
-        "runtime/proc-lib/"
+        "runtime/proc-lib/",
+        "runtime/unicode/"
       ]
     },
     {

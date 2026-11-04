@@ -1,0 +1,74 @@
+{
+  "Baseline": "OTP-29.1.1",
+  "Commit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "ExecutionManifestSha256": "AF5EA3DA317E2ABC8A0CF1874D4E6BFB93AC1A47E864A7B92BBE7A03D1607E99",
+  "Inputs": [
+    {
+      "Path": "bin/erl.exe",
+      "Sha256": "D91699E88F417E00470D224934D47CD92358CC1B3B37CA1F15BCF5D4731D8F4E"
+    },
+    {
+      "Path": "erts-17.1/bin/beam.smp.dll",
+      "Sha256": "27E75CEAEB1C33BAA8089071A47DB1F3473B537906353F874D687AE9A0854B05"
+    },
+    {
+      "Path": "erts-17.1/bin/erl.exe",
+      "Sha256": "D91699E88F417E00470D224934D47CD92358CC1B3B37CA1F15BCF5D4731D8F4E"
+    },
+    {
+      "Path": "lib/erts-17.1/ebin/erts_internal.beam",
+      "Sha256": "6740F088697BCF6285227B95D3B91ECFF38AE89ADF9A1B6976413CEC2AF7B806"
+    },
+    {
+      "Path": "lib/erts-17.1/src/erts_internal.erl",
+      "Sha256": "22B6A291C32778EDB84DC1E9BB2CFD5AF44CA7E9F0AE53CB01F3A674218BC260"
+    },
+    {
+      "Path": "lib/stdlib-8.1/ebin/lists.beam",
+      "Sha256": "8941092DC34F0470CD404979E1890DF514D83F2EEB3B0AA8A276553E76471262"
+    },
+    {
+      "Path": "lib/stdlib-8.1/ebin/unicode.beam",
+      "Sha256": "2495812294976A34AE904E7709B75348F3DDDF3B950413199867A78E093A4379"
+    },
+    {
+      "Path": "lib/stdlib-8.1/ebin/unicode_util.beam",
+      "Sha256": "5CDC886E30216B5DE33B6F4BDC1DEA006EAA3392EC4A83EC90CD7B946B5759FF"
+    },
+    {
+      "Path": "lib/stdlib-8.1/src/lists.erl",
+      "Sha256": "D429E541CA76ACA8C56BB9FF31130A3B636F33D3E1923A08683157BF5709AB47"
+    },
+    {
+      "Path": "lib/stdlib-8.1/src/unicode.erl",
+      "Sha256": "D079229DAF06F480F4A6EA3F346713043984EBD06B1E2ED86C89EC95A47BF1AB"
+    },
+    {
+      "Path": "lib/stdlib-8.1/src/unicode_util.erl",
+      "Sha256": "82CDA59A022D642B61A858407043E06B775D9602CEDAFC3EDF58577622F79870"
+    }
+  ],
+  "ProviderVerifiedBeforeAndAfter": true,
+  "OracleCases": 16,
+  "Counts": [
+    2000,
+    10000,
+    20000,
+    100000
+  ],
+  "Encodings": [
+    "utf16",
+    "{utf16,little}",
+    "utf32",
+    "latin1"
+  ],
+  "Command": [
+    "bin/erl.exe",
+    "-noshell",
+    "-eval",
+    "{ok,unicode_growth_cases}=compile:file(\"<repository>/tests/Erlang.Tests/Resources/UnicodeBackend/unicode_growth_cases.erl\",[{outdir,\"<repository>/tests/Erlang.Tests/Resources/UnicodeBackend\"}]),true=code:add_patha(\"<repository>/tests/Erlang.Tests/Resources/UnicodeBackend\"),ok=unicode_growth_cases:write(\"<repository>/tests/Erlang.Tests/Resources/UnicodeBackend\"),halt()."
+  ],
+  "ObserverSourceSha256": "B0D3252D63F784E159AF341E484B849A16533EDA522C109FFC5ADF06BBF266C4",
+  "ObserverBeamSha256": "0AD6E58DE7C009C27E2823D33CFE02E13C44F6A43D9D0580C02939912CBF1369",
+  "CorpusSha256": "588E0C753C1798C92E56CEE844D33D0F7F5A51A4323672885FE47EBE32135DB3"
+}

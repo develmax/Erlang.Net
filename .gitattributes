@@ -559,7 +559,7 @@ licenses/*.txt -text -whitespace
 
 # Source-bound tooling/workflows retain committed raw bytes on every platform.
 /tools/** -text
-/.github/workflows/** -text
+/.github/workflows/** -text whitespace=trailing-space,space-before-tab,cr-at-eol
 /docs/validation/part-557/ordsets/** -text -whitespace
 
 docs/validation/part-557/** -text -whitespace
@@ -573,3 +573,11 @@ docs/validation/part-557/** -text -whitespace
 /tests/Erlang.Tests/Resources/StringBackend/** -text
 /tools/Validation/Erlang.StringCompatibility/*.erl -text
 /tools/Validation/Erlang.StringCompatibility/Reference/*.erl -text -whitespace
+
+# Immutable Unicode working evidence and original fixtures.
+/docs/validation/unicode-port-20261104/** -text -whitespace
+/tests/Erlang.Tests/Resources/UnicodeBackend/** -text
+/docs/validation/unicode-publication-20261104/** -text -whitespace
+/tools/Validation/Erlang.UnicodeCompatibility/Reference/*.erl -text -whitespace
+/docs/validation/part-576/** -text -whitespace
+/docs/validation/part-577/** -text -whitespace

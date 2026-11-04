@@ -5,5 +5,6 @@ public enum RuntimeManagedLibraryStage456
     Collections,
     Modules,
     BinaryWrappers,
-    String
+    String,
+    Unicode
 }

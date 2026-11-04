@@ -125,9 +125,16 @@ for (const member of separatorManifest.Files) {
         && raw.length === member.Bytes && sha(raw) === member.Sha256.toLowerCase(),
         'Separator-search evidence changed: ' + member.Archive);
 }
-for (const member of separatorManifest.SourceMembers)
-    check(sha(fs.readFileSync(member.Path)) === member.AfterSha256.toLowerCase(),
-        'Separator-search source changed: ' + member.Path);
+// The immutable separator receipt describes its historical after-source. Current
+// source identity belongs to the later accepted String source and assembly freeze.
+const currentStringFreeze = JSON.parse(require('node:zlib').gunzipSync(fs.readFileSync(
+    'docs/validation/string-otp-merge-20261104/source-and-assembly-freeze.json.gz')));
+for (const member of separatorManifest.SourceMembers) {
+    const bindings = currentStringFreeze.Rows.filter(row => row.Path === member.Path);
+    check(bindings.length === 1
+        && sha(fs.readFileSync(member.Path)) === bindings[0].Sha256.toLowerCase(),
+        'Separator-search current source changed: ' + member.Path);
+}
 const localRegressionRoot = 'docs/validation/integration-20261103/local-regression-9682/';
 for (const member of JSON.parse(read(localRegressionRoot + 'manifest.json')).Files) {
     const packed = fs.readFileSync(localRegressionRoot + member.Archive);

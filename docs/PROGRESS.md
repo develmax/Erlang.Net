@@ -6,6 +6,13 @@ Draft Part568 prepares the bulk physical-occurrence runtime patch in a separate 
 
 ## Current status sources
 
+- [Downstream CI producer repair](validation/part-577/README.md): reconcile the remaining native/integrated producer identities and monitor completed final-head workflows.
+
+- [Unicode CI repairs](validation/part-576/README.md): linear conversion accumulation, 20 focused groups, retained OTP buffer observations and refreshed source-plan bindings; final-head CI remains the delivery gate.
+
+- [Unicode alternatives](validation/unicode-port-20261104/PUBLICATION.md): complete 22-export C# surface and retained original Erlang; focused validation and prior working-corpus evidence are tracked separately.
+
+
 - [String integration](validation/string-otp-merge-20261104/README.md): both71-API alternatives retain explicit selection;9706 full tests and separate8522/depth comparisons per backend pass. Source identities and limitations remain explicit; final delivery is tracked in [PR105](https://github.com/develmax/Erlang.Net/pull/105).
 
 - [Accepted main PR103](https://github.com/develmax/Erlang.Net/pull/103): native async accounting, independent logical/physical port closure, pending RPC shutdown and final microstate cancellation. See the [retained report](validation/part-557/REPORT.md) and [exact incoming progress snapshot](history/main-103-progress/index.md). These bounded results do not close the whole statistics contract.
