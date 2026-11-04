@@ -1,7 +1,7 @@
 import argparse,hashlib,json,os,pathlib,subprocess
 TOOL=pathlib.Path(__file__).resolve().parent
 ROOT=TOOL.parents[2]
-SCOPES=['src/Runtime','src/Compiler','src/Otp/Managed','src/Otp/Original/Foundation/Erlang.Otp.Erts.Beam','tools/Native/Erlang.FileSystem.Native','tools/Native/Erlang.PortProbe','tools/Validation/Erlang.Differential','tools/Validation/Erlang.DescriptorPollVmValidation','tools/Validation/Erlang.DescriptorPollIntegratedValidation','tools/Validation/Erlang.DescriptorPollFdValidation']
+SCOPES=['src/Runtime','src/Compiler','src/Otp/Managed','src/Otp/Original/Foundation/Erlang.Otp.Erts.Beam','tools/Native/Erlang.PortProbe','tools/Validation/Erlang.Differential','tools/Validation/Erlang.DescriptorPollVmValidation','tools/Validation/Erlang.DescriptorPollIntegratedValidation','tools/Validation/Erlang.DescriptorPollFdValidation']
 TOOL_SCOPES=SCOPES[-3:]
 def git(*args):return subprocess.check_output(['git',*args],cwd=ROOT)
 def digest(data):return hashlib.sha256(data).hexdigest().upper()

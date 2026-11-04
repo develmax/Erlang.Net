@@ -182,6 +182,7 @@ internal static class PrimFileDeletePlatformChecks
         Term CanonicalPair(IEnumerable<Term> values) => Cons.From(values.OrderBy(value => value, Comparer<Term>.Create((left, right) => TermOrder.Compare(left, right))));
         var oraclePairs = Cons.Items(ExternalTermFormat.Decode(File.ReadAllBytes(Path.Combine(capture, "deletion-races.etf"))))
             .Select(pair => CanonicalPair(Cons.Items(pair))).ToHashSet();
+        if (!OperatingSystem.IsWindows()) oraclePairs = await PrimFileDeleteNativeOracle.Capture(root, output);
         var races = new List<Term>();
         for (int round = 0; round < PrimFileDeleteContractNames.RaceRounds; round++)
         {
@@ -190,10 +191,7 @@ internal static class PrimFileDeletePlatformChecks
             Term[] results = await Task.WhenAll(Task.Run(() => Delete(Native(path))), Task.Run(() => Delete(Native(path))));
             races.Add(Cons.From(results));
             File.WriteAllBytes(Path.Combine(output, "race-actual.etf"), ExternalTermFormat.Encode(Cons.From(races)));
-            bool admitted = OperatingSystem.IsWindows()
-                ? oraclePairs.Contains(CanonicalPair(results))
-                : results.Count(result => result.Equals(Term.A("ok"))) == 1
-                    && results.Count(result => result.Equals(Error("enoent"))) == 1;
+            bool admitted = oraclePairs.Contains(CanonicalPair(results));
             Require(admitted && !File.Exists(path), "native concurrent deletion outcomes: " + Cons.From(results));
         }
         string open = Path.Combine(output, "open");
@@ -232,7 +230,7 @@ internal static class PrimFileDeletePlatformChecks
                 {
                     OperatingSystem = System.Runtime.InteropServices.RuntimeInformation.OSDescription,
                     Equal = true,
-                    Oracle = OperatingSystem.IsWindows() ? "Pinned OTP Windows capture" : "Pinned Unix source contracts; native OTP comparison not executed",
+                    Oracle = OperatingSystem.IsWindows() ? "Pinned OTP Windows capture" : "Pinned Unix source contracts and same-host native C unlink races; whole native OTP execution not claimed",
                     RaceRounds = PrimFileDeleteContractNames.RaceRounds,
                     RuntimeSha256 = Convert.ToHexString(SHA256.HashData(File.ReadAllBytes(typeof(ProcessRuntime).Assembly.Location)))
                 },

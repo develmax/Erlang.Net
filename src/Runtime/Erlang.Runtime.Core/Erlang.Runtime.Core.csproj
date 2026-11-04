@@ -26,7 +26,7 @@
     <PosixFileLinkFlag>-shared</PosixFileLinkFlag>
     <PosixFileExtension Condition="$([MSBuild]::IsOSPlatform('OSX'))">.dylib</PosixFileExtension>
     <PosixFileLinkFlag Condition="$([MSBuild]::IsOSPlatform('OSX'))">-dynamiclib</PosixFileLinkFlag>
-    <PosixFileSource>$(MSBuildProjectDirectory)/../../../tools/Native/Erlang.FileSystem.Native</PosixFileSource>
+    <PosixFileSource>$(MSBuildProjectDirectory)/Platform/Posix/FileSystemNative</PosixFileSource>
     <PosixFileOutput>$(BaseIntermediateOutputPath)$(Configuration)/native/libErlang.FileSystem.Native$(PosixFileExtension)</PosixFileOutput>
   </PropertyGroup>
   <ItemGroup Condition="'$(PosixFileExtension)' != ''">

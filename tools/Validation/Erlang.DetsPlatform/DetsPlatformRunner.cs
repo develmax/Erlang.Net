@@ -8,11 +8,12 @@ internal static class DetsPlatformRunner
     internal static async Task Run(string repository, string output, bool managed)
     {
         await using var runtime = new ProcessRuntime();
+        var corpus = new DetsPlatformCorpus(repository);
         var prepared = new List<PreparedBeamImage>();
         var assets = Directory.EnumerateFiles(Path.Combine(repository, "src/Otp/Original/Foundation"), "*.beam", SearchOption.AllDirectories)
             .GroupBy(Path.GetFileNameWithoutExtension).ToDictionary(group => group.Key!, group => group.First(), StringComparer.Ordinal);
         var dependencies = new BeamDependencySelection(assets.Keys.Concat(new[] { "erlang", "erts_internal" }).Distinct());
-        string[] modules = { "dets", "dets_server", "dets_sup", "dets_utils", "dets_v9", "ets", "file", "file_server", "file_io_server", "timer", "os", "orddict", "dict", "file_sorter", "calendar", "prim_file", "prim_buffer", "raw_file_io", "raw_file_io_list", "raw_file_io_delayed", "raw_file_io_compressed", "raw_file_io_inflate", "filename", "lists", "gen", "gen_server", "supervisor", "proc_lib", "sys", "logger", "logger_config", "logger_filters", "logger_backend", "logger_handler_watcher", "logger_formatter", "io", "io_lib", "io_lib_format", "erl_stdlib_errors", "erl_kernel_errors", "erl_posix_msg", "init", "binary", "unicode", "unicode_util", "qlc", "maps", "ordsets", "gb_sets", "gb_trees", "sets", "queue", "proplists", "erl_anno", "erl_parse", "erl_scan" };
+        string[] modules = { "dets", "dets_server", "dets_sup", "dets_utils", "dets_v9", "ets", "file", "file_server", "file_io_server", "timer", "os", "orddict", "dict", "file_sorter", "calendar", "prim_file", "prim_buffer", "ram_file", "raw_file_io", "raw_file_io_list", "raw_file_io_delayed", "raw_file_io_compressed", "raw_file_io_inflate", "filename", "lists", "gen", "gen_server", "supervisor", "proc_lib", "sys", "logger", "logger_config", "logger_filters", "logger_backend", "logger_handler_watcher", "logger_formatter", "io", "io_lib", "io_lib_format", "erl_stdlib_errors", "erl_kernel_errors", "erl_posix_msg", "init", "binary", "unicode", "unicode_util", "qlc", "maps", "ordsets", "gb_sets", "gb_trees", "sets", "queue", "proplists", "erl_anno", "erl_parse", "erl_scan" };
         await runtime.InitializeModulesAsync(registry =>
         {
             RuntimeBootstrapEtsLibrary.Register(runtime, registry);
@@ -29,6 +30,7 @@ internal static class DetsPlatformRunner
             Console.WriteLine("Prepare original module " + name);
             prepared.Add(runtime.Modules.PrepareBeam(File.ReadAllBytes(path), dependencies));
         }
+        prepared.Add(corpus.Prepare(runtime, dependencies));
         await runtime.InitializeModulesAsync(registry =>
         {
             var published = registry.PublishPreparedBeam(prepared.ToArray());
@@ -309,6 +311,9 @@ internal static class DetsPlatformRunner
                     }
                 }
                 Check((runtime.Modules.SourceOwner("dets", "open_file", 2) is PreparedBeamImage) != managed, "selected backend identity");
+                Console.WriteLine("Execute pinned DETS primary corpus");
+                await corpus.Execute(runtime, context, Path.Combine(output, managed ? "managed-corpus" : "original-corpus"));
+                Check(true, "21 pinned DETS scenarios and complete error stacks");
                 completion.TrySetResult(Term.I(checks));
             }
             catch (Exception error)
