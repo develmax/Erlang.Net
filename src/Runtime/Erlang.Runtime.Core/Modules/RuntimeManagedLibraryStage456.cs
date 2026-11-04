@@ -12,5 +12,6 @@ public enum RuntimeManagedLibraryStage456
     GenEvent,
     GenStatem,
     Timer,
-    UnicodeUtil
+    UnicodeUtil,
+    Ets
 }

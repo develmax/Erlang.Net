@@ -226,7 +226,7 @@ public sealed partial class RuntimeRegexEngine411
         bool temporary = false;
         try
         {
-            bool binaryCaptures = ReOptions411.Run(options);
+            ReCaptureMode411 captureMode = ReOptions411.Run(options);
             if (expression is TupleTerm) code = Authenticate(context, expression);
             else
             {
@@ -262,7 +262,7 @@ public sealed partial class RuntimeRegexEngine411
                 code,
                 input,
                 validateUtf,
-                binaryCaptures,
+                captureMode,
                 captureSource
             ).ConfigureAwait(false);
         }
@@ -282,7 +282,7 @@ public sealed partial class RuntimeRegexEngine411
         ReCode411 code,
         byte[] input,
         bool validateUtf,
-        bool binaryCaptures,
+        ReCaptureMode411 captureMode,
         BitString? originalSubject
     )
     {
@@ -339,6 +339,10 @@ public sealed partial class RuntimeRegexEngine411
                 || result is ReNativeConstants411.BadUtfOffset or ReNativeConstants411.BadOffset or ReNativeConstants411.BadMagic or ReNativeConstants411.BadMode)
                 throw new ErlangException(ErlangErrorReasons.BadArgument);
             if (result < 0) throw new InvalidOperationException(ReDiagnosticNames411.RegexCaptureVectorInvalid);
+            if (captureMode == ReCaptureMode411.None)
+            {
+                return Term.A(ReAtomNames411.Match);
+            }
             var vector = api.Vector(data);
             if (vector == IntPtr.Zero || result > code.Captures + 1) throw new InvalidOperationException(ReDiagnosticNames411.RegexCaptureVectorInvalid);
             var captures = new Term[result];
@@ -346,7 +350,7 @@ public sealed partial class RuntimeRegexEngine411
             {
                 long start = Marshal.ReadInt64(vector, checked(i * ReNativeConstants411.CapturePairBytes)),
                     end = Marshal.ReadInt64(vector, checked(i * ReNativeConstants411.CapturePairBytes + ReNativeConstants411.CaptureElementBytes));
-                if (binaryCaptures)
+                if (captureMode == ReCaptureMode411.Binary)
                 {
                     if (start == -1)
                         captures[i] = new BitString([]);

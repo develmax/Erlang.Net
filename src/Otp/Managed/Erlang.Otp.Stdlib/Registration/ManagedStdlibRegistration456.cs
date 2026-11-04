@@ -10,6 +10,7 @@ public sealed class ManagedStdlibRegistration456 : IRuntimeManagedLibrary456
         {
             case RuntimeManagedLibraryStage456.Collections: RegisterCollections(r); break;
             case RuntimeManagedLibraryStage456.Code: CodeModule.Register(r); break;
+            case RuntimeManagedLibraryStage456.Ets: EtsModule.Register(r); break;
             case RuntimeManagedLibraryStage456.Modules: RegisterModules(r); break;
             case RuntimeManagedLibraryStage456.BinaryWrappers: BinaryWrappersModule.Register(r); break;
             case RuntimeManagedLibraryStage456.String: StringModule.Register(r); break;
