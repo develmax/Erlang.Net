@@ -220,7 +220,7 @@ internal static class LibraryDependencyOriginalHostChecks
                             NetKernelModule => 1,
                             IoPrintableRange404Names.ModuleName => 1,
                             IoPrintableOriginal404Names.CodeModule => InterpreterCode411Names.NativeCount,
-                            FileModule => 1,
+                            LibraryDependencyOriginalNames.FileModule => 1,
                             PrimFileEncodingOriginal410Names.ModuleName => PrimFileEncodingOriginal410Names.NativeCount,
                             WarningMap398HostNames.ModuleName => 1,
                             OsModule when OperatingSystem.IsWindows() => 10,

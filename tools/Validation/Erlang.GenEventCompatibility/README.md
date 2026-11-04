@@ -27,5 +27,5 @@ dependencies. Runtime disposal is bounded and failures fail the report.
 contract counts and operation deadlines have separate semantic owner files.
 Run `py -3 tools/Validation/audit-gen-event-literals.py .` before publication.
 The audit covers production/host logic, retaining small structural arities/indices.
-Part580 evidence retains a Managed depth3 upstream zero-timeout race; primary
+Part584 evidence retains a Managed depth3 upstream zero-timeout race; primary
 acceptance passes both backends. Do not infer all-profile or scheduler parity.

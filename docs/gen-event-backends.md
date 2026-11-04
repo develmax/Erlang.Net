@@ -48,7 +48,7 @@ manager process, preserving mailbox and link ownership.
 
 ## Focused acceptance
 
-[Part580](validation/part-580/README.md) compares **105 complete observations per
+[Part584](validation/part-584/README.md) compares **105 complete observations per
 backend** against the admitted original OTP provider. These include ten unchanged
 `gen_event_SUITE` functions, callback failures, optional callbacks, request
 collections, complete exception stacks, formatting and system state. The status

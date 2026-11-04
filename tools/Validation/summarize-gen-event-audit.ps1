@@ -9,6 +9,7 @@ $GenEventContract = @{
     MinimumOracleFiles = 30
     ExportCount = 44
     ObservationCount = 105
+    OriginalImage = 'src/Otp/Original/Foundation/Erlang.Otp.Stdlib.Beam/Otp/gen_event.beam'
 }
 
 $ErrorActionPreference = 'Stop'
@@ -35,6 +36,10 @@ $reports = foreach ($backend in @('Managed', 'Beam')) {
         $report.Failures.Count -ne 0 -or $report.CorpusSha256 -cne $corpus -or
         $report.ObserverSha256 -cne $observer) {
         throw "Incomplete or stale gen_event $backend report."
+    }
+    if ($backend -ceq 'Beam' -and
+        $report.InputSha256 -cne (Get-FileHash -LiteralPath (Join-Path $repository $GenEventContract.OriginalImage)).Hash) {
+        throw 'gen_event tested BEAM image changed.'
     }
     foreach ($source in @($report.Sources.PSObject.Properties) + @($report.Inputs.PSObject.Properties)) {
         if ((Get-FileHash (Join-Path $repository $source.Name)).Hash -cne $source.Value) {
