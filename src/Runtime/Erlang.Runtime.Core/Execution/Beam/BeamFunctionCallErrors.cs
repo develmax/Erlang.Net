@@ -4,13 +4,13 @@ internal static class BeamFunctionCallErrors
 {
     private const int MinimumCapturedFrames = 1;
 
-    // A rejected fun application and its suspended source caller are distinct
-    // frames for a non-tail call. A tail call has no suspended caller frame.
-    internal static ErlangException BadFunction(ProcessContext context, Term callee, bool tailPosition)
+    // A non-function fails before tail deallocation. The failed application
+    // and its source call site therefore both remain in the trace.
+    internal static ErlangException BadFunction(ProcessContext context, Term callee)
     {
         Term reason = Term.Tuple(Term.A(ErlangErrorReasons.BadFunction), callee);
         ErlangException captured = context.CaptureSourceFailure(new ErlangException(reason));
-        if (tailPosition || captured.StackTraceTerm is not Cons first)
+        if (captured.StackTraceTerm is not Cons first)
         {
             return captured;
         }

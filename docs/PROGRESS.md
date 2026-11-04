@@ -1,5 +1,7 @@
 # Project progress
 
+Part594 repairs the four CI failures reported for PR119: complete badfun/badarity/apply stacks and bounded Jaro actor batches. Focused final-source checks are recorded in [the repair receipt](validation/part-594/README.md); full hosted validation remains separate.
+
 Part593 complete for the targeted platform package: Windows/Linux/macOS each pass74 managed/86 original grouped checks,21 whole OTP scenarios/full error stacks per backend and bidirectional files. Both review findings, native cursors, reopened free lists and readonly errno are fixed; C#/Erlang selection remains. Descriptor54/54 and exact source/pin/census checks pass. See [bound receipts](validation/dets-reconciliation-20261104/README.md). No full local regression or universal compatibility promotion.
 
 Part592 splits prim_file deletion into a common C# result boundary and Windows/POSIX implementations. Unix unlink preserves raw filename bytes and uses separate Linux/Darwin errno tables; Windows directory/invalid-name errors now follow OTP. Focused Windows native-OTP and cross-ABI/path evidence is recorded in [the receipt](validation/prim-file-platform-delete-20261104/README.md). This earlier deletion-only checkpoint is superseded by Part593; full Unix file bindings are now implemented and targeted host execution is in progress.
