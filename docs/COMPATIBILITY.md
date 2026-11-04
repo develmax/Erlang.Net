@@ -26,6 +26,8 @@ Draft Part568 prepares the bulk physical-occurrence runtime patch in a separate 
 
 ## Current state and sources
 
+The [analysis consumer boot repair](validation/code-testanalysis-ci-20261104/README.md) matches all2463 unchanged original outcomes/stacks locally and in PR114 CI. Remaining layout/main reconciliation and final-head gates do not alter compatibility classifications.
+
 The [file alternative](file-backends.md) retains the original Erlang image beside the 69-export C# surface. Literal extraction preserves pinned values and exception frames. Both implementations match 408 exact focused observations; five independent complete filesystem cycles still fail in each backend because native/provider closure is incomplete. This is not 100% compatibility. See [Part580](validation/part-580/README.md).
 
 The [code backend](validation/code-port-20261104/README.md) retains original Erlang beside69 selectable C# exports (62 library/7 shared native signatures). Both backends match156 complete outcomes and25 lifecycle results;17 connected groups pass. Native JIT capability, full release/docs/platform/resource acceptance remain separate.
