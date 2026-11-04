@@ -1,3 +1,5 @@
+Code backend publication (2026-11-04): all69 signatures have C#/original alternatives;156 full observations and25 lifecycle results pass per backend on current main, alongside17 connected groups. Existing non-BEAMASM coverage/debug differs from OTP JIT; full release/docs/gzip/platform/resource acceptance remains open. See [code receipt](validation/code-port-20261104/README.md).
+
 PR108 CI follow-up: complete downstream producer bindings and early N1 producer rejection; [evidence and final CI gate](validation/part-577/README.md). Unicode implementation and compatibility classifications are unchanged.
 
 Unicode PR108 follow-up: conversion accumulation is linear while preserving OTP segment-boundary capacity. Source-plan gates and the inherited String documentation pin are repaired; see [focused evidence](validation/part-576/README.md). No compatibility classification is promoted.
