@@ -47,7 +47,8 @@ try {
     if ($IncludeUpstreamSuite) {
         $suiteExpression = '{ok,timer_simple_SUITE}=compile:file("' + $timerReference.SuiteSource + '",[{outdir,"' + $relative + '"}]),' +
             '{ok,timer_suite_capture}=compile:file("' + $timerReference.SuiteObserverSource + '",[{outdir,"' + $relative + '"}]),' +
-            'true=code:add_patha("' + $relative + '"),ok=timer_suite_capture:write("' + $relative + '"),halt().'
+            'true=code:add_patha("' + $relative + '"),erlang:system_flag(backtrace_depth,' + $BacktraceDepth + '),' +
+            'ok=timer_suite_capture:write("' + $relative + '"),halt().'
         & (Join-Path $profile.InstalledOtpRoot 'bin/erl.exe') -noshell -eval $suiteExpression 2>&1 |
             Tee-Object -FilePath (Join-Path $directory 'upstream.log')
         if ($LASTEXITCODE -ne 0) { throw $timerReference.UpstreamCaptureFailed }
@@ -67,8 +68,12 @@ try {
     if (-not $CaptureOnly) {
         if (-not $RunnerDll) { throw $timerReference.RunnerRequired }
         foreach ($backend in @('Managed', 'Beam')) {
-            & dotnet $RunnerDll $repository $directory $backend
+            & dotnet $RunnerDll $repository $directory $backend "depth:$BacktraceDepth"
             if ($LASTEXITCODE -ne 0) { throw ($timerReference.ComparisonFailed -f $backend) }
+            if ($IncludeUpstreamSuite) {
+                & dotnet $RunnerDll $repository $directory $backend 'suite' "depth:$BacktraceDepth"
+                if ($LASTEXITCODE -ne 0) { throw ($timerReference.ComparisonFailed -f $backend) }
+            }
         }
     }
 }

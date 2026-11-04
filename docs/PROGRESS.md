@@ -1,16 +1,33 @@
 # Project progress
 
+[Part587](validation/part-587/README.md) fixes the gen_statem sys continuation review finding:97 retained managed machines become1 after32 generations. Both backends pass74+311 full observations/scenarios. Final-head hosted review/CI and wider OTP acceptance remain separate.
+
+[gen_statem merge repair](validation/gen-statem-merge-20261104/README.md) reconciles gen_statem PR112 with code/file/gen_event main and refreshes declared source identities. Prior module comparisons remain historical; final-head hosted checks and the sys continuation review finding remain open.
+Part586 fixes the omitted Monitor source-freeze manifest behind main CI41836436436 and adds a committed-manifest guard. No runtime or compatibility change. [Failure and focused validation](validation/part-586/README.md).
+
+PR111 Part585 reconciles code/file/gen_event on current main, refreshes declared source/producer pins and checks the retained BEAM image hash. Fresh105/105 per backend passes; final-head CI remains required. [Repair evidence](validation/part-585/README.md).
+
+
+Part584 adds selectable C# gen_event alongside retained Erlang/BEAM and removes magic literals using semantic owners. Clean focused build and primary105/105 per backend pass; Managed depth3 retains an upstream zero-timeout race (104/105). [Evidence and open gate](validation/part-584/README.md).
+
+[Part583](validation/part-583/README.md) repairs Windows checkout conversion of the Part582 source freeze. Raw source admission remains strict; no compatibility status is promoted.
+
+[Part582](validation/part-582/README.md) reconciles file PR110 with code main, retains both backend selections and refreshes source/producer identities. Connected validation and final-head hosted CI apply; compatibility classifications remain unchanged.
+
+[Part581](validation/part-581/README.md) repairs PR110 source admission and producer pins; runtime behavior and compatibility classifications are unchanged. Final-head hosted CI remains required.
+
 Part574 consolidates the final Linux descriptor poll source and audits stale branches. Exact-head Linux/original replay, CI, review and merge remain pending; no API/full-contract promotion. See [branch decisions and acceptance gates](validation/part-574/README.md).
 
 Draft Part568 prepares the bulk physical-occurrence runtime patch in a separate PR to main. Ordsets stays6 Verified/15 KnownDifferences; current whole ETF replay remains RED. See [evidence and open acceptance gates](validation/part-568/ordsets-bulk/README.md).
 
 ## Current status sources
 
-- [Part581 timer publication](validation/part-581/README.md):36 selectable managed exports with retained original Erlang. Semantic constants replace inline protocol/source/time/closure values. Clean main-scoped build passes without exclusions; both backends pass728 primary observations,11 scenarios,47 upstream tests and depth0/1/2/3/8/32 profiles. Global readiness/full regression and universal compatibility are separate.
+- [File alternatives](file-backends.md): selectable C# surface for all 69 exports, unchanged original Erlang and semantic owners for protocol/layout/source/configuration values. Both backends match 408 focused observations; five complete filesystem cycles remain failing native/provider gates. See [Part580](validation/part-580/README.md); no full-compatibility or global-readiness promotion.
 
 - [PR109 CI/review repair](validation/part-579/README.md): refreshed existing source-plan identities and fixed module_status helper stacks. Both backends pass159 complete outcomes plus25 lifecycle results;17 focused groups and passive source admissions pass locally. Hosted final-head CI remains pending.
 
 - [Selectable code backend](validation/code-port-20261104/README.md): all69 exports,156 full observations and25 lifecycle results per backend;17 connected groups pass on isolated current-main composition. Domain literals are named; universal/JIT/platform acceptance remains open.
+- The opt-in gen_statem C# port and retained Erlang alternative are prepared with semantic constant owners; focused acceptance and PR delivery are recorded in [gen_statem publication](validation/gen-statem-port-20261104/README.md).
 
 - [Downstream CI producer repair](validation/part-577/README.md): reconcile the remaining native/integrated producer identities and monitor completed final-head workflows.
 
@@ -45,3 +62,6 @@ The previous progress document started at Part485; the maintained work queue and
 Keep this page as a short entry point. Put new work results in the active changelog volume and update the owning readiness or remaining-work document. Link to evidence instead of copying checkpoint narratives here.
 
 PR102 is merged as f0c23d603. Its complete unit report passed9687/9687, while overall main Validate failed before async observer execution on a stale caller pin. The [repair evidence](validation/part-569/ci-integrated-pins-and-reuse/hosted-results/README.md) records corrected native cohort and async23 focused successes. Final repair-head whole CI/current review remain pending; generated readiness is unit evidence, not a whole-pipeline acceptance claim.
+
+
+Timer PR113: the user explicitly requested a full C# timer port with retained Erlang/BEAM and selectable implementation. This is the overriding authorization for this module; the general pure-OTP policy remains. See [timer backend and review evidence](timer-backends.md).

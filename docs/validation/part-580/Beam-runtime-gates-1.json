@@ -1,0 +1,21 @@
+{
+  "Backend": "Beam",
+  "RequestedRow": 1,
+  "Corpus": "runtime-gates.etf",
+  "Baseline": "OTP-29.1.1",
+  "Exports": 69,
+  "Compared": 1,
+  "Skipped": 0,
+  "Differences": [
+    {
+      "Function": "scenario",
+      "Arguments": "[normal_cycle,[[97,114,116,105,102,97,99,116,115,47,102,105,108,101,45,108,105,116,101,114,97,108,115,45,112,114,47,111,114,97,99,108,101,47,114,117,110,116,105,109,101]]]",
+      "Expected": "{ok,{ok,{ok,0},{ok,\u003C\u003C97,98,99\u003E\u003E},{ok,\u003C\u003C98,99\u003E\u003E},ok,ok,ok}}",
+      "Actual": "{ok,{error,{undef,[{erlang,nif_error,[undef],[{error_info,#{module=\u003Eerl_erts_errors}}]},{prim_file,open_nif,2,[{file,[112,114,105,109,95,102,105,108,101,46,101,114,108]},{line,530}]},{prim_file,open,2,[{file,[112,114,105,109,95,102,105,108,101,46,101,114,108]},{line,136}]},{file_io_server,\u0027-do_start/4-fun-0-\u0027,6,[{file,[102,105,108,101,95,105,111,95,115,101,114,118,101,114,46,101,114,108]},{line,78}]}]}}}"
+    }
+  ],
+  "AssemblySha256": "2A190FD5AAF0A1019D306892367E471EEA530D203F66D2974DA9DA2CB582AF11",
+  "RunnerSha256": "8B19D8A86B3C93B49B3738CA1D4FD18DADF04F880EBAC04186EE4522BD17B564",
+  "RuntimeSha256": "717CAE9E5C96188EAE97A80AA97C76A2ED88B05DF2ED7F93EA0B9B2166DF5528",
+  "CorpusSha256": "132BBEB182B6EC734FF4B6197F653D104856E3E3D0F5BE97378023D22A8238FE"
+}

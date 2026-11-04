@@ -14,6 +14,8 @@ public sealed class ManagedStdlibRegistration456 : IRuntimeManagedLibrary456
             case RuntimeManagedLibraryStage456.BinaryWrappers: BinaryWrappersModule.Register(r); break;
             case RuntimeManagedLibraryStage456.String: StringModule.Register(r); break;
             case RuntimeManagedLibraryStage456.Unicode: UnicodeModule.Register(r); break;
+            case RuntimeManagedLibraryStage456.GenEvent: GenEventModule.Register(r); break;
+            case RuntimeManagedLibraryStage456.GenStatem: GenStatemModule.Register(r); break;
             case RuntimeManagedLibraryStage456.Timer: TimerLibrary.Register(r); break;
             default: throw new ArgumentOutOfRangeException(nameof(stage));
         }

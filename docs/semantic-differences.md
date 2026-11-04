@@ -1,6 +1,19 @@
-Code backend publication (2026-11-04): all69 signatures have C#/original alternatives;156 full observations and25 lifecycle results pass per backend on current main, alongside17 connected groups. Existing non-BEAMASM coverage/debug differs from OTP JIT; full release/docs/gzip/platform/resource acceptance remains open. See [code receipt](validation/code-port-20261104/README.md).
+Part586 fixes the omitted Monitor source-freeze manifest behind main CI41836436436 and adds a committed-manifest guard. No runtime or compatibility change. [Failure and focused validation](validation/part-586/README.md).
 
-Part581: the timer alternative has36 explicit exports and named semantic contracts; the clean main-scoped tree passes the focused original comparisons and upstream tests. Preserve [the exact receipt](validation/part-581/README.md) and universal scheduling/resource/distribution/platform limitations. No whole-module ledger promotion or full regression/readiness refresh.
+PR111 Part585 reconciles code/file/gen_event on current main, refreshes declared source/producer pins and checks the retained BEAM image hash. Fresh105/105 per backend passes; final-head CI remains required. [Repair evidence](validation/part-585/README.md).
+
+gen_event Part584 retains a scheduling-sensitive upstream_call failure at gen_event_SUITE.erl:853 (depth3 Managed): wait_response(...,0) can see an already queued reply where the testcase expected timeout. No expected values or stacks are normalized. Primary105/105 per backend passes, while universal scheduling/resource/distribution parity is unproved. [Evidence](validation/part-584/README.md).
+
+File Part580: C# and original alternatives retain separate identities and match 408 exact focused observations after literal extraction. All five independent complete filesystem cycles still fail in each backend on incomplete native/provider support. No 100% compatibility or global readiness claim. See [contract and remaining gates](file-backends.md).
+
+[Part583](validation/part-583/README.md) repairs Windows checkout conversion of the Part582 source freeze. Raw source admission remains strict; no compatibility status is promoted.
+
+[Part582](validation/part-582/README.md) reconciles file PR110 with code main, retains both backend selections and refreshes source/producer identities. Connected validation and final-head hosted CI apply; compatibility classifications remain unchanged.
+
+[Part581](validation/part-581/README.md) repairs PR110 source admission and producer pins; runtime behavior and compatibility classifications are unchanged. Final-head hosted CI remains required.
+
+Code backend publication (2026-11-04): all69 signatures have C#/original alternatives;156 full observations and25 lifecycle results pass per backend on current main, alongside17 connected groups. Existing non-BEAMASM coverage/debug differs from OTP JIT; full release/docs/gzip/platform/resource acceptance remains open. See [code receipt](validation/code-port-20261104/README.md).
+gen_statem: retain both explicit alternatives and complete stack comparisons, including duplicate failed-fun/caller frames. Focused evidence and remaining upstream/platform/resource/distribution/metadata limits are recorded in [gen_statem publication](validation/gen-statem-port-20261104/README.md); global classifications stay unchanged.
 
 PR108 CI follow-up: complete downstream producer bindings and early N1 producer rejection; [evidence and final CI gate](validation/part-577/README.md). Unicode implementation and compatibility classifications are unchanged.
 
@@ -955,3 +968,6 @@ The observed safe comparison before an uninitialized Y destination no longer pro
 The [pinned witness and source classification](validation/integration-20261103/native-flat-order-pending/README.md) identify known numeric/order differences for supported native materialized maps with changed binary keys. ordsets:is_equal/2 and is_element/2 disagree in actual public observations; is_set/1 on reverse-ordered operands follows directly from pinned source and the observed strict order. These3 APIs are Known differences, with6 verified and12 still pending. This pre-existing main branch is retained explicitly until a separate physical-key-order fix and full validation.
 
 The [later all21-API native observer](validation/integration-20261103/native-flat-order-all-apis/README.md) expands actual counterexamples to all15 comparison-dependent ordsets MFAs. Current classification is6 verified/15 Known differences/0 pending; the earlier narrower3-known audit remains historical evidence. The separate candidate fix has not been applied here.
+
+
+Timer PR113: the user explicitly requested a full C# timer port with retained Erlang/BEAM and selectable implementation. This is the overriding authorization for this module; the general pure-OTP policy remains. See [timer backend and review evidence](timer-backends.md).

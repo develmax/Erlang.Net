@@ -1,6 +1,6 @@
 # Timer backends
 
-Current publication and clean-tree acceptance are recorded in [Part581](validation/part-581/README.md). Timer constants have separate domain owners; the scoped main tree builds without temporary exclusions. [Part565](validation/part-565/README.md) remains immutable historical evidence.
+Current publication and clean-tree acceptance are recorded in [Part581](validation/timer-publication-20261104/README.md). Timer constants have separate domain owners; the scoped main tree builds without temporary exclusions. [Part565](validation/part-565/README.md) remains immutable historical evidence.
 
 The pinned baseline is Erlang/OTP 29.1.1, commit
 `ad05823719d77c8faee87348ea39513d4e2f99c5`. All 36 `timer` exports have a C#
@@ -65,3 +65,7 @@ instruction. Finite, baseline-bound Windows observations do not certify universa
 scheduler timing, distributed-node behavior, physical resource limits or all
 operating systems. No performance advantage or universal 100% certification is
 inferred from corpus counts.
+
+## Explicit authorization and review driver
+
+The user explicitly requested the complete C# timer port while retaining selectable original Erlang. This overrides the general pure-OTP policy for timer. See [review disposition and current-main checks](validation/timer-review-20261104/README.md). The runner supports `Managed|Beam depth:N` and `Managed|Beam suite depth:N`; the PowerShell driver forwards the requested depth and compares upstream cases on both backends when `-IncludeUpstreamSuite` is set.

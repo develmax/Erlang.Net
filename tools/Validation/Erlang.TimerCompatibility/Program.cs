@@ -2,7 +2,9 @@ using System.Security.Cryptography;
 using System.Text.Json;
 using Erlang;
 
-if (args.Length is not (TimerCompatibilityOptions.RequiredArguments or TimerCompatibilityOptions.MaximumArguments) || args[TimerCompatibilityOptions.Backend] is not (nameof(RuntimeModuleBackend.Managed) or nameof(RuntimeModuleBackend.Beam)))
+if (args.Length is < TimerCompatibilityOptions.RequiredArguments or > TimerCompatibilityOptions.MaximumArguments
+    || args[TimerCompatibilityOptions.Backend] is not (nameof(RuntimeModuleBackend.Managed) or nameof(RuntimeModuleBackend.Beam))
+    || args.Length == TimerCompatibilityOptions.MaximumArguments && args[TimerCompatibilityOptions.Mode] != TimerCompatibilityOptions.Suite)
 {
     Console.Error.WriteLine(TimerCompatibilityDiagnostics.Usage);
 
@@ -11,8 +13,11 @@ if (args.Length is not (TimerCompatibilityOptions.RequiredArguments or TimerComp
 string repository = Path.GetFullPath(args[TimerCompatibilityOptions.Repository]);
 string directory = Path.GetFullPath(args[TimerCompatibilityOptions.OracleDirectory]);
 bool managed = args[TimerCompatibilityOptions.Backend] == nameof(RuntimeModuleBackend.Managed);
-bool suite = args.Length == TimerCompatibilityOptions.MaximumArguments && args[TimerCompatibilityOptions.Mode] == TimerCompatibilityOptions.Suite;
-int? depth = args.Length == TimerCompatibilityOptions.MaximumArguments && args[TimerCompatibilityOptions.Mode].StartsWith(TimerCompatibilityOptions.DepthPrefix, StringComparison.Ordinal) ? int.Parse(args[TimerCompatibilityOptions.Mode][TimerCompatibilityOptions.DepthPrefix.Length..]) : null;
+bool suite = args.Length >= TimerCompatibilityOptions.ModeArguments && args[TimerCompatibilityOptions.Mode] == TimerCompatibilityOptions.Suite;
+string? depthOption = args.Length == TimerCompatibilityOptions.MaximumArguments ? args[TimerCompatibilityOptions.SuiteDepth]
+    : args.Length == TimerCompatibilityOptions.ModeArguments && !suite ? args[TimerCompatibilityOptions.Mode] : null;
+int? depth = depthOption?.StartsWith(TimerCompatibilityOptions.DepthPrefix, StringComparison.Ordinal) == true
+    ? int.Parse(depthOption[TimerCompatibilityOptions.DepthPrefix.Length..]) : null;
 await using var runtime = await ProcessRuntime.CreateAsync(
     new RuntimeLibrarySelection(managed ? [RuntimeModuleSelection.Managed(TimerLibrary.Name)] : []),
     RuntimeNativePrimitives.EtsStorageCore | RuntimeNativePrimitives.InternalScalars413 | RuntimeNativePrimitives.PersistentTermCore,

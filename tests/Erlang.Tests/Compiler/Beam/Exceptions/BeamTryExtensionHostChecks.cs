@@ -92,8 +92,11 @@ internal static class BeamTryExtensionHostChecks
                         ? Term.Tuple(Term.A(ErlangErrorReasons.BadArity), Term.Tuple(callee, Nil.Value))
                         : Term.Tuple(Term.A(ErlangErrorReasons.BadFunction), callee);
                     Require(error.ExceptionClass == ErlangExceptionClasses.Error && error.Reason.Equals(reason));
-                    // Whole trace equality: the no-Line synthetic caller has precisely run/1 with Nil metadata.
-                    Require(error.StackTraceTerm.Equals(CallerStack()));
+                    // Failed fun application retains its source caller as a second
+                    // frame, including for this synthetic image without a Line chunk.
+                    Term expectedStack = callee is FunctionTerm ? CallerStack()
+                        : Cons.From(Cons.Items(CallerStack()).Concat(Cons.Items(CallerStack())));
+                    Require(error.StackTraceTerm.Equals(expectedStack));
                     Require(error.AutomaticStackTraceCaptured && !error.ExplicitStackTrace);
                 }
                 Require(observed && callbacks == 0 && ActiveReferences(context, image) == 0 && context.CurrentFunction is null);
