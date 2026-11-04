@@ -10,7 +10,7 @@ internal static class UnicodeGrowthChecks
         var choices = new RuntimeLibrarySelection([
             RuntimeModuleSelection.Managed("erlang"),
             RuntimeModuleSelection.Managed("lists"),
-            RuntimeModuleSelection.Beam("unicode_util", Read(StringBackendNames.Prefix, "unicode_util.beam"), ["lists"]),
+            RuntimeModuleSelection.Managed("unicode_util"),
             RuntimeModuleSelection.Managed("unicode", ["lists", "unicode_util"])
         ]);
         await using var runtime = await ProcessRuntime.CreateAsync(choices, RuntimeNativePrimitives.InternalScalars413, CancellationToken.None);

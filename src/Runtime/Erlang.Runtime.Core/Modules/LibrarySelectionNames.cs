@@ -19,6 +19,7 @@ internal static class LibrarySelectionNames
         GenEventLibraryModuleNames.Module,
         GenStatemLibraryNames.Module,
         TimerLibraryModuleNames.Module,
+        "unicode_util",
         RuntimeEtsFacetNames407.Module
     ];
     internal static readonly string[] StringDependencies = [ListModuleNames.Module, UnicodeNativeNames.Module, "unicode_util"];

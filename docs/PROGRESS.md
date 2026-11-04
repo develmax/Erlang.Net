@@ -28,6 +28,8 @@ Draft Part568 prepares the bulk physical-occurrence runtime patch in a separate 
 
 ## Current status sources
 
+- [Managed Unicode utility](validation/part-591/README.md): all20 C# utility exports, an Erlang-free managed closure and retained original/backend selection; current evidence and delivery gates remain explicit.
+
 - [PR114 analysis consumer CI](validation/code-testanalysis-ci-20261104/README.md): original code_server boot repair passes235 checks and2463 unchanged original outcomes in hosted CI; reconcile main and repair its remaining source-layout failure. Final-head CI remains required.
 
 - [File alternatives](file-backends.md): selectable C# surface for all 69 exports, unchanged original Erlang and semantic owners for protocol/layout/source/configuration values. Both backends match 408 focused observations; five complete filesystem cycles remain failing native/provider gates. See [Part580](validation/part-580/README.md); no full-compatibility or global-readiness promotion.

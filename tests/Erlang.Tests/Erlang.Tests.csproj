@@ -423,6 +423,7 @@
 <ItemGroup>
   <EmbeddedResource Include="Resources/StringBackend/*" LogicalName="Erlang.Tests.StringBackend.%(Filename)%(Extension)" />
   <EmbeddedResource Include="Resources/UnicodeBackend/*" LogicalName="Erlang.Tests.UnicodeBackend.%(Filename)%(Extension)" />
+  <EmbeddedResource Include="Resources/UnicodeUtilBackend/*" LogicalName="Erlang.Tests.UnicodeUtilBackend.%(Filename)%(Extension)" />
   <EmbeddedResource Include="../../src/Otp/Original/Foundation/Erlang.Otp.Stdlib.Beam/Otp/string.beam;../../src/Otp/Original/Foundation/Erlang.Otp.Stdlib.Beam/Otp/unicode.beam;../../src/Otp/Original/Foundation/Erlang.Otp.Stdlib.Beam/Otp/unicode_util.beam" LogicalName="Erlang.Tests.StringBackend.%(Filename)%(Extension)" />
   <Compile Include="../../tools/Validation/Erlang.StringCompatibility/StringResourceComparison.cs" Link="Otp/Stdlib/String/StringResourceComparison.cs" />
 </ItemGroup>

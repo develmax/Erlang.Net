@@ -5,12 +5,12 @@ internal static class ErlangFunctionCallErrors
     private const int MinimumCapturedFrames = 1;
 
     // ERTS records the failed fun application and its suspended call site.
-    // They can name the same MFA and line; they are two distinct frames.
-    internal static ErlangException Capture(ProcessContext context, Term reason)
+    // A tail application has no suspended caller; non-tail sites retain both.
+    internal static ErlangException Capture(ProcessContext context, Term reason, bool tailPosition = false)
     {
         ErlangException captured = context.CaptureSourceFailure(new ErlangException(reason));
         Term stack = captured.StackTraceTerm;
-        if (stack is not Cons first)
+        if (tailPosition || stack is not Cons first)
         {
             return captured;
         }
