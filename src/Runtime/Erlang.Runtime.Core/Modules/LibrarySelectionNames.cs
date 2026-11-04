@@ -15,6 +15,7 @@ internal static class LibrarySelectionNames
         MathNativeNames.Module,
         StringFloatNativeNames.Module,
         UnicodeNativeNames.Module,
+        RuntimeEtsFacetNames407.Module,
         FileNameEncodingNames.Module
     ];
     internal static readonly string[] StringDependencies = [ListModuleNames.Module, UnicodeNativeNames.Module, "unicode_util"];

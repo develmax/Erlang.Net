@@ -1,5 +1,7 @@
 # Next steps
 
+- Preserve [ETS Part584](validation/ets-pr-20261104/README.md) focused acceptance; complete broader upstream/concurrency/platform/resource/metadata/startup-manifest gates before claiming 100% OTP compatibility. Inspect final PR checks/review separately; no full local regression requested.
+
 [Part583](validation/part-583/README.md) repairs Windows checkout conversion of the Part582 source freeze. Raw source admission remains strict; no compatibility status is promoted.
 
 [Part582](validation/part-582/README.md) reconciles file PR110 with code main, retains both backend selections and refreshes source/producer identities. Connected validation and final-head hosted CI apply; compatibility classifications remain unchanged.

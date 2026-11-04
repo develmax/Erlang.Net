@@ -14,5 +14,7 @@ public enum ReferenceResourceKind
     CompiledMatchSpecification419,
     Counters421,
     TraceSession425,
-    NativeResource524
+    NativeResource524,
+    PrimFile,
+    PrimBuffer
 }

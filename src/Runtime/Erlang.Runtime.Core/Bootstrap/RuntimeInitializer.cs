@@ -106,6 +106,18 @@ internal sealed class RuntimeInitializer(ProcessContext context)
                     )
                     );
                 }
+                else if (message is TupleTerm { Items.Count: 2 } argumentRequest
+                    && argumentRequest.Items[0] is Pid argumentCaller
+                    && argumentRequest.Items[1] is TupleTerm { Items.Count: 2 } argument
+                    && argument.Items[0] is Atom { Name: InitializationNames.GetArgument })
+                {
+                    // The library-only factory has no Erlang command-line flags.
+                    // Original init:get_argument/1 still executes its request protocol.
+                    context.Runtime.Send(argumentCaller, Term.Tuple(
+                        Term.A(InitializationNames.Module),
+                        Term.A(InitializationNames.NoArgument)
+                    ));
+                }
             }
         }
         catch (ProcessHaltTransfer transfer) when (ReferenceEquals(transfer.Runtime, context.Runtime))

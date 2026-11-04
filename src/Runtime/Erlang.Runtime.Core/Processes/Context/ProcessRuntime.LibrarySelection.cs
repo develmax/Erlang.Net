@@ -71,6 +71,14 @@ public sealed partial class ProcessRuntime
                 {
                     RuntimeManagedLibraries456.Register(registry, RuntimeManagedLibraryStage456.Code);
                 }
+                if (libraries.Modules.Any(choice => choice.Module == RuntimeEtsFacetNames407.Module))
+                {
+                    RuntimeBootstrapEtsLibrary.Register(runtime, registry);
+                    if (libraries.Modules.Any(choice => choice.Module == RuntimeEtsFacetNames407.Module && choice.Backend == RuntimeModuleBackend.Managed))
+                    {
+                        RuntimeManagedLibraries456.Register(registry, RuntimeManagedLibraryStage456.Ets);
+                    }
+                }
                 if (libraries.Modules.Any(choice => choice.Module == UnicodeNativeNames.Module && choice.Backend == RuntimeModuleBackend.Managed))
                 {
                     registry.InstallManagedUnicodePrimitives();

@@ -1,5 +1,7 @@
 # Project progress
 
+- [Part584 ETS](validation/ets-pr-20261104/README.md): selectable C# library (25 exports over 51 shared primitives), original Erlang retained; semantic literal catalogs and ordinary current-main focused acceptance. No canonical readiness regeneration or universal compatibility claim.
+
 [Part583](validation/part-583/README.md) repairs Windows checkout conversion of the Part582 source freeze. Raw source admission remains strict; no compatibility status is promoted.
 
 [Part582](validation/part-582/README.md) reconciles file PR110 with code main, retains both backend selections and refreshes source/producer identities. Connected validation and final-head hosted CI apply; compatibility classifications remain unchanged.

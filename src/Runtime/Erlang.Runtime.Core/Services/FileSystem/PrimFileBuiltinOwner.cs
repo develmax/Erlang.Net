@@ -1,6 +1,6 @@
 namespace Erlang;
 
-internal sealed class PrimFileBuiltinOwner(ProcessRuntime runtime) : IAsyncDisposable
+internal sealed partial class PrimFileBuiltinOwner(ProcessRuntime runtime) : IAsyncDisposable
 {
     private int disposed;
 
@@ -27,7 +27,8 @@ internal sealed class PrimFileBuiltinOwner(ProcessRuntime runtime) : IAsyncDispo
                 (PrimFileBuiltinNames.ListDir, 1),
                 (context, arguments) => Invoke(context,
                 () => PrimFileWindowsOperations410.ListDir(arguments[0], context.Cancellation))
-            )
+            ),
+            .. StorageBindings()
         ];
     }
 
@@ -45,6 +46,17 @@ internal sealed class PrimFileBuiltinOwner(ProcessRuntime runtime) : IAsyncDispo
     public ValueTask DisposeAsync()
     {
         Interlocked.Exchange(ref disposed, 1);
+        lock (fileResources)
+        {
+            foreach (var weak in fileResources)
+            {
+                if (weak.TryGetTarget(out var resource))
+                {
+                    resource.Dispose();
+                }
+            }
+            fileResources.Clear();
+        }
 
         return ValueTask.CompletedTask;
     }

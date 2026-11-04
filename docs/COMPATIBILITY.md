@@ -1,5 +1,7 @@
 # Compatibility overview
 
+[ETS Part584](validation/ets-pr-20261104/README.md) retains explicit Managed/Beam selection and the unchanged OTP-29.1.1 source. All ETS protocol strings, source coordinates, format/chunk/display values and QLC identities have domain names. Acceptance is scoped; universal OTP compatibility remains open.
+
 [Part583](validation/part-583/README.md) repairs Windows checkout conversion of the Part582 source freeze. Raw source admission remains strict; no compatibility status is promoted.
 
 [Part582](validation/part-582/README.md) reconciles file PR110 with code main, retains both backend selections and refreshes source/producer identities. Connected validation and final-head hosted CI apply; compatibility classifications remain unchanged.
