@@ -1,0 +1,74 @@
+name: Original NIF initialization progress
+on:
+  workflow_dispatch:
+    inputs:
+      expected_head:
+        description: Exact reviewed checkout commit
+        type: string
+        required: true
+permissions:
+  contents: read
+concurrency:
+  group: original-nif-init-${{ github.ref }}
+  cancel-in-progress: false
+jobs:
+  init-progress582-original:
+    name: Original-only OTP init582 (N1 and managed deliberately skipped)
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    env:
+      EXPECTED_HEAD: ${{ inputs.expected_head }}
+      OTP_PIN: ad05823719d77c8faee87348ea39513d4e2f99c5
+      ORIGINAL_PLAN: AEBBA0D2DCF97E1248CA38407E8EBE628EB08F9EA4D13F48EC0C83A7A0364E61
+      INIT582_PLAN: C5C711D44B0970D37D5B5B9F289B04BE900B73BF29588137D0D2AFC50F5BF02B
+      PYTHONDONTWRITEBYTECODE: '1'
+      ERLC_USE_SERVER: 'false'
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: ${{ github.sha }}
+          persist-credentials: false
+      - name: Verify isolated original582 source plan before any build
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p artifacts/nif-init-progress582/ci
+          python3 -B tools/Native/Erlang.NifInitProgress582Observations/run-original.py \
+            --repository "$GITHUB_WORKSPACE" --expected-head "$EXPECTED_HEAD" --plan-sha256 "$INIT582_PLAN" \
+            --source-report "$GITHUB_WORKSPACE/artifacts/nif-init-progress582/ci/source-check.json"
+      - name: Acquire only the exact pinned original source
+        shell: bash
+        run: |
+          set -euo pipefail
+          git clone --depth 1 --single-branch --branch OTP-29.1.1 https://github.com/erlang/otp.git artifacts/nif-init-progress582/otp-source > artifacts/nif-init-progress582/ci/clone.log 2>&1
+          test "$(git -C artifacts/nif-init-progress582/otp-source rev-parse HEAD)" = "$OTP_PIN"
+      - name: Build admitted original OTP with existing owned source builder
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 -B tools/Runtime/Erlang.SchedulerAffinityOriginalObservations/build-original.py \
+            --repository "$GITHUB_WORKSPACE" --manifest-sha256 "$ORIGINAL_PLAN" --expected-head "$EXPECTED_HEAD" \
+            --otp-source "$GITHUB_WORKSPACE/artifacts/nif-init-progress582/otp-source" \
+            --prefix "$GITHUB_WORKSPACE/artifacts/nif-init-progress582/otp-install" \
+            --output "$GITHUB_WORKSPACE/artifacts/nif-init-progress582/original-build" \
+            > artifacts/nif-init-progress582/ci/original-build.log 2>&1
+      - name: Genuinely build and observe unchanged two-NIF constructor protocol
+        shell: bash
+        run: |
+          set -euo pipefail
+          receipt="$GITHUB_WORKSPACE/artifacts/nif-init-progress582/original-build/build-receipt.json"
+          python3 -B tools/Native/Erlang.NifInitProgress582Observations/run-original.py \
+            --repository "$GITHUB_WORKSPACE" --expected-head "$EXPECTED_HEAD" --plan-sha256 "$INIT582_PLAN" \
+            --otp-source "$GITHUB_WORKSPACE/artifacts/nif-init-progress582/otp-source" \
+            --build-receipt "$receipt" --admission-sha256 "$(sha256sum "$receipt" | cut -d ' ' -f 1)" \
+            --output "$GITHUB_WORKSPACE/artifacts/nif-init-progress582/capture" --execute \
+            > artifacts/nif-init-progress582/ci/capture.log 2>&1
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: original-only-init582-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            artifacts/nif-init-progress582/ci/**
+            artifacts/nif-init-progress582/original-build/**
+            artifacts/nif-init-progress582/capture/**
+          if-no-files-found: warn

@@ -889,3 +889,7 @@ The independent oracle generators and per-API summary use existing Erlang,
 PowerShell and Python standard libraries only. Finite same-platform comparisons
 do not certify all IEEE conversions, other operating systems or physical ERTS
 resource ceilings. See the [retained string integration and local-receipt archive](validation/string-otp-merge-20261104/README.md).
+
+### Part574: reuse existing final poll implementation and original fixtures
+
+Reuse the repository-owned3da2 Linux poll runtime and existing descriptor oracle fixtures. Preserve pinned OTP29.1.1 and notices. No third-party library, license selection, source-language library rewrite or external publication is added. Historical54/54 remains old-source evidence; fresh integrated CI is required.

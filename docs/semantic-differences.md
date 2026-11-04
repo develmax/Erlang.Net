@@ -1,5 +1,7 @@
 Current string integration: all71 C# APIs and original Erlang/BEAM are explicitly selectable. Source errors/full stacks, lazy chardata, numeric and Jaro behavior match the retained8522-case/depth comparisons for both backends;14 cooperation tests and9706 full tests pass. Existing allocation limits and native-caller/async semantics remain. Finite results and original receipts retain their scope; classifications remain unchanged. See [current evidence](validation/string-otp-merge-20261104/README.md).
 
+Part574 consolidates the final Linux descriptor poll source and audits stale branches. Exact-head Linux/original replay, CI, review and merge remain pending; no API/full-contract promotion. See [branch decisions and acceptance gates](validation/part-574/README.md).
+
 Current ordsets checkpoint: repaired missing native reverse helper frames in managed `lists:umerge/1`, observable through `ordsets:union/1` on malformed nested lists. Exact corpus evidence and remaining universal acceptance gates are in [ordsets compatibility](ORDSETS_COMPATIBILITY.md). No whole-module promotion.
 
 Draft Part568 prepares the bulk physical-occurrence runtime patch in a separate PR to main. Ordsets stays6 Verified/15 KnownDifferences; current whole ETF replay remains RED. See [evidence and open acceptance gates](validation/part-568/ordsets-bulk/README.md).

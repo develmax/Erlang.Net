@@ -6,6 +6,7 @@ public static class MicrostateCaseNames
     public const string Producers = "runtime/statistics-msacc-actual-normal-aux-dirty-producers";
     public const string Nested = "runtime/statistics-msacc-real-thread-nested-vm-and-host-exclusion";
     public const string Cache = "runtime/statistics-msacc-thread-cache-does-not-retain-vm";
+    internal const string Poll = "poll";
     internal const string Type = "type";
     internal const string Identity = "id";
     internal const string Counters = "counters";

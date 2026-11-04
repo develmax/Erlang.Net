@@ -1,0 +1,425 @@
+{
+  "Partial": true,
+  "SelectedCount": 68,
+  "TotalCount": 9708,
+  "Blocks": [],
+  "ExactCases": [
+    "HOST Halt and initializer death join real held dirty work",
+    "HOST/code-purger432-dispose-halt-initializer-pending-session",
+    "HOST/counters421/all-three-shutdown-paths-join-real-leases",
+    "HOST/counters421/unused-owner-initializer-death-closes-admission-before-disposed",
+    "HOST/ets-retirement407/dispose-halt-initializer-drain",
+    "HOST/persistent-native417/initializer-down-joins-held-native-reader",
+    "HOST/persistent-native417/owner-worker-does-not-retain-first-handler-arguments",
+    "native-resource575/empty-committed-types-retire-before-vm-shutdown",
+    "oracle/compiled-module/erlang-exit-exit-other-shutdown",
+    "oracle/compiled-module/erlang-exit-exit-self-shutdown-42",
+    "oracle/compiled-module/erlang-exit-exit_signal-other-shutdown",
+    "oracle/compiled-module/erlang-exit-exit_signal-self-shutdown-42",
+    "oracle/compiled-module/erlang-node-control-disconnect-retry-shutdown",
+    "oracle/compiled-module/erlang-port-observer-exit-shutdown-three",
+    "oracle/compiled-module/erlang-port-observer-exit-shutdown-two",
+    "oracle/compiled-module/erlang-port-observer-exit_signal-shutdown-three",
+    "oracle/compiled-module/erlang-port-observer-exit_signal-shutdown-two",
+    "oracle/compiled-module/otp-supervisor-dynamic-shutdown-ack",
+    "oracle/compiled-module/otp-supervisor-invalid-shutdown",
+    "oracle/compiled-module/otp-supervisor-lifecycle-selective-shutdown-queue",
+    "oracle/compiled-module/otp-supervisor-retry-shutdown-between-attempts",
+    "oracle/compiled-module/otp-supervisor-significant-any-transient-shutdown",
+    "oracle/compiled-module/otp-supervisor-significant-any-transient-shutdown-tuple",
+    "oracle/compiled-module/otp-supervisor-significant-group-restart-no-auto-shutdown",
+    "oracle/compiled-module/otp-supervisor-simple-auto-shutdown-invalid-all",
+    "oracle/compiled-module/otp-supervisor-simple-auto-shutdown-invalid-any",
+    "oracle/compiled-module/otp-supervisor-simple-bulk-shutdown",
+    "oracle/compiled-module/proc-lib-lifecycle-wake-exit-shutdown-suppressed",
+    "oracle/compiled-module/proc-lib-lifecycle-wake-exit-shutdown-tuple-suppressed",
+    "oracle/compiled-module/proc-lib-stop-supervisor-ack-before-child-shutdown",
+    "runtime/atomics413/constructor-rollback-registration-conflict-and-transaction",
+    "runtime/atomics586/shutdown-retains-backing-until-owned-heap-retires",
+    "runtime/atomics586/shutdown-waits-outside-runtime-gate",
+    "runtime/contract520/worker-witness-precedes-unexpected-result",
+    "runtime/counters603/initializer-done-before-global-drain",
+    "runtime/debug432-real-stopped-entry-dispose-halt-and-initializer-retirement",
+    "runtime/initializer615/live-unrelated-cancellation-remains-visible",
+    "runtime/initializer615/terminal-mailbox-before-stop-cancel",
+    "runtime/library-manifest389/original-worker-values-and-five-full-stack-profiles",
+    "runtime/match634/constructor-rollback-and-cancelled-copy",
+    "runtime/message-queue411/original-whole126-strict-worker-policy",
+    "runtime/monitor652/earlier-target-resource-down-vm-shutdown",
+    "runtime/nif-owned-purge-discard-shutdown-and-real-unwind",
+    "runtime/owned-guest506/nested-foreign-invocation-refuses-enclosing-vm-shutdown",
+    "runtime/owned-guest506/original-compiled-worker-whole-values-and-stacks",
+    "runtime/port-fd-io/cancel-idle-borrowed-reader",
+    "runtime/port-fd-io/eof-closes",
+    "runtime/port-fd-io/line",
+    "runtime/port-fd-io/list",
+    "runtime/port-fd-io/packet-four",
+    "runtime/port-fd-io/packet-one",
+    "runtime/port-fd-io/packet-two",
+    "runtime/port-fd-io/reject-exit-status",
+    "runtime/port-fd-io/stream",
+    "runtime/re412/initializer-close",
+    "runtime/scheduler-statistics-host-initializer-excluded",
+    "runtime/statistics-context-selection/initializer-and-inline-excluded",
+    "runtime/statistics-msacc-dirty-io-physical-worker-id-out-of-order-birth",
+    "runtime/statistics-msacc-normal-physical-worker-id-out-of-order-birth",
+    "runtime/unicode-skip411/original-whole198-strict-worker-and-fileio-prepare",
+    "runtime/worker-lifecycle/close-versus-actual-ready",
+    "runtime/worker-lifecycle/constructor-original-argument-error-type",
+    "runtime/worker-lifecycle/independent-entry-errors-aggregate",
+    "runtime/worker-lifecycle/partial-dirty-entry-failure",
+    "runtime/worker-lifecycle/partial-normal-entry-failure",
+    "runtime/worker-lifecycle/prefix-and-initializer-rollback",
+    "scheduler/initializer-mailbox-readmission-reentry",
+    "scheduler/initializer-retirement-after-guests"
+  ],
+  "Passed": 63,
+  "Failed": 5,
+  "Tests": [
+    {
+      "Name": "runtime/contract520/worker-witness-precedes-unexpected-result",
+      "Status": "Passed",
+      "Milliseconds": 5
+    },
+    {
+      "Name": "runtime/atomics586/shutdown-waits-outside-runtime-gate",
+      "Status": "Passed",
+      "Milliseconds": 1438
+    },
+    {
+      "Name": "runtime/atomics586/shutdown-retains-backing-until-owned-heap-retires",
+      "Status": "Passed",
+      "Milliseconds": 304
+    },
+    {
+      "Name": "native-resource575/empty-committed-types-retire-before-vm-shutdown",
+      "Status": "Passed",
+      "Milliseconds": 56
+    },
+    {
+      "Name": "runtime/atomics413/constructor-rollback-registration-conflict-and-transaction",
+      "Status": "Passed",
+      "Milliseconds": 319
+    },
+    {
+      "Name": "runtime/re412/initializer-close",
+      "Status": "Failed",
+      "Error": "System.IO.FileNotFoundException: artifacts/library376-official-compiler/official-admission.json\r\n   at Erlang.Tests.RegexNative411Access.Admission() in D:\\Distr\\Work\\Codex\\Erlang.Net\\artifacts\\branch-cleanup-20261104\\candidate\\tests\\Erlang.Tests\\Runtime\\Native\\Regex\\RegexNative411Access.cs:line 12\r\n   at Erlang.Tests.RegexNative411LifecycleChecks.ClosePath(Int32 mode) in D:\\Distr\\Work\\Codex\\Erlang.Net\\artifacts\\branch-cleanup-20261104\\candidate\\tests\\Erlang.Tests\\Runtime\\Native\\Regex\\RegexNative411LifecycleChecks.cs:line 61\r\n   at Erlang.Tests.RegexNative411LifecycleChecks.ClosePath(Int32 mode) in D:\\Distr\\Work\\Codex\\Erlang.Net\\artifacts\\branch-cleanup-20261104\\candidate\\tests\\Erlang.Tests\\Runtime\\Native\\Regex\\RegexNative411LifecycleChecks.cs:line 87\r\n   at Program.\u003CMain\u003E$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\artifacts\\branch-cleanup-20261104\\candidate\\tests\\Erlang.Tests\\Harness\\Program.cs:line 16247",
+      "Milliseconds": 53
+    },
+    {
+      "Name": "runtime/message-queue411/original-whole126-strict-worker-policy",
+      "Status": "Passed",
+      "Milliseconds": 2035
+    },
+    {
+      "Name": "runtime/unicode-skip411/original-whole198-strict-worker-and-fileio-prepare",
+      "Status": "Passed",
+      "Milliseconds": 896
+    },
+    {
+      "Name": "HOST/persistent-native417/initializer-down-joins-held-native-reader",
+      "Status": "Passed",
+      "Milliseconds": 140
+    },
+    {
+      "Name": "HOST/persistent-native417/owner-worker-does-not-retain-first-handler-arguments",
+      "Status": "Passed",
+      "Milliseconds": 75
+    },
+    {
+      "Name": "HOST/counters421/unused-owner-initializer-death-closes-admission-before-disposed",
+      "Status": "Passed",
+      "Milliseconds": 44
+    },
+    {
+      "Name": "HOST/counters421/all-three-shutdown-paths-join-real-leases",
+      "Status": "Passed",
+      "Milliseconds": 229
+    },
+    {
+      "Name": "HOST/code-purger432-dispose-halt-initializer-pending-session",
+      "Status": "Passed",
+      "Milliseconds": 214
+    },
+    {
+      "Name": "runtime/debug432-real-stopped-entry-dispose-halt-and-initializer-retirement",
+      "Status": "Passed",
+      "Milliseconds": 121
+    },
+    {
+      "Name": "HOST Halt and initializer death join real held dirty work",
+      "Status": "Passed",
+      "Milliseconds": 81
+    },
+    {
+      "Name": "HOST/ets-retirement407/dispose-halt-initializer-drain",
+      "Status": "Passed",
+      "Milliseconds": 225
+    },
+    {
+      "Name": "runtime/nif-owned-purge-discard-shutdown-and-real-unwind",
+      "Status": "Passed",
+      "Milliseconds": 563
+    },
+    {
+      "Name": "runtime/port-fd-io/cancel-idle-borrowed-reader",
+      "Status": "Passed",
+      "Milliseconds": 2769
+    },
+    {
+      "Name": "runtime/port-fd-io/stream",
+      "Status": "Passed",
+      "Milliseconds": 146
+    },
+    {
+      "Name": "runtime/port-fd-io/packet-one",
+      "Status": "Passed",
+      "Milliseconds": 101
+    },
+    {
+      "Name": "runtime/port-fd-io/packet-two",
+      "Status": "Passed",
+      "Milliseconds": 90
+    },
+    {
+      "Name": "runtime/port-fd-io/packet-four",
+      "Status": "Passed",
+      "Milliseconds": 91
+    },
+    {
+      "Name": "runtime/port-fd-io/line",
+      "Status": "Passed",
+      "Milliseconds": 97
+    },
+    {
+      "Name": "runtime/port-fd-io/list",
+      "Status": "Passed",
+      "Milliseconds": 79
+    },
+    {
+      "Name": "runtime/port-fd-io/reject-exit-status",
+      "Status": "Passed",
+      "Milliseconds": 64
+    },
+    {
+      "Name": "runtime/port-fd-io/eof-closes",
+      "Status": "Passed",
+      "Milliseconds": 73
+    },
+    {
+      "Name": "oracle/compiled-module/otp-supervisor-invalid-shutdown",
+      "Status": "Passed",
+      "Milliseconds": 91
+    },
+    {
+      "Name": "oracle/compiled-module/otp-supervisor-dynamic-shutdown-ack",
+      "Status": "Passed",
+      "Milliseconds": 192
+    },
+    {
+      "Name": "oracle/compiled-module/otp-supervisor-retry-shutdown-between-attempts",
+      "Status": "Passed",
+      "Milliseconds": 157
+    },
+    {
+      "Name": "oracle/compiled-module/otp-supervisor-lifecycle-selective-shutdown-queue",
+      "Status": "Passed",
+      "Milliseconds": 173
+    },
+    {
+      "Name": "oracle/compiled-module/otp-supervisor-significant-any-transient-shutdown",
+      "Status": "Passed",
+      "Milliseconds": 162
+    },
+    {
+      "Name": "oracle/compiled-module/otp-supervisor-significant-any-transient-shutdown-tuple",
+      "Status": "Passed",
+      "Milliseconds": 138
+    },
+    {
+      "Name": "oracle/compiled-module/otp-supervisor-significant-group-restart-no-auto-shutdown",
+      "Status": "Passed",
+      "Milliseconds": 131
+    },
+    {
+      "Name": "oracle/compiled-module/otp-supervisor-simple-auto-shutdown-invalid-any",
+      "Status": "Passed",
+      "Milliseconds": 128
+    },
+    {
+      "Name": "oracle/compiled-module/otp-supervisor-simple-auto-shutdown-invalid-all",
+      "Status": "Passed",
+      "Milliseconds": 164
+    },
+    {
+      "Name": "oracle/compiled-module/otp-supervisor-simple-bulk-shutdown",
+      "Status": "Passed",
+      "Milliseconds": 187
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-exit-exit-self-shutdown-42",
+      "Status": "Passed",
+      "Milliseconds": 56
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-exit-exit-other-shutdown",
+      "Status": "Passed",
+      "Milliseconds": 63
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-exit-exit_signal-self-shutdown-42",
+      "Status": "Passed",
+      "Milliseconds": 66
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-exit-exit_signal-other-shutdown",
+      "Status": "Passed",
+      "Milliseconds": 65
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-node-control-disconnect-retry-shutdown",
+      "Status": "Passed",
+      "Milliseconds": 81
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-port-observer-exit-shutdown-two",
+      "Status": "Failed",
+      "Error": "System.InvalidOperationException: Expected {ok,done}, got {error,error,eacces}\r\n   at Program.\u003C\u003CMain\u003E$\u003Eg__Check|0_37(Boolean value, String message) in D:\\Distr\\Work\\Codex\\Erlang.Net\\artifacts\\branch-cleanup-20261104\\candidate\\tests\\Erlang.Tests\\Harness\\Program.cs:line 4415\r\n   at Program.\u003C\u003CMain\u003E$\u003Eg__Equal|0_38(Term a, Term b) in D:\\Distr\\Work\\Codex\\Erlang.Net\\artifacts\\branch-cleanup-20261104\\candidate\\tests\\Erlang.Tests\\Harness\\Program.cs:line 4419\r\n   at Program.\u003C\u003Ec__DisplayClass0_88.\u003C\u003C\u003CMain\u003E$\u003Eb__600\u003Ed.MoveNext() in D:\\Distr\\Work\\Codex\\Erlang.Net\\artifacts\\branch-cleanup-20261104\\candidate\\tests\\Erlang.Tests\\Harness\\Program.cs:line 12210\r\n--- End of stack trace from previous location ---\r\n   at Program.\u003CMain\u003E$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\artifacts\\branch-cleanup-20261104\\candidate\\tests\\Erlang.Tests\\Harness\\Program.cs:line 16247",
+      "Milliseconds": 103
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-port-observer-exit-shutdown-three",
+      "Status": "Failed",
+      "Error": "System.InvalidOperationException: Expected {ok,done}, got {error,error,eacces}\r\n   at Program.\u003C\u003CMain\u003E$\u003Eg__Check|0_37(Boolean value, String message) in D:\\Distr\\Work\\Codex\\Erlang.Net\\artifacts\\branch-cleanup-20261104\\candidate\\tests\\Erlang.Tests\\Harness\\Program.cs:line 4415\r\n   at Program.\u003C\u003CMain\u003E$\u003Eg__Equal|0_38(Term a, Term b) in D:\\Distr\\Work\\Codex\\Erlang.Net\\artifacts\\branch-cleanup-20261104\\candidate\\tests\\Erlang.Tests\\Harness\\Program.cs:line 4419\r\n   at Program.\u003C\u003Ec__DisplayClass0_88.\u003C\u003C\u003CMain\u003E$\u003Eb__600\u003Ed.MoveNext() in D:\\Distr\\Work\\Codex\\Erlang.Net\\artifacts\\branch-cleanup-20261104\\candidate\\tests\\Erlang.Tests\\Harness\\Program.cs:line 12210\r\n--- End of stack trace from previous location ---\r\n   at Program.\u003CMain\u003E$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\artifacts\\branch-cleanup-20261104\\candidate\\tests\\Erlang.Tests\\Harness\\Program.cs:line 16247",
+      "Milliseconds": 93
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-port-observer-exit_signal-shutdown-two",
+      "Status": "Failed",
+      "Error": "System.InvalidOperationException: Expected {ok,done}, got {error,error,eacces}\r\n   at Program.\u003C\u003CMain\u003E$\u003Eg__Check|0_37(Boolean value, String message) in D:\\Distr\\Work\\Codex\\Erlang.Net\\artifacts\\branch-cleanup-20261104\\candidate\\tests\\Erlang.Tests\\Harness\\Program.cs:line 4415\r\n   at Program.\u003C\u003CMain\u003E$\u003Eg__Equal|0_38(Term a, Term b) in D:\\Distr\\Work\\Codex\\Erlang.Net\\artifacts\\branch-cleanup-20261104\\candidate\\tests\\Erlang.Tests\\Harness\\Program.cs:line 4419\r\n   at Program.\u003C\u003Ec__DisplayClass0_88.\u003C\u003C\u003CMain\u003E$\u003Eb__600\u003Ed.MoveNext() in D:\\Distr\\Work\\Codex\\Erlang.Net\\artifacts\\branch-cleanup-20261104\\candidate\\tests\\Erlang.Tests\\Harness\\Program.cs:line 12210\r\n--- End of stack trace from previous location ---\r\n   at Program.\u003CMain\u003E$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\artifacts\\branch-cleanup-20261104\\candidate\\tests\\Erlang.Tests\\Harness\\Program.cs:line 16247",
+      "Milliseconds": 90
+    },
+    {
+      "Name": "oracle/compiled-module/erlang-port-observer-exit_signal-shutdown-three",
+      "Status": "Failed",
+      "Error": "System.InvalidOperationException: Expected {ok,done}, got {error,error,eacces}\r\n   at Program.\u003C\u003CMain\u003E$\u003Eg__Check|0_37(Boolean value, String message) in D:\\Distr\\Work\\Codex\\Erlang.Net\\artifacts\\branch-cleanup-20261104\\candidate\\tests\\Erlang.Tests\\Harness\\Program.cs:line 4415\r\n   at Program.\u003C\u003CMain\u003E$\u003Eg__Equal|0_38(Term a, Term b) in D:\\Distr\\Work\\Codex\\Erlang.Net\\artifacts\\branch-cleanup-20261104\\candidate\\tests\\Erlang.Tests\\Harness\\Program.cs:line 4419\r\n   at Program.\u003C\u003Ec__DisplayClass0_88.\u003C\u003C\u003CMain\u003E$\u003Eb__600\u003Ed.MoveNext() in D:\\Distr\\Work\\Codex\\Erlang.Net\\artifacts\\branch-cleanup-20261104\\candidate\\tests\\Erlang.Tests\\Harness\\Program.cs:line 12210\r\n--- End of stack trace from previous location ---\r\n   at Program.\u003CMain\u003E$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\artifacts\\branch-cleanup-20261104\\candidate\\tests\\Erlang.Tests\\Harness\\Program.cs:line 16247",
+      "Milliseconds": 101
+    },
+    {
+      "Name": "oracle/compiled-module/proc-lib-stop-supervisor-ack-before-child-shutdown",
+      "Status": "Passed",
+      "Milliseconds": 91
+    },
+    {
+      "Name": "oracle/compiled-module/proc-lib-lifecycle-wake-exit-shutdown-suppressed",
+      "Status": "Passed",
+      "Milliseconds": 107
+    },
+    {
+      "Name": "oracle/compiled-module/proc-lib-lifecycle-wake-exit-shutdown-tuple-suppressed",
+      "Status": "Passed",
+      "Milliseconds": 97
+    },
+    {
+      "Name": "scheduler/initializer-mailbox-readmission-reentry",
+      "Status": "Passed",
+      "Milliseconds": 25
+    },
+    {
+      "Name": "scheduler/initializer-retirement-after-guests",
+      "Status": "Passed",
+      "Milliseconds": 19
+    },
+    {
+      "Name": "runtime/scheduler-statistics-host-initializer-excluded",
+      "Status": "Passed",
+      "Milliseconds": 28
+    },
+    {
+      "Name": "runtime/library-manifest389/original-worker-values-and-five-full-stack-profiles",
+      "Status": "Passed",
+      "Milliseconds": 232
+    },
+    {
+      "Name": "runtime/owned-guest506/original-compiled-worker-whole-values-and-stacks",
+      "Status": "Passed",
+      "Milliseconds": 195
+    },
+    {
+      "Name": "runtime/owned-guest506/nested-foreign-invocation-refuses-enclosing-vm-shutdown",
+      "Status": "Passed",
+      "Milliseconds": 87
+    },
+    {
+      "Name": "runtime/initializer615/terminal-mailbox-before-stop-cancel",
+      "Status": "Passed",
+      "Milliseconds": 38
+    },
+    {
+      "Name": "runtime/initializer615/live-unrelated-cancellation-remains-visible",
+      "Status": "Passed",
+      "Milliseconds": 22
+    },
+    {
+      "Name": "runtime/monitor652/earlier-target-resource-down-vm-shutdown",
+      "Status": "Passed",
+      "Milliseconds": 117
+    },
+    {
+      "Name": "runtime/match634/constructor-rollback-and-cancelled-copy",
+      "Status": "Passed",
+      "Milliseconds": 33
+    },
+    {
+      "Name": "runtime/counters603/initializer-done-before-global-drain",
+      "Status": "Passed",
+      "Milliseconds": 34
+    },
+    {
+      "Name": "runtime/worker-lifecycle/constructor-original-argument-error-type",
+      "Status": "Passed",
+      "Milliseconds": 9
+    },
+    {
+      "Name": "runtime/worker-lifecycle/partial-normal-entry-failure",
+      "Status": "Passed",
+      "Milliseconds": 15
+    },
+    {
+      "Name": "runtime/worker-lifecycle/partial-dirty-entry-failure",
+      "Status": "Passed",
+      "Milliseconds": 4
+    },
+    {
+      "Name": "runtime/worker-lifecycle/prefix-and-initializer-rollback",
+      "Status": "Passed",
+      "Milliseconds": 43
+    },
+    {
+      "Name": "runtime/worker-lifecycle/close-versus-actual-ready",
+      "Status": "Passed",
+      "Milliseconds": 1
+    },
+    {
+      "Name": "runtime/worker-lifecycle/independent-entry-errors-aggregate",
+      "Status": "Passed",
+      "Milliseconds": 2
+    },
+    {
+      "Name": "runtime/statistics-msacc-normal-physical-worker-id-out-of-order-birth",
+      "Status": "Passed",
+      "Milliseconds": 3
+    },
+    {
+      "Name": "runtime/statistics-msacc-dirty-io-physical-worker-id-out-of-order-birth",
+      "Status": "Passed",
+      "Milliseconds": 1
+    },
+    {
+      "Name": "runtime/statistics-context-selection/initializer-and-inline-excluded",
+      "Status": "Passed",
+      "Milliseconds": 23
+    }
+  ]
+}
