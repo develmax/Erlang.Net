@@ -855,6 +855,11 @@ internal sealed partial class RuntimePorts(ProcessRuntime runtime, object gate)
                     await port.Writes;
                     lock (gate)
                     {
+                        // The port may already have terminated (child exit, EOF,
+                        // write failure); a dead port never answers the close command.
+                        if (port.Closed)
+                            return;
+
                         Close(port, Term.A(ProcessExitReasons.Normal));
                         runtime.SendPortNotification(connected, Term.Tuple(port.Identity, Term.A(PortNames.Closed)));
                     }

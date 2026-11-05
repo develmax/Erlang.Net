@@ -1,5 +1,7 @@
 # Next steps
 
+Part603 preserves DETS fixed-scan continuations across deletion. A retained FREE collection remains readable, while an unknown status at a recorded collection address reports bad_object. The public select/3 to select/1 regression and Windows validation are recorded in [Part603](validation/part-603/README.md).
+
 Next NIF work: validate prepared-loader finish_loading custody, resource monitors/down, takeover and unload, and port guarded 32-bit regex/search layouts. Then execute the same resource/GC fixture on measured ARM64/Unix hosts and add separate ARM32/other 32-bit ABI admission. Keep original ERTS observations and .NET target results separate.
 
 Part601 verifies the native-word resource/magic and atomics/counters port in Windows x86/x64 Debug and Release. All six final-source CI jobs pass, including actual C resource NIF execution, GC retirement and byte parity against pinned original ERTS with word sizes 4 and 8. Other managed resource platforms and full resource lifecycle parity remain open. [Exact scope and results](validation/part-601/README.md).

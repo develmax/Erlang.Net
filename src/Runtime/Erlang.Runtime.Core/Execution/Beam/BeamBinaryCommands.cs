@@ -63,8 +63,11 @@ internal static class BeamBinaryCommands
                 Need(5);
                 int live = Live(operands[cursor++]);
                 BeamOperand flagOperand = operands[cursor++];
-                int flags = name == BeamBinaryNames.IntegerSegment ? BeamBinaryWireValues.ListFlags(structure, flagOperand, true) : 0;
-                Require(name == BeamBinaryNames.IntegerSegment || flagOperand.Kind == BeamOperandParameters.Nil);
+                // beam_ssa_codegen keeps little/native/signed for every bs_match
+                // segment type; they are validated but meaningless for binaries.
+                int flags = BeamBinaryWireValues.ListFlags(structure, flagOperand, true);
+                if (name == BeamBinaryNames.BinarySegment)
+                    flags = 0;
                 int size = Number(operands[cursor++]);
                 int unit = Unit(operands[cursor++]);
                 BeamOperand destination = operands[cursor++];
