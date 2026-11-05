@@ -425,6 +425,8 @@ internal sealed partial class RuntimeActorDispatcher
         foreach (var lane in lanes)
         {
             if (!NormalBarrierLaneMayStart696(lane)) continue;
+            if (normalBarrier696 is null && !MultiSchedulingLaneMayRun(lane) && lane.Auxiliary420.Count == 0)
+                continue;
             if (normalBarrier696 is null && lane.Online && !lane.Pumping && lane.Empty)
                 TrySteal(lane);
             if (lane.Pumping || lane.Empty || !lane.Online && lane.Auxiliary420.Count == 0 && (!retiring || lane.Cleanup.Count == 0))
