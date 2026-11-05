@@ -118,10 +118,12 @@ internal static class ClrMemoryPublicHostChecks
             && ReferenceEquals(Entry(parentBacking), Entry(retainedBacking)));
         string first = new(ClrMemoryPublicHostNames.DuplicateAtom.ToCharArray());
         string second = new(ClrMemoryPublicHostNames.DuplicateAtom.ToCharArray());
-        var atom = Term.A(first);
-        var duplicate = Term.A(second);
-        Require(!ReferenceEquals(first, second) && Entry(first) is not null && Entry(second) is not null);
-        Require(Number(Entry(second)!, ClrMemoryPublicHostNames.Bytes) == (BigInteger)second.Length * sizeof(char));
+        var atom = (Atom)Term.A(first);
+        var duplicate = (Atom)Term.A(second);
+        Require(!ReferenceEquals(first, second) && ReferenceEquals(atom.Name, duplicate.Name));
+        object? atomEntry = Entry(atom.Name);
+        Require(Entry(second) is null && atomEntry is not null);
+        Require(Number(atomEntry!, ClrMemoryPublicHostNames.Bytes) == (BigInteger)first.Length * sizeof(char));
         var descriptor = new ModuleCodeDescriptor(
             [],
             [],
