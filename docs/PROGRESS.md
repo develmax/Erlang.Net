@@ -1,5 +1,8 @@
 # Project progress
 
+Part597 extends the NIF target ABI and executes native/managed platform CI with original OTP29.1.1 image comparisons. macOS executable-bound bundles use a native CLR launcher exporting the existing bridge. BSD evidence is C-only; 32-bit/remaining OS profiles and full NIF lifecycle/API parity remain open. Registered MFA delta is zero. See [exact target/head results](validation/part-597/README.md).
+
+
 Part596 fixes PR119 test synchronization: await physical dirty-handler unwind and give the two timer539 cases an outer preparation/phase/drain budget while preserving internal watchdogs and assertions. Production source is unchanged. See [failure analysis and focused evidence](validation/part-596/README.md); fresh hosted checks remain pending.
 
 Part595 repairs the remaining PR119 CI function407 failure: original OTP confirms one tail-badfun source frame, including the exact synthetic image. Focused6/6 and complete66/66 raw/typed outcomes pass. See [native proof and receipt](validation/part-595/README.md); fresh hosted checks remain pending.

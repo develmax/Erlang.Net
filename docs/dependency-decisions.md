@@ -1,5 +1,24 @@
 # Dependency and compatibility decisions
 
+## NIF target ABI and macOS process host — 2026-11-05
+
+Reuse the existing C# NIF implementations, term/environment ownership and native
+export/varargs adapters. OTP29.1.1 public headers and Unix/Windows dynamic loader
+sources define the reference ABI; configure integer sizes on the target. BCL
+NativeLibrary provides ordinary host loading, but RTLD constants and variadic
+argument reading belong to target-compiled C. Another FFI package does not solve
+Erlang ownership or Mach-O executable-ordinal imports.
+
+For unchanged macOS OTP bundles, reuse the official SDK hostfxr.h API
+(hostfxr_main_startupinfo) to launch the existing CLR from a native main
+executable exporting the existing bridge functions. The SDK header is consumed
+from the installed host pack, not copied into this repository. No ERTS, new
+managed package, vendored implementation or new runtime semantics is introduced.
+.NET runtime/hosting is the existing Microsoft MIT-licensed dependency; preserve
+OTP/Ericsson Apache-2.0 notices. This is a host ABI boundary, not a replacement
+actor runtime. See [target evidence and limits](validation/nif-platform-ci-20261105/README.md).
+
+
 ## Managed unicode_util — 2026-11-04
 
 The user requests a C# unicode_util alternative and an Erlang-free managed

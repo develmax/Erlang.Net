@@ -1,6 +1,6 @@
 # NIF platform portability — implementation and evidence
 
-Checkpoint: 2026-11-05. **Partial implementation; full OTP platform parity is not accepted.**
+Checkpoint: 2026-11-05. Four final target runs / fourteen jobs passed; see exact heads in the linked evidence. **Partial implementation; full OTP platform parity is not accepted.**
 
 The reference remains OTP-29.1.1, commit
 `ad05823719d77c8faee87348ea39513d4e2f99c5`. No external ERTS is required
@@ -31,15 +31,18 @@ Inspected pinned original sources:
 
 ## Implemented paths
 
-| Host | Code path | Evidence from this checkpoint |
+| Host | Code path | Actual target evidence |
 | --- | --- | --- |
-| Windows x64 | Existing callback model; C varargs adapter now also exports rejecting `set_option` | Native C smoke passed; focused managed checks passed |
-| Windows ARM64 | Same callback model with ARM64 native adapter, native `set_option` required | DLL and native smoke executable cross-compiled; **not executed** |
-| Linux x64 glibc | Existing isolated glibc namespace path retained | Managed host-side backend checks only; Linux execution **not rerun** |
-| Linux ARM64 glibc | Same namespace path, AArch64 ELF machine and actual host page alignment | Code and generated-header checks only; **not target-compiled or executed** |
-| Linux LP64 without the namespace profile, including musl | Ordinary process-global Unix exports | Source path only; **not target-compiled or executed** |
-| macOS x64 / ARM64 | Native dyld/libc adapter, process-global `enif_*` exports | Source path only; **not target-compiled or executed** |
-| FreeBSD LP64 | Same target-compiled Unix adapter | Source path only; **not target-compiled or executed** |
+| Windows x64 | OTP callback model and native varargs adapter | Local native/managed smoke and real DLL image passed |
+| Windows ARM64 | Target-built adapter, including native rejecting `set_option` | Hosted target execution passed for both shipped/rebuilt DLLs and a real NIF DLL; original Windows ERTS not run |
+| Linux glibc x64 / ARM64 | Per-runtime `dlmopen` namespaces, target ELF machine/page alignment | Hosted native/managed checks and same-host original OTP image comparison passed |
+| Linux musl x64 / ARM64 | Process-owned native bridge, target libc wrappers | Hosted native/managed checks and same-host original OTP image comparison passed |
+| macOS x64 / ARM64 | Target dyld/libc adapter; exported main-executable bridge for OTP-linked bundles | Hosted native/managed checks and same-host OTP comparison passed; unchanged-bundle launcher checks passed on both architectures |
+| FreeBSD 15 amd64 | Target-compiled LP64 C bridge | Hosted C layout/loader smoke passed; **.NET runtime and NIF execution unverified** |
+| Other LP64 Linux/FreeBSD architectures | Generic portable C ABI path | **Unverified**, including target compilation/execution |
+| Windows x86, ARM32 and all 32-bit layouts | Explicit rejection | **Not implemented** |
+| OpenBSD 7.8 / NetBSD 10.1 amd64 | C preflight only; managed OS admission disabled | Native C layout/loader smoke passed; **.NET/NIF execution unverified** |
+| Solaris/SunOS, AIX and other OTP hosts | No admitted .NET host/ABI profile | **Not implemented or verified** |
 
 The Unix bridge no longer requires `__linux__ && __x86_64__`. It requires LP64
 and verifies the actual target C sizes/offsets against managed structures before
@@ -73,12 +76,12 @@ python3 tools/Native/Erlang.NifNativeBackend/build-unix-bridge.py \
   --output artifacts/nif-platform-local --smoke-fixtures
 ```
 
-The builder checks both public NIF headers byte-for-byte against the pinned Git
+The builder checks three public NIF headers byte-for-byte against the pinned Git
 objects, verifies native layout and loader error behavior, and records host,
 compiler, sources, headers and hashes. Put the resulting `Erlang.NifBridge.so`
 beside the host executable, or in `runtimes/<target-rid>/native` before building
-the runtime package. No Unix binaries are supplied or certified by this
-Windows checkpoint. `.so` is the OTP NIF suffix on Darwin too; the bridge itself
+the runtime package. Unix binaries are built and retained in target CI artifacts; no cross-host
+certification or production package publication is claimed. `.so` is the OTP NIF suffix on Darwin too; the bridge itself
 is built as a Mach-O dynamic library there.
 
 For managed references, MSBuild selects native output files using
@@ -86,20 +89,49 @@ For managed references, MSBuild selects native output files using
 RID files retain their NuGet `runtimes/<rid>/native` paths. The Windows ARM64
 asset must never overwrite the x64 asset in a host output directory.
 
-The manual `NIF platform portability (target execution)` workflow builds pinned
-OTP and the bridge on the selected Unix runner, then tests native callbacks,
-independent environment ownership, tuple17 varargs and the initializer alias.
-It has **not been dispatched** by this checkpoint. Its smoke is not the full
-NIF lifecycle/differential suite.
+The `NIF platform portability (target execution)` and musl/BSD workflows run
+on the dedicated CI branch and via manual dispatch. They configure/build the
+pinned original OTP, execute a real C NIF on both VMs and compare ETF bytes.
+Windows executes its target C ABI probe and checks a portable authenticated BEAM
+and original ETF; that is not an original Windows OTP execution claim.
+
+### macOS executable-bound bundles
+
+A bundle linked by OTP with `-bundle_loader beam.smp` imports `enif_*` from the
+main Mach-O executable. Merely promoting a dylib to RTLD_GLOBAL does not satisfy
+that binding under ordinary `dotnet`: the unchanged original bundle failed with
+`Symbol not found: _enif_alloc`, expected in `dotnet`. This failure is retained.
+
+`build-macos-host.py` builds `erlang-nif-host` from the existing C export,
+varargs, platform and layout adapters plus a small hostfxr launcher. Its exports
+reside in the main executable, as in OTP. It starts the installed CLR through the
+official SDK `hostfxr.h` interface. It contains no ERTS. The managed runtime
+recognizes its versioned native marker, verifies the public C layout and uses
+that main-executable callback table instead of publishing a second dylib table.
+Foreign API providers, a replacement bridge and another VM remain rejected.
+The launcher and callback table are process-owned; do not unload their code.
+
+After configuring pinned OTP headers on the actual macOS host:
+
+```sh
+python3 tools/Native/Erlang.NifNativeBackend/build-macos-host.py \
+  --repository . --otp-source /path/to/pinned/otp \
+  --otp-include /path/to/configured/headers --dotnet-root "$DOTNET_ROOT" \
+  --output artifacts/nif-process-host
+# Supply absolute native-host, hostfxr, SDK-root and application DLL paths:
+/path/to/erlang-nif-host /path/to/libhostfxr.dylib "$DOTNET_ROOT" /path/to/app.dll [arguments...]
+```
+
+Ordinary `dotnet` remains usable for NIFs explicitly linked to the bridge. Use
+the launcher for OTP executable-bound bundles. Arbitrary third-party NIF APIs,
+Mach-O deployment/signing/notarization, universal binaries and production package
+integration still need their own verification. No global flat-namespace
+workaround or original ERTS is required.
 
 ## Explicit remaining gates
 
-- Run actual native builds and integrated NIF/lifecycle/resource/thread/upgrade
-  comparisons on macOS Intel/Apple Silicon, Linux ARM64 and BSD/musl.
-- Verify Mach-O symbol binding for unmodified OTP-built NIF bundles. The current
-  probe explicitly links the bridge. OTP's `-bundle_loader beam.smp` cannot be
-  assumed equivalent to a .NET executable; source support does not prove binary
-  compatibility for arbitrary existing bundles.
+- Extend the finite image checks to lifecycle/resource/thread/upgrade suites
+  on the tested profiles; run .NET/NIF checks on FreeBSD.
 - Reviewed SHA256/descriptor-based target loading and its reallocation extension
   remain specific to the glibc path. The portable loader explicitly rejects
   reviewed admission rather than validating one file and loading another path.
@@ -107,10 +139,13 @@ NIF lifecycle/differential suite.
 - 32-bit NIF layouts are **not implemented**. Windows x86, ARM32 and other
   pointer-size-4 hosts are rejected, not classified as verified.
 - OTP hosts without a usable .NET host, and other Unix OS profiles such as
-  Solaris/AIX/OpenBSD/NetBSD, are **not implemented or accepted** by this change.
+  Solaris/AIX/OpenBSD/NetBSD, have **no implemented or accepted managed NIF
+  host admission** in this change. OpenBSD/NetBSD have native C preflight only.
   Matching OTP's complete platform set requires further host/ABI work.
 - No whole-module/MFA acceptance, full regression, performance or full platform
-  parity claim follows from this checkpoint. Existing canonical readiness and
-  compatibility files are preserved because they contain unrelated dirty work.
+  parity claim follows from this checkpoint. Global module readiness is unchanged: no registered MFA or whole-module
+  semantic acceptance is added. Current-state documents are updated only in
+  the isolated publication snapshot, preserving concurrent checkout edits.
 
-See [scoped evidence and English checkpoint](validation/nif-platform-20261105/README.md).
+See [hosted evidence and remaining gates](validation/nif-platform-ci-20261105/README.md).
+The [earlier local-only receipt](validation/nif-platform-20261105/README.md) is historical.

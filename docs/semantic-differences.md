@@ -1,5 +1,18 @@
 Part589 updates ASN.1 PR118 from timer main29b92f63d, retaining both components and the qualified file atom. Fresh focused build,65 checks/26 OTP outcomes and passive bindings pass. [Evidence](validation/part-589/README.md).
 
+## NIF platform boundary — 2026-11-05
+
+The portable Unix bridge has one process-owned runtime, including after owner
+disposal; it does not offer glibc namespace isolation. Reviewed descriptor loading
+and the reviewed reallocation extension are explicitly unavailable there.
+macOS executable-bound OTP bundles require the native CLR launcher; ordinary
+dotnet does not export enif symbols from its main executable. 32-bit NIF ABI
+layouts and Solaris/AIX/OpenBSD/NetBSD host admission are not implemented.
+FreeBSD has C-only target evidence, without .NET execution. Finite NIF fixture
+parity does not establish resource/GC/thread/upgrade/full API compatibility.
+See [current evidence](validation/nif-platform-ci-20261105/README.md).
+
+
 Part593 complete for the targeted platform package: Windows/Linux/macOS each pass74 managed/86 original grouped checks,21 whole OTP scenarios/full error stacks per backend and bidirectional files. Both review findings, native cursors, reopened free lists and readonly errno are fixed; C#/Erlang selection remains. Descriptor54/54 and exact source/pin/census checks pass. See [bound receipts](validation/dets-reconciliation-20261104/README.md). No full local regression or universal compatibility promotion.
 
 Part592 splits prim_file deletion into a common C# result boundary and Windows/POSIX implementations. Unix unlink preserves raw filename bytes and uses separate Linux/Darwin errno tables; Windows directory/invalid-name errors now follow OTP. Focused Windows native-OTP and cross-ABI/path evidence is recorded in [the receipt](validation/prim-file-platform-delete-20261104/README.md). This earlier deletion-only checkpoint is superseded by Part593; full Unix file bindings are now implemented and targeted host execution is in progress.

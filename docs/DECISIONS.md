@@ -1,5 +1,17 @@
 # Architecture decisions
 
+## NIF platform ownership and macOS executable exports — 2026-11-05
+
+Keep glibc per-runtime namespaces on x64/ARM64. Other admitted 64-bit Unix hosts
+use a process-owned, target-compiled bridge and reject a second ProcessRuntime,
+foreign enif providers and unsupported reviewed descriptor/reallocation loading.
+For Mach-O bundles bound to the original VM executable, export the same bridge
+from a small native CLR launcher. Ordinary dotnet supports explicitly linked
+bridge NIFs; the launcher supports the tested unchanged OTP-linked fixture.
+C# retains runtime semantics; C supplies only native ABI/OS adapters and hosting.
+See [implementation and platform gates](nif-platform-portability.md).
+
+
 ## Current decisions
 
 [gen_statem alternatives and constant ownership](decisions/0007-gen-statem-alternatives.md) record the module-specific user authorization, retained OTP assets, runtime reuse and finite acceptance scope.
