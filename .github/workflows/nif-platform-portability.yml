@@ -82,6 +82,9 @@ jobs:
             artifacts/nif-platform-ci/image/managed.etf \
             > artifacts/nif-platform-ci/image/managed-checks.json
           cmp artifacts/nif-platform-ci/image/original.etf artifacts/nif-platform-ci/image/managed.etf
+      - name: Execute the unchanged original OTP NIF binary
+        shell: bash
+        run: sh tools/Native/Erlang.NifPlatformValidation/run-unmodified-image.sh
       - uses: actions/upload-artifact@v7
         if: always()
         with:
