@@ -22,7 +22,8 @@ internal static class LibrarySelectionNames
         TimerLibraryModuleNames.Module,
         "unicode_util",
         RuntimeEtsFacetNames407.Module,
-        DetsLibraryModuleNames.Module
+        DetsLibraryModuleNames.Module,
+        SysLibraryNames.Module
     ];
     internal static readonly string[] StringDependencies = [ListModuleNames.Module, UnicodeNativeNames.Module, "unicode_util"];
     internal static readonly string[] UnicodeDependencies = [ListModuleNames.Module, "unicode_util"];
