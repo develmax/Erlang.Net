@@ -173,7 +173,12 @@ public sealed partial class ModuleRegistry
             throw new InvalidOperationException(StatisticsTrapNames.InvalidImage);
         if (managedErtsInternalLibrary)
         {
-            return Call(caller, StatisticsTrapNames.Module, function, arguments);
+            return Call(
+                caller,
+                StatisticsTrapNames.Module,
+                function,
+                arguments
+            );
         }
         BeamLinkedFunction target = image.Code.Functions.Single(value => value.Name == function && value.Arity == arguments.Length);
         ErlangFunction body = (context, values) => BeamRegisterInterpreter.ExecuteFunction(
