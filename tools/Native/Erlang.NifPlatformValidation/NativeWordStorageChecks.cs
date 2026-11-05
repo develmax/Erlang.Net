@@ -78,7 +78,8 @@ internal static class NativeWordStorageChecks
             Term[] identifiers = [new Pid("remote@word", 0xfedcba9876543210UL, uint.MaxValue),
             new PortTerm("remote@word", ulong.MaxValue, uint.MaxValue),
             new ReferenceTerm("remote@word", new uint[] { uint.MaxValue, 0x87654321, 0xabcdef01 }, uint.MaxValue),
-            new ReferenceTerm("remote@word", new uint[] { 0x12345678, uint.MaxValue, 0, 0xabcdef01 }, 17)];
+            new ReferenceTerm("remote@word", new uint[] { 0x12345678, uint.MaxValue, 0, 0xabcdef01 }, 17),
+            new ReferenceTerm("remote@word", new uint[] { 1, 2, 3, 4, uint.MaxValue }, 23)];
             var receivingHeap = new ProcessTermHeap506(runtime);
             using var receivingRoots = receivingHeap.Enter();
             int receivingSlot = receivingRoots.Reserve();
@@ -106,6 +107,9 @@ internal static class NativeWordStorageChecks
                 receivingRoots.Dispose();
                 await receivingHeap.RetireAsync().WaitAsync(TimeSpan.FromSeconds(30));
             }
+            var reclaimed = heap.PhysicalWordSnapshot526;
+            if (reclaimed.Blocks != 0 || reclaimed.RootedTermHandles != 0 || reclaimed.LivePhysicalWords != 0)
+                throw new InvalidOperationException(NifNativeDiagnostics.ManagedLayout);
             Console.WriteLine(JsonSerializer.Serialize(new { Passed = true, Architecture = RuntimeInformation.ProcessArchitecture.ToString(), WordBytes = IntPtr.Size, FloatCases = bits.Length, IntegerCases = integers.Length, MajorMinorGc = true, ExternalIdentifierCases = identifiers.Length, CrossHeapTransfer = true, CellRootsReclaimed = true }));
         }
         finally
