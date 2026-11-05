@@ -27,7 +27,7 @@
     <Error Condition="!Exists('runtimes/win-x64/native/Erlang.Nif.WindowsVariadic.dll')"
            Text="Build/install the Windows NIF variadic runtime asset before packaging Erlang.Runtime.Core." />
   </Target>
-  <PropertyGroup Condition="$([MSBuild]::IsOSPlatform('Linux')) Or $([MSBuild]::IsOSPlatform('OSX'))">
+  <PropertyGroup Condition="$([MSBuild]::IsOSPlatform('Linux')) Or $([MSBuild]::IsOSPlatform('OSX')) Or $([MSBuild]::IsOSPlatform('FreeBSD'))">
     <PosixFileExtension>.so</PosixFileExtension>
     <PosixFileLinkFlag>-shared</PosixFileLinkFlag>
     <PosixFileExtension Condition="$([MSBuild]::IsOSPlatform('OSX'))">.dylib</PosixFileExtension>

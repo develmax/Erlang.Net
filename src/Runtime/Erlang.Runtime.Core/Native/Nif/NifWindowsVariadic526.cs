@@ -63,7 +63,7 @@ internal static unsafe class NifWindowsVariadic526
                 nint candidateSnprintf791 = NativeLibrary.GetExport(candidate, NifWindowsVariadic526Names.Snprintf791);
                 bool hasSetOption = NativeLibrary.TryGetExport(candidate, NifWindowsVariadic526Names.SetOption, out nint candidateSetOption);
                 if (!hasSetOption && RuntimeInformation.ProcessArchitecture != Architecture.X64)
-                    throw new PlatformNotSupportedException(NifWindowsVariadic526Names.Arm64Asset);
+                    throw new PlatformNotSupportedException(NifWindowsVariadic526Names.NativeOptionAsset);
                 var table = new NifWindowsVariadic526Table
                 {
                     Version = NifWindowsVariadic526Names.Version,

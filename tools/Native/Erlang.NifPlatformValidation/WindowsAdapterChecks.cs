@@ -5,6 +5,10 @@ using Erlang;
 internal static unsafe class WindowsAdapterChecks
 {
     private static int count;
+    private static nuint[]? expectedValues;
+    private static bool valuesMatched;
+    private static nuint formattedTerm;
+    private static long formattedDepth;
 
     internal static void VerifyRuntimeBinding()
     {
@@ -18,7 +22,7 @@ internal static unsafe class WindowsAdapterChecks
             throw new InvalidOperationException("The runtime did not bind the native variadic set_option slot");
     }
 
-    internal static void Run(string path)
+    internal static void Run(string path, string? probePath = null)
     {
         nint library = NativeLibrary.Load(path);
         try
@@ -44,6 +48,9 @@ internal static unsafe class WindowsAdapterChecks
             var tuple = (delegate* unmanaged[Cdecl]<nint, uint, nuint>)NativeLibrary.GetExport(library, NifWindowsVariadic526Names.Tuple);
             if (tuple(0, 0) != 0 || count != 0 || tuple(0, 33) != nuint.MaxValue)
                 throw new InvalidOperationException("Variadic empty/bounded tuple contract failed");
+            if (probePath is not null)
+                VerifyVariadicValues(library, probePath);
+
             table.MaximumTuple = 1;
             if (register(&table) == 0)
                 throw new InvalidOperationException("Native callback replacement was admitted");
@@ -54,10 +61,50 @@ internal static unsafe class WindowsAdapterChecks
         }
     }
 
+    private static void VerifyVariadicValues(nint library, string probePath)
+    {
+        nint probe = NativeLibrary.Load(probePath);
+        try
+        {
+            var invoke = (delegate* unmanaged[Cdecl]<nint, nint, uint, nuint*, nuint>)NativeLibrary.GetExport(probe, "nif_windows_variadic_probe");
+            foreach (int length in new[] { 17, 9 })
+            {
+                expectedValues = Enumerable.Range(0, length).Select(index => nuint.MaxValue - (nuint)index).ToArray();
+                valuesMatched = false;
+                nint function = NativeLibrary.GetExport(library, length == 17 ? NifWindowsVariadic526Names.Tuple : NifWindowsVariadic526Names.List);
+                fixed (nuint* values = expectedValues)
+                    if (invoke(
+                        function,
+                        0,
+                        (uint)length,
+                        values
+                    ) != (nuint)length || !valuesMatched)
+                        throw new InvalidOperationException(NifPlatformValidationDiagnostics.VariadicProbe);
+            }
+            expectedValues = null;
+            var format = (delegate* unmanaged[Cdecl]<nint, nuint, int>)NativeLibrary.GetExport(probe, "nif_windows_format_probe");
+            nint printer = NativeLibrary.GetExport(library, NifWindowsVariadic526Names.Snprintf791);
+            if (format(printer, nuint.MaxValue) != 0 || formattedTerm != nuint.MaxValue || formattedDepth != 7)
+                throw new InvalidOperationException(NifPlatformValidationDiagnostics.VariadicProbe);
+        }
+        finally
+        {
+            expectedValues = null;
+            NativeLibrary.Free(probe);
+        }
+    }
+
     [UnmanagedCallersOnly(CallConvs = [typeof(CallConvCdecl)])]
     private static nuint Collect(nint environment, nuint* values, uint length)
     {
         count = (int)length;
+        if (expectedValues is not null)
+        {
+            valuesMatched = length == expectedValues.Length && values != null;
+            if (valuesMatched)
+                for (int index = 0; index < expectedValues.Length; index++)
+                    valuesMatched &= values[index] == expectedValues[index];
+        }
 
         return length;
     }
@@ -71,5 +118,11 @@ internal static unsafe class WindowsAdapterChecks
         long depth,
         nint writer,
         nint state
-    ) => 0;
+    )
+    {
+        formattedTerm = term;
+        formattedDepth = depth;
+
+        return 0;
+    }
 }

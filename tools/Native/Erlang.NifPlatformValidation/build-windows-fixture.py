@@ -12,7 +12,7 @@ parser = argparse.ArgumentParser(description=__doc__)
 parser.add_argument('--repository', type=Path, required=True)
 parser.add_argument('--otp-source', type=Path, required=True)
 parser.add_argument('--output', type=Path, required=True)
-parser.add_argument('--architecture', choices=('x64', 'arm64'), required=True)
+parser.add_argument('--architecture', choices=('x64', 'arm64', 'x86'), required=True)
 args = parser.parse_args()
 root = args.repository.resolve()
 out = args.output.resolve()
@@ -29,7 +29,7 @@ vswhere = Path(os.environ['ProgramFiles(x86)']) / 'Microsoft Visual Studio/Insta
 installation = subprocess.check_output([str(vswhere), '-latest', '-products', '*', '-property', 'installationPath'], text=True).strip()
 setup = Path(installation) / 'VC/Auxiliary/Build/vcvarsall.bat'
 assert setup.is_file() and not any(v in str(setup) for v in ('"', '%', '\n', '\r'))
-target = 'x64' if args.architecture == 'x64' else 'x64_arm64'
+target = {'x64': 'x64', 'arm64': 'x64_arm64', 'x86': 'x64_x86'}[args.architecture]
 configured = subprocess.check_output('cmd.exe /d /s /c ""' + str(setup) + '" ' + target + ' >nul && set"')
 env = dict(os.environ)
 for line in configured.decode('mbcs').splitlines():
@@ -59,17 +59,21 @@ probe += 'return 0; }\n'
 (out / 'sizes.c').write_bytes(probe.encode())
 run([compiler, '/nologo', '/W4', '/WX', '/O2', '/MT', 'sizes.c', '/Fe:sizes.exe'], 'sizes-compile')
 sizes = dict(line.split('=', 1) for line in run([str(out / 'sizes.exe')], 'sizes-execute').decode().splitlines())
-assert sizes['SIZEOF_VOID_P'] == '8' and sizes['SIZEOF_LONG'] == '4'
+assert sizes['SIZEOF_VOID_P'] == ('4' if args.architecture == 'x86' else '8') and sizes['SIZEOF_LONG'] == '4'
 for name, value in sizes.items():
     template, count = re.subn('^#undef ' + name + '$', '#define ' + name + ' ' + value, template, flags=re.M)
     assert count == 1
 assert not re.search('^#undef SIZEOF_', template, re.M)
 (out / 'erl_int_sizes_config.h').write_bytes(template.encode())
+probe_source = root / 'tools/Native/Erlang.NifPlatformValidation/windows_abi_layout.c'
+run([compiler, '/nologo', '/std:c11', '/W4', '/WX', '/O2', '/MT', '/I' + str(out), str(probe_source), '/Fe:abi-layout.exe'], 'abi-compile')
+abi = json.loads(run([str(out / 'abi-layout.exe')], 'abi-execute'))
+(out / 'abi-layout.json').write_text(json.dumps(abi, indent=2) + '\n')
 source = root / 'tools/Native/Erlang.NifPlatformValidation/nif_platform_fixture.c'
 run([compiler, '/nologo', '/std:c11', '/W4', '/WX', '/O2', '/MT', '/utf-8', '/I' + str(out), '/c', str(source), '/Fofixture.obj'], 'fixture-compile')
 run([linker, '/NOLOGO', '/DLL', '/MACHINE:' + args.architecture.upper(), '/OUT:nif_platform_fixture.dll', 'fixture.obj'], 'fixture-link')
 sha = lambda p: hashlib.sha256(p.read_bytes()).hexdigest().upper()
-receipt = {'TargetArchitecture': args.architecture, 'NativeSizesExecuted': True, 'Sizes': sizes, 'Commands': commands,
+receipt = {'TargetArchitecture': args.architecture, 'NativeSizesExecuted': True, 'PublicAbi': abi, 'Sizes': sizes, 'Commands': commands,
            'OtpPin': pin, 'SourceSha256': sha(source), 'LibrarySha256': sha(out / 'nif_platform_fixture.dll'),
            'Headers': {p.name: sha(p) for p in out.glob('*.h')}, 'NifImageExecuted': False}
 (out / 'build-receipt.json').write_text(json.dumps(receipt, indent=2) + '\n')

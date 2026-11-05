@@ -3,6 +3,50 @@ using System.Runtime.InteropServices;
 using System.Text.Json;
 using Erlang;
 
+if (args is ["--windows-entry", var nativeEntryPath])
+{
+    NifPlatformWindowsEntryChecks.Run(nativeEntryPath);
+
+    return;
+}
+
+if (args is ["--runtime-gate"])
+{
+    await NifPlatformRuntimeGateChecks.Run();
+
+    return;
+}
+if (args is ["--windows-adapter", var adapterPath, var probePath])
+{
+    try
+    {
+        WindowsAdapterChecks.Run(Path.GetFullPath(adapterPath), Path.GetFullPath(probePath));
+        WindowsAdapterChecks.VerifyRuntimeBinding();
+        Console.WriteLine(JsonSerializer.Serialize(new
+        {
+            Passed = true,
+            Architecture = RuntimeInformation.ProcessArchitecture.ToString(),
+            PointerBytes = IntPtr.Size,
+            ManagedVariadicArgumentsVerified = true,
+            RuntimeNifExecuted = false
+        }));
+    }
+    catch (Exception error)
+    {
+        Console.WriteLine(JsonSerializer.Serialize(new { Passed = false, Error = error.ToString() }));
+        Environment.ExitCode = 1;
+    }
+
+    return;
+}
+
+if (args is ["--abi-layout", var abiLayout])
+{
+    NifPlatformAbiChecks.Run(abiLayout);
+
+    return;
+}
+
 if (args is ["--image", var beam, var library, var imageOutput])
 {
     try
@@ -55,7 +99,7 @@ Check(
             ))
             throw new InvalidOperationException("64-bit target rejected");
     }
-    if (NifNativePlatformPolicy.Supports(
+    if (!NifNativePlatformPolicy.Supports(
         true,
         false,
         Architecture.X86,
@@ -83,7 +127,7 @@ Check(
 {
     if (Marshal.SizeOf<NifNativeAbiEntry>() != NifNativeAbi.EntryBytes
         || Marshal.SizeOf<NifNativeAbiFunction>() != NifNativeAbi.FunctionBytes
-        || Marshal.SizeOf<NifNativeBinaryDescriptor>() != 40
+        || Marshal.SizeOf<NifNativeBinaryDescriptor>() != NifNativeAbi.BinaryDescriptorBytes
         || Marshal.SizeOf<NifNativeBridgeTable>() != NifNativeAbi.BridgeTableBytes)
         throw new InvalidOperationException("Host managed ABI differs from declared native layout");
 }

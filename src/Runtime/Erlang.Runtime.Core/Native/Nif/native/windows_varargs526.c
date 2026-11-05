@@ -27,8 +27,8 @@ typedef struct {
     nif_printf_term791 format_term791;
 } callbacks526;
 
-_Static_assert(sizeof(void *) == 8, "Windows adapter requires 64-bit pointers");
-_Static_assert(sizeof(callbacks526) == 48, "Managed registration layout mismatch");
+_Static_assert(sizeof(void *) == 4 || sizeof(void *) == 8, "Unsupported Windows pointer width");
+_Static_assert(sizeof(callbacks526) == 4 * sizeof(uint32_t) + 4 * sizeof(void *), "Managed registration layout mismatch");
 
 static SRWLOCK publication526 = SRWLOCK_INIT;
 static callbacks526 callbacks;

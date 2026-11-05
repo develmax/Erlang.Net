@@ -4,7 +4,7 @@ internal static class NifWindowsVariadic526Names
 {
     internal const string LibraryFile = "Erlang.Nif.WindowsVariadic.dll";
     internal const string SetOption = "nif_windows_set_option";
-    internal const string Arm64Asset = "Windows ARM64 requires a variadic adapter with the native set_option entry point.";
+    internal const string NativeOptionAsset = "Windows x86/ARM64 requires a variadic adapter with the native set_option entry point.";
     internal const string Register = "nif_windows_varargs_register526";
     internal const string Tuple = "nif_windows_make_tuple526";
     internal const string List = "nif_windows_make_list526";

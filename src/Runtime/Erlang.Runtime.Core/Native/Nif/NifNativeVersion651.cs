@@ -1,3 +1,5 @@
+using System.Runtime.InteropServices;
+
 namespace Erlang;
 
 internal static class NifNativeVersion651
@@ -8,12 +10,12 @@ internal static class NifNativeVersion651
     internal const int FlagsMinor = 7;
     internal const int ResourceInitMinor = 12;
     internal const int MinimumErtsMinor = 14;
-    internal const int PrefixBytes = 64;
-    internal const int LegacyFunctionBytes = 24;
-    internal const int VariantOffset = 64;
-    internal const int OptionsOffset = 72;
-    internal const int ResourceInitOffset = 80;
-    internal const int MinimumErtsOffset = 88;
+    internal static int PrefixBytes => Marshal.SizeOf<NifNativeAbiEntryPrefix651>();
+    internal static int LegacyFunctionBytes => Marshal.SizeOf<NifNativeAbiFunctionLegacy651>();
+    internal static int VariantOffset => (int)Marshal.OffsetOf<NifNativeAbiEntry>(nameof(NifNativeAbiEntry.Variant));
+    internal static int OptionsOffset => (int)Marshal.OffsetOf<NifNativeAbiEntry>(nameof(NifNativeAbiEntry.Options));
+    internal static int ResourceInitOffset => (int)Marshal.OffsetOf<NifNativeAbiEntry>(nameof(NifNativeAbiEntry.ResourceInitSize));
+    internal static int MinimumErtsOffset => (int)Marshal.OffsetOf<NifNativeAbiEntry>(nameof(NifNativeAbiEntry.MinimumErts));
     internal const string FuturePrefix = "That '";
     internal const string FutureMiddle = "' NIF library needs ";
     internal const string FutureSuffix = " or newer. Either try to recompile the NIF lib or use a newer erts runtime.";

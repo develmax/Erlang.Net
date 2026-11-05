@@ -17,7 +17,7 @@ def main():
     parser.add_argument('--repository', type=Path, required=True)
     parser.add_argument('--source-sha256', required=True)
     parser.add_argument('--output', type=Path, required=True)
-    parser.add_argument('--architecture', choices=('x64', 'arm64'), default='x64')
+    parser.add_argument('--architecture', choices=('x64', 'arm64', 'x86'), default='x64')
     parser.add_argument('--run-smoke', action='store_true', help='Execute native C varargs tests on the matching host')
     parser.add_argument('--compile-smoke', action='store_true', help='Compile native tests without target execution')
     args = parser.parse_args()
@@ -33,7 +33,7 @@ def main():
     installation = subprocess.check_output([str(vswhere), '-latest', '-products', '*', '-requires', 'Microsoft.VisualStudio.Component.VC.Tools.x86.x64', '-property', 'installationPath'], text=True, timeout=30).strip()
     setup = Path(installation) / 'VC/Auxiliary/Build/vcvarsall.bat'
     assert setup.is_file() and (not any((c in str(setup) for c in ['"', '%', '\r', '\n'])))
-    target = 'x64' if args.architecture == 'x64' else 'x64_arm64'
+    target = {'x64': 'x64', 'arm64': 'x64_arm64', 'x86': 'x64_x86'}[args.architecture]
     configured = subprocess.run('cmd.exe /d /s /c ""' + str(setup) + '" ' + target + ' >nul && set"', capture_output=True, check=True, timeout=60)
     env = dict(os.environ)
     for line in configured.stdout.decode('mbcs').splitlines():
@@ -70,9 +70,11 @@ def main():
         smoke = root / 'tools/Native/Erlang.NifPlatformValidation/windows_variadic_smoke.c'
         receipt['SmokeSourceSha256'] = sha(smoke)
         run([tools['cl.exe'], '/nologo', '/W4', '/WX', '/O2', '/MT', str(smoke), '/Fe:smoke.exe', '/link', '/LIBPATH:' + str(out), 'Erlang.Nif.WindowsVariadic.lib'], 'smoke-compile')
+        probe = root / 'tools/Native/Erlang.NifPlatformValidation/windows_variadic_probe.c'
+        run([tools['cl.exe'], '/nologo', '/std:c11', '/W4', '/WX', '/O2', '/MT', '/LD', str(probe), '/Fe:Erlang.Nif.VariadicProbe.dll', '/link', '/MACHINE:' + args.architecture.upper()], 'probe-compile')
         if args.run_smoke:
             host = platform.machine().lower()
-            assert (args.architecture == 'x64' and host in ('amd64', 'x86_64')) or (args.architecture == 'arm64' and host in ('arm64', 'aarch64'))
+            assert (args.architecture == 'x64' and host in ('amd64', 'x86_64')) or (args.architecture == 'arm64' and host in ('arm64', 'aarch64')) or (args.architecture == 'x86' and host in ('amd64', 'x86_64', 'x86', 'i386'))
             run([str(out / 'smoke.exe')], 'smoke-run')
             receipt['ExecutedOnTarget'] = True
     (out / 'build-receipt.json').write_text(json.dumps(receipt, indent=2) + '\n')
