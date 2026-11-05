@@ -13,13 +13,17 @@
 PLATFORM_EXPORT void *nif_bridge_platform_open(const char *path, int global)
 {
     dlerror();
-    return dlopen(path, RTLD_NOW | (global ? RTLD_GLOBAL : RTLD_LOCAL));
+    void * volatile handle = dlopen(path, RTLD_NOW | (global ? RTLD_GLOBAL : RTLD_LOCAL));
+    return handle;
 }
 
 PLATFORM_EXPORT void *nif_bridge_platform_symbol(void *handle, const char *name)
 {
     dlerror();
-    return dlsym(handle == NULL ? RTLD_DEFAULT : handle, name);
+    /* FreeBSD resolves RTLD_DEFAULT relative to the return address. Keep it
+     * inside this ELF object instead of tail-calling from managed JIT code. */
+    void * volatile address = dlsym(handle == NULL ? RTLD_DEFAULT : handle, name);
+    return address;
 }
 
 PLATFORM_EXPORT int nif_bridge_platform_close(void *handle)

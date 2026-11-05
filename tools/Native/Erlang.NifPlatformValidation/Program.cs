@@ -137,6 +137,7 @@ if (OperatingSystem.IsWindows() && args.Length > 0)
 else if (!OperatingSystem.IsWindows() && args.Length > 0)
 {
     Check("unix-native-callbacks-and-vm-ownership", () => UnixBridgeChecks.Run(args[0]).GetAwaiter().GetResult());
+    Check("unix-managed-default-symbol-scope", UnixBridgeChecks.VerifyDefaultSymbolScope);
 }
 
 string report = JsonSerializer.Serialize(

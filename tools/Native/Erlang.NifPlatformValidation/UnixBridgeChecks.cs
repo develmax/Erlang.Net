@@ -10,6 +10,14 @@ internal static class UnixBridgeChecks
         Verify(runtime, other, probePath);
     }
 
+    internal static void VerifyDefaultSymbolScope()
+    {
+        nint bridge = NifNativePortableUnixApi.EnsureLoaded();
+        foreach (string name in NifNativeNames.BridgeSymbols)
+            if (NifNativePortableUnixApi.Symbol(0, name) != NativeLibrary.GetExport(bridge, name))
+                throw new InvalidOperationException(NifNativeDiagnostics.BridgeContract);
+    }
+
     private static unsafe void Verify(ProcessRuntime runtime, ProcessRuntime other, string probePath)
     {
         NifNativePortableRegistration.EnsureRegistered(runtime, NifNativeCapabilityProfile.ForHostLibrary(Path.GetFullPath(probePath)));
