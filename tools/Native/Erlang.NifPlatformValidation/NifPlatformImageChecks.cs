@@ -21,10 +21,21 @@ internal static class NifPlatformImageChecks
             try
             {
                 string stem = Path.GetFullPath(library)[..^Path.GetExtension(library).Length];
-                Term loaded = await runtime.Modules.Call(context, module, "load", Term.String(stem));
+                Term loaded = await runtime.Modules.Call(
+                    context,
+                    module,
+                    "load",
+                    Term.String(stem)
+                );
                 if (!loaded.Equals(Term.A("ok")))
                     throw new InvalidOperationException("Native image load returned " + loaded);
-                Term sum = await runtime.Modules.Call(context, module, "sum", new Integer(19), new Integer(23));
+                Term sum = await runtime.Modules.Call(
+                    context,
+                    module,
+                    "sum",
+                    new Integer(19),
+                    new Integer(23)
+                );
                 Term tuple = await runtime.Modules.Call(context, module, "tuple");
                 Term generation = await runtime.Modules.Call(context, module, "generation");
                 if (!sum.Equals(new Integer(42)) || !generation.Equals(new Integer(1))
