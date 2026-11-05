@@ -70,6 +70,7 @@ public static class Lexer
                             'v' => '\v',
                             'e' => '\x1b',
                             's' => ' ',
+                            'd' => '\x7f',
                             _ => ch
                         };
                     }

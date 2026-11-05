@@ -21,6 +21,18 @@ public sealed class Parser
     }
 
     private Token Current => tokens[position];
+
+    // erl_parse joins adjacent string literals: "abc" "def" is "abcdef".
+    private string AdjacentStrings(string first)
+    {
+        if (Current.Kind != LexerTokenKinds.String)
+            return first;
+        var text = new StringBuilder(first);
+        while (Current.Kind == LexerTokenKinds.String)
+            text.Append(tokens[position++].Text);
+
+        return text.ToString();
+    }
     public int EndOffset => position == 0 ? 0 : tokens[position - 1].End;
 
     private bool SyntaxToken => Current.Kind is LexerTokenKinds.Keyword or LexerTokenKinds.Symbol;
@@ -576,7 +588,7 @@ public sealed class Parser
             {
                 LexerTokenKinds.Integer => new Expr.Literal(new Integer(BigInteger.Parse(token.Text, CultureInfo.InvariantCulture))),
                 LexerTokenKinds.Float => new Expr.Literal(new FloatTerm(double.Parse(token.Text, CultureInfo.InvariantCulture))),
-                LexerTokenKinds.String => new Expr.Literal(Term.String(token.Text)),
+                LexerTokenKinds.String => new Expr.Literal(Term.String(AdjacentStrings(token.Text))),
                 LexerTokenKinds.Variable => new Expr.Variable(token.Text),
                 LexerTokenKinds.Atom or LexerTokenKinds.QuotedAtom => new Expr.Literal(Term.A(token.Text)),
                 _ => throw new CompileException(CompilerDiagnosticCodes.UnsupportedSyntax, ParserDiagnostics.UnsupportedExpression(token.Text), token.Start)
