@@ -16,6 +16,8 @@ internal static unsafe class NifNativePortableUnixApi
     private static delegate* unmanaged[Cdecl]<byte*, int> openFile;
     private static delegate* unmanaged[Cdecl]<byte*, nuint, int> workingDirectory;
 
+    internal static bool IsProcessHost { get; private set; }
+
     internal static nint EnsureLoaded(string? selected = null)
     {
         NifNativeLifecycleGate.RequireDefaultProvider();
@@ -29,7 +31,11 @@ internal static unsafe class NifNativePortableUnixApi
 
                 return library;
             }
-            nint candidate = NativeLibrary.Load(requested);
+            nint main = NativeLibrary.GetMainProgramHandle();
+            bool processHost = OperatingSystem.IsMacOS()
+                && NativeLibrary.TryGetExport(main, NifNativePortableNames.ProcessHost, out nint marker)
+                && ((delegate* unmanaged[Cdecl]<uint>)marker)() == NifNativePortableNames.ProcessHostProtocol;
+            nint candidate = processHost ? main : NativeLibrary.Load(requested);
             try
             {
                 var candidateOpen = (delegate* unmanaged[Cdecl]<byte*, int, nint>)NativeLibrary.GetExport(candidate, NifNativePortableNames.Open);
@@ -44,6 +50,7 @@ internal static unsafe class NifNativePortableUnixApi
                 error = candidateError;
                 openFile = candidateOpenFile;
                 workingDirectory = candidateDirectory;
+                IsProcessHost = processHost;
                 path = requested;
                 library = candidate;
 
@@ -53,7 +60,8 @@ internal static unsafe class NifNativePortableUnixApi
             }
             catch
             {
-                NativeLibrary.Free(candidate);
+                if (!processHost)
+                    NativeLibrary.Free(candidate);
                 throw;
             }
         }

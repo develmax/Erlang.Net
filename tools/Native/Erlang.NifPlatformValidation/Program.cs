@@ -8,7 +8,7 @@ if (args is ["--image", var beam, var library, var imageOutput])
     try
     {
         await NifPlatformImageChecks.Run(beam, library, imageOutput);
-        Console.WriteLine(JsonSerializer.Serialize(new { Passed = true, Architecture = RuntimeInformation.ProcessArchitecture.ToString() }));
+        Console.WriteLine(JsonSerializer.Serialize(new { Passed = true, Architecture = RuntimeInformation.ProcessArchitecture.ToString(), ProcessHost = NifNativePortableUnixApi.IsProcessHost }));
     }
     catch (Exception error)
     {

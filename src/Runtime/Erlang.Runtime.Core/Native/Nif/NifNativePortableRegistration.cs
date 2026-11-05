@@ -41,7 +41,7 @@ internal static unsafe class NifNativePortableRegistration
             }
             string path = profile.BridgePath ?? Path.Combine(AppContext.BaseDirectory, NifNativePortableNames.DefaultBridge);
             if (library == 0)
-                library = NifNativePortableUnixApi.Open(System.Text.Encoding.UTF8.GetBytes(Path.GetFullPath(path) + '\0'), global: true);
+                library = NifNativePortableUnixApi.IsProcessHost ? bridge : NifNativePortableUnixApi.Open(System.Text.Encoding.UTF8.GetBytes(Path.GetFullPath(path) + '\0'), global: true);
             foreach (string name in NifNativeNames.BridgeSymbols)
                 if (NifNativePortableUnixApi.Symbol(0, name) != NativeLibrary.GetExport(bridge, name))
                     throw new InvalidOperationException(NifNativeDiagnostics.BridgeContract);

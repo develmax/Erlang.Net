@@ -2,6 +2,8 @@ namespace Erlang;
 
 internal static class NifNativePortableNames
 {
+    internal const string ProcessHost = "nif_bridge_process_host";
+    internal const uint ProcessHostProtocol = 1;
     internal const string DefaultBridge = "Erlang.NifBridge.so";
     internal const string Open = "nif_bridge_platform_open";
     internal const string Symbol = "nif_bridge_platform_symbol";

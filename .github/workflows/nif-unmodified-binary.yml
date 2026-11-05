@@ -7,7 +7,7 @@ permissions:
   contents: read
   actions: read
 jobs:
-  original-bundle-on-dotnet:
+  original-bundle-on-native-host:
     runs-on: macos-15
     timeout-minutes: 20
     steps:
@@ -34,14 +34,22 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
+          git clone --depth 1 --branch OTP-29.1.1 https://github.com/erlang/otp.git artifacts/otp
+          test "$(git -C artifacts/otp rev-parse HEAD)" = ad05823719d77c8faee87348ea39513d4e2f99c5
+          (cd artifacts/otp && ./configure --without-javac --without-wx --without-odbc --without-debugger --without-observer --without-et --without-ssl --without-termcap --disable-jit)
+          python3 tools/Native/Erlang.NifPlatformValidation/prepare-configured-headers.py --repository . --otp-source artifacts/otp --output artifacts/headers
+          python3 tools/Native/Erlang.NifNativeBackend/build-macos-host.py --repository . --otp-include artifacts/headers --dotnet-root "$DOTNET_ROOT" --output artifacts/process-host
           dotnet build tools/Native/Erlang.NifPlatformValidation -m:1
           cp artifacts/otp-producer/native/Erlang.NifBridge.so tools/Native/Erlang.NifPlatformValidation/bin/Debug/net10.0/
           mkdir -p artifacts/nif-binary-compat
-          dotnet tools/Native/Erlang.NifPlatformValidation/bin/Debug/net10.0/Erlang.NifNativeBackend.dll \
+          fxr=$(find "$DOTNET_ROOT/host/fxr" -name libhostfxr.dylib | sort -V | tail -1)
+          "$PWD/artifacts/process-host/erlang-nif-host" "$fxr" "$DOTNET_ROOT" "$PWD/tools/Native/Erlang.NifPlatformValidation/bin/Debug/net10.0/Erlang.NifNativeBackend.dll" \
             --image artifacts/otp-producer/image/ebin/nif_platform_fixture.beam \
             artifacts/otp-producer/image/original/nif_platform_fixture.so \
             artifacts/nif-binary-compat/managed.etf \
             > artifacts/nif-binary-compat/report.json
+          python3 -c 'import json; r=json.load(open("artifacts/nif-binary-compat/report.json")); assert r["Passed"] and r["ProcessHost"] and r["Architecture"] == "Arm64"'
+          cp artifacts/process-host/build-receipt.json artifacts/nif-binary-compat/
           cmp artifacts/otp-producer/image/original.etf artifacts/nif-binary-compat/managed.etf
       - uses: actions/upload-artifact@v7
         if: always()
