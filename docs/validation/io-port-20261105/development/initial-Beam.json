@@ -1,0 +1,54 @@
+{
+  "Backend": "Beam",
+  "Passed": 588,
+  "Total": 597,
+  "Failures": [
+    {
+      "Case": "{get_password,[],ok}",
+      "Expected": "{{ok,{error,enotsup}},[]}",
+      "Actual": "{{ok,{error,arguments}},[]}"
+    },
+    {
+      "Case": "{get_password,[],eof}",
+      "Expected": "{{ok,{error,enotsup}},[]}",
+      "Actual": "{{ok,{error,arguments}},[]}"
+    },
+    {
+      "Case": "{get_password,[],{eof,7}}",
+      "Expected": "{{ok,{error,enotsup}},[]}",
+      "Actual": "{{ok,{error,arguments}},[]}"
+    },
+    {
+      "Case": "{get_password,[],{error,badarg}}",
+      "Expected": "{{ok,{error,enotsup}},[]}",
+      "Actual": "{{ok,{error,arguments}},[]}"
+    },
+    {
+      "Case": "{get_password,[],{error,estale,8}}",
+      "Expected": "{{ok,{error,enotsup}},[]}",
+      "Actual": "{{ok,{error,arguments}},[]}"
+    },
+    {
+      "Case": "{get_password,[],\u003C\u003C233\u003E\u003E}",
+      "Expected": "{{ok,{error,enotsup}},[]}",
+      "Actual": "{{ok,{error,arguments}},[]}"
+    },
+    {
+      "Case": "{get_password,[],17}",
+      "Expected": "{{ok,{error,enotsup}},[]}",
+      "Actual": "{{ok,{error,arguments}},[]}"
+    },
+    {
+      "Case": "{get_password,[],{ok,[{integer,1,42},{dot,1}],2}}",
+      "Expected": "{{ok,{error,enotsup}},[]}",
+      "Actual": "{{ok,{error,arguments}},[]}"
+    },
+    {
+      "Case": "{get_password,[],{ok,[{atom,1,abc},{\u0027(\u0027,1},{\u0027)\u0027,1},{dot,1}],2}}",
+      "Expected": "{{ok,{error,enotsup}},[]}",
+      "Actual": "{{ok,{error,arguments}},[]}"
+    }
+  ],
+  "LibrarySha256": "B808DBB188364E531C225F08224F58D3FC3BA671DDA433954D513F15F508D29D",
+  "RuntimeSha256": "4B47D9A0DD7FFD797FB2C582CD36AC14961BFC930E4F4AAB7C2F3F1F03A03FEC"
+}

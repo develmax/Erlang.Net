@@ -186,4 +186,4 @@ Append numbered English entries only to the last volume. Start the next sequenti
 
 - [0106.md](docs/changelog/0106.md) - Timer publication, PR113 reconciliation and Parts588-589 ASN.1 build repair/main update and Part590 analysis consumer CI reconciliation (closed; continues in0107; includes Part591 managed Unicode utility, Part592 ETS reconciliation and Part593 DETS review/POSIX filesystem and Part594 function-call CI repair and Part595 original-OTP tail-frame correction and Part596 scheduling/timer test synchronization and Part597 NIF target CI/macOS native host)
 
-- [0107.md](docs/changelog/0107.md) - Parts598–604 NIF platform work, resource/GC, erts_internal, DETS and sys (active)
+- [0107.md](docs/changelog/0107.md) - Parts598–605 NIF platform work, resource/GC, erts_internal, DETS, sys and io (active)

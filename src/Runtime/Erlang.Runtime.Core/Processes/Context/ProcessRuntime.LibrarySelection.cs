@@ -62,6 +62,11 @@ public sealed partial class ProcessRuntime
             setup = runtime.InitializeModulesAsync(registry =>
             {
                 RuntimeNativePrimitiveProviders.Register(runtime, registry, options.NativePrimitives);
+                if (libraries.Modules.Any(choice => choice.Module == IoModuleNames.Module && choice.Backend == RuntimeModuleBackend.Managed))
+                {
+                    registry.InstallManagedIoPrimitive();
+                    RuntimeManagedLibraries456.Register(registry, RuntimeManagedLibraryStage456.Io);
+                }
                 RuntimeModuleSelection? internalChoice = libraries.Modules.SingleOrDefault(choice => choice.Module == ErtsInternalContract.Module);
                 if (internalChoice is not null)
                 {

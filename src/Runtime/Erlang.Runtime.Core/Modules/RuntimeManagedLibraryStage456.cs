@@ -15,5 +15,6 @@ public enum RuntimeManagedLibraryStage456
     UnicodeUtil,
     Ets,
     Dets,
-    Sys
+    Sys,
+    Io
 }
