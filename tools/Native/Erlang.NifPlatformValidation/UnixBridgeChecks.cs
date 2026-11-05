@@ -36,6 +36,16 @@ internal static class UnixBridgeChecks
         var free = (delegate* unmanaged[Cdecl]<nint, void>)NativeLibrary.GetExport(bridge, "enif_free_env");
         var makeInt = (delegate* unmanaged[Cdecl]<nint, int, nuint>)NativeLibrary.GetExport(bridge, "enif_make_int");
         var getInt = (delegate* unmanaged[Cdecl]<nint, nuint, int*, int>)NativeLibrary.GetExport(bridge, "enif_get_int");
+        // No managed NIF callback scope is active, as on a native worker.
+        var createMutex = (delegate* unmanaged[Cdecl]<byte*, nint>)NativeLibrary.GetExport(bridge, "enif_mutex_create");
+        var destroyMutex = (delegate* unmanaged[Cdecl]<nint, void>)NativeLibrary.GetExport(bridge, "enif_mutex_destroy");
+        fixed (byte* name = "portable-worker"u8)
+        {
+            nint mutex = createMutex(name);
+            if (mutex == 0)
+                throw new InvalidOperationException(NifNativeDiagnostics.BridgeContract);
+            destroyMutex(mutex);
+        }
         nint env = allocate();
         if (env == 0)
             throw new InvalidOperationException("Independent native environment allocation failed");

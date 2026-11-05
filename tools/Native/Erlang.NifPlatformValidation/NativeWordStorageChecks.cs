@@ -119,4 +119,3 @@ internal static class NativeWordStorageChecks
         }
     }
 }
-

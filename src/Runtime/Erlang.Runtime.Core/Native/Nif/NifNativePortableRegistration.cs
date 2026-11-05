@@ -13,6 +13,15 @@ internal static unsafe class NifNativePortableRegistration
     private static NifNativeLinuxMutex795? mutexes;
     private static System.Runtime.ExceptionServices.ExceptionDispatchInfo? initializationFailure;
 
+    internal static void RetireWorkerOwner(ProcessRuntime runtime)
+    {
+        lock (Gate)
+        {
+            if (ReferenceEquals(owner, runtime))
+                mutexes?.RetirePortableWorkerOwner795();
+        }
+    }
+
     internal static void EnsureRegistered(ProcessRuntime runtime, NifNativeCapabilityProfile profile)
     {
         NifNativeLifecycleGate.RequireDefaultProvider();
