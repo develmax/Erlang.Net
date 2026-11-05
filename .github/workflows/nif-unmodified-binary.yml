@@ -1,0 +1,50 @@
+name: Unmodified OTP-linked NIF on macOS
+on:
+  push:
+    branches: ['ci/nif-binary-compat-*']
+  workflow_dispatch:
+permissions:
+  contents: read
+  actions: read
+jobs:
+  original-bundle-on-dotnet:
+    runs-on: macos-15
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+          sparse-checkout: |
+            src/Runtime
+            src/Otp/Managed/Erlang.Otp.Stdlib
+            src/Otp/Managed/Erlang.Otp.Kernel
+            src/Otp/Original/Foundation/Erlang.Otp.Erts.Beam
+            tools/Native/Erlang.NifNativeBackend
+            tools/Native/Erlang.NifPlatformValidation
+      - uses: actions/setup-dotnet@v6
+        with:
+          dotnet-version: 10.0.400
+      - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333
+        with:
+          name: nif-platform-macos-15
+          run-id: 41939988779
+          github-token: ${{ github.token }}
+          path: artifacts/otp-producer
+      - name: Execute the original bundle without recompiling or relinking it
+        shell: bash
+        run: |
+          set -euo pipefail
+          dotnet build tools/Native/Erlang.NifPlatformValidation -m:1
+          cp artifacts/otp-producer/native/Erlang.NifBridge.so tools/Native/Erlang.NifPlatformValidation/bin/Debug/net10.0/
+          mkdir -p artifacts/nif-binary-compat
+          dotnet tools/Native/Erlang.NifPlatformValidation/bin/Debug/net10.0/Erlang.NifNativeBackend.dll \
+            --image artifacts/otp-producer/image/ebin/nif_platform_fixture.beam \
+            artifacts/otp-producer/image/original/nif_platform_fixture.so \
+            artifacts/nif-binary-compat/managed.etf \
+            > artifacts/nif-binary-compat/report.json
+          cmp artifacts/otp-producer/image/original.etf artifacts/nif-binary-compat/managed.etf
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: nif-unmodified-macos-bundle
+          path: artifacts/nif-binary-compat
