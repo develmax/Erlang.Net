@@ -14,7 +14,7 @@ internal sealed partial class ProcessTermHeap506
         ProcessTermSequence506 payload = AllocateEncoded526(
             [],
             [BoxedFloat556Names.Header],
-            [unchecked((nuint)BitConverter.DoubleToInt64Bits(value))]
+            NativeWordLayout.Encode64(unchecked((ulong)BitConverter.DoubleToInt64Bits(value)))
         );
         try
         {
@@ -55,6 +55,9 @@ internal sealed partial class ProcessTermHeap506
             checked(payload.AllocationOffset526 + BoxedFloat556Names.HeaderWords)
         );
 
-        return BitConverter.Int64BitsToDouble(unchecked((long)bits));
+        nuint high = NativeWordLayout.DoubleWords == 2
+            ? payload.Slab.Cells.ReadNumeric556(payload.AllocationOffset526 + BoxedFloat556Names.HeaderWords + 1) : 0;
+
+        return BitConverter.Int64BitsToDouble(unchecked((long)NativeWordLayout.Decode64(bits, high)));
     }
 }

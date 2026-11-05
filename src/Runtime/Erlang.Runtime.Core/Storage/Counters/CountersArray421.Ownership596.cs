@@ -46,11 +46,12 @@ internal sealed unsafe partial class CountersArray421
                 default: throw new ArgumentOutOfRangeException(nameof(kind));
             }
             long physicalRefs = checked(guest + host);
+            nint nativeRefs = checked((nint)physicalRefs);
             producers596 = producer;
             guestRoots596 = guest;
             hostRoots596 = host;
             ownershipStarted596 = true;
-            Header->ReferenceCount = physicalRefs;
+            Header->ReferenceCount = nativeRefs;
         }
 
         return lease;
@@ -74,7 +75,7 @@ internal sealed unsafe partial class CountersArray421
                     hostRoots596--; break;
                 default: throw new ArgumentOutOfRangeException(nameof(kind));
             }
-            if (memory != 0) Header->ReferenceCount = checked(guestRoots596 + hostRoots596);
+            if (memory != 0) Header->ReferenceCount = checked((nint)(guestRoots596 + hostRoots596));
             Monitor.PulseAll(gate);
             retire = ScheduleIfUnowned596();
         }

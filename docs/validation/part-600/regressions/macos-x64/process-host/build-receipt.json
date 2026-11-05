@@ -1,0 +1,44 @@
+{
+  "OtpBaseline": {
+    "tag": "OTP-29.1.1",
+    "commit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+    "repository": "https://github.com/erlang/otp",
+    "sdk": "10.0.400"
+  },
+  "Headers": {
+    "erl_drv_nif.h": "e9d4280779e8fd4ac463144f310b4da2346dd3a18e73d445bf1f88ae3c1f1312",
+    "erl_int_sizes_config.h": "9d6e8ca8e1d20154c0c01a286a9a99174a3a4c78f76c4f459cf861ab1ef744af",
+    "erl_nif.h": "6cb96c37d306a173ef71946e823829fc21e47cb4a19288b221129eac2f13b689",
+    "erl_nif_api_funcs.h": "cf34ada521aeb0ee00c9936320cd694f9816edbab960500453051cea443dda11"
+  },
+  "BinarySha256": "a1c572f137355b22e01e49212314fafede4de48867aaf502b7d9eafeedd53af7",
+  "Host": "macOS-15.7.9-x86_64-i386-64bit-Mach-O",
+  "Command": [
+    "cc",
+    "-std=c11",
+    "-O2",
+    "-fvisibility=hidden",
+    "-Wall",
+    "-Wextra",
+    "-Werror",
+    "-Wl,-export_dynamic",
+    "-I/Users/runner/work/Erlang.Net/Erlang.Net/artifacts/nif-platform-ci/headers",
+    "-I/Users/runner/.dotnet/packs/Microsoft.NETCore.App.Host.osx-x64/10.0.11/runtimes/osx-x64/native",
+    "/Users/runner/work/Erlang.Net/Erlang.Net/tools/Native/Erlang.NifNativeBackend/native/nif_process_host.c",
+    "/Users/runner/work/Erlang.Net/Erlang.Net/tools/Native/Erlang.NifNativeBackend/native/nif_bridge_exports.c",
+    "/Users/runner/work/Erlang.Net/Erlang.Net/tools/Native/Erlang.NifNativeBackend/native/nif_bridge_varargs.c",
+    "/Users/runner/work/Erlang.Net/Erlang.Net/tools/Native/Erlang.NifNativeBackend/native/nif_bridge_platform.c",
+    "/Users/runner/work/Erlang.Net/Erlang.Net/tools/Native/Erlang.NifNativeBackend/native/nif_bridge_layout.c",
+    "-o",
+    "/Users/runner/work/Erlang.Net/Erlang.Net/artifacts/nif-platform-ci/process-host/erlang-nif-host"
+  ],
+  "Sources": {
+    "tools/Native/Erlang.NifNativeBackend/native/nif_process_host.c": "0be59044b0a45d032b54ebe3dfd62fea71809b849e7f2e8cacdd368e7dff3f5b",
+    "tools/Native/Erlang.NifNativeBackend/native/nif_bridge_exports.c": "319671a5a5159abe4a56fb0831b960e400029f480b4ca44db09fa1aaececbf9e",
+    "tools/Native/Erlang.NifNativeBackend/native/nif_bridge_varargs.c": "b13f30989acca7aaf6423aac68aa3a9ebbce46198f9470dcbf3fe76e8b63e472",
+    "tools/Native/Erlang.NifNativeBackend/native/nif_bridge_platform.c": "4078524c2386bf3eaac68c5b95628df4450348c40d234254327a21de16514000",
+    "tools/Native/Erlang.NifNativeBackend/native/nif_bridge_layout.c": "586e633f1401785addb898946050c887fcfd3b01b16b913b9671c528248996c8"
+  },
+  "HostfxrHeaderSha256": "b7570e0fa12df040cd5a100490495598bc4762dcc0307bd441f735529abb8c1c",
+  "Executed": false
+}

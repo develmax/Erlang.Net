@@ -1,5 +1,22 @@
 # Next steps
 
+Next NIF work: validate prepared-loader finish_loading custody, resource monitors/down, takeover and unload, and port guarded 32-bit regex/search layouts. Then execute the same resource/GC fixture on measured ARM64/Unix hosts and add separate ARM32/other 32-bit ABI admission. Keep original ERTS observations and .NET target results separate.
+
+Part601 verifies the native-word resource/magic and atomics/counters port in Windows x86/x64 Debug and Release. All six final-source CI jobs pass, including actual C resource NIF execution, GC retirement and byte parity against pinned original ERTS with word sizes 4 and 8. Other managed resource platforms and full resource lifecycle parity remain open. [Exact scope and results](validation/part-601/README.md).
+
+
+
+Next NIF work after Part600: port and validate actual 32-bit resource/magic headers, atomics/counters allocation and loader resource custody; compare local PID-reference/alias wire numbers against original 32-bit ERTS. Then add measured ARM32/other 32-bit OS/CPU NIF adapters and target execution. OpenBSD/NetBSD remain C-only evidence, and Solaris/AIX have no runtime acceptance. Extend the finite fixture to resources, threads, dirty scheduling, upgrades and teardown; retain separate host receipts.
+
+Part600 established ordinary native-word storage/GC and finite NIF execution across its separately measured platforms. [Historical Part600 evidence](validation/part-600/README.md).
+
+
+Part599: port and validate the 32-bit native-cell/word source profile, including numeric, binary, identifier and GC dependencies, before opening full Windows x86 VM admission. Replace the explicit expected-gate CI test with actual guest load_nif/original OTP comparison only after that port. ARM32/other ILP32 profiles and 32-bit resources remain unimplemented or unverified. FreeBSD 15 amd64 community CLR execution now passes the finite NIF fixture; other BSD/FreeBSD CPU/runtime versions remain separate gates. See [current evidence](validation/nif-freebsd-ilp32-20261105/README.md).
+
+
+Part597 NIF platform follow-up: obtain a usable pinned .NET10 host on FreeBSD and execute the existing managed callback/image suite; OpenBSD/NetBSD currently have native C evidence only and no managed admission. Add real ILP32 layout/callback profiles on 32-bit hosts, then remaining OTP OS/CPU targets. Extend the finite fixture to resource/GC/thread/upgrade differential cases and validate macOS deployment/signing and packaging. Keep each host's evidence separate; full OTP parity is open. See [target evidence and gates](validation/part-597/README.md).
+
+
 Part596 fixes PR119 test synchronization: await physical dirty-handler unwind and give the two timer539 cases an outer preparation/phase/drain budget while preserving internal watchdogs and assertions. Production source is unchanged. See [failure analysis and focused evidence](validation/part-596/README.md); fresh hosted checks remain pending.
 
 Part595 repairs the remaining PR119 CI function407 failure: original OTP confirms one tail-badfun source frame, including the exact synthetic image. Focused6/6 and complete66/66 raw/typed outcomes pass. See [native proof and receipt](validation/part-595/README.md); fresh hosted checks remain pending.

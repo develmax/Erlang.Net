@@ -8,8 +8,7 @@ internal static unsafe class NifNativePlatformLoader
     internal static void VerifyPlatform()
     {
         NifNativeLifecycleGate.RequireDefaultProvider();
-        if (RuntimeInformation.ProcessArchitecture != Architecture.X64 ||
-            !(OperatingSystem.IsWindows() || OperatingSystem.IsLinux()))
+        if (!NifNativePlatformPolicy.IsSupported)
             throw new PlatformNotSupportedException(NifNativeDiagnostics.UnsupportedPlatform);
     }
 
@@ -43,6 +42,13 @@ internal static unsafe class NifNativePlatformLoader
             }
 
             return windowsHandle;
+        }
+        if (!NifNativePlatformPolicy.UseLinuxNamespace)
+        {
+            if (useDescriptor)
+                throw new PlatformNotSupportedException(NifNativePortableNames.ReviewedLoading);
+
+            return NifNativePortableUnixApi.Open(path.UnixNullTerminated(), global);
         }
         // Reviewed images use the verified descriptor. Ordinary host loading preserves
         // the lexical pathname and its native relative dependency resolution.
@@ -84,7 +90,15 @@ internal static unsafe class NifNativePlatformLoader
     {
         try
         {
-            return Symbol(handle, NifNativeNames.Initializer);
+            try
+            {
+                return Symbol(handle, NifNativeNames.Initializer);
+            }
+            catch (InvalidOperationException missing) when (!OperatingSystem.IsWindows()
+                && missing.Message == NifNativeDiagnostics.BridgeContract)
+            {
+                return Symbol(handle, NifNativePortableNames.InitializerAlias);
+            }
         }
         catch (Exception failure) when (failure is EntryPointNotFoundException ||
             failure is InvalidOperationException && failure.Message == NifNativeDiagnostics.BridgeContract)
@@ -95,7 +109,9 @@ internal static unsafe class NifNativePlatformLoader
 
     internal static nint Symbol(nint handle, string name)
     {
-        nint pointer = OperatingSystem.IsWindows() ? NativeLibrary.GetExport(handle, name) : Dlsym(handle, name);
+        nint pointer = OperatingSystem.IsWindows() ? NativeLibrary.GetExport(handle, name)
+            : NifNativePlatformPolicy.UseLinuxNamespace ? Dlsym(handle, name)
+            : NifNativePortableUnixApi.Symbol(handle, name);
         if (pointer == 0)
             throw new InvalidOperationException(NifNativeDiagnostics.BridgeContract);
 
@@ -108,6 +124,8 @@ internal static unsafe class NifNativePlatformLoader
             return;
         if (OperatingSystem.IsWindows())
             NativeLibrary.Free(handle);
+        else if (!NifNativePlatformPolicy.UseLinuxNamespace)
+            NifNativePortableUnixApi.Close(handle);
         else if (Dlclose(handle) != 0)
             throw new InvalidOperationException(NifNativeDiagnostics.BridgeContract);
     }

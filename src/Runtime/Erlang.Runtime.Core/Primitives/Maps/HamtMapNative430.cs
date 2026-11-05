@@ -11,7 +11,7 @@ internal static class HamtMapNative430
     )
     {
         body = null!;
-        if (owner is null || IntPtr.Size != sizeof(ulong) || !HamtNativeNames430.Signatures.Contains((module, function, arity))) return false;
+        if (owner is null || !NativeWordLayout.Supported || !HamtNativeNames430.Signatures.Contains((module, function, arity))) return false;
         body = (context, arguments) =>
         {
             if (!ReferenceEquals(context.Runtime, owner) || arguments.Count != arity)

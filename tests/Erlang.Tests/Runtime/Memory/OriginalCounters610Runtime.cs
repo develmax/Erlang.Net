@@ -67,7 +67,7 @@ internal static class OriginalCounters610Runtime
         // This is the compiled runtime CounterRef layout, not test-assembly DEBUG
         // or provider metadata. Refuse before any memory leaf is compared.
         Type header = typeof(ProcessRuntime).Assembly.GetType(OriginalCounters610Fields.ErlangCountersMagicHeader421, true)!;
-        bool hasDebugUlen = header.GetField(OriginalCounters610Fields.CacheLineCount591, BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic) is not null;
+        bool hasDebugUlen = CountersPrefix591Checks.PayloadType(header).GetField(OriginalCounters610Fields.CacheLineCount, BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic) is not null;
         OriginalCounters610Protocol.Require(wordSize == expected.WordSize && schedulers == expected.Schedulers
             && (((Atom)debug).Name == OriginalCounters610Fields.True) == expected.DebugCompiled && hasDebugUlen == expected.DebugCompiled);
         int current = OriginalCounters610Protocol.Int(await Info(OriginalCounters610Fields.SchedulersOnline));

@@ -6,7 +6,7 @@ internal static class CountersNames421
     internal const string New = "counters_new", Get = "counters_get", Add = "counters_add", Put = "counters_put", Info = "counters_info";
     internal const string Size = "size", Memory = "memory";
     internal const string Foreign = "Counters requires the owning live actor and its actual normal scheduler lane";
-    internal const string Architecture = "The counters native payload currently requires a 64-bit runtime";
+    internal const string Architecture = "The counters native payload requires a little-endian 32-bit or 64-bit runtime";
     internal const string Underflow = "Counters invocation or allocation lease underflow";
     internal const string Destructor = "Counters allocation destructor identity is invalid";
     internal const string Identity = "Counters requires three canonical magic reference words";

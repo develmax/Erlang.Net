@@ -8,7 +8,7 @@ internal static class AtomicsNames413
     internal const string Size = "size", Minimum = "min", Maximum = "max", Memory = "memory";
     internal const string Foreign = "Atomics requires this runtime's exact live actor and resource domain";
     internal const string Conflict = "Atomics constructor refuses an existing or displaced binding";
-    internal const string Architecture = "The authoritative atomics layout currently requires a 64-bit runtime";
+    internal const string Architecture = "The authoritative atomics layout requires a little-endian 32-bit or 64-bit runtime";
     internal const string Underflow = "Atomics invocation or allocation lease underflow";
     internal const string Destructor = "Atomics allocation destructor identity is invalid";
     internal const string Identity = "Atomics requires exactly three canonical magic reference words";
