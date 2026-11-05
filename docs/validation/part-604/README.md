@@ -32,3 +32,13 @@ dotnet tools/Validation/Erlang.SysCompatibility/bin/Debug/net10.0/Erlang.SysComp
 Run the full backends sequentially because the file cases use the captured
 fixture directory. To reproduce an error profile, capture to a fresh directory
 with `-BacktraceDepth N` and append `errors` to each replay command.
+
+## PR review checks
+
+The canonical readiness ledger matches the base commit. This receipt records
+the focused sys validation independently. The sys architecture exception in
+AGENTS.md records the requested backend choice.
+
+Local CI source preflights passed for Resource529 (4,490 dependencies),
+Focused13 (13 plans), raw MFA and native bindings (5,400 evidence rows), and
+the Unix filename observer. These checks verify source bindings.
