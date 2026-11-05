@@ -1,5 +1,15 @@
 # Dependency and compatibility decisions
 
+## Native-word32 storage - 2026-11-05
+
+Reuse NativeMemory, GCHandle roots and the existing explicit heap/frame/GC graph.
+Use pinned OTP29.1.1 erl_term.h float/reference/external-identifier layouts,
+big.h native ErtsDigit width and erl_binary.h native refcounter/aligned bytes.
+No new allocation package or collector replaces ownership. Keep little-endian
+32/64 profiles explicit and retain independent header/bounds/lifetime checks.
+Microsoft/BCL remains the existing MIT dependency; OTP notices are retained.
+
+
 ## Windows x86 NIF ABI preparation — 2026-11-05
 
 Consume pinned OTP29.1.1 public headers and execute MSVC x86 sizeof/offsetof

@@ -80,10 +80,10 @@ internal sealed partial class ProcessTermHeap506
         for (int index = 0; index < digits; index++)
         {
             high = payload.Slab.Cells.ReadNumeric556(checked(start + index));
-            BinaryPrimitives.WriteUInt64LittleEndian(
-                bytes.AsSpan(index * BoxedInteger559Names.DigitBytes, BoxedInteger559Names.DigitBytes),
-                (ulong)high
-            );
+            if (NativeWordLayout.Bytes == sizeof(ulong))
+                BinaryPrimitives.WriteUInt64LittleEndian(bytes.AsSpan(index * BoxedInteger559Names.DigitBytes), (ulong)high);
+            else
+                BinaryPrimitives.WriteUInt32LittleEndian(bytes.AsSpan(index * BoxedInteger559Names.DigitBytes), (uint)high);
         }
         if (high == 0)
             throw new InvalidOperationException(CellStorage526Names.InvalidHeader);

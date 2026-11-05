@@ -4,15 +4,15 @@ namespace Erlang;
 
 internal static class NifNativePlatformPolicy
 {
-    internal static bool IsSupported => IntPtr.Size == NifNativeAbi.Pointer64Bytes && Supports(
+    internal static bool IsSupported => Supports(
         OperatingSystem.IsWindows(),
         OperatingSystem.IsLinux() || OperatingSystem.IsMacOS() || OperatingSystem.IsFreeBSD(),
         RuntimeInformation.ProcessArchitecture,
         IntPtr.Size
     );
 
-    // ABI structure/adapter capability is distinct from complete VM admission.
-    // The native-cell/source profile still rejects a 32-bit managed runtime.
+    // Windows x86 admission includes native-word storage and GC execution checks.
+    // Other 32-bit hosts remain outside the validated adapter profile.
     internal static bool Supports(
         bool windows,
         bool unix,

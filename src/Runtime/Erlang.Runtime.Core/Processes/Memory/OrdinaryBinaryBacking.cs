@@ -34,7 +34,7 @@ internal sealed unsafe partial class OrdinaryBinaryBacking : INativeWritableBina
         nint selected = 0;
         try
         {
-            if (IntPtr.Size != 8 || sizeof(OrdinaryBinaryHeader) != 32)
+            if (!NativeWordLayout.Supported || sizeof(OrdinaryBinaryHeader) != 4 * NativeWordLayout.Bytes)
                 throw new PlatformNotSupportedException(OrdinaryBinaryNames.Platform);
             if (!source.CanCaptureImmutableOrdinary)
                 throw new InvalidOperationException(OrdinaryBinaryNames.Prepared);

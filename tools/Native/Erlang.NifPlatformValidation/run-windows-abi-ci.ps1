@@ -25,13 +25,10 @@ if ($LASTEXITCODE) { exit $LASTEXITCODE }
 if ($LASTEXITCODE) { exit $LASTEXITCODE }
 $abi = Get-Content "$area/abi-checks.json" -Raw | ConvertFrom-Json
 if ($abi.Architecture -ine $Architecture) { throw 'ABI checks ran in another process architecture' }
-if ($Architecture -eq 'x86') {
-    if ($abi.NativeAdmission -or $abi.PointerBytes -ne 4) { throw 'Unverified 32-bit VM admission was enabled' }
-    & $RuntimeHost $driver --runtime-gate > "$area/runtime-gate.json"
-    if ($LASTEXITCODE) { exit $LASTEXITCODE }
-} else {
-    & $RuntimeHost $driver --image tools/Native/Erlang.NifPlatformValidation/beam/nif_platform_fixture.beam "$area/image/nif_platform_fixture.dll" "$area/image/managed.etf" > "$area/image-checks.json"
-    if ($LASTEXITCODE) { exit $LASTEXITCODE }
-    python -c "from pathlib import Path; assert Path('$area/image/managed.etf').read_bytes()==Path('tools/Native/Erlang.NifPlatformValidation/beam/original.etf').read_bytes()"
-    if ($LASTEXITCODE) { exit $LASTEXITCODE }
-}
+if (-not $abi.NativeAdmission) { throw 'Native runtime admission is disabled' }
+& $RuntimeHost $driver --word-storage > "$area/word-storage.json"
+if ($LASTEXITCODE) { exit $LASTEXITCODE }
+& $RuntimeHost $driver --image tools/Native/Erlang.NifPlatformValidation/beam/nif_platform_fixture.beam "$area/image/nif_platform_fixture.dll" "$area/image/managed.etf" > "$area/image-checks.json"
+if ($LASTEXITCODE) { exit $LASTEXITCODE }
+python -c "from pathlib import Path; assert Path('$area/image/managed.etf').read_bytes()==Path('tools/Native/Erlang.NifPlatformValidation/beam/original.etf').read_bytes()"
+if ($LASTEXITCODE) { exit $LASTEXITCODE }

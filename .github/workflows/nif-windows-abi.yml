@@ -1,4 +1,4 @@
-name: NIF Windows x86 ABI-only and x64 control
+name: NIF Windows native-word GC and real image execution
 on:
   push:
     branches: ['ci/nif-x86-*']
@@ -7,7 +7,7 @@ permissions:
   contents: read
 jobs:
   windows-abi:
-    name: Windows ${{ matrix.arch }} ABI (x86 VM remains gated)
+    name: Windows ${{ matrix.arch }} GC and NIF execution
     strategy:
       fail-fast: false
       matrix:
@@ -42,7 +42,7 @@ jobs:
           with zipfile.ZipFile(io.BytesIO(data)) as archive:
               for member in archive.infolist(): assert (output / member.filename).resolve().is_relative_to(output)
               archive.extractall(output)
-      - name: Execute ABI boundary and explicit runtime gate
+      - name: Execute ABI, native-word GC and original BEAM NIF
         shell: pwsh
         run: |
           $runtime = if ('${{ matrix.arch }}' -eq 'x86') { Join-Path $PWD 'artifacts/dotnet-x86/dotnet.exe' } else { 'dotnet' }

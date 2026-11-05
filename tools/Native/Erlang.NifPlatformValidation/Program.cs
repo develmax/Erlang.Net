@@ -3,6 +3,21 @@ using System.Runtime.InteropServices;
 using System.Text.Json;
 using Erlang;
 
+if (args is ["--word-storage"])
+{
+    try
+    {
+        await NativeWordStorageChecks.Run();
+    }
+    catch (Exception error)
+    {
+        Console.WriteLine(JsonSerializer.Serialize(new { Passed = false, Error = error.ToString() }));
+        Environment.ExitCode = 1;
+    }
+
+    return;
+}
+
 if (args is ["--windows-entry", var nativeEntryPath])
 {
     NifPlatformWindowsEntryChecks.Run(nativeEntryPath);

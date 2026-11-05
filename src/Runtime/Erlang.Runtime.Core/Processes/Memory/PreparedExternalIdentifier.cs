@@ -8,7 +8,7 @@ internal sealed class PreparedExternalIdentifier : IDisposable
 
     internal PreparedExternalIdentifier(ProcessRuntime runtime, Term source)
     {
-        if (IntPtr.Size != sizeof(ulong) || !BitConverter.IsLittleEndian)
+        if (!NativeWordLayout.Supported)
             throw new PlatformNotSupportedException(ExternalIdentifierLayout.Platform);
         LocalNodeSnapshot snapshot;
         switch (source)
@@ -16,21 +16,18 @@ internal sealed class PreparedExternalIdentifier : IDisposable
             case Pid pid:
                 Kind = NativeOffheapKind576.ExternalPid;
                 snapshot = pid.WireIdentity;
-                Data = [(nuint)pid.Id];
+                Data = NativeWordLayout.Encode64(pid.Id);
                 break;
             case PortTerm port:
                 Kind = NativeOffheapKind576.ExternalPort;
                 snapshot = port.WireIdentity;
-                Data = [(nuint)port.Id];
+                Data = NativeWordLayout.Encode64(port.Id);
                 break;
             case ReferenceTerm reference:
                 Kind = NativeOffheapKind576.ExternalReference;
                 snapshot = reference.WireIdentity;
                 uint[] numbers = reference.Words.ToArray();
-                Data = new nuint[numbers.Length / 2 + 1];
-                Data[0] = (nuint)numbers.Length;
-                for (int index = 0; index < numbers.Length; index++)
-                    Data[(index + 1) / 2] |= (nuint)numbers[index] << ((index + 1) % 2 * ExternalIdentifierLayout.UintBits);
+                Data = NativeWordLayout.PackUints(new uint[] { (uint)numbers.Length }.Concat(numbers).ToArray());
                 break;
             default: throw new InvalidOperationException(ExternalIdentifierLayout.Invalid);
         }
