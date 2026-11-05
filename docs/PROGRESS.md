@@ -1,5 +1,7 @@
 # Project progress
 
+Part604 adds a selectable C# sys backend for all 37 non-metadata exports. Both alternatives pass 137 focused OTP 29.1.1 observations, and the 52 error observations match at each additional backtrace depth. [Evidence](validation/part-604/README.md).
+
 Part602 integrates the native node/dist reference query behind erts_debug and both erts_internal backends. Actual owner/header/storage census, all-scheduler admission, signal/heap classification and retirement are covered by262/262 observations plus59/59 scenarios per backend,13 physical and43 connected groups. Original Erlang/BEAM and98 exports remain. Full regression/readiness were deliberately not run; broader upstream/distributed/resource/platform acceptance and universal compatibility remain unverified. [Receipt](validation/erts-internal-part-593/README.md).
 
 Part603 preserves DETS fixed-scan continuations across deletion. A retained FREE collection remains readable, while an unknown status at a recorded collection address reports bad_object. The public select/3 to select/1 regression and Windows validation are recorded in [Part603](validation/part-603/README.md).
