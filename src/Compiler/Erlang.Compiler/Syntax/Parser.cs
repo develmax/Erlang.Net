@@ -33,6 +33,7 @@ public sealed class Parser
 
         return text.ToString();
     }
+
     public int EndOffset => position == 0 ? 0 : tokens[position - 1].End;
 
     private bool SyntaxToken => Current.Kind is LexerTokenKinds.Keyword or LexerTokenKinds.Symbol;
