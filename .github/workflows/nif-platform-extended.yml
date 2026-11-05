@@ -31,7 +31,7 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          docker run --rm -v "$PWD:/work" -w /work mcr.microsoft.com/dotnet/sdk:10.0.400-alpine sh -c '
+          docker run --rm -v "$PWD:/work" -w /work mcr.microsoft.com/dotnet/sdk:10.0.400-alpine3.24 sh -c '
             set -eu
             apk add --no-cache build-base bash git perl python3 ncurses-dev linux-headers
             sh tools/Native/Erlang.NifPlatformValidation/run-unix-ci.sh
