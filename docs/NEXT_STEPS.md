@@ -1,11 +1,14 @@
 # Next steps
 
-Part601 implements native-word resource/magic and atomics/counters allocation prerequisites. Local x86 layout/primitive GC checks pass; actual resource NIF and original32/64-bit ERTS CI remain pending. [Current scope/evidence](validation/part-601/README.md). Other OS/CPU resource profiles, full ERTS-debug, regex/search and resource lifecycle/API completeness remain open.
+Next NIF work: validate prepared-loader finish_loading custody, resource monitors/down, takeover and unload, and port guarded 32-bit regex/search layouts. Then execute the same resource/GC fixture on measured ARM64/Unix hosts and add separate ARM32/other 32-bit ABI admission. Keep original ERTS observations and .NET target results separate.
+
+Part601 verifies the native-word resource/magic and atomics/counters port in Windows x86/x64 Debug and Release. All six final-source CI jobs pass, including actual C resource NIF execution, GC retirement and byte parity against pinned original ERTS with word sizes 4 and 8. Other managed resource platforms and full resource lifecycle parity remain open. [Exact scope and results](validation/part-601/README.md).
+
 
 
 Next NIF work after Part600: port and validate actual 32-bit resource/magic headers, atomics/counters allocation and loader resource custody; compare local PID-reference/alias wire numbers against original 32-bit ERTS. Then add measured ARM32/other 32-bit OS/CPU NIF adapters and target execution. OpenBSD/NetBSD remain C-only evidence, and Solaris/AIX have no runtime acceptance. Extend the finite fixture to resources, threads, dirty scheduling, upgrades and teardown; retain separate host receipts.
 
-Part600 ports ordinary native-cell/word and collector dependencies to little-endian 32-bit words. Windows x86 real NIF and focused GC checks pass locally and in CI on 6197702e. Windows x64/ARM64, Linux glibc/musl x64/ARM64, macOS x64/ARM64 and FreeBSD 15 amd64 real-image regressions also pass. [Scope/evidence](validation/part-600/README.md). Other 32-bit hosts, full native-resource/atomics/counters/loader resource profiles and alias/wire parity remain open; no module/MFA promotion.
+Part600 established ordinary native-word storage/GC and finite NIF execution across its separately measured platforms. [Historical Part600 evidence](validation/part-600/README.md).
 
 
 Part599: port and validate the 32-bit native-cell/word source profile, including numeric, binary, identifier and GC dependencies, before opening full Windows x86 VM admission. Replace the explicit expected-gate CI test with actual guest load_nif/original OTP comparison only after that port. ARM32/other ILP32 profiles and 32-bit resources remain unimplemented or unverified. FreeBSD 15 amd64 community CLR execution now passes the finite NIF fixture; other BSD/FreeBSD CPU/runtime versions remain separate gates. See [current evidence](validation/nif-freebsd-ilp32-20261105/README.md).

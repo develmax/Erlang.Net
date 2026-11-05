@@ -1,6 +1,10 @@
-## Part600 native-word32 scope — 2026-11-05
+## Part601 resource/magic32 scope — 2026-11-05
 
-Part601 implements native-word resource/magic and atomics/counters allocation prerequisites. Local x86 layout/primitive GC checks pass; actual resource NIF and original32/64-bit ERTS CI remain pending. [Current scope/evidence](validation/part-601/README.md). Other OS/CPU resource profiles, full ERTS-debug, regex/search and resource lifecycle/API completeness remain open.
+Part601 verifies the native-word resource/magic and atomics/counters port in Windows x86/x64 Debug and Release. All six final-source CI jobs pass, including actual C resource NIF execution, GC retirement and byte parity against pinned original ERTS with word sizes 4 and 8. Other managed resource platforms and full resource lifecycle parity remain open. [Exact scope and results](validation/part-601/README.md).
+
+The release ErtsResource layout is modeled in managed Debug and Release. Prepared-loader prefix conversion is implemented but full finish_loading custody is unverified. Other managed OS/CPU resource profiles, native ERTS-debug resource internals, ARM32/other 32-bit admission, regex/search and monitor/down/takeover/thread/upgrade/unload completeness remain open.
+
+## Historical Part600 native-word32 scope — 2026-11-05
 
 
 Windows x86 now starts the VM and executes the finite original BEAM/native NIF fixture. Native cells use real pointer-sized storage and GCHandle roots; double/bignum/reference/binary/external-identifier layouts follow the pinned OTP native word width. Earlier Part599 expected-gate evidence is historical. Final hosted evidence: [receipt](validation/part-600/README.md).
