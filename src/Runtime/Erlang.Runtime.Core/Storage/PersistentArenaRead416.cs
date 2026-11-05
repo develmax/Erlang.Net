@@ -54,6 +54,15 @@ internal sealed class PersistentArenaRead416(
         }
     }
 
+    internal void CaptureNodeDistReferences(NodeDistReferenceSnapshot snapshot)
+    {
+        lock (gate)
+        {
+            ObjectDisposedException.ThrowIf(owned is null, this);
+            for (int index = 0; index < bundle!.Count; index++) bundle.Get(index).CaptureNodeDistReferences(snapshot);
+        }
+    }
+
     public void Dispose()
     {
         lock (gate)

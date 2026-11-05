@@ -38,6 +38,23 @@ internal sealed class PersistentArenaRoot416(PersistentArenaRootKind416 kind, ob
         return result;
     }
 
+    internal void CaptureNodeDistReferences(NodeDistReferenceSnapshot snapshot)
+    {
+        if (Volatile.Read(ref owned) is PersistentIdentifierRoot416 { ExternalEpoch: { } epoch } identifier)
+            snapshot.Node(
+                epoch,
+                NodeDistReferenceSnapshot.Owner(NodeDistReferenceNames.System, Term.A(NodeDistReferenceNames.Persistent)),
+                NodeDistReferenceNames.System,
+                identifier
+            );
+        else if (Volatile.Read(ref owned) is RuntimeExternalTermReservation identity)
+            snapshot.Graph(
+                identity.Value,
+                NodeDistReferenceSnapshot.Owner(NodeDistReferenceNames.System, Term.A(NodeDistReferenceNames.Persistent)),
+                NodeDistReferenceNames.System
+            );
+    }
+
     public void Dispose()
     {
         object? old = Interlocked.Exchange(ref owned, null);

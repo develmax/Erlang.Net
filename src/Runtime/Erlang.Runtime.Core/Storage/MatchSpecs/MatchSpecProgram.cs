@@ -11,6 +11,8 @@ public sealed class MatchSpecProgram
         RequiredTraceActions = Array.AsReadOnly(actions.OrderBy(action => action.Name, StringComparer.Ordinal).ThenBy(action => action.Arity).ToArray());
     }
 
+    internal IReadOnlyList<TupleTerm> NodeDistReferenceClauses => clauses;
+
     public MatchSpecDialect Dialect { get; }
 
     public IReadOnlyList<MatchSpecTraceAction> RequiredTraceActions { get; }

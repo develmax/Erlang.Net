@@ -148,6 +148,8 @@ internal sealed partial class RuntimeActorDispatcher
     {
         if (owner.SchedulerBinding != ProcessSchedulerNames.Unbound)
             return owner.SchedulerBinding;
+        if (multiSchedulingBlocked)
+            return ProcessSchedulerNames.First;
         int actual = RuntimeActorExecutionTurn.IsRuntime(owner.Runtime) ? RuntimeActorExecutionTurn.LaneIdentity : ProcessSchedulerNames.Unbound;
 
         return actual >= ProcessSchedulerNames.First && actual <= OnlineCount ? actual : ProcessSchedulerNames.First;
@@ -342,6 +344,8 @@ internal sealed partial class RuntimeActorDispatcher
         int binding = scheduler.Owner.SchedulerBinding;
         if (binding != ProcessSchedulerNames.Unbound)
             scheduler.Lane = lanes[binding - ProcessSchedulerNames.First];
+        else if (multiSchedulingBlocked)
+            scheduler.Lane = lanes[0];
         else if (!scheduler.Lane.Online)
             scheduler.Lane = lanes[ProcessSchedulerNames.Unbound];
     }
@@ -375,6 +379,7 @@ internal sealed partial class RuntimeActorDispatcher
     private RuntimeProcessTaskScheduler? Select(RuntimeSchedulerLane lane, RuntimeNormalWorkSelection selection)
     {
         if (normalBarrier696 is not null) return SelectBarrierRequester696(lane, selection);
+        if (!MultiSchedulingLaneMayRun(lane)) return null;
         LinkedList<RuntimeProcessTaskScheduler> queue;
         if (lane.Cleanup.Count != 0 && (lane.Online || retiring))
             queue = lane.Cleanup;
@@ -420,6 +425,8 @@ internal sealed partial class RuntimeActorDispatcher
         foreach (var lane in lanes)
         {
             if (!NormalBarrierLaneMayStart696(lane)) continue;
+            if (normalBarrier696 is null && !MultiSchedulingLaneMayRun(lane) && lane.Auxiliary420.Count == 0)
+                continue;
             if (normalBarrier696 is null && lane.Online && !lane.Pumping && lane.Empty)
                 TrySteal(lane);
             if (lane.Pumping || lane.Empty || !lane.Online && lane.Auxiliary420.Count == 0 && (!retiring || lane.Cleanup.Count == 0))
@@ -431,6 +438,7 @@ internal sealed partial class RuntimeActorDispatcher
 
     private void TrySteal(RuntimeSchedulerLane destination)
     {
+        if (!MultiSchedulingLaneMayRun(destination)) return;
         foreach (var source in lanes)
         {
             if (ReferenceEquals(source, destination) || !source.Online)

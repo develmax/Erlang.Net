@@ -60,6 +60,15 @@ internal sealed class DirtyNativeWorker419
 
     internal void SignalLocked() => queue522.Signal.Release();
 
+    internal void EnsureWakeupsLocked(int pending)
+    {
+        int available = queue522.Signal.CurrentCount;
+        if (pending > available)
+        {
+            queue522.Signal.Release(pending - available);
+        }
+    }
+
     internal void CloseLocked()
     {
         if (started) queue522.Signal.Release(); else Quiesced.TrySetResult();

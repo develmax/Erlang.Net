@@ -24,6 +24,8 @@ Review and merge gate:
 
 ## Architecture and precedence
 
+**Explicit erts_internal exception:** the user requested a complete C# port with a selectable original Erlang implementation. This authorizes the managed erts_internal library bodies for this module. Preserve the pinned Erlang source and BEAM and the explicit backend selection. This exception is scoped to erts_internal.
+
 **Explicit ETS exception:** the user requested a complete C# port of ETS while retaining the selectable original Erlang implementation. This authorizes the ETS managed library layer (including folds, persistence control flow, QLC and browsing) in addition to shared runtime primitives. Preserve unchanged pinned Erlang/BEAM assets and explicit backend selection. This scoped instruction takes precedence over the general pure-module policy below and does not authorize unrelated module ports.
 
 The user explicitly confirmed: "OTP-модули остаются на Erlang; C# — runtime/BIF". This later instruction supersedes the earlier work.md direction to manually translate pure Erlang OTP-library logic into C#. Do not silently rewrite the historical work.md or describe the previous work as upstream Erlang execution.

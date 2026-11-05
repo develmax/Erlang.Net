@@ -1,0 +1,607 @@
+{
+  "Baseline": "OTP-29.1.1",
+  "Commit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "SnapshotBase": "20e02eb941ef3b99cb675827ef0f20663da7c04b",
+  "Status": "implementation-complete-compatibility-partial",
+  "RegisteredExports": 98,
+  "SharedNativeExports": 71,
+  "CSharpLibraryExports": 27,
+  "FullRegressionRun": false,
+  "CanonicalReadinessUpdated": false,
+  "Publication": "not-published",
+  "OpenGate": "get_internal_state_blocked: real multi_scheduling block/unblock is absent; both backends return badarg where OTP returns undef in the disabled-debug profile",
+  "Contracts": [
+    {
+      "Function": "@flush_monitor_messages_refopt",
+      "Arity": 0,
+      "Implementation": "CSharpLibrary",
+      "Compatibility": "not-universally-verified"
+    },
+    {
+      "Function": "abort_pending_connection",
+      "Arity": 2,
+      "Implementation": "SharedCSharpNativePrimitive",
+      "Compatibility": "not-universally-verified"
+    },
+    {
+      "Function": "atomics_new",
+      "Arity": 2,
+      "Implementation": "SharedCSharpNativePrimitive",
+      "Compatibility": "not-universally-verified"
+    },
+    {
+      "Function": "await_microstate_accounting_modifications",
+      "Arity": 3,
+      "Implementation": "CSharpLibrary",
+      "Compatibility": "not-universally-verified"
+    },
+    {
+      "Function": "await_port_send_result",
+      "Arity": 3,
+      "Implementation": "CSharpLibrary",
+      "Compatibility": "not-universally-verified"
+    },
+    {
+      "Function": "await_result",
+      "Arity": 1,
+      "Implementation": "CSharpLibrary",
+      "Compatibility": "not-universally-verified"
+    },
+    {
+      "Function": "await_sched_wall_time_modifications",
+      "Arity": 2,
+      "Implementation": "CSharpLibrary",
+      "Compatibility": "not-universally-verified"
+    },
+    {
+      "Function": "beamfile_chunk",
+      "Arity": 2,
+      "Implementation": "SharedCSharpNativePrimitive",
+      "Compatibility": "not-universally-verified"
+    },
+    {
+      "Function": "beamfile_module_md5",
+      "Arity": 1,
+      "Implementation": "SharedCSharpNativePrimitive",
+      "Compatibility": "not-universally-verified"
+    },
+    {
+      "Function": "binary_to_integer",
+      "Arity": 2,
+      "Implementation": "SharedCSharpNativePrimitive",
+      "Compatibility": "not-universally-verified"
+    },
+    {
+      "Function": "breakpoint",
+      "Arity": 4,
+      "Implementation": "CSharpLibrary",
+      "Compatibility": "not-universally-verified"
+    },
+    {
+      "Function": "check_dirty_process_code",
+      "Arity": 2,
+      "Implementation": "SharedCSharpNativePrimitive",
+      "Compatibility": "not-universally-verified"
+    },
+    {
+      "Function": "check_process_code",
+      "Arity": 1,
+      "Implementation": "SharedCSharpNativePrimitive",
+      "Compatibility": "not-universally-verified"
+    },
+    {
+      "Function": "check_process_code",
+      "Arity": 3,
+      "Implementation": "CSharpLibrary",
+      "Compatibility": "not-universally-verified"
+    },
+    {
+      "Function": "cmp_term",
+      "Arity": 2,
+      "Implementation": "SharedCSharpNativePrimitive",
+      "Compatibility": "not-universally-verified"
+    },
+    {
+      "Function": "counters_add",
+      "Arity": 3,
+      "Implementation": "SharedCSharpNativePrimitive",
+      "Compatibility": "not-universally-verified"
+    },
+    {
+      "Function": "counters_get",
+      "Arity": 2,
+      "Implementation": "SharedCSharpNativePrimitive",
+      "Compatibility": "not-universally-verified"
+    },
+    {
+      "Function": "counters_info",
+      "Arity": 1,
+      "Implementation": "SharedCSharpNativePrimitive",
+      "Compatibility": "not-universally-verified"
+    },
+    {
+      "Function": "counters_new",
+      "Arity": 1,
+      "Implementation": "SharedCSharpNativePrimitive",
+      "Compatibility": "not-universally-verified"
+    },
+    {
+      "Function": "counters_put",
+      "Arity": 3,
+      "Implementation": "SharedCSharpNativePrimitive",
+      "Compatibility": "not-universally-verified"
+    },
+    {
+      "Function": "crasher",
+      "Arity": 6,
+      "Implementation": "CSharpLibrary",
+      "Compatibility": "not-universally-verified"
+    },
+    {
+      "Function": "create_dist_channel",
+      "Arity": 3,
+      "Implementation": "SharedCSharpNativePrimitive",
+      "Compatibility": "not-universally-verified"
+    },
+    {
+      "Function": "dirty_process_handle_signals",
+      "Arity": 1,
+      "Implementation": "SharedCSharpNativePrimitive",
+      "Compatibility": "not-universally-verified"
+    },
+    {
+      "Function": "dist_ctrl_put_data",
+      "Arity": 2,
+      "Implementation": "CSharpLibrary",
+      "Compatibility": "not-universally-verified"
+    },
+    {
+      "Function": "dist_spawn_init",
+      "Arity": 1,
+      "Implementation": "CSharpLibrary",
+      "Compatibility": "not-universally-verified"
+    },
+    {
+      "Function": "dist_spawn_request",
+      "Arity": 4,
+      "Implementation": "SharedCSharpNativePrimitive",
+      "Compatibility": "not-universally-verified"
+    },
+    {
+      "Function": "dynamic_node_name",
+      "Arity": 0,
+      "Implementation": "CSharpLibrary",
+      "Compatibility": "not-universally-verified"
+    },
+    {
+      "Function": "dynamic_node_name",
+      "Arity": 1,
+      "Implementation": "CSharpLibrary",
+      "Compatibility": "not-universally-verified"
+    },
+    {
+      "Function": "erase_persistent_terms",
+      "Arity": 0,
+      "Implementation": "SharedCSharpNativePrimitive",
+      "Compatibility": "not-universally-verified"
+    },
+    {
+      "Function": "ets_info_binary",
+      "Arity": 1,
+      "Implementation": "CSharpLibrary",
+      "Compatibility": "not-universally-verified"
+    },
+    {
+      "Function": "ets_lookup_binary_info",
+      "Arity": 2,
+      "Implementation": "SharedCSharpNativePrimitive",
+      "Compatibility": "not-universally-verified"
+    },
+    {
+      "Function": "ets_raw_first",
+      "Arity": 1,
+      "Implementation": "SharedCSharpNativePrimitive",
+      "Compatibility": "not-universally-verified"
+    },
+    {
+      "Function": "ets_raw_next",
+      "Arity": 2,
+      "Implementation": "SharedCSharpNativePrimitive",
+      "Compatibility": "not-universally-verified"
+    },
+    {
+      "Function": "ets_super_user",
+      "Arity": 1,
+      "Implementation": "SharedCSharpNativePrimitive",
+      "Compatibility": "not-universally-verified"
+    },
+    {
+      "Function": "flush_monitor_messages",
+      "Arity": 3,
+      "Implementation": "CSharpLibrary",
+      "Compatibility": "not-universally-verified"
+    },
+    {
+      "Function": "garbage_collect",
+      "Arity": 1,
+      "Implementation": "SharedCSharpNativePrimitive",
+      "Compatibility": "not-universally-verified"
+    },
+    {
+      "Function": "gather_alloc_histograms",
+      "Arity": 1,
+      "Implementation": "SharedCSharpNativePrimitive",
+      "Compatibility": "not-universally-verified"
+    },
+    {
+      "Function": "gather_carrier_info",
+      "Arity": 1,
+      "Implementation": "SharedCSharpNativePrimitive",
+      "Compatibility": "not-universally-verified"
+    },
+    {
+      "Function": "gather_io_bytes",
+      "Arity": 2,
+      "Implementation": "CSharpLibrary",
+      "Compatibility": "not-universally-verified"
+    },
+    {
+      "Function": "gather_microstate_accounting_result",
+      "Arity": 2,
+      "Implementation": "CSharpLibrary",
+      "Compatibility": "not-universally-verified"
+    },
+    {
+      "Function": "gather_sched_wall_time_result",
+      "Arity": 1,
+      "Implementation": "CSharpLibrary",
+      "Compatibility": "not-universally-verified"
+    },
+    {
+      "Function": "gather_system_check_result",
+      "Arity": 1,
+      "Implementation": "CSharpLibrary",
+      "Compatibility": "not-universally-verified"
+    },
+    {
+      "Function": "get_creation",
+      "Arity": 0,
+      "Implementation": "SharedCSharpNativePrimitive",
+      "Compatibility": "not-universally-verified"
+    },
+    {
+      "Function": "get_dflags",
+      "Arity": 0,
+      "Implementation": "SharedCSharpNativePrimitive",
+      "Compatibility": "not-universally-verified"
+    },
+    {
+      "Function": "get_internal_state_blocked",
+      "Arity": 1,
+      "Implementation": "CSharpLibrary",
+      "Compatibility": "not-universally-verified"
+    },
+    {
+      "Function": "group_leader",
+      "Arity": 2,
+      "Implementation": "SharedCSharpNativePrimitive",
+      "Compatibility": "not-universally-verified"
+    },
+    {
+      "Function": "group_leader",
+      "Arity": 3,
+      "Implementation": "SharedCSharpNativePrimitive",
+      "Compatibility": "not-universally-verified"
+    },
+    {
+      "Function": "is_process_alive",
+      "Arity": 1,
+      "Implementation": "CSharpLibrary",
+      "Compatibility": "not-universally-verified"
+    },
+    {
+      "Function": "is_process_alive",
+      "Arity": 2,
+      "Implementation": "SharedCSharpNativePrimitive",
+      "Compatibility": "not-universally-verified"
+    },
+    {
+      "Function": "is_process_executing_dirty",
+      "Arity": 1,
+      "Implementation": "SharedCSharpNativePrimitive",
+      "Compatibility": "not-universally-verified"
+    },
+    {
+      "Function": "is_system_process",
+      "Arity": 1,
+      "Implementation": "SharedCSharpNativePrimitive",
+      "Compatibility": "not-universally-verified"
+    },
+    {
+      "Function": "list_to_integer",
+      "Arity": 2,
+      "Implementation": "SharedCSharpNativePrimitive",
+      "Compatibility": "not-universally-verified"
+    },
+    {
+      "Function": "map_hashmap_children",
+      "Arity": 1,
+      "Implementation": "SharedCSharpNativePrimitive",
+      "Compatibility": "not-universally-verified"
+    },
+    {
+      "Function": "map_next",
+      "Arity": 3,
+      "Implementation": "SharedCSharpNativePrimitive",
+      "Compatibility": "not-universally-verified"
+    },
+    {
+      "Function": "map_to_tuple_keys",
+      "Arity": 1,
+      "Implementation": "SharedCSharpNativePrimitive",
+      "Compatibility": "not-universally-verified"
+    },
+    {
+      "Function": "mc_iterator",
+      "Arity": 1,
+      "Implementation": "CSharpLibrary",
+      "Compatibility": "not-universally-verified"
+    },
+    {
+      "Function": "mc_refill",
+      "Arity": 1,
+      "Implementation": "CSharpLibrary",
+      "Compatibility": "not-universally-verified"
+    },
+    {
+      "Function": "new_connection",
+      "Arity": 1,
+      "Implementation": "SharedCSharpNativePrimitive",
+      "Compatibility": "not-universally-verified"
+    },
+    {
+      "Function": "no_aux_work_threads",
+      "Arity": 0,
+      "Implementation": "SharedCSharpNativePrimitive",
+      "Compatibility": "not-universally-verified"
+    },
+    {
+      "Function": "notify_breakpoint_hit",
+      "Arity": 3,
+      "Implementation": "SharedCSharpNativePrimitive",
+      "Compatibility": "not-universally-verified"
+    },
+    {
+      "Function": "open_port",
+      "Arity": 2,
+      "Implementation": "SharedCSharpNativePrimitive",
+      "Compatibility": "not-universally-verified"
+    },
+    {
+      "Function": "perf_counter_unit",
+      "Arity": 0,
+      "Implementation": "SharedCSharpNativePrimitive",
+      "Compatibility": "not-universally-verified"
+    },
+    {
+      "Function": "port_call",
+      "Arity": 3,
+      "Implementation": "SharedCSharpNativePrimitive",
+      "Compatibility": "not-universally-verified"
+    },
+    {
+      "Function": "port_close",
+      "Arity": 1,
+      "Implementation": "SharedCSharpNativePrimitive",
+      "Compatibility": "not-universally-verified"
+    },
+    {
+      "Function": "port_command",
+      "Arity": 3,
+      "Implementation": "SharedCSharpNativePrimitive",
+      "Compatibility": "not-universally-verified"
+    },
+    {
+      "Function": "port_connect",
+      "Arity": 2,
+      "Implementation": "SharedCSharpNativePrimitive",
+      "Compatibility": "not-universally-verified"
+    },
+    {
+      "Function": "port_control",
+      "Arity": 3,
+      "Implementation": "SharedCSharpNativePrimitive",
+      "Compatibility": "not-universally-verified"
+    },
+    {
+      "Function": "port_info",
+      "Arity": 1,
+      "Implementation": "SharedCSharpNativePrimitive",
+      "Compatibility": "not-universally-verified"
+    },
+    {
+      "Function": "port_info",
+      "Arity": 2,
+      "Implementation": "SharedCSharpNativePrimitive",
+      "Compatibility": "not-universally-verified"
+    },
+    {
+      "Function": "prepare_loading",
+      "Arity": 2,
+      "Implementation": "SharedCSharpNativePrimitive",
+      "Compatibility": "not-universally-verified"
+    },
+    {
+      "Function": "process_display",
+      "Arity": 2,
+      "Implementation": "SharedCSharpNativePrimitive",
+      "Compatibility": "not-universally-verified"
+    },
+    {
+      "Function": "process_flag",
+      "Arity": 3,
+      "Implementation": "SharedCSharpNativePrimitive",
+      "Compatibility": "not-universally-verified"
+    },
+    {
+      "Function": "processes_next",
+      "Arity": 1,
+      "Implementation": "SharedCSharpNativePrimitive",
+      "Compatibility": "not-universally-verified"
+    },
+    {
+      "Function": "purge_module",
+      "Arity": 2,
+      "Implementation": "SharedCSharpNativePrimitive",
+      "Compatibility": "not-universally-verified"
+    },
+    {
+      "Function": "request_system_task",
+      "Arity": 3,
+      "Implementation": "SharedCSharpNativePrimitive",
+      "Compatibility": "not-universally-verified"
+    },
+    {
+      "Function": "request_system_task",
+      "Arity": 4,
+      "Implementation": "SharedCSharpNativePrimitive",
+      "Compatibility": "not-universally-verified"
+    },
+    {
+      "Function": "scheduler_wall_time",
+      "Arity": 1,
+      "Implementation": "SharedCSharpNativePrimitive",
+      "Compatibility": "not-universally-verified"
+    },
+    {
+      "Function": "set_code_and_literal_cleaner_prio",
+      "Arity": 1,
+      "Implementation": "CSharpLibrary",
+      "Compatibility": "not-universally-verified"
+    },
+    {
+      "Function": "spawn_init",
+      "Arity": 1,
+      "Implementation": "CSharpLibrary",
+      "Compatibility": "not-universally-verified"
+    },
+    {
+      "Function": "spawn_request",
+      "Arity": 4,
+      "Implementation": "SharedCSharpNativePrimitive",
+      "Compatibility": "not-universally-verified"
+    },
+    {
+      "Function": "spawn_system_process",
+      "Arity": 3,
+      "Implementation": "SharedCSharpNativePrimitive",
+      "Compatibility": "not-universally-verified"
+    },
+    {
+      "Function": "suspend_process",
+      "Arity": 2,
+      "Implementation": "SharedCSharpNativePrimitive",
+      "Compatibility": "not-universally-verified"
+    },
+    {
+      "Function": "system_check",
+      "Arity": 1,
+      "Implementation": "SharedCSharpNativePrimitive",
+      "Compatibility": "not-universally-verified"
+    },
+    {
+      "Function": "system_flag_scheduler_wall_time",
+      "Arity": 1,
+      "Implementation": "CSharpLibrary",
+      "Compatibility": "not-universally-verified"
+    },
+    {
+      "Function": "system_monitor",
+      "Arity": 1,
+      "Implementation": "SharedCSharpNativePrimitive",
+      "Compatibility": "not-universally-verified"
+    },
+    {
+      "Function": "system_monitor",
+      "Arity": 3,
+      "Implementation": "SharedCSharpNativePrimitive",
+      "Compatibility": "not-universally-verified"
+    },
+    {
+      "Function": "term_to_string",
+      "Arity": 1,
+      "Implementation": "CSharpLibrary",
+      "Compatibility": "not-universally-verified"
+    },
+    {
+      "Function": "term_to_string",
+      "Arity": 2,
+      "Implementation": "SharedCSharpNativePrimitive",
+      "Compatibility": "not-universally-verified"
+    },
+    {
+      "Function": "term_type",
+      "Arity": 1,
+      "Implementation": "SharedCSharpNativePrimitive",
+      "Compatibility": "not-universally-verified"
+    },
+    {
+      "Function": "time_unit",
+      "Arity": 0,
+      "Implementation": "SharedCSharpNativePrimitive",
+      "Compatibility": "not-universally-verified"
+    },
+    {
+      "Function": "trace",
+      "Arity": 3,
+      "Implementation": "SharedCSharpNativePrimitive",
+      "Compatibility": "not-universally-verified"
+    },
+    {
+      "Function": "trace",
+      "Arity": 4,
+      "Implementation": "SharedCSharpNativePrimitive",
+      "Compatibility": "not-universally-verified"
+    },
+    {
+      "Function": "trace_info",
+      "Arity": 3,
+      "Implementation": "SharedCSharpNativePrimitive",
+      "Compatibility": "not-universally-verified"
+    },
+    {
+      "Function": "trace_pattern",
+      "Arity": 3,
+      "Implementation": "SharedCSharpNativePrimitive",
+      "Compatibility": "not-universally-verified"
+    },
+    {
+      "Function": "trace_pattern",
+      "Arity": 4,
+      "Implementation": "SharedCSharpNativePrimitive",
+      "Compatibility": "not-universally-verified"
+    },
+    {
+      "Function": "trace_session_create",
+      "Arity": 3,
+      "Implementation": "SharedCSharpNativePrimitive",
+      "Compatibility": "not-universally-verified"
+    },
+    {
+      "Function": "trace_session_destroy",
+      "Arity": 1,
+      "Implementation": "SharedCSharpNativePrimitive",
+      "Compatibility": "not-universally-verified"
+    },
+    {
+      "Function": "wait_release_literal_area_switch",
+      "Arity": 1,
+      "Implementation": "CSharpLibrary",
+      "Compatibility": "not-universally-verified"
+    }
+  ],
+  "FinalScopedReports": "erts-internal-compatibility-v7",
+  "FinalWorkingTreeReports": "erts-internal-working-acceptance",
+  "FinalConnectedReport": "connected/final-v7-connected.json",
+  "WorkingTreeBuild": "passed-no-source-exclusions-dedicated-output"
+}

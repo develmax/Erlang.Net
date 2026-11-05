@@ -1,5 +1,7 @@
 ## Part601 resource/magic32 scope — 2026-11-05
 
+Part602 integrates the native node/dist reference query behind erts_debug and both erts_internal backends. Actual owner/header/storage census, all-scheduler admission, signal/heap classification and retirement are covered by262/262 observations plus59/59 scenarios per backend,13 physical and43 connected groups. Original Erlang/BEAM and98 exports remain. Full regression/readiness were deliberately not run; broader upstream/distributed/resource/platform acceptance and universal compatibility remain unverified. [Receipt](validation/erts-internal-part-593/README.md).
+
 Part601 verifies the native-word resource/magic and atomics/counters port in Windows x86/x64 Debug and Release. All six final-source CI jobs pass, including actual C resource NIF execution, GC retirement and byte parity against pinned original ERTS with word sizes 4 and 8. Other managed resource platforms and full resource lifecycle parity remain open. [Exact scope and results](validation/part-601/README.md).
 
 The release ErtsResource layout is modeled in managed Debug and Release. Prepared-loader prefix conversion is implemented but full finish_loading custody is unverified. Other managed OS/CPU resource profiles, native ERTS-debug resource internals, ARM32/other 32-bit admission, regex/search and monitor/down/takeover/thread/upgrade/unload completeness remain open.
