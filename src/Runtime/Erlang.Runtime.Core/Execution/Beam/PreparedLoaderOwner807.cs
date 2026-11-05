@@ -63,10 +63,10 @@ internal sealed class PreparedLoaderOwner807 : IThreadPoolWorkItem
         Runtime807 = runtime;
         if (!ReferenceEquals(image.Owner, registry) || !ReferenceEquals(runtime.Modules, registry))
             throw new InvalidOperationException(PreparedLoaderNames807.Invalid);
-        if (IntPtr.Size != PreparedLoaderNames807.PointerBytes
-            || sizeof(NativeResourceMagicHeader527) != PreparedLoaderNames807.MagicPrefixBytes)
+        if (!NativeWordLayout.Supported
+            || sizeof(NativeResourceMagicHeader527) != NativeMagicLayout.UnalignedDataOffset)
             throw new PlatformNotSupportedException(PreparedLoaderNames807.Invalid);
-        nuint bytes = checked((nuint)(sizeof(NativeResourceMagicHeader527) + sizeof(nint)));
+        nuint bytes = checked((nuint)(PreparedLoaderNames807.MagicPrefixBytes + sizeof(nint)));
         ModuleLiteralLease800? literals = registry.ClaimPreparedLoaderLiteral807(grant, image);
         GCHandle state = default;
         nint memory = 0;
@@ -82,7 +82,7 @@ internal sealed class PreparedLoaderOwner807 : IThreadPoolWorkItem
             header->OriginalSize = bytes - (nuint)NativeResourceMagic527.BinaryBytesOffset527;
             header->Destructor = Destructor807;
             header->Allocator = (int)NativeResourceAllocator527.NativeMemory;
-            *(nint*)(memory + sizeof(NativeResourceMagicHeader527)) = GCHandle.ToIntPtr(state);
+            *(nint*)(memory + PreparedLoaderNames807.MagicPrefixBytes) = GCHandle.ToIntPtr(state);
             allocation = memory;
             Interlocked.Increment(ref liveAllocations807);
         }
@@ -126,7 +126,7 @@ internal sealed class PreparedLoaderOwner807 : IThreadPoolWorkItem
             else if (kind == PreparedLoaderLeaseKind807.Operation) nextOperations = checked(nextOperations + 1);
             else throw new ArgumentOutOfRangeException(nameof(kind));
             long refs = checked((producer ? 1 : 0) + nextGuest + nextHost + nextOperations);
-            ((NativeResourceMagicHeader527*)allocation)->RefCount = refs;
+            ((NativeResourceMagicHeader527*)allocation)->RefCount = checked((nint)refs);
             guest = nextGuest;
             host = nextHost;
             operations = nextOperations;
@@ -235,7 +235,7 @@ internal sealed class PreparedLoaderOwner807 : IThreadPoolWorkItem
     private unsafe void WriteRefs807()
     {
         if (allocation != 0)
-            ((NativeResourceMagicHeader527*)allocation)->RefCount = checked((producer ? 1 : 0) + guest + host + operations);
+            ((NativeResourceMagicHeader527*)allocation)->RefCount = checked((nint)((producer ? 1 : 0) + guest + host + operations));
     }
 
     private void Schedule807()
@@ -391,7 +391,7 @@ internal sealed class PreparedLoaderOwner807 : IThreadPoolWorkItem
     private unsafe PreparedLoaderNativeState807 ReadState807()
     {
         RequireLive807();
-        nint handle = *(nint*)(allocation + sizeof(NativeResourceMagicHeader527));
+        nint handle = *(nint*)(allocation + PreparedLoaderNames807.MagicPrefixBytes);
         if (handle == 0 || GCHandle.FromIntPtr(handle).Target is not PreparedLoaderNativeState807 state
             || !ReferenceEquals(state.Owner807, this))
             throw new InvalidOperationException(PreparedLoaderNames807.Invalid);
@@ -405,7 +405,7 @@ internal sealed class PreparedLoaderOwner807 : IThreadPoolWorkItem
         var header = (NativeResourceMagicHeader527*)allocation;
         if (header->Flags != NativeResourceMagic527.Magic || header->Destructor != Destructor807
             || header->ApparentSize != (nuint)sizeof(nint)
-            || header->OriginalSize != (nuint)(sizeof(NativeResourceMagicHeader527) + sizeof(nint) - NativeResourceMagic527.BinaryBytesOffset527)
+            || header->OriginalSize != (nuint)(PreparedLoaderNames807.MagicPrefixBytes + sizeof(nint) - NativeResourceMagic527.BinaryBytesOffset527)
             || header->Allocator != (int)NativeResourceAllocator527.NativeMemory
             || header->RefCount != checked((producer ? 1 : 0) + guest + host + operations))
             throw new InvalidOperationException(PreparedLoaderNames807.Invalid);
@@ -427,7 +427,7 @@ internal sealed class PreparedLoaderOwner807 : IThreadPoolWorkItem
         PreparedLoaderOwner807? owner = null;
         try
         {
-            nint* payload = (nint*)(memory + sizeof(NativeResourceMagicHeader527));
+            nint* payload = (nint*)(memory + PreparedLoaderNames807.MagicPrefixBytes);
             GCHandle handle = GCHandle.FromIntPtr(*payload);
             if (handle.Target is not PreparedLoaderNativeState807 state)
                 throw new InvalidOperationException(PreparedLoaderNames807.Invalid);

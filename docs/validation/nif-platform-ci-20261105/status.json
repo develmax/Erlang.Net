@@ -1,0 +1,56 @@
+{
+  "Date": "2026-11-05",
+  "Status": "FINITE_TARGET_MATRIX_PASSED_FULL_OTP_PARITY_OPEN",
+  "OtpBaseline": {
+    "tag": "OTP-29.1.1",
+    "commit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+    "repository": "https://github.com/erlang/otp",
+    "sdk": "10.0.400"
+  },
+  "SourceCommit": "183dcfe96986189d808aa1bda8408ae37cc2c028",
+  "RunsPassed": 4,
+  "JobsPassed": 14,
+  "RegisteredMfaDelta": 0,
+  "FullOtpPlatformParity": false,
+  "FullNifApiAcceptance": false,
+  "GlobalModuleReadinessUpdated": false,
+  "FullRegressionRun": false,
+  "OriginalWindowsOtpExecuted": false,
+  "PortableUnixSingleRuntimePerProcess": true,
+  "MacExecutableBoundBundleRequiresNativeHost": true,
+  "NativeAndManagedCiProfiles": [
+    "win-arm64",
+    "linux-x64-glibc",
+    "linux-arm64-glibc",
+    "linux-x64-musl",
+    "linux-arm64-musl",
+    "osx-x64",
+    "osx-arm64"
+  ],
+  "UnmodifiedOriginalNifExecuted": [
+    "linux-x64-glibc",
+    "linux-arm64-glibc",
+    "linux-x64-musl",
+    "linux-arm64-musl",
+    "osx-x64",
+    "osx-arm64"
+  ],
+  "NativeOnlyProfiles": [
+    "freebsd-15-amd64",
+    "openbsd-7.8-amd64",
+    "netbsd-10.1-amd64"
+  ],
+  "LocalEarlierEvidenceOnly": [
+    "win-x64"
+  ],
+  "UnverifiedOrUnimplemented": [
+    "BSD managed runtime execution",
+    "32-bit NIF ABI",
+    "Solaris/SunOS",
+    "AIX",
+    "other OS/CPU/OS-version profiles",
+    "full resource/GC/thread/upgrade NIF semantics",
+    "macOS signing/notarization/package deployment"
+  ],
+  "SharedCheckoutMutationPolicy": "Continuation edits stayed inside the isolated artifacts publication snapshot; alternate index publication preserved concurrent edits and shared branch/index."
+}

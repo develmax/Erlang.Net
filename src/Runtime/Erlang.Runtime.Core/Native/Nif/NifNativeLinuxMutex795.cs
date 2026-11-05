@@ -282,6 +282,18 @@ internal sealed unsafe class NifNativeLinuxMutex795
         }
     }
 
+    // The process-global bridge still holds the callback table. Retire only
+    // runtime-owned allocations after native image shutdown has joined workers.
+    internal void RetirePortableWorkerOwner795()
+    {
+        PrepareClose795();
+        lock (gate)
+        {
+            bridgeOwner?.ImageClosed528();
+            bridgeOwner = null;
+        }
+    }
+
     // Called ONLY AFTER the owning ELF bridge handle physically closed.
     internal void ImageClosed795()
     {

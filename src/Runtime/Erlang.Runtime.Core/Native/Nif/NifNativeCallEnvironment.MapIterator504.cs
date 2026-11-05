@@ -31,7 +31,7 @@ internal sealed unsafe partial class NifNativeCallEnvironment
     {
         _ = Pointer;
         long identity = Interlocked.Increment(ref nextMapIterator504);
-        if (identity <= 0 || !mapIterators504.TryAdd((nuint)identity, state))
+        if (identity <= 0 || (ulong)identity > nuint.MaxValue || !mapIterators504.TryAdd((nuint)identity, state))
             throw new InvalidOperationException(NifNativeMapIterator504Names.StateExhausted);
 
         return (nuint)identity;

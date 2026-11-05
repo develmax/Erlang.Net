@@ -1,5 +1,32 @@
 # Architecture decisions
 
+## Separate native ABI capability from VM admission — 2026-11-05
+
+Public x86 NIF layout/descriptor/varargs capability is measured independently of
+full VM admission. Keep the native-cell64 and physical-resource guards and keep
+the full 32-bit loader closed while its runtime source profile is unported. Raw
+nif_init execution is descriptor initialization, not a guest module load callback.
+Use source-bound x64 controls and explicit x86 ABI-only/gate reports.
+
+FreeBSD RTLD_DEFAULT requires a caller address in a known ELF object. Preserve
+the native wrapper call/return frame instead of tail-jumping from CLR-generated
+code. The FreeBSD 15 CLR profile selects the actual OpenSSL 3 library via the
+supported version override and records distribution/runtime identity. See
+[platform contract](nif-platform-portability.md).
+
+
+## NIF platform ownership and macOS executable exports — 2026-11-05
+
+Keep glibc per-runtime namespaces on x64/ARM64. Other admitted 64-bit Unix hosts
+use a process-owned, target-compiled bridge and reject a second ProcessRuntime,
+foreign enif providers and unsupported reviewed descriptor/reallocation loading.
+For Mach-O bundles bound to the original VM executable, export the same bridge
+from a small native CLR launcher. Ordinary dotnet supports explicitly linked
+bridge NIFs; the launcher supports the tested unchanged OTP-linked fixture.
+C# retains runtime semantics; C supplies only native ABI/OS adapters and hosting.
+See [implementation and platform gates](nif-platform-portability.md).
+
+
 ## Current decisions
 
 [gen_statem alternatives and constant ownership](decisions/0007-gen-statem-alternatives.md) record the module-specific user authorization, retained OTP assets, runtime reuse and finite acceptance scope.

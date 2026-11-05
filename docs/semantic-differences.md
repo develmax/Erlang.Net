@@ -1,4 +1,43 @@
+## Part601 resource/magic32 scope — 2026-11-05
+
+Part601 verifies the native-word resource/magic and atomics/counters port in Windows x86/x64 Debug and Release. All six final-source CI jobs pass, including actual C resource NIF execution, GC retirement and byte parity against pinned original ERTS with word sizes 4 and 8. Other managed resource platforms and full resource lifecycle parity remain open. [Exact scope and results](validation/part-601/README.md).
+
+The release ErtsResource layout is modeled in managed Debug and Release. Prepared-loader prefix conversion is implemented but full finish_loading custody is unverified. Other managed OS/CPU resource profiles, native ERTS-debug resource internals, ARM32/other 32-bit admission, regex/search and monitor/down/takeover/thread/upgrade/unload completeness remain open.
+
+## Historical Part600 native-word32 scope — 2026-11-05
+
+
+Windows x86 now starts the VM and executes the finite original BEAM/native NIF fixture. Native cells use real pointer-sized storage and GCHandle roots; double/bignum/reference/binary/external-identifier layouts follow the pinned OTP native word width. Earlier Part599 expected-gate evidence is historical. Final hosted evidence: [receipt](validation/part-600/README.md).
+
+This is not full 32-bit OTP acceptance. Physical native resource/magic, atomics/counters allocation and finish_loading resource headers remain 64-bit guarded. PID-reference physical arity is modeled, while full 32-bit alias/wire parity remains unverified. ARM32, other 32-bit OS/CPU hosts and big endian are not admitted as NIF platforms. Original32-bit ERTS, full lifecycle/API parity, performance and full repository regression are unrun.
+
 Part589 updates ASN.1 PR118 from timer main29b92f63d, retaining both components and the qualified file atom. Fresh focused build,65 checks/26 OTP outcomes and passive bindings pass. [Evidence](validation/part-589/README.md).
+
+## Historical Part598/599: FreeBSD execution and x86 ABI-only scope — 2026-11-05
+
+The tested FreeBSD 15 amd64 profile uses a pinned community .NET10.0.13 host and
+an explicit resolved OpenSSL 3 SONAME. Its ordinary and unchanged native image
+results match same-host original OTP. Portable one-VM ownership remains.
+
+Windows x86 public structures, descriptor initialization and native varargs are
+verified in CLR x86. Full32-bit guest/NIF execution remains unavailable: the
+native-cell source profile rejects ProcessRuntime construction, and full loader
+admission stays closed. Resource/GC/old-version/scalar completeness and ARM32
+are not inferred from ABI measurements. See [source-bound scope](validation/nif-freebsd-ilp32-20261105/README.md).
+
+
+## Historical Part597: NIF platform boundary — 2026-11-05
+
+The portable Unix bridge has one process-owned runtime, including after owner
+disposal; it does not offer glibc namespace isolation. Reviewed descriptor loading
+and the reviewed reallocation extension are explicitly unavailable there.
+macOS executable-bound OTP bundles require the native CLR launcher; ordinary
+dotnet does not export enif symbols from its main executable. 32-bit NIF ABI
+layouts and Solaris/AIX/OpenBSD/NetBSD host admission are not implemented.
+FreeBSD has C-only target evidence, without .NET execution. Finite NIF fixture
+parity does not establish resource/GC/thread/upgrade/full API compatibility.
+See [current evidence](validation/nif-platform-ci-20261105/README.md).
+
 
 Part593 complete for the targeted platform package: Windows/Linux/macOS each pass74 managed/86 original grouped checks,21 whole OTP scenarios/full error stacks per backend and bidirectional files. Both review findings, native cursors, reopened free lists and readonly errno are fixed; C#/Erlang selection remains. Descriptor54/54 and exact source/pin/census checks pass. See [bound receipts](validation/dets-reconciliation-20261104/README.md). No full local regression or universal compatibility promotion.
 

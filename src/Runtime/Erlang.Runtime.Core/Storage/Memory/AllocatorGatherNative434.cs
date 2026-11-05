@@ -11,7 +11,7 @@ internal static class AllocatorGatherNative434
     )
     {
         body = null!;
-        if (runtime is null || IntPtr.Size != sizeof(ulong) || module != AllocatorGatherNames434.Module || !AllocatorGatherNames434.Signatures.Contains((function, arity))) return false;
+        if (runtime is null || !NativeWordLayout.Supported || module != AllocatorGatherNames434.Module || !AllocatorGatherNames434.Signatures.Contains((function, arity))) return false;
         body = (context, arguments) =>
         {
             if (arguments.Count != 1) throw new InvalidOperationException(AllocatorGatherNames434.Foreign);

@@ -298,7 +298,7 @@ internal sealed unsafe class BinaryProgramArena598
     {
         RequireLive598();
         if (count < 0) throw new InvalidOperationException(BinaryArenaNames598.Invalid);
-        ((NativeResourceMagicHeader527*)memory)->RefCount = count;
+        ((NativeResourceMagicHeader527*)memory)->RefCount = checked((nint)count);
     }
 
     internal void ValidatePhysicalRefs598(long count)

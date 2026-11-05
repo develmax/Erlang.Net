@@ -1,0 +1,65 @@
+{
+  "OtpPin": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "Sources": [
+    {
+      "Path": "erts/emulator/beam/erl_binary.h",
+      "GitBlob": "6a7115f22391e62faba65c98b7da7fbaa984a510",
+      "Sha256": "31ba99c1b20ee2c2e67ebc1654b65c6638ffa6372b6b4e972396c36adbfc80a5"
+    },
+    {
+      "Path": "erts/emulator/beam/global.h",
+      "GitBlob": "dadfa6c27a9536caa0330bed790aa1e5351366ee",
+      "Sha256": "401636a163185e5a18679ebb6247d1b8194f1e5ca9fdd63f2a75f0711ddca111"
+    },
+    {
+      "Path": "erts/emulator/beam/erl_term.h",
+      "GitBlob": "8263706dc3942ec4f45f3ed9df77b0bc3ca476bd",
+      "Sha256": "8e016126fb7a1bc1db8d31111601c0bea21d72207211bf91e1f3c127e943b5c2"
+    },
+    {
+      "Path": "erts/emulator/beam/erl_bif_atomics.c",
+      "GitBlob": "efd69b2ce6fac531a9c846f521093f140d4e5497",
+      "Sha256": "bf8ef4bcd6667f5acba223c8d52e41453bc9987f3186a72c939fd18069559948"
+    },
+    {
+      "Path": "erts/emulator/beam/erl_bif_counters.c",
+      "GitBlob": "c6ba7c96e0ecd838b5aa4c528f570116a3684511",
+      "Sha256": "afc129c5410b3c69a0f804b0b826d3dc1b81831cfd3df8291d52839ab8e03f04"
+    },
+    {
+      "Path": "erts/emulator/beam/big.c",
+      "GitBlob": "5e16345963efff5dca845de0474b65e95944f4e4",
+      "Sha256": "7e68a6ff381701f2b5bf3bd4afe65ef545d97b34b884f227b637ff259b0fcdde"
+    },
+    {
+      "Path": "HOWTO/INSTALL.md",
+      "GitBlob": "4f5dc9ec6d83d773760272219fc4e2ce8af0a4a9",
+      "Sha256": "0163e7921c9e95b07f4a7ee9795c95650d1793c5a1cae06a3d93b12da1853735"
+    }
+  ],
+  "Release32": {
+    "WordBytes": 4,
+    "BinaryDataOffset": 16,
+    "MagicUnalignedDataOffset": 36,
+    "MagicAlignedDataOffset": 40,
+    "ResourceFieldPointersBytes": 8,
+    "ResourceReleasePaddingBytes": 4,
+    "ResourceUserDataOffset": 48,
+    "AtomicsCellsOffset": 48,
+    "CountersCellsOffset": 48,
+    "MagicHeapWords": 3
+  },
+  "Release64": {
+    "WordBytes": 8,
+    "BinaryDataOffset": 32,
+    "MagicUnalignedDataOffset": 56,
+    "MagicAlignedDataOffset": 56,
+    "ResourceUserDataOffset": 72,
+    "AtomicsCellsOffset": 72,
+    "CountersCellsOffset": 64,
+    "MagicHeapWords": 3
+  },
+  "ManagedDebugCountersCellsOffset64": 72,
+  "UpstreamErtsDebugResourceProfile": "not fully implemented/verified",
+  "OriginalErtsExecution": "separate producer reports; source inspection alone is not acceptance"
+}

@@ -1,0 +1,32 @@
+{
+  "Host": "freebsd-x64",
+  "Architecture": "X64",
+  "LinuxNamespace": false,
+  "CrossPlatformExecutionProven": false,
+  "Runtime": ".NET 10.0.13",
+  "OperatingSystem": "FreeBSD 15.0-RELEASE-p13 FreeBSD 15.0-RELEASE-p13 releng/15.0-n281114-af58d0db156a GENERIC",
+  "PointerBytes": 8,
+  "Results": [
+    {
+      "Name": "platform-admission",
+      "Passed": true
+    },
+    {
+      "Name": "entry-layout",
+      "Passed": true
+    },
+    {
+      "Name": "elf-capsule-machine",
+      "Passed": true
+    },
+    {
+      "Name": "host-loader-missing-file",
+      "Passed": true
+    },
+    {
+      "Name": "unix-native-callbacks-and-vm-ownership",
+      "Passed": false,
+      "Error": "System.InvalidOperationException: Native bridge registration, symbols or ABI contract mismatch.\n   at Erlang.NifNativePortableRegistration.EnsureRegistered(ProcessRuntime runtime, NifNativeCapabilityProfile profile) in /home/runner/work/Erlang.Net/Erlang.Net/src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativePortableRegistration.cs:line 47\n   at UnixBridgeChecks.Verify(ProcessRuntime runtime, ProcessRuntime other, String probePath) in /home/runner/work/Erlang.Net/Erlang.Net/tools/Native/Erlang.NifPlatformValidation/UnixBridgeChecks.cs:line 15\n   at UnixBridgeChecks.Run(String probePath) in /home/runner/work/Erlang.Net/Erlang.Net/tools/Native/Erlang.NifPlatformValidation/UnixBridgeChecks.cs:line 10\n   at UnixBridgeChecks.Run(String probePath) in /home/runner/work/Erlang.Net/Erlang.Net/tools/Native/Erlang.NifPlatformValidation/UnixBridgeChecks.cs:line 10\n   at UnixBridgeChecks.Run(String probePath) in /home/runner/work/Erlang.Net/Erlang.Net/tools/Native/Erlang.NifPlatformValidation/UnixBridgeChecks.cs:line 10\n   at Program.\u003C\u003Ec__DisplayClass0_0.\u003C\u003CMain\u003E$\u003Eb__5() in /home/runner/work/Erlang.Net/Erlang.Net/tools/Native/Erlang.NifPlatformValidation/Program.cs:line 139\n   at Program.\u003C\u003Ec__DisplayClass0_0.\u003C\u003CMain\u003E$\u003Eg__Check|0(String name, Action test) in /home/runner/work/Erlang.Net/Erlang.Net/tools/Native/Erlang.NifPlatformValidation/Program.cs:line 28"
+    }
+  ]
+}

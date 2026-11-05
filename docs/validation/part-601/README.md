@@ -1,0 +1,22 @@
+# Part601: 32-bit magic resources and actual NIF execution
+
+Tested code: 7d7876e9ef4441c1ed0b1a3cefadab08895bf6e2. Final publication adds documentation and evidence only. OTP29.1.1 is pinned at ad05823719d77c8faee87348ea39513d4e2f99c5. [Source freeze](source-freeze.json), [pinned OTP model](otp-layout-model.json), [scope/status](status.json).
+
+The existing native allocator, ownership graph, physical refcounts, GC roots, retirement queue and BCL atomic64 operations remain in use. Use native words for lengths/refcounts, and keep 64-bit cells aligned to 8 bytes. The x86 magic data begins at byte 36 (unaligned) or 40 (aligned). The release ErtsResource field view and padding place the user's allocation at byte 48 on x86 and 72 on x64. An x86 magic reference has two payload words; an ordinary reference has three. The prepared-loader aligned prefix is ported; full finish_loading resource execution is not part of this acceptance.
+
+[Final CI](https://github.com/develmax/Erlang.Net/actions/runs/41968478637): all six jobs pass on the exact tested code. [Run/job/artifact identities](final-ci.json), [verified artifact SHA256 and ETF parity](artifact-parity.json). Earlier [run 41968045699](https://github.com/develmax/Erlang.Net/actions/runs/41968045699) passed the resource scenario on source 08e6748d; the final run additionally checks native UWord argument bounds.
+
+| Target | Verified evidence |
+| --- | --- |
+| Windows .NET x86 Debug | [Physical layout and atomic64](windows-x86-Debug/resource-storage.json), [primitive GC](windows-x86-Debug/resource-guest.json), [real resource NIF](windows-x86-Debug/image-checks.json), [ETF parity](windows-x86-Debug/parity.json). |
+| Windows .NET x86 Release | [Physical layout and atomic64](windows-x86-Release/resource-storage.json), [primitive GC](windows-x86-Release/resource-guest.json), [real resource NIF](windows-x86-Release/image-checks.json), [ETF parity](windows-x86-Release/parity.json). |
+| Windows .NET x64 Debug and Release | [Debug image](windows-x64-Debug/image-checks.json) and [Release image](windows-x64-Release/image-checks.json); each also passes storage, GC and ETF checks. |
+| Linux original ERTS, 32-bit and 64-bit | [Actual wordsize 4 producer](oracle32/provenance.json), [actual wordsize 8 producer](oracle64/provenance.json). Both run the original resource module and UWord system_limit controls. They are original ERTS oracles, not managed Linux acceptance. |
+
+All Windows jobs run the earlier ordinary-word GC controls, native layout and signed wrap, 20,000 concurrent atomic64 increments, UWord overflows, and production atomics/counters allocation with real heap magic roots, minor/major GC, physical retirement and registry drain. Resource image execution opens a C resource type, creates a resource and a resource-backed binary, checks 8-byte user alignment, reads a high unsigned 64-bit value and sizeof_resource, and exercises native keep/release after the guest worker exits. Exactly two C destructors run. Output matches both original ERTS ETFs byte for byte; SHA256 is 8d0672310f1bd2de494f5df48ac3cc338e5089021f1b9fad49f8265c2473b44e.
+
+Local SDK build passes with zero warnings/errors. With the isolated official CLR 10.0.14 x86, run the validation driver with --resource-storage, --resource-guest, --word-storage and --resource-image. [Local x86 storage](local-x86-resource-storage.json), [local x86 guest GC](local-x86-resource-guest.json), [local x86 real image with earlier 32-bit ERTS oracle](local-x86-resource-image.json), [local x64 storage control](local-x64-resource-storage.json). CI uses run-resource-windows-ci.ps1 and build-resource-oracle.py, including pinned 32/64-bit original source builds.
+
+The existing release resource layout is modeled in both managed configurations. Full upstream ERTS-debug resource internals, 32-bit regex/search payloads, prepared-loader finish_loading execution, resource monitors/down, takeover/thread/upgrade/unload completeness and full NIF/OTP parity are unverified or unimplemented. This resource workload has no managed acceptance outside Windows x86/x64 on this source; ARM32, other 32-bit NIF hosts and big endian remain outside admission. Part600's macOS/Linux/FreeBSD/ARM64 results are historical ordinary NIF evidence. The full repository suite and global readiness regeneration were not run; registered runtime MFA delta is zero.
+
+The isolated snapshot and alternate Git index preserve shared dirty work and the original OTP checkout. No merge, package publication or unrelated changes are included.

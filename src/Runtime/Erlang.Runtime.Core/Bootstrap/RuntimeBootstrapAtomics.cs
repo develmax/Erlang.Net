@@ -8,7 +8,7 @@ public static class RuntimeBootstrapAtomics
         ArgumentNullException.ThrowIfNull(runtime);
         ArgumentNullException.ThrowIfNull(registry);
         if (!ReferenceEquals(runtime.Modules, registry)) throw new ArgumentException(AtomicsNames413.Foreign, nameof(registry));
-        if (IntPtr.Size != sizeof(ulong)) throw new PlatformNotSupportedException(AtomicsNames413.Architecture);
+        if (!NativeWordLayout.Supported) throw new PlatformNotSupportedException(AtomicsNames413.Architecture);
         runtime.RequireNativePrimitiveRegistration();
         registry.InstallBootstrapAtomics413(runtime);
     }

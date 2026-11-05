@@ -11,7 +11,7 @@ internal static class CountersNative421
     )
     {
         body = null!;
-        if (owner is null || IntPtr.Size != sizeof(ulong) || module != CountersNames421.Module
+        if (owner is null || !NativeWordLayout.Supported || module != CountersNames421.Module
             || !CountersNames421.Signatures.Contains((function, arity))) return false;
         body = (context, arguments) =>
         {

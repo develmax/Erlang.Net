@@ -1,16 +1,16 @@
 #ifndef ERLANG_NET_NIF_BRIDGE_API_H
 #define ERLANG_NET_NIF_BRIDGE_API_H
 
-#if !defined(__linux__) || !defined(__x86_64__)
-#error This source profile is Linux x64 only; Windows fixed callbacks bind directly.
+#if defined(_WIN32)
+#error Windows fixed callbacks bind directly; build windows_varargs526.c instead.
 #endif
 
 #include "erl_nif.h"
 #include <stdarg.h>
 #include <stdint.h>
 
-_Static_assert(sizeof(long) == 8, "Linux bridge requires LP64 long");
-_Static_assert(sizeof(void *) == 8, "Linux bridge requires x64 pointers");
+_Static_assert(sizeof(long) == 8, "Unix bridge requires LP64 long");
+_Static_assert(sizeof(void *) == 8, "Unix bridge requires 64-bit pointers");
 
 #define NIF_BRIDGE_EXPORT __attribute__((visibility("default")))
 #define NIF_BRIDGE_VERSION UINT32_C(9)

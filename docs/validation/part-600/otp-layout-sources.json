@@ -1,0 +1,163 @@
+{
+  "OtpPin": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "Sources": [
+    {
+      "Path": "erts/emulator/beam/erl_term.h",
+      "GitBlob": "8263706dc3942ec4f45f3ed9df77b0bc3ca476bd",
+      "Sha256": "8e016126fb7a1bc1db8d31111601c0bea21d72207211bf91e1f3c127e943b5c2",
+      "SelectedDefinitions": [
+        {
+          "Line": 525,
+          "Text": "#define DOUBLE_DATA_WORDS (sizeof(ieee754_8)/sizeof(Eterm))"
+        },
+        {
+          "Line": 773,
+          "Text": "#define ERTS_REF_NUMBERS\t3"
+        },
+        {
+          "Line": 775,
+          "Text": "#define ERTS_PID_REF_NUMBERS\t(ERTS_REF_NUMBERS + 2)"
+        },
+        {
+          "Line": 777,
+          "Text": "#define ERTS_PID_REF_NUMBERS\t(ERTS_REF_NUMBERS + 1)"
+        },
+        {
+          "Line": 805,
+          "Text": "} ErtsORefThing;"
+        },
+        {
+          "Line": 816,
+          "Text": "} ErtsPRefThing;"
+        },
+        {
+          "Line": 931,
+          "Text": "} ErtsORefThing;"
+        },
+        {
+          "Line": 936,
+          "Text": "} ErtsPRefThing;"
+        },
+        {
+          "Line": 1166,
+          "Text": "#define EXTERNAL_PID_HEAP_SIZE \\"
+        },
+        {
+          "Line": 1170,
+          "Text": "_make_header(EXTERNAL_PID_HEAP_SIZE-1,_TAG_HEADER_EXTERNAL_PID)"
+        }
+      ]
+    },
+    {
+      "Path": "erts/emulator/beam/big.h",
+      "GitBlob": "43d24e720d849bbb3123624f2cdb78836994dfbc",
+      "Sha256": "07133b1fb09864bcf905f94335f5cde2600dfef644cffad99c3d1d6b6ba97f47",
+      "SelectedDefinitions": [
+        {
+          "Line": 29,
+          "Text": "typedef Uint     ErtsDigit;"
+        },
+        {
+          "Line": 55,
+          "Text": "#define D_EXP (ERTS_SIZEOF_ETERM*8)"
+        }
+      ]
+    },
+    {
+      "Path": "erts/emulator/beam/erl_binary.h",
+      "GitBlob": "6a7115f22391e62faba65c98b7da7fbaa984a510",
+      "Sha256": "31ba99c1b20ee2c2e67ebc1654b65c6638ffa6372b6b4e972396c36adbfc80a5",
+      "SelectedDefinitions": [
+        {
+          "Line": 54,
+          "Text": "struct binary_internals {"
+        },
+        {
+          "Line": 65,
+          "Text": "SWord orig_size;"
+        },
+        {
+          "Line": 90,
+          "Text": "SWord orig_size;"
+        },
+        {
+          "Line": 122,
+          "Text": "* 32-bits architectures and 8 bytes on 64-bits architectures."
+        }
+      ]
+    },
+    {
+      "Path": "erts/emulator/beam/erl_gc.c",
+      "GitBlob": "9405c288975058310049a1d24ca7166a0c160814",
+      "Sha256": "d83220568588cfad8ebeef5d399d43d04a6e79d7a002404c1a503d274ab8381d",
+      "SelectedDefinitions": [
+        {
+          "Line": 1337,
+          "Text": "case BIN_REF_SUBTAG:"
+        },
+        {
+          "Line": 1345,
+          "Text": "case REF_SUBTAG:"
+        },
+        {
+          "Line": 2559,
+          "Text": "case REF_SUBTAG:"
+        },
+        {
+          "Line": 2563,
+          "Text": "case BIN_REF_SUBTAG:"
+        },
+        {
+          "Line": 2564,
+          "Text": "case EXTERNAL_PID_SUBTAG:"
+        },
+        {
+          "Line": 3090,
+          "Text": "case BIN_REF_SUBTAG:"
+        },
+        {
+          "Line": 3095,
+          "Text": "case REF_SUBTAG:"
+        },
+        {
+          "Line": 3318,
+          "Text": "case REF_SUBTAG:"
+        },
+        {
+          "Line": 3322,
+          "Text": "case BIN_REF_SUBTAG:"
+        },
+        {
+          "Line": 3323,
+          "Text": "case EXTERNAL_PID_SUBTAG:"
+        },
+        {
+          "Line": 4019,
+          "Text": "case BIN_REF_SUBTAG:"
+        },
+        {
+          "Line": 4020,
+          "Text": "case EXTERNAL_PID_SUBTAG:"
+        },
+        {
+          "Line": 4029,
+          "Text": "case REF_SUBTAG: {"
+        },
+        {
+          "Line": 4166,
+          "Text": "case BIN_REF_SUBTAG:"
+        },
+        {
+          "Line": 4169,
+          "Text": "case EXTERNAL_PID_SUBTAG:"
+        },
+        {
+          "Line": 4174,
+          "Text": "case REF_SUBTAG:"
+        }
+      ]
+    }
+  ],
+  "Original32BitErtsExecuted": false,
+  "Scope": "Source model inspected; source identity is not target execution"
+}

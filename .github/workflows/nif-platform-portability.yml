@@ -1,0 +1,128 @@
+name: NIF platform portability (target execution)
+on:
+  push:
+    branches: ['ci/nif-platforms-*']
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: nif-platform-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  native-unix:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - runner: ubuntu-24.04
+            arch: X64
+          - runner: ubuntu-24.04-arm
+            arch: Arm64
+          - runner: macos-15-intel
+            arch: X64
+          - runner: macos-15
+            arch: Arm64
+    runs-on: ${{ matrix.runner }}
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+          sparse-checkout: |
+            src/Runtime/Erlang.Runtime.Core
+            src/Runtime/Erlang.Runtime
+            src/Otp/Managed/Erlang.Otp.Stdlib
+            src/Otp/Managed/Erlang.Otp.Kernel
+            src/Runtime/Erlang.Terms
+            src/Runtime/Erlang.Serialization
+            src/Otp/Original/Foundation/Erlang.Otp.Erts.Beam
+            tools/Native/Erlang.NifNativeBackend
+            tools/Native/Erlang.NifPlatformValidation
+      - uses: actions/setup-dotnet@v6
+        with:
+          dotnet-version: 10.0.400
+      - name: Build configured headers from pinned OTP
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p artifacts/nif-platform-ci
+          git clone --depth 1 --branch OTP-29.1.1 https://github.com/erlang/otp.git artifacts/nif-platform-ci/otp
+          test "$(git -C artifacts/nif-platform-ci/otp rev-parse HEAD)" = ad05823719d77c8faee87348ea39513d4e2f99c5
+          cd artifacts/nif-platform-ci/otp
+          ./configure --prefix="$GITHUB_WORKSPACE/artifacts/nif-platform-ci/installed" --without-javac --without-wx --without-odbc --without-debugger --without-observer --without-et --without-ssl --without-termcap --disable-jit
+          cd "$GITHUB_WORKSPACE"
+          python3 tools/Native/Erlang.NifPlatformValidation/prepare-configured-headers.py --repository . --otp-source artifacts/nif-platform-ci/otp --output artifacts/nif-platform-ci/headers
+      - name: Build and smoke-test native bridge on the target
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 tools/Native/Erlang.NifNativeBackend/build-unix-bridge.py \
+            --repository . \
+            --otp-source artifacts/nif-platform-ci/otp \
+            --otp-include artifacts/nif-platform-ci/headers \
+            --output artifacts/nif-platform-ci/native --smoke-fixtures
+          dotnet build tools/Native/Erlang.NifPlatformValidation -m:1
+          cp artifacts/nif-platform-ci/native/Erlang.NifBridge.so tools/Native/Erlang.NifPlatformValidation/bin/Debug/net10.0/
+          dotnet tools/Native/Erlang.NifPlatformValidation/bin/Debug/net10.0/Erlang.NifNativeBackend.dll \
+            "$GITHUB_WORKSPACE/artifacts/nif-platform-ci/native/nif_platform_probe.so" \
+            > artifacts/nif-platform-ci/managed-checks.json
+          python3 -c "import json; p=json.load(open('artifacts/nif-platform-ci/managed-checks.json')); assert p['Architecture']=='${{ matrix.arch }}'; assert all(x['Passed'] for x in p['Results'])"
+      - name: Compare a real native image on OTP and our BEAM runtime
+        shell: bash
+        run: |
+          set -euo pipefail
+          (cd artifacts/nif-platform-ci/otp && make -j4 && make install)
+          python3 tools/Native/Erlang.NifPlatformValidation/build-platform-fixture.py \
+            --repository . --otp-root artifacts/nif-platform-ci/installed/lib/erlang \
+            --bridge artifacts/nif-platform-ci/native/Erlang.NifBridge.so \
+            --output artifacts/nif-platform-ci/image
+          dotnet tools/Native/Erlang.NifPlatformValidation/bin/Debug/net10.0/Erlang.NifNativeBackend.dll \
+            --image artifacts/nif-platform-ci/image/ebin/nif_platform_fixture.beam \
+            artifacts/nif-platform-ci/image/managed/nif_platform_fixture.so \
+            artifacts/nif-platform-ci/image/managed.etf \
+            > artifacts/nif-platform-ci/image/managed-checks.json
+          cmp artifacts/nif-platform-ci/image/original.etf artifacts/nif-platform-ci/image/managed.etf
+      - name: Execute the unchanged original OTP NIF binary
+        shell: bash
+        run: sh tools/Native/Erlang.NifPlatformValidation/run-unmodified-image.sh
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: nif-platform-${{ matrix.runner }}
+          path: |
+            artifacts/nif-platform-ci/native
+            artifacts/nif-platform-ci/process-host
+            artifacts/nif-platform-ci/managed-checks.json
+            artifacts/nif-platform-ci/image
+  native-windows-arm64:
+    runs-on: windows-11-arm
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+          sparse-checkout: |
+            src/Runtime/Erlang.Runtime.Core
+            src/Runtime/Erlang.Runtime
+            src/Otp/Managed/Erlang.Otp.Stdlib
+            src/Otp/Managed/Erlang.Otp.Kernel
+            src/Runtime/Erlang.Terms
+            src/Runtime/Erlang.Serialization
+            src/Otp/Original/Foundation/Erlang.Otp.Erts.Beam
+            tools/Native/Erlang.NifNativeBackend
+            tools/Native/Erlang.NifPlatformValidation
+      - uses: actions/setup-dotnet@v6
+        with:
+          dotnet-version: 10.0.400
+      - name: Execute rebuilt/shipped adapters and a real ARM64 NIF image
+        shell: pwsh
+        run: ./tools/Native/Erlang.NifPlatformValidation/run-windows-ci.ps1 -Architecture arm64
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: nif-platform-windows-arm64
+          path: |
+            artifacts/nif-platform-ci/shipped
+            artifacts/nif-platform-ci/native
+            artifacts/nif-platform-ci/managed-checks.json
+            artifacts/nif-platform-ci/image

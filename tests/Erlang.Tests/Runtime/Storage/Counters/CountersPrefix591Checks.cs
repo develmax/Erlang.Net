@@ -8,6 +8,8 @@ namespace Erlang.Tests;
 
 internal static class CountersPrefix591Checks
 {
+    internal static Type PayloadType(Type prefix) => prefix.GetField(Data, Members)!.FieldType.GetField(Payload, Members)!.FieldType;
+
     internal static Task ActualPrefix() => Cases((
         array,
         pointer,
@@ -38,7 +40,10 @@ internal static class CountersPrefix591Checks
         // First validate new shape before writing any bytes on the old RED
         // allocation: the existing baseline must fail safely, not corrupt it.
         Type prefix = typeof(ProcessRuntime).Assembly.GetType(PrefixType, true)!;
-        Require(Marshal.OffsetOf(prefix, Length).ToInt64() == ArityOffset);
+        long lengthOffset = Marshal.OffsetOf(prefix, Data).ToInt64()
+            + Marshal.OffsetOf(prefix.GetField(Data, Members)!.FieldType, Payload).ToInt64()
+            + Marshal.OffsetOf(PayloadType(prefix), Length).ToInt64();
+        Require(lengthOffset == ArityOffset);
         Require(Marshal.SizeOf(prefix) == CellsOffset);
         using var pin = (IDisposable)Call(array, Acquire)!;
         foreach (ulong index in new[] { 0UL, length - 1 }.Distinct())

@@ -1847,6 +1847,8 @@ public sealed partial class ProcessRuntime : IAsyncDisposable
         }
         try
         {
+            if (nativeImagesSettled528)
+                NifNativePortableRegistration.RetireWorkerOwner(this);
             FinalizeNativeAllocationArena528(nativeImagesSettled528);
         }
         catch (Exception failure)

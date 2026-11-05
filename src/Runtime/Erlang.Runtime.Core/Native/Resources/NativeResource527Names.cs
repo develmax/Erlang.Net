@@ -2,7 +2,7 @@ namespace Erlang;
 
 internal static class NativeResource527Names
 {
-    internal const string PhysicalProfile = "Native resource magic headers currently require the admitted x64 release profile.";
+    internal const string PhysicalProfile = "Native resource magic headers require the admitted little-endian native-word release profile.";
     internal const string LoadPhase = "Native resource publication requires a completed actual loading callback.";
     internal const string AllocateDuringLoad = "Native resource allocation is not admitted during load or upgrade.";
     internal const string MonitorStorage = "Resource down callbacks require the actual monitor-storage substrate.";

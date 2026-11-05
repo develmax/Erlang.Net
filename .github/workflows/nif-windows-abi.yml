@@ -1,0 +1,57 @@
+name: NIF Windows native-word GC and real image execution
+on:
+  push:
+    branches: ['ci/nif-x86-*']
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  windows-abi:
+    name: Windows ${{ matrix.arch }} GC and NIF execution
+    strategy:
+      fail-fast: false
+      matrix:
+        arch: [x86, x64]
+    runs-on: windows-2025
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+          sparse-checkout: |
+            src/Runtime
+            src/Otp/Managed/Erlang.Otp.Stdlib
+            src/Otp/Managed/Erlang.Otp.Kernel
+            src/Otp/Original/Foundation/Erlang.Otp.Erts.Beam
+            tools/Native/Erlang.NifNativeBackend
+            tools/Native/Erlang.NifPlatformValidation
+      - uses: actions/setup-dotnet@v6
+        with:
+          dotnet-version: 10.0.400
+      - name: Extract verified official x86 CLR (no system installation)
+        if: matrix.arch == 'x86'
+        shell: python
+        run: |
+          import hashlib, json, urllib.request, zipfile, io
+          from pathlib import Path
+          pin = json.loads(Path('tools/Native/Erlang.NifPlatformValidation/windows-x86-runtime.json').read_text())
+          with urllib.request.urlopen(pin['url'], timeout=120) as response: data = response.read()
+          assert hashlib.sha512(data).hexdigest() == pin['hash']
+          output = Path('artifacts/dotnet-x86').resolve()
+          output.mkdir(parents=True)
+          with zipfile.ZipFile(io.BytesIO(data)) as archive:
+              for member in archive.infolist(): assert (output / member.filename).resolve().is_relative_to(output)
+              archive.extractall(output)
+      - name: Execute ABI, native-word GC and original BEAM NIF
+        shell: pwsh
+        run: |
+          $runtime = if ('${{ matrix.arch }}' -eq 'x86') { Join-Path $PWD 'artifacts/dotnet-x86/dotnet.exe' } else { 'dotnet' }
+          ./tools/Native/Erlang.NifPlatformValidation/run-windows-abi-ci.ps1 -Architecture '${{ matrix.arch }}' -RuntimeHost $runtime
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: nif-windows-${{ matrix.arch }}-abi
+          path: |
+            artifacts/nif-windows-abi/*.json
+            artifacts/nif-windows-abi/native
+            artifacts/nif-windows-abi/image
