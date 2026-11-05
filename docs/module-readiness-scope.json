@@ -684,11 +684,10 @@
       "Project": "src/Otp/Managed/Erlang.Otp.Stdlib/Processes/Sys",
       "Status": "Partially compatible",
       "Implemented": [
-        "Part604 covers all 37 selected non-metadata exports with C# and original Erlang backends. Both match 137 focused observations and 52 error observations per additional depth.",
         "Part335 terminate/2,3; actual monitor/alias/reply protocol and ACK-before-termination; matching proc_lib stop shares original DOWN deadline.6952/11 local full; original335 pending."
       ],
       "Remaining": [
-        "Full Common Test capture, cross-platform, resource and module-metadata acceptance",
+        "Suspend/resume, status/state, code changes, debugging and complete gen/sys callbacks",
         "Global registry and genuine connected remote-peer/physical/scheduler/performance contracts"
       ],
       "TestPrefixes": [
