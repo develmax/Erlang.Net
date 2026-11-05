@@ -99,7 +99,14 @@ public sealed partial class ProcessRuntime
             selectedMajor =>
         {
             if (target.VmStorageBackingEnabled)
+            {
                 target.CollectOwnedGeneration508(selectedMajor);
+                // Guest heap collection remains authoritative. Complete the
+                // lifetime of the separately managed legacy interop payloads
+                // only after its real register/frame roots have been swept.
+                if (ReferenceResources.HasManagedCollectionPayloads)
+                    CollectManagedHeap(selectedMajor);
+            }
             else
                 CollectManagedHeap(selectedMajor); // existing opaque Host backing only
         }

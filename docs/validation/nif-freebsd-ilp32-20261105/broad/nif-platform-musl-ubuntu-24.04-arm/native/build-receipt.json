@@ -1,0 +1,95 @@
+{
+  "Status": "NATIVE_BUILD_AND_LOADER_SMOKE_PASSED",
+  "HostOS": "Linux",
+  "HostArchitecture": "aarch64",
+  "OtpBaseline": {
+    "tag": "OTP-29.1.1",
+    "commit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+    "repository": "https://github.com/erlang/otp",
+    "sdk": "10.0.400"
+  },
+  "Probe": {
+    "Command": [
+      "/usr/bin/cc",
+      "-std=c11",
+      "-O2",
+      "-fPIC",
+      "-fvisibility=hidden",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-shared",
+      "-I/work/artifacts/nif-platform-ci/headers",
+      "/work/tools/Native/Erlang.NifNativeBackend/native/nif_bridge_abi_probe.c",
+      "/work/tools/Native/Erlang.NifPlatformValidation/alias_only.c",
+      "/work/artifacts/nif-platform-ci/native/Erlang.NifBridge.so",
+      "-Wl,-rpath,/work/artifacts/nif-platform-ci/native",
+      "-o",
+      "/work/artifacts/nif-platform-ci/native/nif_platform_probe.so"
+    ],
+    "Sha256": "078B4E7C6E82ED7170B792FD3C07B071947E1FF75BAC93895A1147C84576BF1F",
+    "Sources": {
+      "tools/Native/Erlang.NifNativeBackend/native/nif_bridge_abi_probe.c": "4CF729BFF0E722B461AABA7011CF0282817E2CE22E012241E80F2C0BB3A3656B",
+      "tools/Native/Erlang.NifPlatformValidation/alias_only.c": "0A62C6D84CFF4D56FF403D5BBA1C8A624AB50E89CFE9D62C08C966A7F57F78F7"
+    }
+  },
+  "Libc": [
+    "musl",
+    "1"
+  ],
+  "Command": [
+    "/usr/bin/cc",
+    "-std=c11",
+    "-O2",
+    "-fPIC",
+    "-fvisibility=hidden",
+    "-Wall",
+    "-Wextra",
+    "-Werror",
+    "-shared",
+    "-I/work/artifacts/nif-platform-ci/headers",
+    "/work/tools/Native/Erlang.NifNativeBackend/native/nif_bridge_exports.c",
+    "/work/tools/Native/Erlang.NifNativeBackend/native/nif_bridge_varargs.c",
+    "/work/tools/Native/Erlang.NifNativeBackend/native/nif_bridge_platform.c",
+    "/work/tools/Native/Erlang.NifNativeBackend/native/nif_bridge_layout.c",
+    "-o",
+    "/work/artifacts/nif-platform-ci/native/Erlang.NifBridge.so",
+    "-ldl",
+    "-pthread",
+    "-Wl,-soname,Erlang.NifBridge.so"
+  ],
+  "CompilerVersion": "cc (Alpine 15.2.0) 15.2.0\nCopyright (C) 2025 Free Software Foundation, Inc.\nThis is free software; see the source for copying conditions.  There is NO\nwarranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\n",
+  "Sources": {
+    "tools/Native/Erlang.NifNativeBackend/native/nif_bridge_exports.c": "319671A5A5159ABE4A56FB0831B960E400029F480B4CA44DB09FA1AAECECBF9E",
+    "tools/Native/Erlang.NifNativeBackend/native/nif_bridge_varargs.c": "B13F30989ACCA7AAF6423AAC68AA3A9EBBCE46198F9470DCBF3FE76E8B63E472",
+    "tools/Native/Erlang.NifNativeBackend/native/nif_bridge_platform.c": "4078524C2386BF3EAAC68C5B95628DF4450348C40D234254327A21DE16514000",
+    "tools/Native/Erlang.NifNativeBackend/native/nif_bridge_layout.c": "586E633F1401785ADDB898946050C887FCFD3B01B16B913B9671C528248996C8",
+    "tools/Native/Erlang.NifNativeBackend/native/nif_bridge_api.h": "199E874E0A07DB8582A43CDC389CB6728CA1FB0B2FCCE36040AC4B06B8A9A652",
+    "tools/Native/Erlang.NifNativeBackend/native/nif_snprintf791.h": "108A0FF9E4B18012524BC0D38F30AC0A50B6A7DEA59E13D19EBE9AAEDD85318F"
+  },
+  "Headers": {
+    "erl_drv_nif.h": "E9D4280779E8FD4AC463144F310B4DA2346DD3A18E73D445BF1F88AE3C1F1312",
+    "erl_nif.h": "6CB96C37D306A173EF71946E823829FC21E47CB4A19288B221129EAC2F13B689",
+    "erl_int_sizes_config.h": "25AD4D8886293550859E5C2F9E2E5616F5F69A6FF0F80DE97E1D8ECA28F8DE16",
+    "erl_nif_api_funcs.h": "CF34ADA521AEB0EE00C9936320CD694F9816EDBAB960500453051CEA443DDA11"
+  },
+  "NativeLayout": [
+    8,
+    8,
+    96,
+    32,
+    40,
+    496,
+    8,
+    24,
+    32,
+    64,
+    80,
+    88,
+    4
+  ],
+  "LibrarySha256": "98D4FB0474C31316FC3FF5786ABD3530D55069B1D81D6749F41ACDD8763189BB",
+  "BridgeLoadedOnTarget": true,
+  "NifExecutedOnRuntime": false,
+  "OtpCompatibilityAccepted": false
+}

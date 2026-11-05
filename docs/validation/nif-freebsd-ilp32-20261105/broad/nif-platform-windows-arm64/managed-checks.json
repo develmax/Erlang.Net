@@ -1,0 +1,35 @@
+{
+  "Host": "win-arm64",
+  "Architecture": "Arm64",
+  "LinuxNamespace": false,
+  "CrossPlatformExecutionProven": false,
+  "Runtime": ".NET 10.0.14",
+  "OperatingSystem": "Microsoft Windows 10.0.26200",
+  "PointerBytes": 8,
+  "Results": [
+    {
+      "Name": "platform-admission",
+      "Passed": true
+    },
+    {
+      "Name": "entry-layout",
+      "Passed": true
+    },
+    {
+      "Name": "elf-capsule-machine",
+      "Passed": true
+    },
+    {
+      "Name": "host-loader-missing-file",
+      "Passed": true
+    },
+    {
+      "Name": "windows-native-variadic-adapter",
+      "Passed": true
+    },
+    {
+      "Name": "windows-runtime-native-slot",
+      "Passed": true
+    }
+  ]
+}

@@ -461,11 +461,78 @@ catch (ArgumentException failure)
 
 
 var tests = new List<(string Name, Func<Task> Body)>();
+Test(Erlang.Tests.CodeBackendNames.Managed, () => Erlang.Tests.CodeBackendChecks.Run(true));
+Test(Erlang.Tests.CodeBackendNames.Beam, () => Erlang.Tests.CodeBackendChecks.Run(false));
+Test(Erlang.Tests.CodeBackendNames.Refusals, Erlang.Tests.CodeBackendChecks.CheckRefusals);
+Test(Erlang.Tests.CodeBackendNames.Native, Erlang.Tests.CodeBackendChecks.CheckNativeProfile);
+Test(Erlang.Tests.UnicodeBackendNames.ManagedTest, () => Erlang.Tests.UnicodeBackendChecks.Run(true));
+Test(Erlang.Tests.UnicodeBackendNames.BeamTest, () => Erlang.Tests.UnicodeBackendChecks.Run(false));
+Test(Erlang.Tests.UnicodeBackendNames.RefusalTest, Erlang.Tests.UnicodeBackendChecks.Refusals);
+Test(Erlang.Tests.UnicodeBackendNames.GrowthTest, Erlang.Tests.UnicodeGrowthChecks.Run);
+Test(Erlang.Tests.UnicodeUtilUnalignedNames.Test, Erlang.Tests.UnicodeUtilUnalignedChecks.Run);
+for (int unicodePartition = 0; unicodePartition < Erlang.Tests.UnicodeUtilBackendNames.Partitions; unicodePartition++)
+{
+    int partition = unicodePartition;
+    Test(
+        Erlang.Tests.UnicodeUtilBackendNames.Managed + "/part-" + (partition + 1),
+        () => Erlang.Tests.UnicodeUtilBackendChecks.Run(true, partition)
+    );
+    Test(
+        Erlang.Tests.UnicodeUtilBackendNames.Beam + "/part-" + (partition + 1),
+        () => Erlang.Tests.UnicodeUtilBackendChecks.Run(false, partition)
+    );
+}
+Test(Erlang.Tests.StringBackendNames.ManagedUnicodeTest, Erlang.Tests.StringBackendChecks.ManagedUnicode);
+Test(Erlang.Tests.StringBackendNames.ManagedTest, () => Erlang.Tests.StringBackendChecks.Run(true));
+Test(Erlang.Tests.StringBackendNames.BeamTest, () => Erlang.Tests.StringBackendChecks.Run(false));
+Test(Erlang.Tests.StringBackendNames.RefusalTest, Erlang.Tests.StringBackendChecks.Refusals);
+Test(Erlang.Tests.StringBackendNames.ManagedJaroTest, () => Erlang.Tests.StringBackendChecks.Jaro(true));
+Test(Erlang.Tests.StringBackendNames.BeamJaroTest, () => Erlang.Tests.StringBackendChecks.Jaro(false));
+Test(Erlang.Tests.StringCooperationNames.ListLength, () => Erlang.Tests.StringCooperationChecks.Run(false, false));
+Test(Erlang.Tests.StringCooperationNames.BinaryLength, () => Erlang.Tests.StringCooperationChecks.Run(true, false));
+Test(Erlang.Tests.StringCooperationNames.ListReverse, () => Erlang.Tests.StringCooperationChecks.Run(false, true));
+Test(Erlang.Tests.StringCooperationNames.BinaryReverse, () => Erlang.Tests.StringCooperationChecks.Run(true, true));
+Test(Erlang.Tests.StringCooperationNames.SliceDrop, () => Erlang.Tests.StringCooperationChecks.RunSlice(false));
+Test(Erlang.Tests.StringCooperationNames.SliceKeep, () => Erlang.Tests.StringCooperationChecks.RunSlice(true));
+Test(Erlang.Tests.StringCooperationNames.TrimSingle, () => Erlang.Tests.StringCooperationChecks.RunScan(true, false));
+Test(Erlang.Tests.StringCooperationNames.TrimMultiple, () => Erlang.Tests.StringCooperationChecks.RunScan(true, true));
+Test(Erlang.Tests.StringCooperationNames.TakeLeading, () => Erlang.Tests.StringCooperationChecks.RunScan(false, true));
+Test(Erlang.Tests.StringCooperationNames.TakeTrailing, () => Erlang.Tests.StringCooperationChecks.RunScan(false, false));
+Test(Erlang.Tests.StringCooperationNames.EqualTwo, () => Erlang.Tests.StringCooperationChecks.RunEqual(false));
+Test(Erlang.Tests.StringCooperationNames.EqualThree, () => Erlang.Tests.StringCooperationChecks.RunEqual(true));
+Test(Erlang.Tests.StringCooperationNames.TrimFragments, () => Erlang.Tests.StringCooperationChecks.RunFragments(true));
+Test(Erlang.Tests.StringCooperationNames.LexemeFragments, () => Erlang.Tests.StringCooperationChecks.RunFragments(false));
+Test(Erlang.Tests.DetsBackendChecks.ManagedTest, Erlang.Tests.DetsBackendChecks.Managed);
+Test(Erlang.Tests.DetsBackendChecks.OriginalTest, Erlang.Tests.DetsBackendChecks.Original);
+Test(Erlang.Tests.DetsBackendChecks.ManagedSuiteTest, Erlang.Tests.DetsBackendChecks.ManagedSuite);
+Test(Erlang.Tests.DetsBackendChecks.OriginalSuiteTest, Erlang.Tests.DetsBackendChecks.OriginalSuite);
+Test(Erlang.Tests.DetsMagicLifetimeChecks.Test, Erlang.Tests.DetsMagicLifetimeChecks.Run);
+Test(Erlang.Tests.DetsReviewRegressionChecks.Test, Erlang.Tests.DetsReviewRegressionChecks.Run);
+Test(Erlang.Tests.PrimFileDeleteContractNames.HostTest, Erlang.Tests.PrimFileDeletePlatformChecks.Host);
+Test(Erlang.Tests.PrimFileDeleteContractNames.MappingTest, Erlang.Tests.PrimFileDeletePlatformChecks.Mapping);
 Test(Erlang.Tests.MathBackendNames.ManagedWhole, Erlang.Tests.LibraryDependencyOriginalHostChecks.MathManagedWhole);
 Test(Erlang.Tests.MathBackendNames.ManagedSelection, Erlang.Tests.MathBackendChecks.ManagedSelection);
 Test(Erlang.Tests.MathLog2OtpNames.Test, Erlang.Tests.MathLog2OtpChecks.Run);
-Test(Erlang.Tests.OrdsetsCompatibilityNames.ManagedCase, () => Erlang.Tests.OrdsetsCompatibilityChecks.Run(false));
-Test(Erlang.Tests.OrdsetsCompatibilityNames.BeamCase, () => Erlang.Tests.OrdsetsCompatibilityChecks.Run(true));
+Test(Erlang.Tests.NativeBindingSelectionNames.Test, Erlang.Tests.NativeBindingSelectionChecks.Run);
+Test(Erlang.Tests.NativeBindingSelectionNames.RaceTest, Erlang.Tests.NativeBindingSelectionChecks.Race);
+
+Test(Erlang.Tests.StringPatternAllocationNames.Test, Erlang.Tests.StringPatternAllocationChecks.Run);
+Test(Erlang.Tests.StringSeparatorAllocationNames.Test, Erlang.Tests.StringSeparatorAllocationChecks.Run);
+
+foreach (int part in Enumerable.Range(0, Erlang.Tests.OrdsetsCompatibilityNames.PartCount))
+{
+    int selectedPart = part;
+    Test(
+        Erlang.Tests.OrdsetsCompatibilityNames.ManagedCase + "/" + selectedPart,
+        () => Erlang.Tests.OrdsetsCompatibilityChecks.Run(false, selectedPart)
+    );
+    Test(
+        Erlang.Tests.OrdsetsCompatibilityNames.BeamCase + "/" + selectedPart,
+        () => Erlang.Tests.OrdsetsCompatibilityChecks.Run(true, selectedPart)
+    );
+}
+Test(Erlang.Tests.BulkMapSourceNames.Case, Erlang.Tests.BulkMapSourceChecks.Run);
+Test(Erlang.Tests.BulkMapPhysicalNames.Case, Erlang.Tests.BulkMapPhysicalChecks.Run);
 foreach (int termShard in Enumerable.Range(0, Erlang.Tests.OrdsetsTermContractNames.ShardCount))
 {
     Test(Erlang.Tests.OrdsetsTermContractNames.TestPrefix + termShard, () => Erlang.Tests.OrdsetsTermContractChecks.Run(termShard));
@@ -15941,6 +16008,26 @@ try
     Test(
         NifNativeBackend::Erlang.NifNativeBackend.QueuedWallTimeCaseNames.Snapshot,
         NifNativeBackend::Erlang.NifNativeBackend.QueuedWallTimeSnapshotChecks.Run
+    );
+    Test(
+        NifNativeBackend::Erlang.NifNativeBackend.MicrostateSourceTailCaseNames.SuccessfulPhasesCase,
+        NifNativeBackend::Erlang.NifNativeBackend.MicrostateSourceTailChecks.SuccessfulPhases
+    );
+    Test(
+        NifNativeBackend::Erlang.NifNativeBackend.MicrostateSourceTailCaseNames.WithheldCloseCase,
+        NifNativeBackend::Erlang.NifNativeBackend.MicrostateSourceTailChecks.WithheldClose
+    );
+    Test(
+        NifNativeBackend::Erlang.NifNativeBackend.MicrostateSourceTailCaseNames.RunningCloseCase,
+        NifNativeBackend::Erlang.NifNativeBackend.MicrostateSourceTailChecks.RunningClose
+    );
+    Test(
+        NifNativeBackend::Erlang.NifNativeBackend.MicrostateSourceTailCaseNames.FirstFailureCase,
+        NifNativeBackend::Erlang.NifNativeBackend.MicrostateSourceTailChecks.FirstFailure
+    );
+    Test(
+        NifNativeBackend::Erlang.NifNativeBackend.MicrostateSourceTailCaseNames.FinishFailureCase,
+        NifNativeBackend::Erlang.NifNativeBackend.MicrostateSourceTailChecks.FinishFailure
     );
     Test(
         NifNativeBackend::Erlang.NifNativeBackend.MicrostateCaseNames.Cache,

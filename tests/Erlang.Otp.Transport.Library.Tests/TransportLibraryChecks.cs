@@ -90,7 +90,7 @@ internal static class TransportLibraryChecks
             {
                 string[] imports = OtpSsl.Modules.Concat(OtpSsh.Modules).Concat(OtpStdlib.Modules).Concat([Observer, Internal, ErlangModule, Crypto, Logger, Debugger]).ToArray();
                 var dependencies = new BeamDependencySelection(imports);
-                byte[][] bytes = [OtpStdlib.ReadImage(Lists), OtpStdlib.ReadImage(StringModule), OtpStdlib.ReadImage(Unicode), OtpStdlib.ReadImage(UnicodeUtilities), OtpSsl.ReadImage(CipherFormat), OtpSsh.ReadImage(SshBits), OtpSsh.ReadImage(SshMessage), OtpSsl.ReadImage(SslAlert), Resource(ObserverImage)];
+                byte[][] bytes = [OtpStdlib.ReadImage(Lists), OtpStdlib.ReadImage(TransportLibraryNames.StringModule), OtpStdlib.ReadImage(Unicode), OtpStdlib.ReadImage(UnicodeUtilities), OtpSsl.ReadImage(CipherFormat), OtpSsh.ReadImage(SshBits), OtpSsh.ReadImage(SshMessage), OtpSsl.ReadImage(SslAlert), Resource(ObserverImage)];
                 PreparedBeamImage[] images = bytes.Select(image =>
                 {
                     try

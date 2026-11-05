@@ -8,5 +8,5 @@ internal static class RuntimeBootstrapFileNames
     internal const string IsSystemProcess = "is_system_process";
     internal const string ForeignRegistry = "Bootstrap filesystem registration requires the runtime's own registry";
     internal const string Conflict = "Bootstrap filesystem registration refuses an existing module entry";
-    internal const string WindowsRequired = "The bootstrap filesystem currently requires Windows";
+    internal const string UnsupportedPlatform = "The bootstrap filesystem supports Windows, Linux and macOS";
 }

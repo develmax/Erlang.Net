@@ -1,0 +1,23 @@
+{
+  "Status": "SOURCE_IDENTITIES_ONLY_FINAL_EXECUTION_PENDING",
+  "Changes": [
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Services/RuntimeNumericMapLayout.cs",
+      "Before": "5A9D68055E80408F01196EAB60D6881F64E620629BFAD34618AB698426873155",
+      "After": "E9DDB2DC70B2B23112AAB7CFA7B0514F2148912E9818F7D1C7C3D25F74CE24FF",
+      "Reason": "Bind immutable published-head source bytes instead of the concurrently changing shared checkout; no execution inferred."
+    },
+    {
+      "Path": "src/Runtime/Erlang.Terms/Collections/Maps/TermMapOrdering.cs",
+      "Before": "BA093564B871E85951465417B2972D1C825E0A23B5ED1C7CFDF76BB64954CAA1",
+      "After": "96BF51557F8AAB648BCE3D40D1CE4B9347644712225B85E3A5DCD68A376CE9DC",
+      "Reason": "Bind immutable published-head source bytes instead of the concurrently changing shared checkout; no execution inferred."
+    },
+    {
+      "Path": "src/Runtime/Erlang.Terms/Ordering/TermOrder.cs",
+      "Before": "D8B620BDDF4B1E227476D709FD936EFC239AC2977183D3C2F0D419AB16A9983F",
+      "After": "7D679FA8DECC2909D9201EC1EBFAD2D29A19DFF5CF49BB475B1BA5A86281B48F",
+      "Reason": "Bind immutable published-head source bytes instead of the concurrently changing shared checkout; no execution inferred."
+    }
+  ]
+}

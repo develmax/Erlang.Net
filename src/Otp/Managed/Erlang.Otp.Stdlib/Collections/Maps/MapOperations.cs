@@ -180,7 +180,9 @@ public static class MapOperations
         return map.TryGet(key, out var value) ? Term.Tuple(value!, Remove(key, map)) : Term.A(MapResultAtoms.Error);
     }
 
-    public static MapTerm FromList(Term source)
+    public static MapTerm FromList(Term source) => FromList(source, null);
+
+    internal static MapTerm FromList(Term source, ProcessRuntime? runtime)
     {
         var entries = new List<KeyValuePair<Term, Term>>();
         while (source is Cons cell)
@@ -193,7 +195,35 @@ public static class MapOperations
         if (source is not Nil)
             throw new ErlangException(ErlangErrorReasons.BadArgument);
 
-        return new MapTerm(entries);
+        if (entries.Count <= TermMapOrderParameters.FlatMapMaximumEntries)
+        {
+            var physical = new List<KeyValuePair<Term, Term>>();
+            foreach (var entry in entries)
+            {
+                int hole = physical.Count;
+                int comparison = 1;
+                while (hole > 0)
+                {
+                    Term previous = physical[hole - 1].Key;
+                    comparison = entry.Key is Atom first && previous is Atom second
+                        ? AtomNameRegistry.IndexOf(first.Name).CompareTo(AtomNameRegistry.IndexOf(second.Name))
+                        : TermOrder.Compare(entry.Key, previous, true);
+                    if (comparison >= 0)
+                        break;
+                    hole--;
+                }
+                // The small-input C builder overwrites on CMP==0, even for
+                // exact-distinct local fun entries. Its bulk path uses EQ.
+                if (comparison == 0)
+                    physical[hole - 1] = entry;
+                else
+                    physical.Insert(hole, entry);
+            }
+
+            return MapTerm.FromSourceFlatPairs(physical);
+        }
+
+        return runtime is null ? new MapTerm(entries) : runtime.BuildSourceBulkMap(entries);
     }
 
     public static MapTerm SelectKeys(Term keys, Term source, bool keep)

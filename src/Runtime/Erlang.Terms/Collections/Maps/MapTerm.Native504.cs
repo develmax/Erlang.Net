@@ -39,7 +39,7 @@ public sealed partial class MapTerm
             entry => entry.Key,
             Comparer<Term>.Create((left, right) => TermOrder.CompareCanonicalSnapshot(left, right, ref context))
         ).ToArray());
-        ArithmeticKeyEntries = Array.AsReadOnly(captured.OrderBy(
+        ArithmeticKeyEntries = HasStrictArithmeticOrder(Entries, ref context) ? Entries : Array.AsReadOnly(captured.OrderBy(
             entry => entry.Key,
             Comparer<Term>.Create((left, right) => TermOrder.CompareSnapshot(
                 left,
@@ -49,6 +49,9 @@ public sealed partial class MapTerm
             ))
         ).ToArray());
         if (captured.Length <= TermMapOrderParameters.FlatMapMaximumEntries)
+        {
+            preservedFlatPairs426 = Array.AsReadOnly(captured);
             FlatKeys426 = new TupleTerm(captured.Select(entry => entry.Key));
+        }
     }
 }

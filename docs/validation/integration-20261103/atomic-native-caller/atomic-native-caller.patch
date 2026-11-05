@@ -1,0 +1,701 @@
+diff --git a/src/Otp/Managed/Erlang.Otp.Stdlib/Collections/Lists/ListUniqueMergeTrace.cs b/src/Otp/Managed/Erlang.Otp.Stdlib/Collections/Lists/ListUniqueMergeTrace.cs
+--- a/src/Otp/Managed/Erlang.Otp.Stdlib/Collections/Lists/ListUniqueMergeTrace.cs
++++ b/src/Otp/Managed/Erlang.Otp.Stdlib/Collections/Lists/ListUniqueMergeTrace.cs
+@@ -60,25 +60,21 @@
+     )
+     {
+         using var scope = new ListUniqueMergeScope(context, continuations);
+-        // Native reverse errors retain the helper's current source PC even
+-        // though a successful reverse returns directly from that helper.
+-        using var current = caller is { } state && context.Runtime.Modules.IsNativeEntry(
+-            ListModuleNames.Module,
+-            ListModuleNames.Reverse,
+-            2
+-        ) ? context.EnterGeneratedFunction(
+-            ListModuleNames.Module,
+-            ListUniqueMergeNames.Function(state),
+-            ListUniqueMergeNames.Arity(state),
+-            Location(line),
+-            identities.GetOrAdd((state, line), _ => new object())
+-        ) : null;
+ 
+-        return await context.Runtime.Modules.Call(
++        // The registry selects the body and native marker under one gate.
++        // A replacement after selection must not change this invocation's PC.
++        return await context.Runtime.Modules.CallWithNativeCallerScope(
+             context,
+             ListModuleNames.Module,
+             ListModuleNames.Reverse,
+-            [list, tail]
++            [list, tail],
++            caller is { } state ? current => current.EnterGeneratedFunction(
++                ListModuleNames.Module,
++                ListUniqueMergeNames.Function(state),
++                ListUniqueMergeNames.Arity(state),
++                Location(line),
++                identities.GetOrAdd((state, line), _ => new object())
++            ) : null
+         );
+     }
+ 
+diff --git a/src/Runtime/Erlang.Runtime.Core/Modules/ModuleRegistry.cs b/src/Runtime/Erlang.Runtime.Core/Modules/ModuleRegistry.cs
+--- a/src/Runtime/Erlang.Runtime.Core/Modules/ModuleRegistry.cs
++++ b/src/Runtime/Erlang.Runtime.Core/Modules/ModuleRegistry.cs
+@@ -287,6 +287,24 @@
+         Term[] arguments,
+         out ModuleCallDispatchKind dispatch,
+         out bool selectedElementSourceContract
++    ) => CallWithDispatch(
++        context,
++        module,
++        function,
++        arguments,
++        out dispatch,
++        out selectedElementSourceContract,
++        null
++    );
++
++    internal ValueTask<Term> CallWithDispatch(
++        ProcessContext context,
++        string module,
++        string function,
++        Term[] arguments,
++        out ModuleCallDispatchKind dispatch,
++        out bool selectedElementSourceContract,
++        Func<ProcessContext, IDisposable>? nativeCaller
+     )
+     {
+         using var atomScope = new AtomNameScope(context.Runtime.AtomNames);
+@@ -301,6 +319,7 @@
+         bool handler = false;
+         bool nativeErrorBoundary = false;
+         bool sourceWrapperBoundary = false;
++        bool selectedNativeEntry = false;
+         bool hostErrorHandler = false;
+         OwnedBindingKind507 ownedKind507 = OwnedBindingKind507.Opaque;
+         Atom selectedHandler = context.ErrorHandler;
+@@ -346,6 +365,8 @@
+             }
+             if (!handler && body is not null)
+                 ownedKind507 = SelectedOwnedBinding507((module, function, arguments.Length), body);
++            selectedNativeEntry = nativeCaller is not null && !handler
++                && IsNativeEntry(module, function, arguments.Length);
+         }
+ 
+         if (sourceWrapperBoundary)
+@@ -370,6 +391,21 @@
+                 values
+             );
+         }
++
++        if (selectedNativeEntry)
++            return InvokeAdmittedWithNativeCallerScope(
++                context,
++                module,
++                function,
++                arguments,
++                body!,
++                image,
++                code,
++                handler,
++                hostErrorHandler,
++                ownedKind507,
++                nativeCaller!
++            );
+ 
+         return InvokeAdmittedSelection(
+             context,
+diff --git a/src/Runtime/Erlang.Runtime.Core/Modules/ModuleRegistry.NativeCallerScope.cs b/src/Runtime/Erlang.Runtime.Core/Modules/ModuleRegistry.NativeCallerScope.cs
+new file mode 100644
+--- /dev/null
++++ b/src/Runtime/Erlang.Runtime.Core/Modules/ModuleRegistry.NativeCallerScope.cs
+@@ -0,0 +1,56 @@
++namespace Erlang;
++
++public sealed partial class ModuleRegistry
++{
++    private async ValueTask<Term> InvokeAdmittedWithNativeCallerScope(
++        ProcessContext context,
++        string module,
++        string function,
++        Term[] arguments,
++        ErlangFunction selected,
++        ModuleCodeImage? image,
++        IDisposable? code,
++        bool handler,
++        bool hostErrorHandler,
++        OwnedBindingKind507 ownedKind,
++        Func<ProcessContext, IDisposable> createScope
++    )
++    {
++        IDisposable caller;
++        try
++        {
++            // No user callback runs under the registry's selection gate.
++            // Enter before tracing/admission so call/return-to sees the same PC.
++            caller = createScope(context);
++        }
++        catch
++        {
++            // The admitted invocation has not yet taken this selected lease.
++            try
++            {
++                code?.Dispose();
++            }
++            finally
++            {
++                if (code is not null)
++                    context.RestoreSourceCodeFlow(code);
++            }
++            throw;
++        }
++        using (caller)
++        {
++            return await InvokeAdmittedSelection(
++                context,
++                module,
++                function,
++                arguments,
++                selected,
++                image,
++                code,
++                handler,
++                hostErrorHandler,
++                ownedKind
++            );
++        }
++    }
++}
+diff --git a/src/Runtime/Erlang.Runtime.Core/Modules/ModuleRegistry.OwnedTerms506.cs b/src/Runtime/Erlang.Runtime.Core/Modules/ModuleRegistry.OwnedTerms506.cs
+--- a/src/Runtime/Erlang.Runtime.Core/Modules/ModuleRegistry.OwnedTerms506.cs
++++ b/src/Runtime/Erlang.Runtime.Core/Modules/ModuleRegistry.OwnedTerms506.cs
+@@ -16,26 +16,45 @@
+             false
+         );
+ 
++    internal ValueTask<Term> CallWithNativeCallerScope(
++        ProcessContext context,
++        string module,
++        string function,
++        Term[] arguments,
++        Func<ProcessContext, IDisposable>? nativeCaller
++    ) => CallOwnedBridge506(
++        context,
++        module,
++        function,
++        arguments,
++        true,
++        nativeCaller
++    );
++
+     private ValueTask<Term> CallOwnedBridge506(
+         ProcessContext context,
+         string module,
+         string function,
+         Term[] arguments,
+-        bool hostBoundary
++        bool hostBoundary,
++        Func<ProcessContext, IDisposable>? nativeCaller = null
+     ) => context.OwnedExecutionEnabled683
+         ? AwaitOwnedCall506(
+             context,
+             module,
+             function,
+             arguments,
+-            hostBoundary
++            hostBoundary,
++            nativeCaller
+         )
+         : CallWithDispatch(
+             context,
+             module,
+             function,
+             arguments,
+-            out _
++            out _,
++            out _,
++            nativeCaller
+         );
+ 
+     private async ValueTask<Term> AwaitOwnedCall506(
+@@ -43,7 +62,8 @@
+         string module,
+         string function,
+         Term[] arguments,
+-        bool hostBoundary
++        bool hostBoundary,
++        Func<ProcessContext, IDisposable>? nativeCaller = null
+     )
+     {
+         using OwnedTermInvocation506 owned = hostBoundary
+@@ -59,7 +79,9 @@
+                 module,
+                 function,
+                 selectedArguments,
+-                out _
++                out _,
++                out _,
++                nativeCaller
+             );
+ 
+             return hostBoundary ? owned.Complete(result) : owned.CompleteGuest507(result);
+diff --git a/tests/Erlang.Tests/Runtime/Modules/NativeBindingSelection/NativeBindingFrameObserver.cs b/tests/Erlang.Tests/Runtime/Modules/NativeBindingSelection/NativeBindingFrameObserver.cs
+new file mode 100644
+--- /dev/null
++++ b/tests/Erlang.Tests/Runtime/Modules/NativeBindingSelection/NativeBindingFrameObserver.cs
+@@ -0,0 +1,69 @@
++using System.Linq.Expressions;
++using System.Reflection;
++
++namespace Erlang.Tests;
++
++// Test-only observer: preserves frame values and changes no VM ownership/capability state.
++internal sealed class NativeBindingFrameObserver : IDisposable
++{
++    private readonly ProcessContext context;
++    private readonly FieldInfo field;
++    private readonly object previous;
++    internal int Swaps { get; private set; }
++    internal Exception? Failure { get; private set; }
++
++    internal NativeBindingFrameObserver(ProcessContext context)
++    {
++        this.context = context;
++        field = typeof(ProcessContext).GetField(NativeBindingSelectionNames.ExecutionFrameField, BindingFlags.Instance | BindingFlags.NonPublic)!;
++        previous = field.GetValue(context)!;
++        Type slot = previous.GetType();
++        Type args = typeof(AsyncLocalValueChangedArgs<>).MakeGenericType(slot.GenericTypeArguments[0]);
++        Type action = typeof(Action<>).MakeGenericType(args);
++        var parameter = Expression.Parameter(args);
++        var callback = Expression.Lambda(
++            action,
++            Expression.Call(
++                Expression.Constant(this),
++                typeof(NativeBindingFrameObserver).GetMethod(nameof(Changed), BindingFlags.Instance | BindingFlags.NonPublic)!,
++                Expression.Convert(parameter, typeof(object))
++            ),
++            parameter
++        ).Compile();
++        object observed = Activator.CreateInstance(slot, callback)!;
++        slot.GetProperty(NativeBindingSelectionNames.ValueProperty)!.SetValue(observed, slot.GetProperty(NativeBindingSelectionNames.ValueProperty)!.GetValue(previous));
++        field.SetValue(context, observed);
++    }
++
++    private void Changed(object change)
++    {
++        try
++        {
++            Type type = change.GetType();
++            if ((bool)type.GetProperty(NativeBindingSelectionNames.ThreadContextChanged)!.GetValue(change)! || Swaps != 0)
++                return;
++            object? frame = type.GetProperty(NativeBindingSelectionNames.CurrentValue)!.GetValue(change);
++            if (frame is null || (string?)frame.GetType().GetProperty(NativeBindingSelectionNames.FunctionProperty)!.GetValue(frame) != NativeBindingSelectionNames.Helper)
++                return;
++            Swaps++;
++            context.Runtime.Modules.DeleteModule(NativeBindingSelectionNames.Lists);
++            context.Runtime.Modules.Register(
++                NativeBindingSelectionNames.Lists,
++                NativeBindingSelectionNames.Reverse,
++                NativeBindingSelectionNames.ReverseArity,
++                (caller, _) => caller.Runtime.Modules.Call(
++                    caller,
++                    NativeBindingSelectionNames.Erlang,
++                    NativeBindingSelectionNames.Error,
++                    Term.A(NativeBindingSelectionNames.Replacement)
++                )
++            );
++        }
++        catch (Exception error)
++        {
++            Failure = error;
++        }
++    }
++
++    public void Dispose() => field.SetValue(context, previous);
++}
+diff --git a/tests/Erlang.Tests/Runtime/Modules/NativeBindingSelection/NativeBindingRaceChecks.cs b/tests/Erlang.Tests/Runtime/Modules/NativeBindingSelection/NativeBindingRaceChecks.cs
+new file mode 100644
+--- /dev/null
++++ b/tests/Erlang.Tests/Runtime/Modules/NativeBindingSelection/NativeBindingRaceChecks.cs
+@@ -0,0 +1,92 @@
++using System.Text.Json;
++
++namespace Erlang.Tests;
++
++internal static class NativeBindingRaceChecks
++{
++    internal static async Task Run(string expectation)
++    {
++        await using var runtime = new ProcessRuntime();
++        var completed = new TaskCompletionSource<object>(TaskCreationOptions.RunContinuationsAsynchronously);
++        ProcessHandle actor = runtime.Spawn(async context =>
++        {
++            try
++            {
++                if (expectation == NativeBindingSelectionNames.Control)
++                {
++                    runtime.Modules.DeleteModule(NativeBindingSelectionNames.Lists);
++                    runtime.Modules.Register(
++                        NativeBindingSelectionNames.Lists,
++                        NativeBindingSelectionNames.Reverse,
++                        NativeBindingSelectionNames.ReverseArity,
++                        (caller, _) => caller.Runtime.Modules.Call(
++                            caller,
++                            NativeBindingSelectionNames.Erlang,
++                            NativeBindingSelectionNames.Error,
++                            Term.A(NativeBindingSelectionNames.Replacement)
++                        )
++                    );
++                    Type trace = typeof(OrdsetCoreModule).Assembly.GetType(NativeBindingSelectionNames.TraceType)!;
++                    Type continuation = typeof(OrdsetCoreModule).Assembly.GetType(NativeBindingSelectionNames.ContinuationType)!;
++                    Type state = typeof(OrdsetCoreModule).Assembly.GetType(NativeBindingSelectionNames.StateType)!;
++                    try
++                    {
++                        await (ValueTask<Term>)trace.GetMethod(
++                            NativeBindingSelectionNames.ReverseMethod,
++                            System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Static
++                        )!
++                            .Invoke(
++                                null,
++                                [context, new Cons(Term.I(1), Term.A(NativeBindingSelectionNames.Tail)), Term.List(Term.I(2), Term.I(1)),
++                                Array.CreateInstance(continuation, 0), Enum.Parse(state, NativeBindingSelectionNames.ReverseState), NativeBindingSelectionNames.HelperLine]
++                            )!;
++                    }
++                    catch (ErlangException failure)
++                    {
++                        bool contains = Cons.Items(failure.StackTraceTerm).OfType<TupleTerm>()
++                            .Any(frame => frame.Items.Count >= 2 && frame.Items[1].Equals(Term.A(NativeBindingSelectionNames.Helper)));
++                        if (!failure.Reason.Equals(Term.A(NativeBindingSelectionNames.Replacement)) || contains)
++                            throw new InvalidDataException(NativeBindingSelectionNames.Failure + failure.StackTraceTerm);
++                        completed.TrySetResult(new { Expectation = expectation, Reason = failure.Reason.ToString(), NativeOnlyHelperPresent = contains, Stack = failure.StackTraceTerm.ToString() });
++                    }
++
++                    return Nil.Value;
++                }
++                using var observer = new NativeBindingFrameObserver(context);
++                Term inner = new Cons(Term.I(2), new Cons(Term.I(1), Term.A(NativeBindingSelectionNames.Tail)));
++                Term outer = new Cons(inner, new Cons(Term.List(Term.I(1)), Term.A(NativeBindingSelectionNames.Tail)));
++                try
++                {
++                    await runtime.Modules.Call(
++                        context,
++                        NativeBindingSelectionNames.Ordsets,
++                        NativeBindingSelectionNames.Union,
++                        outer
++                    );
++                    throw new InvalidDataException(NativeBindingSelectionNames.Failure);
++                }
++                catch (ErlangException error)
++                {
++                    if (observer.Failure is not null)
++                        throw observer.Failure;
++                    bool expected = error.Reason.Equals(Term.A(expectation == NativeBindingSelectionNames.Before ? NativeBindingSelectionNames.Replacement : NativeBindingSelectionNames.BadArgument));
++                    bool helper = Cons.Items(error.StackTraceTerm).OfType<TupleTerm>()
++                        .Any(frame => frame.Items.Count >= 2 && frame.Items[0].Equals(Term.A(NativeBindingSelectionNames.Lists))
++                            && frame.Items[1].Equals(Term.A(NativeBindingSelectionNames.Helper)));
++                    if (observer.Swaps != 1 || !expected || !helper)
++                        throw new InvalidDataException(NativeBindingSelectionNames.Failure + error.Reason + error.StackTraceTerm);
++                    completed.TrySetResult(new { Expectation = expectation, observer.Swaps, Reason = error.Reason.ToString(), NativeOnlyHelperPresent = helper, Stack = error.StackTraceTerm.ToString() });
++                }
++            }
++            catch (Exception error)
++            {
++                completed.TrySetException(error);
++            }
++
++            return Nil.Value;
++        });
++        object result = await completed.Task.WaitAsync(NativeBindingSelectionNames.Deadline);
++        await actor.Completion.WaitAsync(NativeBindingSelectionNames.Deadline);
++        Console.WriteLine(JsonSerializer.Serialize(result));
++    }
++}
+diff --git a/tests/Erlang.Tests/Runtime/Modules/NativeBindingSelection/NativeBindingScopeCases.cs b/tests/Erlang.Tests/Runtime/Modules/NativeBindingSelection/NativeBindingScopeCases.cs
+new file mode 100644
+--- /dev/null
++++ b/tests/Erlang.Tests/Runtime/Modules/NativeBindingSelection/NativeBindingScopeCases.cs
+@@ -0,0 +1,118 @@
++using System.Reflection;
++
++namespace Erlang.Tests;
++
++internal static class NativeBindingScopeCases
++{
++    internal static async Task<IEnumerable<object>> Run()
++    {
++        var rows = new List<object>();
++        await using var runtime = new ProcessRuntime();
++        MethodInfo method = typeof(ModuleRegistry).GetMethod(NativeBindingSelectionNames.NativeCall, BindingFlags.Instance | BindingFlags.NonPublic)!;
++        var completed = new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);
++        ProcessHandle actor = runtime.Spawn(async context =>
++        {
++            try
++            {
++                async ValueTask<Term> Call(
++                    string module,
++                    string function,
++                    Term[] arguments,
++                    NativeBindingScopeProbe probe
++                )
++                    => await (ValueTask<Term>)method.Invoke(runtime.Modules,
++                        [context, module, function, arguments, new Func<ProcessContext, IDisposable>(_ => probe.Enter())])!;
++                var success = new NativeBindingScopeProbe();
++                Term reversed = await Call(
++                    NativeBindingSelectionNames.Lists,
++                    NativeBindingSelectionNames.Reverse,
++                    [Term.List(Term.I(1), Term.I(2)), Nil.Value],
++                    success
++                );
++                if (!reversed.Equals(Term.List(Term.I(2), Term.I(1))) || success.Entered != 1 || success.Disposed != 1)
++                    throw new InvalidDataException(NativeBindingSelectionNames.Failure);
++                rows.Add(new { Case = "success", success.Entered, success.Disposed });
++                var throwing = new NativeBindingScopeProbe();
++                bool caught = false;
++                try
++                {
++                    await Call(
++                        NativeBindingSelectionNames.Erlang,
++                        NativeBindingSelectionNames.Throw,
++                        [Term.A(NativeBindingSelectionNames.ThrowReason)],
++                        throwing
++                    );
++                }
++                catch (ErlangException error) when (error.ExceptionClass == NativeBindingSelectionNames.Throw && error.Reason.Equals(Term.A(NativeBindingSelectionNames.ThrowReason)))
++                {
++                    caught = true;
++                }
++                if (!caught || throwing.Entered != 1 || throwing.Disposed != 1)
++                    throw new InvalidDataException(NativeBindingSelectionNames.Failure);
++                rows.Add(new { Case = NativeBindingSelectionNames.Throw, throwing.Entered, throwing.Disposed });
++                var yielding = new NativeBindingScopeProbe();
++                Term yielded = await Call(
++                    NativeBindingSelectionNames.Erlang,
++                    NativeBindingSelectionNames.Yield,
++                    [],
++                    yielding
++                );
++                if (!yielded.Equals(Term.A(NativeBindingSelectionNames.True)) || yielding.Entered != 1 || yielding.Disposed != 1)
++                    throw new InvalidDataException(NativeBindingSelectionNames.Failure);
++                rows.Add(new { Case = NativeBindingSelectionNames.Yield, yielding.Entered, yielding.Disposed });
++                var transfer = new NativeBindingScopeProbe();
++                bool transferred = false;
++                try
++                {
++                    await Call(
++                        NativeBindingSelectionNames.Erlang,
++                        ProcessHibernateNames.Function,
++                        [Term.A(NativeBindingSelectionNames.ResumeModule), Term.A(NativeBindingSelectionNames.ResumeFunction), Term.List(Term.I(7))],
++                        transfer
++                    );
++                }
++                catch (ProcessHibernateTransfer control)
++                {
++                    transferred = control.Module == NativeBindingSelectionNames.ResumeModule && control.Function == NativeBindingSelectionNames.ResumeFunction
++                        && control.Arguments.Count == 1 && control.Arguments[0].Equals(Term.I(7));
++                }
++                if (!transferred || transfer.Entered != 1 || transfer.Disposed != 1)
++                    throw new InvalidDataException(NativeBindingSelectionNames.Failure);
++                rows.Add(new { Case = "hibernate-control-transfer", transfer.Entered, transfer.Disposed });
++                var failedFactory = new NativeBindingScopeProbe();
++                bool factoryFailed = false;
++                int factoryCalls = 0;
++                try
++                {
++                    await (ValueTask<Term>)method.Invoke(
++                        runtime.Modules,
++                        [context, NativeBindingSelectionNames.Lists, NativeBindingSelectionNames.Reverse, new Term[] { Nil.Value, Nil.Value },
++                            new Func<ProcessContext, IDisposable>(_ =>
++                            {
++                                factoryCalls++;
++                                throw new OperationCanceledException(NativeBindingSelectionNames.FactoryCancellation);
++                            })]
++                    )!;
++                }
++                catch (OperationCanceledException)
++                {
++                    factoryFailed = true;
++                }
++                if (!factoryFailed || factoryCalls != 1 || failedFactory.Entered != 0 || failedFactory.Disposed != 0)
++                    throw new InvalidDataException(NativeBindingSelectionNames.Failure);
++                rows.Add(new { Case = "factory-cancel", failedFactory.Entered, failedFactory.Disposed });
++                completed.TrySetResult();
++            }
++            catch (Exception error)
++            {
++                completed.TrySetException(error);
++            }
++
++            return Nil.Value;
++        });
++        await completed.Task.WaitAsync(NativeBindingSelectionNames.Deadline);
++        await actor.Completion.WaitAsync(NativeBindingSelectionNames.Deadline);
++
++        return rows;
++    }
++}
+diff --git a/tests/Erlang.Tests/Runtime/Modules/NativeBindingSelection/NativeBindingScopeProbe.cs b/tests/Erlang.Tests/Runtime/Modules/NativeBindingSelection/NativeBindingScopeProbe.cs
+new file mode 100644
+--- /dev/null
++++ b/tests/Erlang.Tests/Runtime/Modules/NativeBindingSelection/NativeBindingScopeProbe.cs
+@@ -0,0 +1,16 @@
++namespace Erlang.Tests;
++
++internal sealed class NativeBindingScopeProbe : IDisposable
++{
++    internal int Entered { get; private set; }
++    internal int Disposed { get; private set; }
++
++    internal IDisposable Enter()
++    {
++        Entered++;
++
++        return this;
++    }
++
++    public void Dispose() => Disposed++;
++}
+diff --git a/tests/Erlang.Tests/Runtime/Modules/NativeBindingSelection/NativeBindingSelectionChecks.cs b/tests/Erlang.Tests/Runtime/Modules/NativeBindingSelection/NativeBindingSelectionChecks.cs
+new file mode 100644
+--- /dev/null
++++ b/tests/Erlang.Tests/Runtime/Modules/NativeBindingSelection/NativeBindingSelectionChecks.cs
+@@ -0,0 +1,89 @@
++using System.Reflection;
++using System.Security.Cryptography;
++using System.Text.Json;
++
++namespace Erlang.Tests;
++
++internal static class NativeBindingSelectionChecks
++{
++    internal static async Task Run()
++    {
++        var reports = new List<object>();
++        foreach (bool original in new[] { false, true })
++        {
++            using Stream resource = typeof(NativeBindingSelectionChecks).Assembly.GetManifestResourceStream(NativeBindingSelectionNames.Resource)!;
++            using var bytes = new MemoryStream();
++            resource.CopyTo(bytes);
++            if (Convert.ToHexString(SHA256.HashData(bytes.ToArray())) != NativeBindingSelectionNames.OriginalImageSha256)
++                throw new InvalidDataException(NativeBindingSelectionNames.Failure);
++            await using ProcessRuntime runtime = await ProcessRuntime.CreateAsync(new RuntimeLibrarySelection([
++                original ? RuntimeModuleSelection.Beam(NativeBindingSelectionNames.Lists, bytes.ToArray())
++                    : RuntimeModuleSelection.Managed(NativeBindingSelectionNames.Lists)
++            ]));
++            if (runtime.LibrarySelection.Modules.Single(module => module.Module == NativeBindingSelectionNames.Lists).Backend
++                != (original ? RuntimeModuleBackend.Beam : RuntimeModuleBackend.Managed)
++                || original && runtime.Modules.SourceOwner(NativeBindingSelectionNames.Lists, NativeBindingSelectionNames.Reverse,
++                    NativeBindingSelectionNames.ReverseArity) is not PreparedBeamImage)
++                throw new InvalidDataException(NativeBindingSelectionNames.Failure);
++            MethodInfo call = typeof(ModuleRegistry).GetMethod(NativeBindingSelectionNames.NativeCall, BindingFlags.Instance | BindingFlags.NonPublic)!;
++            var completed = new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);
++            ProcessHandle actor = runtime.Spawn(async context =>
++            {
++                try
++                {
++                    var probe = new NativeBindingScopeProbe();
++                    Func<ProcessContext, IDisposable> selected = _ =>
++                    {
++                        runtime.Modules.DeleteModule(NativeBindingSelectionNames.Lists);
++                        runtime.Modules.Register(
++                            NativeBindingSelectionNames.Lists,
++                            NativeBindingSelectionNames.Reverse,
++                            NativeBindingSelectionNames.ReverseArity,
++                            (_, _) => ValueTask.FromResult<Term>(Term.A(NativeBindingSelectionNames.Replacement))
++                        );
++
++                        return probe.Enter();
++                    };
++                    bool nativeFailed = false;
++                    try
++                    {
++                        await (ValueTask<Term>)call.Invoke(
++                            runtime.Modules,
++                            [context, NativeBindingSelectionNames.Lists, NativeBindingSelectionNames.Reverse, new Term[] { Term.A(NativeBindingSelectionNames.InvalidList), Nil.Value }, selected]
++                        )!;
++                    }
++                    catch (ErlangException failure) when (failure.Reason.Equals(Term.A(NativeBindingSelectionNames.BadArgument)))
++                    {
++                        nativeFailed = true;
++                    }
++                    Term replacement = await (ValueTask<Term>)call.Invoke(
++                        runtime.Modules,
++                        [context, NativeBindingSelectionNames.Lists, NativeBindingSelectionNames.Reverse, new Term[] { Term.A(NativeBindingSelectionNames.InvalidList), Nil.Value }, selected]
++                    )!;
++                    if (!nativeFailed || !replacement.Equals(Term.A(NativeBindingSelectionNames.Replacement)) || probe.Entered != 1 || probe.Disposed != 1)
++                        throw new InvalidDataException(NativeBindingSelectionNames.Failure);
++                    reports.Add(new { Original = original, NativeBodySnapshotRetained = nativeFailed, probe.Entered, probe.Disposed, ReplacementDoesNotEnterScope = true });
++                    completed.TrySetResult();
++                }
++                catch (Exception error)
++                {
++                    completed.TrySetException(error);
++                }
++
++                return Nil.Value;
++            });
++            await completed.Task.WaitAsync(NativeBindingSelectionNames.Deadline);
++            await actor.Completion.WaitAsync(NativeBindingSelectionNames.Deadline);
++        }
++        reports.AddRange(await NativeBindingScopeCases.Run());
++        Directory.CreateDirectory(Path.GetDirectoryName(NativeBindingSelectionNames.Output)!);
++        await File.WriteAllTextAsync(NativeBindingSelectionNames.Output, JsonSerializer.Serialize(reports, new JsonSerializerOptions { WriteIndented = true }));
++        Console.WriteLine(JsonSerializer.Serialize(reports));
++    }
++
++    internal static async Task Race()
++    {
++        await NativeBindingRaceChecks.Run(NativeBindingSelectionNames.Control);
++        await NativeBindingRaceChecks.Run(NativeBindingSelectionNames.After);
++    }
++}
+diff --git a/tests/Erlang.Tests/Runtime/Modules/NativeBindingSelection/NativeBindingSelectionNames.cs b/tests/Erlang.Tests/Runtime/Modules/NativeBindingSelection/NativeBindingSelectionNames.cs
+new file mode 100644
+--- /dev/null
++++ b/tests/Erlang.Tests/Runtime/Modules/NativeBindingSelection/NativeBindingSelectionNames.cs
+@@ -0,0 +1,46 @@
++namespace Erlang.Tests;
++
++internal static class NativeBindingSelectionNames
++{
++    internal const string Lists = "lists";
++    internal const string Reverse = "reverse";
++    internal const string NativeCall = "CallWithNativeCallerScope";
++    internal const string BadArgument = "badarg";
++    internal const string InvalidList = "invalid_native_reverse_list";
++    internal const string Replacement = "replacement_reverse";
++    internal const string Resource = "Erlang.Tests.BeamOrdsets381.lists.beam";
++    internal const string Failure = "Atomic native selection contract differs";
++    internal const string Output = "artifacts/native-binding-selection/results.json";
++    internal const string Test = "runtime/lists/native-binding/atomic-selected-caller-scope";
++    internal const string RaceTest = "runtime/lists/native-binding/replacement-after-native-marker";
++    internal const string Before = "before";
++    internal const string After = "after";
++    internal const string Control = "control";
++    internal const string Erlang = "erlang";
++    internal const string Error = "error";
++    internal const string Throw = "throw";
++    internal const string Yield = "yield";
++    internal const string True = "true";
++    internal const string Tail = "tail";
++    internal const string Union = "union";
++    internal const string Ordsets = "ordsets";
++    internal const string ResumeModule = "audit_resume";
++    internal const string ResumeFunction = "run";
++    internal const string ThrowReason = "scope_throw";
++    internal const string FactoryCancellation = "scope_factory_cancel";
++    internal const string ExecutionFrameField = "executionFrame";
++    internal const string ThreadContextChanged = "ThreadContextChanged";
++    internal const string CurrentValue = "CurrentValue";
++    internal const string ValueProperty = "Value";
++    internal const string FunctionProperty = "Function";
++    internal const string Helper = "umerge2_2";
++    internal const string TraceType = "Erlang.ListUniqueMergeTrace";
++    internal const string ContinuationType = "Erlang.ListUniqueMergeContinuation";
++    internal const string StateType = "Erlang.ListUniqueMergeState";
++    internal const string ReverseMethod = "Reverse";
++    internal const string ReverseState = "Umerge2_24";
++    internal const int HelperLine = 3471;
++    internal static readonly TimeSpan Deadline = TimeSpan.FromSeconds(30);
++    internal const string OriginalImageSha256 = "8941092DC34F0470CD404979E1890DF514D83F2EEB3B0AA8A276553E76471262";
++    internal const int ReverseArity = 2;
++}

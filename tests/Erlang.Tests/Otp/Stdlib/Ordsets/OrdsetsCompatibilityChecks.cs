@@ -5,7 +5,7 @@ namespace Erlang.Tests;
 
 internal static class OrdsetsCompatibilityChecks
 {
-    internal static async Task Run(bool original)
+    internal static async Task Run(bool original, int part)
     {
         RuntimeModuleSelection selection = original
             ? RuntimeModuleSelection.Beam(
@@ -69,11 +69,12 @@ internal static class OrdsetsCompatibilityChecks
             throw new InvalidDataException(OrdsetsCompatibilityNames.Failure);
         // Inputs come from the admitted original observer's cases/0. Its run/0 and run/1
         // are independently required to produce the same whole deterministic ETF.
+        ValidatePartition();
         var decoding = new EtfDecodeOptions
         {
             ExternalFunctionFactory = (identity, safe) => runtime.Functions.External(runtime, identity, safe)
         };
-        Term[] inputs = Cons.Items(ExternalTermFormat.DecodeOne(Read(OrdsetsCompatibilityNames.Inputs), decoding).Term).ToArray();
+        Term[] inputs = Cons.Items(ExternalTermFormat.DecodeOne(Read(OrdsetsCompatibilityNames.Part(OrdsetsCompatibilityNames.Inputs, part)), decoding).Term).ToArray();
         var completed = new TaskCompletionSource<byte[]>(TaskCreationOptions.RunContinuationsAsynchronously);
         ProcessHandle actor = runtime.Spawn(async context =>
         {
@@ -138,16 +139,16 @@ internal static class OrdsetsCompatibilityChecks
         byte[] encoded = await completed.Task;
         await actor.Completion.WaitAsync(OrdsetsCompatibilityNames.Deadline);
         Term actual = ExternalTermFormat.DecodeOne(encoded, decoding).Term;
-        byte[] expected = Read(OrdsetsCompatibilityNames.Golden);
+        byte[] expected = Read(OrdsetsCompatibilityNames.Part(OrdsetsCompatibilityNames.Golden, part));
         var coverage = Cons.Items(actual).Cast<TupleTerm>()
             .GroupBy(row => (((Atom)row.Items[0]).Name, Cons.Items(row.Items[1]).Count()))
             .ToDictionary(group => group.Key, group => group.Count());
         var exports = runtime.Modules.Exports.Where(export => export.Module == OrdsetsCompatibilityNames.Module
             && export.Function != OrdsetsCompatibilityNames.ModuleInfo)
             .Select(export => (export.Function, export.Arity)).ToHashSet();
-        if (!exports.SetEquals(coverage.Keys))
+        if (!coverage.Keys.All(exports.Contains))
             throw new InvalidDataException(OrdsetsCompatibilityNames.Failure);
-        if (Cons.Items(actual).Count() != OrdsetsCompatibilityNames.ObservationCount
+        if (Cons.Items(actual).Count() != Math.Min(OrdsetsCompatibilityNames.PartSize, OrdsetsCompatibilityNames.ObservationCount - part * OrdsetsCompatibilityNames.PartSize)
             || !encoded.AsSpan().SequenceEqual(expected))
         {
             Directory.CreateDirectory(OrdsetsCompatibilityNames.FailureDirectory);
@@ -167,14 +168,17 @@ internal static class OrdsetsCompatibilityChecks
         }
         Directory.CreateDirectory(OrdsetsCompatibilityNames.ReceiptDirectory);
         await File.WriteAllTextAsync(
-            Path.Combine(OrdsetsCompatibilityNames.ReceiptDirectory, selected.Backend + ".json"),
+            Path.Combine(OrdsetsCompatibilityNames.ReceiptDirectory, selected.Backend + "." + part + ".json"),
             JsonSerializer.Serialize(
                 new
                 {
                     Backend = selected.Backend.ToString(),
+                    Part = part,
+                    WholeCorpusObservations = OrdsetsCompatibilityNames.ObservationCount,
                     selected.InputSha256,
                     selected.ManagedAssemblies,
                     CorpusSha256 = Convert.ToHexString(SHA256.HashData(encoded)),
+                    WholeCorpusSha256 = Convert.ToHexString(SHA256.HashData(Read(OrdsetsCompatibilityNames.Golden))),
                     Observations = coverage.Values.Sum(),
                     ApiCount = coverage.Count,
                     Coverage = coverage.OrderBy(pair => pair.Key.Name, StringComparer.Ordinal)
@@ -184,6 +188,19 @@ internal static class OrdsetsCompatibilityChecks
                 new JsonSerializerOptions { WriteIndented = true }
             )
         );
+    }
+
+    private static void ValidatePartition()
+    {
+        byte[][] inputs = Enumerable.Range(0, OrdsetsCompatibilityNames.PartCount)
+            .Select(index => Read(OrdsetsCompatibilityNames.Part(OrdsetsCompatibilityNames.Inputs, index))).ToArray();
+        byte[][] golden = Enumerable.Range(0, OrdsetsCompatibilityNames.PartCount)
+            .Select(index => Read(OrdsetsCompatibilityNames.Part(OrdsetsCompatibilityNames.Golden, index))).ToArray();
+        if (!OrdsetsEncodedCorpus.Combine(inputs.Reverse().ToArray(), OrdsetsCompatibilityNames.ObservationCount)
+                .AsSpan().SequenceEqual(Read(OrdsetsCompatibilityNames.Inputs))
+            || !OrdsetsEncodedCorpus.Combine(golden, OrdsetsCompatibilityNames.ObservationCount)
+                .AsSpan().SequenceEqual(Read(OrdsetsCompatibilityNames.Golden)))
+            throw new InvalidDataException(OrdsetsCompatibilityNames.Failure);
     }
 
     private static byte[] Read(string name)

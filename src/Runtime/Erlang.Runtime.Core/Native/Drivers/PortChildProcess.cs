@@ -12,10 +12,10 @@ internal abstract class PortChildProcess : IDisposable
 
     public abstract void Dispose();
 
-    public static PortChildProcess Start(PortOpenOptions options)
+    public static PortChildProcess Start(PortOpenOptions options, LinuxDescriptorPollService? descriptorPolling)
     {
         if (options.IsDescriptor)
-            return DescriptorPortResource.Open(options);
+            return DescriptorPortResource.Open(options, descriptorPolling);
         if (!options.NativeRequired)
             return ManagedPortChildProcess.StartManaged(options);
         if (OperatingSystem.IsWindows())

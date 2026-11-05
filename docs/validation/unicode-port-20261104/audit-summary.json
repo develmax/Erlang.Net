@@ -1,0 +1,164 @@
+{
+  "Baseline": "OTP-29.1.1",
+  "Commit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "Exports": 22,
+  "Implementation": "Complete exported module surface; original Erlang preserved; explicit selection",
+  "CompatibilityStatus": "Partially compatible; finite scoped evidence, universal resource/platform equivalence not certified",
+  "PrimaryObservationsPerBackend": 66458,
+  "PermanentSubsetPerBackend": 490,
+  "BackingProbesPerBackend": 29,
+  "Reports": [
+    {
+      "Backend": "Managed",
+      "Corpus": "contracts.etf",
+      "Cases": 490,
+      "Values": 329,
+      "Exceptions": 161,
+      "Report": "Managed-contracts.etf-report.json",
+      "ReportSha256": "A3981F894A2972A410A25C6D48AF874FA8E3C35043611B1DEE669BEBE048A4B0"
+    },
+    {
+      "Backend": "Managed",
+      "Corpus": "extra.etf",
+      "Cases": 408,
+      "Values": 400,
+      "Exceptions": 8,
+      "Report": "Managed-extra.etf-report.json",
+      "ReportSha256": "ED9E33BC075DDEE722724CD6C576D1DC9D17A4149BEFA630AB4935FA1C7F6AA1"
+    },
+    {
+      "Backend": "Managed",
+      "Corpus": "upstream-suite-original.etf",
+      "Cases": 711,
+      "Values": 252,
+      "Exceptions": 459,
+      "Report": "Managed-upstream-suite-original.etf-report.json",
+      "ReportSha256": "D8A932726D502951CA4DCF814A39D28646B27188EECFB3C99A4780482B1C47E5"
+    },
+    {
+      "Backend": "Managed",
+      "Corpus": "original.etf",
+      "Cases": 65339,
+      "Values": 52533,
+      "Exceptions": 12806,
+      "Report": "Managed-report.json",
+      "ReportSha256": "40093542DD2A4E0F07AC4233B3329F02C50575C99B0C1539851E55C48EBB8322"
+    },
+    {
+      "Backend": "Beam",
+      "Corpus": "contracts.etf",
+      "Cases": 490,
+      "Values": 329,
+      "Exceptions": 161,
+      "Report": "Beam-contracts.etf-report.json",
+      "ReportSha256": "E81F695477DB57C0CA59AD231705B69FBD0DA7612AE33722910A43A7B5D4C6AC"
+    },
+    {
+      "Backend": "Beam",
+      "Corpus": "extra.etf",
+      "Cases": 408,
+      "Values": 400,
+      "Exceptions": 8,
+      "Report": "Beam-extra.etf-report.json",
+      "ReportSha256": "F26D80AD759B631135ACA1213DCA7388E09F3FAEAF33DF800596A602676E6819"
+    },
+    {
+      "Backend": "Beam",
+      "Corpus": "upstream-suite-original.etf",
+      "Cases": 711,
+      "Values": 252,
+      "Exceptions": 459,
+      "Report": "Beam-upstream-suite-original.etf-report.json",
+      "ReportSha256": "BFDD6E1EE145810A5F5868B5DC9B3E508150D74D4DFC834FAC954A05F2753AD1"
+    },
+    {
+      "Backend": "Beam",
+      "Corpus": "original-part-1.etf",
+      "Cases": 16335,
+      "Values": 14032,
+      "Exceptions": 2303,
+      "Report": "Beam-original-part-1.etf-report.json",
+      "ReportSha256": "ACE54DD7AF86B09782E718A812DB9D57928598109BFB9A3F1F8F8F1F88269E53"
+    },
+    {
+      "Backend": "Beam",
+      "Corpus": "original-part-2.etf",
+      "Cases": 16335,
+      "Values": 15078,
+      "Exceptions": 1257,
+      "Report": "Beam-original-part-2.etf-report.json",
+      "ReportSha256": "0CE2FBDAB8A73B953BE2D269DA10EA2B739A15C50CEA93A31F12B637D221AAA4"
+    },
+    {
+      "Backend": "Beam",
+      "Corpus": "original-part-3.etf",
+      "Cases": 16335,
+      "Values": 12118,
+      "Exceptions": 4217,
+      "Report": "Beam-original-part-3.etf-report.json",
+      "ReportSha256": "AF72D7848304F208A20908483F702056641A41FF77DCFE4483AC7B8BA01CCA13"
+    },
+    {
+      "Backend": "Beam",
+      "Corpus": "original-part-4.etf",
+      "Cases": 16334,
+      "Values": 11305,
+      "Exceptions": 5029,
+      "Report": "Beam-original-part-4.etf-report.json",
+      "ReportSha256": "6700E1A6152B77BE5A553EFF25E359BBAF11E011DFC7E05A8EB9DD464D100714"
+    }
+  ],
+  "FocusedRegression": [
+    {
+      "Report": "unicode-linked-tests-initial.json",
+      "Cases": 3,
+      "Sha256": "2A337341827D83ECDCF03F206F12635613568773169A370BD10444D1A689AC67"
+    },
+    {
+      "Report": "unicode-shared-runtime-tests.json",
+      "Cases": 8,
+      "Sha256": "BE0F9BD9BDB95059E4A4AE6B7ADF71452BCB63F8862ED6E793A7583164688293"
+    },
+    {
+      "Report": "unicode-string-boundary-tests.json",
+      "Cases": 8,
+      "Sha256": "D6BA0AA1257FA8A0329900FAA409CBC8509460C005D268B468B71FDF5AEF0771"
+    }
+  ],
+  "FocusedRegressionGroups": 19,
+  "ManagedAssemblySha256": "DE93C47A4D6B261E9A4ACF2497FAC973535DB13C3E78961AAD72C6777C1A456B",
+  "RuntimeAssemblySha256": "19879D7019FCCEE7C4DF8AEFE23FCBA3E2013F1B2726E1304300B96D5D6E1EAB",
+  "ExactPartitionReconstruction": true,
+  "Examples": [
+    {
+      "Backend": "Managed",
+      "InputSha256": null,
+      "ManagedAssemblies": [
+        {
+          "AssemblyName": "Erlang.Otp.Stdlib, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
+          "ModuleVersionId": "bb1ad463-70ae-4221-a0b7-10a115ddd522"
+        },
+        {
+          "AssemblyName": "Erlang.Runtime, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
+          "ModuleVersionId": "ec217a2b-3315-4c32-8267-b1d4ae86c539"
+        }
+      ],
+      "Result": "{<<31,4,64,4,56,4,50,4,53,4,66,4,32,0,61,216,75,220>>,[197]}"
+    },
+    {
+      "Backend": "Beam",
+      "InputSha256": "2495812294976A34AE904E7709B75348F3DDDF3B950413199867A78E093A4379",
+      "ManagedAssemblies": [
+        {
+          "AssemblyName": "Erlang.Runtime, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
+          "ModuleVersionId": "ec217a2b-3315-4c32-8267-b1d4ae86c539"
+        }
+      ],
+      "Result": "{<<31,4,64,4,56,4,50,4,53,4,66,4,32,0,61,216,75,220>>,[197]}"
+    }
+  ],
+  "FullRegressionRun": false,
+  "ReadinessRegenerated": false,
+  "Reason": "User requested only connected focused checks; partial reports cannot refresh whole-project readiness",
+  "Publication": "No scoped commit/push/CI; pre-existing unrelated dirty work remains preserved"
+}

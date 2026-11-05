@@ -1,0 +1,66 @@
+name: NIF other BSD native preflight
+on:
+  push:
+    branches: ['ci/nif-bsd-*']
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  openbsd-native-only:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+          sparse-checkout: |
+            tools/Native/Erlang.NifNativeBackend
+            tools/Native/Erlang.NifPlatformValidation
+      - name: Compile and execute C ABI preflight (no managed-runtime claim)
+        uses: vmactions/openbsd-vm@f1ca8bc8ecc5b6ef7218e5b914836e067e1546d3
+        with:
+          release: '7.8'
+          arch: amd64
+          sync: rsync
+          usesh: true
+          prepare: pkg_add -I git gmake
+          run: sh tools/Native/Erlang.NifPlatformValidation/run-bsd-native-ci.sh
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: nif-openbsd-native-only
+          path: |
+            artifacts/nif-bsd-native/*.json
+            artifacts/nif-bsd-native/*.txt
+            artifacts/nif-bsd-native/headers
+            artifacts/nif-bsd-native/Erlang.NifBridge.so
+            artifacts/nif-bsd-native/smoke
+  netbsd-native-only:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+          sparse-checkout: |
+            tools/Native/Erlang.NifNativeBackend
+            tools/Native/Erlang.NifPlatformValidation
+      - name: Compile and execute C ABI preflight (no managed-runtime claim)
+        uses: vmactions/netbsd-vm@5957cf330aef2e6ddc63c604364c99ce2e02b91d
+        with:
+          release: '10.1'
+          arch: amd64
+          sync: rsync
+          usesh: true
+          prepare: /usr/sbin/pkg_add -u git-base gmake perl
+          run: sh tools/Native/Erlang.NifPlatformValidation/run-bsd-native-ci.sh
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: nif-netbsd-native-only
+          path: |
+            artifacts/nif-bsd-native/*.json
+            artifacts/nif-bsd-native/*.txt
+            artifacts/nif-bsd-native/headers
+            artifacts/nif-bsd-native/Erlang.NifBridge.so
+            artifacts/nif-bsd-native/smoke

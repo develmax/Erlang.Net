@@ -14,6 +14,7 @@ internal sealed partial class RuntimeDdllParent422
         if (!ChildPortAllowed455(creator.Driver)) return null;
         var row = identities[creator.Driver];
         if (!row.Ports.Contains(creator.Port)) throw new InvalidDataException(DriverParentWireNames422.Invalid);
+        row.ClosedPorts1311.EnsureCapacity(checked(row.Ports.Count + 1));
         if (!row.Ports.Add(child)) throw new InvalidDataException(DriverParentWireNames422.Invalid);
 
         return row;

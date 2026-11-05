@@ -48,13 +48,13 @@ internal sealed partial class RuntimeDdllParent422
                         row.ReloadPath = null;
                     }
                     bool force = options.KillPorts || row.KillPorts;
-                    row.State = force && row.Ports.Count != 0 ? DdllParentStateKind422.ForceUnloading : DdllParentStateKind422.Unloading;
+                    row.State = force && row.ActivePortCount1311 != 0 ? DdllParentStateKind422.ForceUnloading : DdllParentStateKind422.Unloading;
                     result = Ok(
                         DdllParentAtoms422.PendingDriver,
                         options.Monitor == ErlDriverWait420.None
                         ? null : AddMonitor(row, context.Self, DdllParentReferenceKind422.AwaitingUnload)
                     );
-                    if (force && row.Ports.Count != 0) kill = row;
+                    if (force && row.ActivePortCount1311 != 0) kill = row;
                     QueueRetirement(row);
                 }
             }
@@ -98,8 +98,8 @@ internal sealed partial class RuntimeDdllParent422
                                 Term.A(DdllParentAtoms422.LoadCancelled)
                             );
                         row.ReloadPath = null;
-                        row.State = row.KillPorts && row.Ports.Count != 0 ? DdllParentStateKind422.ForceUnloading : DdllParentStateKind422.Unloading;
-                        if (row.KillPorts && row.Ports.Count != 0) killed.Add(row);
+                        row.State = row.KillPorts && row.ActivePortCount1311 != 0 ? DdllParentStateKind422.ForceUnloading : DdllParentStateKind422.Unloading;
+                        if (row.KillPorts && row.ActivePortCount1311 != 0) killed.Add(row);
                         QueueRetirement(row);
                     }
                 }
@@ -125,13 +125,14 @@ internal sealed partial class RuntimeDdllParent422
         }
     }
 
-    // Called only after final child PortStopped admission, not logical failure.
+    // Only final child PortStopped admission releases physical driver custody.
     internal void PortStopped(ulong driver, ulong port)
     {
         lock (gate)
         {
             if (!identities.TryGetValue(driver, out var row) || !row.Ports.Remove(port))
                 throw new InvalidDataException(DriverParentWireNames422.Invalid);
+            row.ClosedPorts1311.Remove(port);
             QueueRetirement(row);
         }
     }
@@ -145,6 +146,7 @@ internal sealed partial class RuntimeDdllParent422
         var row = Find(name) ?? throw new ErlangException(ErlangErrorReasons.BadArgument);
         if (row.State is DdllParentStateKind422.ForceUnloading or DdllParentStateKind422.ForceReloading)
             throw new ErlangException(ErlangErrorReasons.BadArgument);
+        row.ClosedPorts1311.EnsureCapacity(checked(row.Ports.Count + 1));
         if (!row.Ports.Add(port)) throw new InvalidDataException(DriverParentWireNames422.Invalid);
 
         return row;

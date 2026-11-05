@@ -75,7 +75,9 @@ internal static class BeamBinaryInstructionValidation
                 Unsigned(operands[4]);
                 Unsigned(operands[5]);
                 Require(operands[4].Value > 0 && operands[4].Value <= BeamBinaryNames.MaximumUnit
-                    && (operands[5].Value == 0 || operands[5].Value == BeamFloatStringNames.LittleFlag || operands[5].Value == BeamFloatStringNames.NativeFlag));
+                    && (operands[5].Value & ~(long)(BeamBinaryFlagNames.LittleBit | BeamBinaryFlagNames.NativeBit | BeamBinaryFlagNames.SignedBit)) == 0
+                    && (operands[5].Value & (BeamBinaryFlagNames.LittleBit | BeamBinaryFlagNames.NativeBit))
+                        != (BeamBinaryFlagNames.LittleBit | BeamBinaryFlagNames.NativeBit));
                 Register(operands[6]);
                 break;
             case BeamFloatStringNames.MatchString:

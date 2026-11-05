@@ -1,0 +1,221 @@
+diff --git a/.github/recipes/async0386/prepare-package.ps1 b/.github/recipes/async0386/prepare-package.ps1
+new file mode 100644
+index 000000000..373066e95
+--- /dev/null
++++ b/.github/recipes/async0386/prepare-package.ps1
+@@ -0,0 +1,50 @@
++param(
++    [string]$Admission = 'artifacts/library376-official-compiler/official-admission.json',
++    [string]$Output = 'artifacts/library485/catalog',
++    [string]$Python = 'python'
++)
++$ErrorActionPreference = 'Stop'
++$profile = Get-Content -LiteralPath $Admission -Raw | ConvertFrom-Json
++if ($profile.SourceCommit -cne 'ad05823719d77c8faee87348ea39513d4e2f99c5' -or -not $profile.EveryExtractedFileMatchesArchive) { throw 'Unadmitted original OTP headers' }
++if ((Get-FileHash -LiteralPath $profile.ExecutionManifestPath -Algorithm SHA256).Hash -cne $profile.ExecutionManifestSha256) { throw 'Original provider inventory changed' }
++$headers = Join-Path $profile.InstalledOtpRoot 'erts-17.1/include'
++$files = Get-Content -LiteralPath $profile.ExecutionManifestPath -Raw | ConvertFrom-Json
++$headerFiles = @($files | Where-Object { $_.Path.StartsWith('erts-17.1/include/', [StringComparison]::Ordinal) })
++if ($headerFiles.Count -eq 0) { throw 'Missing original headers' }
++function Confirm-CatalogHeaders {
++    foreach ($file in $headerFiles) {
++        if ((Get-FileHash -LiteralPath (Join-Path $profile.InstalledOtpRoot $file.Path) -Algorithm SHA256).Hash -cne $file.Sha256) { throw "Original header changed: $($file.Path)" }
++    }
++}
++Confirm-CatalogHeaders
++$root = [IO.Path]::GetFullPath($Output)
++$run = Join-Path $root ([Guid]::NewGuid().ToString('N'))
++$native = Join-Path $run 'native'
++$package = Join-Path $run 'package'
++New-Item -ItemType Directory -Path $native, $package -Force | Out-Null
++dotnet build tools/Validation/Erlang.OtpCatalogValidation -c Release -m:1 -p:ConcurrentBuild=false --nologo
++if ($LASTEXITCODE -ne 0) { throw 'Catalog validation tool build failed' }
++dotnet publish src/Runtime/Erlang.DriverHost -c Release -m:1 -p:ConcurrentBuild=false -p:RuntimeFrameworkVersion=10.0.11 -p:RollForward=Disable -o $package --nologo
++if ($LASTEXITCODE -ne 0) { throw 'DriverHost publish failed' }
++$pythonArguments = @('-B', 'tools/Validation/Erlang.OtpCatalogValidation/build-native.py', '--headers', $headers, '--output', $native)
++if ([IO.Path]::GetFileNameWithoutExtension($Python) -eq 'py') { $pythonArguments = @('-3') + $pythonArguments }
++& $Python @pythonArguments
++if ($LASTEXITCODE -ne 0) { throw 'Ordinary driver services build failed' }
++Copy-Item -LiteralPath (Join-Path $native 'erldrv-host-native.dll') -Destination $package
++foreach ($file in @('erldrv-host-abi.json', 'erldrv-host-errno.json')) {
++    Copy-Item -LiteralPath (Join-Path 'tools/Validation/Erlang.OtpCatalogValidation/native' $file) -Destination $package
++}
++$configuration = [ordered]@{}
++foreach ($row in @(@('Abi', 'erldrv-host-abi.json'), @('Errno', 'erldrv-host-errno.json'), @('Bridge', 'erldrv-host-native.dll'))) {
++    $configuration[$row[0] + 'File'] = $row[1]
++    $configuration[$row[0] + 'Sha256'] = (Get-FileHash -LiteralPath (Join-Path $package $row[1]) -Algorithm SHA256).Hash
++}
++$configuration | ConvertTo-Json | Set-Content -LiteralPath (Join-Path $package 'erldrv-host-config.json') -Encoding utf8
++$manifest = Join-Path $package 'erldrv-host-package.json'
++$packageFiles = @(Get-ChildItem -LiteralPath $package -File | Sort-Object Name | ForEach-Object {
++    [ordered]@{ Path = $_.Name; Sha256 = (Get-FileHash -LiteralPath $_.FullName -Algorithm SHA256).Hash }
++})
++[ordered]@{ Protocol = 1; EntryPoint = 'Erlang.DriverHost.exe'; Files = $packageFiles } | ConvertTo-Json -Depth 5 | Set-Content -LiteralPath $manifest -Encoding utf8
++Confirm-CatalogHeaders
++[ordered]@{ SourceHead = '0386ff27bc32e036afb44de1bc8bf531f98715cb'; PackageManifest = $manifest; PackageManifestSha256 = (Get-FileHash -LiteralPath $manifest -Algorithm SHA256).Hash; Configuration = 'Release'; CatalogExecuted = $false; FullRegressionExecuted = $false } | ConvertTo-Json | Set-Content -LiteralPath (Join-Path $root 'focused-package.json') -Encoding utf8NoBOM
++Write-Host "Focused package prepared using exact original catalog preparation: $manifest"
+diff --git a/.github/recipes/async0386/run-focused.ps1 b/.github/recipes/async0386/run-focused.ps1
+new file mode 100644
+index 000000000..d99e44326
+--- /dev/null
++++ b/.github/recipes/async0386/run-focused.ps1
+@@ -0,0 +1,56 @@
++param([Parameter(Mandatory=$true)][string]$PackageRecipe)
++$ErrorActionPreference = 'Stop'
++$expected = '0386ff27bc32e036afb44de1bc8bf531f98715cb'
++$actual = (& git rev-parse HEAD).Trim()
++if ($LASTEXITCODE -ne 0 -or $actual -cne $expected) { throw 'Focused diagnostic requires exact failed main source' }
++$root = 'artifacts/async-focused0386'
++New-Item -ItemType Directory -Path $root -Force | Out-Null
++$primary = $null
++$diagnosticErrors = [Collections.Generic.List[object]]::new()
++try {
++    ./tools/prepare-regex-provider.ps1 -Repository $PWD.Path
++    & $PackageRecipe -Output "$root/package-preparation"
++    $package = Get-Content -Raw -LiteralPath "$root/package-preparation/focused-package.json" | ConvertFrom-Json
++    if ($package.SourceHead -cne $expected -or $package.CatalogExecuted -or $package.FullRegressionExecuted) { throw 'Focused package receipt differs' }
++    ./tools/validate-async-microstates.ps1 -PackageManifest $package.PackageManifest -Configuration Release -Output artifacts/async-microstates
++} catch {
++    $primary = $_
++} finally {
++    # Emit only explicit scalar summaries; preserve whole original receipts in artifacts.
++    foreach ($file in @(Get-ChildItem -Path artifacts/async-microstates -Filter completion.json -Recurse -File -ErrorAction SilentlyContinue)) {
++        try {
++        $value = Get-Content -Raw -LiteralPath $file.FullName | ConvertFrom-Json
++        [ordered]@{ Kind='Completion'; Passed=$value.Passed; Configuration=$value.Configuration; Errors=$value.Errors } | ConvertTo-Json -Depth 12 -Compress | Write-Host
++        foreach ($stage in $value.Stages) {
++            [ordered]@{ Kind='Stage'; Name=$stage.Name; Passed=$stage.Passed; SkippedDependency=$stage.SkippedDependency; Dependencies=$stage.Dependencies; ExitCode=$stage.Process.ExitCode; TimedOut=$stage.Process.TimedOut; ForcedCleanup=$stage.Process.ForcedCleanup; ActiveProcessesAfter=$stage.Process.ActiveProcessesAfter; ResourcesClosed=$stage.Process.ResourcesClosed; Errors=$stage.Process.Errors } | ConvertTo-Json -Depth 8 -Compress | Write-Host
++            if (-not $stage.Passed -and $stage.Name -match '^[A-Za-z0-9_-]+$') {
++                foreach ($suffix in @('.stdout.log', '.stderr.log')) {
++                    $log = Join-Path $file.DirectoryName ($stage.Name + $suffix)
++                    if (Test-Path -LiteralPath $log) {
++                        Write-Host "Actual failed-stage tail: $log"
++                        Get-Content -LiteralPath $log -Tail 30 | Write-Host
++                    }
++                }
++            }
++        }
++        } catch { $diagnosticErrors.Add($_); Write-Host "Diagnostic read failed ($($file.FullName)): $($_.Exception.Message)" }
++    }
++    foreach ($file in @(Get-ChildItem -Path artifacts/async-microstates -Filter observations.json -Recurse -File -ErrorAction SilentlyContinue)) {
++        try {
++        $value = Get-Content -Raw -LiteralPath $file.FullName | ConvertFrom-Json
++        [ordered]@{ Kind='Observation'; Passed=$value.Passed; Count=@($value.Cases).Count; Errors=$value.Errors } | ConvertTo-Json -Depth 12 -Compress | Write-Host
++        foreach ($case in $value.Cases) {
++            [ordered]@{ Kind='Case'; Name=$case.Name; Passed=$case.Passed; Error=$case.Error; Errors=$case.Errors } | ConvertTo-Json -Depth 12 -Compress | Write-Host
++        }
++        } catch { $diagnosticErrors.Add($_); Write-Host "Diagnostic read failed ($($file.FullName)): $($_.Exception.Message)" }
++    }
++    try {
++        $final = (& git rev-parse HEAD).Trim()
++        if ($LASTEXITCODE -ne 0 -or $final -cne $expected) { throw 'Subject head changed during diagnostic' }
++        & git diff --exit-code HEAD
++        if ($LASTEXITCODE -ne 0) { throw 'Tracked subject sources changed during diagnostic' }
++    } catch { $diagnosticErrors.Add($_); Write-Host "Final subject guard failed: $($_.Exception.Message)" }
++    [ordered]@{ SourceHead=$expected; PrimaryError=if ($null -ne $primary) { $primary.ToString() } else { $null }; DiagnosticErrors=@($diagnosticErrors | ForEach-Object { $_.ToString() }) } | ConvertTo-Json -Depth 8 | Set-Content -LiteralPath "$root/diagnostic-summary.json" -Encoding utf8NoBOM
++}
++if ($null -ne $primary) { throw $primary }
++if ($diagnosticErrors.Count -ne 0) { throw 'Diagnostic readback or final subject guard failed; raw outputs retained' }
+diff --git a/.github/workflows/allocation-diagnostic.yml b/.github/workflows/allocation-diagnostic.yml
+index 43820b790..290c245e5 100644
+--- a/.github/workflows/allocation-diagnostic.yml
++++ b/.github/workflows/allocation-diagnostic.yml
+@@ -1,42 +1,56 @@
+-name: Windows hash allocation diagnostics
+-on:
+-  workflow_dispatch:
+-permissions:
+-  contents: read
+-jobs:
+-  diagnostics:
+-    runs-on: windows-latest
+-    timeout-minutes: 15
+-    env:
+-      DOTNET_PROCESSOR_COUNT: 2
+-    steps:
+-      - uses: actions/checkout@v7
+-        with:
+-          persist-credentials: false
+-      - uses: actions/setup-dotnet@v6
+-        with:
+-          global-json-file: global.json
+-      - name: Build current-head reference assemblies and diagnostic
+-        shell: pwsh
+-        run: |
+-          New-Item -ItemType Directory -Path artifacts/allocation-diagnostic -Force | Out-Null
+-          dotnet build tests/Erlang.Tests -m:1 --disable-build-servers *> artifacts/allocation-diagnostic/tests-build.log
+-          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+-          dotnet build tools/Runtime/Erlang.AllocationDiagnostic -m:1 --disable-build-servers *> artifacts/allocation-diagnostic/helper-build.log
+-          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+-      - name: Capture eight bounded fresh diagnostic processes
+-        shell: pwsh
+-        run: |
+-          $taskRows = @()
+-          for ($taskIndex = 0; $taskIndex -lt 8; $taskIndex++) {
+-            $taskReport = "artifacts/allocation-diagnostic/fresh-$taskIndex.json"
+-            $taskResult = & ./tools/Runtime/Erlang.AllocationDiagnostic/Run-DiagnosticProcess.ps1 -Executable dotnet -Arguments @('tools/Runtime/Erlang.AllocationDiagnostic/bin/Debug/net10.0/Erlang.AllocationDiagnostic.dll', $taskReport) -Prefix "artifacts/allocation-diagnostic/fresh-$taskIndex"
+-            $taskRows += [pscustomobject]@{ Index=$taskIndex; Complete=$taskResult.Complete; TimedOut=$taskResult.TimedOut; StillAlive=$taskResult.StillAlive; ExitCode=$taskResult.ExitCode; LaunchError=$taskResult.LaunchError; Report=$taskReport }
+-          }
+-          [pscustomobject]@{ HarnessCommit=$env:GITHUB_SHA; RunId=$env:GITHUB_RUN_ID; RunAttempt=$env:GITHUB_RUN_ATTEMPT; Job=$env:GITHUB_JOB; Rows=$taskRows; Failed267RuntimeDllBindingAvailable=$false; OriginalBudget=4096; IsCiRetry=$false; CauseProven=$false } | ConvertTo-Json -Depth 8 | Set-Content artifacts/allocation-diagnostic/run-provenance.json
+-          if ($taskRows.Where({ -not $_.Complete -or $_.TimedOut -or $_.StillAlive -or $null -ne $_.LaunchError -or $_.ExitCode -ne 0 }).Count -gt 0) { exit 1 }
+-      - uses: actions/upload-artifact@v7
+-        if: always()
+-        with:
+-          name: windows-hash-allocation-diagnostics
+-          path: artifacts/allocation-diagnostic
++# Artifact proposal only. Root may place helpers under .github/recipes/async0386
++# in a diagnostic workflow branch. The tested checkout is separately exact0386.
++name: Focused exact-main async0386 diagnostic
++on:
++  workflow_dispatch:
++permissions:
++  contents: read
++jobs:
++  actual-async0386:
++    runs-on: windows-latest
++    timeout-minutes: 30
++    steps:
++      - name: Read diagnostic recipe without changing subject tree
++        uses: actions/checkout@v7
++        with:
++          path: recipe
++          ref: ${{ github.sha }}
++          fetch-depth: 1
++          sparse-checkout: .github/recipes/async0386
++          persist-credentials: false
++      - name: Checkout exact failed main source
++        uses: actions/checkout@v7
++        with:
++          ref: 0386ff27bc32e036afb44de1bc8bf531f98715cb
++          path: subject
++          fetch-depth: 1
++          sparse-checkout: |
++            src
++            tools
++            tests
++          persist-credentials: false
++      - uses: actions/setup-dotnet@v6
++        with:
++          global-json-file: subject/global.json
++      - name: Require exact admitted CLR profile
++        shell: pwsh
++        run: |
++          $runtimes = dotnet --list-runtimes
++          if ($LASTEXITCODE -ne 0 -or -not ($runtimes -match '^Microsoft.NETCore.App 10\.0\.11 ')) { throw 'Required source-admitted CLR10.0.11 missing' }
++      - name: Run unchanged complete async23 and preserve actual error summary
++        working-directory: subject
++        shell: pwsh
++        run: |
++          & ../recipe/.github/recipes/async0386/run-focused.ps1 -PackageRecipe "$env:GITHUB_WORKSPACE/recipe/.github/recipes/async0386/prepare-package.ps1"
++      - name: Always retain complete actual async and package diagnostics
++        if: always()
++        uses: actions/upload-artifact@v7
++        with:
++          name: focused-async0386
++          if-no-files-found: error
++          path: |
++            subject/artifacts/async-microstates/**
++            subject/artifacts/async-focused0386/**
++            subject/artifacts/library376-official-compiler/official-admission.json
++            subject/artifacts/library376-official-compiler/execution-files.json
++            subject/artifacts/library376-official-compiler/ci-provider-ready.json

@@ -4,6 +4,17 @@ internal static class TestExecutionBudgets
 {
     internal static TimeSpan For(string name) => name switch
     {
+        DetsBackendChecks.ManagedTest or DetsBackendChecks.OriginalTest
+            or DetsBackendChecks.ManagedSuiteTest or DetsBackendChecks.OriginalSuiteTest => TimeSpan.FromSeconds(600),
+        // Cold native fixture/source compilation, the gated callback phase and
+        // final physical drain need separate allowances. Phase watchdogs stay fixed.
+        TimerCallback539Names.Cancel or TimerCallback539Names.Close => TimerCallback539Names.Deadline
+            + TimerCallback539Names.Deadline
+            + TimeSpan.FromSeconds(TestExecutionBudgetNames.FullComparisonPreparationSeconds500),
+        UnicodeUtilUnalignedNames.Test => UnicodeUtilUnalignedNames.Deadline,
+        _ when name.StartsWith(UnicodeUtilBackendNames.Managed + "/", StringComparison.Ordinal)
+            || name.StartsWith(UnicodeUtilBackendNames.Beam + "/", StringComparison.Ordinal) => UnicodeUtilBackendNames.CorpusDeadline,
+        StringBackendNames.ManagedUnicodeTest => StringBackendNames.ManagedUnicodeDeadline,
         HaltSubprocessHostNames.Test => TimeSpan.FromSeconds(HaltSubprocessHostNames.OuterHostBudgetSeconds),
         BeamLifecycleHostNames.DeepTest => BeamLifecycleHostNames.Deadline
             + TimeSpan.FromSeconds(TestExecutionBudgetNames.DeepPreparationAndCleanupSeconds),
@@ -19,7 +30,8 @@ internal static class TestExecutionBudgets
             + TimeSpan.FromSeconds(TestExecutionBudgetNames.FullComparisonPreparationSeconds500),
         TupleContract488Names.Test => BeamOrdsetsCoreHostNames.Deadline + BeamOrdsetsCoreHostNames.Deadline
             + TimeSpan.FromSeconds(TestExecutionBudgetNames.FullComparisonPreparationSeconds500),
-        OrdsetsCompatibilityNames.ManagedCase or OrdsetsCompatibilityNames.BeamCase => OrdsetsCompatibilityNames.Deadline
+        _ when name.StartsWith(OrdsetsCompatibilityNames.ManagedCase + "/", StringComparison.Ordinal)
+            || name.StartsWith(OrdsetsCompatibilityNames.BeamCase + "/", StringComparison.Ordinal) => OrdsetsCompatibilityNames.Deadline
             + OrdsetsCompatibilityNames.Deadline
             + TimeSpan.FromSeconds(TestExecutionBudgetNames.FullComparisonPreparationSeconds500),
         _ => TimeSpan.FromSeconds(TestExecutionBudgetNames.DefaultSeconds)

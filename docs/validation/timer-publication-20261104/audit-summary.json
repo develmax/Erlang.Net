@@ -1,0 +1,185 @@
+{
+  "baseline": "OTP-29.1.1",
+  "module": "timer",
+  "exports": 36,
+  "primaryCasesPerBackend": 728,
+  "behavioralScenariosPerBackend": 11,
+  "upstreamCasesPerBackend": 47,
+  "backtraceDepths": [
+    0,
+    1,
+    2,
+    3,
+    8,
+    32
+  ],
+  "fullRegressionRun": false,
+  "globalReadinessRegenerated": false,
+  "universalCompatibilityCertified": false,
+  "defaultTimerExports": 0,
+  "primary": [
+    {
+      "Backend": "Managed",
+      "Baseline": "OTP-29.1.1",
+      "Exports": 36,
+      "Cases": 728,
+      "Passed": 728,
+      "EffectPassed": 11,
+      "Failures": [],
+      "TimerBeamSha256": "1CB0E1BC10FB7BDB19F5189D440B155C1AE7F3A45A5A24B5893CA9745908796B",
+      "ManagedAssemblySha256": "FA11D3C27C4526CB57E0B398B8BAB9294092EEEC2D2737D80EE231DD33F5DEC1",
+      "RuntimeAssemblySha256": "9B107BE35C78C71CFE9459841E08875D3DE7A94923074289B7FDBCCC47034084",
+      "CorpusSha256": "5D4B235095DEB89050C310ED1978B24B6BB3C34DD4F6A28DF14BE780A57FB7AD"
+    },
+    {
+      "Backend": "Beam",
+      "Baseline": "OTP-29.1.1",
+      "Exports": 36,
+      "Cases": 728,
+      "Passed": 728,
+      "EffectPassed": 11,
+      "Failures": [],
+      "TimerBeamSha256": "1CB0E1BC10FB7BDB19F5189D440B155C1AE7F3A45A5A24B5893CA9745908796B",
+      "ManagedAssemblySha256": "FA11D3C27C4526CB57E0B398B8BAB9294092EEEC2D2737D80EE231DD33F5DEC1",
+      "RuntimeAssemblySha256": "9B107BE35C78C71CFE9459841E08875D3DE7A94923074289B7FDBCCC47034084",
+      "CorpusSha256": "5D4B235095DEB89050C310ED1978B24B6BB3C34DD4F6A28DF14BE780A57FB7AD"
+    }
+  ],
+  "profiles": [
+    {
+      "depth": 0,
+      "backend": "Managed",
+      "passed": 728,
+      "corpusSha256": "4479BF42D2A43BFFCEB2F9378D531C69B79DD6F76E2B2CA553FFAC45566B8B62"
+    },
+    {
+      "depth": 1,
+      "backend": "Managed",
+      "passed": 728,
+      "corpusSha256": "4479BF42D2A43BFFCEB2F9378D531C69B79DD6F76E2B2CA553FFAC45566B8B62"
+    },
+    {
+      "depth": 2,
+      "backend": "Managed",
+      "passed": 728,
+      "corpusSha256": "7DE40DA853929D3DB8DF323CEC8CEE2A4208E92C12A7ECE4F095BDD5D5F273FA"
+    },
+    {
+      "depth": 3,
+      "backend": "Managed",
+      "passed": 728,
+      "corpusSha256": "D43707C2BDD7CCE699B4896901E5E8AB481F437E6E895A608D3A20B8E03C0FF9"
+    },
+    {
+      "depth": 32,
+      "backend": "Managed",
+      "passed": 728,
+      "corpusSha256": "5D4B235095DEB89050C310ED1978B24B6BB3C34DD4F6A28DF14BE780A57FB7AD"
+    },
+    {
+      "depth": 0,
+      "backend": "Beam",
+      "passed": 728,
+      "corpusSha256": "4479BF42D2A43BFFCEB2F9378D531C69B79DD6F76E2B2CA553FFAC45566B8B62"
+    },
+    {
+      "depth": 1,
+      "backend": "Beam",
+      "passed": 728,
+      "corpusSha256": "4479BF42D2A43BFFCEB2F9378D531C69B79DD6F76E2B2CA553FFAC45566B8B62"
+    },
+    {
+      "depth": 2,
+      "backend": "Beam",
+      "passed": 728,
+      "corpusSha256": "7DE40DA853929D3DB8DF323CEC8CEE2A4208E92C12A7ECE4F095BDD5D5F273FA"
+    },
+    {
+      "depth": 3,
+      "backend": "Beam",
+      "passed": 728,
+      "corpusSha256": "D43707C2BDD7CCE699B4896901E5E8AB481F437E6E895A608D3A20B8E03C0FF9"
+    },
+    {
+      "depth": 32,
+      "backend": "Beam",
+      "passed": 728,
+      "corpusSha256": "5D4B235095DEB89050C310ED1978B24B6BB3C34DD4F6A28DF14BE780A57FB7AD"
+    }
+  ],
+  "upstream": [
+    {
+      "Backend": "Managed",
+      "Cases": 47,
+      "Passed": 47,
+      "Failures": []
+    },
+    {
+      "Backend": "Beam",
+      "Cases": 47,
+      "Passed": 47,
+      "Failures": []
+    }
+  ],
+  "suiteInputIdentities": {
+    "Command": "Clean main-scoped validator, Managed and Beam suite",
+    "BaseCommit": "91c05943d4dba4c912a76f80ac5e6d778bffe4b3",
+    "Files": {
+      "Erlang.Runtime.dll": "9B107BE35C78C71CFE9459841E08875D3DE7A94923074289B7FDBCCC47034084",
+      "Erlang.Otp.Stdlib.dll": "FA11D3C27C4526CB57E0B398B8BAB9294092EEEC2D2737D80EE231DD33F5DEC1",
+      "Erlang.TimerCompatibility.dll": "876EB07FD3833BD916F2A44D4FA75A3916BC298C96A9DA4D6B9D8249E10CA33E"
+    }
+  },
+  "sourceBindings": {
+    "src/Otp/Managed/Erlang.Otp.Stdlib/Processes/Timer/TimerActionKinds.cs": "1849EDAD46A67357EA50732F1119334249875368D2CD2BA0C92AC1CC60AC4DD5",
+    "src/Otp/Managed/Erlang.Otp.Stdlib/Processes/Timer/TimerApplyArities.cs": "0A547EE595B2C1B146863E1E1DBDB1BD5EFC40C5E1D9E889CE61CCFDA1208396",
+    "src/Otp/Managed/Erlang.Otp.Stdlib/Processes/Timer/TimerChildSpecificationNames.cs": "04D658DD99A0D0FF8E79AD236678BCD3FD3C9DAD184EA2E56E1B5EAEC559BAC1",
+    "src/Otp/Managed/Erlang.Otp.Stdlib/Processes/Timer/TimerClosureLayout.cs": "9875B1DCB80FF2FB1C23827606CCF9A405B2E3971EF798E7B1629C27BE9E0971",
+    "src/Otp/Managed/Erlang.Otp.Stdlib/Processes/Timer/TimerClosureNames.cs": "C849856175B7953CB83BBEB7946D233500507924A2744F3D41061815829C084D",
+    "src/Otp/Managed/Erlang.Otp.Stdlib/Processes/Timer/TimerDependencyFunctions.cs": "C4E708FAB32F922202F19383CA42196B92CD527B0BCE2442BE98B5F9681D8664",
+    "src/Otp/Managed/Erlang.Otp.Stdlib/Processes/Timer/TimerDependencyNames.cs": "798FB909CB449917917919B4F0E44B92155B9B4FDF1244E2B16106219F6AE3D2",
+    "src/Otp/Managed/Erlang.Otp.Stdlib/Processes/Timer/TimerIntervalEnvironment.cs": "B9B0FF4C093F764D75A507DE7FA4C07F038FDC9E0A13D89BF4B1F3DCFAA9C627",
+    "src/Otp/Managed/Erlang.Otp.Stdlib/Processes/Timer/TimerIntervalRecipe.cs": "43CAB088412A17CC8E3CFFFA21EFD26190582A8CAC02319E3E826E2AC726EF33",
+    "src/Otp/Managed/Erlang.Otp.Stdlib/Processes/Timer/TimerLibrary.cs": "4BC73BB3E72AC3233C3F99622A9DEB4508998A449AC7E16470AF3516C7886781",
+    "src/Otp/Managed/Erlang.Otp.Stdlib/Processes/Timer/TimerLibrary.Interval.cs": "8B10900F52C29FDC6771EB58EC39DC3E2154D62BA3C479F493907525D1FA6B8B",
+    "src/Otp/Managed/Erlang.Otp.Stdlib/Processes/Timer/TimerLibrary.Server.cs": "4CEF93DA044F80CA329B4D6DFDA002EB29A171ABDB6079A82EC9703F3E7BA9BB",
+    "src/Otp/Managed/Erlang.Otp.Stdlib/Processes/Timer/TimerLibraryFunctions.cs": "B15530D01DE8756A4CCE6356E9A0A58DDA72A5C6870F2D9F7D6057C42BB80A84",
+    "src/Otp/Managed/Erlang.Otp.Stdlib/Processes/Timer/TimerLibraryNames.cs": "CEC0EB503945C665BD86939744629992002F6DA8B638D925803A9813BC6E511C",
+    "src/Otp/Managed/Erlang.Otp.Stdlib/Processes/Timer/TimerProtocolAtoms.cs": "1357525205449B83FE0D5C6D9F0CFBBBC404FA96E267732A000D300E862185D2",
+    "src/Otp/Managed/Erlang.Otp.Stdlib/Processes/Timer/TimerReferenceKinds.cs": "4E6364568166E7108BF4EEE3C92A5C1FDC0E40E9A5203EFB302AE558FBCCFA2E",
+    "src/Otp/Managed/Erlang.Otp.Stdlib/Processes/Timer/TimerRequestNames.cs": "15095704B83EAF5DF4CB13F20C4C85F89AB5568C06EF86092051D09473C266D2",
+    "src/Otp/Managed/Erlang.Otp.Stdlib/Processes/Timer/TimerSource.cs": "90AF5BC8F65041B38254A633553F87BE63A3D8487958DA033746B5DC4304DFC2",
+    "src/Otp/Managed/Erlang.Otp.Stdlib/Processes/Timer/TimerSourceFile.cs": "E83B0EA0728B029DAF00BD017E5900BBA1EDD5161E59EDFF24A94AA8615522D8",
+    "src/Otp/Managed/Erlang.Otp.Stdlib/Processes/Timer/TimerSourceLines.cs": "06D2B435F4CACB24C9C7CFADDAE19121F5B412B667663866A82A18BE93B9E7FE",
+    "src/Otp/Managed/Erlang.Otp.Stdlib/Processes/Timer/TimerTerminationRecipe.cs": "40A503F55FC75E513840FED7506B3B3ED6170495AEA1F890ED7D82FD6A85F454",
+    "src/Otp/Managed/Erlang.Otp.Stdlib/Processes/Timer/TimerTimeCallArities.cs": "0A34B607B7D14E634824A91A7CCD01CD195DCEFA8AFB94C136894F8838507826",
+    "src/Otp/Managed/Erlang.Otp.Stdlib/Processes/Timer/TimerTimeParameters.cs": "2164E5919DD65E58670E6844285E74FDCB26052BB906F21D03B7E51A4254632A",
+    "src/Runtime/Erlang.Runtime.Core/Primitives/ErlangApplyFunctionDispatch.cs": "E95D5CFFE0580A67E11B88BE9762CB46CBACDBB0620978F4167FF3FF229113C6",
+    "src/Runtime/Erlang.Runtime.Core/Primitives/ErlangClockRegistrations.cs": "70750950259FB740AA7F90D77BEE80F4DB9FD4D8B7419C09751076125A5FD4F4",
+    "src/Runtime/Erlang.Runtime.Core/Primitives/ErlangClockSourceLocation.cs": "22392077D70D9313D74229B7BDF4BA7BB26A00330EA0A3DCD1ECE4B09A46A94B",
+    "src/Runtime/Erlang.Runtime.Core/Primitives/ErlangFunctionCallErrors.cs": "05DC8D0DDE571C38E8532729E1D24A5C24C74D78A1A225EDED36F9288A252B2B",
+    "src/Runtime/Erlang.Runtime.Core/Modules/TimerLibraryModuleNames.cs": "5A81722CE35ABEA1018D7A3C546FFCCEBD8E1AF98D539E86860D13B3BCB709C3",
+    "tools/Validation/Erlang.TimerCompatibility/Program.cs": "6B1DF3E971E546D52961DB25BE52BDA5C7BEFC591397C089B733F1BD587EA304",
+    "tools/Validation/Erlang.TimerCompatibility/TimerCompatibilityBootstrap.cs": "9082245F825C70D588008B78E6F3FCCA48E7D1484FDF3505C017C54EA8454CAC",
+    "tools/Validation/Erlang.TimerCompatibility/TimerCompatibilityDiagnostics.cs": "FA028D14715AA2E61BDB908FCF8E00130412FB7D630D0EAF5DEFD9098F5C8034",
+    "tools/Validation/Erlang.TimerCompatibility/TimerCompatibilityFiles.cs": "13965FDD78D8D7FCB2387201B1FB5E1B840157191E252DCBF3B15D3DF293B2B1",
+    "tools/Validation/Erlang.TimerCompatibility/TimerCompatibilityLimits.cs": "A04BD0981A11DD1F001BD7FF3C8C2FA126E1B64A8A86202CFDE36008D00D8B9E",
+    "tools/Validation/Erlang.TimerCompatibility/TimerCompatibilityModules.cs": "6026F7BEE7332680F87377E738B6518BD4E89122BCD8AFA9A11C38DD8C8C2E9A",
+    "tools/Validation/Erlang.TimerCompatibility/TimerCompatibilityNames.cs": "3E0204E2D44F8B384ECFD5AC843D57A65BF08F6E175B58968052BF8D1582A738",
+    "tools/Validation/Erlang.TimerCompatibility/TimerCompatibilityOptions.cs": "319A5A98FC1B51597E56355735134016E1FDD1C7B2FEFE4A35C228965E89C287",
+    "tools/Validation/Erlang.TimerCompatibility/TimerCompatibilityReportText.cs": "F361B8ABF8787A9F62CD6E28B3C90E70162FDACB772F16956C0D2ABFA85BB157",
+    "src/Runtime/Erlang.Runtime.Core/Modules/RuntimeManagedLibraryStage456.cs": "77EB290042574A163BA0B5FDA332492B0F36BD77AC0A0E6F0D740E6D45F64503",
+    "src/Otp/Managed/Erlang.Otp.Stdlib/Registration/ManagedStdlibRegistration456.cs": "7C9C609AC908D458275E8EE4E20908E9B19B16695762AAE273F2DE41B4D39CE2",
+    "src/Runtime/Erlang.Runtime.Core/Modules/LibrarySelectionNames.cs": "7DC7B833C068F398B4D40C5013D5F1BDDA107E91047644935D3EB214F5807AFE",
+    "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.LibrarySelection.cs": "3ABAB6A8B4D945CB5D8EEB62087CBC72A1E57A7F2E0B980E40E7F0167B1AC435",
+    "src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamRegisterInterpreter.cs": "71FDFF65F33B6EE7306CF3330AE8540B514BADAC4E2C8BE565152FE06A03B432",
+    "src/Otp/Managed/Erlang.Otp.Stdlib/Processes/Timer/TimerResultNames.cs": "C0693A0C10AAB677BD1F3C47F163151FAE058D51C753B751D086D17F9218D6F3",
+    "src/Otp/Managed/Erlang.Otp.Stdlib/Processes/Timer/TimerMfaLayout.cs": "2BA9362C63AF1DCA4DF821E1E45311A5020564B64D5CC035AD1846F20E947C5C",
+    "src/Otp/Managed/Erlang.Otp.Stdlib/Processes/Timer/TimerProtocolArities.cs": "6BECC42AE4D6820C39A0B435B8A3A371D2ACF9EAABB11D42C903DB80E2F60E93",
+    "src/Otp/Managed/Erlang.Otp.Stdlib/Processes/Timer/TimerTimestampLayout.cs": "DA6696A337B0E865CD86724CA89CBFA1D43B53DE1DAEBB0098D5BA642C8E780D"
+  },
+  "originalInputSha256": "4D9B47B5A3205AE2684148C4D33F4EC75CE22BA4A0CB5E4F79BEAD2E1DCAF420",
+  "projectedUpstreamSha256": "F4ADEFF7B744E78E936A6E0BE833FA574CAA516B7BED4803CFA8092572F417CD",
+  "projectionProof": "47 successful original testcases; exactly 3 reference-valued returns projected; all other terms unchanged.\n",
+  "ordinaryBuildBoundary": "Clean main plus scoped timer sources; ordinary connected build passed without exclusion filters."
+}

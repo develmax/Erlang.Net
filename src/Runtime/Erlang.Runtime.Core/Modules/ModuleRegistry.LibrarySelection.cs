@@ -40,8 +40,12 @@ public sealed partial class ModuleRegistry
                                 throw new InvalidDataException(LibrarySelectionNames.MissingExport + LibrarySelectionNames.ContextSeparator
                                     + choice.Module + LibrarySelectionNames.FunctionSeparator + signature.Function
                                     + LibrarySelectionNames.AritySeparator + signature.Arity);
-                        if (image is not null && !LibrarySelectionNames.ManagedModules.Contains(choice.Module, StringComparer.Ordinal))
-                            RequireStartupNativeBootstrap(choice.Module, prepared);
+                        if (image is not null)
+                            RequireStartupNativeBootstrap(
+                                choice.Module,
+                                prepared,
+                                LibrarySelectionNames.ManagedModules.Contains(choice.Module, StringComparer.Ordinal)
+                            );
                     }
                     images.Add(choice.Module, prepared);
                 }

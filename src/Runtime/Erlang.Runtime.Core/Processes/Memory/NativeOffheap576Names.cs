@@ -12,7 +12,7 @@ internal static class NativeOffheap576Names
 
     internal static nuint Header(NativeOffheapKind576 kind) => kind switch
     {
-        NativeOffheapKind576.MagicReference => OrdinaryReference562Names.Header,
+        NativeOffheapKind576.MagicReference => MagicReference576Names.Header,
         NativeOffheapKind576.BinaryReference => BinaryHeader,
         _ => throw new ArgumentOutOfRangeException(nameof(kind))
     };

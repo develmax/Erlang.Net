@@ -2,8 +2,8 @@ namespace Erlang;
 
 internal static class AtomicsOwnership586Names
 {
-    internal const ulong BinaryPrefixBytes = 32;
-    internal const ulong DataOffsetBytes = 56;
+    internal static ulong BinaryPrefixBytes => (ulong)NativeMagicLayout.BinaryDataOffset;
+    internal static ulong DataOffsetBytes => (ulong)NativeMagicLayout.AlignedDataOffset;
     internal const string Foreign = "Atomics backing belongs to a different runtime or lease.";
     internal const string Retired = "The actual atomics magic backing has retired.";
     internal const string Underflow = "Atomics backing ownership lease underflow.";

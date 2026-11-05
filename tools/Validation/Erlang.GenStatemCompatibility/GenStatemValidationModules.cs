@@ -1,0 +1,45 @@
+internal static class GenStatemValidationModules
+{
+    internal const string Gen = "gen";
+    internal const string ProcLib = "proc_lib";
+    internal const string Sys = "sys";
+    internal const string Lists = "lists";
+    internal const string Maps = "maps";
+    internal const string Queue = "queue";
+    internal const string Ets = "ets";
+    internal const string Logger = "logger";
+    internal const string LoggerConfig = "logger_config";
+    internal const string LoggerFilters = "logger_filters";
+    internal const string LoggerBackend = "logger_backend";
+    internal const string LoggerServer = "logger_server";
+    internal const string LoggerProxy = "logger_proxy";
+    internal const string Proplists = "proplists";
+    internal const string IoLib = "io_lib";
+    internal const string IoLibFormat = "io_lib_format";
+    internal const string IoLibPretty = "io_lib_pretty";
+    internal const string Io = "io";
+    internal const string ErrorLogger = "error_logger";
+    internal const string Application = "application";
+    internal const string ApplicationController = "application_controller";
+    internal const string String = "string";
+    internal const string Unicode = "unicode";
+    internal const string UnicodeUtil = "unicode_util";
+    internal const string Epp = "epp";
+    internal const string ErlScan = "erl_scan";
+    internal const string ErlFeatures = "erl_features";
+    internal const string Code = "code";
+    internal const string Init = "init";
+    internal const string ErlPrimLoader = "erl_prim_loader";
+    internal const string CodeServer = "code_server";
+    internal const string PrimFile = "prim_file";
+    internal const string Filename = "filename";
+    internal const string Os = "os";
+    internal const string GbSets = "gb_sets";
+    internal const string GbTrees = "gb_trees";
+    internal const string File = "file";
+    internal const string Erlang = "erlang";
+    internal const string ErtsInternal = "erts_internal";
+    internal const string PersistentTerm = "persistent_term";
+    internal const string GenStatemPortCases = "gen_statem_port_cases";
+    internal const string GenStatemPortSecond = "gen_statem_port_second";
+}

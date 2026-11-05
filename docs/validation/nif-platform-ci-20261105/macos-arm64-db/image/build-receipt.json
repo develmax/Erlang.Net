@@ -1,0 +1,42 @@
+{
+  "Host": "macOS-15.8.2-arm64-arm-64bit-Mach-O",
+  "Commands": [
+    [
+      "cc",
+      "-std=c11",
+      "-fPIC",
+      "-O2",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-I/Users/runner/work/Erlang.Net/Erlang.Net/artifacts/nif-platform-ci/installed/lib/erlang/usr/include",
+      "-bundle",
+      "/Users/runner/work/Erlang.Net/Erlang.Net/tools/Native/Erlang.NifPlatformValidation/nif_platform_fixture.c",
+      "/Users/runner/work/Erlang.Net/Erlang.Net/artifacts/nif-platform-ci/native/Erlang.NifBridge.so",
+      "-Wl,-rpath,/Users/runner/work/Erlang.Net/Erlang.Net/artifacts/nif-platform-ci/native",
+      "-o",
+      "/Users/runner/work/Erlang.Net/Erlang.Net/artifacts/nif-platform-ci/image/managed/nif_platform_fixture.so"
+    ],
+    [
+      "cc",
+      "-std=c11",
+      "-fPIC",
+      "-O2",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-I/Users/runner/work/Erlang.Net/Erlang.Net/artifacts/nif-platform-ci/installed/lib/erlang/usr/include",
+      "-bundle",
+      "-bundle_loader",
+      "/Users/runner/work/Erlang.Net/Erlang.Net/artifacts/nif-platform-ci/installed/lib/erlang/erts-17.1/bin/beam.smp",
+      "/Users/runner/work/Erlang.Net/Erlang.Net/tools/Native/Erlang.NifPlatformValidation/nif_platform_fixture.c",
+      "-o",
+      "/Users/runner/work/Erlang.Net/Erlang.Net/artifacts/nif-platform-ci/image/original/nif_platform_fixture.so"
+    ]
+  ],
+  "SourceSha256": "1B03E9352282A5BC2B284A83D9C3A70B596F8910010293BD024C5B8205E91759",
+  "BeamSha256": "75DDC2A1FD8D236327D5CE417FA9F90E6C4A3B22ADE4C439A33EC3C4F037DA90",
+  "OriginalEtfSha256": "17F946462F22B80B58564FB949CD034A82496BE4540A8E7B4F44BD465B19DA03",
+  "OriginalExecuted": true,
+  "ManagedExecuted": false
+}

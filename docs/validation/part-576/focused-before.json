@@ -1,0 +1,82 @@
+{
+  "Passed": false,
+  "Checks": [
+    {
+      "Plan": "Erlang.NifMapFamily504Observations",
+      "Passed": false,
+      "Error": "RuntimeError('Dependency hash mismatch: src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamRegisterInterpreter.cs mode=TextLF expected=7EC9D29129D8E126438306A31ED74E6389D07CDE9664C3C7A1EBDE2588F77884 actual=9C2CBE54CBE53970B5F3696F7A30175CB8BDF59F9A170907D1CAFB57E8DBDD6B raw=9C2CBE54CBE53970B5F3696F7A30175CB8BDF59F9A170907D1CAFB57E8DBDD6B')"
+    },
+    {
+      "Plan": "Erlang.NifMapMaterialized505Observations",
+      "Passed": false,
+      "Error": "RuntimeError('dependency seal: src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamRegisterInterpreter.cs')"
+    },
+    {
+      "Plan": "Erlang.NifMapReentry505Observations",
+      "Passed": false,
+      "Error": "RuntimeError(\"Independent dependency checks failed: RuntimeError('Dependency hash mismatch: src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamRegisterInterpreter.cs mode=TextLF expected=7EC9D29129D8E126438306A31ED74E6389D07CDE9664C3C7A1EBDE2588F77884 actual=9C2CBE54CBE53970B5F3696F7A30175CB8BDF59F9A170907D1CAFB57E8DBDD6B raw=9C2CBE54CBE53970B5F3696F7A30175CB8BDF59F9A170907D1CAFB57E8DBDD6B'); RuntimeError('Dependency hash mismatch: src/Runtime/Erlang.Runtime.Core/Modules/ModuleRegistry.BeamPrimitives.cs mode=TextLF expected=1AC0458750C1B9B2A91AD8AC7EE784577E1B92C1EA3FF266E9009333495B4AF7 actual=59399AE67FF9035884376EB13BEABF716150323C40672DAEDC65AEA63B17798F raw=59399AE67FF9035884376EB13BEABF716150323C40672DAEDC65AEA63B17798F'); RuntimeError('Dependency hash mismatch: src/Otp/Managed/Erlang.Otp.Stdlib/Registration/ManagedStdlibRegistration456.cs mode=TextLF expected=170785A8AEB84DA85E086E12B9155FA8C11FCED02D6799AF6218DBEEC10AAB26 actual=2F4C534EE95E93F35140A5E32F0178FF97CF4D4A441C1711036C11E1063D76D7 raw=2F4C534EE95E93F35140A5E32F0178FF97CF4D4A441C1711036C11E1063D76D7')\")"
+    },
+    {
+      "Plan": "tools/Runtime/Erlang.OwnedGuest506Observations",
+      "Passed": false,
+      "Error": "RuntimeError('Source seal differs: tests/Erlang.Tests/Erlang.Tests.csproj')"
+    },
+    {
+      "Plan": "tools/Native/Erlang.NifVariadic526Observations",
+      "Passed": false,
+      "Error": "RuntimeError('Source seal differs: src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamBinaryExecution.cs')"
+    },
+    {
+      "Plan": "Pending",
+      "Passed": false,
+      "Error": "ValueError('Pending source differs: src/Otp/Managed/Erlang.Otp.Stdlib/Registration/ManagedStdlibRegistration456.cs')"
+    },
+    {
+      "Plan": "Reallocation",
+      "Passed": false,
+      "Error": "RuntimeError('Reviewed source changed: .gitattributes')"
+    },
+    {
+      "Plan": "Private557",
+      "Passed": false,
+      "Error": "RuntimeError('Source seal differs: .gitattributes')"
+    },
+    {
+      "Plan": "Erlang.Dictionary537Observations",
+      "Passed": true,
+      "Details": {
+        "PlanSha256": "1B907F03F31FDBE47112A4E27BBA68E9581628911469970A82EDD025A171F5E6",
+        "VerifiedRows": 5,
+        "BuildOrVmExecuted": false
+      }
+    },
+    {
+      "Plan": "Erlang.MatchSaved634Observations",
+      "Passed": false,
+      "Error": "ValueError('Focused input differs: tests/Erlang.Tests/Harness/Program.cs')"
+    },
+    {
+      "Plan": "Erlang.EtsDispatch540Observations",
+      "Passed": false,
+      "Error": "ValueError('Focused input differs: tests/Erlang.Tests/Erlang.Tests.csproj')"
+    },
+    {
+      "Plan": "Erlang.MonitorOriginal645Observations",
+      "Passed": false,
+      "Error": "ValueError('Focused input differs: tests/Erlang.Tests/Erlang.Tests.csproj')"
+    },
+    {
+      "Plan": "Erlang.BeamFunction542Observations",
+      "Passed": false,
+      "Error": "ValueError('Focused input differs: src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamRegisterInterpreter.cs')"
+    }
+  ],
+  "ExpectedPlans": 13,
+  "ExpectedNativePlans": 8,
+  "FocusedInputPlans": 5,
+  "BuildOrVmExecuted": false,
+  "NativeExecuted": false,
+  "SourceHeadAuthenticityClaimed": false,
+  "FullSourceMembershipClaimed": false,
+  "WholeContractsClosed": 0
+}

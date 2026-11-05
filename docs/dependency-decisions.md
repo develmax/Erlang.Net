@@ -1,5 +1,98 @@
 # Dependency and compatibility decisions
 
+## Native resource/magic32 and atomic64 storage — 2026-11-05
+
+Reuse the existing NativeMemory allocator, serialized ownership/refcount graph,
+GCHandle payload owners and BCL Interlocked atomic64 operations (MIT/BCL).
+A second allocator, atomic emulation package or collector would duplicate
+existing ownership boundaries. Inspect pinned OTP29.1.1 erl_binary.h,
+global.h, erl_term.h and erl_bif_atomics/counters.c: native-word refcounts and
+lengths, separate aligned/unaligned magic data and ARCH_32 resource padding.
+Keep C as the ABI fixture. Test actual pointer4 CLR alignment/concurrency,
+physical resource retirement and original32/64-bit ERTS observations before
+target acceptance. Existing unsupported regex/search and other OS/CPU gates
+remain explicit. Preserve upstream Apache-2.0 notices; no new package.
+
+
+## Native-word32 storage - 2026-11-05
+
+Reuse NativeMemory, GCHandle roots and the existing explicit heap/frame/GC graph.
+Use pinned OTP29.1.1 erl_term.h float/reference/external-identifier layouts,
+big.h native ErtsDigit width and erl_binary.h native refcounter/aligned bytes.
+No new allocation package or collector replaces ownership. Keep little-endian
+32/64 profiles explicit and retain independent header/bounds/lifetime checks.
+Microsoft/BCL remains the existing MIT dependency; OTP notices are retained.
+
+
+## Windows x86 NIF ABI preparation — 2026-11-05
+
+Consume pinned OTP29.1.1 public headers and execute MSVC x86 sizeof/offsetof
+probes. Use official Microsoft CLR 10.0.14 x86, verified against SHA512 release
+metadata in windows-x86-runtime.json; keep SDK 10.0.400 as the managed build
+compiler. Reuse BCL NativeLibrary, current callback implementations and the C
+varargs adapter, with a separate win-x86 native asset. No new managed package,
+vendored third-party implementation or changed guest module is introduced.
+.NET is the existing MIT dependency; preserve OTP/Ericsson notices.
+
+The underlying runtime native-cell and physical-resource source profiles remain
+64-bit. ABI-only checks and raw native entry initialization do not authorize
+full 32-bit VM admission. Retain the guards and report the actual failed image
+attempt. This checkpoint changes width-aware ABI metadata and adds identity
+narrowing guards; it does not port the underlying heap/GC representations.
+
+
+## FreeBSD managed NIF execution - 2026-11-05
+
+Keep SDK 10.0.400 as the managed build toolchain. The FreeBSD ports default and
+development bootstrap do not provide that SDK. Execute the portable assemblies
+in a FreeBSD 15 amd64 VM using the pinned MIT-licensed community .NET10 archive
+from Thefrank/dotnet-freebsd-crossbuild (tag, source commit and SHA256 in
+freebsd-runtime.json). This is a measured community CLR profile, not Microsoft
+FreeBSD support. Rebuild native boundaries on the target, retain runtime identity
+and compare actual NIF images with pinned OTP there. No new production package
+or change to global.json is introduced.
+
+
+## NIF target ABI and macOS process host — 2026-11-05
+
+Reuse the existing C# NIF implementations, term/environment ownership and native
+export/varargs adapters. OTP29.1.1 public headers and Unix/Windows dynamic loader
+sources define the reference ABI; configure integer sizes on the target. BCL
+NativeLibrary provides ordinary host loading, but RTLD constants and variadic
+argument reading belong to target-compiled C. Another FFI package does not solve
+Erlang ownership or Mach-O executable-ordinal imports.
+
+For unchanged macOS OTP bundles, reuse the official SDK hostfxr.h API
+(hostfxr_main_startupinfo) to launch the existing CLR from a native main
+executable exporting the existing bridge functions. The SDK header is consumed
+from the installed host pack, not copied into this repository. No ERTS, new
+managed package, vendored implementation or new runtime semantics is introduced.
+.NET runtime/hosting is the existing Microsoft MIT-licensed dependency; preserve
+OTP/Ericsson Apache-2.0 notices. This is a host ABI boundary, not a replacement
+actor runtime. See [target evidence and limits](validation/nif-platform-ci-20261105/README.md).
+
+
+## Managed unicode_util — 2026-11-04
+
+The user requests a C# unicode_util alternative and an Erlang-free managed
+Unicode dependency closure. Preserve both original modules/images. Use the exact
+OTP29.1.1 generator and Unicode17.0 inputs at
+ad05823719d77c8faee87348ea39513d4e2f99c5; generate immutable C# data and port lazy
+traversal, grapheme, normalization and case algorithms. .NET StringInfo,
+Normalize, CharUnicodeInfo and casing APIs use runtime-dependent Unicode versions
+and do not preserve OTP chardata/error/tail contracts; do not use them for these
+semantics. Reuse existing Terms, strict Rune decoding, source frames and explicit
+module selection. No new package or production Erlang dependency. Preserve OTP
+Apache-2.0 and Unicode data notices. Exhaustive table/domain validation and pinned
+conformance corpora are required; API counts do not close compatibility.
+
+
+## Earlier decisions
+
+Part584 — The user explicitly requests a manual C# gen_event alternative while keeping original Erlang selectable. Reuse the existing term/process/module/BEAM runtime and original gen/proc_lib/sys/io/Unicode dependencies. BCL events and actor frameworks do not preserve the OTP handler, mailbox, callback and link contract, so they are not substituted. No new package or external C# library is introduced. Pin OTP29.1.1/ad05823719d77c8faee87348ea39513d4e2f99c5; preserve Apache-2.0 notices in the retained source/fixtures and derived implementation. Semantic catalogs separate equal strings/numbers by contract. Finite Windows comparisons and the retained timing failure do not certify universal parity. [Evidence](validation/part-584/README.md).
+
+Part568 draft - Adapt pinned OTP-29.1.1 erl_map.c/utils.c bulk sort/adjacent-EQ compaction in C# runtime. Reuse existing map hash provider, owner admission/close, hash leases and native materialization; inspect signed fun comparison/hash, source guards and physical copy order. Retain Apache-2.0 notices; no new package or production ERTS dependency. Actual-address C replay is limited source evidence, not a context-independent golden or21/21 proof. [Draft evidence](validation/part-568/ordsets-bulk/README.md).
+
 Part533 — Reuse the existing typed backing/root, guest-frame, native environment and provider collectors. Distinguish recipient completion from shared origin lifetime; external Host custody is explicit. Runtime-owned cleanup must not inherit a retiring actor scheduler or its private authority. Use existing .NET10 ForceYielding/context suppression and explicit own-VM atom scope for exit construction; await only the specific ETS queue observation fence before mailbox capture. No new dependency/package, alternate production BEAM VM, license header or package publication. Finite foundation evidence does not promote whole API contracts.
 
 Part532 — Reuse the existing NativeMemory-backed atomics allocation, shared off-heap chain, typed resource registry, owned heap/transfer protocols and genuine original-image/provider collector. Inspected pinned erl_bif_atomics.c, erl_bif_unique magic-reference layout and current atomics/store shutdown paths. Atomics remain a distinct magic destructor family, not a fabricated NIF resource type. No new dependency/package or alternate production BEAM VM. Host finalizers release only explicit external-host custody; guest GC owns actual process headers. Preserve preloaded and file-loaded original metadata as separate execution profiles, with raw full evidence and no license-header or package-publication change. Whole P2/24-contract completion is not claimed.
@@ -376,7 +469,7 @@ Ignored initial probe100/100 and expanded174/174 use explicitly simulated atom-n
 
 Pinned OTP-29.1.1/ad05823719d77c8faee87348ea39513d4e2f99c5. Read erlang.erl units/clock/unique/calendar/timer contracts and convert_time_unit body, erl_time_sup.c clock/offset/timestamp/now/civil date and timezone code, erl_time.h native64 nano epoch/range, erl_bif_unique.c option sets/offset/counters, erl_hl_timer.c timeout/options/recipient/access/async replies; inspect time_SUITE.erl and timer BIF suite where applicable. No checkout changes.
 
-SDK Stopwatch owns monotonic/performance sampling, BigInteger owns arbitrary unit conversion/floor arithmetic/counters, DateTimeOffset supplies initial POSIX wall time and DateTime/TimeZoneInfo supplies current local/UTC data and timezone rules. Port native64 nano initial monotonic epoch and timer internal limits, exact Gregorian civil conversion formulas and1600/1902/int32-year/int64-seconds gates. Unique values are guaranteed only per modifier set; native explicitly permits overlap across sets. Separate default/monotonic counters, positive mapping and native immediate lower bound with insertion lock; default may also increase monotonically. Timestamp returns system time; now adds a globally serialized strict microsecond increment. No scheduler-thread bit packing copied; actual numeric values/scheduler distribution and64-bit exhaustion policy remain explicit boundaries. Clock uses a stable initial wall offset; full OS correction/time-warp/offset-monitor state remains future work.
+SDK Stopwatch owns monotonic/performance sampling, BigInteger owns arbitrary unit conversion/floor arithmetic/counters, DateTimeOffset supplies initial POSIX wall time and DateTime/TimeZoneInfo supplies current local/UTC data and timezone rules. Port native64 nano initial monotonic epoch and timer internal limits, exact Gregorian civil conversion formulas and1600/1902/int32-year/int64-seconds gates. Unique values are guaranteed only per modifier set; native explicitly permits overlap across sets. Separate default/monotonic counters, positive mapping and native immediate lower bound with insertion lock; default may also increase monotonically. Timestamp returns system time; now adds a globally serialized strict microsecond increment. No scheduler-thread bit packing copied; actual numeric values/scheduler distribution and 64-bit exhaustion policy remain explicit boundaries. Clock uses a stable initial wall offset; full OS correction/time-warp/offset-monitor state remains future work.
 
 Local calendar honors host TimeZoneInfo, forced/automatic DST and latest-rule no-DST handling, with400-year Gregorian future-year mapping outside SDK DateTime range. Exact native tzdb/libc/DST ambiguity/gap/historical/far-future/leap-second behavior requires further proof; do not claim it from UTC or Russian Standard Time probes. Universal/epoch conversion is independent of SDK year limits and follows audited native integer formulas. Native local conversions require1902+, UTC epoch conversion1600+, maximum input year int.MaxValue-1, input components native small integers; POSIX decoder accepts full int64.
 
@@ -833,10 +926,131 @@ Source consultation: .NET10 Math internal-call declarations and CoreCLR native w
 
 The expanded genuine OTP29.1.1 Windows corpus exposed that System.Math.Log2 and the pinned official OTP build are different algorithms. Follow erl_math.c's !HAVE_LOG2 expression (log(x) / 0.6931471805599453) on Windows and retain the direct log2 path on Unix. Reuse existing System.Math/CRT/libm primitives, Integer.TryToDouble, native error bindings and explicit library selection; no new production dependency or copied numerical algorithm is introduced. Original math.erl and math.beam remain unchanged with existing Apache-2.0 notices. The versioned dotnet/runtime host wrappers were consulted under MIT; glibc asin/underflow source was read for audit only and no LGPL code was copied. Physical VM layout, resource ceilings and timing remain separate from the26 mathematical MFA contracts. Source/provenance, old-runtime2785 RED and both new502772-case GREEN comparisons are recorded in validation/math-compatibility-20261103/. Cross-platform/final-publication receipts remain required before universal promotion.
 
+## Part560 — ordsets shared comparison and physical map preservation
+
+Inspect pinned OTP29.1.1 `erts/emulator/beam/utils.c` (compound comparison, flat-map key/value phases, HASHMAP_PHASE1/2 and address-seeded quicksort), `erl_map.c` (single-key put, flatmap merge, collision insertion and hash-key comparison), `erl_term_hashing.c` (local-fun internal hash), and x86 JIT `instr_map.cpp` (single dynamic put calls erts_maps_put). Keep the Apache-2.0 upstream notices and original Erlang/BEAM assets unchanged. System.Collections sorted/dictionary APIs are MIT-licensed platform facilities already in use; they supply storage, not OTP physical collision or equality semantics. No new dependency is suitable or introduced. Reuse the existing immutable native map graph, runtime-owned hash retention, physical-copy plan and iterative comparison scopes. Translate the two-phase HAMT comparison protocol into C# rather than invoking OTP as a fallback. Retain canonical dictionary order for storage/ETF; arithmetic ordering and physical layout have distinct purposes. Default registration/backend choice stays unchanged.
+
+The adversarial oracle replays the same pool/0 BEAM in both runtimes and transports only scalar expectations. Transporting pathological maps through deterministic ETF can be invalid in original OTP and would erase the physical construction contract. A separate repeated original diagnostic demonstrates address-seeded bulk ordering of distinct local fun keys whose comparison is zero. The permanent pool preserves these keys and tests deterministic incremental HAMT construction rather than asserting one address-dependent permutation. Capture and repeat verify all6427 admitted provider files before and after execution. This evidence does not close every dependent lists helper or establish cross-platform/final-head acceptance.
+
+## Part562 - String pattern search buffer reuse
+
+Reuse the existing System.MemoryExtensions.IndexOf and UTF-8 encoder (platform facilities already in use, MIT platform implementation), not an added search package or borrowed OTP code. Preserve pinned string.erl/unicode_util.erl and their Apache-2.0 assets. Cache private copied bytes for an ordinary immutable backing, including a readonly OrdinaryBinaryBacking, and a validated contained byte range. Copied readonly suffixes require actual byte equality. Preserve every native copy-read lease; keep other native/writable/owned-heap producers on the original reader; no new pointer, lease, ownership or friend-assembly permission. Full and initial-codepoint patterns remain separately lazy to preserve validation order. This addresses repeated whole-buffer copies without replacing Unicode boundary validation or output slicing.
+
+## Part564 - Repeated String separator searches
+
+Reuse the same reviewed StringBinarySearchBuffer and platform IndexOf for member separator searches. StringTrim/StringTake retain a buffer across their binary loop; StringLexemes owns one across Run, Pick and Skip. Nonmember UTF-8 decoding retains the bounded prefix reader, and pattern creation/Unicode calls stay in their original order. No new dependency, copied reference implementation, native boundary grant or licensing change is introduced. Existing readonly-backing identity/range checks, byte-proven copied suffixes and fallback reads remain the ownership contract. This closes another repeated-copy path in the existing managed alternative, without changing pinned original Erlang or promising linear whole-runtime work.
+
+
+## CI evidence reuse and async diagnostic retention - 2026-11-04
+
+Reuse Python standard-library JSON/XML/hashlib/urllib/zipfile and existing Git/dotnet APIs. No new package or copied dependency is introduced. Actual restored NuGet package bytes are fingerprinted under their existing licenses. Workflow/job conclusions and raw reports remain authoritative; conditional main reuse does not generate review approvals or change public OTP contracts. Keep pinned OTP29.1.1 unchanged.
+
+
+## String local receipt560 — source-stack parity and explicit dual backend
+
+Pinned OTP29.1.1 string.erl and lists.erl are the owning algorithm/error-location sources; the unchanged string_SUITE.erl is retained under its Apache-2.0 notice and exact upstream blob/hash. The user's explicit string-port request authorizes the manual C# alternative while preserving original Erlang/BEAM. No policy change for other pure modules is inferred. BCL String APIs and Rune classification are not substitutes for OTP chardata, graphemes, case mapping or normalization; reuse the pinned unicode/unicode_util images on .NET. Reuse the existing source-call execution frames, tail-call scopes, native lists traversal and bit-syntax UTF-8 encoder/error-info capture. Collections, BigInteger, Rune UTF-8 decoding and immutable binary slices are existing platform facilities; no production dependency is added. The oracle is development-only and production never falls back to original string or an external VM.
+
+Compiled binary patterns are actual native resources. Compare their complete stack-containing terms only after live binary:match queries establish the admitted one-to-one resource binding; retain raw stacks and reject modified frames/bindings/queries. Expose both backends through the existing startup/manifest/MSBuild mechanism, require explicit Unicode/list dependencies and record actual identities. Retain the default native-only registration profile and distinguish it from the71 selectable exports. Whole ERTS resource/timing and unmeasured platform equivalence are outside this finite acceptance.
+
+The complete regression also exposed imported logical flat maps with atom keys retaining a different runtime's atom-index order. Reuse canonical name-keyed pairs for exact equality only when both maps are ordinary logical flat maps with exclusively atom keys; names identify atoms across these runtime tables. Preserve native physical comparison and all other key shapes. The existing imported-copy regression and all twelve independently captured term-contract shards validate this narrow correction; a rejected broad logical-map shortcut is retained as failed evidence.
+
+## String local receipt561 — Windows thread CPU observation under resource pressure
+
+Inspect the existing Process.Threads-based provider and Microsoft documentation for [OpenThread](https://learn.microsoft.com/en-us/windows/win32/api/processthreadsapi/nf-processthreadsapi-openthread) and [GetThreadTimes](https://learn.microsoft.com/en-us/windows/win32/api/processthreadsapi/nf-processthreadsapi-getthreadtimes). Query the exact Windows thread with THREAD_QUERY_LIMITED_INFORMATION and retain its real user time in100ns ticks through an owned SafeFileHandle. This removes the observed failing whole-process diagnostics enumeration without replacing measured CPU time with wall time or swallowing OutOfMemory. No third-party code/package is copied or introduced; use the existing OS/BCL facilities. Keep the Unix provider and nested ownership accounting. The preceding fatal Roslyn stack overflow is not assumed to have the same cause; its exact interrupted fixture first passes unchanged in a fresh process. Preserve that distinction in evidence.
+
+## String local receipt562 — All71 source contracts
+
+Review all119 public clauses of pinned `lib/stdlib/src/string.erl`, its reached
+helpers and native `erts/emulator/beam/bif.c` float parser plus Windows
+`erts/emulator/sys/win32/sys_float.c`. Preserve the existing Apache-2.0 source,
+notices and original images. Continue the user-requested C# alternative beside
+original Erlang; no broader pure-module port policy change is inferred.
+Existing BCL string/search/set APIs cannot reproduce the observed lazy malformed
+chardata behavior, native compiled-pattern identity, list-membership failures or
+source helper frames. Reuse actual selected `binary:compile_pattern`,
+`binary:match`, `lists:member`, pinned Unicode modules, the existing ETF function
+factory and source continuations. Keep Rune only for bounded UTF8 scalar decode
+and BigInteger for exact integer arithmetic. No package or alternate Unicode,
+normalization, number-parser or collection dependency is introduced.
+
+The real 4096-digit timeout justifies removing repeated prefix traversals rather
+than increasing a worker budget. Source-level dispatch must retain conversion
+error tuples, original separator-list shape and `cp_prefix` continuation equality.
+The independent oracle generators and per-API summary use existing Erlang,
+PowerShell and Python standard libraries only. Finite same-platform comparisons
+do not certify all IEEE conversions, other operating systems or physical ERTS
+resource ceilings. See the [retained string integration and local-receipt archive](validation/string-otp-merge-20261104/README.md).
+
+### Part574: reuse existing final poll implementation and original fixtures
+
+Reuse the repository-owned3da2 Linux poll runtime and existing descriptor oracle fixtures. Preserve pinned OTP29.1.1 and notices. No third-party library, license selection, source-language library rewrite or external publication is added. Historical54/54 remains old-source evidence; fresh integrated CI is required.
+
+## Unicode C# alternative — 2026-11-04
+
+Audit pinned OTP-29.1.1 lib/stdlib/src/unicode.erl and the existing UnicodeNative/UnicodeNativeTraversal BIFs. System.Text.Encoding and String.Normalize use platform Unicode data and replacement/error contracts that differ from OTP; do not use them as library implementations. Reuse Rune solely for strict bounded scalar decoding/encoding and BinaryPrimitives for endian words (existing .NET BCL, MIT). Port ml_map and cbv behavior directly from the Apache-2.0 OTP source, preserving notices. Reuse the explicitly selected pinned unicode_util module for normalization and classification, matching the established string dependency boundary. No new package or Unicode database. Retain original Erlang/BEAM without mutation and require explicit dependencies for the new managed selection. This user-requested module port does not change the policy for other pure OTP modules.
+
+## Part580 — file alternatives and semantic literal ownership — 2026-11-04
+
+The user's explicit file-port request authorizes this managed alternative beside pinned OTP29.1.1 file.erl/file.beam (Ericsson, Apache-2.0); original assets remain unchanged. Inspect file.erl, file/file_int headers and existing runtime filename/prim_file providers. BCL File/Directory/FileStream do not reproduce process I/O, descriptor routing or the distributed file server, so reuse selected OTP dependencies and runtime primitives. BigInteger and BinaryPrimitives supply unbounded length arithmetic and big-endian words; no new package. Semantic constants are grouped by actual protocol/layout/source/configuration ownership, without merging equal text from different contracts. Erlang oracle fixtures remain independent literal inputs. Existing missing filesystem NIF/driver/resource support stays an explicit failing gate; finite focus checks do not certify universal compatibility.
+
+
+## code C# backend publication — 2026-11-04
+
+Inspect pinned OTP29.1.1 code.erl, code_server.erl and eep48.hrl alongside the existing native loader/purger. Retain original code_server and explicit helpers rather than substituting CLR assembly loading or filesystem state. Reuse existing runtime primitives; no package. Preserve Apache-2.0 notices and original assets. Name public API, server protocol, dependency calls, source positions, AST/monitor layouts and EEP48 fields separately; do not merge equal text with different roles. The C# string/number catalogs are scoped to their semantic owners, and existing FunctionCodeLayout supplies the closure digest width. Seven native coverage/debug signatures keep the existing non-BEAMASM profile. The user authorizes this module port and PR; universal OTP acceptance and full regression are not inferred from the focused corpus.
+## gen_statem C# alternative and semantic constants — 2026-11-04
+
+Inspect the pinned Apache-2.0 OTP-29.1.1 `lib/stdlib/src/gen_statem.erl` and its
+existing original BEAM, plus the repository's explicit library selection,
+source continuations, mailbox/timer/alias and gen/sys/proc_lib implementations.
+Existing .NET BCL Queue/Dictionary/Task/CancellationToken services (MIT .NET
+runtime, existing license texts) provide storage and async mechanics; none
+implements OTP action ordering, postponed events, sys records, source frames or
+timeout semantics. Reuse these services and original helper modules rather than
+introducing a second scheduler or an external state-machine package. Implement
+the user-requested module contract directly from pinned OTP and preserve its
+notices. No package, license selection or external runtime dependency is added.
+
+Keep semantic catalogs in the owning product or validation domain. SDK Roslyn
+layout tooling already exists and is reused on this delivery package only.
+PowerShell/Python standard libraries capture/admit the original OTP corpus; no
+mock production MFA substitutes are introduced. The BEAM badfun frame fix is a
+shared runtime correction required by this module's exact-stack comparison.
+See [decision0007](decisions/0007-gen-statem-alternatives.md) and
+[gen_statem publication](validation/gen-statem-port-20261104/README.md) for acceptance scope and remaining gates.
+
+## gen_statem sys continuation repair — 2026-11-04
+
+Reuse the existing owned-control-transfer protocol and BCL AsyncLocal/Exception;
+no library or scheduler package. Preserve the original proc_lib error handler
+and pinned source frames by keeping the trampoline inside the module, rather
+than introducing a new process-root transfer. The permanent actual-continuation
+probe distinguishes managed machine retention from opaque native-fun allocator
+pinning. Original OTP helpers and source/BEAM remain unchanged. See Part587.
+
+
+Timer PR113: the user explicitly requested a full C# timer port with retained Erlang/BEAM and selectable implementation. This is the overriding authorization for this module; the general pure-OTP policy remains. See [timer backend and review evidence](timer-backends.md).
+
+
+## Part591 — DETS backend and connected native dependencies
+
+Inspect pinned OTP29.1.1/ad05823719d77c8faee87348ea39513d4e2f99c5 dets/dets_v9/dets_utils/dets_server/dets_sup, prim_file/prim_buffer and ram_file_drv sources. The user explicitly authorizes this C# alternative. Retain Apache-2.0 notices and all original sources/BEAM. BCL FileStream/MemoryStream and BinaryPrimitives implement host I/O and wire access; canonical phash/phash2 and match specs remain shared runtime primitives. No new package or private persistence format. Keep original dets_server/dets_sup as common registry/supervisor dependencies on .NET. The C# dispatcher/worker/file engine never falls back to original dets/dets_v9/dets_utils; production requires no external ERTS.
+
+Extend the existing declared-NIF owner reservation and weak typed resources for prim_file storage and all9 prim_buffer primitives. Implement the actual ram_file_drv command/response protocol through RuntimePorts, preserving owner links/monitors/cleanup; preserve main's descriptor-polling path for ordinary ports. No Erlang file-server/ETS/CT replacement or second port registry.
+
+Unchanged dets_SUITE repair_continuation exposes dead match-program retention. Clear dead caller-save registers and completed argument/result temporaries; retain main's newer bad-function admission. Run actual guest heap collection first, with a supplemental CLR interop sweep only when legacy managed compiled-match/file/buffer payloads exist. Retained local/remote references must survive; serialized dead references must not resurrect payloads. Existing owned/native resource leases remain authoritative. The four-mode oracle and connected internal-GC/ETS tests cover this boundary. No actor/GC framework substitution.
+
+## OTP-style platform deletion — 2026-11-04
+
+Inspect pinned OTP29.1.1 unix_prim_file.c/win_prim_file.c efile_del_file, native path marshalling and erl_errno_str.c. Keep common Erlang result construction in C# and move OS entry points into separately named Windows/Unix classes. Retain Windows DeleteFileW for exact operation errors; Unix uses libc unlink with raw terminated bytes, without UTF8 roundtrips or File.Exists races. Capture errors immediately. Normalize EISDIR to EPERM on Unix and Windows directory/invalid-name exceptions as OTP does. Existing Windows path handling stays in the Windows branch.
+
+Inspect Linux UAPI asm-generic errno-base.h/errno.h (GPL-2.0 WITH Linux-syscall-note) and Apple XNU bsd/sys/errno.h (APSL/BSD notices) only for public numeric ABI facts. Redistribute no header implementation; keep Linux/Darwin dictionaries distinct and filter symbolic names through pinned OTP erl_errno_str.c. No package or native helper binary is introduced. Unknown numbers use OTP errno_N formatting. Existing libc interop already uses the same system library identity.
+
+This change targets deletion. The older bootstrap filesystem profile, raw-file path/info helpers, kernel boot and native admission still have independently recorded Windows/Linux/macOS gates; adding Unix unlink must not silently advertise a complete Unix bootstrap profile. Permanent tests execute the common deletion boundary directly on the current OS, with Windows native-OTP differential acceptance and explicitly separate Unix source contracts. No Unix native execution is claimed from a Windows run.
+
 ## Multi-scheduling blocker closure — 2026-11-05
 
 Inspect OTP29.1.1 bif.c, erl_bif_info.c and erl_process.c scheduler suspension, blocker lists and process-exit cleanup. Reuse the existing actual normal actor barrier/dispatcher and dirty CPU/shared-IO queue owners. BCL ReaderWriterLockSlim/SemaphoreSlim alone cannot model Erlang scheduler binding, dirty work quiescence, nested per-process blockers and owner death; no external package or actor framework is adopted. SemaphoreSlim serializes changes only; it does not stand in for physical scheduler suspension. Preserve the original ERTS library and Apache-2.0 notices. Implement first, then compare only multi-scheduling, erts_internal and connected scheduler/lifetime contracts. Finite acceptance is separate from universal OTP compatibility.
 
 ## Part593 — native node/dist reference census — 2026-11-05
 
-Inspect pinned erl_bif_info.c tuple admission and helper trap, erl_node_tables.c root walk/result builder, erl_process.c signed all-versus-normal block state, and node_container_SUITE/erts_test_utils reference invariants. Reuse the actual normal actor barrier, physical MSO external-node leases, ETS stored identity/read leases, persistent arena identifier roots, mailbox recipient operation custody, timer payloads, distribution controller/link/monitor owners and existing match-spec ASTs. BCL GC reflection/heap enumeration and a third-party actor framework cannot supply guest ownership; no package is adopted. The diagnostic builds its counts from real retained roots and leaves host DTO lifetime distinct from guest process custody. Compressed wire bodies are separate from external key headers. Preserve native/reference Apache-2.0 notices and the original Erlang alternative. [Focused source/evidence](validation/part-593/README.md); no whole-module100% certification or full regression.
+Inspect pinned erl_bif_info.c tuple admission and helper trap, erl_node_tables.c root walk/result builder, erl_process.c signed all-versus-normal block state, and node_container_SUITE/erts_test_utils reference invariants. Reuse the actual normal actor barrier, physical MSO external-node leases, ETS stored identity/read leases, persistent arena identifier roots, mailbox recipient operation custody, timer payloads, distribution controller/link/monitor owners and existing match-spec ASTs. BCL GC reflection/heap enumeration and a third-party actor framework cannot supply guest ownership; no package is adopted. The diagnostic builds its counts from real retained roots and leaves host DTO lifetime distinct from guest process custody. Compressed wire bodies are separate from external key headers. Preserve native/reference Apache-2.0 notices and the original Erlang alternative. [Focused source/evidence](validation/erts-internal-part-593/README.md); no whole-module100% certification or full regression.

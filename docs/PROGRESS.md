@@ -1,8 +1,85 @@
 # Project progress
 
-Part593 implements the native node/dist reference query behind erts_debug and both erts_internal backends. Actual owner/header/storage census, all-scheduler admission, signal/heap classification and retirement are covered by262/262 observations plus59/59 scenarios per backend,13 physical and43 connected groups. Original Erlang/BEAM and98 exports remain. Full regression/readiness were deliberately not run; broader upstream/distributed/resource/platform acceptance and universal compatibility remain unverified. [Receipt](validation/part-593/README.md).
+Part602 integrates the native node/dist reference query behind erts_debug and both erts_internal backends. Actual owner/header/storage census, all-scheduler admission, signal/heap classification and retirement are covered by262/262 observations plus59/59 scenarios per backend,13 physical and43 connected groups. Original Erlang/BEAM and98 exports remain. Full regression/readiness were deliberately not run; broader upstream/distributed/resource/platform acceptance and universal compatibility remain unverified. [Receipt](validation/erts-internal-part-593/README.md).
+
+Part603 preserves DETS fixed-scan continuations across deletion. A retained FREE collection remains readable, while an unknown status at a recorded collection address reports bad_object. The public select/3 to select/1 regression and Windows validation are recorded in [Part603](validation/part-603/README.md).
+
+Part601 verifies the native-word resource/magic and atomics/counters port in Windows x86/x64 Debug and Release. All six final-source CI jobs pass, including actual C resource NIF execution, GC retirement and byte parity against pinned original ERTS with word sizes 4 and 8. Other managed resource platforms and full resource lifecycle parity remain open. [Exact scope and results](validation/part-601/README.md).
+
+
+
+Part600 ports ordinary native-cell/word and collector dependencies to little-endian 32-bit words. Windows x86 real NIF and focused GC checks pass locally and in CI on 6197702e. Windows x64/ARM64, Linux glibc/musl x64/ARM64, macOS x64/ARM64 and FreeBSD 15 amd64 real-image regressions also pass. [Scope/evidence](validation/part-600/README.md). Other 32-bit hosts, full native-resource/atomics/counters/loader resource profiles and alias/wire parity remain open; no module/MFA promotion.
+
+
+Part598 verifies real NIF execution on FreeBSD 15 amd64 with pinned community CLR 10.0.13, SDK 10.0.400 managed builds, same-host original OTP and unchanged-ELF ETF parity. OpenSSL SONAME selection and native dlsym caller scope are fixed. Part599 verifies Windows x86 public ABI/layout, native descriptor initialization and C/C# varargs only: full 32-bit VM/NIF execution remains rejected by the native-cell source-profile guard. See [exact source/target evidence](validation/nif-freebsd-ilp32-20261105/README.md). No MFA or whole-module acceptance is added.
+
+
+Part597 extends the NIF target ABI and executes native/managed platform CI with original OTP29.1.1 image comparisons. macOS executable-bound bundles use a native CLR launcher exporting the existing bridge. BSD evidence is C-only; 32-bit/remaining OS profiles and full NIF lifecycle/API parity remain open. Registered MFA delta is zero. See [exact target/head results](validation/part-597/README.md).
+
+
+Part596 fixes PR119 test synchronization: await physical dirty-handler unwind and give the two timer539 cases an outer preparation/phase/drain budget while preserving internal watchdogs and assertions. Production source is unchanged. See [failure analysis and focused evidence](validation/part-596/README.md); fresh hosted checks remain pending.
+
+Part595 repairs the remaining PR119 CI function407 failure: original OTP confirms one tail-badfun source frame, including the exact synthetic image. Focused6/6 and complete66/66 raw/typed outcomes pass. See [native proof and receipt](validation/part-595/README.md); fresh hosted checks remain pending.
+
+Part594 repairs the four CI failures reported for PR119: complete badfun/badarity/apply stacks and bounded Jaro actor batches. Focused final-source checks are recorded in [the repair receipt](validation/part-594/README.md); full hosted validation remains separate.
+
+Part593 complete for the targeted platform package: Windows/Linux/macOS each pass74 managed/86 original grouped checks,21 whole OTP scenarios/full error stacks per backend and bidirectional files. Both review findings, native cursors, reopened free lists and readonly errno are fixed; C#/Erlang selection remains. Descriptor54/54 and exact source/pin/census checks pass. See [bound receipts](validation/dets-reconciliation-20261104/README.md). No full local regression or universal compatibility promotion.
+
+Part592 splits prim_file deletion into a common C# result boundary and Windows/POSIX implementations. Unix unlink preserves raw filename bytes and uses separate Linux/Darwin errno tables; Windows directory/invalid-name errors now follow OTP. Focused Windows native-OTP and cross-ABI/path evidence is recorded in [the receipt](validation/prim-file-platform-delete-20261104/README.md). This earlier deletion-only checkpoint is superseded by Part593; full Unix file bindings are now implemented and targeted host execution is in progress.
+
+Part591 DETS adds all64 explicit exports through selectable C#/original Erlang alternatives, native v9 incremental storage and connected file/buffer/RAM/resource-lifetime primitives. Focused backend/upstream/interchange acceptance and limitations are in [the receipt](validation/dets-publication-20261104/README.md). Original Erlang is unchanged; no full regression or global readiness refresh.
+
+ETS PR116 review fixes: see [current evidence](validation/ets-review-20261104/README.md). Original Erlang remains selectable; directory rename and OS-atomic append are connected native acceptance scopes.
+
+Part589 updates ASN.1 PR118 from timer main29b92f63d, retaining both components and the qualified file atom. Fresh focused build,65 checks/26 OTP outcomes and passive bindings pass. [Evidence](validation/part-589/README.md).
+
+Part588 fixes the ASN.1 consumer CS0119 exposed after the file backend was added: qualify the existing file atom constant. Focused build and65 checks/26 fresh OTP outcomes pass; no runtime or compatibility change. [Evidence](validation/part-588/README.md).
+
+[Part587](validation/part-587/README.md) fixes the gen_statem sys continuation review finding:97 retained managed machines become1 after32 generations. Both backends pass74+311 full observations/scenarios. Final-head hosted review/CI and wider OTP acceptance remain separate.
+
+[gen_statem merge repair](validation/gen-statem-merge-20261104/README.md) reconciles gen_statem PR112 with code/file/gen_event main and refreshes declared source identities. Prior module comparisons remain historical; final-head hosted checks and the sys continuation review finding remain open.
+Part586 fixes the omitted Monitor source-freeze manifest behind main CI41836436436 and adds a committed-manifest guard. No runtime or compatibility change. [Failure and focused validation](validation/part-586/README.md).
+
+PR111 Part585 reconciles code/file/gen_event on current main, refreshes declared source/producer pins and checks the retained BEAM image hash. Fresh105/105 per backend passes; final-head CI remains required. [Repair evidence](validation/part-585/README.md).
+
+
+Part584 adds selectable C# gen_event alongside retained Erlang/BEAM and removes magic literals using semantic owners. Clean focused build and primary105/105 per backend pass; Managed depth3 retains an upstream zero-timeout race (104/105). [Evidence and open gate](validation/part-584/README.md).
+
+[Part583](validation/part-583/README.md) repairs Windows checkout conversion of the Part582 source freeze. Raw source admission remains strict; no compatibility status is promoted.
+
+[Part582](validation/part-582/README.md) reconciles file PR110 with code main, retains both backend selections and refreshes source/producer identities. Connected validation and final-head hosted CI apply; compatibility classifications remain unchanged.
+
+[Part581](validation/part-581/README.md) repairs PR110 source admission and producer pins; runtime behavior and compatibility classifications are unchanged. Final-head hosted CI remains required.
+
+Part574 consolidates the final Linux descriptor poll source and audits stale branches. Exact-head Linux/original replay, CI, review and merge remain pending; no API/full-contract promotion. See [branch decisions and acceptance gates](validation/part-574/README.md).
+
+Draft Part568 prepares the bulk physical-occurrence runtime patch in a separate PR to main. Ordsets stays6 Verified/15 KnownDifferences; current whole ETF replay remains RED. See [evidence and open acceptance gates](validation/part-568/ordsets-bulk/README.md).
 
 ## Current status sources
+
+- [Managed Unicode utility](validation/part-591/README.md): all20 C# utility exports, an Erlang-free managed closure and retained original/backend selection; current evidence and delivery gates remain explicit.
+
+- [PR114 analysis consumer CI](validation/code-testanalysis-ci-20261104/README.md): original code_server boot repair passes235 checks and2463 unchanged original outcomes in hosted CI; reconcile main and repair its remaining source-layout failure. Final-head CI remains required.
+
+- [File alternatives](file-backends.md): selectable C# surface for all 69 exports, unchanged original Erlang and semantic owners for protocol/layout/source/configuration values. Both backends match 408 focused observations; five complete filesystem cycles remain failing native/provider gates. See [Part580](validation/part-580/README.md); no full-compatibility or global-readiness promotion.
+
+- [PR109 CI/review repair](validation/part-579/README.md): refreshed existing source-plan identities and fixed module_status helper stacks. Both backends pass159 complete outcomes plus25 lifecycle results;17 focused groups and passive source admissions pass locally. Hosted final-head CI remains pending.
+
+- [Selectable code backend](validation/code-port-20261104/README.md): all69 exports,156 full observations and25 lifecycle results per backend;17 connected groups pass on isolated current-main composition. Domain literals are named; universal/JIT/platform acceptance remains open.
+- The opt-in gen_statem C# port and retained Erlang alternative are prepared with semantic constant owners; focused acceptance and PR delivery are recorded in [gen_statem publication](validation/gen-statem-port-20261104/README.md).
+
+- [Downstream CI producer repair](validation/part-577/README.md): reconcile the remaining native/integrated producer identities and monitor completed final-head workflows.
+
+- [Unicode CI repairs](validation/part-576/README.md): linear conversion accumulation, 20 focused groups, retained OTP buffer observations and refreshed source-plan bindings; final-head CI remains the delivery gate.
+
+- [Unicode alternatives](validation/unicode-port-20261104/PUBLICATION.md): complete 22-export C# surface and retained original Erlang; focused validation and prior working-corpus evidence are tracked separately.
+
+
+- [String integration](validation/string-otp-merge-20261104/README.md): both71-API alternatives retain explicit selection;9706 full tests and separate8522/depth comparisons per backend pass. Source identities and limitations remain explicit; final delivery is tracked in [PR105](https://github.com/develmax/Erlang.Net/pull/105).
+
+- [Accepted main PR103](https://github.com/develmax/Erlang.Net/pull/103): native async accounting, independent logical/physical port closure, pending RPC shutdown and final microstate cancellation. See the [retained report](validation/part-557/REPORT.md) and [exact incoming progress snapshot](history/main-103-progress/index.md). These bounded results do not close the whole statistics contract.
+
+- [Integration PR #102](https://github.com/develmax/Erlang.Net/pull/102): documentation/history split and local libraries are combined; final-head delivery gates are tracked in the PR and [integration evidence](validation/integration-20261103/README.md).
 
 - [ordsets verification](ORDSETS_COMPATIBILITY.md): all 21 APIs have a permanent whole-result/stack/effect corpus; the managed merge stack discrepancy is repaired. Universal compatibility acceptance remains open.
 
@@ -22,3 +99,8 @@ The previous progress document started at Part485; the maintained work queue and
 ## Updating progress
 
 Keep this page as a short entry point. Put new work results in the active changelog volume and update the owning readiness or remaining-work document. Link to evidence instead of copying checkpoint narratives here.
+
+PR102 is merged as f0c23d603. Its complete unit report passed9687/9687, while overall main Validate failed before async observer execution on a stale caller pin. The [repair evidence](validation/part-569/ci-integrated-pins-and-reuse/hosted-results/README.md) records corrected native cohort and async23 focused successes. Final repair-head whole CI/current review remain pending; generated readiness is unit evidence, not a whole-pipeline acceptance claim.
+
+
+Timer PR113: the user explicitly requested a full C# timer port with retained Erlang/BEAM and selectable implementation. This is the overriding authorization for this module; the general pure-OTP policy remains. See [timer backend and review evidence](timer-backends.md).

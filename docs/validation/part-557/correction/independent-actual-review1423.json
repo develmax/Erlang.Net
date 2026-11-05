@@ -1,0 +1,103 @@
+{
+  "Passed": true,
+  "Scope": "Independent read-only audit of actual local correction evidence; exact-head remote CI and current review remain required before merge.",
+  "SourceCandidate": "aece6fb81965f49f494ee920a4360a5cb2fabb4a",
+  "RealOldCloseRedReproduced": true,
+  "SameCompiledReasonProbeRedGreen": true,
+  "ActualReasonBorrowReleasedAndPhysicallySettled": true,
+  "NoFabricatedNativeCertificate": true,
+  "CommonCleanupAfterActualReservationRelease": true,
+  "Native": [
+    {
+      "Configuration": "Debug",
+      "Passed": 8,
+      "Total": 8,
+      "ObservationSha256": "49B13E471FB9CA5C726BC85EC715D20ACE2B79C0E12BBC902609D001BFAA0841"
+    },
+    {
+      "Configuration": "Release",
+      "Passed": 8,
+      "Total": 8,
+      "ObservationSha256": "AA212E2610D4F03E604C328B001998BB2D83D3A9EB0058BB36B7CB36901129BB"
+    }
+  ],
+  "Affected": [
+    {
+      "Configuration": "Debug",
+      "Passed": 101,
+      "Selected": 101,
+      "Catalog": 9601,
+      "StableRuntimeFiles": 83
+    },
+    {
+      "Configuration": "Release",
+      "Passed": 101,
+      "Selected": 101,
+      "Catalog": 9601,
+      "StableRuntimeFiles": 83
+    }
+  ],
+  "ActualAutocrlfDependencyCheckoutFiles": 16993,
+  "RawSnapshotRows": 461,
+  "NativeInputs": 81,
+  "ExactIndependentAdmissionProcessesPassed": 3,
+  "FocusedChecksPassed": 13,
+  "BuildInputs": 13904,
+  "DirectChangedInputs": 29,
+  "InheritedUnchangedGitBlobs": 13875,
+  "BlockersFound": [],
+  "DocumentationCaveat": "Raw1418/1419 Scope strings retain stale copied references to1365/1335. Actual commands/results and final1416/1417 build source maps establish final Debug/Release execution. Preserve raw receipt bytes; explain corrected provenance in appended report.",
+  "NotClaimed": [
+    "Full9601 local regression",
+    "Whole statistics API compatibility",
+    "Native-child-create wire parity from component rollback control",
+    "New API/full-contract count increase",
+    "Successor exact-head remote CI"
+  ],
+  "Evidence": [
+    {
+      "Path": "child-rollback-old-red-recovered1389/review.json",
+      "Sha256": "09237ED77728E10FF57C8450D9DD1BAA8558B4AAD8086301036CF5AFD303FD74"
+    },
+    {
+      "Path": "child-rollback-reason-red1395/review.json",
+      "Sha256": "2B9E50BF7B2BD881B07686A449CB733F6053E98FA7024B740D70877E4478BEC6"
+    },
+    {
+      "Path": "child-rollback-reason-green1402/review.json",
+      "Sha256": "308844DD007BB67CC7A95110F03D984FF23F86DF01DFD6FA1F6F31B76A416AD1"
+    },
+    {
+      "Path": "async-child-final-debug1403/review.json",
+      "Sha256": "CDF80A6EEFB66FEF8C99BAAC714046533AE11C2B888C5F1FA2F8CC6319499DB7"
+    },
+    {
+      "Path": "async-child-final-release1404/review.json",
+      "Sha256": "52CD074CF4BC64A9D67E6760F28AA3BBC65BAB7CB3C2E8A799D181F4DCCA91FE"
+    },
+    {
+      "Path": "part557-child-affected-debug1418/review.json",
+      "Sha256": "C25A5541D9BB0E1E47422ECADC7904A5C7F48230A581E6E4198B75528C2DF083"
+    },
+    {
+      "Path": "part557-child-affected-release1419/review.json",
+      "Sha256": "612C5266FBDEAB9D67BE2CA076FD6ED16397D8D0E76B88F0BEE91EBEF490A84F"
+    },
+    {
+      "Path": "c1414/review.json",
+      "Sha256": "5BB100C331DDB4B07DF90C306FD02BE778E210E8D4E428E5E81AB7D99219ADE4"
+    },
+    {
+      "Path": "c1414/admissions/review.json",
+      "Sha256": "39EF1549E949DC1E40E0154C1217CA1C23BD7F83C7EAFD07837F75E132BB6BF5"
+    },
+    {
+      "Path": "part557-incremental-build-proof1421/review.json",
+      "Sha256": "C3E012ED18B04D2F28540444C6E66A222820C35C1C4F5467AD40CD34DD2C3E5E"
+    },
+    {
+      "Path": "child-rollback-common-applied1397/review.json",
+      "Sha256": "0F5FFB63301266429C9D2B0FF6D7F9A6C8203FD2C63F12E2EC87CAEAAB8639FB"
+    }
+  ]
+}

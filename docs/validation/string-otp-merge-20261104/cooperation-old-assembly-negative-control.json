@@ -1,0 +1,40 @@
+{
+  "Partial": true,
+  "SelectedCount": 4,
+  "TotalCount": 9696,
+  "Blocks": [],
+  "ExactCases": [
+    "runtime/string/cooperative-ascii-binary-length",
+    "runtime/string/cooperative-ascii-binary-reverse",
+    "runtime/string/cooperative-ascii-list-length",
+    "runtime/string/cooperative-ascii-list-reverse"
+  ],
+  "Passed": 0,
+  "Failed": 4,
+  "Tests": [
+    {
+      "Name": "runtime/string/cooperative-ascii-list-length",
+      "Status": "Failed",
+      "Error": "System.InvalidOperationException: String ASCII traversal must charge reductions without changing its result\r\n   at Erlang.Tests.StringCooperationChecks.\u003C\u003Ec__DisplayClass0_1.\u003C\u003CRun\u003Eb__0\u003Ed.MoveNext() in D:\\Distr\\Work\\Codex\\Erlang.Net\\string-otp-merge\\tests\\Erlang.Tests\\Otp\\Stdlib\\String\\StringCooperationChecks.cs:line 42\r\n--- End of stack trace from previous location ---\r\n   at Erlang.Tests.RuntimeNodeFoundationHostActor.\u003C\u003Ec__DisplayClass9_0\u00601.\u003C\u003CInvokeAsync\u003Eb__0\u003Ed.MoveNext() in D:\\Distr\\Work\\Codex\\Erlang.Net\\string-otp-merge\\tests\\Erlang.Tests\\Runtime\\Execution\\RuntimeNodeFoundationHostActor.cs:line 43\r\n--- End of stack trace from previous location ---\r\n   at Erlang.Tests.RuntimeNodeFoundationHostActor.InvokeAsync[T](Func\u00602 command) in D:\\Distr\\Work\\Codex\\Erlang.Net\\string-otp-merge\\tests\\Erlang.Tests\\Runtime\\Execution\\RuntimeNodeFoundationHostActor.cs:line 51\r\n   at Erlang.Tests.StringCooperationChecks.Run(Boolean binary, Boolean reverse) in D:\\Distr\\Work\\Codex\\Erlang.Net\\string-otp-merge\\tests\\Erlang.Tests\\Otp\\Stdlib\\String\\StringCooperationChecks.cs:line 16\r\n   at Erlang.Tests.StringCooperationChecks.Run(Boolean binary, Boolean reverse) in D:\\Distr\\Work\\Codex\\Erlang.Net\\string-otp-merge\\tests\\Erlang.Tests\\Otp\\Stdlib\\String\\StringCooperationChecks.cs:line 16\r\n   at Erlang.Tests.StringCooperationChecks.Run(Boolean binary, Boolean reverse) in D:\\Distr\\Work\\Codex\\Erlang.Net\\string-otp-merge\\tests\\Erlang.Tests\\Otp\\Stdlib\\String\\StringCooperationChecks.cs:line 16\r\n   at Program.\u003CMain\u003E$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\string-otp-merge\\tests\\Erlang.Tests\\Harness\\Program.cs:line 16235",
+      "Milliseconds": 1833
+    },
+    {
+      "Name": "runtime/string/cooperative-ascii-binary-length",
+      "Status": "Failed",
+      "Error": "System.InvalidOperationException: String ASCII traversal must charge reductions without changing its result\r\n   at Erlang.Tests.StringCooperationChecks.\u003C\u003Ec__DisplayClass0_1.\u003C\u003CRun\u003Eb__0\u003Ed.MoveNext() in D:\\Distr\\Work\\Codex\\Erlang.Net\\string-otp-merge\\tests\\Erlang.Tests\\Otp\\Stdlib\\String\\StringCooperationChecks.cs:line 42\r\n--- End of stack trace from previous location ---\r\n   at Erlang.Tests.RuntimeNodeFoundationHostActor.\u003C\u003Ec__DisplayClass9_0\u00601.\u003C\u003CInvokeAsync\u003Eb__0\u003Ed.MoveNext() in D:\\Distr\\Work\\Codex\\Erlang.Net\\string-otp-merge\\tests\\Erlang.Tests\\Runtime\\Execution\\RuntimeNodeFoundationHostActor.cs:line 43\r\n--- End of stack trace from previous location ---\r\n   at Erlang.Tests.RuntimeNodeFoundationHostActor.InvokeAsync[T](Func\u00602 command) in D:\\Distr\\Work\\Codex\\Erlang.Net\\string-otp-merge\\tests\\Erlang.Tests\\Runtime\\Execution\\RuntimeNodeFoundationHostActor.cs:line 51\r\n   at Erlang.Tests.StringCooperationChecks.Run(Boolean binary, Boolean reverse) in D:\\Distr\\Work\\Codex\\Erlang.Net\\string-otp-merge\\tests\\Erlang.Tests\\Otp\\Stdlib\\String\\StringCooperationChecks.cs:line 16\r\n   at Erlang.Tests.StringCooperationChecks.Run(Boolean binary, Boolean reverse) in D:\\Distr\\Work\\Codex\\Erlang.Net\\string-otp-merge\\tests\\Erlang.Tests\\Otp\\Stdlib\\String\\StringCooperationChecks.cs:line 16\r\n   at Erlang.Tests.StringCooperationChecks.Run(Boolean binary, Boolean reverse) in D:\\Distr\\Work\\Codex\\Erlang.Net\\string-otp-merge\\tests\\Erlang.Tests\\Otp\\Stdlib\\String\\StringCooperationChecks.cs:line 16\r\n   at Program.\u003CMain\u003E$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\string-otp-merge\\tests\\Erlang.Tests\\Harness\\Program.cs:line 16235",
+      "Milliseconds": 704
+    },
+    {
+      "Name": "runtime/string/cooperative-ascii-list-reverse",
+      "Status": "Failed",
+      "Error": "System.InvalidOperationException: String ASCII traversal must charge reductions without changing its result\r\n   at Erlang.Tests.StringCooperationChecks.\u003C\u003Ec__DisplayClass0_1.\u003C\u003CRun\u003Eb__0\u003Ed.MoveNext() in D:\\Distr\\Work\\Codex\\Erlang.Net\\string-otp-merge\\tests\\Erlang.Tests\\Otp\\Stdlib\\String\\StringCooperationChecks.cs:line 42\r\n--- End of stack trace from previous location ---\r\n   at Erlang.Tests.RuntimeNodeFoundationHostActor.\u003C\u003Ec__DisplayClass9_0\u00601.\u003C\u003CInvokeAsync\u003Eb__0\u003Ed.MoveNext() in D:\\Distr\\Work\\Codex\\Erlang.Net\\string-otp-merge\\tests\\Erlang.Tests\\Runtime\\Execution\\RuntimeNodeFoundationHostActor.cs:line 43\r\n--- End of stack trace from previous location ---\r\n   at Erlang.Tests.RuntimeNodeFoundationHostActor.InvokeAsync[T](Func\u00602 command) in D:\\Distr\\Work\\Codex\\Erlang.Net\\string-otp-merge\\tests\\Erlang.Tests\\Runtime\\Execution\\RuntimeNodeFoundationHostActor.cs:line 51\r\n   at Erlang.Tests.StringCooperationChecks.Run(Boolean binary, Boolean reverse) in D:\\Distr\\Work\\Codex\\Erlang.Net\\string-otp-merge\\tests\\Erlang.Tests\\Otp\\Stdlib\\String\\StringCooperationChecks.cs:line 16\r\n   at Erlang.Tests.StringCooperationChecks.Run(Boolean binary, Boolean reverse) in D:\\Distr\\Work\\Codex\\Erlang.Net\\string-otp-merge\\tests\\Erlang.Tests\\Otp\\Stdlib\\String\\StringCooperationChecks.cs:line 16\r\n   at Erlang.Tests.StringCooperationChecks.Run(Boolean binary, Boolean reverse) in D:\\Distr\\Work\\Codex\\Erlang.Net\\string-otp-merge\\tests\\Erlang.Tests\\Otp\\Stdlib\\String\\StringCooperationChecks.cs:line 16\r\n   at Program.\u003CMain\u003E$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\string-otp-merge\\tests\\Erlang.Tests\\Harness\\Program.cs:line 16235",
+      "Milliseconds": 497
+    },
+    {
+      "Name": "runtime/string/cooperative-ascii-binary-reverse",
+      "Status": "Failed",
+      "Error": "System.InvalidOperationException: String ASCII traversal must charge reductions without changing its result\r\n   at Erlang.Tests.StringCooperationChecks.\u003C\u003Ec__DisplayClass0_1.\u003C\u003CRun\u003Eb__0\u003Ed.MoveNext() in D:\\Distr\\Work\\Codex\\Erlang.Net\\string-otp-merge\\tests\\Erlang.Tests\\Otp\\Stdlib\\String\\StringCooperationChecks.cs:line 42\r\n--- End of stack trace from previous location ---\r\n   at Erlang.Tests.RuntimeNodeFoundationHostActor.\u003C\u003Ec__DisplayClass9_0\u00601.\u003C\u003CInvokeAsync\u003Eb__0\u003Ed.MoveNext() in D:\\Distr\\Work\\Codex\\Erlang.Net\\string-otp-merge\\tests\\Erlang.Tests\\Runtime\\Execution\\RuntimeNodeFoundationHostActor.cs:line 43\r\n--- End of stack trace from previous location ---\r\n   at Erlang.Tests.RuntimeNodeFoundationHostActor.InvokeAsync[T](Func\u00602 command) in D:\\Distr\\Work\\Codex\\Erlang.Net\\string-otp-merge\\tests\\Erlang.Tests\\Runtime\\Execution\\RuntimeNodeFoundationHostActor.cs:line 51\r\n   at Erlang.Tests.StringCooperationChecks.Run(Boolean binary, Boolean reverse) in D:\\Distr\\Work\\Codex\\Erlang.Net\\string-otp-merge\\tests\\Erlang.Tests\\Otp\\Stdlib\\String\\StringCooperationChecks.cs:line 16\r\n   at Erlang.Tests.StringCooperationChecks.Run(Boolean binary, Boolean reverse) in D:\\Distr\\Work\\Codex\\Erlang.Net\\string-otp-merge\\tests\\Erlang.Tests\\Otp\\Stdlib\\String\\StringCooperationChecks.cs:line 16\r\n   at Erlang.Tests.StringCooperationChecks.Run(Boolean binary, Boolean reverse) in D:\\Distr\\Work\\Codex\\Erlang.Net\\string-otp-merge\\tests\\Erlang.Tests\\Otp\\Stdlib\\String\\StringCooperationChecks.cs:line 16\r\n   at Program.\u003CMain\u003E$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\string-otp-merge\\tests\\Erlang.Tests\\Harness\\Program.cs:line 16235",
+      "Milliseconds": 541
+    }
+  ]
+}

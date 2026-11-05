@@ -1,0 +1,5 @@
+using System.Reflection;
+var assembly = Assembly.LoadFrom(Path.GetFullPath(args[0]));
+var type = assembly.GetType("Erlang.Tests.BeamTryExtensionBytes", true)!;
+var bytes = (byte[])type.GetMethod("Tail", BindingFlags.Static | BindingFlags.NonPublic)!.Invoke(null, [false])!;
+File.WriteAllBytes(args[1], bytes);

@@ -3,6 +3,7 @@ namespace Erlang;
 internal static class ExternalIdentifierLayout
 {
     internal const int HeadWords = 3;
+    internal static int MaximumDataWords => (ReferenceIdentityLayout.MaximumWords + 1 + NativeWordLayout.UintsPerWord - 1) / NativeWordLayout.UintsPerWord;
     internal const int HeaderWords = 1;
     internal const int NodeWord = 1;
     internal const int NextWord = 2;
@@ -13,7 +14,7 @@ internal static class ExternalIdentifierLayout
     internal const nuint PortTag = 0x34;
     internal const nuint ReferenceTag = 0x38;
     internal const string Invalid = "Invalid external identifier descriptor";
-    internal const string Platform = "External identifier descriptors require little-endian 64-bit words";
+    internal const string Platform = "External identifier descriptors require little-endian 32-bit or 64-bit words";
 
     internal static bool IsKind(NativeOffheapKind576 kind) => kind is NativeOffheapKind576.ExternalPid
         or NativeOffheapKind576.ExternalPort or NativeOffheapKind576.ExternalReference;

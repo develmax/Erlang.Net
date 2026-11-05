@@ -1,0 +1,53 @@
+namespace Erlang;
+
+internal static class DetsNames
+{
+    internal const string Module = "dets";
+    internal const string Undefined = "undefined";
+    internal const string HashParameters = "$hash2";
+    internal const string AccessMode = "access_mode";
+    internal const string Ok = "ok";
+    internal const string Error = "error";
+    internal const string EndOfTable = "$end_of_table";
+    internal const string Call = "$dets_call";
+    internal const string Down = "DOWN";
+    internal const string Normal = "normal";
+    internal const string EndOfInput = "end_of_input";
+    internal const string Close = "close";
+    internal const string Bchunk = "bchunk";
+    internal const string Bindings = "bindings";
+    internal const string Object = "object";
+    internal const string Select = "select";
+    internal const string Continuation = "dets_cont";
+    internal const int BchunkVersion = 1;
+    internal const int ChunkBytes = 8192;
+    internal const int EtsTransferChunkObjects = 100;
+    internal const int BlockMapEntryBytes = 12;
+    internal const string True = "true";
+    internal const string False = "false";
+    internal const string Default = "default";
+    internal const string Infinity = "infinity";
+    internal const string Force = "force";
+    internal const string Access = "access";
+    internal const string Read = "read";
+    internal const string ReadWrite = "read_write";
+    internal const string AutoSave = "auto_save";
+    internal const string CacheSize = "cache_size";
+    internal const string DelayedWrite = "delayed_write";
+    internal const string EstimatedObjects = "estimated_no_objects";
+    internal const string File = "file";
+    internal const string KeyPosition = "keypos";
+    internal const string MaximumSlots = "max_no_slots";
+    internal const string MinimumSlots = "min_no_slots";
+    internal const string RamFile = "ram_file";
+    internal const string Repair = "repair";
+    internal const string Type = "type";
+    internal const string Version = "version";
+    internal const string Debug = "debug";
+    internal const string Set = "set";
+    internal const string Bag = "bag";
+    internal const string DuplicateBag = "duplicate_bag";
+    internal const int DefaultAutoSaveMilliseconds = 180000;
+    internal const int DefaultWriteDelayMilliseconds = 3000;
+    internal const int DefaultWriteCacheBytes = 14000;
+}

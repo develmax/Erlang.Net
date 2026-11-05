@@ -1,0 +1,35 @@
+{
+  "Host": "linux-arm64",
+  "Architecture": "Arm64",
+  "LinuxNamespace": true,
+  "CrossPlatformExecutionProven": false,
+  "Runtime": ".NET 10.0.14",
+  "OperatingSystem": "Ubuntu 24.04.5 LTS",
+  "PointerBytes": 8,
+  "Results": [
+    {
+      "Name": "platform-admission",
+      "Passed": true
+    },
+    {
+      "Name": "entry-layout",
+      "Passed": true
+    },
+    {
+      "Name": "elf-capsule-machine",
+      "Passed": true
+    },
+    {
+      "Name": "host-loader-missing-file",
+      "Passed": true
+    },
+    {
+      "Name": "unix-native-callbacks-and-vm-ownership",
+      "Passed": true
+    },
+    {
+      "Name": "unix-managed-default-symbol-scope",
+      "Passed": true
+    }
+  ]
+}

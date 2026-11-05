@@ -1,0 +1,82 @@
+{
+  "Passed": false,
+  "Checks": [
+    {
+      "Plan": "Erlang.NifMapFamily504Observations",
+      "Passed": false,
+      "Error": "RuntimeError('Dependency hash mismatch: src/Otp/Managed/Erlang.Otp.Stdlib/Registration/ManagedStdlibRegistration456.cs mode=TextLF expected=2F4C534EE95E93F35140A5E32F0178FF97CF4D4A441C1711036C11E1063D76D7 actual=D1C239379DA55D8CFB45F08633B6AA4D995FB653600F0BC7D7B2F2DADF861EFF raw=D1C239379DA55D8CFB45F08633B6AA4D995FB653600F0BC7D7B2F2DADF861EFF')"
+    },
+    {
+      "Plan": "Erlang.NifMapMaterialized505Observations",
+      "Passed": false,
+      "Error": "RuntimeError('dependency seal: src/Otp/Managed/Erlang.Otp.Stdlib/Registration/ManagedStdlibRegistration456.cs')"
+    },
+    {
+      "Plan": "Erlang.NifMapReentry505Observations",
+      "Passed": false,
+      "Error": "RuntimeError(\"Independent dependency checks failed: RuntimeError('Dependency hash mismatch: src/Otp/Managed/Erlang.Otp.Stdlib/Registration/ManagedStdlibRegistration456.cs mode=TextLF expected=2F4C534EE95E93F35140A5E32F0178FF97CF4D4A441C1711036C11E1063D76D7 actual=D1C239379DA55D8CFB45F08633B6AA4D995FB653600F0BC7D7B2F2DADF861EFF raw=D1C239379DA55D8CFB45F08633B6AA4D995FB653600F0BC7D7B2F2DADF861EFF')\")"
+    },
+    {
+      "Plan": "tools/Runtime/Erlang.OwnedGuest506Observations",
+      "Passed": false,
+      "Error": "RuntimeError('Source seal differs: tests/Erlang.Tests/Erlang.Tests.csproj')"
+    },
+    {
+      "Plan": "tools/Native/Erlang.NifVariadic526Observations",
+      "Passed": false,
+      "Error": "RuntimeError('Source seal differs: src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamExternalImports.cs')"
+    },
+    {
+      "Plan": "Pending",
+      "Passed": false,
+      "Error": "ValueError('Pending source differs: src/Otp/Managed/Erlang.Otp.Stdlib/Registration/ManagedStdlibRegistration456.cs')"
+    },
+    {
+      "Plan": "Reallocation",
+      "Passed": false,
+      "Error": "RuntimeError('Reviewed source changed: src/Otp/Managed/Erlang.Otp.Stdlib/Registration/ManagedStdlibRegistration456.cs')"
+    },
+    {
+      "Plan": "Private557",
+      "Passed": false,
+      "Error": "RuntimeError('Source seal differs: src/Runtime/Erlang.Runtime.Core/Execution/Beam/BeamExternalImports.cs')"
+    },
+    {
+      "Plan": "Erlang.Dictionary537Observations",
+      "Passed": true,
+      "Details": {
+        "PlanSha256": "1B907F03F31FDBE47112A4E27BBA68E9581628911469970A82EDD025A171F5E6",
+        "VerifiedRows": 5,
+        "BuildOrVmExecuted": false
+      }
+    },
+    {
+      "Plan": "Erlang.MatchSaved634Observations",
+      "Passed": false,
+      "Error": "ValueError('Focused input differs: tests/Erlang.Tests/Harness/Program.cs')"
+    },
+    {
+      "Plan": "Erlang.EtsDispatch540Observations",
+      "Passed": false,
+      "Error": "ValueError('Focused input differs: tests/Erlang.Tests/Erlang.Tests.csproj')"
+    },
+    {
+      "Plan": "Erlang.MonitorOriginal645Observations",
+      "Passed": false,
+      "Error": "ValueError('Focused input differs: tests/Erlang.Tests/Erlang.Tests.csproj')"
+    },
+    {
+      "Plan": "Erlang.BeamFunction542Observations",
+      "Passed": false,
+      "Error": "ValueError('Focused input differs: tests/Erlang.Tests/Erlang.Tests.csproj')"
+    }
+  ],
+  "ExpectedPlans": 13,
+  "ExpectedNativePlans": 8,
+  "FocusedInputPlans": 5,
+  "BuildOrVmExecuted": false,
+  "NativeExecuted": false,
+  "SourceHeadAuthenticityClaimed": false,
+  "FullSourceMembershipClaimed": false,
+  "WholeContractsClosed": 0
+}

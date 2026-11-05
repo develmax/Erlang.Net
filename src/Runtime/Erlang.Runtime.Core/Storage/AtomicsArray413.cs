@@ -14,7 +14,7 @@ internal sealed unsafe partial class AtomicsArray413
 
     internal AtomicsArray413(ulong length, bool signed)
     {
-        if (IntPtr.Size != sizeof(ulong)) throw new PlatformNotSupportedException(AtomicsNames413.Architecture);
+        if (!NativeWordLayout.Supported) throw new PlatformNotSupportedException(AtomicsNames413.Architecture);
         // Source rejects counts exceeding UWord/atomic size. Also reject overflow of our actual owned region.
         if (length > (ulong.MaxValue - (ulong)sizeof(AtomicsMagicHeader413)) / sizeof(long)
             || length > ((ulong)nint.MaxValue - (ulong)sizeof(AtomicsMagicHeader413)) / sizeof(long))
@@ -25,8 +25,8 @@ internal sealed unsafe partial class AtomicsArray413
         memory = (nint)pointer;
         var header = (AtomicsMagicHeader413*)pointer;
         header->Flags = NativeResourceMagic527.Magic;
-        header->ApparentSize = checked((nuint)(AllocatedBytes - (ulong)Marshal.OffsetOf<AtomicsMagicHeader413>(nameof(AtomicsMagicHeader413.IsSigned))));
-        header->OriginalSize = checked((nuint)(AllocatedBytes - (ulong)Marshal.OffsetOf<AtomicsMagicHeader413>(nameof(AtomicsMagicHeader413.Destructor))));
+        header->ApparentSize = checked((nuint)(AllocatedBytes - (ulong)NativeMagicLayout.AlignedDataOffset));
+        header->OriginalSize = checked((nuint)(AllocatedBytes - (ulong)NativeMagicLayout.BinaryDataOffset));
         // Pinned create_magic_binary starts at zero. Actual process-header
         // roots are committed only by the parent shared-header adapter; never invent one.
         header->ReferenceCount = 0;

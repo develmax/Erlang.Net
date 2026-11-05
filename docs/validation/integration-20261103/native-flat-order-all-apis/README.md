@@ -1,0 +1,7 @@
+# Supplemental native flatmap counterexamples
+
+The [immutable manifest](manifest.json) maps each of15 affected MFAs to four actual zero-based row indices and preserved half-open raw ETF spans. Eight genuine505 layouts exercise all21 exports (168 whole outcomes/backend); baselineManaged andBeam each differ in60 rows. The six previously verified APIs have no differences in these rows.
+
+[Archive identity](archive.json) binds the [complete frozen evidence ZIP](ordsets-native-api-frozen.zip). Every listed member length/hash was independently checked. It retains actual original/baseline/candidate streams, unchanged raw input arguments, exact assembly hashes, producer C/Erlang/build receipt, observer source/BEAM and the byte-span comparison tool. It identifies the matching-owner lab snapshot explicitly: these are not claimed as executions of a merged-main build. The separately isolated physical-key fix matches the finite168-row corpus but is not applied in this integration and grants no promotion.
+
+Current classification:6 verified,15 Known differences,0 pending for ordsets. The earlier3-known/12-pending checkpoint remains retained in its original ledger/source audit; this later evidence supplies actual counterexamples for all15. The pre-existing main source branch remains independently documented in the earlier native-flat-order evidence. Complete shared-domain/dependency acceptance and a separate corrected-source full run remain open.

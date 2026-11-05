@@ -5,7 +5,7 @@ internal static class CountersValues421
     internal static ulong Length(Term value)
     {
         if (value is not Integer integer || integer.Value <= 0) throw new ErlangException(ErlangErrorReasons.BadArgument);
-        if (integer.Value > ulong.MaxValue) throw new ErlangException(ErlangErrorReasons.SystemLimit);
+        if (integer.Value > (ulong)nuint.MaxValue) throw new ErlangException(ErlangErrorReasons.SystemLimit);
 
         return (ulong)integer.Value;
     }

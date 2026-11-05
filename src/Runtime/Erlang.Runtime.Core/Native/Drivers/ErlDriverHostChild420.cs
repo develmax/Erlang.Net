@@ -71,7 +71,8 @@ internal sealed class ErlDriverHostChild420 : IAsyncDisposable
         ErlDriverHostLaunchOptions420 options,
         Func<ErlDriverHostFrame420, CancellationToken, ValueTask<ErlDriverHostFrame420>> onRequest,
         Func<ErlDriverHostFrame420, CancellationToken, ValueTask> onEvent,
-        CancellationToken cancellation
+        CancellationToken cancellation,
+        ErlDriverHostResponseGate1427? responseAdmission = null
     )
     {
         cancellation.ThrowIfCancellationRequested();
@@ -151,7 +152,8 @@ internal sealed class ErlDriverHostChild420 : IAsyncDisposable
                 session,
                 false,
                 onRequest,
-                onEvent
+                onEvent,
+                responseAdmission
             );
             owner.prepared.TrySetResult();
 

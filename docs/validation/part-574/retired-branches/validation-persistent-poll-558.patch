@@ -1,0 +1,2079 @@
+diff --git a/.github/workflows/allocation-diagnostic.yml b/.github/workflows/allocation-diagnostic.yml
+index 43820b790..a7ed50393 100644
+--- a/.github/workflows/allocation-diagnostic.yml
++++ b/.github/workflows/allocation-diagnostic.yml
+@@ -1,42 +1,50 @@
+-name: Windows hash allocation diagnostics
+-on:
+-  workflow_dispatch:
+-permissions:
+-  contents: read
+-jobs:
+-  diagnostics:
+-    runs-on: windows-latest
+-    timeout-minutes: 15
+-    env:
+-      DOTNET_PROCESSOR_COUNT: 2
+-    steps:
+-      - uses: actions/checkout@v7
+-        with:
+-          persist-credentials: false
+-      - uses: actions/setup-dotnet@v6
+-        with:
+-          global-json-file: global.json
+-      - name: Build current-head reference assemblies and diagnostic
+-        shell: pwsh
+-        run: |
+-          New-Item -ItemType Directory -Path artifacts/allocation-diagnostic -Force | Out-Null
+-          dotnet build tests/Erlang.Tests -m:1 --disable-build-servers *> artifacts/allocation-diagnostic/tests-build.log
+-          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+-          dotnet build tools/Runtime/Erlang.AllocationDiagnostic -m:1 --disable-build-servers *> artifacts/allocation-diagnostic/helper-build.log
+-          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+-      - name: Capture eight bounded fresh diagnostic processes
+-        shell: pwsh
+-        run: |
+-          $taskRows = @()
+-          for ($taskIndex = 0; $taskIndex -lt 8; $taskIndex++) {
+-            $taskReport = "artifacts/allocation-diagnostic/fresh-$taskIndex.json"
+-            $taskResult = & ./tools/Runtime/Erlang.AllocationDiagnostic/Run-DiagnosticProcess.ps1 -Executable dotnet -Arguments @('tools/Runtime/Erlang.AllocationDiagnostic/bin/Debug/net10.0/Erlang.AllocationDiagnostic.dll', $taskReport) -Prefix "artifacts/allocation-diagnostic/fresh-$taskIndex"
+-            $taskRows += [pscustomobject]@{ Index=$taskIndex; Complete=$taskResult.Complete; TimedOut=$taskResult.TimedOut; StillAlive=$taskResult.StillAlive; ExitCode=$taskResult.ExitCode; LaunchError=$taskResult.LaunchError; Report=$taskReport }
+-          }
+-          [pscustomobject]@{ HarnessCommit=$env:GITHUB_SHA; RunId=$env:GITHUB_RUN_ID; RunAttempt=$env:GITHUB_RUN_ATTEMPT; Job=$env:GITHUB_JOB; Rows=$taskRows; Failed267RuntimeDllBindingAvailable=$false; OriginalBudget=4096; IsCiRetry=$false; CauseProven=$false } | ConvertTo-Json -Depth 8 | Set-Content artifacts/allocation-diagnostic/run-provenance.json
+-          if ($taskRows.Where({ -not $_.Complete -or $_.TimedOut -or $_.StillAlive -or $null -ne $_.LaunchError -or $_.ExitCode -ne 0 }).Count -gt 0) { exit 1 }
+-      - uses: actions/upload-artifact@v7
+-        if: always()
+-        with:
+-          name: windows-hash-allocation-diagnostics
+-          path: artifacts/allocation-diagnostic
++name: Linux descriptor poll558 component experiment
++on:
++  workflow_dispatch:
++permissions:
++  contents: read
++concurrency:
++  group: poll558-${{ github.ref }}
++  cancel-in-progress: false
++jobs:
++  linux-poll-components:
++    runs-on: ubuntu-latest
++    timeout-minutes: 20
++    env:
++      PYTHONDONTWRITEBYTECODE: '1'
++      DOTNET_CLI_TELEMETRY_OPTOUT: '1'
++      MSBUILDDISABLENODEREUSE: '1'
++      DOTNET_CLI_USE_MSBUILD_SERVER: '0'
++    steps:
++      - uses: actions/checkout@v7
++        with:
++          ref: ${{ github.sha }}
++          fetch-depth: 3
++          sparse-checkout: |
++            .github/workflows
++            src/Runtime
++            src/Otp/Managed/Erlang.Otp.Stdlib
++            src/Otp/Original/Foundation/Erlang.Otp.Erts.Beam
++            tools/Validation/Erlang.DescriptorPollValidation
++          persist-credentials: false
++      - name: Verify exact committed experiment and unchanged runtime sources
++        run: python3 tools/Validation/Erlang.DescriptorPollValidation/verify-ci.py
++      - uses: actions/setup-dotnet@v6
++        with:
++          global-json-file: global.json
++      - name: Require the exact runtime without rolling fallback
++        shell: bash
++        run: |
++          set -euo pipefail
++          if ! dotnet --list-runtimes | grep -F 'Microsoft.NETCore.App 10.0.11 '; then
++            curl --fail --location --retry 2 https://dot.net/v1/dotnet-install.sh -o "$RUNNER_TEMP/poll558-dotnet-install.sh"
++            bash "$RUNNER_TEMP/poll558-dotnet-install.sh" --runtime dotnet --version 10.0.11 --install-dir "$DOTNET_ROOT" --no-path
++          fi
++          dotnet --list-runtimes | grep -F 'Microsoft.NETCore.App 10.0.11 '
++      - name: Collect both independent profiles and retain pre-fix lost-wake failure
++        run: python3 tools/Validation/Erlang.DescriptorPollValidation/run-ci.py
++      - uses: actions/upload-artifact@v7
++        if: always()
++        with:
++          name: descriptor-poll558-components-${{ github.sha }}
++          path: artifacts/poll558
+diff --git a/tools/Validation/Erlang.DescriptorPollValidation/Erlang.DescriptorPollValidation.csproj b/tools/Validation/Erlang.DescriptorPollValidation/Erlang.DescriptorPollValidation.csproj
+new file mode 100644
+index 000000000..9f1682dba
+--- /dev/null
++++ b/tools/Validation/Erlang.DescriptorPollValidation/Erlang.DescriptorPollValidation.csproj
+@@ -0,0 +1,38 @@
++<?xml version='1.0' encoding='utf-8'?>
++<Project Sdk="Microsoft.NET.Sdk">
++  <PropertyGroup>
++    <OutputType>Exe</OutputType>
++    <TargetFramework>net10.0</TargetFramework>
++    <AssemblyName>Erlang.AsyncMicrostateValidation</AssemblyName>
++    <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
++    <ImplicitUsings>enable</ImplicitUsings>
++    <Nullable>enable</Nullable>
++    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
++    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
++    <UseSharedCompilation>false</UseSharedCompilation>
++    <NuGetAudit>false</NuGetAudit>
++    <EngineVersion Condition="'$(EngineVersion)'==''">green1558</EngineVersion>
++    <RepositoryRoot>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)../../..'))</RepositoryRoot>
++    <RuntimeReferenceDirectory Condition="'$(RuntimeReferenceDirectory)'==''">artifacts/poll558/runtime/$(Configuration)</RuntimeReferenceDirectory>
++    <ResolvedRuntimeReferenceDirectory>$([System.IO.Path]::GetFullPath('$(RuntimeReferenceDirectory)', '$(RepositoryRoot)'))</ResolvedRuntimeReferenceDirectory>
++  </PropertyGroup>
++  <ItemGroup>
++    <Reference Include="Erlang.Runtime">
++      <HintPath>$(ResolvedRuntimeReferenceDirectory)/Erlang.Runtime.dll</HintPath>
++    </Reference>
++    <Reference Include="Erlang.Terms">
++      <HintPath>$(ResolvedRuntimeReferenceDirectory)/Erlang.Terms.dll</HintPath>
++    </Reference>
++    <Reference Include="Erlang.Serialization">
++      <HintPath>$(ResolvedRuntimeReferenceDirectory)/Erlang.Serialization.dll</HintPath>
++    </Reference>
++    <Reference Include="Erlang.Otp.Stdlib">
++      <HintPath>$(ResolvedRuntimeReferenceDirectory)/Erlang.Otp.Stdlib.dll</HintPath>
++    </Reference>
++    <Compile Include="harness/*.cs" />
++    <Compile Include="versions/$(EngineVersion)/*.cs" />
++  </ItemGroup>
++  <Target Name="RequireReviewedRuntime" BeforeTargets="ResolveReferences">
++    <Error Condition="!Exists('$(ResolvedRuntimeReferenceDirectory)/Erlang.Runtime.dll')" Text="Existing reviewed runtime references required; no fallback fake runtime." />
++  </Target>
++</Project>
+\ No newline at end of file
+diff --git a/tools/Validation/Erlang.DescriptorPollValidation/README.md b/tools/Validation/Erlang.DescriptorPollValidation/README.md
+new file mode 100644
+index 000000000..82fd2e411
+--- /dev/null
++++ b/tools/Validation/Erlang.DescriptorPollValidation/README.md
+@@ -0,0 +1,17 @@
++# Genuine Linux descriptor engine component harness1557
++
++This artifact compiles on Windows only; it has NOT been executed on Linux. Root owns staging, runtime build, CI dispatch and result acceptance. No W/Git/CI mutation is performed here.
++
++Stage the complete source tree as `tools/Validation/Erlang.DescriptorPollValidation/`. Build its project with `-p:RuntimeReferenceDirectory=<existing four-DLL runtime output> -p:EngineVersion=green1558` (or old1554), a real Debug/Release configuration, and distinct output folders. Repository-relative RuntimeReferenceDirectory is resolved from the containing repository root. The friend-enabled output assembly name is Erlang.AsyncMicrostateValidation.dll. No runtime/provider is fabricated or built as fallback.
++
++CLI: `dotnet <output>/Erlang.AsyncMicrostateValidation.dll all <report.json>` runs10 independent genuine green component cases and retains all failures; exit0 requires all pass. `... lost-wake <report.json>` selects only the deterministic old/new interleaving. Old1554 is expected to report an actual three-second pending-request timeout and exit1, then complete real owner/service cleanup. Do not count any other old failure or forced process cleanup as the expected RED. Run the SAME harness and minimal observation patch for old/new; preserve both source versions and raw reports.
++
++The only engine instrumentation is four identical finite insertions: optional concrete probe field, optional constructor argument, field assignment and call after a native EMPTY snapshot is constructed but before actual poll. The concrete probe is one-shot, per engine and host-released outside all engine locks. It cannot settle an engine request, change returned events, or synthesize a native return. Host admits a genuine wait and cancels its actual token while that old empty snapshot is held. Releasing the probe lets actual native poll consume its genuine wake. Old1554 can then lose the new canceled wait; green1558's all-current-terminal pass must settle it before any unrelated input or owner/service stop. The probe is released before cleanup and disposed only after physical thread lifetime ends.
++
++Other controls verify actual poll0 unmanaged record and matching owned OS TID; real pipe read/write readiness; actual cancellation while kernel poll contains that exact request; two owner objects on the same borrowed FD; owned retired-generation FD reuse; native NVAL/EBADF; actual HUP/readEOF; service stop with active kernel snapshot and actual thread join; and dispose before Start with a proven Unstarted outcome. No arbitrary unrelated exceptions are accepted. Original primary and all independent cleanup errors are retained.
++
++On Linux x64 the harness reads only its own actual exported engine thread's `/proc/self/task/TID/syscall` and requires syscall7/poll plus expected native descriptor count (wake-only1, one request2, two requests3). The architecture restriction is explicit. The mapping was checked in the primary kernel v6.12 syscall table: https://github.com/torvalds/linux/blob/v6.12/arch/x86/entry/syscalls/syscall_64.tbl . These are test-only observation polls; readiness itself is produced exclusively by the engine's real kernel poll. Missing/protected proc state fails rather than manufacturing a witness.
++
++The FD-reuse fixture never selects an arbitrary closed integer: it retains ownership of the original open pipe read FD, awaits old engine-owner retirement, then dup3 replaces that STILL-OWNED target from a new owned pipe. This proves stale registration isolation after the supported physical fence. It does not prove safety when external code closes/reuses an active borrowed FD. Engine never duplicates or changes supplied descriptor flags.
++
++Each fresh component case has real RuntimeMicrostateAccounting and a genuine OS thread/pipe engine; it does not claim ProcessRuntime bootstrap integration or original OTP port behavior equality. Existing DescriptorIoCases/DescriptorIoNames/PortDescriptorCases remain the future public-API regression source; no duplicate Erlang fixture family is created. No blocking data-transfer cancellation, whole statistics compatibility, native exactly-once counts or performance gain is claimed. Compile success is not Linux ABI/race/cleanup/OTP acceptance.
+diff --git a/tools/Validation/Erlang.DescriptorPollValidation/ROOT-ADAPTATIONS.md b/tools/Validation/Erlang.DescriptorPollValidation/ROOT-ADAPTATIONS.md
+new file mode 100644
+index 000000000..309495e58
+--- /dev/null
++++ b/tools/Validation/Erlang.DescriptorPollValidation/ROOT-ADAPTATIONS.md
+@@ -0,0 +1,5 @@
++# Root CI adaptation1560
++
++The frozen1557 source and instrumentation remain preserved in the artifact record. This staged copy uses a portable repository-relative default reference directory. Harness-only diagnostics retain the original TimeoutException and stack, record whether the actual lost-wake task is pending before cleanup, and expose actual post-cleanup physical lifetime and thread join. They do not complete/cancel a wait, change a native call, replace an exception or make a synthetic physical certificate.
++
++Both service versions retain the identical four observational insertions documented in instrumentation.json. Production sources remain unchanged from36132d5. This is a Linux component experiment, not integrated VM/public-port or original OTP equality acceptance. Full contracts/API delta0/0. Earlier candidates1554/1556/1558 and all failed outcomes remain retained.
+diff --git a/tools/Validation/Erlang.DescriptorPollValidation/harness/LinuxDescriptorPollProbe1557.cs b/tools/Validation/Erlang.DescriptorPollValidation/harness/LinuxDescriptorPollProbe1557.cs
+new file mode 100644
+index 000000000..9cc4d66da
+--- /dev/null
++++ b/tools/Validation/Erlang.DescriptorPollValidation/harness/LinuxDescriptorPollProbe1557.cs
+@@ -0,0 +1,23 @@
++namespace Erlang;
++
++// Identical finite observation on both source versions. This host-controlled
++// gate pauses after an actual EMPTY snapshot is built, before the actual poll.
++internal sealed class LinuxDescriptorPollProbe1557 : IDisposable
++{
++    private readonly ManualResetEventSlim release = new();
++    private readonly TaskCompletionSource reached = new(TaskCreationOptions.RunContinuationsAsynchronously);
++    private int selected;
++
++    internal Task Reached => reached.Task;
++
++    internal void BeforeNativePoll(int snapshotCount)
++    {
++        if (snapshotCount != 0 || Interlocked.CompareExchange(ref selected, 1, 0) != 0) return;
++        reached.TrySetResult();
++        release.Wait();
++    }
++
++    internal void Release() => release.Set();
++
++    public void Dispose() => release.Dispose(); // Caller joins actual engine thread first.
++}
+diff --git a/tools/Validation/Erlang.DescriptorPollValidation/harness/PollHarnessCases1557.cs b/tools/Validation/Erlang.DescriptorPollValidation/harness/PollHarnessCases1557.cs
+new file mode 100644
+index 000000000..3a2a1644a
+--- /dev/null
++++ b/tools/Validation/Erlang.DescriptorPollValidation/harness/PollHarnessCases1557.cs
+@@ -0,0 +1,219 @@
++using System.Collections;
++using System.Globalization;
++using System.Reflection;
++using System.Runtime.ExceptionServices;
++
++namespace Erlang;
++
++internal static class PollHarnessCases1557
++{
++    private static void Require(bool condition)
++    {
++        if (!condition) throw new InvalidOperationException(PollHarnessNames1557.Contract);
++    }
++
++    private static async Task<Exception> Failure(Task task, Func<Exception, bool> expected)
++    {
++        try { await task.WaitAsync(PollHarnessNames1557.Deadline); }
++        catch (Exception error)
++        {
++            if (!expected(error)) throw new AggregateException(new InvalidOperationException(PollHarnessNames1557.Contract), error);
++
++            return error;
++        }
++        throw new InvalidOperationException(PollHarnessNames1557.Contract);
++    }
++
++    private static async Task<string> KernelPoll(LinuxDescriptorPollService1554 engine, int descriptors)
++    {
++        long end = Environment.TickCount64 + (long)PollHarnessNames1557.Deadline.TotalMilliseconds;
++        string last = string.Empty;
++        while (Environment.TickCount64 < end)
++        {
++            last = File.ReadAllText(PollHarnessNames1557.ProcTask + engine.ActualThreadId.ToString(CultureInfo.InvariantCulture)
++                + PollHarnessNames1557.ProcSyscall).Trim();
++            string[] fields = last.Split(' ', StringSplitOptions.RemoveEmptyEntries);
++            if (fields.Length > PollHarnessNames1557.NfdsToken && fields[0] == PollHarnessNames1557.PollSyscallText)
++            {
++                string value = fields[PollHarnessNames1557.NfdsToken];
++                if (value.StartsWith(PollHarnessNames1557.HexPrefix, StringComparison.Ordinal)) value = value[2..];
++                if (ulong.TryParse(value, NumberStyles.HexNumber, CultureInfo.InvariantCulture, out ulong count)
++                    && count == (ulong)descriptors) return last;
++            }
++            // Test-only observation polling of our exact owned OS thread;
++            // this does not provide or settle descriptor readiness.
++            await Task.Delay(PollHarnessNames1557.ProbeMilliseconds);
++        }
++        throw new TimeoutException(PollHarnessNames1557.Contract + Environment.NewLine + last);
++    }
++
++    internal static async Task<object> Run(string mode)
++    {
++        var fixture = new PollHarnessFixture1557();
++        Exception? primary = null, cleanup = null;
++        object? result = null;
++        try
++        {
++            await fixture.Initialize(mode != PollHarnessNames1557.Unstarted, mode == PollHarnessNames1557.LostWake);
++            result = await Body(fixture, mode);
++        }
++        catch (Exception error) { primary = error; }
++        finally
++        {
++            try { await fixture.DisposeAsync(); }
++            catch (Exception error) { cleanup = error; }
++        }
++        if (primary is not null && cleanup is not null) throw new AggregateException(primary, cleanup);
++        if (primary is not null)
++        {
++            primary.Data[PollHarnessNames1557.CleanupSucceeded] = cleanup is null;
++            primary.Data[PollHarnessNames1557.PhysicalEnded] = fixture.ExistingEngine?.PhysicalLifetimeEnded;
++            primary.Data[PollHarnessNames1557.ThreadJoined] = fixture.ExistingEngine?.ActualThreadJoined;
++            ExceptionDispatchInfo.Capture(primary).Throw();
++        }
++        if (cleanup is not null) ExceptionDispatchInfo.Capture(cleanup).Throw();
++        Require(fixture.Engine.PhysicalLifetimeEnded);
++
++        return new { Mode = mode, Evidence = result, PhysicalLifetimeEnded = fixture.Engine.PhysicalLifetimeEnded,
++            ActualThreadJoined = fixture.Engine.ActualThreadJoined };
++    }
++
++    private static async Task<object> Body(PollHarnessFixture1557 fixture, string mode)
++    {
++        var engine = fixture.Engine;
++        if (mode == PollHarnessNames1557.Unstarted)
++        {
++            await engine.DisposeAsync();
++            Require(engine.PhysicalLifetimeEnded && !engine.ActualThreadJoined);
++
++            return new { NeverStarted = true };
++        }
++        if (mode == PollHarnessNames1557.Identity)
++        {
++            string syscall = await KernelPoll(engine, PollHarnessNames1557.WakeOnlyNfds);
++            const BindingFlags members = BindingFlags.Instance | BindingFlags.NonPublic;
++            object gate = typeof(RuntimeMicrostateAccounting).GetField(PollHarnessNames1557.AccountingGate, members)!.GetValue(fixture.Accounting)!;
++            lock (gate)
++            {
++                var rows = (IDictionary)typeof(RuntimeMicrostateAccounting).GetField(PollHarnessNames1557.AccountingRecords, members)!.GetValue(fixture.Accounting)!;
++                RuntimeMicrostateRecord record = rows.Values.Cast<RuntimeMicrostateRecord>().Single();
++                Require(record.Type == PollHarnessNames1557.PollType && record.Identity == 0 && !record.Managed
++                    && record.Active && ReferenceEquals(record.Owner, fixture.Accounting)
++                    && record.PhysicalThread.OperatingSystemId == engine.ActualThreadId);
++            }
++            Require(engine.ActualThreadId > 0 && engine.ActualThreadId != RuntimeOsThreadIdentity.Current());
++
++            return new { ActualPollThreadId = engine.ActualThreadId, KernelPoll = syscall, PollIdentity = 0, Managed = false };
++        }
++        if (mode == PollHarnessNames1557.LostWake)
++        {
++            await fixture.Probe!.Reached.WaitAsync(PollHarnessNames1557.Deadline);
++            var owner = fixture.Register(fixture.Pipe.ReadFd);
++            using var cancellation = new CancellationTokenSource();
++            Task<short> pending = engine.WaitReadyAsync(owner, DescriptorPortParameters.PollInput, cancellation.Token);
++            cancellation.Cancel();
++            Require(!pending.IsCompleted);
++            fixture.Probe.Release();
++            try { _ = await pending.WaitAsync(PollHarnessNames1557.LostWakeDeadline); }
++            catch (TimeoutException error)
++            {
++                error.Data[PollHarnessNames1557.LostWakePending] = !pending.IsCompleted;
++                throw;
++            }
++            catch (OperationCanceledException error)
++            {
++                Require(pending.IsCanceled && error.CancellationToken == cancellation.Token);
++
++                return new { ActualEmptySnapshotHeld = true, NewRequestAdmittedAndCanceled = true, NativePollActuallyReleased = true,
++                    OriginalWaitCanceledBeforeOwnerRetireOrServiceStop = true };
++            }
++            throw new InvalidOperationException(PollHarnessNames1557.Contract);
++        }
++        var first = fixture.Register(mode == PollHarnessNames1557.Invalid ? PollHarnessNames1557.InvalidFd : fixture.Pipe.ReadFd);
++        if (mode == PollHarnessNames1557.Invalid)
++        {
++            var pending = engine.WaitReadyAsync(first, DescriptorPortParameters.PollInput, CancellationToken.None);
++            Exception error = await Failure(pending, error => error is NativePortIOException native && native.Error == LinuxPortParameters.BadDescriptor);
++
++            return new { ActualNativeBadDescriptor = error.ToString() };
++        }
++        if (mode == PollHarnessNames1557.Data)
++        {
++            var pending = engine.WaitReadyAsync(first, DescriptorPortParameters.PollInput, CancellationToken.None);
++            string syscall = await KernelPoll(engine, PollHarnessNames1557.OneWaitNfds);
++            Require(!pending.IsCompleted);
++            fixture.Pipe.WriteByte();
++            Require(((await pending.WaitAsync(PollHarnessNames1557.Deadline)) & DescriptorPortParameters.PollInput) != 0);
++            Require(fixture.Pipe.ReadOne(out byte value) == 1 && value == PollHarnessNames1557.DataByte);
++            var output = fixture.Register(fixture.Pipe.WriteFd);
++            Require(((await engine.WaitReadyAsync(output, DescriptorPortParameters.PollOutput, CancellationToken.None)
++                .WaitAsync(PollHarnessNames1557.Deadline)) & DescriptorPortParameters.PollOutput) != 0);
++
++            return new { KernelPollBeforeActualData = syscall, ActualReadByte = value, ActualWriteReady = true };
++        }
++        if (mode == PollHarnessNames1557.Cancel)
++        {
++            using var cancellation = new CancellationTokenSource();
++            var pending = engine.WaitReadyAsync(first, DescriptorPortParameters.PollInput, cancellation.Token);
++            string syscall = await KernelPoll(engine, PollHarnessNames1557.OneWaitNfds);
++            cancellation.Cancel();
++            Exception error = await Failure(pending, error => error is OperationCanceledException canceled
++                && canceled.CancellationToken == cancellation.Token && pending.IsCanceled);
++
++            return new { KernelPollBeforeCancel = syscall, ExactCallerCancellation = error.ToString() };
++        }
++        if (mode == PollHarnessNames1557.TwoOwners)
++        {
++            var second = fixture.Register(fixture.Pipe.ReadFd);
++            var a = engine.WaitReadyAsync(first, DescriptorPortParameters.PollInput, CancellationToken.None);
++            var b = engine.WaitReadyAsync(second, DescriptorPortParameters.PollInput, CancellationToken.None);
++            string syscall = await KernelPoll(engine, PollHarnessNames1557.TwoWaitNfds);
++            fixture.Pipe.WriteByte();
++            short[] ready = await Task.WhenAll(a, b).WaitAsync(PollHarnessNames1557.Deadline);
++            Require(first.Generation != second.Generation && ready.All(value => (value & DescriptorPortParameters.PollInput) != 0));
++            Require(fixture.Pipe.ReadOne(out byte value) == 1 && value == PollHarnessNames1557.DataByte);
++
++            return new { KernelPollBothExactOwners = syscall, TwoDistinctOwnerGenerations = true };
++        }
++        if (mode == PollHarnessNames1557.Reuse)
++        {
++            var old = engine.WaitReadyAsync(first, DescriptorPortParameters.PollInput, CancellationToken.None);
++            string syscall = await KernelPoll(engine, PollHarnessNames1557.OneWaitNfds);
++            await first.BeginRetire().WaitAsync(PollHarnessNames1557.Deadline);
++            _ = await Failure(old, error => ReferenceEquals(error, first.Closed));
++            var replacement = fixture.NewPipe();
++            int descriptor = fixture.Pipe.ReadFd;
++            fixture.Pipe.ReplaceOwnedReadFrom(replacement);
++            var second = fixture.Register(descriptor);
++            var pending = engine.WaitReadyAsync(second, DescriptorPortParameters.PollInput, CancellationToken.None);
++            replacement.WriteByte();
++            Require(((await pending.WaitAsync(PollHarnessNames1557.Deadline)) & DescriptorPortParameters.PollInput) != 0);
++            Require(first.Generation != second.Generation && fixture.Pipe.ReadOne(out byte value) == 1 && value == PollHarnessNames1557.DataByte);
++
++            return new { OldKernelPollRetired = syscall, SameOwnedDescriptorNumber = descriptor, ActualDup3AfterOldRetirement = true,
++                OldTaskKeptOwnClosedCause = true, NewGenerationReady = true };
++        }
++        if (mode == PollHarnessNames1557.Hangup)
++        {
++            var pending = engine.WaitReadyAsync(first, DescriptorPortParameters.PollInput, CancellationToken.None);
++            string syscall = await KernelPoll(engine, PollHarnessNames1557.OneWaitNfds);
++            fixture.Pipe.CloseWrite();
++            short events = await pending.WaitAsync(PollHarnessNames1557.Deadline);
++            Require((events & LinuxDescriptorPollNames1554.Hangup) != 0 && fixture.Pipe.ReadOne(out _) == 0);
++
++            return new { KernelPollBeforeActualWriterClose = syscall, ActualHangup = true, ActualReadEof = true };
++        }
++        if (mode == PollHarnessNames1557.Stop)
++        {
++            var pending = engine.WaitReadyAsync(first, DescriptorPortParameters.PollInput, CancellationToken.None);
++            string syscall = await KernelPoll(engine, PollHarnessNames1557.OneWaitNfds);
++            await engine.DisposeAsync().AsTask().WaitAsync(PollHarnessNames1557.Deadline);
++            _ = await Failure(pending, error => ReferenceEquals(error, first.Closed));
++            Require(engine.ActualThreadJoined && engine.PhysicalLifetimeEnded
++                && LinuxPortNative.fcntl(fixture.Pipe.ReadFd, LinuxPortParameters.GetFlags, 0) >= 0);
++
++            return new { KernelPollBeforeStop = syscall, ActualThreadJoinedBeforeCleanup = true, BorrowedFdStillOpen = true };
++        }
++        throw new ArgumentOutOfRangeException(nameof(mode));
++    }
++}
+diff --git a/tools/Validation/Erlang.DescriptorPollValidation/harness/PollHarnessFixture1557.cs b/tools/Validation/Erlang.DescriptorPollValidation/harness/PollHarnessFixture1557.cs
+new file mode 100644
+index 000000000..126d1af8a
+--- /dev/null
++++ b/tools/Validation/Erlang.DescriptorPollValidation/harness/PollHarnessFixture1557.cs
+@@ -0,0 +1,69 @@
++namespace Erlang;
++
++internal sealed class PollHarnessFixture1557 : IAsyncDisposable
++{
++    private readonly List<PollHarnessPipe1557> pipes = new(2);
++    private readonly List<LinuxDescriptorPollOwner1554> owners = new(4);
++    private LinuxDescriptorPollService1554? service;
++    internal LinuxDescriptorPollService1554? ExistingEngine => service;
++    internal RuntimeMicrostateAccounting Accounting { get; } = new();
++    internal LinuxDescriptorPollService1554 Engine => service ?? throw new InvalidOperationException(PollHarnessNames1557.Contract);
++    internal PollHarnessPipe1557 Pipe => pipes[0];
++    internal LinuxDescriptorPollProbe1557? Probe { get; private set; }
++
++    internal async Task Initialize(bool start, bool probe)
++    {
++        if (probe) Probe = new();
++        pipes.Add(new());
++        service = new(Accounting, Probe);
++        if (start)
++        {
++            service.Start();
++            await service.Ready.WaitAsync(PollHarnessNames1557.Deadline);
++        }
++    }
++
++    internal PollHarnessPipe1557 NewPipe()
++    {
++        var pipe = new PollHarnessPipe1557();
++        pipes.Add(pipe);
++
++        return pipe;
++    }
++
++    internal LinuxDescriptorPollOwner1554 Register(int descriptor)
++    {
++        var owner = Engine.RegisterBorrowed(descriptor);
++        owners.Add(owner);
++
++        return owner;
++    }
++
++    public async ValueTask DisposeAsync()
++    {
++        var errors = new List<Exception>();
++        Probe?.Release();
++        foreach (var owner in owners)
++        {
++            try { await owner.BeginRetire().WaitAsync(PollHarnessNames1557.Deadline); }
++            catch (Exception error) { errors.Add(error); }
++        }
++        if (service is not null)
++        {
++            try { await service.DisposeAsync().AsTask().WaitAsync(PollHarnessNames1557.Deadline); }
++            catch (Exception error) { errors.Add(error); }
++        }
++        if (service is null || service.PhysicalLifetimeEnded)
++        {
++            foreach (var pipe in pipes)
++            {
++                try { pipe.Dispose(); }
++                catch (Exception error) { errors.Add(error); }
++            }
++            try { Probe?.Dispose(); }
++            catch (Exception error) { errors.Add(error); }
++        }
++        else errors.Add(new InvalidOperationException(PollHarnessNames1557.Contract)); // Retain FDs if native lifetime unknown.
++        if (errors.Count != 0) throw new AggregateException(errors);
++    }
++}
+diff --git a/tools/Validation/Erlang.DescriptorPollValidation/harness/PollHarnessNames1557.cs b/tools/Validation/Erlang.DescriptorPollValidation/harness/PollHarnessNames1557.cs
+new file mode 100644
+index 000000000..0feb791c4
+--- /dev/null
++++ b/tools/Validation/Erlang.DescriptorPollValidation/harness/PollHarnessNames1557.cs
+@@ -0,0 +1,41 @@
++namespace Erlang;
++
++internal static class PollHarnessNames1557
++{
++    internal const string CleanupSucceeded = "CleanupSucceeded";
++    internal const string PhysicalEnded = "PhysicalLifetimeEnded";
++    internal const string ThreadJoined = "ActualThreadJoined";
++    internal const string LostWakePending = "LostWakePendingBeforeCleanup";
++    internal const string All = "all";
++    internal const string LostWake = "lost-wake";
++    internal const string Identity = "poll-thread-identity";
++    internal const string Data = "read-write-ready";
++    internal const string Cancel = "cancel-native-snapshot";
++    internal const string Reuse = "retire-reuse-fd";
++    internal const string TwoOwners = "same-fd-two-owners";
++    internal const string Invalid = "invalid-fd";
++    internal const string Hangup = "hangup-eof";
++    internal const string Stop = "stop-active-snapshot";
++    internal const string Unstarted = "stop-before-start";
++    internal const string Contract = "Actual Linux descriptor poll engine contract failed";
++    internal const string AccountingGate = "gate";
++    internal const string AccountingRecords = "records";
++    internal const string PollType = "poll";
++    internal const string ProcTask = "/proc/self/task/";
++    internal const string ProcSyscall = "/syscall";
++    internal const string PollSyscallText = "7";
++    internal const string HexPrefix = "0x";
++    internal const string KernelSource = "https://github.com/torvalds/linux/blob/v6.12/arch/x86/entry/syscalls/syscall_64.tbl#L19";
++    internal const int NfdsToken = 2;
++    internal const int ProbeMilliseconds = 1;
++    internal const int WakeOnlyNfds = 1;
++    internal const int OneWaitNfds = 2;
++    internal const int TwoWaitNfds = 3;
++    internal const int InvalidFd = int.MaxValue;
++    internal const byte DataByte = 65;
++    internal const int PipeReadIndex = 0;
++    internal const int PipeWriteIndex = 1;
++    internal static readonly TimeSpan Deadline = TimeSpan.FromSeconds(15);
++    internal static readonly TimeSpan LostWakeDeadline = TimeSpan.FromSeconds(3);
++    internal static readonly string[] Cases = [Identity, Data, Cancel, Reuse, TwoOwners, Invalid, Hangup, Stop, Unstarted, LostWake];
++}
+diff --git a/tools/Validation/Erlang.DescriptorPollValidation/harness/PollHarnessNative1557.cs b/tools/Validation/Erlang.DescriptorPollValidation/harness/PollHarnessNative1557.cs
+new file mode 100644
+index 000000000..e4bbf978a
+--- /dev/null
++++ b/tools/Validation/Erlang.DescriptorPollValidation/harness/PollHarnessNative1557.cs
+@@ -0,0 +1,9 @@
++using System.Runtime.InteropServices;
++
++namespace Erlang;
++
++internal static class PollHarnessNative1557
++{
++    [DllImport(LinuxPortParameters.Library, SetLastError = true)]
++    internal static extern int dup3(int source, int destination, int flags);
++}
+diff --git a/tools/Validation/Erlang.DescriptorPollValidation/harness/PollHarnessPipe1557.cs b/tools/Validation/Erlang.DescriptorPollValidation/harness/PollHarnessPipe1557.cs
+new file mode 100644
+index 000000000..4066def25
+--- /dev/null
++++ b/tools/Validation/Erlang.DescriptorPollValidation/harness/PollHarnessPipe1557.cs
+@@ -0,0 +1,64 @@
++using System.Runtime.InteropServices;
++
++namespace Erlang;
++
++// The fixture owns both exact FDs; engine registrations only borrow them.
++internal sealed class PollHarnessPipe1557 : IDisposable
++{
++    internal int ReadFd { get; private set; }
++    internal int WriteFd { get; private set; }
++
++    internal PollHarnessPipe1557()
++    {
++        int[] descriptors = [-1, -1];
++        if (LinuxPortNative.pipe2(descriptors, LinuxPortParameters.NonBlocking | LinuxPortParameters.CloseOnExec) != 0)
++            throw new NativePortIOException(Marshal.GetLastPInvokeError());
++        ReadFd = descriptors[PollHarnessNames1557.PipeReadIndex];
++        WriteFd = descriptors[PollHarnessNames1557.PipeWriteIndex];
++    }
++
++    internal unsafe void WriteByte()
++    {
++        byte value = PollHarnessNames1557.DataByte;
++        nint result = LinuxPortNative.write(WriteFd, (nint)(&value), 1);
++        if (result != 1) throw new NativePortIOException(Marshal.GetLastPInvokeError());
++    }
++
++    internal unsafe int ReadOne(out byte value)
++    {
++        byte actual = 0;
++        nint result = LinuxPortNative.read(ReadFd, (nint)(&actual), 1);
++        if (result < 0) throw new NativePortIOException(Marshal.GetLastPInvokeError());
++        value = actual;
++
++        return (int)result;
++    }
++
++    internal void ReplaceOwnedReadFrom(PollHarnessPipe1557 source)
++    {
++        // Destination is STILL our open owned FD, not an arbitrary reused
++        // integer. Caller first joins old engine owner retirement.
++        if (PollHarnessNative1557.dup3(source.ReadFd, ReadFd, LinuxPortParameters.CloseOnExec) != ReadFd)
++            throw new NativePortIOException(Marshal.GetLastPInvokeError());
++    }
++
++    internal void CloseWrite()
++    {
++        int descriptor = WriteFd;
++        WriteFd = -1;
++        if (descriptor >= 0 && LinuxDescriptorPollNative1554.close(descriptor) != 0)
++            throw new NativePortIOException(Marshal.GetLastPInvokeError());
++    }
++
++    public void Dispose()
++    {
++        var errors = new List<Exception>();
++        int descriptor = ReadFd;
++        ReadFd = -1;
++        if (descriptor >= 0 && LinuxDescriptorPollNative1554.close(descriptor) != 0)
++            errors.Add(new NativePortIOException(Marshal.GetLastPInvokeError()));
++        try { CloseWrite(); }
++        catch (Exception error) { errors.Add(error); }
++        if (errors.Count != 0) throw new AggregateException(errors);
++    }
++}
+diff --git a/tools/Validation/Erlang.DescriptorPollValidation/harness/Program.cs b/tools/Validation/Erlang.DescriptorPollValidation/harness/Program.cs
+new file mode 100644
+index 000000000..642c8ee1f
+--- /dev/null
++++ b/tools/Validation/Erlang.DescriptorPollValidation/harness/Program.cs
+@@ -0,0 +1,41 @@
++using System.Runtime.InteropServices;
++using System.Text.Json;
++using Erlang;
++
++var cases = new List<object>();
++bool passed = true;
++try
++{
++    if (args.Length != 2 || !OperatingSystem.IsLinux() || RuntimeInformation.ProcessArchitecture != Architecture.X64)
++        throw new PlatformNotSupportedException(PollHarnessNames1557.Contract);
++    string[] selected = args[0] == PollHarnessNames1557.All ? PollHarnessNames1557.Cases : [args[0]];
++    foreach (string name in selected)
++    {
++        try
++        {
++            object result = await PollHarnessCases1557.Run(name);
++            cases.Add(new { Name = name, Passed = true, Result = result });
++        }
++        catch (Exception error)
++        {
++            passed = false;
++            cases.Add(new { Name = name, Passed = false, ErrorType = error.GetType().FullName, Error = error.ToString(),
++                CleanupSucceeded = error.Data[PollHarnessNames1557.CleanupSucceeded],
++                PhysicalLifetimeEnded = error.Data[PollHarnessNames1557.PhysicalEnded],
++                ActualThreadJoined = error.Data[PollHarnessNames1557.ThreadJoined],
++                LostWakePendingBeforeCleanup = error.Data[PollHarnessNames1557.LostWakePending] });
++        }
++    }
++}
++catch (Exception error)
++{
++    passed = false;
++    cases.Add(new { Name = "setup", Passed = false, Error = error.ToString() });
++}
++var report = new { Passed = passed, Cases = cases, Host = RuntimeInformation.OSDescription,
++    Architecture = RuntimeInformation.ProcessArchitecture.ToString(), Runtime = Environment.Version.ToString(),
++    Scope = "Genuine Linux x64 component poll engine only; actual pipes/kernel thread/syscalls/MSACC. No port/VM integration, OTP equality, active external FD reuse or blocking data-transfer cancellation claim." };
++string json = JsonSerializer.Serialize(report, new JsonSerializerOptions { WriteIndented = true });
++Console.WriteLine(json);
++if (args.Length == 2) File.WriteAllText(args[1], json);
++Environment.ExitCode = passed ? 0 : 1;
+diff --git a/tools/Validation/Erlang.DescriptorPollValidation/instrumentation.json b/tools/Validation/Erlang.DescriptorPollValidation/instrumentation.json
+new file mode 100644
+index 000000000..540f7f25f
+--- /dev/null
++++ b/tools/Validation/Erlang.DescriptorPollValidation/instrumentation.json
+@@ -0,0 +1,78 @@
++{
++  "ArtifactOnly": true,
++  "OriginalSourcesUntouched": true,
++  "SameFourFiniteInsertionsOnBothServiceVersions": true,
++  "NoWaitCompletionOrFrameSubstitution": "Probe pauses only before real native poll outside all engine locks; it never settles an engine wait or synthesizes a native return.",
++  "Versions": {
++    "old1554": {
++      "OriginalManifestSha256": "31BA27630D931624D850042781DA22BB1AA6675FDAA385EF3DFD120A643CE405",
++      "Files": [
++        {
++          "Name": "LinuxDescriptorPollNames1554.cs",
++          "OriginalSha256": "9D9C4FD7050B7C029C0EF7CCE33E2C81C4AB1BF3A90CA3F75EC91C9F8D9EB4DF",
++          "InstrumentedSha256": "9D9C4FD7050B7C029C0EF7CCE33E2C81C4AB1BF3A90CA3F75EC91C9F8D9EB4DF",
++          "Bytes": 1305
++        },
++        {
++          "Name": "LinuxDescriptorPollNative1554.cs",
++          "OriginalSha256": "B50A667A7B7483A37A9E9C466E83F05032BBE4358674CBB2BCEA213E1156A424",
++          "InstrumentedSha256": "B50A667A7B7483A37A9E9C466E83F05032BBE4358674CBB2BCEA213E1156A424",
++          "Bytes": 421
++        },
++        {
++          "Name": "LinuxDescriptorPollOwner1554.cs",
++          "OriginalSha256": "CDD6F5DA8AB537820F23A3D8D95739AE795F355FEA1E6ED27B859350E4200549",
++          "InstrumentedSha256": "CDD6F5DA8AB537820F23A3D8D95739AE795F355FEA1E6ED27B859350E4200549",
++          "Bytes": 927
++        },
++        {
++          "Name": "LinuxDescriptorPollService1554.cs",
++          "OriginalSha256": "99415904CD6D3F4997CFA858668762FE0EFE08B06AC6E998F3171E49371682A6",
++          "InstrumentedSha256": "565787BD9B89FBCB319628CDB174EFD36299BBFA5DBDDCBA3689B09B125328F7",
++          "Bytes": 17536
++        },
++        {
++          "Name": "LinuxDescriptorPollWait1554.cs",
++          "OriginalSha256": "808C515125506CAD789D250D2B00D45ACCF7FA982D659C6A3D0C316A56A57C0F",
++          "InstrumentedSha256": "808C515125506CAD789D250D2B00D45ACCF7FA982D659C6A3D0C316A56A57C0F",
++          "Bytes": 753
++        }
++      ]
++    },
++    "green1558": {
++      "OriginalManifestSha256": "50E0FD8CE5461B71FAB61F1AE10338BE998F155F7A7A694E4BCF926ED62501AE",
++      "Files": [
++        {
++          "Name": "LinuxDescriptorPollNames1554.cs",
++          "OriginalSha256": "9D9C4FD7050B7C029C0EF7CCE33E2C81C4AB1BF3A90CA3F75EC91C9F8D9EB4DF",
++          "InstrumentedSha256": "9D9C4FD7050B7C029C0EF7CCE33E2C81C4AB1BF3A90CA3F75EC91C9F8D9EB4DF",
++          "Bytes": 1305
++        },
++        {
++          "Name": "LinuxDescriptorPollNative1554.cs",
++          "OriginalSha256": "B50A667A7B7483A37A9E9C466E83F05032BBE4358674CBB2BCEA213E1156A424",
++          "InstrumentedSha256": "B50A667A7B7483A37A9E9C466E83F05032BBE4358674CBB2BCEA213E1156A424",
++          "Bytes": 421
++        },
++        {
++          "Name": "LinuxDescriptorPollOwner1554.cs",
++          "OriginalSha256": "CDD6F5DA8AB537820F23A3D8D95739AE795F355FEA1E6ED27B859350E4200549",
++          "InstrumentedSha256": "CDD6F5DA8AB537820F23A3D8D95739AE795F355FEA1E6ED27B859350E4200549",
++          "Bytes": 927
++        },
++        {
++          "Name": "LinuxDescriptorPollService1554.cs",
++          "OriginalSha256": "A80FF4F4C98293AC31052465927989B11C29DB0EE98EC44F84EE3DF659C18566",
++          "InstrumentedSha256": "97310E03C6D91DF7ACFC1C21A82367FEB53B746C1C65F059E48DAE2EFD2038FC",
++          "Bytes": 19500
++        },
++        {
++          "Name": "LinuxDescriptorPollWait1554.cs",
++          "OriginalSha256": "E28A98128AB895D7ACFC92B3A60233406AD3F9E8D8C484A3164D6A6D98E109F4",
++          "InstrumentedSha256": "E28A98128AB895D7ACFC92B3A60233406AD3F9E8D8C484A3164D6A6D98E109F4",
++          "Bytes": 791
++        }
++      ]
++    }
++  }
++}
+diff --git a/tools/Validation/Erlang.DescriptorPollValidation/run-ci.py b/tools/Validation/Erlang.DescriptorPollValidation/run-ci.py
+new file mode 100644
+index 000000000..f678929ef
+--- /dev/null
++++ b/tools/Validation/Erlang.DescriptorPollValidation/run-ci.py
+@@ -0,0 +1,50 @@
++import json,os,pathlib,signal,subprocess,time,importlib.util
++TOOL=pathlib.Path(__file__).resolve().parent;ROOT=TOOL.parents[2];OUT=ROOT/'artifacts/poll558';OUT.mkdir(parents=True,exist_ok=True)
++spec=importlib.util.spec_from_file_location('admission',TOOL/'verify-ci.py');admission=importlib.util.module_from_spec(spec);spec.loader.exec_module(admission)
++EXPECTED=['poll-thread-identity','read-write-ready','cancel-native-snapshot','retire-reuse-fd','same-fd-two-owners','invalid-fd','hangup-eof','stop-active-snapshot','stop-before-start','lost-wake']
++rows=[];errors=[];before=admission.verify()
++def run(label,args,seconds=420):
++ start=time.monotonic();timed=False;forced=False
++ with (OUT/(label+'.stdout.log')).open('wb') as stdout,(OUT/(label+'.stderr.log')).open('wb') as stderr:
++  p=subprocess.Popen([str(x) for x in args],cwd=ROOT,stdout=stdout,stderr=stderr,start_new_session=True)
++  try:p.wait(timeout=seconds)
++  except subprocess.TimeoutExpired:
++   timed=True;forced=True;os.killpg(p.pid,signal.SIGTERM)
++   try:p.wait(timeout=5)
++   except subprocess.TimeoutExpired:os.killpg(p.pid,signal.SIGKILL);p.wait(timeout=5)
++  active=False
++  try:os.killpg(p.pid,0);active=True
++  except ProcessLookupError:pass
++  if active:
++   forced=True;os.killpg(p.pid,signal.SIGKILL)
++ result={'Name':label,'Command':[str(x) for x in args],'ExitCode':p.returncode,'TimedOut':timed,'ForcedCleanup':forced,'ProcessGroupAliveAfterNaturalExit':active,'ElapsedSeconds':round(time.monotonic()-start,3)}
++ rows.append(result);(OUT/(label+'.exit.json')).write_text(json.dumps(result,indent=2)+'\n');return result
++def clean(r,code=0):return r['ExitCode']==code and not(r['TimedOut'] or r['ForcedCleanup'] or r['ProcessGroupAliveAfterNaturalExit'])
++try:
++ for profile in ['Debug','Release']:
++  runtime=OUT/'runtime'/profile
++  r=run(profile+'-runtime-build',['dotnet','build','src/Runtime/Erlang.Runtime/Erlang.Runtime.csproj','-c',profile,'--output',runtime,'-m:1','--disable-build-servers','--nologo'])
++  if not clean(r):errors.append(profile+': runtime preparation failed; dependent helper builds/executions skipped');continue
++  for version in ['green1558','old1554']:
++   label=profile+'-'+version;binary=OUT/'observers'/label;intermediate=OUT/'obj'/label
++   r=run(label+'-build',['dotnet','build',TOOL/'Erlang.DescriptorPollValidation.csproj','-c',profile,'-p:EngineVersion='+version,'-p:RuntimeReferenceDirectory='+str(runtime),'-p:BaseIntermediateOutputPath='+str(intermediate)+'/', '--output',binary,'-m:1','--disable-build-servers','--nologo'])
++   if not clean(r):errors.append(label+': helper preparation failed; dependent execution skipped');continue
++   report=OUT/(label+'.json');mode='all' if version=='green1558' else 'lost-wake'
++   r=run(label+'-run',['dotnet','exec','--fx-version','10.0.11','--roll-forward','Disable',binary/'Erlang.AsyncMicrostateValidation.dll',mode,report],240)
++   try:
++    data=json.loads(report.read_text());assert data['Runtime']=='10.0.11' and data['Architecture']=='X64'
++    if version=='green1558':
++     assert clean(r) and data['Passed'] is True and [c['Name'] for c in data['Cases']]==EXPECTED
++     assert all(c['Passed'] is True and c['Result']['PhysicalLifetimeEnded'] is True and c['Result']['ActualThreadJoined']==(c['Name']!='stop-before-start') for c in data['Cases'])
++    else:
++     assert clean(r,1) and data['Passed'] is False and len(data['Cases'])==1
++     case=data['Cases'][0];assert case['Name']=='lost-wake' and case['Passed'] is False and case['ErrorType']=='System.TimeoutException'
++     assert all(case.get(k) is True for k in ['LostWakePendingBeforeCleanup','CleanupSucceeded','PhysicalLifetimeEnded','ActualThreadJoined'])
++   except Exception as error: errors.append(label+': actual outcome rejected: '+repr(error))
++except Exception as error:errors.append('collector: '+repr(error))
++finally:
++ try:after=admission.verify();assert before==after
++ except Exception as error:after={'Failed':repr(error)};errors.append('source stability: '+repr(error))
++ summary={'Passed':not errors,'Head':before['Head'],'Rows':rows,'Errors':errors,'SourceBefore':before,'SourceAfter':after,'ExpectedGreenCasesPerProfile':10,'ExpectedPreFixRejectedCasesPerProfile':1,'IntegratedIntoProcessRuntime':False,'OriginalOtpEqualityClaimed':False,'Scope':'Actual Linux x64 component engine only. No VM/public-port integration, external active borrowed-FD reuse or blocking transfer cancellation acceptance.'}
++ (OUT/'summary.json').write_text(json.dumps(summary,indent=2)+'\n');print(json.dumps({'Passed':summary['Passed'],'Errors':errors,'Rows':len(rows)}))
++raise SystemExit(0 if not errors else 1)
+diff --git a/tools/Validation/Erlang.DescriptorPollValidation/source-plan.json b/tools/Validation/Erlang.DescriptorPollValidation/source-plan.json
+new file mode 100644
+index 000000000..fc712078d
+--- /dev/null
++++ b/tools/Validation/Erlang.DescriptorPollValidation/source-plan.json
+@@ -0,0 +1,128 @@
++{
++  "Scope": "Isolated Linux component experiment; production src unchanged; no original OTP or public VM/port compatibility promotion.",
++  "Base": "36132d511c73d3377210d98e0e01d9e938956964",
++  "RuntimeIntegrated": false,
++  "Inputs": [
++    {
++      "Path": ".github/workflows/allocation-diagnostic.yml",
++      "Bytes": 2033,
++      "Sha256": "FE99A482A440072B2E0CA58BC31E535C152E1389EE908A24D80FA518C554EE31"
++    },
++    {
++      "Path": "tools/Validation/Erlang.DescriptorPollValidation/Erlang.DescriptorPollValidation.csproj",
++      "Bytes": 2100,
++      "Sha256": "D7ED7289255119926B20F039879C97A9FE764848644F282EDD82BC966C417733"
++    },
++    {
++      "Path": "tools/Validation/Erlang.DescriptorPollValidation/README.md",
++      "Bytes": 4289,
++      "Sha256": "C7AC3F80227FB5FF7405CDBBD81F09153CB8DEDD4E8179CFA038066BCE147F3D"
++    },
++    {
++      "Path": "tools/Validation/Erlang.DescriptorPollValidation/ROOT-ADAPTATIONS.md",
++      "Bytes": 891,
++      "Sha256": "82B61DF0DEF4E015EFF0D8A82911B7FBADEE0208B1406BE5CEC28EF18BBCAD83"
++    },
++    {
++      "Path": "tools/Validation/Erlang.DescriptorPollValidation/harness/LinuxDescriptorPollProbe1557.cs",
++      "Bytes": 866,
++      "Sha256": "E97756630CCB1E3CF6D8245D6F7355E6BA652F707A85C512ED864D803938AAE2"
++    },
++    {
++      "Path": "tools/Validation/Erlang.DescriptorPollValidation/harness/PollHarnessCases1557.cs",
++      "Bytes": 12616,
++      "Sha256": "515F023AB10F6076F7010E6D63CE1578150AC7D7DFB6094555963A0FB35F4260"
++    },
++    {
++      "Path": "tools/Validation/Erlang.DescriptorPollValidation/harness/PollHarnessFixture1557.cs",
++      "Bytes": 2484,
++      "Sha256": "79F3F7AE9D6C99CCCC5E1474E93165F55414F7723F96558C019F935F76DFFB0D"
++    },
++    {
++      "Path": "tools/Validation/Erlang.DescriptorPollValidation/harness/PollHarnessNames1557.cs",
++      "Bytes": 2218,
++      "Sha256": "AD70EE5DFC3A4625A6552AD55ADB731B6ABA22E59B3ABDBE40AA1110B2BF572E"
++    },
++    {
++      "Path": "tools/Validation/Erlang.DescriptorPollValidation/harness/PollHarnessNative1557.cs",
++      "Bytes": 258,
++      "Sha256": "D1CE53440645AE5B767DCD44714A3A34EDEBC8033B67719708BB317FE2B8D9AA"
++    },
++    {
++      "Path": "tools/Validation/Erlang.DescriptorPollValidation/harness/PollHarnessPipe1557.cs",
++      "Bytes": 2453,
++      "Sha256": "BECCDC17343DD82ECFE4DB198E745CFB661C94C80B6E4CE30195087CA9091CB3"
++    },
++    {
++      "Path": "tools/Validation/Erlang.DescriptorPollValidation/harness/Program.cs",
++      "Bytes": 2029,
++      "Sha256": "04CCD5829468876BE68FDB291252760A582D96C981FA32E7E418BD9BA3CE7CE1"
++    },
++    {
++      "Path": "tools/Validation/Erlang.DescriptorPollValidation/instrumentation.json",
++      "Bytes": 3632,
++      "Sha256": "C6395C5C4033965B28BD82E543D1729DE7202B02B67CE21F68172AEE48F91A12"
++    },
++    {
++      "Path": "tools/Validation/Erlang.DescriptorPollValidation/run-ci.py",
++      "Bytes": 4603,
++      "Sha256": "FE8A8E57F38C404F3071B8A23848FC1CAA39C08611BEC2140BE072DF13E72634"
++    },
++    {
++      "Path": "tools/Validation/Erlang.DescriptorPollValidation/verify-ci.py",
++      "Bytes": 1642,
++      "Sha256": "4D53CCA24750422F11E234B0DB03434DF73C0908660147820E48FE3899BCE19F"
++    },
++    {
++      "Path": "tools/Validation/Erlang.DescriptorPollValidation/versions/green1558/LinuxDescriptorPollNames1554.cs",
++      "Bytes": 1305,
++      "Sha256": "9D9C4FD7050B7C029C0EF7CCE33E2C81C4AB1BF3A90CA3F75EC91C9F8D9EB4DF"
++    },
++    {
++      "Path": "tools/Validation/Erlang.DescriptorPollValidation/versions/green1558/LinuxDescriptorPollNative1554.cs",
++      "Bytes": 421,
++      "Sha256": "B50A667A7B7483A37A9E9C466E83F05032BBE4358674CBB2BCEA213E1156A424"
++    },
++    {
++      "Path": "tools/Validation/Erlang.DescriptorPollValidation/versions/green1558/LinuxDescriptorPollOwner1554.cs",
++      "Bytes": 927,
++      "Sha256": "CDD6F5DA8AB537820F23A3D8D95739AE795F355FEA1E6ED27B859350E4200549"
++    },
++    {
++      "Path": "tools/Validation/Erlang.DescriptorPollValidation/versions/green1558/LinuxDescriptorPollService1554.cs",
++      "Bytes": 19500,
++      "Sha256": "97310E03C6D91DF7ACFC1C21A82367FEB53B746C1C65F059E48DAE2EFD2038FC"
++    },
++    {
++      "Path": "tools/Validation/Erlang.DescriptorPollValidation/versions/green1558/LinuxDescriptorPollWait1554.cs",
++      "Bytes": 791,
++      "Sha256": "E28A98128AB895D7ACFC92B3A60233406AD3F9E8D8C484A3164D6A6D98E109F4"
++    },
++    {
++      "Path": "tools/Validation/Erlang.DescriptorPollValidation/versions/old1554/LinuxDescriptorPollNames1554.cs",
++      "Bytes": 1305,
++      "Sha256": "9D9C4FD7050B7C029C0EF7CCE33E2C81C4AB1BF3A90CA3F75EC91C9F8D9EB4DF"
++    },
++    {
++      "Path": "tools/Validation/Erlang.DescriptorPollValidation/versions/old1554/LinuxDescriptorPollNative1554.cs",
++      "Bytes": 421,
++      "Sha256": "B50A667A7B7483A37A9E9C466E83F05032BBE4358674CBB2BCEA213E1156A424"
++    },
++    {
++      "Path": "tools/Validation/Erlang.DescriptorPollValidation/versions/old1554/LinuxDescriptorPollOwner1554.cs",
++      "Bytes": 927,
++      "Sha256": "CDD6F5DA8AB537820F23A3D8D95739AE795F355FEA1E6ED27B859350E4200549"
++    },
++    {
++      "Path": "tools/Validation/Erlang.DescriptorPollValidation/versions/old1554/LinuxDescriptorPollService1554.cs",
++      "Bytes": 17536,
++      "Sha256": "565787BD9B89FBCB319628CDB174EFD36299BBFA5DBDDCBA3689B09B125328F7"
++    },
++    {
++      "Path": "tools/Validation/Erlang.DescriptorPollValidation/versions/old1554/LinuxDescriptorPollWait1554.cs",
++      "Bytes": 753,
++      "Sha256": "808C515125506CAD789D250D2B00D45ACCF7FA982D659C6A3D0C316A56A57C0F"
++    }
++  ],
++  "CheckoutExperiment": "Same component code/acceptance; sparse checkout only; first full-fetch run41705206345 retained. No speedup inferred before actual timing comparison."
++}
+diff --git a/tools/Validation/Erlang.DescriptorPollValidation/verify-ci.py b/tools/Validation/Erlang.DescriptorPollValidation/verify-ci.py
+new file mode 100644
+index 000000000..c7a2f2861
+--- /dev/null
++++ b/tools/Validation/Erlang.DescriptorPollValidation/verify-ci.py
+@@ -0,0 +1,18 @@
++import hashlib,json,os,pathlib,subprocess
++ROOT=pathlib.Path(__file__).resolve().parents[3]; TOOL=pathlib.Path(__file__).resolve().parent
++BASE='36132d511c73d3377210d98e0e01d9e938956964'
++def git(*a): return subprocess.check_output(['git',*a],cwd=ROOT,text=True).strip()
++def verify():
++ plan=json.loads((TOOL/'source-plan.json').read_text())
++ assert git('rev-parse','HEAD')==os.environ['GITHUB_SHA']
++ assert git('rev-parse','HEAD:src')==git('rev-parse',BASE+':src'),'Production source tree changed'
++ changed=git('diff','--name-only',BASE,'HEAD').splitlines()
++ assert changed and all(p.startswith('tools/Validation/Erlang.DescriptorPollValidation/') or p=='.github/workflows/allocation-diagnostic.yml' for p in changed)
++ for row in plan['Inputs']:
++  p=ROOT/row['Path'];data=p.read_bytes();assert len(data)==row['Bytes'] and hashlib.sha256(data).hexdigest().upper()==row['Sha256'],row['Path']
++ tracked=git('ls-files','tools/Validation/Erlang.DescriptorPollValidation').splitlines()
++ assert set(tracked)==set(r['Path'] for r in plan['Inputs'] if r['Path'].startswith('tools/'))|{'tools/Validation/Erlang.DescriptorPollValidation/source-plan.json'}
++ assert not git('diff','--name-only','HEAD'),'Tracked source mutation'
++ return {'Head':git('rev-parse','HEAD'),'ProductionSourceTree':git('rev-parse','HEAD:src'),'Baseline':BASE,'InputCount':len(plan['Inputs']),'InputsStable':True,'IntegratedIntoRuntime':False,'OriginalOtpEqualityClaimed':False}
++if __name__=='__main__':
++ result=verify();out=ROOT/'artifacts/poll558';out.mkdir(parents=True,exist_ok=True);(out/'admission.json').write_text(json.dumps(result,indent=2)+'\n');print(json.dumps(result))
+diff --git a/tools/Validation/Erlang.DescriptorPollValidation/versions/green1558/LinuxDescriptorPollNames1554.cs b/tools/Validation/Erlang.DescriptorPollValidation/versions/green1558/LinuxDescriptorPollNames1554.cs
+new file mode 100644
+index 000000000..3d155a0c6
+--- /dev/null
++++ b/tools/Validation/Erlang.DescriptorPollValidation/versions/green1558/LinuxDescriptorPollNames1554.cs
+@@ -0,0 +1,25 @@
++namespace Erlang;
++
++internal static class LinuxDescriptorPollNames1554
++{
++    internal const string ThreadName = "Erlang descriptor poll 0";
++    internal const string PollType = "poll";
++    internal const string Closed = "Linux descriptor poll owner has stopped";
++    internal const string NotReady = "Actual Linux descriptor poll thread is not ready";
++    internal const string DuplicateStart = "Linux descriptor poll thread may start only once";
++    internal const string SelfJoin = "Poll thread cannot synchronously retire its own native lifetime";
++    internal const string ForeignOwner = "Descriptor poll registration belongs to another owner";
++    internal const int PollIdentity = 0;
++    internal const int WakePollIndex = 0;
++    internal const int PipeReadIndex = 0;
++    internal const int PipeWriteIndex = 1;
++    internal const int WakeSignalBytes = 1;
++    internal const byte WakeSignalValue = 1;
++    internal const int FirstRequestIndex = 1;
++    internal const int InfiniteTimeout = -1;
++    internal const int InvalidDescriptor = -1;
++    internal const int WakeBufferBytes = 256;
++    internal const short Error = 8;
++    internal const short Hangup = 16;
++    internal const short AllowedEvents = DescriptorPortParameters.PollInput | DescriptorPortParameters.PollOutput;
++}
+diff --git a/tools/Validation/Erlang.DescriptorPollValidation/versions/green1558/LinuxDescriptorPollNative1554.cs b/tools/Validation/Erlang.DescriptorPollValidation/versions/green1558/LinuxDescriptorPollNative1554.cs
+new file mode 100644
+index 000000000..2593bea3b
+--- /dev/null
++++ b/tools/Validation/Erlang.DescriptorPollValidation/versions/green1558/LinuxDescriptorPollNative1554.cs
+@@ -0,0 +1,12 @@
++using System.Runtime.InteropServices;
++
++namespace Erlang;
++
++internal static class LinuxDescriptorPollNative1554
++{
++    [DllImport(LinuxPortParameters.Library, SetLastError = true)]
++    internal static extern int poll([In, Out] DescriptorPollState[] descriptors, nuint count, int timeout);
++
++    [DllImport(LinuxPortParameters.Library, SetLastError = true)]
++    internal static extern int close(int descriptor);
++}
+diff --git a/tools/Validation/Erlang.DescriptorPollValidation/versions/green1558/LinuxDescriptorPollOwner1554.cs b/tools/Validation/Erlang.DescriptorPollValidation/versions/green1558/LinuxDescriptorPollOwner1554.cs
+new file mode 100644
+index 000000000..25f29fdae
+--- /dev/null
++++ b/tools/Validation/Erlang.DescriptorPollValidation/versions/green1558/LinuxDescriptorPollOwner1554.cs
+@@ -0,0 +1,23 @@
++namespace Erlang;
++
++// Borrowed FD identity only. Retirement fences this engine's poll snapshots,
++// not external close/reuse or the caller's later blocking data transfer.
++internal sealed class LinuxDescriptorPollOwner1554
++{
++    internal LinuxDescriptorPollOwner1554(LinuxDescriptorPollService1554 service, ulong generation, int descriptor)
++    {
++        Service = service;
++        Generation = generation;
++        Descriptor = descriptor;
++    }
++
++    internal LinuxDescriptorPollService1554 Service { get; }
++    internal ulong Generation { get; }
++    internal int Descriptor { get; }
++    internal bool Closing;
++    internal int Pending;
++    internal readonly ObjectDisposedException Closed = new(nameof(LinuxDescriptorPollOwner1554));
++    internal readonly TaskCompletionSource Retired = new(TaskCreationOptions.RunContinuationsAsynchronously);
++
++    internal Task BeginRetire() => Service.Retire(this);
++}
+diff --git a/tools/Validation/Erlang.DescriptorPollValidation/versions/green1558/LinuxDescriptorPollService1554.cs b/tools/Validation/Erlang.DescriptorPollValidation/versions/green1558/LinuxDescriptorPollService1554.cs
+new file mode 100644
+index 000000000..56ee88a1f
+--- /dev/null
++++ b/tools/Validation/Erlang.DescriptorPollValidation/versions/green1558/LinuxDescriptorPollService1554.cs
+@@ -0,0 +1,460 @@
++using System.Runtime.InteropServices;
++
++namespace Erlang;
++
++// Artifact candidate: one actual Linux thread per owning logical VM. No data
++// transfers and no ownership of supplied raw FDs. Start is explicit so caller
++// can retain this owner before a partially successful Thread.Start attempt.
++internal sealed class LinuxDescriptorPollService1554 : IAsyncDisposable
++{
++    private readonly object gate = new();
++    private readonly RuntimeMicrostateAccounting accounting;
++    private readonly LinuxDescriptorPollProbe1557? probe;
++    private readonly Thread thread;
++    private readonly Dictionary<ulong, LinuxDescriptorPollWait1554> waits = new();
++    private readonly HashSet<LinuxDescriptorPollOwner1554> owners = new();
++    private readonly TaskCompletionSource ready = new(TaskCreationOptions.RunContinuationsAsynchronously);
++    private int wakeRead, wakeWrite;
++    private ulong nextOwner, nextRequest;
++    private bool startAttempted, stopping, wakeClosed, physicalLifetimeEnded, actualThreadJoined;
++    private Exception? failure;
++    private Task? shutdown;
++    private int actualThreadId;
++
++    internal LinuxDescriptorPollService1554(RuntimeMicrostateAccounting accounting, LinuxDescriptorPollProbe1557? probe = null)
++    {
++        if (!OperatingSystem.IsLinux()) throw new PlatformNotSupportedException();
++        ArgumentNullException.ThrowIfNull(accounting);
++        this.accounting = accounting;
++        this.probe = probe;
++        thread = new Thread(Run)
++        {
++            Name = LinuxDescriptorPollNames1554.ThreadName,
++            IsBackground = true
++        };
++        int[] descriptors = [LinuxDescriptorPollNames1554.InvalidDescriptor, LinuxDescriptorPollNames1554.InvalidDescriptor];
++        if (LinuxPortNative.pipe2(descriptors, LinuxPortParameters.NonBlocking | LinuxPortParameters.CloseOnExec) != 0)
++            throw new NativePortIOException(Marshal.GetLastPInvokeError());
++        wakeRead = descriptors[LinuxDescriptorPollNames1554.PipeReadIndex];
++        wakeWrite = descriptors[LinuxDescriptorPollNames1554.PipeWriteIndex];
++    }
++
++    internal Task Ready => ready.Task;
++
++    internal int ActualThreadId
++    {
++        get { lock (gate) return actualThreadId; }
++    }
++
++    internal bool PhysicalLifetimeEnded
++    {
++        get { lock (gate) return physicalLifetimeEnded; }
++    }
++
++    internal bool ActualThreadJoined
++    {
++        get { lock (gate) return actualThreadJoined; }
++    }
++
++    internal void Start()
++    {
++        lock (gate)
++        {
++            ObjectDisposedException.ThrowIf(stopping || wakeClosed, this);
++            if (startAttempted) throw new InvalidOperationException(LinuxDescriptorPollNames1554.DuplicateStart);
++            startAttempted = true;
++            bool suppress = !ExecutionContext.IsFlowSuppressed();
++            AsyncFlowControl flow = default;
++            try
++            {
++                if (suppress) flow = ExecutionContext.SuppressFlow();
++                thread.Start();
++            }
++            catch (Exception error)
++            {
++                failure ??= error;
++                stopping = true;
++                WakeUnderGate();
++                // Caller still owns this object and must join/close via Dispose.
++                throw;
++            }
++            finally
++            {
++                if (suppress) flow.Undo();
++            }
++        }
++    }
++
++    internal LinuxDescriptorPollOwner1554 RegisterBorrowed(int descriptor)
++    {
++        ArgumentOutOfRangeException.ThrowIfNegative(descriptor);
++        lock (gate)
++        {
++            RequireReadyUnderGate();
++            ulong generation = checked(nextOwner + 1);
++            var owner = new LinuxDescriptorPollOwner1554(this, generation, descriptor);
++            owners.Add(owner);
++            nextOwner = generation;
++
++            return owner;
++        }
++    }
++
++    internal Task<short> WaitReadyAsync(
++        LinuxDescriptorPollOwner1554 owner,
++        short events,
++        CancellationToken cancellation
++    )
++    {
++        ArgumentNullException.ThrowIfNull(owner);
++        cancellation.ThrowIfCancellationRequested();
++        if (events == 0 || (events & ~LinuxDescriptorPollNames1554.AllowedEvents) != 0)
++            throw new ArgumentOutOfRangeException(nameof(events));
++        var wait = new LinuxDescriptorPollWait1554(owner, events, cancellation);
++        // Registration allocation is before admission. An already-canceled
++        // callback may only mark this not-yet-admitted request, never complete it.
++        wait.CancellationRegistration = cancellation.UnsafeRegister(static state =>
++        {
++            var actual = (LinuxDescriptorPollWait1554)state!;
++            actual.Owner.Service.Cancel(actual);
++        }, wait);
++        try
++        {
++            lock (gate)
++            {
++                RequireReadyUnderGate();
++                if (!ReferenceEquals(owner.Service, this))
++                    throw new InvalidOperationException(LinuxDescriptorPollNames1554.ForeignOwner);
++                if (owner.Closing) throw owner.Closed;
++                RequireOwnerUnderGate(owner);
++                wait.Generation = checked(nextRequest + 1);
++                waits.Add(wait.Generation, wait);
++                nextRequest = wait.Generation;
++                owner.Pending++;
++                wait.Admitted = true;
++                // After admission only the actual poll thread settles the call.
++                WakeUnderGate();
++            }
++        }
++        catch
++        {
++            wait.CancellationRegistration.Dispose();
++            throw;
++        }
++
++        return wait.Completion.Task;
++    }
++
++    internal Task Retire(LinuxDescriptorPollOwner1554 owner)
++    {
++        bool complete;
++        lock (gate)
++        {
++            if (!ReferenceEquals(owner.Service, this))
++                throw new InvalidOperationException(LinuxDescriptorPollNames1554.ForeignOwner);
++            if (owner.Closing) return owner.Retired.Task;
++            RequireOwnerUnderGate(owner);
++            owner.Closing = true;
++            complete = owner.Pending == 0;
++            if (complete) owners.Remove(owner);
++            else WakeUnderGate();
++        }
++        if (complete) owner.Retired.TrySetResult();
++
++        return owner.Retired.Task;
++    }
++
++    private void RequireReadyUnderGate()
++    {
++        if (failure is not null) throw new IOException(LinuxDescriptorPollNames1554.Closed, failure);
++        ObjectDisposedException.ThrowIf(stopping || wakeClosed, this);
++        if (!startAttempted || !ready.Task.IsCompletedSuccessfully)
++            throw new InvalidOperationException(LinuxDescriptorPollNames1554.NotReady);
++    }
++
++    private void RequireOwnerUnderGate(LinuxDescriptorPollOwner1554 owner)
++    {
++        if (!ReferenceEquals(owner.Service, this) || !owners.Contains(owner))
++            throw new InvalidOperationException(LinuxDescriptorPollNames1554.ForeignOwner);
++    }
++
++    private void Cancel(LinuxDescriptorPollWait1554 wait)
++    {
++        lock (gate)
++        {
++            wait.CancellationRequested = true;
++            if (wait.Admitted && waits.TryGetValue(wait.Generation, out var current)
++                && ReferenceEquals(current, wait)) WakeUnderGate();
++        }
++    }
++
++    private unsafe void WakeUnderGate()
++    {
++        if (wakeClosed) return;
++        byte value = LinuxDescriptorPollNames1554.WakeSignalValue;
++        while (true)
++        {
++            nint count = LinuxPortNative.write(wakeWrite, (nint)(&value), LinuxDescriptorPollNames1554.WakeSignalBytes);
++            if (count == LinuxDescriptorPollNames1554.WakeSignalBytes) return;
++            int error = Marshal.GetLastPInvokeError();
++            if (count < 0 && error == LinuxPortParameters.Interrupted) continue;
++            if (count < 0 && error == LinuxPortParameters.WouldBlock) return; // Existing unread wake.
++            failure ??= new NativePortIOException(count == 0 ? LinuxPortParameters.BrokenPipe : error);
++            stopping = true;
++            // A failed wake is not proof that an existing kernel poll returned.
++            // Keep physical join pending if the OS cannot wake this owned pipe.
++            return;
++        }
++    }
++
++    private unsafe void DrainWake()
++    {
++        // One bounded read per physical poll iteration. Remaining bytes keep
++        // the FD level-ready, while every iteration reconciles terminal waits.
++        byte* buffer = stackalloc byte[LinuxDescriptorPollNames1554.WakeBufferBytes];
++        nint count = LinuxPortNative.read(wakeRead, (nint)buffer, LinuxDescriptorPollNames1554.WakeBufferBytes);
++        if (count > 0) return;
++        int error = Marshal.GetLastPInvokeError();
++        if (count < 0 && (error == LinuxPortParameters.Interrupted || error == LinuxPortParameters.WouldBlock)) return;
++        throw new NativePortIOException(count == 0 ? LinuxPortParameters.BrokenPipe : error);
++    }
++
++    private void Run()
++    {
++        try
++        {
++            RuntimeMicrostateThreadIdentity physical = RuntimeMicrostateThreadIdentity.Current;
++            using var attachment = RuntimeMicrostateExecution.AttachConfiguredWorker(
++                accounting,
++                LinuxDescriptorPollNames1554.PollType,
++                RuntimeMicrostate.CheckIo,
++                physical,
++                LinuxDescriptorPollNames1554.PollIdentity
++            );
++            lock (gate) actualThreadId = physical.OperatingSystemId;
++            ready.TrySetResult();
++            RunPollLoop();
++        }
++        catch (Exception error)
++        {
++            lock (gate)
++            {
++                failure ??= error;
++                stopping = true;
++            }
++            ready.TrySetException(error);
++            _ = ready.Task.Exception;
++        }
++        finally
++        {
++            // No native poll invocation remains. Drain retained rows one at a
++            // time without allocating an exception-path snapshot. A row stays
++            // discoverable in waits until its settlement attempt completes.
++            lock (gate)
++            {
++                stopping = true;
++                foreach (var owner in owners) owner.Closing = true;
++            }
++            while (true)
++            {
++                LinuxDescriptorPollWait1554? remaining = null;
++                lock (gate)
++                {
++                    using var iterator = waits.GetEnumerator();
++                    if (iterator.MoveNext())
++                    {
++                        remaining = iterator.Current.Value;
++                        if (!remaining.SelectionComplete) SelectTerminalUnderGate(remaining, failure);
++                    }
++                }
++                if (remaining is null) break;
++                CompleteOneOutsideGate(remaining);
++            }
++            while (true)
++            {
++                LinuxDescriptorPollOwner1554? idle = null;
++                lock (gate)
++                {
++                    using var iterator = owners.GetEnumerator();
++                    if (iterator.MoveNext()) idle = iterator.Current;
++                }
++                if (idle is null) break;
++                idle.Retired.TrySetResult();
++                lock (gate) owners.Remove(idle);
++            }
++        }
++    }
++
++    private void RunPollLoop()
++    {
++        while (true)
++        {
++            // The previous kernel invocation has returned (or none has begun).
++            // New cancellation/owner-close commands may concern rows absent
++            // from its old snapshot. Retire ALL such rows before blocking again.
++            LinuxDescriptorPollWait1554[] terminal;
++            lock (gate)
++            {
++                if (stopping) return;
++                terminal = waits.Values.Where(wait => wait.Owner.Closing
++                    || wait.CancellationRequested || wait.Cancellation.IsCancellationRequested).ToArray();
++                foreach (var wait in terminal)
++                {
++                    SelectTerminalUnderGate(wait, failure);
++                }
++            }
++            CompleteOutsideGate(terminal);
++            LinuxDescriptorPollWait1554[] snapshot;
++            DescriptorPollState[] descriptors;
++            bool stop;
++            lock (gate)
++            {
++                stop = stopping;
++                snapshot = waits.Values.ToArray();
++                descriptors = new DescriptorPollState[snapshot.Length + LinuxDescriptorPollNames1554.FirstRequestIndex];
++                descriptors[LinuxDescriptorPollNames1554.WakePollIndex] = new()
++                {
++                    Descriptor = wakeRead,
++                    Events = DescriptorPortParameters.PollInput
++                };
++                for (int index = 0; index < snapshot.Length; index++)
++                    descriptors[index + LinuxDescriptorPollNames1554.FirstRequestIndex] = new()
++                    {
++                        Descriptor = snapshot[index].Owner.Descriptor,
++                        Events = snapshot[index].Events
++                    };
++            }
++            if (stop) return;
++            probe?.BeforeNativePoll(snapshot.Length);
++            int result;
++            int error;
++            using (RuntimeMicrostateExecution.EnterState(accounting, RuntimeMicrostate.Sleep))
++            {
++                result = LinuxDescriptorPollNative1554.poll(
++                    descriptors,
++                    (nuint)descriptors.Length,
++                    LinuxDescriptorPollNames1554.InfiniteTimeout
++                );
++                error = result < 0 ? Marshal.GetLastPInvokeError() : 0;
++            }
++            if (result < 0 && error != LinuxPortParameters.Interrupted)
++                throw new NativePortIOException(error);
++            short wakeEvents = descriptors[LinuxDescriptorPollNames1554.WakePollIndex].Returned;
++            if ((wakeEvents & (LinuxDescriptorPollNames1554.Error | LinuxDescriptorPollNames1554.Hangup
++                | DescriptorPortParameters.PollInvalid)) != 0)
++                throw new NativePortIOException(LinuxPortParameters.BadDescriptor);
++            if ((wakeEvents & DescriptorPortParameters.PollInput) != 0) DrainWake();
++            var completed = new List<LinuxDescriptorPollWait1554>(snapshot.Length);
++            lock (gate)
++            {
++                for (int index = 0; index < snapshot.Length; index++)
++                {
++                    var wait = snapshot[index];
++                    if (!waits.TryGetValue(wait.Generation, out var current) || !ReferenceEquals(current, wait)) continue;
++                    short returned = descriptors[index + LinuxDescriptorPollNames1554.FirstRequestIndex].Returned;
++                    if (stopping || wait.Owner.Closing || wait.CancellationRequested || wait.Cancellation.IsCancellationRequested)
++                        SelectTerminalUnderGate(wait, failure);
++                    else if (result < 0 || returned == 0) continue;
++                    else if ((returned & DescriptorPortParameters.PollInvalid) != 0)
++                        wait.Error = new NativePortIOException(LinuxPortParameters.BadDescriptor);
++                    else wait.ReadyEvents = returned; // HUP/ERR are advisory readiness; actual transfer decides EOF/EPIPE.
++                    wait.SelectionComplete = true;
++                    completed.Add(wait);
++                }
++            }
++            // Every completed row's exact native snapshot has physically returned.
++            CompleteOutsideGate(completed);
++        }
++    }
++
++    private static void SelectTerminalUnderGate(LinuxDescriptorPollWait1554 wait, Exception? error)
++    {
++        if (error is not null) wait.Error = error;
++        else if (wait.CancellationRequested || wait.Cancellation.IsCancellationRequested) wait.CancelResult = true;
++        else wait.Error = wait.Owner.Closed;
++        wait.SelectionComplete = true;
++    }
++
++    private void CompleteOutsideGate(IEnumerable<LinuxDescriptorPollWait1554> completed)
++    {
++        foreach (var wait in completed) CompleteOneOutsideGate(wait);
++    }
++
++    private void CompleteOneOutsideGate(LinuxDescriptorPollWait1554 wait)
++    {
++        Exception? unregister = null;
++        try { wait.CancellationRegistration.Dispose(); }
++        catch (Exception error) { unregister = error; }
++        if (unregister is not null)
++        {
++            if (wait.Error is not null) unregister = new AggregateException(wait.Error, unregister);
++            wait.Completion.TrySetException(unregister);
++            lock (gate) failure ??= unregister;
++        }
++        else if (wait.CancelResult) wait.Completion.TrySetCanceled(wait.Cancellation);
++        else if (wait.Error is not null) wait.Completion.TrySetException(wait.Error);
++        else wait.Completion.TrySetResult(wait.ReadyEvents);
++        bool retired;
++        lock (gate)
++        {
++            if (!wait.Admitted || !waits.TryGetValue(wait.Generation, out var current)
++                || !ReferenceEquals(current, wait)) return;
++            waits.Remove(wait.Generation);
++            wait.Admitted = false;
++            wait.Owner.Pending--;
++            retired = wait.Owner.Closing && wait.Owner.Pending == 0;
++        }
++        if (retired)
++        {
++            wait.Owner.Retired.TrySetResult();
++            lock (gate) owners.Remove(wait.Owner);
++        }
++    }
++
++    public ValueTask DisposeAsync()
++    {
++        if (ReferenceEquals(Thread.CurrentThread, thread))
++            throw new InvalidOperationException(LinuxDescriptorPollNames1554.SelfJoin);
++        lock (gate)
++        {
++            if (shutdown is not null) return new(shutdown);
++            stopping = true;
++            WakeUnderGate();
++            bool suppress = !ExecutionContext.IsFlowSuppressed();
++            AsyncFlowControl flow = default;
++            try
++            {
++                if (suppress) flow = ExecutionContext.SuppressFlow();
++                shutdown = Task.Run(JoinAndClose);
++            }
++            finally
++            {
++                if (suppress) flow.Undo();
++            }
++
++            return new(shutdown);
++        }
++    }
++
++    private void JoinAndClose()
++    {
++        // Join the actual thread, not a completion-shaped substitute task.
++        bool started = (thread.ThreadState & ThreadState.Unstarted) == 0;
++        if (started) thread.Join();
++        var errors = new List<Exception>();
++        lock (gate)
++        {
++            physicalLifetimeEnded = true;
++            actualThreadJoined = started;
++            wakeClosed = true; // Stops all future cancellation callback writes before close/reuse.
++            if (failure is not null) errors.Add(failure);
++            int read = wakeRead, write = wakeWrite;
++            wakeRead = wakeWrite = LinuxDescriptorPollNames1554.InvalidDescriptor;
++            if (LinuxDescriptorPollNative1554.close(read) != 0) errors.Add(new NativePortIOException(Marshal.GetLastPInvokeError()));
++            if (LinuxDescriptorPollNative1554.close(write) != 0) errors.Add(new NativePortIOException(Marshal.GetLastPInvokeError()));
++        }
++        ready.TrySetException(new ObjectDisposedException(LinuxDescriptorPollNames1554.Closed));
++        _ = ready.Task.Exception;
++        if (errors.Count != 0) throw new AggregateException(errors);
++    }
++}
+diff --git a/tools/Validation/Erlang.DescriptorPollValidation/versions/green1558/LinuxDescriptorPollWait1554.cs b/tools/Validation/Erlang.DescriptorPollValidation/versions/green1558/LinuxDescriptorPollWait1554.cs
+new file mode 100644
+index 000000000..d28264514
+--- /dev/null
++++ b/tools/Validation/Erlang.DescriptorPollValidation/versions/green1558/LinuxDescriptorPollWait1554.cs
+@@ -0,0 +1,21 @@
++namespace Erlang;
++
++internal sealed class LinuxDescriptorPollWait1554(
++    LinuxDescriptorPollOwner1554 owner,
++    short events,
++    CancellationToken cancellation
++)
++{
++    internal readonly LinuxDescriptorPollOwner1554 Owner = owner;
++    internal readonly short Events = events;
++    internal readonly CancellationToken Cancellation = cancellation;
++    internal readonly TaskCompletionSource<short> Completion = new(TaskCreationOptions.RunContinuationsAsynchronously);
++    internal CancellationTokenRegistration CancellationRegistration;
++    internal ulong Generation;
++    internal bool Admitted;
++    internal bool CancellationRequested;
++    internal bool CancelResult;
++    internal bool SelectionComplete;
++    internal short ReadyEvents;
++    internal Exception? Error;
++}
+diff --git a/tools/Validation/Erlang.DescriptorPollValidation/versions/old1554/LinuxDescriptorPollNames1554.cs b/tools/Validation/Erlang.DescriptorPollValidation/versions/old1554/LinuxDescriptorPollNames1554.cs
+new file mode 100644
+index 000000000..3d155a0c6
+--- /dev/null
++++ b/tools/Validation/Erlang.DescriptorPollValidation/versions/old1554/LinuxDescriptorPollNames1554.cs
+@@ -0,0 +1,25 @@
++namespace Erlang;
++
++internal static class LinuxDescriptorPollNames1554
++{
++    internal const string ThreadName = "Erlang descriptor poll 0";
++    internal const string PollType = "poll";
++    internal const string Closed = "Linux descriptor poll owner has stopped";
++    internal const string NotReady = "Actual Linux descriptor poll thread is not ready";
++    internal const string DuplicateStart = "Linux descriptor poll thread may start only once";
++    internal const string SelfJoin = "Poll thread cannot synchronously retire its own native lifetime";
++    internal const string ForeignOwner = "Descriptor poll registration belongs to another owner";
++    internal const int PollIdentity = 0;
++    internal const int WakePollIndex = 0;
++    internal const int PipeReadIndex = 0;
++    internal const int PipeWriteIndex = 1;
++    internal const int WakeSignalBytes = 1;
++    internal const byte WakeSignalValue = 1;
++    internal const int FirstRequestIndex = 1;
++    internal const int InfiniteTimeout = -1;
++    internal const int InvalidDescriptor = -1;
++    internal const int WakeBufferBytes = 256;
++    internal const short Error = 8;
++    internal const short Hangup = 16;
++    internal const short AllowedEvents = DescriptorPortParameters.PollInput | DescriptorPortParameters.PollOutput;
++}
+diff --git a/tools/Validation/Erlang.DescriptorPollValidation/versions/old1554/LinuxDescriptorPollNative1554.cs b/tools/Validation/Erlang.DescriptorPollValidation/versions/old1554/LinuxDescriptorPollNative1554.cs
+new file mode 100644
+index 000000000..2593bea3b
+--- /dev/null
++++ b/tools/Validation/Erlang.DescriptorPollValidation/versions/old1554/LinuxDescriptorPollNative1554.cs
+@@ -0,0 +1,12 @@
++using System.Runtime.InteropServices;
++
++namespace Erlang;
++
++internal static class LinuxDescriptorPollNative1554
++{
++    [DllImport(LinuxPortParameters.Library, SetLastError = true)]
++    internal static extern int poll([In, Out] DescriptorPollState[] descriptors, nuint count, int timeout);
++
++    [DllImport(LinuxPortParameters.Library, SetLastError = true)]
++    internal static extern int close(int descriptor);
++}
+diff --git a/tools/Validation/Erlang.DescriptorPollValidation/versions/old1554/LinuxDescriptorPollOwner1554.cs b/tools/Validation/Erlang.DescriptorPollValidation/versions/old1554/LinuxDescriptorPollOwner1554.cs
+new file mode 100644
+index 000000000..25f29fdae
+--- /dev/null
++++ b/tools/Validation/Erlang.DescriptorPollValidation/versions/old1554/LinuxDescriptorPollOwner1554.cs
+@@ -0,0 +1,23 @@
++namespace Erlang;
++
++// Borrowed FD identity only. Retirement fences this engine's poll snapshots,
++// not external close/reuse or the caller's later blocking data transfer.
++internal sealed class LinuxDescriptorPollOwner1554
++{
++    internal LinuxDescriptorPollOwner1554(LinuxDescriptorPollService1554 service, ulong generation, int descriptor)
++    {
++        Service = service;
++        Generation = generation;
++        Descriptor = descriptor;
++    }
++
++    internal LinuxDescriptorPollService1554 Service { get; }
++    internal ulong Generation { get; }
++    internal int Descriptor { get; }
++    internal bool Closing;
++    internal int Pending;
++    internal readonly ObjectDisposedException Closed = new(nameof(LinuxDescriptorPollOwner1554));
++    internal readonly TaskCompletionSource Retired = new(TaskCreationOptions.RunContinuationsAsynchronously);
++
++    internal Task BeginRetire() => Service.Retire(this);
++}
+diff --git a/tools/Validation/Erlang.DescriptorPollValidation/versions/old1554/LinuxDescriptorPollService1554.cs b/tools/Validation/Erlang.DescriptorPollValidation/versions/old1554/LinuxDescriptorPollService1554.cs
+new file mode 100644
+index 000000000..ef6e08b27
+--- /dev/null
++++ b/tools/Validation/Erlang.DescriptorPollValidation/versions/old1554/LinuxDescriptorPollService1554.cs
+@@ -0,0 +1,416 @@
++using System.Runtime.InteropServices;
++
++namespace Erlang;
++
++// Artifact candidate: one actual Linux thread per owning logical VM. No data
++// transfers and no ownership of supplied raw FDs. Start is explicit so caller
++// can retain this owner before a partially successful Thread.Start attempt.
++internal sealed class LinuxDescriptorPollService1554 : IAsyncDisposable
++{
++    private readonly object gate = new();
++    private readonly RuntimeMicrostateAccounting accounting;
++    private readonly LinuxDescriptorPollProbe1557? probe;
++    private readonly Thread thread;
++    private readonly Dictionary<ulong, LinuxDescriptorPollWait1554> waits = new();
++    private readonly HashSet<LinuxDescriptorPollOwner1554> owners = new();
++    private readonly TaskCompletionSource ready = new(TaskCreationOptions.RunContinuationsAsynchronously);
++    private int wakeRead, wakeWrite;
++    private ulong nextOwner, nextRequest;
++    private bool startAttempted, stopping, wakeClosed, physicalLifetimeEnded, actualThreadJoined;
++    private Exception? failure;
++    private Task? shutdown;
++    private int actualThreadId;
++
++    internal LinuxDescriptorPollService1554(RuntimeMicrostateAccounting accounting, LinuxDescriptorPollProbe1557? probe = null)
++    {
++        if (!OperatingSystem.IsLinux()) throw new PlatformNotSupportedException();
++        ArgumentNullException.ThrowIfNull(accounting);
++        this.accounting = accounting;
++        this.probe = probe;
++        thread = new Thread(Run)
++        {
++            Name = LinuxDescriptorPollNames1554.ThreadName,
++            IsBackground = true
++        };
++        int[] descriptors = [LinuxDescriptorPollNames1554.InvalidDescriptor, LinuxDescriptorPollNames1554.InvalidDescriptor];
++        if (LinuxPortNative.pipe2(descriptors, LinuxPortParameters.NonBlocking | LinuxPortParameters.CloseOnExec) != 0)
++            throw new NativePortIOException(Marshal.GetLastPInvokeError());
++        wakeRead = descriptors[LinuxDescriptorPollNames1554.PipeReadIndex];
++        wakeWrite = descriptors[LinuxDescriptorPollNames1554.PipeWriteIndex];
++    }
++
++    internal Task Ready => ready.Task;
++
++    internal int ActualThreadId
++    {
++        get { lock (gate) return actualThreadId; }
++    }
++
++    internal bool PhysicalLifetimeEnded
++    {
++        get { lock (gate) return physicalLifetimeEnded; }
++    }
++
++    internal bool ActualThreadJoined
++    {
++        get { lock (gate) return actualThreadJoined; }
++    }
++
++    internal void Start()
++    {
++        lock (gate)
++        {
++            ObjectDisposedException.ThrowIf(stopping || wakeClosed, this);
++            if (startAttempted) throw new InvalidOperationException(LinuxDescriptorPollNames1554.DuplicateStart);
++            startAttempted = true;
++            bool suppress = !ExecutionContext.IsFlowSuppressed();
++            AsyncFlowControl flow = default;
++            try
++            {
++                if (suppress) flow = ExecutionContext.SuppressFlow();
++                thread.Start();
++            }
++            catch (Exception error)
++            {
++                failure ??= error;
++                stopping = true;
++                WakeUnderGate();
++                // Caller still owns this object and must join/close via Dispose.
++                throw;
++            }
++            finally
++            {
++                if (suppress) flow.Undo();
++            }
++        }
++    }
++
++    internal LinuxDescriptorPollOwner1554 RegisterBorrowed(int descriptor)
++    {
++        ArgumentOutOfRangeException.ThrowIfNegative(descriptor);
++        lock (gate)
++        {
++            RequireReadyUnderGate();
++            ulong generation = checked(nextOwner + 1);
++            var owner = new LinuxDescriptorPollOwner1554(this, generation, descriptor);
++            owners.Add(owner);
++            nextOwner = generation;
++
++            return owner;
++        }
++    }
++
++    internal Task<short> WaitReadyAsync(
++        LinuxDescriptorPollOwner1554 owner,
++        short events,
++        CancellationToken cancellation
++    )
++    {
++        ArgumentNullException.ThrowIfNull(owner);
++        cancellation.ThrowIfCancellationRequested();
++        if (events == 0 || (events & ~LinuxDescriptorPollNames1554.AllowedEvents) != 0)
++            throw new ArgumentOutOfRangeException(nameof(events));
++        var wait = new LinuxDescriptorPollWait1554(owner, events, cancellation);
++        // Registration allocation is before admission. An already-canceled
++        // callback may only mark this not-yet-admitted request, never complete it.
++        wait.CancellationRegistration = cancellation.UnsafeRegister(static state =>
++        {
++            var actual = (LinuxDescriptorPollWait1554)state!;
++            actual.Owner.Service.Cancel(actual);
++        }, wait);
++        try
++        {
++            lock (gate)
++            {
++                RequireReadyUnderGate();
++                RequireOwnerUnderGate(owner);
++                if (owner.Closing) throw owner.Closed;
++                wait.Generation = checked(nextRequest + 1);
++                waits.Add(wait.Generation, wait);
++                nextRequest = wait.Generation;
++                owner.Pending++;
++                wait.Admitted = true;
++                // After admission only the actual poll thread settles the call.
++                WakeUnderGate();
++            }
++        }
++        catch
++        {
++            wait.CancellationRegistration.Dispose();
++            throw;
++        }
++
++        return wait.Completion.Task;
++    }
++
++    internal Task Retire(LinuxDescriptorPollOwner1554 owner)
++    {
++        bool complete;
++        lock (gate)
++        {
++            if (!ReferenceEquals(owner.Service, this))
++                throw new InvalidOperationException(LinuxDescriptorPollNames1554.ForeignOwner);
++            if (owner.Closing) return owner.Retired.Task;
++            RequireOwnerUnderGate(owner);
++            owner.Closing = true;
++            complete = owner.Pending == 0;
++            if (complete) owners.Remove(owner);
++            else WakeUnderGate();
++        }
++        if (complete) owner.Retired.TrySetResult();
++
++        return owner.Retired.Task;
++    }
++
++    private void RequireReadyUnderGate()
++    {
++        if (failure is not null) throw new IOException(LinuxDescriptorPollNames1554.Closed, failure);
++        ObjectDisposedException.ThrowIf(stopping || wakeClosed, this);
++        if (!startAttempted || !ready.Task.IsCompletedSuccessfully)
++            throw new InvalidOperationException(LinuxDescriptorPollNames1554.NotReady);
++    }
++
++    private void RequireOwnerUnderGate(LinuxDescriptorPollOwner1554 owner)
++    {
++        if (!ReferenceEquals(owner.Service, this) || !owners.Contains(owner))
++            throw new InvalidOperationException(LinuxDescriptorPollNames1554.ForeignOwner);
++    }
++
++    private void Cancel(LinuxDescriptorPollWait1554 wait)
++    {
++        lock (gate)
++        {
++            wait.CancellationRequested = true;
++            if (wait.Admitted && waits.TryGetValue(wait.Generation, out var current)
++                && ReferenceEquals(current, wait)) WakeUnderGate();
++        }
++    }
++
++    private unsafe void WakeUnderGate()
++    {
++        if (wakeClosed) return;
++        byte value = LinuxDescriptorPollNames1554.WakeSignalValue;
++        while (true)
++        {
++            nint count = LinuxPortNative.write(wakeWrite, (nint)(&value), LinuxDescriptorPollNames1554.WakeSignalBytes);
++            if (count == LinuxDescriptorPollNames1554.WakeSignalBytes) return;
++            int error = Marshal.GetLastPInvokeError();
++            if (count < 0 && error == LinuxPortParameters.Interrupted) continue;
++            if (count < 0 && error == LinuxPortParameters.WouldBlock) return; // Existing unread wake.
++            failure ??= new NativePortIOException(count == 0 ? LinuxPortParameters.BrokenPipe : error);
++            stopping = true;
++            // A failed wake is not proof that an existing kernel poll returned.
++            // Keep physical join pending if the OS cannot wake this owned pipe.
++            return;
++        }
++    }
++
++    private unsafe void DrainWake()
++    {
++        byte* buffer = stackalloc byte[LinuxDescriptorPollNames1554.WakeBufferBytes];
++        while (true)
++        {
++            nint count = LinuxPortNative.read(wakeRead, (nint)buffer, LinuxDescriptorPollNames1554.WakeBufferBytes);
++            if (count > 0) continue;
++            int error = Marshal.GetLastPInvokeError();
++            if (count < 0 && error == LinuxPortParameters.Interrupted) continue;
++            if (count < 0 && error == LinuxPortParameters.WouldBlock) return;
++            throw new NativePortIOException(count == 0 ? LinuxPortParameters.BrokenPipe : error);
++        }
++    }
++
++    private void Run()
++    {
++        try
++        {
++            RuntimeMicrostateThreadIdentity physical = RuntimeMicrostateThreadIdentity.Current;
++            using var attachment = RuntimeMicrostateExecution.AttachConfiguredWorker(
++                accounting,
++                LinuxDescriptorPollNames1554.PollType,
++                RuntimeMicrostate.CheckIo,
++                physical,
++                LinuxDescriptorPollNames1554.PollIdentity
++            );
++            lock (gate) actualThreadId = physical.OperatingSystemId;
++            ready.TrySetResult();
++            RunPollLoop();
++        }
++        catch (Exception error)
++        {
++            lock (gate)
++            {
++                failure ??= error;
++                stopping = true;
++            }
++            ready.TrySetException(error);
++            _ = ready.Task.Exception;
++        }
++        finally
++        {
++            // No native poll invocation remains on this thread at this point.
++            LinuxDescriptorPollWait1554[] remaining;
++            LinuxDescriptorPollOwner1554[] idle;
++            lock (gate)
++            {
++                stopping = true;
++                remaining = waits.Values.ToArray();
++                waits.Clear();
++                foreach (var wait in remaining) SelectTerminalUnderGate(wait, failure);
++                idle = owners.Where(owner => owner.Pending == 0).ToArray();
++                foreach (var owner in owners) owner.Closing = true;
++                foreach (var owner in idle) owners.Remove(owner);
++            }
++            CompleteOutsideGate(remaining);
++            foreach (var owner in idle) owner.Retired.TrySetResult();
++        }
++    }
++
++    private void RunPollLoop()
++    {
++        while (true)
++        {
++            LinuxDescriptorPollWait1554[] snapshot;
++            DescriptorPollState[] descriptors;
++            bool stop;
++            lock (gate)
++            {
++                stop = stopping;
++                snapshot = waits.Values.ToArray();
++                descriptors = new DescriptorPollState[snapshot.Length + LinuxDescriptorPollNames1554.FirstRequestIndex];
++                descriptors[LinuxDescriptorPollNames1554.WakePollIndex] = new()
++                {
++                    Descriptor = wakeRead,
++                    Events = DescriptorPortParameters.PollInput
++                };
++                for (int index = 0; index < snapshot.Length; index++)
++                    descriptors[index + LinuxDescriptorPollNames1554.FirstRequestIndex] = new()
++                    {
++                        Descriptor = snapshot[index].Owner.Descriptor,
++                        Events = snapshot[index].Events
++                    };
++            }
++            if (stop) return;
++            probe?.BeforeNativePoll(snapshot.Length);
++            int result;
++            int error;
++            using (RuntimeMicrostateExecution.EnterState(accounting, RuntimeMicrostate.Sleep))
++            {
++                result = LinuxDescriptorPollNative1554.poll(
++                    descriptors,
++                    (nuint)descriptors.Length,
++                    LinuxDescriptorPollNames1554.InfiniteTimeout
++                );
++                error = result < 0 ? Marshal.GetLastPInvokeError() : 0;
++            }
++            if (result < 0 && error != LinuxPortParameters.Interrupted)
++                throw new NativePortIOException(error);
++            short wakeEvents = descriptors[LinuxDescriptorPollNames1554.WakePollIndex].Returned;
++            if ((wakeEvents & (LinuxDescriptorPollNames1554.Error | LinuxDescriptorPollNames1554.Hangup
++                | DescriptorPortParameters.PollInvalid)) != 0)
++                throw new NativePortIOException(LinuxPortParameters.BadDescriptor);
++            if ((wakeEvents & DescriptorPortParameters.PollInput) != 0) DrainWake();
++            var completed = new List<LinuxDescriptorPollWait1554>();
++            lock (gate)
++            {
++                for (int index = 0; index < snapshot.Length; index++)
++                {
++                    var wait = snapshot[index];
++                    if (!waits.TryGetValue(wait.Generation, out var current) || !ReferenceEquals(current, wait)) continue;
++                    short returned = descriptors[index + LinuxDescriptorPollNames1554.FirstRequestIndex].Returned;
++                    if (stopping || wait.Owner.Closing || wait.CancellationRequested || wait.Cancellation.IsCancellationRequested)
++                        SelectTerminalUnderGate(wait, failure);
++                    else if (result < 0 || returned == 0) continue;
++                    else if ((returned & DescriptorPortParameters.PollInvalid) != 0)
++                        wait.Error = new NativePortIOException(LinuxPortParameters.BadDescriptor);
++                    else wait.ReadyEvents = returned; // HUP/ERR are advisory readiness; actual transfer decides EOF/EPIPE.
++                    waits.Remove(wait.Generation);
++                    completed.Add(wait);
++                }
++            }
++            // Every completed row's exact native snapshot has physically returned.
++            CompleteOutsideGate(completed);
++        }
++    }
++
++    private static void SelectTerminalUnderGate(LinuxDescriptorPollWait1554 wait, Exception? error)
++    {
++        if (error is not null) wait.Error = error;
++        else if (wait.CancellationRequested || wait.Cancellation.IsCancellationRequested) wait.CancelResult = true;
++        else wait.Error = wait.Owner.Closed;
++    }
++
++    private void CompleteOutsideGate(IEnumerable<LinuxDescriptorPollWait1554> completed)
++    {
++        foreach (var wait in completed)
++        {
++            Exception? unregister = null;
++            try { wait.CancellationRegistration.Dispose(); }
++            catch (Exception error) { unregister = error; }
++            if (unregister is not null)
++            {
++                if (wait.Error is not null) unregister = new AggregateException(wait.Error, unregister);
++                wait.Completion.TrySetException(unregister);
++                lock (gate) failure ??= unregister;
++            }
++            else if (wait.CancelResult) wait.Completion.TrySetCanceled(wait.Cancellation);
++            else if (wait.Error is not null) wait.Completion.TrySetException(wait.Error);
++            else wait.Completion.TrySetResult(wait.ReadyEvents);
++            bool retired;
++            lock (gate)
++            {
++                wait.Admitted = false;
++                wait.Owner.Pending--;
++                retired = wait.Owner.Closing && wait.Owner.Pending == 0;
++                if (retired) owners.Remove(wait.Owner);
++            }
++            if (retired) wait.Owner.Retired.TrySetResult();
++        }
++    }
++
++    public ValueTask DisposeAsync()
++    {
++        if (ReferenceEquals(Thread.CurrentThread, thread))
++            throw new InvalidOperationException(LinuxDescriptorPollNames1554.SelfJoin);
++        lock (gate)
++        {
++            if (shutdown is not null) return new(shutdown);
++            stopping = true;
++            WakeUnderGate();
++            bool suppress = !ExecutionContext.IsFlowSuppressed();
++            AsyncFlowControl flow = default;
++            try
++            {
++                if (suppress) flow = ExecutionContext.SuppressFlow();
++                shutdown = Task.Run(JoinAndClose);
++            }
++            finally
++            {
++                if (suppress) flow.Undo();
++            }
++
++            return new(shutdown);
++        }
++    }
++
++    private void JoinAndClose()
++    {
++        // Join the actual thread, not a completion-shaped substitute task.
++        bool started = (thread.ThreadState & ThreadState.Unstarted) == 0;
++        if (started) thread.Join();
++        var errors = new List<Exception>();
++        lock (gate)
++        {
++            physicalLifetimeEnded = true;
++            actualThreadJoined = started;
++            wakeClosed = true; // Stops all future cancellation callback writes before close/reuse.
++            if (failure is not null) errors.Add(failure);
++            int read = wakeRead, write = wakeWrite;
++            wakeRead = wakeWrite = LinuxDescriptorPollNames1554.InvalidDescriptor;
++            if (LinuxDescriptorPollNative1554.close(read) != 0) errors.Add(new NativePortIOException(Marshal.GetLastPInvokeError()));
++            if (LinuxDescriptorPollNative1554.close(write) != 0) errors.Add(new NativePortIOException(Marshal.GetLastPInvokeError()));
++        }
++        ready.TrySetException(new ObjectDisposedException(LinuxDescriptorPollNames1554.Closed));
++        _ = ready.Task.Exception;
++        if (errors.Count != 0) throw new AggregateException(errors);
++    }
++}
+diff --git a/tools/Validation/Erlang.DescriptorPollValidation/versions/old1554/LinuxDescriptorPollWait1554.cs b/tools/Validation/Erlang.DescriptorPollValidation/versions/old1554/LinuxDescriptorPollWait1554.cs
+new file mode 100644
+index 000000000..30c0e1608
+--- /dev/null
++++ b/tools/Validation/Erlang.DescriptorPollValidation/versions/old1554/LinuxDescriptorPollWait1554.cs
+@@ -0,0 +1,20 @@
++namespace Erlang;
++
++internal sealed class LinuxDescriptorPollWait1554(
++    LinuxDescriptorPollOwner1554 owner,
++    short events,
++    CancellationToken cancellation
++)
++{
++    internal readonly LinuxDescriptorPollOwner1554 Owner = owner;
++    internal readonly short Events = events;
++    internal readonly CancellationToken Cancellation = cancellation;
++    internal readonly TaskCompletionSource<short> Completion = new(TaskCreationOptions.RunContinuationsAsynchronously);
++    internal CancellationTokenRegistration CancellationRegistration;
++    internal ulong Generation;
++    internal bool Admitted;
++    internal bool CancellationRequested;
++    internal bool CancelResult;
++    internal short ReadyEvents;
++    internal Exception? Error;
++}

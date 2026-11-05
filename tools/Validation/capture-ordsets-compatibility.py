@@ -63,6 +63,7 @@ prefix = "oracle-repeat" if check_only else "oracle"
 (output / (prefix + ".stderr")).write_bytes(result.stderr)
 assert result.returncode == 0, result.stderr.decode(errors="replace")
 verify_provider()
+subprocess.run([sys.executable, str(ROOT / "tools/Validation/partition-ordsets-corpus.py"), *(["--check"] if check_only else [])], check=True)
 receipt = {
     "PinnedOtpCommit": PIN,
     "ProviderAdmissionSha256": sha(ADMISSION),
@@ -71,7 +72,7 @@ receipt = {
     "ExitCode": result.returncode,
     "Stdout": result.stdout.decode(errors="replace"),
     "Comparison": "Entire deterministic ETF, including values and complete exception stacks",
-    "Files": {p.name: sha(p) for p in sorted(FIXTURE.iterdir()) if p.suffix in (".erl", ".beam", ".etf")},
+    "Files": {p.name: sha(p) for p in sorted(FIXTURE.iterdir()) if p.suffix in (".erl", ".beam", ".etf") or p.name == "partitions.json"},
 }
 if check_only:
     assert destination.read_bytes() == (FIXTURE / "original.etf").read_bytes()

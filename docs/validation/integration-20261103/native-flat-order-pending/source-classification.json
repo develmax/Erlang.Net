@@ -1,0 +1,26 @@
+{
+  "Status": "KNOWN_DIFFERENCES_SOURCE_AND_NATIVE_WITNESS",
+  "Baseline": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "HistoricalPresence": "regression-boundary.json.gz",
+  "PriorLedger": "docs/validation/integration-20261103/source-plan-refresh/ED40089957BA9F79FDC1C138061711CB53279507FE75E28261CB911035A4354B.json",
+  "PinnedOrdsetsSourceSha256": "526D1505D6CC482497F812879CDB41C533EA4BFC103E74850245F84C465CD70D",
+  "CurrentSourceHashes": {
+    "src/Runtime/Erlang.Terms/Collections/Maps/TermMapOrdering.cs": "BADEA41841F9CF505B57E97E1534F26E05F5076B8D0183F2233FD9E4DE5F2EBF",
+    "src/Runtime/Erlang.Terms/Collections/Maps/MapTerm.Native504.cs": "99C5CACAD2B8B22D9E2F10A3A902F25D448E207799B2BA8A877C11443A8A6EF7",
+    "src/Runtime/Erlang.Terms/Ordering/TermOrder.cs": "09562A2FB60DA9A96D6B8DB0FDE6E34756A9079B0A7A8F5A0E2B40632A9DC4A6"
+  },
+  "KnownApis": [
+    "ordsets:is_equal/2",
+    "ordsets:is_element/2",
+    "ordsets:is_set/1"
+  ],
+  "Rationale": [
+    "The real supported native materializer retains physical mutated binary keys. This is not an excluded synthetic term.",
+    "Actual pinned native M>F and M==F=false contradict candidate order0 and numeric equality=true; actual managed public is_equal/is_element disagree.",
+    "Pinned is_set([E2|Es],E1) requires E1<E2. For [F,M], observed OTP M>F implies true; candidate order0 implies false. This third API classification is a source derivation from the observed order witness, not a separately executed reverse-list oracle.",
+    "The same ArithmeticKeyEntries dispatch exists in main099042/20e02/f3c4. The current integration does not introduce the discrepancy.",
+    "Classify these3 as Known differences, retain6 verified and12 pending. Other comparison-dependent APIs retain pending full-domain source closure; no inferred status promotion."
+  ],
+  "OldBinaryExecutionPerformed": false,
+  "RuntimeSourceChangedForClassification": false
+}

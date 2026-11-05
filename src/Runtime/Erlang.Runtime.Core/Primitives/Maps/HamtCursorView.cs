@@ -149,6 +149,20 @@ internal static class HamtCursorView
         int level,
         object? domain = null,
         object? ownership = null
+    ) => Branch(
+        entries,
+        level,
+        domain,
+        ownership,
+        false
+    );
+
+    internal static HamtViewNode Branch(
+        IReadOnlyList<HamtViewEntry> entries,
+        int level,
+        object? domain,
+        object? ownership,
+        bool preserveCollisionOrder
     )
     {
         if (entries.Count == 1)
@@ -160,14 +174,15 @@ internal static class HamtCursorView
             );
         if (level == HamtViewLayout.HashLevels)
         {
-            HamtViewNode[] collisions = entries
-                .OrderBy(entry => entry.Pair.Key, Comparer<Term>.Create((left, right) => TermOrder.Compare(left, right, true)))
-                .Select(entry => new HamtViewNode(
-                    entry.Pair,
-                    [],
-                    domain: domain,
-                    ownership: ownership
-                ))
+            IEnumerable<HamtViewEntry> ordered = preserveCollisionOrder
+                ? entries
+                : entries.OrderBy(entry => entry.Pair.Key, Comparer<Term>.Create((left, right) => TermOrder.Compare(left, right, true)));
+            HamtViewNode[] collisions = ordered.Select(entry => new HamtViewNode(
+                entry.Pair,
+                [],
+                domain: domain,
+                ownership: ownership
+            ))
                 .ToArray();
 
             return new HamtViewNode(
@@ -187,7 +202,8 @@ internal static class HamtCursorView
             group.ToArray(),
             level + 1,
             domain,
-            ownership
+            ownership,
+            preserveCollisionOrder
         )).ToArray();
 
         return new HamtViewNode(

@@ -11,6 +11,7 @@ internal sealed partial class RuntimeDdllParent422
             {
                 row.Processes.Clear();
                 row.Ports.Clear();
+                row.ClosedPorts1311.Clear();
                 row.ReloadPath = null;
                 row.Path = null;
             }

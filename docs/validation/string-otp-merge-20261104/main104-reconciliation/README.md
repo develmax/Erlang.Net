@@ -1,0 +1,7 @@
+# Reconcile accepted main104
+
+Main ac0907a635cebc713ab7ebf2cf914947c23d66ed includes accepted PR104 map/ordsets physical-occurrence and copy corrections. Resolve 22 overlaps while retaining runtime-aware maps:from_list, string registration/source wrappers, both embedded resource groups and both new map regressions. The combined catalog is 9708 cases.
+
+Build passes 0 warnings/errors. Focused 23/23 contracts pass, including both string backends, 14 reduction controls, unchanged allocation limits and the two accepted map regressions. 22 CI controls, 13 passive plans, 4211 Resource529 inputs and 5400 raw MFA/native rows pass. The previous 9706 full report and its 14198/60 input freeze are historical before this main104 runtime change; they are not relabelled as combined full acceptance. Fresh combined-head CI and a new OTP replay are required. No compatibility classification or backend default is promoted.
+
+Fresh main104 OTP replay completed: each backend matches all 8522 complete outcomes across all 71 exports, including 2158 full exception stacks; all six separate depth profiles match 23 cases per backend. All 14 reports pass with zero value/reason/stack differences and preserved binary backing. Current Stdlib assembly SHA256: 40F84CFA3D5111D966A14D0EC5913F257A6EEADE41209389DA472CAD0EEEA720. Raw replay and provenance: main104-reconciliation/otp-replay.tar.gz. Combined full 9708-case CI remains pending.

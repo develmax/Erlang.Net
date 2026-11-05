@@ -1,0 +1,18 @@
+................F......
+No reusable receipt issued: FileNotFoundError: [Errno 2] No such file or directory: 'C:\\Users\\Maksim\\AppData\\Local\\Temp\\tmpxuij8gu1\\inputs.json'
+======================================================================
+FAIL: test_current_source_freezes_survive_windows_checkout_filters (test_source_bindings.IntegratedBindingsTests.test_current_source_freezes_survive_windows_checkout_filters)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\timer-pr\source\tools\Validation\Erlang.CiReuse\test_source_bindings.py", line 24, in test_current_source_freezes_survive_windows_checkout_filters
+    self.assertEqual(manifest.read_bytes(), committed,
+AssertionError: b'{\n[2486 chars]6": "CFE9292C7687B0EA3C56C023D890D7B8CA2AE6E84[456 chars]n}\n' != b'{\n[2486 chars]6": "8C3FCD967D10AA9CD30F0238C7DDF6CA6A981AA06[430 chars]n}\n' : Source-freeze manifest differs from the committed checkout: tools/Runtime/Erlang.MonitorOriginal645Observations/inputs.json
+
+----------------------------------------------------------------------
+Ran 23 tests in 0.319s
+
+FAILED (failures=1)
+{"Reuse": false, "Reasons": ["ValueError: resolved assets missing"]}
+No reusable receipt issued: FileNotFoundError: [Errno 2] No such file or directory: 'C:\\Users\\Maksim\\AppData\\Local\\Temp\\tmpjpotd0dg\\inputs.json'
+{"Reuse": false, "Reasons": ["PR/manual runs always execute required checks"]}
+Reusable input receipt sealed; GitHub job/workflow conclusions remain authoritative

@@ -6,6 +6,8 @@ internal static class NativeMapFlatEntries505
     {
         if (map.FlatKeys426 is not { } keys)
             throw new ArgumentException(nameof(map));
+        if (map.PreservedFlatPairs426 is { } preserved)
+            return preserved;
         if (NativeMapMaterialization505.TryRead(map, runtime, out var saved))
             return saved.PhysicalEntries;
         // Canonical Entries is a stable sort: occurrences of the exact same key

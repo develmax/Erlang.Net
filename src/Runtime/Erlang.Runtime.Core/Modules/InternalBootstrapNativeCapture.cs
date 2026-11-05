@@ -20,7 +20,7 @@ internal static class InternalBootstrapNativeCapture
             return false;
         if (module == AtomicsNames413.Internal && function == AtomicsNames413.New && arity == 2)
         {
-            if (IntPtr.Size != sizeof(ulong))
+            if (!NativeWordLayout.Supported)
                 return false;
             var constructor = new AtomicsConstructorBinding413(owner, registry);
             body = constructor.Body;

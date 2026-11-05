@@ -1,0 +1,31 @@
+{
+  "Partial": true,
+  "SelectedCount": 3,
+  "TotalCount": 9723,
+  "Blocks": [],
+  "ExactCases": [
+    "HOST/prim-file410/windows-native-files-and-validation",
+    "runtime/prim-file/delete-errno-and-path-contracts",
+    "runtime/prim-file/delete-platform-contracts"
+  ],
+  "Passed": 2,
+  "Failed": 1,
+  "Tests": [
+    {
+      "Name": "runtime/prim-file/delete-platform-contracts",
+      "Status": "Failed",
+      "Error": "System.InvalidOperationException: prim_file platform deletion contract failed: single delete winner\r\n   at Erlang.Tests.PrimFileDeletePlatformChecks.Require(Boolean value, String operation) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\dets-pr-20261104\\tests\\Erlang.Tests\\Runtime\\Bootstrap\\PrimFileDeletePlatformChecks.cs:line 30\r\n   at Erlang.Tests.PrimFileDeletePlatformChecks.Host() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\dets-pr-20261104\\tests\\Erlang.Tests\\Runtime\\Bootstrap\\PrimFileDeletePlatformChecks.cs:line 174\r\n   at Program.\u003CMain\u003E$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\dets-pr-20261104\\tests\\Erlang.Tests\\Harness\\Program.cs:line 16262",
+      "Milliseconds": 60
+    },
+    {
+      "Name": "runtime/prim-file/delete-errno-and-path-contracts",
+      "Status": "Passed",
+      "Milliseconds": 3
+    },
+    {
+      "Name": "HOST/prim-file410/windows-native-files-and-validation",
+      "Status": "Passed",
+      "Milliseconds": 366
+    }
+  ]
+}

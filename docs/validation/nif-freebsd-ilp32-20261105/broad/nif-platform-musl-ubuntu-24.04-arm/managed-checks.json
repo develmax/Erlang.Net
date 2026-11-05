@@ -1,0 +1,35 @@
+{
+  "Host": "linux-musl-arm64",
+  "Architecture": "Arm64",
+  "LinuxNamespace": false,
+  "CrossPlatformExecutionProven": false,
+  "Runtime": ".NET 10.0.11",
+  "OperatingSystem": "Alpine Linux v3.24",
+  "PointerBytes": 8,
+  "Results": [
+    {
+      "Name": "platform-admission",
+      "Passed": true
+    },
+    {
+      "Name": "entry-layout",
+      "Passed": true
+    },
+    {
+      "Name": "elf-capsule-machine",
+      "Passed": true
+    },
+    {
+      "Name": "host-loader-missing-file",
+      "Passed": true
+    },
+    {
+      "Name": "unix-native-callbacks-and-vm-ownership",
+      "Passed": true
+    },
+    {
+      "Name": "unix-managed-default-symbol-scope",
+      "Passed": true
+    }
+  ]
+}

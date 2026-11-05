@@ -1,0 +1,109 @@
+{
+  "FrozenAtUtc": "2026-11-03T13:04:49.410411+00:00",
+  "BaseHead": "20e02eb941ef3b99cb675827ef0f20663da7c04b",
+  "Files": [
+    {
+      "Path": "src/Runtime/Erlang.Terms/Ordering/TermOrder.cs",
+      "Sha256": "058AD7B997368D8DC91B27FF3F008C8B7183154350ED6A2C355B7C322F7869E9",
+      "Bytes": 23942
+    },
+    {
+      "Path": "src/Runtime/Erlang.Terms/Collections/Maps/TermMapOrdering.cs",
+      "Sha256": "BADEA41841F9CF505B57E97E1534F26E05F5076B8D0183F2233FD9E4DE5F2EBF",
+      "Bytes": 5187
+    },
+    {
+      "Path": "src/Runtime/Erlang.Terms/Collections/Maps/MapTerm.cs",
+      "Sha256": "5EB39B361ABF0B1371ADA4FA3FF091BD7BB55E1C68D5C328DBA9FC97E7AEBEFB",
+      "Bytes": 4205
+    },
+    {
+      "Path": "src/Runtime/Erlang.Terms/Collections/Maps/MapTerm.Native504.cs",
+      "Sha256": "99C5CACAD2B8B22D9E2F10A3A902F25D448E207799B2BA8A877C11443A8A6EF7",
+      "Bytes": 2208
+    },
+    {
+      "Path": "src/Runtime/Erlang.Terms/Collections/Maps/MapTerm.ArithmeticOrder.cs",
+      "Sha256": "22B72CB4BCA93CAC49EF47A9B6361F247B52FEF5DC511214D89558936DBE3768",
+      "Bytes": 527
+    },
+    {
+      "Path": "tests/Erlang.Tests/Otp/Stdlib/Ordsets/OrdsetsTermContractChecks.cs",
+      "Sha256": "90AAED2D52DFE7BCF9DE3103314BF759E70B98662DCEBA06562084627D88F953",
+      "Bytes": 8115
+    },
+    {
+      "Path": "tests/Erlang.Tests/Otp/Stdlib/Ordsets/OrdsetsTermContractNames.cs",
+      "Sha256": "5BD58B6AFA55196F8C91990DCD675BE54B0E1D2501BDCA9268BB66084FAFEE22",
+      "Bytes": 1472
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/OrdsetsTermContracts/ordsets_term_contracts.erl",
+      "Sha256": "9A2A4AE0F46AAEA9B34B6DA3435D1AE3F7E8CB20E1B34E42BC3EFF2467E5F00D",
+      "Bytes": 4830
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/OrdsetsTermContracts/ordsets_term_contracts.beam",
+      "Sha256": "3F4CC95379D59589E8F2B505AD5D71B9A17265A3996AA083D871D81A1CD36273",
+      "Bytes": 13352
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/OrdsetsTermContracts/matrix.etf",
+      "Sha256": "59E1719B46404982CA3093FEFA5702DFF00C4BC7E338F6464B4A7565BFE0DA86",
+      "Bytes": 847212
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/OrdsetsTermContracts/probes.etf",
+      "Sha256": "FA70B551F8C33894284DDD6500E66A7E5D08FCF62FF1E7E24F1AE83C75B21B70",
+      "Bytes": 395
+    },
+    {
+      "Path": "tests/Erlang.Tests/Resources/OrdsetsTermContracts/provenance.json",
+      "Sha256": "D73024DD888F549D7A18A37886F951C32E412059732084C4B4E1FB4B719B4D87",
+      "Bytes": 1006
+    },
+    {
+      "Path": "tests/Erlang.Tests/Erlang.Tests.csproj",
+      "Sha256": "73AE51C10DDC6DE4B5C1F84169C5EA402FDD223831CC33986500BEA07D359ECE",
+      "Bytes": 42135
+    },
+    {
+      "Path": "tools/Validation/Erlang.TermComparisonContracts/Erlang.TermComparisonContracts.csproj",
+      "Sha256": "A007CAB9F88C1CD72D82AA59FB0EF2ED5C7929391784C0E49B63D6E5BF5F0BA3",
+      "Bytes": 2848
+    },
+    {
+      "Path": "tools/Validation/Erlang.TermComparisonContracts/Program.cs",
+      "Sha256": "3EF052689AA5D53B5214127AE19B4DC88435CAAB8599B544FEEF3B477BBB7FED",
+      "Bytes": 724
+    },
+    {
+      "Path": "tools/Validation/Erlang.TermComparisonContracts/TermComparisonProbeNames.cs",
+      "Sha256": "40D5361F4ECDE5729262358AC2AA707711E5FB01BA21E448FD015829B82EFA87",
+      "Bytes": 473
+    },
+    {
+      "Path": "tools/Validation/Erlang.TermComparisonContracts/README.md",
+      "Sha256": "70B3B1B0558A6959DC298038853B14A4A754F301E2E2AA53A0B6F3F2A474275C",
+      "Bytes": 2381
+    },
+    {
+      "Path": "tools/Validation/capture-ordsets-term-contracts.py",
+      "Sha256": "27AB2233A06120A10F40FDD3B18EF38F37C16721742F16824028F72D9625D545",
+      "Bytes": 3869
+    },
+    {
+      "Path": "docs/dependency-decisions.md",
+      "Sha256": "10A84AD341E87F16DA50B474BAFBBC9F61E075A016829156F24E47C9AC9959F6",
+      "Bytes": 231863
+    }
+  ],
+  "NoIndexCommitOrPushChanges": true,
+  "ExcludedProposals": "../unvalidated-proposals/README.md",
+  "RemainingGates": [
+    "Integrate coordinator raw1024 partitions with unchanged75s budgets; no150s corpus budget is in this snapshot",
+    "Full current-source regression, source plan/readiness and fresh CI/review owned by integration coordinator",
+    "Native reverse marker precheck versus actual selection under concurrent handler replacement remains an explicit source audit gate; unvalidated atomic-scope proposal is excluded",
+    "No whole-module/status promotion is justified by this finite witness alone"
+  ]
+}

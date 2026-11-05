@@ -96,7 +96,10 @@ internal sealed class OtpMapRuntimeIdentityProvider(
                 // environments retain their actual count without truncation.
                 var canonical = runtime.ReadMapHashIdentity(() => runtime.Functions.GetCanonicalIdentityForHash(identity, function.Arity));
                 state.AlphaPair(OtpMapHashNames.LocalFun, (uint)function.Environment.Count);
-                state.BetaPair(unchecked((uint)canonical.Index), unchecked((uint)canonical.OldUnique));
+                // IHASH_MIX_BETA_2F32 casts each signed C int directly to Uint64.
+                // A negative low word therefore sign-extends before the OR.
+                state.Beta(unchecked((ulong)(long)canonical.Index
+                    | ((ulong)(long)canonical.OldUnique << OtpMapHashNames.HalfWordBits)));
                 state.Alpha(OtpMapHashNames.Immediate);
                 state.Beta(((ulong)runtime.ReadMapHashIdentity(() => AtomNameRegistry.IndexOf(identity.Module.Name)) << RuntimeMapHashNames.AtomShift) | RuntimeMapHashNames.AtomTag);
                 AppendLast(function.Environment, state);

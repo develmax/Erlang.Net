@@ -16,9 +16,12 @@ internal static class OrdsetsTermContractNames
     internal const string Observer = "ordsets_term_contracts";
     internal const string ObserverImage = "Erlang.Tests.OrdsetsTermContracts.ordsets_term_contracts.beam";
     internal const string Pool = "pool";
+    internal const string ProbeEntry = "ordsets_probes";
+    internal const string ProbeResource = "Erlang.Tests.OrdsetsTermContracts.probes.etf";
+    internal const int ProbeCount = 10;
     internal const int TermCount = 190;
     internal const int PairCount = TermCount * TermCount;
-    internal const int TermsPerShard = 32;
+    internal const int TermsPerShard = 16;
     internal const int ShardCount = (TermCount + TermsPerShard - 1) / TermsPerShard;
     internal static readonly TimeSpan Deadline = TimeSpan.FromSeconds(120);
 }

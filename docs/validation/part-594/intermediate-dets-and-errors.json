@@ -1,0 +1,73 @@
+{
+  "Partial": true,
+  "SelectedCount": 10,
+  "TotalCount": 9734,
+  "Blocks": [],
+  "ExactCases": [
+    "compiler/dynamic-apply477-selected-host-bindings",
+    "oracle/compiled-module/dynamic-apply477-whole-values-and-stacks",
+    "queue/higher-compiled-apply-badarity-and-rear-expansion-frames",
+    "runtime/beam-fun/tail-rejection-retains-source-caller",
+    "runtime/dets/magic-reference-gc-contracts",
+    "runtime/dets/managed-public-otp-contracts",
+    "runtime/dets/original-public-otp-contracts",
+    "runtime/dets/review-growth-and-fixed-collection",
+    "runtime/string/managed-jaro-indexed-resource-contract",
+    "runtime/string/original-jaro-indexed-resource-contract"
+  ],
+  "Passed": 9,
+  "Failed": 1,
+  "Tests": [
+    {
+      "Name": "runtime/string/managed-jaro-indexed-resource-contract",
+      "Status": "Passed",
+      "Milliseconds": 6679
+    },
+    {
+      "Name": "runtime/string/original-jaro-indexed-resource-contract",
+      "Status": "Passed",
+      "Milliseconds": 7381
+    },
+    {
+      "Name": "runtime/dets/managed-public-otp-contracts",
+      "Status": "Passed",
+      "Milliseconds": 119774
+    },
+    {
+      "Name": "runtime/dets/original-public-otp-contracts",
+      "Status": "Passed",
+      "Milliseconds": 179611
+    },
+    {
+      "Name": "runtime/dets/magic-reference-gc-contracts",
+      "Status": "Passed",
+      "Milliseconds": 257
+    },
+    {
+      "Name": "runtime/dets/review-growth-and-fixed-collection",
+      "Status": "Passed",
+      "Milliseconds": 103
+    },
+    {
+      "Name": "oracle/compiled-module/dynamic-apply477-whole-values-and-stacks",
+      "Status": "Passed",
+      "Milliseconds": 476
+    },
+    {
+      "Name": "compiler/dynamic-apply477-selected-host-bindings",
+      "Status": "Passed",
+      "Milliseconds": 50
+    },
+    {
+      "Name": "queue/higher-compiled-apply-badarity-and-rear-expansion-frames",
+      "Status": "Failed",
+      "Error": "System.AggregateException: Compiled queue callback error reason or full source stack differs from the pinned regression contract. (filter) (filtermap) (any) (all) (delete_with) (delete_with_r)\r\n ---\u003E System.InvalidOperationException: filter\r\n ---\u003E System.InvalidOperationException: Compiled queue callback error reason or full source stack differs from the pinned regression contract.\r\n   at Erlang.Tests.QueueCallbackRegressionHostChecks.Require(Boolean condition) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\dets-pr-20261104\\tests\\Erlang.Tests\\Otp\\Stdlib\\Queue\\QueueCallbackRegressionHostChecks.cs:line 199\r\n   at Erlang.Tests.QueueCallbackRegressionHostChecks.BadArity(Term value, String function, Int32 runLine) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\dets-pr-20261104\\tests\\Erlang.Tests\\Otp\\Stdlib\\Queue\\QueueCallbackRegressionHostChecks.cs:line 81\r\n   at Erlang.Tests.QueueCallbackRegressionHostChecks.Run() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\dets-pr-20261104\\tests\\Erlang.Tests\\Otp\\Stdlib\\Queue\\QueueCallbackRegressionHostChecks.cs:line 25\r\n   --- End of inner exception stack trace ---\r\n   --- End of inner exception stack trace ---\r\n   at Erlang.Tests.QueueCallbackRegressionHostChecks.Run() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\dets-pr-20261104\\tests\\Erlang.Tests\\Otp\\Stdlib\\Queue\\QueueCallbackRegressionHostChecks.cs:line 41\r\n   at Program.\u003CMain\u003E$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\dets-pr-20261104\\tests\\Erlang.Tests\\Harness\\Program.cs:line 16277\r\n ---\u003E (Inner Exception #1) System.InvalidOperationException: filtermap\r\n ---\u003E System.InvalidOperationException: Compiled queue callback error reason or full source stack differs from the pinned regression contract.\r\n   at Erlang.Tests.QueueCallbackRegressionHostChecks.Require(Boolean condition) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\dets-pr-20261104\\tests\\Erlang.Tests\\Otp\\Stdlib\\Queue\\QueueCallbackRegressionHostChecks.cs:line 199\r\n   at Erlang.Tests.QueueCallbackRegressionHostChecks.BadArity(Term value, String function, Int32 runLine) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\dets-pr-20261104\\tests\\Erlang.Tests\\Otp\\Stdlib\\Queue\\QueueCallbackRegressionHostChecks.cs:line 81\r\n   at Erlang.Tests.QueueCallbackRegressionHostChecks.Run() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\dets-pr-20261104\\tests\\Erlang.Tests\\Otp\\Stdlib\\Queue\\QueueCallbackRegressionHostChecks.cs:line 25\r\n   --- End of inner exception stack trace ---\u003C---\r\n\r\n ---\u003E (Inner Exception #2) System.InvalidOperationException: any\r\n ---\u003E System.InvalidOperationException: Compiled queue callback error reason or full source stack differs from the pinned regression contract.\r\n   at Erlang.Tests.QueueCallbackRegressionHostChecks.Require(Boolean condition) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\dets-pr-20261104\\tests\\Erlang.Tests\\Otp\\Stdlib\\Queue\\QueueCallbackRegressionHostChecks.cs:line 199\r\n   at Erlang.Tests.QueueCallbackRegressionHostChecks.BadArity(Term value, String function, Int32 runLine) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\dets-pr-20261104\\tests\\Erlang.Tests\\Otp\\Stdlib\\Queue\\QueueCallbackRegressionHostChecks.cs:line 81\r\n   at Erlang.Tests.QueueCallbackRegressionHostChecks.Run() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\dets-pr-20261104\\tests\\Erlang.Tests\\Otp\\Stdlib\\Queue\\QueueCallbackRegressionHostChecks.cs:line 25\r\n   --- End of inner exception stack trace ---\u003C---\r\n\r\n ---\u003E (Inner Exception #3) System.InvalidOperationException: all\r\n ---\u003E System.InvalidOperationException: Compiled queue callback error reason or full source stack differs from the pinned regression contract.\r\n   at Erlang.Tests.QueueCallbackRegressionHostChecks.Require(Boolean condition) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\dets-pr-20261104\\tests\\Erlang.Tests\\Otp\\Stdlib\\Queue\\QueueCallbackRegressionHostChecks.cs:line 199\r\n   at Erlang.Tests.QueueCallbackRegressionHostChecks.BadArity(Term value, String function, Int32 runLine) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\dets-pr-20261104\\tests\\Erlang.Tests\\Otp\\Stdlib\\Queue\\QueueCallbackRegressionHostChecks.cs:line 81\r\n   at Erlang.Tests.QueueCallbackRegressionHostChecks.Run() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\dets-pr-20261104\\tests\\Erlang.Tests\\Otp\\Stdlib\\Queue\\QueueCallbackRegressionHostChecks.cs:line 25\r\n   --- End of inner exception stack trace ---\u003C---\r\n\r\n ---\u003E (Inner Exception #4) System.InvalidOperationException: delete_with\r\n ---\u003E System.InvalidOperationException: Compiled queue callback error reason or full source stack differs from the pinned regression contract.\r\n   at Erlang.Tests.QueueCallbackRegressionHostChecks.Require(Boolean condition) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\dets-pr-20261104\\tests\\Erlang.Tests\\Otp\\Stdlib\\Queue\\QueueCallbackRegressionHostChecks.cs:line 199\r\n   at Erlang.Tests.QueueCallbackRegressionHostChecks.BadArity(Term value, String function, Int32 runLine) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\dets-pr-20261104\\tests\\Erlang.Tests\\Otp\\Stdlib\\Queue\\QueueCallbackRegressionHostChecks.cs:line 81\r\n   at Erlang.Tests.QueueCallbackRegressionHostChecks.Run() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\dets-pr-20261104\\tests\\Erlang.Tests\\Otp\\Stdlib\\Queue\\QueueCallbackRegressionHostChecks.cs:line 25\r\n   --- End of inner exception stack trace ---\u003C---\r\n\r\n ---\u003E (Inner Exception #5) System.InvalidOperationException: delete_with_r\r\n ---\u003E System.InvalidOperationException: Compiled queue callback error reason or full source stack differs from the pinned regression contract.\r\n   at Erlang.Tests.QueueCallbackRegressionHostChecks.Require(Boolean condition) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\dets-pr-20261104\\tests\\Erlang.Tests\\Otp\\Stdlib\\Queue\\QueueCallbackRegressionHostChecks.cs:line 199\r\n   at Erlang.Tests.QueueCallbackRegressionHostChecks.BadArity(Term value, String function, Int32 runLine) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\dets-pr-20261104\\tests\\Erlang.Tests\\Otp\\Stdlib\\Queue\\QueueCallbackRegressionHostChecks.cs:line 81\r\n   at Erlang.Tests.QueueCallbackRegressionHostChecks.Run() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\dets-pr-20261104\\tests\\Erlang.Tests\\Otp\\Stdlib\\Queue\\QueueCallbackRegressionHostChecks.cs:line 25\r\n   --- End of inner exception stack trace ---\u003C---\r\n",
+      "Milliseconds": 1262
+    },
+    {
+      "Name": "runtime/beam-fun/tail-rejection-retains-source-caller",
+      "Status": "Passed",
+      "Milliseconds": 30
+    }
+  ]
+}

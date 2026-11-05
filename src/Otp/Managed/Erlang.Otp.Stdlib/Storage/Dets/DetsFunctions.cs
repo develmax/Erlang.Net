@@ -1,0 +1,57 @@
+namespace Erlang;
+
+internal static class DetsFunctions
+{
+    internal const string AddUser = "add_user";
+    internal const string All = "all";
+    internal const string Bchunk = "bchunk";
+    internal const string Close = "close";
+    internal const string Delete = "delete";
+    internal const string DeleteAllObjects = "delete_all_objects";
+    internal const string DeleteObject = "delete_object";
+    internal const string FileInfo = "file_info";
+    internal const string First = "first";
+    internal const string Foldl = "foldl";
+    internal const string Foldr = "foldr";
+    internal const string FromEts = "from_ets";
+    internal const string Fsck = "fsck";
+    internal const string GetHeadField = "get_head_field";
+    internal const string Info = "info";
+    internal const string Init = "init";
+    internal const string InitTable = "init_table";
+    internal const string Insert = "insert";
+    internal const string InsertNew = "insert_new";
+    internal const string InternalClose = "internal_close";
+    internal const string InternalOpen = "internal_open";
+    internal const string IsCompatibleBchunkFormat = "is_compatible_bchunk_format";
+    internal const string IsDetsFile = "is_dets_file";
+    internal const string IstartLink = "istart_link";
+    internal const string Lookup = "lookup";
+    internal const string LookupKeys = "lookup_keys";
+    internal const string Match = "match";
+    internal const string MatchDelete = "match_delete";
+    internal const string MatchObject = "match_object";
+    internal const string Member = "member";
+    internal const string Next = "next";
+    internal const string OpenFile = "open_file";
+    internal const string RemoveUser = "remove_user";
+    internal const string RepairContinuation = "repair_continuation";
+    internal const string SafeFixtable = "safe_fixtable";
+    internal const string Select = "select";
+    internal const string SelectDelete = "select_delete";
+    internal const string Slot = "slot";
+    internal const string Start = "start";
+    internal const string Stop = "stop";
+    internal const string Sync = "sync";
+    internal const string SystemCodeChange = "system_code_change";
+    internal const string SystemContinue = "system_continue";
+    internal const string SystemTerminate = "system_terminate";
+    internal const string Table = "table";
+    internal const string ToEts = "to_ets";
+    internal const string Traverse = "traverse";
+    internal const string UpdateCounter = "update_counter";
+    internal const string Verbose = "verbose";
+    internal const string View = "view";
+    internal const string Where = "where";
+    internal const string Pid2Name = "pid2name";
+}

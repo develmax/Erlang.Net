@@ -1,0 +1,618 @@
+{
+  "Partial": true,
+  "SelectedCount": 101,
+  "TotalCount": 9601,
+  "Blocks": [],
+  "ExactCases": [
+    "native-resource524/physical-destructor-image-pin",
+    "native-resource524/view-guest-collection",
+    "native-resource527/create-duplicate-rollback",
+    "native-resource527/magic-header-identity",
+    "native-resource527/takeover-new-physical-destructor",
+    "native-resource528/arena-image-close-foreign-free",
+    "native-resource528/new-destructor-old-child",
+    "native-resource529/held-callback-forked-image-pin",
+    "native-resource529/logical-name-unlink-live-payload",
+    "native-resource531/parallel-host-export-lease-custody",
+    "native-resource535/canonical-readers-public-refusal",
+    "native-resource535/managed-nif-provider-opaque",
+    "native-resource535/public-reregister-canonical-delegate-opaque",
+    "native-resource536/guest-gc-real-normal-auxiliary-once",
+    "native-resource536/held-normal-destructor-physical-close",
+    "native-resource536/non-gc-foreign-context-retained",
+    "native-resource544/domain-close-before-upgrade-admission-rejected",
+    "native-resource544/preadmitted-upgrade-across-domain-close",
+    "native-resource575/empty-committed-types-retire-before-vm-shutdown",
+    "native-resource575/payload-and-physical-invocation-custody-survive-detach",
+    "native-resource575/pending-rollback-and-new-owner-prevent-premature-detach",
+    "oracle/compiled-module/ddll-error416-windows264-full-typed-raw",
+    "runtime/ddll-error416/atomic-owner-platform-and-foreign-actor",
+    "runtime/internal-ports416/real-open-command-connect-info-close-and-child-exit",
+    "runtime/library455/independent-driver-turn-uses-free-normal-lane",
+    "runtime/library455/native-external-term-keeps-own-local-reference",
+    "runtime/library455/native-own-identities-preserve-foreign-occurrences",
+    "runtime/statistics-canonical-source-fun-real-entry-environment-birth-and-gc",
+    "runtime/statistics-context-selection/adjacent-same-epoch",
+    "runtime/statistics-context-selection/initializer-and-inline-excluded",
+    "runtime/statistics-context-selection/interleaved-same-epoch",
+    "runtime/statistics-cpu-active-sample-no-double-count",
+    "runtime/statistics-cpu-generic-auxiliary-and-no-vm-backlink",
+    "runtime/statistics-cpu-nested-vm-and-exception-restoration",
+    "runtime/statistics-cpu-real-dirty-burn-and-blocked-user-time",
+    "runtime/statistics-cpu-two-vms-and-host-user-time-isolation",
+    "runtime/statistics-external-identifiers-actual-node-header-birth-live-dead-reclaim",
+    "runtime/statistics-external-identifiers-real-cross-heap-node-lease-host-escape",
+    "runtime/statistics-external-identifiers-vm-close-real-node-drain",
+    "runtime/statistics-group-leader-foreign-pid-physical-root-and-detached-host-snapshot",
+    "runtime/statistics-group-leader-spawn-inheritance-independent-physical-roots-and-close",
+    "runtime/statistics-msacc-actual-normal-aux-dirty-producers",
+    "runtime/statistics-msacc-capacity-one-same-actor-enable-work-actual-idle",
+    "runtime/statistics-msacc-default-feature-reset-and-caller-exit",
+    "runtime/statistics-msacc-dirty-io-physical-worker-id-out-of-order-birth",
+    "runtime/statistics-msacc-duplicate-id-distinct-physical-threads-rejected",
+    "runtime/statistics-msacc-normal-physical-worker-id-out-of-order-birth",
+    "runtime/statistics-msacc-real-thread-nested-vm-and-host-exclusion",
+    "runtime/statistics-msacc-source-tail/finish-body-failure",
+    "runtime/statistics-msacc-source-tail/first-body-failure",
+    "runtime/statistics-msacc-source-tail/running-first-close",
+    "runtime/statistics-msacc-source-tail/same-physical-two-phase-helper",
+    "runtime/statistics-msacc-source-tail/withheld-close",
+    "runtime/statistics-msacc-thread-cache-does-not-retain-vm",
+    "runtime/statistics-native-record-copied-actual-children-detached-host-escape",
+    "runtime/statistics-native-record-genuine-source-wait-vm-close-and-stale-read",
+    "runtime/statistics-native-record-real-instance-definition-order-pointers-and-reclaim",
+    "runtime/statistics-native-record-source-birth-update-getters-live-gc-and-return",
+    "runtime/statistics-native-writable-genuine-source-wait-vm-close-real-retirement",
+    "runtime/statistics-native-writable-partial-byte-actual-flags-and-payload",
+    "runtime/statistics-opaque-sdk-external-function-real-kind-header-no-canonical-admission",
+    "runtime/statistics-ordinary-refc-writable-origin-preserves-append-token-capacity-aliases",
+    "runtime/statistics-process-heap-bits-physical-inline-birth-and-reclaim",
+    "runtime/statistics-process-heap-bits-preserve-small-reference-shape",
+    "runtime/statistics-process-heap-bits-transfer-detached-escape-and-bits",
+    "runtime/statistics-process-refc-binary-actual-prefix-header-words-and-reclaim",
+    "runtime/statistics-process-refc-binary-queue-graph-transfer-and-host-escape",
+    "runtime/statistics-process-refc-binary-vm-close-waits-real-interest",
+    "runtime/statistics-process-refc-short-view-preserves-native-subbits",
+    "runtime/statistics-real-reductions-retired-actors-independent-cursors",
+    "runtime/statistics-self-on-heap-send-real-same-graph-no-pin-no-refcount-inflation",
+    "runtime/statistics-source-fun-import-actual-copied-env-dictionary-and-reclaim",
+    "runtime/statistics-trap/actual-callback-replies-and-exact-ref-cleanup",
+    "runtime/statistics-trap/authentic-private-and-preloaded-image",
+    "runtime/statistics-trap/callback-fault-interrupts-real-receive",
+    "runtime/statistics-trap/close-waits-for-helper-and-callbacks",
+    "runtime/statistics-trap/immediate-halt-joins-held-callback",
+    "runtime/statistics-trap/private-installer-primitives-no-publication",
+    "runtime/statistics-trap/real-requester-kill-drains-callbacks",
+    "runtime/statistics-two-owners-real-clock-user-cpu-cursors",
+    "runtime/statistics-walltime-concurrent-owner-linearization",
+    "runtime/statistics-walltime-dirty-snapshot-precedes-blocked-normal-ack",
+    "runtime/statistics-walltime-gather-wait-services-owner-process-info",
+    "runtime/statistics-walltime-internal-repeat-awaits-real-normal-ack",
+    "runtime/statistics-walltime-managed-wait-reports-waiting-and-services-control",
+    "runtime/statistics-walltime-native-wait-services-owner-process-info",
+    "runtime/statistics-walltime-public-nested-owner-and-exit",
+    "runtime/statistics-walltime-real-dirty-inflight-and-persistent-timers",
+    "runtime/statistics/build-metadata-actual-assembly-abi-two-vm-profiles",
+    "runtime/statistics/ordinary-beam-original-values-stacks-and-instruction-gc",
+    "runtime/statistics/ordinary-beam-target-safe-collection-requests",
+    "runtime/statistics/ordinary-source-real-collector-before-gc",
+    "runtime/statistics/ordinary-source-target-safe-collection-requests",
+    "runtime/statistics/owned-beam-target-safe-collection-requests",
+    "runtime/statistics/owned-source-target-safe-collection-requests",
+    "runtime/worker-lifecycle/close-versus-actual-ready",
+    "runtime/worker-lifecycle/constructor-original-argument-error-type",
+    "runtime/worker-lifecycle/independent-entry-errors-aggregate",
+    "runtime/worker-lifecycle/partial-dirty-entry-failure",
+    "runtime/worker-lifecycle/partial-normal-entry-failure",
+    "runtime/worker-lifecycle/prefix-and-initializer-rollback"
+  ],
+  "Passed": 101,
+  "Failed": 0,
+  "Tests": [
+    {
+      "Name": "native-resource575/empty-committed-types-retire-before-vm-shutdown",
+      "Status": "Passed",
+      "Milliseconds": 438
+    },
+    {
+      "Name": "native-resource575/pending-rollback-and-new-owner-prevent-premature-detach",
+      "Status": "Passed",
+      "Milliseconds": 121
+    },
+    {
+      "Name": "native-resource575/payload-and-physical-invocation-custody-survive-detach",
+      "Status": "Passed",
+      "Milliseconds": 120
+    },
+    {
+      "Name": "runtime/internal-ports416/real-open-command-connect-info-close-and-child-exit",
+      "Status": "Passed",
+      "Milliseconds": 271
+    },
+    {
+      "Name": "oracle/compiled-module/ddll-error416-windows264-full-typed-raw",
+      "Status": "Passed",
+      "Milliseconds": 2427
+    },
+    {
+      "Name": "runtime/ddll-error416/atomic-owner-platform-and-foreign-actor",
+      "Status": "Passed",
+      "Milliseconds": 365
+    },
+    {
+      "Name": "runtime/library455/independent-driver-turn-uses-free-normal-lane",
+      "Status": "Passed",
+      "Milliseconds": 61
+    },
+    {
+      "Name": "runtime/library455/native-external-term-keeps-own-local-reference",
+      "Status": "Passed",
+      "Milliseconds": 136
+    },
+    {
+      "Name": "runtime/library455/native-own-identities-preserve-foreign-occurrences",
+      "Status": "Passed",
+      "Milliseconds": 47
+    },
+    {
+      "Name": "runtime/statistics-two-owners-real-clock-user-cpu-cursors",
+      "Status": "Passed",
+      "Milliseconds": 425
+    },
+    {
+      "Name": "runtime/statistics-real-reductions-retired-actors-independent-cursors",
+      "Status": "Passed",
+      "Milliseconds": 125
+    },
+    {
+      "Name": "native-resource529/logical-name-unlink-live-payload",
+      "Status": "Passed",
+      "Milliseconds": 144
+    },
+    {
+      "Name": "native-resource529/held-callback-forked-image-pin",
+      "Status": "Passed",
+      "Milliseconds": 127
+    },
+    {
+      "Name": "native-resource531/parallel-host-export-lease-custody",
+      "Status": "Passed",
+      "Milliseconds": 217
+    },
+    {
+      "Name": "native-resource535/canonical-readers-public-refusal",
+      "Status": "Passed",
+      "Milliseconds": 1319
+    },
+    {
+      "Name": "native-resource535/public-reregister-canonical-delegate-opaque",
+      "Status": "Passed",
+      "Milliseconds": 164
+    },
+    {
+      "Name": "native-resource535/managed-nif-provider-opaque",
+      "Status": "Passed",
+      "Milliseconds": 183
+    },
+    {
+      "Name": "native-resource536/guest-gc-real-normal-auxiliary-once",
+      "Status": "Passed",
+      "Milliseconds": 123
+    },
+    {
+      "Name": "native-resource536/held-normal-destructor-physical-close",
+      "Status": "Passed",
+      "Milliseconds": 139
+    },
+    {
+      "Name": "native-resource536/non-gc-foreign-context-retained",
+      "Status": "Passed",
+      "Milliseconds": 424
+    },
+    {
+      "Name": "native-resource524/view-guest-collection",
+      "Status": "Passed",
+      "Milliseconds": 134
+    },
+    {
+      "Name": "native-resource524/physical-destructor-image-pin",
+      "Status": "Passed",
+      "Milliseconds": 119
+    },
+    {
+      "Name": "native-resource527/magic-header-identity",
+      "Status": "Passed",
+      "Milliseconds": 125
+    },
+    {
+      "Name": "native-resource527/create-duplicate-rollback",
+      "Status": "Passed",
+      "Milliseconds": 130
+    },
+    {
+      "Name": "native-resource527/takeover-new-physical-destructor",
+      "Status": "Passed",
+      "Milliseconds": 128
+    },
+    {
+      "Name": "native-resource544/preadmitted-upgrade-across-domain-close",
+      "Status": "Passed",
+      "Milliseconds": 142
+    },
+    {
+      "Name": "native-resource544/domain-close-before-upgrade-admission-rejected",
+      "Status": "Passed",
+      "Milliseconds": 157
+    },
+    {
+      "Name": "native-resource528/arena-image-close-foreign-free",
+      "Status": "Passed",
+      "Milliseconds": 262
+    },
+    {
+      "Name": "native-resource528/new-destructor-old-child",
+      "Status": "Passed",
+      "Milliseconds": 124
+    },
+    {
+      "Name": "runtime/statistics/ordinary-source-real-collector-before-gc",
+      "Status": "Passed",
+      "Milliseconds": 396
+    },
+    {
+      "Name": "runtime/statistics/ordinary-source-target-safe-collection-requests",
+      "Status": "Passed",
+      "Milliseconds": 367
+    },
+    {
+      "Name": "runtime/statistics/owned-source-target-safe-collection-requests",
+      "Status": "Passed",
+      "Milliseconds": 249
+    },
+    {
+      "Name": "runtime/statistics/ordinary-beam-target-safe-collection-requests",
+      "Status": "Passed",
+      "Milliseconds": 155
+    },
+    {
+      "Name": "runtime/statistics/owned-beam-target-safe-collection-requests",
+      "Status": "Passed",
+      "Milliseconds": 147
+    },
+    {
+      "Name": "runtime/statistics/ordinary-beam-original-values-stacks-and-instruction-gc",
+      "Status": "Passed",
+      "Milliseconds": 402
+    },
+    {
+      "Name": "runtime/statistics-trap/authentic-private-and-preloaded-image",
+      "Status": "Passed",
+      "Milliseconds": 190
+    },
+    {
+      "Name": "runtime/statistics-trap/actual-callback-replies-and-exact-ref-cleanup",
+      "Status": "Passed",
+      "Milliseconds": 62
+    },
+    {
+      "Name": "runtime/statistics-trap/callback-fault-interrupts-real-receive",
+      "Status": "Passed",
+      "Milliseconds": 237
+    },
+    {
+      "Name": "runtime/statistics-trap/real-requester-kill-drains-callbacks",
+      "Status": "Passed",
+      "Milliseconds": 61
+    },
+    {
+      "Name": "runtime/statistics-trap/close-waits-for-helper-and-callbacks",
+      "Status": "Passed",
+      "Milliseconds": 59
+    },
+    {
+      "Name": "runtime/statistics-trap/immediate-halt-joins-held-callback",
+      "Status": "Passed",
+      "Milliseconds": 53
+    },
+    {
+      "Name": "runtime/statistics-trap/private-installer-primitives-no-publication",
+      "Status": "Passed",
+      "Milliseconds": 106
+    },
+    {
+      "Name": "runtime/statistics-process-refc-short-view-preserves-native-subbits",
+      "Status": "Passed",
+      "Milliseconds": 125
+    },
+    {
+      "Name": "runtime/statistics-ordinary-refc-writable-origin-preserves-append-token-capacity-aliases",
+      "Status": "Passed",
+      "Milliseconds": 522
+    },
+    {
+      "Name": "runtime/statistics-native-writable-partial-byte-actual-flags-and-payload",
+      "Status": "Passed",
+      "Milliseconds": 383
+    },
+    {
+      "Name": "runtime/statistics-native-writable-genuine-source-wait-vm-close-real-retirement",
+      "Status": "Passed",
+      "Milliseconds": 358
+    },
+    {
+      "Name": "runtime/statistics-self-on-heap-send-real-same-graph-no-pin-no-refcount-inflation",
+      "Status": "Passed",
+      "Milliseconds": 773
+    },
+    {
+      "Name": "runtime/worker-lifecycle/constructor-original-argument-error-type",
+      "Status": "Passed",
+      "Milliseconds": 14
+    },
+    {
+      "Name": "runtime/worker-lifecycle/partial-normal-entry-failure",
+      "Status": "Passed",
+      "Milliseconds": 10
+    },
+    {
+      "Name": "runtime/worker-lifecycle/partial-dirty-entry-failure",
+      "Status": "Passed",
+      "Milliseconds": 4
+    },
+    {
+      "Name": "runtime/worker-lifecycle/prefix-and-initializer-rollback",
+      "Status": "Passed",
+      "Milliseconds": 96
+    },
+    {
+      "Name": "runtime/worker-lifecycle/close-versus-actual-ready",
+      "Status": "Passed",
+      "Milliseconds": 2
+    },
+    {
+      "Name": "runtime/worker-lifecycle/independent-entry-errors-aggregate",
+      "Status": "Passed",
+      "Milliseconds": 2
+    },
+    {
+      "Name": "runtime/statistics/build-metadata-actual-assembly-abi-two-vm-profiles",
+      "Status": "Passed",
+      "Milliseconds": 240
+    },
+    {
+      "Name": "runtime/statistics-walltime-native-wait-services-owner-process-info",
+      "Status": "Passed",
+      "Milliseconds": 64
+    },
+    {
+      "Name": "runtime/statistics-walltime-gather-wait-services-owner-process-info",
+      "Status": "Passed",
+      "Milliseconds": 57
+    },
+    {
+      "Name": "runtime/statistics-walltime-managed-wait-reports-waiting-and-services-control",
+      "Status": "Passed",
+      "Milliseconds": 61
+    },
+    {
+      "Name": "runtime/statistics-walltime-internal-repeat-awaits-real-normal-ack",
+      "Status": "Passed",
+      "Milliseconds": 51
+    },
+    {
+      "Name": "runtime/statistics-walltime-dirty-snapshot-precedes-blocked-normal-ack",
+      "Status": "Passed",
+      "Milliseconds": 273
+    },
+    {
+      "Name": "runtime/statistics-msacc-source-tail/same-physical-two-phase-helper",
+      "Status": "Passed",
+      "Milliseconds": 53
+    },
+    {
+      "Name": "runtime/statistics-msacc-source-tail/withheld-close",
+      "Status": "Passed",
+      "Milliseconds": 40
+    },
+    {
+      "Name": "runtime/statistics-msacc-source-tail/running-first-close",
+      "Status": "Passed",
+      "Milliseconds": 57
+    },
+    {
+      "Name": "runtime/statistics-msacc-source-tail/first-body-failure",
+      "Status": "Passed",
+      "Milliseconds": 39
+    },
+    {
+      "Name": "runtime/statistics-msacc-source-tail/finish-body-failure",
+      "Status": "Passed",
+      "Milliseconds": 44
+    },
+    {
+      "Name": "runtime/statistics-msacc-thread-cache-does-not-retain-vm",
+      "Status": "Passed",
+      "Milliseconds": 484
+    },
+    {
+      "Name": "runtime/statistics-msacc-default-feature-reset-and-caller-exit",
+      "Status": "Passed",
+      "Milliseconds": 604
+    },
+    {
+      "Name": "runtime/statistics-msacc-actual-normal-aux-dirty-producers",
+      "Status": "Passed",
+      "Milliseconds": 826
+    },
+    {
+      "Name": "runtime/statistics-msacc-real-thread-nested-vm-and-host-exclusion",
+      "Status": "Passed",
+      "Milliseconds": 846
+    },
+    {
+      "Name": "runtime/statistics-msacc-capacity-one-same-actor-enable-work-actual-idle",
+      "Status": "Passed",
+      "Milliseconds": 892
+    },
+    {
+      "Name": "runtime/statistics-msacc-normal-physical-worker-id-out-of-order-birth",
+      "Status": "Passed",
+      "Milliseconds": 5
+    },
+    {
+      "Name": "runtime/statistics-msacc-dirty-io-physical-worker-id-out-of-order-birth",
+      "Status": "Passed",
+      "Milliseconds": 2
+    },
+    {
+      "Name": "runtime/statistics-msacc-duplicate-id-distinct-physical-threads-rejected",
+      "Status": "Passed",
+      "Milliseconds": 3
+    },
+    {
+      "Name": "runtime/statistics-canonical-source-fun-real-entry-environment-birth-and-gc",
+      "Status": "Passed",
+      "Milliseconds": 363
+    },
+    {
+      "Name": "runtime/statistics-source-fun-import-actual-copied-env-dictionary-and-reclaim",
+      "Status": "Passed",
+      "Milliseconds": 327
+    },
+    {
+      "Name": "runtime/statistics-opaque-sdk-external-function-real-kind-header-no-canonical-admission",
+      "Status": "Passed",
+      "Milliseconds": 116
+    },
+    {
+      "Name": "runtime/statistics-external-identifiers-actual-node-header-birth-live-dead-reclaim",
+      "Status": "Passed",
+      "Milliseconds": 124
+    },
+    {
+      "Name": "runtime/statistics-external-identifiers-real-cross-heap-node-lease-host-escape",
+      "Status": "Passed",
+      "Milliseconds": 129
+    },
+    {
+      "Name": "runtime/statistics-external-identifiers-vm-close-real-node-drain",
+      "Status": "Passed",
+      "Milliseconds": 107
+    },
+    {
+      "Name": "runtime/statistics-native-record-real-instance-definition-order-pointers-and-reclaim",
+      "Status": "Passed",
+      "Milliseconds": 220
+    },
+    {
+      "Name": "runtime/statistics-native-record-copied-actual-children-detached-host-escape",
+      "Status": "Passed",
+      "Milliseconds": 244
+    },
+    {
+      "Name": "runtime/statistics-native-record-source-birth-update-getters-live-gc-and-return",
+      "Status": "Passed",
+      "Milliseconds": 473
+    },
+    {
+      "Name": "runtime/statistics-native-record-genuine-source-wait-vm-close-and-stale-read",
+      "Status": "Passed",
+      "Milliseconds": 346
+    },
+    {
+      "Name": "runtime/statistics-group-leader-foreign-pid-physical-root-and-detached-host-snapshot",
+      "Status": "Passed",
+      "Milliseconds": 228
+    },
+    {
+      "Name": "runtime/statistics-group-leader-spawn-inheritance-independent-physical-roots-and-close",
+      "Status": "Passed",
+      "Milliseconds": 254
+    },
+    {
+      "Name": "runtime/statistics-process-refc-binary-actual-prefix-header-words-and-reclaim",
+      "Status": "Passed",
+      "Milliseconds": 161
+    },
+    {
+      "Name": "runtime/statistics-process-refc-binary-queue-graph-transfer-and-host-escape",
+      "Status": "Passed",
+      "Milliseconds": 104
+    },
+    {
+      "Name": "runtime/statistics-process-refc-binary-vm-close-waits-real-interest",
+      "Status": "Passed",
+      "Milliseconds": 114
+    },
+    {
+      "Name": "runtime/statistics-process-heap-bits-preserve-small-reference-shape",
+      "Status": "Passed",
+      "Milliseconds": 113
+    },
+    {
+      "Name": "runtime/statistics-process-heap-bits-physical-inline-birth-and-reclaim",
+      "Status": "Passed",
+      "Milliseconds": 120
+    },
+    {
+      "Name": "runtime/statistics-process-heap-bits-transfer-detached-escape-and-bits",
+      "Status": "Passed",
+      "Milliseconds": 112
+    },
+    {
+      "Name": "runtime/statistics-walltime-public-nested-owner-and-exit",
+      "Status": "Passed",
+      "Milliseconds": 52
+    },
+    {
+      "Name": "runtime/statistics-walltime-concurrent-owner-linearization",
+      "Status": "Passed",
+      "Milliseconds": 48
+    },
+    {
+      "Name": "runtime/statistics-walltime-real-dirty-inflight-and-persistent-timers",
+      "Status": "Passed",
+      "Milliseconds": 282
+    },
+    {
+      "Name": "runtime/statistics-cpu-two-vms-and-host-user-time-isolation",
+      "Status": "Passed",
+      "Milliseconds": 840
+    },
+    {
+      "Name": "runtime/statistics-cpu-active-sample-no-double-count",
+      "Status": "Passed",
+      "Milliseconds": 280
+    },
+    {
+      "Name": "runtime/statistics-cpu-nested-vm-and-exception-restoration",
+      "Status": "Passed",
+      "Milliseconds": 860
+    },
+    {
+      "Name": "runtime/statistics-cpu-generic-auxiliary-and-no-vm-backlink",
+      "Status": "Passed",
+      "Milliseconds": 508
+    },
+    {
+      "Name": "runtime/statistics-cpu-real-dirty-burn-and-blocked-user-time",
+      "Status": "Passed",
+      "Milliseconds": 474
+    },
+    {
+      "Name": "runtime/statistics-context-selection/interleaved-same-epoch",
+      "Status": "Passed",
+      "Milliseconds": 33
+    },
+    {
+      "Name": "runtime/statistics-context-selection/adjacent-same-epoch",
+      "Status": "Passed",
+      "Milliseconds": 22
+    },
+    {
+      "Name": "runtime/statistics-context-selection/initializer-and-inline-excluded",
+      "Status": "Passed",
+      "Milliseconds": 29
+    }
+  ]
+}

@@ -1,0 +1,4 @@
+[{"Original":false,"NativeBodySnapshotRetained":true,"Entered":1,"Disposed":1,"ReplacementDoesNotEnterScope":true},{"Original":true,"NativeBodySnapshotRetained":true,"Entered":1,"Disposed":1,"ReplacementDoesNotEnterScope":true},{"Case":"success","Entered":1,"Disposed":1},{"Case":"throw","Entered":1,"Disposed":1},{"Case":"yield","Entered":1,"Disposed":1},{"Case":"hibernate-control-transfer","Entered":1,"Disposed":1},{"Case":"factory-cancel","Entered":0,"Disposed":0}]
+{"Expectation":"control","Reason":"replacement_reverse","NativeOnlyHelperPresent":false,"Stack":"[]"}
+{"Expectation":"after","Swaps":1,"Reason":"badarg","NativeOnlyHelperPresent":true,"Stack":"[{lists,reverse,[[1|tail],[2,1]],[{error_info,#{module=\u003Eerl_stdlib_errors}}]},{lists,umerge2_2,4,[{file,[108,105,115,116,115,46,101,114,108]},{line,3471}]},{lists,umergel,3,[{file,[108,105,115,116,115,46,101,114,108]},{line,3306}]}]"}
+Atomic selected native caller: all permanent controls passed

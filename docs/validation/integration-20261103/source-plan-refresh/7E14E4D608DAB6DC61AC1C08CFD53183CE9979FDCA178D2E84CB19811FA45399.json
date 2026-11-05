@@ -1,0 +1,75 @@
+{
+  "Status": "SOURCE_ONLY_COLLECTOR_NOT_EXECUTED",
+  "PinnedCommit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "OtpVersion": "29.1.1",
+  "ExpectedOriginalNodes": 2,
+  "NativeNetworkingRequired": true,
+  "LoopbackOnlyRecipe": true,
+  "SdkExecuted": false,
+  "SdkCompared": false,
+  "NativeControlWireBytesCaptured": false,
+  "Sources": [
+    {
+      "Path": "collect.py",
+      "Bytes": 14664,
+      "Sha256": "370ABE0D4FBEB1EC1F328E63570B20D76BD51A4D91E2C8A955E5EA215F4A3F23"
+    },
+    {
+      "Path": "guest_connected_send319.erl",
+      "Bytes": 3815,
+      "Sha256": "BC16D45A89013E80746EBD68AEC44BEA1711120568D834FE21A0D5DFECD88707"
+    },
+    {
+      "Path": "guest_connected_send319_driver.erl",
+      "Bytes": 2612,
+      "Sha256": "8BCC156AE0B8D9A1640FF5E552280627BB6ED1DC9C5E96FFD85D8A9A81A8654F"
+    },
+    {
+      "Path": "owned_process.py",
+      "Bytes": 3675,
+      "Sha256": "846101AD4F92121ACB128EAFB3228DD66D8A524CE0539A25E020A77010CFF071"
+    },
+    {
+      "Path": "passive_etf.py",
+      "Bytes": 7105,
+      "Sha256": "A069AD650B3EA1BE6B90DE60117B84ED7A1A6B67128CC41E7ECAEFD2889C1713"
+    },
+    {
+      "Path": "process_capture.py",
+      "Bytes": 1610,
+      "Sha256": "4801CCC2E1986BB9ED4779335C0248CFC8BA7CD579C6BF3855302E19443ED559"
+    },
+    {
+      "Path": "README.md",
+      "Bytes": 3445,
+      "Sha256": "088C03C641A1A1FE062E26E10FB4088830E7F789C399365655AACAFC0D8AA719"
+    }
+  ],
+  "PinnedSources": [
+    {
+      "Path": "erts/emulator/beam/bif.c",
+      "Sha256": "4DF5E1065391F693F73E5A7303F0C1993E67C7DD4B4AF151C43121CA913EF9CC"
+    },
+    {
+      "Path": "erts/emulator/beam/dist.c",
+      "Sha256": "67711AB6A7C9FCE0F4D5B40B06D4DDE5F61E9C8BDFAAFB1D0A22988D04657EEB"
+    },
+    {
+      "Path": "erts/preloaded/src/erlang.erl",
+      "Sha256": "00D7672A16325E43CA221C6D6CEB4200390E2A961A243C2E31DDC141AC145047"
+    },
+    {
+      "Path": "erts/epmd/src/epmd.c",
+      "Sha256": "D85AFC0FC08F95880F65CCF2A475A6064337C6C810C3DF06374CC395059EDFC3"
+    },
+    {
+      "Path": "lib/kernel/src/erl_epmd.erl",
+      "Sha256": "6C5ACB40B4917D18438A6272E6BB0193A743E0BCD17F327057C8FA6DD280E597"
+    },
+    {
+      "Path": "erts/etc/common/erlexec.c",
+      "Sha256": "4EDB5C89CE483126156C969C2DEC48FA7134913D3E8E474CC53EB31AD0D6C3D9"
+    }
+  ],
+  "Observation": "Seven public connected-send/group-leader contracts; no priority, trace or pressure profile"
+}

@@ -1,0 +1,5 @@
+Unhandled exception. System.IO.InvalidDataException: File reference source or captured bytes changed after admission
+   at FileCompatibilityAdmission.VerifyRows(JsonElement rows, String directory, IReadOnlyList`1 required) in D:\Distr\Work\Codex\Erlang.Net\file-pr-constants\tools\Validation\Erlang.FileCompatibility\FileCompatibilityAdmission.cs:line 40
+   at FileCompatibilityAdmission.Verify(String repository, String directory) in D:\Distr\Work\Codex\Erlang.Net\file-pr-constants\tools\Validation\Erlang.FileCompatibility\FileCompatibilityAdmission.cs:line 15
+   at Program.<Main>$(String[] args) in D:\Distr\Work\Codex\Erlang.Net\file-pr-constants\tools\Validation\Erlang.FileCompatibility\Program.cs:line 13
+   at Program.<Main>(String[] args)

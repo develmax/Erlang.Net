@@ -10,6 +10,7 @@ internal sealed class ErlDriverHostPeer420 : IAsyncDisposable
     private readonly ErlDriverHostPipe420 events;
     private readonly string session;
     private readonly bool eventSender;
+    private readonly ErlDriverHostResponseGate1427? responseAdmission;
     private readonly Func<ErlDriverHostFrame420, CancellationToken, ValueTask<ErlDriverHostFrame420>> onRequest;
     private readonly Func<ErlDriverHostFrame420, CancellationToken, ValueTask> onEvent;
     private readonly CancellationTokenSource stopped = new();
@@ -39,7 +40,8 @@ internal sealed class ErlDriverHostPeer420 : IAsyncDisposable
         string session,
         bool eventSender,
         Func<ErlDriverHostFrame420, CancellationToken, ValueTask<ErlDriverHostFrame420>> onRequest,
-        Func<ErlDriverHostFrame420, CancellationToken, ValueTask> onEvent
+        Func<ErlDriverHostFrame420, CancellationToken, ValueTask> onEvent,
+        ErlDriverHostResponseGate1427? responseAdmission = null
     )
     {
         this.control = control;
@@ -48,6 +50,10 @@ internal sealed class ErlDriverHostPeer420 : IAsyncDisposable
         this.eventSender = eventSender;
         this.onRequest = onRequest;
         this.onEvent = onEvent;
+        if (responseAdmission is not null && eventSender)
+            throw new InvalidOperationException(ErlDriverHostNames420.InvalidFrame);
+        responseAdmission?.Bind(this);
+        this.responseAdmission = responseAdmission;
         bool suppress = !ExecutionContext.IsFlowSuppressed();
         AsyncFlowControl flow = default;
         try
@@ -211,9 +217,31 @@ internal sealed class ErlDriverHostPeer420 : IAsyncDisposable
                     ErlDriverHostPending420 request;
                     lock (gate)
                     {
-                        if (!pending.TryGetValue(frame.Request, out request!) || request.Operation != frame.Operation
-                            || request.Driver != frame.Driver || request.Port != frame.Port || request.Actor != frame.Actor
-                            || request.Command != frame.Command || request.SchedulerThread != frame.SchedulerThread || request.Reply is not null || eventSender && frame.EventSequence != 0)
+                        request = RequireResponse1427(frame);
+                        if (responseAdmission is null)
+                        {
+                            request.Reply = frame;
+                            CompleteReplies();
+                            continue;
+                        }
+                    }
+                    // Actual authenticated, correlated reply remains pending.
+                    // The host gate never owns or replaces the mutable frame.
+                    var witness = new ErlDriverHostResponseWitness1427(
+                        frame.Operation,
+                        frame.Request,
+                        frame.Driver,
+                        frame.Port,
+                        frame.Actor,
+                        frame.Command,
+                        frame.EventSequence,
+                        frame.Data is null ? null : Convert.ToHexString(System.Security.Cryptography.SHA256.HashData(frame.Data)),
+                        request.Completion.Task
+                    );
+                    await responseAdmission.HoldAsync(this, witness, stopped.Token).ConfigureAwait(false);
+                    lock (gate)
+                    {
+                        if (!ReferenceEquals(request, RequireResponse1427(frame)))
                             throw new InvalidDataException(ErlDriverHostNames420.InvalidFrame);
                         request.Reply = frame;
                         CompleteReplies();
@@ -250,6 +278,18 @@ internal sealed class ErlDriverHostPeer420 : IAsyncDisposable
         {
             await Fail(error).ConfigureAwait(false);
         }
+    }
+
+    private ErlDriverHostPending420 RequireResponse1427(ErlDriverHostFrame420 frame)
+    {
+        ThrowIfClosed();
+        if (!pending.TryGetValue(frame.Request, out var request) || request.Operation != frame.Operation
+            || request.Driver != frame.Driver || request.Port != frame.Port || request.Actor != frame.Actor
+            || request.Command != frame.Command || request.SchedulerThread != frame.SchedulerThread
+            || request.Reply is not null || eventSender && frame.EventSequence != 0)
+            throw new InvalidDataException(ErlDriverHostNames420.InvalidFrame);
+
+        return request;
     }
 
     private void RemoveHandler(Task task)

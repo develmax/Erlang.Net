@@ -1,6 +1,6 @@
 namespace Erlang;
 
-internal sealed class PrimFileBuiltinOwner(ProcessRuntime runtime) : IAsyncDisposable
+internal sealed partial class PrimFileBuiltinOwner(ProcessRuntime runtime) : IAsyncDisposable
 {
     private int disposed;
 
@@ -11,23 +11,24 @@ internal sealed class PrimFileBuiltinOwner(ProcessRuntime runtime) : IAsyncDispo
             new(
                 (PrimFileBuiltinNames.GetCwd, 0),
                 (context, _) => Invoke(context,
-                () => PrimFileWindowsOperations410.GetCwd(context.Cancellation))
+                () => PrimFilePlatformOperations.GetCwd(context.Cancellation))
             ),
             new(
                 (PrimFileBuiltinNames.ReadFile, 1),
                 (context, arguments) => Invoke(context,
-                () => PrimFileWindowsOperations410.ReadFile(arguments[0], context.Cancellation))
+                () => PrimFilePlatformOperations.ReadFile(arguments[0], context.Cancellation))
             ),
             new(
                 (PrimFileBuiltinNames.ReadInfo, 2),
                 (context, arguments) => Invoke(context,
-                () => PrimFileWindowsOperations410.ReadInfo(arguments[0], arguments[1], context.Cancellation))
+                () => PrimFilePlatformOperations.ReadInfo(arguments[0], arguments[1], context.Cancellation))
             ),
             new(
                 (PrimFileBuiltinNames.ListDir, 1),
                 (context, arguments) => Invoke(context,
-                () => PrimFileWindowsOperations410.ListDir(arguments[0], context.Cancellation))
-            )
+                () => PrimFilePlatformOperations.ListDir(arguments[0], context.Cancellation))
+            ),
+            .. StorageBindings()
         ];
     }
 
@@ -45,6 +46,17 @@ internal sealed class PrimFileBuiltinOwner(ProcessRuntime runtime) : IAsyncDispo
     public ValueTask DisposeAsync()
     {
         Interlocked.Exchange(ref disposed, 1);
+        lock (fileResources)
+        {
+            foreach (var weak in fileResources)
+            {
+                if (weak.TryGetTarget(out var resource))
+                {
+                    resource.Dispose();
+                }
+            }
+            fileResources.Clear();
+        }
 
         return ValueTask.CompletedTask;
     }
