@@ -21,5 +21,23 @@ retained row and then end of table. Direct lookup confirms that the row remains
 deleted. The separate header regression writes an invalid status to the known
 collection address and requires bad_object.
 
-The full regression suite and global readiness regeneration were outside this
-focused validation. Hosted workflows are tracked in the pull request.
+## Hosted follow-up
+
+The first full Windows attempt on `83a162b43` passed 9,733 of 9,734 tests.
+The one failure expected two observed backing strings for a duplicate atom name.
+The revised regression asserts a shared backing string and one accounting entry.
+The new assertion and both atom registry tests passed locally on .NET 10.0.11.
+
+The [Windows validation run](https://github.com/develmax/Erlang.Net/actions/runs/42010427613)
+on `2e5e93c6b5e45c106ab19217bd9564f1a2ac93b2` passed all 9,734 tests. The
+[full test report](hosted-full-tests.json) was extracted from artifact
+13411767997 after its ZIP SHA-256 matched GitHub's
+`a714a57b2b0558d4f26334a20ded7a49e1c3f0547fa49f1827ea439d0002a259`.
+
+Regenerated both readiness outputs with
+`Erlang.Tool readiness docs <hosted-full-tests.json> <output>`.
+The explicit comparison snapshot is
+[the immutable 9,687-test report](../string-otp-merge-20261104/previous9687-tests.json).
+The result registers 733 MFAs across 21 modules with zero MFA delta and no
+module compatibility status changes. The original source tree remains
+`781708289a25dfed44a358d691b765bde02a8293`.
