@@ -106,10 +106,8 @@ internal sealed class DetsV9File
 
     internal void Touch() => MarkDirty();
 
-    // Returns null for a block that is neither active nor free. As in
-    // dets_v9:scan_skip/8, a free block was deleted after the scan started and
-    // still holds the collection; any other status is skipped by the scan.
-    internal byte[]? ReadCollection(long address)
+    // A fixed scan can still read a deleted collection from its retained free block.
+    internal byte[] ReadCollection(long address)
     {
         if (address < allocator.Base || address + DetsV9Layout.ObjectHeaderBytes > stream.Length)
         {
@@ -118,7 +116,7 @@ internal sealed class DetsV9File
         uint status = Word(address + DetsV9Layout.WordBytes);
         if (status != DetsV9Layout.Active && status != DetsV9Layout.Free)
         {
-            return null;
+            throw new DetsFileException(DetsFileReasons.BadObject);
         }
         uint size = Word(address);
         if (size < DetsV9Layout.ObjectHeaderBytes || size > int.MaxValue || address + size > stream.Length)
