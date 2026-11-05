@@ -1,0 +1,282 @@
+{
+  "Partial": true,
+  "SelectedCount": 45,
+  "TotalCount": 9734,
+  "Blocks": [],
+  "ExactCases": [
+    "compiler/operators/try-after-handler-effect",
+    "compiler/operators/try-after-local-binding",
+    "compiler/operators/try-after-of-failure-effect",
+    "compiler/operators/try-after-overrides-error",
+    "compiler/operators/try-after-overrides-handler",
+    "compiler/operators/try-after-overrides-value",
+    "compiler/operators/try-after-rethrow-effect",
+    "compiler/operators/try-after-success-effect",
+    "compiler/operators/try-class-mismatch",
+    "compiler/operators/try-class-variable",
+    "compiler/operators/try-default-does-not-catch-error",
+    "compiler/operators/try-default-throw",
+    "compiler/operators/try-error-pattern",
+    "compiler/operators/try-exit-class",
+    "compiler/operators/try-guard-alternatives",
+    "compiler/operators/try-guard-failure-fallback",
+    "compiler/operators/try-guard-rethrow",
+    "compiler/operators/try-handler-error-outside-catch",
+    "compiler/operators/try-incoming-binding",
+    "compiler/operators/try-negative-float-stack-pattern",
+    "compiler/operators/try-negative-integer-stack-pattern",
+    "compiler/operators/try-of-body-bindings",
+    "compiler/operators/try-of-error-outside-catch",
+    "compiler/operators/try-of-guard-fallback",
+    "compiler/operators/try-of-no-match",
+    "compiler/operators/try-parenthesized-negative-stack-pattern",
+    "compiler/operators/try-stack-body",
+    "compiler/operators/try-success-after",
+    "compiler/operators/try-success-catch",
+    "runtime/beam/binary391/invalid-utf8-and-eof-consume-nothing",
+    "runtime/beam/binary391/new-field-opcodes-preserve-opaque-boundary",
+    "runtime/beam/binary391/skip-zero-negative-overflow-truncation",
+    "runtime/beam/binary391/unaligned-utf8-get-and-skip",
+    "runtime/beam/binary391/units-flags-and-shapes-refuse",
+    "runtime/beam/binary391/unsigned-integer-wide-and-zero",
+    "runtime/beam/fixed-binary392/8192-byte-and-unaligned",
+    "runtime/beam/fixed-binary392/empty-bitstring-and-context-alias",
+    "runtime/beam/fixed-binary392/short-flags-unit-product-refusals",
+    "runtime/beam/float-string392/float0-16-32-64-endian-and-negative-zero",
+    "runtime/beam/float-string392/nonfinite-truncated-size-and-flags-refuse",
+    "runtime/beam/float-string392/string-strt-offset-bounds-no-consume",
+    "runtime/dets/review-growth-and-fixed-collection",
+    "runtime/port-fd-io/eof-closes",
+    "runtime/port-protocol-close-drains-pending-bytes",
+    "runtime/source-tail-owned-entry-version-and-rollback"
+  ],
+  "Passed": 45,
+  "Failed": 0,
+  "Tests": [
+    {
+      "Name": "runtime/dets/review-growth-and-fixed-collection",
+      "Status": "Passed",
+      "Milliseconds": 235
+    },
+    {
+      "Name": "runtime/beam/float-string392/float0-16-32-64-endian-and-negative-zero",
+      "Status": "Passed",
+      "Milliseconds": 46
+    },
+    {
+      "Name": "runtime/beam/float-string392/nonfinite-truncated-size-and-flags-refuse",
+      "Status": "Passed",
+      "Milliseconds": 1
+    },
+    {
+      "Name": "runtime/beam/float-string392/string-strt-offset-bounds-no-consume",
+      "Status": "Passed",
+      "Milliseconds": 3
+    },
+    {
+      "Name": "runtime/beam/fixed-binary392/8192-byte-and-unaligned",
+      "Status": "Passed",
+      "Milliseconds": 5
+    },
+    {
+      "Name": "runtime/beam/fixed-binary392/empty-bitstring-and-context-alias",
+      "Status": "Passed",
+      "Milliseconds": 3
+    },
+    {
+      "Name": "runtime/beam/fixed-binary392/short-flags-unit-product-refusals",
+      "Status": "Passed",
+      "Milliseconds": 2
+    },
+    {
+      "Name": "runtime/beam/binary391/invalid-utf8-and-eof-consume-nothing",
+      "Status": "Passed",
+      "Milliseconds": 3
+    },
+    {
+      "Name": "runtime/beam/binary391/unaligned-utf8-get-and-skip",
+      "Status": "Passed",
+      "Milliseconds": 0
+    },
+    {
+      "Name": "runtime/beam/binary391/unsigned-integer-wide-and-zero",
+      "Status": "Passed",
+      "Milliseconds": 2
+    },
+    {
+      "Name": "runtime/beam/binary391/skip-zero-negative-overflow-truncation",
+      "Status": "Passed",
+      "Milliseconds": 1
+    },
+    {
+      "Name": "runtime/beam/binary391/units-flags-and-shapes-refuse",
+      "Status": "Passed",
+      "Milliseconds": 2
+    },
+    {
+      "Name": "runtime/beam/binary391/new-field-opcodes-preserve-opaque-boundary",
+      "Status": "Passed",
+      "Milliseconds": 888
+    },
+    {
+      "Name": "runtime/source-tail-owned-entry-version-and-rollback",
+      "Status": "Passed",
+      "Milliseconds": 376
+    },
+    {
+      "Name": "runtime/port-protocol-close-drains-pending-bytes",
+      "Status": "Passed",
+      "Milliseconds": 2243
+    },
+    {
+      "Name": "runtime/port-fd-io/eof-closes",
+      "Status": "Passed",
+      "Milliseconds": 1558
+    },
+    {
+      "Name": "compiler/operators/try-success-after",
+      "Status": "Passed",
+      "Milliseconds": 60
+    },
+    {
+      "Name": "compiler/operators/try-success-catch",
+      "Status": "Passed",
+      "Milliseconds": 37
+    },
+    {
+      "Name": "compiler/operators/try-of-body-bindings",
+      "Status": "Passed",
+      "Milliseconds": 37
+    },
+    {
+      "Name": "compiler/operators/try-default-throw",
+      "Status": "Passed",
+      "Milliseconds": 45
+    },
+    {
+      "Name": "compiler/operators/try-error-pattern",
+      "Status": "Passed",
+      "Milliseconds": 32
+    },
+    {
+      "Name": "compiler/operators/try-exit-class",
+      "Status": "Passed",
+      "Milliseconds": 40
+    },
+    {
+      "Name": "compiler/operators/try-class-variable",
+      "Status": "Passed",
+      "Milliseconds": 41
+    },
+    {
+      "Name": "compiler/operators/try-default-does-not-catch-error",
+      "Status": "Passed",
+      "Milliseconds": 38
+    },
+    {
+      "Name": "compiler/operators/try-class-mismatch",
+      "Status": "Passed",
+      "Milliseconds": 39
+    },
+    {
+      "Name": "compiler/operators/try-stack-body",
+      "Status": "Passed",
+      "Milliseconds": 41
+    },
+    {
+      "Name": "compiler/operators/try-guard-alternatives",
+      "Status": "Passed",
+      "Milliseconds": 48
+    },
+    {
+      "Name": "compiler/operators/try-guard-failure-fallback",
+      "Status": "Passed",
+      "Milliseconds": 43
+    },
+    {
+      "Name": "compiler/operators/try-guard-rethrow",
+      "Status": "Passed",
+      "Milliseconds": 34
+    },
+    {
+      "Name": "compiler/operators/try-of-guard-fallback",
+      "Status": "Passed",
+      "Milliseconds": 43
+    },
+    {
+      "Name": "compiler/operators/try-of-no-match",
+      "Status": "Passed",
+      "Milliseconds": 31
+    },
+    {
+      "Name": "compiler/operators/try-of-error-outside-catch",
+      "Status": "Passed",
+      "Milliseconds": 34
+    },
+    {
+      "Name": "compiler/operators/try-handler-error-outside-catch",
+      "Status": "Passed",
+      "Milliseconds": 36
+    },
+    {
+      "Name": "compiler/operators/try-after-success-effect",
+      "Status": "Passed",
+      "Milliseconds": 33
+    },
+    {
+      "Name": "compiler/operators/try-after-handler-effect",
+      "Status": "Passed",
+      "Milliseconds": 38
+    },
+    {
+      "Name": "compiler/operators/try-after-of-failure-effect",
+      "Status": "Passed",
+      "Milliseconds": 36
+    },
+    {
+      "Name": "compiler/operators/try-after-rethrow-effect",
+      "Status": "Passed",
+      "Milliseconds": 33
+    },
+    {
+      "Name": "compiler/operators/try-after-overrides-value",
+      "Status": "Passed",
+      "Milliseconds": 38
+    },
+    {
+      "Name": "compiler/operators/try-after-overrides-error",
+      "Status": "Passed",
+      "Milliseconds": 37
+    },
+    {
+      "Name": "compiler/operators/try-after-overrides-handler",
+      "Status": "Passed",
+      "Milliseconds": 40
+    },
+    {
+      "Name": "compiler/operators/try-incoming-binding",
+      "Status": "Passed",
+      "Milliseconds": 38
+    },
+    {
+      "Name": "compiler/operators/try-after-local-binding",
+      "Status": "Passed",
+      "Milliseconds": 32
+    },
+    {
+      "Name": "compiler/operators/try-negative-integer-stack-pattern",
+      "Status": "Passed",
+      "Milliseconds": 36
+    },
+    {
+      "Name": "compiler/operators/try-negative-float-stack-pattern",
+      "Status": "Passed",
+      "Milliseconds": 35
+    },
+    {
+      "Name": "compiler/operators/try-parenthesized-negative-stack-pattern",
+      "Status": "Passed",
+      "Milliseconds": 33
+    }
+  ]
+}
