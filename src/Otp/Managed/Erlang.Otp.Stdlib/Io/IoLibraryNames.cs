@@ -1,0 +1,58 @@
+namespace Erlang;
+
+internal static class IoLibraryNames
+{
+    internal const string Module = "io";
+    internal const string Library = "io_lib";
+    internal const string Scanner = "erl_scan";
+    internal const string Parser = "erl_parse";
+    internal const string Network = "net_kernel";
+    internal const string Unicode = "unicode";
+    internal const string Latin1 = "latin1";
+    internal const string ConvertCharacters = "characters_to_binary";
+    internal const string UnicodeFlag = "dflag_unicode_io";
+    internal const string Standard = "standard_io";
+    internal const string User = "user";
+    internal const string Put = "put_chars";
+    internal const string Format = "format";
+    internal const string Fwrite = "fwrite";
+    internal const string Write = "write";
+    internal const string Newline = "nl";
+    internal const string Chars = "get_chars";
+    internal const string Line = "get_line";
+    internal const string Password = "get_password";
+    internal const string SetOptions = "setopts";
+    internal const string GetOptions = "getopts";
+    internal const string Columns = "columns";
+    internal const string Rows = "rows";
+    internal const string Geometry = "get_geometry";
+    internal const string Fread = "fread";
+    internal const string Read = "read";
+    internal const string ScanExpressions = "scan_erl_exprs";
+    internal const string ScanForm = "scan_erl_form";
+    internal const string ParseExpressions = "parse_erl_exprs";
+    internal const string ParseForm = "parse_erl_form";
+    internal const string ParseTerm = "parse_term";
+    internal const string ParserExpressions = "parse_exprs";
+    internal const string ParserForm = "parse_form";
+    internal const string Until = "get_until";
+    internal const string Tokens = "tokens";
+    internal const string Request = "request";
+    internal const string Requests = "requests";
+    internal const string WireRequest = "io_request";
+    internal const string WireReply = "io_reply";
+    internal const string Ok = "ok";
+    internal const string Error = "error";
+    internal const string Eof = "eof";
+    internal const string Unsupported = "enotsup";
+    internal const string Arguments = "arguments";
+    internal const string CallingSelf = "calling_self";
+    internal const string Terminated = "terminated";
+    internal const string NoTranslation = "no_translation";
+    internal const string Cause = "cause";
+    internal const string Device = "device";
+    internal const string ErrorModule = "module";
+    internal const string ErrorFormatter = "erl_stdlib_errors";
+    internal const string ErrorInfo = "error_info";
+    internal const string Printable = "printable_range";
+}

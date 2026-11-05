@@ -1,0 +1,14 @@
+{
+  "Backend": "Managed",
+  "Passed": 661,
+  "Total": 662,
+  "Failures": [
+    {
+      "Case": "{scenario,callback_output}",
+      "Expected": "{{output,\u003C\u003C123,97,44,52,50,125,32,208,144,240,159,152,128\u003E\u003E},{output,\u003C\u003C70,70\u003E\u003E},{output,\u003C\u003C91,97,44,123,98,44,49,125,93\u003E\u003E},{output,\u003C\u003C10\u003E\u003E}}",
+      "Actual": "{{callback_error,error,undef,[{code_server,call,[{finish_loading,[],true}],[]},{code,ensure_modules_loaded_1,1,[{file,[99,111,100,101,46,101,114,108]},{line,1331}]},{io_lib,test_modules_loaded,3,[{file,[105,111,95,108,105,98,46,101,114,108]},{line,465}]},{io_lib,format,2,[{file,[105,111,95,108,105,98,46,101,114,108]},{line,345}]},{io_port_cases,callback_server,0,[{file,[116,111,111,108,115,47,86,97,108,105,100,97,116,105,111,110,47,69,114,108,97,110,103,46,73,111,67,111,109,112,97,116,105,98,105,108,105,116,121,47,105,111,95,112,111,114,116,95,99,97,115,101,115,46,101,114,108]},{line,122}]}]},{output,\u003C\u003C70,70\u003E\u003E},{output,\u003C\u003C91,97,44,123,98,44,49,125,93\u003E\u003E},{output,\u003C\u003C10\u003E\u003E}}"
+    }
+  ],
+  "LibrarySha256": "5532A82182DD40405E4026C3F25C8F9BE854D0096EEED6A735A57B417E073FB7",
+  "RuntimeSha256": "4B47D9A0DD7FFD797FB2C582CD36AC14961BFC930E4F4AAB7C2F3F1F03A03FEC"
+}
