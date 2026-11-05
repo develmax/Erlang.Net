@@ -2,7 +2,7 @@ using System.Diagnostics;
 
 namespace Erlang;
 
-internal sealed class RuntimeTimers(ProcessRuntime runtime, object gate) : IDisposable
+internal sealed partial class RuntimeTimers(ProcessRuntime runtime, object gate) : IDisposable
 {
     private readonly Dictionary<ReferenceTerm, RuntimeTimerEntry628> timers = new();
     private readonly HashSet<Task> retiringCallbacks = new();

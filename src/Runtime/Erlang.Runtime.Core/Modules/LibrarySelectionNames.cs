@@ -5,6 +5,7 @@ internal static class LibrarySelectionNames
     internal static readonly string[] ManagedModules =
     [
         ErlangModuleNames.Module,
+        ErtsInternalContract.Module,
         InterpreterCodeNativeNames.Module,
         ListModuleNames.Module,
         QueueModuleNames.Module,

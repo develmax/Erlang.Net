@@ -1,0 +1,10 @@
+Error! Failed to eval: {ok,erts_internal_port_cases}=compile:file("tools/Validation/Erlang.ErtsInternalCompatibility/erts_internal_port_cases.erl",[{outdir,"artifacts/multi-scheduling-oracle-1"}]),true=code:add_patha("artifacts/multi-scheduling-oracle-1"),ok=erts_internal_port_cases:write("artifacts/multi-scheduling-oracle-1"),halt().
+
+Runtime terminating during boot ({{scenario_timeout,multi_bound},[{erts_internal_port_cases,observe_scenario,1,[{file,"tools/Validation/Erlang.ErtsInternalCompatibility/erts_internal_port_cases.erl"},{line,20}]},{erts_internal_port_cases,'-write/1-lc$^1/1-1-',1,[{file,"tools/Validation/Erlang.ErtsInternalCompatibility/erts_internal_port_cases.erl"},{line,9}]},{erts_internal_port_cases,'-write/1-lc$^1/1-1-',1,[{file,"tools/Validation/Erlang.ErtsInternalCompatibility/erts_internal_port_cases.erl"},{line,9}]},{erts_internal_port_cases,write,1,[{file,"tools/Validation/Erlang.ErtsInternalCompatibility/erts_internal_port_cases.erl"},{line,9}]},{erl_eval,do_apply,7,[{file,"erl_eval.erl"},{line,1044}]},{erl_eval,expr,6,[{file,"erl_eval.erl"},{line,792}]},{erl_eval,exprs,6,[{file,"erl_eval.erl"},{line,276}]},{init,start_it,1,[{file,"init.erl"},{line,1561}]}]})
+
+Crash dump is being written to: erl_crash.dump...done
+Exception: D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\tools\validate-erts-internal-original.ps1:39
+Line |
+  39 |      if ($LASTEXITCODE -ne 0) { throw 'OTP capture failed' }
+     |                                 ~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | OTP capture failed

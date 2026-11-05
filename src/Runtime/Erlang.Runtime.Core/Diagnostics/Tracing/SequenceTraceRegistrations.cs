@@ -34,6 +34,8 @@ internal static class SequenceTraceRegistrations
             2,
             (context, arguments) => RuntimeSystemFlag504.TrySet(arguments[0], out Term flagResult)
             ? ValueTask.FromResult(flagResult)
+            : arguments[0] is Atom { Name: RuntimeMultiSchedulingNames.Flag }
+            ? context.Runtime.ChangeMultiScheduling(context, arguments[1])
             : arguments[0] is Atom { Name: SequenceTraceNames.SystemTracer }
             ? ValueTask.FromResult(context.Runtime.SequenceTracing.SetTracer(arguments[1]))
             : arguments[0] is Atom { Name: RuntimeSystemLoggerNames.Flag }
@@ -65,6 +67,8 @@ internal static class SequenceTraceRegistrations
             1,
             (context, arguments) => arguments[0] is Atom { Name: SequenceTraceNames.SystemTracer }
             ? ValueTask.FromResult<Term>(Term.Tuple(Term.A(SequenceTraceNames.SystemTracer), context.Runtime.SequenceTracing.Tracer()))
+            : context.Runtime.TryMultiSchedulingInfo(arguments[0], out Term multiSchedulingInfo)
+            ? ValueTask.FromResult(multiSchedulingInfo)
             : arguments[0] is Atom { Name: RuntimeSystemLoggerNames.Flag }
             ? ValueTask.FromResult(context.Runtime.ReadSystemLogger())
             : arguments[0] is Atom { Name: ProcessMessageQueueDataNames411.Flag }
