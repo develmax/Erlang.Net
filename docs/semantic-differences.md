@@ -1,6 +1,12 @@
+## Part600 native-word32 scope — 2026-11-05
+
+Windows x86 now starts the VM and executes the finite original BEAM/native NIF fixture. Native cells use real pointer-sized storage and GCHandle roots; double/bignum/reference/binary/external-identifier layouts follow the pinned OTP native word width. Earlier Part599 expected-gate evidence is historical. Final hosted evidence: [receipt](validation/part-600/README.md).
+
+This is not full 32-bit OTP acceptance. Physical native resource/magic, atomics/counters allocation and finish_loading resource headers remain 64-bit guarded. PID-reference physical arity is modeled, while full 32-bit alias/wire parity remains unverified. ARM32, other 32-bit OS/CPU hosts and big endian are not admitted as NIF platforms. Original32-bit ERTS, full lifecycle/API parity, performance and full repository regression are unrun.
+
 Part589 updates ASN.1 PR118 from timer main29b92f63d, retaining both components and the qualified file atom. Fresh focused build,65 checks/26 OTP outcomes and passive bindings pass. [Evidence](validation/part-589/README.md).
 
-## FreeBSD execution and x86 ABI-only scope — 2026-11-05
+## Historical Part598/599: FreeBSD execution and x86 ABI-only scope — 2026-11-05
 
 The tested FreeBSD 15 amd64 profile uses a pinned community .NET10.0.13 host and
 an explicit resolved OpenSSL 3 SONAME. Its ordinary and unchanged native image
@@ -13,7 +19,7 @@ admission stays closed. Resource/GC/old-version/scalar completeness and ARM32
 are not inferred from ABI measurements. See [source-bound scope](validation/nif-freebsd-ilp32-20261105/README.md).
 
 
-## NIF platform boundary — 2026-11-05
+## Historical Part597: NIF platform boundary — 2026-11-05
 
 The portable Unix bridge has one process-owned runtime, including after owner
 disposal; it does not offer glibc namespace isolation. Reviewed descriptor loading

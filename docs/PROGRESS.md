@@ -1,6 +1,6 @@
 # Project progress
 
-Part600 ports ordinary native-cell/word and collector dependencies to little-endian32-bit words. Local Windows x86 real NIF and focused GC checks pass; hosted final-source acceptance is pending. [Scope/evidence](validation/part-600/README.md). Other32-bit hosts, full native-resource/atomics/counters/loader resource profiles and alias/wire parity remain open; no module/MFA promotion.
+Part600 ports ordinary native-cell/word and collector dependencies to little-endian 32-bit words. Windows x86 real NIF and focused GC checks pass locally and in CI on 6197702e. Windows x64/ARM64, Linux glibc/musl x64/ARM64, macOS x64/ARM64 and FreeBSD 15 amd64 real-image regressions also pass. [Scope/evidence](validation/part-600/README.md). Other 32-bit hosts, full native-resource/atomics/counters/loader resource profiles and alias/wire parity remain open; no module/MFA promotion.
 
 
 Part598 verifies real NIF execution on FreeBSD 15 amd64 with pinned community CLR 10.0.13, SDK 10.0.400 managed builds, same-host original OTP and unchanged-ELF ETF parity. OpenSSL SONAME selection and native dlsym caller scope are fixed. Part599 verifies Windows x86 public ABI/layout, native descriptor initialization and C/C# varargs only: full 32-bit VM/NIF execution remains rejected by the native-cell source-profile guard. See [exact source/target evidence](validation/nif-freebsd-ilp32-20261105/README.md). No MFA or whole-module acceptance is added.
