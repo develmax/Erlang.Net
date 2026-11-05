@@ -146,9 +146,9 @@ string report = JsonSerializer.Serialize(
         Architecture = RuntimeInformation.ProcessArchitecture.ToString(),
         LinuxNamespace = NifNativePlatformPolicy.UseLinuxNamespace,
         CrossPlatformExecutionProven = false,
-    Runtime = RuntimeInformation.FrameworkDescription,
-    OperatingSystem = RuntimeInformation.OSDescription,
-    PointerBytes = IntPtr.Size,
+        Runtime = RuntimeInformation.FrameworkDescription,
+        OperatingSystem = RuntimeInformation.OSDescription,
+        PointerBytes = IntPtr.Size,
         Results = results
     },
     new JsonSerializerOptions { WriteIndented = true }

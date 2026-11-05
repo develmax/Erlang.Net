@@ -45,13 +45,26 @@ jobs:
           arch: amd64
           sync: rsync
           prepare: pkg install -y git python311 gmake perl5 icu libunwind libinotify brotli
-          run: sh tools/Native/Erlang.NifPlatformValidation/run-freebsd-managed-ci.sh
+          run: |
+            mkdir -p artifacts/nif-freebsd
+            set +e
+            sh tools/Native/Erlang.NifPlatformValidation/run-freebsd-managed-ci.sh > artifacts/nif-freebsd/execution.log 2>&1
+            task_status=$?
+            printf '%s\n' "$task_status" > artifacts/nif-freebsd/exit-code.txt
+            tail -80 artifacts/nif-freebsd/execution.log
+            # Let the action synchronize evidence back even when the test failed.
+            exit 0
+      - name: Require successful target execution
+        shell: bash
+        run: test "$(cat artifacts/nif-freebsd/exit-code.txt)" = 0
       - uses: actions/upload-artifact@v7
         if: always()
         with:
           name: nif-freebsd-managed-x64
           path: |
             artifacts/nif-freebsd/*.txt
+            artifacts/nif-freebsd/*.log
+            artifacts/nif-freebsd/*.json
             artifacts/nif-platform-ci/native
             artifacts/nif-platform-ci/managed-checks.json
             artifacts/nif-platform-ci/image

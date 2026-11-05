@@ -6,6 +6,24 @@ mkdir -p "$output/dotnet"
 tar -xzf artifacts/freebsd-dotnet.tar.gz -C "$output/dotnet"
 export DOTNET_ROOT="$output/dotnet"
 export PATH="$DOTNET_ROOT:/usr/local/bin:$PATH"
+# .NET's FreeBSD14 build probes .so.30/.so.12; FreeBSD15 uses a newer
+# OpenSSL3 SONAME. Select the library actually resolved by this target loader.
+export DOTNET_OPENSSL_VERSION_OVERRIDE=$(python3.11 - <<'PY'
+import ctypes, ctypes.util, json
+from pathlib import Path
+name = ctypes.util.find_library('ssl')
+assert name and '.so.' in name, name
+library = ctypes.CDLL(name)
+version = library.OpenSSL_version
+version.argtypes = [ctypes.c_int]
+version.restype = ctypes.c_char_p
+text = version(0).decode()
+assert text.startswith('OpenSSL 3.'), text
+suffix = name.rsplit('.so.', 1)[1]
+Path('artifacts/nif-freebsd/openssl.json').write_text(json.dumps({'Library':name,'Version':text,'VersionOverride':suffix}, indent=2) + '\n')
+print(suffix)
+PY
+)
 dotnet --info > "$output/dotnet-info.txt"
 dotnet --list-runtimes > "$output/dotnet-runtimes.txt"
 uname -a > "$output/host.txt"
