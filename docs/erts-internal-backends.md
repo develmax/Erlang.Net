@@ -6,16 +6,12 @@ are shared C# VM primitives. The complete selected surface is 98 exports.
 The original Erlang source and BEAM remain unchanged.
 
 The Part586 multi-scheduling gate is closed by [Part592](validation/part-592/README.md).
-Both alternatives match 262/262 complete observations and 45/45 scenarios,
-including 341 nested-operation sequences and full helper stacks with the real
-original erts_debug module loaded. Ten physical scheduling/lifetime groups and
-36 connected groups pass. The previous failing row is retained in Part586.
-
-Whole-module compatibility remains **partial**, rather than universally certified:
-the separate native erts_debug node/dist reference inventory remains unimplemented,
-and complete upstream, platform, resource, distribution and metadata acceptance
-has not been established. Passing every finite observation does not remove those
-boundaries.
+[Part593](validation/part-593/README.md) adds the actual native node/dist reference
+inventory. Both alternatives match262/262 complete observations and59/59 scenarios;
+13 physical groups and43 selected connected groups pass. All historical failures
+remain in the immutable receipts. Whole-module compatibility remains **partial**:
+complete upstream, platform, resource, distribution and metadata acceptance has
+not been established. Passing finite observations does not certify universal100%.
 
 ## Selecting the implementation
 
@@ -90,5 +86,8 @@ block owned by the process. Pending intent is not reported as a completed block.
 
 The helper's finally path is tested with disabled and enabled internal-state
 errors, including complete source stacks and restored scheduling state. The
-positive node_and_dist_references inventory belongs to the still unimplemented
-native diagnostic partition; no fabricated counters are supplied for it.
+positive node_and_dist_references query now returns a census of actual runtime
+root owners under a real scheduling barrier. Disabled access, invalid tuple
+markers and normal-only blocks retain native errors. See [Part593](validation/part-593/README.md)
+for generation separation, signal/heap roots, ETS, timer, persistent storage,
+compiled programs, distribution handles and remaining acceptance boundaries.

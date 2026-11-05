@@ -1,6 +1,6 @@
 # OTP source port register
 
-Part592: real multi-scheduling closes the selected erts_internal helper gate. Both backends pass262 complete observations and45 scenarios, plus10 physical and36 connected groups. The original Erlang/BEAM is retained. Native debug node/dist inventory and broader certification remain open; no universal100% claim or full regression/readiness refresh. [Backend contract](erts-internal-backends.md), [receipt](validation/part-592/README.md).
+Part593 implements the native node/dist reference query behind erts_debug and both erts_internal backends. Actual owner/header/storage census, all-scheduler admission, signal/heap classification and retirement are covered by262/262 observations plus59/59 scenarios per backend,13 physical and43 connected groups. Original Erlang/BEAM and98 exports remain. Full regression/readiness were deliberately not run; broader upstream/distributed/resource/platform acceptance and universal compatibility remain unverified. [Receipt](validation/part-593/README.md).
 
 Part 354 common-capture follow-up before a fresh canonical run (2026-10-17)
 

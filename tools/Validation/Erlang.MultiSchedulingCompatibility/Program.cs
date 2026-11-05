@@ -22,7 +22,10 @@ var checks = new (string Name, Func<Task> Run)[]
     (CloseQueued, () => MultiSchedulingPhysicalChecks.Close(false)),
     (CloseActive, () => MultiSchedulingPhysicalChecks.Close(true)),
     (SingleLane, () => MultiSchedulingPhysicalChecks.QueueWhileBlocked(1, false)),
-    (Repeated, MultiSchedulingPhysicalChecks.RepeatedBlocks)
+    (Repeated, MultiSchedulingPhysicalChecks.RepeatedBlocks),
+    (NodeDistPhysicalNames.Legacy, () => NodeDistPhysicalChecks.StableRoots(false)),
+    (NodeDistPhysicalNames.Physical, () => NodeDistPhysicalChecks.StableRoots(true)),
+    (NodeDistPhysicalNames.Handles, NodeDistPhysicalChecks.PendingHandle)
 };
 var results = new List<object>();
 int passed = 0;

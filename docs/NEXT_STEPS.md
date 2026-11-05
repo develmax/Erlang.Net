@@ -1,6 +1,6 @@
 # Next steps
 
-Part592: real multi-scheduling closes the selected erts_internal helper gate. Both backends pass262 complete observations and45 scenarios, plus10 physical and36 connected groups. The original Erlang/BEAM is retained. Native debug node/dist inventory and broader certification remain open; no universal100% claim or full regression/readiness refresh. [Backend contract](erts-internal-backends.md), [receipt](validation/part-592/README.md).
+Part593: preserve node/dist census and the passing dual-backend262+59/physical13/connected43 closure. Extend full upstream node_container_SUITE, distribution fragmentation/native environments, collector/resource interleavings, platform/metadata/full startup acceptance before a universal claim. Keep focused-only checks and historical canonical readiness. [Evidence](validation/part-593/README.md).
 
 ## Executable queue
 

@@ -4,6 +4,7 @@ internal sealed class PersistentIdentifierRoot416 : IDisposable
 {
     private IDisposable? epoch;
     private readonly LocalNodeIdentity? local;
+    internal LocalNodeSnapshot? ExternalEpoch { get; private set; }
     private readonly RuntimeDistributionEntryIdentity? external;
     private readonly WeakReference<RuntimeKnownNodes> observations;
 
@@ -44,6 +45,7 @@ internal sealed class PersistentIdentifierRoot416 : IDisposable
                 _ => throw new InvalidDataException(PersistentArenaNames416.Invalid)
             };
             result.epoch = owner.KnownNodes.ReservePersistentEpoch416(node, creation);
+            result.ExternalEpoch = new(node, creation);
         }
 
         return result;

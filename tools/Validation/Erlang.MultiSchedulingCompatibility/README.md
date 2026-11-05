@@ -9,10 +9,11 @@ dotnet build tools/Validation/Erlang.MultiSchedulingCompatibility/Erlang.MultiSc
 dotnet run --project tools/Validation/Erlang.MultiSchedulingCompatibility --no-build -- artifacts/new-multi-scheduling-report.json
 ```
 
-The report path must not exist. Ten groups cover physical single-lane execution,
+The report path must not exist. Thirteen groups cover physical single-lane execution,
 waiting for an already running normal turn, lazy dirty-pool suspension, normal-only
 blocking, active CPU/IO drain, cancelled pending blockers, queued/active shutdown,
-a single normal lane, and repeated queue wakeup restoration. Held work is released
+a single normal lane, repeated queue wakeup restoration, portable/physical node-root
+generation separation and repeated snapshots, plus real distribution-handle owner death. Held work is released
 in finally paths so a failed assertion does not intentionally strand the runtime.
 
 The matching original OTP contract corpus lives beside

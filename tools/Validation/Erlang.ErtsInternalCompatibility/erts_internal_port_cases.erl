@@ -12,7 +12,7 @@ write(Directory) ->
         system_check,spawn,spawn_error,dist_spawn,dist_spawn_error,dist_decode_failure,dynamic,alive,dead,
         check_self,check_dead,check_async,check_options,atom_map_order,ets,ets_bad,blocked,breakpoint,
         multi_sequences,multi_bound,multi_online,multi_owners,multi_death,multi_exception,multi_helper_cleanup,multi_badargs,
-        multi_helper_stack,multi_helper_enabled]],
+        multi_helper_stack,multi_helper_enabled,nd_shape,nd_gate,nd_nested,nd_heap,nd_ets,nd_compressed,nd_persistent,nd_timer,nd_mailbox,nd_match,nd_compressed_key,nd_gate_stack,nd_monitor_tag,nd_offheap]],
     ok=file:write_file(filename:join(Directory,"effects.etf"),term_to_binary(Effects)),ok.
 
 worker(F,A,Parent) -> Parent!{self(),capture(F,A)}.
@@ -179,6 +179,74 @@ scenario(multi_helper_enabled) ->
     try
         R=capture(get_internal_state_blocked,[bad]),{R,erlang:system_info(multi_scheduling)}
     after erts_debug:set_internal_state(available_internal_state,Old) end;
+scenario(nd_offheap) -> nd_enabled(fun()->
+    {Epoch,P,Q,R}=nd_identifiers(),
+    process_flag(message_queue_data,off_heap),self()!{nd_offheap,P,Q,R},
+    Signal=nd_count(signal,nd_node(Epoch)),receive {nd_offheap,P,Q,R}->ok end,
+    {Signal,nd_valid_snapshot()} end);
+scenario(nd_monitor_tag) -> nd_enabled(fun()->
+    {Epoch,P,Q,R}=nd_identifiers(),
+    M=erlang:monitor(process,self(),[{tag,{P,Q,R}}]),
+    Before=nd_count(monitor,nd_node(Epoch)),true=erlang:demonitor(M),
+    After=nd_count(monitor,nd_node(Epoch)),{Before,After,nd_valid_snapshot()} end);
+scenario(nd_gate_stack) -> nd_enabled(fun()->
+    Queries=[{node_and_dist_references,blocked},{node_and_dist_references,false},
+        {node_and_dist_references,[]},{node_and_dist_references,42}],
+    [try erts_debug:get_internal_state(Q) of V->{ok,V} catch C:R:S->{C,R,S} end || Q<-Queries] end);
+scenario(nd_compressed_key) -> nd_enabled(fun()->
+    {Epoch,P,Q,R}=nd_identifiers(),T=ets:new(nd_key,[compressed]),
+    ets:insert(T,{P,Q,R}),N=nd_count(ets,nd_node(Epoch)),ets:delete(T),{N,nd_valid_snapshot()} end);
+scenario(nd_shape) -> nd_enabled(fun() ->
+    {{node_references,N},{dist_references,D}}=nd_snapshot(),
+    {nd_valid(N) andalso nd_valid(D),
+     lists:keymember({node(),erlang:system_info(creation)},1,N),
+     lists:keymember(node(),1,D),erlang:system_info(multi_scheduling)} end);
+scenario(nd_gate) ->
+    Disabled=nd_error(fun()->erts_debug:get_internal_state(node_and_dist_references) end),
+    nd_enabled(fun()->
+        A=nd_error(fun()->erts_debug:get_internal_state({node_and_dist_references,blocked}) end),
+        B=nd_error(fun()->erts_debug:get_internal_state({node_and_dist_references,false}) end),
+        blocked_normal=erlang:system_flag(multi_scheduling,block_normal),
+        C=nd_error(fun()->erts_debug:get_internal_state({node_and_dist_references,blocked}) end),
+        enabled=erlang:system_flag(multi_scheduling,unblock_normal),
+        {Disabled,A,B,C,erlang:system_info(multi_scheduling)} end);
+scenario(nd_nested) -> nd_enabled(fun()->
+    blocked=erlang:system_flag(multi_scheduling,block),
+    nd_snapshot(),blocked=erlang:system_info(multi_scheduling),
+    blocked=erlang:system_flag(multi_scheduling,block),
+    nd_snapshot(),blocked=erlang:system_flag(multi_scheduling,unblock),
+    enabled=erlang:system_flag(multi_scheduling,unblock),true end);
+scenario(nd_heap) -> nd_enabled(fun()->
+    {Epoch,P,Q,R}=nd_identifiers(),put(nd_roots,{P,P,Q,R,#{P=>{Q,R}}}),
+    Refs=nd_node(Epoch),
+    Positive=nd_count(heap,Refs)>0,
+    Owner=lists:keymember({process,self()},1,Refs),
+    erase(nd_roots),{Positive,Owner,nd_valid_snapshot()} end);
+scenario(nd_ets) -> nd_ets([]);
+scenario(nd_compressed) -> nd_ets([compressed]);
+scenario(nd_persistent) -> nd_enabled(fun()->
+    {Epoch,P,Q,R}=nd_identifiers(),K={?MODULE,nd_storage},
+    Before=nd_persistent_count(Epoch),
+    persistent_term:put(K,{P,Q,R}),Stored=nd_persistent_count(Epoch),
+    true=persistent_term:erase(K),After=nd_wait_persistent(Epoch,100),
+    {Before,Stored,After,nd_valid_snapshot()} end);
+scenario(nd_timer) -> nd_enabled(fun()->
+    {Epoch,P,Q,R}=nd_identifiers(),
+    Before=nd_count(timer,nd_node(Epoch)),
+    A=erlang:start_timer(600000,self(),{P,Q,R}),One=nd_count(timer,nd_node(Epoch)),
+    B=erlang:send_after(600000,self(),{P,Q,R}),Two=nd_count(timer,nd_node(Epoch)),
+    erlang:cancel_timer(A),Middle=nd_count(timer,nd_node(Epoch)),
+    erlang:cancel_timer(B),After=nd_count(timer,nd_node(Epoch)),
+    {Before,One,Two,Middle,After,nd_valid_snapshot()} end);
+scenario(nd_mailbox) -> nd_enabled(fun()->
+    {Epoch,P,Q,R}=nd_identifiers(),self()!{nd_message,P,Q,R},
+    Refs=nd_node(Epoch),Live=nd_count(heap,Refs)+nd_count(signal,Refs)>0,
+    receive {nd_message,P,Q,R}->ok end,{Live,nd_valid_snapshot()} end);
+scenario(nd_match) -> nd_enabled(fun()->
+    {Epoch,P,Q,R}=nd_identifiers(),
+    M=ets:match_spec_compile([{'_',[],[{const,{P,Q,R}}]}]),put(nd_match,M),
+    Live=nd_count(binary,nd_node(Epoch)),erase(nd_match),
+    {Live,nd_valid_snapshot()} end);
 scenario(breakpoint) ->
     try erts_internal:breakpoint(?MODULE,identity,1,1) of V -> {ok,V}
     catch C:R -> {C,R} end.
@@ -222,3 +290,45 @@ flush(Multi) ->
     V=erts_internal:flush_monitor_messages(R,Multi,result),
     {V,drain([])}.
 drain(Acc) -> receive {Tag,_,A,B,C}->drain([{Tag,reference,A,B,C}|Acc]);X->drain([X|Acc]) after 0->lists:reverse(Acc) end.
+
+%% Inspect only stable contracts: validate every raw counter, then select
+%% our explicit epoch and root kind. No trimming of errors or source stacks.
+nd_enabled(F) ->
+    Old=erts_debug:set_internal_state(available_internal_state,true),
+    try F() after erts_debug:set_internal_state(available_internal_state,Old) end.
+nd_error(F) -> try F() of {{node_references,_},{dist_references,_}}->ok;V->{value,V}
+    catch C:R->{C,R} end.
+nd_snapshot() -> erts_debug:get_internal_state(node_and_dist_references).
+nd_node(Epoch) ->
+    {{node_references,N},_}=nd_snapshot(),
+    case lists:keyfind(Epoch,1,N) of false->[];{_,_,Refs}->Refs end.
+nd_count(Kind,Refs) -> lists:sum([N || {_,Kinds}<-Refs,{K,N}<-Kinds,K=:=Kind]).
+nd_valid_snapshot() -> {{_,N},{_,D}}=nd_snapshot(),nd_valid(N) andalso nd_valid(D).
+nd_valid(Rows) -> lists:all(fun({_Identity,Count,Refs})->
+    is_integer(Count) andalso Count>=0 andalso
+    Count=:=lists:sum([N || {_,Kinds}<-Refs,{_,N}<-Kinds]) andalso
+    lists:all(fun({{Kind,_},Kinds})->is_atom(Kind) andalso
+        lists:all(fun({K,N})->is_atom(K) andalso is_integer(N) andalso N>0 end,Kinds)
+        end,Refs) end,Rows).
+nd_identifiers() ->
+    Node='nd_inventory@host',Creation=77,
+    <<131,Atom/binary>>=term_to_binary(Node),
+    P=binary_to_term(<<131,88,Atom/binary,12:32,0:32,Creation:32>>),
+    Q=binary_to_term(<<131,89,Atom/binary,13:32,Creation:32>>),
+    R=binary_to_term(<<131,90,3:16,Atom/binary,Creation:32,14:32,15:32,16:32>>),
+    {{Node,Creation},P,Q,R}.
+nd_ets(Options) -> nd_enabled(fun()->
+    {Epoch,P,Q,R}=nd_identifiers(),T=ets:new(nd_inventory,[set|Options]),
+    A=nd_count(ets,nd_node(Epoch)),ets:insert(T,{a,P,Q}),
+    B=nd_count(ets,nd_node(Epoch)),ets:insert(T,{b,R}),
+    C=nd_count(ets,nd_node(Epoch)),ets:delete(T,b),
+    D=nd_count(ets,nd_node(Epoch)),ets:delete_all_objects(T),
+    E=nd_count(ets,nd_node(Epoch)),ets:delete(T),
+    {A,B,C,D,E,nd_valid_snapshot()} end).
+
+nd_persistent_count(Epoch) ->
+    case lists:keyfind({system,persistent_term},1,nd_node(Epoch)) of
+        false->0;{_,Kinds}->lists:sum([N || {system,N}<-Kinds]) end.
+nd_wait_persistent(Epoch,0) -> {timeout,nd_persistent_count(Epoch)};
+nd_wait_persistent(Epoch,N) -> case nd_persistent_count(Epoch) of
+    0->0;_->erlang:garbage_collect(),receive after 1->nd_wait_persistent(Epoch,N-1) end end.

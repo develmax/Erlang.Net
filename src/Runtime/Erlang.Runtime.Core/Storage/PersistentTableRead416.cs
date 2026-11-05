@@ -91,6 +91,15 @@ internal sealed class PersistentTableRead416(
         return lease;
     }
 
+    internal void CaptureNodeDistReferences(NodeDistReferenceSnapshot snapshot)
+    {
+        lock (gate)
+        {
+            ObjectDisposedException.ThrowIf(owned is null, this);
+            foreach (var area in areas!) area?.CaptureNodeDistReferences(snapshot);
+        }
+    }
+
     public void Dispose()
     {
         lock (gate)
