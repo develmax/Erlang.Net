@@ -41,6 +41,7 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
+          python3 tools/Native/Erlang.NifPlatformValidation/validate-producer.py
           if [ "$(uname -s)" = Darwin ]; then
             git clone --depth 1 --branch OTP-29.1.1 https://github.com/erlang/otp.git artifacts/otp
             test "$(git -C artifacts/otp rev-parse HEAD)" = ad05823719d77c8faee87348ea39513d4e2f99c5
