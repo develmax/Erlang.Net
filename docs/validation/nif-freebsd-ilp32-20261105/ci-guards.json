@@ -1,0 +1,68 @@
+[
+  {
+    "RunId": 41955974610,
+    "Name": "NIF FreeBSD managed execution",
+    "Head": "be791927f478bc77e591022ebd83edd552e81ead",
+    "Status": "completed",
+    "Conclusion": "success",
+    "Url": "https://github.com/develmax/Erlang.Net/actions/runs/41955974610",
+    "Jobs": [
+      {
+        "id": 127010831930,
+        "name": "freebsd-managed-x64",
+        "status": "completed",
+        "conclusion": "success",
+        "started_at": "2026-11-05T02:33:23Z",
+        "completed_at": "2026-11-05T02:40:41Z"
+      }
+    ],
+    "Artifacts": [
+      {
+        "id": 13383306706,
+        "name": "nif-freebsd-managed-x64",
+        "size_in_bytes": 70717,
+        "digest": "sha256:097ccd96a1044ba7079b15e28bb8d508b52eb66f1a39900d7879e965413e6f08"
+      }
+    ]
+  },
+  {
+    "RunId": 41955974784,
+    "Name": "NIF Windows x86 ABI-only and x64 control",
+    "Head": "be791927f478bc77e591022ebd83edd552e81ead",
+    "Status": "completed",
+    "Conclusion": "success",
+    "Url": "https://github.com/develmax/Erlang.Net/actions/runs/41955974784",
+    "Jobs": [
+      {
+        "id": 127010832379,
+        "name": "Windows x86 ABI (x86 VM remains gated)",
+        "status": "completed",
+        "conclusion": "success",
+        "started_at": "2026-11-05T02:33:23Z",
+        "completed_at": "2026-11-05T02:35:39Z"
+      },
+      {
+        "id": 127010833310,
+        "name": "Windows x64 ABI (x86 VM remains gated)",
+        "status": "completed",
+        "conclusion": "success",
+        "started_at": "2026-11-05T02:33:24Z",
+        "completed_at": "2026-11-05T02:35:57Z"
+      }
+    ],
+    "Artifacts": [
+      {
+        "id": 13383391356,
+        "name": "nif-windows-x64-abi",
+        "size_in_bytes": 420726,
+        "digest": "sha256:14490fb81e207239faff7fe2f2d32f918c11868b485a997f1a00a8a84231aa9a"
+      },
+      {
+        "id": 13383231815,
+        "name": "nif-windows-x86-abi",
+        "size_in_bytes": 370092,
+        "digest": "sha256:f2d34332dda88ebe8172743ae06d7a374212ed2c38b503e7c76fcae44d77f18d"
+      }
+    ]
+  }
+]

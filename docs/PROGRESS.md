@@ -1,5 +1,8 @@
 # Project progress
 
+Part598 verifies real NIF execution on FreeBSD 15 amd64 with pinned community CLR 10.0.13, SDK 10.0.400 managed builds, same-host original OTP and unchanged-ELF ETF parity. OpenSSL SONAME selection and native dlsym caller scope are fixed. Part599 verifies Windows x86 public ABI/layout, native descriptor initialization and C/C# varargs only: full 32-bit VM/NIF execution remains rejected by the native-cell source-profile guard. See [exact source/target evidence](validation/nif-freebsd-ilp32-20261105/README.md). No MFA or whole-module acceptance is added.
+
+
 Part597 extends the NIF target ABI and executes native/managed platform CI with original OTP29.1.1 image comparisons. macOS executable-bound bundles use a native CLR launcher exporting the existing bridge. BSD evidence is C-only; 32-bit/remaining OS profiles and full NIF lifecycle/API parity remain open. Registered MFA delta is zero. See [exact target/head results](validation/part-597/README.md).
 
 

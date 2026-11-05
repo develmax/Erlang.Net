@@ -1,5 +1,34 @@
 # Dependency and compatibility decisions
 
+## Windows x86 NIF ABI preparation — 2026-11-05
+
+Consume pinned OTP29.1.1 public headers and execute MSVC x86 sizeof/offsetof
+probes. Use official Microsoft CLR 10.0.14 x86, verified against SHA512 release
+metadata in windows-x86-runtime.json; keep SDK 10.0.400 as the managed build
+compiler. Reuse BCL NativeLibrary, current callback implementations and the C
+varargs adapter, with a separate win-x86 native asset. No new managed package,
+vendored third-party implementation or changed guest module is introduced.
+.NET is the existing MIT dependency; preserve OTP/Ericsson notices.
+
+The underlying runtime native-cell and physical-resource source profiles remain
+64-bit. ABI-only checks and raw native entry initialization do not authorize
+full 32-bit VM admission. Retain the guards and report the actual failed image
+attempt. This checkpoint changes width-aware ABI metadata and adds identity
+narrowing guards; it does not port the underlying heap/GC representations.
+
+
+## FreeBSD managed NIF execution - 2026-11-05
+
+Keep SDK 10.0.400 as the managed build toolchain. The FreeBSD ports default and
+development bootstrap do not provide that SDK. Execute the portable assemblies
+in a FreeBSD 15 amd64 VM using the pinned MIT-licensed community .NET10 archive
+from Thefrank/dotnet-freebsd-crossbuild (tag, source commit and SHA256 in
+freebsd-runtime.json). This is a measured community CLR profile, not Microsoft
+FreeBSD support. Rebuild native boundaries on the target, retain runtime identity
+and compare actual NIF images with pinned OTP there. No new production package
+or change to global.json is introduced.
+
+
 ## NIF target ABI and macOS process host — 2026-11-05
 
 Reuse the existing C# NIF implementations, term/environment ownership and native
@@ -416,7 +445,7 @@ Ignored initial probe100/100 and expanded174/174 use explicitly simulated atom-n
 
 Pinned OTP-29.1.1/ad05823719d77c8faee87348ea39513d4e2f99c5. Read erlang.erl units/clock/unique/calendar/timer contracts and convert_time_unit body, erl_time_sup.c clock/offset/timestamp/now/civil date and timezone code, erl_time.h native64 nano epoch/range, erl_bif_unique.c option sets/offset/counters, erl_hl_timer.c timeout/options/recipient/access/async replies; inspect time_SUITE.erl and timer BIF suite where applicable. No checkout changes.
 
-SDK Stopwatch owns monotonic/performance sampling, BigInteger owns arbitrary unit conversion/floor arithmetic/counters, DateTimeOffset supplies initial POSIX wall time and DateTime/TimeZoneInfo supplies current local/UTC data and timezone rules. Port native64 nano initial monotonic epoch and timer internal limits, exact Gregorian civil conversion formulas and1600/1902/int32-year/int64-seconds gates. Unique values are guaranteed only per modifier set; native explicitly permits overlap across sets. Separate default/monotonic counters, positive mapping and native immediate lower bound with insertion lock; default may also increase monotonically. Timestamp returns system time; now adds a globally serialized strict microsecond increment. No scheduler-thread bit packing copied; actual numeric values/scheduler distribution and64-bit exhaustion policy remain explicit boundaries. Clock uses a stable initial wall offset; full OS correction/time-warp/offset-monitor state remains future work.
+SDK Stopwatch owns monotonic/performance sampling, BigInteger owns arbitrary unit conversion/floor arithmetic/counters, DateTimeOffset supplies initial POSIX wall time and DateTime/TimeZoneInfo supplies current local/UTC data and timezone rules. Port native64 nano initial monotonic epoch and timer internal limits, exact Gregorian civil conversion formulas and1600/1902/int32-year/int64-seconds gates. Unique values are guaranteed only per modifier set; native explicitly permits overlap across sets. Separate default/monotonic counters, positive mapping and native immediate lower bound with insertion lock; default may also increase monotonically. Timestamp returns system time; now adds a globally serialized strict microsecond increment. No scheduler-thread bit packing copied; actual numeric values/scheduler distribution and 64-bit exhaustion policy remain explicit boundaries. Clock uses a stable initial wall offset; full OS correction/time-warp/offset-monitor state remains future work.
 
 Local calendar honors host TimeZoneInfo, forced/automatic DST and latest-rule no-DST handling, with400-year Gregorian future-year mapping outside SDK DateTime range. Exact native tzdb/libc/DST ambiguity/gap/historical/far-future/leap-second behavior requires further proof; do not claim it from UTC or Russian Standard Time probes. Universal/epoch conversion is independent of SDK year limits and follows audited native integer formulas. Native local conversions require1902+, UTC epoch conversion1600+, maximum input year int.MaxValue-1, input components native small integers; POSIX decoder accepts full int64.
 

@@ -1,5 +1,18 @@
 Part589 updates ASN.1 PR118 from timer main29b92f63d, retaining both components and the qualified file atom. Fresh focused build,65 checks/26 OTP outcomes and passive bindings pass. [Evidence](validation/part-589/README.md).
 
+## FreeBSD execution and x86 ABI-only scope — 2026-11-05
+
+The tested FreeBSD 15 amd64 profile uses a pinned community .NET10.0.13 host and
+an explicit resolved OpenSSL 3 SONAME. Its ordinary and unchanged native image
+results match same-host original OTP. Portable one-VM ownership remains.
+
+Windows x86 public structures, descriptor initialization and native varargs are
+verified in CLR x86. Full32-bit guest/NIF execution remains unavailable: the
+native-cell source profile rejects ProcessRuntime construction, and full loader
+admission stays closed. Resource/GC/old-version/scalar completeness and ARM32
+are not inferred from ABI measurements. See [source-bound scope](validation/nif-freebsd-ilp32-20261105/README.md).
+
+
 ## NIF platform boundary — 2026-11-05
 
 The portable Unix bridge has one process-owned runtime, including after owner

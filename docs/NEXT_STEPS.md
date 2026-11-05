@@ -1,5 +1,8 @@
 # Next steps
 
+Part599: port and validate the 32-bit native-cell/word source profile, including numeric, binary, identifier and GC dependencies, before opening full Windows x86 VM admission. Replace the explicit expected-gate CI test with actual guest load_nif/original OTP comparison only after that port. ARM32/other ILP32 profiles and 32-bit resources remain unimplemented or unverified. FreeBSD 15 amd64 community CLR execution now passes the finite NIF fixture; other BSD/FreeBSD CPU/runtime versions remain separate gates. See [current evidence](validation/nif-freebsd-ilp32-20261105/README.md).
+
+
 Part597 NIF platform follow-up: obtain a usable pinned .NET10 host on FreeBSD and execute the existing managed callback/image suite; OpenBSD/NetBSD currently have native C evidence only and no managed admission. Add real ILP32 layout/callback profiles on 32-bit hosts, then remaining OTP OS/CPU targets. Extend the finite fixture to resource/GC/thread/upgrade differential cases and validate macOS deployment/signing and packaging. Keep each host's evidence separate; full OTP parity is open. See [target evidence and gates](validation/part-597/README.md).
 
 

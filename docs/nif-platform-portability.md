@@ -1,6 +1,6 @@
 # NIF platform portability — implementation and evidence
 
-Checkpoint: 2026-11-05. Four final target runs / fourteen jobs passed; see exact heads in the linked evidence. **Partial implementation; full OTP platform parity is not accepted.**
+Checkpoint: 2026-11-05. See Parts598/599 continuation evidence for FreeBSD execution and x86 ABI-only scope. **Partial implementation; full OTP platform parity is not accepted.**
 
 The reference remains OTP-29.1.1, commit
 `ad05823719d77c8faee87348ea39513d4e2f99c5`. No external ERTS is required
@@ -33,14 +33,15 @@ Inspected pinned original sources:
 
 | Host | Code path | Actual target evidence |
 | --- | --- | --- |
-| Windows x64 | OTP callback model and native varargs adapter | Local native/managed smoke and real DLL image passed |
+| Windows x64 | OTP callback model and native varargs adapter | Target CI ABI, shipped/rebuilt adapter and real DLL image control passed |
 | Windows ARM64 | Target-built adapter, including native rejecting `set_option` | Hosted target execution passed for both shipped/rebuilt DLLs and a real NIF DLL; original Windows ERTS not run |
 | Linux glibc x64 / ARM64 | Per-runtime `dlmopen` namespaces, target ELF machine/page alignment | Hosted native/managed checks and same-host original OTP image comparison passed |
 | Linux musl x64 / ARM64 | Process-owned native bridge, target libc wrappers | Hosted native/managed checks and same-host original OTP image comparison passed |
 | macOS x64 / ARM64 | Target dyld/libc adapter; exported main-executable bridge for OTP-linked bundles | Hosted native/managed checks and same-host OTP comparison passed; unchanged-bundle launcher checks passed on both architectures |
-| FreeBSD 15 amd64 | Target-compiled LP64 C bridge | Hosted C layout/loader smoke passed; **.NET runtime and NIF execution unverified** |
+| FreeBSD 15 amd64 | Target-compiled C bridge; community CLR 10.0.13 | Managed/native checks, same-host OTP ETF comparison and unchanged ELF replay passed; other CLR/OS/CPU profiles unverified |
 | Other LP64 Linux/FreeBSD architectures | Generic portable C ABI path | **Unverified**, including target compilation/execution |
-| Windows x86, ARM32 and all 32-bit layouts | Explicit rejection | **Not implemented** |
+| Windows x86 | Header-measured public ABI, native adapter and raw nif_init descriptor | ABI/varargs/initializer checks passed in x86 CLR; **full VM/NIF module execution remains rejected** |
+| ARM32 and other 32-bit runtime profiles | Explicit full-host rejection | **Not implemented or verified** |
 | OpenBSD 7.8 / NetBSD 10.1 amd64 | C preflight only; managed OS admission disabled | Native C layout/loader smoke passed; **.NET/NIF execution unverified** |
 | Solaris/SunOS, AIX and other OTP hosts | No admitted .NET host/ABI profile | **Not implemented or verified** |
 
@@ -131,13 +132,14 @@ workaround or original ERTS is required.
 ## Explicit remaining gates
 
 - Extend the finite image checks to lifecycle/resource/thread/upgrade suites
-  on the tested profiles; run .NET/NIF checks on FreeBSD.
+  on the tested profiles; verify other FreeBSD CLR/CPU/OS profiles.
 - Reviewed SHA256/descriptor-based target loading and its reallocation extension
   remain specific to the glibc path. The portable loader explicitly rejects
   reviewed admission rather than validating one file and loading another path.
 - Native layout and physical resource/GC assumptions need target evidence.
-- 32-bit NIF layouts are **not implemented**. Windows x86, ARM32 and other
-  pointer-size-4 hosts are rejected, not classified as verified.
+- Windows x86 ABI/layout/varargs and descriptor initialization are measured,
+  but the 32-bit VM native-cell source profile is unported and full admission
+  stays closed. ARM32 and other pointer-size-4 runtime profiles remain unverified.
 - OTP hosts without a usable .NET host, and other Unix OS profiles such as
   Solaris/AIX/OpenBSD/NetBSD, have **no implemented or accepted managed NIF
   host admission** in this change. OpenBSD/NetBSD have native C preflight only.
@@ -147,5 +149,30 @@ workaround or original ERTS is required.
   semantic acceptance is added. Current-state documents are updated only in
   the isolated publication snapshot, preserving concurrent checkout edits.
 
-See [hosted evidence and remaining gates](validation/nif-platform-ci-20261105/README.md).
+See [Parts598/599 evidence and remaining gates](validation/nif-freebsd-ilp32-20261105/README.md).
+The [earlier target matrix](validation/nif-platform-ci-20261105/README.md) is historical.
 The [earlier local-only receipt](validation/nif-platform-20261105/README.md) is historical.
+
+## FreeBSD 15 managed-host profile
+
+Build managed assemblies with SDK 10.0.400 on a supported build machine; execute
+under the exact community CLR/archive pinned by freebsd-runtime.json. Native
+filesystem and NIF bridges are compiled on FreeBSD. Resolve the actual OpenSSL 3
+library and set DOTNET_OPENSSL_VERSION_OVERRIDE to its SONAME suffix. The test
+records the resolved name/version rather than suppressing crypto validation.
+This does not establish Microsoft FreeBSD support or general SDK/toolchain parity.
+
+The native dlsym/dlopen wrappers preserve their return frame. In FreeBSD's
+loader, RTLD_DEFAULT uses the caller's ELF scope; a tail call from a managed
+function pointer otherwise exposes a JIT address outside known ELF objects.
+
+## ILP32 checkpoint boundary
+
+windows_abi_layout.c measures pinned public types on the target, then the x86
+CLR compares managed layout, calls the real descriptor initializer and exercises
+C varargs with high-bit native words and a fixed 64-bit formatter argument. These
+checks need no ProcessRuntime. Runtime construction is tested separately and
+retains its explicit 64-bit native-cell source-profile rejection. NativeAdmission
+is false for x86 even though the raw ABI adapter capability is measured. The
+physical-resource guard remains. No actual x86 load callback/guest function
+execution or full 32-bit heap/GC/API compatibility is claimed.
