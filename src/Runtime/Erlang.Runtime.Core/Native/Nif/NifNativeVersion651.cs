@@ -10,8 +10,8 @@ internal static class NifNativeVersion651
     internal const int FlagsMinor = 7;
     internal const int ResourceInitMinor = 12;
     internal const int MinimumErtsMinor = 14;
-    internal static int PrefixBytes => Marshal.SizeOf<NifNativeAbiEntryPrefix651>();
-    internal static int LegacyFunctionBytes => Marshal.SizeOf<NifNativeAbiFunctionLegacy651>();
+    internal static int PrefixBytes => IntPtr.Size == NifNativeAbi.Pointer32Bytes ? 36 : 64;
+    internal static int LegacyFunctionBytes => IntPtr.Size == NifNativeAbi.Pointer32Bytes ? 12 : 24;
     internal static int VariantOffset => (int)Marshal.OffsetOf<NifNativeAbiEntry>(nameof(NifNativeAbiEntry.Variant));
     internal static int OptionsOffset => (int)Marshal.OffsetOf<NifNativeAbiEntry>(nameof(NifNativeAbiEntry.Options));
     internal static int ResourceInitOffset => (int)Marshal.OffsetOf<NifNativeAbiEntry>(nameof(NifNativeAbiEntry.ResourceInitSize));

@@ -11,6 +11,8 @@ internal static class NifPlatformAbiChecks
         {
             ["PointerBytes"] = IntPtr.Size,
             ["LongBytes"] = OperatingSystem.IsWindows() ? sizeof(int) : IntPtr.Size,
+            ["PrefixBytes"] = NifNativeVersion651.PrefixBytes,
+            ["LegacyFunctionBytes"] = NifNativeVersion651.LegacyFunctionBytes,
             ["ResourceInitBytes"] = Marshal.SizeOf<NativeResourceCallbacks527>(),
             ["MapIteratorBytes"] = Marshal.SizeOf<NifNativeMapIterator504>(),
             ["PidBytes"] = IntPtr.Size,
@@ -28,6 +30,9 @@ internal static class NifPlatformAbiChecks
             ["ResourceInitOffset"] = (int)Marshal.OffsetOf<NifNativeAbiEntry>(nameof(NifNativeAbiEntry.ResourceInitSize)),
             ["MinimumErtsOffset"] = (int)Marshal.OffsetOf<NifNativeAbiEntry>(nameof(NifNativeAbiEntry.MinimumErts))
         };
+        if (Marshal.SizeOf<NifNativeAbiEntryPrefix651>() != NifNativeVersion651.PrefixBytes
+            || Marshal.SizeOf<NifNativeAbiFunctionLegacy651>() != NifNativeVersion651.LegacyFunctionBytes)
+            throw new InvalidOperationException(NifNativeDiagnostics.ManagedLayout);
         foreach (var entry in expected)
             if (!actual.TryGetValue(entry.Key, out int value) || value != entry.Value)
                 throw new InvalidOperationException(NifNativeDiagnostics.ManagedLayout);
