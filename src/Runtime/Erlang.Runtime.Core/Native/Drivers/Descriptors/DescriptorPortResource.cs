@@ -19,13 +19,13 @@ internal sealed class DescriptorPortResource(Stream input, Stream output) : Port
         output.Dispose();
     }
 
-    public static DescriptorPortResource Open(PortOpenOptions options)
+    public static DescriptorPortResource Open(PortOpenOptions options, LinuxDescriptorPollService? descriptorPolling)
     {
         Stream? input = null;
         try
         {
-            input = options.Write ? OpenStream(options.OutputDescriptor, false) : Stream.Null;
-            Stream output = options.Read ? OpenStream(options.InputDescriptor, true) : Stream.Null;
+            input = options.Write ? OpenStream(options.OutputDescriptor, false, descriptorPolling) : Stream.Null;
+            Stream output = options.Read ? OpenStream(options.InputDescriptor, true, descriptorPolling) : Stream.Null;
 
             return new(input, output);
         }
@@ -36,14 +36,18 @@ internal sealed class DescriptorPortResource(Stream input, Stream output) : Port
         }
     }
 
-    private static Stream OpenStream(int descriptor, bool readable)
+    private static Stream OpenStream(int descriptor, bool readable, LinuxDescriptorPollService? descriptorPolling)
     {
         if (OperatingSystem.IsLinux())
         {
             if (descriptor < 0 || LinuxPortNative.fcntl(descriptor, LinuxPortParameters.GetFlags, 0) < 0)
                 throw new ErlangException(ErlangErrorReasons.BadArgument);
 
-            return new DescriptorPortStream(descriptor, readable);
+            return new DescriptorPortStream(
+                descriptor,
+                readable,
+                descriptorPolling ?? throw new InvalidOperationException(LinuxDescriptorPollNames.NotReady)
+            );
         }
         if (OperatingSystem.IsWindows())
         {

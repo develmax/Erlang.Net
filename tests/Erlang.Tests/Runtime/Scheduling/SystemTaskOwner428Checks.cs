@@ -558,6 +558,10 @@ internal static class SystemTaskOwner428Checks
         {
             Require((bool)ManagedCollectors413Access.Property(actor, SystemTaskOwner428Names.Terminated514)!);
             var unwound = (TaskCompletionSource)ManagedCollectors413Access.Property(actor, ManagedCollectorPrestart415Names.Unwound)!;
+            // Dispose may return before an ordinary actor finishes its CLR
+            // continuation (self-disposal is supported). Join physical unwind
+            // before inspecting its completion; logical termination stays checked.
+            await unwound.Task.WaitAsync(SystemTaskOwner428Names.Deadline);
             Require(unwound.Task.IsCompletedSuccessfully);
         }
     }

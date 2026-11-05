@@ -6,6 +6,8 @@ public sealed partial class MapTerm
     {
         if (FlatKeys426 is null)
             throw new InvalidOperationException(MapFlatKeyNames426.InvalidPhysicalEntries);
+        if (PreservedFlatPairs426 is { } preserved)
+            return preserved;
         var occurrences = new Dictionary<Term, Queue<KeyValuePair<Term, Term>>>(ReferenceEqualityComparer.Instance);
         foreach (var pair in ArithmeticKeyEntries)
         {

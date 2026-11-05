@@ -1,0 +1,12 @@
+System.IO.InvalidDataException: Actual unprepared child rollback did not settle logical/physical custody
+   at Erlang.Validation.AsyncMicrostates.AsyncChildRollbackChecks.Require(Boolean condition) in D:\Distr\Work\Codex\Erlang.Net\artifacts\batch825\child-rollback-reason-red1395\AsyncChildRollbackChecks.cs:line 372
+   at Erlang.Validation.AsyncMicrostates.AsyncChildRollbackChecks.Prove(ProcessRuntime runtime, ProcessContext context, PortTerm creator) in D:\Distr\Work\Codex\Erlang.Net\artifacts\batch825\child-rollback-reason-red1395\AsyncChildRollbackChecks.cs:line 267
+   at Erlang.Validation.AsyncMicrostates.AsyncChildRollbackChecks.<>c__DisplayClass0_1.<<Run>b__2>d.MoveNext() in D:\Distr\Work\Codex\Erlang.Net\artifacts\batch825\child-rollback-reason-red1395\AsyncChildRollbackChecks.cs:line 92
+--- End of stack trace from previous location ---
+   at Erlang.Validation.AsyncMicrostates.AsyncChildRollbackChecks.ThrowFailures(Exception[] errors) in D:\Distr\Work\Codex\Erlang.Net\artifacts\batch825\child-rollback-reason-red1395\AsyncChildRollbackChecks.cs:line 381
+   at Erlang.Validation.AsyncMicrostates.AsyncChildRollbackChecks.<>c__DisplayClass0_1.<<Run>b__2>d.MoveNext() in D:\Distr\Work\Codex\Erlang.Net\artifacts\batch825\child-rollback-reason-red1395\AsyncChildRollbackChecks.cs:line 135
+--- End of stack trace from previous location ---
+   at Erlang.Validation.AsyncMicrostates.AsyncChildRollbackChecks.Run(JsonElement input) in D:\Distr\Work\Codex\Erlang.Net\artifacts\batch825\child-rollback-reason-red1395\AsyncChildRollbackChecks.cs:line 145
+   at Erlang.Validation.AsyncMicrostates.AsyncChildRollbackChecks.ThrowFailures(Exception[] errors) in D:\Distr\Work\Codex\Erlang.Net\artifacts\batch825\child-rollback-reason-red1395\AsyncChildRollbackChecks.cs:line 381
+   at Erlang.Validation.AsyncMicrostates.AsyncChildRollbackChecks.Run(JsonElement input) in D:\Distr\Work\Codex\Erlang.Net\artifacts\batch825\child-rollback-reason-red1395\AsyncChildRollbackChecks.cs:line 176
+   at Program.<Main>$(String[] args) in D:\Distr\Work\Codex\Erlang.Net\artifacts\batch825\child-rollback-reason-red1395\Program.cs:line 3

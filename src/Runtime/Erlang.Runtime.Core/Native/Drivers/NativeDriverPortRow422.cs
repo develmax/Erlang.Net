@@ -51,6 +51,10 @@ internal sealed class NativeDriverPortRow422(
         previous641?.Close641();
     }
 
+    internal List<Exception> LogicalCloseFailures1311 { get; } = new(ErlDriverPortClosureNames1311.LogicalFailureCapacity);
+    internal List<Exception> PhysicalCloseFailures1311 { get; } = new(ErlDriverPortClosureNames1311.PhysicalFailureCapacity);
+    internal bool LogicalStopReceived1311;
+    internal bool LogicalClosePublished1311;
     internal bool PhysicallyStopped;
     internal bool OpenResultKnown;
     internal bool OpenSucceeded;
@@ -68,5 +72,6 @@ internal sealed class NativeDriverPortRow422(
     internal bool SignalsRunning;
     internal TaskCompletionSource SignalsChanged = new(TaskCreationOptions.RunContinuationsAsynchronously);
     internal TaskCompletionSource Writable = new(TaskCreationOptions.RunContinuationsAsynchronously);
+    internal TaskCompletionSource Closed1311 { get; } = new(TaskCreationOptions.RunContinuationsAsynchronously);
     internal TaskCompletionSource Stopped { get; } = new(TaskCreationOptions.RunContinuationsAsynchronously);
 }

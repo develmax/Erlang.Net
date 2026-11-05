@@ -70,7 +70,8 @@ internal static class MicrostateTestAccess
             CpuStatisticsAccess.Require(map.Entries.Count == 3);
             string type = ((Atom)Get(map, MicrostateCaseNames.Type)).Name;
             int identity = checked((int)((Integer)Get(map, MicrostateCaseNames.Identity)).Value);
-            CpuStatisticsAccess.Require(identity > 0 && identities.Add((type, identity)));
+            CpuStatisticsAccess.Require((identity > 0 || type == MicrostateCaseNames.Poll && identity == 0)
+                && identities.Add((type, identity)));
             var counters = (MapTerm)Get(map, MicrostateCaseNames.Counters);
             CpuStatisticsAccess.Require(counters.Entries.Select(pair => ((Atom)pair.Key).Name).Order()
                 .SequenceEqual(MicrostateCaseNames.Keys.Order()));

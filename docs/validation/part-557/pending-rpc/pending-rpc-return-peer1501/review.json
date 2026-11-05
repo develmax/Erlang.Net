@@ -1,0 +1,17 @@
+{
+  "Verdict": "No blocker in one-file public successful-return correction; same-frozen-observer RED-to-GREEN plus final canonical verification still required.",
+  "ManifestSha256": "FF2F3433E25B1C78B9419B402AF2833069ED34599F750FBAFD55A3900543EDB3",
+  "BeforeAndAfterGuardsVerified": true,
+  "OriginalCoreBodyByteTextUnchangedExceptMethodRename": true,
+  "ReadOnlySourceGuardsVerified": 2,
+  "LifetimeReasoning": "Awaiting RequestMicrostatesCore completes its entire async method, including every await-using StatisticsTrapRequest disposal and nested actual producer/capture/source-tail cleanup on all successful returns. Only then does wrapper check the exact calling ProcessContext.Cancellation before exposing a successful public result. This includes ownLane-null no-op path and ordinary helper path.",
+  "Preserved": [
+    "Core retries/publication/real native action effects and typed replies unchanged.",
+    "Actual error from Core propagates unchanged before success-only cancellation check; cleanup/native/transport error is not replaced.",
+    "No ConfigureAwait(false) or actor scheduler/context change introduced.",
+    "No shared StatisticsTrapRequest/GC helper behavior changed.",
+    "No error-classifier/expected-exception whitelist broadened."
+  ],
+  "Scope": "Fixes observable successful public return after actual caller termination raced with delayed cleanup. Does not undo applied native action or claim mid-native cancellation, full API compatibility or performance equivalence.",
+  "WorkspaceGitCiWrites": false
+}

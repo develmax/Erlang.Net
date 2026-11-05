@@ -80,12 +80,115 @@ for (const source of manifest.sources) {
         'Original snapshot reconstruction failed: ' + source.source);
 }
 for (const license of manifest.licenses) {
-    check(fs.existsSync(license.to) && sha(fs.readFileSync(license.to)) === license.sha256,
+    const present = fs.existsSync(license.to);
+    check((license.local && !present) || (present && sha(fs.readFileSync(license.to)) === license.sha256),
         'License bytes changed: ' + license.to);
     check(!fs.existsSync(license.from), 'License still present at old path: ' + license.from);
 }
+const planArchive = 'docs/validation/integration-20261103/source-plan-refresh';
+for (const name of fs.readdirSync(planArchive)) {
+    if (/^[A-F0-9]{64}\.json$/.test(name))
+        check(sha(fs.readFileSync(path.posix.join(planArchive, name))) === name.slice(0, 64).toLowerCase(),
+            'Archived source plan bytes changed: ' + name);
+}
+for (const archiveName of ['ordsets-owner-handoff', 'atomic-native-caller', 'native-flat-order-pending']) {
+    const ownerArchive = 'docs/validation/integration-20261103/' + archiveName;
+    const ownerManifest = JSON.parse(read(path.posix.join(ownerArchive, 'source-archive.json')));
+    check(sha(fs.readFileSync(path.posix.join(ownerArchive, 'manifest.json')))
+        === ownerManifest.OriginalManifestSha256.toLowerCase(), 'Owner manifest bytes changed: ' + archiveName);
+    for (const member of ownerManifest.Files) {
+        const packed = fs.readFileSync(path.posix.join(ownerArchive, member.Archive));
+        const raw = require('node:zlib').gunzipSync(packed);
+        check(sha(packed) === member.ArchiveSha256.toLowerCase()
+            && raw.length === member.Bytes && sha(raw) === member.Sha256.toLowerCase(),
+            'Owner source archive bytes changed: ' + member.Path);
+    }
+}
+const flatAuditRoot = 'docs/validation/integration-20261103/native-flat-order-pending/';
+const flatAudit = JSON.parse(read(flatAuditRoot + 'source-classification.json'));
+check(sha(require('node:zlib').gunzipSync(fs.readFileSync(flatAuditRoot + 'pinned-ordsets.erl.gz')))
+    === flatAudit.PinnedOrdsetsSourceSha256.toLowerCase(), 'Pinned ordsets source archive changed');
+const procRoot = 'docs/validation/integration-20261103/proc-lib-timeout-protocol/';
+for (const member of JSON.parse(read(procRoot + 'manifest.json')).Files) {
+    const packed = fs.readFileSync(procRoot + member.Archive);
+    const raw = require('node:zlib').gunzipSync(packed);
+    check(sha(packed) === member.ArchiveSha256.toLowerCase()
+        && raw.length === member.Bytes && sha(raw) === member.Sha256.toLowerCase(),
+        'Proc-lib protocol evidence changed: ' + member.Archive);
+}
+const separatorRoot = 'docs/validation/integration-20261103/string-separator-review/';
+const separatorManifest = JSON.parse(read(separatorRoot + 'manifest.json'));
+for (const member of separatorManifest.Files) {
+    const packed = fs.readFileSync(separatorRoot + member.Archive);
+    const raw = require('node:zlib').gunzipSync(packed);
+    check(sha(packed) === member.ArchiveSha256.toLowerCase()
+        && raw.length === member.Bytes && sha(raw) === member.Sha256.toLowerCase(),
+        'Separator-search evidence changed: ' + member.Archive);
+}
+// The immutable separator receipt describes its historical after-source. Current
+// source identity belongs to the later accepted String source and assembly freeze.
+const currentStringFreeze = JSON.parse(require('node:zlib').gunzipSync(fs.readFileSync(
+    'docs/validation/string-otp-merge-20261104/source-and-assembly-freeze.json.gz')));
+for (const member of separatorManifest.SourceMembers) {
+    const bindings = currentStringFreeze.Rows.filter(row => row.Path === member.Path);
+    check(bindings.length === 1
+        && sha(fs.readFileSync(member.Path)) === bindings[0].Sha256.toLowerCase(),
+        'Separator-search current source changed: ' + member.Path);
+}
+const localRegressionRoot = 'docs/validation/integration-20261103/local-regression-9682/';
+for (const member of JSON.parse(read(localRegressionRoot + 'manifest.json')).Files) {
+    const packed = fs.readFileSync(localRegressionRoot + member.Archive);
+    const raw = require('node:zlib').gunzipSync(packed);
+    check(sha(packed) === member.ArchiveSha256.toLowerCase()
+        && raw.length === member.Bytes && sha(raw) === member.Sha256.toLowerCase(),
+        'Local regression evidence changed: ' + member.Archive);
+}
+const finalRegressionRoot = 'docs/validation/integration-20261103/final-regression-9682/';
+const finalRegressionManifest = JSON.parse(read(finalRegressionRoot + 'manifest.json'));
+for (const member of finalRegressionManifest.Files) {
+    const packed = fs.readFileSync(finalRegressionRoot + member.Archive);
+    const raw = require('node:zlib').gunzipSync(packed);
+    check(sha(packed) === member.ArchiveSha256.toLowerCase()
+        && raw.length === member.Bytes && sha(raw) === member.Sha256.toLowerCase(),
+        'Final CI regression evidence changed: ' + member.Archive);
+}
+const finalRegression = JSON.parse(require('node:zlib').gunzipSync(fs.readFileSync(finalRegressionRoot + 'tests.json.gz')));
+check(finalRegression.Passed === 9682 && finalRegression.Failed === 0
+    && finalRegression.Tests.length === 9682 && !finalRegression.Partial
+    && finalRegression.Tests.every(test => test.Status === 'Passed'),
+    'Final CI regression is not a complete passing report');
+const patternRoot = 'docs/validation/integration-20261103/string-pattern-review/';
+const patternManifest = JSON.parse(read(patternRoot + 'manifest.json'));
+for (const member of [...patternManifest.Files, ...JSON.parse(read(patternRoot + 'environment.json')).Files, ...JSON.parse(read(patternRoot + 'catch-environment.json')).Files]) {
+    const packed = fs.readFileSync(patternRoot + member.Archive);
+    const raw = require('node:zlib').gunzipSync(packed);
+    check(sha(packed) === member.ArchiveSha256.toLowerCase()
+        && raw.length === member.Bytes && sha(raw) === member.Sha256.toLowerCase(),
+        'Pattern-search archive changed: ' + member.Path);
+}
+const nativeAllRoot = 'docs/validation/integration-20261103/native-flat-order-all-apis/';
+const nativeAllArchive = JSON.parse(read(nativeAllRoot + 'archive.json'));
+check(sha(fs.readFileSync(nativeAllRoot + nativeAllArchive.Archive)) === nativeAllArchive.Sha256.toLowerCase()
+    && sha(fs.readFileSync(nativeAllRoot + nativeAllArchive.Manifest)) === nativeAllArchive.ManifestSha256.toLowerCase(),
+    'Supplemental native all-API archive changed');
 const entryFiles = ['AGENTS.md', 'docs/PROGRESS.md', 'docs/NEXT_STEPS.md', 'docs/COMPATIBILITY.md', 'docs/DECISIONS.md', 'docs/decisions/index.md',
     ...fs.readdirSync('docs/decisions').filter(file => file.endsWith('.md') && file !== 'index.md').map(file => 'docs/decisions/' + file),
+    'docs/validation/integration-20261103/README.md',
+    'docs/validation/integration-20261103/string-pattern-review/README.md',
+    'docs/validation/integration-20261103/proc-lib-timeout-protocol/README.md',
+    'docs/validation/integration-20261103/string-separator-review/README.md',
+    'docs/validation/integration-20261103/local-regression-9682/README.md',
+    'docs/validation/integration-20261103/final-regression-9682/README.md',
+    'docs/validation/integration-20261103/math-ci-41695595170/README.md',
+    'docs/validation/integration-20261103/math-ci-41674636411/README.md',
+    'docs/validation/integration-20261103/native-flat-order-all-apis/README.md',
+    'docs/validation/integration-20261103/atomic-native-caller/README.md',
+    'docs/validation/integration-20261103/math-ci-41638368916/README.md',
+    'docs/validation/integration-20261103/ordsets-owner-handoff/README.md',
+    'docs/validation/integration-20261103/native-flat-order-pending/README.md',
+    'docs/ORDSETS_COMPATIBILITY.md',
+    'docs/validation/integration-20261103/math-ci-41631118602/README.md',
+    'docs/changelog/0102.md', 'docs/changelog/0103.md',
     'docs/history/index.md', 'docs/documentation-layout.md', 'docs/license-audit.md', 'licenses/README.md',
     ...manifest.sources.map(item => path.posix.dirname(item.chunks[0].file) + '/index.md')];
 for (const file of entryFiles) {

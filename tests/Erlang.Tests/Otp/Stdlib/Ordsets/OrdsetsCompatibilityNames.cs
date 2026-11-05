@@ -24,5 +24,11 @@ internal static class OrdsetsCompatibilityNames
     internal const int ExportCount = 21;
     internal const int ObservationCount = 12247;
     internal const int BatchSize = 64;
+    internal const int PartSize = 1024;
+    internal const int PartCount = (ObservationCount + PartSize - 1) / PartSize;
+
+    internal static string Part(string name, int part) => Path.GetFileNameWithoutExtension(name)
+        + "-" + part.ToString("D2", System.Globalization.CultureInfo.InvariantCulture) + ".etf";
+
     internal static readonly TimeSpan Deadline = TimeSpan.FromSeconds(75);
 }

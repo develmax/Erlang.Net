@@ -51,6 +51,8 @@ internal static class OtpMapHashLayoutProtocol
 
     internal static IReadOnlyList<KeyValuePair<Term, Term>> FlatEntries(MapTerm map)
     {
+        if (map.PreservedFlatPairs426 is { } preserved)
+            return preserved;
         if (NativeMapMaterialization505.TryRead(map, null, out var saved))
             return saved.PhysicalEntries;
         var state = new OtpMapHashState64(new OtpMapOwnAtomIdentityProvider());
@@ -60,6 +62,8 @@ internal static class OtpMapHashLayoutProtocol
 
     internal static IReadOnlyList<KeyValuePair<Term, Term>> FlatEntries(MapTerm map, ProcessRuntime? runtime)
     {
+        if (map.PreservedFlatPairs426 is { } preserved)
+            return preserved;
         if (NativeMapMaterialization505.TryRead(map, runtime, out var saved))
             return saved.PhysicalEntries;
         var state = new OtpMapHashState64(new OtpMapOwnAtomIdentityProvider());
@@ -69,6 +73,8 @@ internal static class OtpMapHashLayoutProtocol
 
     private static IReadOnlyList<KeyValuePair<Term, Term>> FlatEntries(MapTerm map, OtpMapHashState64 state)
     {
+        if (map.PreservedFlatPairs426 is { } preserved)
+            return preserved;
         if (NativeMapMaterialization505.TryRead(map, state.Runtime505, out var saved))
             return saved.PhysicalEntries;
 

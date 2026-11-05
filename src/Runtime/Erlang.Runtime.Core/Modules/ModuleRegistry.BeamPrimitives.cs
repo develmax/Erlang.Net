@@ -51,7 +51,13 @@ public sealed partial class ModuleRegistry
                     )
                     && code.Exports.Any(export => export.Name == UnicodeNativeNames.ToBinaryTrap && export.Arity == 2)
                     && code.Exports.Any(export => export.Name == UnicodeNativeNames.ToListTrap && export.Arity == 2))
+                {
                     primitives.Add((function.Name, function.Arity), unicode);
+                    if (owned507 is not null)
+                    {
+                        owned507[unicode] = OwnedBindingKind507.ReviewedManagedLibrary;
+                    }
+                }
                 else if (!functions.ContainsKey(signature) && !sourceOwners.ContainsKey(signature)
                     && MathNative.TryCapture(
                         signature.Module,
@@ -106,7 +112,7 @@ public sealed partial class ModuleRegistry
                     primitives.Add((function.Name, function.Arity), os);
                     // Exact Windows native stub body captured above. No public
                     // registration or other OS signature receives this grant.
-                    if (owned507 is not null && signature.Name == OsNativeNames.Env && signature.Arity == 0)
+                    if (owned507 is not null && OperatingSystem.IsWindows() && signature.Name == OsNativeNames.Env && signature.Arity == 0)
                         owned507[os] = OwnedBindingKind507.LocalOsEnvironment401;
                 }
                 else if (!functions.ContainsKey(signature) && !sourceOwners.ContainsKey(signature)

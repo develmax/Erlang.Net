@@ -26,7 +26,7 @@ Pinned baseline: OTP-29.1.1 (`ad05823719d77c8faee87348ea39513d4e2f99c5`).
 | [logger](api/logger/index.md) | 26 | 0 | 0 | 26 |
 | [maps](api/maps/index.md) | 34 | 0 | 0 | 34 |
 | [math](api/math/index.md) | 26 | 0 | 0 | 26 |
-| [ordsets](api/ordsets/index.md) | 21 | 6 | 0 | 15 |
+| [ordsets](api/ordsets/index.md) | 21 | 6 | 15 | 0 |
 | [proc_lib](api/proc_lib/index.md) | 39 | 0 | 11 | 28 |
 | [proplists](api/proplists/index.md) | 22 | 22 | 0 | 0 |
 | [queue](api/queue/index.md) | 38 | 38 | 0 | 0 |
@@ -62,6 +62,9 @@ Pinned baseline: OTP-29.1.1 (`ad05823719d77c8faee87348ea39513d4e2f99c5`).
 <a id="proc_lib"></a>
 
 - [proc_lib](api/proc_lib/index.md): 11 commands.
+<a id="ordsets-1"></a>
+
+- [ordsets](api/ordsets/index.md): 15 commands.
 
 ## Needs verification for 100% compatibility
 
@@ -107,9 +110,6 @@ Pinned baseline: OTP-29.1.1 (`ad05823719d77c8faee87348ea39513d4e2f99c5`).
 <a id="rpc"></a>
 
 - [rpc](api/rpc/index.md): 2 commands.
-<a id="ordsets-1"></a>
-
-- [ordsets](api/ordsets/index.md): 15 commands.
 <a id="erts_internal"></a>
 
 - [erts_internal](api/erts_internal/index.md): 7 commands.

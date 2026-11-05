@@ -4,7 +4,7 @@ internal static class MagicReference576Names
 {
     // ARCH_64 and known little endianness share the ordinary reference header.
     // The overlaid ordinary marker distinguishes mb from inline ref numbers.
-    internal static nuint Header => OrdinaryReference562Names.Header;
+    internal static nuint Header => ((nuint)DataWords << OrdinaryReference562Names.HeaderArityShift) | OrdinaryReference562Names.ReferenceSubtag;
     internal const int Words = 3;
     internal const int HeaderWords = 1;
     internal const int DataWords = 2;

@@ -1,0 +1,50 @@
+diff --git a/src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeVersion651.cs b/src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeVersion651.cs
+index 1a251857c..d6e0afd94 100644
+--- a/src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeVersion651.cs
++++ b/src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeVersion651.cs
+@@ -10,8 +10,8 @@ internal static class NifNativeVersion651
+     internal const int FlagsMinor = 7;
+     internal const int ResourceInitMinor = 12;
+     internal const int MinimumErtsMinor = 14;
+-    internal static int PrefixBytes => Marshal.SizeOf<NifNativeAbiEntryPrefix651>();
+-    internal static int LegacyFunctionBytes => Marshal.SizeOf<NifNativeAbiFunctionLegacy651>();
++    internal static int PrefixBytes => IntPtr.Size == NifNativeAbi.Pointer32Bytes ? 36 : 64;
++    internal static int LegacyFunctionBytes => IntPtr.Size == NifNativeAbi.Pointer32Bytes ? 12 : 24;
+     internal static int VariantOffset => (int)Marshal.OffsetOf<NifNativeAbiEntry>(nameof(NifNativeAbiEntry.Variant));
+     internal static int OptionsOffset => (int)Marshal.OffsetOf<NifNativeAbiEntry>(nameof(NifNativeAbiEntry.Options));
+     internal static int ResourceInitOffset => (int)Marshal.OffsetOf<NifNativeAbiEntry>(nameof(NifNativeAbiEntry.ResourceInitSize));
+diff --git a/tools/Native/Erlang.NifPlatformValidation/NifPlatformAbiChecks.cs b/tools/Native/Erlang.NifPlatformValidation/NifPlatformAbiChecks.cs
+index f70ac3f57..b76dec8b1 100644
+--- a/tools/Native/Erlang.NifPlatformValidation/NifPlatformAbiChecks.cs
++++ b/tools/Native/Erlang.NifPlatformValidation/NifPlatformAbiChecks.cs
+@@ -11,6 +11,8 @@ internal static class NifPlatformAbiChecks
+         {
+             ["PointerBytes"] = IntPtr.Size,
+             ["LongBytes"] = OperatingSystem.IsWindows() ? sizeof(int) : IntPtr.Size,
++            ["PrefixBytes"] = NifNativeVersion651.PrefixBytes,
++            ["LegacyFunctionBytes"] = NifNativeVersion651.LegacyFunctionBytes,
+             ["ResourceInitBytes"] = Marshal.SizeOf<NativeResourceCallbacks527>(),
+             ["MapIteratorBytes"] = Marshal.SizeOf<NifNativeMapIterator504>(),
+             ["PidBytes"] = IntPtr.Size,
+@@ -28,6 +30,9 @@ internal static class NifPlatformAbiChecks
+             ["ResourceInitOffset"] = (int)Marshal.OffsetOf<NifNativeAbiEntry>(nameof(NifNativeAbiEntry.ResourceInitSize)),
+             ["MinimumErtsOffset"] = (int)Marshal.OffsetOf<NifNativeAbiEntry>(nameof(NifNativeAbiEntry.MinimumErts))
+         };
++        if (Marshal.SizeOf<NifNativeAbiEntryPrefix651>() != NifNativeVersion651.PrefixBytes
++            || Marshal.SizeOf<NifNativeAbiFunctionLegacy651>() != NifNativeVersion651.LegacyFunctionBytes)
++            throw new InvalidOperationException(NifNativeDiagnostics.ManagedLayout);
+         foreach (var entry in expected)
+             if (!actual.TryGetValue(entry.Key, out int value) || value != entry.Value)
+                 throw new InvalidOperationException(NifNativeDiagnostics.ManagedLayout);
+diff --git a/tools/Native/Erlang.NifPlatformValidation/windows_abi_layout.c b/tools/Native/Erlang.NifPlatformValidation/windows_abi_layout.c
+index 46e86288a..00485dbba 100644
+--- a/tools/Native/Erlang.NifPlatformValidation/windows_abi_layout.c
++++ b/tools/Native/Erlang.NifPlatformValidation/windows_abi_layout.c
+@@ -5,6 +5,6 @@ int main(void)
+ {
+     printf("{\"PointerBytes\":%zu,\"LongBytes\":%zu,\"EntryBytes\":%zu,\"FunctionBytes\":%zu,\"BinaryBytes\":%zu,\"EventBytes\":%zu,\"WindowsCallbacksBytes\":%zu,", sizeof(void *), sizeof(long), sizeof(ErlNifEntry), sizeof(ErlNifFunc), sizeof(ErlNifBinary), sizeof(ErlNifEvent), sizeof(TWinDynNifCallbacks));
+     printf("\"NameOffset\":%zu,\"FunctionsOffset\":%zu,\"LoadOffset\":%zu,\"VariantOffset\":%zu,\"ResourceInitOffset\":%zu,\"MinimumErtsOffset\":%zu,", offsetof(ErlNifEntry, name), offsetof(ErlNifEntry, funcs), offsetof(ErlNifEntry, load), offsetof(ErlNifEntry, vm_variant), offsetof(ErlNifEntry, sizeof_ErlNifResourceTypeInit), offsetof(ErlNifEntry, min_erts));
+-    printf("\"ResourceInitBytes\":%zu,\"MapIteratorBytes\":%zu,\"PidBytes\":%zu,\"PortBytes\":%zu,\"MonitorBytes\":%zu,\"TimeBytes\":%zu}\n", sizeof(ErlNifResourceTypeInit), sizeof(ErlNifMapIterator), sizeof(ErlNifPid), sizeof(ErlNifPort), sizeof(ErlNifMonitor), sizeof(ErlNifTime));
++    printf("\"PrefixBytes\":%zu,\"LegacyFunctionBytes\":%zu,\"ResourceInitBytes\":%zu,\"MapIteratorBytes\":%zu,\"PidBytes\":%zu,\"PortBytes\":%zu,\"MonitorBytes\":%zu,\"TimeBytes\":%zu}\n", offsetof(ErlNifEntry, vm_variant), offsetof(ErlNifFunc, flags), sizeof(ErlNifResourceTypeInit), sizeof(ErlNifMapIterator), sizeof(ErlNifPid), sizeof(ErlNifPort), sizeof(ErlNifMonitor), sizeof(ErlNifTime));
+     return 0;
+ }

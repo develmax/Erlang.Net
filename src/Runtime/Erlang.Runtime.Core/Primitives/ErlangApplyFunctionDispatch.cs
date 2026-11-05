@@ -12,15 +12,19 @@ internal static class ErlangApplyFunctionDispatch
             )));
         if (arguments[0] is FunctionTerm)
             return ListCallback.Invoke(context, arguments[0], values);
-        using var frame = context.EnterBeamFunction(ErlangModuleNames.Module, ErlangBasicBifNames.Apply, ErlangApplySourceLocation.FunctionApplyArity);
-        using var location = context.EnterSourceLocation(ErlangApplySourceLocation.Location);
-        try
-        {
-            return ListCallback.Invoke(context, arguments[0], values);
-        }
-        catch (ErlangException error)
-        {
-            throw context.CaptureSourceFailure(error);
-        }
+        throw Failure(context, Term.Tuple(Term.A(ErlangErrorReasons.BadFunction), arguments[0]));
+    }
+
+    private static ErlangException Failure(ProcessContext context, Term reason)
+    {
+        using var frame = context.EnterGeneratedFunction(
+            ErlangModuleNames.Module,
+            ErlangBasicBifNames.Apply,
+            ErlangApplySourceLocation.FunctionApplyArity,
+            ErlangApplySourceLocation.Location,
+            new object()
+        );
+
+        return context.CaptureSourceFailure(new ErlangException(reason));
     }
 }

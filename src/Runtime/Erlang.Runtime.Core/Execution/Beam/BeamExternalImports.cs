@@ -59,7 +59,8 @@ internal static class BeamExternalImports
             return context.Runtime.Modules.InvokeSourceLoadNif(context, arguments);
         if (import.Module == ErlangModuleNames.Module && import.Function == BeamLoaderNames.CallOnLoad && import.Arity == 1)
             return context.Runtime.Modules.InvokeLoaderOnLoad(context, arguments[0]);
-        if (import.Module == BeamOnLoadNames.CodeModule && import.Function == BeamOnLoadNames.IsLoaded && import.Arity == 1)
+        if (import.Module == BeamOnLoadNames.CodeModule && import.Function == BeamOnLoadNames.IsLoaded && import.Arity == 1
+            && !context.Runtime.Modules.HasExport(import.Module, import.Function, import.Arity))
         {
             if (arguments[0] is not Atom module)
                 throw new ErlangException(ErlangErrorReasons.BadArgument);

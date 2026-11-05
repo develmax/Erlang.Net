@@ -1,0 +1,40 @@
+name: NIF Windows ARM64 image and shipped adapter
+on:
+  push:
+    branches: ['ci/nif-windows-image-*']
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  native-windows-arm64:
+    runs-on: windows-11-arm
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+          sparse-checkout: |
+            src/Runtime/Erlang.Runtime.Core
+            src/Runtime/Erlang.Runtime
+            src/Otp/Managed/Erlang.Otp.Stdlib
+            src/Otp/Managed/Erlang.Otp.Kernel
+            src/Runtime/Erlang.Terms
+            src/Runtime/Erlang.Serialization
+            src/Otp/Original/Foundation/Erlang.Otp.Erts.Beam
+            tools/Native/Erlang.NifNativeBackend
+            tools/Native/Erlang.NifPlatformValidation
+      - uses: actions/setup-dotnet@v6
+        with:
+          dotnet-version: 10.0.400
+      - name: Execute rebuilt/shipped adapters and a real ARM64 NIF image
+        shell: pwsh
+        run: ./tools/Native/Erlang.NifPlatformValidation/run-windows-ci.ps1 -Architecture arm64
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: nif-platform-windows-arm64
+          path: |
+            artifacts/nif-platform-ci/shipped
+            artifacts/nif-platform-ci/native
+            artifacts/nif-platform-ci/managed-checks.json
+            artifacts/nif-platform-ci/image

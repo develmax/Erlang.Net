@@ -1,0 +1,24 @@
+{
+  "ScannedActiveSourceFiles": 7508,
+  "HexLiterals": 390,
+  "KnownHistoricalPlanDigests": 238,
+  "StalePlanLiteralCandidates": [
+    {
+      "Consumer": "tools/validate-async-microstates.ps1",
+      "Line": 7,
+      "Literal": "A372441817625B01B55D221001E3B74733A4DED4887B303D604764C3037AEB99",
+      "Candidates": [
+        {
+          "Plan": "tools/Validation/Erlang.AsyncMicrostateValidation/source-plan.json",
+          "Actual": "711A00FEE7695A4DD4D1362933CA755EE7029271FF97B9AB49843DA8D155E644"
+        }
+      ],
+      "Context": [
+        "    [string]$Python = 'python',",
+        "    [string]$PlanSha256 = 'A372441817625B01B55D221001E3B74733A4DED4887B303D604764C3037AEB99'",
+        ")"
+      ]
+    }
+  ],
+  "Scope": "Historical source-plan mapping audit of executable consumers, not validation of unrelated golden/archive SHA literals"
+}

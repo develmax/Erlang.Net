@@ -1,0 +1,45 @@
+{
+  "SourceHead": "1a85b50ffb9e14c9d17fa3a0ddec7110af15218d",
+  "CollectorSha256": "ccd2cafa709257afe7ebb0249671bcbffb031d049c465f7fdbf45ca571dbaabf",
+  "Cases": [
+    {
+      "Scenario": "unchanged-positive",
+      "ZipDownloaded": true,
+      "CurrentListReads": 2,
+      "Rejected": false,
+      "Reuse": true
+    },
+    {
+      "Scenario": "late-incomplete-sibling",
+      "ZipDownloaded": true,
+      "CurrentListReads": 2,
+      "Rejected": true,
+      "Reason": "Merge workflows changed during admission"
+    },
+    {
+      "Scenario": "late-failed-sibling",
+      "ZipDownloaded": true,
+      "CurrentListReads": 2,
+      "Rejected": true,
+      "Reason": "Merge workflows changed during admission"
+    },
+    {
+      "Scenario": "late-producer-attempt2",
+      "ZipDownloaded": true,
+      "CurrentListReads": 1,
+      "Rejected": true,
+      "Reason": "Tested-head workflows changed during admission"
+    },
+    {
+      "Scenario": "late-concrete-attempt2",
+      "ZipDownloaded": true,
+      "CurrentListReads": 1,
+      "Rejected": true,
+      "Reason": "Producer completion changed during admission"
+    }
+  ],
+  "Passed": 5,
+  "ActualGitHubRunsStarted": 0,
+  "ProductionSourceChanged": false,
+  "Scope": "Independent mocked lifecycle review only; no formal approval or live hosted acceptance"
+}

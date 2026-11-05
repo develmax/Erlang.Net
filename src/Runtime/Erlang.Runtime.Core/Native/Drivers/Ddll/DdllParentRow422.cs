@@ -29,7 +29,10 @@ internal sealed class DdllParentRow422
     internal DdllParentStateKind422 State;
     internal LinkedListNode<DdllParentRow422> Node { get; }
     internal LinkedList<DdllParentProcessReference422> Processes { get; } = new();
+    // Ports retains physical child custody; the subset is already dead to Erlang.
     internal HashSet<ulong> Ports { get; } = new();
+    internal HashSet<ulong> ClosedPorts1311 { get; } = new();
+    internal int ActivePortCount1311 => Ports.Count - ClosedPorts1311.Count;
     internal ErlDriverPath420? ReloadPath;
     internal bool ReloadKillPorts;
     internal bool RetirementQueued;

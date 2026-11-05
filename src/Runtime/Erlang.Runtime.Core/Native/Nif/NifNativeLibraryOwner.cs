@@ -53,10 +53,19 @@ internal sealed unsafe partial class NifNativeLibraryOwner : IAsyncDisposable
             NifNativePlatformLoader.VerifyPlatform();
             try
             {
+                if (!OperatingSystem.IsWindows() && !NifNativePlatformPolicy.UseLinuxNamespace)
+                    NifNativePortableRegistration.EnsureRegistered(initializationContext.Runtime, profile);
                 libraryFile = profile.OpenLibraryFile();
             }
             catch (Exception openFailure) when (openFailure is FileNotFoundException or DirectoryNotFoundException ||
-                profile.ExpectedLibrarySha256 is null && openFailure is (UnauthorizedAccessException or IOException))
+                profile.ExpectedLibrarySha256 is null && openFailure is (UnauthorizedAccessException or IOException)
+                || openFailure is DllNotFoundException or EntryPointNotFoundException or BadImageFormatException
+                || openFailure is PlatformNotSupportedException && openFailure.Message is
+                    NifNativePortableNames.ReviewedLoading or NifNativePortableNames.UnsupportedReallocation or NifNativeDiagnostics.ManagedLayout
+                || openFailure is InvalidOperationException && openFailure.Message is
+                    NifNativePortableNames.SingleRuntime or NifNativePortableNames.BridgeMismatch
+                || !OperatingSystem.IsWindows() && !NifNativePlatformPolicy.UseLinuxNamespace
+                    && openFailure is InvalidOperationException && openFailure.Message == NifNativeDiagnostics.BridgeContract)
             {
                 throw new NifNativeLoadStageException(NifNativeDefaultLoaderNames.LoadFailed, openFailure);
             }
@@ -82,7 +91,7 @@ internal sealed unsafe partial class NifNativeLibraryOwner : IAsyncDisposable
             );
             environment.AttachGuestRoots516(initializationContext);
             using var invocation = scope.BindEnvironment(environment);
-            if (OperatingSystem.IsLinux())
+            if (NifNativePlatformPolicy.UseLinuxNamespace)
             {
                 try
                 {

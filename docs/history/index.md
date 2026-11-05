@@ -25,3 +25,13 @@ Archived bodies are immutable. Put corrections and subsequent work in the active
 - [docs/NEXT_STEPS.md at origin/main](main-next-steps/index.md)
 - [Pre-integration local journal](local-journal-20261103/index.md)
 - [Pre-integration local port register](local-port-register-20261103/index.md)
+
+## Main after PR103
+
+The following exact snapshots preserve the accepted native async accounting/cancellation records at main `0386ff27bc32e036afb44de1bc8bf531f98715cb`, including the independent Part557 numbering and all earlier records:
+
+- [Progress](main-103-progress/index.md)
+- [Next steps](main-103-next-steps/index.md)
+- [Compatibility](main-103-compatibility/index.md)
+- [Decisions](main-103-decisions/index.md)
+- [Incoming closed changelog0102](main-103-changelog-0102/index.md)

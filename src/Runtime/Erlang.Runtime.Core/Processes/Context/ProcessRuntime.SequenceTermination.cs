@@ -41,6 +41,7 @@ public sealed partial class ProcessRuntime
             CleanupStep(() => storage = PersistentProcessRetirement417(ctx, storage));
             CleanupStep(() => storage = SystemTaskProcessRetirement428(ctx, storage));
             CleanupStep(() => physical = DirtyNativeProcessRetirement419(ctx, Task.CompletedTask));
+            CleanupStep(() => physical = RawFileProcessRetirement(ctx, physical));
             CleanupStep(() => physical = PublicWallTimeProcessRetirement(ctx, physical));
             CleanupStep(() => storage = DebugDispatchProcessRetirement432(ctx, storage));
             CleanupStep(() => storage = CountersProcessRetirement421(ctx, storage));

@@ -35,6 +35,8 @@ public sealed partial class MapTerm
         Entries = Array.AsReadOnly((KeyValuePair<Term, Term>[])canonical.Clone());
         ArithmeticKeyEntries = Array.AsReadOnly((KeyValuePair<Term, Term>[])arithmetic.Clone());
         FlatKeys426 = flatKeys;
+        if (flatKeys is not null)
+            preservedFlatPairs426 = Array.AsReadOnly((KeyValuePair<Term, Term>[])physical.Clone());
         nativeLookup505 = nativeLookup;
         NativeEquality505 = nativeEquality;
     }

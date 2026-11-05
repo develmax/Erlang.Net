@@ -33,8 +33,13 @@ internal static class TermMapOrdering
         var observed = new TermComparisonResult();
         while (one < first.Count)
         {
-            yield return TermComparisonStep.Observe(first[one].Key, second[two].Key, true,
-                TermComparisonPurpose.Ordering, observed);
+            yield return TermComparisonStep.Observe(
+                first[one].Key,
+                second[two].Key,
+                true,
+                TermComparisonPurpose.Ordering,
+                observed
+            );
             if (observed.Value != 0)
             {
                 int hashOrder = layout.CompareHashKeys(first[one].Key, second[two].Key);
@@ -55,14 +60,24 @@ internal static class TermMapOrdering
             bool compareValue = result == 0;
             if (!compareValue)
             {
-                yield return TermComparisonStep.Observe(first[one].Key, minimum!, true,
-                    TermComparisonPurpose.Ordering, observed);
+                yield return TermComparisonStep.Observe(
+                    first[one].Key,
+                    minimum!,
+                    true,
+                    TermComparisonPurpose.Ordering,
+                    observed
+                );
                 compareValue = observed.Value < 0;
             }
             if (compareValue)
             {
-                yield return TermComparisonStep.Observe(first[one].Value, second[two].Value, exact,
-                    TermComparisonPurpose.Ordering, observed);
+                yield return TermComparisonStep.Observe(
+                    first[one].Value,
+                    second[two].Value,
+                    exact,
+                    TermComparisonPurpose.Ordering,
+                    observed
+                );
                 if (observed.Value != 0)
                 {
                     result = observed.Value;
@@ -77,8 +92,13 @@ internal static class TermMapOrdering
             int keyOrder = 0;
             if (one < first.Count && two < second.Count)
             {
-                yield return TermComparisonStep.Observe(first[one].Key, second[two].Key, true,
-                    TermComparisonPurpose.Ordering, observed);
+                yield return TermComparisonStep.Observe(
+                    first[one].Key,
+                    second[two].Key,
+                    true,
+                    TermComparisonPurpose.Ordering,
+                    observed
+                );
                 keyOrder = observed.Value;
                 if (keyOrder == 0)
                 {
@@ -92,8 +112,13 @@ internal static class TermMapOrdering
             if (hashOrder == 0)
                 hashOrder = keyOrder;
             Term key = hashOrder < 0 ? first[one++].Key : second[two++].Key;
-            yield return TermComparisonStep.Observe(key, minimum!, true,
-                TermComparisonPurpose.Ordering, observed);
+            yield return TermComparisonStep.Observe(
+                key,
+                minimum!,
+                true,
+                TermComparisonPurpose.Ordering,
+                observed
+            );
             if (observed.Value < 0)
             {
                 minimum = key;
@@ -105,8 +130,10 @@ internal static class TermMapOrdering
 
     internal static IEnumerable<TermComparisonStep> Steps(MapTerm left, MapTerm right, bool exact = false)
     {
-        IReadOnlyList<KeyValuePair<Term, Term>> first = left.ArithmeticKeyEntries;
-        IReadOnlyList<KeyValuePair<Term, Term>> second = right.ArithmeticKeyEntries;
+        IReadOnlyList<KeyValuePair<Term, Term>> first = left.FlatKeys426 is null
+            ? left.ArithmeticKeyEntries : left.FlatArithmeticPairs();
+        IReadOnlyList<KeyValuePair<Term, Term>> second = right.FlatKeys426 is null
+            ? right.ArithmeticKeyEntries : right.FlatArithmeticPairs();
         for (int index = 0; index < first.Count; index++)
             yield return TermComparisonStep.Pair(first[index].Key, second[index].Key, true);
         for (int index = 0; index < first.Count; index++)

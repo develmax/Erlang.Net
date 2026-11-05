@@ -115,7 +115,7 @@ internal static class TestAnalysisLibraryChecks
                 });
                 string[] imports = OtpCommonTest.Modules.Concat(OtpDialyzer.Modules).Concat(OtpStdlib.Modules).Concat(OtpKernel.Modules).Concat(OtpCompiler.Modules).Concat(OtpErts.Modules).Concat([Observer, Internal, Initialization, ErlangModule, Crypto, PrettyPrinter]).ToArray();
                 var dependencies = new BeamDependencySelection(imports);
-                byte[][] bytes = [OtpStdlib.ReadImage(Lists), OtpStdlib.ReadImage(OrderedSets), OtpStdlib.ReadImage(Proplists), OtpStdlib.ReadImage(IoLibrary), OtpStdlib.ReadImage(IoFormatter), OtpStdlib.ReadImage(IoPrettyPrinter), OtpStdlib.ReadImage(StringModule), OtpStdlib.ReadImage(Unicode), OtpStdlib.ReadImage(UnicodeUtilities), OtpStdlib.ReadImage(Filename), OtpStdlib.ReadImage(Preprocessor), OtpStdlib.ReadImage(Scanner), OtpStdlib.ReadImage(InputOutput), OtpStdlib.ReadImage(Sets), OtpStdlib.ReadImage(SetFamilies), OtpCompiler.ReadImage(Core), OtpCommonTest.ReadImage(CommonTestConfig), OtpCommonTest.ReadImage(CommonTestGroups), OtpDialyzer.ReadImage(DialyzerOptions), OtpDialyzer.ReadImage(DialyzerUtilities), Resource(ObserverImage)];
+                byte[][] bytes = [OtpStdlib.ReadImage(Lists), OtpStdlib.ReadImage(OrderedSets), OtpStdlib.ReadImage(Proplists), OtpStdlib.ReadImage(IoLibrary), OtpStdlib.ReadImage(IoFormatter), OtpStdlib.ReadImage(IoPrettyPrinter), OtpStdlib.ReadImage(TestAnalysisLibraryNames.StringModule), OtpStdlib.ReadImage(Unicode), OtpStdlib.ReadImage(UnicodeUtilities), OtpStdlib.ReadImage(Filename), OtpStdlib.ReadImage(Preprocessor), OtpStdlib.ReadImage(Scanner), OtpStdlib.ReadImage(InputOutput), OtpStdlib.ReadImage(Sets), OtpStdlib.ReadImage(SetFamilies), OtpCompiler.ReadImage(Core), OtpCommonTest.ReadImage(CommonTestConfig), OtpCommonTest.ReadImage(CommonTestGroups), OtpDialyzer.ReadImage(DialyzerOptions), OtpDialyzer.ReadImage(DialyzerUtilities)];
                 bytes = bytes.Concat(TestAnalysisLibraryBoot.Images()).ToArray();
                 PreparedBeamImage[] images = bytes.Select(image =>
                 {
@@ -140,7 +140,9 @@ internal static class TestAnalysisLibraryChecks
                 };
             }
             );
+            Check(!runtime.Modules.IsModuleLoaded(Observer));
             await TestAnalysisLibraryBoot.Start(runtime, Check);
+            Check(runtime.Modules.SourceOwner(Observer, Worker, 1) is PreparedBeamImage);
             var completed = new TaskCompletionSource<Term>(TaskCreationOptions.RunContinuationsAsynchronously);
             ProcessHandle actor = runtime.Spawn(async context =>
             {

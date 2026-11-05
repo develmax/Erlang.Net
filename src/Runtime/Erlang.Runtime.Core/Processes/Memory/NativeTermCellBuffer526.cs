@@ -21,10 +21,10 @@ internal sealed unsafe partial class NativeTermCellBuffer526 : IDisposable
     internal NativeTermCellBuffer526(int words)
     {
         ArgumentOutOfRangeException.ThrowIfNegativeOrZero(words);
-        if (IntPtr.Size != CellStorage526Names.WordBytes)
+        if (!NativeWordLayout.Supported)
             throw new NotSupportedException(CellStorage526Names.WordSize);
         kinds = new byte[words];
-        pointer = (nuint*)NativeMemory.AllocZeroed((nuint)words, (nuint)IntPtr.Size);
+        pointer = (nuint*)NativeMemory.AllocZeroed(checked((nuint)words * (nuint)IntPtr.Size));
         if (pointer == null)
             throw new OutOfMemoryException();
     }

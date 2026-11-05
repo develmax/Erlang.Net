@@ -46,8 +46,9 @@ internal sealed partial class BeamRegisterState
     internal void ApplyLiveHint507(int count)
     {
         CheckLive(count);
-        if (roots507 is not null)
-            ClearXExcept(Enumerable.Range(0, count).ToArray());
+        // Portable terms also own observable magic-reference resources. Dead X
+        // slots must not keep a serialized match program alive across a GC.
+        ClearXExcept(Enumerable.Range(0, count).ToArray());
     }
 
     internal Term CompleteGuestReturn507(Term value) => roots507?.CompleteGuestReturn507(value) ?? value;

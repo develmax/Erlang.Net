@@ -92,8 +92,11 @@ internal static class BeamTryExtensionHostChecks
                         ? Term.Tuple(Term.A(ErlangErrorReasons.BadArity), Term.Tuple(callee, Nil.Value))
                         : Term.Tuple(Term.A(ErlangErrorReasons.BadFunction), callee);
                     Require(error.ExceptionClass == ErlangExceptionClasses.Error && error.Reason.Equals(reason));
-                    // Whole trace equality: the no-Line synthetic caller has precisely run/1 with Nil metadata.
-                    Require(error.StackTraceTerm.Equals(CallerStack()));
+                    // Pinned OTP also retains one source frame for tail badfun,
+                    // including this exact synthetic image without a Line chunk.
+                    // Native replay and complete trace: validation/part-595.
+                    Term expectedStack = CallerStack();
+                    Require(error.StackTraceTerm.Equals(expectedStack));
                     Require(error.AutomaticStackTraceCaptured && !error.ExplicitStackTrace);
                 }
                 Require(observed && callbacks == 0 && ActiveReferences(context, image) == 0 && context.CurrentFunction is null);

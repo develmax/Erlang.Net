@@ -1,0 +1,19 @@
+2026-11-04T12:42:25.9451752Z Original diameter/snmp packaging: 439 checks passed; 768 complete outcomes/stacks match OTP
+2026-11-04T12:42:44.6722591Z Original megaco packaging: 150 checks passed; 2003 complete outcomes/stacks match OTP
+2026-11-04T12:42:48.1913954Z Original receive484: 576 complete selections and unmatched mailbox queues match OTP
+2026-11-04T12:43:07.8940990Z System.InvalidOperationException: Original common_test/dialyzer library contract failed
+2026-11-04T12:43:07.8943668Z    at Erlang.Otp.TestAnalysis.Library.Tests.TestAnalysisLibraryChecks.<>c__DisplayClass0_0.<Run>g__Check|0(Boolean condition) in D:\a\Erlang.Net\Erlang.Net\tests\Erlang.Otp.TestAnalysis.Library.Tests\TestAnalysisLibraryChecks.cs:line 16
+2026-11-04T12:43:07.8946316Z    at Erlang.Otp.TestAnalysis.Library.Tests.TestAnalysisLibraryChecks.Run(String[] args) in D:\a\Erlang.Net\Erlang.Net\tests\Erlang.Otp.TestAnalysis.Library.Tests\TestAnalysisLibraryChecks.cs:line 174
+2026-11-04T12:43:07.8948318Z    at Erlang.Otp.TestAnalysis.Library.Tests.TestAnalysisLibraryChecks.Run(String[] args) in D:\a\Erlang.Net\Erlang.Net\tests\Erlang.Otp.TestAnalysis.Library.Tests\TestAnalysisLibraryChecks.cs:line 180
+2026-11-04T12:43:07.8949870Z    at Program.<Main>$(String[] args) in D:\a\Erlang.Net\Erlang.Net\tests\Erlang.Otp.TestAnalysis.Library.Tests\Program.cs:line 5
+2026-11-04T12:43:08.0988954Z [31;1mException: [0mD:\a\Erlang.Net\Erlang.Net\tools\validate.ps1:38[0m
+2026-11-04T12:43:08.0990124Z [31;1m[0m[36;1mLine |[0m
+2026-11-04T12:43:08.0991848Z [31;1m[0m[36;1m[36;1m  38 | [0m … ASTEXITCODE -ne 0) { [36;1mthrow "dotnet failed: $($Arguments -join ' ')"[0m }[0m
+2026-11-04T12:43:08.0993647Z [31;1m[0m[36;1m[36;1m[0m[36;1m[0m[36;1m     | [31;1m                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+2026-11-04T12:43:08.0995576Z [31;1m[0m[36;1m[36;1m[0m[36;1m[0m[36;1m[31;1m[31;1m[36;1m     | [31;1mdotnet failed: run --project tests/Erlang.Otp.TestAnalysis.Library.Tests --no-build --[0m
+2026-11-04T12:43:08.0997268Z [31;1m[0m[36;1m[36;1m[0m[36;1m[0m[36;1m[31;1m[31;1m[36;1m[31;1m[36;1m     | [31;1martifacts/otp-testanalysis-managed[0m
+2026-11-04T12:43:08.1311229Z ##[error]Process completed with exit code 1.
+2026-11-04T12:43:08.1535619Z ##[group]Run $ErrorActionPreference = 'Stop'
+2026-11-04T12:43:08.1536300Z [36;1m$ErrorActionPreference = 'Stop'[0m
+2026-11-04T12:43:08.1537436Z [36;1mforeach ($file in @('Erlang.NifNativeBackend.dll', 'Erlang.NifNativeBackend.deps.json', 'Erlang.NifNativeBackend.runtimeconfig.json')) {[0m
+2026-11-04T12:43:08.1538979Z [36;1m  $path = Join-Path 'tools/Native/Erlang.NifNativeBackend/bin/Debug/net10.0' $file[0m

@@ -1,0 +1,29 @@
+{
+  "OtpPin": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "Host": "Linux-7.0.0-1017-azure-x86_64-with-glibc2.39",
+  "OriginalResourceNifExecuted": true,
+  "NativeWordBoundsTested": true,
+  "WordBytes": 4,
+  "Files": {
+    "nif_resource_oracle.erl": "794ac7aef8fd2c080ee2c38bd70c3f00a6717afb67ae5e98b4ce1091dd38b550",
+    "nif_resource_fixture.erl": "f2b64768588a5e4f4d791d668b176f792d3fe51b987b87fe1186532cf6bad363",
+    "nif_resource_fixture.c": "89a468515c4b008a3bc17d6c3f78e680856b9182f1d3a042e1ab9648f2eafa96",
+    "nif_resource_fixture.beam": "97f82ef83c68e045b0beddab832d5b005ea923088be84c2eca18eab941e668a0",
+    "original.etf": "8d0672310f1bd2de494f5df48ac3cc338e5089021f1b9fad49f8265c2473b44e"
+  },
+  "Command": [
+    "cc",
+    "-m32",
+    "-std=c11",
+    "-shared",
+    "-fPIC",
+    "-O2",
+    "-Wall",
+    "-Wextra",
+    "-Werror",
+    "-I/home/runner/work/Erlang.Net/Erlang.Net/artifacts/installed/lib/erlang/usr/include",
+    "/home/runner/work/Erlang.Net/Erlang.Net/tools/Native/Erlang.NifPlatformValidation/nif_resource_fixture.c",
+    "-o",
+    "/home/runner/work/Erlang.Net/Erlang.Net/artifacts/resource-oracle/nif_resource_fixture.so"
+  ]
+}

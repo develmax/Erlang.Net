@@ -908,6 +908,13 @@ public static partial class Execution
                         scope,
                         module
                     ),
+                    (expression, scope) => Evaluate(
+                        expression,
+                        ctx,
+                        scope,
+                        module,
+                        tail
+                    ),
                     async (clause, value, scope) => clause.Patterns.Count == 1 && await clause.Patterns[0].MatchAsync(
                         value,
                         scope,
@@ -971,6 +978,15 @@ public static partial class Execution
                     if (x.Operator == ErlangOperators.OrElse && left.Equals(Term.A(ErlangBooleanAtoms.True)))
                         return Term.A(ErlangBooleanAtoms.True);
                     var rightScope = CompiledBindingScope.Copy(b);
+                    // The right operand of andalso/orelse is a tail call in Erlang.
+                    if (shortCircuit)
+                        return await Evaluate(
+                            x.Right,
+                            ctx,
+                            rightScope,
+                            module,
+                            tail
+                        );
                     var right = await Evaluate(
                         x.Right,
                         ctx,

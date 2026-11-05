@@ -69,7 +69,7 @@ internal sealed unsafe partial class NativeResourcePayload524
             *magic = new NativeResourceMagicHeader527
             {
                 Flags = NativeResourceMagic527.Magic,
-                ApparentSize = checked((nuint)sizeof(NativeResourceHeader524) + userSize),
+                ApparentSize = checked((nuint)NativeResourceMagic527.ResourceDataOffset527 + userSize),
                 RefCount = 1,
                 OriginalSize = checked((nuint)(AllocationBytes - NativeResourceMagic527.BinaryBytesOffset527)),
                 Destructor = NativeResourceMagic527.Destructor527,
@@ -171,7 +171,7 @@ internal sealed unsafe partial class NativeResourcePayload524
     }
 
     private void UpdatePhysicalCount527()
-        => ((NativeResourceMagicHeader527*)allocation)->RefCount = checked(native + roots);
+        => ((NativeResourceMagicHeader527*)allocation)->RefCount = checked((nint)(native + roots));
 
     internal void InitializeNativeIdentity527(ReferenceTerm identity)
     {

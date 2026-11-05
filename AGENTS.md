@@ -1,3 +1,7 @@
+## Current batching and validation policy — 2026-11-03
+
+Follow [Batched validation and delivery policy](docs/engineering/BATCHED_VALIDATION_POLICY.md): connected delivery packages with 60% new APIs/capabilities including full validation and 40% existing-contract closure, declared dependency-focused iteration checks and one complete final package gate. Target four or five measured independent full groups and approximately 20 minutes end to end; enforce exact coverage, bounded resources and isolated/exclusive lanes. Shared CI/helper changes and dispatch remain with the existing CI owner (#102, w-docs); root owns runtime integration and its separate focused poll experiment. Existing required workflows remain mandatory until reviewed replacements are active. Post-merge reuse requires explicit whole-input/matrix/review equivalence proof, never a matching SHA or DLL alone. No unchanged retry without proven transient cause. Preserve full public pinned-OTP GC/scheduler/resource contracts, raw failures and registry classifications. Historical checkpoints below retain their original scopes.
+
 # Project instructions
 
 ## Layout
@@ -19,6 +23,8 @@ Review and merge gate:
 - Unfinished work, unresolved actionable findings or failed/pending required checks remain explicit gates. This project workflow does not grant global approvals or override user authorization, branch protections or repository safety checks.
 
 ## Architecture and precedence
+
+**Explicit ETS exception:** the user requested a complete C# port of ETS while retaining the selectable original Erlang implementation. This authorizes the ETS managed library layer (including folds, persistence control flow, QLC and browsing) in addition to shared runtime primitives. Preserve unchanged pinned Erlang/BEAM assets and explicit backend selection. This scoped instruction takes precedence over the general pure-module policy below and does not authorize unrelated module ports.
 
 The user explicitly confirmed: "OTP-модули остаются на Erlang; C# — runtime/BIF". This later instruction supersedes the earlier work.md direction to manually translate pure Erlang OTP-library logic into C#. Do not silently rewrite the historical work.md or describe the previous work as upstream Erlang execution.
 

@@ -1,0 +1,51 @@
+namespace Erlang.Tests;
+
+internal static class CodeBackendNames
+{
+    internal const string Managed = "otp/code/managed-contracts";
+    internal const string Beam = "otp/code/beam-contracts";
+    internal const string Refusals = "otp/code/selection-refusals";
+    internal const string Native = "otp/code/managed-native-profile";
+    internal const string Prefix = "Erlang.Tests.CodeBackend.";
+    internal const string Observer = "code_port_cases";
+    internal const string Failure = "Code backend contract failed";
+    internal const string CodeModule = "code";
+    internal const string InternalModule = "erts_internal";
+    internal const string PurgerModule = "erts_code_purger";
+    internal const string SubjectModule = "code_port_loaded";
+    internal const string MetadataFunction = "module_info";
+    internal const string ObserverImage = "code_port_cases.beam";
+    internal const string SubjectImage = "code_port_loaded.beam";
+    internal const string InternalImage = "erts_internal.beam";
+    internal const string PurgerImage = "erts_code_purger.beam";
+    internal const string ExportsFile = "exports.etf";
+    internal const string ContractsFile = "contracts.etf";
+    internal const string LifecycleFile = "lifecycle.etf";
+    internal const string ProvenanceFile = "provenance.json";
+    internal const string Artifacts = "artifacts/code-backend";
+    internal const string ManagedDirectory = "managed";
+    internal const string BeamDirectory = "beam";
+    internal const string GuidFormat = "N";
+    internal const string WorkerFunction = "worker";
+    internal const string LifecycleFunction = "lifecycle";
+    internal const string ComparisonFile = "comparison.json";
+    internal const string LifecycleReport = "lifecycle.json";
+    internal const string CoverageSupport = "coverage_support";
+    internal const string GetCoverageMode = "get_coverage_mode";
+    internal const string SetCoverageMode = "set_coverage_mode";
+    internal const string GetCoverage = "get_coverage";
+    internal const string ResetCoverage = "reset_coverage";
+    internal const string GetDebugInfo = "get_debug_info";
+    internal const string InvalidTag = "invalid";
+    internal const string MissingResourceSeparator = ": ";
+    internal const string BaselineField = "Baseline";
+    internal const string Baseline = "OTP-29.1.1";
+    internal const string CommitField = "Commit";
+    internal const string BaselineCommit = "ad05823719d77c8faee87348ea39513d4e2f99c5";
+    internal const string ObserverHashField = "ObserverBeamSha256";
+    internal const string SubjectHashField = "SubjectBeamSha256";
+    internal const string CorpusHashField = "CorpusSha256";
+    internal const string ExportsHashField = "ExportsSha256";
+    internal const string LifecycleHashField = "LifecycleSha256";
+    internal const int WatchdogSeconds = 50;
+}

@@ -581,6 +581,10 @@ internal sealed partial class RuntimeActorDispatcher
             if (completion.Task.IsCompleted)
                 return completion.Task;
             retiring = true;
+            // Graceful retirement belongs to each real requesting actor. Its
+            // token is canceled by the committed runtime shutdown immediately
+            // after dispatcher retirement; do not borrow a foreign/global cause.
+            RetireMicrostateSourceTailsUnderGate1149();
             RetirePendingNormalBarriers696(normalBarrierFailure696);
             CloseNormalNativeUnderGate697();
             StopInitializerAfterGuests();
@@ -650,6 +654,7 @@ internal sealed partial class RuntimeActorDispatcher
         lock (gate)
         {
             workerFailures.Add(failure);
+            RejectAllMicrostateSourceTailsUnderGate1149(failure);
             // Review gate: recovering an arbitrary mid-selection invariant fault
             // must not silently discard a dequeued work item. See failure table.
             lane.Pumping = false;
@@ -716,7 +721,7 @@ internal sealed partial class RuntimeActorDispatcher
         // Close may latch during startup, but no join/Stop can race bootstrap ownership.
         if (normalWorkerStartupAttempted && !normalWorkerStartupSettled.Task.IsCompleted)
             return;
-        if (!retiring || normalNativeActive697 != 0 || nativeResourceOwners536 != 0 || driverOwners422 != 0 || active != 0 || !initializerStop.IsCompleted || lanes.Any(lane => lane.Pumping || !lane.Empty))
+        if (!retiring || sourceTails1149.Count != 0 || normalNativeActive697 != 0 || nativeResourceOwners536 != 0 || driverOwners422 != 0 || active != 0 || !initializerStop.IsCompleted || lanes.Any(lane => lane.Pumping || !lane.Empty))
             return;
         if (workerFailureDrains.Any(task => !task.IsCompleted) || normalWorkersStopping) return;
         normalWorkersStopping = true;

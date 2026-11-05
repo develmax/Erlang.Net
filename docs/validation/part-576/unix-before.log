@@ -1,0 +1,8 @@
+Traceback (most recent call last):
+  File "D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\unicode-pr-ready\tools\Native\Erlang.NifUnixFilenameObservations\verify-source.py", line 4, in <module>
+    p=argparse.ArgumentParser();p.add_argument('--expected-head',required=True);p.add_argument('--source-manifest-sha256',required=True);a=p.parse_args();tool=Path(__file__).resolve().parent;verify_source(a,tool.parents[2],tool);print('Raw Unix observer source inputs verified; nothing executed.')
+                                                                                                                                                                                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\unicode-pr-ready\tools\Native\Erlang.NifUnixFilenameObservations\inputs.py", line 13, in verify_source
+    q=root/row['Path'];assert q.resolve().is_relative_to(root) and q.stat().st_size==row['Bytes'] and H(q)==row['Sha256']
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError

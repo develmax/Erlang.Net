@@ -10,7 +10,7 @@ internal static class AtomicsNative413
         out ErlangFunction body
     )
     {
-        if (owner is null || IntPtr.Size != sizeof(ulong) || module != AtomicsNames413.Module
+        if (owner is null || !NativeWordLayout.Supported || module != AtomicsNames413.Module
             || !AtomicsNames413.Signatures.Contains((function, arity)))
         {
             body = null!;

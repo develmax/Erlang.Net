@@ -1,0 +1,82 @@
+{
+  "Head": "1a85b50ffb9e14c9d17fa3a0ddec7110af15218d",
+  "Base": "f0c23d603f304acb4f60aa8502e23ddf0fbe0b56",
+  "PreviousGuardReview": "6c966ada688cf35f9202febf8029872015825671",
+  "Files": [
+    {
+      "Label": "baseline",
+      "Commit": "f0c23d603f304acb4f60aa8502e23ddf0fbe0b56",
+      "Path": "tools/Validation/Erlang.CiReuse/collector.py",
+      "GitBlob": "ccaba6a41cb203a5ca16c50bc8d9f96267b8a399",
+      "Sha256": "709715E97D663377176961D0833AF0C44317AE64DBF580759C54C338BD56CB6F",
+      "Bytes": 10846
+    },
+    {
+      "Label": "after",
+      "Commit": "1a85b50ffb9e14c9d17fa3a0ddec7110af15218d",
+      "Path": "tools/Validation/Erlang.CiReuse/collector.py",
+      "GitBlob": "05a2904bd6b42871d24c0a83ab5bb7799cf7b125",
+      "Sha256": "CCD2CAFA709257AFE7EBB0249671BCBFFB031D049C465F7FDBF45CA571DBAABF",
+      "Bytes": 12522
+    },
+    {
+      "Label": "baseline",
+      "Commit": "f0c23d603f304acb4f60aa8502e23ddf0fbe0b56",
+      "Path": ".github/workflows/nif-upgrade-integrated.yml",
+      "GitBlob": "4573bf174d516a416e609a9335dd8f1643cba695",
+      "Sha256": "928DF9F6B129CFC50C53BEF69BF0CE6F25E24228369FB5CE33F53D9D90B4432F",
+      "Bytes": 57409
+    },
+    {
+      "Label": "after",
+      "Commit": "1a85b50ffb9e14c9d17fa3a0ddec7110af15218d",
+      "Path": ".github/workflows/nif-upgrade-integrated.yml",
+      "GitBlob": "72d62c15eacdd7baa7516007e652d3db61316bae",
+      "Sha256": "46CC1D14A7C18EF68808064D3FD5BEDA578E8F2B80A97D9868758A88263FCD03",
+      "Bytes": 57409
+    },
+    {
+      "Label": "after",
+      "Commit": "1a85b50ffb9e14c9d17fa3a0ddec7110af15218d",
+      "Path": "tools/Validation/Erlang.CiReuse/source_bindings.py",
+      "GitBlob": "6e5a2b71f63c05ebb071ed2633fa24eb640a0287",
+      "Sha256": "9D9C137C027925E79482C880EDC5C4B2D57F85641452BC7CD80D1FEF5CA548B0",
+      "Bytes": 1980
+    }
+  ],
+  "Env709Pins": [
+    {
+      "Key": "ENV709_NATIVE_PLAN",
+      "Path": "tools/Native/Erlang.NifUpgradeObservations/environments/build-inputs.json",
+      "Before": "7559F54AFD09E956DEB068BD670B7263DD5FA998AD2B1EFE0AC6EC114D7649E2",
+      "After": "69762E8ABFC31F6C539B4D66F963C4A3414B5CED99C5D3AF41A339B2CEF5BF42",
+      "ActualRawSha256": "69762E8ABFC31F6C539B4D66F963C4A3414B5CED99C5D3AF41A339B2CEF5BF42",
+      "DeclaredPlanPinSha256": "69762E8ABFC31F6C539B4D66F963C4A3414B5CED99C5D3AF41A339B2CEF5BF42",
+      "BeforeGitBlob": "7c512b946908a344ad10093ede515cc50f2c21e6",
+      "AfterGitBlob": "7c512b946908a344ad10093ede515cc50f2c21e6"
+    },
+    {
+      "Key": "ENV709_ORIGINAL_PLAN",
+      "Path": "tools/Native/Erlang.NifUpgradeObservations/environments/original-inputs.json",
+      "Before": "A6C84AE7E0BD88FD215948CF76FA024EAA63AF5ECA1D4E95A35D82F81EBAF063",
+      "After": "AD4A56E2AD3E4B24BAEEFA263DFC9F3DCF16176BA6C8B8551D21C6FC110C499C",
+      "ActualRawSha256": "AD4A56E2AD3E4B24BAEEFA263DFC9F3DCF16176BA6C8B8551D21C6FC110C499C",
+      "DeclaredPlanPinSha256": "AD4A56E2AD3E4B24BAEEFA263DFC9F3DCF16176BA6C8B8551D21C6FC110C499C",
+      "BeforeGitBlob": "371e62eb13fae7b08fc770644dc74a7a1ef2622f",
+      "AfterGitBlob": "371e62eb13fae7b08fc770644dc74a7a1ef2622f"
+    },
+    {
+      "Key": "ENV709_MANAGED_PLAN",
+      "Path": "tools/Native/Erlang.NifUpgradeObservations/environments/managed-inputs.json",
+      "Before": "BEAA38E594A789BA0EF624D006F4720D3F4AC2A2883258C2A54176E243221884",
+      "After": "26EC753A2E8CDADD5BC1C9BF12DADDCB01CD0F6218D8D5A7C7855DDF6083B236",
+      "ActualRawSha256": "26EC753A2E8CDADD5BC1C9BF12DADDCB01CD0F6218D8D5A7C7855DDF6083B236",
+      "DeclaredPlanPinSha256": "26EC753A2E8CDADD5BC1C9BF12DADDCB01CD0F6218D8D5A7C7855DDF6083B236",
+      "BeforeGitBlob": "4fe3a16778223e147cf2e0b062f9c60ae1998161",
+      "AfterGitBlob": "4fe3a16778223e147cf2e0b062f9c60ae1998161"
+    }
+  ],
+  "TestsExecuted": false,
+  "NetworkUsed": false,
+  "FormalGitHubApproval": false
+}

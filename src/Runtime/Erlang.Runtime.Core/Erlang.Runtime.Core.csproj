@@ -5,10 +5,16 @@
     <ProjectReference Include="../Erlang.Serialization/Erlang.Serialization.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <None Update="runtimes/win-x64/native/Erlang.Nif.WindowsVariadic.dll"
-          Condition="Exists('runtimes/win-x64/native/Erlang.Nif.WindowsVariadic.dll')"
+    <None Update="runtimes/**/native/*" Pack="true" PackagePath="%(Identity)" />
+  </ItemGroup>
+  <PropertyGroup>
+    <ErlangNifRuntimeIdentifier Condition="'$(RuntimeIdentifier)' != ''">$(RuntimeIdentifier)</ErlangNifRuntimeIdentifier>
+    <ErlangNifRuntimeIdentifier Condition="'$(ErlangNifRuntimeIdentifier)' == ''">$(NETCoreSdkRuntimeIdentifier)</ErlangNifRuntimeIdentifier>
+  </PropertyGroup>
+  <ItemGroup>
+    <None Update="runtimes/$(ErlangNifRuntimeIdentifier)/native/*"
           CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest"
-          TargetPath="Erlang.Nif.WindowsVariadic.dll" Pack="true" PackagePath="runtimes/win-x64/native/Erlang.Nif.WindowsVariadic.dll" />
+          TargetPath="%(Filename)%(Extension)" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="../../Otp/Original/Foundation/Erlang.Otp.Erts.Beam/Otp/ebin/erlang.beam" LogicalName="Erlang.Runtime.PinnedOtp.erlang.beam" />
@@ -20,5 +26,20 @@
   <Target Name="RequireWindowsNifVariadicAsset526" BeforeTargets="GenerateNuspec">
     <Error Condition="!Exists('runtimes/win-x64/native/Erlang.Nif.WindowsVariadic.dll')"
            Text="Build/install the Windows NIF variadic runtime asset before packaging Erlang.Runtime.Core." />
+  </Target>
+  <PropertyGroup Condition="$([MSBuild]::IsOSPlatform('Linux')) Or $([MSBuild]::IsOSPlatform('OSX')) Or $([MSBuild]::IsOSPlatform('FreeBSD'))">
+    <PosixFileExtension>.so</PosixFileExtension>
+    <PosixFileLinkFlag>-shared</PosixFileLinkFlag>
+    <PosixFileExtension Condition="$([MSBuild]::IsOSPlatform('OSX'))">.dylib</PosixFileExtension>
+    <PosixFileLinkFlag Condition="$([MSBuild]::IsOSPlatform('OSX'))">-dynamiclib</PosixFileLinkFlag>
+    <PosixFileSource>$(MSBuildProjectDirectory)/Platform/Posix/FileSystemNative</PosixFileSource>
+    <PosixFileOutput>$(BaseIntermediateOutputPath)$(Configuration)/native/libErlang.FileSystem.Native$(PosixFileExtension)</PosixFileOutput>
+  </PropertyGroup>
+  <ItemGroup Condition="'$(PosixFileExtension)' != ''">
+    <Content Include="$(PosixFileOutput)" Link="libErlang.FileSystem.Native$(PosixFileExtension)" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" />
+  </ItemGroup>
+  <Target Name="BuildPosixFileBoundary" BeforeTargets="CoreCompile;GetCopyToOutputDirectoryItems" Condition="'$(PosixFileExtension)' != ''" Inputs="$(PosixFileSource)/filesystem.c;$(PosixFileSource)/filesystem.h" Outputs="$(PosixFileOutput)">
+    <MakeDir Directories="$([System.IO.Path]::GetDirectoryName('$(PosixFileOutput)'))" />
+    <Exec Command="cc -std=c11 -O2 -fPIC -Wall -Wextra -Werror $(PosixFileLinkFlag) &quot;$(PosixFileSource)/filesystem.c&quot; -o &quot;$(PosixFileOutput)&quot;" />
   </Target>
 </Project>

@@ -1,8 +1,90 @@
-Part593 implements the native node/dist reference query behind erts_debug and both erts_internal backends. Actual owner/header/storage census, all-scheduler admission, signal/heap classification and retirement are covered by262/262 observations plus59/59 scenarios per backend,13 physical and43 connected groups. Original Erlang/BEAM and98 exports remain. Full regression/readiness were deliberately not run; broader upstream/distributed/resource/platform acceptance and universal compatibility remain unverified. [Receipt](validation/part-593/README.md).
+## Part601 resource/magic32 scope — 2026-11-05
+
+Part602 integrates the native node/dist reference query behind erts_debug and both erts_internal backends. Actual owner/header/storage census, all-scheduler admission, signal/heap classification and retirement are covered by262/262 observations plus59/59 scenarios per backend,13 physical and43 connected groups. Original Erlang/BEAM and98 exports remain. Full regression/readiness were deliberately not run; broader upstream/distributed/resource/platform acceptance and universal compatibility remain unverified. [Receipt](validation/erts-internal-part-593/README.md).
+
+Part601 verifies the native-word resource/magic and atomics/counters port in Windows x86/x64 Debug and Release. All six final-source CI jobs pass, including actual C resource NIF execution, GC retirement and byte parity against pinned original ERTS with word sizes 4 and 8. Other managed resource platforms and full resource lifecycle parity remain open. [Exact scope and results](validation/part-601/README.md).
+
+The release ErtsResource layout is modeled in managed Debug and Release. Prepared-loader prefix conversion is implemented but full finish_loading custody is unverified. Other managed OS/CPU resource profiles, native ERTS-debug resource internals, ARM32/other 32-bit admission, regex/search and monitor/down/takeover/thread/upgrade/unload completeness remain open.
+
+## Historical Part600 native-word32 scope — 2026-11-05
+
+
+Windows x86 now starts the VM and executes the finite original BEAM/native NIF fixture. Native cells use real pointer-sized storage and GCHandle roots; double/bignum/reference/binary/external-identifier layouts follow the pinned OTP native word width. Earlier Part599 expected-gate evidence is historical. Final hosted evidence: [receipt](validation/part-600/README.md).
+
+This is not full 32-bit OTP acceptance. Physical native resource/magic, atomics/counters allocation and finish_loading resource headers remain 64-bit guarded. PID-reference physical arity is modeled, while full 32-bit alias/wire parity remains unverified. ARM32, other 32-bit OS/CPU hosts and big endian are not admitted as NIF platforms. Original32-bit ERTS, full lifecycle/API parity, performance and full repository regression are unrun.
+
+Part589 updates ASN.1 PR118 from timer main29b92f63d, retaining both components and the qualified file atom. Fresh focused build,65 checks/26 OTP outcomes and passive bindings pass. [Evidence](validation/part-589/README.md).
+
+## Historical Part598/599: FreeBSD execution and x86 ABI-only scope — 2026-11-05
+
+The tested FreeBSD 15 amd64 profile uses a pinned community .NET10.0.13 host and
+an explicit resolved OpenSSL 3 SONAME. Its ordinary and unchanged native image
+results match same-host original OTP. Portable one-VM ownership remains.
+
+Windows x86 public structures, descriptor initialization and native varargs are
+verified in CLR x86. Full32-bit guest/NIF execution remains unavailable: the
+native-cell source profile rejects ProcessRuntime construction, and full loader
+admission stays closed. Resource/GC/old-version/scalar completeness and ARM32
+are not inferred from ABI measurements. See [source-bound scope](validation/nif-freebsd-ilp32-20261105/README.md).
+
+
+## Historical Part597: NIF platform boundary — 2026-11-05
+
+The portable Unix bridge has one process-owned runtime, including after owner
+disposal; it does not offer glibc namespace isolation. Reviewed descriptor loading
+and the reviewed reallocation extension are explicitly unavailable there.
+macOS executable-bound OTP bundles require the native CLR launcher; ordinary
+dotnet does not export enif symbols from its main executable. 32-bit NIF ABI
+layouts and Solaris/AIX/OpenBSD/NetBSD host admission are not implemented.
+FreeBSD has C-only target evidence, without .NET execution. Finite NIF fixture
+parity does not establish resource/GC/thread/upgrade/full API compatibility.
+See [current evidence](validation/nif-platform-ci-20261105/README.md).
+
+
+Part603 preserves DETS fixed-scan continuations across deletion. A retained FREE collection remains readable, while an unknown status at a recorded collection address reports bad_object. The public select/3 to select/1 regression and Windows validation are recorded in [Part603](validation/part-603/README.md).
+
+Part593 complete for the targeted platform package: Windows/Linux/macOS each pass74 managed/86 original grouped checks,21 whole OTP scenarios/full error stacks per backend and bidirectional files. Both review findings, native cursors, reopened free lists and readonly errno are fixed; C#/Erlang selection remains. Descriptor54/54 and exact source/pin/census checks pass. See [bound receipts](validation/dets-reconciliation-20261104/README.md). No full local regression or universal compatibility promotion.
+
+Part592 splits prim_file deletion into a common C# result boundary and Windows/POSIX implementations. Unix unlink preserves raw filename bytes and uses separate Linux/Darwin errno tables; Windows directory/invalid-name errors now follow OTP. Focused Windows native-OTP and cross-ABI/path evidence is recorded in [the receipt](validation/prim-file-platform-delete-20261104/README.md). This earlier deletion-only checkpoint is superseded by Part593; full Unix file bindings are now implemented and targeted host execution is in progress.
+
+Part591 DETS adds all64 explicit exports through selectable C#/original Erlang alternatives, native v9 incremental storage and connected file/buffer/RAM/resource-lifetime primitives. Focused backend/upstream/interchange acceptance and limitations are in [the receipt](validation/dets-publication-20261104/README.md). Original Erlang is unchanged; no full regression or global readiness refresh.
+
+Part588 fixes the ASN.1 consumer CS0119 exposed after the file backend was added: qualify the existing file atom constant. Focused build and65 checks/26 fresh OTP outcomes pass; no runtime or compatibility change. [Evidence](validation/part-588/README.md).
+
+Part586 fixes the omitted Monitor source-freeze manifest behind main CI41836436436 and adds a committed-manifest guard. No runtime or compatibility change. [Failure and focused validation](validation/part-586/README.md).
+
+PR111 Part585 reconciles code/file/gen_event on current main, refreshes declared source/producer pins and checks the retained BEAM image hash. Fresh105/105 per backend passes; final-head CI remains required. [Repair evidence](validation/part-585/README.md).
+
+gen_event Part584 retains a scheduling-sensitive upstream_call failure at gen_event_SUITE.erl:853 (depth3 Managed): wait_response(...,0) can see an already queued reply where the testcase expected timeout. No expected values or stacks are normalized. Primary105/105 per backend passes, while universal scheduling/resource/distribution parity is unproved. [Evidence](validation/part-584/README.md).
+
+File Part580: C# and original alternatives retain separate identities and match 408 exact focused observations after literal extraction. All five independent complete filesystem cycles still fail in each backend on incomplete native/provider support. No 100% compatibility or global readiness claim. See [contract and remaining gates](file-backends.md).
+
+ETS Part586 preserves OTP source exception coordinates through named catalogs, including the two distinct failed function-application frames. Original BEAM and C# retain separate acceptance. Table references are alpha-renamed; i/0 projects only its fixed header and table presence. [Evidence](validation/ets-pr-20261104/README.md).
+
+[Part583](validation/part-583/README.md) repairs Windows checkout conversion of the Part582 source freeze. Raw source admission remains strict; no compatibility status is promoted.
+
+[Part582](validation/part-582/README.md) reconciles file PR110 with code main, retains both backend selections and refreshes source/producer identities. Connected validation and final-head hosted CI apply; compatibility classifications remain unchanged.
+
+[Part581](validation/part-581/README.md) repairs PR110 source admission and producer pins; runtime behavior and compatibility classifications are unchanged. Final-head hosted CI remains required.
+
+Code backend publication (2026-11-04): all69 signatures have C#/original alternatives;156 full observations and25 lifecycle results pass per backend on current main, alongside17 connected groups. Existing non-BEAMASM coverage/debug differs from OTP JIT; full release/docs/gzip/platform/resource acceptance remains open. See [code receipt](validation/code-port-20261104/README.md).
+gen_statem: retain both explicit alternatives and complete stack comparisons, including duplicate failed-fun/caller frames. Focused evidence and remaining upstream/platform/resource/distribution/metadata limits are recorded in [gen_statem publication](validation/gen-statem-port-20261104/README.md); global classifications stay unchanged.
+
+PR108 CI follow-up: complete downstream producer bindings and early N1 producer rejection; [evidence and final CI gate](validation/part-577/README.md). Unicode implementation and compatibility classifications are unchanged.
+
+Unicode PR108 follow-up: conversion accumulation is linear while preserving OTP segment-boundary capacity. Source-plan gates and the inherited String documentation pin are repaired; see [focused evidence](validation/part-576/README.md). No compatibility classification is promoted.
+
+Unicode: all 22 exports have explicit Managed/Beam alternatives; see [publication scope](validation/unicode-port-20261104/PUBLICATION.md). Prior finite comparisons do not establish universal or rebased-head acceptance.
+
+Current string integration: all71 C# APIs and original Erlang/BEAM are explicitly selectable. Source errors/full stacks, lazy chardata, numeric and Jaro behavior match the retained8522-case/depth comparisons for both backends;14 cooperation tests and9706 full tests pass. Existing allocation limits and native-caller/async semantics remain. Finite results and original receipts retain their scope; classifications remain unchanged. See [current evidence](validation/string-otp-merge-20261104/README.md).
+
+Part574 consolidates the final Linux descriptor poll source and audits stale branches. Exact-head Linux/original replay, CI, review and merge remain pending; no API/full-contract promotion. See [branch decisions and acceptance gates](validation/part-574/README.md).
 
 Current ordsets checkpoint: repaired missing native reverse helper frames in managed `lists:umerge/1`, observable through `ordsets:union/1` on malformed nested lists. Exact corpus evidence and remaining universal acceptance gates are in [ordsets compatibility](ORDSETS_COMPATIBILITY.md). No whole-module promotion.
 
-Current math checkpoint: no differences observed in the Windows OTP29.1.1 corpus for either backend. Other operating systems and complete floating-point equivalence remain unverified;26/26 exports is not100% compatibility. See [math backends](math-backends.md).
+Draft Part568 prepares the bulk physical-occurrence runtime patch in a separate PR to main. Ordsets stays6 Verified/15 KnownDifferences; current whole ETF replay remains RED. See [evidence and open acceptance gates](validation/part-568/ordsets-bulk/README.md).
+
+Current math checkpoint: the pinned OTP corpus passed for both backends on Windows x64, Linux x64 and macOS ARM64 on the recorded earlier integration heads; [exact CI receipts](validation/integration-20261103/math-ci-41638368916/README.md) preserve runtime/oracle identities. Final-head validation and complete contract applicability remain separate gates;26/26 exports is not100% compatibility. See [math backends](math-backends.md).
 
 Part484: the original BEAM priority save-pointer behavior is now preserved during cooperative length guards;the preceding candidate-revalidation experiment was incompatible and its failed original control is retained. This repairs a scoped receive subcontract and does not promote any full MFA. Part484 executes cooperative length/1 and numeric addition in original BEAM receive guards, closing megaco_trans_sender preparation without rewriting its Erlang algorithm. It reuses existing native operations and typed frame/root/handler checks. A genuine OTP running-trace priority scenario exposed an error in the candidate-revalidation prototype even though its6539 regression tests passed: preserve the running guard result and commit through the current save pointer; only actual host-side unlinking rescans. The new control compares the full result and64017-cell remaining queue (64036 raw ETF bytes). Original576 complete outcomes/queues also match main, warm and cold public .NET consumers. Final affected6539/6539,focus13/13 and final fixture-metadata7/7 pass. Megaco retains150 public checks/2003 prior outcomes and95 source/support assets. All previous1316 primary images remain prepared:1317/1321 (99.7%),Megaco65/65. Four bare-registry native captures remain:erts_internal,erl_ddll,ets,re. Preparation is distinct from full module/API/application/performance compatibility. Catalog8888→8895;708 APIs,118 full contracts,31 known differences,559 pending and1682 source bindings remain unchanged;API/full deltas0/0. Readiness uses an explicit prior8888+current-affected preflight;exact Part484 publication-head full CI/artifact remains required. Part483 mergedfa7afb371;its separate merge CI40183200007 and downloaded artifact independently pass8888/8888,25 whole corpora and17 cold families.
 
@@ -935,3 +1017,12 @@ Close the observed nil/atom/literal context-forwarding and finite record-helper 
 ## Part482 — observed frame refusal closed
 
 The observed safe comparison before an uninitialized Y destination no longer produces a false exception/root edge. All eight canonical comparison BIFs share the already implemented operator semantics. Five invalid operand/destination/root cases remain refused and agree with original compiler diagnostics. No previously observed frame refusal remains in the1321-image inventory;receive/native capture failures may conceal further paths. Full APIs,physical/native/application/performance compatibility are not promoted.
+
+## Native flatmap ordering after key mutation
+
+The [pinned witness and source classification](validation/integration-20261103/native-flat-order-pending/README.md) identify known numeric/order differences for supported native materialized maps with changed binary keys. ordsets:is_equal/2 and is_element/2 disagree in actual public observations; is_set/1 on reverse-ordered operands follows directly from pinned source and the observed strict order. These3 APIs are Known differences, with6 verified and12 still pending. This pre-existing main branch is retained explicitly until a separate physical-key-order fix and full validation.
+
+The [later all21-API native observer](validation/integration-20261103/native-flat-order-all-apis/README.md) expands actual counterexamples to all15 comparison-dependent ordsets MFAs. Current classification is6 verified/15 Known differences/0 pending; the earlier narrower3-known audit remains historical evidence. The separate candidate fix has not been applied here.
+
+
+Timer PR113: the user explicitly requested a full C# timer port with retained Erlang/BEAM and selectable implementation. This is the overriding authorization for this module; the general pure-OTP policy remains. See [timer backend and review evidence](timer-backends.md).

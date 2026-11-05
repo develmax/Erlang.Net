@@ -183,7 +183,7 @@ public static class TermOrder
                             return 0;
                         }
                     }
-                    if (exact && purpose != TermComparisonPurpose.CanonicalKeyStorage
+                    if (exact && purpose is not (TermComparisonPurpose.CanonicalKeyStorage or TermComparisonPurpose.ExactEquality)
                         && x.FlatKeys426 is not null && y.FlatKeys426 is not null)
                     {
                         pending.Push(TermMapOrdering.FlatSteps(x, y, exact).GetEnumerator());
@@ -197,7 +197,12 @@ public static class TermOrder
                         mapLayout ??= layoutFactory();
                         if (mapLayout is ITermMapOrderingLayout ordering)
                         {
-                            pending.Push(TermMapOrdering.HashSteps(x, y, exact, ordering).GetEnumerator());
+                            pending.Push(TermMapOrdering.HashSteps(
+                                x,
+                                y,
+                                exact,
+                                ordering
+                            ).GetEnumerator());
 
                             return 0;
                         }
@@ -454,14 +459,17 @@ public static class TermOrder
     )
     {
         yield return TermComparisonStep.Pair(left.Module, right.Module, true);
-        yield return TermComparisonStep.Scalar(left.Index.CompareTo(right.Index));
-        if (purpose is TermComparisonPurpose.ExactEquality or TermComparisonPurpose.CanonicalKeyStorage)
+        bool identityComparison = purpose is TermComparisonPurpose.ExactEquality or TermComparisonPurpose.CanonicalKeyStorage;
+        // ERTS subtracts two C int words before widening the result to Sint.
+        yield return TermComparisonStep.Scalar(identityComparison
+            ? left.Index.CompareTo(right.Index) : unchecked(left.Index - right.Index));
+        if (identityComparison)
         {
             yield return TermComparisonStep.Pair(left.Unique, right.Unique, true);
             yield return TermComparisonStep.Scalar(a.Arity.CompareTo(b.Arity));
         }
         else
-            yield return TermComparisonStep.Scalar(left.OldUnique.CompareTo(right.OldUnique));
+            yield return TermComparisonStep.Scalar(unchecked(left.OldUnique - right.OldUnique));
         yield return TermComparisonStep.Scalar(a.Environment.Count.CompareTo(b.Environment.Count));
         for (int i = 0; i < a.Environment.Count; i++)
             yield return TermComparisonStep.Pair(a.Environment[i], b.Environment[i], exact);

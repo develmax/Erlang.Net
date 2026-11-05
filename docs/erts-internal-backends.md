@@ -5,8 +5,8 @@ OTP 29.1.1 (`ad05823719d77c8faee87348ea39513d4e2f99c5`). The other 71 exports
 are shared C# VM primitives. The complete selected surface is 98 exports.
 The original Erlang source and BEAM remain unchanged.
 
-The Part586 multi-scheduling gate is closed by [Part592](validation/part-592/README.md).
-[Part593](validation/part-593/README.md) adds the actual native node/dist reference
+The Part586 multi-scheduling gate is closed by [Part592](validation/erts-internal-part-592/README.md).
+[Part593](validation/erts-internal-part-593/README.md) adds the actual native node/dist reference
 inventory. Both alternatives match262/262 complete observations and59/59 scenarios;
 13 physical groups and43 selected connected groups pass. All historical failures
 remain in the immutable receipts. Whole-module compatibility remains **partial**:
@@ -66,7 +66,7 @@ builds a fresh snapshot from the recorded base and only the owned additions
 and four explicit integration edits. Initial unrelated draft build failures
 and subsequent shared compiler-output contention are retained separately.
 
-The [Part586 receipt](validation/part-586/README.md) contains commands, source
+The [Part586 receipt](validation/erts-internal-part-586/README.md) contains commands, source
 and binary identities, full observations, all failures, and the 17 passing
 connected groups. Part592 implements real normal/dirty coordination, nested per-process blockers,
 owner-death release, truthful pending/committed state and queue restoration.
@@ -88,6 +88,6 @@ The helper's finally path is tested with disabled and enabled internal-state
 errors, including complete source stacks and restored scheduling state. The
 positive node_and_dist_references query now returns a census of actual runtime
 root owners under a real scheduling barrier. Disabled access, invalid tuple
-markers and normal-only blocks retain native errors. See [Part593](validation/part-593/README.md)
+markers and normal-only blocks retain native errors. See [Part593](validation/erts-internal-part-593/README.md)
 for generation separation, signal/heap roots, ETS, timer, persistent storage,
 compiled programs, distribution handles and remaining acceptance boundaries.

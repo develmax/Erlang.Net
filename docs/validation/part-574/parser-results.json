@@ -1,0 +1,231 @@
+{
+  "Passed": true,
+  "PassedCount": 18,
+  "Total": 18,
+  "Cases": [
+    {
+      "Name": "poll-zero-valid",
+      "Passed": true,
+      "ExpectedAccepted": true,
+      "ExpectedRejection": null,
+      "ActualAccepted": true,
+      "ActualRows": [
+        {
+          "Type": "poll",
+          "Identity": 0,
+          "CounterKeys": [
+            "aux",
+            "check_io",
+            "emulator",
+            "gc",
+            "other",
+            "port",
+            "sleep"
+          ]
+        }
+      ],
+      "ErrorType": null,
+      "Error": null
+    },
+    {
+      "Name": "scheduler-positive-valid",
+      "Passed": true,
+      "ExpectedAccepted": true,
+      "ExpectedRejection": null,
+      "ActualAccepted": true,
+      "ActualRows": [
+        {
+          "Type": "scheduler",
+          "Identity": 1,
+          "CounterKeys": [
+            "aux",
+            "check_io",
+            "emulator",
+            "gc",
+            "other",
+            "port",
+            "sleep"
+          ]
+        }
+      ],
+      "ErrorType": null,
+      "Error": null
+    },
+    {
+      "Name": "poll-positive-valid",
+      "Passed": true,
+      "ExpectedAccepted": true,
+      "ExpectedRejection": null,
+      "ActualAccepted": true,
+      "ActualRows": [
+        {
+          "Type": "poll",
+          "Identity": 1,
+          "CounterKeys": [
+            "aux",
+            "check_io",
+            "emulator",
+            "gc",
+            "other",
+            "port",
+            "sleep"
+          ]
+        }
+      ],
+      "ErrorType": null,
+      "Error": null
+    },
+    {
+      "Name": "other-zero-rejected",
+      "Passed": true,
+      "ExpectedAccepted": false,
+      "ExpectedRejection": "System.InvalidOperationException",
+      "ActualAccepted": false,
+      "ActualRows": null,
+      "ErrorType": "System.InvalidOperationException",
+      "Error": "System.InvalidOperationException: Actual logical VM user CPU attribution contract failed\r\n   at Erlang.NifNativeBackend.CpuStatisticsAccess.Require(Boolean value) in D:\\Distr\\Work\\Codex\\Erlang.Net\\artifacts\\branch-cleanup-20261104\\candidate\\tools\\Native\\Erlang.NifNativeBackend\\CpuStatisticsAccess.cs:line 10\r\n   at Erlang.NifNativeBackend.MicrostateTestAccess.Parse(Term term) in D:\\Distr\\Work\\Codex\\Erlang.Net\\artifacts\\branch-cleanup-20261104\\candidate\\tools\\Native\\Erlang.NifNativeBackend\\MicrostateTestAccess.cs:line 73\r\n   at Program.\u003C\u003Ec__DisplayClass0_0.\u003C\u003CMain\u003E$\u003Eg__Check|3(String name, Func\u00601 factory, Boolean accept, Type rejectedBy) in D:\\Distr\\Work\\Codex\\Erlang.Net\\artifacts\\branch-cleanup-20261104\\parser-controls\\Program.cs:line 35"
+    },
+    {
+      "Name": "scheduler-zero-rejected",
+      "Passed": true,
+      "ExpectedAccepted": false,
+      "ExpectedRejection": "System.InvalidOperationException",
+      "ActualAccepted": false,
+      "ActualRows": null,
+      "ErrorType": "System.InvalidOperationException",
+      "Error": "System.InvalidOperationException: Actual logical VM user CPU attribution contract failed\r\n   at Erlang.NifNativeBackend.CpuStatisticsAccess.Require(Boolean value) in D:\\Distr\\Work\\Codex\\Erlang.Net\\artifacts\\branch-cleanup-20261104\\candidate\\tools\\Native\\Erlang.NifNativeBackend\\CpuStatisticsAccess.cs:line 10\r\n   at Erlang.NifNativeBackend.MicrostateTestAccess.Parse(Term term) in D:\\Distr\\Work\\Codex\\Erlang.Net\\artifacts\\branch-cleanup-20261104\\candidate\\tools\\Native\\Erlang.NifNativeBackend\\MicrostateTestAccess.cs:line 73\r\n   at Program.\u003C\u003Ec__DisplayClass0_0.\u003C\u003CMain\u003E$\u003Eg__Check|3(String name, Func\u00601 factory, Boolean accept, Type rejectedBy) in D:\\Distr\\Work\\Codex\\Erlang.Net\\artifacts\\branch-cleanup-20261104\\parser-controls\\Program.cs:line 35"
+    },
+    {
+      "Name": "poll-negative-rejected",
+      "Passed": true,
+      "ExpectedAccepted": false,
+      "ExpectedRejection": "System.InvalidOperationException",
+      "ActualAccepted": false,
+      "ActualRows": null,
+      "ErrorType": "System.InvalidOperationException",
+      "Error": "System.InvalidOperationException: Actual logical VM user CPU attribution contract failed\r\n   at Erlang.NifNativeBackend.CpuStatisticsAccess.Require(Boolean value) in D:\\Distr\\Work\\Codex\\Erlang.Net\\artifacts\\branch-cleanup-20261104\\candidate\\tools\\Native\\Erlang.NifNativeBackend\\CpuStatisticsAccess.cs:line 10\r\n   at Erlang.NifNativeBackend.MicrostateTestAccess.Parse(Term term) in D:\\Distr\\Work\\Codex\\Erlang.Net\\artifacts\\branch-cleanup-20261104\\candidate\\tools\\Native\\Erlang.NifNativeBackend\\MicrostateTestAccess.cs:line 73\r\n   at Program.\u003C\u003Ec__DisplayClass0_0.\u003C\u003CMain\u003E$\u003Eg__Check|3(String name, Func\u00601 factory, Boolean accept, Type rejectedBy) in D:\\Distr\\Work\\Codex\\Erlang.Net\\artifacts\\branch-cleanup-20261104\\parser-controls\\Program.cs:line 35"
+    },
+    {
+      "Name": "scheduler-negative-rejected",
+      "Passed": true,
+      "ExpectedAccepted": false,
+      "ExpectedRejection": "System.InvalidOperationException",
+      "ActualAccepted": false,
+      "ActualRows": null,
+      "ErrorType": "System.InvalidOperationException",
+      "Error": "System.InvalidOperationException: Actual logical VM user CPU attribution contract failed\r\n   at Erlang.NifNativeBackend.CpuStatisticsAccess.Require(Boolean value) in D:\\Distr\\Work\\Codex\\Erlang.Net\\artifacts\\branch-cleanup-20261104\\candidate\\tools\\Native\\Erlang.NifNativeBackend\\CpuStatisticsAccess.cs:line 10\r\n   at Erlang.NifNativeBackend.MicrostateTestAccess.Parse(Term term) in D:\\Distr\\Work\\Codex\\Erlang.Net\\artifacts\\branch-cleanup-20261104\\candidate\\tools\\Native\\Erlang.NifNativeBackend\\MicrostateTestAccess.cs:line 73\r\n   at Program.\u003C\u003Ec__DisplayClass0_0.\u003C\u003CMain\u003E$\u003Eg__Check|3(String name, Func\u00601 factory, Boolean accept, Type rejectedBy) in D:\\Distr\\Work\\Codex\\Erlang.Net\\artifacts\\branch-cleanup-20261104\\parser-controls\\Program.cs:line 35"
+    },
+    {
+      "Name": "duplicate-poll-zero-rejected",
+      "Passed": true,
+      "ExpectedAccepted": false,
+      "ExpectedRejection": "System.InvalidOperationException",
+      "ActualAccepted": false,
+      "ActualRows": null,
+      "ErrorType": "System.InvalidOperationException",
+      "Error": "System.InvalidOperationException: Actual logical VM user CPU attribution contract failed\r\n   at Erlang.NifNativeBackend.CpuStatisticsAccess.Require(Boolean value) in D:\\Distr\\Work\\Codex\\Erlang.Net\\artifacts\\branch-cleanup-20261104\\candidate\\tools\\Native\\Erlang.NifNativeBackend\\CpuStatisticsAccess.cs:line 10\r\n   at Erlang.NifNativeBackend.MicrostateTestAccess.Parse(Term term) in D:\\Distr\\Work\\Codex\\Erlang.Net\\artifacts\\branch-cleanup-20261104\\candidate\\tools\\Native\\Erlang.NifNativeBackend\\MicrostateTestAccess.cs:line 73\r\n   at Program.\u003C\u003Ec__DisplayClass0_0.\u003C\u003CMain\u003E$\u003Eg__Check|3(String name, Func\u00601 factory, Boolean accept, Type rejectedBy) in D:\\Distr\\Work\\Codex\\Erlang.Net\\artifacts\\branch-cleanup-20261104\\parser-controls\\Program.cs:line 35"
+    },
+    {
+      "Name": "duplicate-scheduler-rejected",
+      "Passed": true,
+      "ExpectedAccepted": false,
+      "ExpectedRejection": "System.InvalidOperationException",
+      "ActualAccepted": false,
+      "ActualRows": null,
+      "ErrorType": "System.InvalidOperationException",
+      "Error": "System.InvalidOperationException: Actual logical VM user CPU attribution contract failed\r\n   at Erlang.NifNativeBackend.CpuStatisticsAccess.Require(Boolean value) in D:\\Distr\\Work\\Codex\\Erlang.Net\\artifacts\\branch-cleanup-20261104\\candidate\\tools\\Native\\Erlang.NifNativeBackend\\CpuStatisticsAccess.cs:line 10\r\n   at Erlang.NifNativeBackend.MicrostateTestAccess.Parse(Term term) in D:\\Distr\\Work\\Codex\\Erlang.Net\\artifacts\\branch-cleanup-20261104\\candidate\\tools\\Native\\Erlang.NifNativeBackend\\MicrostateTestAccess.cs:line 73\r\n   at Program.\u003C\u003Ec__DisplayClass0_0.\u003C\u003CMain\u003E$\u003Eg__Check|3(String name, Func\u00601 factory, Boolean accept, Type rejectedBy) in D:\\Distr\\Work\\Codex\\Erlang.Net\\artifacts\\branch-cleanup-20261104\\parser-controls\\Program.cs:line 35"
+    },
+    {
+      "Name": "missing-id-key-rejected",
+      "Passed": true,
+      "ExpectedAccepted": false,
+      "ExpectedRejection": "System.InvalidOperationException",
+      "ActualAccepted": false,
+      "ActualRows": null,
+      "ErrorType": "System.InvalidOperationException",
+      "Error": "System.InvalidOperationException: Actual logical VM user CPU attribution contract failed\r\n   at Erlang.NifNativeBackend.CpuStatisticsAccess.Require(Boolean value) in D:\\Distr\\Work\\Codex\\Erlang.Net\\artifacts\\branch-cleanup-20261104\\candidate\\tools\\Native\\Erlang.NifNativeBackend\\CpuStatisticsAccess.cs:line 10\r\n   at Erlang.NifNativeBackend.MicrostateTestAccess.Parse(Term term) in D:\\Distr\\Work\\Codex\\Erlang.Net\\artifacts\\branch-cleanup-20261104\\candidate\\tools\\Native\\Erlang.NifNativeBackend\\MicrostateTestAccess.cs:line 70\r\n   at Program.\u003C\u003Ec__DisplayClass0_0.\u003C\u003CMain\u003E$\u003Eg__Check|3(String name, Func\u00601 factory, Boolean accept, Type rejectedBy) in D:\\Distr\\Work\\Codex\\Erlang.Net\\artifacts\\branch-cleanup-20261104\\parser-controls\\Program.cs:line 35"
+    },
+    {
+      "Name": "extra-map-key-rejected",
+      "Passed": true,
+      "ExpectedAccepted": false,
+      "ExpectedRejection": "System.InvalidOperationException",
+      "ActualAccepted": false,
+      "ActualRows": null,
+      "ErrorType": "System.InvalidOperationException",
+      "Error": "System.InvalidOperationException: Actual logical VM user CPU attribution contract failed\r\n   at Erlang.NifNativeBackend.CpuStatisticsAccess.Require(Boolean value) in D:\\Distr\\Work\\Codex\\Erlang.Net\\artifacts\\branch-cleanup-20261104\\candidate\\tools\\Native\\Erlang.NifNativeBackend\\CpuStatisticsAccess.cs:line 10\r\n   at Erlang.NifNativeBackend.MicrostateTestAccess.Parse(Term term) in D:\\Distr\\Work\\Codex\\Erlang.Net\\artifacts\\branch-cleanup-20261104\\candidate\\tools\\Native\\Erlang.NifNativeBackend\\MicrostateTestAccess.cs:line 70\r\n   at Program.\u003C\u003Ec__DisplayClass0_0.\u003C\u003CMain\u003E$\u003Eg__Check|3(String name, Func\u00601 factory, Boolean accept, Type rejectedBy) in D:\\Distr\\Work\\Codex\\Erlang.Net\\artifacts\\branch-cleanup-20261104\\parser-controls\\Program.cs:line 35"
+    },
+    {
+      "Name": "missing-counter-rejected",
+      "Passed": true,
+      "ExpectedAccepted": false,
+      "ExpectedRejection": "System.InvalidOperationException",
+      "ActualAccepted": false,
+      "ActualRows": null,
+      "ErrorType": "System.InvalidOperationException",
+      "Error": "System.InvalidOperationException: Actual logical VM user CPU attribution contract failed\r\n   at Erlang.NifNativeBackend.CpuStatisticsAccess.Require(Boolean value) in D:\\Distr\\Work\\Codex\\Erlang.Net\\artifacts\\branch-cleanup-20261104\\candidate\\tools\\Native\\Erlang.NifNativeBackend\\CpuStatisticsAccess.cs:line 10\r\n   at Erlang.NifNativeBackend.MicrostateTestAccess.Parse(Term term) in D:\\Distr\\Work\\Codex\\Erlang.Net\\artifacts\\branch-cleanup-20261104\\candidate\\tools\\Native\\Erlang.NifNativeBackend\\MicrostateTestAccess.cs:line 76\r\n   at Program.\u003C\u003Ec__DisplayClass0_0.\u003C\u003CMain\u003E$\u003Eg__Check|3(String name, Func\u00601 factory, Boolean accept, Type rejectedBy) in D:\\Distr\\Work\\Codex\\Erlang.Net\\artifacts\\branch-cleanup-20261104\\parser-controls\\Program.cs:line 35"
+    },
+    {
+      "Name": "extra-counter-rejected",
+      "Passed": true,
+      "ExpectedAccepted": false,
+      "ExpectedRejection": "System.InvalidOperationException",
+      "ActualAccepted": false,
+      "ActualRows": null,
+      "ErrorType": "System.InvalidOperationException",
+      "Error": "System.InvalidOperationException: Actual logical VM user CPU attribution contract failed\r\n   at Erlang.NifNativeBackend.CpuStatisticsAccess.Require(Boolean value) in D:\\Distr\\Work\\Codex\\Erlang.Net\\artifacts\\branch-cleanup-20261104\\candidate\\tools\\Native\\Erlang.NifNativeBackend\\CpuStatisticsAccess.cs:line 10\r\n   at Erlang.NifNativeBackend.MicrostateTestAccess.Parse(Term term) in D:\\Distr\\Work\\Codex\\Erlang.Net\\artifacts\\branch-cleanup-20261104\\candidate\\tools\\Native\\Erlang.NifNativeBackend\\MicrostateTestAccess.cs:line 76\r\n   at Program.\u003C\u003Ec__DisplayClass0_0.\u003C\u003CMain\u003E$\u003Eg__Check|3(String name, Func\u00601 factory, Boolean accept, Type rejectedBy) in D:\\Distr\\Work\\Codex\\Erlang.Net\\artifacts\\branch-cleanup-20261104\\parser-controls\\Program.cs:line 35"
+    },
+    {
+      "Name": "negative-counter-rejected",
+      "Passed": true,
+      "ExpectedAccepted": false,
+      "ExpectedRejection": "System.InvalidOperationException",
+      "ActualAccepted": false,
+      "ActualRows": null,
+      "ErrorType": "System.InvalidOperationException",
+      "Error": "System.InvalidOperationException: Actual logical VM user CPU attribution contract failed\r\n   at Erlang.NifNativeBackend.CpuStatisticsAccess.Require(Boolean value) in D:\\Distr\\Work\\Codex\\Erlang.Net\\artifacts\\branch-cleanup-20261104\\candidate\\tools\\Native\\Erlang.NifNativeBackend\\CpuStatisticsAccess.cs:line 10\r\n   at Erlang.NifNativeBackend.MicrostateTestAccess.Parse(Term term) in D:\\Distr\\Work\\Codex\\Erlang.Net\\artifacts\\branch-cleanup-20261104\\candidate\\tools\\Native\\Erlang.NifNativeBackend\\MicrostateTestAccess.cs:line 79\r\n   at Program.\u003C\u003Ec__DisplayClass0_0.\u003C\u003CMain\u003E$\u003Eg__Check|3(String name, Func\u00601 factory, Boolean accept, Type rejectedBy) in D:\\Distr\\Work\\Codex\\Erlang.Net\\artifacts\\branch-cleanup-20261104\\parser-controls\\Program.cs:line 35"
+    },
+    {
+      "Name": "noninteger-counter-rejected",
+      "Passed": true,
+      "ExpectedAccepted": false,
+      "ExpectedRejection": "System.InvalidCastException",
+      "ActualAccepted": false,
+      "ActualRows": null,
+      "ErrorType": "System.InvalidCastException",
+      "Error": "System.InvalidCastException: Unable to cast object of type \u0027Erlang.Atom\u0027 to type \u0027Erlang.Integer\u0027.\r\n   at Erlang.NifNativeBackend.MicrostateTestAccess.\u003C\u003Ec.\u003CParse\u003Eb__5_2(KeyValuePair\u00602 pair) in D:\\Distr\\Work\\Codex\\Erlang.Net\\artifacts\\branch-cleanup-20261104\\candidate\\tools\\Native\\Erlang.NifNativeBackend\\MicrostateTestAccess.cs:line 78\r\n   at System.Linq.Enumerable.ToDictionary[TSource,TKey,TElement](IEnumerable\u00601 source, Func\u00602 keySelector, Func\u00602 elementSelector, IEqualityComparer\u00601 comparer)\r\n   at System.Linq.Enumerable.ToDictionary[TSource,TKey,TElement](IEnumerable\u00601 source, Func\u00602 keySelector, Func\u00602 elementSelector)\r\n   at Erlang.NifNativeBackend.MicrostateTestAccess.Parse(Term term) in D:\\Distr\\Work\\Codex\\Erlang.Net\\artifacts\\branch-cleanup-20261104\\candidate\\tools\\Native\\Erlang.NifNativeBackend\\MicrostateTestAccess.cs:line 78\r\n   at Program.\u003C\u003Ec__DisplayClass0_0.\u003C\u003CMain\u003E$\u003Eg__Check|3(String name, Func\u00601 factory, Boolean accept, Type rejectedBy) in D:\\Distr\\Work\\Codex\\Erlang.Net\\artifacts\\branch-cleanup-20261104\\parser-controls\\Program.cs:line 35"
+    },
+    {
+      "Name": "nonatom-type-rejected",
+      "Passed": true,
+      "ExpectedAccepted": false,
+      "ExpectedRejection": "System.InvalidCastException",
+      "ActualAccepted": false,
+      "ActualRows": null,
+      "ErrorType": "System.InvalidCastException",
+      "Error": "System.InvalidCastException: Unable to cast object of type \u0027Erlang.Integer\u0027 to type \u0027Erlang.Atom\u0027.\r\n   at Erlang.NifNativeBackend.MicrostateTestAccess.Parse(Term term) in D:\\Distr\\Work\\Codex\\Erlang.Net\\artifacts\\branch-cleanup-20261104\\candidate\\tools\\Native\\Erlang.NifNativeBackend\\MicrostateTestAccess.cs:line 71\r\n   at Program.\u003C\u003Ec__DisplayClass0_0.\u003C\u003CMain\u003E$\u003Eg__Check|3(String name, Func\u00601 factory, Boolean accept, Type rejectedBy) in D:\\Distr\\Work\\Codex\\Erlang.Net\\artifacts\\branch-cleanup-20261104\\parser-controls\\Program.cs:line 35"
+    },
+    {
+      "Name": "nonmap-row-rejected",
+      "Passed": true,
+      "ExpectedAccepted": false,
+      "ExpectedRejection": "System.InvalidOperationException",
+      "ActualAccepted": false,
+      "ActualRows": null,
+      "ErrorType": "System.InvalidOperationException",
+      "Error": "System.InvalidOperationException: Actual logical VM user CPU attribution contract failed\r\n   at Erlang.NifNativeBackend.CpuStatisticsAccess.Require(Boolean value) in D:\\Distr\\Work\\Codex\\Erlang.Net\\artifacts\\branch-cleanup-20261104\\candidate\\tools\\Native\\Erlang.NifNativeBackend\\CpuStatisticsAccess.cs:line 10\r\n   at Erlang.NifNativeBackend.MicrostateTestAccess.Parse(Term term) in D:\\Distr\\Work\\Codex\\Erlang.Net\\artifacts\\branch-cleanup-20261104\\candidate\\tools\\Native\\Erlang.NifNativeBackend\\MicrostateTestAccess.cs:line 68\r\n   at Program.\u003C\u003Ec__DisplayClass0_0.\u003C\u003CMain\u003E$\u003Eg__Check|3(String name, Func\u00601 factory, Boolean accept, Type rejectedBy) in D:\\Distr\\Work\\Codex\\Erlang.Net\\artifacts\\branch-cleanup-20261104\\parser-controls\\Program.cs:line 35"
+    },
+    {
+      "Name": "nonmap-counters-rejected",
+      "Passed": true,
+      "ExpectedAccepted": false,
+      "ExpectedRejection": "System.InvalidCastException",
+      "ActualAccepted": false,
+      "ActualRows": null,
+      "ErrorType": "System.InvalidCastException",
+      "Error": "System.InvalidCastException: Unable to cast object of type \u0027Erlang.Integer\u0027 to type \u0027Erlang.MapTerm\u0027.\r\n   at Erlang.NifNativeBackend.MicrostateTestAccess.Parse(Term term) in D:\\Distr\\Work\\Codex\\Erlang.Net\\artifacts\\branch-cleanup-20261104\\candidate\\tools\\Native\\Erlang.NifNativeBackend\\MicrostateTestAccess.cs:line 75\r\n   at Program.\u003C\u003Ec__DisplayClass0_0.\u003C\u003CMain\u003E$\u003Eg__Check|3(String name, Func\u00601 factory, Boolean accept, Type rejectedBy) in D:\\Distr\\Work\\Codex\\Erlang.Net\\artifacts\\branch-cleanup-20261104\\parser-controls\\Program.cs:line 35"
+    }
+  ],
+  "Runtime": "10.0.11",
+  "Scope": "Actual full test helper pure Term parser only; no VM/kernel/public stats execution or API compatibility claim"
+}

@@ -112,6 +112,9 @@ internal sealed partial class RuntimeDriverFrontend422
 
     private async Task DrainNativeOwners()
     {
+        // Existing bounded retirement/failure fence above covers this wait.
+        // A real child exit invalidates remote leases; never synthesize ACKs.
+        await WaitAsyncAccounting1170().ConfigureAwait(false);
         var failures = new List<Exception>();
         try
         {

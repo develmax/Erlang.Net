@@ -1,0 +1,363 @@
+{
+  "Verdict": "Final Windows Debug1347 and Release1348 each7/7 audited; source-only1352 Cases declaration successor separately proven",
+  "Profiles": [
+    {
+      "Configuration": "Debug",
+      "CasesPassed": 7,
+      "Names": [
+        "original-driver-A1",
+        "original-driver-A2",
+        "public-queued-ack-cancel",
+        "public-queued-ack-close",
+        "component-child-exit",
+        "component-wrong-epoch",
+        "original-queued-port-close-A1"
+      ],
+      "OuterSeconds": 29.796999999991385,
+      "Stages": [
+        {
+          "Name": "vswhere",
+          "Seconds": 0.09399999998277053,
+          "ForcedCleanup": false,
+          "JobZeroAndHandlesClosed": true
+        },
+        {
+          "Name": "fixture-native",
+          "Seconds": 1.5780000000086147,
+          "ForcedCleanup": true,
+          "JobZeroAndHandlesClosed": true
+        },
+        {
+          "Name": "fixture-beam",
+          "Seconds": 0.6090000000258442,
+          "ForcedCleanup": false,
+          "JobZeroAndHandlesClosed": true
+        },
+        {
+          "Name": "fixture-queued-port-beam",
+          "Seconds": 0.5620000000053551,
+          "ForcedCleanup": false,
+          "JobZeroAndHandlesClosed": true
+        },
+        {
+          "Name": "original-A1",
+          "Seconds": 0.5,
+          "ForcedCleanup": false,
+          "JobZeroAndHandlesClosed": true
+        },
+        {
+          "Name": "original-A2",
+          "Seconds": 0.5320000000065193,
+          "ForcedCleanup": false,
+          "JobZeroAndHandlesClosed": true
+        },
+        {
+          "Name": "original-queued-port-close-A1",
+          "Seconds": 0.28099999998812564,
+          "ForcedCleanup": false,
+          "JobZeroAndHandlesClosed": true
+        },
+        {
+          "Name": "observer-build",
+          "Seconds": 4.312000000005355,
+          "ForcedCleanup": false,
+          "JobZeroAndHandlesClosed": true
+        },
+        {
+          "Name": "observer-execute",
+          "Seconds": 14.719000000011874,
+          "ForcedCleanup": false,
+          "JobZeroAndHandlesClosed": true
+        }
+      ],
+      "ExecutedPlanSha256": "B248DC0BA74E48BF5DF3FB28B9C9A5A207F230183FA5A6F2485AE06BC5AA7B36",
+      "CurrentSourceGuardsVerified": 78,
+      "RawGuardsChecked": 132,
+      "PostRunDeclarationOnlyDrift": [],
+      "ObserverOutputGuardsVerified": 13,
+      "ProviderInventoryBeforeAfterIdentical": 6427,
+      "UnchangedGenuineDriverC": true,
+      "ActualPackageBytesMatchManifest": true,
+      "PackageSourceStableProducerReported": true,
+      "OriginalA1AndA2EachTwelveReturnedAndFinalCountsEqual": true,
+      "PublicCancelCloseAndComponentFailurePhysicalFences": true,
+      "WholeCrossPortOwnEtfMatchesReportedRaw": true,
+      "WholeCrossPortEveryFixedFieldEqualToFreshOriginal": true,
+      "DynamicHeldTidPreservedOnlyIndependentPositiveRoleCheck": true,
+      "BPortInfoUndefined": true,
+      "BAbsentFromPorts": true,
+      "PublicDdllCountAfterBClose": 2,
+      "BReplyAndDownBeforeAHeldRelease": true,
+      "FinalNativeInvokedReturnedFreed": 2,
+      "FinalNativeReady": 1,
+      "FinalNativeJobs": 0,
+      "FinalNativeStates": 1
+    },
+    {
+      "Configuration": "Release",
+      "CasesPassed": 7,
+      "Names": [
+        "original-driver-A1",
+        "original-driver-A2",
+        "public-queued-ack-cancel",
+        "public-queued-ack-close",
+        "component-child-exit",
+        "component-wrong-epoch",
+        "original-queued-port-close-A1"
+      ],
+      "OuterSeconds": 26.687000000005355,
+      "Stages": [
+        {
+          "Name": "vswhere",
+          "Seconds": 0.10899999999674037,
+          "ForcedCleanup": false,
+          "JobZeroAndHandlesClosed": true
+        },
+        {
+          "Name": "fixture-native",
+          "Seconds": 1.4839999999967404,
+          "ForcedCleanup": true,
+          "JobZeroAndHandlesClosed": true
+        },
+        {
+          "Name": "fixture-beam",
+          "Seconds": 0.5309999999881256,
+          "ForcedCleanup": false,
+          "JobZeroAndHandlesClosed": true
+        },
+        {
+          "Name": "fixture-queued-port-beam",
+          "Seconds": 0.485000000015134,
+          "ForcedCleanup": false,
+          "JobZeroAndHandlesClosed": true
+        },
+        {
+          "Name": "original-A1",
+          "Seconds": 0.5,
+          "ForcedCleanup": false,
+          "JobZeroAndHandlesClosed": true
+        },
+        {
+          "Name": "original-A2",
+          "Seconds": 0.46799999999348074,
+          "ForcedCleanup": false,
+          "JobZeroAndHandlesClosed": true
+        },
+        {
+          "Name": "original-queued-port-close-A1",
+          "Seconds": 0.28200000000651926,
+          "ForcedCleanup": false,
+          "JobZeroAndHandlesClosed": true
+        },
+        {
+          "Name": "observer-build",
+          "Seconds": 2.9839999999967404,
+          "ForcedCleanup": false,
+          "JobZeroAndHandlesClosed": true
+        },
+        {
+          "Name": "observer-execute",
+          "Seconds": 11.172000000020489,
+          "ForcedCleanup": false,
+          "JobZeroAndHandlesClosed": true
+        }
+      ],
+      "ExecutedPlanSha256": "B248DC0BA74E48BF5DF3FB28B9C9A5A207F230183FA5A6F2485AE06BC5AA7B36",
+      "CurrentSourceGuardsVerified": 78,
+      "RawGuardsChecked": 132,
+      "PostRunDeclarationOnlyDrift": [],
+      "ObserverOutputGuardsVerified": 13,
+      "ProviderInventoryBeforeAfterIdentical": 6427,
+      "UnchangedGenuineDriverC": true,
+      "ActualPackageBytesMatchManifest": true,
+      "PackageSourceStableProducerReported": true,
+      "OriginalA1AndA2EachTwelveReturnedAndFinalCountsEqual": true,
+      "PublicCancelCloseAndComponentFailurePhysicalFences": true,
+      "WholeCrossPortOwnEtfMatchesReportedRaw": true,
+      "WholeCrossPortEveryFixedFieldEqualToFreshOriginal": true,
+      "DynamicHeldTidPreservedOnlyIndependentPositiveRoleCheck": true,
+      "BPortInfoUndefined": true,
+      "BAbsentFromPorts": true,
+      "PublicDdllCountAfterBClose": 2,
+      "BReplyAndDownBeforeAHeldRelease": true,
+      "FinalNativeInvokedReturnedFreed": 2,
+      "FinalNativeReady": 1,
+      "FinalNativeJobs": 0,
+      "FinalNativeStates": 1
+    }
+  ],
+  "DeclarationSuccessor": {
+    "ExecutedPlan": "B248DC0BA74E48BF5DF3FB28B9C9A5A207F230183FA5A6F2485AE06BC5AA7B36",
+    "CurrentPlan": "DC055B0F395E1B84D02BF8B8BF66244A2DBE15505E9C9BC55D6E5405307B81C8",
+    "Inputs78Identical": true,
+    "OnlyJsonDelta": "Cases six-element prefix unchanged, seventh actual collected case appended",
+    "NoRerunAtNewPinClaim": true
+  },
+  "Caveats": [
+    "No Linux/default-topology/poll/fullstatistics/S0-S5/all-native compatibility claim.",
+    "Fixture compiler intentionally retires verified same-Job vctip ancillary and retains ForcedCleanup=true/NaturalDescendantsExit=false; other stages/outer runner natural-clean.",
+    "Provider6427 recorded inventories compared; no independent second live6427-file rehash.",
+    "Package source stability producer-reported; actual package bytes/current78 sources/helper+collector guards and13 observer outputs independently verified.",
+    "OldA1/A2 dynamic timings/native identity use previously reviewed executable predicates; independently decoded12 outcomes/flags/finalcounts, no dynamic raw byte-equality claim.",
+    "Cancel/close normal ACK held after SourceReady with token already released, not in-flight RPC. Finalclose returns genuine TaskCanceledException at TaskAwaiter.ThrowForNonSuccess with shutdown physicalreason; narrow source predicate remains the execution authority.",
+    "Force-unload probe and97 affected regression receipts are separate."
+  ],
+  "Evidence": [
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\w546\\artifacts\\statistics-full\\main-gc825-integration36\\workspace\\artifacts\\async-final-debug1347\\7dbe73827493426586a3c1bb12d8aac3\\completion.json",
+      "Sha256": "71FEEC1A545E3326FE9EFBE9D4E3747D247A7E255354F95B575AA185C2AB9707"
+    },
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\w546\\artifacts\\statistics-full\\main-gc825-integration36\\workspace\\artifacts\\async-final-debug1347\\7dbe73827493426586a3c1bb12d8aac3\\observations.json",
+      "Sha256": "5A017CBD35B175384141A7DDFDDBED71A19C85ACE3D7A8AFA847A2F376ACE04B"
+    },
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\w546\\artifacts\\statistics-full\\main-gc825-integration36\\workspace\\artifacts\\async-final-debug1347\\7dbe73827493426586a3c1bb12d8aac3\\inputs.json",
+      "Sha256": "C0197CC9EE991082310D0F1905D6CD8EE09AEFF2E8E05F6377FFA7F4F6EFB983"
+    },
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\w546\\artifacts\\statistics-full\\main-gc825-integration36\\workspace\\artifacts\\async-final-debug1347\\7dbe73827493426586a3c1bb12d8aac3\\source-inputs.json",
+      "Sha256": "FAF89A778D153249A12F39BF323D4E25D3C7B7036F8112CADD152E468D5801FC"
+    },
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\w546\\artifacts\\statistics-full\\main-gc825-integration36\\workspace\\artifacts\\async-final-debug1347\\7dbe73827493426586a3c1bb12d8aac3\\observer-executable-inputs.json",
+      "Sha256": "5B2B7A1EDCF853FABD486973407930BC9C6C64180F32E8E954810CD44C498D2E"
+    },
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\w546\\artifacts\\statistics-full\\main-gc825-integration36\\workspace\\artifacts\\async-final-debug1347\\7dbe73827493426586a3c1bb12d8aac3\\provider-before.json",
+      "Sha256": "85ACA44BD321DF9EFD9761906D634C9EF28FE4923E194C6C9EEEE924A43898F0"
+    },
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\w546\\artifacts\\statistics-full\\main-gc825-integration36\\workspace\\artifacts\\async-final-debug1347\\7dbe73827493426586a3c1bb12d8aac3\\provider-after.json",
+      "Sha256": "29C73BD8BB300A3F6F7CA47B1386837198ED3C00235407C7F0CD1D2A07D80DAF"
+    },
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\w546\\artifacts\\statistics-full\\main-gc825-integration36\\workspace\\artifacts\\async-final-debug1347\\7dbe73827493426586a3c1bb12d8aac3\\original-A1.etf",
+      "Sha256": "82B0068E2920CE3CF348983508F2B4687EFB221782C8AD8CE827FFAD57038054"
+    },
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\w546\\artifacts\\statistics-full\\main-gc825-integration36\\workspace\\artifacts\\async-final-debug1347\\7dbe73827493426586a3c1bb12d8aac3\\original-A2.etf",
+      "Sha256": "0DD3736492114409320A82BAF4C9492BB2A0D7B53F0DD309C47DFF7B05633FE0"
+    },
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\w546\\artifacts\\statistics-full\\main-gc825-integration36\\workspace\\artifacts\\async-final-debug1347\\7dbe73827493426586a3c1bb12d8aac3\\original-queued-port-close.etf",
+      "Sha256": "4FEF2B52D9FF79A758EFC973D9C89042EA0F3FD2F92ACBCA4434DA5346862521"
+    },
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\w546\\artifacts\\statistics-full\\main-gc825-integration36\\workspace\\artifacts\\async-final-debug1347\\7dbe73827493426586a3c1bb12d8aac3\\own-queued-port-close.etf",
+      "Sha256": "DE800560BC1317CE8AB64FFFF0814B61B70021792AAA9BB98BE78F6394072B20"
+    },
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\w546\\artifacts\\statistics-full\\main-gc825-integration36\\workspace\\artifacts\\async-final-debug1347\\7dbe73827493426586a3c1bb12d8aac3\\fixtures\\async_cross_port1307.erl",
+      "Sha256": "8B5CD6F129F1E7C7F5DB04B1E245F752B1A5A5A19B8BF372BAC4D1F077B43856"
+    },
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\w546\\artifacts\\statistics-full\\main-gc825-integration36\\workspace\\artifacts\\async-final-debug1347\\7dbe73827493426586a3c1bb12d8aac3\\fixtures\\async_cross_port1307.beam",
+      "Sha256": "7F204BC8231C6D5B910EDE2384000E18E5860C665F158701ED97D116DAD97485"
+    },
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\w546\\artifacts\\statistics-full\\main-gc825-integration36\\workspace\\artifacts\\async-final-debug1347\\7dbe73827493426586a3c1bb12d8aac3\\fixtures\\async_msacc1127_drv.c",
+      "Sha256": "FF950E351E571563C3FBE6A873E70479D2F28C6F0A0D819AC33E8003A6C16D67"
+    },
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\w546\\artifacts\\statistics-full\\main-gc825-integration36\\workspace\\artifacts\\async-final-debug1347\\7dbe73827493426586a3c1bb12d8aac3\\fixtures\\async_msacc1127_drv.dll",
+      "Sha256": "893D50D0297C53DB221D8B5070AA762685A766B6F2E899468EDFAB824C107AB0"
+    },
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\artifacts\\batch825\\async-final-debug1347\\review.json",
+      "Sha256": "07638CA53CA89564C2DBBB7B45DB4D1C1ECEF5DB52FCF40A3B71EAF25AB06054"
+    },
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\artifacts\\batch825\\driverhost-logical1320-Debug\\review.json",
+      "Sha256": "16421E2977C03AC2036303EA5AC3A127672732840F1BE38D0C1EDCB4F6898CF2"
+    },
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\artifacts\\batch825\\driverhost-logical1320-Debug\\package\\erldrv-host-package.json",
+      "Sha256": "8C5CCAC11F696786F32BE77F7B515F8E768E75CDF7F7799325569293F6152C8C"
+    },
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\w546\\artifacts\\statistics-full\\main-gc825-integration36\\workspace\\artifacts\\async-final-release1348\\c21c19fe84f141e8af4a08f717b0941d\\completion.json",
+      "Sha256": "BBE125681F28BA17EB806A0F05F5AA1134031B46805487C1ECE4EA96ADDA1B13"
+    },
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\w546\\artifacts\\statistics-full\\main-gc825-integration36\\workspace\\artifacts\\async-final-release1348\\c21c19fe84f141e8af4a08f717b0941d\\observations.json",
+      "Sha256": "2BFD6774C358F853B444CC658FB18F20F1B1E3E2CFA8C7C1BA7EE2A7AD898256"
+    },
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\w546\\artifacts\\statistics-full\\main-gc825-integration36\\workspace\\artifacts\\async-final-release1348\\c21c19fe84f141e8af4a08f717b0941d\\inputs.json",
+      "Sha256": "B8BC9D8DD506D8B94466C49BA447A31FDE6988FBA7E1B959C1790CB0B5403481"
+    },
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\w546\\artifacts\\statistics-full\\main-gc825-integration36\\workspace\\artifacts\\async-final-release1348\\c21c19fe84f141e8af4a08f717b0941d\\source-inputs.json",
+      "Sha256": "FAF89A778D153249A12F39BF323D4E25D3C7B7036F8112CADD152E468D5801FC"
+    },
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\w546\\artifacts\\statistics-full\\main-gc825-integration36\\workspace\\artifacts\\async-final-release1348\\c21c19fe84f141e8af4a08f717b0941d\\observer-executable-inputs.json",
+      "Sha256": "F2B8D8BC93DF780FBE88841D1693109008EA8B659237778B46EF70A5D2AB1FE6"
+    },
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\w546\\artifacts\\statistics-full\\main-gc825-integration36\\workspace\\artifacts\\async-final-release1348\\c21c19fe84f141e8af4a08f717b0941d\\provider-before.json",
+      "Sha256": "85ACA44BD321DF9EFD9761906D634C9EF28FE4923E194C6C9EEEE924A43898F0"
+    },
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\w546\\artifacts\\statistics-full\\main-gc825-integration36\\workspace\\artifacts\\async-final-release1348\\c21c19fe84f141e8af4a08f717b0941d\\provider-after.json",
+      "Sha256": "29C73BD8BB300A3F6F7CA47B1386837198ED3C00235407C7F0CD1D2A07D80DAF"
+    },
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\w546\\artifacts\\statistics-full\\main-gc825-integration36\\workspace\\artifacts\\async-final-release1348\\c21c19fe84f141e8af4a08f717b0941d\\original-A1.etf",
+      "Sha256": "186678D4BC381EFFBC7CBB40924324D9DF06C3FB7816D0B790205698DE8FC158"
+    },
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\w546\\artifacts\\statistics-full\\main-gc825-integration36\\workspace\\artifacts\\async-final-release1348\\c21c19fe84f141e8af4a08f717b0941d\\original-A2.etf",
+      "Sha256": "63B02A0CDFA3C885E559A8A70B7530F66D3D8BDA020FA5F7CF616E979C1996DB"
+    },
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\w546\\artifacts\\statistics-full\\main-gc825-integration36\\workspace\\artifacts\\async-final-release1348\\c21c19fe84f141e8af4a08f717b0941d\\original-queued-port-close.etf",
+      "Sha256": "43863F4BE29F1AF49CCCDF11AB52415DAA7FC8CF793EC9777D7570744E50B337"
+    },
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\w546\\artifacts\\statistics-full\\main-gc825-integration36\\workspace\\artifacts\\async-final-release1348\\c21c19fe84f141e8af4a08f717b0941d\\own-queued-port-close.etf",
+      "Sha256": "C704113087FBF9AE13CFD4825F9040A303C35D55C769E8FEBB649998B2269E60"
+    },
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\w546\\artifacts\\statistics-full\\main-gc825-integration36\\workspace\\artifacts\\async-final-release1348\\c21c19fe84f141e8af4a08f717b0941d\\fixtures\\async_cross_port1307.erl",
+      "Sha256": "8B5CD6F129F1E7C7F5DB04B1E245F752B1A5A5A19B8BF372BAC4D1F077B43856"
+    },
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\w546\\artifacts\\statistics-full\\main-gc825-integration36\\workspace\\artifacts\\async-final-release1348\\c21c19fe84f141e8af4a08f717b0941d\\fixtures\\async_cross_port1307.beam",
+      "Sha256": "43C5D0C39B462D87BAE8B6534C93FB1E9A8A10007E7B51A4DDF1531B85F0D8AD"
+    },
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\w546\\artifacts\\statistics-full\\main-gc825-integration36\\workspace\\artifacts\\async-final-release1348\\c21c19fe84f141e8af4a08f717b0941d\\fixtures\\async_msacc1127_drv.c",
+      "Sha256": "FF950E351E571563C3FBE6A873E70479D2F28C6F0A0D819AC33E8003A6C16D67"
+    },
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\w546\\artifacts\\statistics-full\\main-gc825-integration36\\workspace\\artifacts\\async-final-release1348\\c21c19fe84f141e8af4a08f717b0941d\\fixtures\\async_msacc1127_drv.dll",
+      "Sha256": "AD5CA7F7E3554396CDEB60261F83D4AB1988A899C8823B2710463DEE0712BC00"
+    },
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\artifacts\\batch825\\async-final-release1348\\review.json",
+      "Sha256": "AC4A3C8275F6327DC0BE7239B0F31195BD88765F33947551546F8440D416D842"
+    },
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\artifacts\\batch825\\driverhost-logical-final1335-Release\\review.json",
+      "Sha256": "365F82DAD53AB9603694FD92244517D52D233376D8630F1ACB7CF97F9E310BD9"
+    },
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\artifacts\\batch825\\driverhost-logical-final1335-Release\\package\\erldrv-host-package.json",
+      "Sha256": "A5B77CE20D63FDBA03B888C32A8C4FEDF4AB5809D6FD17F168A3252EB8F3725C"
+    },
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\artifacts\\batch825\\native-case-manifest1352\\before-source-plan.json",
+      "Sha256": "B248DC0BA74E48BF5DF3FB28B9C9A5A207F230183FA5A6F2485AE06BC5AA7B36"
+    },
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\w546\\artifacts\\statistics-full\\main-gc825-integration36\\workspace\\tools\\Validation\\Erlang.AsyncMicrostateValidation\\source-plan.json",
+      "Sha256": "DC055B0F395E1B84D02BF8B8BF66244A2DBE15505E9C9BC55D6E5405307B81C8"
+    },
+    {
+      "Path": "D:\\Distr\\Work\\Codex\\Erlang.Net\\artifacts\\batch825\\native-case-manifest1352\\review.json",
+      "Sha256": "3D4C0A17841280F6ED5BBFEA6CCF16B49F7FD800D6C499AA47A50E94ED3B9D87"
+    }
+  ]
+}

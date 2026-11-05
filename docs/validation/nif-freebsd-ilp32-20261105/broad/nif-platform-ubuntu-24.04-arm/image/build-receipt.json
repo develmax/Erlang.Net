@@ -1,0 +1,40 @@
+{
+  "Host": "Linux-7.0.0-1017-azure-aarch64-with-glibc2.39",
+  "Commands": [
+    [
+      "cc",
+      "-std=c11",
+      "-fPIC",
+      "-O2",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-I/home/runner/work/Erlang.Net/Erlang.Net/artifacts/nif-platform-ci/installed/lib/erlang/usr/include",
+      "-shared",
+      "/home/runner/work/Erlang.Net/Erlang.Net/tools/Native/Erlang.NifPlatformValidation/nif_platform_fixture.c",
+      "/home/runner/work/Erlang.Net/Erlang.Net/artifacts/nif-platform-ci/native/Erlang.NifBridge.so",
+      "-Wl,-rpath,/home/runner/work/Erlang.Net/Erlang.Net/artifacts/nif-platform-ci/native",
+      "-o",
+      "/home/runner/work/Erlang.Net/Erlang.Net/artifacts/nif-platform-ci/image/managed/nif_platform_fixture.so"
+    ],
+    [
+      "cc",
+      "-std=c11",
+      "-fPIC",
+      "-O2",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-I/home/runner/work/Erlang.Net/Erlang.Net/artifacts/nif-platform-ci/installed/lib/erlang/usr/include",
+      "-shared",
+      "/home/runner/work/Erlang.Net/Erlang.Net/tools/Native/Erlang.NifPlatformValidation/nif_platform_fixture.c",
+      "-o",
+      "/home/runner/work/Erlang.Net/Erlang.Net/artifacts/nif-platform-ci/image/original/nif_platform_fixture.so"
+    ]
+  ],
+  "SourceSha256": "1B03E9352282A5BC2B284A83D9C3A70B596F8910010293BD024C5B8205E91759",
+  "BeamSha256": "C84589298697EC3843932D7ABF0BE0EBA76F15E8850F0838EB52F492EAA0B4FF",
+  "OriginalEtfSha256": "17F946462F22B80B58564FB949CD034A82496BE4540A8E7B4F44BD465B19DA03",
+  "OriginalExecuted": true,
+  "ManagedExecuted": false
+}

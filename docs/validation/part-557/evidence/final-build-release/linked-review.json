@@ -1,0 +1,54 @@
+{
+  "Passed": true,
+  "Scope": "Actual final normal Release build after34metadata1361 and15sourceadmissions1362. Final exact committed tree proof required.",
+  "Capacity": {
+    "Requested": 1,
+    "Workers": 1,
+    "LogicalCpuCount": 16,
+    "AvailablePhysical": 9721921536,
+    "AvailableCommit": 10953269248,
+    "Policy": "Maximum2; require4CPUs/8GiB available physical/12GiB available commit, otherwise serial"
+  },
+  "Build": {
+    "Command": [
+      "C:\\Program Files\\dotnet\\dotnet.exe",
+      "build",
+      "tests/Erlang.Tests/Erlang.Tests.csproj",
+      "--no-restore",
+      "-c",
+      "Release",
+      "-m:1",
+      "--nologo",
+      "--disable-build-servers"
+    ],
+    "Pid": 19008,
+    "ExitCode": 0,
+    "ElapsedSeconds": 3.562000000005355,
+    "TimedOut": false,
+    "ForcedCleanup": false,
+    "ActiveProcessesAfter": 0,
+    "ResourcesClosed": true,
+    "Errors": [],
+    "TotalProcesses": 2,
+    "UserCpuSeconds": 3.171875,
+    "KernelCpuSeconds": 0.734375,
+    "PeakJobCommitBytes": 117981184,
+    "PeakProcessCommitBytes": 111370240,
+    "StdoutSha256": "C130F5805756CAFD8086EE8C27C2D45BD85F556C01C8258122C7984708F0A666",
+    "StderrSha256": "43C8897FC50560E217AACE8984EC7E1AA8DF8EC13D3B6AAEE346A300D0D3EEAD"
+  },
+  "SourceBefore": {
+    "Path": "../final-integration/canonical-source-map13902.json",
+    "Sha256": "F336C987855D50F379C5CBE923D0C17F5EEAB52740DCB80193B7908D82CE8B71",
+    "Entries": 13902,
+    "JsonValueEqualsOriginal": true
+  },
+  "SourceAfter": {
+    "Path": "../final-integration/canonical-source-map13902.json",
+    "Sha256": "F336C987855D50F379C5CBE923D0C17F5EEAB52740DCB80193B7908D82CE8B71",
+    "Entries": 13902,
+    "JsonValueEqualsOriginal": true
+  },
+  "OriginalFullReviewSha256": "370249593C9E60C2A6019C5EB1CA267E37CC854A4EBA0834455B8C9F98E2A114",
+  "DerivedSourceMapDeduplicationOnly": true
+}

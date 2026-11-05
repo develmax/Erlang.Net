@@ -176,6 +176,14 @@ Append numbered English entries only to the last volume. Start the next sequenti
 
 - [0101.md](docs/changelog/0101.md) - Part555 NIF observer and backend validation repairs (closed; continues in0102)
 
-- [0102.md](docs/changelog/0102.md) - Parts555–558 compressed ETS, library compatibility and documentation integration (closed; scoped successor in0107)
+- [0102.md](docs/changelog/0102.md) - Parts555–559 compressed ETS, library compatibility and documentation integration (closed; continues in0103)
 
-- [0107.md](docs/changelog/0107.md) - Parts592–593 selectable erts_internal, multi-scheduling and node/dist inventory (active)
+- [0103.md](docs/changelog/0103.md) - Parts560–567 and569 coordinated snapshot, String allocation, main reconciliation and CI evidence/pin corrections (closed; continues in0104)
+
+- [0104.md](docs/changelog/0104.md) - Parts568,572–577 ordsets, string, descriptor polling, Unicode integration and CI repairs (closed; continues in0105)
+
+- [0105.md](docs/changelog/0105.md) - Parts578–583 code/file backends, CI repairs, main reconciliation and checkout byte preservation (closed; continues in0106; includes Parts584–586 gen_event/Monitor repairs and Part587 gen_statem sys continuation fix)
+
+- [0106.md](docs/changelog/0106.md) - Timer publication, PR113 reconciliation and Parts588-589 ASN.1 build repair/main update and Part590 analysis consumer CI reconciliation (closed; continues in0107; includes Part591 managed Unicode utility, Part592 ETS reconciliation and Part593 DETS review/POSIX filesystem and Part594 function-call CI repair and Part595 original-OTP tail-frame correction and Part596 scheduling/timer test synchronization and Part597 NIF target CI/macOS native host)
+
+- [0107.md](docs/changelog/0107.md) - Parts598–602 FreeBSD managed NIF, Windows x86 ABI/native-word GC and resource/magic32 atomics/counters and erts_internal (active)

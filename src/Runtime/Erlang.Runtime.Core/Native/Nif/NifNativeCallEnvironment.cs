@@ -171,7 +171,7 @@ internal sealed unsafe partial class NifNativeCallEnvironment : IDisposable
         if (value.Pending is { } pending)
             RetainGraph(pending);
         long handle = Interlocked.Increment(ref nextTerm);
-        if (handle <= 0)
+        if (handle <= 0 || (ulong)handle > nuint.MaxValue)
             throw new InvalidOperationException(NifNativeDiagnostics.TermHandleExhausted);
         if (!terms.TryAdd((nuint)handle, value))
             throw new InvalidOperationException(NifNativeDiagnostics.TermHandleExhausted);

@@ -10,4 +10,6 @@ internal static class RuntimeCpuTimeNames
     internal const string CounterRegression = "OS thread user CPU counter moved backwards";
     internal const string Libc = "libc";
     internal const string GetTid = "gettid";
+    internal const string WindowsLibrary = "kernel32.dll";
+    internal const uint QueryLimitedThreadInformation = 0x0800;
 }

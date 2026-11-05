@@ -1,0 +1,102 @@
+{
+  "Managed": {
+    "Rows": 12,
+    "IdenticalRows": 11,
+    "IdenticalCases": [
+      "empty",
+      "small_forward",
+      "small_reverse",
+      "small_A_last",
+      "small_32",
+      "bulk_33",
+      "bulk_exact_33",
+      "small_repeat_32",
+      "integers_last_wins",
+      "invalid_tuple",
+      "improper"
+    ],
+    "Differences": [
+      {
+        "Row": 8,
+        "Case": "bulk_repeat_33",
+        "InputBytesIdentical": true,
+        "Original": [
+          "ok",
+          33,
+          [
+            "ok",
+            "a"
+          ],
+          [
+            "ok",
+            "b"
+          ],
+          "not_probed"
+        ],
+        "Actual": [
+          "ok",
+          29,
+          [
+            "ok",
+            "a"
+          ],
+          [
+            "ok",
+            "b"
+          ],
+          "not_probed"
+        ]
+      }
+    ]
+  },
+  "Beam": {
+    "Rows": 12,
+    "IdenticalRows": 11,
+    "IdenticalCases": [
+      "empty",
+      "small_forward",
+      "small_reverse",
+      "small_A_last",
+      "small_32",
+      "bulk_33",
+      "bulk_exact_33",
+      "small_repeat_32",
+      "integers_last_wins",
+      "invalid_tuple",
+      "improper"
+    ],
+    "Differences": [
+      {
+        "Row": 8,
+        "Case": "bulk_repeat_33",
+        "InputBytesIdentical": true,
+        "Original": [
+          "ok",
+          33,
+          [
+            "ok",
+            "a"
+          ],
+          [
+            "ok",
+            "b"
+          ],
+          "not_probed"
+        ],
+        "Actual": [
+          "ok",
+          30,
+          [
+            "ok",
+            "a"
+          ],
+          [
+            "ok",
+            "b"
+          ],
+          "not_probed"
+        ]
+      }
+    ]
+  }
+}

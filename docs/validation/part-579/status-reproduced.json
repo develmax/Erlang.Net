@@ -1,0 +1,25 @@
+{
+  "Partial": true,
+  "SelectedCount": 2,
+  "TotalCount": 9716,
+  "Blocks": [],
+  "ExactCases": [
+    "otp/code/beam-contracts",
+    "otp/code/managed-contracts"
+  ],
+  "Passed": 1,
+  "Failed": 1,
+  "Tests": [
+    {
+      "Name": "otp/code/managed-contracts",
+      "Status": "Failed",
+      "Error": "System.InvalidOperationException: Code backend contract failed\r\n   at Erlang.Tests.CodeBackendChecks.Require(Boolean value) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\code-pr-20261104\\tests\\Erlang.Tests\\Otp\\Code\\CodeBackendChecks.cs:line 219\r\n   at Erlang.Tests.CodeBackendChecks.Run(Boolean managed) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\code-pr-20261104\\tests\\Erlang.Tests\\Otp\\Code\\CodeBackendChecks.cs:line 106\r\n   at Erlang.Tests.CodeBackendChecks.Run(Boolean managed) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\code-pr-20261104\\tests\\Erlang.Tests\\Otp\\Code\\CodeBackendChecks.cs:line 126\r\n   at Erlang.Tests.CodeBackendChecks.Run(Boolean managed) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\code-pr-20261104\\tests\\Erlang.Tests\\Otp\\Code\\CodeBackendChecks.cs:line 134\r\n   at Program.\u003CMain\u003E$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\code-pr-20261104\\tests\\Erlang.Tests\\Harness\\Program.cs:line 16255",
+      "Milliseconds": 4792
+    },
+    {
+      "Name": "otp/code/beam-contracts",
+      "Status": "Passed",
+      "Milliseconds": 3505
+    }
+  ]
+}

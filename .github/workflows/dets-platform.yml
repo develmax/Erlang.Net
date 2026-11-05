@@ -1,0 +1,57 @@
+name: DETS platform contracts
+on:
+  pull_request:
+    paths:
+      - 'src/Runtime/**'
+      - 'src/Otp/Managed/Erlang.Otp.Stdlib/Storage/Dets/**'
+      - 'tools/Validation/Erlang.DetsPlatform/**'
+      - 'tools/Validation/Erlang.DetsCompatibility/ReflectedDetsFile.cs'
+      - 'tools/Validation/Erlang.PrimFilePlatform/**'
+      - 'tests/Erlang.Tests/Otp/Stdlib/Dets/**'
+      - 'tests/Erlang.Tests/Resources/DetsReopened/**'
+      - 'tests/Erlang.Tests/Resources/DetsBackend/**'
+      - 'tests/Erlang.Tests/Resources/PrimFileDelete/**'
+      - 'tests/Erlang.Tests/Runtime/Bootstrap/PrimFileDelete*'
+      - '.github/workflows/dets-platform.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: dets-platform-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+jobs:
+  dets:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+          persist-credentials: false
+      - uses: actions/setup-dotnet@v6
+        with:
+          dotnet-version: '10.0.400'
+      - name: Build DETS and connected file probes
+        shell: bash
+        run: |
+          set -euo pipefail
+          dotnet build tools/Validation/Erlang.DetsPlatform/Erlang.DetsPlatform.csproj -m:1 --artifacts-path artifacts/platform
+          dotnet build tools/Validation/Erlang.PrimFilePlatform/Erlang.PrimFilePlatform.csproj -m:1 --artifacts-path artifacts/platform
+      - name: Execute actual C# and original Erlang DETS
+        shell: bash
+        run: |
+          set -euo pipefail
+          dotnet artifacts/platform/bin/Erlang.DetsPlatform/debug/Erlang.DetsPlatform.dll . artifacts/dets-platform-results
+          dotnet artifacts/platform/bin/Erlang.PrimFilePlatform/debug/Erlang.PrimFilePlatform.dll
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: dets-platform-${{ matrix.os }}
+          path: |
+            artifacts/dets-platform-results
+            artifacts/prim-file-platform-delete
+          if-no-files-found: warn

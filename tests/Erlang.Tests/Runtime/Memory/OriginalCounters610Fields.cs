@@ -57,7 +57,7 @@ internal static class OriginalCounters610Fields
     internal const string Erlang = "erlang";
     internal const string SystemInfo = "system_info";
     internal const string ErlangCountersMagicHeader421 = "Erlang.CountersMagicHeader421";
-    internal const string CacheLineCount591 = "CacheLineCount591";
+    internal const string CacheLineCount = "CacheLineCount";
     internal const string SystemFlag = "system_flag";
     internal const string AtomicsHost586 = "AtomicsHost586";
     internal const string CountersHost596 = "CountersHost596";

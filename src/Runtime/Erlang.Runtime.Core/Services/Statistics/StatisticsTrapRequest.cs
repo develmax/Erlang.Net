@@ -8,11 +8,18 @@ internal sealed class StatisticsTrapRequest : IAsyncDisposable
     private readonly TaskCompletionSource retirement = new(TaskCreationOptions.RunContinuationsAsynchronously);
     private RuntimeSchedulerAuxiliaryBatch420? observedBatch;
     private Action<Exception>? abortPreparation;
+    private bool externalPreparation1171;
     internal Task Retirement => retirement.Task;
 
     internal void CompleteRetirement() => retirement.TrySetResult();
 
     internal void BindPreparationAbort(Action<Exception> abort) => abortPreparation = abort;
+
+    internal void OwnPreparation1171(Task physical)
+    {
+        externalPreparation1171 = true;
+        BindPhysical(physical);
+    }
 
     internal ReferenceTerm Reference => reference ?? throw new InvalidOperationException(StatisticsTrapNames.InvalidImage);
     internal StatisticsTrapReceiveFailure ReceiveFailure { get; } = new();
@@ -29,11 +36,14 @@ internal sealed class StatisticsTrapRequest : IAsyncDisposable
     internal void PrepareReference() => reference ??= runtime.MakeReference();
 
     internal void Observe(RuntimeSchedulerAuxiliaryBatch420 batch)
+        => ObserveWithPhysical1171(batch, batch.Completion);
+
+    internal void ObserveWithPhysical1171(RuntimeSchedulerAuxiliaryBatch420 batch, Task physical)
     {
         if (!runtime.OwnsActorDispatcher428(batch.Owner))
             throw new InvalidOperationException(StatisticsTrapNames.InvalidImage);
         observedBatch = batch;
-        PhysicalCompletion = batch.Completion;
+        PhysicalCompletion = physical;
         foreach (RuntimeSchedulerAuxiliary420 work in batch.Work)
             ReceiveFailure.Observe(work.Completion);
     }
@@ -80,7 +90,8 @@ internal sealed class StatisticsTrapRequest : IAsyncDisposable
     {
         if (Retirement.IsCompleted) return;
         Exception? unpublished = null, batchFailure = null, preparationFailure = null, drainFailure = null;
-        if (observedBatch is { State: RuntimeSchedulerAuxiliaryState420.Prepared } batch)
+        if (!externalPreparation1171
+            && observedBatch is { State: RuntimeSchedulerAuxiliaryState420.Prepared } batch)
         {
             // No callback or scheduler ACK exists for an unpublished no-op.
             // Abort only provisional work; published callbacks always drain naturally.

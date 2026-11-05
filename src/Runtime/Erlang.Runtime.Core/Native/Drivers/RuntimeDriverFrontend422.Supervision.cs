@@ -9,6 +9,7 @@ internal sealed partial class RuntimeDriverFrontend422
             if (!closing) fatal = failure;
             closing = true;
             ready = false;
+            SealAsyncAccounting1170();
             retirementRequested.TrySetResult();
         }
     }

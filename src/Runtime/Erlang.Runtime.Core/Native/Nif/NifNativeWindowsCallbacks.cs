@@ -13,7 +13,12 @@ internal sealed unsafe partial class NifNativeWindowsCallbacks : IDisposable
 
     internal NifNativeWindowsCallbacks(bool reallocationEnabled)
     {
-        if (IntPtr.Size != NifNativeAbi.PointerBytes)
+        if (!NifNativePlatformPolicy.Supports(
+            true,
+            false,
+            RuntimeInformation.ProcessArchitecture,
+            IntPtr.Size
+        ))
             throw new PlatformNotSupportedException(NifNativeDiagnostics.CallbackPlatform);
         var variadic526 = OperatingSystem.IsWindows() ? NifWindowsVariadic526.EnsureRegistered() : default;
         pointer = (nint)NativeMemory.AllocZeroed((nuint)((NifNativeWindowsCallbackLayout.FunctionCount + NifNativeWindowsCallbackLayout.TailPointers) * IntPtr.Size));

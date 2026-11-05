@@ -119,7 +119,9 @@ internal sealed partial class NativeDriverPortRegistry422
             drivers.PortStopped(creator.Driver, row.Native.Port);
             row.NativeReferenceReleased = true;
             attempt.Row = null;
-            row.Stopped.TrySetResult();
+            // No native port exists. Reuse terminal cleanup after releasing
+            // its real reservation, including any row-owned exit-reason borrow.
+            FinishStopped(row);
         }
     }
 

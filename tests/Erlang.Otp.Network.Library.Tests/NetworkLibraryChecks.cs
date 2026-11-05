@@ -92,7 +92,7 @@ internal static class NetworkLibraryChecks
             {
                 string[] imports = OtpInets.Modules.Concat(OtpFtp.Modules).Concat(OtpTftp.Modules).Concat(OtpEldap.Modules).Concat(OtpStdlib.Modules).Concat(OtpKernel.Modules).Concat([Observer, Internal, ErlangModule, Ssl, Asn1Runtime, Debugger]).ToArray();
                 var dependencies = new BeamDependencySelection(imports);
-                byte[][] bytes = [OtpStdlib.ReadImage(Lists), OtpStdlib.ReadImage(Calendar), OtpStdlib.ReadImage(IoLibrary), OtpStdlib.ReadImage(IoFormatter), OtpKernel.ReadImage(InternetParser), OtpStdlib.ReadImage(StringModule), OtpStdlib.ReadImage(Unicode), OtpStdlib.ReadImage(UnicodeUtilities), OtpStdlib.ReadImage(Sets), OtpStdlib.ReadImage(Proplists), OtpInets.ReadImage(HttpUtility), OtpInets.ReadImage(HttpServerUtility), OtpFtp.ReadImage(FtpResponse), OtpTftp.ReadImage(TftpLibrary), OtpEldap.ReadImage(Eldap), Resource(ObserverImage)];
+                byte[][] bytes = [OtpStdlib.ReadImage(Lists), OtpStdlib.ReadImage(Calendar), OtpStdlib.ReadImage(IoLibrary), OtpStdlib.ReadImage(IoFormatter), OtpKernel.ReadImage(InternetParser), OtpStdlib.ReadImage(NetworkLibraryNames.StringModule), OtpStdlib.ReadImage(Unicode), OtpStdlib.ReadImage(UnicodeUtilities), OtpStdlib.ReadImage(Sets), OtpStdlib.ReadImage(Proplists), OtpInets.ReadImage(HttpUtility), OtpInets.ReadImage(HttpServerUtility), OtpFtp.ReadImage(FtpResponse), OtpTftp.ReadImage(TftpLibrary), OtpEldap.ReadImage(Eldap), Resource(ObserverImage)];
                 PreparedBeamImage[] images = bytes.Select(image =>
                 {
                     try
