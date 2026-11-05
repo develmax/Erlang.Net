@@ -11,6 +11,7 @@ internal static class TryExpressionExecution
         ProcessRuntime runtime,
         Dictionary<string, Term> bindings,
         Func<Expr, Dictionary<string, Term>, ValueTask<Term>> evaluate,
+        Func<Expr, Dictionary<string, Term>, ValueTask<Term>> evaluateTail,
         Func<Clause, Term, Dictionary<string, Term>, ValueTask<bool>> match
     )
     {
@@ -44,7 +45,9 @@ internal static class TryExpressionExecution
                 var scope = CompiledBindingScope.Copy(parent);
                 if (!await match(clause, value, scope))
                     continue;
-                var result = await evaluate(clause.Body, scope);
+                // Only the body is protected: without an after block the of/catch
+                // clause bodies run in the try expression's own tail position.
+                var result = await (expression.After is null ? evaluateTail : evaluate)(clause.Body, scope);
                 foreach (var binding in scope)
                     bindings[binding.Key] = binding.Value;
 

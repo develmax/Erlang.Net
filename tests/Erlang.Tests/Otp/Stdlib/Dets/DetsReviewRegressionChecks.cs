@@ -117,8 +117,54 @@ internal static class DetsReviewRegressionChecks
         _ = Call(table, "SetFixed", false);
         _ = Call(table, "Save", true);
         Require(((IEnumerable<Term>)Call(Open(fixedFile), "Objects")!).Single().Equals(after), "scan did not corrupt table");
+        FreedCollectionDuringFixedScan();
 
         return Task.CompletedTask;
+    }
+
+    // dets_v9:scan_skip/8 accepts ?FREE blocks: an object deleted after a
+    // fixed scan started is still read instead of failing the whole table.
+    private static void FreedCollectionDuringFixedScan()
+    {
+        using var stream = new MemoryStream();
+        object table = Create(stream, "Set");
+        Term row = Term.Tuple(Term.A("deleted"), new BitString(new byte[20]));
+        _ = Call(
+            table,
+            "Insert",
+            new Term[] { row },
+            false
+        );
+        _ = Call(table, "SetFixed", true);
+        var block = ((IReadOnlyList<(uint Slot, long Address, int Exponent, uint Size)>)Call(table, "Blocks")!)[0];
+        _ = Call(
+            table,
+            "Delete",
+            Term.A("deleted"),
+            null
+        );
+        var bytes = (byte[])Call(table, "ReadCollection", block.Address)!;
+        object set = Enum.Parse(Type("DetsFileType"), "Set");
+        var objects = (IReadOnlyList<Term>)Type("DetsV9Recovery").GetMethod("DecodeCollection", Static)!.Invoke(null, [bytes, set, 1, null, null])!;
+        Require(objects.Count == 1 && objects[0].Equals(row), "freed collection keeps the deleted object");
+
+        stream.Position = block.Address + sizeof(uint);
+        stream.Write(new byte[sizeof(uint)]);
+        try
+        {
+            _ = Call(table, "ReadCollection", block.Address);
+        }
+        catch (Exception error) when (error.GetType() == Type("DetsFileException"))
+        {
+            Require(
+                (string?)error.GetType().GetProperty("Reason", Members)!.GetValue(error) == "bad_object",
+                "unknown collection status reports bad_object"
+            );
+
+            return;
+        }
+
+        throw new InvalidOperationException(Failure + "unknown collection status was accepted");
     }
 
     private static void OriginalReopenedFiles()

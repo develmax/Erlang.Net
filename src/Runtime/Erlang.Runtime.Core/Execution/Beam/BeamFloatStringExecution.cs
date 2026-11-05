@@ -15,8 +15,9 @@ internal static class BeamFloatStringExecution
             || length > match.Source.BitLength - match.Position)
             return false;
         int bits = (int)length;
-        bool little = operands[5].Value == BeamFloatStringNames.LittleFlag
-            || operands[5].Value == BeamFloatStringNames.NativeFlag && BitConverter.IsLittleEndian;
+        // The compiler keeps a signed flag on float match segments; like ERTS,
+        // it has no meaning for floats and only the byte order is relevant.
+        bool little = BeamBinaryWireValues.Little(BeamBinaryWireValues.NumericFlags((int)operands[5].Value));
         ulong payload = 0;
         for (int index = 0; index < bits / BeamBinaryNames.BitsPerByte; index++)
         {

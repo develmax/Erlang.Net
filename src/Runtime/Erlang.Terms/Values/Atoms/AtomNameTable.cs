@@ -4,7 +4,9 @@ namespace Erlang;
 
 internal sealed class AtomNameTable
 {
-    private readonly ConcurrentDictionary<string, int> names = new(StringComparer.Ordinal);
+    // Each entry keeps its registration ordinal and the canonical name instance
+    // shared by every Atom with that name (and observed once as atom storage).
+    private readonly ConcurrentDictionary<string, AtomNameEntry> names = new(StringComparer.Ordinal);
     private readonly object gate = new();
 
     private readonly Action exhausted;
@@ -14,11 +16,11 @@ internal sealed class AtomNameTable
     {
         Capacity = capacity;
         this.exhausted = exhausted;
-        names.TryAdd(ErlangBooleanAtoms.False, 0);
+        names.TryAdd(ErlangBooleanAtoms.False, new(0, ErlangBooleanAtoms.False));
         ObservedPayloadStorage.Atom(ErlangBooleanAtoms.False);
         foreach (string name in ErlangPrimordialAtomNames.All)
         {
-            names.TryAdd(name, names.Count);
+            names.TryAdd(name, new(names.Count, name));
             ObservedPayloadStorage.Atom(name);
         }
         if (capacity < names.Count)
@@ -37,7 +39,7 @@ internal sealed class AtomNameTable
                 return;
             if (names.Count < Capacity)
             {
-                names.TryAdd(name, names.Count);
+                names.TryAdd(name, new(names.Count, name));
                 ObservedPayloadStorage.Atom(name);
 
                 return;
@@ -51,9 +53,8 @@ internal sealed class AtomNameTable
     internal string Register(string name)
     {
         Observe(name);
-        ObservedPayloadStorage.Atom(name);
 
-        return name;
+        return names[name].Name;
     }
 
     // The authoritative registration ordinal is already stored in names. No second
@@ -64,9 +65,9 @@ internal sealed class AtomNameTable
         {
             if ((uint)index < (uint)names.Count)
                 foreach (var entry in names)
-                    if (entry.Value == index)
+                    if (entry.Value.Index == index)
                     {
-                        name = entry.Key;
+                        name = entry.Value.Name;
 
                         return true;
                     }
@@ -84,6 +85,6 @@ internal sealed class AtomNameTable
     {
         Observe(name);
 
-        return names[name];
+        return names[name].Index;
     }
 }

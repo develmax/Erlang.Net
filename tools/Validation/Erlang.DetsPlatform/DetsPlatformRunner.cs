@@ -311,6 +311,76 @@ internal static class DetsPlatformRunner
                     }
                 }
                 Check((runtime.Modules.SourceOwner("dets", "open_file", 2) is PreparedBeamImage) != managed, "selected backend identity");
+                if (managed)
+                {
+                    Term scanTable = Term.A("fixed_select_continuation");
+                    Term options = Term.List(Term.Tuple(Term.A("file"), Term.String(Path.Combine(output, "fixed-select.dets"))));
+                    Check((await Call(
+                        "dets",
+                        "open_file",
+                        scanTable,
+                        options
+                    )).Equals(Term.Tuple(Term.A("ok"), scanTable)), "open fixed scan table");
+                    Term first = Term.Tuple(Term.I(1), Term.A("first"));
+                    Term second = Term.Tuple(Term.I(2), Term.A("second"));
+                    Ok(await Call(
+                        "dets",
+                        "insert",
+                        scanTable,
+                        Term.List(first, second)
+                    ), "insert scan rows");
+                    Ok(await Call(
+                        "dets",
+                        "safe_fixtable",
+                        scanTable,
+                        Term.A("true")
+                    ), "fix scan table");
+                    Term spec = Term.List(Term.Tuple(Term.A("_"), Nil.Value, Term.List(Term.A("$_"))));
+                    Term initial = await Call(
+                        "dets",
+                        "select",
+                        scanTable,
+                        spec,
+                        Term.I(1)
+                    );
+                    Check(
+                        initial is TupleTerm { Items.Count: 2 } chunk && Cons.Items(chunk.Items[0]).Count() == 1,
+                        "select returns one row and a continuation"
+                    );
+                    var batch = (TupleTerm)initial;
+                    Term read = Cons.Items(batch.Items[0]).Single();
+                    Check(read.Equals(first) || read.Equals(second), "select returns an inserted row");
+                    var unread = (TupleTerm)(read.Equals(first) ? second : first);
+                    Ok(await Call(
+                        "dets",
+                        "delete",
+                        scanTable,
+                        unread.Items[0]
+                    ), "delete unread collection");
+                    Term resumed = await Call("dets", "select", batch.Items[1]);
+                    Check(
+                        resumed is TupleTerm { Items.Count: 2 } next && next.Items[0].Equals(Term.List(unread)),
+                        "continuation reads the retained FREE collection"
+                    );
+                    Check(
+                        (await Call("dets", "select", ((TupleTerm)resumed).Items[1])).Equals(Term.A("$end_of_table")),
+                        "continuation reaches end of table"
+                    );
+                    Check((await Call(
+                        "dets",
+                        "lookup",
+                        scanTable,
+                        unread.Items[0]
+                    )).Equals(Nil.Value), "deleted row stays absent from lookup");
+                    Ok(await Call(
+                        "dets",
+                        "safe_fixtable",
+                        scanTable,
+                        Term.A("false")
+                    ), "unfix scan table");
+                    Ok(await Call("dets", "close", scanTable), "close scan table");
+                }
+
                 Console.WriteLine("Execute pinned DETS primary corpus");
                 await corpus.Execute(runtime, context, Path.Combine(output, managed ? "managed-corpus" : "original-corpus"));
                 Check(true, "21 pinned DETS scenarios and complete error stacks");
