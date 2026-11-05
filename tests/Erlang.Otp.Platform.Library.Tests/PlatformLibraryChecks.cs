@@ -114,7 +114,7 @@ internal static class PlatformLibraryChecks
                 var dependencies = new BeamDependencySelection(imports);
                 byte[][] bytes = OtpOsMon.Modules.Select(module => OtpOsMon.ReadImage(module))
                     .Concat(OtpOdbc.Modules.Select(module => OtpOdbc.ReadImage(module)))
-                    .Concat([OtpStdlib.ReadImage(Lists), OtpStdlib.ReadImage(IoLibrary), OtpStdlib.ReadImage(InputOutput), OtpStdlib.ReadImage(UnicodeUtilities), Resource(ObserverImage)]).ToArray();
+                    .Concat([OtpStdlib.ReadImage(Lists), OtpStdlib.ReadImage(PlatformLibraryNames.IoLibrary), OtpStdlib.ReadImage(InputOutput), OtpStdlib.ReadImage(UnicodeUtilities), Resource(ObserverImage)]).ToArray();
                 PreparedBeamImage[] images = bytes.Select(image =>
                 {
                     try
