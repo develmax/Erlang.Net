@@ -1,0 +1,58 @@
+name: NIF FreeBSD managed execution
+on:
+  push:
+    branches: ['ci/nif-freebsd-*']
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  freebsd-managed-x64:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+          sparse-checkout: |
+            src/Runtime
+            src/Otp/Managed/Erlang.Otp.Stdlib
+            src/Otp/Managed/Erlang.Otp.Kernel
+            src/Otp/Original/Foundation/Erlang.Otp.Erts.Beam
+            tools/Native/Erlang.NifNativeBackend
+            tools/Native/Erlang.NifPlatformValidation
+      - uses: actions/setup-dotnet@v6
+        with:
+          dotnet-version: 10.0.400
+      - name: Compile portable managed assemblies and verify community runtime archive
+        shell: bash
+        run: |
+          set -euo pipefail
+          dotnet build tools/Native/Erlang.NifPlatformValidation -m:1 -p:UseAppHost=false
+          mkdir -p artifacts
+          python3 - <<'PY'
+          import hashlib, json, urllib.request
+          from pathlib import Path
+          pin = json.loads(Path('tools/Native/Erlang.NifPlatformValidation/freebsd-runtime.json').read_text())
+          target = Path('artifacts/freebsd-dotnet.tar.gz')
+          with urllib.request.urlopen(pin['ArchiveUrl'], timeout=120) as response, target.open('wb') as output:
+              while block := response.read(1024 * 1024): output.write(block)
+          assert hashlib.sha256(target.read_bytes()).hexdigest() == pin['ArchiveSha256']
+          PY
+      - name: Execute .NET and actual NIFs on FreeBSD (community CLR profile)
+        uses: vmactions/freebsd-vm@c46abacb49f09938ca4e1702d15d836285d694cc
+        with:
+          release: '15.0'
+          arch: amd64
+          sync: rsync
+          prepare: pkg install -y git python311 gmake perl5 icu libunwind libinotify brotli
+          run: sh tools/Native/Erlang.NifPlatformValidation/run-freebsd-managed-ci.sh
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: nif-freebsd-managed-x64
+          path: |
+            artifacts/nif-freebsd/*.txt
+            artifacts/nif-platform-ci/native
+            artifacts/nif-platform-ci/managed-checks.json
+            artifacts/nif-platform-ci/image
+            tools/Native/Erlang.NifPlatformValidation/freebsd-runtime.json

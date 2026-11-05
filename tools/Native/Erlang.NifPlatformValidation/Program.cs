@@ -8,7 +8,7 @@ if (args is ["--image", var beam, var library, var imageOutput])
     try
     {
         await NifPlatformImageChecks.Run(beam, library, imageOutput);
-        Console.WriteLine(JsonSerializer.Serialize(new { Passed = true, Architecture = RuntimeInformation.ProcessArchitecture.ToString(), ProcessHost = NifNativePortableUnixApi.IsProcessHost }));
+        Console.WriteLine(JsonSerializer.Serialize(new { Passed = true, Architecture = RuntimeInformation.ProcessArchitecture.ToString(), Runtime = RuntimeInformation.FrameworkDescription, OperatingSystem = RuntimeInformation.OSDescription, PointerBytes = IntPtr.Size, ProcessHost = NifNativePortableUnixApi.IsProcessHost }));
     }
     catch (Exception error)
     {
@@ -146,6 +146,9 @@ string report = JsonSerializer.Serialize(
         Architecture = RuntimeInformation.ProcessArchitecture.ToString(),
         LinuxNamespace = NifNativePlatformPolicy.UseLinuxNamespace,
         CrossPlatformExecutionProven = false,
+    Runtime = RuntimeInformation.FrameworkDescription,
+    OperatingSystem = RuntimeInformation.OSDescription,
+    PointerBytes = IntPtr.Size,
         Results = results
     },
     new JsonSerializerOptions { WriteIndented = true }
