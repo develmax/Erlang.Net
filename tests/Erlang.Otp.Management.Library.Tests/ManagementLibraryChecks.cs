@@ -106,7 +106,7 @@ internal static class ManagementLibraryChecks
             {
                 string[] imports = OtpDiameter.Modules.Concat(OtpSnmp.Modules).Concat(OtpStdlib.Modules).Concat(OtpKernel.Modules).Concat([Observer, Internal, ErlangModule, Crypto, Debugger, Asn1Runtime, PrimitiveSocket, PersistentTerm, PrimitiveInternet]).ToArray();
                 var dependencies = new BeamDependencySelection(imports);
-                byte[][] bytes = [OtpStdlib.ReadImage(Lists), OtpStdlib.ReadImage(Calendar), OtpStdlib.ReadImage(IoLibrary), OtpStdlib.ReadImage(IoFormatter), OtpStdlib.ReadImage(ManagementLibraryNames.StringModule), OtpStdlib.ReadImage(Unicode), OtpStdlib.ReadImage(UnicodeUtilities), OtpStdlib.ReadImage(Proplists), OtpKernel.ReadImage(InternetParser), OtpKernel.ReadImage(Internet), OtpDiameter.ReadImage(DiameterTypes), OtpDiameter.ReadImage(DiameterLibrary), OtpSnmp.ReadImage(SnmpPdus), OtpSnmp.ReadImage(SnmpBasics), OtpSnmp.ReadImage(SnmpMisc), Resource(ObserverImage)];
+                byte[][] bytes = [OtpStdlib.ReadImage(Lists), OtpStdlib.ReadImage(Calendar), OtpStdlib.ReadImage(ManagementLibraryNames.IoLibrary), OtpStdlib.ReadImage(IoFormatter), OtpStdlib.ReadImage(ManagementLibraryNames.StringModule), OtpStdlib.ReadImage(Unicode), OtpStdlib.ReadImage(UnicodeUtilities), OtpStdlib.ReadImage(Proplists), OtpKernel.ReadImage(InternetParser), OtpKernel.ReadImage(Internet), OtpDiameter.ReadImage(DiameterTypes), OtpDiameter.ReadImage(DiameterLibrary), OtpSnmp.ReadImage(SnmpPdus), OtpSnmp.ReadImage(SnmpBasics), OtpSnmp.ReadImage(SnmpMisc), Resource(ObserverImage)];
                 PreparedBeamImage[] images = bytes.Select(image =>
                 {
                     try
