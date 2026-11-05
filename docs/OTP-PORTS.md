@@ -1,5 +1,7 @@
 # OTP source port register
 
+Part592: real multi-scheduling closes the selected erts_internal helper gate. Both backends pass262 complete observations and45 scenarios, plus10 physical and36 connected groups. The original Erlang/BEAM is retained. Native debug node/dist inventory and broader certification remain open; no universal100% claim or full regression/readiness refresh. [Backend contract](erts-internal-backends.md), [receipt](validation/part-592/README.md).
+
 Part 354 common-capture follow-up before a fresh canonical run (2026-10-17)
 
 The first canonical attempt is retained as a failure: 7,324 passed and eighteen failed, with settled exit 1. Two failures expose actual apply-forwarding and local RPC stack regressions; sixteen port cases report eacces. A separate paired diagnostic uses the same retained full-run DLLs and identical harness: all sixteen selected contracts fail with eacces in the recorded default context and pass in the Root-authorized outside context. The passive audit binds fixture sources, expected values, policies, recorded generated-code hashes, loaded assemblies, raw streams and settled receipts (F94A24880C707E6940732D0001385D6C4F63440C351B249D857D3BE7A76752EF). This establishes the measured context difference, not a particular Win32 denial/token/job mechanism, universal port parity or a successful full run. Generated code bytes and initial descendant probe-binary hashes were not retained and are not described as independently rehashed.

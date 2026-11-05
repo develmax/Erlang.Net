@@ -1,5 +1,7 @@
 # Next steps
 
+Part592: real multi-scheduling closes the selected erts_internal helper gate. Both backends pass262 complete observations and45 scenarios, plus10 physical and36 connected groups. The original Erlang/BEAM is retained. Native debug node/dist inventory and broader certification remain open; no universal100% claim or full regression/readiness refresh. [Backend contract](erts-internal-backends.md), [receipt](validation/part-592/README.md).
+
 ## Executable queue
 
 - Close the [ordsets acceptance gates](ORDSETS_COMPATIBILITY.md): shared term ordering/equality and `lists` helper closure, followed by complete regression and readiness publication. Preserve the exact OTP corpus and repaired native reverse source frames.

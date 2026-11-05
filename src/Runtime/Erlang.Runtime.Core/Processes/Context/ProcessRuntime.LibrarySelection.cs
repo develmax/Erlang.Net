@@ -62,6 +62,11 @@ public sealed partial class ProcessRuntime
             setup = runtime.InitializeModulesAsync(registry =>
             {
                 RuntimeNativePrimitiveProviders.Register(runtime, registry, options.NativePrimitives);
+                RuntimeModuleSelection? internalChoice = libraries.Modules.SingleOrDefault(choice => choice.Module == ErtsInternalContract.Module);
+                if (internalChoice is not null)
+                {
+                    registry.InstallErtsInternalLibrary(internalChoice.Backend == RuntimeModuleBackend.Managed);
+                }
                 if (options.BootstrapFileSystem)
                     RuntimeBootstrapFileSystem.Register(runtime, registry);
                 observer?.Invoke(LibraryStartupObservationNames.SetupBeforePrepare, runtime, null);

@@ -1,5 +1,7 @@
 # Project progress
 
+Part592: real multi-scheduling closes the selected erts_internal helper gate. Both backends pass262 complete observations and45 scenarios, plus10 physical and36 connected groups. The original Erlang/BEAM is retained. Native debug node/dist inventory and broader certification remain open; no universal100% claim or full regression/readiness refresh. [Backend contract](erts-internal-backends.md), [receipt](validation/part-592/README.md).
+
 ## Current status sources
 
 - [ordsets verification](ORDSETS_COMPATIBILITY.md): all 21 APIs have a permanent whole-result/stack/effect corpus; the managed merge stack discrepancy is repaired. Universal compatibility acceptance remains open.

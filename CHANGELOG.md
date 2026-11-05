@@ -176,4 +176,6 @@ Append numbered English entries only to the last volume. Start the next sequenti
 
 - [0101.md](docs/changelog/0101.md) - Part555 NIF observer and backend validation repairs (closed; continues in0102)
 
-- [0102.md](docs/changelog/0102.md) - Parts555–558 compressed ETS, library compatibility and documentation integration (active)
+- [0102.md](docs/changelog/0102.md) - Parts555–558 compressed ETS, library compatibility and documentation integration (closed; scoped successor in0107)
+
+- [0107.md](docs/changelog/0107.md) - Part592 selectable erts_internal and real multi-scheduling (active)
