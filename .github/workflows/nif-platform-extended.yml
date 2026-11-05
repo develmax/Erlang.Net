@@ -1,0 +1,87 @@
+name: NIF musl and BSD native portability
+on:
+  push:
+    branches: ['ci/nif-platforms-*']
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  linux-musl:
+    strategy:
+      fail-fast: false
+      matrix:
+        runner: [ubuntu-24.04, ubuntu-24.04-arm]
+    runs-on: ${{ matrix.runner }}
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+          sparse-checkout: |
+            src/Runtime/Erlang.Runtime.Core
+            src/Runtime/Erlang.Runtime
+            src/Otp/Managed/Erlang.Otp.Stdlib
+            src/Otp/Managed/Erlang.Otp.Kernel
+            src/Runtime/Erlang.Terms
+            src/Runtime/Erlang.Serialization
+            src/Otp/Original/Foundation/Erlang.Otp.Erts.Beam
+            tools/Native/Erlang.NifNativeBackend
+            tools/Native/Erlang.NifPlatformValidation
+      - name: Execute native and managed NIF checks on Alpine musl
+        shell: bash
+        run: |
+          set -euo pipefail
+          docker run --rm -v "$PWD:/work" -w /work mcr.microsoft.com/dotnet/sdk:10.0.400-alpine sh -c '
+            set -eu
+            apk add --no-cache build-base bash git perl python3 ncurses-dev linux-headers
+            sh tools/Native/Erlang.NifPlatformValidation/run-unix-ci.sh
+          '
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: nif-platform-musl-${{ matrix.runner }}
+          path: |
+            artifacts/nif-platform-ci/native
+            artifacts/nif-platform-ci/managed-checks.json
+            artifacts/nif-platform-ci/image
+  freebsd-native:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+          sparse-checkout: |
+            src/Runtime/Erlang.Runtime.Core
+            src/Runtime/Erlang.Runtime
+            src/Otp/Managed/Erlang.Otp.Stdlib
+            src/Otp/Managed/Erlang.Otp.Kernel
+            src/Runtime/Erlang.Terms
+            src/Runtime/Erlang.Serialization
+            src/Otp/Original/Foundation/Erlang.Otp.Erts.Beam
+            tools/Native/Erlang.NifNativeBackend
+            tools/Native/Erlang.NifPlatformValidation
+      - name: Compile and execute the C bridge on FreeBSD (no .NET acceptance claim)
+        uses: vmactions/freebsd-vm@c46abacb49f09938ca4e1702d15d836285d694cc
+        with:
+          release: '15.0'
+          arch: amd64
+          sync: rsync
+          prepare: pkg install -y git python311 gmake perl5
+          run: |
+            set -eu
+            task_root=$(pwd)
+            mkdir -p artifacts/nif-platform-ci
+            git clone --depth 1 --branch OTP-29.1.1 https://github.com/erlang/otp.git artifacts/nif-platform-ci/otp
+            cd artifacts/nif-platform-ci/otp
+            MAKE=gmake ./configure --without-javac --without-wx --without-odbc --without-debugger --without-observer --without-et --without-ssl --without-termcap --disable-jit
+            cd "$task_root"
+            python3.11 tools/Native/Erlang.NifPlatformValidation/prepare-configured-headers.py --repository . --otp-source artifacts/nif-platform-ci/otp --output artifacts/nif-platform-ci/headers
+            python3.11 tools/Native/Erlang.NifNativeBackend/build-unix-bridge.py --repository . --otp-source artifacts/nif-platform-ci/otp --otp-include artifacts/nif-platform-ci/headers --output artifacts/nif-platform-ci/native
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: nif-platform-freebsd-native-only
+          path: |
+            artifacts/nif-platform-ci/native
+            artifacts/nif-platform-ci/headers/headers-receipt.json

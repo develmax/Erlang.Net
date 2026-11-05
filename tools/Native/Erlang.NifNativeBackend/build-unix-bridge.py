@@ -32,10 +32,10 @@ def main():
         parser.error('Output must be a new directory below repository/artifacts')
     include = args.otp_include.resolve()
     baseline = json.loads((root / 'reference-baseline.json').read_text())
-    for header in ('erl_nif.h', 'erl_nif_api_funcs.h', 'erl_int_sizes_config.h'):
+    for header in ('erl_nif.h', 'erl_nif_api_funcs.h', 'erl_drv_nif.h', 'erl_int_sizes_config.h'):
         if not (include / header).is_file():
             parser.error('Missing configured OTP header: ' + header)
-    for header in ('erl_nif.h', 'erl_nif_api_funcs.h'):
+    for header in ('erl_nif.h', 'erl_nif_api_funcs.h', 'erl_drv_nif.h'):
         original = subprocess.check_output(['git', '-C', str(args.otp_source.resolve()),
                                             'show', baseline['commit'] + ':erts/emulator/beam/' + header])
         if (include / header).read_bytes() != original:
