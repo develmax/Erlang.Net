@@ -26,15 +26,18 @@ internal static unsafe class NifNativePortableUnixApi
         {
             if (library != 0)
             {
-                if (selected is not null && !string.Equals(path, requested, StringComparison.Ordinal))
+                if (selected is not null && (IsProcessHost || !string.Equals(path, requested, StringComparison.Ordinal)))
                     throw new InvalidOperationException(NifNativePortableNames.BridgeMismatch);
 
                 return library;
             }
-            nint main = NativeLibrary.GetMainProgramHandle();
+            nint main = OperatingSystem.IsMacOS() ? NativeLibrary.GetMainProgramHandle() : 0;
             bool processHost = OperatingSystem.IsMacOS()
                 && NativeLibrary.TryGetExport(main, NifNativePortableNames.ProcessHost, out nint marker)
                 && ((delegate* unmanaged[Cdecl]<uint>)marker)() == NifNativePortableNames.ProcessHostProtocol;
+            if (processHost && selected is not null)
+                throw new InvalidOperationException(NifNativePortableNames.BridgeMismatch);
+
             nint candidate = processHost ? main : NativeLibrary.Load(requested);
             try
             {

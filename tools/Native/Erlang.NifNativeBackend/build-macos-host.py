@@ -9,6 +9,7 @@ from pathlib import Path
 parser = argparse.ArgumentParser(description=__doc__)
 parser.add_argument('--repository', type=Path, required=True)
 parser.add_argument('--otp-include', type=Path, required=True)
+parser.add_argument('--otp-source', type=Path, required=True)
 parser.add_argument('--dotnet-root', type=Path, required=True)
 parser.add_argument('--output', type=Path, required=True)
 args = parser.parse_args()
@@ -21,10 +22,19 @@ headers = list((args.dotnet_root / 'packs' / ('Microsoft.NETCore.App.Host.' + ri
 if not headers:
     parser.error('Installed SDK hostfxr.h not found')
 header = max(headers, key=lambda path: tuple(map(int, path.parents[3].name.split('.'))))
+baseline = json.loads((root / 'reference-baseline.json').read_text())
+for name in ('erl_nif.h', 'erl_nif_api_funcs.h', 'erl_drv_nif.h'):
+    original = subprocess.check_output(['git', '-C', str(args.otp_source.resolve()), 'show', baseline['commit'] + ':erts/emulator/beam/' + name])
+    if (args.otp_include / name).read_bytes() != original:
+        parser.error('Configured include differs from pinned OTP: ' + name)
 native = root / 'tools/Native/Erlang.NifNativeBackend/native'
 sources = [native / name for name in ('nif_process_host.c', 'nif_bridge_exports.c', 'nif_bridge_varargs.c', 'nif_bridge_platform.c', 'nif_bridge_layout.c')]
 output.mkdir(parents=True)
 command = ['cc', '-std=c11', '-O2', '-fvisibility=hidden', '-Wall', '-Wextra', '-Werror', '-Wl,-export_dynamic', '-I' + str(args.otp_include.resolve()), '-I' + str(header.parent), *map(str, sources), '-o', str(output / 'erlang-nif-host')]
 subprocess.run(command, check=True)
-receipt = {'Host': platform.platform(), 'Command': command, 'Sources': {str(path.relative_to(root)): hashlib.sha256(path.read_bytes()).hexdigest() for path in sources}, 'HostfxrHeaderSha256': hashlib.sha256(header.read_bytes()).hexdigest(), 'Executed': False}
+exports = subprocess.check_output(['nm', '-gU', str(output / 'erlang-nif-host')], text=True)
+for name in ('_nif_bridge_process_host', '_enif_alloc', '_enif_free', '_enif_make_tuple'):
+    assert any(line.split()[-1] == name for line in exports.splitlines())
+(output / 'exports.txt').write_text(exports)
+receipt = {'OtpBaseline': baseline, 'Headers': {path.name: hashlib.sha256(path.read_bytes()).hexdigest() for path in args.otp_include.glob('*.h')}, 'BinarySha256': hashlib.sha256((output / 'erlang-nif-host').read_bytes()).hexdigest(), 'Host': platform.platform(), 'Command': command, 'Sources': {str(path.relative_to(root)): hashlib.sha256(path.read_bytes()).hexdigest() for path in sources}, 'HostfxrHeaderSha256': hashlib.sha256(header.read_bytes()).hexdigest(), 'Executed': False}
 (output / 'build-receipt.json').write_text(json.dumps(receipt, indent=2) + '\n')

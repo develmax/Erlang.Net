@@ -1,8 +1,11 @@
 name: Unmodified OTP-linked NIF on macOS
 on:
-  push:
-    branches: ['ci/nif-binary-compat-*']
   workflow_dispatch:
+    inputs:
+      producer_run:
+        description: 'Completed main matrix run containing nif-platform-macos-15'
+        required: true
+        type: string
 permissions:
   contents: read
   actions: read
@@ -27,7 +30,7 @@ jobs:
       - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333
         with:
           name: nif-platform-macos-15
-          run-id: 41939988779
+          run-id: ${{ inputs.producer_run }}
           github-token: ${{ github.token }}
           path: artifacts/otp-producer
       - name: Execute the original bundle without recompiling or relinking it
@@ -38,7 +41,7 @@ jobs:
           test "$(git -C artifacts/otp rev-parse HEAD)" = ad05823719d77c8faee87348ea39513d4e2f99c5
           (cd artifacts/otp && ./configure --without-javac --without-wx --without-odbc --without-debugger --without-observer --without-et --without-ssl --without-termcap --disable-jit)
           python3 tools/Native/Erlang.NifPlatformValidation/prepare-configured-headers.py --repository . --otp-source artifacts/otp --output artifacts/headers
-          python3 tools/Native/Erlang.NifNativeBackend/build-macos-host.py --repository . --otp-include artifacts/headers --dotnet-root "$DOTNET_ROOT" --output artifacts/process-host
+          python3 tools/Native/Erlang.NifNativeBackend/build-macos-host.py --repository . --otp-include artifacts/headers --otp-source artifacts/otp --dotnet-root "$DOTNET_ROOT" --output artifacts/process-host
           dotnet build tools/Native/Erlang.NifPlatformValidation -m:1
           cp artifacts/otp-producer/native/Erlang.NifBridge.so tools/Native/Erlang.NifPlatformValidation/bin/Debug/net10.0/
           mkdir -p artifacts/nif-binary-compat

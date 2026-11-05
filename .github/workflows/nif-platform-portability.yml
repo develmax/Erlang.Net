@@ -88,6 +88,7 @@ jobs:
           name: nif-platform-${{ matrix.runner }}
           path: |
             artifacts/nif-platform-ci/native
+            artifacts/nif-platform-ci/process-host
             artifacts/nif-platform-ci/managed-checks.json
             artifacts/nif-platform-ci/image
   native-windows-arm64:
