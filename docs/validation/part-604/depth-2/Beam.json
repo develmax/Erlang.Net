@@ -1,0 +1,109 @@
+{
+  "Backend": "Beam",
+  "Mode": "errors",
+  "CorpusTotal": 137,
+  "Passed": 52,
+  "Total": 52,
+  "Failures": [],
+  "Baseline": "OTP-29.1.1",
+  "Commit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "Assembly": "d128a4e6-32e6-425d-946e-9e3740e3b317",
+  "BacktraceDepth": 2,
+  "Assemblies": [
+    {
+      "FullName": "Erlang.Otp.Stdlib, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
+      "Mvid": "d128a4e6-32e6-425d-946e-9e3740e3b317",
+      "Sha256": "D445FC8EBA5083A57BE2C28E281E66029F261E6647D1C27E3F84A37F1EE4DDE5"
+    },
+    {
+      "FullName": "Erlang.Runtime, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
+      "Mvid": "6fde4633-68db-4cc2-9159-5f5bcfb6b05f",
+      "Sha256": "9E1FC2983CCC5E7A30744403E2FD1FE1E04255B486B9A4CC7B33098C26ECBF94"
+    },
+    {
+      "FullName": "Erlang.Terms, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
+      "Mvid": "d634f429-3abe-48dc-a334-6a9c32f17cdc",
+      "Sha256": "00A1A2E9EC7C7E8A76DE109ED9A7A1B4169918AA4D1EA699A274631681C12BC1"
+    },
+    {
+      "FullName": "Erlang.SysCompatibility, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
+      "Mvid": "bf57af9d-bf27-48fa-baa9-b61f25b728f8",
+      "Sha256": "F6ECD8FC3DA172B3B01AD007417972AA3210C805302A2E0394D91A2E814E4C34"
+    }
+  ],
+  "Sources": [
+    {
+      "Path": "src\\Otp\\Managed\\Erlang.Otp.Stdlib\\Processes\\Sys\\SysApiNames.cs",
+      "Sha256": "5BEEED8DFC0155944F6BD216168119CF0E98BCE991F56C1A67603A105A409ADF"
+    },
+    {
+      "Path": "src\\Otp\\Managed\\Erlang.Otp.Stdlib\\Processes\\Sys\\SysCallbackNames.cs",
+      "Sha256": "7249E8637CD13B06383F07A09A66928D068BE67A336D6E8A630E1DFD3402EC42"
+    },
+    {
+      "Path": "src\\Otp\\Managed\\Erlang.Otp.Stdlib\\Processes\\Sys\\SysDebugFlags.cs",
+      "Sha256": "346DD0466A8D9142B6D3F4C527334BE562EB5F9685793A70100884FF7A81659D"
+    },
+    {
+      "Path": "src\\Otp\\Managed\\Erlang.Otp.Stdlib\\Processes\\Sys\\SysDebugLimits.cs",
+      "Sha256": "75D618DAA762F789E90D31FDDD8041FE0885DDBE630CA3ADC0360C98C002E518"
+    },
+    {
+      "Path": "src\\Otp\\Managed\\Erlang.Otp.Stdlib\\Processes\\Sys\\SysDependencyFunctions.cs",
+      "Sha256": "C1223846834156E56BA2B9AE216A2DFE48C3276B5AC7918B47BD9D39CFDFE1B2"
+    },
+    {
+      "Path": "src\\Otp\\Managed\\Erlang.Otp.Stdlib\\Processes\\Sys\\SysDependencyNames.cs",
+      "Sha256": "1B36EDE0AB56A113AF2F489BDA6A718FCBFA4D411C5D4EE1D39BC377CED1666F"
+    },
+    {
+      "Path": "src\\Otp\\Managed\\Erlang.Otp.Stdlib\\Processes\\Sys\\SysModule.cs",
+      "Sha256": "D999679A121E25C78B6015A6B29AFCE7010E253B11E5E72CCB17D45A071A5A01"
+    },
+    {
+      "Path": "src\\Otp\\Managed\\Erlang.Otp.Stdlib\\Processes\\Sys\\SysModule.Debug.cs",
+      "Sha256": "9CF3EF23E04BA4B4F6236A6B8F287C890A18FE56662FB2DEC71210923E7B96D4"
+    },
+    {
+      "Path": "src\\Otp\\Managed\\Erlang.Otp.Stdlib\\Processes\\Sys\\SysModule.System.cs",
+      "Sha256": "9D6E89D05E4C6D2EF78A2B8BB01BCAA9C3660FD38441472F448267FCF57F8BF8"
+    },
+    {
+      "Path": "src\\Otp\\Managed\\Erlang.Otp.Stdlib\\Processes\\Sys\\SysProtocolNames.cs",
+      "Sha256": "B03EED8101747921CC718DFB89DCA171D7F2C027F940B9E1256755A48276DAEF"
+    },
+    {
+      "Path": "src\\Otp\\Managed\\Erlang.Otp.Stdlib\\Processes\\Sys\\SysSource.cs",
+      "Sha256": "CCBA3F207A672D28F944BE43F44551D239B0FEBA1BAC378BCB4169CA1D8454A2"
+    },
+    {
+      "Path": "src\\Otp\\Managed\\Erlang.Otp.Stdlib\\Processes\\Sys\\SysSourceLines.cs",
+      "Sha256": "7E9B7DFBB7D64A30E2CC289E31D1104ECDB3D66A4C86A5B41A15D741BF88517A"
+    },
+    {
+      "Path": "src\\Otp\\Managed\\Erlang.Otp.Stdlib\\Processes\\Sys\\SysSourceNames.cs",
+      "Sha256": "4D7538A46521E4B46B1AAA5FA072B10969C542F609C24F66C903DE7B2060BF80"
+    },
+    {
+      "Path": "src\\Otp\\Managed\\Erlang.Otp.Stdlib\\Processes\\Sys\\SystemMessageReply.cs",
+      "Sha256": "3EF3CA3F69873183135F1C93DE429B3A57ECCD5013C59E59557B67CEC91128D3"
+    },
+    {
+      "Path": "src\\Otp\\Managed\\Erlang.Otp.Stdlib\\Processes\\Sys\\SysTermination.cs",
+      "Sha256": "5652F2FCCFFBEF09DFEC61A47E441AD4E687F374CE01A4E25F0F40E200D67609"
+    },
+    {
+      "Path": "src\\Otp\\Managed\\Erlang.Otp.Stdlib\\Processes\\Sys\\SysTerminationAtoms.cs",
+      "Sha256": "64B49EBC630A7F95DCC950E703C6D71BC0B278713A3A150B236E039E531DAC5D"
+    },
+    {
+      "Path": "src\\Otp\\Managed\\Erlang.Otp.Stdlib\\Processes\\Sys\\SysTerminationNames.cs",
+      "Sha256": "E1CDA4085CC82F0D31143DB08162C9D844C8B03543F93E6F9C2FA267EF1E66D3"
+    },
+    {
+      "Path": "src\\Otp\\Managed\\Erlang.Otp.Stdlib\\Processes\\Sys\\SysTerminationParameters.cs",
+      "Sha256": "92EB833AEDB112BB89C70779B0568C595EC0CC7A7794349D8C0464303D8AF2A1"
+    }
+  ],
+  "CorpusSha256": "4DDF60AB24DF60F754E5D56FB2586E14A71D57563162345B79633336E3AC425F"
+}
