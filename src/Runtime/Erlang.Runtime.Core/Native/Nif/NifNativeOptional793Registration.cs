@@ -8,6 +8,8 @@ internal static unsafe class NifNativeOptional793Registration
         slots[NifNativeOptional793Names.DlsymSlot] = (nint)(delegate* unmanaged[Cdecl]<nint, byte*, nint, nint, nint>)&NifNativeOptional793Callbacks.Symbol;
         // Windows x64 passes the same first two integer arguments for variadic
         // set_option; this rejecting entry never reads any optional argument.
-        slots[NifNativeOptional793Names.SetOptionSlot] = (nint)(delegate* unmanaged[Cdecl]<nint, int, int>)&NifNativeOptional793Callbacks.SetOption;
+        nint native = OperatingSystem.IsWindows() ? NifWindowsVariadic526.SetOption : 0;
+        slots[NifNativeOptional793Names.SetOptionSlot] = native != 0 ? native
+            : (nint)(delegate* unmanaged[Cdecl]<nint, int, int>)&NifNativeOptional793Callbacks.SetOption;
     }
 }

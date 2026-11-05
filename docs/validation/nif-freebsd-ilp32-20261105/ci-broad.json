@@ -1,0 +1,244 @@
+[
+  {
+    "RunId": 41953928877,
+    "Name": "NIF FreeBSD managed execution",
+    "Head": "9e2911dd22fbb79c5d754be828a9126517c4e2e4",
+    "Status": "completed",
+    "Conclusion": "success",
+    "Url": "https://github.com/develmax/Erlang.Net/actions/runs/41953928877",
+    "Jobs": [
+      {
+        "id": 127004152950,
+        "name": "freebsd-managed-x64",
+        "status": "completed",
+        "conclusion": "success",
+        "started_at": "2026-11-05T02:14:55Z",
+        "completed_at": "2026-11-05T02:22:18Z"
+      }
+    ],
+    "Artifacts": [
+      {
+        "id": 13382945324,
+        "name": "nif-freebsd-managed-x64",
+        "size_in_bytes": 70716,
+        "digest": "sha256:231a6fa5d33ae46c80fbdeec3ce49e09259e80a66b0086ae0b3b7bc50e9a8d75"
+      }
+    ]
+  },
+  {
+    "RunId": 41953929427,
+    "Name": "NIF Windows x86 ABI-only and x64 control",
+    "Head": "9e2911dd22fbb79c5d754be828a9126517c4e2e4",
+    "Status": "completed",
+    "Conclusion": "success",
+    "Url": "https://github.com/develmax/Erlang.Net/actions/runs/41953929427",
+    "Jobs": [
+      {
+        "id": 127004154781,
+        "name": "Windows x86 ABI (x86 VM remains gated)",
+        "status": "completed",
+        "conclusion": "success",
+        "started_at": "2026-11-05T02:15:03Z",
+        "completed_at": "2026-11-05T02:17:18Z"
+      },
+      {
+        "id": 127004155318,
+        "name": "Windows x64 ABI (x86 VM remains gated)",
+        "status": "completed",
+        "conclusion": "success",
+        "started_at": "2026-11-05T02:14:55Z",
+        "completed_at": "2026-11-05T02:16:54Z"
+      }
+    ],
+    "Artifacts": [
+      {
+        "id": 13382272633,
+        "name": "nif-windows-x64-abi",
+        "size_in_bytes": 420603,
+        "digest": "sha256:ddba9e8710c63ecd10b1cb235dc8ef17e9165959d508c6c5e7a4fa1a543be048"
+      },
+      {
+        "id": 13382107965,
+        "name": "nif-windows-x86-abi",
+        "size_in_bytes": 369986,
+        "digest": "sha256:19ce5af9f08f915570a195001e9a36eb22962ac5b6a1d3373426ec1dec6bf5f1"
+      }
+    ]
+  },
+  {
+    "RunId": 41953929092,
+    "Name": "NIF musl and BSD native portability",
+    "Head": "9e2911dd22fbb79c5d754be828a9126517c4e2e4",
+    "Status": "completed",
+    "Conclusion": "success",
+    "Url": "https://github.com/develmax/Erlang.Net/actions/runs/41953929092",
+    "Jobs": [
+      {
+        "id": 127004153633,
+        "name": "freebsd-native",
+        "status": "completed",
+        "conclusion": "success",
+        "started_at": "2026-11-05T02:14:55Z",
+        "completed_at": "2026-11-05T02:16:43Z"
+      },
+      {
+        "id": 127004153913,
+        "name": "linux-musl (ubuntu-24.04)",
+        "status": "completed",
+        "conclusion": "success",
+        "started_at": "2026-11-05T02:14:55Z",
+        "completed_at": "2026-11-05T02:21:06Z"
+      },
+      {
+        "id": 127004153921,
+        "name": "linux-musl (ubuntu-24.04-arm)",
+        "status": "completed",
+        "conclusion": "success",
+        "started_at": "2026-11-05T02:14:57Z",
+        "completed_at": "2026-11-05T02:20:48Z"
+      }
+    ],
+    "Artifacts": [
+      {
+        "id": 13382920428,
+        "name": "nif-platform-musl-ubuntu-24.04-arm",
+        "size_in_bytes": 28979,
+        "digest": "sha256:76696c506c9955ccd9a077ae1aef83d75fe91f8df848f4a03ef509997d2843f6"
+      },
+      {
+        "id": 13382207575,
+        "name": "nif-platform-musl-ubuntu-24.04",
+        "size_in_bytes": 27917,
+        "digest": "sha256:e105f0d8dd5ad6de45e931c4164a12309fd81001cd4200925d81ffbb4de6a400"
+      },
+      {
+        "id": 13381743161,
+        "name": "nif-platform-freebsd-native-only",
+        "size_in_bytes": 13537,
+        "digest": "sha256:9727a325921774e94d33085d63e083264f4526fdd230323f453f45fb8dbe7df5"
+      }
+    ]
+  },
+  {
+    "RunId": 41953929189,
+    "Name": "NIF platform portability (target execution)",
+    "Head": "9e2911dd22fbb79c5d754be828a9126517c4e2e4",
+    "Status": "completed",
+    "Conclusion": "success",
+    "Url": "https://github.com/develmax/Erlang.Net/actions/runs/41953929189",
+    "Jobs": [
+      {
+        "id": 127004155257,
+        "name": "native-windows-arm64",
+        "status": "completed",
+        "conclusion": "success",
+        "started_at": "2026-11-05T02:14:55Z",
+        "completed_at": "2026-11-05T02:17:35Z"
+      },
+      {
+        "id": 127004155605,
+        "name": "native-unix (ubuntu-24.04, X64)",
+        "status": "completed",
+        "conclusion": "success",
+        "started_at": "2026-11-05T02:14:55Z",
+        "completed_at": "2026-11-05T02:20:41Z"
+      },
+      {
+        "id": 127004155699,
+        "name": "native-unix (macos-15, Arm64)",
+        "status": "completed",
+        "conclusion": "success",
+        "started_at": "2026-11-05T02:15:06Z",
+        "completed_at": "2026-11-05T02:22:40Z"
+      },
+      {
+        "id": 127004155701,
+        "name": "native-unix (macos-15-intel, X64)",
+        "status": "completed",
+        "conclusion": "success",
+        "started_at": "2026-11-05T02:14:57Z",
+        "completed_at": "2026-11-05T02:33:26Z"
+      },
+      {
+        "id": 127004155791,
+        "name": "native-unix (ubuntu-24.04-arm, Arm64)",
+        "status": "completed",
+        "conclusion": "success",
+        "started_at": "2026-11-05T02:15:08Z",
+        "completed_at": "2026-11-05T02:20:16Z"
+      }
+    ],
+    "Artifacts": [
+      {
+        "id": 13382957546,
+        "name": "nif-platform-macos-15-intel",
+        "size_in_bytes": 26908,
+        "digest": "sha256:af06dbeab55c33e18f1db5a9dd99cafe8ff93a611c8259451d8c2ca2277a6800"
+      },
+      {
+        "id": 13382732307,
+        "name": "nif-platform-macos-15",
+        "size_in_bytes": 27926,
+        "digest": "sha256:0fd627270b0621327a23f3d0bab23684fc47dcee9a7fc8a70a8b56adcd056465"
+      },
+      {
+        "id": 13382492851,
+        "name": "nif-platform-ubuntu-24.04-arm",
+        "size_in_bytes": 29374,
+        "digest": "sha256:3605520969464d87fda7d242cf0b93a9d7d86cefc1b6db306f0afd47d00bc331"
+      },
+      {
+        "id": 13381933079,
+        "name": "nif-platform-ubuntu-24.04",
+        "size_in_bytes": 27692,
+        "digest": "sha256:fcd817d3d45cc67894319fad58ba858ec24e5dde6265746f6c8b3d0599955c6f"
+      },
+      {
+        "id": 13381827928,
+        "name": "nif-platform-windows-arm64",
+        "size_in_bytes": 484370,
+        "digest": "sha256:1169c0a72fad95510368d9061fa3b7087fe34468c2c9bfc274fa452782c8ff33"
+      }
+    ]
+  },
+  {
+    "RunId": 41953928740,
+    "Name": "NIF other BSD native preflight",
+    "Head": "9e2911dd22fbb79c5d754be828a9126517c4e2e4",
+    "Status": "completed",
+    "Conclusion": "success",
+    "Url": "https://github.com/develmax/Erlang.Net/actions/runs/41953928740",
+    "Jobs": [
+      {
+        "id": 127004153420,
+        "name": "openbsd-native-only",
+        "status": "completed",
+        "conclusion": "success",
+        "started_at": "2026-11-05T02:14:55Z",
+        "completed_at": "2026-11-05T02:17:25Z"
+      },
+      {
+        "id": 127004153863,
+        "name": "netbsd-native-only",
+        "status": "completed",
+        "conclusion": "success",
+        "started_at": "2026-11-05T02:14:55Z",
+        "completed_at": "2026-11-05T02:18:11Z"
+      }
+    ],
+    "Artifacts": [
+      {
+        "id": 13382885097,
+        "name": "nif-netbsd-native-only",
+        "size_in_bytes": 34206,
+        "digest": "sha256:2ece05636d9081b0a84c71509c1186dec85d2a612464331bd4006771a164c237"
+      },
+      {
+        "id": 13381927572,
+        "name": "nif-openbsd-native-only",
+        "size_in_bytes": 29437,
+        "digest": "sha256:d2e46c9ae3471af7c1bdebd1e4a4389e8c292dd4c41269d0a46a6ac84196f37f"
+      }
+    ]
+  }
+]

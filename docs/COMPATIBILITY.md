@@ -1,5 +1,18 @@
 # Compatibility overview
 
+Part601 verifies the native-word resource/magic and atomics/counters port in Windows x86/x64 Debug and Release. All six final-source CI jobs pass, including actual C resource NIF execution, GC retirement and byte parity against pinned original ERTS with word sizes 4 and 8. Other managed resource platforms and full resource lifecycle parity remain open. [Exact scope and results](validation/part-601/README.md).
+
+
+
+Part600 ports ordinary native-cell/word and collector dependencies to little-endian 32-bit words. Windows x86 real NIF and focused GC checks pass locally and in CI on 6197702e. Windows x64/ARM64, Linux glibc/musl x64/ARM64, macOS x64/ARM64 and FreeBSD 15 amd64 real-image regressions also pass. [Scope/evidence](validation/part-600/README.md). Other 32-bit hosts, full native-resource/atomics/counters/loader resource profiles and alias/wire parity remain open; no module/MFA promotion.
+
+
+Part598 verifies real NIF execution on FreeBSD 15 amd64 with pinned community CLR 10.0.13, SDK 10.0.400 managed builds, same-host original OTP and unchanged-ELF ETF parity. OpenSSL SONAME selection and native dlsym caller scope are fixed. Part599 verifies Windows x86 public ABI/layout, native descriptor initialization and C/C# varargs only: full 32-bit VM/NIF execution remains rejected by the native-cell source-profile guard. See [exact source/target evidence](validation/nif-freebsd-ilp32-20261105/README.md). No MFA or whole-module acceptance is added.
+
+
+Part597 extends the NIF target ABI and executes native/managed platform CI with original OTP29.1.1 image comparisons. macOS executable-bound bundles use a native CLR launcher exporting the existing bridge. BSD evidence is C-only; 32-bit/remaining OS profiles and full NIF lifecycle/API parity remain open. Registered MFA delta is zero. See [exact target/head results](validation/part-597/README.md).
+
+
 Part596 fixes PR119 test synchronization: await physical dirty-handler unwind and give the two timer539 cases an outer preparation/phase/drain budget while preserving internal watchdogs and assertions. Production source is unchanged. See [failure analysis and focused evidence](validation/part-596/README.md); fresh hosted checks remain pending.
 
 Part595 repairs the remaining PR119 CI function407 failure: original OTP confirms one tail-badfun source frame, including the exact synthetic image. Focused6/6 and complete66/66 raw/typed outcomes pass. See [native proof and receipt](validation/part-595/README.md); fresh hosted checks remain pending.

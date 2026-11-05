@@ -21,8 +21,9 @@ internal sealed partial class ProcessTermHeap506
         ProcessTermSequence506 payload = AllocateEncoded526(
             [],
             [OrdinaryReference562Names.Header],
-            [((nuint)words[0] << OrdinaryReference562Names.NumberBits) | OrdinaryReference562Names.Marker,
-                words[1] | ((nuint)words[2] << OrdinaryReference562Names.NumberBits)]
+            IntPtr.Size == sizeof(uint) ? NativeWordLayout.PackUints(words)
+                : [((nuint)words[0] << OrdinaryReference562Names.NumberBits) | OrdinaryReference562Names.Marker,
+                    words[1] | ((nuint)words[2] << OrdinaryReference562Names.NumberBits)]
         );
         try
         {
@@ -56,6 +57,13 @@ internal sealed partial class ProcessTermHeap506
                 || payload.Slab.Cells.ReadHeader526(payload.AllocationOffset526) != OrdinaryReference562Names.Header)
                 throw new InvalidOperationException(CellStorage526Names.InvalidHeader);
             int start = checked(payload.AllocationOffset526 + OrdinaryReference562Names.HeaderWords);
+            if (IntPtr.Size == sizeof(uint))
+                return Array.AsReadOnly(new uint[]
+                {
+                    (uint)payload.Slab.Cells.ReadNumeric556(start),
+                    (uint)payload.Slab.Cells.ReadNumeric556(start + 1),
+                    (uint)payload.Slab.Cells.ReadNumeric556(start + 2)
+                });
             nuint first = payload.Slab.Cells.ReadNumeric556(start);
             nuint second = payload.Slab.Cells.ReadNumeric556(checked(start + 1));
             if ((uint)first != OrdinaryReference562Names.Marker)
@@ -72,7 +80,7 @@ internal sealed partial class ProcessTermHeap506
 
     private static void RequireReferencePlatform562()
     {
-        if (IntPtr.Size != sizeof(ulong) || !BitConverter.IsLittleEndian)
+        if (!NativeWordLayout.Supported)
             throw new PlatformNotSupportedException(OrdinaryReference562Names.Platform);
     }
 }

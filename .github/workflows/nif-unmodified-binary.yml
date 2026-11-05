@@ -1,0 +1,62 @@
+name: Unmodified OTP-linked NIF on macOS
+on:
+  workflow_dispatch:
+    inputs:
+      producer_run:
+        description: 'Completed main matrix run containing nif-platform-macos-15'
+        required: true
+        type: string
+permissions:
+  contents: read
+  actions: read
+jobs:
+  original-bundle-on-native-host:
+    strategy:
+      fail-fast: false
+      matrix:
+        runner: [ubuntu-24.04, ubuntu-24.04-arm, macos-15, macos-15-intel]
+    runs-on: ${{ matrix.runner }}
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+          sparse-checkout: |
+            src/Runtime
+            src/Otp/Managed/Erlang.Otp.Stdlib
+            src/Otp/Managed/Erlang.Otp.Kernel
+            src/Otp/Original/Foundation/Erlang.Otp.Erts.Beam
+            tools/Native/Erlang.NifNativeBackend
+            tools/Native/Erlang.NifPlatformValidation
+      - uses: actions/setup-dotnet@v6
+        with:
+          dotnet-version: 10.0.400
+      - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333
+        with:
+          name: nif-platform-${{ matrix.runner }}
+          run-id: ${{ inputs.producer_run }}
+          github-token: ${{ github.token }}
+          path: artifacts/nif-platform-ci
+      - name: Execute the original bundle without recompiling or relinking it
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 tools/Native/Erlang.NifPlatformValidation/validate-producer.py
+          if [ "$(uname -s)" = Darwin ]; then
+            git clone --depth 1 --branch OTP-29.1.1 https://github.com/erlang/otp.git artifacts/otp
+            test "$(git -C artifacts/otp rev-parse HEAD)" = ad05823719d77c8faee87348ea39513d4e2f99c5
+            (cd artifacts/otp && ./configure --without-javac --without-wx --without-odbc --without-debugger --without-observer --without-et --without-ssl --without-termcap --disable-jit)
+            python3 tools/Native/Erlang.NifPlatformValidation/prepare-configured-headers.py --repository . --otp-source artifacts/otp --output artifacts/nif-platform-ci/headers
+            # The shared host builder verifies original public header identities.
+            mv artifacts/otp artifacts/nif-platform-ci/otp
+          fi
+          dotnet build tools/Native/Erlang.NifPlatformValidation -m:1
+          cp artifacts/nif-platform-ci/native/Erlang.NifBridge.so tools/Native/Erlang.NifPlatformValidation/bin/Debug/net10.0/
+          sh tools/Native/Erlang.NifPlatformValidation/run-unmodified-image.sh
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: nif-unmodified-${{ matrix.runner }}
+          path: |
+            artifacts/nif-platform-ci/image/unmodified*
+            artifacts/nif-platform-ci/process-host

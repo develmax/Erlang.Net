@@ -1,0 +1,185 @@
+{
+  "Status": "WINDOWS_VARARGS526_BUILD_COMPLETE",
+  "BuildScriptSha256": "4F71B159BE6BAB04AFE7774FD877B41A48EC98A19C82412859631CBC3330A30A",
+  "FormatHeaderPath": "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tools\\Native\\Erlang.NifNativeBackend\\native\\nif_snprintf791.h",
+  "FormatHeaderSha256": "108A0FF9E4B18012524BC0D38F30AC0A50B6A7DEA59E13D19EBE9AAEDD85318F",
+  "SourceSha256": "24433202AE4A118FE38E7093B1B46CE9DDA6757CEB3BF844A4F666BEEA1E9863",
+  "CompiledSourceSha256": "24433202AE4A118FE38E7093B1B46CE9DDA6757CEB3BF844A4F666BEEA1E9863",
+  "AdapterSha256": "8D3C82ABFFB8A8C0AC4FFE45AF3B647E25109596A26BBEAC1AAB8BFD108A1F53",
+  "Commands": [
+    {
+      "Name": "compile",
+      "Command": [
+        "C:\\Program Files\\Microsoft Visual Studio\\18\\Community\\VC\\Tools\\MSVC\\14.51.36231\\bin\\HostX64\\ARM64\\cl.exe",
+        "/nologo",
+        "/std:c11",
+        "/W4",
+        "/WX",
+        "/O2",
+        "/MT",
+        "/utf-8",
+        "/ID:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tools\\Native\\Erlang.NifNativeBackend\\native",
+        "/c",
+        "windows_varargs526.c",
+        "/Foadapter.obj"
+      ],
+      "ExitCode": 0
+    },
+    {
+      "Name": "link",
+      "Command": [
+        "C:\\Program Files\\Microsoft Visual Studio\\18\\Community\\VC\\Tools\\MSVC\\14.51.36231\\bin\\HostX64\\ARM64\\link.exe",
+        "/NOLOGO",
+        "/DLL",
+        "/MACHINE:ARM64",
+        "/Brepro",
+        "/OUT:Erlang.Nif.WindowsVariadic.dll",
+        "adapter.obj",
+        "kernel32.lib"
+      ],
+      "ExitCode": 0
+    },
+    {
+      "Name": "exports",
+      "Command": [
+        "C:\\Program Files\\Microsoft Visual Studio\\18\\Community\\VC\\Tools\\MSVC\\14.51.36231\\bin\\HostX64\\ARM64\\dumpbin.exe",
+        "/nologo",
+        "/exports",
+        "Erlang.Nif.WindowsVariadic.dll"
+      ],
+      "ExitCode": 0
+    },
+    {
+      "Name": "dependencies",
+      "Command": [
+        "C:\\Program Files\\Microsoft Visual Studio\\18\\Community\\VC\\Tools\\MSVC\\14.51.36231\\bin\\HostX64\\ARM64\\dumpbin.exe",
+        "/nologo",
+        "/dependents",
+        "Erlang.Nif.WindowsVariadic.dll"
+      ],
+      "ExitCode": 0
+    },
+    {
+      "Name": "headers",
+      "Command": [
+        "C:\\Program Files\\Microsoft Visual Studio\\18\\Community\\VC\\Tools\\MSVC\\14.51.36231\\bin\\HostX64\\ARM64\\dumpbin.exe",
+        "/nologo",
+        "/headers",
+        "Erlang.Nif.WindowsVariadic.dll"
+      ],
+      "ExitCode": 0
+    },
+    {
+      "Name": "smoke-compile",
+      "Command": [
+        "C:\\Program Files\\Microsoft Visual Studio\\18\\Community\\VC\\Tools\\MSVC\\14.51.36231\\bin\\HostX64\\ARM64\\cl.exe",
+        "/nologo",
+        "/W4",
+        "/WX",
+        "/O2",
+        "/MT",
+        "D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tools\\Native\\Erlang.NifPlatformValidation\\windows_variadic_smoke.c",
+        "/Fe:smoke.exe",
+        "/link",
+        "/LIBPATH:D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts\\nif-platform-20261105\\final-win-arm64",
+        "Erlang.Nif.WindowsVariadic.lib"
+      ],
+      "ExitCode": 0
+    }
+  ],
+  "Tools": [
+    {
+      "Path": "C:\\Program Files\\Microsoft Visual Studio\\18\\Community\\VC\\Tools\\MSVC\\14.51.36231\\bin\\HostX64\\ARM64\\cl.exe",
+      "Sha256": "29B427BB80FC01E53D14E9CA3D3DD49E590CD0A4EC521EC95B350AC74761AA28"
+    },
+    {
+      "Path": "C:\\Program Files\\Microsoft Visual Studio\\18\\Community\\VC\\Tools\\MSVC\\14.51.36231\\bin\\HostX64\\ARM64\\link.exe",
+      "Sha256": "C573956766871580096B92A7EBA5A05BAD50DEB7BFAA790830B298137CD95648"
+    },
+    {
+      "Path": "C:\\Program Files\\Microsoft Visual Studio\\18\\Community\\VC\\Tools\\MSVC\\14.51.36231\\bin\\HostX64\\ARM64\\dumpbin.exe",
+      "Sha256": "C4AC40FD1E089FC3E8172BC25FE2D9DAEBEF21A6C69DD84D280B24DB37CB92E2"
+    }
+  ],
+  "VMExecuted": false,
+  "Files": [
+    {
+      "Path": "adapter.obj",
+      "Sha256": "292D901C2B68F79D64021303F62B920C17B2C38518F78E936358DFFC4986D464",
+      "Bytes": 20619
+    },
+    {
+      "Path": "compile.stderr",
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+      "Bytes": 0
+    },
+    {
+      "Path": "compile.stdout",
+      "Sha256": "2D2179A6B912CE2D5FE74DC87B174F4FA310C044C0E10A44F736E1190E2989DF",
+      "Bytes": 22
+    },
+    {
+      "Path": "dependencies.stderr",
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+      "Bytes": 0
+    },
+    {
+      "Path": "dependencies.stdout",
+      "Sha256": "5AD47E3E6B841E139D3FDF507692BEC1BF1F0A9E2B0D70C30A19B4616F5D2775",
+      "Bytes": 269
+    },
+    {
+      "Path": "Erlang.Nif.WindowsVariadic.dll",
+      "Sha256": "8D3C82ABFFB8A8C0AC4FFE45AF3B647E25109596A26BBEAC1AAB8BFD108A1F53",
+      "Bytes": 112640
+    },
+    {
+      "Path": "Erlang.Nif.WindowsVariadic.exp",
+      "Sha256": "39059AFE7B35E3D9856B0E77BEFD96F9BAFEFFA7F4C28C35342F6F5425007432",
+      "Bytes": 1427
+    },
+    {
+      "Path": "Erlang.Nif.WindowsVariadic.lib",
+      "Sha256": "A738B0D3E1714CA9643CD71D4699523EEC0989C0D320D9005F5C9DE8DC4C5426",
+      "Bytes": 3186
+    },
+    {
+      "Path": "exports.stderr",
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+      "Bytes": 0
+    },
+    {
+      "Path": "exports.stdout",
+      "Sha256": "A2A1FB6E1420580DAC348A31B69DC74957905D3765BBC57295848C7E1B18AB76",
+      "Bytes": 761
+    },
+    {
+      "Path": "headers.stderr",
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+      "Bytes": 0
+    },
+    {
+      "Path": "headers.stdout",
+      "Sha256": "2FE067D0B0C334CC79B2A95DB7D86763ADFC42B52F95E07E92C5D5C1717D987B",
+      "Bytes": 5625
+    },
+    {
+      "Path": "link.stderr",
+      "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+      "Bytes": 0
+    },
+    {
+      "Path": "link.stdout",
+      "Sha256": "771665D4F57766E88FE9420D04819E00D69F4C290E5DA536695CD066D20B179D",
+      "Bytes": 94
+    },
+    {
+      "Path": "windows_varargs526.c",
+      "Sha256": "24433202AE4A118FE38E7093B1B46CE9DDA6757CEB3BF844A4F666BEEA1E9863",
+      "Bytes": 3375
+    }
+  ],
+  "TargetArchitecture": "arm64",
+  "ExecutedOnTarget": false,
+  "SmokeSourceSha256": "E82B053BEF1CC929650DB990C714B996B831BD237883050E9A13C688BCB5A7CA"
+}

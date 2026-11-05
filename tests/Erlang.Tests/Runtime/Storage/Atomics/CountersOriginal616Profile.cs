@@ -27,8 +27,8 @@ internal static class CountersOriginal616Profile
         CountersOriginal421Access.Require(debugValue is Atom { Name: OriginalCounters610Fields.True or OriginalCounters610Fields.False });
         bool debug = ((Atom)debugValue).Name == OriginalCounters610Fields.True;
         Type header = typeof(ProcessRuntime).Assembly.GetType(OriginalCounters610Fields.ErlangCountersMagicHeader421, true)!;
-        bool debugHeader = header.GetField(
-            OriginalCounters610Fields.CacheLineCount591,
+        bool debugHeader = CountersPrefix591Checks.PayloadType(header).GetField(
+            OriginalCounters610Fields.CacheLineCount,
             BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic
         ) is not null;
         CountersOriginal421Access.Require(wordSize == OriginalCounters610Names.RequiredWordSize

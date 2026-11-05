@@ -49,7 +49,7 @@ internal sealed unsafe partial class OrdinaryBinaryBacking
         nint pointer = 0;
         try
         {
-            if (IntPtr.Size != sizeof(ulong) || sizeof(OrdinaryBinaryHeader) != 32
+            if (!NativeWordLayout.Supported || sizeof(OrdinaryBinaryHeader) != 4 * NativeWordLayout.Bytes
                 || snapshot.ApparentBytes < 0 || snapshot.ApparentBytes > snapshot.Bytes.Length)
                 throw new InvalidOperationException(NativeWritableBinaryLayout.Invalid);
             pointer = (nint)NativeMemory.AllocZeroed(checked((nuint)sizeof(OrdinaryBinaryHeader) + (nuint)snapshot.Bytes.Length));

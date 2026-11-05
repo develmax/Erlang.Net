@@ -5,6 +5,9 @@ namespace Erlang;
 internal static class NifNativeElfCapsule
 {
     internal static byte[] Create(params byte[][] dependencies)
+        => Create(System.Runtime.InteropServices.RuntimeInformation.ProcessArchitecture, dependencies);
+
+    internal static byte[] Create(System.Runtime.InteropServices.Architecture architecture, params byte[][] dependencies)
     {
         if (dependencies.Length < 2)
             throw new ArgumentException(NifNativeCapsuleDiagnostics.MissingDependencies);
@@ -25,7 +28,12 @@ internal static class NifNativeElfCapsule
         using var writer = new BinaryWriter(stream, Encoding.UTF8, leaveOpen: false);
         writer.Write(NifNativeCapsuleLayout.Identification);
         writer.Write(NifNativeCapsuleLayout.SharedObject);
-        writer.Write(NifNativeCapsuleLayout.X64Machine);
+        writer.Write(architecture switch
+        {
+            System.Runtime.InteropServices.Architecture.X64 => NifNativeCapsuleLayout.X64Machine,
+            System.Runtime.InteropServices.Architecture.Arm64 => NifNativeCapsuleLayout.Arm64Machine,
+            _ => throw new PlatformNotSupportedException(NifNativeDiagnostics.UnsupportedPlatform)
+        });
         writer.Write(NifNativeCapsuleLayout.Version);
         writer.Write(0UL);
         writer.Write((ulong)NifNativeCapsuleLayout.HeaderBytes);
@@ -42,7 +50,7 @@ internal static class NifNativeElfCapsule
             NifNativeCapsuleLayout.LoadSegment,
             0,
             bytes.Length,
-            NifNativeCapsuleLayout.PageAlignment
+            (ulong)Environment.SystemPageSize
         );
         Segment(
             writer,

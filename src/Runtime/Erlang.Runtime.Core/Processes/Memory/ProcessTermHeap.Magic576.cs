@@ -159,7 +159,8 @@ internal sealed partial class ProcessTermHeap506
         int dataWords = block.RawPayloadWords556 - (ExternalIdentifierLayout.HeadWords - ExternalIdentifierLayout.HeaderWords);
         nuint expected = external ? ExternalIdentifierLayout.Header(kind, dataWords) : NativeOffheap576Names.Header(kind);
         if (owned.Kind != kind || block.Count != 0 || block.HeaderWords526 != NativeOffheap576Names.HeaderWords
-            || (external ? dataWords is < 1 or > 3 || kind != NativeOffheapKind576.ExternalReference && dataWords != 1
+            || (external ? dataWords < 1 || dataWords > ExternalIdentifierLayout.MaximumDataWords
+                || kind != NativeOffheapKind576.ExternalReference && dataWords != NativeWordLayout.DoubleWords
                 : block.RawPayloadWords556 != MagicReference576Names.DataWords)
             || block.Slab.Cells.ReadHeader526(block.AllocationOffset526) != expected
             || CaptureRawAddress571(block, 0, MagicReference576Names.Words).Address571 != owned.Address)

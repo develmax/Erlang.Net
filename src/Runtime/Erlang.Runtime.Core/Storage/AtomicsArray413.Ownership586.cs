@@ -46,11 +46,12 @@ internal sealed unsafe partial class AtomicsArray413
                 default: throw new ArgumentOutOfRangeException(nameof(kind));
             }
             long physicalRefs = checked(guest + host);
+            nint nativeRefs = checked((nint)physicalRefs);
             producers586 = producer;
             guestRoots586 = guest;
             hostRoots586 = host;
             ownershipStarted586 = true;
-            Header->ReferenceCount = physicalRefs;
+            Header->ReferenceCount = nativeRefs;
         }
 
         return lease;
@@ -74,7 +75,7 @@ internal sealed unsafe partial class AtomicsArray413
                     hostRoots586--; break;
                 default: throw new ArgumentOutOfRangeException(nameof(kind));
             }
-            if (memory != 0) Header->ReferenceCount = checked(guestRoots586 + hostRoots586);
+            if (memory != 0) Header->ReferenceCount = checked((nint)(guestRoots586 + hostRoots586));
             Monitor.PulseAll(gate);
             retire = ScheduleIfUnowned586();
         }

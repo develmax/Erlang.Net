@@ -91,10 +91,14 @@ internal sealed partial class ProcessTermHeap506
         lock (Gate)
         {
             var entry = RequireExternalIdentifier(block);
-            if (entry.Kind == NativeOffheapKind576.ExternalReference || block.AllocationWords526 != ExternalIdentifierLayout.HeadWords + 1)
+            if (entry.Kind == NativeOffheapKind576.ExternalReference || block.AllocationWords526 != ExternalIdentifierLayout.HeadWords + NativeWordLayout.DoubleWords)
                 throw new InvalidOperationException(ExternalIdentifierLayout.Invalid);
 
-            return (ulong)block.Slab.Cells.ReadNumeric556(block.AllocationOffset526 + ExternalIdentifierLayout.DataWord);
+            int start = block.AllocationOffset526 + ExternalIdentifierLayout.DataWord;
+            nuint low = block.Slab.Cells.ReadNumeric556(start);
+            nuint high = NativeWordLayout.DoubleWords == 2 ? block.Slab.Cells.ReadNumeric556(start + 1) : 0;
+
+            return NativeWordLayout.Decode64(low, high);
         }
     }
 
@@ -107,13 +111,13 @@ internal sealed partial class ProcessTermHeap506
             int start = block.AllocationOffset526 + ExternalIdentifierLayout.DataWord;
             uint count = (uint)block.Slab.Cells.ReadNumeric556(start);
             if (count < ReferenceIdentityLayout.MinimumWords || count > ReferenceIdentityLayout.MaximumWords
-                || block.AllocationWords526 != ExternalIdentifierLayout.HeadWords + (int)count / 2 + 1)
+                || block.AllocationWords526 != ExternalIdentifierLayout.HeadWords + ((int)count + 1 + NativeWordLayout.UintsPerWord - 1) / NativeWordLayout.UintsPerWord)
                 throw new InvalidOperationException(ExternalIdentifierLayout.Invalid);
             var numbers = new uint[count];
             for (int index = 0; index < numbers.Length; index++)
-                numbers[index] = (uint)(block.Slab.Cells.ReadNumeric556(start + (index + 1) / 2)
-                    >> ((index + 1) % 2 * ExternalIdentifierLayout.UintBits));
-            if (count % 2 == 0 && block.Slab.Cells.ReadNumeric556(start + (int)count / 2) >> ExternalIdentifierLayout.UintBits != 0)
+                numbers[index] = (uint)(block.Slab.Cells.ReadNumeric556(start + (index + 1) / NativeWordLayout.UintsPerWord)
+                    >> ((index + 1) % NativeWordLayout.UintsPerWord * ExternalIdentifierLayout.UintBits));
+            if (NativeWordLayout.UintsPerWord == 2 && count % 2 == 0 && block.Slab.Cells.ReadNumeric556(start + (int)count / 2) >> ExternalIdentifierLayout.UintBits != 0)
                 throw new InvalidOperationException(ExternalIdentifierLayout.Invalid);
 
             return Array.AsReadOnly(numbers);

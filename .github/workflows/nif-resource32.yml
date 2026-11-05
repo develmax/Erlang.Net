@@ -1,0 +1,95 @@
+name: NIF resource and atomics/counters native-word execution
+on:
+  push:
+    branches: ['ci/nif-resource32-*']
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  otp-oracle:
+    strategy:
+      fail-fast: false
+      matrix:
+        bits: [32, 64]
+    runs-on: ubuntu-24.04
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - name: Build pinned original ERTS and execute resource oracle
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [ '${{ matrix.bits }}' = 32 ]; then
+            sudo apt-get update
+            sudo apt-get install -y gcc-multilib g++-multilib
+            extra=--enable-m32-build
+          else
+            extra=
+          fi
+          mkdir -p artifacts
+          git clone --depth 1 --branch OTP-29.1.1 https://github.com/erlang/otp.git artifacts/otp
+          test "$(git -C artifacts/otp rev-parse HEAD)" = ad05823719d77c8faee87348ea39513d4e2f99c5
+          (cd artifacts/otp && ./configure $extra --prefix="$GITHUB_WORKSPACE/artifacts/installed" --without-javac --without-wx --without-odbc --without-debugger --without-observer --without-et --without-ssl --without-termcap --disable-jit && make -j4 && make install)
+          python3 tools/Native/Erlang.NifPlatformValidation/build-resource-oracle.py --repository . --otp-root artifacts/installed/lib/erlang --output artifacts/resource-oracle --bits '${{ matrix.bits }}'
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: resource-oracle-${{ matrix.bits }}
+          path: artifacts/resource-oracle
+  windows-resource:
+    needs: otp-oracle
+    strategy:
+      fail-fast: false
+      matrix:
+        arch: [x86, x64]
+        configuration: [Debug, Release]
+    runs-on: windows-2025
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+          sparse-checkout: |
+            src/Runtime
+            src/Otp/Managed/Erlang.Otp.Stdlib
+            src/Otp/Managed/Erlang.Otp.Kernel
+            src/Otp/Original/Foundation/Erlang.Otp.Erts.Beam
+            tools/Native/Erlang.NifNativeBackend
+            tools/Native/Erlang.NifPlatformValidation
+      - uses: actions/setup-dotnet@v6
+        with:
+          dotnet-version: 10.0.400
+      - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333
+        with:
+          name: resource-oracle-32
+          path: artifacts/resource-oracle32
+      - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333
+        with:
+          name: resource-oracle-64
+          path: artifacts/resource-oracle64
+      - name: Extract verified official x86 CLR (no system installation)
+        if: matrix.arch == 'x86'
+        shell: python
+        run: |
+          import hashlib, json, urllib.request, zipfile, io
+          from pathlib import Path
+          pin = json.loads(Path('tools/Native/Erlang.NifPlatformValidation/windows-x86-runtime.json').read_text())
+          with urllib.request.urlopen(pin['url'], timeout=120) as response: data = response.read()
+          assert hashlib.sha512(data).hexdigest() == pin['hash']
+          output = Path('artifacts/dotnet-x86').resolve()
+          output.mkdir(parents=True)
+          with zipfile.ZipFile(io.BytesIO(data)) as archive:
+              for member in archive.infolist(): assert (output / member.filename).resolve().is_relative_to(output)
+              archive.extractall(output)
+      - name: Execute actual native resources and primitive GC on target CLR
+        shell: pwsh
+        run: |
+          $runtime = if ('${{ matrix.arch }}' -eq 'x86') { Join-Path $PWD 'artifacts/dotnet-x86/dotnet.exe' } else { 'dotnet' }
+          ./tools/Native/Erlang.NifPlatformValidation/run-resource-windows-ci.ps1 -Architecture '${{ matrix.arch }}' -Configuration '${{ matrix.configuration }}' -RuntimeHost $runtime
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: resource-windows-${{ matrix.arch }}-${{ matrix.configuration }}
+          path: artifacts/nif-resource-ci

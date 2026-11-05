@@ -8,6 +8,8 @@ internal static class CountersPrefix591Names
     internal const string GeometryCase = "runtime/counters591/cacheline-grouping-and-base-physical-cells";
     internal const string ArrayType = "Erlang.CountersArray421";
     internal const string PrefixType = "Erlang.CountersMagicHeader421";
+    internal const string Data = "Data";
+    internal const string Payload = "Value";
     internal const string MagicType = "Erlang.NativeResourceMagic527";
     internal const string Magic = "Magic";
     internal const string Memory = "memory";

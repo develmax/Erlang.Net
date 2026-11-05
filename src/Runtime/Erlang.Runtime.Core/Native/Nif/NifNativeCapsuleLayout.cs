@@ -10,9 +10,9 @@ internal static class NifNativeCapsuleLayout
     internal const int DynamicEntryBytes = 16;
     internal const int FixedDynamicEntries = 6;
     internal const int Alignment = 8;
-    internal const ulong PageAlignment = 4096;
     internal const ushort SharedObject = 3;
     internal const ushort X64Machine = 62;
+    internal const ushort Arm64Machine = 183;
     internal const uint Version = 1;
     internal const uint LoadSegment = 1;
     internal const uint DynamicSegment = 2;
