@@ -6,7 +6,13 @@ await(Value, Held, Left) ->
         _ when Left > 0 -> timer:sleep(5), await(Value, Held, Left - 1);
         Other -> error({destructor_timeout, Other})
     end.
+native_word_bounds() ->
+    TooWide = 1 bsl (8 * erlang:system_info(wordsize)),
+    {'EXIT', {system_limit, _}} = (catch erts_internal:atomics_new(1, TooWide)),
+    {'EXIT', {system_limit, _}} = (catch erts_internal:counters_new(TooWide)),
+    ok.
 run(Path, Output) ->
+    ok = native_word_bounds(),
     ok = nif_resource_fixture:load(Path),
     ok = nif_resource_fixture:native_only(),
     {1, 0} = await(1, 0, 2000),

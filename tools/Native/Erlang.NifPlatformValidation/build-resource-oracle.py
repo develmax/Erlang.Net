@@ -18,4 +18,4 @@ expression='true = erlang:system_info(wordsize) =:= '+str(args.bits//8)+', nif_r
 subprocess.run([str(otp/'bin/erl'),'+S','2:2','-noshell','-pa',str(out),'-eval',expression],check=True,timeout=90)
 sha=lambda f:hashlib.sha256(f.read_bytes()).hexdigest()
 files=[source/'nif_resource_oracle.erl',source/'nif_resource_fixture.erl',source/'nif_resource_fixture.c',out/'nif_resource_fixture.beam',out/'original.etf']
-(out/'provenance.json').write_text(json.dumps({'OtpPin':json.loads((root/'reference-baseline.json').read_text())['commit'],'Host':platform.platform(),'OriginalResourceNifExecuted':True,'WordBytes':args.bits//8,'Files':{f.name:sha(f) for f in files},'Command':command},indent=2)+'\n')
+(out/'provenance.json').write_text(json.dumps({'OtpPin':json.loads((root/'reference-baseline.json').read_text())['commit'],'Host':platform.platform(),'OriginalResourceNifExecuted':True,'NativeWordBoundsTested':True,'WordBytes':args.bits//8,'Files':{f.name:sha(f) for f in files},'Command':command},indent=2)+'\n')

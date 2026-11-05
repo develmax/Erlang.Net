@@ -20,6 +20,9 @@ internal static class NativeResourceStorageChecks
         Require(sizeof(AtomicsMagicHeader413) == expectedAtomics && sizeof(CountersMagicHeader421) == expectedCounters);
         Require(NativeResourceMagic527.UserOffset527 == (IntPtr.Size == 4 ? 48 : 72));
         Require(MagicReference576Names.Header == ((nuint)2 << 6 | OrdinaryReference562Names.ReferenceSubtag));
+        var tooWide = new Integer(new System.Numerics.BigInteger((ulong)nuint.MaxValue) + 1);
+        RejectWord(() => AtomicsValues413.Word(tooWide));
+        RejectWord(() => CountersValues421.Length(tooWide));
         var atomics = new AtomicsArray413(2, true);
         try
         {
@@ -51,9 +54,22 @@ internal static class NativeResourceStorageChecks
         {
             counters.Close();
         }
-        Console.WriteLine(JsonSerializer.Serialize(new { Passed = true, Architecture = RuntimeInformation.ProcessArchitecture.ToString(), WordBytes = IntPtr.Size, MagicDataOffset = expectedData, AtomicsBytes = expectedAtomics, CountersBytes = expectedCounters, Atomic64ConcurrentIncrements = 20000, NativeResourceUserOffset = NativeResourceMagic527.UserOffset527 }));
+        Console.WriteLine(JsonSerializer.Serialize(new { Passed = true, Architecture = RuntimeInformation.ProcessArchitecture.ToString(), WordBytes = IntPtr.Size, MagicDataOffset = expectedData, AtomicsBytes = expectedAtomics, CountersBytes = expectedCounters, NativeWordBounds = true, Atomic64ConcurrentIncrements = 20000, NativeResourceUserOffset = NativeResourceMagic527.UserOffset527 }));
 
         return Task.CompletedTask;
+    }
+
+    private static void RejectWord(Action operation)
+    {
+        try
+        {
+            operation();
+        }
+        catch (ErlangException error) when (error.Reason.Equals(Term.A(ErlangErrorReasons.SystemLimit)))
+        {
+            return;
+        }
+        throw new InvalidOperationException(NifResourceValidationDiagnostics.Layout);
     }
 
     internal static void Require(bool value)
