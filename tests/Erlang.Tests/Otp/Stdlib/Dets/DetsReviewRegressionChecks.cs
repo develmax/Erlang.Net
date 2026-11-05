@@ -143,11 +143,28 @@ internal static class DetsReviewRegressionChecks
             Term.A("deleted"),
             null
         );
-        byte[]? bytes = (byte[]?)Call(table, "ReadCollection", block.Address);
-        Require(bytes is not null, "freed collection remains readable during a fixed scan");
+        var bytes = (byte[])Call(table, "ReadCollection", block.Address)!;
         object set = Enum.Parse(Type("DetsFileType"), "Set");
         var objects = (IReadOnlyList<Term>)Type("DetsV9Recovery").GetMethod("DecodeCollection", Static)!.Invoke(null, [bytes, set, 1, null, null])!;
         Require(objects.Count == 1 && objects[0].Equals(row), "freed collection keeps the deleted object");
+
+        stream.Position = block.Address + sizeof(uint);
+        stream.Write(new byte[sizeof(uint)]);
+        try
+        {
+            _ = Call(table, "ReadCollection", block.Address);
+        }
+        catch (Exception error) when (error.GetType() == Type("DetsFileException"))
+        {
+            Require(
+                (string?)error.GetType().GetProperty("Reason", Members)!.GetValue(error) == "bad_object",
+                "unknown collection status reports bad_object"
+            );
+
+            return;
+        }
+
+        throw new InvalidOperationException(Failure + "unknown collection status was accepted");
     }
 
     private static void OriginalReopenedFiles()

@@ -285,13 +285,7 @@ internal sealed partial class DetsTableWorker
             uint address = BinaryPrimitives.ReadUInt32BigEndian(mapBytes.AsSpan(cursor));
             // A fixed table can replace an unread collection in the same block.
             // The allocation map preserves its address, not an immutable size.
-            byte[]? bytes = file.ReadCollection(address);
-            if (bytes is null)
-            {
-                cursor += DetsNames.BlockMapEntryBytes;
-
-                continue;
-            }
+            byte[] bytes = file.ReadCollection(address);
             var objects = DetsV9Recovery.DecodeCollection(
                 bytes,
                 file.Type,
