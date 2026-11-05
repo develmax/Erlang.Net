@@ -15,7 +15,7 @@ internal static class NifPlatformImageChecks
             if (registry.PublishPreparedBeam(prepared).Status != BeamPublicationStatus.Published)
                 throw new InvalidOperationException("NIF fixture BEAM publication failed");
         });
-        var result = new TaskCompletionSource<Term>(TaskCreationOptions.RunContinuationsAsynchronously);
+        var result = new TaskCompletionSource<byte[]>(TaskCreationOptions.RunContinuationsAsynchronously);
         var actor = runtime.Spawn(async context =>
         {
             try
@@ -33,7 +33,7 @@ internal static class NifPlatformImageChecks
                 for (int index = 0; index < items.Items.Count; index++)
                     if (!items.Items[index].Equals(new Integer(index + 1)))
                         throw new InvalidOperationException("Native varargs tuple element order differs");
-                result.TrySetResult(Term.Tuple(sum, tuple, generation));
+                result.TrySetResult(ExternalTermFormat.Encode(Term.Tuple(sum, tuple, generation)));
             }
             catch (Exception error)
             {
@@ -42,8 +42,8 @@ internal static class NifPlatformImageChecks
 
             return Nil.Value;
         });
-        Term observed = await result.Task.WaitAsync(TimeSpan.FromSeconds(30));
+        byte[] observed = await result.Task.WaitAsync(TimeSpan.FromSeconds(30));
         await actor.Completion.WaitAsync(TimeSpan.FromSeconds(30));
-        await File.WriteAllBytesAsync(output, ExternalTermFormat.Encode(observed));
+        await File.WriteAllBytesAsync(output, observed);
     }
 }
