@@ -1,5 +1,8 @@
 # Next steps
 
+Part601 implements native-word resource/magic and atomics/counters allocation prerequisites. Local x86 layout/primitive GC checks pass; actual resource NIF and original32/64-bit ERTS CI remain pending. [Current scope/evidence](validation/part-601/README.md). Other OS/CPU resource profiles, full ERTS-debug, regex/search and resource lifecycle/API completeness remain open.
+
+
 Next NIF work after Part600: port and validate actual 32-bit resource/magic headers, atomics/counters allocation and loader resource custody; compare local PID-reference/alias wire numbers against original 32-bit ERTS. Then add measured ARM32/other 32-bit OS/CPU NIF adapters and target execution. OpenBSD/NetBSD remain C-only evidence, and Solaris/AIX have no runtime acceptance. Extend the finite fixture to resources, threads, dirty scheduling, upgrades and teardown; retain separate host receipts.
 
 Part600 ports ordinary native-cell/word and collector dependencies to little-endian 32-bit words. Windows x86 real NIF and focused GC checks pass locally and in CI on 6197702e. Windows x64/ARM64, Linux glibc/musl x64/ARM64, macOS x64/ARM64 and FreeBSD 15 amd64 real-image regressions also pass. [Scope/evidence](validation/part-600/README.md). Other 32-bit hosts, full native-resource/atomics/counters/loader resource profiles and alias/wire parity remain open; no module/MFA promotion.

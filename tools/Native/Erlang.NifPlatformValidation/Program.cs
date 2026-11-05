@@ -3,6 +3,51 @@ using System.Runtime.InteropServices;
 using System.Text.Json;
 using Erlang;
 
+if (args is ["--resource-guest"])
+{
+    try
+    {
+        await NativeResourceGuestChecks.Run();
+    }
+    catch (Exception error)
+    {
+        Console.WriteLine(JsonSerializer.Serialize(new { Passed = false, Error = error.ToString() }));
+        Environment.ExitCode = 1;
+    }
+
+    return;
+}
+
+if (args is ["--resource-image", var resourceBeam, var resourceLibrary, var resourceOutput])
+{
+    try
+    {
+        await NifResourceImageChecks.Run(resourceBeam, resourceLibrary, resourceOutput);
+    }
+    catch (Exception error)
+    {
+        Console.WriteLine(JsonSerializer.Serialize(new { Passed = false, Error = error.ToString() }));
+        Environment.ExitCode = 1;
+    }
+
+    return;
+}
+
+if (args is ["--resource-storage"])
+{
+    try
+    {
+        await NativeResourceStorageChecks.Run();
+    }
+    catch (Exception error)
+    {
+        Console.WriteLine(JsonSerializer.Serialize(new { Passed = false, Error = error.ToString() }));
+        Environment.ExitCode = 1;
+    }
+
+    return;
+}
+
 if (args is ["--word-storage"])
 {
     try

@@ -1,5 +1,19 @@
 # Dependency and compatibility decisions
 
+## Native resource/magic32 and atomic64 storage — 2026-11-05
+
+Reuse the existing NativeMemory allocator, serialized ownership/refcount graph,
+GCHandle payload owners and BCL Interlocked atomic64 operations (MIT/BCL).
+A second allocator, atomic emulation package or collector would duplicate
+existing ownership boundaries. Inspect pinned OTP29.1.1 erl_binary.h,
+global.h, erl_term.h and erl_bif_atomics/counters.c: native-word refcounts and
+lengths, separate aligned/unaligned magic data and ARCH_32 resource padding.
+Keep C as the ABI fixture. Test actual pointer4 CLR alignment/concurrency,
+physical resource retirement and original32/64-bit ERTS observations before
+target acceptance. Existing unsupported regex/search and other OS/CPU gates
+remain explicit. Preserve upstream Apache-2.0 notices; no new package.
+
+
 ## Native-word32 storage - 2026-11-05
 
 Reuse NativeMemory, GCHandle roots and the existing explicit heap/frame/GC graph.

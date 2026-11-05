@@ -13,6 +13,7 @@ parser.add_argument('--repository', type=Path, required=True)
 parser.add_argument('--otp-source', type=Path, required=True)
 parser.add_argument('--output', type=Path, required=True)
 parser.add_argument('--architecture', choices=('x64', 'arm64', 'x86'), required=True)
+parser.add_argument('--resource-fixture', action='store_true')
 args = parser.parse_args()
 root = args.repository.resolve()
 out = args.output.resolve()
@@ -69,11 +70,12 @@ probe_source = root / 'tools/Native/Erlang.NifPlatformValidation/windows_abi_lay
 run([compiler, '/nologo', '/std:c11', '/W4', '/WX', '/O2', '/MT', '/I' + str(out), str(probe_source), '/Fe:abi-layout.exe'], 'abi-compile')
 abi = json.loads(run([str(out / 'abi-layout.exe')], 'abi-execute'))
 (out / 'abi-layout.json').write_text(json.dumps(abi, indent=2) + '\n')
-source = root / 'tools/Native/Erlang.NifPlatformValidation/nif_platform_fixture.c'
+stem = 'nif_resource_fixture' if args.resource_fixture else 'nif_platform_fixture'
+source = root / 'tools/Native/Erlang.NifPlatformValidation' / (stem + '.c')
 run([compiler, '/nologo', '/std:c11', '/W4', '/WX', '/O2', '/MT', '/utf-8', '/I' + str(out), '/c', str(source), '/Fofixture.obj'], 'fixture-compile')
-run([linker, '/NOLOGO', '/DLL', '/MACHINE:' + args.architecture.upper(), '/OUT:nif_platform_fixture.dll', 'fixture.obj'], 'fixture-link')
+run([linker, '/NOLOGO', '/DLL', '/MACHINE:' + args.architecture.upper(), '/OUT:' + stem + '.dll', 'fixture.obj'], 'fixture-link')
 sha = lambda p: hashlib.sha256(p.read_bytes()).hexdigest().upper()
 receipt = {'TargetArchitecture': args.architecture, 'NativeSizesExecuted': True, 'PublicAbi': abi, 'Sizes': sizes, 'Commands': commands,
-           'OtpPin': pin, 'SourceSha256': sha(source), 'LibrarySha256': sha(out / 'nif_platform_fixture.dll'),
+           'OtpPin': pin, 'SourceSha256': sha(source), 'LibrarySha256': sha(out / (stem + '.dll')),
            'Headers': {p.name: sha(p) for p in out.glob('*.h')}, 'NifImageExecuted': False}
 (out / 'build-receipt.json').write_text(json.dumps(receipt, indent=2) + '\n')

@@ -16,7 +16,7 @@ internal sealed unsafe partial class CountersArray421
 
     internal CountersArray421(ulong length, int lanes)
     {
-        if (IntPtr.Size != sizeof(ulong)) throw new PlatformNotSupportedException(CountersNames421.Architecture);
+        if (!NativeWordLayout.Supported) throw new PlatformNotSupportedException(CountersNames421.Architecture);
         if (lanes < 1) throw new ArgumentOutOfRangeException(nameof(lanes));
         ulong copies = checked((ulong)lanes + 1);
         if (length > ulong.MaxValue / (sizeof(long) * 2 * copies))
