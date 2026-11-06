@@ -217,7 +217,13 @@ public static partial class LoggerModule
         }
         else
         {
-            throw FunctionClause();
+            throw LoggerSource.Error(
+                context,
+                LoggerSource.DoLogAllowed,
+                [level, message, meta, tid, primary],
+                ErlangErrorReasons.FunctionClause,
+                LoggerSource.DoLogAllowedClause
+            );
         }
         MapTerm log = OtpLoggerTerms.Map((OtpLoggerNames.Level, level), (OtpLoggerNames.Msg, wrapped), (OtpLoggerNames.Meta, meta));
 

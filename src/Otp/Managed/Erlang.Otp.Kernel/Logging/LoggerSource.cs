@@ -14,7 +14,9 @@ internal static class LoggerSource
     internal const int InvalidHandlerConfiguration = 1698;
     internal const string InitializeHandlers = "init_kernel_handlers";
     internal const string LogAllowed = "log_allowed";
+    internal const string DoLogAllowed = "do_log_allowed";
     internal const int GroupLeaderNode = 1897;
+    internal const int DoLogAllowedClause = 1922;
 
     internal static IDisposable Scope(
         ProcessContext context,
