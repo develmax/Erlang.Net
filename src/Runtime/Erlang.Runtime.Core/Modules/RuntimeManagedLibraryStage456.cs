@@ -19,5 +19,6 @@ public enum RuntimeManagedLibraryStage456
     Io,
     GenServer,
     Supervisor,
-    Application
+    Application,
+    Logger
 }

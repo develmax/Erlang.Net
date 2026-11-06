@@ -4,7 +4,10 @@ internal static class ProcLibCrashReportDependencies
 {
     public static void Register(ModuleRegistry registry)
     {
-        OtpLoggerRegistrations.Register(registry);
+        if (!registry.HasExport(OtpLoggerNames.Logger, OtpLoggerNames.Log, 4))
+        {
+            OtpLoggerRegistrations.Register(registry);
+        }
         registry.Register(
             OtpLoggerNames.Application,
             OtpLoggerNames.GetEnv,
