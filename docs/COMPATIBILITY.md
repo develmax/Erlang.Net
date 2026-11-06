@@ -1,5 +1,7 @@
 # Compatibility overview
 
+The selectable supervisor backends match the focused OTP 29.1.1 corpus on Windows. Full-suite, distributed, platform and resource coverage remain open. [Validation scope](supervisor-backends.md).
+
 Part604 verifies sys against OTP 29.1.1 in 137 focused observations per backend, including five original testcases and actual file logging. Distributed peers, platform and resource stress, and full Common Test integration remain unverified. [Scope](sys-backends.md).
 
 Part602 integrates the native node/dist reference query behind erts_debug and both erts_internal backends. Actual owner/header/storage census, all-scheduler admission, signal/heap classification and retirement are covered by262/262 observations plus59/59 scenarios per backend,13 physical and43 connected groups. Original Erlang/BEAM and98 exports remain. Full regression/readiness were deliberately not run; broader upstream/distributed/resource/platform acceptance and universal compatibility remain unverified. [Receipt](validation/erts-internal-part-593/README.md).

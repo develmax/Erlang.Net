@@ -2,7 +2,7 @@
 
 ## Status and current interpretation
 
-Pure OTP modules remain Erlang; C# owns runtime semantics, native primitives and host integration. Original BEAM, retained managed alternatives and generated C#/IL have separate acceptance. No silent fallback or runtime dependency on the original ERTS is implied. The explicit current architecture correction supersedes early wording that put all OTP logic in C#.
+The OTP library architecture has two target implementations per library. The pinned original preserves upstream algorithms in Erlang and executes as BEAM in .NET. The managed implementation provides the same library algorithms in C#. Select the backend independently per module at startup. Compare both implementations against pinned OTP and record their acceptance separately. C# also provides shared runtime semantics, native primitives and host integration. Generated C#/IL from the Erlang compiler has separate acceptance.
 
 The owning current rules are [AGENTS.md](../../AGENTS.md); current acceptance is recorded in the [changelog](../../CHANGELOG.md) and [remaining work](../remaining-work/INDEX.md).
 

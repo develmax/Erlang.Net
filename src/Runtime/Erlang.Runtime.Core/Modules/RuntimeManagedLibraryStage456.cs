@@ -17,5 +17,6 @@ public enum RuntimeManagedLibraryStage456
     Dets,
     Sys,
     Io,
-    GenServer
+    GenServer,
+    Supervisor
 }
