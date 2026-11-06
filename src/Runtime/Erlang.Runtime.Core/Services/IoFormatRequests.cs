@@ -2,6 +2,10 @@ namespace Erlang;
 
 internal static class IoFormatRequests
 {
+    internal static bool IsBootstrap(ErlangFunction body)
+        => body.Method.DeclaringType == typeof(IoFormatRequests)
+            || body.Method.DeclaringType?.DeclaringType == typeof(IoFormatRequests);
+
     public static void Register(ModuleRegistry registry) => registry.Register(
         IoModuleNames.Module,
         IoModuleNames.Format,

@@ -24,6 +24,8 @@ Review and merge gate:
 
 ## Architecture and precedence
 
+**Explicit io exception:** the user requested a complete C# port of io with the original Erlang backend still selectable. This authorizes the opt-in managed io library bodies for this module. Preserve the pinned Erlang source, BEAM and explicit startup selection. The exception applies to io.
+
 **Explicit sys exception:** the user requested a complete C# port of sys with the original Erlang backend still selectable. This authorizes the opt-in managed sys library and preserves the pinned Erlang source, BEAM and startup backend selection. The exception applies to sys.
 
 **Explicit erts_internal exception:** the user requested a complete C# port with a selectable original Erlang implementation. This authorizes the managed erts_internal library bodies for this module. Preserve the pinned Erlang source and BEAM and the explicit backend selection. This exception is scoped to erts_internal.

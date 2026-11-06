@@ -16,6 +16,7 @@ internal static class LibrarySelectionNames
         MathNativeNames.Module,
         StringFloatNativeNames.Module,
         UnicodeNativeNames.Module,
+        IoModuleNames.Module,
         FileNameEncodingNames.Module,
         GenEventLibraryModuleNames.Module,
         GenStatemLibraryNames.Module,

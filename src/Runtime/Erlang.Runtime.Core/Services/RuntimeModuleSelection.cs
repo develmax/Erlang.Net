@@ -31,6 +31,9 @@ public sealed class RuntimeModuleSelection
         if (backend == RuntimeModuleBackend.Managed && module == DetsLibraryModuleNames.Module
             && !LibrarySelectionNames.DetsDependencies.All(value => requested.Contains(value, StringComparer.Ordinal)))
             throw new ArgumentException(LibrarySelectionNames.Dependency, nameof(dependencies));
+        if (backend == RuntimeModuleBackend.Managed && module == IoModuleNames.Module
+            && !IoLibraryDependencies.Required.All(value => requested.Contains(value, StringComparer.Ordinal)))
+            throw new ArgumentException(LibrarySelectionNames.Dependency, nameof(dependencies));
         if (backend == RuntimeModuleBackend.Beam && bytes.IsEmpty)
             throw new ArgumentException(LibrarySelectionNames.Request, nameof(bytes));
         if (backend == RuntimeModuleBackend.Managed && module == InterpreterCodeNativeNames.Module
