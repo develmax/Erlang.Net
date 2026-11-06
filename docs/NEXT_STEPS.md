@@ -1,5 +1,7 @@
 # Next steps
 
+Supervisor follow-up covers the remaining upstream suite, distributed naming, logger metadata and platform and resource profiles. [Focused acceptance](validation/supervisor-port-20261106/README.md).
+
 The selectable sys backend has focused Windows acceptance. Remaining acceptance covers full Common Test capture, distributed peers, other platforms and resource stress. [Part604](validation/part-604/README.md).
 
 Part602 integrates the native node/dist reference query behind erts_debug and both erts_internal backends. Actual owner/header/storage census, all-scheduler admission, signal/heap classification and retirement are covered by262/262 observations plus59/59 scenarios per backend,13 physical and43 connected groups. Original Erlang/BEAM and98 exports remain. Full regression/readiness were deliberately not run; broader upstream/distributed/resource/platform acceptance and universal compatibility remain unverified. [Receipt](validation/erts-internal-part-593/README.md).
