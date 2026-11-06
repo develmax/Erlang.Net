@@ -1,0 +1,10 @@
+Error! Failed to eval: {ok,application_port_callback}=compile:file("tools/Validation/Erlang.ApplicationCompatibility/application_port_callback.erl",[{outdir,"artifacts/application/oracle-003"}]),{ok,application_port_cases}=compile:file("tools/Validation/Erlang.ApplicationCompatibility/application_port_cases.erl",[{outdir,"artifacts/application/oracle-003"}]),{ok,application_SUITE}=compile:file("tools/Validation/Erlang.ApplicationCompatibility/Upstream/application_SUITE.erl",[{outdir,"artifacts/application/oracle-003"}]),true=code:add_patha("artifacts/application/oracle-003"),ok=application_port_cases:write("artifacts/application/oracle-003"),halt().
+
+Runtime terminating during boot ({{badmatch,{error,{"no such file or directory","appinc1.app"}}},[{application_SUITE,set_env,1,[{file,"tools/Validation/Erlang.ApplicationCompatibility/Upstream/application_SUITE.erl"},{line,2365}]},{application_port_cases,'-write/1-lc$^6/1-6-',1,[{file,"tools/Validation/Erlang.ApplicationCompatibility/application_port_cases.erl"},{line,135}]},{application_port_cases,'-write/1-lc$^6/1-6-',1,[{file,"tools/Validation/Erlang.ApplicationCompatibility/application_port_cases.erl"},{line,135}]},{application_port_cases,write,1,[{file,"tools/Validation/Erlang.ApplicationCompatibility/application_port_cases.erl"},{line,135}]},{erl_eval,do_apply,7,[{file,"erl_eval.erl"},{line,1044}]},{erl_eval,expr,6,[{file,"erl_eval.erl"},{line,792}]},{erl_eval,exprs,6,[{file,"erl_eval.erl"},{line,276}]},{init,start_it,1,[{file,"init.erl"},{line,1561}]}]})
+
+Crash dump is being written to: erl_crash.dump...done
+Exception: D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\tools\validate-application-original.ps1:40
+Line |
+  40 |  …  if ($LASTEXITCODE -ne 0) { throw $ApplicationOracle.CaptureFailure }
+     |                                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | application oracle capture failed.

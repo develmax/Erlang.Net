@@ -1,0 +1,15 @@
+Prepare application_controller
+Prepare application_master
+Prepare application_starter
+Prepare dist_ac
+Prepare gen
+Prepare gen_server
+Prepare proc_lib
+Prepare sys
+Unhandled exception. System.InvalidOperationException: Sequence contains more than one element
+   at System.Linq.ThrowHelper.ThrowMoreThanOneElementException()
+   at System.Linq.Enumerable.TryGetSingle[TSource](IEnumerable`1 source, Boolean& found)
+   at System.Linq.Enumerable.Single[TSource](IEnumerable`1 source)
+   at Program.<Main>$(String[] args) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\tools\Validation\Erlang.ApplicationCompatibility\Program.cs:line 38
+   at Program.<Main>$(String[] args) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\tools\Validation\Erlang.ApplicationCompatibility\Program.cs:line 202
+   at Program.<Main>(String[] args)

@@ -82,7 +82,7 @@ internal static class ToolsLibraryChecks
             {
                 string[] imports = OtpTools.Modules.Concat(OtpRuntimeTools.Modules).Concat(OtpStdlib.Modules).Concat(OtpKernel.Modules).Concat(OtpErts.Modules).Append(Observer).ToArray();
                 var dependencies = new BeamDependencySelection(imports);
-                byte[][] bytes = [OtpStdlib.ReadImage(Lists), OtpStdlib.ReadImage(Maps), OtpTools.ReadImage(XrefUtilities), OtpRuntimeTools.ReadImage(ToolsLibraryNames.SupervisorModule), OtpRuntimeTools.ReadImage(MicrostateAccounting), OtpRuntimeTools.ReadImage(ApplicationModule), Resource(ObserverImage)];
+                byte[][] bytes = [OtpStdlib.ReadImage(Lists), OtpStdlib.ReadImage(Maps), OtpTools.ReadImage(XrefUtilities), OtpRuntimeTools.ReadImage(ToolsLibraryNames.SupervisorModule), OtpRuntimeTools.ReadImage(MicrostateAccounting), OtpRuntimeTools.ReadImage(ToolsLibraryNames.ApplicationModule), Resource(ObserverImage)];
                 PreparedBeamImage[] images = bytes.Select(image =>
                 {
                     try
