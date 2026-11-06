@@ -7,7 +7,11 @@ import hashlib
 import json
 
 REQUIRED = {
-    ".github/workflows/validate.yml": {"local-regressions", "original-resource-controls504", "relocated-tooling"},
+    ".github/workflows/validate.yml": {
+        "local-regressions", "original-resource-controls504", "relocated-tooling",
+        "local-regressions (core)", "local-regressions (native)",
+        "local-regressions (owned)", "local-regressions (observers)",
+    },
     ".github/workflows/math-compatibility.yml": {"math (windows-latest)", "math (ubuntu-latest)", "math (macos-latest)"},
     ".github/workflows/nif-version651-linux.yml": {"n1-linux"},
     ".github/workflows/native-gc825.yml": {"linux"},
