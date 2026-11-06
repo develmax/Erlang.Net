@@ -1,7 +1,7 @@
 param(
     [switch]$SkipPackage,
     [string]$TestRuntimeVersion,
-    [ValidateSet('All', 'Runtime', 'Libraries', 'Catalog', 'Packages', 'Tooling')]
+    [ValidateSet('All', 'Runtime', 'RuntimeEvidence', 'Libraries', 'Catalog', 'Packages', 'Tooling')]
     [string]$Part = 'All'
 )
 $ErrorActionPreference = 'Stop'
@@ -95,6 +95,11 @@ try {
     }
     if ($Part -eq 'Runtime') {
         Invoke-DotNet @('build', 'tests/Erlang.Tests', '-m:1', '--nologo')
+    }
+    if ($Part -eq 'RuntimeEvidence') {
+        Invoke-DotNet @('build', 'tools/Build/Erlang.Tool', '-m:1', '--nologo')
+    }
+    if ($Part -in @('Runtime', 'RuntimeEvidence')) {
         # The receive-length comparison consumes the Megaco test output.
         Invoke-DotNet @('build', 'tests/Erlang.Otp.Megaco.Library.Tests', '-m:1', '--nologo')
         Invoke-DotNet @('run', '--project', 'tests/Erlang.Otp.Megaco.Library.Tests', '--no-build', '--', 'artifacts/otp-megaco-managed')
@@ -110,6 +115,8 @@ try {
         } else {
             Invoke-DotNet @('run', '--project', 'tests/Erlang.Tests', '--no-build', '--', 'artifacts/tests.json', 'docs/supported-mfas.json')
         }
+    }
+    if ($Part -in @('All', 'Runtime', 'RuntimeEvidence')) {
         & (Join-Path $PSScriptRoot 'validate-dynamic-apply-original.ps1')
         & (Join-Path $PSScriptRoot 'validate-float-store-original.ps1')
         & (Join-Path $PSScriptRoot 'validate-closed-wait-original.ps1')
@@ -122,11 +129,15 @@ try {
     if ($Part -in @('All', 'Catalog')) {
         & (Join-Path $PSScriptRoot 'validate-otp-catalog.ps1')
     }
+    if ($Part -in @('Catalog', 'Packages') -and -not $SkipPackage) {
+        # NuGet evaluates the preprocessor file glob before the pack build.
+        Invoke-DotNet @('build', 'src/Integration/Erlang.CSharp.MSBuild', '-c', 'Debug', '-m:1', '--nologo')
+    }
     if ($Part -eq 'Catalog' -and -not $SkipPackage) {
         Invoke-DotNet @('pack', 'src/Integration/Erlang.CSharp.MSBuild', '-c', 'Debug', '-o', 'artifacts/packages', '-m:1', '--nologo')
         & (Join-Path $PSScriptRoot 'validate-otp-catalog-package.ps1') -Feed (Join-Path $validationRoot 'artifacts/packages')
     }
-    if ($Part -in @('All', 'Runtime')) {
+    if ($Part -in @('All', 'Runtime', 'RuntimeEvidence')) {
         Invoke-DotNet @('run', '--project', 'tools/Build/Erlang.Tool', '--no-build', '--', 'readiness', 'docs', 'artifacts/tests.json', 'artifacts/readiness')
     }
     if ($Part -in @('All', 'Tooling')) {
@@ -202,7 +213,7 @@ try {
         & artifacts/local-tool/erlang.exe compile examples/HelloHybrid/map_source.erl artifacts/tool-map_source.g.cs
         if ($LASTEXITCODE -ne 0) { throw 'Packaged CLI map compilation failed' }
     }
-    if ($Part -eq 'Runtime' -and -not $SkipPackage) {
+    if ($Part -in @('Runtime', 'RuntimeEvidence') -and -not $SkipPackage) {
         # Package the CLI beside the complete runtime report, so readiness
         # consumes that report without waiting for another runner.
         Invoke-DotNet @('pack', 'tools/Build/Erlang.Tool', '-c', 'Debug', '-o', 'artifacts/packages', '-m:1', '--nologo')
@@ -213,7 +224,7 @@ try {
         if (Test-Path -LiteralPath artifacts/local-tool/erlang.exe) { Invoke-DotNet @('tool', 'uninstall', 'Erlang.Net.Tool', '--tool-path', 'artifacts/local-tool') }
         Invoke-DotNet @('tool', 'install', 'Erlang.Net.Tool', '--version', '0.1.0', '--tool-path', 'artifacts/local-tool', '--configfile', $toolConfig)
     }
-    if ($Part -in @('All', 'Runtime') -and -not $SkipPackage) {
+    if ($Part -in @('All', 'Runtime', 'RuntimeEvidence') -and -not $SkipPackage) {
         & artifacts/local-tool/erlang.exe readiness docs artifacts/tests.json artifacts/tool-readiness
         if ($LASTEXITCODE -ne 0) { throw 'Packaged CLI readiness failed' }
     }
