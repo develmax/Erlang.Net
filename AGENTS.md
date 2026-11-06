@@ -24,6 +24,8 @@ Review and merge gate:
 
 ## Architecture and precedence
 
+**Explicit supervisor exception:** the user requested a complete C# port of `supervisor` with the original Erlang backend still selectable. This authorizes the opt-in managed library bodies for `supervisor`. Preserve the pinned Erlang source, BEAM and explicit startup selection. This exception applies only to `supervisor`.
+
 **Explicit io exception:** the user requested a complete C# port of io with the original Erlang backend still selectable. This authorizes the opt-in managed io library bodies for this module. Preserve the pinned Erlang source, BEAM and explicit startup selection. The exception applies to io.
 
 **Explicit sys exception:** the user requested a complete C# port of sys with the original Erlang backend still selectable. This authorizes the opt-in managed sys library and preserves the pinned Erlang source, BEAM and startup backend selection. The exception applies to sys.
