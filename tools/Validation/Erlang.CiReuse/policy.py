@@ -13,6 +13,7 @@ REQUIRED = {
         "local-regressions (owned)", "local-regressions (observers)",
         "local-regressions (libraries)", "local-regressions (catalog)",
         "local-regressions (packages)", "local-regressions (tooling)", "local-regressions (bif)",
+        "local-regressions (runtime-terms)", "local-regressions (runtime-tooling)", "local-regressions (runtime-platform)",
     },
     ".github/workflows/math-compatibility.yml": {"math (windows-latest)", "math (ubuntu-latest)", "math (macos-latest)"},
     ".github/workflows/nif-version651-linux.yml": {"n1-linux"},

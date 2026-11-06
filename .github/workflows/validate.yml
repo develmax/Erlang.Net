@@ -233,7 +233,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        lane: [core, libraries, catalog, packages, tooling, bif, native, owned, observers]
+        lane: [runtime-terms, runtime-tooling, runtime-platform, libraries, catalog, packages, tooling, bif, native, owned, observers]
     runs-on: windows-latest
     env:
       EXPECTED_HEAD: ${{ github.event.pull_request.head.sha || github.sha }}
@@ -496,7 +496,7 @@ jobs:
           python -B tools/Runtime/Erlang.OwnedGuest506Observations/collect.py --repository $PWD.Path --expected-head $env:EXPECTED_HEAD --plan-sha256 $env:OWNED506_PLAN_SHA --official-admission $admission --admission-sha256 $admissionSha --output artifacts/owned506/capture --execute-original --check-paired-golden *> artifacts/owned506/capture.log
           if ($LASTEXITCODE -ne 0) { throw 'Owned506 independent original jobs failed; all raw receipts retained' }
       - shell: pwsh
-        if: ${{ matrix.lane == 'core' }}
+        if: ${{ startsWith(matrix.lane, 'runtime-') }}
         run: |
           $originalFailures = @()
           $PSNativeCommandUseErrorActionPreference = $false
@@ -576,11 +576,38 @@ jobs:
           python -B tools/Validation/Erlang.CiReuse/main.py prepare --repository . --provider-admission artifacts/library376-official-compiler/official-admission.json --job local-regressions --output artifacts/ci-reuse/local-regressions
           if ($LASTEXITCODE -ne 0) { throw 'CI reuse admission entry failed' }
       - name: Run the assigned validation part
-        if: ${{ contains(fromJSON('["core","libraries","catalog","packages","tooling"]'), matrix.lane) && steps.ci-reuse.outputs.reuse != 'true' }}
+        if: ${{ contains(fromJSON('["libraries","catalog","packages","tooling"]'), matrix.lane) && steps.ci-reuse.outputs.reuse != 'true' }}
         shell: pwsh
         env:
-          VALIDATION_PART: ${{ matrix.lane == 'core' && 'Runtime' || matrix.lane }}
+          VALIDATION_PART: ${{ matrix.lane }}
         run: ./tools/validate.ps1 -Part $env:VALIDATION_PART -TestRuntimeVersion 10.0.11
+      - name: Build and run the assigned runtime regression blocks
+        if: ${{ startsWith(matrix.lane, 'runtime-') }}
+        shell: pwsh
+        env:
+          RUNTIME_SHARD: ${{ matrix.lane }}
+          REUSE_RUNTIME: ${{ steps.ci-reuse.outputs.reuse }}
+        run: |
+          $arguments = @('run', '--shard', $env:RUNTIME_SHARD, '--head', $env:EXPECTED_HEAD, '--runtime', '10.0.11')
+          if ($env:REUSE_RUNTIME -eq 'true') {
+            $arguments += '--reuse'
+          } else {
+            dotnet build tests/Erlang.Tests -m:1 --no-restore --nologo
+            if ($LASTEXITCODE -ne 0) { throw 'Runtime shard build failed' }
+            if ($env:RUNTIME_SHARD -eq 'runtime-platform') {
+              dotnet run --project tools/Native/Erlang.NifNativeBackend --no-build
+              if ($LASTEXITCODE -ne 0) { throw 'Native backend self-test failed' }
+            }
+          }
+          python -B tools/Validation/Erlang.CiReuse/runtime-shards.py @arguments
+          if ($LASTEXITCODE -ne 0) { throw 'Runtime shard failed' }
+      - name: Upload verified runtime shard inputs for the join
+        if: ${{ startsWith(matrix.lane, 'runtime-') }}
+        uses: actions/upload-artifact@v7
+        with:
+          name: runtime-handoff-${{ matrix.lane }}
+          if-no-files-found: error
+          path: artifacts/runtime-shards/
       - name: Build the comparison host on this runner
         if: ${{ contains(fromJSON('["native","owned","observers"]'), matrix.lane) && steps.ci-reuse.outputs.reuse != 'true' }}
         shell: pwsh
@@ -1096,11 +1123,11 @@ jobs:
         shell: pwsh
         run: Get-Content -Raw artifacts/ci-reuse/local-regressions/decision.json
       - name: Seal successful PR validation inputs for equivalent main merge
-        if: ${{ (matrix.lane == 'core') && (success() && github.event_name == 'pull_request' && steps.ci-reuse.outputs.reuse != 'true') }}
+        if: ${{ (matrix.lane == 'runtime-platform') && (success() && github.event_name == 'pull_request' && steps.ci-reuse.outputs.reuse != 'true') }}
         shell: pwsh
         run: python -B tools/Validation/Erlang.CiReuse/main.py seal --repository . --provider-admission artifacts/library376-official-compiler/official-admission.json --job local-regressions --output artifacts/ci-reuse/local-regressions
       - uses: actions/upload-artifact@v7
-        if: ${{ (matrix.lane == 'core') && (success() && github.event_name == 'pull_request') }}
+        if: ${{ (matrix.lane == 'runtime-platform') && (success() && github.event_name == 'pull_request') }}
         with:
           name: ci-reuse-v1-local-regressions
           path: artifacts/ci-reuse/local-regressions/receipt.json
@@ -1108,7 +1135,7 @@ jobs:
       - uses: actions/upload-artifact@v7
         if: always()
         with:
-          name: ${{ matrix.lane == 'core' && 'validation' || format('validation-{0}', matrix.lane) }}
+          name: validation-${{ matrix.lane }}
           path: |
             artifacts/source-plan566/**
             artifacts/mfa-source-bindings/**
@@ -1120,7 +1147,7 @@ jobs:
             artifacts/map-routing517/**
             artifacts/nif-variadic526/**
             artifacts/nif-private-data557/**
-            artifacts/tests.json
+            artifacts/runtime-shards/*.json
             artifacts/library421-counters-permanent/**
             artifacts/native-map501/ci/**
             artifacts/process-retirement502/ci/**
@@ -1224,16 +1251,66 @@ jobs:
             artifacts/halt-subprocess-cases/**/process-stderr.raw
 
 
+  local-regressions-runtime-evidence:
+    name: local-regressions (core)
+    needs: local-regressions-lane
+    runs-on: windows-latest
+    timeout-minutes: 35
+    env:
+      EXPECTED_HEAD: ${{ github.event.pull_request.head.sha || github.sha }}
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+          persist-credentials: false
+      - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333
+        with:
+          pattern: runtime-handoff-*
+          path: artifacts/runtime-handoff
+      - name: Verify exact disjoint runtime coverage and join results
+        id: runtime-evidence
+        shell: pwsh
+        run: |
+          $status = python -B tools/Validation/Erlang.CiReuse/runtime-shards.py merge --root artifacts/runtime-handoff --head $env:EXPECTED_HEAD
+          if ($LASTEXITCODE -ne 0) { throw 'Runtime evidence could not be joined' }
+          "status=$status" | Add-Content $env:GITHUB_OUTPUT
+      - uses: actions/setup-dotnet@v6
+        if: steps.runtime-evidence.outputs.status == 'fresh'
+        with:
+          global-json-file: global.json
+      - name: Check readiness and original OTP against the joined runtime evidence
+        if: steps.runtime-evidence.outputs.status == 'fresh'
+        shell: pwsh
+        run: |
+          ./tools/prepare-regex-provider.ps1 -Repository $PWD.Path
+          ./tools/validate.ps1 -Part RuntimeEvidence
+      - uses: actions/upload-artifact@v7
+        if: ${{ always() && steps.runtime-evidence.outputs.status == 'fresh' }}
+        with:
+          name: validation
+          path: |
+            artifacts/tests.json
+            artifacts/readiness/**
+            artifacts/tool-readiness/**
+            artifacts/otp-apply-original/**
+            artifacts/otp-float-store-original/**
+            artifacts/otp-closed-wait-original/**
+            artifacts/otp-frame-original/**
+            artifacts/otp-comparison-original/**
+            artifacts/otp-receive-original/**
+            artifacts/otp-receive-length-original/**
+            artifacts/otp-regex-captures-original/**
   local-regressions:
     if: ${{ always() }}
-    needs: local-regressions-lane
+    needs: [local-regressions-lane, local-regressions-runtime-evidence]
     runs-on: ubuntu-latest
     steps:
       - name: Require every Windows validation group
         env:
           VALIDATION_RESULT: ${{ needs.local-regressions-lane.result }}
+          RUNTIME_RESULT: ${{ needs.local-regressions-runtime-evidence.result }}
         run: |
-          if [ "$VALIDATION_RESULT" != success ]; then
-            echo "::error::Windows validation matrix finished with $VALIDATION_RESULT"
+          if [ "$VALIDATION_RESULT" != success ] || [ "$RUNTIME_RESULT" != success ]; then
+            echo "::error::Windows validation matrix finished with $VALIDATION_RESULT, runtime evidence with $RUNTIME_RESULT"
             exit 1
           fi
