@@ -1,0 +1,56 @@
+namespace Erlang.Otp;
+
+internal static class ErpcSourceLines
+{
+    internal const string File = "erpc.erl";
+    internal const int TrimEntry = 1328;
+    internal const int TrimRecursive = 1350;
+    internal const int TrimClause = 1337;
+    internal const int ResultClause = 1373;
+    internal const int CallLocal = 283;
+    internal const int CastApply = 1286;
+    internal const int CallFunction = 180;
+    internal const int CallLocalExit = 287;
+    internal const int CallLocalArgument = 291;
+    internal const int CallLocalError = 294;
+    internal const int CallArgument = 317;
+    internal const int SendFunction = 354;
+    internal const int SendArgument = 429;
+    internal const int SendCollection = 476;
+    internal const int ReceiveOne = 488;
+    internal const int ReceiveTwo = 551;
+    internal const int ReceiveCollection = 634;
+    internal const int WaitOne = 651;
+    internal const int WaitTwo = 702;
+    internal const int WaitCollection = 784;
+    internal const int CheckTwo = 832;
+    internal const int CheckCollection = 907;
+    internal const int RequestSize = 938;
+    internal const int RequestDuplicate = 956;
+    internal const int RequestAdd = 962;
+    internal const int RequestListContents = 987;
+    internal const int RequestList = 990;
+    internal const int MulticallFunction = 1034;
+    internal const int Multicall = 1141;
+    internal const int Multicast = 1196;
+    internal const int Cast = 1251;
+    internal const int ExecuteExit = 1277;
+    internal const int ExecuteLocal = 1281;
+    internal const int CastArgument = 1293;
+    internal const int CastError = 1296;
+    internal const int ResultThrow = 1376;
+    internal const int ResultExit = 1378;
+    internal const int ResultError = 1380;
+    internal const int ResultArgument = 1382;
+    internal const int ResultConnection = 1384;
+    internal const int ResultSignal = 1386;
+    internal const int ResultSpawn = 1388;
+    internal const int ResultTimeout = 1392;
+    internal const int ResultInvalid = 1405;
+    internal const int CollectionRethrow = 1454;
+    internal const int CollectionMalformed = 1436;
+    internal const int CollectionTimeout = 1438;
+    internal const int CollectionInvalid = 1458;
+    internal const int AbsoluteTimeout = 1470;
+    internal const int Timeout = 1475;
+}
