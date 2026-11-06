@@ -1,0 +1,53 @@
+Prepare application_controller
+Prepare application_master
+Prepare application_starter
+Prepare dist_ac
+Prepare gen
+Prepare gen_server
+Prepare proc_lib
+Prepare sys
+Prepare lists
+Prepare maps
+Prepare queue
+Prepare ets
+Prepare logger
+Prepare logger_config
+Prepare logger_filters
+Prepare logger_backend
+Prepare logger_server
+Prepare logger_proxy
+Prepare proplists
+Prepare io_lib
+Prepare io_lib_format
+Prepare io_lib_pretty
+Prepare io
+Prepare error_logger
+Prepare string
+Prepare unicode
+Prepare unicode_util
+Prepare epp
+Prepare erl_scan
+Prepare erl_features
+Prepare code
+Prepare init
+Prepare erl_prim_loader
+Prepare code_server
+Prepare prim_file
+Prepare filename
+Prepare os
+Prepare gb_sets
+Prepare gb_trees
+Prepare file
+Prepare erl_parse
+Prepare erl_anno
+Prepare application_port_cases
+Prepare application_port_callback
+Prepare application_SUITE
+Unhandled exception. System.NotSupportedException: The BEAM external import is outside the supported host subset
+   at Erlang.BeamExternalImports.Resolve(BeamLinkedCode code, String module, String function, Int32 arity) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\src\Runtime\Erlang.Runtime.Core\Execution\Beam\BeamExternalImports.cs:line 40
+   at Erlang.BeamRegisterValidation.ValidateCore(BeamLinkedCode code, BeamLinkedFunction entry, HashSet`1 visited)
+   at Erlang.BeamRegisterValidation.PreparationBatch476.Validate(BeamLinkedFunction entry) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\src\Runtime\Erlang.Runtime.Core\Execution\Beam\BeamRegisterValidation.cs:line 487
+   at Erlang.ModuleRegistry.PrepareBeam(ReadOnlyMemory`1 bytes, BeamDependencySelection dependencies) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\src\Runtime\Erlang.Runtime.Core\Modules\ModuleRegistry.PreparedBeam.cs:line 37
+   at Program.<Main>$(String[] args) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\tools\Validation\Erlang.ApplicationCompatibility\Program.cs:line 44
+   at Program.<Main>$(String[] args) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\tools\Validation\Erlang.ApplicationCompatibility\Program.cs:line 210
+   at Program.<Main>(String[] args)

@@ -1,0 +1,44 @@
+internal static class ApplicationValidationProtocol
+{
+    internal const string SystemFlag = "system_flag";
+    internal const string BacktraceDepth = "backtrace_depth";
+    internal const string ModuleInfo = "module_info";
+    internal const string OnLoad = "on_load";
+    internal const string Application = "application";
+    internal const string Kernel = "kernel";
+    internal const string Description = "description";
+    internal const string Vsn = "vsn";
+    internal const string Env = "env";
+    internal const string Script = "script";
+    internal const string PreLoaded = "preLoaded";
+    internal const string Path = "path";
+    internal const string PrimLoad = "primLoad";
+    internal const string KernelLoadCompleted = "kernel_load_completed";
+    internal const string Apply = "apply";
+    internal const string SetPath = "set_path";
+    internal const string KernelProcess = "kernelProcess";
+    internal const string StartLink = "start_link";
+    internal const string Embedded = "embedded";
+    internal const string Start = "start";
+    internal const string Progress = "progress";
+    internal const string Started = "started";
+    internal const string Root = "-root";
+    internal const string Bindir = "-bindir";
+    internal const string Boot = "-boot";
+    internal const string Mode = "-mode";
+    internal const string Put = "put";
+    internal const string ApplicationPortPrerequisites = "application_port_prerequisites";
+    internal const string New = "new";
+    internal const string Level = "level";
+    internal const string None = "none";
+    internal const string Filters = "filters";
+    internal const string FilterDefault = "filter_default";
+    internal const string Log = "log";
+    internal const string Handlers = "handlers";
+    internal const string Metadata = "metadata";
+    internal const string Create = "create";
+    internal const string Primary = "primary";
+    internal const string AddPatha = "add_patha";
+    internal const string Observe = "observe";
+    internal const string Scenario = "scenario";
+}
