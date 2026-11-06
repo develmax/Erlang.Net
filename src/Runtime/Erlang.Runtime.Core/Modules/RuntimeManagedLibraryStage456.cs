@@ -21,5 +21,6 @@ public enum RuntimeManagedLibraryStage456
     Supervisor,
     Application,
     Logger,
-    ErrorLogger
+    ErrorLogger,
+    Erpc
 }

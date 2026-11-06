@@ -1,22 +1,26 @@
+// Derived from Erlang/OTP 29.1.1 erpc.erl (Apache-2.0). Copyright Ericsson AB 2020-2025.
 namespace Erlang.Otp;
 
-internal static class Erpc
+internal static partial class Erpc
 {
     internal static void Register(ModuleRegistry registry)
+        => RegisterExports(registry, ErpcLibrary.Exports);
+
+    internal static void RegisterLegacy(ModuleRegistry registry)
+        => RegisterExports(registry, [(ErpcNames.Call, 4), (ErpcNames.Call, 5), (ErpcNames.Execute, 4)]);
+
+    private static void RegisterExports(ModuleRegistry registry, IEnumerable<(string Name, int Arity)> exports)
     {
-        foreach (int arity in new[] { 4, 5 })
-            registry.Register(
+        foreach (var export in exports)
+        {
+            string function = export.Name;
+            registry.RegisterReviewedManagedLibrary789(
                 ErpcNames.Module,
-                ErpcNames.Call,
-                arity,
-                Call
+                function,
+                export.Arity,
+                (context, arguments) => Invoke(context, function, arguments)
             );
-        registry.Register(
-            ErpcNames.Module,
-            ErpcNames.Execute,
-            4,
-            Execute
-        );
+        }
     }
 
     internal static async ValueTask<Term> Call(ProcessContext context, IReadOnlyList<Term> arguments)
@@ -36,6 +40,14 @@ internal static class Erpc
         {
             try
             {
+                using var frame = context.EnterGeneratedFunction(
+                    ErpcNames.Module,
+                    ErpcNames.Call,
+                    5,
+                    ErpcSource.Location(ErpcSourceLines.CallLocal),
+                    new object()
+                );
+
                 return await ExecuteLocal(
                     context,
                     module,
@@ -45,21 +57,44 @@ internal static class Erpc
             }
             catch (ErlangException error) when (error.ExceptionClass == ErlangExceptionClasses.Exit)
             {
-                throw new ErlangException(Term.Tuple(ErpcAtoms.Exception, error.Reason), ErlangExceptionClasses.Exit);
+                throw ErpcSource.Capture(
+                    context,
+                    new ErlangException(Term.Tuple(ErpcAtoms.Exception, error.Reason), ErlangExceptionClasses.Exit),
+                    ErpcNames.Call,
+                    5,
+                    ErpcSourceLines.CallLocalExit
+                );
             }
             catch (ErlangException error) when (error.ExceptionClass == ErlangExceptionClasses.Error)
             {
                 if (await ArgumentSystemLimit(context, error, values))
-                    throw Failure(error.Reason);
-                throw new ErlangException(Term.Tuple(ErpcAtoms.Exception, error.Reason, Stack(
-                    error,
-                    module,
-                    function,
-                    values
-                )));
+                    throw ErpcSource.Capture(
+                        context,
+                        Failure(error.Reason),
+                        ErpcNames.Call,
+                        5,
+                        ErpcSourceLines.CallLocalArgument
+                    );
+                throw ErpcSource.Capture(
+                    context,
+                    new ErlangException(Term.Tuple(ErpcAtoms.Exception, error.Reason, Stack(
+                        error,
+                        module,
+                        function,
+                        values
+                    ))),
+                    ErpcNames.Call,
+                    5,
+                    ErpcSourceLines.CallLocalError
+                );
             }
         }
-        timeout = await ErpcTimeout.Normalize(context, timeout);
+        timeout = await NormalizeTimeout(
+            context,
+            timeout,
+            ErpcNames.Call,
+            5
+        );
         ReferenceTerm result = context.Runtime.MakeReference();
         var request = (ReferenceTerm)await context.Runtime.Modules.Call(
             context,
@@ -97,10 +132,25 @@ internal static class Erpc
     {
         TupleTerm? response = await context.ReceiveErlangAsync(value => Select(value, request), timeout);
 
-        return response is null ? await AfterTimeout(context, request, result) : Result(response, result);
+        return response is null ? await AfterTimeout(context, request, result) : Result(context, response, result);
     }
 
-    private static async ValueTask<Term> AfterTimeout(ProcessContext context, ReferenceTerm request, ReferenceTerm result)
+    private static ValueTask<Term> AfterTimeout(ProcessContext context, ReferenceTerm request, ReferenceTerm result)
+        => AfterTimeoutAt(
+            context,
+            request,
+            result,
+            ErpcNames.Call,
+            5
+        );
+
+    private static async ValueTask<Term> AfterTimeoutAt(
+        ProcessContext context,
+        Term request,
+        Term result,
+        string function,
+        int arity
+    )
     {
         Term abandoned = await context.Runtime.Modules.Call(
             context,
@@ -109,7 +159,13 @@ internal static class Erpc
             request
         );
         if (abandoned.Equals(ErpcAtoms.True))
-            throw Failure(ErpcAtoms.Timeout);
+            throw ErpcSource.Capture(
+                context,
+                Failure(ErpcAtoms.Timeout),
+                function,
+                arity,
+                ErpcSourceLines.ResultTimeout
+            );
         Term removed = await context.Runtime.Modules.Call(
             context,
             ProcLibNames.Erlang,
@@ -118,15 +174,33 @@ internal static class Erpc
             Term.List(Term.A(ErpcNames.Info))
         );
         if (removed.Equals(ErpcAtoms.True))
-            throw Failure(ErpcAtoms.Timeout);
+            throw ErpcSource.Capture(
+                context,
+                Failure(ErpcAtoms.Timeout),
+                function,
+                arity,
+                ErpcSourceLines.ResultTimeout
+            );
         TupleTerm? response = await context.ReceiveAsync(value => Select(value, request), TimeSpan.Zero);
         if (response is null)
-            throw Failure(ErpcAtoms.BadArgument);
+            throw ErpcSource.Capture(
+                context,
+                Failure(ErpcAtoms.BadArgument),
+                function,
+                arity,
+                ErpcSourceLines.ResultInvalid
+            );
 
-        return Result(response, result);
+        return Result(
+            context,
+            response,
+            result,
+            function,
+            arity
+        );
     }
 
-    private static TupleTerm? Select(Term value, ReferenceTerm reference) => value switch
+    private static TupleTerm? Select(Term value, Term reference) => value switch
     {
         TupleTerm { Items: [Atom { Name: ProcessSpawnRequestNames.DefaultTag }, var request, Atom { Name: ProcessSpawnRequestNames.Error }, _] } tuple
             when request.Equals(reference) => tuple,
@@ -135,32 +209,46 @@ internal static class Erpc
         _ => null
     };
 
-    private static Term Result(TupleTerm response, ReferenceTerm result)
+    private static Term Result(
+        ProcessContext context,
+        TupleTerm response,
+        Term result,
+        string function = ErpcNames.Call,
+        int arity = 5
+    )
     {
+        ErlangException Capture(ErlangException error, int line) => ErpcSource.Capture(
+            context,
+            error,
+            function,
+            arity,
+            line
+        );
         if (response.Items.Count == 4)
-            throw Failure(response.Items[3]);
+            throw Capture(Failure(response.Items[3]), ErpcSourceLines.ResultSpawn);
         Term reason = response.Items[4];
         if (reason is TupleTerm { Items: [var reference, Atom kind, var value] } && reference.Equals(result))
         {
             if (kind.Name == ErpcNames.Return)
                 return value;
             if (kind.Name == ErpcNames.Throw)
-                throw new ErlangException(value, ErlangExceptionClasses.Throw);
+                throw Capture(new ErlangException(value, ErlangExceptionClasses.Throw), ErpcSourceLines.ResultThrow);
             if (kind.Name == ErpcNames.Exit)
-                throw new ErlangException(Term.Tuple(ErpcAtoms.Exception, value), ErlangExceptionClasses.Exit);
+                throw Capture(new ErlangException(Term.Tuple(ErpcAtoms.Exception, value), ErlangExceptionClasses.Exit), ErpcSourceLines.ResultExit);
             if (kind.Name == ErpcNames.Error && value is TupleTerm { Items: [Atom { Name: ErpcNames.Module }, _] })
-                throw new ErlangException(value);
+                throw Capture(new ErlangException(value), ErpcSourceLines.ResultArgument);
         }
         if (reason is TupleTerm { Items: [var correlation, Atom { Name: ErpcNames.Error }, var error, var stack] } && correlation.Equals(result))
-            throw new ErlangException(Term.Tuple(ErpcAtoms.Exception, error, stack));
+            throw Capture(new ErlangException(Term.Tuple(ErpcAtoms.Exception, error, stack)), ErpcSourceLines.ResultError);
         if (reason.Equals(ErpcAtoms.NoConnection))
-            throw Failure(ErpcAtoms.NoConnection);
+            throw Capture(Failure(ErpcAtoms.NoConnection), ErpcSourceLines.ResultConnection);
 
-        throw new ErlangException(Term.Tuple(ErpcAtoms.Signal, reason), ErlangExceptionClasses.Exit);
+        throw Capture(new ErlangException(Term.Tuple(ErpcAtoms.Signal, reason), ErlangExceptionClasses.Exit), ErpcSourceLines.ResultSignal);
     }
 
     private static async ValueTask<Term> Execute(ProcessContext context, IReadOnlyList<Term> arguments)
     {
+        using var scope = context.EnterSourceWrapper(ErpcNames.Module, ErpcNames.Execute, 4);
         Term reference = arguments[0], module = arguments[1], function = arguments[2], values = arguments[3];
         Term reply;
         try
@@ -203,10 +291,12 @@ internal static class Erpc
         Term values
     )
     {
-        using var scope = context.EnterSourceWrapper(
+        using var scope = context.EnterGeneratedFunction(
             ErpcNames.Module,
             ErpcNames.Execute,
-            ErpcNames.ExecuteLocalArity
+            ErpcNames.ExecuteLocalArity,
+            ErpcSource.Location(ErpcSourceLines.ExecuteLocal),
+            new object()
         );
 
         return await Apply(
