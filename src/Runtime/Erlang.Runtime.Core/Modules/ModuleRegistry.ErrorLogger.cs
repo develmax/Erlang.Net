@@ -10,7 +10,8 @@ public sealed partial class ModuleRegistry
                 WarningMapNativeNames.Module,
                 WarningMapNativeNames.Function,
                 0,
-                out ErlangFunction body))
+                out ErlangFunction body
+            ))
             {
                 throw new InvalidOperationException(LibrarySelectionNames.Primitive);
             }
@@ -18,6 +19,7 @@ public sealed partial class ModuleRegistry
                 WarningMapNativeNames.Module,
                 WarningMapNativeNames.Function,
                 0,
-                body);
+                body
+            );
         });
 }
