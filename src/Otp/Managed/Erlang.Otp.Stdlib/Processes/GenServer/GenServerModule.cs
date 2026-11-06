@@ -551,8 +551,8 @@ public static class GenServerModule
                 pending = ((Cons)pending).Tail;
             }
             sendScope.Dispose();
-            await Collect(false);
-            await CancelMultiTimer(c, timer, alias);
+            if (!await Collect(false))
+                await CancelMultiTimer(c, timer, alias);
 
             return Term.Tuple(Cons.From(replies), Cons.From(bad));
         }
@@ -566,7 +566,7 @@ public static class GenServerModule
             );
         }
 
-        async ValueTask Collect(bool timedOut)
+        async ValueTask<bool> Collect(bool timedOut)
         {
             foreach (var (node, monitor) in requests)
             {
@@ -617,6 +617,8 @@ public static class GenServerModule
                 }
                 else bad.Insert(0, node);
             }
+
+            return timedOut;
         }
     }
 
