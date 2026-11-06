@@ -233,7 +233,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        lane: [core, native, owned, observers]
+        lane: [core, libraries, catalog, packages, tooling, bif, native, owned, observers]
     runs-on: windows-latest
     env:
       EXPECTED_HEAD: ${{ github.event.pull_request.head.sha || github.sha }}
@@ -512,7 +512,7 @@ jobs:
           if ($LASTEXITCODE -ne 0) { $originalFailures += 'Same-host original ETS442 capture failed' }
           if ($originalFailures.Count -ne 0) { throw ($originalFailures -join '; ') }
       - name: Compare BIF contract re-audit with same-host pinned OTP
-        if: ${{ matrix.lane == 'core' }}
+        if: ${{ matrix.lane == 'bif' }}
         shell: pwsh
         run: |
           $PSNativeCommandUseErrorActionPreference = $false
@@ -575,11 +575,14 @@ jobs:
         run: |
           python -B tools/Validation/Erlang.CiReuse/main.py prepare --repository . --provider-admission artifacts/library376-official-compiler/official-admission.json --job local-regressions --output artifacts/ci-reuse/local-regressions
           if ($LASTEXITCODE -ne 0) { throw 'CI reuse admission entry failed' }
-      - shell: pwsh
-        if: ${{ (matrix.lane == 'core') && (steps.ci-reuse.outputs.reuse != 'true') }}
-        run: ./tools/validate.ps1 -TestRuntimeVersion 10.0.11
+      - name: Run the assigned validation part
+        if: ${{ contains(fromJSON('["core","libraries","catalog","packages","tooling"]'), matrix.lane) && steps.ci-reuse.outputs.reuse != 'true' }}
+        shell: pwsh
+        env:
+          VALIDATION_PART: ${{ matrix.lane == 'core' && 'Runtime' || matrix.lane }}
+        run: ./tools/validate.ps1 -Part $env:VALIDATION_PART -TestRuntimeVersion 10.0.11
       - name: Build the comparison host on this runner
-        if: ${{ matrix.lane != 'core' && steps.ci-reuse.outputs.reuse != 'true' }}
+        if: ${{ contains(fromJSON('["native","owned","observers"]'), matrix.lane) && steps.ci-reuse.outputs.reuse != 'true' }}
         shell: pwsh
         run: |
           dotnet build tests/Erlang.Tests/Erlang.Tests.csproj -m:1 --no-restore --nologo
@@ -1226,7 +1229,7 @@ jobs:
     needs: local-regressions-lane
     runs-on: ubuntu-latest
     steps:
-      - name: Require all four Windows validation groups
+      - name: Require every Windows validation group
         env:
           VALIDATION_RESULT: ${{ needs.local-regressions-lane.result }}
         run: |

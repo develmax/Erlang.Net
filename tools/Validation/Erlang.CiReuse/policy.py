@@ -11,6 +11,8 @@ REQUIRED = {
         "local-regressions", "original-resource-controls504", "relocated-tooling",
         "local-regressions (core)", "local-regressions (native)",
         "local-regressions (owned)", "local-regressions (observers)",
+        "local-regressions (libraries)", "local-regressions (catalog)",
+        "local-regressions (packages)", "local-regressions (tooling)", "local-regressions (bif)",
     },
     ".github/workflows/math-compatibility.yml": {"math (windows-latest)", "math (ubuntu-latest)", "math (macos-latest)"},
     ".github/workflows/nif-version651-linux.yml": {"n1-linux"},
