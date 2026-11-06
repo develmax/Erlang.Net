@@ -665,3 +665,9 @@ docs/validation/part-595/** -text
 /tools/Validation/Erlang.ErpcCompatibility/** -text
 /tools/validate-erpc-original.ps1 -text
 /docs/validation/erpc-pr-20261106/** -text
+
+# Preserve pinned RPC fixtures and acceptance evidence across checkouts.
+/tools/Validation/Erlang.RpcCompatibility/Reference/*.erl -text -whitespace
+/tools/Validation/Erlang.RpcCompatibility/*.erl -text
+/tools/validate-rpc-original.ps1 -text
+/docs/validation/rpc-pr-20261106/** -text
