@@ -64,13 +64,13 @@ internal static class MnesiaLibraryChecks
         Reject(() => OtpMnesia.ReadImage(Traversal));
         Reject(() => OtpMnesia.ReadImage(Unknown));
         Reject(() => OtpMnesia.Beam(FragmentHash, null!));
-        Reject(() => OtpMnesia.Beam(ApplicationModule, null!));
+        Reject(() => OtpMnesia.Beam(MnesiaLibraryNames.ApplicationModule, null!));
         RuntimeModuleSelection fragment = OtpMnesia.Beam(FragmentHash, [Lists]);
-        RuntimeModuleSelection application = OtpMnesia.Beam(ApplicationModule, [Lists]);
+        RuntimeModuleSelection application = OtpMnesia.Beam(MnesiaLibraryNames.ApplicationModule, [Lists]);
         Check(fragment.Module == FragmentHash && fragment.Backend == RuntimeModuleBackend.Beam && fragment.Dependencies.SequenceEqual([Lists]));
-        Check(application.Module == ApplicationModule && application.Backend == RuntimeModuleBackend.Beam && application.Dependencies.SequenceEqual([Lists]));
+        Check(application.Module == MnesiaLibraryNames.ApplicationModule && application.Backend == RuntimeModuleBackend.Beam && application.Dependencies.SequenceEqual([Lists]));
         Reject(() => OtpMnesia.Beam(FragmentHash, [Lists, Lists]));
-        Reject(() => OtpMnesia.Beam(ApplicationModule, [string.Empty]));
+        Reject(() => OtpMnesia.Beam(MnesiaLibraryNames.ApplicationModule, [string.Empty]));
         var runtime = new ProcessRuntime();
         try
         {
@@ -80,7 +80,7 @@ internal static class MnesiaLibraryChecks
             {
                 string[] imports = OtpMnesia.Modules.Concat(OtpStdlib.Modules).Append(Observer).ToArray();
                 var dependencies = new BeamDependencySelection(imports);
-                byte[][] bytes = [OtpStdlib.ReadImage(Lists), OtpMnesia.ReadImage(FragmentHash), OtpMnesia.ReadImage(ApplicationModule), Resource(ObserverImage)];
+                byte[][] bytes = [OtpStdlib.ReadImage(Lists), OtpMnesia.ReadImage(FragmentHash), OtpMnesia.ReadImage(MnesiaLibraryNames.ApplicationModule), Resource(ObserverImage)];
                 PreparedBeamImage[] images = bytes.Select(image =>
                 {
                     try
