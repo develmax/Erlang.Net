@@ -1,0 +1,54 @@
+namespace Erlang;
+
+internal static class LoggerApi
+{
+    internal const string Emergency = "emergency";
+    internal const string Alert = "alert";
+    internal const string Critical = "critical";
+    internal const string Error = "error";
+    internal const string Warning = "warning";
+    internal const string Notice = "notice";
+    internal const string Info = "info";
+    internal const string Debug = "debug";
+    internal const string Log = "log";
+    internal const string Allow = "allow";
+    internal const string MacroLog = "macro_log";
+    internal const string AddDefaultMetadata = "add_default_metadata";
+    internal const string AddHandler = "add_handler";
+    internal const string RemoveHandler = "remove_handler";
+    internal const string AddPrimaryFilter = "add_primary_filter";
+    internal const string AddHandlerFilter = "add_handler_filter";
+    internal const string RemovePrimaryFilter = "remove_primary_filter";
+    internal const string RemoveHandlerFilter = "remove_handler_filter";
+    internal const string SetModuleLevel = "set_module_level";
+    internal const string UnsetModuleLevel = "unset_module_level";
+    internal const string SetApplicationLevel = "set_application_level";
+    internal const string UnsetApplicationLevel = "unset_application_level";
+    internal const string GetModuleLevel = "get_module_level";
+    internal const string SetPrimaryConfig = "set_primary_config";
+    internal const string SetHandlerConfig = "set_handler_config";
+    internal const string SetProxyConfig = "set_proxy_config";
+    internal const string UpdatePrimaryConfig = "update_primary_config";
+    internal const string UpdateHandlerConfig = "update_handler_config";
+    internal const string UpdateProxyConfig = "update_proxy_config";
+    internal const string UpdateFormatterConfig = "update_formatter_config";
+    internal const string GetPrimaryConfig = "get_primary_config";
+    internal const string GetHandlerConfig = "get_handler_config";
+    internal const string GetHandlerIds = "get_handler_ids";
+    internal const string GetConfig = "get_config";
+    internal const string GetProxyConfig = "get_proxy_config";
+    internal const string AddHandlers = "add_handlers";
+    internal const string Reconfigure = "reconfigure";
+    internal const string InternalInitLogger = "internal_init_logger";
+    internal const string CompareLevels = "compare_levels";
+    internal const string SetProcessMetadata = "set_process_metadata";
+    internal const string UpdateProcessMetadata = "update_process_metadata";
+    internal const string UnsetProcessMetadata = "unset_process_metadata";
+    internal const string GetProcessMetadata = "get_process_metadata";
+    internal const string I = "i";
+    internal const string Timestamp = "timestamp";
+    internal const string FormatReport = "format_report";
+    internal const string FormatOtpReport = "format_otp_report";
+    internal const string InternalLog = "internal_log";
+    internal const string FilterStacktrace = "filter_stacktrace";
+}
