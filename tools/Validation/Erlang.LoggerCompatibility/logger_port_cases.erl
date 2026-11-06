@@ -17,7 +17,8 @@ cases() ->
         {set_primary_config,[#{level=>bad}]}, {set_primary_config,[bad]},
         {update_primary_config,[#{unknown=>1}]}, {set_proxy_config,[bad]},
         {set_module_level,[[a,1],info]}, {unset_module_level,[123]},
-        {update_formatter_config,[missing,bad]}, {i,[123]}, {add_handlers,[[bad]]}]].
+        {update_formatter_config,[missing,bad]}, {i,[123]}, {add_handlers,[[bad]]}]] ++
+    [invalid_message].
 
 write(Directory) ->
     [logger:remove_handler(Id) || Id <- logger:get_handler_ids()],
@@ -47,6 +48,13 @@ run({upstream,F}) ->
     try apply(logger_SUITE,F,[Config])
     after logger_SUITE:end_per_testcase(F,Config),logger:set_primary_config(Old),logger:unset_module_level() end;
 run({bad,F,Args}) -> apply(logger,F,Args);
+run(invalid_message) ->
+    Old=logger:get_primary_config(),
+    ok=logger:set_primary_config(level,info),
+    ok=logger:set_process_metadata(#{time=>42}),
+    try logger:info(not_a_message)
+    catch error:function_clause:Stack -> {function_clause,invalid_message_stack(Stack)}
+    after logger:set_primary_config(Old) end;
 run(metadata) ->
     logger:unset_process_metadata(),
     A=logger:get_process_metadata(),
@@ -234,3 +242,11 @@ io_device(Acc) ->
             Chars=apply(M,F,Args),From ! {io_reply,Ref,ok},io_device([unicode:characters_to_binary(Chars,Encoding)|Acc]);
         {take,From} -> From ! {output,iolist_to_binary(lists:reverse(Acc))},io_device([])
     end.
+
+%% Compare live identities only after verifying their role in the original frame.
+invalid_message_stack([{logger,do_log_allowed,[Level,Msg,#{pid:=Pid,gl:=Gl}=Meta,Tid,Config],Location}|Rest]) ->
+    Pid=self(),
+    Gl=group_leader(),
+    Tid=ets:whereis(logger),
+    [{logger,do_log_allowed,[Level,Msg,Meta#{pid=>caller,gl=>group_leader},logger_table,Config],Location}|Rest];
+invalid_message_stack(Stack) -> Stack.
