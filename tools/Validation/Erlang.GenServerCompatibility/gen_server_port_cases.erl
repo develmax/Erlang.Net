@@ -6,7 +6,7 @@ write(Dir)->
     ok=file:write_file(filename:join(Dir,"feature-bootstrap.etf"),term_to_binary(Features)),
     ok=file:write_file(filename:join(Dir,"exports.etf"),term_to_binary(gen_server:module_info(exports)--[{module_info,0},{module_info,1}])),
     ok=file:write_file(filename:join(Dir,"original.etf"),term_to_binary([{F,A,observe(F,A)} || {F,A}<-cases()])),
-    Names=[basic,requests,collections,system,named,monitor,init_results,continue,stop_reply,throws,callback_stack,hibernate,enter_loop,sys_terminate_once,sys_error_once,multi_call,abcast,optional,status,sys_log,init_error_stack,terminate_error_stack,call_error_stack,info_error_stack,continue_error_stack,wait_request,check_request,collection_wait,collection_check,via_name,remote_multi,parent_exit] ++ [{upstream,N} || N<-[calling_self,get_state,replace_state,reply_by_alias_with_payload]] ++
+    Names=[basic,requests,collections,system,named,monitor,init_results,continue,stop_reply,throws,callback_stack,hibernate,enter_loop,sys_terminate_once,sys_error_once,multi_call,multi_call_timeout,abcast,optional,status,sys_log,init_error_stack,terminate_error_stack,call_error_stack,info_error_stack,continue_error_stack,wait_request,check_request,collection_wait,collection_check,via_name,remote_multi,parent_exit] ++ [{upstream,N} || N<-[calling_self,get_state,replace_state,reply_by_alias_with_payload]] ++
           [{action,A} || A<-[0,infinity,{continue,next},hibernate,{timeout,0,tick},{hibernate,0,tick},{timeout,1,tick},{hibernate,1,tick},{timeout,infinity,tick},{timeout,0,tick,{abs,true}},{timeout,2,tick,[{abs,false}]}]] ++
           [{bad_return,V} || V<-[bad,{},[],{reply,one},{stop},{reply,x,y,bad},{noreply,y,bad},{stop,x,y,z,extra}]] ++
           [{bad_action,A} || A<-[bad,-1,{timeout,-1,tick},{timeout,0,tick,bad},{timeout,1,tick,[{abs,bad}]},{hibernate,1,tick,[{abs,true},bad]}]] ++
@@ -74,6 +74,13 @@ scenario_core(enter_loop)->P=proc_lib:spawn(?MODULE,enter_child,[self()]),receiv
 scenario_core(sys_terminate_once)->P=start({owner,self(),state}),ok=sys:terminate(P,normal),{recv(),receive X->X after 0->empty end};
 scenario_core(sys_error_once)->P=start({owner,self(),state}),ok=sys:suspend(P),ok=sys:resume(P),gen_server:cast(P,{raise,exit,broken}),{recv(),receive X->X after 0->empty end};
 scenario_core(multi_call)->{ok,P}=gen_server:start({local,gen_server_port_multi},?MODULE,state,[]),{Rs,Bad}=gen_server:multi_call([node()],gen_server_port_multi,get,1000),stop(P),{[V || {_,V}<-Rs],Bad};
+scenario_core(multi_call_timeout)->
+    {ok,P}=gen_server:start_link({local,gen_server_port_multi},?MODULE,{owner,self(),state},[]),
+    try
+        Result=gen_server:multi_call([node()],gen_server_port_multi,no_reply,100),
+        Received=receive no_reply_received->true after 1000->false end,
+        {Result,Received,get(P),flush()}
+    after stop(P) end;
 scenario_core(abcast)->{ok,P}=gen_server:start({local,gen_server_port_multi},?MODULE,zero,[]),abcast=gen_server:abcast([node()],gen_server_port_multi,{set,one}),V=get(P),stop(P),V;
 scenario_core(optional)->{ok,P}=gen_server:start(gen_server_port_second,state,[]),P!hello,V=get(P),stop(P),V;
 scenario_core({action,A})->P=start({owner,self(),state}),gen_server:cast(P,{action,A}),
@@ -90,6 +97,7 @@ init({raise,C,R})->erlang:C(R);
 init({init,V})->V;
 init(S)->{ok,S}.
 handle_call({raise,C,R},_,_)->erlang:C(R);
+handle_call(no_reply,_,{owner,Owner,_}=S)->Owner!no_reply_received,{noreply,S};
 handle_call(get,_,{owner,_,V}=S)->{reply,V,S};
 handle_call(get,_,S)->{reply,S,S};
 handle_call({throw,V},_,_)->throw(V);
