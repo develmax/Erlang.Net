@@ -1,6 +1,6 @@
 # erpc backends
 
-The complete OTP-29.1.1 `erpc` library has a C# alternative alongside the retained original Erlang source and BEAM image. All 33 explicit exports are implemented, including six internal exports; `module_info` is runtime metadata. The previous C# facade registered only `call/4,5` and `execute_call/4`.
+The complete OTP-29.1.1 `erpc` library has a C# alternative alongside the retained original Erlang source and BEAM image. Both explicit backends expose all 33 OTP exports, including six internal exports. The runtime provides `module_info` metadata. Default OTP registration exposes the legacy `call/4`, `call/5` and `execute_call/4` entry points.
 
 ## Selection
 
@@ -22,13 +22,13 @@ var choices = new RuntimeLibrarySelection([
 await using var runtime = await ProcessRuntime.CreateAsync(choices);
 ```
 
-Supply the pinned original `src/Otp/Original/Foundation/Erlang.Otp.Kernel.Beam/Otp/ebin/erpc.beam` bytes. Its matching Erlang source remains under `Otp/src/erpc.erl`. `RuntimeLibraryManifest` supports the same Managed/Beam choices. Selection diagnostics retain backend, module image and assembly identities. Ordinary OTP registration preserves an existing erpc backend, and the legacy rpc:call facade routes through the selected erpc MFA. There is no erpc BEAM-to-C# fallback or live migration. BEAM execution uses this project's .NET runtime; production does not require an external ERTS process.
+Supply the pinned original `src/Otp/Original/Foundation/Erlang.Otp.Kernel.Beam/Otp/ebin/erpc.beam` bytes. Its matching Erlang source remains under `Otp/src/erpc.erl`. `RuntimeLibraryManifest` supports the same Managed/Beam choices. Selection diagnostics retain backend, module image and assembly identities. Ordinary OTP registration preserves an explicitly selected erpc backend, and the legacy `rpc:call` facade dispatches through it. The .NET runtime executes the selected BEAM image directly.
 
 The C# implementation composes the runtime's existing apply, selective receive, spawn_request, monitor/demonitor/abandon, node identity and clock primitives. Request IDs preserve OTP's improper `[ResultRef|RequestRef]` form; collections retain `RequestRef => [ResultRef|Label]`. `wait_response` leaves live requests pending, while a receive timeout abandons them. Collection errors carry reason, label and the selected retained/deleted collection. Multicall sends requests concurrently, optionally applies one local call in its caller, shares a native-time deadline and maps replies back to input order. Invalid node lists clean up requests already sent.
 
 ## Focused evidence
 
-[The receipt](validation/erpc-pr-20261106/README.md) records the actual source/assembly hashes, admitted official provider, commands, earlier failures and final outcomes. The permanent corpus covers 309 complete API/error-stack observations, 18 stateful groups and three unchanged upstream cases: `call_always_spawn`, `multicall_always_spawn`, `timeout_limit`. Both implementations pass the same 330 observations. Eight existing connected RPC/spawn/monitor checks are replayed separately over the current implementation; the report records the test assembly built from the isolated checkout.
+[The receipt](validation/erpc-pr-20261106/review/README.md) records the actual source/assembly hashes, admitted official provider, commands, earlier failures and final outcomes. The permanent corpus covers 309 complete API/error-stack observations, 18 stateful groups and three unchanged upstream cases: `call_always_spawn`, `multicall_always_spawn`, `timeout_limit`. Both implementations pass the same 330 observations. Eight existing connected RPC/spawn/monitor checks are replayed separately over the current implementation; the report records the test assembly built from the isolated checkout.
 
 Only dynamic PID/reference/fun identities are projected by the observer; deterministic values, exception classes, reasons, error metadata, full stacks and observable mailbox effects remain compared. Some groups intentionally return narrower predicates, such as caller-versus-child identity and empty mailbox counts. This does not equate physical resource/scheduler state between runtimes.
 
@@ -44,4 +44,4 @@ The capture script refuses changed pinned sources/BEAM/suite, changed official p
 
 ## Acceptance limits
 
-Complete implementation and finite comparisons do not establish universal 100% OTP compatibility. Remaining acceptance includes the full upstream suite with real peers, old releases and EI nodes; all distribution failure/timing interleavings; resource exhaustion, physical scheduling, platform and module-metadata behavior. No performance advantage is claimed. The full regression, validate.ps1 and canonical readiness were intentionally excluded from this task. No unrelated library changes are included in erpc publication.
+The comparison covers the recorded OTP 29.1.1 corpus. Universal compatibility still requires the full upstream suite with real peers, old releases and EI nodes, as well as distribution timing, resource exhaustion, scheduling and platform checks. Canonical readiness reports the three exports in the default registry. The explicit 33-export backends have a separate acceptance report.

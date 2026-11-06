@@ -4,8 +4,14 @@ namespace Erlang.Otp;
 internal static partial class Erpc
 {
     internal static void Register(ModuleRegistry registry)
+        => RegisterExports(registry, ErpcLibrary.Exports);
+
+    internal static void RegisterLegacy(ModuleRegistry registry)
+        => RegisterExports(registry, [(ErpcNames.Call, 4), (ErpcNames.Call, 5), (ErpcNames.Execute, 4)]);
+
+    private static void RegisterExports(ModuleRegistry registry, IEnumerable<(string Name, int Arity)> exports)
     {
-        foreach (var export in ErpcLibrary.Exports)
+        foreach (var export in exports)
         {
             string function = export.Name;
             registry.RegisterReviewedManagedLibrary789(

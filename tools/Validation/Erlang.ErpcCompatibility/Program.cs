@@ -11,6 +11,14 @@ try
         throw new ArgumentException(ErpcValidationDiagnostics.Usage);
     string repository = Path.GetFullPath(args[0]);
     string directory = Path.GetFullPath(args[1]);
+    await using (var defaults = new ProcessRuntime())
+    {
+        await defaults.InitializeModulesAsync(Erlang.Otp.KernelModules.Register);
+        var legacy = defaults.Modules.Exports.Where(row => row.Module == ErpcLibrary.Name)
+            .Select(row => (row.Function, row.Arity)).ToHashSet();
+        if (!legacy.SetEquals([("call", 4), ("call", 5), ("execute_call", 4)]))
+            throw new InvalidOperationException(ErpcValidationDiagnostics.Exports);
+    }
     int depth = ErpcValidationProvenance.Verify(repository, directory);
     bool managed = args[2] == "Managed";
     string kernel = Path.Combine(repository, "src/Otp/Original/Foundation/Erlang.Otp.Kernel.Beam/Otp/ebin");

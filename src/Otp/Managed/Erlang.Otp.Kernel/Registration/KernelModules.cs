@@ -16,7 +16,7 @@ public static class KernelModules
     {
         if (!registry.HasExport(ErpcNames.Module, ErpcNames.Call, 5))
         {
-            Erpc.Register(registry);
+            Erpc.RegisterLegacy(registry);
         }
         Rpc.Register(registry);
     }
