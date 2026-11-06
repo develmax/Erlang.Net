@@ -1,0 +1,10 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup><OutputType>Exe</OutputType></PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="../../../src/Runtime/Erlang.Runtime/Erlang.Runtime.csproj" />
+    <ProjectReference Include="../../../src/Runtime/Erlang.Serialization/Erlang.Serialization.csproj" />
+    <Compile Include="../Erlang.GenStatemCompatibility/GenStatemValidationPrimitives.cs" Link="BootstrapPrimitives.cs" />
+    <Compile Include="../Erlang.GenStatemCompatibility/GenStatemBeamImports.cs" Link="BeamImports.cs" />
+    <Compile Include="../Erlang.GenStatemCompatibility/GenStatemBeamReflectionNames.cs" Link="BeamReflectionNames.cs" />
+  </ItemGroup>
+</Project>
