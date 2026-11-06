@@ -1,0 +1,150 @@
+Prepare application_controller
+Prepare application_master
+Prepare application_starter
+Prepare dist_ac
+Prepare gen
+Prepare gen_server
+Prepare proc_lib
+Prepare sys
+Prepare lists
+Prepare maps
+Prepare queue
+Prepare ets
+Prepare logger
+Prepare logger_config
+Prepare logger_filters
+Prepare logger_backend
+Prepare logger_server
+Prepare logger_proxy
+Prepare proplists
+Prepare io_lib
+Prepare io_lib_format
+Prepare io_lib_pretty
+Prepare io
+Prepare error_logger
+Prepare string
+Prepare unicode
+Prepare unicode_util
+Prepare epp
+Prepare erl_scan
+Prepare erl_features
+Prepare code
+Prepare init
+Prepare erl_prim_loader
+Prepare code_server
+Prepare prim_file
+Prepare filename
+Prepare os
+Prepare gb_sets
+Prepare gb_trees
+Prepare file
+Prepare erl_parse
+Prepare erl_anno
+Prepare erl_posix_msg
+Prepare application
+Prepare application_port_cases
+Prepare application_port_callback
+Prepare application_SUITE
+Observe behaviour_info [callbacks]
+Observe behaviour_info [optional_callbacks]
+Observe behaviour_info [bad]
+Observe get_application []
+Observe get_application [absent_application_port_module]
+Observe get_application [42]
+Observe get_supervisor [42]
+Observe get_supervisor [port_absent]
+Observe get_env [marker]
+Observe get_env [port_absent,marker]
+Observe get_env [port_absent,marker,default]
+Observe get_all_env []
+Observe get_all_env [port_absent]
+Observe get_key [vsn]
+Observe get_key [port_absent,vsn]
+Observe get_all_key []
+Observe get_all_key [port_absent]
+Observe start_type []
+Observe set_env [[]]
+Observe set_env [[],[]]
+Observe ensure_all_started [[]]
+Observe takeover [port_absent,bad_restart]
+Observe ensure_all_started [[],temporary]
+Observe ensure_all_started [[],temporary,serial]
+Observe ensure_all_started [[],temporary,concurrent]
+Observe ensure_all_started [[],temporary,bad_mode]
+Observe load [{application,port_case,[{description,[97,112,112,108,105,99,97,116,105,111,110,32,112,111,114,116]},{vsn,[49]},{modules,[application_port_callback]},{registered,[]},{applications,[]},{env,[{marker,port_case}]},{mod,[]}]}]
+Observe load [{application,port_case,[{description,[97,112,112,108,105,99,97,116,105,111,110,32,112,111,114,116]},{vsn,[49]},{modules,[application_port_callback]},{registered,[]},{applications,[]},{env,[{marker,port_case}]},{mod,[]}]},[]]
+Observe get_key [port_case,vsn]
+Observe get_env [port_case,marker]
+Observe get_env [port_case,marker,default]
+Observe get_all_env [port_case]
+Observe get_all_key [port_case]
+Observe set_env [port_case,marker,changed]
+Observe set_env [port_case,marker,timed,infinity]
+Observe set_env [port_case,marker,timed2,5000]
+Observe set_env [port_case,marker,persistent,[{persistent,true}]]
+Observe unset_env [port_case,marker]
+Observe unset_env [port_case,marker,infinity]
+Observe unset_env [port_case,marker,5000]
+Observe unset_env [port_case,marker,[{persistent,true}]]
+Observe start [port_case]
+Observe start [port_case,temporary]
+Observe ensure_started [port_case]
+Observe ensure_started [port_case,temporary]
+Observe start_boot [port_case]
+Observe start_boot [port_case,temporary]
+Observe stop [port_case]
+Observe unload [port_case]
+Observe stop [port_case]
+Observe unload [port_case]
+Observe load [bad_spec]
+Observe load [42]
+Observe start [{application,port_direct,[{description,[97,112,112,108,105,99,97,116,105,111,110,32,112,111,114,116]},{vsn,[49]},{modules,[application_port_callback]},{registered,[]},{applications,[]},{env,[{marker,port_direct}]},{mod,[]}]},temporary]
+Observe stop [port_direct]
+Observe unload [port_direct]
+Observe set_env [[{port_bulk,[{a,1},{b,2}]}]]
+Observe get_env [port_bulk,a]
+Observe set_env [[{port_bulk,[{a,3}]}],[{persistent,true}]]
+Observe unset_env [port_bulk,a,[{persistent,true}]]
+Observe unset_env [port_bulk,b]
+Observe set_env [port_case,k,v,-1]
+Observe set_env [port_case,k,v,bad]
+Observe set_env [port_case,k,v,1.0]
+Observe set_env [port_case,k,v,{}]
+Observe set_env [port_case,k,v,<<>>]
+Observe unset_env [port_case,k,-1]
+Observe unset_env [port_case,k,bad]
+Observe unset_env [port_case,k,1.0]
+Observe unset_env [port_case,k,{}]
+Observe unset_env [port_case,k,<<>>]
+Observe which_applications [-1]
+Observe which_applications [bad]
+Observe which_applications [1.0]
+Observe which_applications [[]]
+Observe which_applications [{}]
+Observe which_applications [<<>>]
+Observe set_env [42]
+Observe set_env [bad]
+Observe set_env [{}]
+Observe set_env [<<>>]
+Observe set_env [42,[]]
+Observe set_env [[],42]
+Observe set_env [bad,bad]
+Observe ensure_all_started [42,temporary,serial]
+Observe ensure_all_started [{},temporary,serial]
+Observe ensure_all_started [<<>>,temporary,serial]
+Observe ensure_all_started [[42],temporary,serial]
+Observe permit [port_absent,true]
+Observe permit [port_absent,false]
+Observe permit [port_absent,bad]
+Observe permit [port_absent,0]
+Observe permit [port_absent,[]]
+Observe permit [port_absent,{}]
+Observe set_env [[bad],[]]
+Observe set_env [[42],[]]
+Observe set_env [[{}],[]]
+Observe set_env [[{42,[]}],[]]
+Observe set_env [[{port_bad,bad}],[]]
+Observe set_env [[{port_bad,[bad]}],[]]
+Observe set_env [[{port_bad,[{42,1}]}],[]]
+D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\application\post-format\Beam-e174708a057749139677df3bc84db25f.json
+Beam: 101/101, scenarios 0/19
