@@ -1105,10 +1105,11 @@ internal static partial class BeamRegisterInterpreter
                                 Term[] funArguments = Enumerable.Range(0, arity).Select(registers.Read).ToArray();
                                 if (callable.Arity != arity)
                                 {
-                                    // A rejected arity retains the current MFA; unlike badfun,
-                                    // it does not add a separate failed-application frame.
-                                    throw context.CaptureSourceFailure(new ErlangException(Term.Tuple(
-                                        Term.A(ErlangErrorReasons.BadArity), Term.Tuple(callable, Cons.From(funArguments)))));
+                                    Term reason = Term.Tuple(
+                                        Term.A(ErlangErrorReasons.BadArity),
+                                        Term.Tuple(callable, Cons.From(funArguments))
+                                    );
+                                    throw ErlangFunctionCallErrors.Capture(context, reason, tailPosition);
                                 }
                                 using var funRoots507 = registers.HasOwnedRoots507 ? registers.Protect507(callee, Term.Tuple(funArguments)) : null;
                                 bool tailFun = tailPosition && callable.Arity == arity;
