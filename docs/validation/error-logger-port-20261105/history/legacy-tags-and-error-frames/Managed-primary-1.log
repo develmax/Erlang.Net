@@ -1,0 +1,165 @@
+BOOT
+ok
+ok
+ok
+RUN lifecycle
+RUN handlers
+RUN absent
+RUN depth
+RUN depth_invalid
+RUN callback_config
+RUN ignore
+RUN raw
+RUN emulator
+RUN report_callback
+RUN report_callback2
+RUN report_callback_bad
+RUN report_callback_bad2
+RUN report_callback_crash
+RUN report_callback_crash2
+RUN report_callback_priority
+RUN report_callback_invalid
+RUN missing_notify_metadata
+RUN tty
+RUN logfile
+DIFF expected {ok,{ok,{error,allready_have_logfile},[97,114,116,105,102,97,99,116,115,47,101,114,114,111,114,45,108,111,103,103,101,114,45,112,111,114,116,45,111,117,116,112,117,116,46,108,111,103],ok,true,{error,no_log_file}}} actual {error,{badmatch,{error,enoent}},[{error_logger_port_cases,scenario,1,[{file,[116,111,111,108,115,47,86,97,108,105,100,97,116,105,111,110,47,69,114,108,97,110,103,46,69,114,114,111,114,76,111,103,103,101,114,67,111,109,112,97,116,105,98,105,108,105,116,121,47,101,114,114,111,114,95,108,111,103,103,101,114,95,112,111,114,116,95,99,97,115,101,115,46,101,114,108]},{line,103}]},{error_logger_port_cases,run,1,[{file,[116,111,111,108,115,47,86,97,108,105,100,97,116,105,111,110,47,69,114,108,97,110,103,46,69,114,114,111,114,76,111,103,103,101,114,67,111,109,112,97,116,105,98,105,108,105,116,121,47,101,114,114,111,114,95,108,111,103,103,101,114,95,112,111,114,116,95,99,97,115,101,115,46,101,114,108]},{line,46}]},{error_logger_port_cases,worker,2,[{file,[116,111,111,108,115,47,86,97,108,105,100,97,116,105,111,110,47,69,114,108,97,110,103,46,69,114,114,111,114,76,111,103,103,101,114,67,111,109,112,97,116,105,98,105,108,105,116,121,47,101,114,114,111,114,95,108,111,103,103,101,114,95,112,111,114,116,95,99,97,115,101,115,46,101,114,108]},{line,43}]}]}
+RUN no_logfile
+RUN own_format
+DIFF expected {ok,{{report,#{args=>[value],format=>[126,112],label=>{error_logger,error_msg}}},{[126,112],[value]},#{error_logger=>#{tag=>error}}}} actual {ok,{{report,#{args=>[value],format=>[126,112],label=>{error_logger,error_msg}}},{[126,112],[value]},#{error_logger=>#{tag=>error_msg}}}}
+RUN own_bad_format
+DIFF expected {ok,{{report,#{args=>[],format=>[126,112],label=>{error_logger,error_msg}}},{[69,82,82,79,82,58,32,126,116,112,32,45,32,126,116,112],[[126,112],[]]},#{error_logger=>#{tag=>error}}}} actual {ok,{{report,#{args=>[],format=>[126,112],label=>{error_logger,error_msg}}},{[69,82,82,79,82,58,32,126,116,112,32,45,32,126,116,112],[[126,112],[]]},#{error_logger=>#{tag=>error_msg}}}}
+RUN own_map
+RUN own_list
+RUN filtered
+RUN off_heap
+RUN {message,error_msg,[104,101,108,108,111],[]}
+DIFF expected {ok,{ok,[{error,leader,{self,[104,101,108,108,111],[]}}]}} actual {ok,{ok,[{error_msg,leader,{self,[104,101,108,108,111],[]}}]}}
+RUN {message,error_msg,[126,112],[value]}
+DIFF expected {ok,{ok,[{error,leader,{self,[126,112],[value]}}]}} actual {ok,{ok,[{error_msg,leader,{self,[126,112],[value]}}]}}
+RUN {message,error_msg,{bad,format},atom}
+DIFF expected {ok,{ok,[{error,leader,{self,{bad,format},atom}}]}} actual {ok,{ok,[{error_msg,leader,{self,{bad,format},atom}}]}}
+RUN {message,error_msg,42,42}
+DIFF expected {ok,{ok,[{error,leader,{self,42,42}}]}} actual {ok,{ok,[{error_msg,leader,{self,42,42}}]}}
+RUN {message,error_msg,<<104,101,108,108,111>>,[]}
+DIFF expected {ok,{ok,[{error,leader,{self,<<104,101,108,108,111>>,[]}}]}} actual {ok,{ok,[{error_msg,leader,{self,<<104,101,108,108,111>>,[]}}]}}
+RUN {message,error_msg,[126,112],[1|tail]}
+DIFF expected {ok,{ok,[{error,leader,{self,[126,112],[1|tail]}}]}} actual {ok,{ok,[{error_msg,leader,{self,[126,112],[1|tail]}}]}}
+RUN {message,warning_msg,[104,101,108,108,111],[]}
+RUN {message,warning_msg,[126,112],[value]}
+RUN {message,warning_msg,{bad,format},atom}
+RUN {message,warning_msg,42,42}
+RUN {message,warning_msg,<<104,101,108,108,111>>,[]}
+RUN {message,warning_msg,[126,112],[1|tail]}
+RUN {message,info_msg,[104,101,108,108,111],[]}
+RUN {message,info_msg,[126,112],[value]}
+RUN {message,info_msg,{bad,format},atom}
+RUN {message,info_msg,42,42}
+RUN {message,info_msg,<<104,101,108,108,111>>,[]}
+RUN {message,info_msg,[126,112],[1|tail]}
+RUN {message,format,[104,101,108,108,111],[]}
+DIFF expected {ok,{ok,[{error,leader,{self,[104,101,108,108,111],[]}}]}} actual {ok,{ok,[{error_msg,leader,{self,[104,101,108,108,111],[]}}]}}
+RUN {message,format,[126,112],[value]}
+DIFF expected {ok,{ok,[{error,leader,{self,[126,112],[value]}}]}} actual {ok,{ok,[{error_msg,leader,{self,[126,112],[value]}}]}}
+RUN {message,format,{bad,format},atom}
+DIFF expected {ok,{ok,[{error,leader,{self,{bad,format},atom}}]}} actual {ok,{ok,[{error_msg,leader,{self,{bad,format},atom}}]}}
+RUN {message,format,42,42}
+DIFF expected {ok,{ok,[{error,leader,{self,42,42}}]}} actual {ok,{ok,[{error_msg,leader,{self,42,42}}]}}
+RUN {message,format,<<104,101,108,108,111>>,[]}
+DIFF expected {ok,{ok,[{error,leader,{self,<<104,101,108,108,111>>,[]}}]}} actual {ok,{ok,[{error_msg,leader,{self,<<104,101,108,108,111>>,[]}}]}}
+RUN {message,format,[126,112],[1|tail]}
+DIFF expected {ok,{ok,[{error,leader,{self,[126,112],[1|tail]}}]}} actual {ok,{ok,[{error_msg,leader,{self,[126,112],[1|tail]}}]}}
+RUN {message1,error_msg,[104,101,108,108,111]}
+DIFF expected {ok,{ok,[{error,leader,{self,[104,101,108,108,111],[]}}]}} actual {ok,{ok,[{error_msg,leader,{self,[104,101,108,108,111],[]}}]}}
+RUN {message1,error_msg,{bad,format}}
+DIFF expected {ok,{ok,[{error,leader,{self,{bad,format},[]}}]}} actual {ok,{ok,[{error_msg,leader,{self,{bad,format},[]}}]}}
+RUN {message1,error_msg,42}
+DIFF expected {ok,{ok,[{error,leader,{self,42,[]}}]}} actual {ok,{ok,[{error_msg,leader,{self,42,[]}}]}}
+RUN {message1,error_msg,[]}
+DIFF expected {ok,{ok,[{error,leader,{self,[],[]}}]}} actual {ok,{ok,[{error_msg,leader,{self,[],[]}}]}}
+RUN {message1,warning_msg,[104,101,108,108,111]}
+RUN {message1,warning_msg,{bad,format}}
+RUN {message1,warning_msg,42}
+RUN {message1,warning_msg,[]}
+RUN {message1,info_msg,[104,101,108,108,111]}
+RUN {message1,info_msg,{bad,format}}
+RUN {message1,info_msg,42}
+RUN {message1,info_msg,[]}
+RUN {report,error_report,standard,#{a=>1}}
+RUN {report,error_report,standard,[{a,1}]}
+RUN {report,error_report,standard,[116,101,120,116]}
+RUN {report,error_report,standard,{a,b}}
+RUN {report,error_report,standard,[]}
+RUN {report,error_report,custom,#{a=>1}}
+RUN {report,error_report,custom,[{a,1}]}
+RUN {report,error_report,custom,[116,101,120,116]}
+RUN {report,error_report,custom,{a,b}}
+RUN {report,error_report,custom,[]}
+RUN {report,error_report,undefined,#{a=>1}}
+RUN {report,error_report,undefined,[{a,1}]}
+RUN {report,error_report,undefined,[116,101,120,116]}
+RUN {report,error_report,undefined,{a,b}}
+RUN {report,error_report,undefined,[]}
+RUN {report,error_report,42,#{a=>1}}
+RUN {report,error_report,42,[{a,1}]}
+RUN {report,error_report,42,[116,101,120,116]}
+RUN {report,error_report,42,{a,b}}
+RUN {report,error_report,42,[]}
+RUN {report,warning_report,standard,#{a=>1}}
+RUN {report,warning_report,standard,[{a,1}]}
+RUN {report,warning_report,standard,[116,101,120,116]}
+RUN {report,warning_report,standard,{a,b}}
+RUN {report,warning_report,standard,[]}
+RUN {report,warning_report,custom,#{a=>1}}
+RUN {report,warning_report,custom,[{a,1}]}
+RUN {report,warning_report,custom,[116,101,120,116]}
+RUN {report,warning_report,custom,{a,b}}
+RUN {report,warning_report,custom,[]}
+RUN {report,warning_report,undefined,#{a=>1}}
+RUN {report,warning_report,undefined,[{a,1}]}
+RUN {report,warning_report,undefined,[116,101,120,116]}
+RUN {report,warning_report,undefined,{a,b}}
+RUN {report,warning_report,undefined,[]}
+RUN {report,warning_report,42,#{a=>1}}
+RUN {report,warning_report,42,[{a,1}]}
+RUN {report,warning_report,42,[116,101,120,116]}
+RUN {report,warning_report,42,{a,b}}
+RUN {report,warning_report,42,[]}
+RUN {report,info_report,standard,#{a=>1}}
+RUN {report,info_report,standard,[{a,1}]}
+RUN {report,info_report,standard,[116,101,120,116]}
+RUN {report,info_report,standard,{a,b}}
+RUN {report,info_report,standard,[]}
+RUN {report,info_report,custom,#{a=>1}}
+RUN {report,info_report,custom,[{a,1}]}
+RUN {report,info_report,custom,[116,101,120,116]}
+RUN {report,info_report,custom,{a,b}}
+RUN {report,info_report,custom,[]}
+RUN {report,info_report,undefined,#{a=>1}}
+RUN {report,info_report,undefined,[{a,1}]}
+RUN {report,info_report,undefined,[116,101,120,116]}
+RUN {report,info_report,undefined,{a,b}}
+RUN {report,info_report,undefined,[]}
+RUN {report,info_report,42,#{a=>1}}
+RUN {report,info_report,42,[{a,1}]}
+RUN {report,info_report,42,[116,101,120,116]}
+RUN {report,info_report,42,{a,b}}
+RUN {report,info_report,42,[]}
+RUN {error_info,[104,101,108,108,111]}
+RUN {error_info,[]}
+RUN {error_info,[[]]}
+RUN {error_info,[[[120]],[121]]}
+RUN {error_info,[9]}
+RUN {error_info,[0]}
+RUN {error_info,{a,b}}
+RUN {error_info,42}
+RUN {error_info,[1|tail]}
+DIFF expected {error,function_clause,[{lists,do_flatten,[tail,[]],[{file,[108,105,115,116,115,46,101,114,108]},{line,1323}]},{lists,do_flatten,2,[{file,[108,105,115,116,115,46,101,114,108]},{line,1326}]},{error_logger,string_p,1,[{file,[101,114,114,111,114,95,108,111,103,103,101,114,46,101,114,108]},{line,760}]},{error_logger,error_info,1,[{file,[101,114,114,111,114,95,108,111,103,103,101,114,46,101,114,108]},{line,711}]},{error_logger_port_cases,scenario,1,[{file,[116,111,111,108,115,47,86,97,108,105,100,97,116,105,111,110,47,69,114,108,97,110,103,46,69,114,114,111,114,76,111,103,103,101,114,67,111,109,112,97,116,105,98,105,108,105,116,121,47,101,114,114,111,114,95,108,111,103,103,101,114,95,112,111,114,116,95,99,97,115,101,115,46,101,114,108]},{line,60}]},{error_logger_port_cases,run,1,[{file,[116,111,111,108,115,47,86,97,108,105,100,97,116,105,111,110,47,69,114,108,97,110,103,46,69,114,114,111,114,76,111,103,103,101,114,67,111,109,112,97,116,105,98,105,108,105,116,121,47,101,114,114,111,114,95,108,111,103,103,101,114,95,112,111,114,116,95,99,97,115,101,115,46,101,114,108]},{line,46}]},{error_logger_port_cases,worker,2,[{file,[116,111,111,108,115,47,86,97,108,105,100,97,116,105,111,110,47,69,114,108,97,110,103,46,69,114,114,111,114,76,111,103,103,101,114,67,111,109,112,97,116,105,98,105,108,105,116,121,47,101,114,114,111,114,95,108,111,103,103,101,114,95,112,111,114,116,95,99,97,115,101,115,46,101,114,108]},{line,43}]}]} actual {error,function_clause,[{lists,do_flatten,[tail,[]],[{file,[108,105,115,116,115,46,101,114,108]},{line,1323}]},{lists,do_flatten,2,[{file,[108,105,115,116,115,46,101,114,108]},{line,1326}]},{error_logger_port_cases,scenario,1,[{file,[116,111,111,108,115,47,86,97,108,105,100,97,116,105,111,110,47,69,114,108,97,110,103,46,69,114,114,111,114,76,111,103,103,101,114,67,111,109,112,97,116,105,98,105,108,105,116,121,47,101,114,114,111,114,95,108,111,103,103,101,114,95,112,111,114,116,95,99,97,115,101,115,46,101,114,108]},{line,60}]},{error_logger_port_cases,run,1,[{file,[116,111,111,108,115,47,86,97,108,105,100,97,116,105,111,110,47,69,114,108,97,110,103,46,69,114,114,111,114,76,111,103,103,101,114,67,111,109,112,97,116,105,98,105,108,105,116,121,47,101,114,114,111,114,95,108,111,103,103,101,114,95,112,111,114,116,95,99,97,115,101,115,46,101,114,108]},{line,46}]},{error_logger_port_cases,worker,2,[{file,[116,111,111,108,115,47,86,97,108,105,100,97,116,105,111,110,47,69,114,108,97,110,103,46,69,114,114,111,114,76,111,103,103,101,114,67,111,109,112,97,116,105,98,105,108,105,116,121,47,101,114,114,111,114,95,108,111,103,103,101,114,95,112,111,114,116,95,99,97,115,101,115,46,101,114,108]},{line,43}]}]}
+RUN {invalid,tty,[bad]}
+RUN {invalid,logfile,[bad]}
+RUN {invalid,add_report_handler,[42]}
+RUN {invalid,add_report_handler,[{},[]]}
+RUN {invalid,delete_report_handler,[42]}
+RUN {invalid,adding_handler,[#{}]}
+RUN {invalid,removing_handler,[#{}]}
+RUN {invalid,log,[#{},#{}]}
+120/140

@@ -1,5 +1,7 @@
 # Project progress
 
+Part611 adds the selectable error_logger backend with all 29 exports. Both backends pass 143 targeted observations and 10 upstream tests. [Publication evidence](validation/error-logger-port-20261105/publication/README.md).
+
 Part609 adds the selectable C# supervisor backend with 24 exports. Both backends matched 287 API observations and 105 focused scenarios on the main-based branch. [Validation evidence](validation/supervisor-port-20261106/README.md).
 
 Part605 adds selectable Managed and original BEAM backends for all 53 explicit io exports on OTP 29.1.1. [Backend contract](io-backends.md), [focused evidence](validation/io-port-20261105/README.md).
