@@ -8,6 +8,7 @@ internal static class LibrarySelectionNames
         LoggerLibraryNames.Module,
         ErlangModuleNames.Module,
         ErpcLibraryModuleNames.Module,
+        RpcLibraryModuleNames.Module,
         ErtsInternalContract.Module,
         InterpreterCodeNativeNames.Module,
         ListModuleNames.Module,

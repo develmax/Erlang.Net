@@ -29,7 +29,7 @@ internal static class RuntimeManagedLibraries456
     });
 
     internal static void Register(ModuleRegistry registry, RuntimeManagedLibraryStage456 stage)
-        => (stage is RuntimeManagedLibraryStage456.Erpc or RuntimeManagedLibraryStage456.ErrorLogger or RuntimeManagedLibraryStage456.Logger or RuntimeManagedLibraryStage456.File or RuntimeManagedLibraryStage456.Application ? Kernel.Value : Stdlib.Value).Register(registry, stage);
+        => (stage is RuntimeManagedLibraryStage456.Rpc or RuntimeManagedLibraryStage456.Erpc or RuntimeManagedLibraryStage456.ErrorLogger or RuntimeManagedLibraryStage456.Logger or RuntimeManagedLibraryStage456.File or RuntimeManagedLibraryStage456.Application ? Kernel.Value : Stdlib.Value).Register(registry, stage);
 
     internal static Assembly StdlibAssembly => Stdlib.Value.GetType().Assembly;
 }

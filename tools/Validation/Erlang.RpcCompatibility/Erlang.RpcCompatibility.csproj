@@ -1,0 +1,11 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup><OutputType>Exe</OutputType></PropertyGroup>
+  <ItemGroup>
+    <Using Include="Erlang" />
+    <ProjectReference Include="../../../src/Runtime/Erlang.Runtime/Erlang.Runtime.csproj" />
+    <Compile Include="../../../tests/Erlang.Tests/Runtime/Distribution/Connections/ConnectedSpawnHostEndpoint.cs" Link="ConnectedSpawnHostEndpoint.cs" />
+    <Compile Include="../../../tests/Erlang.Tests/Runtime/Distribution/Connections/ConnectedSpawnHostNames.cs" Link="ConnectedSpawnHostNames.cs" />
+    <Compile Include="../../../tests/Erlang.Tests/Runtime/Execution/RuntimeNodeFoundationHostActor.cs" Link="RuntimeNodeFoundationHostActor.cs" />
+    <Compile Include="../../../tests/Erlang.Tests/Runtime/Execution/RuntimeNodeFoundationHostActorParameters.cs" Link="RuntimeNodeFoundationHostActorParameters.cs" />
+  </ItemGroup>
+</Project>
