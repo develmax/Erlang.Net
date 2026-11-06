@@ -10,7 +10,11 @@ internal sealed class SupervisorTemporaryLogProbe
 
     internal int Reports => Volatile.Read(ref reports);
 
-    internal void Register(ModuleRegistry registry) => registry.Register(Module, Observe, 2, (_, args) =>
+    internal void Register(ModuleRegistry registry) => registry.Register(
+        Module,
+        Observe,
+        2,
+        (_, args) =>
     {
         if (args[0] is MapTerm entry && entry.TryGet(Term.A("msg"), out var message)
             && message is TupleTerm { Items.Count: 2 } body && body.Items[1] is MapTerm report
@@ -21,7 +25,8 @@ internal sealed class SupervisorTemporaryLogProbe
         }
 
         return ValueTask.FromResult<Term>(Term.A("stop"));
-    });
+    }
+    );
 
     internal async ValueTask<Term> Filter(ProcessContext context)
     {
