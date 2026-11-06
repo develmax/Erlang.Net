@@ -37,7 +37,8 @@ cases()->
          {erlang,abs,[x|bad]},{erlang,abs,bad}]],
     Timed=[{F,[Node,erlang,abs,[-1],T]} || F<-[call,block_call],
            Node<-[node(),'missing@host',42],T<-[infinity,0,1000,16#ffffffff,-1,bad,1.0,16#100000000,#{timeout=>1000}]],
-    Multi=[{multicall,[Nodes,?MODULE,identity,[V],1000]} || Nodes<-[[],[node()],[node(),node()],['missing@host'],[node(),'missing@host']],V<-[value,{'EXIT',value}]],
+    Multi=[{multicall,[Nodes,?MODULE,identity,[V],1000]} || Nodes<-[[],[node()],[node(),node()],['missing@host'],[node(),'missing@host']],V<-[value,{'EXIT',value}]]++
+        [{multicall,[[node()],erlang,throw,[{erpc,Reason}],1000]} || Reason<-[timeout,noconnection]],
     Bad=[{F,[42,erlang,abs,[]]} || F<-[call,cast,async_call]]++
         [{nb_yield,[bad]},{nb_yield,[bad,-1]},{yield,[bad]},
          {multicall,[[],erlang,abs,[]]},{multicall,[erlang,abs,[-1]]},

@@ -54,7 +54,7 @@ errors and monitored replies.
 
 ## Validation and remaining acceptance
 
-[Publication evidence](validation/rpc-pr-20261106/README.md) records build, original
+[Publication evidence](validation/rpc-pr-20261106/README.md) and the [review follow-up](validation/rpc-pr-20261106/review/README.md) record build, original
 OTP comparisons, backtrace profiles and two-runtime distribution-packet checks.
 Implementation preceded verification. Only rpc and connected dependencies were
 checked; the full regression and canonical readiness regeneration were not run.

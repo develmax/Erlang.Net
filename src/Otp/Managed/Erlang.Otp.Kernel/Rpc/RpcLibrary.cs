@@ -155,7 +155,8 @@ public static partial class RpcLibrary
                         {
                             good.Add(RpcValue(result.Items[1]));
                         }
-                        else if (result.Items[1] is TupleTerm { Items: [Atom { Name: RpcProtocolNames.Erpc }, Atom { Name: RpcProtocolNames.Timeout or RpcProtocolNames.Noconnection }] })
+                        else if (result.Items[0] is Atom { Name: RpcProtocolNames.Error }
+                            && result.Items[1] is TupleTerm { Items: [Atom { Name: RpcProtocolNames.Erpc }, Atom { Name: RpcProtocolNames.Timeout or RpcProtocolNames.Noconnection }] })
                         {
                             bad.Add(node);
                         }
