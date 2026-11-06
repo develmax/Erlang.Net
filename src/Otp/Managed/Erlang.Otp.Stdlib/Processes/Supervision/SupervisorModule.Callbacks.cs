@@ -273,7 +273,7 @@ public static partial class SupervisorModule
 
                 return NoReply(state, await Restart(context, state, child));
             }
-            if (child.Temporary)
+            if (child.Temporary && !normal)
             {
                 await Report(
                     context,

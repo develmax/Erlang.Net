@@ -11,6 +11,8 @@ if (args.Length is < SupervisorValidationLimits.RequiredArguments or > Superviso
 string repository = Path.GetFullPath(args[0]);
 string directory = Path.GetFullPath(args[1]);
 bool managed = args[2] == SupervisorValidationBaseline.ManagedBackend;
+var temporaryLogs = args.Length == SupervisorValidationLimits.ArgumentsWithScenario && args[3] == SupervisorTemporaryLogProbe.Scenario
+    ? new SupervisorTemporaryLogProbe() : null;
 string stdlib = Path.Combine(repository, SupervisorValidationPaths.Stdlib);
 string kernel = Path.Combine(repository, SupervisorValidationPaths.Kernel);
 string erts = Path.Combine(repository, SupervisorValidationPaths.Erts);
@@ -31,6 +33,7 @@ await runtime.InitializeModulesAsync(registry =>
 {
     SupervisorValidationPrimitives.Register(runtime, registry);
     RuntimeBootstrapFileSystem.Register(runtime, registry);
+    temporaryLogs?.Register(registry);
 });
 foreach (string module in helpers.Concat(managed ? [] : new[] { SupervisorModule.Name }).Concat([SupervisorValidationModules.SupervisorPortCases, SupervisorValidationModules.SupervisorPortSecond]))
 {
@@ -88,8 +91,8 @@ ProcessHandle environment = runtime.Spawn(async context =>
         );
         Term primary = new MapTerm(new Dictionary<Term, Term>
         {
-            [Term.A(SupervisorValidationProtocol.Level)] = Term.A(SupervisorValidationProtocol.None),
-            [Term.A(SupervisorValidationProtocol.Filters)] = Nil.Value,
+            [Term.A(SupervisorValidationProtocol.Level)] = Term.A(temporaryLogs is null ? SupervisorValidationProtocol.None : SupervisorTemporaryLogProbe.Error),
+            [Term.A(SupervisorValidationProtocol.Filters)] = temporaryLogs is null ? Nil.Value : await temporaryLogs.Filter(context),
             [Term.A(SupervisorValidationProtocol.FilterDefault)] = Term.A(SupervisorValidationProtocol.Log),
             [Term.A(SupervisorValidationProtocol.Handlers)] = Nil.Value,
             [Term.A(SupervisorValidationProtocol.Metadata)] = new MapTerm([])
@@ -168,7 +171,9 @@ if (args.Length == SupervisorValidationLimits.RequiredArguments)
 }
 foreach (TupleTerm row in effects)
 {
-    if (args.Length == SupervisorValidationLimits.ArgumentsWithScenario && args[3] != (row.Items[0] is Atom named ? named.Name : row.Items[0].ToString()))
+    var expectedLogs = temporaryLogs?.Expected(row.Items[0]);
+    if (temporaryLogs is not null ? expectedLogs is null
+        : args.Length == SupervisorValidationLimits.ArgumentsWithScenario && args[3] != (row.Items[0] is Atom named ? named.Name : row.Items[0].ToString()))
     {
         continue;
     }
@@ -176,13 +181,19 @@ foreach (TupleTerm row in effects)
     Console.WriteLine(SupervisorValidationDiagnostics.ScenarioPrefix + row.Items[0]);
     try
     {
+        int previousLogs = temporaryLogs?.Reports ?? 0;
         Term actual = await Run(context => runtime.Modules.Call(
             context,
             SupervisorValidationModules.SupervisorPortCases,
             SupervisorValidationProtocol.Scenario,
             row.Items[0]
         ));
-        if (actual.Equals(row.Items[1]))
+        int actualLogs = (temporaryLogs?.Reports ?? 0) - previousLogs;
+        if (expectedLogs is not null && expectedLogs != actualLogs)
+        {
+            failures.Add(new { Scenario = row.Items[0].ToString(), ExpectedReports = expectedLogs, ActualReports = actualLogs });
+        }
+        else if (actual.Equals(row.Items[1]))
         {
             effectPassed++;
         }
@@ -232,7 +243,7 @@ File.WriteAllText(
             HelperImages = images.Select(image => new { image.Name, image.OriginalBeamSha256 }),
             ManagedSources = Directory.GetFiles(Path.Combine(repository, SupervisorValidationPaths.ManagedSources), SupervisorValidationPaths.SourcePattern)
                 .Order(StringComparer.Ordinal).ToDictionary(path => Path.GetRelativePath(repository, path).Replace(Path.DirectorySeparatorChar, '/'), Hash),
-            LoggerPrimaryLevel = SupervisorValidationProtocol.None,
+            LoggerPrimaryLevel = temporaryLogs is null ? SupervisorValidationProtocol.None : SupervisorTemporaryLogProbe.Error,
             BootSubjectSha256 = Hash(Path.Combine(repository, SupervisorValidationPaths.BootSubject))
         },
         new JsonSerializerOptions { WriteIndented = true }
