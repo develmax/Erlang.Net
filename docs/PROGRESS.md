@@ -1,5 +1,7 @@
 # Project progress
 
+Part609 adds the selectable C# supervisor backend with 24 exports. Both backends matched 287 API observations and 105 focused scenarios on the main-based branch. [Validation evidence](validation/supervisor-port-20261106/README.md).
+
 Part605 adds selectable Managed and original BEAM backends for all 53 explicit io exports on OTP 29.1.1. [Backend contract](io-backends.md), [focused evidence](validation/io-port-20261105/README.md).
 
 Part604 adds a selectable C# sys backend for all 37 non-metadata exports. Both alternatives pass 137 focused OTP 29.1.1 observations, and the 52 error observations match at each additional backtrace depth. [Evidence](validation/part-604/README.md).

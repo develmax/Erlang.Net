@@ -19,6 +19,7 @@ public sealed class ManagedStdlibRegistration456 : IRuntimeManagedLibrary456
             case RuntimeManagedLibraryStage456.Io: IoLibrary.Register(r); break;
             case RuntimeManagedLibraryStage456.GenEvent: GenEventModule.Register(r); break;
             case RuntimeManagedLibraryStage456.GenStatem: GenStatemModule.Register(r); break;
+            case RuntimeManagedLibraryStage456.Supervisor: SupervisorModule.Register(r); break;
             case RuntimeManagedLibraryStage456.Timer: TimerLibrary.Register(r); break;
             case RuntimeManagedLibraryStage456.UnicodeUtil: UnicodeUtilModule.Register(r); break;
             case RuntimeManagedLibraryStage456.Sys: SysModule.Register(r); break;
