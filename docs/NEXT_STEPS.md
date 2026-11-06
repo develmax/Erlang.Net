@@ -1,5 +1,7 @@
 # Next steps
 
+Part611 adds the selectable error_logger backend with all 29 exports. Both backends pass 143 targeted observations and 10 upstream tests. [Publication evidence](validation/error-logger-port-20261105/publication/README.md).
+
 Supervisor follow-up covers the remaining upstream suite, distributed naming, logger metadata and platform and resource profiles. [Focused acceptance](validation/supervisor-port-20261106/README.md).
 
 The selectable sys backend has focused Windows acceptance. Remaining acceptance covers full Common Test capture, distributed peers, other platforms and resource stress. [Part604](validation/part-604/README.md).

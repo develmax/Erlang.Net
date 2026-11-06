@@ -62,6 +62,11 @@ public sealed partial class ProcessRuntime
             setup = runtime.InitializeModulesAsync(registry =>
             {
                 RuntimeNativePrimitiveProviders.Register(runtime, registry, options.NativePrimitives);
+                if (libraries.Modules.Any(choice => choice.Module == ErrorLoggerLibraryNames.Module && choice.Backend == RuntimeModuleBackend.Managed))
+                {
+                    registry.InstallManagedErrorLoggerPrimitive();
+                    RuntimeManagedLibraries456.Register(registry, RuntimeManagedLibraryStage456.ErrorLogger);
+                }
                 if (libraries.Modules.Any(choice => choice.Module == LoggerLibraryNames.Module && choice.Backend == RuntimeModuleBackend.Managed))
                 {
                     RuntimeManagedLibraries456.Register(registry, RuntimeManagedLibraryStage456.Logger);
