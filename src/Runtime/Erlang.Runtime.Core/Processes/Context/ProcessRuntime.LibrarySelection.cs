@@ -116,6 +116,8 @@ public sealed partial class ProcessRuntime
                     RuntimeManagedLibraries456.Register(registry, RuntimeManagedLibraryStage456.Sys);
                 if (libraries.Modules.Any(choice => choice.Module == GenServerLibraryNames.Module && choice.Backend == RuntimeModuleBackend.Managed))
                     RuntimeManagedLibraries456.Register(registry, RuntimeManagedLibraryStage456.GenServer);
+                if (libraries.Modules.Any(choice => choice.Module == SupervisorLibraryNames.Module && choice.Backend == RuntimeModuleBackend.Managed))
+                    RuntimeManagedLibraries456.Register(registry, RuntimeManagedLibraryStage456.Supervisor);
                 if (options.BootstrapFileSystem)
                     RuntimeBootstrapFileSystem.Register(runtime, registry);
                 observer?.Invoke(LibraryStartupObservationNames.SetupBeforePrepare, runtime, null);

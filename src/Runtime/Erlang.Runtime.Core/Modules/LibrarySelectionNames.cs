@@ -20,6 +20,7 @@ internal static class LibrarySelectionNames
         FileNameEncodingNames.Module,
         GenEventLibraryModuleNames.Module,
         GenStatemLibraryNames.Module,
+        SupervisorLibraryNames.Module,
         TimerLibraryModuleNames.Module,
         "unicode_util",
         RuntimeEtsFacetNames407.Module,
