@@ -1,6 +1,6 @@
 The C# source compiler has deterministic BEAM output for supported returns, calls, constructors, literals and patterns. Explicit release profiles can reconstruct supported module metadata and debug forms for constant bindings and nested tuples, lists, and maps. Windows x64 uses the pinned OTP compressor. Other platforms keep the existing ETF compressor. Rich documentation, type metadata, full preprocessing, general lowering and broader release reconstruction remain open. [Evidence](validation/part-606/README.md).
 
-Part 1522 aligns normalized instructions in 14 functions, including random:seed/0, misc_supp:passq/2, and snmp_mini_mib:type/2. The complete corpus has 979 differing images. [Function delta](validation/part-1522/normalized-functions.txt) · [Tuple case shapes](validation/part-1522/tuple-case-selector-after.txt).
+Part 1523 matches normalized instructions for find_and_remove_attribute/3 in both xmerl DOM modules. Their remaining functions still differ. The complete corpus has 979 differing images. [Evidence](validation/part-1523/README.md).
 
 Part 1495 restores the frame size in the two release functions whose saved slots were reused in Part 1494. The entry tuple stays intact across calls in OTP's `dbg_ieval:rec_clauses/3` and `erl_eval:match_clause/5`; the C# entry projects its fields early and now needs an extra slot. [Release instructions](validation/part-1495/cases-after.txt) · [Frames](validation/part-1495/frame-delta.txt).
 

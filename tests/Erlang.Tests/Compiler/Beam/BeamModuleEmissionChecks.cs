@@ -67,6 +67,7 @@ internal static class BeamModuleEmissionChecks
             "beam_nested_tuple_field_calls",
             "beam_call_tuple_case_projection",
             "beam_tuple_case_fallbacks",
+            "beam_tuple_case_continuation",
             "beam_wx_guarded_forward_probe",
             "beam_wx_colour_pair_probe",
             "beam_wx_tuple_repack_probe",

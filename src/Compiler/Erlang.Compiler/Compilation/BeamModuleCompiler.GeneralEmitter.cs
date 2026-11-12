@@ -1109,6 +1109,7 @@ internal sealed partial class BeamModuleCompiler
                     || TryEmitCheckedListEntry(clauses[0])
                     || TryEmitEntryLookupProjection(clauses[0]) || TryEmitEntryTaggedForward(clauses[0]) || TryEmitEntryTaggedProjection(clauses[0]) || TryEmitEntryTaggedTailCall(clauses[0])
                     || TryEmitEntryTaggedCallTuple(clauses[0]) || TryEmitCallTupleCaseProjection(clauses[0])
+                    || TryEmitTupleCaseCallContinuation(clauses[0])
                     || TryEmitEntryRegisterCase(clauses[0])
                     || TryEmitTupleResultCase(clauses[0])
                     || TryEmitSavedCallSequenceCase(clauses[0]) || TryEmitEntryClosureTail(clauses[0])
