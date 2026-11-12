@@ -1,6 +1,6 @@
 # Compatibility overview
 
-Part 1520 compares 126 values, exceptions, and fixture stack observations with OTP. The deterministic fixture and the complete tftp_logger release image match byte for byte. OTP loads both images in all 979 differing pairs. [Evidence](validation/part-1520/README.md).
+Part 1521 compares 47 values, exceptions, and fixture stack observations with OTP. The deterministic tuple projection fixture matches byte for byte. OTP loads both images in all 979 differing pairs. [Evidence](validation/part-1521/README.md).
 
 Part 1495 checks fields retained across an inner call and a tuple argument built from the retained value. The pinned OTP VM and both C# builds agree on the tested returns. [Evidence](validation/part-1495/probe.txt).
 

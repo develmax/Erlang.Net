@@ -1,6 +1,6 @@
 # Project progress
 
-Part 1520 projects retained tuple fields immediately before their calls. tftp_logger.beam reaches full equality. All 1,366 sources compile, with 387 Equal and 979 Different. [Evidence](validation/part-1520/README.md).
+Part 1521 returns call-result tuple projections in registers. Seven functions reach normalized instruction equality and zero OTP stack slots. All 1,366 sources compile, with 387 Equal and 979 Different. [Evidence](validation/part-1521/README.md).
 
 Part 1495 reserves the retained-field slot and prepares constructed inner selector arguments. It changes 11 images and brings three frames to the OTP size, with two frames moving farther. The complete corpus has 385 Equal and 981 Different. [Evidence](validation/part-1495/README.md).
 

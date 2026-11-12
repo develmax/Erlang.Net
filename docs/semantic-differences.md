@@ -1,6 +1,6 @@
 The C# source compiler has deterministic BEAM output for supported returns, calls, constructors, literals and patterns. Explicit release profiles can reconstruct supported module metadata and debug forms for constant bindings and nested tuples, lists, and maps. Windows x64 uses the pinned OTP compressor. Other platforms keep the existing ETF compressor. Rich documentation, type metadata, full preprocessing, general lowering and broader release reconstruction remain open. [Evidence](validation/part-606/README.md).
 
-Part 1520 brings tftp_logger.beam to byte equality. The complete corpus has 979 differing images. The next broad tuple-case group has 249 functions in 129 images with an unguarded arm returning a projected value. [Status transitions](validation/part-1520/status-changes.txt) · [Tuple case shapes](validation/part-1520/tuple-case-frame-shapes-after.txt).
+Part 1521 aligns normalized instructions in seven functions, including i:im/0 and rb_format_supp:get_opt/2. The complete corpus has 979 differing images. [Function delta](validation/part-1521/normalized-functions.txt) · [Tuple case shapes](validation/part-1521/tuple-case-fallback-after.txt).
 
 Part 1495 restores the frame size in the two release functions whose saved slots were reused in Part 1494. The entry tuple stays intact across calls in OTP's `dbg_ieval:rec_clauses/3` and `erl_eval:match_clause/5`; the C# entry projects its fields early and now needs an extra slot. [Release instructions](validation/part-1495/cases-after.txt) · [Frames](validation/part-1495/frame-delta.txt).
 
