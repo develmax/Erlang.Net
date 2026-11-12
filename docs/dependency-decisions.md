@@ -1,6 +1,6 @@
 # Dependency and compatibility decisions
 
-Part 1521 reuses call planning, tuple tests, and frame emission for terminal projections. The pinned OTP 29.1.1 instructions supply the reference for shared tag dispatch and retained failure values. The change adds no dependency. [Evidence](validation/part-1521/README.md).
+Part 1522 reuses the selector call-chain planner, tuple tests, and framed tail emitter. The OTP 29.1.1 release disassembly provides the reference for exact checks and alternative layouts. The change adds no dependency. [Evidence](validation/part-1522/README.md).
 
 Part 1495 reuses frame reservation and tuple and list argument construction in the nested selector planner. The pinned `beam_ssa_pre_codegen` source and release disassembly provide the reference. No dependency was added. [Evidence](validation/part-1495/README.md).
 
