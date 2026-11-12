@@ -27,9 +27,10 @@ internal sealed partial class BeamModuleCompiler
                     {
                         Items: [
                             Expr.Match { Pattern: Pattern.Variable result, Value: Expr.Call next },
-                            Expr.Tuple output
+                            ..,
+                            Expr.Tuple or Expr.Call
                         ]
-                    }
+                    } continuation
                 }
                 || other is not { Guard: null, Patterns: [Pattern.Literal { Value: Atom alternative }], Body: Expr.Tuple fallback }
                 || result.Name == VariableScopeNames.Wildcard)
@@ -39,9 +40,10 @@ internal sealed partial class BeamModuleCompiler
 
             var parameters = clause.Patterns.Cast<Pattern.Variable>().Select(parameter => parameter.Name).ToArray();
             var fields = Semantics.Variables(pattern).ToArray();
-            var projected = output.Items.OfType<Expr.Variable>()
-                .Select(variable => variable.Name)
-                .Where(name => !parameters.Contains(name) && name != result.Name)
+            bool singleCallTuple = continuation.Items is [_, Expr.Tuple];
+            var reads = LocalFunctionEntries.Walk(continuation).OfType<Expr.Variable>()
+                .Select(variable => variable.Name).ToHashSet(StringComparer.Ordinal);
+            var projected = fields.Where(name => !parameters.Contains(name) && reads.Contains(name))
                 .Distinct(StringComparer.Ordinal).ToArray();
             if (projected is not [var payload] || parameters.Contains(result.Name) || fields.Contains(result.Name)
                 || ReadTupleProjection(pattern, payload, parameters) is not { } path)
@@ -53,7 +55,8 @@ internal sealed partial class BeamModuleCompiler
             // alternative can still use the original inputs, so trim only after matching.
             int[] liveInputs = path.SelectMany(step => step.Checks).Select(check => check.Input)
                 .Concat(fallback.Items.OfType<Expr.Variable>().Select(variable => Array.IndexOf(parameters, variable.Name)))
-                .Concat(next.Arguments.OfType<Expr.Variable>().Select(variable => Array.IndexOf(parameters, variable.Name)))
+                .Concat(Enumerable.Range(0, parameters.Length)
+                    .Where(index => parameters[index] != VariableScopeNames.Wildcard && reads.Contains(parameters[index])))
                 .Distinct().OrderDescending().ToArray();
             if (liveInputs.Length == 0 || liveInputs[^1] < 0
                 || ReadEntryCall(producer, parameters) is not { } select)
@@ -63,10 +66,7 @@ internal sealed partial class BeamModuleCompiler
 
             var saved = liveInputs.Select((input, slot) => (Name: parameters[input], Slot: slot))
                 .ToDictionary(binding => binding.Name, binding => binding.Slot, StringComparer.Ordinal);
-            var payloadSlot = new Dictionary<string, int>(StringComparer.Ordinal) { [payload] = 0 };
-            if (ReadEntryCall(next, [], liveInputs.Select(input => parameters[input]).ToArray()) is not { } call
-                || ReadCaseTuple(output, result.Name, payloadSlot) is not { UsesSelector: true } success
-                || ReadCaseTuple(fallback, null, saved) is not { } otherwise)
+            if (ReadCaseTuple(fallback, null, saved) is not { } otherwise)
             {
                 return false;
             }
@@ -76,15 +76,48 @@ internal sealed partial class BeamModuleCompiler
             var finalStep = path[^1];
             int temporary = Array.FindIndex(liveInputs, input =>
                 !finalStep.Checks.Any(check => check.Input == input)
-                && call.SavedInputs?.Any(move => move.Source == saved[parameters[input]]) != true);
-            if (temporary < 0)
+                && !reads.Contains(parameters[input]));
+            int frame = liveInputs.Length;
+            EntryCall? call = null;
+            CaseTuplePlan? success = null;
+            RegisterCaseCallSequence? callSequence = null;
+            if (singleCallTuple)
             {
-                return false;
+                if (temporary < 0
+                    || (call = ReadEntryCall(next, [], liveInputs.Select(input => parameters[input]).ToArray())) is null
+                    || (success = ReadCaseTuple(
+                        (Expr.Tuple)continuation.Items[^1],
+                        result.Name,
+                        new Dictionary<string, int>(StringComparer.Ordinal) { [payload] = 0 }
+                    )) is not { UsesSelector: true })
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                if (temporary < 0)
+                {
+                    temporary = frame++;
+                }
+
+                var branchSlots = saved.Where(binding => reads.Contains(binding.Key))
+                    .ToDictionary(binding => binding.Key, binding => binding.Value, StringComparer.Ordinal);
+                branchSlots.Add(payload, temporary);
+                // A previously bound pattern variable must not become a fresh
+                // result binding in the linear call planner.
+                var statements = continuation.Items.SkipLast(1).ToArray();
+                if (statements.OfType<Expr.Match>().Any(match => match.Pattern is Pattern.Variable binding
+                        && binding.Name != VariableScopeNames.Wildcard && (parameters.Contains(binding.Name)
+                            || fields.Contains(binding.Name)))
+                    || (callSequence = ReadRegisterCaseCallSequence(continuation, null, branchSlots)) is null)
+                {
+                    return false;
+                }
             }
 
-            int frame = liveInputs.Length;
             var selector = new EntrySelector(select, null, liveInputs, [], 0, []);
-            EmitEntrySelector(selector, producer, parameters);
+            EmitEntrySelector(selector, producer, parameters, trailingSlots: frame - liveInputs.Length);
             int alternate = Label();
             int failure = Label();
             owner.Op(IsTuple, LabelTag, alternate);
@@ -153,23 +186,30 @@ internal sealed partial class BeamModuleCompiler
                 }
             }
 
-            owner.EmitOrderedTailMoves(call.Moves, call.Constants, call.SavedInputs);
-            if (temporary != frame - 1)
-            {
-                owner.MoveRegister(YRegisterTag, temporary, YRegisterTag, frame - 1);
-            }
-
-            if (frame > 1)
-            {
-                owner.Op(TrimFrame, BeamWire.UnsignedTag, frame - 1);
-                owner.Operand(BeamWire.UnsignedTag, 1);
-            }
-
             var previous = CallLocation(producer, location);
-            owner.EmitCallLine(next, previous);
-            Call(call.Module, next.Function, next.Arguments.Count);
-            EmitCaseTuple(success);
-            owner.EmitFrameReturn(1);
+            if (callSequence is not null)
+            {
+                EmitRegisterCaseCallSequence(callSequence, previous, frame);
+            }
+            else
+            {
+                owner.EmitOrderedTailMoves(call!.Moves, call.Constants, call.SavedInputs);
+                if (temporary != frame - 1)
+                {
+                    owner.MoveRegister(YRegisterTag, temporary, YRegisterTag, frame - 1);
+                }
+
+                if (frame > 1)
+                {
+                    owner.Op(TrimFrame, BeamWire.UnsignedTag, frame - 1);
+                    owner.Operand(BeamWire.UnsignedTag, 1);
+                }
+
+                owner.EmitCallLine(next, previous);
+                Call(call.Module, next.Function, next.Arguments.Count);
+                EmitCaseTuple(success!);
+                owner.EmitFrameReturn(1);
+            }
 
             Mark(alternate);
             owner.Op(ExactEqualTest, LabelTag, failure);
