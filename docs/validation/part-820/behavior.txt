@@ -1,0 +1,18 @@
+ssl_sup #{intensity => 10,period => 3600,strategy => rest_for_one} [ssl_admin_sup,
+                                                                    ssl_connection_sup] {error,
+                                                                                         function_clause}
+tls_dist_server_sup #{intensity => 10,period => 3600,strategy => one_for_all} [dist_ssl_listen_tracker_sup,
+                                                                               dist_tls_server_session_ticket,
+                                                                               dist_ssl_upgrade_server_session_cache_sup] {error,
+                                                                                                                           function_clause}
+tls_dist_sup #{intensity => 10,period => 3600,strategy => one_for_one} [dist_tls_connection_sup,
+                                                                        tls_dist_server_sup] {error,
+                                                                                              function_clause}
+tls_server_sup #{intensity => 10,period => 3600,strategy => one_for_all} [ssl_listen_tracker_sup,
+                                                                          tls_server_session_ticket,
+                                                                          ssl_server_session_cache_sup,
+                                                                          ssl_upgrade_server_session_cache_sup] {error,
+                                                                                                                 function_clause}
+tls_sup #{intensity => 10,period => 3600,strategy => one_for_one} [tls_connection_sup,
+                                                                   tls_server_sup] {error,
+                                                                                    function_clause}

@@ -1,0 +1,21 @@
+[Path] = init:get_plain_arguments(),
+{ok, Binary} = file:read_file(Path),
+{module, list_head_probe} = code:load_binary(list_head_probe, Path, Binary),
+[one,undefined] = list_head_probe:consume([one,two], []),
+[initial] = list_head_probe:consume([], [initial]),
+empty = list_head_probe:literal([]),
+{value,two} = list_head_probe:literal([three]),
+{tail,undefined} = list_head_probe:tail_only([one|rest]),
+rest = get(tail_key),
+Self = self(),
+{both,Self} = list_head_probe:no_fields([one]),
+try list_head_probe:consume(not_list, original) of
+    _ -> error(expected_function_clause)
+catch error:function_clause:Stack ->
+    [{list_head_probe,consume,[not_list,original],_}|_] = Stack
+end,
+{beam_file, _, _, _, _, Functions} = beam_disasm:file(Path),
+[io:format("~p~n", [F]) || F = {function, Name, _, _, _} <- Functions,
+    lists:member(Name, [consume,literal,tail_only,no_fields])],
+halt().
+

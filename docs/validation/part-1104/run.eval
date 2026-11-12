@@ -1,0 +1,13 @@
+[P,Q]=init:get_plain_arguments(),
+lists:foreach(fun(Path)->
+    {beam_file,_,_,_,_,Fs}=beam_disasm:file(Path),
+    [Is]=[I || {function,run,3,_,I}<-Fs],
+    io:format("~s~n~p~n",[Path,Is]),
+    {ok,B}=file:read_file(Path),
+    {module,M}=code:load_binary(beam_tuple_tail_argument_probe,Path,B),
+    {state,ref,{undefined_import,{name,ref},sample_module}}=M:run(ref,state,sample_module),
+    {error,probe_failure}=try M:run(fail,state,sample_module) of V->{value,V} catch error:R->{error,R} end,
+    code:purge(M),
+    code:delete(M)
+end,[P,Q]),
+halt().

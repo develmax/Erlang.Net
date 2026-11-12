@@ -1,0 +1,16 @@
+[P,Q]=init:get_plain_arguments(),
+Read=fun(Path)->
+    {beam_file,_,_,_,_,Fs}=beam_disasm:file(Path),
+    [Is]=[Instructions || {function,retained,2,_,Instructions}<-Fs],
+    io:format("~s~n~p~n",[Path,Is]),
+    {ok,B}=file:read_file(Path),
+    {module,M}=code:load_binary(beam_entry_tagged_projection_probe,Path,B),
+    {saved,42}=M:retained({entry,key,42},saved),
+    17=M:retained(17,saved),
+    {entry,42}=M:retained({entry,42},saved),
+    code:delete(M),
+    code:purge(M)
+end,
+Read(P),
+Read(Q),
+halt().

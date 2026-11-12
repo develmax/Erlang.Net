@@ -1,0 +1,10 @@
+[Path] = init:get_plain_arguments(),
+{ok, Binary} = file:read_file(Path),
+{module, frame_remote_probe} = code:load_binary(frame_remote_probe, Path, Binary),
+ok = persistent_term:put(frame_probe, persistent),
+undefined = put(frame_probe, process),
+Self = self(),
+{tag, persistent, process, Self} = frame_remote_probe:lookup(frame_probe, tag),
+{beam_file, _, _, _, _, Functions} = beam_disasm:file(Path),
+[io:format("~p~n", [F]) || F = {function, lookup, 2, _, _} <- Functions],
+halt().

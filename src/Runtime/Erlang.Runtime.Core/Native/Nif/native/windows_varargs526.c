@@ -27,7 +27,7 @@ typedef struct {
     nif_printf_term791 format_term791;
 } callbacks526;
 
-_Static_assert(sizeof(void *) == 8, "Windows x64 adapter only");
+_Static_assert(sizeof(void *) == 8, "Windows adapter requires 64-bit pointers");
 _Static_assert(sizeof(callbacks526) == 48, "Managed registration layout mismatch");
 
 static SRWLOCK publication526 = SRWLOCK_INIT;
@@ -116,4 +116,12 @@ EXPORT526 int __cdecl nif_windows_snprintf791(char *buffer, size_t size, const c
     va_end(arguments);
 
     return result;
+}
+
+/* Keep even rejecting variadic APIs in C: ARM64 is not the x64 varargs ABI. */
+EXPORT526 int __cdecl nif_windows_set_option(void *env, int option, ...)
+{
+    (void)env;
+    (void)option;
+    return EINVAL;
 }

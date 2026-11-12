@@ -1,0 +1,160 @@
+Exact image false
+Exact instructions false
+OTP
+{label,2079}
+{line,[{location,"asn1ct_check.erl",5624}]}
+{func_info,{atom,asn1ct_check},{atom,merge_tags2},2}
+{label,2080}
+{test,is_nonempty_list,{f,2085},[{x,0}]}
+{get_list,{x,0},{x,2},{x,0}}
+{test,is_tagged_tuple,{f,2084},[{x,2},5,{atom,tag}]}
+{get_tuple_element,{x,2},3,{x,3}}
+{test,is_tuple,{f,2083},[{x,3}]}
+{test,is_tagged_tuple,
+      {f,2084},
+      [{tr,{x,3},{t_tuple,0,false,#{}}},2,{atom,default}]}
+{get_tuple_element,{x,3},1,{x,3}}
+{select_val,{x,3},
+            {f,2084},
+            {list,[{atom,'AUTOMATIC'},{f,2082},{atom,'IMPLICIT'},{f,2081}]}}
+{label,2081}
+{test,is_nonempty_list,{f,2084},[{x,0}]}
+{get_list,{x,0},{x,3},{x,0}}
+{test,is_tagged_tuple,{f,2086},[{x,3},5,{atom,tag}]}
+{test_heap,8,4}
+{get_tuple_element,{x,3},3,{x,4}}
+{get_tuple_element,{x,3},4,{x,3}}
+{update_record,{atom,copy},
+               5,
+               {tr,{x,2},{t_tuple,0,false,#{}}},
+               {x,2},
+               {list,[4,{x,4},5,{x,3}]}}
+{put_list,{x,2},{x,0},{x,0}}
+{call_only,2,{asn1ct_check,merge_tags2,2}}
+{label,2082}
+{test,is_nonempty_list,{f,2084},[{x,0}]}
+{get_list,{x,0},{x,3},{x,0}}
+{test,is_tagged_tuple,{f,2087},[{x,3},5,{atom,tag}]}
+{test_heap,8,4}
+{get_tuple_element,{x,3},3,{x,4}}
+{get_tuple_element,{x,3},4,{x,3}}
+{update_record,{atom,copy},
+               5,
+               {tr,{x,2},{t_tuple,0,false,#{}}},
+               {x,2},
+               {list,[4,{x,4},5,{x,3}]}}
+{put_list,{x,2},{x,0},{x,0}}
+{call_only,2,{asn1ct_check,merge_tags2,2}}
+{label,2083}
+{test,is_eq_exact,{f,2084},[{x,3},{atom,'IMPLICIT'}]}
+{test,is_nonempty_list,{f,2084},[{x,0}]}
+{get_list,{x,0},{x,3},{x,0}}
+{test,is_tagged_tuple,{f,2088},[{x,3},5,{atom,tag}]}
+{test_heap,8,4}
+{get_tuple_element,{x,3},3,{x,4}}
+{get_tuple_element,{x,3},4,{x,3}}
+{update_record,{atom,copy},
+               5,
+               {tr,{x,2},{t_tuple,0,false,#{}}},
+               {x,2},
+               {list,[4,{x,4},5,{x,3}]}}
+{put_list,{x,2},{x,0},{x,0}}
+{call_only,2,{asn1ct_check,merge_tags2,2}}
+{label,2084}
+{test_heap,2,3}
+{put_list,{x,2},{x,1},{x,1}}
+{call_only,2,{asn1ct_check,merge_tags2,2}}
+{label,2085}
+{test,is_nil,{f,2079},[{x,0}]}
+{move,{x,1},{x,0}}
+{line,[{location,"asn1ct_check.erl",5633}]}
+{call_ext_only,1,{extfunc,lists,reverse,1}}
+{label,2086}
+{line,[{location,"asn1ct_check.erl",5627}]}
+{badrecord,{x,3}}
+{label,2087}
+{line,[{location,"asn1ct_check.erl",5629}]}
+{badrecord,{x,3}}
+{label,2088}
+{line,[{location,"asn1ct_check.erl",5625}]}
+{badrecord,{x,3}}
+C#
+{label,3524}
+{line,[{location,"asn1ct_check.erl",5624}]}
+{func_info,{atom,asn1ct_check},{atom,merge_tags2},2}
+{label,3525}
+{test,is_nonempty_list,{f,3530},[{x,0}]}
+{get_list,{x,0},{x,2},{x,0}}
+{test,is_tagged_tuple,{f,3529},[{x,2},5,{atom,tag}]}
+{get_tuple_element,{x,2},3,{x,3}}
+{test,is_tuple,{f,3528},[{x,3}]}
+{test,is_tagged_tuple,
+      {f,3529},
+      [{tr,{x,3},{t_tuple,0,false,#{}}},2,{atom,default}]}
+{get_tuple_element,{x,3},1,{x,3}}
+{select_val,{x,3},
+            {f,3529},
+            {list,[{atom,'AUTOMATIC'},{f,3527},{atom,'IMPLICIT'},{f,3526}]}}
+{label,3526}
+{test,is_nonempty_list,{f,3529},[{x,0}]}
+{get_list,{x,0},{x,3},{x,0}}
+{test,is_tagged_tuple,{f,3531},[{x,3},5,{atom,tag}]}
+{test_heap,8,4}
+{get_tuple_element,{x,3},3,{x,4}}
+{get_tuple_element,{x,3},4,{x,3}}
+{update_record,{atom,copy},
+               5,
+               {tr,{x,2},{t_tuple,0,false,#{}}},
+               {x,2},
+               {list,[4,{x,4},5,{x,3}]}}
+{put_list,{x,2},{x,0},{x,0}}
+{call_only,2,{asn1ct_check,merge_tags2,2}}
+{label,3527}
+{test,is_nonempty_list,{f,3529},[{x,0}]}
+{get_list,{x,0},{x,3},{x,0}}
+{test,is_tagged_tuple,{f,3532},[{x,3},5,{atom,tag}]}
+{test_heap,8,4}
+{get_tuple_element,{x,3},3,{x,4}}
+{get_tuple_element,{x,3},4,{x,3}}
+{update_record,{atom,copy},
+               5,
+               {tr,{x,2},{t_tuple,0,false,#{}}},
+               {x,2},
+               {list,[4,{x,4},5,{x,3}]}}
+{put_list,{x,2},{x,0},{x,0}}
+{call_only,2,{asn1ct_check,merge_tags2,2}}
+{label,3528}
+{test,is_eq_exact,{f,3529},[{x,3},{atom,'IMPLICIT'}]}
+{test,is_nonempty_list,{f,3529},[{x,0}]}
+{get_list,{x,0},{x,3},{x,0}}
+{test,is_tagged_tuple,{f,3533},[{x,3},5,{atom,tag}]}
+{test_heap,8,4}
+{get_tuple_element,{x,3},3,{x,4}}
+{get_tuple_element,{x,3},4,{x,3}}
+{update_record,{atom,copy},
+               5,
+               {tr,{x,2},{t_tuple,0,false,#{}}},
+               {x,2},
+               {list,[4,{x,4},5,{x,3}]}}
+{put_list,{x,2},{x,0},{x,0}}
+{call_only,2,{asn1ct_check,merge_tags2,2}}
+{label,3529}
+{test_heap,2,3}
+{put_list,{x,2},{x,1},{x,1}}
+{call_only,2,{asn1ct_check,merge_tags2,2}}
+{label,3530}
+{test,is_nil,{f,3524},[{x,0}]}
+{move,{x,1},{x,0}}
+{line,[{location,"asn1ct_check.erl",5633}]}
+{call_ext_only,1,{extfunc,lists,reverse,1}}
+{label,3531}
+{line,[{location,"asn1ct_check.erl",5627}]}
+{badrecord,{x,3}}
+{label,3532}
+{line,[{location,"asn1ct_check.erl",5629}]}
+{badrecord,{x,3}}
+{label,3533}
+{line,[{location,"asn1ct_check.erl",5625}]}
+{badrecord,{x,3}}
+Differing chunks ["AtU8","Code","ImpT","ExpT","FunT","LitT","LocT","Attr",
+                  "Line","Type"]

@@ -1,0 +1,6 @@
+<Project>
+  <ItemGroup Condition="'$(MSBuildProjectName)' == 'Erlang.Otp.Stdlib'">
+    <Compile Remove="Storage/**/*.cs;Registration/ManagedStdlibRegistration456.cs" />
+    <Compile Include="D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/ets-port-v9/ManagedStdlibRegistration456.cs" />
+  </ItemGroup>
+</Project>

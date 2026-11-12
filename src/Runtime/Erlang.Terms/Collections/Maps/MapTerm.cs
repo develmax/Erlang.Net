@@ -49,7 +49,7 @@ public sealed partial class MapTerm : Term
         // when an internal node identity later publishes a different epoch.
         // Keep exact code identity for dictionary storage and arithmetic term
         // key order for comparison as separate views of the same bindings.
-        ArithmeticKeyEntries = d.Count < 2
+        ArithmeticKeyEntries = HasStrictArithmeticOrder(Entries, ref context)
             ? Entries
             : Array.AsReadOnly(d.OrderBy(
                 entry => entry.Key,

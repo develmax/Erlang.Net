@@ -1,0 +1,29 @@
+{"Partial":true,"SelectedCount":16,"TotalCount":9647}
+PASS runtime/string/managed-selection-and-original-contracts
+PASS runtime/string/original-selection-and-original-contracts
+PASS runtime/string/explicit-dependencies-and-no-fallback
+PASS runtime/ordsets/whole-term-order-and-runtime-hamt-equality/0
+PASS runtime/ordsets/whole-term-order-and-runtime-hamt-equality/beam/0
+PASS runtime/ordsets/whole-term-order-and-runtime-hamt-equality/1
+PASS runtime/ordsets/whole-term-order-and-runtime-hamt-equality/beam/1
+PASS runtime/ordsets/whole-term-order-and-runtime-hamt-equality/2
+PASS runtime/ordsets/whole-term-order-and-runtime-hamt-equality/beam/2
+PASS runtime/ordsets/whole-term-order-and-runtime-hamt-equality/3
+PASS runtime/ordsets/whole-term-order-and-runtime-hamt-equality/beam/3
+PASS runtime/ordsets/whole-term-order-and-runtime-hamt-equality/4
+PASS runtime/ordsets/whole-term-order-and-runtime-hamt-equality/beam/4
+PASS runtime/ordsets/whole-term-order-and-runtime-hamt-equality/5
+PASS runtime/ordsets/whole-term-order-and-runtime-hamt-equality/beam/5
+FAIL runtime/review498-imported-flat-map-copy: System.InvalidOperationException: Merged review regression failed
+   at Erlang.Tests.ReviewFollowup498Checks.Require(Boolean condition) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\tests\Erlang.Tests\Runtime\Primitives\ReviewFollowup498Checks.cs:line 168
+   at Erlang.Tests.ReviewFollowup498Checks.<>c__DisplayClass1_0.<<ImportedFlatMaps>b__1>d.MoveNext() in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\tests\Erlang.Tests\Runtime\Primitives\ReviewFollowup498Checks.cs:line 135
+--- End of stack trace from previous location ---
+   at Erlang.Tests.RuntimeNodeFoundationHostActor.<>c__DisplayClass9_0`1.<<InvokeAsync>b__0>d.MoveNext() in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\tests\Erlang.Tests\Runtime\Execution\RuntimeNodeFoundationHostActor.cs:line 43
+--- End of stack trace from previous location ---
+   at Erlang.Tests.RuntimeNodeFoundationHostActor.InvokeAsync[T](Func`2 command) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\tests\Erlang.Tests\Runtime\Execution\RuntimeNodeFoundationHostActor.cs:line 51
+   at Erlang.Tests.ReviewFollowup498Checks.ImportedFlatMaps() in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\tests\Erlang.Tests\Runtime\Primitives\ReviewFollowup498Checks.cs:line 121
+   at Erlang.Tests.ReviewFollowup498Checks.ImportedFlatMaps() in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\tests\Erlang.Tests\Runtime\Primitives\ReviewFollowup498Checks.cs:line 121
+   at Erlang.Tests.ReviewFollowup498Checks.ImportedFlatMaps() in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\tests\Erlang.Tests\Runtime\Primitives\ReviewFollowup498Checks.cs:line 121
+   at Erlang.Tests.ReviewFollowup498Checks.ImportedFlatMaps() in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\tests\Erlang.Tests\Runtime\Primitives\ReviewFollowup498Checks.cs:line 121
+   at Program.<Main>$(String[] args) in D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\tests\Erlang.Tests\Harness\Program.cs:line 16193
+15/16 passed

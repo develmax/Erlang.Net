@@ -1,0 +1,25 @@
+{
+  "Partial": true,
+  "SelectedCount": 2,
+  "TotalCount": 9647,
+  "Blocks": [],
+  "ExactCases": [
+    "oracle/compiled-module/debug-dirty424-all948-full-typed-raw",
+    "runtime/review498-imported-flat-map-copy"
+  ],
+  "Passed": 1,
+  "Failed": 1,
+  "Tests": [
+    {
+      "Name": "oracle/compiled-module/debug-dirty424-all948-full-typed-raw",
+      "Status": "Passed",
+      "Milliseconds": 74750
+    },
+    {
+      "Name": "runtime/review498-imported-flat-map-copy",
+      "Status": "Failed",
+      "Error": "System.InvalidOperationException: Merged review regression failed\r\n   at Erlang.Tests.ReviewFollowup498Checks.Require(Boolean condition) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Runtime\\Primitives\\ReviewFollowup498Checks.cs:line 168\r\n   at Erlang.Tests.ReviewFollowup498Checks.\u003C\u003Ec__DisplayClass1_0.\u003C\u003CImportedFlatMaps\u003Eb__1\u003Ed.MoveNext() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Runtime\\Primitives\\ReviewFollowup498Checks.cs:line 135\r\n--- End of stack trace from previous location ---\r\n   at Erlang.Tests.RuntimeNodeFoundationHostActor.\u003C\u003Ec__DisplayClass9_0\u00601.\u003C\u003CInvokeAsync\u003Eb__0\u003Ed.MoveNext() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Runtime\\Execution\\RuntimeNodeFoundationHostActor.cs:line 43\r\n--- End of stack trace from previous location ---\r\n   at Erlang.Tests.RuntimeNodeFoundationHostActor.InvokeAsync[T](Func\u00602 command) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Runtime\\Execution\\RuntimeNodeFoundationHostActor.cs:line 51\r\n   at Erlang.Tests.ReviewFollowup498Checks.ImportedFlatMaps() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Runtime\\Primitives\\ReviewFollowup498Checks.cs:line 121\r\n   at Erlang.Tests.ReviewFollowup498Checks.ImportedFlatMaps() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Runtime\\Primitives\\ReviewFollowup498Checks.cs:line 121\r\n   at Erlang.Tests.ReviewFollowup498Checks.ImportedFlatMaps() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Runtime\\Primitives\\ReviewFollowup498Checks.cs:line 121\r\n   at Erlang.Tests.ReviewFollowup498Checks.ImportedFlatMaps() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Runtime\\Primitives\\ReviewFollowup498Checks.cs:line 121\r\n   at Program.\u003CMain\u003E$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Harness\\Program.cs:line 16193",
+      "Milliseconds": 322
+    }
+  ]
+}

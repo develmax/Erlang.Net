@@ -1,0 +1,15 @@
+Straight call sequences with a tagged payload surviving the first call in 997 differing images.
+later_only: 4 modules, 4 functions. Examples [{application_controller,unload,
+                                               2},
+                                              {edoc_layout_chunks,anno,2},
+                                              {release_handler,
+                                               prepare_restart_new_emulator,7},
+                                              {snmpc,c_impl,1}]
+immediate_and_later: 5 modules, 5 functions. Examples [{httpd_sup,child_spec,
+                                                        1},
+                                                       {observer_backend,
+                                                        ttb_store_meta,2},
+                                                       {reltool_sys_win,
+                                                        redraw_warnings,1},
+                                                       {ssh_info,print,1},
+                                                       {ttb,write_binary,2}]

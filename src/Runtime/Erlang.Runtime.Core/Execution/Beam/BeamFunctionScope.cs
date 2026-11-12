@@ -47,7 +47,7 @@ internal sealed class BeamFunctionScope : IDisposable
         }
     }
 
-    internal IReadOnlyList<Term> Arguments { get; }
+    internal IReadOnlyList<Term> Arguments { get; private set; }
 
     internal void SetContinuation(BeamLinkedCode code, int instructionIndex)
     {
@@ -87,6 +87,7 @@ internal sealed class BeamFunctionScope : IDisposable
 
     public void Dispose()
     {
+        Arguments = Array.Empty<Term>();
         IDisposable? previousContinuation = continuation;
         continuation = null;
         Exception? continuationFailure = TryDispose146(previousContinuation);

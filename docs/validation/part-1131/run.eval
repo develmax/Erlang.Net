@@ -1,0 +1,18 @@
+[P,Q]=init:get_plain_arguments(),
+Read=fun(Path)->
+    {beam_file,_,_,_,_,Fs}=beam_disasm:file(Path),
+    [Is]=[Instructions || {function,staged,2,_,Instructions}<-Fs],
+    io:format("~s~n~p~n",[Path,Is]),
+    {ok,B}=file:read_file(Path),
+    {module,M}=code:load_binary(beam_entry_tagged_projection_probe,Path,B),
+    {saved,42}=M:staged({entry,key,42},saved),
+    saved=get(probe_value),
+    17=M:staged(17,other),
+    other=erase(probe_value),
+    code:delete(M),
+    code:purge(M),
+    Is
+end,
+Reference=Read(P),
+Reference=Read(Q),
+halt().

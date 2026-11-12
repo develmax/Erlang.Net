@@ -1,0 +1,30 @@
+Tagged matches on call results in 998 differing images.
+Counts are {modules, functions, examples}. Groups can overlap.
+#{tagged_call_match =>
+      {248,542,
+       [{asn1ct,{pretty2,2}},
+        {asn1ct_check,{check_defaultfields_1,4}},
+        {asn1ct_constructed_per,{enc_map_match,2}},
+        {asn1ct_func,{start_link,0}},
+        {ct,{capture_get,1}}]},
+  tagged_call_match_ignored_payload =>
+      {27,39,
+       [{ct_master,{init_master,7}},
+        {ct_release_test,{copy_file,3}},
+        {ct_slave,{spawn_remote_node,3}},
+        {test_server,{do_cover_compile,1}},
+        {dbg_iserver,{safe_call,1}}]},
+  ok_call_match_ignored_payload =>
+      {23,35,
+       [{ct_master,{init_master,7}},
+        {ct_release_test,{copy_file,3}},
+        {ct_slave,{spawn_remote_node,3}},
+        {test_server,{do_cover_compile,1}},
+        {dbg_iserver,{safe_call,1}}]},
+  bound_call_value_used_after_tagged_call_match =>
+      {57,77,
+       [{asn1ct_constructed_per,{gen_dec_components_call,6}},
+        {ct,{capture_get,1}},
+        {ct_cover,{analyse_files,5}},
+        {ct_logs,{logger,4}},
+        {ct_master,{init_node_ctrl,3}}]}}

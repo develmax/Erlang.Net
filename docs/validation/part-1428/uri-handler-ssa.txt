@@ -1,0 +1,49 @@
+  %% Aliased:
+  %%    _50
+  _4 = extract _50, `1`
+
+  %% Aliased:
+  %%    _50
+  _3 = extract _50, `2`
+
+  %% Unique:
+  %%    _35
+  _51 = kill_try_tag _35
+
+  %% Argument types:
+  %%    _5 => 'error' | 'exit' | 'throw'
+  %% Unique:
+  %%    _5
+  _48 = bif:'=:=' _5, `throw`
+  br _48, ^47, ^38
+
+47:
+  %% Argument types:
+  %%    
+  %% Aliased:
+  %%    _4
+  _45 = bif:is_tuple _4
+  br _45, ^45, ^38
+
+45:
+  %% Argument types:
+  %%    _4 => {...}
+  %% Aliased:
+  %%    _4
+  _46 = bif:tuple_size _4
+  %% Argument types:
+  %%    
+  switch _46, ^38, [
+    { `2`, ^43 },
+    { `3`, ^44 }
+  ]
+
+44:
+  %% c:/Users/Maksim/AppData/Local/Temp/erl-cohort-7mzi5e1n/view/artifacts/library376-official-compiler/installed/lib/stdlib-8.1/src/uri_string.erl:1100
+  %% Result type:
+  %%    #{atom()=>'undefined' | integer() | bitstring(8)}
+  %% Aliased:
+  %%    _0
+  _24 = call (`parse_relative_part`/2), _0, `#{}`
+
+  %% Aliased:

@@ -1,0 +1,13 @@
+# Part674 LDAP decoder comparison types
+
+The C# emitter propagates integer facts from successful bit-pattern extraction through local call results. A tagged range check uses a typed register only when the decoder's return type is proven. The second comparison carries the lower bound established by the first comparison. The regression fixture also passes a float through an untyped decoder to cover Erlang's mixed numeric comparisons.
+
+All 219 instructions in dec_LDAPMessage_protocolOp/2 match OTP 29.1.1 after renumbering labels, including the type and range annotations and source line locations. The OTP type pass derives integer types from bit extraction and refines them on successful comparison edges. The C# implementation reuses its existing interprocedural facts and typed register writer. Dependencies and licenses are unchanged. The reference is OTP-29.1.1 ad05823719d77c8faee87348ea39513d4e2f99c5. [Whole function comparison](decoder-normalized-oracle.txt), [range comparison](range-oracle.txt).
+
+The image grows from 105,816 to 105,820 bytes as type operands are emitted. OTP has 99,008 bytes. Instruction counts remain 8,959 managed and 7,028 OTP. AtU8, ImpT, StrT, CInf, Meta, LitT, Docs and Dbgi match byte for byte. Code, ExpT, LocT, Attr, Line and Type still differ. Only the automatic vsn value differs in Attr. [Chunk comparison](chunks-oracle.txt), [attribute comparison](attributes-oracle.txt), [remaining instruction gaps](instruction-gaps-oracle.txt).
+
+Build with `dotnet build tools/Validation/Erlang.BeamCorpus -m:1 --no-restore -v:q -o artifacts/beam-backend/part674-tool`. Run `dotnet artifacts/beam-backend/part674-tool/Erlang.BeamCorpus.dll $InstalledOtpRoot artifacts/beam-backend/otp-corpus-part674.json` with InstalledOtpRoot from artifacts/library376-official-compiler/official-admission.json. The focused test selection is compiler/beam/whole-module-matches-otp, compiler/beam/rebuild-installed-otp-release-images and compiler/beam/documentation-payload-matches-otp. The full runtime harness and canonical readiness regeneration remain pending.
+
+The behavior oracle matched 320 direct calls, 83 round trips and 88 boundary calls. The next source-level discrepancy is the protected encode/2 call sequence. It emits 93 instructions and reserves 18 frame slots, compared with 43 instructions and one slot in OTP. [Protected call comparison](encode-protected-oracle.txt).
+
+All three focused checks passed. The full corpus checked 1,366 files and reported 18 Equal, 19 Different, 488 SourceRejected and 841 Unsupported. ELDAPv3 is Different. The corpus exited with code 1 because images still differ. [Focused report](focused.json), [corpus report](otp-corpus.json).

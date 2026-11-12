@@ -1,0 +1,58 @@
+FAIL runtime/internal-ports416/real-open-command-connect-info-close-and-child-exit: System.InvalidCastException: Unable to cast object of type 'Erlang.Atom' to type 'Erlang.PortTerm'.
+FAIL HOST/internal-ports416/bad-flags-before-real-blocked-command-queue: System.AggregateException: One or more errors occurred. (Unable to cast object of type 'Erlang.Atom' to type 'Erlang.TupleTerm'.)
+FAIL HOST/internal-ports416/connect-after-real-queued-close-and-invalid-target-order: System.AggregateException: One or more errors occurred. (Unable to cast object of type 'Erlang.Atom' to type 'Erlang.TupleTerm'.)
+FAIL oracle/compiled-module/dynamic-apply477-whole-values-and-stacks: System.InvalidOperationException: Original dynamic apply values,full stacks or selected binding differ
+FAIL HOST/library411/original-code-seven-interpreter-capability-profile: System.InvalidOperationException: Original code interpreter capability profile HOST control failed
+FAIL runtime/library399/original-port-windows6-whole-terms: System.InvalidOperationException: Original dependency-library full-term comparison failed
+FAIL runtime/halt-foundation-transfer-admission-and-independent-runtime: Erlang.ErlangException: eacces
+FAIL runtime/halt-live-port-drain-immediate-timeout-and-profile-ownership: Erlang.ErlangException: eacces
+FAIL runtime/halt-dedicated-raw-process-numeric-errors-abort-and-real-dump: System.InvalidOperationException: Dedicated halt process contract failed
+FAIL runtime/system-profile-real-shared-state-isolation-death-and-validation: System.InvalidOperationException: System profiler control contract failed.
+FAIL runtime/ports-real-executable-ownership-and-resource-cleanup: Erlang.ErlangException: eacces
+FAIL runtime/port-protocol-close-drains-pending-bytes: Erlang.ErlangException: eacces
+FAIL compiler/unsupported-escape-diagnostic: System.InvalidOperationException: Expected CompileException
+FAIL mfa/erlang:open_port/2: System.InvalidOperationException: {error,error,eacces}
+FAIL mfa/erlang:port_call/2: System.InvalidOperationException: {error,error,eacces}
+FAIL mfa/erlang:port_call/3: System.InvalidOperationException: {error,error,eacces}
+FAIL mfa/erlang:port_close/1: System.InvalidOperationException: {error,error,eacces}
+FAIL mfa/erlang:port_command/2: System.InvalidOperationException: {error,error,eacces}
+FAIL mfa/erlang:port_command/3: System.InvalidOperationException: {error,error,eacces}
+FAIL mfa/erlang:port_connect/2: System.InvalidOperationException: {error,error,eacces}
+FAIL mfa/erlang:port_control/3: System.InvalidOperationException: {error,error,eacces}
+FAIL mfa/erlang:port_get_data/1: System.InvalidOperationException: {error,error,eacces}
+FAIL mfa/erlang:port_info/1: System.InvalidOperationException: {error,error,eacces}
+FAIL mfa/erlang:port_info/2: System.InvalidOperationException: {error,error,eacces}
+FAIL mfa/erlang:port_set_data/2: System.InvalidOperationException: {error,error,eacces}
+FAIL mfa/erlang:ports/0: System.InvalidOperationException: {error,error,eacces}
+FAIL mfa/erpc:call/2: System.InvalidOperationException: Expected normal, got {clr_error,[73,110,118,97,108,105,100,79,112,101,114,97,116,105,111,110,69,120,99,101,112,116,105,111,110]}
+FAIL mfa/erpc:call/3: System.InvalidOperationException: Expected normal, got {clr_error,[73,110,118,97,108,105,100,79,112,101,114,97,116,105,111,110,69,120,99,101,112,116,105,111,110]}
+FAIL mfa/erpc:call_result/4: System.InvalidOperationException: Expected normal, got {clr_error,[73,110,118,97,108,105,100,79,112,101,114,97,116,105,111,110,69,120,99,101,112,116,105,111,110]}
+FAIL mfa/erpc:cast/2: System.InvalidOperationException: Expected normal, got {clr_error,[73,110,118,97,108,105,100,79,112,101,114,97,116,105,111,110,69,120,99,101,112,116,105,111,110]}
+FAIL mfa/erpc:cast/4: System.InvalidOperationException: Expected normal, got {clr_error,[73,110,118,97,108,105,100,79,112,101,114,97,116,105,111,110,69,120,99,101,112,116,105,111,110]}
+FAIL mfa/erpc:check_response/2: System.InvalidOperationException: Expected normal, got {clr_error,[73,110,118,97,108,105,100,79,112,101,114,97,116,105,111,110,69,120,99,101,112,116,105,111,110]}
+FAIL mfa/erpc:check_response/3: System.InvalidOperationException: Expected normal, got {clr_error,[73,110,118,97,108,105,100,79,112,101,114,97,116,105,111,110,69,120,99,101,112,116,105,111,110]}
+FAIL mfa/erpc:execute_call/3: System.InvalidOperationException: Expected normal, got {clr_error,[73,110,118,97,108,105,100,79,112,101,114,97,116,105,111,110,69,120,99,101,112,116,105,111,110]}
+FAIL mfa/erpc:execute_cast/3: System.InvalidOperationException: Expected normal, got {clr_error,[73,110,118,97,108,105,100,79,112,101,114,97,116,105,111,110,69,120,99,101,112,116,105,111,110]}
+FAIL mfa/erpc:is_arg_error/4: System.InvalidOperationException: Expected normal, got {clr_error,[73,110,118,97,108,105,100,79,112,101,114,97,116,105,111,110,69,120,99,101,112,116,105,111,110]}
+FAIL mfa/erpc:multicall/2: System.InvalidOperationException: Expected normal, got {clr_error,[73,110,118,97,108,105,100,79,112,101,114,97,116,105,111,110,69,120,99,101,112,116,105,111,110]}
+FAIL mfa/erpc:multicall/3: System.InvalidOperationException: Expected normal, got {clr_error,[73,110,118,97,108,105,100,79,112,101,114,97,116,105,111,110,69,120,99,101,112,116,105,111,110]}
+FAIL mfa/erpc:multicall/4: System.InvalidOperationException: Expected normal, got {clr_error,[73,110,118,97,108,105,100,79,112,101,114,97,116,105,111,110,69,120,99,101,112,116,105,111,110]}
+FAIL mfa/erpc:multicall/5: System.InvalidOperationException: Expected normal, got {clr_error,[73,110,118,97,108,105,100,79,112,101,114,97,116,105,111,110,69,120,99,101,112,116,105,111,110]}
+FAIL mfa/erpc:multicast/2: System.InvalidOperationException: Expected normal, got {clr_error,[73,110,118,97,108,105,100,79,112,101,114,97,116,105,111,110,69,120,99,101,112,116,105,111,110]}
+FAIL mfa/erpc:multicast/4: System.InvalidOperationException: Expected normal, got {clr_error,[73,110,118,97,108,105,100,79,112,101,114,97,116,105,111,110,69,120,99,101,112,116,105,111,110]}
+FAIL mfa/erpc:receive_response/1: System.InvalidOperationException: Expected normal, got {clr_error,[73,110,118,97,108,105,100,79,112,101,114,97,116,105,111,110,69,120,99,101,112,116,105,111,110]}
+FAIL mfa/erpc:receive_response/2: System.InvalidOperationException: Expected normal, got {clr_error,[73,110,118,97,108,105,100,79,112,101,114,97,116,105,111,110,69,120,99,101,112,116,105,111,110]}
+FAIL mfa/erpc:receive_response/3: System.InvalidOperationException: Expected normal, got {clr_error,[73,110,118,97,108,105,100,79,112,101,114,97,116,105,111,110,69,120,99,101,112,116,105,111,110]}
+FAIL mfa/erpc:reqids_add/3: System.InvalidOperationException: Expected normal, got {clr_error,[73,110,118,97,108,105,100,79,112,101,114,97,116,105,111,110,69,120,99,101,112,116,105,111,110]}
+FAIL mfa/erpc:reqids_new/0: System.InvalidOperationException: Expected normal, got {clr_error,[73,110,118,97,108,105,100,79,112,101,114,97,116,105,111,110,69,120,99,101,112,116,105,111,110]}
+FAIL mfa/erpc:reqids_size/1: System.InvalidOperationException: Expected normal, got {clr_error,[73,110,118,97,108,105,100,79,112,101,114,97,116,105,111,110,69,120,99,101,112,116,105,111,110]}
+FAIL mfa/erpc:reqids_to_list/1: System.InvalidOperationException: Expected normal, got {clr_error,[73,110,118,97,108,105,100,79,112,101,114,97,116,105,111,110,69,120,99,101,112,116,105,111,110]}
+FAIL mfa/erpc:send_request/2: System.InvalidOperationException: Expected normal, got {clr_error,[73,110,118,97,108,105,100,79,112,101,114,97,116,105,111,110,69,120,99,101,112,116,105,111,110]}
+FAIL mfa/erpc:send_request/4: System.InvalidOperationException: Expected normal, got {clr_error,[73,110,118,97,108,105,100,79,112,101,114,97,116,105,111,110,69,120,99,101,112,116,105,111,110]}
+FAIL mfa/erpc:send_request/6: System.InvalidOperationException: Expected normal, got {clr_error,[73,110,118,97,108,105,100,79,112,101,114,97,116,105,111,110,69,120,99,101,112,116,105,111,110]}
+FAIL mfa/erpc:trim_stack/4: System.InvalidOperationException: Expected normal, got {clr_error,[73,110,118,97,108,105,100,79,112,101,114,97,116,105,111,110,69,120,99,101,112,116,105,111,110]}
+FAIL mfa/erpc:wait_response/1: System.InvalidOperationException: Expected normal, got {clr_error,[73,110,118,97,108,105,100,79,112,101,114,97,116,105,111,110,69,120,99,101,112,116,105,111,110]}
+FAIL mfa/erpc:wait_response/2: System.InvalidOperationException: Expected normal, got {clr_error,[73,110,118,97,108,105,100,79,112,101,114,97,116,105,111,110,69,120,99,101,112,116,105,111,110]}
+FAIL mfa/erpc:wait_response/3: System.InvalidOperationException: Expected normal, got {clr_error,[73,110,118,97,108,105,100,79,112,101,114,97,116,105,111,110,69,120,99,101,112,116,105,111,110]}
+FAIL compiler/source/otp-documentation-forms: System.InvalidOperationException: OTP documentation source fixture differed.
+FAIL compiler/source/otp-type-forms: System.InvalidOperationException: OTP type form fixture differed.

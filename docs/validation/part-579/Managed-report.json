@@ -1,0 +1,210 @@
+{
+  "Backend": "Managed",
+  "Baseline": "OTP-29.1.1",
+  "Exports": 40,
+  "Cases": 74,
+  "Passed": 74,
+  "EffectCases": 311,
+  "EffectPassed": 311,
+  "EffectsRun": 311,
+  "Complete": true,
+  "Failures": [],
+  "OriginalSha256": "22B62B11B4ED0DFC5B9BB0344FD43C3B44171DE88C8970513298094DD1174608",
+  "ManagedAssemblySha256": "8F47953D2052A944D16B8E233900B2F93644F7E068AE94826FC5B71166A0CE0B",
+  "RuntimeAssemblySha256": "4057739F37167AA1E775B757F4E0CFE3A150536ADA83EC7EA155614A517AFB6D",
+  "CorpusSha256": "2EC1316FAC88B45E4E1DE68A8270ADB03211A4E39F17E3C9BFBF305A6819029D",
+  "EffectsSha256": "10E0F9840512B52EE74B056D7CCCC8D3975C36047EDAC2A8A60B276DAA5F2A90",
+  "FeatureBootstrapSha256": "9A81F7FC10017B631FA8FC864D31EDE95A24C3D80A54A6F0E0BA4FFBB9552296",
+  "StartupSelection": [
+    {
+      "Module": "gen_statem",
+      "Backend": "Managed",
+      "InputSha256": null,
+      "ExportCount": 40,
+      "NativePrimitiveCount": 0,
+      "ManagedAssemblies": [
+        {
+          "AssemblyName": "Erlang.Otp.Stdlib, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
+          "ModuleVersionId": "4a62cd1b-11fa-451c-a5fb-f84293ef90dd"
+        }
+      ]
+    }
+  ],
+  "HelperImages": [
+    {
+      "Name": "gen",
+      "OriginalBeamSha256": "DA61198004C493A12F7F5CFEEC60B696E71407300CB6D83544FF04D9413AACB2"
+    },
+    {
+      "Name": "proc_lib",
+      "OriginalBeamSha256": "D16CF269C1A728428B10A6ECA58912F59249B6B939D825D724AF34C0AE380131"
+    },
+    {
+      "Name": "sys",
+      "OriginalBeamSha256": "1E5724A6AD245B8B9AFF7568DA5126C955FA883F37EE6A9E26B53F5618D84207"
+    },
+    {
+      "Name": "lists",
+      "OriginalBeamSha256": "8941092DC34F0470CD404979E1890DF514D83F2EEB3B0AA8A276553E76471262"
+    },
+    {
+      "Name": "maps",
+      "OriginalBeamSha256": "DCDBAF8551AE63258BDA7BC1415C7DCD2D3310AAA9036A34BD09F24E90966454"
+    },
+    {
+      "Name": "queue",
+      "OriginalBeamSha256": "93DA2CC6E6110DBFA39F512ED2C80A1497BE14B0167CFDF80FBC2CE79D812248"
+    },
+    {
+      "Name": "ets",
+      "OriginalBeamSha256": "7F717621018ABB4DDFADBF7150B9D331676E878A82817D332688EB3320C21A48"
+    },
+    {
+      "Name": "logger",
+      "OriginalBeamSha256": "0BB485CF25897CB092143F8D783EF0DF06DD104BBCE63364ABBD712942FD2E0F"
+    },
+    {
+      "Name": "logger_config",
+      "OriginalBeamSha256": "799755218F6C8EA60C3F8AB448AEAE2F81971684411A489B8422A11598933C0B"
+    },
+    {
+      "Name": "logger_filters",
+      "OriginalBeamSha256": "04F0DD356A31546C22BD037515BF7CCA8814B140D1E6583215F3FC4A6E3DB971"
+    },
+    {
+      "Name": "logger_backend",
+      "OriginalBeamSha256": "5640AF0AFA2F27D470F272FF8EF63DED5C70B128834891CC85DE458950BE59DF"
+    },
+    {
+      "Name": "logger_server",
+      "OriginalBeamSha256": "314B10EE216B2FFEC5BEEE8249D0CA8E29EC35DA182EAEBDAFE8E42E3367D06B"
+    },
+    {
+      "Name": "logger_proxy",
+      "OriginalBeamSha256": "68407E748C8BFAAA28B3288D2479BE87D42D1C5248F4DDE0E1F25582386CA4C2"
+    },
+    {
+      "Name": "proplists",
+      "OriginalBeamSha256": "E77939A89B0ECAB0986CA46DFEDD04DEB4C1FB8ED406BB0568F83523E3A9B5D1"
+    },
+    {
+      "Name": "io_lib",
+      "OriginalBeamSha256": "2C7C6039401447EAB90C103EDDFDFC489F4F8745F56ADCE86FACBC796BC58E04"
+    },
+    {
+      "Name": "io_lib_format",
+      "OriginalBeamSha256": "5F6E24D7EDDBB7266575D78C4E8B7C7196D8DFEA269361939517D68DF6D1A225"
+    },
+    {
+      "Name": "io_lib_pretty",
+      "OriginalBeamSha256": "9CB44F50F59E62E3D7995FC0696BC4121AC34E0163A98CB2A4AF7D039E10C836"
+    },
+    {
+      "Name": "io",
+      "OriginalBeamSha256": "3D6BB9FE8D202FD283376522A8F66E9D09D60D95F2A64235CB0FB4AB4B13FE23"
+    },
+    {
+      "Name": "error_logger",
+      "OriginalBeamSha256": "4DC2BB4B327D535BB630EADCF2EDDDC26B5287B702863B41A60B77F635AD6967"
+    },
+    {
+      "Name": "application",
+      "OriginalBeamSha256": "470E5EB8713718F9484B0AFCBB9DA080BB49E375DF3779E1180A7E7001299AA8"
+    },
+    {
+      "Name": "application_controller",
+      "OriginalBeamSha256": "44B2E26A48A32257FABDD50D1B5799AD1749EE6EF35715975C3CE6FCA2AB6456"
+    },
+    {
+      "Name": "string",
+      "OriginalBeamSha256": "37C66C6A5DF38AE239CA1EEDEDBD2CE2FBC4B8B4F3EB7605E115D0AB73FDA697"
+    },
+    {
+      "Name": "unicode",
+      "OriginalBeamSha256": "2495812294976A34AE904E7709B75348F3DDDF3B950413199867A78E093A4379"
+    },
+    {
+      "Name": "unicode_util",
+      "OriginalBeamSha256": "5CDC886E30216B5DE33B6F4BDC1DEA006EAA3392EC4A83EC90CD7B946B5759FF"
+    },
+    {
+      "Name": "epp",
+      "OriginalBeamSha256": "5DBA7F8AFFDC9FE14A549383B20F658AB59575426E2ABCA94D19062F7C505616"
+    },
+    {
+      "Name": "erl_scan",
+      "OriginalBeamSha256": "14A46F078BFB0F77484D9D76D43E36343D161A0ACF0C8D675D2CB61E158EFDE9"
+    },
+    {
+      "Name": "erl_features",
+      "OriginalBeamSha256": "B1EE6497358FD19FA37A796673E2AF148F27E2848396F16FD139FDCA1364454E"
+    },
+    {
+      "Name": "code",
+      "OriginalBeamSha256": "0493E0BA475921396DC6098A0572CE22203AF6285DDFFA9013819C8A3E88ECD4"
+    },
+    {
+      "Name": "init",
+      "OriginalBeamSha256": "9DFA5F06201DB888A474228153E43FB34B5442DC3538B5C50369372A193B8DF8"
+    },
+    {
+      "Name": "erl_prim_loader",
+      "OriginalBeamSha256": "C014A33CA8C7BFA118ACA6BB96AE638200D8FD8E96EB9129747F25133ED7B7E8"
+    },
+    {
+      "Name": "code_server",
+      "OriginalBeamSha256": "5C82EA136BDDBC5CDC57454AB6ED3ED6125442ED6444FAF519C2D9CFA566ADE7"
+    },
+    {
+      "Name": "prim_file",
+      "OriginalBeamSha256": "6256AAAD081101F0F48BE42BEF3F2DD566BDCFE82308D5E6E7032FF9151E39CE"
+    },
+    {
+      "Name": "filename",
+      "OriginalBeamSha256": "EDD8E22E5E719B30B797A3BBEB3F675DDE0BFAAA690955065AC9F39D1F89F13F"
+    },
+    {
+      "Name": "os",
+      "OriginalBeamSha256": "BA66ABDDA4648BE491B992F42D39DC486B401473B760BF6C0F0816657950F442"
+    },
+    {
+      "Name": "gb_sets",
+      "OriginalBeamSha256": "FEEE25741573E77EDDC07BD98625A2ABCBE7D60722A8619D13A6CE2B59D9CBF7"
+    },
+    {
+      "Name": "gb_trees",
+      "OriginalBeamSha256": "78BAECF006A8639A2076DA71A2C606927D09A26B5C629C9A44B7C4E4F130B026"
+    },
+    {
+      "Name": "file",
+      "OriginalBeamSha256": "FFA402956B4511DCDC9163E83721EF1F6581105F329C1AF50B2A9DDE4FDE4DCD"
+    },
+    {
+      "Name": "gen_statem_port_cases",
+      "OriginalBeamSha256": "7B1F12B8FAE5B76804B2DDA3E7EDA3C2E275C1CFD77F965F889EE5B724BB58A7"
+    },
+    {
+      "Name": "gen_statem_port_second",
+      "OriginalBeamSha256": "0C49CA6EAADE69666DAA5E561F4124384E8FD8828F7205711B02BA7D194720BD"
+    }
+  ],
+  "ManagedSources": {
+    "src/Otp/Managed/Erlang.Otp.Stdlib/Processes/GenStatem/GenStatemDependencyNames.cs": "AC3F461BC63C8E219F33B7ACF6598C5D18BE8788FA3954CB0B9DAF6450F6E51B",
+    "src/Otp/Managed/Erlang.Otp.Stdlib/Processes/GenStatem/GenStatemFunctionNames.cs": "2C7821B9050DFA9C48200E7A1F682FF10A9EC530FC3CEDDC3B5E3FCC78EFB743",
+    "src/Otp/Managed/Erlang.Otp.Stdlib/Processes/GenStatem/GenStatemLog.cs": "146D66B1120A7AD297DA968BA15A77FB32F484B158C4272267954DE7F8756B61",
+    "src/Otp/Managed/Erlang.Otp.Stdlib/Processes/GenStatem/GenStatemLogFormats.cs": "D2C758B853DAFDCE2B07C7BFDB78141B37575F990D9B7E6A6FD060C0DB2683E4",
+    "src/Otp/Managed/Erlang.Otp.Stdlib/Processes/GenStatem/GenStatemMachine.Actions.cs": "58C8AC2EF37860F92BFE2B97317E6AEA8584D1FB91FF7E9796D1D12146AB2B85",
+    "src/Otp/Managed/Erlang.Otp.Stdlib/Processes/GenStatem/GenStatemMachine.System.cs": "7884D3CF63FF33D6F34925206BFE94BBF0D48D3880ECD337B4CD45FD65A2AAD6",
+    "src/Otp/Managed/Erlang.Otp.Stdlib/Processes/GenStatem/GenStatemMachine.Timers.cs": "552FBE2F8D9659CA3F391B0BE45D2A89A1074E884C8A924873234BBB43F2AD45",
+    "src/Otp/Managed/Erlang.Otp.Stdlib/Processes/GenStatem/GenStatemMachine.cs": "BE8A9C116863317553F31B3904C7DCB33A7CAE362628B6343362919FD4376F26",
+    "src/Otp/Managed/Erlang.Otp.Stdlib/Processes/GenStatem/GenStatemModule.cs": "C538EF2083F4EA2AA2FE060FB5440B1870DFD42BC663D0654995F4D8B27F8593",
+    "src/Otp/Managed/Erlang.Otp.Stdlib/Processes/GenStatem/GenStatemProtocolAtoms.cs": "5C41121D5F27FB86D52EF07634545CC97870D39AC5817A13259B5AA5CB65F4C5",
+    "src/Otp/Managed/Erlang.Otp.Stdlib/Processes/GenStatem/GenStatemSource.cs": "241E6CE5787643CE41370EC9C3EBD38B2F1F40903487011D1E1100A978AB718E",
+    "src/Otp/Managed/Erlang.Otp.Stdlib/Processes/GenStatem/GenStatemSourceNames.cs": "BDD7A605DD6D7D805E6B9EE7BFA986B8114DE78792BB6090EB568DC83235910E",
+    "src/Otp/Managed/Erlang.Otp.Stdlib/Processes/GenStatem/GenStatemStatusLabels.cs": "94CAF420993B807E65E7F54B5F2D420A2BF4D14D9978239E30F60FA7FB6EBF52",
+    "src/Otp/Managed/Erlang.Otp.Stdlib/Processes/GenStatem/GenStatemStatusNames.cs": "6E01E92E613FE027C7E3BCC73911EA4A3794FD347B645B2B5B979572CA3EB53A",
+    "src/Otp/Managed/Erlang.Otp.Stdlib/Processes/GenStatem/GenStatemTransition.cs": "7C8AA77806E2C2E3A9AD07DDDE45F25166996299EE41C700EA74E6F9E746C489"
+  },
+  "LoggerPrimaryLevel": "none",
+  "BootSubjectSha256": "CDBAC743B39F689C96EDA0AF007EC954F84D9684B088432FE8C7F4B43E10413F"
+}

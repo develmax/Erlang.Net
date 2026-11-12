@@ -1,0 +1,71 @@
+[Reference, Generated] = [filename:absname(Path) || Path <- init:get_plain_arguments()],
+Opcode = fun
+    ({test, Name, _, _}) -> {test, Name};
+    ({bif, Name, _, _, _}) -> {bif, Name};
+    ({gc_bif, Name, _, _, _, _}) -> {gc_bif, Name};
+    (Instruction) when is_atom(Instruction) -> Instruction;
+    (Instruction) -> element(1, Instruction)
+end,
+Functions = fun(Disassembly) ->
+    maps:from_list([{{Name, Arity}, [Op || I <- Instructions,
+        Op <- [Opcode(I)], Op =/= label, Op =/= line, Op =/= func_info]}
+        || {function, Name, Arity, _, Instructions} <- Disassembly])
+end,
+FirstDifference = fun
+    Find([Op | Left], [Op | Right]) -> Find(Left, Right);
+    Find([Left | _], [Right | _]) -> {Left, Right};
+    Find([], []) -> same;
+    Find([], [Right | _]) -> {instruction_end, Right};
+    Find([Left | _], []) -> {Left, instruction_end}
+end,
+Add = fun(Difference, Path, Function, Groups) ->
+    maps:update_with(Difference,
+        fun(Modules) -> maps:update_with(Path, fun(Example) -> min(Example, Function) end, Function, Modules) end,
+        #{Path => Function}, Groups)
+end,
+Files = filelib:fold_files(Generated, "[.]beam$", true, fun(Path, Acc) -> [Path | Acc] end, []),
+{Groups, Unreadable, SameOpcodes} = lists:foldl(fun(Path, {Acc, Errors, Same}) ->
+    Relative = lists:nthtail(length(filename:split(Generated)), filename:split(Path)),
+    Original = filename:join([Reference | Relative]),
+    Name = filename:join(Relative),
+    case {catch beam_disasm:file(Original), catch beam_disasm:file(Path)} of
+        {{beam_file, Module, _, _, _, Left}, {beam_file, Module, _, _, _, Right}} ->
+            Expected = Functions(Left),
+            Actual = Functions(Right),
+            Differences = [{Function, case maps:find(Function, Actual) of
+                {ok, Ops} -> FirstDifference(ReferenceOps, Ops);
+                error -> missing_function
+            end} || {Function, ReferenceOps} <- maps:to_list(Expected)]
+                ++ [{Function, extra_function} || Function <- maps:keys(Actual), not maps:is_key(Function, Expected)],
+            Changes = [{Function, Difference} || {Function, Difference} <- Differences, Difference =/= same],
+            Updated = lists:foldl(fun({Function, Difference}, Current) ->
+                Add(Difference, Name, Function, Current)
+            end, Acc, Changes),
+            {Updated, Errors, Same + case Changes of [] -> 1; _ -> 0 end};
+        _ ->
+            {Acc, [Name | Errors], Same}
+    end
+end, {#{}, [], 0}, Files),
+Target = maps:get({{test,is_nonempty_list},allocate}, Groups),
+lists:foreach(fun({Path, _}) ->
+    Original = filename:join(Reference, Path),
+    Candidate = filename:join(Generated, Path),
+    {beam_file, _, _, _, _, OFs} = beam_disasm:file(Original),
+    {beam_file, _, _, _, _, CFs} = beam_disasm:file(Candidate),
+    Actual = Functions(CFs),
+    lists:foreach(fun({function,N,A,_,Is}) ->
+        Ops = [Op || I <- Is, Op <- [Opcode(I)], Op =/= label, Op =/= line, Op =/= func_info],
+        case maps:find({N,A},Actual) of
+            {ok, G} ->
+                case FirstDifference(Ops,G) of
+                    {{test,is_nonempty_list},allocate} ->
+                        Split = fun F([H|L],[H|R], Count) -> F(L,R,Count+1); F(L,R,Count) -> {L,R,Count} end,
+                        {L,_,Count} = Split(Ops,G,0),
+                        io:format("~ts\t~w\t~B\t~B\t~w~n",[Path,N,A,Count,lists:sublist(L,5)]);
+                    _ -> ok
+                end;
+            error -> ok
+        end
+    end,OFs)
+end,lists:sort(maps:to_list(Target))),
+halt().

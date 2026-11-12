@@ -1,0 +1,9 @@
+M='ELDAPv3',P="artifacts/beam-backend/part718-eldap/ELDAPv3.release-profile.beam",
+Records=[{'Control',"1.2",asn1_DEFAULT,asn1_NOVALUE},{'Control',"1.2",false,asn1_NOVALUE},{'Control',"1.2",true,"payload"},{'SaslCredentials',"PLAIN",asn1_NOVALUE},{'SaslCredentials',"PLAIN",<<1,2>>},{'MatchingRuleAssertion',asn1_NOVALUE,asn1_NOVALUE,"v",asn1_DEFAULT},{'MatchingRuleAssertion',"rule","attr","v",true},{'ModifyDNRequest',"dn","rdn",true,asn1_NOVALUE},{'ModifyDNRequest',"dn","rdn",false,"parent"},{'ExtendedRequest',"1.2",asn1_NOVALUE},{'ExtendedRequest',"1.2","value"},{'IntermediateResponse',asn1_NOVALUE,asn1_NOVALUE},{'IntermediateResponse',"1.2","value"},{'PasswdModifyRequestValue',asn1_NOVALUE,asn1_NOVALUE,asn1_NOVALUE},{'PasswdModifyRequestValue',"user","old","new"},{'PasswdModifyResponseValue',asn1_NOVALUE},{'PasswdModifyResponseValue',"new"}],
+Cases=[{list_to_atom("enc_"++atom_to_list(element(1,R))),[R,T]}||R<-Records,T<-[[],[<<48>>],[<<160>>]]],
+Run=fun()->[try apply(M,F,A) of {V,L} when is_integer(L)->{iolist_to_binary(V),L}; V->V catch C:R->{C,R} end||{F,A}<-Cases] end,
+Round=fun()->[begin N=element(1,R),{ok,B}=M:encode(N,R),{B,M:decode(N,B)} end||R<-Records] end,
+E=Run(),ER=Round(),code:purge(M),code:delete(M),{ok,B}=file:read_file(P),{module,M}=code:load_binary(M,P,B),A=Run(),AR=Round(),
+D=[{I,X,Y}||{I,X,Y}<-lists:zip3(Cases,E,A),X=/=Y],DR=[{R,X,Y}||{R,X,Y}<-lists:zip3(Records,ER,AR),X=/=Y],
+io:format("~p direct calls, ~p round trips, ~p differences~n",[length(Cases),length(Records),length(D)+length(DR)]),
+case D++DR of []->halt();[H|_]->io:format("~p~n",[H]),halt(1) end.

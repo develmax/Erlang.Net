@@ -1,0 +1,24 @@
+Dir = "artifacts/beam-backend/part854-images",
+Module = beam_tuple_projection_probe,
+Name = atom_to_list(Module) ++ ".beam",
+Run = fun(File) ->
+    code:purge(Module), code:delete(Module),
+    {ok,Bytes} = file:read_file(File),
+    {module,Module} = code:load_binary(Module,File,Bytes),
+    [] = Module:project([]),
+    [{dns_id,a},{dns_id,b},{dns_id,a}] = Module:project([a,b,a]),
+    {ok,7,8,9} = Module:split([],7,8,9),
+    {ok,3,2,4} = Module:split([{recv_cnt,1},{send_cnt,2},{recv_cnt,3},{send_pend,4}],0,0,0),
+    ProjectFailure = try Module:project([a|tail]) of
+         Value -> error({unexpected_result,Value})
+     catch error:{bad_generator,tail}:Frames -> Frames end,
+    SplitFailures = [try Module:split(Input,7,8,9) of
+         Value2 -> error({unexpected_result,Value2})
+     catch error:function_clause:Frames2 -> Frames2 end
+     || Input <- [tail,[unknown],[{unknown,4}],[{recv_cnt,1}|tail]]],
+    {ProjectFailure,SplitFailures}
+end,
+Otp = Run(filename:join([Dir,"fixture","lib","probe","ebin",Name])),
+Otp = Run(filename:join(Dir,Name)),
+erlang:display({Module,equal}),
+halt().

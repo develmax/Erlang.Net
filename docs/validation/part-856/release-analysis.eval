@@ -1,0 +1,34 @@
+Module = inet_epmd_tls_socket,
+File = "artifacts/beam-backend/part856-images/inet_epmd_tls_socket.beam",
+Reference = code:which(Module),
+{ok,Bytes} = file:read_file(File),
+{module,Module} = code:load_binary(Module,File,Bytes),
+Ref = beam_disasm:file(Reference),
+Actual = beam_disasm:file(File),
+Normalize = fun N({f,_}) -> branch;
+                N({label,_}) -> label;
+                N({line,_}) -> line;
+                N({make_fun3,F,_,_,Dest,Captures}) -> {make_fun3,F,Dest,N(Captures)};
+                N(T) when is_tuple(T) -> list_to_tuple([N(E) || E <- tuple_to_list(T)]);
+                N(L) when is_list(L) -> [N(E) || E <- L];
+                N(E) -> E
+            end,
+FunctionMap = fun(Disasm) ->
+    maps:from_list([{{Name,Arity},Normalize(Instructions)} ||
+        {function,Name,Arity,_,Instructions} <- element(6,Disasm)])
+end,
+RefFunctions = FunctionMap(Ref),
+ActualFunctions = FunctionMap(Actual),
+RefKeys = lists:sort(maps:keys(RefFunctions)),
+ActualKeys = lists:sort(maps:keys(ActualFunctions)),
+SameKeys = ordsets:intersection(RefKeys,ActualKeys),
+Different = [K || K <- SameKeys, maps:get(K,RefFunctions) =/= maps:get(K,ActualFunctions)],
+io:format("~tp~n",[[{loaded,Module},{reference_functions,length(RefKeys)},
+                   {generated_functions,length(ActualKeys)},
+                   {reference_only,ordsets:subtract(RefKeys,ActualKeys)},
+                   {generated_only,ordsets:subtract(ActualKeys,RefKeys)},
+                   {different_normalized,Different}]]),
+halt().
+
+
+

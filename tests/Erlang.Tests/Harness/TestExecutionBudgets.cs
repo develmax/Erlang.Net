@@ -4,6 +4,8 @@ internal static class TestExecutionBudgets
 {
     internal static TimeSpan For(string name) => name switch
     {
+        DetsBackendChecks.ManagedTest or DetsBackendChecks.OriginalTest
+            or DetsBackendChecks.ManagedSuiteTest or DetsBackendChecks.OriginalSuiteTest => TimeSpan.FromSeconds(600),
         HaltSubprocessHostNames.Test => TimeSpan.FromSeconds(HaltSubprocessHostNames.OuterHostBudgetSeconds),
         BeamLifecycleHostNames.DeepTest => BeamLifecycleHostNames.Deadline
             + TimeSpan.FromSeconds(TestExecutionBudgetNames.DeepPreparationAndCleanupSeconds),
@@ -14,7 +16,7 @@ internal static class TestExecutionBudgets
         NumericContract487Names.Test => TimeSpan.FromSeconds(NumericContract487Names.BudgetSeconds),
         _ when name.StartsWith(OrdsetsTermContractNames.TestPrefix, StringComparison.Ordinal) => OrdsetsTermContractNames.Deadline
             + TimeSpan.FromSeconds(TestExecutionBudgetNames.FullComparisonPreparationSeconds500),
-        LibraryDependencyOriginalNames.FixedTest => LibraryDependencyOriginalNames.Deadline
+        LibraryDependencyOriginalNames.FixedTest or LibraryDependencyOriginalNames.Os399Test => LibraryDependencyOriginalNames.Deadline
             + RuntimeNodeFoundationHostActorParameters.Deadline
             + TimeSpan.FromSeconds(TestExecutionBudgetNames.FullComparisonPreparationSeconds500),
         TupleContract488Names.Test => BeamOrdsetsCoreHostNames.Deadline + BeamOrdsetsCoreHostNames.Deadline
@@ -22,6 +24,7 @@ internal static class TestExecutionBudgets
         OrdsetsCompatibilityNames.ManagedCase or OrdsetsCompatibilityNames.BeamCase => OrdsetsCompatibilityNames.Deadline
             + OrdsetsCompatibilityNames.Deadline
             + TimeSpan.FromSeconds(TestExecutionBudgetNames.FullComparisonPreparationSeconds500),
+        BeamModuleEmissionChecks.TestName => TimeSpan.FromSeconds(TestExecutionBudgetNames.WholeModuleFixtureComparisonSeconds),
         _ => TimeSpan.FromSeconds(TestExecutionBudgetNames.DefaultSeconds)
     };
 }

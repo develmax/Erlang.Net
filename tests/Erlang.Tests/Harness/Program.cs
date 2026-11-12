@@ -461,6 +461,23 @@ catch (ArgumentException failure)
 
 
 var tests = new List<(string Name, Func<Task> Body)>();
+Test(Erlang.Tests.CodeBackendNames.Managed, () => Erlang.Tests.CodeBackendChecks.Run(true));
+Test(Erlang.Tests.CodeBackendNames.Beam, () => Erlang.Tests.CodeBackendChecks.Run(false));
+Test(Erlang.Tests.CodeBackendNames.Refusals, Erlang.Tests.CodeBackendChecks.CheckRefusals);
+Test(Erlang.Tests.CodeBackendNames.Native, Erlang.Tests.CodeBackendChecks.CheckNativeProfile);
+Test(Erlang.Tests.UnicodeBackendNames.ManagedTest, () => Erlang.Tests.UnicodeBackendChecks.Run(true));
+Test(Erlang.Tests.UnicodeBackendNames.BeamTest, () => Erlang.Tests.UnicodeBackendChecks.Run(false));
+Test(Erlang.Tests.UnicodeBackendNames.RefusalTest, Erlang.Tests.UnicodeBackendChecks.Refusals);
+Test(Erlang.Tests.DetsBackendChecks.ManagedTest, Erlang.Tests.DetsBackendChecks.Managed);
+Test(Erlang.Tests.DetsBackendChecks.OriginalTest, Erlang.Tests.DetsBackendChecks.Original);
+Test(Erlang.Tests.DetsBackendChecks.ManagedSuiteTest, Erlang.Tests.DetsBackendChecks.ManagedSuite);
+Test(Erlang.Tests.DetsBackendChecks.OriginalSuiteTest, Erlang.Tests.DetsBackendChecks.OriginalSuite);
+Test(Erlang.Tests.DetsMagicLifetimeChecks.Test, Erlang.Tests.DetsMagicLifetimeChecks.Run);
+Test(Erlang.Tests.StringBackendNames.ManagedTest, () => Erlang.Tests.StringBackendChecks.Run(true));
+Test(Erlang.Tests.StringBackendNames.BeamTest, () => Erlang.Tests.StringBackendChecks.Run(false));
+Test(Erlang.Tests.StringBackendNames.RefusalTest, Erlang.Tests.StringBackendChecks.Refusals);
+Test(Erlang.Tests.StringBackendNames.ManagedJaroTest, () => Erlang.Tests.StringBackendChecks.Jaro(true));
+Test(Erlang.Tests.StringBackendNames.BeamJaroTest, () => Erlang.Tests.StringBackendChecks.Jaro(false));
 Test(Erlang.Tests.MathBackendNames.ManagedWhole, Erlang.Tests.LibraryDependencyOriginalHostChecks.MathManagedWhole);
 Test(Erlang.Tests.MathBackendNames.ManagedSelection, Erlang.Tests.MathBackendChecks.ManagedSelection);
 Test(Erlang.Tests.MathLog2OtpNames.Test, Erlang.Tests.MathLog2OtpChecks.Run);
@@ -12141,6 +12158,29 @@ Test(
 }
 
 );
+
+Test(Erlang.Tests.BeamCompactWriterChecks.TestName, Erlang.Tests.BeamCompactWriterChecks.Run);
+
+Test(Erlang.Tests.BeamModuleEmissionChecks.TestName, Erlang.Tests.BeamModuleEmissionChecks.Run);
+Test(Erlang.Tests.BeamModuleEmissionChecks.CallResultBifTestName, Erlang.Tests.BeamModuleEmissionChecks.CompareCallResultBif);
+Test(Erlang.Tests.BeamModuleEmissionChecks.EntryResultCaseTestName, Erlang.Tests.BeamModuleEmissionChecks.CompareEntryResultCase);
+Test(
+    Erlang.Tests.BeamModuleEmissionChecks.AtomTailDispatchTestName,
+    Erlang.Tests.BeamModuleEmissionChecks.CompareAtomTailDispatch
+);
+Test(Erlang.Tests.NamedFunSourceChecks.TestName, Erlang.Tests.NamedFunSourceChecks.Run);
+
+Test(Erlang.Tests.BeamDocumentationSourceChecks.TestName, Erlang.Tests.BeamDocumentationSourceChecks.Run);
+
+Test(Erlang.Tests.BeamDocumentationEmissionChecks.TestName, Erlang.Tests.BeamDocumentationEmissionChecks.Run);
+
+Test(Erlang.Tests.BeamReleaseImageChecks.TestName, Erlang.Tests.BeamReleaseImageChecks.Run);
+
+Test("compiler/source/dynamic-remote-call", async () => Equal(await Eval("begin M=erlang,F=length,M:F([a,b]) end"), Term.I(2)));
+
+Test(Erlang.Tests.BeamTypeSourceChecks.TestName, Erlang.Tests.BeamTypeSourceChecks.Run);
+
+Test(Erlang.Tests.BeamConditionalSourceChecks.TestName, Erlang.Tests.BeamConditionalSourceChecks.Run);
 
 foreach (var fixture in Erlang.Differential.CompiledModuleCases.All.Where(fixture => !Erlang.Differential.SchedulerAffinityCases.Modules.Contains(fixture) && !Erlang.Differential.SizeErrorCases.Modules.Contains(fixture) && !Erlang.Tests.RuntimeIncrementCompiledCases.Names.Contains(fixture.Name)))
 

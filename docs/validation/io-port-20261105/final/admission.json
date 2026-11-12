@@ -1,0 +1,179 @@
+{
+  "Baseline": "OTP-29.1.1",
+  "Commit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "WorkingHead": "20e02eb941ef3b99cb675827ef0f20663da7c04b",
+  "BuildCommand": "dotnet build tools/Validation/Erlang.IoCompatibility/Erlang.IoCompatibility.csproj -m:1 -v:minimal -o artifacts/io-final-run",
+  "BuildUsesExclusions": false,
+  "PrebuildOwnedSourcesUnchanged": true,
+  "OwnedSources": [
+    {
+      "Path": "src/Otp/Managed/Erlang.Otp.Stdlib/Io/IoLibrary.cs",
+      "Sha256": "662BB2AF27E3D443BF3D1A3E53024F8AFE5968BE58D9775D6BA247F27C01485E"
+    },
+    {
+      "Path": "src/Otp/Managed/Erlang.Otp.Stdlib/Io/IoLibraryNames.cs",
+      "Sha256": "BA94BBA428C95A5DC284F0872B3023473264D10BE9424CB3DAB58F997D856CE9"
+    },
+    {
+      "Path": "src/Otp/Managed/Erlang.Otp.Stdlib/Io/IoLibrarySource.cs",
+      "Sha256": "7204597762ECEAC6A6BBB4552BEF26A0B51FB53DEA9B7D32A100CE86C7397381"
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Modules/ModuleRegistry.Io.cs",
+      "Sha256": "317723FBA5EEBE3DFBE0928AF9BDCACC18FF0E6626CF67D1916053DBD17A915C"
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Modules/IoLibraryDependencies.cs",
+      "Sha256": "B196D1207D37897E181C2CBF0AAC323A304270769B00FA142756C0E472E4FD63"
+    },
+    {
+      "Path": "src/Runtime/Erlang.Runtime.Core/Bootstrap/RuntimeBootstrapIoLibrary.cs",
+      "Sha256": "10F644101360F5FD83037A8ED178C2F85426014BC9154AE6FEB4B8ABB5215164"
+    },
+    {
+      "Path": "tools/Validation/Erlang.IoCompatibility/Program.cs",
+      "Sha256": "17F6148EBF6DF6D9E4B5A6083B1704FFDC909E88D48D5BAC46E101334A9F578B"
+    },
+    {
+      "Path": "tools/Validation/Erlang.IoCompatibility/IoCompatibilityNames.cs",
+      "Sha256": "0B74D663BF9FCAD51DDA5DA16E2AFACBD354558F4016941B543F68D7472E129C"
+    }
+  ],
+  "FixtureSources": [
+    {
+      "Path": "tools/Validation/Erlang.IoCompatibility/io_port_cases.erl",
+      "Sha256": "A37B41885CA01EB4DBCA0EF00363504D316693087654434475A0F97DA341BCC9"
+    },
+    {
+      "Path": "tools/Validation/Erlang.IoCompatibility/Reference/io_SUITE.erl",
+      "Sha256": "1FF7ABD04A15017D356B2E75A6CE99065D0630F1B1C82C7C7EDFAA29E66F7784"
+    },
+    {
+      "Path": "tools/validate-io-original.ps1",
+      "Sha256": "F5960B8D39A7107E08E33C116BE475750AED411C89DAA1977B3908A83398F9FC"
+    },
+    {
+      "Path": "tools/Validation/audit-io-source.py",
+      "Sha256": "75888DD67D377849BAE97AD324549661E609404A6201EBCCBC4FC49AC37A59B0"
+    }
+  ],
+  "Assemblies": [
+    {
+      "File": "Erlang.IoCompatibility.dll",
+      "Sha256": "417D3461B8D0C48D7FB08A7A068CF11B525C5C4D401FC1081954EF2A3745F7CA"
+    },
+    {
+      "File": "Erlang.Nif.WindowsVariadic.dll",
+      "Sha256": "E98321094338BA6A833CC287FADB0F2649A0893E8FF98268009E83A316CA4443"
+    },
+    {
+      "File": "Erlang.Otp.Stdlib.dll",
+      "Sha256": "92A6A14E0DDAEE3049894C00E5B5143E55F79C043011E888F2E0BBDDDF030AD2"
+    },
+    {
+      "File": "Erlang.Runtime.dll",
+      "Sha256": "8F2C879797B31EBACAD935192614FB8C586B7A0A92133238741757269F95A09C"
+    },
+    {
+      "File": "Erlang.Serialization.dll",
+      "Sha256": "91B372F73C415E0A2FCC62D619F2203F11C7A90E99A36426854F019C50829229"
+    },
+    {
+      "File": "Erlang.Terms.dll",
+      "Sha256": "D94D306F8512BAAD411AD954C511CDBBC7D79837E38562EE8767636F12D51EE2"
+    }
+  ],
+  "Profiles": [
+    {
+      "Backend": "Managed",
+      "Depth": 8,
+      "Passed": 666,
+      "Total": 666,
+      "Report": "final/depth-8/Managed.json"
+    },
+    {
+      "Backend": "Beam",
+      "Depth": 8,
+      "Passed": 666,
+      "Total": 666,
+      "Report": "final/depth-8/Beam.json"
+    },
+    {
+      "Backend": "Managed",
+      "Depth": 0,
+      "Passed": 666,
+      "Total": 666,
+      "Report": "final/depth-0/Managed.json"
+    },
+    {
+      "Backend": "Beam",
+      "Depth": 0,
+      "Passed": 666,
+      "Total": 666,
+      "Report": "final/depth-0/Beam.json"
+    },
+    {
+      "Backend": "Managed",
+      "Depth": 1,
+      "Passed": 666,
+      "Total": 666,
+      "Report": "final/depth-1/Managed.json"
+    },
+    {
+      "Backend": "Beam",
+      "Depth": 1,
+      "Passed": 666,
+      "Total": 666,
+      "Report": "final/depth-1/Beam.json"
+    },
+    {
+      "Backend": "Managed",
+      "Depth": 2,
+      "Passed": 666,
+      "Total": 666,
+      "Report": "final/depth-2/Managed.json"
+    },
+    {
+      "Backend": "Beam",
+      "Depth": 2,
+      "Passed": 666,
+      "Total": 666,
+      "Report": "final/depth-2/Beam.json"
+    },
+    {
+      "Backend": "Managed",
+      "Depth": 3,
+      "Passed": 666,
+      "Total": 666,
+      "Report": "final/depth-3/Managed.json"
+    },
+    {
+      "Backend": "Beam",
+      "Depth": 3,
+      "Passed": 666,
+      "Total": 666,
+      "Report": "final/depth-3/Beam.json"
+    },
+    {
+      "Backend": "Managed",
+      "Depth": 32,
+      "Passed": 666,
+      "Total": 666,
+      "Report": "final/depth-32/Managed.json"
+    },
+    {
+      "Backend": "Beam",
+      "Depth": 32,
+      "Passed": 666,
+      "Total": 666,
+      "Report": "final/depth-32/Beam.json"
+    }
+  ],
+  "TotalComparedObservations": 7992,
+  "CorruptedCorpusRejected": true,
+  "FullRegressionRun": false,
+  "CanonicalReadinessRegenerated": false,
+  "WholeReleaseManifestStartupVerified": false,
+  "UniversalCompatibilityClaim": false,
+  "Context": "Pre-existing shared dirty checkout; own prebuild source bytes and loaded assemblies are bound above. This is focused Windows library acceptance, not a frozen whole-repository snapshot or hosted CI."
+}

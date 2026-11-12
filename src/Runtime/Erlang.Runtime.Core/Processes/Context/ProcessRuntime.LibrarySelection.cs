@@ -62,6 +62,79 @@ public sealed partial class ProcessRuntime
             setup = runtime.InitializeModulesAsync(registry =>
             {
                 RuntimeNativePrimitiveProviders.Register(runtime, registry, options.NativePrimitives);
+                if (libraries.Modules.Any(choice => choice.Module == LoggerLibraryNames.Module && choice.Backend == RuntimeModuleBackend.Managed))
+                {
+                    RuntimeManagedLibraries456.Register(registry, RuntimeManagedLibraryStage456.Logger);
+                }
+                if (libraries.Modules.Any(choice => choice.Module == RpcLibraryModuleNames.Module && choice.Backend == RuntimeModuleBackend.Managed))
+                {
+                    RuntimeManagedLibraries456.Register(registry, RuntimeManagedLibraryStage456.Rpc);
+                }
+                if (libraries.Modules.Any(choice => choice.Module == ApplicationLibraryNames.Module && choice.Backend == RuntimeModuleBackend.Managed))
+                {
+                    RuntimeManagedLibraries456.Register(registry, RuntimeManagedLibraryStage456.Application);
+                }
+                if (libraries.Modules.Any(choice => choice.Module == ErrorLoggerLibraryNames.Module && choice.Backend == RuntimeModuleBackend.Managed))
+                {
+                    registry.InstallManagedErrorLoggerPrimitive();
+                    RuntimeManagedLibraries456.Register(registry, RuntimeManagedLibraryStage456.ErrorLogger);
+                }
+                RuntimeModuleSelection? internalChoice = libraries.Modules.SingleOrDefault(choice => choice.Module == ErtsInternalContract.Module);
+                if (internalChoice is not null)
+                {
+                    registry.InstallErtsInternalLibrary(internalChoice.Backend == RuntimeModuleBackend.Managed);
+                }
+                if (libraries.Modules.Any(choice => choice.Module == IoModuleNames.Module && choice.Backend == RuntimeModuleBackend.Managed))
+                {
+                    registry.InstallManagedIoPrimitive();
+                    RuntimeManagedLibraries456.Register(registry, RuntimeManagedLibraryStage456.Io);
+                }
+                if (libraries.Modules.Any(choice => choice.Module == DetsLibraryModuleNames.Module && choice.Backend == RuntimeModuleBackend.Managed))
+                {
+                    RuntimeManagedLibraries456.Register(registry, RuntimeManagedLibraryStage456.Dets);
+                }
+                if (libraries.Modules.Any(choice => choice.Module == InterpreterCodeNativeNames.Module && choice.Backend == RuntimeModuleBackend.Managed))
+                {
+                    RuntimeManagedLibraries456.Register(registry, RuntimeManagedLibraryStage456.Code);
+                }
+                if (libraries.Modules.Any(choice => choice.Module == RuntimeEtsFacetNames407.Module))
+                {
+                    RuntimeBootstrapEtsLibrary.Register(runtime, registry);
+                    if (libraries.Modules.Any(choice => choice.Module == RuntimeEtsFacetNames407.Module && choice.Backend == RuntimeModuleBackend.Managed))
+                    {
+                        RuntimeManagedLibraries456.Register(registry, RuntimeManagedLibraryStage456.Ets);
+                    }
+                }
+                if (libraries.Modules.Any(choice => choice.Module == FileNameEncodingNames.Module && choice.Backend == RuntimeModuleBackend.Managed))
+                {
+                    registry.InstallManagedFilePrimitive();
+                    RuntimeManagedLibraries456.Register(registry, RuntimeManagedLibraryStage456.File);
+                }
+                if (libraries.Modules.Any(choice => choice.Module == TimerLibraryModuleNames.Module && choice.Backend == RuntimeModuleBackend.Managed))
+                {
+                    RuntimeManagedLibraries456.Register(registry, RuntimeManagedLibraryStage456.Timer);
+                }
+                if (libraries.Modules.Any(choice => choice.Module == UnicodeNativeNames.Module && choice.Backend == RuntimeModuleBackend.Managed))
+                {
+                    registry.InstallManagedUnicodePrimitives();
+                    RuntimeManagedLibraries456.Register(registry, RuntimeManagedLibraryStage456.Unicode);
+                }
+                if (libraries.Modules.Any(choice => choice.Module == StringFloatNativeNames.Module && choice.Backend == RuntimeModuleBackend.Managed))
+                    RuntimeManagedLibraries456.Register(registry, RuntimeManagedLibraryStage456.String);
+                if (libraries.Modules.Any(choice => choice.Module == GenEventLibraryModuleNames.Module && choice.Backend == RuntimeModuleBackend.Managed))
+                    RuntimeManagedLibraries456.Register(registry, RuntimeManagedLibraryStage456.GenEvent);
+                if (libraries.Modules.Any(choice => choice.Module == LibrarySelectionNames.GenStatem && choice.Backend == RuntimeModuleBackend.Managed))
+                    RuntimeManagedLibraries456.Register(registry, RuntimeManagedLibraryStage456.GenStatem);
+                if (libraries.Modules.Any(choice => choice.Module == SupervisorLibraryNames.Module && choice.Backend == RuntimeModuleBackend.Managed))
+                    RuntimeManagedLibraries456.Register(registry, RuntimeManagedLibraryStage456.Supervisor);
+                if (libraries.Modules.Any(choice => choice.Module == SysLibraryNames.Module && choice.Backend == RuntimeModuleBackend.Managed))
+                    RuntimeManagedLibraries456.Register(registry, RuntimeManagedLibraryStage456.Sys);
+                if (libraries.Modules.Any(choice => choice.Module == ErpcLibraryModuleNames.Module && choice.Backend == RuntimeModuleBackend.Managed))
+                {
+                    RuntimeManagedLibraries456.Register(registry, RuntimeManagedLibraryStage456.Erpc);
+                }
+                if (libraries.Modules.Any(choice => choice.Module == GenServerLibraryNames.Module && choice.Backend == RuntimeModuleBackend.Managed))
+                    RuntimeManagedLibraries456.Register(registry, RuntimeManagedLibraryStage456.GenServer);
                 if (options.BootstrapFileSystem)
                     RuntimeBootstrapFileSystem.Register(runtime, registry);
                 observer?.Invoke(LibraryStartupObservationNames.SetupBeforePrepare, runtime, null);

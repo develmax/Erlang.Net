@@ -1,0 +1,20 @@
+Root = code:lib_dir(ssl),
+Original = filename:join([Root,"doc","examples","ebin","client_server.beam"]),
+Before = "artifacts/beam-backend/part748-images/client_server.beam",
+After = "artifacts/beam-backend/part749-images/client_server.beam",
+Inspect = fun(Path) ->
+    {beam_file,_,_,_,_,Code} = beam_disasm:file(Path),
+    {function,start,0,_,Start} = lists:keyfind(start,2,Code),
+    HasFunLiteral = lists:any(fun
+        ({move,{literal,Fun},_}) -> Fun =:= fun application:stop/1;
+        (_) -> false
+    end, Start),
+    {length(Start),HasFunLiteral}
+end,
+[{191,false},{188,true},{118,true}] = Results = [Inspect(P) || P <- [Before,After,Original]],
+io:format("start_instructions_and_external_literal=~p~n",[Results]),
+{ok,_,GeneratedChunks} = beam_lib:all_chunks(After),
+{ok,_,ReleaseChunks} = beam_lib:all_chunks(Original),
+io:format("different_chunks=~p~n",[[Name || {Name,Bytes} <- GeneratedChunks,
+    lists:keyfind(Name,1,ReleaseChunks) =/= {Name,Bytes}]]),
+halt().

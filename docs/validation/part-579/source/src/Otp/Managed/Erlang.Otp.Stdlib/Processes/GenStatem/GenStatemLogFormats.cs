@@ -1,0 +1,54 @@
+namespace Erlang;
+
+internal static class GenStatemLogFormats
+{
+    internal const string Value = "~";
+    internal const string Value0 = "0";
+    internal const string T = "t";
+    internal const string P = "P";
+    internal const string P2 = "p";
+    internal const string TerminatingN = " terminating~n";
+    internal const string N = "~n";
+    internal const string StacktraceN = "** Stacktrace =~n**  ";
+    internal const string LogN = "** Log =~n**  ";
+    internal const string Client0pIsDead = " Client ~0p is dead.";
+    internal const string ClientPIsDeadN = "** Client ~p is dead~n";
+    internal const string Client0pIsRemoteOnNode0p = " Client ~0p is remote on node ~0p.";
+    internal const string ClientPIsRemoteOnNodePN = "** Client ~p is remote on node ~p~n";
+    internal const string Value2 = ".";
+    internal const string StacktraceN2 = " stacktrace~n** ";
+    internal const string DBGTpReceiveTsInStateTpN = "*DBG* ~tp receive ~ts in state ~tp~n";
+    internal const string DBGTpSendTpToTwN = "*DBG* ~tp send ~tp to ~tw~n";
+    internal const string DBGTpEnterTpInStateTpN = "*DBG* ~tp enter ~tp in state ~tp~n";
+    internal const string DBGTpModuleTpInStateTpN = "*DBG* ~tp module ~tp in state ~tp~n";
+    internal const string DBGTpStartTimerTpInStateTpN = "*DBG* ~tp start_timer ~tp in state ~tp~n";
+    internal const string DBGTpInsertTimeoutTpInStateTpN = "*DBG* ~tp insert_timeout ~tp in state ~tp~n";
+    internal const string DBGTpTerminateTpInStateTpN = "*DBG* ~tp terminate ~tp in state ~tp~n";
+    internal const string Tp = "~tp";
+    internal const string TpTp = "~tp => ~tp";
+    internal const string DBGTpTwTsInStateTsN = "*DBG* ~tp ~tw ~ts in state ~ts~n";
+    internal const string CallTpFromTw = "call ~tp from ~tw";
+    internal const string TwTp = "~tw ~tp";
+    internal const string SingleMachinePrefix = "State machine ";
+    internal const string TerminatingSuffix = " terminating";
+    internal const string SingleLabelPrefix = ". Label: ";
+    internal const string SingleReasonPrefix = ". Reason: ";
+    internal const string SingleStackPrefix = ". Stack: ";
+    internal const string SingleLastEventPrefix = ". Last event: ";
+    internal const string SingleStatePrefix = ". State: ";
+    internal const string SingleLogPrefix = ". Log: ";
+    internal const string MultiMachinePrefix = "** State machine ";
+    internal const string MultiLabelPrefix = "** Process label = ";
+    internal const string MultiLastEventPrefix = "** Last event = ";
+    internal const string MultiStatePrefix = "** When server state  = ";
+    internal const string MultiReasonPrefix = "** Reason for termination = ";
+    internal const string ReasonSeparator = ":";
+    internal const string MultiModulesPrefix = "** Callback modules = ";
+    internal const string MultiModePrefix = "** Callback mode = ";
+    internal const string MultiQueuePrefix = "** Queued = ";
+    internal const string MultiPostponedPrefix = "** Postponed = ";
+    internal const string MultiTimeoutsPrefix = "** Time-outs: ";
+    internal const string SingleClientPrefix = " Client ";
+    internal const string SingleClientStackPrefix = " stacktrace: ";
+    internal const string MultiClientPrefix = "** Client ";
+}

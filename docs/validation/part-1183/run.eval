@@ -1,0 +1,13 @@
+[Path] = init:get_plain_arguments(),
+{ok, Binary} = file:read_file(Path),
+{module, dead_clause_input_probe} = code:load_binary(dead_clause_input_probe, Path, Binary),
+{undefined,value} = dead_clause_input_probe:read(a,ignored,value),
+{fallback,value} = dead_clause_input_probe:read(b,ignored,other),
+{matched,undefined} = dead_clause_input_probe:preserve({key},key,ignored),
+{fallback,wrong} = dead_clause_input_probe:preserve({key},wrong,ignored),
+{fallback,42} = dead_clause_input_probe:preserve({42},42,ignored),
+other = get(dead_clause_input),
+key = get(dead_clause_key),
+{beam_file,_,_,_,_,Functions} = beam_disasm:file(Path),
+[io:format("~p~n",[F]) || F = {function,N,3,_,_} <- Functions, lists:member(N,[read,preserve])],
+halt().

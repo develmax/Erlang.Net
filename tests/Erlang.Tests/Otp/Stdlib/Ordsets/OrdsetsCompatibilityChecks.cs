@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using System.Security.Cryptography;
 using System.Text.Json;
 
@@ -75,6 +76,7 @@ internal static class OrdsetsCompatibilityChecks
         };
         Term[] inputs = Cons.Items(ExternalTermFormat.DecodeOne(Read(OrdsetsCompatibilityNames.Inputs), decoding).Term).ToArray();
         var completed = new TaskCompletionSource<byte[]>(TaskCreationOptions.RunContinuationsAsynchronously);
+        long lastProgress = Stopwatch.GetTimestamp();
         ProcessHandle actor = runtime.Spawn(async context =>
         {
             try
@@ -97,6 +99,7 @@ internal static class OrdsetsCompatibilityChecks
                         FunctionOwner = runtime.InitializationPid,
                         Deterministic = true
                     }));
+                    Volatile.Write(ref lastProgress, Stopwatch.GetTimestamp());
                 }
                 completed.TrySetResult(OrdsetsEncodedCorpus.Combine(encodedBatches, inputs.Length));
             }
@@ -110,7 +113,22 @@ internal static class OrdsetsCompatibilityChecks
         Task finished;
         try
         {
-            finished = await Task.WhenAny(completed.Task, actor.Completion).WaitAsync(OrdsetsCompatibilityNames.Deadline);
+            Task<Task> completion = Task.WhenAny(completed.Task, actor.Completion);
+            while (true)
+            {
+                long observed = Volatile.Read(ref lastProgress);
+                TimeSpan remaining = OrdsetsCompatibilityNames.Deadline - Stopwatch.GetElapsedTime(observed);
+                try
+                {
+                    finished = await completion.WaitAsync(remaining > TimeSpan.Zero ? remaining : TimeSpan.Zero);
+                    break;
+                }
+                catch (TimeoutException) when (Volatile.Read(ref lastProgress) != observed)
+                {
+                    // A completed, fully encoded batch renews the idle deadline.
+                    // The harness's independent whole-test budget is unchanged.
+                }
+            }
         }
         catch (TimeoutException)
         {

@@ -1,0 +1,18 @@
+Path = "tests/Erlang.Tests/Resources/Beam/beam_file_directive_probe.erl",
+{ok,beam_file_directive_probe,Expected} = compile:file(Path,[binary,deterministic]),
+{ok,Expected} = file:read_file("artifacts/beam-backend/part760-probe.beam"),
+{module,beam_file_directive_probe} = code:load_binary(beam_file_directive_probe,Path,Expected),
+{"beam_file_directive_probe.erl",4} = beam_file_directive_probe:before(),
+{"grammar.yrl",201} = beam_file_directive_probe:mapped(),
+{"grammar.yrl",400} = beam_file_directive_probe:same_line(),
+{"beam_file_directive_probe.erl",21} = beam_file_directive_probe:after_map(),
+{ok,beam_file_directive_probe,DebugExpected} = compile:file(Path,[binary,deterministic,debug_info]),
+ReadForms = fun(Image) ->
+    {ok,{_,[{abstract_code,{raw_abstract_v1,Forms}}]}} = beam_lib:chunks(Image,[abstract_code]),
+    Forms
+end,
+Forms = ReadForms(DebugExpected),
+Forms = ReadForms("artifacts/beam-backend/part760-debug.beam"),
+io:format("whole_image_equal=true bytes=~p abstract_forms_equal=~p macro_lines=[4,201,400,21]~n",
+    [byte_size(Expected),length(Forms)]),
+halt().

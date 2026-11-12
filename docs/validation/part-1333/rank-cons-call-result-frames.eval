@@ -1,0 +1,36 @@
+[Reference,Generated] = [filename:absname(P) || P <- init:get_plain_arguments()],
+Files = filelib:fold_files(Generated, "[.]beam$", true, fun(P,Acc) -> [P|Acc] end, []),
+Read = fun(P) ->
+    {beam_file,_,_,_,_,Functions} = beam_disasm:file(P),
+    maps:from_list([{{Name,Arity},Instructions}
+                    || {function,Name,Arity,_,Instructions} <- Functions])
+end,
+Frame = fun(Instructions) ->
+    case [Slots || {allocate,Slots,_} <- Instructions] of
+        [Slots|_] -> Slots;
+        [] -> 0
+    end
+end,
+Rows = lists:filtermap(fun(P) ->
+    Relative = lists:nthtail(length(filename:split(Generated)), filename:split(P)),
+    OTP = Read(filename:join([Reference|Relative])),
+    Actual = Read(P),
+    Candidates = [{Key,Frame(Is),Frame(GeneratedIs)}
+                  || {Key,Is} <- maps:to_list(OTP),
+                     [{test,is_nonempty_list,_,_}|_] <- [lists:nthtail(4,Is)],
+                     [_|_] <- [lists:dropwhile(fun(I) ->
+                         not (is_tuple(I) andalso lists:member(element(1,I),[call,call_ext]))
+                     end,Is)],
+                     [_|_] <- [[I || I={put_list,_,{x,0},{x,0}} <- Is]],
+                     {ok,GeneratedIs} <- [maps:find(Key,Actual)],
+                     Frame(Is) < Frame(GeneratedIs)],
+    case Candidates of
+        [] -> false;
+        _ -> {true,{length(Candidates),filename:join(Relative),lists:sort(Candidates)}}
+    end
+end,Files),
+io:format("~p modules, ~p functions with a cons entry, a call, a put_list using X0 as the tail and a smaller OTP frame.~n",
+    [length(Rows),lists:sum([N || {N,_,_} <- Rows])]),
+lists:foreach(fun({N,P,C}) -> io:format("~p ~s ~p~n",[N,P,lists:sublist(C,5)]) end,
+    lists:sublist(lists:reverse(lists:sort(Rows)),20)),
+halt().

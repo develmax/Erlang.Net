@@ -1,0 +1,50 @@
+%% Line 322
+( fun (_0,_1) ->
+      ( case <_0,_1> of
+	  <File,Options0>
+	      when call 'erlang':'is_list'
+		    (Options0) ->
+	      %% Line 323
+	      try
+		  apply 'translate_options'/1
+		      (Options0)
+	      of <_2> ->
+		  let <Options2> =
+		      apply %% Line 325
+			    'includes'/2
+			  (%% Line 325
+			   File, _2)
+		  in  let <Includes> =
+			  apply %% Line 326
+				'strip_includes'/1
+			      (%% Line 326
+			       Options2)
+		      in  let <_5> =
+			      fun () ->
+				  %% Line 327
+				  apply 'compile_proc'/3
+				      (File, Includes, Options2)
+			  in  %% Line 327
+			      apply 'in_process'/1
+				  (_5)
+	      catch <_9,_8,_7> ->
+		  %% Line 328
+		  case <_9,_8,_7> of
+		    <( 'throw'
+		       -| ['compiler_generated'] ),Error,_12> when 'true' ->
+			%% Line 329
+			Error
+		    ( <_14,_15,_16> when 'true' ->
+			  primop 'raise'
+			      (_16, _15)
+		      -| ['compiler_generated'] )
+		  end
+	  ( <_11,_10> when 'true' ->
+		( primop 'match_fail'
+		      (( {'function_clause',_11,_10}
+			 -| [{'function',{'compile',2}}] ))
+		  -| [{'function',{'compile',2}}] )
+	    -| ['compiler_generated'] )
+	end
+	-| [{'function',{'compile',2}}] )
+  -| [{'function',{'compile',2}}] )

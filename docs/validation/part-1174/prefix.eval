@@ -1,0 +1,28 @@
+[Ref, Before, After] = init:get_plain_arguments(),
+Op = fun({test,N,_,_}) -> {test,N};
+        (I) when is_tuple(I) -> element(1,I);
+        (I) -> I end,
+Read = fun(Root, Rel) ->
+    {beam_file,_,_,_,_,Fs} = beam_disasm:file(filename:join(Root,Rel)),
+    maps:from_list([{{N,A}, [O || I <- Is, O <- [Op(I)], not lists:member(O,[label,line,func_info])]} ||
+                    {function,N,A,_,Is} <- Fs])
+end,
+Prefix = fun Count([I|R],[I|G],N) -> Count(R,G,N+1); Count(_,_,N) -> N end,
+Parts = length(filename:split(Before)),
+Changes = filelib:fold_files(Before, "[.]beam$", true, fun(Path,Acc) ->
+    Rel=filename:join(lists:nthtail(Parts,filename:split(Path))),
+    Expected=Read(Ref,Rel),
+    Old=Read(Before,Rel),
+    New=case filelib:is_regular(filename:join(After,Rel)) of true -> Read(After,Rel); false -> Expected end,
+    Differences=[case {Prefix(E,O,0),Prefix(E,N,0)} of
+        {P,Q} when P<Q -> improved;
+        {P,Q} when P>Q -> worsened;
+        _ -> unchanged
+        end || {F,E} <- maps:to_list(Expected), {ok,O} <- [maps:find(F,Old)],
+               {ok,N} <- [maps:find(F,New)], O =/= N],
+    lists:foldl(fun(Key,M) -> maps:update_with(Key, fun({Fs,Images}) -> {Fs+1,Images#{Rel=>true}} end,
+        {1,#{Rel=>true}},M) end,Acc,Differences)
+end,#{ }),
+io:format("Changed functions by leading opcode agreement {functions,images}: ~p~n",
+    [maps:map(fun(_, {Fs,Images}) -> {Fs,map_size(Images)} end, Changes)]),
+halt().

@@ -1,0 +1,29 @@
+asn1ct.beam
+[{line,[{location,"asn1ct.erl",761}]},
+ {func_info,{atom,asn1ct},{atom,compare_defs2},2},
+ {test,is_eq_exact,{f,153},[{x,1},{x,0}]},
+ {move,{atom,equal},{x,0}},
+ return,
+ {move,{atom,not_equal},{x,0}},
+ return]
+asn1ct.beam
+[{line,[{location,"asn1ct.erl",761}]},
+ {func_info,{atom,asn1ct},{atom,compare_defs2},2},
+ {allocate,2,2},
+ {move,{x,0},{y,0}},
+ {move,{x,1},{y,1}},
+ {test,is_eq_exact,{f,258},[{y,1},{y,0}]},
+ {move,{atom,equal},{x,0}},
+ {deallocate,2},
+ return,
+ {move,{atom,not_equal},{x,0}},
+ {deallocate,2},
+ return]
+part1305-asn1ct.beam
+[{line,[{location,"asn1ct.erl",761}]},
+ {func_info,{atom,asn1ct},{atom,compare_defs2},2},
+ {test,is_eq_exact,{f,258},[{x,1},{x,0}]},
+ {move,{atom,equal},{x,0}},
+ return,
+ {move,{atom,not_equal},{x,0}},
+ return]

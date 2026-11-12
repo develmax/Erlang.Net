@@ -1,0 +1,17 @@
+{end_of_table,1} exact after label normalization
+[{label,1},
+ {line,[{location,"ex1.erl",156}]},
+ {func_info,{atom,ex1},{atom,end_of_table},1},
+ {label,2},
+ {test,is_nonempty_list,{f,3},[{x,0}]},
+ {allocate,0,1},
+ {get_tl,{x,0},{x,0}},
+ {line,[{location,"ex1.erl",157}]},
+ {call,1,{ex1,end_of_table,1}},
+ {test_heap,2,1},
+ {put_list,{atom,endOfTable},{x,0},{x,0}},
+ {deallocate,0},
+ return,
+ {label,3},
+ {test,is_nil,{f,1},[{x,0}]},
+ return]

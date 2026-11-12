@@ -4,7 +4,10 @@ internal static class ProcLibCrashReportDependencies
 {
     public static void Register(ModuleRegistry registry)
     {
-        OtpLoggerRegistrations.Register(registry);
+        if (!registry.HasExport(OtpLoggerNames.Logger, OtpLoggerNames.Log, 4))
+        {
+            OtpLoggerRegistrations.Register(registry);
+        }
         registry.Register(
             OtpLoggerNames.Application,
             OtpLoggerNames.GetEnv,
@@ -29,21 +32,24 @@ internal static class ProcLibCrashReportDependencies
             2,
             (context, args) => ValueTask.FromResult(OtpApplicationEnvironment.For(context.Runtime).Unset(args[0], args[1]))
         );
-        registry.Register(
-            OtpLoggerNames.ErrorLogger,
-            OtpLoggerNames.GetFormatDepth,
-            0,
-            (context, _) =>
+        if (!registry.HasExport(ErrorLoggerModule.Name, ErrorLoggerFunctions.Start, 0))
         {
-            Term configured = OtpApplicationEnvironment.For(context.Runtime).Get(
-                Term.A(OtpLoggerNames.Kernel),
-                Term.A(OtpLoggerNames.ErrorLoggerFormatDepth),
-                Term.A(OtpLoggerNames.Unlimited)
-            );
+            registry.Register(
+                OtpLoggerNames.ErrorLogger,
+                OtpLoggerNames.GetFormatDepth,
+                0,
+                (context, _) =>
+            {
+                Term configured = OtpApplicationEnvironment.For(context.Runtime).Get(
+                    Term.A(OtpLoggerNames.Kernel),
+                    Term.A(OtpLoggerNames.ErrorLoggerFormatDepth),
+                    Term.A(OtpLoggerNames.Unlimited)
+                );
 
-            return ValueTask.FromResult(ErrorLoggerTermLimiter.NormalizeDepth(configured));
+                return ValueTask.FromResult(ErrorLoggerTermLimiter.NormalizeDepth(configured));
+            }
+            );
+            ErrorLoggerTermLimitRegistrations.Register(registry);
         }
-        );
-        ErrorLoggerTermLimitRegistrations.Register(registry);
     }
 }

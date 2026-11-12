@@ -1,0 +1,19 @@
+Dir = "artifacts/beam-backend/part811-images",
+Module = beam_record_field_call_update_probe,
+State = {state,parent,panel,app,table,[{one,window1},{two,window2}],undefined,[]},
+BadState = setelement(6,State,invalid_list),
+Cases = [{{detail_win_closed,one},State}, {{detail_win_closed,missing},State},
+         {unexpected,State}, {{detail_win_closed,one},invalid_record}, {{detail_win_closed,one},BadState}],
+Run = fun(Path) ->
+    code:purge(Module),
+    code:delete(Module),
+    {ok,Bytes} = file:read_file(Path),
+    {module,Module} = code:load_binary(Module,Path,Bytes),
+    [try Module:handle_cast(Message,Input) of Value -> {ok,Value}
+     catch Class:Reason -> {Class,Reason}
+     end || {Message,Input} <- Cases]
+end,
+Otp = Run("tests/Erlang.Tests/Resources/Beam/beam_record_field_call_update_probe.beam"),
+Otp = Run(filename:join(Dir,"beam_record_field_call_update_probe.beam")),
+io:format("~p~n",[Otp]),
+halt().

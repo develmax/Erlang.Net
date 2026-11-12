@@ -1,0 +1,10 @@
+Original = "tests/Erlang.Tests/Resources/Beam/beam_binary_digit_list_probe.beam",
+Generated = "artifacts/beam-backend/part788-images/beam_binary_digit_list_probe.beam",
+{ok,Bytes} = file:read_file(Original),
+{ok,Bytes} = file:read_file(Generated),
+{beam_file,beam_binary_digit_list_probe,_,_,_,Functions} = beam_disasm:file(Generated),
+Counts = [{Name,Arity,length(Instructions)} ||
+    {function,Name,Arity,_,Instructions} <- Functions],
+io:format("whole_image_equal=true bytes=~p functions=~w sha256=~s~n",
+    [byte_size(Bytes),Counts,binary:encode_hex(crypto:hash(sha256,Bytes))]),
+halt().

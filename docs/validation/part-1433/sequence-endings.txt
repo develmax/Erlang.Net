@@ -1,0 +1,36 @@
+535 modules and 1662 variable-head sequences with allocation operand differences.
+Each row gives module count, function count, terminal expression, then two examples with OTP and generated allocations.
+{227,352,'case',[{"lib/asn1-5.5.2/ebin/asn1ct.beam",{compile_proc,3},{{allocate,3,3},{allocate,6,3}}},{"lib/asn1-5.5.2/ebin/asn1ct.beam",{outfile,3},{{allocate,2,3},{allocate,8,3}}}]}
+{195,371,direct_call,[{"lib/asn1-5.5.2/ebin/asn1ct.beam",{setup_bit_string_format,1},{{allocate,1,1},{allocate,3,1}}},{"lib/asn1-5.5.2/ebin/asn1ct.beam",{setup_legacy_erlang_types,1},{{allocate,0,1},{allocate,2,1}}}]}
+{108,249,external_call,[{"lib/asn1-5.5.2/ebin/asn1ct_constructed_per.beam",{record_name,2},{{allocate,1,2},{allocate,7,2}}},{"lib/common_test-1.31.2/ebin/ct_doctest.beam",{a_test_failed,2},{{allocate,1,2},{allocate,3,2}}}]}
+{90,126,tuple,[{"lib/asn1-5.5.2/ebin/asn1ct_imm.beam",{enc_element,2},{{allocate,1,2},{allocate,9,2}}},{"lib/asn1-5.5.2/ebin/asn1ct_imm.beam",{per_dec_named_integer,3},{{allocate,1,3},{allocate,7,3}}}]}
+{89,117,var,[{"lib/asn1-5.5.2/ebin/asn1ct_check.beam",{check_bitstring,2},{{allocate,1,2},{allocate,7,2}}},{"lib/asn1-5.5.2/ebin/asn1ct_imm.beam",{enc_opt,1},{{allocate,1,1},{allocate,3,1}}}]}
+{62,81,atom,[{"lib/asn1-5.5.2/ebin/asn1ct_check.beam",{check_imported,4},{{allocate,4,4},{allocate,6,4}}},{"lib/asn1-5.5.2/ebin/asn1ct_check.beam",{include_default_class,2},{{allocate,2,2},{allocate,6,2}}}]}
+{47,65,lc,[{"lib/compiler-10.0.6/ebin/beam_core_to_ssa.beam",{records,1},{{allocate,1,1},{allocate,18,1}}},{"lib/compiler-10.0.6/ebin/beam_ssa_codegen.beam",{kill_regs,3},{{allocate,2,3},{allocate,11,3}}}]}
+{43,57,'receive',[{"lib/common_test-1.31.2/ebin/ct_slave.beam",{monitor_master_int,1},{{allocate,1,1},{allocate,3,1}}},{"lib/common_test-1.31.2/ebin/ct_telnet_client.beam",{get_data,1},{{allocate,2,1},{allocate,6,1}}}]}
+{43,55,record,[{"lib/compiler-10.0.6/ebin/beam_ssa_codegen.beam",{collect_catch_labels,2},{{allocate,1,2},{allocate,3,2}}},{"lib/compiler-10.0.6/ebin/beam_ssa_lint.beam",{vvars_kill_try_tag,2},{{allocate,1,2},{allocate,3,2}}}]}
+{40,44,'if',[{"lib/asn1-5.5.2/ebin/asn1ct_imm.beam",{char_tab_1,2},{{allocate,2,2},{allocate,4,2}}},{"lib/asn1-5.5.2/ebin/asn1ct_imm.beam",{update_al,3},{{allocate,3,3},{allocate,13,3}}}]}
+{29,40,cons,[{"lib/asn1-5.5.2/ebin/asn1ct_gen_check.beam",{gen_choice,4},{{allocate,3,4},{allocate,6,4}}},{"lib/common_test-1.31.2/ebin/ct_logs.beam",{add_tc_gl,3},{{allocate,2,3},{allocate,4,3}}}]}
+{19,24,{binary_operator,'++'},[{"lib/asn1-5.5.2/ebin/asn1ct_imm.beam",{per_enc_boolean,2},{{allocate,0,1},{allocate,9,2}}},{"lib/asn1-5.5.2/ebin/asn1ct_imm.beam",{per_enc_choice,3},{{allocate,1,2},{allocate,13,3}}}]}
+{11,16,'try',[{"lib/debugger-7.0/ebin/dbg_iload.beam",{new_map,4},{{allocate,3,4},{allocate,17,4}}},{"lib/observer-2.19/ebin/observer_lib.beam",{progress_handler,5},{{allocate,5,5},{allocate,10,5}}}]}
+{8,12,dynamic_call,[{"lib/asn1-5.5.2/ebin/asn1ct_gen.beam",{dialyzer_suppressions,1},{{allocate,1,1},{allocate,2,1}}},{"lib/diameter-2.7.2/ebin/diameter_capx.beam",{cea_from_cer,2},{{allocate,2,2},{allocate,6,2}}}]}
+{6,8,map,[{"lib/erts-17.1/ebin/init.beam",{get_boot_vars,2},{{allocate,1,2},{allocate,3,2}}},{"lib/kernel-11.0.4/ebin/net_kernel.beam",{send_owner_request,4},{{allocate,4,4},{allocate,6,4}}}]}
+{6,6,{match,atom,external_call},[{"lib/diameter-2.7.2/ebin/diameter_codegen.beam",{write,3},{{allocate,2,3},{allocate,5,3}}},{"lib/erts-17.1/ebin/prim_file.beam",{on_load,0},{{allocate,0,0},{allocate,2,0}}}]}
+{5,6,{binary_operator,'!'},[{"lib/eunit-2.11/ebin/eunit_server.beam",{auto_super,2},{{allocate,2,2},{allocate,6,2}}},{"lib/mnesia-4.27/ebin/mnesia_tm.beam",{do_sync_dirty,4},{{allocate,1,3},{allocate,5,4}}}]}
+{4,6,bin,[{"lib/ssh-6.0.6/ebin/ssh_transport.beam",{mk_dss_sig,1},{{allocate,0,1},{allocate,5,1}}},{"lib/ssl-11.7.7/ebin/ssl_cipher.beam",{encrypt_data,4},{{allocate,4,4},{allocate,15,4}}}]}
+{3,4,{binary_operator,'andalso'},[{"lib/dialyzer-6.0.3/ebin/dialyzer_dataflow.beam",{is_lc_simple_list,3},{{allocate,2,3},{allocate,3,3}}},{"lib/diameter-2.7.2/ebin/diameter_service.beam",{notify,2},{{allocate,1,2},{allocate,2,2}}}]}
+{3,4,'fun',[{"lib/mnesia-4.27/ebin/mnesia_index.beam",{create_fun,3},{{allocate,3,3},{allocate,4,3}}},{"lib/stdlib-8.1/ebin/erl_features.beam",{add_feature_fun,2},{{allocate,1,2},{allocate,2,2}}}]}
+{2,2,{binary_operator,'>'},[{"lib/mnesia-4.27/ebin/mnesia_lib.beam",{have_majority,3},{{allocate,1,3},{allocate,4,3}}},{"lib/snmp-5.20.5/ebin/snmpm.beam",{is_eol,1},{{allocate,1,1},{allocate,2,1}}}]}
+{2,2,{binary_operator,'=:='},[{"lib/common_test-1.31.2/ebin/test_server.beam",{same_version,1},{{allocate,1,1},{allocate,2,1}}},{"lib/inets-9.8/ebin/httpd_request.beam",{check_parsed_content_length_values,2},{{allocate,1,2},{allocate,12,2}}}]}
+{2,2,{binary_operator,'+'},[{"lib/megaco-4.9.2/doc/examples/meas/megaco_codec_mstone_lib.beam",{alloc_instance_mem_info,1},{{allocate,1,1},{allocate,2,1}}},{"lib/mnesia-4.27/ebin/mnesia_loader.beam",{calc_nokeys,2},{{allocate,2,2},{allocate,5,2}}}]}
+{2,2,op,[{"lib/public_key-1.21.7/ebin/pubkey_cert.beam",{ca_known_extend_key_use,1},{{allocate,1,1},{allocate,4,1}}},{"lib/ssl-11.7.7/ebin/ssl_certificate.beam",{cert_auth_member,2},{{allocate,1,2},{allocate,4,2}}}]}
+{2,2,block,[{"lib/eunit-2.11/ebin/eunit_proc.beam",{get_output_test,0},{{allocate,0,0},{allocate,2,0}}},{"lib/eunit-2.11/ebin/eunit_tests.beam",{get_output_test,0},{{allocate,0,0},{allocate,1,0}}}]}
+{1,1,{match,record,direct_call},[{"lib/diameter-2.7.2/ebin/diameter_capx.beam",{mk_caps,2},{{allocate,2,2},{allocate,11,2}}}]}
+{1,1,{binary_operator,'bor'},[{"lib/crypto-5.10/ebin/crypto.beam",{packed_openssl_version,4},{{allocate,3,4},{allocate,7,4}}}]}
+{1,1,{binary_operator,'>='},[{"lib/snmp-5.20.5/ebin/snmp_log.beam",{tsf_ge,2},{{allocate,1,2},{allocate,2,2}}}]}
+{1,1,{binary_operator,'=<'},[{"lib/snmp-5.20.5/ebin/snmp_log.beam",{tsf_le,2},{{allocate,1,2},{allocate,2,2}}}]}
+{1,1,{binary_operator,'=/='},[{"lib/kernel-11.0.4/ebin/code.beam",{module_changed_on_disk,2},{{allocate,2,2},{allocate,4,2}}}]}
+{1,1,{binary_operator,'*'},[{"lib/stdlib-8.1/ebin/calendar.beam",{universal_time_to_system_time,2},{{allocate,1,2},{allocate,2,2}}}]}
+{1,1,nil,[{"lib/snmp-5.20.5/ebin/snmp_user_based_sm_mib.beam",{generate_usm,2},{{allocate,1,1},{allocate,2,2}}}]}
+{1,1,mc,[{"lib/dialyzer-6.0.3/ebin/dialyzer_iplt.beam",{implementation_module_paths,0},{{allocate,0,0},{allocate,9,0}}}]}
+{1,1,'maybe',[{"lib/kernel-11.0.4/ebin/inet_epmd_dist.beam",{connect,3},{{allocate,1,3},{allocate,11,3}}}]}

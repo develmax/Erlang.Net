@@ -1,0 +1,34 @@
+Dir = "artifacts/beam-backend/part856-images",
+Module = beam_certificate_name_probe,
+Stub = beam_certificate_transport,
+StubPath = filename:join(Dir, atom_to_list(Stub) ++ ".erl"),
+ok = file:write_file(StubPath, "-module(beam_certificate_transport).\n-export([defaults/1,merge/3,timeout/0,handshake/3,close_ssl/1,close_socket/1,format/1,allowed/0,peercert/1]).\nstep(E,R) -> self() ! E, R.\ndefaults(I) -> step({defaults,I},opts).\nmerge(A,B,C) -> step({merge,A,B,C},merged).\ntimeout() -> step(timeout,120).\nhandshake(S,O,T) -> step({handshake,S,O,T},get(handshake)).\nclose_ssl(S) -> step({close_ssl,S},ok).\nclose_socket(S) -> step({close_socket,S},ok).\nformat(E) -> step({format,E},\"error\").\nallowed() -> step(allowed,get(allowed)).\npeercert(S) -> step({peercert,S},get(peercert)).\n"),
+{ok,Stub,StubBytes} = compile:file(StubPath,[binary]),
+{module,Stub} = code:load_binary(Stub,StubPath,StubBytes),
+ok = logger:set_primary_config(level,none),
+Name = atom_to_list(Module) ++ ".beam",
+Run = fun(File) ->
+    code:purge(Module), code:delete(Module),
+    {ok,Bytes} = file:read_file(File),
+    {module,Module} = code:load_binary(Module,File,Bytes),
+    H = [{defaults,ip},{merge,opts,[inet,binary,{active,false},{packet,4}],[]},timeout,{handshake,socket,merged,120}],
+    [begin
+        put(handshake,Handshake), put(allowed,Allowed), put(peercert,Peer),
+        Result = try Module:accept(Address,socket,ip,443) of Value -> {ok,Value}
+                 catch Class:Reason:Frames -> {Class,Reason,Frames} end,
+        case Result of {ok,V} -> Expected = {ok,V}; {C,R,_} -> Expected = {C,R} end,
+        lists:foreach(fun(Event) -> receive Got -> Event = Got after 1000 -> error({missing,Event}) end end, Events),
+        receive Unwanted -> error({unexpected_effect,Unwanted}) after 0 -> ok end,
+        Result
+    end || {Address,Handshake,Allowed,Peer,Expected,Events} <-
+        [{{address,inet},{ok,ssl},{ok,[]},unused,{ok,{ssl,{ip,443}}},H ++ [allowed]},
+         {{address,inet},{ok,ssl},{ok,[host]},{error,denied},{exit,{accept,denied}},H ++ [allowed,{peercert,ssl},{close_ssl,ssl}]},
+         {{address,inet},{error,{options,invalid}},unused,unused,{exit,{accept,{options,invalid}}},H ++ [{close_socket,socket}]},
+         {{address,inet},{error,closed},unused,unused,{exit,{accept,closed}},H ++ [{close_socket,socket}]},
+         {{address,inet},unexpected,unused,unused,{error,{case_clause,unexpected}},H},
+         {invalid,unused,unused,unused,{error,function_clause},[]}]]
+end,
+Otp = Run(filename:join([Dir,"fixture","lib","probe","ebin",Name])),
+Otp = Run(filename:join(Dir,Name)),
+erlang:display({Module,equal}),
+halt().

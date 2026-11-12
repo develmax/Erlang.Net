@@ -1,0 +1,64 @@
+[Ref,Gen]=[filename:absname(P)||P<-init:get_plain_arguments()],
+Files=filelib:fold_files(Gen,"[.]beam$",true,fun(P,A)->[P|A] end,[]),
+Frames=fun(Path)->
+    {beam_file,_,_,_,_,Fs}=beam_disasm:file(Path),
+    maps:from_list([{{N,A},hd([S||I<-Is,S<-case I of {allocate,X,_}->[X];{allocate_heap,X,_,_}->[X];_->[] end]++[0])}
+                    ||{function,N,A,_,Is}<-Fs])
+end,
+Kind=fun({call,_,_,_})->call;({tuple,_,_})->tuple;({cons,_,_,_})->list;
+        ({map,_,_})->map;({map,_,_,_})->map;({record,_,_,_})->record;
+        ({record_field,_,_,_,_})->record_field;({op,_,_,_})->operator;
+        ({op,_,_,_,_})->operator;({var,_,_})->operand;({atom,_,_})->operand;
+        ({integer,_,_})->operand;({float,_,_})->operand;({char,_,_})->operand;
+        ({string,_,_})->operand;({nil,_})->operand;(_)->other end,
+Classify=fun(Body)->
+    case lists:last(Body) of
+        {call,_,_,Args}->
+            Children=[Inner||{call,_,_,Inner}<-Args],
+            Around=lists:usort([K||Arg<-Args,K<-[Kind(Arg)],K=/=operand,K=/=call]),
+            Inside=lists:usort([K||Inner<-Children,Arg<-Inner,K<-[Kind(Arg)],K=/=operand]),
+            case {Children,Around,Inside} of
+                {[],_,_}->none;
+                {_,[],[]}->simple;
+                {[_|[_|_]],_,_}->{siblings,Around,Inside};
+                {_,_,_}->{single,Around,Inside}
+            end;
+        _->none
+    end
+end,
+Pattern=fun({var,_,_})->variable;({match,_,_,_})->alias;({tuple,_,_})->tuple;
+            ({record,_,_,_})->record;({cons,_,_,_})->cons;({nil,_})->nil;
+            ({map,_,_})->map;(_)->literal end,
+Simple=fun(Cs,Ps,Gd,B)->
+    Patterns=lists:usort([Pattern(P)||P<-Ps,P=/={var,0,'_'}]),
+    Shape=case Patterns of []->variables;[variable]->variables;_->lists:delete(variable,Patterns) end,
+    {case Cs of [_]->single;_->multi end,Shape,
+     case Gd of []->unguarded;_->guarded end,
+     case B of [_]->direct;_->prefix end}
+end,
+Analyze=fun(P,{Totals,Count,Missing})->
+    Rel=lists:nthtail(length(filename:split(Gen)),filename:split(P)),
+    Reference=filename:join([Ref|Rel]),
+    case beam_lib:chunks(Reference,[abstract_code]) of
+        {ok,{_,[{abstract_code,{raw_abstract_v1,Forms}}]}}->
+            R=Frames(Reference), G=Frames(P),
+            Cases=[{Cat,{N,A},RS,GS}||{function,_,N,A,Cs}<-Forms,
+                   {ok,RS}<-[maps:find({N,A},R)],{ok,GS}<-[maps:find({N,A},G)],GS>RS,
+                   Cat<-lists:usort([Simple(Cs,Ps,Gd,B)||{clause,_,Ps,Gd,B}<-Cs,Classify(B)=:=simple])],
+            Categories=lists:usort([Cat||{Cat,_,_,_}<-Cases]),
+            Result=lists:foldl(fun(Cat,Acc)->
+                Rows=[{F,RS,GS}||{C,F,RS,GS}<-Cases,C=:=Cat],
+                maps:update_with(Cat,fun({Files0,Funcs,Example})->{Files0+1,Funcs+length(Rows),Example} end,
+                    {1,length(Rows),{Rel,hd(Rows)}},Acc)
+            end,Totals,Categories),
+            {Result,Count+1,Missing};
+        _->{Totals,Count,[Rel|Missing]}
+    end
+end,
+{Totals,Analyzed,Missing}=lists:foldl(Analyze,{#{},0,[]},Files),
+io:format("Analyzed ~p of ~p differing images. Missing abstract code: ~p.~n",[Analyzed,length(Files),length(Missing)]),
+io:format("Category, files, functions, example (path, MFA, OTP and generated slots)~n"),
+lists:foreach(fun({Cat,{F,N,E}})->io:format("~p ~p ~p ~p~n",[Cat,F,N,E]) end,
+    lists:sort(fun({_,{F1,N1,_}},{_,{F2,N2,_}})->{F1,N1}>={F2,N2} end,maps:to_list(Totals))),
+halt().
+

@@ -1,0 +1,36 @@
+size_branch
+OTP [{label,25},{line,[{location,[],42}]},{func_info,{atom,beam_entry_result_case},{atom,size_branch},2},{label,26},{test,is_ge,{f,27},[{integer,64},{x,1}]},{call_only,2,{beam_entry_result_case,pack,2}},{label,27},{allocate,0,2},{line,[{location,[],43}]},{call,2,{beam_entry_result_case,pack,2}},{test_heap,2,1},{put_list,{x,0},nil,{x,0}},{deallocate,0},return]
+Old [{label,28},{line,[{location,[],42}]},{func_info,{atom,beam_entry_result_case},{atom,size_branch},2},{label,29},{allocate,2,2},{move,{x,0},{y,0}},{move,{x,1},{y,1}},{test,is_ge,{f,30},[{integer,64},{y,1}]},{move,{y,1},{x,1}},{move,{y,0},{x,0}},{call_last,2,{beam_entry_result_case,pack,2},2},{label,30},{test,is_lt,{f,31},[{integer,64},{y,1}]},{move,{y,1},{x,1}},{move,{y,0},{x,0}},{line,[{location,[],43}]},{call,2,{beam_entry_result_case,pack,2}},{test_heap,2,1},{put_list,{x,0},nil,{x,0}},{deallocate,2},return,{label,31},{move,{y,0},{x,0}},{move,{y,1},{x,1}},{deallocate,2},{jump,{f,28}}]
+C#  [{label,28},{line,[{location,[],42}]},{func_info,{atom,beam_entry_result_case},{atom,size_branch},2},{label,29},{test,is_ge,{f,30},[{integer,64},{x,1}]},{call_only,2,{beam_entry_result_case,pack,2}},{label,30},{allocate,0,2},{line,[{location,[],43}]},{call,2,{beam_entry_result_case,pack,2}},{test_heap,2,1},{put_list,{x,0},nil,{x,0}},{deallocate,0},return]
+size_gap
+OTP [{label,28},{line,[{location,[],45}]},{func_info,{atom,beam_entry_result_case},{atom,size_gap},2},{label,29},{test,is_lt,{f,30},[{x,1},{integer,0}]},{call_only,2,{beam_entry_result_case,pack,2}},{label,30},{test,is_lt,{f,28},[{integer,64},{tr,{x,1},any}]},{allocate,0,2},{line,[{location,[],46}]},{call,2,{beam_entry_result_case,pack,2}},{test_heap,2,1},{put_list,{x,0},nil,{x,0}},{deallocate,0},return]
+Old [{label,32},{line,[{location,[],45}]},{func_info,{atom,beam_entry_result_case},{atom,size_gap},2},{label,33},{allocate,2,2},{move,{x,0},{y,0}},{move,{x,1},{y,1}},{test,is_lt,{f,34},[{y,1},{integer,0}]},{move,{y,1},{x,1}},{move,{y,0},{x,0}},{call_last,2,{beam_entry_result_case,pack,2},2},{label,34},{test,is_lt,{f,35},[{integer,64},{y,1}]},{move,{y,1},{x,1}},{move,{y,0},{x,0}},{line,[{location,[],46}]},{call,2,{beam_entry_result_case,pack,2}},{test_heap,2,1},{put_list,{x,0},nil,{x,0}},{deallocate,2},return,{label,35},{move,{y,0},{x,0}},{move,{y,1},{x,1}},{deallocate,2},{jump,{f,32}}]
+C#  [{label,31},{line,[{location,[],45}]},{func_info,{atom,beam_entry_result_case},{atom,size_gap},2},{label,32},{test,is_lt,{f,33},[{x,1},{integer,0}]},{call_only,2,{beam_entry_result_case,pack,2}},{label,33},{test,is_lt,{f,31},[{integer,64},{x,1}]},{allocate,0,2},{line,[{location,[],46}]},{call,2,{beam_entry_result_case,pack,2}},{test_heap,2,1},{put_list,{x,0},nil,{x,0}},{deallocate,0},return]
+OTP, previous C# and current C# results and errors agree [accepted,rejected,
+                                                          {error,
+                                                           {case_clause,
+                                                            other}},
+                                                          {accepted,accepted},
+                                                          {rejected,accepted},
+                                                          42,
+                                                          {tag,42},
+                                                          {42,{tag,42}},
+                                                          42,
+                                                          {tag,42},
+                                                          {42,accepted},
+                                                          {failed,reason},
+                                                          {case_clause,
+                                                           {unknown,42}},
+                                                          {case_clause,
+                                                           {tag,42,other}},
+                                                          [128578],
+                                                          yes,
+                                                          {case_clause,no},
+                                                          {tag,64},
+                                                          {tag,64.0},
+                                                          [{tag,64.5}],
+                                                          [{tag,other}],
+                                                          {tag,-1},
+                                                          [{tag,65}],
+                                                          function_clause]
+Whole image equality false

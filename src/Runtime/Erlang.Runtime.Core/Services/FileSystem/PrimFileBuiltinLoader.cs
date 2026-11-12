@@ -22,7 +22,7 @@ internal static class PrimFileBuiltinLoader
             {
                 cancellation.ThrowIfCancellationRequested();
                 if (reservation.Generation.TargetDescriptor.DeclaredNifs is not { } declarations
-                    || PrimFileBuiltinNames.Signatures.Any(signature => !declarations.Contains(signature)))
+                    || PrimFileBuiltinNames.Signatures.Concat(PrimFileBuiltinNames.StorageSignatures).Any(signature => !declarations.Contains(signature)))
                     throw new NotSupportedException(PrimFileBuiltinNames.MissingDeclaration);
                 var owner = new PrimFileBuiltinOwner(context.Runtime);
 

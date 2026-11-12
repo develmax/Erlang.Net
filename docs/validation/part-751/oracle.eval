@@ -1,0 +1,14 @@
+Path = "tests/Erlang.Tests/Resources/Beam/beam_adjacent_strings_probe.erl",
+{ok,beam_adjacent_strings_probe,Beam} = compile:file(Path,[binary,deterministic,debug_info]),
+{ok,{_,[{abstract_code,{raw_abstract_v1,Forms}}]}} = beam_lib:chunks(Beam,[abstract_code]),
+[
+    {function,_,text,0,[{clause,_,[],[],[{string,_,Text}]}]},
+    {function,_,binary_text,0,[{clause,_,[],[],[{bin,_,[
+        {bin_element,_,{string,_,"onetwo"},default,default}
+    ]}]}]}
+] = [F || F={function,_,_,_,_} <- Forms],
+true = (Text =:= "prefix " ++ [1089,1083,1086,1074,1086]),
+io:format("merged_text=true single_binary_segment=true~n"),
+{error,{{1,4},erl_scan,string_concat},_} = erl_scan:string([34,97,34,34,98,34],{1,1}),
+io:format("missing_separator=string_concat at 1:4~n"),
+halt().

@@ -1,0 +1,21 @@
+Dir = "artifacts/beam-backend/part845-images",
+Module = beam_guarded_capture_probe,
+Name = atom_to_list(Module) ++ ".beam",
+Run = fun(File) ->
+    code:purge(Module), code:delete(Module),
+    {ok, Bytes} = file:read_file(File),
+    {module, Module} = code:load_binary(Module, File, Bytes),
+    {F1,F2,F3} = Module:callbacks(1),
+    F4 = Module:callback(1),
+    ok = F1(1), {ok,1} = F2(1), 1 = F3(1), {payload,1} = F4(payload,1),
+    [try apply(Fun, Args) of
+         Value -> error({unexpected_result,Value})
+     catch
+         error:function_clause:Stack -> [{Module,_,Args,_}|_] = Stack, Stack
+     end || {Fun,Args} <- [{F1,[1.0]},{F2,[1.0]},{F3,[1.0]},{F4,[payload,1.0]}]]
+end,
+Otp = Run(filename:join([Dir,"fixture","lib","probe","ebin",Name])),
+Otp = Run(filename:join(Dir,Name)),
+erlang:display({Module,equal}),
+halt().
+

@@ -1,0 +1,21 @@
+[Path] = init:get_plain_arguments(),
+{ok, Binary} = file:read_file(Path),
+{module, tuple_shared_dispatch_probe} = code:load_binary(tuple_shared_dispatch_probe, Path, Binary),
+{undefined,left,extra} = tuple_shared_dispatch_probe:read({tag,42,a,left,wrong},extra),
+{left,right,77} = tuple_shared_dispatch_probe:read({tag,42,b,wrong,right},77),
+Check = fun(Args) ->
+    try apply(tuple_shared_dispatch_probe, read, Args) of
+        _ -> error(expected_function_clause)
+    catch error:function_clause:Stack ->
+        [{tuple_shared_dispatch_probe,read,Args,_}|_] = Stack
+    end
+end,
+Check([{tag,41,a,left,right},extra]),
+Check([{tag,42,a,left,right},77]),
+Check([{tag,42,b,left,right},extra]),
+Check([{tag,42,c,left,right},extra]),
+Check([{other,42,b,left,right},77]),
+right = get(tuple_dispatch_key),
+{beam_file,_,_,_,_,Functions} = beam_disasm:file(Path),
+[io:format("~p~n",[F]) || F = {function,read,2,_,_} <- Functions],
+halt().

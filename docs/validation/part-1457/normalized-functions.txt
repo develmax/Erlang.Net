@@ -1,0 +1,50 @@
+lib/asn1-5.5.2/ebin/asn1ct_gen.beam
+lib/asn1-5.5.2/ebin/asn1ct_gen_per.beam
+lib/compiler-10.0.6/ebin/beam_doc.beam
+lib/dialyzer-6.0.3/ebin/dialyzer_dot.beam
+lib/diameter-2.7.2/ebin/diameter_gen_acct_rfc6733.beam
+lib/diameter-2.7.2/ebin/diameter_gen_base_accounting.beam
+lib/diameter-2.7.2/ebin/diameter_gen_base_rfc3588.beam
+lib/diameter-2.7.2/ebin/diameter_gen_base_rfc6733.beam
+lib/diameter-2.7.2/ebin/diameter_gen_doic_rfc7683.beam
+lib/erts-17.1/ebin/prim_inet.beam
+lib/kernel-11.0.4/ebin/gen_tcp_socket.beam
+lib/kernel-11.0.4/ebin/inet_dns.beam
+lib/mnesia-4.27/ebin/mnesia_recover.beam
+lib/reltool-1.1/ebin/reltool_server.beam
+lib/reltool-1.1/ebin/reltool_utils.beam
+lib/ssh-6.0.6/ebin/ssh_xfer.beam
+lib/ssl-11.7.7/ebin/tls_socket_tcp.beam
+lib/stdlib-8.1/ebin/erl_lint.beam
+lib/asn1-5.5.2/ebin/asn1ct_gen.beam +[{unify_if_string,1}] -[]
+lib/asn1-5.5.2/ebin/asn1ct_gen_per.beam +[{simplify_type,1}] -[]
+lib/dialyzer-6.0.3/ebin/dialyzer_dot.beam +[{legal_nodeoption,1}] -[]
+lib/diameter-2.7.2/ebin/diameter_gen_acct_rfc6733.beam +[{avp_arity,1},
+                                                         {msg_header,1}] -[]
+lib/diameter-2.7.2/ebin/diameter_gen_base_accounting.beam +[{avp_arity,1},
+                                                            {msg_header,1}] -[]
+lib/diameter-2.7.2/ebin/diameter_gen_base_rfc3588.beam +[{avp_header,1},
+                                                         {avp_arity,1},
+                                                         {msg_header,1}] -[]
+lib/diameter-2.7.2/ebin/diameter_gen_base_rfc6733.beam +[{avp_header,1},
+                                                         {avp_arity,1},
+                                                         {msg_header,1}] -[]
+lib/diameter-2.7.2/ebin/diameter_gen_doic_rfc7683.beam +[{avp_header,1},
+                                                         {avp_arity,1}] -[]
+lib/erts-17.1/ebin/prim_inet.beam +[{dec_opt,1},
+                                    {enc_ifopt,1},
+                                    {type_ifopt,1},
+                                    {dec_ifopt,1}] -[]
+lib/kernel-11.0.4/ebin/gen_tcp_socket.beam +[{counter_key,1},{proto,1}] -[]
+lib/kernel-11.0.4/ebin/inet_dns.beam +[{encode_type,1},
+                                       {encode_boolean,1},
+                                       {encode_class,1}] -[]
+lib/reltool-1.1/ebin/reltool_server.beam +[{is_type,1}] -[]
+lib/reltool-1.1/ebin/reltool_utils.beam +[{mod_cond_to_index,1},
+                                          {incl_cond_to_index,1}] -[]
+lib/ssh-6.0.6/ebin/ssh_xfer.beam +[{encode_erlang_status,1},
+                                   {encode_ace_type,1},
+                                   {encode_file_type,1}] -[]
+lib/ssl-11.7.7/ebin/tls_socket_tcp.beam +[{counter_key,1},{domain,1}] -[]
+lib/stdlib-8.1/ebin/erl_lint.beam +[{format_obsolete,1}] -[]
+Compared 18 changed images.

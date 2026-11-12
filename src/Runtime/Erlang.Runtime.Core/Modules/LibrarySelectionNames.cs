@@ -4,15 +4,40 @@ internal static class LibrarySelectionNames
 {
     internal static readonly string[] ManagedModules =
     [
+        LoggerLibraryNames.Module,
+        RpcLibraryModuleNames.Module,
+        ErrorLoggerLibraryNames.Module,
         ErlangModuleNames.Module,
+        ErpcLibraryModuleNames.Module,
+        ErtsInternalContract.Module,
+        InterpreterCodeNativeNames.Module,
         ListModuleNames.Module,
         QueueModuleNames.Module,
         ProplistModuleNames.Module,
         OrdsetCoreNames.Module,
         MapModuleNames.Module,
         BinaryModuleNames.Module,
-        MathNativeNames.Module
+        MathNativeNames.Module,
+        StringFloatNativeNames.Module,
+        UnicodeNativeNames.Module,
+        IoModuleNames.Module,
+        RuntimeEtsFacetNames407.Module,
+        FileNameEncodingNames.Module,
+        GenEventLibraryModuleNames.Module,
+        TimerLibraryModuleNames.Module,
+        GenStatem,
+        SupervisorLibraryNames.Module,
+        GenServerLibraryNames.Module,
+        SysLibraryNames.Module,
+        DetsLibraryModuleNames.Module,
+        ApplicationLibraryNames.Module
     ];
+    internal static readonly string[] StringDependencies = [ListModuleNames.Module, UnicodeNativeNames.Module, "unicode_util"];
+    internal static readonly string[] UnicodeDependencies = [ListModuleNames.Module, "unicode_util"];
+    internal static readonly string[] DetsDependencies = DetsLibraryModuleNames.Required;
+    internal static readonly string[] CodeDependencies = CodeLibraryDependencies.Required;
+    internal static readonly string[] IoDependencies = IoLibraryDependencies.Required;
+    internal const string GenStatem = GenStatemLibraryNames.Module;
     internal const string Request = "Invalid startup library selection";
     internal const string BeamOnly = "Selected library requires the original BEAM backend";
     internal const string Phase = "Startup library selection failed";

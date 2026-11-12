@@ -1,0 +1,33 @@
+[Ref,Before,After] = [filename:absname(P) || P <- init:get_plain_arguments()],
+Files = filelib:fold_files(After, "[.]beam$", true, fun(P, Acc) -> [P | Acc] end, []),
+Read = fun(P) ->
+    {beam_file,_,_,_,_,Fs} = beam_disasm:file(P),
+    maps:from_list([{{Name,Arity}, [I || I <- Is, element(1,case is_tuple(I) of true -> I; false -> {I} end) =/= line,
+        element(1,case is_tuple(I) of true -> I; false -> {I} end) =/= label]}
+        || {function,Name,Arity,_,Is} <- Fs])
+end,
+Bool = fun(true) -> 1; (false) -> 0 end,
+Prefix = fun Count([I|L],[I|R],N) -> Count(L,R,N+1); Count(_,_,N) -> N end,
+Measure = fun(P, {FilesChanged,FsCloser,FsFarther,NewEqual,LostEqual,Errors}) ->
+    Relative = lists:nthtail(length(filename:split(After)), filename:split(P)),
+    BPath = filename:join([Before|Relative]),
+    case {file:read_file(P),file:read_file(BPath)} of
+        {{ok, ABytes},{ok,BBytes}} when ABytes =/= BBytes ->
+            try
+                R = Read(filename:join([Ref|Relative])), B = Read(BPath), A = Read(P),
+                {C,F,E,L} = maps:fold(fun(Key, RIs, {C0,F0,E0,L0}) ->
+                    BIs = maps:get(Key,B,[]), AIs = maps:get(Key,A,[]),
+                    Prev = Prefix(RIs,BIs,0), Next = Prefix(RIs,AIs,0),
+                    {C0+Bool(Next > Prev), F0+Bool(Next < Prev),
+                     E0+Bool(RIs =:= AIs andalso RIs =/= BIs),
+                     L0+Bool(RIs =:= BIs andalso RIs =/= AIs)}
+                end,{0,0,0,0},R),
+                {FilesChanged+1,FsCloser+C,FsFarther+F,NewEqual+E,LostEqual+L,Errors}
+            catch _:_ -> {FilesChanged+1,FsCloser,FsFarther,NewEqual,LostEqual,[Relative|Errors]} end;
+        _ -> {FilesChanged,FsCloser,FsFarther,NewEqual,LostEqual,Errors}
+    end
+end,
+io:format("Changed files, longer exact prefixes, shorter exact prefixes, newly equal functions, newly different functions, errors:~n~p~n",
+    [lists:foldl(Measure,{0,0,0,0,0,[]},Files)]),
+halt().
+

@@ -1,0 +1,13 @@
+Path = "tests/Erlang.Tests/Resources/Beam/beam_recursive_fun_probe.erl",
+{ok,beam_recursive_fun_probe,Expected} = compile:file(Path,[binary,deterministic]),
+{ok,Expected} = file:read_file("artifacts/beam-backend/part756-probe.beam"),
+{module,beam_recursive_fun_probe} = code:load_binary(beam_recursive_fun_probe,Path,Expected),
+Countdown = beam_recursive_fun_probe:countdown(),
+Captured = beam_recursive_fun_probe:captured(value),
+done = Countdown(2000),
+value = Captured(2000),
+badarith = try Captured(invalid) catch error:Reason -> Reason end,
+{env,[value]} = erlang:fun_info(Captured,env),
+io:format("whole_image_equal=true bytes=~p recursive_iterations=2000 captured_value=value invalid_input=badarith~n",
+    [byte_size(Expected)]),
+halt().

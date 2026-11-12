@@ -1,0 +1,13 @@
+3 differing files scanned
+1/15 functions differ: lib/erts-17.1/ebin/prim_buffer.beam
+  {read_iovec,2} {{allocate,4,2},{allocate,5,2}}
+2/9 functions differ: lib/tftp-1.3/ebin/tftp_logger.beam
+  {add_timestamp,2} {{allocate,4,2},{allocate,16,2}}
+  {t,1} {{allocate,0,1},{allocate,3,1}}
+6/8 functions differ: lib/erts-17.1/ebin/counters.beam
+  {add,3} {{allocate,4,3},{allocate,10,3}}
+  {get,2} {{allocate,3,2},{allocate,9,2}}
+  {info,1} {{allocate,2,1},{allocate,8,1}}
+  {new,2} {{allocate,3,2},{allocate,11,2}}
+  {put,3} {{allocate,4,3},{allocate,10,3}}
+  {sub,3} {{allocate,4,3},{allocate,11,3}}

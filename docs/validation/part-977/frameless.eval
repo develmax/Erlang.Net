@@ -1,0 +1,14 @@
+[R,G]=init:get_plain_arguments(),
+Op=fun(I) when is_atom(I)->I; (I)->element(1,I) end,
+Frame=fun(Is)->lists:any(fun(I)->lists:member(Op(I),[allocate,allocate_heap]) end,Is) end,
+Funcs=fun(P)->{beam_file,_,_,_,_,Fs}=beam_disasm:file(P),
+ maps:from_list([{{N,A},Is}||{function,N,A,_,Is}<-Fs]) end,
+Data=lists:flatmap(fun(P)->X=Funcs(filename:join(R,filename:basename(P))),Y=Funcs(P),
+ [{filename:basename(P),K,Is}||{K,Is}<-maps:to_list(X),{ok,Js}<-[maps:find(K,Y)],not Frame(Is),Frame(Js)] end,
+ filelib:wildcard(filename:join(G,"*.beam"))),
+Patterns=lists:foldl(fun({M,K,Is},A)->
+ Key=[Op(I)||I<-Is,not lists:member(Op(I),[label,line,func_info])],
+ maps:update_with(Key,fun({N,S,E})->{N+1,sets:add_element(M,S),E} end,{1,sets:from_list([M]),{M,K}},A)
+end,#{},Data),
+Rows=lists:reverse(lists:sort([{N,sets:size(S),K,E}||{K,{N,S,E}}<-maps:to_list(Patterns)])),
+io:format("~p~n",[lists:sublist(Rows,10)]),halt().

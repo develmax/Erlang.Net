@@ -1,0 +1,8 @@
+D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\beam-backend\part1462-tool-append.beam
+{function,nested,2,2,[{label,1},{line,[{location,[],3}]},{func_info,{atom,beam_general_append_probe},{atom,nested},2},{label,2},{test,is_tuple,{f,1},[{x,0}]},{test,test_arity,{f,1},[{x,0},1]},{allocate,2,2},{move,{x,1},{y,1}},{get_tuple_element,{x,0},0,{y,0}},{move,{y,0},{x,0}},{move,{y,1},{x,1}},{call_ext,2,{extfunc,erlang,'++',2}},{test_heap,3,1},{put_tuple2,{x,0},{list,[{x,0},{y,1}]}},{deallocate,2},return]}
+{function,tail,2,4,[{label,3},{line,[{location,[],4}]},{func_info,{atom,beam_general_append_probe},{atom,tail},2},{label,4},{test,is_tuple,{f,3},[{x,0}]},{test,test_arity,{f,3},[{x,0},1]},{allocate,2,2},{move,{x,1},{y,1}},{get_tuple_element,{x,0},0,{y,0}},{move,{y,0},{x,0}},{move,{y,1},{x,1}},{call_ext_last,2,{extfunc,erlang,'++',2},2}]}
+{[1|tail],tail} [1|tail]
+D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\artifacts\beam-backend\part1463-tool-checked-append.beam
+{function,nested,2,2,[{label,1},{line,[{location,[],3}]},{func_info,{atom,beam_general_append_probe},{atom,nested},2},{label,2},{test,is_tuple,{f,1},[{x,0}]},{test,test_arity,{f,1},[{x,0},1]},{allocate,2,2},{move,{x,1},{y,1}},{get_tuple_element,{x,0},0,{y,0}},{move,{y,0},{x,0}},{move,{y,1},{x,1}},{call_ext,2,{extfunc,erlang,'++',2}},{test_heap,3,1},{put_tuple2,{x,0},{list,[{x,0},{y,1}]}},{deallocate,2},return]}
+{function,tail,2,4,[{label,3},{line,[{location,[],4}]},{func_info,{atom,beam_general_append_probe},{atom,tail},2},{label,4},{test,is_tuple,{f,3},[{x,0}]},{test,test_arity,{f,3},[{x,0},1]},{allocate,2,2},{move,{x,1},{y,1}},{get_tuple_element,{x,0},0,{x,0}},{move,{y,1},{x,1}},{call_ext_last,2,{extfunc,erlang,'++',2},2}]}
+{[1|tail],tail} [1|tail]

@@ -1,0 +1,25 @@
+[P,Q]=init:get_plain_arguments(),
+Read=fun(Path)->
+    {beam_file,_,_,_,_,Fs}=beam_disasm:file(Path),
+    [Is]=[Instructions || {function,keyfetch,2,_,Instructions}<-Fs],
+    io:format("~s~n~p~n",[Path,Is]),
+    {ok,B}=file:read_file(Path),
+    {module,M}=code:load_binary(beam_entry_tuple_probe,Path,B),
+    7=M:keyfetch(key,[{key,7}]),
+    Cases=[{key,[],false},{key,[{key,7,extra}],{key,7,extra}},{1,[{1.0,7}],{1.0,7}}],
+    lists:foreach(fun({Key,Entries,Value})->
+        {error,{badmatch,Value}}=try M:keyfetch(Key,Entries) of V->{value,V} catch error:R->{error,R} end
+    end,Cases),
+    code:delete(M),
+    code:purge(M),
+    Ls=[L||{label,L}<-Is],
+    Map=maps:from_list(lists:zip(Ls,lists:seq(1,length(Ls)))),
+    Rebase=fun R({f,L})->{f,maps:get(L,Map,L)};
+                 R(T) when is_tuple(T)->list_to_tuple([R(E)||E<-tuple_to_list(T)]);
+                 R(L) when is_list(L)->[R(E)||E<-L];
+                 R(E)->E end,
+    [Rebase(I)||I<-Is,element(1,I)=/=label]
+end,
+Reference=Read(P),
+Reference=Read(Q),
+halt().

@@ -1,0 +1,21 @@
+[Path] = init:get_plain_arguments(),
+{ok, Binary} = file:read_file(Path),
+{module, tuple_nested_entry_probe} = code:load_binary(tuple_nested_entry_probe, Path, Binary),
+{undefined,value,extra} = tuple_nested_entry_probe:read({tag,42,{inner,yes,value}},extra),
+Check = fun(Args) ->
+    try apply(tuple_nested_entry_probe, read, Args) of
+        _ -> error(expected_function_clause)
+    catch error:function_clause:Stack ->
+        [{tuple_nested_entry_probe,read,Args,_}|_] = Stack
+    end
+end,
+Check([{tag,41,{inner,yes,value}},extra]),
+Check([{tag,42,{inner,no,value}},extra]),
+Check([{tag,42,{other,yes,value}},extra]),
+Check([{tag,42,{inner,yes}},extra]),
+Check([{tag,42,other},extra]),
+Check([other,extra]),
+value = get(tuple_nested_key),
+{beam_file,_,_,_,_,Functions} = beam_disasm:file(Path),
+[io:format("~p~n",[F]) || F = {function,read,2,_,_} <- Functions],
+halt().

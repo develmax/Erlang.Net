@@ -1,0 +1,26 @@
+D="artifacts/beam-backend/part857-images", M=beam_listener_delete_probe,
+P=filename:join(D,"beam_listener_transport.erl"),
+ok=file:write_file(P,"-module(beam_listener_transport).\n-export([open/2,nodelay/0,setopts/2,setopt/3]).\nopen(F,K)->self()!{open,F,K},get(open).\nnodelay()->self()!nodelay,{nodelay,true}.\nsetopts(S,O)->self()!{setopts,S,O},get(set).\nsetopt(S,K,C)->self()!{transfer,S,K,C},ok.\n"),
+{ok,Stub,B}=compile:file(P,[binary]), {module,Stub}=code:load_binary(Stub,P,B),
+Run=fun(F)->
+ code:purge(M), code:delete(M), {ok,Image}=file:read_file(F), {module,M}=code:load_binary(M,F,Image),
+ socket=M:accept_controller(address,controller,socket),
+ receive {transfer,socket,{otp,controlling_process},controller}->ok after 1000->error(missing_transfer) end,
+ Open={open,inet,stream}, Set={setopts,socket,[{nodelay,true},{keepalive,true}]},
+ [begin
+    put(open,O),put(set,S),
+    R=try M:listen_open({address,inet},Opts) catch error:E:Stack -> {E,Stack} end,
+    case R of {{else_clause,_}=Reason,_}->Expected=Reason; _->Expected=R end,
+    lists:foreach(fun(Event)->receive Event->ok after 1000->error({missing,Event}) end end,Events),
+    receive Unexpected->error({unexpected,Unexpected}) after 0->ok end,
+    R
+  end || {O,S,Opts,Expected,Events}<-[
+   {{ok,socket},ok,[{backlog,42},{nodelay,false},{keepalive,true}],{ok,{socket,42}},[Open,nodelay,Set]},
+   {{ok,socket},ok,[{keepalive,true}],{ok,{socket,128}},[Open,nodelay,Set]},
+   {{error,closed},unused,[],{error,closed},[Open]},
+   {{ok,socket},{error,closed},[{keepalive,true}],{error,closed},[Open,nodelay,Set]},
+   {bad,unused,[],{else_clause,bad},[Open]},
+   {{ok,socket},bad,[{keepalive,true}],{else_clause,bad},[Open,nodelay,Set]}]]
+end,
+Name=atom_to_list(M)++".beam", R=Run(filename:join([D,"fixture","lib","probe","ebin",Name])),
+R=Run(filename:join(D,Name)), erlang:display({M,equal}), halt().

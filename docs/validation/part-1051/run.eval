@@ -1,0 +1,12 @@
+[Reference, Generated] = init:get_plain_arguments(),
+{beam_file, diameter_transport, _, _, _, Ref} = beam_disasm:file(Reference),
+{beam_file, diameter_transport, _, _, _, Gen} = beam_disasm:file(Generated),
+[Expected] = [F || F = {function,start,3,_,_} <- Ref],
+[Actual] = [F || F = {function,start,3,_,_} <- Gen],
+true = Expected =:= Actual,
+{ok, Binary} = file:read_file(Generated),
+{module, diameter_transport} = code:load_binary(diameter_transport, Generated, Binary),
+marker = diameter_transport:start(transport, service, {eval, fun() -> marker end}),
+{transport, service} = diameter_transport:start(transport, service, fun(T,S) -> {T,S} end),
+io:format("start/3 decoded instructions match OTP. Tuple rewrite and direct fallback both execute correctly.~n"),
+halt().

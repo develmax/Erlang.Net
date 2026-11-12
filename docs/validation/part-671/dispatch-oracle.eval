@@ -1,0 +1,9 @@
+O="D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/library376-official-compiler/installed/lib/eldap-1.3.1/ebin/ELDAPv3.beam",A="artifacts/beam-backend/part671-eldap/ELDAPv3.release-profile.beam",
+F=fun(P)->{beam_file,_,_,_,_,Fs}=beam_disasm:file(P),maps:from_list([{N,I}||{function,N,2,_,I}<-Fs]) end,
+R=F(O),C=F(A),
+Read=fun(I)->[{select_val,Reg,[K||K<-T,is_tuple(K),element(1,K)=:=atom]}||{select_val,Reg,_,{list,T}}<-I] end,
+Tail=fun(I)->[{Move,Call}||{Move,Call}<-lists:zip(lists:droplast(I),tl(I)),element(1,Call)=:=call_only] end,
+Norm=fun(I)->{label,Base}=hd(I),[{label,L-Base}||{label,L}<-I] end,
+lists:foreach(fun(N)->X=maps:get(N,R),Y=maps:get(N,C),io:format("~p release=~p managed=~p selector_equal=~p forwarded_branches_equal=~p relative_labels_equal=~p~n",[N,length(X),length(Y),Read(X)=:=Read(Y),Tail(X)=:=Tail(Y),Norm(X)=:=Norm(Y)]) end,[encode_disp,decode_disp]),
+M='ELDAPv3', Run=fun()->[element(1,element(2,element(2,V)))||V<-[M:encode(unknown,0),M:decode(unknown,<<2,1,0>>)]] end,
+Expected=Run(),code:purge(M),code:delete(M),{ok,B}=file:read_file(A),{module,M}=code:load_binary(M,A,B),Same=Run()=:=Expected,io:format("unknown_type_reasons_equal=~p~n",[Same]),case Same of true->halt();false->halt(1) end.

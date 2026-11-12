@@ -1,0 +1,54 @@
+logger {function,update_formatter_config,3} <<"update_formatter_config(HandlerId, #{Key => Value})">>
+logger {function,log,2} <<"log(Level, StringOrReport, #{})">>
+logger {function,debug,3} <<"log(debug, FormatOrFun, Args, Metadata)">>
+logger {function,debug,1} <<"debug(StringOrReport, #{})">>
+logger {function,info,3} <<"log(info, FormatOrFun, Args, Metadata)">>
+logger {function,info,1} <<"info(StringOrReport, #{})">>
+logger {function,notice,3} <<"log(notice, FormatOrFun, Args, Metadata)">>
+logger {function,notice,1} <<"notice(StringOrReport, #{})">>
+logger {function,warning,3} <<"log(warning, FormatOrFun, Args, Metadata)">>
+logger {function,warning,1} <<"warning(StringOrReport, #{})">>
+logger {function,error,3} <<"log(error, FormatOrFun, Args, Metadata)">>
+logger {function,error,1} <<"error(StringOrReport, #{})">>
+logger {function,critical,3} <<"log(critical, FormatOrFun, Args, Metadata)">>
+logger {function,critical,1} <<"critical(StringOrReport, #{})">>
+logger {function,alert,3} <<"log(alert, FormatOrFun, Args, Metadata)">>
+logger {function,alert,1} <<"alert(StringOrReport, #{})">>
+logger {function,emergency,3} <<"log(emergency, FormatOrFun, Args, Metadata)">>
+logger {function,emergency,1} <<"emergency(StringOrReport, #{})">>
+os {function,cmd,1} <<"cmd(Command, #{})">>
+os_sup {function,disable,0} <<"disable(\"/etc\", \"/etc/syslog.conf\")">>
+os_sup {function,enable,0} <<"enable(\"/etc\", \"/etc/syslog.conf\")">>
+instrument {function,carriers,0} <<"carriers(#{})">>
+instrument {function,allocations,0} <<"allocations(#{})">>
+msacc {function,print,1} <<"print(DataOrStats, #{})">>
+base64 {function,mime_decode_to_string,1} <<"mime_decode_to_string(Data, #{})">>
+base64 {function,decode_to_string,1} <<"decode_to_string(Data, #{})">>
+base64 {function,mime_decode,1} <<"mime_decode(Base64, #{})">>
+base64 {function,decode,1} <<"decode(Base64, #{})">>
+base64 {function,encode,1} <<"encode(Data, #{})">>
+base64 {function,encode_to_string,1} <<"encode_to_string(Data, #{})">>
+io_lib {function,write,1} <<"write(Term, -1)">>
+io_lib {function,print,1} <<"print(Term, 1, 80, -1)">>
+io_lib {function,bformat,3} <<"bfwrite(Format, Data, Options)">>
+io_lib {function,bformat,2} <<"bfwrite(Format, Data, [])">>
+io_lib {function,format,3} <<"fwrite(Format, Data, Options)">>
+io_lib {function,format,2} <<"fwrite(Format, Data)">>
+io_lib {function,bfwrite,2} <<"bfwrite(Format, Data, [])">>
+log_mf_h {function,init,3} <<"init(Dir, MaxBytes, MaxFiles,\n     fun(_) ->\n            true\n     end)">>
+shell_docs {function,render_callback,2} <<"render_callback(Module, Docs, #{})">>
+shell_docs {function,render_type,2} <<"render_type(Module, Docs, #{})">>
+shell_docs {function,render,2} <<"render(Module, Docs, #{})">>
+erl_syntax_lib {function,to_comment,1} <<"to_comment(Tree, \"% \")">>
+lcnt {function,port,1} <<"port(node(), Id)">>
+lcnt {function,pid,2} <<"pid(node(), Id, Serial)">>
+lcnt {function,apply,1} <<"apply(Fun, [])">>
+lcnt {function,apply,3} <<"apply(fun() ->\n             apply(Module, Function, Args)\n      end)">>
+lcnt {function,inspect,1} <<"inspect(Lock, [])">>
+lcnt {function,conflicts,0} <<"conflicts([])">>
+lcnt {function,locations,0} <<"locations([])">>
+lcnt {function,collect,0} <<"collect(node())">>
+lcnt {function,clear,0} <<"clear(node())">>
+lcnt {function,rt_opt,1} <<"rt_opt(node(), {Type, Value})">>
+lcnt {function,rt_clear,0} <<"rt_clear(node())">>
+lcnt {function,rt_collect,0} <<"rt_collect(node())">>

@@ -1,0 +1,22 @@
+Functions OTP/before/after: {1068,1068,1068}
+Matching normalized functions before/after: {1024,1058}
+Missing functions: []
+Most common first differences: [{8,
+                                 {allocate,allocate},
+                                 [{compileShaderIncludeARB,2},
+                                  {createShaderProgramv,2},
+                                  {getUniformIndices,2}]},
+                                {1,
+                                 {select_val,{test,is_eq_exact}},
+                                 [{lookup_func,1}]},
+                                {1,{move,allocate},[{nif_stub_error,1}]}]
+{compileShaderIncludeARB,2} OTP/generated instruction counts: {23,36}
+{createShaderProgramv,2} OTP/generated instruction counts: {22,35}
+{getUniformIndices,2} OTP/generated instruction counts: {22,35}
+{init_nif,0} OTP/generated instruction counts: {51,57}
+{lookup_func,1} OTP/generated instruction counts: {11,11}
+{nif_stub_error,1} OTP/generated instruction counts: {7,12}
+{rec,1} OTP/generated instruction counts: {50,73}
+{shaderSource,2} OTP/generated instruction counts: {23,36}
+{shaderSourceARB,2} OTP/generated instruction counts: {23,36}
+{transformFeedbackVaryings,3} OTP/generated instruction counts: {26,40}

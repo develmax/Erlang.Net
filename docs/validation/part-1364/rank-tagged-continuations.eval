@@ -1,0 +1,58 @@
+[Reference, Generated] = [filename:absname(Path) || Path <- init:get_plain_arguments()],
+Files = filelib:fold_files(Generated, "[.]beam$", true, fun(Path, Acc) -> [Path|Acc] end, []),
+Uses = fun Find({var,_,Name}, Name) -> true;
+           Find(Value, Name) when is_tuple(Value) -> Find(tuple_to_list(Value), Name);
+           Find([Head|Tail], Name) -> Find(Head, Name) orelse Find(Tail, Name);
+           Find(_, _) -> false
+       end,
+Scan = fun Visit([Expr,Next|Rest], Acc) ->
+    Keys = case Expr of
+        {match,_,{tuple,_,[{atom,_,_},{var,_,Payload}]},{call,_,_,_}} ->
+            [tagged_call_match] ++
+            case Next of
+                {'case',_,Selector,_} ->
+                    [case_after_match] ++
+                    [case_with_call_selector_after_match || element(1,Selector) =:= call] ++
+                    [terminal_case_after_match || Rest =:= []];
+                {match,_,_,{call,_,_,Args}} ->
+                    [call_binding_after_match] ++
+                    [payload_used_beyond_following_call || Payload =/= '_', Uses(Rest, Payload)] ++
+                    [call_binding_using_payload || Payload =/= '_',
+                         lists:any(fun(A) -> case A of {var,_,Payload} -> true; _ -> false end end, Args)];
+                {call,_,_,Args} ->
+                    [ordinary_call_after_match] ++
+                    [terminal_call_after_match || Rest =:= []] ++
+                    [terminal_call_using_payload || Rest =:= [], Payload =/= '_',
+                         lists:any(fun(A) -> case A of {var,_,Payload} -> true; _ -> false end end, Args)];
+                {tuple,_,_} ->
+                    [terminal_tuple_after_match || Rest =:= []];
+                _ ->
+                    []
+            end;
+        _ ->
+            []
+    end,
+    Visit([Next|Rest], Keys ++ Acc);
+    Visit(_, Acc) -> Acc
+end,
+Totals = lists:foldl(fun(Path, Acc) ->
+    Relative = lists:nthtail(length(filename:split(Generated)), filename:split(Path)),
+    case beam_lib:chunks(filename:join([Reference|Relative]), [abstract_code]) of
+        {ok,{Module,[{abstract_code,{raw_abstract_v1,Forms}}]}} ->
+            Groups = lists:foldl(fun
+                ({function,_,Name,Arity,Clauses}, Map) ->
+                    Keys = lists:usort(lists:append([Scan(Body, []) || {clause,_,_,_,Body} <- Clauses])),
+                    lists:foldl(fun(Key, M) -> maps:update_with(Key, fun(Fs) -> [{Name,Arity}|Fs] end, [{Name,Arity}], M) end, Map, Keys);
+                (_, Map) -> Map
+            end, #{}, Forms),
+            maps:fold(fun(Key, Functions, Map) ->
+                Example = {Module, lists:min(Functions)},
+                maps:update_with(Key, fun({M,F,Es}) -> {M+1,F+length(Functions),lists:sublist([Example|Es],5)} end,
+                    {1,length(Functions),[Example]}, Map)
+            end, Acc, Groups);
+        _ -> Acc
+    end
+end, #{}, Files),
+io:format("Tagged call match continuations in ~p differing images.~n", [length(Files)]),
+io:format("Counts are {modules, functions, examples}. Groups can overlap.~n~p~n", [Totals]),
+halt().

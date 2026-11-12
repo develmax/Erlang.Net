@@ -1,0 +1,128 @@
+{
+  "Date": "2026-11-05",
+  "Status": "PARTIAL_IMPLEMENTATION_TARGET_ACCEPTANCE_PENDING",
+  "BaseCommit": "20e02eb941ef3b99cb675827ef0f20663da7c04b",
+  "OtpBaseline": {
+    "tag": "OTP-29.1.1",
+    "commit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+    "repository": "https://github.com/erlang/otp",
+    "sdk": "10.0.400"
+  },
+  "IsolatedBuild": "Passed",
+  "SharedFinalBuild": "FailedInConcurrentSysWork",
+  "ManagedChecksPassed": 6,
+  "FullOtpPlatformParity": false,
+  "CanonicalReadinessUpdated": false,
+  "NativeReceipts": {
+    "win-x64": {
+      "BuildReceiptSha256": "9C935FA26138EBB2812682BBE457E73999CBC31ABF00D0D7C462EC79C81A2329",
+      "AdapterSha256": "E98321094338BA6A833CC287FADB0F2649A0893E8FF98268009E83A316CA4443",
+      "NativeSmokeExecuted": true
+    },
+    "win-arm64": {
+      "BuildReceiptSha256": "EC907F6715D4C5D2EBABB25C3476ACFF51A21D42656BDE5D0E4D57E836E9DD18",
+      "AdapterSha256": "8D3C82ABFFB8A8C0AC4FFE45AF3B647E25109596A26BBEAC1AAB8BFD108A1F53",
+      "NativeSmokeExecuted": false
+    }
+  },
+  "PlatformProfiles": [
+    {
+      "Profile": "win-x64",
+      "NativeBuild": "NativeBuildPassed",
+      "TargetExecution": "AdapterSmokePassed",
+      "CompatibilityAccepted": false
+    },
+    {
+      "Profile": "win-arm64",
+      "NativeBuild": "CrossCompiled",
+      "TargetExecution": "NotRun",
+      "CompatibilityAccepted": false
+    },
+    {
+      "Profile": "linux-x64-glibc",
+      "NativeBuild": "NotRerun",
+      "TargetExecution": "NotRerun",
+      "CompatibilityAccepted": false
+    },
+    {
+      "Profile": "linux-arm64-glibc",
+      "NativeBuild": "NotRun",
+      "TargetExecution": "NotRun",
+      "CompatibilityAccepted": false
+    },
+    {
+      "Profile": "linux-lp64-portable",
+      "NativeBuild": "NotRun",
+      "TargetExecution": "NotRun",
+      "CompatibilityAccepted": false
+    },
+    {
+      "Profile": "osx-x64",
+      "NativeBuild": "NotRun",
+      "TargetExecution": "NotRun",
+      "CompatibilityAccepted": false
+    },
+    {
+      "Profile": "osx-arm64",
+      "NativeBuild": "NotRun",
+      "TargetExecution": "NotRun",
+      "CompatibilityAccepted": false
+    },
+    {
+      "Profile": "freebsd-lp64",
+      "NativeBuild": "NotRun",
+      "TargetExecution": "NotRun",
+      "CompatibilityAccepted": false
+    }
+  ],
+  "Unimplemented": [
+    "32-bit ABI",
+    "Solaris/AIX/OpenBSD/NetBSD host profiles",
+    "portable multi-runtime isolation",
+    "portable verified-descriptor loading",
+    "unmodified Mach-O NIF binary acceptance"
+  ],
+  "WorkflowDispatched": false,
+  "PreexistingFilesChecked": 1151,
+  "PreexistingFilesChangedDuringConcurrentWork": [
+    "src/Otp/Managed/Erlang.Otp.Kernel/Registration/ManagedKernelRegistration.cs",
+    "docs/dependency-decisions.md",
+    "src/Otp/Managed/Erlang.Otp.Stdlib/Registration/ManagedStdlibRegistration456.cs",
+    "src/Runtime/Erlang.Runtime.Core/Modules/LibrarySelectionNames.cs",
+    "src/Runtime/Erlang.Runtime.Core/Modules/RuntimeManagedLibraries456.cs",
+    "src/Runtime/Erlang.Runtime.Core/Modules/RuntimeManagedLibraryStage456.cs",
+    "src/Runtime/Erlang.Runtime.Core/Processes/Context/ProcessRuntime.LibrarySelection.cs",
+    "src/Runtime/Erlang.Runtime.Core/Services/RuntimeModuleSelection.cs"
+  ],
+  "OwnedSourceSha256": {
+    ".github/workflows/nif-platform-portability.yml": "3B891154B8F749FA7F8C67A378754EDA7EFEFDDAEC9CE30119E5DC0B11617435",
+    "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativePlatformPolicy.cs": "1D61A1EA41A0C1971F747352342686BC99316A1210938F4C7BB5E533C314791D",
+    "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativePortableLayout.cs": "C92E13E3AA964D14766F46F1029DF6B2244D5D518244E7D8315C413FCDCD7329",
+    "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativePortableNames.cs": "8E726A0A2DDEF07F1952EBCE82D66636DEBACA8CC7D105A4B8041D858C841737",
+    "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativePortableRegistration.cs": "38C06520B98289736D40EE21DB6BF57D5A49A7ED4A5E61DE5BC315071B82E35C",
+    "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativePortableUnixApi.cs": "068C3D581650843E46FBA95C01BFA34963906EA20123FACA229DA6D41F464530",
+    "tools/Native/Erlang.NifNativeBackend/build-unix-bridge.py": "B2F95E292393D6DA6AFCE15951793779EBDBDD4FA80BD365F9F9F35243342EBC",
+    "tools/Native/Erlang.NifNativeBackend/native/nif_bridge_layout.c": "586E633F1401785ADDB898946050C887FCFD3B01B16B913B9671C528248996C8",
+    "tools/Native/Erlang.NifNativeBackend/native/nif_bridge_platform.c": "0956EE0619B96BDBCD6EB2FE028B777A0512CEECC292E2FC7DE951E4FCC17A5C",
+    "tools/Native/Erlang.NifPlatformValidation/Erlang.NifPlatformValidation.csproj": "5B74944C994E81A2C7D2A17B508323884C07C0236638B33132AACBB0E1FA5DBF",
+    "tools/Native/Erlang.NifPlatformValidation/Program.cs": "585B334A9B370C939F2CE47E6C5A30098966F87765BC2BAAEF55EF359520FD43",
+    "tools/Native/Erlang.NifPlatformValidation/UnixBridgeChecks.cs": "54F6394651DEBAE1812FD16A90F03ED7C551A6099B6E740331A86733078CC9E8",
+    "tools/Native/Erlang.NifPlatformValidation/WindowsAdapterChecks.cs": "9F57936F70FC4495E8996EDD73ABA287426F22D99AC517DCD86015BDF0990B9D",
+    "tools/Native/Erlang.NifPlatformValidation/alias_only.c": "0A62C6D84CFF4D56FF403D5BBA1C8A624AB50E89CFE9D62C08C966A7F57F78F7",
+    "tools/Native/Erlang.NifPlatformValidation/windows_variadic_smoke.c": "E82B053BEF1CC929650DB990C714B996B831BD237883050E9A13C688BCB5A7CA",
+    "src/Runtime/Erlang.Runtime.Core/Erlang.Runtime.Core.csproj": "EB6526F36C6FD838ECAB3FBABF40BECE4660BBDE18B5A9CD18E1876E78971F3F",
+    "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeCapsuleLayout.cs": "222803B0B99F20CDBAB66356D54E1E4BB98119A26A9F80CDC440CCB5D8D428D1",
+    "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeDiagnostics.cs": "78990DEFBD58511F6CE81428D03AA2A0FB681F7AE9A9227985EB2F727A821470",
+    "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeElfCapsule.cs": "0E05087084D4E8642718478E8E75B67971926E2915F883AB9440ADEF713A560D",
+    "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeLibraryOwner.cs": "FB18D376F3D9E02327C6E2371CEB73A8E0A579D649C669EE153CE066FA0EEDCB",
+    "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeOptional793Registration.cs": "297BC0D2A803462B88C11F3F73378AC4D057C6E99EAEBF5B675D0AC049AE636E",
+    "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativePlatformLoader.cs": "DFAE2679E9FE6D1BC59CA79C4400DC0E79AF75779C1F06D3D0E06749DFC525A3",
+    "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifNativeUnixFile.cs": "BC46D5D6C1A9CB1E883A3B11CE29A16BBAF9ADB28D5272263EE849E7AA19D0AF",
+    "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifWindowsVariadic526.cs": "5F47EDBA00068AFDF553255AA8E47E65768CD977AC888BF94EFA42933135E5D2",
+    "src/Runtime/Erlang.Runtime.Core/Native/Nif/NifWindowsVariadic526Names.cs": "E2B3EF26D5A2A46E978A13305CFF4D3B35392217C4351C186F5294F5B2150CC6",
+    "src/Runtime/Erlang.Runtime.Core/Native/Nif/native/windows_varargs526.c": "24433202AE4A118FE38E7093B1B46CE9DDA6757CEB3BF844A4F666BEEA1E9863",
+    "tools/Native/Erlang.NifNativeBackend/build-windows-varargs526.py": "4F71B159BE6BAB04AFE7774FD877B41A48EC98A19C82412859631CBC3330A30A",
+    "tools/Native/Erlang.NifNativeBackend/native/nif_bridge_api.h": "199E874E0A07DB8582A43CDC389CB6728CA1FB0B2FCCE36040AC4B06B8A9A652"
+  },
+  "IsolatedRuntimeSha256": "18329E967D3EA0CD2A03770829ACDD96695D883A7471CFFB9AB97A1CB4F14F26"
+}

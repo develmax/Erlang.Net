@@ -19,7 +19,7 @@ public sealed partial class ProcessRuntime
         lock (gate)
         {
             RequireWallTimeActor(context);
-            owner = dirtyNative419 ??= new(dirtyIoSchedulerCount522, Statistics.Microstates);
+            owner = GetDirtyNativeOwner419();
         }
 
         return owner.EnsureWallTimeReady(context.Cancellation);
@@ -86,7 +86,7 @@ public sealed partial class ProcessRuntime
             RuntimeSchedulerWallTimeNames.InternalModule,
             RuntimeSchedulerWallTimeNames.PublicWrapper,
             RuntimeSchedulerWallTimeNames.WrapperArity
-        ) is not null;
+        ) is not null || Modules.HasManagedErtsInternalLibrary;
         bool useOriginal;
         RuntimeWallTimeFlagCommand? command = null;
         lock (gate)

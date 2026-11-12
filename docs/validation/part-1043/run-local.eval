@@ -1,0 +1,8 @@
+[Path] = init:get_plain_arguments(),
+{ok, Binary} = file:read_file(Path),
+{module, local_capture_probe} = code:load_binary(local_capture_probe, Path, Binary),
+[{sample, <<"4">>, <<"3">>}] = local_capture_probe:run(3),
+{beam_file, _, _, _, _, Fs} = beam_disasm:file(Path),
+[io:format("~p~n", [F]) || F = {function, Name, _, _, _} <- Fs,
+    lists:prefix("-run/1-fun-", atom_to_list(Name))],
+halt().

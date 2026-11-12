@@ -1,0 +1,34 @@
+Fixture = "beam_protected_term_closure_probe.beam",
+Output = "artifacts/beam-backend/part797-images/",
+{ok,Bytes} = file:read_file("tests/Erlang.Tests/Resources/Beam/" ++ Fixture),
+{ok,Bytes} = file:read_file(Output ++ Fixture),
+io:format("fixture_equal=true bytes=~p sha256=~s~n",
+    [byte_size(Bytes),binary:encode_hex(crypto:hash(sha256,Bytes))]),
+{beam_file,cdv_term_cb,_,_,_,Original} = beam_disasm:file(code:which(cdv_term_cb)),
+{beam_file,cdv_term_cb,_,_,_,Generated} = beam_disasm:file(Output ++ "cdv_term_cb.beam"),
+Normalize = fun({function,Name,Arity,_,Instructions}) ->
+    Labels = [Label || {label,Label} <- Instructions],
+    Map = maps:from_list(lists:zip(Labels, lists:seq(1,length(Labels)))),
+    Recode = fun R({f,L}) -> {f,maps:get(L,Map,L)};
+                R({label,L}) -> {label,maps:get(L,Map)};
+                R({make_fun3,Target,Index,_,Destination,Captures}) ->
+                    {make_fun3,Target,Index,Destination,Captures};
+                R(T) when is_tuple(T) -> list_to_tuple([R(E) || E <- tuple_to_list(T)]);
+                R(L) when is_list(L) -> [R(E) || E <- L];
+                R(T) -> T
+             end,
+    {{Name,Arity},[Recode(I) || I <- Instructions]}
+end,
+Left = maps:from_list([Normalize(F) || F <- Original]),
+Right = maps:from_list([Normalize(F) || F <- Generated]),
+Different = [Key || Key <- lists:usort(maps:keys(Left) ++ maps:keys(Right)),
+    maps:get(Key,Left,missing) =/= maps:get(Key,Right,missing)],
+io:format("normalized_different_functions=~w~n",[Different]),
+{ok,_,ExpectedChunks} = beam_lib:all_chunks(code:which(cdv_term_cb)),
+{ok,_,ActualChunks} = beam_lib:all_chunks(Output ++ "cdv_term_cb.beam"),
+E = maps:from_list(ExpectedChunks),
+A = maps:from_list(ActualChunks),
+io:format("different_chunks=~w~n",[[list_to_atom(Key) ||
+    Key <- lists:usort(maps:keys(E) ++ maps:keys(A)),
+    maps:get(Key,E,missing) =/= maps:get(Key,A,missing)]]),
+halt().

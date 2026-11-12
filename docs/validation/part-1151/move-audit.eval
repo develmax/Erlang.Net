@@ -1,0 +1,48 @@
+[Ref, Generated] = [filename:absname(P) || P <- init:get_plain_arguments()],
+Sort = fun
+    Sort([{move,{y,_},{x,X}}=I | Is]) when X =/= 0 ->
+        {Run, Rest} = lists:splitwith(fun
+            ({move,{y,_},{x,D}}) -> D =/= 0;
+            (_) -> false
+        end, Is),
+        lists:sort(fun({move,{y,A},_},{move,{y,B},_}) -> A =< B end, lists:reverse([I | Run])) ++ Sort(Rest);
+    Sort([I | Is]) -> [I | Sort(Is)];
+    Sort([]) -> []
+end,
+Normalize = fun(Is) ->
+    Labels = [L || {label,L} <- Is],
+    LabelMap = maps:from_list(lists:zip(Labels,lists:seq(1,length(Labels)))),
+    Rename = fun
+        Rebase({f,L}) -> {f,maps:get(L,LabelMap,L)};
+        Rebase({literal,_}=Literal) -> Literal;
+        Rebase(T) when is_tuple(T) -> list_to_tuple([Rebase(E) || E <- tuple_to_list(T)]);
+        Rebase(L) when is_list(L) -> [Rebase(E) || E <- L];
+        Rebase(Other) -> Other
+    end,
+    [Rename(I) || I <- Is, not (is_tuple(I) andalso element(1,I) =:= label)]
+end,
+Read = fun(Root, Path) ->
+    {beam_file, _, _, _, _, Fs} = beam_disasm:file(filename:join(Root, Path)),
+    maps:from_list([{{N,A}, Is}
+                    || {function,N,A,_,Is} <- Fs])
+end,
+
+Files = filelib:fold_files(Generated, "[.]beam$", true, fun(P, Acc) -> [P | Acc] end, []),
+Rows = lists:flatmap(fun(P) ->
+    Path = filename:join(lists:nthtail(length(filename:split(Generated)), filename:split(P))),
+    Expected = maps:map(fun(_, Is)->Normalize(Is) end, Read(Ref, Path)),
+    Actual = Read(Generated, Path),
+    Changes = [{F, case {maps:find(F, Expected), Normalize(Is), Normalize(Sorted)} of
+        {{ok,N},N,_} -> lost_match;
+        {{ok,N},_,N} -> gained_match;
+        _ -> changed
+    end} || {F,Is} <- maps:to_list(Actual), Sorted <- [Sort(Is)], Is =/= Sorted],
+    case Changes of [] -> []; _ -> [{Path,Changes}] end
+end, Files),
+io:format("changed modules ~p, changed functions ~p~n",[length(Rows),lists:sum([length(Cs)||{_,Cs}<-Rows])]),
+lists:foreach(fun(Status) ->
+    Matches = [{P,F} || {P,Cs} <- Rows, {F,S} <- Cs, S =:= Status],
+    io:format("~p: ~p modules, ~p functions~n~p~n", [Status,length(lists:usort([P||{P,_}<-Matches])),length(Matches),lists:sublist(Matches,30)])
+end,[gained_match,lost_match]),
+halt().
+

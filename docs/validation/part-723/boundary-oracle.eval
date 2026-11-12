@@ -1,0 +1,13 @@
+M='ELDAPv3',P="artifacts/beam-backend/part723-eldap/ELDAPv3.release-profile.beam",
+Ints=[-(1 bsl 1024),-65537,-32769,-32768,-129,-128,-127,-1,0,1,127,128,255,256,32767,32768,65535,65536,2147483647,2147483648,1 bsl 1024],
+Signed=[{enc_MessageID,[N,T]}||N<-Ints,T<-[[],[<<2>>],[<<2>>,<<160>>]]],
+Length=[{enc_LDAPString,[binary:copy(<<97>>,N),[<<4>>]]}||N<-[0,1,126,127,128,129,255,256,257,65535,65536]],
+Read=[{dec_MessageID,[N,[]]}||N<-[<<>>,<<0>>,<<127>>,<<0,128>>,<<128>>,<<255>>,<<127,255,255,255>>,<<0,128,0,0,0>>]],
+Parts=[{dec_LDAPString,[L,[]]}||L<-[[{3,<<0,97>>},{3,<<1,98>>}],[{4,<<97>>},{4,[{4,<<98>>},{4,<<99>>}]}],[{3,<<2>>}],[{3,<<>>}]]],
+Bad=[{dec_Controls,[Input,[]]}||Input<-[bad,[{16,[{4,<<"oid">>}]}|bad]]],
+Cases=Signed++Length++Read++Parts++Bad,
+Run=fun()->[try apply(M,F,A) of {B,L} when is_integer(L)->{iolist_to_binary(B),L};V->V catch C:R->{C,R} end||{F,A}<-Cases] end,
+E=Run(),code:purge(M),code:delete(M),{ok,B}=file:read_file(P),{module,M}=code:load_binary(M,P,B),Actual=Run(),
+D=[{I,X,Y}||{I,X,Y}<-lists:zip3(Cases,E,Actual),X=/=Y],
+io:format("~p boundary calls, ~p differences~n",[length(Cases),length(D)]),
+case D of []->halt();[H|_]->io:format("~P~n",[H,12]),halt(1) end.

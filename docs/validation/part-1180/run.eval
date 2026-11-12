@@ -1,0 +1,11 @@
+[Path] = init:get_plain_arguments(),
+{ok, Binary} = file:read_file(Path),
+{module, tuple_nested_fallback_probe} = code:load_binary(tuple_nested_fallback_probe, Path, Binary),
+{undefined,value,extra} = tuple_nested_fallback_probe:read({tag,42,{inner,yes,value}},extra),
+Inputs = [{tag,41,{inner,yes,value}},{tag,42,{inner,no,value}},{tag,42,{other,yes,value}},
+          {tag,42,{inner,yes}},{tag,42,other},other],
+[{fallback,Input,extra} = tuple_nested_fallback_probe:read(Input,extra) || Input <- Inputs],
+value = get(tuple_nested_fallback_key),
+{beam_file,_,_,_,_,Functions} = beam_disasm:file(Path),
+[io:format("~p~n",[F]) || F = {function,read,2,_,_} <- Functions],
+halt().

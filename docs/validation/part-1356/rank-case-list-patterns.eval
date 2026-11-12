@@ -1,0 +1,93 @@
+[Reference, Generated] = [filename:absname(Path) || Path <- init:get_plain_arguments()],
+Kinds = fun(Body) ->
+    case lists:reverse(Body) of
+        [{'case',_,Selector,Arms}|Prefix] ->
+            Ready = case {Selector,Prefix} of
+                {{call,_,_,_},_} -> true;
+                {{var,_,Name},[{match,_,{var,_,Name},{call,_,_,_}}|_]} -> true;
+                _ -> false
+            end,
+            HasUnguardedVariable = lists:any(fun({clause,_,[{var,_,_}],[],_}) -> true;
+                                                (_) -> false end,Arms),
+            LiteralArms = lists:all(fun({clause,_,[{Tag,_,_}],[],_}) ->
+                                       lists:member(Tag,[atom,integer,char]);
+                                      (_) -> false end,Arms),
+            BooleanPair = lists:sort([V || {clause,_,[{atom,_,V}],[],_} <- Arms]) =:= [false,true]
+                andalso length(Arms) =:= 2,
+            Simple = fun(E) -> lists:member(element(1,E),[var,atom,integer,char,float,string,nil]) end,
+            SimpleArms = lists:all(fun({clause,_,_,[],[{call,_,_,Args}]}) -> lists:all(Simple,Args);
+                                      ({clause,_,_,[],[Result]}) -> Simple(Result);
+                                      (_) -> false end,Arms),
+            Cons = [C || C={clause,_,[{cons,_,_,_}],_,_} <- Arms],
+            Heads = [{length(Fields),Guard,Expressions} ||
+                {clause,_,[{cons,_,{tuple,_,Fields},_}],Guard,Expressions} <- Cons],
+            Arities = lists:usort([Arity || {Arity,_,_} <- Heads]),
+            LiteralHeads = [A || {clause,_,[{cons,_,A,_}],_,_} <- Cons,
+                lists:member(element(1,A),[atom,integer,char])],
+            [Kind || {Kind,true} <- [
+                {call_case_without_variable_fallback,Ready andalso not HasUnguardedVariable},
+                {call_case_without_variable_fallback_literal_arms,Ready andalso LiteralArms},
+                {call_case_boolean_pair,Ready andalso BooleanPair},
+                {call_case_nonboolean_literal_arms,Ready andalso LiteralArms andalso not BooleanPair},
+                {call_case_simple_nonboolean_literal_arms,Ready andalso LiteralArms andalso SimpleArms andalso not BooleanPair},
+                {call_case_simple_boolean_pair,Ready andalso BooleanPair andalso SimpleArms},
+                {call_case_multiple_cons,Ready andalso length(Cons) > 1},
+                {call_case_multiple_tuple_heads,Ready andalso length(Heads) > 1},
+                {call_case_distinct_tuple_arities,Ready andalso length(Arities) > 1},
+                {call_case_multiple_literal_heads,Ready andalso length(LiteralHeads) > 1}
+            ]];
+        _ -> []
+    end
+end,
+Files = lists:sort(filelib:fold_files(Generated,"[.]beam$",true,fun(Path,Acc) -> [Path|Acc] end,[])),
+Norm=fun(Is) ->
+    Labels=maps:from_list(lists:zip([L || {label,L}<-Is],lists:seq(1,length([L || {label,L}<-Is])))),
+    Fix=fun F({label,L})->{label,maps:get(L,Labels,L)};
+        F({f,L})->{f,maps:get(L,Labels,L)};
+        F({literal,V})->{literal,V};
+        F({make_fun3,M,I,_,Dst,Args})->{make_fun3,M,I,uniq,F(Dst),F(Args)};
+        F(T) when is_tuple(T)->list_to_tuple([F(X)||X<-tuple_to_list(T)]);
+        F([H|T])->[F(H)|F(T)];
+        F(V)->V
+    end,
+    [Fix(I)||I<-Is]
+end,
+Read=fun(P)->
+    {beam_file,_,_,_,_,Fs}=beam_disasm:file(P),
+    maps:from_list([{{N,A},Norm(Is)}||{function,N,A,_,Is}<-Fs])
+end,
+Totals = lists:foldl(fun(Path,Acc) ->
+    Relative = lists:nthtail(length(filename:split(Generated)),filename:split(Path)),
+    ReferencePath = filename:join([Reference|Relative]),
+    OriginalCode = Read(ReferencePath),
+    GeneratedCode = Read(Path),
+    case beam_lib:chunks(ReferencePath,[abstract_code]) of
+        {ok,{Module,[{abstract_code,{raw_abstract_v1,Forms}}]}} ->
+            Groups = lists:foldl(fun({Name,Arity,Clauses},G0) ->
+                Shapes = lists:usort(lists:append([Kinds(Body) || {clause,_,_,_,Body} <- Clauses])),
+                lists:foldl(fun(Shape,G) -> maps:update_with(Shape,fun(Mfas) ->
+                    [{Name,Arity}|Mfas] end,[{Name,Arity}],G) end,G0,Shapes)
+            end,#{},[{Name,Arity,Clauses} || {function,_,Name,Arity,Clauses} <- Forms,
+                maps:get({Name,Arity},OriginalCode,missing) =/= maps:get({Name,Arity},GeneratedCode,missing)]),
+            maps:fold(fun(Shape,Mfas,All) ->
+                Count = length(Mfas),
+                Example = {Module,lists:min(Mfas)},
+                maps:update_with(Shape,fun({Modules,Functions,Examples}) ->
+                    {Modules+1,Functions+Count,lists:sublist([Example|Examples],3)}
+                end,{1,Count,[Example]},All)
+            end,Acc,Groups);
+        _ -> Acc
+    end
+end,#{},Files),
+io:format("Case patterns in top-level clauses of functions with differing normalized instructions of ~p differing images.~n",[length(Files)]),
+io:format("Counts are {modules, functions, examples}. Groups can overlap.~n~p~n",[Totals]),
+halt().
+
+
+
+
+
+
+
+
+

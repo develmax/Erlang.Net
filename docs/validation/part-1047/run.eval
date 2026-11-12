@@ -1,0 +1,16 @@
+[Path] = init:get_plain_arguments(),
+{ok, Binary} = file:read_file(Path),
+{module, register_clause_probe} = code:load_binary(register_clause_probe, Path, Binary),
+[b,a] = register_clause_probe:run(42,[a,b]),
+[a,b] = register_clause_probe:run(stop,[[a],[b]]),
+[b,a] = register_clause_probe:fallback(42,[a,b]),
+[a,b] = register_clause_probe:fallback(other,[[a],[b]]),
+try register_clause_probe:run(42.0,[a,b]) of
+    _ -> error(expected_function_clause)
+catch
+    error:function_clause:Stack -> [{register_clause_probe,run,[42.0,[a,b]],_}|_] = Stack
+end,
+{beam_file, _, _, _, _, Fs} = beam_disasm:file(Path),
+[io:format("~p~n", [F]) || F = {function, Name, _, _, _} <- Fs,
+    lists:member(Name,[run,fallback])],
+halt().

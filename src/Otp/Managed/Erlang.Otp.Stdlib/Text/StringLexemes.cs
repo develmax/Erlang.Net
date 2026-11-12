@@ -1,3 +1,5 @@
+using System.Numerics;
+
 namespace Erlang;
 
 internal static class StringLexemes
@@ -6,7 +8,7 @@ internal static class StringLexemes
         ProcessContext context,
         Term input,
         Term separatorList,
-        int? number
+        BigInteger? number
     )
     {
         if (number == 1 && separatorList is Nil)
@@ -25,25 +27,40 @@ internal static class StringLexemes
         {
             throw StringLegacy.Clause();
         }
-        var separators = Cons.Items(separatorList).ToHashSet();
+        var separators = await StringSeparatorSet.Create(
+            context,
+            separatorList,
+            number is null ? StringFunctionNames.Lexemes : StringFunctionNames.NthLexeme,
+            number is null ? 2 : 3,
+            number is null ? StringSeparatorSource.LexemesPattern : StringSeparatorSource.NthPattern
+        );
+        var firstCodepoints = await StringSeparatorScan.FirstCodepoints(context, separators);
+        string helper = number is null ? StringSeparatorSource.Lexemes : StringSeparatorSource.NthLexeme;
         var result = new List<Term>();
         while (true)
         {
-            bool listBinary = input is Cons { Head: BitString };
-            if (input is BitString && number is not null && separators.Count == 0)
+            bool listBinary = input is Cons { Head: BitString { IsBinary: true } };
+            bool scalar = input is Cons { Head: Integer };
+            int pickLine = scalar ? firstCodepoints.Contains(((Cons)input).Head) ? StringSeparatorSource.LexemesScalarPick : StringSeparatorSource.LexemesScalarOtherPick
+                : listBinary ? StringSeparatorSource.LexemesListPick : input is BitString ? StringSeparatorSource.LexemesBinaryPick : StringSeparatorSource.LexemesNestedPick;
+            if (input is BitString { IsBinary: true } && number is not null)
             {
-                return await EmptyPattern(context);
+                await separators.Compile(context, helper, 3);
             }
-            if (input is BitString || listBinary)
+            if (input is BitString { IsBinary: true } || listBinary)
             {
                 BitString binary = listBinary ? (BitString)((Cons)input).Head : (BitString)input;
                 Term continuation = listBinary ? ((Cons)input).Tail : Nil.Value;
-                var scan = await StringSeparatorScan.Scan(
+                var scan = await StringSeparatorScan.ScanFor(
                     context,
                     binary,
                     continuation,
                     separators,
-                    false
+                    false,
+                    helper,
+                    3,
+                    number is null ? listBinary ? StringSeparatorSource.LexemesListBinary : StringSeparatorSource.LexemesBinary
+                        : listBinary ? StringSeparatorSource.NthListBinary : StringSeparatorSource.NthBinary
                 );
                 if (!scan.Found)
                 {
@@ -60,9 +77,27 @@ internal static class StringLexemes
             {
                 if (input is not (Cons or Nil))
                 {
-                    throw StringLegacy.Clause();
+                    throw StringSourceTrace.Clause(
+                        context,
+                        helper,
+                        [input, await separators.Pattern(context), number is null ? Cons.From(result.AsEnumerable().Reverse()) : new Integer(number.Value)],
+                        number is null ? StringSeparatorSource.LexemesHead : StringSeparatorSource.NthHead
+                    );
                 }
-                Cons? next = await StringUnicode.Next(context, input, true);
+                int gcLine = number is not null ? StringSeparatorSource.NthGc : scalar ? StringSeparatorSource.LexemesScalarGc : StringSeparatorSource.LexemesGc;
+                Cons? next = number is null && scalar && !firstCodepoints.Contains(((Cons)input).Head) ? (Cons)input
+                    : await StringUnicode.Next(
+                        context,
+                        input,
+                        true,
+                        new StringSourceStep(
+                            helper,
+                            3,
+                            gcLine,
+                            gcLine,
+                            true
+                        )
+                    );
                 if (next is null)
                 {
                     return number is null ? Cons.From(result) : Nil.Value;
@@ -74,18 +109,49 @@ internal static class StringLexemes
                 }
                 if (number > 1)
                 {
-                    input = await Skip(context, next.Tail, separators);
+                    using (StringSourceTrace.Scope(
+                        context,
+                        helper,
+                        3,
+                        StringSeparatorSource.NthNestedSkip
+                    ))
+                    {
+                        input = await Skip(context, next.Tail, separators);
+                    }
                     number--;
                     continue;
                 }
             }
             if (number > 1)
             {
-                input = await Skip(context, input, separators);
+                using (StringSourceTrace.Scope(
+                    context,
+                    helper,
+                    3,
+                    listBinary ? StringSeparatorSource.NthListSkip : StringSeparatorSource.NthBinarySkip
+                ))
+                {
+                    input = await Skip(context, input, separators);
+                }
                 number--;
                 continue;
             }
-            var picked = (TupleTerm)await Pick(context, input, separators);
+            await separators.Compile(context, helper, 3);
+            TupleTerm picked;
+            if (number is null)
+            {
+                using var call = StringSourceTrace.Scope(
+                    context,
+                    helper,
+                    3,
+                    pickLine
+                );
+                picked = (TupleTerm)await Pick(context, input, separators);
+            }
+            else
+            {
+                picked = (TupleTerm)await Pick(context, input, separators);
+            }
             if (number is not null)
             {
                 return picked.Items[0];
@@ -107,14 +173,14 @@ internal static class StringLexemes
             Nil.Value
         );
 
-    private static async ValueTask<Term> Pick(ProcessContext context, Term input, HashSet<Term> separators)
+    private static async ValueTask<Term> Pick(ProcessContext context, Term input, StringSeparatorSet separators)
     {
         var firstCodepoints = await StringSeparatorScan.FirstCodepoints(context, separators);
         Term reverse = Nil.Value;
         while (true)
         {
-            bool listBinary = input is Cons { Head: BitString };
-            if (input is BitString || listBinary)
+            bool listBinary = input is Cons { Head: BitString { IsBinary: true } };
+            if (input is BitString { IsBinary: true } || listBinary)
             {
                 if (separators.Count == 0)
                 {
@@ -122,12 +188,15 @@ internal static class StringLexemes
                 }
                 BitString binary = listBinary ? (BitString)((Cons)input).Head : (BitString)input;
                 Term continuation = listBinary ? ((Cons)input).Tail : Nil.Value;
-                var scan = await StringSeparatorScan.Scan(
+                var scan = await StringSeparatorScan.ScanFor(
                     context,
                     binary,
                     continuation,
                     separators,
-                    true
+                    true,
+                    StringSeparatorSource.LexemePick,
+                    3,
+                    listBinary ? StringSeparatorSource.PickListBinary : StringSeparatorSource.PickBinary
                 );
                 if (!scan.Found)
                 {
@@ -145,14 +214,47 @@ internal static class StringLexemes
 
                 return Term.Tuple(StringPatternSearch.BinaryToken(keep, reverse), listBinary ? scan.Remainder : left);
             }
-            Cons? next = input is Cons { Head: Integer } raw ? raw : await StringUnicode.Next(context, input, false);
+            if (input is not (Cons or Nil))
+            {
+                throw StringSourceTrace.Clause(
+                    context,
+                    StringSeparatorSource.LexemePick,
+                    [input, await separators.Pattern(context), reverse],
+                    StringSeparatorSource.PickHead
+                );
+            }
+            bool scalar = input is Cons { Head: Integer };
+            Cons? next = scalar ? (Cons)input : await StringUnicode.Next(
+                context,
+                input,
+                false,
+                new StringSourceStep(
+                    StringSeparatorSource.LexemePick,
+                    3,
+                    StringSeparatorSource.PickCp,
+                    StringSeparatorSource.PickCp,
+                    true
+                )
+            );
             if (next is null)
             {
                 return Term.Tuple(StringPatternSearch.Reverse(reverse), Nil.Value);
             }
             if (firstCodepoints.Contains(next.Head))
             {
-                Cons cluster = (await StringUnicode.Next(context, input, true))!;
+                int line = scalar ? StringSeparatorSource.PickScalarGc : StringSeparatorSource.PickGc;
+                Cons cluster = (await StringUnicode.Next(
+                    context,
+                    input,
+                    true,
+                    new StringSourceStep(
+                        StringSeparatorSource.LexemePick,
+                        3,
+                        line,
+                        line,
+                        true
+                    )
+                ))!;
                 if (separators.Contains(cluster.Head))
                 {
                     return Term.Tuple(StringPatternSearch.Reverse(reverse), cluster.Tail);
@@ -172,26 +274,26 @@ internal static class StringLexemes
         }
     }
 
-    private static async ValueTask<Term> Skip(ProcessContext context, Term input, HashSet<Term> separators)
+    private static async ValueTask<Term> Skip(ProcessContext context, Term input, StringSeparatorSet separators)
     {
         var firstCodepoints = await StringSeparatorScan.FirstCodepoints(context, separators);
         while (true)
         {
-            bool listBinary = input is Cons { Head: BitString };
-            if (input is BitString || listBinary)
+            bool listBinary = input is Cons { Head: BitString { IsBinary: true } };
+            if (input is BitString { IsBinary: true } || listBinary)
             {
-                if (separators.Count == 0)
-                {
-                    return await EmptyPattern(context);
-                }
+                await separators.Compile(context, StringSeparatorSource.LexemeSkip, 2);
                 BitString binary = listBinary ? (BitString)((Cons)input).Head : (BitString)input;
                 Term continuation = listBinary ? ((Cons)input).Tail : Nil.Value;
-                var scan = await StringSeparatorScan.Scan(
+                var scan = await StringSeparatorScan.ScanFor(
                     context,
                     binary,
                     continuation,
                     separators,
-                    true
+                    true,
+                    StringSeparatorSource.LexemeSkip,
+                    2,
+                    listBinary ? StringSeparatorSource.SkipListBinary : StringSeparatorSource.SkipBinary
                 );
                 if (!scan.Found)
                 {
@@ -203,16 +305,62 @@ internal static class StringLexemes
                     continue;
                 }
 
-                return (await StringUnicode.Next(context, listBinary ? scan.Remainder : ((Cons)scan.Remainder).Head, true))!.Tail;
+                int line = listBinary ? StringSeparatorSource.SkipListBinaryGc : StringSeparatorSource.SkipBinaryGc;
+
+                return (await StringUnicode.Next(
+                    context,
+                    listBinary ? scan.Remainder : ((Cons)scan.Remainder).Head,
+                    true,
+                    new StringSourceStep(
+                        StringSeparatorSource.LexemeSkip,
+                        2,
+                        line,
+                        line,
+                        true
+                    )
+                ))!.Tail;
             }
-            Cons? next = input is Cons { Head: Integer } raw ? raw : await StringUnicode.Next(context, input, false);
+            if (input is not (Cons or Nil))
+            {
+                throw StringSourceTrace.Clause(
+                    context,
+                    StringSeparatorSource.LexemeSkip,
+                    [input, await separators.Pattern(context)],
+                    StringSeparatorSource.SkipHead
+                );
+            }
+            bool scalar = input is Cons { Head: Integer };
+            Cons? next = scalar ? (Cons)input : await StringUnicode.Next(
+                context,
+                input,
+                false,
+                new StringSourceStep(
+                    StringSeparatorSource.LexemeSkip,
+                    2,
+                    StringSeparatorSource.SkipCp,
+                    StringSeparatorSource.SkipCp,
+                    true
+                )
+            );
             if (next is null)
             {
                 return Nil.Value;
             }
             if (firstCodepoints.Contains(next.Head))
             {
-                Cons cluster = (await StringUnicode.Next(context, input, true))!;
+                int line = scalar ? StringSeparatorSource.SkipScalarGc : StringSeparatorSource.SkipGc;
+                Cons cluster = (await StringUnicode.Next(
+                    context,
+                    input,
+                    true,
+                    new StringSourceStep(
+                        StringSeparatorSource.LexemeSkip,
+                        2,
+                        line,
+                        line,
+                        true
+                    )
+                ))!;
                 if (separators.Contains(cluster.Head))
                 {
                     return cluster.Tail;

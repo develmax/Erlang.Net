@@ -136,6 +136,7 @@ internal static class BeamReceivePlanner
                 case BeamGeneralOpcodeNames.NonemptyListTest:
                 case BeamGeneralOpcodeNames.NilTest:
                 case BeamGeneralOpcodeNames.ListTest:
+                case BeamGeneralOpcodeNames.PortTest:
                 case BeamGeneralOpcodeNames.MapTest:
                 case BeamGeneralOpcodeNames.TupleTest:
                 case BeamGeneralOpcodeNames.TupleArity:

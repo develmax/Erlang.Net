@@ -4,4 +4,8 @@ using System.Text;
 
 namespace Erlang.Compiler;
 
-public sealed record FunctionDefinition(string Name, int Arity, IReadOnlyList<Clause> Clauses);
+public sealed record FunctionDefinition(string Name, int Arity, IReadOnlyList<Clause> Clauses)
+{
+    internal bool IsInlineFailure { get; init; }
+    internal bool IsClosedListMapper { get; init; }
+}

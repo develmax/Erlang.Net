@@ -1,0 +1,140 @@
+44550:function `megaco_ber_media_gateway_control_v1`:`enc_AuditRequest`(_0) {
+44551-0:
+44552-  %% c:/Users/Maksim/AppData/Local/Temp/erl-cohort-7mzi5e1n/view/artifacts/library376-official-compiler/installed/lib/megaco-4.9.2/src/binary/megaco_ber_media_gateway_control_v1.erl:5584
+44553-  %% Result type:
+44554-  %%    {maybe_improper_list(any(), nil() | bitstring(8)) | bitstring(8), number()}
+44555-  %% Aliased:
+44556-  %%    _0
+44557-  _2 = call (`enc_AuditRequest`/2), _0, `[<<"0">>]`
+44558-
+44559-  %% Aliased:
+44560-  %%    _2
+44561-  _5 = succeeded:body _2
+44562-  br _5, ^5, ^1
+44563-
+44564-5:
+44565-  %% Result type:
+44566-  %%    {maybe_improper_list(any(), nil() | bitstring(8)) | bitstring(8), number()}
+44567-  %% Aliased:
+44568-  %%    _2
+44569-  ret _2
+44570-
+44571-1:
+44572-  _3 = call (`erlang`:`error`/1), `badarg`
+44573-  %% Result type:
+44574-  %%    none()
+44575-  ret _3
+44576-}
+44577-
+44578-%% c:/Users/Maksim/AppData/Local/Temp/erl-cohort-7mzi5e1n/view/artifacts/library376-official-compiler/installed/lib/megaco-4.9.2/src/binary/megaco_ber_media_gateway_control_v1.erl:5586
+44579-%% Counter = 52
+44580-%% bs_ensure_opt: true
+44581:function `megaco_ber_media_gateway_control_v1`:`enc_AuditRequest`(_0, _1) {
+44582-0:
+44583-  %% Argument types:
+44584-  %%    
+44585-  %% Aliased:
+44586-  %%    _0
+44587-  _46 = bif:is_tuple _0
+44588-  br _46, ^46, ^26
+44589-
+44590-46:
+44591-  %% Argument types:
+44592-  %%    _0 => {...}
+44593-  %% Aliased:
+44594-  %%    _0
+44595-  _47 = bif:tuple_size _0
+44596-
+44597-  %% Argument types:
+44598-  %%    _47 => 0..16777215
+44599-  %% Unique:
+44600-  %%    _47
+44601-  _48 = bif:'=:=' _47, `3`
+44602-  br _48, ^45, ^26
+44603-
+44604-45:
+44605-  %% Argument types:
+44606-  %%    _0 => {any(), any(), any()}
+44607-  %% Aliased:
+44608-  %%    _0
+44609-  _11 = get_tuple_element _0, `1`
+44610-
+44611-  %% Argument types:
+44612-  %%    _0 => {any(), any(), any()}
+44613-  %% Aliased:
+44614-  %%    _0
+44615-  _10 = get_tuple_element _0, `2`
+44616-
+44617-  %% c:/Users/Maksim/AppData/Local/Temp/erl-cohort-7mzi5e1n/view/artifacts/library376-official-compiler/installed/lib/megaco-4.9.2/src/binary/megaco_ber_media_gateway_control_v1.erl:5592
+44618-  %% Result type:
+44619-  %%    {maybe_improper_list(any(), nil() | bitstring(8)) | bitstring(8), number()}
+44620-  %% Aliased:
+44621-  %%    _11
+44622-  _13 = call (`enc_TerminationID`/2), _11, `[<<" ">>]`
+44623-
+44624-  %% Aliased:
+44625-  %%    _13
+44626-  _27 = succeeded:body _13
+44627-  br _27, ^51, ^1
+44628-
+44629-51:
+44630-  %% c:/Users/Maksim/AppData/Local/Temp/erl-cohort-7mzi5e1n/view/artifacts/library376-official-compiler/installed/lib/megaco-4.9.2/src/binary/megaco_ber_media_gateway_control_v1.erl:5597
+44631-  %% Result type:
+44632-  %%    {maybe_improper_list(any(), nil() | bitstring(8)) | bitstring(8), number()}
+44633-  %% Aliased:
+44634-  %%    _10
+44635-  _16 = call (`enc_AuditDescriptor`/2), _10, `[<<"¡">>]`
+44636-
+--
+76838:function `megaco_ber_media_gateway_control_v1`:`encode_tags`(_0, _1) {
+76839-0:
+76840-  %% Argument types:
+76841-  %%    _1 => {nonempty_list(nonempty_list(0..255) | 0..255), number()}
+76842-  %% Aliased:
+76843-  %%    _1
+76844-  _5 = get_tuple_element _1, `0`
+76845-
+76846-  %% Argument types:
+76847-  %%    _1 => {nonempty_list(nonempty_list(0..255) | 0..255), number()}
+76848-  %% Aliased:
+76849-  %%    _1
+76850-  _4 = get_tuple_element _1, `1`
+76851-
+76852-  %% c:/Users/Maksim/AppData/Local/Temp/erl-cohort-7mzi5e1n/view/artifacts/library376-official-compiler/installed/lib/megaco-4.9.2/src/binary/megaco_ber_media_gateway_control_v1.erl:8991
+76853-  %% Result type:
+76854-  %%    {maybe_improper_list(any(), nil() | bitstring(8)) | bitstring(8), number()}
+76855-  %% Aliased:
+76856-  %%    _0, 
+76857-  %%    _5
+76858-  %% Unique:
+76859-  %%    _4
+76860-  _6 = call (`encode_tags`/3), _0, _5, _4
+76861-
+76862-  %% Aliased:
+76863-  %%    _6
+76864-  _11 = succeeded:body _6
+76865-  br _11, ^11, ^1
+76866-
+76867-11:
+76868-  %% Result type:
+76869-  %%    {maybe_improper_list(any(), nil() | bitstring(8)) | bitstring(8), number()}
+76870-  %% Aliased:
+76871-  %%    _6
+76872-  ret _6
+76873-
+76874-1:
+76875-  _8 = call (`erlang`:`error`/1), `badarg`
+76876-  %% Result type:
+76877-  %%    none()
+76878-  ret _8
+76879-}
+76880-
+76881-%% c:/Users/Maksim/AppData/Local/Temp/erl-cohort-7mzi5e1n/view/artifacts/library376-official-compiler/installed/lib/megaco-4.9.2/src/binary/megaco_ber_media_gateway_control_v1.erl:8993
+76882-%% Counter = 44
+76883-%% bs_ensure_opt: true
+76884-%% Parameters
+76885-%%    _1 =>
+76886-%%     maybe_improper_list(any(), nil() | bitstring(8)) | bitstring(8)
+76887-%%    _2 =>
+76888-%%     number()
+76889:function `megaco_ber_media_gateway_control_v1`:`encode_tags`(_0, _1, _2) {

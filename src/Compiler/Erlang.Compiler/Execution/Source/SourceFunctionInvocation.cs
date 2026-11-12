@@ -106,6 +106,14 @@ internal static class SourceFunctionInvocation
         else if (invocation is not null && !context.Runtime.Modules.ValidateLocalFunctionPublication(invocation))
             throw new LocalFunctionPublicationChangedException(invocation);
 
+        if (expression.SelfName is { } selfName)
+        {
+            environment = new Dictionary<string, Term>(environment, StringComparer.Ordinal)
+            {
+                [selfName] = functionTerm
+            };
+        }
+
         SourceFunctionTailDispatch.Transfer(context, new(
             module,
             null,

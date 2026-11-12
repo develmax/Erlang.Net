@@ -1,0 +1,5 @@
+Paths=["D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/library376-official-compiler/installed/lib/eldap-1.3.1/ebin/ELDAPv3.beam","artifacts/beam-backend/part642-eldap/ELDAPv3.release-profile.beam","artifacts/beam-backend/part643-eldap/ELDAPv3.release-profile.beam"],
+lists:foreach(fun(P)->{beam_file,_,_,_,_,Fs}=beam_disasm:file(P),Is=lists:append([I||{function,_,_,_,I}<-Fs]),
+G=[Op||{gc_bif,Op,_,_,_,_}<-Is,lists:member(Op,['+','bsr','band','bor'])],
+C=[Op||{call_ext,2,{extfunc,erlang,Op,2}}<-Is,lists:member(Op,['+','bsr','band','bor'])],
+io:format("~s~ngc_bif_arithmetic=~p external_arithmetic_calls=~p~n",[P,length(G),length(C)]) end,Paths),halt().

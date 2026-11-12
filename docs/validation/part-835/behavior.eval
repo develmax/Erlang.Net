@@ -1,0 +1,41 @@
+Dir = "artifacts/beam-backend/part835-images",
+Module = beam_tuple_result_append_probe,
+Stub = beam_option_lists,
+Path = filename:join(Dir, atom_to_list(Stub) ++ ".erl"),
+Source = "-module(beam_option_lists).\n-export([defaults/0,internal/0,sockname/1]).\ndefaults() -> self() ! defaults_called, [emulated].\ninternal() -> self() ! internal_called, [internal].\nsockname(Pid) when Pid =:= self() -> {ok,{loopback,4433}}; sockname(_) -> malformed.\n",
+ok = file:write_file(Path, Source),
+{ok, Stub, StubBytes} = compile:file(Path, [binary]),
+{module, Stub} = code:load_binary(Stub, Path, StubBytes),
+Run = fun(File) ->
+    code:purge(Module),
+    code:delete(Module),
+    {ok, Bytes} = file:read_file(File),
+    {module, Module} = code:load_binary(Module, File, Bytes),
+    ReceiveCalls = fun() ->
+        receive First -> defaults_called = First after 1000 -> error(defaults_missing) end,
+        receive Second -> internal_called = Second after 1000 -> error(internal_missing) end
+    end,
+    {[native,internal],[emulated]} = Module:options([native]),
+    ReceiveCalls(),
+    {[internal],[emulated]} = Module:options([]),
+    ReceiveCalls(),
+    {socket_options,binary,2,64,0,false} =
+        Module:socket_options([{mode,binary},{packet_size,64},{active,false}], {socket_options,list,2,0,99,true}),
+    {socket_options,list,2,0,0,true} =
+        Module:socket_options([], {socket_options,list,2,0,99,true}),
+    4433 = Module:real_port(self(), 0),
+    8443 = Module:real_port(self(), 8443),
+    {BadPortPid, Ref} = spawn_monitor(fun() -> ok end),
+    receive {'DOWN',Ref,process,BadPortPid,_} -> ok after 1000 -> error(worker_timeout) end,
+    BadMatch = try Module:real_port(BadPortPid, 0) catch error:{badmatch,malformed}:M -> M end,
+    GuardFailure = try Module:real_port(self(), invalid) catch error:function_clause:G -> G end,
+    Failure = try Module:options(invalid) catch error:badarg:Stack -> Stack end,
+    ReceiveCalls(),
+    {Failure, BadMatch, GuardFailure}
+end,
+Name = atom_to_list(Module) ++ ".beam",
+Otp = Run(filename:join([Dir, "fixture", "lib", "probe", "ebin", Name])),
+{[{erlang,'++',_,_}|_], [{Module,real_port,2,_}|_], [{Module,real_port,_,_}|_]} = Otp,
+Otp = Run(filename:join(Dir, Name)),
+erlang:display({Module, equal}),
+halt().

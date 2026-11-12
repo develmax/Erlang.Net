@@ -1,0 +1,14 @@
+Path = "tests/Erlang.Tests/Resources/Beam/beam_multi_capture_probe.erl",
+{ok,beam_multi_capture_probe,Expected} = compile:file(Path,[binary,deterministic]),
+{ok,Expected} = file:read_file("artifacts/beam-backend/part755-probe.beam"),
+{beam_file,beam_multi_capture_probe,_,_,_,Functions} = beam_disasm:file(Expected),
+{function,pair,3,_,Instructions} = lists:keyfind(pair,2,Functions),
+[{make_fun3,_,_,_,{x,0},{list,[{x,0},{x,2}]}}] =
+    [I || I <- Instructions, element(1,I) =:= make_fun3],
+{module,beam_multi_capture_probe} = code:load_binary(beam_multi_capture_probe,Path,Expected),
+Closure = beam_multi_capture_probe:pair(zebra,unused,alpha),
+{env,[zebra,alpha]} = erlang:fun_info(Closure,env),
+{alpha,argument,zebra,alpha} = Closure(argument),
+io:format("whole_image_equal=true bytes=~p capture_registers=[0,2] environment=[zebra,alpha]~n",
+    [byte_size(Expected)]),
+halt().

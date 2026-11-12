@@ -1,0 +1,10 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup><OutputType>Exe</OutputType></PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="../../../src/Runtime/Erlang.Runtime/Erlang.Runtime.csproj" />
+    <ProjectReference Include="../../../src/Otp/Managed/Erlang.Otp.Kernel/Erlang.Otp.Kernel.csproj" />
+    <Compile Include="../Erlang.GenEventCompatibility/GenEventBoot*.cs" Link="Shared/%(Filename)%(Extension)" />
+    <Compile Include="../Erlang.GenEventCompatibility/GenEventValidation*.cs" Link="Shared/%(Filename)%(Extension)" />
+    <Compile Include="../Erlang.TimerCompatibility/TimerCompatibilityBootstrap.cs" Link="Shared/TimerCompatibilityBootstrap.cs" />
+  </ItemGroup>
+</Project>

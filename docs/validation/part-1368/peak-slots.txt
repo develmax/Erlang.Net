@@ -1,0 +1,14 @@
+Peak stack slots changed in 10 functions across 8 modules.
+Columns are function, previous peak slots, current peak slots, OTP peak slots.
+lib\common_test-1.31.2\ebin\ct_netconfc.beam [{{connect,2},4,3,1},
+                                              {{open,3},5,4,2},
+                                              {{session,3},5,4,2}]
+lib\dialyzer-6.0.3\ebin\dialyzer_dataflow.beam [{{format_cerl,1},2,1,1}]
+lib\dialyzer-6.0.3\ebin\typer_core.beam [{{process_cl_args,1},9,8,4}]
+lib\diameter-2.7.2\ebin\diameter_config.beam [{{get_opt,4},5,4,3}]
+lib\mnesia-4.27\ebin\mnesia_schema.beam [{{'-unsafe_make_create_table/1-fun-0-',
+                                           3},
+                                          4,3,2}]
+lib\sasl-4.4\ebin\format_lib_supp.beam [{{term_to_string,2},3,2,1}]
+lib\stdlib-8.1\ebin\io_lib.beam [{{limit_map,2},3,2,1}]
+lib\xmerl-2.2\ebin\xmerl_xpath.beam [{{full_parents,2},3,2,1}]

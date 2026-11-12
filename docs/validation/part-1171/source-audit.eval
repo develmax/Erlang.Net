@@ -1,0 +1,22 @@
+[Ref,Generated]=[filename:absname(P)||P<-init:get_plain_arguments()],
+Shape = fun
+    ({function,_,N,3,[{clause,_,[{var,_,A},{var,_,B},{var,_,C}],[],[
+        {match,_,{var,_,Bound},{call,_,_,[_,{call,_,_,[{cons,_,{var,_,A},{cons,_,{var,_,B},{cons,_,_,{nil,_}}}}]},{var,_,C}]}},
+        {'catch',_,{call,_,_,[_,{cons,_,{var,_,Bound},{nil,_}}]}}
+    ]}]}) -> [{N,3}];
+    (_) -> []
+end,
+Files=filelib:fold_files(Generated,"[.]beam$",true,fun(P,A)->[P|A] end,[]),
+Rows=lists:flatmap(fun(P)->
+    Rel=filename:join(lists:nthtail(length(filename:split(Generated)),filename:split(P))),
+    case beam_lib:chunks(filename:join(Ref,Rel),[abstract_code]) of
+        {ok,{_,[{abstract_code,{raw_abstract_v1,Forms}}]}} ->
+            case lists:flatmap(Shape,Forms) of []->[]; Found->[{Rel,Found}] end;
+        _->[]
+    end
+end,Files),
+io:format("Candidate syntax in ~p of ~p images~n",[length(Rows),length(Files)]),
+lists:foreach(fun(Row)->io:format("~p~n",[Row]) end,lists:sort(Rows)),
+halt().
+
+

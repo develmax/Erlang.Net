@@ -148,6 +148,7 @@ internal sealed partial class DirtyNativeOwner419
         {
             if (!closed)
             {
+                ResumeScheduling();
                 closed = true;
                 foreach (DirtyNativeWorker419 worker in workers522)
                     worker.CloseLocked();
@@ -167,6 +168,12 @@ internal sealed partial class DirtyNativeOwner419
         lock (gate)
         {
             closing = closed;
+            if (schedulingPaused && !closed)
+            {
+                call = null;
+
+                return true;
+            }
             call = worker.Queue.First?.Value;
             if (call is not null) worker.Queue.RemoveFirst();
             if (call is not null) call.Running = true;

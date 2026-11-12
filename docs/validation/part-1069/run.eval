@@ -1,0 +1,13 @@
+[Path] = init:get_plain_arguments(),
+{ok, Binary} = file:read_file(Path),
+{module, tuple_tail_probe} = code:load_binary(tuple_tail_probe, Path, Binary),
+{extra, value, value} = tuple_tail_probe:forward({left,value}, extra),
+{value, extra, external} = tuple_tail_probe:forward({right,marker,value}, extra),
+try tuple_tail_probe:forward({right,bad,value}, original) of
+    _ -> error(expected_function_clause)
+catch error:function_clause:Stack ->
+    [{tuple_tail_probe,forward,[{right,bad,value},original],_}|_] = Stack
+end,
+{beam_file, _, _, _, _, Functions} = beam_disasm:file(Path),
+[io:format("~p~n", [F]) || F = {function, forward, 2, _, _} <- Functions],
+halt().

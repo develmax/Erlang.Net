@@ -17,7 +17,12 @@ internal static class Rpc
     {
         try
         {
-            Term value = await Erpc.Call(context, arguments);
+            Term value = await context.Runtime.Modules.Call(
+                context,
+                ErpcNames.Module,
+                ErpcNames.Call,
+                arguments.ToArray()
+            );
 
             return IsExit(value) ? Term.Tuple(ErpcAtoms.BadRpc, value) : value;
         }

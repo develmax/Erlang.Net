@@ -1,0 +1,32 @@
+Dir = "artifacts/beam-backend/part816-images",
+Path = filename:join(Dir,"ssl_gen_statem.erl"),
+ok = file:write_file(Path,"-module(ssl_gen_statem).\n-export([dtls_start_link/2]).\ndtls_start_link(_,fail) -> {error,fixture_failure};\ndtls_start_link(Caller,Opts) -> {ok,spawn_link(fun() -> receive {Caller,options,Args} -> Caller ! {received,Opts,Args} end end)}.\n"),
+{ok,ssl_gen_statem,Stub} = compile:file(Path,[binary,deterministic]),
+{module,ssl_gen_statem} = code:load_binary(ssl_gen_statem,Path,Stub),
+Module = dtls_connection_sup,
+Args = fun(Opts) -> [role,host,port,socket,{Opts,second,third},user,cb_info] end,
+Cases = [{start_child,Args(#{}),[]},
+         {start_child_dist,Args(#{receiver_spawn_opts => [custom]}),[custom]},
+         {start_child,Args(#{receiver_spawn_opts => fail}),error},
+         {start_child,Args(not_a_map),error},
+         {start_child,[role],error}],
+Run = fun(File) ->
+    code:purge(Module),
+    code:delete(Module),
+    {ok,Bytes} = file:read_file(File),
+    {module,Module} = code:load_binary(Module,File,Bytes),
+    {ok,Local}=Module:start_link(),
+    {ok,Dist}=Module:start_link_dist(),
+    Outcomes = [try apply(Module,Fun,[Input]) of
+        {ok,Pid} when is_pid(Pid) ->
+            receive {received,Opts,Input} -> {ok,Opts} after 1000 -> timeout end;
+        Failure -> Failure
+    catch Class:Reason -> {Class,Reason} end || {Fun,Input,Opts} <- Cases],
+    ok=gen_server:stop(Dist),
+    ok=gen_server:stop(Local),
+    Outcomes
+end,
+Otp = Run(ReleasePath),
+Otp = Run(filename:join(Dir,"dtls_connection_sup.beam")),
+io:format("~p~n",[Otp]),
+halt().

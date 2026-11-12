@@ -1,0 +1,12 @@
+[Path] = init:get_plain_arguments(),
+{ok,Binary} = file:read_file(Path),
+{module,case_tuple_register_probe} = code:load_binary(case_tuple_register_probe,Path,Binary),
+undefined = put(tuple_probe_key, {first,value}),
+{{first,value},{second,value}} = case_tuple_register_probe:read(tuple_probe_key),
+{{second,value},{finished,value}} = case_tuple_register_probe:read(tuple_probe_key),
+{{finished,value},fallback} = case_tuple_register_probe:read(tuple_probe_key),
+fallback = put(tuple_probe_key, first),
+{first,fallback} = case_tuple_register_probe:read(tuple_probe_key),
+fallback = put(tuple_probe_key, {first,value,extra}),
+{{first,value,extra},fallback} = case_tuple_register_probe:read(tuple_probe_key),
+halt().

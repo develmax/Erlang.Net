@@ -1,0 +1,19 @@
+[R,G] = [filename:absname(P) || P <- init:get_plain_arguments()],
+Has = fun(Op, Is) -> lists:any(fun(I) -> I =:= Op orelse (is_tuple(I) andalso element(1,I) =:= Op) end, Is) end,
+Scan = fun(Path, Acc) ->
+    Relative = lists:nthtail(length(filename:split(G)),filename:split(Path)),
+    case {catch beam_disasm:file(filename:join([R|Relative])),catch beam_disasm:file(Path)} of
+        {{beam_file,M,_,_,_,Left},{beam_file,M,_,_,_,Right}} ->
+            Generated = maps:from_list([{{N,A},Is} || {function,N,A,_,Is} <- Right]),
+            Functions = [{N,A} || {function,N,A,_,Is} <- Left,
+                Has(loop_rec,Is), Has(select_tuple_arity,Is),
+                {ok,Out} <- [maps:find({N,A},Generated)],
+                Has(loop_rec,Out), not Has(select_tuple_arity,Out)],
+            case Functions of [] -> Acc; _ -> [{filename:join(Relative),Functions}|Acc] end;
+        _ -> Acc
+    end
+end,
+Rows = lists:sort(filelib:fold_files(G,"[.]beam$",true,Scan,[])),
+io:format("Receive functions with release arity selection and no generated arity selection: ~p modules, ~p functions~n",
+    [length(Rows), lists:sum([length(Fs)||{_,Fs}<-Rows])]),
+lists:foreach(fun({P,Fs}) -> io:format("~s ~w~n",[P,Fs]) end,Rows), halt().

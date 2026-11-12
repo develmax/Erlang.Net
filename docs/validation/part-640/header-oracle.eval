@@ -1,0 +1,9 @@
+D="artifacts/beam-backend/part640-eldap/ELDAPv3",{ok,_,B}=compile:file(D++".erl",[binary,debug_info]),
+Read=fun(P)->{ok,_,Cs}=beam_lib:all_chunks(P),{debug_info_v1,erl_abstract_code,{Fs,_}}=binary_to_term(proplists:get_value("Dbgi",Cs)),Fs end,
+O=Read(B),A=Read(D++".release-profile.beam"),R=Read("D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/library376-official-compiler/installed/lib/eldap-1.3.1/ebin/ELDAPv3.beam"),
+Norm=fun(Fs)->[case F of {attribute,L,file,{P,N}}->{attribute,L,file,{filename:basename(P),N}};_->F end||F<-Fs] end,
+Records=fun(Fs)->[F||F={attribute,_,record,_}<-Fs] end,
+Files=fun(Fs)->[F||F={attribute,_,file,_}<-Fs] end,
+Same=Norm(O)=:=Norm(A),Rec=Records(R)=:=Records(A),Paths=Files(R)=:=Files(A),
+io:format("same_source_forms=~p equal_after_normalizing_file_paths=~p release_records_equal=~p release_file_transitions_equal=~p~n",[length(A),Same,Rec,Paths]),
+case Rec andalso Paths of true->halt();false->io:format("~p~n~p~n",[Files(R),Files(A)]),halt(1) end.

@@ -1,0 +1,25 @@
+Peak stack slots changed in 18 functions across 14 modules.
+Columns are function, previous peak slots, current peak slots, OTP peak slots.
+lib\common_test-1.31.2\ebin\test_server.beam [{{asan_take_logpath,0},1,0,0}]
+lib\dialyzer-6.0.3\ebin\dialyzer_cl.beam [{{assert_writable,1},2,1,1}]
+lib\dialyzer-6.0.3\ebin\dialyzer_cplt.beam [{{get_default_cplt_filename,0},
+                                             2,0,0}]
+lib\dialyzer-6.0.3\ebin\dialyzer_dep.beam [{{map__add,3},6,3,3}]
+lib\dialyzer-6.0.3\ebin\dialyzer_incremental.beam [{{assert_writable,1},
+                                                    2,1,1}]
+lib\dialyzer-6.0.3\ebin\dialyzer_iplt.beam [{{get_default_iplt_filename,0},
+                                             2,0,0}]
+lib\dialyzer-6.0.3\ebin\dialyzer_options.beam [{{get_default_config_filename,
+                                                 0},
+                                                2,0,0}]
+lib\inets-9.8\ebin\httpd_util.beam [{{error_log,2},3,2,2}]
+lib\kernel-11.0.4\ebin\logger_std_h.beam [{{decompress_data,3},7,3,3}]
+lib\parsetools-2.8\ebin\leex.beam [{{out_string_2,2},2,1,1}]
+lib\reltool-1.1\ebin\reltool_utils.beam [{{list_dir,1},4,1,1},
+                                         {{read_file,1},4,1,1},
+                                         {{read_file_info,1},4,1,1},
+                                         {{write_file,2},4,1,1},
+                                         {{write_file_info,2},4,1,1}]
+lib\snmp-5.20.5\ebin\snmp_generic_mnesia.beam [{{table_get_elements,4},5,2,2}]
+lib\ssl-11.7.7\ebin\ssl_crl_hash_dir.beam [{{find_crls,2},3,2,2}]
+lib\stdlib-8.1\ebin\digraph.beam [{{del_path,3},4,3,3}]

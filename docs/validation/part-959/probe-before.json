@@ -1,0 +1,17 @@
+{
+  "OtpVersion": "29.1.1",
+  "Total": 1,
+  "Counts": {
+    "Unsupported": 1
+  },
+  "Modules": [
+    {
+      "Beam": "beam_receive_tuple_guards.beam",
+      "Status": "Unsupported",
+      "Source": "beam_receive_tuple_guards.erl",
+      "Detail": "beam_receive_tuple_guards:pick/1: Unsupported BEAM receive guard: erlang:is_map_key/2.",
+      "FirstDifferentByte": null,
+      "EmissionSite": "BeamModuleCompiler.SelectiveReceive.cs:44 (EmitReceive)"
+    }
+  ]
+}

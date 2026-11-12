@@ -1,0 +1,16 @@
+D="artifacts/beam-backend/part860-images", M=beam_output_dispatch_probe,
+Name=atom_to_list(M)++".beam",
+Run=fun(F)->
+ code:purge(M), code:delete(M), {ok,Image}=file:read_file(F), {module,M}=code:load_binary(M,F,Image),
+ State={state,socket,handle,8},
+ [begin Expected=M:dispatch(S,buffer,Size,Pending,Selection), Expected end ||
+ {S,Size,Pending,Selection,Expected}<-[
+ {State,3,true,selected,{data,State,buffer,3,selected}},
+ {State,8,true,undefined,{send,State,buffer,8,true}},
+ {State,0,false,undefined,{wait,State,buffer,0,false,undefined}},
+ {invalid,3,true,undefined,{send,invalid,buffer,3,true}},
+ {invalid,3,true,selected,{wait,invalid,buffer,3,true,selected}},
+ {State,arbitrary,false,undefined,{send,State,buffer,arbitrary,false}}]]
+end,
+R=Run(filename:join([D,"fixture","lib","probe","ebin",Name])),
+R=Run(filename:join(D,Name)), erlang:display({M,equal}), halt().

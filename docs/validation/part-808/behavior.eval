@@ -1,0 +1,19 @@
+Module = beam_guarded_page_args_probe,
+Cases = [[parent, callback], [parent, {app, fun() -> "from_fun" end}],
+         [parent, {expand, "text", table}], [parent, {app, {expand, "nested", table}}],
+         [parent, {app, "tagged"}], [parent, "plain"], [parent, callback, extra],
+         [parent, {app, fun(X) -> X end}]],
+Run = fun(Path) ->
+    code:purge(Module),
+    code:delete(Module),
+    {ok,Bytes} = file:read_file(Path),
+    {module,Module} = code:load_binary(Module,Path,Bytes),
+    [try Module:init(Input) of Value -> {ok,Value}
+     catch error:{badarity,_} -> {error,badarity};
+           Class:Reason -> {Class,Reason}
+     end || Input <- Cases]
+end,
+Otp = Run("tests/Erlang.Tests/Resources/Beam/beam_guarded_page_args_probe.beam"),
+Otp = Run("artifacts/beam-backend/part808-images/beam_guarded_page_args_probe.beam"),
+io:format("~p~n",[Otp]),
+halt().

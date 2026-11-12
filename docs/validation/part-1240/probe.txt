@@ -1,0 +1,18 @@
+Abstract forms match after normalizing file paths
+[{attribute,{1,1},file,{"debug_header_attribute_probe.erl",1}},
+ {attribute,{1,2},module,debug_header_attribute_probe},
+ {attribute,{2,2},export,[{value,1}]},
+ {attribute,{1,1},file,{"debug_header_attribute_probe.hrl",1}},
+ {attribute,{1,2},dialyzer,{nowarn_function,{value,1}}},
+ {attribute,{2,2},
+            spec,
+            {{value,1},
+             [{type,{2,12},
+                    'fun',
+                    [{type,{2,12},product,[{type,{2,13},integer,[]}]},
+                     {type,{2,27},integer,[]}]}]}},
+ {function,{3,1},
+           value,1,
+           [{clause,{3,1},[{var,{3,7},'X'}],[],[{var,{3,13},'X'}]}]},
+ {attribute,{3,47},file,{"debug_header_attribute_probe.erl",3}},
+ {eof,{4,1}}]

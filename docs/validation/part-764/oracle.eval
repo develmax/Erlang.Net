@@ -1,0 +1,15 @@
+Original = filename:join([code:lib_dir(ssh),"ebin","ssh_no_io.beam"]),
+Generated = "artifacts/beam-backend/part764-images/ssh_no_io.beam",
+{ok,Bytes} = file:read_file(Original),
+{ok,Bytes} = file:read_file(Generated),
+{beam_file,ssh_no_io,_,_,_,Functions} = beam_disasm:file(Generated),
+Names = [yes_no,read_password,read_line,format],
+Lines = [begin
+    {function,Name,2,_,Instructions} = lists:keyfind(Name,2,Functions),
+    [{move,{integer,Line},{x,3}}] = [I || I={move,{integer,_},{x,3}} <- Instructions],
+    Line
+end || Name <- Names],
+[38,45,51,57] = Lines,
+io:format("whole_image_equal=true bytes=~p macro_lines=~w sha256=~s~n",
+    [byte_size(Bytes),Lines,binary:encode_hex(crypto:hash(sha256,Bytes))]),
+halt().

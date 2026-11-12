@@ -1,0 +1,8 @@
+[Path] = init:get_plain_arguments(),
+{ok, Binary} = file:read_file(Path),
+{module, mixed_move_probe} = code:load_binary(mixed_move_probe, Path, Binary),
+[{a, fixed, sample, c, b, marker}] = mixed_move_probe:run(a, b, c),
+{beam_file, _, _, _, _, Fs} = beam_disasm:file(Path),
+[io:format("~p~n", [F]) || F = {function, Name, _, _, _} <- Fs,
+    lists:prefix("-run/3-fun-", atom_to_list(Name))],
+halt().

@@ -1,0 +1,24 @@
+Dir = "artifacts/beam-backend/part838-images",
+Module = dtls_socket,
+Run = fun(File) ->
+    code:purge(Module),
+    code:delete(Module),
+    {ok, Bytes} = file:read_file(File),
+    {module, Module} = code:load_binary(Module, File, Bytes),
+    Pid = self(),
+    Native = Module:emulated_options([{mode,binary},{active,false},{reuseaddr,true}]),
+    Defaults = Module:emulated_options([]),
+    Invalid = try Module:emulated_options([{packet,2}])
+        catch throw:Reason -> Reason end,
+    {error,{options,{not_supported,{packet,2}}}} = Invalid,
+    Address = {{127,0,0,1},4433},
+    Socket = Module:socket([Pid],gen_udp,{Address,raw_socket},callback,table),
+    {sslsocket,{Address,raw_socket},Pid,Pid,gen_udp,callback,table,undefined} = Socket,
+    {ok,Address} = Module:peername(gen_udp,{Address,raw_socket}),
+    Boundary = [(catch Module:emulated_options([Opt])) || Opt <- [{active,-32768},{active,32767},{active,32768},{active,once},{mode,unknown}]], {Native, Defaults, Invalid, Socket, Boundary}
+end,
+Otp = Run(code:which(Module)),
+Otp = Run(filename:join(Dir,"dtls_socket.beam")),
+erlang:display({Module, selected_cases_equal}),
+halt().
+

@@ -1,0 +1,17 @@
+{reverse_pairs,2} exact after label normalization
+[{label,1},
+ {line,[{location,"orddict.erl",612}]},
+ {func_info,{atom,orddict},{atom,reverse_pairs},2},
+ {label,2},
+ {test,is_nonempty_list,{f,3},[{x,0}]},
+ {get_list,{x,0},{x,2},{x,3}},
+ {test,is_tuple,{f,1},[{x,2}]},
+ {test,test_arity,{f,1},[{x,2},2]},
+ {test_heap,2,4},
+ {put_list,{x,2},{x,1},{x,1}},
+ {move,{x,3},{x,0}},
+ {call_only,2,{orddict,reverse_pairs,2}},
+ {label,3},
+ {test,is_nil,{f,1},[{x,0}]},
+ {move,{x,1},{x,0}},
+ return]

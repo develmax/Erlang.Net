@@ -1,0 +1,1408 @@
+{
+  "Baseline": "OTP-29.1.1",
+  "Commit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "ReferenceSha256": "6229C2A49B5DC201541CB6782C35555DFFD8B854E2FDC6EB2F40E31CB63D6FB7",
+  "ExportCount": 71,
+  "Method": "Source clauses, not documentation specs, determine acceptance. A catalog or case count does not certify compatibility.",
+  "Apis": [
+    {
+      "Function": "is_empty",
+      "Arity": 1,
+      "OriginalClauses": [
+        {
+          "Line": 236,
+          "HeadAndGuard": "is_empty([])"
+        },
+        {
+          "Line": 237,
+          "HeadAndGuard": "is_empty(<<>>)"
+        },
+        {
+          "Line": 238,
+          "HeadAndGuard": "is_empty([L|R])"
+        },
+        {
+          "Line": 239,
+          "HeadAndGuard": "is_empty(_)"
+        }
+      ],
+      "CSharpHandler": "src/Otp/Managed/Erlang.Otp.Stdlib/Text/StringUnicode.cs",
+      "HandlerSha256": "1AB57C8AC9A0B66ED1AEB5D8606A94A1C1C091AF28055165C408F657576A1843",
+      "SourceReviewObligation": "Term/stream dispatch and pinned Unicode/native dependencies; retain lazy validation and result shape.",
+      "Defaults": "explicit arguments",
+      "ContractReview": "Only recursively empty lists/binaries are empty; other terms return false without Unicode validation.",
+      "AuditState": "Source contract reviewed; measured differential closure and remaining acceptance are recorded separately",
+      "CompatibilityStatus": "Needs verification"
+    },
+    {
+      "Function": "length",
+      "Arity": 1,
+      "OriginalClauses": [
+        {
+          "Line": 256,
+          "HeadAndGuard": "length(<<CP1/utf8, Bin/binary>>)"
+        },
+        {
+          "Line": 258,
+          "HeadAndGuard": "length(CD)"
+        }
+      ],
+      "CSharpHandler": "src/Otp/Managed/Erlang.Otp.Stdlib/Text/StringModernExecution.cs",
+      "HandlerSha256": "9932A51003797E7FDA5202737680D209F3FEDAFC4F6BD7E3C949ED09B3D8BDAA",
+      "SourceReviewObligation": "Grapheme traversal, binary/list representation, integer bounds and source-ordered guards.",
+      "Defaults": "explicit arguments",
+      "ContractReview": "Latin1 pair fast path excludes CR; count grapheme clusters, preserve malformed-tail helper errors.",
+      "AuditState": "Source contract reviewed; measured differential closure and remaining acceptance are recorded separately",
+      "CompatibilityStatus": "Needs verification"
+    },
+    {
+      "Function": "to_graphemes",
+      "Arity": 1,
+      "OriginalClauses": [
+        {
+          "Line": 276,
+          "HeadAndGuard": "to_graphemes(CD0)"
+        }
+      ],
+      "CSharpHandler": "src/Otp/Managed/Erlang.Otp.Stdlib/Text/StringModernExecution.cs",
+      "HandlerSha256": "9932A51003797E7FDA5202737680D209F3FEDAFC4F6BD7E3C949ED09B3D8BDAA",
+      "SourceReviewObligation": "Grapheme traversal, binary/list representation, integer bounds and source-ordered guards.",
+      "Defaults": "explicit arguments",
+      "ContractReview": "Return cluster terms, not scalar strings; retain non-tail recursion source frames.",
+      "AuditState": "Source contract reviewed; measured differential closure and remaining acceptance are recorded separately",
+      "CompatibilityStatus": "Needs verification"
+    },
+    {
+      "Function": "reverse",
+      "Arity": 1,
+      "OriginalClauses": [
+        {
+          "Line": 363,
+          "HeadAndGuard": "reverse(<<CP1/utf8, Rest/binary>>)"
+        },
+        {
+          "Line": 365,
+          "HeadAndGuard": "reverse(CD)"
+        }
+      ],
+      "CSharpHandler": "src/Otp/Managed/Erlang.Otp.Stdlib/Text/StringModernExecution.cs",
+      "HandlerSha256": "9932A51003797E7FDA5202737680D209F3FEDAFC4F6BD7E3C949ED09B3D8BDAA",
+      "SourceReviewObligation": "Grapheme traversal, binary/list representation, integer bounds and source-ordered guards.",
+      "Defaults": "explicit arguments",
+      "ContractReview": "Reverse grapheme terms into a list even for binary input; do not reverse bytes or codepoints.",
+      "AuditState": "Source contract reviewed; measured differential closure and remaining acceptance are recorded separately",
+      "CompatibilityStatus": "Needs verification"
+    },
+    {
+      "Function": "equal",
+      "Arity": 2,
+      "OriginalClauses": [
+        {
+          "Line": 290,
+          "HeadAndGuard": "equal(A,B) when is_binary(A), is_binary(B)"
+        },
+        {
+          "Line": 292,
+          "HeadAndGuard": "equal(A,B)"
+        }
+      ],
+      "CSharpHandler": "src/Otp/Managed/Erlang.Otp.Stdlib/Text/StringComparisonExecution.cs",
+      "HandlerSha256": "E751BB8724D79CE723CA436CC505D5A3A7D103966B517845F116004DAF2B838B",
+      "SourceReviewObligation": "Exact binary shortcut, scalar streams, casefold and dynamic normalization dispatch.",
+      "Defaults": "IgnoreCase=false, normalization=none",
+      "ContractReview": "Binary equality shortcut, exact scalar comparison, identity shortcuts and dynamic normalization dispatch; boolean guard precedence.",
+      "AuditState": "Source contract reviewed; measured differential closure and remaining acceptance are recorded separately",
+      "CompatibilityStatus": "Needs verification"
+    },
+    {
+      "Function": "equal",
+      "Arity": 3,
+      "OriginalClauses": [
+        {
+          "Line": 304,
+          "HeadAndGuard": "equal(A, B, false)"
+        },
+        {
+          "Line": 306,
+          "HeadAndGuard": "equal(A, B, true)"
+        }
+      ],
+      "CSharpHandler": "src/Otp/Managed/Erlang.Otp.Stdlib/Text/StringComparisonExecution.cs",
+      "HandlerSha256": "E751BB8724D79CE723CA436CC505D5A3A7D103966B517845F116004DAF2B838B",
+      "SourceReviewObligation": "Exact binary shortcut, scalar streams, casefold and dynamic normalization dispatch.",
+      "Defaults": "normalization=none",
+      "ContractReview": "Binary equality shortcut, exact scalar comparison, identity shortcuts and dynamic normalization dispatch; boolean guard precedence.",
+      "AuditState": "Source contract reviewed; measured differential closure and remaining acceptance are recorded separately",
+      "CompatibilityStatus": "Needs verification"
+    },
+    {
+      "Function": "equal",
+      "Arity": 4,
+      "OriginalClauses": [
+        {
+          "Line": 341,
+          "HeadAndGuard": "equal(A, B, Case, none)"
+        },
+        {
+          "Line": 343,
+          "HeadAndGuard": "equal(A, B, false, Norm)"
+        },
+        {
+          "Line": 345,
+          "HeadAndGuard": "equal(A, B, true, Norm)"
+        }
+      ],
+      "CSharpHandler": "src/Otp/Managed/Erlang.Otp.Stdlib/Text/StringComparisonExecution.cs",
+      "HandlerSha256": "E751BB8724D79CE723CA436CC505D5A3A7D103966B517845F116004DAF2B838B",
+      "SourceReviewObligation": "Exact binary shortcut, scalar streams, casefold and dynamic normalization dispatch.",
+      "Defaults": "explicit arguments",
+      "ContractReview": "Binary equality shortcut, exact scalar comparison, identity shortcuts and dynamic normalization dispatch; boolean guard precedence.",
+      "AuditState": "Source contract reviewed; measured differential closure and remaining acceptance are recorded separately",
+      "CompatibilityStatus": "Needs verification"
+    },
+    {
+      "Function": "slice",
+      "Arity": 2,
+      "OriginalClauses": [
+        {
+          "Line": 376,
+          "HeadAndGuard": "slice(CD, N) when is_integer(N), N >= 0"
+        }
+      ],
+      "CSharpHandler": "src/Otp/Managed/Erlang.Otp.Stdlib/Text/StringModernExecution.cs",
+      "HandlerSha256": "9932A51003797E7FDA5202737680D209F3FEDAFC4F6BD7E3C949ED09B3D8BDAA",
+      "SourceReviewObligation": "Grapheme traversal, binary/list representation, integer bounds and source-ordered guards.",
+      "Defaults": "length=infinity",
+      "ContractReview": "Zero length precedes index validation; nonnegative start and positive/infinity length; preserve binary/list result and lazy suffix.",
+      "AuditState": "Source contract reviewed; measured differential closure and remaining acceptance are recorded separately",
+      "CompatibilityStatus": "Needs verification"
+    },
+    {
+      "Function": "slice",
+      "Arity": 3,
+      "OriginalClauses": [
+        {
+          "Line": 403,
+          "HeadAndGuard": "slice(CD, N, Length) when is_integer(N), N >= 0, is_integer(Length), Length > 0"
+        },
+        {
+          "Line": 409,
+          "HeadAndGuard": "slice(CD, N, infinity) when is_integer(N), N >= 0"
+        },
+        {
+          "Line": 414,
+          "HeadAndGuard": "slice(CD, _, 0)"
+        }
+      ],
+      "CSharpHandler": "src/Otp/Managed/Erlang.Otp.Stdlib/Text/StringModernExecution.cs",
+      "HandlerSha256": "9932A51003797E7FDA5202737680D209F3FEDAFC4F6BD7E3C949ED09B3D8BDAA",
+      "SourceReviewObligation": "Grapheme traversal, binary/list representation, integer bounds and source-ordered guards.",
+      "Defaults": "explicit arguments",
+      "ContractReview": "Zero length precedes index validation; nonnegative start and positive/infinity length; preserve binary/list result and lazy suffix.",
+      "AuditState": "Source contract reviewed; measured differential closure and remaining acceptance are recorded separately",
+      "CompatibilityStatus": "Needs verification"
+    },
+    {
+      "Function": "pad",
+      "Arity": 2,
+      "OriginalClauses": [
+        {
+          "Line": 426,
+          "HeadAndGuard": "pad(CD, Length)"
+        }
+      ],
+      "CSharpHandler": "src/Otp/Managed/Erlang.Otp.Stdlib/Text/StringModernExecution.cs",
+      "HandlerSha256": "9932A51003797E7FDA5202737680D209F3FEDAFC4F6BD7E3C949ED09B3D8BDAA",
+      "SourceReviewObligation": "Grapheme traversal, binary/list representation, integer bounds and source-ordered guards.",
+      "Defaults": "direction=trailing, character=space",
+      "ContractReview": "Length is integer; direction checked before traversal; arbitrary fill term, zero/negative deficit and odd both-padding placement.",
+      "AuditState": "Source contract reviewed; measured differential closure and remaining acceptance are recorded separately",
+      "CompatibilityStatus": "Needs verification"
+    },
+    {
+      "Function": "pad",
+      "Arity": 3,
+      "OriginalClauses": [
+        {
+          "Line": 435,
+          "HeadAndGuard": "pad(CD, Length, Dir)"
+        }
+      ],
+      "CSharpHandler": "src/Otp/Managed/Erlang.Otp.Stdlib/Text/StringModernExecution.cs",
+      "HandlerSha256": "9932A51003797E7FDA5202737680D209F3FEDAFC4F6BD7E3C949ED09B3D8BDAA",
+      "SourceReviewObligation": "Grapheme traversal, binary/list representation, integer bounds and source-ordered guards.",
+      "Defaults": "character=space",
+      "ContractReview": "Length is integer; direction checked before traversal; arbitrary fill term, zero/negative deficit and odd both-padding placement.",
+      "AuditState": "Source contract reviewed; measured differential closure and remaining acceptance are recorded separately",
+      "CompatibilityStatus": "Needs verification"
+    },
+    {
+      "Function": "pad",
+      "Arity": 4,
+      "OriginalClauses": [
+        {
+          "Line": 459,
+          "HeadAndGuard": "pad(CD, Length, leading, Char) when is_integer(Length)"
+        },
+        {
+          "Line": 462,
+          "HeadAndGuard": "pad(CD, Length, trailing, Char) when is_integer(Length)"
+        },
+        {
+          "Line": 465,
+          "HeadAndGuard": "pad(CD, Length, both, Char) when is_integer(Length)"
+        }
+      ],
+      "CSharpHandler": "src/Otp/Managed/Erlang.Otp.Stdlib/Text/StringModernExecution.cs",
+      "HandlerSha256": "9932A51003797E7FDA5202737680D209F3FEDAFC4F6BD7E3C949ED09B3D8BDAA",
+      "SourceReviewObligation": "Grapheme traversal, binary/list representation, integer bounds and source-ordered guards.",
+      "Defaults": "explicit arguments",
+      "ContractReview": "Length is integer; direction checked before traversal; arbitrary fill term, zero/negative deficit and odd both-padding placement.",
+      "AuditState": "Source contract reviewed; measured differential closure and remaining acceptance are recorded separately",
+      "CompatibilityStatus": "Needs verification"
+    },
+    {
+      "Function": "trim",
+      "Arity": 1,
+      "OriginalClauses": [
+        {
+          "Line": 480,
+          "HeadAndGuard": "trim(Str)"
+        }
+      ],
+      "CSharpHandler": "src/Otp/Managed/Erlang.Otp.Stdlib/Text/StringTrim.cs",
+      "HandlerSha256": "2B005C4B1EB8643723B4785EA7F005C40ECF73A56FA3F819957634D6B584A95E",
+      "SourceReviewObligation": "Source defaults, empty separators, leading/trailing traversal and original list membership.",
+      "Defaults": "direction=both, pinned pattern whitespace",
+      "ContractReview": "Empty separators bypass direction validation; pinned whitespace default; original list membership and binary/mixed suffix boundaries.",
+      "AuditState": "Source contract reviewed; measured differential closure and remaining acceptance are recorded separately",
+      "CompatibilityStatus": "Needs verification"
+    },
+    {
+      "Function": "trim",
+      "Arity": 2,
+      "OriginalClauses": [
+        {
+          "Line": 493,
+          "HeadAndGuard": "trim(Str, Dir)"
+        }
+      ],
+      "CSharpHandler": "src/Otp/Managed/Erlang.Otp.Stdlib/Text/StringTrim.cs",
+      "HandlerSha256": "2B005C4B1EB8643723B4785EA7F005C40ECF73A56FA3F819957634D6B584A95E",
+      "SourceReviewObligation": "Source defaults, empty separators, leading/trailing traversal and original list membership.",
+      "Defaults": "pinned pattern whitespace",
+      "ContractReview": "Empty separators bypass direction validation; pinned whitespace default; original list membership and binary/mixed suffix boundaries.",
+      "AuditState": "Source contract reviewed; measured differential closure and remaining acceptance are recorded separately",
+      "CompatibilityStatus": "Needs verification"
+    },
+    {
+      "Function": "trim",
+      "Arity": 3,
+      "OriginalClauses": [
+        {
+          "Line": 522,
+          "HeadAndGuard": "trim(Str, _, [])"
+        },
+        {
+          "Line": 523,
+          "HeadAndGuard": "trim(Str, leading, [Sep]) when is_list(Str), is_integer(Sep), 0 =< Sep, Sep < 256"
+        },
+        {
+          "Line": 526,
+          "HeadAndGuard": "trim(Str, leading, Sep) when is_list(Sep)"
+        },
+        {
+          "Line": 528,
+          "HeadAndGuard": "trim(Str, trailing, [Sep]) when is_list(Str), is_integer(Sep), 0 =< Sep, Sep < 256"
+        },
+        {
+          "Line": 531,
+          "HeadAndGuard": "trim(Str, trailing, Seps0) when is_list(Seps0)"
+        },
+        {
+          "Line": 534,
+          "HeadAndGuard": "trim(Str, both, Sep) when is_list(Sep)"
+        }
+      ],
+      "CSharpHandler": "src/Otp/Managed/Erlang.Otp.Stdlib/Text/StringTrim.cs",
+      "HandlerSha256": "2B005C4B1EB8643723B4785EA7F005C40ECF73A56FA3F819957634D6B584A95E",
+      "SourceReviewObligation": "Source defaults, empty separators, leading/trailing traversal and original list membership.",
+      "Defaults": "explicit arguments",
+      "ContractReview": "Empty separators bypass direction validation; pinned whitespace default; original list membership and binary/mixed suffix boundaries.",
+      "AuditState": "Source contract reviewed; measured differential closure and remaining acceptance are recorded separately",
+      "CompatibilityStatus": "Needs verification"
+    },
+    {
+      "Function": "chomp",
+      "Arity": 1,
+      "OriginalClauses": [
+        {
+          "Line": 553,
+          "HeadAndGuard": "chomp(Str)"
+        }
+      ],
+      "CSharpHandler": "src/Otp/Managed/Erlang.Otp.Stdlib/Text/StringTrim.cs",
+      "HandlerSha256": "2B005C4B1EB8643723B4785EA7F005C40ECF73A56FA3F819957634D6B584A95E",
+      "SourceReviewObligation": "Source defaults, empty separators, leading/trailing traversal and original list membership.",
+      "Defaults": "explicit arguments",
+      "ContractReview": "Trailing CRLF cluster or LF only; other whitespace retained; use original trim helper stack.",
+      "AuditState": "Source contract reviewed; measured differential closure and remaining acceptance are recorded separately",
+      "CompatibilityStatus": "Needs verification"
+    },
+    {
+      "Function": "take",
+      "Arity": 2,
+      "OriginalClauses": [
+        {
+          "Line": 564,
+          "HeadAndGuard": "take(Str, Sep)"
+        }
+      ],
+      "CSharpHandler": "src/Otp/Managed/Erlang.Otp.Stdlib/Text/StringTake.cs",
+      "HandlerSha256": "44595D8EDA5EAC8C19C6AA735ACFD4649462484D6A16D37FE1EB725F839D06AF",
+      "SourceReviewObligation": "Boolean/direction guards and empty separators; single/multiple inverse source branches.",
+      "Defaults": "complement=false, direction=leading",
+      "ContractReview": "Empty separator and direction/complement branch order; singleton versus multiple separators; cp_prefix exact continuation equality and lazy malformed suffix.",
+      "AuditState": "Source contract reviewed; measured differential closure and remaining acceptance are recorded separately",
+      "CompatibilityStatus": "Needs verification"
+    },
+    {
+      "Function": "take",
+      "Arity": 3,
+      "OriginalClauses": [
+        {
+          "Line": 574,
+          "HeadAndGuard": "take(Str, Sep, Complement)"
+        }
+      ],
+      "CSharpHandler": "src/Otp/Managed/Erlang.Otp.Stdlib/Text/StringTake.cs",
+      "HandlerSha256": "44595D8EDA5EAC8C19C6AA735ACFD4649462484D6A16D37FE1EB725F839D06AF",
+      "SourceReviewObligation": "Boolean/direction guards and empty separators; single/multiple inverse source branches.",
+      "Defaults": "direction=leading",
+      "ContractReview": "Empty separator and direction/complement branch order; singleton versus multiple separators; cp_prefix exact continuation equality and lazy malformed suffix.",
+      "AuditState": "Source contract reviewed; measured differential closure and remaining acceptance are recorded separately",
+      "CompatibilityStatus": "Needs verification"
+    },
+    {
+      "Function": "take",
+      "Arity": 4,
+      "OriginalClauses": [
+        {
+          "Line": 603,
+          "HeadAndGuard": "take(Str, [], Complement, Dir)"
+        },
+        {
+          "Line": 611,
+          "HeadAndGuard": "take(Str, Sep, false, leading)"
+        },
+        {
+          "Line": 613,
+          "HeadAndGuard": "take(Str, Sep0, true, leading)"
+        },
+        {
+          "Line": 616,
+          "HeadAndGuard": "take(Str, Sep0, false, trailing)"
+        },
+        {
+          "Line": 619,
+          "HeadAndGuard": "take(Str, Sep0, true, trailing)"
+        }
+      ],
+      "CSharpHandler": "src/Otp/Managed/Erlang.Otp.Stdlib/Text/StringTake.cs",
+      "HandlerSha256": "44595D8EDA5EAC8C19C6AA735ACFD4649462484D6A16D37FE1EB725F839D06AF",
+      "SourceReviewObligation": "Boolean/direction guards and empty separators; single/multiple inverse source branches.",
+      "Defaults": "explicit arguments",
+      "ContractReview": "Empty separator and direction/complement branch order; singleton versus multiple separators; cp_prefix exact continuation equality and lazy malformed suffix.",
+      "AuditState": "Source contract reviewed; measured differential closure and remaining acceptance are recorded separately",
+      "CompatibilityStatus": "Needs verification"
+    },
+    {
+      "Function": "lexemes",
+      "Arity": 2,
+      "OriginalClauses": [
+        {
+          "Line": 965,
+          "HeadAndGuard": "lexemes([], _)"
+        },
+        {
+          "Line": 966,
+          "HeadAndGuard": "lexemes(Str, [])"
+        },
+        {
+          "Line": 967,
+          "HeadAndGuard": "lexemes(Str, Seps0) when is_list(Seps0)"
+        }
+      ],
+      "CSharpHandler": "src/Otp/Managed/Erlang.Otp.Stdlib/Text/StringLexemes.cs",
+      "HandlerSha256": "E70F3350BC8D7463F2701AA35F0C00C8D057B2636EBC9E3008EF62CA663AC4F2",
+      "SourceReviewObligation": "Source clause priority, separator patterns and arbitrary-precision lexeme index.",
+      "Defaults": "explicit arguments",
+      "ContractReview": "Literal empty list ignores separator type; other inputs require list separators; omit empty lexemes and retain chardata representation.",
+      "AuditState": "Source contract reviewed; measured differential closure and remaining acceptance are recorded separately",
+      "CompatibilityStatus": "Needs verification"
+    },
+    {
+      "Function": "nth_lexeme",
+      "Arity": 3,
+      "OriginalClauses": [
+        {
+          "Line": 988,
+          "HeadAndGuard": "nth_lexeme(Str, 1, [])"
+        },
+        {
+          "Line": 989,
+          "HeadAndGuard": "nth_lexeme(Str, N, Seps0) when is_list(Seps0), is_integer(N), N > 0"
+        }
+      ],
+      "CSharpHandler": "src/Otp/Managed/Erlang.Otp.Stdlib/Text/StringLexemes.cs",
+      "HandlerSha256": "E70F3350BC8D7463F2701AA35F0C00C8D057B2636EBC9E3008EF62CA663AC4F2",
+      "SourceReviewObligation": "Source clause priority, separator patterns and arbitrary-precision lexeme index.",
+      "Defaults": "explicit arguments",
+      "ContractReview": "N=1 and empty separators return original input; otherwise positive integer N and list separators, including huge absent indexes.",
+      "AuditState": "Source contract reviewed; measured differential closure and remaining acceptance are recorded separately",
+      "CompatibilityStatus": "Needs verification"
+    },
+    {
+      "Function": "uppercase",
+      "Arity": 1,
+      "OriginalClauses": [
+        {
+          "Line": 638,
+          "HeadAndGuard": "uppercase(CD) when is_list(CD)"
+        },
+        {
+          "Line": 642,
+          "HeadAndGuard": "uppercase(<<CP1/utf8, Rest/binary>>=Orig)"
+        },
+        {
+          "Line": 647,
+          "HeadAndGuard": "uppercase(<<>>)"
+        },
+        {
+          "Line": 649,
+          "HeadAndGuard": "uppercase(Bin)"
+        }
+      ],
+      "CSharpHandler": "src/Otp/Managed/Erlang.Otp.Stdlib/Text/StringCaseExecution.cs",
+      "HandlerSha256": "671DCF2110D461D6B28CF84212CE75BF41B0ADE45EF59523E9F342816EFCA53E",
+      "SourceReviewObligation": "Latin1/ASCII fast paths and unchanged pinned mapping; preserve suffix and helper continuations.",
+      "Defaults": "explicit arguments",
+      "ContractReview": "Pinned Unicode mapping and expansion; Latin1 fast path and malformed binary/list source frames; preserve unchanged binary.",
+      "AuditState": "Source contract reviewed; measured differential closure and remaining acceptance are recorded separately",
+      "CompatibilityStatus": "Needs verification"
+    },
+    {
+      "Function": "lowercase",
+      "Arity": 1,
+      "OriginalClauses": [
+        {
+          "Line": 669,
+          "HeadAndGuard": "lowercase(CD) when is_list(CD)"
+        },
+        {
+          "Line": 673,
+          "HeadAndGuard": "lowercase(<<CP1/utf8, Rest/binary>>=Orig)"
+        },
+        {
+          "Line": 678,
+          "HeadAndGuard": "lowercase(<<>>)"
+        },
+        {
+          "Line": 680,
+          "HeadAndGuard": "lowercase(Bin)"
+        }
+      ],
+      "CSharpHandler": "src/Otp/Managed/Erlang.Otp.Stdlib/Text/StringCaseExecution.cs",
+      "HandlerSha256": "671DCF2110D461D6B28CF84212CE75BF41B0ADE45EF59523E9F342816EFCA53E",
+      "SourceReviewObligation": "Latin1/ASCII fast paths and unchanged pinned mapping; preserve suffix and helper continuations.",
+      "Defaults": "explicit arguments",
+      "ContractReview": "Pinned Unicode mapping and expansion; Latin1 fast path and malformed binary/list source frames; preserve unchanged binary.",
+      "AuditState": "Source contract reviewed; measured differential closure and remaining acceptance are recorded separately",
+      "CompatibilityStatus": "Needs verification"
+    },
+    {
+      "Function": "titlecase",
+      "Arity": 1,
+      "OriginalClauses": [
+        {
+          "Line": 697,
+          "HeadAndGuard": "titlecase(CD) when is_list(CD)"
+        },
+        {
+          "Line": 702,
+          "HeadAndGuard": "titlecase(CD) when is_binary(CD)"
+        }
+      ],
+      "CSharpHandler": "src/Otp/Managed/Erlang.Otp.Stdlib/Text/StringCaseExecution.cs",
+      "HandlerSha256": "671DCF2110D461D6B28CF84212CE75BF41B0ADE45EF59523E9F342816EFCA53E",
+      "SourceReviewObligation": "Latin1/ASCII fast paths and unchanged pinned mapping; preserve suffix and helper continuations.",
+      "Defaults": "explicit arguments",
+      "ContractReview": "Map first codepoint only and preserve unvisited suffix; input shape guard differs from full case conversion.",
+      "AuditState": "Source contract reviewed; measured differential closure and remaining acceptance are recorded separately",
+      "CompatibilityStatus": "Needs verification"
+    },
+    {
+      "Function": "casefold",
+      "Arity": 1,
+      "OriginalClauses": [
+        {
+          "Line": 725,
+          "HeadAndGuard": "casefold(CD) when is_list(CD)"
+        },
+        {
+          "Line": 729,
+          "HeadAndGuard": "casefold(<<CP1/utf8, Rest/binary>>=Orig)"
+        },
+        {
+          "Line": 734,
+          "HeadAndGuard": "casefold(<<>>)"
+        },
+        {
+          "Line": 736,
+          "HeadAndGuard": "casefold(Bin)"
+        }
+      ],
+      "CSharpHandler": "src/Otp/Managed/Erlang.Otp.Stdlib/Text/StringCaseExecution.cs",
+      "HandlerSha256": "671DCF2110D461D6B28CF84212CE75BF41B0ADE45EF59523E9F342816EFCA53E",
+      "SourceReviewObligation": "Latin1/ASCII fast paths and unchanged pinned mapping; preserve suffix and helper continuations.",
+      "Defaults": "explicit arguments",
+      "ContractReview": "Pinned Unicode full casefold and expansions; no culture-sensitive BCL substitutions.",
+      "AuditState": "Source contract reviewed; measured differential closure and remaining acceptance are recorded separately",
+      "CompatibilityStatus": "Needs verification"
+    },
+    {
+      "Function": "prefix",
+      "Arity": 2,
+      "OriginalClauses": [
+        {
+          "Line": 845,
+          "HeadAndGuard": "prefix(Str, Prefix0)"
+        }
+      ],
+      "CSharpHandler": "src/Otp/Managed/Erlang.Otp.Stdlib/Text/StringPatternSearch.cs",
+      "HandlerSha256": "9A68B806E382C5E7B20B7F746688B024269ED20628FB861203581589B72B4842",
+      "SourceReviewObligation": "Preserve converted term before helper matching; actual native binary pattern construction/match and directional traversal.",
+      "Defaults": "explicit arguments",
+      "ContractReview": "Convert pattern first; converted empty returns input; malformed conversion tuple reaches prefix_1 unchanged; compare grapheme boundary and preserve remainder.",
+      "AuditState": "Source contract reviewed; measured differential closure and remaining acceptance are recorded separately",
+      "CompatibilityStatus": "Needs verification"
+    },
+    {
+      "Function": "split",
+      "Arity": 2,
+      "OriginalClauses": [
+        {
+          "Line": 861,
+          "HeadAndGuard": "split(String, SearchPattern)"
+        }
+      ],
+      "CSharpHandler": "src/Otp/Managed/Erlang.Otp.Stdlib/Text/StringPatternSearch.cs",
+      "HandlerSha256": "9A68B806E382C5E7B20B7F746688B024269ED20628FB861203581589B72B4842",
+      "SourceReviewObligation": "Preserve converted term before helper matching; actual native binary pattern construction/match and directional traversal.",
+      "Defaults": "direction=leading",
+      "ContractReview": "Recursive empty pattern returns singleton input before direction checks; preserve split_1 matching and actual native resource/error order.",
+      "AuditState": "Source contract reviewed; measured differential closure and remaining acceptance are recorded separately",
+      "CompatibilityStatus": "Needs verification"
+    },
+    {
+      "Function": "split",
+      "Arity": 3,
+      "OriginalClauses": [
+        {
+          "Line": 886,
+          "HeadAndGuard": "split(String, SearchPattern, Where)"
+        }
+      ],
+      "CSharpHandler": "src/Otp/Managed/Erlang.Otp.Stdlib/Text/StringPatternSearch.cs",
+      "HandlerSha256": "9A68B806E382C5E7B20B7F746688B024269ED20628FB861203581589B72B4842",
+      "SourceReviewObligation": "Preserve converted term before helper matching; actual native binary pattern construction/match and directional traversal.",
+      "Defaults": "explicit arguments",
+      "ContractReview": "Recursive empty pattern returns singleton input before direction checks; preserve split_1 matching and actual native resource/error order.",
+      "AuditState": "Source contract reviewed; measured differential closure and remaining acceptance are recorded separately",
+      "CompatibilityStatus": "Needs verification"
+    },
+    {
+      "Function": "replace",
+      "Arity": 3,
+      "OriginalClauses": [
+        {
+          "Line": 907,
+          "HeadAndGuard": "replace(String, SearchPattern, Replacement)"
+        }
+      ],
+      "CSharpHandler": "src/Otp/Managed/Erlang.Otp.Stdlib/Text/StringPatternSearch.cs",
+      "HandlerSha256": "9A68B806E382C5E7B20B7F746688B024269ED20628FB861203581589B72B4842",
+      "SourceReviewObligation": "Preserve converted term before helper matching; actual native binary pattern construction/match and directional traversal.",
+      "Defaults": "direction=leading",
+      "ContractReview": "Use split result then lists:join with arbitrary replacement term; preserve nested output and replace call frames.",
+      "AuditState": "Source contract reviewed; measured differential closure and remaining acceptance are recorded separately",
+      "CompatibilityStatus": "Needs verification"
+    },
+    {
+      "Function": "replace",
+      "Arity": 4,
+      "OriginalClauses": [
+        {
+          "Line": 937,
+          "HeadAndGuard": "replace(String, SearchPattern, Replacement, Where)"
+        }
+      ],
+      "CSharpHandler": "src/Otp/Managed/Erlang.Otp.Stdlib/Text/StringPatternSearch.cs",
+      "HandlerSha256": "9A68B806E382C5E7B20B7F746688B024269ED20628FB861203581589B72B4842",
+      "SourceReviewObligation": "Preserve converted term before helper matching; actual native binary pattern construction/match and directional traversal.",
+      "Defaults": "explicit arguments",
+      "ContractReview": "Use split result then lists:join with arbitrary replacement term; preserve nested output and replace call frames.",
+      "AuditState": "Source contract reviewed; measured differential closure and remaining acceptance are recorded separately",
+      "CompatibilityStatus": "Needs verification"
+    },
+    {
+      "Function": "find",
+      "Arity": 2,
+      "OriginalClauses": [
+        {
+          "Line": 999,
+          "HeadAndGuard": "find(String, SearchPattern)"
+        }
+      ],
+      "CSharpHandler": "src/Otp/Managed/Erlang.Otp.Stdlib/Text/StringPatternSearch.cs",
+      "HandlerSha256": "9A68B806E382C5E7B20B7F746688B024269ED20628FB861203581589B72B4842",
+      "SourceReviewObligation": "Preserve converted term before helper matching; actual native binary pattern construction/match and directional traversal.",
+      "Defaults": "direction=leading",
+      "ContractReview": "Only literal [] or <<>> bypass direction and conversion; normalized-empty nested patterns reach native compile error; leading/trailing boundaries and native resources.",
+      "AuditState": "Source contract reviewed; measured differential closure and remaining acceptance are recorded separately",
+      "CompatibilityStatus": "Needs verification"
+    },
+    {
+      "Function": "find",
+      "Arity": 3,
+      "OriginalClauses": [
+        {
+          "Line": 1027,
+          "HeadAndGuard": "find(String, \"\", _)"
+        },
+        {
+          "Line": 1028,
+          "HeadAndGuard": "find(String, <<>>, _)"
+        },
+        {
+          "Line": 1029,
+          "HeadAndGuard": "find(String, SearchPattern, leading)"
+        },
+        {
+          "Line": 1031,
+          "HeadAndGuard": "find(String, SearchPattern, trailing)"
+        }
+      ],
+      "CSharpHandler": "src/Otp/Managed/Erlang.Otp.Stdlib/Text/StringPatternSearch.cs",
+      "HandlerSha256": "9A68B806E382C5E7B20B7F746688B024269ED20628FB861203581589B72B4842",
+      "SourceReviewObligation": "Preserve converted term before helper matching; actual native binary pattern construction/match and directional traversal.",
+      "Defaults": "explicit arguments",
+      "ContractReview": "Only literal [] or <<>> bypass direction and conversion; normalized-empty nested patterns reach native compile error; leading/trailing boundaries and native resources.",
+      "AuditState": "Source contract reviewed; measured differential closure and remaining acceptance are recorded separately",
+      "CompatibilityStatus": "Needs verification"
+    },
+    {
+      "Function": "jaro_similarity",
+      "Arity": 2,
+      "OriginalClauses": [
+        {
+          "Line": 1061,
+          "HeadAndGuard": "jaro_similarity(A0, B0)"
+        }
+      ],
+      "CSharpHandler": "src/Otp/Managed/Erlang.Otp.Stdlib/Text/StringUnicode.cs",
+      "HandlerSha256": "1AB57C8AC9A0B66ED1AEB5D8606A94A1C1C091AF28055165C408F657576A1843",
+      "SourceReviewObligation": "Term/stream dispatch and pinned Unicode/native dependencies; retain lazy validation and result shape.",
+      "Defaults": "explicit arguments",
+      "ContractReview": "Left grapheme list before right index-map traversal; strict open matching window, earliest unused candidate, sorted right matches and identical floating arithmetic order.",
+      "AuditState": "Source contract reviewed; measured differential closure and remaining acceptance are recorded separately",
+      "CompatibilityStatus": "Needs verification"
+    },
+    {
+      "Function": "next_codepoint",
+      "Arity": 1,
+      "OriginalClauses": [
+        {
+          "Line": 1139,
+          "HeadAndGuard": "next_codepoint(CD)"
+        }
+      ],
+      "CSharpHandler": "src/Otp/Managed/Erlang.Otp.Stdlib/Text/StringUnicode.cs",
+      "HandlerSha256": "1AB57C8AC9A0B66ED1AEB5D8606A94A1C1C091AF28055165C408F657576A1843",
+      "SourceReviewObligation": "Term/stream dispatch and pinned Unicode/native dependencies; retain lazy validation and result shape.",
+      "Defaults": "explicit arguments",
+      "ContractReview": "Direct pinned unicode_util:cp result, including error tuple and improper chardata continuation; no error rewriting.",
+      "AuditState": "Source contract reviewed; measured differential closure and remaining acceptance are recorded separately",
+      "CompatibilityStatus": "Needs verification"
+    },
+    {
+      "Function": "next_grapheme",
+      "Arity": 1,
+      "OriginalClauses": [
+        {
+          "Line": 1120,
+          "HeadAndGuard": "next_grapheme(CD)"
+        }
+      ],
+      "CSharpHandler": "src/Otp/Managed/Erlang.Otp.Stdlib/Text/StringUnicode.cs",
+      "HandlerSha256": "1AB57C8AC9A0B66ED1AEB5D8606A94A1C1C091AF28055165C408F657576A1843",
+      "SourceReviewObligation": "Term/stream dispatch and pinned Unicode/native dependencies; retain lazy validation and result shape.",
+      "Defaults": "explicit arguments",
+      "ContractReview": "Direct pinned unicode_util:gc result and CRLF/combining/ZWJ cluster representation; no error rewriting.",
+      "AuditState": "Source contract reviewed; measured differential closure and remaining acceptance are recorded separately",
+      "CompatibilityStatus": "Needs verification"
+    },
+    {
+      "Function": "to_float",
+      "Arity": 1,
+      "OriginalClauses": [
+        {
+          "Line": 805,
+          "HeadAndGuard": "to_float(String)"
+        }
+      ],
+      "CSharpHandler": "src/Otp/Managed/Erlang.Otp.Stdlib/Text/StringUnicode.cs",
+      "HandlerSha256": "1AB57C8AC9A0B66ED1AEB5D8606A94A1C1C091AF28055165C408F657576A1843",
+      "SourceReviewObligation": "Term/stream dispatch and pinned Unicode/native dependencies; retain lazy validation and result shape.",
+      "Defaults": "explicit arguments",
+      "ContractReview": "Take numeric prefix, one Unicode list conversion, actual native list parser, exact original remainder, catch Erlang errors as badarg.",
+      "AuditState": "Source contract reviewed; measured differential closure and remaining acceptance are recorded separately",
+      "CompatibilityStatus": "Needs verification"
+    },
+    {
+      "Function": "to_integer",
+      "Arity": 1,
+      "OriginalClauses": [
+        {
+          "Line": 764,
+          "HeadAndGuard": "to_integer(String)"
+        }
+      ],
+      "CSharpHandler": "src/Otp/Managed/Erlang.Otp.Stdlib/Text/StringUnicode.cs",
+      "HandlerSha256": "1AB57C8AC9A0B66ED1AEB5D8606A94A1C1C091AF28055165C408F657576A1843",
+      "SourceReviewObligation": "Term/stream dispatch and pinned Unicode/native dependencies; retain lazy validation and result shape.",
+      "Defaults": "explicit arguments",
+      "ContractReview": "Take numeric prefix, one Unicode list conversion, actual string list parser, exact original remainder, catch Erlang errors as badarg; 4096 digits avoid repeated traversal.",
+      "AuditState": "Source contract reviewed; measured differential closure and remaining acceptance are recorded separately",
+      "CompatibilityStatus": "Needs verification"
+    },
+    {
+      "Function": "len",
+      "Arity": 1,
+      "OriginalClauses": [
+        {
+          "Line": 2425,
+          "HeadAndGuard": "len(S)"
+        }
+      ],
+      "CSharpHandler": "src/Otp/Managed/Erlang.Otp.Stdlib/Text/StringLegacyExecution.cs",
+      "HandlerSha256": "E751956CC9E4FCD58641C57AEB396A7042E9E58CA10CD57C69A92DCC871A5C1C",
+      "SourceReviewObligation": "Obsolete API preserves arbitrary term payloads, exact guards, append/native calls and error continuations.",
+      "Defaults": "explicit arguments",
+      "ContractReview": "Native list length semantics and original string caller frame; binary rejected, arbitrary list elements permitted.",
+      "AuditState": "Source contract reviewed; measured differential closure and remaining acceptance are recorded separately",
+      "CompatibilityStatus": "Needs verification"
+    },
+    {
+      "Function": "concat",
+      "Arity": 2,
+      "OriginalClauses": [
+        {
+          "Line": 2454,
+          "HeadAndGuard": "concat(S1, S2)"
+        }
+      ],
+      "CSharpHandler": "src/Otp/Managed/Erlang.Otp.Stdlib/Text/StringLegacyExecution.cs",
+      "HandlerSha256": "E751956CC9E4FCD58641C57AEB396A7042E9E58CA10CD57C69A92DCC871A5C1C",
+      "SourceReviewObligation": "Obsolete API preserves arbitrary term payloads, exact guards, append/native calls and error continuations.",
+      "Defaults": "explicit arguments",
+      "ContractReview": "Actual list append primitive: arbitrary right tail, left traversal and improper-left error order.",
+      "AuditState": "Source contract reviewed; measured differential closure and remaining acceptance are recorded separately",
+      "CompatibilityStatus": "Needs verification"
+    },
+    {
+      "Function": "chr",
+      "Arity": 2,
+      "OriginalClauses": [
+        {
+          "Line": 2472,
+          "HeadAndGuard": "chr(S, C) when is_integer(C)"
+        }
+      ],
+      "CSharpHandler": "src/Otp/Managed/Erlang.Otp.Stdlib/Text/StringLegacySearchExecution.cs",
+      "HandlerSha256": "98C07C2ACD902D711DF7F0B7CB542D76DD86D7837E95853EE1DFB7AC8C27155F",
+      "SourceReviewObligation": "One-based positions, matching order, list/improper-tail behavior and native reverse frames.",
+      "Defaults": "explicit arguments",
+      "ContractReview": "Integer target; one-based first exact match can return before malformed tail; zero for absent match.",
+      "AuditState": "Source contract reviewed; measured differential closure and remaining acceptance are recorded separately",
+      "CompatibilityStatus": "Needs verification"
+    },
+    {
+      "Function": "rchr",
+      "Arity": 2,
+      "OriginalClauses": [
+        {
+          "Line": 2490,
+          "HeadAndGuard": "rchr(S, C) when is_integer(C)"
+        }
+      ],
+      "CSharpHandler": "src/Otp/Managed/Erlang.Otp.Stdlib/Text/StringLegacySearchExecution.cs",
+      "HandlerSha256": "98C07C2ACD902D711DF7F0B7CB542D76DD86D7837E95853EE1DFB7AC8C27155F",
+      "SourceReviewObligation": "One-based positions, matching order, list/improper-tail behavior and native reverse frames.",
+      "Defaults": "explicit arguments",
+      "ContractReview": "Integer target; one-based last exact match requires traversal to end, including improper-tail helper failure.",
+      "AuditState": "Source contract reviewed; measured differential closure and remaining acceptance are recorded separately",
+      "CompatibilityStatus": "Needs verification"
+    },
+    {
+      "Function": "str",
+      "Arity": 2,
+      "OriginalClauses": [
+        {
+          "Line": 2516,
+          "HeadAndGuard": "str(S, Sub) when is_list(Sub)"
+        }
+      ],
+      "CSharpHandler": "src/Otp/Managed/Erlang.Otp.Stdlib/Text/StringLegacySearchExecution.cs",
+      "HandlerSha256": "98C07C2ACD902D711DF7F0B7CB542D76DD86D7837E95853EE1DFB7AC8C27155F",
+      "SourceReviewObligation": "One-based positions, matching order, list/improper-tail behavior and native reverse frames.",
+      "Defaults": "explicit arguments",
+      "ContractReview": "List pattern and exact element equality; first one-based match, original empty-pattern behavior and lazy improper suffix.",
+      "AuditState": "Source contract reviewed; measured differential closure and remaining acceptance are recorded separately",
+      "CompatibilityStatus": "Needs verification"
+    },
+    {
+      "Function": "rstr",
+      "Arity": 2,
+      "OriginalClauses": [
+        {
+          "Line": 2538,
+          "HeadAndGuard": "rstr(S, Sub) when is_list(Sub)"
+        }
+      ],
+      "CSharpHandler": "src/Otp/Managed/Erlang.Otp.Stdlib/Text/StringLegacySearchExecution.cs",
+      "HandlerSha256": "98C07C2ACD902D711DF7F0B7CB542D76DD86D7837E95853EE1DFB7AC8C27155F",
+      "SourceReviewObligation": "One-based positions, matching order, list/improper-tail behavior and native reverse frames.",
+      "Defaults": "explicit arguments",
+      "ContractReview": "List pattern and exact element equality; last match requires full source traversal and correct prefix helper failures.",
+      "AuditState": "Source contract reviewed; measured differential closure and remaining acceptance are recorded separately",
+      "CompatibilityStatus": "Needs verification"
+    },
+    {
+      "Function": "span",
+      "Arity": 2,
+      "OriginalClauses": [
+        {
+          "Line": 2567,
+          "HeadAndGuard": "span(S, Cs) when is_list(Cs)"
+        }
+      ],
+      "CSharpHandler": "src/Otp/Managed/Erlang.Otp.Stdlib/Text/StringLegacySearchExecution.cs",
+      "HandlerSha256": "98C07C2ACD902D711DF7F0B7CB542D76DD86D7837E95853EE1DFB7AC8C27155F",
+      "SourceReviewObligation": "One-based positions, matching order, list/improper-tail behavior and native reverse frames.",
+      "Defaults": "explicit arguments",
+      "ContractReview": "Actual lists:member exact equality; stop on first nonmember without reading suffix; preserve malformed separator errors.",
+      "AuditState": "Source contract reviewed; measured differential closure and remaining acceptance are recorded separately",
+      "CompatibilityStatus": "Needs verification"
+    },
+    {
+      "Function": "cspan",
+      "Arity": 2,
+      "OriginalClauses": [
+        {
+          "Line": 2588,
+          "HeadAndGuard": "cspan(S, Cs) when is_list(Cs)"
+        }
+      ],
+      "CSharpHandler": "src/Otp/Managed/Erlang.Otp.Stdlib/Text/StringLegacySearchExecution.cs",
+      "HandlerSha256": "98C07C2ACD902D711DF7F0B7CB542D76DD86D7837E95853EE1DFB7AC8C27155F",
+      "SourceReviewObligation": "One-based positions, matching order, list/improper-tail behavior and native reverse frames.",
+      "Defaults": "explicit arguments",
+      "ContractReview": "Actual lists:member exact equality; stop on first member without reading suffix; preserve malformed separator errors.",
+      "AuditState": "Source contract reviewed; measured differential closure and remaining acceptance are recorded separately",
+      "CompatibilityStatus": "Needs verification"
+    },
+    {
+      "Function": "substr",
+      "Arity": 2,
+      "OriginalClauses": [
+        {
+          "Line": 2608,
+          "HeadAndGuard": "substr(String, 1) when is_list(String)"
+        },
+        {
+          "Line": 2610,
+          "HeadAndGuard": "substr(String, S) when is_integer(S), S > 1"
+        }
+      ],
+      "CSharpHandler": "src/Otp/Managed/Erlang.Otp.Stdlib/Text/StringLegacySubstringExecution.cs",
+      "HandlerSha256": "C413D151B050B8925E91548180AF998067BF1C6024656A8E80A635180084F632",
+      "SourceReviewObligation": "One-based drop/keep recursion and inclusive end alias; non-list errors at actual reached helper.",
+      "Defaults": "explicit arguments",
+      "ContractReview": "One-based drop then keep, source integer guards and zero-length precedence; reached tail must match original list clause.",
+      "AuditState": "Source contract reviewed; measured differential closure and remaining acceptance are recorded separately",
+      "CompatibilityStatus": "Needs verification"
+    },
+    {
+      "Function": "substr",
+      "Arity": 3,
+      "OriginalClauses": [
+        {
+          "Line": 2626,
+          "HeadAndGuard": "substr(String, S, L) when is_integer(S), S >= 1, is_integer(L), L >= 0"
+        }
+      ],
+      "CSharpHandler": "src/Otp/Managed/Erlang.Otp.Stdlib/Text/StringLegacySubstringExecution.cs",
+      "HandlerSha256": "C413D151B050B8925E91548180AF998067BF1C6024656A8E80A635180084F632",
+      "SourceReviewObligation": "One-based drop/keep recursion and inclusive end alias; non-list errors at actual reached helper.",
+      "Defaults": "explicit arguments",
+      "ContractReview": "One-based drop then keep, source integer guards and zero-length precedence; reached tail must match original list clause.",
+      "AuditState": "Source contract reviewed; measured differential closure and remaining acceptance are recorded separately",
+      "CompatibilityStatus": "Needs verification"
+    },
+    {
+      "Function": "tokens",
+      "Arity": 2,
+      "OriginalClauses": [
+        {
+          "Line": 2654,
+          "HeadAndGuard": "tokens(S, Seps)"
+        }
+      ],
+      "CSharpHandler": "src/Otp/Managed/Erlang.Otp.Stdlib/Text/StringLegacySearchExecution.cs",
+      "HandlerSha256": "98C07C2ACD902D711DF7F0B7CB542D76DD86D7837E95853EE1DFB7AC8C27155F",
+      "SourceReviewObligation": "One-based positions, matching order, list/improper-tail behavior and native reverse frames.",
+      "Defaults": "explicit arguments",
+      "ContractReview": "Distinct zero/single/multiple separator branches, exact term membership, suppress empty tokens and preserve reverse helper errors.",
+      "AuditState": "Source contract reviewed; measured differential closure and remaining acceptance are recorded separately",
+      "CompatibilityStatus": "Needs verification"
+    },
+    {
+      "Function": "chars",
+      "Arity": 2,
+      "OriginalClauses": [
+        {
+          "Line": 2704,
+          "HeadAndGuard": "chars(C, N)"
+        }
+      ],
+      "CSharpHandler": "src/Otp/Managed/Erlang.Otp.Stdlib/Text/StringLegacyExecution.cs",
+      "HandlerSha256": "E751956CC9E4FCD58641C57AEB396A7042E9E58CA10CD57C69A92DCC871A5C1C",
+      "SourceReviewObligation": "Obsolete API preserves arbitrary term payloads, exact guards, append/native calls and error continuations.",
+      "Defaults": "tail=[]",
+      "ContractReview": "Positive count recurses with arbitrary C, but terminating zero clause requires integer C; arbitrary tail retained and reached error arguments preserved.",
+      "AuditState": "Source contract reviewed; measured differential closure and remaining acceptance are recorded separately",
+      "CompatibilityStatus": "Needs verification"
+    },
+    {
+      "Function": "chars",
+      "Arity": 3,
+      "OriginalClauses": [
+        {
+          "Line": 2720,
+          "HeadAndGuard": "chars(C, N, Tail) when is_integer(N), N > 0"
+        },
+        {
+          "Line": 2722,
+          "HeadAndGuard": "chars(C, 0, Tail) when is_integer(C)"
+        }
+      ],
+      "CSharpHandler": "src/Otp/Managed/Erlang.Otp.Stdlib/Text/StringLegacyExecution.cs",
+      "HandlerSha256": "E751956CC9E4FCD58641C57AEB396A7042E9E58CA10CD57C69A92DCC871A5C1C",
+      "SourceReviewObligation": "Obsolete API preserves arbitrary term payloads, exact guards, append/native calls and error continuations.",
+      "Defaults": "explicit arguments",
+      "ContractReview": "Positive count recurses with arbitrary C, but terminating zero clause requires integer C; arbitrary tail retained and reached error arguments preserved.",
+      "AuditState": "Source contract reviewed; measured differential closure and remaining acceptance are recorded separately",
+      "CompatibilityStatus": "Needs verification"
+    },
+    {
+      "Function": "copies",
+      "Arity": 2,
+      "OriginalClauses": [
+        {
+          "Line": 2741,
+          "HeadAndGuard": "copies(CharList, Num) when is_list(CharList), is_integer(Num), Num >= 0"
+        }
+      ],
+      "CSharpHandler": "src/Otp/Managed/Erlang.Otp.Stdlib/Text/StringLegacyExecution.cs",
+      "HandlerSha256": "E751956CC9E4FCD58641C57AEB396A7042E9E58CA10CD57C69A92DCC871A5C1C",
+      "SourceReviewObligation": "Obsolete API preserves arbitrary term payloads, exact guards, append/native calls and error continuations.",
+      "Defaults": "explicit arguments",
+      "ContractReview": "List input and nonnegative integer count guards; zero bypasses input traversal, positive count uses actual append semantics.",
+      "AuditState": "Source contract reviewed; measured differential closure and remaining acceptance are recorded separately",
+      "CompatibilityStatus": "Needs verification"
+    },
+    {
+      "Function": "words",
+      "Arity": 1,
+      "OriginalClauses": [
+        {
+          "Line": 2757,
+          "HeadAndGuard": "words(String)"
+        }
+      ],
+      "CSharpHandler": "src/Otp/Managed/Erlang.Otp.Stdlib/Text/StringLegacyWordExecution.cs",
+      "HandlerSha256": "A4EDF6F3EFF905E592A13E6F7127E110DFF2FC37E42928363689BD529A507D4A",
+      "SourceReviewObligation": "Space defaults, count-before-select order, integer guards and Latin1 padding.",
+      "Defaults": "separator=space",
+      "ContractReview": "Default space; trim/count branch order and integer separator guard; obsolete flat-list behavior, not Unicode segmentation.",
+      "AuditState": "Source contract reviewed; measured differential closure and remaining acceptance are recorded separately",
+      "CompatibilityStatus": "Needs verification"
+    },
+    {
+      "Function": "words",
+      "Arity": 2,
+      "OriginalClauses": [
+        {
+          "Line": 2770,
+          "HeadAndGuard": "words(String, Char) when is_integer(Char)"
+        }
+      ],
+      "CSharpHandler": "src/Otp/Managed/Erlang.Otp.Stdlib/Text/StringLegacyWordExecution.cs",
+      "HandlerSha256": "A4EDF6F3EFF905E592A13E6F7127E110DFF2FC37E42928363689BD529A507D4A",
+      "SourceReviewObligation": "Space defaults, count-before-select order, integer guards and Latin1 padding.",
+      "Defaults": "explicit arguments",
+      "ContractReview": "Default space; trim/count branch order and integer separator guard; obsolete flat-list behavior, not Unicode segmentation.",
+      "AuditState": "Source contract reviewed; measured differential closure and remaining acceptance are recorded separately",
+      "CompatibilityStatus": "Needs verification"
+    },
+    {
+      "Function": "strip",
+      "Arity": 1,
+      "OriginalClauses": [
+        {
+          "Line": 2824,
+          "HeadAndGuard": "strip(String)"
+        }
+      ],
+      "CSharpHandler": "src/Otp/Managed/Erlang.Otp.Stdlib/Text/StringLegacyWordExecution.cs",
+      "HandlerSha256": "A4EDF6F3EFF905E592A13E6F7127E110DFF2FC37E42928363689BD529A507D4A",
+      "SourceReviewObligation": "Space defaults, count-before-select order, integer guards and Latin1 padding.",
+      "Defaults": "direction=both, separator=space",
+      "ContractReview": "left/right/both direction vocabulary, default space, exact integer separator, left-before-right and recursive error frames.",
+      "AuditState": "Source contract reviewed; measured differential closure and remaining acceptance are recorded separately",
+      "CompatibilityStatus": "Needs verification"
+    },
+    {
+      "Function": "strip",
+      "Arity": 2,
+      "OriginalClauses": [
+        {
+          "Line": 2833,
+          "HeadAndGuard": "strip(String, left)"
+        },
+        {
+          "Line": 2834,
+          "HeadAndGuard": "strip(String, right)"
+        },
+        {
+          "Line": 2835,
+          "HeadAndGuard": "strip(String, both)"
+        }
+      ],
+      "CSharpHandler": "src/Otp/Managed/Erlang.Otp.Stdlib/Text/StringLegacyWordExecution.cs",
+      "HandlerSha256": "A4EDF6F3EFF905E592A13E6F7127E110DFF2FC37E42928363689BD529A507D4A",
+      "SourceReviewObligation": "Space defaults, count-before-select order, integer guards and Latin1 padding.",
+      "Defaults": "separator=space",
+      "ContractReview": "left/right/both direction vocabulary, default space, exact integer separator, left-before-right and recursive error frames.",
+      "AuditState": "Source contract reviewed; measured differential closure and remaining acceptance are recorded separately",
+      "CompatibilityStatus": "Needs verification"
+    },
+    {
+      "Function": "strip",
+      "Arity": 3,
+      "OriginalClauses": [
+        {
+          "Line": 2855,
+          "HeadAndGuard": "strip(String, right, Char)"
+        },
+        {
+          "Line": 2856,
+          "HeadAndGuard": "strip(String, left, Char)"
+        },
+        {
+          "Line": 2857,
+          "HeadAndGuard": "strip(String, both, Char)"
+        }
+      ],
+      "CSharpHandler": "src/Otp/Managed/Erlang.Otp.Stdlib/Text/StringLegacyWordExecution.cs",
+      "HandlerSha256": "A4EDF6F3EFF905E592A13E6F7127E110DFF2FC37E42928363689BD529A507D4A",
+      "SourceReviewObligation": "Space defaults, count-before-select order, integer guards and Latin1 padding.",
+      "Defaults": "explicit arguments",
+      "ContractReview": "left/right/both direction vocabulary, default space, exact integer separator, left-before-right and recursive error frames.",
+      "AuditState": "Source contract reviewed; measured differential closure and remaining acceptance are recorded separately",
+      "CompatibilityStatus": "Needs verification"
+    },
+    {
+      "Function": "sub_word",
+      "Arity": 2,
+      "OriginalClauses": [
+        {
+          "Line": 2786,
+          "HeadAndGuard": "sub_word(String, Index)"
+        }
+      ],
+      "CSharpHandler": "src/Otp/Managed/Erlang.Otp.Stdlib/Text/StringLegacyWordExecution.cs",
+      "HandlerSha256": "A4EDF6F3EFF905E592A13E6F7127E110DFF2FC37E42928363689BD529A507D4A",
+      "SourceReviewObligation": "Space defaults, count-before-select order, integer guards and Latin1 padding.",
+      "Defaults": "separator=space",
+      "ContractReview": "Count-before-select behavior, positive index and integer separator, source trimming and absent-word result.",
+      "AuditState": "Source contract reviewed; measured differential closure and remaining acceptance are recorded separately",
+      "CompatibilityStatus": "Needs verification"
+    },
+    {
+      "Function": "sub_word",
+      "Arity": 3,
+      "OriginalClauses": [
+        {
+          "Line": 2802,
+          "HeadAndGuard": "sub_word(String, Index, Char) when is_integer(Index), is_integer(Char)"
+        }
+      ],
+      "CSharpHandler": "src/Otp/Managed/Erlang.Otp.Stdlib/Text/StringLegacyWordExecution.cs",
+      "HandlerSha256": "A4EDF6F3EFF905E592A13E6F7127E110DFF2FC37E42928363689BD529A507D4A",
+      "SourceReviewObligation": "Space defaults, count-before-select order, integer guards and Latin1 padding.",
+      "Defaults": "explicit arguments",
+      "ContractReview": "Count-before-select behavior, positive index and integer separator, source trimming and absent-word result.",
+      "AuditState": "Source contract reviewed; measured differential closure and remaining acceptance are recorded separately",
+      "CompatibilityStatus": "Needs verification"
+    },
+    {
+      "Function": "left",
+      "Arity": 2,
+      "OriginalClauses": [
+        {
+          "Line": 2884,
+          "HeadAndGuard": "left(String, Len) when is_integer(Len)"
+        }
+      ],
+      "CSharpHandler": "src/Otp/Managed/Erlang.Otp.Stdlib/Text/StringLegacyWordExecution.cs",
+      "HandlerSha256": "A4EDF6F3EFF905E592A13E6F7127E110DFF2FC37E42928363689BD529A507D4A",
+      "SourceReviewObligation": "Space defaults, count-before-select order, integer guards and Latin1 padding.",
+      "Defaults": "character=space",
+      "ContractReview": "Integer length and pad character guards; actual native length before truncation/padding, negative length reaches original substr/chars failure.",
+      "AuditState": "Source contract reviewed; measured differential closure and remaining acceptance are recorded separately",
+      "CompatibilityStatus": "Needs verification"
+    },
+    {
+      "Function": "left",
+      "Arity": 3,
+      "OriginalClauses": [
+        {
+          "Line": 2901,
+          "HeadAndGuard": "left(String, Len, Char) when is_integer(Len), is_integer(Char)"
+        }
+      ],
+      "CSharpHandler": "src/Otp/Managed/Erlang.Otp.Stdlib/Text/StringLegacyWordExecution.cs",
+      "HandlerSha256": "A4EDF6F3EFF905E592A13E6F7127E110DFF2FC37E42928363689BD529A507D4A",
+      "SourceReviewObligation": "Space defaults, count-before-select order, integer guards and Latin1 padding.",
+      "Defaults": "explicit arguments",
+      "ContractReview": "Integer length and pad character guards; actual native length before truncation/padding, negative length reaches original substr/chars failure.",
+      "AuditState": "Source contract reviewed; measured differential closure and remaining acceptance are recorded separately",
+      "CompatibilityStatus": "Needs verification"
+    },
+    {
+      "Function": "right",
+      "Arity": 2,
+      "OriginalClauses": [
+        {
+          "Line": 2920,
+          "HeadAndGuard": "right(String, Len) when is_integer(Len)"
+        }
+      ],
+      "CSharpHandler": "src/Otp/Managed/Erlang.Otp.Stdlib/Text/StringLegacyWordExecution.cs",
+      "HandlerSha256": "A4EDF6F3EFF905E592A13E6F7127E110DFF2FC37E42928363689BD529A507D4A",
+      "SourceReviewObligation": "Space defaults, count-before-select order, integer guards and Latin1 padding.",
+      "Defaults": "character=space",
+      "ContractReview": "Integer length and pad character guards; native length then one-based suffix/padding, exact original returned list.",
+      "AuditState": "Source contract reviewed; measured differential closure and remaining acceptance are recorded separately",
+      "CompatibilityStatus": "Needs verification"
+    },
+    {
+      "Function": "right",
+      "Arity": 3,
+      "OriginalClauses": [
+        {
+          "Line": 2936,
+          "HeadAndGuard": "right(String, Len, Char) when is_integer(Len), is_integer(Char)"
+        }
+      ],
+      "CSharpHandler": "src/Otp/Managed/Erlang.Otp.Stdlib/Text/StringLegacyWordExecution.cs",
+      "HandlerSha256": "A4EDF6F3EFF905E592A13E6F7127E110DFF2FC37E42928363689BD529A507D4A",
+      "SourceReviewObligation": "Space defaults, count-before-select order, integer guards and Latin1 padding.",
+      "Defaults": "explicit arguments",
+      "ContractReview": "Integer length and pad character guards; native length then one-based suffix/padding, exact original returned list.",
+      "AuditState": "Source contract reviewed; measured differential closure and remaining acceptance are recorded separately",
+      "CompatibilityStatus": "Needs verification"
+    },
+    {
+      "Function": "sub_string",
+      "Arity": 2,
+      "OriginalClauses": [
+        {
+          "Line": 2991,
+          "HeadAndGuard": "sub_string(String, Start)"
+        }
+      ],
+      "CSharpHandler": "src/Otp/Managed/Erlang.Otp.Stdlib/Text/StringLegacySubstringExecution.cs",
+      "HandlerSha256": "C413D151B050B8925E91548180AF998067BF1C6024656A8E80A635180084F632",
+      "SourceReviewObligation": "One-based drop/keep recursion and inclusive end alias; non-list errors at actual reached helper.",
+      "Defaults": "alias substr/2",
+      "ContractReview": "Alias substr using inclusive Stop-Start+1 without premature narrowing or additional validation.",
+      "AuditState": "Source contract reviewed; measured differential closure and remaining acceptance are recorded separately",
+      "CompatibilityStatus": "Needs verification"
+    },
+    {
+      "Function": "sub_string",
+      "Arity": 3,
+      "OriginalClauses": [
+        {
+          "Line": 3006,
+          "HeadAndGuard": "sub_string(String, Start, Stop) when is_integer(Start), is_integer(Stop)"
+        }
+      ],
+      "CSharpHandler": "src/Otp/Managed/Erlang.Otp.Stdlib/Text/StringLegacySubstringExecution.cs",
+      "HandlerSha256": "C413D151B050B8925E91548180AF998067BF1C6024656A8E80A635180084F632",
+      "SourceReviewObligation": "One-based drop/keep recursion and inclusive end alias; non-list errors at actual reached helper.",
+      "Defaults": "explicit arguments",
+      "ContractReview": "Alias substr using inclusive Stop-Start+1 without premature narrowing or additional validation.",
+      "AuditState": "Source contract reviewed; measured differential closure and remaining acceptance are recorded separately",
+      "CompatibilityStatus": "Needs verification"
+    },
+    {
+      "Function": "centre",
+      "Arity": 2,
+      "OriginalClauses": [
+        {
+          "Line": 2955,
+          "HeadAndGuard": "centre(String, Len) when is_integer(Len)"
+        }
+      ],
+      "CSharpHandler": "src/Otp/Managed/Erlang.Otp.Stdlib/Text/StringLegacyWordExecution.cs",
+      "HandlerSha256": "A4EDF6F3EFF905E592A13E6F7127E110DFF2FC37E42928363689BD529A507D4A",
+      "SourceReviewObligation": "Space defaults, count-before-select order, integer guards and Latin1 padding.",
+      "Defaults": "character=space",
+      "ContractReview": "Source zero-length shortcut, native length otherwise; floor split for padding and truncation with odd deficit.",
+      "AuditState": "Source contract reviewed; measured differential closure and remaining acceptance are recorded separately",
+      "CompatibilityStatus": "Needs verification"
+    },
+    {
+      "Function": "centre",
+      "Arity": 3,
+      "OriginalClauses": [
+        {
+          "Line": 2970,
+          "HeadAndGuard": "centre(String, 0, Char) when is_list(String), is_integer(Char)"
+        },
+        {
+          "Line": 2972,
+          "HeadAndGuard": "centre(String, Len, Char) when is_integer(Len), is_integer(Char)"
+        }
+      ],
+      "CSharpHandler": "src/Otp/Managed/Erlang.Otp.Stdlib/Text/StringLegacyWordExecution.cs",
+      "HandlerSha256": "A4EDF6F3EFF905E592A13E6F7127E110DFF2FC37E42928363689BD529A507D4A",
+      "SourceReviewObligation": "Space defaults, count-before-select order, integer guards and Latin1 padding.",
+      "Defaults": "explicit arguments",
+      "ContractReview": "Source zero-length shortcut, native length otherwise; floor split for padding and truncation with odd deficit.",
+      "AuditState": "Source contract reviewed; measured differential closure and remaining acceptance are recorded separately",
+      "CompatibilityStatus": "Needs verification"
+    },
+    {
+      "Function": "join",
+      "Arity": 2,
+      "OriginalClauses": [
+        {
+          "Line": 3086,
+          "HeadAndGuard": "join([], Sep) when is_list(Sep)"
+        },
+        {
+          "Line": 3088,
+          "HeadAndGuard": "join([H|T], Sep)"
+        }
+      ],
+      "CSharpHandler": "src/Otp/Managed/Erlang.Otp.Stdlib/Text/StringLegacyExecution.cs",
+      "HandlerSha256": "E751956CC9E4FCD58641C57AEB396A7042E9E58CA10CD57C69A92DCC871A5C1C",
+      "SourceReviewObligation": "Obsolete API preserves arbitrary term payloads, exact guards, append/native calls and error continuations.",
+      "Defaults": "explicit arguments",
+      "ContractReview": "Empty outer list guards separator; nonempty clause permits lazy separator validation; actual append/comprehension bad-generator errors.",
+      "AuditState": "Source contract reviewed; measured differential closure and remaining acceptance are recorded separately",
+      "CompatibilityStatus": "Needs verification"
+    },
+    {
+      "Function": "to_upper",
+      "Arity": 1,
+      "OriginalClauses": [
+        {
+          "Line": 3068,
+          "HeadAndGuard": "to_upper(S) when is_list(S)"
+        },
+        {
+          "Line": 3070,
+          "HeadAndGuard": "to_upper(C) when is_integer(C)"
+        }
+      ],
+      "CSharpHandler": "src/Otp/Managed/Erlang.Otp.Stdlib/Text/StringLegacyExecution.cs",
+      "HandlerSha256": "E751956CC9E4FCD58641C57AEB396A7042E9E58CA10CD57C69A92DCC871A5C1C",
+      "SourceReviewObligation": "Obsolete API preserves arbitrary term payloads, exact guards, append/native calls and error continuations.",
+      "Defaults": "explicit arguments",
+      "ContractReview": "Obsolete scalar or list Latin1 mapping with fixed ranges; other integers retained, improper tail and noninteger payloads follow source helpers.",
+      "AuditState": "Source contract reviewed; measured differential closure and remaining acceptance are recorded separately",
+      "CompatibilityStatus": "Needs verification"
+    },
+    {
+      "Function": "to_lower",
+      "Arity": 1,
+      "OriginalClauses": [
+        {
+          "Line": 3047,
+          "HeadAndGuard": "to_lower(S) when is_list(S)"
+        },
+        {
+          "Line": 3049,
+          "HeadAndGuard": "to_lower(C) when is_integer(C)"
+        }
+      ],
+      "CSharpHandler": "src/Otp/Managed/Erlang.Otp.Stdlib/Text/StringLegacyExecution.cs",
+      "HandlerSha256": "E751956CC9E4FCD58641C57AEB396A7042E9E58CA10CD57C69A92DCC871A5C1C",
+      "SourceReviewObligation": "Obsolete API preserves arbitrary term payloads, exact guards, append/native calls and error continuations.",
+      "Defaults": "explicit arguments",
+      "ContractReview": "Obsolete scalar or list Latin1 mapping with fixed ranges; other integers retained, improper tail and noninteger payloads follow source helpers.",
+      "AuditState": "Source contract reviewed; measured differential closure and remaining acceptance are recorded separately",
+      "CompatibilityStatus": "Needs verification"
+    },
+    {
+      "Function": "list_to_float",
+      "Arity": 1,
+      "OriginalClauses": [
+        {
+          "Line": 181,
+          "HeadAndGuard": "list_to_float(_)"
+        }
+      ],
+      "CSharpHandler": "src/Runtime/Erlang.Runtime.Core/Primitives/StringFloatNative.cs",
+      "HandlerSha256": "1CCA6F101C278352DEB9769F9801CF83616B109FF1A062905148DDF4599029E0",
+      "SourceReviewObligation": "Shared native grammar plus invariant finite IEEE754 conversion; source owner is erts/emulator/beam/bif.c, not its Erlang NIF stub.",
+      "Defaults": "explicit arguments",
+      "ContractReview": "Owning native bif.c grammar: sign, mandatory integer/radix/fraction digits, incomplete exponent rollback, untouched tail, finite IEEE conversion; platform dependency remains explicit.",
+      "AuditState": "Source contract reviewed; measured differential closure and remaining acceptance are recorded separately",
+      "CompatibilityStatus": "Needs verification"
+    },
+    {
+      "Function": "list_to_integer",
+      "Arity": 1,
+      "OriginalClauses": [
+        {
+          "Line": 191,
+          "HeadAndGuard": "list_to_integer(String)"
+        }
+      ],
+      "CSharpHandler": "src/Otp/Managed/Erlang.Otp.Stdlib/Text/StringLegacy.cs",
+      "HandlerSha256": "8DC5D3A692E921663578F210511246A936AC5F331E5AA942EACF01FF1FEA0728",
+      "SourceReviewObligation": "ASCII sign/digit prefix induction with BigInteger and exact untouched tail; native big fallback is a dependency.",
+      "Defaults": "explicit arguments",
+      "ContractReview": "ASCII sign/digit prefix recurrence with BigInteger, distinguish not_a_list/no_integer, preserve untouched proper or improper remainder.",
+      "AuditState": "Source contract reviewed; measured differential closure and remaining acceptance are recorded separately",
+      "CompatibilityStatus": "Needs verification"
+    }
+  ]
+}

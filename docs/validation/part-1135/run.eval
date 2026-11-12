@@ -1,0 +1,24 @@
+[P,Q]=init:get_plain_arguments(),
+Read=fun(Path)->
+    {beam_file,_,_,_,_,Fs}=beam_disasm:file(Path),
+    [Is]=[Instructions || {function,select,4,_,Instructions}<-Fs],
+    io:format("~s~n~p~n",[Path,Is]),
+    {ok,B}=file:read_file(Path),
+    {module,M}=code:load_binary(beam_general_catch_probe,Path,B),
+    saved=M:select(erlang,abs,-4,saved),
+    failed=M:select(erlang,error,reason,saved),
+    failed=M:select(erlang,exit,reason,saved),
+    saved=M:select(erlang,throw,4,saved),
+    code:delete(M),
+    code:purge(M),
+    Labels=[L || {label,L}<-Is],
+    Map=maps:from_list(lists:zip(Labels,lists:seq(1,length(Labels)))),
+    Rebase=fun R({f,L})->{f,maps:get(L,Map,L)};
+                 R(T) when is_tuple(T)->list_to_tuple([R(E)||E<-tuple_to_list(T)]);
+                 R(L) when is_list(L)->[R(E)||E<-L];
+                 R(E)->E end,
+    [Rebase(I)||I<-Is,not(is_tuple(I) andalso element(1,I)=:=label)]
+end,
+Expected=Read(P),
+Expected=Read(Q),
+halt().

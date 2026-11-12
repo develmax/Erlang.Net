@@ -1,0 +1,52 @@
+Case patterns in top-level clauses of functions with differing normalized instructions of 1001 differing images.
+Counts are {modules, functions, examples}. Groups can overlap.
+#{call_case_without_variable_fallback =>
+      {735,5056,
+       [{xmerl_xsd_type,{check_duration_date,2}},
+        {xmerl_xsd_re_parse,{yecc_error_type,2}},
+        {xmerl_xsd_re,{map,1}}]},
+  call_case_without_variable_fallback_literal_arms =>
+      {488,1886,
+       [{xmerl_xsd,{check_element_type,6}},
+        {xmerl_xpath_scan,{scan_local_part,2}},
+        {xmerl_xpath,{match_self,4}}]},
+  call_case_boolean_pair =>
+      {450,1683,
+       [{xmerl_xsd,{check_element_type,6}},
+        {xmerl_xpath_scan,{scan_local_part,2}},
+        {xmerl_xpath,{match_self,4}}]},
+  call_case_nonboolean_literal_arms =>
+      {131,208,
+       [{xmerl_sax_parser_utf8,{check_uri,2}},
+        {xmerl_sax_parser_utf16le,{check_uri,2}},
+        {xmerl_sax_parser_utf16be,{check_uri,2}}]},
+  call_case_simple_nonboolean_literal_arms =>
+      {28,31,
+       [{make,{all_or_nothing,0}},
+        {erl_pp,{encoding,1}},
+        {dets_utils,{collect_tree2,3}}]},
+  call_case_simple_boolean_pair =>
+      {155,254,
+       [{xmerl_xsd,{is_optional_content,1}},
+        {xmerl_sax_parser_utf8,{is_pubid_char,1}},
+        {xmerl_sax_parser_utf16le,{is_pubid_char,1}}]},
+  call_case_multiple_cons =>
+      {98,156,
+       [{xmerl_xsd_type,{check_duration_date,2}},
+        {xmerl_xsd,{is_unmerged_type,1}},
+        {xmerl_uri,{parse_sip,2}}]},
+  call_case_multiple_tuple_heads =>
+      {26,31,
+       [{xmerl_xsd,{is_unmerged_type,1}},
+        {xmerl_eventp,{close,1}},
+        {xref_compiler,{check_constants,2}}]},
+  call_case_distinct_tuple_arities =>
+      {5,6,
+       [{xmerl_eventp,{close,1}},
+        {timer,{remove_timer,2}},
+        {qlc_pt,{restore_loc,2}}]},
+  call_case_multiple_literal_heads =>
+      {7,7,
+       [{ets,{choice,8}},
+        {ssl_trace,{trace_info,1}},
+        {ssh_dbg,{trace_info,1}}]}}

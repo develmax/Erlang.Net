@@ -1,0 +1,50 @@
+Compared 983 differing images.
+0 images with at most 0 differing functions
+5 images with at most 1 differing functions
+22 images with at most 2 differing functions
+101 images with at most 5 differing functions
+207 images with at most 10 differing functions
+425 images with at most 25 differing functions
+640 images with at most 50 differing functions
+
+Lowest counts: {differences, image, changed, missing, extra, equivalent}
+{1,"lib/erts-17.1/ebin/erl_tracer.beam",[{on_load,0}],[],[],6}
+{1,"lib/ssh-6.0.6/ebin/ssh_bits.beam",[{mpint,1}],[],[],4}
+{1,"lib/stdlib-8.1/ebin/erl_abstract_code.beam",[{debug_info,4}],[],[],6}
+{1,"lib/stdlib-8.1/ebin/shell_default.beam",[{'$handle_undefined_function',2}],[],[],78}
+{1,"lib/wx-2.7/ebin/wxDisplay.beam",[{new,1}],[],[],14}
+{2,"lib/diameter-2.7.2/ebin/diameter_misc_sup.beam",[{init,1},{spec,1}],[],[],3}
+{2,"lib/erts-17.1/ebin/erts_trace_cleaner.beam",[{call_check,0},{loop,4}],[],[],6}
+{2,"lib/inets-9.8/ebin/httpc_sup.beam",[{child_specs,1},{init,1}],[],[],5}
+{2,"lib/inets-9.8/ebin/httpd_file.beam",[{handle_error,4},{handle_error,5}],[],[],2}
+{2,"lib/inets-9.8/ebin/mod_head.beam",[{do,1},{do_head,1}],[],[],2}
+{2,"lib/public_key-1.21.7/ebin/AlgorithmInformation-2009.beam",[{dec_ParamOptions,2},{enc_ParamOptions,2}],[],[],21}
+{2,"lib/public_key-1.21.7/ebin/DSS.beam",[{dec_DSAPrivateKey,2},{enc_DSAPrivateKey,2}],[],[],26}
+{2,"lib/public_key-1.21.7/ebin/PKCS-3.beam",[{dec_DHParameter,2},{enc_DHParameter,2}],[],[],28}
+{2,"lib/ssh-6.0.6/ebin/ssh_channel_sup.beam",[{start_child,7},{start_the_channel,7}],[],[],4}
+{2,"lib/ssh-6.0.6/ebin/ssh_fsm_userauth_client.beam",[{handle_event,4}],[{'-handle_event/4-lc$^0/1-0-',1}],[],6}
+{2,"lib/tftp-1.3/ebin/tftp_logger.beam",[{add_timestamp,2},{t,1}],[],[],7}
+{2,"lib/wx-2.7/ebin/wxAcceleratorTable.beam",[{new,2}],[{'-new/2-lc$^0/1-0-',1}],[],7}
+{2,"lib/wx-2.7/ebin/wxLocale.beam",[{new,1},{new,2}],[],[],36}
+{2,"lib/wx-2.7/ebin/wxMask.beam",[{create,3},{new,2}],[],[],7}
+{2,"lib/wx-2.7/ebin/wxPrintout.beam",[{'-new/3-fun-0-',2},{new,3}],[],[],25}
+{2,"lib/wx-2.7/ebin/wxTaskBarIcon.beam",[{'-new/1-fun-0-',1},{new,1}],[],[],15}
+{2,"lib/wx-2.7/ebin/wx_misc.beam",[{mSWSetEmulationLevel,1},{mSWSetEmulationLevel,2}],[],[],34}
+{3,"lib/asn1-5.5.2/ebin/asn1ct_eval_ext.beam",[{transform_to_EXTERNAL1994,1},{transform_to_EXTERNAL1994_maps,1}],[{'-transform_to_EXTERNAL1994_maps/1-lc$^0/1-0-',1}],[],2}
+{3,"lib/common_test-1.31.2/ebin/unix_telnet.beam",[{connect,7},{connect1,8},{get_username_and_password,1}],[],[],3}
+{3,"lib/erts-17.1/ebin/erl_init.beam",[{if_loaded,2},{if_loaded,3},{run,3}],[],[],6}
+{3,"lib/erts-17.1/ebin/prim_buffer.beam",[{on_load,0},{read,2},{read_iovec,2}],[],[],12}
+{3,"lib/et-1.8/ebin/et_viewer.beam",[{start,1},{start_link,1},{start_link,2}],[],[],10}
+{3,"lib/inets-9.8/ebin/httpd_cgi.beam",[{handle_headers,3},{parse_headers,1},{parse_headers,3}],[],[],3}
+{3,"lib/inets-9.8/ebin/httpd_esi.beam",[{handle_headers,1},{handle_headers,4},{parse_headers,2}],[],[],3}
+{3,"lib/inets-9.8/ebin/httpd_logger.beam",[{error_report,4},{format,1},{log,3}],[],[],3}
+{3,"lib/kernel-11.0.4/ebin/logger_handler_watcher.beam",[{handle_call,3},{handle_info,2},{init,1}],[],[],6}
+{3,"lib/megaco-4.9.2/ebin/megaco_tcp_accept.beam",[{do_accept,3},{start_link,1},{tcp_clear,1}],[],[],3}
+{3,"lib/megaco-4.9.2/ebin/megaco_trans_sup.beam",[{init,0},{start,0},{start_trans_sender,5}],[],[],4}
+{3,"lib/mnesia-4.27/ebin/mnesia_kernel_sup.beam",[{init,1},{supervisor_spec,1},{worker_spec,3}],[],[],4}
+{3,"lib/public_key-1.21.7/ebin/pubkey_translation.beam",[{decode,1},{encode,1},{is_simple_tuple,1}],[],[],6}
+{3,"lib/sasl-4.4/ebin/systools.beam",[{script2boot,1},{script2boot,3},{translate_options,1}],[],[],9}
+{3,"lib/ssh-6.0.6/ebin/ssh_connection_sup.beam",[{find_child,2},{init,1},{start_link,4}],[],[],5}
+{3,"lib/stdlib-8.1/ebin/otp_internal.beam",[{obsolete,3},{obsolete_callback,3},{obsolete_type,3}],[],[],2}
+{3,"lib/tools-4.2.3/ebin/xref_scanner.beam",[{a1,1},{lex,1},{scan,1}],[],[],3}
+{3,"lib/wx-2.7/ebin/wxFont.beam",[{new,1},{new,4},{new,5}],[],[],26}

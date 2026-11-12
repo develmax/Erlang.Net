@@ -1,0 +1,60 @@
+OTP
+{label,1102}
+{line,[{location,"/daily_build/otp_src/lib/eldap/src/../ebin/ELDAPv3.erl",
+                 3289}]}
+{func_info,{atom,'ELDAPv3'},{atom,enc_PasswdModifyResponseValue},2}
+{label,1103}
+{test,is_tuple,{f,1106},[{x,0}]}
+{test,test_arity,{f,1106},[{x,0},2]}
+{allocate,1,2}
+{move,{x,1},{y,0}}
+{get_tuple_element,{x,0},1,{x,0}}
+{test,is_eq_exact,{f,1104},[{x,0},{atom,asn1_NOVALUE}]}
+{move,{literal,{<<>>,0}},{x,0}}
+{jump,{f,1105}}
+{label,1104}
+{move,{literal,[<<128>>]},{x,1}}
+{line,[{location,"/daily_build/otp_src/lib/eldap/src/../ebin/ELDAPv3.erl",
+                 3298}]}
+{call,2,{'ELDAPv3',encode_restricted_string,2}}
+{label,1105}
+{test_heap,2,1}
+{get_tuple_element,{x,0},0,{x,1}}
+{put_list,{x,1},nil,{x,1}}
+{get_tuple_element,{x,0},1,{x,2}}
+{move,{y,0},{x,0}}
+{call_last,3,{'ELDAPv3',encode_tags,3},1}
+{label,1106}
+{line,[{location,"/daily_build/otp_src/lib/eldap/src/../ebin/ELDAPv3.erl",
+                 3290}]}
+{badmatch,{x,0}}
+CSharp
+{label,1156}
+{line,[{location,"/daily_build/otp_src/lib/eldap/src/../ebin/ELDAPv3.erl",
+                 3289}]}
+{func_info,{atom,'ELDAPv3'},{atom,enc_PasswdModifyResponseValue},2}
+{label,1157}
+{test,is_tuple,{f,1160},[{x,0}]}
+{test,test_arity,{f,1160},[{x,0},2]}
+{allocate,1,2}
+{move,{x,1},{y,0}}
+{get_tuple_element,{x,0},1,{x,0}}
+{test,is_eq_exact,{f,1158},[{x,0},{atom,asn1_NOVALUE}]}
+{move,{literal,{<<>>,0}},{x,0}}
+{jump,{f,1159}}
+{label,1158}
+{move,{literal,[<<128>>]},{x,1}}
+{line,[{location,"/daily_build/otp_src/lib/eldap/src/../ebin/ELDAPv3.erl",
+                 3298}]}
+{call,2,{'ELDAPv3',encode_restricted_string,2}}
+{label,1159}
+{test_heap,2,1}
+{get_tuple_element,{x,0},0,{x,1}}
+{put_list,{x,1},nil,{x,1}}
+{get_tuple_element,{x,0},1,{x,2}}
+{move,{y,0},{x,0}}
+{call_last,3,{'ELDAPv3',encode_tags,3},1}
+{label,1160}
+{line,[{location,"/daily_build/otp_src/lib/eldap/src/../ebin/ELDAPv3.erl",
+                 3290}]}
+{badmatch,{x,0}}

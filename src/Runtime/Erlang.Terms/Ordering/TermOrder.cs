@@ -164,7 +164,16 @@ public static class TermOrder
                     int count = x.Entries.Count.CompareTo(y.Entries.Count);
                     if (count != 0)
                         return count;
-                    if (purpose == TermComparisonPurpose.ExactEquality)
+                    // Atom indexes belong to a runtime. Imported logical flat maps
+                    // can retain a foreign key-array order after their values are
+                    // copied into this runtime. Atom names still identify the keys;
+                    // physical equality remains necessary for other key shapes.
+                    bool atomKeyEquality = purpose == TermComparisonPurpose.ExactEquality
+                        && x.IsOrdinaryLogicalMap517 && y.IsOrdinaryLogicalMap517
+                        && x.FlatKeys426 is not null && y.FlatKeys426 is not null
+                        && x.Entries.All(entry => entry.Key is Atom)
+                        && y.Entries.All(entry => entry.Key is Atom);
+                    if (purpose == TermComparisonPurpose.ExactEquality && !atomKeyEquality)
                     {
                         var native = x.NativeEquality505?.Invoke(y) ?? y.NativeEquality505?.Invoke(x);
                         if (native is null && layoutFactory is not null)
@@ -184,6 +193,8 @@ public static class TermOrder
                         }
                     }
                     if (exact && purpose != TermComparisonPurpose.CanonicalKeyStorage
+                        && !atomKeyEquality
+                        && (purpose != TermComparisonPurpose.ExactEquality || layoutFactory is not null)
                         && x.FlatKeys426 is not null && y.FlatKeys426 is not null)
                     {
                         pending.Push(TermMapOrdering.FlatSteps(x, y, exact).GetEnumerator());
@@ -197,7 +208,12 @@ public static class TermOrder
                         mapLayout ??= layoutFactory();
                         if (mapLayout is ITermMapOrderingLayout ordering)
                         {
-                            pending.Push(TermMapOrdering.HashSteps(x, y, exact, ordering).GetEnumerator());
+                            pending.Push(TermMapOrdering.HashSteps(
+                                x,
+                                y,
+                                exact,
+                                ordering
+                            ).GetEnumerator());
 
                             return 0;
                         }

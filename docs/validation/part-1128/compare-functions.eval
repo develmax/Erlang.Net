@@ -1,0 +1,21 @@
+[Ref, Old, New | Changed] = init:get_plain_arguments(),
+Read = fun(Root, Path) ->
+    {beam_file, _, _, _, _, Fs} = beam_disasm:file(filename:join(Root, Path)),
+    maps:from_list([{{N,A}, [I || I <- Is, not (is_tuple(I) andalso element(1,I) =:= label)]}
+                    || {function,N,A,_,Is} <- Fs])
+end,
+Rows = lists:flatmap(fun(Path) ->
+    Expected = Read(Ref, Path),
+    Before = Read(Old, Path),
+    After = Read(New, Path),
+    [{Path, F, case {maps:find(F, Expected), maps:find(F, Before), maps:find(F, After)} of
+        {{ok,I}, {ok,I}, _} -> lost_match;
+        {{ok,I}, _, {ok,I}} -> gained_match;
+        _ -> changed
+    end} || F <- lists:usort(maps:keys(Before) ++ maps:keys(After)),
+            maps:find(F, Before) =/= maps:find(F, After)]
+end, Changed),
+io:format("Changed functions with only label definitions excluded: ~p~n", [length(Rows)]),
+lists:foreach(fun(Row) -> io:format("~p~n", [Row]) end,
+              [Row || Row={_,_,Status} <- Rows, Status =/= changed]),
+halt().

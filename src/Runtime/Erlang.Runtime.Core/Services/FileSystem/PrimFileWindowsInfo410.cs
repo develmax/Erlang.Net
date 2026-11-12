@@ -138,6 +138,28 @@ internal static class PrimFileWindowsInfo410
             if (access == -PrimFileWindowsNames410.EpochDifference) access = write;
             if (creation == -PrimFileWindowsNames410.EpochDifference) creation = write;
         }
+        return Build(info, path, link, access, write, creation);
+    }
+
+    internal static Term ReadHandle(SafeFileHandle handle, string path, CancellationToken cancellation)
+    {
+        cancellation.ThrowIfCancellationRequested();
+        if (!PrimFileWindowsNative410.Information(handle, out var info))
+        {
+            return PrimFileWindowsErrors410.Last(Marshal.GetLastPInvokeError());
+        }
+        long write = Epoch(info.Write);
+        long access = Epoch(info.Access);
+        long creation = Epoch(info.Creation);
+        if (write == -PrimFileWindowsNames410.EpochDifference) { write = 0; }
+        if (access == -PrimFileWindowsNames410.EpochDifference) { access = write; }
+        if (creation == -PrimFileWindowsNames410.EpochDifference) { creation = write; }
+
+        return Build(info, path, false, access, write, creation);
+    }
+
+    private static Term Build(PrimFileInformation410 info, string path, bool link, long access, long write, long creation)
+    {
         string type;
         uint mode;
         if (link)

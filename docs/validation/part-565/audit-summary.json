@@ -1,0 +1,150 @@
+{
+  "baseline": "OTP-29.1.1",
+  "module": "timer",
+  "exports": 36,
+  "primaryCasesPerBackend": 728,
+  "behavioralScenariosPerBackend": 11,
+  "upstreamCasesPerBackend": 47,
+  "backtraceDepths": [
+    0,
+    1,
+    2,
+    3,
+    8,
+    32
+  ],
+  "fullRegressionRun": false,
+  "globalReadinessRegenerated": false,
+  "universalCompatibilityCertified": false,
+  "defaultTimerExports": 0,
+  "primary": [
+    {
+      "Backend": "Managed",
+      "Baseline": "OTP-29.1.1",
+      "Exports": 36,
+      "Cases": 728,
+      "Passed": 728,
+      "EffectPassed": 11,
+      "Failures": [],
+      "TimerBeamSha256": "1CB0E1BC10FB7BDB19F5189D440B155C1AE7F3A45A5A24B5893CA9745908796B",
+      "ManagedAssemblySha256": "99F809615B8FA217A220C39767B9C3EB655E3B70A03EF194610492FA863E381D",
+      "RuntimeAssemblySha256": "ED34945074EA130B4E433E6E8C55091853C2615C153856A103806EC108AED528",
+      "CorpusSha256": "5D4B235095DEB89050C310ED1978B24B6BB3C34DD4F6A28DF14BE780A57FB7AD"
+    },
+    {
+      "Backend": "Beam",
+      "Baseline": "OTP-29.1.1",
+      "Exports": 36,
+      "Cases": 728,
+      "Passed": 728,
+      "EffectPassed": 11,
+      "Failures": [],
+      "TimerBeamSha256": "1CB0E1BC10FB7BDB19F5189D440B155C1AE7F3A45A5A24B5893CA9745908796B",
+      "ManagedAssemblySha256": "99F809615B8FA217A220C39767B9C3EB655E3B70A03EF194610492FA863E381D",
+      "RuntimeAssemblySha256": "ED34945074EA130B4E433E6E8C55091853C2615C153856A103806EC108AED528",
+      "CorpusSha256": "5D4B235095DEB89050C310ED1978B24B6BB3C34DD4F6A28DF14BE780A57FB7AD"
+    }
+  ],
+  "profiles": [
+    {
+      "depth": 0,
+      "backend": "Managed",
+      "passed": 728,
+      "corpusSha256": "4479BF42D2A43BFFCEB2F9378D531C69B79DD6F76E2B2CA553FFAC45566B8B62"
+    },
+    {
+      "depth": 1,
+      "backend": "Managed",
+      "passed": 728,
+      "corpusSha256": "4479BF42D2A43BFFCEB2F9378D531C69B79DD6F76E2B2CA553FFAC45566B8B62"
+    },
+    {
+      "depth": 2,
+      "backend": "Managed",
+      "passed": 728,
+      "corpusSha256": "7DE40DA853929D3DB8DF323CEC8CEE2A4208E92C12A7ECE4F095BDD5D5F273FA"
+    },
+    {
+      "depth": 3,
+      "backend": "Managed",
+      "passed": 728,
+      "corpusSha256": "D43707C2BDD7CCE699B4896901E5E8AB481F437E6E895A608D3A20B8E03C0FF9"
+    },
+    {
+      "depth": 32,
+      "backend": "Managed",
+      "passed": 728,
+      "corpusSha256": "5D4B235095DEB89050C310ED1978B24B6BB3C34DD4F6A28DF14BE780A57FB7AD"
+    },
+    {
+      "depth": 0,
+      "backend": "Beam",
+      "passed": 728,
+      "corpusSha256": "4479BF42D2A43BFFCEB2F9378D531C69B79DD6F76E2B2CA553FFAC45566B8B62"
+    },
+    {
+      "depth": 1,
+      "backend": "Beam",
+      "passed": 728,
+      "corpusSha256": "4479BF42D2A43BFFCEB2F9378D531C69B79DD6F76E2B2CA553FFAC45566B8B62"
+    },
+    {
+      "depth": 2,
+      "backend": "Beam",
+      "passed": 728,
+      "corpusSha256": "7DE40DA853929D3DB8DF323CEC8CEE2A4208E92C12A7ECE4F095BDD5D5F273FA"
+    },
+    {
+      "depth": 3,
+      "backend": "Beam",
+      "passed": 728,
+      "corpusSha256": "D43707C2BDD7CCE699B4896901E5E8AB481F437E6E895A608D3A20B8E03C0FF9"
+    },
+    {
+      "depth": 32,
+      "backend": "Beam",
+      "passed": 728,
+      "corpusSha256": "5D4B235095DEB89050C310ED1978B24B6BB3C34DD4F6A28DF14BE780A57FB7AD"
+    }
+  ],
+  "upstream": [
+    {
+      "Backend": "Managed",
+      "Cases": 47,
+      "Passed": 47,
+      "Failures": []
+    },
+    {
+      "Backend": "Beam",
+      "Cases": 47,
+      "Passed": 47,
+      "Failures": []
+    }
+  ],
+  "suiteInputIdentities": {
+    "CapturedUtc": "2026-11-04T11:34:41.286873+00:00",
+    "Command": "dotnet artifacts/timer-port/build-closure/bin/Erlang.TimerCompatibility/debug/Erlang.TimerCompatibility.dll . artifacts/timer-port/accepted-suite <Managed|Beam> suite",
+    "Files": {
+      "Erlang.Runtime.dll": "ed34945074ea130b4e433e6e8c55091853c2615c153856a103806ec108aed528",
+      "Erlang.Otp.Stdlib.dll": "99f809615b8fa217a220c39767b9c3eb655e3b70a03ef194610492fa863e381d",
+      "Erlang.TimerCompatibility.dll": "5282c5a37b4e501980886b7b3e8a1f598196d43f626b58f75935c685d5858e52"
+    }
+  },
+  "sourceBindings": {
+    "src/Otp/Managed/Erlang.Otp.Stdlib/Processes/Timer/TimerIntervalRecipe.cs": "d3068d13b159add1a60ba8033e6db897b4f66512ca0249aeafca2ecf744684ea",
+    "src/Otp/Managed/Erlang.Otp.Stdlib/Processes/Timer/TimerLibrary.cs": "40808368260e3d87b9b88d7bd0b5ddfd91256a3f92f4124abd7051a669d488e8",
+    "src/Otp/Managed/Erlang.Otp.Stdlib/Processes/Timer/TimerLibrary.Interval.cs": "91c411cdf65ad071ea4095c92f760f71a9313e3b14e7b839794b34caba22b076",
+    "src/Otp/Managed/Erlang.Otp.Stdlib/Processes/Timer/TimerLibrary.Server.cs": "87a2a4625a8614aaff616011c8f5c77d9da9278d7c22817395cca294ce909082",
+    "src/Otp/Managed/Erlang.Otp.Stdlib/Processes/Timer/TimerLibraryNames.cs": "f7e6d4a00cec794865ef47bf436d6fa2ca9c71eb514c8204938f353b3957bf0a",
+    "src/Otp/Managed/Erlang.Otp.Stdlib/Processes/Timer/TimerSource.cs": "2a94c7688dad98d2b422048cd2b1a4265bc80668d076fb5e8ee6d8ac1b3c981a",
+    "src/Otp/Managed/Erlang.Otp.Stdlib/Processes/Timer/TimerTerminationRecipe.cs": "80854e5e6c17e21e593603df8678dc6a985623878e23c2d7b84b9e8c40ead784",
+    "src/Runtime/Erlang.Runtime.Core/Primitives/ErlangApplyFunctionDispatch.cs": "e95d5cffe0580a67e11b88be9762cb46cbacdbb0620978f4167ff3ff229113c6",
+    "src/Runtime/Erlang.Runtime.Core/Primitives/ErlangFunctionCallErrors.cs": "816d27015a2fb28da2129a491ae116a6d96a18555bf28fa00f770f27fddf1a51",
+    "src/Runtime/Erlang.Runtime.Core/Primitives/ErlangClockRegistrations.cs": "70750950259fb740aa7f90d77bee80f4db9fd4d8b7419c09751076125a5fd4f4",
+    "src/Runtime/Erlang.Runtime.Core/Primitives/ErlangClockSourceLocation.cs": "5a137818aaea8a2861ff4492862ab449d6c0d1b39530435df4c760246a696e24"
+  },
+  "originalInputSha256": "4D9B47B5A3205AE2684148C4D33F4EC75CE22BA4A0CB5E4F79BEAD2E1DCAF420",
+  "projectedUpstreamSha256": "F4ADEFF7B744E78E936A6E0BE833FA574CAA516B7BED4803CFA8092572F417CD",
+  "projectionProof": "47 successful original testcases; exactly 3 reference-valued returns projected; all other terms unchanged.\n",
+  "ordinaryBuildBoundary": "Unrelated concurrent DETS draft compilation errors; focused filtered build passed."
+}

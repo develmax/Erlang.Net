@@ -1,0 +1,59 @@
+Case selectors and multi-expression bodies in the flat tuple entry group. Counts are {modules, functions, examples}.
+A function contributes once to each body shape present in its flat tuple clauses.
+#{variable_fallback =>
+      {11,12,
+       [{xmerl_sax_parser,{parse_options,2}},
+        {erl_eval,{check_bad_generators,3}},
+        {dets,{find_all_keys,3}}]},
+  boolean_arms =>
+      {17,20,
+       [{cover,{add_imported,5}},
+        {merl,{switch_2,4}},
+        {zip,{get_openzip_opt,2}}]},
+  constructed_tail_argument =>
+      {16,18,
+       [{xmerl_sax_parser,{parse_options,2}},
+        {zip,{get_openzip_opt,2}},
+        {file_sorter,{cmerge_files,12}}]},
+  direct_call_selector =>
+      {33,39,
+       [{xmerl_sax_parser,{parse_options,2}},
+        {cover,{add_imported,5}},
+        {merl,{switch_2,4}}]},
+  other_selector =>
+      {13,17,
+       [{sofs,{fam2,4}},
+        {file_sorter,{options,2}},
+        {erl_eval,{bind_all_generators1,7}}]},
+  bound_call_then_tail =>
+      {9,9,
+       [{ets,{parse_ft_options,3}},
+        {erl_lint,{icrt_export,5}},
+        {erl_eval,{get_strict_patterns,2}}]},
+  sequence_call_binding =>
+      {23,30,
+       [{pool,{insert_node,2}},
+        {erl_lint,{icrt_export,5}},
+        {erl_eval,{bind_all_generators1,7}}]},
+  sequence_discarded_call =>
+      {9,17,
+       [{snmpm_config,{verify_audit_trail_log_opts,1}},
+        {snmpc,{check_options,1}},
+        {snmpa_mpd,{mk_v1_v2_packet_list,5}}]},
+  sequence_ending_in_case =>
+      {8,11,
+       [{erl_eval,{bind_all_generators1,7}},
+        {ssl_gen_statem,{set_socket_opts,7}},
+        {snmpa_mpd,{process_taddrs,2}}]},
+  sequence_ending_in_tail_call =>
+      {32,50,
+       [{xref_base,{check_file,5}},
+        {tprof,{inspect_processes,2}},
+        {zip,{get_unzip_opt,2}}]},
+  other_sequence =>
+      {45,72,
+       [{xref_base,{check_file,5}},
+        {tprof,{inspect_processes,2}},
+        {zip,{get_unzip_opt,2}}]},
+  missing_forms =>
+      {1,1,[{pubkey_cert,{'-do_normalize_general_name/1-fun-0-',1}}]}}

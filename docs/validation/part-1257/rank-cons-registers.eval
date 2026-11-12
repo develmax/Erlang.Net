@@ -1,0 +1,25 @@
+[Reference, Generated] = init:get_plain_arguments(),
+Read = fun(Path) ->
+    {beam_file,_,_,_,_,Functions} = beam_disasm:file(Path),
+    maps:from_list([{{Name,Arity},
+                    {length([Test || Test = {test,is_nonempty_list,_,_} <- Instructions]),
+                     lists:any(fun({get_list,Source,_,Source}) -> true; (_) -> false end, Instructions)}}
+                    || {function,Name,Arity,_,Instructions} <- Functions])
+end,
+Files = filelib:fold_files(Generated,"[.]beam$",true,fun(Path,Acc) -> [Path|Acc] end,[]),
+Rows = lists:flatmap(fun(Path) ->
+    Relative = lists:nthtail(length(filename:split(Generated)), filename:split(Path)),
+    Otp = Read(filename:join([Reference|Relative])),
+    Actual = Read(Path),
+    Matches = [Function || {Function,{OtpTests,true}} <- maps:to_list(Otp),
+                            {ok,{ActualTests,false}} <- [maps:find(Function,Actual)],
+                            ActualTests > OtpTests],
+    case Matches of
+        [] -> [];
+        _ -> [{length(Matches),filename:join(Relative),lists:sublist(Matches,3)}]
+    end
+end,Files),
+io:format("~B candidate images, ~B candidate functions~n~p~n",
+          [length(Rows),lists:sum([N || {N,_,_} <- Rows]),
+           lists:sublist(lists:reverse(lists:sort(Rows)),8)]),
+halt().

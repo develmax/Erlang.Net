@@ -1,0 +1,25 @@
+Dir = "artifacts/beam-backend/part819-images",
+Modules = [dtls_server_sup,dtls_sup],
+Paths = [{M,code:which(M)} || M <- Modules],
+Run = fun(Files) ->
+    lists:foreach(fun({M,File}) ->
+        code:purge(M),
+        code:delete(M),
+        {ok,Bytes}=file:read_file(File),
+        {module,M}=code:load_binary(M,File,Bytes)
+    end,Files),
+    Inits=[M:init([]) || M <- Modules],
+    Invalid=[try M:init([invalid]) catch Class:Reason -> {Class,Reason} end || M <- Modules],
+    {ok,Sup}=dtls_sup:start_link(),
+    Tree=fun F(Pid) ->
+        lists:sort([{Id,Type,ChildModules,case Type of supervisor->F(Child);_->[] end}
+                    || {Id,Child,Type,ChildModules} <- supervisor:which_children(Pid)])
+    end,
+    Children=Tree(Sup),
+    ok=gen_server:stop(Sup),
+    {Inits,Invalid,Children}
+end,
+Otp=Run(Paths),
+Otp=Run([{M,filename:join(Dir,atom_to_list(M)++".beam")} || M<-Modules]),
+io:format("~p~n",[Otp]),
+halt().

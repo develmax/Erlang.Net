@@ -11,6 +11,17 @@ internal static unsafe class NifWindowsVariadic526
     private static nint tuple;
     private static nint list;
     private static nint snprintf791;
+    private static nint setOption;
+
+    internal static nint SetOption
+    {
+        get
+        {
+            _ = EnsureRegistered();
+
+            return setOption;
+        }
+    }
 
     internal static nint Snprintf791
     {
@@ -50,6 +61,9 @@ internal static unsafe class NifWindowsVariadic526
                 nint candidateTuple = NativeLibrary.GetExport(candidate, NifWindowsVariadic526Names.Tuple);
                 nint candidateList = NativeLibrary.GetExport(candidate, NifWindowsVariadic526Names.List);
                 nint candidateSnprintf791 = NativeLibrary.GetExport(candidate, NifWindowsVariadic526Names.Snprintf791);
+                bool hasSetOption = NativeLibrary.TryGetExport(candidate, NifWindowsVariadic526Names.SetOption, out nint candidateSetOption);
+                if (!hasSetOption && RuntimeInformation.ProcessArchitecture != Architecture.X64)
+                    throw new PlatformNotSupportedException(NifWindowsVariadic526Names.Arm64Asset);
                 var table = new NifWindowsVariadic526Table
                 {
                     Version = NifWindowsVariadic526Names.Version,
@@ -68,6 +82,7 @@ internal static unsafe class NifWindowsVariadic526
                 tuple = candidateTuple;
                 list = candidateList;
                 snprintf791 = candidateSnprintf791;
+                setOption = candidateSetOption;
                 library = candidate;
                 published = true;
 

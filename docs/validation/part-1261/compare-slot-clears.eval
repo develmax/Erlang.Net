@@ -1,0 +1,28 @@
+[Before, After] = init:get_plain_arguments(),
+Read = fun(Beam) ->
+    {beam_file,_,_,_,_,Functions} = beam_disasm:file(Beam),
+    maps:from_list([{{Name,Arity},lists:sum([length(Slots) || {init_yregs,{list,Slots}} <- Instructions])}
+                    || {function,Name,Arity,_,Instructions} <- Functions])
+end,
+Paths = filelib:fold_files(After,"[.]beam$",true,fun(Path,Acc) -> [Path|Acc] end,[]),
+Rows = lists:flatmap(fun(Path) ->
+    Relative = lists:nthtail(length(filename:split(After)),filename:split(Path)),
+    case {file:read_file(filename:join([Before|Relative])),file:read_file(Path)} of
+        {{ok,Same},{ok,Same}} ->
+            [];
+        {{ok,Old},{ok,New}} ->
+            Prior = Read(Old),
+            Changes = [{Function,Previous,Current} || {Function,Current} <- maps:to_list(Read(New)),
+                       {ok,Previous} <- [maps:find(Function,Prior)], Current =/= Previous],
+            [{filename:join(Relative),Changes}];
+        _ ->
+            []
+    end
+end,Paths),
+Changes = lists:append([Entries || {_,Entries} <- Rows]),
+io:format("Functions with fewer slot clears: ~B, with more: ~B, net slots removed: ~B~n",
+          [length([ok || {_,Old,New} <- Changes, New < Old]),
+           length([ok || {_,Old,New} <- Changes, New > Old]),
+           lists:sum([Old-New || {_,Old,New} <- Changes])]),
+lists:foreach(fun(Row) -> io:format("~p~n",[Row]) end,lists:sort(Rows)),
+halt().

@@ -12,12 +12,23 @@ internal static unsafe class NifNativeUnixFile
         while (true)
         {
             byte[] buffer = new byte[size];
+            int error;
             fixed (byte* pointer = buffer)
             {
-                if (GetWorkingDirectory(pointer, (nuint)buffer.Length) != 0)
-                    return buffer[..Array.IndexOf(buffer, (byte)0)];
+                if (NifNativePlatformPolicy.UseLinuxNamespace)
+                {
+                    if (GetWorkingDirectory(pointer, (nuint)buffer.Length) != 0)
+                        return buffer[..Array.IndexOf(buffer, (byte)0)];
+                    error = Marshal.GetLastPInvokeError();
+                }
+                else
+                {
+                    int result = NifNativePortableUnixApi.WorkingDirectory(pointer, (nuint)buffer.Length);
+                    if (result == 0)
+                        return buffer[..Array.IndexOf(buffer, (byte)0)];
+                    error = -result;
+                }
             }
-            int error = Marshal.GetLastPInvokeError();
             if (error != NifNativeUnixPathNames.RangeError)
                 throw new IOException(new Win32Exception(error).Message, new Win32Exception(error));
             size = checked(size * 2);
@@ -28,11 +39,13 @@ internal static unsafe class NifNativeUnixFile
     {
         byte[] bytes = path.UnixNullTerminated();
         int descriptor;
+        bool linux = NifNativePlatformPolicy.UseLinuxNamespace;
         fixed (byte* pointer = bytes)
-            descriptor = Open(pointer, NifNativeUnixPathNames.CloseOnExec);
+            descriptor = linux ? Open(pointer, NifNativeUnixPathNames.CloseOnExec)
+                : NifNativePortableUnixApi.OpenFile(pointer);
         if (descriptor < 0)
         {
-            int error = Marshal.GetLastPInvokeError();
+            int error = linux ? Marshal.GetLastPInvokeError() : -descriptor;
             var failure = new Win32Exception(error);
             throw error switch
             {

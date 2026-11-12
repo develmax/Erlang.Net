@@ -1,0 +1,41 @@
+[Reference, Generated] = [filename:absname(P) || P <- init:get_plain_arguments()],
+Files = filelib:fold_files(Generated, "[.]beam$", true, fun(P, Acc) -> [P|Acc] end, []),
+Call = fun({match,_,{var,_,_},Value}) -> Value;
+          (Value) -> Value
+       end,
+Uses = fun({call,_,_,Args}, Name) ->
+               lists:any(fun(A) -> case A of {var,_,Name} -> true; _ -> false end end, Args);
+          (_, _) -> false
+       end,
+Classify = fun
+    ([_|_]=Body) ->
+        case Body of
+            [{match,_,{tuple,_,[{atom,_,_},{var,_,Name}]},{call,_,_,_}}, First, Next|Rest] when Name =/= '_' ->
+                Remaining = [Call(Expr) || Expr <- [First,Next|Rest]],
+                case lists:last(Body) of
+                    {call,_,_,_} ->
+                        case lists:all(fun(Expr) -> element(1,Expr) =:= call end, Remaining)
+                            andalso lists:any(fun(Expr) -> Uses(Expr,Name) end, tl(Remaining)) of
+                            true -> case Uses(hd(Remaining),Name) of true -> immediate_and_later; false -> later_only end;
+                            false -> other
+                        end;
+                    _ -> other
+                end;
+            _ -> other
+        end;
+    (_) -> other
+end,
+Rows = [{Module,Name,Arity,Class} || Path <- Files,
+    Relative <- [lists:nthtail(length(filename:split(Generated)),filename:split(Path))],
+    {ok,{Module,[{abstract_code,{raw_abstract_v1,Forms}}]}} <-
+        [beam_lib:chunks(filename:join([Reference|Relative]),[abstract_code])],
+    {function,_,Name,Arity,Clauses} <- Forms,
+    Class <- lists:usort([Classify(Body) || {clause,_,_,_,Body} <- Clauses]),
+    Class =/= other],
+io:format("Straight call sequences with a tagged payload surviving the first call in ~p differing images.~n",[length(Files)]),
+lists:foreach(fun(Class) ->
+    Matches=[{M,N,A}||{M,N,A,C}<-Rows,C=:=Class],
+    io:format("~p: ~p modules, ~p functions. Examples ~p~n",[Class,
+        length(lists:usort([M||{M,_,_}<-Matches])),length(Matches),lists:sublist(lists:sort(Matches),10)])
+end,[later_only,immediate_and_later]),
+halt().

@@ -6,7 +6,7 @@ internal static class AttributeControlNames
     {
         "import",
         "import_record",
-        "on_load",
+        ModuleAttributeNames.OnLoad,
         "nifs",
         "native_record",
         "export_record",
@@ -18,8 +18,8 @@ internal static class AttributeControlNames
         "spec",
         "callback",
         "optional_callbacks",
-        "doc",
-        "moduledoc",
+        ModuleAttributeNames.Doc,
+        ModuleAttributeNames.ModuleDoc,
         ModuleAttributeNames.Compile
     });
 }

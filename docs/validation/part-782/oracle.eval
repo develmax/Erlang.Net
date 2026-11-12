@@ -1,0 +1,10 @@
+Original = code:which(cdv_dist_cb),
+Generated = "artifacts/beam-backend/part782-images/cdv_dist_cb.beam",
+{ok,Bytes} = file:read_file(Original),
+{ok,Bytes} = file:read_file(Generated),
+{beam_file,cdv_dist_cb,_,_,_,Functions} = beam_disasm:file(Generated),
+Counts = [{Name,Arity,length(Instructions)} ||
+    {function,Name,Arity,_,Instructions} <- Functions],
+io:format("whole_image_equal=true bytes=~p functions=~w sha256=~s~n",
+    [byte_size(Bytes),Counts,binary:encode_hex(crypto:hash(sha256,Bytes))]),
+halt().

@@ -1,0 +1,10 @@
+Fixture = "beam_captured_table_probe.beam",
+{ok,Bytes} = file:read_file("tests/Erlang.Tests/Resources/Beam/" ++ Fixture),
+{ok,Bytes} = file:read_file("artifacts/beam-backend/part792-images/" ++ Fixture),
+{beam_file,beam_captured_table_probe,_,_,_,Functions} =
+    beam_disasm:file("artifacts/beam-backend/part792-images/" ++ Fixture),
+Counts = [{Name,Arity,length(Instructions)} ||
+    {function,Name,Arity,_,Instructions} <- Functions],
+io:format("whole_image_equal=true bytes=~p functions=~w sha256=~s~n",
+    [byte_size(Bytes),Counts,binary:encode_hex(crypto:hash(sha256,Bytes))]),
+halt().

@@ -1,0 +1,15 @@
+[P,Q]=init:get_plain_arguments(),
+lists:foreach(fun(Path)->
+    {beam_file,_,_,_,_,Fs}=beam_disasm:file(Path),
+    io:format("~s~n~p~n",[Path,[{N,Is} || {function,N,_,_,Is}<-Fs,lists:member(N,[dead,dead_same,forward])]]),
+    {ok,B}=file:read_file(Path),
+    {module,M}=code:load_binary(beam_nested_inline_list_probe,Path,B),
+    L=[head|tail],
+    {7,L}=M:dead([],L,[7]),
+    {head,L}=M:dead_same([],L),
+    {7,L}=M:forward(L,[7]),
+    {error,badarg}=try M:forward(L,[]) of V->{value,V} catch error:R->{error,R} end,
+    code:purge(M),
+    code:delete(M)
+end,[P,Q]),
+halt().

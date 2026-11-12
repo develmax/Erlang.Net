@@ -1,0 +1,29 @@
+[Reference, Generated] = init:get_plain_arguments(),
+Allocates = fun({allocate,_,_}) -> true; ({allocate_heap,_,_,_}) -> true; (_) -> false end,
+Entry = fun(Instructions) ->
+    case lists:dropwhile(fun(I) -> not Allocates(I) end, Instructions) of
+        [Alloc,{init_yregs,{list,Slots}}|_] -> {element(2,Alloc),length(Slots)};
+        [Alloc|_] -> {element(2,Alloc),0};
+        [] -> no_frame
+    end
+end,
+Read = fun(Path) ->
+    {beam_file,_,_,_,_,Functions} = beam_disasm:file(Path),
+    maps:from_list([{{Name,Arity},Entry(Instructions)} || {function,Name,Arity,_,Instructions} <- Functions])
+end,
+Files = filelib:fold_files(Generated,"[.]beam$",true,fun(Path,Acc) -> [Path|Acc] end,[]),
+Rows = lists:flatmap(fun(Path) ->
+    Relative = lists:nthtail(length(filename:split(Generated)),filename:split(Path)),
+    Otp = Read(filename:join([Reference|Relative])),
+    Actual = Read(Path),
+    Matches = [{Function,Expected,Current} || {Function,Expected = {_,OldClear}} <- maps:to_list(Otp),
+                   {ok,Current = {_,NewClear}} <- [maps:find(Function,Actual)], NewClear > OldClear],
+    case Matches of
+        [] -> [];
+        _ -> [{length(Matches),filename:join(Relative),lists:sublist(Matches,3)}]
+    end
+end,Files),
+io:format("~B images, ~B functions with more initial clears than OTP~n~p~n",
+          [length(Rows),lists:sum([Count || {Count,_,_} <- Rows]),
+           lists:sublist(lists:reverse(lists:sort(Rows)),8)]),
+halt().

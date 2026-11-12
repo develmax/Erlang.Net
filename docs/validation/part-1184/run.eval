@@ -1,0 +1,9 @@
+[Path] = init:get_plain_arguments(),
+{ok,Binary} = file:read_file(Path),
+{module,entry_clause_frames_probe} = code:load_binary(entry_clause_frames_probe,Path,Binary),
+{undefined,value} = entry_clause_frames_probe:read(a,ignored,value),
+{fallback,value} = entry_clause_frames_probe:read(b,ignored,other),
+other = get(entry_clause_key),
+{beam_file,_,_,_,_,Functions} = beam_disasm:file(Path),
+[io:format("~p~n",[F]) || F = {function,read,3,_,_} <- Functions],
+halt().

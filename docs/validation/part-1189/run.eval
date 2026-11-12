@@ -1,0 +1,7 @@
+[Path] = init:get_plain_arguments(),
+{ok,Binary} = file:read_file(Path),
+{module,case_register_selector_probe} = code:load_binary(case_register_selector_probe,Path,Binary),
+undefined = put(case_probe_key, selected),
+{selected,matched} = case_register_selector_probe:read(case_probe_key),
+{matched,fallback} = case_register_selector_probe:read(case_probe_key),
+halt().

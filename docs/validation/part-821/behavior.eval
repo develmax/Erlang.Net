@@ -1,0 +1,17 @@
+Dir = "artifacts/beam-backend/part821-images",
+Run = fun(Module,File) ->
+    code:purge(Module),
+    code:delete(Module),
+    {ok,Bytes}=file:read_file(File),
+    {module,Module}=code:load_binary(Module,File,Bytes),
+    {ok,{Flags,Children}}=Module:init([]),
+    Invalid=try Module:init([invalid]) catch Class:Reason -> {Class,Reason} end,
+    {Flags,Children,Invalid}
+end,
+lists:foreach(fun(M) ->
+    Otp=Run(M,code:which(M)),
+    Otp=Run(M,filename:join(Dir,atom_to_list(M)++".beam")),
+    {Flags,Children,Invalid}=Otp,
+    io:format("~p ~p ~p ~p~n",[M,Flags,[maps:get(id,C)||C<-Children],Invalid])
+end,[ssl_connection_sup,ssl_dist_connection_sup]),
+halt().

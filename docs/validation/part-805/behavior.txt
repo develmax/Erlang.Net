@@ -1,0 +1,8 @@
+[{[{one,f}],{ok,{{parent,f,args},[{parent,f,args}]}}},
+ {[],{ok,{{notebook,parent,604,[{style,0}]},[]}}},
+ {[junk,{one,f},{two,g}],
+  {ok,{{notebook,parent,604,[{style,0}]},
+       [{{notebook,parent,604,[{style,0}]},one,f,args},
+        {{notebook,parent,604,[{style,0}]},two,g,args}]}}},
+ {[{one,f}|bad_tail],{error,{bad_generator,bad_tail}}},
+ {bad_list,{error,{bad_generator,bad_list}}}]

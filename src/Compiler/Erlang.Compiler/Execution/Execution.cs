@@ -437,7 +437,12 @@ public static partial class Execution
             {
                 var scope = new Dictionary<string, Term>(environment, StringComparer.Ordinal);
                 foreach (string name in clause.Patterns.SelectMany(Semantics.Variables))
-                    scope.Remove(name);
+                {
+                    if (name != expression.SelfName)
+                    {
+                        scope.Remove(name);
+                    }
+                }
                 var selection = await Select(
                     [clause],
                     arguments,

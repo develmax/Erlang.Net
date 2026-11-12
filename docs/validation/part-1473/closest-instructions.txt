@@ -1,0 +1,52 @@
+lib/kernel-11.0.4/ebin/logger_handler_watcher.beam: 3/9 functions differ after label normalization
+  {handle_call,3} {{allocate,2,3},{allocate,7,3}}
+  {handle_info,2} {{test,is_tagged_tuple,{f,6},[{x,0},5,{atom,'DOWN'}]},{allocate,7,2}}
+  {init,1} {{allocate,0,0},{allocate,1,1}}
+lib/diameter-2.7.2/ebin/diameter_callback.beam: 12/20 functions differ after label normalization
+  {cb,3} {{get_tuple_element,{x,2},9,{x,3}},{test,is_tagged_tuple,{f,1},[{x,2},11,{atom,diameter_callback}]}}
+  {cb,4} {{select_val,{x,2},{f,5},{list,[{atom,false},{f,4},{atom,undefined},{f,3}]}},{allocate,6,4}}
+  {handle_answer,4} {{get_tuple_element,{x,0},3,{x,1}},{allocate,6,4}}
+  {handle_answer,5} {{test,is_tagged_tuple,{f,3},[{x,4},11,{atom,diameter_callback}]},{allocate,6,5}}
+  {handle_error,5} {{test,is_tagged_tuple,{f,3},[{x,4},11,{atom,diameter_callback}]},{allocate,6,5}}
+  {handle_request,4} {{test,is_tagged_tuple,{f,3},[{x,3},11,{atom,diameter_callback}]},{allocate,5,4}}
+  {peer_down,4} {{test,is_tagged_tuple,{f,3},[{x,3},11,{atom,diameter_callback}]},{allocate,5,4}}
+  {peer_up,4} {{test,is_tagged_tuple,{f,3},[{x,3},11,{atom,diameter_callback}]},{allocate,5,4}}
+lib/observer-2.19/ebin/observer.beam: 4/8 functions differ after label normalization
+  {start,1} {{test,is_atom,{f,3},[{x,0}]},{allocate,3,1}}
+  {start_and_wait,0} {{allocate,2,0},{allocate,4,0}}
+  {start_and_wait,1} {{test,is_atom,{f,3},[{x,0}]},{allocate,4,1}}
+  {to_atom,1} {{test,is_atom,{f,3},[{x,0}]},{allocate,1,1}}
+lib/stdlib-8.1/ebin/ordsets.beam: 11/25 functions differ after label normalization
+  {add_element,2} {{test,is_nonempty_list,{f,5},[{x,1}]},{allocate,4,2}}
+  {intersection,1} {{get_list,{x,0},{x,1},{x,2}},{allocate,4,1}}
+  {intersection,2} {{test,is_nonempty_list,{f,5},[{x,0}]},{test,is_nonempty_list,{f,3},[{x,0}]}}
+  {intersection1,2} {{allocate,1,2},{get_list,{x,1},{x,2},{x,3}}}
+  {is_disjoint,2} {{test,is_nonempty_list,{f,5},[{x,0}]},{test,is_nonempty_list,{f,3},[{x,0}]}}
+  {is_element,2} {{test,is_nonempty_list,{f,4},[{x,1}]},{test,is_nonempty_list,{f,5},[{x,1}]}}
+  {is_empty,1} {{bif,'=:=',{f,0},[{x,0},nil],{x,0}},{allocate,1,1}}
+  {is_equal,2} {{bif,'==',{f,0},[{tr,{x,0},{t_list,any,any}},{tr,{x,1},{t_list,any,any}}],{x,0}},{allocate,2,2}}
+lib/wx-2.7/doc/examples/demo/ex_htmlWindow.beam: 5/12 functions differ after label normalization
+  {do_init,1} {{init_yregs,{list,[{y,0},{y,1},{y,2},{y,3}]}},{init_yregs,{list,[{y,1},{y,2},{y,3},{y,4}]}}}
+  {handle_call,3} {{test,is_eq_exact,{f,3},[{x,0},{atom,shutdown}]},{allocate,3,3}}
+  {handle_event,2} {{get_tuple_element,{x,0},4,{x,2}},{test,is_tagged_tuple,{f,1},[{x,1},3,{atom,state}]}}
+  {handle_info,2} {{test,is_tagged_tuple,{f,3},[{x,1},3,{atom,state}]},{allocate,3,2}}
+  {init,1} {{test_heap,{alloc,[{words,1},{floats,0},{funs,1}]},1},{allocate,1,1}}
+lib/wx-2.7/doc/examples/demo/ex_notebook.beam: 5/12 functions differ after label normalization
+  {do_init,1} {{allocate,6,1},{allocate,7,1}}
+  {handle_call,3} {{test,is_eq_exact,{f,3},[{x,0},{atom,shutdown}]},{allocate,3,3}}
+  {handle_event,2} {{get_tuple_element,{x,0},4,{x,2}},{test,is_tagged_tuple,{f,1},[{x,1},4,{atom,state}]}}
+  {handle_info,2} {{test,is_tagged_tuple,{f,3},[{x,1},4,{atom,state}]},{allocate,3,2}}
+  {init,1} {{test_heap,{alloc,[{words,1},{floats,0},{funs,1}]},1},{allocate,1,1}}
+lib/wx-2.7/doc/examples/demo/ex_textCtrl.beam: 5/12 functions differ after label normalization
+  {do_init,1} {{allocate,8,1},{allocate,9,1}}
+  {handle_call,3} {{test,is_eq_exact,{f,3},[{x,0},{atom,shutdown}]},{allocate,3,3}}
+  {handle_event,2} {{allocate_heap,1,2,2},{allocate,3,2}}
+  {handle_info,2} {{test,is_tagged_tuple,{f,3},[{x,1},3,{atom,state}]},{allocate,3,2}}
+  {init,1} {{test_heap,{alloc,[{words,1},{floats,0},{funs,1}]},1},{allocate,1,1}}
+lib/wx-2.7/ebin/wxDisplay.beam: 1/15 functions differ after label normalization
+  {new,1} {{test,is_integer,{f,4},[{x,0}]},{allocate,2,1}}
+lib/xmerl-2.2/ebin/xmerl_xs.beam: 4/7 functions differ after label normalization
+  {built_in_rules,2} {{test,is_tuple,{f,6},[{x,1}]},{test,is_tuple,{f,12},[{x,1}]}}
+  {value_of,1} {{allocate_heap,0,{alloc,[{words,0},{floats,0},{funs,1}]},1},{allocate,1,1}}
+  {value_of1,2} {{test,is_tagged_tuple,{f,3},[{x,0},6,{atom,xmlText}]},{allocate,3,2}}
+  {xslapply,2} {{test,is_list,{f,3},[{x,1}]},{allocate,2,2}}

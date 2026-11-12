@@ -1,0 +1,41 @@
+Dir = "artifacts/beam-backend/part812-images",
+Stubs = [
+    {cdv_virtual_list_wx,"-module(cdv_virtual_list_wx).\n-export([start_detail_win/1]).\nstart_detail_win(Link) -> self() ! {fallback,Link}, ok.\n"},
+    {cdv_detail_wx,"-module(cdv_detail_wx).\n-export([start_link/5]).\nstart_link(Id,_,Panel,Callback,App) -> self() ! {opened,Id,Panel,Callback,App}, window.\n"},
+    {wx_object,"-module(wx_object).\n-export([get_pid/1]).\nget_pid(window) -> self().\n"},
+    {'wxFrame',"-module(wxFrame).\n-export([raise/1]).\nraise(Window) -> self() ! {raised,Window}, ok.\n"}],
+lists:foreach(fun({M,Source}) ->
+    Path = filename:join(Dir,atom_to_list(M)++".erl"),
+    ok = file:write_file(Path,Source),
+    {ok,M,Bytes} = compile:file(Path,[binary,deterministic]),
+    {module,M} = code:load_binary(M,Path,Bytes)
+end,Stubs),
+true = register(observer,self()),
+Module = cdv_html_wx,
+State = fun(App,Opened) -> {state,parent,panel,App,table,Opened,undefined,[]} end,
+Event = fun(Target) -> {wx,0,obj,user,{'wxHtmlLink',command_html_link_clicked,{'wxHtmlLinkInfo',Target,[]}}} end,
+Binary = Event("#Binary?offset=1&size=2&pos=3"),
+Cases = [{Event("plain"),State(cdv,[])},{Event("plain"),State(obs,[])},
+         {Binary,State(cdv,[])},{Binary,State(cdv,[{{cdv,{1,2,3}},existing}])},
+         {Event("#Term?key1=1&key2=2&key3=3"),State(cdv,[])},
+         {Event("#OBSBinary?key1=1&key2=2&key3=3"),State(obs,[])},
+         {Event("#Binary?offset=1"),State(cdv,[])},
+         {Event("#Term?key1=bad&key2=2&key3=3"),State(cdv,[])},
+         {unexpected,State(cdv,[])}],
+Drain = fun F() -> receive M -> [M|F()] after 0 -> [] end end,
+Run = fun(Path) ->
+    code:purge(Module),
+    code:delete(Module),
+    {ok,Bytes} = file:read_file(Path),
+    {module,Module} = code:load_binary(Module,Path,Bytes),
+    [begin
+         Result = try Module:handle_event(Msg,Input) of Value -> {ok,Value}
+                  catch Class:Reason -> {Class,Reason} end,
+         {Result,Drain()}
+     end || {Msg,Input} <- Cases]
+end,
+Otp = Run(ReleasePath),
+Cs = Run(filename:join(Dir,"cdv_html_wx.beam")),
+io:format("~p~n",[lists:zip(Otp,Cs)]),
+Otp = Cs,
+halt().

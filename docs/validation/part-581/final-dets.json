@@ -1,0 +1,43 @@
+{
+  "Partial": true,
+  "SelectedCount": 5,
+  "TotalCount": 9661,
+  "Blocks": [],
+  "ExactCases": [
+    "runtime/dets/magic-reference-gc-contracts",
+    "runtime/dets/managed-public-otp-contracts",
+    "runtime/dets/managed-upstream-cases",
+    "runtime/dets/original-public-otp-contracts",
+    "runtime/dets/original-upstream-cases"
+  ],
+  "Passed": 4,
+  "Failed": 1,
+  "Tests": [
+    {
+      "Name": "runtime/dets/managed-public-otp-contracts",
+      "Status": "Passed",
+      "Milliseconds": 168283
+    },
+    {
+      "Name": "runtime/dets/original-public-otp-contracts",
+      "Status": "Passed",
+      "Milliseconds": 231944
+    },
+    {
+      "Name": "runtime/dets/managed-upstream-cases",
+      "Status": "Failed",
+      "Error": "System.InvalidOperationException: DETS observer failed: D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\artifacts/dets-acceptance\\Suite-Managed-d63e55414b1248a9b557b62b5394bc1d\r\n ---\u003E Erlang.ErlangException: function_clause\r\n   at Erlang.ModuleRegistry.InvokeFirstOrdinaryEntry(ProcessContext context, String module, String function, Term[] arguments, ErlangFunction body, ModuleCodeImage image, IDisposable code, OwnedBindingKind507 kind) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\src\\Runtime\\Erlang.Runtime.Core\\Modules\\ModuleRegistry.OrdinaryEntry.cs:line 41\r\n   at Erlang.Tests.DetsBackendChecks.\u003C\u003Ec__DisplayClass11_1.\u003C\u003CRun\u003Eb__10\u003Ed.MoveNext() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Otp\\Stdlib\\Dets\\DetsBackendChecks.cs:line 187\r\n--- End of stack trace from previous location ---\r\n   at Erlang.Tests.DetsBackendChecks.\u003C\u003Ec__DisplayClass9_0.\u003C\u003CExecute\u003Eb__0\u003Ed.MoveNext() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Otp\\Stdlib\\Dets\\DetsBackendChecks.cs:line 31\r\n--- End of stack trace from previous location ---\r\n   at Erlang.Tests.DetsBackendChecks.Execute(ProcessRuntime runtime, Func\u00602 operation) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Otp\\Stdlib\\Dets\\DetsBackendChecks.cs:line 40\r\n   at Erlang.Tests.DetsBackendChecks.Run(Boolean managed, Boolean suite) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Otp\\Stdlib\\Dets\\DetsBackendChecks.cs:line 182\r\n   --- End of inner exception stack trace ---\r\n   at Erlang.Tests.DetsBackendChecks.Run(Boolean managed, Boolean suite) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Otp\\Stdlib\\Dets\\DetsBackendChecks.cs:line 206\r\n   at Erlang.Tests.DetsBackendChecks.Run(Boolean managed, Boolean suite) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Otp\\Stdlib\\Dets\\DetsBackendChecks.cs:line 272\r\n   at Program.\u003CMain\u003E$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Harness\\Program.cs:line 16207",
+      "Milliseconds": 39246
+    },
+    {
+      "Name": "runtime/dets/original-upstream-cases",
+      "Status": "Passed",
+      "Milliseconds": 88741
+    },
+    {
+      "Name": "runtime/dets/magic-reference-gc-contracts",
+      "Status": "Passed",
+      "Milliseconds": 377
+    }
+  ]
+}

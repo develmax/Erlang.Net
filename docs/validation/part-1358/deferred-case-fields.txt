@@ -1,0 +1,22 @@
+Deferred tuple fields in top-level function clauses of 1001 differing images.
+Counts are {modules, functions, examples}. Groups can overlap.
+#{tuple_case_computed_tuple =>
+      {129,207,
+       [{xmerl_xsd,{check_cm2,4}},
+        {xmerl_xpath,{expanded_name,3}},
+        {xmerl_uri,{scan_host,1}}]},
+  tuple_case_computed_tuple_without_catchall =>
+      {98,150,
+       [{xmerl_xsd,{check_cm2,4}},
+        {xmerl_xpath,{expanded_name,3}},
+        {xmerl_uri,{scan_host,1}}]},
+  tuple_case_deferred_field =>
+      {36,51,
+       [{xmerl_xsd,{keysearch_delete,4}},
+        {xmerl_xpath,{expanded_name,3}},
+        {xmerl_uri,{scan_host,1}}]},
+  tuple_case_deferred_nested_field =>
+      {8,9,
+       [{xmerl_xpath,{expanded_name,3}},
+        {xmerl_scan,{expanded_name,4}},
+        {xref_scanner,{scan,1}}]}}

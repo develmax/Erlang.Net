@@ -1,0 +1,57 @@
+Sequence shapes in top-level function clauses of 1001 differing images.
+Counts are {modules, functions, examples}. Groups can overlap.
+#{bound_first_tail_last =>
+      {472,1360,
+       [{xmerl_xsd_type,{maximumDayInMonthFor,2}},
+        {xmerl_xsd,{check_keys,3}},
+        {xmerl_xpath,{full_parents1,3}}]},
+  linear_forwarding =>
+      {97,161,
+       [{xmerl_xsd,{check_substitutionGroups,2}},
+        {xmerl_sax_parser_utf8,{normalize_whitespace,1}},
+        {xmerl_sax_parser_utf16le,{normalize_whitespace,1}}]},
+  other_call_sequence =>
+      {229,437,
+       [{xmerl_scan,{preformat,3}},
+        {wxSystemOptions,{getOption,1}},
+        {wxImage,{removeHandler,1}}]},
+  mixed_expression_sequence =>
+      {373,791,
+       [{xmerl_xsd_type,{maximumDayInMonthFor,2}},
+        {xmerl_xsd,{check_keys,3}},
+        {xmerl_xpath,{full_parents1,3}}]},
+  tuple_result =>
+      {313,689,
+       [{xmerl_xsd_type,{check_NMTOKENS,1}},
+        {xmerl_xsd_re_parse,{yeccerror,1}},
+        {xmerl_xsd,{element_content,3}}]},
+  list_result =>
+      {98,177,
+       [{cover,{read_stylesheet,0}},
+        {uri_string,{allowed_characters,0}},
+        {string,{pad,4}}]},
+  case_result =>
+      {312,649,
+       [{xmerl_xsd,{check_element_type,6}},
+        {xmerl_xpath_pred,{lang,2}},
+        {xmerl_scan,{int_string,4}}]},
+  variable_result =>
+      {192,872,
+       [{xmerl_xsd,{save_keyref,2}},
+        {xmerl_xpath_pred,{eval,2}},
+        {wxListCtrl,{new,2}}]},
+  other_value_result =>
+      {412,855,
+       [{xmerl_xsd_type,{compare_floats2,2}},
+        {xmerl_xsd,{get_schema_cm,2}},
+        {xmerl_xpath_pred,{comp_expr,4}}]},
+  bound_first_value_result =>
+      {672,3201,
+       [{xmerl_xsd_type,{check_NMTOKENS,1}},
+        {xmerl_xsd_re_parse,{yeccerror,1}},
+        {xmerl_xsd,{check_element_type,6}}]},
+  discarded_first_tail_last =>
+      {190,450,
+       [{xmerl_validate,{valid_attributes,3}},
+        {xmerl_scan,{check_decl,1}},
+        {wxe_master,{debug_ping,0}}]}}

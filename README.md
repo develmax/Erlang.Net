@@ -58,6 +58,14 @@ Compile Erlang source to C#:
 dotnet tools/Build/Erlang.Tool/bin/Debug/net10.0/Erlang.Tool.dll compile examples/HelloHybrid/arithmetic.erl artifacts/arithmetic.g.cs
 ```
 
+Compile an Erlang source file to BEAM with the experimental C# backend:
+
+```powershell
+dotnet tools/Build/Erlang.Tool/bin/Debug/net10.0/Erlang.Tool.dll compile-beam input.erl output.beam
+```
+
+The current profile supports selected calls, BIFs, literal and constructor emission, and pattern matching. It writes line, attribute, and limited documentation metadata. The Windows x64 build uses pinned OTP zlib for compressed metadata. Pass the OTP installation's `lib` directory as an optional final argument to resolve `-include_lib`. The Windows OTP 29.1.1 release comparison generates all 1,366 images and records 387 byte-identical matches. See the [current BEAM checks and release corpus](docs/validation/part-1520/README.md).
+
 Generate the pinned source inventory without changing the reference checkout:
 
 ```powershell

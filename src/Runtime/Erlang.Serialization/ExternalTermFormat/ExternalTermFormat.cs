@@ -248,7 +248,7 @@ public static partial class ExternalTermFormat
         EtfEncodingOptions options
     )
     {
-        if (depth > EtfResourceLimits.MaximumNestingDepth)
+        if (depth > options.MaximumNestingDepth)
             throw new ErlangException(ErlangErrorReasons.SystemLimit);
         switch (term)
         {

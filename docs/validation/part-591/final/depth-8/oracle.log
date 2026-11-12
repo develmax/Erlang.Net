@@ -1,0 +1,20 @@
+=ERROR REPORT==== 5-Nov-2026::03:26:04.136000 ===
+Error in process <0.115.0> with exit value:
+{broken,[{sys_port_cases,format_status,2,
+                         [{file,"tools/Validation/Erlang.SysCompatibility/sys_port_cases.erl"},
+                          {line,171}]},
+         {sys,get_status,5,[{file,"sys.erl"},{line,1011}]},
+         {sys,do_cmd,6,[{file,"sys.erl"},{line,941}]},
+         {sys,handle_system_msg,8,[{file,"sys.erl"},{line,831}]}]}
+
+=ERROR REPORT==== 5-Nov-2026::03:26:04.136000 ===
+Error in process <0.117.0> with exit value:
+{{nocatch,broken},
+ [{sys_port_cases,format_status,2,
+                  [{file,"tools/Validation/Erlang.SysCompatibility/sys_port_cases.erl"},
+                   {line,172}]},
+  {sys,get_status,5,[{file,"sys.erl"},{line,1011}]},
+  {sys,do_cmd,6,[{file,"sys.erl"},{line,941}]},
+  {sys,handle_system_msg,8,[{file,"sys.erl"},{line,831}]}]}
+
+137 sys observations

@@ -1,0 +1,17 @@
+[P,Q]=init:get_plain_arguments(),
+Read=fun(Path)->
+    {beam_file,_,_,_,_,Fs}=beam_disasm:file(Path),
+    [Is]=[Instructions || {function,N,2,_,Instructions}<-Fs,atom_to_list(N)=:="-named/0-fun-0-"],
+    io:format("~s~n~p~n",[Path,Is]),
+    {ok,B}=file:read_file(Path),
+    {module,M}=code:load_binary(beam_nested_entry_calls_probe,Path,B),
+    Fun=M:named(),
+    {one,two}=Fun(one,two),
+    {error,probe_failure}=try Fun(fail,two) of V->{value,V} catch error:R->{error,R} end,
+    code:delete(M),
+    code:purge(M),
+    [I||I<-Is,element(1,I)=/=label]
+end,
+Expected=Read(P),
+Expected=Read(Q),
+halt().

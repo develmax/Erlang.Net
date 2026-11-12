@@ -1,0 +1,44 @@
+internal static class GenEventValidationModules
+{
+    internal const string Gen = "gen";
+    internal const string Sys = "sys";
+    internal const string ProcLib = "proc_lib";
+    internal const string IoLib = "io_lib";
+    internal const string IoLibFormat = "io_lib_format";
+    internal const string IoLibPretty = "io_lib_pretty";
+    internal const string Unicode = "unicode";
+    internal const string UnicodeUtil = "unicode_util";
+    internal const string Code = "code";
+    internal const string Epp = "epp";
+    internal const string ErlScan = "erl_scan";
+    internal const string ErlFeatures = "erl_features";
+    internal const string String = "string";
+    internal const string Init = "init";
+    internal const string ErlPrimLoader = "erl_prim_loader";
+    internal const string PrimFile = "prim_file";
+    internal const string Os = "os";
+    internal const string Filename = "filename";
+    internal const string GbSets = "gb_sets";
+    internal const string GbTrees = "gb_trees";
+    internal const string File = "file";
+    internal const string CodeServer = "code_server";
+    internal const string Io = "io";
+    internal const string Logger = "logger";
+    internal const string LoggerServer = "logger_server";
+    internal const string Global = "global";
+    internal const string Application = "application";
+    internal const string NetKernel = "net_kernel";
+    internal const string LoggerFormatter = "logger_formatter";
+    internal const string LoggerFilters = "logger_filters";
+    internal const string GenEventPortCases = "gen_event_port_cases";
+    internal const string GenEventNoOptional = "gen_event_no_optional";
+    internal const string GenEventSUITE = "gen_event_SUITE";
+    internal const string DummyH = "dummy_h";
+    internal const string Dummy1H = "dummy1_h";
+    internal const string DummyVia = "dummy_via";
+    internal const string Ct = "ct";
+    internal const string TestServer = "test_server";
+    internal const string ErrorLoggerForwarder = "error_logger_forwarder";
+    internal const string OcEvent = "oc_event";
+    internal const string Erlang = "erlang";
+}

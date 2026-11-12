@@ -1,0 +1,46 @@
+OTP
+{label,1169}
+{line,[{location,"/daily_build/otp_src/lib/eldap/src/../ebin/ELDAPv3.erl",
+                 3480}]}
+{func_info,{atom,'ELDAPv3'},{atom,encode_integer_neg},2}
+{label,1170}
+{test,is_eq_exact,{f,1171},[{tr,{x,0},{t_integer,{'-inf',-1}}},{integer,-1}]}
+{test,is_nonempty_list,{f,1171},[{x,1}]}
+{get_hd,{x,1},{x,2}}
+{test,is_ge,{f,1171},[{tr,{x,2},{t_integer,{0,255}}},{integer,128}]}
+{move,{x,1},{x,0}}
+return
+{label,1171}
+{line,[{location,"/daily_build/otp_src/lib/eldap/src/../ebin/ELDAPv3.erl",
+                 3483}]}
+{gc_bif,'bsr',{f,0},2,[{tr,{x,0},{t_integer,{'-inf',-1}}},{integer,8}],{x,2}}
+{gc_bif,'band',
+        {f,0},
+        3,
+        [{tr,{x,0},{t_integer,{'-inf',-1}}},{integer,255}],
+        {x,0}}
+{test_heap,2,3}
+{put_list,{x,0},{x,1},{x,1}}
+{move,{x,2},{x,0}}
+{call_only,2,{'ELDAPv3',encode_integer_neg,2}}
+CSharp
+{label,1226}
+{line,[{location,"/daily_build/otp_src/lib/eldap/src/../ebin/ELDAPv3.erl",
+                 3480}]}
+{func_info,{atom,'ELDAPv3'},{atom,encode_integer_neg},2}
+{label,1227}
+{test,is_eq_exact,{f,1228},[{x,0},{integer,-1}]}
+{test,is_nonempty_list,{f,1228},[{x,1}]}
+{get_hd,{x,1},{x,2}}
+{test,is_ge,{f,1228},[{tr,{x,2},{t_integer,{0,255}}},{integer,128}]}
+{move,{x,1},{x,0}}
+return
+{label,1228}
+{line,[{location,"/daily_build/otp_src/lib/eldap/src/../ebin/ELDAPv3.erl",
+                 3483}]}
+{gc_bif,'bsr',{f,0},2,[{x,0},{integer,8}],{x,2}}
+{gc_bif,'band',{f,0},3,[{x,0},{integer,255}],{x,0}}
+{test_heap,2,3}
+{put_list,{x,0},{x,1},{x,1}}
+{move,{x,2},{x,0}}
+{call_only,2,{'ELDAPv3',encode_integer_neg,2}}

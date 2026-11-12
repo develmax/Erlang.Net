@@ -1,0 +1,38 @@
+{
+  "OtpVersion": "29.1.1",
+  "Total": 4,
+  "Counts": {
+    "Different": 1,
+    "Equal": 3
+  },
+  "Modules": [
+    {
+      "Beam": "lib\\public_key-1.21.7\\ebin\\KEMAlgorithmInformation-2023.beam",
+      "Status": "Equal",
+      "Source": "lib\\public_key-1.21.7\\src\\KEMAlgorithmInformation-2023.erl",
+      "Detail": null,
+      "FirstDifferentByte": null
+    },
+    {
+      "Beam": "lib\\public_key-1.21.7\\ebin\\PKCS-FRAME.beam",
+      "Status": "Different",
+      "Source": "lib\\public_key-1.21.7\\src\\PKCS-FRAME.erl",
+      "Detail": "Original length 80948, generated length 93352. AtU8 8556-\u003E8457, Code 21546-\u003E34307, ImpT 580-\u003E592, ExpT 1348-\u003E1348, FunT 2116-\u003E2116, LitT 965-\u003E965, LocT 2260-\u003E2236, Attr 445-\u003E445, Line 1828-\u003E1799, Type 342-\u003E121",
+      "FirstDifferentByte": 6
+    },
+    {
+      "Beam": "lib\\public_key-1.21.7\\ebin\\PKIX-CommonTypes-2009.beam",
+      "Status": "Equal",
+      "Source": "lib\\public_key-1.21.7\\src\\PKIX-CommonTypes-2009.erl",
+      "Detail": null,
+      "FirstDifferentByte": null
+    },
+    {
+      "Beam": "lib\\public_key-1.21.7\\ebin\\RFC5639.beam",
+      "Status": "Equal",
+      "Source": "lib\\public_key-1.21.7\\src\\RFC5639.erl",
+      "Detail": null,
+      "FirstDifferentByte": null
+    }
+  ]
+}

@@ -1,0 +1,63 @@
+[Reference,Generated] = [filename:absname(Path) || Path <- init:get_plain_arguments()],
+Walk = fun Visit(Item) when is_tuple(Item) -> [Item|Visit(tuple_to_list(Item))];
+           Visit(Items) when is_list(Items) -> lists:append([Visit(Item) || Item <- Items]);
+           Visit(_) -> []
+       end,
+Scalar = fun({atom,_,Value}) -> {known,Value};
+            ({integer,_,Value}) -> {known,Value};
+            ({char,_,Value}) -> {known,Value};
+            ({nil,_}) -> {known,[]};
+            (_) -> unknown
+         end,
+Files = filelib:fold_files(Generated,"[.]beam$",true,fun(Path,Acc) -> [Path|Acc] end,[]),
+Totals = lists:foldl(fun(Path,Acc) ->
+    Relative = lists:nthtail(length(filename:split(Generated)),filename:split(Path)),
+    case beam_lib:chunks(filename:join([Reference|Relative]),[abstract_code,exports]) of
+        {ok,{Module,[{abstract_code,{raw_abstract_v1,Forms}},{exports,Exports}]}} ->
+            Definitions = [{Name,Arity,Clauses} || {function,_,Name,Arity,Clauses} <- Forms],
+            Nodes = Walk(Definitions),
+            References = [{Name,Arity} || {'fun',_,{function,Name,Arity}} <- Nodes],
+            Calls = lists:foldl(fun
+                ({call,_,{atom,_,Name},Args},Map) ->
+                    MFA = {Name,length(Args)},
+                    maps:update_with(MFA,fun(Calls0) -> [Args|Calls0] end,[Args],Map);
+                (_,Map) -> Map
+            end,#{},Nodes),
+            Candidates = lists:foldl(fun({Name,Arity,Clauses},Groups) ->
+                MFA = {Name,Arity},
+                case {maps:get(MFA,Calls,[]), lists:member(MFA,Exports) orelse lists:member(MFA,References)} of
+                    {[First|Rest],false} ->
+                        Constant = [I || I <- lists:seq(1,Arity),
+                            {known,Value} <- [Scalar(lists:nth(I,First))],
+                            lists:all(fun(Args) -> Scalar(lists:nth(I,Args)) =:= {known,Value} end,Rest)],
+                        UsedAfterSelector = lists:any(fun({clause,_,Patterns,_,Body}) ->
+                            Fields = [Variable || I <- Constant,
+                                {var,_,Variable} <- [lists:nth(I,Patterns)], Variable =/= '_'],
+                            lists:any(fun
+                                ({'case',_,_,Arms}) ->
+                                    lists:any(fun({var,_,Var}) -> lists:member(Var,Fields);
+                                                (_) -> false end,Walk(Arms));
+                                (_) -> false
+                            end,Walk(Body))
+                        end,Clauses),
+                        Keys = [K || {K,true} <- [
+                            {private_constant_argument,Constant =/= []},
+                            {private_multiple_constant_arguments,length(Constant) >= 2},
+                            {private_constant_used_in_case_branch,UsedAfterSelector}
+                        ]],
+                        lists:foldl(fun(K,G) -> maps:update_with(K,fun(L) -> [MFA|L] end,[MFA],G) end,Groups,Keys);
+                    _ -> Groups
+                end
+            end,#{},Definitions),
+            maps:fold(fun(K,Funs,G) ->
+                Example = {Module,lists:min(Funs)},
+                maps:update_with(K,fun({M,F,E}) -> {M+1,F+length(Funs),lists:sublist([Example|E],4)} end,
+                    {1,length(Funs),[Example]},G)
+            end,Acc,Candidates);
+        _ -> Acc
+    end
+end,#{},Files),
+io:format("Private constant arguments in source forms of ~p differing images.~n",[length(Files)]),
+io:format("Counts are {modules, functions, examples}. Groups can overlap.~n~p~n",[Totals]),
+halt().
+

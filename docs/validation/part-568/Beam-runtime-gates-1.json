@@ -1,0 +1,21 @@
+{
+  "Backend": "Beam",
+  "RequestedRow": 1,
+  "Corpus": "runtime-gates.etf",
+  "Baseline": "OTP-29.1.1",
+  "Exports": 69,
+  "Compared": 1,
+  "Skipped": 0,
+  "Differences": [
+    {
+      "Function": "scenario",
+      "Arguments": "[normal_cycle,[[97,114,116,105,102,97,99,116,115,47,102,105,108,101,45,97,99,99,101,112,116,97,110,99,101,47,114,117,110,116,105,109,101]]]",
+      "Expected": "{ok,{ok,{ok,0},{ok,\u003C\u003C97,98,99\u003E\u003E},{ok,\u003C\u003C98,99\u003E\u003E},ok,ok,ok}}",
+      "Actual": "{ok,{error,{undef,[{erlang,nif_error,[undef],[{error_info,#{module=\u003Eerl_erts_errors}}]},{prim_file,open_nif,2,[{file,[112,114,105,109,95,102,105,108,101,46,101,114,108]},{line,530}]},{prim_file,open,2,[{file,[112,114,105,109,95,102,105,108,101,46,101,114,108]},{line,136}]},{file_io_server,\u0027-do_start/4-fun-0-\u0027,6,[{file,[102,105,108,101,95,105,111,95,115,101,114,118,101,114,46,101,114,108]},{line,78}]}]}}}"
+    }
+  ],
+  "AssemblySha256": "6C98D486AAABE73BBA966A1A498F11AE7731D70280D4111C1BCAFB82715BAB9A",
+  "RunnerSha256": "AF54437AA5E33C418FBAFD9B794D21EAD75AC056C9928FE870641A4EFFCBBF79",
+  "RuntimeSha256": "3F62E1C4D6FB176926C6C15C985AB33F88633B343FC9EF51EA0B8CE064F13875",
+  "CorpusSha256": "9F7FE891579EE75C92E5C3745656A0B9287E3C7498AE314792479338D25535BB"
+}

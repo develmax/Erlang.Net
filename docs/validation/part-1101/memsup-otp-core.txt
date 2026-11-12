@@ -1,0 +1,33 @@
+							    let <_32> =
+								case %% Line 486
+								     State of
+								  %% Line 486
+								  ( <( {'state',_rec7,_226,_227,_228,_229,_230,_231,_232,_233,_234,_235,_236,_237,_238}
+								       -| ['compiler_generated'] )> when 'true' ->
+									_rec7
+								    -| ['compiler_generated'] )
+								  %% Line 486
+								  ( <_rec7> when 'true' ->
+									( primop 'match_fail'
+									      (( {( 'badrecord'
+										    -| ['compiler_generated'] ),_rec7}
+										 -| ['compiler_generated'] ))
+									  -| ['compiler_generated'] )
+								    -| ['compiler_generated'] )
+								end
+							    in  let <Self> =
+								    call %% Line 487
+									 'erlang':%% Line 487
+										  'self'
+									()
+								in  let <_36> =
+									fun () ->
+									    let <MU> =
+										apply %% Line 489
+										      'get_memory_usage'/1
+										    (%% Line 486
+										     _32)
+									    in  %% Line 490
+										call 'erlang':'!'
+										    (Self, {'collected_sys',MU})
+								    in  let <Pid> =

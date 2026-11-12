@@ -1,0 +1,81 @@
+[Reference,Generated] = [filename:absname(Path) || Path <- init:get_plain_arguments()],
+Files = filelib:fold_files(Generated, "[.]beam$", true, fun(Path, Acc) -> [Path | Acc] end, []),
+Opcode = fun(I) when is_tuple(I) -> element(1,I); (I) -> I end,
+Reads = fun Read(Term, Slot) when Term =:= {y,Slot} -> true;
+            Read({move,Value,{y,Slot}}, Slot) -> Read(Value,Slot);
+            Read({init_yregs,_}, _) -> false;
+            Read(Tuple, Slot) when is_tuple(Tuple) -> Read(tuple_to_list(Tuple),Slot);
+            Read([Head|Rest], Slot) -> Read(Head,Slot) orelse Read(Rest,Slot);
+            Read(_, _) -> false
+        end,
+Body = fun(Is) ->
+    lists:dropwhile(fun(I) -> Opcode(I) =/= allocate end, Is)
+end,
+Call = fun(I) -> lists:member(Opcode(I),[call,call_ext,call_fun,call_fun2,apply]) end,
+Initial = fun Init([{move,{x,X},{y,Y}}|Rest], Copies) -> Init(Rest,[{X,Y}|Copies]);
+              Init([{init_yregs,_}|Rest], Copies) -> Init(Rest,Copies);
+              Init(Rest,Copies) -> {Rest,Copies}
+          end,
+Measure = fun(RefIs,GenIs) ->
+    case {Body(RefIs),Body(GenIs)} of
+        {[{allocate,R,_}|_],[{allocate,G,_}|Rest]} when G > R ->
+            {Code,Copies} = Initial(Rest,[]),
+            {Prefix,Suffix} = lists:splitwith(fun(I) -> not Call(I) end,Code),
+            Dead = [{X,Y} || {X,Y} <- Copies, Suffix =/= [],
+                    lists:any(fun(I) -> Reads(I,Y) end,Prefix),
+                    not lists:any(fun(I) -> Reads(I,Y) end,Suffix)],
+            case Dead of
+                [] -> none;
+                _ ->
+                    Ops = [Opcode(I) || I <- Prefix,
+                           not lists:member(Opcode(I),[line,executable_line,move,swap])],
+                    case Ops of
+                        [] ->
+                            After = lists:dropwhile(fun(I) ->
+                                lists:member(Opcode(I),[line,executable_line,debug_line])
+                            end,tl(Suffix)),
+                            {Category,Continuation} = case After of
+                                [{move,{x,0},{y,_}}|More] ->
+                                    {save_result,[I || I <- More, not lists:member(Opcode(I),[line,executable_line,move,swap])]};
+                                _ -> {direct,After}
+                            end,
+                            Next = case Continuation of
+                                [{test,Test,_,_}|_] -> {test,Test};
+                                [I|_] -> Opcode(I);
+                                [] -> none
+                            end,
+                            {{Category,Next},length(Dead),R,G};
+                        _ -> none
+                    end
+            end;
+        _ -> none
+    end
+end,
+Totals = lists:foldl(fun(Path, Acc) ->
+    Relative = lists:nthtail(length(filename:split(Generated)), filename:split(Path)),
+    Ref = filename:join([Reference|Relative]),
+    {beam_file,Module,_,_,_,RefFs} = beam_disasm:file(Ref),
+    {beam_file,Module,_,_,_,GenFs} = beam_disasm:file(Path),
+    RefFunctions = maps:from_list([{{N,A},Is} || {function,N,A,_,Is} <- RefFs]),
+    Matched = [{F,Details} || {function,N,A,_,GenIs} <- GenFs,
+               F <- [{N,A}], {ok,RefIs} <- [maps:find(F,RefFunctions)],
+               Details <- [Measure(RefIs,GenIs)], Details =/= none],
+    Groups = [{Cat,Slots,F,R,G} || {F,{Cat,Slots,R,G}} <- Matched],
+    Categories = lists:usort([Cat || {Cat,_,_,_,_} <- Groups]),
+    lists:foldl(fun(Cat, Stats) ->
+        Rows = [{Slots,F,R,G} || {C,Slots,F,R,G} <- Groups, C =:= Cat],
+        Slots = lists:sum([Count || {Count,_,_,_} <- Rows]),
+        Example = {Relative,hd(Rows)},
+        maps:update_with(Cat,fun({Images,Count,Registers,First}) ->
+            {Images+1,Count+length(Rows),Registers+Slots,First}
+        end,{1,length(Rows),Slots,Example},Stats)
+    end,Acc,Categories)
+end,#{},Files),
+io:format("~p differing images. Initial copied arguments read only before the first ordinary call.~n", [length(Files)]),
+io:format("Category, files, functions, copies, example (relative path and {copies,MFA,OTP slots,generated slots})~n"),
+Sorted = lists:sort(fun({_,{_,A,_,_}},{_,{_,B,_,_}}) -> A >= B end,maps:to_list(Totals)),
+lists:foreach(fun({Cat,{Images,Count,Registers,Example}}) ->
+    io:format("~p ~p ~p ~p ~p~n",[Cat,Images,Count,Registers,Example])
+end,Sorted),
+halt().
+

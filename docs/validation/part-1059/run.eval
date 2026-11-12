@@ -1,0 +1,22 @@
+[Path] = init:get_plain_arguments(),
+{ok, Binary} = file:read_file(Path),
+{module, frame_unused_probe} = code:load_binary(frame_unused_probe, Path, Binary),
+undefined = put(key, value),
+undefined = put(fixed, matched),
+Self = self(),
+{value, Self} = frame_unused_probe:read(unused, key, other),
+{matched, Self} = frame_unused_probe:match(unused, matched),
+{Closure, Self} = frame_unused_probe:capture(unused, captured),
+captured = Closure(),
+try frame_unused_probe:match(unused, different) of
+    _ -> error(expected_badmatch)
+catch error:{badmatch,matched} -> ok end,
+try frame_unused_probe:guarded(original, 42) of
+    _ -> error(expected_function_clause)
+catch error:function_clause:Stack -> [{frame_unused_probe,guarded,[original,42],_}|_] = Stack end,
+{beam_file, _, _, _, _, Functions} = beam_disasm:file(Path),
+[io:format("~p~n", [F]) || F = {function, Name, _, _, _} <- Functions,
+    lists:member(Name, [read, match, guarded, capture])],
+halt().
+
+

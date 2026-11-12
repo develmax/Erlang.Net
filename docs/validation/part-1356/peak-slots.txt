@@ -1,0 +1,17 @@
+Peak stack slots changed in 15 functions across 11 modules.
+Columns are function, previous peak slots, current peak slots, OTP peak slots.
+lib\crypto-5.10\ebin\crypto.beam [{{host_srp_gen_key,5},6,4,4}]
+lib\dialyzer-6.0.3\ebin\dialyzer_dataflow.beam [{{type,1},2,1,1}]
+lib\inets-9.8\ebin\httpc_profile_sup.beam [{{restart_child,1},2,1,1},
+                                           {{stop_child,1},2,1,1}]
+lib\inets-9.8\ebin\httpd_sup.beam [{{restart_child,3},2,1,1},
+                                   {{stop_child,3},2,1,1}]
+lib\kernel-11.0.4\ebin\inet.beam [{{binary2filename,1},3,1,1}]
+lib\mnesia-4.27\ebin\mnesia_subscr.beam [{{set_debug_level,1},5,2,1}]
+lib\observer-2.19\ebin\crashdump_viewer.beam [{{byte_list_to_string,1},3,1,1}]
+lib\ssl-11.7.7\ebin\ssl_config.beam [{{check_key_legacy_version_dep,2},2,1,0}]
+lib\stdlib-8.1\ebin\qlc_pt.beam [{{unify_var_bindings,7},10,8,8}]
+lib\syntax_tools-4.1.1\ebin\erl_syntax.beam [{{revert_map_type,1},3,1,1},
+                                             {{revert_tuple_type,1},3,1,1}]
+lib\xmerl-2.2\ebin\xmerl_xpath_pred.beam [{{ceiling,2},5,0,0},
+                                          {{floor,2},5,0,0}]

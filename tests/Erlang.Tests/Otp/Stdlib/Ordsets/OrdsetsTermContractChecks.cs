@@ -29,9 +29,12 @@ internal static class OrdsetsTermContractChecks
         using Stream observer = typeof(OrdsetsTermContractChecks).Assembly.GetManifestResourceStream(OrdsetsTermContractNames.ObserverImage)!;
         using var imageBytes = new MemoryStream();
         await observer.CopyToAsync(imageBytes);
-        PreparedBeamImage image = runtime.Modules.PrepareBeam(imageBytes.ToArray(), new BeamDependencySelection([
-            OrdsetsTermContractNames.Observer, "erlang", "lists", "maps", "binary"
-        ]));
+        PreparedBeamImage image = runtime.Modules.PrepareBeam(
+            imageBytes.ToArray(),
+            new BeamDependencySelection([
+            OrdsetsTermContractNames.Observer, OrdsetsTermContractNames.Module, "erlang", "lists", "maps", "binary"
+        ])
+        );
         if (runtime.Modules.PublishPreparedBeam([image]).Status != BeamPublicationStatus.Published)
             throw new InvalidDataException(OrdsetsTermContractNames.Failure);
         int termCount = 0;
@@ -47,6 +50,17 @@ internal static class OrdsetsTermContractChecks
                 );
                 Term[] terms = Cons.Items(constructed).ToArray();
                 termCount = terms.Length;
+                using Stream probes = typeof(OrdsetsTermContractChecks).Assembly.GetManifestResourceStream(OrdsetsTermContractNames.ProbeResource)!;
+                using var probeBytes = new MemoryStream();
+                await probes.CopyToAsync(probeBytes);
+                Term observedProbes = await runtime.Modules.Call(
+                    context,
+                    OrdsetsTermContractNames.Observer,
+                    OrdsetsTermContractNames.ProbeEntry
+                );
+                if (Cons.Items(observedProbes).Count() != OrdsetsTermContractNames.ProbeCount
+                    || !ExternalTermFormat.Encode(observedProbes).AsSpan().SequenceEqual(probeBytes.ToArray()))
+                    throw new InvalidDataException(OrdsetsTermContractNames.Failure);
                 int count = 0;
                 foreach (var row in Cons.Items(fixture).Cast<TupleTerm>())
                 {
@@ -60,29 +74,9 @@ internal static class OrdsetsTermContractChecks
                     Term left = terms[first];
                     Term right = terms[second];
                     int order = Math.Sign(TermOrder.Compare(left, right));
-                    bool numeric = IsTrue(await runtime.Modules.Call(
-                        context,
-                        OrdsetsTermContractNames.Module,
-                        OrdsetsTermContractNames.Equality,
-                        Term.List(left),
-                        Term.List(right)
-                    ));
-                    bool membership = IsTrue(await runtime.Modules.Call(
-                        context,
-                        OrdsetsTermContractNames.Module,
-                        OrdsetsTermContractNames.Membership,
-                        left,
-                        Term.List(right)
-                    ));
-                    bool isSet = IsTrue(await runtime.Modules.Call(
-                        context,
-                        OrdsetsTermContractNames.Module,
-                        OrdsetsTermContractNames.IsSet,
-                        Term.List(left, right)
-                    ));
+                    bool numeric = left.NumericEquals(right);
                     bool exact = left.Equals(right);
-                    if (order != expectedOrder || numeric != expectedNumeric || exact != expectedExact
-                        || membership != (expectedOrder == 0) || isSet != (expectedOrder < 0))
+                    if (order != expectedOrder || numeric != expectedNumeric || exact != expectedExact)
                         throw new InvalidDataException(OrdsetsTermContractNames.Failure + JsonSerializer.Serialize(new
                         {
                             first,
@@ -93,8 +87,6 @@ internal static class OrdsetsTermContractChecks
                             expectedNumeric,
                             exact,
                             expectedExact,
-                            membership,
-                            isSet,
                             Left = left.ToString(),
                             Right = right.ToString(),
                             Stdlib = typeof(MapOperations).Assembly.ManifestModule.ModuleVersionId
@@ -128,6 +120,7 @@ internal static class OrdsetsTermContractChecks
                     FirstEnd = firstEnd,
                     Terms = termCount,
                     Pairs = comparisons,
+                    GuestApiProbes = OrdsetsTermContractNames.ProbeCount,
                     WholeMatrixMatches = true,
                     TermsAssembly = typeof(Term).Assembly.ManifestModule.ModuleVersionId,
                     RuntimeAssembly = typeof(ProcessRuntime).Assembly.ManifestModule.ModuleVersionId

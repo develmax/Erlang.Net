@@ -1,0 +1,51 @@
+181 release modules with 322 mismatching comparison-guarded functions
+complementary: 3 modules, 3 functions
+lib/stdlib-8.1/ebin/io_lib_format.beam {field_width,3} {{test,is_lt,{f,3},[{tr,{x,0},{t_union,{t_atom,any},none,{t_integer,any},none,none,none}},{integer,0}]},{allocate,3,3}}
+lib/erts-17.1/ebin/prim_buffer.beam {read_iovec,2} {{allocate,4,2},{allocate,7,2}}
+lib/compiler-10.0.6/ebin/beam_types.beam {limit_depth_list_1,3} {{test,is_ge,{f,3},[{tr,{x,2},{t_integer,any}},{integer,1}]},{allocate,5,3}}
+two_other: 147 modules, 239 functions
+lib/xmerl-2.2/ebin/xmerl_xsd_type.beam {carry_loop,3} {{test,is_lt,{f,3},[{tr,{x,0},{t_number,any}},{integer,1}]},{test,is_lt,{f,3},[{x,0},{integer,1}]}}
+lib/xmerl-2.2/ebin/xmerl_xsd_type.beam {check_year,1} {{gc_bif,length,{f,3},1,[{x,0}],{x,1}},{allocate,3,1}}
+lib/wx-2.7/ebin/wxe_server.beam {get_wx_object_state,2} {{test,is_ge,{f,5},[{tr,{x,1},{t_integer,any}},{integer,1}]},{test,is_lt,{f,8},[{integer,0},{x,1}]}}
+lib/wx-2.7/ebin/wx.beam {create_memory,1} {{test,is_lt,{f,3},[{integer,64},{x,0}]},{allocate,2,1}}
+lib/wx-2.7/doc/examples/sudoku/sudoku_board.beam {create_popup_menu2,2} {{test,is_ge,{f,3},[{tr,{x,0},{t_integer,{1,'+inf'}}},{integer,10}]},{test,is_lt,{f,3},[{integer,9},{x,0}]}}
+lib/wx-2.7/doc/examples/demo/ex_gl.beam {get_power_of_two_roof_2,2} {{test,is_ge,{f,3},[{tr,{x,0},{t_integer,{1,'+inf'}}},{x,1}]},{test,is_ge,{f,3},[{x,0},{x,1}]}}
+lib/tools-4.2.3/ebin/xref_parser.beam {right,2} {{test,is_lt,{f,3},[{tr,{x,1},{t_integer,{100,700}}},{tr,{x,0},{t_integer,{0,'+inf'}}}]},{allocate,2,2}}
+lib/tools-4.2.3/ebin/xref_parser.beam {left,2} {{test,is_lt,{f,3},[{tr,{x,1},{t_integer,{100,700}}},{tr,{x,0},{t_integer,{0,'+inf'}}}]},{allocate,2,2}}
+{clauses,1}: 14 modules, 16 functions
+lib/xmerl-2.2/ebin/xmerl_uri.beam {dec2hex,1} {{line,[{location,"xmerl_uri.erl",474}]},{test,is_lt,{f,1},[{x,0},{integer,256}]}}
+lib/stdlib-8.1/ebin/sofs.beam {rel,3} {{move,{x,2},{y,0}},{move,{x,1},{y,0}}}
+lib/stdlib-8.1/ebin/shell_docs.beam {trim_first_and_last,2} {{allocate,1,2},{test,is_lt,{f,1},[{x,1},{integer,256}]}}
+lib/stdlib-8.1/ebin/rand.beam {normal_s,3} {{allocate,2,3},{allocate,6,3}}
+lib/stdlib-8.1/ebin/io_lib_pretty.beam {intermediate,7} {{allocate,7,7},{allocate,11,7}}
+lib/stdlib-8.1/ebin/erl_pp.beam {insert_newlines,4} {{test,is_ge,{f,1},[{tr,{x,1},any},{integer,0}]},{test,is_ge,{f,1},[{x,1},{integer,0}]}}
+lib/stdlib-8.1/ebin/dets_v9.beam {slots2,1} {{test,is_ge,{f,1},[{tr,{x,0},{t_number,{'-inf',33554432}}},{integer,256}]},{test,is_ge,{f,1},[{x,0},{integer,256}]}}
+lib/ssl-11.7.7/ebin/ssl_handshake.beam {calc_master_secret,5} {{move,{x,1},{x,0}},{allocate,5,5}}
+{clauses,3}: 27 modules, 40 functions
+lib/stdlib-8.1/ebin/zip.beam {encode_extra_zip64,3} {{test,is_ge,{f,5},[{x,0},{integer,4294967295}]},{allocate,6,3}}
+lib/stdlib-8.1/ebin/rand.beam {bytes_r,8} {{gc_bif,'bsl',{f,3},8,[{tr,{x,5},{t_integer,any}},{integer,2}],{x,8}},{allocate,27,8}}
+lib/stdlib-8.1/ebin/qlc.beam {depth_tuple,5} {{test,is_lt,{f,3},[{tr,{x,1},{t_integer,{0,16777215}}},{tr,{x,2},{t_integer,{1,'+inf'}}}]},{test,is_lt,{f,3},[{x,1},{x,2}]}}
+lib/stdlib-8.1/ebin/io_lib_pretty.beam {tsub,2} {{test,is_lt,{f,3},[{x,0},{integer,0}]},{allocate,2,2}}
+lib/stdlib-8.1/ebin/io_lib_pretty.beam {print_length_tuple1,8} {{bif,tuple_size,{f,0},[{tr,{x,0},{t_tuple,0,false,#{}}}],{x,8}},{allocate,14,8}}
+lib/stdlib-8.1/ebin/io_lib_format.beam {sub,2} {{test,is_lt,{f,3},[{x,0},{integer,0}]},{allocate,2,2}}
+lib/stdlib-8.1/ebin/io_lib_format.beam {string_field_bin,6} {{line,[{location,"io_lib_format.erl",1009}]},{allocate,7,5}}
+lib/stdlib-8.1/ebin/io_lib_format.beam {string_field,6} {{line,[{location,"io_lib_format.erl",976}]},{allocate,5,5}}
+{clauses,4}: 17 modules, 18 functions
+lib/xmerl-2.2/ebin/xmerl_scan.beam {ucs_2_utf8,1} {{test,is_lt,{f,3},[{x,0},{integer,128}]},{allocate,5,1}}
+lib/wx-2.7/doc/examples/sudoku/sudoku_game.beam {new_game,6} {{test,is_ge,{f,3},[{tr,{x,5},{t_integer,{0,'+inf'}}},{integer,201}]},{test,is_lt,{f,3},[{integer,200},{x,5}]}}
+lib/stdlib-8.1/ebin/lists.beam {seq_loop,4} {{test,is_ge,{f,3},[{tr,{x,0},{t_integer,any}},{integer,4}]},{allocate,9,4}}
+lib/stdlib-8.1/ebin/lists.beam {seq_loop,3} {{test,is_ge,{f,3},[{tr,{x,0},{t_integer,any}},{integer,4}]},{test,is_ge,{f,3},[{x,0},{integer,4}]}}
+lib/stdlib-8.1/ebin/gb_trees.beam {balance_list_checked_1,2} {{test,is_ge,{f,4},[{tr,{x,1},{t_integer,any}},{integer,2}]},{allocate,18,2}}
+lib/stdlib-8.1/ebin/gb_sets.beam {balance_list_checked_1,2} {{test,is_ge,{f,4},[{tr,{x,1},{t_integer,any}},{integer,2}]},{allocate,16,2}}
+lib/stdlib-8.1/ebin/edlin_expand.beam {format_col,6} {{gc_bif,'+',{f,3},6,[{x,1},{tr,{x,2},{t_number,any}}],{x,6}},{allocate,14,6}}
+lib/stdlib-8.1/ebin/dets_v9.beam {grow,3} {{test,is_lt,{f,4},[{integer,0},{tr,{x,1},{t_number,any}}]},{allocate,21,3}}
+{clauses,5}: 3 modules, 3 functions
+lib/stdlib-8.1/ebin/io_lib.beam {collect_chars1,3} {{test,is_ge,{f,3},[{integer,0},{tr,{x,0},{t_integer,any}}]},{allocate,6,3}}
+lib/stdlib-8.1/ebin/calendar.beam {pad4,1} {{test,is_ge,{f,3},[{integer,-1},{tr,{x,0},{t_integer,any}}]},{allocate,1,1}}
+lib/kernel-11.0.4/ebin/inet_dns.beam {decode_name,6} {{test,is_ge,{f,3},[{tr,{x,4},{t_integer,{0,'+inf'}}},{integer,255}]},{allocate,16,6}}
+{clauses,7}: 1 modules, 1 functions
+lib/stdlib-8.1/ebin/filename.beam {validate_char,3} {{test,is_ge,{f,3},[{integer,0},{tr,{x,0},{t_integer,any}}]},{allocate,3,3}}
+{clauses,10}: 1 modules, 1 functions
+lib/parsetools-2.8/ebin/leex.beam {pp_sep,4} {{test,is_lt,{f,3},[{x,1},{x,0}]},{allocate,4,4}}
+{clauses,16}: 1 modules, 1 functions
+lib/dialyzer-6.0.3/ebin/erl_types.beam {t_limit_k,2} {{test,is_ge,{f,3},[{integer,0},{x,1}]},{allocate,12,2}}

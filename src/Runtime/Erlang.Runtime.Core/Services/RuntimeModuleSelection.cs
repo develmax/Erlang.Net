@@ -22,8 +22,23 @@ public sealed class RuntimeModuleSelection
         }
         if (requested.Distinct(StringComparer.Ordinal).Count() != requested.Length)
             throw new ArgumentException(LibrarySelectionNames.Request, nameof(dependencies));
+        if (backend == RuntimeModuleBackend.Managed && module == StringFloatNativeNames.Module
+            && !LibrarySelectionNames.StringDependencies.All(value => requested.Contains(value, StringComparer.Ordinal)))
+            throw new ArgumentException(LibrarySelectionNames.Dependency, nameof(dependencies));
+        if (backend == RuntimeModuleBackend.Managed && module == UnicodeNativeNames.Module
+            && !LibrarySelectionNames.UnicodeDependencies.All(value => requested.Contains(value, StringComparer.Ordinal)))
+            throw new ArgumentException(LibrarySelectionNames.Dependency, nameof(dependencies));
+        if (backend == RuntimeModuleBackend.Managed && module == DetsLibraryModuleNames.Module
+            && !LibrarySelectionNames.DetsDependencies.All(value => requested.Contains(value, StringComparer.Ordinal)))
+            throw new ArgumentException(LibrarySelectionNames.Dependency, nameof(dependencies));
+        if (backend == RuntimeModuleBackend.Managed && module == IoModuleNames.Module
+            && !LibrarySelectionNames.IoDependencies.All(value => requested.Contains(value, StringComparer.Ordinal)))
+            throw new ArgumentException(LibrarySelectionNames.Dependency, nameof(dependencies));
         if (backend == RuntimeModuleBackend.Beam && bytes.IsEmpty)
             throw new ArgumentException(LibrarySelectionNames.Request, nameof(bytes));
+        if (backend == RuntimeModuleBackend.Managed && module == InterpreterCodeNativeNames.Module
+            && !LibrarySelectionNames.CodeDependencies.All(value => requested.Contains(value, StringComparer.Ordinal)))
+            throw new ArgumentException(LibrarySelectionNames.Dependency, nameof(dependencies));
         Module = module;
         Backend = backend;
         image = bytes.ToArray();
@@ -36,11 +51,14 @@ public sealed class RuntimeModuleSelection
     internal ReadOnlyMemory<byte> OwnedImage => image;
 
     public static RuntimeModuleSelection Managed(string module)
+        => Managed(module, null);
+
+    public static RuntimeModuleSelection Managed(string module, IEnumerable<string>? dependencies)
         => new(
             module,
             RuntimeModuleBackend.Managed,
             ReadOnlyMemory<byte>.Empty,
-            Array.Empty<string>()
+            dependencies ?? Array.Empty<string>()
         );
 
     public static RuntimeModuleSelection Beam(

@@ -1,0 +1,18 @@
+[Reference, Generated] = [filename:absname(Path) || Path <- init:get_plain_arguments()],
+ok = logger:set_primary_config(level, emergency),
+Files = filelib:fold_files(Generated, "[.]beam$", true, fun(Path, Acc) -> [Path | Acc] end, []),
+Prepare = fun(Path, Module) ->
+    {ok, Binary} = file:read_file(Path),
+    case erlang:prepare_loading(Module, Binary) of
+        {error, Error} -> Error;
+        _ -> accepted
+    end
+end,
+Counts = lists:foldl(fun(Path, Acc) ->
+    Relative = lists:nthtail(length(filename:split(Generated)), filename:split(Path)),
+    Module = list_to_atom(filename:basename(Path, ".beam")),
+    Pair = {Prepare(filename:join([Reference | Relative]), Module), Prepare(Path, Module)},
+    maps:update_with(Pair, fun(Count) -> Count + 1 end, 1, Acc)
+end, #{}, Files),
+io:format("~p images. Pairs {OTP reference, generated}:~n~p~n", [length(Files), Counts]),
+halt().

@@ -1,0 +1,17 @@
+[P,Q]=init:get_plain_arguments(),
+Read=fun(Path)->
+    {beam_file,_,_,_,_,Fs}=beam_disasm:file(Path),
+    Selected=[{N,Is} || {function,N,3,_,Is}<-Fs,N=:=member orelse N=:=forward],
+    io:format("~s~n~p~n",[Path,Selected]),
+    {ok,B}=file:read_file(Path),
+    {module,M}=code:load_binary(beam_tuple_tail_argument_probe,Path,B),
+    true=M:member([{key,value}],key,value),
+    false=M:member([],key,value),
+    {{key,value},sample}=M:forward(sample,key,value),
+    code:delete(M),
+    code:purge(M),
+    [{N,[I||I<-Is,element(1,I)=/=label]}||{N,Is}<-Selected]
+end,
+Reference=Read(P),
+Reference=Read(Q),
+halt().

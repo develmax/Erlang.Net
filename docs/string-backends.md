@@ -1,106 +1,91 @@
 # string backends
 
-The manual C# alternative implements all **71 exports** declared by pinned
-OTP 29.1.1 (`ad05823719d77c8faee87348ea39513d4e2f99c5`). This includes the
-modern grapheme/chardata API, the obsolete list API, and the two internal
-number-prefix functions. `StringModule.Exports` is checked against actual
-original `string:module_info(exports)` by the differential runner.
+Both implementations expose all **71 exports** of pinned OTP 29.1.1
+(`ad05823719d77c8faee87348ea39513d4e2f99c5`) under the same `string:F/A` API.
+The manual C# implementation and the unchanged original Erlang source/BEAM are
+retained separately. Both execute on this project's .NET runtime.
 
-**Status: partially compatible; full acceptance is not complete.** Export
-presence and passing value comparisons do not establish 100% OTP compatibility.
-Full exception stacks remain an explicit failing acceptance gate. No API is
-promoted to fully compatible by this port.
+The current [Part562 source audit](validation/part-562/README.md) covers all71
+APIs and119 public source clauses, with a [per-API review table](validation/part-562/api-audit.md).
+Both final backends match37145 observations each, including17103 complete
+exception stacks, plus8522 upstream-inclusive cases and138 depth-profile
+observations. Full regression passes9649/9649. The67 new permanent rows cover
+converted patterns, lazy malformed suffixes, actual native search/membership,
+long numbers and indexed Jaro matching. Exact source and assembly identities,
+retained failures and the separate large-input timing boundary are in the evidence.
+Original Erlang/BEAM and the C# alternative remain separately selectable; default
+registration remains one native primitive. No universal percentage is inferred.
 
-The [retained checkpoint](validation/string-port-20261103/README.md) includes
-complete original/actual outcomes, code/build inputs, provenance and explicit
-failed acceptance gates.
+## Selection and integration
 
-## Explicit alternatives
+Use the startup selector or an `ErlangLibrary` manifest. The complete working
+recipe is [HelloOtpString](../examples/HelloOtpString/README.md):
 
-- C#: `src/Otp/Managed/Erlang.Otp.Stdlib/Text/`. Opt in with
-  `StringModule.Register(registry)` inside `runtime.InitializeModulesAsync`.
-- Original Erlang: `src/Otp/Original/Foundation/Erlang.Otp.Stdlib.Beam/Otp/string.erl`
-  and `string.beam` remain unchanged. Prepare/publish the original image in a
-  separate runtime instead of calling `StringModule.Register`.
+```powershell
+dotnet run --project examples/HelloOtpString -p:StringBackend=Managed
+dotnet run --project examples/HelloOtpString -p:StringBackend=Beam
+```
 
-Both alternatives use the same MFA calls through
-`runtime.Modules.Call(context, "string", function, arguments)`. The new C#
-implementation is not installed silently into existing runtimes. It is not yet
-integrated into `RuntimeModuleSelection.Managed("string")` or the canonical
-default registry/readiness counters. Thus the existing default table can still
-show the one native `string:list_to_float/1` registration.
+The C# choice is `RuntimeModuleSelection.Managed("string", dependencies)`;
+the original choice is `RuntimeModuleSelection.Beam("string", image, dependencies)`.
+Select `erlang` and `lists`, and explicitly supply the pinned `unicode` and
+`unicode_util` images. The example declares every dependency and verifies image
+SHA256 values. Original numeric parsing uses the explicitly selected
+`RuntimeNativePrimitives.InternalScalars413` provider. Its real bindings appear
+in the runtime's native-provider receipt.
 
-The C# version retains the runtime's existing `list_to_float/1` primitive. Its
-integer-prefix parser uses `BigInteger` and retains the original tail. Unicode
-segmentation, mapping and normalization use explicitly loaded, pinned original
-`unicode_util`/`unicode` dependencies executing on the project's C# runtime.
-There is no subprocess, official Erlang VM, or generated Erlang AST in the
-production C# string implementation. Unicode helpers have not themselves been
-manually ported by this change. Missing dependencies are not replaced by BCL
-string operations or a hidden call to original `string`.
+`RuntimeLibraryManifest.Load`, the MSBuild library task and runtime startup all
+support managed dependency declarations. Missing selections and invalid images
+fail without backend fallback. Startup receipts retain the backend, actual image,
+BEAM input digest, assembly MVIDs and resolved dependency backends. There is no
+runtime directory scan or live backend switch.
 
-The comparison runner shows the complete dependency preparation and module
-registration recipe. Original `erts_internal` plus the explicit native catalog
-are included for its original string profile's numeric primitives.
+The default registry remains unchanged: it contains the shared native
+`string:list_to_float/1` primitive. Consequently the default readiness table still
+counts **1** string registration. The explicitly selected C# backend exposes
+**71**, and original BEAM exposes the same 71 plus its two `module_info` exports.
+Default API counts must not be confused with selectable implementation coverage.
+
+Unicode segmentation, case mapping and normalization use the original pinned
+`unicode_util`/`unicode` dependencies in either configuration. C# implements the
+string algorithms and preserves chardata/list/binary structure, numeric tails,
+source helper calls and exception locations. It does not invoke an Erlang VM or
+original `string` as a fallback. `Rune` is used for UTF-8 decoding, not as a
+replacement for OTP Unicode tables.
 
 ## Validation
 
 ```powershell
-pwsh -NoProfile -File tools/validate-string-original.ps1 -Output artifacts/string-check-unique
+pwsh -NoProfile -File tools/validate-string-original.ps1 `
+  -Output artifacts/string-check-unique -IncludeUpstreamSuite -DepthProfiles
 ```
 
-The command requires the existing admitted official OTP 29.1.1 development
-provider. It verifies its manifest and selected executable/library/source files
-before and after execution, acquires independent ETF outcomes, builds the C#
-runner, executes both alternatives, and retains both reports even if one fails.
-Use a fresh output directory; previous evidence is never overwritten.
+Use a fresh directory. The command checks the admitted official OTP provider and
+its execution inputs before and after acquisition. It compares both selected
+backends using the same original Erlang observer, including complete values,
+exception classes/reasons, full stacks and thirteen binary-backing observations.
+Every worker is monitored and joined before its result is accepted.
 
-The fixture covers every export and checks complete returned terms, including
-binary/list/improper-tail structure, not just flattened visible text. It covers
-combining marks, emoji/ZWJ sequences, normalization, case expansion, split/search
-directions, empty mixed data, malformed UTF-8, number remainders and old API
-argument-validation order. A common original Erlang observer spawns, monitors
-and joins each worker before returning its result. Raw exception class, reason
-and complete stack are retained without stack-frame filtering.
+The unchanged upstream `string_SUITE.erl` is retained with its Apache-2.0 notice
+and pinned source digest. All 44 functional testcase functions run in original
+OTP and contribute their 2112 unique exported calls to the differential corpus.
+Performance measurement and Common Test doctest infrastructure are separate.
+Additional cases cover every export, malformed arguments and UTF-8, mixed and
+improper chardata, normalization, case expansion, numeric remainders, large
+lexeme indexes and non-byte-aligned bitstrings. Backtrace depths 0, 1, 2, 3, 8 and
+32 are compared separately.
 
-Reports distinguish value/reason failures from stack differences. The validator
-returns a failing exit code for either category. Full-suite regression, broader
-Unicode conformance/upstream suites, resource/scheduler/backtrace-depth profiles,
-canonical readiness publication and existing startup-selector integration remain
-required acceptance work.
+VM-generated compiled-pattern reference IDs naturally differ. For these cases
+the observer queries each actual live resource with `binary:match/2`; the
+comparison requires matching tags, query results and a one-to-one resource
+binding before comparing the entire stack. Raw outcomes remain intact. Removed
+frames, absent bindings, modified queries and invalid resources are rejected by
+negative controls. Arbitrary references are never ignored or normalized.
 
-The 2026-11-03 expanded comparison matched **5,226/5,226 values and exception
-class/reason outcomes** in each alternative: 4,193 returned values and 1,033
-exceptions. Complete stacks matched 3/1,033 in C# and 1,020/1,033 for original
-Erlang on .NET. The validator correctly returned failure. These counts are
-finite-corpus evidence, not a module-wide compatibility percentage.
-
-Thirteen additional binary-backing observations cover slices around the 64-byte
-copy boundary, suffix/prefix/search, split/replace/take and trimming. Limited
-binary slices retain the original backing through `SliceBits`; re-encoding an
-equal text would have lost this observable property. The separate 71-export
-smoke plus all backing observations passes on the frozen-runtime build.
-
-The shared checkout entered a concurrent integration merge with conflicts after
-the normal projects had built successfully. The later backing check therefore
-uses a separately rebuilt stdlib and current observer over retained runtime
-assemblies; unrelated stdlib sources are bound to `07da777f6`. Current source
-integration, default registration and canonical readiness are not inferred from
-that isolated check. `-RunnerDll` selects an explicit previously built validator
-without compiling a conflicting checkout. Its hash is retained in provenance.
-
-## Reference and reuse
-
-The retained `string.erl` Git blob is
-`33eaf44956fe832a88da5520ce1340bd6c29a0f4`, identical to the pinned tag. The
-retained `string.beam` SHA-256 is
-`37C66C6A5DF38AE239CA1EEDEDBD2CE2FBC4B8B4F3EB7605E115D0AB73FDA697`, identical
-to the admitted official provider.
-
-Use immutable Erlang terms and the existing runtime/serialization components.
-`System.Text.Rune` and UTF-8 encoding are used only for scalar encoding/search
-bytes; `StringInfo`, culture-sensitive comparisons, BCL trimming and invariant
-case conversion are not substitutes for the pinned OTP Unicode rules. No new
-package dependency or performance advantage is claimed. Upstream Ericsson/
-Erlang contributors' Apache-2.0 attribution and packaged notices are retained;
-see [OTP ports](OTP-PORTS.md) and [licenses](../licenses/README.md).
+Current reports and exact acceptance scope are in the
+[Part560 evidence](validation/part-560/string/README.md). The earlier
+[incomplete checkpoint](validation/string-port-20261103/README.md) remains
+immutable, including its original failing stack comparisons. Finite differential
+coverage is recorded as such; it is not a proof for every possible input,
+physical ERTS resource policy or operating system. Global project regression and
+publication gates are reported separately from string contract comparisons.

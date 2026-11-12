@@ -1,0 +1,16 @@
+[Path] = init:get_plain_arguments(),
+{ok, Binary} = file:read_file(Path),
+{module, register_lookup_probe} = code:load_binary(register_lookup_probe, Path, Binary),
+Tab = ets:new(register_lookup_probe, [bag]),
+true = ets:insert(Tab, {key, value}),
+{ok, value} = register_lookup_probe:lookup(Tab, key, extra),
+{other, missing, extra} = register_lookup_probe:lookup(Tab, other, extra),
+true = ets:insert(Tab, {bad, value, extra}),
+try register_lookup_probe:lookup(Tab, bad, extra) of
+    _ -> error(expected_case_clause)
+catch
+    error:{case_clause,[{bad,value,extra}]} -> ok
+end,
+{beam_file, _, _, _, _, Fs} = beam_disasm:file(Path),
+[io:format("~p~n", [F]) || F = {function, lookup, 3, _, _} <- Fs],
+halt().

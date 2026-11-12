@@ -1,5 +1,16 @@
 # OTP source port register
 
+Part593 implements the native node/dist reference query behind erts_debug and both erts_internal backends. Actual owner/header/storage census, all-scheduler admission, signal/heap classification and retirement are covered by262/262 observations plus59/59 scenarios per backend,13 physical and43 connected groups. Original Erlang/BEAM and98 exports remain. Full regression/readiness were deliberately not run; broader upstream/distributed/resource/platform acceptance and universal compatibility remain unverified. [Receipt](validation/part-593/README.md).
+
+
+Part591 completes the selectable [C# sys implementation](sys-backends.md): all37 non-metadata exports with unchanged original Erlang/BEAM. Both backends pass137/137 focused observations;52 error cases match at depths0/1/2/3/8/32, including complete stacks, five unchanged upstream tests, real file output and connected behaviors. The shared BEAM tail-fun frame defect is fixed. [Final source-bound receipt](validation/part-591/README.md). No full regression, global readiness promotion or universal100% claim.
+
+Part589 rpc: all35 explicit exports have opt-in C# and unchanged original Erlang/BEAM implementations. Both pass241 complete observations,18 scenarios and13 two-runtime distribution-packet checks. [Backend/dependency contract](rpc-backends.md), [finite evidence](validation/rpc-port-20261105/README.md). No universal100% or global readiness promotion.
+
+Part590 error_logger: all29 explicit exports have an opt-in C# implementation/shared primitive and retained original Erlang/BEAM. Each implementation passes143 focused observations and10 unchanged upstream tests; this is not universal100% certification. [Selection and dependencies](error-logger-backends.md), [evidence](validation/error-logger-port-20261105/README.md).
+
+[application Part584](application-backends.md) implements all39 non-module_info exports as an opt-in C# alternative to unchanged original Erlang. Both backends pass101 full API outcomes at five stack depths plus19 connected scenarios, including five unchanged upstream functions. This finite acceptance does not promote whole-module/global readiness; see [the receipt](validation/part-584/README.md).
+
 Part 354 common-capture follow-up before a fresh canonical run (2026-10-17)
 
 The first canonical attempt is retained as a failure: 7,324 passed and eighteen failed, with settled exit 1. Two failures expose actual apply-forwarding and local RPC stack regressions; sixteen port cases report eacces. A separate paired diagnostic uses the same retained full-run DLLs and identical harness: all sixteen selected contracts fail with eacces in the recorded default context and pass in the Root-authorized outside context. The passive audit binds fixture sources, expected values, policies, recorded generated-code hashes, loaded assemblies, raw streams and settled receipts (F94A24880C707E6940732D0001385D6C4F63440C351B249D857D3BE7A76752EF). This establishes the measured context difference, not a particular Win32 denial/token/job mechanism, universal port parity or a successful full run. Generated code bytes and initial descendant probe-binary hashes were not retained and are not described as independently rehashed.
@@ -920,3 +931,31 @@ This ports value/alias/error order and finite lifetime cases, with32/40-cell cha
 Pinned OTP commit ad05823719d77c8faee87348ea39513d4e2f99c5 stores ErlFunEntry.uniq as inline16-byte MD5 data (erts/emulator/beam/erl_fun.h); init_fun_template in erl_fun.c copies it. Both emu/emu_load.c and jit/asm_load.c supply checksum data, external.c copies UUID bytes during ETF encoding/restore, and erl_bif_info.c creates a fresh16-byte new_uniq result. The field is value metadata, separate from env[] term roots.
 
 The .NET adaptation snapshots LocalFunctionIdentity.Unique at ctor/init/with boundaries, preserving byte order and all legacy fields. Canonical128-bit UUIDs follow the original value rule; arbitrary noncanonical C# metadata preserves its full bitlength and existing ETF refusal. The snapshot copies under genuine source heap/literal/backing reads and grants no native alias/callable authority. Pure immutable CLR input is safely shared. Lazy identity providers, opaque callbacks, FunctionTerm.Identity, recipe provenance and actual Environment roots retain their contracts. Source-only provenance is not a whole API compatibility claim; local lifecycle/controlled pre-fix evidence and final CI are recorded separately in active changelog0097.
+
+## Parts560–562 — selectable string alternative and source-contract corrections
+
+The user-requested C# alternative in
+`src/Otp/Managed/Erlang.Otp.Stdlib/Text/String*.cs` adapts the algorithms,
+clause/guard ordering, defaults, obsolete Latin1 behavior and helper/error
+locations of pinned OTP29.1.1 `lib/stdlib/src/string.erl`, Ericsson AB1996–2026,
+Apache-2.0. This is an altered C# implementation, not unchanged Erlang execution.
+Its iterative continuation scopes and ordered Jaro position queues preserve the
+observable source behavior while using CLR storage/control flow. Part562 repairs
+converted-pattern terms, real binary primitives/list membership, lazy consumed
+prefixes and numeric-prefix traversal. Unicode mapping/normalization remains in
+the unchanged original `unicode.erl`/`unicode_util.erl` images.
+
+The source-aligned native reverse wrapper additions under Collections/Lists
+follow pinned `lib/stdlib/src/lists.erl`. Native StringFloatNative follows
+`erts/emulator/beam/bif.c`'s prefix state machine and Windows
+`erts/emulator/sys/win32/sys_float.c`'s grammar/conversion contract (the latter
+Ericsson AB1997–2025, Apache-2.0); it uses the existing BCL numeric parser rather
+than copied CRT implementation text. Source metadata/case acquisitions and the
+unchanged `string_SUITE.erl` retain the pinned upstream notices and hashes.
+
+Original Erlang sources/images and Apache-2.0 license text remain available.
+There is explicit startup/MSBuild backend choice and no production external-VM
+fallback. Physical ERTS resource/timing and universal platform/decimal equivalence
+are not established by finite reports. No public package or owner-local license
+is introduced by these adaptations. See validation/part-560/string/,
+validation/part-561/ and validation/part-562/ for measured scopes and failures.

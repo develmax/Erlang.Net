@@ -9,8 +9,20 @@ public sealed class ManagedStdlibRegistration456 : IRuntimeManagedLibrary456
         switch (stage)
         {
             case RuntimeManagedLibraryStage456.Collections: RegisterCollections(r); break;
+            case RuntimeManagedLibraryStage456.Code: CodeModule.Register(r); break;
+            case RuntimeManagedLibraryStage456.Dets: DetsModule.Register(r); break;
             case RuntimeManagedLibraryStage456.Modules: RegisterModules(r); break;
             case RuntimeManagedLibraryStage456.BinaryWrappers: BinaryWrappersModule.Register(r); break;
+            case RuntimeManagedLibraryStage456.String: StringModule.Register(r); break;
+            case RuntimeManagedLibraryStage456.Unicode: UnicodeModule.Register(r); break;
+            case RuntimeManagedLibraryStage456.Io: IoLibrary.Register(r); break;
+            case RuntimeManagedLibraryStage456.Ets: EtsModule.Register(r); break;
+            case RuntimeManagedLibraryStage456.Timer: TimerLibrary.Register(r); break;
+            case RuntimeManagedLibraryStage456.GenEvent: GenEventModule.Register(r); break;
+            case RuntimeManagedLibraryStage456.Sys: SysModule.Register(r); break;
+            case RuntimeManagedLibraryStage456.GenServer: GenServerModule.Register(r); break;
+            case RuntimeManagedLibraryStage456.GenStatem: GenStatemModule.Register(r); break;
+            case RuntimeManagedLibraryStage456.Supervisor: SupervisorModule.Register(r); break;
             default: throw new ArgumentOutOfRangeException(nameof(stage));
         }
     }
@@ -37,11 +49,11 @@ public sealed class ManagedStdlibRegistration456 : IRuntimeManagedLibrary456
                 1,
                 (context, arguments) => ValueTask.FromResult(body(context, arguments))
             );
-        Add(
+        r.Register(
             ListModuleNames.Module,
             ListModuleNames.Reverse,
             1,
-            (c, a) => ListOperations.Reverse(a[0])
+            (c, a) => ListReverseSourceExecution.Run(c, a[0])
         );
         r.Register(
             ListModuleNames.Module,

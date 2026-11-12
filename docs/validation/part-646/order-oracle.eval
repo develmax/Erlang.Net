@@ -1,0 +1,5 @@
+Read=fun(P)->{ok,{_,[{atoms,As},{indexed_imports,Is}]}}=beam_lib:chunks(P,[atoms,indexed_imports]),{As,Is} end,
+{OA,OI}=Read("D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/library376-official-compiler/installed/lib/eldap-1.3.1/ebin/ELDAPv3.beam"),{PA,PI}=Read("artifacts/beam-backend/part645-eldap/ELDAPv3.release-profile.beam"),{AA,AI}=Read("artifacts/beam-backend/part646-eldap/ELDAPv3.release-profile.beam"),
+Prefix=fun(X,Y)->length(lists:takewhile(fun({A,B})->A=:=B end,lists:zip(X,Y,trim))) end,
+io:format("import_order_equal before=~p after=~p~natom_prefix before=~p after=~p of ~p release, ~p managed~n",[OI=:=PI,OI=:=AI,Prefix(OA,PA),Prefix(OA,AA),length(OA),length(AA)]),
+io:format("atom_set_release_only=~p~natom_set_managed_only=~p~n",[[A||{_,A}<-OA]--[A||{_,A}<-AA],[A||{_,A}<-AA]--[A||{_,A}<-OA]]),halt().

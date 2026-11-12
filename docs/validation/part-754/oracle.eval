@@ -1,0 +1,21 @@
+Path = "tests/Erlang.Tests/Resources/Beam/beam_local_fun_probe.erl",
+{ok,beam_local_fun_probe,Expected} = compile:file(Path,[binary,deterministic]),
+{ok,Expected} = file:read_file("artifacts/beam-backend/part754-probe.beam"),
+{ok,_,Chunks} = beam_lib:all_chunks(Expected),
+{"FunT",<<2:32,_/binary>>} = lists:keyfind("FunT",1,Chunks),
+{module,beam_local_fun_probe} = code:load_binary(beam_local_fun_probe,Path,Expected),
+Constant = beam_local_fun_probe:constant(),
+Captured = beam_local_fun_probe:captured(value),
+done = Constant(),
+value = Captured(),
+{env,[]} = erlang:fun_info(Constant,env),
+{env,[value]} = erlang:fun_info(Captured,env),
+{ok,beam_local_fun_probe,DebugExpected} = compile:file(Path,[binary,deterministic,debug_info]),
+Forms = fun(Image) ->
+    {ok,{_,[{abstract_code,{raw_abstract_v1,All}}]}} = beam_lib:chunks(Image,[abstract_code]),
+    [F || F={function,_,_,_,_} <- All]
+end,
+true = (Forms(DebugExpected) =:= Forms("artifacts/beam-backend/part754-debug.beam")),
+io:format("whole_image_equal=true bytes=~p closures=2 debug_function_forms_equal=2~n",
+    [byte_size(Expected)]),
+halt().

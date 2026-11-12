@@ -1,0 +1,11 @@
+close_sleep/2 matches after label normalization
+[{label,1},
+ {line,[{location,"httpd_socket.erl",98}]},
+ {func_info,{atom,httpd_socket},{atom,close_sleep},2},
+ {label,2},
+ {test,is_tagged_tuple,{f,3},[{x,0},2,{atom,ssl}]},
+ {move,{integer,1000},{x,0}},
+ {call_only,1,{httpd_socket,sleep,1}},
+ {label,3},
+ {move,{atom,ok},{x,0}},
+ return]

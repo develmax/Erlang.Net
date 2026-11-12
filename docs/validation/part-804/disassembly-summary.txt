@@ -1,0 +1,60 @@
+OTP order [{start_link,5},
+           {init,1},
+           {display_progress,2},
+           {display_progress_pulse,2},
+           {destroy_progress,1},
+           {init,6},
+           {create_pages,3},
+           {init_tab,4},
+           {init_panel,3},
+           {handle_event,2},
+           {handle_info,2},
+           {handle_call,3},
+           {handle_cast,2},
+           {terminate,2},
+           {code_change,3},
+           {create_menus,1},
+           {module_info,0},
+           {module_info,1},
+           {'-create_pages/3-lc$^0/1-0-',3}]
+C# order [{start_link,5},
+          {init,1},
+          {display_progress,2},
+          {display_progress_pulse,2},
+          {destroy_progress,1},
+          {init,6},
+          {create_pages,3},
+          {init_tab,4},
+          {init_panel,3},
+          {handle_event,2},
+          {handle_info,2},
+          {handle_call,3},
+          {handle_cast,2},
+          {terminate,2},
+          {code_change,3},
+          {create_menus,1},
+          {module_info,0},
+          {module_info,1}]
+start_link/5 16 16 []
+init/1 98 98 []
+display_progress/2 12 12 []
+display_progress_pulse/2 18 18 []
+destroy_progress/1 10 10 []
+init/6 111 111 []
+create_pages/3 37 86 [{{test,is_nonempty_list,{f,27},[{x,1}]},
+                       {allocate,16,3}}]
+init_tab/4 24 24 [{{test,is_eq_exact,{f,30},[{x,0},{atom,true}]},
+                   {test,is_eq_exact,{f,36},[{x,0},{atom,true}]}}]
+init_panel/3 46 46 []
+handle_event/2 21 55 [{{test,is_tagged_tuple,{f,36},[{x,0},5,{atom,wx}]},
+                       {allocate,12,2}}]
+handle_info/2 7 7 []
+handle_call/3 8 8 []
+handle_cast/2 8 8 []
+terminate/2 22 38 [{{test,is_tagged_tuple,{f,43},[{x,1},5,{atom,state}]},
+                    {allocate,7,2}}]
+code_change/3 7 7 []
+create_menus/1 9 9 []
+module_info/0 6 6 []
+module_info/1 7 7 []
+missing '-create_pages/3-lc$^0/1-0-'/3

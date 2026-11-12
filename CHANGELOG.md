@@ -176,4 +176,61 @@ Append numbered English entries only to the last volume. Start the next sequenti
 
 - [0101.md](docs/changelog/0101.md) - Part555 NIF observer and backend validation repairs (closed; continues in0102)
 
-- [0102.md](docs/changelog/0102.md) - Parts555–558 compressed ETS, library compatibility and documentation integration (active)
+- [0102.md](docs/changelog/0102.md) - Parts555–560 compressed ETS, library compatibility, string integration and documentation (closed)
+
+- [0103.md](docs/changelog/0103.md) - Parts561–567 resource closure, string/Unicode, DETS draft, timer/gen_event/code ports (closed)
+
+- [0104.md](docs/changelog/0104.md) - Part568 file alternative/native filesystem gates and Part565 timer final acceptance (closed; continues in0105)
+
+- [0105.md](docs/changelog/0105.md) - Parts578–585 timer, gen_statem, gen_event, DETS, gen_server, supervisor and application alternatives (closed; continues in0106)
+
+- [0106.md](docs/changelog/0106.md) - Parts586–591 runtime/library alternatives, focused acceptance and sys (closed; continues in0107)
+
+- [0107.md](docs/changelog/0107.md) - Parts592–593 multi-scheduling and native node/dist inventory (active)
+
+- [0108.md](docs/changelog/0108.md) — parts 608–645
+
+- [0109.md](docs/changelog/0109.md) — parts 646–679
+
+- [0110.md](docs/changelog/0110.md) — parts 680–723
+
+- [0111.md](docs/changelog/0111.md) — parts 724–748
+
+- [0112.md](docs/changelog/0112.md) — parts 749–766
+
+- [0113.md](docs/changelog/0113.md) — parts 767–782
+- [0114.md](docs/changelog/0114.md) — parts 783–798
+- [0115.md](docs/changelog/0115.md) — parts 799–822
+- [0116.md](docs/changelog/0116.md) — parts 823–838
+- [0117.md](docs/changelog/0117.md) — parts 839–859
+- [0118.md](docs/changelog/0118.md) — parts 860–876
+- [0119.md](docs/changelog/0119.md) — parts 877–894, 913
+- [0120.md](docs/changelog/0120.md) — parts 914–926
+- [0121.md](docs/changelog/0121.md) — parts 927–941
+- [0122.md](docs/changelog/0122.md) — parts 942–969
+- [0123.md](docs/changelog/0123.md) — parts 970–999
+- [0124.md](docs/changelog/0124.md) — parts 1000–1036
+- [0125.md](docs/changelog/0125.md) — parts 1037–1062
+- [0126.md](docs/changelog/0126.md) — parts 1063–1091
+- [0127.md](docs/changelog/0127.md) — parts 1092–1123
+- [0128.md](docs/changelog/0128.md) — parts 1124–1137
+- [0129.md](docs/changelog/0129.md) — parts 1138–1154
+- [0130.md](docs/changelog/0130.md) — parts 1155–1169
+- [0131.md](docs/changelog/0131.md) — parts 1170–1194
+- [0132.md](docs/changelog/0132.md) — parts 1195–1211
+- [0133.md](docs/changelog/0133.md) — parts 1212–1228
+- [0134.md](docs/changelog/0134.md) — parts 1229–1252
+- [0135.md](docs/changelog/0135.md) — parts 1253–1327
+- [0136.md](docs/changelog/0136.md) — parts 1328–1359
+- [0137.md](docs/changelog/0137.md) — parts 1360–1376
+- [0138.md](docs/changelog/0138.md) — parts 1377–1389
+- [0139.md](docs/changelog/0139.md) — parts 1390–1401
+- [0140.md](docs/changelog/0140.md) — parts 1402–1413
+- [0141.md](docs/changelog/0141.md) — parts 1414–1425
+- [0142.md](docs/changelog/0142.md) — parts 1426–1439
+- [0143.md](docs/changelog/0143.md) — parts 1440–1453
+- [0144.md](docs/changelog/0144.md) — parts 1454–1466
+- [0145.md](docs/changelog/0145.md) — parts 1467–1483
+- [0146.md](docs/changelog/0146.md) — parts 1484–1501
+- [0147.md](docs/changelog/0147.md) — parts 1502–1514
+- [0148.md](docs/changelog/0148.md) — parts 1515 onward

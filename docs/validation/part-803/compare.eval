@@ -1,0 +1,20 @@
+{beam_file,_,_,_,_,Otp}=beam_disasm:file(code:which(cdv_detail_wx)),
+{beam_file,_,_,_,_,Cs}=beam_disasm:file("artifacts/beam-backend/part803-images/cdv_detail_wx.beam"),
+Key=fun({function,N,A,_,_})->{N,A} end,
+Norm=fun
+    ({label,_})->label;
+    ({line,_})->line;
+    (I)->I
+end,
+io:format("OTP order ~p~nC# order ~p~n",[lists:map(Key,Otp),lists:map(Key,Cs)]),
+lists:foreach(fun({function,N,A,_,L}) ->
+    case [R || {function,M,B,_,R} <- Cs, M=:=N, A=:=B] of
+        [R] ->
+            Diff=lists:dropwhile(fun({I,J})->Norm(I)=:=Norm(J) end,lists:zip(lists:sublist(L,min(length(L),length(R))),lists:sublist(R,min(length(L),length(R))))),
+            io:format("~p/~p ~p ~p ~p~n",[N,A,length(L),length(R),lists:sublist(Diff,1)]);
+        [] -> io:format("missing ~p/~p~n",[N,A])
+    end
+end,Otp),
+ok=file:write_file("artifacts/beam-backend/part803-images/otp-disasm.txt",io_lib:format("~p.~n",[Otp])),
+ok=file:write_file("artifacts/beam-backend/part803-images/cs-disasm.txt",io_lib:format("~p.~n",[Cs])),
+halt().

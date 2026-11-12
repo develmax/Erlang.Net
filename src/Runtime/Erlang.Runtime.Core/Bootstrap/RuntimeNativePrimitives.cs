@@ -6,5 +6,6 @@ public enum RuntimeNativePrimitives
     None = 0,
     PersistentTermCore = 1,
     EtsStorageCore = 2,
-    RegexCore411 = 4
+    RegexCore411 = 4,
+    InternalScalars413 = 8
 }

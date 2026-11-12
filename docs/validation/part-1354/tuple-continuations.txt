@@ -1,0 +1,32 @@
+Tuple continuations in top-level function clauses of 1001 differing images.
+Counts are {modules, functions, examples}. Groups can overlap.
+#{single_call_then_tuple_uses_result =>
+      {138,233,
+       [{xmerl_sax_parser_utf8,{parse_comment,3}},
+        {xmerl_sax_parser_utf16le,{parse_comment,3}},
+        {xmerl_sax_parser_utf16be,{parse_comment,3}}]},
+  final_call_then_tuple_uses_result =>
+      {179,336,
+       [{xmerl_xsd,{element_content,3}},
+        {xmerl_xlate,{hook,2}},
+        {xmerl_scan,{scan_att_type,2}}]},
+  single_call_then_tuple_discards_result =>
+      {123,162,
+       [{xmerl_xsd_type,{check_year,1}},
+        {xmerl_xsd,{element_content,3}},
+        {xmerl_scan,{scan_nmtoken,7}}]},
+  final_call_then_tuple_discards_result =>
+      {165,301,
+       [{xmerl_xsd_re_parse,{yeccerror,1}},
+        {xmerl_xsd,{element_content,3}},
+        {xmerl_xpath_scan,{scan_number,2}}]},
+  discarded_call_then_tuple =>
+      {243,648,
+       [{xmerl_xsd_type,{check_NMTOKENS,1}},
+        {xmerl_ucs,{from_ucs2be,3}},
+        {xmerl_scan,{scan_doctype2,3}}]},
+  other_tuple_sequence =>
+      {533,2083,
+       [{xmerl_xsd_type,{add_duration2dateTime2,2}},
+        {xmerl_xsd,{check_attributes,4}},
+        {xmerl_xpath_scan,{scan_token,2}}]}}

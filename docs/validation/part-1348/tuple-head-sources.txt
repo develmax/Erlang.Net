@@ -1,0 +1,34 @@
+Source patterns in the tuple arity and field extraction group. Counts are {modules, functions, examples}.
+A function contributes once to each source pattern present in its clauses.
+#{record =>
+      {4,8,
+       [{zip,{get_z_files,5}},
+        {pubkey_crl,{verify_extensions,1}},
+        {beam_call_types,{lists_zip_types_1,4}}]},
+  nested_tuple =>
+      {49,72,
+       [{xmerl_xsd,{allow_empty_content,1}},
+        {xmerl_sax_parser_utf8,{fix_attributes_ns,3}},
+        {xmerl_sax_parser_utf16le,{fix_attributes_ns,3}}]},
+  flat_tuple =>
+      {138,249,
+       [{xmerl_xsd,{extend_attributes,6}},
+        {xmerl_sax_parser,{parse_options,2}},
+        {xref_compiler,{save_vars,5}}]},
+  closed_or_long_list =>
+      {25,43,
+       [{xmerl_xsd,{allow_empty_content,1}},
+        {cover,{merge_clauses,3}},
+        {epp_dodger,{scan_form,2}}]},
+  other_list =>
+      {87,124,
+       [{xmerl_xsd,{allow_empty_content,1}},
+        {xmerl_sax_parser,{parse_options,2}},
+        {xref_base,{documented_v1,5}}]},
+  other_pattern =>
+      {170,344,
+       [{xmerl_xsd,{allow_empty_content,1}},
+        {xmerl_sax_parser_utf8,{fix_attributes_ns,3}},
+        {xmerl_sax_parser_utf16le,{fix_attributes_ns,3}}]},
+  missing_forms =>
+      {1,1,[{pubkey_cert,{'-do_normalize_general_name/1-fun-0-',1}}]}}

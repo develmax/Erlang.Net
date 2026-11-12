@@ -1,3 +1,673 @@
+The C# source compiler has deterministic BEAM output for supported returns, calls, constructors, literals and patterns. Explicit release profiles can reconstruct supported module metadata and debug forms for constant bindings and nested tuples, lists, and maps. Windows x64 uses the pinned OTP compressor. Other platforms keep the existing ETF compressor. Rich documentation, type metadata, full preprocessing, general lowering and broader release reconstruction remain open. [Evidence](validation/part-606/README.md).
+
+Part 1520 brings tftp_logger.beam to byte equality. The complete corpus has 979 differing images. The next broad tuple-case group has 249 functions in 129 images with an unguarded arm returning a projected value. [Status transitions](validation/part-1520/status-changes.txt) · [Tuple case shapes](validation/part-1520/tuple-case-frame-shapes-after.txt).
+
+Part 1495 restores the frame size in the two release functions whose saved slots were reused in Part 1494. The entry tuple stays intact across calls in OTP's `dbg_ieval:rec_clauses/3` and `erl_eval:match_clause/5`; the C# entry projects its fields early and now needs an extra slot. [Release instructions](validation/part-1495/cases-after.txt) · [Frames](validation/part-1495/frame-delta.txt).
+
+Part 1494 restores normalized instruction equality for `test_server_node:start_which_node/1`. Retaining the outer field by reusing a saved slot leaves frame differences in two release functions and the retained-field control. [Release instructions](validation/part-1494/identity-release.txt) · [Frames](validation/part-1494/frame-delta.txt).
+
+Part 1493 matches nine more nested-case instruction bodies after label normalization. The new path emits an unnecessary selector reconstruction in `test_server_node:start_which_node/1`, which previously matched. [Release instructions](validation/part-1493/cases-after.txt).
+
+Part 1492 matches the instructions for `xmerl_xlate:file/3`. The other differences in that module include closure and list construction in `string/3`, and frame placement and checked tuple projection in `hook/2`. Two frames elsewhere now use one fewer slot than OTP. [Release instructions](validation/part-1492/cases-after.txt) · [Frame changes](validation/part-1492/frame-delta.txt).
+
+Part 1491 extends register projection to saved-selector arms before a continuation. The control still differs in guard field projection, the final result join and frame size. [Instruction comparison](validation/part-1491/probe.txt).
+
+Part 1490 projects saved tuple fields in X for flat case arms with eligible branch results. Exact bound-field checks, guard paths, and result construction after the case still differ in the controls. [Instruction comparison](validation/part-1490/probe.txt).
+
+Part 1489 dispatches on a saved tuple in Y and preserves the original selector on failure. The control still differs in payload register allocation and return construction. [Instruction comparison](validation/part-1489/probe.txt).
+
+Part 1488 selects tuple arity before tag and keeps the second argument tests in their branches. `ct_ssh:handle_msg/2` now has the same number of arity and value tables as OTP. It still repeats more tagged tests and projections. [Dispatch counts](validation/part-1488/ct-ssh-dispatch.txt).
+
+Part 1487 selects distinct tuple tags after a common arity test. The control still differs in payload projection order and the target of the failed guard. [Instruction comparison](validation/part-1487/probe.txt).
+
+Part 1486 shares the tuple check and field selector for consecutive eligible clauses. In `tuple_alias/2`, OTP reuses the projected value after the failed guard, while C# rechecks the later clause from the original argument. [Instruction comparison](validation/part-1486/probe.txt).
+
+Part 1485 matches the entry selector and constant branches in `ssh_bits:mpint/1`. Its positive and negative branches still differ in binary instructions, register types, and frame sizes. [Instruction comparison](validation/part-1485/ssh-bits-mpint.txt).
+
+Part 1484 checks tuple aliases and literal fields in entry registers. In `tuple_alias/2`, OTP shares the tuple check and selects the field with `select_val`. C# checks each clause in source order and allocates only in the branch with a non-tail call. [Instruction comparison](validation/part-1484/probe.txt).
+
+Part 1483 applies branch-local frame planning to tuple-pattern clauses with sequences and decisions. In `tuple_entry/2`, both compilers use a two-slot frame. C# projects the field into X before allocation. OTP allocates first and projects the field directly into Y. [Instruction comparison](validation/part-1483/probe.txt).
+
+Part 1482 emits supported entry type and equality tests before branch-local allocation when the function has variable-only parameters. The `guarded_shape/2` fixture reaches normalized instruction equality. [Instruction comparison](validation/part-1482/probe.txt).
+
+Part 1481 projects the needed `split_binary/2` field from X in `prim_buffer:read_iovec/2`. The C# main frame uses five slots and OTP uses four. Remaining differences include the projection destination, heap check placement, and branch-local frame trimming. [Instructions](validation/part-1481/prim-buffer-read_iovec.txt).
+
+Part 1480 emits byte_size from X and an arithmetic guard comparison from X in prim_buffer read_iovec/2. Remaining differences include type annotations, pair extraction and stack trimming in the large-size branch. [Instructions](validation/part-1480/prim-buffer-read_iovec.txt).
+
+Part 1479 matches prim_buffer read/2 instructions and the entry and small-size path of read_iovec/2. The large-size path still uses seven frame slots compared with four in OTP. [Comparisons](validation/part-1479/README.md).
+
+Part 1478 matches the erl_tracer release image, including documentation signatures and private type visibility. The prim_buffer and zlib on_load/0 instruction streams match OTP, with other function and chunk differences remaining. [Evidence](validation/part-1478/README.md).
+
+Part 1477 matches the complete xmerl_xsd_re map/1 disassembly. The module still differs in chr/2 and scan/2. [Instructions](validation/part-1477/map-selector-comparison.txt) and [remaining functions](validation/part-1477/xmerl-functions-after.txt).
+
+Part 1476 reaches the zero-slot OTP frame in xmerl_xsd_re map/1. Field projection and tail error call placement still differ. [Comparison](validation/part-1476/README.md).
+
+Part 1475 reduces the xmerl_xsd_re map/1 frame from two slots to one. OTP uses no slots and emits shared tuple field projection and a terminal error call. [Before](validation/part-1474/map-selector-before.txt) and [after](validation/part-1475/map-selector-after.txt).
+
+Part 1474 matches the wxDisplay unary constructor dispatch, stack allocation, register moves and error branches. The resulting release file is byte-identical. [Evidence](validation/part-1474/README.md).
+
+Part 1473 matches the one-slot frame in the guarded preserve/2 control. The guard operand type and shared return remain different. The survive/2 control retains the selector across put/2 and uses three slots compared with two in OTP. [Evidence](validation/part-1473/README.md).
+
+Part 1472 matches eight public_key instruction bodies and removes three immediate result spills. The changed release frame sizes stay the same. The bound control still needs two slots compared with one in OTP. [Evidence](validation/part-1472/README.md).
+
+Part 1471 removes the immediate result spill from ten functions and reaches the OTP frame size in each one. crypto macN/5 matches after label normalization. The public_key encoders still differ in the proper-list operand type. All complete file statuses stay the same. [Evidence](validation/part-1471/README.md).
+
+Part 1470 restores six normalized release function bodies. Thirteen changed frame sizes move farther from OTP, while the aggregate Code size gap drops by 83 bytes. The complete file comparison statuses stay the same. [Evidence](validation/part-1470/README.md).
+
+Part 1469 reaches the OTP entry list test in 709 functions. One body gains complete normalized equality and six lose it because of register reuse, branch destinations or closure argument ordering. All file comparison statuses stay the same. [Evidence](validation/part-1469/README.md).
+
+Part 1468 matches seven release bodies of unused_bitlist/3 after label normalization. Their complete module images still have other instruction and metadata differences. [Evidence](validation/part-1468/README.md).
+
+Part 1467 matches the frame sizes of seven release functions. The unused_bitlist/3 body still differs in proper-list and numeric facts derived from callers. [Evidence](validation/part-1467/README.md).
+
+Part 1466 matches the frame sizes and normalized instructions of 14 closure dispatch functions. The nonempty list frame cohort remains at 530 modules. [Evidence](validation/part-1466/README.md).
+
+Part 1465 reduces projection candidates to 1,805 functions in 556 images. The complete normalized function match count stays the same. Frame allocation timing and register assignments remain open. [Evidence](validation/part-1465/README.md).
+
+Part 1464 reduces remaining projection candidates to 2,268 functions in 606 images. Complete normalized instruction matches remain unchanged. Two shorter wx examples move three bytes farther from the reference Code size. [Evidence](validation/part-1464/README.md).
+
+Part 1463 reduces the Code gap by 1,749 bytes. Frame allocation sizes remain unchanged. The most common residual projection pattern has a subsequent move in 401 images. [Evidence](validation/part-1463/README.md).
+
+Part 1462 aligns 17 frame sizes. Move sequences following field extraction remain in 403 candidate images, and some terminal tagged clauses still perform a separate argument move. [Evidence](validation/part-1462/README.md).
+
+Part 1461 shows that the AST inliner and OTP Core inliner make different decisions at local call sites. Applying the release option with the current AST heuristic increased the Code gap by 121,466 bytes across 56 changed images. [Evidence](validation/part-1461/README.md).
+
+Part 1460 restores direct fold calls across most of the corpus. Closure index order still differs in ct_framework:save_seq/4. The HTTP callback retains extra frame storage and untyped result operands. [Evidence](validation/part-1460/README.md).
+
+Part 1459 aligns two record dispatch bodies and three frame sizes. The HTTP fold callback frame and erl_lint:get_doc_attr/2 record and key proofs remain different. [Evidence](validation/part-1459/README.md).
+
+Part 1458 aligns 24 normalized bodies and 13 frame sizes. Record field dispatch such as httpc_manager:get_option/2 still uses a frame and individual key tests. [Evidence](validation/part-1458/README.md).
+
+Part 1457 aligns 33 normalized function bodies and 32 frame sizes. DNS cases whose guards read an outer input through a wildcard and equality alternatives in SSL still differ. [Evidence](validation/part-1457/README.md).
+
+Part 1456 brings 384 functions to normalized instruction equality. The affected parser images retain differences in other functions and metadata. [Evidence](validation/part-1456/README.md).
+
+Part 1455 aligns ten erl_internal functions after label rebasing. The release image still differs in remaining functions and metadata. [Evidence](validation/part-1455/README.md).
+
+Part 1454 reaches byte equality for erl_posix_msg.beam. The optimized test_server_sup:check_purge/1 fallback still emits throw/1 where OTP emits raise/3. [Evidence](validation/part-1454/README.md).
+
+Part 1453 aligns the parent and helper of asn1ct:remove_asn_flags/1 and erl_abstract_code:delete_reports/1 after label normalization. The erl_abstract_code:debug_info/4 body still differs. [Evidence](validation/part-1453/README.md).
+
+Part 1452 aligns fifty-nine mapper helpers after label normalization. In asn1ct:compile_set/3 the frame drops from twelve slots to seven, compared with five in OTP. The helper retains an improper-list branch that OTP omits. [Evidence](validation/part-1452/README.md).
+
+Part 1451 aligns the instruction bodies of thirteen tuple projection helpers after label normalization. compile.beam still differs and has two newly emitted comprehension helper names absent from the release. [Evidence](validation/part-1451/README.md).
+
+Part 1450 aligns fifteen comprehension parent instruction sequences after label normalization. The new ASN.1 helpers allocate eleven slots where OTP allocates four, with differences in exception handling and line emission. [Evidence](validation/part-1450/README.md).
+
+Part 1449 aligns the three field destinations in mod_head:do_head/1. It still reserves eight frame slots compared with four in OTP. The checked-fields fixture also retains the explicit frame and interleaved record checks, while OTP keeps both original inputs in X registers and branches to failure blocks after the call. [Evidence](validation/part-1449/README.md).
+
+Part 1448 aligns the destination of the record field in mod_head:do/1. Register allocation and instruction order still differ. Every differing release image has an unequal Code chunk and at least three more unequal chunks. [Evidence](validation/part-1448/README.md).
+
+Part 1447 aligns the projection count in mod_head:do/1. Its frame falls from five slots to three, with one slot in OTP. Whole-image equality is unchanged. [Evidence](validation/part-1447/README.md).
+
+Part 1433 removes a field spill in the single-file path of compile_proc/3. The nested call in the multiple-files path still sets the frame size to six, compared with three in OTP. [Evidence](validation/part-1433/README.md).
+
+Part 1432 keeps the selector in x0 for supported call-result cases. compile_proc/3 still saves fresh fields in Y and repeats tagged tests that OTP groups by arity. [Evidence](validation/part-1432/README.md).
+
+Part 1431 removes two prefix spills in compile_proc/3. The selector and tuple fields still spill where OTP dispatches in X registers and preserves only values live across calls. [Evidence](validation/part-1431/README.md).
+
+Part 1430 removes the child_name/2 frames in httpc and httpd. The generated code still tests the tuple and nil shapes that OTP proves from callers. The shared planner still needs cons-arm construction for global:find_node_tag2/2. [Evidence](validation/part-1430/README.md).
+
+Part 1429 aligns tag_nums_ext/3 after label normalization. check_unique2/3 still allocates before the two-cell pattern and dynamic element guard. [Evidence](validation/part-1429/README.md).
+
+Part 1428 reduces excess-raise functions in the cumulative audit from 53 to 39. parse_hier/2 now retains throw where OTP emits raise. Nested C# handler slots still increase where OTP uses decreasing slots. [Evidence](validation/part-1428/README.md).
+
+Part 1427 aligns throw and raise call counts in 469 changed functions. Fifty-three changed functions still emit more raises than OTP. The collect_quoted/3 frame and terminal call form remain different. [Evidence](validation/part-1427/README.md).
+
+Part 1426 aligns the throw path and completes normalized instruction equality in collect_string/3. The nested call and constructed throw reason in the selector branches of collect_quoted/3 still differ. [Collector](validation/part-1426/collect-string.txt) and [throw-call audit](validation/part-1426/throw-forms.txt).
+
+Part 1425 aligns the entry and successful branches in collect_string/3 and the entry in collect_quoted/3. The former still emits a stackful throw at end of input. The latter still uses six slots for each selector case. [Instruction comparison](validation/part-1425/token-summary.txt).
+
+Part 1424 aligns asn1ct_imm:bit_flags/2 after label normalization. The shared list entry verifies the exhausted input before selecting a nil branch. When the tested list is a later argument, OTP can keep separate nil tests in the terminal branches. [Release instructions](validation/part-1424/bit-flags.txt) and [later argument](validation/part-1424/late-list-input.txt).
+
+Part 1423 aligns asn1ct_check:merge_tags2/2 after label normalization. The tagged list head with a caught call and cons fallback in componentrelation_leadingattr/5 still uses a shared stack frame. [Instruction evidence](validation/part-1423/asn1-before.txt) and [normalized result](validation/part-1423/merge-tags2-summary.txt).
+
+Part 1422 aligns mod_alias:append_index/2 after label normalization. The module still has other instruction and metadata differences. The remaining untagged tuple selector in asn1ct:remove_name_collisions2/4 requires shared field projection and dispatch. [Evidence](validation/part-1422/README.md).
+
+Part 1421 aligns asn1ct_check:check_unique_sequence_tags1/3 after label normalization. A list-head call prefix leading to a tuple selector still differs in asn1ct:remove_name_collisions2/4. [Guarded continuation](validation/part-1421/asn1-guarded-list-case.txt) and [selector prefix](validation/part-1421/list-selector-prefix.txt).
+
+Part 1420 removes the five-slot frame from asn1ct_check:check_object_set_objset_list_1/3 and aligns its instructions after label normalization. [Record continuation](validation/part-1420/asn1-list-record-tail.txt).
+
+Part 1419 closes the whole-image difference in xmerl_b64Bin_scan by aligning its tuple-result construction and shared guarded list entry. [Release comparison](validation/part-1419/xmerl-release.txt).
+
+Part 1418 closes the whole-image difference in xmerl_xpath_lib by aligning dynamic tail branches, tuple arity dispatch, and the fallback. [Release comparison](validation/part-1418/xmerl-release.txt).
+
+Part 1417 aligns ttb:format/2 after normalizing labels. A shared tuple slot covers fields used together at a later call. Mixed schedules with several consumers and argument constructors still differ. [Release instructions](validation/part-1417/normalized-functions.txt).
+
+Part 1416 aligns fourteen functions after normalizing labels and saves individual tuple fields across calls. [Release instructions](validation/part-1416/normalized-functions.txt).
+
+Part 1415 aligns et_wx_viewer:revert_main_window/1, io_lib_fread:fread_float_cs/2 and io_lib_fread:fread_int_cs/2 after normalizing labels. [Release instructions](validation/part-1415/normalized-functions.txt).
+
+Part 1414 aligns mnesia_recover:what_happened_remotely/3 and snmp_notification_mib:find_targets/0 after normalizing labels. [Release instructions](validation/part-1414/normalized-functions.txt).
+
+Part 1413 aligns ct_config_xml:list_to_term/1 after normalizing labels. asn1ct_parser2:parse_ActualParameterList/2 still differs in tagged list-head dispatch. [Release instructions](validation/part-1413/operands-after.txt).
+
+Part 1412 aligns asn1ct_func:start_link/0 and preserves the ttb:write_binary/2 schedule. ct_logs:all_runs_header/1 still differs in list construction and frame allocation. The strict whole-image totals are 380 Equal and 986 Different. [Release instructions](validation/part-1412/operands-after.txt).
+
+Part 1411 aligns the instructions of parse_FieldName/1, parse_Enumeration/1, ct_logs:year/0 and remove_xmlnsattr_for_tag/2 after normalizing labels. The strict whole-image totals are 380 Equal and 986 Different. [Release instructions](validation/part-1411/operands-after.txt).
+
+Part 1410 aligns mod_auth_plain:list_groups/1 and xref:get_xref_ignorelist/1 after normalizing labels and closure uniqueness. ct_release_test:fetch_all_apps/1 reaches the OTP frame size and still differs in closure identity operands. [Release instructions](validation/part-1410/operands-after.txt).
+
+Part 1409 aligns tuple-field calls in 128 more normalized function bodies. mod_auth_plain:list_groups/1 still saves the closure and its list input in separate stack slots. The strict whole-image totals are 380 Equal and 986 Different. [Release instructions](validation/part-1409/operands-after.txt).
+
+Part 1408 aligns the instructions of asn1ct_constructed_per:gen_dec_get_extension/1 apart from labels and closure identity metadata. The strict whole-image totals are 380 Equal and 986 Different. [Release instructions](validation/part-1408/operands-after.txt).
+
+Part 1407 aligns asn1ct_check:check_duplicate_defs/2 and its comprehension helper after label normalization. Other instructions and sections in asn1ct_check still differ. [Release instructions](validation/part-1407/operands-after.txt).
+
+Part 1406 matches asn1ct_parser2:resolve_module/1 after normalizing labels. Other functions in the module still differ. [Release instructions](validation/part-1406/operands-after.txt).
+
+Part 1405 matches the complete wxRegion image, including its tuple and record overloads. Three other modules gain normalized instruction matches in functions that accept tuple arguments. [Release targets](validation/part-1405/release-targets.txt). [Function comparison](validation/part-1405/normalized-functions.txt).
+
+Part 1404 matches the complete wxDC image and the normalized instructions in wxRegion:union/3 and union/4. [Release targets](validation/part-1404/release-targets.txt).
+
+Part 1403 matches the complete wxCalendarCtrl and wxDatePickerCtrl images, including option closures and tuple arguments. [Release targets](validation/part-1403/release-targets.txt).
+
+Part 1402 matches wxListItemAttr and five normalized function sequences involving paired colour conversion. [Release targets](validation/part-1402/release-targets.txt).
+
+Part 1401 matches the complete release images for wxCursor, wxStaticBoxSizer and wxStyledTextCtrl. [Release targets](validation/part-1401/release-targets.txt). [Instructions](validation/part-1401/operands-after.txt).
+
+Part 1400 matches the normalized instructions in diameter_exprecs:fname/2 and four other release functions. The containing modules still differ as complete images. [Function comparison](validation/part-1400/normalized-functions.txt).
+
+Part 1399 matches the dynamic tail calls in four release functions after normalizing labels. The three containing modules still differ as complete images. [Function comparison](validation/part-1399/normalized-functions.txt).
+
+Part 1398 matches hash_xof/3 and pack/4 after normalizing labels. [Release instructions](validation/part-1398/operands-after.txt).
+
+Part 1397 matches the do_share_switch/3 instructions and the do_match_value/5 and validate_bs_get_all/8 frame sizes. The latter two still differ in closure names and identifiers. [Release instructions](validation/part-1397/operands-after.txt).
+
+Part 1396 matches normalized pre_process_oid/1 and reduces do_match_value/5 to two slots. The latter still differs from OTP's one-slot frame and literal capture, which reaches the function through a forwarding parameter. [Release instructions](validation/part-1396/tail-after.txt).
+
+Part 1395 retains live values through ordinary calls into supported case arms. The includes/2 sequence matches OTP after normalizing labels. The compile_proc/3 sequence still differs when a record is constructed between calls. [Release instructions](validation/part-1395/release-case-prefix.txt).
+
+Part 1394 matches the first tuple test in 352 additional functions. Multiple same-arity clauses can still allocate and spill before testing a tuple tag. Mixed tuple and non-tuple prefixes still need ordered dispatch. [Entry instructions](validation/part-1394/tuple-entry-after.txt). [Remaining source groups](validation/part-1394/remaining-tuple-entry-groups.txt).
+
+Part 1393 matches the first list test in 265 additional functions. The ASN.1 examples still differ in list extraction and saved values after the first test. Tuple tests before allocation now have the highest module count. [Entry instructions](validation/part-1393/list-entry-instructions.txt). [Frame groups](validation/part-1393/frame-shapes.txt).
+
+Part 1392 can construct call arguments before replacing a dying stack value with an older call result. A slot still needed by a direct argument load cannot be reused at that point. The general list-entry and call-prefix continuation shapes remain open. [Evidence](validation/part-1392/README.md).
+
+Part 1390 aligns ten call-based case functions after label normalization. [Evidence](validation/part-1390/README.md).
+
+
+Part 1389 aligns asn1ct_pretty_format:complex_list/1 after label normalization. Case arms with additional calls and constructions still prevent the same lowering in asn1ct_imm:enc_pre_cg_1/3. [Evidence](validation/part-1389/asn1-list-branches.txt).
+
+Part 1388 aligns asn1ct_check:make_constr_set_vs_1/1 after label normalization. The singleton and open cons clauses share a list test and extraction. The proper-list proof follows private forwarding parameters and direct comprehension bindings. General case continuations still differ. [Evidence](validation/part-1388/asn1-singleton-cons.txt).
+
+Part 1387 aligns eight list-entry call sequences after label normalization. The planner can extract the tail directly to a saved slot when the first call needs only the head. [Evidence](validation/part-1387/README.md).
+
+
+Part 1386 aligns asn1ct_gen:get_fieldtype/2 after label normalization. The first checked element access proves the tuple shape for smaller indices in the nested case. Multi-shape tuple dispatch in asn1ct_check:range_intersection/2 still differs. [Element case instructions](validation/part-1386/asn1-list-element.txt). [Range intersection instructions](validation/part-1385/next-list-entry.txt).
+
+Part 1385 tracks results that survive intervening ordinary calls in a straight sequence. When a constructed argument consumes X0 and the result must also be saved, the generated code can spill before construction where OTP constructs in another X register first. [Evidence](validation/part-1385/README.md).
+
+Part 1384 aligns the normalized instructions of asn1ct:generated_refed_func/1. asn1ct:compile_proc/3 still needs frame reuse when a constructed state and a case selector follow the initial call. [Evidence](validation/part-1384/asn1ct-call-frames.txt).
+
+Part 1383 aligns ssh_tcpip_forward_acceptor_sup.beam and eight more normalized functions across the corpus. prim_net:debug/1 reaches the OTP stack size, with instruction differences remaining. The map scheduler covers one terminal dynamic map with unique constant keys. [Evidence](validation/part-1383/README.md).
+
+Part 1382 aligns httpc_handler_sup.beam and ssh_lsocket_sup.beam. [Evidence](validation/part-1382/README.md).
+
+Part 1381 aligns component_index1/4 and 15 other normalized functions. check_enum_number_root/4 tests the list before allocation and still has a wider frame in its gb_sets call branch. [Evidence](validation/part-1381/README.md).
+
+Part 1380 aligns tag_nums_root2/3 with OTP and makes component_index1/4 frame-free. The latter still extracts a tested tuple field into X5 where OTP reuses X4. [Evidence](validation/part-1380/README.md).
+
+Part 1379 aligns do_enc_OCTET_STRING/5 in six Megaco modules after label normalization. The arithmetic tail of leading_attr_index1/5 is frame-free. Its matching branch still saves five slots where OTP saves three. [Evidence](validation/part-1379/README.md).
+
+Part 1378 moves case comparisons before branch frames. leading_attr_index1/5 uses five slots at peak where OTP uses three. Six Megaco images still duplicate a six-slot frame across arms that should prepare arithmetic in registers. [Evidence](validation/part-1378/README.md).
+
+Part 1377 checks list shape before allocation in asn1ct_check:leading_attr_index1/5. The empty path returns without a frame. The nonempty path retains twelve slots where OTP uses three and still schedules the record selector after allocation. [Evidence](validation/part-1377/README.md).
+
+Part 1376 aligns normalized instructions in asn1ct:common_imports/2, et_wx_contents_viewer:menuitem/4 and proc_lib:get_messages/1. cth_conn_log:init/2 has the OTP frame size and still needs its trim before the final call. [Evidence](validation/part-1376/README.md).
+
+Part 1375 aligns normalized instructions for 24 functions, including enc_obj_id_tail/2 in 23 generated modules. Whole-image differences remain in all 24 modules. [Evidence](validation/part-1375/README.md).
+
+Part 1374 checks both lists before allocating three slots in CryptographicMessageSyntaxAlgorithms-2009:check_oid/3. OTP also allocates three slots and still differs in second-list extraction, typed operands, boolean branch layout and exception calls. [Evidence](validation/part-1374/README.md).
+
+Part 1373 moves literal checks before frame allocation in AttributeCertificateVersion1-2009:is_default_1/1 and mk_object_val/3. The try branch in is_default_1/1 uses seven slots where OTP uses one. The frame comparison recovers 45 of the 47 regressions measured in part 1372. [Evidence](validation/part-1373/README.md).
+
+Part 1372 moved the nonempty-list test before the frame in the AttributeCertificateVersion1-2009 release example. That branch uses ten stack slots and OTP uses four. [Evidence](validation/part-1372/README.md).
+
+Part 1371 aligns the normalized instructions of AlgorithmInformation-2009:decode_disp/2 and encode_disp/2. [Evidence](validation/part-1371/README.md).
+
+Part 1370 aligns the normalized instructions of seven release functions, including file:make_link/2, make_symlink/2, rename/2 and write_file/2. [Evidence](validation/part-1370/README.md).
+
+Part 1369 aligns ct_netconfc:connect/2 and dialyzer_dataflow:format_cerl/1 after instruction normalization. The Code size gap widened by 12 bytes in ex_sizers. [Evidence](validation/part-1369/README.md).
+
+Part 1368 reached the one-slot frame in dialyzer_dataflow:format_cerl/1 and identified two remaining constructor register differences. [Evidence](validation/part-1368/README.md).
+
+Part 1367 reaches the OTP peak frame size in 99 functions. The release corpus still has 997 different images. The ex_sizers Code size gap grew by ten bytes even as handle_info/2 moved from four to three frame slots. OTP uses one. [Evidence](validation/part-1367/README.md).
+
+Part 1366 aligns disk_log_1:truncate_at_close2/3 after label normalization. The complete disk_log_1 image still differs. The chunk audit finds Code differences in all 997 differing images. [Evidence](validation/part-1366/README.md).
+
+Part 1365 aligns ttb:write_binary/2 after label normalization. release_handler:prepare_restart_new_emulator/7 uses the release frame size and delays projection. Its first X0 load and final argument move order still differ. [Evidence](validation/part-1365/README.md).
+
+Part 1364 forwards payloads through ordinary call sequences and fuses the tests in longer continuations. [Evidence](validation/part-1364/README.md).
+
+Part 1363 aligns all chunks in wxGLCanvas. dbg_iserver:safe_call/1 and safe_cast/1 match normalized instructions. The containing image still differs. [Evidence](validation/part-1363/README.md).
+
+Part 1362 aligns all chunks in wxPrintDialog, wxProgressDialog and wxSystemOptions. [Evidence](validation/part-1362/README.md).
+
+Part 1361 aligns xmerl_xsd:keysearch_delete/4 after label normalization. Every differing image in that run has a Code payload difference. All 999 differing export tables still name the same exports. All 974 differing Attr payloads decode to identical attributes after removing vsn. [Evidence](validation/part-1361/README.md).
+
+Part 1360 reduces the expanded_name/3 frame from eight slots to two. Its entry record check remains until the caller's record shape can be proven. In 989 release images, two or more BEAM sections still differ in size. [Evidence](validation/part-1360/README.md).
+
+Part 1359 aligns seven more normalized functions. keysearch_delete/4 still retains two arguments specialized by OTP, and the generated expanded_name/3 is unchanged in that part. [Evidence](validation/part-1359/README.md).
+
+Part 1358 aligns decode_pem_file/1 and three more functions after instruction normalization. Nested case patterns and delayed field extraction still differ. [Evidence](validation/part-1358/README.md).
+
+Part 1357 aligns encoding/1, all_or_nothing/0 and 57 more functions after instruction normalization. Their complete release images still differ. [Evidence](validation/part-1357/README.md).
+
+Part 1356 aligns ceiling/2 and floor/2 in xmerl_xpath_pred after label normalization. The complete module still differs. [Evidence](validation/part-1356/README.md).
+
+Part 1355 aligns check_NMTOKENS/1 and seven other functions after label and closure ID normalization. The full release comparison still differs in 1,001 images. [Evidence](validation/part-1355/README.md).
+
+Part 1354 aligns the peak frame sizes of four functions with OTP. Differences elsewhere in the instructions still prevent full function and module matches. [Evidence](validation/part-1354/README.md).
+
+Part 1353 brings 140 functions into normalized instruction agreement. The Code size gap widened by one or two bytes each in beam_types, ssl_handshake and erl_expand_records. Across 989 differing images, at least two section lengths still differ. [Evidence](validation/part-1353/README.md).
+
+Part 1352 aligns the boolean case, tail arguments and frame layout in xmerl_scan:update_attributes1/2. Eleven functions gained normalized instruction matches. The complete xmerl_scan image still differs. [Evidence](validation/part-1352/README.md).
+
+Part 1351 restores normalized matches for the eight lifted functions in dbg_ieval and erl_eval. The Code size gaps in those modules grew by six and nine bytes. Seven functions reduce their peak frame size through branch-local case planning. [Evidence](validation/part-1351/README.md).
+
+Part 1350 emits complex branch bodies after shared list and tuple checks. The focused complex branches still allocate more slots than OTP. The Code size gap widened in 21 modules. [Evidence](validation/part-1350/README.md).
+
+Part 1349 aligns failure targets, field reads and stack slots in xmerl_lib:simplify_attributes/1. The full xmerl_lib image still differs. [Evidence](validation/part-1349/README.md).
+
+Part 1348 shares tuple arity dispatch across list-head clauses. Both parse_pcdata functions match normalized OTP instructions. [Evidence](validation/part-1348/README.md).
+
+Part 1347 moves literal list head dispatch before the frame in check_date/1 and other function entries. The remaining check_date/1 body still differs. The Code size gap in diameter_make grew by two bytes. [Evidence](validation/part-1347/README.md).
+
+Part 1346 keeps the final call result in X0 when building an inline tuple or record for a tail call. asn1_db:init/2 now matches normalized OTP instructions. The Code size gap in diameter_config grew by one byte. [Evidence](validation/part-1346/README.md).
+
+Part 1345 uses a zero-slot tail call for queue-only wx option wrappers. The pattern requires the wx environment check and option mapper. wx_misc still differs from its release image. [Evidence](validation/part-1345/README.md).
+
+Part 1344 schedules ten more conversion BIF signatures through the ordinary call planner. The Code size gap widened in asn1ct_parser2 and erl_lint. [Evidence](validation/part-1344/README.md).
+
+Part 1343 schedules a nested ordinary call chain inside a guarded clause. Multiple sibling calls and further external conversions remain open. [Evidence](validation/part-1343/README.md).
+
+Part 1342 shares list tests across mixed guarded and literal branches. Common tuple shape checks still require planning. [Evidence](validation/part-1342/README.md).
+
+Part 1341 schedules a single call in the head and another in the tail of a cons result. Multiple head calls and mixed clause continuations remain open. [Evidence](validation/part-1341/README.md).
+
+Part 1340 checks repeated variables across list patterns and other arguments. [Evidence](validation/part-1340/README.md).
+
+Part 1339 checks nested cons entries and repeated tuple bindings in registers. Shared tagged tuple checks and inner arity dispatch still differ from OTP in bs_seq_match_fixup/1. [Evidence](validation/part-1339/README.md).
+
+Part 1338 keeps a cons head or tuple fields live across the tail expression's call. [Evidence](validation/part-1338/README.md).
+
+Part 1337 matches the full error_handler release image. The registered-process emitter covers the two-append branch shape. Singleton literal prefixes still need the OTP cons optimization for byte parity. [Evidence](validation/part-1337/README.md).
+
+Part 1256 keeps simple guarded list clauses in registers until a result requires a frame. Repeated list extraction and redundant shape checks still differ from the release. [Evidence](validation/part-1256/README.md).
+
+Part 1255 emits local tails in guarded atom cases with fresh branch bindings. Frame placement and live register counts still differ in the ASN.1 enumeration functions. [Evidence](validation/part-1255/README.md).
+
+Part 1254 supports computed local tail arguments and merges identical simple tail blocks. [Evidence](validation/part-1254/README.md).
+
+Part 1253 emits direct local tails with simple operands in terminal atom cases. [Evidence](validation/part-1253/README.md).
+
+Part 1252 folds a terminal identity case into a local tail call. [Evidence](validation/part-1252/README.md).
+
+Part 1251 restores the outer atom case failure location in asn1ct:check/2. Branch-local register lifetimes still differ. [Evidence](validation/part-1251/README.md).
+
+Part 1250 dispatches prepared atom selectors in X0 and preserves the unmatched value in case_clause errors. [Evidence](validation/part-1250/README.md).
+
+Part 1249 matches the snmpa_error caller by inferring the local selector's return shape and keeping the dynamic apply target in an X register. Other entry-frame liveness differences remain. [Evidence](validation/part-1249/README.md).
+
+Part 1231 emits an immediate timeout for eligible receive expressions when direct private callers prove a single value. [Evidence](validation/part-1231/README.md).
+
+Part 1195 records verified header paths in Common Test, Debugger, SSL and SSH release metadata. [Evidence](validation/part-1195/README.md).
+
+Part 1194 defers record field extraction until the fields are needed and records the Windows release header paths. [Evidence](validation/part-1194/README.md).
+
+Part 1193 folds constant bindings into register tuple returns. [Evidence](validation/part-1193/README.md).
+
+Part 1191 retains tagged tuple selectors in X0 when the wildcard fallback discards the selector. [Evidence](validation/part-1191/README.md).
+
+Part 1190 omits the selector save before select_val when scalar literal branches end in a wildcard. [Evidence](validation/part-1190/README.md).
+
+Part 1189 omits the temporary Y slot for case selectors tested against a literal with a wildcard fallback. [Evidence](validation/part-1189/README.md).
+
+Part 1188 forwards fallback call results directly to terminal call operands when the forwarded-call planner accepts them. [Evidence](validation/part-1188/README.md).
+
+Part 1187 tests the call result in X0 for a literal case with a wildcard fallback. [Evidence](validation/part-1187/README.md).
+
+Part 1186 retains a call result in X0 for tuple returns after a fully emitted entry guard. [Evidence](validation/part-1186/README.md).
+
+Part 1185 omits first-call-only inputs after a fully consumed entry guard. [Evidence](validation/part-1185/README.md).
+
+Part 1184 performs clause tests before allocating frames for supported call-result tuples. [Evidence](validation/part-1184/README.md).
+
+Part 1183 skips stack copies for arguments unused by every clause when the final clause is unconditional. [Evidence](validation/part-1183/README.md).
+
+Part 1182 shares shape and literal checks before allocating a frame for the selected tuple clause. [Evidence](validation/part-1182/README.md).
+
+Part 1181 executes tuple type guards before allocating a stack frame and retains original arguments on failure. [Evidence](validation/part-1181/README.md).
+
+Part 1180 keeps original X arguments available to an unconditional fallback before stack allocation. [Evidence](validation/part-1180/README.md).
+
+Part 1179 checks nested tuple patterns in X registers and allocates the stack on the success path. [Evidence](validation/part-1179/README.md).
+
+Part 1178 allocates framed tuple clauses before extracting referenced fields directly into Y registers. [Evidence](validation/part-1178/README.md).
+
+Part 1177 tests flat tuple patterns before allocating the stack and omits Y slots for unused bindings. [Evidence](validation/part-1177/README.md).
+
+Part 1176 checks common tuple literals before allocating a frame and preserves the arguments on the failure path. [Evidence](validation/part-1176/README.md).
+
+Part 1175 reuses an X register for tuple literal comparisons during entry matching. [Evidence](validation/part-1175/README.md).
+
+Part 1173 shares the integer guard prefix of scalar and two-element tuple wx command overloads. [Evidence](validation/part-1173/README.md).
+
+Part 1172 shares the framed return across nonconsecutive wx class checks. Thirteen images remain in the smallest difference group of five chunks. [Evidence](validation/part-1172/README.md).
+
+Part 1080 avoids initialization for directly written entry slots. The general path still saves parameters and bindings that OTP can retain in X registers. [Evidence](validation/part-1080/README.md).
+
+Part 1079 avoids temporary slots for literal list heads. The general path still tests these literals after allocation. [Evidence](validation/part-1079/README.md).
+
+Part 1078 keeps intermediate tails out of the frame for simple entry patterns. Literal heads and nested patterns can still use temporary Y slots. [Evidence](validation/part-1078/README.md).
+
+Part 1077 removes wildcard field reads from general list patterns. Intermediate tails still occupy frame slots. [Evidence](validation/part-1077/README.md).
+
+Part 1076 skips fields ignored by all shared cons patterns. Values required by a pattern still occupy Y slots. [Evidence](validation/part-1076/README.md).
+
+Part 1075 shares early cons extraction but still saves both fields in the frame for subsequent pattern checks. [Evidence](validation/part-1075/README.md).
+
+Part 1074 checks simple tuple heads before allocation. It still reserves both cons fields and copies surviving bindings to Y registers. [Evidence](validation/part-1074/README.md).
+
+Part 1073 selects get_hd or get_tl when only one list field is read. Simple branches can still allocate a zero-slot frame where OTP uses no frame. [Evidence](validation/part-1073/README.md).
+
+Part 1072 extracts simple cons fields before allocation. Wildcard fields are still extracted and named fields still spill into the body frame. [Evidence](validation/part-1072/README.md).
+
+Part 1071 delays allocation past the entry list test. The generated cons branch still extracts fields in the frame. [Evidence](validation/part-1071/README.md).
+
+Part 1070 moves defaulting list cases ahead of frame allocation. The generated dbstart still saves three values where OTP uses no Y slots. [Evidence](validation/part-1070/README.md).
+
+Part 1069 eliminates the frame for simple tuple field tail calls. OTP uses lower scratch registers and can extract directly to argument registers. [Evidence](validation/part-1069/README.md).
+
+Part 1068 shrinks tuple branch frames from measured slot peaks. OTP still avoids more spills through cross-call liveness. [Evidence](validation/part-1068/README.md).
+
+Part 1067 tests and extracts simple tuple fields in X registers. OTP still uses smaller frames and can preserve the original tuple across a call. [Evidence](validation/part-1067/README.md).
+
+Part 1066 moves tuple arity selection before frame allocation. Each branch still allocates a shared maximum frame and extracts tuple fields in Y registers. [Evidence](validation/part-1066/README.md).
+
+Part 1065 shares is_tuple across differing arities. The generated code still tests each arity inside the frame while OTP selects arity up front. [Evidence](validation/part-1065/README.md).
+
+Part 1064 hoists tuple checks shared by all clauses. The general emitter still extracts fields and dispatches on tags inside individual clauses. [Evidence](validation/part-1064/README.md).
+
+Part 1063 removes the frame from simple tail calls with supported nonallocating BIFs. Multi-clause bodies still often allocate before entry shape tests. [Evidence](validation/part-1063/README.md).
+
+Part 1062 removes stack frames from simple BIF tuple returns. OTP additionally reuses identical dictionary lookups in the probe. [Evidence](validation/part-1062/README.md).
+
+Part 1061 eliminates the Y spill of a sole computed tuple member. Entry arguments still occupy Y slots in the general path. [Evidence](validation/part-1061/README.md).
+
+Part 1060 eliminates the Y spill of a sole computed call argument. The probe still allocates slots for incoming parameters and the computed member of the return tuple. [Evidence](validation/part-1060/README.md).
+
+Part 1059 omits unused general-emitter parameters from the frame. Used parameters and expression temporaries may still be stored in Y registers even when they never cross a call. [Evidence](validation/part-1059/README.md).
+
+Part 1058 aligns get/1 and self/0 opcodes in asn1_db:req/1. Register allocation and receive markers still differ. [Evidence](validation/part-1058/README.md).
+
+Part 1057 aligns register-based supervisor dispatch in two Diameter modules. The identity branch in the synthetic probe retains a redundant move. [Evidence](validation/part-1057/README.md).
+
+Part 1015 aligns Dbgi for 31 of the 33 wx examples. Demo_html_tagger and ex_gl retain incomplete abstract code. [Evidence](validation/part-1015/README.md).
+
+Part 1012 aligns compile metadata for xmerl, observer, dialyzer, mnesia and debugger. Code differences remain in those applications. [Evidence](validation/part-1012/README.md).
+
+Part 1011 aligns the Diameter compile metadata. Forty-one Diameter images still differ in Code and Attr. [Evidence](validation/part-1011/README.md).
+
+Part 991 aligns wx create overloads with tuple field guards. Integer and text dispatch and multiple conversions still differ. [Evidence](validation/part-991/README.md).
+
+Part 968 preserves binary receive match results and mailbox ordering. Inet_gethost_native retains release byte differences. [Evidence](validation/part-968/README.md).
+
+Part 967 aligns the tested equiv formatting. Global and string retain release byte differences. [Evidence](validation/part-967/README.md).
+
+Part 966 preserves list generator scope during inlining. The fixture and gen_udp_socket retain byte differences. [Evidence](validation/part-966/README.md).
+
+Part 965 verifies scoped closure inlining behavior. The probe and newly generated release images still differ. [Evidence](validation/part-965/README.md).
+
+Part 964 aligns comprehension filter behavior. The fixture and newly generated images retain byte differences. [Evidence](validation/part-964/README.md).
+
+Part 963 matches the fixture extraction and failure results. The emitted instructions still differ. [Evidence](validation/part-963/README.md).
+
+Part 962 preserves nested branch bindings and the result value. The fixture and new images retain byte differences. [Evidence](validation/part-962/README.md).
+
+Part 961 adds GC-aware rounding guard emission. The fixture and qlc_pt retain byte differences. [Evidence](validation/part-961/README.md).
+
+Part 960 verifies guard BIF behavior. The fixture and newly generated images retain byte differences. [Evidence](validation/part-960/README.md).
+
+Part 959 verifies receive guard behavior. The fixture and newly generated release images still differ in bytecode. [Evidence](validation/part-959/README.md).
+
+Part 958 matches the OTP external fun literal for direct auto-imported references. The five newly generated release images still differ. [Evidence](validation/part-958/README.md).
+
+Part 957 aligns nested guard grouping. Snmp_config retains Code and Dbgi differences. [Evidence](validation/part-957/README.md).
+
+Part 956 aligns grouped operand debug forms. The new eunit images retain instruction differences. [Evidence](validation/part-956/README.md).
+
+Part 955 aligns sigil debug annotations. The generated beam_asm image retains instruction and debug chunk differences. [Evidence](validation/part-955/README.md).
+
+Part 954 aligns comprehension debug forms. The two new dialyzer images retain instruction and metadata differences. [Evidence](validation/part-954/README.md).
+
+Part 953 aligns map update and catch coordinates in debug forms. The release typer image still differs in its code and other chunks. [Evidence](validation/part-953/README.md).
+
+Part 952 emits live branch bindings for match operands. The fixture still differs from OTP in its instructions and metadata. [Evidence](validation/part-952/README.md).
+
+Part 951 uses shared frame slots for live conditional and receive bindings. The fixture still differs in instructions and metadata. [Evidence](validation/part-951/README.md).
+
+Part 950 emits the nil-pattern body through the general emitter. OTP folds the entire probe result to a literal. [Evidence](validation/part-950/README.md).
+
+Part 949 carries live case bindings in frame slots. The OTP probe instead shares tuple tests and uses X-register moves. [Evidence](validation/part-949/README.md).
+
+Part 948 accepts warning and verbosity switches for emission. OTP warning output is outside the implemented behavior. [Evidence](validation/part-948/README.md).
+
+Part 947 estimates automatic inlining cost in the source tree. OTP measures cost during Core transformation. [Evidence](validation/part-947/README.md).
+
+Part 946 preserves maybe_expr keyword and Meta behavior. Other feature names remain unsupported. [Evidence](validation/part-946/README.md).
+
+Part 945 handles the sigils at the source gate. The shell_docs_markdown and zip modules now reach separate emission gaps. [Evidence](validation/part-945/README.md).
+
+Part 944 emits explicit on_load markers in BEAM. Legacy implicit load_nif marking remains open. [Evidence](validation/part-944/README.md).
+
+Part 943 generates Diameter record accessors. The generated instruction layout and abstract debug forms remain open. [Evidence](validation/part-943/README.md).
+
+Part 942 supports the observed ETS match specification subset. The probe still differs in Code, ExpT, LitT and Attr. [Evidence](validation/part-942/README.md).
+
+Part 941 records relative file documentation locations. The erlang module still requires an additional Markdown input. [Evidence](validation/part-941/README.md).
+
+After supplying release macro inputs, five modules reach debug-form gaps and two reach the ms_transform source gate. [Evidence](validation/part-940/README.md).
+
+Direct extraction guard comparisons match the pinned probe. General guard layouts still differ and socket reaches a separate cancel/2 blocker. [Evidence](validation/part-939/README.md).
+
+Part 938 lowers more inline templates. The deterministic probe retains differences in Code, ExpT, Attr and Type. [Evidence](validation/part-938/README.md).
+
+Explicit NIF declarations emit entry markers. The local stub call probe still differs, and legacy implicit load_nif marking is outside the change. [Evidence](validation/part-937/README.md).
+
+Part 936 covers the equiv forms observed at the release metadata gate. General erl_pp line wrapping and arbitrary fun clauses remain outside this formatter. [Evidence](validation/part-936/README.md).
+
+Part 935 extends selective receive guards. The probe still differs in instruction layout, and the supervisor guard remains unsupported. [Evidence](validation/part-935/README.md).
+
+Part 934 emits zipped list loops inside their functions. OTP uses recursive comprehension helpers. Mixed source kinds remain unsupported. [Evidence](validation/part-934/README.md).
+
+Part 933 uses OTP predicate opcodes. The deterministic predicate probe retains differences in Code, ExpT and Attr. [Evidence](validation/part-933/README.md).
+
+Direct xor-family operations match OTP instruction encoding. The general guard emitter can still differ in register layout and boolean normalization. [Evidence](validation/part-932/README.md).
+
+After restoring shared ASN.1 metadata, 28 public_key ASN.1 images still differ. Remaining differences include instructions, tables and line encoding. [Evidence](validation/part-931/README.md).
+
+Part 930 exposes the r26 compile-option gate in test_server_node and four emitter gaps after resolving includes. [Evidence](validation/part-930/README.md).
+
+Restored public_key input headers expose code and metadata differences in the resulting BEAM. Twelve sources still first fail on include lookup. [Evidence](validation/part-929/README.md).
+
+Complex fold callbacks retain lists:foldl/3. The general emitter still differs in caller frame and tail-call layout. [Evidence](validation/part-928/README.md).
+
+Guarded inline dispatch now emits failure helpers. Full stack, tail placement and remaining template patterns remain open. [Evidence](validation/part-927/README.md).
+
+Computed receive guard operands now preserve live scratch registers. Computed semicolon alternatives and further receive operations remain open. [Evidence](validation/part-926/README.md).
+
+Selective receive now emits literal-key map patterns and supported pure type guard alternatives. Other guard forms and catch-all validation remain open. [Evidence](validation/part-925/README.md).
+
+Docs now records file and location for included forms. Release include paths can still require a recorded profile mapping. [Evidence](validation/part-924/README.md).
+
+Targeted inline record construction and update now preserve field substitution. Included Docs forms and other inline templates remain separate. [Evidence](validation/part-923/README.md).
+
+Targeted inline sites now evaluate computed arguments once and keep referenced definitions. Remaining template, multi-clause and optimizer layout differences still affect release parity. [Evidence](validation/part-922/README.md).
+
+Fixed-width binary generators now emit BEAM. Lifted helper layout, dynamic segment widths and zip generators remain open. [Evidence](validation/part-921/README.md).
+
+Binary comprehensions with list or map generators now emit a writable accumulator. Lifted iteration, binary generator patterns and zip generators remain open. [Evidence](validation/part-920/README.md).
+
+Named recursive funs now emit local self calls and can return the self value. General register placement and lifted body layout still differ from the release. [Evidence](validation/part-919/README.md).
+
+The generic guard path now emits abs, bit_size, trunc and map_get. The affected release images still differ in instruction or metadata layout. [Evidence](validation/part-918/README.md).
+
+Maybe expressions and map_size guards now emit BEAM in the general path. OTP failure-helper placement and register allocation remain separate release alignment work. [Evidence](validation/part-917/README.md).
+
+Map comprehensions with supported qualifiers now emit BEAM. Lifted comprehension helpers, the from_keys optimization and remaining generator forms still affect release alignment. [Evidence](validation/part-916/README.md).
+
+Bitstring, reference and map key guards now emit BEAM in the general path. Twenty formerly unsupported modules produce images that still differ from the release. [Evidence](validation/part-915/README.md).
+
+wx option mapping followed by a reply and object Unicode conversion followed by a reply now match the pinned reference for the covered forms. Nested wx record options and other mixed overloads remain open. [Evidence](validation/part-914/README.md).
+
+Record-guarded wx option forwarding and object commands with one receiver and an option list match the pinned images. Options with additional live arguments or a following receive remain open. [Evidence](validation/part-913/README.md).
+
+Docs keeps types reachable from callbacks and release include paths. Six metadata-only candidates still differ in Dbgi. [Evidence](validation/part-894/README.md).
+
+Direct fixed-width bit extraction matches the OTP fixture. General fixed-bit register layout and dynamic field widths remain open. [Evidence](validation/part-893/README.md).
+
+Header type Docs preserve the OTP file and location entry annotation and plain source_anno metadata. [Evidence](validation/part-892/README.md).
+
+A direct map field pattern matches the OTP fixture. General list qualifiers use loop accumulation and reversal and differ from OTP generated helper layout. [Evidence](validation/part-891/README.md).
+
+Direct callback metadata and callback Docs match the selected deterministic fixtures. More complex behaviour helper ordering remains open. [Evidence](validation/part-890/README.md).
+
+The general fallback keeps successful specialized lowering. General call and construction layouts may still differ from OTP. [Evidence](validation/part-889/README.md).
+
+Direct node, port, float and byte size guards match the deterministic OTP fixture. Compound register allocation remains different. [Evidence](validation/part-888/README.md).
+
+A direct zero-argument try after matches the selected OTP fixture. General cleanup code still differs in frame layout and line information. [Evidence](validation/part-887/README.md).
+
+Direct division and list operator forms use OTP opcode families. General register allocation and operand typing remain open. [Evidence](validation/part-886/README.md).
+
+Direct head, number and map guards match the deterministic OTP fixture. The compound layout still differs. [Evidence](validation/part-885/README.md).
+
+Direct bit construction matches the selected OTP fixture. Nested register allocation and constant segment coalescing still differ. [Evidence](validation/part-884/README.md).
+
+Direct length and function guards match the deterministic OTP fixture. Compound guards still differ in register allocation and type operands. [Evidence](validation/part-883/README.md).
+
+General maps evaluate the base, keys and values before applying updates. Mixed update instruction and register layouts still differ from OTP. [Evidence](validation/part-882/README.md).
+
+Direct element guards, boolean negation and multiplication match the selected OTP fixture. Compound guard and arithmetic layouts still differ. [Evidence](validation/part-881/README.md).
+
+Direct PID and tuple arity guards match the OTP fixture. General tuple size comparisons still differ in register allocation and type operands. [Evidence](validation/part-880/README.md).
+
+Guarded record access rejects the current guard on an invalid tuple tag or arity. Ordinary record access still raises badrecord. [Evidence](validation/part-879/README.md).
+
+Direct function-value calls match the selected OTP layouts. Computed function-value calls preserve evaluation order, with register allocation and typed call selection still differing. [Evidence](validation/part-878/README.md).
+
+General selective receive uses scratch registers during matching and spills selected bindings after message removal. Receive code layout still differs from OTP. [Evidence](validation/part-877/README.md).
+
+Local function references use zero-capture fun entries, including within lifted closure bodies. The selected deterministic forms match OTP. [Evidence](validation/part-876/README.md).
+
+Binary subtraction and unary minus use the managed BEAM arithmetic BIFs and preserve guard failure. The selected deterministic forms match OTP. [Evidence](validation/part-875/README.md).
+
+Numeric comparisons use the BEAM comparison tests or BIFs with an exact test for atom literals. The verified tagged list case and shared xmerl profile reproduce xmerl_sgml. [Evidence](validation/part-874/README.md).
+
+Traditional record predicates lower to tagged tuple checks. Native record predicates and additional guard BIF forms remain separate. [Evidence](validation/part-873/README.md).
+
+Documentation metadata maps merge with text and support since inheritance and selected equiv expressions. Full OTP pretty-printing and callback metadata remain partial. [Evidence](validation/part-872/README.md).
+
+Imported source calls resolve to external modules while their unqualified syntax and import declarations remain in the abstract debug forms. [Evidence](validation/part-871/README.md).
+
+General catch expressions use BEAM catch and catch_end with an isolated binding scope. Direct call and tuple-result fixtures match OTP. [Evidence](validation/part-870/README.md).
+
+General list append emits the Erlang BIF, with cons construction for known proper prefixes. The selected deterministic append shapes match OTP. [Evidence](validation/part-869/README.md).
+
+General anonymous closures support captured values and nested lifted functions. Closure register allocation, label placement and full release parity remain partial. [Evidence](validation/part-868/README.md).
+
+Traditional record construction emits tagged tuples with defaults and wildcard values. The additional generated wx modules still have instruction and related chunk differences. [Evidence](validation/part-867/README.md).
+
+Dynamic remote calls in the general emitter preserve operand evaluation order and use BEAM apply instructions. Release register allocation and the remaining expression families require separate parity verification. [Evidence](validation/part-866/README.md).
+
+The five generated wx modules in Part865 match their Windows release images. Shared source profiles for other wx modules remain outside this verification. [Evidence](validation/part-865/README.md).
+
+Documentation text supports Unicode character lists and UTF-8 binaries, OTP edge whitespace trimming and leading signatures. Documentation metadata maps and the remaining source annotation cases are partial. [Evidence](validation/part-864/README.md).
+
+Typed documentation emits exported and reachable private type entries before function entries. Header file annotations and full OTP documentation metadata remain partial. [Evidence](validation/part-863/README.md).
+
+Quoted strings and atoms share the character literal decoder for hexadecimal, octal and control escapes. [Evidence](validation/part-862/README.md).
+
+Function context macros in bodies and guards use the expanded function head to determine the name and arity. Calls to these macros before the closing parenthesis of the first head remain outside this change. [Evidence](validation/part-861/README.md).
+
+The output dispatch fixture matches OTP 29.1.1, including record guard failure and term ordering. The full inet_epmd_socket image remains unsupported at output_handler_wait/6. [Evidence](validation/part-860/README.md).
+
+The complete Windows OTP 29.1.1 dtls_socket image matches byte for byte. The pinned OTP probe covers listener reuse, address-in-use and forwarded error paths. [Full image comparison](validation/part-841/README.md).
+
+The complete Windows OTP 29.1.1 dtls_v1 image matches. The pinned OTP probe covers cipher suite filters, DTLS and TLS version mappings, cookie settings and HMAC output. [DTLS comparison](validation/part-828/README.md).
+
+The complete Windows OTP 29.1.1 ssl_client_session_cache_db image matches. The pinned OTP probe covers the ETS cache lifecycle and exception fallbacks. [Cache comparison](validation/part-827/README.md).
+
+The complete Windows OTP 29.1.1 ssl_dist_sup image matches. The pinned OTP behavior probe covers startup with and without configuration and seven configuration error cases with stack comparison. [Distribution supervisor comparison](validation/part-826/README.md).
+
+The complete Windows OTP 29.1.1 ssl_upgrade_server_session_cache_sup image matches. The pinned OTP behavior probe covers cache creation, cache reuse, the already_started response and case errors. [Cache upgrade supervisor comparison](validation/part-825/README.md).
+
+The complete Windows OTP 29.1.1 tls_dyn_connection_sup image matches. The pinned OTP behavior probe covers the child specifications, receiver options message and malformed input errors. [Dynamic supervisor comparison](validation/part-824/README.md).
+
+The Windows OTP 29.1.1 cdv_sched_cb, cdv_mod_cb, cdv_ets_cb, cdv_port_cb and cdv_dist_cb release images match the C# output byte for byte. Runtime behavior and other release profiles have separate validation. [Scheduler evidence](validation/part-786/README.md), [module evidence](validation/part-785/README.md), [ETS evidence](validation/part-784/README.md), [port evidence](validation/part-783/README.md) and [distribution evidence](validation/part-782/README.md).
+
+The Windows OTP 29.1.1 cdv_proc_cb release image also matches the C# output byte for byte. [Process details evidence](validation/part-787/README.md).
+
+The recursive binary digit formatter and protected formatting closures match deterministic OTP fixtures. The complete Windows OTP 29.1.1 cdv_bin_cb image also matches byte for byte. [Binary formatting evidence](validation/part-788/README.md), [closure evidence](validation/part-789/README.md) and [release comparison](validation/part-790/README.md).
+
+The Windows OTP 29.1.1 cdv_int_tab_cb release image matches the C# output byte for byte. [Internal table evidence](validation/part-791/README.md).
+
+Recursive term expansion and protected term formatting match isolated OTP fixtures. The complete Windows OTP 29.1.1 cdv_term_cb image also matches byte for byte. [Expansion evidence](validation/part-796/README.md), [closure evidence](validation/part-797/README.md) and [release comparison](validation/part-798/README.md).
+
+The dynamic detail reply, progress pulse, window setup, tab setup, tagged argument errors and the constant menu list match isolated OTP fixtures. The complete Windows OTP 29.1.1 cdv_detail_wx image matches the release byte for byte, including Dbgi. [Dynamic reply evidence](validation/part-799/README.md), [window evidence](validation/part-800/README.md), [tab evidence](validation/part-801/README.md), [error tuple evidence](validation/part-802/README.md) and [menu and full image evidence](validation/part-803/README.md). The progress dispatch and tail calls now match OTP in an isolated fixture. [Progress dispatch evidence](validation/part-804/README.md). The page comprehension matches an isolated fixture and the full Line chunk now matches OTP. [Page comprehension evidence](validation/part-805/README.md) and [callback and chunk comparison](validation/part-806/README.md). [Full image evidence](validation/part-807/README.md).
+
+The cdv_html_wx guarded init/1 dispatch matches an isolated OTP fixture. The initialization and record update also match in an isolated fixture. The complete Windows OTP 29.1.1 cdv_html_wx image now matches the release byte for byte. [Guarded dispatch evidence](validation/part-808/README.md) and [record update evidence](validation/part-809/README.md). The delayed page callback also matches an isolated OTP fixture. [Callback evidence](validation/part-810/README.md). The detail-window cast update also matches an isolated OTP fixture. [Cast evidence](validation/part-811/README.md) and [full emission evidence](validation/part-812/README.md). The HTML compile information, compressed debug information and documentation now match. [Metadata evidence](validation/part-813/README.md). The window expansion instructions match after accounting for shifted labels, and the import and type chunks match byte for byte. [Expansion evidence](validation/part-814/README.md) and [whole image comparison](validation/part-815/README.md).
+
+The complete Windows OTP 29.1.1 dtls_connection_sup image also matches byte for byte. [DTLS release comparison](validation/part-816/README.md). The DTLS and SSL session cache supervisor release images also match. [Session cache comparison](validation/part-817/README.md). The DTLS listener supervisor image also matches byte for byte. [Listener comparison](validation/part-818/README.md). The dtls_server_sup and dtls_sup images also match. [Supervisor comparison](validation/part-819/README.md). The SSL and TLS root and server supervisors also match their pinned release images. [SSL and TLS comparison](validation/part-820/README.md). Both SSL connection supervisor images also match. [Connection supervisors](validation/part-821/README.md). The SSL distribution admin supervisor also matches. [Admin supervisor comparison](validation/part-822/README.md). The SSL listener tracker and TLS session ticket supervisors match, including the different dispatch shapes of their private and exported name helpers. [Named supervisor comparison](validation/part-823/README.md).
+
+The captured table comprehension, memory field formatting and column mapping match deterministic OTP fixtures. The complete Windows OTP 29.1.1 cdv_mem_cb image also matches byte for byte. [Captured table evidence](validation/part-792/README.md), [memory field evidence](validation/part-793/README.md), [column mapping evidence](validation/part-794/README.md) and [release comparison](validation/part-795/README.md).
+
+The Windows OTP 29.1.1 client_server release image matches the C# output byte for byte. The remaining corpus still contains input rejection and unsupported emission cases. [Evidence](validation/part-750/README.md).
+
+Part751 admits adjacent string literals and retains their merged debug form. Part752 supports dynamic external fun references. Part753 admits named recursive funs and supports the tested source behavior. Part754 emits simple returned closures, with general closure emission and source stack-frame identity still open. [Evidence](validation/part-754/README.md).
+
+sys Part591 implements all37 non-metadata exports in selectable C# alongside unchanged Erlang/BEAM. Both pass137/137 complete focused observations and52 error cases at depths0/1/2/3/8/32 on identical final binaries. Actual file output, original behaviors and five unchanged upstream cases pass. Full CT capture/distribution/platform/resource/metadata acceptance remains outside this finite evidence. [Selection](sys-backends.md), [receipt](validation/part-591/README.md). Statistics time/reduction samples and ephemeral identities have explicit fixture projections; frames and locations are retained. No whole-module compatibility-ledger promotion follows from API counts.
+
+Part590 error_logger has selectable C# and original Erlang alternatives for all29 exports. Both pass143 complete observations and10 unchanged upstream tests; local function identity uses the actual C# assembly. The non-distributed official emulator-suite failure is retained and excluded from accepted rows. Universal distribution/platform/resource/scheduling/metadata and release-startup equivalence remains unverified. No full regression or readiness refresh. [Scope](error-logger-backends.md), [receipt](validation/error-logger-port-20261105/README.md).
+
+Part589 rpc: all35 explicit exports have C#/original Erlang alternatives. Both pass241 complete API observations,18 protocol/lifecycle/I/O scenarios and13 two-runtime distribution-packet checks. Preserve the block_call EXIT distinction, non-abandoning nb_yield, duplicate-node ordering and upstream C-node error-state quirk. Request IDs are verified as two distinct refs then yielded; only one captured callback code identity and the observer PID inside C-node failure-state data are projected, with module/name/arity/environment/full remaining stacks checked. Full peers/EI/platform/resource/scheduler/metadata/release acceptance remains open. [Receipt](validation/rpc-port-20261105/README.md).
+
+Part588 logger: all77 explicit exports have selectable C# and retained original Erlang/BEAM implementations. Each backend passes155 focused observations, including5 unchanged upstream tests, handler events, source-bound configuration-error diagnostics and full tested error stacks. Shared Logger services remain original Erlang on .NET. Report-map enumeration has unspecified order: only exact format fragments with their matching key/value arguments are compared as associations; ordered reports/stacks/pretty-print bytes are unchanged. PID/group-leader/time projections require provenance checks. Full upstream, distribution/overload/resource/platform/release-startup acceptance and canonical readiness remain open. [Backend contract](logger-backends.md), [receipt](validation/logger-port-20261105/README.md).
+
+io Part587 implements the complete53-export selected interface beside unchanged original Erlang, with one common printable_range primitive. Both backends pass666/666 complete focused observations, including error source frames and7 lifecycle/real callback scenarios plus3 unchanged upstream cases. Fixture-owned PIDs and fresh error references alone are alpha-renamed. The library profile restores actual oracle feature state through native persistent_term; full boot, terminal/filesystem, scheduling/resource/platform and old-peer acceptance remain unverified. No universal100% claim. [Receipt](validation/io-port-20261105/README.md).
+
+Part593 implements the native node/dist reference query behind erts_debug and both erts_internal backends. Actual owner/header/storage census, all-scheduler admission, signal/heap classification and retirement are covered by262/262 observations plus59/59 scenarios per backend,13 physical and43 connected groups. Original Erlang/BEAM and98 exports remain. Full regression/readiness were deliberately not run; broader upstream/distributed/resource/platform acceptance and universal compatibility remain unverified. [Receipt](validation/part-593/README.md).
+
+application Part584: all39 non-module_info exports have a selectable C# implementation and unchanged Erlang/BEAM alternative. Both pass101 exact API outcomes/errors/stacks and19 connected scenarios (five unchanged upstream functions). Concurrent startup compares successful app membership; serial order remains exact. Original controller/master/distribution/gen_server helpers execute on .NET for both alternatives. This finite Windows corpus does not cover all distributed scheduling/node-loss, platform/resources, complete suite, full release boot or metadata. No fallback, live state migration, universal100% claim or canonical readiness promotion. See [backend scope](application-backends.md) and [receipt](validation/part-584/README.md).
+
+Supervisor Part583 implements24 managed exports and preserves the original Erlang/BEAM alternative, including OTP record layouts, four strategies, retries, significant children, parallel shutdown, sys/code change and Logger callbacks. Both backends pass287/287 API observations and105/105 scenarios each, including19 unchanged upstream testcases; no universal100% or canonical-readiness promotion. [Scope and evidence](validation/part-583/README.md).
+
+gen_event Part580 retains a scheduling-sensitive upstream_call failure at gen_event_SUITE.erl:853 (depth3 Managed): wait_response(...,0) can see an already queued reply where the testcase expected timeout. No expected values or stacks are normalized. Primary105/105 per backend passes, while universal scheduling/resource/distribution parity is unproved. [Evidence](validation/part-580/README.md).
+
+Part569 ETS: Both backends pass 355 exact observations, 8 stateful scenarios, 12 terminal/regex scenarios and 75 real filesystem/DETS/corruption scenarios each (450 per backend). Official OTP also reads both exported dumps. Original Erlang is unchanged; 25 C# library exports compose 51 shared primitives. Full upstream/platform/resource/scheduling/metadata/startup-manifest acceptance remains open. No full regression or global readiness refresh ran. Worker table references are alpha-renamed; i/0 projects its fixed header and table presence because boot rows/PIDs/memory differ. All other selected outcomes and full exception stacks are compared. Feature state is restored through real persistent_term; original disk_log/file/DETS helpers run over actual native file/buffer resources. Initial missing-native filesystem failures are retained as history. See [receipt](validation/ets-port-20261104/README.md).
+
+Part579 gen_statem:40 non-metadata exports and the C# engine are opt-in beside unchanged original Erlang. Both implementations match74 complete API observations and311 focused engine scenarios, including256 event/mode combinations, invalid actions/modes/results, complete exception stacks and exactly-one termination after sys detours. Preserve the original helper and native timer/receive contracts; no fallback or live state migration. This is finite Windows acceptance, not100% OTP certification. Full upstream-suite, owned-heap/resource/platform/distribution/global/via, actual structured Logger handler and module-metadata acceptance remain open. Logger primary output is disabled in this fixture; formatting is compared separately. Global regression/readiness are deliberately unrun. See [Part579](validation/part-579/README.md) and [backend scope](gen-statem-backends.md).
+
+Part578: the timer alternative has36 explicit exports and named semantic contracts; the clean main-scoped tree passes the focused original comparisons and upstream tests. Preserve [the exact receipt](validation/part-578/README.md) and universal scheduling/resource/distribution/platform limitations. No whole-module ledger promotion or full regression/readiness refresh.
+
+Part566 gen_event: all 44 non-metadata signatures have a managed alternative and unchanged original Erlang. Both pass 105 complete focused observations and 630 additional depth-profile observations, including optional callback and source-stack cases. The synthetic error prefix respects the configured depth. Preserve the failed parallel zero-timeout upstream-test attempt and the passing serial repeat; scheduler equivalence is unverified. The shared BEAM send instruction now preserves erlang:send/2 error metadata and frames. Full upstream/distribution/resource/platform/metadata acceptance is not certified; canonical readiness remains historical. See [gen_event backends](gen-event-backends.md) and [Part566](validation/part-566/README.md).
+
+File alternative checkpoint (2026-11-04): all69 non-metadata APIs have managed bodies/shared native primitive routing and retained original Erlang. Both backends match408 exact focused observations; five independent full filesystem cycles fail in each because native/provider closure remains incomplete. In particular prim_file:open_nif/2 is unbound and RAM driver execution fails. The module is not 100% compatible. Full effects/source-stack/platform/resource and startup-manifest acceptance remain open. See [file backends](file-backends.md) and [Part568](validation/part-568/README.md). Full regression/readiness were deliberately not run.
+
+Part565 timer: all36 library exports are explicitly selectable as C# or unchanged original Erlang. Focused baseline-bound contracts, authentic upstream tests and backtrace-depth profiles are recorded in [the timer receipt](validation/part-565/README.md). Default timer remains unregistered. Preserve physical scheduling/resource/platform/distribution and module-metadata limits; no universal100% or performance claim follows from finite observations. Full regression and canonical readiness are deliberately unrun. An ordinary current-source build still sees unrelated concurrent DETS draft errors; focused timer build evidence uses a recorded exclusion filter.
+
+Current code port (2026-11-04): all69 exports have managed/original alternatives;156 complete observations and25 lifecycle results match per backend, with17 connected groups passing. Native coverage/debug remain the existing non-BEAMASM profile, distinct from OTP JIT. Full release/docs/gzip/platform/resource acceptance remains open. See [code receipt](validation/code-port-20261104/README.md).
+
+[DETS](dets-backends.md): all64 explicit exports now have selectable C#/original Erlang implementations. Native v9 incremental storage, repair, ownership, callbacks/continuations, bchunk/QLC/ETS and connected raw-file/buffer/RAM primitives are implemented. Focused OTP acceptance and limitations are recorded in [the receipt](validation/dets-port-20261104/README.md); no full regression or canonical readiness refresh.
+
+Current Unicode checkpoint: [Part563](validation/part-563/README.md) implements all22 exports with explicit C# and original Erlang selections. Both match66458 primary observations,490 permanent cases and29 backing probes;19 connected regression groups pass. Normalization uses pinned unicode_util instead of the host Unicode database. Universal resource/platform equivalence and global readiness are not inferred; full regression was deliberately excluded by the user.
+
+Current string audit: [Part562](validation/part-562/README.md) closes reproduced converted-pattern, lazy-prefix, native membership/search and numeric/Jaro traversal gaps across all71 APIs. Each final backend matches37145 complete observations; full regression passes9649/9649. Original Erlang and explicit C# selection remain. The32KiB ten-second monitored Jaro profile is still a measured timing boundary; separately identified direct probes return correct values. Universal platform/resource/metadata equivalence is not asserted.
+
+Current string checkpoint: all71 APIs have explicit managed/original selection, source-aligned errors/stacks, binary backing and depth-profile comparisons. The [Part561 evidence](validation/part-561/README.md) passes8522 cases in each backend and bounds C# UTF-8 lookahead instead of copying whole tails. See [string backends](string-backends.md) and retained Part560 failures. Default registration remains1 native primitive; selectable surfaces are71. Finite comparisons do not establish every resource policy or platform.
+
 Current ordsets checkpoint: repaired missing native reverse helper frames in managed `lists:umerge/1`, observable through `ordsets:union/1` on malformed nested lists. Exact corpus evidence and remaining universal acceptance gates are in [ordsets compatibility](ORDSETS_COMPATIBILITY.md). No whole-module promotion.
 
 Current math checkpoint: no differences observed in the Windows OTP29.1.1 corpus for either backend. Other operating systems and complete floating-point equivalence remain unverified;26/26 exports is not100% compatibility. See [math backends](math-backends.md).
@@ -933,3 +1603,12 @@ Close the observed nil/atom/literal context-forwarding and finite record-helper 
 ## Part482 — observed frame refusal closed
 
 The observed safe comparison before an uninitialized Y destination no longer produces a false exception/root edge. All eight canonical comparison BIFs share the already implemented operator semantics. Five invalid operand/destination/root cases remain refused and agree with original compiler diagnostics. No previously observed frame refusal remains in the1321-image inventory;receive/native capture failures may conceal further paths. Full APIs,physical/native/application/performance compatibility are not promoted.
+
+## erpc alternative — 2026-11-05
+
+All33 explicit OTP29.1.1 exports have a selectable C# implementation and retained original Erlang/BEAM. Calls, casts, request collections, multicast/multicall, source-stack trimming and timeout abandonment share the existing runtime/distribution machinery. Both implementations match330 focused observations, including3 unchanged upstream tests;8 connected RPC/spawn/monitor checks pass. This is finite Windows evidence, not universal100% acceptance. Full regression and canonical readiness are deliberately unrun. See [backend selection](erpc-backends.md) and [immutable receipts](validation/erpc-port-20261105/README.md).
+
+
+## gen_server selectable alternative — 2026-11-05
+
+All42 non-module_info exports now have a manual C# alternative beside unchanged original Erlang. Each passes107 full API observations and70 lifecycle/action/system/request scenarios, including four unchanged upstream tests. Preserve source-tail frames, Erlang improper-list guards, zero-timeout priority, successor-loop termination ownership and callback error/throw semantics. API completeness and this finite Windows corpus do not prove universal100% compatibility; full upstream/distribution/global/resource/platform/owned-heap/actual Logger delivery/metadata acceptance remains open. No full regression or canonical readiness refresh. See [backend contract](gen-server-backends.md) and [receipt](validation/gen-server-port-20261105/README.md).

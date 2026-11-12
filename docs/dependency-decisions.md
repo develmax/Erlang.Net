@@ -1,5 +1,637 @@
 # Dependency and compatibility decisions
 
+Part 1520 reuses the call planner, tuple shape tests, and frame emission. OTP 29.1.1 release instructions provide the reference for retaining a tuple until its last projection. The change adds no dependency. [Evidence](validation/part-1520/README.md).
+
+Part 1495 reuses frame reservation and tuple and list argument construction in the nested selector planner. The pinned `beam_ssa_pre_codegen` source and release disassembly provide the reference. No dependency was added. [Evidence](validation/part-1495/README.md).
+
+Part 1494 reuses call argument preparation for a field that stays live across the inner selector. The pinned `sys_core_fold` and `beam_ssa_pre_codegen` sources and release disassembly provide the reference. No dependency was added. [Evidence](validation/part-1494/README.md).
+
+Part 1493 reuses capture analysis and register case emission to keep only the saved values used by the inner branches. Pinned `beam_ssa_pre_codegen` and `beam_trim` provide the reference for register liveness and branch restrictions. No dependency was added. [Evidence](validation/part-1493/README.md).
+
+Part 1492 reuses the call argument flattener and register case sequence planner. Pinned `beam_ssa_pre_codegen` and release instructions provide the reference for saved arguments and register liveness. No dependency was added. [Evidence](validation/part-1492/README.md).
+
+Part 1491 reuses the saved-selector tuple arm planner for cases with a continuation. Pinned `beam_ssa_pre_codegen` and release disassembly provide the frame and liveness reference. No dependency was added. [Evidence](validation/part-1491/README.md).
+
+Part 1490 reuses the register tuple arm planner and BEAM field operand encoder for saved Y selectors. Pinned `beam_ssa_codegen` and release disassembly provide the reference for tuple projection. No dependency was added. [Evidence](validation/part-1490/README.md).
+
+Part 1489 reuses the case arity and tag planner for saved Y selectors and extends the existing arity table emitter to that register class. The reference is pinned `beam_core_to_ssa` and the release disassembly. No dependency was added. [Evidence](validation/part-1489/README.md).
+
+Part 1488 reuses the existing tuple arity and value table emitters in the entry planner. The reference is pinned `beam_ssa_codegen` and release disassembly. No dependency was added. [Evidence](validation/part-1488/README.md).
+
+Part 1487 reuses entry tuple shape checks, field projection and literal selection tables for tuple tags. The reference is pinned `beam_core_to_ssa` and the release disassembly. No dependency was added. [Evidence](validation/part-1487/README.md).
+
+Part 1486 reuses entry tuple shape checks, projections, register guard emission and literal selection tables. The reference is pinned `beam_core_to_ssa` and the release disassembly. No dependency was added. [Evidence](validation/part-1486/README.md).
+
+Part 1485 reuses the entry guard and literal table emitters and the compiler's constant reader for bitstrings. The reference is pinned `beam_core_to_ssa` selection and the release instructions. No dependency was added. [Evidence](validation/part-1485/README.md).
+
+Part 1484 reuses tuple projection and exact comparisons in the entry frame planner. The reference is the pinned OTP compiler's tuple and value selection in `beam_core_to_ssa` and the release instructions. No dependency was added. [Evidence](validation/part-1484/README.md).
+
+Part 1483 reuses the separate entry frame and register construction planners for tuple dispatch. The reference is the pinned OTP compiler's frame placement and release instructions. No dependency was added. [Evidence](validation/part-1483/README.md).
+
+Part 1482 reuses the register entry guard planner, separate frame planner and existing list and tuple construction emitter. The reference is the pinned OTP compiler's frame and register placement. No dependency was added. [Evidence](validation/part-1482/README.md).
+
+Part 1481 uses the existing external call resolver, continuation analysis, and constructor emitter to project binary split results and construct measured tuples. No dependency was added. [Evidence](validation/part-1481/README.md).
+
+Part 1480 reuses the unary BIF resolver, call result binding analysis and arithmetic guard emitter. It adds no dependency. [Evidence](validation/part-1480/README.md).
+
+Part 1479 reuses entry guard operands, branch frame planning and ordinary register calls for comparison-guarded clauses. It adds no dependency. [Evidence](validation/part-1479/README.md).
+
+Part 1478 reuses the AST rewrite walker, Erlang call binding, Unicode term conversion, and existing case emitters. It follows the pinned beam_doc signature table and visible-type filter. The erl_tracer regression uses unchanged Windows OTP release assets with original license notices. No dependency was added. [Evidence](validation/part-1478/README.md).
+
+Part 1477 reuses the register tuple arm planner and tagged dispatch. It projects the common field before selecting an arm and emits independent terminal results. No dependency was added. [Evidence](validation/part-1477/README.md).
+
+Part 1476 combines the existing register tuple arm emitter, ordinary call classification and call argument construction planner. It emits a heap check for the constructed arguments and adds no dependency. [Evidence](validation/part-1476/README.md).
+
+Part 1475 reuses the existing entry selector planner and branch reference analysis for nested calls in general case emission. No dependency was added. [Evidence](validation/part-1475/README.md).
+
+Part 1474 reuses the static and object command emitters for unary overloads. The wxDisplay test assets are the unchanged Windows OTP 29.1.1 release source and binary with upstream license provenance. The compiler adds no dependency. [Evidence](validation/part-1474/README.md).
+
+Part 1473 reuses the existing C# case entry emitter and binding reference analysis. The pinned OTP reference places frames and allocates registers from SSA live intervals. The patch keeps eligible selectors in X through pattern tests and guards. It adds no dependency. [Evidence](validation/part-1473/README.md).
+
+Part 1472 reuses entry case lowering, closure reference analysis and the fixed-point local result analysis. The compiler adds no dependency. [Evidence](validation/part-1472/README.md).
+
+Part 1471 extends the existing entry BIF planner, live register encoding and typed operands. The managed test uses the existing lists BEAM fixture through an explicit dependency. No dependency was added to the compiler. [Evidence](validation/part-1471/README.md).
+
+Part 1470 reuses the existing register-reusing list emitters and the structural matcher. The deferred callback shares the existing list-test encoding and no dependency was added. [Evidence](validation/part-1470/README.md).
+
+Part 1469 reuses register pattern operands, guard lowering, ordered tail calls and branch frame planning. The compiler adds no dependency. [Evidence](validation/part-1469/README.md).
+
+Part 1468 reuses call fact inference and the register arithmetic planner. The comparison uses the pinned OTP 29.1.1 Windows release. The implementation adds no dependency. [Evidence](validation/part-1468/README.md).
+
+Part 1467 reuses ordinary call resolution, ordered argument moves, typed register encoding and proper-list proofs. The pinned OTP compiler supplies the instruction and line reference. No dependencies were added. [Evidence](validation/part-1467/README.md).
+
+Part 1466 reuses tuple entry tests, sorted select_val emission and general closure lifting. The pinned OTP compiler supplies the block order and failure target reference. No dependencies were added. [Evidence](validation/part-1466/README.md).
+
+Part 1465 reuses decoded BEAM labels, operand tags and the existing compact writer. The pinned OTP validator supplies the frame initialization requirement. No dependencies were added. [Evidence](validation/part-1465/README.md).
+
+Part 1464 reuses the existing BEAM decoder and projection pass. The pinned OTP validator supplies the frame initialization requirement. No dependencies were added. [Evidence](validation/part-1464/README.md).
+
+Part 1463 reuses the managed BEAM instruction decoder and existing compact operand writer. The pinned OTP beam_validator checks Y-slot initialization at tail calls. No dependencies were added. [Evidence](validation/part-1463/README.md).
+
+Part 1462 reuses the tuple arity dispatch, atom selection and tuple projection emitters. The pinned OTP compiler supplies the block sharing and ordering reference. No dependencies were added. [Evidence](validation/part-1462/README.md).
+
+Part 1461 reuses source option binding and the pinned OTP 29.1.1 compiler as the oracle for inline option precedence. OTP cerl_inline supplies the reference size and effort model. No dependencies were added. [Evidence](validation/part-1461/README.md).
+
+Part 1460 reuses general closure lowering, lists:foldl/3 call emission and the existing list subtraction implementation for constant operands. Pinned OTP images determine evaluation and frame order. No dependencies were added. [Evidence](validation/part-1460/README.md).
+
+Part 1459 reuses the atom table, record test, field projection and tail-call emitters. Parser token coordinates supply badrecord locations, checked against pinned OTP release disassembly. No dependencies were added. [Evidence](validation/part-1459/README.md).
+
+Part 1458 reuses the literal table, existing guard AST and Erlang atom comparison rules. The Windows OTP release determines branch order and default-key elimination. No dependencies were added. [Evidence](validation/part-1458/README.md).
+
+Part 1457 reuses the literal dispatch emitter, BIF guard resolution and constant error tail calls. Pinned OTP Core lowering and release instructions determine failure location and register use. No dependencies were added. [Evidence](validation/part-1457/README.md).
+
+Part 1456 reuses the register tail-call emitter, membership table operands and Erlang term comparator. The OTP release disassembly determines branch and fallback layout. No dependencies were added. [Evidence](validation/part-1456/README.md).
+
+Part 1455 reuses the BEAM select emitter, atom comparator, guard resolution, exact-equality BIF and local tail-call emission. OTP 29.1.1 beam_jump and release disassembly establish branch ordering and shared exits. [Evidence](validation/part-1455/README.md).
+
+Part 1454 reuses the literal jump table and existing frameless fallback emitters. The typed binary result uses the binary alignment unit already defined by the compiler. [Evidence](validation/part-1454/README.md).
+
+Part 1453 reuses the serial mapper call emitter, comprehension guard classification and recursive result emission. Pinned OTP disassembly determines predicate branch and frame layout. There are no new dependencies. [Evidence](validation/part-1453/README.md).
+
+Part 1452 reuses existing call resolution, recursive list result emission and specialized mapping plans. The pinned OTP disassembly establishes the mapper order and slot layout. There are no new dependencies. [Evidence](validation/part-1452/README.md).
+
+Part 1451 reuses recursive mapping error emission and tuple test and projection helpers. OTP 29.1.1 release disassembly establishes the label and register schedule. There are no new dependencies. [Evidence](validation/part-1451/README.md).
+
+Part 1450 reuses closure reference collection and recursive mapping generation. OTP v3_core at the pinned tag and release disassembly supply the helper shape. The pinned OTP source carries the Apache 2.0 license. No source is copied and there are no new dependencies. [Evidence](validation/part-1450/README.md).
+
+Part 1449 reuses saved-variable bindings, the shared record shape test and direct tuple projection. The pinned OTP disassembly establishes register destinations and error order. There are no new dependencies. [Evidence](validation/part-1449/README.md).
+
+Part 1448 reuses the shared record checks and tuple field emitter. OTP 29.1.1 disassembly supplies the register schedule reference. The chunk comparison uses the Python standard library and adds no runtime dependency. [Evidence](validation/part-1448/README.md).
+
+Part 1447 reuses the closure reference collector and existing wildcard matching. Pinned OTP disassembly supplies the field projection reference. [Evidence](validation/part-1447/README.md).
+
+Part 1433 reuses the bound pattern, argument and construction emitters. There are no new dependencies. [Evidence](validation/part-1433/README.md).
+
+Part 1432 reuses the existing pattern and frame emitters for call-result cases. The pinned BEAM supplies the register schedule reference. [Evidence](validation/part-1432/README.md).
+
+Part 1431 reuses the source liveness proof and tuple operand emitter. The pinned release defines direct Y construction from a live x0. There are no new dependencies. [Evidence](validation/part-1431/README.md).
+
+Part 1430 reuses the existing shared list planner and integer range proof. The pinned release fixes the test and projection schedule. There are no new dependencies. [Evidence](validation/part-1430/README.md).
+
+Part 1429 reuses the shared list entry and argument construction planners. The pinned BEAM supplies the heap and register reference. There are no new dependencies. [Evidence](validation/part-1429/README.md).
+
+Part 1428 compares pinned optimized SSA landing pads with the existing source handler walk. It reuses the source pattern and call graph analysis without adding dependencies. [Evidence](validation/part-1428/README.md).
+
+Part 1427 uses the pinned beam_ssa_throw pass and reuses the existing C# call walker, argument flattening and tuple scheduler. It adds no dependency or third-party code. [Evidence](validation/part-1427/README.md).
+
+Part 1426 uses the existing source call walker, exception patterns and external tail-call emitter. The pinned OTP beam_ssa_throw pass supplies the comparison for handler suitability and empty-stack raise/3. The BEAM runtime already admits raise/3 through its native catalog. No dependency or third-party code was added. [Evidence](validation/part-1426/README.md).
+
+Part 1425 reuses mixed cons entry, select_val, the argument flattener and the register constructor plan. The pinned Windows OTP release and source supply the reference. No dependency or third-party code was added. [Evidence](validation/part-1425/README.md).
+
+Part 1424 extends mixed list entry and saved-call planning for a computed cons argument. It reuses the existing type tests, record-free list construction, exact comparison and local call instructions. The pinned OTP source and Windows image supply the reference. No dependency or third-party code was added. [Evidence](validation/part-1424/README.md).
+
+Part 1423 reuses BEAM record shape tests, exact value dispatch, record updates, list construction, and the register tail-call planner. The pinned Windows OTP release and source supply the reference. No dependency or third-party code was added. [Evidence](validation/part-1423/README.md).
+
+Part 1422 reuses the list extraction and saved register planning for a call followed by a case selector. The reference is the pinned OTP source and Windows image. No dependency was added. [Evidence](validation/part-1422/README.md).
+
+Part 1421 reuses record guards, register constructors, tail-call emission and saved-call planning for a shared guarded list entry. The pinned OTP source and Windows image supply the reference. No dependency was added. [Evidence](validation/part-1421/README.md).
+
+Part 1420 reuses local call visibility, register construction and record update emission. The record shape proof follows local argument forwarding and tuple results. The pinned OTP source and Windows image supply the reference. No dependency was added. [Evidence](validation/part-1420/README.md).
+
+Part 1419 reuses register construction, equality tests, local tail calls and the exact local return-shape proof. The pinned OTP source and Windows image supply the reference. No dependency was added. [Evidence](validation/part-1419/README.md).
+
+Part 1418 reuses tuple arity dispatch, dynamic call operand planning, argument construction, parallel moves and deferred label operands. The pinned OTP source and Windows image supply the reference. No dependency was added. [Evidence](validation/part-1418/README.md).
+
+Part 1417 reuses the saved-call planner's slot lifetimes, argument moves and shape proofs to defer fields from a shared tuple. The pinned OTP compiler and release instructions supply the reference. No dependency was added. [Evidence](validation/part-1417/README.md).
+
+Part 1416 reuses the saved-call planner's slot lifetimes, parallel moves and tuple checks for fields live across calls. Pinned OTP 29.1.1 supplies the reference for early and deferred projections. No dependency was added. [Evidence](validation/part-1416/README.md).
+
+Part 1415 reuses the saved-call planner, parallel register moves and the existing exact local return-shape proof. The pinned OTP projection sinking pass and release instructions supply the reference. No dependency was added. [Evidence](validation/part-1415/tuple-liveness.md).
+
+Part 1414 reuses the saved-call planner, tuple shape checks, register case emission and deferred labels. The pinned OTP 29.1.1 source and installed images supply the reference. No dependency was added. [Evidence](validation/part-1414/README.md).
+
+Part 1413 reuses entry selector planning, tuple shape proofs, catch emission and register case branches. The pinned OTP 29.1.1 source and installed images supply the reference. No dependency was added. [Evidence](validation/part-1413/README.md).
+
+Part 1412 reuses tagged tuple tests, badmatch emission, and saved-call register planning. The pinned OTP 29.1.1 source and installed images supply the reference. No dependency was added. [Evidence](validation/part-1412/README.md).
+
+Part 1411 reuses tuple return proofs, nested-call flattening and the existing argument constructor and register scheduler. The pinned OTP 29.1.1 source and installed images supply the reference. No dependency was added. [Evidence](validation/part-1411/README.md).
+
+Part 1410 reuses the closure emitter, capture analysis and call lifetime planner. The pinned OTP 29.1.1 source and installed images supply the reference. No dependency was added. [Evidence](validation/part-1410/README.md).
+
+Part 1409 reuses nested-call flattening, saved-call planning, and register tuple and list constructors. The pinned OTP 29.1.1 source and installed images supply the reference. No dependency was added. [Evidence](validation/part-1409/README.md).
+
+Part 1408 reuses the saved-call planner, heap allocation and direct return emitter. The pinned OTP 29.1.1 source and installed images supply the reference. No dependency was added. [Evidence](validation/part-1408/README.md).
+
+Part 1407 reuses comprehension helper naming, saved call scheduling and register case emission. The pinned OTP 29.1.1 source and installed images supply the reference. No dependency was added. [Evidence](validation/part-1407/README.md).
+
+Part 1406 reuses BIF call resolution, tuple construction, typed operands and the tail register move scheduler. Pinned OTP 29.1.1 sources and installed images supply the reference. No dependency was added. [Evidence](validation/part-1406/README.md).
+
+Part 1405 reuses tuple shape and field tests, static and object command emission, and protected class union emission. Pinned OTP 29.1.1 sources and installed images supply the reference. No dependency was added. [Evidence](validation/part-1405/README.md).
+
+Part 1404 reuses colour and shape guards, option mapper closures, the frame trim and swap emitters, and the wx call planner. Pinned OTP 29.1.1 sources and installed images supply the reference. No dependency was added. [Evidence](validation/part-1404/README.md).
+
+Part 1403 reuses register tuple shape tests, heap and tuple emission, wx class and environment checks, and prepared tail calls. Pinned OTP 29.1.1 sources and installed images supply the reference. No dependency was added. [Evidence](validation/part-1403/README.md).
+
+Part 1402 reuses register colour guards, the conversion scheduler, frame trimming and the wx environment emitter. Pinned OTP 29.1.1 sources and installed images supply the reference. No dependency was added. [Evidence](validation/part-1402/README.md).
+
+Part 1401 reuses the guarded local forwarding plan, register guards, wx object command and protected class union emitters. Pinned OTP 29.1.1 sources and installed images supply the reference. No dependency was added. [Evidence](validation/part-1401/README.md).
+
+Part 1400 reuses call argument lowering, the saved-call stack planner, swap and frame trim. The pinned OTP 29.1.1 compiler and release disassembly supply the reference. No dependency was added. [Evidence](validation/part-1400/README.md).
+
+Part 1399 reuses source call resolution, the entry call planner, ordered argument moves and existing apply instructions. The pinned OTP 29.1.1 source and installed release supply the reference. No dependency was added. [Evidence](validation/part-1399/README.md).
+
+Part 1398 reuses ordinary-call resolution, ordered argument moves, GC BIF instructions and typed registers. OTP 29.1.1 source and release metadata supply the reference. No dependency was added. [Evidence](validation/part-1398/README.md).
+
+Part 1397 reuses nested argument scheduling, closure lifting and local caller detection. The pinned OTP 29.1.1 source and release supply the reference. No dependency was added. [Evidence](validation/part-1397/README.md).
+
+Part 1396 reuses ordinary argument planning, saved-call frames, closure lifting and the closed local caller proof. The pinned OTP 29.1.1 source and release supply the reference. No dependency was added. [Evidence](validation/part-1396/README.md).
+
+Part 1395 reuses the saved-call stack planner, ordinary-call resolver and register case emitter. The pinned OTP 29.1.1 source and release supply the reference. No dependency was added. [Evidence](validation/part-1395/README.md).
+
+Part 1394 reuses tuple arity dispatch, entry register binding and existing frame planning. The OTP 29.1.1 release and pinned source supply the reference. No dependency was added. [Evidence](validation/part-1394/README.md).
+
+Part 1393 reuses entry frame dispatch, tuple construction, list extraction and the function-arity test opcode. OTP 29.1.1 source and release disassembly supply the reference. No dependency was added. [Evidence](validation/part-1393/README.md).
+
+Part 1392 reuses the ordinary call resolver, argument construction scheduler and stack slot emitters. The OTP 29.1.1 code generation and frame trimming passes provide reference behavior. No new implementation or dependency was imported. [Evidence](validation/part-1392/README.md).
+
+Part 1391 reuses the saved-call argument emitter and case tuple builder. Case branches track the last uses of initial bindings and call results, then reuse slots in the selector frame. The OTP 29.1.1 release provides the reference. No dependency was added. [Evidence](validation/part-1391/README.md).
+
+Part 1390 reuses ordinary call planning, the register argument constructor scheduler and BEAM list and frame emission for call sequences inside case arms. OTP 29.1.1 supplies the instruction and complete image oracle. No dependency was added. [Evidence](validation/part-1390/README.md).
+
+Part 1389 reuses the register case planner, private literal-result proof, type guard opcode table and deferred label operands. The OTP 29.1.1 release supplies the instruction reference for the shared list test and branch-local frame. No dependency was added. [Evidence](validation/part-1389/README.md).
+
+Part 1388 reuses BEAM list extraction, the ordinary call and constructor planners, and private call-site analysis. The OTP 29.1.1 release provides the instruction and complete image reference. No dependency was added. [Evidence](validation/part-1388/README.md).
+
+Part 1387 reuses the straight-call and saved-result planners after list dispatch. The existing BEAM list extraction, stack move and trimming emitters handle the head and tail destinations. The OTP 29.1.1 release supplies the byte comparison. No dependency was added. [Evidence](validation/part-1387/README.md).
+
+Part 1386 reuses list entry dispatch, register tail calls, tuple emission and BEAM type encoding. The checked element and tuple projection sequence follows the pinned OTP compiler's element optimization and the release instructions. No dependency was added. [Evidence](validation/part-1386/README.md).
+
+Part 1385 reuses the straight call reader, ordinary argument plans, register construction and the BEAM frame emitters. The pinned OTP compiler supplies the stack slot, swap and trim instruction order for validation. No dependencies were added. [Evidence](validation/part-1385/README.md).
+
+Part 1384 reuses the entry call-chain emitter, its stack-slot tracking, ordinary call resolution and the shared register constructor scheduler. The OTP 29.1.1 BEAM provides the oracle for the X0 continuation, stack frame and heap check. No dependency was added. [Evidence](validation/part-1384/README.md).
+
+Part 1383 reuses the argument construction scheduler, exact Erlang term ordering, map instruction header emitter and ordinary tail-call resolution. OTP 29.1.1 supplies the instruction and execution oracle. The existing compiler and runtime representations cover the feature without an additional dependency. [Evidence](validation/part-1383/README.md).
+
+Part 1382 reuses the register construction and constant call sequence planners. Permanent tests link the existing pinned OTP resources and source-relative profiles. No dependencies were added. [Evidence](validation/part-1382/README.md).
+
+Part 1381 reuses the mixed cons dispatch planner, argument construction scheduler and closure capture analysis for register liveness. OTP 29.1.1 provides the execution and instruction oracle. No dependencies were added. [Evidence](validation/part-1381/README.md).
+
+Part 1380 reuses the arithmetic call planner, argument construction scheduler and private caller checks. The type proof walks direct forwarding edges and literal seeds. OTP 29.1.1 provides the execution and instruction oracle. No dependencies were added. [Evidence](validation/part-1380/README.md).
+
+Part 1379 reuses the ordinary call plan, parallel register moves, gc_bif arithmetic and private caller bounds. OTP 29.1.1 provides the instruction and execution oracle. No dependencies were added. [Evidence](validation/part-1379/README.md).
+
+Part 1378 reuses branch-local frame planning, the existing exact comparison and checked record operations, register call scheduling and tuple result emission. OTP 29.1.1 supplies the execution and instruction oracle. No dependencies were added. [Evidence](validation/part-1378/README.md).
+
+Part 1377 reuses the entry clause planner, tuple field binding and proper-list caller analysis. OTP 29.1.1 supplies the execution and instruction oracle. No dependencies were added. [Evidence](validation/part-1377/README.md).
+
+Part 1376 extends the existing first-call continuation planner and reuses argument scheduling and tuple emission. OTP 29.1.1 supplies the execution and instruction oracle. No dependencies were added. [Evidence](validation/part-1376/README.md).
+
+Part 1375 reuses the local tuple result proof, pair fact inference and entry register call scheduler. OTP 29.1.1 supplies the instruction and execution oracle. No dependencies were added. [Evidence](validation/part-1375/README.md).
+
+Part 1374 reuses the C# entry frame planner, resolved call eligibility and the register scheduler for constructed call arguments. OTP 29.1.1 provides the instruction and execution oracle. No dependencies were added. [Evidence](validation/part-1374/README.md).
+
+Part 1373 reuses the entry frame planner, slot reuse and ordinary call chain scheduler. Pinned OTP 29.1.1 disassembly guides result placement and trim timing. No dependencies were added. [Evidence](validation/part-1373/README.md).
+
+Part 1372 reuses the C# branch frame planner, proper-list analysis and BEAM call argument scheduler. Pinned OTP 29.1.1 release disassembly guides clause ordering and extraction destinations. No dependencies were added. [Evidence](validation/part-1372/README.md).
+
+Part 1371 reuses the entry clause planner, BEAM term ordering and the register constructor planner. Pinned OTP 29.1.1 release disassembly guides selection order, frame placement and argument construction. No dependencies were added. [Evidence](validation/part-1371/README.md).
+
+Part 1370 reuses the C# sibling call scheduler and constructor emitter. OTP 29.1.1 argument setup and release disassembly guide slot reuse and register placement. No dependencies were added. [Evidence](validation/part-1370/README.md).
+
+Part 1369 reuses record expansion, tuple and list emission, and call operand scheduling. The pinned Apache-2.0 OTP beam_ssa_codegen need_heap pass and release disassembly guide heap placement. No dependencies were added. [Evidence](validation/part-1369/README.md).
+
+Part 1368 reuses lexical capture analysis, entry call planning and the C# argument emitter. The pinned Apache-2.0 OTP beam_ssa_pre_codegen find_yregs pass provides the reference for keeping values in X registers until a call would clobber them. No dependencies were added. [Evidence](validation/part-1368/README.md).
+
+Part 1367 reuses C# expression lowering, slot allocation and call argument loading. The pinned Apache-2.0 OTP beam_ssa_pre_codegen and beam_ssa_codegen sources and Windows release disassembly guide the frame comparison. No dependencies were added. [Evidence](validation/part-1367/README.md).
+
+Part 1366 reuses the C# entry case planner, tagged tuple matcher and call argument scheduler. Pinned Apache-2.0 OTP release disassembly and the focused Erlang fixture guide instruction order. No dependencies were added. [Evidence](validation/part-1366/README.md).
+
+Part 1365 reuses the C# call chain scheduler, argument move ordering and frame trimming. Pinned Apache-2.0 OTP beam_ssa_codegen.erl and beam_trim.erl, synthetic release-oracle code and ttb disassembly guide the projection and reload order. No dependencies were added. [Evidence](validation/part-1365/README.md).
+
+Part 1364 reuses the C# entry call chain scheduler, tuple projection and register match writers. The Apache-2.0 OTP 29.1.1 beam_ssa_codegen.erl match and call emitters and release disassembly guide the comparison. No dependencies were added. [Evidence](validation/part-1364/README.md).
+
+Part 1363 reuses C# call selection, argument moves, tagged tuple testing and wx option emission. Pinned Apache-2.0 OTP beam_ssa_codegen.erl and beam_trim.erl guide register and stack scheduling. Release disassembly supplies the debugger and wx instruction oracles. No dependencies were added. [Evidence](validation/part-1363/README.md).
+
+Part 1362 reuses the C# forward guard, option mapper, class check, closure and frame emitters. Pinned Apache-2.0 OTP beam_ssa_codegen.erl, beam_trim.erl and Windows release disassembly guide slot lifetimes and label order. The comparison uses OTP with an Erlang queue stub. No dependencies were added. [Evidence](validation/part-1362/README.md).
+
+Part 1361 reuses the C# local caller analysis, constant substitution, case planner and ordered call moves. Pinned Apache-2.0 OTP beam_ssa_type.erl, beam_ssa_opt.erl, beam_ssa_codegen.erl and beam_trim.erl guide argument inference and X0 assignment. OTP beam_lib.erl supplies the reference chunk reader. No dependencies were added. [Evidence](validation/part-1361/README.md).
+
+Part 1360 reuses the C# tuple entry and register case planners, stack slot liveness and private call-site binding analysis. Pinned Apache-2.0 OTP erl_bifs.erl, beam_trim.erl and release disassembly guide conversion call liveness and slot relocation. No dependencies were added. [Evidence](validation/part-1360/README.md).
+
+Part 1359 reuses the C# case and tuple planners, entry frame allocation, tuple shape tests and stack relocation. Pinned Apache-2.0 OTP beam_ssa_codegen.erl, beam_trim.erl and release disassembly guide case failure, saved tuple liveness and projection order. No dependencies were added. [Evidence](validation/part-1359/README.md).
+
+Part 1358 reuses the C# register case and tuple planners, call argument scheduler, and frame trim operations. Pinned Apache-2.0 OTP beam_ssa_codegen.erl, beam_trim.erl and release disassembly guide call-result liveness and slot relocation. No dependencies were added. [Evidence](validation/part-1358/README.md).
+
+Part 1357 reuses the C# register case planner, exact term ordering, frame-tail emitter and local function bindings. The pinned Apache-2.0 OTP beam_ssa_type.erl, beam_jump.erl and release disassembly guide return inference, branch sharing and failure locations. No dependencies were added. [Evidence](validation/part-1357/README.md).
+
+Part 1356 reuses the C# entry call planner, capture analysis, register case and tuple emitter, operand typing and unary GC BIF writer. Pinned Apache-2.0 OTP beam_call_types.erl and Windows release disassembly supply operand types, slot reuse and instruction order. No dependencies were added. [Evidence](validation/part-1356/README.md).
+
+Part 1355 reuses the C# ordinary call planner, frame trim, register move scheduler, named fun and tuple emitters. Pinned Apache-2.0 OTP beam_ssa_codegen.erl, beam_ssa_pre_codegen.erl and beam_block.erl supply the reference for heap liveness, function references and swap folding. No dependencies were added. [Evidence](validation/part-1355/README.md).
+
+Part 1354 reuses the C# ordinary call planner, register tuple emitter and separate entry-frame allocator. The pinned Apache-2.0 OTP beam_ssa_codegen.erl and release disassembly establish tuple instruction and frame order. No dependencies were added. [Evidence](validation/part-1354/README.md).
+
+Part 1353 reuses C# nested call planning, slot relocation, source binding analysis and the existing expression emitter. Pinned Apache-2.0 OTP release disassembly supplies the frame and argument reference. No dependencies were added. [Evidence](validation/part-1353/README.md).
+
+Part 1352 reuses the C# register case, tuple operand, selector and tail-call emitters. OTP 29.1.1 call types and release disassembly supply the Apache-2.0 reference. No dependencies were added. [Evidence](validation/part-1352/README.md).
+
+Part 1351 reuses C# closure binding analysis and the register case planner. OTP 29.1.1 core-to-SSA free variable handling and release instructions supply the Apache-2.0 reference. No dependencies were added. [Evidence](validation/part-1351/README.md).
+
+Part 1350 reuses the C# expression emitter, per-branch frame planning, nested call plans and tuple entry checks. The Apache-2.0 OTP 29.1.1 instructions supply the release comparison. No dependencies were added. [Evidence](validation/part-1350/README.md).
+
+Part 1349 reuses the existing tuple field, computed cons, stack and call writers. The pinned Apache-2.0 OTP release disassembly gives the order of field reads and saved registers. No dependencies were added. [Evidence](validation/part-1349/README.md).
+
+Part 1348 reuses the C# cons entry planner, tuple arity dispatch and call chain frame writer. Pinned OTP 29.1.1 code generation and release disassembly provide the Apache-2.0 reference. No dependencies were added. [Evidence](validation/part-1348/README.md).
+
+Part 1347 reuses the C# call resolver, parallel argument moves, cons extraction and select_val writers. Pinned OTP frame placement and release disassembly provide the Apache-2.0 reference. No dependencies were added. [Evidence](validation/part-1347/README.md).
+
+Part 1346 reuses the C# record expansion, call resolver, constructor planner and BEAM operand writers. OTP 29.1.1 pre-codegen source and the release disassembly provide the allocation reference under Apache-2.0. No dependencies were added. [Evidence](validation/part-1346/README.md).
+
+Part 947 reuses source call substitution for automatic inlining. No new dependency. [Evidence](validation/part-947/README.md).
+
+Part 946 reuses the existing token and metadata paths. No new dependency. [Evidence](validation/part-946/README.md).
+
+Part 945 reuses existing character escape and triple-quoted indentation code. No new dependency. [Evidence](validation/part-945/README.md).
+
+Part 944 reuses the existing BEAM loader and source metadata writer. No new dependency. [Evidence](validation/part-944/README.md).
+
+Part 943 reuses Erlang record AST nodes and existing OTP lists fixtures. No new dependency. [Evidence](validation/part-943/README.md).
+
+Part 942 reuses the AST traversal and existing term emitters. OTP ms_transform supplies the format reference. No new dependency. [Evidence](validation/part-942/README.md).
+
+Part 941 reuses the include resolver and documentation writer with pinned OTP Markdown input. No new dependency. [Evidence](validation/part-941/README.md).
+
+Part 940 reuses object macro expansion and the existing literal escaping. No new dependency. [Evidence](validation/part-940/README.md).
+
+Part 939 reuses the existing BIF interpreter and typed-register encoding. No new dependency. [Evidence](validation/part-939/README.md).
+
+Part 938 reuses template substitution and the existing pattern and exception emitters. No new dependency. [Evidence](validation/part-938/README.md).
+
+Part 937 reuses declared NIF signatures, the source attribute decoder and the existing BEAM loader semantics. No new dependency. [Evidence](validation/part-937/README.md).
+
+Part 936 reuses the current AST and literal escaping. OTP erl_pp supplies the reference layout. No new dependency. [Evidence](validation/part-936/README.md).
+
+Part 935 extends the existing pure receive matcher and reuses the BEAM guard emitters. No new dependency. [Evidence](validation/part-935/README.md).
+
+Part 934 reuses the OTP-derived skip pattern rewrite and existing list, pattern and error emitters. No new dependency. [Evidence](validation/part-934/README.md).
+
+Part 933 reuses the runtime predicate BIFs and wire decoding, with no new dependency. [Evidence](validation/part-933/README.md).
+
+Part 932 reuses the existing BEAM BIF encodings, operand emission and runtime operator implementations. No new dependency. [Evidence](validation/part-932/README.md).
+
+Part 931 reuses the release profile and metadata writer for the public_key ASN.1 cohort. No new dependency. [Evidence](validation/part-931/README.md).
+
+Part 930 reuses the existing include resolver and reads six Apache-2.0 headers from the pinned OTP source tree for corpus validation. [Evidence](validation/part-930/README.md).
+
+Part 929 uses the pinned OTP ASN.1 tool with noobj to restore public_key header inputs for validation. The C# compiler still emits the compared BEAM and the C# ASN.1 generator still supplies ELDAPv3. [Evidence](validation/part-929/README.md).
+
+Part 928 reuses general closure emission, the failure stub and the existing OTP lists fixture. No new dependency. [Evidence](validation/part-928/README.md).
+
+Part 927 reuses targeted substitution, case emission and BEAM function info. Pinned OTP provides the failure helper naming and instruction reference. No new dependency. [Evidence](validation/part-927/README.md).
+
+Part 926 reuses the managed receive planner and its pure BIF implementations. Pinned OTP provides the catch-all and guard behavior reference. No new dependency. [Evidence](validation/part-926/README.md).
+
+Part 925 reuses the existing receive matcher map and type operations and guard emitter. Pinned OTP provides the mailbox behavior reference. No new dependency. [Evidence](validation/part-925/README.md).
+
+Part 924 reuses preprocessor source locations, release include path mappings and the Docs writer. Pinned OTP output provides the file and location reference. No new dependency. [Evidence](validation/part-924/README.md).
+
+Part 923 reuses the inline rewrite and existing record emitter. Pinned OTP disassembly supplies the parser-action oracle. No new dependency. [Evidence](validation/part-923/README.md).
+
+Part 922 reuses the inline template rewrite and local function reference walk. The pinned sys_core_inline implementation and Windows OTP disassembly establish argument and residual call behavior. No new dependency. [Evidence](validation/part-922/README.md).
+
+Part 921 reuses fixed bit-match instruction encoding and the existing qualifier loop. The pinned OTP runtime and disassembly establish strict mismatch behavior. No new dependency. [Evidence](validation/part-921/README.md).
+
+Part 920 reuses qualifier traversal, the existing bit construction encoder and the managed BEAM writable binary implementation. Pinned OTP disassembly provides the accumulator opcode layout. No new dependency. [Evidence](validation/part-920/README.md).
+
+Part 919 reuses general closure lifting, capture analysis and local BEAM calls. The pinned disassembly establishes the self-call and self-value forms. No new dependency. [Evidence](validation/part-919/README.md).
+
+Part 918 reuses unary GC and binary map guard BIF emission and the registered runtime operations. Pinned Windows OTP disassembly establishes the opcode forms and failure edges. No new dependency. [Evidence](validation/part-918/README.md).
+
+Part 917 reuses pattern and case clause emission, the existing GC guard BIF path and managed runtime operations. Pinned v3_core and release disassembly establish the failure behavior. No new dependency. [Evidence](validation/part-917/README.md).
+
+Part 916 reuses the list qualifier emitter, registered OTP compiler iterator helpers and maps:from_list/1. Pinned v3_core and Windows release instructions provide the iterator contract. No new dependency. [Evidence](validation/part-916/README.md).
+
+Part 915 reuses the existing BEAM operand encoding, managed type tests and BIF interpreter. Pinned OTP disassembly provides the instruction and guard failure reference. No new dependency. [Evidence](validation/part-915/README.md).
+
+Part 914 reuses the managed option mapper, existing Unicode conversion, reply emission and generated wx release profile. Register and stack layouts come from pinned OTP release disassembly. No new dependency. [Evidence](validation/part-914/README.md).
+
+Part 913 reuses the existing wx class check, record guard, option closure and release profile. The pinned OTP beam_trim source and release images provide the reference. No new dependency. [Evidence](validation/part-913/README.md).
+
+Part894 reuses the release profile and EEP-48 writer to preserve recorded header paths and include callback type dependencies. No new dependency. [Evidence](validation/part-894/README.md).
+
+Part893 reuses managed bit matching commands and the existing exact and lower-bound checks. The pinned OTP assembler establishes operand and flag layouts. No new dependency. [Evidence](validation/part-893/README.md).
+
+Part892 reuses preprocessor file locations and the existing EEP-48 writer. The pinned OTP documentation term establishes the annotation layout. No new dependency. [Evidence](validation/part-892/README.md).
+
+Part891 reuses managed guard classification, BEAM map extraction and list construction. The pinned OTP assembler and runtime establish the reference. No new dependency. [Evidence](validation/part-891/README.md).
+
+Part890 reuses parsed type forms, source call bindings and managed EEP-48 writing. The pinned OTP compiler establishes behaviour_info and Docs layouts. No new dependency. [Evidence](validation/part-890/README.md).
+
+Part889 reuses the existing specialized and general emitters with isolated scratch planning. The pinned OTP assembler establishes the direct unary BIF instruction reference. No new dependency. [Evidence](validation/part-889/README.md).
+
+Part888 reuses managed type tests, BIF encoding and typed registers. The pinned OTP assembler establishes the reference. No new dependency. [Evidence](validation/part-888/README.md).
+
+Part887 reuses managed exception handlers and saved trace rethrow instructions. The pinned OTP assembler establishes the direct cleanup and exception layout. No new dependency. [Evidence](validation/part-887/README.md).
+
+Part886 reuses managed arithmetic and list operations, the direct argument mover and float register encoding. The pinned OTP assembler establishes operation and guard layouts. No new dependency. [Evidence](validation/part-886/README.md).
+
+Part885 reuses unary BIF emission, type predicates and managed head, number and map operations. The pinned OTP assembler establishes the reference. No new dependency. [Evidence](validation/part-885/README.md).
+
+Part884 reuses managed bit syntax normalization, BEAM string table interning and the existing binary construction opcode. The pinned OTP assembler output establishes segment encoding. No new dependency. [Evidence](validation/part-884/README.md).
+
+Part883 reuses managed guard BIF emission and typed registers. The pinned OTP assembler output establishes opcode selection and the inferred list length range. No new dependency. [Evidence](validation/part-883/README.md).
+
+Part882 reuses managed term ordering and existing BEAM map operations. The pinned OTP Core lowering and assembler output establish evaluation and operand order. No new dependency. [Evidence](validation/part-882/README.md).
+
+Part881 reuses BEAM BIF emission, the direct arithmetic emitter and managed Erlang operators. The pinned OTP assembler output establishes instruction and operand order. No new dependency. [Evidence](validation/part-881/README.md).
+
+Part880 reuses managed PID and tuple tests, the unary BIF opcode and the existing tuple size runtime implementation. The pinned OTP assembler output and ERTS tuple arity limit establish the reference. No new dependency. [Evidence](validation/part-880/README.md).
+
+Part879 reuses tagged tuple validation and tuple field extraction. The OTP 29.1.1 record expander and deterministic assembly establish the reference. No new dependency. [Evidence](validation/part-879/README.md).
+
+Part878 reuses the managed argument move scheduler and the existing call_fun instruction. The OTP 29.1.1 Core lowering and assembler output establish the reference. No new dependency. [Evidence](validation/part-878/README.md).
+
+Part877 reuses the managed pattern and guard emitters and the existing transactional receive matcher. The pinned OTP compiler and receive code generator establish the reference. No new dependency. [Evidence](validation/part-877/README.md).
+
+Part876 reuses managed closure allocation, the fun table and deferred function labels. The pinned OTP compiler and disassembly establish the reference. No new dependency. [Evidence](validation/part-876/README.md).
+
+Part875 reuses managed arithmetic BIF emission, frame slots and typed operands. The pinned OTP compiler and disassembly establish the instruction and liveness reference. No new dependency. [Evidence](validation/part-875/README.md).
+
+Part874 reuses managed BIF and test emission, call frames, and the existing xmerl release profile. The pinned OTP compiler and disassembly establish the reference. No new dependency. [Evidence](validation/part-874/README.md).
+
+Part873 reuses the tagged tuple opcode, guard failure labels, and abstract call writer. The pinned OTP disassembly and debug forms establish the reference. No new dependency. [Evidence](validation/part-873/README.md).
+
+Part872 reuses managed documentation text and ETF emission. The pinned OTP `beam_doc.erl` establishes metadata normalization and inheritance. No new dependency. [Evidence](validation/part-872/README.md).
+
+Part871 reuses the source call binding table, parser and managed call emitter. The pinned OTP compiler supplies the imported call and debug form oracles. No new dependency. [Evidence](validation/part-871/README.md).
+
+Part870 reuses the managed BEAM catch runtime and frame planner. The pinned OTP compiler and disassembly establish opcode layout and frame sizes. No new dependency. [Evidence](validation/part-870/README.md).
+
+Part869 reuses managed call setup, cons and tuple emission, and the existing Erlang append BIF. The pinned OTP disassembly establishes tail calls, heap allocation and source lines. No new dependency. [Evidence](validation/part-869/README.md).
+
+Part868 reuses managed free-variable analysis, parsed Core ordinals, frame planning, and the BEAM fun table. The pinned OTP Core-to-SSA source and disassembly establish the reference. No new dependency. [Evidence](validation/part-868/README.md).
+
+Part867 reuses managed record expansion and tuple emission. The pinned OTP `erl_expand_records.erl` defines traditional record field order, defaults, and wildcard semantics. The pinned parser and release debug forms establish dynamic remote annotations. No new dependency. [Evidence](validation/part-867/README.md).
+
+Part866 reuses the existing managed call operands, frame slots and BEAM apply instructions. The pinned OTP `v3_core.erl` and `beam_ssa_codegen.erl` establish evaluation order and register layout. No new dependency. [Evidence](validation/part-866/README.md).
+
+Part865 reuses managed tail-call and literal dispatch emission, the release metadata profile, and the pinned OTP disassembly and compiler as reference. No new dependency. [Evidence](validation/part-865/README.md).
+
+Part864 uses .NET Rune, UTF-8 decoding and grapheme boundaries for documentation text. The pinned OTP `beam_doc.erl` and `unicode_util:pattern_whitespace/0` define the source behavior. No new dependency. [Evidence](validation/part-864/README.md).
+
+Part863 uses the compiler's parsed type terms, managed reachability analysis, and the existing ETF writer. The pinned OTP `beam_doc.erl` defines the type entries and the pinned compiler supplies the byte comparison oracle. No new dependency. [Evidence](validation/part-863/README.md).
+
+Part862 shares the existing managed character escape decoder with quoted literals and uses .NET stack frames for corpus failure locations. The pinned OTP scanner defines escape behavior. No new dependency. [Evidence](validation/part-862/README.md).
+
+Part861 reuses the managed macro argument reader and the corpus tool's include directories. OTP 29.1.1 `epp.erl` provides the function-context reference and the pinned `erlc` builds the regression oracle. No new dependency. [Evidence](validation/part-861/README.md).
+
+Part860 reuses the managed record checks, typed operands, label writer and local call graph. The pinned OTP compiler supplies the deterministic oracle. [Evidence](validation/part-860/README.md).
+
+Part799 reuses C# call, tuple and frame writers. The pinned OTP disassembly guides dynamic apply, closure invocation and stack liveness. The fixture preserves the upstream notice. No new dependencies were required. [Evidence](validation/part-799/README.md).
+
+Part798 reuses C# tuple, list, call and frame writers. The pinned OTP disassembly guides register scheduling and heap allocation. No new dependencies or notices were required. [Evidence](validation/part-798/README.md).
+
+Part797 reuses the C# closure table and exception instruction writers. The pinned OTP release disassembly guides nested exception scopes and register scheduling. The fixture preserves the upstream Apache-2.0 notice. No new dependencies were required. [Evidence](validation/part-797/README.md).
+
+Part796 reuses C# guard BIF resolution and call, list, tuple and match instruction writers. The pinned OTP disassembly guides the recursive dispatch. The fixture preserves the upstream Apache-2.0 notice. No new dependencies were required. [Evidence](validation/part-796/README.md).
+
+Part795 reuses the C# mapping scheduler, BIF resolution and list failure handling. Pinned OTP disassembly guides the allocator dispatch and helper order. No new dependencies or notices were required. [Evidence](validation/part-795/README.md).
+
+Part794 reuses the C# mapping scheduler, list failure handling and BIF resolution. Pinned OTP disassembly guides the helper ordering and register layout. No new dependencies or notices were required. [Evidence](validation/part-794/README.md).
+
+Part793 reuses the C# list mapping helper and call, list and tuple instruction writers. Pinned OTP disassembly guides call order and register placement. No new dependencies or notices were required. [Evidence](validation/part-793/README.md).
+
+Part792 reuses C# call, frame and tuple instruction writers and the interleaved progress call emitter. Pinned OTP disassembly guides the captured argument and frame layout. No new dependencies or notices were required. [Evidence](validation/part-792/README.md).
+
+Part791 reuses the C# list comprehension helpers and call, tuple and list instruction writers. Pinned OTP release disassembly guides register scheduling and helper ordering. No new dependencies or notices were required. [Evidence](validation/part-791/README.md).
+
+Part790 reuses the C# tuple, list, call and exception instruction writers. Pinned OTP code generation and release disassembly guide heap reservations and register scheduling. No new dependencies or notices were required. [Evidence](validation/part-790/README.md).
+
+Part789 reuses the C# closure table, BIF resolution and exception instruction writers. Pinned OTP disassembly guides captured register order and exception frames. No new dependencies or notices were required. [Evidence](validation/part-789/README.md).
+
+Part788 reuses the C# binary match instruction writers and BIF resolution. Pinned OTP disassembly guides the match-context and frame handling. No new dependencies or notices were required. [Evidence](validation/part-788/README.md).
+
+Part787 reuses the C# tagged reply matcher, closure table and instruction writers. The pinned OTP compiler source and release disassembly guide frame and register placement. No new dependencies or notices were required. [Evidence](validation/part-787/README.md).
+
+Part786 reuses C# BEAM instruction writers, literal folding and source BIF resolution. The pinned OTP compiler source and release disassembly guide heap reservations and operand placement. No new dependencies or notices were required. [Evidence](validation/part-786/README.md).
+
+Part785 reuses the C# closure table, source call resolution and BEAM instruction writers. The pinned OTP compiler source and release disassembly guide function table entries and registers. No new dependencies or notices were required. [Evidence](validation/part-785/README.md).
+
+Part784 reuses C# BEAM instruction writers, constant evaluation and guard binding resolution. Pinned OTP compiler source and release disassembly determine the frame layout. No new dependencies or notices were required. [Evidence](validation/part-784/README.md).
+
+Part783 reuses C# BEAM frame and closure emission, tuple arity dispatch and source call resolution. It follows the pinned OTP release disassembly for register placement. No new dependencies or notices were required. [Evidence](validation/part-783/README.md).
+
+Part782 reuses the C# BEAM closure table, list comprehension helper, numeric evaluator and source call resolution. Pinned OTP release artifacts and disassembly provide the oracle. No new dependencies or notices were required. [Evidence](validation/part-782/README.md).
+
+Part781 reuses the Erlang numeric evaluator and C# BEAM case, operand and tuple writers. The fixture uses the pinned OTP compiler. [Evidence](validation/part-781/README.md).
+
+Part780 follows the pinned OTP pattern lint and reuses the Erlang numeric evaluator and C# BEAM metadata and selection writers. [Evidence](validation/part-780/README.md).
+
+Part779 reuses C# BEAM operand, guard, literal and debug writers with the original Observer assets and wx header. [Evidence](validation/part-779/README.md).
+
+Part778 reuses the existing C# type parser and BEAM metadata and operand writers with the pinned Observer and wx assets. [Evidence](validation/part-778/README.md).
+
+Part777 reuses the C# BEAM call, literal, type and release profile writers with the original SSL supervisor assets. [Evidence](validation/part-777/README.md).
+
+Part776 uses the pinned OTP opcode and type definitions and existing C# BEAM call, tuple, literal and metadata writers. The regression embeds the original Inets assets. [Evidence](validation/part-776/README.md).
+
+Part775 reuses the existing C# BEAM exception, operand and tuple writers with the original Mnesia source and image. [Evidence](validation/part-775/README.md).
+
+Part774 reuses existing C# BIF, typed register, call and tuple writers. The release regression reuses the original SASL assets. [Evidence](validation/part-774/README.md).
+
+Part773 uses the pinned OTP opcode table and existing C# typed register, operand and debug writers. The release regression reuses the original Kernel assets. [Evidence](validation/part-773/README.md).
+
+Part772 reuses C# call, literal and tuple writers with the pinned Kernel signal-handler source and BEAM. [Evidence](validation/part-772/README.md).
+
+Part771 reuses C# BEAM call scheduling and ETF encoding for external function references. The regression embeds the pinned SSL source and image. [Evidence](validation/part-771/README.md).
+
+Part770 uses the existing C# BEAM operand, call, line and release metadata writers. The regression reuses the pinned Mnesia source and image. [Evidence](validation/part-770/README.md).
+
+Part769 reuses the C# constant binding reader, call scheduler and Diameter release profile. The regression embeds existing upstream source and image pairs. [Evidence](validation/part-769/README.md).
+
+Part768 follows the pinned OTP disassembly and reuses the C# BEAM call, line and list-generator writers. The original source and image are reused as the regression reference. [Evidence](validation/part-768/README.md).
+
+Part767 reuses the C# literal dispatch, term order and BEAM operand writers. The regression reuses the pinned original source and image already in the repository. [Evidence](validation/part-767/README.md).
+
+Part766 reuses the C# BEAM selection and BIF operands for the pinned grouped dispatch order. The imported fixture retains its upstream notice. [Evidence](validation/part-766/README.md).
+
+Part765 follows the OTP erl_reply disassembly and reuses C# operand, frame and release metadata writers. The upstream fixture retains its source notice. [Evidence](validation/part-765/README.md).
+
+Part764 follows OTP epp macro argument annotations and uses the existing C# release profile and debug writers. The imported test fixture retains upstream notices. [Evidence](validation/part-764/README.md).
+
+Part763 reuses the C# type parser and BEAM metadata writers with pinned OTP attribute and annotation behavior. Dependencies and licenses are unchanged. [Evidence](validation/part-763/README.md).
+
+Part762 reuses the C# inline pipeline and standard BEAM list and error instructions. Dependencies and licenses are unchanged. [Evidence](validation/part-762/README.md).
+
+Part761 follows OTP targeted inline option forms and reuses the C# constant and function writers. Dependencies and licenses are unchanged. [Evidence](validation/part-761/README.md).
+
+Part760 follows pinned OTP epp file remapping and reuses the C# source annotations and file transition infrastructure. Dependencies and licenses are unchanged. [Evidence](validation/part-760/README.md).
+
+Part759 follows pinned OTP closure ordinal and register reuse behavior. It reuses C# closure and tuple writers with no dependency or license change. [Evidence](validation/part-759/README.md).
+
+Part758 reuses the C# closure and tuple instruction writers with pinned OTP heap and register behavior. Dependencies and licenses are unchanged. [Evidence](validation/part-758/README.md).
+
+Part757 follows OTP arithmetic liveness and reuses C# typed operands, arithmetic and closure writers. Dependencies and licenses are unchanged. [Evidence](validation/part-757/README.md).
+
+Part756 reuses the C# GC arithmetic emitter and local tail-call instructions for the pinned OTP countdown shape. Dependencies and licenses are unchanged. [Evidence](validation/part-756/README.md).
+
+Part755 reuses the C# tuple constructor and BEAM closure writers with capture order verified by pinned OTP. Dependencies and licenses are unchanged. [Evidence](validation/part-755/README.md).
+
+Part754 follows the OTP lambda table and reuses the C# compact operand writer, module digest and closure loader. Dependencies and licenses are unchanged. [Evidence](validation/part-754/README.md).
+
+Part753 follows OTP named fun syntax and reuses C# source closure identities, capture plans and tail dispatch. Dependencies and licenses are unchanged. [Evidence](validation/part-753/README.md).
+
+Part752 follows OTP external fun syntax and reuses the C# make_fun BIF and call emitter. Dependencies and licenses are unchanged. [Evidence](validation/part-752/README.md).
+
+Part751 follows pinned OTP token separation and string grammar. It reuses the C# token stream and Erlang list representation. Dependencies and licenses are unchanged. [Evidence](validation/part-751/README.md).
+
+Part750 follows the pinned OTP disassembly and frame trimming rules. It reuses C# instruction writers for calls, tagged tuples, frames and literals. The upstream test source retains its Apache-2.0 notice. No new dependency is required. [Evidence](validation/part-750/README.md).
+
+Part749 follows the pinned OTP external fun lowering and constant folding. It reuses the existing C# function identity, ETF writer and literal table interning. Dependencies and licenses are unchanged. [Evidence](validation/part-749/README.md).
+
+Part748 reuses C# tagged tuple, frame, call and list instructions. Dependencies and licenses are unchanged. [Evidence](validation/part-748/README.md).
+
+Part647 follows OTP binary match instruction forms and reuses the C# typed operand and frame emitters. [Evidence](validation/part-647/README.md).
+
+Part646 reuses the C# emitter and Erlang exact term ordering for select tables. [Evidence](validation/part-646/README.md).
+
+Part645 reuses existing C# binary matching opcodes for fixed unsigned bytes. [Evidence](validation/part-645/README.md).
+
+Part644 reuses existing C# BEAM type tests and branch slots. [Evidence](validation/part-644/README.md).
+
+Part643 reuses the C# GC BIF and operand emitters for LDAP arithmetic. [Evidence](validation/part-643/README.md).
+
+Part642 follows the pinned BER generator forms and reuses the C# source and BEAM pipelines. [Evidence](validation/part-642/README.md).
+
+Part641 follows the pinned ASN.1 public API template and reuses the BEAM exception and debug writers. [Evidence](validation/part-641/README.md).
+
+Part640 reuses C# preprocessing and source tokens to derive header records and file transitions. [Evidence](validation/part-640/README.md).
+
+Part639 reuses the C# source AST, token annotations and ETF writer for LDAP abstract debug forms. [Evidence](validation/part-639/README.md).
+
+Part638 reuses existing BEAM operand emission and tracks the frame high-water mark for temporary call slots. [Evidence](validation/part-638/README.md).
+
+Part637 reuses C# operand and stack slot emission for matches, tuple construction and linear case branches. [Evidence](validation/part-637/README.md).
+
+Part636 reuses the existing C# emitter and select_val for closed literal and tagged-tuple alternatives. [Evidence](validation/part-636/README.md).
+
+Part635 reuses C# BEAM instruction and metadata writers. It follows the pinned OTP selector, tail-call and register operand forms. [Evidence](validation/part-635/README.md).
+
+Part634 reuses the C# emitter and ETF writer for direct guard tests and restores tagged codec delegation from the pinned OTP BER output. [Evidence](validation/part-634/README.md).
+
+Part633 reproduces OTP BER helpers and emits named list mapping functions in C#. The partial release profile reconstructs compile options without copying chunks or requiring OTP during compilation. [Evidence](validation/part-633/README.md).
+
+Part632 replaces the generated ASN.1 descriptor interpreter with type-specific codecs and follows the pinned OTP BER type-tree helper order. Original OTP remains a development oracle. [Evidence](validation/part-632/README.md).
+
+Part631 derives field codecs and tags from the ASN.1 type graph and reuses the BER primitive and collection helpers. [Evidence](validation/part-631/README.md).
+
+Part630 derives element tags from the ASN.1 type graph and reuses existing BER tag and length helpers. [Evidence](validation/part-630/README.md).
+
+Part629 reuses the generated BER length and tag helpers and the C# signed integer lowering. [Evidence](validation/part-629/README.md).
+
+Part628 derives direct codecs from ASN.1 alias resolution and verifies BER lengths and tag handling in the pinned OTP VM. [Evidence](validation/part-628/README.md).
+
+Part627 uses the pinned OTP ASN.1 generated source and original VM as the BER error oracle. [Evidence](validation/part-627/README.md).
+
+Part626 derives bounds from the ASN.1 schema and uses the existing BEAM protected-call emitter to normalize ASN.1 exceptions. [Evidence](validation/part-626/README.md).
+
+Part625 compares the generated header against the pinned upstream asset and uses the existing Erlang lexer for bare atoms. [Evidence](validation/part-625/README.md).
+
+Part623 extends the existing C# BEAM emitter with frame and label planning for nested expressions and patterns. The OTP compiler remains the oracle. [Evidence](validation/part-623/README.md).
+
+Part622 emits local list helpers using the existing call, frame and function-table writer. [Evidence](validation/part-622/README.md).
+
+Part621 reuses the BEAM tuple, list and call operations for tagged decoding. [Evidence](validation/part-621/README.md).
+
+Part620 reuses frame and tuple operations for nested field matching and preserves unread input across local calls. [Evidence](validation/part-620/README.md).
+
+Part619 reuses BEAM tuple dispatch and frames and checks the case failure when the predicate result is unproven. [Evidence](validation/part-619/README.md).
+
+Part618 reuses the existing type, match context and compact operand writer for BER tag lowering. [Evidence](validation/part-618/README.md).
+
+Part617 extends the existing BEAM type table and binary operand emitter for signed variable-width segments. [Evidence](validation/part-617/README.md).
+
+Part616 reuses the OTP type table and handler, stack and frame instruction formats in the C# emitter. [Evidence](validation/part-616/README.md).
+
+Part615 uses the existing OTP-compatible frame and tuple operand writer and checks unknown pair results. [Evidence](validation/part-615/README.md).
+
+Part614 uses the pinned OTP tuple type and bs_match wire conventions in the C# emitter. [Evidence](validation/part-614/README.md).
+
+Part613 reuses the existing literal dispatch and compact operand writer with a failure target at function info. [Evidence](validation/part-613/README.md).
+
+Part612 uses the existing type parser and BEAM operand emitter. The OTP compiler is used only as the validation reference. [Evidence](validation/part-612/README.md).
+
+Part611 reuses the C# type parser for release debug forms and records the admitted stdlib build settings. [Evidence](validation/part-611/README.md).
+
+Part610 removes the external OTP ASN.1 generator from the corpus runner. The emitted Erlang codec reuses the ASN.1 TLV runtime interface. [Evidence](validation/part-610/README.md).
+
+Part609 uses the admitted OTP ASN.1 tool with noobj for ELDAPv3 source preparation in the validation runner. The C# BEAM compiler has no ASN.1 tool dependency. [Evidence](validation/part-609/README.md).
+
+Part608 reuses the existing C# frame and operand emitter and the admitted Mnesia release settings. The installed BEAM is only used by validation. [Evidence](validation/part-608/README.md).
+
+Part607 follows pinned OTP assembler, type-table and opcode conventions for the tested call-case flow. Reuse the existing BEAM writer, source token annotations, and explicit release profile mechanism. Use the admitted OTP disassembly and release input metadata as reference evidence. [Evidence](validation/part-607/README.md).
+
+Part606 follows OTP beam_ssa_codegen move-chain ordering and pinned opcode definitions. Reuse Erlang AST constant normalization, source token annotations, and the existing release metadata writer. The new release profiles contain compiler parameters rather than reference chunk payloads. [Evidence](validation/part-606/README.md).
+
+Part605 follows pinned OTP beam_asm and beam_dict for literal order, ETF payloads and module fingerprints. Reuse constant normalization, deterministic ETF, and the pinned compressor for debug and documentation chunks. Record release options and build paths separately from the generated image. The generator reads source and profile inputs, while the corpus runner reads the original image for comparison. [Evidence](validation/part-605/README.md).
+
+Part604 uses the zlib 1.3.2 source pinned by OTP 29.1.1 for Windows x64 BEAM ETF compression. The original .NET ETF path produced identical raw content and different compressed bytes. A bounded native adapter reproduces the ERTS deflate call and the C# compiler retains ETF and BEAM assembly. Retain the zlib notice and build recipe. Reuse the existing AST and compact encoder for the tested BIF and constructor opcodes. [Evidence](validation/part-604/README.md).
+
+Part603 uses pinned OTP erl_parse.yrl, beam_doc.erl, compile.erl and genop.tab for supported documentation and dynamic call shapes. Reuse the existing apply dispatch representation, register emitter and ETF serializer. The existing ETF compressor produces valid Docs payloads, with an observed compressed-byte difference against OTP. [Evidence](validation/part-603/README.md).
+
+Part602 uses pinned OTP genop.tab, assembler disassembly, erl_parse.yrl, and epp.erl for dispatch, external call, typed form and predefined macro rules. Reuse term ordering, the existing type parser and macro preprocessor. Corpus include lookup uses wx and SNMP source directories indicated by their build layout. [Evidence](validation/part-602/README.md).
+
+Part601 follows OTP 29.1.1 beam_asm and genop.tab for file-indexed line entries and instruction operands. Reuse the existing Erlang AST, compact encoder and module writer. Use admitted OTP disassembly to pin the tested pattern, call and move sequences. [Evidence](validation/part-601/README.md).
+
+Part600 follows Apache-2.0 OTP epp and io_lib for include and supported token stringification behavior, and beam_asm/genop.tab for local-call instruction and table layout. Reuse lexer tokens, the compiler's source offsets, and the existing BEAM writer. Use BCL path and file APIs for explicit file-backed compilation. [Evidence](validation/part-600/README.md).
+
+Part599 follows pinned Apache-2.0 OTP epp for macro arity selection, argument boundaries, and substitution locations. Reuse the expression parser and runtime term ordering for a restricted conditional evaluator. The evaluator admits a fixed syntax subset and does not execute arbitrary calls. [Evidence](validation/part-599/README.md).
+
+Part598 follows the pinned Apache-2.0 OTP `epp.erl` conditional and undefinition rules for the supported subset. Reuse the compiler token stream, macro table, and source offsets. Use a BCL stack to track nested conditionals. [Evidence](validation/part-598/README.md).
+
+Part597 follows the pinned Apache-2.0 OTP `epp.erl` object macro path and `erl_parse.yrl` typed forms. Reuse compiler tokens, source offsets, the existing type parser and compile option binder. The BEAM gate admits the tested warning option without generalizing to functional options. No external preprocessor is used by the C# backend. [Evidence](validation/part-597/README.md).
+
+Part596 uses the existing lexer whitespace, token, and source diagnostic conventions with BCL spans and UTF-16 rune validation. Delimiter width, literal content, and indentation follow OTP 29.1.1 `erl_scan.erl`. Documentation forms follow the applicable `erl_parse.yrl` clauses and are stored separately from runtime attributes. Retain Apache-2.0 attribution. [Evidence](validation/part-596/README.md).
+
+Part595 follows OTP 29.1.1 `beam_asm.erl`, `beam_dict.erl`, and `genop.tab` for the supported BEAM output profile. Reuse the existing parser and ETF serializer for source forms and metadata. Use BCL big-endian writes and MD5 for the OTP container and version attribute. Keep the original OTP compiler as the fixture oracle. [Evidence](validation/part-595/README.md).
+
+Part594 uses the existing runtime's BEAM wire constants and BCL `BigInteger.ToByteArray` for signed big-endian integer bytes. The latter supplies the payload, while the pinned Apache-2.0 OTP `beam_asm:encode/2` defines the compact prefixes and minimum signed width. The retained OTP compiler package provides the reference implementation. The C# writer adds no package dependency. [Evidence](validation/part-594/README.md).
+
+Part580 — The user explicitly requests a manual C# gen_event alternative while keeping original Erlang selectable. Reuse the existing term/process/module/BEAM runtime and original gen/proc_lib/sys/io/Unicode dependencies. BCL events and actor frameworks do not preserve the OTP handler, mailbox, callback and link contract, so they are not substituted. No new package or external C# library is introduced. Pin OTP29.1.1/ad05823719d77c8faee87348ea39513d4e2f99c5; preserve Apache-2.0 notices in the retained source/fixtures and derived implementation. Semantic catalogs separate equal strings/numbers by contract. Finite Windows comparisons and the retained timing failure do not certify universal parity. [Evidence](validation/part-580/README.md).
+
+## gen_statem C# alternative — 2026-11-04
+
+Inspect pinned OTP-29.1.1/ad05823719d77c8faee87348ea39513d4e2f99c5 `lib/stdlib/src/gen_statem.erl`, its complete engine and callback exports, existing GenServer and runtime mailbox/timer/function boundaries. Existing .NET state-machine/actor APIs and System.Threading.Timer do not supply OTP postponed-event ordering, state-enter restrictions, callback-module stacks, timer reference tombstones or the sys record protocol. Translate the library engine directly from Apache-2.0 OTP; preserve notices and unchanged original Erlang/BEAM. Reuse the explicitly selected gen/proc_lib/sys and formatting/logging modules exactly as the source does, and existing runtime timer/receive primitives. No third-party package or host ERTS dependency in production. This user's instruction authorizes this module's C# alternative; it does not broaden the policy for other pure modules. Implementation precedes focused verification; finite timing/value observations do not certify universal OTP compatibility.
+
 Part533 — Reuse the existing typed backing/root, guest-frame, native environment and provider collectors. Distinguish recipient completion from shared origin lifetime; external Host custody is explicit. Runtime-owned cleanup must not inherit a retiring actor scheduler or its private authority. Use existing .NET10 ForceYielding/context suppression and explicit own-VM atom scope for exit construction; await only the specific ETS queue observation fence before mailbox capture. No new dependency/package, alternate production BEAM VM, license header or package publication. Finite foundation evidence does not promote whole API contracts.
 
 Part532 — Reuse the existing NativeMemory-backed atomics allocation, shared off-heap chain, typed resource registry, owned heap/transfer protocols and genuine original-image/provider collector. Inspected pinned erl_bif_atomics.c, erl_bif_unique magic-reference layout and current atomics/store shutdown paths. Atomics remain a distinct magic destructor family, not a fabricated NIF resource type. No new dependency/package or alternate production BEAM VM. Host finalizers release only explicit external-host custody; guest GC owns actual process headers. Preserve preloaded and file-loaded original metadata as separate execution profiles, with raw full evidence and no license-header or package-publication change. Whole P2/24-contract completion is not claimed.
@@ -132,6 +764,7 @@ Part 027 lists/report audit (2026-10-10): inspected pinned lib/stdlib/src/lists.
 
 Part 028 reuses the existing pinned workflow, BCL artifact/hash tools and SDK Roslyn corpus parser to verify the complete 219-case/same-head CI evidence. No executable implementation, library, production dependency, copied reference implementation, public package or license change.
 
+The long-lived gen_statem loop uses opaque source-wrapper custody: C# fields retained across awaits must not be treated as compiler-owned lexical roots without a separate borrowing/GC proof. Source execution frames are still explicit and baseline-bound. The focused validator uses authentic original feature configuration and an actual original init/loader/code_server bootstrap; it does not replace dependency failures with expected answers. Both implementations pass74 whole API observations and311 engine scenarios, including complete error stacks and sys exactly-one termination. Preserve full upstream, owned/resource/platform/distribution/log-handler/metadata acceptance as separate gates. No full regression or canonical readiness refresh is inferred from these reports; see validation/part-579/README.md.
 ## Part 029 — Lists reverse/key-search source and reuse audit
 
 Read pinned lib/stdlib/src/lists.erl reverse/1 clauses and reverse/2/keyfind/keymember/keysearch BIF declarations, erts/emulator/beam/erl_bif_lists.c keyfind and erl_term.h SMALL_BITS/MAX_SMALL. reverse/2 already exists; reverse/1 has a short-invalid-input reason mismatch. Key search skips non-tuples/short tuples, stops before an improper suffix after a match, validates positive small-integer position first and otherwise reports badarg. The 64-bit reference uses 60 signed small bits (maximum 2^59-1). Its small-integer Key/float-element fast path compares the rounded double, whereas other numeric terms use general comparison; preserve that deliberate path separately from exact membership/map keys.
@@ -832,3 +1465,170 @@ Source consultation: .NET10 Math internal-call declarations and CoreCLR native w
 ## Math compatibility — 2026-11-03
 
 The expanded genuine OTP29.1.1 Windows corpus exposed that System.Math.Log2 and the pinned official OTP build are different algorithms. Follow erl_math.c's !HAVE_LOG2 expression (log(x) / 0.6931471805599453) on Windows and retain the direct log2 path on Unix. Reuse existing System.Math/CRT/libm primitives, Integer.TryToDouble, native error bindings and explicit library selection; no new production dependency or copied numerical algorithm is introduced. Original math.erl and math.beam remain unchanged with existing Apache-2.0 notices. The versioned dotnet/runtime host wrappers were consulted under MIT; glibc asin/underflow source was read for audit only and no LGPL code was copied. Physical VM layout, resource ceilings and timing remain separate from the26 mathematical MFA contracts. Source/provenance, old-runtime2785 RED and both new502772-case GREEN comparisons are recorded in validation/math-compatibility-20261103/. Cross-platform/final-publication receipts remain required before universal promotion.
+
+## Part559 — ordsets shared comparison and physical map preservation
+
+Inspect pinned OTP29.1.1 `erts/emulator/beam/utils.c` (compound comparison, flat-map key/value phases, HASHMAP_PHASE1/2 and address-seeded quicksort), `erl_map.c` (single-key put, flatmap merge, collision insertion and hash-key comparison), `erl_term_hashing.c` (local-fun internal hash), and x86 JIT `instr_map.cpp` (single dynamic put calls erts_maps_put). Keep the Apache-2.0 upstream notices and original Erlang/BEAM assets unchanged. System.Collections sorted/dictionary APIs are MIT-licensed platform facilities already in use; they supply storage, not OTP physical collision or equality semantics. No new dependency is suitable or introduced. Reuse the existing immutable native map graph, runtime-owned hash retention, physical-copy plan and iterative comparison scopes. Translate the two-phase HAMT comparison protocol into C# rather than invoking OTP as a fallback. Retain canonical dictionary order for storage/ETF; arithmetic ordering and physical layout have distinct purposes. Default registration/backend choice stays unchanged.
+
+The adversarial oracle replays the same pool/0 BEAM in both runtimes and transports only scalar expectations. Transporting pathological maps through deterministic ETF can be invalid in original OTP and would erase the physical construction contract. A separate repeated original diagnostic demonstrates address-seeded bulk ordering of distinct local fun keys whose comparison is zero. The permanent pool preserves these keys and tests deterministic incremental HAMT construction rather than asserting one address-dependent permutation. Capture and repeat verify all6427 admitted provider files before and after execution. This evidence does not close every dependent lists helper or establish cross-platform/final-head acceptance.
+
+
+## Part560 — string source-stack parity and explicit dual backend
+
+Pinned OTP29.1.1 string.erl and lists.erl are the owning algorithm/error-location sources; the unchanged string_SUITE.erl is retained under its Apache-2.0 notice and exact upstream blob/hash. The user's explicit string-port request authorizes the manual C# alternative while preserving original Erlang/BEAM. No policy change for other pure modules is inferred. BCL String APIs and Rune classification are not substitutes for OTP chardata, graphemes, case mapping or normalization; reuse the pinned unicode/unicode_util images on .NET. Reuse the existing source-call execution frames, tail-call scopes, native lists traversal and bit-syntax UTF-8 encoder/error-info capture. Collections, BigInteger, Rune UTF-8 decoding and immutable binary slices are existing platform facilities; no production dependency is added. The oracle is development-only and production never falls back to original string or an external VM.
+
+Compiled binary patterns are actual native resources. Compare their complete stack-containing terms only after live binary:match queries establish the admitted one-to-one resource binding; retain raw stacks and reject modified frames/bindings/queries. Expose both backends through the existing startup/manifest/MSBuild mechanism, require explicit Unicode/list dependencies and record actual identities. Retain the default native-only registration profile and distinguish it from the71 selectable exports. Whole ERTS resource/timing and unmeasured platform equivalence are outside this finite acceptance.
+
+The complete regression also exposed imported logical flat maps with atom keys retaining a different runtime's atom-index order. Reuse canonical name-keyed pairs for exact equality only when both maps are ordinary logical flat maps with exclusively atom keys; names identify atoms across these runtime tables. Preserve native physical comparison and all other key shapes. The existing imported-copy regression and all twelve independently captured term-contract shards validate this narrow correction; a rejected broad logical-map shortcut is retained as failed evidence.
+
+## Part561 — Windows thread CPU observation under resource pressure
+
+Inspect the existing Process.Threads-based provider and Microsoft documentation for [OpenThread](https://learn.microsoft.com/en-us/windows/win32/api/processthreadsapi/nf-processthreadsapi-openthread) and [GetThreadTimes](https://learn.microsoft.com/en-us/windows/win32/api/processthreadsapi/nf-processthreadsapi-getthreadtimes). Query the exact Windows thread with THREAD_QUERY_LIMITED_INFORMATION and retain its real user time in100ns ticks through an owned SafeFileHandle. This removes the observed failing whole-process diagnostics enumeration without replacing measured CPU time with wall time or swallowing OutOfMemory. No third-party code/package is copied or introduced; use the existing OS/BCL facilities. Keep the Unix provider and nested ownership accounting. The preceding fatal Roslyn stack overflow is not assumed to have the same cause; its exact interrupted fixture first passes unchanged in a fresh process. Preserve that distinction in evidence.
+
+## Part562 — All71 string source contracts
+
+Review all119 public clauses of pinned `lib/stdlib/src/string.erl`, its reached
+helpers and native `erts/emulator/beam/bif.c` float parser plus Windows
+`erts/emulator/sys/win32/sys_float.c`. Preserve the existing Apache-2.0 source,
+notices and original images. Continue the user-requested C# alternative beside
+original Erlang; no broader pure-module port policy change is inferred.
+Existing BCL string/search/set APIs cannot reproduce the observed lazy malformed
+chardata behavior, native compiled-pattern identity, list-membership failures or
+source helper frames. Reuse actual selected `binary:compile_pattern`,
+`binary:match`, `lists:member`, pinned Unicode modules, the existing ETF function
+factory and source continuations. Keep Rune only for bounded UTF8 scalar decode
+and BigInteger for exact integer arithmetic. No package or alternate Unicode,
+normalization, number-parser or collection dependency is introduced.
+
+The real 4096-digit timeout justifies removing repeated prefix traversals rather
+than increasing a worker budget. Source-level dispatch must retain conversion
+error tuples, original separator-list shape and `cp_prefix` continuation equality.
+The independent oracle generators and per-API summary use existing Erlang,
+PowerShell and Python standard libraries only. Finite same-platform comparisons
+do not certify all IEEE conversions, other operating systems or physical ERTS
+resource ceilings. See [Part562](validation/part-562/README.md).
+
+## Unicode C# alternative — 2026-11-04
+
+Audit pinned OTP-29.1.1 lib/stdlib/src/unicode.erl and the existing UnicodeNative/UnicodeNativeTraversal BIFs. System.Text.Encoding and String.Normalize use platform Unicode data and replacement/error contracts that differ from OTP; do not use them as library implementations. Reuse Rune solely for strict bounded scalar decoding/encoding and BinaryPrimitives for endian words (existing .NET BCL, MIT). Port ml_map and cbv behavior directly from the Apache-2.0 OTP source, preserving notices. Reuse the explicitly selected pinned unicode_util module for normalization and classification, matching the established string dependency boundary. No new package or Unicode database. Retain original Erlang/BEAM without mutation and require explicit dependencies for the new managed selection. This user-requested module port does not change the policy for other pure OTP modules.
+
+
+## Timer managed alternative — 2026-11-04
+
+Inspect OTP-29.1.1 timer.erl (Apache-2.0), its complete public/server export surface and existing runtime timers, ETS, spawn/monitor and selected gen_server/supervisor facilities before implementation. System.Threading.Timer (BCL, MIT) alone cannot preserve Erlang cancellation references, selective receive, process ownership, signal ordering or supervised restart. Reuse the existing Erlang runtime primitives rather than introducing a timer/actor package. Translate library dispatch, server callbacks and interval workers directly from the pinned source, retaining original source/BEAM unchanged and preserving upstream notices. The explicit user request authorizes this module's C# alternative; it does not change the repository policy for other modules. Existing timer primitives remain shared native capabilities. Finite timing observations will not be described as universal scheduling/resource equivalence.
+
+## gen_event managed alternative — 2026-11-04
+
+Inspect pinned OTP-29.1.1 gen_event.erl, gen.erl, sys.erl and gen_event_SUITE.erl before implementation. Akka.NET/Orleans and CLR events do not implement the OTP wire protocol, catch results, supervised-handler links, alias requests or system state callbacks. Reuse existing runtime primitives and explicitly selected OTP gen/proc_lib/sys/logger/io_lib dependencies; port the complete gen_event dispatch, handler transitions, system and formatting exports in C#. No new package. Retain Apache-2.0 attribution and original Erlang/BEAM unchanged. The current user explicitly authorizes this managed module alternative; the general pure-module policy is unchanged. Finite checks cannot establish universal OTP equivalence.
+
+## File managed alternative — 2026-11-04
+
+Inspect all exports/clauses of pinned OTP-29.1.1 lib/kernel/src/file.erl, file.hrl and file_int.hrl (Apache-2.0, Ericsson AB). The user explicitly authorizes this module's C# port with preserved original selection. BCL File/Directory/FileStream (MIT runtime) cannot replace the distributed file server, process I/O, module-dispatched descriptors, raw/RAM drivers or Erlang parser/evaluator semantics. Reuse the selected OTP dependencies and existing .NET runtime primitives; translate file library algorithms/protocol dispatch into Erlang.Otp.Kernel C#. Use BCL BigInteger for unbounded lengths and BinaryPrimitives for the unsigned big-endian indirect header. No new package, backend fallback or original-source mutation. Both alternatives require the same supporting OTP modules and native capabilities. Finite focused checks do not establish universal OS/resource/full-stack equivalence.
+
+## ETS managed alternative — 2026-11-04
+
+Inspect pinned OTP-29.1.1 lib/stdlib/src/ets.erl (Apache-2.0, Ericsson AB 1996-2026) and the existing C# ETS native providers. ConcurrentDictionary/DataTable and .NET persistence APIs do not preserve ordered_set numeric key equality, bag semantics, process ownership, match specs, scheduler census or the disk_log format. Reuse the existing native runtime storage, continuation, fixation, transfer and match-spec implementations, retaining unchanged Erlang source/BEAM. Port the ETS library control flow to C#, calling selected disk_log, dets, qlc, erl_eval, ms_transform and I/O modules at the same dependency boundary as OTP. Use existing BCL collections only for temporary lists; no new package. The explicit user instruction authorizes this module-specific port. Finite comparisons are not a universal compatibility certificate.
+
+## code managed alternative — 2026-11-04
+
+Inspect pinned OTP-29.1.1 code.erl, code_server.erl, eep48.hrl and existing BEAM loader, reference-resource, filesystem and interpreter-native bindings. System.Reflection/AssemblyLoadContext and BCL filesystem enumeration do not reproduce code_server path/cache/sticky state, prepared-code references, Erlang on_load handling or purge. Retain the explicitly selected original code_server and OTP helper modules as dependencies and port code's public interface, preparation workers, metadata/docs logic and status processing into C#. Reuse the existing OTP process/monitor and native loader APIs; introduce no package. Preserve Apache-2.0 notices and original Erlang/BEAM unchanged. Native coverage/debug retain the runtime's existing non-BEAMASM capability profile; a Windows JIT reference does not certify those features. This user explicitly authorizes this module's C# port alongside Erlang.
+
+## DETS managed alternative — 2026-11-04
+
+Inspect pinned OTP-29.1.1 dets.erl, dets_server.erl, dets_sup.erl,
+dets_utils.erl, dets_v9.erl and dets.hrl (Apache-2.0, Ericsson AB).
+The current user explicitly authorizes this module's C# port and preserving
+original Erlang, with implementation before testing and focused-only checks.
+BCL FileStream/BinaryPrimitives/MD5 provide byte I/O, endian words and the
+format's required checksum (existing .NET BCL, MIT); they do not implement DETS
+linear hashing, repair, owner lifetimes, continuations or bchunk. SQLite,
+LiteDB and embedded key/value stores use different file formats and protocols
+and are not suitable substitutes. No third-party storage package is introduced.
+Reuse existing immutable terms, exact equality/order, arbitrary-precision Integer,
+ETF encode/decode factories, canonical OTP hashing and match-spec machinery.
+Retain upstream notices and all original source/BEAM files unchanged. The C#
+file/object/option code is an internal, unregistered draft; no completed library,
+backend selection or compatibility acceptance is claimed. See
+[implementation checkpoint](validation/dets-port-20261104/README.md).
+
+ETS terminal dependency — the connected pinned ets.erl re_search path uses re:run/3 with exactly [{capture,none}]. Reuse the already admitted native PCRE2 engine, its Unicode trap, cancellation/resumption and finally-based match-data cleanup. Add only the requested no-capture return mode (match/nomatch); no .NET regex substitution, new native dependency or general regex-option acceptance is introduced. Original re.erl remains unchanged.
+
+## DETS connected raw file and buffer prerequisites — 2026-11-04
+
+The first real kernel-backed DETS observer fails in unchanged file/prim_file before reaching DETS: del_file_nif is absent from the existing four-operation builtin image. Inspect pinned prim_file.erl, prim_buffer.erl, prim_file_nif.c and win_prim_file.c. Extend the existing image-reservation/declared-NIF loader and runtime-owned weak reference resources for the raw seek/read/write/pread/pwrite/truncate/sync/indirect-read operations and buffer primitives needed by the original DETS backend. Do not replace file_server with a test stub or weaken module-owner admission. Reuse BCL FileStream/SafeFileHandle and existing Windows path/error marshalling; retain Apache-2.0 source notices. These are shared runtime primitives for both backends, not an Erlang library backend fallback. Keep file/buffer lifecycle and focused error/liveness tests in this DETS acceptance scope. No third-party package.
+
+## Part578 — timer semantic constants and scoped publication
+
+Reuse existing runtime module/BIF/operator/error/boolean catalogs. Give timer API, request, reference, action/result, child specification, time conversion, closure and source-location values distinct semantic owners; equal literals alone are not a reuse criterion. Validator bootstrap composes existing public ETS primitives and does not require the concurrent ETS module port. No new library/package/license change. Preserve pinned OTP29.1.1 Apache-2.0 assets and reference suites.
+
+### ETS Part569 final dependency evidence
+
+The final ETS acceptance reuses the concurrently supplied native prim_file/prim_buffer writable resource closure and unchanged original disk_log/file/DETS helpers;75 real filesystem/DETS/corruption scenarios pass independently for each backend. Both exported dumps are read by official OTP. Preserve the initial missing del_file_nif failures as historical evidence. The library-only init actor handles original get_argument requests with no command-line flags, rather than replacing DETS startup or disk persistence. No new third-party package or private persistence format is introduced. Frozen filtered-build dependencies and the two concurrently changed shared selection sources are disclosed in docs/validation/ets-port-20261104/README.md; this is scoped evidence, not independent certification of every native filesystem contract.
+
+## DETS RAM-file driver dependency — 2026-11-04
+
+The expanded original-DETS observer reaches ram_file:open and exposes the absent builtin ram_file_drv: the generic spawn path attempts an OS process and returns eacces. Inspect pinned lib/kernel/src/ram_file.erl and erts/emulator/drivers/common/ram_file_drv.c (Apache-2.0, Ericsson AB). Implement the actual binary driver command/response protocol on BCL MemoryStream, preserving the unchanged Erlang wrapper. Admit the builtin name only for the explicit spawn command in the registered bootstrap-filesystem profile. Reuse RuntimePorts identities, ownership, links, monitors, exit signals, statistics, ordered commands and cleanup; do not introduce an independent port registry or replace the ram_file module. The driver has no external OS process and introduces no package. Compression opcodes are commented out in the pinned driver; unknown commands preserve its no-response behavior. This is connected DETS runtime scope, not certification of all generic port options.
+
+## DETS completion and magic-reference lifetime — 2026-11-04
+
+Retain original dets_server/dets_sup as selected Erlang support modules, like the original code_server dependency of the code alternative. The C# library owns the complete dets dispatcher/table worker/v9 algorithms; it never delegates storage to original dets/dets_v9/dets_utils. Reuse canonical phash2/phash and existing match-spec execution; no new package or private storage format. Preserve original assets and Apache-2.0 notices.
+
+Unchanged dets_SUITE:repair_continuation exposes retained compiled-match resources after guest garbage_collect. Inspect register liveness, function scope retention and the existing weak resource registry. Clear dead caller-save registers and completed argument/result temporaries. Keep actual guest-heap collection first and add a CLR interop sweep only when the registry contains legacy compiled-match/file/buffer payloads. Do not reject all decoded references: retained local and remote programs must remain valid. The permanent four-mode oracle test plus connected literal-root/compiled-ETS/internal-GC checks cover this distinction. No actor framework or alternative GC package is introduced.
+
+## sys alternative — 2026-11-05
+
+The explicit user request authorizes a manual C# alternative to pinned OTP-29.1.1 sys. Inspect the complete upstream sys.erl and sys_SUITE plus the existing SysTermination, module-selection, generated-frame, gen:call/reply and process receive facilities. Reuse immutable runtime terms, selective receive, existing gen/proc_lib, file and formatting modules on .NET; do not introduce an actor framework, another transport or third-party package. No candidate package supplies this runtime's terms/process/stack contract; the existing runtime is the suitable integration. Retain original source/BEAM and Ericsson Apache-2.0 attribution. Implement all explicit exports before running focused sys and connected behavior checks; finite checks do not establish universal compatibility.
+
+## application alternative — 2026-11-05
+
+The explicit user request authorizes a complete manual C# alternative to OTP-29.1.1 application. Inspect pinned lib/kernel/src/application.erl (including serial/concurrent dependency traversal, rollback and behaviour_info), application_controller/master/dist_ac boundaries and the existing explicit startup selection and source-frame machinery. Existing .NET actor libraries do not supply Erlang terms, request identifiers, group leaders or these controller protocols; reuse this runtime and the original controller/master/distribution/gen_server modules on .NET. No external package or ERTS dependency in production. Preserve original Erlang/BEAM bytes and Ericsson Apache-2.0 notices. Implement the entire module before focused application/connected checks. Universal compatibility requires more than registered exports or finite observations.
+## supervisor alternative — 2026-11-05
+
+The user's current request explicitly authorizes the complete manual C# supervisor alternative beside unchanged OTP-29.1.1 Erlang/BEAM. Inspect pinned supervisor.erl, supervisor_SUITE and existing Supervisor/SimpleSupervisor, GenServer, selective receive, gen/proc_lib/sys and runtime library selection. Reuse the repository's immutable terms and process/BIF implementation; actor frameworks (including Akka.NET, Apache-2.0) do not provide Erlang links, monitors, exact child IDs, source stacks or sys state contracts and are not adopted. No package dependency is added. Preserve Ericsson Apache-2.0 attribution. Complete the implementation before executing focused validation; no broad regression or canonical-readiness refresh is authorized by this task.
+
+## io complete library alternative — 2026-11-05
+
+Inspect pinned OTP-29.1.1 io.erl, the runtime I/O protocol, explicit startup selection and existing managed ports. The user explicitly requests the C# alternative, overriding the general pure-module policy for io. Reuse immutable terms, selective receive, monitor/demonitor, traced sends and the shared printable_range primitive. Keep io_lib, erl_scan, erl_parse, unicode and net_kernel as explicit ordinary library dependencies. BCL TextWriter alone cannot implement Erlang request/reply or parsing semantics; no external .NET I/O package is adopted. Preserve original Erlang/BEAM and Apache-2.0 notices. No package/license change or performance claim.
+
+## erts_internal selectable alternative — 2026-11-05
+
+The explicit user instruction authorizes the C# library alternative to OTP-29.1.1 erts_internal, retaining original Erlang/BEAM. Inspect the pinned upstream module and the existing native stub capture, selective mailbox receive, source frames, startup selection and statistics trap admission. Reuse the actual runtime primitive delegates for the 71 native signatures, and port the 27 Erlang library signatures. BCL tasks/channels alone and external actor libraries cannot supply Erlang selective receive, process signals, ETS privileges or exact term/stack semantics; no package is adopted. Preserve Ericsson Apache-2.0 notices. The authenticated original image is used for native signature/delegate capture, not as an implementation of the selected C# library bodies. Complete implementation before focused tests; no full regression or global readiness promotion.
+
+## erpc alternative — 2026-11-05
+
+The explicit user request authorizes a complete manual C# alternative to pinned OTP-29.1.1 erpc. Inspect lib/kernel/src/erpc.erl and the existing partial Erpc/ErpcTimeout/ErpcStack implementation, spawn_request, abandonment, monitors and immutable request maps. Existing .NET RPC/actor frameworks cannot preserve these runtime terms, monitor ordering, exception classes and selective receive contracts; reuse this runtime and BCL only. No external dependency or production ERTS. Retain original Erlang/BEAM and Ericsson Apache-2.0 notices. Implement all explicit exports before focused erpc/connected validation. Finite observations cannot certify universal compatibility.
+
+## error_logger alternative — 2026-11-05
+
+The explicit request authorizes a complete C# alternative to pinned OTP29.1.1 error_logger. Inspect lib/kernel/src/error_logger.erl, logger_internal.hrl, the existing WarningMapNative, immutable terms and execution frames. System.Diagnostics/ILogger do not implement Erlang event-manager, callback, metadata or supervision contracts; reuse this runtime and original logger/gen_event/supervisor/application/io_lib dependencies on .NET. No external package. Preserve original Erlang/BEAM, Ericsson notices and Apache-2.0 attribution. Implement every explicit export before focused comparisons; API coverage alone cannot establish universal compatibility.
+
+
+## gen_server alternative — 2026-11-05
+
+The explicit user request authorizes a complete C# alternative to pinned OTP-29.1.1 gen_server alongside unchanged original Erlang/BEAM. Inspect the complete pinned source, gen_server_SUITE, existing host GenServer/ErlangGenServer, sibling managed state-machine engines, immutable terms, selective receive, alias/monitor/timer BIFs and gen/proc_lib/sys contracts. The host facade omits the full Erlang module contract and is retained separately. Reuse this runtime and existing original gen/proc_lib/sys/logger/formatting dependencies on .NET. BCL Channels and actor libraries cannot directly supply Erlang callback return, selective receive, link, monitor or source-frame semantics; no external package is adopted. Preserve Ericsson Apache-2.0 notices. Implement every export and the engine before focused validation. Finite acceptance is separate from universal compatibility; do not run the full regression or regenerate global readiness from a partial report.
+
+## logger alternative — 2026-11-05
+
+The explicit module-port request authorizes a selectable manual C# alternative to OTP-29.1.1 logger. Inspect pinned logger.erl/logger_internal.hrl and the existing partial logger host implementation, module selection, immutable terms, process dictionary and source-frame facilities. Existing Microsoft.Extensions.Logging and Serilog use different levels, event/configuration models and callback/failure contracts; neither substitutes for the OTP API. Reuse this runtime and the unchanged Erlang logger_server/logger_config/logger_backend/logger_proxy, handlers, formatter, filters, application and io dependencies on .NET, as file/code ports reuse their OTP servers. C# owns logger API control flow, message/metadata assembly, reports, pretty printing and environment initialization; it never calls original logger. No new package or external ERTS production dependency. Preserve Ericsson Apache-2.0 notices. Implement all 77 explicit exports before running focused checks; retain the default host subset and original Erlang assets. Dependency modules are not claimed as C# ports. Finite observations are not proof of universal compatibility.
+
+## rpc alternative — 2026-11-05
+
+The explicit rpc port request authorizes the C# library alternative beside unchanged OTP-29.1.1 rpc.erl/BEAM. Inspect the pinned complete rpc source, its rex server, observer, C-node stdout and erpc dependency boundaries. Reuse the runtime's immutable terms, selective receive, links/monitors, group leaders, stored-function recipes and explicit module selection. Existing BCL tasks or actor packages do not supply Erlang mailbox/monitor/stack semantics; no new package is adopted. Keep gen_server, erpc, maps/lists, ETS, persistent_term, net_kernel and unicode as ordinary independently selected dependencies, like upstream rpc itself. Preserve Ericsson Apache-2.0 attribution. Implement all 35 exports before focused comparisons; API counts are not a universal compatibility claim.
+
+error_logger focused closure follow-up: reuse RuntimeFunctionEntries.External for logger_filters and register empty-environment IRuntimeStoredFunctionRecipe callbacks for report formatting/TTY stop. Raw host delegates cannot be stored in guest ETS. The C# callback uses its real assembly identity, never a borrowed upstream BEAM hash; ETF restoration rebinds the same managed code. Keep original calendar/raw_file_io/file_io_server dependencies and original Logger/event-manager/application services. Add explicit caller source frames for non-tail delegation, including nested invalid format depth. No new package or replacement logging/file service.
+
+
+## Part591 — sys focused acceptance and shared tail-fun admission
+
+Retain actual gen/proc_lib/list, IO/formatting/file helpers and native file/buffer resources. The five unchanged sys_SUITE testcase bodies use original gen_server and original sys_sp1/sys_sp2; separate observations exercise trace/print effects and real file bytes. Start the actual file_server callback through gen_server's non-master service setup. Supply original net_kernel/raw_file_io/epp/scanner/feature helpers rather than replacing their behavior; restore authenticated erl_features state through native persistent_term. No new package, transport, storage format or production ERTS dependency.
+
+The original sys:print_event/2 witness proves that the existing shared failed-fun capture duplicated a tail-call frame. Detect the existing syntactic deallocate/return tail protocol before fun admission fails, preserving continuation duplication only for non-tail calls. Authentic BEAM tail/non-tail badfun/badarity controls pass against the pinned VM on both sys backends and six error-depth profiles. This is a connected interpreter correction, not a blanket stack trim or relaxation of expected results. Runtime source identity and native prerequisites remain separate from universal semantics. Preserve Apache-2.0 sys/reference notices and all failed discovery receipts. [Final evidence](validation/part-591/README.md).
+
+## Multi-scheduling blocker closure — 2026-11-05
+
+Inspect OTP29.1.1 bif.c, erl_bif_info.c and erl_process.c scheduler suspension, blocker lists and process-exit cleanup. Reuse the existing actual normal actor barrier/dispatcher and dirty CPU/shared-IO queue owners. BCL ReaderWriterLockSlim/SemaphoreSlim alone cannot model Erlang scheduler binding, dirty work quiescence, nested per-process blockers and owner death; no external package or actor framework is adopted. SemaphoreSlim serializes changes only; it does not stand in for physical scheduler suspension. Preserve the original ERTS library and Apache-2.0 notices. Implement first, then compare only multi-scheduling, erts_internal and connected scheduler/lifetime contracts. Finite acceptance is separate from universal OTP compatibility.
+
+
+## Part593 — native node/dist reference census — 2026-11-05
+
+Inspect pinned erl_bif_info.c tuple admission and helper trap, erl_node_tables.c root walk/result builder, erl_process.c signed all-versus-normal block state, and node_container_SUITE/erts_test_utils reference invariants. Reuse the actual normal actor barrier, physical MSO external-node leases, ETS stored identity/read leases, persistent arena identifier roots, mailbox recipient operation custody, timer payloads, distribution controller/link/monitor owners and existing match-spec ASTs. BCL GC reflection/heap enumeration and a third-party actor framework cannot supply guest ownership; no package is adopted. The diagnostic builds its counts from real retained roots and leaves host DTO lifetime distinct from guest process custody. Compressed wire bodies are separate from external key headers. Preserve native/reference Apache-2.0 notices and the original Erlang alternative. [Focused source/evidence](validation/part-593/README.md); no whole-module100% certification or full regression.

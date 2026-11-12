@@ -1,0 +1,31 @@
+{
+  "Partial": true,
+  "SelectedCount": 3,
+  "TotalCount": 9700,
+  "Blocks": [],
+  "ExactCases": [
+    "compiler/beam/documentation-payload-matches-otp",
+    "compiler/beam/rebuild-installed-otp-release-images",
+    "compiler/beam/whole-module-matches-otp"
+  ],
+  "Passed": 2,
+  "Failed": 1,
+  "Tests": [
+    {
+      "Name": "compiler/beam/whole-module-matches-otp",
+      "Status": "Failed",
+      "Error": "System.InvalidOperationException: The throw stack checks returned , exit normal.\r\n ---\u003E System.IO.InvalidDataException: The BEAM frame or Y-register ownership is unsupported\r\n   at Erlang.BeamFrameValidation.ValidateExceptionalEntry(BeamLinkedCode code, BeamLinkedFunction function, IReadOnlyDictionary\u00602 receives, BigInteger entryContexts) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\src\\Runtime\\Erlang.Runtime.Core\\Execution\\Beam\\BeamFrameValidation.cs:line 1062\r\n   at Erlang.BeamFrameValidation.ValidateExceptional(BeamLinkedCode code, BeamLinkedFunction function, IReadOnlyDictionary\u00602 receives) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\src\\Runtime\\Erlang.Runtime.Core\\Execution\\Beam\\BeamFrameValidation.cs:line 434\r\n   at Erlang.BeamFrameValidation.Validate(BeamLinkedCode code, BeamLinkedFunction function, IReadOnlyDictionary\u00602 receives) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\src\\Runtime\\Erlang.Runtime.Core\\Execution\\Beam\\BeamFrameValidation.cs:line 30\r\n   at Erlang.BeamRegisterValidation.ValidateCore(BeamLinkedCode code, BeamLinkedFunction entry, HashSet\u00601 visited) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\src\\Runtime\\Erlang.Runtime.Core\\Execution\\Beam\\BeamRegisterValidation.cs:line 464\r\n   at Erlang.BeamRegisterValidation.Validate(BeamLinkedCode code, BeamLinkedFunction entry) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\src\\Runtime\\Erlang.Runtime.Core\\Execution\\Beam\\BeamRegisterValidation.cs:line 9\r\n   at Erlang.BeamModule.InvokePublicOwned(ProcessContext context, String function, IReadOnlyList\u00601 arguments, BeamLinkedFunction entry) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\src\\Runtime\\Erlang.Runtime.Core\\Execution\\Beam\\BeamModule.DirectEntry.cs:line 14\r\n   at Erlang.Tests.BeamModuleEmissionChecks.\u003C\u003Ec__DisplayClass21_0.\u003C\u003CCompareThrowStackObservers\u003Eb__0\u003Ed.MoveNext() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Compiler\\Beam\\BeamModuleEmissionChecks.cs:line 852\r\n   --- End of inner exception stack trace ---\r\n   at Erlang.Tests.BeamModuleEmissionChecks.CompareThrowStackObservers() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Compiler\\Beam\\BeamModuleEmissionChecks.cs:line 884\r\n   at Erlang.Tests.BeamModuleEmissionChecks.CompareThrowStackObservers() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Compiler\\Beam\\BeamModuleEmissionChecks.cs:line 884\r\n   at Erlang.Tests.BeamModuleEmissionChecks.Run() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Compiler\\Beam\\BeamModuleEmissionChecks.cs:line 241\r\n   at Program.\u003CMain\u003E$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Harness\\Program.cs:line 16224",
+      "Milliseconds": 4365
+    },
+    {
+      "Name": "compiler/beam/documentation-payload-matches-otp",
+      "Status": "Passed",
+      "Milliseconds": 13
+    },
+    {
+      "Name": "compiler/beam/rebuild-installed-otp-release-images",
+      "Status": "Passed",
+      "Milliseconds": 12915
+    }
+  ]
+}

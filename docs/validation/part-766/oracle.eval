@@ -1,0 +1,10 @@
+Original = filename:join([code:lib_dir(compiler),"ebin","erl_bifs.beam"]),
+Generated = "artifacts/beam-backend/part766-images/erl_bifs.beam",
+{ok,Bytes} = file:read_file(Original),
+{ok,Bytes} = file:read_file(Generated),
+{beam_file,erl_bifs,_,_,_,Functions} = beam_disasm:file(Generated),
+Counts = [{Name,length(Instructions)} || {function,Name,3,_,Instructions} <- Functions],
+[{is_pure,39},{is_safe,23},{is_exit_bif,17}] = Counts,
+io:format("whole_image_equal=true bytes=~p dispatch_instructions=~w sha256=~s~n",
+    [byte_size(Bytes),Counts,binary:encode_hex(crypto:hash(sha256,Bytes))]),
+halt().

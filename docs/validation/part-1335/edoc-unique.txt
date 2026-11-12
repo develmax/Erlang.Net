@@ -1,0 +1,17 @@
+{unique,1} exact after label normalization
+[{label,1},
+ {line,[{location,"edoc_lib.erl",315}]},
+ {func_info,{atom,edoc_lib},{atom,unique},1},
+ {label,2},
+ {test,is_nonempty_list,{f,3},[{x,0}]},
+ {allocate,1,1},
+ {get_list,{x,0},{y,0},{x,0}},
+ {move,{y,0},{x,1}},
+ {call,2,{edoc_lib,unique,2}},
+ {test_heap,2,1},
+ {put_list,{y,0},{x,0},{x,0}},
+ {deallocate,1},
+ return,
+ {label,3},
+ {test,is_nil,{f,1},[{x,0}]},
+ return]

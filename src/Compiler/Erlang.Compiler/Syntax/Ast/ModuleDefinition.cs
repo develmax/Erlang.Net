@@ -23,6 +23,20 @@ public sealed partial record ModuleDefinition(
 
     public SourceCallBindings CallBindings { get; init; } = SourceCallBindings.Empty;
 
+    internal IReadOnlyList<DocumentationSourceForm> Documentation { get; init; } = [];
+    internal IReadOnlyList<ModuleAttribute> TypeForms { get; init; } = [];
+    internal IReadOnlyList<(string Name, int Arity)> EunitExports { get; init; } = [];
+    internal int EunitAutoExportCount { get; init; }
+    internal IReadOnlyList<int> DiameterAccessorLines { get; init; } = [];
+    internal bool HasGeneratedEunitTest { get; init; }
+    internal bool HasOtherCompileOptions { get; init; }
+    internal bool DisableModuleOptimization { get; init; }
+    internal bool LegacyBeamTables { get; init; }
+    internal bool AutomaticInlining { get; init; }
+    internal int? AutomaticInlineSize { get; init; }
+    internal string? OnLoadFunction { get; init; }
+    internal IReadOnlySet<(string Name, int Arity)> InlineTargets { get; init; } = new HashSet<(string, int)>();
+
     private IReadOnlyList<(string Name, int Arity)>? declaredNifs;
     public IReadOnlyList<(string Name, int Arity)>? DeclaredNifs
     {

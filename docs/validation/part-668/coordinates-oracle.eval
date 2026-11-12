@@ -1,0 +1,5 @@
+Release="D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/library376-official-compiler/installed/lib/eldap-1.3.1/ebin/ELDAPv3.beam",Actual="artifacts/beam-backend/part668-eldap/ELDAPv3.release-profile.beam",
+Forms=fun(Path)->{ok,_,Cs}=beam_lib:all_chunks(Path),{debug_info_v1,_,{Fs,_}}=binary_to_term(proplists:get_value("Dbgi",Cs)),Fs end,
+Anchor=fun({function,Anno,N,A,_})->{{N,A},erl_anno:location(Anno)};({attribute,Anno,N,_})->{N,erl_anno:location(Anno)};({eof,Anno})->{eof,erl_anno:location(Anno)} end,
+Rows=[{K,L,M}||{{K,L},{K,M}}<-lists:zip(lists:map(Anchor,Forms(Release)),lists:map(Anchor,Forms(Actual))),L=/=M],
+io:format("different_top_level_locations=~p~nfirst=~p~nlast=~p~n",[length(Rows),lists:sublist(Rows,8),lists:sublist(lists:reverse(Rows),8)]),halt().

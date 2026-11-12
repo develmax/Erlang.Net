@@ -1,0 +1,13 @@
+2 differing files scanned
+2/15 functions differ: lib/erts-17.1/ebin/prim_buffer.beam
+  {read,2} {{test,is_ge,{f,3},[{integer,64},{x,1}]},{allocate,2,2}}
+  {read_iovec,2} {{test,is_ge,{f,3},[{integer,64},{x,1}]},{allocate,7,2}}
+29/69 functions differ: lib/erts-17.1/ebin/zlib.beam
+  {append_iolist,2} {{test,is_nil,{f,4},[{x,0}]},{allocate,4,2}}
+  {arg_bitsz,1} {{test,is_integer,{f,4},[{x,0}]},{allocate,1,1}}
+  {arg_eos_behavior,1} {{select_val,{x,0},{f,6},{list,[{atom,cut},{f,5},{atom,error},{f,4},{atom,reset},{f,3}]}},{test,is_eq_exact,{f,3},[{x,0},{atom,error}]}}
+  {arg_flush,1} {{select_val,{x,0},{f,7},{list,[{atom,finish},{f,6},{atom,full},{f,5},{atom,none},{f,4},{atom,sync},{f,3}]}},{test,is_eq_exact,{f,3},[{x,0},{atom,none}]}}
+  {arg_level,1} {{select_val,{x,0},{f,7},{list,[{atom,best_compression},{f,6},{atom,best_speed},{f,5},{atom,default},{f,4},{atom,none},{f,3}]}},{allocate,1,1}}
+  {arg_mem,1} {{test,is_integer,{f,3},[{x,0}]},{allocate,1,1}}
+  {arg_strategy,1} {{select_val,{x,0},{f,7},{list,[{atom,default},{f,6},{atom,filtered},{f,5},{atom,huffman_only},{f,4},{atom,rle},{f,3}]}},{test,is_eq_exact,{f,3},[{x,0},{atom,filtered}]}}
+  {compress,1} {{allocate,3,1},{allocate,8,1}}

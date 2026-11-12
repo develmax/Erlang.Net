@@ -1,0 +1,13 @@
+[Path] = init:get_plain_arguments(),
+{ok, Binary} = file:read_file(Path),
+{module, clause_frame_probe} = code:load_binary(clause_frame_probe, Path, Binary),
+{binary, <<"x">>, 1} = clause_frame_probe:run({tag, <<"x">>}, 1),
+<<"x">> = erlang:get(clause_frame_probe),
+{other, 2, 3} = clause_frame_probe:run({tag, 2}, 3),
+3 = erlang:get(clause_frame_probe),
+{fallback, 4, 5} = clause_frame_probe:run(4, 5),
+undefined = erlang:get(clause_frame_probe),
+{beam_file, _, _, _, _, Functions} = beam_disasm:file(Path),
+Frames = [Slots || {function, run, 2, _, Is} <- Functions, {allocate, Slots, _} <- Is],
+io:format("Guard success, guard fallthrough, pattern fallthrough and effects passed. Frame slots: ~p~n", [Frames]),
+halt().

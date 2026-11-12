@@ -1,0 +1,37 @@
+{
+  "Partial": true,
+  "SelectedCount": 4,
+  "TotalCount": 9701,
+  "Blocks": [],
+  "ExactCases": [
+    "compiler/beam/call-result-bif-keeps-register",
+    "compiler/beam/documentation-payload-matches-otp",
+    "compiler/beam/rebuild-installed-otp-release-images",
+    "compiler/beam/whole-module-matches-otp"
+  ],
+  "Passed": 3,
+  "Failed": 1,
+  "Tests": [
+    {
+      "Name": "compiler/beam/whole-module-matches-otp",
+      "Status": "Failed",
+      "Error": "System.TimeoutException: The operation has timed out.\r\n   at Program.\u003CMain\u003E$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Harness\\Program.cs:line 16225",
+      "Milliseconds": 18126
+    },
+    {
+      "Name": "compiler/beam/call-result-bif-keeps-register",
+      "Status": "Passed",
+      "Milliseconds": 149
+    },
+    {
+      "Name": "compiler/beam/documentation-payload-matches-otp",
+      "Status": "Passed",
+      "Milliseconds": 25
+    },
+    {
+      "Name": "compiler/beam/rebuild-installed-otp-release-images",
+      "Status": "Passed",
+      "Milliseconds": 24389
+    }
+  ]
+}

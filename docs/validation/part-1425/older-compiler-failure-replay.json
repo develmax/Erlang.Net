@@ -1,0 +1,33 @@
+{
+  "Partial": true,
+  "SelectedCount": 3,
+  "TotalCount": 9700,
+  "Blocks": [],
+  "ExactCases": [
+    "compiler/source/otp-documentation-forms",
+    "compiler/source/otp-type-forms",
+    "compiler/unsupported-escape-diagnostic"
+  ],
+  "Passed": 0,
+  "Failed": 3,
+  "Tests": [
+    {
+      "Name": "compiler/unsupported-escape-diagnostic",
+      "Status": "Failed",
+      "Error": "System.InvalidOperationException: Expected CompileException\r\n   at Program.\u003C\u003CMain\u003E$\u003Eg__Throws|0_31[T](Action action) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Harness\\Program.cs:line 4421\r\n   at Program.\u003C\u003Ec.\u003C\u003CMain\u003E$\u003Eb__0_130() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Harness\\Program.cs:line 7177\r\n   at Program.\u003CMain\u003E$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Harness\\Program.cs:line 16224",
+      "Milliseconds": 23
+    },
+    {
+      "Name": "compiler/source/otp-documentation-forms",
+      "Status": "Failed",
+      "Error": "System.InvalidOperationException: OTP documentation source fixture differed.\r\n   at Erlang.Tests.BeamDocumentationSourceChecks.Run() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Compiler\\Beam\\BeamDocumentationSourceChecks.cs:line 35\r\n   at Program.\u003CMain\u003E$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Harness\\Program.cs:line 16224",
+      "Milliseconds": 96
+    },
+    {
+      "Name": "compiler/source/otp-type-forms",
+      "Status": "Failed",
+      "Error": "System.InvalidOperationException: OTP type form fixture differed.\r\n   at Erlang.Tests.BeamTypeSourceChecks.Run() in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Compiler\\Beam\\BeamTypeSourceChecks.cs:line 37\r\n   at Program.\u003CMain\u003E$(String[] args) in D:\\Distr\\Work\\Codex\\Erlang.Net\\Erlang.Net\\tests\\Erlang.Tests\\Harness\\Program.cs:line 16224",
+      "Milliseconds": 42
+    }
+  ]
+}

@@ -1,0 +1,3 @@
+A="artifacts/beam-backend/part724-eldap/ELDAPv3.release-profile.beam",O="D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/library376-official-compiler/installed/lib/eldap-1.3.1/ebin/ELDAPv3.beam",{ok,_,AC}=beam_lib:all_chunks(A),{ok,_,OC}=beam_lib:all_chunks(O),Read=fun(P)->{beam_file,_,_,_,_,Fs}=beam_disasm:file(P),[{{F,Ar},Ops}||{function,F,Ar,_,Ops}<-Fs] end,
+Diff=fun D([X|Xs],[Y|Ys],I) when X=:=Y->D(Xs,Ys,I+1); D([],[],_)->equal; D([X|_],[Y|_],I)->{I,X,Y}; D(X,Y,I)->{I,X,Y} end,
+[io:format("~p ~p ~p ~p~n",[K,length(X),length(Y),D])||{{K,X},{K,Y}}<-lists:zip(Read(O),Read(A)),(D=Diff(X,Y,1))=/=equal],halt().

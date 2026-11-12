@@ -1,0 +1,17 @@
+[R,G]=init:get_plain_arguments(),
+Depth=length(filename:split(G)),
+Read=fun(P)->case beam_lib:chunks(P,["Dbgi"]) of {ok,{_,[{"Dbgi",B}]}} -> binary_to_term(B); _ -> none end end,
+Normalize=fun(Fs)->[case F of {attribute,Loc,file,{File,Line}} -> {attribute,Loc,file,{filename:basename(File),Line}}; _ -> F end || F<-Fs] end,
+filelib:fold_files(G,"[.]beam$",true,fun(P,_) ->
+    Rel=filename:join(lists:nthtail(Depth,filename:split(P))),
+    case {Read(filename:join(R,Rel)),Read(P)} of
+        {{debug_info_v1,erl_abstract_code,{AF,O}}, {debug_info_v1,erl_abstract_code,{BF,O}}} when is_list(AF),is_list(BF),AF=/=BF ->
+            case Normalize(AF)=:=Normalize(BF) of
+                true -> [{A,B} || {{attribute,_,file,{A,_}},{attribute,_,file,{B,_}}}<-lists:zip(AF,BF),A=/=B]
+                    =/= [] andalso io:format("~s ~p~n",[Rel,[{A,B} || {{attribute,_,file,{A,_}},{attribute,_,file,{B,_}}}<-lists:zip(AF,BF),A=/=B]]);
+                false -> ok
+            end;
+        _ -> ok
+    end
+end,ok),
+halt().

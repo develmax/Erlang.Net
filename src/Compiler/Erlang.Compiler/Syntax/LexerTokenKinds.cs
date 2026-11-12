@@ -5,6 +5,7 @@ internal static class LexerTokenKinds
 {
     public const string QuotedAtom = "quoted_atom";
     public const string String = "string";
+    internal const string BinaryString = "binary_string";
     public const string Variable = "variable";
     public const string Keyword = "keyword";
     public const string Atom = "atom";

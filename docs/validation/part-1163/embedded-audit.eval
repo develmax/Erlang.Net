@@ -1,0 +1,36 @@
+[Ref,Generated]=[filename:absname(P)||P<-init:get_plain_arguments()],
+Children = fun
+    ({tuple,_,Items}) -> Items;
+    ({cons,_,Head,Tail}) -> [Head,Tail];
+    ({op,_,'++',Left,Right}) -> [Left,Right];
+    (_) -> []
+end,
+Calls = fun Count({call,_,_,_}) -> 1;
+    Count(E) -> lists:sum([Count(I)||I<-Children(E)])
+end,
+Shape = fun
+    ({function,_,N,A,[{clause,_,Params,[],Body}]}) ->
+        case {lists:all(fun(P)->element(1,P)=:=var end,Params),lists:reverse(Body)} of
+            {true,[{call,_,_,Args},{match,_,{var,_,Name},{tuple,_,Items}}|Prefix]} ->
+                SingleBinding=length([V||{var,_,V}<-Args,V=:=Name])=:=1,
+                Nested=lists:any(fun(I)->Children(I)=/=[] end,Items),
+                ValidPrefix=case Prefix of []->true; [{match,_,{var,_,_},{call,_,_,_}}]->true; _->false end,
+                case SingleBinding andalso Nested andalso ValidPrefix andalso lists:sum([Calls(I)||I<-Items])=:=1 of
+                    true -> [{N,A,length(Prefix)}]; false -> []
+                end;
+            _ -> []
+        end;
+    (_) -> []
+end,
+Files=filelib:fold_files(Generated,"[.]beam$",true,fun(P,A)->[P|A] end,[]),
+Rows=lists:flatmap(fun(P)->
+    Rel=filename:join(lists:nthtail(length(filename:split(Generated)),filename:split(P))),
+    case beam_lib:chunks(filename:join(Ref,Rel),[abstract_code]) of
+        {ok,{_,[{abstract_code,{raw_abstract_v1,Forms}}]}} ->
+            case lists:flatmap(Shape,Forms) of []->[]; Found->[{Rel,Found}] end;
+        _->[]
+    end
+end,Files),
+io:format("Candidate syntax in ~p of ~p images~n",[length(Rows),length(Files)]),
+lists:foreach(fun(Row)->io:format("~p~n",[Row]) end,lists:sort(Rows)),
+halt().

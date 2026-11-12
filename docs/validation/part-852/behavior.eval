@@ -1,0 +1,28 @@
+Dir = "artifacts/beam-backend/part852-images",
+Module = beam_socket_controller_probe,
+Stub = beam_controller_transport,
+StubPath = filename:join(Dir, atom_to_list(Stub) ++ ".erl"),
+ok = file:write_file(StubPath, "-module(beam_controller_transport).\n-export([controlling_process/2]).\ncontrolling_process(S,P) -> self() ! {transfer,S,P}, get(transfer_result).\n"),
+{ok,Stub,StubBytes} = compile:file(StubPath,[binary]),
+{module,Stub} = code:load_binary(Stub,StubPath,StubBytes),
+Name = atom_to_list(Module) ++ ".beam",
+Run = fun(File) ->
+    code:purge(Module), code:delete(Module),
+    {ok,Bytes} = file:read_file(File),
+    {module,Module} = code:load_binary(Module,File,Bytes),
+    [begin
+        put(transfer_result,Reply),
+        Result = try Module:accept_controller(address,controller,socket) of Value -> {ok,Value}
+                 catch Class:Reason:Frames -> {Class,Reason,Frames} end,
+        case Result of {ok,Value2} -> Expected = {ok,Value2}; {Class2,Reason2,_} -> Expected = {Class2,Reason2} end,
+        receive {transfer,socket,controller} -> ok after 1000 -> error(missing_transfer) end,
+        receive Unwanted -> error({unexpected_effect,Unwanted}) after 0 -> ok end,
+        Result
+    end || {Reply,Expected} <- [{ok,{ok,socket}},{{error,closed},{exit,{accept_controller,closed}}},
+                                 {unexpected,{error,{else_clause,unexpected}}},
+                                 {{error,closed,extra},{error,{else_clause,{error,closed,extra}}}}]]
+end,
+Otp = Run(filename:join([Dir,"fixture","lib","probe","ebin",Name])),
+Otp = Run(filename:join(Dir,Name)),
+erlang:display({Module,equal}),
+halt().

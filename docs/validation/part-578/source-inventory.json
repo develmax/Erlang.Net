@@ -1,0 +1,702 @@
+{
+  "baseline": "OTP-29.1.1",
+  "commit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "sourceSha256": "27e5d434f57d31c22bee0380ce3d6976ce94053b064210969f0e6a479567a9f1",
+  "beamSha256": "1cb0e1bc10fb7bdb19f5189d440b155c1ae7f3a45a5a24b5893ca9745908796b",
+  "sourceUnchanged": true,
+  "exports": [
+    {
+      "function": "apply_after",
+      "arity": 2
+    },
+    {
+      "function": "apply_after",
+      "arity": 3
+    },
+    {
+      "function": "apply_after",
+      "arity": 4
+    },
+    {
+      "function": "send_after",
+      "arity": 3
+    },
+    {
+      "function": "send_after",
+      "arity": 2
+    },
+    {
+      "function": "exit_after",
+      "arity": 3
+    },
+    {
+      "function": "exit_after",
+      "arity": 2
+    },
+    {
+      "function": "kill_after",
+      "arity": 2
+    },
+    {
+      "function": "kill_after",
+      "arity": 1
+    },
+    {
+      "function": "apply_interval",
+      "arity": 2
+    },
+    {
+      "function": "apply_interval",
+      "arity": 3
+    },
+    {
+      "function": "apply_interval",
+      "arity": 4
+    },
+    {
+      "function": "apply_repeatedly",
+      "arity": 2
+    },
+    {
+      "function": "apply_repeatedly",
+      "arity": 3
+    },
+    {
+      "function": "apply_repeatedly",
+      "arity": 4
+    },
+    {
+      "function": "send_interval",
+      "arity": 3
+    },
+    {
+      "function": "send_interval",
+      "arity": 2
+    },
+    {
+      "function": "cancel",
+      "arity": 1
+    },
+    {
+      "function": "sleep",
+      "arity": 1
+    },
+    {
+      "function": "tc",
+      "arity": 1
+    },
+    {
+      "function": "tc",
+      "arity": 2
+    },
+    {
+      "function": "tc",
+      "arity": 3
+    },
+    {
+      "function": "tc",
+      "arity": 4
+    },
+    {
+      "function": "now_diff",
+      "arity": 2
+    },
+    {
+      "function": "seconds",
+      "arity": 1
+    },
+    {
+      "function": "minutes",
+      "arity": 1
+    },
+    {
+      "function": "hours",
+      "arity": 1
+    },
+    {
+      "function": "hms",
+      "arity": 3
+    },
+    {
+      "function": "start_link",
+      "arity": 0
+    },
+    {
+      "function": "start",
+      "arity": 0
+    },
+    {
+      "function": "handle_call",
+      "arity": 3
+    },
+    {
+      "function": "handle_info",
+      "arity": 2
+    },
+    {
+      "function": "init",
+      "arity": 1
+    },
+    {
+      "function": "code_change",
+      "arity": 3
+    },
+    {
+      "function": "handle_cast",
+      "arity": 2
+    },
+    {
+      "function": "terminate",
+      "arity": 2
+    }
+  ],
+  "imports": [
+    {
+      "module": "erlang",
+      "function": "length",
+      "arity": 1
+    },
+    {
+      "module": "erlang",
+      "function": "make_ref",
+      "arity": 0
+    },
+    {
+      "module": "erlang",
+      "function": "node",
+      "arity": 1
+    },
+    {
+      "module": "erlang",
+      "function": "node",
+      "arity": 0
+    },
+    {
+      "module": "erlang",
+      "function": "send_after",
+      "arity": 3
+    },
+    {
+      "module": "erlang",
+      "function": "self",
+      "arity": 0
+    },
+    {
+      "module": "erlang",
+      "function": "cancel_timer",
+      "arity": 1
+    },
+    {
+      "module": "erlang",
+      "function": "-",
+      "arity": 2
+    },
+    {
+      "module": "erlang",
+      "function": "monotonic_time",
+      "arity": 0
+    },
+    {
+      "module": "erlang",
+      "function": "convert_time_unit",
+      "arity": 3
+    },
+    {
+      "module": "erlang",
+      "function": "apply",
+      "arity": 2
+    },
+    {
+      "module": "erlang",
+      "function": "apply",
+      "arity": 3
+    },
+    {
+      "module": "erlang",
+      "function": "*",
+      "arity": 2
+    },
+    {
+      "module": "erlang",
+      "function": "+",
+      "arity": 2
+    },
+    {
+      "module": "supervisor",
+      "function": "start_child",
+      "arity": 2
+    },
+    {
+      "module": "supervisor",
+      "function": "restart_child",
+      "arity": 2
+    },
+    {
+      "module": "gen_server",
+      "function": "start_link",
+      "arity": 4
+    },
+    {
+      "module": "erlang",
+      "function": "process_flag",
+      "arity": 2
+    },
+    {
+      "module": "ets",
+      "function": "new",
+      "arity": 2
+    },
+    {
+      "module": "gen_server",
+      "function": "call",
+      "arity": 3
+    },
+    {
+      "module": "erlang",
+      "function": "demonitor",
+      "arity": 2
+    },
+    {
+      "module": "ets",
+      "function": "insert",
+      "arity": 2
+    },
+    {
+      "module": "erlang",
+      "function": "start_timer",
+      "arity": 4
+    },
+    {
+      "module": "ets",
+      "function": "take",
+      "arity": 2
+    },
+    {
+      "module": "ets",
+      "function": "foldl",
+      "arity": 3
+    },
+    {
+      "module": "ets",
+      "function": "delete",
+      "arity": 1
+    },
+    {
+      "module": "erlang",
+      "function": "spawn_monitor",
+      "arity": 1
+    },
+    {
+      "module": "erlang",
+      "function": "cancel_timer",
+      "arity": 2
+    },
+    {
+      "module": "erlang",
+      "function": "exit",
+      "arity": 2
+    },
+    {
+      "module": "erlang",
+      "function": "spawn_monitor",
+      "arity": 3
+    },
+    {
+      "module": "erlang",
+      "function": "spawn",
+      "arity": 3
+    },
+    {
+      "module": "erlang",
+      "function": "monotonic_time",
+      "arity": 1
+    },
+    {
+      "module": "erlang",
+      "function": "div",
+      "arity": 2
+    },
+    {
+      "module": "erlang",
+      "function": "whereis",
+      "arity": 1
+    },
+    {
+      "module": "erlang",
+      "function": "get_module_info",
+      "arity": 1
+    },
+    {
+      "module": "erlang",
+      "function": "get_module_info",
+      "arity": 2
+    },
+    {
+      "module": "erlang",
+      "function": "monitor",
+      "arity": 2
+    }
+  ],
+  "clauses": [
+    {
+      "line": 195,
+      "text": "apply_after(Time, F)"
+    },
+    {
+      "line": 198,
+      "text": "apply_after(_Time, _F) ->"
+    },
+    {
+      "line": 213,
+      "text": "apply_after(Time, F, A)"
+    },
+    {
+      "line": 216,
+      "text": "apply_after(_Time, _F, _A) ->"
+    },
+    {
+      "line": 231,
+      "text": "apply_after(0, M, F, A)"
+    },
+    {
+      "line": 235,
+      "text": "apply_after(Time, M, F, A)"
+    },
+    {
+      "line": 239,
+      "text": "apply_after(_Time, _M, _F, _A) ->"
+    },
+    {
+      "line": 256,
+      "text": "send_after(0, PidOrRegName, Message)"
+    },
+    {
+      "line": 261,
+      "text": "send_after(0, {RegName, Node} = Dest, Message)"
+    },
+    {
+      "line": 266,
+      "text": "send_after(Time, Pid, Message)"
+    },
+    {
+      "line": 272,
+      "text": "send_after(Time, Pid, Message)"
+    },
+    {
+      "line": 275,
+      "text": "send_after(Time, RegName, Message)"
+    },
+    {
+      "line": 278,
+      "text": "send_after(Time, {RegName, Node} = Dest, Message)"
+    },
+    {
+      "line": 282,
+      "text": "send_after(_Time, _PidOrRegName, _Message) ->"
+    },
+    {
+      "line": 291,
+      "text": "send_after(Time, Message) ->"
+    },
+    {
+      "line": 304,
+      "text": "exit_after(Time, Pid, Reason) ->"
+    },
+    {
+      "line": 313,
+      "text": "exit_after(Time, Reason) ->"
+    },
+    {
+      "line": 322,
+      "text": "kill_after(Time, Pid) ->"
+    },
+    {
+      "line": 330,
+      "text": "kill_after(Time) ->"
+    },
+    {
+      "line": 345,
+      "text": "apply_interval(Time, F)"
+    },
+    {
+      "line": 348,
+      "text": "apply_interval(_Time, _F) ->"
+    },
+    {
+      "line": 364,
+      "text": "apply_interval(Time, F, A)"
+    },
+    {
+      "line": 367,
+      "text": "apply_interval(_Time, _F, _A) ->"
+    },
+    {
+      "line": 397,
+      "text": "apply_interval(Time, M, F, A)"
+    },
+    {
+      "line": 401,
+      "text": "apply_interval(_Time, _M, _F, _A) ->"
+    },
+    {
+      "line": 416,
+      "text": "apply_repeatedly(Time, F)"
+    },
+    {
+      "line": 419,
+      "text": "apply_repeatedly(_Time, _F) ->"
+    },
+    {
+      "line": 435,
+      "text": "apply_repeatedly(Time, F, A)"
+    },
+    {
+      "line": 438,
+      "text": "apply_repeatedly(_Time, _F, _A) ->"
+    },
+    {
+      "line": 464,
+      "text": "apply_repeatedly(Time, M, F, A)"
+    },
+    {
+      "line": 468,
+      "text": "apply_repeatedly(_Time, _M, _F, _A) ->"
+    },
+    {
+      "line": 483,
+      "text": "send_interval(Time, Pid, Message)"
+    },
+    {
+      "line": 487,
+      "text": "send_interval(Time, RegName, Message)"
+    },
+    {
+      "line": 491,
+      "text": "send_interval(Time, Dest = {RegName, Node}, Message)"
+    },
+    {
+      "line": 496,
+      "text": "send_interval(_Time, _Pid, _Message) ->"
+    },
+    {
+      "line": 505,
+      "text": "send_interval(Time, Message) ->"
+    },
+    {
+      "line": 518,
+      "text": "cancel({instant, Ref})"
+    },
+    {
+      "line": 521,
+      "text": "cancel({send_local, Ref})"
+    },
+    {
+      "line": 525,
+      "text": "cancel({once, Ref} = TRef)"
+    },
+    {
+      "line": 528,
+      "text": "cancel({interval, Ref} = TRef)"
+    },
+    {
+      "line": 531,
+      "text": "cancel(_TRef) ->"
+    },
+    {
+      "line": 547,
+      "text": "sleep(T)"
+    },
+    {
+      "line": 554,
+      "text": "sleep(T) ->"
+    },
+    {
+      "line": 568,
+      "text": "tc(F) ->"
+    },
+    {
+      "line": 576,
+      "text": "tc(Fun, ArgumentsOrTimeUnit)"
+    },
+    {
+      "line": 595,
+      "text": "tc(F, A) when is_list(A) ->"
+    },
+    {
+      "line": 597,
+      "text": "tc(F, TimeUnit) ->"
+    },
+    {
+      "line": 609,
+      "text": "tc(ModuleOrFun, FunctionOrArguments, ArgumentsOrTimeUnit)"
+    },
+    {
+      "line": 629,
+      "text": "tc(M, F, A) when is_list(A) ->"
+    },
+    {
+      "line": 631,
+      "text": "tc(F, A, TimeUnit) ->"
+    },
+    {
+      "line": 656,
+      "text": "tc(M, F, A, TimeUnit) ->"
+    },
+    {
+      "line": 676,
+      "text": "now_diff({A2, B2, C2}, {A1, B1, C1}) ->"
+    },
+    {
+      "line": 686,
+      "text": "seconds(Seconds) ->"
+    },
+    {
+      "line": 693,
+      "text": "minutes(Minutes) ->"
+    },
+    {
+      "line": 700,
+      "text": "hours(Hours) ->"
+    },
+    {
+      "line": 709,
+      "text": "hms(H, M, S) ->"
+    },
+    {
+      "line": 725,
+      "text": "start() ->"
+    },
+    {
+      "line": 729,
+      "text": "do_start() ->"
+    },
+    {
+      "line": 762,
+      "text": "start_link() ->"
+    },
+    {
+      "line": 767,
+      "text": "init([]) ->"
+    },
+    {
+      "line": 776,
+      "text": "req(Req, Arg) ->"
+    },
+    {
+      "line": 785,
+      "text": "maybe_req(Req, Arg) ->"
+    },
+    {
+      "line": 794,
+      "text": "handle_call({apply_once, {Started, Time, MFA}}, _From, Tab) ->"
+    },
+    {
+      "line": 809,
+      "text": "handle_call({apply_interval, {Started, Time, Pid, MFA}}, _From, Tab) ->"
+    },
+    {
+      "line": 813,
+      "text": "handle_call({apply_repeatedly, {Started, Time, Pid, MFA}}, _From, Tab) ->"
+    },
+    {
+      "line": 818,
+      "text": "handle_call({cancel, {once, TRef}}, _From, Tab) ->"
+    },
+    {
+      "line": 822,
+      "text": "handle_call({cancel, {interval, TRef}}, _From, Tab) ->"
+    },
+    {
+      "line": 831,
+      "text": "handle_call(_Req, _From, Tab) ->"
+    },
+    {
+      "line": 839,
+      "text": "handle_info({timeout, TRef, {apply_once, MFA}}, Tab) ->"
+    },
+    {
+      "line": 848,
+      "text": "handle_info({'DOWN', TRef, process, _Pid, _Reason}, Tab) ->"
+    },
+    {
+      "line": 852,
+      "text": "handle_info(_Req, Tab) ->"
+    },
+    {
+      "line": 860,
+      "text": "handle_cast(_Req, Tab) ->"
+    },
+    {
+      "line": 865,
+      "text": "terminate(_Reason, undefined) ->"
+    },
+    {
+      "line": 867,
+      "text": "terminate(Reason, Tab) ->"
+    },
+    {
+      "line": 883,
+      "text": "code_change(_OldVsn, Tab, _Extra) ->"
+    },
+    {
+      "line": 887,
+      "text": "start_interval_loop(Started, Time, TargetPid, MFA, WaitComplete) ->"
+    },
+    {
+      "line": 901,
+      "text": "interval_loop(TimerServerMon, TargetMon, Tag, WaitComplete, TimerRef0) ->"
+    },
+    {
+      "line": 929,
+      "text": "schedule_interval_timer(CurTimeout, Time, MFA) ->"
+    },
+    {
+      "line": 941,
+      "text": "remove_timer(TRef, Tab) ->"
+    },
+    {
+      "line": 954,
+      "text": "cancel_timer(TRef) ->"
+    },
+    {
+      "line": 960,
+      "text": "do_apply({?MODULE, send, A}, _) ->"
+    },
+    {
+      "line": 966,
+      "text": "do_apply({erlang, exit, [Name, Reason]}, _) ->"
+    },
+    {
+      "line": 971,
+      "text": "do_apply({M,F,A}, false) ->"
+    },
+    {
+      "line": 976,
+      "text": "do_apply({M, F, A}, true) ->"
+    },
+    {
+      "line": 984,
+      "text": "system_time() ->"
+    },
+    {
+      "line": 987,
+      "text": "send([Pid, Msg]) ->"
+    },
+    {
+      "line": 991,
+      "text": "get_pid(Name) when is_pid(Name) ->"
+    },
+    {
+      "line": 993,
+      "text": "get_pid(undefined) ->"
+    },
+    {
+      "line": 995,
+      "text": "get_pid(Name) when is_atom(Name) ->"
+    },
+    {
+      "line": 997,
+      "text": "get_pid(_) ->"
+    }
+  ]
+}

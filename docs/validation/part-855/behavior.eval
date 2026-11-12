@@ -1,0 +1,37 @@
+Dir = "artifacts/beam-backend/part855-images",
+Module = beam_certificate_name_probe,
+Stub = beam_certificate_transport,
+StubPath = filename:join(Dir, atom_to_list(Stub) ++ ".erl"),
+ok = file:write_file(StubPath, "-module(beam_certificate_transport).\n-export([allowed/0,peercert/1,decode/2,hosts/1,verify/2]).\nallowed() -> self() ! allowed, get(allowed).\npeercert(S) -> self() ! {peer,S}, get(peer).\ndecode(D,M) -> self() ! {decode,D,M}, cert.\nhosts(A) -> self() ! {hosts,A}, [a,b].\nverify(C,H) -> self() ! {verify,C,H}, get(verify).\n"),
+{ok,Stub,StubBytes} = compile:file(StubPath,[binary]),
+{module,Stub} = code:load_binary(Stub,StubPath,StubBytes),
+ok = logger:set_primary_config(level,none),
+Name = atom_to_list(Module) ++ ".beam",
+Run = fun(File) ->
+    code:purge(Module), code:delete(Module),
+    {ok,Bytes} = file:read_file(File),
+    {module,Module} = code:load_binary(Module,File,Bytes),
+    A = [allowed], P = A ++ [{peer,socket}],
+    V = P ++ [{decode,der,otp},{hosts,[host]},{verify,cert,[{ip,peer},{dns_id,a},{dns_id,b}]}],
+    [begin
+        put(allowed,Allowed), put(peer,Peer), put(verify,Verify),
+        Result = try Module:check(socket,peer) of Value -> {ok,Value}
+                 catch Class:Reason:Frames -> {Class,Reason,Frames} end,
+        case Result of {ok,Value2} -> Expected = {ok,Value2}; {Class2,Reason2,_} -> Expected = {Class2,Reason2} end,
+        lists:foreach(fun(Event) -> receive Got -> Event = Got after 1000 -> error({missing,Event}) end end, Events),
+        receive Unwanted -> error({unexpected_effect,Unwanted}) after 0 -> ok end,
+        Result
+    end || {Allowed,Peer,Verify,Expected,Events} <-
+        [{{ok,[]},unused,unused,{ok,ok},A},
+         {{ok,[host]},{error,no_peercert},unused,{ok,ok},P},
+         {{ok,[host]},{error,closed},unused,{ok,{error,closed}},P},
+         {{ok,[host]},{ok,der},true,{ok,ok},V},
+         {{ok,[host]},{ok,der},false,{ok,{error,denied}},V},
+         {invalid,unused,unused,{error,{badmatch,invalid}},A},
+         {{ok,[host]},invalid,unused,{error,{case_clause,invalid}},P},
+         {{ok,[host]},{ok,der},invalid,{error,{case_clause,invalid}},V}]]
+end,
+Otp = Run(filename:join([Dir,"fixture","lib","probe","ebin",Name])),
+Otp = Run(filename:join(Dir,Name)),
+erlang:display({Module,equal}),
+halt().

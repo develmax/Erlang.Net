@@ -1,0 +1,617 @@
+{
+  "Baseline": "OTP-29.1.1/ad05823719d77c8faee87348ea39513d4e2f99c5",
+  "Backend": "managed",
+  "BacktraceDepth": 8,
+  "Selection": [
+    {
+      "Module": "erlang",
+      "Backend": 0,
+      "InputSha256": null,
+      "ManagedAssemblies": [
+        {
+          "AssemblyName": "Erlang.Otp.Stdlib, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
+          "ModuleVersionId": "e11ac96b-01e9-46b5-9a7c-7185c3f4c203"
+        },
+        {
+          "AssemblyName": "Erlang.Runtime, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
+          "ModuleVersionId": "86621f62-4703-43ef-8e4d-1fc43dc6945a"
+        }
+      ],
+      "Dependencies": []
+    },
+    {
+      "Module": "lists",
+      "Backend": 0,
+      "InputSha256": null,
+      "ManagedAssemblies": [
+        {
+          "AssemblyName": "Erlang.Otp.Stdlib, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
+          "ModuleVersionId": "e11ac96b-01e9-46b5-9a7c-7185c3f4c203"
+        }
+      ],
+      "Dependencies": []
+    },
+    {
+      "Module": "string",
+      "Backend": 0,
+      "InputSha256": null,
+      "ManagedAssemblies": [
+        {
+          "AssemblyName": "Erlang.Otp.Stdlib, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
+          "ModuleVersionId": "e11ac96b-01e9-46b5-9a7c-7185c3f4c203"
+        },
+        {
+          "AssemblyName": "Erlang.Runtime, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
+          "ModuleVersionId": "86621f62-4703-43ef-8e4d-1fc43dc6945a"
+        }
+      ],
+      "Dependencies": [
+        {
+          "Module": "erlang",
+          "Backend": 0
+        },
+        {
+          "Module": "lists",
+          "Backend": 0
+        },
+        {
+          "Module": "unicode",
+          "Backend": 1
+        },
+        {
+          "Module": "unicode_util",
+          "Backend": 1
+        }
+      ]
+    },
+    {
+      "Module": "unicode",
+      "Backend": 1,
+      "InputSha256": "2495812294976A34AE904E7709B75348F3DDDF3B950413199867A78E093A4379",
+      "ManagedAssemblies": [
+        {
+          "AssemblyName": "Erlang.Runtime, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
+          "ModuleVersionId": "86621f62-4703-43ef-8e4d-1fc43dc6945a"
+        }
+      ],
+      "Dependencies": [
+        {
+          "Module": "lists",
+          "Backend": 0
+        },
+        {
+          "Module": "unicode_util",
+          "Backend": 1
+        }
+      ]
+    },
+    {
+      "Module": "unicode_util",
+      "Backend": 1,
+      "InputSha256": "5CDC886E30216B5DE33B6F4BDC1DEA006EAA3392EC4A83EC90CD7B946B5759FF",
+      "ManagedAssemblies": [],
+      "Dependencies": [
+        {
+          "Module": "lists",
+          "Backend": 0
+        }
+      ]
+    }
+  ],
+  "ExportCount": 71,
+  "ExercisedExports": 71,
+  "ApiCoverage": [
+    {
+      "Function": "casefold",
+      "Arity": 1,
+      "Cases": 61,
+      "Values": 47,
+      "Errors": 14
+    },
+    {
+      "Function": "centre",
+      "Arity": 2,
+      "Cases": 24,
+      "Values": 8,
+      "Errors": 16
+    },
+    {
+      "Function": "centre",
+      "Arity": 3,
+      "Cases": 134,
+      "Values": 42,
+      "Errors": 92
+    },
+    {
+      "Function": "chars",
+      "Arity": 2,
+      "Cases": 20,
+      "Values": 5,
+      "Errors": 15
+    },
+    {
+      "Function": "chars",
+      "Arity": 3,
+      "Cases": 37,
+      "Values": 18,
+      "Errors": 19
+    },
+    {
+      "Function": "chomp",
+      "Arity": 1,
+      "Cases": 53,
+      "Values": 43,
+      "Errors": 10
+    },
+    {
+      "Function": "chr",
+      "Arity": 2,
+      "Cases": 44,
+      "Values": 17,
+      "Errors": 27
+    },
+    {
+      "Function": "concat",
+      "Arity": 2,
+      "Cases": 22,
+      "Values": 13,
+      "Errors": 9
+    },
+    {
+      "Function": "copies",
+      "Arity": 2,
+      "Cases": 52,
+      "Values": 20,
+      "Errors": 32
+    },
+    {
+      "Function": "cspan",
+      "Arity": 2,
+      "Cases": 66,
+      "Values": 29,
+      "Errors": 37
+    },
+    {
+      "Function": "equal",
+      "Arity": 2,
+      "Cases": 50,
+      "Values": 35,
+      "Errors": 15
+    },
+    {
+      "Function": "equal",
+      "Arity": 3,
+      "Cases": 68,
+      "Values": 45,
+      "Errors": 23
+    },
+    {
+      "Function": "equal",
+      "Arity": 4,
+      "Cases": 1868,
+      "Values": 1835,
+      "Errors": 33
+    },
+    {
+      "Function": "find",
+      "Arity": 2,
+      "Cases": 40,
+      "Values": 24,
+      "Errors": 16
+    },
+    {
+      "Function": "find",
+      "Arity": 3,
+      "Cases": 313,
+      "Values": 269,
+      "Errors": 44
+    },
+    {
+      "Function": "is_empty",
+      "Arity": 1,
+      "Cases": 33,
+      "Values": 33,
+      "Errors": 0
+    },
+    {
+      "Function": "jaro_similarity",
+      "Arity": 2,
+      "Cases": 57,
+      "Values": 39,
+      "Errors": 18
+    },
+    {
+      "Function": "join",
+      "Arity": 2,
+      "Cases": 22,
+      "Values": 5,
+      "Errors": 17
+    },
+    {
+      "Function": "left",
+      "Arity": 2,
+      "Cases": 21,
+      "Values": 5,
+      "Errors": 16
+    },
+    {
+      "Function": "left",
+      "Arity": 3,
+      "Cases": 134,
+      "Values": 39,
+      "Errors": 95
+    },
+    {
+      "Function": "len",
+      "Arity": 1,
+      "Cases": 19,
+      "Values": 7,
+      "Errors": 12
+    },
+    {
+      "Function": "length",
+      "Arity": 1,
+      "Cases": 57,
+      "Values": 41,
+      "Errors": 16
+    },
+    {
+      "Function": "lexemes",
+      "Arity": 2,
+      "Cases": 145,
+      "Values": 117,
+      "Errors": 28
+    },
+    {
+      "Function": "list_to_float",
+      "Arity": 1,
+      "Cases": 56,
+      "Values": 56,
+      "Errors": 0
+    },
+    {
+      "Function": "list_to_integer",
+      "Arity": 1,
+      "Cases": 46,
+      "Values": 46,
+      "Errors": 0
+    },
+    {
+      "Function": "lowercase",
+      "Arity": 1,
+      "Cases": 55,
+      "Values": 41,
+      "Errors": 14
+    },
+    {
+      "Function": "next_codepoint",
+      "Arity": 1,
+      "Cases": 41,
+      "Values": 33,
+      "Errors": 8
+    },
+    {
+      "Function": "next_grapheme",
+      "Arity": 1,
+      "Cases": 40,
+      "Values": 30,
+      "Errors": 10
+    },
+    {
+      "Function": "nth_lexeme",
+      "Arity": 3,
+      "Cases": 294,
+      "Values": 211,
+      "Errors": 83
+    },
+    {
+      "Function": "pad",
+      "Arity": 2,
+      "Cases": 21,
+      "Values": 7,
+      "Errors": 14
+    },
+    {
+      "Function": "pad",
+      "Arity": 3,
+      "Cases": 29,
+      "Values": 7,
+      "Errors": 22
+    },
+    {
+      "Function": "pad",
+      "Arity": 4,
+      "Cases": 265,
+      "Values": 193,
+      "Errors": 72
+    },
+    {
+      "Function": "prefix",
+      "Arity": 2,
+      "Cases": 173,
+      "Values": 148,
+      "Errors": 25
+    },
+    {
+      "Function": "rchr",
+      "Arity": 2,
+      "Cases": 44,
+      "Values": 15,
+      "Errors": 29
+    },
+    {
+      "Function": "replace",
+      "Arity": 3,
+      "Cases": 31,
+      "Values": 15,
+      "Errors": 16
+    },
+    {
+      "Function": "replace",
+      "Arity": 4,
+      "Cases": 243,
+      "Values": 201,
+      "Errors": 42
+    },
+    {
+      "Function": "reverse",
+      "Arity": 1,
+      "Cases": 39,
+      "Values": 24,
+      "Errors": 15
+    },
+    {
+      "Function": "right",
+      "Arity": 2,
+      "Cases": 21,
+      "Values": 5,
+      "Errors": 16
+    },
+    {
+      "Function": "right",
+      "Arity": 3,
+      "Cases": 134,
+      "Values": 39,
+      "Errors": 95
+    },
+    {
+      "Function": "rstr",
+      "Arity": 2,
+      "Cases": 66,
+      "Values": 26,
+      "Errors": 40
+    },
+    {
+      "Function": "slice",
+      "Arity": 2,
+      "Cases": 40,
+      "Values": 24,
+      "Errors": 16
+    },
+    {
+      "Function": "slice",
+      "Arity": 3,
+      "Cases": 342,
+      "Values": 271,
+      "Errors": 71
+    },
+    {
+      "Function": "span",
+      "Arity": 2,
+      "Cases": 65,
+      "Values": 29,
+      "Errors": 36
+    },
+    {
+      "Function": "split",
+      "Arity": 2,
+      "Cases": 19,
+      "Values": 3,
+      "Errors": 16
+    },
+    {
+      "Function": "split",
+      "Arity": 3,
+      "Cases": 439,
+      "Values": 388,
+      "Errors": 51
+    },
+    {
+      "Function": "str",
+      "Arity": 2,
+      "Cases": 67,
+      "Values": 27,
+      "Errors": 40
+    },
+    {
+      "Function": "strip",
+      "Arity": 1,
+      "Cases": 19,
+      "Values": 7,
+      "Errors": 12
+    },
+    {
+      "Function": "strip",
+      "Arity": 2,
+      "Cases": 22,
+      "Values": 6,
+      "Errors": 16
+    },
+    {
+      "Function": "strip",
+      "Arity": 3,
+      "Cases": 112,
+      "Values": 30,
+      "Errors": 82
+    },
+    {
+      "Function": "sub_string",
+      "Arity": 2,
+      "Cases": 25,
+      "Values": 5,
+      "Errors": 20
+    },
+    {
+      "Function": "sub_string",
+      "Arity": 3,
+      "Cases": 146,
+      "Values": 29,
+      "Errors": 117
+    },
+    {
+      "Function": "sub_word",
+      "Arity": 2,
+      "Cases": 21,
+      "Values": 3,
+      "Errors": 18
+    },
+    {
+      "Function": "sub_word",
+      "Arity": 3,
+      "Cases": 133,
+      "Values": 33,
+      "Errors": 100
+    },
+    {
+      "Function": "substr",
+      "Arity": 2,
+      "Cases": 25,
+      "Values": 5,
+      "Errors": 20
+    },
+    {
+      "Function": "substr",
+      "Arity": 3,
+      "Cases": 146,
+      "Values": 37,
+      "Errors": 109
+    },
+    {
+      "Function": "take",
+      "Arity": 2,
+      "Cases": 31,
+      "Values": 15,
+      "Errors": 16
+    },
+    {
+      "Function": "take",
+      "Arity": 3,
+      "Cases": 48,
+      "Values": 17,
+      "Errors": 31
+    },
+    {
+      "Function": "take",
+      "Arity": 4,
+      "Cases": 470,
+      "Values": 401,
+      "Errors": 69
+    },
+    {
+      "Function": "titlecase",
+      "Arity": 1,
+      "Cases": 100,
+      "Values": 90,
+      "Errors": 10
+    },
+    {
+      "Function": "to_float",
+      "Arity": 1,
+      "Cases": 87,
+      "Values": 87,
+      "Errors": 0
+    },
+    {
+      "Function": "to_graphemes",
+      "Arity": 1,
+      "Cases": 33,
+      "Values": 20,
+      "Errors": 13
+    },
+    {
+      "Function": "to_integer",
+      "Arity": 1,
+      "Cases": 80,
+      "Values": 80,
+      "Errors": 0
+    },
+    {
+      "Function": "to_lower",
+      "Arity": 1,
+      "Cases": 276,
+      "Values": 267,
+      "Errors": 9
+    },
+    {
+      "Function": "to_upper",
+      "Arity": 1,
+      "Cases": 276,
+      "Values": 267,
+      "Errors": 9
+    },
+    {
+      "Function": "tokens",
+      "Arity": 2,
+      "Cases": 70,
+      "Values": 31,
+      "Errors": 39
+    },
+    {
+      "Function": "trim",
+      "Arity": 1,
+      "Cases": 32,
+      "Values": 21,
+      "Errors": 11
+    },
+    {
+      "Function": "trim",
+      "Arity": 2,
+      "Cases": 25,
+      "Values": 9,
+      "Errors": 16
+    },
+    {
+      "Function": "trim",
+      "Arity": 3,
+      "Cases": 290,
+      "Values": 236,
+      "Errors": 54
+    },
+    {
+      "Function": "uppercase",
+      "Arity": 1,
+      "Cases": 84,
+      "Values": 70,
+      "Errors": 14
+    },
+    {
+      "Function": "words",
+      "Arity": 1,
+      "Cases": 19,
+      "Values": 8,
+      "Errors": 11
+    },
+    {
+      "Function": "words",
+      "Arity": 2,
+      "Cases": 42,
+      "Values": 15,
+      "Errors": 27
+    }
+  ],
+  "Cases": 8522,
+  "ValuesMatched": 6364,
+  "ErrorReasonsMatched": 2158,
+  "FullStacksMatched": 2158,
+  "RawStacksMatched": 2156,
+  "BoundResourceStacksMatched": 2,
+  "Failed": 0,
+  "Failures": [],
+  "StackDifferences": 0,
+  "StackFailures": [],
+  "ValuesAndReasonsPass": true,
+  "CompleteOutcomesPass": true,
+  "BackingMatched": true,
+  "AssemblySha256": "1F1450A48C3EDC63E01BC49ACE3D1BFD057DA46D30E381506F02C19A4DB7CFFD",
+  "CorpusSha256": "0F9E7CE37E197E6B7A2A3E01C3401D6810E8BCBDC9E6512875BF721AFF7E878A"
+}

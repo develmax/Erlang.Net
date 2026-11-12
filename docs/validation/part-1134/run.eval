@@ -1,0 +1,15 @@
+[P,Q]=init:get_plain_arguments(),
+lists:foreach(fun(Path)->
+    {beam_file,_,_,_,_,Fs}=beam_disasm:file(Path),
+    [Is]=[Instructions || {function,select,4,_,Instructions}<-Fs],
+    io:format("~s~n~p~n",[Path,Is]),
+    {ok,B}=file:read_file(Path),
+    {module,M}=code:load_binary(beam_general_catch_probe,Path,B),
+    saved=M:select(erlang,abs,-4,saved),
+    failed=M:select(erlang,error,reason,saved),
+    failed=M:select(erlang,exit,reason,saved),
+    saved=M:select(erlang,throw,4,saved),
+    code:delete(M),
+    code:purge(M)
+end,[P,Q]),
+halt().

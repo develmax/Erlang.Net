@@ -1,0 +1,96 @@
+[Reference, Generated] = [filename:absname(Path) || Path <- init:get_plain_arguments()],
+Read = fun(Path) ->
+    {beam_file, Module, _, _, _, Functions} = beam_disasm:file(Path),
+    {Module, maps:from_list([{{Name, Arity}, Instructions}
+                           || {function, Name, Arity, _, Instructions} <- Functions])}
+end,
+Body = fun(Instructions) ->
+    [I || I <- Instructions, not (is_tuple(I) andalso
+          lists:member(element(1,I), [label,line,func_info,executable_line,debug_line]))]
+end,
+Allocates = fun(I) -> is_tuple(I) andalso
+    lists:member(element(1,I), [allocate,allocate_heap,allocate_zero,allocate_heap_zero])
+end,
+Unwrap = fun U({match,_,{var,_,_},Right}) -> U(Right);
+             U({match,_,Left,{var,_,_}}) -> U(Left);
+             U(Pattern) -> Pattern
+         end,
+InputRegister = fun({tr,{x,N},_}) -> N;
+                   ({x,N}) -> N
+                end,
+HasNestedTuple = fun(Pattern) ->
+    case Unwrap(Pattern) of
+        {tuple,_,_} -> true;
+        {record,_,_,_} -> true;
+        _ -> false
+    end
+end,
+HeadShape = fun({clause,_,Patterns,_,_}, Input) ->
+    case Unwrap(lists:nth(Input + 1, Patterns)) of
+        {cons,_,Head,Tail} ->
+            case {Unwrap(Head),Unwrap(Tail)} of
+                {{tuple,_,Fields},{var,_,_}} ->
+                    case lists:any(HasNestedTuple,Fields) of true -> nested_tuple; false -> flat_tuple end;
+                {{record,_,_,_},{var,_,_}} -> record;
+                {{tuple,_,_},_} -> closed_or_long_list;
+                {{record,_,_,_},_} -> closed_or_long_list;
+                _ -> other_list
+            end;
+        _ -> other_pattern
+    end
+end,
+BodyShape = fun({clause,_,_,_,Body}) ->
+    case Body of
+        [{'case',_,_,_}] -> case_result;
+        [{call,_,_,Arguments}] ->
+            Kinds = [element(1,Argument) || Argument <- Arguments],
+            case {lists:member(record,Kinds),lists:member(call,Kinds),
+                  lists:any(fun(Kind) -> lists:member(Kind,[cons,tuple,map]) end,Kinds)} of
+                {true,_,_} -> call_with_record;
+                {_,true,_} -> nested_call;
+                {_,_,true} -> call_with_constructor;
+                _ -> ordinary_tail_call
+            end;
+        [{cons,_,_,_}] -> cons_result;
+        [{tuple,_,_}] -> tuple_result;
+        [_] -> other_single_expression;
+        [_,_|_] -> expression_sequence
+    end
+end,
+Files = lists:sort(filelib:fold_files(Generated, "[.]beam$", true, fun(Path, Acc) -> [Path | Acc] end, [])),
+Totals = lists:foldl(fun(Path, Acc) ->
+    Relative = lists:nthtail(length(filename:split(Generated)), filename:split(Path)),
+    ReferencePath = filename:join([Reference | Relative]),
+    {Module, Old} = Read(ReferencePath),
+    {Module, New} = Read(Path),
+    Candidates = [{Mfa,InputRegister(Input)} || {Mfa,Instructions} <- maps:to_list(Old),
+        [{test,is_nonempty_list,_,[Input]},{get_list,_,_,_},{test,is_tuple,_,_},
+         {test,test_arity,_,_},{get_tuple_element,_,_,_}|Rest] <- [Body(Instructions)],
+        [First|_] <- [Body(maps:get(Mfa,New,[]))], Allocates(First), lists:any(Allocates,Rest)],
+    Forms = case Candidates of
+        [] -> #{};
+        _ ->
+            case beam_lib:chunks(ReferencePath,[abstract_code]) of
+                {ok,{Module,[{abstract_code,{raw_abstract_v1,Raw}}]}} ->
+                    maps:from_list([{{Name,Arity},Clauses} || {function,_,Name,Arity,Clauses} <- Raw]);
+                _ -> #{}
+            end
+    end,
+    Groups = lists:foldl(fun({Mfa,Input}, Group) ->
+        Shapes = case maps:find(Mfa,Forms) of
+            error -> [missing_forms];
+            {ok,Clauses} -> lists:usort([BodyShape(Clause) || Clause <- Clauses, HeadShape(Clause,Input) =:= flat_tuple])
+        end,
+        lists:foldl(fun(Shape, G) -> maps:update_with(Shape,fun(Mfas) -> [Mfa|Mfas] end,[Mfa],G) end,Group,Shapes)
+    end, #{}, Candidates),
+    maps:fold(fun(Shape,Mfas,All) ->
+        Count = length(Mfas),
+        Example = {Module,lists:min(Mfas)},
+        maps:update_with(Shape,fun({Modules,Functions,Examples}) ->
+            {Modules+1,Functions+Count,lists:sublist([Example|Examples],3)}
+        end,{1,Count,[Example]},All)
+    end, Acc, Groups)
+end, #{}, Files),
+io:format("Bodies of clauses with a flat tuple head in the arity and field extraction group. Counts are {modules, functions, examples}.~n"),
+io:format("A function contributes once to each body shape present in its flat tuple clauses.~n~p~n",[Totals]),
+halt().

@@ -1,0 +1,76 @@
+OTP
+{label,1175}
+{line,[{location,"/daily_build/otp_src/lib/eldap/src/../ebin/ELDAPv3.erl",
+                 3490}]}
+{func_info,{atom,'ELDAPv3'},{atom,encode_length},1}
+{label,1176}
+{test,is_ge,{f,1177},[{integer,127},{tr,{x,0},{t_integer,{0,'+inf'}}}]}
+{test_heap,5,1}
+{put_list,{x,0},nil,{x,0}}
+{put_tuple2,{x,0},{list,[{x,0},{integer,1}]}}
+return
+{label,1177}
+{allocate,0,1}
+{line,[{location,"/daily_build/otp_src/lib/eldap/src/../ebin/ELDAPv3.erl",
+                 3493}]}
+{call,1,{'ELDAPv3',minimum_octets,1}}
+{line,[{location,"/daily_build/otp_src/lib/eldap/src/../ebin/ELDAPv3.erl",
+                 3494}]}
+{gc_bif,length,{f,0},1,[{tr,{x,0},{t_list,any,any}}],{x,1}}
+{test,is_ge,
+      {f,1178},
+      [{integer,126},{tr,{x,1},{t_integer,{0,288230376151711743}}}]}
+{line,[{location,"/daily_build/otp_src/lib/eldap/src/../ebin/ELDAPv3.erl",
+                 3497}]}
+{gc_bif,'bor',{f,0},2,[{tr,{x,1},{t_integer,{0,126}}},{integer,128}],{x,2}}
+{gc_bif,'+',{f,0},3,[{tr,{x,1},{t_integer,{0,126}}},{integer,1}],{x,1}}
+{test_heap,5,3}
+{put_list,{x,2},{x,0},{x,0}}
+{put_tuple2,{x,0},{list,[{x,0},{x,1}]}}
+{deallocate,0}
+return
+{label,1178}
+{test_heap,7,2}
+{put_tuple2,{x,0},{list,[{atom,asn1},{atom,too_long_length_oct},{x,1}]}}
+{put_tuple2,{x,0},{list,[{atom,error},{x,0}]}}
+{line,[{location,"/daily_build/otp_src/lib/eldap/src/../ebin/ELDAPv3.erl",
+                 3499}]}
+{call_ext_last,1,{extfunc,erlang,exit,1},0}
+CSharp
+{label,1238}
+{line,[{location,"/daily_build/otp_src/lib/eldap/src/../ebin/ELDAPv3.erl",
+                 3490}]}
+{func_info,{atom,'ELDAPv3'},{atom,encode_length},1}
+{label,1239}
+{test,is_ge,{f,1240},[{integer,127},{x,0}]}
+{test_heap,5,1}
+{put_list,{x,0},nil,{x,0}}
+{put_tuple2,{x,0},{list,[{x,0},{integer,1}]}}
+return
+{label,1240}
+{allocate,0,1}
+{line,[{location,"/daily_build/otp_src/lib/eldap/src/../ebin/ELDAPv3.erl",
+                 3493}]}
+{call,1,{'ELDAPv3',minimum_octets,1}}
+{line,[{location,"/daily_build/otp_src/lib/eldap/src/../ebin/ELDAPv3.erl",
+                 3494}]}
+{gc_bif,length,{f,0},1,[{tr,{x,0},{t_list,any,any}}],{x,1}}
+{test,is_ge,
+      {f,1241},
+      [{integer,126},{tr,{x,1},{t_integer,{0,288230376151711743}}}]}
+{line,[{location,"/daily_build/otp_src/lib/eldap/src/../ebin/ELDAPv3.erl",
+                 3497}]}
+{gc_bif,'bor',{f,0},2,[{tr,{x,1},{t_integer,{0,126}}},{integer,128}],{x,2}}
+{gc_bif,'+',{f,0},3,[{tr,{x,1},{t_integer,{0,126}}},{integer,1}],{x,1}}
+{test_heap,5,3}
+{put_list,{x,2},{x,0},{x,0}}
+{put_tuple2,{x,0},{list,[{x,0},{x,1}]}}
+{deallocate,0}
+return
+{label,1241}
+{test_heap,7,2}
+{put_tuple2,{x,0},{list,[{atom,asn1},{atom,too_long_length_oct},{x,1}]}}
+{put_tuple2,{x,0},{list,[{atom,error},{x,0}]}}
+{line,[{location,"/daily_build/otp_src/lib/eldap/src/../ebin/ELDAPv3.erl",
+                 3499}]}
+{call_ext_last,1,{extfunc,erlang,exit,1},0}

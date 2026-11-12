@@ -1,0 +1,26 @@
+[Root, Generated] = init:get_plain_arguments(),
+Paths = filelib:wildcard(filename:join(Generated,"**/*.beam")),
+Conversions = [atom_to_binary, atom_to_list, binary_to_atom, binary_to_existing_atom,
+    binary_to_integer, binary_to_list, binary_to_term, integer_to_binary, integer_to_list,
+    iolist_to_binary, list_to_atom, list_to_binary, list_to_existing_atom, list_to_integer,
+    list_to_tuple, term_to_binary, tuple_to_list],
+Base = length(filename:split(Generated)),
+Rows = [{filename:join(Rel),
+    [MFA || {function,_,_,_,Is} <- Fs, I <- Is,
+        T <- [case I of
+            {call_ext,_,X} -> X;
+            {call_ext_last,_,X,_} -> X;
+            {call_ext_only,_,X} -> X;
+            _ -> none
+        end],
+        {extfunc,erlang,Name,Arity} <- [T], lists:member(Name,Conversions), MFA <- [{Name,Arity}]]}
+    || Path <- Paths, Rel <- [lists:nthtail(Base,filename:split(Path))],
+       {beam_file,_,_,_,_,Fs} <- [beam_disasm:file(filename:join([Root|Rel]))]],
+Entries = lists:usort(lists:append([Calls || {_,Calls} <- Rows])),
+Counts = [{length([P || {P,Calls} <- Rows, lists:member(MFA,Calls)]),
+           length([Call || {_,Calls} <- Rows, Call <- Calls, Call =:= MFA]), MFA}
+    || MFA <- Entries],
+io:format("External conversion calls in ~B differing release modules.~n",[length(Rows)]),
+[io:format("~B modules, ~B calls, ~p~n",[Modules,Calls,MFA])
+    || {Modules,Calls,MFA} <- lists:reverse(lists:sort(Counts))],
+halt().

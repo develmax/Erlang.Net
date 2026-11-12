@@ -8,6 +8,14 @@ public static class Lexer
 {
     private static readonly HashSet<string> Keywords = [ErlangKeywords.After, ErlangKeywords.Begin, ErlangKeywords.Case, ErlangKeywords.Try, ErlangKeywords.Cond, ErlangKeywords.Catch, ErlangOperators.AndAlso, ErlangOperators.OrElse, ErlangKeywords.End, ErlangKeywords.Fun, ErlangKeywords.If, ErlangKeywords.Let, ErlangKeywords.Of, ErlangKeywords.Receive, ErlangKeywords.When, ErlangOperators.BitwiseNot, ErlangOperators.Not, ErlangOperators.IntegerDivide, ErlangOperators.Remainder, ErlangOperators.BitwiseAnd, ErlangOperators.And, ErlangOperators.BitwiseOr, ErlangOperators.BitwiseXor, ErlangOperators.ShiftLeft, ErlangOperators.ShiftRight, ErlangOperators.Or, ErlangOperators.Xor, ErlangKeywords.Maybe, ErlangKeywords.Else];
 
+    private static void RequireStringSeparator(string text, int offset)
+    {
+        if (offset < text.Length && text[offset] == '"')
+        {
+            throw new CompileException(CompilerDiagnosticCodes.InvalidLiteral, LexerDiagnostics.StringSeparatorRequired, offset);
+        }
+    }
+
     public static List<Token> Scan(string text, bool blockPrefix = false)
     {
         var tokens = new List<Token>();
@@ -38,7 +46,19 @@ public static class Lexer
                     value.ToString(CultureInfo.InvariantCulture),
                     start,
                     i
-                ));
+                ) { IsCharacterLiteral = true });
+                continue;
+            }
+            if (c == '~' && StringSigilLexer.TryRead(text, start, ref i, out Token? sigil))
+            {
+                tokens.Add(sigil!);
+                continue;
+            }
+            if (c == '"' && TripleQuotedStringLexer.StartsAt(text, start))
+            {
+                Token triple = TripleQuotedStringLexer.Read(text, start, ref i);
+                RequireStringSeparator(text, i);
+                tokens.Add(triple);
                 continue;
             }
             if (c is '\'' or '"')
@@ -57,26 +77,18 @@ public static class Lexer
                     {
                         if (i == text.Length)
                             break;
-                        ch = text[i++];
-                        if (ch is 'x' or '^' || char.IsDigit(ch))
-                            throw new CompileException(CompilerDiagnosticCodes.UnsupportedSyntax, LexerDiagnostics.UnsupportedEscape, i - 2);
-                        ch = ch switch
-                        {
-                            'n' => '\n',
-                            'r' => '\r',
-                            't' => '\t',
-                            'b' => '\b',
-                            'f' => '\f',
-                            'v' => '\v',
-                            'e' => '\x1b',
-                            's' => ' ',
-                            _ => ch
-                        };
+                        int scalar = CharacterLiteralLexer.ReadEscape(text, ref i, i - 1);
+                        value.Append(char.ConvertFromUtf32(scalar));
+                        continue;
                     }
                     value.Append(ch);
                 }
                 if (!closed)
                     throw new CompileException(CompilerDiagnosticCodes.InvalidLiteral, LexerDiagnostics.UnterminatedQuotedLiteral, start);
+                if (c == '"')
+                {
+                    RequireStringSeparator(text, i);
+                }
                 string literal = value.ToString();
                 for (int offset = 0; offset < literal.Length;)
                 {
@@ -122,13 +134,7 @@ public static class Lexer
                     i++;
                 if (i < text.Length && text[i] == BasedIntegerParameters.BaseMarker)
                 {
-                    string integer = BasedIntegerLexer.Read(text, start, ref i);
-                    tokens.Add(new(
-                        LexerTokenKinds.Integer,
-                        integer,
-                        start,
-                        i
-                    ));
+                    tokens.Add(BasedIntegerLexer.Read(text, start, ref i));
                     continue;
                 }
                 bool floating = false;
@@ -174,6 +180,8 @@ public static class Lexer
 
         return tokens;
     }
+
+    internal static bool IsKeyword(string text) => Keywords.Contains(text);
 
     private static void Observe(string name, bool variable, int offset)
     {

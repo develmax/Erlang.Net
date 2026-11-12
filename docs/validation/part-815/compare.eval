@@ -1,0 +1,21 @@
+Original = code:which(cdv_html_wx),
+Generated = "artifacts/beam-backend/part815-images/cdv_html_wx.beam",
+{beam_file,_,_,_,_,A}=beam_disasm:file(Original),
+{beam_file,_,_,_,_,B}=beam_disasm:file(Generated),
+Norm=fun G({label,L},D)->{label,L-D};G({f,L},D) when L=/=0->{f,L-D};
+    G({line,[{location,_,L}]},_)->{line,L};
+    G(T,D) when is_tuple(T)->list_to_tuple([G(I,D)||I<-tuple_to_list(T)]);
+    G(L,D) when is_list(L)->[G(I,D)||I<-L];G(I,_)->I end,
+lists:foreach(fun({function,N,R,LA,X})->
+    [{function,_,_,LB,Y}]=[F||F={function,M,S,_,_}<-B,M=:=N,S=:=R],
+    NX=Norm(X,0),NY=Norm(Y,LB-LA),
+    io:format("~p/~p ~p ~p exact=~p~n",[N,R,length(X),length(Y),NX=:=NY]),
+    case NX=:=NY of true->ok;false->
+        P=lists:takewhile(fun({I,J})->I=:=J end,lists:zip(lists:sublist(NX,min(length(X),length(Y))),lists:sublist(NY,min(length(X),length(Y))))),
+        io:format("first_diff=~p ~p~n",[lists:sublist(NX,length(P)+1,3),lists:sublist(NY,length(P)+1,3)])
+    end
+end,A),
+{ok,_,CA}=beam_lib:all_chunks(Original),
+{ok,_,CB}=beam_lib:all_chunks(Generated),
+io:format("different=~p~n",[[K||K<-lists:usort([N||{N,_}<-CA++CB]),lists:keyfind(K,1,CA)=/=lists:keyfind(K,1,CB)]]),
+halt().

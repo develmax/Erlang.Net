@@ -1,0 +1,42 @@
+internal static class SysValidationModules
+{
+    internal const string Epp = "epp";
+    internal const string Erlang = "erlang";
+    internal const string File = "file";
+    internal const string FileIoServer = "file_io_server";
+    internal const string FileServer = "file_server";
+    internal const string Filename = "filename";
+    internal const string Gen = "gen";
+    internal const string GenEvent = "gen_event";
+    internal const string GenServer = "gen_server";
+    internal const string GenStatem = "gen_statem";
+    internal const string Io = "io";
+    internal const string IoLib = "io_lib";
+    internal const string IoLibFormat = "io_lib_format";
+    internal const string IoLibPretty = "io_lib_pretty";
+    internal const string Lists = "lists";
+    internal const string Logger = "logger";
+    internal const string Maps = "maps";
+    internal const string NetKernel = "net_kernel";
+    internal const string Os = "os";
+    internal const string PrimBuffer = "prim_buffer";
+    internal const string PrimFile = "prim_file";
+    internal const string ProcLib = "proc_lib";
+    internal const string Proplists = "proplists";
+    internal const string Queue = "queue";
+    internal const string RawFileIo = "raw_file_io";
+    internal const string String = "string";
+    internal const string Sys = "sys";
+    internal const string SysBehaviourCases = "sys_behaviour_cases";
+    internal const string SysPortCases = "sys_port_cases";
+    internal const string Unicode = "unicode";
+    internal const string UnicodeUtil = "unicode_util";
+    internal const string UpstreamSpecialOne = "sys_sp1";
+    internal const string UpstreamSpecialTwo = "sys_sp2";
+    internal const string UpstreamSuite = "sys_SUITE";
+    internal const string ErlScan = "erl_scan";
+    internal const string ErlParse = "erl_parse";
+    internal const string ErlAnno = "erl_anno";
+    internal const string ErlFeatures = "erl_features";
+    internal const string PersistentTerm = "persistent_term";
+}

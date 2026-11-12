@@ -1,0 +1,12 @@
+Path = "tests/Erlang.Tests/Resources/Beam/beam_accumulator_fun_probe.erl",
+{ok,beam_accumulator_fun_probe,Expected} = compile:file(Path,[binary,deterministic]),
+{ok,Expected} = file:read_file("artifacts/beam-backend/part757-probe.beam"),
+{module,beam_accumulator_fun_probe} = code:load_binary(beam_accumulator_fun_probe,Path,Expected),
+Accumulator = beam_accumulator_fun_probe:make(7),
+2001007 = Accumulator(2000,0),
+17 = Accumulator(0,10),
+badarith = try Accumulator(1,invalid) catch error:Reason -> Reason end,
+{env,[7]} = erlang:fun_info(Accumulator,env),
+io:format("whole_image_equal=true bytes=~p iterations=2000 result=2001007 zero_case=17 invalid_input=badarith~n",
+    [byte_size(Expected)]),
+halt().

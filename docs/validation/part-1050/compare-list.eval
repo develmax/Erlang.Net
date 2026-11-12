@@ -1,0 +1,23 @@
+[Reference, Before, After] = [filename:absname(Path) || Path <- init:get_plain_arguments()],
+Bodies = fun(Path) ->
+    {beam_file, _, _, _, _, Fs} = beam_disasm:file(Path),
+    maps:from_list([{{Name, Arity}, [I || I <- Is, element(1, I) =/= label,
+        element(1, I) =/= line, element(1, I) =/= func_info]}
+        || {function, Name, Arity, _, Is} <- Fs, lists:any(fun(I) -> is_tuple(I) andalso element(1, I) =:= put_list end, Is),
+           lists:all(fun(I) -> is_tuple(I) andalso lists:member(element(1, I),
+               [label,line,func_info,swap,move,test_heap,put_list,call_only,call_ext_only]) end, Is),
+           lists:member(element(1, lists:last(Is)), [call_only,call_ext_only])])
+end,
+Files = filelib:fold_files(After, "[.]beam$", true, fun(Path, Acc) -> [Path | Acc] end, []),
+Totals = lists:foldl(fun(Path, Acc) ->
+    Relative = lists:nthtail(length(filename:split(After)), filename:split(Path)),
+    Expected = Bodies(filename:join([Reference | Relative])),
+    Old = Bodies(filename:join([Before | Relative])),
+    New = Bodies(Path),
+    Changes = [{maps:get(Key, Old, missing) =:= Body, maps:get(Key, New, missing) =:= Body}
+        || {Key, Body} <- maps:to_list(Expected), maps:is_key(Key, Old) orelse maps:is_key(Key, New)],
+    lists:foldl(fun(Change, Inner) -> maps:update_with(Change, fun(N) -> N+1 end, 1, Inner) end, Acc, Changes)
+end, #{}, Files),
+io:format("Compared ~p images. Straight-line list tail body equality {before, after}:~n~p~n", [length(Files), Totals]),
+halt().
+

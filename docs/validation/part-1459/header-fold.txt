@@ -1,0 +1,6 @@
+OTP 29.1.1 header_list/1
+18 instructions
+Calls and closures [{make_fun3,{http_response,'-header_list/1-fun-0-',3},0,123144434,{x,0},{list,[{x,0}]}},{call_ext,3,{extfunc,lists,foldl,3}},{call_ext,1,{extfunc,lists,reverse,1}},{call_ext_last,2,{extfunc,erlang,'++',2},1}]
+C# header_list/1
+67 instructions
+Calls and closures [{call_ext,2,{extfunc,erlang,'--',2}},{call,2,{http_response,key_value_tuple,2}},{call_ext,1,{extfunc,erlang,error,1}},{call_ext,1,{extfunc,lists,reverse,1}},{call_ext_last,2,{extfunc,erlang,'++',2},8}]

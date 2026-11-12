@@ -1,0 +1,13 @@
+{function,run,1,2,
+          [{label,1},
+           {line,[{location,[],3}]},
+           {func_info,{atom,dictionary_send_probe},{atom,run},1},
+           {label,2},
+           {allocate,0,1},
+           {move,{x,0},{x,1}},
+           {bif,get,{f,0},[{atom,dictionary_send_probe}],{x,0}},
+           {line,[{location,[],4}]},
+           send,
+           {move,{atom,ok},{x,0}},
+           {deallocate,0},
+           return]}

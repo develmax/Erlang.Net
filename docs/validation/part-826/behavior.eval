@@ -1,0 +1,38 @@
+Dir = "artifacts/beam-backend/part826-images",
+Module = ssl_dist_sup,
+Run = fun(File) ->
+    code:purge(Module),
+    code:delete(Module),
+    {ok, Bytes} = file:read_file(File),
+    {module, Module} = code:load_binary(Module, File, Bytes),
+    try Module:start_link() of
+        {ok, Sup} ->
+            Result = case ets:whereis(ssl_dist_opts) of
+                undefined -> no_table;
+                _ ->
+                    Entry = ets:lookup(ssl_dist_opts, fixture),
+                    true = ets:delete(ssl_dist_opts),
+                    Entry
+            end,
+            ok = gen_server:stop(Sup),
+            {ok, Result}
+    catch
+        error:{bad_ssl_dist_optfile, Detail}:Stack ->
+            {error, Detail, Stack}
+    end
+end,
+Otp = Run(code:which(Module)),
+Otp = Run(filename:join(Dir, atom_to_list(Module) ++ ".beam")),
+case init:get_argument(fixture_case) of
+    {ok, [["none"]]} -> {ok, no_table} = Otp;
+    {ok, [["valid"]]} -> {ok, [{fixture, true}]} = Otp;
+    {ok, [["missing"]]} -> {error, Missing, _} = Otp, true = lists:suffix("missing.conf", Missing);
+    {ok, [["parse"]]} -> {error, {parse_error, _}, _} = Otp;
+    {ok, [["scan"]]} -> {error, {scan_error, _, _}, _} = Otp;
+    {ok, [["encoding_error"]]} -> {error, {encoding_error, _}, _} = Otp;
+    {ok, [["encoding_incomplete"]]} -> {error, {encoding_incomplete, _}, _} = Otp;
+    {ok, [["bindings"]]} -> {error, {bindings, _}, _} = Otp;
+    {ok, [["argument"]]} -> {error, [[_, _]], _} = Otp
+end,
+erlang:display({Module, init:get_argument(fixture_case), equal}),
+halt().

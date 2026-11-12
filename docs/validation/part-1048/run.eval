@@ -1,0 +1,18 @@
+[Path] = init:get_plain_arguments(),
+{ok, Binary} = file:read_file(Path),
+{module, register_guard_probe} = code:load_binary(register_guard_probe, Path, Binary),
+[a,a] = register_guard_probe:run(tag,2),
+[b,a] = register_guard_probe:run(tag,[a,b]),
+true = register_guard_probe:run(another,other),
+false = register_guard_probe:run(another,2),
+<<"x">> = register_guard_probe:checked(<<"x">>),
+[b,a] = register_guard_probe:checked([a,b]),
+try register_guard_probe:checked(unmatched) of
+    _ -> error(expected_function_clause)
+catch
+    error:function_clause:Stack -> [{register_guard_probe,checked,[unmatched],_}|_] = Stack
+end,
+{beam_file, _, _, _, _, Fs} = beam_disasm:file(Path),
+[io:format("~p~n", [F]) || F = {function, Name, _, _, _} <- Fs,
+    lists:member(Name,[run,checked])],
+halt().

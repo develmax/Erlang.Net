@@ -1,0 +1,471 @@
+{
+  "Baseline": {
+    "tag": "OTP-29.1.1",
+    "commit": "ad05823719d77c8faee87348ea39513d4e2f99c5",
+    "repository": "https://github.com/erlang/otp",
+    "sdk": "10.0.400"
+  },
+  "ReferenceSourceSha256": "774B2307E0F49FE2974F3E9D10C870F8F8F59A6AE5073F133908A99756332F17",
+  "PublicExports": 69,
+  "Exports": [
+    {
+      "Function": "add_path",
+      "Arity": 1
+    },
+    {
+      "Function": "add_path",
+      "Arity": 2
+    },
+    {
+      "Function": "add_patha",
+      "Arity": 1
+    },
+    {
+      "Function": "add_patha",
+      "Arity": 2
+    },
+    {
+      "Function": "add_paths",
+      "Arity": 1
+    },
+    {
+      "Function": "add_paths",
+      "Arity": 2
+    },
+    {
+      "Function": "add_pathsa",
+      "Arity": 1
+    },
+    {
+      "Function": "add_pathsa",
+      "Arity": 2
+    },
+    {
+      "Function": "add_pathsz",
+      "Arity": 1
+    },
+    {
+      "Function": "add_pathsz",
+      "Arity": 2
+    },
+    {
+      "Function": "add_pathz",
+      "Arity": 1
+    },
+    {
+      "Function": "add_pathz",
+      "Arity": 2
+    },
+    {
+      "Function": "all_available",
+      "Arity": 0
+    },
+    {
+      "Function": "all_loaded",
+      "Arity": 0
+    },
+    {
+      "Function": "atomic_load",
+      "Arity": 1
+    },
+    {
+      "Function": "clash",
+      "Arity": 0
+    },
+    {
+      "Function": "clear_cache",
+      "Arity": 0
+    },
+    {
+      "Function": "compiler_dir",
+      "Arity": 0
+    },
+    {
+      "Function": "coverage_support",
+      "Arity": 0
+    },
+    {
+      "Function": "del_path",
+      "Arity": 1
+    },
+    {
+      "Function": "del_paths",
+      "Arity": 1
+    },
+    {
+      "Function": "delete",
+      "Arity": 1
+    },
+    {
+      "Function": "ensure_loaded",
+      "Arity": 1
+    },
+    {
+      "Function": "ensure_modules_loaded",
+      "Arity": 1
+    },
+    {
+      "Function": "finish_loading",
+      "Arity": 1
+    },
+    {
+      "Function": "get_chunk",
+      "Arity": 2
+    },
+    {
+      "Function": "get_coverage",
+      "Arity": 2
+    },
+    {
+      "Function": "get_coverage_mode",
+      "Arity": 0
+    },
+    {
+      "Function": "get_coverage_mode",
+      "Arity": 1
+    },
+    {
+      "Function": "get_debug_info",
+      "Arity": 1
+    },
+    {
+      "Function": "get_doc",
+      "Arity": 1
+    },
+    {
+      "Function": "get_doc",
+      "Arity": 2
+    },
+    {
+      "Function": "get_mode",
+      "Arity": 0
+    },
+    {
+      "Function": "get_object_code",
+      "Arity": 1
+    },
+    {
+      "Function": "get_path",
+      "Arity": 0
+    },
+    {
+      "Function": "is_loaded",
+      "Arity": 1
+    },
+    {
+      "Function": "is_sticky",
+      "Arity": 1
+    },
+    {
+      "Function": "lib_dir",
+      "Arity": 0
+    },
+    {
+      "Function": "lib_dir",
+      "Arity": 1
+    },
+    {
+      "Function": "lib_dir",
+      "Arity": 2
+    },
+    {
+      "Function": "load_abs",
+      "Arity": 1
+    },
+    {
+      "Function": "load_abs",
+      "Arity": 2
+    },
+    {
+      "Function": "load_binary",
+      "Arity": 3
+    },
+    {
+      "Function": "load_file",
+      "Arity": 1
+    },
+    {
+      "Function": "modified_modules",
+      "Arity": 0
+    },
+    {
+      "Function": "module_md5",
+      "Arity": 1
+    },
+    {
+      "Function": "module_status",
+      "Arity": 0
+    },
+    {
+      "Function": "module_status",
+      "Arity": 1
+    },
+    {
+      "Function": "objfile_extension",
+      "Arity": 0
+    },
+    {
+      "Function": "prepare_loading",
+      "Arity": 1
+    },
+    {
+      "Function": "priv_dir",
+      "Arity": 1
+    },
+    {
+      "Function": "purge",
+      "Arity": 1
+    },
+    {
+      "Function": "replace_path",
+      "Arity": 2
+    },
+    {
+      "Function": "replace_path",
+      "Arity": 3
+    },
+    {
+      "Function": "reset_coverage",
+      "Arity": 1
+    },
+    {
+      "Function": "root_dir",
+      "Arity": 0
+    },
+    {
+      "Function": "set_coverage_mode",
+      "Arity": 1
+    },
+    {
+      "Function": "set_path",
+      "Arity": 1
+    },
+    {
+      "Function": "set_path",
+      "Arity": 2
+    },
+    {
+      "Function": "soft_purge",
+      "Arity": 1
+    },
+    {
+      "Function": "start_link",
+      "Arity": 0
+    },
+    {
+      "Function": "stick_dir",
+      "Arity": 1
+    },
+    {
+      "Function": "stick_mod",
+      "Arity": 1
+    },
+    {
+      "Function": "stop",
+      "Arity": 0
+    },
+    {
+      "Function": "unstick_dir",
+      "Arity": 1
+    },
+    {
+      "Function": "unstick_mod",
+      "Arity": 1
+    },
+    {
+      "Function": "where_is_file",
+      "Arity": 1
+    },
+    {
+      "Function": "where_is_file",
+      "Arity": 2
+    },
+    {
+      "Function": "which",
+      "Arity": 1
+    }
+  ],
+  "ManagedSourceBindings": [
+    {
+      "Path": "src/Otp/Managed/Erlang.Otp.Stdlib/Code/CodeAbstractSyntaxLayout.cs",
+      "Sha256": "914B429C7B12866DF3196C1CC5AB1DCB60DD0FA1B7B6F1892ABB3F2185DABC7B"
+    },
+    {
+      "Path": "src/Otp/Managed/Erlang.Otp.Stdlib/Code/CodeApiNames.cs",
+      "Sha256": "F0FF32001001BB4296C401D66D517F79CC38482E3B6C8633AAB6A5D1EBD230E5"
+    },
+    {
+      "Path": "src/Otp/Managed/Erlang.Otp.Stdlib/Code/CodeClashMessages.cs",
+      "Sha256": "07EB4B7D16C2AAE51BF4030D1C1FB4D8E1A53D23E78521133E4447D7693D6CE6"
+    },
+    {
+      "Path": "src/Otp/Managed/Erlang.Otp.Stdlib/Code/CodeDependencyFunctions.cs",
+      "Sha256": "06820D128CDEE05349FE08749945B0273036D60B7A6FDE46C5A0D6C8EFFD90A1"
+    },
+    {
+      "Path": "src/Otp/Managed/Erlang.Otp.Stdlib/Code/CodeDocumentationNames.cs",
+      "Sha256": "3712AF314AFC0ACB69EC91326FD7393EDB94E4D21DD5A504755DBD1621AA9914"
+    },
+    {
+      "Path": "src/Otp/Managed/Erlang.Otp.Stdlib/Code/CodeFileErrorAtoms.cs",
+      "Sha256": "657127A704635BA223E6EB50AB81A2CD4C16802EB95DAC739D8164608B04D3EA"
+    },
+    {
+      "Path": "src/Otp/Managed/Erlang.Otp.Stdlib/Code/CodeFilenameFunctions.cs",
+      "Sha256": "307409DD4DBA63BEA917E11418EA1A58FFE59D62E537656689D9791FFE572469"
+    },
+    {
+      "Path": "src/Otp/Managed/Erlang.Otp.Stdlib/Code/CodeLoadedModuleNames.cs",
+      "Sha256": "C9CD59AA58512F4555473BF14FDF52516528D854E9EB368CBFF50A582A8142DB"
+    },
+    {
+      "Path": "src/Otp/Managed/Erlang.Otp.Stdlib/Code/CodeLoaderFunctions.cs",
+      "Sha256": "F6E82DF5719D4B4ADB0EFF35206F7E569AC65F60BAFADB629F5EEA7EB8C42639"
+    },
+    {
+      "Path": "src/Otp/Managed/Erlang.Otp.Stdlib/Code/CodeLoadingNames.cs",
+      "Sha256": "31FB28E1BA0CC176689B62B39AFEDF7D7E91259DC27636E6D63F9A09FA65A073"
+    },
+    {
+      "Path": "src/Otp/Managed/Erlang.Otp.Stdlib/Code/CodeModule.cs",
+      "Sha256": "4A2743E5FB1FFD3E9BD5D3F2150F4C7631E85DE68344C4801EFC918275952C79"
+    },
+    {
+      "Path": "src/Otp/Managed/Erlang.Otp.Stdlib/Code/CodeModule.Documentation.cs",
+      "Sha256": "25ECFF99288C7DF61525EC89B52B32A196815F3B02A8392470FD904CA3250653"
+    },
+    {
+      "Path": "src/Otp/Managed/Erlang.Otp.Stdlib/Code/CodeModule.Loading.cs",
+      "Sha256": "896FCD63CA437A45910731086D237590D5AF473F98517A38742DCCAFAB772126"
+    },
+    {
+      "Path": "src/Otp/Managed/Erlang.Otp.Stdlib/Code/CodeModule.Paths.cs",
+      "Sha256": "250798A4E16AAEF5C56DAD06CD097007864E3EDCA32F782E54541780E5B31871"
+    },
+    {
+      "Path": "src/Otp/Managed/Erlang.Otp.Stdlib/Code/CodeModuleStatusNames.cs",
+      "Sha256": "65DD3C5E2A6DB86EAAC2C0583A2E4FDFC3111AD758E500D23602D12289A605C3"
+    },
+    {
+      "Path": "src/Otp/Managed/Erlang.Otp.Stdlib/Code/CodeMonitorProtocol.cs",
+      "Sha256": "A4BF9546105B5D76B5D5B8C9413B329F38CAEC262FEED4DD42763244A4C44779"
+    },
+    {
+      "Path": "src/Otp/Managed/Erlang.Otp.Stdlib/Code/CodeObjectFileNames.cs",
+      "Sha256": "56306AA9209CF91AD613E1800C9DE9C2E7E3F018E6C6F809BA48CD00040B741D"
+    },
+    {
+      "Path": "src/Otp/Managed/Erlang.Otp.Stdlib/Code/CodeParallelRecipe.cs",
+      "Sha256": "D7C2F7DD24EDEE9752FA8EA2E3F31FE0EC65042EC0ABF54D624905D1F2B991C2"
+    },
+    {
+      "Path": "src/Otp/Managed/Erlang.Otp.Stdlib/Code/CodePathNames.cs",
+      "Sha256": "7A252D519244499BF7265DEFF9E65AF4E06E2E20F22D5DAA7B97F14BB67A4833"
+    },
+    {
+      "Path": "src/Otp/Managed/Erlang.Otp.Stdlib/Code/CodePreparationProtocol.cs",
+      "Sha256": "3DA654111B217F22BDE5FD4ACD4CE0203E6C100F826F5FCBB9AB72A325656A3E"
+    },
+    {
+      "Path": "src/Otp/Managed/Erlang.Otp.Stdlib/Code/CodeResultAtoms.cs",
+      "Sha256": "EC5E5BF5F4C2BB2F67C63956044C7A85DC8D8983A0755D2283DC57916D764925"
+    },
+    {
+      "Path": "src/Otp/Managed/Erlang.Otp.Stdlib/Code/CodeRuntimeFunctions.cs",
+      "Sha256": "3B152115D04B51A8D80AD212A8BE9B3A418202A6BABDC2345F2D39228E503519"
+    },
+    {
+      "Path": "src/Otp/Managed/Erlang.Otp.Stdlib/Code/CodeServerModes.cs",
+      "Sha256": "57037376C72956A30F741F0D856B2D08E9A3A18D6DA45970A336E2EF7DC985F1"
+    },
+    {
+      "Path": "src/Otp/Managed/Erlang.Otp.Stdlib/Code/CodeServerProtocolNames.cs",
+      "Sha256": "3485FECABFABB73C4C827AE7A9575831C6210DFC66F7ACFDD33BA082B9FC7415"
+    },
+    {
+      "Path": "src/Otp/Managed/Erlang.Otp.Stdlib/Code/CodeSource.cs",
+      "Sha256": "9298A810ECB29E82FCCC287DB31BCE767582DD2C018EDCACB53F7778B9406A2F"
+    },
+    {
+      "Path": "src/Otp/Managed/Erlang.Otp.Stdlib/Code/CodeSourceFields.cs",
+      "Sha256": "8442513E6BB9E5FD13B906C9E08B7EDC52795B702D7D68B6B119D9432081F135"
+    },
+    {
+      "Path": "src/Otp/Managed/Erlang.Otp.Stdlib/Code/CodeSourceFunctions.cs",
+      "Sha256": "360EDF6B0EEC2CBA855B2DC3F717D78B39A02E0C04E031040802C793009C94D4"
+    },
+    {
+      "Path": "src/Otp/Managed/Erlang.Otp.Stdlib/Code/CodeSourceLocations.cs",
+      "Sha256": "500B67A02F80D3EE9722A0D61AEF906BB149B5393FED7A493EE67ED3040C5420"
+    },
+    {
+      "Path": "src/Otp/Managed/Erlang.Otp.Stdlib/Code/CodeStartupNames.cs",
+      "Sha256": "9BE8042600A943A1D1C3AFEFEDAD55726C2414B049DA7147F4141DB3C263B695"
+    },
+    {
+      "Path": "src/Otp/Managed/Erlang.Otp.Stdlib/Code/CodeTermComparer.cs",
+      "Sha256": "D77B0E48F654956700A480BEA7068BEA7C3CE617789B9E917066BED507C258E5"
+    }
+  ],
+  "ImplementationLiteralAudit": [
+    {
+      "Path": "src/Otp/Managed/Erlang.Otp.Stdlib/Code/CodeModule.cs",
+      "InlineStringLiterals": 0,
+      "UnnamedNumbersAboveArityRange": 0
+    },
+    {
+      "Path": "src/Otp/Managed/Erlang.Otp.Stdlib/Code/CodeModule.Documentation.cs",
+      "InlineStringLiterals": 0,
+      "UnnamedNumbersAboveArityRange": 0
+    },
+    {
+      "Path": "src/Otp/Managed/Erlang.Otp.Stdlib/Code/CodeModule.Loading.cs",
+      "InlineStringLiterals": 0,
+      "UnnamedNumbersAboveArityRange": 0
+    },
+    {
+      "Path": "src/Otp/Managed/Erlang.Otp.Stdlib/Code/CodeModule.Paths.cs",
+      "InlineStringLiterals": 0,
+      "UnnamedNumbersAboveArityRange": 0
+    },
+    {
+      "Path": "src/Otp/Managed/Erlang.Otp.Stdlib/Code/CodeParallelRecipe.cs",
+      "InlineStringLiterals": 0,
+      "UnnamedNumbersAboveArityRange": 0
+    },
+    {
+      "Path": "src/Otp/Managed/Erlang.Otp.Stdlib/Code/CodeSource.cs",
+      "InlineStringLiterals": 0,
+      "UnnamedNumbersAboveArityRange": 0
+    },
+    {
+      "Path": "src/Otp/Managed/Erlang.Otp.Stdlib/Code/CodeTermComparer.cs",
+      "InlineStringLiterals": 0,
+      "UnnamedNumbersAboveArityRange": 0
+    }
+  ],
+  "SharedOriginalDependencies": [
+    "code_server",
+    "init",
+    "erl_prim_loader",
+    "filename",
+    "beam_lib",
+    "file",
+    "io",
+    "io_lib",
+    "lists",
+    "unicode",
+    "zlib",
+    "logger",
+    "error_logger",
+    "erl_features",
+    "binary",
+    "ets",
+    "gb_sets",
+    "gb_trees",
+    "os"
+  ],
+  "NativeCapabilityProfile": "Existing non-BEAMASM interpreter profile, seven shared native exports",
+  "UniversalOtpCompatibilityCertified": false,
+  "Interpretation": "Complete API inventory; individual contract, boot, resource and platform acceptance remain separate."
+}

@@ -1,0 +1,35 @@
+Dir = "artifacts/beam-backend/part851-images",
+Module = beam_socket_accept_probe,
+Stub = beam_accept_transport,
+StubPath = filename:join(Dir, atom_to_list(Stub) ++ ".erl"),
+ok = file:write_file(StubPath, "-module(beam_accept_transport).\n-export([accept/1,sockname/1,peername/1,check_ip/2,close/1]).\naccept(L) -> self() ! {accept,L}, get(accept).\nsockname(S) -> self() ! {sockname,S}, get(sockname).\npeername(S) -> self() ! {peername,S}, get(peername).\ncheck_ip(A,B) -> self() ! {check_ip,A,B}, ok.\nclose(S) -> self() ! {close,S}, ok.\n"),
+{ok,Stub,StubBytes} = compile:file(StubPath,[binary]),
+{module,Stub} = code:load_binary(Stub,StubPath,StubBytes),
+Name = atom_to_list(Module) ++ ".beam",
+Run = fun(File) ->
+    code:purge(Module), code:delete(Module),
+    {ok,Bytes} = file:read_file(File),
+    {module,Module} = code:load_binary(Module,File,Bytes),
+    A = {ok,socket}, L = {ok,#{addr=>local}}, P = {ok,#{addr=>peer,port=>443}},
+    AE = [{accept,listener}], LE = AE ++ [{sockname,socket}], PE = LE ++ [{peername,socket}],
+    [begin
+        put(accept,Accept), put(sockname,Local), put(peername,Peer),
+        Result = try Module:accept_open(address,listener) of Value -> {ok,Value}
+                 catch Class:Reason:Frames -> {Class,Reason,Frames} end,
+        case Result of {ok,Value2} -> Expected = {ok,Value2}; {Class2,Reason2,_} -> Expected = {Class2,Reason2} end,
+        lists:foreach(fun(Event) -> receive Got -> Event = Got after 1000 -> error({missing,Event}) end end, Events),
+        receive Unwanted -> error({unexpected_effect,Unwanted}) after 0 -> ok end,
+        Result
+     end || {Accept,Local,Peer,Expected,Events} <-
+        [{A,L,P,{ok,{address,socket,peer,443}},PE ++ [{check_ip,local,peer}]},
+         {{error,busy},L,P,{exit,{accept_open,busy}},AE},
+         {A,{error,closed},P,{exit,{accept_open,closed}},LE ++ [{close,socket}]},
+         {A,L,{error,closed},{exit,{accept_open,closed}},PE ++ [{close,socket}]},
+         {A,{ok,#{}},P,{error,{else_clause,{ok,#{}}}},LE},
+         {A,L,{ok,#{addr=>peer}},{error,{else_clause,{ok,#{addr=>peer}}}},PE},
+         {unexpected,L,P,{error,{case_clause,unexpected}},AE}]]
+end,
+Otp = Run(filename:join([Dir,"fixture","lib","probe","ebin",Name])),
+Otp = Run(filename:join(Dir,Name)),
+erlang:display({Module,equal}),
+halt().

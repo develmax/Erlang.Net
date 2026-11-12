@@ -1,0 +1,22 @@
+[R,G]=init:get_plain_arguments(),
+Frame=fun F([{allocate,N,_}|_])->N;
+          F([{allocate_heap,N,_,_}|_])->N;
+          F([_|Is])->F(Is);
+          F([])->none end,
+Functions=fun(P)->{beam_file,_,_,_,_,Fs}=beam_disasm:file(P),
+  maps:from_list([{{N,A},Frame(Is)}||{function,N,A,_,Is}<-Fs]) end,
+Data=lists:flatmap(fun(P)->
+  X=Functions(filename:join(R,filename:basename(P))),Y=Functions(P),
+  [{filename:basename(P),K,A,B}||{K,A}<-maps:to_list(X),{ok,B}<-[maps:find(K,Y)]]
+end,filelib:wildcard(filename:join(G,"*.beam"))),
+Group=fun({_,_,none,none})->no_frame;
+         ({_,_,none,_})->extra_frame;
+         ({_,_,_,none})->missing_frame;
+         ({_,_,N,N})->same_size;
+         ({_,_,A,B}) when B>A->{extra_slots,B-A};
+         ({_,_,A,B})->{fewer_slots,A-B} end,
+Stats=lists:foldl(fun(Row={M,_,_,_},A)->
+ K=Group(Row), maps:update_with(K,fun({N,S})->{N+1,sets:add_element(M,S)} end,{1,sets:from_list([M])},A)
+end,#{},Data),
+Rows=lists:reverse(lists:sort([{N,sets:size(S),K}||{K,{N,S}}<-maps:to_list(Stats)])),
+io:format("~p~n",[lists:sublist(Rows,20)]),halt().

@@ -1,0 +1,16 @@
+Path = "tests/Erlang.Tests/Resources/Beam/beam_targeted_inline_probe.erl",
+{ok,beam_targeted_inline_probe,Expected} = compile:file(Path,[binary,deterministic]),
+{ok,Expected} = file:read_file("artifacts/beam-backend/part761-probe.beam"),
+{module,beam_targeted_inline_probe} = code:load_binary(beam_targeted_inline_probe,Path,Expected),
+right = beam_targeted_inline_probe:run(left,right),
+{ok,42} = beam_targeted_inline_probe:constant(input),
+{ok,beam_targeted_inline_probe,DebugExpected} = compile:file(Path,[binary,deterministic,debug_info]),
+ReadForms = fun(Image) ->
+    {ok,{_,[{abstract_code,{raw_abstract_v1,Forms}}]}} = beam_lib:chunks(Image,[abstract_code]),
+    Forms
+end,
+Forms = ReadForms(DebugExpected),
+Forms = ReadForms("artifacts/beam-backend/part761-debug.beam"),
+io:format("whole_image_equal=true bytes=~p abstract_forms_equal=~p selected_argument=right constant={ok,42}~n",
+    [byte_size(Expected),length(Forms)]),
+halt().

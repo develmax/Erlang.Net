@@ -1,0 +1,16 @@
+Path = "tests/Erlang.Tests/Resources/Beam/beam_inline_reduction_probe.erl",
+{ok,beam_inline_reduction_probe,Expected} = compile:file(Path,[binary,deterministic]),
+{ok,Expected} = file:read_file("artifacts/beam-backend/part762-probe.beam"),
+{module,beam_inline_reduction_probe} = code:load_binary(beam_inline_reduction_probe,Path,Expected),
+[head|tail] = beam_inline_reduction_probe:second(ignored,[head|tail]),
+try beam_inline_reduction_probe:run([]) of
+    _ -> error(expected_badmatch)
+catch
+    error:{badmatch,[]}:Stack ->
+        [{beam_inline_reduction_probe,run,1,Location}|_] = Stack,
+        "grammar.yrl" = proplists:get_value(file,Location),
+        102 = proplists:get_value(line,Location)
+end,
+io:format("whole_image_equal=true bytes=~p improper_cons=true badmatch_location=grammar.yrl:102~n",
+    [byte_size(Expected)]),
+halt().

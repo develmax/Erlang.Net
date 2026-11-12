@@ -1,0 +1,11 @@
+# Part600 includes, macro stringification, and local BEAM calls
+
+File-backed compilation resolves nested relative includes and looks up include_lib in an explicit OTP lib directory. Include processing retains physical line numbers for macro expansion and bounds nesting and input size. Headers that contribute ordinary Erlang forms can reach the parser. The backend rejects such modules pending file-aware BEAM metadata. The string-only API has no filesystem resolver.
+
+Macro argument stringification follows epp and io_lib for variables, punctuation, atoms, integers, characters and strings. Float token stringification remains unsupported. The backend adds unconditional function parameters, register-based argument returns, direct tail calls with unchanged argument registers, and a local function table for reachable private functions. It still rejects other call shapes, pattern tests, and unreachable declarations.
+
+The admitted OTP 29.1.1 erlc compiled the include, argument return and local-call fixtures with deterministic output. Both include spellings were checked against OTP, with a fixture application on the original code path for include_lib. The pinned sources are [epp.erl](https://github.com/erlang/otp/blob/ad05823719d77c8faee87348ea39513d4e2f99c5/lib/stdlib/src/epp.erl), [io_lib.erl](https://github.com/erlang/otp/blob/ad05823719d77c8faee87348ea39513d4e2f99c5/lib/stdlib/src/io_lib.erl), and [genop.tab](https://github.com/erlang/otp/blob/ad05823719d77c8faee87348ea39513d4e2f99c5/lib/compiler/src/genop.tab).
+
+`dotnet build tests/Erlang.Tests -m:1 --no-restore -v:q` passed with zero warnings or errors. Five focused cases passed, including twelve whole-image fixture modules. [Focused report](focused.json).
+
+The corpus command was `dotnet run --project tools/Validation/Erlang.BeamCorpus --no-build -- <admitted-OTP-root> artifacts/beam-backend/otp-corpus-part600-private.json`. It exited 1 after checking 1,366 installed Windows images. It reported 1,141 source rejections, 224 unsupported modules after parsing, one missing source, and zero regenerated images. Full regression, canonical readiness regeneration and publication remain open. [Per-image report](otp-corpus.json).

@@ -1,0 +1,7 @@
+D="artifacts/beam-backend/part639-eldap/ELDAPv3",{ok,_,B}=compile:file(D++".erl",[binary,debug_info]),
+Read=fun(P)->{ok,_,Cs}=beam_lib:all_chunks(P),{debug_info_v1,erl_abstract_code,{Fs,Opts}}=binary_to_term(proplists:get_value("Dbgi",Cs)),{Fs,Opts} end,
+{O,_}=Read(B),{A,AO}=Read(D++".release-profile.beam"),{Release,RO}=Read("D:/Distr/Work/Codex/Erlang.Net/Erlang.Net/artifacts/library376-official-compiler/installed/lib/eldap-1.3.1/ebin/ELDAPv3.beam"),
+WithoutFile=fun(Fs)->[F||F<-Fs,not (element(1,F)=:=attribute andalso element(3,F)=:=file)] end,
+OF=WithoutFile(O),AF=WithoutFile(A),Equal=OF=:=AF,OptsEqual=AO=:=RO,
+io:format("same_source_abstract_forms otp=~p managed=~p equal_excluding_file_attribute=~p~nrelease_forms=~p release_debug_options_equal=~p~n",[length(OF),length(AF),Equal,length(Release),OptsEqual]),
+case Equal andalso OptsEqual of true->halt();false->io:format("~p~n",[lists:sublist([{X,Y}||{X,Y}<-lists:zip(OF,AF),X=/=Y],1)]),halt(1) end.

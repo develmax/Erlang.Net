@@ -1,0 +1,27 @@
+Computed case results in top-level function clauses of 1001 differing images.
+Counts are {modules, functions, examples}. Groups can overlap.
+#{call_case_tuple_result =>
+      {607,2829,
+       [{xmerl_xsd_type,{add_duration2dateTime,2}},
+        {xmerl_xsd_re_parse,{yecc_error_type,2}},
+        {xmerl_xsd,{allowed_content,2}}]},
+  call_case_tuple_call_result =>
+      {231,459,
+       [{xmerl_xsd_type,{duration_atoms2,2}},
+        {xmerl_xsd,{attribute_type,3}},
+        {xmerl_xpath_scan,{scan_local_part,2}}]},
+  call_case_single_call_tuple_result =>
+      {208,396,
+       [{xmerl_xsd,{attribute_type,3}},
+        {xmerl_xpath_scan,{scan_local_part,2}},
+        {xmerl_xpath,{expanded_name,3}}]},
+  literal_case_single_call_tuple_result =>
+      {65,98,
+       [{xmerl_xpath_scan,{scan_local_part,2}},
+        {xmerl_sax_parser_utf8,{parse_name,3}},
+        {xmerl_sax_parser_utf16le,{parse_name,3}}]},
+  call_case_cons_call_result =>
+      {140,217,
+       [{xmerl_xpath_pred,{translate1,2}},
+        {xmerl_validate,{parse_any,3}},
+        {xmerl_sax_parser_utf8,{get_ref_names,1}}]}}

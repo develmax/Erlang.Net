@@ -1,0 +1,23 @@
+[Path] = init:get_plain_arguments(),
+{ok, Binary} = file:read_file(Path),
+{module, tuple_common_entry_probe} = code:load_binary(tuple_common_entry_probe, Path, Binary),
+{undefined,value,extra} = tuple_common_entry_probe:read({tag,42,a,value},extra),
+{value,extra,77} = tuple_common_entry_probe:read({tag,42,b,77},extra),
+{undefined,value,extra} = tuple_common_entry_probe:strict({tag,42,{inner,value}},extra),
+Check = fun(Name, Args) ->
+    try apply(tuple_common_entry_probe, Name, Args) of
+        _ -> error(expected_function_clause)
+    catch error:function_clause:Stack ->
+        [{tuple_common_entry_probe, Name, Args, _}|_] = Stack
+    end
+end,
+Check(read, [{tag,41,b,77},extra]),
+Check(read, [{tag,42,a,77},extra]),
+Check(read, [{tag,42,c,value},extra]),
+Check(read, [{tag,42},extra]),
+Check(strict, [{tag,41,{inner,value}},extra]),
+Check(strict, [{tag,42,{other,value}},extra]),
+77 = get(tuple_common_key),
+{beam_file,_,_,_,_,Functions} = beam_disasm:file(Path),
+[io:format("~p~n",[F]) || F = {function,N,2,_,_} <- Functions, lists:member(N,[read,strict])],
+halt().

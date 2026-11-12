@@ -1,0 +1,27 @@
+D="artifacts/beam-backend/part858-images", M=beam_plain_socket_connect_probe,
+P=filename:join(D,"beam_plain_transport.erl"),
+ok=file:write_file(P,"-module(beam_plain_transport).\n-export([open/2,setopts/2,connect/2]).\nopen(F,K)->self()!{open,F,K},get(open).\nsetopts(S,O)->self()!{setopts,S,O},get(set).\nconnect(S,A)->self()!{connect,S,A},get(connect).\n"),
+{ok,Stub,B}=compile:file(P,[binary]), {module,Stub}=code:load_binary(Stub,P,B),
+Run=fun(F)->
+ code:purge(M), code:delete(M), {ok,Image}=file:read_file(F), {module,M}=code:load_binary(M,F,Image),
+ Ip={127,0,0,1}, Address={address,{Ip,443},inet}, Opts=[{nodelay,true}],
+ Open={open,inet,stream}, Set={setopts,socket,Opts},
+ Connect={connect,socket,#{family=>inet,addr=>Ip,port=>443}},
+ [begin
+    put(open,O),put(set,S),put(connect,C),
+    R=try M:connect(Address,timer,Opts) catch error:E:Stack -> {E,Stack} end,
+    case R of {{else_clause,_}=Reason,_}->Expected=Reason; _->Expected=R end,
+    lists:foreach(fun(Event)->receive Event->ok after 1000->error({missing,Event}) end end,Events),
+    receive Unexpected->error({unexpected,Unexpected}) after 0->ok end,
+    R
+  end || {O,S,C,Expected,Events}<-[
+   {{ok,socket},ok,ok,{Address,socket},[Open,Set,Connect]},
+   {{error,closed},unused,unused,{error,closed},[Open]},
+   {{ok,socket},{error,option},unused,{error,option},[Open,Set]},
+   {{ok,socket},ok,{error,refused},{error,refused},[Open,Set,Connect]},
+   {bad,unused,unused,{else_clause,bad},[Open]},
+   {{ok,socket},bad,unused,{else_clause,bad},[Open,Set]},
+   {{ok,socket},ok,bad,{else_clause,bad},[Open,Set,Connect]}]]
+end,
+Name=atom_to_list(M)++".beam", R=Run(filename:join([D,"fixture","lib","probe","ebin",Name])),
+R=Run(filename:join(D,Name)), erlang:display({M,equal}), halt().

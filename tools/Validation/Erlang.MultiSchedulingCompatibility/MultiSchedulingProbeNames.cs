@@ -1,0 +1,54 @@
+using System.Reflection;
+
+internal static class MultiSchedulingProbeNames
+{
+    internal const string Runtime = "erlang";
+    internal const string Flag = "system_flag";
+    internal const string Info = "system_info";
+    internal const string Multi = "multi_scheduling";
+    internal const string Block = "block";
+    internal const string Unblock = "unblock";
+    internal const string BlockNormal = "block_normal";
+    internal const string UnblockNormal = "unblock_normal";
+    internal const string Enabled = "enabled";
+    internal const string Blocked = "blocked";
+    internal const string BlockedNormal = "blocked_normal";
+    internal const string Identity = "scheduler_id";
+    internal const string ProcessFlag = "process_flag";
+    internal const string Binding = "scheduler";
+    internal const string Cpu = "Cpu";
+    internal const string Io = "Io";
+    internal const string Kind = "Erlang.DirtyNativeKind419";
+    internal const string Schedule = "ScheduleDirtyNative419";
+    internal const string DirtyOwner = "dirtyNative419";
+    internal const string Paused = "schedulingPaused";
+    internal const string Snapshot = "Snapshot";
+    internal const string Pending = "Pending";
+    internal const string Running = "Running";
+    internal const string Joined = "Joined";
+    internal const string Gate = "gate";
+    internal const string Kill = "kill";
+    internal const string Failure = "Real multi-scheduling admission, physical execution or lifetime differs";
+    internal const string NormalLanes = "normal-one-lane-and-physical-mutual-exclusion";
+    internal const string NormalDrain = "block-waits-for-previously-running-normal-turn";
+    internal const string Dispatcher = "actorDispatcher";
+    internal const string BarrierField = "normalBarrier696";
+    internal const string Granted = "Granted696";
+    internal const string DirtyLazy = "full-block-inherited-by-lazy-dirty-pool";
+    internal const string DirtyNormal = "normal-block-allows-cpu-and-io";
+    internal const string DirtyDrain = "full-block-waits-for-active-cpu-and-io";
+    internal const string CancelPending = "killed-pending-blocker-releases-dirty-admission";
+    internal const string CloseQueued = "close-drains-queued-paused-pool";
+    internal const string CloseActive = "close-joins-active-dirty-during-pending-block";
+    internal const string SingleLane = "single-normal-lane-still-blocks-dirty";
+    internal const string Repeated = "repeated-block-resume-preserves-queue-wakeups";
+    internal const string Usage = "Usage: <new report.json>";
+    internal const string ExistingReport = "Use a new report path";
+    internal const string Baseline = "OTP-29.1.1/ad05823719d77c8faee87348ea39513d4e2f99c5";
+    internal const BindingFlags Members = BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic;
+    internal static readonly TimeSpan Deadline = TimeSpan.FromSeconds(20);
+    internal const int Lanes = 4;
+    internal const int Turns = 40;
+    internal const int SpinIterations = 10000;
+    internal const int Cycles = 32;
+}

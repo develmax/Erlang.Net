@@ -552,5 +552,44 @@ licenses/*.txt -text
 # Byte-bound integration review, retained plans and math/ordsets receipts.
 /docs/validation/integration-20261103/** -text -whitespace
 /docs/validation/math-compatibility-20261103/** -text -whitespace
+
+# Preserve the byte identities of string oracle inputs and retained receipts.
+/docs/validation/part-560/** -text -whitespace
+/docs/validation/part-561/** -text -whitespace
+/docs/validation/part-562/** -text -whitespace
+/tests/Erlang.Tests/Resources/StringBackend/** -text
+/tools/Validation/Erlang.StringCompatibility/*.erl -text
+/tools/Validation/Erlang.StringCompatibility/Reference/*.erl -text
 docs/history/** -text -whitespace
 licenses/*.txt -text -whitespace
+
+# Pinned timer reference sources and immutable acceptance evidence.
+/tools/Validation/Erlang.TimerCompatibility/Reference/*.erl -text -whitespace
+/docs/validation/part-565/** -text -whitespace
+/docs/validation/part-578/** -text -whitespace
+
+/docs/validation/part-580/** -text -whitespace
+
+/tools/Validation/Erlang.GenEventCompatibility/*.erl -text
+
+/tools/Validation/Erlang.GenEventCompatibility/Reference/*.erl -text -whitespace
+
+# application pinned suite fixtures and immutable acceptance evidence.
+/tools/Validation/Erlang.ApplicationCompatibility/Upstream/** -text -whitespace
+/docs/validation/part-584/** -text -whitespace
+
+/docs/validation/error-logger-port-20261105/** -text -whitespace
+/tools/Validation/Erlang.ErrorLoggerCompatibility/Reference/*.erl -text -whitespace
+
+# Preserve gen_server source/corpus/assembly receipts across Windows checkouts.
+docs/validation/gen-server-port-20261105/** -text
+tools/Validation/Erlang.GenServerCompatibility/** -text
+tools/Validation/GenServerValidationContract.ps1 -text
+tools/Validation/test-gen-server-admission.ps1 -text
+tools/validate-gen-server-original.ps1 -text
+tools/Validation/audit-gen-server-source.py -text
+
+# Logger pinned fixtures and immutable dual-backend acceptance evidence.
+/docs/validation/logger-port-20261105/** -text -whitespace
+/tools/Validation/Erlang.LoggerCompatibility/*.erl -text
+/tools/Validation/Erlang.LoggerCompatibility/Reference/*.erl -text -whitespace

@@ -13,20 +13,29 @@ public abstract record Expr
         string Name,
         int Arity,
         int Index
-    ) : Expr;
+    ) : Expr
+    {
+        internal int SourceLine { get; init; }
+        internal string? PreprocessorFile { get; init; }
+    }
     public sealed record RecordUpdate(
         Expr Value,
         string Name,
         int Arity,
         IReadOnlyList<RecordUpdateField> Fields
     ) : Expr;
-    public sealed record Literal(Term Value) : Expr;
+    public sealed record Literal(Term Value) : Expr
+    {
+        internal bool IsCharacterLiteral { get; init; }
+    }
     public sealed record Variable(string Name) : Expr;
     public sealed record Tuple(IReadOnlyList<Expr> Items) : Expr;
     public sealed record List(IReadOnlyList<Expr> Items, Expr? Tail = null) : Expr;
     public sealed record ListComprehension(IReadOnlyList<Expr> Items, IReadOnlyList<ComprehensionQualifier> Qualifiers) : Expr
     {
         public ComprehensionSource? Source { get; init; }
+        internal int PreprocessorLine { get; init; }
+        internal string? PreprocessorFile { get; init; }
     }
     public sealed record BinaryComprehension(Expr Body, IReadOnlyList<ComprehensionQualifier> Qualifiers) : Expr;
     public sealed record MapComprehension(IReadOnlyList<MapField> Fields, IReadOnlyList<ComprehensionQualifier> Qualifiers) : Expr;
@@ -38,6 +47,8 @@ public abstract record Expr
     public sealed record Call(string? Module, string Function, IReadOnlyList<Expr> Arguments) : Expr
     {
         public int SourceLine { get; init; }
+        internal string? PreprocessorFile { get; init; }
+        internal bool DynamicRemote { get; init; }
         public bool CanDiscardBifContinuation { get; internal set; }
 
         public Call(
@@ -69,9 +80,17 @@ public abstract record Expr
     {
         public int SourceLine { get; init; }
     }
-    public sealed record Match(Pattern Pattern, Expr Value) : Expr;
+    public sealed record Match(Pattern Pattern, Expr Value) : Expr
+    {
+        internal int SourceLine { get; init; }
+        internal string? PreprocessorFile { get; init; }
+    }
     public sealed record MaybeMatch(Pattern Pattern, Expr Value) : Expr;
-    public sealed record Maybe(IReadOnlyList<Expr> Items, IReadOnlyList<Clause> Clauses) : Expr;
+    public sealed record Maybe(IReadOnlyList<Expr> Items, IReadOnlyList<Clause> Clauses) : Expr
+    {
+        internal int SourceLine { get; init; }
+        internal string? PreprocessorFile { get; init; }
+    }
     public sealed record Sequence(IReadOnlyList<Expr> Items) : Expr;
     public sealed record Block(Expr Body) : Expr;
     public sealed record Catch(Expr Operand) : Expr;
@@ -81,12 +100,19 @@ public abstract record Expr
         IReadOnlyList<Clause> Catches,
         Expr? After
     ) : Expr;
-    public sealed record Case(Expr Value, IReadOnlyList<Clause> Clauses) : Expr;
+    public sealed record Case(Expr Value, IReadOnlyList<Clause> Clauses) : Expr
+    {
+        internal int SourceLine { get; init; }
+        internal string? PreprocessorFile { get; init; }
+    }
     public sealed record If(IReadOnlyList<Clause> Clauses) : Expr;
     public sealed record Receive(IReadOnlyList<Clause> Clauses, Expr? Timeout, Expr? After) : Expr;
     public sealed record Fun(IReadOnlyList<Clause> Clauses) : Expr
     {
         public int? CoreOrdinal { get; internal set; }
+        public string? SelfName { get; init; }
+        internal int ClauseLine { get; init; }
+        internal string? ClauseFile { get; init; }
 
         public Fun(IReadOnlyList<Clause> clauses, int coreOrdinal) : this(clauses)
         {

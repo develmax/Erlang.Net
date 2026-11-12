@@ -1,0 +1,37 @@
+Corpus: 1366; equal: 384; different: 982
+Files without a Code payload difference: 0
+Counts by number of differing chunk payloads:
+4: 1
+5: 7
+6: 29
+7: 42
+8: 77
+9: 188
+10: 339
+11: 261
+12: 38
+Counts by chunk:
+Code: 982
+ExpT: 980
+LocT: 962
+Attr: 955
+Line: 946
+AtU8: 945
+ImpT: 923
+Type: 890
+LitT: 743
+FunT: 711
+Dbgi: 353
+Docs: 95
+StrT: 46
+Meta: 1
+Smallest groups by remaining chunk payload count:
+lib\kernel-11.0.4\ebin\logger_handler_watcher.beam: Code, ExpT, Attr, Line
+lib\diameter-2.7.2\ebin\diameter_callback.beam: Code, ExpT, LocT, Attr, Line
+lib\observer-2.19\ebin\observer.beam: Code, ExpT, LocT, Attr, Type
+lib\stdlib-8.1\ebin\ordsets.beam: Code, ExpT, LocT, Attr, Type
+lib\wx-2.7\doc\examples\demo\ex_htmlWindow.beam: Code, ExpT, FunT, LocT, Attr
+lib\wx-2.7\doc\examples\demo\ex_notebook.beam: Code, ExpT, FunT, LocT, Attr
+lib\wx-2.7\doc\examples\demo\ex_textCtrl.beam: Code, ExpT, FunT, LocT, Attr
+lib\xmerl-2.2\ebin\xmerl_xs.beam: Code, ExpT, FunT, LocT, Attr
+Chunk differences can share a root cause, such as ordering changes in Code affecting atom or literal indexes.

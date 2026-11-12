@@ -1,0 +1,27 @@
+Dir = "artifacts/beam-backend/part828-images",
+Module = dtls_v1,
+Run = fun(File) ->
+    code:purge(Module),
+    code:delete(Module),
+    {ok, Bytes} = file:read_file(File),
+    {module, Module} = code:load_binary(Module, File, Bytes),
+    rand:seed(exsplus, {1, 2, 3}),
+    Timeout = Module:cookie_timeout(),
+    true = Timeout >= 10001 andalso Timeout =< 30000,
+    32 = byte_size(Module:cookie_secret()),
+    Suites = [{Version, Function, Module:Function(Version)} ||
+        Version <- [{254,255},{254,253}],
+        Function <- [suites, all_suites, anonymous_suites, exclusive_suites, exclusive_anonymous_suites]],
+    Versions = [Module:corresponding_tls_version(V) || V <- [{254,255},{254,253}]],
+    [{3,2},{3,3}] = Versions,
+    [{254,255},{254,253}] = [Module:corresponding_dtls_version(V) || V <- Versions],
+    Error = try Module:suites({254,254}) catch error:function_clause:Stack -> Stack end,
+    [{Module,corresponding_tls_version,[{254,254}],_}|_] = Error,
+    Mac = Module:hmac_hash(sha256, <<"fixture key">>, <<"fixture data">>),
+    32 = byte_size(Mac),
+    {Timeout, Suites, Versions, Error, Mac}
+end,
+Otp = Run(code:which(Module)),
+Otp = Run(filename:join(Dir, atom_to_list(Module) ++ ".beam")),
+erlang:display({Module, equal}),
+halt().

@@ -1,0 +1,18 @@
+[Path] = init:get_plain_arguments(),
+{ok, Binary} = file:read_file(Path),
+{module, frame_liveness_probe} = code:load_binary(frame_liveness_probe, Path, Binary),
+undefined = put(key,initial),
+undefined = put(middle,middle_initial),
+undefined = put(last,last_initial),
+{last_initial,keep} = frame_liveness_probe:chain(a,key,keep),
+middle_initial = get(last),
+{initial,keep} = frame_liveness_probe:tail(b,key,keep),
+{b,a,keep} = frame_liveness_probe:alias_live(c,key,keep),
+{c,b} = frame_liveness_probe:nested(d,key,old),
+{c,keep} = frame_liveness_probe:nested(e,key,keep),
+{d,keep} = frame_liveness_probe:reuse(f,key,keep),
+{e,keep} = frame_liveness_probe:reuse_tail(g,key,keep),
+{beam_file, _, _, _, _, Functions} = beam_disasm:file(Path),
+[io:format("~p~n", [Item]) || Item = {function, Name, _, _, _} <- Functions, Name =/= module_info],
+halt().
+

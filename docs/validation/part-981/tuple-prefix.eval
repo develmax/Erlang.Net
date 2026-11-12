@@ -1,0 +1,9 @@
+[R,G]=init:get_plain_arguments(),
+Op=fun({test,K,_,_})->{test,K}; (I) when is_atom(I)->I; (I)->element(1,I) end,
+Build=fun(P)->{beam_file,_,_,_,_,Fs}=beam_disasm:file(P),maps:from_list([{{N,A},[O||I<-Is,O<-[Op(I)],not lists:member(O,[label,line,func_info])]}||{function,N,A,_,Is}<-Fs]) end,
+Diff=fun F([O|As],[O|Bs])->F(As,Bs); F([{test,is_tuple}|_],[allocate|_])->true; F(_,_) -> false end,
+D=lists:flatmap(fun(P)-> X=Build(filename:join(R,filename:basename(P))), Y=Build(P),
+ [{filename:basename(P),K,lists:sublist(Is,8)} || {K,Is}<-maps:to_list(X), Diff(Is,maps:get(K,Y,[]))] end,
+filelib:wildcard(filename:join(G,"*.beam"))),
+G0=lists:foldl(fun({M,K,Is},A)->maps:update_with(Is,fun({N,S,E})->{N+1,sets:add_element(M,S),E} end,{1,sets:from_list([M]),{M,K}},A) end,#{},D),
+io:format("~p~n",[lists:sublist(lists:reverse(lists:sort([{N,sets:size(S),K,E}||{K,{N,S,E}}<-maps:to_list(G0)])),8)]),halt().

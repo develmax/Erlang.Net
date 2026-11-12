@@ -1,0 +1,924 @@
+Changed functions with local labels normalized: 2092
+{"lib/asn1-5.5.2/ebin/asn1_db.beam",{dbget,2},gained_match}
+{"lib/asn1-5.5.2/ebin/asn1_db.beam",{dbload,1},gained_match}
+{"lib/asn1-5.5.2/ebin/asn1_db.beam",{dbload,4},gained_match}
+{"lib/asn1-5.5.2/ebin/asn1_db.beam",{dbnew,3},gained_match}
+{"lib/asn1-5.5.2/ebin/asn1_db.beam",{dbput,2},gained_match}
+{"lib/asn1-5.5.2/ebin/asn1_db.beam",{dbput,3},gained_match}
+{"lib/asn1-5.5.2/ebin/asn1_db.beam",{dbsave,2},gained_match}
+{"lib/asn1-5.5.2/ebin/asn1ct_imm.beam",{flatten_map_cs,2},gained_match}
+{"lib/asn1-5.5.2/ebin/asn1ct_name.beam",{curr,1},gained_match}
+{"lib/asn1-5.5.2/ebin/asn1ct_name.beam",{new,1},gained_match}
+{"lib/asn1-5.5.2/ebin/asn1ct_name.beam",{next,1},gained_match}
+{"lib/common_test-1.31.2/ebin/ct_config.beam",
+ {delete_default_config,1},
+ gained_match}
+{"lib/common_test-1.31.2/ebin/ct_config.beam",{reload_config,1},gained_match}
+{"lib/common_test-1.31.2/ebin/ct_config.beam",
+ {set_default_config,2},
+ gained_match}
+{"lib/common_test-1.31.2/ebin/ct_config.beam",
+ {set_default_config,3},
+ gained_match}
+{"lib/common_test-1.31.2/ebin/ct_config.beam",{update_config,2},gained_match}
+{"lib/common_test-1.31.2/ebin/ct_framework.beam",
+ {'-save_seq/4-fun-0-',3},
+ gained_match}
+{"lib/common_test-1.31.2/ebin/ct_logs.beam",{clear_stylesheet,1},gained_match}
+{"lib/common_test-1.31.2/ebin/ct_logs.beam",{end_tc,1},gained_match}
+{"lib/common_test-1.31.2/ebin/ct_logs.beam",{set_stylesheet,2},gained_match}
+{"lib/common_test-1.31.2/ebin/ct_master_logs.beam",{nodedir,2},gained_match}
+{"lib/common_test-1.31.2/ebin/ct_netconfc.beam",
+ {close_session,2},
+ gained_match}
+{"lib/common_test-1.31.2/ebin/ct_netconfc.beam",
+ {get_event_streams,3},
+ gained_match}
+{"lib/common_test-1.31.2/ebin/ct_netconfc.beam",{hello,3},gained_match}
+{"lib/common_test-1.31.2/ebin/ct_netconfc.beam",{send,3},gained_match}
+{"lib/common_test-1.31.2/ebin/ct_netconfc.beam",{send_rpc,3},gained_match}
+{"lib/common_test-1.31.2/ebin/ct_ssh.beam",{apread,4},gained_match}
+{"lib/common_test-1.31.2/ebin/ct_ssh.beam",{apread,5},gained_match}
+{"lib/common_test-1.31.2/ebin/ct_ssh.beam",{apwrite,4},gained_match}
+{"lib/common_test-1.31.2/ebin/ct_ssh.beam",{apwrite,5},gained_match}
+{"lib/common_test-1.31.2/ebin/ct_ssh.beam",{aread,3},gained_match}
+{"lib/common_test-1.31.2/ebin/ct_ssh.beam",{aread,4},gained_match}
+{"lib/common_test-1.31.2/ebin/ct_ssh.beam",{awrite,3},gained_match}
+{"lib/common_test-1.31.2/ebin/ct_ssh.beam",{awrite,4},gained_match}
+{"lib/common_test-1.31.2/ebin/ct_ssh.beam",{close,2},gained_match}
+{"lib/common_test-1.31.2/ebin/ct_ssh.beam",{close,3},gained_match}
+{"lib/common_test-1.31.2/ebin/ct_ssh.beam",{del_dir,2},gained_match}
+{"lib/common_test-1.31.2/ebin/ct_ssh.beam",{del_dir,3},gained_match}
+{"lib/common_test-1.31.2/ebin/ct_ssh.beam",{delete,2},gained_match}
+{"lib/common_test-1.31.2/ebin/ct_ssh.beam",{delete,3},gained_match}
+{"lib/common_test-1.31.2/ebin/ct_ssh.beam",{exec,4},gained_match}
+{"lib/common_test-1.31.2/ebin/ct_ssh.beam",{get_file_info,2},gained_match}
+{"lib/common_test-1.31.2/ebin/ct_ssh.beam",{get_file_info,3},gained_match}
+{"lib/common_test-1.31.2/ebin/ct_ssh.beam",{list_dir,2},gained_match}
+{"lib/common_test-1.31.2/ebin/ct_ssh.beam",{list_dir,3},gained_match}
+{"lib/common_test-1.31.2/ebin/ct_ssh.beam",{make_dir,2},gained_match}
+{"lib/common_test-1.31.2/ebin/ct_ssh.beam",{make_dir,3},gained_match}
+{"lib/common_test-1.31.2/ebin/ct_ssh.beam",{make_symlink,3},gained_match}
+{"lib/common_test-1.31.2/ebin/ct_ssh.beam",{make_symlink,4},gained_match}
+{"lib/common_test-1.31.2/ebin/ct_ssh.beam",{open,3},gained_match}
+{"lib/common_test-1.31.2/ebin/ct_ssh.beam",{open,4},gained_match}
+{"lib/common_test-1.31.2/ebin/ct_ssh.beam",{opendir,2},gained_match}
+{"lib/common_test-1.31.2/ebin/ct_ssh.beam",{opendir,3},gained_match}
+{"lib/common_test-1.31.2/ebin/ct_ssh.beam",{position,3},gained_match}
+{"lib/common_test-1.31.2/ebin/ct_ssh.beam",{position,4},gained_match}
+{"lib/common_test-1.31.2/ebin/ct_ssh.beam",{pread,4},gained_match}
+{"lib/common_test-1.31.2/ebin/ct_ssh.beam",{pread,5},gained_match}
+{"lib/common_test-1.31.2/ebin/ct_ssh.beam",{pwrite,4},gained_match}
+{"lib/common_test-1.31.2/ebin/ct_ssh.beam",{pwrite,5},gained_match}
+{"lib/common_test-1.31.2/ebin/ct_ssh.beam",{read,3},gained_match}
+{"lib/common_test-1.31.2/ebin/ct_ssh.beam",{read,4},gained_match}
+{"lib/common_test-1.31.2/ebin/ct_ssh.beam",{read_file,2},gained_match}
+{"lib/common_test-1.31.2/ebin/ct_ssh.beam",{read_file,3},gained_match}
+{"lib/common_test-1.31.2/ebin/ct_ssh.beam",{read_file_info,2},gained_match}
+{"lib/common_test-1.31.2/ebin/ct_ssh.beam",{read_file_info,3},gained_match}
+{"lib/common_test-1.31.2/ebin/ct_ssh.beam",{read_link,2},gained_match}
+{"lib/common_test-1.31.2/ebin/ct_ssh.beam",{read_link,3},gained_match}
+{"lib/common_test-1.31.2/ebin/ct_ssh.beam",{read_link_info,2},gained_match}
+{"lib/common_test-1.31.2/ebin/ct_ssh.beam",{read_link_info,3},gained_match}
+{"lib/common_test-1.31.2/ebin/ct_ssh.beam",{receive_response,4},gained_match}
+{"lib/common_test-1.31.2/ebin/ct_ssh.beam",{rename,3},gained_match}
+{"lib/common_test-1.31.2/ebin/ct_ssh.beam",{rename,4},gained_match}
+{"lib/common_test-1.31.2/ebin/ct_ssh.beam",{send,5},gained_match}
+{"lib/common_test-1.31.2/ebin/ct_ssh.beam",{send_and_receive,6},gained_match}
+{"lib/common_test-1.31.2/ebin/ct_ssh.beam",{session_close,2},gained_match}
+{"lib/common_test-1.31.2/ebin/ct_ssh.beam",{session_open,2},gained_match}
+{"lib/common_test-1.31.2/ebin/ct_ssh.beam",{shell,3},gained_match}
+{"lib/common_test-1.31.2/ebin/ct_ssh.beam",{subsystem,4},gained_match}
+{"lib/common_test-1.31.2/ebin/ct_ssh.beam",{write,3},gained_match}
+{"lib/common_test-1.31.2/ebin/ct_ssh.beam",{write,4},gained_match}
+{"lib/common_test-1.31.2/ebin/ct_ssh.beam",{write_file,3},gained_match}
+{"lib/common_test-1.31.2/ebin/ct_ssh.beam",{write_file,4},gained_match}
+{"lib/common_test-1.31.2/ebin/ct_ssh.beam",{write_file_info,3},gained_match}
+{"lib/common_test-1.31.2/ebin/ct_ssh.beam",{write_file_info,4},gained_match}
+{"lib/common_test-1.31.2/ebin/ct_util.beam",
+ {delete_suite_data,1},
+ gained_match}
+{"lib/common_test-1.31.2/ebin/ct_util.beam",{delete_testdata,1},gained_match}
+{"lib/common_test-1.31.2/ebin/ct_util.beam",{get_testdata,1},gained_match}
+{"lib/common_test-1.31.2/ebin/ct_util.beam",{get_testdata,2},gained_match}
+{"lib/common_test-1.31.2/ebin/ct_util.beam",
+ {match_delete_suite_data,1},
+ gained_match}
+{"lib/common_test-1.31.2/ebin/ct_util.beam",
+ {match_delete_testdata,1},
+ gained_match}
+{"lib/common_test-1.31.2/ebin/ct_util.beam",{read_suite_data,1},gained_match}
+{"lib/common_test-1.31.2/ebin/ct_util.beam",{save_suite_data,2},gained_match}
+{"lib/common_test-1.31.2/ebin/ct_util.beam",{save_suite_data,3},gained_match}
+{"lib/common_test-1.31.2/ebin/ct_util.beam",
+ {save_suite_data_async,3},
+ gained_match}
+{"lib/common_test-1.31.2/ebin/ct_util.beam",{set_cwd,1},gained_match}
+{"lib/common_test-1.31.2/ebin/ct_util.beam",{set_testdata,1},gained_match}
+{"lib/common_test-1.31.2/ebin/ct_util.beam",
+ {set_testdata_async,1},
+ gained_match}
+{"lib/common_test-1.31.2/ebin/ct_util.beam",{update_testdata,3},gained_match}
+{"lib/common_test-1.31.2/ebin/ct.beam",{set_verbosity,2},gained_match}
+{"lib/common_test-1.31.2/ebin/cth_log_redirect.beam",{do_log,2},gained_match}
+{"lib/common_test-1.31.2/ebin/cth_log_redirect.beam",
+ {handle_remote_events,1},
+ gained_match}
+{"lib/common_test-1.31.2/ebin/cth_log_redirect.beam",
+ {set_curr_func,2},
+ gained_match}
+{"lib/common_test-1.31.2/ebin/cth_log_redirect.beam",
+ {set_log_func,1},
+ gained_match}
+{"lib/common_test-1.31.2/ebin/test_server_ctrl.beam",
+ {abort_current_testcase,1},
+ gained_match}
+{"lib/common_test-1.31.2/ebin/test_server_ctrl.beam",{cover,1},gained_match}
+{"lib/common_test-1.31.2/ebin/test_server_ctrl.beam",
+ {create_priv_dir,1},
+ gained_match}
+{"lib/common_test-1.31.2/ebin/test_server_ctrl.beam",
+ {find_release,1},
+ gained_match}
+{"lib/common_test-1.31.2/ebin/test_server_ctrl.beam",{finish,1},gained_match}
+{"lib/common_test-1.31.2/ebin/test_server_ctrl.beam",
+ {is_release_available,1},
+ gained_match}
+{"lib/common_test-1.31.2/ebin/test_server_ctrl.beam",
+ {multiply_timetraps,1},
+ gained_match}
+{"lib/common_test-1.31.2/ebin/test_server_ctrl.beam",
+ {reject_io_reqs,1},
+ gained_match}
+{"lib/common_test-1.31.2/ebin/test_server_ctrl.beam",
+ {run_test_case_apply,7},
+ gained_match}
+{"lib/common_test-1.31.2/ebin/test_server_ctrl.beam",
+ {scale_timetraps,1},
+ gained_match}
+{"lib/common_test-1.31.2/ebin/test_server_ctrl.beam",
+ {set_levels,3},
+ gained_match}
+{"lib/common_test-1.31.2/ebin/test_server_ctrl.beam",
+ {set_random_seed,1},
+ gained_match}
+{"lib/common_test-1.31.2/ebin/test_server_ctrl.beam",
+ {stop_node,1},
+ gained_match}
+{"lib/common_test-1.31.2/ebin/test_server_ctrl.beam",
+ {testcase_callback,1},
+ gained_match}
+{"lib/common_test-1.31.2/ebin/test_server_gl.beam",
+ {capture_start,2},
+ gained_match}
+{"lib/common_test-1.31.2/ebin/test_server_gl.beam",{print,4},gained_match}
+{"lib/common_test-1.31.2/ebin/test_server_gl.beam",{set_props,2},gained_match}
+{"lib/common_test-1.31.2/ebin/test_server_io.beam",{print,3},gained_match}
+{"lib/common_test-1.31.2/ebin/test_server_io.beam",
+ {print_buffered,1},
+ gained_match}
+{"lib/common_test-1.31.2/ebin/test_server_io.beam",{set_fd,2},gained_match}
+{"lib/common_test-1.31.2/ebin/test_server_io.beam",
+ {set_footer,1},
+ gained_match}
+{"lib/common_test-1.31.2/ebin/test_server_io.beam",
+ {set_gl_props,1},
+ gained_match}
+{"lib/common_test-1.31.2/ebin/test_server_io.beam",
+ {set_job_name,1},
+ gained_match}
+{"lib/common_test-1.31.2/ebin/test_server.beam",{set_tc_state,2},gained_match}
+{"lib/compiler-10.0.6/ebin/beam_core_to_ssa.beam",{set_fsub,4},gained_match}
+{"lib/debugger-7.0/ebin/int.beam",{'-stop/0-fun-0-',1},gained_match}
+{"lib/diameter-2.7.2/ebin/diameter_codegen.beam",
+ {'-c_imported_avp_name/2-fun-0-',3},
+ gained_match}
+{"lib/diameter-2.7.2/ebin/diameter_config.beam",{restart,1},gained_match}
+{"lib/diameter-2.7.2/ebin/diameter_config.beam",{stop_service,1},gained_match}
+{"lib/diameter-2.7.2/ebin/diameter_config.beam",{subscribe,2},gained_match}
+{"lib/diameter-2.7.2/ebin/diameter_dist.beam",{cast,2},gained_match}
+{"lib/diameter-2.7.2/ebin/diameter_peer_fsm.beam",{putr,2},gained_match}
+{"lib/diameter-2.7.2/ebin/diameter_peer_fsm.beam",
+ {req_send_CER,2},
+ gained_match}
+{"lib/diameter-2.7.2/ebin/diameter_peer.beam",{notify,3},gained_match}
+{"lib/diameter-2.7.2/ebin/diameter_peer.beam",{recv,2},gained_match}
+{"lib/diameter-2.7.2/ebin/diameter_reg.beam",{add,1},gained_match}
+{"lib/diameter-2.7.2/ebin/diameter_reg.beam",{add_new,1},gained_match}
+{"lib/diameter-2.7.2/ebin/diameter_reg.beam",{remove,1},gained_match}
+{"lib/diameter-2.7.2/ebin/diameter_sctp.beam",{putr,2},gained_match}
+{"lib/diameter-2.7.2/ebin/diameter_service.beam",{call_module,3},gained_match}
+{"lib/diameter-2.7.2/ebin/diameter_service.beam",{mod_state,2},gained_match}
+{"lib/diameter-2.7.2/ebin/diameter_service.beam",{subscribe,1},gained_match}
+{"lib/diameter-2.7.2/ebin/diameter_service.beam",{unsubscribe,1},gained_match}
+{"lib/diameter-2.7.2/ebin/diameter_sync.beam",{flush,1},gained_match}
+{"lib/diameter-2.7.2/ebin/diameter_sync.beam",{pending,1},gained_match}
+{"lib/diameter-2.7.2/ebin/diameter_sync.beam",{pids,1},gained_match}
+{"lib/diameter-2.7.2/ebin/diameter_sync.beam",{store,3},gained_match}
+{"lib/diameter-2.7.2/ebin/diameter_tcp.beam",{putr,2},gained_match}
+{"lib/diameter-2.7.2/ebin/diameter_traffic.beam",{incr_error,3},gained_match}
+{"lib/diameter-2.7.2/ebin/diameter_watchdog.beam",{putr,2},gained_match}
+{"lib/diameter-2.7.2/ebin/diameter.beam",{call,4},gained_match}
+{"lib/edoc-1.5/ebin/edoc_doclet.beam",{xhtml,3},gained_match}
+{"lib/erts-17.1/ebin/erl_prim_loader.beam",{get_modules,2},gained_match}
+{"lib/erts-17.1/ebin/erl_prim_loader.beam",{get_modules,3},gained_match}
+{"lib/erts-17.1/ebin/erl_prim_loader.beam",{inet_list_dir,2},gained_match}
+{"lib/erts-17.1/ebin/erl_prim_loader.beam",{inet_read_file,2},gained_match}
+{"lib/erts-17.1/ebin/erl_prim_loader.beam",
+ {inet_read_file_info,2},
+ gained_match}
+{"lib/erts-17.1/ebin/erl_prim_loader.beam",
+ {inet_read_link_info,2},
+ gained_match}
+{"lib/erts-17.1/ebin/init.beam",{ensure_loaded,1},gained_match}
+{"lib/erts-17.1/ebin/init.beam",{get_argument,1},gained_match}
+{"lib/erts-17.1/ebin/init.beam",{get_configfd,1},gained_match}
+{"lib/erts-17.1/ebin/init.beam",{make_permanent,2},gained_match}
+{"lib/erts-17.1/ebin/init.beam",{notify_when_started,1},gained_match}
+{"lib/erts-17.1/ebin/prim_inet.beam",{connectx,3},gained_match}
+{"lib/erts-17.1/ebin/prim_socket.beam",{invalid_ioctl_flag,1},gained_match}
+{"lib/erts-17.1/ebin/prim_socket.beam",{invalid_socket_option,1},gained_match}
+{"lib/erts-17.1/ebin/prim_socket.beam",{p_get,1},gained_match}
+{"lib/erts-17.1/ebin/prim_socket.beam",{p_put,2},gained_match}
+{"lib/erts-17.1/ebin/socket_registry.beam",{monitored_by,1},gained_match}
+{"lib/et-1.8/ebin/et_collector.beam",{dict_delete,2},gained_match}
+{"lib/et-1.8/ebin/et_collector.beam",{dict_lookup,2},gained_match}
+{"lib/et-1.8/ebin/et_collector.beam",{dict_match,2},gained_match}
+{"lib/et-1.8/ebin/et_collector.beam",{save_event_file,3},gained_match}
+{"lib/et-1.8/ebin/et_viewer.beam",{open_event,2},gained_match}
+{"lib/ftp-1.2.6/ebin/ftp_internal.beam",{lcd,2},gained_match}
+{"lib/ftp-1.2.6/ebin/ftp_internal.beam",{type,2},gained_match}
+{"lib/inets-9.8/ebin/httpc_handler.beam",{cancel,2},gained_match}
+{"lib/inets-9.8/ebin/httpc_manager.beam",{cancel_request,2},gained_match}
+{"lib/inets-9.8/ebin/httpc_manager.beam",{get_options,2},gained_match}
+{"lib/inets-9.8/ebin/httpc_manager.beam",{redirect_request,2},gained_match}
+{"lib/inets-9.8/ebin/httpc_manager.beam",{request,2},gained_match}
+{"lib/inets-9.8/ebin/httpc_manager.beam",{request_done,2},gained_match}
+{"lib/inets-9.8/ebin/httpc_manager.beam",{retry_request,2},gained_match}
+{"lib/inets-9.8/ebin/httpc_manager.beam",{set_options,2},gained_match}
+{"lib/inets-9.8/ebin/httpd_manager.beam",{reload,2},gained_match}
+{"lib/kernel-11.0.4/ebin/application_controller.beam",
+ {change_application_data,2},
+ gained_match}
+{"lib/kernel-11.0.4/ebin/application_controller.beam",
+ {config_change,1},
+ gained_match}
+{"lib/kernel-11.0.4/ebin/application_controller.beam",
+ {control_application,1},
+ gained_match}
+{"lib/kernel-11.0.4/ebin/application_controller.beam",
+ {get_env,3},
+ gained_match}
+{"lib/kernel-11.0.4/ebin/application_controller.beam",
+ {load_application,1},
+ gained_match}
+{"lib/kernel-11.0.4/ebin/application_controller.beam",
+ {permit_application,2},
+ gained_match}
+{"lib/kernel-11.0.4/ebin/application_controller.beam",
+ {set_env,3},
+ gained_match}
+{"lib/kernel-11.0.4/ebin/application_controller.beam",
+ {start_application,2},
+ gained_match}
+{"lib/kernel-11.0.4/ebin/application_controller.beam",
+ {stop_application,1},
+ gained_match}
+{"lib/kernel-11.0.4/ebin/application_controller.beam",
+ {unload_application,1},
+ gained_match}
+{"lib/kernel-11.0.4/ebin/application_controller.beam",
+ {unset_env,2},
+ gained_match}
+{"lib/kernel-11.0.4/ebin/code_server.beam",
+ {'-stick_dir/3-fun-0-',2},
+ gained_match}
+{"lib/kernel-11.0.4/ebin/code_server.beam",
+ {'-stick_dir/3-fun-1-',2},
+ gained_match}
+{"lib/kernel-11.0.4/ebin/code.beam",{finish_loading,2},gained_match}
+{"lib/kernel-11.0.4/ebin/data_publisher.beam",{subscribe,2},gained_match}
+{"lib/kernel-11.0.4/ebin/data_publisher.beam",{unsubscribe,2},gained_match}
+{"lib/kernel-11.0.4/ebin/data_publisher.beam",{update,2},gained_match}
+{"lib/kernel-11.0.4/ebin/disk_log_server.beam",{close,1},gained_match}
+{"lib/kernel-11.0.4/ebin/disk_log.beam",{block,2},gained_match}
+{"lib/kernel-11.0.4/ebin/disk_log.beam",{change_header,2},gained_match}
+{"lib/kernel-11.0.4/ebin/disk_log.beam",{change_notify,3},gained_match}
+{"lib/kernel-11.0.4/ebin/disk_log.beam",{change_size,2},gained_match}
+{"lib/kernel-11.0.4/ebin/disk_log.beam",{internal_open,2},gained_match}
+{"lib/kernel-11.0.4/ebin/disk_log.beam",{reopen,2},gained_match}
+{"lib/kernel-11.0.4/ebin/dist_ac.beam",
+ {'-permit_application/2-fun-0-',3},
+ gained_match}
+{"lib/kernel-11.0.4/ebin/dist_ac.beam",
+ {'-permit_only_loaded_application/2-fun-0-',3},
+ gained_match}
+{"lib/kernel-11.0.4/ebin/dist_ac.beam",
+ {'-takeover_application/2-fun-0-',2},
+ gained_match}
+{"lib/kernel-11.0.4/ebin/dist_ac.beam",{get_nodes,1},gained_match}
+{"lib/kernel-11.0.4/ebin/dist_ac.beam",{load_application,2},gained_match}
+{"lib/kernel-11.0.4/ebin/erl_boot_server.beam",
+ {send_file_result,3},
+ gained_match}
+{"lib/kernel-11.0.4/ebin/erl_compile_server.beam",{compile,1},gained_match}
+{"lib/kernel-11.0.4/ebin/global_group.beam",
+ {global_groups_added,1},
+ gained_match}
+{"lib/kernel-11.0.4/ebin/global_group.beam",
+ {global_groups_changed,1},
+ gained_match}
+{"lib/kernel-11.0.4/ebin/global_group.beam",
+ {global_groups_removed,1},
+ gained_match}
+{"lib/kernel-11.0.4/ebin/global_group.beam",{ng_add_check,3},gained_match}
+{"lib/kernel-11.0.4/ebin/global_group.beam",{registered_names,1},gained_match}
+{"lib/kernel-11.0.4/ebin/global_group.beam",
+ {registered_names_test,1},
+ gained_match}
+{"lib/kernel-11.0.4/ebin/global_group.beam",{send,2},gained_match}
+{"lib/kernel-11.0.4/ebin/global_group.beam",{send,3},gained_match}
+{"lib/kernel-11.0.4/ebin/global_group.beam",{send_test,2},gained_match}
+{"lib/kernel-11.0.4/ebin/global_group.beam",{whereis_name,1},gained_match}
+{"lib/kernel-11.0.4/ebin/global_group.beam",{whereis_name,2},gained_match}
+{"lib/kernel-11.0.4/ebin/global_group.beam",
+ {whereis_name_test,1},
+ gained_match}
+{"lib/kernel-11.0.4/ebin/inet_db.beam",{add_alt_ns,2},gained_match}
+{"lib/kernel-11.0.4/ebin/inet_db.beam",{add_host,2},gained_match}
+{"lib/kernel-11.0.4/ebin/inet_db.beam",{add_ns,2},gained_match}
+{"lib/kernel-11.0.4/ebin/inet_db.beam",{add_rc_list,1},gained_match}
+{"lib/kernel-11.0.4/ebin/inet_db.beam",{add_socks_methods,1},gained_match}
+{"lib/kernel-11.0.4/ebin/inet_db.beam",{del_alt_ns,2},gained_match}
+{"lib/kernel-11.0.4/ebin/inet_db.beam",{del_host,1},gained_match}
+{"lib/kernel-11.0.4/ebin/inet_db.beam",{del_ns,2},gained_match}
+{"lib/kernel-11.0.4/ebin/inet_db.beam",{del_search,1},gained_match}
+{"lib/kernel-11.0.4/ebin/inet_db.beam",{del_socks_methods,1},gained_match}
+{"lib/kernel-11.0.4/ebin/inet_db.beam",{del_socks_noproxy,1},gained_match}
+{"lib/kernel-11.0.4/ebin/inet_db.beam",{ins_alt_ns,2},gained_match}
+{"lib/kernel-11.0.4/ebin/inet_db.beam",{ins_ns,2},gained_match}
+{"lib/kernel-11.0.4/ebin/inet_db.beam",{put_socket_type,2},gained_match}
+{"lib/kernel-11.0.4/ebin/inet_db.beam",{set_cache_refresh,1},gained_match}
+{"lib/kernel-11.0.4/ebin/inet_db.beam",{set_cache_size,1},gained_match}
+{"lib/kernel-11.0.4/ebin/inet_db.beam",{set_hostname,1},gained_match}
+{"lib/kernel-11.0.4/ebin/inet_db.beam",{set_sctp_module,1},gained_match}
+{"lib/kernel-11.0.4/ebin/inet_db.beam",{set_socks_port,1},gained_match}
+{"lib/kernel-11.0.4/ebin/inet_db.beam",{set_socks_server,1},gained_match}
+{"lib/kernel-11.0.4/ebin/inet_db.beam",{set_tcp_module,1},gained_match}
+{"lib/kernel-11.0.4/ebin/inet_db.beam",{set_udp_module,1},gained_match}
+{"lib/kernel-11.0.4/ebin/inet_db.beam",{take_socket_type,1},gained_match}
+{"lib/kernel-11.0.4/ebin/inet_gethost_native.beam",{getit,4},gained_match}
+{"lib/kernel-11.0.4/ebin/logger_olp.beam",{set_opts,2},gained_match}
+{"lib/kernel-11.0.4/ebin/logger_server.beam",{remove_filter,2},gained_match}
+{"lib/kernel-11.0.4/ebin/logger_server.beam",{remove_handler,1},gained_match}
+{"lib/kernel-11.0.4/ebin/logger.beam",{log,4},gained_match}
+{"lib/kernel-11.0.4/ebin/logger.beam",{macro_log,5},gained_match}
+{"lib/kernel-11.0.4/ebin/net_kernel.beam",
+ {'-terminate/2-fun-1-',2},
+ gained_match}
+{"lib/kernel-11.0.4/ebin/net_kernel.beam",{allow,1},gained_match}
+{"lib/kernel-11.0.4/ebin/net_kernel.beam",{disconnect,1},gained_match}
+{"lib/kernel-11.0.4/ebin/net_kernel.beam",{kernel_apply,3},gained_match}
+{"lib/kernel-11.0.4/ebin/pg.beam",{monitor,2},gained_match}
+{"lib/kernel-11.0.4/ebin/socket.beam",{option,2},gained_match}
+{"lib/megaco-4.9.2/ebin/megaco_config.beam",{connect_remote,3},gained_match}
+{"lib/megaco-4.9.2/ebin/megaco_config.beam",{disconnect,1},gained_match}
+{"lib/megaco-4.9.2/ebin/megaco_config.beam",
+ {disconnect_remote,2},
+ gained_match}
+{"lib/megaco-4.9.2/ebin/megaco_config.beam",{start_user,2},gained_match}
+{"lib/megaco-4.9.2/ebin/megaco_config.beam",{stop_user,1},gained_match}
+{"lib/megaco-4.9.2/ebin/megaco_messenger_misc.beam",
+ {incNumErrors,1},
+ gained_match}
+{"lib/megaco-4.9.2/ebin/megaco_messenger.beam",
+ {disconnect_local,2},
+ gained_match}
+{"lib/megaco-4.9.2/ebin/megaco_messenger.beam",{incNumErrors,1},gained_match}
+{"lib/megaco-4.9.2/ebin/megaco_messenger.beam",
+ {incNumTimerRecovery,1},
+ gained_match}
+{"lib/megaco-4.9.2/ebin/megaco_monitor.beam",
+ {update_reply_field,3},
+ gained_match}
+{"lib/megaco-4.9.2/ebin/megaco_monitor.beam",
+ {update_request_field,3},
+ gained_match}
+{"lib/megaco-4.9.2/ebin/megaco_tcp_connection.beam",
+ {incNumErrors,1},
+ gained_match}
+{"lib/megaco-4.9.2/ebin/megaco_tcp_connection.beam",
+ {incNumInMessages,1},
+ gained_match}
+{"lib/megaco-4.9.2/ebin/megaco_tcp_connection.beam",
+ {incNumInOctets,2},
+ gained_match}
+{"lib/megaco-4.9.2/ebin/megaco_tcp_connection.beam",
+ {upgrade_receive_handle,2},
+ gained_match}
+{"lib/megaco-4.9.2/ebin/megaco_tcp.beam",{incNumOutMessages,1},gained_match}
+{"lib/megaco-4.9.2/ebin/megaco_tcp.beam",{incNumOutOctets,2},gained_match}
+{"lib/megaco-4.9.2/ebin/megaco_udp_server.beam",
+ {incNumInMessages,1},
+ gained_match}
+{"lib/megaco-4.9.2/ebin/megaco_udp_server.beam",
+ {incNumInOctets,2},
+ gained_match}
+{"lib/megaco-4.9.2/ebin/megaco_udp_server.beam",
+ {upgrade_receive_handle,2},
+ gained_match}
+{"lib/megaco-4.9.2/ebin/megaco_udp.beam",{incNumOutMessages,1},gained_match}
+{"lib/megaco-4.9.2/ebin/megaco_udp.beam",{incNumOutOctets,2},gained_match}
+{"lib/megaco-4.9.2/ebin/megaco.beam",{cancel,2},gained_match}
+{"lib/megaco-4.9.2/ebin/megaco.beam",{disconnect,2},gained_match}
+{"lib/mnesia-4.27/ebin/mnesia_checkpoint.beam",
+ {'-tm_add_copy/2-fun-0-',3},
+ gained_match}
+{"lib/mnesia-4.27/ebin/mnesia_checkpoint.beam",
+ {'-tm_change_table_copy_type/3-fun-0-',4},
+ gained_match}
+{"lib/mnesia-4.27/ebin/mnesia_checkpoint.beam",
+ {'-tm_del_copy/2-fun-0-',3},
+ gained_match}
+{"lib/mnesia-4.27/ebin/mnesia_checkpoint.beam",
+ {'-tm_mnesia_down/1-fun-0-',2},
+ gained_match}
+{"lib/mnesia-4.27/ebin/mnesia_controller.beam",{sync_dump_log,1},gained_match}
+{"lib/mnesia-4.27/ebin/mnesia_controller.beam",{unblock_table,1},gained_match}
+{"lib/mnesia-4.27/ebin/mnesia_controller.beam",{update,1},gained_match}
+{"lib/mnesia-4.27/ebin/mnesia_lib.beam",{readable_indecies,1},gained_match}
+{"lib/mnesia-4.27/ebin/mnesia_locker.beam",
+ {'-rlock_get_reply/4-fun-0-',3},
+ gained_match}
+{"lib/mnesia-4.27/ebin/mnesia_locker.beam",{async_release_tid,2},gained_match}
+{"lib/mnesia-4.27/ebin/mnesia_locker.beam",{rlock_table,3},gained_match}
+{"lib/mnesia-4.27/ebin/mnesia_locker.beam",
+ {sticky_wlock_table,3},
+ gained_match}
+{"lib/mnesia-4.27/ebin/mnesia_locker.beam",{wlock_table,3},gained_match}
+{"lib/mnesia-4.27/ebin/mnesia_monitor.beam",{close_dets,1},gained_match}
+{"lib/mnesia-4.27/ebin/mnesia_monitor.beam",{close_log,1},gained_match}
+{"lib/mnesia-4.27/ebin/mnesia_monitor.beam",{disconnect,1},gained_match}
+{"lib/mnesia-4.27/ebin/mnesia_monitor.beam",{mktab,2},gained_match}
+{"lib/mnesia-4.27/ebin/mnesia_monitor.beam",{mnesia_down,2},gained_match}
+{"lib/mnesia-4.27/ebin/mnesia_monitor.beam",{open_dets,2},gained_match}
+{"lib/mnesia-4.27/ebin/mnesia_monitor.beam",{open_log,1},gained_match}
+{"lib/mnesia-4.27/ebin/mnesia_monitor.beam",{reopen_log,3},gained_match}
+{"lib/mnesia-4.27/ebin/mnesia_monitor.beam",{sync_log,1},gained_match}
+{"lib/mnesia-4.27/ebin/mnesia_monitor.beam",
+ {unsafe_close_dets,1},
+ gained_match}
+{"lib/mnesia-4.27/ebin/mnesia_monitor.beam",{unsafe_close_log,1},gained_match}
+{"lib/mnesia-4.27/ebin/mnesia_monitor.beam",
+ {unsafe_create_external,4},
+ gained_match}
+{"lib/mnesia-4.27/ebin/mnesia_monitor.beam",{unsafe_mktab,2},gained_match}
+{"lib/mnesia-4.27/ebin/mnesia_monitor.beam",{unsafe_open_dets,2},gained_match}
+{"lib/mnesia-4.27/ebin/mnesia_recover.beam",{connect_nodes,1},gained_match}
+{"lib/mnesia-4.27/ebin/mnesia_recover.beam",{disconnect,1},gained_match}
+{"lib/mnesia-4.27/ebin/mnesia_recover.beam",{log_decision,1},gained_match}
+{"lib/mnesia-4.27/ebin/mnesia_recover.beam",{log_mnesia_down,1},gained_match}
+{"lib/mnesia-4.27/ebin/mnesia_recover.beam",{log_mnesia_up,1},gained_match}
+{"lib/mnesia-4.27/ebin/mnesia_subscr.beam",
+ {'-set_debug_level/2-fun-0-',2},
+ gained_match}
+{"lib/mnesia-4.27/ebin/mnesia_subscr.beam",
+ {'-set_debug_level/2-fun-1-',2},
+ gained_match}
+{"lib/mnesia-4.27/ebin/mnesia_subscr.beam",{change_subscr,3},gained_match}
+{"lib/mnesia-4.27/ebin/mnesia_subscr.beam",{unsubscribe_table,1},gained_match}
+{"lib/mnesia-4.27/ebin/mnesia_tm.beam",{block_tab,1},gained_match}
+{"lib/mnesia-4.27/ebin/mnesia_tm.beam",{prepare_checkpoint,1},gained_match}
+{"lib/mnesia-4.27/ebin/mnesia_tm.beam",{unblock_tab,1},gained_match}
+{"lib/mnesia-4.27/ebin/mnesia.beam",{lock_table,2},gained_match}
+{"lib/mnesia-4.27/ebin/mnesia.beam",{read_table_property,2},gained_match}
+{"lib/mnesia-4.27/ebin/mnesia.beam",{report_event,1},gained_match}
+{"lib/observer-2.19/ebin/cdv_virtual_list_wx.beam",
+ {start_detail_win_2,2},
+ gained_match}
+{"lib/observer-2.19/ebin/crashdump_viewer.beam",{ets_tables,1},gained_match}
+{"lib/observer-2.19/ebin/crashdump_viewer.beam",
+ {expand_binary,1},
+ gained_match}
+{"lib/observer-2.19/ebin/crashdump_viewer.beam",
+ {loaded_mod_details,1},
+ gained_match}
+{"lib/observer-2.19/ebin/crashdump_viewer.beam",{node_info,1},gained_match}
+{"lib/observer-2.19/ebin/crashdump_viewer.beam",{port,1},gained_match}
+{"lib/observer-2.19/ebin/crashdump_viewer.beam",{proc_details,1},gained_match}
+{"lib/observer-2.19/ebin/crashdump_viewer.beam",{read_file,1},gained_match}
+{"lib/observer-2.19/ebin/crashdump_viewer.beam",{timers,1},gained_match}
+{"lib/os_mon-2.12/ebin/disksup.beam",{get_disk_info,1},gained_match}
+{"lib/reltool-1.1/ebin/reltool_app_win.beam",{open_mod,2},gained_match}
+{"lib/reltool-1.1/ebin/reltool_server.beam",{gen_rel_files,2},gained_match}
+{"lib/reltool-1.1/ebin/reltool_server.beam",{gen_target,2},gained_match}
+{"lib/reltool-1.1/ebin/reltool_server.beam",{get_app,2},gained_match}
+{"lib/reltool-1.1/ebin/reltool_server.beam",{get_apps,2},gained_match}
+{"lib/reltool-1.1/ebin/reltool_server.beam",{get_config,3},gained_match}
+{"lib/reltool-1.1/ebin/reltool_server.beam",{get_mod,2},gained_match}
+{"lib/reltool-1.1/ebin/reltool_server.beam",{get_rel,2},gained_match}
+{"lib/reltool-1.1/ebin/reltool_server.beam",{get_script,2},gained_match}
+{"lib/reltool-1.1/ebin/reltool_server.beam",{load_config,2},gained_match}
+{"lib/reltool-1.1/ebin/reltool_server.beam",{save_config,4},gained_match}
+{"lib/reltool-1.1/ebin/reltool_server.beam",{set_app,2},gained_match}
+{"lib/reltool-1.1/ebin/reltool_server.beam",{set_apps,2},gained_match}
+{"lib/reltool-1.1/ebin/reltool_server.beam",{set_sys,2},gained_match}
+{"lib/reltool-1.1/ebin/reltool_sys_win.beam",{open_app,2},gained_match}
+{"lib/reltool-1.1/ebin/reltool_sys_win.beam",{set_app,2},gained_match}
+{"lib/runtime_tools-2.5/ebin/appmon_info.beam",{del_task,4},gained_match}
+{"lib/runtime_tools-2.5/ebin/dbg.beam",{cn,1},gained_match}
+{"lib/runtime_tools-2.5/ebin/dbg.beam",{ctp,2},gained_match}
+{"lib/runtime_tools-2.5/ebin/dbg.beam",{ctp,3},gained_match}
+{"lib/runtime_tools-2.5/ebin/dbg.beam",{ctpg,2},gained_match}
+{"lib/runtime_tools-2.5/ebin/dbg.beam",{ctpg,3},gained_match}
+{"lib/runtime_tools-2.5/ebin/dbg.beam",{ctpl,2},gained_match}
+{"lib/runtime_tools-2.5/ebin/dbg.beam",{ctpl,3},gained_match}
+{"lib/runtime_tools-2.5/ebin/dbg.beam",{get_tracer,1},gained_match}
+{"lib/runtime_tools-2.5/ebin/dbg.beam",{tp,3},gained_match}
+{"lib/runtime_tools-2.5/ebin/dbg.beam",{tpl,3},gained_match}
+{"lib/sasl-4.4/ebin/rb.beam",{grep,1},gained_match}
+{"lib/sasl-4.4/ebin/rb.beam",{list,1},gained_match}
+{"lib/sasl-4.4/ebin/rb.beam",{log_list,1},gained_match}
+{"lib/sasl-4.4/ebin/rb.beam",{rescan,1},gained_match}
+{"lib/sasl-4.4/ebin/rb.beam",{start_log,1},gained_match}
+{"lib/sasl-4.4/ebin/release_handler.beam",{install_release,1},gained_match}
+{"lib/sasl-4.4/ebin/release_handler.beam",{make_permanent,1},gained_match}
+{"lib/sasl-4.4/ebin/release_handler.beam",{reboot_old_release,1},gained_match}
+{"lib/sasl-4.4/ebin/release_handler.beam",{remove_release,1},gained_match}
+{"lib/sasl-4.4/ebin/release_handler.beam",{set_removed,1},gained_match}
+{"lib/sasl-4.4/ebin/release_handler.beam",{set_unpacked,2},gained_match}
+{"lib/sasl-4.4/ebin/release_handler.beam",{unpack_release,1},gained_match}
+{"lib/snmp-5.20.5/doc/examples/ex2/snmp_ex2_manager.beam",
+ {agent,2},
+ gained_match}
+{"lib/snmp-5.20.5/doc/examples/ex2/snmp_ex2_manager.beam",
+ {oid_to_name,1},
+ gained_match}
+{"lib/snmp-5.20.5/doc/examples/ex2/snmp_ex2_manager.beam",
+ {sync_get,2},
+ gained_match}
+{"lib/snmp-5.20.5/doc/examples/ex2/snmp_ex2_manager.beam",
+ {sync_get_bulk,4},
+ gained_match}
+{"lib/snmp-5.20.5/doc/examples/ex2/snmp_ex2_manager.beam",
+ {sync_get_next,2},
+ gained_match}
+{"lib/snmp-5.20.5/doc/examples/ex2/snmp_ex2_manager.beam",
+ {sync_set,2},
+ gained_match}
+{"lib/snmp-5.20.5/ebin/snmp_log.beam",{ipPort2Str,2},gained_match}
+{"lib/snmp-5.20.5/ebin/snmp_misc.beam",{set_option,3},gained_match}
+{"lib/snmp-5.20.5/ebin/snmp_note_store.beam",{get_note,2},gained_match}
+{"lib/snmp-5.20.5/ebin/snmp_note_store.beam",{set_note,4},gained_match}
+{"lib/snmp-5.20.5/ebin/snmp_note_store.beam",{verbosity,2},gained_match}
+{"lib/snmp-5.20.5/ebin/snmp_target_mib.beam",{add_addr,11},gained_match}
+{"lib/snmp-5.20.5/ebin/snmpa_agent.beam",{gc_mibs_cache,2},gained_match}
+{"lib/snmp-5.20.5/ebin/snmpa_agent.beam",{gc_mibs_cache,3},gained_match}
+{"lib/snmp-5.20.5/ebin/snmpa_agent.beam",{get,2},gained_match}
+{"lib/snmp-5.20.5/ebin/snmpa_agent.beam",{get,3},gained_match}
+{"lib/snmp-5.20.5/ebin/snmpa_agent.beam",{get_next,2},gained_match}
+{"lib/snmp-5.20.5/ebin/snmpa_agent.beam",{get_next,3},gained_match}
+{"lib/snmp-5.20.5/ebin/snmpa_agent.beam",{load_mibs,3},gained_match}
+{"lib/snmp-5.20.5/ebin/snmpa_agent.beam",{register_subagent,3},gained_match}
+{"lib/snmp-5.20.5/ebin/snmpa_agent.beam",{set_log_type,2},gained_match}
+{"lib/snmp-5.20.5/ebin/snmpa_agent.beam",{set_request_limit,2},gained_match}
+{"lib/snmp-5.20.5/ebin/snmpa_agent.beam",{unload_mibs,3},gained_match}
+{"lib/snmp-5.20.5/ebin/snmpa_agent.beam",
+ {unregister_notification_filter,2},
+ gained_match}
+{"lib/snmp-5.20.5/ebin/snmpa_agent.beam",{unregister_subagent,2},gained_match}
+{"lib/snmp-5.20.5/ebin/snmpa_agent.beam",
+ {update_mibs_cache_age,2},
+ gained_match}
+{"lib/snmp-5.20.5/ebin/snmpa_agent.beam",
+ {update_mibs_cache_gclimit,2},
+ gained_match}
+{"lib/snmp-5.20.5/ebin/snmpa_agent.beam",{whereis_mib,2},gained_match}
+{"lib/snmp-5.20.5/ebin/snmpa_local_db.beam",{backup,1},gained_match}
+{"lib/snmp-5.20.5/ebin/snmpa_local_db.beam",{print,1},gained_match}
+{"lib/snmp-5.20.5/ebin/snmpa_local_db.beam",{print,2},gained_match}
+{"lib/snmp-5.20.5/ebin/snmpa_local_db.beam",
+ {register_notify_client,2},
+ gained_match}
+{"lib/snmp-5.20.5/ebin/snmpa_local_db.beam",
+ {unregister_notify_client,1},
+ gained_match}
+{"lib/snmp-5.20.5/ebin/snmpa_local_db.beam",{verbosity,1},gained_match}
+{"lib/snmp-5.20.5/ebin/snmpa_mib.beam",{gc_cache,2},gained_match}
+{"lib/snmp-5.20.5/ebin/snmpa_mib.beam",{gc_cache,3},gained_match}
+{"lib/snmp-5.20.5/ebin/snmpa_mib.beam",{info,2},gained_match}
+{"lib/snmp-5.20.5/ebin/snmpa_mib.beam",{load_mibs,3},gained_match}
+{"lib/snmp-5.20.5/ebin/snmpa_mib.beam",{lookup,2},gained_match}
+{"lib/snmp-5.20.5/ebin/snmpa_mib.beam",{next,3},gained_match}
+{"lib/snmp-5.20.5/ebin/snmpa_mib.beam",{register_subagent,3},gained_match}
+{"lib/snmp-5.20.5/ebin/snmpa_mib.beam",{unload_mibs,3},gained_match}
+{"lib/snmp-5.20.5/ebin/snmpa_mib.beam",{unregister_subagent,2},gained_match}
+{"lib/snmp-5.20.5/ebin/snmpa_mib.beam",{update_cache_opts,3},gained_match}
+{"lib/snmp-5.20.5/ebin/snmpa_mib.beam",{verbosity,2},gained_match}
+{"lib/snmp-5.20.5/ebin/snmpa_mib.beam",{whereis_mib,2},gained_match}
+{"lib/snmp-5.20.5/ebin/snmpa_mib.beam",{which_mib,2},gained_match}
+{"lib/snmp-5.20.5/ebin/snmpa_net_if.beam",{set_log_type,2},gained_match}
+{"lib/snmp-5.20.5/ebin/snmpa_net_if.beam",{set_request_limit,2},gained_match}
+{"lib/snmp-5.20.5/ebin/snmpa_symbolic_store.beam",
+ {add_aliasnames,2},
+ gained_match}
+{"lib/snmp-5.20.5/ebin/snmpa_symbolic_store.beam",
+ {add_table_infos,2},
+ gained_match}
+{"lib/snmp-5.20.5/ebin/snmpa_symbolic_store.beam",{add_types,2},gained_match}
+{"lib/snmp-5.20.5/ebin/snmpa_symbolic_store.beam",
+ {add_variable_infos,2},
+ gained_match}
+{"lib/snmp-5.20.5/ebin/snmpa_symbolic_store.beam",
+ {aliasname_to_oid,1},
+ gained_match}
+{"lib/snmp-5.20.5/ebin/snmpa_symbolic_store.beam",{backup,1},gained_match}
+{"lib/snmp-5.20.5/ebin/snmpa_symbolic_store.beam",
+ {delete_aliasnames,1},
+ gained_match}
+{"lib/snmp-5.20.5/ebin/snmpa_symbolic_store.beam",
+ {delete_notifications,1},
+ gained_match}
+{"lib/snmp-5.20.5/ebin/snmpa_symbolic_store.beam",
+ {delete_table_infos,1},
+ gained_match}
+{"lib/snmp-5.20.5/ebin/snmpa_symbolic_store.beam",
+ {delete_types,1},
+ gained_match}
+{"lib/snmp-5.20.5/ebin/snmpa_symbolic_store.beam",
+ {delete_variable_infos,1},
+ gained_match}
+{"lib/snmp-5.20.5/ebin/snmpa_symbolic_store.beam",
+ {enum_to_int,2},
+ gained_match}
+{"lib/snmp-5.20.5/ebin/snmpa_symbolic_store.beam",
+ {get_notification,1},
+ gained_match}
+{"lib/snmp-5.20.5/ebin/snmpa_symbolic_store.beam",
+ {int_to_enum,2},
+ gained_match}
+{"lib/snmp-5.20.5/ebin/snmpa_symbolic_store.beam",
+ {oid_to_aliasname,1},
+ gained_match}
+{"lib/snmp-5.20.5/ebin/snmpa_symbolic_store.beam",
+ {set_notification,2},
+ gained_match}
+{"lib/snmp-5.20.5/ebin/snmpa_symbolic_store.beam",{table_info,1},gained_match}
+{"lib/snmp-5.20.5/ebin/snmpa_symbolic_store.beam",
+ {variable_info,1},
+ gained_match}
+{"lib/snmp-5.20.5/ebin/snmpa_symbolic_store.beam",{verbosity,1},gained_match}
+{"lib/snmp-5.20.5/ebin/snmpa_target_cache.beam",{lock,1},gained_match}
+{"lib/snmp-5.20.5/ebin/snmpa_target_cache.beam",{verbosity,1},gained_match}
+{"lib/snmp-5.20.5/ebin/snmpc_tok.beam",{tokenize,2},gained_match}
+{"lib/snmp-5.20.5/ebin/snmpm_config.beam",{set_engine_time,1},gained_match}
+{"lib/snmp-5.20.5/ebin/snmpm_config.beam",{set_usm_cache,2},gained_match}
+{"lib/snmp-5.20.5/ebin/snmpm_config.beam",{set_usm_eboots,2},gained_match}
+{"lib/snmp-5.20.5/ebin/snmpm_config.beam",{set_usm_eltime,2},gained_match}
+{"lib/snmp-5.20.5/ebin/snmpm_config.beam",{set_usm_etime,2},gained_match}
+{"lib/snmp-5.20.5/ebin/snmpm_config.beam",{unregister_agent,2},gained_match}
+{"lib/snmp-5.20.5/ebin/snmpm_config.beam",{update_agent_info,3},gained_match}
+{"lib/snmp-5.20.5/ebin/snmpm_mpd.beam",{process_msg,7},gained_match}
+{"lib/snmp-5.20.5/ebin/snmpm_net_if_mt.beam",{note_store,2},gained_match}
+{"lib/snmp-5.20.5/ebin/snmpm_net_if_mt.beam",{send_pdu,8},gained_match}
+{"lib/snmp-5.20.5/ebin/snmpm_net_if_mt.beam",{set_log_type,2},gained_match}
+{"lib/snmp-5.20.5/ebin/snmpm_net_if_mt.beam",{verbosity,2},gained_match}
+{"lib/snmp-5.20.5/ebin/snmpm_net_if.beam",{note_store,2},gained_match}
+{"lib/snmp-5.20.5/ebin/snmpm_net_if.beam",{send_pdu,8},gained_match}
+{"lib/snmp-5.20.5/ebin/snmpm_net_if.beam",{set_log_type,2},gained_match}
+{"lib/snmp-5.20.5/ebin/snmpm_net_if.beam",{verbosity,2},gained_match}
+{"lib/snmp-5.20.5/ebin/snmpm_server.beam",
+ {cancel_async_request,2},
+ gained_match}
+{"lib/snmp-5.20.5/ebin/snmpm_server.beam",{set_log_type,1},gained_match}
+{"lib/snmp-5.20.5/ebin/snmpm_server.beam",{unregister_user,1},gained_match}
+{"lib/ssh-6.0.6/ebin/ssh_acceptor_sup.beam",{restart_child,2},gained_match}
+{"lib/ssh-6.0.6/ebin/ssh_client_channel.beam",{get_print_info,2},gained_match}
+{"lib/ssh-6.0.6/ebin/ssh_connection_handler.beam",
+ {adjust_window,3},
+ gained_match}
+{"lib/ssh-6.0.6/ebin/ssh_connection_handler.beam",
+ {channel_info,3},
+ gained_match}
+{"lib/ssh-6.0.6/ebin/ssh_connection_handler.beam",
+ {get_sock_opts,2},
+ gained_match}
+{"lib/ssh-6.0.6/ebin/ssh_connection_handler.beam",
+ {handle_direct_tcpip,6},
+ gained_match}
+{"lib/ssh-6.0.6/ebin/ssh_connection_handler.beam",{info,2},gained_match}
+{"lib/ssh-6.0.6/ebin/ssh_connection_handler.beam",
+ {reply_request,3},
+ gained_match}
+{"lib/ssh-6.0.6/ebin/ssh_connection_handler.beam",{send,5},gained_match}
+{"lib/ssh-6.0.6/ebin/ssh_connection_handler.beam",{send_eof,2},gained_match}
+{"lib/ssh-6.0.6/ebin/ssh_connection_handler.beam",{store,3},gained_match}
+{"lib/ssh-6.0.6/ebin/ssh_lib.beam",{set_label,1},gained_match}
+{"lib/ssh-6.0.6/ebin/ssh_sftp.beam",{apread,4},gained_match}
+{"lib/ssh-6.0.6/ebin/ssh_sftp.beam",{apwrite,4},gained_match}
+{"lib/ssh-6.0.6/ebin/ssh_sftp.beam",{aread,3},gained_match}
+{"lib/ssh-6.0.6/ebin/ssh_sftp.beam",{awrite,3},gained_match}
+{"lib/ssh-6.0.6/ebin/ssh_sftp.beam",{call,3},gained_match}
+{"lib/ssh-6.0.6/ebin/ssh_sftp.beam",{close,3},gained_match}
+{"lib/ssh-6.0.6/ebin/ssh_sftp.beam",{del_dir,3},gained_match}
+{"lib/ssh-6.0.6/ebin/ssh_sftp.beam",{delete,3},gained_match}
+{"lib/ssh-6.0.6/ebin/ssh_sftp.beam",{get_file_info,3},gained_match}
+{"lib/ssh-6.0.6/ebin/ssh_sftp.beam",{make_dir,3},gained_match}
+{"lib/ssh-6.0.6/ebin/ssh_sftp.beam",{make_symlink,4},gained_match}
+{"lib/ssh-6.0.6/ebin/ssh_sftp.beam",{open,4},gained_match}
+{"lib/ssh-6.0.6/ebin/ssh_sftp.beam",{opendir,3},gained_match}
+{"lib/ssh-6.0.6/ebin/ssh_sftp.beam",{position,4},gained_match}
+{"lib/ssh-6.0.6/ebin/ssh_sftp.beam",{pread,5},gained_match}
+{"lib/ssh-6.0.6/ebin/ssh_sftp.beam",{pwrite,5},gained_match}
+{"lib/ssh-6.0.6/ebin/ssh_sftp.beam",{read,4},gained_match}
+{"lib/ssh-6.0.6/ebin/ssh_sftp.beam",{read_file_info,3},gained_match}
+{"lib/ssh-6.0.6/ebin/ssh_sftp.beam",{read_link_info,3},gained_match}
+{"lib/ssh-6.0.6/ebin/ssh_sftp.beam",{readdir,3},gained_match}
+{"lib/ssh-6.0.6/ebin/ssh_sftp.beam",{real_path,3},gained_match}
+{"lib/ssh-6.0.6/ebin/ssh_sftp.beam",{rename,4},gained_match}
+{"lib/ssh-6.0.6/ebin/ssh_sftp.beam",{write,4},gained_match}
+{"lib/ssh-6.0.6/ebin/ssh_sftp.beam",{write_file_info,4},gained_match}
+{"lib/ssl-11.7.7/ebin/dtls_packet_demux.beam",{accept,2},gained_match}
+{"lib/ssl-11.7.7/ebin/dtls_packet_demux.beam",{active_once,3},gained_match}
+{"lib/ssl-11.7.7/ebin/dtls_packet_demux.beam",
+ {connection_setup,2},
+ gained_match}
+{"lib/ssl-11.7.7/ebin/dtls_packet_demux.beam",{get_sock_opts,2},gained_match}
+{"lib/ssl-11.7.7/ebin/dtls_packet_demux.beam",{getstat,2},gained_match}
+{"lib/ssl-11.7.7/ebin/dtls_packet_demux.beam",{new_owner,2},gained_match}
+{"lib/ssl-11.7.7/ebin/dtls_packet_demux.beam",{set_all_opts,2},gained_match}
+{"lib/ssl-11.7.7/ebin/dtls_packet_demux.beam",{set_sock_opts,2},gained_match}
+{"lib/ssl-11.7.7/ebin/ssl_config.beam",{option_error,2},gained_match}
+{"lib/ssl-11.7.7/ebin/ssl_config.beam",{option_incompatible,1},gained_match}
+{"lib/ssl-11.7.7/ebin/ssl_gen_statem.beam",
+ {dist_handshake_complete,2},
+ gained_match}
+{"lib/ssl-11.7.7/ebin/ssl_gen_statem.beam",{get_opts,2},gained_match}
+{"lib/ssl-11.7.7/ebin/ssl_gen_statem.beam",{new_user,2},gained_match}
+{"lib/ssl-11.7.7/ebin/ssl_gen_statem.beam",{recv,3},gained_match}
+{"lib/ssl-11.7.7/ebin/ssl_gen_statem.beam",{set_opts,2},gained_match}
+{"lib/ssl-11.7.7/ebin/ssl_gen_statem.beam",{shutdown,2},gained_match}
+{"lib/ssl-11.7.7/ebin/ssl_pem_cache.beam",{invalidate_pem,1},gained_match}
+{"lib/ssl-11.7.7/ebin/ssl_server_session_cache.beam",
+ {register_session,2},
+ gained_match}
+{"lib/ssl-11.7.7/ebin/ssl_trace.beam",{write,2},gained_match}
+{"lib/ssl-11.7.7/ebin/tls_client_ticket_store.beam",
+ {find_ticket,5},
+ gained_match}
+{"lib/ssl-11.7.7/ebin/tls_client_ticket_store.beam",
+ {get_tickets,2},
+ gained_match}
+{"lib/ssl-11.7.7/ebin/tls_client_ticket_store.beam",
+ {store_ticket,4},
+ gained_match}
+{"lib/ssl-11.7.7/ebin/tls_client_ticket_store.beam",
+ {unlock_tickets,2},
+ gained_match}
+{"lib/ssl-11.7.7/ebin/tls_client_ticket_store.beam",
+ {update_ticket,2},
+ gained_match}
+{"lib/ssl-11.7.7/ebin/tls_dtls_gen_connection.beam",
+ {renegotiation,2},
+ gained_match}
+{"lib/ssl-11.7.7/ebin/tls_sender.beam",
+ {dist_handshake_complete,3},
+ gained_match}
+{"lib/ssl-11.7.7/ebin/tls_sender.beam",{send_and_ack_alert,2},gained_match}
+{"lib/ssl-11.7.7/ebin/tls_sender.beam",{send_data,2},gained_match}
+{"lib/ssl-11.7.7/ebin/tls_sender.beam",{send_post_handshake,2},gained_match}
+{"lib/ssl-11.7.7/ebin/tls_sender.beam",
+ {update_connection_state,4},
+ gained_match}
+{"lib/ssl-11.7.7/ebin/tls_socket.beam",{set_emulated_opts,2},gained_match}
+{"lib/stdlib-8.1/ebin/beam_lib.beam",{crypto_key_fun,1},gained_match}
+{"lib/stdlib-8.1/ebin/beam_lib.beam",{get_crypto_key,1},gained_match}
+{"lib/stdlib-8.1/ebin/dets_server.beam",{close,1},gained_match}
+{"lib/stdlib-8.1/ebin/dets_server.beam",{open_file,1},gained_match}
+{"lib/stdlib-8.1/ebin/dets_server.beam",{open_file,2},gained_match}
+{"lib/stdlib-8.1/ebin/dets_server.beam",{users,1},gained_match}
+{"lib/stdlib-8.1/ebin/dets_server.beam",{verbose,1},gained_match}
+{"lib/stdlib-8.1/ebin/dets.beam",{'-verbose/1-fun-0-',2},gained_match}
+{"lib/stdlib-8.1/ebin/dets.beam",{add_user,3},gained_match}
+{"lib/stdlib-8.1/ebin/dets.beam",{internal_open,3},gained_match}
+{"lib/stdlib-8.1/ebin/dets.beam",{remove_user,2},gained_match}
+{"lib/stdlib-8.1/ebin/digraph.beam",{add_edge,5},gained_match}
+{"lib/stdlib-8.1/ebin/digraph.beam",{add_vertex,2},gained_match}
+{"lib/stdlib-8.1/ebin/digraph.beam",{add_vertex,3},gained_match}
+{"lib/stdlib-8.1/ebin/erl_lint.beam",
+ {'-check_callback_information/1-fun-1-',3},
+ gained_match}
+{"lib/stdlib-8.1/ebin/erl_lint.beam",
+ {'-warn_unused_vars/3-fun-0-',3},
+ gained_match}
+{"lib/stdlib-8.1/ebin/gen_event.beam",{add_handler,3},gained_match}
+{"lib/stdlib-8.1/ebin/gen_event.beam",{delete_handler,3},gained_match}
+{"lib/stdlib-8.1/ebin/gen_event.beam",{notify,2},gained_match}
+{"lib/stdlib-8.1/ebin/gen_event.beam",{sync_notify,2},gained_match}
+{"lib/stdlib-8.1/ebin/io.beam",{fread,3},gained_match}
+{"lib/stdlib-8.1/ebin/io.beam",{get_line,2},gained_match}
+{"lib/stdlib-8.1/ebin/io.beam",{setopts,2},gained_match}
+{"lib/stdlib-8.1/ebin/peer.beam",{cast,4},gained_match}
+{"lib/stdlib-8.1/ebin/peer.beam",{send,3},gained_match}
+{"lib/stdlib-8.1/ebin/qlc_pt.beam",
+ {'-exclude_integers_from_unique_line_numbers/2-fun-0-',2},
+ gained_match}
+{"lib/stdlib-8.1/ebin/qlc_pt.beam",{embed_vars,2},gained_match}
+{"lib/stdlib-8.1/ebin/supervisor.beam",{delete_child,2},gained_match}
+{"lib/stdlib-8.1/ebin/supervisor.beam",{get_childspec,2},gained_match}
+{"lib/stdlib-8.1/ebin/supervisor.beam",{restart_child,2},gained_match}
+{"lib/stdlib-8.1/ebin/supervisor.beam",{start_child,2},gained_match}
+{"lib/stdlib-8.1/ebin/supervisor.beam",{start_link,2},gained_match}
+{"lib/stdlib-8.1/ebin/supervisor.beam",{start_link,3},gained_match}
+{"lib/stdlib-8.1/ebin/supervisor.beam",{terminate_child,2},gained_match}
+{"lib/stdlib-8.1/ebin/supervisor.beam",{which_child,2},gained_match}
+{"lib/stdlib-8.1/ebin/sys.beam",{change_code,4},gained_match}
+{"lib/stdlib-8.1/ebin/sys.beam",{change_code,5},gained_match}
+{"lib/stdlib-8.1/ebin/sys.beam",{log,2},gained_match}
+{"lib/stdlib-8.1/ebin/sys.beam",{log,3},gained_match}
+{"lib/stdlib-8.1/ebin/sys.beam",{log_to_file,2},gained_match}
+{"lib/stdlib-8.1/ebin/sys.beam",{log_to_file,3},gained_match}
+{"lib/stdlib-8.1/ebin/sys.beam",{remove,2},gained_match}
+{"lib/stdlib-8.1/ebin/sys.beam",{remove,3},gained_match}
+{"lib/stdlib-8.1/ebin/sys.beam",{statistics,2},gained_match}
+{"lib/stdlib-8.1/ebin/sys.beam",{statistics,3},gained_match}
+{"lib/stdlib-8.1/ebin/sys.beam",{terminate,2},gained_match}
+{"lib/stdlib-8.1/ebin/sys.beam",{terminate,3},gained_match}
+{"lib/stdlib-8.1/ebin/sys.beam",{trace,2},gained_match}
+{"lib/stdlib-8.1/ebin/sys.beam",{trace,3},gained_match}
+{"lib/stdlib-8.1/ebin/timer.beam",{maybe_req,2},gained_match}
+{"lib/tools-4.2.3/ebin/cover.beam",
+ {'-remote_load_compiled/4-fun-0-',2},
+ gained_match}
+{"lib/tools-4.2.3/ebin/cover.beam",{'-remote_reset/2-fun-0-',2},gained_match}
+{"lib/tools-4.2.3/ebin/cover.beam",{'-remote_unload/2-fun-0-',2},gained_match}
+{"lib/tools-4.2.3/ebin/cover.beam",{export,2},gained_match}
+{"lib/tools-4.2.3/ebin/cover.beam",{get_counters_ref,1},gained_match}
+{"lib/tools-4.2.3/ebin/cover.beam",{import,1},gained_match}
+{"lib/tools-4.2.3/ebin/cprof.beam",{pause,2},gained_match}
+{"lib/tools-4.2.3/ebin/cprof.beam",{pause,3},gained_match}
+{"lib/tools-4.2.3/ebin/cprof.beam",{restart,2},gained_match}
+{"lib/tools-4.2.3/ebin/cprof.beam",{restart,3},gained_match}
+{"lib/tools-4.2.3/ebin/cprof.beam",{start,2},gained_match}
+{"lib/tools-4.2.3/ebin/cprof.beam",{start,3},gained_match}
+{"lib/tools-4.2.3/ebin/cprof.beam",{stop,2},gained_match}
+{"lib/tools-4.2.3/ebin/cprof.beam",{stop,3},gained_match}
+{"lib/tools-4.2.3/ebin/eprof.beam",{log,1},gained_match}
+{"lib/tools-4.2.3/ebin/lcnt.beam",{conflicts,1},gained_match}
+{"lib/tools-4.2.3/ebin/lcnt.beam",{histogram,1},gained_match}
+{"lib/tools-4.2.3/ebin/lcnt.beam",{histogram,2},gained_match}
+{"lib/tools-4.2.3/ebin/lcnt.beam",{inspect,1},gained_match}
+{"lib/tools-4.2.3/ebin/lcnt.beam",{inspect,2},gained_match}
+{"lib/tools-4.2.3/ebin/lcnt.beam",{load,1},gained_match}
+{"lib/tools-4.2.3/ebin/lcnt.beam",{locations,1},gained_match}
+{"lib/tools-4.2.3/ebin/lcnt.beam",{save,1},gained_match}
+{"lib/tools-4.2.3/ebin/lcnt.beam",{set,2},gained_match}
+{"lib/tools-4.2.3/ebin/tprof.beam",{clear_pattern,4},gained_match}
+{"lib/tools-4.2.3/ebin/tprof.beam",{set_pattern,4},gained_match}
+{"lib/tools-4.2.3/ebin/xref_compiler.beam",{make_vertex,2},gained_match}
+{"lib/tools-4.2.3/ebin/xref_reader.beam",{unresolved,5},gained_match}
+{"lib/tools-4.2.3/ebin/xref_utils.beam",{file_error,2},gained_match}
+{"lib/tools-4.2.3/ebin/xref.beam",{add_application,2},gained_match}
+{"lib/tools-4.2.3/ebin/xref.beam",{add_application,3},gained_match}
+{"lib/tools-4.2.3/ebin/xref.beam",{add_directory,2},gained_match}
+{"lib/tools-4.2.3/ebin/xref.beam",{add_directory,3},gained_match}
+{"lib/tools-4.2.3/ebin/xref.beam",{add_module,2},gained_match}
+{"lib/tools-4.2.3/ebin/xref.beam",{add_module,3},gained_match}
+{"lib/tools-4.2.3/ebin/xref.beam",{add_release,2},gained_match}
+{"lib/tools-4.2.3/ebin/xref.beam",{add_release,3},gained_match}
+{"lib/tools-4.2.3/ebin/xref.beam",{analyse,2},gained_match}
+{"lib/tools-4.2.3/ebin/xref.beam",{analyse,3},gained_match}
+{"lib/tools-4.2.3/ebin/xref.beam",{analyze,2},gained_match}
+{"lib/tools-4.2.3/ebin/xref.beam",{analyze,3},gained_match}
+{"lib/tools-4.2.3/ebin/xref.beam",{forget,2},gained_match}
+{"lib/tools-4.2.3/ebin/xref.beam",{get_default,2},gained_match}
+{"lib/tools-4.2.3/ebin/xref.beam",{info,2},gained_match}
+{"lib/tools-4.2.3/ebin/xref.beam",{info,3},gained_match}
+{"lib/tools-4.2.3/ebin/xref.beam",{q,2},gained_match}
+{"lib/tools-4.2.3/ebin/xref.beam",{q,3},gained_match}
+{"lib/tools-4.2.3/ebin/xref.beam",{remove_application,2},gained_match}
+{"lib/tools-4.2.3/ebin/xref.beam",{remove_module,2},gained_match}
+{"lib/tools-4.2.3/ebin/xref.beam",{remove_release,2},gained_match}
+{"lib/tools-4.2.3/ebin/xref.beam",{replace_application,3},gained_match}
+{"lib/tools-4.2.3/ebin/xref.beam",{replace_application,4},gained_match}
+{"lib/tools-4.2.3/ebin/xref.beam",{replace_module,3},gained_match}
+{"lib/tools-4.2.3/ebin/xref.beam",{replace_module,4},gained_match}
+{"lib/tools-4.2.3/ebin/xref.beam",{set_default,2},gained_match}
+{"lib/tools-4.2.3/ebin/xref.beam",{set_default,3},gained_match}
+{"lib/tools-4.2.3/ebin/xref.beam",{set_library_path,2},gained_match}
+{"lib/tools-4.2.3/ebin/xref.beam",{set_library_path,3},gained_match}
+{"lib/tools-4.2.3/ebin/xref.beam",{update,2},gained_match}
+{"lib/tools-4.2.3/ebin/xref.beam",{variables,2},gained_match}
+{"lib/wx-2.7/doc/examples/sudoku/sudoku_board.beam",
+ {butt_correct,3},
+ gained_match}
+{"lib/wx-2.7/doc/examples/sudoku/sudoku_board.beam",
+ {set_board_data,2},
+ gained_match}
+{"lib/wx-2.7/doc/examples/sudoku/sudoku_board.beam",
+ {setup_board,2},
+ gained_match}
+{"lib/wx-2.7/ebin/wxe_server.beam",{set_debug,2},gained_match}
+{"lib/xmerl-2.2/ebin/xmerl_xsd.beam",
+ {'-save_substitutionGroup/2-fun-0-',3},
+ gained_match}

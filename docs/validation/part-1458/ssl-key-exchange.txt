@@ -1,0 +1,8 @@
+{key_exchange_alg,1} instructions OTP 29, previous C# 91, current C# 29
+OTP entry [{label,1003},{line,[{location,"ssl_handshake.erl",3598}]},{func_info,{atom,ssl_handshake},{atom,key_exchange_alg},1},{label,1004},{select_val,{x,0},{f,1012},17,[{atom,dh_anon},{f,1011},{atom,dh_dss},{f,1011},{atom,dh_rsa},{f,1011}]},{label,1005},{move,{integer,5},{x,0}},return]
+OTP fallback [{label,1011},{move,{integer,1},{x,0}},return,{label,1012},{move,{integer,0},{x,0}},return]
+Previous entry [{label,1354},{line,[{location,"ssl_handshake.erl",3598}]},{func_info,{atom,ssl_handshake},{atom,key_exchange_alg},1},{label,1355},{allocate,1,1},{move,{x,0},{y,0}},{test,is_eq_exact,{f,1356},[{y,0},{atom,rsa}]},{move,{integer,0},{x,0}}]
+Previous fallback [{deallocate,1},return,{label,1375},{move,{integer,0},{x,0}},{deallocate,1},return]
+Current entry [{label,1354},{line,[{location,"ssl_handshake.erl",3598}]},{func_info,{atom,ssl_handshake},{atom,key_exchange_alg},1},{label,1355},{select_val,{x,0},{f,1363},17,[{atom,dh_anon},{f,1362},{atom,dh_dss},{f,1362},{atom,dh_rsa},{f,1362}]},{label,1356},{move,{integer,5},{x,0}},return]
+Current fallback [{label,1362},{move,{integer,1},{x,0}},return,{label,1363},{move,{integer,0},{x,0}},return]
+Current instructions match after label rebasing.

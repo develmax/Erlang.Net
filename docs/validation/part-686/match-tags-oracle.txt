@@ -1,0 +1,191 @@
+OTP
+{label,1193}
+{line,[{location,"/daily_build/otp_src/lib/eldap/src/../ebin/ELDAPv3.erl",
+                 3530}]}
+{func_info,{atom,'ELDAPv3'},{atom,match_tags},2}
+{label,1194}
+{test,is_nonempty_list,{f,1196},[{x,0}]}
+{get_list,{x,0},{x,2},{x,3}}
+{test,is_tuple,{f,1198},[{x,2}]}
+{test,test_arity,{f,1198},[{x,2},2]}
+{get_tuple_element,{x,2},0,{x,4}}
+{test,is_nil,{f,1195},[{x,3}]}
+{test,is_nonempty_list,{f,1198},[{x,1}]}
+{get_list,{x,1},{x,3},{x,5}}
+{test,is_eq_exact,{f,1195},[{x,3},{x,4}]}
+{get_tuple_element,{x,2},1,{x,0}}
+{move,{x,5},{x,1}}
+{call_only,2,{'ELDAPv3',match_tags,2}}
+{label,1195}
+{test,is_nonempty_list,{f,1198},[{x,1}]}
+{get_list,{x,1},{x,2},{x,3}}
+{test,is_nil,{f,1198},[{x,3}]}
+{test,is_eq_exact,{f,1198},[{x,2},{x,4}]}
+return
+{label,1196}
+{test,is_tuple,{f,1198},[{x,0}]}
+{test,test_arity,{f,1198},[{x,0},2]}
+{test,is_nonempty_list,{f,1198},[{x,1}]}
+{get_tuple_element,{x,0},0,{x,2}}
+{get_tuple_element,{x,0},1,{x,3}}
+{get_list,{x,1},{x,4},{x,5}}
+{test,is_nil,{f,1197},[{x,5}]}
+{test,is_eq_exact,{f,1198},[{x,4},{x,2}]}
+{move,{x,3},{x,0}}
+return
+{label,1197}
+{test,is_eq_exact,{f,1198},[{x,4},{x,2}]}
+{move,{x,5},{x,1}}
+{move,{x,3},{x,0}}
+{call_only,2,{'ELDAPv3',match_tags,2}}
+{label,1198}
+{test,is_nil,{f,1199},[{x,1}]}
+return
+{label,1199}
+{test,is_tuple,{f,1193},[{x,0}]}
+{test,test_arity,{f,1193},[{x,0},2]}
+{test,is_nonempty_list,{f,1193},[{x,1}]}
+{test_heap,19,2}
+{get_tuple_element,{x,0},0,{x,2}}
+{get_hd,{x,1},{x,1}}
+{put_tuple2,{x,1},{list,[{atom,expected},{x,1}]}}
+{put_tuple2,{x,0},{list,[{atom,got},{x,2},{x,0}]}}
+{put_tuple2,{x,0},{list,[{x,1},{x,0}]}}
+{put_tuple2,{x,0},{list,[{atom,wrong_tag},{x,0}]}}
+{put_tuple2,{x,0},{list,[{atom,asn1},{x,0}]}}
+{put_tuple2,{x,0},{list,[{atom,error},{x,0}]}}
+{line,[{location,"/daily_build/otp_src/lib/eldap/src/../ebin/ELDAPv3.erl",
+                 3541}]}
+{call_ext_only,1,{extfunc,erlang,exit,1}}
+CSharp
+{label,1264}
+{line,[{location,"/daily_build/otp_src/lib/eldap/src/../ebin/ELDAPv3.erl",
+                 3530}]}
+{func_info,{atom,'ELDAPv3'},{atom,match_tags},2}
+{label,1265}
+{allocate,32,2}
+{init_yregs,{list,[{y,0},
+                   {y,1},
+                   {y,2},
+                   {y,3},
+                   {y,4},
+                   {y,5},
+                   {y,6},
+                   {y,7},
+                   {y,8},
+                   {y,9},
+                   {y,10},
+                   {y,11},
+                   {y,12},
+                   {y,13},
+                   {y,14},
+                   {y,15},
+                   {y,16},
+                   {y,17},
+                   {y,18},
+                   {y,19},
+                   {y,20},
+                   {y,21},
+                   {y,22},
+                   {y,23},
+                   {y,24},
+                   {y,25},
+                   {y,26},
+                   {y,27},
+                   {y,28},
+                   {y,29},
+                   {y,30},
+                   {y,31}]}}
+{move,{x,0},{y,0}}
+{move,{x,1},{y,1}}
+{test,is_tuple,{f,1266},[{y,0}]}
+{test,test_arity,{f,1266},[{y,0},2]}
+{get_tuple_element,{y,0},0,{y,2}}
+{get_tuple_element,{y,0},1,{y,3}}
+{test,is_nonempty_list,{f,1266},[{y,1}]}
+{get_list,{y,1},{y,4},{y,5}}
+{test,is_eq_exact,{f,1266},[{y,4},{y,2}]}
+{test,is_nil,{f,1266},[{y,5}]}
+{move,{y,3},{x,0}}
+{deallocate,32}
+return
+{label,1266}
+{test,is_tuple,{f,1267},[{y,0}]}
+{test,test_arity,{f,1267},[{y,0},2]}
+{get_tuple_element,{y,0},0,{y,6}}
+{get_tuple_element,{y,0},1,{y,7}}
+{test,is_nonempty_list,{f,1267},[{y,1}]}
+{get_list,{y,1},{y,8},{y,9}}
+{test,is_eq_exact,{f,1267},[{y,8},{y,6}]}
+{move,{y,7},{x,0}}
+{move,{y,9},{x,1}}
+{call_last,2,{'ELDAPv3',match_tags,2},32}
+{label,1267}
+{test,is_nonempty_list,{f,1268},[{y,0}]}
+{get_list,{y,0},{y,10},{y,11}}
+{test,is_tuple,{f,1268},[{y,10}]}
+{test,test_arity,{f,1268},[{y,10},2]}
+{get_tuple_element,{y,10},0,{y,12}}
+{get_tuple_element,{y,10},1,{y,13}}
+{test,is_nil,{f,1268},[{y,11}]}
+{test,is_nonempty_list,{f,1268},[{y,1}]}
+{get_list,{y,1},{y,14},{y,15}}
+{test,is_eq_exact,{f,1268},[{y,14},{y,12}]}
+{move,{y,13},{x,0}}
+{move,{y,15},{x,1}}
+{call_last,2,{'ELDAPv3',match_tags,2},32}
+{label,1268}
+{test,is_nonempty_list,{f,1269},[{y,0}]}
+{get_list,{y,0},{y,16},{y,17}}
+{test,is_tuple,{f,1269},[{y,16}]}
+{test,test_arity,{f,1269},[{y,16},2]}
+{get_tuple_element,{y,16},0,{y,18}}
+{get_tuple_element,{y,16},1,{y,19}}
+{test,is_nonempty_list,{f,1269},[{y,1}]}
+{get_list,{y,1},{y,20},{y,21}}
+{test,is_eq_exact,{f,1269},[{y,20},{y,18}]}
+{test,is_nil,{f,1269},[{y,21}]}
+{move,{y,0},{x,0}}
+{deallocate,32}
+return
+{label,1269}
+{test,is_nil,{f,1270},[{y,1}]}
+{move,{y,0},{x,0}}
+{deallocate,32}
+return
+{label,1270}
+{test,is_tuple,{f,1271},[{y,0}]}
+{test,test_arity,{f,1271},[{y,0},2]}
+{get_tuple_element,{y,0},0,{y,22}}
+{get_tuple_element,{y,0},1,{y,23}}
+{test,is_nonempty_list,{f,1271},[{y,1}]}
+{get_list,{y,1},{y,24},{y,25}}
+{test_heap,3,0}
+{put_tuple2,{x,0},{list,[{atom,expected},{y,24}]}}
+{move,{x,0},{y,26}}
+{test_heap,4,0}
+{put_tuple2,{x,0},{list,[{atom,got},{y,22},{y,0}]}}
+{move,{x,0},{y,27}}
+{test_heap,3,0}
+{put_tuple2,{x,0},{list,[{y,26},{y,27}]}}
+{move,{x,0},{y,28}}
+{test_heap,3,0}
+{put_tuple2,{x,0},{list,[{atom,wrong_tag},{y,28}]}}
+{move,{x,0},{y,29}}
+{test_heap,3,0}
+{put_tuple2,{x,0},{list,[{atom,asn1},{y,29}]}}
+{move,{x,0},{y,30}}
+{test_heap,3,0}
+{put_tuple2,{x,0},{list,[{atom,error},{y,30}]}}
+{move,{x,0},{y,31}}
+{move,{y,31},{x,0}}
+{line,[{location,"/daily_build/otp_src/lib/eldap/src/../ebin/ELDAPv3.erl",
+                 3541}]}
+{call_ext,1,{extfunc,erlang,exit,1}}
+{deallocate,32}
+return
+{label,1271}
+{move,{y,0},{x,0}}
+{move,{y,1},{x,1}}
+{deallocate,32}
+{jump,{f,1264}}

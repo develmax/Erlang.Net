@@ -1,0 +1,26 @@
+Data: [10]
+<<48,32,49,32,50,32,51,32,52,32,53,32,54,32,55,32,56,32,57>>
+=ERROR REPORT==== 5-Nov-2026::03:08:49.998000 ===
+Error in process <0.1425.0> with exit value:
+{{badmatch,{error,enoent}},
+ [{io_SUITE,write_newlines_file,3,
+            [{file,"tools/Validation/Erlang.IoCompatibility/Reference/io_SUITE.erl"},
+             {line,1940}]},
+  {io_SUITE,io_fread_newlines_2,3,
+            [{file,"tools/Validation/Erlang.IoCompatibility/Reference/io_SUITE.erl"},
+             {line,1927}]},
+  {io_SUITE,io_fread_newlines_1,3,
+            [{file,"tools/Validation/Erlang.IoCompatibility/Reference/io_SUITE.erl"},
+             {line,1922}]},
+  {io_SUITE,io_fread_newlines,1,
+            [{file,"tools/Validation/Erlang.IoCompatibility/Reference/io_SUITE.erl"},
+             {line,1915}]},
+  {io_port_cases,observe,2,
+                 [{file,"tools/Validation/Erlang.IoCompatibility/io_port_cases.erl"},
+                  {line,21}]}]}
+
+Exception: D:\Distr\Work\Codex\Erlang.Net\Erlang.Net\tools\validate-io-original.ps1:48
+Line |
+  48 |  …   if ($LASTEXITCODE -ne 0) { throw 'I/O oracle acquisition failed.' }
+     |                                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | I/O oracle acquisition failed.

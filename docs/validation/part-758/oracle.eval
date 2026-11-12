@@ -1,0 +1,12 @@
+Path = "tests/Erlang.Tests/Resources/Beam/beam_tuple_fun_probe.erl",
+{ok,beam_tuple_fun_probe,Expected} = compile:file(Path,[binary,deterministic]),
+{ok,Expected} = file:read_file("artifacts/beam-backend/part758-probe.beam"),
+{module,beam_tuple_fun_probe} = code:load_binary(beam_tuple_fun_probe,Path,Expected),
+{ok,Recursive} = beam_tuple_fun_probe:make(7),
+2001007 = Recursive(2000,0),
+{first,Closure,captured} = beam_tuple_fun_probe:keep(first,captured),
+captured = Closure(),
+{env,[captured]} = erlang:fun_info(Closure,env),
+io:format("whole_image_equal=true bytes=~p iterations=2000 retained_arguments=2~n",
+    [byte_size(Expected)]),
+halt().

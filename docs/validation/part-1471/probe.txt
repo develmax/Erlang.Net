@@ -1,0 +1,15 @@
+prefix
+OTP [{label,1},{line,[{location,[],3}]},{func_info,{atom,beam_call_result_bif},{atom,prefix},2},{label,2},{allocate,1,2},{move,{x,1},{y,0}},{line,[{location,[],4}]},{call_ext,1,{extfunc,erlang,iolist_to_binary,1}},{line,[{location,[],5}]},{gc_bif,byte_size,{f,0},1,[{tr,{x,0},{t_bs_matchable,1}}],{x,1}},{bif,min,{f,0},[{y,0},{tr,{x,1},{t_integer,{0,288230376151711743}}}],{x,1}},{gc_bif,binary_part,{f,0},2,[{tr,{x,0},{t_bs_matchable,1}},{integer,0},{tr,{x,1},{t_number,{'-inf',288230376151711743}}}],{x,0}},{deallocate,1},return]
+C#  [{label,1},{line,[{location,[],3}]},{func_info,{atom,beam_call_result_bif},{atom,prefix},2},{label,2},{allocate,1,2},{move,{x,1},{y,0}},{line,[{location,[],4}]},{call_ext,1,{extfunc,erlang,iolist_to_binary,1}},{line,[{location,[],5}]},{gc_bif,byte_size,{f,0},1,[{tr,{x,0},{t_bs_matchable,1}}],{x,1}},{bif,min,{f,0},[{y,0},{tr,{x,1},{t_integer,{0,288230376151711743}}}],{x,1}},{gc_bif,binary_part,{f,0},2,[{tr,{x,0},{t_bs_matchable,1}},{integer,0},{tr,{x,1},{t_number,{'-inf',288230376151711743}}}],{x,0}},{deallocate,1},return]
+details
+OTP [{label,3},{line,[{location,[],6}]},{func_info,{atom,beam_call_result_bif},{atom,details},2},{label,4},{allocate,1,2},{move,{x,1},{y,0}},{line,[{location,[],7}]},{call_ext,1,{extfunc,lists,reverse,1}},{line,[{location,[],8}]},{gc_bif,length,{f,0},1,[{tr,{x,0},{t_list,any,any}}],{x,1}},{move,{y,0},{x,2}},{swap,{x,0},{x,1}},{call_last,3,{beam_call_result_bif,pack,3},1}]
+C#  [{label,3},{line,[{location,[],6}]},{func_info,{atom,beam_call_result_bif},{atom,details},2},{label,4},{allocate,1,2},{move,{x,1},{y,0}},{line,[{location,[],7}]},{call_ext,1,{extfunc,lists,reverse,1}},{line,[{location,[],8}]},{gc_bif,length,{f,0},1,[{x,0}],{x,1}},{move,{y,0},{x,2}},{swap,{x,0},{x,1}},{call_last,3,{beam_call_result_bif,pack,3},1}]
+OTP and C# results and errors agree [<<1,2>>,
+                                     <<1,2,3>>,
+                                     <<>>,
+                                     {error,badarg},
+                                     {error,badarg},
+                                     {error,badarg},
+                                     {3,[3,2,1],kept},
+                                     {0,[],kept}]
+Whole image equality false

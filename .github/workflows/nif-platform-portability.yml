@@ -1,0 +1,54 @@
+name: NIF platform portability (target execution)
+on:
+  workflow_dispatch:
+    inputs:
+      runner:
+        description: Unix runner label (choose architecture explicitly; each run proves only its actual host)
+        required: true
+        default: ubuntu-latest
+        type: string
+permissions:
+  contents: read
+jobs:
+  native-unix:
+    runs-on: ${{ inputs.runner }}
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - uses: actions/setup-dotnet@v6
+        with:
+          dotnet-version: 10.0.400
+      - name: Build configured headers from pinned OTP
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p artifacts/nif-platform-ci
+          git clone --depth 1 --branch OTP-29.1.1 https://github.com/erlang/otp.git artifacts/nif-platform-ci/otp
+          test "$(git -C artifacts/nif-platform-ci/otp rev-parse HEAD)" = ad05823719d77c8faee87348ea39513d4e2f99c5
+          cd artifacts/nif-platform-ci/otp
+          ./configure --prefix="$GITHUB_WORKSPACE/artifacts/nif-platform-ci/installed" --without-javac --without-wx --without-odbc --without-ssl --without-termcap --disable-jit
+          make -j2
+          make install
+      - name: Build and smoke-test native bridge on the target
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 tools/Native/Erlang.NifNativeBackend/build-unix-bridge.py \
+            --repository . \
+            --otp-source artifacts/nif-platform-ci/otp \
+            --otp-include artifacts/nif-platform-ci/installed/lib/erlang/usr/include \
+            --output artifacts/nif-platform-ci/native --smoke-fixtures
+          dotnet build tools/Native/Erlang.NifPlatformValidation -m:1
+          cp artifacts/nif-platform-ci/native/Erlang.NifBridge.so tools/Native/Erlang.NifPlatformValidation/bin/Debug/net10.0/
+          dotnet tools/Native/Erlang.NifPlatformValidation/bin/Debug/net10.0/Erlang.NifNativeBackend.dll \
+            "$GITHUB_WORKSPACE/artifacts/nif-platform-ci/native/nif_platform_probe.so" \
+            > artifacts/nif-platform-ci/managed-checks.json
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: nif-platform-${{ runner.os }}-${{ runner.arch }}
+          path: |
+            artifacts/nif-platform-ci/native
+            artifacts/nif-platform-ci/managed-checks.json

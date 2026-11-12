@@ -21,6 +21,8 @@ internal readonly struct EtsCompiledExecutable638
         native = program;
     }
 
+    internal MatchSpecProgram? NodeDistReferenceProgram => legacy;
+
     internal void RequireOwner638(ProcessRuntime runtime)
     {
         if (native is not null)

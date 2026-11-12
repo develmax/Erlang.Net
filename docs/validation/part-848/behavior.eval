@@ -1,0 +1,31 @@
+Dir = "artifacts/beam-backend/part848-images",
+Module = beam_guarded_stat_probe,
+Stub = beam_stat_transport,
+StubPath = filename:join(Dir, atom_to_list(Stub) ++ ".erl"),
+ok = file:write_file(StubPath, "-module(beam_stat_transport).\n-export([getstat/2]).\ngetstat(S,Opts) -> self() ! {getstat,S,Opts}, get(reply).\n"),
+{ok,Stub,StubBytes} = compile:file(StubPath,[binary]),
+{module,Stub} = code:load_binary(Stub,StubPath,StubBytes),
+Name = atom_to_list(Module) ++ ".beam",
+Run = fun(File) ->
+    code:purge(Module), code:delete(Module),
+    {ok,Bytes} = file:read_file(File),
+    {module,Module} = code:load_binary(Module,File,Bytes),
+    Callback = Module:callback(socket,controller),
+    [begin
+        put(reply,Input), Output = Callback(controller),
+        receive {getstat,socket,[recv_cnt,send_cnt,send_pend]} -> ok
+        after 1000 -> error(missing_getstat) end
+    end || {Input,Output} <- [{{ok,[{recv_cnt,4}]},{[{recv_cnt,4}],0,0,0}},
+                               {{error,closed},{error,closed}},{{ok,1,2},{ok,1,2}}, {other,other}]],
+    Stack = try Callback(wrong) of
+        Value -> error({unexpected_result,Value})
+    catch
+        error:function_clause:Frames -> [{Module,_,[wrong],_}|_] = Frames, Frames
+    end,
+    receive Event -> error({unexpected_effect,Event}) after 0 -> ok end,
+    Stack
+end,
+Otp = Run(filename:join([Dir,"fixture","lib","probe","ebin",Name])),
+Otp = Run(filename:join(Dir,Name)),
+erlang:display({Module,equal}),
+halt().

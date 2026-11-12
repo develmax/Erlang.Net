@@ -14,7 +14,10 @@ public static class KernelModules
 
     internal static void RegisterRpc(ModuleRegistry registry)
     {
-        Erpc.Register(registry);
+        if (!registry.HasExport(ErpcNames.Module, ErpcNames.Call, 5))
+        {
+            Erpc.Register(registry);
+        }
         Rpc.Register(registry);
     }
 }

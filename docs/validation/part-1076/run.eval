@@ -1,0 +1,28 @@
+[Path] = init:get_plain_arguments(),
+{ok, Binary} = file:read_file(Path),
+{module, shared_cons_probe} = code:load_binary(shared_cons_probe, Path, Binary),
+{integer,undefined,tail,acc} = shared_cons_probe:read([{tag,7}|tail], acc),
+{other,7,[],acc} = shared_cons_probe:read([{tag,value}], acc),
+{equal,same,acc} = shared_cons_probe:read([same|same], acc),
+acc = shared_cons_probe:read([], acc),
+Check = fun(Arg) ->
+    try shared_cons_probe:read(Arg, original) of
+        _ -> error(expected_function_clause)
+    catch error:function_clause:Stack ->
+        [{shared_cons_probe,read,[Arg,original],_}|_] = Stack
+    end
+end,
+[Check(Arg) || Arg <- [[different|tail], non_list]],
+value = get(shared_cons_key),
+{tag,undefined} = shared_cons_probe:head([{tag,hello}|tail]),
+{other,hello} = shared_cons_probe:head([another]),
+{tail,undefined} = shared_cons_probe:tail([head|tail]),
+tail = get(tail_key),
+Self = self(),
+{shape,Self} = shared_cons_probe:shape([head|tail]),
+try shared_cons_probe:head([]) of _ -> error(expected_function_clause)
+catch error:function_clause:HeadStack -> [{shared_cons_probe,head,[[]],_}|_] = HeadStack end,
+{beam_file, _, _, _, _, Functions} = beam_disasm:file(Path),
+[io:format("~p~n", [F]) || F = {function, Name, _, _, _} <- Functions, lists:member(Name, [read,head,tail,shape])],
+halt().
+

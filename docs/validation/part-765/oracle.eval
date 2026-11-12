@@ -1,0 +1,12 @@
+Original = filename:join([code:lib_dir(kernel),"ebin","erl_reply.beam"]),
+Generated = "artifacts/beam-backend/part765-images/erl_reply.beam",
+{ok,Bytes} = file:read_file(Original),
+{ok,Bytes} = file:read_file(Generated),
+{beam_file,erl_reply,_,_,_,Functions} = beam_disasm:file(Generated),
+{function,reply,1,_,Reply} = lists:keyfind(reply,2,Functions),
+{function,ip_string_to_tuple,1,_,Address} = lists:keyfind(ip_string_to_tuple,2,Functions),
+57 = length(Reply),
+37 = length(Address),
+io:format("whole_image_equal=true bytes=~p reply_instructions=57 address_instructions=37 sha256=~s~n",
+    [byte_size(Bytes),binary:encode_hex(crypto:hash(sha256,Bytes))]),
+halt().

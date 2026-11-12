@@ -1,0 +1,29 @@
+[Reference,Generated] = [filename:absname(P) || P <- init:get_plain_arguments()],
+Files = filelib:fold_files(Generated, "[.]beam$", true, fun(P,Acc) -> [P|Acc] end, []),
+Read = fun(P) ->
+    {beam_file,_,_,_,_,Functions} = beam_disasm:file(P),
+    maps:from_list([{{Name,Arity},Instructions}
+                    || {function,Name,Arity,_,Instructions} <- Functions])
+end,
+Count = fun(Opcode,Instructions) ->
+    length([I || I <- Instructions, is_tuple(I), element(1,I) =:= Opcode])
+end,
+Rows = lists:filtermap(fun(P) ->
+    Relative = lists:nthtail(length(filename:split(Generated)), filename:split(P)),
+    OTP = Read(filename:join([Reference|Relative])),
+    Actual = Read(P),
+    Candidates = [{Key,Count(apply_last,Is),Count(apply_last,GeneratedIs)}
+                  || {Key,Is} <- maps:to_list(OTP),
+                     Count(select_val,Is)>0,
+                     {ok,GeneratedIs} <- [maps:find(Key,Actual)],
+                     Count(apply_last,Is)>Count(apply_last,GeneratedIs)],
+    case Candidates of
+        [] -> false;
+        _ -> {true,{length(Candidates),filename:join(Relative),lists:sort(Candidates)}}
+    end
+end,Files),
+io:format("~p modules, ~p functions with select_val and fewer apply_last instructions in generated code.~n",
+    [length(Rows),lists:sum([N || {N,_,_} <- Rows])]),
+lists:foreach(fun({N,P,C}) -> io:format("~p ~s ~p~n",[N,P,lists:sublist(C,5)]) end,
+    lists:sublist(lists:reverse(lists:sort(Rows)),20)),
+halt().
