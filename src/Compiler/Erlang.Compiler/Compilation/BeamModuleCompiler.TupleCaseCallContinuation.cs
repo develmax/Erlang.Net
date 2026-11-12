@@ -77,6 +77,10 @@ internal sealed partial class BeamModuleCompiler
             int temporary = Array.FindIndex(liveInputs, input =>
                 !finalStep.Checks.Any(check => check.Input == input)
                 && !reads.Contains(parameters[input]));
+            bool forwardPayload = !singleCallTuple
+                && next.Arguments.FirstOrDefault() is Expr.Variable firstArgument && firstArgument.Name == payload
+                && !continuation.Items.Skip(1).SelectMany(LocalFunctionEntries.Walk)
+                    .OfType<Expr.Variable>().Any(variable => variable.Name == payload);
             int frame = liveInputs.Length;
             EntryCall? call = null;
             CaseTuplePlan? success = null;
@@ -96,21 +100,24 @@ internal sealed partial class BeamModuleCompiler
             }
             else
             {
-                if (temporary < 0)
+                if (!forwardPayload && temporary < 0)
                 {
                     temporary = frame++;
                 }
 
                 var branchSlots = saved.Where(binding => reads.Contains(binding.Key))
                     .ToDictionary(binding => binding.Key, binding => binding.Value, StringComparer.Ordinal);
-                branchSlots.Add(payload, temporary);
+                if (!forwardPayload)
+                {
+                    branchSlots.Add(payload, temporary);
+                }
                 // A previously bound pattern variable must not become a fresh
                 // result binding in the linear call planner.
                 var statements = continuation.Items.SkipLast(1).ToArray();
                 if (statements.OfType<Expr.Match>().Any(match => match.Pattern is Pattern.Variable binding
                         && binding.Name != VariableScopeNames.Wildcard && (parameters.Contains(binding.Name)
                             || fields.Contains(binding.Name)))
-                    || (callSequence = ReadRegisterCaseCallSequence(continuation, null, branchSlots)) is null)
+                    || (callSequence = ReadRegisterCaseCallSequence(continuation, forwardPayload ? payload : null, branchSlots)) is null)
                 {
                     return false;
                 }
@@ -148,6 +155,13 @@ internal sealed partial class BeamModuleCompiler
                     owner.EmitTuplePart(register, step.Field, 1);
                     register = 1;
                     continue;
+                }
+
+                if (forwardPayload)
+                {
+                    EmitProjectionChecks(step, register, failure, liveInputs);
+                    owner.EmitTuplePart(register, step.Field, 0);
+                    break;
                 }
 
                 int scratch = register == 1 ? 2 : 1;
