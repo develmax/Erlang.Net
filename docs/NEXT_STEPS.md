@@ -1,5 +1,7 @@
 # Next steps
 
+Measure reuse of binary match contexts across calls and alternatives in functions using bs_start_match4. [Inventory](validation/part-1579/binary-tuple-inventory.txt).
+
 Align register allocation for fixed binary pattern branches and reuse their match context between alternatives. [Evidence](validation/part-1578/README.md).
 
 Extend binary match context reuse through branch dispatch and deferred tail materialization. [Evidence](validation/part-1577/README.md).
