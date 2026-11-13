@@ -1,0 +1,7 @@
+# Part 1564 — Plan call sequences that return a constant
+
+Sequences starting with a call result binding now use the existing saved-call planner when they end in a constant and their preceding expressions can be lowered as calls. This keeps adjacent call results in X registers and reserves Y slots for values used across calls. It preserves the call order and uses the existing frame and return encoders.
+
+The pre-change audit found oversized entry frames in 1,610 functions in 523 modules. Of those, 786 functions in 330 modules begin by binding a call result. The change affects 24 release images. Seven functions across six modules gained a complete instruction match after label normalization and none lost one. This includes dbg_iserver:terminate/2, which now has a frame with zero Y slots. [Frame audit](frame-rank.txt) · [Function comparison](normalized-functions.txt) · [Disassembly](terminate.txt).
+
+All 1,366 sources were accepted and generated. The comparison found 390 Equal and 976 Different. ELDAPv3 matched from C# ASN.1 generation. OTP loaded all 976 differing images. Three focused compiler tests passed. The execution fixture matched six returned values and dictionary observations on the OTP VM. The full runtime suite and canonical readiness were not rerun. [Corpus](otp-corpus.json) · [Loader and Code sizes](loader-and-code.txt) · [Tests](focused.json) · [Fixture](beam_constant_call_sequence.erl) · [Outcomes](fixture.txt).

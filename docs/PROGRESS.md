@@ -1,5 +1,7 @@
 # Project progress
 
+Part 1564 reuses the saved-call planner for sequences ending in a constant. All 1,366 images generate, with 390 Equal and 976 Different. [Evidence](validation/part-1564/README.md).
+
 Part 1563 orders reloads around slot reuse. All 1,366 images generate, with 390 Equal and 976 Different. [Evidence](validation/part-1563/README.md).
 
 Part 1562 reuses dying slots when another saved argument supplies X0. All 1,366 images generate, with 390 Equal and 976 Different. [Evidence](validation/part-1562/README.md).
