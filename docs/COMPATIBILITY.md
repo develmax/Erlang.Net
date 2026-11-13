@@ -1,6 +1,6 @@
 # Compatibility overview
 
-Part 1535 verifies a byte-identical terminal list fixture with surviving inputs. OTP loads all 979 differing release images. [Evidence](validation/part-1535/README.md).
+Part 1536 verifies the complete Windows release image for httpc_sup and a deterministic singleton-list fixture. OTP accepts all 978 differing images for loading. [Evidence](validation/part-1536/README.md).
 
 Part 1530 matches an entire OTP fixture and 80 result, error and stack observations. OTP loads all 979 differing release images. [Evidence](validation/part-1530/README.md).
 

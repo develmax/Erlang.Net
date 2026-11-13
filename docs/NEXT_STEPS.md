@@ -1,6 +1,6 @@
 # Next steps
 
-Extend call-result construction to singleton-list entry patterns and folded constant bindings, starting with the last instruction mismatch in httpc_sup. Continue analyzing stack liveness in branches and compare against all 1,366 release images. [Nearest modules](validation/part-1535/nearest-before.txt) · [Instructions](validation/part-1535/httpc-init.txt).
+Continue branch-local register planning and binary construction using the first-difference ranking. Compare the positive and negative branches of ssh_bits:mpint/1 against OTP and rerun all 1,366 release images after changes. [Ranking](validation/part-1536/first-difference-ranking.txt) · [Instructions](validation/part-1536/ssh-mpint-baseline.txt).
 
 Rank terminal operator emission by specific operator and operand forms. The previous audit finds 56 terminal operator bodies across 43 modules. Prioritize branch-local liveness that can also close a near match, starting with the integer branch and binary construction in `ssh_bits:mpint/1` and the guarded projections in `prim_buffer:read_iovec/2`. [Operator audit](validation/part-1509/first-call-spills-after.txt) · [Nearest images](validation/part-1523/nearest.txt).
 

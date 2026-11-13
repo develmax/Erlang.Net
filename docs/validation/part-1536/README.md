@@ -17,3 +17,7 @@ dotnet artifacts/beam-backend/part1536-tool/Erlang.BeamCorpus.dll $otp artifacts
 ## Release example
 
 The complete Windows release image for `httpc_sup` now matches byte for byte. Its `init/1` reads the list head in X1, checks the tail in X2 and passes the head to `child_specs/1` without reserving a Y slot. The tuple construction consumes the call result from X0. [Image hashes](httpc-sha256.txt) · [Instructions](httpc-init.txt) · [Chunk comparison](httpc-chunks.txt).
+
+## Corpus results
+
+All 1,366 release sources were accepted and generated. The comparison records 388 Equal and 978 Different. Only httpc_sup changes status. ELDAPv3 remains byte-identical from C# ASN.1 generation. OTP accepts all 978 differing images for loading. Three focused compiler checks passed. The full runtime suite and canonical readiness were not rerun. [Corpus](otp-corpus.json) · [Transitions](status-changes.txt) · [Loader and Code](loader-and-code.txt) · [Focused checks](focused.json).

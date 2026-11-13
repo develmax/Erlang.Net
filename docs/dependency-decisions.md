@@ -1,6 +1,6 @@
 # Dependency and compatibility decisions
 
-Part 1535 reuses call operand preparation and frame emission for input last-use planning. OTP 29.1.1 remains the reference and the change adds no dependency. [Evidence](validation/part-1535/README.md).
+Part 1536 reuses entry pattern instructions, call-result construction and constant folding. OTP 29.1.1 remains the reference and the change adds no dependency. [Evidence](validation/part-1536/README.md).
 
 Part 1530 reuses entry selector saves, saved call arguments and the call argument construction planner. No dependency was added. [Evidence](validation/part-1530/README.md).
 

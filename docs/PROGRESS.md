@@ -1,6 +1,6 @@
 # Project progress
 
-Part 1535 reuses terminal list slots after the last input read. Two release functions reach normalized OTP instruction equality and three frames reach the OTP size. All 1,366 images generate, with 387 Equal and 979 Different. [Evidence](validation/part-1535/README.md).
+Part 1536 forwards singleton-list heads into calls and builds the result from folded constants and X0. All 1,366 images generate, with 388 Equal and 978 Different. httpc_sup now matches byte for byte. [Evidence](validation/part-1536/README.md).
 
 Part 1530 preserves saved arguments for tail calls in atom alternatives. Three functions match normalized OTP instructions and three frames match OTP sizes. The full corpus has 387 Equal and 979 Different. [Evidence](validation/part-1530/README.md).
 
