@@ -24,7 +24,8 @@ internal sealed partial class BeamModuleCompiler
         {
             Expr expression = sequence.Items[index];
             bool last = index == sequence.Items.Count - 1;
-            if (expression is Expr.Call { DynamicRemote: false, Module: not ErlangModuleNames.Module } call)
+            if (expression is Expr.Call { DynamicRemote: false } call
+                && (call.Module != ErlangModuleNames.Module || IsConstantSequenceBif(call)))
             {
                 var arguments = new List<(int Destination, Term Value)>();
                 foreach (Expr argument in call.Arguments)
@@ -53,6 +54,9 @@ internal sealed partial class BeamModuleCompiler
             ? new(calls, result)
             : null;
     }
+
+    private static bool IsConstantSequenceBif(Expr.Call call) =>
+        (call.Function, call.Arguments.Count) is (AutoImportNames.ProcessFlag, 2 or 3);
 
     private static Term? ReadSequenceConstant(Expr expression, IReadOnlyDictionary<string, Term> bindings)
     {
@@ -84,19 +88,32 @@ internal sealed partial class BeamModuleCompiler
         IReadOnlyDictionary<(string Name, int Arity), int> entries
     )
     {
-        if (ReadConstantCallSequence(clause) is not { } sequence
-            || sequence.Calls.Any(call => call.Source.Module is null
-                && !entries.ContainsKey((call.Source.Function, call.Arguments.Count))))
+        if (ReadConstantCallSequence(clause) is not { } sequence)
         {
             return false;
         }
 
+        var calls = new List<ConstantCall>(sequence.Calls.Count);
+        foreach (var (source, arguments) in sequence.Calls)
+        {
+            Expr.Call call = ResolveImportedCall(source, entries);
+            if (call.Module is null && !entries.ContainsKey((call.Function, arguments.Count)))
+            {
+                call = call with { Module = ResolveExternalModule(call.Function, arguments.Count) };
+                if (call.Module is null || call.Module == ErlangModuleNames.Module && !IsConstantSequenceBif(call))
+                {
+                    return false;
+                }
+            }
+            calls.Add(new(call, arguments));
+        }
+
         Op(Allocate, BeamWire.UnsignedTag, 0);
         Operand(BeamWire.UnsignedTag, 0);
-        for (int index = 0; index < sequence.Calls.Count; index++)
+        for (int index = 0; index < calls.Count; index++)
         {
-            var (call, arguments) = sequence.Calls[index];
-            bool tail = sequence.Result is null && index == sequence.Calls.Count - 1;
+            var (call, arguments) = calls[index];
+            bool tail = sequence.Result is null && index == calls.Count - 1;
             EmitIndependentCallMoves(arguments);
             if (!tail || call.Module is not null)
             {
