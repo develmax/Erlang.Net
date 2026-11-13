@@ -1,5 +1,7 @@
 # Next steps
 
+Reuse the catch reason from X1 in simple return constructors and align the surrounding branch layout with OTP. [Disassembly](validation/part-1569/run-after.txt).
+
 Align catch dispatch and exception register placement with OTP. Compare the remaining differences in erl_abstract_code:debug_info/4 and similar handlers. [Evidence](validation/part-1568/README.md).
 
 Compare the first differing instructions in the closest release modules and measure how many modules share each cause. [Instruction audit](validation/part-1567/near.txt).

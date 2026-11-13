@@ -1,5 +1,7 @@
 # Project progress
 
+Part 1569 dispatches simple catches from exception registers. All 1,366 images generate, with 390 Equal and 976 Different. [Evidence](validation/part-1569/README.md).
+
 Part 1568 skips stacktrace construction for wildcard catches. All 1,366 images generate, with 390 Equal and 976 Different. [Evidence](validation/part-1568/README.md).
 
 Part 1567 folds proven literal fields in tagged call results. All 1,366 images generate, with 390 Equal and 976 Different. [Evidence](validation/part-1567/README.md).

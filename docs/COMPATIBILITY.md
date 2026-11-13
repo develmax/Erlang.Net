@@ -1,5 +1,7 @@
 # Compatibility overview
 
+Part 1569 changes 179 release images. OTP accepts all 976 differing images for loading. [Evidence](validation/part-1569/README.md).
+
 Part 1568 changes 463 release images by eliding unused stacktrace construction. OTP accepts all 976 differing images for loading. [Evidence](validation/part-1568/README.md).
 
 Part 1567 matches the fixture instructions and preserves all release images. OTP accepts all 976 differing images for loading. [Evidence](validation/part-1567/README.md).

@@ -1,5 +1,7 @@
 # Dependency and compatibility decisions
 
+Part 1569 reuses lexical reference analysis and exception register emission from the pinned OTP model. No dependency was added. [Evidence](validation/part-1569/README.md).
+
 Part 1568 uses OTP 29.1.1 v3_core.erl as the stacktrace construction reference. No dependency was added. [Evidence](validation/part-1568/README.md).
 
 Part 1567 reuses literal normalization and branch emission, with OTP 29.1.1 beam_ssa_type.erl as reference. No dependency was added. [Evidence](validation/part-1567/README.md).
