@@ -1909,7 +1909,7 @@ internal sealed partial class BeamModuleCompiler
             var sequence = deferred?.Sequence ?? ReadEntrySequenceBody(clause.Body, inputs);
             if (sequence is not null)
             {
-                EmitEntrySequenceBody(sequence, inputs, deferred, literalDispatch);
+                EmitEntrySequenceBody(sequence, inputs, deferred, literalDispatch, clause.Guard);
             }
             else
             {
@@ -1999,7 +1999,7 @@ internal sealed partial class BeamModuleCompiler
         }
 
         private void EmitEntrySequenceBody(EntrySequenceBody sequence, (Pattern.Variable Variable, int Register)[] inputs,
-            DeferredConsEntry? deferred, bool literalDispatch)
+            DeferredConsEntry? deferred, bool literalDispatch, Expr? entryGuard)
         {
             var measurement = ReadEntryResultMeasurement(sequence, inputs);
             if (measurement is { } measured)
@@ -2109,7 +2109,8 @@ internal sealed partial class BeamModuleCompiler
                 variables.Add(sequence.Binding!.Name, resultSlot);
             }
 
-            if (sequence.Continuation is Expr.If conditional && TryEmitTerminalListConditional(conditional))
+            if (sequence.Continuation is Expr.If conditional && TryEmitTerminalListConditional(conditional,
+                measuredListFrame ? measurement?.Result.Name : null, entryGuard))
             {
                 return;
             }
