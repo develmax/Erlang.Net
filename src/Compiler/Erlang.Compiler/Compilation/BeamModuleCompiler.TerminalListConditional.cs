@@ -21,7 +21,7 @@ internal sealed partial class BeamModuleCompiler
                     Operator: ErlangOperators.Greater, Left: Expr.Variable limit,
                     Right: Expr.Literal { Value: Integer lower }
                 }
-                || lower.Value < 0 || lower.Value > MaximumBitSize
+                || measurement == limit.Name || lower.Value < 0 || lower.Value > MaximumBitSize
                 || conditional.Clauses is not [var first, var greater, var less, var equal]
                 || first.Guard is not Expr.Binary
                 {
@@ -101,7 +101,7 @@ internal sealed partial class BeamModuleCompiler
             }
             else
             {
-                owner.EmitTypedRegister(slot, AnyTypeBits, registerTag: YRegisterTag);
+                owner.EmitTypedRegister(slot, AnyTypeBits, lower: types.Lower, registerTag: YRegisterTag);
             }
         }
 
@@ -119,6 +119,11 @@ internal sealed partial class BeamModuleCompiler
             }
 
             var types = ReadMeasuredListTypes(conditional, measurement, entryGuard);
+            if (types is { } inferred
+                && (!variables.ContainsKey(inferred.Measurement) || !variables.ContainsKey(inferred.Limit)))
+            {
+                types = null;
+            }
             var original = variables;
             int branchBase = nextSlot;
             for (int index = 0; index < plans.Length; index++)
