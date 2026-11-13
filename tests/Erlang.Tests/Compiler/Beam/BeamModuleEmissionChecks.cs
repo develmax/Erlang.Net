@@ -44,6 +44,7 @@ internal static class BeamModuleEmissionChecks
             "beam_saved_call_probe",
             "beam_list_element_case_probe",
             "beam_list_call_sequence_probe",
+            "beam_list_terminal_calls",
             "beam_singleton_cons_probe",
             "beam_list_branch_probe",
             "beam_arithmetic_list_entry",

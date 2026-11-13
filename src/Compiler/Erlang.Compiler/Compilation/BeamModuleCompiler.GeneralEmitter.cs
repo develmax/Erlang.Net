@@ -693,7 +693,7 @@ internal sealed partial class BeamModuleCompiler
                 || TryEmitLiteralEncoder(function) || TryEmitMeasuredEncoder(function)
                 || owner.TryEmitSingletonListConstructor(function, location, entries) || TryEmitNestedListRegistration(function)
                 || TryEmitListPrefixTailCall(function) || TryEmitSingletonListTailCall(function)
-                || TryEmitListCallAndConstant(function) || TryEmitAppendFormatTail(function)
+                || TryEmitListCallAndConstant(function) || TryEmitTerminalCallList(function) || TryEmitAppendFormatTail(function)
                 || TryEmitRegisteredProcessCase(function)
                 || TryEmitTaggedTupleAndConstantsTail(function) || TryEmitTupleElementAtomDispatchTail(function)
                 || TryEmitTupleListTailCall(function)
