@@ -1,5 +1,7 @@
 # Dependency and compatibility decisions
 
+Part 1615 reuses the existing C# X-register planner and BIF encoders. The OTP 29.1.1 compiler and release disassembly are the oracle. No dependency was added. [Evidence](validation/part-1615/README.md).
+
 Part 1572 reuses the tagged tuple test and tuple constructor emitters. No dependency was added. [Evidence](validation/part-1572/README.md).
 
 Part 1571 reuses the tuple planner and pinned OTP tuple and rethrow lowering. No dependency was added. [Evidence](validation/part-1571/README.md).

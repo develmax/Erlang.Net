@@ -1,5 +1,7 @@
 # Next steps
 
+Prioritize excess stack frame slots. The first normalized instruction difference is an oversized allocate with equal live X count in 877 modules. Use the pinned OTP liveness and register allocation passes as reference. [Ranking](validation/part-1615/baseline-first-differences.txt).
+
 Measure the remaining entry-frame differences by frame size and placement, then prioritize the patterns with the most affected modules. [Evidence](validation/part-1597/README.md).
 
 Extend the measured allocation liveness rules to additional entry paths and lifted closures. [Evidence](validation/part-1596/README.md).

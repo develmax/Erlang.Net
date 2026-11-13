@@ -1,5 +1,7 @@
 # Project progress
 
+Part 1615 generated all 1,366 Windows OTP release images. 393 matched byte for byte, including ELDAPv3, and 973 differed. Three more functions matched after label normalization. [Evidence](validation/part-1615/README.md).
+
 Part 1597 corrects live X counts for direct function value calls. All 1,366 images generate with 392 Equal and 974 Different. [Evidence](validation/part-1597/README.md).
 
 Part 1596 corrects live register counts at entry call allocations. All 1,366 images generate with 392 Equal and 974 Different. [Evidence](validation/part-1596/README.md).

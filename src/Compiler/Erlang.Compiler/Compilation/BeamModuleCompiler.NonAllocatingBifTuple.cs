@@ -76,7 +76,7 @@ internal sealed partial class BeamModuleCompiler
             }
 
             var fields = new (int Register, Term? Literal)[operands.Count];
-            var calls = new List<(int Field, Expr.Call Call, int Source, Term? Literal)>();
+            var calls = new List<(int Field, Expr.Call Call, (int Register, Term? Literal)[] Arguments)>();
             var remainingReads = new int[parameters.Length];
             var occupied = new HashSet<int>();
             int live = 0;
@@ -105,24 +105,33 @@ internal sealed partial class BeamModuleCompiler
                     return false;
                 }
 
-                if (bif is { Function: AutoImportNames.Get or AutoImportNames.Hd or AutoImportNames.Tl
-                    or AutoImportNames.Node or AutoImportNames.TupleSize, Arguments: [var key] }
-                    && TryReadOperand(key, out register, out literal))
+                bool supported = bif is
+                    { Function: AutoImportNames.Self or AutoImportNames.Node, Arguments: [] }
+                    or { Function: AutoImportNames.Get or AutoImportNames.Hd or AutoImportNames.Tl
+                        or AutoImportNames.Node or AutoImportNames.TupleSize, Arguments.Count: 1 }
+                    || IsElementGuardCall(bif)
+                    || IsNonAllocatingBinaryGuardCall(bif);
+                if (!supported)
                 {
-                    calls.Add((index, bif, register, literal));
+                    return false;
+                }
+
+                var arguments = new (int Register, Term? Literal)[bif.Arguments.Count];
+                for (int argument = 0; argument < arguments.Length; argument++)
+                {
+                    if (!TryReadOperand(bif.Arguments[argument], out register, out literal))
+                    {
+                        return false;
+                    }
+
+                    arguments[argument] = (register, literal);
                     if (register >= 0)
                     {
                         remainingReads[register]++;
                     }
                 }
-                else if (bif is { Function: AutoImportNames.Self or AutoImportNames.Node, Arguments: [] })
-                {
-                    calls.Add((index, bif, -1, null));
-                }
-                else
-                {
-                    return false;
-                }
+
+                calls.Add((index, bif, arguments));
             }
 
             if (calls.Count == 0 || parameters.Length + calls.Count > BeamWire.MaximumArity)
@@ -130,7 +139,7 @@ internal sealed partial class BeamModuleCompiler
                 return false;
             }
 
-            bool canFail = calls.Any(item => item.Call.Arguments.Count == 1 && item.Call.Function != AutoImportNames.Get);
+            bool canFail = calls.Any(item => CanFail(item.Call));
             var previous = location;
             if (prefix is not null)
             {
@@ -147,11 +156,14 @@ internal sealed partial class BeamModuleCompiler
                 owner.Operand(BeamWire.UnsignedTag, live);
             }
 
-            foreach (var (field, bif, source, literal) in calls)
+            foreach (var (field, bif, arguments) in calls)
             {
-                if (source >= 0)
+                foreach (var (register, _) in arguments)
                 {
-                    remainingReads[source]--;
+                    if (register >= 0)
+                    {
+                        remainingReads[register]--;
+                    }
                 }
 
                 int destination = target is not null && IsAvailable(field) ? field : 0;
@@ -160,21 +172,29 @@ internal sealed partial class BeamModuleCompiler
                     destination++;
                 }
 
-                if (bif.Arguments.Count == 1)
+                if (CanFail(bif))
                 {
-                    if (bif.Function != AutoImportNames.Get)
-                    {
-                        owner.EmitCallLine(bif, previous);
-                        previous = CallLocation(bif, previous);
-                    }
-
-                    EmitUnaryGuardInstruction(bif.Function, 0);
-                    WriteOperand(source, literal);
-                    owner.Operand(XRegisterTag, destination);
+                    owner.EmitCallLine(bif, previous);
+                    previous = CallLocation(bif, previous);
                 }
-                else
+
+                switch (arguments.Length)
                 {
-                    EmitZeroGuardBif(bif.Function, destination);
+                    case 0:
+                        EmitZeroGuardBif(bif.Function, destination);
+                        break;
+                    case 1:
+                        EmitUnaryGuardInstruction(bif.Function, 0);
+                        WriteOperand(arguments[0].Register, arguments[0].Literal);
+                        owner.Operand(XRegisterTag, destination);
+                        break;
+                    case 2:
+                        owner.Op(BifTwo, LabelTag, 0);
+                        owner.Operand(BeamWire.UnsignedTag, owner.Import(ErlangModuleNames.Module, bif.Function, 2));
+                        WriteOperand(arguments[0].Register, arguments[0].Literal);
+                        WriteOperand(arguments[1].Register, arguments[1].Literal);
+                        owner.Operand(XRegisterTag, destination);
+                        break;
                 }
 
                 fields[field] = (destination, null);
@@ -227,6 +247,9 @@ internal sealed partial class BeamModuleCompiler
 
             owner.instructions.WriteByte(Return);
             return true;
+
+            static bool CanFail(Expr.Call call) => call.Arguments.Count > 0
+                && call.Function is not (AutoImportNames.Get or AutoImportNames.Min or AutoImportNames.Max);
 
             bool IsAvailable(int register) => !occupied.Contains(register)
                 && (register >= remainingReads.Length || remainingReads[register] == 0);

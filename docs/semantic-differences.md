@@ -1,3 +1,5 @@
+Part 1615 aligns three more functions after label normalization. The affected release images still differ. [Evidence](validation/part-1615/README.md).
+
 Part 1597 aligns allocate in the lifted normalize closure in xmerl_xpath_pred. Whole-module differences remain. [Evidence](validation/part-1597/README.md).
 
 Part 1596 aligns allocation operands in thirteen release functions. Whole-module differences remain.
