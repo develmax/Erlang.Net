@@ -6,17 +6,20 @@ internal sealed partial class BeamModuleCompiler
 {
     private sealed partial class GeneralEmitter
     {
+        private const string BeamSystemInfoFunction = "system_info";
+
         private sealed record RegisterCaseCallSequence(
             SavedCallStep[] Calls,
             Dictionary<int, int> LastReads,
-            CaseTuplePlan? ReturnTuple, Term? ReturnConstant);
+            CaseTuplePlan? ReturnTuple, Term? ReturnConstant, bool KeepFrame);
 
         private RegisterCaseCallSequence? ReadRegisterCaseCallSequence(
             Expr expression,
             string? selector,
             IReadOnlyDictionary<string, int> saved,
             bool allowConstant = false,
-            int selectorRegister = 0
+            int selectorRegister = 0,
+            int extraSlots = 0
         )
         {
             IReadOnlyList<Expr> statements;
@@ -48,7 +51,8 @@ internal sealed partial class BeamModuleCompiler
                 return null;
             }
 
-            var names = Enumerable.Repeat(VariableScopeNames.Wildcard, saved.Values.DefaultIfEmpty(-1).Max() + 1).ToArray();
+            int savedSlots = saved.Values.DefaultIfEmpty(-1).Max() + 1;
+            var names = Enumerable.Repeat(VariableScopeNames.Wildcard, savedSlots + extraSlots).ToArray();
             foreach (var (name, slot) in saved)
             {
                 names[slot] = name;
@@ -76,7 +80,7 @@ internal sealed partial class BeamModuleCompiler
                 return null;
             }
 
-            var availableSlots = saved.Values.Distinct().Order().ToArray();
+            var availableSlots = saved.Values.Distinct().Order().Concat(Enumerable.Range(savedSlots, extraSlots)).ToArray();
             var active = saved.Where(binding => lastUses.ContainsKey(binding.Key))
                 .ToDictionary(binding => binding.Key, binding => binding.Value, StringComparer.Ordinal);
             var plans = new SavedCallStep[calls.Length];
@@ -151,7 +155,7 @@ internal sealed partial class BeamModuleCompiler
 
             var returned = tuple is null ? null : ReadCaseTuple(tuple, previous, active);
 
-            return tuple is null || returned is not null ? new RegisterCaseCallSequence(plans, lastReads, returned, constant) : null;
+            return tuple is null || returned is not null ? new RegisterCaseCallSequence(plans, lastReads, returned, constant, KeepFrame: extraSlots != 0) : null;
 
             void RecordReads(Expr value, int index)
             {
@@ -203,13 +207,13 @@ internal sealed partial class BeamModuleCompiler
                     live.Add(destination);
                 }
                 int remove = 0;
-                while (remove < frame - trimmed && !live.Contains(remove))
+                while (!sequence.KeepFrame && remove < frame - trimmed && !live.Contains(remove))
                 {
                     remove++;
                 }
 
                 int[] dead = Enumerable.Range(remove, frame - trimmed - remove)
-                    .Where(slot => !live.Contains(slot) && cleared.Add(slot + trimmed)).ToArray();
+                    .Where(slot => !sequence.KeepFrame && !live.Contains(slot) && cleared.Add(slot + trimmed)).ToArray();
                 if (dead.Length != 0)
                 {
                     owner.EmitSlotKills(dead);
@@ -226,9 +230,15 @@ internal sealed partial class BeamModuleCompiler
                     }
                 }
 
-                owner.EmitCallLine(call.Call, previous);
+                // OTP omits the call-site line for this non-failing BIF.
+                if (call.Module != ErlangModuleNames.Module
+                    || (call.Call.Function, call.Call.Arguments.Count) != (AutoImportNames.Processes, 0))
+                {
+                    owner.EmitCallLine(call.Call, previous);
+                    previous = CallLocation(call.Call, previous);
+                }
+
                 Call(call.Module, call.Call.Function, call.Call.Arguments.Count);
-                previous = CallLocation(call.Call, previous);
             }
 
             if (sequence.ReturnTuple is { } tuple)

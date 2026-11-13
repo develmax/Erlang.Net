@@ -986,6 +986,7 @@ internal sealed partial class BeamModuleCompiler
             int ProjectionDestination = 0,
             CallListExtraction? Extraction = null,
             bool ReserveNestedSlot = false,
+            int CallSequenceSlots = 0,
             (int Field, int Register)[]? SavedTupleFields = null
         );
 
@@ -1170,6 +1171,27 @@ internal sealed partial class BeamModuleCompiler
                 }
             }
 
+            int callSequenceSlots = 0;
+            if (plan is null && selector.Prefix is null && extraction is null
+                && field is null && listParts is null && !reserveNestedSlot
+                && selector.FrameSize == saved.Count
+                && decision.Clauses.Any(branch => branch.Body is Expr.Sequence { Items: [_, .., Expr.Call] }))
+            {
+                plan = ReadRegisterCase(
+                    decision,
+                    saved,
+                    IsBooleanRegisterCaseSelector(selector.Call),
+                    allowUnmatchedLiterals: true,
+                    selectorCall: selector.Call,
+                    deferField: true,
+                    callSequenceSlots: 1
+                );
+                if (plan is not null)
+                {
+                    callSequenceSlots = 1;
+                }
+            }
+
             if (plan is null)
             {
                 return RetryWithoutSpecialization();
@@ -1221,7 +1243,8 @@ internal sealed partial class BeamModuleCompiler
                     IsBooleanRegisterCaseSelector(selector.Call),
                     allowUnmatchedLiterals: true,
                     selectorCall: selector.Call,
-                    deferField: true
+                    deferField: true,
+                    callSequenceSlots: callSequenceSlots
                 ) is not { } shiftedPlan)
                 {
                     return RetryWithoutSpecialization();
@@ -1279,7 +1302,8 @@ internal sealed partial class BeamModuleCompiler
                 read,
                 parameters,
                 PreserveSelector: preserveSelector,
-                ReserveNestedSlot: reserveNestedSlot
+                ReserveNestedSlot: reserveNestedSlot,
+                CallSequenceSlots: callSequenceSlots
             );
 
             EntryRegisterCase? RetryWithoutSpecialization() =>
@@ -1461,6 +1485,7 @@ internal sealed partial class BeamModuleCompiler
                 extra,
                 entry.ProjectionDestination,
                 position => matchFailureOperand = position,
+                trailingSlots: entry.CallSequenceSlots,
                 extraction: entry.Extraction,
                 savedTupleFields: entry.SavedTupleFields
             );
@@ -1479,7 +1504,7 @@ internal sealed partial class BeamModuleCompiler
             int selectorLineCount = owner.lineInstructions;
             EmitRegisterCase(
                 entry.Case,
-                entry.Selector.FrameSize + extra - trimmed,
+                entry.Selector.FrameSize + extra + entry.CallSequenceSlots - trimmed,
                 selectorLocation,
                 RegisterCaseSelectorType(entry.Selector.Call, entry.Case.Opcode == IsTaggedTuple ? IsTuple : entry.Case.Opcode),
                 preparedCaseFailure
@@ -1506,7 +1531,8 @@ internal sealed partial class BeamModuleCompiler
             EntryCall? selectorCall = null,
             bool deferField = false,
             bool reuseMatchedLiteral = false,
-            int? reservedNestedSlot = null
+            int? reservedNestedSlot = null,
+            int callSequenceSlots = 0
         )
         {
             if (selectorCall is { Module: null } generated
@@ -1867,7 +1893,7 @@ internal sealed partial class BeamModuleCompiler
                     return computed;
                 }
 
-                if (allowUnmatchedLiterals && ReadRegisterCaseCallSequence(expression, bound, saved) is { } sequence)
+                if (allowUnmatchedLiterals && ReadRegisterCaseCallSequence(expression, bound, saved, extraSlots: callSequenceSlots) is { } sequence)
                 {
                     return new RegisterCaseResult(null, null, Sequence: sequence);
                 }
