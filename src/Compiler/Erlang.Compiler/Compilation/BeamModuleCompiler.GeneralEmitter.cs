@@ -9616,10 +9616,9 @@ internal sealed partial class BeamModuleCompiler
 
                         return;
                     }
-                    if (guardFailure is null && call.Function is AutoImportNames.ByteSize or AutoImportNames.BitSize or AutoImportNames.Length
-                        && call.Arguments.Count == 1 && owner.ResolvesErlangBif(call))
+                    if (guardFailure is null && IsGcUnaryGuardCall(call) && owner.ResolvesErlangBif(call))
                     {
-                        EmitBodySizeBif(call);
+                        EmitBodyGcUnaryBif(call);
 
                         return;
                     }
