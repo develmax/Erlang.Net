@@ -1,3 +1,5 @@
+Part 1619 aligns deferred tuple projections and records 1 new normalized instruction matches and 0 losses. Remaining release images are tracked in the corpus report. [Evidence](validation/part-1619/README.md).
+
 Part 1618 aligns literal case arms after saved calls in a permanent fixture. Remaining release images are tracked in the corpus report. [Evidence](validation/part-1618/README.md).
 
 Part 1617 aligns terminal call matches and records 8 new normalized instruction matches and 0 losses. Remaining release images are tracked in the corpus report. [Evidence](validation/part-1617/README.md).

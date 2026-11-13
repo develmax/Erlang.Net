@@ -1086,7 +1086,8 @@ internal sealed partial class BeamModuleCompiler
             }
 
             if (recursiveClosure is null && function.Clauses.Count == 1 && function.Arity != 0
-                && (TryEmitTupleEntryCallSequence(clauses[0], functionInfo)
+                && (TryEmitDeferredRecordCallUpdate(clauses[0], functionInfo)
+                    || TryEmitTupleEntryCallSequence(clauses[0], functionInfo)
                     || TryEmitTupleEntryWithRegisterFields(clauses[0], functionInfo, baseSlot: null)))
             {
                 return;
