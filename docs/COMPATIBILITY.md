@@ -1,5 +1,7 @@
 # Compatibility overview
 
+Part 1617 verifies saved parameters and call results in terminal matches with a byte-identical fixture and matching badmatch locations. [Evidence](validation/part-1617/README.md).
+
 Part 1616 verifies literal and tagged terminal call matches with a byte-identical fixture and matching badmatch locations. [Evidence](validation/part-1616/README.md).
 
 Part 1615 verifies direct binary BIFs with a byte-identical register fixture and matching results and failure reasons. [Evidence](validation/part-1615/README.md).

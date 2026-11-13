@@ -48,27 +48,29 @@ internal sealed partial class BeamModuleCompiler
                 return false;
             }
 
-            var plan = new List<EntryCall>(calls.Length);
-            string[] registers = parameters;
-            foreach (var (call, result) in calls)
+            if (ReadSavedCallSequence(
+                calls,
+                parameters,
+                extraction: null,
+                allowLinear: true
+            ) is not { } plan)
             {
-                if (ReadEntryCall(call, registers) is not { } step)
-                {
-                    return false;
-                }
-
-                plan.Add(step);
-                registers = result is null ? [] : [result];
+                return false;
             }
 
-            EmitFrameAllocation(EntryCallLiveCount(plan[0], parameters), 0);
-            var previous = location;
-            foreach (EntryCall step in plan)
-            {
-                EmitEntryCall(step, previous);
-                previous = CallLocation(step.Call, previous);
-            }
+            EmitSavedCallSequence(plan, terminalMatch: (match, literal, tagged));
 
+            return true;
+        }
+
+        private void EmitTerminalCallMatch(
+            Expr.Match match,
+            Term? literal,
+            TaggedCallMatch? tagged,
+            int frame,
+            BeamSourceLocation previous
+        )
+        {
             int failure = Label();
             if (tagged is not null)
             {
@@ -86,12 +88,9 @@ internal sealed partial class BeamModuleCompiler
                 owner.LiteralOperand(literal!);
             }
 
-            owner.EmitFrameReturn();
+            owner.EmitFrameReturn(frame);
             EmitTaggedCallMatchFailure(match, failure, previous, previous);
-
-            return true;
         }
-
 
         private bool TryEmitEntryDiscardedTaggedMatch(Clause clause)
         {

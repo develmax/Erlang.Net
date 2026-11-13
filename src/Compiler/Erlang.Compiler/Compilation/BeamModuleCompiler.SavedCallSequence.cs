@@ -710,7 +710,11 @@ internal sealed partial class BeamModuleCompiler
             return Enumerable.Reverse(lastSlotReads).TakeWhile(read => read <= trimAt).Count();
         }
 
-        private void EmitSavedCallSequence(SavedCallSequence plan, List<Action>? deferredFailures = null)
+        private void EmitSavedCallSequence(
+            SavedCallSequence plan,
+            List<Action>? deferredFailures = null,
+            (Expr.Match Match, Term? Literal, TaggedCallMatch? Tagged)? terminalMatch = null
+        )
         {
             var (first, live, inputs, lastSlotReads, steps, extraction, decision, tuple, constant, checks) = plan;
             bool hasCase = decision is not null || plan.ProjectedCase is not null;
@@ -760,7 +764,7 @@ internal sealed partial class BeamModuleCompiler
                 }
 
                 bool last = index == steps.Count - 1;
-                bool finalCheck = last && constant is not null && checks?.ContainsKey(index + 1) == true;
+                bool finalCheck = last && (terminalMatch is not null || constant is not null && checks?.ContainsKey(index + 1) == true);
                 bool deferConstant = last && (hasCase || finalCheck) && !step.ReuseSlot
                     && step.Call.RegisterConstructions is null && step.Call.Constants is [{ Destination: 0 }]
                     && step.Released.Any(slot => slot != step.Spill);
@@ -793,7 +797,7 @@ internal sealed partial class BeamModuleCompiler
                         remap[relocation.Destination]
                     );
                 }
-                if (last && !hasCase && !hasTuple && constant is null)
+                if (last && !hasCase && !hasTuple && constant is null && terminalMatch is null)
                 {
                     EmitPreparedFrameTail(step.Call, previousCall, size - trimmed);
                     if (step.Call.Module is not null)
@@ -843,7 +847,17 @@ internal sealed partial class BeamModuleCompiler
                 EmitCheck(index + 1);
             }
 
-            if (constant is not null)
+            if (terminalMatch is { } match)
+            {
+                EmitTerminalCallMatch(
+                    match.Match,
+                    match.Literal,
+                    match.Tagged,
+                    size - trimmed,
+                    previousCall
+                );
+            }
+            else if (constant is not null)
             {
                 owner.EmitConstant(constant, 0);
                 owner.EmitFrameReturn(size - trimmed);

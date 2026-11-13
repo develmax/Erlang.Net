@@ -1,5 +1,7 @@
 # Project progress
 
+Part 1617 generated all 1,366 pinned release images with 393 Equal and 973 Different. The terminal call match change affected 8 images. [Evidence](validation/part-1617/README.md).
+
 Part 1616 generated all 1,366 pinned release images with 393 Equal and 973 Different. The terminal call match change affected 35 images. [Evidence](validation/part-1616/README.md).
 
 Part 1615 generated all 1,366 Windows OTP release images. 393 matched byte for byte, including ELDAPv3, and 973 differed. Three more functions matched after label normalization. [Evidence](validation/part-1615/README.md).
