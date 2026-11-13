@@ -1,3 +1,5 @@
+Part 1576 aligns two normalized functions by removing redundant matched literal loads. The two release images still differ. [Evidence](validation/part-1576/README.md).
+
 Part 1575 aligns the frame and tail argument preparation in erts_trace_cleaner:call_check/0. The release image still differs. [Evidence](validation/part-1575/README.md).
 
 Part 1574 aligns heap allocation and register use for the measured tuple send. The full asn1_db image still differs. [Evidence](validation/part-1574/README.md).

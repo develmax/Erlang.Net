@@ -1,5 +1,7 @@
 # Next steps
 
+Measure branch-local allocation in binary match and construction sequences. [Evidence](validation/part-1576/README.md).
+
 Measure ordered entry dispatch and branch-local frame allocation against the remaining opcode gaps. [Evidence](validation/part-1575/README.md).
 
 Measure frame allocation and result lifetime across terminal dispatch branches. [Opcode audit](validation/part-1574/baseline-opcodes.txt) · [Closest images](validation/part-1574/nearest-images.txt).
