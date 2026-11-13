@@ -18,3 +18,9 @@ dotnet artifacts/beam-backend/part1534-tests/Erlang.Tests.dll --case compiler/be
 ## Stack analysis
 
 The baseline scan groups functions where both implementations allocate at entry with the same X live count but the C# compiler reserves more Y slots. In 976 functions across 381 modules, a slot saved before the first call has no later syntactic read. The count is a triage signal. It does not resolve slot identity through frame trimming or compare live ranges along each control-flow path. A larger group reads all its entry slots somewhere later, so distinguishing reads before and after each call is important for follow-up work. [Baseline ranking](entry-spills-before.txt) · [Scanner](entry-spill-ranking.escript).
+
+## Results
+
+All 1,366 sources were accepted and generated. The complete comparison records 387 Equal and 979 Different. ELDAPv3 remains byte-identical from C# ASN.1 generation. OTP loads all 979 differing images. [Corpus](otp-corpus.json) · [Loader and Code sizes](loader-and-code.txt).
+
+Three release functions reach normalized instruction equality across three applications. One frame reaches the OTP size and the aggregate Code size gap drops by 29 bytes. Three focused compiler checks passed. The full runtime suite and canonical readiness were not rerun. [Focused checks](focused.json) · [Functions](normalized-functions.txt) · [Frames](frame-delta.txt) · [Updated ranking](entry-spills-after.txt).

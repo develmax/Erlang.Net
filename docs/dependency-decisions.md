@@ -1,6 +1,6 @@
 # Dependency and compatibility decisions
 
-Part 1533 reuses tuple pattern checks, selector saves and tail argument scheduling to forward multiple fields from the same tuple. OTP 29.1.1 remains the development reference. No dependency was added. [Evidence](validation/part-1533/README.md).
+Part 1534 reuses call argument preparation, frame initialization and line handling. The pinned OTP compiler remains the reference and the change adds no dependency. [Evidence](validation/part-1534/README.md).
 
 Part 1530 reuses entry selector saves, saved call arguments and the call argument construction planner. No dependency was added. [Evidence](validation/part-1530/README.md).
 

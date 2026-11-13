@@ -1,6 +1,6 @@
 # Project progress
 
-Part 1533 forwards multiple fields of a tuple into a tail call. Three release images change, three frames match OTP sizes and one function reaches normalized instruction equality. All 1,366 images generate, with 387 Equal and 979 Different. [Evidence](validation/part-1533/README.md).
+Part 1534 keeps consumed inputs in registers while constructing a terminal list from call results. Three release functions reach normalized OTP instruction equality. All 1,366 images generate, with 387 Equal and 979 Different. [Evidence](validation/part-1534/README.md).
 
 Part 1530 preserves saved arguments for tail calls in atom alternatives. Three functions match normalized OTP instructions and three frames match OTP sizes. The full corpus has 387 Equal and 979 Different. [Evidence](validation/part-1530/README.md).
 

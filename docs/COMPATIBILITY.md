@@ -1,6 +1,6 @@
 # Compatibility overview
 
-Part 1533 verifies a byte-identical fixture with two tuple fields and a saved tail argument. OTP loads all 979 differing release images. [Evidence](validation/part-1533/README.md).
+Part 1534 verifies a byte-identical terminal list fixture. OTP loads all 979 differing release images. [Evidence](validation/part-1534/README.md).
 
 Part 1530 matches an entire OTP fixture and 80 result, error and stack observations. OTP loads all 979 differing release images. [Evidence](validation/part-1530/README.md).
 
