@@ -1,6 +1,6 @@
 # Next steps
 
-Prioritize register planning for selector calls with computed operands. Inspect length before allocation and the guarded function value in shell_default, whose other normalized function bodies already match. [Instructions](validation/part-1540/shell-default-baseline.txt) · [Corpus ranking](validation/part-1540/first-difference-ranking.txt).
+Analyze branch frame trimming and size operand placement in prim_buffer:read_iovec/2. The corpus ranking still shows larger frames as the largest group. [Instructions](validation/part-1541/prim-buffer-baseline.txt) · [Ranking](validation/part-1541/first-difference-ranking.txt).
 
 Rank terminal operator emission by specific operator and operand forms. The previous audit finds 56 terminal operator bodies across 43 modules. Prioritize branch-local liveness that can also close a near match, starting with the integer branch and binary construction in `ssh_bits:mpint/1` and the guarded projections in `prim_buffer:read_iovec/2`. [Operator audit](validation/part-1509/first-call-spills-after.txt) · [Nearest images](validation/part-1523/nearest.txt).
 

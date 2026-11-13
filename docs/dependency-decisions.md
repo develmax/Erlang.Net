@@ -1,6 +1,6 @@
 # Dependency and compatibility decisions
 
-Part 1540 reuses record validation, size BIF encoding and typed binary operands. OTP 29.1.1 remains the reference and the change adds no dependency. [Evidence](validation/part-1540/README.md).
+Part 1541 reuses entry call planning, type operands and tail call emission. OTP 29.1.1 remains the reference and the change adds no dependency. [Evidence](validation/part-1541/README.md).
 
 Part 1530 reuses entry selector saves, saved call arguments and the call argument construction planner. No dependency was added. [Evidence](validation/part-1530/README.md).
 

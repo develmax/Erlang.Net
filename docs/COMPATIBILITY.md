@@ -1,6 +1,6 @@
 # Compatibility overview
 
-Part 1540 matches the complete measured-record fixture and all 12 observations, including badrecord stack frames. OTP accepts all 978 differing release images for loading. [Evidence](validation/part-1540/README.md).
+Part 1541 matches the complete Windows release image for shell_default and 24 dynamic-application observations. OTP accepts all 977 differing images for loading. [Evidence](validation/part-1541/README.md).
 
 Part 1530 matches an entire OTP fixture and 80 result, error and stack observations. OTP loads all 979 differing release images. [Evidence](validation/part-1530/README.md).
 
