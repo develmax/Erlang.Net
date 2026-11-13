@@ -9663,6 +9663,14 @@ internal sealed partial class BeamModuleCompiler
 
                         return;
                     }
+                    if (guardFailure is null && call.Function is AutoImportNames.Hd or AutoImportNames.Tl
+                        && call.Arguments.Count == 1 && owner.ResolvesErlangBif(call) && HasSimpleDecodeArguments(call))
+                    {
+                        owner.EmitCallLine(call, owner.lastEmittedLine);
+                        EmitUnaryGuardBif(call, 0);
+
+                        return;
+                    }
                     int argumentBase = nextSlot;
                     int arity = call.Arguments.Count;
                     var argumentLocation = LoadCallArguments(
