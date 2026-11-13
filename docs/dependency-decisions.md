@@ -1,5 +1,7 @@
 # Dependency and compatibility decisions
 
+Part 1559 reuses record expansion and constant normalization for wildcard record fields and follows OTP 29.1.1 erl_expand_records.erl. No dependency was added. [Evidence](validation/part-1559/README.md).
+
 Part 1558 follows the tagged tuple annotation rule in OTP 29.1.1 beam_ssa_type.erl and reuses the existing BEAM type encoder. No dependency was added. [Evidence](validation/part-1558/README.md).
 
 Part 1557 follows the return contracts in OTP 29.1.1 beam_call_types.erl and reuses the existing BEAM type encoder. No dependency was added. [Evidence](validation/part-1557/README.md).

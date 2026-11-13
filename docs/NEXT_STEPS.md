@@ -1,5 +1,7 @@
 # Next steps
 
+Place non-allocating BIF results directly into the final argument registers at the end of call sequences. Start with the two dictionary lookups in test_server_ctrl:html_convert_modules/3. [Instructions](validation/part-1558/frame-html_convert_modules.txt).
+
 Reduce excess frame allocation in functions starting with a call result binding. The corpus audit identifies 790 functions in 332 modules. Trace argument preparation and saved values in the top local and remote call groups. [Frame ranking](validation/part-1558/baseline-frame-rank.txt).
 
 Carry selector types into single tagged tuple projections. Start with the remaining untyped operand in pubkey_cert:current_any_policy_qualifiers/1 and measure the effect across the corpus. [Instructions](validation/part-1557/current_any_policy_qualifiers.txt).
