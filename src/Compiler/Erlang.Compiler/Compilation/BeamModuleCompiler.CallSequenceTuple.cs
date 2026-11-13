@@ -57,7 +57,8 @@ internal sealed partial class BeamModuleCompiler
                 statementCount--;
             }
 
-            var flattened = FlattenCallArguments(items.Take(statementCount), tuple, prepareClosures: true);
+            var prefix = items.Take(statementCount).SelectMany(ExpandTupleCallBinding);
+            var flattened = FlattenCallArguments(prefix, tuple, prepareClosures: true);
             tuple = (Expr.Tuple)flattened[^1];
             var statements = flattened.Take(flattened.Count - 1).ToArray();
             Dictionary<int, CallResultCheck>? checks = null;
@@ -141,6 +142,34 @@ internal sealed partial class BeamModuleCompiler
             EmitSavedCallSequence(plan);
 
             return true;
+        }
+
+        private static IEnumerable<Expr> ExpandTupleCallBinding(Expr expression)
+        {
+            if (expression is not Expr.Match { Pattern: Pattern.Tuple pattern, Value: Expr.Tuple tuple }
+                || pattern.Items.Count != tuple.Items.Count
+                || pattern.Items.Any(item => item is not Erlang.Pattern.Variable)
+                || !DistinctBindings(pattern.Items.Cast<Pattern.Variable>().ToArray())
+                || tuple.Items.Any(item => item is not Expr.Call { DynamicRemote: false }
+                    || !HasSimpleDecodeArguments((Expr.Call)item)))
+            {
+                yield return expression;
+                yield break;
+            }
+
+            var fields = pattern.Items.Cast<Pattern.Variable>().ToArray();
+            var names = fields.Select(field => field.Name).ToHashSet(StringComparer.Ordinal);
+            if (tuple.Items.Cast<Expr.Call>().SelectMany(call => call.Arguments).OfType<Expr.Variable>()
+                .Any(argument => names.Contains(argument.Name)))
+            {
+                yield return expression;
+                yield break;
+            }
+
+            for (int index = 0; index < fields.Length; index++)
+            {
+                yield return new Expr.Match(fields[index], tuple.Items[index]);
+            }
         }
 
         private static CallSequenceTuple? ReadCallSequenceTuple(
