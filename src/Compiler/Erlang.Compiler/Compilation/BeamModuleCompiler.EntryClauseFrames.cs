@@ -2093,6 +2093,11 @@ internal sealed partial class BeamModuleCompiler
                 variables.Add(sequence.Binding!.Name, resultSlot);
             }
 
+            if (sequence.Continuation is Expr.If conditional && TryEmitTerminalListConditional(conditional))
+            {
+                return;
+            }
+
             if (!TailLocal(sequence.Continuation, reuseCallSlots: true))
             {
                 EmitReturnExpression(sequence.Continuation, reuseCallSlots: true);

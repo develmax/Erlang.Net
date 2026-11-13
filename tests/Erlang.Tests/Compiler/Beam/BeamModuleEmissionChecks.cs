@@ -4673,14 +4673,24 @@ internal static class BeamModuleEmissionChecks
         const string source = """
             -module(beam_split_singleton).
             -export([run/2]).
-            run(Bin, Size) ->
+            run(Bin, Size) when Size < 0 ->
+                [];
+            run(Bin, Size) when Size >= 0 ->
+                Head = identity(Bin),
+                Count = byte_size(Head),
                 if
-                    Size >= 0 ->
+                    Count > Size ->
                         note(Size),
-                        {First, _Rest} = split_binary(Bin, Size),
+                        {First, _Rest} = split_binary(Head, Size),
                         [First];
-                    true -> []
+                    Count =:= Size ->
+                        note(Size),
+                        [Head];
+                    true ->
+                        {First, _Rest} = split_binary(Head, Size),
+                        [First]
                 end.
+            identity(Bin) -> Bin.
             note(Size) -> put(last_size, Size).
             """;
         BeamModule image = BeamModule.Prepare(CodeGeneration.CompileBeamModule(source, "beam_split_singleton.erl"));
@@ -4691,6 +4701,7 @@ internal static class BeamModuleEmissionChecks
             var input = new BitString([1, 2, 3]);
             var first = await image.Invoke(context, "run", input, Term.I(2));
             var fallback = await image.Invoke(context, "run", input, Term.I(-1));
+            var exact = await image.Invoke(context, "run", input, Term.I(3));
             try
             {
                 await image.Invoke(context, "run", input, Term.I(4));
@@ -4700,11 +4711,11 @@ internal static class BeamModuleEmissionChecks
             {
             }
 
-            actual = Term.Tuple(first, fallback);
+            actual = Term.Tuple(first, fallback, exact);
             return actual;
         });
         Term exit = await process.Completion.WaitAsync(TimeSpan.FromSeconds(10));
-        Term expected = Term.Tuple(Term.List(new BitString([1, 2])), Nil.Value);
+        Term expected = Term.Tuple(Term.List(new BitString([1, 2])), Nil.Value, Term.List(new BitString([1, 2, 3])));
         if (!expected.Equals(actual) || !Term.A("normal").Equals(exit))
         {
             throw new InvalidOperationException($"Split binary list construction returned {actual}, exit {exit}.");
