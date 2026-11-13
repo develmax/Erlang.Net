@@ -3343,13 +3343,15 @@ internal static class BeamModuleEmissionChecks
     {
         const string source = """
             -module(beam_general_fixed_bits_probe).
-            -export([run/1, dynamic/1, scalar/1]).
+            -export([run/1, dynamic/1, scalar/1, literal/1]).
             run(<<A:4,B:12/little,R/binary>>) -> {A,B,R};
             run(_) -> no.
             dynamic(<<Width:8, Value:Width/signed, Rest/bitstring>>) -> {Value,Rest};
             dynamic(_) -> no.
             scalar(<<Code/utf8, Float:32/little-float>>) -> {Code,Float};
             scalar(_) -> no.
+            literal(<<16#12345678:32,-2:8/signed,Value:8,Tail/binary>>) -> {Value,Tail};
+            literal(_) -> no.
             """;
         BeamModule image = BeamModule.Prepare(CodeGeneration.CompileBeamModule(source, "beam_general_fixed_bits_probe.erl"));
         await using var runtime = new ProcessRuntime();
@@ -3363,7 +3365,10 @@ internal static class BeamModuleEmissionChecks
             Term invalidWidth = await image.Invoke(context, "dynamic", new BitString([0xFF, 0]));
             Term scalar = await image.Invoke(context, "scalar", new BitString([0xC3, 0xA9, 0, 0, 0xC0, 0x3F]));
             Term trailing = await image.Invoke(context, "scalar", new BitString([0xC3, 0xA9, 0, 0, 0xC0, 0x3F, 0]));
-            actual = Term.Tuple(decoded, shortInput, unaligned, dynamic, invalidWidth, scalar, trailing);
+            Term literal = await image.Invoke(context, "literal", new BitString([0x12, 0x34, 0x56, 0x78, 0xFE, 7, 8, 9]));
+            Term wrongPrefix = await image.Invoke(context, "literal", new BitString([0x12, 0x34, 0x56, 0x79, 0xFE, 7]));
+            Term wrongSign = await image.Invoke(context, "literal", new BitString([0x12, 0x34, 0x56, 0x78, 0xFD, 7]));
+            actual = Term.Tuple(decoded, shortInput, unaligned, dynamic, invalidWidth, scalar, trailing, literal, wrongPrefix, wrongSign);
 
             return actual;
         });
@@ -3372,7 +3377,8 @@ internal static class BeamModuleEmissionChecks
         Term expected = Term.Tuple(
             Term.Tuple(Term.I(10), Term.I(288), new BitString([0xFF])), no, no,
             Term.Tuple(Term.I(-3), new BitString([0], 2)), no,
-            Term.Tuple(Term.I(233), new FloatTerm(1.5)), no
+            Term.Tuple(Term.I(233), new FloatTerm(1.5)), no,
+            Term.Tuple(Term.I(7), new BitString([8, 9])), no, no
         );
         if (!expected.Equals(actual))
         {

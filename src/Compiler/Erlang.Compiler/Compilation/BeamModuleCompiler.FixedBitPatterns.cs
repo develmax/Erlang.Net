@@ -1,3 +1,4 @@
+using System.Numerics;
 using static Erlang.Compiler.BeamEmissionFormat;
 
 namespace Erlang.Compiler;
@@ -10,6 +11,7 @@ internal sealed partial class BeamModuleCompiler
         private const string EnsureAtLeast = "ensure_at_least";
         private const string SkipBits = "skip";
         private const string ReadBinaryTail = "get_tail";
+        private const int MaximumEqualityCommandBits = 31;
         private const string SignedBits = "signed";
 
         private bool TryEmitDirectFixedBitPattern(FunctionDefinition function)
@@ -204,8 +206,10 @@ internal sealed partial class BeamModuleCompiler
             int operandCount = 0;
             int? tailUnit = null;
             var sizes = new List<int>();
-            foreach (var segment in pattern.Segments)
+            var equalities = new Dictionary<int, (int Width, BigInteger Value, int Count)>();
+            for (int index = 0; index < pattern.Segments.Count; index++)
             {
+                var segment = pattern.Segments[index];
                 BitSegment specification = segment.Specification;
                 if (FixedSize(specification) is int size)
                 {
@@ -216,8 +220,39 @@ internal sealed partial class BeamModuleCompiler
                     }
 
                     fixedWidth += width;
-                    operandCount += IsWildcard(segment.Value) ? 2 : 6;
                     sizes.Add(size);
+                    if (ReadFixedBitEquality(segment, width) is { } literal)
+                    {
+                        int start = index;
+                        while (index + 1 < pattern.Segments.Count)
+                        {
+                            var next = pattern.Segments[index + 1];
+                            if (FixedSize(next.Specification) is not int nextSize)
+                            {
+                                break;
+                            }
+
+                            int nextWidth = nextSize * next.Specification.Unit;
+                            if (nextWidth > 64 - width || fixedWidth > int.MaxValue - nextWidth
+                                || ReadFixedBitEquality(next, nextWidth) is not { } suffix)
+                            {
+                                break;
+                            }
+
+                            literal = (literal << nextWidth) | suffix;
+                            width += nextWidth;
+                            fixedWidth += nextWidth;
+                            sizes.Add(nextSize);
+                            index++;
+                        }
+
+                        equalities.Add(start, (width, literal, index - start + 1));
+                        operandCount += 4 * ((width + MaximumEqualityCommandBits - 1) / MaximumEqualityCommandBits);
+                    }
+                    else
+                    {
+                        operandCount += IsWildcard(segment.Value) ? 2 : 6;
+                    }
                 }
                 else if (specification is { Type: BitSegmentTypes.Binary, Size: null }
                     && tailUnit is null)
@@ -253,6 +288,13 @@ internal sealed partial class BeamModuleCompiler
                     continue;
                 }
 
+                if (equalities.TryGetValue(index, out var equality))
+                {
+                    EmitFixedBitEquality(equality.Width, equality.Value);
+                    index += equality.Count - 1;
+                    continue;
+                }
+
                 int live = owner.receiveScratchRegisters is null ? 2 : ReceiveGuardLiveRegisters;
                 int slot = Slot();
                 if (tail)
@@ -281,6 +323,40 @@ internal sealed partial class BeamModuleCompiler
             foreach (var capture in captures)
             {
                 Pattern(capture.Value, capture.Slot, failure);
+            }
+        }
+
+        private static BigInteger? ReadFixedBitEquality(BitPatternSegment segment, int width)
+        {
+            // A literal outside the field's value range cannot match, even if its low bits fit.
+            if (segment is not
+                {
+                    Value: Pattern.Literal { Value: Integer expected },
+                    Specification: { Type: BitSegmentTypes.Integer, Endian: BitByteOrders.Big } specification
+                }
+                || width is <= 0 or > 64)
+            {
+                return null;
+            }
+
+            BigInteger limit = BigInteger.One << (specification.Signed ? width - 1 : width);
+            BigInteger minimum = specification.Signed ? -limit : BigInteger.Zero;
+            return expected.Value >= minimum && expected.Value < limit
+                ? expected.Value & ((BigInteger.One << width) - 1)
+                : null;
+        }
+
+        private void EmitFixedBitEquality(int width, BigInteger expected)
+        {
+            while (width > 0)
+            {
+                int bits = Math.Min(width, MaximumEqualityCommandBits);
+                width -= bits;
+                BigInteger value = (expected >> width) & ((BigInteger.One << bits) - 1);
+                owner.Operand(AtomTag, owner.Intern(ErlangOperators.ExactEqual));
+                owner.Operand(AtomTag, NilAtomIndex);
+                owner.Operand(BeamWire.UnsignedTag, bits);
+                owner.Operand(BeamWire.UnsignedTag, value);
             }
         }
 
