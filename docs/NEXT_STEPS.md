@@ -1,5 +1,7 @@
 # Next steps
 
+Rank remaining single-producer case differences by the first divergent instruction and preserve known values from the producer into branch lowering. [Evidence](validation/part-1566/README.md).
+
 Compare call frames for saved call results consumed by case selectors. Prioritize the local and remote call groups from the corpus audit. [Frame ranking](validation/part-1564/frame-rank.txt).
 
 Compare stack frames for sequences of bound call results followed by constructors or cases. Start with the largest groups in the current corpus audit. [Frame ranking](validation/part-1564/frame-rank.txt).

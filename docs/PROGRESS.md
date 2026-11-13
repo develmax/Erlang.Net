@@ -1,5 +1,7 @@
 # Project progress
 
+Part 1566 plans terminal cases after a single call result binding. All 1,366 images generate, with 390 Equal and 976 Different. [Evidence](validation/part-1566/README.md).
+
 Part 1565 plans call results used by record constructors. All 1,366 images generate, with 390 Equal and 976 Different. [Evidence](validation/part-1565/README.md).
 
 Part 1564 reuses the saved-call planner for sequences ending in a constant. All 1,366 images generate, with 390 Equal and 976 Different. [Evidence](validation/part-1564/README.md).
