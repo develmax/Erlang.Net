@@ -35,7 +35,8 @@ internal static class AttributeLiteral
         Expr.Literal literal => literal.Value,
         Expr.Variable variable when bindings is not null && bindings.TryGetValue(variable.Name, out Term? value) => value,
         Expr.Tuple tuple => new TupleTerm(tuple.Items.Select(item => Read(item, offset, functionArity, allowExpressionConstants, bindings)).ToArray()),
-        Expr.RecordConstruction { Wildcard: null } record when allowExpressionConstants
+        Expr.RecordConstruction record when allowExpressionConstants
+            && (record.Wildcard is null || TryNormalizeConstant(record.Wildcard, out _, bindings))
             => Read(RecordExpressions.Create(record), offset, functionArity, allowExpressionConstants, bindings),
         Expr.List list => Cons.From(list.Items.Select(item => Read(item, offset, functionArity, allowExpressionConstants, bindings)), list.Tail is null ? null : Read(list.Tail, offset, functionArity, allowExpressionConstants, bindings)),
         Expr.Map { Base: null } map when map.Fields.All(field => !field.Exact) => new MapTerm(map.Fields.Select(field =>
