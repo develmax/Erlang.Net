@@ -1,5 +1,7 @@
 # Compatibility overview
 
+Part 1577 adds a whole-module byte comparison for fixed binary reconstruction. OTP accepts all 976 differing release images for loading. [Evidence](validation/part-1577/README.md).
+
 Part 1576 adds a whole-module byte comparison for matched tail arguments. OTP accepts all 976 differing release images for loading. [Evidence](validation/part-1576/README.md).
 
 Part 1575 aligns eight normalized functions across 24 changed images. OTP accepts all 976 differing images for loading. [Evidence](validation/part-1575/README.md).

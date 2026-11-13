@@ -1,5 +1,7 @@
 # Project progress
 
+Part 1577 keeps fixed binary captures in X registers. All 1,366 images generate with 390 Equal and 976 Different. [Evidence](validation/part-1577/README.md).
+
 Part 1576 reuses a matched literal as the first tail argument. All 1,366 images generate with 390 Equal and 976 Different. [Evidence](validation/part-1576/README.md).
 
 Part 1575 keeps the last case branch call result in X0. All 1,366 images generate with 390 Equal and 976 Different. [Evidence](validation/part-1575/README.md).

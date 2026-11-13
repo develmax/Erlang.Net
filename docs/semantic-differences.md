@@ -1,3 +1,5 @@
+Part 1577 aligns the normalized instructions in diameter_codec:hop_by_hop_id/2. The full release image still differs. [Evidence](validation/part-1577/README.md).
+
 Part 1576 aligns two normalized functions by removing redundant matched literal loads. The two release images still differ. [Evidence](validation/part-1576/README.md).
 
 Part 1575 aligns the frame and tail argument preparation in erts_trace_cleaner:call_check/0. The release image still differs. [Evidence](validation/part-1575/README.md).

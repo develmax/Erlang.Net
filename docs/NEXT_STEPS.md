@@ -1,5 +1,7 @@
 # Next steps
 
+Extend binary match context reuse through branch dispatch and deferred tail materialization. [Evidence](validation/part-1577/README.md).
+
 Measure branch-local allocation in binary match and construction sequences. [Evidence](validation/part-1576/README.md).
 
 Measure ordered entry dispatch and branch-local frame allocation against the remaining opcode gaps. [Evidence](validation/part-1575/README.md).
