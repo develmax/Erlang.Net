@@ -32,9 +32,17 @@ internal sealed partial class BeamModuleCompiler
         private bool TryEmitDirectBits(FunctionDefinition function)
         {
             if (function.Clauses is not [{ Guard: null, Body: Expr.Bits bits } clause]
-                || !HasUnconditionalParameters(clause) || AttributeLiteral.TryNormalizeConstant(bits, out _)
-                || !bits.Segments.All(segment => IsCallOperand(segment.Value)
-                    && (segment.Size is null || IsCallOperand(segment.Size))))
+                || !HasUnconditionalParameters(clause) || AttributeLiteral.TryNormalizeConstant(bits, out _))
+            {
+                return false;
+            }
+
+            if (TryEmitDirectMeasuredRecord(clause, bits))
+            {
+                return true;
+            }
+            if (!bits.Segments.All(segment => IsCallOperand(segment.Value)
+                && (segment.Size is null || IsCallOperand(segment.Size))))
             {
                 return false;
             }
@@ -140,6 +148,27 @@ internal sealed partial class BeamModuleCompiler
             out (int Size, int Value) slots)
         {
             slots = default;
+            if (ReadMeasuredRecordSegments(measurement, data) is not { } measured
+                || !variables.ContainsKey(measured.Input.Name))
+            {
+                return false;
+            }
+
+            // Both accesses read the same immutable record. The first access
+            // still performs its original validation before the size operation.
+            int value = ValueSlot(measured.Field, null);
+            int size = Slot();
+            owner.EmitCallLine(measured.Call, owner.lastEmittedLine);
+            EmitSizeInstruction(measured.Call.Function, 0, ReceiveGuardLiveRegisters);
+            owner.Operand(YRegisterTag, value);
+            owner.Operand(YRegisterTag, size);
+            slots = (size, value);
+            return true;
+        }
+
+        private (Expr.Call Call, Expr.RecordAccess Field, Expr.Variable Input)? ReadMeasuredRecordSegments(
+            BinaryConstructionSegment measurement, BinaryConstructionSegment data)
+        {
             if (measurement is not
                 {
                     Kind: BitSegmentTypes.Integer, Size: Expr.Literal,
@@ -155,26 +184,47 @@ internal sealed partial class BeamModuleCompiler
                     Value: Expr.RecordAccess { Value: Expr.Variable other } repeated
                 }
                 || input.Name != other.Name || read.Name != repeated.Name || read.Arity != repeated.Arity
-                || read.Index != repeated.Index || !variables.ContainsKey(input.Name))
+                || read.Index != repeated.Index)
             {
-                return false;
+                return null;
             }
 
             Expr.Call call = owner.ResolveImportedCall(source, entries);
-            if (!owner.ResolvesErlangBif(call))
+            return owner.ResolvesErlangBif(call) ? (call, read, input) : null;
+        }
+
+        private bool TryEmitDirectMeasuredRecord(Clause clause, Expr.Bits bits)
+        {
+            if (clause.Patterns is not [Pattern.Variable parameter]
+                || bits.Segments.Count != 2)
+            {
+                return false;
+            }
+            var segments = ReadBinaryConstruction(bits);
+            if (segments is not [var size, var value]
+                || ReadMeasuredRecordSegments(size, value) is not { } measured
+                || measured.Input.Name != parameter.Name)
             {
                 return false;
             }
 
-            // Both accesses read the same immutable record. The first access
-            // still performs its original validation before the size operation.
-            int value = GuardSlot(read, null)!.Value;
-            int size = Slot();
-            owner.EmitCallLine(call, owner.lastEmittedLine);
-            EmitSizeInstruction(call.Function, 0, ReceiveGuardLiveRegisters);
-            owner.Operand(YRegisterTag, value);
-            owner.Operand(YRegisterTag, size);
-            slots = (size, value);
+            int failure = Label();
+            EmitDetailRecordTest(0, measured.Field.Arity, Term.A(measured.Field.Name), failure);
+            owner.EmitTuplePart(0, measured.Field.Index, 0);
+            owner.EmitCallLine(measured.Call, location);
+            EmitSizeInstruction(measured.Call.Function, 0, 1);
+            owner.Operand(XRegisterTag, 0);
+            owner.Operand(XRegisterTag, 1);
+            EmitBinaryConstructionHeader(bits, segments, 2, null, CallLocation(measured.Call, location));
+            EmitBinaryConstructionSegment(size);
+            owner.EmitTypedRegister(1, IntegerTypeBits, 0, MaximumBitSize);
+            EmitDirectOperand(clause, size.Size);
+            EmitBinaryConstructionSegment(value);
+            owner.EmitTypedRegister(0, MatchableTypeBits);
+            EmitDirectOperand(clause, value.Size);
+            owner.instructions.WriteByte(Return);
+            Mark(failure);
+            owner.Op(BadRecord, XRegisterTag, 0);
             return true;
         }
 
