@@ -233,15 +233,31 @@ internal sealed partial class BeamModuleCompiler
                 return false;
             }
 
-            const int context = 1;
+            bool knownBinary = HasBinaryLocalArgument(function, call);
+            int context = knownBinary ? 0 : 1;
+            int position = 1 - context;
+            int live = context + 1;
             int repeat = Label();
             int restore = Label();
-            int nonbinary = Label();
-            EmitBitMatchStart(context, nonbinary);
+            int nonbinary = 0;
+            if (knownBinary)
+            {
+                owner.Op(StartBinaryMatchKnown, AtomTag, owner.Intern("no_fail"));
+                owner.Operand(BeamWire.UnsignedTag, 1);
+                owner.Operand(XRegisterTag, 0);
+                owner.Operand(XRegisterTag, 0);
+            }
+            else
+            {
+                nonbinary = Label();
+                EmitBitMatchStart(context, nonbinary);
+            }
+
             owner.Op(GetBinaryPosition, XRegisterTag, context);
-            owner.Operand(XRegisterTag, 0);
-            owner.Operand(BeamWire.UnsignedTag, 2);
-            EmitBitMatchHeader(context, restore, 9, BitSyntaxDefaults.BinaryUnit, BitSyntaxDefaults.BinaryUnit);
+            owner.Operand(XRegisterTag, position);
+            owner.Operand(BeamWire.UnsignedTag, live);
+            EmitBitMatchHeader(context, restore, 9, BitSyntaxDefaults.BinaryUnit,
+                knownBinary ? BitSyntaxDefaults.BitStringUnit : BitSyntaxDefaults.BinaryUnit);
             EmitBitSegment(first.Specification, BitSyntaxDefaults.BinaryUnit, 2, XRegisterTag, 2);
             owner.EmitMembershipSelect(
                 2,
@@ -251,18 +267,25 @@ internal sealed partial class BeamModuleCompiler
                 (byte.MinValue, byte.MaxValue)
             );
             Mark(repeat);
-            owner.MoveToX0(XRegisterTag, context);
+            if (!knownBinary)
+            {
+                owner.MoveToX0(XRegisterTag, context);
+            }
+
             owner.Op(TailLocalCall, BeamWire.UnsignedTag, 1);
             owner.Operand(LabelTag, entry);
             Mark(restore);
             owner.Op(SetBinaryPosition, XRegisterTag, context);
-            owner.Operand(XRegisterTag, 0);
+            owner.Operand(XRegisterTag, position);
             owner.Op(GetBinaryTail, XRegisterTag, context);
             owner.Operand(XRegisterTag, 0);
-            owner.Operand(BeamWire.UnsignedTag, 2);
+            owner.Operand(BeamWire.UnsignedTag, live);
             owner.instructions.WriteByte(Return);
-            Mark(nonbinary);
-            owner.instructions.WriteByte(Return);
+            if (!knownBinary)
+            {
+                Mark(nonbinary);
+                owner.instructions.WriteByte(Return);
+            }
 
             return true;
         }

@@ -330,6 +330,7 @@ internal static class BeamModuleEmissionChecks
         await CompareGeneralListQualifiers();
         await CompareGeneralFixedBitPatterns();
         await CompareBinaryTailRecursion();
+        await CompareBinaryArgumentProof();
         await CompareInlineLocalBindings();
         await CompareGeneralNumericEquality();
         await CompareGeneralSubtraction();
@@ -3339,6 +3340,40 @@ internal static class BeamModuleEmissionChecks
         if (!Term.Tuple(Term.I(1), Term.I(2), Term.A("outer")).Equals(result))
         {
             throw new InvalidOperationException($"Inline local bindings returned {result}, exit {exit}.");
+        }
+    }
+
+    private static async Task CompareBinaryArgumentProof()
+    {
+        const string source = """
+            -module(beam_binary_argument_proof).
+            -export([run/1, mixed/1]).
+            run(<<_:8, Payload/binary>>) -> forward(Payload).
+            forward(Value) -> trim(Value).
+            trim(<<C, Rest/binary>>) when C == 9; C == 32 -> trim(Rest);
+            trim(Value) -> Value.
+            mixed(Value) -> checked(Value).
+            checked(<<C, Rest/binary>>) when C == 9; C == 32 -> checked(Rest);
+            checked(Value) -> Value.
+            """;
+        BeamModule image = BeamModule.Prepare(CodeGeneration.CompileBeamModule(source, "beam_binary_argument_proof.erl"));
+        await using var runtime = new ProcessRuntime();
+        Term? actual = null;
+        var other = Term.A("other");
+        ProcessHandle process = runtime.Spawn(async context =>
+        {
+            Term trimmed = await image.Invoke(context, "run", new BitString([1, 9, 32, 65]));
+            Term empty = await image.Invoke(context, "run", new BitString([1, 32]));
+            Term preserved = await image.Invoke(context, "mixed", other);
+            actual = Term.Tuple(trimmed, empty, preserved);
+
+            return actual;
+        });
+        Term exit = await process.Completion.WaitAsync(TimeSpan.FromSeconds(10));
+        Term expected = Term.Tuple(new BitString([65]), new BitString([]), other);
+        if (!expected.Equals(actual))
+        {
+            throw new InvalidOperationException($"Binary argument proof returned {actual}, exit {exit}.");
         }
     }
 
