@@ -594,7 +594,8 @@ internal sealed partial class BeamModuleCompiler
             bool relocateBeforeTrim = false,
             (int? Slot, Term? Constant)[]? tupleResult = null,
             (TaggedCallMatch Check, int? Field, bool KeepPayload)? taggedMatch = null,
-            CallListExtraction? extraction = null
+            CallListExtraction? extraction = null,
+            int? entryTupleArity = null
         )
         {
             var lastUses = new Dictionary<int, int>();
@@ -647,8 +648,36 @@ internal sealed partial class BeamModuleCompiler
                 live = Math.Max(live, construction.Operands.Max(operand => operand.Source.GetValueOrDefault(-1)) + 1);
             }
 
-            EmitFrameAllocation(live, saved.Length, first.ConstructedArgument?.HeapWords ?? 0);
+            EmitFrameAllocation(entryTupleArity is null ? live : 1, saved.Length, first.ConstructedArgument?.HeapWords ?? 0);
             var slots = new int[parameters.Length + (payloadSource >= 0 ? 1 : 0)];
+            if (entryTupleArity is int tupleArity)
+            {
+                for (int slot = 0; slot < saved.Length; slot++)
+                {
+                    slots[saved[slot]] = slot;
+                }
+
+                var firstUses = first.Call.Arguments.OfType<Expr.Variable>().Select(argument => argument.Name)
+                    .ToHashSet(StringComparer.Ordinal);
+                for (int field = 0; field < tupleArity; field++)
+                {
+                    int register = field + 1;
+                    if (firstUses.Contains(parameters[register]))
+                    {
+                        owner.EmitTuplePart(0, field, register);
+                        if (lastUses.ContainsKey(register))
+                        {
+                            owner.MoveRegister(XRegisterTag, register, YRegisterTag, slots[register]);
+                        }
+                    }
+                    else if (lastUses.ContainsKey(register))
+                    {
+                        owner.Op(GetTupleElement, XRegisterTag, 0);
+                        owner.Operand(BeamWire.UnsignedTag, field);
+                        owner.Operand(YRegisterTag, slots[register]);
+                    }
+                }
+            }
             for (int slot = 0; slot < saved.Length; slot++)
             {
                 slots[saved[slot]] = slot;
@@ -658,7 +687,7 @@ internal sealed partial class BeamModuleCompiler
                     continue;
                 }
 
-                if (saved[slot] != extraction?.Head && saved[slot] != extraction?.Tail)
+                if (entryTupleArity is null && saved[slot] != extraction?.Head && saved[slot] != extraction?.Tail)
                 {
                     owner.MoveRegister(XRegisterTag, saved[slot], YRegisterTag, slot);
                 }

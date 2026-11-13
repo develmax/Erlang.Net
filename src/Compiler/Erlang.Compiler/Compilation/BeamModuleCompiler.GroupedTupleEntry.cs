@@ -495,6 +495,49 @@ internal sealed partial class BeamModuleCompiler
             return TryEmitPlannedTupleEntry(left, failure, checkedRootFields: sharedFields);
         }
 
+        private bool TryEmitTupleEntryCallSequence(Clause clause, int failure)
+        {
+            if (clause is not
+                {
+                    Guard: null,
+                    Patterns: [Pattern.Tuple tuple],
+                    Body: Expr.Sequence { Items: [Expr.Call firstCall, _, ..] } sequence
+                }
+                || tuple.Items.Count >= FirstReservedXRegister
+                || tuple.Items.Any(field => field is not Erlang.Pattern.Variable))
+            {
+                return false;
+            }
+
+            var fields = tuple.Items.Cast<Pattern.Variable>().ToArray();
+            if (!DistinctBindings(fields))
+            {
+                return false;
+            }
+
+            string[] parameters = [VariableScopeNames.Wildcard, .. fields.Select(field => field.Name)];
+            if (ReadEntryCall(firstCall, parameters) is not { } first)
+            {
+                return false;
+            }
+
+            var continuation = new List<(EntryCall Call, int? ListDestination)>();
+            for (int index = sequence.Items.Count - 1; index > 0; index--)
+            {
+                if (sequence.Items[index] is not Expr.Call call
+                    || ReadEntryCall(call, [], parameters) is not { } step)
+                {
+                    return false;
+                }
+
+                continuation.Add((step, null));
+            }
+
+            EmitTupleShapeTest(XRegisterTag, 0, fields.Length, failure);
+            EmitEntryCallChain(first, parameters, continuation, relocateBeforeTrim: true, entryTupleArity: fields.Length);
+            return true;
+        }
+
         private bool TryEmitPlannedTupleEntry(
             Clause clause,
             int failure,
