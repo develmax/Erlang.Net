@@ -17,7 +17,7 @@ internal sealed partial class BeamModuleCompiler
                         Items:
                         [
                             Expr.Match { Pattern: BitPattern { Segments: [var prefix, var suffix] }, Value: Expr.Variable source } match,
-                            Expr.Tuple { Items: [Expr.Variable first, Expr.Variable second] }
+                            var continuation
                         ]
                     }
                 } clause
@@ -33,8 +33,7 @@ internal sealed partial class BeamModuleCompiler
                     Value: Pattern.Variable tail,
                     Specification: { Type: BitSegmentTypes.Binary, Size: null, Unit: BitSyntaxDefaults.BinaryUnit }
                 }
-                || !DistinctBindings(part, tail, new Pattern.Variable(source.Name), new Pattern.Variable(size.Name))
-                || !(first.Name == part.Name && second.Name == tail.Name || first.Name == tail.Name && second.Name == part.Name))
+                || !DistinctBindings(part, tail, new Pattern.Variable(source.Name), new Pattern.Variable(size.Name)))
             {
                 return false;
             }
@@ -46,6 +45,22 @@ internal sealed partial class BeamModuleCompiler
                 || PredicateConjuncts(guard).Select(test => ReadEntryTypeGuard(clause, test)).ToArray() is not [var left, var right]
                 || !(left == (IsBinary, input) && right == (IsInteger, count)
                     || left == (IsInteger, count) && right == (IsBinary, input)))
+            {
+                return false;
+            }
+
+            bool tuple = continuation is Expr.Tuple;
+            var captures = new[] { part.Name, tail.Name };
+            if (input < count)
+            {
+                Array.Reverse(captures);
+            }
+
+            var call = continuation is Expr.Call target ? ReadEntryCall(target, captures) : null;
+            if (tuple
+                ? ((Expr.Tuple)continuation).Items is not [Expr.Variable first, Expr.Variable second]
+                    || !(first.Name == part.Name && second.Name == tail.Name || first.Name == tail.Name && second.Name == part.Name)
+                : call is not { Module: null })
             {
                 return false;
             }
@@ -73,12 +88,23 @@ internal sealed partial class BeamModuleCompiler
             owner.Op(GetBinaryTail, XRegisterTag, context);
             owner.Operand(XRegisterTag, input);
             owner.Operand(BeamWire.UnsignedTag, live);
-            owner.Op(TestHeap, BeamWire.UnsignedTag, 3);
-            owner.Operand(BeamWire.UnsignedTag, context);
-            owner.EmitTupleHeader(XRegisterTag, 2);
-            owner.Operand(XRegisterTag, first.Name == part.Name ? count : input);
-            owner.Operand(XRegisterTag, second.Name == part.Name ? count : input);
-            owner.instructions.WriteByte(Return);
+            if (continuation is Expr.Tuple returned)
+            {
+                owner.Op(TestHeap, BeamWire.UnsignedTag, 3);
+                owner.Operand(BeamWire.UnsignedTag, context);
+                owner.EmitTupleHeader(XRegisterTag, 2);
+                foreach (Expr.Variable field in returned.Items.Cast<Expr.Variable>())
+                {
+                    owner.Operand(XRegisterTag, field.Name == part.Name ? count : input);
+                }
+
+                owner.instructions.WriteByte(Return);
+            }
+            else
+            {
+                owner.EmitOrderedTailMoves(call!.Moves, call.Constants);
+                EmitRegisterTailTarget(call.Call, call.Call.Arguments.Count);
+            }
 
             Mark(failure);
             var previous = location;
@@ -87,8 +113,56 @@ internal sealed partial class BeamModuleCompiler
 
             return true;
         }
+
+        private bool TryEmitProvenBinarySplit(BitPattern pattern, int source, int failure)
+        {
+            if (pattern.Segments is not [
+                {
+                    Value: Pattern.Variable prefix,
+                    Specification: { Type: BitSegmentTypes.Binary, Size: Expr.Variable size, Unit: BitSyntaxDefaults.BinaryUnit }
+                },
+                {
+                    Value: Pattern.Variable suffix,
+                    Specification: { Type: BitSegmentTypes.Binary, Size: null, Unit: BitSyntaxDefaults.BinaryUnit }
+                }
+                ]
+                || !DistinctBindings(prefix, suffix)
+                || variables.ContainsKey(prefix.Name) || variables.ContainsKey(suffix.Name)
+                || deferredPairMembers.ContainsKey(prefix.Name) || deferredPairMembers.ContainsKey(suffix.Name)
+                || !variables.TryGetValue(size.Name, out int count))
+            {
+                return false;
+            }
+
+            // Both slices use the same context and consume whole bytes.
+            int prefixSlot = Slot();
+            int suffixSlot = Slot();
+            owner.Op(StartBinaryMatchKnown, AtomTag, owner.Intern("no_fail"));
+            owner.Operand(BeamWire.UnsignedTag, 0);
+            owner.Operand(YRegisterTag, source);
+            owner.Operand(XRegisterTag, 0);
+            owner.Op(GetBinarySegment, LabelTag, failure);
+            owner.EmitTypedRegister(0, MatchableTypeBits);
+            owner.Operand(BeamWire.UnsignedTag, 1);
+            owner.Operand(YRegisterTag, count);
+            owner.Operand(BeamWire.UnsignedTag, BitSyntaxDefaults.BinaryUnit);
+            owner.Operand(BeamWire.UnsignedTag, 0);
+            owner.Operand(YRegisterTag, prefixSlot);
+            owner.Op(GetBinaryTail, XRegisterTag, 0);
+            owner.Operand(YRegisterTag, suffixSlot);
+            owner.Operand(BeamWire.UnsignedTag, 1);
+            variables.Add(prefix.Name, prefixSlot);
+            variables.Add(suffix.Name, suffixSlot);
+
+            return true;
+        }
         private void EmitSequentialBitPattern(BitPattern pattern, int value, int failure, bool knownBinary)
         {
+            if (knownBinary && TryEmitProvenBinarySplit(pattern, value, failure))
+            {
+                return;
+            }
+
             int context = Slot();
             Load(value);
             EmitBitMatchStart(0, failure, knownBinary);
