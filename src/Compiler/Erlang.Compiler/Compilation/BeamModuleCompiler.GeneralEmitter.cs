@@ -11838,7 +11838,8 @@ internal sealed partial class BeamModuleCompiler
                 return;
             }
 
-            if (guardFailure is null && !returnValue && TryBindDecodedResult(match))
+            if (guardFailure is null && !returnValue
+                && (TryBindConstructedTuple(match) || TryBindDecodedResult(match)))
             {
                 return;
             }
@@ -11879,6 +11880,35 @@ internal sealed partial class BeamModuleCompiler
             }
 
             MatchValue(match, ValueSlot(match.Value, guardFailure), returnValue);
+        }
+
+        private bool TryBindConstructedTuple(Expr.Match match)
+        {
+            if (match is not { Pattern: Pattern.Tuple pattern, Value: Expr.Tuple tuple }
+                || pattern.Items.Count != tuple.Items.Count
+                || pattern.Items.Any(item => item is not Erlang.Pattern.Variable)
+                || !DistinctBindings(pattern.Items.Cast<Pattern.Variable>().ToArray()))
+            {
+                return false;
+            }
+
+            var fields = pattern.Items.Cast<Pattern.Variable>().ToArray();
+            if (fields.Any(field => variables.ContainsKey(field.Name) || deferredPairMembers.ContainsKey(field.Name))
+                || tuple.Items.Any(item => !IsPreparedOperand(item)
+                    && !(item is Expr.Call { DynamicRemote: false } call && HasSimpleDecodeArguments(call))))
+            {
+                return false;
+            }
+
+            // Evaluate the complete right-hand side before adding any bindings.
+            // A tuple of this arity always matches distinct, fresh variables.
+            int[] values = Values(tuple.Items, null);
+            for (int index = 0; index < fields.Length; index++)
+            {
+                variables.Add(fields[index].Name, values[index]);
+            }
+
+            return true;
         }
 
         private void MatchValue(Expr.Match match, int matched, bool returnValue)

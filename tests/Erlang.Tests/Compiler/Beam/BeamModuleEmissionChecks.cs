@@ -358,6 +358,7 @@ internal static class BeamModuleEmissionChecks
         await CompareReceiveBinaryPatterns();
         await CompareGuardExtrema();
         await CompareGeneralFunctionValueCall();
+        await CompareConstructedTupleBinding();
         await CompareLocalClosureInvocation();
         await CompareRecursiveClosureInvocation();
         await CompareAccumulatorClosureInvocation();
@@ -5430,6 +5431,36 @@ internal static class BeamModuleEmissionChecks
         if (!expected.Equals(actual))
         {
             throw new InvalidOperationException($"General BEAM function value call returned {actual}, exit {exit}.");
+        }
+    }
+
+    private static async Task CompareConstructedTupleBinding()
+    {
+        const string source = """
+            -module(beam_constructed_binding).
+            -export([run/3]).
+            run(A, B, C) ->
+                {X, Y, Z} = {id(A), id(B), id(C)},
+                {Z, X, Y}.
+            id(X) -> {value, X}.
+            """;
+        BeamModule image = BeamModule.Prepare(CodeGeneration.CompileBeamModule(source, "beam_constructed_binding.erl"));
+        await using var runtime = new ProcessRuntime();
+        Term? actual = null;
+        ProcessHandle process = runtime.Spawn(async context =>
+        {
+            actual = await image.Invoke(context, "run", Term.I(1), Term.I(2), Term.I(3));
+            return actual;
+        });
+        Term exit = await process.Completion.WaitAsync(TimeSpan.FromSeconds(10));
+        Term expected = Term.Tuple(
+            Term.Tuple(Term.A("value"), Term.I(3)),
+            Term.Tuple(Term.A("value"), Term.I(1)),
+            Term.Tuple(Term.A("value"), Term.I(2))
+        );
+        if (!expected.Equals(actual))
+        {
+            throw new InvalidOperationException($"Constructed tuple binding returned {actual}, exit {exit}.");
         }
     }
 
