@@ -1,5 +1,7 @@
 # Next steps
 
+Measure frame allocation and result lifetime across terminal dispatch branches. [Opcode audit](validation/part-1574/baseline-opcodes.txt) · [Closest images](validation/part-1574/nearest-images.txt).
+
 Audit protected calls preceded by argument preparation. Prioritize recurring shapes and compare their frame allocation against OTP. [Evidence](validation/part-1572/README.md).
 
 Extend terminal try lowering to tuple success patterns and constant fallbacks. Compare remaining shapes against the corpus. [Evidence](validation/part-1571/README.md).
