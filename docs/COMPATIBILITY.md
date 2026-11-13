@@ -1,5 +1,7 @@
 # Compatibility overview
 
+Part 1616 verifies literal and tagged terminal call matches with a byte-identical fixture and matching badmatch locations. [Evidence](validation/part-1616/README.md).
+
 Part 1615 verifies direct binary BIFs with a byte-identical register fixture and matching results and failure reasons. [Evidence](validation/part-1615/README.md).
 
 Part 1597 verifies allocation for direct function value calls with a byte-identical fixture and a matching lifted release closure. [Evidence](validation/part-1597/README.md).

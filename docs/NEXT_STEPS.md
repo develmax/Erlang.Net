@@ -1,5 +1,7 @@
 # Next steps
 
+Continue with entry frames whose values must survive calls. Rank and compare Y slot lifetimes across call and branch boundaries. [Ranking](validation/part-1616/baseline-frame-rank.txt).
+
 Prioritize excess stack frame slots. The first normalized instruction difference is an oversized allocate with equal live X count in 877 modules. Use the pinned OTP liveness and register allocation passes as reference. [Ranking](validation/part-1615/baseline-first-differences.txt).
 
 Measure the remaining entry-frame differences by frame size and placement, then prioritize the patterns with the most affected modules. [Evidence](validation/part-1597/README.md).

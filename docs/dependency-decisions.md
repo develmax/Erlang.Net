@@ -1,5 +1,7 @@
 # Dependency and compatibility decisions
 
+Part 1616 reuses the C# call sequence planner and pinned OTP pre-codegen allocation as the reference. No dependency was added. [Evidence](validation/part-1616/README.md).
+
 Part 1615 reuses the existing C# X-register planner and BIF encoders. The OTP 29.1.1 compiler and release disassembly are the oracle. No dependency was added. [Evidence](validation/part-1615/README.md).
 
 Part 1572 reuses the tagged tuple test and tuple constructor emitters. No dependency was added. [Evidence](validation/part-1572/README.md).

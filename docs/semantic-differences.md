@@ -1,3 +1,5 @@
+Part 1616 aligns terminal call matches and records 29 new normalized instruction matches and 0 losses. Remaining release images are tracked in the corpus report. [Evidence](validation/part-1616/README.md).
+
 Part 1615 aligns three more functions after label normalization. The affected release images still differ. [Evidence](validation/part-1615/README.md).
 
 Part 1597 aligns allocate in the lifted normalize closure in xmerl_xpath_pred. Whole-module differences remain. [Evidence](validation/part-1597/README.md).

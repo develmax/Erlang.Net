@@ -20,6 +20,79 @@ internal sealed partial class BeamModuleCompiler
             return new(match, call, tag, tuple.Items.Count);
         }
 
+        private bool TryEmitTerminalCallMatch(FunctionDefinition function)
+        {
+            if (function.Clauses is not [{ Guard: null } clause] || !HasUnconditionalParameters(clause))
+            {
+                return false;
+            }
+
+            IReadOnlyList<Expr> expressions = clause.Body is Expr.Sequence sequence ? sequence.Items : [clause.Body];
+            if (expressions[^1] is not Expr.Match { Value: Expr.Call } match)
+            {
+                return false;
+            }
+
+            Term? literal = (match.Pattern as Pattern.Literal)?.Value;
+            var tagged = ReadDiscardedTaggedCallMatch(match);
+            if (literal is null && tagged is null)
+            {
+                return false;
+            }
+
+            var parameters = clause.Patterns.Cast<Pattern.Variable>().Select(parameter => parameter.Name).ToArray();
+            var uncheckedMatch = match with { Pattern = new Pattern.Variable(VariableScopeNames.Wildcard) };
+            var statements = FlattenCallArguments(expressions.SkipLast(1).Append(uncheckedMatch));
+            if (ReadStraightCalls(statements, parameters) is not { } calls)
+            {
+                return false;
+            }
+
+            var plan = new List<EntryCall>(calls.Length);
+            string[] registers = parameters;
+            foreach (var (call, result) in calls)
+            {
+                if (ReadEntryCall(call, registers) is not { } step)
+                {
+                    return false;
+                }
+
+                plan.Add(step);
+                registers = result is null ? [] : [result];
+            }
+
+            EmitFrameAllocation(EntryCallLiveCount(plan[0], parameters), 0);
+            var previous = location;
+            foreach (EntryCall step in plan)
+            {
+                EmitEntryCall(step, previous);
+                previous = CallLocation(step.Call, previous);
+            }
+
+            int failure = Label();
+            if (tagged is not null)
+            {
+                EmitDetailRecordTest(
+                    0,
+                    tagged.Arity,
+                    tagged.Tag,
+                    failure
+                );
+            }
+            else
+            {
+                owner.Op(ExactEqualTest, LabelTag, failure);
+                owner.Operand(XRegisterTag, 0);
+                owner.LiteralOperand(literal!);
+            }
+
+            owner.EmitFrameReturn();
+            EmitTaggedCallMatchFailure(match, failure, previous, previous);
+
+            return true;
+        }
+
+
         private bool TryEmitEntryDiscardedTaggedMatch(Clause clause)
         {
             if (clause.Guard is not null || !HasUnconditionalParameters(clause)

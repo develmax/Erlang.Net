@@ -209,6 +209,7 @@ internal static class BeamModuleEmissionChecks
             "beam_eunit_autoexport_probe",
             "beam_grouped_dispatch_probe",
             "beam_binary_register_bifs",
+            "beam_terminal_call_match",
             "tuple_register_entry_probe",
             "tuple_nested_entry_probe",
             "tuple_nested_fallback_probe",
