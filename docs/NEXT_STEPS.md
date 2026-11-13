@@ -1,5 +1,7 @@
 # Next steps
 
+Compare entry tuple projections and investigate common frame relocation for the measured release cohorts. [Ranking](validation/part-1592/README.md).
+
 Measure other checked-call sequences with live stack values that can be relocated before trimming. [Evidence](validation/part-1591/README.md).
 
 Relocate retained stack values before trimming dead inputs in checked call chains. [Disassembly](validation/part-1590/wx-two-arguments.txt).

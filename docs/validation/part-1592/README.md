@@ -1,0 +1,11 @@
+# Part 1592 — Measure frame relocation and extend checked call chains
+
+The instruction comparison covers all 975 images differing in part 1591. The release contains more direct Y-to-Y moves followed by trim in 6,662 functions across 774 modules. Requiring at least two badmatch instructions and one init_yregs in the generated function leaves 1,359 functions across 368 modules. These counts describe instruction differences and do not establish that the functions use the same lowering path or that all their differences share a cause. [All candidates](part1592-relocations.txt) · [Checked candidates](part1592-checked-relocations.txt) · [Nearest images](part1592-nearest.txt).
+
+Extend relocation to earlier calls in a checked chain if subsequent calls do not bind new results and the later checks do not create stack bindings. This keeps later lifetimes from invalidating the planned trim. Reuse the prior checked-call rule, which follows the OTP 29.1.1 beam_trim relocation recipe. No dependency was added.
+
+Three focused tests passed. The control fixture moves the live payload before a non-penultimate call and reloads it for two later calls. OTP VM outcomes agree on success and badmatch. The fixture's complete image still differs due to constant-result analysis. [Fixture](beam_trimmed_checked_payload.erl) · [Disassembly](fixture-disassembly.txt) · [Outcomes](outcomes.txt) · [Tests](focused.txt).
+
+Both experimental builds accepted and generated all 1,366 images. The final experiment returned 391 Equal and 975 Different with zero output changes from part 1591. wx_misc and ELDAPv3 stayed Equal. OTP accepted the 975 differing images. The compiler change and its test edit were reverted after the experiment. The linked fixture and focused test results are from the experimental build. Full runtime tests and canonical readiness were outside this run. [Corpus](otp-corpus.json) · [Loader](loader-and-code.txt).
+
+The nearest-image comparison identifies three modules with a single normalized function difference. The most direct entry projection candidate is erl_abstract_code:debug_info/4, where OTP omits an unused tuple field and projects a surviving field directly to Y after allocation. [Ranking](part1592-nearest.txt).
