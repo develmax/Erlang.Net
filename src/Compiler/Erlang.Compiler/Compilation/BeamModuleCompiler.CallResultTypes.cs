@@ -4,6 +4,8 @@ internal sealed partial class BeamModuleCompiler
 {
     private sealed partial class GeneralEmitter
     {
+        private sealed record ResultProjection(Pattern.Tuple Pattern, int Field);
+
         private readonly Dictionary<(string Name, int Arity), int> callResultTypes = [];
 
         private static bool HasKnownNonTupleResult(EntryCall call, Atom alternative) =>
@@ -32,58 +34,79 @@ internal sealed partial class BeamModuleCompiler
             };
         }
 
-        private int ReadResultType(Expr expression, HashSet<(string Name, int Arity)> visited,
-            IReadOnlyDictionary<string, int>? bindings = null, bool selectorContext = false)
+        private int ReadResultType(Expr expression, HashSet<(string Name, int Arity, ResultProjection? Projection)> visited,
+            IReadOnlyDictionary<string, int>? bindings = null, bool selectorContext = false, ResultProjection? projection = null)
         {
+            if (projection is not null && expression is Expr.Tuple tuple)
+            {
+                if (tuple.Items.Count != projection.Pattern.Items.Count)
+                {
+                    return 0;
+                }
+                for (int index = 0; index < tuple.Items.Count; index++)
+                {
+                    if (projection.Pattern.Items[index] is Pattern.Literal expected
+                        && AttributeLiteral.TryNormalizeConstant(tuple.Items[index], out Term actual)
+                        && !expected.Value.Equals(actual))
+                    {
+                        return 0;
+                    }
+                }
+                return ReadResultType(tuple.Items[projection.Field], visited, bindings, selectorContext: true);
+            }
+
             switch (expression)
             {
                 case Expr.Literal { Value: Atom }:
-                    return AtomTypeBits;
+                    return projection is null ? AtomTypeBits : 0;
                 case Expr.Literal { Value: TupleTerm } or Expr.Tuple or Expr.RecordConstruction:
-                    return TupleTypeBits;
+                    return projection is null ? TupleTypeBits : AnyTypeBits;
                 case Expr.Literal { Value: Cons } or Expr.List { Items.Count: > 0 }:
-                    return ConsTypeBits;
+                    return projection is null ? ConsTypeBits : 0;
                 case Expr.Literal { Value: Nil }:
-                    return ProperListTypeBits & ~ConsTypeBits;
+                    return projection is null ? ProperListTypeBits & ~ConsTypeBits : 0;
                 case Expr.List { Items.Count: 0, Tail: null }:
-                    return ProperListTypeBits & ~ConsTypeBits;
+                    return projection is null ? ProperListTypeBits & ~ConsTypeBits : 0;
                 case Expr.Variable variable:
-                    return bindings?.GetValueOrDefault(variable.Name, AnyTypeBits) ?? AnyTypeBits;
+                    return projection is null ? bindings?.GetValueOrDefault(variable.Name, AnyTypeBits) ?? AnyTypeBits : AnyTypeBits;
                 case Expr.Sequence { Items.Count: > 0 } sequence:
-                    return ReadResultType(sequence.Items[^1], visited, bindings, selectorContext);
+                    return ReadResultType(sequence.Items[^1], visited, bindings, selectorContext, projection);
                 case Expr.Block block:
-                    return ReadResultType(block.Body, visited, bindings, selectorContext);
+                    return ReadResultType(block.Body, visited, bindings, selectorContext, projection);
                 case Expr.Case decision:
-                    return ReadCaseResultTypes(decision, visited, bindings, selectorContext);
+                    return ReadCaseResultTypes(decision, visited, bindings, selectorContext, projection);
                 case Expr.If decision:
-                    return ReadBranchResultTypes(decision.Clauses, visited, bindings, selectorContext);
+                    return ReadBranchResultTypes(decision.Clauses, visited, bindings, selectorContext, projection);
                 case Expr.Call { Module: null, DynamicRemote: false } call:
                     var signature = (call.Function, call.Arguments.Count);
                     if (!localFunctions.TryGetValue(signature, out var local) || owner.IsDeclaredNative(signature))
                     {
-                        return AnyTypeBits;
+                        return signature is ("reverse", 1) && owner.ResolveExternalModule(call.Function, 1) == "lists"
+                            ? projection is null ? ProperListTypeBits : 0
+                            : AnyTypeBits;
                     }
 
-                    if (!visited.Add(signature))
+                    var visit = (signature.Function, signature.Count, projection);
+                    if (!visited.Add(visit))
                     {
                         // A recursive selector may bind a value from any reachable return path.
-                        return selectorContext ? AnyTypeBits : 0;
+                        return selectorContext && projection is null ? AnyTypeBits : 0;
                     }
 
-                    int result = ReadBranchResultTypes(local.Clauses, visited, selectorContext: selectorContext);
-                    visited.Remove(signature);
+                    int result = ReadBranchResultTypes(local.Clauses, visited, selectorContext: selectorContext, projection: projection);
+                    visited.Remove(visit);
                     return result;
                 case Expr.Call { Module: "lists", Function: "reverse", DynamicRemote: false, Arguments.Count: 1 }:
-                    return ProperListTypeBits;
+                    return projection is null ? ProperListTypeBits : 0;
                 default:
                     return AnyTypeBits;
             }
         }
 
-        private int ReadCaseResultTypes(Expr.Case decision, HashSet<(string Name, int Arity)> visited,
-            IReadOnlyDictionary<string, int>? bindings, bool selectorContext)
+        private int ReadCaseResultTypes(Expr.Case decision, HashSet<(string Name, int Arity, ResultProjection? Projection)> visited,
+            IReadOnlyDictionary<string, int>? bindings, bool selectorContext, ResultProjection? projection)
         {
-            int selector = ReadResultType(decision.Value, visited, bindings, selectorContext: true);
+            int? selector = null;
             int result = 0;
             foreach (Clause clause in decision.Clauses)
             {
@@ -92,26 +115,50 @@ internal sealed partial class BeamModuleCompiler
                 {
                     var matched = bindings is null ? new Dictionary<string, int>(StringComparer.Ordinal)
                         : new Dictionary<string, int>(bindings, StringComparer.Ordinal);
-                    matched[variable.Name] = selector;
+                    matched[variable.Name] = selector ??= ReadResultType(decision.Value, visited, bindings, selectorContext: true);
                     branch = matched;
                 }
-                result |= ReadResultType(clause.Body, visited, branch, selectorContext);
+                else if (projection is null && clause.Patterns is [Pattern.Tuple tuple]
+                    && ReadReturnedVariable(clause.Body) is { } returned)
+                {
+                    int field = Array.FindIndex(tuple.Items.ToArray(), item => item is Pattern.Variable binding
+                        && binding.Name == returned.Name && binding.Name != VariableScopeNames.Wildcard);
+                    if (field >= 0)
+                    {
+                        var matched = bindings is null ? new Dictionary<string, int>(StringComparer.Ordinal)
+                            : new Dictionary<string, int>(bindings, StringComparer.Ordinal);
+                        matched[returned.Name] = ReadResultType(decision.Value, visited, bindings,
+                            selectorContext: true, projection: new ResultProjection(tuple, field));
+                        branch = matched;
+                    }
+                }
+
+                result |= ReadResultType(clause.Body, visited, branch, selectorContext, projection);
             }
 
             return result;
         }
 
+        private static Expr.Variable? ReadReturnedVariable(Expr expression) => expression switch
+        {
+            Expr.Variable variable => variable,
+            Expr.Sequence { Items.Count: > 0 } sequence => ReadReturnedVariable(sequence.Items[^1]),
+            Expr.Block block => ReadReturnedVariable(block.Body),
+            _ => null
+        };
+
         private int ReadBranchResultTypes(
             IReadOnlyList<Clause> clauses,
-            HashSet<(string Name, int Arity)> visited,
+            HashSet<(string Name, int Arity, ResultProjection? Projection)> visited,
             IReadOnlyDictionary<string, int>? bindings = null,
-            bool selectorContext = false
+            bool selectorContext = false,
+            ResultProjection? projection = null
         )
         {
             int result = 0;
             foreach (Clause clause in clauses)
             {
-                result |= ReadResultType(clause.Body, visited, bindings, selectorContext);
+                result |= ReadResultType(clause.Body, visited, bindings, selectorContext, projection);
                 if (result == AnyTypeBits)
                 {
                     break;
