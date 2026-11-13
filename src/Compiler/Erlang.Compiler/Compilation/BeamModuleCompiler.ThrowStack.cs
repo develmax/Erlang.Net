@@ -41,17 +41,32 @@ internal sealed partial class BeamModuleCompiler
 
     private sealed partial class GeneralEmitter
     {
-        private EntryCall PrepareStackFreeTailThrow(EntryCall entry)
+        private EntryCall PrepareStackFreeTailThrow(EntryCall entry, string[]? saved = null)
         {
             if (entry.Module != ErlangModuleNames.Module || entry.ConstructedArgument is not null
-                || entry.RegisterConstructions is not null || entry.SavedInputs is not null || entry.FunctionArgument is not null
+                || entry.FunctionArgument is not null || saved is null && entry.SavedInputs is not null
                 || ReadStackFreeThrow(entry.Call) is not { } call)
             {
                 return entry;
             }
 
+            if (entry.RegisterConstructions is not null)
+            {
+                if (saved is null || ReadCallArgumentConstructions(
+                    call.Arguments,
+                    -1,
+                    saved.Select((name, slot) => (Name: name, Slot: slot))
+                        .ToDictionary(binding => binding.Name, binding => binding.Slot, StringComparer.Ordinal)
+                ) is not { } constructions)
+                {
+                    return entry;
+                }
+
+                return entry with { Call = call, RegisterConstructions = constructions };
+            }
+
             var moves = entry.Moves.Select(move => (Destination: 1, move.Source)).ToList();
-            if (entry.Constants.Count == 0 && moves.Count == 0)
+            if (entry.Constants.Count == 0 && moves.Count == 0 && entry.SavedInputs is null)
             {
                 moves.Add((1, 0));
             }
@@ -59,7 +74,13 @@ internal sealed partial class BeamModuleCompiler
             List<(int Destination, Term Value)> constants = [(0, Term.A(ErlangExceptionClasses.Throw)), (2, Nil.Value)];
             constants.AddRange(entry.Constants.Select(item => (1, item.Value)));
 
-            return entry with { Call = call, Moves = moves, Constants = constants };
+            return entry with
+            {
+                Call = call,
+                Moves = moves,
+                Constants = constants,
+                SavedInputs = entry.SavedInputs?.Select(move => (Destination: 1, move.Source)).ToList()
+            };
         }
 
         private Expr.Call? ReadStackFreeThrow(Expr.Call call, bool requireCallerHandler = false)

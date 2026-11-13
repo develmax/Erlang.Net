@@ -20,6 +20,8 @@ internal sealed partial class BeamModuleCompiler
             var paths = new List<TupleProjectionStep[]>();
             (Expr.Tuple Tuple, string Payload)? tupleReturn = null;
             CaseTuplePlan? tupleResult = null;
+            (Expr.Call Call, string Payload)? tupleTail = null;
+            EntryCall? projectedCall = null;
             Term? fallback = null;
             bool returnSelector = false;
             Atom? fallbackAtom = null;
@@ -47,6 +49,20 @@ internal sealed partial class BeamModuleCompiler
 
                     paths.Add(tuplePath);
                     tupleReturn = (tuple, payload);
+                }
+                else if (decision.Clauses.Count == 2
+                    && arm is { Guard: null, Patterns: [Pattern.Tuple tailPattern], Body: Expr.Call tailCall })
+                {
+                    var projected = Semantics.Variables(tailPattern).Where(name => !parameters.Contains(name))
+                        .Intersect(tailCall.Arguments.OfType<Expr.Variable>().Select(variable => variable.Name))
+                        .ToArray();
+                    if (projected is not [var payload] || ReadTupleProjection(tailPattern, payload, parameters) is not { } tailPath)
+                    {
+                        return false;
+                    }
+
+                    paths.Add(tailPath);
+                    tupleTail = (tailCall, payload);
                 }
                 else if (arm is { Guard: null, Patterns: [AliasPattern alias], Body: Expr.Variable whole }
                     && TryReadPatternAlias(alias, out var tupleAlias, out var shape)
@@ -102,7 +118,7 @@ internal sealed partial class BeamModuleCompiler
                 }
             }
 
-            if (paths.Count == 0 || fallbackAtom is not null && paths.Count != 1 || tupleReturn is not null && fallbackAtom is null)
+            if (paths.Count == 0 || fallbackAtom is not null && paths.Count != 1 || (tupleReturn is not null || tupleTail is not null) && fallbackAtom is null)
             {
                 return false;
             }
@@ -119,6 +135,10 @@ internal sealed partial class BeamModuleCompiler
                 .Select(check => check.Input)
                 .Concat(tupleReturn is { } construction
                     ? LocalFunctionEntries.Walk(construction.Tuple).OfType<Expr.Variable>()
+                        .Select(variable => Array.IndexOf(parameters, variable.Name)).Where(index => index >= 0)
+                    : [])
+                .Concat(tupleTail is { } projectedTail
+                    ? projectedTail.Call.Arguments.OfType<Expr.Variable>()
                         .Select(variable => Array.IndexOf(parameters, variable.Name)).Where(index => index >= 0)
                     : [])
                 .Concat(fallbackInput >= 0 ? [fallbackInput] : [])
@@ -155,6 +175,17 @@ internal sealed partial class BeamModuleCompiler
                 {
                     return false;
                 }
+
+                fallbackCall = PrepareStackFreeTailThrow(fallbackCall, selector.StackInputs);
+            }
+
+            if (tupleTail is { } matchedTail)
+            {
+                projectedCall = ReadEntryCall(matchedTail.Call, [matchedTail.Payload], selector.StackInputs);
+                if (projectedCall is null)
+                {
+                    return false;
+                }
             }
 
             int frame = selector.FrameSize - EmitEntrySelector(selector, producer, parameters);
@@ -181,7 +212,7 @@ internal sealed partial class BeamModuleCompiler
 
                 int register = fallback is not null && fallbackAtom is null ? 0 : 1;
                 EmitTupleProjection(paths[0], 0, register, failure, selectorType, inputs, frame,
-                    shapeChecked: fallbackAtom is not null, result: tupleResult, typeSavedChecks: fallbackInput >= 0 || savedTail is not null);
+                    shapeChecked: fallbackAtom is not null, result: tupleResult, typeSavedChecks: fallbackInput >= 0 || savedTail is not null, tail: projectedCall, previous: previous);
                 if (fallbackAtom is not null)
                 {
                     Mark(alternative);
@@ -214,8 +245,9 @@ internal sealed partial class BeamModuleCompiler
                         owner.EmitFrameReturn(frame);
                     }
                     Mark(failure);
-                    if (savedTail is not null && fallbackCall?.Module is not null && decision.SourceLine != 0
-                        && CallLocation(savedTail, previous) != previous)
+                    if (decision.SourceLine != 0
+                        && (savedTail is not null && fallbackCall?.Module is not null && CallLocation(savedTail, previous) != previous
+                            || projectedCall?.Module is not null && CallLocation(projectedCall.Call, previous) != previous))
                     {
                         owner.EmitLine(new BeamSourceLocation(decision.PreprocessorFile ?? location.File, decision.SourceLine));
                     }
@@ -386,7 +418,9 @@ internal sealed partial class BeamModuleCompiler
             int frame,
             bool shapeChecked = false,
             CaseTuplePlan? result = null,
-            bool typeSavedChecks = false
+            bool typeSavedChecks = false,
+            EntryCall? tail = null,
+            BeamSourceLocation? previous = null
         )
         {
             TupleProjectionStep[] steps = path.ToArray();
@@ -428,6 +462,14 @@ internal sealed partial class BeamModuleCompiler
                 input = scratch;
                 selectorType = 0;
                 shapeChecked = false;
+            }
+
+            if (tail is not null)
+            {
+                owner.EmitOrderedTailMoves(tail.Moves, tail.Constants, tail.SavedInputs);
+                EmitPreparedFrameTail(tail, previous ?? location, frame);
+
+                return;
             }
 
             owner.EmitFrameReturn(frame);
