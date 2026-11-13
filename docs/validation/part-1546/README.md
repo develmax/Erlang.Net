@@ -13,3 +13,7 @@ $otp = Join-Path $env:TEMP 'erl-cohort-7mzi5e1n/view/artifacts/library376-offici
 $env:ERLANG_BEAM_CORPUS_SAVE_DIFFERENCES = '1'
 dotnet artifacts/beam-backend/part1546-final-tool/Erlang.BeamCorpus.dll $otp artifacts/beam-backend/otp-corpus-part1546-final.json artifacts/beam-backend/part929-ordered-headers artifacts/beam-backend/part1058-source-overlay
 ```
+
+## Corpus results
+
+All 1,366 sources were accepted and generated. The comparison records 390 Equal and 976 Different. The only status change is prim_buffer, which now matches the release image. ELDAPv3 remains byte-identical from the C# ASN.1 generator. OTP accepts all 976 differing images for loading. Three targeted checks passed. [Corpus](otp-corpus.json) · [Status changes](status-changes.txt) · [Loader](loader-and-code.txt) · [Tests](focused.json).
