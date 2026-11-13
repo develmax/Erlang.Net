@@ -355,6 +355,7 @@ internal sealed partial class BeamModuleCompiler
         private readonly List<(int Label, TaggedBranchRange Range, BeamSourceLocation Location)> decoderRangeFailures = [];
         private int nextSlot;
         private int peakSlot;
+        private HashSet<Expr.Match> guardedBinaryMatches = new(ReferenceEqualityComparer.Instance);
         private int decoderSlotCount;
         private int? decoderListLabel;
         private int? decoderRangeLabel;
@@ -1753,7 +1754,9 @@ internal sealed partial class BeamModuleCompiler
                 {
                     variables.TryAdd(self, selfSlot);
                 }
-                Guard(entryPatterns is null ? clause.Guard : entryGuard, failure);
+                Expr? emittedGuard = entryPatterns is null ? clause.Guard : entryGuard;
+                Guard(emittedGuard, failure);
+                guardedBinaryMatches = ReadGuardedBinaryMatches(clause.Body, clause.Guard);
                 Expr body = clause.Body;
                 if (entryBindings != 0 && body is Expr.Sequence entrySequence)
                 {
@@ -1947,6 +1950,7 @@ internal sealed partial class BeamModuleCompiler
             }
 
             checkedRecordBindings.Clear();
+            guardedBinaryMatches.Clear();
             if (!hasFailureEpilogue)
             {
                 if (tupleFallback is { } fallback)
@@ -11847,7 +11851,15 @@ internal sealed partial class BeamModuleCompiler
 
             int failure = Label();
             int done = Label();
-            Pattern(match.Pattern, matched, failure);
+            if (match.Pattern is BitPattern bits && guardedBinaryMatches.Contains(match))
+            {
+                EmitFixedBitPattern(bits, matched, failure, knownBinary: true);
+            }
+            else
+            {
+                Pattern(match.Pattern, matched, failure);
+            }
+
             if (returnValue)
             {
                 Load(matched);

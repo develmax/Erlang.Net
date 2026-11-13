@@ -372,7 +372,8 @@ internal sealed partial class BeamModuleCompiler
             BitPattern pattern,
             int value,
             int failure,
-            IReadOnlyDictionary<string, int>? registerCaptures = null
+            IReadOnlyDictionary<string, int>? registerCaptures = null,
+            bool knownBinary = false
         )
         {
             for (int index = 0; index < pattern.Segments.Count; index++)
@@ -381,7 +382,7 @@ internal sealed partial class BeamModuleCompiler
                 if (FixedSize(segment) is null
                     && !(index == pattern.Segments.Count - 1 && segment is { Type: BitSegmentTypes.Binary, Size: null }))
                 {
-                    EmitSequentialBitPattern(pattern, value, failure);
+                    EmitSequentialBitPattern(pattern, value, failure, knownBinary);
                     return;
                 }
             }
@@ -457,8 +458,10 @@ internal sealed partial class BeamModuleCompiler
 
             bool receiving = owner.receiveScratchRegisters is not null;
             int context = receiving || registerCaptures is not null ? 0 : 1;
-            EmitBitMatchStart(context, failure);
-            EmitBitMatchHeader(context, failure, operandCount + (tailUnit is null ? 2 : 3), fixedWidth, tailUnit);
+            EmitBitMatchStart(context, failure, knownBinary);
+            EmitBitMatchHeader(context, failure, operandCount + (tailUnit is null ? 2 : 3), fixedWidth,
+                knownBinary && tailUnit == BitSyntaxDefaults.BinaryUnit && fixedWidth % BitSyntaxDefaults.BinaryUnit == 0
+                    ? BitSyntaxDefaults.BitStringUnit : tailUnit);
             var captures = new List<(Pattern Value, int Slot)>();
             int? receiveTail = null;
             int registerLive = 1;
@@ -581,11 +584,48 @@ internal sealed partial class BeamModuleCompiler
             return specification is { Type: BitSegmentTypes.Integer, Size: null } ? BitSyntaxDefaults.IntegerWidth : null;
         }
 
-        private void EmitBitMatchStart(int context, int failure)
+        private HashSet<Expr.Match> ReadGuardedBinaryMatches(Expr body, Expr? guard)
         {
-            owner.Op(StartBinaryMatch, LabelTag, failure);
-            owner.Operand(XRegisterTag, 0);
-            owner.Operand(BeamWire.UnsignedTag, Math.Max(1, ReceiveGuardLiveRegisters));
+            var matches = new HashSet<Expr.Match>(ReferenceEqualityComparer.Instance);
+            if (guard is null)
+            {
+                return matches;
+            }
+
+            var binaries = PredicateConjuncts(guard).OfType<Expr.Call>()
+                .Where(call => call is { Module: null or ErlangModuleNames.Module, DynamicRemote: false,
+                    Function: AutoImportNames.IsBinary } && owner.ResolvesErlangBif(call))
+                .SelectMany(call => call.Arguments is [Expr.Variable variable] ? new[] { variable.Name } : [])
+                .ToHashSet(StringComparer.Ordinal);
+            IReadOnlyList<Expr> items = body is Expr.Sequence sequence ? sequence.Items : [body];
+            foreach (Expr item in items)
+            {
+                if (item is Expr.Match { Pattern: BitPattern, Value: Expr.Variable input } match
+                    && binaries.Contains(input.Name))
+                {
+                    matches.Add(match);
+                }
+            }
+
+            return matches;
+        }
+
+        private void EmitBitMatchStart(int context, int failure, bool knownBinary = false)
+        {
+            int live = Math.Max(1, ReceiveGuardLiveRegisters);
+            if (knownBinary)
+            {
+                owner.Op(StartBinaryMatchKnown, AtomTag, owner.Intern("no_fail"));
+                owner.Operand(BeamWire.UnsignedTag, live);
+                owner.Operand(XRegisterTag, 0);
+            }
+            else
+            {
+                owner.Op(StartBinaryMatch, LabelTag, failure);
+                owner.Operand(XRegisterTag, 0);
+                owner.Operand(BeamWire.UnsignedTag, live);
+            }
+
             owner.Operand(XRegisterTag, context);
         }
 

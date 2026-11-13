@@ -331,6 +331,7 @@ internal static class BeamModuleEmissionChecks
         await CompareGeneralFixedBitPatterns();
         await CompareBinaryTailRecursion();
         await CompareBinaryArgumentProof();
+        await CompareGuardedBinaryBodyMatch();
         await CompareInlineLocalBindings();
         await CompareGeneralNumericEquality();
         await CompareGeneralSubtraction();
@@ -3404,6 +3405,56 @@ internal static class BeamModuleEmissionChecks
         }
     }
 
+    private static async Task CompareGuardedBinaryBodyMatch()
+    {
+        const string source = """
+            -module(beam_guarded_body_binary).
+            -export([split/2, optional/2]).
+            split(Bin, Count) when is_binary(Bin), is_integer(Count) ->
+                <<Part:Count/binary, Tail/binary>> = Bin,
+                {Part,Tail}.
+            optional(Bin, Count) when is_binary(Bin); is_atom(Bin) ->
+                <<Part:Count/binary, Tail/binary>> = Bin,
+                {Part,Tail}.
+            """;
+        BeamModule image = BeamModule.Prepare(CodeGeneration.CompileBeamModule(source, "beam_guarded_body_binary.erl"));
+        await using var runtime = new ProcessRuntime();
+        Term? actual = null;
+        var input = new BitString([1, 2]);
+        var shortInput = new BitString([1]);
+        var atom = Term.A("atom");
+        ProcessHandle process = runtime.Spawn(async context =>
+        {
+            Term split = await image.Invoke(context, "split", input, Term.I(1));
+            Term shortFailure = await Failure("split", shortInput, 2);
+            Term atomFailure = await Failure("optional", atom, 1);
+            actual = Term.Tuple(split, shortFailure, atomFailure);
+
+            return actual;
+
+            async Task<Term> Failure(string function, Term value, int count)
+            {
+                try
+                {
+                    return await image.Invoke(context, function, value, Term.I(count));
+                }
+                catch (ErlangException error)
+                {
+                    return error.Reason;
+                }
+            }
+        });
+        Term exit = await process.Completion.WaitAsync(TimeSpan.FromSeconds(10));
+        Term expected = Term.Tuple(
+            Term.Tuple(shortInput, new BitString([2])),
+            Term.Tuple(Term.A("badmatch"), shortInput),
+            Term.Tuple(Term.A("badmatch"), atom)
+        );
+        if (!expected.Equals(actual))
+        {
+            throw new InvalidOperationException($"Guarded binary body match returned {actual}, exit {exit}.");
+        }
+    }
     private static async Task CompareGeneralFixedBitPatterns()
     {
         const string source = """

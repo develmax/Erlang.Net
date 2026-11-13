@@ -6,11 +6,11 @@ internal sealed partial class BeamModuleCompiler
 {
     private sealed partial class GeneralEmitter
     {
-        private void EmitSequentialBitPattern(BitPattern pattern, int value, int failure)
+        private void EmitSequentialBitPattern(BitPattern pattern, int value, int failure, bool knownBinary)
         {
             int context = Slot();
             Load(value);
-            EmitBitMatchStart(0, failure);
+            EmitBitMatchStart(0, failure, knownBinary);
             owner.MoveRegister(XRegisterTag, 0, YRegisterTag, context);
 
             for (int index = 0; index < pattern.Segments.Count; index++)
