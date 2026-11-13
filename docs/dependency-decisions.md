@@ -1,5 +1,7 @@
 # Dependency and compatibility decisions
 
+Parts 1526 and 1527 reuse OTP call result contracts, the tuple projection emitter and the entry selector save plan. No dependency was added. [Evidence](validation/part-1526/README.md).
+
 Part 1525 reuses the tuple projection, entry selector, tuple construction, and local atom proof from the compiler. The OTP release instructions and pre-codegen source provide the reference. No dependency was added. [Evidence](validation/part-1525/README.md).
 
 Part 1524 reuses the register case call-sequence planner, tuple projection, and OTP 29.1.1 pre-codegen liveness as the reference for choosing stack slots. No dependency was added. [Evidence](validation/part-1524/README.md).

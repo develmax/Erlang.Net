@@ -1,5 +1,7 @@
 # Project progress
 
+Parts 1526 and 1527 remove proven atom tests and keep an outer return argument live in terminal tuple cases. Twenty-one functions gain normalized instruction equality across the two runs. The full corpus generates 1,366 images with 387 Equal and 979 Different. [Part 1526](validation/part-1526/README.md) · [Part 1527](validation/part-1527/README.md).
+
 Part 1525 constructs terminal tuple case results from X registers. Twelve release images change and nine functions match OTP frame sizes. The full corpus generates all 1,366 images with 387 Equal and 979 Different. [Evidence](validation/part-1525/README.md).
 
 Part 1524 keeps a short-lived tuple field in X0 through the next call and reuses the register case call-sequence planner. One release function reaches normalized instruction equality. All 1,366 sources compile, with 387 Equal and 979 Different. [Evidence](validation/part-1524/README.md).

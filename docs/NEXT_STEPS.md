@@ -1,6 +1,6 @@
 # Next steps
 
-Continue the shared terminal case register plan. Match known atom alternatives of tuple-or-atom BIFs and type saved exact-comparison operands when all call sites prove the type. Then extend the same plan to variable returns and effectful continuations. The latest full corpus shows oversized allocations first in 882 modules. [Evidence](validation/part-1525/README.md).
+Extend terminal tuple-case liveness to effectful call sequences. Carry saved operand types through protected call sites where the existing analysis currently loses them. Compare the full corpus and measure the oversized frame group. [Evidence](validation/part-1527/README.md).
 
 Rank terminal operator emission by specific operator and operand forms. The previous audit finds 56 terminal operator bodies across 43 modules. Prioritize branch-local liveness that can also close a near match, starting with the integer branch and binary construction in `ssh_bits:mpint/1` and the guarded projections in `prim_buffer:read_iovec/2`. [Operator audit](validation/part-1509/first-call-spills-after.txt) · [Nearest images](validation/part-1523/nearest.txt).
 
