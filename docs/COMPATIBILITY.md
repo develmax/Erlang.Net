@@ -1,5 +1,7 @@
 # Compatibility overview
 
+Part 1584 verifies dynamic splits followed by local tail calls against a deterministic OTP image. [Evidence](validation/part-1584/README.md).
+
 Part 1583 verifies guarded binary split emission against a deterministic OTP image. [Evidence](validation/part-1583/README.md).
 
 Part 1582 emits no_fail for guarded binary body matches. OTP accepts all 976 differing release images for loading. [Evidence](validation/part-1582/README.md).

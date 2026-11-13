@@ -1,5 +1,7 @@
 # Next steps
 
+Measure binary capture lifetimes across subsequent calls and reduce branch frames. [Evidence](validation/part-1584/README.md).
+
 Measure dynamic binary splits in body continuations and across calls. [Inventory](validation/part-1583/split-inventory.txt).
 
 Align register allocation for proven dynamic binary splits, including extraction, tail materialization and failure blocks. [Evidence](validation/part-1582/README.md).
