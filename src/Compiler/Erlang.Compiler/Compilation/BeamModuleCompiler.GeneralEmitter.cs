@@ -13103,14 +13103,23 @@ internal sealed partial class BeamModuleCompiler
                 owner.EmitTypedRegister(0, AtomTypeBits);
                 owner.LiteralOperand(caughtClass);
                 variables = new(original, StringComparer.Ordinal);
-                if (reads.Contains(caughtReason.Name))
+                if (simpleCatch.Body is Expr.Tuple tupleResult
+                    && ReadCaseTuple(tupleResult, caughtReason.Name, original, selectorRegister: 1) is { UsesSelector: true } tuplePlan)
                 {
-                    int reasonSlot = Slot();
-                    owner.MoveRegister(XRegisterTag, 1, YRegisterTag, reasonSlot);
-                    variables.Add(caughtReason.Name, reasonSlot);
+                    EmitCaseTuple(tuplePlan with { EntryLive = Math.Max(2, ReceiveGuardLiveRegisters) });
+                }
+                else
+                {
+                    if (reads.Contains(caughtReason.Name))
+                    {
+                        int reasonSlot = Slot();
+                        owner.MoveRegister(XRegisterTag, 1, YRegisterTag, reasonSlot);
+                        variables.Add(caughtReason.Name, reasonSlot);
+                    }
+
+                    Expression(simpleCatch.Body, null);
                 }
 
-                Expression(simpleCatch.Body, null);
                 JumpTo(done);
                 Mark(unmatched);
                 owner.Op(Raise, XRegisterTag, 2);
