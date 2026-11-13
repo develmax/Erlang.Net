@@ -55,6 +55,7 @@ internal static class BeamModuleEmissionChecks
             "beam_matched_tail_argument",
             "beam_rebuild_binary",
             "beam_fixed_literal_prefix",
+            "beam_binary_tail_recursion",
             "beam_case_tuple_sequence_probe",
             "beam_case_constructor_spill_probe",
             "beam_tuple_arity_fallback_probe",
@@ -328,6 +329,7 @@ internal static class BeamModuleEmissionChecks
         await CompareGeneratedBehaviourInfo();
         await CompareGeneralListQualifiers();
         await CompareGeneralFixedBitPatterns();
+        await CompareBinaryTailRecursion();
         await CompareInlineLocalBindings();
         await CompareGeneralNumericEquality();
         await CompareGeneralSubtraction();
@@ -3337,6 +3339,33 @@ internal static class BeamModuleEmissionChecks
         if (!Term.Tuple(Term.I(1), Term.I(2), Term.A("outer")).Equals(result))
         {
             throw new InvalidOperationException($"Inline local bindings returned {result}, exit {exit}.");
+        }
+    }
+
+    private static async Task CompareBinaryTailRecursion()
+    {
+        const string file = "beam_binary_tail_recursion.erl";
+        string source = Encoding.UTF8.GetString(Read(file));
+        BeamModule image = BeamModule.Prepare(CodeGeneration.CompileBeamModule(source, file));
+        await using var runtime = new ProcessRuntime();
+        Term? actual = null;
+        var unaligned = new BitString([32, 128], 9);
+        Term atom = Term.A("atom");
+        ProcessHandle process = runtime.Spawn(async context =>
+        {
+            Term trimmed = await image.Invoke(context, "trim", new BitString([9, 32, 13, 10, 65, 66]));
+            Term empty = await image.Invoke(context, "trim", new BitString([32, 9]));
+            Term bitstring = await image.Invoke(context, "trim", unaligned);
+            Term passthrough = await image.Invoke(context, "trim", atom);
+            actual = Term.Tuple(trimmed, empty, bitstring, passthrough);
+
+            return actual;
+        });
+        Term exit = await process.Completion.WaitAsync(TimeSpan.FromSeconds(10));
+        Term expected = Term.Tuple(new BitString([65, 66]), new BitString([]), unaligned, atom);
+        if (!expected.Equals(actual))
+        {
+            throw new InvalidOperationException($"Binary tail recursion returned {actual}, exit {exit}.");
         }
     }
 
