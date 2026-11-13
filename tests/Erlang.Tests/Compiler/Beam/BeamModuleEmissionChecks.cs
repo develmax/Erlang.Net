@@ -54,6 +54,7 @@ internal static class BeamModuleEmissionChecks
             "beam_case_call_sequence_probe",
             "beam_matched_tail_argument",
             "beam_rebuild_binary",
+            "beam_fixed_literal_prefix",
             "beam_case_tuple_sequence_probe",
             "beam_case_constructor_spill_probe",
             "beam_tuple_arity_fallback_probe",

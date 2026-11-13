@@ -189,7 +189,90 @@ internal sealed partial class BeamModuleCompiler
                 }
             }
         }
-        private void EmitFixedBitPattern(BitPattern pattern, int value, int failure)
+        private bool TryEmitFixedBitTuple(FunctionDefinition function)
+        {
+            if (function.Clauses is not [
+                { Guard: null, Patterns: [BitPattern pattern], Body: Expr.Tuple result },
+                { Guard: null, Patterns: [Pattern.Variable { }], Body: var fallback }
+                ] || !AttributeLiteral.TryNormalizeConstant(fallback, out Term constant))
+            {
+                return false;
+            }
+
+            int width = 0;
+            var registers = new Dictionary<string, int>(StringComparer.Ordinal);
+            int nextRegister = 1;
+            for (int index = 0; index < pattern.Segments.Count; index++)
+            {
+                var (value, specification) = pattern.Segments[index];
+                bool tail = index == pattern.Segments.Count - 1
+                    && specification is { Type: BitSegmentTypes.Binary, Size: null };
+                if (!tail)
+                {
+                    if (FixedSize(specification) is not int size
+                        || size * specification.Unit > int.MaxValue - width)
+                    {
+                        return false;
+                    }
+
+                    width += size * specification.Unit;
+                    if (ReadFixedBitEquality(pattern.Segments[index], size * specification.Unit) is not null)
+                    {
+                        continue;
+                    }
+                }
+
+                if (IsWildcard(value))
+                {
+                    continue;
+                }
+
+                if (value is not Pattern.Variable capture || !registers.TryAdd(capture.Name, tail ? 0 : nextRegister++))
+                {
+                    return false;
+                }
+            }
+
+            if (registers.Count == 0 || nextRegister >= FirstReservedXRegister
+                || result.Items.Any(item => item is Expr.Variable variable
+                    ? !registers.ContainsKey(variable.Name)
+                    : !AttributeLiteral.TryNormalizeConstant(item, out _)))
+            {
+                return false;
+            }
+
+            int failure = Label();
+            EmitFixedBitPattern(pattern, 0, failure, registers);
+            owner.Op(TestHeap, BeamWire.UnsignedTag, result.Items.Count + 1);
+            owner.Operand(BeamWire.UnsignedTag, nextRegister);
+            owner.EmitTupleHeader(XRegisterTag, result.Items.Count);
+            foreach (Expr item in result.Items)
+            {
+                if (item is Expr.Variable variable)
+                {
+                    owner.Operand(XRegisterTag, registers[variable.Name]);
+                }
+                else
+                {
+                    AttributeLiteral.TryNormalizeConstant(item, out Term literal);
+                    owner.LiteralOperand(literal);
+                }
+            }
+
+            owner.instructions.WriteByte(Return);
+            Mark(failure);
+            owner.EmitConstant(constant, 0);
+            owner.instructions.WriteByte(Return);
+
+            return true;
+        }
+
+        private void EmitFixedBitPattern(
+            BitPattern pattern,
+            int value,
+            int failure,
+            IReadOnlyDictionary<string, int>? registerCaptures = null
+        )
         {
             for (int index = 0; index < pattern.Segments.Count; index++)
             {
@@ -266,13 +349,18 @@ internal sealed partial class BeamModuleCompiler
                 }
             }
 
-            Load(value);
+            if (registerCaptures is null)
+            {
+                Load(value);
+            }
+
             bool receiving = owner.receiveScratchRegisters is not null;
-            int context = receiving ? 0 : 1;
+            int context = receiving || registerCaptures is not null ? 0 : 1;
             EmitBitMatchStart(context, failure);
             EmitBitMatchHeader(context, failure, operandCount + (tailUnit is null ? 2 : 3), fixedWidth, tailUnit);
             var captures = new List<(Pattern Value, int Slot)>();
             int? receiveTail = null;
+            int registerLive = 1;
             for (int index = 0; index < pattern.Segments.Count; index++)
             {
                 var segment = pattern.Segments[index];
@@ -296,13 +384,18 @@ internal sealed partial class BeamModuleCompiler
                 }
 
                 int live = owner.receiveScratchRegisters is null ? 2 : ReceiveGuardLiveRegisters;
-                int slot = Slot();
+                int slot = registerCaptures is null ? Slot() : registerCaptures[((Pattern.Variable)segment.Value).Name];
+                if (registerCaptures is not null)
+                {
+                    live = registerLive;
+                }
+
                 if (tail)
                 {
                     owner.Operand(AtomTag, owner.Intern(ReadBinaryTail));
                     owner.Operand(BeamWire.UnsignedTag, live);
                     owner.Operand(BeamWire.UnsignedTag, specification.Unit);
-                    owner.Operand(receiving ? XRegisterTag : YRegisterTag, receiving ? context : slot);
+                    owner.Operand(receiving || registerCaptures is not null ? XRegisterTag : YRegisterTag, receiving ? context : slot);
                     if (receiving)
                     {
                         receiveTail = slot;
@@ -310,9 +403,17 @@ internal sealed partial class BeamModuleCompiler
                 }
                 else
                 {
-                    EmitBitSegment(specification, sizes[index], live, YRegisterTag, slot);
+                    EmitBitSegment(specification, sizes[index], live, registerCaptures is null ? YRegisterTag : XRegisterTag, slot);
                 }
-                captures.Add((segment.Value, slot));
+
+                if (registerCaptures is null)
+                {
+                    captures.Add((segment.Value, slot));
+                }
+                else
+                {
+                    registerLive = Math.Max(registerLive, slot + 1);
+                }
             }
 
             if (receiveTail is int destination)
