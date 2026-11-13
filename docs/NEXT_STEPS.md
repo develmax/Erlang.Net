@@ -1,5 +1,7 @@
 # Next steps
 
+Extend terminal try lowering to tuple success patterns and constant fallbacks. Compare remaining shapes against the corpus. [Evidence](validation/part-1571/README.md).
+
 Align return placement and frame allocation around try branches. Measure common shapes across the full corpus. [Disassembly](validation/part-1570/run-after.txt).
 
 Reuse the catch reason from X1 in simple return constructors and align the surrounding branch layout with OTP. [Disassembly](validation/part-1569/run-after.txt).

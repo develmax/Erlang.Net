@@ -1,5 +1,7 @@
 # Compatibility overview
 
+Part 1571 aligns six normalized functions in prim_inet. OTP accepts all 976 differing images for loading. [Evidence](validation/part-1571/README.md).
+
 Part 1570 changes 39 release images. OTP accepts all 976 differing images for loading. [Evidence](validation/part-1570/README.md).
 
 Part 1569 changes 179 release images. OTP accepts all 976 differing images for loading. [Evidence](validation/part-1569/README.md).

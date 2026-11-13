@@ -1,5 +1,7 @@
 # Dependency and compatibility decisions
 
+Part 1571 reuses the tuple planner and pinned OTP tuple and rethrow lowering. No dependency was added. [Evidence](validation/part-1571/README.md).
+
 Part 1570 reuses the existing case tuple planner for exception register operands. No dependency was added. [Evidence](validation/part-1570/README.md).
 
 Part 1569 reuses lexical reference analysis and exception register emission from the pinned OTP model. No dependency was added. [Evidence](validation/part-1569/README.md).
