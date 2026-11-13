@@ -1,5 +1,7 @@
 # Next steps
 
+Coalesce checked tuple projections with their stack spills and measure slot relocation before trimming. [Disassembly](validation/part-1589/wx-two-arguments.txt).
+
 Inspect the wx_misc instruction delta and extend liveness-based frame allocation across entry pattern projections. [Evidence](validation/part-1588/README.md).
 
 Measure live inputs across straight-line calls and compare frame allocation with OTP. [Evidence](validation/part-1587/README.md).

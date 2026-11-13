@@ -1,5 +1,7 @@
 # Compatibility overview
 
+Part 1589 verifies constant-result tail calls, including exception propagation and mixed callee results. [Evidence](validation/part-1589/README.md).
+
 Part 1588 matches the deterministic guarded call chain and verifies entry guard failures. [Evidence](validation/part-1588/README.md).
 
 Part 1587 verifies entry result forwarding across the catch boundary. [Evidence](validation/part-1587/README.md).
