@@ -1,5 +1,7 @@
 # Compatibility overview
 
+Part 1595 verifies direct entry tuple projection and the full erl_abstract_code release image. [Evidence](validation/part-1595/README.md).
+
 Part 1594 verifies entry atom dispatch and fallback after a selected tuple check. [Evidence](validation/part-1594/README.md).
 
 Part 1593 verifies omission of unused entry projections while preserving guards and repeated bindings. [Evidence](validation/part-1593/README.md).

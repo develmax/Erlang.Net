@@ -1,5 +1,7 @@
 # Next steps
 
+Rank the remaining frame allocation and entry projection differences against the updated corpus. [Evidence](validation/part-1595/README.md).
+
 Write entry tuple fields directly to live X and Y operands after shape checks. [Evidence](validation/part-1594/README.md).
 
 Align entry atom dispatch and direct Y projection for the remaining debug_info/4 differences. [Evidence](validation/part-1593/README.md).

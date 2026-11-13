@@ -1,5 +1,7 @@
 # Project progress
 
+Part 1595 matches erl_abstract_code byte for byte. All 1,366 images generate with 392 Equal and 974 Different. [Evidence](validation/part-1595/README.md).
+
 Part 1594 groups adjacent entry atom clauses. All 1,366 images generate with 391 Equal and 975 Different. [Evidence](validation/part-1594/README.md).
 
 Part 1593 removes unused entry tuple projections. All 1,366 images generate with 391 Equal and 975 Different. [Evidence](validation/part-1593/README.md).
