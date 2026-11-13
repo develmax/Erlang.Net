@@ -1,5 +1,7 @@
 # Project progress
 
+Part 1591 matches wx_misc byte for byte. All 1,366 images generate with 391 Equal and 975 Different. [Evidence](validation/part-1591/README.md).
+
 Part 1590 writes live checked tuple fields straight into stack slots. All 1,366 images generate with 390 Equal and 976 Different. [Evidence](validation/part-1590/README.md).
 
 Part 1589 tail-calls local functions with proven constant results. All 1,366 images generate with 390 Equal and 976 Different. [Evidence](validation/part-1589/README.md).

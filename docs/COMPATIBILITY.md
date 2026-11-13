@@ -1,5 +1,7 @@
 # Compatibility overview
 
+Part 1591 verifies checked-call frame relocation and the full wx_misc release image. [Evidence](validation/part-1591/README.md).
+
 Part 1590 verifies direct checked tuple projections and the original badmatch value. [Evidence](validation/part-1590/README.md).
 
 Part 1589 verifies constant-result tail calls, including exception propagation and mixed callee results. [Evidence](validation/part-1589/README.md).

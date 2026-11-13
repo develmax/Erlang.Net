@@ -1,3 +1,5 @@
+Part 1591 closes the wx_misc frame relocation gap and matches the full release image.
+
 Part 1590 aligns the checked wx_misc tuple projection. Stack relocation and trim instructions still differ. [Evidence](validation/part-1590/README.md).
 
 Part 1589 matches the wx_misc wrapper instructions. The two-argument function still differs in projection and stack-frame trimming. [Evidence](validation/part-1589/README.md).

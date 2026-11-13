@@ -1,5 +1,7 @@
 # Next steps
 
+Measure other checked-call sequences with live stack values that can be relocated before trimming. [Evidence](validation/part-1591/README.md).
+
 Relocate retained stack values before trimming dead inputs in checked call chains. [Disassembly](validation/part-1590/wx-two-arguments.txt).
 
 Coalesce checked tuple projections with their stack spills and measure slot relocation before trimming. [Disassembly](validation/part-1589/wx-two-arguments.txt).
