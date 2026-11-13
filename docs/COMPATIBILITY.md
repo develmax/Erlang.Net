@@ -1,5 +1,7 @@
 # Compatibility overview
 
+Part 1560 aligns the instructions in test_server_ctrl:html_convert_modules/3 after label normalization. OTP accepts all 976 differing images for loading. [Evidence](validation/part-1560/README.md).
+
 Part 1559 aligns six normalized functions in four modules. OTP accepts all 976 differing images for loading. [Evidence](validation/part-1559/README.md).
 
 Part 1558 aligns the normalized instructions in pubkey_cert:current_any_policy_qualifiers/1. OTP accepts all 976 differing images for loading. [Evidence](validation/part-1558/README.md).
