@@ -18,6 +18,8 @@ internal sealed partial class BeamModuleCompiler
 
             var parameters = clause.Patterns.Cast<Pattern.Variable>().Select(parameter => parameter.Name).ToArray();
             var paths = new List<TupleProjectionStep[]>();
+            (Expr.Tuple Tuple, string Payload)? tupleReturn = null;
+            CaseTuplePlan? tupleResult = null;
             Term? fallback = null;
             bool returnSelector = false;
             Atom? fallbackAtom = null;
@@ -29,6 +31,20 @@ internal sealed partial class BeamModuleCompiler
                     && ReadTupleProjection(pattern, returned.Name, parameters) is { } path)
                 {
                     paths.Add(path);
+                }
+                else if (decision.Clauses.Count == 2
+                    && arm is { Guard: null, Patterns: [Pattern.Tuple tuplePattern], Body: Expr.Tuple tuple })
+                {
+                    var projected = Semantics.Variables(tuplePattern).Where(name => !parameters.Contains(name))
+                        .Intersect(LocalFunctionEntries.Walk(tuple).OfType<Expr.Variable>().Select(variable => variable.Name))
+                        .ToArray();
+                    if (projected is not [var payload] || ReadTupleProjection(tuplePattern, payload, parameters) is not { } tuplePath)
+                    {
+                        return false;
+                    }
+
+                    paths.Add(tuplePath);
+                    tupleReturn = (tuple, payload);
                 }
                 else if (arm is { Guard: null, Patterns: [AliasPattern alias], Body: Expr.Variable whole }
                     && TryReadPatternAlias(alias, out var tupleAlias, out var shape)
@@ -79,7 +95,7 @@ internal sealed partial class BeamModuleCompiler
                 }
             }
 
-            if (paths.Count == 0 || fallbackAtom is not null && paths.Count != 1)
+            if (paths.Count == 0 || fallbackAtom is not null && paths.Count != 1 || tupleReturn is not null && fallbackAtom is null)
             {
                 return false;
             }
@@ -93,10 +109,26 @@ internal sealed partial class BeamModuleCompiler
             }
 
             int[] inputs = paths.SelectMany(path => path).SelectMany(step => step.Checks)
-                .Select(check => check.Input).Distinct().OrderDescending().ToArray();
+                .Select(check => check.Input)
+                .Concat(tupleReturn is { } construction
+                    ? LocalFunctionEntries.Walk(construction.Tuple).OfType<Expr.Variable>()
+                        .Select(variable => Array.IndexOf(parameters, variable.Name)).Where(index => index >= 0)
+                    : [])
+                .Distinct().OrderDescending().ToArray();
             if (ReadEntrySelector(producer, parameters, inputs, trimFrame: false) is not { } selector)
             {
                 return false;
+            }
+
+            if (tupleReturn is { } returnedTuple)
+            {
+                var saved = selector.Saved.Select((index, slot) => (parameters[index], slot))
+                    .ToDictionary(binding => binding.Item1, binding => binding.slot, StringComparer.Ordinal);
+                tupleResult = ReadCaseTuple(returnedTuple.Tuple, returnedTuple.Payload, saved);
+                if (tupleResult is null)
+                {
+                    return false;
+                }
             }
 
             int frame = selector.FrameSize - EmitEntrySelector(selector, producer, parameters);
@@ -123,7 +155,7 @@ internal sealed partial class BeamModuleCompiler
 
                 int register = fallback is not null && fallbackAtom is null ? 0 : 1;
                 EmitTupleProjection(paths[0], 0, register, failure, selectorType, inputs, frame,
-                    shapeChecked: fallbackAtom is not null);
+                    shapeChecked: fallbackAtom is not null, result: tupleResult);
                 if (fallbackAtom is not null)
                 {
                     Mark(alternative);
@@ -305,7 +337,8 @@ internal sealed partial class BeamModuleCompiler
             int selectorType,
             int[] inputs,
             int frame,
-            bool shapeChecked = false
+            bool shapeChecked = false,
+            CaseTuplePlan? result = null
         )
         {
             TupleProjectionStep[] steps = path.ToArray();
@@ -333,7 +366,12 @@ internal sealed partial class BeamModuleCompiler
                     EmitTupleShapeTest(XRegisterTag, input, step.Arity, failure, selectorType);
                 }
 
-                EmitProjectionChecks(step, input, failure, inputs);
+                EmitProjectionChecks(step, input, failure, inputs, typed: result is not null);
+                if (result is not null && index == steps.Length - 1)
+                {
+                    EmitCaseTuple(result with { EntryLive = input + 1 }, (step.Field, 0), extractionSource: input);
+                    break;
+                }
                 if (step.Field >= 0)
                 {
                     owner.EmitTuplePart(input, step.Field, index == steps.Length - 1 ? 0 : scratch);
@@ -347,7 +385,13 @@ internal sealed partial class BeamModuleCompiler
             owner.EmitFrameReturn(frame);
         }
 
-        private void EmitProjectionChecks(TupleProjectionStep step, int input, int failure, int[] inputs)
+        private void EmitProjectionChecks(
+            TupleProjectionStep step,
+            int input,
+            int failure,
+            int[] inputs,
+            bool typed = false
+        )
         {
             int scratch = input == 1 ? 2 : 1;
             foreach (var check in step.Checks)
@@ -355,7 +399,16 @@ internal sealed partial class BeamModuleCompiler
                 owner.EmitTuplePart(input, check.Field, scratch);
                 owner.Op(ExactEqualTest, LabelTag, failure);
                 owner.Operand(XRegisterTag, scratch);
-                owner.Operand(YRegisterTag, Array.IndexOf(inputs, check.Input));
+                int slot = Array.IndexOf(inputs, check.Input);
+                int type = typed && parentFunction is { } function ? ReadAtomEntryType(function, check.Input) : 0;
+                if (type != 0)
+                {
+                    owner.EmitTypedRegister(slot, type, registerTag: YRegisterTag);
+                }
+                else
+                {
+                    owner.Operand(YRegisterTag, slot);
+                }
             }
         }
     }

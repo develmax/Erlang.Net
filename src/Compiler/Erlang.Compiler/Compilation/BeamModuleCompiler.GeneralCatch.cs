@@ -2582,14 +2582,15 @@ internal sealed partial class BeamModuleCompiler
             (int Field, int Register)? extraction = null,
             int trimmed = 0,
             IReadOnlyDictionary<int, int>? relocated = null,
-            (int Slot, int Field)? deferred = null
+            (int Slot, int Field)? deferred = null,
+            int extractionSource = 0
         )
         {
             owner.Op(TestHeap, BeamWire.UnsignedTag, tuple.HeapWords);
             owner.Operand(BeamWire.UnsignedTag, tuple.EntryLive ?? (tuple.UsesSelector ? tuple.SelectorRegister + 1 : extraction is not null ? 1 : 0));
             if (extraction is { } field)
             {
-                owner.EmitTuplePart(0, field.Field, field.Register);
+                owner.EmitTuplePart(extractionSource, field.Field, field.Register);
             }
 
             if (deferred is { } saved)
