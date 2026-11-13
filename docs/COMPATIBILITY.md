@@ -1,5 +1,7 @@
 # Compatibility overview
 
+Part 1597 verifies allocation for direct function value calls with a byte-identical fixture and a matching lifted release closure. [Evidence](validation/part-1597/README.md).
+
 Part 1596 verifies entry call allocation liveness with a byte-identical list fixture. [Evidence](validation/part-1596/README.md).
 
 Part 1595 verifies direct entry tuple projection and the full erl_abstract_code release image. [Evidence](validation/part-1595/README.md).

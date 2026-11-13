@@ -1,3 +1,5 @@
+Part 1597 aligns allocate in the lifted normalize closure in xmerl_xpath_pred. Whole-module differences remain. [Evidence](validation/part-1597/README.md).
+
 Part 1596 aligns allocation operands in thirteen release functions. Whole-module differences remain.
 
 Part 1595 matches the complete erl_abstract_code release image. [Evidence](validation/part-1595/README.md).

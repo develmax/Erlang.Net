@@ -1,5 +1,7 @@
 # Next steps
 
+Measure the remaining entry-frame differences by frame size and placement, then prioritize the patterns with the most affected modules. [Evidence](validation/part-1597/README.md).
+
 Extend the measured allocation liveness rules to additional entry paths and lifted closures. [Evidence](validation/part-1596/README.md).
 
 Rank the remaining frame allocation and entry projection differences against the updated corpus. [Evidence](validation/part-1595/README.md).
