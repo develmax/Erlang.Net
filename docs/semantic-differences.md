@@ -1,3 +1,5 @@
+Part 1583 matches the direct guarded split fixture. The rule changed zero release images. [Evidence](validation/part-1583/README.md).
+
 Part 1582 aligns the guarded body match entry opcode. Frame allocation and capture registers still differ. [Evidence](validation/part-1582/README.md).
 
 Part 1581 aligns the normalized instructions in ct_netconfc:trim/1. The full image still differs. [Evidence](validation/part-1581/README.md).

@@ -1,5 +1,7 @@
 # Next steps
 
+Measure dynamic binary splits in body continuations and across calls. [Inventory](validation/part-1583/split-inventory.txt).
+
 Align register allocation for proven dynamic binary splits, including extraction, tail materialization and failure blocks. [Evidence](validation/part-1582/README.md).
 
 Extend proven binary inputs to body matches and measure context-only callers for resume. [Evidence](validation/part-1581/README.md).

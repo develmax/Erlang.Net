@@ -1,5 +1,7 @@
 # Project progress
 
+Part 1583 matches the guarded binary split fixture byte for byte. The release corpus remains at 390 Equal and 976 Different. [Evidence](validation/part-1583/README.md).
+
 Part 1582 carries binary guard proofs into body matches in eight release images. All 1,366 images generate with 390 Equal and 976 Different. [Evidence](validation/part-1582/README.md).
 
 Part 1581 proves binary arguments for recursive match entries. All 1,366 images generate with 390 Equal and 976 Different. [Evidence](validation/part-1581/README.md).
