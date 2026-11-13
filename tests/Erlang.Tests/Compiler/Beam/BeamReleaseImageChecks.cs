@@ -54,6 +54,7 @@ internal static class BeamReleaseImageChecks
             ("ssl-11.7.7", "ssl_session_cache_api"),
             ("tftp-1.3", "tftp"),
             ("wx-2.7", "wxClipboardTextEvent"),
+            ("wx-2.7", "wx_misc"),
             ("wx-2.7", "wxDisplay"),
             ("wx-2.7", "wxDisplayChangedEvent"),
             ("wx-2.7", "wxInitDialogEvent"),
