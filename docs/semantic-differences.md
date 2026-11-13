@@ -1,3 +1,5 @@
+Part 1587 aligns two megaco_stats functions after label normalization. The complete release image still differs.
+
 Part 1586 reduces the Code size gap in six release images. Their byte comparisons still differ. [Evidence](validation/part-1586/README.md).
 
 Part 1585 reduces the Code size gap in erl_tar and string. Both release images still differ. [Evidence](validation/part-1585/README.md).

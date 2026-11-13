@@ -1,5 +1,7 @@
 # Compatibility overview
 
+Part 1587 verifies entry result forwarding across the catch boundary. [Evidence](validation/part-1587/README.md).
+
 Part 1586 verifies binary matching inside a guarded case arm. [Evidence](validation/part-1586/README.md).
 
 Part 1585 verifies mixed binary captures and skips against five OTP VM outcomes. [Evidence](validation/part-1585/README.md).

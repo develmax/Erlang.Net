@@ -1,5 +1,7 @@
 # Next steps
 
+Measure live inputs across straight-line calls and compare frame allocation with OTP. [Evidence](validation/part-1587/README.md).
+
 Prioritize frame allocation using the normalized first-instruction ranking. Compare live-register and stack-slot assignments with OTP. [Ranking](validation/part-1586/prior-corpus-first-opcode.txt).
 
 Carry binary guard proofs into nested case bodies and measure their impact on dynamic binary matches. [Evidence](validation/part-1585/README.md).
