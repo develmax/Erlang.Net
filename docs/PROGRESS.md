@@ -1,5 +1,7 @@
 # Project progress
 
+Part 1524 keeps a short-lived tuple field in X0 through the next call and reuses the register case call-sequence planner. One release function reaches normalized instruction equality. All 1,366 sources compile, with 387 Equal and 979 Different. [Evidence](validation/part-1524/README.md).
+
 Part 1523 trims the matched tuple arm before its continuation call. Two xmerl functions reach normalized OTP instruction equality. All 1,366 sources compile, with 387 Equal and 979 Different. [Evidence](validation/part-1523/README.md).
 
 Part 1495 reserves the retained-field slot and prepares constructed inner selector arguments. It changes 11 images and brings three frames to the OTP size, with two frames moving farther. The complete corpus has 385 Equal and 981 Different. [Evidence](validation/part-1495/README.md).

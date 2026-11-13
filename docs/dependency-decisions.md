@@ -1,5 +1,7 @@
 # Dependency and compatibility decisions
 
+Part 1524 reuses the register case call-sequence planner, tuple projection, and OTP 29.1.1 pre-codegen liveness as the reference for choosing stack slots. No dependency was added. [Evidence](validation/part-1524/README.md).
+
 Part 1523 reuses tuple projection, input type proofs, ordered call moves, and tuple result emission. OTP 29.1.1 release instructions provide the reference for branch-local trimming. The change adds no dependency. [Evidence](validation/part-1523/README.md).
 
 Part 1495 reuses frame reservation and tuple and list argument construction in the nested selector planner. The pinned `beam_ssa_pre_codegen` source and release disassembly provide the reference. No dependency was added. [Evidence](validation/part-1495/README.md).

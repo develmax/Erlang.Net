@@ -1,5 +1,7 @@
 # Compatibility overview
 
+Part 1524 matches both complete fixture images and 89 runtime observations against OTP. OTP loads all 979 differing generated release images. [Evidence](validation/part-1524/README.md).
+
 Part 1523 matches OTP on 80 fixture observations and on the complete fixture image. OTP loads both images in all 979 differing pairs. [Evidence](validation/part-1523/README.md).
 
 Part 1495 checks fields retained across an inner call and a tuple argument built from the retained value. The pinned OTP VM and both C# builds agree on the tested returns. [Evidence](validation/part-1495/probe.txt).
