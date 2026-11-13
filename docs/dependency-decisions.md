@@ -1,5 +1,7 @@
 # Dependency and compatibility decisions
 
+Part 1565 reuses record expansion and tuple planning and consults OTP 29.1.1 erl_expand_records.erl. No dependency was added. [Evidence](validation/part-1565/README.md).
+
 Part 1564 reuses the saved-call planner and consults OTP 29.1.1 beam_ssa_codegen.erl for call and return emission. No dependency was added. [Evidence](validation/part-1564/README.md).
 
 Part 1563 reuses the existing move scheduler and consults OTP 29.1.1 beam_block.erl. No dependency was added. [Evidence](validation/part-1563/README.md).

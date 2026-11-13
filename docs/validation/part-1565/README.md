@@ -1,0 +1,5 @@
+# Part 1565 — Keep call results in registers when constructing records
+
+The saved-call planner now handles terminal record constructors and records nested inside returned tuples. It expands fields in the existing record order and keeps the final call result in X0 when the constructor can consume it directly. The execution fixture matches six returned values and dictionary observations on OTP. Its direct record return uses one Y slot, down from two. [Fixture](beam_record_call_result.erl) · [Outcomes](fixture.txt) · [Before](run-before.txt) · [After](run-after.txt).
+
+All 1,366 sources were accepted and generated. The comparison found 390 Equal and 976 Different. ELDAPv3 matched from C# ASN.1 generation. Of the 65 changed images, 30 gained at least one matching function. In total, 36 functions gained a complete instruction match after label normalization and none lost one. OTP accepted all 976 differing images for loading. Three focused tests passed. The full runtime suite and canonical readiness were not rerun. [Corpus](otp-corpus.json) · [Function comparison](normalized-functions.txt) · [Loader and Code sizes](loader-and-code.txt) · [Tests](focused.json).

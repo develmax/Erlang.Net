@@ -1,5 +1,7 @@
 # Compatibility overview
 
+Part 1565 aligns 36 normalized functions in 30 modules. OTP accepts all 976 differing images for loading. [Evidence](validation/part-1565/README.md).
+
 Part 1564 aligns seven normalized functions in six modules. OTP accepts all 976 differing images for loading. [Evidence](validation/part-1564/README.md).
 
 Part 1563 aligns normalized instructions in observer_html_lib:expandable_term/4. OTP accepts all 976 differing images for loading. [Evidence](validation/part-1563/README.md).

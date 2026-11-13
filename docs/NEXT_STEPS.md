@@ -1,5 +1,7 @@
 # Next steps
 
+Compare call frames for saved call results consumed by case selectors. Prioritize the local and remote call groups from the corpus audit. [Frame ranking](validation/part-1564/frame-rank.txt).
+
 Compare stack frames for sequences of bound call results followed by constructors or cases. Start with the largest groups in the current corpus audit. [Frame ranking](validation/part-1564/frame-rank.txt).
 
 Re-rank remaining oversized call frames by source shape and prioritize changes that apply across the largest module groups. [Frame ranking](validation/part-1558/baseline-frame-rank.txt).
