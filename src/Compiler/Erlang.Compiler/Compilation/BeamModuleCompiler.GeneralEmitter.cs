@@ -415,7 +415,9 @@ internal sealed partial class BeamModuleCompiler
 
                 return;
             }
-            if (TryEmitRegisterCapturedClosure(function) || TryEmitRoundedCallCase(function))
+            if (function.Clauses.Any(clause => clause.Body is Expr.Call call
+                    && ReadRegisterAppendPrefix(clause, call) is not null) && TryEmitRegisterTailCall(function)
+                || TryEmitRegisterCapturedClosure(function) || TryEmitRoundedCallCase(function))
             {
                 return;
             }
@@ -734,7 +736,9 @@ internal sealed partial class BeamModuleCompiler
 
         private bool TryEmitRegisterTailCall(FunctionDefinition function, bool dispatchOnly = false)
         {
-            var branches = new List<(Expr.Call Target, (byte Opcode, int Register)? Guard, (int? Register, Term? Value)[]? List, (int Register, Atom Tag)? Tuple)>();
+            var branches = new List<(Expr.Call Target, (byte Opcode, int Register)? Guard, (int? Register, Term? Value)[]? List, (int Register, Atom Tag)? Tuple, (int Register, Term[] Heads)? Prefix)>();
+            bool hasAppendPrefix = function.Clauses.Any(clause => clause.Body is Expr.Call call
+                && ReadRegisterAppendPrefix(clause, call) is not null);
             foreach (Clause clause in function.Clauses)
             {
                 if (clause.Body is not Expr.Call { DynamicRemote: false } call)
@@ -765,9 +769,19 @@ internal sealed partial class BeamModuleCompiler
 
                 Expr.Call target = owner.ResolveImportedCall(call, entries);
                 var list = ReadRegisterTailList(clause, target);
-                if (target.Module == ErlangModuleNames.Module
-                    || target.Module is null && !entries.ContainsKey((target.Function, target.Arguments.Count))
-                    || tuple is null && list is null && target.Arguments.Any(argument => argument is Expr.Variable variable
+                var prefix = ReadRegisterAppendPrefix(clause, target);
+                if (hasAppendPrefix && TryResolveOrdinaryCall(target, out string? module,
+                    preparedArgument: prefix is null ? -1 : 0))
+                {
+                    target = target with { Module = module };
+                }
+                else if (prefix is not null || target.Module == ErlangModuleNames.Module)
+                {
+                    return false;
+                }
+
+                if (target.Module is null && !entries.ContainsKey((target.Function, target.Arguments.Count))
+                    || tuple is null && list is null && prefix is null && target.Arguments.Any(argument => argument is Expr.Variable variable
                         ? !parameters.Contains(variable.Name)
                         : !AttributeLiteral.TryNormalizeConstant(argument, out _)))
                 {
@@ -780,7 +794,7 @@ internal sealed partial class BeamModuleCompiler
                     return false;
                 }
 
-                branches.Add((target, guard, list, tuple));
+                branches.Add((target, guard, list, tuple, prefix));
             }
 
             int functionInfo = owner.nextLabel - 2;
@@ -791,7 +805,7 @@ internal sealed partial class BeamModuleCompiler
             bool hasFallback = HasUnconditionalParameters(function.Clauses[^1]);
             int keyCount = branches.Count - (hasFallback ? 1 : 0);
             if (selector >= 0 && keyCount >= 2
-                && branches.All(branch => branch.Guard is null && branch.List is null && branch.Tuple is null)
+                && branches.All(branch => branch.Guard is null && branch.List is null && branch.Tuple is null && branch.Prefix is null)
                 && function.Clauses.Take(keyCount).All(clause =>
                     clause.Patterns[selector] is Pattern.Literal { Value: Atom or Integer }
                     && clause.Patterns.Where((_, index) => index != selector).All(pattern => pattern is Pattern.Variable)))
@@ -921,7 +935,7 @@ internal sealed partial class BeamModuleCompiler
             {
                 Clause clause = function.Clauses[index];
                 bool last = index == function.Clauses.Count - 1;
-                var (target, guard, list, tuple) = branches[index];
+                var (target, guard, list, tuple, prefix) = branches[index];
                 bool hasTests = guard is not null || !HasUnconditionalParameters(clause);
                 int failure = hasTests && !last ? Label() : functionInfo;
                 for (int register = 0; register < clause.Patterns.Count; register++)
@@ -952,6 +966,17 @@ internal sealed partial class BeamModuleCompiler
                 if (tuple is { } pair)
                 {
                     EmitRegisterTupleTail(target, pair.Register, pair.Tag);
+                }
+                else if (prefix is { } append)
+                {
+                    EmitRegisterAppendPrefix(target, append.Register, append.Heads);
+                }
+                else if (target.Module == ErlangModuleNames.Module)
+                {
+                    string[] inputs = clause.Patterns.Select(pattern =>
+                        (pattern as Pattern.Variable)?.Name ?? VariableScopeNames.Wildcard).ToArray();
+                    EmitEntryCallArguments(ReadEntryCall(target, inputs)!);
+                    EmitRegisterTailTarget(target, target.Arguments.Count);
                 }
                 else if (list is null)
                 {

@@ -6,6 +6,67 @@ internal sealed partial class BeamModuleCompiler
 {
     private sealed partial class GeneralEmitter
     {
+        private static (int Register, Term[] Heads)? ReadRegisterAppendPrefix(Clause clause, Expr.Call call)
+        {
+            if (call.Arguments is not [Expr.Binary
+                {
+                    Operator: ErlangOperators.Append, Left: var prefix,
+                    Right: Expr.Variable { Name: not VariableScopeNames.Wildcard } tail
+                }]
+                || !AttributeLiteral.TryNormalizeConstant(prefix, out Term list))
+            {
+                return null;
+            }
+
+            var heads = new List<Term>(4);
+            while (list is Cons cell && heads.Count < 4)
+            {
+                heads.Add(cell.Head);
+                list = cell.Tail;
+            }
+
+            if (list is not Nil)
+            {
+                return null;
+            }
+
+            for (int index = 0; index < clause.Patterns.Count; index++)
+            {
+                if (clause.Patterns[index] is Pattern.Variable binding && binding.Name == tail.Name)
+                {
+                    return (index, heads.ToArray());
+                }
+            }
+
+            return null;
+        }
+
+        private void EmitRegisterAppendPrefix(Expr.Call target, int tail, Term[] heads)
+        {
+            if (heads.Length == 0)
+            {
+                if (tail != 0)
+                {
+                    owner.MoveRegister(XRegisterTag, tail, XRegisterTag, 0);
+                }
+            }
+            else
+            {
+                owner.Op(TestHeap, BeamWire.UnsignedTag, heads.Length * ConsHeapWords);
+                owner.Operand(BeamWire.UnsignedTag, tail + 1);
+                for (int index = heads.Length - 1; index >= 0; index--)
+                {
+                    owner.instructions.WriteByte(PutList);
+                    owner.LiteralOperand(heads[index]);
+                    owner.Operand(XRegisterTag, tail);
+                    owner.Operand(XRegisterTag, 0);
+                    tail = 0;
+                }
+            }
+
+            EmitRegisterTailTarget(target, 1);
+        }
+
         private static (int? Register, Term? Value)[]? ReadRegisterTailList(Clause clause, Expr.Call call)
         {
             if (call.Arguments is not [Expr.List { Tail: null, Items.Count: > 0 } list]
