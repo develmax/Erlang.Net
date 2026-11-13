@@ -1,3 +1,5 @@
+Part 1578 aligns the literal equality operands in the fixed binary prefix fixture. Frame allocation and capture registers still differ. [Evidence](validation/part-1578/README.md).
+
 Part 1577 aligns the normalized instructions in diameter_codec:hop_by_hop_id/2. The full release image still differs. [Evidence](validation/part-1577/README.md).
 
 Part 1576 aligns two normalized functions by removing redundant matched literal loads. The two release images still differ. [Evidence](validation/part-1576/README.md).

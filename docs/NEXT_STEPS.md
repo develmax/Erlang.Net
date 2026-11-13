@@ -1,5 +1,7 @@
 # Next steps
 
+Align register allocation for fixed binary pattern branches and reuse their match context between alternatives. [Evidence](validation/part-1578/README.md).
+
 Extend binary match context reuse through branch dispatch and deferred tail materialization. [Evidence](validation/part-1577/README.md).
 
 Measure branch-local allocation in binary match and construction sequences. [Evidence](validation/part-1576/README.md).
