@@ -1,5 +1,7 @@
 # Next steps
 
+Continue slot reuse and frame trimming across calls with saved arguments and branch selectors. Compare remaining overallocations by source shape. [Frame ranking](validation/part-1558/baseline-frame-rank.txt).
+
 Extend linear call sequence planning to keep only values live across a call in Y registers. Prioritize the local and remote call groups in the frame audit. [Frame ranking](validation/part-1558/baseline-frame-rank.txt).
 
 Place non-allocating BIF results directly into the final argument registers at the end of call sequences. Start with the two dictionary lookups in test_server_ctrl:html_convert_modules/3. [Instructions](validation/part-1558/frame-html_convert_modules.txt).

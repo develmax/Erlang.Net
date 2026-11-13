@@ -1,5 +1,7 @@
 # Dependency and compatibility decisions
 
+Part 1561 reuses the saved call argument emitter for slot reuse and consults OTP 29.1.1 beam_ssa_pre_codegen.erl. No dependency was added. [Evidence](validation/part-1561/README.md).
+
 Part 1560 reuses the existing BIF operand and framed tail encoders, with OTP 29.1.1 beam_ssa_pre_codegen.erl as reference. No dependency was added. [Evidence](validation/part-1560/README.md).
 
 Part 1559 reuses record expansion and constant normalization for wildcard record fields and follows OTP 29.1.1 erl_expand_records.erl. No dependency was added. [Evidence](validation/part-1559/README.md).

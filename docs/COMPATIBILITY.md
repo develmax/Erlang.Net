@@ -1,5 +1,7 @@
 # Compatibility overview
 
+Part 1561 aligns normalized instructions in global:delete_global_lock/2. OTP accepts all 976 differing images for loading. [Evidence](validation/part-1561/README.md).
+
 Part 1560 aligns the instructions in test_server_ctrl:html_convert_modules/3 after label normalization. OTP accepts all 976 differing images for loading. [Evidence](validation/part-1560/README.md).
 
 Part 1559 aligns six normalized functions in four modules. OTP accepts all 976 differing images for loading. [Evidence](validation/part-1559/README.md).
