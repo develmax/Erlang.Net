@@ -34,6 +34,35 @@ internal sealed partial class BeamModuleCompiler
             owner.Operand(XRegisterTag, 0);
         }
 
+        private void EmitBodyElement(Expr.Call call)
+        {
+            int operandBase = nextSlot;
+            Expr index = call.Arguments[0];
+            Expr tuple = call.Arguments[1];
+            int? indexSlot = GuardSlot(index, null);
+            bool directTuple = tuple is Expr.Variable variable && variables.ContainsKey(variable.Name)
+                || AttributeLiteral.TryNormalizeConstant(tuple, out _);
+            int? tupleSlot = directTuple ? GuardSlot(tuple, null) : null;
+            if (!directTuple)
+            {
+                Expression(tuple);
+            }
+
+            owner.EmitCallLine(call, HasSimpleDecodeArguments(call) ? location : owner.lastEmittedLine);
+            EmitElementInstruction(0);
+            GuardOperand(index, indexSlot);
+            if (directTuple)
+            {
+                GuardOperand(tuple, tupleSlot);
+            }
+            else
+            {
+                owner.Operand(XRegisterTag, 0);
+            }
+            owner.Operand(XRegisterTag, 0);
+            ReleaseOperandSlots(operandBase);
+        }
+
         private void EmitElementInstruction(int failure)
         {
             owner.Op(BifTwo, LabelTag, failure);

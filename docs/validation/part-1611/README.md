@@ -1,0 +1,5 @@
+# Part 1611 — Emit element instructions for computed operands
+
+Body calls to the resolved Erlang element/2 BIF now evaluate the index first and keep a computed tuple operand in X0. The existing proven tuple projection path still applies. The fixture matches OTP VM outcomes for two computed operands, a literal index, a bad index and a non-tuple. It also checks evaluation order through an observable side effect. Three focused checks passed. [Fixture](beam_element_operands.erl) · [Disassembly](disassembly.txt) · [Outcomes](outcomes.txt) · [Tests](focused.txt).
+
+All 1,366 pinned sources were accepted and generated. There were 393 Equal and 973 Different. ELDAPv3 and xmerl_xlate remained Equal. The change affected 85 images. The aggregate Code size gap shrank by 926 bytes. Three more functions match after label normalization, with no losses. OTP accepted all 973 differing images for loading. [Corpus](otp-corpus.json) · [Loader and Code sizes](loader-and-code.txt) · [Function comparison](normalized-functions.txt).

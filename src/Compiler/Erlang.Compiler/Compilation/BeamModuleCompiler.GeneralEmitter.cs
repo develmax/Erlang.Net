@@ -9654,11 +9654,9 @@ internal sealed partial class BeamModuleCompiler
                     {
                         return;
                     }
-                    if (guardFailure is null && IsElementGuardCall(call) && owner.ResolvesErlangBif(call)
-                        && HasSimpleDecodeArguments(call))
+                    if (guardFailure is null && IsElementGuardCall(call) && owner.ResolvesErlangBif(call))
                     {
-                        owner.EmitCallLine(call, location);
-                        EmitElementGuard(call, 0);
+                        EmitBodyElement(call);
 
                         return;
                     }
