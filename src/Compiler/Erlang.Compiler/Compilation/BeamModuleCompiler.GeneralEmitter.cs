@@ -9656,7 +9656,7 @@ internal sealed partial class BeamModuleCompiler
                     }
                     if (guardFailure is null && IsElementGuardCall(call) && owner.ResolvesErlangBif(call))
                     {
-                        EmitBodyElement(call);
+                        EmitBodyBinaryBif(call);
 
                         return;
                     }
@@ -9668,10 +9668,9 @@ internal sealed partial class BeamModuleCompiler
 
                         return;
                     }
-                    if (guardFailure is null && IsNonAllocatingBinaryGuardCall(call) && HasSimpleDecodeArguments(call))
+                    if (guardFailure is null && IsNonAllocatingBinaryGuardCall(call))
                     {
-                        owner.EmitCallLine(call, owner.lastEmittedLine);
-                        EmitNonAllocatingBinaryGuardValue(call, 0);
+                        EmitBodyBinaryBif(call);
 
                         return;
                     }

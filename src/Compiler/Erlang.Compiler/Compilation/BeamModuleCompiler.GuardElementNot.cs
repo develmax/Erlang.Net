@@ -34,26 +34,28 @@ internal sealed partial class BeamModuleCompiler
             owner.Operand(XRegisterTag, 0);
         }
 
-        private void EmitBodyElement(Expr.Call call)
+        private void EmitBodyBinaryBif(Expr.Call call)
         {
             int operandBase = nextSlot;
-            Expr index = call.Arguments[0];
-            Expr tuple = call.Arguments[1];
-            int? indexSlot = GuardSlot(index, null);
-            bool directTuple = tuple is Expr.Variable variable && variables.ContainsKey(variable.Name)
-                || AttributeLiteral.TryNormalizeConstant(tuple, out _);
-            int? tupleSlot = directTuple ? GuardSlot(tuple, null) : null;
-            if (!directTuple)
+            Expr left = call.Arguments[0];
+            Expr right = call.Arguments[1];
+            int? leftSlot = GuardSlot(left, null);
+            bool directRight = right is Expr.Variable variable && variables.ContainsKey(variable.Name)
+                || AttributeLiteral.TryNormalizeConstant(right, out _);
+            int? rightSlot = directRight ? GuardSlot(right, null) : null;
+            if (!directRight)
             {
-                Expression(tuple);
+                Expression(right);
             }
 
-            owner.EmitCallLine(call, HasSimpleDecodeArguments(call) ? location : owner.lastEmittedLine);
-            EmitElementInstruction(0);
-            GuardOperand(index, indexSlot);
-            if (directTuple)
+            owner.EmitCallLine(call, call.Function == AutoImportNames.Element && HasSimpleDecodeArguments(call)
+                ? location : owner.lastEmittedLine);
+            owner.Op(BifTwo, LabelTag, 0);
+            owner.Operand(BeamWire.UnsignedTag, owner.Import(ErlangModuleNames.Module, call.Function, 2));
+            GuardOperand(left, leftSlot);
+            if (directRight)
             {
-                GuardOperand(tuple, tupleSlot);
+                GuardOperand(right, rightSlot);
             }
             else
             {
