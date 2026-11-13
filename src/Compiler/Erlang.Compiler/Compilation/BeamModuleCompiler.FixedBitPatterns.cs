@@ -37,6 +37,156 @@ internal sealed partial class BeamModuleCompiler
             return true;
         }
 
+        private bool TryEmitRegisterBinaryRebuild(FunctionDefinition function)
+        {
+            if (function.Clauses is not [{ Guard: null, Body: Expr.Bits bits } clause]
+                || clause.Patterns.OfType<BitPattern>().ToArray() is not [var pattern]
+                || pattern.Segments.Count < 2
+                || pattern.Segments[^1] is not
+                {
+                    Value: Pattern.Variable { Name: not VariableScopeNames.Wildcard } tail,
+                    Specification: { Type: BitSegmentTypes.Binary, Size: null, Unit: BitSyntaxDefaults.BinaryUnit }
+                }
+                || AttributeLiteral.TryNormalizeConstant(bits, out _))
+            {
+                return false;
+            }
+
+            int source = -1;
+            int context = function.Arity;
+            int live = context + 1;
+            var registers = new Dictionary<string, (int Register, bool Binary)>(StringComparer.Ordinal);
+            for (int index = 0; index < clause.Patterns.Count; index++)
+            {
+                switch (clause.Patterns[index])
+                {
+                    case BitPattern:
+                        source = index;
+                        break;
+                    case Pattern.Variable { Name: VariableScopeNames.Wildcard }:
+                        break;
+                    case Pattern.Variable variable when registers.TryAdd(variable.Name, (index, false)):
+                        break;
+                    default:
+                        return false;
+                }
+            }
+
+            var prefix = pattern.Segments.Take(pattern.Segments.Count - 1).ToArray();
+            var sizes = new int[prefix.Length];
+            int width = 0;
+            int operands = 7; // ensure_at_least and get_tail
+            bool captured = false;
+            for (int index = 0; index < prefix.Length; index++)
+            {
+                var (value, spec) = prefix[index];
+                if (FixedSize(spec) is not int size || spec.Signed || spec.Endian != BitByteOrders.Big
+                    || spec.Type == BitSegmentTypes.Binary && spec.Unit != BitSyntaxDefaults.BinaryUnit
+                    || width > int.MaxValue - size * spec.Unit)
+                {
+                    return false;
+                }
+
+                width += size * spec.Unit;
+                sizes[index] = size;
+                if (IsWildcard(value))
+                {
+                    operands += 2;
+                    continue;
+                }
+
+                if (captured || value is not Pattern.Variable binding
+                    || !registers.TryAdd(binding.Name, (source, spec.Type == BitSegmentTypes.Binary)))
+                {
+                    return false;
+                }
+
+                captured = true;
+                operands += 6;
+            }
+
+            if (live >= FirstReservedXRegister || width % BitSyntaxDefaults.BinaryUnit != 0
+                || !registers.TryAdd(tail.Name, (context, true))
+                || !bits.Segments.All(segment => IsRebuildOperand(segment.Value)
+                    && (segment.Size is null || IsRebuildOperand(segment.Size))))
+            {
+                return false;
+            }
+
+            var construction = ReadBinaryConstruction(bits);
+            int functionInfo = owner.nextLabel - 2;
+            int restore = Label();
+            owner.Op(StartBinaryMatch, LabelTag, functionInfo);
+            owner.Operand(XRegisterTag, source);
+            owner.Operand(BeamWire.UnsignedTag, context);
+            owner.Operand(XRegisterTag, context);
+            owner.Op(GetBinaryPosition, XRegisterTag, context);
+            owner.Operand(XRegisterTag, source);
+            owner.Operand(BeamWire.UnsignedTag, live);
+            EmitBitMatchHeader(context, restore, operands, width, BitSyntaxDefaults.BinaryUnit);
+            for (int index = 0; index < prefix.Length; index++)
+            {
+                var (value, spec) = prefix[index];
+                if (IsWildcard(value))
+                {
+                    owner.Operand(AtomTag, owner.Intern(SkipBits));
+                    owner.Operand(BeamWire.UnsignedTag, sizes[index] * spec.Unit);
+                }
+                else
+                {
+                    EmitBitSegment(spec, sizes[index], live, XRegisterTag, source);
+                }
+            }
+
+            owner.Operand(AtomTag, owner.Intern(ReadBinaryTail));
+            owner.Operand(BeamWire.UnsignedTag, live);
+            owner.Operand(BeamWire.UnsignedTag, BitSyntaxDefaults.BinaryUnit);
+            owner.Operand(XRegisterTag, context);
+            EmitBinaryConstructionHeader(bits, construction, live, failure: null);
+            foreach (var segment in construction)
+            {
+                if (!EmitBinaryConstructionSegment(segment))
+                {
+                    EmitRebuildOperand(segment.Value);
+                    EmitRebuildOperand(segment.Size);
+                }
+            }
+
+            owner.instructions.WriteByte(Return);
+            Mark(restore);
+            owner.Op(SetBinaryPosition, XRegisterTag, context);
+            owner.Operand(XRegisterTag, source);
+            owner.Op(GetBinaryTail, XRegisterTag, context);
+            owner.Operand(XRegisterTag, source);
+            owner.Operand(BeamWire.UnsignedTag, live);
+            owner.Op(Jump, LabelTag, functionInfo);
+
+            return true;
+
+            bool IsRebuildOperand(Expr expression) => expression is Expr.Variable variable
+                ? registers.ContainsKey(variable.Name)
+                : expression is Expr.Literal;
+
+            void EmitRebuildOperand(Expr expression)
+            {
+                if (expression is Expr.Variable variable)
+                {
+                    var (register, binary) = registers[variable.Name];
+                    if (binary)
+                    {
+                        owner.EmitTypedRegister(register, MatchableTypeBits, unit: BitSyntaxDefaults.BinaryUnit);
+                    }
+                    else
+                    {
+                        owner.Operand(XRegisterTag, register);
+                    }
+                }
+                else
+                {
+                    owner.LiteralOperand(((Expr.Literal)expression).Value);
+                }
+            }
+        }
         private void EmitFixedBitPattern(BitPattern pattern, int value, int failure)
         {
             for (int index = 0; index < pattern.Segments.Count; index++)

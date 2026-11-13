@@ -472,7 +472,7 @@ internal sealed partial class BeamModuleCompiler
                 || TryEmitWxObjectOptionOverload(function) || TryEmitWxClassUnionCommand(function) || TryEmitWxObjectCommand(function)
                 || TryEmitWxGuardedForwardOverload(function) || TryEmitWxRepackedTupleCommand(function)
                 || TryEmitWxTupleOverload(function) || TryEmitWxStaticTupleCommand(function)
-                || TryEmitTupleOfListHeads(function) || TryEmitDirectFixedBitPattern(function) || TryEmitDirectMapPattern(function) || TryEmitDirectTryAfter(function) || TryEmitDirectBits(function) || TryEmitDirectFunctionValueCall(function) || TryEmitDirectArithmetic(function) || TryEmitDirectBooleanNot(function) || TryEmitDirectValueGuard(function) || TryEmitTaggedListResult(function) || TryEmitNumericComparison(function)
+                || TryEmitTupleOfListHeads(function) || TryEmitDirectFixedBitPattern(function) || TryEmitRegisterBinaryRebuild(function) || TryEmitDirectMapPattern(function) || TryEmitDirectTryAfter(function) || TryEmitDirectBits(function) || TryEmitDirectFunctionValueCall(function) || TryEmitDirectArithmetic(function) || TryEmitDirectBooleanNot(function) || TryEmitDirectValueGuard(function) || TryEmitTaggedListResult(function) || TryEmitNumericComparison(function)
                 || TryEmitGuardedLocalForward(function) || TryEmitRecordPredicateFunction(function) || TryEmitDirectGuardedRecordAccess(function) || TryEmitDirectTypeOrArityGuard(function) || TryEmitDirectListOrFunctionGuard(function) || TryEmitDirectCatch(function)
                 || TryEmitDiscardedBranchCatch(function) || TryEmitEntryCatchResultDispatch(function) || TryEmitNestedListCallCatch(function)
                 || TryEmitTerminalProtectedTuples(function)
