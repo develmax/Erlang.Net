@@ -313,6 +313,27 @@ internal sealed partial class BeamModuleCompiler
                 && finalFields?.Any(field => field.Name == projected.Name) == true;
             bool projectReturn = tuple is { Closure: null }
                 && finalFields?.Any(field => tuple.Reads.Contains(field.Name)) == true;
+            if (decision?.Value is Expr.Variable selectorBinding && selectorBinding.Name == calls[^1].Result)
+            {
+                decision = decision with
+                {
+                    Clauses = decision.Clauses.Select(branch =>
+                        branch is { Guard: null, Patterns: [Pattern.Literal { Value: Atom or Integer } key] }
+                            && (IsPreparedOperand(branch.Body)
+                                || branch.Body is Expr.Tuple tupleBody && tupleBody.Items.All(IsPreparedOperand)
+                                || branch.Body is Expr.Call { DynamicRemote: false } branchCall
+                                    && branchCall.Arguments.All(IsPreparedOperand))
+                            ? branch with
+                            {
+                                Body = SubstituteConstants(
+                                    branch.Body,
+                                    new Dictionary<string, Term>(StringComparer.Ordinal) { [selectorBinding.Name] = key.Value }
+                                )
+                            }
+                            : branch).ToArray()
+                };
+            }
+
             if (decision is not null)
             {
                 var bindings = parameters.Concat(calls.Select(call => call.Result).OfType<string>())

@@ -1,5 +1,7 @@
 # Compatibility overview
 
+Part 1618 verifies literal case arms after saved calls with a byte-identical fixture and matching case_clause location. [Evidence](validation/part-1618/README.md).
+
 Part 1617 verifies saved parameters and call results in terminal matches with a byte-identical fixture and matching badmatch locations. [Evidence](validation/part-1617/README.md).
 
 Part 1616 verifies literal and tagged terminal call matches with a byte-identical fixture and matching badmatch locations. [Evidence](validation/part-1616/README.md).

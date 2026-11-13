@@ -1,5 +1,7 @@
 # Project progress
 
+Part 1618 generated all 1,366 pinned release images with 393 Equal and 973 Different. The generated release images matched the previous run. [Evidence](validation/part-1618/README.md).
+
 Part 1617 generated all 1,366 pinned release images with 393 Equal and 973 Different. The terminal call match change affected 8 images. [Evidence](validation/part-1617/README.md).
 
 Part 1616 generated all 1,366 pinned release images with 393 Equal and 973 Different. The terminal call match change affected 35 images. [Evidence](validation/part-1616/README.md).
