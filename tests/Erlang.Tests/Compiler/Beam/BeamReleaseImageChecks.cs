@@ -207,6 +207,7 @@ internal static class BeamReleaseImageChecks
             ("xmerl-2.2", "xmerl_text"),
             ("xmerl-2.2", "xmerl_sgml"),
             ("xmerl-2.2", "xmerl_xpath_lib"),
+            ("xmerl-2.2", "xmerl_xlate"),
             ("xmerl-2.2", "xmerl_b64Bin_scan"),
             ("public_key-1.21.7", "KEMAlgorithmInformation-2023"),
             ("runtime_tools-2.5", "runtime_tools_sup"),

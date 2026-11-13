@@ -1043,6 +1043,7 @@ internal sealed partial class BeamModuleCompiler
             }
 
             var bodyFrames = new Dictionary<int, int>();
+            var savedCallFailures = new List<Action>();
             var tupleMatchFailures = new List<(int Label, BeamSourceLocation Location)>();
             var previousConsCall = location;
             bool extractedListCase = false;
@@ -1714,7 +1715,7 @@ internal sealed partial class BeamModuleCompiler
                 }
                 else if (savedCalls is not null)
                 {
-                    EmitSavedCallSequence(savedCalls);
+                    EmitSavedCallSequence(savedCalls, tuples.Count != 0 ? savedCallFailures : null);
                 }
                 else if (tailList is { } list)
                 {
@@ -1851,6 +1852,10 @@ internal sealed partial class BeamModuleCompiler
                 }
             }
 
+            foreach (Action emitFailure in savedCallFailures)
+            {
+                emitFailure();
+            }
             EmitRegisterTupleMatchFailures(tupleMatchFailures);
 
             if (bodyFrames.Count > 0)

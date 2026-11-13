@@ -710,7 +710,7 @@ internal sealed partial class BeamModuleCompiler
             return Enumerable.Reverse(lastSlotReads).TakeWhile(read => read <= trimAt).Count();
         }
 
-        private void EmitSavedCallSequence(SavedCallSequence plan)
+        private void EmitSavedCallSequence(SavedCallSequence plan, List<Action>? deferredFailures = null)
         {
             var (first, live, inputs, lastSlotReads, steps, extraction, decision, tuple, constant, checks) = plan;
             bool hasCase = decision is not null || plan.ProjectedCase is not null;
@@ -748,6 +748,7 @@ internal sealed partial class BeamModuleCompiler
             var failures = checks?.Where(check => !check.Value.ShapeKnown).OrderByDescending(check => check.Key)
                 .ToDictionary(check => check.Key, _ => (Label: hasCase ? pendingFailure : Label(), Location: location));
             int trimmed = 0;
+            (int Field, int Register, bool Saved)? deferredProjection = null;
             EmitCheck(0);
             for (int index = 0; index < steps.Count; index++)
             {
@@ -779,7 +780,8 @@ internal sealed partial class BeamModuleCompiler
                     remap,
                     deferConstant,
                     swapBeforeConstants: tupleField,
-                    heapChecked: step.Closure is not null,
+                    heapChecked: step.Closure is not null || deferredProjection.HasValue,
+                    afterConstruction: deferredProjection is { } projection ? () => owner.EmitTuplePart(0, projection.Field, 0) : null,
                     deferStackLoad: step.ReloadRelocatedArgument
                 );
                 if (step.SlotRelocation is { } relocation)
@@ -885,10 +887,29 @@ internal sealed partial class BeamModuleCompiler
                     failures[index] = (label, previousCall);
                 }
                 int start = owner.deferredLabelOperands.Count;
+                deferredProjection = null;
+                Action? beforeProjections = null;
+                if (index < steps.Count && check is { Arity: not null, SavedTupleSlot: null, Field: null,
+                        Projections: [.., { Register: 0, Saved: false } lastProjection] }
+                    && check.Projections.All(field => !field.Saved)
+                    && steps[index] is { Spill: null, Closure: null, TupleArguments: null,
+                        Call.RegisterConstructions: { } construction }
+                    && construction.Constructions.All(item => item.MapLive is null && item.Register != 0
+                        && item.Operands.All(operand => operand.Tag != XRegisterTag || operand.Register != 0)))
+                {
+                    deferredProjection = lastProjection;
+                    check = check with { Projections = check.Projections[..^1] };
+                    beforeProjections = () =>
+                    {
+                        owner.Op(TestHeap, BeamWire.UnsignedTag, construction.Constructions.Sum(item => item.HeapWords));
+                        owner.Operand(BeamWire.UnsignedTag, 1);
+                    };
+                }
                 EmitCallResultCheck(
                     index == steps.Count && tupleFieldProjection is not null ? check with { Field = null } : check,
                     label,
-                    size - trimmed
+                    size - trimmed,
+                    beforeProjections
                 );
                 if (label == pendingFailure)
                 {
@@ -916,12 +937,14 @@ internal sealed partial class BeamModuleCompiler
                     }
 
                     var match = checks![index].Match;
-                    EmitTaggedCallMatchFailure(
-                        match,
-                        label,
-                        failure.Location,
-                        previousCall
-                    );
+                    if (deferredFailures is not null)
+                    {
+                        int failureLabel = label;
+                        deferredFailures.Add(() => EmitTaggedCallMatchFailure(match, failureLabel, failure.Location, owner.lastEmittedLine));
+                        continue;
+                    }
+
+                    EmitTaggedCallMatchFailure(match, label, failure.Location, previousCall);
                     previousCall = match.SourceLine == 0
                         ? failure.Location : new BeamSourceLocation(match.PreprocessorFile, match.SourceLine);
                 }
@@ -994,7 +1017,8 @@ internal sealed partial class BeamModuleCompiler
             bool deferConstant = false,
             bool swapBeforeConstants = false,
             bool heapChecked = false,
-            bool deferStackLoad = false
+            bool deferStackLoad = false,
+            Action? afterConstruction = null
         )
         {
             var call = step.Call;
@@ -1093,7 +1117,8 @@ internal sealed partial class BeamModuleCompiler
                     construction,
                     -1,
                     remap,
-                    heapChecked
+                    heapChecked,
+                    afterConstruction: afterConstruction
                 );
             }
             else

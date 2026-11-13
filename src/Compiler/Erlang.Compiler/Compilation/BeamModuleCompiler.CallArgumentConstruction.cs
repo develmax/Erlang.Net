@@ -281,7 +281,7 @@ internal sealed partial class BeamModuleCompiler
             int result,
             int[]? stackSlots = null,
             bool heapChecked = false,
-            int? spillSlot = null
+            int? spillSlot = null, Action? afterConstruction = null
         )
         {
             int heapWords = plan.Constructions.Sum(item => item.HeapWords);
@@ -330,6 +330,8 @@ internal sealed partial class BeamModuleCompiler
                     owner.Operand(XRegisterTag, construction.Register);
                 }
             }
+
+            afterConstruction?.Invoke();
 
             if (spillSlot is int slot)
             {

@@ -455,7 +455,7 @@ internal sealed partial class BeamModuleCompiler
             }
         }
 
-        private void EmitCallResultCheck(CallResultCheck check, int failure, int frame)
+        private void EmitCallResultCheck(CallResultCheck check, int failure, int frame, Action? beforeProjections = null)
         {
             if (check.SavedTupleSlot is int slot)
             {
@@ -492,6 +492,8 @@ internal sealed partial class BeamModuleCompiler
                 {
                     owner.EmitTuplePart(0, field, check.Destination);
                 }
+
+                beforeProjections?.Invoke();
 
                 if (check.Projections is { } projections)
                 {
