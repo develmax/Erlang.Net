@@ -1,5 +1,7 @@
 # Project progress
 
+Part 1525 constructs terminal tuple case results from X registers. Twelve release images change and nine functions match OTP frame sizes. The full corpus generates all 1,366 images with 387 Equal and 979 Different. [Evidence](validation/part-1525/README.md).
+
 Part 1524 keeps a short-lived tuple field in X0 through the next call and reuses the register case call-sequence planner. One release function reaches normalized instruction equality. All 1,366 sources compile, with 387 Equal and 979 Different. [Evidence](validation/part-1524/README.md).
 
 Part 1523 trims the matched tuple arm before its continuation call. Two xmerl functions reach normalized OTP instruction equality. All 1,366 sources compile, with 387 Equal and 979 Different. [Evidence](validation/part-1523/README.md).

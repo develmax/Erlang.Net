@@ -17,3 +17,13 @@ dotnet artifacts/beam-backend/part1525-release-tool/Erlang.BeamCorpus.dll $otp a
 $tests = 'artifacts/beam-backend/part1525-tests/Erlang.Tests.dll'
 dotnet $tests --case compiler/beam/whole-module-matches-otp --case compiler/beam/rebuild-installed-otp-release-images --case compiler/beam/call-result-case-keeps-register --report artifacts/beam-backend/part1525-focused.json
 ```
+
+## Results
+
+All 1,366 source files were accepted and generated. The comparison has 387 Equal and 979 Different, with zero status transitions. ELDAPv3 remains byte-identical from the C# ASN.1 generator. OTP loads all 979 differing images. [Corpus](otp-corpus.json) · [Loader and Code](loader-and-code.txt) · [Status changes](status-changes.txt).
+
+The change reaches 12 modules and 13 functions. Nine functions match OTP frame sizes, and none move farther away. The aggregate Code size gap drops by 47 bytes. The normalized instructions for dialyzer_dep:map__lookup/2 now match. Three focused compiler tests pass. [Frame delta](frame-delta.txt) · [Function delta](normalized-functions.txt) · [Focused tests](focused.json).
+
+The first difference is still a larger C# allocate in 882 modules and 11,111 functions, down from 11,120 functions in Part 1524. The remaining comparison differences include typed saved operands in inets and net. In dbg_icmd:get_binding/2, OTP elides the atom test after lists:keyfind/3 has excluded the tuple case. [First differences](first-difference-ranking.txt) · [inets](inets-key1search.txt) · [net](net-win_name2index.txt) · [dbg_icmd](dbg-icmd-get-binding.txt).
+
+The compiler block passed 3,719 of 3,830 tests. Three additional cases timed out during the concurrent corpus run. The isolated retry passed 3 of three. The full runtime suite and canonical readiness were not rerun. [Compiler block](compiler-test-status.txt) · [Retry](compiler-retest.json).

@@ -1,6 +1,6 @@
 # Next steps
 
-Plan Y-register liveness across terminal case arms. The latest completed ranking finds oversized allocations first in 882 modules and 138 functions in the remote-call atom-and-tuple case group. Start with tuple construction and variable returns, then extend the shared planner to effects and tail calls on both arms. Verify each group against OTP and measure the complete corpus. [Ranking](validation/part-1524/README.md) · [Instruction example](validation/part-1524/inets-key1search.txt).
+Continue the shared terminal case register plan. Match known atom alternatives of tuple-or-atom BIFs and type saved exact-comparison operands when all call sites prove the type. Then extend the same plan to variable returns and effectful continuations. The latest full corpus shows oversized allocations first in 882 modules. [Evidence](validation/part-1525/README.md).
 
 Rank terminal operator emission by specific operator and operand forms. The previous audit finds 56 terminal operator bodies across 43 modules. Prioritize branch-local liveness that can also close a near match, starting with the integer branch and binary construction in `ssh_bits:mpint/1` and the guarded projections in `prim_buffer:read_iovec/2`. [Operator audit](validation/part-1509/first-call-spills-after.txt) · [Nearest images](validation/part-1523/nearest.txt).
 

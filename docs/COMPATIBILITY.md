@@ -1,5 +1,7 @@
 # Compatibility overview
 
+Part 1525 matches a complete OTP fixture and 120 return, exception and stack observations. OTP loads all 979 differing generated release images. [Evidence](validation/part-1525/README.md).
+
 Part 1524 matches both complete fixture images and 89 runtime observations against OTP. OTP loads all 979 differing generated release images. [Evidence](validation/part-1524/README.md).
 
 Part 1523 matches OTP on 80 fixture observations and on the complete fixture image. OTP loads both images in all 979 differing pairs. [Evidence](validation/part-1523/README.md).

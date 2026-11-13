@@ -1,5 +1,7 @@
 The C# source compiler has deterministic BEAM output for supported returns, calls, constructors, literals and patterns. Explicit release profiles can reconstruct supported module metadata and debug forms for constant bindings and nested tuples, lists, and maps. Windows x64 uses the pinned OTP compressor. Other platforms keep the existing ETF compressor. Rich documentation, type metadata, full preprocessing, general lowering and broader release reconstruction remain open. [Evidence](validation/part-606/README.md).
 
+Part 1525 removes nine oversized frames and matches normalized instructions for dialyzer_dep:map__lookup/2. Typed exact comparisons and known atom alternatives still differ in several changed functions. [Evidence](validation/part-1525/README.md).
+
 Part 1524 matches normalized instructions for erl_compile_server:get_path_arg/2. The module still differs and its Code chunk grew by six bytes. The full corpus remains at 979 differing images. [Evidence](validation/part-1524/README.md).
 
 Part 1523 matches normalized instructions for find_and_remove_attribute/3 in both xmerl DOM modules. Their remaining functions still differ. The complete corpus has 979 differing images. [Evidence](validation/part-1523/README.md).
