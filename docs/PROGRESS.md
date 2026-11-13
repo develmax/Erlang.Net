@@ -1,5 +1,7 @@
 # Project progress
 
+Part 1572 shares constant fallbacks in tagged try results. All 1,366 images generate, with 390 Equal and 976 Different. [Evidence](validation/part-1572/README.md).
+
 Part 1571 returns tuples directly from supported try branches. All 1,366 images generate, with 390 Equal and 976 Different. [Evidence](validation/part-1571/README.md).
 
 Part 1570 constructs simple catch tuples from the reason register. All 1,366 images generate, with 390 Equal and 976 Different. [Evidence](validation/part-1570/README.md).

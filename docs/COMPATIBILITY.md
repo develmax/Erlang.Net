@@ -1,5 +1,7 @@
 # Compatibility overview
 
+Part 1572 matches the tagged try fixture instructions. All release images retain their previous status. [Evidence](validation/part-1572/README.md).
+
 Part 1571 aligns six normalized functions in prim_inet. OTP accepts all 976 differing images for loading. [Evidence](validation/part-1571/README.md).
 
 Part 1570 changes 39 release images. OTP accepts all 976 differing images for loading. [Evidence](validation/part-1570/README.md).

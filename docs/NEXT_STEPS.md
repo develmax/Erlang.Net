@@ -1,5 +1,7 @@
 # Next steps
 
+Audit protected calls preceded by argument preparation. Prioritize recurring shapes and compare their frame allocation against OTP. [Evidence](validation/part-1572/README.md).
+
 Extend terminal try lowering to tuple success patterns and constant fallbacks. Compare remaining shapes against the corpus. [Evidence](validation/part-1571/README.md).
 
 Align return placement and frame allocation around try branches. Measure common shapes across the full corpus. [Disassembly](validation/part-1570/run-after.txt).
