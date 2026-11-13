@@ -1,6 +1,6 @@
 # Project progress
 
-Part 1542 projects split_binary results into singleton lists in X0. The read_iovec/2 frame shrinks from five slots to four. All 1,366 images generate, with 389 Equal and 977 Different. [Evidence](validation/part-1542/README.md).
+Part 1543 trims terminal list branch frames. Four trim operand pairs match OTP in prim_buffer. All 1,366 images generate, with 389 Equal and 977 Different. [Evidence](validation/part-1543/README.md).
 
 Part 1530 preserves saved arguments for tail calls in atom alternatives. Three functions match normalized OTP instructions and three frames match OTP sizes. The full corpus has 387 Equal and 979 Different. [Evidence](validation/part-1530/README.md).
 

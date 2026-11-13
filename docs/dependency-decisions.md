@@ -1,6 +1,6 @@
 # Dependency and compatibility decisions
 
-Part 1542 reuses split-binary binding checks and list construction instructions. OTP 29.1.1 remains the reference and the change adds no dependency. [Evidence](validation/part-1542/README.md).
+Part 1543 reuses call and split-binary validation for terminal branch liveness. OTP 29.1.1 remains the reference and the change adds no dependency. [Evidence](validation/part-1543/README.md).
 
 Part 1530 reuses entry selector saves, saved call arguments and the call argument construction planner. No dependency was added. [Evidence](validation/part-1530/README.md).
 
