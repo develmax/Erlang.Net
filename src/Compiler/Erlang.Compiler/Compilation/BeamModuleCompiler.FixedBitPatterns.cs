@@ -189,6 +189,84 @@ internal sealed partial class BeamModuleCompiler
                 }
             }
         }
+        private bool TryEmitBinaryTailRecursion(FunctionDefinition function)
+        {
+            if (function.Clauses is not [
+                {
+                    Patterns: [BitPattern { Segments: [var first, var tail] }],
+                    Guard: { } guard,
+                    Body: Expr.Call { Module: null, DynamicRemote: false, Arguments: [Expr.Variable remaining] } call
+                },
+                { Guard: null, Patterns: [Pattern.Variable input], Body: Expr.Variable returned }
+                ]
+                || call.Function != function.Name || input.Name != returned.Name
+                || first.Value is not Pattern.Variable head || head.Name == VariableScopeNames.Wildcard
+                || !IsByte(first.Specification)
+                || tail.Value is not Pattern.Variable rest || rest.Name != remaining.Name || rest.Name == head.Name
+                || rest.Name == VariableScopeNames.Wildcard
+                || tail.Specification is not { Type: BitSegmentTypes.Binary, Size: null, Unit: BitSyntaxDefaults.BinaryUnit }
+                || !entries.TryGetValue((function.Name, 1), out int entry))
+            {
+                return false;
+            }
+
+            IReadOnlyList<Expr> alternatives = guard is Expr.GuardAlternatives disjunction ? disjunction.Items : [guard];
+            var keys = new SortedSet<int>();
+            foreach (Expr alternative in alternatives)
+            {
+                if (alternative is not Expr.Binary
+                    {
+                        Operator: ErlangOperators.ExactEqual or ErlangOperators.NumericEqual,
+                        Left: Expr.Variable selected,
+                        Right: Expr.Literal { Value: Integer key }
+                    }
+                    || selected.Name != head.Name || key.Value < byte.MinValue || key.Value > byte.MaxValue)
+                {
+                    return false;
+                }
+
+                keys.Add((int)key.Value);
+            }
+
+            if (keys.Count < 2)
+            {
+                return false;
+            }
+
+            const int context = 1;
+            int repeat = Label();
+            int restore = Label();
+            int nonbinary = Label();
+            EmitBitMatchStart(context, nonbinary);
+            owner.Op(GetBinaryPosition, XRegisterTag, context);
+            owner.Operand(XRegisterTag, 0);
+            owner.Operand(BeamWire.UnsignedTag, 2);
+            EmitBitMatchHeader(context, restore, 9, BitSyntaxDefaults.BinaryUnit, BitSyntaxDefaults.BinaryUnit);
+            EmitBitSegment(first.Specification, BitSyntaxDefaults.BinaryUnit, 2, XRegisterTag, 2);
+            owner.EmitMembershipSelect(
+                2,
+                restore,
+                keys.Select(key => ((Term)Term.I(key), repeat)),
+                IntegerTypeBits,
+                (byte.MinValue, byte.MaxValue)
+            );
+            Mark(repeat);
+            owner.MoveToX0(XRegisterTag, context);
+            owner.Op(TailLocalCall, BeamWire.UnsignedTag, 1);
+            owner.Operand(LabelTag, entry);
+            Mark(restore);
+            owner.Op(SetBinaryPosition, XRegisterTag, context);
+            owner.Operand(XRegisterTag, 0);
+            owner.Op(GetBinaryTail, XRegisterTag, context);
+            owner.Operand(XRegisterTag, 0);
+            owner.Operand(BeamWire.UnsignedTag, 2);
+            owner.instructions.WriteByte(Return);
+            Mark(nonbinary);
+            owner.instructions.WriteByte(Return);
+
+            return true;
+        }
+
         private bool TryEmitFixedBitTuple(FunctionDefinition function)
         {
             if (function.Clauses is not [
