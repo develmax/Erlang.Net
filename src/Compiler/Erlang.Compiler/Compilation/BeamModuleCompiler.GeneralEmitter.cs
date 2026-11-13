@@ -13102,9 +13102,16 @@ internal sealed partial class BeamModuleCompiler
                 0
             );
             int rawStack = Save();
-            owner.instructions.WriteByte(BuildStacktrace);
-            int stack = Save();
             bool unpacked = expression.Catches.All(clause => clause.Patterns is [Pattern.Tuple { Items.Count: 3 }]);
+            bool needsStack = !unpacked || expression.Catches.Any(clause =>
+                ((Pattern.Tuple)clause.Patterns[0]).Items[2] is not Pattern.Variable { Name: VariableScopeNames.Wildcard });
+            int stack = rawStack;
+            if (needsStack)
+            {
+                owner.instructions.WriteByte(BuildStacktrace);
+                stack = Save();
+            }
+
             int caught = -1;
             if (!unpacked)
             {
