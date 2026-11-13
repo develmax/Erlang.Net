@@ -2169,7 +2169,10 @@ internal sealed partial class BeamModuleCompiler
         {
             return (opcode, call.Module, call.Call.Function, call.Call.Arguments.Count) switch
             {
-                (IsTuple, "lists", "keyfind", 3) or (IsTuple, "maps", "find" or "take", 2) => AtomTypeBits | TupleTypeBits,
+                (IsTuple, _, _, _) when ReturnsLookupResult(call.Module, call.Call.Function, call.Call.Arguments.Count)
+                    => AtomTypeBits | TupleTypeBits,
+                (IsTuple, null, _, _) when ReadCallResultUnion(call.Call) == (AtomTypeBits | TupleTypeBits)
+                    => AtomTypeBits | TupleTypeBits,
                 (SelectValue, null, _, _) when (InferPairFacts(call.Call) & PairFacts.Integer) != 0 => IntegerTypeBits,
                 (ExactEqualTest, null, _, _) => ReadCallResultUnion(call.Call),
                 _ => 0

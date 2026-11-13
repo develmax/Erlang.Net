@@ -12,6 +12,9 @@ internal sealed partial class BeamModuleCompiler
             (call.Module, call.Call.Function, call.Call.Arguments.Count, alternative.Name) is
                 ("lists", "keyfind", 3, "false") or ("maps", "find" or "take", 2, "error");
 
+        private static bool ReturnsLookupResult(string? module, string function, int arity) =>
+            (module, function, arity) is ("lists", "keyfind", 3) or ("maps", "find" or "take", 2);
+
         private int ReadCallResultUnion(Expr.Call call)
         {
             var signature = (call.Function, call.Arguments.Count);
@@ -81,9 +84,7 @@ internal sealed partial class BeamModuleCompiler
                     var signature = (call.Function, call.Arguments.Count);
                     if (!localFunctions.TryGetValue(signature, out var local) || owner.IsDeclaredNative(signature))
                     {
-                        return signature is ("reverse", 1) && owner.ResolveExternalModule(call.Function, 1) == "lists"
-                            ? projection is null ? ReadReverseResult(call) : 0
-                            : AnyTypeBits;
+                        return ReadExternalResultType(call, owner.ResolveExternalModule(call.Function, signature.Count), projection);
                     }
 
                     var visit = (signature.Function, signature.Count, projection);
@@ -96,11 +97,23 @@ internal sealed partial class BeamModuleCompiler
                     int result = ReadBranchResultTypes(local.Clauses, visited, selectorContext: selectorContext, projection: projection);
                     visited.Remove(visit);
                     return result;
-                case Expr.Call { Module: "lists", Function: "reverse", DynamicRemote: false, Arguments.Count: 1 } reverse:
-                    return projection is null ? ReadReverseResult(reverse) : 0;
+                case Expr.Call { DynamicRemote: false } call:
+                    return ReadExternalResultType(call, call.Module, projection);
                 default:
                     return AnyTypeBits;
             }
+        }
+
+        private static int ReadExternalResultType(Expr.Call call, string? module, ResultProjection? projection)
+        {
+            if ((module, call.Function, call.Arguments.Count) is ("lists", "reverse", 1))
+            {
+                return projection is null ? ReadReverseResult(call) : 0;
+            }
+
+            return projection is null && ReturnsLookupResult(module, call.Function, call.Arguments.Count)
+                ? AtomTypeBits | TupleTypeBits
+                : AnyTypeBits;
         }
 
         private static int ReadReverseResult(Expr.Call reverse) =>
