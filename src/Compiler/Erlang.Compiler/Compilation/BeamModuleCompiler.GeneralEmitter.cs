@@ -9533,6 +9533,13 @@ internal sealed partial class BeamModuleCompiler
 
                         return;
                     }
+                    if (guardFailure is null && call.Function is AutoImportNames.ByteSize or AutoImportNames.BitSize
+                        && call.Arguments.Count == 1 && owner.ResolvesErlangBif(call))
+                    {
+                        EmitBodyBitstringSize(call);
+
+                        return;
+                    }
                     if (guardFailure is int functionFailure && IsFunctionArityCall(call))
                     {
                         EmitFunctionArityGuardValue(call, functionFailure);

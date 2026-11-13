@@ -312,6 +312,7 @@ internal static class BeamModuleEmissionChecks
         await CompareGeneralDivisionAndListOperators();
         await CompareGeneralTryAfter();
         await CompareGeneralNodeAndSizeGuards();
+        await CompareBodyBitstringSizes();
         await CompareGeneralBodyFallback();
         await CompareEntryTuplePatterns();
         await CompareListCallerFacts();
@@ -4395,6 +4396,45 @@ internal static class BeamModuleEmissionChecks
         if (!expected.Equals(actual))
         {
             throw new InvalidOperationException($"General BEAM node and size guards returned {actual}, exit {exit}.");
+        }
+    }
+
+    private static async Task CompareBodyBitstringSizes()
+    {
+        const string source = """
+            -module(beam_body_size).
+            -export([run/1, shadow/1]).
+            -compile({no_auto_import,[byte_size/1]}).
+            run(Input) -> {erlang:byte_size(Input), bit_size(Input)}.
+            shadow(Input) -> {local, byte_size(Input)}.
+            byte_size(Input) -> {shadow, Input}.
+            """;
+        BeamModule image = BeamModule.Prepare(CodeGeneration.CompileBeamModule(source, "beam_body_size.erl"));
+        await using var runtime = new ProcessRuntime();
+        Term? actual = null;
+        ProcessHandle process = runtime.Spawn(async context =>
+        {
+            var input = new BitString([0b1010_0000], 3);
+            Term sizes = await image.Invoke(context, "run", input);
+            Term shadow = await image.Invoke(context, "shadow", input);
+            try
+            {
+                await image.Invoke(context, "run", Term.A("invalid"));
+                throw new InvalidOperationException("Bitstring size accepted an atom.");
+            }
+            catch (ErlangException error) when (error.Reason.Equals(Term.A("badarg")))
+            {
+            }
+
+            actual = Term.Tuple(sizes, shadow);
+            return actual;
+        });
+        Term exit = await process.Completion.WaitAsync(TimeSpan.FromSeconds(10));
+        Term expected = Term.Tuple(Term.Tuple(Term.I(1), Term.I(3)),
+            Term.Tuple(Term.A("local"), Term.Tuple(Term.A("shadow"), new BitString([0b1010_0000], 3))));
+        if (!expected.Equals(actual))
+        {
+            throw new InvalidOperationException($"Body bitstring sizes returned {actual}, exit {exit}.");
         }
     }
 

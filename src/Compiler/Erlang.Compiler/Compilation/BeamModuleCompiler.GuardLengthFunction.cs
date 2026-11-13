@@ -122,6 +122,30 @@ internal sealed partial class BeamModuleCompiler
             owner.Operand(XRegisterTag, 0);
         }
 
+        private void EmitBodyBitstringSize(Expr.Call call)
+        {
+            Expr operand = call.Arguments[0];
+            int? slot = operand is Expr.Variable variable && variables.TryGetValue(variable.Name, out int saved)
+                ? saved : null;
+            bool direct = slot.HasValue || AttributeLiteral.TryNormalizeConstant(operand, out _);
+            if (!direct)
+            {
+                Expression(operand);
+            }
+
+            owner.EmitCallLine(call, owner.lastEmittedLine);
+            EmitSizeInstruction(call.Function, 0, Math.Max(ReceiveGuardLiveRegisters, direct ? 0 : 1));
+            if (direct)
+            {
+                GuardOperand(operand, slot);
+            }
+            else
+            {
+                owner.Operand(XRegisterTag, 0);
+            }
+            owner.Operand(XRegisterTag, 0);
+        }
+
         private void EmitSizeInstruction(string function, int failure, int live)
         {
             owner.Op(GcBifOne, LabelTag, failure);
