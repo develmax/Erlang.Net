@@ -24,6 +24,7 @@ internal sealed partial class BeamModuleCompiler
             bool returnSelector = false;
             Atom? fallbackAtom = null;
             EntryCall? fallbackCall = null;
+            int fallbackInput = -1;
             for (int index = 0; index < decision.Clauses.Count; index++)
             {
                 Clause arm = decision.Clauses[index];
@@ -84,7 +85,8 @@ internal sealed partial class BeamModuleCompiler
                     {
                         fallback = value;
                     }
-                    else
+                    else if (arm.Body is not Expr.Variable { Name: not VariableScopeNames.Wildcard } saved
+                        || (fallbackInput = Array.IndexOf(parameters, saved.Name)) < 0)
                     {
                         return false;
                     }
@@ -114,6 +116,7 @@ internal sealed partial class BeamModuleCompiler
                     ? LocalFunctionEntries.Walk(construction.Tuple).OfType<Expr.Variable>()
                         .Select(variable => Array.IndexOf(parameters, variable.Name)).Where(index => index >= 0)
                     : [])
+                .Concat(fallbackInput >= 0 ? [fallbackInput] : [])
                 .Distinct().OrderDescending().ToArray();
             if (ReadEntrySelector(producer, parameters, inputs, trimFrame: false) is not { } selector)
             {
@@ -155,7 +158,7 @@ internal sealed partial class BeamModuleCompiler
 
                 int register = fallback is not null && fallbackAtom is null ? 0 : 1;
                 EmitTupleProjection(paths[0], 0, register, failure, selectorType, inputs, frame,
-                    shapeChecked: fallbackAtom is not null, result: tupleResult);
+                    shapeChecked: fallbackAtom is not null, result: tupleResult, typeSavedChecks: fallbackInput >= 0);
                 if (fallbackAtom is not null)
                 {
                     Mark(alternative);
@@ -169,6 +172,11 @@ internal sealed partial class BeamModuleCompiler
                     {
                         EmitEntryCallArguments(fallbackCall);
                         EmitPreparedFrameTail(fallbackCall, previous, frame);
+                    }
+                    else if (fallbackInput >= 0)
+                    {
+                        owner.MoveRegister(YRegisterTag, Array.IndexOf(inputs, fallbackInput), XRegisterTag, 0);
+                        owner.EmitFrameReturn(frame);
                     }
                     else
                     {
@@ -341,7 +349,8 @@ internal sealed partial class BeamModuleCompiler
             int[] inputs,
             int frame,
             bool shapeChecked = false,
-            CaseTuplePlan? result = null
+            CaseTuplePlan? result = null,
+            bool typeSavedChecks = false
         )
         {
             TupleProjectionStep[] steps = path.ToArray();
@@ -369,7 +378,7 @@ internal sealed partial class BeamModuleCompiler
                     EmitTupleShapeTest(XRegisterTag, input, step.Arity, failure, selectorType);
                 }
 
-                EmitProjectionChecks(step, input, failure, inputs, typed: result is not null);
+                EmitProjectionChecks(step, input, failure, inputs, typed: result is not null || typeSavedChecks);
                 if (result is not null && index == steps.Length - 1)
                 {
                     EmitCaseTuple(result with { EntryLive = input + 1 }, (step.Field, 0), extractionSource: input);

@@ -70,6 +70,7 @@ internal static class BeamModuleEmissionChecks
             "beam_tuple_case_call_chain",
             "beam_tuple_case_construct",
             "beam_tuple_case_known_atom",
+            "beam_case_saved_default",
             "beam_tuple_case_continuation",
             "beam_tuple_case_forward_chain",
             "beam_wx_guarded_forward_probe",
