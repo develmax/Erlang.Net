@@ -74,6 +74,7 @@ internal static class BeamModuleEmissionChecks
             "beam_tuple_case_effects",
             "beam_case_tail_saved",
             "beam_case_projected_tail",
+            "beam_case_multi_projected_tail",
             "beam_tuple_case_continuation",
             "beam_tuple_case_forward_chain",
             "beam_wx_guarded_forward_probe",

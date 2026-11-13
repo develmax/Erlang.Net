@@ -20,9 +20,9 @@ internal sealed partial class BeamModuleCompiler
             var paths = new List<TupleProjectionStep[]>();
             (Expr.Tuple Tuple, string Payload)? tupleReturn = null;
             CaseTuplePlan? tupleResult = null;
-            (Expr.Call Call, string Payload)? tupleTail = null;
+            (Expr.Call Call, (int Field, string Name)[] Fields)? tupleTail = null;
             EntryCall? projectedCall = null;
-            int projectedRegister = 0;
+            (int Field, int Register)[]? projectedFields = null;
             Term? fallback = null;
             bool returnSelector = false;
             Atom? fallbackAtom = null;
@@ -57,13 +57,20 @@ internal sealed partial class BeamModuleCompiler
                     var projected = Semantics.Variables(tailPattern).Where(name => !parameters.Contains(name))
                         .Intersect(tailCall.Arguments.OfType<Expr.Variable>().Select(variable => variable.Name))
                         .ToArray();
-                    if (projected is not [var payload] || ReadTupleProjection(tailPattern, payload, parameters) is not { } tailPath)
+                    var projections = projected.Select(name => (Name: name, Path: ReadTupleProjection(tailPattern, name, parameters)))
+                        .ToArray();
+                    if (projections.FirstOrDefault().Path is not { } tailPath
+                        || projections.Any(projection => projection.Path is not { } candidate
+                            || candidate.Length != tailPath.Length
+                            || !candidate.SkipLast(1).Select(step => step.Field).SequenceEqual(
+                                tailPath.SkipLast(1).Select(step => step.Field))))
                     {
                         return false;
                     }
 
                     paths.Add(tailPath);
-                    tupleTail = (tailCall, payload);
+                    tupleTail = (tailCall, projections.Select(projection => (projection.Path![^1].Field, projection.Name))
+                        .OrderBy(field => field.Field).ToArray());
                 }
                 else if (arm is { Guard: null, Patterns: [AliasPattern alias], Body: Expr.Variable whole }
                     && TryReadPatternAlias(alias, out var tupleAlias, out var shape)
@@ -182,11 +189,26 @@ internal sealed partial class BeamModuleCompiler
 
             if (tupleTail is { } matchedTail)
             {
-                projectedRegister = Array.FindIndex(matchedTail.Call.Arguments.ToArray(),
-                    argument => argument is Expr.Variable variable && variable.Name == matchedTail.Payload);
-                var registers = new string[projectedRegister + 1];
+                var arguments = matchedTail.Call.Arguments.ToArray();
+                var registers = new string[arguments.Length];
                 Array.Fill(registers, VariableScopeNames.Wildcard);
-                registers[projectedRegister] = matchedTail.Payload;
+                projectedFields = matchedTail.Fields.Select(field => (field.Field, Register: Array.FindIndex(arguments,
+                    argument => argument is Expr.Variable variable && variable.Name == field.Name))).ToArray();
+                int source = paths[0].Length == 1 ? 0 : 1;
+                int overwritten = Array.FindIndex(projectedFields, field => field.Register == source);
+                if (overwritten >= 0 && overwritten < projectedFields.Length - 1)
+                {
+                    int last = projectedFields.Length - 1;
+                    int replacement = projectedFields[last].Register;
+                    projectedFields[overwritten].Register = replacement;
+                    projectedFields[last].Register = source;
+                }
+
+                for (int field = 0; field < projectedFields.Length; field++)
+                {
+                    registers[projectedFields[field].Register] = matchedTail.Fields[field].Name;
+                }
+
                 projectedCall = ReadEntryCall(matchedTail.Call, registers, selector.StackInputs);
                 if (projectedCall is null)
                 {
@@ -218,7 +240,7 @@ internal sealed partial class BeamModuleCompiler
 
                 int register = fallback is not null && fallbackAtom is null ? 0 : 1;
                 EmitTupleProjection(paths[0], 0, register, failure, selectorType, inputs, frame,
-                    shapeChecked: fallbackAtom is not null, result: tupleResult, typeSavedChecks: fallbackInput >= 0 || savedTail is not null, tail: projectedCall, previous: previous, resultRegister: projectedRegister);
+                    shapeChecked: fallbackAtom is not null, result: tupleResult, typeSavedChecks: fallbackInput >= 0 || savedTail is not null, tail: projectedCall, previous: previous, projectedFields: projectedFields);
                 if (fallbackAtom is not null)
                 {
                     Mark(alternative);
@@ -427,7 +449,7 @@ internal sealed partial class BeamModuleCompiler
             bool typeSavedChecks = false,
             EntryCall? tail = null,
             BeamSourceLocation? previous = null,
-            int resultRegister = 0
+            (int Field, int Register)[]? projectedFields = null
         )
         {
             TupleProjectionStep[] steps = path.ToArray();
@@ -461,9 +483,16 @@ internal sealed partial class BeamModuleCompiler
                     EmitCaseTuple(result with { EntryLive = input + 1 }, (step.Field, 0), extractionSource: input);
                     break;
                 }
-                if (step.Field >= 0)
+                if (projectedFields is not null && index == steps.Length - 1)
                 {
-                    owner.EmitTuplePart(input, step.Field, index == steps.Length - 1 ? resultRegister : scratch);
+                    foreach (var (field, register) in projectedFields)
+                    {
+                        owner.EmitTuplePart(input, field, register);
+                    }
+                }
+                else if (step.Field >= 0)
+                {
+                    owner.EmitTuplePart(input, step.Field, index == steps.Length - 1 ? 0 : scratch);
                 }
 
                 input = scratch;
