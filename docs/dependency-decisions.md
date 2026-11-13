@@ -1,5 +1,7 @@
 # Dependency and compatibility decisions
 
+Parts 1531 and 1532 reuse throw-stack analysis, entry selector saves and tail argument planning. No dependency was added. [Evidence](validation/part-1532/README.md).
+
 Part 1530 reuses entry selector saves, saved call arguments and the call argument construction planner. No dependency was added. [Evidence](validation/part-1530/README.md).
 
 Part 1529 reuses the local argument fixed point and OTP saved-register type encoding. No dependency was added. [Evidence](validation/part-1529/README.md).

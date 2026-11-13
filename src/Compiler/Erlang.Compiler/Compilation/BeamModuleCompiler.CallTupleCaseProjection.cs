@@ -22,6 +22,7 @@ internal sealed partial class BeamModuleCompiler
             CaseTuplePlan? tupleResult = null;
             (Expr.Call Call, string Payload)? tupleTail = null;
             EntryCall? projectedCall = null;
+            int projectedRegister = 0;
             Term? fallback = null;
             bool returnSelector = false;
             Atom? fallbackAtom = null;
@@ -181,7 +182,12 @@ internal sealed partial class BeamModuleCompiler
 
             if (tupleTail is { } matchedTail)
             {
-                projectedCall = ReadEntryCall(matchedTail.Call, [matchedTail.Payload], selector.StackInputs);
+                projectedRegister = Array.FindIndex(matchedTail.Call.Arguments.ToArray(),
+                    argument => argument is Expr.Variable variable && variable.Name == matchedTail.Payload);
+                var registers = new string[projectedRegister + 1];
+                Array.Fill(registers, VariableScopeNames.Wildcard);
+                registers[projectedRegister] = matchedTail.Payload;
+                projectedCall = ReadEntryCall(matchedTail.Call, registers, selector.StackInputs);
                 if (projectedCall is null)
                 {
                     return false;
@@ -212,7 +218,7 @@ internal sealed partial class BeamModuleCompiler
 
                 int register = fallback is not null && fallbackAtom is null ? 0 : 1;
                 EmitTupleProjection(paths[0], 0, register, failure, selectorType, inputs, frame,
-                    shapeChecked: fallbackAtom is not null, result: tupleResult, typeSavedChecks: fallbackInput >= 0 || savedTail is not null, tail: projectedCall, previous: previous);
+                    shapeChecked: fallbackAtom is not null, result: tupleResult, typeSavedChecks: fallbackInput >= 0 || savedTail is not null, tail: projectedCall, previous: previous, resultRegister: projectedRegister);
                 if (fallbackAtom is not null)
                 {
                     Mark(alternative);
@@ -420,7 +426,8 @@ internal sealed partial class BeamModuleCompiler
             CaseTuplePlan? result = null,
             bool typeSavedChecks = false,
             EntryCall? tail = null,
-            BeamSourceLocation? previous = null
+            BeamSourceLocation? previous = null,
+            int resultRegister = 0
         )
         {
             TupleProjectionStep[] steps = path.ToArray();
@@ -456,7 +463,7 @@ internal sealed partial class BeamModuleCompiler
                 }
                 if (step.Field >= 0)
                 {
-                    owner.EmitTuplePart(input, step.Field, index == steps.Length - 1 ? 0 : scratch);
+                    owner.EmitTuplePart(input, step.Field, index == steps.Length - 1 ? resultRegister : scratch);
                 }
 
                 input = scratch;

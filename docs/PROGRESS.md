@@ -1,5 +1,7 @@
 # Project progress
 
+Parts 1531 and 1532 reuse stack-free throw proofs and forward tuple fields into tail calls. Seven functions reach normalized OTP instruction equality. The full corpus has 387 Equal and 979 Different. [Evidence](validation/part-1532/README.md).
+
 Part 1530 preserves saved arguments for tail calls in atom alternatives. Three functions match normalized OTP instructions and three frames match OTP sizes. The full corpus has 387 Equal and 979 Different. [Evidence](validation/part-1530/README.md).
 
 Part 1529 propagates guarded argument facts through protected local calls. Five functions reach normalized OTP instruction equality. All 1,366 images generate, with 387 Equal and 979 Different. [Evidence](validation/part-1529/README.md).
