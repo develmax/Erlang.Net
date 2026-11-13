@@ -1,6 +1,6 @@
 # Dependency and compatibility decisions
 
-Part 1537 reuses the size instruction writer from guard emission. OTP 29.1.1 remains the reference and the change adds no dependency. [Evidence](validation/part-1537/README.md).
+Part 1538 reuses the binary construction emitter and the existing operand slot release helper. OTP 29.1.1 remains the reference and the change adds no dependency. [Evidence](validation/part-1538/README.md).
 
 Part 1530 reuses entry selector saves, saved call arguments and the call argument construction planner. No dependency was added. [Evidence](validation/part-1530/README.md).
 

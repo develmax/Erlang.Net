@@ -1,6 +1,6 @@
 # Next steps
 
-Plan register lifetimes and types jointly for size BIFs and binary construction. Check ssh_transport:kex_plaintext/3, where the new instruction selection exposes an oversized frame, and ssh_bits:mpint/1, where the five size operations now use OTP opcodes. [Evidence](validation/part-1537/README.md).
+Analyze repeated record reads and their corresponding binary size operands together. In ssh_transport:kex_plaintext/3, the frame now has 14 slots compared with 11 in OTP. Continue from the instruction listing and the full corpus ranking. [Instructions](validation/part-1538/ssh-kex.txt) · [Ranking](validation/part-1538/first-difference-ranking.txt).
 
 Rank terminal operator emission by specific operator and operand forms. The previous audit finds 56 terminal operator bodies across 43 modules. Prioritize branch-local liveness that can also close a near match, starting with the integer branch and binary construction in `ssh_bits:mpint/1` and the guarded projections in `prim_buffer:read_iovec/2`. [Operator audit](validation/part-1509/first-call-spills-after.txt) · [Nearest images](validation/part-1523/nearest.txt).
 

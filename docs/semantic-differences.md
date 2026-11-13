@@ -1,6 +1,6 @@
 The C# source compiler has deterministic BEAM output for supported returns, calls, constructors, literals and patterns. Explicit release profiles can reconstruct supported module metadata and debug forms for constant bindings and nested tuples, lists, and maps. Windows x64 uses the pinned OTP compressor. Other platforms keep the existing ETF compressor. Rich documentation, type metadata, full preprocessing, general lowering and broader release reconstruction remain open. [Evidence](validation/part-606/README.md).
 
-Part 1537 matches size opcode selection in ssh_bits:mpint/1. The complete corpus has no status transitions and the aggregate Code size gap increases by 2,061 bytes. [Evidence](validation/part-1537/README.md).
+Part 1538 matches the use of X0 for a final binary segment after a call. The corpus has no status transitions, and the aggregate Code size gap falls by 442 bytes. [Evidence](validation/part-1538/README.md).
 
 Part 1530 matches three normalized function bodies. The stack-free throw rewrite still differs in snmpc:get_info/2. [Evidence](validation/part-1530/README.md).
 
