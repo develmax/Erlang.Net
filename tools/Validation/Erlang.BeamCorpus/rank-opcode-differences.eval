@@ -7,13 +7,15 @@ Opcode = fun
     (Instruction) -> element(1, Instruction)
 end,
 Functions = fun(Disassembly) ->
-    maps:from_list([{{Name, Arity}, [I || I <- Instructions,
-        Op <- [Opcode(I)], Op =/= label, Op =/= line, Op =/= func_info]}
+    maps:from_list([{{Name, Arity}, Instructions}
         || {function, Name, Arity, _, Instructions} <- Disassembly])
+end,
+WithoutMetadata = fun(Instructions) ->
+    [I || I <- Instructions, Op <- [Opcode(I)], Op =/= label, Op =/= line, Op =/= func_info]
 end,
 %% A first move/init_yregs mismatch is often caused by different frame sizes.
 %% Keep those cases separate from differences with the same allocation.
-FirstDifference = fun(Reference, Generated) ->
+FirstDifference = fun(ReferenceOps, GeneratedOps) ->
     Find = fun
         Loop([Left | RestLeft], [Right | RestRight], Previous) ->
             case {Opcode(Left), Opcode(Right)} of
@@ -33,15 +35,56 @@ FirstDifference = fun(Reference, Generated) ->
         Loop([], [Right | _], _) -> {instruction_end, Opcode(Right)};
         Loop([Left | _], [], _) -> {Opcode(Left), instruction_end}
     end,
-    Find(Reference, Generated, none)
+    Find(ReferenceOps, GeneratedOps, none)
+end,
+%% Keep operand differences separate from opcode differences. A function may
+%% have a mismatched allocation and still have the same opcode sequence.
+Direction = fun(Expected, Actual) when Expected < Actual -> excess;
+               (Expected, Actual) when Expected > Actual -> insufficient;
+               (_, _) -> equal
+end,
+NormalizeLabels = fun(Instructions) ->
+    Labels = [Label || {label, Label} <- Instructions],
+    Numbered = maps:from_list(lists:zip(Labels, lists:seq(1, length(Labels)))),
+    Normalize = fun
+        Term({label, Label}) -> {label, maps:get(Label, Numbered)};
+        Term({f, Label}) -> {f, maps:get(Label, Numbered, Label)};
+        Term({literal, _} = Literal) -> Literal;
+        Term({make_fun3, Module, Index, _, Destination, Arguments}) ->
+            {make_fun3, Module, Index, uniq, Term(Destination), Term(Arguments)};
+        Term(Tuple) when is_tuple(Tuple) -> list_to_tuple(Term(tuple_to_list(Tuple)));
+        Term([Head | Tail]) -> [Term(Head) | Term(Tail)];
+        Term(Value) -> Value
+    end,
+    Normalize(Instructions)
+end,
+AllocationDifference = fun(ReferenceOps, GeneratedOps) ->
+    Find = fun
+        Loop([Instruction | Left], [Instruction | Right]) ->
+            Loop(Left, Right);
+        Loop([{allocate, ExpectedSlots, ExpectedLive} | _],
+             [{allocate, ActualSlots, ActualLive} | _]) ->
+            {allocate, {frame, Direction(ExpectedSlots, ActualSlots)},
+                {live, Direction(ExpectedLive, ActualLive)}};
+        Loop([{allocate_heap, ExpectedSlots, ExpectedHeap, ExpectedLive} | _],
+             [{allocate_heap, ActualSlots, ActualHeap, ActualLive} | _]) ->
+            Heap = case ExpectedHeap =:= ActualHeap of true -> equal; false -> different end,
+            {allocate_heap, {frame, Direction(ExpectedSlots, ActualSlots)},
+                {heap, Heap}, {live, Direction(ExpectedLive, ActualLive)}};
+        Loop(_, _) -> same
+    end,
+    Find(NormalizeLabels(ReferenceOps), NormalizeLabels(GeneratedOps))
+end,
+AddExample = fun(Path, Function, Modules) ->
+    maps:update_with(Path, fun(Example) -> min(Example, Function) end, Function, Modules)
 end,
 Add = fun(Difference, Path, Function, Groups) ->
     maps:update_with(Difference,
-        fun(Modules) -> maps:update_with(Path, fun(Example) -> min(Example, Function) end, Function, Modules) end,
+        fun(Modules) -> AddExample(Path, Function, Modules) end,
         #{Path => Function}, Groups)
 end,
 Files = filelib:fold_files(Generated, "[.]beam$", true, fun(Path, Acc) -> [Path | Acc] end, []),
-{Groups, Unreadable, SameOpcodes} = lists:foldl(fun(Path, {Acc, Errors, Same}) ->
+{Groups, AllocationGroups, Unreadable, SameOpcodes} = lists:foldl(fun(Path, {Acc, Allocations, Errors, Same}) ->
     Relative = lists:nthtail(length(filename:split(Generated)), filename:split(Path)),
     Original = filename:join([Reference | Relative]),
     Name = filename:join(Relative),
@@ -50,7 +93,7 @@ Files = filelib:fold_files(Generated, "[.]beam$", true, fun(Path, Acc) -> [Path 
             Expected = Functions(Left),
             Actual = Functions(Right),
             Differences = [{Function, case maps:find(Function, Actual) of
-                {ok, Ops} -> FirstDifference(ReferenceOps, Ops);
+                {ok, Ops} -> FirstDifference(WithoutMetadata(ReferenceOps), WithoutMetadata(Ops));
                 error -> missing_function
             end} || {Function, ReferenceOps} <- maps:to_list(Expected)]
                 ++ [{Function, extra_function} || Function <- maps:keys(Actual), not maps:is_key(Function, Expected)],
@@ -58,11 +101,19 @@ Files = filelib:fold_files(Generated, "[.]beam$", true, fun(Path, Acc) -> [Path 
             Updated = lists:foldl(fun({Function, Difference}, Current) ->
                 Add(Difference, Name, Function, Current)
             end, Acc, Changes),
-            {Updated, Errors, Same + case Changes of [] -> 1; _ -> 0 end};
+            AllocationChanges = maps:fold(fun(Function, ReferenceOps, Current) ->
+                case AllocationDifference(ReferenceOps, maps:get(Function, Actual, [])) of
+                    same -> Current;
+                    Difference -> maps:update_with(Difference,
+                        fun({Count, Modules}) -> {Count + 1, AddExample(Name, Function, Modules)} end,
+                        {1, #{Name => Function}}, Current)
+                end
+            end, Allocations, Expected),
+            {Updated, AllocationChanges, Errors, Same + case Changes of [] -> 1; _ -> 0 end};
         _ ->
-            {Acc, [Name | Errors], Same}
+            {Acc, Allocations, [Name | Errors], Same}
     end
-end, {#{}, [], 0}, Files),
+end, {#{}, #{}, [], 0}, Files),
 Ranked = lists:reverse(lists:sort([{map_size(Modules), Difference,
     lists:sublist(lists:sort(maps:to_list(Modules)), 3)} || {Difference, Modules} <- maps:to_list(Groups)])),
 io:format("Different images: ~p~nSame opcode sequences: ~p~nUnreadable images: ~p~n",
@@ -73,4 +124,11 @@ FrameDetails = [Row || {_, {move, init_yregs, _}, _}=Row <- Ranked,
 lists:foreach(fun({Count, Difference, Examples}) ->
     io:format("~w ~w ~p~n", [Count, Difference, Examples])
 end, Top ++ FrameDetails),
+io:format("First differing instruction operands at allocation after label normalization:~n"),
+AllocationRows = lists:reverse(lists:sort([
+    {map_size(Modules), FunctionCount, Difference, lists:sublist(lists:sort(maps:to_list(Modules)), 3)}
+    || {Difference, {FunctionCount, Modules}} <- maps:to_list(AllocationGroups)])),
+lists:foreach(fun({ModuleCount, FunctionCount, Difference, Examples}) ->
+    io:format("~B modules, ~B functions ~w ~p~n", [ModuleCount, FunctionCount, Difference, Examples])
+end, AllocationRows),
 halt().
