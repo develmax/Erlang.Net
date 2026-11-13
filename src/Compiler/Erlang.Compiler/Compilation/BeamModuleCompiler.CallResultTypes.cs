@@ -82,7 +82,7 @@ internal sealed partial class BeamModuleCompiler
                     if (!localFunctions.TryGetValue(signature, out var local) || owner.IsDeclaredNative(signature))
                     {
                         return signature is ("reverse", 1) && owner.ResolveExternalModule(call.Function, 1) == "lists"
-                            ? projection is null ? ProperListTypeBits : 0
+                            ? projection is null ? ReadReverseResult(call) : 0
                             : AnyTypeBits;
                     }
 
@@ -96,12 +96,20 @@ internal sealed partial class BeamModuleCompiler
                     int result = ReadBranchResultTypes(local.Clauses, visited, selectorContext: selectorContext, projection: projection);
                     visited.Remove(visit);
                     return result;
-                case Expr.Call { Module: "lists", Function: "reverse", DynamicRemote: false, Arguments.Count: 1 }:
-                    return projection is null ? ProperListTypeBits : 0;
+                case Expr.Call { Module: "lists", Function: "reverse", DynamicRemote: false, Arguments.Count: 1 } reverse:
+                    return projection is null ? ReadReverseResult(reverse) : 0;
                 default:
                     return AnyTypeBits;
             }
         }
+
+        private static int ReadReverseResult(Expr.Call reverse) =>
+            reverse.Arguments[0] switch
+            {
+                Expr.List { Items.Count: > 0 } or Expr.Literal { Value: Cons } => ConsTypeBits,
+                Expr.List { Items.Count: 0, Tail: null } or Expr.Literal { Value: Nil } => ProperListTypeBits & ~ConsTypeBits,
+                _ => ProperListTypeBits
+            };
 
         private int ReadCaseResultTypes(Expr.Case decision, HashSet<(string Name, int Arity, ResultProjection? Projection)> visited,
             IReadOnlyDictionary<string, int>? bindings, bool selectorContext, ResultProjection? projection)
