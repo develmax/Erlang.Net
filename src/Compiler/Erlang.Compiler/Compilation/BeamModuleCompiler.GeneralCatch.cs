@@ -1578,8 +1578,8 @@ internal sealed partial class BeamModuleCompiler
                 return new(
                     ExactEqualTest,
                     first,
-                    firstResult,
-                    secondResult
+                    ReuseMatchedTailArgument(firstResult, first),
+                    ReuseMatchedTailArgument(secondResult, second)
                 );
             }
 
@@ -1690,7 +1690,7 @@ internal sealed partial class BeamModuleCompiler
                         return null;
                     }
 
-                    arms.Add((branchKey.Value, result));
+                    arms.Add((branchKey.Value, ReuseMatchedTailArgument(result, branchKey.Value)));
                 }
 
                 if (keepSelector)
@@ -1851,7 +1851,7 @@ internal sealed partial class BeamModuleCompiler
                     ? new RegisterCase(
                         opcode,
                         key,
-                        match,
+                        key is null ? match : ReuseMatchedTailArgument(match, key),
                         otherwise
                     ) : null;
             }
@@ -2178,6 +2178,20 @@ internal sealed partial class BeamModuleCompiler
                         return false;
                 }
             }
+        }
+
+        private static RegisterCaseResult ReuseMatchedTailArgument(RegisterCaseResult result, Term key)
+        {
+            if (result is { Tail: { } tail, Cons: null }
+                && tail.Constants.FindIndex(operand => operand.Destination == 0 && operand.Value.Equals(key)) is int move
+                && move >= 0)
+            {
+                var constants = new List<(int Destination, Term Value)>(tail.Constants);
+                constants.RemoveAt(move);
+                return result with { Tail = tail with { Constants = constants } };
+            }
+
+            return result;
         }
 
         private static bool ReturnsMatchedValue(Pattern pattern, Expr result)
