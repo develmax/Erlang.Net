@@ -24,6 +24,7 @@ internal sealed partial class BeamModuleCompiler
             bool returnSelector = false;
             Atom? fallbackAtom = null;
             EntryCall? fallbackCall = null;
+            Expr.Call? savedTail = null;
             int fallbackInput = -1;
             for (int index = 0; index < decision.Clauses.Count; index++)
             {
@@ -81,6 +82,10 @@ internal sealed partial class BeamModuleCompiler
                     {
                         fallbackCall = target;
                     }
+                    else if (arm.Body is Expr.Call tailWithInputs)
+                    {
+                        savedTail = tailWithInputs;
+                    }
                     else if (AttributeLiteral.TryNormalizeConstant(arm.Body, out Term value))
                     {
                         fallback = value;
@@ -117,6 +122,8 @@ internal sealed partial class BeamModuleCompiler
                         .Select(variable => Array.IndexOf(parameters, variable.Name)).Where(index => index >= 0)
                     : [])
                 .Concat(fallbackInput >= 0 ? [fallbackInput] : [])
+                .Concat(savedTail is null ? [] : LocalFunctionEntries.Walk(savedTail).OfType<Expr.Variable>()
+                    .Select(variable => Array.IndexOf(parameters, variable.Name)).Where(index => index >= 0))
                 .Distinct().OrderDescending().ToArray();
             if (ReadEntrySelector(producer, parameters, inputs, trimFrame: false) is not { } selector)
             {
@@ -129,6 +136,22 @@ internal sealed partial class BeamModuleCompiler
                     .ToDictionary(binding => binding.Item1, binding => binding.slot, StringComparer.Ordinal);
                 tupleResult = ReadCaseTuple(returnedTuple.Tuple, returnedTuple.Payload, saved);
                 if (tupleResult is null)
+                {
+                    return false;
+                }
+            }
+
+            if (savedTail is not null)
+            {
+                fallbackCall = ReadEntryCall(savedTail, [], selector.StackInputs, allowControlTransfer: true)
+                    ?? ReadStraightConstructedCall(
+                        savedTail,
+                        null,
+                        selector.Saved.Select((input, slot) => (Name: parameters[input], Slot: slot))
+                            .ToDictionary(binding => binding.Name, binding => binding.Slot, StringComparer.Ordinal),
+                        allowControlTransfer: true
+                    );
+                if (fallbackCall is null)
                 {
                     return false;
                 }
@@ -158,7 +181,7 @@ internal sealed partial class BeamModuleCompiler
 
                 int register = fallback is not null && fallbackAtom is null ? 0 : 1;
                 EmitTupleProjection(paths[0], 0, register, failure, selectorType, inputs, frame,
-                    shapeChecked: fallbackAtom is not null, result: tupleResult, typeSavedChecks: fallbackInput >= 0);
+                    shapeChecked: fallbackAtom is not null, result: tupleResult, typeSavedChecks: fallbackInput >= 0 || savedTail is not null);
                 if (fallbackAtom is not null)
                 {
                     Mark(alternative);
@@ -170,7 +193,14 @@ internal sealed partial class BeamModuleCompiler
                     }
                     if (fallbackCall is not null)
                     {
-                        EmitEntryCallArguments(fallbackCall);
+                        if (savedTail is not null)
+                        {
+                            EmitSavedCallArguments(new SavedCallStep(fallbackCall, null, false, []), Enumerable.Range(0, frame).ToArray());
+                        }
+                        else
+                        {
+                            EmitEntryCallArguments(fallbackCall);
+                        }
                         EmitPreparedFrameTail(fallbackCall, previous, frame);
                     }
                     else if (fallbackInput >= 0)
@@ -184,6 +214,12 @@ internal sealed partial class BeamModuleCompiler
                         owner.EmitFrameReturn(frame);
                     }
                     Mark(failure);
+                    if (savedTail is not null && fallbackCall?.Module is not null && decision.SourceLine != 0
+                        && CallLocation(savedTail, previous) != previous)
+                    {
+                        owner.EmitLine(new BeamSourceLocation(decision.PreprocessorFile ?? location.File, decision.SourceLine));
+                    }
+
                     owner.Op(CaseEnd, XRegisterTag, 0);
                 }
                 else

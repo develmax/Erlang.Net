@@ -176,11 +176,12 @@ internal sealed partial class BeamModuleCompiler
             Expr.Call target,
             string? registerValue,
             IReadOnlyDictionary<string, int> saved,
-            bool preserveX0 = false
+            bool preserveX0 = false,
+            bool allowControlTransfer = false
         )
         {
             var placeholder = target with { Arguments = target.Arguments.Select(_ => (Expr)new Expr.Literal(Nil.Value)).ToArray() };
-            if (!TryResolveOrdinaryCall(placeholder, out string? module))
+            if (!TryResolveOrdinaryCall(placeholder, out string? module, allowControlTransfer: allowControlTransfer))
             {
                 return null;
             }
