@@ -1,0 +1,35 @@
+OTP 29.1.1
+{label,124}
+{line,[{location,"ct_conn_log_h.erl",300}]}
+{func_info,{atom,ct_conn_log_h},{atom,pad0},2}
+{label,125}
+{allocate,1,2}
+{move,{x,1},{y,0}}
+{line,[{location,"ct_conn_log_h.erl",301}]}
+{gc_bif,length,{f,0},2,[{tr,{x,1},{t_cons,any,any}}],{x,1}}
+{line,[{location,"ct_conn_log_h.erl",302}]}
+{gc_bif,'-',{f,0},2,[{tr,{x,0},{t_integer,{2,3}}},{tr,{x,1},{t_integer,{1,288230376151711743}}}],{x,0}}
+{move,{integer,48},{x,1}}
+{call_ext,2,{extfunc,lists,duplicate,2}}
+{move,{y,0},{x,1}}
+{call_ext_last,2,{extfunc,erlang,'++',2},1}
+Part 1557 C#
+{label,163}
+{line,[{location,"ct_conn_log_h.erl",300}]}
+{func_info,{atom,ct_conn_log_h},{atom,pad0},2}
+{label,164}
+{allocate,3,2}
+{init_yregs,{list,[{y,2}]}}
+{move,{x,0},{y,0}}
+{move,{x,1},{y,1}}
+{move,{y,1},{x,0}}
+{line,[{location,"ct_conn_log_h.erl",301}]}
+{call_ext,1,{extfunc,erlang,length,1}}
+{move,{x,0},{y,2}}
+{line,[{location,"ct_conn_log_h.erl",302}]}
+{gc_bif,'-',{f,0},0,[{y,0},{y,2}],{x,0}}
+{move,{integer,48},{x,1}}
+{line,[{location,"ct_conn_log_h.erl",302}]}
+{call_ext,2,{extfunc,lists,duplicate,2}}
+{move,{y,1},{x,1}}
+{call_ext_last,2,{extfunc,erlang,'++',2},3}

@@ -1,5 +1,7 @@
 # Next steps
 
+Reduce excess frame allocation in functions starting with a call result binding. The corpus audit identifies 790 functions in 332 modules. Trace argument preparation and saved values in the top local and remote call groups. [Frame ranking](validation/part-1558/baseline-frame-rank.txt).
+
 Carry selector types into single tagged tuple projections. Start with the remaining untyped operand in pubkey_cert:current_any_policy_qualifiers/1 and measure the effect across the corpus. [Instructions](validation/part-1557/current_any_policy_qualifiers.txt).
 
 Infer numeric types after measurements and ordered guards. Seven instructions in prim_buffer:read_iovec/2 still differ by operand types. [Instructions](validation/part-1545/prim-buffer.txt) · [Corpus ranking](validation/part-1545/first-difference-ranking.txt).

@@ -1,5 +1,7 @@
 # Project progress
 
+Part 1558 annotates single tagged tuple projections. All 1,366 images generate, with 390 Equal and 976 Different. [Evidence](validation/part-1558/README.md).
+
 Part 1557 propagates lookup result types into tuple tests. All 1,366 images generate, with 390 Equal and 976 Different. [Evidence](validation/part-1557/README.md).
 
 Part 1545 aligns measured entry slots and terminal if failure instructions. All 1,366 images generate, with 389 Equal and 977 Different. [Evidence](validation/part-1545/README.md).

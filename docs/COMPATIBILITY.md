@@ -1,5 +1,7 @@
 # Compatibility overview
 
+Part 1558 aligns the normalized instructions in pubkey_cert:current_any_policy_qualifiers/1. OTP accepts all 976 differing images for loading. [Evidence](validation/part-1558/README.md).
+
 Part 1557 aligns two normalized functions that test lookup results. OTP accepts all 976 differing images for loading. [Evidence](validation/part-1557/README.md).
 
 Part 1545 verifies measured list branches and terminal if failure. OTP accepts all 977 differing images for loading. [Evidence](validation/part-1545/README.md).

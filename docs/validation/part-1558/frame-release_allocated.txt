@@ -1,0 +1,28 @@
+OTP 29.1.1
+{label,153}
+{line,[{location,"ct_config.erl",485}]}
+{func_info,{atom,ct_config},{atom,release_allocated},0}
+{label,154}
+{allocate,0,0}
+{move,{literal,[{{ct_conf,'_','_','_','_','$1','_'},[{'=/=','$1','_UNDEF'}],['$_']}]},{x,1}}
+{move,{atom,ct_attributes},{x,0}}
+{line,[{location,"ct_config.erl",486}]}
+{call_ext,2,{extfunc,ets,select,2}}
+{call_last,1,{ct_config,release_allocated,1},0}
+Part 1557 C#
+{label,217}
+{line,[{location,"ct_config.erl",485}]}
+{func_info,{atom,ct_config},{atom,release_allocated},0}
+{label,218}
+{allocate,1,0}
+{init_yregs,{list,[{y,0}]}}
+{move,{literal,{ct_conf,'_','_','_','_','$1','_'}},{x,0}}
+{test_heap,4,1}
+{put_tuple2,{x,0},{list,[{x,0},{literal,[{'=/=','$1','_UNDEF'}]},{literal,['$_']}]}}
+{test_heap,2,1}
+{put_list,{x,0},nil,{x,1}}
+{move,{atom,ct_attributes},{x,0}}
+{line,[{location,"ct_config.erl",486}]}
+{call_ext,2,{extfunc,ets,select,2}}
+{move,{x,0},{y,0}}
+{call_last,1,{ct_config,release_allocated,1},1}
