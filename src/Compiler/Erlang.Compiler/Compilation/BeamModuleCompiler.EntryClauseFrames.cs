@@ -1003,7 +1003,8 @@ internal sealed partial class BeamModuleCompiler
             int atomSuffixInput = -1;
             int atomSuffixEnd = branches.Count - 1;
             int[]? atomSuffixLabels = null;
-            int atomSuffixFallback = 0;
+            const int atomSuffixFallback = int.MinValue;
+            int atomSuffixOperandStart = 0;
             if (tupleDispatchSupported && !listDispatch && branches.Count >= 4
                 && tupleSelections?.Any(selection => selection is not null) != true
                 && branches[^1].Clause.Guard is null && HasUnconditionalParameters(branches[^1].Clause)
@@ -1085,7 +1086,7 @@ internal sealed partial class BeamModuleCompiler
                         atomSuffixLabels![order[index]] = Label();
                     }
 
-                    atomSuffixFallback = Label();
+                    atomSuffixOperandStart = owner.deferredLabelOperands.Count;
                     owner.EmitMembershipSelect(
                         atomSuffixInput,
                         atomSuffixFallback,
@@ -1102,7 +1103,17 @@ internal sealed partial class BeamModuleCompiler
                 }
                 else if (atomSuffixLabels is not null && position == atomSuffixEnd)
                 {
-                    Mark(atomSuffixFallback);
+                    int fallback = Label();
+                    for (int index = atomSuffixOperandStart; index < owner.deferredLabelOperands.Count; index++)
+                    {
+                        var branchOperand = owner.deferredLabelOperands[index];
+                        if (branchOperand.Target == atomSuffixFallback)
+                        {
+                            owner.deferredLabelOperands[index] = (branchOperand.Position, fallback);
+                        }
+                    }
+
+                    Mark(fallback);
                 }
 
                 bool arityBranch = branch < arityCount;
@@ -1232,6 +1243,32 @@ internal sealed partial class BeamModuleCompiler
                     tupleCall, consResult, tailCall, callChain, tailList, tailConstruction, tupleResult, bodyInputs, deferredCons,
                     arithmeticTail, returnedConstruction, savedCalls) = branches[branch];
                 bool hasNext = branch + 1 < branches.Count;
+                (int Input, List<(int Index, int Register)> Fields)? protectedEntryTuple = null;
+                if (selectedAtom && bodyInputs is not null && tuples is [var protectedTuple]
+                    && protectedTuple.Tag is null && fieldTests.Count == 0
+                    && TryEmitProtectedTaggedResult(
+                        clause.Body,
+                        parameters,
+                        (protectedTuple.Input, protectedTuple.Fields),
+                        validateOnly: true
+                    ))
+                {
+                    protectedEntryTuple = (protectedTuple.Input, protectedTuple.Fields);
+                }
+
+                EntryConstructedArgument? projectedReturn = null;
+                if (selectedAtom && clause.Body is Expr.Tuple
+                    && tuples is [{ Tag: null, Fields: [var projectedField] }]
+                    && fieldTests.Count == 0
+                    && ReadEntryConstructedArgument(clause.Body, 0, parameters) is { } projectedResult
+                    && projectedResult.Operands.All(operand => operand.Source is null || operand.Source == projectedField.Register))
+                {
+                    projectedReturn = projectedResult with
+                    {
+                        Operands = projectedResult.Operands.Select(operand =>
+                            operand.Source.HasValue ? (Source: (int?)0, operand.Constant) : operand).ToArray()
+                    };
+                }
                 var elementCase = bodyInputs is not null && cons.Count != 0
                     ? ReadListElementCase(clause.Body, parameters) : null;
                 if (elementCase is { } elementPlan)
@@ -1552,7 +1589,8 @@ internal sealed partial class BeamModuleCompiler
                         : -1;
                     foreach (var (index, register) in fields.Take(fieldLimit))
                     {
-                        if ((resultIndex >= 0 && register == resultRegister)
+                        if (protectedEntryTuple is not null || projectedReturn is not null
+                            || (resultIndex >= 0 && register == resultRegister)
                             || registerCase?.Deferred is { } projection && projection.Tuple == input
                                 && (projection.Field == index || registerCase.SavedTupleFields?.Any(item => item.Field == index) == true
                                     || !bodyInputs!.Any(binding => binding.Register == register)))
@@ -1696,6 +1734,15 @@ internal sealed partial class BeamModuleCompiler
 
                     EmitRegisterTailCall(tailCall, previousTupleTailLine);
                 }
+                else if (projectedReturn is not null)
+                {
+                    var projection = tuples[0];
+                    owner.Op(TestHeap, BeamWire.UnsignedTag, projectedReturn.HeapWords);
+                    owner.Operand(BeamWire.UnsignedTag, projection.Input + 1);
+                    owner.EmitTuplePart(projection.Input, projection.Fields[0].Index, 0);
+                    EmitEntryConstruction(projectedReturn);
+                    owner.instructions.WriteByte(Return);
+                }
                 else if (tupleResult is { } constructed)
                 {
                     owner.Op(TestHeap, BeamWire.UnsignedTag, constructed.HeapWords);
@@ -1711,6 +1758,10 @@ internal sealed partial class BeamModuleCompiler
                 {
                     EmitCallArgumentConstructions(returnedConstruction, -1);
                     owner.instructions.WriteByte(Return);
+                }
+                else if (protectedEntryTuple is not null)
+                {
+                    TryEmitProtectedTaggedResult(clause.Body, parameters, protectedEntryTuple);
                 }
                 else if (bodyInputs is not null)
                 {

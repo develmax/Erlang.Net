@@ -13204,7 +13204,12 @@ internal sealed partial class BeamModuleCompiler
                 );
         }
 
-        private bool TryEmitProtectedTaggedResult(Expr body, string[] parameters)
+        private bool TryEmitProtectedTaggedResult(
+            Expr body,
+            string[] parameters,
+            (int Input, List<(int Index, int Register)> Fields)? entryTuple = null,
+            bool validateOnly = false
+        )
         {
             Expr[] prefix = [];
             if (body is Expr.Sequence { Items: [_, .., Expr.Try terminal] } sequence)
@@ -13275,22 +13280,72 @@ internal sealed partial class BeamModuleCompiler
                 return false;
             }
 
+            int live = Math.Max(
+                EntryCallLiveCount(steps.Count == 0 ? producer : steps[0], parameters),
+                saved.Select(name => Array.IndexOf(parameters, name) + 1).DefaultIfEmpty(0).Max()
+            );
+            int savedField = -1;
+            int firstArgumentField = -1;
+            if (entryTuple is { } input)
+            {
+                if (steps.Count == 0 || saved is not [var retained]
+                    || input.Fields is not [var firstField, var secondField]
+                    || parameters[input.Input] != VariableScopeNames.Wildcard
+                    || steps[0].ConstructedArgument is not null)
+                {
+                    return false;
+                }
+
+                if (parameters[secondField.Register] == retained)
+                {
+                    (firstField, secondField) = (secondField, firstField);
+                }
+
+                var first = steps[0];
+                if (parameters[firstField.Register] != retained
+                    || first.Call.Arguments.FirstOrDefault() is not Expr.Variable argument
+                    || argument.Name != parameters[secondField.Register]
+                    || first.Moves.Count(move => move.Source == secondField.Register) != 1
+                    || first.Moves.Any(move => move.Source == firstField.Register || move.Source == 0))
+                {
+                    return false;
+                }
+
+                savedField = firstField.Index;
+                firstArgumentField = secondField.Index;
+                live = Math.Max(input.Input + 1, first.Call.Arguments.Skip(1).OfType<Expr.Variable>()
+                    .Select(variable => Array.IndexOf(parameters, variable.Name) + 1).DefaultIfEmpty(0).Max());
+                steps[0] = first with { Moves = first.Moves.Where(move => move.Destination != 0).ToList() };
+            }
+
+            if (validateOnly)
+            {
+                return true;
+            }
+
             int token = saved.Length;
             int frame = token + 1;
             int handler = Label();
             int fallbackLabel = Label();
             int rethrow = Label();
-            EmitFrameAllocation(Math.Max(
-                EntryCallLiveCount(steps.Count == 0 ? producer : steps[0], parameters),
-                saved.Select(name => Array.IndexOf(parameters, name) + 1).DefaultIfEmpty(0).Max()
-            ), frame);
+            EmitFrameAllocation(live, frame);
             var previous = location;
             if (steps.Count != 0)
             {
                 EmitFrameInitialization(token, frame);
-                for (int slot = 0; slot < saved.Length; slot++)
+                if (entryTuple is { } projected)
                 {
-                    owner.MoveRegister(XRegisterTag, Array.IndexOf(parameters, saved[slot]), YRegisterTag, slot);
+                    owner.Op(GetTupleElement, XRegisterTag, projected.Input);
+                    owner.Operand(BeamWire.UnsignedTag, savedField);
+                    owner.Operand(YRegisterTag, 0);
+                    owner.EmitTuplePart(projected.Input, firstArgumentField, 0);
+                }
+                else
+                {
+                    for (int slot = 0; slot < saved.Length; slot++)
+                    {
+                        owner.MoveRegister(XRegisterTag, Array.IndexOf(parameters, saved[slot]), YRegisterTag, slot);
+                    }
                 }
 
                 foreach (var step in steps)
