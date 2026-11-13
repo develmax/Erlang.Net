@@ -64,15 +64,18 @@ internal sealed partial class BeamModuleCompiler
                 return false;
             }
 
+            var head = clause.Patterns is [Pattern.List { Items: [Pattern.Variable element], Tail: null }]
+                && element.Name != VariableScopeNames.Wildcard ? element : null;
+            Clause bindingsClause = head is null ? clause : clause with { Patterns = [head] };
             IReadOnlyList<Expr> expressions = clause.Body is Expr.Sequence sequence ? sequence.Items : [clause.Body];
             string? resultBinding = null;
             Expr.Call? call = null;
             var result = expressions[^1];
             if (expressions is [.., Expr.Match { Pattern: Pattern.Variable binding,
-                Value: Expr.Call { DynamicRemote: false, Arguments: [] } invoke }, _])
+                Value: Expr.Call { DynamicRemote: false } invoke }, _] && AcceptsCall(invoke))
             {
                 if (binding.Name == VariableScopeNames.Wildcard
-                    || clause.Patterns.OfType<Pattern.Variable>().Any(parameter => parameter.Name == binding.Name))
+                    || bindingsClause.Patterns.OfType<Pattern.Variable>().Any(parameter => parameter.Name == binding.Name))
                 {
                     return false;
                 }
@@ -83,12 +86,12 @@ internal sealed partial class BeamModuleCompiler
             }
 
             bool testsNil = clause.Patterns is [Pattern.List { Items: [], Tail: null } or Pattern.Literal { Value: Nil }];
-            if (!testsNil && !HasUnconditionalParameters(clause))
+            if (!testsNil && head is null && !HasUnconditionalParameters(clause))
             {
                 return false;
             }
 
-            if (ReadConstantBindings(clause, new Expr.Sequence(expressions)) is not { } constants
+            if (ReadConstantBindings(bindingsClause, new Expr.Sequence(expressions)) is not { } constants
                 || resultBinding is not null && constants.ContainsKey(resultBinding))
             {
                 return false;
@@ -101,27 +104,40 @@ internal sealed partial class BeamModuleCompiler
             }
 
             int entry = 0;
-            if (call.Module is null && !entries.TryGetValue((call.Function, 0), out entry))
+            if (call.Module is null && !entries.TryGetValue((call.Function, call.Arguments.Count), out entry))
             {
                 return false;
             }
 
-            if (testsNil)
+            if (head is not null)
             {
-                owner.Op(IsNil, LabelTag, owner.nextLabel - 2);
-                owner.Operand(XRegisterTag, 0);
-            }
-
-            EmitFrameAllocation(0, 0);
-            owner.EmitCallLine(call, location);
-            if (call.Module is null)
-            {
-                owner.EmitFieldCall(0, entry);
+                int failure = owner.nextLabel - 2;
+                owner.EmitNonemptyList(0, failure);
+                owner.EmitListParts(0, XRegisterTag, 1, XRegisterTag, 2);
+                owner.EmitNilTest(XRegisterTag, 2, failure);
+                EmitFrameAllocation(2, 0);
+                owner.MoveRegister(XRegisterTag, 1, XRegisterTag, 0);
             }
             else
             {
-                owner.Op(ExternalCall, BeamWire.UnsignedTag, 0);
-                owner.Operand(BeamWire.UnsignedTag, owner.Import(call.Module, call.Function, 0));
+                if (testsNil)
+                {
+                    owner.Op(IsNil, LabelTag, owner.nextLabel - 2);
+                    owner.Operand(XRegisterTag, 0);
+                }
+                EmitFrameAllocation(0, 0);
+            }
+
+            owner.EmitCallLine(call, location);
+            int arity = call.Arguments.Count;
+            if (call.Module is null)
+            {
+                owner.EmitFieldCall(arity, entry);
+            }
+            else
+            {
+                owner.Op(ExternalCall, BeamWire.UnsignedTag, arity);
+                owner.Operand(BeamWire.UnsignedTag, owner.Import(call.Module, call.Function, arity));
             }
             int heap = containers.Sum(container => container.IsList ? ConsHeapWords * container.Items.Length : container.Items.Length + 1);
             owner.Op(TestHeap, BeamWire.UnsignedTag, heap);
@@ -153,6 +169,11 @@ internal sealed partial class BeamModuleCompiler
             owner.EmitFrameReturn(0);
             return true;
 
+            bool AcceptsCall(Expr.Call candidate) => head is null
+                ? candidate.Arguments.Count == 0
+                : candidate.Arguments is [Expr.Variable argument] && argument.Name == head.Name
+                    && TryResolveOrdinaryCall(candidate, out string? module) && module == candidate.Module;
+
             void Operand(Term? value)
             {
                 if (value is null)
@@ -172,7 +193,7 @@ internal sealed partial class BeamModuleCompiler
                     return variable.Name == resultBinding;
                 }
 
-                if (call is null && expression is Expr.Call { DynamicRemote: false, Arguments: [] } nestedCall)
+                if (call is null && expression is Expr.Call { DynamicRemote: false } nestedCall && AcceptsCall(nestedCall))
                 {
                     call = nestedCall;
                     return true;
