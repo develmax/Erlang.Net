@@ -1,3 +1,5 @@
+Part 1580 removes the frame from ct_netconfc:trim/1. The match entry and alignment still differ. [Evidence](validation/part-1580/README.md).
+
 Part 1579 matches the fixed binary tuple fixture. The optimized shape changed zero release images. [Evidence](validation/part-1579/README.md).
 
 Part 1578 aligns the literal equality operands in the fixed binary prefix fixture. Frame allocation and capture registers still differ. [Evidence](validation/part-1578/README.md).

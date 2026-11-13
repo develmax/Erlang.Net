@@ -1,5 +1,7 @@
 # Next steps
 
+Infer binary argument proofs at local call sites to select no_fail and resume. [Evidence](validation/part-1580/README.md).
+
 Measure reuse of binary match contexts across calls and alternatives in functions using bs_start_match4. [Inventory](validation/part-1579/binary-tuple-inventory.txt).
 
 Align register allocation for fixed binary pattern branches and reuse their match context between alternatives. [Evidence](validation/part-1578/README.md).

@@ -1,5 +1,7 @@
 # Project progress
 
+Part 1580 passes the binary match context through recursive byte filters. All 1,366 images generate with 390 Equal and 976 Different. [Evidence](validation/part-1580/README.md).
+
 Part 1579 matches the fixed binary tuple fixture byte for byte. The release corpus remains at 390 Equal and 976 Different. [Evidence](validation/part-1579/README.md).
 
 Part 1578 fuses fixed binary literals into match commands in 87 release images. All 1,366 images generate with 390 Equal and 976 Different. [Evidence](validation/part-1578/README.md).

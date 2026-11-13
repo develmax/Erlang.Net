@@ -1,5 +1,7 @@
 # Compatibility overview
 
+Part 1580 verifies binary context transfer against the OTP image and the managed runtime. [Evidence](validation/part-1580/README.md).
+
 Part 1579 verifies register-based binary tuple capture against a deterministic OTP fixture. [Evidence](validation/part-1579/README.md).
 
 Part 1578 checks fixed integer literals inside bs_match. OTP accepts all 976 differing release images for loading. [Evidence](validation/part-1578/README.md).
