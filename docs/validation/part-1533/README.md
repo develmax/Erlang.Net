@@ -15,3 +15,13 @@ $otp = Join-Path $env:TEMP 'erl-cohort-7mzi5e1n/view/artifacts/library376-offici
 $env:ERLANG_BEAM_CORPUS_SAVE_DIFFERENCES = '1'
 dotnet artifacts/beam-backend/part1533-tool/Erlang.BeamCorpus.dll $otp artifacts/beam-backend/otp-corpus-part1533-final.json artifacts/beam-backend/part929-ordered-headers artifacts/beam-backend/part1058-source-overlay
 ```
+
+## Release example
+
+The release function `mod_disk_log:transfer_log/7` now uses one Y slot for the input that survives the selector call. The generated branch reads both tuple fields into X registers and uses the same swap and tail call as OTP. The function matches after normalizing label numbers. [Instruction listing](mod-disk-log.txt).
+
+## Results
+
+All 1,366 release sources were accepted and generated. Of the full images, 387 match byte for byte and 979 differ. ELDAPv3 remains byte-identical from C# ASN.1 generation. OTP loads all 979 differing images. [Corpus](otp-corpus.json) · [Loader](loader-and-code.txt).
+
+Three release images change. All three frames reach OTP sizes and the total Code size gap drops by 54 bytes. One function reaches normalized instruction equality. Three focused compiler checks passed. The full runtime suite and canonical readiness were not rerun. [Focused checks](focused.json) · [Function delta](normalized-functions.txt) · [Frame delta](frame-delta.txt) · [First differences](first-difference-ranking.txt).

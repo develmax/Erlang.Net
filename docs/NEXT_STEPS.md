@@ -1,6 +1,6 @@
 # Next steps
 
-Extend the terminal branch plan to multiple projected tuple fields and branch-local call liveness. Prioritize the first-difference group for oversized frames and verify against all 1,366 release images. [Evidence](validation/part-1532/first-difference-ranking.txt).
+Prioritize shared stack-frame placement and liveness analysis. The largest first-difference group has larger frames than OTP. Use the ranking to choose reproducible cross-module cases and verify against all 1,366 release images. [Evidence](validation/part-1533/first-difference-ranking.txt).
 
 Rank terminal operator emission by specific operator and operand forms. The previous audit finds 56 terminal operator bodies across 43 modules. Prioritize branch-local liveness that can also close a near match, starting with the integer branch and binary construction in `ssh_bits:mpint/1` and the guarded projections in `prim_buffer:read_iovec/2`. [Operator audit](validation/part-1509/first-call-spills-after.txt) · [Nearest images](validation/part-1523/nearest.txt).
 
