@@ -393,6 +393,16 @@ internal sealed partial class BeamModuleCompiler
                 }
 
                 var multiple = checks?.GetValueOrDefault(index - 1);
+                bool saveProjectedResult = false;
+                if (multiple is { Field: int projection, Bindings: null }
+                    && previous is not null && lastReads.GetValueOrDefault(previous) > index
+                    && target.Arguments.All(IsPreparedOperand) && preparedClosure is null)
+                {
+                    // The tuple check can write the live payload straight into its frame slot.
+                    multiple = multiple with { Field = null, Bindings = [(projection, previous)] };
+                    saveProjectedResult = true;
+                }
+
                 DeferredCallTuple? deferredTuple = multiple?.Bindings is not null ? ReadDeferredCallTuple(
                     multiple,
                     index,
@@ -476,7 +486,8 @@ internal sealed partial class BeamModuleCompiler
                 var occupied = saved.Values.ToHashSet();
                 bool freeSlotBeforeSelector = decision is not null && index == calls.Length - 1
                     && occupied.Count < lastSlotReads.Count;
-                int? reuseSlot = previous is not null && lastReads.GetValueOrDefault(previous) > index && !freeSlotBeforeSelector
+                int? reuseSlot = !saveProjectedResult && previous is not null
+                    && lastReads.GetValueOrDefault(previous) > index && !freeSlotBeforeSelector
                     ? FindReusableCallSlot(
                         ref step,
                         previous,
@@ -503,7 +514,7 @@ internal sealed partial class BeamModuleCompiler
 
                 int? spill = null;
                 bool reuse = false;
-                if (previous is not null && lastReads.GetValueOrDefault(previous) > index)
+                if (!saveProjectedResult && previous is not null && lastReads.GetValueOrDefault(previous) > index)
                 {
                     int slot = reuseSlot ?? 0;
                     while (reuseSlot is null && occupied.Contains(slot))

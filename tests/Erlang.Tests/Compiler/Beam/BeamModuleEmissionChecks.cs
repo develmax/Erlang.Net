@@ -297,6 +297,7 @@ internal static class BeamModuleEmissionChecks
         await CompareForwardedCatch();
         await CompareGuardedEntryCallChain();
         await CompareConstantReturningCallChain();
+        await CompareSavedCheckedPayload();
         await CompareGeneralRecordGuard();
         await CompareGeneralBitStringReferenceAndMapKeyGuards();
         await CompareGeneralMapComprehensions();
@@ -1971,6 +1972,51 @@ internal static class BeamModuleEmissionChecks
         if (!Term.Tuple(Term.Tuple(list, Term.A("tail")), list, Term.A("badarg")).Equals(actual))
         {
             throw new InvalidOperationException($"General BEAM append returned {actual}, exit {exit}.");
+        }
+    }
+
+    private static async Task CompareSavedCheckedPayload()
+    {
+        const string source = """
+            -module(beam_saved_checked_payload).
+            -export([run/2]).
+            run(Input, Other) ->
+                {ok, Payload} = prepare(Input),
+                ok = touch(Payload),
+                finish(Payload, Other).
+            prepare(fail) -> invalid;
+            prepare(Value) -> {ok,{payload,Value}}.
+            touch(_) -> ok.
+            finish(Value, Other) -> {Value,Other}.
+            """;
+        BeamModule image = BeamModule.Prepare(CodeGeneration.CompileBeamModule(source, "beam_saved_checked_payload.erl"));
+        await using var runtime = new ProcessRuntime();
+        Term? actual = null;
+        ProcessHandle process = runtime.Spawn(async context =>
+        {
+            Term result = await image.Invoke(context, "run", Term.A("value"), Term.I(7));
+            Term failure;
+            try
+            {
+                failure = await image.Invoke(context, "run", Term.A("fail"), Term.I(7));
+            }
+            catch (ErlangException error)
+            {
+                failure = error.Reason;
+            }
+
+            actual = Term.Tuple(result, failure);
+
+            return actual;
+        });
+        Term exit = await process.Completion.WaitAsync(TimeSpan.FromSeconds(10));
+        Term expected = Term.Tuple(
+            Term.Tuple(Term.Tuple(Term.A("payload"), Term.A("value")), Term.I(7)),
+            Term.Tuple(Term.A("badmatch"), Term.A("invalid"))
+        );
+        if (!expected.Equals(actual))
+        {
+            throw new InvalidOperationException($"Saved checked payload returned {actual}, exit {exit}.");
         }
     }
 
