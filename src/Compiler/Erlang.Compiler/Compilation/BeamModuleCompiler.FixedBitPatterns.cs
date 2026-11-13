@@ -587,27 +587,71 @@ internal sealed partial class BeamModuleCompiler
         private HashSet<Expr.Match> ReadGuardedBinaryMatches(Expr body, Expr? guard)
         {
             var matches = new HashSet<Expr.Match>(ReferenceEqualityComparer.Instance);
-            if (guard is null)
+            Visit(body, AddGuardProofs([], guard));
+
+            return matches;
+
+            HashSet<string> AddGuardProofs(HashSet<string> inherited, Expr? condition)
             {
-                return matches;
+                if (condition is null)
+                {
+                    return inherited;
+                }
+
+                var binaries = new HashSet<string>(inherited, StringComparer.Ordinal);
+                foreach (Expr.Call call in PredicateConjuncts(condition).OfType<Expr.Call>())
+                {
+                    if (call is
+                        {
+                            Module: null or ErlangModuleNames.Module,
+                            DynamicRemote: false,
+                            Function: AutoImportNames.IsBinary,
+                            Arguments: [Expr.Variable variable]
+                        } && owner.ResolvesErlangBif(call))
+                    {
+                        binaries.Add(variable.Name);
+                    }
+                }
+
+                return binaries;
             }
 
-            var binaries = PredicateConjuncts(guard).OfType<Expr.Call>()
-                .Where(call => call is { Module: null or ErlangModuleNames.Module, DynamicRemote: false,
-                    Function: AutoImportNames.IsBinary } && owner.ResolvesErlangBif(call))
-                .SelectMany(call => call.Arguments is [Expr.Variable variable] ? new[] { variable.Name } : [])
-                .ToHashSet(StringComparer.Ordinal);
-            IReadOnlyList<Expr> items = body is Expr.Sequence sequence ? sequence.Items : [body];
-            foreach (Expr item in items)
+            void Visit(Expr expression, HashSet<string> binaries)
             {
-                if (item is Expr.Match { Pattern: BitPattern, Value: Expr.Variable input } match
-                    && binaries.Contains(input.Name))
+                switch (expression)
                 {
-                    matches.Add(match);
+                    case Expr.Match { Pattern: BitPattern, Value: Expr.Variable input } match
+                        when binaries.Contains(input.Name):
+                        matches.Add(match);
+                        break;
+                    case Expr.Sequence sequence:
+                        foreach (Expr item in sequence.Items)
+                        {
+                            Visit(item, binaries);
+                        }
+
+                        break;
+                    case Expr.Block block:
+                        Visit(block.Body, binaries);
+                        break;
+                    // Case and if do not shadow variables already bound in the enclosing clause.
+                    case Expr.Case decision:
+                        Visit(decision.Value, binaries);
+                        VisitBranches(decision.Clauses, binaries);
+                        break;
+                    case Expr.If conditional:
+                        VisitBranches(conditional.Clauses, binaries);
+                        break;
                 }
             }
 
-            return matches;
+            void VisitBranches(IReadOnlyList<Clause> clauses, HashSet<string> binaries)
+            {
+                foreach (Clause clause in clauses)
+                {
+                    Visit(clause.Body, AddGuardProofs(binaries, clause.Guard));
+                }
+            }
         }
 
         private void EmitBitMatchStart(int context, int failure, bool knownBinary = false)

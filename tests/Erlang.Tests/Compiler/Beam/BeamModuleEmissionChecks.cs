@@ -3419,8 +3419,11 @@ internal static class BeamModuleEmissionChecks
                 <<Part:Count/binary, Tail/binary>> = Bin,
                 {Part,Tail}.
             multiple(Bin, First, Skip) when is_binary(Bin) ->
-                <<Prefix:First/binary, _:Skip/binary, Middle:2/binary, Tail/binary>> = Bin,
-                {Prefix,Middle,Tail}.
+                case {First, Skip} of
+                    {Count, Ignored} ->
+                        <<Prefix:Count/binary, _:Ignored/binary, Middle:2/binary, Tail/binary>> = Bin,
+                        {Prefix,Middle,Tail}
+                end.
             """;
         BeamModule image = BeamModule.Prepare(CodeGeneration.CompileBeamModule(source, "beam_guarded_body_binary.erl"));
         await using var runtime = new ProcessRuntime();
