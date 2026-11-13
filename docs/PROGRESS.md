@@ -1,5 +1,7 @@
 # Project progress
 
+Part 1529 propagates guarded argument facts through protected local calls. Five functions reach normalized OTP instruction equality. All 1,366 images generate, with 387 Equal and 979 Different. [Evidence](validation/part-1529/README.md).
+
 Part 1528 plans call effects in terminal tuple and atom arms. Both compression functions reach normalized instruction equality and match OTP frame sizes. The full corpus generates 1,366 images with 387 Equal and 979 Different. [Evidence](validation/part-1528/README.md).
 
 Parts 1526 and 1527 remove proven atom tests and keep an outer return argument live in terminal tuple cases. Twenty-one functions gain normalized instruction equality across the two runs. The full corpus generates 1,366 images with 387 Equal and 979 Different. [Part 1526](validation/part-1526/README.md) · [Part 1527](validation/part-1527/README.md).

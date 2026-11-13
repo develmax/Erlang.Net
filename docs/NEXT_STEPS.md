@@ -1,6 +1,6 @@
 # Next steps
 
-Carry saved operand types through protected local calls and generalize terminal case liveness for remaining mixed call and return arms. The current corpus still ranks oversized frames first. [Evidence](validation/part-1528/README.md).
+Generalize frame placement and branch-local liveness for terminal cases with mixed calls and returns. The current corpus still ranks oversized frames first. Compare the next shared change against all 1,366 release images. [Evidence](validation/part-1529/first-difference-ranking.txt).
 
 Rank terminal operator emission by specific operator and operand forms. The previous audit finds 56 terminal operator bodies across 43 modules. Prioritize branch-local liveness that can also close a near match, starting with the integer branch and binary construction in `ssh_bits:mpint/1` and the guarded projections in `prim_buffer:read_iovec/2`. [Operator audit](validation/part-1509/first-call-spills-after.txt) · [Nearest images](validation/part-1523/nearest.txt).
 

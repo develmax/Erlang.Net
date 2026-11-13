@@ -14,3 +14,9 @@ $otp = Join-Path $env:TEMP 'erl-cohort-7mzi5e1n/view/artifacts/library376-offici
 $env:ERLANG_BEAM_CORPUS_SAVE_DIFFERENCES = '1'
 dotnet artifacts/beam-backend/part1529-verified-tool/Erlang.BeamCorpus.dll $otp artifacts/beam-backend/otp-corpus-part1529-verified.json artifacts/beam-backend/part929-ordered-headers artifacts/beam-backend/part1058-source-overlay
 ```
+
+## Results
+
+All 1,366 release sources were accepted and generated. The complete corpus has 387 Equal and 979 Different, with no status transitions. ELDAPv3 remains Equal from C# ASN.1 generation. OTP loads all 979 differing images. [Corpus](otp-corpus.json) · [Loader](loader-and-code.txt).
+
+Twelve release images and 18 function bodies changed. Five functions reached normalized instruction equality, including both Windows network lookups in net. The independent probe matches 72 protected-call results or errors, and three focused compiler tests pass. The full runtime suite and canonical readiness were not rerun. [Function delta](normalized-functions.txt) · [Probe](probe.txt) · [Focused tests](focused.json).

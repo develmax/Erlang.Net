@@ -1,5 +1,7 @@
 # Dependency and compatibility decisions
 
+Part 1529 reuses the local argument fixed point and OTP saved-register type encoding. No dependency was added. [Evidence](validation/part-1529/README.md).
+
 Part 1528 reuses the compiler register call-sequence planner and OTP release instructions for argument forwarding and frame compaction. No dependency was added. [Evidence](validation/part-1528/README.md).
 
 Parts 1526 and 1527 reuse OTP call result contracts, the tuple projection emitter and the entry selector save plan. No dependency was added. [Evidence](validation/part-1526/README.md).
