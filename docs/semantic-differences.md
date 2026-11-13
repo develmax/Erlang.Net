@@ -1,5 +1,7 @@
 The C# source compiler has deterministic BEAM output for supported returns, calls, constructors, literals and patterns. Explicit release profiles can reconstruct supported module metadata and debug forms for constant bindings and nested tuples, lists, and maps. Windows x64 uses the pinned OTP compressor. Other platforms keep the existing ETF compressor. Rich documentation, type metadata, full preprocessing, general lowering and broader release reconstruction remain open. [Evidence](validation/part-606/README.md).
 
+Part 1567 folds the fixture tuple field to a literal. The release corpus remains at 390 exact matches. [Evidence](validation/part-1567/README.md).
+
 Part 1566 matches six normalized functions for single-call cases. The complete images still differ. [Evidence](validation/part-1566/README.md).
 
 Part 1565 matches 36 normalized functions by planning records with call results. The complete images still differ. [Evidence](validation/part-1565/README.md).

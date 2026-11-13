@@ -1705,6 +1705,13 @@ internal sealed partial class BeamModuleCompiler
                             .OfType<Expr.Variable>().Any(argument => argument.Name == projected.Name)
                         || projectedResult.TupleCall?.Call.Arguments.OfType<Expr.Variable>()
                             .Any(argument => argument.Name == projected.Name) == true;
+                    if (branch.Body is Expr.Variable fieldResult && fieldResult.Name == projected.Name
+                        && selectorCall is not null && ReadConstantCallProjection(selectorCall, tuple, access.Index) is { } constant)
+                    {
+                        projectedResult = new RegisterCaseResult(null, constant);
+                        usesField = false;
+                    }
+
                     int fieldRegister = 0;
                     if (projectedResult.NestedCase is { Spill: null, ProjectedSlot: null, Selector.RegisterConstructions: null } nestedCall)
                     {

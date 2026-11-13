@@ -15,6 +15,83 @@ internal sealed partial class BeamModuleCompiler
         private static bool ReturnsLookupResult(string? module, string function, int arity) =>
             (module, function, arity) is ("lists", "keyfind", 3) or ("maps", "find" or "take", 2);
 
+        private Term? ReadConstantCallProjection(EntryCall selector, Pattern.Tuple pattern, int field)
+        {
+            if (selector.Module is not null)
+            {
+                return null;
+            }
+
+            Term? constant = null;
+            var active = new HashSet<(string Name, int Arity)>();
+
+            return Read(selector.Call) ? constant : null;
+
+            bool Read(Expr expression)
+            {
+                switch (expression)
+                {
+                    case Expr.Call { Module: null, DynamicRemote: false } call:
+                        var signature = (call.Function, call.Arguments.Count);
+                        if (!localFunctions.TryGetValue(signature, out var definition)
+                            || owner.IsDeclaredNative(signature) || !active.Add(signature))
+                        {
+                            return false;
+                        }
+
+                        bool known = definition.Clauses.All(clause => Read(clause.Body));
+                        active.Remove(signature);
+                        return known;
+                    case Expr.Sequence { Items.Count: > 0 } sequence:
+                        return Read(sequence.Items[^1]);
+                    case Expr.Block block:
+                        return Read(block.Body);
+                    case Expr.Case decision:
+                        return decision.Clauses.All(clause => Read(clause.Body));
+                    case Expr.If conditional:
+                        return conditional.Clauses.All(clause => Read(clause.Body));
+                    case Expr.RecordConstruction record:
+                        return Read(RecordExpressions.Create(record));
+                    case Expr.Tuple tuple:
+                        return ReadTuple(tuple.Items);
+                    default:
+                        if (!AttributeLiteral.TryNormalizeConstant(expression, out Term value))
+                        {
+                            return false;
+                        }
+
+                        return value is not TupleTerm literal || ReadTuple(literal.Items.Select(item => (Expr)new Expr.Literal(item)).ToArray());
+                }
+            }
+
+            bool ReadTuple(IReadOnlyList<Expr> items)
+            {
+                if (items.Count != pattern.Items.Count)
+                {
+                    return true;
+                }
+
+                for (int index = 0; index < items.Count; index++)
+                {
+                    if (pattern.Items[index] is Pattern.Literal expected
+                        && AttributeLiteral.TryNormalizeConstant(items[index], out Term actual)
+                        && !expected.Value.Equals(actual))
+                    {
+                        return true;
+                    }
+                }
+
+                if (!AttributeLiteral.TryNormalizeConstant(items[field], out Term projected)
+                    || constant is not null && !constant.Equals(projected))
+                {
+                    return false;
+                }
+
+                constant = projected;
+                return true;
+            }
+        }
+
         private int ReadCallResultUnion(Expr.Call call)
         {
             var signature = (call.Function, call.Arguments.Count);

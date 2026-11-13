@@ -1,5 +1,7 @@
 # Next steps
 
+Compare the first differing instructions in the closest release modules and measure how many modules share each cause. [Instruction audit](validation/part-1567/near.txt).
+
 Rank remaining single-producer case differences by the first divergent instruction and preserve known values from the producer into branch lowering. [Evidence](validation/part-1566/README.md).
 
 Compare call frames for saved call results consumed by case selectors. Prioritize the local and remote call groups from the corpus audit. [Frame ranking](validation/part-1564/frame-rank.txt).
