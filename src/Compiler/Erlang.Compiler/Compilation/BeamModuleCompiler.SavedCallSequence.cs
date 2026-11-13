@@ -978,8 +978,11 @@ internal sealed partial class BeamModuleCompiler
                     if (call.Moves is [(var destination, 0)] && call.Constants.Count == 0)
                     {
                         loads[firstLoad] = (destination, loads[firstLoad].Source);
-                        owner.EmitOrderedTailMoves([], [], loads);
+                        var beforeSave = loads.Where(load => load.Source == spill || load.Destination == destination).ToList();
+                        owner.EmitOrderedTailMoves([], [], beforeSave);
                         owner.MoveRegister(XRegisterTag, 0, YRegisterTag, spill);
+                        loads.RemoveAll(load => load.Source == spill || load.Destination == destination);
+                        owner.EmitOrderedTailMoves([], [], loads);
                         owner.Op(Swap, XRegisterTag, 0);
                         owner.Operand(XRegisterTag, destination);
 
