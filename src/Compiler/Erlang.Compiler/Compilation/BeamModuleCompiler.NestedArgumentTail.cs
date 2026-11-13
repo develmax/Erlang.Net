@@ -527,8 +527,15 @@ internal sealed partial class BeamModuleCompiler
                 continuation.Add((step, null));
             }
 
+            Term? constantResult = returnsConstant ? constant : null;
+            if (constantResult is not null && continuation.Count != 0
+                && ReturnsLocalCallConstant(continuation[0].Call, constantResult))
+            {
+                constantResult = null;
+            }
+
             EmitEntryCallChain(first, parameters, continuation, relocateBeforeTrim: true,
-                constantResult: returnsConstant ? constant : null);
+                constantResult: constantResult);
             return true;
         }
 

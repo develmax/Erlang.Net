@@ -296,6 +296,7 @@ internal static class BeamModuleEmissionChecks
         await CompareGeneralCatch();
         await CompareForwardedCatch();
         await CompareGuardedEntryCallChain();
+        await CompareConstantReturningCallChain();
         await CompareGeneralRecordGuard();
         await CompareGeneralBitStringReferenceAndMapKeyGuards();
         await CompareGeneralMapComprehensions();
@@ -1970,6 +1971,59 @@ internal static class BeamModuleEmissionChecks
         if (!Term.Tuple(Term.Tuple(list, Term.A("tail")), list, Term.A("badarg")).Equals(actual))
         {
             throw new InvalidOperationException($"General BEAM append returned {actual}, exit {exit}.");
+        }
+    }
+
+    private static async Task CompareConstantReturningCallChain()
+    {
+        const string source = """
+            -module(beam_constant_tail_chain).
+            -export([run/1, keep/1]).
+            run(Input) when is_atom(Input) ->
+                step(Input, first),
+                step(Input, second),
+                done.
+            keep(Input) when is_atom(Input) ->
+                step(Input, first),
+                different(Input),
+                done.
+            step(Input, Phase) ->
+                case {Input, Phase} of
+                    {fail, second} -> throw(second_call);
+                    _ -> ok
+                end,
+                done.
+            different(value) -> other;
+            different(_) -> done.
+            """;
+        BeamModule image = BeamModule.Prepare(CodeGeneration.CompileBeamModule(source, "beam_constant_tail_chain.erl"));
+        await using var runtime = new ProcessRuntime();
+        Term? actual = null;
+        ProcessHandle process = runtime.Spawn(async context =>
+        {
+            Term result = await image.Invoke(context, "run", Term.A("value"));
+            Term kept = await image.Invoke(context, "keep", Term.A("value"));
+            Term failure;
+            try
+            {
+                failure = await image.Invoke(context, "run", Term.A("fail"));
+            }
+            catch (ErlangException error)
+            {
+                failure = Term.Tuple(Term.A("caught"), error.Reason);
+            }
+
+            actual = Term.Tuple(result, kept, failure);
+
+            return actual;
+        });
+        Term exit = await process.Completion.WaitAsync(TimeSpan.FromSeconds(10));
+        Term expected = Term.Tuple(
+            Term.A("done"), Term.A("done"), Term.Tuple(Term.A("caught"), Term.A("second_call"))
+        );
+        if (!expected.Equals(actual))
+        {
+            throw new InvalidOperationException($"Constant-returning call chain returned {actual}, exit {exit}.");
         }
     }
 

@@ -8,6 +8,24 @@ internal sealed partial class BeamModuleCompiler
 
         private readonly Dictionary<(string Name, int Arity), int> callResultTypes = [];
 
+        private bool ReturnsLocalCallConstant(EntryCall call, Term expected)
+        {
+            var signature = (call.Call.Function, call.Call.Arguments.Count);
+            return !owner.ModuleOptimizationDisabled && call.Module is null
+                && !owner.IsDeclaredNative(signature)
+                && localFunctions.TryGetValue(signature, out var definition)
+                && definition.Clauses.All(clause => ReturnsConstant(clause.Body));
+
+            bool ReturnsConstant(Expr expression) => expression switch
+            {
+                Expr.Sequence sequence => ReturnsConstant(sequence.Items[^1]),
+                Expr.Block block => ReturnsConstant(block.Body),
+                Expr.Case decision => decision.Clauses.All(clause => ReturnsConstant(clause.Body)),
+                Expr.If conditional => conditional.Clauses.All(clause => ReturnsConstant(clause.Body)),
+                _ => AttributeLiteral.TryNormalizeConstant(expression, out Term value) && expected.Equals(value)
+            };
+        }
+
         private static bool HasKnownNonTupleResult(EntryCall call, Atom alternative) =>
             (call.Module, call.Call.Function, call.Call.Arguments.Count, alternative.Name) is
                 ("lists", "keyfind", 3, "false") or ("maps", "find" or "take", 2, "error");
