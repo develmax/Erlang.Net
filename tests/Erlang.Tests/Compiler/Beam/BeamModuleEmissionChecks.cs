@@ -295,6 +295,7 @@ internal static class BeamModuleEmissionChecks
         await CompareGeneralAppend();
         await CompareGeneralCatch();
         await CompareForwardedCatch();
+        await CompareGuardedEntryCallChain();
         await CompareGeneralRecordGuard();
         await CompareGeneralBitStringReferenceAndMapKeyGuards();
         await CompareGeneralMapComprehensions();
@@ -1969,6 +1970,47 @@ internal static class BeamModuleEmissionChecks
         if (!Term.Tuple(Term.Tuple(list, Term.A("tail")), list, Term.A("badarg")).Equals(actual))
         {
             throw new InvalidOperationException($"General BEAM append returned {actual}, exit {exit}.");
+        }
+    }
+
+    private static async Task CompareGuardedEntryCallChain()
+    {
+        const string source = """
+            -module(beam_guarded_call_chain).
+            -export([run/3]).
+            run(Input, Saved, Mode) when is_atom(Input), Mode =:= run ->
+                Value = prepare(Input),
+                Checked = prepare(Value),
+                finish(Checked, Saved).
+            prepare(Input) -> {prepared,Input}.
+            finish(Value, Saved) -> {Value,Saved}.
+            """;
+        BeamModule image = BeamModule.Prepare(CodeGeneration.CompileBeamModule(source, "beam_guarded_call_chain.erl"));
+        await using var runtime = new ProcessRuntime();
+        Term? actual = null;
+        ProcessHandle process = runtime.Spawn(async context =>
+        {
+            Term value = await image.Invoke(context, "run", Term.A("input"), Term.I(7), Term.A("run"));
+            Term failure;
+            try
+            {
+                failure = await image.Invoke(context, "run", Term.A("input"), Term.I(7), Term.A("skip"));
+            }
+            catch (ErlangException error)
+            {
+                failure = error.Reason;
+            }
+
+            actual = Term.Tuple(value, failure);
+
+            return actual;
+        });
+        Term exit = await process.Completion.WaitAsync(TimeSpan.FromSeconds(10));
+        Term prepared = Term.Tuple(Term.A("prepared"), Term.Tuple(Term.A("prepared"), Term.A("input")));
+        Term expected = Term.Tuple(Term.Tuple(prepared, Term.I(7)), Term.A("function_clause"));
+        if (!expected.Equals(actual))
+        {
+            throw new InvalidOperationException($"Guarded call chain returned {actual}, exit {exit}.");
         }
     }
 

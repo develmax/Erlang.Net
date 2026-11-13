@@ -1276,10 +1276,16 @@ internal sealed partial class BeamModuleCompiler
                 sharedEntryTests = EmitSharedEntryTests(function, clauses, functionInfo);
             }
 
-            if (entryPatterns is not null && entryGuard is null && clauses[0].Guard is not null
-                && TryEmitEntryCallTuple(clauses[0] with { Guard = null }))
+            if (entryPatterns is not null && entryGuard is null && clauses[0].Guard is not null)
             {
-                return;
+                // All guard failures already branch to function_info with the incoming arguments.
+                var checkedClause = clauses[0] with { Guard = null };
+                if (TryEmitEntryCallTuple(checkedClause)
+                    || recursiveClosure is null && (TryEmitDiscardedCallSequence(checkedClause)
+                        || TryEmitNestedEntryCalls(checkedClause)))
+                {
+                    return;
+                }
             }
 
             var entryTupleLiterals = (entryPatterns is not null || sharedEntryTests is not null)
