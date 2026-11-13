@@ -27,14 +27,17 @@ internal sealed partial class BeamModuleCompiler
         private bool TryEmitSavedCallSequenceTuple(Clause clause)
         {
             if (clause.Guard is not null || !HasUnconditionalParameters(clause)
-                || clause.Body is not (Expr.Tuple or Expr.Sequence { Items: [.., Expr.Tuple] }))
+                || clause.Body is not (Expr.Tuple or Expr.RecordConstruction
+                    or Expr.Sequence { Items: [.., Expr.Tuple or Expr.RecordConstruction] }))
             {
                 return false;
             }
 
             string[] parameters = clause.Patterns.Cast<Pattern.Variable>().Select(parameter => parameter.Name).ToArray();
             IReadOnlyList<Expr> items = clause.Body is Expr.Sequence sequence ? sequence.Items : [clause.Body];
-            var tuple = (Expr.Tuple)items[^1];
+            var tuple = items[^1] is Expr.RecordConstruction record
+                ? RecordExpressions.Create(record)
+                : (Expr.Tuple)items[^1];
             if (AttributeLiteral.TryNormalizeConstant(tuple, out _))
             {
                 return false;
@@ -93,7 +96,7 @@ internal sealed partial class BeamModuleCompiler
                     closure = inline;
                     usesClosure = true;
                 }
-                else if (item is Expr.Tuple or Expr.List)
+                else if (item is Expr.Tuple or Expr.List or Expr.RecordConstruction)
                 {
                     reads.UnionWith(LocalFunctionEntries.Walk(item).OfType<Expr.Variable>()
                         .Select(value => value.Name).Where(bindings.ContainsKey));

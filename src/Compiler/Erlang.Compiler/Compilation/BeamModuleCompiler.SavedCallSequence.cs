@@ -192,6 +192,7 @@ internal sealed partial class BeamModuleCompiler
             {
                 Expr.Call call => BindCallResult(call),
                 Expr.Tuple tuple => tuple with { Items = tuple.Items.Select(FlattenResult).ToArray() },
+                Expr.RecordConstruction record => FlattenResult(RecordExpressions.Create(record)),
                 Expr.List list => list with
                 {
                     Items = list.Items.Select(FlattenResult).ToArray(),
