@@ -13,7 +13,8 @@ internal sealed partial class BeamModuleCompiler
             int[] Released,
             PreparedCallClosure? Closure = null,
             (int Slot, int Field, int Register)[]? TupleArguments = null,
-            (int Source, int Destination)? TupleRelocation = null
+            (int Source, int Destination)? SlotRelocation = null,
+            bool ReloadRelocatedArgument = false
         );
 
         private bool TryEmitSavedCallSequence(Expr body, string[] parameters)
@@ -502,11 +503,12 @@ internal sealed partial class BeamModuleCompiler
                     saved.Remove(slots[slot]);
                 }
 
-                (int Source, int Destination)? tupleRelocation = null;
+                (int Source, int Destination)? slotRelocation = null;
+                bool reloadRelocatedArgument = false;
                 if (deferredTuple is not null && tupleSlot == lastSlotReads.Count - 1 && released.Length != 0)
                 {
                     int destination = released.Min();
-                    tupleRelocation = (tupleSlot.Value, destination);
+                    slotRelocation = (tupleSlot.Value, destination);
                     saved[deferredTuple.Binding] = destination;
                     lastSlotReads[destination] = deferredTuple.Consumer;
                     lastSlotReads[tupleSlot.Value] = index;
@@ -536,6 +538,25 @@ internal sealed partial class BeamModuleCompiler
                     saved.Add(previous, slot);
                 }
 
+                if (slotRelocation is null && spill is null && preparedClosure is null
+                    && constant is not null && index == calls.Length - 2
+                    && checks?.GetValueOrDefault(index) is { Arity: null }
+                    && checks.GetValueOrDefault(index + 1) is { Arity: null }
+                    && step.RegisterConstructions is null && step.SavedInputs is { } loads
+                    && saved.Count == 1 && released.Length != 0)
+                {
+                    var retained = saved.Single();
+                    int destination = released.Min();
+                    if (retained.Value > destination && loads.Contains((0, retained.Value)))
+                    {
+                        slotRelocation = (retained.Value, destination);
+                        reloadRelocatedArgument = true;
+                        saved[retained.Key] = destination;
+                        lastSlotReads[destination] = lastReads[retained.Key];
+                        lastSlotReads[retained.Value] = index;
+                    }
+                }
+
                 steps.Add(new SavedCallStep(
                     step,
                     spill,
@@ -543,7 +564,8 @@ internal sealed partial class BeamModuleCompiler
                     released,
                     preparedClosure,
                     tupleArguments.Count == 0 ? null : tupleArguments.ToArray(),
-                    tupleRelocation
+                    slotRelocation,
+                    reloadRelocatedArgument
                 ));
             }
 
@@ -740,9 +762,10 @@ internal sealed partial class BeamModuleCompiler
                     remap,
                     deferConstant,
                     swapBeforeConstants: tupleField,
-                    heapChecked: step.Closure is not null
+                    heapChecked: step.Closure is not null,
+                    deferStackLoad: step.ReloadRelocatedArgument
                 );
-                if (step.TupleRelocation is { } relocation)
+                if (step.SlotRelocation is { } relocation)
                 {
                     owner.MoveRegister(
                         YRegisterTag,
@@ -770,7 +793,7 @@ internal sealed partial class BeamModuleCompiler
                     trimTo++;
                 }
 
-                int[] expired = step.Released.Where(slot => slot != step.Spill && slot != step.TupleRelocation?.Destination
+                int[] expired = step.Released.Where(slot => slot != step.Spill && slot != step.SlotRelocation?.Destination
                     && remap[slot] >= trimTo - trimmed)
                     .Select(slot => remap[slot]).Order().ToArray();
                 if (expired.Length != 0)
@@ -788,6 +811,11 @@ internal sealed partial class BeamModuleCompiler
                 if (deferConstant)
                 {
                     owner.EmitConstant(step.Call.Constants[0].Value, 0);
+                }
+
+                if (step.ReloadRelocatedArgument)
+                {
+                    Load(size - 1 - step.SlotRelocation!.Value.Destination - trimmed);
                 }
 
                 owner.EmitCallLine(step.Call.Call, previousCall);
@@ -948,7 +976,8 @@ internal sealed partial class BeamModuleCompiler
             int[] remap,
             bool deferConstant = false,
             bool swapBeforeConstants = false,
-            bool heapChecked = false
+            bool heapChecked = false,
+            bool deferStackLoad = false
         )
         {
             var call = step.Call;
@@ -1052,7 +1081,8 @@ internal sealed partial class BeamModuleCompiler
             }
             else
             {
-                owner.EmitOrderedTailMoves(call.Moves, deferConstant ? [] : call.Constants, loads);
+                owner.EmitOrderedTailMoves(call.Moves, deferConstant ? [] : call.Constants, loads,
+                    deferX0StackLoad: deferStackLoad);
             }
         }
     }

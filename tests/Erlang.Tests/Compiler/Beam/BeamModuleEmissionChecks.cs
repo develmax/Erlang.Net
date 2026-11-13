@@ -298,6 +298,7 @@ internal static class BeamModuleEmissionChecks
         await CompareGuardedEntryCallChain();
         await CompareConstantReturningCallChain();
         await CompareSavedCheckedPayload();
+        await CompareTrimmedCheckedPayload();
         await CompareGeneralRecordGuard();
         await CompareGeneralBitStringReferenceAndMapKeyGuards();
         await CompareGeneralMapComprehensions();
@@ -1972,6 +1973,50 @@ internal static class BeamModuleEmissionChecks
         if (!Term.Tuple(Term.Tuple(list, Term.A("tail")), list, Term.A("badarg")).Equals(actual))
         {
             throw new InvalidOperationException($"General BEAM append returned {actual}, exit {exit}.");
+        }
+    }
+
+    private static async Task CompareTrimmedCheckedPayload()
+    {
+        const string source = """
+            -module(beam_trimmed_checked_payload).
+            -export([run/2]).
+            run(First, Second) ->
+                {ok, Payload} = prepare(),
+                ok = inspect(Payload),
+                ok = write_value(Payload, First, Second),
+                ok = inspect(Payload),
+                done.
+            prepare() -> {ok,payload}.
+            inspect(payload) -> ok.
+            write_value(payload, first, second) -> ok;
+            write_value(_, _, _) -> invalid.
+            """;
+        BeamModule image = BeamModule.Prepare(CodeGeneration.CompileBeamModule(source, "beam_trimmed_checked_payload.erl"));
+        await using var runtime = new ProcessRuntime();
+        Term? actual = null;
+        ProcessHandle process = runtime.Spawn(async context =>
+        {
+            Term result = await image.Invoke(context, "run", Term.A("first"), Term.A("second"));
+            Term failure;
+            try
+            {
+                failure = await image.Invoke(context, "run", Term.A("second"), Term.A("first"));
+            }
+            catch (ErlangException error)
+            {
+                failure = error.Reason;
+            }
+
+            actual = Term.Tuple(result, failure);
+
+            return actual;
+        });
+        Term exit = await process.Completion.WaitAsync(TimeSpan.FromSeconds(10));
+        Term expected = Term.Tuple(Term.A("done"), Term.Tuple(Term.A("badmatch"), Term.A("invalid")));
+        if (!expected.Equals(actual))
+        {
+            throw new InvalidOperationException($"Trimmed checked payload returned {actual}, exit {exit}.");
         }
     }
 
