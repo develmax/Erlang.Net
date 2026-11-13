@@ -1,3 +1,5 @@
+Part 1582 aligns the guarded body match entry opcode. Frame allocation and capture registers still differ. [Evidence](validation/part-1582/README.md).
+
 Part 1581 aligns the normalized instructions in ct_netconfc:trim/1. The full image still differs. [Evidence](validation/part-1581/README.md).
 
 Part 1580 removes the frame from ct_netconfc:trim/1. The match entry and alignment still differ. [Evidence](validation/part-1580/README.md).

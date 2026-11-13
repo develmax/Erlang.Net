@@ -1,5 +1,7 @@
 # Compatibility overview
 
+Part 1582 emits no_fail for guarded binary body matches. OTP accepts all 976 differing release images for loading. [Evidence](validation/part-1582/README.md).
+
 Part 1581 verifies the no_fail entry in ct_netconfc:trim/1 and preserves fallback for unknown arguments. [Evidence](validation/part-1581/README.md).
 
 Part 1580 verifies binary context transfer against the OTP image and the managed runtime. [Evidence](validation/part-1580/README.md).

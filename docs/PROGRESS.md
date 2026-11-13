@@ -1,5 +1,7 @@
 # Project progress
 
+Part 1582 carries binary guard proofs into body matches in eight release images. All 1,366 images generate with 390 Equal and 976 Different. [Evidence](validation/part-1582/README.md).
+
 Part 1581 proves binary arguments for recursive match entries. All 1,366 images generate with 390 Equal and 976 Different. [Evidence](validation/part-1581/README.md).
 
 Part 1580 passes the binary match context through recursive byte filters. All 1,366 images generate with 390 Equal and 976 Different. [Evidence](validation/part-1580/README.md).

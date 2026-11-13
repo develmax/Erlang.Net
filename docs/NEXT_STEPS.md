@@ -1,5 +1,7 @@
 # Next steps
 
+Align register allocation for proven dynamic binary splits, including extraction, tail materialization and failure blocks. [Evidence](validation/part-1582/README.md).
+
 Extend proven binary inputs to body matches and measure context-only callers for resume. [Evidence](validation/part-1581/README.md).
 
 Infer binary argument proofs at local call sites to select no_fail and resume. [Evidence](validation/part-1580/README.md).
