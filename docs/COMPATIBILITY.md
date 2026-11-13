@@ -1,6 +1,6 @@
 # Compatibility overview
 
-Part 1536 verifies the complete Windows release image for httpc_sup and a deterministic singleton-list fixture. OTP accepts all 978 differing images for loading. [Evidence](validation/part-1536/README.md).
+Part 1537 checks body size operations for binaries, unaligned bitstrings, invalid inputs and local shadowing. OTP accepts all 978 differing images for loading. [Evidence](validation/part-1537/README.md).
 
 Part 1530 matches an entire OTP fixture and 80 result, error and stack observations. OTP loads all 979 differing release images. [Evidence](validation/part-1530/README.md).
 

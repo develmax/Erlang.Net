@@ -1,6 +1,6 @@
 # Project progress
 
-Part 1536 forwards singleton-list heads into calls and builds the result from folded constants and X0. All 1,366 images generate, with 388 Equal and 978 Different. httpc_sup now matches byte for byte. [Evidence](validation/part-1536/README.md).
+Part 1537 emits size BIF instructions in function bodies. All 1,366 sources generate with 388 Equal and 978 Different. Opcode selection changes 183 images. [Evidence](validation/part-1537/README.md).
 
 Part 1530 preserves saved arguments for tail calls in atom alternatives. Three functions match normalized OTP instructions and three frames match OTP sizes. The full corpus has 387 Equal and 979 Different. [Evidence](validation/part-1530/README.md).
 

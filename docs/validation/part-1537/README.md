@@ -13,3 +13,7 @@ $otp = Join-Path $env:TEMP 'erl-cohort-7mzi5e1n/view/artifacts/library376-offici
 $env:ERLANG_BEAM_CORPUS_SAVE_DIFFERENCES = '1'
 dotnet artifacts/beam-backend/part1537-tool/Erlang.BeamCorpus.dll $otp artifacts/beam-backend/otp-corpus-part1537.json artifacts/beam-backend/part929-ordered-headers artifacts/beam-backend/part1058-source-overlay
 ```
+
+## Corpus results
+
+All 1,366 sources were accepted and generated. The comparison records 388 Equal and 978 Different. ELDAPv3 remains byte-identical from C# ASN.1 generation. OTP accepts all 978 differing images for loading. The change affects 183 images and 1,706 function bodies. There are no normalized function transitions. The aggregate Code size gap increases by 2,061 bytes and the stack frame of ssh_transport:kex_plaintext/3 grows from 15 to 17, compared with 11 in OTP. In ssh_bits:mpint/1 all five measurements now use the reference opcode. Operand placement and types still differ. Three targeted checks passed, including managed execution. The full runtime suite and canonical readiness were not rerun. [Corpus](otp-corpus.json) · [Frames](frame-delta.txt) · [Loader and Code](loader-and-code.txt) · [SSH instructions](ssh-mpint.txt) · [Tests](focused.json).
