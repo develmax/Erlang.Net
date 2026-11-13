@@ -309,6 +309,7 @@ internal static class BeamModuleEmissionChecks
         await CompareGeneralMapExpressions();
         await CompareGeneralLengthAndFunctionGuards();
         await CompareGeneralBitExpressions();
+        await CompareSplitBinarySingleton();
         await CompareFinalBinaryCall();
         await CompareMeasuredRecordSegments();
         await CompareGeneralNumberMapHeadGuards();
@@ -4664,6 +4665,49 @@ internal static class BeamModuleEmissionChecks
         if (!new BitString([0, 2, 0xAB, 0xCD]).Equals(actual) || !Term.A("normal").Equals(exit))
         {
             throw new InvalidOperationException($"Measured record construction returned {actual}, exit {exit}.");
+        }
+    }
+
+    private static async Task CompareSplitBinarySingleton()
+    {
+        const string source = """
+            -module(beam_split_singleton).
+            -export([run/2]).
+            run(Bin, Size) ->
+                if
+                    Size >= 0 ->
+                        note(Size),
+                        {First, _Rest} = split_binary(Bin, Size),
+                        [First];
+                    true -> []
+                end.
+            note(Size) -> put(last_size, Size).
+            """;
+        BeamModule image = BeamModule.Prepare(CodeGeneration.CompileBeamModule(source, "beam_split_singleton.erl"));
+        await using var runtime = new ProcessRuntime();
+        Term? actual = null;
+        ProcessHandle process = runtime.Spawn(async context =>
+        {
+            var input = new BitString([1, 2, 3]);
+            var first = await image.Invoke(context, "run", input, Term.I(2));
+            var fallback = await image.Invoke(context, "run", input, Term.I(-1));
+            try
+            {
+                await image.Invoke(context, "run", input, Term.I(4));
+                throw new InvalidOperationException("split_binary accepted a size larger than its input.");
+            }
+            catch (ErlangException error) when (error.Reason.Equals(Term.A("badarg")))
+            {
+            }
+
+            actual = Term.Tuple(first, fallback);
+            return actual;
+        });
+        Term exit = await process.Completion.WaitAsync(TimeSpan.FromSeconds(10));
+        Term expected = Term.Tuple(Term.List(new BitString([1, 2])), Nil.Value);
+        if (!expected.Equals(actual) || !Term.A("normal").Equals(exit))
+        {
+            throw new InvalidOperationException($"Split binary list construction returned {actual}, exit {exit}.");
         }
     }
 

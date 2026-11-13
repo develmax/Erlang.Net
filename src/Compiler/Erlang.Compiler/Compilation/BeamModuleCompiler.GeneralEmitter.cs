@@ -10160,22 +10160,13 @@ internal sealed partial class BeamModuleCompiler
 
         private bool TryBindSplitBinaryResult(Expr item, IEnumerable<Expr> continuation)
         {
-            if (owner.receiveScratchRegisters is not null || item is not Expr.Match
-                {
-                    Pattern: Pattern.Tuple { Items: [Pattern.Variable first, Pattern.Variable second] },
-                    Value: Expr.Call { Function: AutoImportNames.SplitBinary, DynamicRemote: false, Arguments.Count: 2 } call
-                }
-                || call.Arguments.Any(argument => argument is not (Expr.Variable or Expr.Literal))
-                || (call.Module ?? owner.ResolveExternalModule(call.Function, call.Arguments.Count)) != ErlangModuleNames.Module
-                || call.Module is null && entries.ContainsKey((call.Function, call.Arguments.Count)))
+            if (ReadSplitBinaryBinding(item) is not { } binding)
             {
                 return false;
             }
 
-            Pattern.Variable[] fields = [first, second];
-            if (!DistinctBindings(fields)
-                || fields.Any(field => variables.ContainsKey(field.Name) || deferredPairMembers.ContainsKey(field.Name))
-                || ReadUsedEntryParameters(new Clause(fields, null, new Expr.Sequence(continuation.ToArray()))) is not { } used)
+            var (call, fields) = binding;
+            if (ReadUsedEntryParameters(new Clause(fields, null, new Expr.Sequence(continuation.ToArray()))) is not { } used)
             {
                 return false;
             }
@@ -10194,6 +10185,66 @@ internal sealed partial class BeamModuleCompiler
                 }
             }
 
+            return true;
+        }
+
+        private (Expr.Call Call, Pattern.Variable[] Fields)? ReadSplitBinaryBinding(Expr item)
+        {
+            if (owner.receiveScratchRegisters is not null || item is not Expr.Match
+                {
+                    Pattern: Pattern.Tuple { Items: [Pattern.Variable first, Pattern.Variable second] },
+                    Value: Expr.Call { Function: AutoImportNames.SplitBinary, DynamicRemote: false, Arguments.Count: 2 } call
+                }
+                || call.Arguments.Any(argument => argument is not (Expr.Variable or Expr.Literal))
+                || (call.Module ?? owner.ResolveExternalModule(call.Function, call.Arguments.Count)) != ErlangModuleNames.Module
+                || call.Module is null && entries.ContainsKey((call.Function, call.Arguments.Count)))
+            {
+                return null;
+            }
+
+            Pattern.Variable[] fields = [first, second];
+            if (!DistinctBindings(fields)
+                || fields.Any(field => variables.ContainsKey(field.Name) || deferredPairMembers.ContainsKey(field.Name)))
+            {
+                return null;
+            }
+
+            return (call, fields);
+        }
+
+        private bool TryEmitSplitBinarySingleton(Expr body)
+        {
+            if (body is not Expr.Sequence
+                {
+                    Items: [.., var match, Expr.List { Items: [Expr.Variable returned], Tail: null }]
+                } sequence)
+            {
+                return false;
+            }
+
+            // Prove freshness before emitting any prefix that could bind the fields.
+            if (ReadSplitBinaryBinding(match) is not { } binding
+                || sequence.Items.Take(sequence.Items.Count - 2).Any(expression =>
+                    expression is not Expr.Call { DynamicRemote: false } call
+                    || call.Arguments.Any(argument => argument is not (Expr.Variable or Expr.Literal))))
+            {
+                return false;
+            }
+            int index = Array.FindIndex(binding.Fields, field => field.Name == returned.Name);
+            if (index < 0)
+            {
+                return false;
+            }
+
+            DiscardSequencePrefix(sequence.Items.Take(sequence.Items.Count - 1).ToArray(), null,
+                reuseCallSlots: true, rememberRecords: true);
+            Expression(binding.Call);
+            owner.Op(TestHeap, BeamWire.UnsignedTag, ConsHeapWords);
+            owner.Operand(BeamWire.UnsignedTag, 1);
+            owner.EmitTuplePart(0, index, 0);
+            owner.Op(PutList, XRegisterTag, 0);
+            owner.LiteralOperand(Nil.Value);
+            owner.Operand(XRegisterTag, 0);
             return true;
         }
 
@@ -12741,6 +12792,12 @@ internal sealed partial class BeamModuleCompiler
             Expr[]? branchContinuation = null
         )
         {
+            if (joined.Length == 0 && branchContinuation is { Length: 0 } && guardFailure is null
+                && TryEmitSplitBinarySingleton(body))
+            {
+                return;
+            }
+
             if (joined.Length == 0 && branchContinuation is null)
             {
                 Expression(body, guardFailure);
