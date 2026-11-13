@@ -5400,8 +5400,13 @@ internal static class BeamModuleEmissionChecks
     {
         const string source = """
             -module(beam_general_apply_probe).
-            -export([run/1]).
+            -export([run/1, direct/1]).
             run(A) -> {ok, (pick(A))(prepare(A))}.
+            direct(A) ->
+                {invoke(ignored, fun() -> A end, ignored),
+                 apply_last(ignored, A, fun(Value) -> {argument, Value} end)}.
+            invoke(_, Callback, _) -> Callback().
+            apply_last(_, Value, Callback) -> Callback(Value).
             pick(Captured) -> fun(Value) -> {Captured, Value} end.
             prepare(X) -> {argument, X}.
             """;
@@ -5410,12 +5415,18 @@ internal static class BeamModuleEmissionChecks
         Term? actual = null;
         ProcessHandle process = runtime.Spawn(async context =>
         {
-            actual = await image.Invoke(context, "run", Term.I(17));
+            Term computed = await image.Invoke(context, "run", Term.I(17));
+            Term direct = await image.Invoke(context, "direct", Term.I(17));
+            actual = Term.Tuple(computed, direct);
 
             return actual;
         });
         Term exit = await process.Completion.WaitAsync(TimeSpan.FromSeconds(10));
-        Term expected = Term.Tuple(Term.A("ok"), Term.Tuple(Term.I(17), Term.Tuple(Term.A("argument"), Term.I(17))));
+        Term argument = Term.Tuple(Term.A("argument"), Term.I(17));
+        Term expected = Term.Tuple(
+            Term.Tuple(Term.A("ok"), Term.Tuple(Term.I(17), argument)),
+            Term.Tuple(Term.I(17), argument)
+        );
         if (!expected.Equals(actual))
         {
             throw new InvalidOperationException($"General BEAM function value call returned {actual}, exit {exit}.");

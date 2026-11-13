@@ -35,11 +35,13 @@ internal sealed partial class BeamModuleCompiler
 
             var moves = new List<(int Destination, int Source)>();
             var constants = new List<(int Destination, Term Value)>();
+            int live = targetRegister + 1;
             for (int index = 0; index < apply.Arguments.Count; index++)
             {
                 Expr argument = apply.Arguments[index];
                 if (argument is Expr.Variable variable && registers.TryGetValue(variable.Name, out int source))
                 {
+                    live = Math.Max(live, source + 1);
                     if (source != index)
                     {
                         moves.Add((index, source));
@@ -61,8 +63,7 @@ internal sealed partial class BeamModuleCompiler
                 moves.Add((arity, targetRegister));
             }
 
-            owner.Op(Allocate, BeamWire.UnsignedTag, 0);
-            owner.Operand(BeamWire.UnsignedTag, function.Arity);
+            EmitFrameAllocation(live, 0);
             owner.EmitArgumentMoves(moves, constants);
             EmitFunctionValueCallOpcode(apply);
             owner.EmitFrameReturn(0);
