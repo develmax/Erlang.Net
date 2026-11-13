@@ -902,14 +902,16 @@ internal sealed partial class BeamModuleCompiler
                 int? swap = allowSwapWithPreviousArgument
                     ? loads.Where(load => load.Destination == 0 && released.Contains(load.Source)).Min(load => (int?)load.Source)
                     : null;
-                if (swap is not null || !allowRegisterReload || loads.Any(load => load.Destination == 0))
+                if (swap is not null || !allowRegisterReload)
                 {
                     return swap;
                 }
 
                 // Only X0 carries a call result here. Read the dying slot into
                 // its argument registers before saving X0 in the same slot.
-                return released.Min(slot => (int?)slot);
+                // If X0 must be loaded, the emitter stages that load in X[arity].
+                return released.Where(slot => loads.All(load => load.Destination != 0 || load.Source != slot))
+                    .Min(slot => (int?)slot);
             }
 
             // Stack loads run after the spill. Only constructor operands can read the old slot value.
@@ -973,6 +975,17 @@ internal sealed partial class BeamModuleCompiler
 
                 if (firstLoad >= 0)
                 {
+                    if (call.Moves is [(var destination, 0)] && call.Constants.Count == 0)
+                    {
+                        loads[firstLoad] = (destination, loads[firstLoad].Source);
+                        owner.EmitOrderedTailMoves([], [], loads);
+                        owner.MoveRegister(XRegisterTag, 0, YRegisterTag, spill);
+                        owner.Op(Swap, XRegisterTag, 0);
+                        owner.Operand(XRegisterTag, destination);
+
+                        return;
+                    }
+
                     loads[firstLoad] = (scratch, loads[firstLoad].Source);
                     owner.EmitOrderedTailMoves(call.Moves, call.Constants, loads);
                     owner.MoveRegister(
