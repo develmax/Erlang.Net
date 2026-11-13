@@ -1,5 +1,7 @@
 # Next steps
 
+Extend the measured allocation liveness rules to additional entry paths and lifted closures. [Evidence](validation/part-1596/README.md).
+
 Rank the remaining frame allocation and entry projection differences against the updated corpus. [Evidence](validation/part-1595/README.md).
 
 Write entry tuple fields directly to live X and Y operands after shape checks. [Evidence](validation/part-1594/README.md).
