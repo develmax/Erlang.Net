@@ -1,5 +1,7 @@
 # Project progress
 
+Part 1570 constructs simple catch tuples from the reason register. All 1,366 images generate, with 390 Equal and 976 Different. [Evidence](validation/part-1570/README.md).
+
 Part 1569 dispatches simple catches from exception registers. All 1,366 images generate, with 390 Equal and 976 Different. [Evidence](validation/part-1569/README.md).
 
 Part 1568 skips stacktrace construction for wildcard catches. All 1,366 images generate, with 390 Equal and 976 Different. [Evidence](validation/part-1568/README.md).
