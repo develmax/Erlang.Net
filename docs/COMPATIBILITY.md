@@ -1,6 +1,6 @@
 # Compatibility overview
 
-Part 1538 checks final binary segment calls, including invalid operands, against OTP and in the managed runtime. OTP accepts all 978 differing images for loading. [Evidence](validation/part-1538/README.md).
+Part 1539 verifies measured record fields for byte-aligned and unaligned inputs and compares invalid-record and invalid-payload errors. OTP accepts all 978 differing images for loading. [Evidence](validation/part-1539/README.md).
 
 Part 1530 matches an entire OTP fixture and 80 result, error and stack observations. OTP loads all 979 differing release images. [Evidence](validation/part-1530/README.md).
 

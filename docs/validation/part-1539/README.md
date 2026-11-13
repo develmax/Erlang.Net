@@ -13,3 +13,7 @@ $otp = Join-Path $env:TEMP 'erl-cohort-7mzi5e1n/view/artifacts/library376-offici
 $env:ERLANG_BEAM_CORPUS_SAVE_DIFFERENCES = '1'
 dotnet artifacts/beam-backend/part1539-tool/Erlang.BeamCorpus.dll $otp artifacts/beam-backend/otp-corpus-part1539.json artifacts/beam-backend/part929-ordered-headers artifacts/beam-backend/part1058-source-overlay
 ```
+
+## Corpus results
+
+All 1,366 sources were accepted and generated. There are 388 byte-identical images and 978 different images. ELDAPv3 remains byte-identical from C# ASN.1 generation. OTP accepts all 978 differing images for loading. The only changed image is ssh_transport. Its kex_plaintext/3 has 22 field extractions instead of 24 and its Code size gap drops by 56 bytes. The stack frame still has 14 slots. Three targeted tests passed. The full runtime suite and canonical readiness were not rerun. [Corpus](otp-corpus.json) · [Instructions](ssh-kex.txt) · [Loader and Code](loader-and-code.txt) · [Tests](focused.json).

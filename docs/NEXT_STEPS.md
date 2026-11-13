@@ -1,6 +1,6 @@
 # Next steps
 
-Analyze repeated record reads and their corresponding binary size operands together. In ssh_transport:kex_plaintext/3, the frame now has 14 slots compared with 11 in OTP. Continue from the instruction listing and the full corpus ranking. [Instructions](validation/part-1538/ssh-kex.txt) · [Ranking](validation/part-1538/first-difference-ranking.txt).
+Analyze record checks and repeated string-to-binary conversions within binary construction. Two repeated field reads are gone in ssh_transport:kex_plaintext/3. The frame still has 14 slots, compared with 11 in OTP. [Instructions](validation/part-1539/ssh-kex.txt) · [Ranking](validation/part-1539/first-difference-ranking.txt).
 
 Rank terminal operator emission by specific operator and operand forms. The previous audit finds 56 terminal operator bodies across 43 modules. Prioritize branch-local liveness that can also close a near match, starting with the integer branch and binary construction in `ssh_bits:mpint/1` and the guarded projections in `prim_buffer:read_iovec/2`. [Operator audit](validation/part-1509/first-call-spills-after.txt) · [Nearest images](validation/part-1523/nearest.txt).
 

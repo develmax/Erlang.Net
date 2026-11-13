@@ -1,6 +1,6 @@
 # Project progress
 
-Part 1538 retains the last binary segment in X0 and releases measurement temporaries. Forty-five frames move closer to OTP. All 1,366 images generate, with 388 Equal and 978 Different. [Evidence](validation/part-1538/README.md).
+Part 1539 reuses measured record fields in adjacent binary segments. All 1,366 images generate, with 388 Equal and 978 Different. The Code size gap in ssh_transport falls by 56 bytes. [Evidence](validation/part-1539/README.md).
 
 Part 1530 preserves saved arguments for tail calls in atom alternatives. Three functions match normalized OTP instructions and three frames match OTP sizes. The full corpus has 387 Equal and 979 Different. [Evidence](validation/part-1530/README.md).
 
