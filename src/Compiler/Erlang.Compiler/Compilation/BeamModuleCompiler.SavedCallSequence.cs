@@ -126,7 +126,7 @@ internal sealed partial class BeamModuleCompiler
         private bool TryEmitSavedCallSequenceCase(Clause clause)
         {
             if (clause.Guard is not null || !HasUnconditionalParameters(clause)
-                || clause.Body is not Expr.Sequence { Items: [_, _, .., Expr.Case decision] } sequence)
+                || clause.Body is not Expr.Sequence { Items: [_, .., Expr.Case decision] } sequence)
             {
                 return false;
             }
@@ -559,7 +559,7 @@ internal sealed partial class BeamModuleCompiler
                     binding => lastSlotReads.Count - 1 - binding.Value - trimmed,
                     StringComparer.Ordinal
                 );
-                EntryCall selector = steps[^1].Call;
+                EntryCall selector = steps.Count == 0 ? first : steps[^1].Call;
                 bool boolean = (selector.Module, selector.Call.Function, selector.Call.Arguments.Count)
                     is ("lists", "keymember", 3) or ("lists", "member", 2) or ("maps", "is_key", 2);
                 if (projectSelector)
@@ -800,7 +800,7 @@ internal sealed partial class BeamModuleCompiler
             }
             else if (decision is not null)
             {
-                EntryCall selector = steps[^1].Call;
+                EntryCall selector = steps.Count == 0 ? first : steps[^1].Call;
                 EmitRegisterCase(
                     decision,
                     size - trimmed,
