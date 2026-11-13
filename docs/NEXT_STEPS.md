@@ -1,5 +1,7 @@
 # Next steps
 
+Relocate retained stack values before trimming dead inputs in checked call chains. [Disassembly](validation/part-1590/wx-two-arguments.txt).
+
 Coalesce checked tuple projections with their stack spills and measure slot relocation before trimming. [Disassembly](validation/part-1589/wx-two-arguments.txt).
 
 Inspect the wx_misc instruction delta and extend liveness-based frame allocation across entry pattern projections. [Evidence](validation/part-1588/README.md).
