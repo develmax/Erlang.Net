@@ -71,6 +71,14 @@ internal sealed partial class BeamModuleCompiler
             for (int index = 0; index < segments.Count; index++)
             {
                 var segment = segments[index];
+                if (failure is null && index + 1 < segments.Count
+                    && TryEmitMeasuredRecordSegments(segment, segments[index + 1], out var measured))
+                {
+                    slots.Add((measured.Size, null));
+                    slots.Add((measured.Value, null));
+                    index++;
+                    continue;
+                }
                 if (lastValueInX0 && index == segments.Count - 1)
                 {
                     Expression(segment.Value);
@@ -124,6 +132,50 @@ internal sealed partial class BeamModuleCompiler
                     GuardOperand(segment.Size, slots[index].Size);
                 }
             }
+        }
+
+        private bool TryEmitMeasuredRecordSegments(
+            BinaryConstructionSegment measurement,
+            BinaryConstructionSegment data,
+            out (int Size, int Value) slots)
+        {
+            slots = default;
+            if (measurement is not
+                {
+                    Kind: BitSegmentTypes.Integer, Size: Expr.Literal,
+                    Value: Expr.Call
+                    {
+                        DynamicRemote: false, Function: AutoImportNames.ByteSize or AutoImportNames.BitSize,
+                        Arguments: [Expr.RecordAccess { Value: Expr.Variable input } read]
+                    } source
+                }
+                || data is not
+                {
+                    Kind: BitSegmentTypes.Binary, Size: Expr.Literal,
+                    Value: Expr.RecordAccess { Value: Expr.Variable other } repeated
+                }
+                || input.Name != other.Name || read.Name != repeated.Name || read.Arity != repeated.Arity
+                || read.Index != repeated.Index || !variables.ContainsKey(input.Name))
+            {
+                return false;
+            }
+
+            Expr.Call call = owner.ResolveImportedCall(source, entries);
+            if (!owner.ResolvesErlangBif(call))
+            {
+                return false;
+            }
+
+            // Both accesses read the same immutable record. The first access
+            // still performs its original validation before the size operation.
+            int value = GuardSlot(read, null)!.Value;
+            int size = Slot();
+            owner.EmitCallLine(call, owner.lastEmittedLine);
+            EmitSizeInstruction(call.Function, 0, ReceiveGuardLiveRegisters);
+            owner.Operand(YRegisterTag, value);
+            owner.Operand(YRegisterTag, size);
+            slots = (size, value);
+            return true;
         }
 
         private static List<BinaryConstructionSegment> ReadBinaryConstruction(Expr.Bits bits)

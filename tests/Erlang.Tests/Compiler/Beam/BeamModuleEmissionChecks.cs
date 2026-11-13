@@ -309,6 +309,7 @@ internal static class BeamModuleEmissionChecks
         await CompareGeneralLengthAndFunctionGuards();
         await CompareGeneralBitExpressions();
         await CompareFinalBinaryCall();
+        await CompareMeasuredRecordSegments();
         await CompareGeneralNumberMapHeadGuards();
         await CompareGeneralDivisionAndListOperators();
         await CompareGeneralTryAfter();
@@ -4629,6 +4630,39 @@ internal static class BeamModuleEmissionChecks
         if (!new BitString([17, 0xA0]).Equals(actual) || !Term.A("normal").Equals(exit))
         {
             throw new InvalidOperationException($"Final binary call returned {actual}, exit {exit}.");
+        }
+    }
+
+    private static async Task CompareMeasuredRecordSegments()
+    {
+        const string source = """
+            -module(beam_measured_record).
+            -export([run/1]).
+            -record(packet, {payload}).
+            run(Packet) ->
+                <<(byte_size(Packet#packet.payload)):16, (Packet#packet.payload)/binary>>.
+            """;
+        BeamModule image = BeamModule.Prepare(CodeGeneration.CompileBeamModule(source, "beam_measured_record.erl"));
+        await using var runtime = new ProcessRuntime();
+        Term? actual = null;
+        ProcessHandle process = runtime.Spawn(async context =>
+        {
+            var tag = Term.A("packet");
+            actual = await image.Invoke(context, "run", Term.Tuple(tag, new BitString([0xAB, 0xCD])));
+            try
+            {
+                await image.Invoke(context, "run", Term.Tuple(tag, Term.A("invalid")));
+                throw new InvalidOperationException("Binary measurement accepted an atom.");
+            }
+            catch (ErlangException error) when (error.Reason.Equals(Term.A("badarg")))
+            {
+            }
+            return actual;
+        });
+        Term exit = await process.Completion.WaitAsync(TimeSpan.FromSeconds(10));
+        if (!new BitString([0, 2, 0xAB, 0xCD]).Equals(actual) || !Term.A("normal").Equals(exit))
+        {
+            throw new InvalidOperationException($"Measured record construction returned {actual}, exit {exit}.");
         }
     }
 
