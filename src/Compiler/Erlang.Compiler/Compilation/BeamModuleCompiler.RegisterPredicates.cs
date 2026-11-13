@@ -13,6 +13,89 @@ internal sealed partial class BeamModuleCompiler
 
     private sealed partial class GeneralEmitter
     {
+        private bool TryEmitTerminalPredicateCalls(FunctionDefinition function)
+        {
+            if (function.Arity != 1 || function.Clauses[^1] is not
+                {
+                    Guard: null, Patterns: [Pattern.Variable input],
+                    Body: Expr.Binary
+                    {
+                        Operator: ErlangOperators.AndAlso or ErlangOperators.OrElse,
+                        Left: Expr.Call left, Right: Expr.Call right
+                    } logical
+                }
+                || input.Name == VariableScopeNames.Wildcard
+                || function.Clauses.Count > 1 && !HasLiteralDispatchKeys(function.Clauses.SkipLast(1))
+                || ReadEntryCall(left, [input.Name]) is not { } first
+                || ReadEntryCall(right, [], [input.Name]) is not { } second)
+            {
+                return false;
+            }
+
+            var proofs = new Dictionary<(string, int), bool>();
+            if (!ReturnsBoolean(first.Call))
+            {
+                return false;
+            }
+
+            if (function.Clauses.Count == 1)
+            {
+                EmitFallback();
+            }
+            else
+            {
+                owner.EmitLiteralDispatch(function.Clauses, location, emitComputedFallback: EmitFallback);
+            }
+
+            return true;
+
+            bool ReturnsBoolean(Expr expression)
+            {
+                if (expression is Expr.Literal { Value: Atom { Name: "true" or "false" } })
+                {
+                    return true;
+                }
+                if (expression is Expr.Binary { Operator: ErlangOperators.AndAlso or ErlangOperators.OrElse } pair)
+                {
+                    return ReturnsBoolean(pair.Left) && ReturnsBoolean(pair.Right);
+                }
+                if (expression is not Expr.Call { Module: null, DynamicRemote: false } call)
+                {
+                    return false;
+                }
+
+                var key = (call.Function, call.Arguments.Count);
+                if (proofs.TryGetValue(key, out bool known))
+                {
+                    return known;
+                }
+                if (!localFunctions.TryGetValue(key, out var target))
+                {
+                    return false;
+                }
+
+                proofs.Add(key, false);
+                return proofs[key] = target.Clauses.All(clause => ReturnsBoolean(clause.Body));
+            }
+
+            void EmitFallback()
+            {
+                int slots = second.SavedInputs is { Count: > 0 } ? 1 : 0;
+                EmitFrameAllocation(slots == 0 ? EntryCallLiveCount(first, [input.Name]) : 1, slots);
+                if (slots != 0)
+                {
+                    owner.MoveRegister(XRegisterTag, 0, YRegisterTag, 0);
+                }
+                EmitEntryCall(first);
+                int evaluate = Label();
+                owner.EmitAtomTest(0, logical.Operator == ErlangOperators.AndAlso ? "false" : "true", evaluate);
+                owner.EmitFrameReturn(slots);
+                Mark(evaluate);
+                owner.EmitOrderedTailMoves(second.Moves, second.Constants, second.SavedInputs);
+                EmitPreparedFrameTail(second, CallLocation(first.Call, location), slots);
+            }
+        }
+
         private bool TryEmitRegisterPredicate(FunctionDefinition function)
         {
             if (IsBooleanPatternPredicate(function.Clauses))

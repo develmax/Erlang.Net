@@ -417,7 +417,8 @@ internal sealed partial class BeamModuleCompiler
             }
             if (function.Clauses.Any(clause => clause.Body is Expr.Call call
                     && ReadRegisterAppendPrefix(clause, call) is not null) && TryEmitRegisterTailCall(function)
-                || TryEmitRegisterCapturedClosure(function) || TryEmitRoundedCallCase(function))
+                || TryEmitRegisterCapturedClosure(function) || TryEmitRoundedCallCase(function)
+                || TryEmitTerminalPredicateCalls(function))
             {
                 return;
             }
