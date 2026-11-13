@@ -476,6 +476,7 @@ internal sealed partial class BeamModuleCompiler
                 || TryEmitGuardedLocalForward(function) || TryEmitRecordPredicateFunction(function) || TryEmitDirectGuardedRecordAccess(function) || TryEmitDirectTypeOrArityGuard(function) || TryEmitDirectListOrFunctionGuard(function) || TryEmitDirectCatch(function)
                 || TryEmitDiscardedBranchCatch(function) || TryEmitEntryCatchResultDispatch(function) || TryEmitNestedListCallCatch(function)
                 || TryEmitTerminalProtectedTuples(function)
+                || TryEmitProtectedTaggedResult(function)
                 || TryEmitCaughtTaggedSingleton(function) || TryEmitCaughtTaggedApply(function)
                 || owner.TryEmitDictionaryCall(function.Clauses, location, entries) || TryEmitNegatedPredicateTail(function)
                 || TryEmitStateReturningDispatch(function) || TryEmitCheckedMapCalls(function)
@@ -13132,6 +13133,84 @@ internal sealed partial class BeamModuleCompiler
                 Items = result.Items.Select(item => item is Expr.Variable variable && variable.Name == binding!.Name
                     ? value : item).ToArray()
             };
+        }
+
+        private bool TryEmitProtectedTaggedResult(FunctionDefinition function)
+        {
+            if (function.Clauses is not [{
+                Guard: null,
+                Body: Expr.Try
+                {
+                    After: null,
+                    Body: Expr.Call call,
+                    Clauses: [
+                        { Guard: null, Patterns: [Pattern.Tuple pattern], Body: var matched },
+                        { Guard: null, Patterns: [Pattern.Variable { Name: VariableScopeNames.Wildcard }], Body: var fallback }
+                    ],
+                    Catches: [{
+                        Guard: null,
+                        Patterns: [Pattern.Tuple { Items: [Pattern.Literal { Value: Atom exceptionClass },
+                            Pattern.Variable reason, Pattern.Variable { Name: VariableScopeNames.Wildcard }] }],
+                        Body: var caught
+                    }]
+                }
+            } clause] || !HasUnconditionalParameters(clause)
+                || ReadSingleTupleField(pattern) is not { Field: Pattern.Variable field } access
+                || !AttributeLiteral.TryNormalizeConstant(fallback, out Term defaultValue)
+                || !AttributeLiteral.TryNormalizeConstant(caught, out Term caughtValue)
+                || !defaultValue.Equals(caughtValue))
+            {
+                return false;
+            }
+
+            string[] parameters = clause.Patterns.Cast<Pattern.Variable>().Select(parameter => parameter.Name).ToArray();
+            if (parameters.Contains(field.Name) || reason.Name != VariableScopeNames.Wildcard && parameters.Contains(reason.Name)
+                || ReadEntryCall(call, parameters) is not { } producer)
+            {
+                return false;
+            }
+
+            bool returnsField = matched is Expr.Variable variable && variable.Name == field.Name;
+            var tuple = matched is Expr.Tuple result ? ReadCaseTuple(result, field.Name, []) : null;
+            if (!returnsField && tuple is not { UsesSelector: true })
+            {
+                return false;
+            }
+
+            const int token = 0;
+            const int frame = 1;
+            int handler = Label();
+            int fallbackLabel = Label();
+            int rethrow = Label();
+            EmitFrameAllocation(EntryCallLiveCount(producer, parameters), frame);
+            owner.Op(TryEnter, YRegisterTag, token);
+            owner.Operand(LabelTag, handler);
+            EmitEntryCall(producer);
+            owner.Op(TryEnd, YRegisterTag, token);
+            EmitDetailRecordTest(0, pattern.Items.Count, access.Tag, fallbackLabel, RegisterCaseSelectorType(producer, IsTuple));
+            if (tuple is null)
+            {
+                owner.EmitTuplePart(0, access.Index, 0);
+            }
+            else
+            {
+                EmitCaseTuple(tuple, (access.Index, 0));
+            }
+
+            owner.EmitFrameReturn(frame);
+            Mark(handler);
+            owner.Op(TryCase, YRegisterTag, token);
+            owner.Op(ExactEqualTest, LabelTag, rethrow);
+            owner.EmitTypedRegister(0, AtomTypeBits);
+            owner.LiteralOperand(exceptionClass);
+            Mark(fallbackLabel);
+            owner.EmitConstant(defaultValue, 0);
+            owner.EmitFrameReturn(frame);
+            Mark(rethrow);
+            owner.Op(Raise, XRegisterTag, 2);
+            owner.Operand(XRegisterTag, 1);
+
+            return true;
         }
 
         private void ProtectedExpression(Expr.Try expression, int? reservedToken = null)
