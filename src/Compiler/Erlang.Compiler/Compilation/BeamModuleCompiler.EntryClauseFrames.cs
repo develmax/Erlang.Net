@@ -2621,9 +2621,7 @@ internal sealed partial class BeamModuleCompiler
             }
 
             int callLive = deferred is { } argument ? argument.Register + 1 : EntryCallLiveCount(plan, parameters);
-            int live = body is Expr.Sequence || construction is not null
-                ? Math.Max(callLive, copies.Select(copy => copy.Source + 1).DefaultIfEmpty(0).Max())
-                : parameters.Length;
+            int live = Math.Max(callLive, copies.Select(copy => copy.Source + 1).DefaultIfEmpty(0).Max());
             EmitFrameAllocation(live, saved.Count);
             foreach (var (source, slot) in copies)
             {

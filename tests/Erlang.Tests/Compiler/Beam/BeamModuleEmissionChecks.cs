@@ -274,6 +274,7 @@ internal static class BeamModuleEmissionChecks
         await CompareEntryTaggedProjection();
         await CompareUnusedEntryTupleFields();
         await CompareEntryAtomSuffix();
+        await CompareLiveListBranch();
         await CompareNestedEntryCalls();
         await CompareNestedInlineListCheck();
         await CompareGuardedBifTail();
@@ -1497,6 +1498,34 @@ internal static class BeamModuleEmissionChecks
         if (!expected.Equals(actual))
         {
             throw new InvalidOperationException($"The throw stack checks returned {actual}, exit {exit}.", invocationError);
+        }
+    }
+
+    private static async Task CompareLiveListBranch()
+    {
+        const string source = """
+            -module(beam_live_list_branch).
+            -export([run/2]).
+            run([$=|Rest], Acc) -> {lists:reverse(Acc), Rest};
+            run([Char|Rest], Acc) -> run(Rest, [Char|Acc]);
+            run([], Acc) -> lists:reverse(Acc).
+            """;
+        BeamModule image = BeamModule.Prepare(CodeGeneration.CompileBeamModule(source, "beam_live_list_branch.erl"));
+        await using var runtime = new ProcessRuntime();
+        Term? actual = null;
+        ProcessHandle process = runtime.Spawn(async context =>
+        {
+            Term split = await image.Invoke(context, "run", Term.String("key=value"), Nil.Value);
+            Term noSeparator = await image.Invoke(context, "run", Term.String("key"), Nil.Value);
+            actual = Term.Tuple(split, noSeparator);
+
+            return actual;
+        });
+        Term exit = await process.Completion.WaitAsync(TimeSpan.FromSeconds(10));
+        Term expected = Term.Tuple(Term.Tuple(Term.String("key"), Term.String("value")), Term.String("key"));
+        if (!expected.Equals(actual))
+        {
+            throw new InvalidOperationException($"Live list branch returned {actual}, exit {exit}.");
         }
     }
 
