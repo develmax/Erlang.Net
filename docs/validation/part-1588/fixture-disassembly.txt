@@ -1,0 +1,30 @@
+OTP 29.1.1
+{label,1}
+{line,[{location,[],3}]}
+{func_info,{atom,beam_guarded_call_chain},{atom,run},3}
+{label,2}
+{test,is_atom,{f,1},[{x,0}]}
+{test,is_eq_exact,{f,1},[{x,2},{atom,run}]}
+{allocate,1,2}
+{move,{x,1},{y,0}}
+{line,[{location,[],4}]}
+{call,1,{beam_guarded_call_chain,prepare,1}}
+{line,[{location,[],5}]}
+{call,1,{beam_guarded_call_chain,prepare,1}}
+{move,{y,0},{x,1}}
+{call_last,2,{beam_guarded_call_chain,finish,2},1}
+Part 1588 C#
+{label,1}
+{line,[{location,[],3}]}
+{func_info,{atom,beam_guarded_call_chain},{atom,run},3}
+{label,2}
+{test,is_atom,{f,1},[{x,0}]}
+{test,is_eq_exact,{f,1},[{x,2},{atom,run}]}
+{allocate,1,2}
+{move,{x,1},{y,0}}
+{line,[{location,[],4}]}
+{call,1,{beam_guarded_call_chain,prepare,1}}
+{line,[{location,[],5}]}
+{call,1,{beam_guarded_call_chain,prepare,1}}
+{move,{y,0},{x,1}}
+{call_last,2,{beam_guarded_call_chain,finish,2},1}

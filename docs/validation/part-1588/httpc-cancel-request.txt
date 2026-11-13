@@ -1,0 +1,36 @@
+OTP 29.1.1
+{label,39}
+{line,[{location,"httpc.erl",582}]}
+{func_info,{atom,httpc},{atom,cancel_request},2}
+{label,40}
+{test,is_atom,{f,41},[{x,1}]}
+{jump,{f,42}}
+{label,41}
+{test,is_pid,{f,39},[{x,1}]}
+{label,42}
+{allocate,1,2}
+{move,{x,0},{y,0}}
+{move,{x,1},{x,0}}
+{line,[{location,"httpc.erl",584}]}
+{call,1,{httpc,profile_name,1}}
+{move,{x,0},{x,1}}
+{move,{y,0},{x,0}}
+{call_ext_last,2,{extfunc,httpc_manager,cancel_request,2},1}
+Part 1588 C#
+{label,42}
+{line,[{location,"httpc.erl",582}]}
+{func_info,{atom,httpc},{atom,cancel_request},2}
+{label,43}
+{test,is_atom,{f,44},[{x,1}]}
+{jump,{f,45}}
+{label,44}
+{test,is_pid,{f,42},[{x,1}]}
+{label,45}
+{allocate,1,2}
+{move,{x,0},{y,0}}
+{move,{x,1},{x,0}}
+{line,[{location,"httpc.erl",584}]}
+{call,1,{httpc,profile_name,1}}
+{move,{x,0},{x,1}}
+{move,{y,0},{x,0}}
+{call_ext_last,2,{extfunc,httpc_manager,cancel_request,2},1}

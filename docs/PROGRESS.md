@@ -1,5 +1,7 @@
 # Project progress
 
+Part 1588 uses liveness-based call-chain allocation after entry guards. All 1,366 images generate with 390 Equal and 976 Different. [Evidence](validation/part-1588/README.md).
+
 Part 1587 forwards call results through a terminal catch. All 1,366 images generate with 390 Equal and 976 Different. [Evidence](validation/part-1587/README.md).
 
 Part 1586 carries binary guard facts into case and if branches. All 1,366 images generate with 390 Equal and 976 Different. [Evidence](validation/part-1586/README.md).

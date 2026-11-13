@@ -1,5 +1,7 @@
 # Compatibility overview
 
+Part 1588 matches the deterministic guarded call chain and verifies entry guard failures. [Evidence](validation/part-1588/README.md).
+
 Part 1587 verifies entry result forwarding across the catch boundary. [Evidence](validation/part-1587/README.md).
 
 Part 1586 verifies binary matching inside a guarded case arm. [Evidence](validation/part-1586/README.md).

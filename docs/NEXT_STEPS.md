@@ -1,5 +1,7 @@
 # Next steps
 
+Inspect the wx_misc instruction delta and extend liveness-based frame allocation across entry pattern projections. [Evidence](validation/part-1588/README.md).
+
 Measure live inputs across straight-line calls and compare frame allocation with OTP. [Evidence](validation/part-1587/README.md).
 
 Prioritize frame allocation using the normalized first-instruction ranking. Compare live-register and stack-slot assignments with OTP. [Ranking](validation/part-1586/prior-corpus-first-opcode.txt).
