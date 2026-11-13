@@ -481,7 +481,8 @@ internal sealed partial class BeamModuleCompiler
                         previous,
                         saved,
                         released,
-                        allowSwapWithPreviousArgument: decision is null || index == calls.Length - 1
+                        allowSwapWithPreviousArgument: decision is null || index == calls.Length - 1,
+                        allowRegisterReload: checks is null && closures is null
                     )
                     : null;
                 foreach (int slot in released)
@@ -875,7 +876,8 @@ internal sealed partial class BeamModuleCompiler
             string previous,
             IReadOnlyDictionary<string, int> saved,
             IEnumerable<int> released,
-            bool allowSwapWithPreviousArgument = false
+            bool allowSwapWithPreviousArgument = false,
+            bool allowRegisterReload = false
         )
         {
             var call = step.Call;
@@ -892,9 +894,22 @@ internal sealed partial class BeamModuleCompiler
                 }
 
                 // Other X0 operands are copied before swapping the dying slot into X0.
-                return allowSwapWithPreviousArgument && step.SavedInputs is { } loads
+                if (step.SavedInputs is not { } loads)
+                {
+                    return null;
+                }
+
+                int? swap = allowSwapWithPreviousArgument
                     ? loads.Where(load => load.Destination == 0 && released.Contains(load.Source)).Min(load => (int?)load.Source)
                     : null;
+                if (swap is not null || !allowRegisterReload || loads.Any(load => load.Destination == 0))
+                {
+                    return swap;
+                }
+
+                // Only X0 carries a call result here. Read the dying slot into
+                // its argument registers before saving X0 in the same slot.
+                return released.Min(slot => (int?)slot);
             }
 
             // Stack loads run after the spill. Only constructor operands can read the old slot value.
