@@ -6,6 +6,10 @@ internal sealed partial class BeamModuleCompiler
     {
         private readonly Dictionary<(string Name, int Arity), int> callResultTypes = [];
 
+        private static bool HasKnownNonTupleResult(EntryCall call, Atom alternative) =>
+            (call.Module, call.Call.Function, call.Call.Arguments.Count, alternative.Name) is
+                ("lists", "keyfind", 3, "false") or ("maps", "find" or "take", 2, "error");
+
         private int ReadCallResultUnion(Expr.Call call)
         {
             var signature = (call.Function, call.Arguments.Count);

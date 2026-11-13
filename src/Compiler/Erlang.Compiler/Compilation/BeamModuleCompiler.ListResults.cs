@@ -97,13 +97,7 @@ internal sealed partial class BeamModuleCompiler
                 return false;
             }
 
-            string? missingAtom = (selector.Call.Module, read.Function, read.Arguments.Count) switch
-            {
-                ("lists", "keyfind", 3) => "false",
-                ("maps", "find" or "take", 2) => "error",
-                _ => null
-            };
-            if (missing.Name != missingAtom)
+            if (!HasKnownNonTupleResult(selector.Call, missing))
             {
                 return false;
             }

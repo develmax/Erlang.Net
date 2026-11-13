@@ -378,9 +378,7 @@ internal sealed partial class BeamModuleCompiler
             owner.instructions.WriteByte(Return);
 
             Mark(atomBranch);
-            bool knownAtom = (selector.Module, read.Function, read.Arguments.Count, atom.Name) is
-                ("lists", "keyfind", 3, "false") or ("maps", "find" or "take", 2, "error");
-            if (!knownAtom)
+            if (!HasKnownNonTupleResult(selector, atom))
             {
                 owner.Op(ExactEqualTest, LabelTag, failure);
                 owner.Operand(XRegisterTag, 0);

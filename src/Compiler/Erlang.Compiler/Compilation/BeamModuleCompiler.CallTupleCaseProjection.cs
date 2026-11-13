@@ -159,9 +159,12 @@ internal sealed partial class BeamModuleCompiler
                 if (fallbackAtom is not null)
                 {
                     Mark(alternative);
-                    owner.Op(ExactEqualTest, LabelTag, failure);
-                    owner.Operand(XRegisterTag, 0);
-                    owner.LiteralOperand(fallbackAtom);
+                    if (!HasKnownNonTupleResult(selector.Call, fallbackAtom))
+                    {
+                        owner.Op(ExactEqualTest, LabelTag, failure);
+                        owner.Operand(XRegisterTag, 0);
+                        owner.LiteralOperand(fallbackAtom);
+                    }
                     if (fallbackCall is not null)
                     {
                         EmitEntryCallArguments(fallbackCall);
