@@ -1,6 +1,6 @@
 # Dependency and compatibility decisions
 
-Part 1544 reuses arithmetic and frame trim instructions for computed tail arguments. OTP 29.1.1 remains the reference and the change adds no dependency. [Evidence](validation/part-1544/README.md).
+Part 1545 reuses frame and line encoders for measured list entries and if_end. OTP 29.1.1 remains the reference and the change adds no dependency. [Evidence](validation/part-1545/README.md).
 
 Part 1530 reuses entry selector saves, saved call arguments and the call argument construction planner. No dependency was added. [Evidence](validation/part-1530/README.md).
 

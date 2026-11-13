@@ -1,6 +1,6 @@
 # Next steps
 
-Align measured entry slot ordering and typed guards in prim_buffer:read_iovec/2. The recursive branch now uses the reference trim and remaining frame size. [Instructions](validation/part-1544/prim-buffer.txt) · [Corpus ranking](validation/part-1544/first-difference-ranking.txt).
+Infer numeric types after measurements and ordered guards. Seven instructions in prim_buffer:read_iovec/2 still differ by operand types. [Instructions](validation/part-1545/prim-buffer.txt) · [Corpus ranking](validation/part-1545/first-difference-ranking.txt).
 
 Rank terminal operator emission by specific operator and operand forms. The previous audit finds 56 terminal operator bodies across 43 modules. Prioritize branch-local liveness that can also close a near match, starting with the integer branch and binary construction in `ssh_bits:mpint/1` and the guarded projections in `prim_buffer:read_iovec/2`. [Operator audit](validation/part-1509/first-call-spills-after.txt) · [Nearest images](validation/part-1523/nearest.txt).
 
