@@ -357,7 +357,9 @@ internal sealed partial class BeamModuleCompiler
             }
 
             int heapWords = 0;
-            var constructions = new List<(int Register, bool IsCons, (int Register, Term? Constant)[] Items)>();
+            int funCount = 0;
+            var constructions = new List<(int Register, bool IsCons, (int Register, Term? Constant)[] Items,
+                Expr.FunctionReference? Reference, int Entry)>();
             if (ReadOperand(call.Arguments[argument], argument) is not { } constructed)
             {
                 return false;
@@ -392,11 +394,25 @@ internal sealed partial class BeamModuleCompiler
             }
 
             emitTests?.Invoke();
-            owner.Op(TestHeap, BeamWire.UnsignedTag, heapWords);
-            owner.Operand(BeamWire.UnsignedTag, extraction?.Live ?? live);
-            extraction?.Emit();
-            foreach (var (register, isCons, items) in constructions)
+            int heapLive = extraction?.Live ?? live;
+            if (funCount == 0)
             {
+                owner.Op(TestHeap, BeamWire.UnsignedTag, heapWords);
+                owner.Operand(BeamWire.UnsignedTag, heapLive);
+            }
+            else
+            {
+                owner.EmitClosureAllocation(heapWords, heapLive, funCount);
+            }
+            extraction?.Emit();
+            foreach (var (register, isCons, items, reference, entry) in constructions)
+            {
+                if (reference is not null)
+                {
+                    owner.EmitDeclaredFunctionReference(reference, entry, register);
+                    continue;
+                }
+
                 if (isCons)
                 {
                     owner.instructions.WriteByte(PutList);
@@ -464,6 +480,21 @@ internal sealed partial class BeamModuleCompiler
                 if (expression is Expr.Variable variable)
                 {
                     return (ReadRegister(variable.Name), null);
+                }
+
+                if (expression is Expr.FunctionReference reference
+                    && entries.TryGetValue((reference.Name, reference.Arity), out int entry))
+                {
+                    int register = Array.IndexOf(remaining, 0);
+                    if (register < 0)
+                    {
+                        return null;
+                    }
+
+                    remaining[register]++;
+                    funCount++;
+                    constructions.Add((register, false, [], reference, entry));
+                    return (register, null);
                 }
 
                 if (expression is Expr.List list)
@@ -547,7 +578,7 @@ internal sealed partial class BeamModuleCompiler
 
                 remaining[destination]++;
                 heapWords += isCons ? ConsHeapWords : items.Length + 1;
-                constructions.Add((destination, isCons, items));
+                constructions.Add((destination, isCons, items, null, 0));
 
                 return (destination, null);
             }
