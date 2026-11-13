@@ -7533,13 +7533,21 @@ internal sealed partial class BeamModuleCompiler
             Expr.Sequence? Continuation,
             string? ReusedInput = null,
             int ConstructedArgument = -1,
-            (string? Name, Term? Constant)[]? ReturnedTuple = null
+            (string? Name, Term? Constant)[]? ReturnedTuple = null,
+            bool Caught = false
         );
 
         private ForwardedCall? ReadForwardedCall(Expr.Sequence sequence, string input, string[] parameters)
         {
             Expr first = sequence.Items[0];
             var call = first as Expr.Call;
+            bool caught = false;
+            if (sequence.Items.Count == 1 && first is Expr.Catch { Operand: Expr.Call protectedCall })
+            {
+                call = protectedCall;
+                caught = true;
+            }
+
             Pattern.Variable? result = null;
             (string? Name, Term? Constant)[]? returnedTuple = null;
             if (sequence.Items is [Expr.Tuple tupleResult] && tupleResult.Items.OfType<Expr.Call>().ToArray() is [var nested])
@@ -7584,7 +7592,7 @@ internal sealed partial class BeamModuleCompiler
 
             bool consumesResult = call.Arguments.OfType<Expr.Variable>().Any(argument => argument.Name == input);
             int constructedArgument = -1;
-            if (sequence.Items.Count == 1)
+            if (sequence.Items.Count == 1 && !caught)
             {
                 for (int index = 0; index < call.Arguments.Count && index < FirstReservedXRegister; index++)
                 {
@@ -7619,7 +7627,8 @@ internal sealed partial class BeamModuleCompiler
                         null,
                         null,
                         ConstructedArgument: constructedArgument,
-                        ReturnedTuple: returnedTuple
+                        ReturnedTuple: returnedTuple,
+                        Caught: caught
                     )
                     : null;
             }
@@ -7677,6 +7686,15 @@ internal sealed partial class BeamModuleCompiler
             var registers = new List<(int Destination, int Source)>();
             var stack = new List<(int Destination, int Source)>();
             var constants = new List<(int Destination, Term Value)>();
+            int catchToken = -1;
+            int catchHandler = -1;
+            if (plan.Caught)
+            {
+                catchToken = Slot();
+                catchHandler = Label();
+                EnterCatch(catchToken, catchHandler);
+            }
+
             int firstArgument = 0;
             if (plan.ReusedInput is { } reused)
             {
@@ -7742,6 +7760,28 @@ internal sealed partial class BeamModuleCompiler
             }
 
             owner.EmitOrderedTailMoves(registers, constants, stack);
+            if (plan.Caught)
+            {
+                int[] clearedSlots = stack.Select(load => load.Source).Distinct().Order().ToArray();
+                if (clearedSlots.Length != 0)
+                {
+                    owner.instructions.WriteByte(InitYRegisters);
+                    owner.instructions.WriteByte(ExtendedListOperand);
+                    owner.Operand(BeamWire.UnsignedTag, clearedSlots.Length);
+                    foreach (int slot in clearedSlots)
+                    {
+                        owner.Operand(YRegisterTag, slot);
+                    }
+                }
+
+                owner.EmitCallLine(plan.Call, previousCall);
+                Call(plan.Module, plan.Call.Function, arity);
+                EndCatch(catchToken, catchHandler);
+                owner.EmitFrameReturn(frameSize);
+
+                return true;
+            }
+
             if (plan.ReturnedTuple is { } returned)
             {
                 owner.EmitCallLine(plan.Call, previousCall);

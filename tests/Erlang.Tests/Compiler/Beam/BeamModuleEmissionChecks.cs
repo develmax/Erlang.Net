@@ -294,6 +294,7 @@ internal static class BeamModuleEmissionChecks
         await CompareGeneralNamedClosure();
         await CompareGeneralAppend();
         await CompareGeneralCatch();
+        await CompareForwardedCatch();
         await CompareGeneralRecordGuard();
         await CompareGeneralBitStringReferenceAndMapKeyGuards();
         await CompareGeneralMapComprehensions();
@@ -1968,6 +1969,52 @@ internal static class BeamModuleEmissionChecks
         if (!Term.Tuple(Term.Tuple(list, Term.A("tail")), list, Term.A("badarg")).Equals(actual))
         {
             throw new InvalidOperationException($"General BEAM append returned {actual}, exit {exit}.");
+        }
+    }
+
+    private static async Task CompareForwardedCatch()
+    {
+        const string source = """
+            -module(beam_forwarded_catch_probe).
+            -export([run/1]).
+            run(Input) ->
+                Value = prepare(Input),
+                catch finish(Input, Value, []).
+            prepare(fail_before) -> throw(before_call);
+            prepare(Input) -> {prepared,Input}.
+            finish(fail_inside, _, _) -> throw(inside_call);
+            finish(Input, Value, Acc) -> {Input,Value,Acc}.
+            """;
+        BeamModule image = BeamModule.Prepare(CodeGeneration.CompileBeamModule(source, "beam_forwarded_catch_probe.erl"));
+        await using var runtime = new ProcessRuntime();
+        Term? actual = null;
+        ProcessHandle process = runtime.Spawn(async context =>
+        {
+            Term value = await image.Invoke(context, "run", Term.A("value"));
+            Term inside = await image.Invoke(context, "run", Term.A("fail_inside"));
+            Term before;
+            try
+            {
+                before = await image.Invoke(context, "run", Term.A("fail_before"));
+            }
+            catch (ErlangException error)
+            {
+                before = Term.Tuple(Term.A("uncaught"), error.Reason);
+            }
+
+            actual = Term.Tuple(value, inside, before);
+
+            return actual;
+        });
+        Term exit = await process.Completion.WaitAsync(TimeSpan.FromSeconds(10));
+        Term expected = Term.Tuple(
+            Term.Tuple(Term.A("value"), Term.Tuple(Term.A("prepared"), Term.A("value")), Nil.Value),
+            Term.A("inside_call"),
+            Term.Tuple(Term.A("uncaught"), Term.A("before_call"))
+        );
+        if (!expected.Equals(actual))
+        {
+            throw new InvalidOperationException($"Forwarded catch returned {actual}, exit {exit}.");
         }
     }
 
