@@ -1,5 +1,7 @@
 # Compatibility overview
 
+Part 1557 aligns two normalized functions that test lookup results. OTP accepts all 976 differing images for loading. [Evidence](validation/part-1557/README.md).
+
 Part 1545 verifies measured list branches and terminal if failure. OTP accepts all 977 differing images for loading. [Evidence](validation/part-1545/README.md).
 
 Part 1530 matches an entire OTP fixture and 80 result, error and stack observations. OTP loads all 979 differing release images. [Evidence](validation/part-1530/README.md).
