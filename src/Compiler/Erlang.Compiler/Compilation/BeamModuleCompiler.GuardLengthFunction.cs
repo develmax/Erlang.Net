@@ -122,7 +122,7 @@ internal sealed partial class BeamModuleCompiler
             owner.Operand(XRegisterTag, 0);
         }
 
-        private void EmitBodyBitstringSize(Expr.Call call)
+        private void EmitBodySizeBif(Expr.Call call)
         {
             int operandBase = nextSlot;
             Expr operand = call.Arguments[0];
