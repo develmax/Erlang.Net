@@ -82,6 +82,86 @@ internal sealed partial class BeamModuleCompiler
             ReleaseOperandSlots(operandBase);
         }
 
+        private bool TryEmitMapAcrossCall(Clause clause)
+        {
+            if (clause is not
+                {
+                    Guard: null,
+                    Patterns: [Pattern.Variable input],
+                    Body: Expr.Sequence
+                    {
+                        Items: [
+                            Expr.Match { Pattern: Pattern.Variable value, Value: Expr.Call producer },
+                            Expr.Match { Pattern: Pattern.Variable saved, Value: Expr.Map { Base: null } map },
+                            Expr.Call { Module: null, DynamicRemote: false, Arguments: [Expr.Call inner, Expr.Variable mapArgument] } tail
+                        ]
+                    }
+                }
+                || !DistinctBindings(input, value, saved)
+                || mapArgument.Name != saved.Name
+                || inner.Arguments is not [Expr.Variable first, Expr.Variable second]
+                || first.Name != input.Name || second.Name != value.Name
+                || !entries.TryGetValue((tail.Function, 2), out int entry)
+                || ReadEntryCall(producer, [input.Name]) is not { } produce
+                || ReadEntryCall(inner, [input.Name, value.Name]) is not { } invoke)
+            {
+                return false;
+            }
+
+            var fields = new SortedDictionary<Term, Expr>(MapExpressionKeyOrder);
+            foreach (MapField field in map.Fields)
+            {
+                if (field.Exact || !AttributeLiteral.TryNormalizeConstant(field.Key, out Term key)
+                    || field.Value is not Expr.Variable && !AttributeLiteral.TryNormalizeConstant(field.Value, out _)
+                    || field.Value is Expr.Variable variable && variable.Name != value.Name)
+                {
+                    return false;
+                }
+                fields[key] = field.Value;
+            }
+
+            if (!fields.Values.Any(field => field is Expr.Variable))
+            {
+                return false;
+            }
+
+            owner.Op(Allocate, BeamWire.UnsignedTag, 2);
+            owner.Operand(BeamWire.UnsignedTag, 1);
+            owner.instructions.WriteByte(InitYRegisters);
+            owner.instructions.WriteByte(ExtendedListOperand);
+            owner.Operand(BeamWire.UnsignedTag, 1);
+            owner.Operand(YRegisterTag, 0);
+            owner.MoveRegister(XRegisterTag, 0, YRegisterTag, 1);
+            EmitEntryCall(produce);
+
+            EmitMapInstruction(false, 0, null, 1, fields.Count, destinationTag: YRegisterTag);
+            foreach (var (key, field) in fields)
+            {
+                owner.LiteralOperand(key);
+                if (field is Expr.Variable)
+                {
+                    owner.Operand(XRegisterTag, 0);
+                }
+                else
+                {
+                    AttributeLiteral.TryNormalizeConstant(field, out Term literal);
+                    owner.LiteralOperand(literal);
+                }
+            }
+
+            owner.MoveRegister(XRegisterTag, 0, XRegisterTag, 1);
+            owner.MoveRegister(YRegisterTag, 1, XRegisterTag, 0);
+            owner.MoveRegister(YRegisterTag, 0, YRegisterTag, 1);
+            owner.Op(TrimFrame, BeamWire.UnsignedTag, 1);
+            owner.Operand(BeamWire.UnsignedTag, 1);
+            EmitEntryCall(invoke, CallLocation(produce.Call, location));
+            owner.MoveRegister(YRegisterTag, 0, XRegisterTag, 1);
+            owner.Op(TailLocalCallWithFrame, BeamWire.UnsignedTag, 2);
+            owner.Operand(LabelTag, entry);
+            owner.Operand(BeamWire.UnsignedTag, 1);
+            return true;
+        }
+
         private bool TryEmitDirectMap(Clause clause)
         {
             if (clause.Body is not Expr.Map map || !HasUnconditionalParameters(clause)
@@ -150,7 +230,8 @@ internal sealed partial class BeamModuleCompiler
             int? source,
             int live,
             int count,
-            int destination = 0
+            int destination = 0,
+            int destinationTag = XRegisterTag
         )
         {
             owner.Op(exact ? PutMapExact : PutMapAssoc, LabelTag, exact ? failure : 0);
@@ -162,7 +243,7 @@ internal sealed partial class BeamModuleCompiler
             {
                 owner.LiteralOperand(new MapTerm([]));
             }
-            owner.Operand(XRegisterTag, destination);
+            owner.Operand(destinationTag, destination);
             owner.Operand(BeamWire.UnsignedTag, live);
             owner.instructions.WriteByte(ExtendedListOperand);
             owner.Operand(BeamWire.UnsignedTag, count * 2);

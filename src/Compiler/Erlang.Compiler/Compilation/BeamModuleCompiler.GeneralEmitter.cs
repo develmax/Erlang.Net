@@ -1097,7 +1097,7 @@ internal sealed partial class BeamModuleCompiler
 
             if (recursiveClosure?.SelfName is null && recursiveClosure?.GuardFailure is null
                 && clauses.Count == 1
-                && (TryEmitEntryCallComparison(clauses[0]) || TryEmitEntryCallTupleTail(clauses[0])
+                && (TryEmitMapAcrossCall(clauses[0]) || TryEmitEntryCallComparison(clauses[0]) || TryEmitEntryCallTupleTail(clauses[0])
                     || TryEmitEntryTupleOrAtomCase(clauses[0]) || TryEmitEntryDiscardedTaggedMatch(clauses[0])
                     || TryEmitEntryTupleMatchResult(clauses[0])
                     || TryEmitNestedTupleFieldCalls(clauses[0])
