@@ -177,7 +177,8 @@ internal sealed partial class BeamModuleCompiler
             string? registerValue,
             IReadOnlyDictionary<string, int> saved,
             bool preserveX0 = false,
-            bool allowControlTransfer = false
+            bool allowControlTransfer = false,
+            IReadOnlyList<string>? projectedRegisters = null
         )
         {
             var placeholder = target with { Arguments = target.Arguments.Select(_ => (Expr)new Expr.Literal(Nil.Value)).ToArray() };
@@ -187,6 +188,18 @@ internal sealed partial class BeamModuleCompiler
             }
 
             var inputs = new Dictionary<string, int>(StringComparer.Ordinal);
+            if (projectedRegisters is not null)
+            {
+                for (int register = 0; register < projectedRegisters.Count; register++)
+                {
+                    string name = projectedRegisters[register];
+                    if (!string.IsNullOrEmpty(name) && name != VariableScopeNames.Wildcard)
+                    {
+                        inputs.Add(name, register);
+                    }
+                }
+            }
+
             if (registerValue is not null)
             {
                 inputs.Add(registerValue, 0);

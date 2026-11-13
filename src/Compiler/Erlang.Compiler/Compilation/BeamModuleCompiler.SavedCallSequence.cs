@@ -467,8 +467,9 @@ internal sealed partial class BeamModuleCompiler
                     slots,
                     preparedOperand: closureOperand
                 )
-                    ?? (closureOperand < 0 && multiple?.Bindings is null && tupleArguments.Count == 0
-                        ? ReadStraightConstructedCall(target, previous, saved) : null)) is not { } step)
+                    ?? (closureOperand < 0 && tupleArguments.Count == 0
+                        ? ReadStraightConstructedCall(target, multiple?.Bindings is null ? previous : null, saved,
+                            projectedRegisters: multiple?.Bindings is null ? null : prior) : null)) is not { } step)
                 {
                     return null;
                 }

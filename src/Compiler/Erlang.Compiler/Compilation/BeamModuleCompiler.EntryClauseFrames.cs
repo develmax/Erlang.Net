@@ -1629,7 +1629,11 @@ internal sealed partial class BeamModuleCompiler
                         owner.Op(GetTupleElement, XRegisterTag, input);
                         owner.Operand(BeamWire.UnsignedTag, index);
                         owner.Operand(XRegisterTag, destination);
-                        if (hasTest)
+                        if (hasTest && expected.Literal is Nil)
+                        {
+                            owner.EmitNilTest(XRegisterTag, destination, failure);
+                        }
+                        else if (hasTest)
                         {
                             owner.Op(ExactEqualTest, LabelTag, failure);
                             owner.Operand(XRegisterTag, destination);
