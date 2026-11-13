@@ -415,7 +415,7 @@ internal sealed partial class BeamModuleCompiler
 
                 return;
             }
-            if (TryEmitRoundedCallCase(function))
+            if (TryEmitRegisterCapturedClosure(function) || TryEmitRoundedCallCase(function))
             {
                 return;
             }

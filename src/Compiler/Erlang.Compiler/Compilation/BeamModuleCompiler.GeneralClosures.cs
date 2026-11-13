@@ -9,6 +9,23 @@ internal sealed partial class BeamModuleCompiler
         private int anonymousFailureOrdinal;
         private IReadOnlyDictionary<string, int>? entryCaptureOrder;
 
+        private bool TryEmitRegisterCapturedClosure(FunctionDefinition function)
+        {
+            if (function.Clauses is not [{ Guard: null, Body: Expr.Fun { SelfName: null } closure } clause]
+                || !HasUnconditionalParameters(clause))
+            {
+                return false;
+            }
+
+            var registers = clause.Patterns.Cast<Pattern.Variable>()
+                .Select((parameter, register) => (parameter.Name, Register: register))
+                .Where(parameter => parameter.Name != VariableScopeNames.Wildcard)
+                .ToDictionary(parameter => parameter.Name, parameter => parameter.Register, StringComparer.Ordinal);
+            EmitGeneralClosure(closure, captureRegisters: registers);
+            owner.instructions.WriteByte(Return);
+            return true;
+        }
+
         private void EmitGeneralClosure(
             Expr.Fun function,
             bool emitCapturedFailure = false,
@@ -16,11 +33,12 @@ internal sealed partial class BeamModuleCompiler
             int destination = 0,
             IReadOnlyDictionary<string, Term>? captureConstants = null,
             string? x0Capture = null,
-            int destinationTag = XRegisterTag
+            int destinationTag = XRegisterTag,
+            IReadOnlyDictionary<string, int>? captureRegisters = null
         )
         {
             var bindings = variables.ToDictionary(entry => entry.Key, _ => (Term)Nil.Value, StringComparer.Ordinal);
-            foreach (string binding in captureConstants?.Keys ?? [])
+            foreach (string binding in (captureConstants?.Keys ?? []).Concat(captureRegisters?.Keys ?? []))
             {
                 bindings.TryAdd(binding, Nil.Value);
             }
@@ -33,7 +51,7 @@ internal sealed partial class BeamModuleCompiler
             var captures = ClosureCaptures.Capture(function, bindings).Keys.OrderBy(name =>
                 entryCaptureOrder?.TryGetValue(name, out int order) == true
                     ? (Local: false, Order: order)
-                    : (Local: entryCaptureOrder is not null, Order: variables[name])).ToArray();
+                    : (Local: entryCaptureOrder is not null, Order: captureRegisters?.GetValueOrDefault(name) ?? variables[name])).ToArray();
             int declaredArity = function.Clauses[0].Patterns.Count;
             int arity = declaredArity + captures.Length;
             if (arity > BeamWire.MaximumArity)
@@ -56,7 +74,9 @@ internal sealed partial class BeamModuleCompiler
 
             if (!heapChecked)
             {
-                owner.EmitClosureAllocation(captures.Length, 0, 1);
+                int live = captureRegisters is null ? 0
+                    : captures.Select(name => captureRegisters[name]).DefaultIfEmpty(-1).Max() + 1;
+                owner.EmitClosureAllocation(captures.Length, live, 1);
             }
             owner.Op(MakeFun, BeamWire.UnsignedTag, owner.closures.Count);
             owner.Operand(destinationTag, destination);
@@ -67,6 +87,10 @@ internal sealed partial class BeamModuleCompiler
                 if (captureConstants?.TryGetValue(capture, out Term? constant) == true)
                 {
                     owner.LiteralOperand(constant);
+                }
+                else if (captureRegisters?.TryGetValue(capture, out int register) == true)
+                {
+                    owner.Operand(XRegisterTag, register);
                 }
                 else if (capture == x0Capture)
                 {
