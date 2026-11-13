@@ -645,7 +645,13 @@ public sealed partial class Parser
             } while (Take(ErlangSyntaxTokens.Semicolon));
             Expect(ErlangKeywords.End);
 
-            return new Expr.If(clauses);
+            int ifLine = Array.BinarySearch(sourceLineStarts, sourceStart);
+            return new Expr.If(clauses)
+            {
+                SourceLine = sourceToken.PreprocessorLine != 0 ? sourceToken.PreprocessorLine
+                    : ifLine >= 0 ? ifLine + 1 : ~ifLine,
+                PreprocessorFile = sourceToken.PreprocessorFile
+            };
         }
         if (Take(ErlangKeywords.Receive))
         {

@@ -2008,7 +2008,15 @@ internal sealed partial class BeamModuleCompiler
             }
 
             var survivors = inputs.Where(input => sequence.Used.Contains(input.Variable.Name));
-            var saved = deferred is null && !literalDispatch ? survivors.ToArray()
+            bool savesResult = sequence.Binding is { } bindingResult && sequence.Used.Contains(bindingResult.Name);
+            // Keep the measured pair at the bottom of the frame so terminal
+            // branches can discard it or move its surviving members before trim.
+            bool measuredListFrame = deferred is null && !literalDispatch && savesResult
+                && measurement is { Call.Function: AutoImportNames.ByteSize or AutoImportNames.BitSize }
+                && sequence.Continuation is Expr.If conditionalResult
+                && conditionalResult.Clauses.All(clause =>
+                    (clause.Body is Expr.Sequence body ? body.Items[^1] : clause.Body) is Expr.List);
+            var saved = deferred is null && !literalDispatch && !measuredListFrame ? survivors.ToArray()
                 : survivors.OrderByDescending(binding => binding.Register).ToArray();
             int live = saved.Where(binding => binding.Register != deferred?.Tail)
                 .Select(binding => binding.Register + 1).DefaultIfEmpty(0).Max();
@@ -2017,10 +2025,18 @@ internal sealed partial class BeamModuleCompiler
                 && sequence.Continuation is Expr.Call continuation
                 ? ReadEntryCall(continuation, [result.Name], saved.Select(binding => binding.Variable.Name).ToArray(),
                     allowControlTransfer: true) : null;
-            bool savesResult = sequence.Binding is { } bindingResult && sequence.Used.Contains(bindingResult.Name);
-            int resultSlot = literalDispatch && savesResult && tail is null ? Slot() : -1;
+            int resultSlot = measuredListFrame || literalDispatch && savesResult && tail is null ? Slot() : -1;
+            int measurementSlot = measuredListFrame ? Slot() : -1;
             EmitFrameAllocation(live, frameSize);
-            EmitFrameInitialization(saved.Length + (resultSlot >= 0 ? 1 : 0), frameSize, resultSlot >= 0 ? resultSlot : null);
+            if (measuredListFrame)
+            {
+                EmitFrameInitialization(0, nextSlot);
+                EmitFrameInitialization(nextSlot + saved.Length, frameSize);
+            }
+            else
+            {
+                EmitFrameInitialization(saved.Length + (resultSlot >= 0 ? 1 : 0), frameSize, resultSlot >= 0 ? resultSlot : null);
+            }
             int tailSlot = -1;
             foreach (var (variable, register) in saved)
             {
@@ -2082,7 +2098,7 @@ internal sealed partial class BeamModuleCompiler
 
             if (measurement is { } operation)
             {
-                int destination = Slot();
+                int destination = measuredListFrame ? measurementSlot : Slot();
                 EmitEntryMeasurement(operation.Call, sequence.Call.Call, YRegisterTag, destination);
                 variables.Add(operation.Result.Name, destination);
             }

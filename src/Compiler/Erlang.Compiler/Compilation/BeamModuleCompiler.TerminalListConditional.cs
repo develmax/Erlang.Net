@@ -45,7 +45,9 @@ internal sealed partial class BeamModuleCompiler
                 EmitBranch(clause.Body, plans[index]);
                 Mark(next);
             }
-            Error("if_clause");
+            owner.EmitLine(conditional.SourceLine == 0 ? location
+                : new BeamSourceLocation(conditional.PreprocessorFile ?? location.File, conditional.SourceLine));
+            owner.instructions.WriteByte(IfEnd);
             variables = original;
             nextSlot = branchBase;
             return true;

@@ -105,7 +105,11 @@ public abstract record Expr
         internal int SourceLine { get; init; }
         internal string? PreprocessorFile { get; init; }
     }
-    public sealed record If(IReadOnlyList<Clause> Clauses) : Expr;
+    public sealed record If(IReadOnlyList<Clause> Clauses) : Expr
+    {
+        internal int SourceLine { get; init; }
+        internal string? PreprocessorFile { get; init; }
+    }
     public sealed record Receive(IReadOnlyList<Clause> Clauses, Expr? Timeout, Expr? After) : Expr;
     public sealed record Fun(IReadOnlyList<Clause> Clauses) : Expr
     {

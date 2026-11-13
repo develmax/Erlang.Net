@@ -4689,7 +4689,7 @@ internal static class BeamModuleEmissionChecks
                     Count > 0, Size =< 6 ->
                         note(Count),
                         [Head | run(Bin, Size - Count)];
-                    true ->
+                    Count > 0 ->
                         {First, _Rest} = split_binary(Head, Size),
                         [First]
                 end.
@@ -4712,6 +4712,15 @@ internal static class BeamModuleEmissionChecks
                 throw new InvalidOperationException("split_binary accepted a size larger than its input.");
             }
             catch (ErlangException error) when (error.Reason.Equals(Term.A("badarg")))
+            {
+            }
+
+            try
+            {
+                await image.Invoke(context, "run", new BitString([]), Term.I(1));
+                throw new InvalidOperationException("A terminal if accepted unmatched guards.");
+            }
+            catch (ErlangException error) when (error.Reason.Equals(Term.A("if_clause")))
             {
             }
 

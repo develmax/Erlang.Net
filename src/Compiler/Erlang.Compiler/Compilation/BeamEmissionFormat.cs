@@ -51,6 +51,7 @@ internal static class BeamEmissionFormat
     internal const byte CatchEnd = 63;
     internal const byte PutList = 69;
     internal const byte BadMatch = 72;
+    internal const byte IfEnd = 73;
     internal const byte CaseEnd = 74;
     internal const byte CallFun = 75;
     internal const byte IsFunction = 77;
