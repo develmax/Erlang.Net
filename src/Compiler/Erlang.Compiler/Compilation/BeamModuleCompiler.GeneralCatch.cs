@@ -2656,7 +2656,8 @@ internal sealed partial class BeamModuleCompiler
             string? selector,
             Dictionary<string, int> saved,
             int selectorRegister = 0,
-            string? deferredName = null
+            string? deferredName = null,
+            bool reuseX0ForSelector = false
         )
         {
             int remaining = selector is null ? 0 : CountSelectorUses(tuple);
@@ -2718,7 +2719,8 @@ internal sealed partial class BeamModuleCompiler
 
                 remaining -= operands.Count(operand => operand.OriginalSelector);
                 bool consumesX0 = operands.Any(operand => operand.Tag == XRegisterTag && operand.Register == 0);
-                int destination = root || consumesX0 && remaining == 0 ? 0 : nextRegister++;
+                bool consumesSelector = reuseX0ForSelector && operands.Any(operand => operand.OriginalSelector);
+                int destination = root || (consumesX0 || consumesSelector) && remaining == 0 ? 0 : nextRegister++;
                 if (destination >= FirstReservedXRegister)
                 {
                     return null;

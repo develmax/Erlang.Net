@@ -475,6 +475,7 @@ internal sealed partial class BeamModuleCompiler
                 || TryEmitTupleOfListHeads(function) || TryEmitDirectFixedBitPattern(function) || TryEmitDirectMapPattern(function) || TryEmitDirectTryAfter(function) || TryEmitDirectBits(function) || TryEmitDirectFunctionValueCall(function) || TryEmitDirectArithmetic(function) || TryEmitDirectBooleanNot(function) || TryEmitDirectValueGuard(function) || TryEmitTaggedListResult(function) || TryEmitNumericComparison(function)
                 || TryEmitGuardedLocalForward(function) || TryEmitRecordPredicateFunction(function) || TryEmitDirectGuardedRecordAccess(function) || TryEmitDirectTypeOrArityGuard(function) || TryEmitDirectListOrFunctionGuard(function) || TryEmitDirectCatch(function)
                 || TryEmitDiscardedBranchCatch(function) || TryEmitEntryCatchResultDispatch(function) || TryEmitNestedListCallCatch(function)
+                || TryEmitTerminalProtectedTuples(function)
                 || TryEmitCaughtTaggedSingleton(function) || TryEmitCaughtTaggedApply(function)
                 || owner.TryEmitDictionaryCall(function.Clauses, location, entries) || TryEmitNegatedPredicateTail(function)
                 || TryEmitStateReturningDispatch(function) || TryEmitCheckedMapCalls(function)
@@ -13036,6 +13037,101 @@ internal sealed partial class BeamModuleCompiler
             variables = original;
 
             return true;
+        }
+
+        private bool TryEmitTerminalProtectedTuples(FunctionDefinition function)
+        {
+            if (function.Clauses is not [{ Guard: null } clause] || !HasUnconditionalParameters(clause))
+            {
+                return false;
+            }
+
+            Expr expression = clause.Body;
+            Pattern.Variable? binding = null;
+            Expr.Tuple? result = null;
+            if (expression is Expr.Sequence
+                {
+                    Items: [Expr.Match { Pattern: Pattern.Variable assigned, Value: Expr.Try }, Expr.Tuple continuation]
+                } sequence)
+            {
+                binding = assigned;
+                result = continuation;
+                expression = ((Expr.Match)sequence.Items[0]).Value;
+            }
+
+            if (expression is not Expr.Try
+                {
+                    After: null, Body: Expr.Call call,
+                    Clauses: [{ Guard: null, Patterns: [Pattern.Variable success], Body: Expr.Tuple successful }],
+                    Catches: [{
+                        Guard: null,
+                        Patterns: [Pattern.Tuple { Items: [Pattern.Literal { Value: Atom exceptionClass },
+                            Pattern.Variable reason, Pattern.Variable { Name: VariableScopeNames.Wildcard }] }],
+                        Body: Expr.Tuple caught
+                    }]
+                })
+            {
+                return false;
+            }
+
+            var parameters = clause.Patterns.Cast<Pattern.Variable>().Select(parameter => parameter.Name).ToArray();
+            if (parameters.Contains(success.Name) || parameters.Contains(reason.Name)
+                || ReadEntryCall(call, parameters) is not { } producer)
+            {
+                return false;
+            }
+
+            if (binding is not null)
+            {
+                if (binding.Name == VariableScopeNames.Wildcard || parameters.Contains(binding.Name)
+                    || result!.Items.Count(item => item is Expr.Variable variable && variable.Name == binding.Name) != 1
+                    || result.Items.Any(item => item is not Expr.Variable
+                        && !AttributeLiteral.TryNormalizeConstant(item, out _)))
+                {
+                    return false;
+                }
+
+                successful = Wrap(successful);
+                caught = Wrap(caught);
+            }
+
+            if (ReadCaseTuple(successful, success.Name, []) is not { UsesSelector: true } successPlan
+                || ReadCaseTuple(caught, reason.Name, [], selectorRegister: 1, reuseX0ForSelector: true) is not { } catchPlan)
+            {
+                return false;
+            }
+
+            const int token = 0;
+            const int frame = 1;
+            int handler = Label();
+            int unmatched = Label();
+            EmitFrameAllocation(EntryCallLiveCount(producer, parameters), frame);
+            owner.Op(TryEnter, YRegisterTag, token);
+            owner.Operand(LabelTag, handler);
+            EmitEntryCall(producer);
+            owner.Op(TryEnd, YRegisterTag, token);
+            EmitCaseTuple(successPlan);
+            owner.EmitFrameReturn(frame);
+
+            Mark(handler);
+            owner.Op(TryCase, YRegisterTag, token);
+            owner.Op(ExactEqualTest, LabelTag, unmatched);
+            owner.EmitTypedRegister(0, AtomTypeBits);
+            owner.LiteralOperand(exceptionClass);
+            EmitCaseTuple(catchPlan);
+            owner.EmitFrameReturn(frame);
+
+            Mark(unmatched);
+            owner.Op(Raise, XRegisterTag, 2);
+            owner.Operand(XRegisterTag, 1);
+
+            return true;
+
+            Expr.Tuple Wrap(Expr.Tuple value) => result! with
+            {
+                Items = result.Items.Select(item => item is Expr.Variable variable && variable.Name == binding!.Name
+                    ? value : item).ToArray()
+            };
         }
 
         private void ProtectedExpression(Expr.Try expression, int? reservedToken = null)
