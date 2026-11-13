@@ -528,7 +528,12 @@ internal static class BeamReleaseFunctionDebug
                 {
                     Take(ErlangSyntaxTokens.Semicolon);
                 }
-                Term start = Annotation(tokens[cursor]);
+                int guardStart = cursor;
+                while (tokens[guardStart].Text == ErlangSyntaxTokens.OpenParenthesis)
+                {
+                    guardStart++;
+                }
+                Term start = Annotation(tokens[guardStart]);
                 Term guards = WriteGuards(clause.Guard ?? throw Unsupported());
                 clauses.Add(Term.Tuple(Term.A("clause"), start, Nil.Value, guards, WriteClauseBody(clause.Body)));
             }
