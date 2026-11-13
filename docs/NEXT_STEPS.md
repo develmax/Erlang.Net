@@ -1,6 +1,6 @@
 # Next steps
 
-Extend shared stack liveness from independent calls to calls with surviving inputs and branch-local results. The entry spill scan identifies candidates with unused saves and with saves read later. Use per-path reads through calls to distinguish the two before rerunning the full corpus. [Ranking](validation/part-1534/entry-spills-after.txt).
+Extend call-result construction to singleton-list entry patterns and folded constant bindings, starting with the last instruction mismatch in httpc_sup. Continue analyzing stack liveness in branches and compare against all 1,366 release images. [Nearest modules](validation/part-1535/nearest-before.txt) · [Instructions](validation/part-1535/httpc-init.txt).
 
 Rank terminal operator emission by specific operator and operand forms. The previous audit finds 56 terminal operator bodies across 43 modules. Prioritize branch-local liveness that can also close a near match, starting with the integer branch and binary construction in `ssh_bits:mpint/1` and the guarded projections in `prim_buffer:read_iovec/2`. [Operator audit](validation/part-1509/first-call-spills-after.txt) · [Nearest images](validation/part-1523/nearest.txt).
 

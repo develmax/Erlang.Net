@@ -1,6 +1,6 @@
 # Project progress
 
-Part 1534 keeps consumed inputs in registers while constructing a terminal list from call results. Three release functions reach normalized OTP instruction equality. All 1,366 images generate, with 387 Equal and 979 Different. [Evidence](validation/part-1534/README.md).
+Part 1535 reuses terminal list slots after the last input read. Two release functions reach normalized OTP instruction equality and three frames reach the OTP size. All 1,366 images generate, with 387 Equal and 979 Different. [Evidence](validation/part-1535/README.md).
 
 Part 1530 preserves saved arguments for tail calls in atom alternatives. Three functions match normalized OTP instructions and three frames match OTP sizes. The full corpus has 387 Equal and 979 Different. [Evidence](validation/part-1530/README.md).
 
