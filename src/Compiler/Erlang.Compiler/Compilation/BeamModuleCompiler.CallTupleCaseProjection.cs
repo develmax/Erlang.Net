@@ -413,7 +413,7 @@ internal sealed partial class BeamModuleCompiler
                 owner.Operand(XRegisterTag, scratch);
                 int slot = Array.IndexOf(inputs, check.Input);
                 int type = typed && recursiveClosure is null && parentFunction is { } function
-                    ? ReadAtomEntryType(function, check.Input) : 0;
+                    ? ReadSavedComparisonEntryType(function, check.Input) : 0;
                 if (type != 0)
                 {
                     owner.EmitTypedRegister(slot, type, registerTag: YRegisterTag);

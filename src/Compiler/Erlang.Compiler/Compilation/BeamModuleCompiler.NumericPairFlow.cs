@@ -21,6 +21,7 @@ internal sealed partial class BeamModuleCompiler
         NonpositiveNumber = 4096,
         NonnegativeIfNumeric = 8192,
         Atom = 16384,
+        List = 32768,
         NoReturn = Positive | PositiveLength | ProperList | NonemptyList
     }
 
@@ -147,19 +148,48 @@ internal sealed partial class BeamModuleCompiler
                 || (ReadJoinedNumericArgument(function, index) & PairFacts.Atom) == 0
                 ? 0 : AtomTypeBits;
 
-        private void RefineAtomGuard(Expr guard, Dictionary<string, PairFacts> bindings)
+        private int ReadSavedComparisonEntryType(FunctionDefinition function, int index)
+        {
+            var signature = (function.Name, function.Arity);
+            if (owner.exportedFunctions.Contains(signature) || owner.IsDeclaredNative(signature))
+            {
+                return 0;
+            }
+
+            PairFacts facts = ReadJoinedNumericArgument(function, index);
+
+            return (facts & (PairFacts.Atom | PairFacts.Integer | PairFacts.List)) switch
+            {
+                PairFacts.Atom => AtomTypeBits,
+                PairFacts.Integer => IntegerTypeBits,
+                PairFacts.List => ProperListTypeBits,
+                _ => 0
+            };
+        }
+
+        private void RefineEntryTypeGuard(Expr guard, Dictionary<string, PairFacts> bindings)
         {
             if (guard is Expr.Call
                 {
-                    Function: AutoImportNames.IsAtom, DynamicRemote: false, Arguments: [Expr.Variable variable]
+                    DynamicRemote: false, Arguments: [Expr.Variable variable]
                 } call && owner.ResolvesErlangBif(call))
             {
-                bindings[variable.Name] = bindings.GetValueOrDefault(variable.Name) | PairFacts.Atom;
+                var facts = call.Function switch
+                {
+                    AutoImportNames.IsAtom => PairFacts.Atom,
+                    "is_integer" => PairFacts.Integer | PairFacts.Numeric,
+                    "is_list" => PairFacts.List,
+                    _ => PairFacts.Unknown
+                };
+                if (facts != PairFacts.Unknown)
+                {
+                    bindings[variable.Name] = bindings.GetValueOrDefault(variable.Name) | facts;
+                }
             }
             else if (guard is Expr.Binary { Operator: ErlangOperators.And or ErlangOperators.AndAlso } conjunction)
             {
-                RefineAtomGuard(conjunction.Left, bindings);
-                RefineAtomGuard(conjunction.Right, bindings);
+                RefineEntryTypeGuard(conjunction.Left, bindings);
+                RefineEntryTypeGuard(conjunction.Right, bindings);
             }
         }
 

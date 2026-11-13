@@ -4443,7 +4443,7 @@ internal sealed partial class BeamModuleCompiler
         private PairFacts PairAnalysisTop => PairFacts.NoReturn
             | (observeListArithmeticCalls ? PairFacts.BitValue | PairFacts.BitList : PairFacts.Unknown)
             | (inferNumericPairs ? PairFacts.Numeric | PairFacts.NumericLength
-                | PairFacts.NonnegativeNumber | PairFacts.NonpositiveNumber | PairFacts.NonnegativeIfNumeric | PairFacts.Atom : PairFacts.Unknown);
+                | PairFacts.NonnegativeNumber | PairFacts.NonpositiveNumber | PairFacts.NonnegativeIfNumeric | PairFacts.Atom | PairFacts.List : PairFacts.Unknown);
 
         private long? NaturalArgumentLowerBound(FunctionDefinition function, int index)
         {
@@ -4723,6 +4723,20 @@ internal sealed partial class BeamModuleCompiler
                     }
 
                     return ReadPairFacts(sequence.Items[^1], scope, contexts);
+                case Expr.Catch caught when collectNumericPairCalls:
+                    ReadPairFacts(caught.Operand, new(bindings, StringComparer.Ordinal), contexts);
+
+                    return PairFacts.Unknown;
+                case Expr.Try tried when collectNumericPairCalls:
+                    var protectedFacts = ReadPairFacts(tried.Body, new(bindings, StringComparer.Ordinal), contexts);
+                    ReadPairBranches(tried.Clauses, [protectedFacts], bindings, contexts);
+                    ReadPairBranches(tried.Catches, [], bindings, contexts);
+                    if (tried.After is { } cleanup)
+                    {
+                        ReadPairFacts(cleanup, new(bindings, StringComparer.Ordinal), contexts);
+                    }
+
+                    return PairFacts.Unknown;
                 case Expr.Case decision:
                     PairFacts selector = ReadPairFacts(decision.Value, bindings, contexts);
 
@@ -4870,7 +4884,7 @@ internal sealed partial class BeamModuleCompiler
                     if (inferNumericPairs)
                     {
                         RefineNumericComparison(guard, scope, succeeded: true);
-                        RefineAtomGuard(guard, scope);
+                        RefineEntryTypeGuard(guard, scope);
                     }
                 }
                 facts &= ReadPairFacts(clause.Body, scope, contexts);
