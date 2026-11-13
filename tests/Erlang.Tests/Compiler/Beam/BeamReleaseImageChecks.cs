@@ -16,6 +16,7 @@ internal static class BeamReleaseImageChecks
             ("diameter-2.7.2", "diameter_transport"),
             ("diameter-2.7.2", "diameter_tcp_sup"),
             ("erts-17.1", "erl_tracer"),
+            ("erts-17.1", "prim_buffer"),
             ("et-1.8", "et"),
             ("kernel-11.0.4", "logger_handler"),
             ("megaco-4.9.2", "megaco_encoder"),
@@ -293,7 +294,7 @@ internal static class BeamReleaseImageChecks
                         application,
                         Path.Combine("lib", application, "src", "http_client", input)
                     ),
-                    "ssh_lsocket_sup" or "ssh_tcpip_forward_acceptor_sup" => OtpWindowsReleaseProfiles.FindForSource(
+                    "prim_buffer" or "ssh_lsocket_sup" or "ssh_tcpip_forward_acceptor_sup" => OtpWindowsReleaseProfiles.FindForSource(
                         application,
                         Path.Combine("lib", application, "src", input)
                     ),
