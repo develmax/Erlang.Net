@@ -1,5 +1,7 @@
 # Compatibility overview
 
+Part 1563 aligns normalized instructions in observer_html_lib:expandable_term/4. OTP accepts all 976 differing images for loading. [Evidence](validation/part-1563/README.md).
+
 Part 1562 aligns the frame size and swap in observer_html_lib:expandable_term/4. OTP accepts all 976 differing images for loading. [Evidence](validation/part-1562/README.md).
 
 Part 1561 aligns normalized instructions in global:delete_global_lock/2. OTP accepts all 976 differing images for loading. [Evidence](validation/part-1561/README.md).

@@ -1,5 +1,7 @@
 # Next steps
 
+Re-rank remaining oversized call frames by source shape and prioritize changes that apply across the largest module groups. [Frame ranking](validation/part-1558/baseline-frame-rank.txt).
+
 Align move scheduling around slot reuse and prioritize the remaining frame groups by module count. [Observer disassembly](validation/part-1562/expandable_term.txt) · [Frame ranking](validation/part-1558/baseline-frame-rank.txt).
 
 Continue slot reuse and frame trimming across calls with saved arguments and branch selectors. Compare remaining overallocations by source shape. [Frame ranking](validation/part-1558/baseline-frame-rank.txt).

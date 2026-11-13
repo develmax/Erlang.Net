@@ -1,5 +1,7 @@
 # Dependency and compatibility decisions
 
+Part 1563 reuses the existing move scheduler and consults OTP 29.1.1 beam_block.erl. No dependency was added. [Evidence](validation/part-1563/README.md).
+
 Part 1562 reuses the existing saved-call argument emitter and scratch path. No dependency was added. [Evidence](validation/part-1562/README.md).
 
 Part 1561 reuses the saved call argument emitter for slot reuse and consults OTP 29.1.1 beam_ssa_pre_codegen.erl. No dependency was added. [Evidence](validation/part-1561/README.md).
