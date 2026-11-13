@@ -250,6 +250,12 @@ internal sealed partial class BeamModuleCompiler
                     guardClause = guardClause with { Body = new Expr.Literal(emptyResult) };
                 }
 
+                if (tupleBodyDispatch && clause.Body is Expr.Tuple tupleBody
+                    && AttributeLiteral.TryNormalizeConstant(tupleBody, out Term literalResult))
+                {
+                    guardClause = guardClause with { Body = new Expr.Literal(literalResult) };
+                }
+
                 bool emptyAfterCons = cons.Count == 0
                     && branches.Count > 0
                     && literals.Any(literal => literal.Value is Nil
@@ -1650,7 +1656,8 @@ internal sealed partial class BeamModuleCompiler
                                 out tupleTailLine,
                                 tupleMatchFailures
                             );
-                        if (!registerTupleTail && !TryEmitPrefixedCallResultCase(clause.Body, parameters)
+                        if (!registerTupleTail && (clause.Guard is not null || !TryEmitProtectedTaggedResult(clause.Body, parameters))
+                            && !TryEmitPrefixedCallResultCase(clause.Body, parameters)
                             && (cons.Count == 0 || !TryEmitListEntryComparisonCase(
                                 sourceFunction,
                                 clause,

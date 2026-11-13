@@ -13137,15 +13137,29 @@ internal sealed partial class BeamModuleCompiler
 
         private bool TryEmitProtectedTaggedResult(FunctionDefinition function)
         {
-            if (function.Clauses is not [{
-                Guard: null,
-                Body: Expr.Try
+            return function.Clauses is [{ Guard: null } clause] && HasUnconditionalParameters(clause)
+                && TryEmitProtectedTaggedResult(
+                    clause.Body,
+                    clause.Patterns.Cast<Pattern.Variable>().Select(parameter => parameter.Name).ToArray()
+                );
+        }
+
+        private bool TryEmitProtectedTaggedResult(Expr body, string[] parameters)
+        {
+            Expr[] prefix = [];
+            if (body is Expr.Sequence { Items: [_, .., Expr.Try terminal] } sequence)
+            {
+                prefix = sequence.Items.SkipLast(1).ToArray();
+                body = terminal;
+            }
+
+            if (body is not Expr.Try
                 {
                     After: null,
                     Body: Expr.Call call,
                     Clauses: [
                         { Guard: null, Patterns: [Pattern.Tuple pattern], Body: var matched },
-                        { Guard: null, Patterns: [Pattern.Variable { Name: VariableScopeNames.Wildcard }], Body: var fallback }
+                        { Guard: null, Patterns: [Pattern.Variable fallbackBinding], Body: var fallback }
                     ],
                     Catches: [{
                         Guard: null,
@@ -13154,7 +13168,6 @@ internal sealed partial class BeamModuleCompiler
                         Body: var caught
                     }]
                 }
-            } clause] || !HasUnconditionalParameters(clause)
                 || ReadSingleTupleField(pattern) is not { Field: Pattern.Variable field } access
                 || !AttributeLiteral.TryNormalizeConstant(fallback, out Term defaultValue)
                 || !AttributeLiteral.TryNormalizeConstant(caught, out Term caughtValue)
@@ -13163,9 +13176,34 @@ internal sealed partial class BeamModuleCompiler
                 return false;
             }
 
-            string[] parameters = clause.Patterns.Cast<Pattern.Variable>().Select(parameter => parameter.Name).ToArray();
-            if (parameters.Contains(field.Name) || reason.Name != VariableScopeNames.Wildcard && parameters.Contains(reason.Name)
-                || ReadEntryCall(call, parameters) is not { } producer)
+            if (ReadStraightCalls(FlattenCallArguments(prefix), parameters) is not { } calls)
+            {
+                return false;
+            }
+
+            var steps = new List<EntryCall>();
+            string[] registers = parameters;
+            foreach (var (step, binding) in calls)
+            {
+                if (ReadEntryCall(step, registers) is not { } planned)
+                {
+                    return false;
+                }
+
+                steps.Add(planned);
+                registers = binding is null ? [] : [binding];
+            }
+
+            string[] saved = steps.Count == 0 ? [] : call.Arguments.OfType<Expr.Variable>()
+                .Select(argument => argument.Name)
+                .Where(name => name != VariableScopeNames.Wildcard && parameters.Contains(name))
+                .Distinct(StringComparer.Ordinal).ToArray();
+            if (parameters.Contains(field.Name) || calls.Any(step => step.Result == field.Name)
+                || fallbackBinding.Name != VariableScopeNames.Wildcard
+                    && (parameters.Contains(fallbackBinding.Name) || calls.Any(step => step.Result == fallbackBinding.Name))
+                || reason.Name != VariableScopeNames.Wildcard
+                    && (parameters.Contains(reason.Name) || calls.Any(step => step.Result == reason.Name))
+                || ReadEntryCall(call, registers, saved) is not { } producer)
             {
                 return false;
             }
@@ -13177,15 +13215,40 @@ internal sealed partial class BeamModuleCompiler
                 return false;
             }
 
-            const int token = 0;
-            const int frame = 1;
+            int token = saved.Length;
+            int frame = token + 1;
             int handler = Label();
             int fallbackLabel = Label();
             int rethrow = Label();
-            EmitFrameAllocation(EntryCallLiveCount(producer, parameters), frame);
+            EmitFrameAllocation(Math.Max(
+                EntryCallLiveCount(steps.Count == 0 ? producer : steps[0], parameters),
+                saved.Select(name => Array.IndexOf(parameters, name) + 1).DefaultIfEmpty(0).Max()
+            ), frame);
+            var previous = location;
+            if (steps.Count != 0)
+            {
+                EmitFrameInitialization(token, frame);
+                for (int slot = 0; slot < saved.Length; slot++)
+                {
+                    owner.MoveRegister(XRegisterTag, Array.IndexOf(parameters, saved[slot]), YRegisterTag, slot);
+                }
+
+                foreach (var step in steps)
+                {
+                    EmitEntryCall(step, previous);
+                    previous = CallLocation(step.Call, previous);
+                }
+            }
+
             owner.Op(TryEnter, YRegisterTag, token);
             owner.Operand(LabelTag, handler);
-            EmitEntryCall(producer);
+            owner.EmitOrderedTailMoves(producer.Moves, producer.Constants, producer.SavedInputs);
+            if (saved.Length != 0)
+            {
+                owner.EmitSlotKills(Enumerable.Range(0, saved.Length).ToArray());
+            }
+            owner.EmitCallLine(call, previous);
+            Call(producer.Module, call.Function, call.Arguments.Count);
             owner.Op(TryEnd, YRegisterTag, token);
             EmitDetailRecordTest(0, pattern.Items.Count, access.Tag, fallbackLabel, RegisterCaseSelectorType(producer, IsTuple));
             if (tuple is null)
