@@ -1,6 +1,6 @@
 # Project progress
 
-Part 1543 trims terminal list branch frames. Four trim operand pairs match OTP in prim_buffer. All 1,366 images generate, with 389 Equal and 977 Different. [Evidence](validation/part-1543/README.md).
+Part 1544 computes terminal list tail arguments in X registers and trims the frame across the call. All 1,366 images generate, with 389 Equal and 977 Different. [Evidence](validation/part-1544/README.md).
 
 Part 1530 preserves saved arguments for tail calls in atom alternatives. Three functions match normalized OTP instructions and three frames match OTP sizes. The full corpus has 387 Equal and 979 Different. [Evidence](validation/part-1530/README.md).
 

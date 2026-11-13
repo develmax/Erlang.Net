@@ -1,6 +1,6 @@
 # Compatibility overview
 
-Part 1543 verifies terminal list branches with different stack lifetimes. OTP accepts all 977 differing images for loading. [Evidence](validation/part-1543/README.md).
+Part 1544 verifies recursive list tails, arithmetic argument handling and prefix effects. OTP accepts all 977 differing images for loading. [Evidence](validation/part-1544/README.md).
 
 Part 1530 matches an entire OTP fixture and 80 result, error and stack observations. OTP loads all 979 differing release images. [Evidence](validation/part-1530/README.md).
 
