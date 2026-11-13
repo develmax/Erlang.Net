@@ -310,7 +310,7 @@ internal sealed partial class BeamModuleCompiler
                     2,
                     resultTag,
                     caseFailure,
-                    typedTuple: true
+                    TupleTypeBits
                 );
                 owner.EmitTuplePart(0, 1, 0);
                 EmitDynamic(taggedTail);

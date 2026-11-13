@@ -139,7 +139,7 @@ internal sealed partial class BeamModuleCompiler
                 Call(plan.Module, plan.Call.Function, plan.Call.Arguments.Count);
                 previous = CallLocation(plan.Call, previous);
             }
-            EmitDetailRecordTest(0, tuple.Items.Count, tag, unmatched, ReturnsTuple(read, 0, []));
+            EmitDetailRecordTest(0, tuple.Items.Count, tag, unmatched, ReturnsTuple(read, 0, []) ? TupleTypeBits : 0);
             if (fieldIndex >= 0)
             {
                 owner.EmitTuplePart(0, fieldIndex, fieldRegister);
@@ -239,7 +239,13 @@ internal sealed partial class BeamModuleCompiler
             }
             else
             {
-                EmitDetailRecordTest(0, arity, plans[0].Tag, unmatched);
+                EmitDetailRecordTest(
+                    0,
+                    arity,
+                    plans[0].Tag,
+                    unmatched,
+                    RegisterCaseSelectorType(plan, IsTuple)
+                );
             }
 
             for (int index = 0; index < positions.Length; index++)
@@ -376,7 +382,13 @@ internal sealed partial class BeamModuleCompiler
 
             int unmatched = Label();
             EmitEntryCallWithEmptyFrame(selector, parameters);
-            EmitDetailRecordTest(0, pattern.Items.Count, access.Tag, unmatched);
+            EmitDetailRecordTest(
+                0,
+                pattern.Items.Count,
+                access.Tag,
+                unmatched,
+                RegisterCaseSelectorType(selector, IsTuple)
+            );
             owner.EmitTuplePart(0, access.Index, 0);
             owner.EmitCallLine(convert, CallLocation(read, location));
             Call(module, convert.Function, 1);
@@ -448,7 +460,13 @@ internal sealed partial class BeamModuleCompiler
             int returnField = convert is null ? 0 : Label();
             int unmatched = Label();
             EmitEntryCallWithEmptyFrame(plan, parameters);
-            EmitDetailRecordTest(0, tuple.Items.Count, projected.Tag, unmatched);
+            EmitDetailRecordTest(
+                0,
+                tuple.Items.Count,
+                projected.Tag,
+                unmatched,
+                RegisterCaseSelectorType(plan, IsTuple)
+            );
             owner.EmitTuplePart(0, projected.Index, 0);
             if (convert is not null)
             {

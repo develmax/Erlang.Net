@@ -1443,7 +1443,7 @@ internal sealed partial class BeamModuleCompiler
                             arity,
                             tag!,
                             splitTupleAndAtom && branch == 0 ? mixedLabels![groupedBranches[1]?.End ?? 2] : tupleCheckFailure,
-                            typedTuple: splitTupleAndAtom && branch == 0
+                            splitTupleAndAtom && branch == 0 ? TupleTypeBits : 0
                         );
                     }
 

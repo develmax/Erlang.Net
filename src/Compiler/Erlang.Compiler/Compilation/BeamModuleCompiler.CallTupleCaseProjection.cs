@@ -464,7 +464,7 @@ internal sealed partial class BeamModuleCompiler
                         owner.EmitTypedRegister(input, selectorType);
                     }
 
-                    EmitDetailRecordTest(input, step.Arity, tag, failure, typedTuple: selectorType != 0 || shapeChecked);
+                    EmitDetailRecordTest(input, step.Arity, tag, failure, selectorType != 0 || shapeChecked ? TupleTypeBits : 0);
                 }
                 else if (shapeChecked)
                 {

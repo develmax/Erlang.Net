@@ -89,7 +89,7 @@ internal sealed partial class BeamModuleCompiler
                 2,
                 tupleTag,
                 fallback,
-                typedTuple: true
+                TupleTypeBits
             );
             owner.EmitTuplePart(nextHead, 1, nextHead);
             owner.EmitMembershipSelect(

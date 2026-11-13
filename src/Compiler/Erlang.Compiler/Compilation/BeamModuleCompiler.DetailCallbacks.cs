@@ -195,13 +195,13 @@ internal sealed partial class BeamModuleCompiler
             int arity,
             Atom tag,
             int failure,
-            bool typedTuple = false
+            int inputType = 0
         )
         {
             owner.Op(IsTaggedTuple, LabelTag, failure);
-            if (typedTuple)
+            if (inputType != 0)
             {
-                owner.EmitTypedRegister(register, TupleTypeBits);
+                owner.EmitTypedRegister(register, inputType);
             }
             else
             {

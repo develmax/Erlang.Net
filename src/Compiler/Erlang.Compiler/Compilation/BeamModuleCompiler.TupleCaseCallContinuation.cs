@@ -144,7 +144,7 @@ internal sealed partial class BeamModuleCompiler
                 var step = path[index];
                 if (step.Tag is { } tag)
                 {
-                    EmitDetailRecordTest(register, step.Arity, tag, failure, typedTuple: index == 0);
+                    EmitDetailRecordTest(register, step.Arity, tag, failure, index == 0 ? TupleTypeBits : 0);
                 }
                 else if (index == 0)
                 {

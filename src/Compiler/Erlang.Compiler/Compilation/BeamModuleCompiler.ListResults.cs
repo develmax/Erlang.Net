@@ -108,7 +108,7 @@ internal sealed partial class BeamModuleCompiler
             int wrongShape = Label();
             owner.Op(IsTuple, LabelTag, absent);
             owner.EmitTypedRegister(0, AtomTypeBits | TupleTypeBits);
-            EmitDetailRecordTest(0, tuple.Items.Count, access.Tag, wrongShape, typedTuple: true);
+            EmitDetailRecordTest(0, tuple.Items.Count, access.Tag, wrongShape, TupleTypeBits);
             owner.EmitTuplePart(0, access.Index, 0);
             owner.EmitFrameReturn(frame);
             Mark(absent);
