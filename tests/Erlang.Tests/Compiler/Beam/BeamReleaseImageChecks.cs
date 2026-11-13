@@ -237,6 +237,7 @@ internal static class BeamReleaseImageChecks
             ("runtime_tools-2.5", "runtime_tools"),
             ("stdlib-8.1", "dets_sup"),
             ("stdlib-8.1", "erl_posix_msg"),
+            ("stdlib-8.1", "shell_default"),
             ("crypto-5.10", "crypto_ec_curves"),
             ("snmp-5.20.5", "snmpm_user_old"),
             ("mnesia-4.27", "mnesia_backend_type")

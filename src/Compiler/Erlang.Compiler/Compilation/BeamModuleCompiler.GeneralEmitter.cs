@@ -1114,6 +1114,7 @@ internal sealed partial class BeamModuleCompiler
                     || TryEmitTupleResultCase(clauses[0])
                     || TryEmitSavedCallSequenceCase(clauses[0]) || TryEmitEntryClosureTail(clauses[0])
                     || TryEmitSavedCallSequenceTuple(clauses[0])
+                    || TryEmitLengthSelectorApply(clauses[0])
                     || TryEmitEntryBifTail(clauses[0]) || TryEmitEntryDynamicApplyTail(clauses[0])
                     || TryEmitDictionarySequenceTail(clauses[0])
                     || TryEmitEntryAtomTailDispatch(clauses[0]) || TryEmitEntryAtomCallTails(clauses[0]) || TryEmitEntryCallCaseWithFallback(clauses[0]) || TryEmitDiscardedCallSequence(clauses[0]) || TryEmitNestedEntryCalls(clauses[0]) || TryEmitSiblingEntryCalls(clauses[0])
