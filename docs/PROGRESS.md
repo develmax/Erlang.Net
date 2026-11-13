@@ -1,5 +1,7 @@
 # Project progress
 
+Part 1586 carries binary guard facts into case and if branches. All 1,366 images generate with 390 Equal and 976 Different. [Evidence](validation/part-1586/README.md).
+
 Part 1585 shares one match context across multiple binary fields. All 1,366 images generate with 390 Equal and 976 Different. [Evidence](validation/part-1585/README.md).
 
 Part 1584 reuses the binary match context across split continuations. All 1,366 files generate with 390 Equal and 976 Different. [Evidence](validation/part-1584/README.md).
