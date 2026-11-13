@@ -1,5 +1,7 @@
 # Next steps
 
+Carry binary guard proofs into nested case bodies and measure their impact on dynamic binary matches. [Evidence](validation/part-1585/README.md).
+
 Measure binary capture lifetimes across subsequent calls and reduce branch frames. [Evidence](validation/part-1584/README.md).
 
 Measure dynamic binary splits in body continuations and across calls. [Inventory](validation/part-1583/split-inventory.txt).

@@ -1,3 +1,5 @@
+Part 1585 reduces the Code size gap in erl_tar and string. Both release images still differ. [Evidence](validation/part-1585/README.md).
+
 Part 1584 reduces the Code size difference in ct_netconfc and diameter_dbg. Both complete images still differ. [Evidence](validation/part-1584/README.md).
 
 Part 1583 matches the direct guarded split fixture. The rule changed zero release images. [Evidence](validation/part-1583/README.md).
