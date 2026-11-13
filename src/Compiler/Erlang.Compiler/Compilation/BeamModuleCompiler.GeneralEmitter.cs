@@ -9918,14 +9918,15 @@ internal sealed partial class BeamModuleCompiler
             }
         }
 
-        private void EmitArithmetic(Expr.Binary expression, int? guardFailure)
+        private void EmitArithmetic(Expr.Binary expression, int? guardFailure, int destination = 0,
+            BeamSourceLocation? previousLine = null)
         {
             int operandBase = nextSlot;
             int? left = GuardSlot(expression.Left, guardFailure);
             int? right = GuardSlot(expression.Right, guardFailure);
             if (guardFailure is null)
             {
-                var previous = location;
+                var previous = previousLine ?? location;
                 owner.EmitArithmeticLine(expression.SourceLine, ref previous);
             }
             bool needsGc = expression.Operator != ErlangOperators.Xor;
@@ -9938,7 +9939,7 @@ internal sealed partial class BeamModuleCompiler
             owner.Operand(BeamWire.UnsignedTag, owner.Import(ErlangModuleNames.Module, expression.Operator, 2));
             GuardOperand(expression.Left, left);
             GuardOperand(expression.Right, right);
-            owner.Operand(XRegisterTag, 0);
+            owner.Operand(XRegisterTag, destination);
             ReleaseOperandSlots(operandBase);
         }
 

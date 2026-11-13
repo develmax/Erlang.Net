@@ -4686,6 +4686,9 @@ internal static class BeamModuleEmissionChecks
                     Count =:= Size ->
                         note(Size),
                         [Head];
+                    Count > 0, Size =< 6 ->
+                        note(Count),
+                        [Head | run(Bin, Size - Count)];
                     true ->
                         {First, _Rest} = split_binary(Head, Size),
                         [First]
@@ -4702,20 +4705,22 @@ internal static class BeamModuleEmissionChecks
             var first = await image.Invoke(context, "run", input, Term.I(2));
             var fallback = await image.Invoke(context, "run", input, Term.I(-1));
             var exact = await image.Invoke(context, "run", input, Term.I(3));
+            var recursive = await image.Invoke(context, "run", input, Term.I(5));
             try
             {
-                await image.Invoke(context, "run", input, Term.I(4));
+                await image.Invoke(context, "run", input, Term.I(7));
                 throw new InvalidOperationException("split_binary accepted a size larger than its input.");
             }
             catch (ErlangException error) when (error.Reason.Equals(Term.A("badarg")))
             {
             }
 
-            actual = Term.Tuple(first, fallback, exact);
+            actual = Term.Tuple(first, fallback, exact, recursive);
             return actual;
         });
         Term exit = await process.Completion.WaitAsync(TimeSpan.FromSeconds(10));
-        Term expected = Term.Tuple(Term.List(new BitString([1, 2])), Nil.Value, Term.List(new BitString([1, 2, 3])));
+        Term expected = Term.Tuple(Term.List(new BitString([1, 2])), Nil.Value,
+            Term.List(new BitString([1, 2, 3])), Term.List(new BitString([1, 2, 3]), new BitString([1, 2])));
         if (!expected.Equals(actual) || !Term.A("normal").Equals(exit))
         {
             throw new InvalidOperationException($"Split binary list construction returned {actual}, exit {exit}.");

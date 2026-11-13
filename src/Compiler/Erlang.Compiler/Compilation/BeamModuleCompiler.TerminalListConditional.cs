@@ -9,7 +9,8 @@ internal sealed partial class BeamModuleCompiler
         private sealed record TerminalListBranch(
             Expr.Call[] Calls,
             string? SavedHead,
-            int? TupleField);
+            int? TupleField,
+            Expr.Binary? TailOperand);
 
         private bool TryEmitTerminalListConditional(Expr.If conditional)
         {
@@ -66,7 +67,7 @@ internal sealed partial class BeamModuleCompiler
         private TerminalListBranch? ReadTerminalListBranch(Expr body)
         {
             IReadOnlyList<Expr> items = body is Expr.Sequence sequence ? sequence.Items : [body];
-            if (items[^1] is not Expr.List { Items: [var head], Tail: null })
+            if (items[^1] is not Expr.List { Items: [var head] } list)
             {
                 return null;
             }
@@ -96,6 +97,10 @@ internal sealed partial class BeamModuleCompiler
 
             if (head is Expr.Call call)
             {
+                if (list.Tail is not null)
+                {
+                    return null;
+                }
                 calls.Add(call);
             }
             else if (field is null)
@@ -108,12 +113,30 @@ internal sealed partial class BeamModuleCompiler
             }
 
             string[] savedParameters = SavedParameters();
+            Expr.Binary? tailOperand = null;
+            if (list.Tail is not null)
+            {
+                if (saved is null || list.Tail is not Expr.Call
+                    {
+                        Arguments: [Expr.Variable, Expr.Binary
+                        {
+                            Operator: ErlangOperators.Minus, Left: Expr.Variable left, Right: Expr.Variable right
+                        } difference]
+                    } tail
+                    || !variables.ContainsKey(left.Name) || !variables.ContainsKey(right.Name)
+                    || ReadEntryCall(tail, [], savedParameters, preparedOperand: 1) is null)
+                {
+                    return null;
+                }
+                tailOperand = difference;
+                calls.Add(tail);
+            }
             if (calls.Count == 0 || calls.Any(call => ReadEntryCall(call, [], savedParameters) is null
-                    && !(field is not null && ReferenceEquals(call, calls[^1]))))
+                    && !((field is not null || tailOperand is not null) && ReferenceEquals(call, calls[^1]))))
             {
                 return null;
             }
-            return new(calls.ToArray(), saved, field);
+            return new(calls.ToArray(), saved, field, tailOperand);
         }
 
         private string[] SavedParameters()
@@ -133,9 +156,22 @@ internal sealed partial class BeamModuleCompiler
             for (int index = 0; index < branch.Calls.Length; index++)
             {
                 Expr.Call call = branch.Calls[index];
-                LoadCallArguments(call.Arguments, null, orderSimpleOperands: true);
+                if (index == branch.Calls.Length - 1 && branch.TailOperand is { } operand)
+                {
+                    EmitArithmetic(operand, null, destination: 1, previousLine: previous);
+                    if (operand.SourceLine != 0)
+                    {
+                        previous = new(previous.File, operand.SourceLine);
+                    }
+                    Load(variables[((Expr.Variable)call.Arguments[0]).Name]);
+                }
+                else
+                {
+                    LoadCallArguments(call.Arguments, null, orderSimpleOperands: true);
+                }
                 var live = branch.Calls.Skip(index + 1).SelectMany(later => later.Arguments)
-                    .OfType<Expr.Variable>().Select(variable => variable.Name).ToHashSet(StringComparer.Ordinal);
+                    .SelectMany(LocalFunctionEntries.Walk).OfType<Expr.Variable>()
+                    .Select(variable => variable.Name).ToHashSet(StringComparer.Ordinal);
                 if (branch.SavedHead is { } head)
                 {
                     live.Add(head);
@@ -147,7 +183,7 @@ internal sealed partial class BeamModuleCompiler
             }
 
             owner.Op(TestHeap, BeamWire.UnsignedTag, ConsHeapWords);
-            owner.Operand(BeamWire.UnsignedTag, branch.SavedHead is null ? 1 : 0);
+            owner.Operand(BeamWire.UnsignedTag, branch.SavedHead is null || branch.TailOperand is not null ? 1 : 0);
             if (branch.TupleField is int field)
             {
                 owner.EmitTuplePart(0, field, 0);
@@ -160,7 +196,14 @@ internal sealed partial class BeamModuleCompiler
             {
                 owner.Op(PutList, XRegisterTag, 0);
             }
-            owner.LiteralOperand(Nil.Value);
+            if (branch.TailOperand is null)
+            {
+                owner.LiteralOperand(Nil.Value);
+            }
+            else
+            {
+                owner.Operand(XRegisterTag, 0);
+            }
             owner.Operand(XRegisterTag, 0);
             owner.EmitFrameReturn(remaining);
         }
