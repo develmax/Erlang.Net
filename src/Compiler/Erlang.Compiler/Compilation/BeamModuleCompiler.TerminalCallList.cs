@@ -21,51 +21,112 @@ internal sealed partial class BeamModuleCompiler
                 return false;
             }
 
-            // Entry arguments are dead after the first call if the remaining calls
-            // can prepare their arguments without any of the entry registers.
-            var calls = new List<EntryCall>(list.Items.Count) { firstCall };
-            foreach (Expr item in list.Items.Skip(1))
+            var laterCalls = list.Items.Skip(1).OfType<Expr.Call>().ToArray();
+            if (laterCalls.Length != list.Items.Count - 1)
             {
-                if (item is not Expr.Call call || ReadEntryCall(call, []) is not { } plan)
+                return false;
+            }
+
+            var lastReads = new Dictionary<string, int>(StringComparer.Ordinal);
+            for (int index = 0; index < laterCalls.Length; index++)
+            {
+                foreach (var variable in laterCalls[index].Arguments.OfType<Expr.Variable>())
+                {
+                    lastReads[variable.Name] = index;
+                }
+            }
+
+            var savedInputs = inputs.Select((name, register) => (Name: name, Register: register))
+                .Where(input => lastReads.ContainsKey(input.Name)).ToArray();
+            int frame = savedInputs.Length;
+            for (int index = 0; index < laterCalls.Length; index++)
+            {
+                frame = Math.Max(frame, index + 1 + lastReads.Values.Count(last => last > index));
+            }
+            var stack = Enumerable.Repeat(VariableScopeNames.Wildcard, frame).ToArray();
+            for (int index = 0; index < savedInputs.Length; index++)
+            {
+                stack[frame - 1 - index] = savedInputs[index].Name;
+            }
+
+            var steps = new (EntryCall Call, int Slot, bool Swap)[laterCalls.Length];
+            for (int index = 0; index < laterCalls.Length; index++)
+            {
+                if (ReadEntryCall(laterCalls[index], [], stack) is not { } plan)
                 {
                     return false;
                 }
 
-                calls.Add(plan);
-            }
-
-            int savedResults = calls.Count - 1;
-            EmitGeneralFrame(EntryCallLiveCount(firstCall, inputs), slots: savedResults);
-            var previous = location;
-            for (int index = 0; index < calls.Count; index++)
-            {
-                EntryCall call = calls[index];
-                EmitEntryCall(call, previous);
-                previous = CallLocation(call.Call, previous);
-                if (index < savedResults)
+                int slot = plan.SavedInputs is [{ Destination: 0, Source: var source }, ..] loads
+                    && loads.Count(load => load.Source == source) == 1 && lastReads[stack[source]] == index
+                    ? source : -1;
+                bool swap = slot >= 0;
+                if (!swap)
                 {
-                    owner.MoveRegister(XRegisterTag, 0, YRegisterTag, savedResults - index - 1);
+                    slot = Array.LastIndexOf(stack, VariableScopeNames.Wildcard);
+                    if (slot < 0)
+                    {
+                        return false;
+                    }
                 }
+                steps[index] = (plan, slot, swap);
+                for (int saved = 0; saved < stack.Length; saved++)
+                {
+                    if (lastReads.GetValueOrDefault(stack[saved], -1) == index)
+                    {
+                        stack[saved] = VariableScopeNames.Wildcard;
+                    }
+                }
+                // An earlier result remains live through every later call.
+                stack[slot] = string.Empty;
             }
 
-            owner.Op(TestHeap, BeamWire.UnsignedTag, calls.Count * ConsHeapWords);
+            int live = Math.Max(EntryCallLiveCount(firstCall, inputs),
+                savedInputs.Select(input => input.Register + 1).DefaultIfEmpty(0).Max());
+            EmitGeneralFrame(live, initializedByMoves: savedInputs.Length, slots: frame);
+            for (int index = savedInputs.Length - 1; index >= 0; index--)
+            {
+                owner.MoveRegister(XRegisterTag, savedInputs[index].Register, YRegisterTag, frame - 1 - index);
+            }
+            EmitEntryCall(firstCall);
+            var previous = CallLocation(first, location);
+            foreach (var (plan, slot, swap) in steps)
+            {
+                if (swap)
+                {
+                    owner.Op(Swap, YRegisterTag, slot);
+                    owner.Operand(XRegisterTag, 0);
+                }
+                else
+                {
+                    owner.MoveRegister(XRegisterTag, 0, YRegisterTag, slot);
+                }
+                var loads = swap ? plan.SavedInputs!.Skip(1).ToList() : plan.SavedInputs;
+                owner.EmitOrderedTailMoves(plan.Moves, plan.Constants, loads);
+                owner.EmitCallLine(plan.Call, previous);
+                Call(plan.Module, plan.Call.Function, plan.Call.Arguments.Count);
+                previous = CallLocation(plan.Call, previous);
+            }
+
+            owner.Op(TestHeap, BeamWire.UnsignedTag, list.Items.Count * ConsHeapWords);
             owner.Operand(BeamWire.UnsignedTag, 1);
-            for (int index = 0; index < calls.Count; index++)
+            for (int index = steps.Length; index >= 0; index--)
             {
                 owner.instructions.WriteByte(PutList);
-                owner.Operand(index == 0 ? XRegisterTag : YRegisterTag, Math.Max(0, index - 1));
-                if (index == 0)
+                if (index == steps.Length)
                 {
+                    owner.Operand(XRegisterTag, 0);
                     owner.LiteralOperand(Nil.Value);
                 }
                 else
                 {
+                    owner.Operand(YRegisterTag, steps[index].Slot);
                     owner.Operand(XRegisterTag, 0);
                 }
 
                 owner.Operand(XRegisterTag, 0);
             }
-            owner.EmitFrameReturn(savedResults);
+            owner.EmitFrameReturn(frame);
             return true;
         }
     }
