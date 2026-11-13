@@ -1,5 +1,7 @@
 # Next steps
 
+Measure ordered entry dispatch and branch-local frame allocation against the remaining opcode gaps. [Evidence](validation/part-1575/README.md).
+
 Measure frame allocation and result lifetime across terminal dispatch branches. [Opcode audit](validation/part-1574/baseline-opcodes.txt) · [Closest images](validation/part-1574/nearest-images.txt).
 
 Audit protected calls preceded by argument preparation. Prioritize recurring shapes and compare their frame allocation against OTP. [Evidence](validation/part-1572/README.md).

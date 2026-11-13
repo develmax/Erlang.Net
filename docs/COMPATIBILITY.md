@@ -1,5 +1,7 @@
 # Compatibility overview
 
+Part 1575 aligns eight normalized functions across 24 changed images. OTP accepts all 976 differing images for loading. [Evidence](validation/part-1575/README.md).
+
 Part 1574 matches the normalized send instructions in asn1_db:reply/2. OTP accepts all 976 differing images for loading. [Evidence](validation/part-1574/README.md).
 
 Part 1572 matches the tagged try fixture instructions. All release images retain their previous status. [Evidence](validation/part-1572/README.md).

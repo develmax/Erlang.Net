@@ -1,5 +1,7 @@
 # Project progress
 
+Part 1575 keeps the last case branch call result in X0. All 1,366 images generate with 390 Equal and 976 Different. [Evidence](validation/part-1575/README.md).
+
 Part 1574 builds tuple messages in X registers. All 1,366 images generate with 390 Equal and 976 Different. [Evidence](validation/part-1574/README.md).
 
 Part 1572 shares constant fallbacks in tagged try results. All 1,366 images generate, with 390 Equal and 976 Different. [Evidence](validation/part-1572/README.md).
