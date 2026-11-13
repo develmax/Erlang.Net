@@ -498,12 +498,23 @@ internal sealed partial class BeamModuleCompiler
                 return TryEmitCallSequenceTuple(sequence, parameters);
             }
 
+            bool returnsConstant = AttributeLiteral.TryNormalizeConstant(sequence.Items[^1], out Term constant);
             if (sequence.Items[0] is not Expr.Call firstCall || ReadEntryCall(firstCall, parameters) is not { } first)
             {
+                if (returnsConstant
+                    && ReadStraightCalls(FlattenCallArguments(sequence.Items.Take(sequence.Items.Count - 1)), parameters)
+                        is { Length: > 0 } calls
+                    && ReadSavedCallSequence(calls, parameters, extraction: null, constant: constant, allowLinear: true)
+                        is { } plan)
+                {
+                    EmitSavedCallSequence(plan);
+
+                    return true;
+                }
+
                 return false;
             }
 
-            bool returnsConstant = AttributeLiteral.TryNormalizeConstant(sequence.Items[^1], out Term constant);
             var continuation = new List<(EntryCall Call, int? ListDestination)>();
             for (int index = sequence.Items.Count - (returnsConstant ? 2 : 1); index > 0; index--)
             {
