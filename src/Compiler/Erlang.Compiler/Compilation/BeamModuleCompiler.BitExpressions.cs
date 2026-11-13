@@ -61,8 +61,23 @@ internal sealed partial class BeamModuleCompiler
         {
             var segments = ReadBinaryConstruction(bits);
             var slots = new List<(int? Value, int? Size)>(segments.Count);
-            foreach (var segment in segments)
+            // A final call can feed bs_create_bin directly if no size expression
+            // needs to run between the call and construction.
+            bool lastValueInX0 = failure is null && writablePrefix is null
+                && segments.LastOrDefault() is
+                {
+                    Bytes: null, Value: Expr.Call, Size: Expr.Literal
+                };
+            for (int index = 0; index < segments.Count; index++)
             {
+                var segment = segments[index];
+                if (lastValueInX0 && index == segments.Count - 1)
+                {
+                    Expression(segment.Value);
+                    slots.Add((null, null));
+                    continue;
+                }
+
                 slots.Add(segment.Bytes is null
                     ? (GuardSlot(segment.Value, failure), GuardSlot(segment.Size, failure))
                     : (null, null));
@@ -92,13 +107,20 @@ internal sealed partial class BeamModuleCompiler
                 slots.Insert(0, (prefix, null));
             }
 
-            EmitBinaryConstructionHeader(bits, segments, 0, failure);
+            EmitBinaryConstructionHeader(bits, segments, lastValueInX0 ? 1 : 0, failure);
             for (int index = 0; index < segments.Count; index++)
             {
                 var segment = segments[index];
                 if (!EmitBinaryConstructionSegment(segment))
                 {
-                    GuardOperand(segment.Value, slots[index].Value);
+                    if (lastValueInX0 && index == segments.Count - 1)
+                    {
+                        owner.Operand(XRegisterTag, 0);
+                    }
+                    else
+                    {
+                        GuardOperand(segment.Value, slots[index].Value);
+                    }
                     GuardOperand(segment.Size, slots[index].Size);
                 }
             }

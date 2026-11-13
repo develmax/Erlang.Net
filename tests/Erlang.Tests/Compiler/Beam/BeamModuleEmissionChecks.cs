@@ -308,6 +308,7 @@ internal static class BeamModuleEmissionChecks
         await CompareGeneralMapExpressions();
         await CompareGeneralLengthAndFunctionGuards();
         await CompareGeneralBitExpressions();
+        await CompareFinalBinaryCall();
         await CompareGeneralNumberMapHeadGuards();
         await CompareGeneralDivisionAndListOperators();
         await CompareGeneralTryAfter();
@@ -4594,6 +4595,40 @@ internal static class BeamModuleEmissionChecks
         if (!expected.Equals(actual))
         {
             throw new InvalidOperationException($"General BEAM bit expression returned {actual}, exit {exit}.");
+        }
+    }
+
+    private static async Task CompareFinalBinaryCall()
+    {
+        const string source = """
+            -module(beam_final_binary_call).
+            -export([run/1, last/1]).
+            run(Input) ->
+                <<17:8, (last(Input))/binary>>.
+            last(Input) ->
+                Input.
+            """;
+        BeamModule image = BeamModule.Prepare(CodeGeneration.CompileBeamModule(source, "beam_final_binary_call.erl"));
+        await using var runtime = new ProcessRuntime();
+        Term? actual = null;
+        ProcessHandle process = runtime.Spawn(async context =>
+        {
+            actual = await image.Invoke(context, "run", new BitString([0xA0]));
+            try
+            {
+                await image.Invoke(context, "run", Term.A("invalid"));
+                throw new InvalidOperationException("Binary construction accepted an atom.");
+            }
+            catch (ErlangException error) when (error.Reason.Equals(Term.A("badarg")))
+            {
+            }
+
+            return actual;
+        });
+        Term exit = await process.Completion.WaitAsync(TimeSpan.FromSeconds(10));
+        if (!new BitString([17, 0xA0]).Equals(actual) || !Term.A("normal").Equals(exit))
+        {
+            throw new InvalidOperationException($"Final binary call returned {actual}, exit {exit}.");
         }
     }
 

@@ -124,6 +124,7 @@ internal sealed partial class BeamModuleCompiler
 
         private void EmitBodyBitstringSize(Expr.Call call)
         {
+            int operandBase = nextSlot;
             Expr operand = call.Arguments[0];
             int? slot = operand is Expr.Variable variable && variables.TryGetValue(variable.Name, out int saved)
                 ? saved : null;
@@ -144,6 +145,7 @@ internal sealed partial class BeamModuleCompiler
                 owner.Operand(XRegisterTag, 0);
             }
             owner.Operand(XRegisterTag, 0);
+            ReleaseOperandSlots(operandBase);
         }
 
         private void EmitSizeInstruction(string function, int failure, int live)
