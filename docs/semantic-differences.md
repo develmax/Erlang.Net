@@ -1,3 +1,5 @@
+Part 1593 removes unused fields in erl_abstract_code:debug_info/4. Atom dispatch and register allocation still differ. [Evidence](validation/part-1593/README.md).
+
 Part 1591 closes the wx_misc frame relocation gap and matches the full release image.
 
 Part 1590 aligns the checked wx_misc tuple projection. Stack relocation and trim instructions still differ. [Evidence](validation/part-1590/README.md).
