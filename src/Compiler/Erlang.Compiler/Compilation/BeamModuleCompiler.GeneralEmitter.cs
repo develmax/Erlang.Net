@@ -9554,7 +9554,7 @@ internal sealed partial class BeamModuleCompiler
                     if (guardFailure is null && call is
                         {
                             Module: null or ErlangModuleNames.Module,
-                            Function: AutoImportNames.Self, Arguments: []
+                            Function: AutoImportNames.Self or AutoImportNames.Node, Arguments: []
                         }
                         && owner.ResolvesErlangBif(call))
                     {
@@ -9663,11 +9663,18 @@ internal sealed partial class BeamModuleCompiler
 
                         return;
                     }
-                    if (guardFailure is null && call.Function is AutoImportNames.Hd or AutoImportNames.Tl
+                    if (guardFailure is null && call.Function is AutoImportNames.Hd or AutoImportNames.Tl or AutoImportNames.Node or AutoImportNames.TupleSize
                         && call.Arguments.Count == 1 && owner.ResolvesErlangBif(call) && HasSimpleDecodeArguments(call))
                     {
                         owner.EmitCallLine(call, owner.lastEmittedLine);
                         EmitUnaryGuardBif(call, 0);
+
+                        return;
+                    }
+                    if (guardFailure is null && IsNonAllocatingBinaryGuardCall(call) && HasSimpleDecodeArguments(call))
+                    {
+                        owner.EmitCallLine(call, owner.lastEmittedLine);
+                        EmitNonAllocatingBinaryGuardValue(call, 0);
 
                         return;
                     }
