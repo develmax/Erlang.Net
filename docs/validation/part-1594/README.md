@@ -1,0 +1,7 @@
+# Part 1594 — Group adjacent entry clauses by atom
+
+The separate entry frame planner emits select_val for consecutive unguarded clauses with distinct atoms in the same argument and a tuple pattern in another argument. This applies to a suffix followed by an unconditional constant fallback. Preceding clauses keep priority. A failed tuple check in a selected arm branches directly to the fallback because the other atoms cannot match. The selection table is sorted by atom and the arms retain source order. No dependency was added.
+
+The OTP 29.1.1 oracle confirms five outcomes, including precedence of the earlier tuple clause, both selected atoms and fallback on an invalid tuple or selector. The fixture matches the select_val and branch labels. Register allocation and heap checks still differ. Three focused tests passed. [Fixture](beam_entry_atom_suffix.erl) · [Disassembly](fixture-disassembly.txt) · [Outcomes](outcomes.txt) · [Tests](focused.txt).
+
+The full corpus accepted and generated all 1,366 modules. There were 391 Equal and 975 Different. ELDAPv3 and wx_misc remain Equal. Only erl_abstract_code changed. The select_val operands and arm order now agree with OTP after label normalization. The Code size gap grew from two bytes to six because projection and frame allocation still differ. OTP accepted all differing images for loading. The full runtime suite and canonical readiness were outside this run. [Corpus](otp-corpus.json) · [Loader and Code](loader-and-code.txt) · [Release disassembly](debug-info.txt).

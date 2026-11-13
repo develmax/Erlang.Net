@@ -1,5 +1,7 @@
 # Next steps
 
+Write entry tuple fields directly to live X and Y operands after shape checks. [Evidence](validation/part-1594/README.md).
+
 Align entry atom dispatch and direct Y projection for the remaining debug_info/4 differences. [Evidence](validation/part-1593/README.md).
 
 Compare entry tuple projections and investigate common frame relocation for the measured release cohorts. [Ranking](validation/part-1592/README.md).

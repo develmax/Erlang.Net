@@ -1,5 +1,7 @@
 # Project progress
 
+Part 1594 groups adjacent entry atom clauses. All 1,366 images generate with 391 Equal and 975 Different. [Evidence](validation/part-1594/README.md).
+
 Part 1593 removes unused entry tuple projections. All 1,366 images generate with 391 Equal and 975 Different. [Evidence](validation/part-1593/README.md).
 
 Part 1591 matches wx_misc byte for byte. All 1,366 images generate with 391 Equal and 975 Different. [Evidence](validation/part-1591/README.md).
