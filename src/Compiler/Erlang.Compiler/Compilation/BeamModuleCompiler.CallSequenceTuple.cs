@@ -26,21 +26,37 @@ internal sealed partial class BeamModuleCompiler
 
         private bool TryEmitSavedCallSequenceTuple(Clause clause)
         {
-            if (clause.Guard is not null || !HasUnconditionalParameters(clause)
-                || clause.Body is not (Expr.Tuple or Expr.RecordConstruction
-                    or Expr.Sequence { Items: [.., Expr.Tuple or Expr.RecordConstruction] }))
+            if (clause.Guard is not null || !HasUnconditionalParameters(clause))
             {
                 return false;
             }
 
             string[] parameters = clause.Patterns.Cast<Pattern.Variable>().Select(parameter => parameter.Name).ToArray();
-            IReadOnlyList<Expr> items = clause.Body is Expr.Sequence sequence ? sequence.Items : [clause.Body];
+            if (ReadSavedCallSequenceTuple(clause.Body, parameters) is not { } plan)
+            {
+                return false;
+            }
+
+            EmitSavedCallSequence(plan);
+
+            return true;
+        }
+
+        private SavedCallSequence? ReadSavedCallSequenceTuple(Expr body, string[] parameters)
+        {
+            if (body is not (Expr.Tuple or Expr.RecordConstruction
+                or Expr.Sequence { Items: [.., Expr.Tuple or Expr.RecordConstruction] }))
+            {
+                return null;
+            }
+
+            IReadOnlyList<Expr> items = body is Expr.Sequence sequence ? sequence.Items : [body];
             var tuple = items[^1] is Expr.RecordConstruction record
                 ? RecordExpressions.Create(record)
                 : (Expr.Tuple)items[^1];
             if (AttributeLiteral.TryNormalizeConstant(tuple, out _))
             {
-                return false;
+                return null;
             }
 
             int statementCount = items.Count - 1;
@@ -68,7 +84,7 @@ internal sealed partial class BeamModuleCompiler
                 : ReadCallsWithClosures(statements, parameters, out argumentClosures);
             if (calls is not { Length: > 0 })
             {
-                return false;
+                return null;
             }
 
             var bindings = parameters.Concat(calls.Select(call => call.Result).OfType<string>())
@@ -77,7 +93,7 @@ internal sealed partial class BeamModuleCompiler
                 .ToDictionary(name => name, _ => (Term)Nil.Value, StringComparer.Ordinal);
             if (closureBinding is not null && bindings.ContainsKey(closureBinding))
             {
-                return false;
+                return null;
             }
 
             var reads = new HashSet<string>(StringComparer.Ordinal);
@@ -104,19 +120,19 @@ internal sealed partial class BeamModuleCompiler
                 }
                 else if (!AttributeLiteral.TryNormalizeConstant(item, out _))
                 {
-                    return false;
+                    return null;
                 }
             }
 
             if (closure is not null && (!usesClosure || parentFunction is null || closure.SelfName is not null))
             {
-                return false;
+                return null;
             }
 
             string[] captures = closure is null ? [] : bindings.Keys.Intersect(ClosureCaptures.Capture(closure, bindings).Keys).ToArray();
             if (closure is not null && closure.Clauses[0].Patterns.Count + captures.Length > BeamWire.MaximumArity)
             {
-                return false;
+                return null;
             }
 
             reads.UnionWith(captures);
@@ -127,21 +143,14 @@ internal sealed partial class BeamModuleCompiler
                 captures,
                 reads
             );
-            if (ReadSavedCallSequence(
+            return ReadSavedCallSequence(
                 calls,
                 parameters,
                 extraction: null,
                 tuple: source,
                 closures: argumentClosures,
                 checks: checks
-            ) is not { } plan)
-            {
-                return false;
-            }
-
-            EmitSavedCallSequence(plan);
-
-            return true;
+            );
         }
 
         private static IEnumerable<Expr> ExpandTupleCallBinding(Expr expression)

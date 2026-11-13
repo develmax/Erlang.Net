@@ -482,6 +482,12 @@ internal sealed partial class BeamModuleCompiler
                     }
                 }
 
+                if (tupleBodyDispatch && tuples.Count != 0 && clause.Guard is null && savedCalls is null
+                    && callChain is null && !tupleCall && clause.Body is Expr.Sequence { Items: [_, .., Expr.Tuple] })
+                {
+                    savedCalls = ReadSavedCallSequenceTuple(clause.Body, inputs);
+                }
+
                 (Pattern.Variable Variable, int Register)[]? bodyInputs = null;
                 if (!tupleCall && consResult is null && tailCall is null && tailList is null && callChain is null && savedCalls is null
                     && tailConstruction is null && tupleResult is null && !arithmeticTail && returnedConstruction is null
@@ -701,13 +707,18 @@ internal sealed partial class BeamModuleCompiler
                     Atom? tag = HasTupleTag(tuple, out Atom tupleTag) ? tupleTag : null;
                     for (int index = tag is null ? 0 : 1; index < tuple.Items.Count; index++)
                     {
-                        if (tuple.Items[index] is Pattern.Literal literal
-                            && (listDispatch ? cons.Count != 0 : tupleBodyDispatch))
+                        Term? literal = tuple.Items[index] switch
+                        {
+                            Pattern.Literal value => value.Value,
+                            Pattern.List { Items.Count: 0, Tail: null } => Nil.Value,
+                            _ => null
+                        };
+                        if (literal is not null && (listDispatch ? cons.Count != 0 : tupleBodyDispatch))
                         {
                             int register = parameters.Count;
                             parameters.Add(VariableScopeNames.Wildcard);
                             fields.Add((index, register));
-                            fieldTests.Add(register, (null, literal.Value));
+                            fieldTests.Add(register, (null, literal));
                             continue;
                         }
 
