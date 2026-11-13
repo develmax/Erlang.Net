@@ -13087,6 +13087,40 @@ internal sealed partial class BeamModuleCompiler
 
             Mark(handler);
             owner.Op(TryCase, YRegisterTag, token);
+            if (expression.Catches is [
+                {
+                    Guard: null, Patterns: [Pattern.Tuple
+                    {
+                        Items: [Pattern.Literal { Value: Atom caughtClass }, Pattern.Variable caughtReason,
+                            Pattern.Variable { Name: VariableScopeNames.Wildcard }]
+                    }]
+                } simpleCatch]
+                && !original.ContainsKey(caughtReason.Name) && !deferredPairMembers.ContainsKey(caughtReason.Name)
+                && ReadUsedEntryParameters(new Clause([caughtReason], null, simpleCatch.Body)) is { } reads)
+            {
+                int unmatched = Label();
+                owner.Op(ExactEqualTest, LabelTag, unmatched);
+                owner.EmitTypedRegister(0, AtomTypeBits);
+                owner.LiteralOperand(caughtClass);
+                variables = new(original, StringComparer.Ordinal);
+                if (reads.Contains(caughtReason.Name))
+                {
+                    int reasonSlot = Slot();
+                    owner.MoveRegister(XRegisterTag, 1, YRegisterTag, reasonSlot);
+                    variables.Add(caughtReason.Name, reasonSlot);
+                }
+
+                Expression(simpleCatch.Body, null);
+                JumpTo(done);
+                Mark(unmatched);
+                owner.Op(Raise, XRegisterTag, 2);
+                owner.Operand(XRegisterTag, 1);
+                Mark(done);
+                variables = original;
+
+                return;
+            }
+
             int exceptionClass = Save();
             int reason = Slot();
             owner.MoveRegister(
