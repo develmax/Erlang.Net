@@ -3411,13 +3411,16 @@ internal static class BeamModuleEmissionChecks
     {
         const string source = """
             -module(beam_guarded_body_binary).
-            -export([split/2, optional/2]).
+            -export([split/2, optional/2, multiple/3]).
             split(Bin, Count) when is_binary(Bin), is_integer(Count) ->
                 <<Part:Count/binary, Tail/binary>> = Bin,
                 {Part,Tail}.
             optional(Bin, Count) when is_binary(Bin); is_atom(Bin) ->
                 <<Part:Count/binary, Tail/binary>> = Bin,
                 {Part,Tail}.
+            multiple(Bin, First, Skip) when is_binary(Bin) ->
+                <<Prefix:First/binary, _:Skip/binary, Middle:2/binary, Tail/binary>> = Bin,
+                {Prefix,Middle,Tail}.
             """;
         BeamModule image = BeamModule.Prepare(CodeGeneration.CompileBeamModule(source, "beam_guarded_body_binary.erl"));
         await using var runtime = new ProcessRuntime();
@@ -3430,15 +3433,21 @@ internal static class BeamModuleEmissionChecks
             Term split = await image.Invoke(context, "split", input, Term.I(1));
             Term shortFailure = await Failure("split", shortInput, 2);
             Term atomFailure = await Failure("optional", atom, 1);
-            actual = Term.Tuple(split, shortFailure, atomFailure);
+            var fields = new BitString([1, 2, 3, 4, 5]);
+            Term multiple = await image.Invoke(context, "multiple", fields, Term.I(1), Term.I(1));
+            Term invalidSkip = await Failure("multiple", fields, 1, atom);
+            Term shortSuffix = await Failure("multiple", input, 1, Term.I(1));
+            actual = Term.Tuple(split, shortFailure, atomFailure, multiple, invalidSkip, shortSuffix);
 
             return actual;
 
-            async Task<Term> Failure(string function, Term value, int count)
+            async Task<Term> Failure(string function, Term value, int count, Term? skip = null)
             {
                 try
                 {
-                    return await image.Invoke(context, function, value, Term.I(count));
+                    return skip is null
+                        ? await image.Invoke(context, function, value, Term.I(count))
+                        : await image.Invoke(context, function, value, Term.I(count), skip);
                 }
                 catch (ErlangException error)
                 {
@@ -3450,7 +3459,10 @@ internal static class BeamModuleEmissionChecks
         Term expected = Term.Tuple(
             Term.Tuple(shortInput, new BitString([2])),
             Term.Tuple(Term.A("badmatch"), shortInput),
-            Term.Tuple(Term.A("badmatch"), atom)
+            Term.Tuple(Term.A("badmatch"), atom),
+            Term.Tuple(shortInput, new BitString([3, 4]), new BitString([5])),
+            Term.Tuple(Term.A("badmatch"), new BitString([1, 2, 3, 4, 5])),
+            Term.Tuple(Term.A("badmatch"), input)
         );
         if (!expected.Equals(actual))
         {

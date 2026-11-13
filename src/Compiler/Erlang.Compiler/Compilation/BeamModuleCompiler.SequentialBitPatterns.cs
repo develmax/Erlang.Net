@@ -116,43 +116,140 @@ internal sealed partial class BeamModuleCompiler
 
         private bool TryEmitProvenBinarySplit(BitPattern pattern, int source, int failure)
         {
-            if (pattern.Segments is not [
-                {
-                    Value: Pattern.Variable prefix,
-                    Specification: { Type: BitSegmentTypes.Binary, Size: Expr.Variable size, Unit: BitSyntaxDefaults.BinaryUnit }
-                },
-                {
-                    Value: Pattern.Variable suffix,
-                    Specification: { Type: BitSegmentTypes.Binary, Size: null, Unit: BitSyntaxDefaults.BinaryUnit }
-                }
-                ]
-                || !DistinctBindings(prefix, suffix)
-                || variables.ContainsKey(prefix.Name) || variables.ContainsKey(suffix.Name)
-                || deferredPairMembers.ContainsKey(prefix.Name) || deferredPairMembers.ContainsKey(suffix.Name)
-                || !variables.TryGetValue(size.Name, out int count))
+            if (pattern.Segments.Count < 2)
             {
                 return false;
             }
 
-            // Both slices use the same context and consume whole bytes.
-            int prefixSlot = Slot();
-            int suffixSlot = Slot();
+            var captures = new HashSet<string>(StringComparer.Ordinal);
+            var fields = new List<(string? Name, int? CountSlot, Term? Count)>();
+            for (int index = 0; index < pattern.Segments.Count; index++)
+            {
+                var (value, specification) = pattern.Segments[index];
+                if (specification is not { Type: BitSegmentTypes.Binary, Unit: BitSyntaxDefaults.BinaryUnit }
+                    || value is not Pattern.Variable binding)
+                {
+                    return false;
+                }
+
+                string? name = binding.Name == VariableScopeNames.Wildcard ? null : binding.Name;
+                if (name is not null && (variables.ContainsKey(name)
+                    || deferredPairMembers.ContainsKey(name) || !captures.Add(name)))
+                {
+                    return false;
+                }
+
+                switch (specification.Size)
+                {
+                    case Expr.Variable size when variables.TryGetValue(size.Name, out int count):
+                        fields.Add((name, count, null));
+                        break;
+                    case Expr.Literal { Value: Integer length } when FixedSize(specification) is not null:
+                        fields.Add((name, null, length));
+                        break;
+                    case null when index == pattern.Segments.Count - 1:
+                        fields.Add((name, null, null));
+                        break;
+                    default:
+                        return false;
+                }
+            }
+
+            // Byte-sized extracts preserve alignment, and none of the operands clobber X0.
             owner.Op(StartBinaryMatchKnown, AtomTag, owner.Intern("no_fail"));
             owner.Operand(BeamWire.UnsignedTag, 0);
             owner.Operand(YRegisterTag, source);
             owner.Operand(XRegisterTag, 0);
-            owner.Op(GetBinarySegment, LabelTag, failure);
-            owner.EmitTypedRegister(0, MatchableTypeBits);
-            owner.Operand(BeamWire.UnsignedTag, 1);
-            owner.Operand(YRegisterTag, count);
-            owner.Operand(BeamWire.UnsignedTag, BitSyntaxDefaults.BinaryUnit);
-            owner.Operand(BeamWire.UnsignedTag, 0);
-            owner.Operand(YRegisterTag, prefixSlot);
-            owner.Op(GetBinaryTail, XRegisterTag, 0);
-            owner.Operand(YRegisterTag, suffixSlot);
-            owner.Operand(BeamWire.UnsignedTag, 1);
-            variables.Add(prefix.Name, prefixSlot);
-            variables.Add(suffix.Name, suffixSlot);
+            int fixedStart = fields.FindLastIndex(field => field.CountSlot.HasValue) + 1;
+            var fixedSuffix = fields.Skip(fixedStart).ToArray();
+            bool hasTail = fields[^1] is (_, null, null);
+            long suffixWidth = fixedSuffix.Sum(field => field.Count is Integer length
+                ? (long)length.Value * BitSyntaxDefaults.BinaryUnit : 0L);
+            bool combineSuffix = fixedSuffix.Any(field => field.Count is not null) && suffixWidth <= int.MaxValue;
+            int separateFields = combineSuffix ? fixedStart : fields.Count;
+            foreach (var (name, countSlot, count) in fields.Take(separateFields))
+            {
+                int destination = name is null ? -1 : Slot();
+                if (countSlot is null && count is null)
+                {
+                    if (name is not null)
+                    {
+                        owner.Op(GetBinaryTail, XRegisterTag, 0);
+                        owner.Operand(YRegisterTag, destination);
+                        owner.Operand(BeamWire.UnsignedTag, 1);
+                    }
+                }
+                else
+                {
+                    owner.Op(name is null ? SkipBinaryBits : GetBinarySegment, LabelTag, failure);
+                    owner.EmitTypedRegister(0, MatchableTypeBits);
+                    if (name is not null)
+                    {
+                        owner.Operand(BeamWire.UnsignedTag, 1);
+                    }
+
+                    if (countSlot is int slot)
+                    {
+                        owner.Operand(YRegisterTag, slot);
+                    }
+                    else
+                    {
+                        owner.LiteralOperand(count!);
+                    }
+
+                    owner.Operand(BeamWire.UnsignedTag, BitSyntaxDefaults.BinaryUnit);
+                    owner.Operand(BeamWire.UnsignedTag, 0);
+                    if (name is not null)
+                    {
+                        owner.Operand(YRegisterTag, destination);
+                    }
+                }
+
+                if (name is not null)
+                {
+                    variables.Add(name, destination);
+                }
+            }
+
+            if (combineSuffix)
+            {
+                int operands = fixedSuffix.Sum(field => field.Count is null ? field.Name is null ? 0 : 4
+                    : field.Name is null ? 2 : 6);
+                EmitBitMatchHeader(0, failure, operands + (hasTail ? 3 : 2), (int)suffixWidth,
+                    hasTail ? BitSyntaxDefaults.BitStringUnit : null);
+                foreach (var (name, _, count) in fixedSuffix)
+                {
+                    if (count is Integer length)
+                    {
+                        if (name is null)
+                        {
+                            owner.Operand(AtomTag, owner.Intern(SkipBits));
+                            owner.Operand(BeamWire.UnsignedTag, length.Value * BitSyntaxDefaults.BinaryUnit);
+                        }
+                        else
+                        {
+                            int destination = Slot();
+                            EmitBitSegment(new BitSegment(new Expr.Literal(Nil.Value), null,
+                                Type: BitSegmentTypes.Binary, Unit: BitSyntaxDefaults.BinaryUnit),
+                                (int)length.Value, 1, YRegisterTag, destination);
+                            variables.Add(name, destination);
+                        }
+                    }
+                    else if (name is not null)
+                    {
+                        int destination = Slot();
+                        owner.Operand(AtomTag, owner.Intern(ReadBinaryTail));
+                        owner.Operand(BeamWire.UnsignedTag, 1);
+                        owner.Operand(BeamWire.UnsignedTag, BitSyntaxDefaults.BitStringUnit);
+                        owner.Operand(YRegisterTag, destination);
+                        variables.Add(name, destination);
+                    }
+                }
+            }
+            else if (!hasTail)
+            {
+                EmitBitMatchHeader(0, failure, 2, 0, null);
+            }
 
             return true;
         }

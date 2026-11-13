@@ -74,6 +74,7 @@ internal static class BeamEmissionFormat
     internal const byte GetBinaryInteger = 117;
     internal const byte GetBinaryFloat = 118;
     internal const byte GetBinarySegment = 119;
+    internal const byte SkipBinaryBits = 120;
     internal const byte GcBifOne = 124;
     internal const byte GcBifTwo = 125;
     internal const byte IsBitString = 129;
