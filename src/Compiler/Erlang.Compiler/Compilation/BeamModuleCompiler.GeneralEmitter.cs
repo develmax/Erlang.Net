@@ -13195,7 +13195,10 @@ internal sealed partial class BeamModuleCompiler
             }
             else
             {
-                Error("badarg");
+                owner.Op(TestHeap, BeamWire.UnsignedTag, 3);
+                owner.Operand(BeamWire.UnsignedTag, 1);
+                owner.EmitProtectedPair(AtomTag, owner.Intern(ErlangErrorReasons.BadArgument));
+                Call(ErlangModuleNames.Module, "error", 1);
             }
             Mark(done);
         }
