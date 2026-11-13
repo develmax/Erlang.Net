@@ -122,7 +122,7 @@ internal sealed partial class BeamModuleCompiler
             owner.Operand(XRegisterTag, 0);
         }
 
-        private void EmitBodyGcUnaryBif(Expr.Call call)
+        private void EmitBodyUnaryBif(Expr.Call call, bool needsGc)
         {
             int operandBase = nextSlot;
             Expr operand = call.Arguments[0];
@@ -135,7 +135,14 @@ internal sealed partial class BeamModuleCompiler
             }
 
             owner.EmitCallLine(call, owner.lastEmittedLine);
-            EmitSizeInstruction(call.Function, 0, Math.Max(ReceiveGuardLiveRegisters, direct ? 0 : 1));
+            if (needsGc)
+            {
+                EmitSizeInstruction(call.Function, 0, Math.Max(ReceiveGuardLiveRegisters, direct ? 0 : 1));
+            }
+            else
+            {
+                EmitUnaryGuardInstruction(call.Function, 0);
+            }
             if (direct)
             {
                 GuardOperand(operand, slot);

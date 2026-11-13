@@ -9618,7 +9618,7 @@ internal sealed partial class BeamModuleCompiler
                     }
                     if (guardFailure is null && IsGcUnaryGuardCall(call) && owner.ResolvesErlangBif(call))
                     {
-                        EmitBodyGcUnaryBif(call);
+                        EmitBodyUnaryBif(call, needsGc: true);
 
                         return;
                     }
@@ -9661,10 +9661,9 @@ internal sealed partial class BeamModuleCompiler
                         return;
                     }
                     if (guardFailure is null && call.Function is AutoImportNames.Hd or AutoImportNames.Tl or AutoImportNames.Node or AutoImportNames.TupleSize
-                        && call.Arguments.Count == 1 && owner.ResolvesErlangBif(call) && HasSimpleDecodeArguments(call))
+                        && call.Arguments.Count == 1 && owner.ResolvesErlangBif(call))
                     {
-                        owner.EmitCallLine(call, owner.lastEmittedLine);
-                        EmitUnaryGuardBif(call, 0);
+                        EmitBodyUnaryBif(call, needsGc: false);
 
                         return;
                     }
