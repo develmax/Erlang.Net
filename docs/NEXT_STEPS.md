@@ -1,5 +1,7 @@
 # Next steps
 
+Align catch dispatch and exception register placement with OTP. Compare the remaining differences in erl_abstract_code:debug_info/4 and similar handlers. [Evidence](validation/part-1568/README.md).
+
 Compare the first differing instructions in the closest release modules and measure how many modules share each cause. [Instruction audit](validation/part-1567/near.txt).
 
 Rank remaining single-producer case differences by the first divergent instruction and preserve known values from the producer into branch lowering. [Evidence](validation/part-1566/README.md).

@@ -1,5 +1,7 @@
 # Dependency and compatibility decisions
 
+Part 1568 uses OTP 29.1.1 v3_core.erl as the stacktrace construction reference. No dependency was added. [Evidence](validation/part-1568/README.md).
+
 Part 1567 reuses literal normalization and branch emission, with OTP 29.1.1 beam_ssa_type.erl as reference. No dependency was added. [Evidence](validation/part-1567/README.md).
 
 Part 1566 reuses the saved-call planner and consults OTP 29.1.1 beam_ssa_codegen.erl for call result registers. No dependency was added. [Evidence](validation/part-1566/README.md).
