@@ -15,3 +15,9 @@ $otp = Join-Path $env:TEMP 'erl-cohort-7mzi5e1n/view/artifacts/library376-offici
 $env:ERLANG_BEAM_CORPUS_SAVE_DIFFERENCES = '1'
 dotnet artifacts/beam-backend/part1528-release-tool/Erlang.BeamCorpus.dll $otp artifacts/beam-backend/otp-corpus-part1528-release.json artifacts/beam-backend/part929-ordered-headers artifacts/beam-backend/part1058-source-overlay
 ```
+
+## Results
+
+All 1,366 source files were accepted and generated. The full comparison has 387 Equal and 979 Different, with no status transitions. ELDAPv3 still matches from the C# ASN.1 generator. OTP loads all 979 differing generated images. [Corpus](otp-corpus.json) · [Loader and Code](loader-and-code.txt).
+
+Two release images changed. Both compress_data/3 functions now match OTP after label normalization, with entry frames of three slots instead of five. The Code size gap drops by 20 bytes. The deterministic fixture is byte-identical and three focused tests pass. The full runtime suite and canonical readiness were not rerun. [Function delta](normalized-functions.txt) · [Frame delta](frame-delta.txt) · [Fixture hash](sha256.txt) · [Focused tests](focused.json).
