@@ -1,3 +1,5 @@
+Part 1581 aligns the normalized instructions in ct_netconfc:trim/1. The full image still differs. [Evidence](validation/part-1581/README.md).
+
 Part 1580 removes the frame from ct_netconfc:trim/1. The match entry and alignment still differ. [Evidence](validation/part-1580/README.md).
 
 Part 1579 matches the fixed binary tuple fixture. The optimized shape changed zero release images. [Evidence](validation/part-1579/README.md).

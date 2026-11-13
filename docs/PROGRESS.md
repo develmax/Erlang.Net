@@ -1,5 +1,7 @@
 # Project progress
 
+Part 1581 proves binary arguments for recursive match entries. All 1,366 images generate with 390 Equal and 976 Different. [Evidence](validation/part-1581/README.md).
+
 Part 1580 passes the binary match context through recursive byte filters. All 1,366 images generate with 390 Equal and 976 Different. [Evidence](validation/part-1580/README.md).
 
 Part 1579 matches the fixed binary tuple fixture byte for byte. The release corpus remains at 390 Equal and 976 Different. [Evidence](validation/part-1579/README.md).

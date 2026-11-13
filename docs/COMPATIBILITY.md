@@ -1,5 +1,7 @@
 # Compatibility overview
 
+Part 1581 verifies the no_fail entry in ct_netconfc:trim/1 and preserves fallback for unknown arguments. [Evidence](validation/part-1581/README.md).
+
 Part 1580 verifies binary context transfer against the OTP image and the managed runtime. [Evidence](validation/part-1580/README.md).
 
 Part 1579 verifies register-based binary tuple capture against a deterministic OTP fixture. [Evidence](validation/part-1579/README.md).
