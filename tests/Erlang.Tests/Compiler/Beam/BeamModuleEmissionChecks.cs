@@ -1506,9 +1506,11 @@ internal static class BeamModuleEmissionChecks
         const string source = """
             -module(beam_live_list_branch).
             -export([run/2]).
-            run([$=|Rest], Acc) -> {lists:reverse(Acc), Rest};
+            run([$=|Rest], Acc) -> {reverse(Acc, []), Rest};
             run([Char|Rest], Acc) -> run(Rest, [Char|Acc]);
-            run([], Acc) -> lists:reverse(Acc).
+            run([], Acc) -> reverse(Acc, []).
+            reverse([Head|Tail], Acc) -> reverse(Tail, [Head|Acc]);
+            reverse([], Acc) -> Acc.
             """;
         BeamModule image = BeamModule.Prepare(CodeGeneration.CompileBeamModule(source, "beam_live_list_branch.erl"));
         await using var runtime = new ProcessRuntime();
