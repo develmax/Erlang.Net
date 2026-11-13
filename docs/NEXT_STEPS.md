@@ -1,5 +1,7 @@
 # Next steps
 
+Align move scheduling around slot reuse and prioritize the remaining frame groups by module count. [Observer disassembly](validation/part-1562/expandable_term.txt) · [Frame ranking](validation/part-1558/baseline-frame-rank.txt).
+
 Continue slot reuse and frame trimming across calls with saved arguments and branch selectors. Compare remaining overallocations by source shape. [Frame ranking](validation/part-1558/baseline-frame-rank.txt).
 
 Extend linear call sequence planning to keep only values live across a call in Y registers. Prioritize the local and remote call groups in the frame audit. [Frame ranking](validation/part-1558/baseline-frame-rank.txt).

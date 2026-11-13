@@ -1,5 +1,7 @@
 # Project progress
 
+Part 1562 reuses dying slots when another saved argument supplies X0. All 1,366 images generate, with 390 Equal and 976 Different. [Evidence](validation/part-1562/README.md).
+
 Part 1561 reuses dying argument slots in linear calls. All 1,366 images generate, with 390 Equal and 976 Different. [Evidence](validation/part-1561/README.md).
 
 Part 1560 retains terminal BIF results in registers after call sequences. All 1,366 images generate, with 390 Equal and 976 Different. [Evidence](validation/part-1560/README.md).
