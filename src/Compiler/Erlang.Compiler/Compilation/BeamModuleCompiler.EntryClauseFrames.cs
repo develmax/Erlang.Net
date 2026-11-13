@@ -999,6 +999,37 @@ internal sealed partial class BeamModuleCompiler
                 ? functionInfo : nonCons;
             var emptyReturn = hasConsResult && nonCons != 0 && mixedPrefix is null ? listReturn : null;
 
+            int atomSuffixStart = -1;
+            int atomSuffixInput = -1;
+            int atomSuffixEnd = branches.Count - 1;
+            int[]? atomSuffixLabels = null;
+            int atomSuffixFallback = 0;
+            if (tupleDispatchSupported && !listDispatch && branches.Count >= 4
+                && tupleSelections?.Any(selection => selection is not null) != true
+                && branches[^1].Clause.Guard is null && HasUnconditionalParameters(branches[^1].Clause)
+                && AttributeLiteral.TryNormalizeConstant(branches[^1].Clause.Body, out _))
+            {
+                var keys = new HashSet<Term>();
+                for (int index = atomSuffixEnd - 1; index > 0; index--)
+                {
+                    var candidate = branches[index];
+                    if (candidate.Clause.Guard is not null || candidate.Literals is not [{ Index: var input, Value: Atom key }]
+                        || candidate.Tuples.Count != 1 || candidate.Equalities.Count != 0
+                        || (atomSuffixInput >= 0 && atomSuffixInput != input) || !keys.Add(key))
+                    {
+                        break;
+                    }
+
+                    atomSuffixInput = input;
+                    atomSuffixStart = index;
+                }
+
+                if (atomSuffixStart >= 0 && atomSuffixEnd - atomSuffixStart >= 2)
+                {
+                    atomSuffixLabels = new int[branches.Count];
+                }
+            }
+
             var bodyFrames = new Dictionary<int, int>();
             var tupleMatchFailures = new List<(int Label, BeamSourceLocation Location)>();
             var previousConsCall = location;
@@ -1046,6 +1077,34 @@ internal sealed partial class BeamModuleCompiler
                 var previousTupleTailLine = tupleTailLine;
                 tupleTailLine = null;
                 int branch = order[position];
+                bool selectedAtom = atomSuffixLabels is not null && position >= atomSuffixStart && position < atomSuffixEnd;
+                if (selectedAtom && position == atomSuffixStart)
+                {
+                    for (int index = atomSuffixStart; index < atomSuffixEnd; index++)
+                    {
+                        atomSuffixLabels![order[index]] = Label();
+                    }
+
+                    atomSuffixFallback = Label();
+                    owner.EmitMembershipSelect(
+                        atomSuffixInput,
+                        atomSuffixFallback,
+                        Enumerable.Range(atomSuffixStart, atomSuffixEnd - atomSuffixStart)
+                            .OrderBy(index => branches[index].Literals[0].Value,
+                                Comparer<Term>.Create((left, right) => TermOrder.Compare(left, right, exact: true)))
+                            .Select(index => (branches[index].Literals[0].Value, atomSuffixLabels![index]))
+                    );
+                }
+
+                if (selectedAtom)
+                {
+                    Mark(atomSuffixLabels![branch]);
+                }
+                else if (atomSuffixLabels is not null && position == atomSuffixEnd)
+                {
+                    Mark(atomSuffixFallback);
+                }
+
                 bool arityBranch = branch < arityCount;
                 if (arityBranch && position == 0)
                 {
@@ -1180,7 +1239,7 @@ internal sealed partial class BeamModuleCompiler
                     LabelListElementCase(elementPlan.Branch);
                 }
 
-                int failure = tupleSelection is not null ? tupleSelectionFailure
+                int failure = selectedAtom ? atomSuffixFallback : tupleSelection is not null ? tupleSelectionFailure
                     : arityBranch ? tupleFailure : !hasNext || selectedLiteral ? functionInfo : mixedLabels is not null
                     ? mixedLabels[literalGroup?.End ?? (branch + 1)]
                     : sharedGuardFailures is null
@@ -1309,7 +1368,7 @@ internal sealed partial class BeamModuleCompiler
                     owner.EmitNilTest(XRegisterTag, emptyPrefix.Input, functionInfo);
                 }
 
-                foreach (var (index, literal) in selectedLiteral ? [] : literals)
+                foreach (var (index, literal) in selectedLiteral || selectedAtom ? [] : literals)
                 {
                     if (literal is Nil)
                     {
@@ -1719,7 +1778,7 @@ internal sealed partial class BeamModuleCompiler
                         Mark(tupleSelectionFailure);
                     }
                 }
-                else if (!selectedLiteral && mixedLabels is null && hasNext && (nonCons == 0 || clause.Guard is not null
+                else if (!selectedAtom && !selectedLiteral && mixedLabels is null && hasNext && (nonCons == 0 || clause.Guard is not null
                     || sharedHeadInput >= 0 && branch < branches.Count - 2))
                 {
                     Mark(failure);

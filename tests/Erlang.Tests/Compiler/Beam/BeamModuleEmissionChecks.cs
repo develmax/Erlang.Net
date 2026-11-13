@@ -273,6 +273,7 @@ internal static class BeamModuleEmissionChecks
         await BeamListRecordTailChecks.Run();
         await CompareEntryTaggedProjection();
         await CompareUnusedEntryTupleFields();
+        await CompareEntryAtomSuffix();
         await CompareNestedEntryCalls();
         await CompareNestedInlineListCheck();
         await CompareGuardedBifTail();
@@ -1496,6 +1497,53 @@ internal static class BeamModuleEmissionChecks
         if (!expected.Equals(actual))
         {
             throw new InvalidOperationException($"The throw stack checks returned {actual}, exit {exit}.", invocationError);
+        }
+    }
+
+    private static async Task CompareEntryAtomSuffix()
+    {
+        const string source = """
+            -module(beam_entry_atom_suffix).
+            -export([run/3]).
+            run(_, {missing, _}, _) -> missing;
+            run(raw, {Value, _}, _) -> {ok, Value};
+            run(convert, {Value, Options}, Extra) ->
+                Prepared = prepare(Options, Extra),
+                {Value, Prepared};
+            run(_, _, _) -> fallback.
+            prepare(Options, Extra) -> {Options, Extra}.
+            """;
+        BeamModule image = BeamModule.Prepare(CodeGeneration.CompileBeamModule(source, "beam_entry_atom_suffix.erl"));
+        await using var runtime = new ProcessRuntime();
+        Term? actual = null;
+        ProcessHandle process = runtime.Spawn(async context =>
+        {
+            Term raw = Term.A("raw");
+            Term extra = Term.A("extra");
+            Term missing = Term.A("missing");
+            Term options = Term.A("options");
+            Term value = Term.A("value");
+            Term pair = Term.Tuple(value, options);
+            Term priority = await image.Invoke(context, "run", raw, Term.Tuple(missing, options), extra);
+            Term selected = await image.Invoke(context, "run", raw, pair, extra);
+            Term converted = await image.Invoke(context, "run", Term.A("convert"), pair, extra);
+            Term invalidTuple = await image.Invoke(context, "run", raw, value, extra);
+            Term unknownKey = await image.Invoke(context, "run", Term.I(42), pair, extra);
+            actual = Term.Tuple(priority, selected, converted, invalidTuple, unknownKey);
+
+            return actual;
+        });
+        Term exit = await process.Completion.WaitAsync(TimeSpan.FromSeconds(10));
+        Term expected = Term.Tuple(
+            Term.A("missing"),
+            Term.Tuple(Term.A("ok"), Term.A("value")),
+            Term.Tuple(Term.A("value"), Term.Tuple(Term.A("options"), Term.A("extra"))),
+            Term.A("fallback"),
+            Term.A("fallback")
+        );
+        if (!expected.Equals(actual))
+        {
+            throw new InvalidOperationException($"Entry atom suffix returned {actual}, exit {exit}.");
         }
     }
 
