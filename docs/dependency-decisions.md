@@ -1,5 +1,7 @@
 # Dependency and compatibility decisions
 
+Part 1530 reuses entry selector saves, saved call arguments and the call argument construction planner. No dependency was added. [Evidence](validation/part-1530/README.md).
+
 Part 1529 reuses the local argument fixed point and OTP saved-register type encoding. No dependency was added. [Evidence](validation/part-1529/README.md).
 
 Part 1528 reuses the compiler register call-sequence planner and OTP release instructions for argument forwarding and frame compaction. No dependency was added. [Evidence](validation/part-1528/README.md).

@@ -1,5 +1,7 @@
 # Project progress
 
+Part 1530 preserves saved arguments for tail calls in atom alternatives. Three functions match normalized OTP instructions and three frames match OTP sizes. The full corpus has 387 Equal and 979 Different. [Evidence](validation/part-1530/README.md).
+
 Part 1529 propagates guarded argument facts through protected local calls. Five functions reach normalized OTP instruction equality. All 1,366 images generate, with 387 Equal and 979 Different. [Evidence](validation/part-1529/README.md).
 
 Part 1528 plans call effects in terminal tuple and atom arms. Both compression functions reach normalized instruction equality and match OTP frame sizes. The full corpus generates 1,366 images with 387 Equal and 979 Different. [Evidence](validation/part-1528/README.md).

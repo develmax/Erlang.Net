@@ -13,3 +13,11 @@ $otp = Join-Path $env:TEMP 'erl-cohort-7mzi5e1n/view/artifacts/library376-offici
 $env:ERLANG_BEAM_CORPUS_SAVE_DIFFERENCES = '1'
 dotnet artifacts/beam-backend/part1530-tool/Erlang.BeamCorpus.dll $otp artifacts/beam-backend/otp-corpus-part1530-final.json artifacts/beam-backend/part929-ordered-headers artifacts/beam-backend/part1058-source-overlay
 ```
+
+## Results
+
+All 1,366 sources were accepted and generated. The complete corpus records 387 Equal and 979 Different. ELDAPv3 remains Equal from C# ASN.1 generation. OTP loads all 979 differing images. [Corpus](otp-corpus.json) · [Loader and Code](loader-and-code.txt).
+
+Five release images and six functions changed. Three functions reached normalized instruction equality and three frames reached OTP sizes. The aggregate Code size gap fell by 28 bytes. Three focused compiler tests passed. Full runtime validation and canonical readiness were not rerun. [Function delta](normalized-functions.txt) · [Frame delta](frame-delta.txt) · [Focused tests](focused.json).
+
+The remaining get_info/2 difference in snmpc is the stack-free throw rewrite. OTP emits erlang:raise/3 with an empty stack, while the terminal branch emits throw/1. [Disassembly](get_info.txt).

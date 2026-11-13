@@ -1,5 +1,7 @@
 # Compatibility overview
 
+Part 1530 matches an entire OTP fixture and 80 result, error and stack observations. OTP loads all 979 differing release images. [Evidence](validation/part-1530/README.md).
+
 Part 1529 matches three normalized OTP probe functions and 72 protected-call observations. OTP loads all 979 differing release images. [Evidence](validation/part-1529/README.md).
 
 Part 1528 matches an entire deterministic OTP fixture and three transfer observations. OTP loads all 979 differing release images. [Evidence](validation/part-1528/README.md).
