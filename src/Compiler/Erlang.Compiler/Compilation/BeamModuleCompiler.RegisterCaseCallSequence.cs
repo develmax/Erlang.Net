@@ -9,19 +9,29 @@ internal sealed partial class BeamModuleCompiler
         private sealed record RegisterCaseCallSequence(
             SavedCallStep[] Calls,
             Dictionary<int, int> LastReads,
-            CaseTuplePlan? ReturnTuple);
+            CaseTuplePlan? ReturnTuple, Term? ReturnConstant);
 
         private RegisterCaseCallSequence? ReadRegisterCaseCallSequence(
             Expr expression,
             string? selector,
-            IReadOnlyDictionary<string, int> saved)
+            IReadOnlyDictionary<string, int> saved,
+            bool allowConstant = false,
+            int selectorRegister = 0
+        )
         {
             IReadOnlyList<Expr> statements;
             Expr.Tuple? tuple = null;
+            Term? constant = null;
             if (expression is Expr.Sequence { Items: [_, .., Expr.Call or Expr.Tuple] } sequence)
             {
                 tuple = sequence.Items[^1] as Expr.Tuple;
                 statements = tuple is null ? sequence.Items : sequence.Items.SkipLast(1).ToArray();
+            }
+            else if (allowConstant && expression is Expr.Sequence { Items.Count: > 1 } effects
+                && AttributeLiteral.TryNormalizeConstant(effects.Items[^1], out Term returnedConstant))
+            {
+                constant = returnedConstant;
+                statements = effects.Items.SkipLast(1).ToArray();
             }
             else if (expression is Expr.Call)
             {
@@ -61,6 +71,11 @@ internal sealed partial class BeamModuleCompiler
                 RecordReads(tuple, calls.Length);
             }
 
+            if (selectorRegister != 0 && (selector is null || lastUses.GetValueOrDefault(selector, -1) != 0))
+            {
+                return null;
+            }
+
             var availableSlots = saved.Values.Distinct().Order().ToArray();
             var active = saved.Where(binding => lastUses.ContainsKey(binding.Key))
                 .ToDictionary(binding => binding.Key, binding => binding.Value, StringComparer.Ordinal);
@@ -76,8 +91,15 @@ internal sealed partial class BeamModuleCompiler
                     names[slot] = name;
                 }
 
-                if ((ReadEntryCall(call, previous is null ? [] : [previous], names)
-                    ?? ReadStraightConstructedCall(call, previous, active)) is not { } step)
+                string[] registerInputs = previous is null ? [] : [previous];
+                if (index == 0 && previous is not null && selectorRegister != 0)
+                {
+                    registerInputs = Enumerable.Repeat(VariableScopeNames.Wildcard, selectorRegister + 1).ToArray();
+                    registerInputs[selectorRegister] = previous;
+                }
+
+                if ((ReadEntryCall(call, registerInputs, names)
+                    ?? (registerInputs.Length <= 1 ? ReadStraightConstructedCall(call, previous, active) : null)) is not { } step)
                 {
                     return null;
                 }
@@ -129,7 +151,7 @@ internal sealed partial class BeamModuleCompiler
 
             var returned = tuple is null ? null : ReadCaseTuple(tuple, previous, active);
 
-            return tuple is null || returned is not null ? new RegisterCaseCallSequence(plans, lastReads, returned) : null;
+            return tuple is null || returned is not null ? new RegisterCaseCallSequence(plans, lastReads, returned, constant) : null;
 
             void RecordReads(Expr value, int index)
             {
@@ -143,8 +165,11 @@ internal sealed partial class BeamModuleCompiler
         private void EmitRegisterCaseCallSequence(
             RegisterCaseCallSequence sequence,
             BeamSourceLocation previous,
-            int frame)
+            int frame,
+            bool compact = false
+        )
         {
+            compact &= sequence.Calls.All(step => step.Spill is null);
             var slots = Enumerable.Range(0, frame).ToArray();
             var remaining = sequence.LastReads.ToDictionary(read => read.Key, read => read.Value);
             var cleared = new HashSet<int>();
@@ -155,7 +180,7 @@ internal sealed partial class BeamModuleCompiler
                 EntryCall call = step.Call;
                 EmitSavedCallArguments(step, slots);
 
-                if (sequence.ReturnTuple is null && index == sequence.Calls.Length - 1)
+                if (sequence is { ReturnTuple: null, ReturnConstant: null } && index == sequence.Calls.Length - 1)
                 {
                     EmitPreparedFrameTail(call, previous, frame - trimmed);
                     break;
@@ -167,6 +192,16 @@ internal sealed partial class BeamModuleCompiler
                 }
 
                 var live = remaining.Keys.Select(slot => slots[slot]).ToHashSet();
+                if (compact && live.Count == 1 && live.Single() is int retained
+                    && retained < frame - trimmed - 1)
+                {
+                    int destination = frame - trimmed - 1;
+                    owner.MoveRegister(YRegisterTag, retained, YRegisterTag, destination);
+                    int logical = remaining.Keys.Single();
+                    slots[logical] = destination;
+                    live.Remove(retained);
+                    live.Add(destination);
+                }
                 int remove = 0;
                 while (remove < frame - trimmed && !live.Contains(remove))
                 {
@@ -199,6 +234,11 @@ internal sealed partial class BeamModuleCompiler
             if (sequence.ReturnTuple is { } tuple)
             {
                 EmitCaseTuple(tuple, trimmed: trimmed);
+                owner.EmitFrameReturn(frame - trimmed);
+            }
+            else if (sequence.ReturnConstant is { } constant)
+            {
+                owner.EmitConstant(constant, 0);
                 owner.EmitFrameReturn(frame - trimmed);
             }
         }

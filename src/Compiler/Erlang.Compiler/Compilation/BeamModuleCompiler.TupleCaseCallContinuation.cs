@@ -32,7 +32,7 @@ internal sealed partial class BeamModuleCompiler
                         ]
                     } continuation
                 }
-                || other is not { Guard: null, Patterns: [Pattern.Literal { Value: Atom alternative }], Body: Expr.Tuple fallback }
+                || other is not { Guard: null, Patterns: [Pattern.Literal { Value: Atom alternative }], Body: var fallback }
                 || result.Name == VariableScopeNames.Wildcard)
             {
                 return false;
@@ -40,7 +40,7 @@ internal sealed partial class BeamModuleCompiler
 
             var parameters = clause.Patterns.Cast<Pattern.Variable>().Select(parameter => parameter.Name).ToArray();
             var fields = Semantics.Variables(pattern).ToArray();
-            bool singleCallTuple = continuation.Items is [_, Expr.Tuple];
+            bool singleCallTuple = fallback is Expr.Tuple && continuation.Items is [_, Expr.Tuple];
             var reads = LocalFunctionEntries.Walk(continuation).OfType<Expr.Variable>()
                 .Select(variable => variable.Name).ToHashSet(StringComparer.Ordinal);
             var projected = fields.Where(name => !parameters.Contains(name) && reads.Contains(name))
@@ -54,7 +54,7 @@ internal sealed partial class BeamModuleCompiler
             // The continuation uses the projected field and the call result. The
             // alternative can still use the original inputs, so trim only after matching.
             int[] liveInputs = path.SelectMany(step => step.Checks).Select(check => check.Input)
-                .Concat(fallback.Items.OfType<Expr.Variable>().Select(variable => Array.IndexOf(parameters, variable.Name)))
+                .Concat(LocalFunctionEntries.Walk(fallback).OfType<Expr.Variable>().Select(variable => Array.IndexOf(parameters, variable.Name)).Where(index => index >= 0))
                 .Concat(Enumerable.Range(0, parameters.Length)
                     .Where(index => parameters[index] != VariableScopeNames.Wildcard && reads.Contains(parameters[index])))
                 .Distinct().OrderDescending().ToArray();
@@ -66,7 +66,13 @@ internal sealed partial class BeamModuleCompiler
 
             var saved = liveInputs.Select((input, slot) => (Name: parameters[input], Slot: slot))
                 .ToDictionary(binding => binding.Name, binding => binding.Slot, StringComparer.Ordinal);
-            if (ReadCaseTuple(fallback, null, saved) is not { } otherwise)
+            var otherwise = fallback is Expr.Tuple fallbackTuple ? ReadCaseTuple(fallbackTuple, null, saved) : null;
+            var alternativeCalls = otherwise is null && fallback is Expr.Sequence effects
+                && !effects.Items.OfType<Expr.Match>().Any(match =>
+                    match.Pattern is Pattern.Variable binding && binding.Name != VariableScopeNames.Wildcard
+                    && parameters.Contains(binding.Name))
+                ? ReadRegisterCaseCallSequence(fallback, null, saved, allowConstant: true) : null;
+            if (otherwise is null && alternativeCalls is null)
             {
                 return false;
             }
@@ -77,8 +83,10 @@ internal sealed partial class BeamModuleCompiler
             int temporary = Array.FindIndex(liveInputs, input =>
                 !finalStep.Checks.Any(check => check.Input == input)
                 && !reads.Contains(parameters[input]));
-            bool forwardPayload = !singleCallTuple
-                && next.Arguments.FirstOrDefault() is Expr.Variable firstArgument && firstArgument.Name == payload
+            int payloadArgument = Array.FindIndex(next.Arguments.ToArray(), argument =>
+                argument is Expr.Variable variable && variable.Name == payload);
+            bool forwardPayload = !singleCallTuple && payloadArgument >= 0
+                && (alternativeCalls is not null || payloadArgument == 0)
                 && !continuation.Items.Skip(1).SelectMany(LocalFunctionEntries.Walk)
                     .OfType<Expr.Variable>().Any(variable => variable.Name == payload);
             int frame = liveInputs.Length;
@@ -117,7 +125,7 @@ internal sealed partial class BeamModuleCompiler
                 if (statements.OfType<Expr.Match>().Any(match => match.Pattern is Pattern.Variable binding
                         && binding.Name != VariableScopeNames.Wildcard && (parameters.Contains(binding.Name)
                             || fields.Contains(binding.Name)))
-                    || (callSequence = ReadRegisterCaseCallSequence(continuation, forwardPayload ? payload : null, branchSlots)) is null)
+                    || (callSequence = ReadRegisterCaseCallSequence(continuation, forwardPayload ? payload : null, branchSlots, selectorRegister: forwardPayload ? payloadArgument : 0)) is null)
                 {
                     return false;
                 }
@@ -160,7 +168,7 @@ internal sealed partial class BeamModuleCompiler
                 if (forwardPayload)
                 {
                     EmitProjectionChecks(step, register, failure, liveInputs);
-                    owner.EmitTuplePart(register, step.Field, 0);
+                    owner.EmitTuplePart(register, step.Field, payloadArgument);
                     break;
                 }
 
@@ -229,8 +237,15 @@ internal sealed partial class BeamModuleCompiler
             owner.Op(ExactEqualTest, LabelTag, failure);
             owner.Operand(XRegisterTag, 0);
             owner.LiteralOperand(alternative);
-            EmitCaseTuple(otherwise);
-            owner.EmitFrameReturn(frame);
+            if (alternativeCalls is not null)
+            {
+                EmitRegisterCaseCallSequence(alternativeCalls, previous, frame, compact: alternativeCalls.ReturnConstant is not null);
+            }
+            else
+            {
+                EmitCaseTuple(otherwise!);
+                owner.EmitFrameReturn(frame);
+            }
 
             Mark(failure);
             if (decision.SourceLine != 0)
