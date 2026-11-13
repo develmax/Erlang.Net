@@ -1,6 +1,6 @@
 # Compatibility overview
 
-Part 1541 matches the complete Windows release image for shell_default and 24 dynamic-application observations. OTP accepts all 977 differing images for loading. [Evidence](validation/part-1541/README.md).
+Part 1542 verifies split-binary results, errors and prefix side effects. OTP accepts all 977 differing images for loading. [Evidence](validation/part-1542/README.md).
 
 Part 1530 matches an entire OTP fixture and 80 result, error and stack observations. OTP loads all 979 differing release images. [Evidence](validation/part-1530/README.md).
 

@@ -1,6 +1,6 @@
 # Next steps
 
-Analyze branch frame trimming and size operand placement in prim_buffer:read_iovec/2. The corpus ranking still shows larger frames as the largest group. [Instructions](validation/part-1541/prim-buffer-baseline.txt) · [Ranking](validation/part-1541/first-difference-ranking.txt).
+Analyze live values per branch in prim_buffer:read_iovec/2 to place trim instructions before calls and align size operand types. The maximum frame now matches OTP. [Instructions](validation/part-1542/prim-buffer.txt) · [Corpus ranking](validation/part-1542/first-difference-ranking.txt).
 
 Rank terminal operator emission by specific operator and operand forms. The previous audit finds 56 terminal operator bodies across 43 modules. Prioritize branch-local liveness that can also close a near match, starting with the integer branch and binary construction in `ssh_bits:mpint/1` and the guarded projections in `prim_buffer:read_iovec/2`. [Operator audit](validation/part-1509/first-call-spills-after.txt) · [Nearest images](validation/part-1523/nearest.txt).
 
