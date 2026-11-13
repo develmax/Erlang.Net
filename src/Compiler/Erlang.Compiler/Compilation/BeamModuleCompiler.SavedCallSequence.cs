@@ -558,6 +558,22 @@ internal sealed partial class BeamModuleCompiler
                     }
                 }
 
+                if (slotRelocation is null && spill is null && preparedClosure is null
+                    && tuple is not null && index == calls.Length - 1
+                    && multiple?.Bindings is not null && step.RegisterConstructions is not null
+                    && saved.Count == 1 && released.Length != 0)
+                {
+                    var retained = saved.Single();
+                    int destination = released.Min();
+                    if (retained.Value > destination)
+                    {
+                        slotRelocation = (retained.Value, destination);
+                        saved[retained.Key] = destination;
+                        lastSlotReads[destination] = lastReads[retained.Key];
+                        lastSlotReads[retained.Value] = index;
+                    }
+                }
+
                 steps.Add(new SavedCallStep(
                     step,
                     spill,
