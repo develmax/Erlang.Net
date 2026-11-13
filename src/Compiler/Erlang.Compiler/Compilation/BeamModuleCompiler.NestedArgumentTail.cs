@@ -503,8 +503,9 @@ internal sealed partial class BeamModuleCompiler
                 return false;
             }
 
+            bool returnsConstant = AttributeLiteral.TryNormalizeConstant(sequence.Items[^1], out Term constant);
             var continuation = new List<(EntryCall Call, int? ListDestination)>();
-            for (int index = sequence.Items.Count - 1; index > 0; index--)
+            for (int index = sequence.Items.Count - (returnsConstant ? 2 : 1); index > 0; index--)
             {
                 if (sequence.Items[index] is not Expr.Call call
                     || ReadEntryCall(call, [], parameters) is not { } step)
@@ -515,7 +516,8 @@ internal sealed partial class BeamModuleCompiler
                 continuation.Add((step, null));
             }
 
-            EmitEntryCallChain(first, parameters, continuation, relocateBeforeTrim: true);
+            EmitEntryCallChain(first, parameters, continuation, relocateBeforeTrim: true,
+                constantResult: returnsConstant ? constant : null);
             return true;
         }
 
@@ -595,7 +597,8 @@ internal sealed partial class BeamModuleCompiler
             (int? Slot, Term? Constant)[]? tupleResult = null,
             (TaggedCallMatch Check, int? Field, bool KeepPayload)? taggedMatch = null,
             CallListExtraction? extraction = null,
-            int? entryTupleArity = null
+            int? entryTupleArity = null,
+            Term? constantResult = null
         )
         {
             var lastUses = new Dictionary<int, int>();
@@ -816,7 +819,7 @@ internal sealed partial class BeamModuleCompiler
                         deferX0StackLoad: deferPayloadArgument
                     );
                 }
-                if (index == 0 && tupleResult is null)
+                if (index == 0 && tupleResult is null && constantResult is null)
                 {
                     EmitPreparedFrameTail(step, previous, saved.Length - trimmed);
                     if (step.Module is not null)
@@ -892,6 +895,12 @@ internal sealed partial class BeamModuleCompiler
                 }
 
 
+                owner.EmitFrameReturn(saved.Length - trimmed);
+            }
+
+            if (constantResult is not null)
+            {
+                owner.EmitConstant(constantResult, 0);
                 owner.EmitFrameReturn(saved.Length - trimmed);
             }
 
