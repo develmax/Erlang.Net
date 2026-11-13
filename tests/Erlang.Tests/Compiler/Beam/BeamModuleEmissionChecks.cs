@@ -272,6 +272,7 @@ internal static class BeamModuleEmissionChecks
         await CompareThrowStackObservers();
         await BeamListRecordTailChecks.Run();
         await CompareEntryTaggedProjection();
+        await CompareUnusedEntryTupleFields();
         await CompareNestedEntryCalls();
         await CompareNestedInlineListCheck();
         await CompareGuardedBifTail();
@@ -1495,6 +1496,52 @@ internal static class BeamModuleEmissionChecks
         if (!expected.Equals(actual))
         {
             throw new InvalidOperationException($"The throw stack checks returned {actual}, exit {exit}.", invocationError);
+        }
+    }
+
+    private static async Task CompareUnusedEntryTupleFields()
+    {
+        const string source = """
+            -module(beam_unused_entry_tuple_fields).
+            -export([run/2, same/1]).
+            run({missing, _Unused}, _) -> missing;
+            run({item, Value, Gate, _Unused}, Other) when Gate =:= ready ->
+                Prepared = prepare(Value),
+                {Prepared,Other};
+            run(_, _) -> fallback.
+            same({same, Value, Value}) -> same;
+            same(_) -> fallback.
+            prepare(Value) -> {prepared,Value}.
+            """;
+        BeamModule image = BeamModule.Prepare(CodeGeneration.CompileBeamModule(source, "beam_unused_entry_tuple_fields.erl"));
+        await using var runtime = new ProcessRuntime();
+        Term? actual = null;
+        ProcessHandle process = runtime.Spawn(async context =>
+        {
+            var input = Term.A("input");
+            var ignored = Term.A("ignored");
+            var item = Term.A("item");
+            var same = Term.A("same");
+            Term missing = await image.Invoke(context, "run", Term.Tuple(Term.A("missing"), ignored), input);
+            Term selected = await image.Invoke(context, "run", Term.Tuple(item, input, Term.A("ready"), ignored), ignored);
+            Term guardFailure = await image.Invoke(context, "run", Term.Tuple(item, input, ignored, ignored), input);
+            Term repeated = await image.Invoke(context, "same", Term.Tuple(same, input, input));
+            Term mismatch = await image.Invoke(context, "same", Term.Tuple(same, input, ignored));
+            actual = Term.Tuple(missing, selected, guardFailure, repeated, mismatch);
+
+            return actual;
+        });
+        Term exit = await process.Completion.WaitAsync(TimeSpan.FromSeconds(10));
+        Term expected = Term.Tuple(
+            Term.A("missing"),
+            Term.Tuple(Term.Tuple(Term.A("prepared"), Term.A("input")), Term.A("ignored")),
+            Term.A("fallback"),
+            Term.A("same"),
+            Term.A("fallback")
+        );
+        if (!expected.Equals(actual))
+        {
+            throw new InvalidOperationException($"Entry tuple projection returned {actual}, exit {exit}.");
         }
     }
 

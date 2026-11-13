@@ -66,6 +66,26 @@ internal sealed partial class BeamModuleCompiler
                 SavedCallSequence? SavedCalls)>();
             foreach (Clause clause in function.Clauses)
             {
+                HashSet<string> unusedTupleFields = [];
+                if (clause.Patterns.Any(pattern => pattern is Pattern.Tuple))
+                {
+                    var tupleFields = clause.Patterns.OfType<Pattern.Tuple>()
+                        .SelectMany(tuple => tuple.Items.OfType<Pattern.Variable>())
+                        .Select(field => field.Name).ToHashSet(StringComparer.Ordinal);
+                    unusedTupleFields = clause.Patterns.SelectMany(Semantics.Variables)
+                        .GroupBy(name => name, StringComparer.Ordinal)
+                        .Where(group => group.Count() == 1 && tupleFields.Contains(group.Key))
+                        .Select(group => group.Key).ToHashSet(StringComparer.Ordinal);
+                    try
+                    {
+                        unusedTupleFields.ExceptWith(ClosureCaptures.ReadEntryReferences(clause, unusedTupleFields));
+                    }
+                    catch (NotSupportedException)
+                    {
+                        unusedTupleFields.Clear();
+                    }
+                }
+
                 var parameters = Enumerable.Repeat(VariableScopeNames.Wildcard, function.Arity).ToList();
                 var literals = new List<(int Index, Term Value)>();
                 var cons = new List<(int Input, int Head, int Tail, Term? HeadLiteral)>();
@@ -696,7 +716,7 @@ internal sealed partial class BeamModuleCompiler
                             return false;
                         }
 
-                        if (variable.Name == VariableScopeNames.Wildcard)
+                        if (variable.Name == VariableScopeNames.Wildcard || unusedTupleFields.Contains(variable.Name))
                         {
                             continue;
                         }
