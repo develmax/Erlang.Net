@@ -1,3 +1,5 @@
+Part 1684 skips unused tuple fields and releases temporary registers after literal tests. [Evidence](validation/part-1684/README.md).
+
 Part 1683 reuses the source register for the list tail when the cons fallback covers all nonempty inputs. [Evidence](validation/part-1683/README.md).
 
 Part 1682 allocates frames after the type test when each branch constructs a cons result from a call. [Evidence](validation/part-1682/README.md).

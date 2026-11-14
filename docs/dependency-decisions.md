@@ -1,5 +1,7 @@
 # Dependency and compatibility decisions
 
+Part 1684 reuses the entry reference analysis and structural tuple matching. No dependency was added. [Evidence](validation/part-1684/README.md).
+
 Part 1683 reuses the structural list dispatch and closure capture planner. No dependency was added. [Evidence](validation/part-1683/README.md).
 
 Part 1682 reuses the type guard and cons-result emitters. No dependency was added. [Evidence](validation/part-1682/README.md).

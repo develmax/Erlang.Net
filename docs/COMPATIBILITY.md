@@ -1,5 +1,7 @@
 # Compatibility overview
 
+Part 1684 verifies omitted unused tuple projections and reuse after literal tests in structural list matching. [Evidence](validation/part-1684/README.md).
+
 Part 1683 verifies tail register reuse for structural cons branches with an unconditional cons fallback. [Evidence](validation/part-1683/README.md).
 
 Part 1682 verifies register reuse and per-branch frames for type-guarded cons results. [Evidence](validation/part-1682/README.md).
