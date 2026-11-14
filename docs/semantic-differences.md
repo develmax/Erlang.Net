@@ -1,3 +1,5 @@
+Part 1661 shares identical local tail calls reached from literal list heads. [Evidence](validation/part-1661/README.md).
+
 Part 1660 matches argument ordering when saving a previous call result. [Evidence](validation/part-1660/README.md).
 
 Part 1659 keeps the previous call result in X0 until the list prefix has been built. [Evidence](validation/part-1659/README.md).

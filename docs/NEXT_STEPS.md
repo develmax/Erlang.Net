@@ -1,5 +1,7 @@
 # Next steps
 
+Compare nested literal tuple tests before record calls. [Evidence](validation/part-1661/README.md).
+
 Reuse entry record tests for calls that subsequently read those records. [Evidence](validation/part-1660/README.md).
 
 Compare argument preparation after a call that returns a value needed later. [Evidence](validation/part-1659/README.md).

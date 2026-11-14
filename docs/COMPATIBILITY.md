@@ -1,5 +1,7 @@
 # Compatibility overview
 
+Part 1661 verifies shared dispatch for literal list heads in a deterministic fixture and in the OTP VM. [Evidence](validation/part-1661/README.md).
+
 Part 1660 verifies argument preparation around saved call results in a deterministic fixture and in the OTP VM. [Evidence](validation/part-1660/README.md).
 
 Part 1659 verifies list prefix construction with a live call result in a deterministic fixture and in the OTP VM. [Evidence](validation/part-1659/README.md).

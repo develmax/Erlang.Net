@@ -1,5 +1,7 @@
 # Dependency and compatibility decisions
 
+Part 1661 reuses list extraction and local tail-call emission. No dependency was added. [Evidence](validation/part-1661/README.md).
+
 Part 1660 reuses the tagged tuple check, record extraction and call emitters. No dependency was added. [Evidence](validation/part-1660/README.md).
 
 Part 1659 reuses the tagged tuple check, record extraction and call emitters. No dependency was added. [Evidence](validation/part-1659/README.md).
