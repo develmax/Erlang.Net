@@ -277,9 +277,9 @@ internal sealed partial class BeamModuleCompiler
                     if (!ReferenceEquals(caller, target))
                     {
                         hasCaller = true;
-                        return (InferPairFacts(argument) & PairFacts.ProperList) != 0
-                            || followForwarding && (argument is Expr.ListComprehension
-                                || argument is Expr.Variable variable && ProveForwarded(caller, call, variable));
+                        return argument is Expr.ListComprehension
+                            || (InferPairFacts(argument) & PairFacts.ProperList) != 0
+                            || followForwarding && argument is Expr.Variable variable && ProveForwarded(caller, call, variable);
                     }
 
                     return target.Clauses.Any(clause => (ReferenceEquals(clause.Body, call)

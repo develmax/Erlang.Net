@@ -4299,7 +4299,7 @@ internal static class BeamModuleEmissionChecks
     {
         const string source = """
             -module(beam_structural_list_entry).
-            -export([run/2,strict/1]).
+            -export([run/2,strict/1,checked/1]).
             run([], Default) -> {empty,Default};
             run([{tag,{same,Value},Value}|Tail], Value) when is_integer(Value) ->
                 Absolute = erlang:abs(Value),
@@ -4308,6 +4308,9 @@ internal static class BeamModuleEmissionChecks
             run(Input, Default) -> {fallback,Input,Default}.
             strict([{tag,[Value,Value]}|Tail]) -> {Value,Tail};
             strict([]) -> empty.
+            checked(Items) -> checked_list([Item || Item <- Items]).
+            checked_list([{tag,[Value,Value]}|Tail]) -> {Value,Tail};
+            checked_list([]) -> empty.
             """;
         BeamModule image = BeamModule.Prepare(CodeGeneration.CompileBeamModule(source, "beam_structural_list_entry.erl"));
         await using var runtime = new ProcessRuntime();
@@ -4339,6 +4342,23 @@ internal static class BeamModuleEmissionChecks
                 {
                     throw new InvalidOperationException("The failed list clause lost its original argument.");
                 }
+            }
+
+            Term checkedEmpty = await image.Invoke(context, "checked", Nil.Value);
+            Term checkedValue = await image.Invoke(context, "checked",
+                Term.List(Term.Tuple(tag, Term.List(value, value))));
+            if (!checkedEmpty.Equals(Term.A("empty")) || !checkedValue.Equals(Term.Tuple(value, Nil.Value)))
+            {
+                throw new InvalidOperationException("The proper-list entry returned the wrong result.");
+            }
+
+            try
+            {
+                await image.Invoke(context, "checked", Term.List(Term.Tuple(tag, Term.List(value, bad))));
+                throw new InvalidOperationException("A nonempty list with a failed head match took the empty-list branch.");
+            }
+            catch (ErlangException error) when (error.Reason.Equals(Term.A("function_clause")))
+            {
             }
 
             actual = Term.Tuple(matched, repeated, guarded, empty, fallback, strict);

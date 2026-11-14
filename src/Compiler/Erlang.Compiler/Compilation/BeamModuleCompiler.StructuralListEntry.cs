@@ -26,7 +26,7 @@ internal sealed partial class BeamModuleCompiler
                 // Empty and nonempty inputs are disjoint. All other clauses keep their relative order.
                 Clause[] ordered = [.. prefix, .. function.Clauses.Take(leadingNil),
                     .. function.Clauses.Skip(leadingNil + prefix.Length)];
-                if (TryEmitStructuralListBranches(function.Arity, input, ordered, prefix.Length, functionInfo))
+                if (TryEmitStructuralListBranches(function, input, ordered, prefix.Length, functionInfo))
                 {
                     return true;
                 }
@@ -35,8 +35,16 @@ internal sealed partial class BeamModuleCompiler
             return false;
         }
 
-        private bool TryEmitStructuralListBranches(int arity, int listInput, Clause[] clauses, int consCount, int functionInfo)
+        private bool TryEmitStructuralListBranches(FunctionDefinition function, int listInput, Clause[] clauses, int consCount, int functionInfo)
         {
+            int arity = function.Arity;
+            var emptyReturn = ReadEntryListReturn(clauses);
+            if (consCount != 1 || clauses.Length != 2 || emptyReturn?.Input != listInput
+                || !HasProperListEntry(function, listInput))
+            {
+                emptyReturn = null;
+            }
+
             int head = arity;
             int tail = arity + 1;
             var branches = new List<(Clause Clause, Action<int>[] Tests, (Pattern.Variable Variable, int Register)[] Used,
@@ -209,7 +217,19 @@ internal sealed partial class BeamModuleCompiler
             for (int branch = 0; branch < branches.Count; branch++)
             {
                 var (clause, tests, used, tailCall, resultRegister, constant) = branches[branch];
-                int failure = branch + 1 == consCount ? nonCons : branch + 1 == branches.Count ? functionInfo : Label();
+                if (branch == consCount && emptyReturn is { } emptyList)
+                {
+                    EmitEmptyListReturn(emptyList, nonCons, functionInfo, properList: true);
+                    break;
+                }
+
+                bool fallsBackFromCons = branch + 1 == consCount;
+                int failure = fallsBackFromCons ? nonCons : branch + 1 == branches.Count ? functionInfo : Label();
+                if (fallsBackFromCons && emptyReturn is not null)
+                {
+                    // Failure to match the cons head cannot reach the empty-list clause.
+                    failure = functionInfo;
+                }
                 foreach (var test in tests)
                 {
                     test(failure);
@@ -241,7 +261,7 @@ internal sealed partial class BeamModuleCompiler
                     entryCaptureOrder = previousOrder;
                 }
 
-                if (branch + 1 < branches.Count)
+                if (branch + 1 < branches.Count && !(fallsBackFromCons && emptyReturn is not null))
                 {
                     Mark(failure);
                 }
