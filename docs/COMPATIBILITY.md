@@ -1,5 +1,7 @@
 # Compatibility overview
 
+Part 1719 removes unreachable blocks following terminal instructions. [Evidence](validation/part-1719/README.md).
+
 Part 1718 removes unreferenced internal labels from fallthrough paths. [Evidence](validation/part-1718/README.md).
 
 Part 1717 removes unreachable return blocks while preserving entry labels and reachable returns. [Evidence](validation/part-1717/README.md).

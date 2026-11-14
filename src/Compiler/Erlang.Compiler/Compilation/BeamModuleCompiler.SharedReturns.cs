@@ -118,7 +118,7 @@ internal sealed partial class BeamModuleCompiler
         CollectRedundantJumps(body, redirects, edits);
         if (redirects.Count == 0 && edits.Count == 0)
         {
-            CollectUnreachableReturns(body, labelOperands, redirects, edits);
+            CollectUnreachableBlocks(body, labelOperands, redirects, edits);
         }
 
         if (redirects.Count == 0 && edits.Count == 0)

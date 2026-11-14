@@ -344,6 +344,7 @@ internal static class BeamModuleEmissionChecks
         CompareSharedReturnCallFolding();
         CompareUnreachableReturnRemoval();
         CompareUnusedFallthroughLabelRemoval();
+        CompareUnreachableBlockRemoval();
         await CompareMixedListNilFallback();
         await CompareCaseTupleSlot();
         await CompareThrowStackObservers();
@@ -667,6 +668,23 @@ internal static class BeamModuleEmissionChecks
         if (labelCount != 9)
         {
             throw new InvalidOperationException("Expected only the function entry, failure and referenced branch labels.");
+        }
+    }
+
+    private static void CompareUnreachableBlockRemoval()
+    {
+        const string source = """
+            -module(beam_unreachable_blocks).
+            -export([run/1]).
+            run([]) -> {ok, lists:map(fun wrap/1, [a, b])}.
+            wrap(A) -> {A}.
+            """;
+        byte[] beam = CodeGeneration.CompileBeamModule(source, "beam_unreachable_blocks.erl");
+        byte[] code = BeamDocumentationEmissionChecks.Chunks(beam).Single(chunk => chunk.Id == "Code").Data;
+        int labelCount = System.Buffers.Binary.BinaryPrimitives.ReadInt32BigEndian(code.AsSpan(12));
+        if (labelCount != 9)
+        {
+            throw new InvalidOperationException("Expected the unreachable frame cleanup to be removed and function labels to remain.");
         }
     }
 

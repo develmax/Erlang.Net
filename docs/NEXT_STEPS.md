@@ -1,5 +1,7 @@
 # Next steps
 
+Compare remaining duplicated terminal sequences and branch destinations with OTP. [Evidence](validation/part-1719/README.md).
+
 Rank remaining unreachable blocks following terminal instructions and compare their layout with OTP. [Evidence](validation/part-1718/README.md).
 
 Rank unreferenced non-return blocks and bare labels remaining after tail-call folding. Compare OTP branch layout and frame scheduling. [Evidence](validation/part-1717/README.md).
