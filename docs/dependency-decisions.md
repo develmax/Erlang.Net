@@ -1,5 +1,7 @@
 # Dependency and compatibility decisions
 
+Part 1686 reuses entry capture ordering and structural matching. No dependency was added. [Evidence](validation/part-1686/README.md).
+
 Part 1685 reuses the structural matching emitter. No dependency was added. [Evidence](validation/part-1685/README.md).
 
 Part 1684 reuses the entry reference analysis and structural tuple matching. No dependency was added. [Evidence](validation/part-1684/README.md).

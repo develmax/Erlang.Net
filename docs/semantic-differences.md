@@ -1,3 +1,5 @@
+Part 1686 preserves projection capture order when structural tuple fields reuse an earlier register. [Evidence](validation/part-1686/README.md).
+
 Part 1685 replaces dead parent tuples with their final projections in structural list matching. [Evidence](validation/part-1685/README.md).
 
 Part 1684 skips unused tuple fields and releases temporary registers after literal tests. [Evidence](validation/part-1684/README.md).

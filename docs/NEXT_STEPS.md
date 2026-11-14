@@ -1,5 +1,7 @@
 # Next steps
 
+Compare structural tuple branch prefixes and the capture ordering of the two init closures against the release. [Evidence](validation/part-1686/README.md).
+
 Compare the remaining shared tuple prefixes and the Code size delta in init. [Evidence](validation/part-1685/README.md).
 
 Compare shared tuple prefixes and the lifetime of the parent tuple register across structural list branches. [Evidence](validation/part-1684/README.md).
