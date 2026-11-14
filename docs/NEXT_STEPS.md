@@ -1,5 +1,7 @@
 # Next steps
 
+Compare stack allocation and tagged tuple tests in functions close to OTP output. [Evidence](validation/part-1649/README.md).
+
 Compare pure disjunctive range guards that converge on a shared boolean return. [Evidence](validation/part-1648/README.md).
 
 Compare shared returns after generic tests and verify the different branch layouts in the residual corpus. [Evidence](validation/part-1647/README.md).

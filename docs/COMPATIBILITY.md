@@ -1,5 +1,7 @@
 # Compatibility overview
 
+Part 1649 verifies ordered disjoint range predicates in a deterministic fixture and in the OTP VM. [Evidence](validation/part-1649/README.md).
+
 Part 1648 verifies shared literal and integer guard results in a deterministic fixture and in the OTP VM. [Evidence](validation/part-1648/README.md).
 
 Part 1647 verifies identical local tail calls in a deterministic fixture and in the OTP VM. [Evidence](validation/part-1647/README.md).
