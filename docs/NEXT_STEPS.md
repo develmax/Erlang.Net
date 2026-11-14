@@ -1,5 +1,7 @@
 # Next steps
 
+Trace other one-slot frame differences to exactly which values survive the first call. [Evidence](validation/part-1672/README.md).
+
 Rank differing frame sizes by the shape of the first call and the values live across it. [Evidence](validation/part-1671/README.md).
 
 Compare register lifetimes after successful list argument matches. [Evidence](validation/part-1670/README.md).

@@ -1,3 +1,5 @@
+Part 1672 keeps the unmatched selector value in X0 through the shared fallback dispatch. [Evidence](validation/part-1672/README.md).
+
 Part 1671 keeps the GC BIF operands and returned tuple fields in X registers. [Evidence](validation/part-1671/README.md).
 
 Part 1670 skips unused heads in fixed-length list patterns. [Evidence](validation/part-1670/README.md).
