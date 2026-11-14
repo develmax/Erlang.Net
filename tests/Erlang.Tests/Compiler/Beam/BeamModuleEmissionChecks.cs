@@ -250,6 +250,8 @@ internal static class BeamModuleEmissionChecks
             "beam_nested_record_call",
             "beam_call_literal_prefix",
             "beam_call_prefix_spill",
+            "beam_saved_argument_order",
+            "beam_saved_append_swap",
             "tuple_register_entry_probe",
             "tuple_nested_entry_probe",
             "tuple_nested_fallback_probe",

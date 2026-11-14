@@ -1189,6 +1189,22 @@ internal sealed partial class BeamModuleCompiler
             var call = step.Call;
             var loads = call.SavedInputs?.Select(move => (move.Destination, Source: remap[move.Source])).ToList() ?? [];
             int spill = step.Spill is int slot ? remap[slot] : -1;
+            if (spill >= 0 && !step.ReuseSlot && !deferStackLoad && !deferConstant
+                && call.RegisterConstructions is null && call.Moves.Count == 0
+                && call.Constants is [{ Destination: 2, Value: Nil }]
+                && loads.OrderBy(move => move.Destination).ToArray() is
+                    [{ Destination: 0 } first, { Destination: 1 } second]
+                && first.Source != spill && second.Source != spill)
+            {
+                Load(first.Source, 2);
+                owner.MoveRegister(XRegisterTag, 0, YRegisterTag, spill);
+                Load(second.Source, 1);
+                owner.MoveRegister(XRegisterTag, 2, XRegisterTag, 0);
+                owner.EmitConstant(Nil.Value, 2);
+
+                return;
+            }
+
             if (spill >= 0 && !step.ReuseSlot && !heapChecked && afterConstruction is null
                 && call.RegisterConstructions is { Live: 0, Moves.Count: 0 } prefix
                 && prefix.Constructions is [var firstCons, _, .., var lastCons]
@@ -1242,10 +1258,13 @@ internal sealed partial class BeamModuleCompiler
                 if (firstLoad >= 0 && loads[firstLoad].Source == spill)
                 {
                     loads.RemoveAt(firstLoad);
-                    owner.EmitOrderedTailMoves(call.Moves, swapBeforeConstants ? [] : call.Constants, loads);
+                    bool constantsAfterSwap = swapBeforeConstants
+                        || call.Module == ErlangModuleNames.Module && call.Call.Function == ErlangOperators.Append
+                            && call.Moves.Count == 0 && loads.Count == 0 && call.Constants is [{ Destination: 1 }];
+                    owner.EmitOrderedTailMoves(call.Moves, constantsAfterSwap ? [] : call.Constants, loads);
                     owner.Op(Swap, YRegisterTag, spill);
                     owner.Operand(XRegisterTag, 0);
-                    if (swapBeforeConstants)
+                    if (constantsAfterSwap)
                     {
                         owner.EmitIndependentCallMoves(call.Constants);
                     }
