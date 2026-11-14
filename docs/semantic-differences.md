@@ -1,3 +1,5 @@
+Part 1697 propagates exact register values through fallthrough tests and unambiguous selection edges. Other predecessors need additional facts. [Evidence](validation/part-1697/README.md).
+
 Part 1696 aligns independent moves around call argument swaps. Value facts across tests still leave redundant moves. [Evidence](validation/part-1696/README.md).
 
 Part 1695 trims across frame-independent terminal failure edges. Ordinary shared continuations and handler edges still require stack-state analysis. [Evidence](validation/part-1695/README.md).

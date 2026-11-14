@@ -921,6 +921,11 @@ internal sealed partial class BeamModuleCompiler(
             code = trimmed;
         }
 
+        if (RemoveProvenRegisterMoves(code) is { } simplified)
+        {
+            code = simplified;
+        }
+
         byte[]? shared = ShareReturnBlocks(code);
         Word(output, CodeHeaderSize);
         Word(output, BeamWire.FormatVersion);

@@ -1,5 +1,7 @@
 # Project progress
 
+Part 1697 accepted and compiled all 1,366 sources with 398 Equal and 968 Different. 129 additional functions match normalized OTP instructions. [Evidence](validation/part-1697/README.md).
+
 Part 1696 accepted and compiled all 1,366 sources with 398 Equal and 968 Different. Nine additional functions match normalized OTP instructions. [Evidence](validation/part-1696/README.md).
 
 Part 1695 accepted and compiled all 1,366 sources with 398 Equal and 968 Different. One additional function matches normalized OTP instructions. [Evidence](validation/part-1695/README.md).
