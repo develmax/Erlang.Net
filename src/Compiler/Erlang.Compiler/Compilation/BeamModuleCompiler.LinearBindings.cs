@@ -10,7 +10,7 @@ internal sealed partial class BeamModuleCompiler
         private HashSet<string>? linearCaseLive;
         private HashSet<Expr>? linearCaseBranches;
 
-        private bool TryEmitLinearBindings(Expr.Sequence body, IReadOnlyList<Pattern.Variable> parameters)
+        private bool TryEmitLinearBindings(Expr.Sequence body, IReadOnlyDictionary<string, int> incoming)
         {
             var bindings = new List<(string Name, Expr Value)>();
             var names = variables.Keys.ToHashSet(StringComparer.Ordinal);
@@ -74,7 +74,7 @@ internal sealed partial class BeamModuleCompiler
                     EmitForwardedLinearCall((Expr.Call)value, bindings[index - 1].Name);
                     forwardResult = false;
                 }
-                else if (index != 0 || value is not Expr.Call call || !TryEmitFirstListCall(call, parameters))
+                else if (index != 0 || value is not Expr.Call call || !TryEmitFirstListCall(call, incoming))
                 {
                     if (value is Expr.Case decision)
                     {
@@ -191,19 +191,13 @@ internal sealed partial class BeamModuleCompiler
             Call(call.Module, call.Function, call.Arguments.Count);
         }
 
-        private bool TryEmitFirstListCall(Expr.Call call, IReadOnlyList<Pattern.Variable> parameters)
+        private bool TryEmitFirstListCall(Expr.Call call, IReadOnlyDictionary<string, int> incoming)
         {
             if (call.Module is null or ErlangModuleNames.Module
                 || call.Arguments.Any(argument => argument is not Expr.Variable
                     && !AttributeLiteral.TryNormalizeConstant(argument, out _)))
             {
                 return false;
-            }
-
-            var incoming = new Dictionary<string, int>(StringComparer.Ordinal);
-            for (int index = 0; index < parameters.Count; index++)
-            {
-                incoming.Add(parameters[index].Name, index == 0 ? 1 : index + 2);
             }
 
             int arity = call.Arguments.Count;

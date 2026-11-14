@@ -2171,42 +2171,55 @@ internal sealed partial class BeamModuleCompiler
                     Patterns: [Pattern.List { Items.Count: >= 2, Tail: null } list],
                     Body: Expr.Sequence body
                 }] || list.Items.Count > FirstReservedXRegister - 2
-                || list.Items.Any(item => item is not Pattern.Variable { Name: not VariableScopeNames.Wildcard }))
+                || list.Items.Any(item => item is not Erlang.Pattern.Variable))
             {
                 return false;
             }
 
             var parameters = list.Items.Cast<Pattern.Variable>().ToArray();
-            if (!DistinctBindings(parameters))
+            var named = parameters.Where(parameter => parameter.Name != VariableScopeNames.Wildcard).ToArray();
+            if (!DistinctBindings(named))
             {
                 return false;
             }
 
+            var referenced = ReadUsedEntryParameters(new Clause(named, null, body));
+            var extracted = new List<(Pattern.Variable Variable, int Register)>();
             int failure = owner.nextLabel - 2;
-            for (int index = 0; index < parameters.Length; index++)
+            int nextRegister = 1;
+            int source = 0;
+            foreach (var parameter in parameters)
             {
-                int source = index == 0 ? 0 : 2;
-                int destination = index == 0 ? 1 : index + 2;
                 owner.EmitNonemptyList(source, failure);
-                owner.EmitListParts(
-                    source,
-                    XRegisterTag,
-                    destination,
-                    XRegisterTag,
-                    2
-                );
+                bool needsHead = parameter.Name != VariableScopeNames.Wildcard
+                    && (referenced is null || referenced.Contains(parameter.Name));
+                int destination = needsHead ? nextRegister++ : -1;
+                int tail = source == 0 ? nextRegister++ : source;
+                if (needsHead)
+                {
+                    owner.EmitListParts(source, XRegisterTag, destination, XRegisterTag, tail);
+                    extracted.Add((parameter, destination));
+                }
+                else
+                {
+                    owner.Op(GetTail, XRegisterTag, source);
+                    owner.Operand(XRegisterTag, tail);
+                }
+
+                source = tail;
             }
-            owner.EmitNilTest(XRegisterTag, 2, failure);
+
+            owner.EmitNilTest(XRegisterTag, source, failure);
 
             decoderSlotCount = frameSize;
-            foreach (var parameter in parameters)
+            foreach (var (parameter, _) in extracted)
             {
                 variables.Add(parameter.Name, Slot());
             }
 
             owner.Op(Allocate, BeamWire.UnsignedTag, frameSize);
-            owner.Operand(BeamWire.UnsignedTag, parameters.Length + 2);
-            int uninitialized = frameSize - parameters.Length;
+            owner.Operand(BeamWire.UnsignedTag, nextRegister);
+            int uninitialized = frameSize - extracted.Count;
             if (uninitialized > 0)
             {
                 owner.instructions.WriteByte(InitYRegisters);
@@ -2218,18 +2231,13 @@ internal sealed partial class BeamModuleCompiler
                 }
             }
 
-            for (int index = parameters.Length - 1; index >= 0; index--)
+            for (int index = extracted.Count - 1; index >= 0; index--)
             {
-                int source = index == 0 ? 1 : index + 2;
-                owner.MoveRegister(
-                    XRegisterTag,
-                    source,
-                    YRegisterTag,
-                    variables[parameters[index].Name]
-                );
+                var (parameter, register) = extracted[index];
+                owner.MoveRegister(XRegisterTag, register, YRegisterTag, variables[parameter.Name]);
             }
 
-            if (!TryEmitLinearBindings(body, parameters))
+            if (!TryEmitLinearBindings(body, extracted.ToDictionary(binding => binding.Variable.Name, binding => binding.Register, StringComparer.Ordinal)))
             {
                 Expression(body);
             }
