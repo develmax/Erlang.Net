@@ -1,5 +1,7 @@
 # Compatibility overview
 
+Part 1681 verifies boolean list membership predicates in closed comprehensions. [Evidence](validation/part-1681/README.md).
+
 Part 1680 verifies empty-frame tail calls from cases that only need the selector result. [Evidence](validation/part-1680/README.md).
 
 Part 1679 verifies direct external tail calls for apply and tagged tuple projection. [Evidence](validation/part-1679/README.md).

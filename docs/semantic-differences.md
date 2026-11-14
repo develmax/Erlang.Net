@@ -1,3 +1,5 @@
+Part 1681 uses a boolean comparison for lists:member/2 and lists:keymember/3 predicates in closed comprehensions. [Evidence](validation/part-1681/README.md).
+
 Part 1680 keeps case selector call results in X0 when both branches end in tail calls and need no saved input. [Evidence](validation/part-1680/README.md).
 
 Part 1679 uses an external tail call without allocating a stack frame. [Evidence](validation/part-1679/README.md).
