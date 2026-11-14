@@ -987,6 +987,7 @@ internal sealed partial class BeamModuleCompiler
             var referenced = ReadUsedEntryParameters(new Clause(
                 named.Select(binding => (Pattern)binding.Variable).ToArray(), null, clause.Body));
             var used = named.Where(binding => referenced is null || referenced.Contains(binding.Variable.Name)).ToArray();
+            bool usesTail = used.Any(binding => binding.Register == tailRegister);
             if (clause.Body is Expr.Call call)
             {
                 var registers = used.ToDictionary(binding => binding.Variable.Name, binding => binding.Register,
@@ -1001,7 +1002,7 @@ internal sealed partial class BeamModuleCompiler
                     registers[name] = lastDestination;
                 }
 
-                if (TryEmitRegisterConstructedArgument(call, registers, (tailRegister + 1, EmitFields), EmitTests))
+                if (TryEmitRegisterConstructedArgument(call, registers, (tailRegister + 1, EmitFields), () => EmitTests(extractTail: true)))
                 {
                     return true;
                 }
@@ -1021,10 +1022,26 @@ internal sealed partial class BeamModuleCompiler
                 return false;
             }
 
-            EmitTests();
+            EmitTests(usesTail);
+            if (!usesTail && clause.Body is Expr.Variable returned
+                && Array.Find(used, binding => binding.Variable.Name == returned.Name) is { Variable: not null } result)
+            {
+                int field = fields.FindIndex(item => item.Register == result.Register);
+                if (field >= 0)
+                {
+                    owner.EmitTuplePart(headRegister, fields[field].Index, 0);
+                }
+                else if (result.Register != 0)
+                {
+                    owner.MoveRegister(XRegisterTag, result.Register, XRegisterTag, 0);
+                }
+
+                owner.instructions.WriteByte(Return);
+                return true;
+            }
 
             // Keep the X registers contiguous for the following allocation's live count.
-            int destination = tailRegister + 1;
+            int destination = usesTail ? tailRegister + 1 : tailRegister;
             foreach (var (index, register) in fields)
             {
                 int bindingIndex = Array.FindIndex(used, binding => binding.Register == register);
@@ -1038,10 +1055,18 @@ internal sealed partial class BeamModuleCompiler
             EmitConsEntryBody(clause, used);
             return true;
 
-            void EmitTests()
+            void EmitTests(bool extractTail)
             {
                 emitEntryTest?.Invoke();
-                owner.EmitListParts(input, XRegisterTag, headRegister, XRegisterTag, tailRegister);
+                if (extractTail)
+                {
+                    owner.EmitListParts(input, XRegisterTag, headRegister, XRegisterTag, tailRegister);
+                }
+                else
+                {
+                    owner.Op(GetHead, XRegisterTag, input);
+                    owner.Operand(XRegisterTag, headRegister);
+                }
                 if (firstMember == 1)
                 {
                     EmitDetailRecordTest(headRegister, tuple.Items.Count, tag, failure);

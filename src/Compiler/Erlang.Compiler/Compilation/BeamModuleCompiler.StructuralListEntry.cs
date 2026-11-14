@@ -47,6 +47,7 @@ internal sealed partial class BeamModuleCompiler
 
             int head = arity;
             int tail = arity + 1;
+            bool needsTail = clauses.Take(consCount).Any(clause => !IsDiscarded(((Pattern.List)clause.Patterns[listInput]).Tail));
             var branches = new List<(Clause Clause, Action<int>[] Tests, (Pattern.Variable Variable, int Register)[] Used,
                 EntryCall? Tail, int ResultRegister, Term? Constant)>();
 
@@ -55,7 +56,7 @@ internal sealed partial class BeamModuleCompiler
                 Clause clause = clauses[branch];
                 var tests = new List<Action<int>>();
                 var bindings = new Dictionary<string, int>(StringComparer.Ordinal);
-                int nextRegister = branch < consCount ? arity + 2 : arity;
+                int nextRegister = branch < consCount ? arity + (needsTail ? 2 : 1) : arity;
 
                 for (int index = 0; index < arity; index++)
                 {
@@ -211,7 +212,15 @@ internal sealed partial class BeamModuleCompiler
 
             int nonCons = consCount < branches.Count ? Label() : functionInfo;
             owner.EmitNonemptyList(listInput, nonCons);
-            owner.EmitListParts(listInput, XRegisterTag, head, XRegisterTag, tail);
+            if (needsTail)
+            {
+                owner.EmitListParts(listInput, XRegisterTag, head, XRegisterTag, tail);
+            }
+            else
+            {
+                owner.Op(GetHead, XRegisterTag, listInput);
+                owner.Operand(XRegisterTag, head);
+            }
 
             var frames = new Dictionary<int, int>();
             for (int branch = 0; branch < branches.Count; branch++)
