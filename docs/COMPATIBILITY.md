@@ -1,5 +1,7 @@
 # Compatibility overview
 
+Part 1728 uses the existing saved variable register for tag checks and field projections. [Evidence](validation/part-1728/README.md).
+
 Part 1727 places one frame after entry predicates when it still dominates all framed continuations. [Evidence](validation/part-1727/README.md).
 
 Part 1726 delays entry frames until after eligible predicates and forwards caller X registers into dynamic apply. [Evidence](validation/part-1726/README.md).

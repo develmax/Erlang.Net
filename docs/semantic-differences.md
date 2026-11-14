@@ -1,3 +1,5 @@
+Part 1728 checks record field access from its saved register before allocating a frame where eligible. Record guard and update generation still differ. [Evidence](validation/part-1728/README.md).
+
 Part 1727 places a shared allocation after eligible entry checks. Entry register reloads and frame placement still differ. [Evidence](validation/part-1727/README.md).
 
 Part 1726 moves entry allocations below predicates when the framed continuation has a single entry point. Shared placement and register lifetimes still differ. [Evidence](validation/part-1726/README.md).

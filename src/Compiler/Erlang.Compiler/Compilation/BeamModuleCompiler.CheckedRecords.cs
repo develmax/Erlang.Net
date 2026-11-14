@@ -107,22 +107,38 @@ internal sealed partial class BeamModuleCompiler
                 return;
             }
 
-            Expression(access.Value, guardFailure);
+            int? savedRecord = access.Value is Expr.Variable variable
+                && !deferredPairMembers.ContainsKey(variable.Name)
+                && variables.TryGetValue(variable.Name, out int slot)
+                    ? slot : null;
+            if (savedRecord is null)
+            {
+                Expression(access.Value, guardFailure);
+            }
+
             if (guardFailure is int failure)
             {
-                EmitDetailRecordTest(
-                    0,
-                    access.Arity,
+                owner.EmitRecordTest(
+                    failure,
+                    savedRecord.HasValue ? YRegisterTag : XRegisterTag,
+                    savedRecord.GetValueOrDefault(),
                     Term.A(access.Name),
-                    failure
+                    access.Arity
                 );
             }
             else
             {
-                EmitCheckedRecord(access.Name, access.Arity);
+                EmitCheckedRecord(access.Name, access.Arity, savedRecord);
             }
 
-            owner.EmitTuplePart(0, access.Index, destination);
+            if (savedRecord is int savedSlot)
+            {
+                EmitSavedRecordField(savedSlot, access.Index, destination);
+            }
+            else
+            {
+                owner.EmitTuplePart(0, access.Index, destination);
+            }
         }
 
         private bool TryLoadRecordFieldArguments(IReadOnlyList<Expr> expressions)

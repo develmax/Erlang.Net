@@ -1,5 +1,7 @@
 # Dependency and compatibility decisions
 
+Part 1728 reuses the BEAM register operand decoder and encoder. Record field checking reuses the existing saved-record projection, tag test and error emission. No library was added. [Evidence](validation/part-1728/README.md).
+
 Part 1727 reuses the BEAM register operand decoder and encoder. Placement derives dominance from the existing BEAM branch targets. No library was added. [Evidence](validation/part-1727/README.md).
 
 Part 1726 reuses the BEAM register operand decoder and encoder. The entry movement pass reuses the existing argument forwarding and operand logic. No library was added. [Evidence](validation/part-1726/README.md).
