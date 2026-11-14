@@ -629,9 +629,10 @@ internal sealed partial class BeamModuleCompiler
                     && checks is null && tuple is not null && index < calls.Length - 1
                     && step.RegisterConstructions is null && released is [var freed]
                     && step.SavedInputs is { } intermediateLoads
-                    && lastSlotReads.Count > 1
-                    && saved.FirstOrDefault(binding => binding.Value == lastSlotReads.Count - 1) is
-                        { Key: not null } leading
+                    && saved.Count != 0
+                    && saved.MaxBy(binding => binding.Value) is var leading
+                    && leading.Value > freed
+                    && lastSlotReads.Skip(leading.Value + 1).All(read => read < index)
                     && intermediateLoads.Any(load => load.Destination == 0
                         && load.Source != freed && load.Source != leading.Value))
                 {
