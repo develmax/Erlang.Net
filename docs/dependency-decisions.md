@@ -1,5 +1,7 @@
 # Dependency and compatibility decisions
 
+Part 1723 reuses label operand detection and the existing label remapping. No dependency was added. [Evidence](validation/part-1723/README.md).
+
 Part 1722 reuses label operand detection and the existing label remapping. No dependency was added. [Evidence](validation/part-1722/README.md).
 
 Part 1721 reuses label operand detection and the existing label remapping. No dependency was added. [Evidence](validation/part-1721/README.md).

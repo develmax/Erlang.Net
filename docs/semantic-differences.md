@@ -1,3 +1,5 @@
+Part 1723 extends stack trimming to folded tail-call exits. Frame layout and register allocation still differ. [Evidence](validation/part-1723/README.md).
+
 Part 1722 extends stack trimming to newly exposed linear exits. Frame layout and register allocation still differ. [Evidence](validation/part-1722/README.md).
 
 Part 1721 expands short return jumps. Frame trimming and handler-aware return layout still differ. [Evidence](validation/part-1721/README.md).

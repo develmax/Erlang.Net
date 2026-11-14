@@ -1,5 +1,7 @@
 # Next steps
 
+Compare remaining allocation and register liveness mismatches, including OTP beam_trim usage and cost decisions. [Evidence](validation/part-1723/README.md).
+
 Rank remaining mismatches in frame layout and register liveness around calls and allocation. [Evidence](validation/part-1722/README.md).
 
 Measure opportunities to trim stack frames after short returns become local. Compare against OTP beam_trim. [Evidence](validation/part-1721/README.md).

@@ -1,5 +1,7 @@
 # Compatibility overview
 
+Part 1723 trims linear suffixes ending in framed tail calls. [Evidence](validation/part-1723/README.md).
+
 Part 1722 trims newly exposed straight-line return paths and folds eligible entry trims into allocation. [Evidence](validation/part-1722/README.md).
 
 Part 1721 inlines short return sequences at unconditional predecessors after sharing. [Evidence](validation/part-1721/README.md).

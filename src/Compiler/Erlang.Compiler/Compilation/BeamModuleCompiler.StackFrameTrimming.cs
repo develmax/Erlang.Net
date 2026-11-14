@@ -77,17 +77,27 @@ internal sealed partial class BeamModuleCompiler
                 hasExceptionHandler = true;
             }
 
-            if (hasExceptionHandler || body[end] is not { Definition.Opcode: Deallocate, Operands: [var frame] }
-                || body[end + 1].Definition.Opcode != Return)
+            int frameOperand = currentOpcode switch
+            {
+                Deallocate when body[end + 1].Definition.Opcode == Return => 0,
+                TailLocalCallWithFrame or TailExternalCallWithFrame => 2,
+                TailDynamicApply => 1,
+                _ => -1
+            };
+            if (hasExceptionHandler || frameOperand < 0)
             {
                 continue;
             }
 
+            BeamOperand frame = body[end].Operands[frameOperand];
+
             // The suffix may branch to errors that do not access the frame.
             int start = end - 1;
             var used = new HashSet<int>();
-            bool hasCall = false;
-            bool useStrictCost = false;
+            var live = new HashSet<int>();
+            bool hasCall = frameOperand != 0;
+            bool useStrictCost = currentOpcode == TailExternalCallWithFrame
+                && IsPureImport((int)body[end].Operands[1].Value);
             int candidate = -1;
             int drop = 0;
             List<(int Source, int Destination)>? moves = null;
@@ -101,17 +111,12 @@ internal sealed partial class BeamModuleCompiler
                     useStrictCost = false;
                     if (opcode == ExternalCall)
                     {
-                        var import = imported[(int)instruction.Operands[1].Value];
-                        useStrictCost = BeamTrimBifs.IsPure(
-                            atomNames[import.Module - 1],
-                            atomNames[import.Function - 1],
-                            import.Arity
-                        );
+                        useStrictCost = IsPureImport((int)instruction.Operands[1].Value);
                     }
                 }
                 else if (opcode is not (Line or Move or Swap or InitYRegisters
                     or TestHeap or PutTuple or PutList or GetTupleElement
-                    or GetList or GetHead or GetTail or BifZero or MakeFun)
+                    or GetList or GetHead or GetTail or BifZero or MakeFun or UpdateRecord)
                     && !IsSafeTrimTest(instruction, safeFailures))
                 {
                     break;
@@ -127,12 +132,12 @@ internal sealed partial class BeamModuleCompiler
                         int slot = trim - 1;
                         if (used.Contains(slot))
                         {
-                            while (last >= trim && used.Contains(last))
+                            while (last >= trim && (frameOperand == 0 ? used : live).Contains(last))
                             {
                                 last--;
                             }
 
-                            if (last < trim || killed.Contains(slot))
+                            if (last < trim || killed.Contains(slot) || used.Contains(last))
                             {
                                 break;
                             }
@@ -155,6 +160,11 @@ internal sealed partial class BeamModuleCompiler
                             moves = [.. relocations];
                         }
                     }
+                }
+
+                if (frameOperand != 0)
+                {
+                    TrackTrimLiveness(instruction, live);
                 }
 
                 // Any use or write to a slot in the suffix prevents removing it
@@ -234,8 +244,14 @@ internal sealed partial class BeamModuleCompiler
                 copied = operandEnd;
             }
 
-            output.Write(code.Span[copied..body[end].Offset]);
-            output.WriteByte(Deallocate);
+            int operandStart = body[end].Offset + 1;
+            var exitOperands = new BeamCursor(code[operandStart..]);
+            for (int operand = 0; operand < frameOperand; operand++)
+            {
+                _ = BeamCompactReader.Read(exitOperands);
+            }
+
+            output.Write(code.Span[copied..(operandStart + exitOperands.Position)]);
             BeamCompactWriter.Write(output, BeamWire.UnsignedTag, frame.Value - drop);
             copied = body[end + 1].Offset;
         }
@@ -249,6 +265,46 @@ internal sealed partial class BeamModuleCompiler
         {
             output.Write(code.Span[copied..]);
             return output.ToArray();
+        }
+
+        bool IsPureImport(int index)
+        {
+            var import = imported[index];
+
+            return BeamTrimBifs.IsPure(atomNames[import.Module - 1], atomNames[import.Function - 1], import.Arity);
+        }
+    }
+
+    private static void TrackTrimLiveness(BeamInstruction instruction, HashSet<int> live)
+    {
+        var operands = instruction.Operands;
+        int destination = instruction.Definition.Opcode switch
+        {
+            Move or GetHead or GetTail => 1,
+            PutList or GetTupleElement => 2,
+            PutTuple => 0,
+            UpdateRecord => 4,
+            BifZero or BifOne or BifTwo or BifThree or GcBifOne or GcBifTwo or GcBifThree => operands.Count - 1,
+            _ => -1
+        };
+
+        if (destination >= 0 && operands[destination].Kind == BeamOperandParameters.Y)
+        {
+            live.Remove((int)operands[destination].Value);
+        }
+
+        if (instruction.Definition.Opcode == InitYRegisters)
+        {
+            live.ExceptWith(operands.Skip(1).Select(operand => (int)operand.Value));
+            return;
+        }
+
+        for (int index = 0; index < operands.Count; index++)
+        {
+            if (index != destination && operands[index].Kind == BeamOperandParameters.Y)
+            {
+                live.Add((int)operands[index].Value);
+            }
         }
     }
 

@@ -1,5 +1,7 @@
 # Project progress
 
+Part 1723 compiled all 1,366 corpus sources with 398 Equal and 968 Different. Tail-call frame trimming changes 226 images. [Evidence](validation/part-1723/README.md).
+
 Part 1722 compiled all 1,366 corpus sources with 398 Equal and 968 Different. Late frame trimming changes 120 images. [Evidence](validation/part-1722/README.md).
 
 Part 1721 compiled all 1,366 corpus sources with 398 Equal and 968 Different. Expanding short return jumps changes 833 images. [Evidence](validation/part-1721/README.md).
