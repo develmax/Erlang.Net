@@ -1,3 +1,5 @@
+Part 1659 keeps the previous call result in X0 until the list prefix has been built. [Evidence](validation/part-1659/README.md).
+
 Part 1658 constructs short list prefixes without calling ++. [Evidence](validation/part-1658/README.md).
 
 Part 1657 checks nested record tags before allocating the frame. [Evidence](validation/part-1657/README.md).
