@@ -1189,6 +1189,39 @@ internal sealed partial class BeamModuleCompiler
             var call = step.Call;
             var loads = call.SavedInputs?.Select(move => (move.Destination, Source: remap[move.Source])).ToList() ?? [];
             int spill = step.Spill is int slot ? remap[slot] : -1;
+            if (spill >= 0 && !step.ReuseSlot && !heapChecked && afterConstruction is null
+                && call.RegisterConstructions is { Live: 0, Moves.Count: 0 } prefix
+                && prefix.Constructions is [var firstCons, _, .., var lastCons]
+                && firstCons.Register == 0 && lastCons.Register == 2
+                && prefix.Loads is [{ Destination: 0 } parent]
+                && prefix.Constants is [{ Destination: 1 } id, { Destination: 3 } options]
+                && prefix.Constructions.Take(prefix.Constructions.Count - 1).All(cell => cell.Register == 0)
+                && prefix.Constructions.All(cell => !cell.IsTuple && cell.MapLive is null
+                    && cell.Operands is [{ Literal: Integer }, _])
+                && firstCons.Operands[1].Tag == YRegisterTag
+                && prefix.Constructions.Skip(1).All(cell => cell.Operands[1] is
+                    { Tag: XRegisterTag, Register: 0, Literal: null }))
+            {
+                var cells = prefix.Constructions.Select((cell, index) => cell with
+                {
+                    Register = index == prefix.Constructions.Count - 1 ? lastCons.Register : 1,
+                    Operands = cell.Operands.Select(operand => operand.Tag == XRegisterTag
+                        ? operand with { Register = 1 } : operand).ToArray()
+                }).ToList();
+                EmitCallArgumentConstructions(
+                    prefix with { Constructions = cells, Loads = [], Constants = [], Live = 1 },
+                    -1,
+                    remap,
+                    spillSlot: spill
+                );
+                Load(remap[parent.Source], 1);
+                owner.EmitConstant(options.Value, 3);
+                owner.MoveRegister(XRegisterTag, 1, XRegisterTag, 0);
+                owner.EmitConstant(id.Value, 1);
+
+                return;
+            }
+
             if (step.ReuseSlot && call.RegisterConstructions is { } beforeSpill)
             {
                 EmitCallArgumentConstructions(
