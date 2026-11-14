@@ -4,7 +4,7 @@ namespace Erlang.Compiler;
 
 internal sealed partial class BeamModuleCompiler
 {
-    private byte[]? TrimLinearStackFrames(ReadOnlyMemory<byte> code)
+    private byte[]? TrimLinearStackFrames(ReadOnlyMemory<byte> code, int labelCount)
     {
         var stackOperands = new List<(int Start, int End, int Slot)>();
         IReadOnlyList<BeamInstruction> body;
@@ -13,7 +13,7 @@ internal sealed partial class BeamModuleCompiler
             var header = new BeamCodeHeader(
                 BeamWire.FormatVersion,
                 highestOpcode,
-                nextLabel,
+                labelCount,
                 exports.Count + locals.Count,
                 code
             );
@@ -174,7 +174,23 @@ internal sealed partial class BeamModuleCompiler
             }
 
             output ??= new MemoryStream(code.Length);
-            output.Write(code.Span[copied..body[candidate].Offset]);
+            bool resizeAllocation = moves.Count == 0 && candidate > 0
+                && body[candidate - 1].Offset >= copied
+                && body[candidate - 1].Definition.Opcode is (Allocate or AllocateHeap)
+                && body[candidate - 1].Operands[0].Value == frame.Value;
+            if (resizeAllocation)
+            {
+                int firstOperand = body[candidate - 1].Offset + 1;
+                var cursor = new BeamCursor(code[firstOperand..]);
+                _ = BeamCompactReader.Read(cursor);
+                output.Write(code.Span[copied..firstOperand]);
+                BeamCompactWriter.Write(output, BeamWire.UnsignedTag, frame.Value - drop);
+                output.Write(code.Span[(firstOperand + cursor.Position)..body[candidate].Offset]);
+            }
+            else
+            {
+                output.Write(code.Span[copied..body[candidate].Offset]);
+            }
             var retained = body[candidate].Operands.Skip(1)
                 .Where(slot => slot.Value >= drop && moves.All(move => move.Destination != slot.Value))
                 .ToArray();
@@ -185,7 +201,7 @@ internal sealed partial class BeamModuleCompiler
                 BeamCompactWriter.Write(output, BeamWire.UnsignedTag, retained.Length);
                 foreach (var slot in retained)
                 {
-                    BeamCompactWriter.Write(output, YRegisterTag, slot.Value);
+                    BeamCompactWriter.Write(output, YRegisterTag, resizeAllocation ? slot.Value - drop : slot.Value);
                 }
             }
 
@@ -196,9 +212,12 @@ internal sealed partial class BeamModuleCompiler
                 BeamCompactWriter.Write(output, YRegisterTag, destination);
             }
 
-            output.WriteByte(TrimFrame);
-            BeamCompactWriter.Write(output, BeamWire.UnsignedTag, drop);
-            BeamCompactWriter.Write(output, BeamWire.UnsignedTag, frame.Value - drop);
+            if (!resizeAllocation)
+            {
+                output.WriteByte(TrimFrame);
+                BeamCompactWriter.Write(output, BeamWire.UnsignedTag, drop);
+                BeamCompactWriter.Write(output, BeamWire.UnsignedTag, frame.Value - drop);
+            }
 
             copied = body[candidate + 1].Offset;
             while (stackIndex < stackOperands.Count && stackOperands[stackIndex].Start < copied)

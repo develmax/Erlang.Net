@@ -926,7 +926,7 @@ internal sealed partial class BeamModuleCompiler(
             code = swapped;
         }
 
-        if (TrimLinearStackFrames(code) is { } trimmed)
+        if (TrimLinearStackFrames(code, nextLabel) is { } trimmed)
         {
             code = trimmed;
         }
@@ -937,12 +937,21 @@ internal sealed partial class BeamModuleCompiler(
         }
 
         byte[]? shared = ShareReturnBlocks(code);
+        if (shared is not null)
+        {
+            // Expanding return jumps can expose a linear suffix to stack trimming.
+            code = shared;
+            if (TrimLinearStackFrames(code, nextLabel - sharedReturnLabelCount) is { } lateTrimmed)
+            {
+                code = lateTrimmed;
+            }
+        }
         Word(output, CodeHeaderSize);
         Word(output, BeamWire.FormatVersion);
         Word(output, highestOpcode);
         Word(output, nextLabel - sharedReturnLabelCount);
         Word(output, exports.Count + locals.Count);
-        output.Write(shared is null ? code.Span : shared.AsSpan());
+        output.Write(code.Span);
     }
 
     private void EmitFunctionTable(Stream output, List<(int Atom, int Arity, int Entry)> entries)

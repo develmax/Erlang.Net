@@ -576,17 +576,9 @@ internal static class BeamModuleEmissionChecks
                 {Value, Z}.
             """;
         byte[] beam = CodeGeneration.CompileBeamModule(source, "beam_entry_initialization.erl");
-        byte[] code = BeamDocumentationEmissionChecks.Chunks(beam).Single(chunk => chunk.Id == "Code").Data;
-        ReadOnlySpan<byte> initialization = [
-            BeamEmissionFormat.InitYRegisters,
-            BeamEmissionFormat.ExtendedListOperand,
-            0x20,
-            0x04,
-            0x14
-        ];
-        if (code.AsSpan().IndexOf(initialization) < 0)
+        if (!beam.AsSpan().SequenceEqual(Read("beam_entry_initialization.beam")))
         {
-            throw new InvalidOperationException("Expected a single initialization of the two unused entry slots.");
+            throw new InvalidOperationException("Expected the OTP frame allocation and register layout.");
         }
     }
 

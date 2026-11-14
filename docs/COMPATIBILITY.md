@@ -1,5 +1,7 @@
 # Compatibility overview
 
+Part 1722 trims newly exposed straight-line return paths and folds eligible entry trims into allocation. [Evidence](validation/part-1722/README.md).
+
 Part 1721 inlines short return sequences at unconditional predecessors after sharing. [Evidence](validation/part-1721/README.md).
 
 Part 1720 removes redundant copies of a register to itself. [Evidence](validation/part-1720/README.md).
