@@ -1,3 +1,5 @@
+Part 1639 skips closed unused values when planning case entry and result arms, enabling a tail call directly from the selector register. No release image changed equality status. [Evidence](validation/part-1639/README.md).
+
 Part 1638 matches mixed tuple and atom dispatch in the supported parameter shapes. The complete httpd_file release image now matches OTP. [Evidence](validation/part-1638/README.md).
 
 Part 1637 matches the Line section in httpd_file and aligns handle_error/5 after label normalization. The module still differs in Code and other sections. [Evidence](validation/part-1637/README.md).

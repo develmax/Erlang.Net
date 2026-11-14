@@ -1,5 +1,7 @@
 # Compatibility overview
 
+Part 1639 verifies ordinary whereis and register-resident case tails using a byte-identical fixture, with and without a registered process. [Evidence](validation/part-1639/README.md).
+
 Part 1638 verifies atom and tagged tuple dispatch into tail calls with a byte-identical fixture and OTP VM results. [Evidence](validation/part-1638/README.md).
 
 Part 1637 verifies branch-local append tuple frames in a byte-identical fixture and checks result and badrecord priority in the OTP VM. [Evidence](validation/part-1637/README.md).

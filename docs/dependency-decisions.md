@@ -1,5 +1,7 @@
 # Dependency and compatibility decisions
 
+Part 1639 reuses closed constant normalization and the existing case and call planners. Pinned OTP sys_core_fold and the release disassembly provide the reference. No dependency was added. [Evidence](validation/part-1639/README.md).
+
 Part 1638 reuses the existing register move plan for mixed tagged tuple and atom dispatch. The pinned OTP beam_ssa_codegen and release disassembly provide the instruction reference. No dependency was added. [Evidence](validation/part-1638/README.md).
 
 Part 1637 reuses entry call and tuple emitters, using the pinned OTP release disassembly to place record tests, field reads and frame operations. No dependency was added. [Evidence](validation/part-1637/README.md).

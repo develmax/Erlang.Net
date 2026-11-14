@@ -1,5 +1,7 @@
 # Project progress
 
+Part 1639 generated all 1,366 Windows OTP images with 395 Equal and 971 Different. No release image changed equality status. [Evidence](validation/part-1639/README.md).
+
 Part 1638 generated all 1,366 Windows OTP images with 395 Equal and 971 Different. The release image for httpd_file matches byte for byte. [Evidence](validation/part-1638/README.md).
 
 Part 1637 generated all 1,366 Windows OTP images with 394 Equal and 972 Different. The instructions for httpd_file:handle_error/5 match after label normalization. [Evidence](validation/part-1637/README.md).

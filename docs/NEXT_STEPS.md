@@ -1,5 +1,7 @@
 # Next steps
 
+Compare the remaining one-slot OTP frames produced as two slots. Start with a saved tagged-tuple input plus a projected field feeding a call, then reuse the slot across computed call arguments. [Evidence](validation/part-1639/README.md).
+
 Use the ranked instruction differences to resolve shared Code generation gaps. Start with one-slot frames emitted as two slots. Group those functions by whether the extra value comes from an input, a call result or a matched field. [Evidence](validation/part-1638/README.md).
 
 Compare mixed tagged-tuple and atom dispatch in httpd_file:handle_error/4 with pinned OTP and reuse the existing dispatch emitters where applicable. [Evidence](validation/part-1637/README.md).
