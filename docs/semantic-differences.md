@@ -1,3 +1,5 @@
+Part 1643 shares the replacement body between disjoint list-head keys. [Evidence](validation/part-1643/README.md).
+
 Part 1642 reuses the stack slot after the final read in a constructed argument. [Evidence](validation/part-1642/README.md).
 
 Part 1641 reserves heap jointly and avoids saving intermediate constructors to Y registers in supported tail continuations. [Evidence](validation/part-1641/README.md).

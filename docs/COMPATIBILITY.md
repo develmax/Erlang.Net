@@ -1,5 +1,7 @@
 # Compatibility overview
 
+Part 1643 verifies shared list head dispatch in a deterministic fixture and in the OTP VM. [Evidence](validation/part-1643/README.md).
+
 Part 1642 verifies reuse of the saved input slot after argument construction in a deterministic fixture and in the OTP VM. [Evidence](validation/part-1642/README.md).
 
 Part 1641 verifies register-resident construction after a producer call in a deterministic fixture and in the OTP VM. [Evidence](validation/part-1641/README.md).
