@@ -9,7 +9,8 @@ internal static class BeamInstructionReader
         BeamCodeHeader code,
         int atomCount,
         int literalCount,
-        Action<int, int, int>? recordLabelOperand = null
+        Action<int, int, int>? recordLabelOperand = null,
+        Action<int, int, int>? recordStackOperand = null
     )
     {
         Require(code.MaximumOpcode >= BeamOperandParameters.MinimumCompatibleOpcode);
@@ -66,9 +67,15 @@ internal static class BeamInstructionReader
                     }
                     if (extension == BeamOperandParameters.TypedRegister)
                     {
+                        int registerOffset = cursor.Position;
                         BeamCompactValue register = BeamCompactReader.Read(cursor);
                         Require(register.WireTag is BeamOperandParameters.XTag or BeamOperandParameters.YTag);
                         BeamOperand operand = Scalar(register, atomCount, code.LabelCount);
+                        if (operand.Kind == BeamOperandParameters.Y)
+                        {
+                            recordStackOperand?.Invoke(registerOffset, cursor.Position, (int)operand.Value);
+                        }
+
                         int type = Unsigned(cursor);
                         operands.Add(operand with { TypeIndex = type });
                         continue;
@@ -82,6 +89,11 @@ internal static class BeamInstructionReader
                 }
                 BeamOperand scalar = Scalar(raw, atomCount, code.LabelCount);
                 operands.Add(scalar);
+                if (scalar.Kind == BeamOperandParameters.Y)
+                {
+                    recordStackOperand?.Invoke(operandOffset, cursor.Position, (int)scalar.Value);
+                }
+
                 if (raw.WireTag == BeamOperandParameters.LabelTag && !scalar.Value.IsZero)
                 {
                     recordLabelOperand?.Invoke(operandOffset, cursor.Position, (int)scalar.Value);

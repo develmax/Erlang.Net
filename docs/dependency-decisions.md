@@ -1,5 +1,7 @@
 # Dependency and compatibility decisions
 
+Part 1694 reuses the BEAM operand reader and compact writer. No dependency was added. [Evidence](validation/part-1694/README.md).
+
 Part 1693 reuses the typed tuple arity dispatch and structural branch emitters. No dependency was added. [Evidence](validation/part-1693/README.md).
 
 Part 1692 reuses the structural clause and selection table emitters. No dependency was added. [Evidence](validation/part-1692/README.md).

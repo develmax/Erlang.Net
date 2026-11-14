@@ -911,6 +911,11 @@ internal sealed partial class BeamModuleCompiler(
 
         var stream = projected ?? instructions;
         ReadOnlyMemory<byte> code = stream.GetBuffer().AsMemory(0, checked((int)stream.Length));
+        if (TrimLinearStackFrames(code) is { } trimmed)
+        {
+            code = trimmed;
+        }
+
         byte[]? shared = ShareReturnBlocks(code);
         Word(output, CodeHeaderSize);
         Word(output, BeamWire.FormatVersion);

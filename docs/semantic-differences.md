@@ -1,3 +1,5 @@
+Part 1694 trims frames in linear call sequences. Control-flow edges and exception-protected functions remain outside that pass. [Evidence](validation/part-1694/README.md).
+
 Part 1693 groups distinct tagged cons arities before matching tuple tags. Stack slot layout and register scheduling still differ. [Evidence](validation/part-1693/README.md).
 
 Part 1692 lays out distinct-key select_val blocks in descending term order. [Evidence](validation/part-1692/README.md).

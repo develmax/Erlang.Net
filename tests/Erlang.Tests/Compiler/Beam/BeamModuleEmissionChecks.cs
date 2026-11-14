@@ -400,6 +400,7 @@ internal static class BeamModuleEmissionChecks
         await CompareEntryTuplePatterns();
         await CompareListCallerFacts();
         await CompareStructuralListEntry();
+        await CompareLinearStackFrameTrim();
         await CompareConsResultEntry();
         await CompareGeneratedBehaviourInfo();
         await CompareGeneralListQualifiers();
@@ -4416,6 +4417,27 @@ internal static class BeamModuleEmissionChecks
         if (!expected.Equals(actual))
         {
             throw new InvalidOperationException($"Structural list entry returned {actual}, exit {exit}.");
+        }
+    }
+
+    private static async Task CompareLinearStackFrameTrim()
+    {
+        const string module = "beam_linear_frame_trim";
+        string source = Encoding.UTF8.GetString(Read(module + ".erl"));
+        BeamModule image = BeamModule.Prepare(CodeGeneration.CompileBeamModule(source, module + ".erl"));
+        await using var runtime = new ProcessRuntime();
+        Term? actual = null;
+        ProcessHandle process = runtime.Spawn(async context =>
+        {
+            actual = await image.Invoke(context, "run", Term.I(-3), Term.A("last"), Term.A("keep"));
+            return actual;
+        });
+
+        Term exit = await process.Completion.WaitAsync(TimeSpan.FromSeconds(10));
+        Term expected = Term.Tuple(Term.A("keep"), Term.Tuple(Term.I(3), Term.A("last")));
+        if (!expected.Equals(actual))
+        {
+            throw new InvalidOperationException($"Trimmed stack frame returned {actual}, exit {exit}.");
         }
     }
 
