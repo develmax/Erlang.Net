@@ -417,11 +417,8 @@ internal sealed partial class BeamModuleCompiler
             var frames = new Dictionary<int, int>();
             int sharedShapeEnd = -1;
             int sharedShapeFailure = 0;
-            int selectedGroupStart = -1;
-            int[] selectedLabels = [];
             for (int branch = 0; branch < branches.Count; branch++)
             {
-                var (clause, tests, used, tailCall, resultRegister, constant, captureOrder) = branches[branch];
                 if (branch == consCount && emptyReturn is { } emptyList)
                 {
                     EmitEmptyListReturn(emptyList, nonCons, functionInfo, properList: true);
@@ -455,25 +452,48 @@ internal sealed partial class BeamModuleCompiler
                                 owner.EmitTuplePart(head, 2, shape.Payload);
                             }
 
-                            selectedGroupStart = branch;
-                            selectedLabels = keys.Select(_ => Label()).ToArray();
                             var comparer = Comparer<Term>.Create((left, right) => TermOrder.Compare(left, right, exact: true));
-                            owner.EmitMembershipSelect(register, sharedShapeFailure,
-                                keys.Select((key, index) => (key, selectedLabels[index])).OrderBy(pair => pair.key, comparer));
+                            int groupStart = branch;
+                            var ordered = keys.Select((key, index) => (Key: key, Branch: groupStart + index))
+                                .OrderByDescending(arm => arm.Key, comparer)
+                                .Select(arm => (arm.Key, arm.Branch, Label: Label())).ToArray();
+                            owner.EmitMembershipSelect(
+                                register,
+                                sharedShapeFailure,
+                                ordered.Reverse().Select(arm => (arm.Key, arm.Label))
+                            );
+                            foreach (var arm in ordered)
+                            {
+                                Mark(arm.Label);
+                                EmitBranch(arm.Branch, sharedShapeFailure);
+                            }
+
+                            branch = shape.End - 1;
+                            if (shape.End < branches.Count && !(shape.End == consCount && emptyReturn is not null))
+                            {
+                                Mark(sharedShapeFailure);
+                            }
+
+                            continue;
                         }
                     }
                 }
 
-                if (selected)
-                {
-                    Mark(selectedLabels[branch - selectedGroupStart]);
-                    failure = sharedShapeFailure;
-                }
-                else if (branch + 1 == sharedShapeEnd)
+                if (branch + 1 == sharedShapeEnd)
                 {
                     failure = sharedShapeFailure;
                 }
 
+                EmitBranch(branch, failure);
+                if (branch + 1 < branches.Count && !(fallsBackFromCons && emptyReturn is not null))
+                {
+                    Mark(failure);
+                }
+            }
+
+            void EmitBranch(int branch, int failure)
+            {
+                var (clause, tests, used, tailCall, resultRegister, constant, captureOrder) = branches[branch];
                 foreach (var test in tests)
                 {
                     test(failure);
@@ -505,11 +525,6 @@ internal sealed partial class BeamModuleCompiler
                     entryCaptureOrder = previousOrder;
                 }
 
-                if (branch + 1 < branches.Count && (!selected || branch + 1 == sharedShapeEnd)
-                    && !(fallsBackFromCons && emptyReturn is not null))
-                {
-                    Mark(failure);
-                }
             }
 
             if (frames.Count != 0)
