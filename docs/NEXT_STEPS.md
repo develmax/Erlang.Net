@@ -1,5 +1,7 @@
 # Next steps
 
+Extend append frame planning to preserve return operands and defer checked record projections until the result is constructed. [Evidence](validation/part-1636/README.md).
+
 Compare the remaining append stack frames and branch dispatch to OTP. [Evidence](validation/part-1635/README.md).
 
 Compare stack slot liveness and repeated source locations around append call sequences. [Evidence](validation/part-1634/README.md).

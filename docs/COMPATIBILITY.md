@@ -1,5 +1,7 @@
 # Compatibility overview
 
+Part 1636 verifies the single-slot append frame with a byte-identical fixture and OTP VM results. [Evidence](validation/part-1636/README.md).
+
 Part 1635 verifies same-line append evaluation and error locations with OTP VM cases. [Evidence](validation/part-1635/README.md).
 
 Part 1634 verifies direct argument construction for short literal append with a byte-identical fixture and OTP VM cases. [Evidence](validation/part-1634/README.md).

@@ -475,7 +475,7 @@ internal sealed partial class BeamModuleCompiler
                 return;
             }
 
-            if (TryEmitNifErrorStub(function) || TryEmitCallResultConstruction(function)
+            if (TryEmitAppendChainFrame(function) || TryEmitNifErrorStub(function) || TryEmitCallResultConstruction(function)
                 || TryEmitCallWithRetainedArgument(function) || TryEmitCapturedFoldRecordAppend(function)
                 || TryEmitWxTextCommand(function)
                 || TryEmitConstantRemoteCall(function) || TryEmitWxOptionCommand(function) || TryEmitWxOptionClosure(function) || TryEmitWxStaticCommand(function)

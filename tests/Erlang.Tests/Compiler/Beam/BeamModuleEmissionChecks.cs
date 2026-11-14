@@ -226,6 +226,7 @@ internal static class BeamModuleEmissionChecks
             "beam_singleton_checked_calls",
             "beam_short_append",
             "beam_append_destination",
+            "beam_append_frame",
             "tuple_register_entry_probe",
             "tuple_nested_entry_probe",
             "tuple_nested_fallback_probe",

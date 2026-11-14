@@ -1,3 +1,5 @@
+Part 1636 matches single-slot frames for nested append chains. The release images are identical to part 1635. [Evidence](validation/part-1636/README.md).
+
 Part 1635 reduces redundant line instructions around straight-line append expressions. httpd_file still differs in frame generation and dispatch. [Evidence](validation/part-1635/README.md).
 
 Part 1634 matches append destination registers in httpd_file. Stack frame and line metadata still differ. [Evidence](validation/part-1634/README.md).
