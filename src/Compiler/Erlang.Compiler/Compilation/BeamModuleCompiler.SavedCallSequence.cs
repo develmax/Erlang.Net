@@ -815,8 +815,14 @@ internal sealed partial class BeamModuleCompiler
                     trimTo++;
                 }
 
+                var finalTrim = last && checks is null
+                    && tuple is { Closure: null, Live: 0 }
+                    && step is { Spill: null, SlotRelocation: null, Closure: null, TupleArguments: null }
+                    && step.Call.RegisterConstructions is null
+                    ? PlanFinalTupleCallTrim(tuple, size - trimmed, trimTo - trimmed, step.Released.Select(slot => remap[slot]))
+                    : null;
                 int? deferredSlot = null;
-                if (hasTuple && checks is null && step is
+                if (finalTrim is null && hasTuple && checks is null && step is
                     { Spill: null, SlotRelocation: null, Closure: null, TupleArguments: null }
                     && step.Call.RegisterConstructions is null && trimTo > trimmed
                     && step.Call.SavedInputs is { } savedInputs)
@@ -876,9 +882,28 @@ internal sealed partial class BeamModuleCompiler
                 int[] expired = step.Released.Where(slot => slot != step.Spill && slot != step.SlotRelocation?.Destination
                     && remap[slot] >= trimTo - trimmed)
                     .Select(slot => remap[slot]).Order().ToArray();
+                if (finalTrim is { } compacted)
+                {
+                    expired = compacted.Kills;
+                    trimTo = trimmed + compacted.Count;
+                    var construction = tuple!.Construction!;
+                    tuple = tuple with { Construction = construction with
+                    {
+                        Constructions = [construction.Constructions[0] with { Operands = compacted.Operands }]
+                    } };
+                }
+
                 if (expired.Length != 0)
                 {
                     owner.EmitSlotKills(expired);
+                }
+
+                if (finalTrim is { } relocationPlan)
+                {
+                    foreach (var (source, destination) in relocationPlan.Moves)
+                    {
+                        owner.MoveRegister(YRegisterTag, source, YRegisterTag, destination);
+                    }
                 }
 
                 if (trimTo > trimmed)
@@ -1024,6 +1049,60 @@ internal sealed partial class BeamModuleCompiler
                         ? failure.Location : new BeamSourceLocation(match.PreprocessorFile, match.SourceLine);
                 }
             }
+        }
+
+        private static (int Count, int[] Kills, List<(int Source, int Destination)> Moves, ConstructionOperand[] Operands)?
+            PlanFinalTupleCallTrim(CallSequenceTuple tuple, int frame, int prefix, IEnumerable<int> releases)
+        {
+            var killed = releases.ToHashSet();
+            if (killed.Count < 2 || tuple.Construction is not
+                { Constructions: [{ IsTuple: true, MapLive: null } result], Loads.Count: 0, Constants.Count: 0, Moves.Count: 0 })
+            {
+                return null;
+            }
+
+            var retained = result.Operands.Where(operand => operand.Literal is null && operand.Tag == YRegisterTag)
+                .Select(operand => operand.Register + prefix).ToHashSet();
+            var layout = retained.ToHashSet();
+            var destinations = new HashSet<int>();
+            var moves = new List<(int Source, int Destination)>();
+            int count = 0;
+            while (count < frame && !destinations.Contains(count))
+            {
+                if (layout.Contains(count))
+                {
+                    int destination = frame - 1;
+                    while (destination > count && layout.Contains(destination))
+                    {
+                        destination--;
+                    }
+
+                    if (destination == count)
+                    {
+                        break;
+                    }
+
+                    moves.Add((count, destination));
+                    layout.Add(destination);
+                    destinations.Add(destination);
+                }
+
+                count++;
+            }
+
+            // A relocation earns its cost when there are enough released slots to remove.
+            var kills = killed.Where(slot => slot >= count && !layout.Contains(slot)).Order().ToArray();
+            if (moves.Count < 2 || count <= prefix || kills.Length + moves.Count >= killed.Count)
+            {
+                return null;
+            }
+
+            var targets = moves.ToDictionary(move => move.Source, move => move.Destination);
+            var operands = result.Operands.Select(operand => operand.Literal is null && operand.Tag == YRegisterTag
+                ? operand with { Register = targets.GetValueOrDefault(operand.Register + prefix, operand.Register + prefix) - count }
+                : operand).ToArray();
+
+            return (count, kills, moves, operands);
         }
 
         private int? FindReusableCallSlot(
