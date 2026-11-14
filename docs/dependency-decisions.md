@@ -1,5 +1,7 @@
 # Dependency and compatibility decisions
 
+Part 1653 reuses the tagged tuple check, record extraction and call emitters. No dependency was added. [Evidence](validation/part-1653/README.md).
+
 Part 1652 reuses the tagged tuple check, record extraction and call emitters. No dependency was added. [Evidence](validation/part-1652/README.md).
 
 Part 1651 reuses the tagged tuple check, record extraction and call emitters. No dependency was added. [Evidence](validation/part-1651/README.md).

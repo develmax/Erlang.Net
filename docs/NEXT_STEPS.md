@@ -1,5 +1,7 @@
 # Next steps
 
+Reuse entry record tests for calls that subsequently read those records. [Evidence](validation/part-1653/README.md).
+
 Dispatch eligible record-check alternatives before the generic branch emitter. [Evidence](validation/part-1652/README.md).
 
 Compare shared record failure labels across neighboring call clauses. [Evidence](validation/part-1651/README.md).
