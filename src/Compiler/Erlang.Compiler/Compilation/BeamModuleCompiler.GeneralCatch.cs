@@ -964,8 +964,71 @@ internal sealed partial class BeamModuleCompiler
             return true;
         }
 
+        private bool TryEmitCallCaseSharedNilOrAtomReturn(Clause clause)
+        {
+            if (clause.Guard is not null || !HasUnconditionalParameters(clause)
+                || clause.Body is not Expr.Case
+                {
+                    Value: Expr.Call call,
+                    Clauses: [var first, var second,
+                        { Guard: null, Patterns: [Pattern.Variable unmatched], Body: Expr.Variable returned }]
+                }
+                || unmatched.Name == VariableScopeNames.Wildcard || unmatched.Name != returned.Name)
+            {
+                return false;
+            }
+
+            if (first.Patterns is [Pattern.Literal { Value: Atom }])
+            {
+                (first, second) = (second, first);
+            }
+
+            if (first is not { Guard: null, Body: Expr.Variable fallback, Patterns:
+                [Pattern.List { Items: [], Tail: null } or Pattern.Literal { Value: Nil }] }
+                || second is not { Guard: null, Body: Expr.Variable same, Patterns: [Pattern.Literal { Value: Atom key }] }
+                || fallback.Name != same.Name)
+            {
+                return false;
+            }
+
+            string[] parameters = clause.Patterns.Cast<Pattern.Variable>().Select(pattern => pattern.Name).ToArray();
+            int saved = Array.IndexOf(parameters, fallback.Name);
+            if (saved < 0 || parameters.Contains(unmatched.Name, StringComparer.Ordinal)
+                || ReadEntryCall(call, parameters) is not { } plan)
+            {
+                return false;
+            }
+
+            EmitFrameAllocation(parameters.Length, 1);
+            owner.MoveRegister(XRegisterTag, saved, YRegisterTag, 0);
+            EmitEntryCall(plan);
+
+            int nilTest = Label();
+            int sharedReturn = Label();
+            int unchanged = Label();
+            owner.Op(IsAtom, LabelTag, nilTest);
+            owner.Operand(XRegisterTag, 0);
+            owner.Op(ExactEqualTest, LabelTag, unchanged);
+            owner.EmitTypedRegister(0, AtomTypeBits);
+            owner.LiteralOperand(key);
+            owner.Op(Jump, LabelTag, sharedReturn);
+            Mark(nilTest);
+            owner.EmitNilTest(XRegisterTag, 0, unchanged);
+            Mark(sharedReturn);
+            owner.MoveRegister(YRegisterTag, 0, XRegisterTag, 0);
+            owner.EmitFrameReturn(1);
+            Mark(unchanged);
+            owner.EmitFrameReturn(1);
+            return true;
+        }
+
         private bool TryEmitEntryRegisterCase(Clause clause)
         {
+            if (TryEmitCallCaseSharedNilOrAtomReturn(clause))
+            {
+                return true;
+            }
+
             if (ReadEntryRegisterCase(clause, specializeBranchInputs: true) is not { } entry)
             {
                 return false;
