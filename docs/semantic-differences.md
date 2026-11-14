@@ -1,3 +1,5 @@
+Part 1710 combines entry frame and heap allocations. Frame sizing and the use of X registers for short-lived values still differ. [Evidence](validation/part-1710/README.md).
+
 Part 1709 normalizes strict comparisons when the register already has an integer type proof. OTP integer facts and remaining instruction layouts are still to be compared. [Evidence](validation/part-1709/README.md).
 
 Part 1708 lowers boolean-only selections and removes redundant exact tests. Integer comparison encodings still differ. [Evidence](validation/part-1708/README.md).

@@ -118,7 +118,8 @@ internal sealed partial class BeamModuleCompiler
         {
             byte[]? simplified = SimplifyValueSelections(code, body, labelOperands)
                 ?? InvertBranchTests(code, body, labelOperands)
-                ?? NormalizeIntegerComparisons(code, body);
+                ?? NormalizeIntegerComparisons(code, body)
+                ?? CombineStackAndHeapAllocation(code, body);
             return simplified is null ? null : (simplified, Enumerable.Range(0, labelCount).ToArray(), 0);
         }
 

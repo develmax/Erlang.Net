@@ -336,6 +336,7 @@ internal static class BeamModuleEmissionChecks
         await CompareCallResultComparison();
         await CompareTupleTailArgument();
         await CompareConsCallMatch();
+        CompareCombinedStackAndHeapAllocation();
         await CompareMixedListNilFallback();
         await CompareCaseTupleSlot();
         await CompareThrowStackObservers();
@@ -476,6 +477,24 @@ internal static class BeamModuleEmissionChecks
         }
 
         throw new InvalidOperationException("Expected the compiler to reject quoted strings without a separator.");
+    }
+
+    private static void CompareCombinedStackAndHeapAllocation()
+    {
+        const string source = """
+            -module(beam_stack_heap_allocation).
+            -export([run/2]).
+            run(X, Y) ->
+                Value = other:consume([X, Y]),
+                {Value, Y}.
+            """;
+        byte[] beam = CodeGeneration.CompileBeamModule(source, "beam_stack_heap_allocation.erl");
+        byte[] code = BeamDocumentationEmissionChecks.Chunks(beam).Single(chunk => chunk.Id == "Code").Data;
+        ReadOnlySpan<byte> allocation = [BeamEmissionFormat.AllocateHeap, 0x30, 0x40, 0x20, BeamEmissionFormat.InitYRegisters];
+        if (code.AsSpan().IndexOf(allocation) < 0)
+        {
+            throw new InvalidOperationException("Expected the entry frame and four heap words to be allocated together.");
+        }
     }
 
     private static async Task CompareInlineListReduction()
