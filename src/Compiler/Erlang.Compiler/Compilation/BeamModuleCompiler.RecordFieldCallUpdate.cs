@@ -335,6 +335,10 @@ internal sealed partial class BeamModuleCompiler
             var parameters = new List<string>();
             var checks = new List<(int Register, int Arity, Atom Tag)>();
             var bindings = new HashSet<string>(StringComparer.Ordinal);
+            var nestedChecks = new List<(int Index, int Arity, Atom Tag)>();
+            int nestedRegister = clause.Patterns.Count;
+            int nestedInput = -1;
+            int nestedField = -1;
             foreach (Pattern pattern in clause.Patterns)
             {
                 Pattern.Variable binding;
@@ -350,6 +354,13 @@ internal sealed partial class BeamModuleCompiler
                     binding = retainedBinding;
                     checks.Add((parameters.Count, tuple.Items.Count, tag));
                 }
+                else if (function.Clauses.Count == 1 && nestedInput < 0 && nestedRegister < FirstReservedXRegister
+                    && pattern is Pattern.Tuple outer
+                    && ReadRetainedRecordCallProjection(outer, item.Name, nestedChecks, out nestedField))
+                {
+                    nestedInput = parameters.Count;
+                    binding = new Pattern.Variable(VariableScopeNames.Wildcard);
+                }
                 else
                 {
                     return false;
@@ -364,7 +375,7 @@ internal sealed partial class BeamModuleCompiler
             }
             int record = parameters.IndexOf(source.Name);
             int element = parameters.IndexOf(item.Name);
-            if (record < 0 || element < 0)
+            if (record < 0 || (nestedInput < 0 ? element < 0 : element >= 0))
             {
                 return false;
             }
@@ -385,9 +396,27 @@ internal sealed partial class BeamModuleCompiler
                 failure = checkedRecord ? 0 : Label();
             }
 
-            foreach (var check in checks)
+            for (int register = 0; register < clause.Patterns.Count; register++)
             {
-                EmitDetailRecordTest(check.Register, check.Arity, check.Tag, functionInfo);
+                if (register == nestedInput)
+                {
+                    int input = register;
+                    foreach (var (index, arity, tag) in nestedChecks)
+                    {
+                        if (index >= 0)
+                        {
+                            owner.EmitTuplePart(input, index, nestedRegister);
+                            input = nestedRegister;
+                        }
+
+                        EmitDetailRecordTest(input, arity, tag, functionInfo);
+                    }
+                }
+
+                foreach (var check in checks.Where(check => check.Register == register))
+                {
+                    EmitDetailRecordTest(check.Register, check.Arity, check.Tag, functionInfo);
+                }
             }
 
             if (!checkedRecord)
@@ -395,8 +424,14 @@ internal sealed partial class BeamModuleCompiler
                 EmitDetailRecordTest(record, field.Arity, Term.A(field.Name), failure);
             }
 
-            EmitFrameAllocation(Math.Max(record, element) + 1, 1, heapWords: 2);
+            EmitFrameAllocation(Math.Max(record, nestedInput < 0 ? element : nestedRegister) + 1, 1, heapWords: 2);
             owner.MoveRegister(XRegisterTag, record, YRegisterTag, 0);
+            if (nestedInput >= 0)
+            {
+                element = record == 0 ? nestedRegister : 0;
+                owner.EmitTuplePart(nestedRegister, nestedField, element);
+            }
+
             owner.Op(PutList, XRegisterTag, element);
             owner.LiteralOperand(Nil.Value);
             owner.Operand(XRegisterTag, 2);
@@ -415,6 +450,58 @@ internal sealed partial class BeamModuleCompiler
             }
 
             return true;
+        }
+
+        private static bool ReadRetainedRecordCallProjection(
+            Pattern.Tuple cursor,
+            string binding,
+            List<(int Index, int Arity, Atom Tag)> checks,
+            out int field
+        )
+        {
+            field = -1;
+            int incoming = -1;
+            while (cursor.Items is [Pattern.Literal { Value: Atom tag }, ..])
+            {
+                checks.Add((incoming, cursor.Items.Count, tag));
+                int selected = -1;
+                for (int index = 1; index < cursor.Items.Count; index++)
+                {
+                    if (cursor.Items[index] is Pattern.Variable { Name: VariableScopeNames.Wildcard })
+                    {
+                        continue;
+                    }
+
+                    if (selected >= 0)
+                    {
+                        return false;
+                    }
+
+                    selected = index;
+                }
+
+                if (selected < 0)
+                {
+                    return false;
+                }
+
+                if (cursor.Items[selected] is Pattern.Variable variable)
+                {
+                    field = selected;
+
+                    return incoming >= 0 && variable.Name == binding;
+                }
+
+                if (cursor.Items[selected] is not Pattern.Tuple next)
+                {
+                    return false;
+                }
+
+                incoming = selected;
+                cursor = next;
+            }
+
+            return false;
         }
 
         private bool TryEmitRetainedRecordCallAlternative(
