@@ -1,5 +1,7 @@
 # Next steps
 
+Measure remaining spills introduced by selector dispatch and call results. Use OTP register liveness and branch frame placement as the reference. [Evidence](validation/part-1628/README.md).
+
 Model Y register lifetimes across calls and branches. The largest measured oversized-frame subgroup spans 272 modules. [Evidence](validation/part-1627/README.md).
 
 Compare Y register liveness against OTP pre-codegen and use the module ranking to measure how many complete release images a shared frame fix can close. [Evidence](validation/part-1626/README.md).

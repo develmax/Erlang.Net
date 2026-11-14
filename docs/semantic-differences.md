@@ -1,3 +1,5 @@
+Part 1628 drops unused tuple and list construction and aligns snmpa_app:convert_config/0 after label normalization. Multiple calls on one line can still emit duplicate line instructions. [Evidence](validation/part-1628/README.md).
+
 Part 1627 emits erlang:hibernate/3 in tail position after a receive timeout. The release trace cleaner still differs in entry dispatch and frame placement. [Evidence](validation/part-1627/README.md).
 
 Part 1626 aligns constant list suffix emission and records nine new normalized instruction matches and no losses. Nested constructor scheduling can still differ. [Evidence](validation/part-1626/README.md).

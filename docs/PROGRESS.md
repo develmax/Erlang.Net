@@ -1,5 +1,7 @@
 # Project progress
 
+Part 1628 generated all 1,366 Windows OTP release images with 393 Equal and 973 Different. Discarded constructor lowering changed 101 images. [Evidence](validation/part-1628/README.md).
+
 Part 1627 generated all 1,366 Windows OTP release images with 393 Equal and 973 Different. Terminal receive hibernation changed one release image. [Evidence](validation/part-1627/README.md).
 
 Part 1626 generated all 1,366 Windows OTP release images with 393 Equal and 973 Different. Constant list suffix folding changed 17 images and aligned nine more functions after label normalization. [Evidence](validation/part-1626/README.md).

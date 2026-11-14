@@ -1,5 +1,7 @@
 # Dependency and compatibility decisions
 
+Part 1628 follows OTP sys_core_fold effect lowering using the existing C# discard emitter. No dependency was added. [Evidence](validation/part-1628/README.md).
+
 Part 1627 reuses C# tail calls and framed argument construction for erlang:hibernate/3. Pinned OTP receive code generation supplies the reference. [Evidence](validation/part-1627/README.md).
 
 Part 1626 applies the existing C# argument-construction literal folding rule to register-based tail arguments and uses OTP Core lowering as its reference. No dependency was added. [Evidence](validation/part-1626/README.md).

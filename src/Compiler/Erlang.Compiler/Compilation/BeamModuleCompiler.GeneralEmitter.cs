@@ -10386,15 +10386,37 @@ internal sealed partial class BeamModuleCompiler
 
         private void Discard(Expr expression, int? guardFailure)
         {
-            if (IsDiscardedListTail(expression))
+            switch (expression)
             {
-                return;
+                case Expr.Literal:
+                    return;
+                case Expr.Variable variable when variables.ContainsKey(variable.Name) || deferredPairMembers.ContainsKey(variable.Name):
+                    return;
+                case Expr.Tuple tuple:
+                    foreach (Expr item in tuple.Items)
+                    {
+                        Discard(item, guardFailure);
+                    }
+
+                    return;
+                case Expr.List list:
+                    foreach (Expr item in list.Items)
+                    {
+                        Discard(item, guardFailure);
+                    }
+
+                    if (list.Tail is { } tail)
+                    {
+                        Discard(tail, guardFailure);
+                    }
+
+                    return;
+                case Expr.Match match:
+                    Match(match, guardFailure, returnValue: false);
+                    return;
             }
-            if (expression is Expr.Match match)
-            {
-                Match(match, guardFailure, returnValue: false);
-            }
-            else
+
+            if (!IsDiscardedListTail(expression))
             {
                 Expression(expression, guardFailure);
             }

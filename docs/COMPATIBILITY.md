@@ -1,5 +1,7 @@
 # Compatibility overview
 
+Part 1628 verifies effect evaluation of discarded tuple and list expressions with a byte-identical fixture and an OTP VM call-order check. [Evidence](validation/part-1628/README.md).
+
 Part 1627 verifies hibernation after a terminal receive timeout with a byte-identical fixture and an OTP VM wakeup check. [Evidence](validation/part-1627/README.md).
 
 Part 1626 verifies constant list suffixes in tail arguments with a byte-identical fixture and matching OTP VM results. [Evidence](validation/part-1626/README.md).
