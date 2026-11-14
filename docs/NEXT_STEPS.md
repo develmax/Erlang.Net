@@ -1,5 +1,7 @@
 # Next steps
 
+Measure remaining opportunities to share returns after single tests in BEAM and locally compare CFGs. [Evidence](validation/part-1646/README.md).
+
 Compare shared return blocks that fall through from a preceding nil test. [Evidence](validation/part-1645/README.md).
 
 Compare list dispatch failure targets and shared fallback blocks in the ranked residual corpus. [Evidence](validation/part-1644/README.md).

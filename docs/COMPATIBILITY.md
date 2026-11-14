@@ -1,5 +1,7 @@
 # Compatibility overview
 
+Part 1646 verifies shared miss returns for ordered list search in a deterministic fixture and in the OTP VM. [Evidence](validation/part-1646/README.md).
+
 Part 1645 verifies identical unframed returns in a deterministic fixture and in the OTP VM. [Evidence](validation/part-1645/README.md).
 
 Part 1644 verifies register-resident list head guard alternatives in a deterministic fixture and in the OTP VM. [Evidence](validation/part-1644/README.md).

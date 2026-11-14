@@ -1,3 +1,5 @@
+Part 1646 uses a shared miss result after the nil check. [Evidence](validation/part-1646/README.md).
+
 Part 1645 merges identical unframed return blocks. [Evidence](validation/part-1645/README.md).
 
 Part 1644 keeps list-head guard alternatives and recursive calls in registers. [Evidence](validation/part-1644/README.md).

@@ -1,5 +1,7 @@
 # Dependency and compatibility decisions
 
+Part 1646 reuses BEAM list tests and tail-call emission. No dependency was added. [Evidence](validation/part-1646/README.md).
+
 Part 1645 reuses the BEAM return-sharing pass. No dependency was added. [Evidence](validation/part-1645/README.md).
 
 Part 1644 reuses list extraction and tail-call emission. No dependency was added. [Evidence](validation/part-1644/README.md).
