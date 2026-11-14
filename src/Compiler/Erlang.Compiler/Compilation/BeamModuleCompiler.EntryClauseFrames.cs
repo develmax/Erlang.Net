@@ -13,6 +13,11 @@ internal sealed partial class BeamModuleCompiler
                 return false;
             }
 
+            if (TryEmitSharedConsReplacement(function, functionInfo))
+            {
+                return true;
+            }
+
             var sourceFunction = function;
             Clause firstClause = function.Clauses[0];
             bool guardDispatch = firstClause.Guard is not null && CanEmitSeparateEntryGuard(firstClause, firstClause.Guard)
