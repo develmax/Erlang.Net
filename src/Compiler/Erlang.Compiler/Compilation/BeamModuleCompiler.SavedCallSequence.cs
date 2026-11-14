@@ -809,6 +809,29 @@ internal sealed partial class BeamModuleCompiler
                     && step.Call.RegisterConstructions is null && step.Call.Constants is [{ Destination: 0 }]
                     && step.Released.Any(slot => slot != step.Spill);
                 bool tupleField = hasTuple && last;
+                int trimTo = last && hasTuple ? TupleCallTrim(lastSlotReads, index + 1, step.Closure) : trimmed;
+                while ((!last || finalCheck) && trimTo < size && lastSlotReads[size - 1 - trimTo] <= index + 1)
+                {
+                    trimTo++;
+                }
+
+                int? deferredSlot = null;
+                if (hasTuple && checks is null && step is
+                    { Spill: null, SlotRelocation: null, Closure: null, TupleArguments: null }
+                    && step.Call.RegisterConstructions is null && trimTo > trimmed
+                    && step.Call.SavedInputs is { } savedInputs)
+                {
+                    int firstLoad = savedInputs.FindIndex(move => move.Destination == 0);
+                    if (firstLoad >= 0)
+                    {
+                        int slot = remap[savedInputs[firstLoad].Source];
+                        if (slot >= trimTo - trimmed)
+                        {
+                            deferredSlot = slot - (trimTo - trimmed);
+                        }
+                    }
+                }
+
                 if (step.TupleArguments is { } tupleArguments)
                 {
                     foreach (var (slot, element, register) in tupleArguments)
@@ -826,7 +849,7 @@ internal sealed partial class BeamModuleCompiler
                     swapBeforeConstants: tupleField,
                     heapChecked: step.Closure is not null || deferredProjection.HasValue,
                     afterConstruction: deferredProjection is { } projection ? () => owner.EmitTuplePart(0, projection.Field, 0) : null,
-                    deferStackLoad: step.ReloadRelocatedArgument
+                    deferStackLoad: step.ReloadRelocatedArgument || deferredSlot.HasValue
                 );
                 if (step.SlotRelocation is { } relocation)
                 {
@@ -848,12 +871,6 @@ internal sealed partial class BeamModuleCompiler
                     EmitFailures();
 
                     return;
-                }
-
-                int trimTo = last && hasTuple ? TupleCallTrim(lastSlotReads, index + 1, step.Closure) : trimmed;
-                while ((!last || finalCheck) && trimTo < size && lastSlotReads[size - 1 - trimTo] <= index + 1)
-                {
-                    trimTo++;
                 }
 
                 int[] expired = step.Released.Where(slot => slot != step.Spill && slot != step.SlotRelocation?.Destination
@@ -879,6 +896,10 @@ internal sealed partial class BeamModuleCompiler
                 if (step.ReloadRelocatedArgument)
                 {
                     Load(size - 1 - step.SlotRelocation!.Value.Destination - trimmed);
+                }
+                else if (deferredSlot is int finalSlot)
+                {
+                    Load(finalSlot);
                 }
 
                 owner.EmitCallLine(step.Call.Call, previousCall);
