@@ -1,5 +1,7 @@
 # Compatibility overview
 
+Part 1705 verifies repeated terminal block sharing and composed label maps. [Evidence](validation/part-1705/README.md).
+
 Part 1704 verifies sharing of identical terminal instruction sequences. [Evidence](validation/part-1704/README.md).
 
 Part 1703 verifies forwarding-label elimination within ordinary functions. [Evidence](validation/part-1703/README.md).

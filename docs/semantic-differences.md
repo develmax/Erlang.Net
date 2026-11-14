@@ -1,3 +1,5 @@
+Part 1705 repeats terminal block and jump simplification until stable. Remaining instruction differences are visible in the corpus. [Evidence](validation/part-1705/README.md).
+
 Part 1704 shares identical terminal sequences and preserves distinct error exits. Some late sharing decisions still differ from OTP. [Evidence](validation/part-1704/README.md).
 
 Part 1703 redirects acyclic forwarding labels and compacts branch operands. Terminal block layout still differs. [Evidence](validation/part-1703/README.md).

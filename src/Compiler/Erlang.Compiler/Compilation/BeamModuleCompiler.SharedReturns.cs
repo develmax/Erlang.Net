@@ -19,6 +19,36 @@ internal sealed partial class BeamModuleCompiler
 
     private byte[]? ShareReturnBlocks(ReadOnlyMemory<byte> code)
     {
+        byte[]? rewritten = null;
+        int labelCount = nextLabel;
+        while (ShareReturnBlocksOnce(code, labelCount) is { } pass)
+        {
+            rewritten = pass.Code;
+            code = rewritten;
+            labelCount -= pass.RemovedLabels;
+
+            if (emittedLabels is null)
+            {
+                emittedLabels = pass.Labels;
+            }
+            else
+            {
+                for (int label = 1; label < emittedLabels.Length; label++)
+                {
+                    emittedLabels[label] = pass.Labels[emittedLabels[label]];
+                }
+            }
+        }
+
+        sharedReturnLabelCount = nextLabel - labelCount;
+        return rewritten;
+    }
+
+    private (byte[] Code, int[] Labels, int RemovedLabels)? ShareReturnBlocksOnce(
+        ReadOnlyMemory<byte> code,
+        int labelCount
+    )
+    {
         var labelOperands = new List<(int Start, int End, int Label)>();
         IReadOnlyList<BeamInstruction> body;
         try
@@ -26,7 +56,7 @@ internal sealed partial class BeamModuleCompiler
             var header = new BeamCodeHeader(
                 BeamWire.FormatVersion,
                 highestOpcode,
-                nextLabel,
+                labelCount,
                 exports.Count + locals.Count,
                 code
             );
@@ -89,19 +119,18 @@ internal sealed partial class BeamModuleCompiler
             return null;
         }
 
-        sharedReturnLabelCount = redirects.Count;
-        emittedLabels = new int[nextLabel];
+        var remappedLabels = new int[labelCount];
         int next = 1;
-        for (int label = 1; label < nextLabel; label++)
+        for (int label = 1; label < labelCount; label++)
         {
             if (!redirects.ContainsKey(label))
             {
-                emittedLabels[label] = next++;
+                remappedLabels[label] = next++;
             }
         }
         foreach (var (label, target) in redirects)
         {
-            emittedLabels[label] = emittedLabels[target];
+            remappedLabels[label] = remappedLabels[target];
         }
 
         var removed = edits.OrderBy(edit => edit.Start).ToArray();
@@ -118,7 +147,7 @@ internal sealed partial class BeamModuleCompiler
                 continue;
             }
 
-            int target = MapEmittedLabel(label);
+            int target = remappedLabels[label];
             if (target != label)
             {
                 edits.Add(new(start, end, LabelTag, target));
@@ -132,7 +161,7 @@ internal sealed partial class BeamModuleCompiler
             }
 
             int label = (int)operand.Value;
-            int mapped = MapEmittedLabel(label);
+            int mapped = remappedLabels[label];
             if (mapped != label && !redirects.ContainsKey(label))
             {
                 edits.Add(new(body[index].Offset + 1, body[index + 1].Offset, BeamWire.UnsignedTag, mapped));
@@ -147,7 +176,7 @@ internal sealed partial class BeamModuleCompiler
             if (edit.IsJump)
             {
                 output.WriteByte(Jump);
-                BeamCompactWriter.Write(output, LabelTag, MapEmittedLabel(edit.Value));
+                BeamCompactWriter.Write(output, LabelTag, remappedLabels[edit.Value]);
             }
             else if (edit.Value != 0)
             {
@@ -157,7 +186,7 @@ internal sealed partial class BeamModuleCompiler
         }
         output.Write(code.Span[copied..]);
 
-        return output.ToArray();
+        return (output.ToArray(), remappedLabels, redirects.Count);
     }
 
     private static void CollectForwardingLabels(

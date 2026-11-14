@@ -1,5 +1,7 @@
 # Dependency and compatibility decisions
 
+Part 1705 reuses the instruction editing and label remapping passes. No dependency was added. [Evidence](validation/part-1705/README.md).
+
 Part 1704 reuses the BEAM instruction reader, label map and compact writer. No dependency was added. [Evidence](validation/part-1704/README.md).
 
 Part 1703 reuses the shared-return label map and compact writer. No dependency was added. [Evidence](validation/part-1703/README.md).
