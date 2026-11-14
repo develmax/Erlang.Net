@@ -9,6 +9,35 @@ internal sealed partial class BeamModuleCompiler
         private int anonymousFailureOrdinal;
         private IReadOnlyDictionary<string, int>? entryCaptureOrder;
 
+        private bool TryEmitClosureArgumentTail(FunctionDefinition function)
+        {
+            if (function.Clauses is not [{ Guard: null, Body: Expr.Call
+                {
+                    Arguments: [Expr.Fun { SelfName: null } closure]
+                } call } clause]
+                || !HasUnconditionalParameters(clause)
+                || !TryResolveOrdinaryCall(call, out string? module, preparedArgument: 0))
+            {
+                return false;
+            }
+
+            var registers = clause.Patterns.Cast<Pattern.Variable>()
+                .Select((parameter, register) => (parameter.Name, Register: register))
+                .Where(parameter => parameter.Name != VariableScopeNames.Wildcard)
+                .ToDictionary(parameter => parameter.Name, parameter => parameter.Register, StringComparer.Ordinal);
+            var bindings = registers.ToDictionary(entry => entry.Key, _ => (Term)Nil.Value, StringComparer.Ordinal);
+            if (closure.Clauses[0].Patterns.Count + ClosureCaptures.Capture(closure, bindings).Count
+                > BeamWire.MaximumArity)
+            {
+                return false;
+            }
+
+            EmitGeneralClosure(closure, captureRegisters: registers);
+            EmitRegisterTailTarget(call with { Module = module }, call.Arguments.Count);
+
+            return true;
+        }
+
         private bool TryEmitRegisterCapturedClosure(FunctionDefinition function)
         {
             if (function.Clauses is not [{ Guard: null, Body: Expr.Fun { SelfName: null } closure } clause]

@@ -240,6 +240,7 @@ internal static class BeamModuleEmissionChecks
             "beam_shared_local_tails",
             "beam_shared_integer_guard",
             "beam_disjoint_range",
+            "beam_closure_argument_tail",
             "tuple_register_entry_probe",
             "tuple_nested_entry_probe",
             "tuple_nested_fallback_probe",
