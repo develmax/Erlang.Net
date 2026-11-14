@@ -216,6 +216,7 @@ internal static class BeamModuleEmissionChecks
             "beam_dead_call_binding",
             "beam_record_branch_frame",
             "beam_inline_record_branch",
+            "beam_wildcard_tail",
             "tuple_register_entry_probe",
             "tuple_nested_entry_probe",
             "tuple_nested_fallback_probe",

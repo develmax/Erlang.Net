@@ -12,6 +12,8 @@ Continue with entry frames whose values must survive calls. Rank and compare Y s
 
 Continue with entry frames whose values must survive calls. Rank and compare Y slot lifetimes across call and branch boundaries. [Ranking](validation/part-1616/baseline-frame-rank.txt).
 
+Continue with entry frames whose values must survive calls. Rank and compare Y slot lifetimes across call and branch boundaries. [Ranking](validation/part-1616/baseline-frame-rank.txt).
+
 Prioritize delayed tuple projections across calls and reuse of the source tuple in record updates. Start with the frame difference in logger_handler_watcher:handle_call/3. [Evidence](validation/part-1618/README.md).
 
 Continue with entry frames whose values must survive calls. Rank and compare Y slot lifetimes across call and branch boundaries. [Ranking](validation/part-1616/baseline-frame-rank.txt).

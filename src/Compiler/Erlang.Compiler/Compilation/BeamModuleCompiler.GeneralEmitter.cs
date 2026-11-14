@@ -410,6 +410,16 @@ internal sealed partial class BeamModuleCompiler
         internal void Function(FunctionDefinition function)
         {
             parentFunction ??= function;
+            if (function.Clauses.Any(clause => clause.Body is Expr.Match { Pattern: Pattern.Variable { Name: VariableScopeNames.Wildcard } }
+                && UnwrapWildcardMatch(clause.Body) is Expr.Call))
+            {
+                function = function with
+                {
+                    Clauses = function.Clauses.Select(clause =>
+                        UnwrapWildcardMatch(clause.Body) is Expr.Call call ? clause with { Body = call } : clause).ToArray()
+                };
+            }
+
             if (recursiveClosure is { SelfName: not null } or { GuardFailure: not null })
             {
                 EmitGeneralFunction(function);
@@ -6316,7 +6326,7 @@ internal sealed partial class BeamModuleCompiler
                 return true;
             }
 
-            Expr last = body is Expr.Sequence sequence ? sequence.Items[^1] : body;
+            Expr last = UnwrapWildcardMatch(body is Expr.Sequence sequence ? sequence.Items[^1] : body);
             if (last is Expr.Call thrown && ReadStackFreeThrow(thrown, requireCallerHandler: true) is { } raised)
             {
                 if (body is Expr.Sequence throwPrefix)
@@ -11852,6 +11862,17 @@ internal sealed partial class BeamModuleCompiler
             } && pattern.Value.Equals(literal.Value)
                 ? literal
                 : expression;
+
+        private static Expr UnwrapWildcardMatch(Expr value)
+        {
+            while (value is Expr.Match { Pattern: Pattern.Variable { Name: VariableScopeNames.Wildcard } } match)
+            {
+                value = match.Value;
+            }
+
+            return value;
+        }
+
 
         private void Match(Expr.Match match, int? guardFailure, bool returnValue)
         {

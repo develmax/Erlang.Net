@@ -1,3 +1,5 @@
+Part 1625 aligns wildcard tail calls and records 4 new normalized instruction matches and 0 losses. Remaining release images are tracked in the corpus report. [Evidence](validation/part-1625/README.md).
+
 Part 1624 aligns inline record replacement calls in a permanent fixture. Remaining release images are tracked in the corpus report. [Evidence](validation/part-1624/README.md).
 
 Part 1623 aligns record entry frame placement and records 0 new normalized instruction matches and 0 losses. Remaining release images are tracked in the corpus report. [Evidence](validation/part-1623/README.md).
