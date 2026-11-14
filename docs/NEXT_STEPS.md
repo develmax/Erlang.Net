@@ -1,5 +1,7 @@
 # Next steps
 
+Compare OTP literal selection tables in tagged structural groups with distinct match values. [Evidence](validation/part-1688/README.md).
+
 Compare the shared field projections after grouping structural list clauses by their head tuple shapes. [Evidence](validation/part-1687/README.md).
 
 Compare structural tuple branch prefixes and the capture ordering of the two init closures against the release. [Evidence](validation/part-1686/README.md).

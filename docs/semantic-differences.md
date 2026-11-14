@@ -1,3 +1,5 @@
+Part 1688 projects the first literal field once across a compatible group of structural list clauses. [Evidence](validation/part-1688/README.md).
+
 Part 1687 shares arity and tag checks across consecutive cons patterns with the same tuple shape. [Evidence](validation/part-1687/README.md).
 
 Part 1686 preserves projection capture order when structural tuple fields reuse an earlier register. [Evidence](validation/part-1686/README.md).

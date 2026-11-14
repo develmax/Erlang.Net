@@ -1,5 +1,7 @@
 # Compatibility overview
 
+Part 1688 verifies shared literal field projections for grouped cons patterns. [Evidence](validation/part-1688/README.md).
+
 Part 1687 verifies shared tuple shape tests for consecutive structural list clauses. [Evidence](validation/part-1687/README.md).
 
 Part 1686 verifies capture order across reused tuple projection registers. [Evidence](validation/part-1686/README.md).
