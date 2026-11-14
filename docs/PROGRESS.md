@@ -1,5 +1,7 @@
 # Project progress
 
+Part 1720 compiled all 1,366 corpus sources with 398 Equal and 968 Different. Removing identity moves changes 277 images. [Evidence](validation/part-1720/README.md).
+
 Part 1719 compiled all 1,366 corpus sources with 398 Equal and 968 Different. Removing unreachable blocks changes 723 images. [Evidence](validation/part-1719/README.md).
 
 Part 1718 compiled all 1,366 corpus sources with 398 Equal and 968 Different. Removing unreferenced fallthrough labels changes 779 images. [Evidence](validation/part-1718/README.md).

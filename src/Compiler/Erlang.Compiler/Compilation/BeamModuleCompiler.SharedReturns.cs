@@ -124,6 +124,7 @@ internal sealed partial class BeamModuleCompiler
         if (redirects.Count == 0 && edits.Count == 0)
         {
             CollectUnusedFallthroughLabels(body, labelOperands, redirects, edits);
+            CollectIdentityMoves(body, edits);
         }
 
         if (redirects.Count == 0 && edits.Count == 0)

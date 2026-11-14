@@ -1,3 +1,5 @@
+Part 1720 removes identity register moves. Remaining branch layout and register allocation still differ. [Evidence](validation/part-1720/README.md).
+
 Part 1719 removes unreachable internal blocks without line instructions. Remaining branch layout and register allocation still differ. [Evidence](validation/part-1719/README.md).
 
 Part 1718 removes unreferenced fallthrough labels. Remaining branch layout and register allocation still differ. [Evidence](validation/part-1718/README.md).

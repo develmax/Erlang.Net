@@ -669,6 +669,12 @@ internal static class BeamModuleEmissionChecks
         {
             throw new InvalidOperationException("Expected only the function entry, failure and referenced branch labels.");
         }
+
+        ReadOnlySpan<byte> identity = [BeamEmissionFormat.Move, 0x03, 0x03];
+        if (code.AsSpan().IndexOf(identity) >= 0)
+        {
+            throw new InvalidOperationException("Expected the redundant move of X0 to X0 to be removed.");
+        }
     }
 
     private static void CompareUnreachableBlockRemoval()

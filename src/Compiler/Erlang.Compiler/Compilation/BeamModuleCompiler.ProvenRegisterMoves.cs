@@ -4,6 +4,19 @@ namespace Erlang.Compiler;
 
 internal sealed partial class BeamModuleCompiler
 {
+    private static void CollectIdentityMoves(IReadOnlyList<BeamInstruction> body, List<CodeEdit> edits)
+    {
+        for (int index = 0; index + 1 < body.Count; index++)
+        {
+            if (body[index] is { Definition.Opcode: Move, Operands: [var source, var destination] }
+                && source.Kind is (BeamOperandParameters.X or BeamOperandParameters.Y)
+                && source == destination)
+            {
+                edits.Add(new(body[index].Offset, body[index + 1].Offset, 0, 0));
+            }
+        }
+    }
+
     private Dictionary<int, BeamOperand> ReadSingletonCallResults(
         IReadOnlyList<FunctionDefinition> functions,
         IReadOnlyDictionary<(string Name, int Arity), int> localEntries
