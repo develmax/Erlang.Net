@@ -1022,9 +1022,86 @@ internal sealed partial class BeamModuleCompiler
             return true;
         }
 
+        private bool TryEmitGuardedSelectorReturn(Clause clause)
+        {
+            if (clause.Guard is not null || !HasUnconditionalParameters(clause)
+                || clause.Body is not Expr.Case
+                {
+                    Value: Expr.Call call,
+                    Clauses: [
+                        { Patterns: [Pattern.Variable selected], Guard: { } guard, Body: Expr.Variable returned } success,
+                        { Patterns: [Pattern.Variable { Name: VariableScopeNames.Wildcard }], Guard: null, Body: Expr.Variable fallback }
+                    ]
+                }
+                || selected.Name == VariableScopeNames.Wildcard || selected.Name != returned.Name
+                || !CanEmitSeparateEntryGuard(success, guard))
+            {
+                return false;
+            }
+
+            string[] parameters = clause.Patterns.Cast<Pattern.Variable>().Select(pattern => pattern.Name).ToArray();
+            int saved = Array.IndexOf(parameters, fallback.Name);
+            if (saved < 0 || fallback.Name == VariableScopeNames.Wildcard
+                || parameters.Contains(selected.Name, StringComparer.Ordinal))
+            {
+                return false;
+            }
+
+            if (parentFunction is { Clauses: [var original] } function && ReferenceEquals(clause, original)
+                && ReadPrivateBranchConstants(function, parameters, new HashSet<string>(StringComparer.Ordinal) { fallback.Name })
+                    is { } constants)
+            {
+                call = (Expr.Call)SubstituteConstants(call, constants);
+            }
+
+            if (ReadEntryCall(call, parameters) is not { } plan)
+            {
+                return false;
+            }
+
+            EmitFrameAllocation(parameters.Length, 1);
+            owner.MoveRegister(XRegisterTag, saved, YRegisterTag, 0);
+            EmitEntryCall(plan);
+
+            int failure = Label();
+            if (guard is Expr.Binary { Operator: ErlangOperators.AndAlso, Right: Expr.Binary comparison } conjunction
+                && ReadEntryTypeGuard(success, conjunction.Left) is { Opcode: IsInteger }
+                && ReadEntryComparisonOpcode(success, comparison) is IsLess or IsGreaterOrEqual)
+            {
+                EmitEntryGuardPrefix(success, conjunction.Left, failure);
+                byte opcode = GuardComparisonOpcode(comparison);
+                bool reverse = comparison.Operator is ErlangOperators.Greater or ErlangOperators.LessOrEqual;
+                owner.Op(opcode, LabelTag, failure);
+                WriteIntegerOperand(reverse ? comparison.Right : comparison.Left);
+                WriteIntegerOperand(reverse ? comparison.Left : comparison.Right);
+            }
+            else
+            {
+                EmitEntryGuardPrefix(success, guard, failure);
+            }
+
+            owner.EmitFrameReturn(1);
+            Mark(failure);
+            owner.MoveRegister(YRegisterTag, 0, XRegisterTag, 0);
+            owner.EmitFrameReturn(1);
+            return true;
+
+            void WriteIntegerOperand(Expr operand)
+            {
+                if (operand is Expr.Variable)
+                {
+                    owner.EmitTypedRegister(0, IntegerTypeBits);
+                }
+                else
+                {
+                    EmitDirectOperand(success, operand);
+                }
+            }
+        }
+
         private bool TryEmitEntryRegisterCase(Clause clause)
         {
-            if (TryEmitCallCaseSharedNilOrAtomReturn(clause))
+            if (TryEmitCallCaseSharedNilOrAtomReturn(clause) || TryEmitGuardedSelectorReturn(clause))
             {
                 return true;
             }

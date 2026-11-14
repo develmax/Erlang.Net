@@ -261,6 +261,7 @@ internal static class BeamModuleEmissionChecks
             "beam_trim_live_after_trim",
             "beam_exact_list_projection",
             "beam_shared_call_case",
+            "beam_guarded_call_return",
             "tuple_register_entry_probe",
             "tuple_nested_entry_probe",
             "tuple_nested_fallback_probe",
