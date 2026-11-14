@@ -45,8 +45,20 @@ internal sealed partial class BeamModuleCompiler
                 emptyReturn = null;
             }
 
+            // The empty-list branch is reached before extraction. A catch-all cons
+            // clause covers all failures of the earlier head tests.
+            var lastCons = clauses[consCount - 1];
+            var lastPattern = (Pattern.List)lastCons.Patterns[listInput];
+            bool reuseTail = lastCons.Guard is null
+                && lastPattern is { Items: [Erlang.Pattern.Variable], Tail: Erlang.Pattern.Variable rest }
+                && HasUnconditionalParameters(lastCons with
+                {
+                    Patterns = [.. lastCons.Patterns.Take(listInput), lastPattern.Items[0], rest,
+                        .. lastCons.Patterns.Skip(listInput + 1)]
+                })
+                && clauses.Skip(consCount).All(clause => ListEntryTest(clause.Patterns[listInput]) == IsNil);
             int head = arity;
-            int tail = arity + 1;
+            int tail = reuseTail ? listInput : arity + 1;
             bool needsTail = clauses.Take(consCount).Any(clause => !IsDiscarded(((Pattern.List)clause.Patterns[listInput]).Tail));
             var branches = new List<(Clause Clause, Action<int>[] Tests, (Pattern.Variable Variable, int Register)[] Used,
                 EntryCall? Tail, int ResultRegister, Term? Constant)>();
@@ -56,7 +68,7 @@ internal sealed partial class BeamModuleCompiler
                 Clause clause = clauses[branch];
                 var tests = new List<Action<int>>();
                 var bindings = new Dictionary<string, int>(StringComparer.Ordinal);
-                int nextRegister = branch < consCount ? arity + (needsTail ? 2 : 1) : arity;
+                int nextRegister = branch < consCount ? arity + (needsTail && !reuseTail ? 2 : 1) : arity;
 
                 for (int index = 0; index < arity; index++)
                 {
@@ -265,7 +277,13 @@ internal sealed partial class BeamModuleCompiler
                 else
                 {
                     var previousOrder = entryCaptureOrder;
-                    entryCaptureOrder = used.ToDictionary(binding => binding.Variable.Name, binding => binding.Register, StringComparer.Ordinal);
+                    entryCaptureOrder = used.ToDictionary(
+                        binding => binding.Variable.Name,
+                        binding => reuseTail && binding.Register == tail && branch < consCount
+                            ? arity + 1
+                            : binding.Register + (reuseTail && branch < consCount && binding.Register > head ? 1 : 0),
+                        StringComparer.Ordinal
+                    );
                     EmitEntryClauseBody(clause, used, branch, frames, null, null, literalDispatch: false);
                     entryCaptureOrder = previousOrder;
                 }
