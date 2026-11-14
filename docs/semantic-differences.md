@@ -1,3 +1,5 @@
+Part 1645 merges identical unframed return blocks. [Evidence](validation/part-1645/README.md).
+
 Part 1644 keeps list-head guard alternatives and recursive calls in registers. [Evidence](validation/part-1644/README.md).
 
 Part 1643 shares the replacement body between disjoint list-head keys. [Evidence](validation/part-1643/README.md).
