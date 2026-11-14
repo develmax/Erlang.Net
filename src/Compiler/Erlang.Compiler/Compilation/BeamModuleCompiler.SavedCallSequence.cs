@@ -218,17 +218,28 @@ internal sealed partial class BeamModuleCompiler
                     return call;
                 }
 
-                var nestedCalls = call.Arguments.Select(argument => ReadCallOperand(argument, call.PreprocessorFile)).ToArray();
+                Expr[] arguments = call.Arguments.Select(argument => argument is Expr.Binary
+                    { Operator: ErlangOperators.Append, Left: Expr.Literal, Right: Expr.Variable tail } append
+                    && AppendPrefix(append.Left) is { } prefix
+                    ? new Expr.List(prefix, tail)
+                    : argument).ToArray();
+                var nestedCalls = arguments.Select(argument => ReadCallOperand(argument, call.PreprocessorFile)).ToArray();
 
                 bool HasClosure(int index) => prepareClosures && call.Arguments[index] is Expr.Fun { SelfName: null };
-                if (nestedCalls.All(nested => nested is null) && !Enumerable.Range(0, call.Arguments.Count).Any(HasClosure)
-                    || call.Arguments.Where((_, index) => nestedCalls[index] is null && !HasClosure(index))
-                        .Any(argument => !IsPreparedOperand(argument)))
+                if (nestedCalls.All(nested => nested is null) && !Enumerable.Range(0, arguments.Length).Any(HasClosure))
+                {
+                    return arguments.Where((argument, index) => !ReferenceEquals(argument, call.Arguments[index])).Any()
+                        ? call with { Arguments = arguments }
+                        : call;
+                }
+
+                if (Enumerable.Range(0, arguments.Length).Any(index =>
+                    nestedCalls[index] is null && !HasClosure(index)
+                    && ReferenceEquals(arguments[index], call.Arguments[index]) && !IsPreparedOperand(arguments[index])))
                 {
                     return call;
                 }
 
-                Expr[] arguments = call.Arguments.ToArray();
                 for (int index = 0; index < arguments.Length; index++)
                 {
                     if (nestedCalls[index] is { } nested)
