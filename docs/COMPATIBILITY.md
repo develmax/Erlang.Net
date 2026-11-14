@@ -1,5 +1,7 @@
 # Compatibility overview
 
+Part 1671 verifies frameless tuple returns after a unary GC BIF in an exact list match. [Evidence](validation/part-1671/README.md).
+
 Part 1670 verifies fixed-length list extraction and failure arguments. [Evidence](validation/part-1670/README.md).
 
 Part 1669 verifies head-only extraction and direct returns of tuple fields. [Evidence](validation/part-1669/README.md).

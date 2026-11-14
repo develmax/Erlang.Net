@@ -1,5 +1,7 @@
 # Next steps
 
+Rank differing frame sizes by the shape of the first call and the values live across it. [Evidence](validation/part-1671/README.md).
+
 Compare register lifetimes after successful list argument matches. [Evidence](validation/part-1670/README.md).
 
 Compare remaining shared cons head and tail extraction across clauses. [Evidence](validation/part-1669/README.md).

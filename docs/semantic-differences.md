@@ -1,3 +1,5 @@
+Part 1671 keeps the GC BIF operands and returned tuple fields in X registers. [Evidence](validation/part-1671/README.md).
+
 Part 1670 skips unused heads in fixed-length list patterns. [Evidence](validation/part-1670/README.md).
 
 Part 1669 skips unused list tails and uses X0 directly to return a matched tuple field. [Evidence](validation/part-1669/README.md).
