@@ -1,5 +1,7 @@
 # Next steps
 
+Compare remaining boolean selections and redundant labels with OTP beam_jump. [Evidence](validation/part-1707/README.md).
+
 Audit remaining redundant conditional branches and labels after comparison inversion. [Evidence](validation/part-1706/README.md).
 
 Compare predecessor paths around common terminal blocks and inspect where the emitted layout still differs from OTP. [Evidence](validation/part-1705/README.md).
