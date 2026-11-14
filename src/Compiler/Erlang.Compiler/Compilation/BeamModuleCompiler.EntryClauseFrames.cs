@@ -2063,6 +2063,24 @@ internal sealed partial class BeamModuleCompiler
                 }
             }
 
+            // Entry tests have already run. Preserve the original X register indices.
+            if (clause.Body is Expr.Sequence { Items: [_, _, Expr.Receive] })
+            {
+                var parameters = Enumerable.Repeat<Pattern>(
+                    new Pattern.Variable(VariableScopeNames.Wildcard),
+                    inputs.Select(input => input.Register + 1).DefaultIfEmpty(0).Max()
+                ).ToArray();
+                foreach (var (variable, register) in inputs)
+                {
+                    parameters[register] = variable;
+                }
+
+                if (TryEmitMonitoredReceive(clause with { Patterns = parameters, Guard = null }))
+                {
+                    return;
+                }
+            }
+
             var previousVariables = variables;
             int previousSlot = nextSlot;
             int previousPeak = peakSlot;

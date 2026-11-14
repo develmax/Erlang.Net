@@ -1,5 +1,7 @@
 # Compatibility overview
 
+Part 1631 verifies guarded monitored receive entry with a byte-identical fixture and OTP VM checks. [Evidence](validation/part-1631/README.md).
+
 Part 1630 verifies receive markers after a checked setup call using a byte-identical fixture and OTP VM mailbox checks. [Evidence](validation/part-1630/README.md).
 
 Part 1629 verifies same-line calls in discarded constructors with a byte-identical fixture and matching OTP VM outcomes. [Evidence](validation/part-1629/README.md).

@@ -1,5 +1,7 @@
 # Next steps
 
+Compare singleton list entry and nested call dispatch in Observer start/1 with OTP branch-local frames. [Evidence](validation/part-1631/README.md).
+
 Reuse the checked receive frame after entry guards, then compare the remaining branch frames for atom and list dispatch. [Evidence](validation/part-1630/README.md).
 
 Continue on branch frame placement and Y register allocation using the corpus frame ranking. [Evidence](validation/part-1629/README.md).

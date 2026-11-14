@@ -8,7 +8,7 @@ internal sealed partial class BeamModuleCompiler
     {
         private const int ReferenceTypeBits = 1 << 10;
 
-        private bool TryEmitMonitoredReceive(Clause clause)
+        private bool TryEmitMonitoredReceive(Clause clause, int? guardFailure = null)
         {
             if (!HasUnconditionalParameters(clause) || clause.Body is not Expr.Sequence { Items: [
                 Expr.Match { Pattern: Pattern.Literal { Value: Atom expected }, Value: Expr.Call setup } setupMatch,
@@ -37,6 +37,17 @@ internal sealed partial class BeamModuleCompiler
             if (ReadEntryCall(setup, parameters) is not { } preparation)
             {
                 return false;
+            }
+
+            if (clause.Guard is not null)
+            {
+                if (guardFailure is not int failure || ReadEntryTypeGuard(clause, clause.Guard) is not { } test)
+                {
+                    return false;
+                }
+
+                owner.Op(test.Opcode, LabelTag, failure);
+                owner.Operand(XRegisterTag, test.Register);
             }
 
             const int frame = 2;
