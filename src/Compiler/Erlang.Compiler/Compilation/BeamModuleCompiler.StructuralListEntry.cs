@@ -61,13 +61,14 @@ internal sealed partial class BeamModuleCompiler
             int tail = reuseTail ? listInput : arity + 1;
             bool needsTail = clauses.Take(consCount).Any(clause => !IsDiscarded(((Pattern.List)clause.Patterns[listInput]).Tail));
             var branches = new List<(Clause Clause, Action<int>[] Tests, (Pattern.Variable Variable, int Register)[] Used,
-                EntryCall? Tail, int ResultRegister, Term? Constant)>();
+                EntryCall? Tail, int ResultRegister, Term? Constant, Dictionary<string, int> CaptureOrder)>();
 
             for (int branch = 0; branch < clauses.Length; branch++)
             {
                 Clause clause = clauses[branch];
                 var tests = new List<Action<int>>();
                 var bindings = new Dictionary<string, int>(StringComparer.Ordinal);
+                var reusedBindingPositions = new Dictionary<string, int>(StringComparer.Ordinal);
                 var unusedFields = clause.Patterns.SelectMany(Semantics.Variables)
                     .GroupBy(name => name, StringComparer.Ordinal)
                     .Where(group => group.Count() == 1)
@@ -130,7 +131,26 @@ internal sealed partial class BeamModuleCompiler
                 EntryCall? tailCall = clause.Body is Expr.Call call ? ReadEntryCall(call, parameters, allowControlTransfer: true) : null;
                 int resultRegister = clause.Body is Expr.Variable returned ? bindings.GetValueOrDefault(returned.Name, -1) : -1;
                 Term? constant = AttributeLiteral.TryNormalizeConstant(clause.Body, out Term value) ? value : null;
-                branches.Add((guardClause, tests.ToArray(), bodyInputs, tailCall, resultRegister, constant));
+                // Keep the binding's place in the capture order when a projection uses
+                // an older register instead of consuming the next scratch register.
+                bool reusedListTail = reuseTail && branch < consCount;
+                var captureOrder = bodyInputs.OrderBy(binding =>
+                {
+                    string name = binding.Item1.Name;
+                    int register = binding.Value;
+                    bool reused = reusedBindingPositions.TryGetValue(name, out int position);
+                    if (reused)
+                    {
+                        register = position;
+                    }
+
+                    int order = reusedListTail && register == tail ? arity + 1
+                        : register + (reusedListTail && register > head ? 1 : 0);
+
+                    return (order, reused ? 0 : 1);
+                }).Select((binding, order) => (binding.Item1.Name, order))
+                    .ToDictionary(binding => binding.Name, binding => binding.order, StringComparer.Ordinal);
+                branches.Add((guardClause, tests.ToArray(), bodyInputs, tailCall, resultRegister, constant, captureOrder));
 
                 bool ReadPattern(Pattern pattern, int register, bool preserveSource = false)
                 {
@@ -203,6 +223,11 @@ internal sealed partial class BeamModuleCompiler
                                 }
 
                                 int destination = reuseSource ? register : nextRegister++;
+                                if (reuseSource && member is Erlang.Pattern.Variable projected)
+                                {
+                                    reusedBindingPositions.TryAdd(projected.Name, nextRegister);
+                                }
+
                                 int position = field;
                                 tests.Add(_ => owner.EmitTuplePart(register, position, destination));
                                 if (!ReadPattern(member, destination))
@@ -275,7 +300,7 @@ internal sealed partial class BeamModuleCompiler
             var frames = new Dictionary<int, int>();
             for (int branch = 0; branch < branches.Count; branch++)
             {
-                var (clause, tests, used, tailCall, resultRegister, constant) = branches[branch];
+                var (clause, tests, used, tailCall, resultRegister, constant, captureOrder) = branches[branch];
                 if (branch == consCount && emptyReturn is { } emptyList)
                 {
                     EmitEmptyListReturn(emptyList, nonCons, functionInfo, properList: true);
@@ -315,13 +340,7 @@ internal sealed partial class BeamModuleCompiler
                 else
                 {
                     var previousOrder = entryCaptureOrder;
-                    entryCaptureOrder = used.ToDictionary(
-                        binding => binding.Variable.Name,
-                        binding => reuseTail && binding.Register == tail && branch < consCount
-                            ? arity + 1
-                            : binding.Register + (reuseTail && branch < consCount && binding.Register > head ? 1 : 0),
-                        StringComparer.Ordinal
-                    );
+                    entryCaptureOrder = captureOrder;
                     EmitEntryClauseBody(clause, used, branch, frames, null, null, literalDispatch: false);
                     entryCaptureOrder = previousOrder;
                 }
