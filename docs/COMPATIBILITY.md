@@ -1,5 +1,7 @@
 # Compatibility overview
 
+Part 1652 verifies record field calls sharing a badrecord block in a deterministic fixture and in the OTP VM. [Evidence](validation/part-1652/README.md).
+
 Part 1651 verifies record field calls followed by a tuple containing the original record in a deterministic fixture and in the OTP VM. [Evidence](validation/part-1651/README.md).
 
 Part 1650 verifies tail calls receiving a single closure argument in a deterministic fixture and in the OTP VM. [Evidence](validation/part-1650/README.md).

@@ -1,5 +1,7 @@
 # Next steps
 
+Dispatch eligible record-check alternatives before the generic branch emitter. [Evidence](validation/part-1652/README.md).
+
 Compare shared record failure labels across neighboring call clauses. [Evidence](validation/part-1651/README.md).
 
 Compare callers retaining a record across a call using one of its fields. [Evidence](validation/part-1650/README.md).
