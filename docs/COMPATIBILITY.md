@@ -1,5 +1,7 @@
 # Compatibility overview
 
+Part 1654 verifies compaction of a tagged payload before a final call in a deterministic fixture and in the OTP VM. [Evidence](validation/part-1654/README.md).
+
 Part 1653 verifies record field calls with checked entry parameters in a deterministic fixture and in the OTP VM. [Evidence](validation/part-1653/README.md).
 
 Part 1652 verifies record field calls sharing a badrecord block in a deterministic fixture and in the OTP VM. [Evidence](validation/part-1652/README.md).

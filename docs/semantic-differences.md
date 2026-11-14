@@ -1,3 +1,5 @@
+Part 1654 relocates a still-live tagged payload before trimming the frame. [Evidence](validation/part-1654/README.md).
+
 Part 1653 uses function_clause for record parameters that fail their head pattern. [Evidence](validation/part-1653/README.md).
 
 Part 1652 shares a badrecord branch for calls that require the same record. [Evidence](validation/part-1652/README.md).
