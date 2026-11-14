@@ -6,6 +6,72 @@ internal sealed partial class BeamModuleCompiler
 {
     private sealed partial class GeneralEmitter
     {
+        private bool TryEmitTaggedTupleFieldsTail(FunctionDefinition function)
+        {
+            if (function.Clauses is not [{ Guard: null, Body: Expr.Call call } clause]
+                || !TryResolveOrdinaryCallTarget(call, out string? module))
+            {
+                return false;
+            }
+
+            int source = -1;
+            Pattern.Tuple? tuple = null;
+            for (int index = 0; index < clause.Patterns.Count; index++)
+            {
+                if (clause.Patterns[index] is Pattern.Variable)
+                {
+                    continue;
+                }
+
+                if (tuple is not null || clause.Patterns[index] is not Pattern.Tuple candidate)
+                {
+                    return false;
+                }
+
+                source = index;
+                tuple = candidate;
+            }
+
+            if (tuple is null || !HasTupleTag(tuple, out Atom tag)
+                || tuple.Items.Skip(1).Any(item => item is not Erlang.Pattern.Variable))
+            {
+                return false;
+            }
+
+            var parameters = clause.Patterns.OfType<Pattern.Variable>().Concat(tuple.Items.OfType<Pattern.Variable>())
+                .Where(variable => variable.Name != VariableScopeNames.Wildcard).ToArray();
+            if (!DistinctBindings(parameters)
+                || call.Arguments.Count == 0 || call.Arguments.Count >= FirstReservedXRegister)
+            {
+                return false;
+            }
+
+            var fields = new int[call.Arguments.Count];
+            var members = tuple.Items.ToArray();
+            for (int index = 0; index < fields.Length; index++)
+            {
+                if (call.Arguments[index] is not Expr.Variable { Name: not VariableScopeNames.Wildcard } variable)
+                {
+                    return false;
+                }
+
+                fields[index] = Array.FindIndex(members, item => item is Pattern.Variable field && field.Name == variable.Name);
+                if (fields[index] < 0 || index == source && index != fields.Length - 1)
+                {
+                    return false;
+                }
+            }
+
+            EmitDetailRecordTest(source, tuple.Items.Count, tag, owner.nextLabel - 2);
+            for (int index = 0; index < fields.Length; index++)
+            {
+                owner.EmitTuplePart(source, fields[index], index);
+            }
+
+            EmitRegisterTailTarget(call with { Module = module }, fields.Length);
+            return true;
+        }
+
         private bool TryEmitTaggedTupleAndConstantsTail(FunctionDefinition function)
         {
             if (function.Clauses is not [{ Guard: null,

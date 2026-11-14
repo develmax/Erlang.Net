@@ -716,6 +716,7 @@ internal sealed partial class BeamModuleCompiler
                 || TryEmitListCallAndConstant(function) || TryEmitTerminalCallList(function) || TryEmitAppendFormatTail(function)
                 || TryEmitRegisteredProcessCase(function)
                 || TryEmitTaggedTupleAndConstantsTail(function) || TryEmitTupleElementAtomDispatchTail(function)
+                || TryEmitTaggedTupleFieldsTail(function)
                 || TryEmitTupleListTailCall(function)
                 || TryEmitRegisterConstructedArgument(function, foldAppendArguments: true)
                 || TryEmitNestedArgumentTailCall(function)
@@ -7590,6 +7591,7 @@ internal sealed partial class BeamModuleCompiler
                             or (AutoImportNames.IntegerToList or AutoImportNames.ListToInteger, 2)
                             or (AutoImportNames.Spawn or AutoImportNames.SpawnLink or AutoImportNames.SpawnMonitor, 1 or 2 or 3 or 4)
                             or (AutoImportNames.SpawnOpt, 2 or 3 or 4 or 5)
+                            or (AutoImportNames.Apply, 2 or 3)
                             or (ErlangOperators.Append, 2)
                             or (AutoImportNames.BinaryToList, 3)));
         }

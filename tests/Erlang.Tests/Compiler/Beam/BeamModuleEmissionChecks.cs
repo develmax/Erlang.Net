@@ -266,6 +266,7 @@ internal static class BeamModuleEmissionChecks
             "beam_deferred_record_field",
             "beam_spawn_tail_wrappers",
             "beam_terminal_wrappers",
+            "beam_apply_tail",
             "tuple_register_entry_probe",
             "tuple_nested_entry_probe",
             "tuple_nested_fallback_probe",
