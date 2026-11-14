@@ -1,5 +1,7 @@
 # Next steps
 
+Check call sequences that can overwrite an input stack slot with the previous result after its last argument use. [Evidence](validation/part-1641/README.md).
+
 Compare call continuations that construct several arguments after a producer call. Trace their live registers and heap reservations against pinned OTP. [Evidence](validation/part-1640/README.md).
 
 Compare the remaining one-slot OTP frames produced as two slots. Start with a saved tagged-tuple input plus a projected field feeding a call, then reuse the slot across computed call arguments. [Evidence](validation/part-1639/README.md).

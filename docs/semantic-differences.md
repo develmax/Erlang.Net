@@ -1,3 +1,5 @@
+Part 1641 reserves heap jointly and avoids saving intermediate constructors to Y registers in supported tail continuations. [Evidence](validation/part-1641/README.md).
+
 Part 1640 eliminates an extra frame slot when one projected field feeds a call and only the original tuple survives it. [Evidence](validation/part-1640/README.md).
 
 Part 1639 skips closed unused values when planning case entry and result arms, enabling a tail call directly from the selector register. No release image changed equality status. [Evidence](validation/part-1639/README.md).
