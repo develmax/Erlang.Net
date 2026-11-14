@@ -108,6 +108,90 @@ internal sealed partial class BeamModuleCompiler
             return true;
         }
 
+        private bool TryEmitCallResultCaseTails(Clause clause)
+        {
+            if (clause.Guard is not null || !HasUnconditionalParameters(clause))
+            {
+                return false;
+            }
+
+            var parameters = clause.Patterns.Cast<Pattern.Variable>().Select(parameter => parameter.Name).ToArray();
+            Expr.Case decision;
+            Expr.Call selector;
+            string? result = null;
+            if (clause.Body is Expr.Case { Value: Expr.Call direct } directCase)
+            {
+                decision = directCase;
+                selector = direct;
+            }
+            else if (clause.Body is Expr.Sequence
+            {
+                Items:
+                [
+                    Expr.Match { Pattern: Pattern.Variable binding, Value: Expr.Call read },
+                    Expr.Case { Value: Expr.Variable selected } boundCase
+                ]
+            } && binding.Name == selected.Name && binding.Name != VariableScopeNames.Wildcard
+                && !parameters.Contains(binding.Name, StringComparer.Ordinal))
+            {
+                decision = boundCase;
+                selector = read;
+                result = binding.Name;
+            }
+            else
+            {
+                return false;
+            }
+
+            if (decision.Clauses is not
+                [
+                    { Guard: null, Patterns: [Pattern.Literal key], Body: Expr.Call matched },
+                    { Guard: null, Patterns: [Pattern.Variable other], Body: Expr.Call fallback }
+                ]
+                || other.Name != VariableScopeNames.Wildcard
+                    && (other.Name == result || parameters.Contains(other.Name, StringComparer.Ordinal))
+                || ReadEntryCall(selector, parameters) is not { } first)
+            {
+                return false;
+            }
+
+            var matchedCall = result is null ? matched : matched with
+            {
+                Arguments = matched.Arguments.Select(argument => argument is Expr.Variable variable && variable.Name == result
+                    ? new Expr.Literal(key.Value)
+                    : argument).ToArray()
+            };
+            string? fallbackInput = other.Name == VariableScopeNames.Wildcard ? result : other.Name;
+            if (result is not null && fallbackInput is not null && fallbackInput != result)
+            {
+                fallback = fallback with
+                {
+                    Arguments = fallback.Arguments.Select(argument => argument is Expr.Variable variable && variable.Name == result
+                        ? new Expr.Variable(fallbackInput)
+                        : argument).ToArray()
+                };
+            }
+
+            if (ReadEntryCall(matchedCall, [], allowControlTransfer: true) is not { } onMatch
+                || ReadEntryCall(fallback, fallbackInput is null ? [] : [fallbackInput], allowControlTransfer: true) is not { } onFallback)
+            {
+                return false;
+            }
+
+            EmitFrameAllocation(EntryCallLiveCount(first, parameters), 0);
+            EmitEntryCall(first);
+            int alternative = Label();
+            owner.Op(ExactEqualTest, LabelTag, alternative);
+            owner.Operand(XRegisterTag, 0);
+            owner.LiteralOperand(key.Value);
+            var previous = CallLocation(selector, location);
+            EmitEmptyFrameTail(onMatch, previous);
+            Mark(alternative);
+            EmitEmptyFrameTail(onFallback, previous);
+
+            return true;
+        }
+
         private bool TryEmitEntryAtomCallTails(Clause clause)
         {
             if (clause.Guard is not null || !HasUnconditionalParameters(clause))
