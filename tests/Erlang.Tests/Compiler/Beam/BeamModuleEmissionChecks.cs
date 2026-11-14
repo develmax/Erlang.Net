@@ -338,6 +338,7 @@ internal static class BeamModuleEmissionChecks
         await CompareConsCallMatch();
         CompareCombinedStackAndHeapAllocation();
         CompareTerminalCallResultConstructions();
+        CompareEntryArgumentCopies();
         await CompareMixedListNilFallback();
         await CompareCaseTupleSlot();
         await CompareThrowStackObservers();
@@ -531,6 +532,30 @@ internal static class BeamModuleEmissionChecks
         if (code.AsSpan().IndexOf(tuple) < 0 || code.AsSpan().IndexOf(list) < 0)
         {
             throw new InvalidOperationException("Expected both returned constructions to use the live call result in x0.");
+        }
+    }
+
+    private static void CompareEntryArgumentCopies()
+    {
+        const string source = """
+            -module(beam_entry_argument_copies).
+            -export([choose/2, keep/2]).
+            choose(X, Y) ->
+                Value = other:consume([X, Y]),
+                {Value, X}.
+            keep(X, Y) ->
+                Value = other:consume([X, Y]),
+                {Value, X, Y}.
+            """;
+        byte[] beam = CodeGeneration.CompileBeamModule(source, "beam_entry_argument_copies.erl");
+        byte[] code = BeamDocumentationEmissionChecks.Chunks(beam).Single(chunk => chunk.Id == "Code").Data;
+        ReadOnlySpan<byte> reducedFrame = [BeamEmissionFormat.AllocateHeap, 0x10, 0x40, 0x20];
+        ReadOnlySpan<byte> retainedFrame = [BeamEmissionFormat.AllocateHeap, 0x20, 0x40, 0x20];
+        ReadOnlySpan<byte> listFromArgument = [BeamEmissionFormat.PutList, 0x13, 0x02, 0x03];
+        if (code.AsSpan().IndexOf(reducedFrame) < 0 || code.AsSpan().IndexOf(retainedFrame) < 0
+            || code.AsSpan().IndexOf(listFromArgument) < 0)
+        {
+            throw new InvalidOperationException("Expected only arguments used across the call to require frame slots.");
         }
     }
 

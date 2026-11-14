@@ -1,5 +1,7 @@
 # Dependency and compatibility decisions
 
+Part 1713 uses the existing instruction reader, operand offsets and compact writer for entry register copies. No dependency was added. [Evidence](validation/part-1713/README.md).
+
 Part 1712 uses the existing instruction reader, compact reader and compact writer to resize emitted frames. No dependency was added. [Evidence](validation/part-1712/README.md).
 
 Part 1711 uses the existing compact writer and stack operand offsets to preserve typed operands. No dependency was added. [Evidence](validation/part-1711/README.md).

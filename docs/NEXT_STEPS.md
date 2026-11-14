@@ -1,5 +1,7 @@
 # Next steps
 
+Inspect argument construction that overwrites a live X register, then compare temporary X register selection and Y-slot ordering with OTP. [Evidence](validation/part-1713/README.md).
+
 Measure saves of arguments that are only copied and consumed before the first call. Compare the resulting frame allocation and temporary X register assignment with OTP. [Evidence](validation/part-1712/README.md).
 
 Compare remaining short-lived frame slots, Y-register initialization and OTP stack-slot reuse. Prioritize temporary slots in call and allocation sequences. [Evidence](validation/part-1711/README.md).

@@ -1,3 +1,5 @@
+Part 1713 eliminates eligible X-to-Y entry copies. Register clobbers and slot ordering still affect the remaining matches. [Evidence](validation/part-1713/README.md).
+
 Part 1712 removes unused trailing slots. Copies used only before the first call and frame layout across branches still differ. [Evidence](validation/part-1712/README.md).
 
 Part 1711 removes terminal call-result spills. Frame sizing and short-lived values earlier in the function still differ. [Evidence](validation/part-1711/README.md).

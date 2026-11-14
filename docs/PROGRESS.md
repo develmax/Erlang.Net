@@ -1,5 +1,7 @@
 # Project progress
 
+Part 1713 compiled all 1,366 corpus sources with 398 Equal and 968 Different. Removing redundant entry argument copies changes 435 images. [Evidence](validation/part-1713/README.md).
+
 Part 1712 compiled all 1,366 corpus sources with 398 Equal and 968 Different. Removing unused trailing frame slots changes 400 images. [Evidence](validation/part-1712/README.md).
 
 Part 1711 compiled all 1,366 corpus sources with 398 Equal and 968 Different. Removing terminal call-result spills changes 272 images. [Evidence](validation/part-1711/README.md).
