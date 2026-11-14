@@ -625,6 +625,22 @@ internal sealed partial class BeamModuleCompiler
                     }
                 }
 
+                if (slotRelocation is null && spill is null && preparedClosure is null
+                    && checks is null && tuple is not null && index < calls.Length - 1
+                    && step.RegisterConstructions is null && released is [var freed]
+                    && step.SavedInputs is { } intermediateLoads
+                    && lastSlotReads.Count > 1
+                    && saved.FirstOrDefault(binding => binding.Value == lastSlotReads.Count - 1) is
+                        { Key: not null } leading
+                    && intermediateLoads.Any(load => load.Destination == 0
+                        && load.Source != freed && load.Source != leading.Value))
+                {
+                    slotRelocation = (leading.Value, freed);
+                    saved[leading.Key] = freed;
+                    lastSlotReads[freed] = lastReads[leading.Key];
+                    lastSlotReads[leading.Value] = index;
+                }
+
                 steps.Add(new SavedCallStep(
                     step,
                     spill,
@@ -834,7 +850,7 @@ internal sealed partial class BeamModuleCompiler
                     : null;
                 int? deferredSlot = null;
                 if (finalTrim is null && hasTuple && checks is null && step is
-                    { Spill: null, SlotRelocation: null, Closure: null, TupleArguments: null }
+                    { Spill: null, ReloadRelocatedArgument: false, Closure: null, TupleArguments: null }
                     && step.Call.RegisterConstructions is null && trimTo > trimmed
                     && step.Call.SavedInputs is { } savedInputs)
                 {
@@ -842,7 +858,8 @@ internal sealed partial class BeamModuleCompiler
                     if (firstLoad >= 0)
                     {
                         int slot = remap[savedInputs[firstLoad].Source];
-                        if (slot >= trimTo - trimmed)
+                        if (slot >= trimTo - trimmed
+                            && savedInputs[firstLoad].Source != step.SlotRelocation?.Destination)
                         {
                             deferredSlot = slot - (trimTo - trimmed);
                         }
