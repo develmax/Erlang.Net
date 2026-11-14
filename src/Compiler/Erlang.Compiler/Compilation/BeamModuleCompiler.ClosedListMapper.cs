@@ -213,24 +213,39 @@ internal sealed partial class BeamModuleCompiler
             return true;
         }
 
-        private BeamSourceLocation EmitListMapperCalls(IReadOnlyList<ListMapperCall> calls, BeamSourceLocation current)
+        private BeamSourceLocation EmitListMapperCalls(
+            IReadOnlyList<ListMapperCall> calls,
+            BeamSourceLocation current,
+            bool loadFilterHead = false
+        )
         {
             foreach (ListMapperCall stage in calls)
             {
-                for (int index = stage.Arguments.Length - 1; index >= 0; index--)
+                if (loadFilterHead)
                 {
-                    if (stage.Arguments[index] is { } literal)
+                    owner.EmitOrderedTailMoves(
+                        [],
+                        stage.Arguments.Select((literal, index) => (Destination: index, Value: literal!)).Skip(1).ToList(),
+                        [(0, 1)]
+                    );
+                }
+                else
+                {
+                    for (int index = stage.Arguments.Length - 1; index >= 0; index--)
                     {
-                        owner.EmitConstant(literal, index);
-                    }
-                    else if (index != 0)
-                    {
-                        owner.MoveRegister(
-                            XRegisterTag,
-                            0,
-                            XRegisterTag,
-                            index
-                        );
+                        if (stage.Arguments[index] is { } literal)
+                        {
+                            owner.EmitConstant(literal, index);
+                        }
+                        else if (index != 0)
+                        {
+                            owner.MoveRegister(
+                                XRegisterTag,
+                                0,
+                                XRegisterTag,
+                                index
+                            );
+                        }
                     }
                 }
 

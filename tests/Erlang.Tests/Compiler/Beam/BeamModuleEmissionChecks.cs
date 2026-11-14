@@ -268,6 +268,7 @@ internal static class BeamModuleEmissionChecks
             "beam_terminal_wrappers",
             "beam_apply_tail",
             "beam_call_result_case_tails",
+            "beam_membership_filter",
             "tuple_register_entry_probe",
             "tuple_nested_entry_probe",
             "tuple_nested_fallback_probe",

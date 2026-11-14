@@ -11,10 +11,14 @@ internal sealed partial class BeamModuleCompiler
         private void EmitClosedListFilter(ClosedListMapper mapper, ListMapperFilter filter)
         {
             var predicate = filter.Calls[^1].Call;
-            bool boolean = predicate.Module is null
-                && !owner.IsDeclaredNative((predicate.Function, predicate.Arguments.Count))
-                && localFunctions.TryGetValue((predicate.Function, predicate.Arguments.Count), out var function)
-                && function.Clauses.All(clause => IsBooleanResult(clause.Body));
+            int arity = predicate.Arguments.Count;
+            var signature = (predicate.Function, arity);
+            bool local = predicate.Module is null && localFunctions.ContainsKey(signature);
+            string? module = local ? null : predicate.Module ?? owner.ResolveExternalModule(predicate.Function, arity);
+            bool listMembership = module == ListModuleNames.Module && signature is
+                (ListModuleNames.Member, 2) or (ListModuleNames.KeyMember, 3);
+            bool boolean = listMembership || local && !owner.IsDeclaredNative(signature)
+                && localFunctions[signature].Clauses.All(clause => IsBooleanResult(clause.Body));
 
             int entry = owner.nextLabel - 1;
             int first = Label();
@@ -31,8 +35,14 @@ internal sealed partial class BeamModuleCompiler
                 YRegisterTag,
                 0
             );
-            Load(1);
-            var current = EmitListMapperCalls(filter.Calls, location);
+            bool loadAfterConstants = listMembership && filter.Calls is [{ Arguments: [null, ..] } stage]
+                && stage.Arguments.Skip(1).All(argument => argument is not null);
+            if (!loadAfterConstants)
+            {
+                Load(1);
+            }
+
+            var current = EmitListMapperCalls(filter.Calls, location, loadAfterConstants);
             if (boolean)
             {
                 owner.EmitAtomTest(0, "true", first);
