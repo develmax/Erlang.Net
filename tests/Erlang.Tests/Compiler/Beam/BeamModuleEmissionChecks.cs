@@ -235,6 +235,7 @@ internal static class BeamModuleEmissionChecks
             "beam_reused_constructor_slot",
             "beam_shared_cons_replacement",
             "beam_cons_head_alternatives",
+            "beam_shared_frameless_return",
             "tuple_register_entry_probe",
             "tuple_nested_entry_probe",
             "tuple_nested_fallback_probe",

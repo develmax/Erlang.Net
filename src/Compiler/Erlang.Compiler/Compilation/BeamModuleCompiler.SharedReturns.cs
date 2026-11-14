@@ -136,7 +136,7 @@ internal sealed partial class BeamModuleCompiler
     {
         var unprotected = UnprotectedReturnLabels(body, start, end);
 
-        var returns = new Dictionary<(BeamOperand? Source, BeamOperand Slots), int>();
+        var returns = new Dictionary<(BeamOperand? Source, BeamOperand? Slots), int>();
         // Prefer the later block, as OTP's reverse traversal in beam_jump:share_1 does.
         for (int index = end - 3; index > start; index--)
         {
@@ -154,9 +154,14 @@ internal sealed partial class BeamModuleCompiler
                 first++;
             }
 
-            if (first + 1 >= end
-                || body[first] is not { Definition.Opcode: Deallocate, Operands: [var slots] }
-                || body[first + 1].Definition.Opcode != Return)
+            BeamOperand? slots = null;
+            if (first < end && body[first] is { Definition.Opcode: Deallocate, Operands: [var frame] })
+            {
+                slots = frame;
+                first++;
+            }
+
+            if (first >= end || body[first].Definition.Opcode != Return)
             {
                 continue;
             }
@@ -169,7 +174,7 @@ internal sealed partial class BeamModuleCompiler
                 bool fallsThrough = !EndsBeamBlock(body[index - 1].Definition.Opcode);
                 edits.Add(new(
                     body[index].Offset,
-                    body[first + 2].Offset,
+                    body[first + 1].Offset,
                     LabelTag,
                     fallsThrough ? target : 0,
                     fallsThrough
