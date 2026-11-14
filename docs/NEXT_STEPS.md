@@ -1,5 +1,7 @@
 # Next steps
 
+Compare callers retaining a record across a call using one of its fields. [Evidence](validation/part-1650/README.md).
+
 Compare stack allocation and tagged tuple tests in functions close to OTP output. [Evidence](validation/part-1649/README.md).
 
 Compare pure disjunctive range guards that converge on a shared boolean return. [Evidence](validation/part-1648/README.md).

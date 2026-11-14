@@ -1,3 +1,5 @@
+Part 1650 uses the existing closure emitter and tail-call instructions for single closure arguments. [Evidence](validation/part-1650/README.md).
+
 Part 1649 shares boolean returns for ordered disjoint inclusive ranges. [Evidence](validation/part-1649/README.md).
 
 Part 1648 shares guarded integer returns with equivalent literal alternatives. [Evidence](validation/part-1648/README.md).

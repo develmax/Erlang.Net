@@ -1,5 +1,7 @@
 # Dependency and compatibility decisions
 
+Part 1650 reuses the closure and tail-call emitters. No dependency was added. [Evidence](validation/part-1650/README.md).
+
 Part 1649 reuses dispatch, typed register and tail-call emitters. No dependency was added. [Evidence](validation/part-1649/README.md).
 
 Part 1648 reuses dispatch, typed register and tail-call emitters. No dependency was added. [Evidence](validation/part-1648/README.md).
