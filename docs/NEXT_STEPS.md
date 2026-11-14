@@ -1,5 +1,7 @@
 # Next steps
 
+Compare the size and register layout of select_val in the four modules with a larger Code gap. [Evidence](validation/part-1689/README.md).
+
 Compare OTP literal selection tables in tagged structural groups with distinct match values. [Evidence](validation/part-1688/README.md).
 
 Compare the shared field projections after grouping structural list clauses by their head tuple shapes. [Evidence](validation/part-1687/README.md).

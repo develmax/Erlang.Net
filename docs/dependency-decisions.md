@@ -1,5 +1,7 @@
 # Dependency and compatibility decisions
 
+Part 1689 reuses the existing BEAM selection table writer. No dependency was added. [Evidence](validation/part-1689/README.md).
+
 Part 1688 reuses structural pattern matching and tuple projection. No dependency was added. [Evidence](validation/part-1688/README.md).
 
 Part 1687 reuses structural pattern matching and the existing tagged tuple test. No dependency was added. [Evidence](validation/part-1687/README.md).

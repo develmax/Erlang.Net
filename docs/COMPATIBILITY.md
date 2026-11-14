@@ -1,5 +1,7 @@
 # Compatibility overview
 
+Part 1689 verifies select_val dispatch for distinct literal keys in shared cons patterns. [Evidence](validation/part-1689/README.md).
+
 Part 1688 verifies shared literal field projections for grouped cons patterns. [Evidence](validation/part-1688/README.md).
 
 Part 1687 verifies shared tuple shape tests for consecutive structural list clauses. [Evidence](validation/part-1687/README.md).

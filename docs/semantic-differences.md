@@ -1,3 +1,5 @@
+Part 1689 emits a selection table for distinct keys of the same supported type in shared cons groups. [Evidence](validation/part-1689/README.md).
+
 Part 1688 projects the first literal field once across a compatible group of structural list clauses. [Evidence](validation/part-1688/README.md).
 
 Part 1687 shares arity and tag checks across consecutive cons patterns with the same tuple shape. [Evidence](validation/part-1687/README.md).
