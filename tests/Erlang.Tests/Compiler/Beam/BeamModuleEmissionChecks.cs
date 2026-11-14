@@ -4313,7 +4313,7 @@ internal static class BeamModuleEmissionChecks
     {
         const string source = """
             -module(beam_structural_list_entry).
-            -export([run/2,strict/1,checked/1]).
+            -export([run/2,strict/1,checked/1,by_arity/1]).
             run([], Default) -> {empty,Default};
             run([{tag,{same,Value},Value}|Tail], Value) when is_integer(Value) ->
                 Absolute = erlang:abs(Value),
@@ -4325,6 +4325,11 @@ internal static class BeamModuleEmissionChecks
             checked(Items) -> checked_list([Item || Item <- Items]).
             checked_list([{tag,[Value,Value]}|Tail]) -> {Value,Tail};
             checked_list([]) -> empty.
+            by_arity([{small,Value}|_]) -> Value;
+            by_arity([{wide,first,Value}|_]) when is_integer(Value) -> {first,Value};
+            by_arity([{wide,second,Value}|_]) -> {second,Value};
+            by_arity([_|Tail]) -> by_arity(Tail);
+            by_arity([]) -> absent.
             """;
         BeamModule image = BeamModule.Prepare(CodeGeneration.CompileBeamModule(source, "beam_structural_list_entry.erl"));
         await using var runtime = new ProcessRuntime();
@@ -4373,6 +4378,27 @@ internal static class BeamModuleEmissionChecks
             }
             catch (ErlangException error) when (error.Reason.Equals(Term.A("function_clause")))
             {
+            }
+
+            Term small = Term.Tuple(Term.A("small"), value);
+            Term wide = Term.A("wide");
+            Term first = Term.A("first");
+            Term second = Term.A("second");
+            Term smallMatch = await image.Invoke(context, "by_arity", Term.List(small));
+            Term firstMatch = await image.Invoke(context, "by_arity", Term.List(Term.Tuple(wide, first, value)));
+            Term secondMatch = await image.Invoke(context, "by_arity", Term.List(Term.Tuple(wide, second, bad)));
+            Term arityFallback = await image.Invoke(context, "by_arity", Term.List(
+                Term.Tuple(wide, first, bad),
+                Term.Tuple(wide, bad, value),
+                Term.Tuple(bad, first, value),
+                Term.Tuple(wide),
+                bad,
+                small
+            ));
+            if (!smallMatch.Equals(value) || !firstMatch.Equals(Term.Tuple(first, value))
+                || !secondMatch.Equals(Term.Tuple(second, bad)) || !arityFallback.Equals(value))
+            {
+                throw new InvalidOperationException("Structural list arity dispatch returned the wrong result.");
             }
 
             actual = Term.Tuple(matched, repeated, guarded, empty, fallback, strict);

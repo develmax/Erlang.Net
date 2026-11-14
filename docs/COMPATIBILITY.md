@@ -1,5 +1,7 @@
 # Compatibility overview
 
+Part 1693 confirms the OTP tuple arity selection instruction count in nine changed release functions. [Evidence](validation/part-1693/README.md).
+
 Part 1692 verifies selected block order for distinct literal keys. [Evidence](validation/part-1692/README.md).
 
 Part 1691 verifies shared payload extraction before select_val. [Evidence](validation/part-1691/README.md).

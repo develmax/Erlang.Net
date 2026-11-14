@@ -61,6 +61,20 @@ internal sealed partial class BeamModuleCompiler
             int tail = reuseTail ? listInput : arity + 1;
             bool needsTail = clauses.Take(consCount).Any(clause => !IsDiscarded(((Pattern.List)clause.Patterns[listInput]).Tail));
             int firstConsScratch = arity + (needsTail && !reuseTail ? 2 : 1);
+            var arityGroups = clauses.Take(consCount).Select((clause, index) => (Clause: clause, Shape: ReadTaggedHead(index)))
+                .TakeWhile(entry => entry.Shape.HasValue)
+                .GroupBy(entry => entry.Shape!.Value.Arity)
+                .OrderByDescending(group => group.Key)
+                .ToArray();
+            int arityDispatchEnd = 0;
+            if (reuseTail && arityGroups.Length > 1
+                && arityGroups.All(group => group.All(entry => entry.Shape!.Value.Tag.Equals(group.First().Shape!.Value.Tag))))
+            {
+                var sorted = arityGroups.SelectMany(group => group.Select(entry => entry.Clause)).ToArray();
+                arityDispatchEnd = sorted.Length;
+                clauses = [.. sorted, .. clauses.Skip(arityDispatchEnd)];
+            }
+
             var sharedShapes = new Dictionary<int, (int End, int Arity, Atom Tag, bool SharesDiscriminator, Term[]? Keys, int Payload)>();
             var checkedHeads = new Dictionary<int, bool>();
             var selectedHeads = new HashSet<int>();
@@ -80,7 +94,7 @@ internal sealed partial class BeamModuleCompiler
                     end++;
                 }
 
-                if (end - start > 1)
+                if (end - start > 1 || start < arityDispatchEnd)
                 {
                     bool sharesDiscriminator = shape.Arity > 1 && Enumerable.Range(start, end - start)
                         .All(index => ((Erlang.Pattern.Tuple)((Pattern.List)clauses[index].Patterns[listInput]).Items[0])
@@ -415,6 +429,22 @@ internal sealed partial class BeamModuleCompiler
             }
 
             var frames = new Dictionary<int, int>();
+            var arityLabels = new Dictionary<int, int>();
+            int arityFailure = 0;
+            if (arityDispatchEnd != 0)
+            {
+                var destinations = new List<(int Arity, int Label)>();
+                for (int start = 0; start < arityDispatchEnd; start = sharedShapes[start].End)
+                {
+                    int label = Label();
+                    arityLabels.Add(start, label);
+                    destinations.Add((sharedShapes[start].Arity, label));
+                }
+
+                arityFailure = Label();
+                owner.EmitTupleArityDispatch(arityFailure, destinations.AsEnumerable().Reverse().ToArray(), head);
+            }
+
             int sharedShapeEnd = -1;
             int sharedShapeFailure = 0;
             for (int branch = 0; branch < branches.Count; branch++)
@@ -423,6 +453,11 @@ internal sealed partial class BeamModuleCompiler
                 {
                     EmitEmptyListReturn(emptyList, nonCons, functionInfo, properList: true);
                     break;
+                }
+
+                if (branch == arityDispatchEnd && arityDispatchEnd != 0)
+                {
+                    Mark(arityFailure);
                 }
 
                 bool fallsBackFromCons = branch + 1 == consCount;
@@ -438,9 +473,21 @@ internal sealed partial class BeamModuleCompiler
                 if (sharedShapes.TryGetValue(branch, out var shape))
                 {
                     sharedShapeEnd = shape.End;
-                    sharedShapeFailure = shape.End < consCount ? Label()
-                        : emptyReturn is not null ? functionInfo : nonCons;
-                    EmitDetailRecordTest(head, shape.Arity, shape.Tag, sharedShapeFailure);
+                    if (arityLabels.TryGetValue(branch, out int arityLabel))
+                    {
+                        Mark(arityLabel);
+                        sharedShapeFailure = arityFailure;
+                        owner.EmitTuplePart(head, 0, firstConsScratch);
+                        owner.Op(ExactEqualTest, LabelTag, arityFailure);
+                        owner.Operand(XRegisterTag, firstConsScratch);
+                        owner.LiteralOperand(shape.Tag);
+                    }
+                    else
+                    {
+                        sharedShapeFailure = shape.End < consCount ? Label()
+                            : emptyReturn is not null ? functionInfo : nonCons;
+                        EmitDetailRecordTest(head, shape.Arity, shape.Tag, sharedShapeFailure);
+                    }
                     if (shape.SharesDiscriminator)
                     {
                         int register = firstConsScratch;
@@ -469,7 +516,8 @@ internal sealed partial class BeamModuleCompiler
                             }
 
                             branch = shape.End - 1;
-                            if (shape.End < branches.Count && !(shape.End == consCount && emptyReturn is not null))
+                            if (sharedShapeFailure != arityFailure && shape.End < branches.Count
+                                && !(shape.End == consCount && emptyReturn is not null))
                             {
                                 Mark(sharedShapeFailure);
                             }
@@ -485,7 +533,7 @@ internal sealed partial class BeamModuleCompiler
                 }
 
                 EmitBranch(branch, failure);
-                if (branch + 1 < branches.Count && !(fallsBackFromCons && emptyReturn is not null))
+                if (failure != arityFailure && branch + 1 < branches.Count && !(fallsBackFromCons && emptyReturn is not null))
                 {
                     Mark(failure);
                 }
