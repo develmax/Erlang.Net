@@ -1,5 +1,7 @@
 # Compatibility overview
 
+Part 1724 drops unneeded trailing argument saves and empty leaf frames. [Evidence](validation/part-1724/README.md).
+
 Part 1723 trims linear suffixes ending in framed tail calls. [Evidence](validation/part-1723/README.md).
 
 Part 1722 trims newly exposed straight-line return paths and folds eligible entry trims into allocation. [Evidence](validation/part-1722/README.md).

@@ -1,5 +1,7 @@
 # Next steps
 
+Move eligible entry tests ahead of stack allocation. The post-run ranking finds is_tuple versus allocate in 525 images, is_nonempty_list versus allocate in 485 and get_tuple_element versus allocate in 473. The same image can appear in several groups. [Evidence](validation/part-1724/README.md).
+
 Compare remaining allocation and register liveness mismatches, including OTP beam_trim usage and cost decisions. [Evidence](validation/part-1723/README.md).
 
 Rank remaining mismatches in frame layout and register liveness around calls and allocation. [Evidence](validation/part-1722/README.md).

@@ -1,3 +1,5 @@
+Part 1724 uses frameless code for eligible leaf functions and preserves initialized interior slots. Frame layout and register allocation still differ. [Evidence](validation/part-1724/README.md).
+
 Part 1723 extends stack trimming to folded tail-call exits. Frame layout and register allocation still differ. [Evidence](validation/part-1723/README.md).
 
 Part 1722 extends stack trimming to newly exposed linear exits. Frame layout and register allocation still differ. [Evidence](validation/part-1722/README.md).
