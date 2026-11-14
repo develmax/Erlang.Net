@@ -1,5 +1,7 @@
 # Next steps
 
+Track atom use after BEAM rewrites and restore the corresponding order of atom indices and dependent chunks. [Evidence](validation/part-1700/README.md).
+
 Check which zero-slot frames become unnecessary after a local call turns into a tail call. [Evidence](validation/part-1699/README.md).
 
 Fold a terminal call and return after removing a proven result move, following OTP beam_z. [Evidence](validation/part-1698/README.md).

@@ -1,5 +1,7 @@
 # Compatibility overview
 
+Part 1700 verifies frameless local tail calls after removing proven result moves. [Evidence](validation/part-1700/README.md).
+
 Part 1699 verifies tail call folding after singleton result moves are removed. [Evidence](validation/part-1699/README.md).
 
 Part 1698 verifies singleton local call result facts and exact inequality failure edges. [Evidence](validation/part-1698/README.md).

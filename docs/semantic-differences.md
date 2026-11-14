@@ -1,3 +1,5 @@
+Part 1700 removes empty frames and local tail call locations from straight-line wrappers. Removed moves can still affect atom order. [Evidence](validation/part-1700/README.md).
+
 Part 1699 folds terminal calls after deleting redundant result moves. Zero-slot frames and call locations still differ from OTP in some paths. [Evidence](validation/part-1699/README.md).
 
 Part 1698 removes proven singleton result moves. Some calls still retain a frame and a separate return. [Evidence](validation/part-1698/README.md).
