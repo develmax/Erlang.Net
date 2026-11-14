@@ -1,5 +1,7 @@
 # Next steps
 
+Inspect the list-test operands and branch labels in modules with five or fewer mismatching functions. [Evidence](validation/part-1680/README.md).
+
 Trace other one-slot frame differences to exactly which values survive the first call. [Evidence](validation/part-1679/README.md).
 
 Trace other one-slot frame differences to exactly which values survive the first call. [Evidence](validation/part-1678/README.md).
