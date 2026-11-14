@@ -1,3 +1,5 @@
+Part 1644 keeps list-head guard alternatives and recursive calls in registers. [Evidence](validation/part-1644/README.md).
+
 Part 1643 shares the replacement body between disjoint list-head keys. [Evidence](validation/part-1643/README.md).
 
 Part 1642 reuses the stack slot after the final read in a constructed argument. [Evidence](validation/part-1642/README.md).

@@ -1,5 +1,7 @@
 # Next steps
 
+Compare list dispatch failure targets and shared fallback blocks in the ranked residual corpus. [Evidence](validation/part-1644/README.md).
+
 Compare list dispatch failure targets and shared fallback blocks in the ranked residual corpus. [Evidence](validation/part-1643/README.md).
 
 Check call sequences that can overwrite an input stack slot with the previous result after its last argument use. [Evidence](validation/part-1642/README.md).
