@@ -1,5 +1,7 @@
 # Dependency and compatibility decisions
 
+Part 1711 uses the existing compact writer and stack operand offsets to preserve typed operands. No dependency was added. [Evidence](validation/part-1711/README.md).
+
 Part 1710 uses the existing compact BEAM writer and allocation instructions. No dependency was added. [Evidence](validation/part-1710/README.md).
 
 Part 1709 uses the existing BEAM type table and compact BigInteger operand writer. No dependency was added. [Evidence](validation/part-1709/README.md).

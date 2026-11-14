@@ -1,5 +1,7 @@
 # Project progress
 
+Part 1711 compiled all 1,366 corpus sources with 398 Equal and 968 Different. Removing terminal call-result spills changes 272 images. [Evidence](validation/part-1711/README.md).
+
 Part 1710 compiled all 1,366 corpus sources with 398 Equal and 968 Different. Combining frame and heap allocation changes 700 images. [Evidence](validation/part-1710/README.md).
 
 Part 1709 compiled all 1,366 sources with 398 Equal and 968 Different. Two images changed after normalization of strict comparisons with integer type proofs. [Evidence](validation/part-1709/README.md).

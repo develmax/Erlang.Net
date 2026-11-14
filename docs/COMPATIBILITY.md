@@ -1,5 +1,7 @@
 # Compatibility overview
 
+Part 1711 uses X0 when the returned tuple or list is the sole consumer of the call result. [Evidence](validation/part-1711/README.md).
+
 Part 1710 combines adjacent frame and heap allocations across register copies and initialization. [Evidence](validation/part-1710/README.md).
 
 Part 1709 verifies strict integer comparisons with a literal on either side using a full-image regression against OTP 29.1.1. [Evidence](validation/part-1709/README.md).

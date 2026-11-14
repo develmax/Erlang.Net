@@ -337,6 +337,7 @@ internal static class BeamModuleEmissionChecks
         await CompareTupleTailArgument();
         await CompareConsCallMatch();
         CompareCombinedStackAndHeapAllocation();
+        CompareTerminalCallResultConstructions();
         await CompareMixedListNilFallback();
         await CompareCaseTupleSlot();
         await CompareThrowStackObservers();
@@ -494,6 +495,37 @@ internal static class BeamModuleEmissionChecks
         if (code.AsSpan().IndexOf(allocation) < 0)
         {
             throw new InvalidOperationException("Expected the entry frame and four heap words to be allocated together.");
+        }
+    }
+
+    private static void CompareTerminalCallResultConstructions()
+    {
+        const string source = """
+            -module(beam_terminal_call_results).
+            -export([tuple/2, list/2]).
+            tuple(X, Y) ->
+                Value = other:consume([X, Y]),
+                {Value, Y}.
+            list(X, Y) ->
+                Value = other:consume([X, Y]),
+                [Value | Y].
+            """;
+        byte[] beam = CodeGeneration.CompileBeamModule(source, "beam_terminal_call_results.erl");
+        byte[] code = BeamDocumentationEmissionChecks.Chunks(beam).Single(chunk => chunk.Id == "Code").Data;
+        ReadOnlySpan<byte> tuple = [
+            BeamEmissionFormat.TestHeap,
+            0x30,
+            0x10,
+            BeamEmissionFormat.PutTuple,
+            0x03,
+            BeamEmissionFormat.ExtendedListOperand,
+            0x20,
+            0x03
+        ];
+        ReadOnlySpan<byte> list = [BeamEmissionFormat.TestHeap, 0x20, 0x10, BeamEmissionFormat.PutList, 0x03];
+        if (code.AsSpan().IndexOf(tuple) < 0 || code.AsSpan().IndexOf(list) < 0)
+        {
+            throw new InvalidOperationException("Expected both returned constructions to use the live call result in x0.");
         }
     }
 

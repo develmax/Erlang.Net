@@ -50,6 +50,7 @@ internal sealed partial class BeamModuleCompiler
     )
     {
         var labelOperands = new List<(int Start, int End, int Label)>();
+        var stackOperands = new List<(int Start, int End, int Slot)>();
         IReadOnlyList<BeamInstruction> body;
         try
         {
@@ -64,7 +65,8 @@ internal sealed partial class BeamModuleCompiler
                 header,
                 atoms.Count + 1,
                 literalBytes.Count,
-                (start, end, label) => labelOperands.Add((start, end, label))
+                (start, end, label) => labelOperands.Add((start, end, label)),
+                (start, end, slot) => stackOperands.Add((start, end, slot))
             );
         }
         catch (Exception error) when (error is InvalidDataException or NotSupportedException)
@@ -119,7 +121,8 @@ internal sealed partial class BeamModuleCompiler
             byte[]? simplified = SimplifyValueSelections(code, body, labelOperands)
                 ?? InvertBranchTests(code, body, labelOperands)
                 ?? NormalizeIntegerComparisons(code, body)
-                ?? CombineStackAndHeapAllocation(code, body);
+                ?? CombineStackAndHeapAllocation(code, body)
+                ?? KeepTerminalCallResultsInX0(code, body, stackOperands);
             return simplified is null ? null : (simplified, Enumerable.Range(0, labelCount).ToArray(), 0);
         }
 

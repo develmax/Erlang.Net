@@ -1,5 +1,7 @@
 # Next steps
 
+Compare remaining short-lived frame slots, Y-register initialization and OTP stack-slot reuse. Prioritize temporary slots in call and allocation sequences. [Evidence](validation/part-1711/README.md).
+
 Compare early spills of call results before heap allocation with OTP prefer_xregs and liveness. Start with straight-line consumers and preserve values across control-flow edges. [Evidence](validation/part-1710/README.md).
 
 Compare successful integer guards and the downstream operand type proofs with OTP SSA type analysis. Use the corpus to prioritize patterns shared by multiple modules. [Evidence](validation/part-1709/README.md).
