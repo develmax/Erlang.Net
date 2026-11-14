@@ -227,6 +227,7 @@ internal static class BeamModuleEmissionChecks
             "beam_short_append",
             "beam_append_destination",
             "beam_append_frame",
+            "beam_append_tuple_branches",
             "tuple_register_entry_probe",
             "tuple_nested_entry_probe",
             "tuple_nested_fallback_probe",

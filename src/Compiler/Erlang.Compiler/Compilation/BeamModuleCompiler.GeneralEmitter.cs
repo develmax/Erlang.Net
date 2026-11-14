@@ -1062,7 +1062,7 @@ internal sealed partial class BeamModuleCompiler
             {
                 function = FoldLeadingCaseConstants(FoldLeadingDynamicModule(function));
             }
-            if (recursiveClosure is null && (TryEmitSingletonListCheckedCalls(function, functionInfo) || TryEmitDynamicUnicodePair(function, functionInfo)))
+            if (recursiveClosure is null && (TryEmitAppendTupleBranches(function) || TryEmitSingletonListCheckedCalls(function, functionInfo) || TryEmitDynamicUnicodePair(function, functionInfo)))
             {
                 return;
             }
