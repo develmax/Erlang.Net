@@ -795,6 +795,12 @@ internal sealed partial class BeamModuleCompiler
                 {
                     target = target with { Module = module };
                 }
+                else if (function.Clauses.Count == 1 && clause.Guard is null && HasUnconditionalParameters(clause)
+                    && ReadEntryCall(target, clause.Patterns.Cast<Pattern.Variable>().Select(parameter => parameter.Name).ToArray())
+                        is { Module: ErlangModuleNames.Module } ordinary)
+                {
+                    target = ordinary.Call with { Module = ordinary.Module };
+                }
                 else if (prefix is not null || target.Module == ErlangModuleNames.Module)
                 {
                     return false;
