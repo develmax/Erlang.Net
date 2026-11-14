@@ -1,5 +1,7 @@
 # Dependency and compatibility decisions
 
+Part 1648 reuses dispatch, typed register and tail-call emitters. No dependency was added. [Evidence](validation/part-1648/README.md).
+
 Part 1647 reuses the BEAM return-sharing pass. No dependency was added. [Evidence](validation/part-1647/README.md).
 
 Part 1646 reuses BEAM list tests and tail-call emission. No dependency was added. [Evidence](validation/part-1646/README.md).

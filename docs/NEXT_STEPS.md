@@ -1,5 +1,7 @@
 # Next steps
 
+Compare pure disjunctive range guards that converge on a shared boolean return. [Evidence](validation/part-1648/README.md).
+
 Compare shared returns after generic tests and verify the different branch layouts in the residual corpus. [Evidence](validation/part-1647/README.md).
 
 Measure remaining opportunities to share returns after single tests in BEAM and locally compare CFGs. [Evidence](validation/part-1646/README.md).
