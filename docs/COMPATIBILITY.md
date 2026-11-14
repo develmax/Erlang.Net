@@ -1,5 +1,7 @@
 # Compatibility overview
 
+Part 1708 verifies boolean selection and same-target exact comparison simplifications. [Evidence](validation/part-1708/README.md).
+
 Part 1707 verifies pruning of default-equivalent select_val arms and exact lowering of singleton selections. [Evidence](validation/part-1707/README.md).
 
 Part 1706 verifies OTP-style comparison inversion over a following jump. [Evidence](validation/part-1706/README.md).

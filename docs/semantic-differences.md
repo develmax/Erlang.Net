@@ -1,3 +1,5 @@
+Part 1708 lowers boolean-only selections and removes redundant exact tests. Integer comparison encodings still differ. [Evidence](validation/part-1708/README.md).
+
 Part 1707 removes select_val arms that lead to the default target. Remaining multi-value selection shapes still need comparison. [Evidence](validation/part-1707/README.md).
 
 Part 1706 folds comparison and jump pairs into a single inverse branch. Other terminal layout differences remain. [Evidence](validation/part-1706/README.md).

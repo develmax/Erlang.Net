@@ -4,12 +4,14 @@ namespace Erlang.Compiler;
 
 internal sealed partial class BeamModuleCompiler
 {
-    private static byte[]? SimplifyValueSelections(
+    private byte[]? SimplifyValueSelections(
         ReadOnlyMemory<byte> code,
         IReadOnlyList<BeamInstruction> body,
         List<(int Start, int End, int Label)> labelOperands
     )
     {
+        int trueAtom = atoms.GetValueOrDefault(ErlangBooleanAtoms.True);
+        int falseAtom = atoms.GetValueOrDefault(ErlangBooleanAtoms.False);
         using var output = new MemoryStream();
         int copied = 0;
         int labelIndex = 0;
@@ -61,8 +63,13 @@ internal sealed partial class BeamModuleCompiler
                 armStart = branch.End;
             }
 
-            if (retained.Count == armCount
-                && (retained.Count != 1 || retained[0].Value.Kind is not (BeamOperandParameters.Atom or BeamOperandParameters.Integer)))
+            bool singleton = retained.Count == 1
+                && retained[0].Value.Kind is BeamOperandParameters.Atom or BeamOperandParameters.Integer;
+            bool boolean = retained.Count == 2 && retained[0].Target == retained[1].Target
+                && retained.All(arm => arm.Value.Kind == BeamOperandParameters.Atom)
+                && ((retained[0].Value.Value == trueAtom && retained[1].Value.Value == falseAtom)
+                    || (retained[0].Value.Value == falseAtom && retained[1].Value.Value == trueAtom));
+            if (retained.Count == armCount && !singleton && !boolean)
             {
                 continue;
             }
@@ -73,15 +80,19 @@ internal sealed partial class BeamModuleCompiler
                 output.WriteByte(Jump);
                 BeamCompactWriter.Write(output, LabelTag, defaultLabel.Label);
             }
-            else if (retained is [(var value, var start, var valueEnd, var target)]
-                && value.Kind is BeamOperandParameters.Atom or BeamOperandParameters.Integer)
+            else if (singleton || boolean)
             {
-                output.WriteByte(ExactEqualTest);
+                var arm = retained[0];
+                output.WriteByte(boolean ? IsBoolean : ExactEqualTest);
                 BeamCompactWriter.Write(output, LabelTag, defaultLabel.Label);
                 output.Write(code.Span[(instruction.Offset + 1)..defaultLabel.Start]);
-                output.Write(code.Span[start..valueEnd]);
+                if (singleton)
+                {
+                    output.Write(code.Span[arm.Start..arm.End]);
+                }
+
                 output.WriteByte(Jump);
-                BeamCompactWriter.Write(output, LabelTag, target);
+                BeamCompactWriter.Write(output, LabelTag, arm.Target);
             }
             else
             {

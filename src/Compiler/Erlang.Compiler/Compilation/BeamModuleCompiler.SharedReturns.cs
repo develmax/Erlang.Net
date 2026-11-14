@@ -219,6 +219,13 @@ internal sealed partial class BeamModuleCompiler
                 continue;
             }
 
+            if (test.Definition.Opcode == ExactEqualTest && target.Value == failure.Value)
+            {
+                output.Write(code.Span[copied..test.Offset]);
+                copied = body[index + 1].Offset;
+                continue;
+            }
+
             int successor = index + 2;
             while (body[successor] is { Definition.Opcode: Label, Operands: [var label] }
                 && label.Value != failure.Value)

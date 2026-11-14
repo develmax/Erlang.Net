@@ -1,5 +1,7 @@
 # Project progress
 
+Part 1708 accepted and compiled all 1,366 sources with 398 Equal and 968 Different. Boolean and exact test simplifications changed 11 images. [Evidence](validation/part-1708/README.md).
+
 Part 1707 accepted and compiled all 1,366 sources with 398 Equal and 968 Different. One additional function matches normalized OTP instructions. [Evidence](validation/part-1707/README.md).
 
 Part 1706 accepted and compiled all 1,366 sources with 398 Equal and 968 Different. Comparison inversion changed 682 images. [Evidence](validation/part-1706/README.md).

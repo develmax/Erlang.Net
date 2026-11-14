@@ -1,5 +1,7 @@
 # Next steps
 
+Compare strict integer comparisons with OTP beam_jump threshold normalization and preserve integer type proofs. [Evidence](validation/part-1708/README.md).
+
 Compare remaining boolean selections and redundant labels with OTP beam_jump. [Evidence](validation/part-1707/README.md).
 
 Audit remaining redundant conditional branches and labels after comparison inversion. [Evidence](validation/part-1706/README.md).
