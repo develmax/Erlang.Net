@@ -82,8 +82,20 @@ internal sealed partial class BeamModuleCompiler
             emittedLabels[label] = emittedLabels[target];
         }
 
+        var removed = edits.OrderBy(edit => edit.Start).ToArray();
+        int removedIndex = 0;
         foreach (var (start, end, label) in labelOperands)
         {
+            while (removedIndex < removed.Length && removed[removedIndex].End <= start)
+            {
+                removedIndex++;
+            }
+
+            if (removedIndex < removed.Length && removed[removedIndex].Start <= start)
+            {
+                continue;
+            }
+
             int target = MapEmittedLabel(label);
             if (target != label)
             {
@@ -136,9 +148,9 @@ internal sealed partial class BeamModuleCompiler
     {
         var unprotected = UnprotectedReturnLabels(body, start, end);
 
-        var returns = new Dictionary<(BeamOperand? Source, BeamOperand? Slots), int>();
+        var returns = new Dictionary<(BeamOperand? Source, BeamOperand? Slots, BeamOperand? Callee, BeamOperand? Arity), int>();
         // Prefer the later block, as OTP's reverse traversal in beam_jump:share_1 does.
-        for (int index = end - 3; index > start; index--)
+        for (int index = end - 2; index > start; index--)
         {
             if (body[index].Definition.Opcode != Label || unprotected is not null && !unprotected.Contains(index))
             {
@@ -161,13 +173,31 @@ internal sealed partial class BeamModuleCompiler
                 first++;
             }
 
-            if (first >= end || body[first].Definition.Opcode != Return)
+            if (first >= end - 1)
             {
                 continue;
             }
 
+            BeamOperand? callee = null;
+            BeamOperand? arity = null;
+            if (first == index + 1 && body[first] is
+                {
+                    Definition.Opcode: TailLocalCall or TailLocalCallWithFrame,
+                    Operands: [var arguments, var destinationLabel, ..]
+                } tail)
+            {
+                arity = arguments;
+                callee = destinationLabel;
+                slots = tail.Definition.Opcode == TailLocalCallWithFrame ? tail.Operands[2] : null;
+            }
+            else if (body[first].Definition.Opcode != Return)
+            {
+                continue;
+            }
+
+            var key = (source, slots, callee, arity);
             int label = (int)body[index].Operands[0].Value;
-            if (returns.TryGetValue((source, slots), out int target))
+            if (returns.TryGetValue(key, out int target))
             {
                 redirects.Add(label, target);
                 // Existing branches are redirected by the label map. A sequential predecessor needs a jump.
@@ -182,7 +212,7 @@ internal sealed partial class BeamModuleCompiler
             }
             else
             {
-                returns.Add((source, slots), label);
+                returns.Add(key, label);
             }
         }
     }
