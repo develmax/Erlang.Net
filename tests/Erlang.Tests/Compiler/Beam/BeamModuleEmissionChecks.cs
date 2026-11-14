@@ -231,6 +231,7 @@ internal static class BeamModuleEmissionChecks
             "beam_tuple_atom_tail",
             "beam_discarded_case_literals",
             "beam_retained_tuple_field",
+            "beam_constructed_continuation",
             "tuple_register_entry_probe",
             "tuple_nested_entry_probe",
             "tuple_nested_fallback_probe",

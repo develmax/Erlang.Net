@@ -741,6 +741,7 @@ internal sealed partial class BeamModuleCompiler
                 || owner.TryEmitAtomAliasDispatch(function, entries) || TryEmitLiteralResultDispatch(function)
                 || TryEmitRegisterTailCall(function)
                 || TryEmitNonAllocatingBifOperands(function) || TryEmitRegisterConstructedArgument(function)
+                || function.Clauses is [var constructionContinuation] && TryEmitConstructedCallContinuation(constructionContinuation)
                 || TryEmitEmbeddedConstructorTail(function) || TryEmitReusedTupleCaseTail(function)
                 || TryEmitLiteralEntryCallCase(function) || TryEmitEffectfulTupleOrAtomCase(function))
             {
