@@ -1,3 +1,5 @@
+Part 1702 removes jumps to adjacent target labels. Other control-flow differences remain. [Evidence](validation/part-1702/README.md).
+
 Part 1701 emits verified singleton tail wrappers before assigning atom and line indices. The release image set is unchanged. [Evidence](validation/part-1701/README.md).
 
 Part 1700 removes empty frames and local tail call locations from straight-line wrappers. Removed moves can still affect atom order. [Evidence](validation/part-1700/README.md).

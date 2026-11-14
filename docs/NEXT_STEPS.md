@@ -1,5 +1,7 @@
 # Next steps
 
+Compare forwarding labels and common terminal instruction sequences with OTP beam_jump. [Evidence](validation/part-1702/README.md).
+
 Compare shared terminal blocks and redundant jumps across the release corpus. [Evidence](validation/part-1701/README.md).
 
 Track atom use after BEAM rewrites and restore the corresponding order of atom indices and dependent chunks. [Evidence](validation/part-1700/README.md).

@@ -62,7 +62,8 @@ internal sealed partial class BeamModuleCompiler
             functionEnd = index;
         }
 
-        if (redirects.Count == 0)
+        CollectRedundantJumps(body, redirects, edits);
+        if (redirects.Count == 0 && edits.Count == 0)
         {
             return null;
         }
@@ -136,6 +137,66 @@ internal sealed partial class BeamModuleCompiler
         output.Write(code.Span[copied..]);
 
         return output.ToArray();
+    }
+
+    private static void CollectRedundantJumps(
+        IReadOnlyList<BeamInstruction> body,
+        IReadOnlyDictionary<int, int> redirects,
+        List<CodeEdit> edits
+    )
+    {
+        var replacement = edits.ToDictionary(edit => edit.Start);
+        for (int index = 0; index + 1 < body.Count; index++)
+        {
+            if (replacement.TryGetValue(body[index].Offset, out var previous) && !previous.IsJump)
+            {
+                continue;
+            }
+
+            int target;
+            int end;
+            if (previous.IsJump)
+            {
+                target = previous.Value;
+                end = previous.End;
+            }
+            else if (body[index] is { Definition.Opcode: Jump, Operands: [var label] })
+            {
+                target = (int)label.Value;
+                end = body[index + 1].Offset;
+            }
+            else
+            {
+                continue;
+            }
+
+            target = redirects.GetValueOrDefault(target, target);
+            int next = index + 1;
+            while (body[next].Offset < end)
+            {
+                next++;
+            }
+
+            int lastRemovedInstruction = next - 1;
+            while (body[next] is { Definition.Opcode: Label, Operands: [var successor] }
+                && !redirects.ContainsKey((int)successor.Value))
+            {
+                if (successor.Value == target)
+                {
+                    if (previous.IsJump)
+                    {
+                        edits.Remove(previous);
+                    }
+
+                    edits.Add(new(body[index].Offset, end, LabelTag, 0));
+                    break;
+                }
+
+                next++;
+            }
+
+            index = lastRemovedInstruction;
+        }
     }
 
     private static void CollectSharedReturns(

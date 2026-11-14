@@ -1,5 +1,7 @@
 # Project progress
 
+Part 1702 accepted and compiled all 1,366 sources with 398 Equal and 968 Different. Redundant fallthrough jumps were removed in 352 images. [Evidence](validation/part-1702/README.md).
+
 Part 1701 accepted and compiled all 1,366 sources with 398 Equal and 968 Different. The new tail wrapper fixture is byte-identical. [Evidence](validation/part-1701/README.md).
 
 Part 1700 accepted and compiled all 1,366 sources with 398 Equal and 968 Different. logger_disk_log_h:terminate/3 matches normalized OTP instructions. [Evidence](validation/part-1700/README.md).
