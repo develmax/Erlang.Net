@@ -1,3 +1,5 @@
+Part 1674 keeps a list element returned by a call in X0 until the list is built. [Evidence](validation/part-1674/README.md).
+
 Part 1673 keeps the guarded selector value in X0 and saves one fallback slot. [Evidence](validation/part-1673/README.md).
 
 Part 1672 keeps the unmatched selector value in X0 through the shared fallback dispatch. [Evidence](validation/part-1672/README.md).
