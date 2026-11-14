@@ -1,5 +1,7 @@
 # Next steps
 
+Compare lowering and operand types in functions with the remaining release code differences. [Evidence](validation/part-1667/README.md).
+
 Compare relocation after intervening frame trims. [Evidence](validation/part-1666/README.md).
 
 Compare early loads from reused stack slots before calls. [Evidence](validation/part-1665/README.md).

@@ -1,5 +1,7 @@
 # Compatibility overview
 
+Part 1667 verifies live slot relocation after consecutive frame trims in a deterministic fixture and in the OTP VM. [Evidence](validation/part-1667/README.md).
+
 Part 1666 verifies literal argument move order in a deterministic fixture and in the OTP VM. [Evidence](validation/part-1666/README.md).
 
 Part 1665 verifies literal argument move order in a deterministic fixture and in the OTP VM. [Evidence](validation/part-1665/README.md).

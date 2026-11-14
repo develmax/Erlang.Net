@@ -1,3 +1,5 @@
+Part 1667 chooses a surviving slot using its index in the current frame. [Evidence](validation/part-1667/README.md).
+
 Part 1666 stages a saved receiver before loading integer and list arguments. [Evidence](validation/part-1666/README.md).
 
 Part 1665 stages a saved receiver before loading integer and list arguments. [Evidence](validation/part-1665/README.md).
