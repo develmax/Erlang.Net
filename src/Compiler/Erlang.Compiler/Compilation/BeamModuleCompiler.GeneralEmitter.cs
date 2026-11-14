@@ -431,7 +431,8 @@ internal sealed partial class BeamModuleCompiler
                 || TryEmitRegisterCapturedClosure(function) || TryEmitClosureArgumentTail(function)
                 || TryEmitRoundedCallCase(function)
                 || TryEmitSharedIntegerGuardResult(function) || TryEmitDisjointRangePredicate(function)
-                || TryEmitTerminalPredicateCalls(function) || TryEmitTerminalCallMatch(function))
+                || TryEmitTerminalPredicateCalls(function) || TryEmitTerminalCallMatch(function)
+                || TryEmitRecordFieldCallAndReturn(function))
             {
                 return;
             }
@@ -539,7 +540,6 @@ internal sealed partial class BeamModuleCompiler
                 || TryEmitDynamicDetailReply(function) || TryEmitConditionalProgressPulse(function) || TryEmitDetailWindow(function)
                 || TryEmitCheckedDetailTab(function) || TryEmitScrolledDetailPanel(function) || TryEmitPageComprehension(function)
                 || TryEmitNestedRecordEvent(function) || TryEmitRecordCleanup(function) || TryEmitGuardedPageArguments(function)
-                || TryEmitRecordFieldCallAndReturn(function)
                 || TryEmitReturnedRecordUpdate(function) || TryEmitPageRecord(function) || TryEmitDelayedPageInfo(function) || TryEmitRecordFieldCallUpdate(function) || TryEmitKnownRecordDispatch(function) || TryEmitWindowRecordExpansion(function) || TryEmitHtmlLinkEvent(function) || TryEmitListTupleTailCall(function) || TryEmitSupervisorChildNotification(function) || TryEmitProtectedListenerLookup(function)
                 || TryEmitCapturedTableList(function) || TryEmitReadTableWithWarning(function)
                 || TryEmitMemoryInfoFields(function) || TryEmitRecursiveFieldTitles(function) || TryEmitRecursiveTermExpansion(function)

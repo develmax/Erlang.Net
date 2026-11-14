@@ -581,6 +581,25 @@ internal sealed partial class BeamModuleCompiler
 
                 if (slotRelocation is null && spill is null && preparedClosure is null
                     && tuple is not null && index == calls.Length - 1
+                    && checks?.Values.Any(check => check is { Tag: not null, Field: not null } or { Tag: not null, Bindings: not null }) == true
+                    && step.RegisterConstructions is null && step.SavedInputs is { } finalLoads
+                    && saved.Count == 1 && released.Length == 1)
+                {
+                    var retained = saved.Single();
+                    int destination = released[0];
+                    if (retained.Value == lastSlotReads.Count - 1 && destination == retained.Value - 1
+                        && finalLoads.Contains((0, retained.Value)))
+                    {
+                        slotRelocation = (retained.Value, destination);
+                        reloadRelocatedArgument = true;
+                        saved[retained.Key] = destination;
+                        lastSlotReads[destination] = lastReads[retained.Key];
+                        lastSlotReads[retained.Value] = index;
+                    }
+                }
+
+                if (slotRelocation is null && spill is null && preparedClosure is null
+                    && tuple is not null && index == calls.Length - 1
                     && multiple?.Bindings is not null && step.RegisterConstructions is not null
                     && saved.Count == 1 && released.Length != 0)
                 {
