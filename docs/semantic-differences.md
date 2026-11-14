@@ -1,3 +1,5 @@
+Part 1637 matches the Line section in httpd_file and aligns handle_error/5 after label normalization. The module still differs in Code and other sections. [Evidence](validation/part-1637/README.md).
+
 Part 1636 matches single-slot frames for nested append chains. The release images are identical to part 1635. [Evidence](validation/part-1636/README.md).
 
 Part 1635 reduces redundant line instructions around straight-line append expressions. httpd_file still differs in frame generation and dispatch. [Evidence](validation/part-1635/README.md).

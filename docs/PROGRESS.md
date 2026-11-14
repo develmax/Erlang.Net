@@ -1,5 +1,7 @@
 # Project progress
 
+Part 1637 generated all 1,366 Windows OTP images with 394 Equal and 972 Different. The instructions for httpd_file:handle_error/5 match after label normalization. [Evidence](validation/part-1637/README.md).
+
 Part 1636 generated 1,366 Windows OTP images with 394 Equal and 972 Different. Single-slot append frames match in a permanent fixture. [Evidence](validation/part-1636/README.md).
 
 Part 1635 generated 1,366 Windows OTP images with 394 Equal and 972 Different. Line propagation narrowed the Code size gap in 273 images. [Evidence](validation/part-1635/README.md).

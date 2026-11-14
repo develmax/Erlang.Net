@@ -1,5 +1,7 @@
 # Next steps
 
+Compare mixed tagged-tuple and atom dispatch in httpd_file:handle_error/4 with pinned OTP and reuse the existing dispatch emitters where applicable. [Evidence](validation/part-1637/README.md).
+
 Extend append frame planning to preserve return operands and defer checked record projections until the result is constructed. [Evidence](validation/part-1636/README.md).
 
 Compare the remaining append stack frames and branch dispatch to OTP. [Evidence](validation/part-1635/README.md).

@@ -1,5 +1,7 @@
 # Dependency and compatibility decisions
 
+Part 1637 reuses entry call and tuple emitters, using the pinned OTP release disassembly to place record tests, field reads and frame operations. No dependency was added. [Evidence](validation/part-1637/README.md).
+
 Part 1636 uses existing call and tuple emitters with pinned OTP frame placement as the reference. No dependency was added. [Evidence](validation/part-1636/README.md).
 
 Part 1635 uses the existing nested-call line propagation and pinned OTP beam_z as the reference. No dependency was added. [Evidence](validation/part-1635/README.md).
