@@ -60,6 +60,40 @@ internal sealed partial class BeamModuleCompiler
             int head = arity;
             int tail = reuseTail ? listInput : arity + 1;
             bool needsTail = clauses.Take(consCount).Any(clause => !IsDiscarded(((Pattern.List)clause.Patterns[listInput]).Tail));
+            var sharedShapes = new Dictionary<int, (int End, int Arity, Atom Tag)>();
+            var checkedHeads = new HashSet<int>();
+            for (int start = 0; start < consCount;)
+            {
+                if (ReadTaggedHead(start) is not { } shape)
+                {
+                    start++;
+                    continue;
+                }
+
+                int end = start + 1;
+                while (end < consCount && ReadTaggedHead(end) is { } next
+                    && next.Arity == shape.Arity && next.Tag.Equals(shape.Tag))
+                {
+                    end++;
+                }
+
+                if (end - start > 1)
+                {
+                    sharedShapes.Add(start, (end, shape.Arity, shape.Tag));
+                    checkedHeads.UnionWith(Enumerable.Range(start, end - start));
+                }
+
+                start = end;
+            }
+
+            (int Arity, Atom Tag)? ReadTaggedHead(int branch)
+            {
+                var list = (Pattern.List)clauses[branch].Patterns[listInput];
+
+                return list.Items[0] is Erlang.Pattern.Tuple tuple && HasTupleTag(tuple, out Atom tag)
+                    ? (tuple.Items.Count, tag) : null;
+            }
+
             var branches = new List<(Clause Clause, Action<int>[] Tests, (Pattern.Variable Variable, int Register)[] Used,
                 EntryCall? Tail, int ResultRegister, Term? Constant, Dictionary<string, int> CaptureOrder)>();
 
@@ -93,7 +127,8 @@ internal sealed partial class BeamModuleCompiler
                     if (branch < consCount && index == listInput)
                     {
                         var list = (Pattern.List)clause.Patterns[index];
-                        if (!ReadPattern(list.Items[0], head) || !ReadPattern(list.Tail ?? new Pattern.List([], null), tail))
+                        if (!ReadPattern(list.Items[0], head, shapeChecked: checkedHeads.Contains(branch))
+                            || !ReadPattern(list.Tail ?? new Pattern.List([], null), tail))
                         {
                             return false;
                         }
@@ -152,7 +187,7 @@ internal sealed partial class BeamModuleCompiler
                     .ToDictionary(binding => binding.Name, binding => binding.order, StringComparer.Ordinal);
                 branches.Add((guardClause, tests.ToArray(), bodyInputs, tailCall, resultRegister, constant, captureOrder));
 
-                bool ReadPattern(Pattern pattern, int register, bool preserveSource = false)
+                bool ReadPattern(Pattern pattern, int register, bool preserveSource = false, bool shapeChecked = false)
                 {
                     switch (pattern)
                     {
@@ -186,17 +221,20 @@ internal sealed partial class BeamModuleCompiler
                                 && ReadPattern(alias.Right, register, preserveSource: true);
                         case Pattern.Tuple tuple:
                             bool tagged = HasTupleTag(tuple, out Atom tag);
-                            tests.Add(failure =>
+                            if (!shapeChecked)
                             {
-                                if (tagged)
+                                tests.Add(failure =>
                                 {
-                                    EmitDetailRecordTest(register, tuple.Items.Count, tag, failure);
-                                }
-                                else
-                                {
-                                    EmitTupleShapeTest(XRegisterTag, register, tuple.Items.Count, failure);
-                                }
-                            });
+                                    if (tagged)
+                                    {
+                                        EmitDetailRecordTest(register, tuple.Items.Count, tag, failure);
+                                    }
+                                    else
+                                    {
+                                        EmitTupleShapeTest(XRegisterTag, register, tuple.Items.Count, failure);
+                                    }
+                                });
+                            }
                             int firstField = tagged ? 1 : 0;
                             int lastField = tuple.Items.Count - 1;
                             while (lastField >= firstField && DiscardTupleField(tuple.Items[lastField]))
@@ -298,6 +336,8 @@ internal sealed partial class BeamModuleCompiler
             }
 
             var frames = new Dictionary<int, int>();
+            int sharedShapeEnd = -1;
+            int sharedShapeFailure = 0;
             for (int branch = 0; branch < branches.Count; branch++)
             {
                 var (clause, tests, used, tailCall, resultRegister, constant, captureOrder) = branches[branch];
@@ -314,6 +354,20 @@ internal sealed partial class BeamModuleCompiler
                     // Failure to match the cons head cannot reach the empty-list clause.
                     failure = functionInfo;
                 }
+
+                if (sharedShapes.TryGetValue(branch, out var shape))
+                {
+                    sharedShapeEnd = shape.End;
+                    sharedShapeFailure = shape.End < consCount ? Label()
+                        : emptyReturn is not null ? functionInfo : nonCons;
+                    EmitDetailRecordTest(head, shape.Arity, shape.Tag, sharedShapeFailure);
+                }
+
+                if (branch + 1 == sharedShapeEnd)
+                {
+                    failure = sharedShapeFailure;
+                }
+
                 foreach (var test in tests)
                 {
                     test(failure);
