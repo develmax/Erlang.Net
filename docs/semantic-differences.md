@@ -1,3 +1,5 @@
+Part 1634 matches append destination registers in httpd_file. Stack frame and line metadata still differ. [Evidence](validation/part-1634/README.md).
+
 Part 1633 matches OTP lowering for short proper literal append prefixes. httpd_file still differs in the surrounding frame and call sequence. [Evidence](validation/part-1633/README.md).
 
 Part 1632 aligns the singleton list branch frame in Observer start/1, completing release image equality for Observer. [Evidence](validation/part-1632/README.md).

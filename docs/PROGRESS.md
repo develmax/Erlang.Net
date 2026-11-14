@@ -1,5 +1,7 @@
 # Project progress
 
+Part 1634 generated 1,366 Windows OTP images with 394 Equal and 972 Different. Direct append destinations narrowed the Code size gap in 178 images. [Evidence](validation/part-1634/README.md).
+
 Part 1633 generated 1,366 Windows OTP images with 394 Equal and 972 Different. Short literal append lowering affected 199 images. [Evidence](validation/part-1633/README.md).
 
 Part 1632 generated all 1,366 Windows OTP release images with 394 Equal and 972 Different. Observer now matches byte for byte. [Evidence](validation/part-1632/README.md).

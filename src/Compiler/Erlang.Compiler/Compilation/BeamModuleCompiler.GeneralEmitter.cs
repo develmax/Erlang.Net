@@ -713,6 +713,7 @@ internal sealed partial class BeamModuleCompiler
                 || TryEmitRegisteredProcessCase(function)
                 || TryEmitTaggedTupleAndConstantsTail(function) || TryEmitTupleElementAtomDispatchTail(function)
                 || TryEmitTupleListTailCall(function)
+                || TryEmitRegisterConstructedArgument(function, foldAppendArguments: true)
                 || TryEmitNestedArgumentTailCall(function)
                 || TryEmitNilArgumentDispatch(function) || TryEmitRecordListPrefix(function)
                 || TryEmitGuardedTaggedFieldTailCall(function)
@@ -9146,7 +9147,9 @@ internal sealed partial class BeamModuleCompiler
                 return;
             }
 
-            bool constructInDestination = expression is Expr.List && owner.receiveScratchRegisters is null;
+            bool constructInDestination = owner.receiveScratchRegisters is null
+                && (expression is Expr.List || expression is Expr.Binary { Operator: ErlangOperators.Append } append
+                    && AppendPrefix(append.Left) is not null);
             Expression(expression, listDestination: constructInDestination ? destination : 0);
             if (!constructInDestination && destination != 0)
             {
@@ -9465,7 +9468,14 @@ internal sealed partial class BeamModuleCompiler
                 case Expr.Binary { Operator: ErlangOperators.Append } append when guardFailure is null:
                     if (AppendPrefix(append.Left) is { } prefix)
                     {
-                        Expression(prefix.Count == 0 ? append.Right : new Expr.List(prefix, append.Right));
+                        if (prefix.Count == 0)
+                        {
+                            EmitFinalCallOperand(append.Right, listDestination);
+                        }
+                        else
+                        {
+                            Expression(new Expr.List(prefix, append.Right), listDestination: listDestination);
+                        }
                     }
                     else
                     {

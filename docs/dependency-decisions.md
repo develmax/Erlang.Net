@@ -1,5 +1,7 @@
 # Dependency and compatibility decisions
 
+Part 1634 reuses the existing X-register list constructor and pinned OTP instruction ordering as the reference. No dependency was added. [Evidence](validation/part-1634/README.md).
+
 Part 1633 follows pinned OTP sys_core_fold using the existing list constructor emitter. No dependency was added. [Evidence](validation/part-1633/README.md).
 
 Part 1632 uses the existing C# entry call and tail emitters with pinned OTP frame placement as the reference. [Evidence](validation/part-1632/README.md).

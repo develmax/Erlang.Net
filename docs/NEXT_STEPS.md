@@ -1,5 +1,7 @@
 # Next steps
 
+Compare stack slot liveness and repeated source locations around append call sequences. [Evidence](validation/part-1634/README.md).
+
 Compare the remaining append instruction sequences and frame liveness against OTP. [Evidence](validation/part-1633/README.md).
 
 Re-rank the remaining release images by divergent functions and prioritize shared branch frame and liveness issues. [Evidence](validation/part-1632/README.md).

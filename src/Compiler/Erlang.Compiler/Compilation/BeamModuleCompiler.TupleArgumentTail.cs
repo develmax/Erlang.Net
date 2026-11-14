@@ -290,12 +290,26 @@ internal sealed partial class BeamModuleCompiler
             }
         }
 
-        private bool TryEmitRegisterConstructedArgument(FunctionDefinition function)
+        private bool TryEmitRegisterConstructedArgument(FunctionDefinition function, bool foldAppendArguments = false)
         {
             if (function.Clauses is not [{ Guard: null, Body: Expr.Call call } clause]
                 || !HasUnconditionalParameters(clause) || function.Arity >= FirstReservedXRegister)
             {
                 return false;
+            }
+
+            if (foldAppendArguments)
+            {
+                var arguments = call.Arguments.ToArray();
+                int argument = Array.FindIndex(arguments, item => item is Expr.Binary { Operator: ErlangOperators.Append });
+                if (arguments.Length < 2 || argument < 0
+                    || arguments[argument] is not Expr.Binary append || AppendPrefix(append.Left) is not { Count: > 0 } prefix)
+                {
+                    return false;
+                }
+
+                arguments[argument] = new Expr.List(prefix, append.Right);
+                call = call with { Arguments = arguments };
             }
 
             var inputs = new Dictionary<string, int>(StringComparer.Ordinal);
