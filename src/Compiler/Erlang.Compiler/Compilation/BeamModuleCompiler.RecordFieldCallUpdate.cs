@@ -303,6 +303,74 @@ internal sealed partial class BeamModuleCompiler
             owner.Operand(XRegisterTag, 0);
         }
 
+        private bool TryEmitRecordFieldCallAndReturn(FunctionDefinition function)
+        {
+            if (function.Clauses is not [{ Guard: null, Body: Expr.Sequence { Items: [
+                Expr.Call { Module: not null, DynamicRemote: false, Arguments: [
+                    Expr.RecordAccess { Value: Expr.Variable source } field,
+                    Expr.Literal { Value: var format },
+                    Expr.List { Tail: null, Items: [Expr.Variable item] }
+                ] } call,
+                Expr.Tuple { Items: [.., Expr.Variable retained] } reply
+            ] } } clause]
+                || !HasUnconditionalParameters(clause)
+                || !TryResolveOrdinaryCallTarget(call, out _)
+                || source.Name != retained.Name || source.Name == item.Name
+                || source.Name == VariableScopeNames.Wildcard || item.Name == VariableScopeNames.Wildcard)
+            {
+                return false;
+            }
+
+            var prefix = new List<Term>();
+            foreach (Expr value in reply.Items.Take(reply.Items.Count - 1))
+            {
+                if (!AttributeLiteral.TryNormalizeConstant(value, out Term constant))
+                {
+                    return false;
+                }
+
+                prefix.Add(constant);
+            }
+
+            var parameters = clause.Patterns.Cast<Pattern.Variable>().Select(parameter => parameter.Name).ToArray();
+            int record = Array.IndexOf(parameters, source.Name);
+            int element = Array.IndexOf(parameters, item.Name);
+            if (record < 0 || element < 0)
+            {
+                return false;
+            }
+
+            int failure = Label();
+            EmitDetailRecordTest(record, field.Arity, Term.A(field.Name), failure);
+            owner.Op(AllocateHeap, BeamWire.UnsignedTag, 1);
+            owner.Operand(BeamWire.UnsignedTag, 2);
+            owner.Operand(BeamWire.UnsignedTag, Math.Max(record, element) + 1);
+            owner.MoveRegister(XRegisterTag, record, YRegisterTag, 0);
+            owner.Op(PutList, XRegisterTag, element);
+            owner.LiteralOperand(Nil.Value);
+            owner.Operand(XRegisterTag, 2);
+            int recordTag = record == 2 ? YRegisterTag : XRegisterTag;
+            owner.Op(GetTupleElement, recordTag, record == 2 ? 0 : record);
+            owner.Operand(BeamWire.UnsignedTag, field.Index);
+            owner.Operand(XRegisterTag, 0);
+            owner.EmitConstant(format, 1);
+            owner.EmitCallLine(call, location);
+            owner.EmitStaticRemoteCall(call);
+            owner.Op(TestHeap, BeamWire.UnsignedTag, reply.Items.Count + 1);
+            owner.Operand(BeamWire.UnsignedTag, 0);
+            owner.EmitTupleHeader(XRegisterTag, reply.Items.Count);
+            foreach (Term constant in prefix)
+            {
+                owner.LiteralOperand(constant);
+            }
+            owner.Operand(YRegisterTag, 0);
+            owner.EmitFrameReturn(1);
+            Mark(failure);
+            owner.Op(BadRecord, XRegisterTag, record);
+
+            return true;
+        }
+
         private bool TryEmitRecordFieldCallUpdate(FunctionDefinition function)
         {
             if (function.Clauses is not [
