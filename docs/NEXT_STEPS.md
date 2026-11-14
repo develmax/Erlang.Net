@@ -1,5 +1,7 @@
 # Next steps
 
+Compare the remaining shared tuple prefixes and the Code size delta in init. [Evidence](validation/part-1685/README.md).
+
 Compare shared tuple prefixes and the lifetime of the parent tuple register across structural list branches. [Evidence](validation/part-1684/README.md).
 
 Compare the remaining structural cons branches that retain the list and inspect the eunit_autoexport Code size difference. [Evidence](validation/part-1683/README.md).
