@@ -1,5 +1,7 @@
 # Project progress
 
+Part 1633 generated 1,366 Windows OTP images with 394 Equal and 972 Different. Short literal append lowering affected 199 images. [Evidence](validation/part-1633/README.md).
+
 Part 1632 generated all 1,366 Windows OTP release images with 394 Equal and 972 Different. Observer now matches byte for byte. [Evidence](validation/part-1632/README.md).
 
 Part 1631 generated all 1,366 Windows OTP release images with 393 Equal and 973 Different. Observer start_and_wait/1 matched after label normalization. [Evidence](validation/part-1631/README.md).

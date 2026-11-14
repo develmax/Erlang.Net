@@ -1,3 +1,5 @@
+Part 1633 matches OTP lowering for short proper literal append prefixes. httpd_file still differs in the surrounding frame and call sequence. [Evidence](validation/part-1633/README.md).
+
 Part 1632 aligns the singleton list branch frame in Observer start/1, completing release image equality for Observer. [Evidence](validation/part-1632/README.md).
 
 Part 1631 aligns the guarded monitored receive in Observer. Its start/1 still differs in entry dispatch and frame placement. [Evidence](validation/part-1631/README.md).

@@ -1,5 +1,7 @@
 # Compatibility overview
 
+Part 1633 verifies short literal append lowering with a byte-identical fixture and OTP VM cases. [Evidence](validation/part-1633/README.md).
+
 Part 1632 verifies singleton-list dispatch and nested call frames with a byte-identical fixture and OTP VM outcomes. [Evidence](validation/part-1632/README.md).
 
 Part 1631 verifies guarded monitored receive entry with a byte-identical fixture and OTP VM checks. [Evidence](validation/part-1631/README.md).

@@ -224,6 +224,7 @@ internal static class BeamModuleEmissionChecks
             "beam_monitored_receive",
             "beam_guarded_monitor",
             "beam_singleton_checked_calls",
+            "beam_short_append",
             "tuple_register_entry_probe",
             "tuple_nested_entry_probe",
             "tuple_nested_fallback_probe",

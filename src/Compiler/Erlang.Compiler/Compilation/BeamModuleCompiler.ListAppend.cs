@@ -4,12 +4,28 @@ namespace Erlang.Compiler;
 
 internal sealed partial class BeamModuleCompiler
 {
-    private static IReadOnlyList<Expr>? AppendPrefix(Expr expression) => expression switch
+    private const int MaximumFoldedLiteralAppendLength = 4;
+
+    private static IReadOnlyList<Expr>? AppendPrefix(Expr expression)
     {
-        Expr.List { Tail: null } list => list.Items,
-        Expr.Literal { Value: Nil } => [],
-        _ => null
-    };
+        switch (expression)
+        {
+            case Expr.List { Tail: null } list:
+                return list.Items;
+            case Expr.Literal { Value: var value }:
+                // OTP expands small proper literal prefixes into cons cells.
+                var items = new List<Expr>();
+                while (value is Cons cell && items.Count < MaximumFoldedLiteralAppendLength)
+                {
+                    items.Add(new Expr.Literal(cell.Head));
+                    value = cell.Tail;
+                }
+
+                return value is Nil ? items : null;
+            default:
+                return null;
+        }
+    }
 
     private static bool IsDirectAppend(Expr.Binary append) =>
         IsCallOperand(append.Left) && IsCallOperand(append.Right);
