@@ -244,6 +244,7 @@ internal static class BeamModuleEmissionChecks
             "beam_retained_record_call",
             "beam_retained_record_dispatch",
             "beam_checked_record_call",
+            "beam_trim_tagged_payload",
             "tuple_register_entry_probe",
             "tuple_nested_entry_probe",
             "tuple_nested_fallback_probe",
