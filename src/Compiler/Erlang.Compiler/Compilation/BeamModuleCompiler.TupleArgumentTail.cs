@@ -547,7 +547,10 @@ internal sealed partial class BeamModuleCompiler
                         return null;
                     }
 
-                    tail = Construct([heads[index], value], index == 0 ? destination : -1, isCons: true);
+                    var head = heads[index];
+                    tail = head.Constant is { } literal && value.Constant is { } suffix
+                        ? (-1, new Cons(literal, suffix))
+                        : Construct([head, value], index == 0 ? destination : -1, isCons: true);
                 }
 
                 return tail;

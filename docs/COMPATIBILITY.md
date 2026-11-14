@@ -1,5 +1,7 @@
 # Compatibility overview
 
+Part 1626 verifies constant list suffixes in tail arguments with a byte-identical fixture and matching OTP VM results. [Evidence](validation/part-1626/README.md).
+
 Part 1625 verifies wildcard tail calls using a byte-identical module and VM outcome comparison. [Evidence](validation/part-1625/README.md).
 
 Part 1624 verifies inline record replacement calls using a byte-identical module and VM outcome comparison. [Evidence](validation/part-1624/README.md).

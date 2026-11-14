@@ -1,3 +1,5 @@
+Part 1626 aligns constant list suffix emission and records nine new normalized instruction matches and no losses. Nested constructor scheduling can still differ. [Evidence](validation/part-1626/README.md).
+
 Part 1625 aligns wildcard tail calls and records 4 new normalized instruction matches and 0 losses. Remaining release images are tracked in the corpus report. [Evidence](validation/part-1625/README.md).
 
 Part 1624 aligns inline record replacement calls in a permanent fixture. Remaining release images are tracked in the corpus report. [Evidence](validation/part-1624/README.md).
