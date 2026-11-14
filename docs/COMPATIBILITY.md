@@ -1,5 +1,7 @@
 # Compatibility overview
 
+Part 1658 verifies literal list prefix arguments with a variable tail in a deterministic fixture and in the OTP VM. [Evidence](validation/part-1658/README.md).
+
 Part 1657 verifies nested tagged record parameters in a deterministic fixture and in the OTP VM. [Evidence](validation/part-1657/README.md).
 
 Part 1656 verifies relocating live tuple values before a final call in a deterministic fixture and in the OTP VM. [Evidence](validation/part-1656/README.md).
