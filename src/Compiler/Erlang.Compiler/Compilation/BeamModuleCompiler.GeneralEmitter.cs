@@ -7586,6 +7586,8 @@ internal sealed partial class BeamModuleCompiler
                                 or AutoImportNames.ListToBinary or AutoImportNames.IolistToBinary
                                 or AutoImportNames.BinaryToList, 1)
                             or (AutoImportNames.IntegerToList or AutoImportNames.ListToInteger, 2)
+                            or (AutoImportNames.Spawn or AutoImportNames.SpawnLink or AutoImportNames.SpawnMonitor, 1 or 2 or 3 or 4)
+                            or (AutoImportNames.SpawnOpt, 2 or 3 or 4 or 5)
                             or (ErlangOperators.Append, 2)
                             or (AutoImportNames.BinaryToList, 3)));
         }
