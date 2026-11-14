@@ -218,10 +218,45 @@ internal sealed partial class BeamModuleCompiler
 
         private const int RecordUpdateArityLimit = 512;
 
-        private void EmitCheckedRecordUpdate(Expr.RecordUpdate update)
+        private bool TryEmitWrappedCheckedRecordUpdate(Expr.Tuple tuple)
+        {
+            if (tuple.Items.Count < 2 || tuple.Items[^1] is not Expr.RecordUpdate update
+                || update.Fields.Count == 0
+                || CheckedRecordSlot(update.Value, update.Name, update.Arity) is null)
+            {
+                return false;
+            }
+
+            var prefix = new Term[tuple.Items.Count - 1];
+            for (int index = 0; index < prefix.Length; index++)
+            {
+                if (!AttributeLiteral.TryNormalizeConstant(tuple.Items[index], out prefix[index]))
+                {
+                    return false;
+                }
+            }
+
+            EmitCheckedRecordUpdate(update, prefix);
+
+            return true;
+        }
+
+        private void EmitCheckedRecordUpdate(Expr.RecordUpdate update, Term[]? tuplePrefix = null)
         {
             int operandBase = nextSlot;
-            int?[] values = update.Fields.Select(field => GuardSlot(field.Value, null)).ToArray();
+            bool registerReplacement = tuplePrefix is not null && update.Fields[^1].Value is Expr.Call;
+            int?[] values = new int?[update.Fields.Count];
+            for (int index = 0; index < values.Length; index++)
+            {
+                if (registerReplacement && index == values.Length - 1)
+                {
+                    Expression(update.Fields[index].Value);
+                }
+                else
+                {
+                    values[index] = GuardSlot(update.Fields[index].Value, null);
+                }
+            }
             var source = ReadRecordUpdateSource(update);
             int? sourceSlot = CheckedRecordSlot(update.Value, update.Name, update.Arity);
 
@@ -245,8 +280,8 @@ internal sealed partial class BeamModuleCompiler
                 string hint = fields.Length == 1 && fields[0].Equal != false && update.Arity < RecordUpdateArityLimit
                     ? "reuse"
                     : "copy";
-                owner.Op(TestHeap, BeamWire.UnsignedTag, update.Arity + 1);
-                owner.Operand(BeamWire.UnsignedTag, sourceSlot.HasValue ? 0 : 1);
+                owner.Op(TestHeap, BeamWire.UnsignedTag, update.Arity + 1 + (tuplePrefix is null ? 0 : tuplePrefix.Length + 2));
+                owner.Operand(BeamWire.UnsignedTag, Math.Max(sourceSlot.HasValue && !registerReplacement ? 0 : 1, tuplePrefix is null ? 0 : ReceiveGuardLiveRegisters));
                 owner.Op(UpdateRecord, AtomTag, owner.Intern(hint));
                 owner.Operand(BeamWire.UnsignedTag, update.Arity);
                 owner.EmitTypedRegister(sourceSlot ?? 0, TupleTypeBits, registerTag: sourceSlot.HasValue ? YRegisterTag : XRegisterTag);
@@ -256,12 +291,36 @@ internal sealed partial class BeamModuleCompiler
                 foreach (var entry in fields)
                 {
                     owner.Operand(BeamWire.UnsignedTag, entry.Field.Index + 1);
-                    GuardOperand(entry.Field.Value, entry.Slot);
+                    if (registerReplacement && ReferenceEquals(entry.Field, update.Fields[^1]))
+                    {
+                        owner.Operand(XRegisterTag, 0);
+                    }
+                    else
+                    {
+                        GuardOperand(entry.Field.Value, entry.Slot);
+                    }
                 }
+            }
+
+            if (tuplePrefix is not null)
+            {
+                EmitRecordUpdateWrapper(tuplePrefix);
             }
 
             ReleaseOperandSlots(operandBase);
         }
+
+        private void EmitRecordUpdateWrapper(Term[] prefix)
+        {
+            owner.EmitTupleHeader(XRegisterTag, prefix.Length + 1);
+            foreach (Term item in prefix)
+            {
+                owner.LiteralOperand(item);
+            }
+
+            owner.Operand(XRegisterTag, 0);
+        }
+
 
         private static IReadOnlyList<Expr>? ReadRecordUpdateSource(Expr.RecordUpdate update)
         {

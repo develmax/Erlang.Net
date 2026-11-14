@@ -1,5 +1,7 @@
 # Compatibility overview
 
+Part 1620 verifies combined checked record updates and tuple allocation, with matching execution results in the two probes. [Evidence](validation/part-1620/README.md).
+
 Part 1619 verifies deferred tuple projections across record update calls with a byte-identical fixture and matching function_clause locations. [Evidence](validation/part-1619/README.md).
 
 Part 1618 verifies literal case arms after saved calls with a byte-identical fixture and matching case_clause location. [Evidence](validation/part-1618/README.md).

@@ -9218,7 +9218,7 @@ internal sealed partial class BeamModuleCompiler
 
                         return;
                     }
-                    if (guardFailure is null && TryEmitTupleWithRegisterMember(tuple))
+                    if (guardFailure is null && (TryEmitWrappedCheckedRecordUpdate(tuple) || TryEmitTupleWithRegisterMember(tuple)))
                     {
                         return;
                     }
