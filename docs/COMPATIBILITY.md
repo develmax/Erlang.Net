@@ -1,5 +1,7 @@
 # Compatibility overview
 
+Part 1691 verifies shared payload extraction before select_val. [Evidence](validation/part-1691/README.md).
+
 Part 1690 verifies key register reuse in selected cons branches. [Evidence](validation/part-1690/README.md).
 
 Part 1689 verifies select_val dispatch for distinct literal keys in shared cons patterns. [Evidence](validation/part-1689/README.md).

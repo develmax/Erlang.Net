@@ -1,5 +1,7 @@
 # Dependency and compatibility decisions
 
+Part 1691 reuses structural tuple projection and branch register planning. No dependency was added. [Evidence](validation/part-1691/README.md).
+
 Part 1690 reuses the structural pattern register planner. No dependency was added. [Evidence](validation/part-1690/README.md).
 
 Part 1689 reuses the existing BEAM selection table writer. No dependency was added. [Evidence](validation/part-1689/README.md).
