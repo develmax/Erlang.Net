@@ -1,5 +1,7 @@
 # Compatibility overview
 
+Part 1718 removes unreferenced internal labels from fallthrough paths. [Evidence](validation/part-1718/README.md).
+
 Part 1717 removes unreachable return blocks while preserving entry labels and reachable returns. [Evidence](validation/part-1717/README.md).
 
 Part 1716 folds calls that jump directly to a shared return and optional deallocation. [Evidence](validation/part-1716/README.md).

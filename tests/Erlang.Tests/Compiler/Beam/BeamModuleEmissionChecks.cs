@@ -343,6 +343,7 @@ internal static class BeamModuleEmissionChecks
         CompareTerminalCallFolding();
         CompareSharedReturnCallFolding();
         CompareUnreachableReturnRemoval();
+        CompareUnusedFallthroughLabelRemoval();
         await CompareMixedListNilFallback();
         await CompareCaseTupleSlot();
         await CompareThrowStackObservers();
@@ -649,6 +650,23 @@ internal static class BeamModuleEmissionChecks
         if (code.AsSpan().IndexOf(obsoleteExit) >= 0)
         {
             throw new InvalidOperationException("Expected the shared exit to disappear after all calls became tail calls.");
+        }
+    }
+
+    private static void CompareUnusedFallthroughLabelRemoval()
+    {
+        const string source = """
+            -module(beam_unused_labels).
+            -export([run/2]).
+            run(X, Y) ->
+                other:read(X) orelse other:read(Y).
+            """;
+        byte[] beam = CodeGeneration.CompileBeamModule(source, "beam_unused_labels.erl");
+        byte[] code = BeamDocumentationEmissionChecks.Chunks(beam).Single(chunk => chunk.Id == "Code").Data;
+        int labelCount = System.Buffers.Binary.BinaryPrimitives.ReadInt32BigEndian(code.AsSpan(12));
+        if (labelCount != 9)
+        {
+            throw new InvalidOperationException("Expected only the function entry, failure and referenced branch labels.");
         }
     }
 

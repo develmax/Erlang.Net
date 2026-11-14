@@ -32,4 +32,35 @@ internal sealed partial class BeamModuleCompiler
             edits.Add(new(body[index].Offset, body[terminal + 1].Offset, LabelTag, 0));
         }
     }
+
+    private static void CollectUnusedFallthroughLabels(
+        IReadOnlyList<BeamInstruction> body,
+        List<(int Start, int End, int Label)> labelOperands,
+        Dictionary<int, int> redirects,
+        List<CodeEdit> edits
+    )
+    {
+        var referenced = labelOperands.Select(operand => operand.Label).ToHashSet();
+        int following = body.Count - 1;
+        for (int index = body.Count - 2; index > 0; index--)
+        {
+            BeamInstruction instruction = body[index];
+            if (instruction.Definition.Opcode == Line)
+            {
+                continue;
+            }
+
+            if (instruction is { Definition.Opcode: Label, Operands: [var entry] }
+                && body[following].Definition.Opcode != FunctionInfo
+                && body[index - 1].Definition.Opcode != FunctionInfo
+                && !EndsBeamBlock(body[index - 1].Definition.Opcode)
+                && !referenced.Contains((int)entry.Value))
+            {
+                redirects.Add((int)entry.Value, 0);
+                edits.Add(new(instruction.Offset, body[index + 1].Offset, LabelTag, 0));
+            }
+
+            following = index;
+        }
+    }
 }
