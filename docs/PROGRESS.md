@@ -1,5 +1,7 @@
 # Project progress
 
+Part 1629 generated all 1,366 Windows OTP release images with 393 Equal and 973 Different. Same-line constructor calls now match OTP in a permanent fixture. [Evidence](validation/part-1629/README.md).
+
 Part 1628 generated all 1,366 Windows OTP release images with 393 Equal and 973 Different. Discarded constructor lowering changed 101 images. [Evidence](validation/part-1628/README.md).
 
 Part 1627 generated all 1,366 Windows OTP release images with 393 Equal and 973 Different. Terminal receive hibernation changed one release image. [Evidence](validation/part-1627/README.md).

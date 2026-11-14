@@ -9153,7 +9153,8 @@ internal sealed partial class BeamModuleCompiler
             }
         }
 
-        private void Expression(Expr expression, int? guardFailure = null, int listDestination = 0)
+        private void Expression(Expr expression, int? guardFailure = null, int listDestination = 0,
+            BeamSourceLocation? previousDiscardedCall = null)
         {
             if (ReferenceEquals(expression, preparedReceiveCall))
             {
@@ -9694,7 +9695,10 @@ internal sealed partial class BeamModuleCompiler
                         orderSimpleOperands: guardFailure is null,
                         callSite: CallLocation(call, location)
                     );
-                    owner.EmitCallLine(call, argumentLocation);
+                    if (CallLocation(call, argumentLocation) != previousDiscardedCall)
+                    {
+                        owner.EmitCallLine(call, argumentLocation);
+                    }
                     if (guardFailure is int failureLabel)
                     {
                         if (arity != 1 || call.Module is not (null or ErlangModuleNames.Module)
@@ -10392,24 +10396,9 @@ internal sealed partial class BeamModuleCompiler
                     return;
                 case Expr.Variable variable when variables.ContainsKey(variable.Name) || deferredPairMembers.ContainsKey(variable.Name):
                     return;
-                case Expr.Tuple tuple:
-                    foreach (Expr item in tuple.Items)
-                    {
-                        Discard(item, guardFailure);
-                    }
-
-                    return;
-                case Expr.List list:
-                    foreach (Expr item in list.Items)
-                    {
-                        Discard(item, guardFailure);
-                    }
-
-                    if (list.Tail is { } tail)
-                    {
-                        Discard(tail, guardFailure);
-                    }
-
+                case Expr.Tuple or Expr.List:
+                    BeamSourceLocation? previous = null;
+                    DiscardConstructor(expression, ref previous);
                     return;
                 case Expr.Match match:
                     Match(match, guardFailure, returnValue: false);
@@ -10419,6 +10408,42 @@ internal sealed partial class BeamModuleCompiler
             if (!IsDiscardedListTail(expression))
             {
                 Expression(expression, guardFailure);
+            }
+
+            void DiscardConstructor(Expr item, ref BeamSourceLocation? previous)
+            {
+                switch (item)
+                {
+                    case Expr.Tuple tuple:
+                        foreach (Expr member in tuple.Items)
+                        {
+                            DiscardConstructor(member, ref previous);
+                        }
+                        break;
+                    case Expr.List list:
+                        foreach (Expr member in list.Items)
+                        {
+                            DiscardConstructor(member, ref previous);
+                        }
+                        if (list.Tail is { } tail)
+                        {
+                            DiscardConstructor(tail, ref previous);
+                        }
+                        break;
+                    case Expr.Literal:
+                    case Expr.Variable variable when variables.ContainsKey(variable.Name) || deferredPairMembers.ContainsKey(variable.Name):
+                        break;
+                    case Expr.Call { Module: not null and not ErlangModuleNames.Module, DynamicRemote: false } call
+                        when guardFailure is null && call.Arguments.All(IsPreparedOperand):
+                        // These calls execute in sequence with no control-flow join between them.
+                        Expression(call, previousDiscardedCall: previous);
+                        previous = CallLocation(call, location);
+                        break;
+                    default:
+                        Discard(item, guardFailure);
+                        previous = null;
+                        break;
+                }
             }
         }
 

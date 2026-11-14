@@ -1,5 +1,7 @@
 # Next steps
 
+Continue on branch frame placement and Y register allocation using the corpus frame ranking. [Evidence](validation/part-1629/README.md).
+
 Measure remaining spills introduced by selector dispatch and call results. Use OTP register liveness and branch frame placement as the reference. [Evidence](validation/part-1628/README.md).
 
 Model Y register lifetimes across calls and branches. The largest measured oversized-frame subgroup spans 272 modules. [Evidence](validation/part-1627/README.md).
