@@ -310,13 +310,20 @@ internal sealed partial class BeamModuleCompiler
                 Expr.Call { Module: not null, DynamicRemote: false, Arguments: [
                     Expr.RecordAccess { Value: Expr.Variable source } field,
                     Expr.Literal { Value: var format },
-                    Expr.List { Tail: null, Items: [Expr.Variable item] }
+                    var listArgument
                 ] } call,
                 Expr.Tuple { Items: [.., Expr.Variable retained] } reply
             ] } } clause
                 || !TryResolveOrdinaryCallTarget(call, out _)
-                || source.Name != retained.Name || source.Name == item.Name
-                || source.Name == VariableScopeNames.Wildcard || item.Name == VariableScopeNames.Wildcard)
+                || source.Name != retained.Name || source.Name == VariableScopeNames.Wildcard)
+            {
+                return false;
+            }
+
+            string? item = listArgument is Expr.List { Tail: null, Items: [Expr.Variable variableItem] }
+                ? variableItem.Name : null;
+            if (item == source.Name || item == VariableScopeNames.Wildcard
+                || item is null && (!AttributeLiteral.TryNormalizeConstant(listArgument, out Term empty) || empty is not Nil))
             {
                 return false;
             }
@@ -339,6 +346,7 @@ internal sealed partial class BeamModuleCompiler
             int nestedRegister = clause.Patterns.Count;
             int nestedInput = -1;
             int nestedField = -1;
+            Term? nestedLiteral = null;
             foreach (Pattern pattern in clause.Patterns)
             {
                 Pattern.Variable binding;
@@ -356,7 +364,7 @@ internal sealed partial class BeamModuleCompiler
                 }
                 else if (function.Clauses.Count == 1 && nestedInput < 0 && nestedRegister < FirstReservedXRegister
                     && pattern is Pattern.Tuple outer
-                    && ReadRetainedRecordCallProjection(outer, item.Name, nestedChecks, out nestedField))
+                    && ReadRetainedRecordCallProjection(outer, item, nestedChecks, out nestedField, out nestedLiteral))
                 {
                     nestedInput = parameters.Count;
                     binding = new Pattern.Variable(VariableScopeNames.Wildcard);
@@ -374,7 +382,7 @@ internal sealed partial class BeamModuleCompiler
                 parameters.Add(binding.Name);
             }
             int record = parameters.IndexOf(source.Name);
-            int element = parameters.IndexOf(item.Name);
+            int element = item is null ? -1 : parameters.IndexOf(item);
             if (record < 0 || (nestedInput < 0 ? element < 0 : element >= 0))
             {
                 return false;
@@ -409,7 +417,16 @@ internal sealed partial class BeamModuleCompiler
                             input = nestedRegister;
                         }
 
-                        EmitDetailRecordTest(input, arity, tag, functionInfo);
+                        if (nestedLiteral is not null && index == nestedField)
+                        {
+                            owner.Op(ExactEqualTest, LabelTag, functionInfo);
+                            owner.Operand(XRegisterTag, input);
+                            owner.LiteralOperand(nestedLiteral);
+                        }
+                        else
+                        {
+                            EmitDetailRecordTest(input, arity, tag, functionInfo);
+                        }
                     }
                 }
 
@@ -424,21 +441,31 @@ internal sealed partial class BeamModuleCompiler
                 EmitDetailRecordTest(record, field.Arity, Term.A(field.Name), failure);
             }
 
-            EmitFrameAllocation(Math.Max(record, nestedInput < 0 ? element : nestedRegister) + 1, 1, heapWords: 2);
+            int live = item is null ? record + 1 : Math.Max(record, nestedInput < 0 ? element : nestedRegister) + 1;
+            EmitFrameAllocation(live, 1, heapWords: item is null ? 0 : 2);
             owner.MoveRegister(XRegisterTag, record, YRegisterTag, 0);
-            if (nestedInput >= 0)
+            if (item is not null && nestedInput >= 0)
             {
                 element = record == 0 ? nestedRegister : 0;
                 owner.EmitTuplePart(nestedRegister, nestedField, element);
             }
 
-            owner.Op(PutList, XRegisterTag, element);
-            owner.LiteralOperand(Nil.Value);
-            owner.Operand(XRegisterTag, 2);
-            int recordTag = record == 2 ? YRegisterTag : XRegisterTag;
-            owner.Op(GetTupleElement, recordTag, record == 2 ? 0 : record);
+            if (item is not null)
+            {
+                owner.Op(PutList, XRegisterTag, element);
+                owner.LiteralOperand(Nil.Value);
+                owner.Operand(XRegisterTag, 2);
+            }
+
+            bool recordOverwritten = record == 2 && item is not null;
+            owner.Op(GetTupleElement, recordOverwritten ? YRegisterTag : XRegisterTag, recordOverwritten ? 0 : record);
             owner.Operand(BeamWire.UnsignedTag, field.Index);
             owner.Operand(XRegisterTag, 0);
+            if (item is null)
+            {
+                owner.EmitConstant(Nil.Value, 2);
+            }
+
             owner.EmitConstant(format, 1);
             owner.EmitCallLine(call, location);
             owner.EmitStaticRemoteCall(call);
@@ -454,12 +481,14 @@ internal sealed partial class BeamModuleCompiler
 
         private static bool ReadRetainedRecordCallProjection(
             Pattern.Tuple cursor,
-            string binding,
+            string? binding,
             List<(int Index, int Arity, Atom Tag)> checks,
-            out int field
+            out int field,
+            out Term? literal
         )
         {
             field = -1;
+            literal = null;
             int incoming = -1;
             while (cursor.Items is [Pattern.Literal { Value: Atom tag }, ..])
             {
@@ -495,6 +524,16 @@ internal sealed partial class BeamModuleCompiler
                 if (cursor.Items[selected] is not Pattern.Tuple next)
                 {
                     return false;
+                }
+
+                if (binding is null && checks.Any(check => check.Arity > 2) && next.Items is
+                    [Pattern.Literal { Value: Atom nestedTag }, Pattern.Literal { Value: var nestedValue }])
+                {
+                    checks.Add((selected, 2, nestedTag));
+                    literal = Term.Tuple(nestedTag, nestedValue);
+                    field = selected;
+
+                    return true;
                 }
 
                 incoming = selected;

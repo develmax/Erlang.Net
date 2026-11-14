@@ -253,6 +253,7 @@ internal static class BeamModuleEmissionChecks
             "beam_saved_argument_order",
             "beam_saved_append_swap",
             "beam_cons_identity_tail",
+            "beam_nested_literal_record",
             "tuple_register_entry_probe",
             "tuple_nested_entry_probe",
             "tuple_nested_fallback_probe",
