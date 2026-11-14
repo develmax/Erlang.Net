@@ -1,5 +1,7 @@
 # Next steps
 
+Reuse entry record tests for calls that subsequently read those records. [Evidence](validation/part-1657/README.md).
+
 Reuse entry record tests for calls that subsequently read those records. [Evidence](validation/part-1656/README.md).
 
 Reuse entry record tests for calls that subsequently read those records. [Evidence](validation/part-1655/README.md).
