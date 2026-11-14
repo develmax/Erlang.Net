@@ -162,6 +162,14 @@ internal sealed partial class BeamModuleCompiler
                     }
                 }
 
+                // beam_trim looks through ordinary blocks and line instructions to the next call.
+                // A guard test, a record update or another initialization ends that lookahead.
+                if (opcode is InitYRegisters or UpdateRecord
+                    || IsSafeTrimTest(instruction, safeFailures) && !IsTrimBlockBif(instruction))
+                {
+                    useStrictCost = false;
+                }
+
                 if (frameOperand != 0)
                 {
                     TrackTrimLiveness(instruction, live);
@@ -308,14 +316,21 @@ internal sealed partial class BeamModuleCompiler
         }
     }
 
-    private static bool IsSafeTrimTest(BeamInstruction instruction, HashSet<int> safeFailures) =>
-        instruction.Definition.Opcode is IsLess or IsGreaterOrEqual
+    private static bool IsTrimBlockBif(BeamInstruction instruction) =>
+        instruction.Definition.Opcode is BifOne or BifTwo or BifThree or GcBifOne or GcBifTwo or GcBifThree
+        && instruction.Operands[0].Kind == BeamOperandParameters.Failure;
+
+    private static bool IsTrimTest(byte opcode) =>
+        opcode is IsLess or IsGreaterOrEqual
             or NumericEqualTest or NumericNotEqualTest or ExactEqualTest or ExactNotEqualTest
             or IsInteger or IsFloat or IsNumber or IsAtom or IsPid or IsReference or IsPort
             or IsNil or IsBinary or IsBitString or IsList or IsNonemptyList or IsTuple or TestArity
             or IsFunction or IsBoolean or IsFunctionWithArity or IsMap or HasMapFields or GetMapElements
             or IsTaggedTuple or IsAnyNativeRecord or BifOne or BifTwo or BifThree
-            or GcBifOne or GcBifTwo or GcBifThree
+            or GcBifOne or GcBifTwo or GcBifThree;
+
+    private static bool IsSafeTrimTest(BeamInstruction instruction, HashSet<int> safeFailures) =>
+        IsTrimTest(instruction.Definition.Opcode)
         && (instruction.Operands[0].Kind == BeamOperandParameters.Failure
             || instruction.Operands[0].Kind == BeamOperandParameters.Label
                 && safeFailures.Contains((int)instruction.Operands[0].Value));

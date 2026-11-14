@@ -22,7 +22,8 @@ internal sealed partial class BeamModuleCompiler
             int start = functionStart;
             functionStart = end + 1;
             int frameSize = -1;
-            int usedSlots = 0;
+            var used = new HashSet<int>();
+            bool leaf = true;
             for (int index = start; index < end; index++)
             {
                 BeamInstruction instruction = body[index];
@@ -33,6 +34,7 @@ internal sealed partial class BeamModuleCompiler
                     break;
                 }
 
+                leaf &= IsFramelessInstruction(instruction);
                 if (opcode is Allocate or AllocateHeap)
                 {
                     if (frameSize >= 0)
@@ -45,25 +47,50 @@ internal sealed partial class BeamModuleCompiler
                 }
                 else if (opcode != InitYRegisters)
                 {
-                    foreach (BeamOperand operand in instruction.Operands)
+                    for (int operandIndex = 0; operandIndex < instruction.Operands.Count; operandIndex++)
                     {
-                        if (operand.Kind == BeamOperandParameters.Y)
+                        BeamOperand operand = instruction.Operands[operandIndex];
+                        if (operand.Kind == BeamOperandParameters.Y
+                            && !(opcode == Move && operandIndex == 1 && instruction.Operands[0].Kind == BeamOperandParameters.X))
                         {
-                            usedSlots = Math.Max(usedSlots, checked((int)operand.Value + 1));
+                            used.Add((int)operand.Value);
                         }
                     }
                 }
             }
 
-            if (usedSlots >= frameSize)
+            if (frameSize < 0)
             {
                 continue;
             }
 
+            int usedSlots = used.Count == 0 ? 0 : used.Max() + 1;
+            bool removeFrame = leaf && usedSlots == 0;
             for (int index = start; index < end; index++)
             {
                 BeamInstruction instruction = body[index];
                 byte opcode = instruction.Definition.Opcode;
+                if ((removeFrame && opcode is (Allocate or Deallocate))
+                    || (instruction is { Definition.Opcode: Move, Operands: [var source, var destination] }
+                        && source.Kind == BeamOperandParameters.X && destination.Kind == BeamOperandParameters.Y
+                        && destination.Value >= usedSlots))
+                {
+                    output.Write(code.Span[copied..instruction.Offset]);
+                    copied = body[index + 1].Offset;
+                    continue;
+                }
+
+                if (removeFrame && opcode == AllocateHeap)
+                {
+                    var frameOperand = new BeamCursor(code[(instruction.Offset + 1)..]);
+                    _ = BeamCompactReader.Read(frameOperand);
+                    output.Write(code.Span[copied..instruction.Offset]);
+                    output.WriteByte(TestHeap);
+                    output.Write(code.Span[(instruction.Offset + 1 + frameOperand.Position)..body[index + 1].Offset]);
+                    copied = body[index + 1].Offset;
+                    continue;
+                }
+
                 if (opcode == InitYRegisters)
                 {
                     BeamOperand[] kept = instruction.Operands.Skip(1).Where(slot => slot.Value < usedSlots).ToArray();
@@ -95,7 +122,7 @@ internal sealed partial class BeamModuleCompiler
                     TailLocalCallWithFrame or TailExternalCallWithFrame => 2,
                     _ => -1
                 };
-                if (operandIndex < 0 || instruction.Operands[operandIndex].Value != frameSize)
+                if (usedSlots == frameSize || operandIndex < 0 || instruction.Operands[operandIndex].Value != frameSize)
                 {
                     continue;
                 }
@@ -123,4 +150,11 @@ internal sealed partial class BeamModuleCompiler
 
         return output.ToArray();
     }
+
+    private static bool IsFramelessInstruction(BeamInstruction instruction) =>
+        instruction.Definition.Opcode is Label or Line or Allocate or AllocateHeap or Deallocate or Return
+            or InitYRegisters or Move or Swap or TestHeap or PutTuple or PutList or GetTupleElement
+            or GetList or GetHead or GetTail or Jump or SelectValue or SelectTupleArity
+            or BadMatch or BadRecord or CaseEnd or IfEnd
+        || IsTrimTest(instruction.Definition.Opcode);
 }
