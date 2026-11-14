@@ -1094,7 +1094,7 @@ internal sealed partial class BeamModuleCompiler
                 return;
             }
 
-            if (TryEmitConsCallResult(clause.Body, used))
+            if (TryEmitCallInsideTailList(clause.Body, used) || TryEmitConsCallResult(clause.Body, used))
             {
                 return;
             }

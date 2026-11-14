@@ -262,6 +262,7 @@ internal static class BeamModuleEmissionChecks
             "beam_exact_list_projection",
             "beam_shared_call_case",
             "beam_guarded_call_return",
+            "beam_call_inside_tail_list",
             "tuple_register_entry_probe",
             "tuple_nested_entry_probe",
             "tuple_nested_fallback_probe",

@@ -269,6 +269,114 @@ internal sealed partial class BeamModuleCompiler
             return true;
         }
 
+        private bool TryEmitCallInsideTailList(Expr body, (Pattern.Variable Variable, int Register)[] inputs)
+        {
+            if (body is not Expr.Call { Arguments: [Expr.List { Tail: null } list] } tail
+                || !TryResolveOrdinaryCallTarget(tail, out string? module)
+                || list.Items.OfType<Expr.Call>().ToArray() is not [var producer])
+            {
+                return false;
+            }
+
+            int producerIndex = Array.IndexOf(list.Items.ToArray(), producer);
+            var parameters = Enumerable.Repeat(VariableScopeNames.Wildcard,
+                inputs.Select(input => input.Register + 1).DefaultIfEmpty(0).Max()).ToArray();
+            foreach (var (variable, register) in inputs)
+            {
+                parameters[register] = variable.Name;
+            }
+
+            Expr.Call resolved = owner.ResolveImportedCall(producer, entries);
+            EntryCall? first = ReadEntryCall(producer, parameters);
+            if (first is null && resolved is { Module: null or ErlangModuleNames.Module, DynamicRemote: false,
+                Function: AutoImportNames.PidToList, Arguments: [Expr.Variable input] }
+                && (resolved.Module == ErlangModuleNames.Module || !entries.ContainsKey((resolved.Function, 1))
+                    && owner.ResolveExternalModule(resolved.Function, 1) == ErlangModuleNames.Module)
+                && Array.IndexOf(parameters, input.Name) is >= 0 and var source)
+            {
+                first = new EntryCall(resolved, ErlangModuleNames.Module, source == 0 ? [] : [(0, source)], []);
+            }
+
+            if (first is null)
+            {
+                return false;
+            }
+
+            var elements = new (int Register, Term? Literal)[list.Items.Count];
+            var saved = new List<int>();
+            for (int index = 0; index < list.Items.Count; index++)
+            {
+                Expr item = list.Items[index];
+                if (ReferenceEquals(item, producer))
+                {
+                    elements[index] = (-1, null);
+                }
+                else if (item is Expr.Variable variable && variable.Name != VariableScopeNames.Wildcard
+                    && Array.IndexOf(parameters, variable.Name) is >= 0 and var register)
+                {
+                    elements[index] = (register, null);
+                    if (!saved.Contains(register))
+                    {
+                        saved.Add(register);
+                    }
+                }
+                else if (AttributeLiteral.TryNormalizeConstant(item, out Term literal))
+                {
+                    elements[index] = (-1, literal);
+                }
+                else
+                {
+                    return false;
+                }
+            }
+
+            saved.Sort();
+            int frame = saved.Count;
+            int live = Math.Max(EntryCallLiveCount(first, parameters), saved.DefaultIfEmpty(-1).Max() + 1);
+            EmitFrameAllocation(live, frame);
+            for (int index = frame - 1; index >= 0; index--)
+            {
+                owner.MoveRegister(XRegisterTag, saved[index], YRegisterTag, frame - index - 1);
+            }
+
+            EmitEntryCall(first);
+            int last = Array.FindLastIndex(elements, element => element.Literal is null);
+            Term literalTail = Cons.From(elements.Skip(last + 1).Select(element => element.Literal!));
+            owner.Op(TestHeap, BeamWire.UnsignedTag, (last + 1) * ConsHeapWords);
+            owner.Operand(BeamWire.UnsignedTag, 1);
+            for (int index = last; index >= 0; index--)
+            {
+                var (register, literal) = elements[index];
+                owner.instructions.WriteByte(PutList);
+                if (literal is not null)
+                {
+                    owner.LiteralOperand(literal);
+                }
+                else if (register >= 0)
+                {
+                    owner.Operand(YRegisterTag, frame - saved.IndexOf(register) - 1);
+                }
+                else
+                {
+                    owner.Operand(XRegisterTag, 0);
+                }
+
+                if (index == last)
+                {
+                    owner.LiteralOperand(literalTail);
+                }
+                else
+                {
+                    owner.Operand(XRegisterTag, index + 1 > producerIndex ? 1 : 0);
+                }
+
+                owner.Operand(XRegisterTag, index > producerIndex ? 1 : 0);
+            }
+
+            EmitPreparedFrameTail(new EntryCall(tail, module, [], []), CallLocation(first.Call, location), frame);
+            return true;
+        }
+
         private void EmitRegisterTailCall(EntryCall tail, BeamSourceLocation? previous = null)
         {
             tail = PrepareStackFreeTailThrow(tail);
