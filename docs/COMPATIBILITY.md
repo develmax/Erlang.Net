@@ -1,5 +1,7 @@
 # Compatibility overview
 
+Part 1725 emits eligible leaf functions without stack frames by proving register liveness across branches. [Evidence](validation/part-1725/README.md).
+
 Part 1724 drops unneeded trailing argument saves and empty leaf frames. [Evidence](validation/part-1724/README.md).
 
 Part 1723 trims linear suffixes ending in framed tail calls. [Evidence](validation/part-1723/README.md).
