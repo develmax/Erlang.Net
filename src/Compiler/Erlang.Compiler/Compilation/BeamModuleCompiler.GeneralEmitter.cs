@@ -1199,6 +1199,7 @@ internal sealed partial class BeamModuleCompiler
                     || TryEmitSharedListRecordTail(function, functionInfo)
                     || TryEmitRecordGuardedListCase(function, functionInfo)
                     || TryEmitConsAndNilTailCalls(clauses, functionInfo)
+                    || TryEmitOrderedConsSearch(function, functionInfo)
                     || TryEmitConsHeadAlternatives(function, functionInfo)
                     || TryEmitGuardedConsCaseDispatch(function, functionInfo)
                     || TryEmitSingletonConsDispatch(function, functionInfo)
