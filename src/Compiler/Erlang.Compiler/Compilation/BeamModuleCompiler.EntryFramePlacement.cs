@@ -133,7 +133,8 @@ internal sealed partial class BeamModuleCompiler
         }
 
         var delayed = new HashSet<int>();
-        int frame = -1;
+        var required = new HashSet<int>();
+        var parents = new Dictionary<int, int> { [first] = -1 };
         var work = new Queue<int>();
         work.Enqueue(first);
         while (work.TryDequeue(out int index))
@@ -141,11 +142,6 @@ internal sealed partial class BeamModuleCompiler
             if (index < first)
             {
                 return null;
-            }
-
-            if (delayed.Contains(index) || index == frame)
-            {
-                continue;
             }
 
             BeamInstruction instruction = body[index];
@@ -158,20 +154,17 @@ internal sealed partial class BeamModuleCompiler
             if (!supported || instruction.Operands.Any(operand => operand.Kind == BeamOperandParameters.Y
                     && !saved.ContainsKey((int)operand.Value)))
             {
-                // Keep a shared frame above branches that have multiple framed continuations.
-                if (frame >= 0)
-                {
-                    return null;
-                }
-
-                frame = index;
+                required.Add(index);
                 continue;
             }
 
             delayed.Add(index);
             foreach (int next in Successors(index))
             {
-                work.Enqueue(next);
+                if (parents.TryAdd(next, index))
+                {
+                    work.Enqueue(next);
+                }
             }
         }
 
@@ -180,40 +173,92 @@ internal sealed partial class BeamModuleCompiler
             return null;
         }
 
-        // An already allocated path must not enter the delayed region or a frame insertion.
-        if (frame >= 0)
+        if (required.Count == 0)
         {
-            foreach (int next in Successors(frame))
-            {
-                work.Enqueue(next);
-            }
+            return (first, saved, delayed, -1);
         }
 
-        var framed = new HashSet<int>();
-        while (work.TryDequeue(out int index))
+        // Every common dominator lies on the recorded path to any required instruction.
+        for (int frame = required.First(); frame != first; frame = parents[frame])
         {
-            if (index < first || delayed.Contains(index) || index == frame)
+            HashSet<int>? prefix = required.Count == 1 ? delayed : CollectUnframedPrefix(frame);
+            if (prefix is null || HasMixedFramePaths(frame, prefix))
             {
-                return null;
+                if (required.Count == 1)
+                {
+                    return null;
+                }
+
+                continue;
             }
 
-            if (framed.Add(index))
+            // Branches enter through the allocation label. Keep trailing line information with its code.
+            int site = frame;
+            if (body[frame].Definition.Opcode == Label)
             {
-                foreach (int next in Successors(index))
+                site++;
+            }
+            else
+            {
+                while (prefix.Contains(site - 1) && body[site - 1].Definition.Opcode == Line)
                 {
-                    work.Enqueue(next);
+                    site--;
                 }
             }
+
+            return (first, saved, prefix, site);
         }
 
-        // Leave line information with the first instruction that needs the frame.
-        int site = frame;
-        while (delayed.Contains(site - 1) && body[site - 1].Definition.Opcode == Line)
+        return null;
+
+        HashSet<int>? CollectUnframedPrefix(int frame)
         {
-            site--;
+            var seen = new HashSet<int>();
+            var pending = new Queue<int>();
+            pending.Enqueue(first);
+            while (pending.TryDequeue(out int index))
+            {
+                if (index == frame || !seen.Add(index))
+                {
+                    continue;
+                }
+
+                if (required.Contains(index))
+                {
+                    return null;
+                }
+
+                foreach (int next in Successors(index))
+                {
+                    pending.Enqueue(next);
+                }
+            }
+
+            return seen;
         }
 
-        return (first, saved, delayed, site);
+        bool HasMixedFramePaths(int frame, HashSet<int> prefix)
+        {
+            var seen = new HashSet<int>();
+            var pending = new Queue<int>(Successors(frame));
+            while (pending.TryDequeue(out int index))
+            {
+                if (index < first || index == frame || prefix.Contains(index))
+                {
+                    return true;
+                }
+
+                if (seen.Add(index))
+                {
+                    foreach (int next in Successors(index))
+                    {
+                        pending.Enqueue(next);
+                    }
+                }
+            }
+
+            return false;
+        }
 
         bool IsEntryFrameReturn(int index) => index + 1 < end
             && body[index].Definition.Opcode == Deallocate && body[index].Operands[0].Value == frameSize

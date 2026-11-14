@@ -1,5 +1,7 @@
 # Next steps
 
+Track X register reloads before tagged-tuple predicates. Measure the matching input and required writes at the framed continuation. [Evidence](validation/part-1727/README.md).
+
 Compute a shared allocation point for multiple framed continuations by analyzing control-flow dominance. Then account for X reloads before entry predicates. [Evidence](validation/part-1726/README.md).
 
 Place frames after entry tests when downstream paths require calls, allocations or exception handlers. The corpus identifies 6,662 functions in 775 images with an immediate frame in C# and entry tests before the first frame in OTP. [Evidence](validation/part-1725/README.md).

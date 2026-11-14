@@ -1,3 +1,5 @@
+Part 1727 places a shared allocation after eligible entry checks. Entry register reloads and frame placement still differ. [Evidence](validation/part-1727/README.md).
+
 Part 1726 moves entry allocations below predicates when the framed continuation has a single entry point. Shared placement and register lifetimes still differ. [Evidence](validation/part-1726/README.md).
 
 Part 1725 keeps live arguments and temporaries in X registers for eligible leaf functions. Frame placement and register assignment still differ in the corpus. [Evidence](validation/part-1725/README.md).
