@@ -1,0 +1,113 @@
+OTP
+{label,1}
+{line,[{location,"httpd_file.erl",32}]}
+{func_info,{atom,httpd_file},{atom,handle_error},4}
+{label,2}
+{test,is_tuple,{f,3},[{x,0}]}
+{test,is_tagged_tuple,{f,10},[{tr,{x,0},{t_tuple,0,false,#{}}},2,{atom,enfile}]}
+{move,{atom,none},{x,2}}
+{move,{literal,": File table overflow"},{x,4}}
+{move,{integer,503},{x,0}}
+{call_only,5,{httpd_file,handle_error,5}}
+{label,3}
+{select_val,{x,0},{f,10},{list,[{atom,eacces},{f,9},{atom,eisdir},{f,8},{atom,emfile},{f,7},{atom,enametoolong},{f,6},{atom,enoent},{f,5},{atom,enotdir},{f,4}]}}
+{label,4}
+{move,{literal,": A component of the file name is not a directory"},{x,4}}
+{move,{integer,404},{x,0}}
+{call_only,5,{httpd_file,handle_error,5}}
+{label,5}
+{move,{literal,": File not found"},{x,4}}
+{move,{integer,404},{x,0}}
+{call_only,5,{httpd_file,handle_error,5}}
+{label,6}
+{move,{literal,": Filename too long"},{x,4}}
+{move,{integer,404},{x,0}}
+{call_only,5,{httpd_file,handle_error,5}}
+{label,7}
+{move,{atom,none},{x,2}}
+{move,{literal,": Too many open files"},{x,4}}
+{move,{integer,503},{x,0}}
+{call_only,5,{httpd_file,handle_error,5}}
+{label,8}
+{move,{literal,": Illegal operation expected a file not a directory"},{x,4}}
+{move,{integer,403},{x,0}}
+{call_only,5,{httpd_file,handle_error,5}}
+{label,9}
+{move,{literal,": Forbidden"},{x,4}}
+{move,{integer,403},{x,0}}
+{call_only,5,{httpd_file,handle_error,5}}
+{label,10}
+{allocate_heap,2,2,4}
+{move,{x,3},{y,0}}
+{move,{x,1},{y,1}}
+{put_list,{x,0},nil,{x,1}}
+{move,{literal,"File error ~p"},{x,0}}
+{line,[{location,"httpd_file.erl",50}]}
+{call_ext,2,{extfunc,io_lib,format,2}}
+{call_ext,1,{extfunc,lists,flatten,1}}
+{move,{atom,none},{x,2}}
+{move,{y,0},{x,3}}
+{move,{y,1},{x,1}}
+{move,{x,0},{x,4}}
+{move,{integer,503},{x,0}}
+{call_last,5,{httpd_file,handle_error,5},2}
+Prior
+{label,1}
+{line,[{location,"httpd_file.erl",32}]}
+{func_info,{atom,httpd_file},{atom,handle_error},4}
+{label,2}
+{test,is_eq_exact,{f,3},[{x,0},{atom,eacces}]}
+{move,{literal,": Forbidden"},{x,4}}
+{move,{integer,403},{x,0}}
+{call_only,5,{httpd_file,handle_error,5}}
+{label,3}
+{test,is_eq_exact,{f,4},[{x,0},{atom,enoent}]}
+{move,{literal,": File not found"},{x,4}}
+{move,{integer,404},{x,0}}
+{call_only,5,{httpd_file,handle_error,5}}
+{label,4}
+{test,is_eq_exact,{f,5},[{x,0},{atom,enotdir}]}
+{move,{literal,": A component of the file name is not a directory"},{x,4}}
+{move,{integer,404},{x,0}}
+{call_only,5,{httpd_file,handle_error,5}}
+{label,5}
+{test,is_eq_exact,{f,6},[{x,0},{atom,eisdir}]}
+{move,{literal,": Illegal operation expected a file not a directory"},{x,4}}
+{move,{integer,403},{x,0}}
+{call_only,5,{httpd_file,handle_error,5}}
+{label,6}
+{test,is_eq_exact,{f,7},[{x,0},{atom,enametoolong}]}
+{move,{literal,": Filename too long"},{x,4}}
+{move,{integer,404},{x,0}}
+{call_only,5,{httpd_file,handle_error,5}}
+{label,7}
+{test,is_eq_exact,{f,8},[{x,0},{atom,emfile}]}
+{move,{atom,none},{x,2}}
+{move,{literal,": Too many open files"},{x,4}}
+{move,{integer,503},{x,0}}
+{call_only,5,{httpd_file,handle_error,5}}
+{label,8}
+{test,is_tagged_tuple,{f,9},[{x,0},2,{atom,enfile}]}
+{move,{atom,none},{x,2}}
+{move,{literal,": File table overflow"},{x,4}}
+{move,{integer,503},{x,0}}
+{call_only,5,{httpd_file,handle_error,5}}
+{label,9}
+{allocate,4,4}
+{init_yregs,{list,[{y,3}]}}
+{move,{x,0},{y,0}}
+{move,{x,1},{y,1}}
+{move,{x,3},{y,2}}
+{test_heap,2,0}
+{put_list,{y,0},nil,{x,1}}
+{move,{literal,"File error ~p"},{x,0}}
+{line,[{location,"httpd_file.erl",50}]}
+{call_ext,2,{extfunc,io_lib,format,2}}
+{call_ext,1,{extfunc,lists,flatten,1}}
+{move,{x,0},{y,3}}
+{move,{atom,none},{x,2}}
+{move,{y,2},{x,3}}
+{move,{y,1},{x,1}}
+{move,{y,3},{x,4}}
+{move,{integer,503},{x,0}}
+{call_last,5,{httpd_file,handle_error,5},4}
