@@ -1,5 +1,7 @@
 # Next steps
 
+Compute a shared allocation point for multiple framed continuations by analyzing control-flow dominance. Then account for X reloads before entry predicates. [Evidence](validation/part-1726/README.md).
+
 Place frames after entry tests when downstream paths require calls, allocations or exception handlers. The corpus identifies 6,662 functions in 775 images with an immediate frame in C# and entry tests before the first frame in OTP. [Evidence](validation/part-1725/README.md).
 
 Move eligible entry tests ahead of stack allocation. The post-run ranking finds is_tuple versus allocate in 525 images, is_nonempty_list versus allocate in 485 and get_tuple_element versus allocate in 473. The same image can appear in several groups. [Evidence](validation/part-1724/README.md).

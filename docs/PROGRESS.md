@@ -1,5 +1,7 @@
 # Project progress
 
+Part 1726 compiled all 1,366 corpus sources with 398 Equal and 968 Different. Delaying eligible entry frames changes 471 images. [Evidence](validation/part-1726/README.md).
+
 Part 1725 compiled all 1,366 corpus sources with 398 Equal and 968 Different. Allocating X registers in leaf functions changes 255 images. [Evidence](validation/part-1725/README.md).
 
 Part 1724 compiled all 1,366 corpus sources with 398 Equal and 968 Different. Removing unused entry slots changes 551 images. [Evidence](validation/part-1724/README.md).

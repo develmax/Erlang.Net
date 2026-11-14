@@ -22,27 +22,40 @@ internal sealed partial class BeamModuleCompiler
 
             int entry = functionStart;
             functionStart = end + 1;
-            if (entry + 1 >= end || body[entry].Definition.Opcode != Label
-                || body[entry + 1].Definition.Opcode is not (Allocate or AllocateHeap))
+            if (entry + 1 >= end || body[entry].Definition.Opcode != Label)
             {
                 continue;
             }
 
-            int call = entry + 2;
+            int allocation = entry + 1;
+            while (allocation < end && (body[allocation].Definition.Opcode is Label or Line
+                || IsEntryFramePredicate(body[allocation].Definition.Opcode)))
+            {
+                allocation++;
+            }
+
+            if (allocation == end || body[allocation].Definition.Opcode is not (Allocate or AllocateHeap))
+            {
+                continue;
+            }
+
+            int first = allocation + 1;
+            int call = first;
             while (call < end && body[call].Definition.Opcode is InitYRegisters or Move or PutTuple or PutList or Line)
             {
                 call++;
             }
 
             if (call == end || body[call].Definition.Opcode is not
-                (LocalCall or ExternalCall or TailLocalCallWithFrame or TailExternalCallWithFrame))
+                (LocalCall or ExternalCall or TailLocalCallWithFrame or TailExternalCallWithFrame
+                    or DynamicApply or TailDynamicApply))
             {
                 continue;
             }
 
             var remove = new Dictionary<int, BeamOperand>();
             var replace = new Dictionary<int, (int End, BeamOperand Source)>();
-            for (int save = entry + 2; save < call; save++)
+            for (int save = first; save < call; save++)
             {
                 if (body[save] is not { Definition.Opcode: Move, Operands: [var source, var slot] }
                     || source is not { Kind: BeamOperandParameters.X, TypeIndex: null }
@@ -51,7 +64,16 @@ internal sealed partial class BeamModuleCompiler
                     continue;
                 }
 
-                if (PlanEntryArgumentCopy(body, stackOperands, save, call, end, source, slot, replace))
+                if (PlanEntryArgumentCopy(
+                    body,
+                    stackOperands,
+                    save,
+                    call,
+                    end,
+                    source,
+                    slot,
+                    replace
+                ))
                 {
                     remove.Add(save, slot);
                 }
@@ -64,7 +86,7 @@ internal sealed partial class BeamModuleCompiler
 
             var replacements = replace.OrderBy(edit => edit.Key).ToArray();
             int replacement = 0;
-            for (int index = entry + 2; index < call; index++)
+            for (int index = first; index < call; index++)
             {
                 BeamInstruction instruction = body[index];
                 if (remove.TryGetValue(index, out BeamOperand? slot))

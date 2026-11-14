@@ -1,5 +1,7 @@
 # Dependency and compatibility decisions
 
+Part 1726 reuses the BEAM register operand decoder and encoder. The entry movement pass reuses the existing argument forwarding and operand logic. No library was added. [Evidence](validation/part-1726/README.md).
+
 Part 1725 reuses the BEAM register operand decoder and encoder. Liveness is represented using the existing .NET BigInteger type. No library was added. [Evidence](validation/part-1725/README.md).
 
 Part 1724 reuses label operand detection and the existing label remapping. No dependency was added. [Evidence](validation/part-1724/README.md).

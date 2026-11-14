@@ -30,6 +30,7 @@ internal static class BeamModuleEmissionChecks
             "beam_guarded_integer_bounds",
             "beam_unused_entry_frame",
             "beam_leaf_registers",
+            "beam_entry_apply",
             "tiny",
             "beam_same_line",
             "beam_empty",
