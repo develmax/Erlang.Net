@@ -1,3 +1,5 @@
+Part 1632 aligns the singleton list branch frame in Observer start/1, completing release image equality for Observer. [Evidence](validation/part-1632/README.md).
+
 Part 1631 aligns the guarded monitored receive in Observer. Its start/1 still differs in entry dispatch and frame placement. [Evidence](validation/part-1631/README.md).
 
 Part 1630 aligns the monitored receive after a checked setup call. The guarded Observer entry path still needs the same frame plan. [Evidence](validation/part-1630/README.md).

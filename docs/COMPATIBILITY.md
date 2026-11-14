@@ -1,5 +1,7 @@
 # Compatibility overview
 
+Part 1632 verifies singleton-list dispatch and nested call frames with a byte-identical fixture and OTP VM outcomes. [Evidence](validation/part-1632/README.md).
+
 Part 1631 verifies guarded monitored receive entry with a byte-identical fixture and OTP VM checks. [Evidence](validation/part-1631/README.md).
 
 Part 1630 verifies receive markers after a checked setup call using a byte-identical fixture and OTP VM mailbox checks. [Evidence](validation/part-1630/README.md).

@@ -1,5 +1,7 @@
 # Next steps
 
+Re-rank the remaining release images by divergent functions and prioritize shared branch frame and liveness issues. [Evidence](validation/part-1632/README.md).
+
 Compare singleton list entry and nested call dispatch in Observer start/1 with OTP branch-local frames. [Evidence](validation/part-1631/README.md).
 
 Reuse the checked receive frame after entry guards, then compare the remaining branch frames for atom and list dispatch. [Evidence](validation/part-1630/README.md).

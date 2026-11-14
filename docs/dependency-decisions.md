@@ -1,5 +1,7 @@
 # Dependency and compatibility decisions
 
+Part 1632 uses the existing C# entry call and tail emitters with pinned OTP frame placement as the reference. [Evidence](validation/part-1632/README.md).
+
 Part 1631 reuses the C# monitor planner and entry guard analysis. No dependency was added. [Evidence](validation/part-1631/README.md).
 
 Part 1630 uses the pinned OTP receive optimization and the existing runtime support for BEAM receive marker instructions. [Evidence](validation/part-1630/README.md).
