@@ -1,5 +1,7 @@
 # Next steps
 
+Propagate values proven by exact equality and nil tests through fallthrough blocks to remove redundant register moves. [Evidence](validation/part-1696/README.md).
+
 Compare general call argument moves and saved-register scheduling. Extra moves still occur in 967 differing images. [Evidence](validation/part-1695/README.md).
 
 Extend stack trimming to safe failure edges and use import purity to select the OTP cost rule. [Evidence](validation/part-1694/README.md).

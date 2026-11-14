@@ -1,5 +1,7 @@
 # Compatibility overview
 
+Part 1696 verifies stack and call argument swap scheduling and adds a byte-identical complete fixture. [Evidence](validation/part-1696/README.md).
+
 Part 1695 verifies stack trimming across terminal failure edges and the OTP pure BIF cost rule. [Evidence](validation/part-1695/README.md).
 
 Part 1694 verifies stack-frame trimming and suffix operand remapping against the Windows OTP corpus. [Evidence](validation/part-1694/README.md).

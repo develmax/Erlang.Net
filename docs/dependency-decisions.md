@@ -1,5 +1,7 @@
 # Dependency and compatibility decisions
 
+Part 1696 reuses the BEAM reader and compact writer for swaps. No dependency was added. [Evidence](validation/part-1696/README.md).
+
 Part 1695 reuses the BEAM reader and writer and vendors the pinned Apache-2.0 BIF classifications. No runtime dependency was added. [Evidence](validation/part-1695/README.md).
 
 Part 1694 reuses the BEAM operand reader and compact writer. No dependency was added. [Evidence](validation/part-1694/README.md).
