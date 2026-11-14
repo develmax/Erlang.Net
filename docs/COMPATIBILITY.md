@@ -1,5 +1,7 @@
 # Compatibility overview
 
+Part 1714 groups initial Y slot initialization in the entry frame prologue. [Evidence](validation/part-1714/README.md).
+
 Part 1713 uses entry X registers for eligible call argument preparation and preserves arguments used after the call. [Evidence](validation/part-1713/README.md).
 
 Part 1712 removes unused trailing slots while preserving the remaining frame layout. [Evidence](validation/part-1712/README.md).

@@ -1,5 +1,7 @@
 # Next steps
 
+Compare temporary registers for list construction and the order of live Y slots with OTP. Use corpus measurements to prioritize register scheduling. [Evidence](validation/part-1714/README.md).
+
 Inspect argument construction that overwrites a live X register, then compare temporary X register selection and Y-slot ordering with OTP. [Evidence](validation/part-1713/README.md).
 
 Measure saves of arguments that are only copied and consumed before the first call. Compare the resulting frame allocation and temporary X register assignment with OTP. [Evidence](validation/part-1712/README.md).

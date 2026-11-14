@@ -339,6 +339,7 @@ internal static class BeamModuleEmissionChecks
         CompareCombinedStackAndHeapAllocation();
         CompareTerminalCallResultConstructions();
         CompareEntryArgumentCopies();
+        CompareEntryFrameInitialization();
         await CompareMixedListNilFallback();
         await CompareCaseTupleSlot();
         await CompareThrowStackObservers();
@@ -556,6 +557,30 @@ internal static class BeamModuleEmissionChecks
             || code.AsSpan().IndexOf(listFromArgument) < 0)
         {
             throw new InvalidOperationException("Expected only arguments used across the call to require frame slots.");
+        }
+    }
+
+    private static void CompareEntryFrameInitialization()
+    {
+        const string source = """
+            -module(beam_entry_initialization).
+            -export([run/3]).
+            run(X, Y, Z) ->
+                Value = other:consume([Y, X]),
+                {Value, Z}.
+            """;
+        byte[] beam = CodeGeneration.CompileBeamModule(source, "beam_entry_initialization.erl");
+        byte[] code = BeamDocumentationEmissionChecks.Chunks(beam).Single(chunk => chunk.Id == "Code").Data;
+        ReadOnlySpan<byte> initialization = [
+            BeamEmissionFormat.InitYRegisters,
+            BeamEmissionFormat.ExtendedListOperand,
+            0x20,
+            0x04,
+            0x14
+        ];
+        if (code.AsSpan().IndexOf(initialization) < 0)
+        {
+            throw new InvalidOperationException("Expected a single initialization of the two unused entry slots.");
         }
     }
 

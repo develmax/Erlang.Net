@@ -124,7 +124,8 @@ internal sealed partial class BeamModuleCompiler
                 ?? CombineStackAndHeapAllocation(code, body)
                 ?? KeepTerminalCallResultsInX0(code, body, stackOperands)
                 ?? EliminateEntryArgumentCopies(code, body, stackOperands)
-                ?? RemoveUnusedTrailingFrameSlots(code, body);
+                ?? RemoveUnusedTrailingFrameSlots(code, body)
+                ?? ConsolidateEntryInitialization(code, body);
             return simplified is null ? null : (simplified, Enumerable.Range(0, labelCount).ToArray(), 0);
         }
 
