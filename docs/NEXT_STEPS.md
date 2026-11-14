@@ -1,5 +1,7 @@
 # Next steps
 
+Measure opportunities to trim stack frames after short returns become local. Compare against OTP beam_trim. [Evidence](validation/part-1721/README.md).
+
 Compare remaining duplicated terminal sequences and branch destinations with OTP. [Evidence](validation/part-1720/README.md).
 
 Compare remaining duplicated terminal sequences and branch destinations with OTP. [Evidence](validation/part-1719/README.md).

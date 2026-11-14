@@ -345,6 +345,7 @@ internal static class BeamModuleEmissionChecks
         CompareUnreachableReturnRemoval();
         CompareUnusedFallthroughLabelRemoval();
         CompareUnreachableBlockRemoval();
+        CompareShortReturnJumpExpansion();
         await CompareMixedListNilFallback();
         await CompareCaseTupleSlot();
         await CompareThrowStackObservers();
@@ -691,6 +692,28 @@ internal static class BeamModuleEmissionChecks
         if (labelCount != 9)
         {
             throw new InvalidOperationException("Expected the unreachable frame cleanup to be removed and function labels to remain.");
+        }
+    }
+
+    private static void CompareShortReturnJumpExpansion()
+    {
+        const string source = """
+            -module(beam_short_return_jumps).
+            -export([run/2]).
+            run(X, Y) ->
+                case other:read(X) of
+                    {a, V} when is_integer(V) -> V;
+                    {b, V} -> {V, Y};
+                    _ -> other:read(Y)
+                end.
+            """;
+        byte[] beam = CodeGeneration.CompileBeamModule(source, "beam_short_return_jumps.erl");
+        byte[] code = BeamDocumentationEmissionChecks.Chunks(beam).Single(chunk => chunk.Id == "Code").Data;
+        ReadOnlySpan<byte> exit = [BeamEmissionFormat.Deallocate, 0x20, BeamEmissionFormat.Return];
+        int first = code.AsSpan().IndexOf(exit);
+        if (first < 0 || code.AsSpan(first + exit.Length).IndexOf(exit) < 0)
+        {
+            throw new InvalidOperationException("Expected both successful branches to return without a jump.");
         }
     }
 

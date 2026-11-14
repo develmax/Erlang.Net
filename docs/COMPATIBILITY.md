@@ -1,5 +1,7 @@
 # Compatibility overview
 
+Part 1721 inlines short return sequences at unconditional predecessors after sharing. [Evidence](validation/part-1721/README.md).
+
 Part 1720 removes redundant copies of a register to itself. [Evidence](validation/part-1720/README.md).
 
 Part 1719 removes unreachable blocks following terminal instructions. [Evidence](validation/part-1719/README.md).

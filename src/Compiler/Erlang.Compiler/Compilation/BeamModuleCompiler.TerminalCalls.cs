@@ -68,6 +68,35 @@ internal sealed partial class BeamModuleCompiler
         return output.ToArray();
     }
 
+    private static byte[]? ExpandShortReturnJumps(ReadOnlyMemory<byte> code, IReadOnlyList<BeamInstruction> body)
+    {
+        var returns = FindSharedCallReturns(body);
+        using var output = new MemoryStream();
+        int copied = 0;
+        for (int index = 0; index + 1 < body.Count; index++)
+        {
+            if (body[index] is not { Definition.Opcode: Jump, Operands: [var target] }
+                || !returns.TryGetValue((int)target.Value, out int start))
+            {
+                continue;
+            }
+
+            int end = start + (body[start].Definition.Opcode == Deallocate ? 2 : 1);
+            output.Write(code.Span[copied..body[index].Offset]);
+            output.Write(code.Span[body[start].Offset..body[end].Offset]);
+            copied = body[index + 1].Offset;
+        }
+
+        if (copied == 0)
+        {
+            return null;
+        }
+
+        output.Write(code.Span[copied..]);
+
+        return output.ToArray();
+    }
+
     private static Dictionary<int, int> FindSharedCallReturns(IReadOnlyList<BeamInstruction> body)
     {
         var returns = new Dictionary<int, int>();

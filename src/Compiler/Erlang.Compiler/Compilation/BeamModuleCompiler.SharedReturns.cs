@@ -21,8 +21,21 @@ internal sealed partial class BeamModuleCompiler
     {
         byte[]? rewritten = null;
         int labelCount = nextLabel;
-        while (ShareReturnBlocksOnce(code, labelCount) is { } pass)
+        bool shareReturns = true;
+        while (true)
         {
+            if (ShareReturnBlocksOnce(code, labelCount, shareReturns) is not { } pass)
+            {
+                if (!shareReturns)
+                {
+                    break;
+                }
+
+                // OTP expands short returns after sharing, then removes unused labels.
+                shareReturns = false;
+                continue;
+            }
+
             rewritten = pass.Code;
             code = rewritten;
             labelCount -= pass.RemovedLabels;
@@ -46,7 +59,8 @@ internal sealed partial class BeamModuleCompiler
 
     private (byte[] Code, int[] Labels, int RemovedLabels)? ShareReturnBlocksOnce(
         ReadOnlyMemory<byte> code,
-        int labelCount
+        int labelCount,
+        bool shareReturns
     )
     {
         var labelOperands = new List<(int Start, int End, int Label)>();
@@ -74,6 +88,11 @@ internal sealed partial class BeamModuleCompiler
             return null;
         }
 
+        if (!shareReturns && ExpandShortReturnJumps(code, body) is { } expanded)
+        {
+            return (expanded, Enumerable.Range(0, labelCount).ToArray(), 0);
+        }
+
         var redirects = new Dictionary<int, int>();
         var edits = new List<CodeEdit>();
         var atomNames = atoms.OrderBy(entry => entry.Value).Select(entry => entry.Key).ToArray();
@@ -91,15 +110,19 @@ internal sealed partial class BeamModuleCompiler
                 continue;
             }
 
-            CollectSharedReturns(
-                code,
-                body,
-                index + 1,
-                functionEnd,
-                exits,
-                redirects,
-                edits
-            );
+            if (shareReturns)
+            {
+                CollectSharedReturns(
+                    code,
+                    body,
+                    index + 1,
+                    functionEnd,
+                    exits,
+                    redirects,
+                    edits
+                );
+            }
+
             CollectForwardingLabels(body, index + 1, functionEnd, redirects, edits);
             functionEnd = index;
         }
