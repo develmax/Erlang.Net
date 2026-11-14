@@ -1,5 +1,7 @@
 # Next steps
 
+Compare receiver staging around integer and list arguments. [Evidence](validation/part-1664/README.md).
+
 Compare nil argument move order after spills. [Evidence](validation/part-1663/README.md).
 
 Compare intermediate frame trimming in saved calls. [Evidence](validation/part-1662/README.md).
