@@ -1,5 +1,7 @@
 # Compatibility overview
 
+Part 1677 verifies direct external tail calls for process creation wrappers. [Evidence](validation/part-1677/README.md).
+
 Part 1676 verifies direct external tail calls for supported erlang wrappers. [Evidence](validation/part-1676/README.md).
 
 Part 1675 verifies delayed extraction of a record field across a call. [Evidence](validation/part-1675/README.md).
