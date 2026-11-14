@@ -1,3 +1,5 @@
+Part 1651 checks the record before allocating a frame to retain it across a call. [Evidence](validation/part-1651/README.md).
+
 Part 1650 uses the existing closure emitter and tail-call instructions for single closure arguments. [Evidence](validation/part-1650/README.md).
 
 Part 1649 shares boolean returns for ordered disjoint inclusive ranges. [Evidence](validation/part-1649/README.md).

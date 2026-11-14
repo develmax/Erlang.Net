@@ -1,5 +1,7 @@
 # Next steps
 
+Compare shared record failure labels across neighboring call clauses. [Evidence](validation/part-1651/README.md).
+
 Compare callers retaining a record across a call using one of its fields. [Evidence](validation/part-1650/README.md).
 
 Compare stack allocation and tagged tuple tests in functions close to OTP output. [Evidence](validation/part-1649/README.md).
