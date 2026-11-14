@@ -1,5 +1,7 @@
 # Compatibility overview
 
+Part 1709 verifies strict integer comparisons with a literal on either side using a full-image regression against OTP 29.1.1. [Evidence](validation/part-1709/README.md).
+
 Part 1708 verifies boolean selection and same-target exact comparison simplifications. [Evidence](validation/part-1708/README.md).
 
 Part 1707 verifies pruning of default-equivalent select_val arms and exact lowering of singleton selections. [Evidence](validation/part-1707/README.md).

@@ -1,5 +1,7 @@
 # Next steps
 
+Compare successful integer guards and the downstream operand type proofs with OTP SSA type analysis. Use the corpus to prioritize patterns shared by multiple modules. [Evidence](validation/part-1709/README.md).
+
 Compare strict integer comparisons with OTP beam_jump threshold normalization and preserve integer type proofs. [Evidence](validation/part-1708/README.md).
 
 Compare remaining boolean selections and redundant labels with OTP beam_jump. [Evidence](validation/part-1707/README.md).

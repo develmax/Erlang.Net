@@ -27,6 +27,7 @@ internal static class BeamModuleEmissionChecks
             "beam_maybe_enabled",
             "beam_maybe_disabled",
             "beam_guard_extract",
+            "beam_guarded_integer_bounds",
             "tiny",
             "beam_same_line",
             "beam_empty",

@@ -1,5 +1,7 @@
 # Dependency and compatibility decisions
 
+Part 1709 uses the existing BEAM type table and compact BigInteger operand writer. No dependency was added. [Evidence](validation/part-1709/README.md).
+
 Part 1708 reuses compact BEAM operands and existing boolean atom names. No dependency was added. [Evidence](validation/part-1708/README.md).
 
 Part 1707 reuses the compact BEAM reader and writer for select_val cleanup. No dependency was added. [Evidence](validation/part-1707/README.md).

@@ -116,8 +116,10 @@ internal sealed partial class BeamModuleCompiler
         CollectRedundantJumps(body, redirects, edits);
         if (redirects.Count == 0 && edits.Count == 0)
         {
-            byte[]? inverted = SimplifyValueSelections(code, body, labelOperands) ?? InvertBranchTests(code, body, labelOperands);
-            return inverted is null ? null : (inverted, Enumerable.Range(0, labelCount).ToArray(), 0);
+            byte[]? simplified = SimplifyValueSelections(code, body, labelOperands)
+                ?? InvertBranchTests(code, body, labelOperands)
+                ?? NormalizeIntegerComparisons(code, body);
+            return simplified is null ? null : (simplified, Enumerable.Range(0, labelCount).ToArray(), 0);
         }
 
         var remappedLabels = new int[labelCount];
