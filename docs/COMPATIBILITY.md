@@ -1,5 +1,7 @@
 # Compatibility overview
 
+Part 1640 matches a fixture with two forms of forwarding a tagged tuple and a call result. The OTP VM verified normal results and function_clause failures. [Evidence](validation/part-1640/README.md).
+
 Part 1639 verifies ordinary whereis and register-resident case tails using a byte-identical fixture, with and without a registered process. [Evidence](validation/part-1639/README.md).
 
 Part 1638 verifies atom and tagged tuple dispatch into tail calls with a byte-identical fixture and OTP VM results. [Evidence](validation/part-1638/README.md).

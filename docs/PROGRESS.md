@@ -1,5 +1,7 @@
 # Project progress
 
+Part 1640 generated all 1,366 Windows OTP images with 395 Equal and 971 Different. The compiler now keeps a projected tuple field in the call argument register. [Evidence](validation/part-1640/README.md).
+
 Part 1639 generated all 1,366 Windows OTP images with 395 Equal and 971 Different. No release image changed equality status. [Evidence](validation/part-1639/README.md).
 
 Part 1638 generated all 1,366 Windows OTP images with 395 Equal and 971 Different. The release image for httpd_file matches byte for byte. [Evidence](validation/part-1638/README.md).
