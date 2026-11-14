@@ -1355,6 +1355,13 @@ internal sealed partial class BeamModuleCompiler
                     afterConstruction: afterConstruction
                 );
             }
+            else if (spill >= 0 && !step.ReuseSlot && !deferStackLoad && !deferConstant
+                && call.Moves.Count == 0 && loads is [{ Destination: 0 } single]
+                && call.Constants is [{ Destination: 1, Value: Nil }])
+            {
+                Load(single.Source);
+                owner.EmitConstant(Nil.Value, 1);
+            }
             else
             {
                 owner.EmitOrderedTailMoves(call.Moves, deferConstant ? [] : call.Constants, loads,
