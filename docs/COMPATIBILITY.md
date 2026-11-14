@@ -1,5 +1,7 @@
 # Compatibility overview
 
+Part 1630 verifies receive markers after a checked setup call using a byte-identical fixture and OTP VM mailbox checks. [Evidence](validation/part-1630/README.md).
+
 Part 1629 verifies same-line calls in discarded constructors with a byte-identical fixture and matching OTP VM outcomes. [Evidence](validation/part-1629/README.md).
 
 Part 1628 verifies effect evaluation of discarded tuple and list expressions with a byte-identical fixture and an OTP VM call-order check. [Evidence](validation/part-1628/README.md).

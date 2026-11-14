@@ -1,5 +1,7 @@
 # Dependency and compatibility decisions
 
+Part 1630 uses the pinned OTP receive optimization and the existing runtime support for BEAM receive marker instructions. [Evidence](validation/part-1630/README.md).
+
 Part 1629 reuses the existing call emitter and uses pinned OTP line folding and exception scope handling as the reference. [Evidence](validation/part-1629/README.md).
 
 Part 1628 follows OTP sys_core_fold effect lowering using the existing C# discard emitter. No dependency was added. [Evidence](validation/part-1628/README.md).

@@ -1,5 +1,7 @@
 # Next steps
 
+Reuse the checked receive frame after entry guards, then compare the remaining branch frames for atom and list dispatch. [Evidence](validation/part-1630/README.md).
+
 Continue on branch frame placement and Y register allocation using the corpus frame ranking. [Evidence](validation/part-1629/README.md).
 
 Measure remaining spills introduced by selector dispatch and call results. Use OTP register liveness and branch frame placement as the reference. [Evidence](validation/part-1628/README.md).

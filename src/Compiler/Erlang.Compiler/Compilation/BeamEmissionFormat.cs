@@ -103,6 +103,10 @@ internal static class BeamEmissionFormat
     internal const byte StartBinaryMatchKnown = 170;
     internal const byte MakeFun = 171;
     internal const byte InitYRegisters = 172;
+    internal const byte ReceiveMarkerBind = 173;
+    internal const byte ReceiveMarkerClear = 174;
+    internal const byte ReceiveMarkerReserve = 175;
+    internal const byte ReceiveMarkerUse = 176;
     internal const byte CreateBinary = 177;
     internal const byte CallFunTyped = 178;
     internal const byte BadRecord = 180;

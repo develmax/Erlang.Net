@@ -221,6 +221,7 @@ internal static class BeamModuleEmissionChecks
             "beam_receive_hibernate",
             "beam_discard_constructors",
             "beam_duplicate_lines",
+            "beam_monitored_receive",
             "tuple_register_entry_probe",
             "tuple_nested_entry_probe",
             "tuple_nested_fallback_probe",

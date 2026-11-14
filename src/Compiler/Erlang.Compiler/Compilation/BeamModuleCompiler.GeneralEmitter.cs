@@ -1075,6 +1075,12 @@ internal sealed partial class BeamModuleCompiler
                 }
                 clauses = [clauses[^1]];
             }
+            if (recursiveClosure is null && clauses is [var monitored] && monitored.Guard is null
+                && TryEmitMonitoredReceive(monitored))
+            {
+                return;
+            }
+
             if (recursiveClosure is null && clauses.Count == function.Clauses.Count)
             {
                 int emitted = EmitGuardedBifTailPrefix(clauses, functionInfo);

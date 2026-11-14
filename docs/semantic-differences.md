@@ -1,3 +1,5 @@
+Part 1630 aligns the monitored receive after a checked setup call. The guarded Observer entry path still needs the same frame plan. [Evidence](validation/part-1630/README.md).
+
 Part 1629 aligns repeated source locations within discarded constructor calls. The Windows release images are identical to part 1628. [Evidence](validation/part-1629/README.md).
 
 Part 1628 drops unused tuple and list construction and aligns snmpa_app:convert_config/0 after label normalization. Multiple calls on one line can still emit duplicate line instructions. [Evidence](validation/part-1628/README.md).
