@@ -60,9 +60,11 @@ internal sealed partial class BeamModuleCompiler
             int head = arity;
             int tail = reuseTail ? listInput : arity + 1;
             bool needsTail = clauses.Take(consCount).Any(clause => !IsDiscarded(((Pattern.List)clause.Patterns[listInput]).Tail));
-            var sharedShapes = new Dictionary<int, (int End, int Arity, Atom Tag, bool SharesDiscriminator, Term[]? Keys)>();
+            int firstConsScratch = arity + (needsTail && !reuseTail ? 2 : 1);
+            var sharedShapes = new Dictionary<int, (int End, int Arity, Atom Tag, bool SharesDiscriminator, Term[]? Keys, int Payload)>();
             var checkedHeads = new Dictionary<int, bool>();
             var selectedHeads = new HashSet<int>();
+            var sharedPayloads = new Dictionary<int, int>();
             for (int start = 0; start < consCount;)
             {
                 if (ReadTaggedHead(start) is not { } shape)
@@ -97,10 +99,29 @@ internal sealed partial class BeamModuleCompiler
                         }
                     }
 
-                    sharedShapes.Add(start, (end, shape.Arity, shape.Tag, sharesDiscriminator, keys));
+                    int payload = -1;
+                    if (keys is not null && shape.Arity >= 3
+                        && Enumerable.Range(start, end - start).All(index =>
+                            !IsDiscarded(((Erlang.Pattern.Tuple)((Pattern.List)clauses[index].Patterns[listInput]).Items[0]).Items[2])))
+                    {
+                        // A failed selection can reach later clauses, which may still need the head.
+                        bool headDead = shape.Arity == 3 && clauses.Skip(end).Take(consCount - end)
+                            .All(later => IsDiscarded(((Pattern.List)later.Patterns[listInput]).Items[0]));
+                        payload = reuseTail && headDead ? head : firstConsScratch + 1;
+                        if (payload >= FirstReservedXRegister)
+                        {
+                            return false;
+                        }
+                    }
+
+                    sharedShapes.Add(start, (end, shape.Arity, shape.Tag, sharesDiscriminator, keys, payload));
                     for (int index = start; index < end; index++)
                     {
                         checkedHeads.Add(index, sharesDiscriminator);
+                        if (payload >= 0)
+                        {
+                            sharedPayloads.Add(index, payload);
+                        }
                     }
                 }
 
@@ -137,9 +158,15 @@ internal sealed partial class BeamModuleCompiler
                     unusedFields.Clear();
                 }
 
-                int nextRegister = branch < consCount ? arity + (needsTail && !reuseTail ? 2 : 1) : arity;
+                int nextRegister = branch < consCount ? firstConsScratch : arity;
                 bool shapeChecked = checkedHeads.TryGetValue(branch, out bool sharesDiscriminator);
                 int discriminator = sharesDiscriminator ? nextRegister : -1;
+                int payload = sharedPayloads.GetValueOrDefault(branch, -1);
+                if (payload >= nextRegister)
+                {
+                    nextRegister = payload + 1;
+                }
+
                 if (sharesDiscriminator && !selectedHeads.Contains(branch))
                 {
                     nextRegister++;
@@ -287,6 +314,16 @@ internal sealed partial class BeamModuleCompiler
                                     continue;
                                 }
 
+                                if (checkedHead && field == 2 && payload >= 0)
+                                {
+                                    if (!ReadPattern(member, payload, preserveSource: true))
+                                    {
+                                        return false;
+                                    }
+
+                                    continue;
+                                }
+
                                 if (DiscardTupleField(member))
                                 {
                                     continue;
@@ -409,10 +446,15 @@ internal sealed partial class BeamModuleCompiler
                     EmitDetailRecordTest(head, shape.Arity, shape.Tag, sharedShapeFailure);
                     if (shape.SharesDiscriminator)
                     {
-                        int register = arity + (needsTail && !reuseTail ? 2 : 1);
+                        int register = firstConsScratch;
                         owner.EmitTuplePart(head, 1, register);
                         if (shape.Keys is { } keys)
                         {
+                            if (shape.Payload >= 0)
+                            {
+                                owner.EmitTuplePart(head, 2, shape.Payload);
+                            }
+
                             selectedGroupStart = branch;
                             selectedLabels = keys.Select(_ => Label()).ToArray();
                             var comparer = Comparer<Term>.Create((left, right) => TermOrder.Compare(left, right, exact: true));
