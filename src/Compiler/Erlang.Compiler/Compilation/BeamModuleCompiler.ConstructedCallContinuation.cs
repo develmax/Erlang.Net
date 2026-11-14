@@ -21,7 +21,9 @@ internal sealed partial class BeamModuleCompiler
                         Expr.Call tail
                     ]
                 }
-                || binding.Name == VariableScopeNames.Wildcard)
+                || binding.Name == VariableScopeNames.Wildcard
+                || !tail.Arguments.Any(argument => argument is Expr.Tuple or Expr.List
+                    && !AttributeLiteral.TryNormalizeConstant(argument, out _)))
             {
                 return false;
             }
