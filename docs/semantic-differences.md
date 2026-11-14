@@ -1,3 +1,5 @@
+Part 1690 releases the select_val key register after dispatch. [Evidence](validation/part-1690/README.md).
+
 Part 1689 emits a selection table for distinct keys of the same supported type in shared cons groups. [Evidence](validation/part-1689/README.md).
 
 Part 1688 projects the first literal field once across a compatible group of structural list clauses. [Evidence](validation/part-1688/README.md).

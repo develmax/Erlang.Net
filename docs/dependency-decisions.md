@@ -1,5 +1,7 @@
 # Dependency and compatibility decisions
 
+Part 1690 reuses the structural pattern register planner. No dependency was added. [Evidence](validation/part-1690/README.md).
+
 Part 1689 reuses the existing BEAM selection table writer. No dependency was added. [Evidence](validation/part-1689/README.md).
 
 Part 1688 reuses structural pattern matching and tuple projection. No dependency was added. [Evidence](validation/part-1688/README.md).

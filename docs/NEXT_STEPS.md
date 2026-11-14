@@ -1,5 +1,7 @@
 # Next steps
 
+Compare payload projections and branch order around select_val in structural list patterns. [Evidence](validation/part-1690/README.md).
+
 Compare the size and register layout of select_val in the four modules with a larger Code gap. [Evidence](validation/part-1689/README.md).
 
 Compare OTP literal selection tables in tagged structural groups with distinct match values. [Evidence](validation/part-1688/README.md).
