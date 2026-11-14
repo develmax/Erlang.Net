@@ -1,3 +1,5 @@
+Part 1669 skips unused list tails and uses X0 directly to return a matched tuple field. [Evidence](validation/part-1669/README.md).
+
 Part 1668 removes the nil test when the nonempty-list test proves the argument is empty. [Evidence](validation/part-1668/README.md).
 
 Part 1667 chooses a surviving slot using its index in the current frame. [Evidence](validation/part-1667/README.md).

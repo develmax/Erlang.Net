@@ -1,5 +1,7 @@
 # Dependency and compatibility decisions
 
+Part 1669 reuses the existing list entry emitters. No dependency was added. [Evidence](validation/part-1669/README.md).
+
 Part 1668 reuses the existing call-site analysis and the list entry emitter. No dependency was added. [Evidence](validation/part-1668/README.md).
 
 Part 1667 reuses the existing saved-call and frame trim emitters. No dependency was added. [Evidence](validation/part-1667/README.md).

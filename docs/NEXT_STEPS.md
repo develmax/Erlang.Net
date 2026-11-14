@@ -1,5 +1,7 @@
 # Next steps
 
+Compare remaining shared cons head and tail extraction across clauses. [Evidence](validation/part-1669/README.md).
+
 Identify which list and tuple tests can branch directly to function_clause using the available type facts. [Evidence](validation/part-1668/README.md).
 
 Compare lowering and operand types in functions with the remaining release code differences. [Evidence](validation/part-1667/README.md).

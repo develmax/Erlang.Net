@@ -1,5 +1,7 @@
 # Compatibility overview
 
+Part 1669 verifies head-only extraction and direct returns of tuple fields. [Evidence](validation/part-1669/README.md).
+
 Part 1668 verifies the empty-branch optimization for proper lists and function_clause on failed cons head matches. [Evidence](validation/part-1668/README.md).
 
 Part 1667 verifies live slot relocation after consecutive frame trims in a deterministic fixture and in the OTP VM. [Evidence](validation/part-1667/README.md).
