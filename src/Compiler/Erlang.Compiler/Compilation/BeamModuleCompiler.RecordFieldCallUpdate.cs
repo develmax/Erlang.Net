@@ -303,6 +303,65 @@ internal sealed partial class BeamModuleCompiler
             owner.Operand(XRegisterTag, 0);
         }
 
+        private bool TryEmitDeferredRecordFieldCall(FunctionDefinition function)
+        {
+            if (function.Clauses is not [{ Guard: null, Patterns: [AliasPattern alias],
+                Body: Expr.Sequence { Items: [Expr.Call first, Expr.Call second, var result] } }]
+                || !TryReadPatternAlias(alias, out var whole, out var shape)
+                || whole.Name == VariableScopeNames.Wildcard || shape is not Pattern.Tuple tuple
+                || !HasTupleTag(tuple, out Atom tag)
+                || !AttributeLiteral.TryNormalizeConstant(result, out Term constant)
+                || second.Arguments is not [Expr.Variable field]
+                || field.Name == whole.Name || field.Name == VariableScopeNames.Wildcard)
+            {
+                return false;
+            }
+
+            int projection = -1;
+            for (int index = 1; index < tuple.Items.Count; index++)
+            {
+                if (tuple.Items[index] is not Pattern.Variable variable)
+                {
+                    return false;
+                }
+
+                if (variable.Name == VariableScopeNames.Wildcard)
+                {
+                    continue;
+                }
+
+                if (projection >= 0 || variable.Name != field.Name)
+                {
+                    return false;
+                }
+
+                projection = index;
+            }
+
+            if (projection < 0 || ReadEntryCall(first, [whole.Name]) is not { } prefix
+                || ReadEntryCall(second, [field.Name]) is not { } call)
+            {
+                return false;
+            }
+
+            EmitDetailRecordTest(0, tuple.Items.Count, tag, owner.nextLabel - 2);
+            EmitFrameAllocation(1, 1);
+            owner.MoveRegister(XRegisterTag, 0, YRegisterTag, 0);
+            EmitEntryCall(prefix);
+            owner.Op(GetTupleElement, YRegisterTag, 0);
+            owner.Operand(BeamWire.UnsignedTag, projection);
+            owner.Operand(XRegisterTag, 0);
+            owner.Op(TrimFrame, BeamWire.UnsignedTag, 1);
+            owner.Operand(BeamWire.UnsignedTag, 0);
+            EmitEntryCall(call, CallLocation(first, location));
+            if (!ReturnsLocalCallConstant(call, constant))
+            {
+                owner.EmitConstant(constant, 0);
+            }
+            owner.EmitFrameReturn(0);
+            return true;
+        }
+
         private bool TryEmitRecordFieldCallAndReturn(FunctionDefinition function)
         {
             if (function.Clauses.Count is < 1 or > 2

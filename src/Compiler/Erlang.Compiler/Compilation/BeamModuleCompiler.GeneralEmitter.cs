@@ -433,7 +433,7 @@ internal sealed partial class BeamModuleCompiler
                 || TryEmitSharedIntegerGuardResult(function) || TryEmitDisjointRangePredicate(function)
                 || TryEmitSharedConsIdentityTail(function)
                 || TryEmitTerminalPredicateCalls(function) || TryEmitTerminalCallMatch(function)
-                || TryEmitRecordFieldCallAndReturn(function))
+                || TryEmitDeferredRecordFieldCall(function) || TryEmitRecordFieldCallAndReturn(function))
             {
                 return;
             }
