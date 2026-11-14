@@ -1,5 +1,7 @@
 # Compatibility overview
 
+Part 1624 verifies inline record replacement calls using a byte-identical module and VM outcome comparison. [Evidence](validation/part-1624/README.md).
+
 Part 1623 verifies branch-local record update frames using a byte-identical module and VM outcome comparison. [Evidence](validation/part-1623/README.md).
 
 Part 1622 verifies elimination of unread call results without changing lexical captures or match failures. [Evidence](validation/part-1622/README.md).

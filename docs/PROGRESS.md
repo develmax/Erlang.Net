@@ -1,5 +1,7 @@
 # Project progress
 
+Part 1624 generated all 1,366 pinned release images with 393 Equal and 973 Different. The release images matched the previous run. [Evidence](validation/part-1624/README.md).
+
 Part 1623 generated all 1,366 pinned release images with 393 Equal and 973 Different. The record entry frame change affected 4 images. [Evidence](validation/part-1623/README.md).
 
 Part 1622 generated all 1,366 pinned release images with 393 Equal and 973 Different. The dead binding change affected 11 images. [Evidence](validation/part-1622/README.md).

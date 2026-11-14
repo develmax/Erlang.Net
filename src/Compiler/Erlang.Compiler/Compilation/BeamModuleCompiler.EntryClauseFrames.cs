@@ -30,8 +30,9 @@ internal sealed partial class BeamModuleCompiler
             bool hasRecordUpdate = function.Clauses.Any(clause => LocalFunctionEntries.Walk(clause.Body)
                 .Any(expression => expression is Expr.RecordUpdate));
             bool recordReturnDispatch = hasRecordUpdate && function.Clauses is
-                [{ Guard: null, Body: Expr.Sequence { Items: [Expr.Match { Value: Expr.Call }, Expr.Tuple] } },
+                [{ Guard: null } recordArm,
                  { Guard: null, Body: Expr.Tuple } recordFallback]
+                && ReadEntryRecordCall(recordArm.Body) is not null
                 && HasUnconditionalParameters(recordFallback) && recordFallback.Body is Expr.Tuple fallbackTuple
                 && fallbackTuple.Items.All(IsPreparedOperand);
             // Other record-update bodies and closures still use their existing entry plans.
@@ -39,7 +40,7 @@ internal sealed partial class BeamModuleCompiler
                 && !function.Clauses.Any(clause => LocalFunctionEntries.Walk(clause.Body)
                     .Any(expression => expression is Expr.Fun));
             bool tupleBodyDispatch = tupleDispatchSupported
-                && function.Clauses.Any(clause => clause.Body is Expr.Sequence or Expr.Case or Expr.If);
+                && (recordReturnDispatch || function.Clauses.Any(clause => clause.Body is Expr.Sequence or Expr.Case or Expr.If));
             bool hasArithmeticCall = function.Clauses.Any(clause => clause.Body is Expr.Call call
                 && call.Arguments.Any(argument => argument is Expr.Binary));
             bool literalDispatch = !tupleDispatch && !listDispatch
@@ -501,7 +502,8 @@ internal sealed partial class BeamModuleCompiler
                     && (!patternDispatch || guardClause.Body is not Expr.Literal
                     && (clause.Body is not Expr.Variable returned || !names.Contains(returned.Name))))
                 {
-                    bool canPlanBody = (listDispatch || literalDispatch || guardDispatch || tupleBodyDispatch)
+                    bool canPlanBody = recordReturnDispatch && ReadEntryRecordCall(clause.Body) is not null
+                        || (listDispatch || literalDispatch || guardDispatch || tupleBodyDispatch)
                         && clause.Body is Expr.Sequence or Expr.Case or Expr.If
                         || (literalDispatch || guardDispatch) && clause.Body is Expr.Try or Expr.Call
                         || guardDispatch && clause.Body is Expr.List { Items: [Expr.Call], Tail: null };

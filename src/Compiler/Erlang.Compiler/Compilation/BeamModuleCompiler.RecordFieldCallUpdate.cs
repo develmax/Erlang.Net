@@ -6,28 +6,56 @@ internal sealed partial class BeamModuleCompiler
 {
     private sealed partial class GeneralEmitter
     {
+        private static (Expr.Tuple Tuple, Expr.RecordUpdate Update, Expr.Call Call)? ReadEntryRecordCall(Expr body)
+        {
+            Pattern.Variable? result = null;
+            Expr.Call? call = null;
+            if (body is Expr.Sequence
+                {
+                    Items: [
+                        Expr.Match { Pattern: Pattern.Variable { Name: not VariableScopeNames.Wildcard } binding, Value: Expr.Call producer },
+                        Expr.Tuple returned
+                    ]
+                })
+            {
+                result = binding;
+                call = producer;
+                body = returned;
+            }
+
+            if (body is not Expr.Tuple { Items.Count: >= 2 } tuple || tuple.Items[^1] is not Expr.RecordUpdate
+                { Value: Expr.Variable, Fields: [var field] } update)
+            {
+                return null;
+            }
+
+            if (result is null && field.Value is Expr.Call inline)
+            {
+                return (tuple, update, inline);
+            }
+
+            return result is not null && field.Value is Expr.Variable replacement && result.Name == replacement.Name
+                ? (tuple, update, call!)
+                : null;
+        }
+
         private Action? ReadEntryRecordUpdate(
             Expr body,
             IReadOnlyList<Pattern> patterns,
             IEnumerable<(string Name, int Input, int Field)> projected
         )
         {
-            if (body is not Expr.Sequence
-                {
-                    Items: [
-                        Expr.Match { Pattern: Pattern.Variable { Name: not VariableScopeNames.Wildcard } result, Value: Expr.Call call },
-                        Expr.Tuple returned
-                    ]
-                }
-                || returned.Items.Count < 2
-                || returned.Items[^1] is not Expr.RecordUpdate
-                    { Value: Expr.Variable state, Fields: [{ Value: Expr.Variable replacement } field] } update
-                || result.Name != replacement.Name
-                || patterns.SelectMany(Semantics.Variables).Contains(result.Name, StringComparer.Ordinal)
-                || !TryResolveOrdinaryCallTarget(call, out string? module))
+            if (ReadEntryRecordCall(body) is not { } entry
+                || entry.Update.Value is not Expr.Variable state
+                || body is Expr.Sequence { Items: [Expr.Match { Pattern: Pattern.Variable resultBinding }, _] }
+                    && patterns.SelectMany(Semantics.Variables).Contains(resultBinding.Name, StringComparer.Ordinal)
+                || !TryResolveOrdinaryCallTarget(entry.Call, out string? module))
             {
                 return null;
             }
+
+            var (returned, update, call) = entry;
+            int fieldIndex = update.Fields[0].Index;
 
             int source = -1;
             for (int index = 0; index < patterns.Count; index++)
@@ -56,6 +84,14 @@ internal sealed partial class BeamModuleCompiler
             }
 
             var fields = projected.ToDictionary(field => field.Name, StringComparer.Ordinal);
+            for (int index = 0; index < patterns.Count; index++)
+            {
+                if (patterns[index] is Pattern.Variable { Name: not VariableScopeNames.Wildcard } input)
+                {
+                    fields.TryAdd(input.Name, (input.Name, index, -1));
+                }
+            }
+
             var arguments = new List<(int Destination, int Input, int Field, Term? Constant)>();
             var overwritten = new HashSet<int>();
             for (int index = call.Arguments.Count - 1; index >= 0; index--)
@@ -86,13 +122,17 @@ internal sealed partial class BeamModuleCompiler
                 owner.MoveRegister(XRegisterTag, source, YRegisterTag, 0);
                 foreach (var (destination, input, index, constant) in arguments)
                 {
-                    if (constant is null)
+                    if (constant is not null)
+                    {
+                        owner.EmitConstant(constant, destination);
+                    }
+                    else if (index >= 0)
                     {
                         owner.EmitTuplePart(input, index, destination);
                     }
                     else
                     {
-                        owner.EmitConstant(constant, destination);
+                        owner.MoveRegister(XRegisterTag, input, XRegisterTag, destination);
                     }
                 }
 
@@ -100,7 +140,7 @@ internal sealed partial class BeamModuleCompiler
                 Call(module, call.Function, call.Arguments.Count);
                 owner.Op(TestHeap, BeamWire.UnsignedTag, update.Arity + prefix.Length + 3);
                 owner.Operand(BeamWire.UnsignedTag, 1);
-                EmitSavedRecordUpdate(update.Arity, field.Index);
+                EmitSavedRecordUpdate(update.Arity, fieldIndex);
                 EmitRecordUpdateWrapper(prefix);
                 owner.EmitFrameReturn(1);
             };
