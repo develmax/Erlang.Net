@@ -7550,7 +7550,7 @@ internal sealed partial class BeamModuleCompiler
                         || allowControlTransfer && IsControlTransfer(call.Function, arity)
                         || (call.Function, arity) is (SourceLoadNifNames.Function, 2)
                         || (call.Function, arity) is (AutoImportNames.Put or AutoImportNames.Monitor, 2) or ("function_exported", 3)
-                            or (AutoImportNames.Statistics or AutoImportNames.Erase, 1)
+                            or (AutoImportNames.Statistics or AutoImportNames.Erase or AutoImportNames.Whereis, 1)
                             or (AutoImportNames.Processes, 0) or (BeamSystemInfoFunction, 1)
                             or (AutoImportNames.Demonitor, 1 or 2) or (AutoImportNames.Exit, 2)
                             or (AutoImportNames.TupleToList or AutoImportNames.ListToTuple

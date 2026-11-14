@@ -990,6 +990,17 @@ internal sealed partial class BeamModuleCompiler
             (int Field, int Register)[]? SavedTupleFields = null
         );
 
+        private static Expr SkipDiscardedRegisterCaseLiterals(Expr body)
+        {
+            while (body is Expr.Sequence { Items.Count: >= 2 } sequence
+                && sequence.Items.SkipLast(1).All(item => AttributeLiteral.TryNormalizeConstant(item, out _)))
+            {
+                body = sequence.Items[^1];
+            }
+
+            return body;
+        }
+
         private static Expr.Case? ReadCallSelectorCase(
             Expr body,
             out (Expr.Call Call, Pattern.Variable Result, bool Preserve)? preceding
@@ -1048,9 +1059,10 @@ internal sealed partial class BeamModuleCompiler
                 return null;
             }
 
-            var candidate = ReadCallSelectorCase(clause.Body, out var preceding);
+            Expr body = SkipDiscardedRegisterCaseLiterals(clause.Body);
+            var candidate = ReadCallSelectorCase(body, out var preceding);
             (TaggedCallMatch Check, int? Field)? taggedPrefix = null;
-            if (candidate is null && clause.Body is Expr.Sequence { Items: [var prefixMatch, Expr.Case { Value: Expr.Call } taggedCase] }
+            if (candidate is null && body is Expr.Sequence { Items: [var prefixMatch, Expr.Case { Value: Expr.Call } taggedCase] }
                 && ReadSimpleTaggedCallMatch(prefixMatch) is { } tagged)
             {
                 var payload = new Pattern.Variable(tagged.Payload?.Name ?? "\0discarded-tagged-case-prefix");
@@ -1074,7 +1086,7 @@ internal sealed partial class BeamModuleCompiler
                 return null;
             }
 
-            if (clause.Body is Expr.Sequence { Items: [Expr.Match { Pattern: Pattern.Variable result }, _] }
+            if (body is Expr.Sequence { Items: [Expr.Match { Pattern: Pattern.Variable result }, _] }
                 && clause.Patterns.OfType<Pattern.Variable>().Any(parameter => parameter.Name == result.Name))
             {
                 return null;
@@ -1858,6 +1870,8 @@ internal sealed partial class BeamModuleCompiler
 
             RegisterCaseResult? ReadResult(Expr expression, string? bound, bool projectField = false)
             {
+                expression = SkipDiscardedRegisterCaseLiterals(expression);
+
                 if (bound == VariableScopeNames.Wildcard)
                 {
                     bound = null;
