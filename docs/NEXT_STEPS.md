@@ -1,5 +1,7 @@
 # Next steps
 
+Compare early loads from reused stack slots before calls. [Evidence](validation/part-1665/README.md).
+
 Compare receiver staging around integer and list arguments. [Evidence](validation/part-1664/README.md).
 
 Compare nil argument move order after spills. [Evidence](validation/part-1663/README.md).

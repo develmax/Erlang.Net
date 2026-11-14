@@ -1,5 +1,7 @@
 # Compatibility overview
 
+Part 1665 verifies literal argument move order in a deterministic fixture and in the OTP VM. [Evidence](validation/part-1665/README.md).
+
 Part 1664 verifies receiver and nil move order in a deterministic fixture and in the OTP VM. [Evidence](validation/part-1664/README.md).
 
 Part 1663 verifies intermediate frame trimming in a deterministic fixture and in the OTP VM. [Evidence](validation/part-1663/README.md).
