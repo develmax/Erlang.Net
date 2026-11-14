@@ -8172,11 +8172,11 @@ internal sealed partial class BeamModuleCompiler
             }
             if (owner.ReadRecordTest(guard) is { } record)
             {
-                Expression(record.Value, failure);
+                int? slot = PrepareRecordOperand(record.Value, failure);
                 owner.EmitRecordTest(
                     failure,
-                    XRegisterTag,
-                    0,
+                    slot.HasValue ? YRegisterTag : XRegisterTag,
+                    slot.GetValueOrDefault(),
                     record.Name,
                     record.Arity
                 );
@@ -9258,13 +9258,13 @@ internal sealed partial class BeamModuleCompiler
             }
             if (owner.ReadRecordTest(expression) is { } recordTest)
             {
-                Expression(recordTest.Value, guardFailure);
+                int? slot = PrepareRecordOperand(recordTest.Value, guardFailure);
                 int failed = Label();
                 int done = Label();
                 owner.EmitRecordTest(
                     failed,
-                    XRegisterTag,
-                    0,
+                    slot.HasValue ? YRegisterTag : XRegisterTag,
+                    slot.GetValueOrDefault(),
                     recordTest.Name,
                     recordTest.Arity
                 );

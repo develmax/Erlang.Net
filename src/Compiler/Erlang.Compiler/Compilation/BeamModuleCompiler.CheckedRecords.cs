@@ -98,6 +98,22 @@ internal sealed partial class BeamModuleCompiler
                 ? slot
                 : null;
 
+        private int? SavedRecordSlot(Expr source) => source is Expr.Variable variable
+            && !deferredPairMembers.ContainsKey(variable.Name)
+            && variables.TryGetValue(variable.Name, out int slot)
+                ? slot : null;
+
+        private int? PrepareRecordOperand(Expr value, int? guardFailure)
+        {
+            int? slot = SavedRecordSlot(value);
+            if (slot is null)
+            {
+                Expression(value, guardFailure);
+            }
+
+            return slot;
+        }
+
         private void EmitRecordAccess(Expr.RecordAccess access, int destination, int? guardFailure = null)
         {
             if (CheckedRecordSlot(access.Value, access.Name, access.Arity) is int recordSlot)
@@ -107,14 +123,7 @@ internal sealed partial class BeamModuleCompiler
                 return;
             }
 
-            int? savedRecord = access.Value is Expr.Variable variable
-                && !deferredPairMembers.ContainsKey(variable.Name)
-                && variables.TryGetValue(variable.Name, out int slot)
-                    ? slot : null;
-            if (savedRecord is null)
-            {
-                Expression(access.Value, guardFailure);
-            }
+            int? savedRecord = PrepareRecordOperand(access.Value, guardFailure);
 
             if (guardFailure is int failure)
             {
@@ -274,21 +283,22 @@ internal sealed partial class BeamModuleCompiler
                 }
             }
             var source = ReadRecordUpdateSource(update);
-            int? sourceSlot = CheckedRecordSlot(update.Value, update.Name, update.Arity);
+            int? checkedSlot = CheckedRecordSlot(update.Value, update.Name, update.Arity);
+            int? sourceSlot = checkedSlot ?? SavedRecordSlot(update.Value);
 
             var fields = update.Fields
                 .Select((field, index) => (Field: field, Slot: values[index], Equal: ReadRecordFieldEquality(source, field)))
                 .Where(entry => entry.Equal != true)
                 .OrderBy(entry => entry.Field.Index)
                 .ToArray();
-            if (sourceSlot is null || fields.Length == 0)
+            if (sourceSlot is null)
             {
                 Expression(update.Value);
             }
 
-            if (source is null && sourceSlot is null)
+            if (source is null && checkedSlot is null)
             {
-                EmitCheckedRecord(update.Name, update.Arity);
+                EmitCheckedRecord(update.Name, update.Arity, sourceSlot);
             }
 
             if (fields.Length != 0)
@@ -316,6 +326,10 @@ internal sealed partial class BeamModuleCompiler
                         GuardOperand(entry.Field.Value, entry.Slot);
                     }
                 }
+            }
+            else if (sourceSlot is int slot)
+            {
+                Load(slot);
             }
 
             if (tuplePrefix is not null)

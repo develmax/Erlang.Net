@@ -1,5 +1,7 @@
 # Project progress
 
+Part 1729 compiled all 1,366 corpus sources with 398 Equal and 968 Different. Using saved operands in record predicates and updates changes 414 images. [Evidence](validation/part-1729/README.md).
+
 Part 1728 compiled all 1,366 corpus sources with 398 Equal and 968 Different. Reading saved records directly changes 450 images. [Evidence](validation/part-1728/README.md).
 
 Part 1727 compiled all 1,366 corpus sources with 398 Equal and 968 Different. Moving shared entry frames changes 391 images. [Evidence](validation/part-1727/README.md).

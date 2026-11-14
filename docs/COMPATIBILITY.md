@@ -1,5 +1,7 @@
 # Compatibility overview
 
+Part 1729 uses saved registers directly for is_record tests and checked record updates. [Evidence](validation/part-1729/README.md).
+
 Part 1728 uses the existing saved variable register for tag checks and field projections. [Evidence](validation/part-1728/README.md).
 
 Part 1727 places one frame after entry predicates when it still dominates all framed continuations. [Evidence](validation/part-1727/README.md).

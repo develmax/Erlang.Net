@@ -1,0 +1,18 @@
+Both guard tests and the update read the saved record register.
+OTP and candidate match for 15 outcomes and effects.
+[{guard,{value,{{left,left,{item,old}},{right,right,{item,old}}}},undefined},
+ {guard,{value,{{left,left,{other,old,kind}},{right,right,{other,old,kind}}}},
+        undefined},
+ {guard,{value,{ignored,left,right}},undefined},
+ {guard,{value,{ignored,left,right}},undefined},
+ {guard,{value,{{left,left,{item,next}},{right,right,{item,next}}}},undefined},
+ {predicate,{value,{left,true}},undefined},
+ {predicate,{value,{left,false}},undefined},
+ {predicate,{value,{left,false}},undefined},
+ {predicate,{value,{left,false}},undefined},
+ {predicate,{value,{left,true}},undefined},
+ {update,{value,{left,{item,next}}},next},
+ {update,{error,{badrecord,{other,old,kind}}},next},
+ {update,{error,{badrecord,wrong}},next},
+ {update,{error,{badrecord,{item,old,extra}}},next},
+ {update,{value,{left,{item,next}}},next}]
