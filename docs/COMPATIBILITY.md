@@ -1,5 +1,7 @@
 # Compatibility overview
 
+Part 1675 verifies delayed extraction of a record field across a call. [Evidence](validation/part-1675/README.md).
+
 Part 1674 verifies tail calls that pass a list containing a call result. [Evidence](validation/part-1674/README.md).
 
 Part 1673 verifies guarded returns of a selector value. [Evidence](validation/part-1673/README.md).

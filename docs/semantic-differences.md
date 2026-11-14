@@ -1,3 +1,5 @@
+Part 1675 keeps the complete record in one slot until the field is needed. [Evidence](validation/part-1675/README.md).
+
 Part 1674 keeps a list element returned by a call in X0 until the list is built. [Evidence](validation/part-1674/README.md).
 
 Part 1673 keeps the guarded selector value in X0 and saves one fallback slot. [Evidence](validation/part-1673/README.md).
