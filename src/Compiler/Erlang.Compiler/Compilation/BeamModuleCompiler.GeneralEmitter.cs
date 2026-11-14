@@ -10163,6 +10163,11 @@ internal sealed partial class BeamModuleCompiler
                 return;
             }
 
+            if (item is Expr.Match { Pattern: Pattern.Variable { Name: VariableScopeNames.Wildcard } } discarded)
+            {
+                item = discarded.Value;
+            }
+
             var match = item as Expr.Match;
             Expr value = match?.Value ?? item;
             if (match is not null)
@@ -11833,6 +11838,20 @@ internal sealed partial class BeamModuleCompiler
 
         private void Match(Expr.Match match, int? guardFailure, bool returnValue)
         {
+            if (match.Pattern is Pattern.Variable { Name: VariableScopeNames.Wildcard })
+            {
+                if (returnValue)
+                {
+                    Expression(match.Value, guardFailure);
+                }
+                else
+                {
+                    Discard(match.Value, guardFailure);
+                }
+
+                return;
+            }
+
             if (FoldLiteralMatch(match) is Expr.Literal literal)
             {
                 if (returnValue)

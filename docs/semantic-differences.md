@@ -1,3 +1,5 @@
+Part 1621 aligns wildcard match storage and records 2 new normalized instruction matches and 0 losses. Remaining release images are tracked in the corpus report. [Evidence](validation/part-1621/README.md).
+
 Part 1620 aligns heap reservations for wrapped record updates and records 0 new normalized instruction matches and 0 losses. Remaining release images are tracked in the corpus report. [Evidence](validation/part-1620/README.md).
 
 Part 1619 aligns deferred tuple projections and records 1 new normalized instruction matches and 0 losses. Remaining release images are tracked in the corpus report. [Evidence](validation/part-1619/README.md).

@@ -1,5 +1,7 @@
 # Project progress
 
+Part 1621 generated all 1,366 pinned release images with 393 Equal and 973 Different. The wildcard match change affected 247 images. [Evidence](validation/part-1621/README.md).
+
 Part 1620 generated all 1,366 pinned release images with 393 Equal and 973 Different. The wrapped record update change affected 142 images. [Evidence](validation/part-1620/README.md).
 
 Part 1619 generated all 1,366 pinned release images with 393 Equal and 973 Different. The deferred projection change affected 1 images. [Evidence](validation/part-1619/README.md).
