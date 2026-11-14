@@ -1,5 +1,7 @@
 # Compatibility overview
 
+Part 1668 verifies the empty-branch optimization for proper lists and function_clause on failed cons head matches. [Evidence](validation/part-1668/README.md).
+
 Part 1667 verifies live slot relocation after consecutive frame trims in a deterministic fixture and in the OTP VM. [Evidence](validation/part-1667/README.md).
 
 Part 1666 verifies literal argument move order in a deterministic fixture and in the OTP VM. [Evidence](validation/part-1666/README.md).

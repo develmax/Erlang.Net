@@ -1,5 +1,7 @@
 # Next steps
 
+Identify which list and tuple tests can branch directly to function_clause using the available type facts. [Evidence](validation/part-1668/README.md).
+
 Compare lowering and operand types in functions with the remaining release code differences. [Evidence](validation/part-1667/README.md).
 
 Compare relocation after intervening frame trims. [Evidence](validation/part-1666/README.md).
