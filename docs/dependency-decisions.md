@@ -1,5 +1,7 @@
 # Dependency and compatibility decisions
 
+Part 1730 reuses the BEAM register operand decoder and encoder. Frame allocation reuses the BEAM operand decoder and compact writer. No library was added. [Evidence](validation/part-1730/README.md).
+
 Part 1729 reuses the BEAM register operand decoder and encoder. Record predicates and updates reuse the existing saved operand, tag test and error emission. No library was added. [Evidence](validation/part-1729/README.md).
 
 Part 1728 reuses the BEAM register operand decoder and encoder. Record field checking reuses the existing saved-record projection, tag test and error emission. No library was added. [Evidence](validation/part-1728/README.md).

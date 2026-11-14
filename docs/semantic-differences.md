@@ -1,3 +1,5 @@
+Part 1730 compacts disjoint Y slots in straight-line frames. X spills, register ordering and frame lifetimes still differ. [Evidence](validation/part-1730/README.md).
+
 Part 1729 checks and updates records using saved registers where eligible. Frame sizes and register lifetimes still differ. [Evidence](validation/part-1729/README.md).
 
 Part 1728 checks record field access from its saved register before allocating a frame where eligible. Record guard and update generation still differ. [Evidence](validation/part-1728/README.md).

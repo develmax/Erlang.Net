@@ -1,5 +1,7 @@
 # Next steps
 
+Keep call results in X registers during terminal call preparation. The corpus has 766 functions in 298 images with a result spill and reload into an available X register before a terminal call. [Evidence](validation/part-1730/README.md).
+
 Compare allocation sizes and live X and Y registers across calls. Start with 929 functions in 395 images that allocate larger frames at the same live X count and have no local branch or trim. [Evidence](validation/part-1729/README.md).
 
 Use saved register operands in is_record guards and record updates. Compare remaining tagged tuple predicates and error-block placement. [Evidence](validation/part-1728/README.md).

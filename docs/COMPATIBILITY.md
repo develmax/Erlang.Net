@@ -1,5 +1,7 @@
 # Compatibility overview
 
+Part 1730 reuses Y registers for values with disjoint lifetimes in a linear frame. [Evidence](validation/part-1730/README.md).
+
 Part 1729 uses saved registers directly for is_record tests and checked record updates. [Evidence](validation/part-1729/README.md).
 
 Part 1728 uses the existing saved variable register for tag checks and field projections. [Evidence](validation/part-1728/README.md).

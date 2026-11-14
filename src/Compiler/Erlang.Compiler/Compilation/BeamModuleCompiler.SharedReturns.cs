@@ -162,7 +162,8 @@ internal sealed partial class BeamModuleCompiler
                 ?? ReallocateLeafFrameRegisters(code, body, stackOperands)
                 ?? DelayEntryStackFrame(code, body, stackOperands)
                 ?? ConsolidateEntryInitialization(code, body)
-                ?? FoldTerminalCalls(code, body);
+                ?? FoldTerminalCalls(code, body)
+                ?? ReuseLinearStackSlots(code, body, stackOperands);
             return simplified is null ? null : (simplified, Enumerable.Range(0, labelCount).ToArray(), 0);
         }
 
