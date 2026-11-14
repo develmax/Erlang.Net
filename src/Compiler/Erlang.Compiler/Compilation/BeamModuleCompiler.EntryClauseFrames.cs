@@ -27,10 +27,17 @@ internal sealed partial class BeamModuleCompiler
             bool listDispatch = function.Clauses.Any(clause => clause.Patterns.Any(pattern => EntryShape(pattern) is Pattern.List));
             bool tupleDispatch = function.Clauses.Any(clause => clause.Patterns.Any(pattern =>
                 (listDispatch ? pattern : EntryShape(pattern)) is Pattern.Tuple));
-            // The general tuple plan does not carry record-update proofs or closure capture order.
-            bool tupleDispatchSupported = tupleDispatch
+            bool hasRecordUpdate = function.Clauses.Any(clause => LocalFunctionEntries.Walk(clause.Body)
+                .Any(expression => expression is Expr.RecordUpdate));
+            bool recordReturnDispatch = hasRecordUpdate && function.Clauses is
+                [{ Guard: null, Body: Expr.Sequence { Items: [Expr.Match { Value: Expr.Call }, Expr.Tuple] } },
+                 { Guard: null, Body: Expr.Tuple } recordFallback]
+                && HasUnconditionalParameters(recordFallback) && recordFallback.Body is Expr.Tuple fallbackTuple
+                && fallbackTuple.Items.All(IsPreparedOperand);
+            // Other record-update bodies and closures still use their existing entry plans.
+            bool tupleDispatchSupported = tupleDispatch && (!hasRecordUpdate || recordReturnDispatch)
                 && !function.Clauses.Any(clause => LocalFunctionEntries.Walk(clause.Body)
-                    .Any(expression => expression is Expr.RecordUpdate or Expr.Fun));
+                    .Any(expression => expression is Expr.Fun));
             bool tupleBodyDispatch = tupleDispatchSupported
                 && function.Clauses.Any(clause => clause.Body is Expr.Sequence or Expr.Case or Expr.If);
             bool hasArithmeticCall = function.Clauses.Any(clause => clause.Body is Expr.Call call
@@ -1254,6 +1261,12 @@ internal sealed partial class BeamModuleCompiler
                 var (clause, parameters, literals, cons, tuples, fieldTests, equalities,
                     tupleCall, consResult, tailCall, callChain, tailList, tailConstruction, tupleResult, bodyInputs, deferredCons,
                     arithmeticTail, returnedConstruction, savedCalls) = branches[branch];
+                var entryPatterns = function.Clauses[branch].Patterns;
+                var recordUpdate = recordReturnDispatch && bodyInputs is not null && clause.Guard is null
+                    && tuples.Count > 0 && cons.Count == 0 && fieldTests.Count == 0 && equalities.Count == 0
+                    ? ReadEntryRecordUpdate(clause.Body, entryPatterns, tuples.SelectMany(tuple =>
+                        tuple.Fields.Select(field => (parameters[field.Register], tuple.Input, field.Index))))
+                    : null;
                 bool hasNext = branch + 1 < branches.Count;
                 (int Input, List<(int Index, int Register)> Fields)? protectedEntryTuple = null;
                 if (selectedAtom && bodyInputs is not null && tuples is [var protectedTuple]
@@ -1601,7 +1614,7 @@ internal sealed partial class BeamModuleCompiler
                         : -1;
                     foreach (var (index, register) in fields.Take(fieldLimit))
                     {
-                        if (protectedEntryTuple is not null || projectedReturn is not null
+                        if (recordUpdate is not null || protectedEntryTuple is not null || projectedReturn is not null
                             || (resultIndex >= 0 && register == resultRegister)
                             || registerCase?.Deferred is { } projection && projection.Tuple == input
                                 && (projection.Field == index || registerCase.SavedTupleFields?.Any(item => item.Field == index) == true
@@ -1702,6 +1715,10 @@ internal sealed partial class BeamModuleCompiler
                         listInput: extractTail ? cons[0].Input : 0,
                         previous: literalGroup is null ? null : previousConsCall);
                     previousConsCall = CallLocation(consResult.Call.Call, previousConsCall);
+                }
+                else if (recordUpdate is not null)
+                {
+                    recordUpdate();
                 }
                 else if (callChain is not null)
                 {
@@ -1814,7 +1831,7 @@ internal sealed partial class BeamModuleCompiler
                                 reusedTail
                             )))
                         {
-                            EmitEntryClauseBody(clause, bodyInputs, branch, bodyFrames, reusedTail, deferredCons, literalDispatch);
+                            EmitEntryClauseBody(clause with { Patterns = entryPatterns }, bodyInputs, branch, bodyFrames, reusedTail, deferredCons, literalDispatch);
                         }
                     }
                 }
@@ -2051,6 +2068,8 @@ internal sealed partial class BeamModuleCompiler
             var previousCaptureOrder = entryCaptureOrder;
 
             variables = new(StringComparer.Ordinal);
+            var previousRecords = checkedRecordBindings;
+            checkedRecordBindings = new(StringComparer.Ordinal);
             nextSlot = 0;
             peakSlot = 0;
             frameSize = plannedTupleFrames?.GetValueOrDefault(branch, previousFrame) ?? previousFrame;
@@ -2066,7 +2085,7 @@ internal sealed partial class BeamModuleCompiler
             var sequence = deferred?.Sequence ?? ReadEntrySequenceBody(clause.Body, inputs);
             if (sequence is not null)
             {
-                EmitEntrySequenceBody(sequence, inputs, deferred, literalDispatch, clause.Guard);
+                EmitEntrySequenceBody(sequence, inputs, deferred, literalDispatch, clause.Guard, clause.Patterns);
             }
             else
             {
@@ -2079,6 +2098,7 @@ internal sealed partial class BeamModuleCompiler
             nextSlot = previousSlot;
             peakSlot = Math.Max(previousPeak, peakSlot);
             frameSize = previousFrame;
+            checkedRecordBindings = previousRecords;
             entryCaptureOrder = previousCaptureOrder;
         }
 
@@ -2156,7 +2176,7 @@ internal sealed partial class BeamModuleCompiler
         }
 
         private void EmitEntrySequenceBody(EntrySequenceBody sequence, (Pattern.Variable Variable, int Register)[] inputs,
-            DeferredConsEntry? deferred, bool literalDispatch, Expr? entryGuard)
+            DeferredConsEntry? deferred, bool literalDispatch, Expr? entryGuard, IReadOnlyList<Pattern> entryPatterns)
         {
             var measurement = ReadEntryResultMeasurement(sequence, inputs);
             if (measurement is { } measured)
@@ -2212,6 +2232,11 @@ internal sealed partial class BeamModuleCompiler
             if (deferred is not null)
             {
                 owner.EmitListParts(deferred.Input, XRegisterTag, deferred.Input, YRegisterTag, tailSlot);
+            }
+
+            foreach (Pattern pattern in entryPatterns)
+            {
+                RememberCheckedRecord(pattern);
             }
 
             EmitEntryCall(sequence.Call);

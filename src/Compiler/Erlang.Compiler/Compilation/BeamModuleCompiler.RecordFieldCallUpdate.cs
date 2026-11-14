@@ -6,6 +6,107 @@ internal sealed partial class BeamModuleCompiler
 {
     private sealed partial class GeneralEmitter
     {
+        private Action? ReadEntryRecordUpdate(
+            Expr body,
+            IReadOnlyList<Pattern> patterns,
+            IEnumerable<(string Name, int Input, int Field)> projected
+        )
+        {
+            if (body is not Expr.Sequence
+                {
+                    Items: [
+                        Expr.Match { Pattern: Pattern.Variable { Name: not VariableScopeNames.Wildcard } result, Value: Expr.Call call },
+                        Expr.Tuple returned
+                    ]
+                }
+                || returned.Items.Count < 2
+                || returned.Items[^1] is not Expr.RecordUpdate
+                    { Value: Expr.Variable state, Fields: [{ Value: Expr.Variable replacement } field] } update
+                || result.Name != replacement.Name
+                || patterns.SelectMany(Semantics.Variables).Contains(result.Name, StringComparer.Ordinal)
+                || !TryResolveOrdinaryCallTarget(call, out string? module))
+            {
+                return null;
+            }
+
+            int source = -1;
+            for (int index = 0; index < patterns.Count; index++)
+            {
+                if (patterns[index] is AliasPattern alias && TryReadPatternAlias(alias, out var binding, out var shape)
+                    && binding.Name == state.Name && shape is Pattern.Tuple tuple && tuple.Items.Count == update.Arity
+                    && HasTupleTag(tuple, out Atom tag) && tag.Name == update.Name)
+                {
+                    source = index;
+                    break;
+                }
+            }
+
+            if (source < 0)
+            {
+                return null;
+            }
+
+            var prefix = new Term[returned.Items.Count - 1];
+            for (int index = 0; index < prefix.Length; index++)
+            {
+                if (!AttributeLiteral.TryNormalizeConstant(returned.Items[index], out prefix[index]))
+                {
+                    return null;
+                }
+            }
+
+            var fields = projected.ToDictionary(field => field.Name, StringComparer.Ordinal);
+            var arguments = new List<(int Destination, int Input, int Field, Term? Constant)>();
+            var overwritten = new HashSet<int>();
+            for (int index = call.Arguments.Count - 1; index >= 0; index--)
+            {
+                Expr argument = call.Arguments[index];
+                if (argument is Expr.Variable variable && fields.TryGetValue(variable.Name, out var projection)
+                    && !overwritten.Contains(projection.Input))
+                {
+                    arguments.Add((index, projection.Input, projection.Field, null));
+                }
+                else if (AttributeLiteral.TryNormalizeConstant(argument, out Term constant))
+                {
+                    arguments.Add((index, -1, -1, constant));
+                }
+                else
+                {
+                    return null;
+                }
+
+                overwritten.Add(index);
+            }
+
+            // An in-place projection may overwrite a register needed by a later clause.
+            // The entry tests are complete by the time this body is emitted.
+            return () =>
+            {
+                EmitFrameAllocation(Math.Max(source, arguments.Select(argument => argument.Input).DefaultIfEmpty(-1).Max()) + 1, 1);
+                owner.MoveRegister(XRegisterTag, source, YRegisterTag, 0);
+                foreach (var (destination, input, index, constant) in arguments)
+                {
+                    if (constant is null)
+                    {
+                        owner.EmitTuplePart(input, index, destination);
+                    }
+                    else
+                    {
+                        owner.EmitConstant(constant, destination);
+                    }
+                }
+
+                owner.EmitCallLine(call, location);
+                Call(module, call.Function, call.Arguments.Count);
+                owner.Op(TestHeap, BeamWire.UnsignedTag, update.Arity + prefix.Length + 3);
+                owner.Operand(BeamWire.UnsignedTag, 1);
+                EmitSavedRecordUpdate(update.Arity, field.Index);
+                EmitRecordUpdateWrapper(prefix);
+                owner.EmitFrameReturn(1);
+            };
+        }
+
+
         private bool TryEmitDeferredRecordCallUpdate(Clause clause, int failure)
         {
             if (clause is not
