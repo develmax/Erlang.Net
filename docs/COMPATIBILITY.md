@@ -1,5 +1,7 @@
 # Compatibility overview
 
+Part 1716 folds calls that jump directly to a shared return and optional deallocation. [Evidence](validation/part-1716/README.md).
+
 Part 1715 folds calls followed immediately by a return and optional deallocation. [Evidence](validation/part-1715/README.md).
 
 Part 1714 groups initial Y slot initialization in the entry frame prologue. [Evidence](validation/part-1714/README.md).

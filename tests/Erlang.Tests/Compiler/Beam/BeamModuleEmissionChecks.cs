@@ -341,6 +341,7 @@ internal static class BeamModuleEmissionChecks
         CompareEntryArgumentCopies();
         CompareEntryFrameInitialization();
         CompareTerminalCallFolding();
+        CompareSharedReturnCallFolding();
         await CompareMixedListNilFallback();
         await CompareCaseTupleSlot();
         await CompareThrowStackObservers();
@@ -607,6 +608,24 @@ internal static class BeamModuleEmissionChecks
         if (code.AsSpan().IndexOf(calls) < 0)
         {
             throw new InvalidOperationException("Expected the final external call to release the frame and return.");
+        }
+    }
+
+    private static void CompareSharedReturnCallFolding()
+    {
+        const string source = """
+            -module(beam_shared_call_return).
+            -export([via_or/2]).
+            via_or(X, Y) ->
+                other:read(X) orelse other:read(Y).
+            """;
+        byte[] beam = CodeGeneration.CompileBeamModule(source, "beam_shared_call_return.erl");
+        byte[] code = BeamDocumentationEmissionChecks.Chunks(beam).Single(chunk => chunk.Id == "Code").Data;
+        ReadOnlySpan<byte> tail = [BeamEmissionFormat.TailExternalCallWithFrame, 0x10, 0x00, 0x20];
+        ReadOnlySpan<byte> sharedReturn = [BeamEmissionFormat.Deallocate, 0x20, BeamEmissionFormat.Return];
+        if (code.AsSpan().IndexOf(tail) < 0 || code.AsSpan().IndexOf(sharedReturn) < 0)
+        {
+            throw new InvalidOperationException("Expected a framed tail call and the return shared by the other branches.");
         }
     }
 

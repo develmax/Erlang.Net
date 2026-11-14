@@ -1,5 +1,7 @@
 # Project progress
 
+Part 1716 compiled all 1,366 corpus sources with 398 Equal and 968 Different. Folding calls through shared returns changes 764 images. [Evidence](validation/part-1716/README.md).
+
 Part 1715 compiled all 1,366 corpus sources with 398 Equal and 968 Different. Folding terminal calls changes 800 images. [Evidence](validation/part-1715/README.md).
 
 Part 1714 compiled all 1,366 corpus sources with 398 Equal and 968 Different. Consolidating frame initialization changes 309 images. [Evidence](validation/part-1714/README.md).

@@ -1,5 +1,7 @@
 # Next steps
 
+Compare terminal block reachability after tail-call folding. Remove unreferenced return blocks while preserving metadata and line tables. [Evidence](validation/part-1716/README.md).
+
 Rank tail calls whose continuations jump to a shared return. Compare predecessor frames and line information with OTP. [Evidence](validation/part-1715/README.md).
 
 Compare temporary registers for list construction and the order of live Y slots with OTP. Use corpus measurements to prioritize register scheduling. [Evidence](validation/part-1714/README.md).

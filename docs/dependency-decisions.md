@@ -1,5 +1,7 @@
 # Dependency and compatibility decisions
 
+Part 1716 reuses the instruction reader and compact operands when using a shared exit frame. No dependency was added. [Evidence](validation/part-1716/README.md).
+
 Part 1715 reuses the instruction reader and preserves the existing compact operands when folding terminal calls. No dependency was added. [Evidence](validation/part-1715/README.md).
 
 Part 1714 uses the existing instruction reader and compact writer for entry initialization lists. No dependency was added. [Evidence](validation/part-1714/README.md).

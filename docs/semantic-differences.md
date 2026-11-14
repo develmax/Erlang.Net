@@ -1,3 +1,5 @@
+Part 1716 folds jumps directly to shared return blocks. Remaining control-flow layout and register allocation still differ. [Evidence](validation/part-1716/README.md).
+
 Part 1715 folds straight-line terminal calls. Shared return continuations and register allocation still differ. [Evidence](validation/part-1715/README.md).
 
 Part 1714 consolidates entry initialization. Register scheduling and frame slot ordering still differ. [Evidence](validation/part-1714/README.md).
