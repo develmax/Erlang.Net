@@ -68,6 +68,19 @@ internal sealed partial class BeamModuleCompiler
                 Clause clause = clauses[branch];
                 var tests = new List<Action<int>>();
                 var bindings = new Dictionary<string, int>(StringComparer.Ordinal);
+                var unusedFields = clause.Patterns.SelectMany(Semantics.Variables)
+                    .GroupBy(name => name, StringComparer.Ordinal)
+                    .Where(group => group.Count() == 1)
+                    .Select(group => group.Key).ToHashSet(StringComparer.Ordinal);
+                try
+                {
+                    unusedFields.ExceptWith(ClosureCaptures.ReadEntryReferences(clause, unusedFields));
+                }
+                catch (NotSupportedException)
+                {
+                    unusedFields.Clear();
+                }
+
                 int nextRegister = branch < consCount ? arity + (needsTail && !reuseTail ? 2 : 1) : arity;
 
                 for (int index = 0; index < arity; index++)
@@ -162,7 +175,8 @@ internal sealed partial class BeamModuleCompiler
                             for (int field = tagged ? 1 : 0; field < tuple.Items.Count; field++)
                             {
                                 Pattern member = tuple.Items[field];
-                                if (IsDiscarded(member))
+                                if (IsDiscarded(member)
+                                    || member is Erlang.Pattern.Variable variable && unusedFields.Contains(variable.Name))
                                 {
                                     continue;
                                 }
@@ -178,6 +192,11 @@ internal sealed partial class BeamModuleCompiler
                                 if (!ReadPattern(member, destination))
                                 {
                                     return false;
+                                }
+
+                                if (member is Erlang.Pattern.Literal)
+                                {
+                                    nextRegister--;
                                 }
                             }
                             return true;
