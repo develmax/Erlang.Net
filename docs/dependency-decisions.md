@@ -1,5 +1,7 @@
 # Dependency and compatibility decisions
 
+Part 1679 reuses the existing entry call and frame emitters. No dependency was added. [Evidence](validation/part-1679/README.md).
+
 Part 1678 reuses the existing entry call and frame emitters. No dependency was added. [Evidence](validation/part-1678/README.md).
 
 Part 1677 reuses the existing entry call and frame emitters. No dependency was added. [Evidence](validation/part-1677/README.md).

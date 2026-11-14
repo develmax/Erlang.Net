@@ -1,5 +1,7 @@
 # Compatibility overview
 
+Part 1679 verifies direct external tail calls for apply and tagged tuple projection. [Evidence](validation/part-1679/README.md).
+
 Part 1678 verifies direct external tail calls for terminal Erlang wrappers. [Evidence](validation/part-1678/README.md).
 
 Part 1677 verifies direct external tail calls for process creation wrappers. [Evidence](validation/part-1677/README.md).

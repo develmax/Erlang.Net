@@ -1,5 +1,7 @@
 # Project progress
 
+Part 1679 accepted and compiled all 1,366 sources with 398 Equal and 968 Different. [Evidence](validation/part-1679/README.md).
+
 Part 1678 accepted and compiled all 1,366 sources with 398 Equal and 968 Different. [Evidence](validation/part-1678/README.md).
 
 Part 1677 accepted and compiled all 1,366 sources with 398 Equal and 968 Different. [Evidence](validation/part-1677/README.md).
