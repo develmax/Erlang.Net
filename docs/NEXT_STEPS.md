@@ -1,5 +1,7 @@
 # Next steps
 
+Compare the shared field projections after grouping structural list clauses by their head tuple shapes. [Evidence](validation/part-1687/README.md).
+
 Compare structural tuple branch prefixes and the capture ordering of the two init closures against the release. [Evidence](validation/part-1686/README.md).
 
 Compare the remaining shared tuple prefixes and the Code size delta in init. [Evidence](validation/part-1685/README.md).

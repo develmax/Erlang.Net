@@ -1,3 +1,5 @@
+Part 1687 shares arity and tag checks across consecutive cons patterns with the same tuple shape. [Evidence](validation/part-1687/README.md).
+
 Part 1686 preserves projection capture order when structural tuple fields reuse an earlier register. [Evidence](validation/part-1686/README.md).
 
 Part 1685 replaces dead parent tuples with their final projections in structural list matching. [Evidence](validation/part-1685/README.md).

@@ -1,5 +1,7 @@
 # Compatibility overview
 
+Part 1687 verifies shared tuple shape tests for consecutive structural list clauses. [Evidence](validation/part-1687/README.md).
+
 Part 1686 verifies capture order across reused tuple projection registers. [Evidence](validation/part-1686/README.md).
 
 Part 1685 verifies reuse of a parent tuple register during its final projection. [Evidence](validation/part-1685/README.md).
