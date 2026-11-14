@@ -2,6 +2,33 @@ namespace Erlang.Compiler;
 
 internal sealed partial class BeamModuleCompiler
 {
+    private static Term? ReadSingletonResult(FunctionDefinition function) => ReadClauses(function.Clauses);
+
+    private static Term? ReadClauses(IReadOnlyList<Clause> clauses)
+    {
+        Term? result = null;
+        foreach (Clause clause in clauses)
+        {
+            if (ReadResult(clause.Body) is not { } value || result is not null && !result.Equals(value))
+            {
+                return null;
+            }
+
+            result = value;
+        }
+
+        return result;
+    }
+
+    private static Term? ReadResult(Expr expression) => expression switch
+    {
+        Expr.Sequence { Items.Count: > 0 } sequence => ReadResult(sequence.Items[^1]),
+        Expr.Block block => ReadResult(block.Body),
+        Expr.Case decision => ReadClauses(decision.Clauses),
+        Expr.If conditional => ReadClauses(conditional.Clauses),
+        _ => AttributeLiteral.TryNormalizeConstant(expression, out Term value) ? value : null
+    };
+
     private sealed partial class GeneralEmitter
     {
         private sealed record ResultProjection(Pattern.Tuple Pattern, int Field);
@@ -14,16 +41,8 @@ internal sealed partial class BeamModuleCompiler
             return !owner.ModuleOptimizationDisabled && call.Module is null
                 && !owner.IsDeclaredNative(signature)
                 && localFunctions.TryGetValue(signature, out var definition)
-                && definition.Clauses.All(clause => ReturnsConstant(clause.Body));
-
-            bool ReturnsConstant(Expr expression) => expression switch
-            {
-                Expr.Sequence sequence => ReturnsConstant(sequence.Items[^1]),
-                Expr.Block block => ReturnsConstant(block.Body),
-                Expr.Case decision => decision.Clauses.All(clause => ReturnsConstant(clause.Body)),
-                Expr.If conditional => conditional.Clauses.All(clause => ReturnsConstant(clause.Body)),
-                _ => AttributeLiteral.TryNormalizeConstant(expression, out Term value) && expected.Equals(value)
-            };
+                && ReadSingletonResult(definition) is { } result
+                && expected.Equals(result);
         }
 
         private static bool HasKnownNonTupleResult(EntryCall call, Atom alternative) =>

@@ -4,7 +4,43 @@ namespace Erlang.Compiler;
 
 internal sealed partial class BeamModuleCompiler
 {
-    private byte[]? RemoveProvenRegisterMoves(ReadOnlyMemory<byte> code)
+    private Dictionary<int, BeamOperand> ReadSingletonCallResults(
+        IReadOnlyList<FunctionDefinition> functions,
+        IReadOnlyDictionary<(string Name, int Arity), int> localEntries
+    )
+    {
+        var results = new Dictionary<int, BeamOperand>();
+        if (ModuleOptimizationDisabled || OnLoadFunction is not null)
+        {
+            return results;
+        }
+
+        foreach (FunctionDefinition function in functions)
+        {
+            var signature = (function.Name, function.Arity);
+            if (function.IsInlineFailure || IsDeclaredNative(signature)
+                || !localEntries.TryGetValue(signature, out int entry))
+            {
+                continue;
+            }
+
+            BeamOperand? value = ReadSingletonResult(function) switch
+            {
+                Atom atom when atoms.TryGetValue(atom.Name, out int atomIndex) => new(BeamOperandParameters.Atom, atomIndex),
+                Nil => new(BeamOperandParameters.Nil, 0),
+                Integer integer => new(BeamOperandParameters.Integer, integer.Value),
+                _ => null
+            };
+            if (value is not null && (entry > 0 || deferredEntries.TryGetValue(entry, out entry)))
+            {
+                results.Add(entry, value);
+            }
+        }
+
+        return results;
+    }
+
+    private byte[]? RemoveProvenRegisterMoves(ReadOnlyMemory<byte> code, IReadOnlyDictionary<int, BeamOperand> returnValues)
     {
         IReadOnlyList<BeamInstruction> body;
         try
@@ -37,6 +73,12 @@ internal sealed partial class BeamModuleCompiler
                     && IsExactMoveConstant(instruction.Operands[index - 1]))
                 {
                     fact = (Untyped(instruction.Operands[0]), instruction.Operands[index - 1]);
+                }
+
+                if (instruction is { Definition.Opcode: ExactNotEqualTest, Operands: [_, var tested, var constant] }
+                    && IsSwapRegister(Untyped(tested)) && IsExactMoveConstant(constant))
+                {
+                    fact = (Untyped(tested), constant);
                 }
 
                 int label = (int)target.Value;
@@ -84,6 +126,10 @@ internal sealed partial class BeamModuleCompiler
                         }
                     }
 
+                    break;
+                case { Definition.Opcode: LocalCall, Operands: [_, var entry] }
+                    when returnValues.TryGetValue((int)entry.Value, out var result):
+                    known = (new BeamOperand(BeamOperandParameters.X, 0), result);
                     break;
                 case { Definition.Opcode: Line }:
                     break;

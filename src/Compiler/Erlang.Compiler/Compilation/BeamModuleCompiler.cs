@@ -681,7 +681,7 @@ internal sealed partial class BeamModuleCompiler(
         (string Id, byte[] Payload)[] essentials =
         [
             (BeamWire.AtomsChunk, Payload(EmitAtoms)),
-            (BeamWire.CodeChunk, Payload(EmitCode)),
+            (BeamWire.CodeChunk, Payload(output => EmitCode(output, functions, localEntries))),
             ("StrT", stringTable.ToArray()),
             (BeamWire.ImportsChunk, Payload(output =>
             {
@@ -901,7 +901,11 @@ internal sealed partial class BeamModuleCompiler(
         }
     }
 
-    private void EmitCode(Stream output)
+    private void EmitCode(
+        Stream output,
+        IReadOnlyList<FunctionDefinition> functions,
+        IReadOnlyDictionary<(string Name, int Arity), int> localEntries
+    )
     {
         using var projected = hasTupleProjections ? new MemoryStream() : null;
         if (projected is not null)
@@ -921,7 +925,7 @@ internal sealed partial class BeamModuleCompiler(
             code = trimmed;
         }
 
-        if (RemoveProvenRegisterMoves(code) is { } simplified)
+        if (RemoveProvenRegisterMoves(code, ReadSingletonCallResults(functions, localEntries)) is { } simplified)
         {
             code = simplified;
         }

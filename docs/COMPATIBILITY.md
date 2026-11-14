@@ -1,5 +1,7 @@
 # Compatibility overview
 
+Part 1698 verifies singleton local call result facts and exact inequality failure edges. [Evidence](validation/part-1698/README.md).
+
 Part 1697 verifies redundant move removal after exact tests and selection edges. [Evidence](validation/part-1697/README.md).
 
 Part 1696 verifies stack and call argument swap scheduling and adds a byte-identical complete fixture. [Evidence](validation/part-1696/README.md).

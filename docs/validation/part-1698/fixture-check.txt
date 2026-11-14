@@ -1,0 +1,9 @@
+otp
+{function,call,1,2,[{label,1},{line,[{location,[],3}]},{func_info,{atom,beam_singleton_call_result},{atom,call},1},{label,2},{call_only,1,{beam_singleton_call_result,done,1}}]}
+{function,neq,1,4,[{label,3},{line,[{location,[],6}]},{func_info,{atom,beam_singleton_call_result},{atom,neq},1},{label,4},{test,is_eq_exact,{f,5},[{x,0},{atom,ready}]},return,{label,5},{test_heap,3,1},{put_tuple2,{x,0},{list,[{atom,other},{x,0}]}},return]}
+prior
+{function,call,1,2,[{label,1},{line,[{location,[],3}]},{func_info,{atom,beam_singleton_call_result},{atom,call},1},{label,2},{allocate,0,1},{line,[{location,[],4}]},{call,1,{beam_singleton_call_result,done,1}},{move,{atom,ready},{x,0}},{deallocate,0},return]}
+{function,neq,1,4,[{label,3},{line,[{location,[],6}]},{func_info,{atom,beam_singleton_call_result},{atom,neq},1},{label,4},{test,is_ne_exact,{f,5},[{x,0},{atom,ready}]},{test_heap,3,1},{put_tuple2,{x,0},{list,[{atom,other},{x,0}]}},return,{label,5},{move,{atom,ready},{x,0}},return]}
+current
+{function,call,1,2,[{label,1},{line,[{location,[],3}]},{func_info,{atom,beam_singleton_call_result},{atom,call},1},{label,2},{allocate,0,1},{line,[{location,[],4}]},{call,1,{beam_singleton_call_result,done,1}},{deallocate,0},return]}
+{function,neq,1,4,[{label,3},{line,[{location,[],6}]},{func_info,{atom,beam_singleton_call_result},{atom,neq},1},{label,4},{test,is_ne_exact,{f,5},[{x,0},{atom,ready}]},{test_heap,3,1},{put_tuple2,{x,0},{list,[{atom,other},{x,0}]}},return,{label,5},return]}

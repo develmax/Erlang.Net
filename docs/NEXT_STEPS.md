@@ -1,5 +1,7 @@
 # Next steps
 
+Fold a terminal call and return after removing a proven result move, following OTP beam_z. [Evidence](validation/part-1698/README.md).
+
 Compare remaining redundant moves after finite value tests, especially facts from singleton-valued call results and label joins. [Evidence](validation/part-1697/README.md).
 
 Propagate values proven by exact equality and nil tests through fallthrough blocks to remove redundant register moves. [Evidence](validation/part-1696/README.md).

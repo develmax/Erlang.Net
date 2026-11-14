@@ -404,6 +404,7 @@ internal static class BeamModuleEmissionChecks
         await CompareStructuralListEntry();
         await CompareLinearStackFrameTrim();
         await CompareTrimFailureEdges();
+        await CompareSingletonCallResult();
         await CompareConsResultEntry();
         await CompareGeneratedBehaviourInfo();
         await CompareGeneralListQualifiers();
@@ -4478,6 +4479,33 @@ internal static class BeamModuleEmissionChecks
         if (!expected.Equals(actual))
         {
             throw new InvalidOperationException($"Trimmed failure edge returned {actual}, exit {exit}.");
+        }
+    }
+
+    private static async Task CompareSingletonCallResult()
+    {
+        const string module = "beam_singleton_call_result";
+        string source = Encoding.UTF8.GetString(Read(module + ".erl"));
+        BeamModule image = BeamModule.Prepare(CodeGeneration.CompileBeamModule(source, module + ".erl"));
+        await using var runtime = new ProcessRuntime();
+        Term? actual = null;
+        ProcessHandle process = runtime.Spawn(async context =>
+        {
+            Term example = Term.A("example");
+            Term ready = Term.A("ready");
+            actual = Term.Tuple(
+                await image.Invoke(context, "call", example),
+                await image.Invoke(context, "neq", ready),
+                await image.Invoke(context, "neq", example)
+            );
+            return actual;
+        });
+
+        Term exit = await process.Completion.WaitAsync(TimeSpan.FromSeconds(10));
+        Term expected = Term.Tuple(Term.A("ready"), Term.A("ready"), Term.Tuple(Term.A("other"), Term.A("example")));
+        if (!expected.Equals(actual))
+        {
+            throw new InvalidOperationException($"Singleton result propagation returned {actual}, exit {exit}.");
         }
     }
 
