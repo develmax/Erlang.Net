@@ -1,5 +1,7 @@
 # Project progress
 
+Part 1642 accepted and compiled all 1,366 sources with 395 Equal and 971 Different. [Evidence](validation/part-1642/README.md).
+
 Part 1641 accepted and compiled all 1,366 sources with 395 Equal and 971 Different. [Evidence](validation/part-1641/README.md).
 
 Part 1640 generated all 1,366 Windows OTP images with 395 Equal and 971 Different. The compiler now keeps a projected tuple field in the call argument register. [Evidence](validation/part-1640/README.md).

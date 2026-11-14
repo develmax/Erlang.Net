@@ -1,5 +1,7 @@
 # Next steps
 
+Check call sequences that can overwrite an input stack slot with the previous result after its last argument use. [Evidence](validation/part-1642/README.md).
+
 Check call sequences that can overwrite an input stack slot with the previous result after its last argument use. [Evidence](validation/part-1641/README.md).
 
 Compare call continuations that construct several arguments after a producer call. Trace their live registers and heap reservations against pinned OTP. [Evidence](validation/part-1640/README.md).

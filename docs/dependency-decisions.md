@@ -1,5 +1,7 @@
 # Dependency and compatibility decisions
 
+Part 1642 reuses the entry call, tail move and constructor planners. No dependency was added. [Evidence](validation/part-1642/README.md).
+
 Part 1641 reuses the entry call, tail move and constructor planners. No dependency was added. [Evidence](validation/part-1641/README.md).
 
 Part 1640 reuses the tagged entry test and existing entry call and tail move emitters against pinned OTP release disassembly. No dependency was added. [Evidence](validation/part-1640/README.md).

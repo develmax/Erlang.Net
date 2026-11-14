@@ -1,3 +1,5 @@
+Part 1642 reuses the stack slot after the final read in a constructed argument. [Evidence](validation/part-1642/README.md).
+
 Part 1641 reserves heap jointly and avoids saving intermediate constructors to Y registers in supported tail continuations. [Evidence](validation/part-1641/README.md).
 
 Part 1640 eliminates an extra frame slot when one projected field feeds a call and only the original tuple survives it. [Evidence](validation/part-1640/README.md).

@@ -1,5 +1,7 @@
 # Compatibility overview
 
+Part 1642 verifies reuse of the saved input slot after argument construction in a deterministic fixture and in the OTP VM. [Evidence](validation/part-1642/README.md).
+
 Part 1641 verifies register-resident construction after a producer call in a deterministic fixture and in the OTP VM. [Evidence](validation/part-1641/README.md).
 
 Part 1640 matches a fixture with two forms of forwarding a tagged tuple and a call result. The OTP VM verified normal results and function_clause failures. [Evidence](validation/part-1640/README.md).
