@@ -1930,7 +1930,8 @@ internal sealed partial class BeamModuleCompiler
                 }
 
                 // A clause body runs only after its patterns and guard have succeeded.
-                if (entryCallCase is null && body is Expr.Receive { Clauses.Count: > 0 } receive)
+                if (entryCallCase is null && body is Expr.Receive receive
+                    && (receive.Clauses.Count > 0 || ReadHibernateCall(receive.After) is not null))
                 {
                     EmitReceive(receive, terminal: true);
                 }
@@ -7540,6 +7541,7 @@ internal sealed partial class BeamModuleCompiler
         private static bool IsControlTransfer(string function, int arity) =>
             (function, arity) is (AutoImportNames.Halt, 0 or 1 or 2)
                 or (AutoImportNames.Exit or AutoImportNames.Throw, 1)
+                or (HibernateFunction, 3)
                 or (AutoImportNames.Error, 1 or 2 or 3);
 
         private sealed record ForwardedCall(

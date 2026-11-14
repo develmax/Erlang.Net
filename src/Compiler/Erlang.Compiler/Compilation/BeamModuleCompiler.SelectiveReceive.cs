@@ -7,6 +7,7 @@ internal sealed partial class BeamModuleCompiler
     private sealed partial class GeneralEmitter
     {
         private const int ReceiveMessageSlot = -1;
+        private const string HibernateFunction = "hibernate";
         private Expr.Call? preparedReceiveCall;
 
         private bool TryEmitLiteralTimeoutReceive(FunctionDefinition function)
@@ -581,6 +582,11 @@ internal sealed partial class BeamModuleCompiler
             return true;
         }
 
+        private static Expr.Call? ReadHibernateCall(Expr? body) => body is Expr.Call
+            { Module: ErlangModuleNames.Module, DynamicRemote: false, Function: HibernateFunction, Arguments.Count: 3 } call
+            ? call
+            : null;
+
         private void EmitReceiveBranch(Expr body, (string Name, int Slot)[] joined, bool terminal)
         {
             if (!terminal)
@@ -598,6 +604,21 @@ internal sealed partial class BeamModuleCompiler
             if (TailLocal(body, reuseCallSlots: true))
             {
                 return;
+            }
+
+            if (ReadHibernateCall(body) is { } hibernate)
+            {
+                if (TryEmitRegisterConstructedArgument(hibernate, new Dictionary<string, int>(),
+                    frame: (variables, frameSize, owner.lastEmittedLine, new HashSet<Expr>()), allowControlTransfer: true))
+                {
+                    return;
+                }
+
+                if (hibernate.Arguments.All(IsPreparedOperand))
+                {
+                    EmitCaseExternalTail(hibernate, ErlangModuleNames.Module);
+                    return;
+                }
             }
 
             if (ReadEntryCaseExternalTail(body) is { } external)

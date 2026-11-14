@@ -1,5 +1,7 @@
 # Project progress
 
+Part 1627 generated all 1,366 Windows OTP release images with 393 Equal and 973 Different. Terminal receive hibernation changed one release image. [Evidence](validation/part-1627/README.md).
+
 Part 1626 generated all 1,366 Windows OTP release images with 393 Equal and 973 Different. Constant list suffix folding changed 17 images and aligned nine more functions after label normalization. [Evidence](validation/part-1626/README.md).
 
 Part 1625 generated all 1,366 pinned release images with 393 Equal and 973 Different. The wildcard tail call change affected 9 images. [Evidence](validation/part-1625/README.md).

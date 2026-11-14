@@ -1,5 +1,7 @@
 # Next steps
 
+Model Y register lifetimes across calls and branches. The largest measured oversized-frame subgroup spans 272 modules. [Evidence](validation/part-1627/README.md).
+
 Compare Y register liveness against OTP pre-codegen and use the module ranking to measure how many complete release images a shared frame fix can close. [Evidence](validation/part-1626/README.md).
 
 Continue with entry frames whose values must survive calls. Rank and compare Y slot lifetimes across call and branch boundaries. [Ranking](validation/part-1616/baseline-frame-rank.txt).

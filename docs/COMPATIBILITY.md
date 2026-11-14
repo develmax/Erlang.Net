@@ -1,5 +1,7 @@
 # Compatibility overview
 
+Part 1627 verifies hibernation after a terminal receive timeout with a byte-identical fixture and an OTP VM wakeup check. [Evidence](validation/part-1627/README.md).
+
 Part 1626 verifies constant list suffixes in tail arguments with a byte-identical fixture and matching OTP VM results. [Evidence](validation/part-1626/README.md).
 
 Part 1625 verifies wildcard tail calls using a byte-identical module and VM outcome comparison. [Evidence](validation/part-1625/README.md).

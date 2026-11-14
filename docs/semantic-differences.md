@@ -1,3 +1,5 @@
+Part 1627 emits erlang:hibernate/3 in tail position after a receive timeout. The release trace cleaner still differs in entry dispatch and frame placement. [Evidence](validation/part-1627/README.md).
+
 Part 1626 aligns constant list suffix emission and records nine new normalized instruction matches and no losses. Nested constructor scheduling can still differ. [Evidence](validation/part-1626/README.md).
 
 Part 1625 aligns wildcard tail calls and records 4 new normalized instruction matches and 0 losses. Remaining release images are tracked in the corpus report. [Evidence](validation/part-1625/README.md).
