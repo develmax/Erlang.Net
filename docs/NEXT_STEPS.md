@@ -1,5 +1,7 @@
 # Next steps
 
+Compare outer tuple arity and tag dispatch before selected structural list branches. [Evidence](validation/part-1692/README.md).
+
 Compare branch order and outer tuple-tag dispatch around shared payload projections. [Evidence](validation/part-1691/README.md).
 
 Compare payload projections and branch order around select_val in structural list patterns. [Evidence](validation/part-1690/README.md).

@@ -1,5 +1,7 @@
 # Compatibility overview
 
+Part 1692 verifies selected block order for distinct literal keys. [Evidence](validation/part-1692/README.md).
+
 Part 1691 verifies shared payload extraction before select_val. [Evidence](validation/part-1691/README.md).
 
 Part 1690 verifies key register reuse in selected cons branches. [Evidence](validation/part-1690/README.md).

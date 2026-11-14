@@ -1,3 +1,5 @@
+Part 1692 lays out distinct-key select_val blocks in descending term order. [Evidence](validation/part-1692/README.md).
+
 Part 1691 moves a common field extraction before literal dispatch while preserving inputs needed by later clauses. [Evidence](validation/part-1691/README.md).
 
 Part 1690 releases the select_val key register after dispatch. [Evidence](validation/part-1690/README.md).
