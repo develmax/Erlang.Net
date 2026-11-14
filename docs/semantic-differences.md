@@ -1,3 +1,5 @@
+Part 1715 folds straight-line terminal calls. Shared return continuations and register allocation still differ. [Evidence](validation/part-1715/README.md).
+
 Part 1714 consolidates entry initialization. Register scheduling and frame slot ordering still differ. [Evidence](validation/part-1714/README.md).
 
 Part 1713 eliminates eligible X-to-Y entry copies. Register clobbers and slot ordering still affect the remaining matches. [Evidence](validation/part-1713/README.md).

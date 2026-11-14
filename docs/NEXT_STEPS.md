@@ -1,5 +1,7 @@
 # Next steps
 
+Rank tail calls whose continuations jump to a shared return. Compare predecessor frames and line information with OTP. [Evidence](validation/part-1715/README.md).
+
 Compare temporary registers for list construction and the order of live Y slots with OTP. Use corpus measurements to prioritize register scheduling. [Evidence](validation/part-1714/README.md).
 
 Inspect argument construction that overwrites a live X register, then compare temporary X register selection and Y-slot ordering with OTP. [Evidence](validation/part-1713/README.md).

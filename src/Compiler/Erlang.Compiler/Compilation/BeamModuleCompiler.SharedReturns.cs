@@ -125,7 +125,8 @@ internal sealed partial class BeamModuleCompiler
                 ?? KeepTerminalCallResultsInX0(code, body, stackOperands)
                 ?? EliminateEntryArgumentCopies(code, body, stackOperands)
                 ?? RemoveUnusedTrailingFrameSlots(code, body)
-                ?? ConsolidateEntryInitialization(code, body);
+                ?? ConsolidateEntryInitialization(code, body)
+                ?? FoldTerminalCalls(code, body);
             return simplified is null ? null : (simplified, Enumerable.Range(0, labelCount).ToArray(), 0);
         }
 

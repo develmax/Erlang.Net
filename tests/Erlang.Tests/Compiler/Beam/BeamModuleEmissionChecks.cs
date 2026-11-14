@@ -340,6 +340,7 @@ internal static class BeamModuleEmissionChecks
         CompareTerminalCallResultConstructions();
         CompareEntryArgumentCopies();
         CompareEntryFrameInitialization();
+        CompareTerminalCallFolding();
         await CompareMixedListNilFallback();
         await CompareCaseTupleSlot();
         await CompareThrowStackObservers();
@@ -581,6 +582,31 @@ internal static class BeamModuleEmissionChecks
         if (code.AsSpan().IndexOf(initialization) < 0)
         {
             throw new InvalidOperationException("Expected a single initialization of the two unused entry slots.");
+        }
+    }
+
+    private static void CompareTerminalCallFolding()
+    {
+        const string source = """
+            -module(beam_terminal_calls).
+            -export([run/2]).
+            run(X, Y) ->
+                erlang:list_to_atom(lists:concat([X, Y])).
+            """;
+        byte[] beam = CodeGeneration.CompileBeamModule(source, "beam_terminal_calls.erl");
+        byte[] code = BeamDocumentationEmissionChecks.Chunks(beam).Single(chunk => chunk.Id == "Code").Data;
+        ReadOnlySpan<byte> calls = [
+            BeamEmissionFormat.ExternalCall,
+            0x10,
+            0x00,
+            BeamEmissionFormat.TailExternalCallWithFrame,
+            0x10,
+            0x10,
+            0x10
+        ];
+        if (code.AsSpan().IndexOf(calls) < 0)
+        {
+            throw new InvalidOperationException("Expected the final external call to release the frame and return.");
         }
     }
 

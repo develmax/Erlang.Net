@@ -1,5 +1,7 @@
 # Dependency and compatibility decisions
 
+Part 1715 reuses the instruction reader and preserves the existing compact operands when folding terminal calls. No dependency was added. [Evidence](validation/part-1715/README.md).
+
 Part 1714 uses the existing instruction reader and compact writer for entry initialization lists. No dependency was added. [Evidence](validation/part-1714/README.md).
 
 Part 1713 uses the existing instruction reader, operand offsets and compact writer for entry register copies. No dependency was added. [Evidence](validation/part-1713/README.md).
