@@ -50,6 +50,21 @@ internal sealed partial class BeamModuleCompiler
                 finish = new EntryCall(target, module, [], []);
             }
 
+            if (children.Count == 2 && constructions is null
+                && children[1].Arguments.Any(argument => argument is Expr.Tuple or Expr.List
+                    && !AttributeLiteral.TryNormalizeConstant(argument, out _))
+                && ReadSavedCallSequence(
+                    [(children[0], resultNames[0]), (children[1], lastResult), (finish.Call, null)],
+                    parameters,
+                    extraction: null,
+                    allowLinear: true
+                ) is { Steps: [{ ReuseSlot: true, Call.RegisterConstructions: not null }, _] } constructedSequence)
+            {
+                EmitSavedCallSequence(constructedSequence);
+
+                return true;
+            }
+
             var finishInputs = finish.SavedInputs ?? [];
             var finishSources = constructions is null ? finishInputs.Select(move => move.Source)
                 : constructions.Loads.Select(move => move.Source).Concat(constructions.Constructions
