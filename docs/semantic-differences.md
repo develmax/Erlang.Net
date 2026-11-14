@@ -1,3 +1,5 @@
+Part 1635 reduces redundant line instructions around straight-line append expressions. httpd_file still differs in frame generation and dispatch. [Evidence](validation/part-1635/README.md).
+
 Part 1634 matches append destination registers in httpd_file. Stack frame and line metadata still differ. [Evidence](validation/part-1634/README.md).
 
 Part 1633 matches OTP lowering for short proper literal append prefixes. httpd_file still differs in the surrounding frame and call sequence. [Evidence](validation/part-1633/README.md).

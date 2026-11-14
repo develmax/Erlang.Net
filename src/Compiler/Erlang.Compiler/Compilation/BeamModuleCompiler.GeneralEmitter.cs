@@ -6629,7 +6629,14 @@ internal sealed partial class BeamModuleCompiler
 
             if (failure is null && expressions is [var argument])
             {
+                int previousLineCount = owner.lineInstructions;
                 Expression(argument);
+                if (callSite is { } site && owner.lineInstructions != previousLineCount
+                    && owner.lastEmittedLine == site && IsStraightAppendOperand(argument))
+                {
+                    return site;
+                }
+
                 // Direct calls and the constructors below leave the nested call's line active.
                 Expr? producer = argument is Expr.List
                 {
@@ -6743,11 +6750,11 @@ internal sealed partial class BeamModuleCompiler
                 int previousLineCount = owner.lineInstructions;
                 EmitFinalCallOperand(expressions[computed], computed);
                 argumentLocation = location;
-                if (expressions[computed] is Expr.Call
-                    { Module: not null and not ErlangModuleNames.Module, DynamicRemote: false, SourceLine: > 0 } call
-                    && owner.lineInstructions != previousLineCount
-                    && owner.lastEmittedLine == CallLocation(call, location)
-                    && owner.lastEmittedLine == callSite)
+                if (owner.lineInstructions != previousLineCount && owner.lastEmittedLine == callSite
+                    && (IsStraightAppendOperand(expressions[computed])
+                        || expressions[computed] is Expr.Call
+                            { Module: not null and not ErlangModuleNames.Module, DynamicRemote: false, SourceLine: > 0 } call
+                            && owner.lastEmittedLine == CallLocation(call, location)))
                 {
                     argumentLocation = owner.lastEmittedLine;
                 }
@@ -6798,6 +6805,16 @@ internal sealed partial class BeamModuleCompiler
 
             return CallLocation(call, location);
         }
+
+        private static bool IsStraightAppendOperand(Expr expression) =>
+            expression is Expr.Binary { Operator: ErlangOperators.Append } && IsStraightOperand(expression);
+
+        private static bool IsStraightOperand(Expr expression) => expression switch
+        {
+            Expr.Binary { Operator: ErlangOperators.Append } append =>
+                IsStraightOperand(append.Left) && IsStraightOperand(append.Right),
+            _ => IsPreparedOperand(expression)
+        };
 
         private int FindSingleComputedOperand(
             IReadOnlyList<Expr> expressions,

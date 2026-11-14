@@ -1,5 +1,7 @@
 # Compatibility overview
 
+Part 1635 verifies same-line append evaluation and error locations with OTP VM cases. [Evidence](validation/part-1635/README.md).
+
 Part 1634 verifies direct argument construction for short literal append with a byte-identical fixture and OTP VM cases. [Evidence](validation/part-1634/README.md).
 
 Part 1633 verifies short literal append lowering with a byte-identical fixture and OTP VM cases. [Evidence](validation/part-1633/README.md).

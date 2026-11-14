@@ -1,5 +1,7 @@
 # Dependency and compatibility decisions
 
+Part 1635 uses the existing nested-call line propagation and pinned OTP beam_z as the reference. No dependency was added. [Evidence](validation/part-1635/README.md).
+
 Part 1634 reuses the existing X-register list constructor and pinned OTP instruction ordering as the reference. No dependency was added. [Evidence](validation/part-1634/README.md).
 
 Part 1633 follows pinned OTP sys_core_fold using the existing list constructor emitter. No dependency was added. [Evidence](validation/part-1633/README.md).
