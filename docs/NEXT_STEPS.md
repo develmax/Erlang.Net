@@ -1,5 +1,7 @@
 # Next steps
 
+Compare shared returns after generic tests and verify the different branch layouts in the residual corpus. [Evidence](validation/part-1647/README.md).
+
 Measure remaining opportunities to share returns after single tests in BEAM and locally compare CFGs. [Evidence](validation/part-1646/README.md).
 
 Compare shared return blocks that fall through from a preceding nil test. [Evidence](validation/part-1645/README.md).

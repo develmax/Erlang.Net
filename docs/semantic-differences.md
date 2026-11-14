@@ -1,3 +1,5 @@
+Part 1647 merges duplicate local tail calls. [Evidence](validation/part-1647/README.md).
+
 Part 1646 uses a shared miss result after the nil check. [Evidence](validation/part-1646/README.md).
 
 Part 1645 merges identical unframed return blocks. [Evidence](validation/part-1645/README.md).
