@@ -272,6 +272,7 @@ internal static class BeamModuleEmissionChecks
             "beam_guarded_cons_result",
             "beam_structural_cons_projection",
             "beam_structural_unused_fields",
+            "beam_structural_nested_last_field",
             "tuple_register_entry_probe",
             "tuple_nested_entry_probe",
             "tuple_nested_fallback_probe",

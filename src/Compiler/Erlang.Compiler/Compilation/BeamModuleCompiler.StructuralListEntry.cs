@@ -82,6 +82,10 @@ internal sealed partial class BeamModuleCompiler
                 }
 
                 int nextRegister = branch < consCount ? arity + (needsTail && !reuseTail ? 2 : 1) : arity;
+                int firstScratchRegister = nextRegister;
+                bool canOverwriteHead = reuseTail && branch < consCount
+                    && clauses.Skip(branch + 1).Take(consCount - branch - 1)
+                        .All(later => IsDiscarded(((Pattern.List)later.Patterns[listInput]).Items[0]));
 
                 for (int index = 0; index < arity; index++)
                 {
@@ -128,7 +132,7 @@ internal sealed partial class BeamModuleCompiler
                 Term? constant = AttributeLiteral.TryNormalizeConstant(clause.Body, out Term value) ? value : null;
                 branches.Add((guardClause, tests.ToArray(), bodyInputs, tailCall, resultRegister, constant));
 
-                bool ReadPattern(Pattern pattern, int register)
+                bool ReadPattern(Pattern pattern, int register, bool preserveSource = false)
                 {
                     switch (pattern)
                     {
@@ -158,7 +162,8 @@ internal sealed partial class BeamModuleCompiler
                             });
                             return true;
                         case AliasPattern alias:
-                            return ReadPattern(alias.Left, register) && ReadPattern(alias.Right, register);
+                            return ReadPattern(alias.Left, register, preserveSource: true)
+                                && ReadPattern(alias.Right, register, preserveSource: true);
                         case Pattern.Tuple tuple:
                             bool tagged = HasTupleTag(tuple, out Atom tag);
                             tests.Add(failure =>
@@ -172,21 +177,32 @@ internal sealed partial class BeamModuleCompiler
                                     EmitTupleShapeTest(XRegisterTag, register, tuple.Items.Count, failure);
                                 }
                             });
-                            for (int field = tagged ? 1 : 0; field < tuple.Items.Count; field++)
+                            int firstField = tagged ? 1 : 0;
+                            int lastField = tuple.Items.Count - 1;
+                            while (lastField >= firstField && DiscardTupleField(tuple.Items[lastField]))
+                            {
+                                lastField--;
+                            }
+
+                            for (int field = firstField; field <= lastField; field++)
                             {
                                 Pattern member = tuple.Items[field];
-                                if (IsDiscarded(member)
-                                    || member is Erlang.Pattern.Variable variable && unusedFields.Contains(variable.Name))
+                                if (DiscardTupleField(member))
                                 {
                                     continue;
                                 }
 
-                                if (nextRegister == FirstReservedXRegister)
+                                // A scratch tuple can be replaced by its last projected binding.
+                                bool reuseSource = !preserveSource && field == lastField
+                                    && (register >= firstScratchRegister && member is Erlang.Pattern.Variable
+                                        || canOverwriteHead && register == head && member is Erlang.Pattern.Tuple)
+                                    && !bindings.ContainsValue(register);
+                                if (!reuseSource && nextRegister == FirstReservedXRegister)
                                 {
                                     return false;
                                 }
 
-                                int destination = nextRegister++;
+                                int destination = reuseSource ? register : nextRegister++;
                                 int position = field;
                                 tests.Add(_ => owner.EmitTuplePart(register, position, destination));
                                 if (!ReadPattern(member, destination))
@@ -206,6 +222,9 @@ internal sealed partial class BeamModuleCompiler
                             return false;
                     }
                 }
+
+                bool DiscardTupleField(Pattern member) => IsDiscarded(member)
+                    || member is Erlang.Pattern.Variable variable && unusedFields.Contains(variable.Name);
 
                 bool ReadList(Pattern.List list, int index, int register)
                 {
