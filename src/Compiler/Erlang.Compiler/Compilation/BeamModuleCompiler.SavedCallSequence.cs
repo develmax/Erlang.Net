@@ -1291,6 +1291,19 @@ internal sealed partial class BeamModuleCompiler
 
                 if (firstLoad >= 0)
                 {
+                    if (call.Moves.Count == 0 && loads.Count == 2
+                        && loads.Contains((1, spill))
+                        && call.Constants is [{ Destination: 2, Value: Cons listArgument }])
+                    {
+                        Load(spill, 1);
+                        Load(loads[firstLoad].Source, 2);
+                        owner.MoveRegister(XRegisterTag, 0, YRegisterTag, spill);
+                        owner.MoveRegister(XRegisterTag, 2, XRegisterTag, 0);
+                        owner.EmitConstant(listArgument, 2);
+
+                        return;
+                    }
+
                     if (call.Moves is [(var destination, 0)] && call.Constants.Count == 0)
                     {
                         loads[firstLoad] = (destination, loads[firstLoad].Source);

@@ -257,6 +257,7 @@ internal static class BeamModuleEmissionChecks
             "beam_relocate_before_call",
             "beam_saved_nil_argument",
             "beam_saved_literal_arguments",
+            "beam_reuse_saved_literal",
             "tuple_register_entry_probe",
             "tuple_nested_entry_probe",
             "tuple_nested_fallback_probe",
