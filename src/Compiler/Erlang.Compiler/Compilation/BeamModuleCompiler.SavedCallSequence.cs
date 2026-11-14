@@ -1362,6 +1362,15 @@ internal sealed partial class BeamModuleCompiler
                 Load(single.Source);
                 owner.EmitConstant(Nil.Value, 1);
             }
+            else if (spill >= 0 && !step.ReuseSlot && !deferStackLoad && !deferConstant
+                && call.Moves.Count == 0 && loads is [{ Destination: 0 } receiver]
+                && call.Constants is [{ Destination: 1, Value: Integer integer }, { Destination: 2, Value: Cons list }])
+            {
+                Load(receiver.Source, 1);
+                owner.EmitConstant(list, 2);
+                owner.MoveRegister(XRegisterTag, 1, XRegisterTag, 0);
+                owner.EmitConstant(integer, 1);
+            }
             else
             {
                 owner.EmitOrderedTailMoves(call.Moves, deferConstant ? [] : call.Constants, loads,
