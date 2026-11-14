@@ -1,3 +1,5 @@
+Part 1666 stages a saved receiver before loading integer and list arguments. [Evidence](validation/part-1666/README.md).
+
 Part 1665 stages a saved receiver before loading integer and list arguments. [Evidence](validation/part-1665/README.md).
 
 Part 1664 loads the receiver before nil after a spill. [Evidence](validation/part-1664/README.md).
