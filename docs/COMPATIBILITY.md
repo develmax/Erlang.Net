@@ -1,5 +1,7 @@
 # Compatibility overview
 
+Part 1683 verifies tail register reuse for structural cons branches with an unconditional cons fallback. [Evidence](validation/part-1683/README.md).
+
 Part 1682 verifies register reuse and per-branch frames for type-guarded cons results. [Evidence](validation/part-1682/README.md).
 
 Part 1681 verifies boolean list membership predicates in closed comprehensions. [Evidence](validation/part-1681/README.md).
