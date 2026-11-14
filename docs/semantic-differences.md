@@ -1,3 +1,5 @@
+Part 1676 uses an external tail call without allocating a stack frame. [Evidence](validation/part-1676/README.md).
+
 Part 1675 keeps the complete record in one slot until the field is needed. [Evidence](validation/part-1675/README.md).
 
 Part 1674 keeps a list element returned by a call in X0 until the list is built. [Evidence](validation/part-1674/README.md).

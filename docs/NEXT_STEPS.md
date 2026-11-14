@@ -1,5 +1,7 @@
 # Next steps
 
+Trace other one-slot frame differences to exactly which values survive the first call. [Evidence](validation/part-1676/README.md).
+
 Trace other one-slot frame differences to exactly which values survive the first call. [Evidence](validation/part-1675/README.md).
 
 Trace other one-slot frame differences to exactly which values survive the first call. [Evidence](validation/part-1674/README.md).
