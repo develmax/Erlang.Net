@@ -4,6 +4,6 @@ The compiler recognizes direct list comprehension results as proper lists. In a 
 
 The fixture now matches the OTP empty branch for the proven input and retains the nil test for unrestricted input. Cons extraction and frame allocation still differ. The OTP VM verified both images and three focused checks passed. [Fixture](beam_proper_cons_entry.erl) · [Instructions](disassembly.txt) · [VM](outcomes.txt) · [Tests](focused.txt).
 
-All 1,366 release sources were accepted and compiled. The comparison recorded 398 Equal and 968 Different. ELDAPv3 remains byte-identical. The change altered 1 images. The OTP loader accepted each differing image. [Corpus](otp-corpus.json) · [Code and loader](loader-and-code.txt) · [Functions](normalized-functions.txt).
+All 1,366 release sources were accepted and compiled. The comparison recorded 398 Equal and 968 Different. ELDAPv3 remains byte-identical. Only xmerl_xsd changed. Its Code section moved eight bytes closer to OTP. The OTP loader accepted each differing image. [Corpus](otp-corpus.json) · [Code and loader](loader-and-code.txt) · [Functions](normalized-functions.txt).
 
 The full runtime suite and readiness regeneration were outside the validation scope.
