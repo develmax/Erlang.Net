@@ -1,5 +1,7 @@
 # Dependency and compatibility decisions
 
+Part 1703 reuses the shared-return label map and compact writer. No dependency was added. [Evidence](validation/part-1703/README.md).
+
 Part 1702 reuses the shared-return instruction edits. No dependency was added. [Evidence](validation/part-1702/README.md).
 
 Part 1701 reuses singleton-result analysis, call resolution and register tail emission. No dependency was added. [Evidence](validation/part-1701/README.md).

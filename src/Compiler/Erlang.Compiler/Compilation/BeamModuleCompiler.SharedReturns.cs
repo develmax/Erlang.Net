@@ -59,7 +59,19 @@ internal sealed partial class BeamModuleCompiler
                 redirects,
                 edits
             );
+            CollectForwardingLabels(body, index + 1, functionEnd, redirects, edits);
             functionEnd = index;
+        }
+
+        foreach (int label in redirects.Keys.ToArray())
+        {
+            int target = redirects[label];
+            while (redirects.TryGetValue(target, out int nextTarget))
+            {
+                target = nextTarget;
+            }
+
+            redirects[label] = target;
         }
 
         CollectRedundantJumps(body, redirects, edits);
@@ -139,6 +151,86 @@ internal sealed partial class BeamModuleCompiler
         return output.ToArray();
     }
 
+    private static void CollectForwardingLabels(
+        IReadOnlyList<BeamInstruction> body,
+        int start,
+        int end,
+        Dictionary<int, int> redirects,
+        List<CodeEdit> edits
+    )
+    {
+        var labels = new HashSet<int>();
+        for (int index = start + 1; index < end; index++)
+        {
+            BeamInstruction instruction = body[index];
+            if (instruction.Definition.Opcode is CatchEnter or TryEnter or LoopReceive or Wait or WaitTimeout)
+            {
+                return;
+            }
+
+            if (instruction.Definition.Opcode == Label)
+            {
+                labels.Add((int)instruction.Operands[0].Value);
+            }
+        }
+
+        var forwarding = new Dictionary<int, int>();
+        for (int index = start + 1; index < end; index++)
+        {
+            if (body[index] is not { Definition.Opcode: Jump, Operands: [var operand] }
+                || !labels.Contains((int)operand.Value))
+            {
+                continue;
+            }
+
+            int first = index;
+            while (first > start + 1 && body[first - 1].Definition.Opcode == Label)
+            {
+                first--;
+            }
+
+            for (int cursor = first; cursor < index; cursor++)
+            {
+                forwarding.Add((int)body[cursor].Operands[0].Value, (int)operand.Value);
+            }
+        }
+
+        for (int index = start + 1; index + 1 < end; index++)
+        {
+            if (body[index] is not { Definition.Opcode: Label, Operands: [var operand] }
+                || !forwarding.ContainsKey((int)operand.Value))
+            {
+                continue;
+            }
+
+            int jump = index + 1;
+            while (body[jump].Definition.Opcode == Label)
+            {
+                jump++;
+            }
+
+            int target = (int)operand.Value;
+            var visited = new HashSet<int>();
+            while (visited.Add(target) && forwarding.TryGetValue(target, out int next))
+            {
+                target = next;
+            }
+
+            if (!forwarding.ContainsKey(target))
+            {
+                for (int cursor = index; cursor < jump; cursor++)
+                {
+                    redirects.Add((int)body[cursor].Operands[0].Value, target);
+                }
+
+                bool fallsThrough = !EndsBeamBlock(body[index - 1].Definition.Opcode);
+                edits.Add(new(body[index].Offset, body[jump + 1].Offset, LabelTag, fallsThrough ? target : 0, fallsThrough));
+            }
+
+            index = jump;
+        }
+    }
+
     private static void CollectRedundantJumps(
         IReadOnlyList<BeamInstruction> body,
         IReadOnlyDictionary<int, int> redirects,
@@ -150,6 +242,11 @@ internal sealed partial class BeamModuleCompiler
         {
             if (replacement.TryGetValue(body[index].Offset, out var previous) && !previous.IsJump)
             {
+                while (body[index + 1].Offset < previous.End)
+                {
+                    index++;
+                }
+
                 continue;
             }
 

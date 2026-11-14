@@ -1,5 +1,7 @@
 # Next steps
 
+Compare common terminal sequences and block order with OTP beam_jump after forwarding-label cleanup. [Evidence](validation/part-1703/README.md).
+
 Compare forwarding labels and common terminal instruction sequences with OTP beam_jump. [Evidence](validation/part-1702/README.md).
 
 Compare shared terminal blocks and redundant jumps across the release corpus. [Evidence](validation/part-1701/README.md).

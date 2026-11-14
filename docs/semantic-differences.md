@@ -1,3 +1,5 @@
+Part 1703 redirects acyclic forwarding labels and compacts branch operands. Terminal block layout still differs. [Evidence](validation/part-1703/README.md).
+
 Part 1702 removes jumps to adjacent target labels. Other control-flow differences remain. [Evidence](validation/part-1702/README.md).
 
 Part 1701 emits verified singleton tail wrappers before assigning atom and line indices. The release image set is unchanged. [Evidence](validation/part-1701/README.md).

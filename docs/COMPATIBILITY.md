@@ -1,5 +1,7 @@
 # Compatibility overview
 
+Part 1703 verifies forwarding-label elimination within ordinary functions. [Evidence](validation/part-1703/README.md).
+
 Part 1702 verifies elimination of jumps to the next reachable label. [Evidence](validation/part-1702/README.md).
 
 Part 1701 verifies early singleton tail wrapper emission against a complete deterministic OTP image. [Evidence](validation/part-1701/README.md).
