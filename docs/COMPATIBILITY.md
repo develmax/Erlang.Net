@@ -1,5 +1,7 @@
 # Compatibility overview
 
+Part 1663 verifies intermediate frame trimming in a deterministic fixture and in the OTP VM. [Evidence](validation/part-1663/README.md).
+
 Part 1662 verifies exact tests of nested literal tuples in a deterministic fixture and in the OTP VM. [Evidence](validation/part-1662/README.md).
 
 Part 1661 verifies shared dispatch for literal list heads in a deterministic fixture and in the OTP VM. [Evidence](validation/part-1661/README.md).

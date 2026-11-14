@@ -1,3 +1,5 @@
+Part 1663 trims intermediate frames by moving a live slot. [Evidence](validation/part-1663/README.md).
+
 Part 1662 recognizes nested literal tuple patterns before record calls. [Evidence](validation/part-1662/README.md).
 
 Part 1661 shares identical local tail calls reached from literal list heads. [Evidence](validation/part-1661/README.md).
