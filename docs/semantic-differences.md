@@ -1,3 +1,5 @@
+Part 1673 keeps the guarded selector value in X0 and saves one fallback slot. [Evidence](validation/part-1673/README.md).
+
 Part 1672 keeps the unmatched selector value in X0 through the shared fallback dispatch. [Evidence](validation/part-1672/README.md).
 
 Part 1671 keeps the GC BIF operands and returned tuple fields in X registers. [Evidence](validation/part-1671/README.md).

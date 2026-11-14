@@ -1,5 +1,7 @@
 # Compatibility overview
 
+Part 1673 verifies guarded returns of a selector value. [Evidence](validation/part-1673/README.md).
+
 Part 1672 verifies a shared fallback after an ordinary selector call. [Evidence](validation/part-1672/README.md).
 
 Part 1671 verifies frameless tuple returns after a unary GC BIF in an exact list match. [Evidence](validation/part-1671/README.md).

@@ -1,5 +1,7 @@
 # Dependency and compatibility decisions
 
+Part 1673 reuses the existing entry call and frame emitters. No dependency was added. [Evidence](validation/part-1673/README.md).
+
 Part 1672 reuses the existing entry call and frame emitters. No dependency was added. [Evidence](validation/part-1672/README.md).
 
 Part 1671 reuses the existing fixed-length list entry emitter and unary BIF opcode mapping. No dependency was added. [Evidence](validation/part-1671/README.md).
