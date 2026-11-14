@@ -221,6 +221,54 @@ internal sealed partial class BeamModuleCompiler
             EmitRegisterTailTarget(call, arity);
         }
 
+        private bool TryEmitSharedConsIdentityTail(FunctionDefinition function)
+        {
+            var clauses = function.Clauses;
+            if (function.Arity != 1 || clauses.Count < 3 || clauses[^1] is not
+                { Guard: null, Patterns: [Pattern.Variable fallback], Body: Expr.Variable returned }
+                || fallback.Name == VariableScopeNames.Wildcard || fallback.Name != returned.Name)
+            {
+                return false;
+            }
+
+            var keys = new HashSet<Term>();
+            Expr.Call? target = null;
+            foreach (Clause clause in clauses.SkipLast(1))
+            {
+                if (clause is not { Guard: null, Patterns: [
+                    Pattern.List { Items: [Pattern.Literal { Value: Atom or Integer } key],
+                        Tail: Pattern.Variable tail }
+                    ], Body: Expr.Call { Module: null, DynamicRemote: false, Arguments: [Expr.Variable input] } call }
+                    || tail.Name == VariableScopeNames.Wildcard || tail.Name != input.Name
+                    || target is not null && target.Function != call.Function
+                    || !keys.Add(key.Value))
+                {
+                    return false;
+                }
+
+                target = call;
+            }
+
+            if (!entries.ContainsKey((target!.Function, 1)))
+            {
+                return false;
+            }
+
+            int selected = Label();
+            int rejected = Label();
+            owner.EmitNonemptyList(0, rejected);
+            owner.EmitListParts(0, XRegisterTag, 1, XRegisterTag, 2);
+            var order = Comparer<Term>.Create((left, right) => TermOrder.Compare(left, right, exact: true));
+            owner.EmitMembershipSelect(1, rejected, keys.Order(order).Select(key => (key, selected)));
+            Mark(selected);
+            owner.MoveRegister(XRegisterTag, 2, XRegisterTag, 0);
+            EmitRegisterTailTarget(target, 1);
+            Mark(rejected);
+            owner.instructions.WriteByte(Return);
+
+            return true;
+        }
+
         private void EmitRegisterTailCall(EntryCall tail, BeamSourceLocation? previous = null)
         {
             tail = PrepareStackFreeTailThrow(tail);

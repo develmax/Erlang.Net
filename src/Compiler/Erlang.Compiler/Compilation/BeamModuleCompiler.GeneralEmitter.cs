@@ -431,6 +431,7 @@ internal sealed partial class BeamModuleCompiler
                 || TryEmitRegisterCapturedClosure(function) || TryEmitClosureArgumentTail(function)
                 || TryEmitRoundedCallCase(function)
                 || TryEmitSharedIntegerGuardResult(function) || TryEmitDisjointRangePredicate(function)
+                || TryEmitSharedConsIdentityTail(function)
                 || TryEmitTerminalPredicateCalls(function) || TryEmitTerminalCallMatch(function)
                 || TryEmitRecordFieldCallAndReturn(function))
             {
