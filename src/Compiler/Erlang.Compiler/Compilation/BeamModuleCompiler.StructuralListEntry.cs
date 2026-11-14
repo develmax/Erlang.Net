@@ -139,7 +139,11 @@ internal sealed partial class BeamModuleCompiler
 
                 int nextRegister = branch < consCount ? arity + (needsTail && !reuseTail ? 2 : 1) : arity;
                 bool shapeChecked = checkedHeads.TryGetValue(branch, out bool sharesDiscriminator);
-                int discriminator = sharesDiscriminator ? nextRegister++ : -1;
+                int discriminator = sharesDiscriminator ? nextRegister : -1;
+                if (sharesDiscriminator && !selectedHeads.Contains(branch))
+                {
+                    nextRegister++;
+                }
                 if (nextRegister > FirstReservedXRegister)
                 {
                     return false;
