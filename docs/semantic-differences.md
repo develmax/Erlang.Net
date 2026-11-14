@@ -1,3 +1,5 @@
+Part 1678 uses an external tail call without allocating a stack frame. [Evidence](validation/part-1678/README.md).
+
 Part 1677 uses an external tail call without allocating a stack frame. [Evidence](validation/part-1677/README.md).
 
 Part 1676 uses an external tail call without allocating a stack frame. [Evidence](validation/part-1676/README.md).
