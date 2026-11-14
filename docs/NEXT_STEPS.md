@@ -1,5 +1,7 @@
 # Next steps
 
+Measure saves of arguments that are only copied and consumed before the first call. Compare the resulting frame allocation and temporary X register assignment with OTP. [Evidence](validation/part-1712/README.md).
+
 Compare remaining short-lived frame slots, Y-register initialization and OTP stack-slot reuse. Prioritize temporary slots in call and allocation sequences. [Evidence](validation/part-1711/README.md).
 
 Compare early spills of call results before heap allocation with OTP prefer_xregs and liveness. Start with straight-line consumers and preserve values across control-flow edges. [Evidence](validation/part-1710/README.md).

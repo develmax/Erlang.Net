@@ -122,7 +122,8 @@ internal sealed partial class BeamModuleCompiler
                 ?? InvertBranchTests(code, body, labelOperands)
                 ?? NormalizeIntegerComparisons(code, body)
                 ?? CombineStackAndHeapAllocation(code, body)
-                ?? KeepTerminalCallResultsInX0(code, body, stackOperands);
+                ?? KeepTerminalCallResultsInX0(code, body, stackOperands)
+                ?? RemoveUnusedTrailingFrameSlots(code, body);
             return simplified is null ? null : (simplified, Enumerable.Range(0, labelCount).ToArray(), 0);
         }
 

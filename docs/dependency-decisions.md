@@ -1,5 +1,7 @@
 # Dependency and compatibility decisions
 
+Part 1712 uses the existing instruction reader, compact reader and compact writer to resize emitted frames. No dependency was added. [Evidence](validation/part-1712/README.md).
+
 Part 1711 uses the existing compact writer and stack operand offsets to preserve typed operands. No dependency was added. [Evidence](validation/part-1711/README.md).
 
 Part 1710 uses the existing compact BEAM writer and allocation instructions. No dependency was added. [Evidence](validation/part-1710/README.md).

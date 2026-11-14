@@ -491,10 +491,10 @@ internal static class BeamModuleEmissionChecks
             """;
         byte[] beam = CodeGeneration.CompileBeamModule(source, "beam_stack_heap_allocation.erl");
         byte[] code = BeamDocumentationEmissionChecks.Chunks(beam).Single(chunk => chunk.Id == "Code").Data;
-        ReadOnlySpan<byte> allocation = [BeamEmissionFormat.AllocateHeap, 0x30, 0x40, 0x20, BeamEmissionFormat.InitYRegisters];
+        ReadOnlySpan<byte> allocation = [BeamEmissionFormat.AllocateHeap, 0x20, 0x40, 0x20, BeamEmissionFormat.Move];
         if (code.AsSpan().IndexOf(allocation) < 0)
         {
-            throw new InvalidOperationException("Expected the entry frame and four heap words to be allocated together.");
+            throw new InvalidOperationException("Expected the two used frame slots and four heap words to be allocated together.");
         }
     }
 
@@ -523,6 +523,11 @@ internal static class BeamModuleEmissionChecks
             0x03
         ];
         ReadOnlySpan<byte> list = [BeamEmissionFormat.TestHeap, 0x20, 0x10, BeamEmissionFormat.PutList, 0x03];
+        ReadOnlySpan<byte> returnFrame = [BeamEmissionFormat.Deallocate, 0x20, BeamEmissionFormat.Return];
+        if (code.AsSpan().IndexOf(returnFrame) < 0)
+        {
+            throw new InvalidOperationException("Expected the terminal construction to release only the two used frame slots.");
+        }
         if (code.AsSpan().IndexOf(tuple) < 0 || code.AsSpan().IndexOf(list) < 0)
         {
             throw new InvalidOperationException("Expected both returned constructions to use the live call result in x0.");
