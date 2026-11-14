@@ -1,5 +1,7 @@
 # Dependency and compatibility decisions
 
+Part 1670 reuses the existing list entry emitter and binding-use analysis. No dependency was added. [Evidence](validation/part-1670/README.md).
+
 Part 1669 reuses the existing list entry emitters. No dependency was added. [Evidence](validation/part-1669/README.md).
 
 Part 1668 reuses the existing call-site analysis and the list entry emitter. No dependency was added. [Evidence](validation/part-1668/README.md).

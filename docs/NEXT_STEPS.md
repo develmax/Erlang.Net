@@ -1,5 +1,7 @@
 # Next steps
 
+Compare register lifetimes after successful list argument matches. [Evidence](validation/part-1670/README.md).
+
 Compare remaining shared cons head and tail extraction across clauses. [Evidence](validation/part-1669/README.md).
 
 Identify which list and tuple tests can branch directly to function_clause using the available type facts. [Evidence](validation/part-1668/README.md).

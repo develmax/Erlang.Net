@@ -1,3 +1,5 @@
+Part 1670 skips unused heads in fixed-length list patterns. [Evidence](validation/part-1670/README.md).
+
 Part 1669 skips unused list tails and uses X0 directly to return a matched tuple field. [Evidence](validation/part-1669/README.md).
 
 Part 1668 removes the nil test when the nonempty-list test proves the argument is empty. [Evidence](validation/part-1668/README.md).
