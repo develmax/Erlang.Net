@@ -796,7 +796,8 @@ internal sealed partial class BeamModuleCompiler
                     target = target with { Module = module };
                 }
                 else if (function.Clauses.Count == 1 && clause.Guard is null && HasUnconditionalParameters(clause)
-                    && ReadEntryCall(target, clause.Patterns.Cast<Pattern.Variable>().Select(parameter => parameter.Name).ToArray())
+                    && ReadEntryCall(target, clause.Patterns.Cast<Pattern.Variable>().Select(parameter => parameter.Name).ToArray(),
+                        allowControlTransfer: IsControlTransfer(target.Function, target.Arguments.Count))
                         is { Module: ErlangModuleNames.Module } ordinary)
                 {
                     target = ordinary.Call with { Module = ordinary.Module };
@@ -1001,7 +1002,8 @@ internal sealed partial class BeamModuleCompiler
                 {
                     string[] inputs = clause.Patterns.Select(pattern =>
                         (pattern as Pattern.Variable)?.Name ?? VariableScopeNames.Wildcard).ToArray();
-                    EmitEntryCallArguments(ReadEntryCall(target, inputs)!);
+                    EmitEntryCallArguments(ReadEntryCall(target, inputs,
+                        allowControlTransfer: IsControlTransfer(target.Function, target.Arguments.Count))!);
                     EmitRegisterTailTarget(target, target.Arguments.Count);
                 }
                 else if (list is null)
