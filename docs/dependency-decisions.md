@@ -1,5 +1,7 @@
 # Dependency and compatibility decisions
 
+Part 1699 reuses the existing compact instruction reader and call operand layout. No dependency was added. [Evidence](validation/part-1699/README.md).
+
 Part 1698 reuses singleton result analysis and exact register tracking. No dependency was added. [Evidence](validation/part-1698/README.md).
 
 Part 1697 reuses the BEAM reader for exact value propagation. No dependency was added. [Evidence](validation/part-1697/README.md).

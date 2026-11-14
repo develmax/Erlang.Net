@@ -129,7 +129,39 @@ internal sealed partial class BeamModuleCompiler
                     break;
                 case { Definition.Opcode: LocalCall, Operands: [_, var entry] }
                     when returnValues.TryGetValue((int)entry.Value, out var result):
-                    known = (new BeamOperand(BeamOperandParameters.X, 0), result);
+                    var returnRegister = new BeamOperand(BeamOperandParameters.X, 0);
+                    int next = index + 1;
+                    while (body[next] is { Definition.Opcode: Move, Operands: [var constant, var target] }
+                        && constant == result && target == returnRegister)
+                    {
+                        next++;
+                    }
+
+                    if (next > index + 1 && body[next] is { Definition.Opcode: Deallocate }
+                        && body[next + 1].Definition.Opcode == Return)
+                    {
+                        output.Write(code.Span[copied..instruction.Offset]);
+                        output.WriteByte(TailLocalCallWithFrame);
+                        output.Write(code.Span[(instruction.Offset + 1)..body[index + 1].Offset]);
+                        output.Write(code.Span[(body[next].Offset + 1)..body[next + 1].Offset]);
+                        copied = body[next + 2].Offset;
+                        index = next + 1;
+                        known = null;
+                        break;
+                    }
+
+                    if (next > index + 1 && body[next].Definition.Opcode == Return)
+                    {
+                        output.Write(code.Span[copied..instruction.Offset]);
+                        output.WriteByte(TailLocalCall);
+                        output.Write(code.Span[(instruction.Offset + 1)..body[index + 1].Offset]);
+                        copied = body[next + 1].Offset;
+                        index = next;
+                        known = null;
+                        break;
+                    }
+
+                    known = (returnRegister, result);
                     break;
                 case { Definition.Opcode: Line }:
                     break;

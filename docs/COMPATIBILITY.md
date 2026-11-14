@@ -1,5 +1,7 @@
 # Compatibility overview
 
+Part 1699 verifies tail call folding after singleton result moves are removed. [Evidence](validation/part-1699/README.md).
+
 Part 1698 verifies singleton local call result facts and exact inequality failure edges. [Evidence](validation/part-1698/README.md).
 
 Part 1697 verifies redundant move removal after exact tests and selection edges. [Evidence](validation/part-1697/README.md).

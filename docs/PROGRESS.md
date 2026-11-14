@@ -1,5 +1,7 @@
 # Project progress
 
+Part 1699 accepted and compiled all 1,366 sources with 398 Equal and 968 Different. Code gaps decreased in 17 changed images. [Evidence](validation/part-1699/README.md).
+
 Part 1698 accepted and compiled all 1,366 sources with 398 Equal and 968 Different. Code gaps decreased in 17 changed images. [Evidence](validation/part-1698/README.md).
 
 Part 1697 accepted and compiled all 1,366 sources with 398 Equal and 968 Different. 129 additional functions match normalized OTP instructions. [Evidence](validation/part-1697/README.md).

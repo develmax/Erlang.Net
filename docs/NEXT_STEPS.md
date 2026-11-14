@@ -1,5 +1,7 @@
 # Next steps
 
+Check which zero-slot frames become unnecessary after a local call turns into a tail call. [Evidence](validation/part-1699/README.md).
+
 Fold a terminal call and return after removing a proven result move, following OTP beam_z. [Evidence](validation/part-1698/README.md).
 
 Compare remaining redundant moves after finite value tests, especially facts from singleton-valued call results and label joins. [Evidence](validation/part-1697/README.md).

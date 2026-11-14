@@ -1,3 +1,5 @@
+Part 1699 folds terminal calls after deleting redundant result moves. Zero-slot frames and call locations still differ from OTP in some paths. [Evidence](validation/part-1699/README.md).
+
 Part 1698 removes proven singleton result moves. Some calls still retain a frame and a separate return. [Evidence](validation/part-1698/README.md).
 
 Part 1697 propagates exact register values through fallthrough tests and unambiguous selection edges. Other predecessors need additional facts. [Evidence](validation/part-1697/README.md).
