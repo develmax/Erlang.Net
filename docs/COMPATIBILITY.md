@@ -1,5 +1,7 @@
 # Compatibility overview
 
+Part 1695 verifies stack trimming across terminal failure edges and the OTP pure BIF cost rule. [Evidence](validation/part-1695/README.md).
+
 Part 1694 verifies stack-frame trimming and suffix operand remapping against the Windows OTP corpus. [Evidence](validation/part-1694/README.md).
 
 Part 1693 confirms the OTP tuple arity selection instruction count in nine changed release functions. [Evidence](validation/part-1693/README.md).

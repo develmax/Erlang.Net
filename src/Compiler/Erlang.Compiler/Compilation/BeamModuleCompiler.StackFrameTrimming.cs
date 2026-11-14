@@ -29,6 +29,38 @@ internal sealed partial class BeamModuleCompiler
             return null;
         }
 
+        var imported = imports.OrderBy(entry => entry.Value).Select(entry => entry.Key).ToArray();
+        string[] atomNames = atoms.OrderBy(entry => entry.Value).Select(entry => entry.Key).ToArray();
+
+        var safeFailures = new HashSet<int>();
+        for (int index = body.Count - 2; index >= 0; index--)
+        {
+            if (body[index].Definition.Opcode != Label)
+            {
+                continue;
+            }
+
+            int next = index + 1;
+            while (body[next].Definition.Opcode is Line or Move or Swap
+                && body[next].Operands.All(operand => operand.Kind != BeamOperandParameters.Y))
+            {
+                next++;
+            }
+
+            BeamInstruction target = body[next];
+            bool exits = target.Definition.Opcode is BadMatch or CaseEnd or TryCaseEnd or IfEnd or BadRecord;
+            if (target.Definition.Opcode == ExternalCall)
+            {
+                var import = imported[(int)target.Operands[1].Value];
+                exits = BeamTrimBifs.IsExit(atomNames[import.Module - 1], atomNames[import.Function - 1], import.Arity);
+            }
+
+            if (exits && target.Operands.All(operand => operand.Kind != BeamOperandParameters.Y))
+            {
+                safeFailures.Add((int)body[index].Operands[0].Value);
+            }
+        }
+
         MemoryStream? output = null;
         int copied = 0;
         int stackIndex = 0;
@@ -51,12 +83,11 @@ internal sealed partial class BeamModuleCompiler
                 continue;
             }
 
-            // Match beam_trim's straight-line liveness window. Opcode-specific
-            // control flow and existing frame changes terminate the window.
+            // The suffix may branch to errors that do not access the frame.
             int start = end - 1;
             var used = new HashSet<int>();
             bool hasCall = false;
-            bool localCallFirst = false;
+            bool useStrictCost = false;
             int candidate = -1;
             int drop = 0;
             List<(int Source, int Destination)>? moves = null;
@@ -67,11 +98,21 @@ internal sealed partial class BeamModuleCompiler
                 if (opcode is LocalCall or ExternalCall or DynamicApply or CallFun or CallFunTyped)
                 {
                     hasCall = true;
-                    localCallFirst = opcode != ExternalCall;
+                    useStrictCost = false;
+                    if (opcode == ExternalCall)
+                    {
+                        var import = imported[(int)instruction.Operands[1].Value];
+                        useStrictCost = BeamTrimBifs.IsPure(
+                            atomNames[import.Module - 1],
+                            atomNames[import.Function - 1],
+                            import.Arity
+                        );
+                    }
                 }
                 else if (opcode is not (Line or Move or Swap or InitYRegisters
                     or TestHeap or PutTuple or PutList or GetTupleElement
-                    or GetList or GetHead or GetTail))
+                    or GetList or GetHead or GetTail or BifZero or MakeFun)
+                    && !IsSafeTrimTest(instruction, safeFailures))
                 {
                     break;
                 }
@@ -102,7 +143,7 @@ internal sealed partial class BeamModuleCompiler
                         var remainingKills = killed.Count(slot => slot >= trim
                             && relocations.All(move => move.Destination != slot));
                         int cost = remainingKills + relocations.Count;
-                        if (!localCallFirst)
+                        if (useStrictCost)
                         {
                             cost += relocations.Count == 0 ? 1 : 2;
                         }
@@ -191,4 +232,16 @@ internal sealed partial class BeamModuleCompiler
             return output.ToArray();
         }
     }
+
+    private static bool IsSafeTrimTest(BeamInstruction instruction, HashSet<int> safeFailures) =>
+        instruction.Definition.Opcode is IsLess or IsGreaterOrEqual
+            or NumericEqualTest or NumericNotEqualTest or ExactEqualTest or ExactNotEqualTest
+            or IsInteger or IsFloat or IsNumber or IsAtom or IsPid or IsReference or IsPort
+            or IsNil or IsBinary or IsBitString or IsList or IsNonemptyList or IsTuple or TestArity
+            or IsFunction or IsBoolean or IsFunctionWithArity or IsMap or HasMapFields or GetMapElements
+            or IsTaggedTuple or IsAnyNativeRecord or BifOne or BifTwo or BifThree
+            or GcBifOne or GcBifTwo or GcBifThree
+        && (instruction.Operands[0].Kind == BeamOperandParameters.Failure
+            || instruction.Operands[0].Kind == BeamOperandParameters.Label
+                && safeFailures.Contains((int)instruction.Operands[0].Value));
 }

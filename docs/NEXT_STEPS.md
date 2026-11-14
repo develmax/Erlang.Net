@@ -1,5 +1,7 @@
 # Next steps
 
+Compare general call argument moves and saved-register scheduling. Extra moves still occur in 967 differing images. [Evidence](validation/part-1695/README.md).
+
 Extend stack trimming to safe failure edges and use import purity to select the OTP cost rule. [Evidence](validation/part-1694/README.md).
 
 Inspect stack-slot liveness and frame trimming in general function bodies. The Part 1692 opcode audit found missing trim instructions in 867 differing images. [Evidence](validation/part-1693/README.md).

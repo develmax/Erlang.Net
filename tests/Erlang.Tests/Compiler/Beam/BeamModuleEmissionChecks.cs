@@ -401,6 +401,7 @@ internal static class BeamModuleEmissionChecks
         await CompareListCallerFacts();
         await CompareStructuralListEntry();
         await CompareLinearStackFrameTrim();
+        await CompareTrimFailureEdges();
         await CompareConsResultEntry();
         await CompareGeneratedBehaviourInfo();
         await CompareGeneralListQualifiers();
@@ -4438,6 +4439,43 @@ internal static class BeamModuleEmissionChecks
         if (!expected.Equals(actual))
         {
             throw new InvalidOperationException($"Trimmed stack frame returned {actual}, exit {exit}.");
+        }
+    }
+
+    private static async Task CompareTrimFailureEdges()
+    {
+        const string module = "beam_trim_failure_edges";
+        string source = Encoding.UTF8.GetString(Read(module + ".erl"));
+        BeamModule image = BeamModule.Prepare(CodeGeneration.CompileBeamModule(source, module + ".erl"));
+        await using var runtime = new ProcessRuntime();
+        Term? actual = null;
+        ProcessHandle process = runtime.Spawn(async context =>
+        {
+            Term keep = Term.A("keep");
+            Term last = Term.A("last");
+            Term external = await image.Invoke(context, "external", Term.List(Term.I(1), Term.I(2)), Term.List(Term.I(3)), keep);
+            Term matched = await image.Invoke(context, "matched", Term.A("start"), last, keep);
+            try
+            {
+                await image.Invoke(context, "matched", Term.A("fail"), last, keep);
+                throw new InvalidOperationException("The trimmed match clause accepted the invalid result.");
+            }
+            catch (ErlangException error) when (error.Reason.Equals(Term.Tuple(Term.A("badmatch"), last)))
+            {
+            }
+
+            actual = Term.Tuple(external, matched);
+            return actual;
+        });
+
+        Term exit = await process.Completion.WaitAsync(TimeSpan.FromSeconds(10));
+        Term expected = Term.Tuple(
+            Term.Tuple(Term.A("keep"), Term.List(Term.I(2), Term.I(1), Term.I(3))),
+            Term.Tuple(Term.A("keep"), Term.Tuple(Term.A("start"), Term.A("last")))
+        );
+        if (!expected.Equals(actual))
+        {
+            throw new InvalidOperationException($"Trimmed failure edge returned {actual}, exit {exit}.");
         }
     }
 
