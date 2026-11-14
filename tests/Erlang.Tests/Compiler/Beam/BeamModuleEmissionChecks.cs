@@ -242,6 +242,7 @@ internal static class BeamModuleEmissionChecks
             "beam_disjoint_range",
             "beam_closure_argument_tail",
             "beam_retained_record_call",
+            "beam_retained_record_dispatch",
             "tuple_register_entry_probe",
             "tuple_nested_entry_probe",
             "tuple_nested_fallback_probe",

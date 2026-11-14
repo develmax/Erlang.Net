@@ -305,14 +305,15 @@ internal sealed partial class BeamModuleCompiler
 
         private bool TryEmitRecordFieldCallAndReturn(FunctionDefinition function)
         {
-            if (function.Clauses is not [{ Guard: null, Body: Expr.Sequence { Items: [
+            if (function.Clauses.Count is < 1 or > 2
+                || function.Clauses[^1] is not { Guard: null, Body: Expr.Sequence { Items: [
                 Expr.Call { Module: not null, DynamicRemote: false, Arguments: [
                     Expr.RecordAccess { Value: Expr.Variable source } field,
                     Expr.Literal { Value: var format },
                     Expr.List { Tail: null, Items: [Expr.Variable item] }
                 ] } call,
                 Expr.Tuple { Items: [.., Expr.Variable retained] } reply
-            ] } } clause]
+            ] } } clause
                 || !HasUnconditionalParameters(clause)
                 || !TryResolveOrdinaryCallTarget(call, out _)
                 || source.Name != retained.Name || source.Name == item.Name
@@ -340,7 +341,19 @@ internal sealed partial class BeamModuleCompiler
                 return false;
             }
 
-            int failure = Label();
+            int failure;
+            if (function.Clauses.Count == 2)
+            {
+                if (!TryEmitRetainedRecordCallAlternative(function.Clauses[0], record, element, field, out failure))
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                failure = Label();
+            }
+
             EmitDetailRecordTest(record, field.Arity, Term.A(field.Name), failure);
             owner.Op(AllocateHeap, BeamWire.UnsignedTag, 1);
             owner.Operand(BeamWire.UnsignedTag, 2);
@@ -356,19 +369,109 @@ internal sealed partial class BeamModuleCompiler
             owner.EmitConstant(format, 1);
             owner.EmitCallLine(call, location);
             owner.EmitStaticRemoteCall(call);
-            owner.Op(TestHeap, BeamWire.UnsignedTag, reply.Items.Count + 1);
+            EmitRetainedRecordReply(prefix);
+            Mark(failure);
+            owner.Op(BadRecord, XRegisterTag, record);
+
+            return true;
+        }
+
+        private bool TryEmitRetainedRecordCallAlternative(
+            Clause clause,
+            int record,
+            int selector,
+            Expr.RecordAccess field,
+            out int failure
+        )
+        {
+            failure = 0;
+            if (clause.Guard is not null || clause.Patterns[selector] is not Pattern.Literal { Value: Atom key }
+                || clause.Patterns[record] is not AliasPattern alias
+                || !TryReadPatternAlias(alias, out var retained, out var shape)
+                || shape is not Pattern.Tuple tuple || tuple.Items.Count != field.Arity
+                || tuple.Items[0] is not Pattern.Literal { Value: Atom tag } || tag.Name != field.Name
+                || clause.Body is not Expr.Sequence { Items: [
+                    Expr.Call { Module: not null, DynamicRemote: false, Arguments: [Expr.Variable input] } call,
+                    Expr.Tuple { Items: [.., Expr.Variable output] } reply
+                ] } || output.Name != retained.Name || !TryResolveOrdinaryCallTarget(call, out _)
+                || retained.Name == VariableScopeNames.Wildcard)
+            {
+                return false;
+            }
+
+            var names = new HashSet<string>(StringComparer.Ordinal) { retained.Name, input.Name };
+            if (names.Count != 2 || clause.Patterns.Where((_, index) => index != record && index != selector)
+                .Any(pattern => pattern is not Pattern.Variable variable
+                    || variable.Name != VariableScopeNames.Wildcard && !names.Add(variable.Name)))
+            {
+                return false;
+            }
+
+            int index = -1;
+            for (int part = 1; part < tuple.Items.Count; part++)
+            {
+                if (tuple.Items[part] is not Pattern.Variable variable)
+                {
+                    return false;
+                }
+
+                if (variable.Name == VariableScopeNames.Wildcard)
+                {
+                    continue;
+                }
+
+                if (index >= 0 || variable.Name != input.Name || variable.Name == retained.Name)
+                {
+                    return false;
+                }
+
+                index = part;
+            }
+
+            var prefix = new List<Term>();
+            foreach (Expr value in reply.Items.Take(reply.Items.Count - 1))
+            {
+                if (!AttributeLiteral.TryNormalizeConstant(value, out Term constant))
+                {
+                    return false;
+                }
+
+                prefix.Add(constant);
+            }
+
+            if (index < 0)
+            {
+                return false;
+            }
+
+            int fallback = Label();
+            failure = Label();
+            owner.Op(ExactEqualTest, LabelTag, fallback);
+            owner.Operand(XRegisterTag, selector);
+            owner.LiteralOperand(key);
+            EmitDetailRecordTest(record, field.Arity, tag, failure);
+            EmitFrameAllocation(record + 1, 1);
+            owner.MoveRegister(XRegisterTag, record, YRegisterTag, 0);
+            owner.EmitTuplePart(record, index, 0);
+            owner.EmitCallLine(call, location);
+            owner.EmitStaticRemoteCall(call);
+            EmitRetainedRecordReply(prefix);
+            Mark(fallback);
+
+            return true;
+        }
+
+        private void EmitRetainedRecordReply(IReadOnlyList<Term> prefix)
+        {
+            owner.Op(TestHeap, BeamWire.UnsignedTag, prefix.Count + 2);
             owner.Operand(BeamWire.UnsignedTag, 0);
-            owner.EmitTupleHeader(XRegisterTag, reply.Items.Count);
+            owner.EmitTupleHeader(XRegisterTag, prefix.Count + 1);
             foreach (Term constant in prefix)
             {
                 owner.LiteralOperand(constant);
             }
             owner.Operand(YRegisterTag, 0);
             owner.EmitFrameReturn(1);
-            Mark(failure);
-            owner.Op(BadRecord, XRegisterTag, record);
-
-            return true;
         }
 
         private bool TryEmitRecordFieldCallUpdate(FunctionDefinition function)
