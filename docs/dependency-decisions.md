@@ -1,5 +1,7 @@
 # Dependency and compatibility decisions
 
+Part 1682 reuses the type guard and cons-result emitters. No dependency was added. [Evidence](validation/part-1682/README.md).
+
 Part 1681 reuses existing comprehension branching and the ordinary argument move scheduler. No dependency was added. [Evidence](validation/part-1681/README.md).
 
 Part 1680 reuses entry call planning and empty-frame tail emission. No dependency was added. [Evidence](validation/part-1680/README.md).

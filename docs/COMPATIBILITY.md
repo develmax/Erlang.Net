@@ -1,5 +1,7 @@
 # Compatibility overview
 
+Part 1682 verifies register reuse and per-branch frames for type-guarded cons results. [Evidence](validation/part-1682/README.md).
+
 Part 1681 verifies boolean list membership predicates in closed comprehensions. [Evidence](validation/part-1681/README.md).
 
 Part 1680 verifies empty-frame tail calls from cases that only need the selector result. [Evidence](validation/part-1680/README.md).

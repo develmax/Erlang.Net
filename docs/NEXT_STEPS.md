@@ -1,5 +1,7 @@
 # Next steps
 
+Use the list-entry ranking to expand input-register reuse for branches that can reject before frame allocation. [Evidence](validation/part-1682/README.md).
+
 Compare failure destination blocks and register placement after is_nonempty_list. The preceding audit found 437 modules with different label placements followed by get_list. [Evidence](validation/part-1681/README.md).
 
 Inspect the list-test operands and branch labels in modules with five or fewer mismatching functions. [Evidence](validation/part-1680/README.md).

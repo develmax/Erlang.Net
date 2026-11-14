@@ -1,3 +1,5 @@
+Part 1682 allocates frames after the type test when each branch constructs a cons result from a call. [Evidence](validation/part-1682/README.md).
+
 Part 1681 uses a boolean comparison for lists:member/2 and lists:keymember/3 predicates in closed comprehensions. [Evidence](validation/part-1681/README.md).
 
 Part 1680 keeps case selector call results in X0 when both branches end in tail calls and need no saved input. [Evidence](validation/part-1680/README.md).
