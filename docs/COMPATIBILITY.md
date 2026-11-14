@@ -1,5 +1,7 @@
 # Compatibility overview
 
+Part 1701 verifies early singleton tail wrapper emission against a complete deterministic OTP image. [Evidence](validation/part-1701/README.md).
+
 Part 1700 verifies frameless local tail calls after removing proven result moves. [Evidence](validation/part-1700/README.md).
 
 Part 1699 verifies tail call folding after singleton result moves are removed. [Evidence](validation/part-1699/README.md).

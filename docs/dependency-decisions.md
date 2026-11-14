@@ -1,5 +1,7 @@
 # Dependency and compatibility decisions
 
+Part 1701 reuses singleton-result analysis, call resolution and register tail emission. No dependency was added. [Evidence](validation/part-1701/README.md).
+
 Part 1700 reuses the BEAM instruction reader and compact writer to rebuild line references. No dependency was added. [Evidence](validation/part-1700/README.md).
 
 Part 1699 reuses the existing compact instruction reader and call operand layout. No dependency was added. [Evidence](validation/part-1699/README.md).

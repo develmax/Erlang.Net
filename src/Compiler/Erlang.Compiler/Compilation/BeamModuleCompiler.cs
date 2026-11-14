@@ -572,6 +572,12 @@ internal sealed partial class BeamModuleCompiler(
             {
                 try
                 {
+                    if (new GeneralEmitter(this, localEntries, byName, line, frameSize: 0)
+                        .TryEmitSingletonResultTailWrapper(function))
+                    {
+                        continue;
+                    }
+
                     int selectorType = 0;
                     if (function.Clauses.Count >= 2 && function.Clauses[0].Patterns is [Pattern.Literal { Value: Atom }])
                     {

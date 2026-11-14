@@ -1,5 +1,7 @@
 # Project progress
 
+Part 1701 accepted and compiled all 1,366 sources with 398 Equal and 968 Different. The new tail wrapper fixture is byte-identical. [Evidence](validation/part-1701/README.md).
+
 Part 1700 accepted and compiled all 1,366 sources with 398 Equal and 968 Different. logger_disk_log_h:terminate/3 matches normalized OTP instructions. [Evidence](validation/part-1700/README.md).
 
 Part 1699 accepted and compiled all 1,366 sources with 398 Equal and 968 Different. Code gaps decreased in 17 changed images. [Evidence](validation/part-1699/README.md).

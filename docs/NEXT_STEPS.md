@@ -1,5 +1,7 @@
 # Next steps
 
+Compare shared terminal blocks and redundant jumps across the release corpus. [Evidence](validation/part-1701/README.md).
+
 Track atom use after BEAM rewrites and restore the corresponding order of atom indices and dependent chunks. [Evidence](validation/part-1700/README.md).
 
 Check which zero-slot frames become unnecessary after a local call turns into a tail call. [Evidence](validation/part-1699/README.md).

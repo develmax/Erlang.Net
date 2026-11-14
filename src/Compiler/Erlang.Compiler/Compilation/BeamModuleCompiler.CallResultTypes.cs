@@ -35,6 +35,35 @@ internal sealed partial class BeamModuleCompiler
 
         private readonly Dictionary<(string Name, int Arity), int> callResultTypes = [];
 
+        internal bool TryEmitSingletonResultTailWrapper(FunctionDefinition function)
+        {
+            if (recursiveClosure is not null || owner.OnLoadFunction is not null
+                || owner.ModuleOptimizationDisabled || owner.IsDeclaredNative((function.Name, function.Arity))
+                || function.Clauses is not
+                [
+                    {
+                        Guard: null,
+                        Body: Expr.Sequence { Items: [Expr.Call { Module: null, DynamicRemote: false } call, var result] }
+                    } clause
+                ]
+                || !HasUnconditionalParameters(clause)
+                || !AttributeLiteral.TryNormalizeConstant(result, out Term constant)
+                || constant is not (Atom or Integer or Nil))
+            {
+                return false;
+            }
+
+            string[] parameters = clause.Patterns.Cast<Pattern.Variable>().Select(parameter => parameter.Name).ToArray();
+            if (ReadEntryCall(call, parameters) is not { Module: null } tail || !ReturnsLocalCallConstant(tail, constant))
+            {
+                return false;
+            }
+
+            EmitRegisterTailCall(tail);
+
+            return true;
+        }
+
         private bool ReturnsLocalCallConstant(EntryCall call, Term expected)
         {
             var signature = (call.Call.Function, call.Call.Arguments.Count);

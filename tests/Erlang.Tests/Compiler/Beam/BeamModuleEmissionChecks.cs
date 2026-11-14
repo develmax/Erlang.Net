@@ -248,6 +248,7 @@ internal static class BeamModuleEmissionChecks
             "beam_trim_saved_call",
             "beam_call_argument_swap",
             "beam_proven_value_returns",
+            "beam_frameless_singleton_call",
             "beam_trim_tuple_slots",
             "beam_nested_record_call",
             "beam_call_literal_prefix",
