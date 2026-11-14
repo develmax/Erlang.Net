@@ -1,5 +1,7 @@
 # Next steps
 
+Compare intermediate frame trimming in saved calls. [Evidence](validation/part-1662/README.md).
+
 Compare nested literal tuple tests before record calls. [Evidence](validation/part-1661/README.md).
 
 Reuse entry record tests for calls that subsequently read those records. [Evidence](validation/part-1660/README.md).

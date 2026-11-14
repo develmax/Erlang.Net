@@ -1,3 +1,5 @@
+Part 1662 recognizes nested literal tuple patterns before record calls. [Evidence](validation/part-1662/README.md).
+
 Part 1661 shares identical local tail calls reached from literal list heads. [Evidence](validation/part-1661/README.md).
 
 Part 1660 matches argument ordering when saving a previous call result. [Evidence](validation/part-1660/README.md).
