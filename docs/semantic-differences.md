@@ -1,3 +1,5 @@
+Part 1706 folds comparison and jump pairs into a single inverse branch. Other terminal layout differences remain. [Evidence](validation/part-1706/README.md).
+
 Part 1705 repeats terminal block and jump simplification until stable. Remaining instruction differences are visible in the corpus. [Evidence](validation/part-1705/README.md).
 
 Part 1704 shares identical terminal sequences and preserves distinct error exits. Some late sharing decisions still differ from OTP. [Evidence](validation/part-1704/README.md).

@@ -116,7 +116,8 @@ internal sealed partial class BeamModuleCompiler
         CollectRedundantJumps(body, redirects, edits);
         if (redirects.Count == 0 && edits.Count == 0)
         {
-            return null;
+            byte[]? inverted = InvertBranchTests(code, body, labelOperands);
+            return inverted is null ? null : (inverted, Enumerable.Range(0, labelCount).ToArray(), 0);
         }
 
         var remappedLabels = new int[labelCount];
@@ -187,6 +188,75 @@ internal sealed partial class BeamModuleCompiler
         output.Write(code.Span[copied..]);
 
         return (output.ToArray(), remappedLabels, redirects.Count);
+    }
+
+    private static byte[]? InvertBranchTests(
+        ReadOnlyMemory<byte> code,
+        IReadOnlyList<BeamInstruction> body,
+        List<(int Start, int End, int Label)> labelOperands
+    )
+    {
+        using var output = new MemoryStream();
+        int copied = 0;
+        int labelIndex = 0;
+        for (int index = 0; index + 2 < body.Count; index++)
+        {
+            BeamInstruction test = body[index];
+            byte inverse = test.Definition.Opcode switch
+            {
+                IsLess => IsGreaterOrEqual,
+                IsGreaterOrEqual => IsLess,
+                NumericEqualTest => NumericNotEqualTest,
+                NumericNotEqualTest => NumericEqualTest,
+                ExactEqualTest => ExactNotEqualTest,
+                ExactNotEqualTest => ExactEqualTest,
+                _ => 0
+            };
+            if (inverse == 0 || test.Operands[0] is not { Kind: BeamOperandParameters.Label } failure
+                || body[index + 1] is not { Definition.Opcode: Jump, Operands: [var target] }
+                || target.Kind != BeamOperandParameters.Label)
+            {
+                continue;
+            }
+
+            int successor = index + 2;
+            while (body[successor] is { Definition.Opcode: Label, Operands: [var label] }
+                && label.Value != failure.Value)
+            {
+                successor++;
+            }
+
+            if (body[successor].Definition.Opcode != Label)
+            {
+                continue;
+            }
+
+            int labelOffset = test.Offset + 1;
+            while (labelIndex < labelOperands.Count && labelOperands[labelIndex].Start < labelOffset)
+            {
+                labelIndex++;
+            }
+
+            if (labelIndex == labelOperands.Count || labelOperands[labelIndex].Start != labelOffset)
+            {
+                continue;
+            }
+
+            output.Write(code.Span[copied..test.Offset]);
+            output.WriteByte(inverse);
+            BeamCompactWriter.Write(output, LabelTag, target.Value);
+            output.Write(code.Span[labelOperands[labelIndex].End..body[index + 1].Offset]);
+            copied = body[index + 2].Offset;
+            index++;
+        }
+
+        if (copied == 0)
+        {
+            return null;
+        }
+
+        output.Write(code.Span[copied..]);
+        return output.ToArray();
     }
 
     private static void CollectForwardingLabels(

@@ -1,5 +1,7 @@
 # Project progress
 
+Part 1706 accepted and compiled all 1,366 sources with 398 Equal and 968 Different. Comparison inversion changed 682 images. [Evidence](validation/part-1706/README.md).
+
 Part 1705 accepted and compiled all 1,366 sources with 398 Equal and 968 Different. Repeated block sharing and jump simplification changed 419 images. [Evidence](validation/part-1705/README.md).
 
 Part 1704 accepted and compiled all 1,366 sources with 398 Equal and 968 Different. Nineteen additional functions match normalized OTP instructions. [Evidence](validation/part-1704/README.md).

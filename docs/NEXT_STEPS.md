@@ -1,5 +1,7 @@
 # Next steps
 
+Audit remaining redundant conditional branches and labels after comparison inversion. [Evidence](validation/part-1706/README.md).
+
 Compare predecessor paths around common terminal blocks and inspect where the emitted layout still differs from OTP. [Evidence](validation/part-1705/README.md).
 
 Compare terminal blocks with their OTP counterparts to recover the sharing decisions lost when final instructions replace SSA block annotations. [Evidence](validation/part-1704/README.md).
