@@ -1,3 +1,5 @@
+Part 1656 preserves the returned tuple operands across multiple stack slot relocations. [Evidence](validation/part-1656/README.md).
+
 Part 1655 delays loading the first call argument until after frame trimming. [Evidence](validation/part-1655/README.md).
 
 Part 1654 relocates a still-live tagged payload before trimming the frame. [Evidence](validation/part-1654/README.md).
