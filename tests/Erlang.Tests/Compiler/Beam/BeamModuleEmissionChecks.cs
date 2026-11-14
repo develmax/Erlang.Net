@@ -342,6 +342,7 @@ internal static class BeamModuleEmissionChecks
         CompareEntryFrameInitialization();
         CompareTerminalCallFolding();
         CompareSharedReturnCallFolding();
+        CompareUnreachableReturnRemoval();
         await CompareMixedListNilFallback();
         await CompareCaseTupleSlot();
         await CompareThrowStackObservers();
@@ -626,6 +627,28 @@ internal static class BeamModuleEmissionChecks
         if (code.AsSpan().IndexOf(tail) < 0 || code.AsSpan().IndexOf(sharedReturn) < 0)
         {
             throw new InvalidOperationException("Expected a framed tail call and the return shared by the other branches.");
+        }
+    }
+
+    private static void CompareUnreachableReturnRemoval()
+    {
+        const string source = """
+            -module(beam_dead_return).
+            -export([run/3]).
+            run(Tag, Module, Input) ->
+                Value = Module:read(Input),
+                case Tag of
+                    none -> other:read([Value]);
+                    {File, none} -> other:read([File, Value]);
+                    {File, Line} when is_integer(Line) -> other:read([File, Line, Value])
+                end.
+            """;
+        byte[] beam = CodeGeneration.CompileBeamModule(source, "beam_dead_return.erl");
+        byte[] code = BeamDocumentationEmissionChecks.Chunks(beam).Single(chunk => chunk.Id == "Code").Data;
+        ReadOnlySpan<byte> obsoleteExit = [BeamEmissionFormat.Deallocate, 0x60, BeamEmissionFormat.Return];
+        if (code.AsSpan().IndexOf(obsoleteExit) >= 0)
+        {
+            throw new InvalidOperationException("Expected the shared exit to disappear after all calls became tail calls.");
         }
     }
 

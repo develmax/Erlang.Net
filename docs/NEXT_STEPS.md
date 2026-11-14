@@ -1,5 +1,7 @@
 # Next steps
 
+Rank unreferenced non-return blocks and bare labels remaining after tail-call folding. Compare OTP branch layout and frame scheduling. [Evidence](validation/part-1717/README.md).
+
 Compare terminal block reachability after tail-call folding. Remove unreferenced return blocks while preserving metadata and line tables. [Evidence](validation/part-1716/README.md).
 
 Rank tail calls whose continuations jump to a shared return. Compare predecessor frames and line information with OTP. [Evidence](validation/part-1715/README.md).

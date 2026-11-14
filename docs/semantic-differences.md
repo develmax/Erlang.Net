@@ -1,3 +1,5 @@
+Part 1717 removes unreachable bare return blocks. Remaining branch layout and register allocation still differ. [Evidence](validation/part-1717/README.md).
+
 Part 1716 folds jumps directly to shared return blocks. Remaining control-flow layout and register allocation still differ. [Evidence](validation/part-1716/README.md).
 
 Part 1715 folds straight-line terminal calls. Shared return continuations and register allocation still differ. [Evidence](validation/part-1715/README.md).
