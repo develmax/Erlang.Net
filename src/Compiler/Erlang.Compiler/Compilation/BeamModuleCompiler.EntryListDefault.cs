@@ -806,7 +806,8 @@ internal sealed partial class BeamModuleCompiler
             int failure,
             Action? emitEntryTest = null,
             bool reuseListInput = false,
-            bool allowFramedBody = false
+            bool allowFramedBody = false,
+            bool guardedResultOnly = false
         )
         {
             if (clause.Guard is not null || clause.Patterns[input] is not Pattern.List
@@ -865,6 +866,18 @@ internal sealed partial class BeamModuleCompiler
             var used = named.Where(binding => referenced is null || referenced.Contains(binding.Variable.Name)).ToArray();
             bool usesHead = used.Any(binding => binding.Register == headRegister);
             bool usesTail = used.Any(binding => binding.Register == tailRegister);
+            if (guardedResultOnly)
+            {
+                return usesHead && usesTail && TryEmitGuardedConsCallResult(
+                    clause,
+                    input,
+                    headRegister,
+                    tailRegister,
+                    used,
+                    emitEntryTest
+                );
+            }
+
             if (clause.Body is Expr.Call call)
             {
                 var registers = used.ToDictionary(binding => binding.Variable.Name, binding => binding.Register,
@@ -1137,6 +1150,56 @@ internal sealed partial class BeamModuleCompiler
 
             emitEntryTest?.Invoke();
             EmitConsCallResult(result, cons?.Arity ?? live, emitBindings, cons?.Input ?? 0);
+            return true;
+        }
+
+        private bool TryEmitGuardedConsCallResult(
+            Clause clause,
+            int input,
+            int headRegister,
+            int tailRegister,
+            (Pattern.Variable Variable, int Register)[] bindings,
+            Action? emitEntryTest
+        )
+        {
+            if (clause.Body is not Expr.If
+                {
+                    Clauses:
+                    [
+                        { Guard: { } guard, Body: var matched },
+                        { Guard: Expr.Literal { Value: Atom { Name: ErlangBooleanAtoms.True } }, Body: var fallback }
+                    ]
+                })
+            {
+                return false;
+            }
+
+            var inputs = Enumerable.Repeat(VariableScopeNames.Wildcard, headRegister + 1).ToArray();
+            foreach (var (variable, register) in bindings)
+            {
+                inputs[register == tailRegister ? input : register] = variable.Name;
+            }
+
+            var guardClause = clause with
+            {
+                Patterns = inputs.Select(name => (Pattern)new Pattern.Variable(name)).ToArray()
+            };
+            if (ReadEntryTypeGuard(guardClause, guard) is not { } test
+                || ReadConsCallResult(matched, inputs) is not { HeadCall: null } first
+                || ReadConsCallResult(fallback, inputs) is not { HeadCall: null } second)
+            {
+                return false;
+            }
+
+            int alternative = Label();
+            emitEntryTest?.Invoke();
+            owner.EmitListParts(input, XRegisterTag, headRegister, XRegisterTag, input);
+            owner.Op(test.Opcode, LabelTag, alternative);
+            owner.Operand(XRegisterTag, test.Register);
+            EmitConsCallResult(first, inputs.Length);
+            Mark(alternative);
+            EmitConsCallResult(second, inputs.Length);
+
             return true;
         }
 

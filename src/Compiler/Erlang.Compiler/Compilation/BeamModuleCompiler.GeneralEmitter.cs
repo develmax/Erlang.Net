@@ -1207,6 +1207,28 @@ internal sealed partial class BeamModuleCompiler
             }
 
             if (recursiveClosure is null && clauses.Count == function.Clauses.Count
+                && clauses is [{ Body: Expr.If }, _]
+                && ReadEntryListReturn(clauses) is { } guardedList)
+            {
+                int guardedEmptyLabel = 0;
+                if (TryEmitConsEntryInRegisters(
+                    clauses[0],
+                    guardedList.Input,
+                    functionInfo,
+                    () =>
+                    {
+                        guardedEmptyLabel = Label();
+                        owner.EmitNonemptyList(guardedList.Input, guardedEmptyLabel);
+                    },
+                    guardedResultOnly: true
+                ))
+                {
+                    EmitEmptyListReturn(guardedList, guardedEmptyLabel, functionInfo, properList: false);
+                    return;
+                }
+            }
+
+            if (recursiveClosure is null && clauses.Count == function.Clauses.Count
                 && (TryEmitGuardedListConstructors(function, functionInfo)
                     || TryEmitNilOrTupleResultConsTail(function)
                     || TryEmitListRecordMerge(function, functionInfo)
