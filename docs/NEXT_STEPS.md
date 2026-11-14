@@ -1,5 +1,7 @@
 # Next steps
 
+Compare terminal blocks with their OTP counterparts to recover the sharing decisions lost when final instructions replace SSA block annotations. [Evidence](validation/part-1704/README.md).
+
 Compare common terminal sequences and block order with OTP beam_jump after forwarding-label cleanup. [Evidence](validation/part-1703/README.md).
 
 Compare forwarding labels and common terminal instruction sequences with OTP beam_jump. [Evidence](validation/part-1702/README.md).

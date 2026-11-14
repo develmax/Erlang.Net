@@ -1,3 +1,5 @@
+Part 1704 shares identical terminal sequences and preserves distinct error exits. Some late sharing decisions still differ from OTP. [Evidence](validation/part-1704/README.md).
+
 Part 1703 redirects acyclic forwarding labels and compacts branch operands. Terminal block layout still differs. [Evidence](validation/part-1703/README.md).
 
 Part 1702 removes jumps to adjacent target labels. Other control-flow differences remain. [Evidence](validation/part-1702/README.md).

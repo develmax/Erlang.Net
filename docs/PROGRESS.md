@@ -1,5 +1,7 @@
 # Project progress
 
+Part 1704 accepted and compiled all 1,366 sources with 398 Equal and 968 Different. Nineteen additional functions match normalized OTP instructions. [Evidence](validation/part-1704/README.md).
+
 Part 1703 accepted and compiled all 1,366 sources with 398 Equal and 968 Different. Forwarding label cleanup changed 749 images. [Evidence](validation/part-1703/README.md).
 
 Part 1702 accepted and compiled all 1,366 sources with 398 Equal and 968 Different. Redundant fallthrough jumps were removed in 352 images. [Evidence](validation/part-1702/README.md).

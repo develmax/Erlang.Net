@@ -44,6 +44,13 @@ internal sealed partial class BeamModuleCompiler
 
         var redirects = new Dictionary<int, int>();
         var edits = new List<CodeEdit>();
+        var atomNames = atoms.OrderBy(entry => entry.Value).Select(entry => entry.Key).ToArray();
+        var importsByIndex = imports.OrderBy(entry => entry.Value).Select(entry => entry.Key).ToArray();
+        var exits = importsByIndex.Select((entry, index) => (entry, index))
+            .Where(item => atomNames[item.entry.Module - 1] == ErlangModuleNames.Module
+                && atomNames[item.entry.Function - 1] is ErlangModuleNames.Error or ErlangModuleNames.Exit
+                    or ErlangModuleNames.Throw or ErlangRaiseBifNames.Raise)
+            .Select(item => item.index).ToHashSet();
         int functionEnd = body.Count;
         for (int index = body.Count - 1; index >= 0; index--)
         {
@@ -53,9 +60,11 @@ internal sealed partial class BeamModuleCompiler
             }
 
             CollectSharedReturns(
+                code,
                 body,
                 index + 1,
                 functionEnd,
+                exits,
                 redirects,
                 edits
             );
@@ -296,82 +305,82 @@ internal sealed partial class BeamModuleCompiler
         }
     }
 
-    private static void CollectSharedReturns(
+    private void CollectSharedReturns(
+        ReadOnlyMemory<byte> code,
         IReadOnlyList<BeamInstruction> body,
         int start,
         int end,
+        IReadOnlySet<int> exits,
         Dictionary<int, int> redirects,
         List<CodeEdit> edits
     )
     {
         var unprotected = UnprotectedReturnLabels(body, start, end);
-
-        var returns = new Dictionary<(BeamOperand? Source, BeamOperand? Slots, BeamOperand? Callee, BeamOperand? Arity), int>();
-        // Prefer the later block, as OTP's reverse traversal in beam_jump:share_1 does.
+        var returns = new Dictionary<string, int>(StringComparer.Ordinal);
+        // OTP beam_jump:share_1 chooses the last occurrence of a sequence.
         for (int index = end - 2; index > start; index--)
         {
-            if (body[index].Definition.Opcode != Label || unprotected is not null && !unprotected.Contains(index))
+            if (body[index] is not { Definition.Opcode: Label, Operands: [var entry] })
             {
                 continue;
             }
 
-            int first = index + 1;
-            BeamOperand? source = null;
-            if (body[first] is { Definition.Opcode: Move, Operands: [var value, var destination] }
-                && destination is { Kind: BeamOperandParameters.X, TypeIndex: null } && destination.Value.IsZero)
-            {
-                source = value;
-                first++;
-            }
-
-            BeamOperand? slots = null;
-            if (first < end && body[first] is { Definition.Opcode: Deallocate, Operands: [var frame] })
-            {
-                slots = frame;
-                first++;
-            }
-
-            if (first >= end - 1)
+            int label = (int)entry.Value;
+            if (unprotected is not null && !unprotected.Contains(label))
             {
                 continue;
             }
 
-            BeamOperand? callee = null;
-            BeamOperand? arity = null;
-            if (first == index + 1 && body[first] is
+            int terminal = index + 1;
+            int removedLines = 0;
+            while (terminal < end - 1 && body[terminal].Definition.Opcode is
+                Move or Swap or Line or TestHeap or GetTupleElement or PutTuple or PutList or Deallocate)
+            {
+                if (body[terminal].Definition.Opcode == Line)
                 {
-                    Definition.Opcode: TailLocalCall or TailLocalCallWithFrame,
-                    Operands: [var arguments, var destinationLabel, ..]
-                } tail)
-            {
-                arity = arguments;
-                callee = destinationLabel;
-                slots = tail.Definition.Opcode == TailLocalCallWithFrame ? tail.Operands[2] : null;
+                    removedLines++;
+                }
+
+                terminal++;
             }
-            else if (body[first].Definition.Opcode != Return)
+
+            if (terminal >= end - 1 || body[terminal].Definition.Opcode is not
+                (Return or TailLocalCall or TailLocalCallWithFrame or TailExternalCall or TailExternalCallWithFrame))
             {
                 continue;
             }
 
-            var key = (source, slots, callee, arity);
-            int label = (int)body[index].Operands[0].Value;
-            if (returns.TryGetValue(key, out int target))
+            // Keep the legacy return shapes in functions with exception handlers.
+            if (unprotected is not null && (removedLines != 0 || terminal - index > 3
+                || body[terminal].Definition.Opcode is TailExternalCall or TailExternalCallWithFrame
+                || Enumerable.Range(index + 1, terminal - index - 1).Any(offset =>
+                    body[offset].Definition.Opcode != Deallocate && body[offset] is not
+                    { Definition.Opcode: Move, Operands: [_, { Kind: BeamOperandParameters.X, TypeIndex: null, Value.IsZero: true }] })))
             {
-                redirects.Add(label, target);
-                // Existing branches are redirected by the label map. A sequential predecessor needs a jump.
-                bool fallsThrough = !EndsBeamBlock(body[index - 1].Definition.Opcode);
-                edits.Add(new(
-                    body[index].Offset,
-                    body[first + 1].Offset,
-                    LabelTag,
-                    fallsThrough ? target : 0,
-                    fallsThrough
-                ));
+                continue;
             }
-            else
+
+            // Exit calls can be lowered after sharing in OTP. Their final bytecode
+            // can hide distinct frame state at the original error sites.
+            if (body[terminal].Definition.Opcode is TailExternalCall or TailExternalCallWithFrame
+                && exits.Contains((int)body[terminal].Operands[1].Value))
+            {
+                continue;
+            }
+
+            int endOffset = body[terminal + 1].Offset;
+            string key = Convert.ToHexString(code.Span[body[index + 1].Offset..endOffset]);
+            if (!returns.TryGetValue(key, out int target))
             {
                 returns.Add(key, label);
+                continue;
             }
+
+            redirects.Add(label, target);
+            // Retain an edge for a predecessor that entered the block by fallthrough.
+            bool fallsThrough = !EndsBeamBlock(body[index - 1].Definition.Opcode);
+            edits.Add(new(body[index].Offset, endOffset, LabelTag, fallsThrough ? target : 0, fallsThrough));
+            lineInstructions -= removedLines;
         }
     }
 
