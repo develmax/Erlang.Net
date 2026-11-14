@@ -2211,6 +2211,12 @@ internal sealed partial class BeamModuleCompiler
 
             owner.EmitNilTest(XRegisterTag, source, failure);
 
+            var incoming = extracted.ToDictionary(binding => binding.Variable.Name, binding => binding.Register, StringComparer.Ordinal);
+            if (TryEmitListEntryBifTuple(body, incoming))
+            {
+                return true;
+            }
+
             decoderSlotCount = frameSize;
             foreach (var (parameter, _) in extracted)
             {
@@ -2237,7 +2243,7 @@ internal sealed partial class BeamModuleCompiler
                 owner.MoveRegister(XRegisterTag, register, YRegisterTag, variables[parameter.Name]);
             }
 
-            if (!TryEmitLinearBindings(body, extracted.ToDictionary(binding => binding.Variable.Name, binding => binding.Register, StringComparer.Ordinal)))
+            if (!TryEmitLinearBindings(body, incoming))
             {
                 Expression(body);
             }

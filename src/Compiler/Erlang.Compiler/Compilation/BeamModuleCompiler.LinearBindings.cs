@@ -10,6 +10,78 @@ internal sealed partial class BeamModuleCompiler
         private HashSet<string>? linearCaseLive;
         private HashSet<Expr>? linearCaseBranches;
 
+        private bool TryEmitListEntryBifTuple(Expr.Sequence body, IReadOnlyDictionary<string, int> incoming)
+        {
+            if (body.Items is not [
+                Expr.Match { Pattern: Pattern.Variable result, Value: Expr.Call { Arguments: [Expr.Variable argument] } call },
+                Expr.Tuple tuple
+            ] || result.Name == VariableScopeNames.Wildcard || incoming.ContainsKey(result.Name)
+                || !incoming.TryGetValue(argument.Name, out int source)
+                || call is not { Module: null or ErlangModuleNames.Module, DynamicRemote: false }
+                || !owner.ResolvesErlangBif(call) || ReadUnaryBifOpcode(call.Function) != GcBifOne)
+            {
+                return false;
+            }
+
+            var fields = new (int Register, Term? Constant)[tuple.Items.Count];
+            int tupleLive = 1;
+            bool usesResult = false;
+            for (int index = 0; index < fields.Length; index++)
+            {
+                Expr item = tuple.Items[index];
+                if (item is Expr.Variable variable && variable.Name == result.Name)
+                {
+                    fields[index] = (0, null);
+                    usesResult = true;
+                }
+                else if (item is Expr.Variable input && incoming.TryGetValue(input.Name, out int register))
+                {
+                    fields[index] = (register, null);
+                    tupleLive = Math.Max(tupleLive, register + 1);
+                }
+                else if (AttributeLiteral.TryNormalizeConstant(item, out Term literal))
+                {
+                    fields[index] = (-1, literal);
+                }
+                else
+                {
+                    return false;
+                }
+            }
+
+            if (!usesResult)
+            {
+                return false;
+            }
+
+            owner.EmitCallLine(call, location);
+            owner.Op(GcBifOne, LabelTag, 0);
+            owner.Operand(BeamWire.UnsignedTag, Math.Max(tupleLive, source + 1));
+            owner.Operand(BeamWire.UnsignedTag, owner.Import(ErlangModuleNames.Module, call.Function, 1));
+            owner.Operand(XRegisterTag, source);
+            owner.Operand(XRegisterTag, 0);
+
+            owner.Op(TestHeap, BeamWire.UnsignedTag, fields.Length + 1);
+            owner.Operand(BeamWire.UnsignedTag, tupleLive);
+            owner.Op(PutTuple, XRegisterTag, 0);
+            owner.instructions.WriteByte(ExtendedListOperand);
+            owner.Operand(BeamWire.UnsignedTag, fields.Length);
+            foreach (var (register, constant) in fields)
+            {
+                if (constant is not null)
+                {
+                    owner.LiteralOperand(constant);
+                }
+                else
+                {
+                    owner.Operand(XRegisterTag, register);
+                }
+            }
+
+            owner.instructions.WriteByte(Return);
+            return true;
+        }
+
         private bool TryEmitLinearBindings(Expr.Sequence body, IReadOnlyDictionary<string, int> incoming)
         {
             var bindings = new List<(string Name, Expr Value)>();
