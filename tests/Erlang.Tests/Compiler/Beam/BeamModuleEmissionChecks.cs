@@ -213,6 +213,7 @@ internal static class BeamModuleEmissionChecks
             "beam_saved_terminal_match",
             "beam_case_saved_value",
             "beam_deferred_record_call",
+            "beam_dead_call_binding",
             "tuple_register_entry_probe",
             "tuple_nested_entry_probe",
             "tuple_nested_fallback_probe",

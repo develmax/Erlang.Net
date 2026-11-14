@@ -1,5 +1,7 @@
 # Dependency and compatibility decisions
 
+Part 1622 reuses the C# call sequence planner and pinned OTP pre-codegen allocation as the reference. No dependency was added. [Evidence](validation/part-1622/README.md).
+
 Part 1621 reuses the C# call sequence planner and pinned OTP pre-codegen allocation as the reference. No dependency was added. [Evidence](validation/part-1621/README.md).
 
 Part 1620 reuses the C# call sequence planner and pinned OTP pre-codegen allocation as the reference. No dependency was added. [Evidence](validation/part-1620/README.md).

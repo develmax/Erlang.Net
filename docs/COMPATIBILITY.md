@@ -1,5 +1,7 @@
 # Compatibility overview
 
+Part 1622 verifies elimination of unread call results without changing lexical captures or match failures. [Evidence](validation/part-1622/README.md).
+
 Part 1621 verifies wildcard match discard and value contexts with matching OTP VM outcomes. [Evidence](validation/part-1621/README.md).
 
 Part 1620 verifies combined checked record updates and tuple allocation, with matching execution results in the two probes. [Evidence](validation/part-1620/README.md).

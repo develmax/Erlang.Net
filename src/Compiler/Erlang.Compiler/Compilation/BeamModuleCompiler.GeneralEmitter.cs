@@ -10163,6 +10163,23 @@ internal sealed partial class BeamModuleCompiler
                 return;
             }
 
+            if (!caseInputPrepared && reuseCallSlots && !returnValue && guardFailure is null
+                && item is Expr.Match
+                {
+                    Pattern: Pattern.Variable { Name: not VariableScopeNames.Wildcard } binding,
+                    Value: Expr.Call { DynamicRemote: false } producer
+                }
+                && !variables.ContainsKey(binding.Name) && !deferredPairMembers.ContainsKey(binding.Name)
+                && producer.Arguments.All(IsPreparedOperand))
+            {
+                var rest = continuation.ToArray();
+                continuation = rest;
+                if (ReadUsedEntryParameters(new Clause([binding], null, new Expr.Sequence(rest))) is { Count: 0 })
+                {
+                    item = producer;
+                }
+            }
+
             if (item is Expr.Match { Pattern: Pattern.Variable { Name: VariableScopeNames.Wildcard } } discarded)
             {
                 item = discarded.Value;

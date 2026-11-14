@@ -1,3 +1,5 @@
+Part 1622 aligns dead call result storage and records 0 new normalized instruction matches and 0 losses. Remaining release images are tracked in the corpus report. [Evidence](validation/part-1622/README.md).
+
 Part 1621 aligns wildcard match storage and records 2 new normalized instruction matches and 0 losses. Remaining release images are tracked in the corpus report. [Evidence](validation/part-1621/README.md).
 
 Part 1620 aligns heap reservations for wrapped record updates and records 0 new normalized instruction matches and 0 losses. Remaining release images are tracked in the corpus report. [Evidence](validation/part-1620/README.md).
