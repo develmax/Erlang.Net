@@ -68,6 +68,66 @@ internal sealed partial class BeamModuleCompiler
         return output.ToArray();
     }
 
+    private static byte[]? RemoveEmptyTailFrames(ReadOnlyMemory<byte> code, IReadOnlyList<BeamInstruction> body)
+    {
+        using var output = new MemoryStream();
+        int copied = 0;
+        for (int frame = 0; frame + 2 < body.Count; frame++)
+        {
+            var allocation = body[frame];
+            if (allocation.Definition.Opcode is not (Allocate or AllocateHeap) || !allocation.Operands[0].Value.IsZero)
+            {
+                continue;
+            }
+
+            int tail = frame + 1;
+            while (tail + 1 < body.Count && IsTailArgumentSetup(body[tail]))
+            {
+                tail++;
+            }
+
+            var call = body[tail];
+            byte opcode = call.Definition.Opcode switch
+            {
+                TailLocalCallWithFrame => TailLocalCall,
+                TailExternalCallWithFrame => TailExternalCall,
+                _ => 0
+            };
+            if (opcode == 0 || !call.Operands[^1].Value.IsZero)
+            {
+                continue;
+            }
+
+            int setup = body[frame + 1].Offset;
+            output.Write(code.Span[copied..allocation.Offset]);
+            if (allocation.Definition.Opcode == AllocateHeap)
+            {
+                output.WriteByte(TestHeap);
+                // Skip the opcode and the compact unsigned zero stack size.
+                output.Write(code.Span[(allocation.Offset + 2)..setup]);
+            }
+
+            output.Write(code.Span[setup..call.Offset]);
+            output.WriteByte(opcode);
+            copied = body[tail + 1].Offset;
+            output.Write(code.Span[(call.Offset + 1)..(copied - 1)]);
+            frame = tail;
+        }
+
+        if (copied == 0)
+        {
+            return null;
+        }
+
+        output.Write(code.Span[copied..]);
+        return output.ToArray();
+
+        static bool IsTailArgumentSetup(BeamInstruction instruction) =>
+            (instruction.Definition.Opcode is Line or TestHeap or Move or Swap or PutTuple or PutList
+                or GetTupleElement or GetList or GetHead or GetTail)
+            && instruction.Operands.All(operand => operand.Kind != BeamOperandParameters.Y);
+    }
+
     private static byte[]? ExpandShortReturnJumps(ReadOnlyMemory<byte> code, IReadOnlyList<BeamInstruction> body)
     {
         var returns = FindSharedCallReturns(body);

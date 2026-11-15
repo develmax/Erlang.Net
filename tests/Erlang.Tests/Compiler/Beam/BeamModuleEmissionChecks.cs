@@ -971,9 +971,13 @@ internal static class BeamModuleEmissionChecks
             BeamEmissionFormat.Allocate, 0x00, 0x20,
             BeamEmissionFormat.GetTupleElement, 0x13, 0x10, 0x03
         ];
-        ReadOnlySpan<byte> registerProjection = [BeamEmissionFormat.Allocate, 0x00, 0x20, BeamEmissionFormat.GetTupleElement, 0x03];
+        ReadOnlySpan<byte> localTail = [
+            BeamEmissionFormat.GetTupleElement, 0x03, 0x10, 0x03,
+            BeamEmissionFormat.GetTupleElement, 0x13, 0x10, 0x13,
+            BeamEmissionFormat.TailLocalCall, 0x20
+        ];
         ReadOnlySpan<byte> released = [BeamEmissionFormat.Deallocate, 0x00, BeamEmissionFormat.Return];
-        if (code.AsSpan().IndexOf(directRecordProjection) < 0 || code.AsSpan().IndexOf(registerProjection) < 0
+        if (code.AsSpan().IndexOf(directRecordProjection) < 0 || code.AsSpan().IndexOf(localTail) < 0
             || code.AsSpan().IndexOf(released) < 0)
         {
             throw new InvalidOperationException("Expected compact frames without copying unwritten Y registers.");

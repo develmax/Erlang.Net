@@ -1,5 +1,7 @@
 # Next steps
 
+Use the remaining corpus instruction differences to prioritize modes of frame allocation and register reuse. [Evidence](validation/part-1787/README.md).
+
 Remove zero-slot frames on tail-only paths while preserving heap allocation. [Evidence](validation/part-1786/README.md).
 
 Remove the duplicate entry stack store that remains in the retained-input path. [Evidence](validation/part-1785/README.md).

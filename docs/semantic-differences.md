@@ -1,5 +1,7 @@
 Part 1783. Sort consecutive independent X-to-Y moves by destination slot after branch slot reuse. Preserve original store order when a run writes the same destination twice. [Evidence](validation/part-1783/README.md).
 
+Part 1787. Remove zero-slot stack allocation and use the tail-call opcode without a frame when argument setup reaches the tail call without another call or branch. Preserve heap reservation as test_heap. [Evidence](validation/part-1787/README.md).
+
 Part 1786. In an uninterrupted run of X-to-Y moves, emit the last store to each destination. Continue ordering independent stores by the Y slot. [Evidence](validation/part-1786/README.md).
 
 Part 1785. Move the second pair extraction after a type test on the first field when the failed guard does not read the second field. Keep the original initialized tuple in an aliased register on the failure path. [Evidence](validation/part-1785/README.md).

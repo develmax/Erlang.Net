@@ -178,6 +178,7 @@ internal sealed partial class BeamModuleCompiler
                 ?? LoadCallArgumentsBeforeReusedResultStore(code, body)
                 ?? OrderIndependentCallArguments(code, body)
                 ?? TrimAllocationLiveRegisters(code, body)
+                ?? RemoveEmptyTailFrames(code, body)
                 ?? MoveHeapTestsBeforeNeutralInstructions(code, body, atomNames, importsByIndex)
                 // Reloads also identify the unframed returns when short return jumps are expanded.
                 ?? (shareReturns ? null : EliminateEntryArgumentCopies(code, body, stackOperands, removeSpills: false));
