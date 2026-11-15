@@ -1,5 +1,7 @@
 # Compatibility overview
 
+Part 1761 reuses stack slots outside handler-tag lifetimes in functions with one try and one frame. [Evidence](validation/part-1761/README.md).
+
 Part 1760 reuses stack slots across compound bit matches and binary extractions. [Evidence](validation/part-1760/README.md).
 
 Part 1759 permits BEAM stack-slot reuse across map updates, map lookups, binary construction and binary tail extraction. [Evidence](validation/part-1759/README.md).

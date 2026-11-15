@@ -1,5 +1,7 @@
 # Next steps
 
+Compare values live at a single catch handler in a function with one frame. 170 modules 386 functions {handlers,0,1,1,false,false,false}. [Evidence](validation/part-1761/README.md).
+
 Compare Y values live at a single try handler in a function with one frame. 373 modules 1151 functions {handlers,1,0,1,false,false,false}. [Evidence](validation/part-1760/README.md).
 
 Compare bit-match command operands and writes that can reach failure paths. 41 modules 52 functions {unsupported_y,bs_match}, 34 modules 48 functions {unsupported_y,bs_get_binary2}, 23 modules 30 functions {unsupported_y,fconv}. [Evidence](validation/part-1759/README.md).

@@ -352,6 +352,7 @@ internal static class BeamModuleEmissionChecks
         CompareStackSlotsWithFramelessFailure();
         CompareStackSlotsAcrossMapAndBinaryOperations();
         CompareStackSlotsAcrossBitMatches();
+        CompareStackSlotsAcrossTry();
         CompareRedundantEntryArgumentReloads();
         CompareEntryFrameInitialization();
         CompareProjectionFrameInitialization();
@@ -819,6 +820,60 @@ internal static class BeamModuleEmissionChecks
         }
     }
 
+    private static void CompareStackSlotsAcrossTry()
+    {
+        const string source = """
+            -module(beam_try_stack_slots).
+            -export([run/2, twice/3, after_try/3]).
+
+            run(Input, Keep) ->
+                First = put(start, Input),
+                Value = try
+                    X = put(work, First),
+                    Y = checked(X),
+                    Z = put(done, Y),
+                    {Y, Z}
+                catch error:Reason -> {caught, Reason, Keep}
+                end,
+                {Keep, Value, put(last, Value)}.
+
+            twice(Input, Keep, Other) ->
+                Base = put(start, Input),
+                try
+                    A = checked(Base),
+                    B = put(work, A),
+                    C = checked(B),
+                    D = put(done, C),
+                    {A, C, D, Keep}
+                catch error:Reason:Stack ->
+                    {Reason, Keep, Other, hd(Stack)}
+                end.
+
+            after_try(Input, Keep, Other) ->
+                try put(first, Input) of
+                    X -> Y = checked(X), {Y, put(done, Y), Keep}
+                catch error:Reason -> {caught, Reason, Keep, Other}
+                end.
+
+            checked({ok, Value}) -> Value;
+            checked(Other) -> erlang:error({bad, Other}).
+            """;
+        byte[] beam = CodeGeneration.CompileBeamModule(source, "beam_try_stack_slots.erl");
+        byte[] code = BeamDocumentationEmissionChecks.Chunks(beam).Single(chunk => chunk.Id == "Code").Data;
+        ReadOnlySpan<byte> runFrame = [BeamEmissionFormat.Allocate, 0x40, 0x20];
+        ReadOnlySpan<byte> twiceFrame = [BeamEmissionFormat.Allocate, 0x60, 0x30];
+        ReadOnlySpan<byte> afterFrame = [BeamEmissionFormat.Allocate, 0x40, 0x30];
+        ReadOnlySpan<byte> tag = [BeamEmissionFormat.TryEnter, 0x54];
+        ReadOnlySpan<byte> removeTag = [BeamEmissionFormat.TryEnd, 0x54];
+        ReadOnlySpan<byte> enterHandler = [BeamEmissionFormat.TryCase, 0x54];
+        if (code.AsSpan().IndexOf(runFrame) < 0 || code.AsSpan().IndexOf(twiceFrame) < 0
+            || code.AsSpan().IndexOf(afterFrame) < 0 || code.AsSpan().IndexOf(tag) < 0
+            || code.AsSpan().IndexOf(removeTag) < 0 || code.AsSpan().IndexOf(enterHandler) < 0)
+        {
+            throw new InvalidOperationException("Expected compact frames and consistent handler tag operands.");
+        }
+    }
+
     private static void CompareRedundantEntryArgumentReloads()
     {
         const string source = """
@@ -1121,9 +1176,9 @@ internal static class BeamModuleEmissionChecks
         const string file = "beam_bif_result_store.erl";
         byte[] bytes = CodeGeneration.CompileBeamModule(Encoding.UTF8.GetString(Read(file)), file);
         byte[] code = BeamDocumentationEmissionChecks.Chunks(bytes).Single(chunk => chunk.Id == "Code").Data;
-        ReadOnlySpan<byte> directStore =
+        ReadOnlySpan<byte> directStorePrefix =
         [
-            BeamEmissionFormat.GcBifTwo, 0x05, 0x00, 0x00, 0x04, 0x11, 0x24
+            BeamEmissionFormat.GcBifTwo, 0x05, 0x00, 0x00
         ];
         ReadOnlySpan<byte> usedArgument =
         [
@@ -1133,7 +1188,14 @@ internal static class BeamModuleEmissionChecks
             BeamEmissionFormat.Move, 0x13, 0x03,
             BeamEmissionFormat.Move, 0x03, 0x14
         ];
-        if (code.AsSpan().IndexOf(directStore) < 0 || code.AsSpan().IndexOf(usedArgument) < 0)
+        int store = code.AsSpan().IndexOf(directStorePrefix);
+        const byte compactOperandMask = 0x0f;
+        int source = store + directStorePrefix.Length;
+        bool directStore = store >= 0 && source + 2 < code.Length
+            && (code[source] & compactOperandMask) == BeamEmissionFormat.YRegisterTag
+            && code[source + 1] == 0x11
+            && (code[source + 2] & compactOperandMask) == BeamEmissionFormat.YRegisterTag;
+        if (!directStore || code.AsSpan().IndexOf(usedArgument) < 0)
         {
             throw new InvalidOperationException("Expected a direct BIF result store only when the X register is dead.");
         }

@@ -1,5 +1,7 @@
 # Dependency and compatibility decisions
 
+Part 1761 reuses the operand decoder and control-flow graph. No dependency was added. [Evidence](validation/part-1761/README.md).
+
 Part 1760 reuses the operand decoder and control-flow graph. No dependency was added. [Evidence](validation/part-1760/README.md).
 
 Part 1759 reuses the BEAM slot allocator, operand decoder and control-flow graph. No dependency was added. [Evidence](validation/part-1759/README.md).

@@ -57,6 +57,8 @@ internal sealed partial class BeamModuleCompiler
         int start = allocation + 1;
         var labels = new Dictionary<int, int>();
         var firstUse = new int[frame];
+        int tryEntry = -1;
+        int trySlot = -1;
         Array.Fill(firstUse, int.MaxValue);
         for (int index = start; index < end; index++)
         {
@@ -64,6 +66,19 @@ internal sealed partial class BeamModuleCompiler
             if (instruction.Definition.Opcode == Label)
             {
                 labels.Add((int)instruction.Operands[0].Value, index);
+            }
+
+            if (instruction.Definition.Opcode == TryEnter)
+            {
+                if (tryEntry >= 0
+                    || instruction.Operands is not [{ Kind: BeamOperandParameters.Y } tag, { Kind: BeamOperandParameters.Label }]
+                    || tag.Value >= frame)
+                {
+                    return null;
+                }
+
+                tryEntry = index;
+                trySlot = (int)tag.Value;
             }
 
             if (instruction.Definition.Opcode == InitYRegisters)
@@ -100,7 +115,7 @@ internal sealed partial class BeamModuleCompiler
         {
             BeamInstruction instruction = body[index];
             byte opcode = instruction.Definition.Opcode;
-            if (opcode is Allocate or AllocateHeap or TrimFrame or CatchEnter or TryEnter
+            if (opcode is Allocate or AllocateHeap or TrimFrame or CatchEnter or CatchEnd
                 || instruction.Definition.Name == "debug_line")
             {
                 return null;
@@ -121,10 +136,18 @@ internal sealed partial class BeamModuleCompiler
             List<int>? targets = null;
             bool call = opcode is LocalCall or TailLocalCall or TailLocalCallWithFrame;
             bool initializes = opcode == InitYRegisters;
+            if (opcode is TryEnd or TryCase && (tryEntry < 0
+                || instruction.Operands is not [{ Kind: BeamOperandParameters.Y } tag]
+                || tag.Value != trySlot))
+            {
+                return null;
+            }
+
             int destination = opcode switch
             {
                 LoopReceive => 1,
-                WaitTimeout or GetMapElements or BinaryMatch => -1,
+                TryEnter => 0,
+                WaitTimeout or GetMapElements or BinaryMatch or TryEnd or TryCase or TryCaseEnd or Raise => -1,
                 _ => StackAllocationDestination(instruction)
             };
             BigInteger reads = BigInteger.Zero;
@@ -132,7 +155,8 @@ internal sealed partial class BeamModuleCompiler
             for (int position = 0; position < instruction.Operands.Count; position++)
             {
                 BeamOperand operand = instruction.Operands[position];
-                if (!call && operand.Kind == BeamOperandParameters.Label && operand.Value != clauseFailure)
+                if (!call && opcode != TryEnter
+                    && operand.Kind == BeamOperandParameters.Label && operand.Value != clauseFailure)
                 {
                     if (!labels.TryGetValue((int)operand.Value, out int target))
                     {
@@ -162,6 +186,14 @@ internal sealed partial class BeamModuleCompiler
                     continue;
                 }
 
+                if (opcode is TryEnd or TryCase)
+                {
+                    // Removing the handler reads its tag and clears the slot.
+                    reads |= masks[slot];
+                    writes |= masks[slot];
+                    continue;
+                }
+
                 // In bs_match, the context precedes the command list. Only destinations
                 // in that list can be registers.
                 if (initializes || position == destination || opcode == GetList && position == 2
@@ -179,7 +211,8 @@ internal sealed partial class BeamModuleCompiler
             effects[index - start] = (reads, writes, fallsThrough, targets);
         }
 
-        if (!branched || !released)
+        var exceptional = tryEntry >= 0 ? new HashSet<int>() : null;
+        if (exceptional is not null && !AddTryEdges(exceptional) || !branched || !released)
         {
             return null;
         }
@@ -217,9 +250,11 @@ internal sealed partial class BeamModuleCompiler
                 BigInteger next = fallsThrough ? live[index + 1] : BigInteger.Zero;
                 bool initializes = body[start + index].Definition.Opcode == InitYRegisters;
                 BigInteger occupied = next | reads | (initializes ? BigInteger.Zero : writes);
-                if (body[start + index].Definition.Opcode is GetMapElements or BinaryMatch && targets is not null)
+                if (targets is not null && (exceptional?.Contains(index) == true
+                    || body[start + index].Definition.Opcode is GetMapElements or BinaryMatch))
                 {
-                    // A failed match can already have written some of its destinations.
+                    // A failed match can write before transferring control. An
+                    // installed handler likewise needs its live slots preserved.
                     foreach (int target in targets)
                     {
                         occupied |= live[target];
@@ -234,7 +269,9 @@ internal sealed partial class BeamModuleCompiler
         var groups = new List<BigInteger>();
         var slots = new int[frame];
         Array.Fill(slots, -1);
-        foreach (int slot in Enumerable.Range(0, frame).Where(slot => firstUse[slot] != int.MaxValue).OrderBy(slot => firstUse[slot]))
+        foreach (int slot in Enumerable.Range(0, frame)
+            .Where(slot => firstUse[slot] != int.MaxValue)
+            .OrderBy(slot => slot == trySlot ? int.MinValue : firstUse[slot]))
         {
             int register = groups.FindIndex(group => (group & conflicts[slot]).IsZero);
             if (register >= 0)
@@ -264,6 +301,96 @@ internal sealed partial class BeamModuleCompiler
         }
 
         return (groups.Count, slots);
+
+        bool AddTryEdges(HashSet<int> protectedInstructions)
+        {
+            if (!labels.TryGetValue((int)body[tryEntry].Operands[1].Value, out int handler))
+            {
+                return false;
+            }
+
+            int entry = tryEntry - start;
+            int target = handler - start;
+            int handle = handler;
+            while (handle < end && body[handle].Definition.Opcode is Label or Line)
+            {
+                handle++;
+            }
+
+            if (handle == end || body[handle].Definition.Opcode != TryCase)
+            {
+                return false;
+            }
+
+            const int NoHandler = 0;
+            const int Installed = 1;
+            const int HandlingException = 2;
+            // An ordinary path cannot enter try_case or merge with an exception
+            // before the handler is removed.
+            var seen = new int?[effects.Length];
+            var pending = new Stack<(int Index, int HandlerState)>();
+            pending.Push((0, NoHandler));
+            while (pending.TryPop(out var state))
+            {
+                var (index, handlerState) = state;
+                if (index < 0 || index >= effects.Length)
+                {
+                    return false;
+                }
+
+                if (seen[index] is int previous)
+                {
+                    if (previous != handlerState)
+                    {
+                        return false;
+                    }
+
+                    continue;
+                }
+
+                seen[index] = handlerState;
+                byte opcode = body[start + index].Definition.Opcode;
+                bool enters = index == entry;
+                bool exits = opcode is TryEnd or TryCase;
+                if (enters && handlerState != NoHandler
+                    || opcode == TryEnd && handlerState != Installed
+                    || opcode == TryCase && (handlerState != HandlingException || start + index != handle)
+                    || handlerState != NoHandler && (opcode == Return || LinearFrameSizeOperand(opcode) >= 0))
+                {
+                    return false;
+                }
+
+                var effect = effects[index];
+                int next = enters ? Installed : exits ? NoHandler : handlerState;
+                if (effect.FallsThrough)
+                {
+                    pending.Push((index + 1, next));
+                }
+
+                if (effect.Targets is not null)
+                {
+                    foreach (int successor in effect.Targets)
+                    {
+                        pending.Push((successor, next));
+                    }
+                }
+
+                if (enters)
+                {
+                    pending.Push((target, HandlingException));
+                }
+                else if (handlerState == Installed && !exits)
+                {
+                    protectedInstructions.Add(index);
+                    (effect.Targets ??= []).Add(target);
+                    effects[index] = effect;
+                    hasBackEdge |= target <= index;
+                    branched = true;
+                }
+            }
+
+            return seen[entry] == NoHandler;
+        }
     }
 
     private static bool IsFramelessStackAllocationExit(IReadOnlyList<BeamInstruction> body, int target, int end)

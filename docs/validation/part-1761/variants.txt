@@ -1,0 +1,8 @@
+Both variants compiled the complete Windows OTP 29.1.1 release corpus.
+
+| Variant | Corpus status | Changed images | Absolute frame-size gap reduction | Absolute Code-size gap reduction | New frame and tag matches |
+| --- | --- | ---: | ---: | ---: | ---: |
+| Dedicated tag slot | Different 968, Equal 398 | 443 | 7105 | 18267 bytes | 2 |
+| Tag lifetime and register order | Different 968, Equal 398 | 449 | 7982 | 18447 bytes | 313 |
+
+The dedicated-slot variant preserves the tag for the entire function. The selected variant uses the handler lifetime, includes the tag clear in liveness, and assigns the reserved tag operand first so frame numbering places it highest.

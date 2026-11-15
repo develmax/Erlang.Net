@@ -1,5 +1,7 @@
 # Project progress
 
+Part 1761 compiled all 1,366 sources with 398 Equal and 968 Different. 1468 stack slot-count comparisons at corresponding frame allocations across 449 changed images, with 294 new matches and 2 lost matches. Sum of absolute slot-count gaps decreases by 7982 across comparable allocations. [Evidence](validation/part-1761/README.md).
+
 Part 1760 compiled all 1,366 sources with 398 Equal and 968 Different. 544 stack slot-count comparisons at corresponding frame allocations across 177 changed images, with 10 new matches and 0 lost matches. Sum of absolute slot-count gaps decreases by 9415 across comparable allocations. [Evidence](validation/part-1760/README.md).
 
 Part 1759 compiled all 1,366 release sources with 398 Equal and 968 Different. 813 stack slot-count comparisons at corresponding frame allocations across 268 changed images, with 92 new matches and 1 lost matches. Sum of absolute slot-count gaps decreases by 3489 across comparable allocations. [Evidence](validation/part-1759/README.md).
