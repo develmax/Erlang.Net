@@ -1,5 +1,7 @@
 # Project progress
 
+Part 1767 compiled all 1,366 sources with 398 Equal and 968 Different. 156 new OTP list comprehension helper identities and 0 lost, across 109 changed modules with helper differences. Normalized helper instructions gained 3 matches and lost 0. [Evidence](validation/part-1767/README.md).
+
 Part 1766 compiled all 1,366 sources with 398 Equal and 968 Different. 171 new OTP list comprehension helper identities and 0 lost, across 97 changed modules with helper differences. Normalized helper instructions gained 25 matches and lost 0. [Evidence](validation/part-1766/README.md).
 
 Part 1765 compiled all 1,366 sources with 398 Equal and 968 Different. 191 new OTP list comprehension helper identities and 0 lost, across 116 changed modules with helper differences. Normalized helper instructions gained 5 matches and lost 0. [Evidence](validation/part-1765/README.md).

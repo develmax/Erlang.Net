@@ -1,5 +1,7 @@
 # Dependency and compatibility decisions
 
+Part 1767 reuses the recursive comprehension builder and reuses the Boolean filter emitter and follows filter_tq in OTP 29.1.1. No dependency was added. [Evidence](validation/part-1767/README.md).
+
 Part 1766 reuses the recursive comprehension builder and uses proper-list result information from OTP 29.1.1. No dependency was added. [Evidence](validation/part-1766/README.md).
 
 Part 1765 reuses the recursive comprehension builder and the shared clause and tuple emitters. No dependency was added. [Evidence](validation/part-1765/README.md).

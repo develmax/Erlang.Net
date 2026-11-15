@@ -1,5 +1,7 @@
 # Compatibility overview
 
+Part 1767 emits recursive BEAM helpers for a single filter after a relaxed list generator. [Evidence](validation/part-1767/README.md).
+
 Part 1766 emits recursive BEAM helpers when a static call supplies the list to the generator. [Evidence](validation/part-1766/README.md).
 
 Part 1765 emits recursive BEAM helpers for relaxed tuple generators and skips unmatched list elements. [Evidence](validation/part-1765/README.md).

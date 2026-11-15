@@ -11,6 +11,7 @@ internal sealed partial class BeamModuleCompiler
             Clause match = function.Clauses[0];
             if (!function.IsRecursiveListMapper || match is not
                 {
+                    Guard: null,
                     Patterns: [Pattern.List { Items: [Pattern.Tuple input] }, ..],
                     Body: Expr.List { Items: [Expr.Tuple mapped] }
                 }

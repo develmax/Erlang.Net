@@ -301,7 +301,8 @@ internal sealed partial class BeamModuleCompiler
         Expr mapped,
         IReadOnlyList<Pattern.Variable> captures,
         bool useReservedBindings = true,
-        bool properInput = false
+        bool properInput = false,
+        (Expr Expression, bool IsGuard)? filter = null
     )
     {
         string tail = useReservedBindings ? "@BeamComprehensionTail" : "BeamComprehensionTail";
@@ -310,7 +311,23 @@ internal sealed partial class BeamModuleCompiler
         var capturedArguments = captures.Select(capture => new Expr.Variable(capture.Name)).ToArray();
         int arity = captures.Count + 1;
         var recur = new Expr.Call(null, name, [new Expr.Variable(tail), .. capturedArguments]);
-        Clause[] skip = item is Pattern.Variable ? [] :
+        Expr? guard = filter is { IsGuard: true } ? filter.Value.Expression : null;
+        Expr emit = new Expr.List([mapped], recur);
+        if (filter is { IsGuard: false } condition)
+        {
+            const string invalidFilter = "\0comprehension-filter-result";
+            emit = new Expr.Case(condition.Expression,
+            [
+                new([new Pattern.Literal(Term.A("true"))], null, emit),
+                new([new Pattern.Literal(Term.A("false"))], null, recur with { }),
+                new([new Pattern.Variable(invalidFilter)], null, new Expr.Call(ErlangModuleNames.Module, "error",
+                    [new Expr.Tuple([
+                        new Expr.Literal(Term.A(ComprehensionErrorReasons.BadFilter)), new Expr.Variable(invalidFilter)
+                    ])]))
+            ]);
+        }
+
+        Clause[] skip = item is Pattern.Variable && guard is null ? [] :
         [
             new([new Pattern.List([new Pattern.Variable(VariableScopeNames.Wildcard)], new Pattern.Variable(tail)), .. captures], null, recur with { })
         ];
@@ -323,8 +340,7 @@ internal sealed partial class BeamModuleCompiler
             ];
         return new FunctionDefinition(name, arity,
         [
-            new([new Pattern.List([item], new Pattern.Variable(tail)), .. captures], null,
-                new Expr.List([mapped], recur)),
+            new([new Pattern.List([item], new Pattern.Variable(tail)), .. captures], guard, emit),
             .. skip,
             .. finish
         ]);

@@ -35,7 +35,7 @@ internal sealed partial class BeamModuleCompiler
             bool negate = condition.Expression is Expr.Unary { Operator: ErlangOperators.Not };
             Expr test = negate ? ((Expr.Unary)condition.Expression).Operand : condition.Expression;
             var predicate = new List<ListMapperCall>();
-            if (!Append(test, item.Name, predicate))
+            if (!AppendListMapperCalls(test, item.Name, predicate))
             {
                 return null;
             }
@@ -61,7 +61,7 @@ internal sealed partial class BeamModuleCompiler
             {
                 if (stage is not Expr.Match { Pattern: Pattern.Variable local, Value: var value }
                     || local.Name == VariableScopeNames.Wildcard || local.Name == item.Name
-                    || !locals.Add(local.Name) || !Append(value, input, calls))
+                    || !locals.Add(local.Name) || !AppendListMapperCalls(value, input, calls))
                 {
                     return null;
                 }
@@ -75,50 +75,50 @@ internal sealed partial class BeamModuleCompiler
         bool returnsHead = filter is not null && locals.Count == 0
             && mapped is Expr.Variable output && output.Name == item.Name;
 
-        return returnsHead || Append(mapped, input, calls) ? new(
+        return returnsHead || AppendListMapperCalls(mapped, input, calls) ? new(
             source,
             generator,
             calls,
             locals,
             filter
         ) : null;
+    }
 
-        static bool Append(Expr value, string variable, List<ListMapperCall> stages)
+    private static bool AppendListMapperCalls(Expr value, string variable, List<ListMapperCall> stages)
+    {
+        if (value is not Expr.Call { DynamicRemote: false } call
+            || call.Arguments.Count is 0 or >= FirstReservedXRegister)
         {
-            if (value is not Expr.Call { DynamicRemote: false } call
-                || call.Arguments.Count is 0 or >= FirstReservedXRegister)
-            {
-                return false;
-            }
-
-            var arguments = new Term?[call.Arguments.Count];
-            Expr? nested = null;
-            int inputs = 0;
-            for (int index = 0; index < call.Arguments.Count; index++)
-            {
-                Expr argument = call.Arguments[index];
-                if (AttributeLiteral.TryNormalizeConstant(argument, out Term constant))
-                {
-                    arguments[index] = constant;
-                    continue;
-                }
-
-                inputs++;
-                if (argument is not Expr.Variable reference || reference.Name != variable)
-                {
-                    nested = argument;
-                }
-            }
-
-            if (inputs == 0 || nested is not null && (inputs != 1 || !Append(nested, variable, stages)))
-            {
-                return false;
-            }
-
-            stages.Add(new(call, arguments));
-
-            return true;
+            return false;
         }
+
+        var arguments = new Term?[call.Arguments.Count];
+        Expr? nested = null;
+        int inputs = 0;
+        for (int index = 0; index < call.Arguments.Count; index++)
+        {
+            Expr argument = call.Arguments[index];
+            if (AttributeLiteral.TryNormalizeConstant(argument, out Term constant))
+            {
+                arguments[index] = constant;
+                continue;
+            }
+
+            inputs++;
+            if (argument is not Expr.Variable reference || reference.Name != variable)
+            {
+                nested = argument;
+            }
+        }
+
+        if (inputs == 0 || nested is not null && (inputs != 1 || !AppendListMapperCalls(nested, variable, stages)))
+        {
+            return false;
+        }
+
+        stages.Add(new(call, arguments));
+
+        return true;
     }
 
     private bool CanExtractClosedListMapper(
@@ -188,7 +188,7 @@ internal sealed partial class BeamModuleCompiler
 
             if (mapper.Filter is { } filter)
             {
-                EmitClosedListFilter(mapper, filter);
+                EmitClosedListFilter(mapper.Calls, filter);
 
                 return true;
             }

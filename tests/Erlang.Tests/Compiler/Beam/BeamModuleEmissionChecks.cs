@@ -358,6 +358,7 @@ internal static class BeamModuleEmissionChecks
         CompareRecursiveListComprehensionHelpers();
         CompareRecursiveTupleComprehensionHelpers();
         CompareCallListGeneratorHelpers();
+        CompareFilteredListGeneratorHelpers();
         CompareRedundantEntryArgumentReloads();
         CompareEntryFrameInitialization();
         CompareProjectionFrameInitialization();
@@ -1088,6 +1089,32 @@ internal static class BeamModuleEmissionChecks
             || !atoms.Contains("-embedded/2-lc$^0/1-0-", StringComparison.Ordinal))
         {
             throw new InvalidOperationException("Expected recursive helpers for generators fed by function calls.");
+        }
+    }
+
+    private static void CompareFilteredListGeneratorHelpers()
+    {
+        const string source = """
+            -module(beam_filtered_list_generator).
+            -export([guarded/1, boolean/1, comparison/2, identity/1]).
+
+            guarded(List) -> [{ok, V} || {tag, V} <- List, hd(V) > 0].
+            boolean(List) -> [{selected, V} || V <- List, choose(V)].
+            comparison(List, Key) -> [{Key, V} || {K, V} <- List, K =:= Key].
+            identity(List) -> [V || V <- List, is_atom(V)].
+
+            choose(crash) -> erlang:error(filter_crash);
+            choose(Value) -> put(last_filter, Value), Value.
+            """;
+        byte[] beam = CodeGeneration.CompileBeamModule(source, "beam_filtered_list_generator.erl");
+        var chunks = BeamDocumentationEmissionChecks.Chunks(beam);
+        string atoms = Encoding.UTF8.GetString(chunks.Single(chunk => chunk.Id == "AtU8").Data);
+        if (!atoms.Contains("-guarded/1-lc$^0/1-0-", StringComparison.Ordinal)
+            || !atoms.Contains("-boolean/1-lc$^0/1-0-", StringComparison.Ordinal)
+            || !atoms.Contains("-comparison/2-lc$^0/1-0-", StringComparison.Ordinal)
+            || !atoms.Contains("-identity/1-lc$^0/1-0-", StringComparison.Ordinal))
+        {
+            throw new InvalidOperationException("Expected recursive helpers for filtered list generators.");
         }
     }
 

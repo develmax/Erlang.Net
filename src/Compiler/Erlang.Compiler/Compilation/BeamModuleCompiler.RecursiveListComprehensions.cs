@@ -16,10 +16,12 @@ internal sealed partial class BeamModuleCompiler
             [
             {
                 Items: [var mapped], Qualifiers: [ComprehensionQualifier.Generator
-                { Strict: false, Pattern: var item, Source: var source } generator]
+                { Strict: false, Pattern: var item, Source: var source } generator, ..]
             } comprehension]
+            || comprehension.Qualifiers is not ([_] or [_, ComprehensionQualifier.Filter])
             || source is not (Expr.Variable or Expr.Call { DynamicRemote: false })
-            || !(item is Pattern.Variable && (source is Expr.Call || mapped is Expr.Call { DynamicRemote: false })
+            || !(item is Pattern.Variable && (comprehension.Qualifiers.Count == 2
+                    || source is Expr.Call || mapped is Expr.Call { DynamicRemote: false })
                 || item is Pattern.Tuple && IsRecursiveListPattern(item))
             || expressions.Any(expression => expression is Expr.Fun or Expr.BinaryComprehension or Expr.MapComprehension)
             || expressions.OfType<Expr.Sequence>().Any(sequence => sequence.Items.SkipLast(1)
@@ -34,7 +36,10 @@ internal sealed partial class BeamModuleCompiler
             return null;
         }
 
-        var output = LocalFunctionEntries.Walk(mapped).ToArray();
+        Expr? filter = comprehension.Qualifiers.LastOrDefault() is ComprehensionQualifier.Filter condition
+            ? condition.Expression : null;
+        var output = LocalFunctionEntries.Walk(mapped)
+            .Concat(filter is null ? [] : LocalFunctionEntries.Walk(filter)).ToArray();
         // The source stays in the parent and runs once, before the helper can bind a generator pattern.
         if (!output.All(CanUseExpression) || !LocalFunctionEntries.Walk(source).All(CanUseExpression))
         {
@@ -86,7 +91,8 @@ internal sealed partial class BeamModuleCompiler
             item,
             mapped,
             captures.Select(name => new Pattern.Variable(name)).ToArray(),
-            properInput: IsProperListGeneratorCall(source)
+            properInput: IsProperListGeneratorCall(source),
+            filter: filter is null ? null : (filter, ComprehensionGuard.IsTest(filter, sourceModule))
         ) with { IsRecursiveListMapper = true };
 
         return (parent, helper, helperLocation);
@@ -125,23 +131,59 @@ internal sealed partial class BeamModuleCompiler
                 {
                     Patterns: [Pattern.List { Items: [Pattern.Variable item] }],
                     Body: Expr.List { Items: [Expr.Variable value] }
-                }
+                } match
                 || item.Name != value.Name || !entries.TryGetValue((function.Name, 1), out int entry))
             {
                 return false;
             }
 
+            var registerGuard = match with { Patterns = [new Pattern.Variable(VariableScopeNames.Wildcard), item] };
+            if (!CanEmitSeparateEntryGuard(registerGuard, match.Guard))
+            {
+                return false;
+            }
+
+            int skip = match.Guard is null ? 0 : Label();
             int empty = Label();
             owner.EmitNonemptyList(0, empty);
-            EmitFrameAllocation(1, 1);
-            owner.EmitListParts(
-                0,
-                YRegisterTag,
-                0,
-                XRegisterTag,
-                0
-            );
+            if (match.Guard is null)
+            {
+                EmitFrameAllocation(1, 1);
+                owner.EmitListParts(
+                    0,
+                    YRegisterTag,
+                    0,
+                    XRegisterTag,
+                    0
+                );
+            }
+            else
+            {
+                owner.EmitListParts(
+                    0,
+                    XRegisterTag,
+                    1,
+                    XRegisterTag,
+                    0
+                );
+                EmitEntryGuardPrefix(registerGuard, match.Guard, skip);
+                EmitFrameAllocation(2, 1);
+                owner.MoveRegister(
+                    XRegisterTag,
+                    1,
+                    YRegisterTag,
+                    0
+                );
+            }
+
             owner.EmitRecursiveCons(entry, 1);
+            if (skip != 0)
+            {
+                Mark(skip);
+                owner.Op(TailLocalCall, BeamWire.UnsignedTag, 1);
+                owner.Operand(LabelTag, entry);
+            }
+
             EmitRecursiveListMappingEnd(function, empty);
 
             return true;

@@ -8,7 +8,52 @@ internal sealed partial class BeamModuleCompiler
 
     private sealed partial class GeneralEmitter
     {
-        private void EmitClosedListFilter(ClosedListMapper mapper, ListMapperFilter filter)
+        private bool TryEmitBooleanFilterTuple(FunctionDefinition function)
+        {
+            if (!function.IsRecursiveListMapper || function.Clauses[0] is not
+                {
+                    Guard: null,
+                    Patterns: [Pattern.List { Items: [Pattern.Variable item] }],
+                    Body: Expr.Case
+                    {
+                        Value: Expr.Call predicate,
+                        Clauses: [{ Body: Expr.List { Items: [Expr.Tuple tuple] } }, _, _]
+                    }
+                })
+            {
+                return false;
+            }
+
+            var fields = new Term?[tuple.Items.Count];
+            for (int index = 0; index < tuple.Items.Count; index++)
+            {
+                Expr value = tuple.Items[index];
+                if (AttributeLiteral.TryNormalizeConstant(value, out Term constant))
+                {
+                    fields[index] = constant;
+                }
+                else if (value is not Expr.Variable variable || variable.Name != item.Name)
+                {
+                    return false;
+                }
+            }
+
+            var calls = new List<ListMapperCall>();
+            if (fields.All(field => field is not null) || !AppendListMapperCalls(predicate, item.Name, calls))
+            {
+                return false;
+            }
+
+            EmitClosedListFilter([], new(predicate, calls, Negate: false), (function, fields));
+
+            return true;
+        }
+
+        private void EmitClosedListFilter(
+            IReadOnlyList<ListMapperCall> mapperCalls,
+            ListMapperFilter filter,
+            (FunctionDefinition Function, Term?[] Fields)? projection = null
+        )
         {
             var predicate = filter.Calls[^1].Call;
             int arity = predicate.Arguments.Count;
@@ -25,7 +70,7 @@ internal sealed partial class BeamModuleCompiler
             int second = boolean ? 0 : Label();
             int invalid = boolean ? 0 : Label();
             int empty = Label();
-            int badGenerator = Label();
+            int badGenerator = projection is null ? Label() : 0;
             owner.EmitNonemptyList(0, empty);
             EmitFrameAllocation(1, 2);
             owner.EmitListParts(
@@ -92,16 +137,23 @@ internal sealed partial class BeamModuleCompiler
                 owner.Operand(BeamWire.UnsignedTag, 2);
             }
 
-            owner.EmitMappingEnd(empty, badGenerator);
+            if (projection is { } projected)
+            {
+                EmitRecursiveListMappingEnd(projected.Function, empty);
+            }
+            else
+            {
+                owner.EmitMappingEnd(empty, badGenerator);
+            }
 
             void EmitKeep()
             {
                 var active = current;
-                if (mapper.Calls.Count != 0)
+                if (mapperCalls.Count != 0)
                 {
                     Load(1);
                     EmitFrameInitialization(1, 2);
-                    active = EmitListMapperCalls(mapper.Calls, active);
+                    active = EmitListMapperCalls(mapperCalls, active);
                     owner.MoveRegister(
                         XRegisterTag,
                         0,
@@ -119,9 +171,27 @@ internal sealed partial class BeamModuleCompiler
                 }
 
                 owner.EmitFieldCall(1, entry);
-                owner.Op(TestHeap, BeamWire.UnsignedTag, ConsHeapWords);
+                owner.Op(TestHeap, BeamWire.UnsignedTag, ConsHeapWords + (projection is { } tuple ? tuple.Fields.Length + 1 : 0));
                 owner.Operand(BeamWire.UnsignedTag, 1);
-                owner.Op(PutList, YRegisterTag, 0);
+                if (projection is { } result)
+                {
+                    owner.Op(PutTuple, XRegisterTag, 1);
+                    owner.instructions.WriteByte(ExtendedListOperand);
+                    owner.Operand(BeamWire.UnsignedTag, result.Fields.Length);
+                    foreach (Term? field in result.Fields)
+                    {
+                        if (field is null)
+                        {
+                            owner.Operand(YRegisterTag, 0);
+                        }
+                        else
+                        {
+                            owner.LiteralOperand(field);
+                        }
+                    }
+                }
+
+                owner.Op(PutList, projection is null ? YRegisterTag : XRegisterTag, projection is null ? 0 : 1);
                 owner.Operand(XRegisterTag, 0);
                 owner.Operand(XRegisterTag, 0);
                 owner.EmitFrameReturn(1);

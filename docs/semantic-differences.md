@@ -1,3 +1,5 @@
+Part 1767 lowers guard and ordinary filters in single-generator comprehensions. Multiple comprehensions in a function still need shared helper numbering. [Evidence](validation/part-1767/README.md).
+
 Part 1766 evaluates the generator source in the parent and lowers the mapper to a local helper. Additional filters and dynamic or binding source expressions still need alignment. [Evidence](validation/part-1766/README.md).
 
 Part 1765 preserves the proper-list result of generated helpers. Tuple generator register allocation, call-valued inputs and filters still contribute to release differences. [Evidence](validation/part-1765/README.md).

@@ -1,5 +1,7 @@
 # Next steps
 
+Lower functions with two independent comprehensions and reproduce the helper ordinals assigned in the Core and SSA passes. The ranked group contains 159 functions across 119 modules. [Evidence](validation/part-1767/README.md).
+
 Lower one filter after a relaxed variable or tuple generator over a variable. The group covers 182 source functions in 113 modules, with 77 guard filters and 105 Boolean expression filters. [Evidence](validation/part-1766/README.md).
 
 Lower variable and tuple generators whose source is a call with no filters. The group covers 226 source functions in 126 modules. [Evidence](validation/part-1765/README.md).
