@@ -112,6 +112,8 @@ internal static class BeamEmissionFormat
     internal const byte BadRecord = 180;
     internal const byte UpdateRecord = 181;
     internal const byte BinaryMatch = 182;
+    internal const byte ExecutableLine = 183;
+    internal const byte DebugLine = 184;
     internal const byte GcBifThree = 152;
     internal const byte BifThree = 185;
     internal const byte IsAnyNativeRecord = 186;

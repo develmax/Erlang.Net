@@ -639,7 +639,8 @@ internal static class BeamModuleEmissionChecks
     {
         const string file = "beam_heap_call_result.erl";
         byte[] beam = CodeGeneration.CompileBeamModule(Encoding.UTF8.GetString(Read(file)), file);
-        byte[] code = BeamDocumentationEmissionChecks.Chunks(beam).Single(chunk => chunk.Id == "Code").Data;
+        var chunks = BeamDocumentationEmissionChecks.Chunks(beam);
+        byte[] code = chunks.Single(chunk => chunk.Id == "Code").Data;
         ReadOnlySpan<byte> packed = [
             BeamEmissionFormat.TestHeap,
             0x30,
@@ -655,6 +656,13 @@ internal static class BeamModuleEmissionChecks
         if (first < 0 || code.AsSpan(first + packed.Length).IndexOf(packed) < 0)
         {
             throw new InvalidOperationException("Expected both branches to build their tuple from the live result in X0.");
+        }
+
+        byte[] expectedLines = BeamDocumentationEmissionChecks.Chunks(Read("beam_heap_call_result.beam"))
+            .Single(chunk => chunk.Id == "Line").Data;
+        if (!chunks.Single(chunk => chunk.Id == "Line").Data.AsSpan().SequenceEqual(expectedLines))
+        {
+            throw new InvalidOperationException("Expected the line table to match OTP for calls on a shared source line.");
         }
     }
 

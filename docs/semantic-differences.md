@@ -1,3 +1,5 @@
+Part 1738 removes repeated line instructions with identical positions within a block. Repeat positions across labels still differ. [Evidence](validation/part-1738/README.md).
+
 Part 1737 avoids eligible saves preceding heap tests. Line metadata and frame initialization still cause differences in the branch fixture. [Evidence](validation/part-1737/README.md).
 
 Part 1736 removes eligible saves across a branch on an independent operand. Frame layout and result packing can still differ from OTP. [Evidence](validation/part-1736/README.md).

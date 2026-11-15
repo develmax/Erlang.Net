@@ -1,5 +1,7 @@
 # Next steps
 
+Evaluate repeated line positions across labels in functions outside exception handling. The audit finds 7858 repeated positions across labels in 4593 ordinary functions across 672 differing modules. [Evidence](validation/part-1738/README.md).
+
 Compare duplicate line instructions within a basic block with OTP beam_z. The current audit finds them in 831 differing modules. Preserve line table counts and source annotations. [Evidence](validation/part-1737/README.md).
 
 Compare result saves before test_heap with zero live X registers. Start with tuple construction followed by a move, which occurs in 811 functions across 326 modules. [Evidence](validation/part-1736/README.md).

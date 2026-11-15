@@ -946,6 +946,8 @@ internal sealed partial class BeamModuleCompiler(
                 code = lateTrimmed;
             }
         }
+
+        code = RemoveRepeatedBlockLines(code);
         Word(output, CodeHeaderSize);
         Word(output, BeamWire.FormatVersion);
         Word(output, highestOpcode);
