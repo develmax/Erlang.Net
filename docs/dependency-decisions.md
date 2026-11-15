@@ -1,5 +1,7 @@
 # Dependency and compatibility decisions
 
+Part 1749 reuses the BEAM liveness proof and compact operand writer for test_heap. No dependency was added. [Evidence](validation/part-1749/README.md).
+
 Part 1748 uses the existing BEAM register flow and compact operand encoder. No dependency was added. [Evidence](validation/part-1748/README.md).
 
 Part 1747 uses the existing frame dominance and operand-rewriting passes after earlier entry predicates. No dependency was added. [Evidence](validation/part-1747/README.md).

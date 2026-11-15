@@ -1,5 +1,7 @@
 # Next steps
 
+Compare the ordering of tuple field reads and heap tests for remaining live-X differences. [Evidence](validation/part-1749/README.md).
+
 Compare oversized live-X counts at both stack allocations and heap tests. [Evidence](validation/part-1748/README.md).
 
 Compare the largest remaining entry-test group before the first BIF and test frame placement with shared and disjoint call paths. [Evidence](validation/part-1747/README.md).

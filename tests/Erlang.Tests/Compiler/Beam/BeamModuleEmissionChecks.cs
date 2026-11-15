@@ -343,6 +343,7 @@ internal static class BeamModuleEmissionChecks
         await CompareConsCallMatch();
         CompareCombinedStackAndHeapAllocation();
         CompareTerminalCallResultConstructions();
+        CompareHeapRootsAfterListHeadTest();
         CompareEntryArgumentCopies();
         CompareEntryFrameInitialization();
         CompareProjectionFrameInitialization();
@@ -554,6 +555,28 @@ internal static class BeamModuleEmissionChecks
         if (code.AsSpan().IndexOf(tuple) < 0 || code.AsSpan().IndexOf(list) < 0)
         {
             throw new InvalidOperationException("Expected both returned constructions to use the live call result in x0.");
+        }
+    }
+
+    private static void CompareHeapRootsAfterListHeadTest()
+    {
+        const string source = """
+            -module(beam_path_split).
+            -export([split/3]).
+            split([$/ | Tail], Path, Paths) ->
+                split(Tail, [], [Path | Paths]);
+            split([Head | Tail], Path, Paths) ->
+                split(Tail, [Head | Path], Paths);
+            split([], Path, Paths) ->
+                [Path | Paths].
+            """;
+        byte[] beam = CodeGeneration.CompileBeamModule(source, "beam_path_split.erl");
+        byte[] code = BeamDocumentationEmissionChecks.Chunks(beam).Single(chunk => chunk.Id == "Code").Data;
+        ReadOnlySpan<byte> separator = [BeamEmissionFormat.TestHeap, 0x20, 0x30, BeamEmissionFormat.PutList, 0x13, 0x23, 0x23];
+        ReadOnlySpan<byte> ordinary = [BeamEmissionFormat.TestHeap, 0x20, 0x40, BeamEmissionFormat.PutList, 0x33, 0x13, 0x13];
+        if (code.AsSpan().IndexOf(separator) < 0 || code.AsSpan().IndexOf(ordinary) < 0)
+        {
+            throw new InvalidOperationException("Expected the list head to remain a heap root only in the ordinary character branch.");
         }
     }
 

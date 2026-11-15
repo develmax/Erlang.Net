@@ -15,7 +15,7 @@ internal sealed partial class BeamModuleCompiler
         for (int index = 0; index + 1 < body.Count; index++)
         {
             BeamInstruction instruction = body[index];
-            if (instruction.Definition.Opcode is not (Allocate or AllocateHeap))
+            if (instruction.Definition.Opcode is not (Allocate or AllocateHeap or TestHeap))
             {
                 continue;
             }
