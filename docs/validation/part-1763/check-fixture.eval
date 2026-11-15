@@ -1,0 +1,10 @@
+ok=beam_single_trim_slots:consume(ignored,{state,{some,payload},tag,mode}),
+{some,payload}=get(closed),
+{left,right}=beam_single_trim_slots:pair({box,left},{box,right}),
+{one,two}=beam_single_trim_slots:pair({box,one},{box,two}),
+77=beam_single_trim_slots:lookup(key,{box,#{key=>77}}),
+#{}=beam_single_trim_slots:lookup(absent,{box,#{}}),
+"hello beam"=lists:flatten(beam_single_trim_slots:unpack(ignored,{"hello ~s",["beam"]})),
+{'EXIT',{function_clause,[{beam_single_trim_slots,pair,_,_}|_]}}=(catch beam_single_trim_slots:pair(bad,{box,right})),
+io:format("7 checks passed~n"),
+halt().

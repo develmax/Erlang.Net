@@ -1,3 +1,5 @@
+Part 1763 preserves live values across one trim during frame allocation. Multiple trims, trim with an active handler and frames with receive instructions still need allocator analysis. [Evidence](validation/part-1763/README.md).
+
 Part 1762 preserves live Y values across the shared catch cleanup during frame allocation. Multiple handlers and trim-dependent slot numbering still need allocator analysis. [Evidence](validation/part-1762/README.md).
 
 Part 1761 preserves Y values read by one try handler during stack-slot reuse. Multiple handlers and single catch handlers still need allocator analysis. [Evidence](validation/part-1761/README.md).

@@ -354,6 +354,7 @@ internal static class BeamModuleEmissionChecks
         CompareStackSlotsAcrossBitMatches();
         CompareStackSlotsAcrossTry();
         CompareStackSlotsAcrossCatch();
+        CompareStackSlotsAcrossTrim();
         CompareRedundantEntryArgumentReloads();
         CompareEntryFrameInitialization();
         CompareProjectionFrameInitialization();
@@ -925,6 +926,42 @@ internal static class BeamModuleEmissionChecks
             || code.AsSpan().IndexOf(removeTag) < 0)
         {
             throw new InvalidOperationException("Expected compact frames at the shared catch cleanup.");
+        }
+    }
+
+    private static void CompareStackSlotsAcrossTrim()
+    {
+        const string source = """
+            -module(beam_single_trim_slots).
+            -export([consume/2, pair/2, lookup/2, unpack/2]).
+            -record(state, {connection, tag, mode}).
+            -record(box, {value}).
+
+            consume(_, #state{connection = Connection}) ->
+                close(Connection),
+                ok.
+
+            pair(#box{value = Left}, #box{value = Right}) ->
+                combine(Left, Right).
+
+            lookup(Key, #box{value = Map}) ->
+                maps:get(Key, Map, #{}).
+
+            unpack(_, {Format, Args}) ->
+                io_lib:format(Format, Args).
+
+            close(Connection) -> put(closed, Connection).
+            combine(Left, Right) -> {Left, Right}.
+            """;
+        byte[] beam = CodeGeneration.CompileBeamModule(source, "beam_single_trim_slots.erl");
+        byte[] code = BeamDocumentationEmissionChecks.Chunks(beam).Single(chunk => chunk.Id == "Code").Data;
+        ReadOnlySpan<byte> oneKept = [BeamEmissionFormat.TrimFrame, 0x10, 0x10];
+        ReadOnlySpan<byte> renumbered = [BeamEmissionFormat.TrimFrame, 0x20, 0x10, BeamEmissionFormat.GetTupleElement, 0x04];
+        ReadOnlySpan<byte> released = [BeamEmissionFormat.Deallocate, 0x10, BeamEmissionFormat.Return];
+        if (code.AsSpan().IndexOf(oneKept) < 0 || code.AsSpan().IndexOf(renumbered) < 0
+            || code.AsSpan().IndexOf(released) < 0)
+        {
+            throw new InvalidOperationException("Expected compact frames and renumbered Y registers after trim.");
         }
     }
 

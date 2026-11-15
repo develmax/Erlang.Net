@@ -24,7 +24,9 @@ internal sealed partial class BeamModuleCompiler
             int entry = start;
             start = end + 1;
             var linear = PlanLinearStackSlots(body, entry, end);
-            var allocation = linear is { } layout ? (layout.Count, layout.Slots) : PlanBranchStackSlots(body, entry, end);
+            var allocation = linear is { } layout
+                ? (layout.Count, layout.Slots, Trim: ((int Index, int OriginalRemoved, int Kept)?)null)
+                : PlanBranchStackSlots(body, entry, end);
             if (allocation is not { } plan)
             {
                 continue;
@@ -34,14 +36,36 @@ internal sealed partial class BeamModuleCompiler
             {
                 BeamInstruction instruction = body[index];
                 int next = body[index + 1].Offset;
+                int originalShift = 0;
+                int allocatedShift = 0;
+                if (plan.Trim is { } trim && index >= trim.Index)
+                {
+                    originalShift = trim.OriginalRemoved;
+                    allocatedShift = plan.Count - trim.Kept;
+                    if (index == trim.Index)
+                    {
+                        output.Write(code.Span[copied..instruction.Offset]);
+                        if (allocatedShift > 0)
+                        {
+                            output.WriteByte(TrimFrame);
+                            BeamCompactWriter.Write(output, BeamWire.UnsignedTag, allocatedShift);
+                            BeamCompactWriter.Write(output, BeamWire.UnsignedTag, trim.Kept);
+                        }
+
+                        copied = next;
+                        continue;
+                    }
+                }
+
                 if (instruction.Definition.Opcode == InitYRegisters)
                 {
                     // Clearing an old slot must leave its live alias intact.
                     int[] cleared = instruction.Operands.Skip(1)
-                        .Select(slot => plan.Slots[(int)slot.Value])
+                        .Select(slot => plan.Slots[(int)slot.Value + originalShift])
                         .Where(register => register >= 0 && (linear is null || !Enumerable.Range(0, plan.Slots.Length)
                             .Any(slot => plan.Slots[slot] == register
                                 && linear.Value.Uses[slot].First < index && linear.Value.Uses[slot].Last > index)))
+                        .Select(register => register - allocatedShift)
                         .Distinct().Order().ToArray();
                     output.Write(code.Span[copied..instruction.Offset]);
                     if (cleared.Length != 0)
@@ -70,7 +94,7 @@ internal sealed partial class BeamModuleCompiler
                     }
 
                     output.Write(code.Span[copied..(offset + cursor.Position)]);
-                    BeamCompactWriter.Write(output, BeamWire.UnsignedTag, plan.Count);
+                    BeamCompactWriter.Write(output, BeamWire.UnsignedTag, plan.Count - allocatedShift);
                     _ = BeamCompactReader.Read(cursor);
                     copied = offset + cursor.Position;
                     continue;
@@ -85,7 +109,7 @@ internal sealed partial class BeamModuleCompiler
                 {
                     var (from, to, slot) = stackOperands[operand++];
                     output.Write(code.Span[copied..from]);
-                    BeamCompactWriter.Write(output, YRegisterTag, plan.Slots[slot]);
+                    BeamCompactWriter.Write(output, YRegisterTag, plan.Slots[slot + originalShift] - allocatedShift);
                     copied = to;
                 }
             }

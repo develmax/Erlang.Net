@@ -1,5 +1,7 @@
 # Dependency and compatibility decisions
 
+Part 1763 reuses the operand decoder and control-flow graph. No dependency was added. [Evidence](validation/part-1763/README.md).
+
 Part 1762 reuses the operand decoder and control-flow graph. No dependency was added. [Evidence](validation/part-1762/README.md).
 
 Part 1761 reuses the operand decoder and control-flow graph. No dependency was added. [Evidence](validation/part-1761/README.md).

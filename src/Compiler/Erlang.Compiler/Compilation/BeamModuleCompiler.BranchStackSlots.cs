@@ -5,7 +5,11 @@ namespace Erlang.Compiler;
 
 internal sealed partial class BeamModuleCompiler
 {
-    private static (int Count, int[] Slots)? PlanBranchStackSlots(IReadOnlyList<BeamInstruction> body, int entry, int end)
+    private static (int Count, int[] Slots, (int Index, int OriginalRemoved, int Kept)? Trim)? PlanBranchStackSlots(
+        IReadOnlyList<BeamInstruction> body,
+        int entry,
+        int end
+    )
     {
         if (entry + 1 >= end || body[entry].Definition.Opcode != Label)
         {
@@ -55,8 +59,29 @@ internal sealed partial class BeamModuleCompiler
         }
 
         int start = allocation + 1;
+        int trim = end;
+        int removed = 0;
+        for (int index = start; index < end; index++)
+        {
+            if (body[index].Definition.Opcode != TrimFrame)
+            {
+                continue;
+            }
+
+            int drop = (int)body[index].Operands[0].Value;
+            int kept = (int)body[index].Operands[1].Value;
+            if (trim != end || drop <= 0 || kept != frame - drop)
+            {
+                return null;
+            }
+
+            trim = index;
+            removed = drop;
+        }
+
         var labels = new Dictionary<int, int>();
         var firstUse = new int[frame];
+        var neededAfterTrim = new bool[frame];
         int handlerEntry = -1;
         int handlerSlot = -1;
         bool isCatch = false;
@@ -71,7 +96,7 @@ internal sealed partial class BeamModuleCompiler
 
             if (instruction.Definition.Opcode is TryEnter or CatchEnter)
             {
-                if (handlerEntry >= 0
+                if (trim != end || handlerEntry >= 0
                     || instruction.Operands is not [{ Kind: BeamOperandParameters.Y } tag, { Kind: BeamOperandParameters.Label }]
                     || tag.Value >= frame)
                 {
@@ -83,17 +108,17 @@ internal sealed partial class BeamModuleCompiler
                 isCatch = instruction.Definition.Opcode == CatchEnter;
             }
 
-            if (instruction.Definition.Opcode == InitYRegisters)
-            {
-                continue;
-            }
-
+            int shift = index > trim ? removed : 0;
             foreach (BeamOperand operand in instruction.Operands)
             {
-                if (operand.Kind == BeamOperandParameters.Y && operand.Value < frame)
+                if (operand.Kind == BeamOperandParameters.Y && operand.Value < frame - shift)
                 {
-                    int slot = (int)operand.Value;
-                    firstUse[slot] = Math.Min(firstUse[slot], index);
+                    int slot = (int)operand.Value + shift;
+                    neededAfterTrim[slot] |= index > trim;
+                    if (instruction.Definition.Opcode != InitYRegisters)
+                    {
+                        firstUse[slot] = Math.Min(firstUse[slot], index);
+                    }
                 }
             }
         }
@@ -117,16 +142,18 @@ internal sealed partial class BeamModuleCompiler
         {
             BeamInstruction instruction = body[index];
             byte opcode = instruction.Definition.Opcode;
-            if (opcode is Allocate or AllocateHeap or TrimFrame
+            if (opcode is Allocate or AllocateHeap
+                || trim != end && opcode is (RemoveMessage or ReceiveTimeout or LoopReceive or LoopReceiveEnd or Wait or WaitTimeout)
                 || instruction.Definition.Name == "debug_line")
             {
                 return null;
             }
 
             int frameOperand = LinearFrameSizeOperand(opcode);
+            int shift = index > trim ? removed : 0;
             if (frameOperand >= 0)
             {
-                if (instruction.Operands[frameOperand].Value != frame)
+                if (instruction.Operands[frameOperand].Value != frame - shift)
                 {
                     return null;
                 }
@@ -161,7 +188,8 @@ internal sealed partial class BeamModuleCompiler
                 if (!call && opcode is not (TryEnter or CatchEnter)
                     && operand.Kind == BeamOperandParameters.Label && operand.Value != clauseFailure)
                 {
-                    if (!labels.TryGetValue((int)operand.Value, out int target))
+                    if (!labels.TryGetValue((int)operand.Value, out int target)
+                        || (target > trim) != (index > trim) && !IsFramelessStackAllocationExit(body, target, end))
                     {
                         return null;
                     }
@@ -176,14 +204,14 @@ internal sealed partial class BeamModuleCompiler
                     continue;
                 }
 
-                if (operand.Value >= frame || frameOperand >= 0
+                if (operand.Value >= frame - shift || frameOperand >= 0
                     || !initializes && destination == int.MinValue
                         && opcode is not (SelectValue or SelectTupleArity) && !IsEntryFramePredicate(opcode))
                 {
                     return null;
                 }
 
-                int slot = (int)operand.Value;
+                int slot = (int)operand.Value + shift;
                 if (initializes && firstUse[slot] == int.MaxValue)
                 {
                     continue;
@@ -215,7 +243,7 @@ internal sealed partial class BeamModuleCompiler
         }
 
         var exceptional = handlerEntry >= 0 ? new HashSet<int>() : null;
-        if (exceptional is not null && !AddHandlerEdges(exceptional) || !branched || !released)
+        if (exceptional is not null && !AddHandlerEdges(exceptional) || !branched && trim == end || !released)
         {
             return null;
         }
@@ -271,10 +299,12 @@ internal sealed partial class BeamModuleCompiler
 
         var groups = new List<BigInteger>();
         var slots = new int[frame];
+        int keptSlots = 0;
         Array.Fill(slots, -1);
         foreach (int slot in Enumerable.Range(0, frame)
             .Where(slot => firstUse[slot] != int.MaxValue)
-            .OrderBy(slot => slot == handlerSlot ? int.MinValue : firstUse[slot]))
+            .OrderByDescending(slot => slot == handlerSlot || neededAfterTrim[slot])
+            .ThenBy(slot => firstUse[slot]))
         {
             int register = groups.FindIndex(group => (group & conflicts[slot]).IsZero);
             if (register >= 0)
@@ -288,6 +318,11 @@ internal sealed partial class BeamModuleCompiler
             }
 
             slots[slot] = register;
+            if (neededAfterTrim[slot])
+            {
+                // The groups needed after trim occupy the high end of the frame.
+                keptSlots = groups.Count;
+            }
         }
 
         if (groups.Count == 0 || groups.Count >= frame)
@@ -303,7 +338,7 @@ internal sealed partial class BeamModuleCompiler
             }
         }
 
-        return (groups.Count, slots);
+        return (groups.Count, slots, trim < end ? (trim, removed, keptSlots) : null);
 
         bool AddHandlerEdges(HashSet<int> protectedInstructions)
         {

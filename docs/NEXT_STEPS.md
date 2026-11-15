@@ -1,5 +1,7 @@
 # Next steps
 
+Lower list comprehensions with one variable generator over a variable, call output and no filters into recursive helpers. The source group contains 570 source functions in 213 modules. The initial-trim follow-up covers copies from unwritten slots. 230 functions in 151 modules move an unwritten Y slot between allocate and initial trim. 100 such functions in 71 modules have no frame in OTP. [Evidence](validation/part-1763/README.md).
+
 Compare Y positions and lifetimes before and after a single frame trim. 118 modules 171 functions {trim_shape,1,1,false,false,false}. [Evidence](validation/part-1762/README.md).
 
 Compare values live at a single catch handler in a function with one frame. 170 modules 386 functions {handlers,0,1,1,false,false,false}. [Evidence](validation/part-1761/README.md).
