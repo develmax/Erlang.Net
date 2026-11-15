@@ -4,7 +4,7 @@ namespace Erlang.Compiler;
 
 internal sealed partial class BeamModuleCompiler
 {
-    private static byte[]? ReuseLinearStackSlots(
+    private static byte[]? ReuseStackSlots(
         ReadOnlyMemory<byte> code,
         IReadOnlyList<BeamInstruction> body,
         List<(int Start, int End, int Slot)> stackOperands
@@ -23,7 +23,9 @@ internal sealed partial class BeamModuleCompiler
 
             int entry = start;
             start = end + 1;
-            if (PlanLinearStackSlots(body, entry, end) is not { } plan)
+            var linear = PlanLinearStackSlots(body, entry, end);
+            var allocation = linear is { } layout ? (layout.Count, layout.Slots) : PlanBranchStackSlots(body, entry, end);
+            if (allocation is not { } plan)
             {
                 continue;
             }
@@ -37,9 +39,9 @@ internal sealed partial class BeamModuleCompiler
                     // Clearing an old slot must leave its live alias intact.
                     int[] cleared = instruction.Operands.Skip(1)
                         .Select(slot => plan.Slots[(int)slot.Value])
-                        .Where(register => register >= 0 && !Enumerable.Range(0, plan.Slots.Length)
+                        .Where(register => register >= 0 && (linear is null || !Enumerable.Range(0, plan.Slots.Length)
                             .Any(slot => plan.Slots[slot] == register
-                                && plan.Uses[slot].First < index && plan.Uses[slot].Last > index))
+                                && linear.Value.Uses[slot].First < index && linear.Value.Uses[slot].Last > index)))
                         .Distinct().Order().ToArray();
                     output.Write(code.Span[copied..instruction.Offset]);
                     if (cleared.Length != 0)
@@ -177,17 +179,7 @@ internal sealed partial class BeamModuleCompiler
                 continue;
             }
 
-            int destination = opcode switch
-            {
-                Move or GetHead or GetTail or MakeFun => 1,
-                PutList or GetTupleElement => 2,
-                PutTuple => 0,
-                UpdateRecord => 3,
-                BifZero or BifOne or BifTwo or BifThree or GcBifOne or GcBifTwo or GcBifThree => instruction.Operands.Count - 1,
-                GetList => 1,
-                BadMatch or BadRecord or CaseEnd or Swap or CallFunTyped => -1,
-                _ => int.MinValue
-            };
+            int destination = StackWriteOperand(instruction);
             if (destination == int.MinValue && !IsEntryFramePredicate(opcode))
             {
                 return null;
@@ -263,6 +255,18 @@ internal sealed partial class BeamModuleCompiler
 
         return (last.Count, slots, used);
     }
+
+    private static int StackWriteOperand(BeamInstruction instruction) => instruction.Definition.Opcode switch
+    {
+        Move or GetHead or GetTail or MakeFun => 1,
+        PutList or GetTupleElement => 2,
+        PutTuple => 0,
+        UpdateRecord => 3,
+        BifZero or BifOne or BifTwo or BifThree or GcBifOne or GcBifTwo or GcBifThree => instruction.Operands.Count - 1,
+        GetList => 1,
+        BadMatch or BadRecord or CaseEnd or Swap or CallFunTyped => -1,
+        _ => int.MinValue
+    };
 
     private static int LinearFrameSizeOperand(byte opcode) => opcode switch
     {

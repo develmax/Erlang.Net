@@ -1,5 +1,7 @@
 # Compatibility overview
 
+Part 1734 reuses Y registers across eligible branches with one frame and maintains slot initialization and live values. [Evidence](validation/part-1734/README.md).
+
 Part 1733 matches the OTP schedule for eligible complete independent call argument moves. [Evidence](validation/part-1733/README.md).
 
 Part 1732 passes a preceding call result directly in eligible ordinary call arguments. [Evidence](validation/part-1732/README.md).

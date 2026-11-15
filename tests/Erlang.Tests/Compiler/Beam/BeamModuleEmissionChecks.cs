@@ -420,6 +420,7 @@ internal static class BeamModuleEmissionChecks
         await CompareListCallerFacts();
         await CompareStructuralListEntry();
         await CompareLinearStackFrameTrim();
+        await CompareBranchStackSlots();
         await CompareTrimFailureEdges();
         await CompareSingletonCallResult();
         await CompareConsResultEntry();
@@ -571,6 +572,62 @@ internal static class BeamModuleEmissionChecks
         }
     }
 
+    private static async Task CompareBranchStackSlots()
+    {
+        const string source = """
+            -module(beam_branch_stack_slots).
+            -export([run/2]).
+            run(Value, Mode) ->
+                X = seed(Value),
+                Y = case Mode of
+                    left -> A = step(X), {A, step(A)};
+                    right -> B = step(X), {step(B), B};
+                    _ -> X
+                end,
+                {Y, step(Y)}.
+            seed(X) -> erlang:garbage_collect(), X.
+            step(X) -> erlang:garbage_collect(), {step, X}.
+            """;
+        byte[] bytes = CodeGeneration.CompileBeamModule(source, "beam_branch_stack_slots.erl");
+        byte[] code = BeamDocumentationEmissionChecks.Chunks(bytes).Single(chunk => chunk.Id == "Code").Data;
+        ReadOnlySpan<byte> reusedFrame = [BeamEmissionFormat.Allocate, 0x20, 0x20];
+        ReadOnlySpan<byte> originalFrame = [BeamEmissionFormat.Allocate, 0x40, 0x20];
+        if (code.AsSpan().IndexOf(reusedFrame) < 0 || code.AsSpan().IndexOf(originalFrame) >= 0)
+        {
+            throw new InvalidOperationException("Expected a two-slot frame for the branching function.");
+        }
+
+        BeamModule image = BeamModule.Prepare(bytes);
+        await using var runtime = new ProcessRuntime();
+        Term value = Term.A("value");
+        Term first = Step(value);
+        Term second = Step(first);
+        Term left = Term.Tuple(first, second);
+        Term right = Term.Tuple(second, first);
+        Term? actual = null;
+        ProcessHandle process = runtime.Spawn(async context =>
+        {
+            Term onLeft = await image.Invoke(context, "run", value, Term.A("left"));
+            Term onRight = await image.Invoke(context, "run", value, Term.A("right"));
+            Term fallback = await image.Invoke(context, "run", value, Term.A("fallback"));
+            actual = Term.Tuple(onLeft, onRight, fallback);
+
+            return actual;
+        });
+        Term exit = await process.Completion.WaitAsync(TimeSpan.FromSeconds(10));
+        Term expected = Term.Tuple(
+            Term.Tuple(left, Step(left)),
+            Term.Tuple(right, Step(right)),
+            Term.Tuple(value, first)
+        );
+        if (!expected.Equals(actual))
+        {
+            throw new InvalidOperationException($"Branch stack slot reuse returned {actual}, exit {exit}.");
+        }
+
+        static Term Step(Term value) => Term.Tuple(Term.A("step"), value);
+    }
+
     private static void CompareEntryFrameInitialization()
     {
         const string source = """
@@ -622,8 +679,8 @@ internal static class BeamModuleEmissionChecks
             """;
         byte[] beam = CodeGeneration.CompileBeamModule(source, "beam_shared_call_return.erl");
         byte[] code = BeamDocumentationEmissionChecks.Chunks(beam).Single(chunk => chunk.Id == "Code").Data;
-        ReadOnlySpan<byte> tail = [BeamEmissionFormat.TailExternalCallWithFrame, 0x10, 0x00, 0x20];
-        ReadOnlySpan<byte> sharedReturn = [BeamEmissionFormat.Deallocate, 0x20, BeamEmissionFormat.Return];
+        ReadOnlySpan<byte> tail = [BeamEmissionFormat.TailExternalCallWithFrame, 0x10, 0x00, 0x10];
+        ReadOnlySpan<byte> sharedReturn = [BeamEmissionFormat.Deallocate, 0x10, BeamEmissionFormat.Return];
         if (code.AsSpan().IndexOf(tail) < 0 || code.AsSpan().IndexOf(sharedReturn) < 0)
         {
             throw new InvalidOperationException("Expected a framed tail call and the return shared by the other branches.");

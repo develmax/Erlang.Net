@@ -1,3 +1,5 @@
+Part 1734 allows ordinary branches to share frame slots. Larger frames caused by unnecessary lowering spills or complex control flow still differ. [Evidence](validation/part-1734/README.md).
+
 Part 1733 matches the OTP order in eligible independent call argument sequences. Partial and dependent setups still rely on the lowering that emitted them. One stack-load sequence in crashdump_viewer requires the pre-trim Y numbering. [Evidence](validation/part-1733/README.md).
 
 Part 1732 avoids eligible ordinary call result spills and matches the dynamic apply argument order in the focused fixture. General argument move ordering still differs. [Evidence](validation/part-1732/README.md).

@@ -1,5 +1,7 @@
 # Project progress
 
+Part 1734 compiled all 1,366 corpus sources with 398 Equal and 968 Different. 9616 functions in 794 modules use fewer Y slots. Total allocated slots decrease by 33799 across those functions. [Evidence](validation/part-1734/README.md).
+
 Part 1733 compiled all 1,366 corpus sources with 398 Equal and 968 Different. Independent call argument ordering changes 691 images. [Evidence](validation/part-1733/README.md).
 
 Part 1732 compiled all 1,366 corpus sources with 398 Equal and 968 Different. Forwarding ordinary call results and ordering apply arguments changes 422 images. [Evidence](validation/part-1732/README.md).
