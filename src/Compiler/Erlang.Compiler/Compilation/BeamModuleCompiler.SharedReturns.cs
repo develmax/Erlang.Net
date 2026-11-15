@@ -172,7 +172,7 @@ internal sealed partial class BeamModuleCompiler
                 ?? ReuseStackSlots(code, body, stackOperands)
                 ?? OrderIndependentCallArguments(code, body)
                 ?? TrimAllocationLiveRegisters(code, body)
-                ?? MoveHeapTestsBeforeTupleReads(code, body);
+                ?? MoveHeapTestsBeforeNeutralInstructions(code, body, atomNames, importsByIndex);
             return simplified is null ? null : (simplified, Enumerable.Range(0, labelCount).ToArray(), 0);
         }
 

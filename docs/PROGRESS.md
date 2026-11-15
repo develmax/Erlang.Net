@@ -1,5 +1,7 @@
 # Project progress
 
+Part 1751 compiled all 1,366 corpus sources with 398 Equal and 968 Different. 223 live-X count comparisons at corresponding heap tests across 229 changed images, with 115 new matches and 96 lost matches. [Evidence](validation/part-1751/README.md).
+
 Part 1750 compiled all 1,366 corpus sources with 398 Equal and 968 Different. 243 live-X count comparisons at corresponding heap tests across 273 changed images, with 178 new matches and 13 lost matches. [Evidence](validation/part-1750/README.md).
 
 Part 1749 compiled all 1,366 corpus sources with 398 Equal and 968 Different. 23 live-X count comparisons at corresponding heap tests across 22 changed images, with 17 new matches and 0 lost matches. [Evidence](validation/part-1749/README.md).

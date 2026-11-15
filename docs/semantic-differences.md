@@ -1,3 +1,5 @@
+Part 1751 aligns more heap-test positions. X root counts still differ when the C# compiler spills values that OTP keeps in X registers. [Evidence](validation/part-1751/README.md).
+
 Part 1750 aligns the position of eligible heap tests. Differences remain where projections are interleaved with predicates or use different registers. [Evidence](validation/part-1750/README.md).
 
 Part 1749 trims unused test_heap roots. Heap tests still differ when the preceding field reads and register allocation differ. [Evidence](validation/part-1749/README.md).

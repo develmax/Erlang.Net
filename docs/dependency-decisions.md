@@ -1,5 +1,7 @@
 # Dependency and compatibility decisions
 
+Part 1751 reuses the BEAM import table, backwards live-prefix transfer and compact operand writer. No dependency was added. [Evidence](validation/part-1751/README.md).
+
 Part 1750 reuses decoded BEAM instructions and the compact operand writer. No dependency was added. [Evidence](validation/part-1750/README.md).
 
 Part 1749 reuses the BEAM liveness proof and compact operand writer for test_heap. No dependency was added. [Evidence](validation/part-1749/README.md).

@@ -345,6 +345,7 @@ internal static class BeamModuleEmissionChecks
         CompareTerminalCallResultConstructions();
         CompareHeapRootsAfterListHeadTest();
         CompareHeapTestBeforeTupleReads();
+        CompareHeapTestsBeforeNullaryBifs();
         CompareEntryArgumentCopies();
         CompareEntryFrameInitialization();
         CompareProjectionFrameInitialization();
@@ -603,6 +604,28 @@ internal static class BeamModuleEmissionChecks
         if (code.AsSpan().IndexOf(allocation) < 0)
         {
             throw new InvalidOperationException("Expected the heap test before tuple field reads with only the source tuple live.");
+        }
+    }
+
+    private static void CompareHeapTestsBeforeNullaryBifs()
+    {
+        const string source = """
+            -module(beam_pid_heap).
+            -export([notify/2]).
+            notify(Key, Pid) ->
+                erlang:put(seen, Key),
+                case erlang:get(Key) of
+                    ready -> Pid ! {started, self()};
+                    _ -> Pid ! {wrong, node()}
+                end.
+            """;
+        byte[] beam = CodeGeneration.CompileBeamModule(source, "beam_pid_heap.erl");
+        byte[] code = BeamDocumentationEmissionChecks.Chunks(beam).Single(chunk => chunk.Id == "Code").Data;
+        ReadOnlySpan<byte> allocation = [BeamEmissionFormat.TestHeap, 0x30, 0x00, BeamEmissionFormat.BifZero];
+        int first = code.AsSpan().IndexOf(allocation);
+        if (first < 0 || code.AsSpan(first + allocation.Length).IndexOf(allocation) < 0)
+        {
+            throw new InvalidOperationException("Expected a zero-root heap test before both nullary BIFs.");
         }
     }
 

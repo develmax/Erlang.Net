@@ -1,5 +1,7 @@
 # Compatibility overview
 
+Part 1751 places heap tests before eligible self/0 and node/0 calls while preserving the GC root prefix. [Evidence](validation/part-1751/README.md).
+
 Part 1750 places eligible heap tests before straight-line tuple field reads while preserving the GC root prefix. [Evidence](validation/part-1750/README.md).
 
 Part 1749 removes dead trailing X registers from test_heap when the continuation proves them unused. [Evidence](validation/part-1749/README.md).

@@ -4,9 +4,11 @@ namespace Erlang.Compiler;
 
 internal sealed partial class BeamModuleCompiler
 {
-    private static byte[]? MoveHeapTestsBeforeTupleReads(
+    private static byte[]? MoveHeapTestsBeforeNeutralInstructions(
         ReadOnlyMemory<byte> code,
-        IReadOnlyList<BeamInstruction> body
+        IReadOnlyList<BeamInstruction> body,
+        string[] atomNames,
+        (int Module, int Function, int Arity)[] importsByIndex
     )
     {
         using var output = new MemoryStream();
@@ -22,21 +24,46 @@ internal sealed partial class BeamModuleCompiler
             int original = (int)heap.Operands[^1].Value;
             int live = original;
             int first = index;
-            while (first > 0 && body[first - 1] is
-                {
-                    Definition.Opcode: GetTupleElement,
-                    Operands: [
-                        { Kind: BeamOperandParameters.X, TypeIndex: null } source,
-                        _,
-                        { Kind: BeamOperandParameters.X, TypeIndex: null } destination
-                    ]
-                } && source.Value < live)
+            while (first > 0)
             {
-                if (destination.Value == live - 1 && source.Value < destination.Value)
+                int? source = null;
+                int destination;
+                switch (body[first - 1])
+                {
+                    case
+                    {
+                        Definition.Opcode: GetTupleElement,
+                        Operands: [
+                            { Kind: BeamOperandParameters.X, TypeIndex: null } tuple,
+                            _,
+                            { Kind: BeamOperandParameters.X, TypeIndex: null } field
+                        ]
+                    } when tuple.Value < live:
+                        source = (int)tuple.Value;
+                        destination = (int)field.Value;
+                        break;
+                    case
+                    {
+                        Definition.Opcode: BifZero,
+                        Operands: [var import, { Kind: BeamOperandParameters.X, TypeIndex: null } result]
+                    } when IsHeapNeutralNullaryBif(importsByIndex[(int)import.Value], atomNames):
+                        destination = (int)result.Value;
+                        break;
+                    default:
+                        destination = -1;
+                        break;
+                }
+
+                if (destination < 0)
+                {
+                    break;
+                }
+
+                if (destination == live - 1 && source != destination)
                 {
                     live--;
                 }
-                else if (destination.Value < live && destination.Value != source.Value)
+                else if (destination < live && source != destination)
                 {
                     // Dropping an interior register would leave an unproven slot in the GC root prefix.
                     break;
@@ -68,4 +95,10 @@ internal sealed partial class BeamModuleCompiler
         output.Write(code.Span[copied..]);
         return output.ToArray();
     }
+
+    private static bool IsHeapNeutralNullaryBif(
+        (int Module, int Function, int Arity) import,
+        string[] atomNames
+    ) => import.Arity == 0 && atomNames[import.Module - 1] == ErlangModuleNames.Module
+        && atomNames[import.Function - 1] is AutoImportNames.Self or AutoImportNames.Node;
 }
