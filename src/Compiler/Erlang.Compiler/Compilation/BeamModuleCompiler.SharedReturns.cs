@@ -160,7 +160,7 @@ internal sealed partial class BeamModuleCompiler
                 ?? ForwardCallResult(code, body)
                 ?? EliminateEntryArgumentCopies(code, body, stackOperands)
                 ?? UseSavedBranchOperands(code, body)
-                ?? ForwardBranchCallResults(code, body, stackOperands)
+                ?? ForwardSavedCallResults(code, body, stackOperands)
                 ?? RemoveUnusedTrailingFrameSlots(code, body)
                 ?? ReallocateLeafFrameRegisters(code, body, stackOperands)
                 ?? DelayEntryStackFrame(code, body, stackOperands)

@@ -1,5 +1,7 @@
 # Dependency and compatibility decisions
 
+Part 1737 reuses the BEAM result forwarding graph and compact operand writer. No library was added. [Evidence](validation/part-1737/README.md).
+
 Part 1736 reuses the BEAM control-flow graph, stack-initialization check and compact register encoder. No library was added. [Evidence](validation/part-1736/README.md).
 
 Part 1735 reuses the BEAM control-flow graph, compact reader and register writer. No library was added. [Evidence](validation/part-1735/README.md).

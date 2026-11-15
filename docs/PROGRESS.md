@@ -1,5 +1,7 @@
 # Project progress
 
+Part 1737 compiled all 1,366 corpus sources with 398 Equal and 968 Different. 2312 heap tests retain X0 for construction in 1802 functions across 524 modules with the same before and after sites. [Evidence](validation/part-1737/README.md).
+
 Part 1736 compiled all 1,366 corpus sources with 398 Equal and 968 Different. 7307 result saves before branches disappear in 4683 functions across 687 modules with the same previous and current sites. [Evidence](validation/part-1736/README.md).
 
 Part 1735 compiled all 1,366 corpus sources with 398 Equal and 968 Different. 4646 branch operands change from X to Y in 3090 functions across 522 modules with the same previous and current predicate sequence. [Evidence](validation/part-1735/README.md).

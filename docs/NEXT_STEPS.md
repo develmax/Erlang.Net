@@ -1,5 +1,7 @@
 # Next steps
 
+Compare duplicate line instructions within a basic block with OTP beam_z. The current audit finds them in 831 differing modules. Preserve line table counts and source annotations. [Evidence](validation/part-1737/README.md).
+
 Compare result saves before test_heap with zero live X registers. Start with tuple construction followed by a move, which occurs in 811 functions across 326 modules. [Evidence](validation/part-1736/README.md).
 
 Track original call results along branch successors and replace redundant stack saves and reloads when the result remains live in X0. The leading candidate is a call followed by a save before is_tuple in 3,625 functions across 571 modules. [Evidence](validation/part-1735/README.md).

@@ -1,5 +1,7 @@
 # Compatibility overview
 
+Part 1737 keeps eligible call results live through the initial heap test for tuple and cons construction and record updates. [Evidence](validation/part-1737/README.md).
+
 Part 1736 keeps eligible call results in X0 through independent branches and uses the frame only when needed. [Evidence](validation/part-1736/README.md).
 
 Part 1735 reads saved registers directly for eligible BEAM predicates and selectors. [Evidence](validation/part-1735/README.md).

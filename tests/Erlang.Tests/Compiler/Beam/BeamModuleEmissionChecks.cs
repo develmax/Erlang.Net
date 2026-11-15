@@ -421,6 +421,7 @@ internal static class BeamModuleEmissionChecks
         await CompareStructuralListEntry();
         await CompareLinearStackFrameTrim();
         await CompareBranchStackSlots();
+        CompareHeapCallResult();
         await CompareTrimFailureEdges();
         await CompareSingletonCallResult();
         await CompareConsResultEntry();
@@ -632,6 +633,29 @@ internal static class BeamModuleEmissionChecks
         }
 
         static Term Step(Term value) => Term.Tuple(Term.A("step"), value);
+    }
+
+    private static void CompareHeapCallResult()
+    {
+        const string file = "beam_heap_call_result.erl";
+        byte[] beam = CodeGeneration.CompileBeamModule(Encoding.UTF8.GetString(Read(file)), file);
+        byte[] code = BeamDocumentationEmissionChecks.Chunks(beam).Single(chunk => chunk.Id == "Code").Data;
+        ReadOnlySpan<byte> packed = [
+            BeamEmissionFormat.TestHeap,
+            0x30,
+            0x10,
+            BeamEmissionFormat.PutTuple,
+            0x03,
+            BeamEmissionFormat.ExtendedListOperand,
+            0x20,
+            0x04,
+            0x03
+        ];
+        int first = code.AsSpan().IndexOf(packed);
+        if (first < 0 || code.AsSpan(first + packed.Length).IndexOf(packed) < 0)
+        {
+            throw new InvalidOperationException("Expected both branches to build their tuple from the live result in X0.");
+        }
     }
 
     private static void CompareEntryFrameInitialization()

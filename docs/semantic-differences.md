@@ -1,3 +1,5 @@
+Part 1737 avoids eligible saves preceding heap tests. Line metadata and frame initialization still cause differences in the branch fixture. [Evidence](validation/part-1737/README.md).
+
 Part 1736 removes eligible saves across a branch on an independent operand. Frame layout and result packing can still differ from OTP. [Evidence](validation/part-1736/README.md).
 
 Part 1735 reads a branch operand directly from the Y bank when its X copy is dead. Some call results still spill around selectors. [Evidence](validation/part-1735/README.md).
