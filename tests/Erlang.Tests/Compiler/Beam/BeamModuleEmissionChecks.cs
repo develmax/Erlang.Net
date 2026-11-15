@@ -361,6 +361,7 @@ internal static class BeamModuleEmissionChecks
         CompareFilteredListGeneratorHelpers();
         CompareIndependentListComprehensionHelpers();
         CompareComprehensionsWithClosures();
+        CompareCapturedClosureFailures();
         CompareRedundantEntryArgumentReloads();
         CompareEntryFrameInitialization();
         CompareProjectionFrameInitialization();
@@ -1204,6 +1205,36 @@ internal static class BeamModuleEmissionChecks
             "-before/2-lc$^0/1-0-",
             "-before/2-fun-1-"
         ]);
+    }
+
+    private static void CompareCapturedClosureFailures()
+    {
+        const string source = """
+            -module(beam_captured_closure_failures).
+            -export([guard/1, choose/1, exhaustive/1, plain/0]).
+
+            guard(Key) -> fun(X) when is_atom(X) -> {Key, X} end.
+            choose(Key) -> fun(X, yes) -> {Key, X}; (Y, no) -> {Y, Key} end.
+            exhaustive(Key) -> fun(yes) -> {Key, yes}; (X) -> {Key, X} end.
+            plain() -> fun({yes, X}) -> X end.
+            """;
+        byte[] beam = CodeGeneration.CompileBeamModule(source, "beam_captured_closure_failures.erl");
+        var chunks = BeamDocumentationEmissionChecks.Chunks(beam);
+        string atoms = Encoding.UTF8.GetString(chunks.Single(chunk => chunk.Id == "AtU8").Data);
+        RequireHelperOrder(atoms,
+        [
+            "-plain/0-fun-0-",
+            "-exhaustive/1-fun-0-",
+            "-choose/1-fun-0-",
+            "-guard/1-fun-0-",
+            "-choose/1-inlined-0-",
+            "-guard/1-inlined-0-"
+        ]);
+        if (atoms.Contains("-exhaustive/1-inlined-", StringComparison.Ordinal)
+            || atoms.Contains("-plain/0-inlined-", StringComparison.Ordinal))
+        {
+            throw new InvalidOperationException("Unexpected closure failure stub.");
+        }
     }
 
     private static void CompareRedundantEntryArgumentReloads()

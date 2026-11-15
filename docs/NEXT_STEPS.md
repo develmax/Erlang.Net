@@ -1,5 +1,7 @@
 # Next steps
 
+Move shared tagged-tuple tests before frame allocation. The first instruction mismatch has this shape in 1687 functions across 363 modules. Start with handle_info/2 in logger_handler_watcher, where it is the only function whose disassembled instructions differ after label normalization. [Evidence](validation/part-1770/README.md).
+
 Emit function_clause stubs for captured anonymous closures with a refutable head or guard. The default compiler options group has 291 missing SSA-generated stubs across 136 modules, each called from one anonymous function. [Evidence](validation/part-1769/README.md).
 
 Share Core ordinals and lifted-function ordering with anonymous functions outside the comprehension. The group with one independent comprehension covers 193 source functions across 131 modules. For two operands in a tuple, OTP numbers from the right in Core and reverses helper emission relative to evaluation. [Evidence](validation/part-1768/README.md).

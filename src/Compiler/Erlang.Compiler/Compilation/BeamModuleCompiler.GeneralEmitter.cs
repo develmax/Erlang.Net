@@ -420,6 +420,11 @@ internal sealed partial class BeamModuleCompiler
                 };
             }
 
+            if (TryEmitCapturedClosureEntry(function))
+            {
+                return;
+            }
+
             if (recursiveClosure is { SelfName: not null } or { GuardFailure: not null })
             {
                 EmitGeneralFunction(function);
@@ -2031,9 +2036,7 @@ internal sealed partial class BeamModuleCompiler
                 if (capturedEntryFailure != 0)
                 {
                     Mark(capturedEntryFailure);
-                    owner.Op(TailLocalCall, BeamWire.UnsignedTag, function.Arity - recursiveClosure!.CaptureCount);
-                    guardFailureOperands?.Add(recursiveClosure.GuardFailure!, checked((int)owner.instructions.Position));
-                    owner.Operand(LabelTag, 0);
+                    EmitClosureFailureCall(function.Arity - recursiveClosure!.CaptureCount);
                 }
 
                 EmitDecoderFailures(listFailures);
@@ -2049,12 +2052,9 @@ internal sealed partial class BeamModuleCompiler
             {
                 Load(arguments[index], index);
             }
-            if (recursiveClosure?.GuardFailure is { } failureStub)
+            if (recursiveClosure?.GuardFailure is not null)
             {
-                owner.Op(TailLocalCallWithFrame, BeamWire.UnsignedTag, failureArity);
-                guardFailureOperands?.Add(failureStub, checked((int)owner.instructions.Position));
-                owner.Operand(LabelTag, 0);
-                owner.Operand(BeamWire.UnsignedTag, frameSize);
+                EmitClosureFailureCall(failureArity, framed: true);
             }
             else
             {

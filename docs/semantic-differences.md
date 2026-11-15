@@ -1,3 +1,5 @@
+Part 1770 aligns function_clause arguments for captured closures. Entry patterns that need a frame still use generic register and stack allocation. [Evidence](validation/part-1770/README.md).
+
 Part 1769 aligns Core names and helper order for independent anonymous closures and list comprehensions. Nested comprehensions inside a closure remain outside this lowering. [Evidence](validation/part-1769/README.md).
 
 Part 1768 aligns helper definitions and numbering for supported independent list comprehensions. Comprehensions that share a function with anonymous functions still need joint ordering. [Evidence](validation/part-1768/README.md).

@@ -1,5 +1,7 @@
 # Compatibility overview
 
+Part 1770 emits function_clause stubs for captured anonymous functions with partial heads or guards. [Evidence](validation/part-1770/README.md).
+
 Part 1769 emits recursive BEAM helpers alongside anonymous functions from the same lexical owner. [Evidence](validation/part-1769/README.md).
 
 Part 1768 emits recursive BEAM helpers for independently evaluated list comprehensions in the same function. [Evidence](validation/part-1768/README.md).

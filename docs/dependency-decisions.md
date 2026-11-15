@@ -1,5 +1,7 @@
 # Dependency and compatibility decisions
 
+Part 1770 reuses deferred call labels and register entry tests for captured closure failures. No dependency was added. [Evidence](validation/part-1770/README.md).
+
 Part 1769 reuses deferred call labels to interleave recursive helpers with anonymous closures. No dependency was added. [Evidence](validation/part-1769/README.md).
 
 Part 1768 reuses the recursive comprehension builder and follows the Core and SSA ordering in OTP 29.1.1. No dependency was added. [Evidence](validation/part-1768/README.md).

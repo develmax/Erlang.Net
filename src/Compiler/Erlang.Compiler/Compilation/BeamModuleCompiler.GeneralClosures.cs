@@ -132,7 +132,7 @@ internal sealed partial class BeamModuleCompiler
             bool entryPatternFailure = captures.Length != 0 && function.SelfName is null
                 && CanRejectClosureTupleAtEntry(function);
             string? failure = null;
-            if (entryPatternFailure || emitCapturedFailure && captures.Length != 0
+            if (entryPatternFailure || captures.Length != 0 && (function.SelfName is null || emitCapturedFailure)
                 && !function.Clauses.Any(clause => clause.Guard is null && HasUnconditionalParameters(clause)))
             {
                 do
@@ -254,6 +254,141 @@ internal sealed partial class BeamModuleCompiler
             entryCaptureOrder = previousOrder;
 
             return true;
+        }
+
+        private bool TryEmitCapturedClosureEntry(FunctionDefinition function)
+        {
+            if (recursiveClosure?.GuardFailure is null || recursiveClosure.SelfName is not null
+                || function.Clauses.Any(clause => !CanReturnFromRegisters(clause)))
+            {
+                return false;
+            }
+
+            var clauses = function.Clauses;
+            bool guardDispatch = clauses.All(clause => clause.Guard is not null
+                && HasUnconditionalParameters(clause) && CanEmitSeparateEntryGuard(clause, clause.Guard));
+            int atomRegister = -1;
+            var atoms = new List<Atom>();
+            if (!guardDispatch)
+            {
+                foreach (var clause in clauses)
+                {
+                    var literals = clause.Patterns
+                        .Select((pattern, register) => (Pattern: pattern, Register: register))
+                        .Where(entry => entry.Pattern is not Erlang.Pattern.Variable).ToArray();
+                    if (clause.Guard is not null
+                        || literals is not [{ Pattern: Pattern.Literal { Value: Atom atom }, Register: var register }]
+                        || atomRegister >= 0 && atomRegister != register || atoms.Contains(atom))
+                    {
+                        return false;
+                    }
+
+                    atoms.Add(atom);
+                    atomRegister = register;
+                }
+            }
+
+            int branchLabels = guardDispatch ? clauses.Count - 1 : atoms.Count > 1 ? atoms.Count : 0;
+            var labels = Enumerable.Range(0, branchLabels).Select(_ => Label()).ToArray();
+            int failure = Label();
+            if (guardDispatch)
+            {
+                for (int index = 0; index < clauses.Count; index++)
+                {
+                    var clause = clauses[index];
+                    int next = index == labels.Length ? failure : labels[index];
+                    EmitEntryGuardPrefix(clause, clause.Guard, next);
+                    // On exact equality x0 can already hold the returned value.
+                    bool returnsEquivalentFirstArgument = clause.Guard is Expr.Binary
+                    {
+                        Operator: ErlangOperators.ExactEqual,
+                        Left: Expr.Variable left, Right: Expr.Variable right
+                    } && clause.Body is Expr.Variable value
+                        && (left.Name == value.Name && ArgumentRegister(clause, right.Name) == 0
+                            || right.Name == value.Name && ArgumentRegister(clause, left.Name) == 0);
+                    if (!returnsEquivalentFirstArgument)
+                    {
+                        owner.EmitBody(clause);
+                    }
+
+                    owner.instructions.WriteByte(Return);
+                    if (next != failure)
+                    {
+                        Mark(next);
+                    }
+                }
+            }
+            else if (atoms.Count == 1)
+            {
+                owner.Op(ExactEqualTest, LabelTag, failure);
+                owner.Operand(XRegisterTag, atomRegister);
+                owner.LiteralOperand(atoms[0]);
+                owner.EmitBody(clauses[0]);
+                owner.instructions.WriteByte(Return);
+            }
+            else
+            {
+                owner.EmitMembershipSelect(
+                    atomRegister,
+                    failure,
+                    atoms.Select((atom, index) => (Key: (Term)atom, Label: labels[index]))
+                        .OrderBy(entry => entry.Key, Comparer<Term>.Create((left, right) => TermOrder.Compare(left, right, exact: true)))
+                );
+
+                for (int index = 0; index < clauses.Count; index++)
+                {
+                    Mark(labels[index]);
+                    owner.EmitBody(clauses[index]);
+                    owner.instructions.WriteByte(Return);
+                }
+            }
+
+            Mark(failure);
+            EmitClosureFailureCall(function.Arity - recursiveClosure.CaptureCount);
+
+            return true;
+
+            static bool CanReturnFromRegisters(Clause clause)
+            {
+                var bindings = new HashSet<string>(StringComparer.Ordinal);
+                foreach (var parameter in clause.Patterns.OfType<Pattern.Variable>())
+                {
+                    if (parameter.Name != VariableScopeNames.Wildcard && !bindings.Add(parameter.Name))
+                    {
+                        return false;
+                    }
+                }
+
+                if (AttributeLiteral.TryNormalizeConstant(clause.Body, out _))
+                {
+                    return true;
+                }
+
+                return clause.Body switch
+                {
+                    Expr.Variable variable => bindings.Contains(variable.Name),
+                    Expr.Tuple tuple => tuple.Items.All(IsRegisterOperand),
+                    Expr.List { Items: [var head] } list => IsRegisterOperand(head)
+                        && (list.Tail is null || IsRegisterOperand(list.Tail)),
+                    _ => false
+                };
+
+                bool IsRegisterOperand(Expr item) => item is Expr.Variable variable
+                    ? bindings.Contains(variable.Name)
+                    : item is Expr.Literal { Value: Atom or Nil }
+                        || item is Expr.Literal { Value: Integer integer } && integer.Value >= int.MinValue && integer.Value <= int.MaxValue;
+            }
+        }
+
+        private void EmitClosureFailureCall(int arity, bool framed = false)
+        {
+            owner.Op(framed ? TailLocalCallWithFrame : TailLocalCall, BeamWire.UnsignedTag, arity);
+            guardFailureOperands?.Add(recursiveClosure!.GuardFailure!, checked((int)owner.instructions.Position));
+            owner.Operand(LabelTag, 0);
+            if (framed)
+            {
+                owner.Operand(BeamWire.UnsignedTag, frameSize);
+            }
         }
 
         private static bool CanRejectClosureTupleAtEntry(Expr.Fun function)
