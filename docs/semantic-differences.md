@@ -1,3 +1,5 @@
+Part 1742 permits reuse of stack slots downstream of frame-free entry guards. Register ordering and slot clearing still differ from OTP in some branches. [Evidence](validation/part-1742/README.md).
+
 Part 1741 removes overwritten clears before tuple and list field assignments in straight-line allocation prefixes. Frame layouts and initialization across branches still differ. [Evidence](validation/part-1741/README.md).
 
 Part 1740 removes overwritten clears in X-to-Y argument copy prefixes. Other frame writes and initialization across branches still differ. [Evidence](validation/part-1740/README.md).

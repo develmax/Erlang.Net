@@ -1,0 +1,46 @@
+Full runtime attempt (.NET 10.0.15): 415 passed, 24 failed before stopping.
+Representative baseline comparisons:
+
+part1742-dets-baseline:
+FAIL runtime/dets/managed-public-otp-contracts: System.PlatformNotSupportedException: Managed object extent requires a source-bound allocator admission for this runtime
+0/1 passed
+
+part1742-dets-pinned:
+PASS runtime/dets/managed-public-otp-contracts
+1/1 passed
+
+part1742-part1741-projection-tests-pinned-runtime:
+FAIL runtime/internal-ports416/real-open-command-connect-info-close-and-child-exit: System.InvalidCastException: Unable to cast object of type 'Erlang.Atom' to type 'Erlang.PortTerm'.
+FAIL oracle/compiled-module/dynamic-apply477-whole-values-and-stacks: System.InvalidOperationException: Original dynamic apply values,full stacks or selected binding differ
+0/2 passed
+
+part1742-part1742-guarded-slots-tests-pinned-runtime:
+FAIL runtime/internal-ports416/real-open-command-connect-info-close-and-child-exit: System.InvalidCastException: Unable to cast object of type 'Erlang.Atom' to type 'Erlang.PortTerm'.
+FAIL oracle/compiled-module/dynamic-apply477-whole-values-and-stacks: System.InvalidOperationException: Original dynamic apply values,full stacks or selected binding differ
+0/2 passed
+
+Failures observed before stopping:
+FAIL runtime/dets/managed-public-otp-contracts
+FAIL runtime/dets/original-public-otp-contracts
+FAIL runtime/dets/managed-upstream-cases
+FAIL runtime/dets/original-upstream-cases
+FAIL runtime/atomics590/ets-domain-source-drop-destination-retirement
+FAIL runtime/internal-ports416/real-open-command-connect-info-close-and-child-exit
+FAIL HOST/internal-ports416/bad-flags-before-real-blocked-command-queue
+FAIL HOST/internal-ports416/connect-after-real-queued-close-and-invalid-target-order
+FAIL oracle/compiled-module/dynamic-apply477-whole-values-and-stacks
+FAIL runtime/library441/ets-compressed-real-storage-and-mutations
+FAIL runtime/library441/ets-compressed-read-lease-and-canceled-capture
+FAIL runtime/library442/ets-compressed-authentic-fun-key-value-owned-census
+FAIL runtime/library442/ets-compressed-source-roots-and-owner-resource-release
+FAIL runtime/library442/ets-compressed-mid-encode-cancellation
+FAIL runtime/library442/ets-compressed-mid-decode-cancellation
+FAIL runtime/library442/ets-compressed-foreign-owner-atomic-refusal
+FAIL oracle/compiled-module/ets442-compressed-mutations324-values-stacks-and-own-cursors
+FAIL HOST/library411/original-code-seven-interpreter-capability-profile
+FAIL runtime/ets-info420/native-binding-capability-rollback
+FAIL runtime/ets-info420/owned-dag-growth-and-fixation-retirement
+FAIL runtime/ets-info420/exact-owned-census-dedup-boundaries
+FAIL oracle/compiled-module/ets-source-info422-all216-full-typed-raw
+FAIL oracle/compiled-module/ets436-counter-hints192-whole-static-stacks-own-pid-proof
+FAIL oracle/compiled-module/ets442-compressed156-whole-values-and-stacks

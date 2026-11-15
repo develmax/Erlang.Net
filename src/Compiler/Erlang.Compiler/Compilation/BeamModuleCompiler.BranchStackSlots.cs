@@ -7,19 +7,46 @@ internal sealed partial class BeamModuleCompiler
 {
     private static (int Count, int[] Slots)? PlanBranchStackSlots(IReadOnlyList<BeamInstruction> body, int entry, int end)
     {
-        if (entry + 1 >= end || body[entry].Definition.Opcode != Label
-            || body[entry + 1].Definition.Opcode is not (Allocate or AllocateHeap))
+        if (entry + 1 >= end || body[entry].Definition.Opcode != Label)
         {
             return null;
         }
 
-        int frame = (int)body[entry + 1].Operands[0].Value;
+        int infoLabel = entry - 2;
+        while (infoLabel >= 0 && body[infoLabel].Definition.Opcode == Line)
+        {
+            infoLabel--;
+        }
+
+        int clauseFailure = infoLabel >= 0 && body[infoLabel].Definition.Opcode == Label
+            ? (int)body[infoLabel].Operands[0].Value : -1;
+        int allocation = entry + 1;
+        while (allocation < end && body[allocation].Definition.Opcode is not (Allocate or AllocateHeap))
+        {
+            var instruction = body[allocation];
+            if (instruction.Definition.Opcode != Line
+                && (!IsEntryFramePredicate(instruction.Definition.Opcode)
+                    || instruction.Operands.Any(operand => operand.Kind == BeamOperandParameters.Y
+                        || operand.Kind == BeamOperandParameters.Label && operand.Value != clauseFailure)))
+            {
+                return null;
+            }
+
+            allocation++;
+        }
+
+        if (allocation == end)
+        {
+            return null;
+        }
+
+        int frame = (int)body[allocation].Operands[0].Value;
         if (frame < 2 || frame > BeamOperandParameters.MaximumRegister)
         {
             return null;
         }
 
-        int start = entry + 2;
+        int start = allocation + 1;
         var labels = new Dictionary<int, int>();
         var firstUse = new int[frame];
         Array.Fill(firstUse, int.MaxValue);
@@ -46,14 +73,6 @@ internal sealed partial class BeamModuleCompiler
             }
         }
 
-        int infoLabel = entry - 2;
-        while (infoLabel >= 0 && body[infoLabel].Definition.Opcode == Line)
-        {
-            infoLabel--;
-        }
-
-        int clauseFailure = infoLabel >= 0 && body[infoLabel].Definition.Opcode == Label
-            ? (int)body[infoLabel].Operands[0].Value : -1;
         BigInteger[] masks = Enumerable.Range(0, frame).Select(slot => BigInteger.One << slot).ToArray();
         var live = new BigInteger[end - start + 1];
         var conflicts = new BigInteger[frame];

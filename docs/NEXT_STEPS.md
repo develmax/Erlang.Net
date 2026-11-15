@@ -1,5 +1,7 @@
 # Next steps
 
+Compare tuple projections assigned to Y slots and then copied into call registers with OTP projections directly into X registers. [Evidence](validation/part-1742/README.md).
+
 Compare remaining frame layouts and register assignments. [Evidence](validation/part-1741/README.md).
 
 Compare other proven writes before the first frame read or garbage collection point, starting with tuple extraction. 603 modules, 3776 functions, 7325 slots: get_tuple_element [Evidence](validation/part-1740/README.md).

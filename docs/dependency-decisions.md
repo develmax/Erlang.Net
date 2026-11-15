@@ -1,5 +1,7 @@
 # Dependency and compatibility decisions
 
+Part 1742 extends the existing branch liveness and stack allocation rewriting to functions with entry guards. No dependency was added. [Evidence](validation/part-1742/README.md).
+
 Part 1741 extends the existing frame initialization pass and reuses compact operand encoding. No dependency was added. [Evidence](validation/part-1741/README.md).
 
 Part 1740 extends the existing frame initialization pass and reuses compact operand encoding. No dependency was added. [Evidence](validation/part-1740/README.md).

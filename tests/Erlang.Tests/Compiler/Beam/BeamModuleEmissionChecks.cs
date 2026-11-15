@@ -422,6 +422,7 @@ internal static class BeamModuleEmissionChecks
         await CompareStructuralListEntry();
         await CompareLinearStackFrameTrim();
         await CompareBranchStackSlots();
+        CompareGuardedBranchStackSlots();
         CompareHeapCallResult();
         CompareMatchFailureLines();
         await CompareTrimFailureEdges();
@@ -635,6 +636,22 @@ internal static class BeamModuleEmissionChecks
         }
 
         static Term Step(Term value) => Term.Tuple(Term.A("step"), value);
+    }
+
+    private static void CompareGuardedBranchStackSlots()
+    {
+        const string file = "beam_guarded_branch_stack_slots.erl";
+        byte[] bytes = CodeGeneration.CompileBeamModule(Encoding.UTF8.GetString(Read(file)), file);
+        byte[] code = BeamDocumentationEmissionChecks.Chunks(bytes).Single(chunk => chunk.Id == "Code").Data;
+        // The first case's guard fails to func_info before the one-slot frame is allocated.
+        ReadOnlySpan<byte> guardedFrame =
+        [
+            BeamEmissionFormat.IsAtom, 0x15, 0x13, BeamEmissionFormat.Allocate, 0x10, 0x20
+        ];
+        if (code.AsSpan().IndexOf(guardedFrame) < 0)
+        {
+            throw new InvalidOperationException("Expected a one-slot branching frame after the entry guard.");
+        }
     }
 
     private static void CompareHeapCallResult()

@@ -1,5 +1,7 @@
 # Compatibility overview
 
+Part 1742 reuses branch stack slots past read-only entry guards with function-clause failure. [Evidence](validation/part-1742/README.md).
+
 Part 1741 lets early tuple and list projections initialize their Y destinations directly, accounting for preceding frame reads. [Evidence](validation/part-1741/README.md).
 
 Part 1740 lets early argument copies initialize their Y slots directly before any possible frame read. [Evidence](validation/part-1740/README.md).
