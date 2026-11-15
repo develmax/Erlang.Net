@@ -1,3 +1,5 @@
+Part 1735 reads a branch operand directly from the Y bank when its X copy is dead. Some call results still spill around selectors. [Evidence](validation/part-1735/README.md).
+
 Part 1734 allows ordinary branches to share frame slots. Larger frames caused by unnecessary lowering spills or complex control flow still differ. [Evidence](validation/part-1734/README.md).
 
 Part 1733 matches the OTP order in eligible independent call argument sequences. Partial and dependent setups still rely on the lowering that emitted them. One stack-load sequence in crashdump_viewer requires the pre-trim Y numbering. [Evidence](validation/part-1733/README.md).

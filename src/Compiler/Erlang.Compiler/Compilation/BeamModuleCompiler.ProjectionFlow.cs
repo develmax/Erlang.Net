@@ -236,6 +236,84 @@ internal sealed partial class BeamModuleCompiler
             return foundEnd;
         }
 
+        internal bool IsBranchTemporaryDead(int branch, BeamOperand temporary)
+        {
+            var visited = new HashSet<int>();
+            var pending = new Stack<int>(successors[branch]);
+            while (pending.TryPop(out int index))
+            {
+                if (!visited.Add(index))
+                {
+                    continue;
+                }
+
+                BeamInstruction instruction = body[index];
+                byte opcode = instruction.Definition.Opcode;
+                int implicitInputs = opcode switch
+                {
+                    LocalCall or ExternalCall or TailLocalCall or TailLocalCallWithFrame
+                        or TailExternalCall or TailExternalCallWithFrame => (int)instruction.Operands[0].Value,
+                    DynamicApply or TailDynamicApply => (int)instruction.Operands[0].Value + 2,
+                    CallFun => (int)instruction.Operands[0].Value + 1,
+                    Allocate or AllocateHeap or TestHeap or FunctionInfo => (int)instruction.Operands[^1].Value,
+                    Return => 1,
+                    _ => 0
+                };
+                if (temporary.Value < implicitInputs)
+                {
+                    return false;
+                }
+
+                if (opcode is LocalCall or ExternalCall or TailLocalCall or TailLocalCallWithFrame
+                    or TailExternalCall or TailExternalCallWithFrame or DynamicApply or TailDynamicApply
+                    or CallFun or FunctionInfo or Return)
+                {
+                    continue;
+                }
+
+                int destination = opcode switch
+                {
+                    Move or GetTupleElement or GetHead or GetTail or GetList or PutList or PutTuple =>
+                        StackWriteOperand(instruction),
+                    _ => -1
+                };
+                bool overwritten = false;
+                for (int position = 0; position < instruction.Operands.Count; position++)
+                {
+                    if (!SameProjectionRegister(instruction.Operands[position], temporary))
+                    {
+                        continue;
+                    }
+
+                    if (position != destination && !(opcode == GetList && position == 2))
+                    {
+                        return false;
+                    }
+
+                    overwritten = true;
+                }
+
+                if (overwritten || opcode is CaseEnd or BadMatch or BadRecord or IfEnd)
+                {
+                    continue;
+                }
+
+                if (destination < 0 && !(IsEntryFramePredicate(opcode) || opcode is Label or Line or Jump
+                    or SelectValue or SelectTupleArity or Allocate or AllocateHeap or Deallocate
+                    or InitYRegisters or TrimFrame or TestHeap))
+                {
+                    return false;
+                }
+
+                foreach (int target in successors[index])
+                {
+                    pending.Push(target);
+                }
+            }
+
+            return true;
+        }
+
         private static bool FallsThrough(byte opcode) => opcode is not (
             Jump or SelectValue or SelectTupleArity or EndCode or Return
             or TailLocalCall or TailExternalCall or TailLocalCallWithFrame or TailExternalCallWithFrame

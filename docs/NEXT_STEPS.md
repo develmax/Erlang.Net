@@ -1,5 +1,7 @@
 # Next steps
 
+Track original call results along branch successors and replace redundant stack saves and reloads when the result remains live in X0. The leading candidate is a call followed by a save before is_tuple in 3,625 functions across 571 modules. [Evidence](validation/part-1735/README.md).
+
 Trace oversized frames in 5,906 ordinary branching functions across 743 modules through their lowering and X-to-Y spills. Start by checking which Y slot writes are avoidable around calls and selectors. [Evidence](validation/part-1734/README.md).
 
 Extend stack slot liveness to ordinary branching functions with one oversized frame. This is the first frame difference for 6,477 functions across 761 modules. [Evidence](validation/part-1733/README.md).

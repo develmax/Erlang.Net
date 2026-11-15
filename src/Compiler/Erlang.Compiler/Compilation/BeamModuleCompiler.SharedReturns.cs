@@ -159,6 +159,7 @@ internal sealed partial class BeamModuleCompiler
                 ?? KeepTerminalCallResultsInX0(code, body, stackOperands)
                 ?? ForwardCallResult(code, body)
                 ?? EliminateEntryArgumentCopies(code, body, stackOperands)
+                ?? UseSavedBranchOperands(code, body)
                 ?? RemoveUnusedTrailingFrameSlots(code, body)
                 ?? ReallocateLeafFrameRegisters(code, body, stackOperands)
                 ?? DelayEntryStackFrame(code, body, stackOperands)

@@ -1,5 +1,7 @@
 # Compatibility overview
 
+Part 1735 reads saved registers directly for eligible BEAM predicates and selectors. [Evidence](validation/part-1735/README.md).
+
 Part 1734 reuses Y registers across eligible branches with one frame and maintains slot initialization and live values. [Evidence](validation/part-1734/README.md).
 
 Part 1733 matches the OTP schedule for eligible complete independent call argument moves. [Evidence](validation/part-1733/README.md).

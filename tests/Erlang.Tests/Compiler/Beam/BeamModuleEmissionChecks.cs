@@ -597,6 +597,12 @@ internal static class BeamModuleEmissionChecks
             throw new InvalidOperationException("Expected a two-slot frame for the branching function.");
         }
 
+        ReadOnlySpan<byte> savedSelector = [BeamEmissionFormat.SelectValue, 0x14];
+        if (code.AsSpan().IndexOf(savedSelector) < 0)
+        {
+            throw new InvalidOperationException("Expected branching to read its selector directly from the stack.");
+        }
+
         BeamModule image = BeamModule.Prepare(bytes);
         await using var runtime = new ProcessRuntime();
         Term value = Term.A("value");
