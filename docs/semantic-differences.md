@@ -1,3 +1,5 @@
+Part 1740 removes overwritten clears in X-to-Y argument copy prefixes. Other frame writes and initialization across branches still differ. [Evidence](validation/part-1740/README.md).
+
 Part 1739 removes repeated positions across labels in functions without exception handlers. Handler positions still require a separate comparison with OTP. [Evidence](validation/part-1739/README.md).
 
 Part 1738 removes repeated line instructions with identical positions within a block. Repeat positions across labels still differ. [Evidence](validation/part-1738/README.md).
