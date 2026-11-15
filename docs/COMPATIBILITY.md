@@ -1,5 +1,7 @@
 # Compatibility overview
 
+Part 1774 carries immediate computed arithmetic operands into GC BIFs in X0. [Evidence](validation/part-1774/README.md).
+
 Part 1773 folds fresh constant bindings through straight-line assignments and calls. [Evidence](validation/part-1773/README.md).
 
 Part 1772 moves tagged entry tests and safe tuple field projections before allocating a branch frame. [Evidence](validation/part-1772/README.md).

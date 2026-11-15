@@ -1000,10 +1000,10 @@ internal static class BeamModuleEmissionChecks
             """;
         byte[] beam = CodeGeneration.CompileBeamModule(source, "beam_straight_constants.erl");
         byte[] code = BeamDocumentationEmissionChecks.Chunks(beam).Single(chunk => chunk.Id == "Code").Data;
-        ReadOnlySpan<byte> frame = [BeamEmissionFormat.Allocate, 0x40, 0x10];
+        ReadOnlySpan<byte> frame = [BeamEmissionFormat.Allocate, 0x30, 0x10];
         if (code.AsSpan().IndexOf(frame) < 0)
         {
-            throw new InvalidOperationException("Expected constants to be loaded without occupying frame slots.");
+            throw new InvalidOperationException("Expected constants and immediate arithmetic operands to stay out of the frame.");
         }
     }
 

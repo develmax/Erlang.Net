@@ -1,5 +1,7 @@
 # Dependency and compatibility decisions
 
+Part 1774 reuses typed register and compact operand emission. No dependency was added. [Evidence](validation/part-1774/README.md).
+
 Part 1773 reuses constant normalization and existing expression lowering. No dependency was added. [Evidence](validation/part-1773/README.md).
 
 Part 1772 reuses the entry frame pass and compact operand writer for tagged projections. No dependency was added. [Evidence](validation/part-1772/README.md).

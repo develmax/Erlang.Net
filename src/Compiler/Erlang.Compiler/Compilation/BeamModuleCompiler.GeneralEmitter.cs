@@ -10133,25 +10133,75 @@ internal sealed partial class BeamModuleCompiler
             BeamSourceLocation? previousLine = null)
         {
             int operandBase = nextSlot;
-            int? left = GuardSlot(expression.Left, guardFailure);
-            int? right = GuardSlot(expression.Right, guardFailure);
+            bool needsGc = expression.Operator != ErlangOperators.Xor;
+            bool keepRegister = needsGc && guardFailure is null && owner.receiveScratchRegisters is null;
+            bool leftInX = keepRegister && CanKeepInX(expression.Left, expression.Right);
+            bool rightInX = keepRegister && !leftInX && CanKeepInX(expression.Right, expression.Left);
+            int? left = PrepareOperand(expression.Left, leftInX);
+            int? right = PrepareOperand(expression.Right, rightInX);
             if (guardFailure is null)
             {
                 var previous = previousLine ?? location;
                 owner.EmitArithmeticLine(expression.SourceLine, ref previous);
             }
-            bool needsGc = expression.Operator != ErlangOperators.Xor;
+
             owner.Op(needsGc ? GcBifTwo : BifTwo, LabelTag, guardFailure ?? 0);
             if (needsGc)
             {
-                owner.Operand(BeamWire.UnsignedTag, ReceiveGuardLiveRegisters);
+                owner.Operand(BeamWire.UnsignedTag, Math.Max(ReceiveGuardLiveRegisters, leftInX || rightInX ? 1 : 0));
             }
 
             owner.Operand(BeamWire.UnsignedTag, owner.Import(ErlangModuleNames.Module, expression.Operator, 2));
-            GuardOperand(expression.Left, left);
-            GuardOperand(expression.Right, right);
+            // OTP normalizes commutative arithmetic with the variable before the literal.
+            if (rightInX && left is null && expression.Operator is ErlangOperators.Plus or ErlangOperators.Multiply
+                or ErlangOperators.BitwiseAnd or ErlangOperators.BitwiseOr or ErlangOperators.BitwiseXor)
+            {
+                EmitOperand(expression.Right, right, inX: true);
+                EmitOperand(expression.Left, left, inX: false);
+            }
+            else
+            {
+                EmitOperand(expression.Left, left, leftInX);
+                EmitOperand(expression.Right, right, rightInX);
+            }
+
             owner.Operand(XRegisterTag, destination);
             ReleaseOperandSlots(operandBase);
+
+            bool CanKeepInX(Expr value, Expr other) =>
+                (value is Expr.Call { DynamicRemote: false }
+                    || value is Expr.Binary binary && IsRegisterArithmeticOperator(binary.Operator))
+                && !AttributeLiteral.TryNormalizeConstant(value, out _)
+                && (other is Expr.Variable variable && variables.ContainsKey(variable.Name)
+                    || AttributeLiteral.TryNormalizeConstant(other, out _));
+
+            int? PrepareOperand(Expr value, bool inX)
+            {
+                if (!inX)
+                {
+                    return GuardSlot(value, guardFailure);
+                }
+
+                Expression(value);
+
+                return null;
+            }
+
+            void EmitOperand(Expr value, int? slot, bool inX)
+            {
+                if (!inX)
+                {
+                    GuardOperand(value, slot);
+                }
+                else if (value is Expr.Binary binary && IsIntegerRegisterArithmetic(binary.Operator))
+                {
+                    owner.EmitTypedRegister(0, IntegerTypeBits);
+                }
+                else
+                {
+                    owner.Operand(XRegisterTag, 0);
+                }
+            }
         }
 
         private void ReleaseOperandSlots(int operandBase) =>

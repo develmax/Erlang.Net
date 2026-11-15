@@ -1,3 +1,5 @@
+Part 1774 avoids spills of immediate arithmetic inputs when the other operand is already available. [Evidence](validation/part-1774/README.md).
+
 Part 1773 keeps constant bindings out of call frames where the surrounding sequence has no nested binding scopes. [Evidence](validation/part-1773/README.md).
 
 Part 1772 delays frame allocation across tagged projections with proven register availability. Branch-local Y-slot compaction remains open. [Evidence](validation/part-1772/README.md).
