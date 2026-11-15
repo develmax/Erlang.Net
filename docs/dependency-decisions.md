@@ -1,5 +1,7 @@
 # Dependency and compatibility decisions
 
+Part 1773 reuses constant normalization and existing expression lowering. No dependency was added. [Evidence](validation/part-1773/README.md).
+
 Part 1772 reuses the entry frame pass and compact operand writer for tagged projections. No dependency was added. [Evidence](validation/part-1772/README.md).
 
 Part 1771 reuses register tuple tests, typed updates and branch-local call frames. No dependency was added. [Evidence](validation/part-1771/README.md).

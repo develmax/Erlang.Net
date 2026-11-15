@@ -1,5 +1,7 @@
 # Project progress
 
+Part 1773 compiled all 1,366 sources with 399 Equal and 967 Different. Compared 40 changed images. 5 normalized instruction matches were gained and 0 were lost. The reduction in absolute Code-size difference was 575 bytes. [Evidence](validation/part-1773/README.md).
+
 Part 1772 compiled all 1,366 sources with 399 Equal and 967 Different. The first disassembled difference changed from a tagged-tuple test versus allocation for 109 functions in 66 modules. [Evidence](validation/part-1772/README.md).
 
 Part 1771 compiled all 1,366 sources with 399 Equal and 967 Different. The release logger_handler_watcher image became byte-equal. [Evidence](validation/part-1771/README.md).

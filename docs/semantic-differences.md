@@ -1,3 +1,5 @@
+Part 1773 keeps constant bindings out of call frames where the surrounding sequence has no nested binding scopes. [Evidence](validation/part-1773/README.md).
+
 Part 1772 delays frame allocation across tagged projections with proven register availability. Branch-local Y-slot compaction remains open. [Evidence](validation/part-1772/README.md).
 
 Part 1771 matches shared tagged-message tests and branch-local frames for a record lookup and update. Further entry dispatch cases with an unconditional default still need branch-specific frame placement. [Evidence](validation/part-1771/README.md).

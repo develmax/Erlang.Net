@@ -1083,6 +1083,7 @@ internal sealed partial class BeamModuleCompiler
             if (recursiveClosure is null)
             {
                 function = FoldLeadingCaseConstants(FoldLeadingDynamicModule(function));
+                function = FoldStraightSequenceConstants(function);
             }
             if (recursiveClosure is null && (TryEmitAppendTupleBranches(function) || TryEmitSingletonListCheckedCalls(function, functionInfo) || TryEmitDynamicUnicodePair(function, functionInfo)))
             {

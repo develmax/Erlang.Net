@@ -429,6 +429,17 @@ internal sealed partial class BeamModuleCompiler
         private static Expr SubstituteConstants(Expr expression, IReadOnlyDictionary<string, Term> constants) => expression switch
         {
             Expr.Variable variable when constants.TryGetValue(variable.Name, out var value) => new Expr.Literal(value),
+            Expr.Unary unary => unary with { Operand = SubstituteConstants(unary.Operand, constants) },
+            Expr.Binary binary => binary with
+            {
+                Left = SubstituteConstants(binary.Left, constants),
+                Right = SubstituteConstants(binary.Right, constants)
+            },
+            Expr.RecordConstruction record => record with
+            {
+                Fields = record.Fields.Select(field => field with { Value = SubstituteConstants(field.Value, constants) }).ToArray(),
+                Wildcard = record.Wildcard is null ? null : SubstituteConstants(record.Wildcard, constants)
+            },
             Expr.Tuple tuple => tuple with { Items = tuple.Items.Select(item => SubstituteConstants(item, constants)).ToArray() },
             Expr.List list => list with
             {
@@ -443,6 +454,57 @@ internal sealed partial class BeamModuleCompiler
             },
             _ => expression
         };
+
+        private static FunctionDefinition FoldStraightSequenceConstants(FunctionDefinition function)
+        {
+            if (function.Clauses is not [{ Guard: null, Body: Expr.Sequence sequence } clause]
+                || !HasUnconditionalParameters(clause)
+                || !sequence.Items.SkipLast(1).Any(item => item is Expr.Match { Value: Expr.Literal }))
+            {
+                return function;
+            }
+
+            var bound = clause.Patterns.OfType<Pattern.Variable>().Select(pattern => pattern.Name).ToHashSet(StringComparer.Ordinal);
+            var constants = new Dictionary<string, Term>(StringComparer.Ordinal);
+            var items = new List<Expr>(sequence.Items.Count);
+            for (int index = 0; index < sequence.Items.Count; index++)
+            {
+                Expr item = sequence.Items[index];
+                var match = item as Expr.Match;
+                Expr value = match?.Value ?? item;
+                if (LocalFunctionEntries.Walk(value).Any(expression => expression is not (
+                    Expr.Literal or Expr.Variable or Expr.Tuple or Expr.List or Expr.Unary or Expr.Binary
+                    or Expr.RecordConstruction { Wildcard: null } or Expr.Call { DynamicRemote: false })))
+                {
+                    return function;
+                }
+
+                if (match is null)
+                {
+                    items.Add(SubstituteConstants(value, constants));
+                    continue;
+                }
+
+                // A repeated match reads the existing binding, so keep the original sequence.
+                if (match.Pattern is not Pattern.Variable binding || binding.Name == VariableScopeNames.Wildcard
+                    || !bound.Add(binding.Name))
+                {
+                    return function;
+                }
+
+                value = SubstituteConstants(value, constants);
+                if (index + 1 < sequence.Items.Count && AttributeLiteral.TryNormalizeConstant(value, out Term constant))
+                {
+                    constants.Add(binding.Name, constant);
+                }
+                else
+                {
+                    items.Add(match with { Value = value });
+                }
+            }
+
+            return constants.Count == 0 ? function : function with { Clauses = [clause with { Body = sequence with { Items = items } }] };
+        }
 
         private FunctionDefinition FoldEntryResultCase(FunctionDefinition function)
         {

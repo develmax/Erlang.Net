@@ -1,5 +1,7 @@
 # Compatibility overview
 
+Part 1773 folds fresh constant bindings through straight-line assignments and calls. [Evidence](validation/part-1773/README.md).
+
 Part 1772 moves tagged entry tests and safe tuple field projections before allocating a branch frame. [Evidence](validation/part-1772/README.md).
 
 Part 1771 uses branch-local frames for shared tagged tuple dispatch with lookup and record update. The Windows release logger_handler_watcher image matches byte for byte. [Evidence](validation/part-1771/README.md).

@@ -1,5 +1,7 @@
 # Next steps
 
+Keep an arithmetic operand in X0 when its producer is followed by a GC BIF and no other operand evaluation overwrites it. The part 1771 report identified excess call-result spills before GC BIFs in 1,023 functions across 297 modules. [Evidence](validation/part-1773/README.md).
+
 Compact live Y slots separately for each branch frame. A larger allocation in C# is the first difference for 8244 functions across 856 modules. [Evidence](validation/part-1772/README.md).
 
 Extend register-only entry tests to functions with a single tagged clause and an unconditional default. That is the largest classified group with a default, with 361 functions across 157 modules. [Evidence](validation/part-1771/README.md).
