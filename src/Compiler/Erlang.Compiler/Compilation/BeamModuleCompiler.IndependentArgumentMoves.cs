@@ -39,15 +39,38 @@ internal sealed partial class BeamModuleCompiler
             }
 
             int count = end - start;
-            if (count < 2 || count != body[call].Operands[0].Value + extraArguments
+            int arity = (int)body[call].Operands[0].Value + extraArguments;
+            if (count < 2 || count > arity
                 || start > 0 && body[start - 1].Definition.Opcode == Move)
             {
                 continue;
             }
 
-            // Only reschedule a complete setup with no reads of the registers it writes.
+            BeamOperand? constructed = null;
+            if (count != arity)
+            {
+                if (start == 0)
+                {
+                    continue;
+                }
+
+                BeamInstruction constructor = body[start - 1];
+                constructed = constructor.Definition.Opcode switch
+                {
+                    PutTuple => constructor.Operands[0],
+                    PutList => constructor.Operands[^1],
+                    _ => null
+                };
+                if (constructed is not { Kind: BeamOperandParameters.X } || constructed.Value >= arity)
+                {
+                    continue;
+                }
+            }
+
+            // A tuple or list can already occupy an outgoing register. Order only
+            // the remaining moves, provided they do not depend on their destinations.
             // Stack-only runs may already include loads scheduled in an earlier block.
-            var byDestination = new int[count];
+            var byDestination = new int[arity];
             Array.Fill(byDestination, -1);
             bool hasNonStackSource = false;
             bool independent = true;
@@ -55,8 +78,8 @@ internal sealed partial class BeamModuleCompiler
             {
                 BeamOperand source = body[index].Operands[0];
                 BeamOperand destination = body[index].Operands[1];
-                if (destination.Value >= count || byDestination[(int)destination.Value] >= 0
-                    || source.Kind == BeamOperandParameters.X && source.Value < count)
+                if (destination.Value >= arity || byDestination[(int)destination.Value] >= 0
+                    || source.Kind == BeamOperandParameters.X && source.Value < arity)
                 {
                     independent = false;
                     break;
@@ -66,15 +89,17 @@ internal sealed partial class BeamModuleCompiler
                 hasNonStackSource |= source.Kind != BeamOperandParameters.Y;
             }
 
-            if (!independent || !hasNonStackSource)
+            if (!independent || !hasNonStackSource
+                || constructed is not null && (byDestination[(int)constructed.Value] >= 0 || byDestination[0] < 0))
             {
                 continue;
             }
 
+            int[] present = count == arity ? byDestination : byDestination.Where(index => index >= 0).ToArray();
             int[] order = IndependentCallMoveOrder(count);
             for (int index = 0; index < order.Length; index++)
             {
-                order[index] = byDestination[order[index]];
+                order[index] = present[order[index]];
             }
 
             // beam_block sorts contiguous Y-to-X loads by source, excluding the final X0 move.

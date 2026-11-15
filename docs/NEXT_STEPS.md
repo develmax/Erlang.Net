@@ -1,5 +1,7 @@
 # Next steps
 
+Delay the spill to an aliased Y register until the next call arguments have been loaded. Reserve an X temporary for the first argument while X0 still holds the previous result. [Evidence](validation/part-1778/README.md).
+
 Apply OTP argument move order when a constructed argument already occupies its outgoing register. The preceding corpus contains 501 modules with candidate partially ordered call setups. [Evidence](validation/part-1777/README.md).
 
 Combine heap checks for adjacent construction without crossing a call, a garbage-collecting operation or a branch. Part 1775 contains 853 modules with excess split checks. [Evidence](validation/part-1776/README.md).

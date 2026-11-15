@@ -67,6 +67,21 @@ internal sealed partial class BeamModuleCompiler
                 continue;
             }
 
+            // Keep the original order when a move is not needed for the smaller frame.
+            for (int candidate = stores.Count - 1; candidate >= 0; candidate--)
+            {
+                int index = stores[candidate] - start;
+                (reordered[index], reordered[index + 1]) = (reordered[index + 1], reordered[index]);
+                if (PlanLinearStackSlots(reordered, 0, reordered.Length) is { } unchanged && unchanged.Count <= planned.Count)
+                {
+                    stores.RemoveAt(candidate);
+                }
+                else
+                {
+                    (reordered[index], reordered[index + 1]) = (reordered[index + 1], reordered[index]);
+                }
+            }
+
             // The next allocation pass can reuse the slot released by the earlier load.
             foreach (int store in stores)
             {
