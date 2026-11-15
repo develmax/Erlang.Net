@@ -100,7 +100,7 @@ internal sealed partial class BeamModuleCompiler
                 && IsPureImport((int)body[end].Operands[1].Value);
             int candidate = -1;
             int drop = 0;
-            List<(int Source, int Destination)>? moves = null;
+            List<(int Source, int Destination, bool Copy)>? moves = null;
             for (; start >= 0; start--)
             {
                 BeamInstruction instruction = body[start];
@@ -126,7 +126,7 @@ internal sealed partial class BeamModuleCompiler
                 {
                     var killed = instruction.Operands.Skip(1).Select(operand => (int)operand.Value).ToHashSet();
                     int last = (int)frame.Value - 1;
-                    var relocations = new List<(int Source, int Destination)>();
+                    var relocations = new List<(int Source, int Destination, bool Copy)>();
                     for (int trim = 1; trim <= last + 1; trim++)
                     {
                         int slot = trim - 1;
@@ -142,12 +142,13 @@ internal sealed partial class BeamModuleCompiler
                                 break;
                             }
 
-                            relocations.Add((slot, last--));
+                            // The suffix still needs the slot number when its first use is a write.
+                            relocations.Add((slot, last--, live.Contains(slot)));
                         }
 
                         var remainingKills = killed.Count(slot => slot >= trim
-                            && relocations.All(move => move.Destination != slot));
-                        int cost = remainingKills + relocations.Count;
+                            && relocations.All(move => !move.Copy || move.Destination != slot));
+                        int cost = remainingKills + relocations.Count(move => move.Copy);
                         if (useStrictCost)
                         {
                             cost += relocations.Count == 0 ? 1 : 2;
@@ -170,10 +171,7 @@ internal sealed partial class BeamModuleCompiler
                     useStrictCost = false;
                 }
 
-                if (frameOperand != 0)
-                {
-                    TrackTrimLiveness(instruction, live);
-                }
+                TrackTrimLiveness(instruction, live);
 
                 // Any use or write to a slot in the suffix prevents removing it
                 // without introducing a relocation or dropping an instruction.
@@ -209,9 +207,11 @@ internal sealed partial class BeamModuleCompiler
             {
                 output.Write(code.Span[copied..body[candidate].Offset]);
             }
-            var retained = body[candidate].Operands.Skip(1)
-                .Where(slot => slot.Value >= drop && moves.All(move => move.Destination != slot.Value))
-                .ToArray();
+            int[] retained = body[candidate].Operands.Skip(1)
+                .Where(slot => slot.Value >= drop && moves.All(move => !move.Copy || move.Destination != slot.Value))
+                .Select(slot => (int)slot.Value)
+                .Concat(moves.Where(move => !move.Copy).Select(move => move.Destination))
+                .Distinct().Order().ToArray();
             if (retained.Length != 0)
             {
                 output.WriteByte(InitYRegisters);
@@ -219,15 +219,18 @@ internal sealed partial class BeamModuleCompiler
                 BeamCompactWriter.Write(output, BeamWire.UnsignedTag, retained.Length);
                 foreach (var slot in retained)
                 {
-                    BeamCompactWriter.Write(output, YRegisterTag, resizeAllocation ? slot.Value - drop : slot.Value);
+                    BeamCompactWriter.Write(output, YRegisterTag, resizeAllocation ? slot - drop : slot);
                 }
             }
 
-            foreach (var (source, destination) in moves)
+            foreach (var (source, destination, copy) in moves)
             {
-                output.WriteByte(Move);
-                BeamCompactWriter.Write(output, YRegisterTag, source);
-                BeamCompactWriter.Write(output, YRegisterTag, destination);
+                if (copy)
+                {
+                    output.WriteByte(Move);
+                    BeamCompactWriter.Write(output, YRegisterTag, source);
+                    BeamCompactWriter.Write(output, YRegisterTag, destination);
+                }
             }
 
             if (!resizeAllocation)

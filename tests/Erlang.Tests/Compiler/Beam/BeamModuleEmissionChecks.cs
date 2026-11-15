@@ -372,6 +372,7 @@ internal static class BeamModuleEmissionChecks
         CompareEntryBifPlacement();
         CompareBifPredicateFrame();
         CompareGuardedFramePrefix();
+        CompareTaggedEntryBeforeBranchFrames();
         CompareTerminalCallFolding();
         CompareSharedReturnCallFolding();
         CompareUnreachableReturnRemoval();
@@ -962,13 +963,13 @@ internal static class BeamModuleEmissionChecks
             """;
         byte[] beam = CodeGeneration.CompileBeamModule(source, "beam_single_trim_slots.erl");
         byte[] code = BeamDocumentationEmissionChecks.Chunks(beam).Single(chunk => chunk.Id == "Code").Data;
-        ReadOnlySpan<byte> oneKept = [BeamEmissionFormat.TrimFrame, 0x10, 0x10];
-        ReadOnlySpan<byte> renumbered = [BeamEmissionFormat.TrimFrame, 0x20, 0x10, BeamEmissionFormat.GetTupleElement, 0x04];
+        ReadOnlySpan<byte> oneKept = [BeamEmissionFormat.Allocate, 0x10, 0x20, BeamEmissionFormat.Move, 0x03, 0x04];
+        ReadOnlySpan<byte> registerProjection = [BeamEmissionFormat.Allocate, 0x00, 0x20, BeamEmissionFormat.GetTupleElement, 0x03];
         ReadOnlySpan<byte> released = [BeamEmissionFormat.Deallocate, 0x10, BeamEmissionFormat.Return];
-        if (code.AsSpan().IndexOf(oneKept) < 0 || code.AsSpan().IndexOf(renumbered) < 0
+        if (code.AsSpan().IndexOf(oneKept) < 0 || code.AsSpan().IndexOf(registerProjection) < 0
             || code.AsSpan().IndexOf(released) < 0)
         {
-            throw new InvalidOperationException("Expected compact frames and renumbered Y registers after trim.");
+            throw new InvalidOperationException("Expected compact frames without copying unwritten Y registers.");
         }
     }
 
@@ -1512,6 +1513,38 @@ internal static class BeamModuleEmissionChecks
         if (code.AsSpan().IndexOf(guardedAllocation) < 0)
         {
             throw new InvalidOperationException("Expected the BIF result predicate before an allocation with no live X registers.");
+        }
+    }
+
+    private static void CompareTaggedEntryBeforeBranchFrames()
+    {
+        const string source = """
+            -module(beam_tagged_entry_frames).
+            -export([run/2]).
+            run({message,{one,X}}, Param) ->
+                V = first(X),
+                {V,Param};
+            run({message,{two,X}}, Param) ->
+                V = second(Param),
+                {V,X};
+            run(_Else, Param) ->
+                {default,Param}.
+            first(X) -> put(first,X).
+            second(X) -> put(second,X).
+            """;
+        byte[] beam = CodeGeneration.CompileBeamModule(source, "beam_tagged_entry_frames.erl");
+        byte[] code = BeamDocumentationEmissionChecks.Chunks(beam).Single(chunk => chunk.Id == "Code").Data;
+        ReadOnlySpan<byte> prefix =
+        [
+            BeamEmissionFormat.Label, 0x10,
+            BeamEmissionFormat.Line, 0x10,
+            BeamEmissionFormat.FunctionInfo, 0x12, 0x22, 0x20,
+            BeamEmissionFormat.Label, 0x20,
+            BeamEmissionFormat.IsTaggedTuple
+        ];
+        if (!code.AsSpan(sizeof(uint) + BeamEmissionFormat.CodeHeaderSize).StartsWith(prefix))
+        {
+            throw new InvalidOperationException("Expected tagged input tests before the branch frames.");
         }
     }
 

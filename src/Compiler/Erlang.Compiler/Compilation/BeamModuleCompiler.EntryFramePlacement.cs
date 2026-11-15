@@ -27,6 +27,12 @@ internal sealed partial class BeamModuleCompiler
                 start,
                 allocationIndex,
                 end
+            ) ?? PlanEntryFramePlacement(
+                body,
+                start,
+                allocationIndex,
+                end,
+                extendTaggedEntry: true
             );
             if (plan is { } placement)
             {
@@ -38,10 +44,30 @@ internal sealed partial class BeamModuleCompiler
                 for (int index = placement.First; index < end; index++)
                 {
                     BeamInstruction instruction = body[index];
-                    if (placement.FrameSite == index)
+                    if (placement.Frames.TryGetValue(index, out int frameLive))
                     {
                         output.Write(code.Span[copied..instruction.Offset]);
-                        output.Write(setup);
+                        int original = (int)body[allocationIndex].Operands[^1].Value;
+                        if (frameLive == original)
+                        {
+                            output.Write(setup);
+                        }
+                        else
+                        {
+                            int operandEnd = body[allocationIndex + 1].Offset;
+                            int width = CompactLiveWidth(original);
+                            output.Write(code.Span[allocation..(operandEnd - width)]);
+                            BeamCompactWriter.Write(output, BeamWire.UnsignedTag, frameLive);
+                            output.Write(code.Span[operandEnd..first]);
+                        }
+
+                        if (placement.ProjectedStores.TryGetValue(index, out var store))
+                        {
+                            output.WriteByte(Move);
+                            BeamCompactWriter.Write(output, XRegisterTag, store.Register);
+                            BeamCompactWriter.Write(output, YRegisterTag, store.Slot);
+                        }
+
                         copied = instruction.Offset;
                     }
 
@@ -51,6 +77,15 @@ internal sealed partial class BeamModuleCompiler
                     }
 
                     int next = body[index + 1].Offset;
+                    if (placement.HeapLives.TryGetValue(index, out int heapLive))
+                    {
+                        int original = (int)instruction.Operands[^1].Value;
+                        output.Write(code.Span[copied..(next - CompactLiveWidth(original))]);
+                        BeamCompactWriter.Write(output, BeamWire.UnsignedTag, heapLive);
+                        copied = next;
+                        continue;
+                    }
+
                     if (instruction.Definition.Opcode == Deallocate)
                     {
                         output.Write(code.Span[copied..instruction.Offset]);
@@ -129,13 +164,24 @@ internal sealed partial class BeamModuleCompiler
         return -1;
     }
 
-    private static (int First, Dictionary<int, int> Saved, HashSet<int> Delayed, int FrameSite)?
-        PlanEntryFramePlacement(
-            IReadOnlyList<BeamInstruction> body,
-            int start,
-            int allocationIndex,
-            int end
-        )
+    private sealed record EntryFramePlacement(
+        int First,
+        Dictionary<int, int> Saved,
+        HashSet<int> Delayed,
+        IReadOnlyDictionary<int, int> Frames,
+        IReadOnlyDictionary<int, int> HeapLives,
+        IReadOnlyDictionary<int, (int Slot, int Register)> ProjectedStores
+    );
+
+    private static int CompactLiveWidth(int live) => live < 1 << BeamWire.CompactSmallPayloadShift ? 1 : 2;
+
+    private static EntryFramePlacement? PlanEntryFramePlacement(
+        IReadOnlyList<BeamInstruction> body,
+        int start,
+        int allocationIndex,
+        int end,
+        bool extendTaggedEntry = false
+    )
     {
         BeamInstruction allocation = body[allocationIndex];
         int frameSize = (int)allocation.Operands[0].Value;
@@ -172,7 +218,9 @@ internal sealed partial class BeamModuleCompiler
             predicate++;
         }
 
-        if (predicate == end || !IsDelayedFramePredicate(body[predicate].Definition.Opcode))
+        if (predicate == end || !IsDelayedFramePredicate(body[predicate].Definition.Opcode)
+            || extendTaggedEntry && (allocationIndex != start + 1 || allocation.Definition.Opcode != Allocate
+                || body[predicate].Definition.Opcode != IsTaggedTuple))
         {
             return null;
         }
@@ -189,9 +237,17 @@ internal sealed partial class BeamModuleCompiler
         var delayed = new HashSet<int>();
         var required = new HashSet<int>();
         var parents = new Dictionary<int, int> { [first] = -1 };
-        var work = new Queue<int>();
-        work.Enqueue(first);
-        while (work.TryDequeue(out int index))
+        var registerLimits = new Dictionary<int, (int Live, bool Projected, bool MaybeProjected)>
+        {
+            [first] = (live, false, false)
+        };
+        int projectedSlot = -1;
+        var heapLives = new Dictionary<int, int>();
+        var constructors = new HashSet<int>();
+        var work = new PriorityQueue<int, int>();
+        int sequence = 0;
+        work.Enqueue(first, sequence++);
+        while (work.TryDequeue(out int index, out _))
         {
             if (index < first)
             {
@@ -205,8 +261,50 @@ internal sealed partial class BeamModuleCompiler
                 || opcode is Label or Line or Jump or BadMatch or BadRecord or CaseEnd or IfEnd or Return
                 || opcode == Move && deallocates && instruction.Operands[1] is { Kind: BeamOperandParameters.X, Value.IsZero: true }
                 || IsEntryFrameReturn(index);
+            var (registers, projected, maybeProjected) = extendTaggedEntry
+                ? registerLimits[index] : (live, false, false);
+            if (extendTaggedEntry)
+            {
+                if (instruction is { Definition.Opcode: GetTupleElement, Operands: [var tuple, _, var destination] }
+                    && (tuple.Kind != BeamOperandParameters.X || tuple.Value < registers))
+                {
+                    if (destination.Kind == BeamOperandParameters.X && destination.Value <= registers
+                        && !saved.Values.Contains((int)destination.Value)
+                        && (destination.Value < live || !maybeProjected))
+                    {
+                        supported = true;
+                        registers = Math.Max(registers, (int)destination.Value + 1);
+                    }
+                    else if (destination.Kind == BeamOperandParameters.Y && registers == live
+                        && !saved.ContainsKey((int)destination.Value)
+                        && (projectedSlot < 0 || destination.Value == projectedSlot)
+                        && (tuple.Kind != BeamOperandParameters.Y
+                            || saved.ContainsKey((int)tuple.Value) || projected && tuple.Value == projectedSlot))
+                    {
+                        supported = true;
+                        projectedSlot = (int)destination.Value;
+                        projected = maybeProjected = true;
+                    }
+                }
+                else if (opcode == TestHeap && IsTerminalConstructor(index + 1)
+                    && HeapRegisters(index + 1, projected) is int heapLive
+                    && heapLive <= registers + (projected ? 1 : 0))
+                {
+                    supported = true;
+                    constructors.Add(index + 1);
+                    if (heapLive > instruction.Operands[^1].Value)
+                    {
+                        heapLives.Add(index, heapLive);
+                    }
+                }
+                else
+                {
+                    supported |= constructors.Contains(index);
+                }
+            }
+
             if (!supported || instruction.Operands.Any(operand => operand.Kind == BeamOperandParameters.Y
-                    && !saved.ContainsKey((int)operand.Value)))
+                    && !saved.ContainsKey((int)operand.Value) && !(projected && operand.Value == projectedSlot)))
             {
                 required.Add(index);
                 continue;
@@ -215,21 +313,92 @@ internal sealed partial class BeamModuleCompiler
             delayed.Add(index);
             foreach (int next in Successors(index))
             {
+                if (extendTaggedEntry)
+                {
+                    if (next <= index)
+                    {
+                        return null;
+                    }
+
+                    if (!registerLimits.TryAdd(next, (registers, projected, maybeProjected)))
+                    {
+                        var prior = registerLimits[next];
+                        if (prior.Live != registers)
+                        {
+                            return null;
+                        }
+
+                        registerLimits[next] = (registers, projected && prior.Projected, maybeProjected || prior.MaybeProjected);
+                    }
+                }
+
                 if (parents.TryAdd(next, index))
                 {
-                    work.Enqueue(next);
+                    work.Enqueue(next, extendTaggedEntry ? next : sequence++);
                 }
             }
         }
 
-        if (!delayed.Contains(first))
+        if (!delayed.Contains(first) || extendTaggedEntry && !delayed.Any(index => body[index].Definition.Opcode == Return))
         {
             return null;
         }
 
+        var stores = new Dictionary<int, (int Slot, int Register)>();
         if (required.Count == 0)
         {
-            return (first, saved, delayed, -1);
+            if (projectedSlot >= 0)
+            {
+                saved.Add(projectedSlot, live);
+            }
+
+            return new(first, saved, delayed, new Dictionary<int, int>(), heapLives, stores);
+        }
+
+        if (extendTaggedEntry)
+        {
+            // A framed arm can share a tail with another framed arm, but must never enter an
+            // unframed block or allocate the frame again at another entry.
+            var framed = new HashSet<int>();
+            var pending = new Queue<int>(required.SelectMany(Successors));
+            while (pending.TryDequeue(out int reached))
+            {
+                if (reached < first || delayed.Contains(reached) || required.Contains(reached))
+                {
+                    return null;
+                }
+
+                if (framed.Add(reached))
+                {
+                    foreach (int next in Successors(reached))
+                    {
+                        pending.Enqueue(next);
+                    }
+                }
+            }
+
+            var frames = new Dictionary<int, int>();
+            foreach (int entry in required)
+            {
+                var state = registerLimits[entry];
+                if (state.Projected != state.MaybeProjected)
+                {
+                    return null;
+                }
+
+                frames.Add(entry, state.Live + (state.Projected ? 1 : 0));
+                if (state.Projected)
+                {
+                    stores.Add(entry, (projectedSlot, live));
+                }
+            }
+
+            if (projectedSlot >= 0)
+            {
+                saved.Add(projectedSlot, live);
+            }
+
+            return new(first, saved, delayed, frames, heapLives, stores);
         }
 
         // Every common dominator lies on the recorded path to any required instruction.
@@ -260,7 +429,7 @@ internal sealed partial class BeamModuleCompiler
                 }
             }
 
-            return (first, saved, prefix, site);
+            return new(first, saved, prefix, new Dictionary<int, int> { [site] = live }, heapLives, stores);
         }
 
         return null;
@@ -314,6 +483,51 @@ internal sealed partial class BeamModuleCompiler
             return false;
         }
 
+        bool IsTerminalConstructor(int index) => index + 2 < end
+            && body[index].Definition.Opcode is PutTuple or PutList
+            && IsEntryFrameReturn(index + 1);
+
+        int? HeapRegisters(int constructor, bool projected)
+        {
+            BeamInstruction instruction = body[constructor];
+            int resultIndex = instruction.Definition.Opcode == PutTuple ? 0 : instruction.Operands.Count - 1;
+            if (instruction.Operands[resultIndex] is not { Kind: BeamOperandParameters.X, Value.IsZero: true })
+            {
+                return null;
+            }
+
+            int registers = 0;
+            for (int index = 0; index < instruction.Operands.Count; index++)
+            {
+                if (index == resultIndex)
+                {
+                    continue;
+                }
+
+                BeamOperand operand = instruction.Operands[index];
+                if (operand.Kind == BeamOperandParameters.X)
+                {
+                    registers = Math.Max(registers, (int)operand.Value + 1);
+                }
+                else if (operand.Kind == BeamOperandParameters.Y)
+                {
+                    if (!saved.TryGetValue((int)operand.Value, out int input))
+                    {
+                        if (!projected || operand.Value != projectedSlot)
+                        {
+                            return null;
+                        }
+
+                        input = live;
+                    }
+
+                    registers = Math.Max(registers, input + 1);
+                }
+            }
+
+            return registers;
+        }
+
         bool IsEntryFrameReturn(int index) => index + 1 < end
             && body[index].Definition.Opcode == Deallocate && body[index].Operands[0].Value == frameSize
             && body[index + 1].Definition.Opcode == Return;
@@ -340,7 +554,7 @@ internal sealed partial class BeamModuleCompiler
         }
 
         bool IsDelayedFramePredicate(byte opcode) => IsEntryFramePredicate(opcode)
-            || allocationIndex != start + 1 && opcode is SelectValue or SelectTupleArity;
+            || (extendTaggedEntry || allocationIndex != start + 1) && opcode is SelectValue or SelectTupleArity;
     }
 
     private static bool IsEntryFramePredicate(byte opcode) => IsTrimTest(opcode)
