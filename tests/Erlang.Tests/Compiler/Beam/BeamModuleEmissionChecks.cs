@@ -345,6 +345,7 @@ internal static class BeamModuleEmissionChecks
         CompareTerminalCallResultConstructions();
         CompareEntryArgumentCopies();
         CompareEntryFrameInitialization();
+        CompareProjectionFrameInitialization();
         CompareTerminalCallFolding();
         CompareSharedReturnCallFolding();
         CompareUnreachableReturnRemoval();
@@ -701,6 +702,24 @@ internal static class BeamModuleEmissionChecks
         if (!beam.AsSpan().SequenceEqual(Read("beam_entry_initialization.beam")))
         {
             throw new InvalidOperationException("Expected the OTP frame allocation and register layout.");
+        }
+    }
+
+    private static void CompareProjectionFrameInitialization()
+    {
+        const string file = "beam_projection_initialization.erl";
+        byte[] beam = CodeGeneration.CompileBeamModule(Encoding.UTF8.GetString(Read(file)), file);
+        byte[] code = BeamDocumentationEmissionChecks.Chunks(beam).Single(chunk => chunk.Id == "Code").Data;
+        ReadOnlySpan<byte> frame =
+        [
+            BeamEmissionFormat.Allocate, 0x30, 0x10,
+            BeamEmissionFormat.Move, 0x03, 0x04,
+            BeamEmissionFormat.GetTupleElement, 0x04, 0x00, 0x14,
+            BeamEmissionFormat.GetTupleElement, 0x04, 0x10, 0x24
+        ];
+        if (code.AsSpan().IndexOf(frame) < 0)
+        {
+            throw new InvalidOperationException("Expected the tuple projections to initialize their frame slots.");
         }
     }
 

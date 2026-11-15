@@ -20,8 +20,7 @@ internal sealed partial class BeamModuleCompiler
 
             // Incoming X-to-Y copies neither read the frame nor trigger garbage collection.
             var initialized = new SortedSet<int>();
-            var lastAssignment = new Dictionary<int, int>();
-            bool overwritten = false;
+            var assigned = new HashSet<int>();
             int groups = 0;
             int end = index + 1;
             for (; end < body.Count; end++)
@@ -31,8 +30,8 @@ internal sealed partial class BeamModuleCompiler
                     && argument.Kind == BeamOperandParameters.X && slot.Kind == BeamOperandParameters.Y)
                 {
                     int register = (int)slot.Value;
-                    lastAssignment[register] = end;
-                    overwritten |= initialized.Remove(register);
+                    assigned.Add(register);
+                    initialized.Remove(register);
                 }
                 else if (instruction.Definition.Opcode == InitYRegisters)
                 {
@@ -50,33 +49,34 @@ internal sealed partial class BeamModuleCompiler
 
             bool consolidate = groups >= 2 && body[index - 1].Definition.Opcode == Label
                 && body[index - 2].Definition.Opcode == FunctionInfo
-                && !initialized.Any(lastAssignment.ContainsKey);
-            if ((!consolidate && !overwritten) || end >= body.Count)
+                && !initialized.Overlaps(assigned);
+            if (end >= body.Count)
             {
                 continue;
             }
 
-            output.Write(code.Span[copied..body[index + 1].Offset]);
-            if (consolidate)
+            if (!consolidate)
             {
-                WriteFrameInitialization(output, initialized);
+                var edits = FindOverwrittenFrameInitializations(body, index + 1);
+                for (int edit = edits.Count - 1; edit >= 0; edit--)
+                {
+                    var (instruction, retained) = edits[edit];
+                    output.Write(code.Span[copied..body[instruction].Offset]);
+                    WriteFrameInitialization(output, retained);
+                    copied = body[instruction + 1].Offset;
+                }
+
+                continue;
             }
 
+            output.Write(code.Span[copied..body[index + 1].Offset]);
+            WriteFrameInitialization(output, initialized);
             for (int move = index + 1; move < end; move++)
             {
                 BeamInstruction instruction = body[move];
                 if (instruction.Definition.Opcode == Move)
                 {
                     output.Write(code.Span[instruction.Offset..body[move + 1].Offset]);
-                }
-                else if (!consolidate)
-                {
-                    // Keep a clear that follows the slot's last assignment in this prefix.
-                    int[] retained = instruction.Operands.Skip(1)
-                        .Select(slot => (int)slot.Value)
-                        .Where(slot => lastAssignment.GetValueOrDefault(slot, -1) < move)
-                        .ToArray();
-                    WriteFrameInitialization(output, retained);
                 }
             }
 
@@ -92,6 +92,67 @@ internal sealed partial class BeamModuleCompiler
         output.Write(code.Span[copied..]);
 
         return output.ToArray();
+    }
+
+    private static List<(int Index, int[] Retained)> FindOverwrittenFrameInitializations(
+        IReadOnlyList<BeamInstruction> body,
+        int start
+    )
+    {
+        int end = start;
+        while (end + 1 < body.Count && body[end].Definition.Opcode is
+            Move or GetTupleElement or GetList or GetHead or GetTail or InitYRegisters or Line)
+        {
+            end++;
+        }
+
+        var overwritten = new HashSet<int>();
+        var edits = new List<(int Index, int[] Retained)>();
+        for (int index = end - 1; index >= start; index--)
+        {
+            BeamInstruction instruction = body[index];
+            byte opcode = instruction.Definition.Opcode;
+            if (opcode == Line)
+            {
+                continue;
+            }
+
+            if (opcode == InitYRegisters)
+            {
+                int[] retained = instruction.Operands.Skip(1)
+                    .Select(operand => (int)operand.Value)
+                    .Where(slot => !overwritten.Contains(slot))
+                    .ToArray();
+                if (retained.Length < instruction.Operands.Count - 1)
+                {
+                    edits.Add((index, retained));
+                }
+
+                continue;
+            }
+
+            int destination = StackWriteOperand(instruction);
+            for (int position = 0; position < instruction.Operands.Count; position++)
+            {
+                if (instruction.Operands[position].Kind == BeamOperandParameters.Y
+                    && (position == destination || opcode == GetList && position == 2))
+                {
+                    overwritten.Add((int)instruction.Operands[position].Value);
+                }
+            }
+
+            // Operand reads occur before the writes, including when the source aliases a destination.
+            for (int position = 0; position < instruction.Operands.Count; position++)
+            {
+                if (instruction.Operands[position].Kind == BeamOperandParameters.Y
+                    && position != destination && !(opcode == GetList && position == 2))
+                {
+                    overwritten.Remove((int)instruction.Operands[position].Value);
+                }
+            }
+        }
+
+        return edits;
     }
 
     private static void WriteFrameInitialization(Stream output, IReadOnlyCollection<int> slots)
