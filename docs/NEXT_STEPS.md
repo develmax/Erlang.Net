@@ -1,5 +1,7 @@
 # Next steps
 
+Move entry arguments before a literal overwrites their original X register. [Evidence](validation/part-1795/README.md).
+
 Defer the only tuple projection until the saved slot is reused by the call result. [Evidence](validation/part-1794/README.md).
 
 Read the next argument before spilling the previous result where doing so allows slot reuse. [Evidence](validation/part-1793/README.md).

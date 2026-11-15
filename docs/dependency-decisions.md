@@ -1,5 +1,7 @@
 # Dependency and compatibility decisions
 
+Part 1795. Reuse the deferred tuple-read analysis and the pinned OTP register order. No dependency was added. [Evidence](validation/part-1795/README.md).
+
 Part 1794. Reuse the linear slot planner, liveness proof and pinned OTP load-before-spill layout. No dependency was added. [Evidence](validation/part-1794/README.md).
 
 Part 1793. Reuse the guarded entry frame locator and the pinned OTP frame layout comparison. No dependency was added. [Evidence](validation/part-1793/README.md).

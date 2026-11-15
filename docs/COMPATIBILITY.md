@@ -1,5 +1,7 @@
 # Compatibility overview
 
+Part 1795. Keep the validated tuple in the stack slot and read the required field after the call. Allow the result to replace the tuple immediately after the field read. [Evidence](validation/part-1795/README.md).
+
 Part 1794. Use a dead X1 for the next argument when reading its last Y use before the result spill reduces the frame. Deliver the argument in X0 after the spill. [Evidence](validation/part-1794/README.md).
 
 Part 1793. Find frame allocation after an entry prefix using the existing proof for predicates and function-clause failure. Reuse the same linear slot planner and byte emitter. [Evidence](validation/part-1793/README.md).

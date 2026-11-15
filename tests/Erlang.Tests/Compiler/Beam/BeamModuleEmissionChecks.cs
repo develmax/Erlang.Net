@@ -1085,13 +1085,13 @@ internal static class BeamModuleEmissionChecks
         byte[] code = BeamDocumentationEmissionChecks.Chunks(beam).Single(chunk => chunk.Id == "Code").Data;
         ReadOnlySpan<byte> compactFrame = [BeamEmissionFormat.Allocate, 0x10, 0x20];
         ReadOnlySpan<byte> reusedSlot = [
-            BeamEmissionFormat.Move, 0x04, 0x13,
+            BeamEmissionFormat.GetTupleElement, 0x04, 0x20, 0x13,
             BeamEmissionFormat.Move, 0x03, 0x04,
             BeamEmissionFormat.Move, 0x13, 0x03
         ];
         if (code.AsSpan().IndexOf(compactFrame) < 0 || code.AsSpan().IndexOf(reusedSlot) < 0)
         {
-            throw new InvalidOperationException("Expected the next call to read the slot before it is reused for the result.");
+            throw new InvalidOperationException("Expected the deferred field read before the tuple slot is reused for the result.");
         }
     }
 

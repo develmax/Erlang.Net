@@ -208,7 +208,8 @@ internal sealed partial class BeamModuleCompiler
             {
                 reads.Reverse();
                 bool capture = source.Kind == BeamOperandParameters.X;
-                if (capture && (reads.Count < 2 || reads[^1].Definition - reads[0].Definition != reads.Count - 1))
+                if (capture && (reads[^1].Definition - reads[0].Definition != reads.Count - 1
+                    || reads.Count == 1 && !ReusesDeferredSlotForResult(body, reads[0], end)))
                 {
                     continue;
                 }
@@ -255,6 +256,21 @@ internal sealed partial class BeamModuleCompiler
 
         return null;
     }
+
+    private static bool ReusesDeferredSlotForResult(
+        IReadOnlyList<BeamInstruction> body,
+        DeferredTupleRead read,
+        int end
+    ) =>
+        read.Use + 1 < end
+        && body[read.Use - 1].Definition.Opcode is LocalCall or ExternalCall
+        && body[read.Use] is { Definition.Opcode: Move, Operands: [_, { Kind: BeamOperandParameters.X, Value.IsZero: false }] }
+        && body[read.Use + 1] is
+        {
+            Definition.Opcode: Move,
+            Operands: [{ Kind: BeamOperandParameters.X, Value.IsZero: true }, var destination]
+        }
+        && SameProjectionRegister(destination, read.Slot);
 
     private static bool IsDeferredSlotAlreadyCleared(
         IReadOnlyList<BeamInstruction> body,
