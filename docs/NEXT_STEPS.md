@@ -1,5 +1,7 @@
 # Next steps
 
+Read captured entry arguments from the original X registers where their values are still available. [Evidence](validation/part-1791/README.md).
+
 Keep the words, floats and funs allocation fields when combining the heap request with the frame. [Evidence](validation/part-1790/README.md).
 
 Store closure results directly in Y registers after proving the temporary X register is dead. [Evidence](validation/part-1789/README.md).

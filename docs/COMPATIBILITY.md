@@ -1,5 +1,7 @@
 # Compatibility overview
 
+Part 1791. Copy the compact heap operand when converting allocate and test_heap into allocate_heap. Remove slot initializers overwritten by closure construction before a read or collection. [Evidence](validation/part-1791/README.md).
+
 Part 1790. Replace make_fun3 plus an immediate X-to-Y copy with make_fun3 targeting the same Y slot when the original X value has no later use. Track closure destinations in entry register liveness. [Evidence](validation/part-1790/README.md).
 
 Part 1789. Replace an entry argument store with frame initialization when the lifetime analysis proves that the copied value has no reads. Allow frame and X-root compaction to follow. [Evidence](validation/part-1789/README.md).

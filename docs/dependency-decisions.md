@@ -1,5 +1,7 @@
 # Dependency and compatibility decisions
 
+Part 1791. Preserve the pinned OTP words, floats and funs allocation list. Reuse frame initialization analysis. No dependency was added. [Evidence](validation/part-1791/README.md).
+
 Part 1790. Reuse BEAM projection flow and the existing compact operand writer. Match the pinned OTP closure destination. No dependency was added. [Evidence](validation/part-1790/README.md).
 
 Part 1789. Reuse stack-copy lifetime analysis. Preserve initialized Y slots for collection before their first real write. No dependency was added. [Evidence](validation/part-1789/README.md).

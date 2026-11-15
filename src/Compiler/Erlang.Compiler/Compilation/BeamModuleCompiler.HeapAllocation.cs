@@ -115,7 +115,9 @@ internal sealed partial class BeamModuleCompiler
             output.Write(code.Span[copied..allocation.Offset]);
             output.WriteByte(AllocateHeap);
             BeamCompactWriter.Write(output, BeamWire.UnsignedTag, frame.Value);
-            BeamCompactWriter.Write(output, BeamWire.UnsignedTag, heap.Value);
+            // The decoded total does not retain the split between words, floats and funs.
+            int heapOperandEnd = body[end + 1].Offset - CompactLiveWidth((int)heapCheck.Operands[^1].Value);
+            output.Write(code.Span[(heapCheck.Offset + 1)..heapOperandEnd]);
             BeamCompactWriter.Write(output, BeamWire.UnsignedTag, live.Value);
             output.Write(code.Span[body[start + 1].Offset..heapCheck.Offset]);
             copied = body[end + 1].Offset;

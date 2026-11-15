@@ -1041,10 +1041,14 @@ internal static class BeamModuleEmissionChecks
             """;
         byte[] beam = CodeGeneration.CompileBeamModule(source, "beam_closure_result_stores.erl");
         byte[] code = BeamDocumentationEmissionChecks.Chunks(beam).Single(chunk => chunk.Id == "Code").Data;
-        ReadOnlySpan<byte> closureIntoStack = [BeamEmissionFormat.MakeFun, 0x00, 0x04];
+        ReadOnlySpan<byte> closureIntoStack = [
+            BeamEmissionFormat.AllocateHeap, 0x10, 0x37, 0x30,
+            0x00, 0x00, 0x10, 0x00, 0x20, 0x10, 0x10,
+            BeamEmissionFormat.MakeFun, 0x00, 0x04
+        ];
         if (code.AsSpan().IndexOf(closureIntoStack) < 0)
         {
-            throw new InvalidOperationException("Expected the closure to be stored directly in Y0.");
+            throw new InvalidOperationException("Expected a fun allocation followed by direct closure initialization of Y0.");
         }
     }
 

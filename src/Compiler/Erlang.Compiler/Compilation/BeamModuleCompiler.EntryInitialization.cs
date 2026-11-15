@@ -101,7 +101,7 @@ internal sealed partial class BeamModuleCompiler
     {
         int end = start;
         while (end + 1 < body.Count && body[end].Definition.Opcode is
-            Move or GetTupleElement or GetList or GetHead or GetTail or InitYRegisters or Line)
+            Move or GetTupleElement or GetList or GetHead or GetTail or MakeFun or InitYRegisters or Line)
         {
             end++;
         }
