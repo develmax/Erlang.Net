@@ -375,6 +375,7 @@ internal static class BeamModuleEmissionChecks
         CompareBifPredicateFrame();
         CompareGuardedFramePrefix();
         CompareTaggedEntryBeforeBranchFrames();
+        CompareListEntryBeforeBranchFrames();
         CompareTerminalCallFolding();
         CompareSharedReturnCallFolding();
         CompareUnreachableReturnRemoval();
@@ -1057,6 +1058,32 @@ internal static class BeamModuleEmissionChecks
         if (code.AsSpan().IndexOf(listConstruction) < 0 || code.AsSpan().IndexOf(recordConstruction) < 0)
         {
             throw new InvalidOperationException("Expected adjacent constructors to share a heap check with the initial live roots.");
+        }
+    }
+
+    private static void CompareListEntryBeforeBranchFrames()
+    {
+        const string source = """
+            -module(beam_list_entry_frame).
+            -export([run/2]).
+
+            run([Head | Tail], Keep) when is_integer(Head) ->
+                put(list_clause, Head),
+                {ok, Tail, Keep};
+            run(_, Keep) ->
+                {default, Keep}.
+            """;
+        byte[] beam = CodeGeneration.CompileBeamModule(source, "beam_list_entry_frame.erl");
+        byte[] code = BeamDocumentationEmissionChecks.Chunks(beam).Single(chunk => chunk.Id == "Code").Data;
+        ReadOnlySpan<byte> projection = [BeamEmissionFormat.GetList, 0x03, 0x23, 0x33];
+        ReadOnlySpan<byte> frame = [BeamEmissionFormat.Allocate, 0x30, 0x40];
+        ReadOnlySpan<byte> fallback = [BeamEmissionFormat.TestHeap, 0x30, 0x20, BeamEmissionFormat.PutTuple];
+        int fields = code.AsSpan().IndexOf(projection);
+        int allocation = code.AsSpan().IndexOf(frame);
+        int defaultResult = code.AsSpan().IndexOf(fallback);
+        if (fields < 0 || allocation <= fields || defaultResult <= allocation)
+        {
+            throw new InvalidOperationException("Expected list fields to be extracted before the framed branch.");
         }
     }
 

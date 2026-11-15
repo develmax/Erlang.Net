@@ -1,0 +1,301 @@
+Previous list or tuple tests versus allocation first differences whose shape changed.
+51 modules 81 functions {is_nonempty_list,{is_nonempty_list,is_nonempty_list}}
+31 modules 40 functions {is_nonempty_list,{allocate,get_list}}
+20 modules 25 functions {is_nonempty_list,{allocate_heap,get_list}}
+19 modules 23 functions {is_tuple,{is_tuple,is_tuple}}
+18 modules 28 functions {is_nonempty_list,{get_list,get_list}}
+7 modules 13 functions {is_tuple,{test_arity,test_arity}}
+6 modules 7 functions {is_tuple,{return,get_tuple_element}}
+5 modules 5 functions {is_nonempty_list,{select_val,is_ne_exact}}
+4 modules 4 functions {is_nonempty_list,{test_heap,get_list}}
+4 modules 4 functions {is_nonempty_list,{move,allocate}}
+4 modules 4 functions {is_nonempty_list,{is_ge,is_ge}}
+3 modules 3 functions {is_tuple,{get_tuple_element,get_tuple_element}}
+3 modules 3 functions {is_nonempty_list,matching}
+2 modules 2 functions {is_tuple,matching}
+2 modules 2 functions {is_nonempty_list,{{bif,element},allocate}}
+2 modules 2 functions {is_nonempty_list,{test_heap,allocate_heap}}
+1 modules 3 functions {is_nonempty_list,{gc_bif,allocate}}
+1 modules 2 functions {is_tuple,{allocate,slots_and_live,higher,higher}}
+1 modules 2 functions {is_tuple,{select_tuple_arity,test_arity}}
+1 modules 1 functions {is_tuple,{allocate,slots,higher}}
+1 modules 1 functions {is_tuple,{test_heap,get_tuple_element}}
+1 modules 1 functions {is_tuple,{test_heap,allocate}}
+1 modules 1 functions {is_tuple,{move,allocate}}
+1 modules 1 functions {is_tuple,{is_eq_exact,is_eq_exact}}
+1 modules 1 functions {is_tuple,{get_tuple_element,move}}
+1 modules 1 functions {is_tuple,{gc_bif,allocate}}
+1 modules 1 functions {is_tuple,{allocate_heap,get_tuple_element}}
+1 modules 1 functions {is_tuple,{allocate,get_tuple_element}}
+1 modules 1 functions {is_nonempty_list,{allocate,slots_and_live,higher,higher}}
+1 modules 1 functions {is_nonempty_list,{allocate,slots,higher}}
+1 modules 1 functions {is_nonempty_list,{line,allocate}}
+1 modules 1 functions {is_nonempty_list,{is_tuple,is_tagged_tuple}}
+1 modules 1 functions {is_nonempty_list,{allocate,get_tl}}
+lib/asn1-5.5.2/ebin/asn1ct.beam {'-make_erl_options/1-fun-0-',1} {is_tuple,{test_heap,get_tuple_element}}
+lib/asn1-5.5.2/ebin/asn1ct_check.beam {'-check_defaultfields/3-lc$^1/1-1-',1} {is_nonempty_list,{get_list,get_list}}
+lib/asn1-5.5.2/ebin/asn1ct_check.beam {'-format_fields/1-lc$^0/1-0-',1} {is_nonempty_list,{allocate_heap,get_list}}
+lib/asn1-5.5.2/ebin/asn1ct_check.beam {'-get_referenced_fieldname/1-lc$^0/1-0-',1} {is_nonempty_list,{get_list,get_list}}
+lib/asn1-5.5.2/ebin/asn1ct_check.beam {tuple2complist,1} {is_tuple,{is_tuple,is_tuple}}
+lib/asn1-5.5.2/ebin/asn1ct_constructed_per.beam {'-enc_extensions/5-lc$^0/1-0-',1} {is_nonempty_list,{allocate_heap,get_list}}
+lib/asn1-5.5.2/ebin/asn1ct_gen_ber_bin_v2.beam {'-gen_encode_default_call/3-lc$^0/1-0-',1} {is_nonempty_list,{is_nonempty_list,is_nonempty_list}}
+lib/asn1-5.5.2/ebin/asn1ct_gen_ber_bin_v2.beam {'-gen_inlined_enc_funs1/6-lc$^0/1-0-',1} {is_nonempty_list,{is_nonempty_list,is_nonempty_list}}
+lib/asn1-5.5.2/ebin/asn1ct_gen_ber_bin_v2.beam {'-suppress/1-lc$^0/1-0-',1} {is_nonempty_list,{allocate_heap,get_list}}
+lib/asn1-5.5.2/ebin/asn1ct_gen_jer.beam {'-suppress/1-lc$^0/1-0-',1} {is_nonempty_list,{allocate_heap,get_list}}
+lib/asn1-5.5.2/ebin/asn1ct_gen_per.beam {'-suppress/1-lc$^0/1-0-',1} {is_nonempty_list,{allocate_heap,get_list}}
+lib/asn1-5.5.2/ebin/asn1ct_parser2.beam {'-prioritize_error/1-lc$^0/1-0-',1} {is_nonempty_list,{get_list,get_list}}
+lib/asn1-5.5.2/ebin/asn1ct_parser2.beam {check_rest,1} {is_nonempty_list,{is_nonempty_list,is_nonempty_list}}
+lib/asn1-5.5.2/ebin/asn1ct_parser2.beam {parse_ExtensionAdditionAlternatives,1} {is_nonempty_list,{move,allocate}}
+lib/asn1-5.5.2/ebin/asn1ct_parser2.beam {parse_ExtensionAdditions,2} {is_nonempty_list,{allocate,slots_and_live,higher,higher}}
+lib/asn1-5.5.2/ebin/asn1ct_parser2.beam {parse_TypeOptionalitySpec,1} {is_nonempty_list,{is_nonempty_list,is_nonempty_list}}
+lib/asn1-5.5.2/ebin/asn1ct_parser2.beam {parse_ValueOptionalitySpec,1} {is_nonempty_list,{is_nonempty_list,is_nonempty_list}}
+lib/asn1-5.5.2/ebin/asn1ct_parser2.beam {parse_ValueSetOptionalitySpec,1} {is_nonempty_list,{is_nonempty_list,is_nonempty_list}}
+lib/asn1-5.5.2/ebin/asn1ct_partial_decode.beam {selective_decode1,2} {is_nonempty_list,{allocate,get_list}}
+lib/common_test-1.31.2/ebin/ct_gen_conn.beam {rc,3} {is_tuple,{is_eq_exact,is_eq_exact}}
+lib/common_test-1.31.2/ebin/ct_groups.beam {'-find_groups/4-lc$^0/1-0-',4} {is_nonempty_list,{allocate_heap,get_list}}
+lib/common_test-1.31.2/ebin/ct_groups.beam {'-override_props/4-lc$^0/1-0-',3} {is_nonempty_list,{get_list,get_list}}
+lib/common_test-1.31.2/ebin/ct_groups.beam {'-override_sub_props/4-lc$^0/1-0-',3} {is_nonempty_list,{get_list,get_list}}
+lib/common_test-1.31.2/ebin/ct_property_test.beam {mean,1} {is_nonempty_list,{is_nonempty_list,is_nonempty_list}}
+lib/common_test-1.31.2/ebin/ct_run.beam {'-run_test2/1-fun-3-',1} {is_tuple,{return,get_tuple_element}}
+lib/common_test-1.31.2/ebin/ct_run.beam {listify,1} {is_nonempty_list,matching}
+lib/common_test-1.31.2/ebin/ct_testspec.beam {'-handle_data/4-fun-7-',1} {is_tuple,{return,get_tuple_element}}
+lib/common_test-1.31.2/ebin/ct_util.beam {'-override_silence_connections/1-fun-0-',1} {is_tuple,{return,get_tuple_element}}
+lib/common_test-1.31.2/ebin/ct_util.beam {'-silence_connections/1-fun-0-',1} {is_tuple,{return,get_tuple_element}}
+lib/common_test-1.31.2/ebin/test_server_ctrl.beam {get_last_loc,1} {is_tuple,matching}
+lib/compiler-10.0.6/ebin/beam_core_to_ssa.beam {expand_pat_lit,1} {is_nonempty_list,{test_heap,get_list}}
+lib/compiler-10.0.6/ebin/beam_ssa.beam {'-common_dominators/3-lc$^0/1-0-',2} {is_nonempty_list,{get_list,get_list}}
+lib/compiler-10.0.6/ebin/beam_ssa.beam {'-def/2-lc$^0/1-0-',2} {is_nonempty_list,{get_list,get_list}}
+lib/compiler-10.0.6/ebin/beam_ssa.beam {'-def_unused/3-lc$^0/1-0-',2} {is_nonempty_list,{get_list,get_list}}
+lib/compiler-10.0.6/ebin/beam_ssa_codegen.beam {'-kill_yregs/2-lc$^0/1-0-',2} {is_nonempty_list,{get_list,get_list}}
+lib/compiler-10.0.6/ebin/beam_ssa_codegen.beam {'-num_live/2-lc$^0/1-0-',2} {is_nonempty_list,{get_list,get_list}}
+lib/compiler-10.0.6/ebin/beam_ssa_dead.beam {invert_test,1} {is_tuple,{is_tuple,is_tuple}}
+lib/compiler-10.0.6/ebin/beam_ssa_opt.beam {phase,4} {is_nonempty_list,{is_nonempty_list,is_nonempty_list}}
+lib/compiler-10.0.6/ebin/beam_ssa_pp.beam {'-format_type/1-lc$^0/1-0-',1} {is_nonempty_list,{allocate_heap,get_list}}
+lib/compiler-10.0.6/ebin/beam_ssa_pre_codegen.beam {find_loop_exit,2} {is_nonempty_list,{is_nonempty_list,is_nonempty_list}}
+lib/compiler-10.0.6/ebin/beam_ssa_ss.beam {'-prune/4-lc$^0/1-0-',2} {is_nonempty_list,{get_list,get_list}}
+lib/compiler-10.0.6/ebin/beam_ssa_ss.beam {meet_in_args,1} {is_nonempty_list,{is_nonempty_list,is_nonempty_list}}
+lib/compiler-10.0.6/ebin/beam_types.beam {verify_tuple_set,1} {is_nonempty_list,{is_tuple,is_tagged_tuple}}
+lib/compiler-10.0.6/ebin/cerl.beam {is_char_list,1} {is_nonempty_list,{is_nonempty_list,is_nonempty_list}}
+lib/compiler-10.0.6/ebin/cerl.beam {is_print_char_list,1} {is_nonempty_list,{get_list,get_list}}
+lib/compiler-10.0.6/ebin/cerl_inline.beam {'-i_case_3/4-lc$^0/1-0-',2} {is_nonempty_list,{allocate,get_list}}
+lib/compiler-10.0.6/ebin/cerl_inline.beam {'-i_case_3/4-lc$^1/1-1-',1} {is_nonempty_list,{is_nonempty_list,is_nonempty_list}}
+lib/compiler-10.0.6/ebin/cerl_inline.beam {equivalent_lists,3} {is_nonempty_list,{is_nonempty_list,is_nonempty_list}}
+lib/compiler-10.0.6/ebin/core_scan.beam {pre_char,2} {is_nonempty_list,{is_nonempty_list,is_nonempty_list}}
+lib/compiler-10.0.6/ebin/core_scan.beam {pre_scan,3} {is_nonempty_list,{get_list,get_list}}
+lib/compiler-10.0.6/ebin/core_scan.beam {scan_integer,3} {is_nonempty_list,{is_ge,is_ge}}
+lib/compiler-10.0.6/ebin/sys_coverage.beam {munge_comprehension,2} {is_nonempty_list,{allocate,get_list}}
+lib/compiler-10.0.6/ebin/v3_core.beam {'-mc_pairs/6-lc$^0/1-0-',3} {is_nonempty_list,{allocate_heap,get_list}}
+lib/compiler-10.0.6/ebin/v3_core.beam {ulinearize_exprs,2} {is_nonempty_list,{allocate,get_list}}
+lib/crypto-5.10/ebin/crypto.beam {map_ensure_int_as_bin,1} {is_nonempty_list,{test_heap,allocate_heap}}
+lib/crypto-5.10/ebin/crypto.beam {rand_plugin_aes_next,1} {is_nonempty_list,{test_heap,get_list}}
+lib/debugger-7.0/ebin/dbg_ieval.beam {eval_generate,6} {is_nonempty_list,{is_nonempty_list,is_nonempty_list}}
+lib/debugger-7.0/ebin/dbg_iserver.beam {keyinsert,3} {is_nonempty_list,{{bif,element},allocate}}
+lib/debugger-7.0/ebin/dbg_iserver.beam {send_all,3} {is_nonempty_list,{allocate,get_list}}
+lib/dialyzer-6.0.3/ebin/dialyzer_cl_parse.beam {'-parse_input_list/1-lc$^0/1-0-',1} {is_nonempty_list,{allocate,get_list}}
+lib/dialyzer-6.0.3/ebin/dialyzer_contracts.beam {locate_invalid_elems,2} {is_nonempty_list,{is_nonempty_list,is_nonempty_list}}
+lib/dialyzer-6.0.3/ebin/dialyzer_cplt.beam {'-compute_implementation_md5/0-lc$^0/1-0-',2} {is_nonempty_list,{allocate_heap,get_list}}
+lib/dialyzer-6.0.3/ebin/dialyzer_dataflow.beam {'-handle_guard_is_function/5-lc$^0/1-0-',1} {is_nonempty_list,{allocate,get_list}}
+lib/dialyzer-6.0.3/ebin/dialyzer_dataflow.beam {'-join_maps_end/2-lc$^1/1-0-',1} {is_nonempty_list,{is_nonempty_list,is_nonempty_list}}
+lib/dialyzer-6.0.3/ebin/dialyzer_typesig.beam {'-enumerate_constraints/1-lc$^0/1-0-',2} {is_nonempty_list,{allocate,get_list}}
+lib/dialyzer-6.0.3/ebin/dialyzer_typesig.beam {'-order_fun_constraints/1-lc$^0/1-0-',2} {is_nonempty_list,{allocate,get_list}}
+lib/dialyzer-6.0.3/ebin/dialyzer_utils.beam {'-get_location/2-fun-0-',1} {is_tuple,{return,get_tuple_element}}
+lib/dialyzer-6.0.3/ebin/erl_bif_types.beam {width,1} {is_tuple,{test_arity,test_arity}}
+lib/dialyzer-6.0.3/ebin/typer_core.beam {'-analyze_core_tree/7-lc$^0/1-0-',1} {is_nonempty_list,{allocate,get_list}}
+lib/diameter-2.7.2/ebin/diameter_dict_util.beam {'-header/3-lc$^0/1-1-',1} {is_nonempty_list,{allocate,get_list}}
+lib/diameter-2.7.2/ebin/diameter_dict_util.beam {'-header/3-lc$^1/1-0-',1} {is_nonempty_list,{allocate,get_list}}
+lib/diameter-2.7.2/ebin/diameter_dict_util.beam {vendor_id_mismatch,6} {is_tuple,{is_tuple,is_tuple}}
+lib/diameter-2.7.2/ebin/diameter_info.beam {'-vsn/1-lc$^0/1-0-',1} {is_nonempty_list,{allocate,get_list}}
+lib/diameter-2.7.2/ebin/diameter_peer.beam {addr,1} {is_nonempty_list,{line,allocate}}
+lib/diameter-2.7.2/ebin/diameter_service.beam {'-transport/2-lc$^0/1-0-',1} {is_nonempty_list,{get_list,get_list}}
+lib/diameter-2.7.2/ebin/diameter_traffic.beam {reset,5} {is_nonempty_list,{move,allocate}}
+lib/diameter-2.7.2/ebin/diameter_traffic.beam {send_A,7} {is_nonempty_list,{get_list,get_list}}
+lib/edoc-1.5/ebin/edoc_data.beam {'-function/6-lc$^0/1-0-',5} {is_nonempty_list,{allocate,get_list}}
+lib/edoc-1.5/ebin/edoc_data.beam {'-params/1-lc$^0/1-0-',1} {is_nonempty_list,{is_nonempty_list,is_nonempty_list}}
+lib/edoc-1.5/ebin/edoc_extract.beam {capitalize,1} {is_nonempty_list,{is_nonempty_list,is_nonempty_list}}
+lib/edoc-1.5/ebin/edoc_lib.beam {'-write_info_file/3-lc$^0/1-0-',1} {is_nonempty_list,{allocate_heap,get_list}}
+lib/edoc-1.5/ebin/edoc_scanner.beam {scan_integer,3} {is_nonempty_list,{is_ge,is_ge}}
+lib/edoc-1.5/ebin/edoc_specs.beam {'-spec/1-lc$^0/1-0-',2} {is_nonempty_list,{allocate,get_list}}
+lib/edoc-1.5/ebin/edoc_specs.beam {capitalize,1} {is_nonempty_list,{is_nonempty_list,is_nonempty_list}}
+lib/edoc-1.5/ebin/edoc_types.beam {'-arg_anns/3-lc$^0/1-0-',3} {is_nonempty_list,{get_list,get_list}}
+lib/edoc-1.5/ebin/edoc_types.beam {update,3} {is_nonempty_list,{is_nonempty_list,is_nonempty_list}}
+lib/erts-17.1/ebin/init.beam {fix_path,2} {is_nonempty_list,{is_nonempty_list,is_nonempty_list}}
+lib/erts-17.1/ebin/prim_inet.beam {decode_ifopts,2} {is_nonempty_list,{is_nonempty_list,is_nonempty_list}}
+lib/erts-17.1/ebin/prim_zip.beam {lists_foldl,3} {is_nonempty_list,{allocate,get_list}}
+lib/inets-9.8/ebin/httpd_custom.beam {upify2,1} {is_nonempty_list,{is_ge,is_ge}}
+lib/inets-9.8/ebin/httpd_util.beam {ip_address,2} {is_tuple,{is_tuple,is_tuple}}
+lib/kernel-11.0.4/ebin/application_controller.beam {'-handle_call/3-fun-0-',2} {is_tuple,{test_heap,allocate}}
+lib/kernel-11.0.4/ebin/application_controller.beam {'-reply_to_requester/3-fun-0-',4} {is_tuple,{allocate,slots_and_live,higher,higher}}
+lib/kernel-11.0.4/ebin/application_controller.beam {'-reply_to_stop_requester/2-fun-0-',3} {is_tuple,{allocate,slots_and_live,higher,higher}}
+lib/kernel-11.0.4/ebin/code_server.beam {add_paths,6} {is_nonempty_list,{is_nonempty_list,is_nonempty_list}}
+lib/kernel-11.0.4/ebin/code_server.beam {del_paths,4} {is_nonempty_list,{is_nonempty_list,is_nonempty_list}}
+lib/kernel-11.0.4/ebin/data_publisher.beam {'-init/1-lc$^0/1-0-',3} {is_nonempty_list,{is_nonempty_list,is_nonempty_list}}
+lib/kernel-11.0.4/ebin/disk_log_1.beam {get_size,2} {is_tuple,{get_tuple_element,get_tuple_element}}
+lib/kernel-11.0.4/ebin/disk_log_server.beam {'-do_all/0-lc$^0/1-0-',1} {is_nonempty_list,{get_list,get_list}}
+lib/kernel-11.0.4/ebin/inet.beam {set_bindx_port,2} {is_tuple,{return,get_tuple_element}}
+lib/kernel-11.0.4/ebin/inet_parse.beam {'-host_conf_bsdos/2-fun-0-',1} {is_nonempty_list,{get_list,get_list}}
+lib/kernel-11.0.4/ebin/inet_parse.beam {'-host_conf_linux/2-fun-0-',1} {is_nonempty_list,{get_list,get_list}}
+lib/kernel-11.0.4/ebin/inet_parse.beam {'-nsswitch_conf/2-fun-0-',1} {is_nonempty_list,{get_list,get_list}}
+lib/kernel-11.0.4/ebin/os.beam {verify_executable,3} {is_nonempty_list,{allocate,get_list}}
+lib/megaco-4.9.2/ebin/megaco.beam {'-find_file/2-lc$^0/1-0-',2} {is_nonempty_list,{allocate_heap,get_list}}
+lib/megaco-4.9.2/ebin/megaco_config.beam {'-system_info/1-lc$^2/1-1-',1} {is_nonempty_list,{is_nonempty_list,is_nonempty_list}}
+lib/megaco-4.9.2/ebin/megaco_config.beam {'-user_info/2-lc$^1/1-1-',1} {is_nonempty_list,{is_nonempty_list,is_nonempty_list}}
+lib/megaco-4.9.2/ebin/megaco_digit_map.beam {make_cont,3} {is_nonempty_list,{test_heap,get_list}}
+lib/megaco-4.9.2/ebin/megaco_text_scanner.beam {skip_comment_chars,2} {is_nonempty_list,{is_nonempty_list,is_nonempty_list}}
+lib/megaco-4.9.2/ebin/megaco_text_scanner.beam {skip_sep_chars,2} {is_nonempty_list,{is_nonempty_list,is_nonempty_list}}
+lib/mnesia-4.27/ebin/mnesia.beam {select_state,2} {is_tuple,{is_tuple,is_tuple}}
+lib/mnesia-4.27/ebin/mnesia_bup.beam {check_fallback_args,2} {is_nonempty_list,{is_nonempty_list,is_nonempty_list}}
+lib/mnesia-4.27/ebin/mnesia_frag.beam {'-lock/4-lc$^0/1-0-',4} {is_nonempty_list,{allocate_heap,get_list}}
+lib/mnesia-4.27/ebin/mnesia_frag.beam {'-replace_frag_hash/2-fun-0-',2} {is_tuple,{is_tuple,is_tuple}}
+lib/mnesia-4.27/ebin/mnesia_index.beam {'-del_ixes/5-lc$^0/1-0-',3} {is_nonempty_list,{allocate_heap,get_list}}
+lib/mnesia-4.27/ebin/mnesia_index.beam {'-del_ixes/5-lc$^1/1-1-',3} {is_nonempty_list,{allocate_heap,get_list}}
+lib/mnesia-4.27/ebin/mnesia_index.beam {'-put_index_vals/4-lc$^0/1-0-',3} {is_nonempty_list,{allocate_heap,get_list}}
+lib/mnesia-4.27/ebin/mnesia_index.beam {'-put_index_vals/4-lc$^1/1-1-',3} {is_nonempty_list,{allocate_heap,get_list}}
+lib/mnesia-4.27/ebin/mnesia_index.beam {add_ram_index,3} {is_tuple,{is_tuple,is_tuple}}
+lib/mnesia-4.27/ebin/mnesia_lib.beam {'-locking_procs/1-lc$^0/1-0-',1} {is_nonempty_list,{get_list,get_list}}
+lib/mnesia-4.27/ebin/mnesia_lib.beam {pad_name,3} {is_nonempty_list,{get_list,get_list}}
+lib/mnesia-4.27/ebin/mnesia_lib.beam {select_foldl,4} {is_tuple,{test_arity,test_arity}}
+lib/mnesia-4.27/ebin/mnesia_log.beam {'-rec_filter/4-lc$^0/1-0-',2} {is_nonempty_list,{allocate,get_list}}
+lib/mnesia-4.27/ebin/mnesia_log.beam {check_backup_args,2} {is_nonempty_list,{is_nonempty_list,is_nonempty_list}}
+lib/mnesia-4.27/ebin/mnesia_schema.beam {'-rec2list/4-fun-0-',1} {is_tuple,{return,get_tuple_element}}
+lib/mnesia-4.27/ebin/mnesia_schema.beam {'-verify_external_copies/1-fun-3-',4} {is_tuple,{is_tuple,is_tuple}}
+lib/mnesia-4.27/ebin/mnesia_schema.beam {good_ix_pos,4} {is_tuple,{move,allocate}}
+lib/observer-2.19/ebin/observer_lib.beam {timer_config,1} {is_tuple,{test_arity,test_arity}}
+lib/observer-2.19/ebin/observer_trace_wx.beam {'-write_file/3-lc$^0/1-1-',1} {is_nonempty_list,{allocate_heap,get_list}}
+lib/observer-2.19/ebin/observer_trace_wx.beam {'-write_file/3-lc$^1/1-0-',1} {is_nonempty_list,{allocate_heap,get_list}}
+lib/observer-2.19/ebin/observer_wx.beam {'-save_config/1-lc$^1/1-1-',1} {is_nonempty_list,{allocate_heap,get_list}}
+lib/parsetools-2.8/ebin/leex.beam {pack_dfa,4} {is_nonempty_list,{is_nonempty_list,is_nonempty_list}}
+lib/parsetools-2.8/ebin/leex.beam {re_seq1,3} {is_nonempty_list,{is_nonempty_list,is_nonempty_list}}
+lib/parsetools-2.8/ebin/yecc.beam {'-pp_tokens/1-lc$^0/1-0-',1} {is_nonempty_list,{allocate,get_list}}
+lib/parsetools-2.8/ebin/yecc.beam {merge_states1,2} {is_nonempty_list,{is_nonempty_list,is_nonempty_list}}
+lib/public_key-1.21.7/ebin/AttributeCertificateVersion1-2009.beam {'-dec_AttributeCertificateInfoV1_attributes_AttributeSet_values/3-lc$^0/1-0-',2} {is_nonempty_list,{is_nonempty_list,is_nonempty_list}}
+lib/public_key-1.21.7/ebin/CryptographicMessageSyntax-2009.beam {'-dec_AuthAttributes_Attribute_attrValues/3-lc$^0/1-0-',2} {is_nonempty_list,{is_nonempty_list,is_nonempty_list}}
+lib/public_key-1.21.7/ebin/CryptographicMessageSyntax-2009.beam {'-dec_EncryptedData_unprotectedAttrs_Attribute_attrValues/3-lc$^0/1-0-',2} {is_nonempty_list,{is_nonempty_list,is_nonempty_list}}
+lib/public_key-1.21.7/ebin/CryptographicMessageSyntax-2009.beam {'-dec_EnvelopedData_unprotectedAttrs_Attribute_attrValues/3-lc$^0/1-0-',2} {is_nonempty_list,{is_nonempty_list,is_nonempty_list}}
+lib/public_key-1.21.7/ebin/CryptographicMessageSyntax-2009.beam {'-dec_SignedAttributes_Attribute_attrValues/3-lc$^0/1-0-',2} {is_nonempty_list,{is_nonempty_list,is_nonempty_list}}
+lib/public_key-1.21.7/ebin/CryptographicMessageSyntax-2009.beam {'-dec_SignerInfo_unsignedAttrs_Attribute_attrValues/3-lc$^0/1-0-',2} {is_nonempty_list,{is_nonempty_list,is_nonempty_list}}
+lib/public_key-1.21.7/ebin/CryptographicMessageSyntax-2009.beam {'-dec_UnauthAttributes_Attribute_attrValues/3-lc$^0/1-0-',2} {is_nonempty_list,{is_nonempty_list,is_nonempty_list}}
+lib/public_key-1.21.7/ebin/EnrollmentMessageSyntax-2009.beam {'-dec_CertificationRequest_certificationRequestInfo_attributes_AttributeSet_values/3-lc$^0/1-0-',2} {is_nonempty_list,{is_nonempty_list,is_nonempty_list}}
+lib/public_key-1.21.7/ebin/EnrollmentMessageSyntax-2009.beam {'-dec_TaggedAttribute_attrValues/3-lc$^0/1-0-',2} {is_nonempty_list,{is_nonempty_list,is_nonempty_list}}
+lib/public_key-1.21.7/ebin/PKCS-10.beam {'-dec_CertificationRequestInfo_attributes_Attribute_values/3-lc$^0/1-0-',2} {is_nonempty_list,{is_nonempty_list,is_nonempty_list}}
+lib/public_key-1.21.7/ebin/PKCS-FRAME.beam {'-dec_Attributes_Attribute_attrValues/3-lc$^0/1-0-',2} {is_nonempty_list,{is_nonempty_list,is_nonempty_list}}
+lib/public_key-1.21.7/ebin/PKIX-X400Address-2009.beam {'-dec_PDSParameter/2-fun-0-',1} {is_tuple,{is_tuple,is_tuple}}
+lib/public_key-1.21.7/ebin/PKIX-X400Address-2009.beam {'-dec_PersonalName/2-fun-0-',1} {is_tuple,{is_tuple,is_tuple}}
+lib/public_key-1.21.7/ebin/PKIX-X400Address-2009.beam {'-dec_ea-teletexPersonalName_Type/2-fun-0-',1} {is_tuple,{is_tuple,is_tuple}}
+lib/public_key-1.21.7/ebin/PKIX-X400Address-2009.beam {'-dec_ea-unformattedPostalAddress_Type/2-fun-0-',1} {is_tuple,{is_tuple,is_tuple}}
+lib/public_key-1.21.7/ebin/PKIX1Implicit-2009.beam {'-dec_SubjectDirectoryAttributes_AttributeSet_values/3-lc$^0/1-0-',2} {is_nonempty_list,{is_nonempty_list,is_nonempty_list}}
+lib/public_key-1.21.7/ebin/PKIXAttributeCertificate-2009.beam {'-dec_ACClearAttrs_attrs_AttributeSet_values/3-lc$^0/1-0-',2} {is_nonempty_list,{is_nonempty_list,is_nonempty_list}}
+lib/public_key-1.21.7/ebin/PKIXAttributeCertificate-2009.beam {'-dec_AttributeCertificateInfo_attributes_AttributeSet_values/3-lc$^0/1-0-',2} {is_nonempty_list,{is_nonempty_list,is_nonempty_list}}
+lib/public_key-1.21.7/ebin/PKIXCRMF-2009.beam {'-dec_Attributes_AttributeSet_values/3-lc$^0/1-0-',2} {is_nonempty_list,{is_nonempty_list,is_nonempty_list}}
+lib/public_key-1.21.7/ebin/pubkey_pem.beam {'-hexify/1-lc$^0/1-0-',1} {is_nonempty_list,{allocate,get_list}}
+lib/reltool-1.1/ebin/reltool_server.beam {'-add_missing_mods/3-lc$^0/1-0-',1} {is_nonempty_list,{is_nonempty_list,is_nonempty_list}}
+lib/reltool-1.1/ebin/reltool_sys_win.beam {'-add_release_page/2-lc$^0/1-0-',1} {is_nonempty_list,{is_nonempty_list,is_nonempty_list}}
+lib/reltool-1.1/ebin/reltool_sys_win.beam {'-add_release_page/2-lc$^1/1-1-',1} {is_nonempty_list,{allocate,get_list}}
+lib/reltool-1.1/ebin/reltool_target.beam {'-spec_dir/1-lc$^0/1-0-',2} {is_nonempty_list,{allocate_heap,get_list}}
+lib/runtime_tools-2.5/ebin/observer_backend.beam {inet_port_extra,2} {is_tuple,{is_tuple,is_tuple}}
+lib/sasl-4.4/ebin/systools_make.beam {read_application,6} {is_nonempty_list,{is_nonempty_list,is_nonempty_list}}
+lib/sasl-4.4/ebin/systools_relup.beam {fix_r15_sasl_upgrade,3} {is_nonempty_list,{allocate,slots,higher}}
+lib/snmp-5.20.5/ebin/snmp_log.beam {next_seqno,1} {is_tuple,{allocate,get_tuple_element}}
+lib/snmp-5.20.5/ebin/snmp_view_based_acm_mib.beam {'-externalize_next/2-fun-0-',2} {is_tuple,{allocate,slots,higher}}
+lib/snmp-5.20.5/ebin/snmp_view_based_acm_mib.beam {split_cols,2} {is_nonempty_list,{test_heap,allocate_heap}}
+lib/ssh-6.0.6/ebin/ssh_file.beam {'-unhex/1-fun-0-',2} {is_tuple,{allocate_heap,get_tuple_element}}
+lib/ssh-6.0.6/ebin/ssh_options.beam {'-default/1-fun-2-',1} {is_tuple,{is_tuple,is_tuple}}
+lib/ssh-6.0.6/ebin/ssh_options.beam {'-default/1-fun-48-',1} {is_tuple,{is_tuple,is_tuple}}
+lib/ssh-6.0.6/ebin/ssh_sftpd.beam {'-terminate/2-fun-0-',3} {is_tuple,{is_tuple,is_tuple}}
+lib/ssh-6.0.6/ebin/ssh_transport.beam {'-random_id/2-lc$^0/1-0-',1} {is_nonempty_list,{allocate,get_tl}}
+lib/ssl-11.7.7/ebin/ssl.beam {'-do_cipher_suites/3-lc$^0/1-0-',1} {is_nonempty_list,{allocate,get_list}}
+lib/ssl-11.7.7/ebin/ssl.beam {'-do_cipher_suites/3-lc$^1/1-1-',1} {is_nonempty_list,{allocate,get_list}}
+lib/ssl-11.7.7/ebin/ssl_certificate.beam {'-find_issuer/5-fun-0-',5} {is_tuple,{is_tuple,is_tuple}}
+lib/ssl-11.7.7/ebin/ssl_config.beam {handle_cb_info,1} {is_tuple,{is_tuple,is_tuple}}
+lib/ssl-11.7.7/ebin/ssl_pkix_db.beam {'-remove/1-fun-0-',1} {is_tuple,{is_tuple,is_tuple}}
+lib/ssl-11.7.7/ebin/ssl_trace.beam {'-disable_profile/1-lc$^0/1-0-',2} {is_nonempty_list,{allocate_heap,get_list}}
+lib/ssl-11.7.7/ebin/ssl_trace.beam {'-enable_profile/1-lc$^0/1-0-',2} {is_nonempty_list,{allocate_heap,get_list}}
+lib/ssl-11.7.7/ebin/tls_handshake_1_3.beam {plausible_missing_chain,5} {is_nonempty_list,{is_nonempty_list,is_nonempty_list}}
+lib/stdlib-8.1/ebin/array.beam {old_sparse_foldl_1,6} {is_tuple,{gc_bif,allocate}}
+lib/stdlib-8.1/ebin/dets.beam {'-close_files/3-fun-0-',1} {is_tuple,{get_tuple_element,get_tuple_element}}
+lib/stdlib-8.1/ebin/dets_v9.beam {'-table_parameters/1-fun-0-',2} {is_tuple,matching}
+lib/stdlib-8.1/ebin/digraph_utils.beam {ptraverse,6} {is_nonempty_list,{is_nonempty_list,is_nonempty_list}}
+lib/stdlib-8.1/ebin/edlin_type_suggestion.beam {'-lookup_type/4-fun-1-',3} {is_tuple,{is_tuple,is_tuple}}
+lib/stdlib-8.1/ebin/epp.beam {'-com_enc_end/1-lc$^0/1-0-',1} {is_nonempty_list,{allocate,get_list}}
+lib/stdlib-8.1/ebin/epp.beam {expand_var,1} {is_nonempty_list,{is_nonempty_list,is_nonempty_list}}
+lib/stdlib-8.1/ebin/erl_error.beam {count_nl,1} {is_nonempty_list,{allocate,get_list}}
+lib/stdlib-8.1/ebin/erl_eval.beam {'-reset_expr_anno/1-lc$^0/1-0-',1} {is_nonempty_list,{allocate,get_list}}
+lib/stdlib-8.1/ebin/erl_eval.beam {eval_generate,9} {is_nonempty_list,{is_nonempty_list,is_nonempty_list}}
+lib/stdlib-8.1/ebin/erl_lint.beam {depr_cat,3} {is_tuple,{select_tuple_arity,test_arity}}
+lib/stdlib-8.1/ebin/erl_lint.beam {unsafe_cat,3} {is_tuple,{select_tuple_arity,test_arity}}
+lib/stdlib-8.1/ebin/escript.beam {'-set_primary_archive/2-lc$^0/1-0-',2} {is_nonempty_list,{allocate_heap,get_list}}
+lib/stdlib-8.1/ebin/file_sorter.beam {fun_binloop,5} {is_nonempty_list,{gc_bif,allocate}}
+lib/stdlib-8.1/ebin/file_sorter.beam {fun_keyloop,8} {is_nonempty_list,{gc_bif,allocate}}
+lib/stdlib-8.1/ebin/file_sorter.beam {fun_loop,6} {is_nonempty_list,{gc_bif,allocate}}
+lib/stdlib-8.1/ebin/file_sorter.beam {is_files,2} {is_nonempty_list,{allocate,get_list}}
+lib/stdlib-8.1/ebin/filelib.beam {'-do_wildcard_4/3-lc$^1/1-1-',2} {is_nonempty_list,{allocate,get_list}}
+lib/stdlib-8.1/ebin/filename.beam {'-basedir/3-lc$^0/1-0-',2} {is_nonempty_list,{allocate_heap,get_list}}
+lib/stdlib-8.1/ebin/gb_sets.beam {map_1,3} {is_tuple,{test_arity,test_arity}}
+lib/stdlib-8.1/ebin/gb_sets.beam {to_list,2} {is_tuple,{test_arity,test_arity}}
+lib/stdlib-8.1/ebin/gb_trees.beam {keys,2} {is_tuple,{test_arity,test_arity}}
+lib/stdlib-8.1/ebin/gb_trees.beam {to_list,2} {is_tuple,{test_arity,test_arity}}
+lib/stdlib-8.1/ebin/gb_trees.beam {values,2} {is_tuple,{test_arity,test_arity}}
+lib/stdlib-8.1/ebin/graph.beam {pretraverse_1,6} {is_nonempty_list,{is_nonempty_list,is_nonempty_list}}
+lib/stdlib-8.1/ebin/io_lib.beam {char_list,1} {is_nonempty_list,{is_nonempty_list,is_nonempty_list}}
+lib/stdlib-8.1/ebin/io_lib.beam {deep_char_list,2} {is_nonempty_list,{is_nonempty_list,is_nonempty_list}}
+lib/stdlib-8.1/ebin/io_lib_format.beam {field_value,3} {is_nonempty_list,{is_ge,is_ge}}
+lib/stdlib-8.1/ebin/lists.beam {keymap,3} {is_nonempty_list,{get_list,get_list}}
+lib/stdlib-8.1/ebin/lists.beam {keymerge_1,3} {is_nonempty_list,{is_nonempty_list,is_nonempty_list}}
+lib/stdlib-8.1/ebin/lists.beam {merge,2} {is_nonempty_list,{is_nonempty_list,is_nonempty_list}}
+lib/stdlib-8.1/ebin/lists.beam {merge_1,3} {is_nonempty_list,{is_nonempty_list,is_nonempty_list}}
+lib/stdlib-8.1/ebin/lists.beam {rkeymerge_1,3} {is_nonempty_list,{is_nonempty_list,is_nonempty_list}}
+lib/stdlib-8.1/ebin/lists.beam {rmerge,2} {is_nonempty_list,{is_nonempty_list,is_nonempty_list}}
+lib/stdlib-8.1/ebin/lists.beam {rmerge_1,3} {is_nonempty_list,{is_nonempty_list,is_nonempty_list}}
+lib/stdlib-8.1/ebin/lists.beam {rukeymerge_1,3} {is_nonempty_list,{is_nonempty_list,is_nonempty_list}}
+lib/stdlib-8.1/ebin/lists.beam {rumerge,2} {is_nonempty_list,{is_nonempty_list,is_nonempty_list}}
+lib/stdlib-8.1/ebin/lists.beam {rumerge_1,3} {is_nonempty_list,{is_nonempty_list,is_nonempty_list}}
+lib/stdlib-8.1/ebin/lists.beam {ufsplit_2,4} {is_nonempty_list,{is_nonempty_list,is_nonempty_list}}
+lib/stdlib-8.1/ebin/lists.beam {ukeysort_1,4} {is_nonempty_list,{get_list,get_list}}
+lib/stdlib-8.1/ebin/lists.beam {ukeysplit_2,5} {is_nonempty_list,{get_list,get_list}}
+lib/stdlib-8.1/ebin/man_docs.beam {'-format_one/1-lc$^0/1-0-',1} {is_nonempty_list,{allocate_heap,get_list}}
+lib/stdlib-8.1/ebin/maps.beam {filter_1,3} {is_tuple,{is_tuple,is_tuple}}
+lib/stdlib-8.1/ebin/maps.beam {filtermap_1,3} {is_tuple,{test_arity,test_arity}}
+lib/stdlib-8.1/ebin/maps.beam {fold_1,4} {is_tuple,{test_arity,test_arity}}
+lib/stdlib-8.1/ebin/maps.beam {map_1,3} {is_tuple,{test_arity,test_arity}}
+lib/stdlib-8.1/ebin/maps.beam {to_list_from_iterator,1} {is_tuple,{test_arity,test_arity}}
+lib/stdlib-8.1/ebin/qlc.beam {'-setup_join/6-fun-5-',7} {is_tuple,{is_tuple,is_tuple}}
+lib/stdlib-8.1/ebin/qlc.beam {fold_loop,3} {is_nonempty_list,{allocate,get_list}}
+lib/stdlib-8.1/ebin/qlc.beam {lookup_join,5} {is_nonempty_list,{is_nonempty_list,is_nonempty_list}}
+lib/stdlib-8.1/ebin/qlc.beam {tag_objects,2} {is_nonempty_list,{get_list,get_list}}
+lib/stdlib-8.1/ebin/qlc_pt.beam {'-col_ignore/2-lc$^0/1-0-',1} {is_nonempty_list,{allocate,get_list}}
+lib/stdlib-8.1/ebin/qlc_pt.beam {abst_vars,2} {is_nonempty_list,{allocate,get_list}}
+lib/stdlib-8.1/ebin/qlc_pt.beam {integers,2} {is_nonempty_list,{allocate,get_list}}
+lib/stdlib-8.1/ebin/qlc_pt.beam {list2cons,1} {is_nonempty_list,{allocate,get_list}}
+lib/stdlib-8.1/ebin/sofs.beam {from_external,2} {is_nonempty_list,matching}
+lib/stdlib-8.1/ebin/sofs.beam {projection1,1} {is_nonempty_list,{{bif,element},allocate}}
+lib/stdlib-8.1/ebin/string.beam {jaro_detect,3} {is_nonempty_list,{is_nonempty_list,is_nonempty_list}}
+lib/stdlib-8.1/ebin/string.beam {jaro_match,6} {is_nonempty_list,{is_nonempty_list,is_nonempty_list}}
+lib/stdlib-8.1/ebin/string.beam {tokens_multiple_2,4} {is_nonempty_list,{is_nonempty_list,is_nonempty_list}}
+lib/stdlib-8.1/ebin/sys.beam {nlog_new,1} {is_nonempty_list,{move,allocate}}
+lib/stdlib-8.1/ebin/unicode_util.beam {cpl_1_cont,1} {is_nonempty_list,{is_nonempty_list,is_nonempty_list}}
+lib/stdlib-8.1/ebin/unicode_util.beam {cpl_1_cont2,1} {is_nonempty_list,{is_nonempty_list,is_nonempty_list}}
+lib/stdlib-8.1/ebin/zip.beam {foldl,3} {is_tuple,{get_tuple_element,get_tuple_element}}
+lib/syntax_tools-4.1.1/ebin/erl_recomment.beam {next_min_in_list,2} {is_nonempty_list,{test_heap,get_list}}
+lib/syntax_tools-4.1.1/ebin/erl_syntax.beam {'-attribute_arguments/1-lc$^0/1-0-',2} {is_nonempty_list,{allocate,get_list}}
+lib/syntax_tools-4.1.1/ebin/erl_syntax.beam {'-unfold_variable_names/2-lc$^0/1-0-',2} {is_nonempty_list,{allocate,get_list}}
+lib/syntax_tools-4.1.1/ebin/erl_syntax_lib.beam {append_arity,2} {is_tuple,{get_tuple_element,move}}
+lib/syntax_tools-4.1.1/ebin/merl.beam {'-alpha/2-lc$^0/1-0-',2} {is_nonempty_list,{allocate,get_list}}
+lib/syntax_tools-4.1.1/ebin/merl.beam {'-tsubst/2-lc$^0/1-0-',2} {is_nonempty_list,{allocate,get_list}}
+lib/syntax_tools-4.1.1/ebin/merl.beam {compare_trees_1,2} {is_nonempty_list,{is_nonempty_list,is_nonempty_list}}
+lib/syntax_tools-4.1.1/ebin/merl.beam {compare_trees_2,2} {is_nonempty_list,{is_nonempty_list,is_nonempty_list}}
+lib/syntax_tools-4.1.1/ebin/merl_transform.beam {'-dummy_uses/1-lc$^0/1-0-',1} {is_nonempty_list,{allocate,get_list}}
+lib/syntax_tools-4.1.1/ebin/merl_transform.beam {'-rewrite_pattern/2-lc$^1/1-2-',1} {is_nonempty_list,{allocate,get_list}}
+lib/tools-4.2.3/ebin/cover.beam {are_loaded,5} {is_nonempty_list,{is_nonempty_list,is_nonempty_list}}
+lib/tools-4.2.3/ebin/xref.beam {'-get_xref_ignorelist/1-fun-0-',3} {is_tuple,{is_tuple,is_tuple}}
+lib/wx-2.7/doc/examples/demo/ex_radioBox.beam {'-do_init/1-lc$^0/1-0-',1} {is_nonempty_list,{allocate,get_list}}
+lib/xmerl-2.2/ebin/xmerl_eventp.beam {detect_nul_text,1} {is_nonempty_list,{get_list,get_list}}
+lib/xmerl-2.2/ebin/xmerl_sax_parser_latin1.beam {delete_leading_whitespace,1} {is_nonempty_list,{select_val,is_ne_exact}}
+lib/xmerl-2.2/ebin/xmerl_sax_parser_list.beam {delete_leading_whitespace,1} {is_nonempty_list,{select_val,is_ne_exact}}
+lib/xmerl-2.2/ebin/xmerl_sax_parser_utf16be.beam {delete_leading_whitespace,1} {is_nonempty_list,{select_val,is_ne_exact}}
+lib/xmerl-2.2/ebin/xmerl_sax_parser_utf16le.beam {delete_leading_whitespace,1} {is_nonempty_list,{select_val,is_ne_exact}}
+lib/xmerl-2.2/ebin/xmerl_sax_parser_utf8.beam {delete_leading_whitespace,1} {is_nonempty_list,{select_val,is_ne_exact}}
+lib/xmerl-2.2/ebin/xmerl_scan.beam {'-vc_No_Duplicate_Types/3-fun-0-',3} {is_nonempty_list,{is_nonempty_list,is_nonempty_list}}
+lib/xmerl-2.2/ebin/xmerl_uri.beam {parse_scheme,2} {is_nonempty_list,{get_list,get_list}}
+lib/xmerl-2.2/ebin/xmerl_xpath_pred.beam {local_name2,2} {is_tuple,{test_arity,test_arity}}
+lib/xmerl-2.2/ebin/xmerl_xpath_scan.beam {strip_ws,1} {is_nonempty_list,{move,allocate}}
+lib/xmerl-2.2/ebin/xmerl_xsd.beam {toggle_ns,2} {is_nonempty_list,matching}
+lib/xmerl-2.2/ebin/xmerl_xsd_type.beam {get_digit,4} {is_nonempty_list,{is_nonempty_list,is_nonempty_list}}

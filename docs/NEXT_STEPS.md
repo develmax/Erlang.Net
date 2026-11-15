@@ -1,5 +1,7 @@
 # Next steps
 
+Reuse branch-local coloring after the list projections. Remove the projected head store when its uses are satisfied directly from X. [Evidence](validation/part-1780/README.md).
+
 Move the list shape and projections out of the frame before dispatch where the fallback can finish in registers. Revisit branch-local slot coloring after entry placement. [Evidence](validation/part-1779/README.md).
 
 Delay the spill to an aliased Y register until the next call arguments have been loaded. Reserve an X temporary for the first argument while X0 still holds the previous result. [Evidence](validation/part-1778/README.md).

@@ -1,5 +1,7 @@
 # Dependency and compatibility decisions
 
+Part 1780 reuses entry frame placement and compact register rewriting. No dependency was added. [Evidence](validation/part-1780/README.md).
+
 Part 1779 reuses register encoding and the release image comparison. No dependency was added. [Evidence](validation/part-1779/README.md).
 
 Part 1778 reuses independent argument scheduling and stack-slot allocation. No dependency was added. [Evidence](validation/part-1778/README.md).
