@@ -1,3 +1,5 @@
+Part 1768 aligns helper definitions and numbering for supported independent list comprehensions. Comprehensions that share a function with anonymous functions still need joint ordering. [Evidence](validation/part-1768/README.md).
+
 Part 1767 lowers guard and ordinary filters in single-generator comprehensions. Multiple comprehensions in a function still need shared helper numbering. [Evidence](validation/part-1767/README.md).
 
 Part 1766 evaluates the generator source in the parent and lowers the mapper to a local helper. Additional filters and dynamic or binding source expressions still need alignment. [Evidence](validation/part-1766/README.md).

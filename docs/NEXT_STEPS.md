@@ -1,5 +1,7 @@
 # Next steps
 
+Share Core ordinals and lifted-function ordering with anonymous functions outside the comprehension. The group with one independent comprehension covers 193 source functions across 131 modules. For two operands in a tuple, OTP numbers from the right in Core and reverses helper emission relative to evaluation. [Evidence](validation/part-1768/README.md).
+
 Lower functions with two independent comprehensions and reproduce the helper ordinals assigned in the Core and SSA passes. The ranked group contains 159 functions across 119 modules. [Evidence](validation/part-1767/README.md).
 
 Lower one filter after a relaxed variable or tuple generator over a variable. The group covers 182 source functions in 113 modules, with 77 guard filters and 105 Boolean expression filters. [Evidence](validation/part-1766/README.md).

@@ -103,10 +103,10 @@ internal sealed partial class BeamModuleCompiler
                 || binding.Pattern is not Pattern.Variable bound || bound.Name != source.Name
                 || item.Name == VariableScopeNames.Wildcard || !ClosedMappingExpression(body, item.Name))
             {
-                if (ExtractRecursiveListComprehension(function, locations[index], declared, localFunctions) is { } recursive)
+                if (ExtractRecursiveListComprehensions(function, locations[index], declared, localFunctions) is { } recursive)
                 {
                     rewritten[index] = recursive.Parent;
-                    helpers.Add((recursive.Helper, recursive.Location));
+                    helpers.AddRange(recursive.Helpers);
                 }
 
                 continue;

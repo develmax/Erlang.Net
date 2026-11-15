@@ -359,6 +359,7 @@ internal static class BeamModuleEmissionChecks
         CompareRecursiveTupleComprehensionHelpers();
         CompareCallListGeneratorHelpers();
         CompareFilteredListGeneratorHelpers();
+        CompareIndependentListComprehensionHelpers();
         CompareRedundantEntryArgumentReloads();
         CompareEntryFrameInitialization();
         CompareProjectionFrameInitialization();
@@ -1115,6 +1116,60 @@ internal static class BeamModuleEmissionChecks
             || !atoms.Contains("-identity/1-lc$^0/1-0-", StringComparison.Ordinal))
         {
             throw new InvalidOperationException("Expected recursive helpers for filtered list generators.");
+        }
+    }
+
+    private static void CompareIndependentListComprehensionHelpers()
+    {
+        const string source = """
+            -module(beam_independent_list_generators).
+            -export([sequence/2, tuple/2, alternative/3, dispatch/3]).
+
+            sequence(A, B) ->
+                First = [tag(a, X) || X <- A],
+                Second = [tag(b, X) || X <- B],
+                {First, Second}.
+
+            tuple(A, B) ->
+                {[tag(a, X) || X <- A], [tag(b, X) || X <- B]}.
+
+            alternative(A, _B, yes) ->
+                [tag(a, X) || X <- A];
+            alternative(_A, B, _) ->
+                [tag(b, X) || X <- B].
+
+            dispatch(A, B, Choice) ->
+                case Choice of
+                    yes -> [tag(a, X) || X <- A];
+                    no -> [tag(b, X) || X <- B]
+                end.
+
+            tag(Label, Value) -> {Label, Value}.
+            """;
+        byte[] beam = CodeGeneration.CompileBeamModule(source, "beam_independent_list_generators.erl");
+        var chunks = BeamDocumentationEmissionChecks.Chunks(beam);
+        string atoms = Encoding.UTF8.GetString(chunks.Single(chunk => chunk.Id == "AtU8").Data);
+        string[] expected =
+        [
+            "-dispatch/3-lc$^0/1-0-",
+            "-dispatch/3-lc$^1/1-1-",
+            "-alternative/3-lc$^1/1-0-",
+            "-alternative/3-lc$^0/1-1-",
+            "-tuple/2-lc$^0/1-1-",
+            "-tuple/2-lc$^1/1-0-",
+            "-sequence/2-lc$^1/1-1-",
+            "-sequence/2-lc$^0/1-0-"
+        ];
+        int previous = -1;
+        foreach (string helper in expected)
+        {
+            int index = atoms.IndexOf(helper, StringComparison.Ordinal);
+            if (index <= previous)
+            {
+                throw new InvalidOperationException($"Expected independent list comprehension helper {helper} in OTP order.");
+            }
+
+            previous = index;
         }
     }
 

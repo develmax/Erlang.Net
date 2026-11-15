@@ -4,7 +4,7 @@ namespace Erlang.Compiler;
 
 internal sealed partial class BeamModuleCompiler
 {
-    private (FunctionDefinition Parent, FunctionDefinition Helper, BeamSourceLocation Location)? ExtractRecursiveListComprehension(
+    private (FunctionDefinition Parent, IReadOnlyList<(FunctionDefinition Function, BeamSourceLocation Location)> Helpers)? ExtractRecursiveListComprehensions(
         FunctionDefinition function,
         BeamSourceLocation location,
         HashSet<(string Name, int Arity)> declared,
@@ -12,26 +12,120 @@ internal sealed partial class BeamModuleCompiler
     )
     {
         var expressions = function.Clauses.SelectMany(clause => LocalFunctionEntries.Walk(clause.Body)).ToArray();
-        if (expressions.OfType<Expr.ListComprehension>().ToArray() is not
-            [
-            {
-                Items: [var mapped], Qualifiers: [ComprehensionQualifier.Generator
-                { Strict: false, Pattern: var item, Source: var source } generator, ..]
-            } comprehension]
-            || comprehension.Qualifiers is not ([_] or [_, ComprehensionQualifier.Filter])
-            || source is not (Expr.Variable or Expr.Call { DynamicRemote: false })
-            || !(item is Pattern.Variable && (comprehension.Qualifiers.Count == 2
-                    || source is Expr.Call || mapped is Expr.Call { DynamicRemote: false })
-                || item is Pattern.Tuple && IsRecursiveListPattern(item))
+        var comprehensions = expressions.OfType<Expr.ListComprehension>().ToArray();
+        if (comprehensions.Length == 0
             || expressions.Any(expression => expression is Expr.Fun or Expr.BinaryComprehension or Expr.MapComprehension)
-            || expressions.OfType<Expr.Sequence>().Any(sequence => sequence.Items.SkipLast(1)
-                .Any(expression => ReferenceEquals(expression, comprehension)))
-            || expressions.OfType<Expr.Match>().Any(match => match.Pattern is Pattern.Variable { Name: VariableScopeNames.Wildcard }
-                && ReferenceEquals(match.Value, comprehension))
             || ReadListMappingPlan(function.Clauses) is not null
             || ReadDiscardedListCalls(function, localFunctions) is not null
             || ReadPageComprehension(function, localFunctions) is not null
             || ReadCapturedTableList(function, localFunctions) is not null)
+        {
+            return null;
+        }
+
+        var core = comprehensions;
+        var ssa = comprehensions;
+        var definitions = comprehensions;
+        if (comprehensions.Length > 1)
+        {
+            if (LocalFunctionEntries.ClauseExpressions(function.Clauses).SelectMany(LocalFunctionEntries.Walk)
+                .Any(expression => expression is Expr.Try or Expr.Receive or Expr.Maybe or Expr.Fun
+                    or Expr.BinaryComprehension or Expr.MapComprehension))
+            {
+                return null;
+            }
+
+            core = OrderedListComprehensions(function.Clauses, ListComprehensionOrder.Core).ToArray();
+            ssa = OrderedListComprehensions(function.Clauses, ListComprehensionOrder.Ssa).ToArray();
+            definitions = OrderedListComprehensions(function.Clauses, ListComprehensionOrder.Definition).ToArray();
+            if (core.Length != comprehensions.Length || ssa.Length != core.Length || definitions.Length != core.Length)
+            {
+                return null;
+            }
+        }
+
+        var names = new Dictionary<Expr.ListComprehension, int>(ReferenceEqualityComparer.Instance);
+        for (int index = 0; index < core.Length; index++)
+        {
+            if (!names.TryAdd(core[index], index))
+            {
+                return null;
+            }
+        }
+
+        var helpers = new Dictionary<Expr.ListComprehension, (FunctionDefinition Function, BeamSourceLocation Location)>(ReferenceEqualityComparer.Instance);
+        var calls = new Dictionary<Expr, Expr>(ReferenceEqualityComparer.Instance);
+        for (int index = 0; index < ssa.Length; index++)
+        {
+            var comprehension = ssa[index];
+            if (expressions.OfType<Expr.Sequence>().Any(sequence => sequence.Items.SkipLast(1)
+                    .Any(expression => ReferenceEquals(expression, comprehension)))
+                || expressions.OfType<Expr.Match>().Any(match => match.Pattern is Pattern.Variable { Name: VariableScopeNames.Wildcard }
+                    && ReferenceEquals(match.Value, comprehension)))
+            {
+                return null;
+            }
+
+            var clause = function.Clauses.First(candidate => LocalFunctionEntries.Walk(candidate.Body)
+                .Any(expression => ReferenceEquals(expression, comprehension)));
+            string name = MappingName(function.Name, function.Arity, names[comprehension], index);
+            var plan = PlanRecursiveListComprehension(
+                comprehension,
+                clause,
+                location,
+                name,
+                localFunctions,
+                comprehensions.Length > 1
+            );
+            if (plan is not { } mapping || declared.Contains((name, mapping.Helper.Arity)))
+            {
+                return null;
+            }
+
+            helpers.Add(comprehension, (mapping.Helper, mapping.Location));
+            calls.Add(comprehension, mapping.Call);
+        }
+
+        var ordered = definitions.Select(comprehension => helpers[comprehension]).ToArray();
+        foreach (var helper in ordered)
+        {
+            declared.Add((helper.Function.Name, helper.Function.Arity));
+        }
+
+        var parent = function with
+        {
+            Clauses = function.Clauses.Select(clause => clause with
+            {
+                Body = BeamTargetedInlining.Rewrite(
+                    clause.Body,
+                    expression => expression,
+                    rewriteScope: expression => calls.GetValueOrDefault(expression)
+                )
+            }).ToArray()
+        };
+
+        return (parent, ordered);
+    }
+
+    private (Expr.Call Call, FunctionDefinition Helper, BeamSourceLocation Location)? PlanRecursiveListComprehension(
+        Expr.ListComprehension comprehension,
+        Clause parentClause,
+        BeamSourceLocation location,
+        string helperName,
+        IReadOnlyDictionary<(string Name, int Arity), FunctionDefinition> localFunctions,
+        bool independent
+    )
+    {
+        if (comprehension is not
+            {
+                Items: [var mapped], Qualifiers: [ComprehensionQualifier.Generator
+                { Strict: false, Pattern: var item, Source: var source } generator, ..]
+            }
+            || comprehension.Qualifiers is not ([_] or [_, ComprehensionQualifier.Filter])
+            || source is not (Expr.Variable or Expr.Call { DynamicRemote: false })
+            || !(item is Pattern.Variable && (independent || comprehension.Qualifiers.Count == 2
+                    || source is Expr.Call || mapped is Expr.Call { DynamicRemote: false })
+                || item is Pattern.Tuple && IsRecursiveListPattern(item)))
         {
             return null;
         }
@@ -51,17 +145,13 @@ internal sealed partial class BeamModuleCompiler
             .Select(variable => variable.Name)
             .Where(name => !bound.Contains(name))
             .ToHashSet(StringComparer.Ordinal);
-        var parentClause = function.Clauses.First(clause => LocalFunctionEntries.Walk(clause.Body)
-            .Any(expression => ReferenceEquals(expression, comprehension)));
         // Core names incoming arguments before variables defined in the clause body.
         var captures = parentClause.Patterns.OfType<Pattern.Variable>()
             .Select(parameter => parameter.Name)
             .Where(free.Remove)
             .Concat(free.Order(StringComparer.Ordinal))
             .ToArray();
-        string helperName = MappingName(function.Name, function.Arity);
-        int arity = captures.Length + 1;
-        if (arity >= FirstReservedXRegister || !declared.Add((helperName, arity)))
+        if (captures.Length + 1 >= FirstReservedXRegister)
         {
             return null;
         }
@@ -75,17 +165,6 @@ internal sealed partial class BeamModuleCompiler
             SourceLine = line,
             PreprocessorFile = helperLocation.File
         };
-        var parent = function with
-        {
-            Clauses = function.Clauses.Select(clause => clause with
-            {
-                Body = BeamTargetedInlining.Rewrite(
-                    clause.Body,
-                    expression => expression,
-                    rewriteScope: expression => ReferenceEquals(expression, comprehension) ? recursiveCall : null
-                )
-            }).ToArray()
-        };
         var helper = BuildRecursiveMapping(
             helperName,
             item,
@@ -95,7 +174,7 @@ internal sealed partial class BeamModuleCompiler
             filter: filter is null ? null : (filter, ComprehensionGuard.IsTest(filter, sourceModule))
         ) with { IsRecursiveListMapper = true };
 
-        return (parent, helper, helperLocation);
+        return (recursiveCall, helper, helperLocation);
 
         bool CanUseExpression(Expr expression) => expression switch
         {

@@ -1,5 +1,7 @@
 # Compatibility overview
 
+Part 1768 emits recursive BEAM helpers for independently evaluated list comprehensions in the same function. [Evidence](validation/part-1768/README.md).
+
 Part 1767 emits recursive BEAM helpers for a single filter after a relaxed list generator. [Evidence](validation/part-1767/README.md).
 
 Part 1766 emits recursive BEAM helpers when a static call supplies the list to the generator. [Evidence](validation/part-1766/README.md).

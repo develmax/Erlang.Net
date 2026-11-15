@@ -12,7 +12,12 @@ internal sealed partial class BeamModuleCompiler
 
     private string activeFunction = string.Empty;
 
-    private static string MappingName(string name, int arity) => $"-{name}/{arity}-lc$^0/1-0-";
+    private static string MappingName(
+        string name,
+        int arity,
+        int coreOrdinal = 0,
+        int ssaOrdinal = 0
+    ) => $"-{name}/{arity}-lc$^{coreOrdinal}/1-{ssaOrdinal}-";
 
     private static MappingPlan? ReadListMappingPlan(IReadOnlyList<Clause> clauses)
     {
