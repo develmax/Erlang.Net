@@ -1,5 +1,7 @@
 # Compatibility overview
 
+Part 1753 forwards entry arguments into guarded branches when their X values remain available on every incoming path. [Evidence](validation/part-1753/README.md).
+
 Part 1752 allows Y-slot reuse across supported receive and loop edges. [Evidence](validation/part-1752/README.md).
 
 Part 1751 places heap tests before eligible self/0 and node/0 calls while preserving the GC root prefix. [Evidence](validation/part-1751/README.md).

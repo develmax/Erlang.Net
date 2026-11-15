@@ -347,6 +347,7 @@ internal static class BeamModuleEmissionChecks
         CompareHeapTestBeforeTupleReads();
         CompareHeapTestsBeforeNullaryBifs();
         CompareEntryArgumentCopies();
+        CompareEntryArgumentCopiesAcrossBranches();
         CompareEntryFrameInitialization();
         CompareProjectionFrameInitialization();
         CompareDirectCallProjections();
@@ -627,6 +628,32 @@ internal static class BeamModuleEmissionChecks
         if (first < 0 || code.AsSpan(first + allocation.Length).IndexOf(allocation) < 0)
         {
             throw new InvalidOperationException("Expected a zero-root heap test before both nullary BIFs.");
+        }
+    }
+
+    private static void CompareEntryArgumentCopiesAcrossBranches()
+    {
+        const string source = """
+            -module(beam_entry_spills).
+            -export([emit/2, across/2]).
+
+            emit(Term, Flag) ->
+                case Flag of
+                    yes -> put(captured, Term);
+                    no -> get(Term)
+                end.
+
+            across(X, Y) ->
+                Old = put(key, Y),
+                {Old, X}.
+            """;
+        byte[] beam = CodeGeneration.CompileBeamModule(source, "beam_entry_spills.erl");
+        byte[] code = BeamDocumentationEmissionChecks.Chunks(beam).Single(chunk => chunk.Id == "Code").Data;
+        ReadOnlySpan<byte> withoutSpills = [BeamEmissionFormat.Allocate, 0x00, 0x20];
+        ReadOnlySpan<byte> acrossCall = [BeamEmissionFormat.Allocate, 0x10, 0x20];
+        if (code.AsSpan().IndexOf(withoutSpills) < 0 || code.AsSpan().IndexOf(acrossCall) < 0)
+        {
+            throw new InvalidOperationException("Expected entry spills to be removed only when all uses can read the input register.");
         }
     }
 
@@ -938,14 +965,13 @@ internal static class BeamModuleEmissionChecks
         byte[] code = BeamDocumentationEmissionChecks.Chunks(beam).Single(chunk => chunk.Id == "Code").Data;
         ReadOnlySpan<byte> frame =
         [
-            BeamEmissionFormat.Allocate, 0x30, 0x10,
-            BeamEmissionFormat.Move, 0x03, 0x04,
-            BeamEmissionFormat.GetTupleElement, 0x04, 0x00, 0x14,
-            BeamEmissionFormat.GetTupleElement, 0x04, 0x10, 0x24
+            BeamEmissionFormat.Allocate, 0x20, 0x10,
+            BeamEmissionFormat.GetTupleElement, 0x03, 0x00, 0x04,
+            BeamEmissionFormat.GetTupleElement, 0x03, 0x10, 0x14
         ];
         if (code.AsSpan().IndexOf(frame) < 0)
         {
-            throw new InvalidOperationException("Expected the tuple projections to initialize their frame slots.");
+            throw new InvalidOperationException("Expected the input tuple register to initialize both projected frame slots.");
         }
     }
 

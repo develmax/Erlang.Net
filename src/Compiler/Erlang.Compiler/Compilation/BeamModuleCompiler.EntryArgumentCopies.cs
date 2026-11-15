@@ -11,6 +11,7 @@ internal sealed partial class BeamModuleCompiler
     )
     {
         using var output = new MemoryStream();
+        BeamProjectionFlow? flow = null;
         int copied = 0;
         int functionStart = 0;
         for (int end = 0; end < body.Count; end++)
@@ -40,22 +41,15 @@ internal sealed partial class BeamModuleCompiler
             }
 
             int first = allocation + 1;
-            int call = first;
-            while (call < end && body[call].Definition.Opcode is InitYRegisters or Move or PutTuple or PutList or Line)
+            int setupEnd = first;
+            while (setupEnd < end && body[setupEnd].Definition.Opcode is InitYRegisters or Move or PutTuple or PutList or Line)
             {
-                call++;
-            }
-
-            if (call == end || body[call].Definition.Opcode is not
-                (LocalCall or ExternalCall or TailLocalCallWithFrame or TailExternalCallWithFrame
-                    or DynamicApply or TailDynamicApply))
-            {
-                continue;
+                setupEnd++;
             }
 
             var remove = new Dictionary<int, BeamOperand>();
             var replace = new Dictionary<int, (int End, BeamOperand Source)>();
-            for (int save = first; save < call; save++)
+            for (int save = first; save < setupEnd; save++)
             {
                 if (body[save] is not { Definition.Opcode: Move, Operands: [var source, var slot] }
                     || source is not { Kind: BeamOperandParameters.X, TypeIndex: null }
@@ -64,18 +58,16 @@ internal sealed partial class BeamModuleCompiler
                     continue;
                 }
 
-                if (PlanEntryArgumentCopy(
-                    body,
-                    stackOperands,
+                if ((flow ??= new BeamProjectionFlow(body)).CanUseEntryRegister(
+                    entry,
                     save,
-                    call,
                     end,
                     source,
-                    slot,
-                    replace
+                    slot
                 ))
                 {
                     remove.Add(save, slot);
+                    RecordEntryArgumentUses(body, stackOperands, save, end, source, slot, replace);
                 }
             }
 
@@ -86,7 +78,7 @@ internal sealed partial class BeamModuleCompiler
 
             var replacements = replace.OrderBy(edit => edit.Key).ToArray();
             int replacement = 0;
-            for (int index = first; index < call; index++)
+            for (int index = first; index < end; index++)
             {
                 BeamInstruction instruction = body[index];
                 if (remove.TryGetValue(index, out BeamOperand? slot))
@@ -121,59 +113,20 @@ internal sealed partial class BeamModuleCompiler
         return output.ToArray();
     }
 
-    private static bool PlanEntryArgumentCopy(
+    private static void RecordEntryArgumentUses(
         IReadOnlyList<BeamInstruction> body,
         List<(int Start, int End, int Slot)> stackOperands,
         int save,
-        int call,
         int end,
         BeamOperand source,
         BeamOperand slot,
         Dictionary<int, (int End, BeamOperand Source)> edits
     )
     {
-        bool sourceAvailable = true;
-        for (int index = save + 1; index < end; index++)
-        {
-            var instruction = body[index];
-            var operands = instruction.Operands;
-            if (index >= call)
-            {
-                if (instruction.Definition.Opcode == TrimFrame
-                    || instruction.Definition.Name == "debug_line"
-                    || operands.Any(operand => SameProjectionRegister(operand, slot)))
-                {
-                    return false;
-                }
-
-                continue;
-            }
-
-            BeamOperand? destination = instruction.Definition.Opcode switch
-            {
-                Move => operands[1],
-                PutTuple => operands[0],
-                PutList => operands[2],
-                _ => null
-            };
-            if (operands.Any(operand => SameProjectionRegister(operand, slot))
-                && (!sourceAvailable || destination is null || SameProjectionRegister(destination, slot)
-                    || destination.Kind != BeamOperandParameters.X))
-            {
-                return false;
-            }
-
-            if (destination is not null && SameProjectionRegister(destination, source))
-            {
-                sourceAvailable = false;
-            }
-        }
-
         int first = body[save + 1].Offset;
-        int last = body[call].Offset;
+        int last = body[end].Offset;
         int indexOfOperand = stackOperands.BinarySearch((first, 0, 0),
             Comparer<(int Start, int End, int Slot)>.Create(static (left, right) => left.Start.CompareTo(right.Start)));
-        bool replaced = false;
         for (int index = indexOfOperand < 0 ? ~indexOfOperand : indexOfOperand;
             index < stackOperands.Count && stackOperands[index].Start < last;
             index++)
@@ -182,10 +135,7 @@ internal sealed partial class BeamModuleCompiler
             if (register == slot.Value)
             {
                 edits.Add(start, (finish, source));
-                replaced = true;
             }
         }
-
-        return replaced;
     }
 }
