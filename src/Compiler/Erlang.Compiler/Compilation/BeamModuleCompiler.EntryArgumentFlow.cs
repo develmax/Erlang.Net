@@ -56,7 +56,8 @@ internal sealed partial class BeamModuleCompiler
 
             if (uses.Count == 0)
             {
-                return null;
+                // The slot still needs initialization for GC until it is overwritten.
+                return (true, []);
             }
 
             BigInteger original = EntryRegisterBit(source);

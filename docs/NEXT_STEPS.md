@@ -1,5 +1,7 @@
 # Next steps
 
+Store closure results directly in Y registers after proving the temporary X register is dead. [Evidence](validation/part-1789/README.md).
+
 Eliminate entry argument spills proven unread by the existing register lifetime analysis. [Evidence](validation/part-1788/README.md).
 
 Use the remaining corpus instruction differences to prioritize modes of frame allocation and register reuse. [Evidence](validation/part-1787/README.md).

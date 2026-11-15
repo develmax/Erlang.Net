@@ -1,5 +1,7 @@
 # Dependency and compatibility decisions
 
+Part 1789. Reuse stack-copy lifetime analysis. Preserve initialized Y slots for collection before their first real write. No dependency was added. [Evidence](validation/part-1789/README.md).
+
 Part 1788. Use the six MFA entries in pinned OTP 29.1.1 beam_ssa_pre_codegen is_trap_bif. Reuse the existing import table and tail-call encoding. No dependency was added. [Evidence](validation/part-1788/README.md).
 
 Part 1787. Follow the frame requirements in pinned OTP 29.1.1 beam_ssa_pre_codegen and the tail-call opcode selection in beam_z. No dependency was added. [Evidence](validation/part-1787/README.md).

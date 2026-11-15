@@ -77,7 +77,7 @@ internal sealed partial class BeamModuleCompiler
                 }
             }
 
-            if (replace.Count == 0)
+            if (replace.Count == 0 && remove.Count == 0)
             {
                 continue;
             }

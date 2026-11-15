@@ -356,6 +356,7 @@ internal static class BeamModuleEmissionChecks
         CompareStackSlotsAcrossCatch();
         CompareStackSlotsAcrossTrim();
         CompareTrappingTailFrames();
+        CompareUnreadEntrySpills();
         CompareStackReuseAcrossCalls();
         CompareRepeatedCallFrameTrims();
         CompareRecursiveListComprehensionHelpers();
@@ -1002,6 +1003,29 @@ internal static class BeamModuleEmissionChecks
         if (frame < 0 || call <= frame)
         {
             throw new InvalidOperationException("Expected a frame for the trapping tail call.");
+        }
+    }
+
+    private static void CompareUnreadEntrySpills()
+    {
+        const string source = """
+            -module(beam_unread_entry_spills).
+            -export([init/1]).
+
+            init([]) ->
+                Set = gb_sets:empty(),
+                Tree = gb_trees:empty(),
+                {ok,{state,Set,Tree}}.
+            """;
+        byte[] beam = CodeGeneration.CompileBeamModule(source, "beam_unread_entry_spills.erl");
+        byte[] code = BeamDocumentationEmissionChecks.Chunks(beam).Single(chunk => chunk.Id == "Code").Data;
+        ReadOnlySpan<byte> frame = [
+            BeamEmissionFormat.Allocate, 0x10, 0x00,
+            BeamEmissionFormat.InitYRegisters, BeamEmissionFormat.ExtendedListOperand, 0x10, 0x04
+        ];
+        if (code.AsSpan().IndexOf(frame) < 0)
+        {
+            throw new InvalidOperationException("Expected the unread argument spill to leave just one initialized slot.");
         }
     }
 

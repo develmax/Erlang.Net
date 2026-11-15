@@ -1,5 +1,7 @@
 Part 1783. Sort consecutive independent X-to-Y moves by destination slot after branch slot reuse. Preserve original store order when a run writes the same destination twice. [Evidence](validation/part-1783/README.md).
 
+Part 1789. Replace an entry argument store with frame initialization when the lifetime analysis proves that the copied value has no reads. Allow frame and X-root compaction to follow. [Evidence](validation/part-1789/README.md).
+
 Part 1788. Preserve a zero-slot frame for a trapping tail BIF. Add a frame when an earlier emitter produced a frameless call to one of those BIFs. [Evidence](validation/part-1788/README.md).
 
 Part 1787. Remove zero-slot stack allocation and use the tail-call opcode without a frame when argument setup reaches the tail call without another call or branch. Preserve heap reservation as test_heap. [Evidence](validation/part-1787/README.md).
