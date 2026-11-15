@@ -1075,8 +1075,12 @@ internal static class BeamModuleEmissionChecks
             """;
         byte[] beam = CodeGeneration.CompileBeamModule(source, "beam_list_entry_frame.erl");
         byte[] code = BeamDocumentationEmissionChecks.Chunks(beam).Single(chunk => chunk.Id == "Code").Data;
-        ReadOnlySpan<byte> projection = [BeamEmissionFormat.GetList, 0x03, 0x23, 0x33];
-        ReadOnlySpan<byte> frame = [BeamEmissionFormat.Allocate, 0x30, 0x40];
+        ReadOnlySpan<byte> projection = [BeamEmissionFormat.GetList, 0x03, 0x23, 0x03];
+        ReadOnlySpan<byte> frame = [
+            BeamEmissionFormat.Allocate, 0x20, 0x30,
+            BeamEmissionFormat.Move, 0x03, 0x04,
+            BeamEmissionFormat.Move, 0x13, 0x14
+        ];
         ReadOnlySpan<byte> fallback = [BeamEmissionFormat.TestHeap, 0x30, 0x20, BeamEmissionFormat.PutTuple];
         int fields = code.AsSpan().IndexOf(projection);
         int allocation = code.AsSpan().IndexOf(frame);

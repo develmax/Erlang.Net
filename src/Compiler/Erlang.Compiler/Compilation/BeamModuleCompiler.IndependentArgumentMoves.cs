@@ -4,6 +4,58 @@ namespace Erlang.Compiler;
 
 internal sealed partial class BeamModuleCompiler
 {
+    private static byte[]? OrderIndependentStackStores(ReadOnlyMemory<byte> code, IReadOnlyList<BeamInstruction> body)
+    {
+        using var output = new MemoryStream();
+        int copied = 0;
+        for (int start = 0; start + 1 < body.Count; start++)
+        {
+            if (!IsStackStore(body[start]))
+            {
+                continue;
+            }
+
+            int end = start + 1;
+            while (end + 1 < body.Count && IsStackStore(body[end]))
+            {
+                end++;
+            }
+
+            if (end - start > 1)
+            {
+                int[] order = Enumerable.Range(start, end - start)
+                    .OrderBy(index => body[index].Operands[1].Value).ToArray();
+                if (!order.SequenceEqual(Enumerable.Range(start, end - start))
+                    && order.Select(index => body[index].Operands[1].Value).Distinct().Count() == order.Length)
+                {
+                    output.Write(code.Span[copied..body[start].Offset]);
+                    foreach (int index in order)
+                    {
+                        output.Write(code.Span[body[index].Offset..body[index + 1].Offset]);
+                    }
+
+                    copied = body[end].Offset;
+                }
+            }
+
+            start = end - 1;
+        }
+
+        if (copied == 0)
+        {
+            return null;
+        }
+
+        output.Write(code.Span[copied..]);
+        return output.ToArray();
+
+        static bool IsStackStore(BeamInstruction instruction) => instruction is
+        {
+            Definition.Opcode: Move,
+            Operands: [{ Kind: BeamOperandParameters.X }, { Kind: BeamOperandParameters.Y }]
+        };
+    }
+
     private static byte[]? OrderIndependentCallArguments(
         ReadOnlyMemory<byte> code,
         IReadOnlyList<BeamInstruction> body

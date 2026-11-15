@@ -29,7 +29,7 @@ internal sealed partial class BeamModuleCompiler
         while (allocation < end && body[allocation].Definition.Opcode is not (Allocate or AllocateHeap))
         {
             var instruction = body[allocation];
-            if (instruction.Definition.Opcode != Line
+            if (instruction.Definition.Opcode != Line && !IsUnframedEntryProjection(instruction)
                 && (!IsEntryFramePredicate(instruction.Definition.Opcode)
                     || instruction.Operands.Any(operand => operand.Kind == BeamOperandParameters.Y)))
             {
@@ -125,7 +125,7 @@ internal sealed partial class BeamModuleCompiler
 
         foreach (int failure in failureLabels)
         {
-            if (!labels.TryGetValue(failure, out int target) || !IsFramelessStackAllocationExit(body, target, end))
+            if (!labels.TryGetValue(failure, out int target) || !IsFramelessStackAllocationExit(body, target, end, allowReturn: true))
             {
                 return null;
             }
@@ -135,7 +135,7 @@ internal sealed partial class BeamModuleCompiler
         var effects = new (BigInteger Reads, BigInteger Writes, bool FallsThrough, List<int>? Targets)[end - start];
         var live = new BigInteger[effects.Length + 1];
         var conflicts = new BigInteger[frame];
-        bool branched = false;
+        bool branched = failureLabels.Count != 0;
         bool released = false;
         bool hasBackEdge = false;
         for (int index = end - 1; index >= start; index--)
@@ -437,12 +437,31 @@ internal sealed partial class BeamModuleCompiler
         }
     }
 
-    private static bool IsFramelessStackAllocationExit(IReadOnlyList<BeamInstruction> body, int target, int end)
+    private static bool IsFramelessStackAllocationExit(
+        IReadOnlyList<BeamInstruction> body,
+        int target,
+        int end,
+        bool allowReturn = false
+    )
     {
         int index = target + 1;
         while (index < end && body[index].Definition.Opcode is Label or Line)
         {
             index++;
+        }
+
+        if (allowReturn)
+        {
+            while (index < end && body[index].Definition.Opcode is (Move or Swap or TestHeap or PutTuple or PutList)
+                && body[index].Operands.All(operand => operand.Kind != BeamOperandParameters.Y))
+            {
+                index++;
+            }
+
+            if (index < end && body[index].Definition.Opcode == Return)
+            {
+                return true;
+            }
         }
 
         return index < end && body[index].Definition.Opcode is BadMatch or BadRecord or CaseEnd or IfEnd

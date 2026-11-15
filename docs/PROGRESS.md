@@ -1,5 +1,11 @@
 # Project progress
 
+Part 1783. The full Windows OTP 29.1.1 corpus comparison was still running at publication. The last completed release comparison is in part 1780. [Evidence](validation/part-1783/README.md).
+
+Part 1782. The full Windows OTP 29.1.1 corpus comparison was still running at publication. The last completed release comparison is in part 1780. [Evidence](validation/part-1782/README.md).
+
+Part 1781. The full Windows OTP 29.1.1 corpus comparison was still running at publication. The last completed release comparison is in part 1780. [Evidence](validation/part-1781/README.md).
+
 Part 1780 compiled all 1,366 sources with 400 Equal and 966 Different. Compared 173 changed images. 5 normalized instruction matches were gained and 0 were lost. Absolute Code-size differences changed by 4896 bytes in total. [Evidence](validation/part-1780/README.md).
 
 Part 1779 compiled all 1,366 sources with 400 Equal and 966 Different. Compared 1 changed images. 1 normalized instruction matches were gained and 0 were lost. Absolute Code-size differences changed by -3 bytes in total. [Evidence](validation/part-1779/README.md).

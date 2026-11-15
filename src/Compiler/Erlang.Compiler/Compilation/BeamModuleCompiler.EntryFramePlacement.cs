@@ -14,6 +14,7 @@ internal sealed partial class BeamModuleCompiler
         int copied = 0;
         int operand = 0;
         int start = 0;
+        BeamProjectionFlow? flow = null;
         for (int end = 0; end < body.Count; end++)
         {
             if (body[end].Definition.Opcode is not (FunctionInfo or EndCode))
@@ -32,7 +33,8 @@ internal sealed partial class BeamModuleCompiler
                 start,
                 allocationIndex,
                 end,
-                extendEntry: true
+                extendEntry: true,
+                valueDead: IsTemporaryDead
             );
             if (plan is { } placement)
             {
@@ -122,6 +124,9 @@ internal sealed partial class BeamModuleCompiler
         output.Write(code.Span[copied..]);
 
         return output.ToArray();
+
+        bool IsTemporaryDead(int index, BeamOperand value) =>
+            (flow ??= new BeamProjectionFlow(body)).IsBranchTemporaryDead(index, value);
     }
 
     private static int FindEntryFrameAllocation(IReadOnlyList<BeamInstruction> body, int start, int end)
@@ -183,7 +188,8 @@ internal sealed partial class BeamModuleCompiler
         int start,
         int allocationIndex,
         int end,
-        bool extendEntry = false
+        bool extendEntry = false,
+        Func<int, BeamOperand, bool>? valueDead = null
     )
     {
         BeamInstruction allocation = body[allocationIndex];
@@ -246,6 +252,7 @@ internal sealed partial class BeamModuleCompiler
         };
         int projectedSlot = -1;
         int pairedSlot = -1;
+        int pairedRegister = -1;
         var heapLives = new Dictionary<int, int>();
         var constructors = new HashSet<int>();
         var work = new PriorityQueue<int, int>();
@@ -275,8 +282,7 @@ internal sealed partial class BeamModuleCompiler
                     BeamOperand source = instruction.Operands[0];
                     BeamOperand destination = instruction.Operands[^1];
                     if (destination.Kind == BeamOperandParameters.X && destination.Value <= registers
-                        && !saved.Values.Contains((int)destination.Value)
-                        && (destination.Value < live || !maybeProjected))
+                        && CanOverwriteX(destination, maybeProjected))
                     {
                         supported = true;
                         registers = Math.Max(registers, (int)destination.Value + 1);
@@ -301,18 +307,24 @@ internal sealed partial class BeamModuleCompiler
                     && (listSource.Kind == BeamOperandParameters.X && listSource.Value < registers
                         || listSource.Kind == BeamOperandParameters.Y && saved.ContainsKey((int)listSource.Value)))
                 {
-                    // get_list defines both fields on the same edge, so both must survive a join.
-                    supported = true;
-                    projectedSlot = (int)projectedHead.Value;
-                    pairedSlot = (int)projectedTail.Value;
-                    projected = maybeProjected = true;
+                    int tailRegister = listSource is { Kind: BeamOperandParameters.X, TypeIndex: null }
+                        && !saved.Values.Contains((int)listSource.Value)
+                        && valueDead?.Invoke(index, listSource) == true ? (int)listSource.Value : live + 1;
+                    if (pairedSlot < 0 || tailRegister == pairedRegister)
+                    {
+                        // The head and tail are defined together and must both survive a join.
+                        supported = true;
+                        projectedSlot = (int)projectedHead.Value;
+                        pairedSlot = (int)projectedTail.Value;
+                        pairedRegister = tailRegister;
+                        projected = maybeProjected = true;
+                    }
                 }
                 else if (instruction is { Definition.Opcode: GetList, Operands: [var list,
                     { Kind: BeamOperandParameters.X } head, { Kind: BeamOperandParameters.X } tail] }
                     && (list.Kind != BeamOperandParameters.X || list.Value < registers)
                     && head.Value != tail.Value
-                    && !saved.Values.Contains((int)head.Value) && !saved.Values.Contains((int)tail.Value)
-                    && (!maybeProjected || head.Value < live && tail.Value < live))
+                    && CanOverwriteX(head, maybeProjected) && CanOverwriteX(tail, maybeProjected))
                 {
                     int firstWrite = Math.Min((int)head.Value, (int)tail.Value);
                     int lastWrite = Math.Max((int)head.Value, (int)tail.Value);
@@ -422,7 +434,7 @@ internal sealed partial class BeamModuleCompiler
                 frames.Add(entry, state.Live + (state.Projected ? ProjectionCount() : 0));
                 if (state.Projected)
                 {
-                    stores.Add(entry, pairedSlot < 0 ? [(projectedSlot, live)] : [(projectedSlot, live), (pairedSlot, live + 1)]);
+                    stores.Add(entry, pairedSlot < 0 ? [(projectedSlot, live)] : [(projectedSlot, live), (pairedSlot, pairedRegister)]);
                 }
             }
 
@@ -547,7 +559,7 @@ internal sealed partial class BeamModuleCompiler
                             return null;
                         }
 
-                        input = operand.Value == pairedSlot ? live + 1 : live;
+                        input = operand.Value == pairedSlot ? pairedRegister : live;
                     }
 
                     registers = Math.Max(registers, input + 1);
@@ -561,7 +573,10 @@ internal sealed partial class BeamModuleCompiler
             && body[index].Definition.Opcode == Deallocate && body[index].Operands[0].Value == frameSize
             && body[index + 1].Definition.Opcode == Return;
 
-        int ProjectionCount() => pairedSlot < 0 ? 1 : 2;
+        int ProjectionCount() => pairedRegister < live ? 1 : 2;
+
+        bool CanOverwriteX(BeamOperand target, bool maybeProjected) => !saved.Values.Contains((int)target.Value)
+            && (!maybeProjected || target.Value < live && target.Value != pairedRegister);
 
         void RecordProjections()
         {
@@ -572,7 +587,7 @@ internal sealed partial class BeamModuleCompiler
 
             if (pairedSlot >= 0)
             {
-                saved.Add(pairedSlot, live + 1);
+                saved.Add(pairedSlot, pairedRegister);
             }
         }
 

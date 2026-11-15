@@ -1,5 +1,11 @@
 # Next steps
 
+Handle consecutive tuple field projections before frame allocation and compare the remaining register and instruction differences against the release corpus. [Evidence](validation/part-1783/README.md).
+
+Order independent entry stack stores by the destination slot. [Evidence](validation/part-1782/README.md).
+
+Reuse the original input register after the last use of the source list. [Evidence](validation/part-1781/README.md).
+
 Reuse branch-local coloring after the list projections. Remove the projected head store when its uses are satisfied directly from X. [Evidence](validation/part-1780/README.md).
 
 Move the list shape and projections out of the frame before dispatch where the fallback can finish in registers. Revisit branch-local slot coloring after entry placement. [Evidence](validation/part-1779/README.md).

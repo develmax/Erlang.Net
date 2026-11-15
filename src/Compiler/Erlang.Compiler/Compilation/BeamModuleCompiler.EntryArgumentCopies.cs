@@ -31,7 +31,8 @@ internal sealed partial class BeamModuleCompiler
 
             int allocation = entry + 1;
             while (allocation < end && (body[allocation].Definition.Opcode is Label or Line
-                || IsEntryFramePredicate(body[allocation].Definition.Opcode)))
+                || IsEntryFramePredicate(body[allocation].Definition.Opcode)
+                || IsUnframedEntryProjection(body[allocation])))
             {
                 allocation++;
             }
@@ -117,6 +118,10 @@ internal sealed partial class BeamModuleCompiler
 
         return output.ToArray();
     }
+
+    private static bool IsUnframedEntryProjection(BeamInstruction instruction) =>
+        instruction.Definition.Opcode is GetTupleElement or GetList or GetHead or GetTail
+        && instruction.Operands.All(operand => operand.Kind != BeamOperandParameters.Y);
 
     private static void RecordEntryArgumentUses(
         IReadOnlyList<BeamInstruction> body,

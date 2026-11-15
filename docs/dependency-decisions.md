@@ -1,5 +1,11 @@
 # Dependency and compatibility decisions
 
+Part 1783. Follow the independent move ordering in beam_block:sort_moves from pinned OTP 29.1.1. No dependency was added. [Evidence](validation/part-1783/README.md).
+
+Part 1782. Use the existing branch liveness analysis and the register layout from pinned OTP 29.1.1. No dependency was added. [Evidence](validation/part-1782/README.md).
+
+Part 1781. Reuse the existing branch-local stack allocator and validate the entry-path layout against pinned OTP 29.1.1. No dependency was added. [Evidence](validation/part-1781/README.md).
+
 Part 1780 reuses entry frame placement and compact register rewriting. No dependency was added. [Evidence](validation/part-1780/README.md).
 
 Part 1779 reuses register encoding and the release image comparison. No dependency was added. [Evidence](validation/part-1779/README.md).
