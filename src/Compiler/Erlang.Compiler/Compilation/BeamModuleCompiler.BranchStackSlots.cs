@@ -57,8 +57,9 @@ internal sealed partial class BeamModuleCompiler
         int start = allocation + 1;
         var labels = new Dictionary<int, int>();
         var firstUse = new int[frame];
-        int tryEntry = -1;
-        int trySlot = -1;
+        int handlerEntry = -1;
+        int handlerSlot = -1;
+        bool isCatch = false;
         Array.Fill(firstUse, int.MaxValue);
         for (int index = start; index < end; index++)
         {
@@ -68,17 +69,18 @@ internal sealed partial class BeamModuleCompiler
                 labels.Add((int)instruction.Operands[0].Value, index);
             }
 
-            if (instruction.Definition.Opcode == TryEnter)
+            if (instruction.Definition.Opcode is TryEnter or CatchEnter)
             {
-                if (tryEntry >= 0
+                if (handlerEntry >= 0
                     || instruction.Operands is not [{ Kind: BeamOperandParameters.Y } tag, { Kind: BeamOperandParameters.Label }]
                     || tag.Value >= frame)
                 {
                     return null;
                 }
 
-                tryEntry = index;
-                trySlot = (int)tag.Value;
+                handlerEntry = index;
+                handlerSlot = (int)tag.Value;
+                isCatch = instruction.Definition.Opcode == CatchEnter;
             }
 
             if (instruction.Definition.Opcode == InitYRegisters)
@@ -115,7 +117,7 @@ internal sealed partial class BeamModuleCompiler
         {
             BeamInstruction instruction = body[index];
             byte opcode = instruction.Definition.Opcode;
-            if (opcode is Allocate or AllocateHeap or TrimFrame or CatchEnter or CatchEnd
+            if (opcode is Allocate or AllocateHeap or TrimFrame
                 || instruction.Definition.Name == "debug_line")
             {
                 return null;
@@ -136,9 +138,10 @@ internal sealed partial class BeamModuleCompiler
             List<int>? targets = null;
             bool call = opcode is LocalCall or TailLocalCall or TailLocalCallWithFrame;
             bool initializes = opcode == InitYRegisters;
-            if (opcode is TryEnd or TryCase && (tryEntry < 0
+            if (opcode is TryEnd or TryCase or CatchEnd && (handlerEntry < 0
+                || (opcode == CatchEnd) != isCatch
                 || instruction.Operands is not [{ Kind: BeamOperandParameters.Y } tag]
-                || tag.Value != trySlot))
+                || tag.Value != handlerSlot))
             {
                 return null;
             }
@@ -146,8 +149,8 @@ internal sealed partial class BeamModuleCompiler
             int destination = opcode switch
             {
                 LoopReceive => 1,
-                TryEnter => 0,
-                WaitTimeout or GetMapElements or BinaryMatch or TryEnd or TryCase or TryCaseEnd or Raise => -1,
+                TryEnter or CatchEnter => 0,
+                WaitTimeout or GetMapElements or BinaryMatch or TryEnd or TryCase or CatchEnd or TryCaseEnd or Raise => -1,
                 _ => StackAllocationDestination(instruction)
             };
             BigInteger reads = BigInteger.Zero;
@@ -155,7 +158,7 @@ internal sealed partial class BeamModuleCompiler
             for (int position = 0; position < instruction.Operands.Count; position++)
             {
                 BeamOperand operand = instruction.Operands[position];
-                if (!call && opcode != TryEnter
+                if (!call && opcode is not (TryEnter or CatchEnter)
                     && operand.Kind == BeamOperandParameters.Label && operand.Value != clauseFailure)
                 {
                     if (!labels.TryGetValue((int)operand.Value, out int target))
@@ -186,7 +189,7 @@ internal sealed partial class BeamModuleCompiler
                     continue;
                 }
 
-                if (opcode is TryEnd or TryCase)
+                if (opcode is TryEnd or TryCase or CatchEnd)
                 {
                     // Removing the handler reads its tag and clears the slot.
                     reads |= masks[slot];
@@ -211,8 +214,8 @@ internal sealed partial class BeamModuleCompiler
             effects[index - start] = (reads, writes, fallsThrough, targets);
         }
 
-        var exceptional = tryEntry >= 0 ? new HashSet<int>() : null;
-        if (exceptional is not null && !AddTryEdges(exceptional) || !branched || !released)
+        var exceptional = handlerEntry >= 0 ? new HashSet<int>() : null;
+        if (exceptional is not null && !AddHandlerEdges(exceptional) || !branched || !released)
         {
             return null;
         }
@@ -271,7 +274,7 @@ internal sealed partial class BeamModuleCompiler
         Array.Fill(slots, -1);
         foreach (int slot in Enumerable.Range(0, frame)
             .Where(slot => firstUse[slot] != int.MaxValue)
-            .OrderBy(slot => slot == trySlot ? int.MinValue : firstUse[slot]))
+            .OrderBy(slot => slot == handlerSlot ? int.MinValue : firstUse[slot]))
         {
             int register = groups.FindIndex(group => (group & conflicts[slot]).IsZero);
             if (register >= 0)
@@ -302,14 +305,14 @@ internal sealed partial class BeamModuleCompiler
 
         return (groups.Count, slots);
 
-        bool AddTryEdges(HashSet<int> protectedInstructions)
+        bool AddHandlerEdges(HashSet<int> protectedInstructions)
         {
-            if (!labels.TryGetValue((int)body[tryEntry].Operands[1].Value, out int handler))
+            if (!labels.TryGetValue((int)body[handlerEntry].Operands[1].Value, out int handler))
             {
                 return false;
             }
 
-            int entry = tryEntry - start;
+            int entry = handlerEntry - start;
             int target = handler - start;
             int handle = handler;
             while (handle < end && body[handle].Definition.Opcode is Label or Line)
@@ -317,7 +320,8 @@ internal sealed partial class BeamModuleCompiler
                 handle++;
             }
 
-            if (handle == end || body[handle].Definition.Opcode != TryCase)
+            byte exit = isCatch ? CatchEnd : TryCase;
+            if (handle == end || body[handle].Definition.Opcode != exit)
             {
                 return false;
             }
@@ -325,8 +329,6 @@ internal sealed partial class BeamModuleCompiler
             const int NoHandler = 0;
             const int Installed = 1;
             const int HandlingException = 2;
-            // An ordinary path cannot enter try_case or merge with an exception
-            // before the handler is removed.
             var seen = new int?[effects.Length];
             var pending = new Stack<(int Index, int HandlerState)>();
             pending.Push((0, NoHandler));
@@ -336,6 +338,13 @@ internal sealed partial class BeamModuleCompiler
                 if (index < 0 || index >= effects.Length)
                 {
                     return false;
+                }
+
+                // Both paths may enter a catch_end through its labels and lines.
+                // The cleanup clears the same Y tag before any ordinary code.
+                if (isCatch && handlerState == Installed && index >= target && start + index <= handle)
+                {
+                    handlerState = HandlingException;
                 }
 
                 if (seen[index] is int previous)
@@ -351,10 +360,10 @@ internal sealed partial class BeamModuleCompiler
                 seen[index] = handlerState;
                 byte opcode = body[start + index].Definition.Opcode;
                 bool enters = index == entry;
-                bool exits = opcode is TryEnd or TryCase;
+                bool exits = opcode is TryEnd or TryCase or CatchEnd;
                 if (enters && handlerState != NoHandler
                     || opcode == TryEnd && handlerState != Installed
-                    || opcode == TryCase && (handlerState != HandlingException || start + index != handle)
+                    || opcode == exit && (handlerState != HandlingException || start + index != handle)
                     || handlerState != NoHandler && (opcode == Return || LinearFrameSizeOperand(opcode) >= 0))
                 {
                     return false;

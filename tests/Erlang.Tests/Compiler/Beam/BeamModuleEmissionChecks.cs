@@ -353,6 +353,7 @@ internal static class BeamModuleEmissionChecks
         CompareStackSlotsAcrossMapAndBinaryOperations();
         CompareStackSlotsAcrossBitMatches();
         CompareStackSlotsAcrossTry();
+        CompareStackSlotsAcrossCatch();
         CompareRedundantEntryArgumentReloads();
         CompareEntryFrameInitialization();
         CompareProjectionFrameInitialization();
@@ -871,6 +872,59 @@ internal static class BeamModuleEmissionChecks
             || code.AsSpan().IndexOf(removeTag) < 0 || code.AsSpan().IndexOf(enterHandler) < 0)
         {
             throw new InvalidOperationException("Expected compact frames and consistent handler tag operands.");
+        }
+    }
+
+    private static void CompareStackSlotsAcrossCatch()
+    {
+        const string source = """
+            -module(beam_catch_stack_slots).
+            -export([run/2, twice/3, after_catch/2]).
+
+            run(Input, Keep) ->
+                First = put(start, Input),
+                Value = catch begin
+                    X = put(work, First),
+                    Y = checked(X),
+                    Z = put(done, Y),
+                    {Y, Z}
+                end,
+                {Keep, Value, put(last, Value)}.
+
+            twice(Input, Keep, Other) ->
+                Base = put(start, Input),
+                Value = catch begin
+                    A = checked(Base),
+                    B = put(work, A),
+                    C = checked(B),
+                    D = put(done, C),
+                    {A, C, D}
+                end,
+                {Value, Keep, Other}.
+
+            after_catch(Input, Keep) ->
+                Old = put(start, Input),
+                Value = catch checked(Old),
+                Next = checked(put(last, Value)),
+                {Value, Next, Keep}.
+
+            checked({ok, Value}) -> Value;
+            checked({throw, Value}) -> throw(Value);
+            checked({exit, Value}) -> exit(Value);
+            checked(Other) -> erlang:error({bad, Other}).
+            """;
+        byte[] beam = CodeGeneration.CompileBeamModule(source, "beam_catch_stack_slots.erl");
+        byte[] code = BeamDocumentationEmissionChecks.Chunks(beam).Single(chunk => chunk.Id == "Code").Data;
+        ReadOnlySpan<byte> runFrame = [BeamEmissionFormat.Allocate, 0x40, 0x20];
+        ReadOnlySpan<byte> twiceFrame = [BeamEmissionFormat.Allocate, 0x60, 0x30];
+        ReadOnlySpan<byte> afterFrame = [BeamEmissionFormat.Allocate, 0x30, 0x20];
+        ReadOnlySpan<byte> tag = [BeamEmissionFormat.CatchEnter, 0x54];
+        ReadOnlySpan<byte> removeTag = [BeamEmissionFormat.CatchEnd, 0x54];
+        if (code.AsSpan().IndexOf(runFrame) < 0 || code.AsSpan().IndexOf(twiceFrame) < 0
+            || code.AsSpan().IndexOf(afterFrame) < 0 || code.AsSpan().IndexOf(tag) < 0
+            || code.AsSpan().IndexOf(removeTag) < 0)
+        {
+            throw new InvalidOperationException("Expected compact frames at the shared catch cleanup.");
         }
     }
 

@@ -1,3 +1,5 @@
+Part 1762 preserves live Y values across the shared catch cleanup during frame allocation. Multiple handlers and trim-dependent slot numbering still need allocator analysis. [Evidence](validation/part-1762/README.md).
+
 Part 1761 preserves Y values read by one try handler during stack-slot reuse. Multiple handlers and single catch handlers still need allocator analysis. [Evidence](validation/part-1761/README.md).
 
 Part 1760 preserves Y values live along the failure edge of a compound bit match. Dynamic pattern frame sizes and register ordering still differ. [Evidence](validation/part-1760/README.md).

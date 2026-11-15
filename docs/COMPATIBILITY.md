@@ -1,5 +1,7 @@
 # Compatibility overview
 
+Part 1762 reuses stack slots outside the tag lifetime in functions with one catch and one frame. [Evidence](validation/part-1762/README.md).
+
 Part 1761 reuses stack slots outside handler-tag lifetimes in functions with one try and one frame. [Evidence](validation/part-1761/README.md).
 
 Part 1760 reuses stack slots across compound bit matches and binary extractions. [Evidence](validation/part-1760/README.md).

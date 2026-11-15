@@ -1,5 +1,7 @@
 # Next steps
 
+Compare Y positions and lifetimes before and after a single frame trim. 118 modules 171 functions {trim_shape,1,1,false,false,false}. [Evidence](validation/part-1762/README.md).
+
 Compare values live at a single catch handler in a function with one frame. 170 modules 386 functions {handlers,0,1,1,false,false,false}. [Evidence](validation/part-1761/README.md).
 
 Compare Y values live at a single try handler in a function with one frame. 373 modules 1151 functions {handlers,1,0,1,false,false,false}. [Evidence](validation/part-1760/README.md).
