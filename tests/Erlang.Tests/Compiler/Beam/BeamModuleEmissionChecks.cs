@@ -350,6 +350,7 @@ internal static class BeamModuleEmissionChecks
         CompareEntryArgumentCopiesAcrossBranches();
         CompareEntryArgumentCopiesWithSlotReuse();
         CompareStackSlotsWithFramelessFailure();
+        CompareStackSlotsAcrossMapAndBinaryOperations();
         CompareRedundantEntryArgumentReloads();
         CompareEntryFrameInitialization();
         CompareProjectionFrameInitialization();
@@ -728,6 +729,51 @@ internal static class BeamModuleEmissionChecks
         {
             throw new InvalidOperationException(
                 "Expected slot reuse after the tuple test and a badmatch exit without a frame."
+            );
+        }
+    }
+
+    private static void CompareStackSlotsAcrossMapAndBinaryOperations()
+    {
+        const string source = """
+            -module(beam_map_binary_slots).
+            -export([associate/4, exact/4, lookup/4, binary/3]).
+
+            associate(Map, Key, Value, Keep) ->
+                Updated = Map#{Key => Value},
+                Old = put(first, Updated),
+                {Old, Keep, put(next, Old)}.
+
+            exact(Map, Key, Value, Keep) ->
+                Old = put(first, Value),
+                Updated = Map#{Key := Old},
+                {Updated, Keep, put(next, Updated)}.
+
+            lookup(Map, Key, Fallback, Keep) ->
+                Snapshot = put(first, Map),
+                case Snapshot of
+                    #{Key := A, fixed := B} -> C = put(second, A), {A, B, C, Keep};
+                    _ -> {Fallback, Keep}
+                end.
+
+            binary(Bin, Number, Keep) ->
+                Old = put(next, Bin),
+                {<<Old/binary, Number:16>>, Keep, put(next, Old)}.
+            """;
+        byte[] beam = CodeGeneration.CompileBeamModule(source, "beam_map_binary_slots.erl");
+        byte[] code = BeamDocumentationEmissionChecks.Chunks(beam).Single(chunk => chunk.Id == "Code").Data;
+        ReadOnlySpan<byte> associateFrame = [BeamEmissionFormat.Allocate, 0x30, 0x40];
+        ReadOnlySpan<byte> lookupFrame = [BeamEmissionFormat.Allocate, 0x40, 0x40];
+        ReadOnlySpan<byte> binaryFrame = [BeamEmissionFormat.Allocate, 0x30, 0x30];
+        ReadOnlySpan<byte> largerMapFrame = [BeamEmissionFormat.Allocate, 0x50, 0x40];
+        ReadOnlySpan<byte> largerLookupFrame = [BeamEmissionFormat.Allocate, 0x60, 0x40];
+        ReadOnlySpan<byte> largerBinaryFrame = [BeamEmissionFormat.Allocate, 0x40, 0x30];
+        if (code.AsSpan().IndexOf(associateFrame) < 0 || code.AsSpan().IndexOf(lookupFrame) < 0
+            || code.AsSpan().IndexOf(binaryFrame) < 0 || code.AsSpan().IndexOf(largerMapFrame) >= 0
+            || code.AsSpan().IndexOf(largerLookupFrame) >= 0 || code.AsSpan().IndexOf(largerBinaryFrame) >= 0)
+        {
+            throw new InvalidOperationException(
+                "Expected stack-slot reuse through map updates, map matching, and binary construction."
             );
         }
     }

@@ -179,7 +179,7 @@ internal sealed partial class BeamModuleCompiler
                 continue;
             }
 
-            int destination = StackWriteOperand(instruction);
+            int destination = StackAllocationDestination(instruction);
             if (destination == int.MinValue && !IsEntryFramePredicate(opcode))
             {
                 return null;
@@ -255,6 +255,14 @@ internal sealed partial class BeamModuleCompiler
 
         return (last.Count, slots, used);
     }
+
+    private static int StackAllocationDestination(BeamInstruction instruction) => instruction.Definition.Opcode switch
+    {
+        GetBinaryTail => 1,
+        PutMapAssoc or PutMapExact => 2,
+        CreateBinary => 4,
+        _ => StackWriteOperand(instruction)
+    };
 
     private static int StackWriteOperand(BeamInstruction instruction) => instruction.Definition.Opcode switch
     {

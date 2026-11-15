@@ -1,5 +1,7 @@
 # Compatibility overview
 
+Part 1759 permits BEAM stack-slot reuse across map updates, map lookups, binary construction and binary tail extraction. [Evidence](validation/part-1759/README.md).
+
 Part 1758 forwards original entry arguments into X consumers before their Y slots are overwritten and supports slot reuse after predicates with stack-free error exits. [Evidence](validation/part-1758/README.md).
 
 Part 1757 supports deferred reads after several ordinary calls and field-slot reuse. [Evidence](validation/part-1757/README.md).

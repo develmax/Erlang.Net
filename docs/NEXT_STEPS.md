@@ -1,5 +1,7 @@
 # Next steps
 
+Compare bit-match command operands and writes that can reach failure paths. 41 modules 52 functions {unsupported_y,bs_match}, 34 modules 48 functions {unsupported_y,bs_get_binary2}, 23 modules 30 functions {unsupported_y,fconv}. [Evidence](validation/part-1759/README.md).
+
 Classify remaining entry argument reloads by the first X clobber and slot reassignment. 293 modules 586 functions 978 spills {false,none,move}, 217 modules 379 functions 451 spills {false,move,move}. [Evidence](validation/part-1758/README.md).
 
 Compare remaining projected value lifetimes through additional calls. 150 modules 235 functions 303 sites {single_use,same_block,move}, 150 modules 198 functions 256 sites {multiple_uses,additional_call} [Evidence](validation/part-1757/README.md).

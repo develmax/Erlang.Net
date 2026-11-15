@@ -1,3 +1,5 @@
+Part 1759 tracks map destinations on failure when reusing stack slots. Compound binary match commands still need operand and failure-path analysis. [Evidence](validation/part-1759/README.md).
+
 Part 1758 tracks entry values up to definite stack-slot writes. The entry argument pass still excludes trim and exception-handler frames. [Evidence](validation/part-1758/README.md).
 
 Part 1757 tracks projected values through slot overwrites and trim. Fields with multiple consumers still need placement analysis. [Evidence](validation/part-1757/README.md).
