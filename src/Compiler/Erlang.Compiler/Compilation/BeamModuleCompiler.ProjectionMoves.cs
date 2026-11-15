@@ -75,12 +75,14 @@ internal sealed partial class BeamModuleCompiler
     private static int FindProjectionCopy(
         IReadOnlyList<BeamInstruction> body,
         int projection,
-        BeamOperand temporary
+        BeamOperand temporary,
+        bool crossProjections = false
     )
     {
         for (int index = projection + 1; index < body.Count; index++)
         {
-            if (body[index].Definition.Opcode == Line)
+            if (body[index].Definition.Opcode == Line
+                || crossProjections && body[index].Definition.Opcode == GetTupleElement)
             {
                 continue;
             }
@@ -113,6 +115,103 @@ internal sealed partial class BeamModuleCompiler
         }
 
         return -1;
+    }
+
+    private static byte[]? ForwardStackProjections(
+        ReadOnlyMemory<byte> code,
+        IReadOnlyList<BeamInstruction> body
+    )
+    {
+        using var output = new MemoryStream();
+        int copied = 0;
+        int start = 0;
+        for (int end = 0; end < body.Count; end++)
+        {
+            if (body[end].Definition.Opcode is not (FunctionInfo or EndCode))
+            {
+                continue;
+            }
+
+            int entry = start;
+            start = end + 1;
+            var references = new Dictionary<int, int>();
+            bool stableFrame = true;
+            int allocations = 0;
+            for (int index = entry; index < end; index++)
+            {
+                BeamInstruction instruction = body[index];
+                if (instruction.Definition.Opcode is TrimFrame or CatchEnter or TryEnter
+                    || instruction.Definition.Name == "debug_line")
+                {
+                    stableFrame = false;
+                    break;
+                }
+
+                if (instruction.Definition.Opcode is Allocate or AllocateHeap)
+                {
+                    allocations++;
+                }
+
+                if (instruction.Definition.Opcode == InitYRegisters)
+                {
+                    continue;
+                }
+
+                foreach (BeamOperand operand in instruction.Operands)
+                {
+                    if (operand.Kind == BeamOperandParameters.Y)
+                    {
+                        int slot = (int)operand.Value;
+                        references[slot] = references.GetValueOrDefault(slot) + 1;
+                    }
+                }
+            }
+
+            if (!stableFrame || allocations != 1)
+            {
+                continue;
+            }
+
+            for (int index = entry; index < end; index++)
+            {
+                if (body[index] is not
+                    { Definition.Opcode: GetTupleElement, Operands: [_, _, { Kind: BeamOperandParameters.Y, TypeIndex: null } temporary] }
+                    || references[(int)temporary.Value] != 2)
+                {
+                    continue;
+                }
+
+                int copy = FindProjectionCopy(
+                    body,
+                    index,
+                    temporary,
+                    crossProjections: true
+                );
+                if (copy < 0)
+                {
+                    continue;
+                }
+
+                // Preserve the initialized frame slot until the allocation pass can remove it.
+                int next = body[index + 1].Offset;
+                int registerWidth = temporary.Value < 1 << BeamWire.CompactSmallPayloadShift ? 1 : 2;
+                output.Write(code.Span[copied..(next - registerWidth)]);
+                BeamCompactWriter.Write(output, XRegisterTag, body[copy].Operands[1].Value);
+                WriteFrameInitialization(output, [(int)temporary.Value]);
+                output.Write(code.Span[next..body[copy].Offset]);
+                copied = body[copy + 1].Offset;
+                index = copy;
+            }
+        }
+
+        if (copied == 0)
+        {
+            return null;
+        }
+
+        output.Write(code.Span[copied..]);
+
+        return output.ToArray();
     }
 
     private static bool IsProjectionTemporaryDead(

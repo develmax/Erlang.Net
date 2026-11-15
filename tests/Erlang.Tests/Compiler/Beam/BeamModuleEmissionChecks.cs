@@ -346,6 +346,7 @@ internal static class BeamModuleEmissionChecks
         CompareEntryArgumentCopies();
         CompareEntryFrameInitialization();
         CompareProjectionFrameInitialization();
+        CompareDirectCallProjections();
         CompareTerminalCallFolding();
         CompareSharedReturnCallFolding();
         CompareUnreachableReturnRemoval();
@@ -719,6 +720,22 @@ internal static class BeamModuleEmissionChecks
         if (!beam.AsSpan().SequenceEqual(Read("beam_entry_initialization.beam")))
         {
             throw new InvalidOperationException("Expected the OTP frame allocation and register layout.");
+        }
+    }
+
+    private static void CompareDirectCallProjections()
+    {
+        const string file = "beam_direct_call_projections.erl";
+        byte[] bytes = CodeGeneration.CompileBeamModule(Encoding.UTF8.GetString(Read(file)), file);
+        byte[] code = BeamDocumentationEmissionChecks.Chunks(bytes).Single(chunk => chunk.Id == "Code").Data;
+        ReadOnlySpan<byte> callArguments =
+        [
+            BeamEmissionFormat.GetTupleElement, 0x04, 0x10, 0x03,
+            BeamEmissionFormat.GetTupleElement, 0x04, 0x20, 0x13
+        ];
+        if (code.AsSpan().IndexOf(callArguments) < 0)
+        {
+            throw new InvalidOperationException("Expected consecutive tuple projections into the two X argument registers.");
         }
     }
 

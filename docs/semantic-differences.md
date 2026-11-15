@@ -1,3 +1,5 @@
+Part 1743 removes intermediate Y stores for tuple projections when the slot has no other uses and the X destination is free. Projection ordering and lifetimes still differ in some functions. [Evidence](validation/part-1743/README.md).
+
 Part 1742 permits reuse of stack slots downstream of frame-free entry guards. Register ordering and slot clearing still differ from OTP in some branches. [Evidence](validation/part-1742/README.md).
 
 Part 1741 removes overwritten clears before tuple and list field assignments in straight-line allocation prefixes. Frame layouts and initialization across branches still differ. [Evidence](validation/part-1741/README.md).

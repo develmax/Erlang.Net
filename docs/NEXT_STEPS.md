@@ -1,5 +1,7 @@
 # Next steps
 
+Compare BIF result copies with direct Y result destinations in OTP and prove that X is dead on each applicable continuation. [Evidence](validation/part-1743/README.md).
+
 Compare tuple projections assigned to Y slots and then copied into call registers with OTP projections directly into X registers. [Evidence](validation/part-1742/README.md).
 
 Compare remaining frame layouts and register assignments. [Evidence](validation/part-1741/README.md).

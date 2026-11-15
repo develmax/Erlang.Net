@@ -1,5 +1,7 @@
 # Project progress
 
+Part 1743 compiled all 1,366 corpus sources with 398 Equal and 968 Different. 2731 more direct X projections, 2731 fewer Y projections, 2731 fewer Y-to-X moves, and 903 fewer slots across 522 changed images. [Evidence](validation/part-1743/README.md).
+
 Part 1742 compiled all 1,366 corpus sources with 398 Equal and 968 Different. 1416 frame size changes, 123 new OTP matches, 2 lost matches, 5187 fewer slots of absolute difference. [Evidence](validation/part-1742/README.md).
 
 Part 1741 compiled all 1,366 corpus sources with 398 Equal and 968 Different. 1694 fewer init_yregs instructions and 10966 fewer slot clears in 732 changed images. [Evidence](validation/part-1741/README.md).

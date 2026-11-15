@@ -1,5 +1,7 @@
 # Compatibility overview
 
+Part 1743 writes eligible tuple projections directly to their destination X registers while preserving initialization of the old slot. [Evidence](validation/part-1743/README.md).
+
 Part 1742 reuses branch stack slots past read-only entry guards with function-clause failure. [Evidence](validation/part-1742/README.md).
 
 Part 1741 lets early tuple and list projections initialize their Y destinations directly, accounting for preceding frame reads. [Evidence](validation/part-1741/README.md).
