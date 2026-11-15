@@ -1,5 +1,7 @@
 Part 1783. Sort consecutive independent X-to-Y moves by destination slot after branch slot reuse. Preserve original store order when a run writes the same destination twice. [Evidence](validation/part-1783/README.md).
 
+Part 1784. Put adjacent fields of the same tuple in X registers before frame allocation. Reuse the input X register for the second field when both successors can discard the tuple. [Evidence](validation/part-1784/README.md).
+
 Part 1782. Write the list tail back to the source X register when liveness proves that every outgoing path can discard the original input. The fixture allocates two slots with three live X registers. [Evidence](validation/part-1782/README.md).
 
 Part 1781. Allow branch-local stack-slot reuse after unframed list or tuple projections. Keep the default return outside the frame. The list fixture now allocates two slots. [Evidence](validation/part-1781/README.md).

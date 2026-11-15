@@ -1,5 +1,7 @@
 # Next steps
 
+Place a second tuple extraction after the first field guard when the failure path does not need that extraction. [Evidence](validation/part-1784/README.md).
+
 Handle consecutive tuple field projections before frame allocation and compare the remaining register and instruction differences against the release corpus. [Evidence](validation/part-1783/README.md).
 
 Order independent entry stack stores by the destination slot. [Evidence](validation/part-1782/README.md).

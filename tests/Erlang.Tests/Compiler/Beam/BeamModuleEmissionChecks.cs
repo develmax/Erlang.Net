@@ -376,6 +376,7 @@ internal static class BeamModuleEmissionChecks
         CompareGuardedFramePrefix();
         CompareTaggedEntryBeforeBranchFrames();
         CompareListEntryBeforeBranchFrames();
+        CompareTupleEntryBeforeBranchFrames();
         CompareTerminalCallFolding();
         CompareSharedReturnCallFolding();
         CompareUnreachableReturnRemoval();
@@ -1088,6 +1089,42 @@ internal static class BeamModuleEmissionChecks
         if (fields < 0 || allocation <= fields || defaultResult <= allocation)
         {
             throw new InvalidOperationException("Expected list fields to be extracted before the framed branch.");
+        }
+    }
+
+    private static void CompareTupleEntryBeforeBranchFrames()
+    {
+        const string source = """
+            -module(beam_tuple_entry_frame).
+            -export([run/2]).
+
+            run(Value, Keep) ->
+                case Value of
+                    {First, Second} when is_integer(First), is_list(Second) ->
+                        put(tuple_case, First),
+                        {ok, Second, Keep};
+                    _ -> {default, Keep}
+                end.
+            """;
+        const string discardedInput = "{default, Keep}";
+        const string retainedInput = "{default, Value, Keep}";
+        CompareTupleProjection(source, secondRegister: 0, live: 3);
+        CompareTupleProjection(source.Replace(discardedInput, retainedInput, StringComparison.Ordinal), secondRegister: 3, live: 4);
+
+        static void CompareTupleProjection(string source, byte secondRegister, byte live)
+        {
+            byte[] beam = CodeGeneration.CompileBeamModule(source, "beam_tuple_entry_frame.erl");
+            byte[] code = BeamDocumentationEmissionChecks.Chunks(beam).Single(chunk => chunk.Id == "Code").Data;
+            ReadOnlySpan<byte> first = [BeamEmissionFormat.GetTupleElement, 0x03, 0x00, 0x23];
+            ReadOnlySpan<byte> second = [BeamEmissionFormat.GetTupleElement, 0x03, 0x10, (byte)((secondRegister << 4) | 0x03)];
+            ReadOnlySpan<byte> frame = [BeamEmissionFormat.Allocate, 0x20, (byte)(live << 4)];
+            int firstField = code.AsSpan().IndexOf(first);
+            int secondField = code.AsSpan().IndexOf(second);
+            int allocation = code.AsSpan().IndexOf(frame);
+            if (firstField < 0 || secondField <= firstField || allocation <= secondField)
+            {
+                throw new InvalidOperationException("Expected tuple fields in X registers before the framed branch.");
+            }
         }
     }
 

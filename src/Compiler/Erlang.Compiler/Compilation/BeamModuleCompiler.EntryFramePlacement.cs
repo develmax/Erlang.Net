@@ -253,6 +253,7 @@ internal sealed partial class BeamModuleCompiler
         int projectedSlot = -1;
         int pairedSlot = -1;
         int pairedRegister = -1;
+        int tupleProjectionEnd = -1;
         var heapLives = new Dictionary<int, int>();
         var constructors = new HashSet<int>();
         var work = new PriorityQueue<int, int>();
@@ -276,7 +277,27 @@ internal sealed partial class BeamModuleCompiler
                 ? registerLimits[index] : (live, false, false);
             if (extendEntry)
             {
-                if (opcode is GetTupleElement or GetHead or GetTail
+                if (index == tupleProjectionEnd)
+                {
+                    supported = true;
+                }
+                else if (instruction is { Definition.Opcode: GetTupleElement, Operands: [var tupleSource, _, var firstField] }
+                    && index + 1 < end
+                    && body[index + 1] is { Definition.Opcode: GetTupleElement, Operands: [var nextTuple, _, var secondField] }
+                    && tupleSource == nextTuple && registers == live
+                    && TryProjectPair(
+                        tupleSource,
+                        firstField,
+                        secondField,
+                        index + 1
+                    ))
+                {
+                    // The second extraction is reached only by fallthrough from the first.
+                    tupleProjectionEnd = index + 1;
+                    supported = true;
+                    projected = maybeProjected = true;
+                }
+                else if (opcode is GetTupleElement or GetHead or GetTail
                     && (instruction.Operands[0].Kind != BeamOperandParameters.X || instruction.Operands[0].Value < registers))
                 {
                     BeamOperand source = instruction.Operands[0];
@@ -298,27 +319,17 @@ internal sealed partial class BeamModuleCompiler
                         projected = maybeProjected = true;
                     }
                 }
-                else if (instruction is { Definition.Opcode: GetList, Operands: [var listSource,
-                    { Kind: BeamOperandParameters.Y } projectedHead, { Kind: BeamOperandParameters.Y } projectedTail] }
-                    && registers == live && live + 2 <= BeamOperandParameters.MaximumRegister
-                    && projectedHead.Value != projectedTail.Value
-                    && (projectedSlot < 0 || projectedSlot == projectedHead.Value && pairedSlot == projectedTail.Value)
-                    && !saved.ContainsKey((int)projectedHead.Value) && !saved.ContainsKey((int)projectedTail.Value)
-                    && (listSource.Kind == BeamOperandParameters.X && listSource.Value < registers
-                        || listSource.Kind == BeamOperandParameters.Y && saved.ContainsKey((int)listSource.Value)))
+                else if (instruction is { Definition.Opcode: GetList, Operands: [var listSource, var projectedHead, var projectedTail] }
+                    && registers == live
+                    && TryProjectPair(
+                        listSource,
+                        projectedHead,
+                        projectedTail,
+                        index
+                    ))
                 {
-                    int tailRegister = listSource is { Kind: BeamOperandParameters.X, TypeIndex: null }
-                        && !saved.Values.Contains((int)listSource.Value)
-                        && valueDead?.Invoke(index, listSource) == true ? (int)listSource.Value : live + 1;
-                    if (pairedSlot < 0 || tailRegister == pairedRegister)
-                    {
-                        // The head and tail are defined together and must both survive a join.
-                        supported = true;
-                        projectedSlot = (int)projectedHead.Value;
-                        pairedSlot = (int)projectedTail.Value;
-                        pairedRegister = tailRegister;
-                        projected = maybeProjected = true;
-                    }
+                    supported = true;
+                    projected = maybeProjected = true;
                 }
                 else if (instruction is { Definition.Opcode: GetList, Operands: [var list,
                     { Kind: BeamOperandParameters.X } head, { Kind: BeamOperandParameters.X } tail] }
@@ -574,6 +585,38 @@ internal sealed partial class BeamModuleCompiler
             && body[index + 1].Definition.Opcode == Return;
 
         int ProjectionCount() => pairedRegister < live ? 1 : 2;
+
+        bool TryProjectPair(
+            BeamOperand source,
+            BeamOperand firstField,
+            BeamOperand secondField,
+            int lastRead
+        )
+        {
+            if (firstField.Kind != BeamOperandParameters.Y || secondField.Kind != BeamOperandParameters.Y
+                || firstField.Value == secondField.Value || live + 2 > BeamOperandParameters.MaximumRegister
+                || (projectedSlot >= 0 && (projectedSlot != firstField.Value || pairedSlot != secondField.Value))
+                || saved.ContainsKey((int)firstField.Value) || saved.ContainsKey((int)secondField.Value)
+                || !(source.Kind == BeamOperandParameters.X && source.Value < live
+                    || source.Kind == BeamOperandParameters.Y && saved.ContainsKey((int)source.Value)))
+            {
+                return false;
+            }
+
+            int secondRegister = source is { Kind: BeamOperandParameters.X, TypeIndex: null }
+                && !saved.Values.Contains((int)source.Value)
+                && valueDead?.Invoke(lastRead, source) == true ? (int)source.Value : live + 1;
+            if (pairedSlot >= 0 && pairedRegister != secondRegister)
+            {
+                return false;
+            }
+
+            projectedSlot = (int)firstField.Value;
+            pairedSlot = (int)secondField.Value;
+            pairedRegister = secondRegister;
+
+            return true;
+        }
 
         bool CanOverwriteX(BeamOperand target, bool maybeProjected) => !saved.Values.Contains((int)target.Value)
             && (!maybeProjected || target.Value < live && target.Value != pairedRegister);

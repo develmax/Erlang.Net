@@ -1,5 +1,7 @@
 # Project progress
 
+Part 1784 compiled all 1,366 modules with 400 Equal and 966 Different. Compared 79 changed images. Gained 0 and lost 0 normalized instruction matches. The sum of absolute Code size differences changed by 45 bytes. [Evidence](validation/part-1784/README.md).
+
 Parts 1781 through 1783 each compiled all 1,366 release sources with 400 Equal and 966 Different. [Completed runs](changelog/0157.md#follow-up-validation-of-parts-1781-through-1783--2026-11-16).
 
 Part 1783. The full Windows OTP 29.1.1 corpus comparison was still running at publication. The last completed release comparison is in part 1780. [Evidence](validation/part-1783/README.md).
