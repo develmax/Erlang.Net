@@ -1,5 +1,7 @@
 # Next steps
 
+Compare remaining frame layouts and register assignments. [Evidence](validation/part-1741/README.md).
+
 Compare other proven writes before the first frame read or garbage collection point, starting with tuple extraction. 603 modules, 3776 functions, 7325 slots: get_tuple_element [Evidence](validation/part-1740/README.md).
 
 Compare entry initializations overwritten before the frame can be used. The audit finds 11724 initializations overwritten by argument saves in 8227 functions across 778 differing modules. [Evidence](validation/part-1739/README.md).

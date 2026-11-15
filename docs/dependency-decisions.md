@@ -1,5 +1,7 @@
 # Dependency and compatibility decisions
 
+Part 1741 extends the existing frame initialization pass and reuses compact operand encoding. No dependency was added. [Evidence](validation/part-1741/README.md).
+
 Part 1740 extends the existing frame initialization pass and reuses compact operand encoding. No dependency was added. [Evidence](validation/part-1740/README.md).
 
 Part 1739 reuses the existing BEAM instruction decoder and adjusts the existing Line count. No dependency was added. [Evidence](validation/part-1739/README.md).

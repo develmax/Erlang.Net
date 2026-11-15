@@ -1,5 +1,7 @@
 # Project progress
 
+Part 1741 compiled all 1,366 corpus sources with 398 Equal and 968 Different. 1694 fewer init_yregs instructions and 10966 fewer slot clears in 732 changed images. [Evidence](validation/part-1741/README.md).
+
 Part 1740 compiled all 1,366 corpus sources with 398 Equal and 968 Different. 1680 fewer init_yregs instructions and 11724 fewer slot clears in 778 changed images. [Evidence](validation/part-1740/README.md).
 
 Part 1739 compiled all 1,366 corpus sources with 398 Equal and 968 Different. 7858 line instructions removed in 672 images. All changed counters match their emitted code and position tables retain their entries. [Evidence](validation/part-1739/README.md).

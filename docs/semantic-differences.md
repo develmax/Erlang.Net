@@ -1,3 +1,5 @@
+Part 1741 removes overwritten clears before tuple and list field assignments in straight-line allocation prefixes. Frame layouts and initialization across branches still differ. [Evidence](validation/part-1741/README.md).
+
 Part 1740 removes overwritten clears in X-to-Y argument copy prefixes. Other frame writes and initialization across branches still differ. [Evidence](validation/part-1740/README.md).
 
 Part 1739 removes repeated positions across labels in functions without exception handlers. Handler positions still require a separate comparison with OTP. [Evidence](validation/part-1739/README.md).
