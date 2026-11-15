@@ -1104,8 +1104,9 @@ internal static class BeamModuleEmissionChecks
     {
         const string source = """
             -module(beam_local_record_checks).
-            -export([read/1, constructed/1, literal_shape/0]).
+            -export([read/1, constructed/1, literal_shape/0, updated/2]).
             -record(entry, {value}).
+            -record(wide, {a, b, c, value}).
 
             read(Record = #entry{}) ->
                 put(last_record, Record),
@@ -1117,12 +1118,18 @@ internal static class BeamModuleEmissionChecks
 
             literal_shape() -> from_literal({entry, literal}).
             from_literal(#entry{value=Value}) -> Value.
+
+            updated(Record = #wide{}, Value) ->
+                Updated = Record#wide{value=Value},
+                put(updated, Updated),
+                from_updated(Updated).
+            from_updated(#wide{value=Value}) -> Value.
             """;
         byte[] beam = CodeGeneration.CompileBeamModule(source, "beam_local_record_checks.erl");
         byte[] code = BeamDocumentationEmissionChecks.Chunks(beam).Single(chunk => chunk.Id == "Code").Data;
-        if (code.Count(value => value == BeamEmissionFormat.IsTaggedTuple) != 1)
+        if (code.Count(value => value == BeamEmissionFormat.IsTaggedTuple) != 2)
         {
-            throw new InvalidOperationException("Expected one tagged-tuple check at the external entry.");
+            throw new InvalidOperationException("Expected tagged-tuple checks only at the external entries.");
         }
     }
 

@@ -1,5 +1,7 @@
 # Next steps
 
+Use exact literal tests to prove the argument on the equality edge. [Evidence](validation/part-1800/README.md).
+
 Preserve the proven tag through updates that leave the tag field intact. [Evidence](validation/part-1799/README.md).
 
 Inspect the next most common differences in the full corpus. [Evidence](validation/part-1798/README.md).

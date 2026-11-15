@@ -1,5 +1,7 @@
 # Dependency and compatibility decisions
 
+Part 1800. Reuse the record proof and the one-based update_record field indexes in pinned OTP 29.1.1. No dependency was added. [Evidence](validation/part-1800/README.md).
+
 Part 1799. Reuse the compiler literal table and BEAM control-flow proof. No dependency was added. [Evidence](validation/part-1799/README.md).
 
 Part 1798. Reuse the local entry argument proof and the pinned OTP tagged tuple representation. No dependency was added. [Evidence](validation/part-1798/README.md).

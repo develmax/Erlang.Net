@@ -1,5 +1,7 @@
 # Compatibility overview
 
+Part 1800. Follow the result of update_record to its input when the size matches and the field list leaves the tag intact. [Evidence](validation/part-1800/README.md).
+
 Part 1799. Remember the tag and arity of interned tuple literals. Trace the argument through swaps and frame trimming to prove its shape. [Evidence](validation/part-1799/README.md).
 
 Part 1798. Recognize that put_tuple2 with the same atom and arity establishes a record shape for all direct calls consuming that value. [Evidence](validation/part-1798/README.md).

@@ -146,8 +146,16 @@ internal sealed partial class BeamModuleCompiler
                         continue;
                     }
 
-                    if (instruction is { Definition.Opcode: Move, Operands: [var value, var destination] }
-                        && SameProjectionRegister(destination, register))
+                    BeamOperand? origin = instruction switch
+                    {
+                        { Definition.Opcode: Move, Operands: [var input, var destination] }
+                            when SameProjectionRegister(destination, register) => input,
+                        { Definition.Opcode: UpdateRecord, Operands: [_, var arityAfterUpdate, var input, var destination, _, ..] }
+                            when SameProjectionRegister(destination, register) && arityAfterUpdate == size
+                                && !UpdatesRecordTag(instruction.Operands) => input,
+                        _ => null
+                    };
+                    if (origin is { } value)
                     {
                         if (value.Kind == BeamOperandParameters.LiteralValue && isTaggedLiteral(value))
                         {
@@ -194,6 +202,20 @@ internal sealed partial class BeamModuleCompiler
             }
 
             return true;
+        }
+
+        private static bool UpdatesRecordTag(IReadOnlyList<BeamOperand> operands)
+        {
+            // The list contains one-based field indexes paired with values.
+            for (int field = 5; field < operands.Count; field += 2)
+            {
+                if (operands[field].Value.IsOne)
+                {
+                    return true;
+                }
+            }
+
+            return false;
         }
 
         private static bool PreservesRecordArgument(BeamInstruction instruction, BeamOperand register)
