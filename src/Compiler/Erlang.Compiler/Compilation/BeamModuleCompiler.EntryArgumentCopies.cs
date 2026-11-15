@@ -7,7 +7,8 @@ internal sealed partial class BeamModuleCompiler
     private static byte[]? EliminateEntryArgumentCopies(
         ReadOnlyMemory<byte> code,
         IReadOnlyList<BeamInstruction> body,
-        List<(int Start, int End, int Slot)> stackOperands
+        List<(int Start, int End, int Slot)> stackOperands,
+        bool removeSpills
     )
     {
         using var output = new MemoryStream();
@@ -58,20 +59,24 @@ internal sealed partial class BeamModuleCompiler
                     continue;
                 }
 
-                if ((flow ??= new BeamProjectionFlow(body)).CanUseEntryRegister(
+                if ((flow ??= new BeamProjectionFlow(body)).PlanEntryRegisterUses(
                     entry,
                     save,
                     end,
                     source,
                     slot
-                ))
+                ) is { } plan && plan.RemoveSpill == removeSpills)
                 {
-                    remove.Add(save, slot);
-                    RecordEntryArgumentUses(body, stackOperands, save, end, source, slot, replace);
+                    if (plan.RemoveSpill)
+                    {
+                        remove.Add(save, slot);
+                    }
+
+                    RecordEntryArgumentUses(body, stackOperands, plan.Uses, slot, replace);
                 }
             }
 
-            if (remove.Count == 0)
+            if (replace.Count == 0)
             {
                 continue;
             }
@@ -116,25 +121,27 @@ internal sealed partial class BeamModuleCompiler
     private static void RecordEntryArgumentUses(
         IReadOnlyList<BeamInstruction> body,
         List<(int Start, int End, int Slot)> stackOperands,
-        int save,
-        int end,
-        BeamOperand source,
+        IReadOnlyDictionary<int, BeamOperand> uses,
         BeamOperand slot,
         Dictionary<int, (int End, BeamOperand Source)> edits
     )
     {
-        int first = body[save + 1].Offset;
-        int last = body[end].Offset;
-        int indexOfOperand = stackOperands.BinarySearch((first, 0, 0),
-            Comparer<(int Start, int End, int Slot)>.Create(static (left, right) => left.Start.CompareTo(right.Start)));
-        for (int index = indexOfOperand < 0 ? ~indexOfOperand : indexOfOperand;
-            index < stackOperands.Count && stackOperands[index].Start < last;
-            index++)
+        var byOffset = Comparer<(int Start, int End, int Slot)>.Create(
+            static (left, right) => left.Start.CompareTo(right.Start));
+        foreach (var (use, source) in uses)
         {
-            var (start, finish, register) = stackOperands[index];
-            if (register == slot.Value)
+            int first = body[use].Offset;
+            int last = body[use + 1].Offset;
+            int indexOfOperand = stackOperands.BinarySearch((first, 0, 0), byOffset);
+            for (int index = indexOfOperand < 0 ? ~indexOfOperand : indexOfOperand;
+                index < stackOperands.Count && stackOperands[index].Start < last;
+                index++)
             {
-                edits.Add(start, (finish, source));
+                var (start, finish, register) = stackOperands[index];
+                if (register == slot.Value)
+                {
+                    edits.Add(start, (finish, source));
+                }
             }
         }
     }

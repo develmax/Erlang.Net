@@ -1,5 +1,7 @@
 # Next steps
 
+Compare tuple projection placement across calls and stack use. 242 modules 447 functions with matching calls and Y projections before the call where OTP reads the fields after it. [Evidence](validation/part-1754/README.md).
+
 Compare register clobbers and calls before remaining entry spill reads. 482 modules 1403 functions with oversized entry frames, equal live X counts and extra entry argument spills. [Evidence](validation/part-1753/README.md).
 
 Investigate entry argument spills. 504 modules 1594 functions with oversized entry frames, equal live X counts and extra entry argument spills. [Evidence](validation/part-1752/README.md).

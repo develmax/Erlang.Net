@@ -348,6 +348,7 @@ internal static class BeamModuleEmissionChecks
         CompareHeapTestsBeforeNullaryBifs();
         CompareEntryArgumentCopies();
         CompareEntryArgumentCopiesAcrossBranches();
+        CompareRedundantEntryArgumentReloads();
         CompareEntryFrameInitialization();
         CompareProjectionFrameInitialization();
         CompareDirectCallProjections();
@@ -654,6 +655,41 @@ internal static class BeamModuleEmissionChecks
         if (code.AsSpan().IndexOf(withoutSpills) < 0 || code.AsSpan().IndexOf(acrossCall) < 0)
         {
             throw new InvalidOperationException("Expected entry spills to be removed only when all uses can read the input register.");
+        }
+    }
+
+    private static void CompareRedundantEntryArgumentReloads()
+    {
+        const string source = """
+            -module(beam_entry_reload).
+            -export([guarded/2, two/2]).
+
+            guarded(Mode, Value) ->
+                Old = case Mode of
+                    one -> put(Mode, Value);
+                    two -> put(Mode, Value)
+                end,
+                {Mode, Value, Old}.
+
+            two(Key, Value) ->
+                put(Key, Value),
+                put(Key, Value).
+            """;
+        byte[] beam = CodeGeneration.CompileBeamModule(source, "beam_entry_reload.erl");
+        byte[] code = BeamDocumentationEmissionChecks.Chunks(beam).Single(chunk => chunk.Id == "Code").Data;
+        ReadOnlySpan<byte> beforeCall =
+        [
+            BeamEmissionFormat.Move, 0x14, 0x13,
+            BeamEmissionFormat.Move, 0x04, 0x03
+        ];
+        ReadOnlySpan<byte> afterCall =
+        [
+            BeamEmissionFormat.Move, 0x04, 0x13,
+            BeamEmissionFormat.Move, 0x14, 0x03
+        ];
+        if (code.AsSpan().IndexOf(beforeCall) >= 0 || code.AsSpan().IndexOf(afterCall) < 0)
+        {
+            throw new InvalidOperationException("Expected argument reloads to be removed only while the destination values are still valid.");
         }
     }
 

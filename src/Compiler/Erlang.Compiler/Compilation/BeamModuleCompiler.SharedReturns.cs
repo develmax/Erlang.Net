@@ -158,7 +158,7 @@ internal sealed partial class BeamModuleCompiler
                 ?? CombineStackAndHeapAllocation(code, body)
                 ?? KeepTerminalCallResultsInX0(code, body, stackOperands)
                 ?? ForwardCallResult(code, body)
-                ?? EliminateEntryArgumentCopies(code, body, stackOperands)
+                ?? EliminateEntryArgumentCopies(code, body, stackOperands, removeSpills: true)
                 ?? UseSavedBranchOperands(code, body)
                 ?? ForwardSavedCallResults(code, body, stackOperands)
                 ?? PlaceEntryBifBeforeAllocation(code, body, stackOperands)
@@ -172,7 +172,9 @@ internal sealed partial class BeamModuleCompiler
                 ?? ReuseStackSlots(code, body, stackOperands)
                 ?? OrderIndependentCallArguments(code, body)
                 ?? TrimAllocationLiveRegisters(code, body)
-                ?? MoveHeapTestsBeforeNeutralInstructions(code, body, atomNames, importsByIndex);
+                ?? MoveHeapTestsBeforeNeutralInstructions(code, body, atomNames, importsByIndex)
+                // Reloads also identify the unframed returns when short return jumps are expanded.
+                ?? (shareReturns ? null : EliminateEntryArgumentCopies(code, body, stackOperands, removeSpills: false));
             return simplified is null ? null : (simplified, Enumerable.Range(0, labelCount).ToArray(), 0);
         }
 
