@@ -359,6 +359,7 @@ internal static class BeamModuleEmissionChecks
         CompareUnreadEntrySpills();
         CompareClosureResultStores();
         CompareGuardedLinearStackSlots();
+        CompareProvenLocalRecordChecks();
         CompareStackReuseAcrossCalls();
         CompareRepeatedCallFrameTrims();
         CompareRecursiveListComprehensionHelpers();
@@ -1096,6 +1097,26 @@ internal static class BeamModuleEmissionChecks
         if (code.AsSpan().IndexOf(compactFrame) < 0 || code.AsSpan().IndexOf(reusedSlot) < 0)
         {
             throw new InvalidOperationException("Expected the entry argument to move before the literal and the tuple slot to be reused.");
+        }
+    }
+
+    private static void CompareProvenLocalRecordChecks()
+    {
+        const string source = """
+            -module(beam_local_record_checks).
+            -export([read/1]).
+            -record(entry, {value}).
+
+            read(Record = #entry{}) ->
+                put(last_record, Record),
+                read_private(Record).
+            read_private(#entry{value=Value}) -> Value.
+            """;
+        byte[] beam = CodeGeneration.CompileBeamModule(source, "beam_local_record_checks.erl");
+        byte[] code = BeamDocumentationEmissionChecks.Chunks(beam).Single(chunk => chunk.Id == "Code").Data;
+        if (code.Count(value => value == BeamEmissionFormat.IsTaggedTuple) != 1)
+        {
+            throw new InvalidOperationException("Expected one tagged-tuple check at the external entry.");
         }
     }
 

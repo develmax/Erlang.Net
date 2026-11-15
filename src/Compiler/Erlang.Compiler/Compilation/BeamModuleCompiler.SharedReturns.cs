@@ -186,6 +186,7 @@ internal sealed partial class BeamModuleCompiler
                     importsByIndex
                 )
                 ?? MoveHeapTestsBeforeNeutralInstructions(code, body, atomNames, importsByIndex)
+                ?? RemoveProvenLocalRecordChecks(code, body, atomNames)
                 // Reloads also identify the unframed returns when short return jumps are expanded.
                 ?? (shareReturns ? null : EliminateEntryArgumentCopies(code, body, stackOperands, removeSpills: false));
             return simplified is null ? null : (simplified, Enumerable.Range(0, labelCount).ToArray(), 0);

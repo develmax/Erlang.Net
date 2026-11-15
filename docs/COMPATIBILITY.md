@@ -1,5 +1,7 @@
 # Compatibility overview
 
+Part 1797. Trace the record argument backward through register moves, stack spills and successful tests. Remove a private entry check when every actual direct caller proves the same tag and arity. [Evidence](validation/part-1797/README.md).
+
 Part 1796. Move the outgoing argument first when a literal would overwrite the only available X register for that argument. Drop the entry spill when the same proof covers every read. [Evidence](validation/part-1796/README.md).
 
 Part 1795. Keep the validated tuple in the stack slot and read the required field after the call. Allow the result to replace the tuple immediately after the field read. [Evidence](validation/part-1795/README.md).

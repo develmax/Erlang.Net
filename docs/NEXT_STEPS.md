@@ -1,5 +1,7 @@
 # Next steps
 
+Use a constructed tagged tuple as additional evidence of record shape. [Evidence](validation/part-1797/README.md).
+
 Prove private entry record shapes at all direct call sites. [Evidence](validation/part-1796/README.md).
 
 Move entry arguments before a literal overwrites their original X register. [Evidence](validation/part-1795/README.md).

@@ -1,5 +1,7 @@
 # Dependency and compatibility decisions
 
+Part 1797. Reuse the BEAM control-flow graph. Preserve checks for exported, escaping and targetable functions. No dependency was added. [Evidence](validation/part-1797/README.md).
+
 Part 1796. Reuse the entry register liveness analysis and the pinned OTP call move order. No dependency was added. [Evidence](validation/part-1796/README.md).
 
 Part 1795. Reuse the deferred tuple-read analysis and the pinned OTP register order. No dependency was added. [Evidence](validation/part-1795/README.md).
