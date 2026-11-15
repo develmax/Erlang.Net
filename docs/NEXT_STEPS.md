@@ -1,5 +1,7 @@
 # Next steps
 
+Compare entry initializations overwritten before the frame can be used. The audit finds 11724 initializations overwritten by argument saves in 8227 functions across 778 differing modules. [Evidence](validation/part-1739/README.md).
+
 Evaluate repeated line positions across labels in functions outside exception handling. The audit finds 7858 repeated positions across labels in 4593 ordinary functions across 672 differing modules. [Evidence](validation/part-1738/README.md).
 
 Compare duplicate line instructions within a basic block with OTP beam_z. The current audit finds them in 831 differing modules. Preserve line table counts and source annotations. [Evidence](validation/part-1737/README.md).

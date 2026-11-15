@@ -1,5 +1,7 @@
 # Compatibility overview
 
+Part 1739 removes repeated source positions across labels in ordinary functions and preserves function entry positions. [Evidence](validation/part-1739/README.md).
+
 Part 1738 removes duplicate position markers within a block and keeps the first position at entry labels. [Evidence](validation/part-1738/README.md).
 
 Part 1737 keeps eligible call results live through the initial heap test for tuple and cons construction and record updates. [Evidence](validation/part-1737/README.md).

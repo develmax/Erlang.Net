@@ -422,6 +422,7 @@ internal static class BeamModuleEmissionChecks
         await CompareLinearStackFrameTrim();
         await CompareBranchStackSlots();
         CompareHeapCallResult();
+        CompareMatchFailureLines();
         await CompareTrimFailureEdges();
         await CompareSingletonCallResult();
         await CompareConsResultEntry();
@@ -663,6 +664,20 @@ internal static class BeamModuleEmissionChecks
         if (!chunks.Single(chunk => chunk.Id == "Line").Data.AsSpan().SequenceEqual(expectedLines))
         {
             throw new InvalidOperationException("Expected the line table to match OTP for calls on a shared source line.");
+        }
+    }
+
+    private static void CompareMatchFailureLines()
+    {
+        const string module = "beam_match_failure_line";
+        const string source = module + ".erl";
+        byte[] output = CodeGeneration.CompileBeamModule(Encoding.UTF8.GetString(Read(source)), source);
+        byte[] actual = BeamDocumentationEmissionChecks.Chunks(output).Single(chunk => chunk.Id == "Line").Data;
+        byte[] expected = BeamDocumentationEmissionChecks.Chunks(Read(module + ".beam"))
+            .Single(chunk => chunk.Id == "Line").Data;
+        if (!actual.AsSpan().SequenceEqual(expected))
+        {
+            throw new InvalidOperationException("Expected the match failure and same-line function entries to use the OTP line table.");
         }
     }
 

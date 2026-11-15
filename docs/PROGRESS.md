@@ -1,5 +1,7 @@
 # Project progress
 
+Part 1739 compiled all 1,366 corpus sources with 398 Equal and 968 Different. 7858 line instructions removed in 672 images. All changed counters match their emitted code and position tables retain their entries. [Evidence](validation/part-1739/README.md).
+
 Part 1738 compiled all 1,366 corpus sources with 398 Equal and 968 Different. 25457 line instructions removed in 831 images. All changed counters match their emitted code and position tables retain their entries. [Evidence](validation/part-1738/README.md).
 
 Part 1737 compiled all 1,366 corpus sources with 398 Equal and 968 Different. 2312 heap tests retain X0 for construction in 1802 functions across 524 modules with the same before and after sites. [Evidence](validation/part-1737/README.md).
