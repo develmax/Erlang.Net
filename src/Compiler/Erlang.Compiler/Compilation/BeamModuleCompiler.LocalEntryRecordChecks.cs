@@ -60,7 +60,11 @@ internal sealed partial class BeamModuleCompiler
                 check++;
             }
 
-            if (body[check] is not { Definition.Opcode: IsTaggedTuple, Operands: [_, var argument, var size, var tag] }
+            if (body[check] is not
+                {
+                    Definition.Opcode: IsTaggedTuple,
+                    Operands: [_, var argument, var size, { Kind: BeamOperandParameters.Atom } tag]
+                }
                 || argument is not { Kind: BeamOperandParameters.X, TypeIndex: null })
             {
                 continue;
@@ -71,7 +75,9 @@ internal sealed partial class BeamModuleCompiler
                 site,
                 argument,
                 size,
-                tag
+                tag,
+                value => taggedTupleLiterals.TryGetValue((int)value.Value, out var literal)
+                    && literal.Arity == size.Value && literal.Tag == atomNames[(int)tag.Value - 1]
             )))
             {
                 continue;
@@ -97,7 +103,8 @@ internal sealed partial class BeamModuleCompiler
             int site,
             BeamOperand argument,
             BeamOperand size,
-            BeamOperand tag
+            BeamOperand tag,
+            Func<BeamOperand, bool> isTaggedLiteral
         )
         {
             var pending = new Stack<(int Next, BeamOperand Register)>();
@@ -142,12 +149,40 @@ internal sealed partial class BeamModuleCompiler
                     if (instruction is { Definition.Opcode: Move, Operands: [var value, var destination] }
                         && SameProjectionRegister(destination, register))
                     {
+                        if (value.Kind == BeamOperandParameters.LiteralValue && isTaggedLiteral(value))
+                        {
+                            continue;
+                        }
+
                         if (value.Kind is not (BeamOperandParameters.X or BeamOperandParameters.Y))
                         {
                             return false;
                         }
 
                         register = value with { TypeIndex = null };
+                    }
+                    else if (instruction is { Definition.Opcode: Swap, Operands: [var left, var right] })
+                    {
+                        if (SameProjectionRegister(register, left))
+                        {
+                            register = right with { TypeIndex = null };
+                        }
+                        else if (SameProjectionRegister(register, right))
+                        {
+                            register = left with { TypeIndex = null };
+                        }
+                    }
+                    else if (instruction is { Definition.Opcode: TrimFrame, Operands: [var removed, var remaining] })
+                    {
+                        if (register.Kind == BeamOperandParameters.Y)
+                        {
+                            if (register.Value >= remaining.Value)
+                            {
+                                return false;
+                            }
+
+                            register = register with { Value = register.Value + removed.Value };
+                        }
                     }
                     else if (!PreservesRecordArgument(instruction, register))
                     {

@@ -1,5 +1,7 @@
 # Compatibility overview
 
+Part 1799. Remember the tag and arity of interned tuple literals. Trace the argument through swaps and frame trimming to prove its shape. [Evidence](validation/part-1799/README.md).
+
 Part 1798. Recognize that put_tuple2 with the same atom and arity establishes a record shape for all direct calls consuming that value. [Evidence](validation/part-1798/README.md).
 
 Part 1797. Trace the record argument backward through register moves, stack spills and successful tests. Remove a private entry check when every actual direct caller proves the same tag and arity. [Evidence](validation/part-1797/README.md).

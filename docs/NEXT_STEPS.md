@@ -1,5 +1,7 @@
 # Next steps
 
+Preserve the proven tag through updates that leave the tag field intact. [Evidence](validation/part-1799/README.md).
+
 Inspect the next most common differences in the full corpus. [Evidence](validation/part-1798/README.md).
 
 Use a constructed tagged tuple as additional evidence of record shape. [Evidence](validation/part-1797/README.md).
