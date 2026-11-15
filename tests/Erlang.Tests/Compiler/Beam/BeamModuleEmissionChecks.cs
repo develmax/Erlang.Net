@@ -1001,13 +1001,19 @@ internal static class BeamModuleEmissionChecks
         byte[] code = BeamDocumentationEmissionChecks.Chunks(beam).Single(chunk => chunk.Id == "Code").Data;
         ReadOnlySpan<byte> frame =
         [
-            BeamEmissionFormat.Allocate, 0x20, 0x10,
-            BeamEmissionFormat.GetTupleElement, 0x03, 0x00, 0x04,
-            BeamEmissionFormat.GetTupleElement, 0x03, 0x10, 0x14
+            BeamEmissionFormat.Allocate, 0x10, 0x10,
+            BeamEmissionFormat.Move, 0x03, 0x04
         ];
-        if (code.AsSpan().IndexOf(frame) < 0)
+        ReadOnlySpan<byte> reads =
+        [
+            BeamEmissionFormat.TestHeap, 0x30, 0x00,
+            BeamEmissionFormat.GetTupleElement, 0x04, 0x00, 0x03,
+            BeamEmissionFormat.GetTupleElement, 0x04, 0x10, 0x13
+        ];
+        int allocation = code.AsSpan().IndexOf(frame);
+        if (allocation < 0 || code.AsSpan(allocation + frame.Length).IndexOf(reads) < 0)
         {
-            throw new InvalidOperationException("Expected the input tuple register to initialize both projected frame slots.");
+            throw new InvalidOperationException("Expected the whole tuple in one frame slot and its fields read after collection.");
         }
     }
 

@@ -1,3 +1,5 @@
+Part 1755 can keep one tuple slot in place of several fields across a call. Some resulting frames still use an explicit trim before the call. [Evidence](validation/part-1755/README.md).
+
 Part 1754 removes more redundant reloads. The location of tuple field reads around calls still affects frame sizes. [Evidence](validation/part-1754/README.md).
 
 Part 1753 moves eligible argument reads out of Y. Calls, register clobbers and projection order still leave excess slots. [Evidence](validation/part-1753/README.md).

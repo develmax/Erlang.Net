@@ -1,5 +1,7 @@
 # Dependency and compatibility decisions
 
+Part 1755 reuses the BEAM branch liveness proof, frame initialization and compact operand writer. No dependency was added. [Evidence](validation/part-1755/README.md).
+
 Part 1754 reuses the BEAM control-flow graph, identity-move deletion and compact operand writer. No dependency was added. [Evidence](validation/part-1754/README.md).
 
 Part 1753 reuses the BEAM control-flow graph and compact operand writer. No dependency was added. [Evidence](validation/part-1753/README.md).
