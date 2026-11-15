@@ -1,5 +1,7 @@
 # Next steps
 
+Combine heap checks for adjacent construction without crossing a call, a garbage-collecting operation or a branch. Part 1775 contains 853 modules with excess split checks. [Evidence](validation/part-1776/README.md).
+
 Implement repeated trims based on slot lifetime between calls. The part 1774 comparison found 869 modules with fewer trims than OTP, including 302 modules with straight-line functions missing a trim. [Evidence](validation/part-1775/README.md).
 
 Schedule the last independent Y-to-X argument load ahead of the result spill when this lets the frame allocator reuse the released slot. In ex_slider:do_init/1 the stored fourth slider result currently overlaps the first slider until the first call to wxSizer:add/3. [Evidence](validation/part-1774/README.md).

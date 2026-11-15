@@ -1,5 +1,7 @@
 # Compatibility overview
 
+Part 1776 trims straight-line frames between calls. [Evidence](validation/part-1776/README.md).
+
 Part 1775 reuses a stack slot when an independent load can precede the call result store. [Evidence](validation/part-1775/README.md).
 
 Part 1774 carries immediate computed arithmetic operands into GC BIFs in X0. [Evidence](validation/part-1774/README.md).

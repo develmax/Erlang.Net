@@ -1,5 +1,7 @@
 # Project progress
 
+Part 1776 compiled all 1,366 sources with 399 Equal and 967 Different. Compared 233 changed images. 7 normalized instruction matches were gained and 0 were lost. Absolute Code-size differences changed by 2362 bytes in total. [Evidence](validation/part-1776/README.md).
+
 Part 1775 compiled all 1,366 sources with 399 Equal and 967 Different. Compared 31 changed images. 1 normalized instruction matches were gained and 0 were lost. Absolute Code-size differences changed by -103 bytes in total. [Evidence](validation/part-1775/README.md).
 
 Part 1774 compiled all 1,366 sources with 399 Equal and 967 Different. Compared 394 changed images. 6 normalized instruction matches were gained and 0 were lost. Absolute Code-size differences changed by -10898 bytes in total. [Evidence](validation/part-1774/README.md).

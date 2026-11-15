@@ -356,6 +356,7 @@ internal static class BeamModuleEmissionChecks
         CompareStackSlotsAcrossCatch();
         CompareStackSlotsAcrossTrim();
         CompareStackReuseAcrossCalls();
+        CompareRepeatedCallFrameTrims();
         CompareRecursiveListComprehensionHelpers();
         CompareRecursiveTupleComprehensionHelpers();
         CompareCallListGeneratorHelpers();
@@ -1007,6 +1008,48 @@ internal static class BeamModuleEmissionChecks
         if (code.AsSpan().IndexOf(frame) < 0 || code.AsSpan().IndexOf(reuse) < 0)
         {
             throw new InvalidOperationException("Expected the call result to reuse the slot released by the argument load.");
+        }
+    }
+
+    private static void CompareRepeatedCallFrameTrims()
+    {
+        const string source = """
+            -module(beam_trims_between_calls).
+            -export([run/1]).
+            -record(state, {panel, config}).
+
+            run(Config) ->
+                Parent = put(parent, Config),
+                Panel = keep(Parent),
+                Min = 0,
+                Max = 100,
+                Start = 25,
+                First = slider(Panel, Start, Min, Max, [{style, style(first) bor 4}]),
+                Second = slider(Panel, Start, Min, Max, [{style, style(second) bor 8}]),
+                Third = slider(Panel, Start, Min, Max, [{style, style(third) bor 16}]),
+                remember(first_value, First),
+                remember(second_value, Second),
+                remember(third_value, Third),
+                {Panel, #state{panel=Panel,config=Config}}.
+
+            remember(Key, Value) -> put(Key, Value).
+            keep(Value) -> {panel, Value}.
+            slider(Panel, Start, Min, Max, Options) -> {Panel, Start, Min, Max, Options}.
+            style(Name) ->
+                put(Name, true),
+                1.
+            """;
+        byte[] beam = CodeGeneration.CompileBeamModule(source, "beam_trims_between_calls.erl");
+        byte[] code = BeamDocumentationEmissionChecks.Chunks(beam).Single(chunk => chunk.Id == "Code").Data;
+        ReadOnlySpan<byte> toThree = [BeamEmissionFormat.TrimFrame, 0x10, 0x30];
+        ReadOnlySpan<byte> toTwo = [BeamEmissionFormat.TrimFrame, 0x10, 0x20];
+        ReadOnlySpan<byte> release = [BeamEmissionFormat.Deallocate, 0x20, BeamEmissionFormat.Return];
+        int firstTrim = code.AsSpan().IndexOf(toThree);
+        int secondTrim = code.AsSpan().IndexOf(toTwo);
+        int exit = code.AsSpan().IndexOf(release);
+        if (firstTrim < 0 || secondTrim <= firstTrim || exit <= secondTrim)
+        {
+            throw new InvalidOperationException("Expected two call boundaries to shrink the frame before return.");
         }
     }
 

@@ -1,5 +1,7 @@
 # Dependency and compatibility decisions
 
+Part 1776 reuses frame initialization and compact operand rewriting. No dependency was added. [Evidence](validation/part-1776/README.md).
+
 Part 1775 reuses linear stack allocation and late instruction rewriting. No dependency was added. [Evidence](validation/part-1775/README.md).
 
 Part 1774 reuses typed register and compact operand emission. No dependency was added. [Evidence](validation/part-1774/README.md).
