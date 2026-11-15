@@ -1,5 +1,7 @@
 # Compatibility overview
 
+Part 1750 places eligible heap tests before straight-line tuple field reads while preserving the GC root prefix. [Evidence](validation/part-1750/README.md).
+
 Part 1749 removes dead trailing X registers from test_heap when the continuation proves them unused. [Evidence](validation/part-1749/README.md).
 
 Part 1748 excludes proven dead trailing X registers from allocate and allocate_heap roots. [Evidence](validation/part-1748/README.md).

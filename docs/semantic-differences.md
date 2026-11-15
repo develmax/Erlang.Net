@@ -1,3 +1,5 @@
+Part 1750 aligns the position of eligible heap tests. Differences remain where projections are interleaved with predicates or use different registers. [Evidence](validation/part-1750/README.md).
+
 Part 1749 trims unused test_heap roots. Heap tests still differ when the preceding field reads and register allocation differ. [Evidence](validation/part-1749/README.md).
 
 Part 1748 trims dead allocation roots when the continuation is understood. Other collector live counts and unsupported instructions still differ. [Evidence](validation/part-1748/README.md).

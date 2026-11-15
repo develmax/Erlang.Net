@@ -344,6 +344,7 @@ internal static class BeamModuleEmissionChecks
         CompareCombinedStackAndHeapAllocation();
         CompareTerminalCallResultConstructions();
         CompareHeapRootsAfterListHeadTest();
+        CompareHeapTestBeforeTupleReads();
         CompareEntryArgumentCopies();
         CompareEntryFrameInitialization();
         CompareProjectionFrameInitialization();
@@ -577,6 +578,31 @@ internal static class BeamModuleEmissionChecks
         if (code.AsSpan().IndexOf(separator) < 0 || code.AsSpan().IndexOf(ordinary) < 0)
         {
             throw new InvalidOperationException("Expected the list head to remain a heap root only in the ordinary character branch.");
+        }
+    }
+
+    private static void CompareHeapTestBeforeTupleReads()
+    {
+        const string source = """
+            -module(beam_tuple_heap).
+            -export([category/1]).
+            category(Ref) ->
+                case erlang:get(Ref) of
+                    {definition, Pos, Mod, Name} ->
+                        {class, {reference, Pos, Mod, Name}};
+                    _ ->
+                        type
+                end.
+            """;
+        byte[] beam = CodeGeneration.CompileBeamModule(source, "beam_tuple_heap.erl");
+        byte[] code = BeamDocumentationEmissionChecks.Chunks(beam).Single(chunk => chunk.Id == "Code").Data;
+        ReadOnlySpan<byte> allocation = [
+            BeamEmissionFormat.TestHeap, 0x80, 0x10,
+            BeamEmissionFormat.GetTupleElement, 0x03, 0x10, 0x13
+        ];
+        if (code.AsSpan().IndexOf(allocation) < 0)
+        {
+            throw new InvalidOperationException("Expected the heap test before tuple field reads with only the source tuple live.");
         }
     }
 

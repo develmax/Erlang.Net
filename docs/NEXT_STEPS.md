@@ -1,5 +1,7 @@
 # Next steps
 
+Compare the largest remaining heap-test neighbors, including heap-neutral BIFs. [Evidence](validation/part-1750/README.md).
+
 Compare the ordering of tuple field reads and heap tests for remaining live-X differences. [Evidence](validation/part-1749/README.md).
 
 Compare oversized live-X counts at both stack allocations and heap tests. [Evidence](validation/part-1748/README.md).
