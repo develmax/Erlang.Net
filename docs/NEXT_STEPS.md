@@ -1,5 +1,7 @@
 # Next steps
 
+Lower one filter after a relaxed variable or tuple generator over a variable. The group covers 182 source functions in 113 modules, with 77 guard filters and 105 Boolean expression filters. [Evidence](validation/part-1766/README.md).
+
 Lower variable and tuple generators whose source is a call with no filters. The group covers 226 source functions in 126 modules. [Evidence](validation/part-1765/README.md).
 
 Recursive lowering for relaxed tuple generators over a variable can address 254 source functions in 149 modules. OTP skips nonmatching heads with a tail call to the helper. [Evidence](validation/part-1764/README.md).

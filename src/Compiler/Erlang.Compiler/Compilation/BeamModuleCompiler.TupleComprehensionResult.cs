@@ -75,7 +75,6 @@ internal sealed partial class BeamModuleCompiler
             int slots = captureNames.Length + (preserveTuple ? 1 : 0);
             int skip = Label();
             int empty = Label();
-            int invalid = Label();
             owner.EmitNonemptyList(0, empty);
             owner.EmitListParts(
                 0,
@@ -153,7 +152,7 @@ internal sealed partial class BeamModuleCompiler
             Mark(skip);
             owner.Op(TailLocalCall, BeamWire.UnsignedTag, arity);
             owner.Operand(LabelTag, entry);
-            owner.EmitMappingEnd(empty, invalid);
+            EmitRecursiveListMappingEnd(function, empty);
 
             return true;
         }

@@ -300,7 +300,8 @@ internal sealed partial class BeamModuleCompiler
         Pattern item,
         Expr mapped,
         IReadOnlyList<Pattern.Variable> captures,
-        bool useReservedBindings = true
+        bool useReservedBindings = true,
+        bool properInput = false
     )
     {
         string tail = useReservedBindings ? "@BeamComprehensionTail" : "BeamComprehensionTail";
@@ -313,14 +314,19 @@ internal sealed partial class BeamModuleCompiler
         [
             new([new Pattern.List([new Pattern.Variable(VariableScopeNames.Wildcard)], new Pattern.Variable(tail)), .. captures], null, recur with { })
         ];
+        Clause[] finish = properInput
+            ? [new([new Pattern.Variable(bad), .. ignoredCaptures], null, new Expr.Variable(bad))]
+            : [
+                new([new Pattern.List([], null), .. ignoredCaptures], null, new Expr.Literal(Nil.Value)),
+                new([new Pattern.Variable(bad), .. ignoredCaptures], null, new Expr.Call(ErlangModuleNames.Module, "error",
+                    [new Expr.Tuple([new Expr.Literal(Term.A(ErlangErrorReasons.BadGenerator)), new Expr.Variable(bad)])]))
+            ];
         return new FunctionDefinition(name, arity,
         [
             new([new Pattern.List([item], new Pattern.Variable(tail)), .. captures], null,
                 new Expr.List([mapped], recur)),
             .. skip,
-            new([new Pattern.List([], null), .. ignoredCaptures], null, new Expr.Literal(Nil.Value)),
-            new([new Pattern.Variable(bad), .. ignoredCaptures], null, new Expr.Call(ErlangModuleNames.Module, "error",
-                [new Expr.Tuple([new Expr.Literal(Term.A(ErlangErrorReasons.BadGenerator)), new Expr.Variable(bad)])]))
+            .. finish
         ]);
     }
 

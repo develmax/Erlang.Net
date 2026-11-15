@@ -524,7 +524,7 @@ internal sealed partial class BeamModuleCompiler
                 || TryEmitSocketAccept(function)
                 || TryEmitSocketControllerTransfer(function)
                 || TryEmitTupleKeyFilter(function) || TryEmitTupleFieldComprehension(function) || TryEmitClosedListMapper(function)
-                || TryEmitCapturedListMapping(function) || TryEmitTupleComprehensionResult(function)
+                || TryEmitIdentityListComprehension(function) || TryEmitCapturedListMapping(function) || TryEmitTupleComprehensionResult(function)
                 || TryEmitTupleProjectionHelper(function) || TryEmitTaggedAccumulator(function)
                 || TryEmitCertificateNameCheck(function)
                 || TryEmitTlsServerHandshake(function)

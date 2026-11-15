@@ -365,8 +365,13 @@ internal sealed partial class BeamModuleCompiler
         {
             EmitLine(line);
         }
-        EmitFieldCall(1, entry);
-        Op(TestHeap, BeamWire.UnsignedTag, 2);
+        EmitRecursiveCons(entry, 1);
+    }
+
+    private void EmitRecursiveCons(int entry, int arity)
+    {
+        EmitFieldCall(arity, entry);
+        Op(TestHeap, BeamWire.UnsignedTag, ConsHeapWords);
         Operand(BeamWire.UnsignedTag, 1);
         Op(PutList, YRegisterTag, 0);
         Operand(XRegisterTag, 0);

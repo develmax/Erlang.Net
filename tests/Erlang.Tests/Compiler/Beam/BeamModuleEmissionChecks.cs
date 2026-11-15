@@ -357,6 +357,7 @@ internal static class BeamModuleEmissionChecks
         CompareStackSlotsAcrossTrim();
         CompareRecursiveListComprehensionHelpers();
         CompareRecursiveTupleComprehensionHelpers();
+        CompareCallListGeneratorHelpers();
         CompareRedundantEntryArgumentReloads();
         CompareEntryFrameInitialization();
         CompareProjectionFrameInitialization();
@@ -1050,6 +1051,43 @@ internal static class BeamModuleEmissionChecks
             || code.AsSpan().IndexOf(holdTuple) < 0 || code.AsSpan().IndexOf(reuseTuple) < 0)
         {
             throw new InvalidOperationException("Expected tuple comprehension helpers and reuse of the original tuple.");
+        }
+    }
+
+    private static void CompareCallListGeneratorHelpers()
+    {
+        const string source = """
+            -module(beam_call_list_generator).
+            -export([project/2, map/2, identity/1, embedded/2]).
+
+            project(List, Prefix) ->
+                [{Key, Prefix, Value} || {Key, Value} <- source(List)].
+
+            map(List, Key) ->
+                [item(Key, E) || E <- tl(List)].
+
+            identity(List) ->
+                [E || E <- source(List)].
+
+            embedded(List, Prefix) ->
+                {tag, [{Key, Prefix, Value} || {Key, Value} <- lists:reverse(List)]}.
+
+            source(List) ->
+                put(source_count, 1 + get(source_count)),
+                List.
+
+            item(Key, Value) ->
+                {Key, Value}.
+            """;
+        byte[] beam = CodeGeneration.CompileBeamModule(source, "beam_call_list_generator.erl");
+        var chunks = BeamDocumentationEmissionChecks.Chunks(beam);
+        string atoms = Encoding.UTF8.GetString(chunks.Single(chunk => chunk.Id == "AtU8").Data);
+        if (!atoms.Contains("-project/2-lc$^0/1-0-", StringComparison.Ordinal)
+            || !atoms.Contains("-map/2-lc$^0/1-0-", StringComparison.Ordinal)
+            || !atoms.Contains("-identity/1-lc$^0/1-0-", StringComparison.Ordinal)
+            || !atoms.Contains("-embedded/2-lc$^0/1-0-", StringComparison.Ordinal))
+        {
+            throw new InvalidOperationException("Expected recursive helpers for generators fed by function calls.");
         }
     }
 

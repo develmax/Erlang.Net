@@ -1,5 +1,7 @@
 # Dependency and compatibility decisions
 
+Part 1766 reuses the recursive comprehension builder and uses proper-list result information from OTP 29.1.1. No dependency was added. [Evidence](validation/part-1766/README.md).
+
 Part 1765 reuses the recursive comprehension builder and the shared clause and tuple emitters. No dependency was added. [Evidence](validation/part-1765/README.md).
 
 Part 1764 follows OTP 29.1.1 Core lowering and reuses the expression rewriter and recursive mapper. No dependency was added. [Evidence](validation/part-1764/README.md).
