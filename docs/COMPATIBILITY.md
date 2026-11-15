@@ -1,5 +1,7 @@
 # Compatibility overview
 
+Part 1788. Preserve a zero-slot frame for a trapping tail BIF. Add a frame when an earlier emitter produced a frameless call to one of those BIFs. [Evidence](validation/part-1788/README.md).
+
 Part 1787. Remove zero-slot stack allocation and use the tail-call opcode without a frame when argument setup reaches the tail call without another call or branch. Preserve heap reservation as test_heap. [Evidence](validation/part-1787/README.md).
 
 Part 1786. In an uninterrupted run of X-to-Y moves, emit the last store to each destination. Continue ordering independent stores by the Y slot. [Evidence](validation/part-1786/README.md).

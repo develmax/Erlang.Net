@@ -1,5 +1,7 @@
 # Next steps
 
+Eliminate entry argument spills proven unread by the existing register lifetime analysis. [Evidence](validation/part-1788/README.md).
+
 Use the remaining corpus instruction differences to prioritize modes of frame allocation and register reuse. [Evidence](validation/part-1787/README.md).
 
 Remove zero-slot frames on tail-only paths while preserving heap allocation. [Evidence](validation/part-1786/README.md).

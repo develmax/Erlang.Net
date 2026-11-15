@@ -355,6 +355,7 @@ internal static class BeamModuleEmissionChecks
         CompareStackSlotsAcrossTry();
         CompareStackSlotsAcrossCatch();
         CompareStackSlotsAcrossTrim();
+        CompareTrappingTailFrames();
         CompareStackReuseAcrossCalls();
         CompareRepeatedCallFrameTrims();
         CompareRecursiveListComprehensionHelpers();
@@ -981,6 +982,26 @@ internal static class BeamModuleEmissionChecks
             || code.AsSpan().IndexOf(released) < 0)
         {
             throw new InvalidOperationException("Expected compact frames without copying unwritten Y registers.");
+        }
+    }
+
+    private static void CompareTrappingTailFrames()
+    {
+        const string source = """
+            -module(beam_trapping_tail_frames).
+            -export([disconnect/2]).
+
+            disconnect(Process, Reason) -> erlang:exit(Process, Reason).
+            """;
+        byte[] beam = CodeGeneration.CompileBeamModule(source, "beam_trapping_tail_frames.erl");
+        byte[] code = BeamDocumentationEmissionChecks.Chunks(beam).Single(chunk => chunk.Id == "Code").Data;
+        ReadOnlySpan<byte> continuationFrame = [BeamEmissionFormat.Allocate, 0x00, 0x20];
+        ReadOnlySpan<byte> trappingCall = [BeamEmissionFormat.TailExternalCallWithFrame, 0x20];
+        int frame = code.AsSpan().IndexOf(continuationFrame);
+        int call = code.AsSpan().IndexOf(trappingCall);
+        if (frame < 0 || call <= frame)
+        {
+            throw new InvalidOperationException("Expected a frame for the trapping tail call.");
         }
     }
 

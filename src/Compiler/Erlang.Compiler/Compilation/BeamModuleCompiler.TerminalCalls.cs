@@ -68,13 +68,40 @@ internal sealed partial class BeamModuleCompiler
         return output.ToArray();
     }
 
-    private static byte[]? RemoveEmptyTailFrames(ReadOnlyMemory<byte> code, IReadOnlyList<BeamInstruction> body)
+    private static byte[]? NormalizeTailCallFrames(
+        ReadOnlyMemory<byte> code,
+        IReadOnlyList<BeamInstruction> body,
+        string[] atomNames,
+        (int Module, int Function, int Arity)[] importsByIndex
+    )
     {
         using var output = new MemoryStream();
         int copied = 0;
-        for (int frame = 0; frame + 2 < body.Count; frame++)
+        for (int frame = 0; frame + 1 < body.Count; frame++)
         {
             var allocation = body[frame];
+            if (allocation.Definition.Opcode == TailExternalCall
+                && IsTrappingTailBif(importsByIndex[(int)allocation.Operands[1].Value], atomNames))
+            {
+                int line = frame;
+                while (line > 0 && body[line - 1].Offset >= copied && body[line - 1].Definition.Opcode == Line)
+                {
+                    line--;
+                }
+
+                int start = body[line].Offset;
+                output.Write(code.Span[copied..start]);
+                output.WriteByte(Allocate);
+                BeamCompactWriter.Write(output, BeamWire.UnsignedTag, 0);
+                BeamCompactWriter.Write(output, BeamWire.UnsignedTag, allocation.Operands[0].Value);
+                output.Write(code.Span[start..allocation.Offset]);
+                output.WriteByte(TailExternalCallWithFrame);
+                copied = body[frame + 1].Offset;
+                output.Write(code.Span[(allocation.Offset + 1)..copied]);
+                BeamCompactWriter.Write(output, BeamWire.UnsignedTag, 0);
+                continue;
+            }
+
             if (allocation.Definition.Opcode is not (Allocate or AllocateHeap) || !allocation.Operands[0].Value.IsZero)
             {
                 continue;
@@ -86,6 +113,11 @@ internal sealed partial class BeamModuleCompiler
                 tail++;
             }
 
+            if (tail + 1 == body.Count)
+            {
+                continue;
+            }
+
             var call = body[tail];
             byte opcode = call.Definition.Opcode switch
             {
@@ -94,6 +126,12 @@ internal sealed partial class BeamModuleCompiler
                 _ => 0
             };
             if (opcode == 0 || !call.Operands[^1].Value.IsZero)
+            {
+                continue;
+            }
+
+            if (opcode == TailExternalCall
+                && IsTrappingTailBif(importsByIndex[(int)call.Operands[1].Value], atomNames))
             {
                 continue;
             }
@@ -127,6 +165,12 @@ internal sealed partial class BeamModuleCompiler
                 or GetTupleElement or GetList or GetHead or GetTail)
             && instruction.Operands.All(operand => operand.Kind != BeamOperandParameters.Y);
     }
+
+    private static bool IsTrappingTailBif((int Module, int Function, int Arity) import, string[] atomNames) =>
+        atomNames[import.Module - 1] == ErlangModuleNames.Module
+        && (atomNames[import.Function - 1], import.Arity) is
+            (ErlangModuleNames.Link or ErlangModuleNames.Unlink, 1)
+            or (ErlangOperators.Send or AutoImportNames.MonitorNode or AutoImportNames.GroupLeader or ErlangModuleNames.Exit, 2);
 
     private static byte[]? ExpandShortReturnJumps(ReadOnlyMemory<byte> code, IReadOnlyList<BeamInstruction> body)
     {
