@@ -1,5 +1,7 @@
 # Next steps
 
+Investigate entry argument spills. 504 modules 1594 functions with oversized entry frames, equal live X counts and extra entry argument spills. [Evidence](validation/part-1752/README.md).
+
 Investigate oversized stack frames. 868 modules 9150 functions {allocate,slots,higher}. [Evidence](validation/part-1751/README.md).
 
 Compare the largest remaining heap-test neighbors, including heap-neutral BIFs. [Evidence](validation/part-1750/README.md).

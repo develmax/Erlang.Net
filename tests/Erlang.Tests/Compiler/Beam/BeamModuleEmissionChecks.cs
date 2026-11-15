@@ -431,6 +431,7 @@ internal static class BeamModuleEmissionChecks
         await CompareLinearStackFrameTrim();
         await CompareBranchStackSlots();
         CompareGuardedBranchStackSlots();
+        CompareReceiveLoopStackSlots();
         CompareHeapCallResult();
         CompareMatchFailureLines();
         await CompareTrimFailureEdges();
@@ -713,6 +714,45 @@ internal static class BeamModuleEmissionChecks
         }
 
         static Term Step(Term value) => Term.Tuple(Term.A("step"), value);
+    }
+
+    private static void CompareReceiveLoopStackSlots()
+    {
+        const string source = """
+            -module(beam_receive_slots).
+            -export([notify/2, pick/2]).
+
+            notify(Tag, Timeout) ->
+                Ref = make_ref(),
+                put(ref, Ref),
+                receive
+                    {Tag, Result} ->
+                        put(result, Result),
+                        {ok, Result}
+                after Timeout ->
+                    {timeout, Ref}
+                end.
+
+            pick(Tag, Timeout) ->
+                receive
+                    {Tag, X} ->
+                        Old = put(x, X),
+                        {chosen, Old};
+                    {Tag, X, Y} ->
+                        Old = put(y, Y),
+                        {X, Old}
+                after Timeout ->
+                    none
+                end.
+            """;
+        byte[] beam = CodeGeneration.CompileBeamModule(source, "beam_receive_slots.erl");
+        byte[] code = BeamDocumentationEmissionChecks.Chunks(beam).Single(chunk => chunk.Id == "Code").Data;
+        ReadOnlySpan<byte> notify = [BeamEmissionFormat.Allocate, 0x30, 0x20];
+        ReadOnlySpan<byte> pick = [BeamEmissionFormat.Allocate, 0x20, 0x20];
+        if (code.AsSpan().IndexOf(notify) < 0 || code.AsSpan().IndexOf(pick) < 0)
+        {
+            throw new InvalidOperationException("Expected stack slots to be reused across selective receive and timeout paths.");
+        }
     }
 
     private static void CompareGuardedBranchStackSlots()

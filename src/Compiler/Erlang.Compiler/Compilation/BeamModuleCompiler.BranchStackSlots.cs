@@ -74,16 +74,17 @@ internal sealed partial class BeamModuleCompiler
         }
 
         BigInteger[] masks = Enumerable.Range(0, frame).Select(slot => BigInteger.One << slot).ToArray();
-        var live = new BigInteger[end - start + 1];
+        var effects = new (BigInteger Reads, BigInteger Writes, bool FallsThrough, List<int>? Targets)[end - start];
+        var live = new BigInteger[effects.Length + 1];
         var conflicts = new BigInteger[frame];
         bool branched = false;
         bool released = false;
+        bool hasBackEdge = false;
         for (int index = end - 1; index >= start; index--)
         {
             BeamInstruction instruction = body[index];
             byte opcode = instruction.Definition.Opcode;
             if (opcode is Allocate or AllocateHeap or TrimFrame or CatchEnter or TryEnter
-                or RemoveMessage or ReceiveTimeout or LoopReceive or LoopReceiveEnd or Wait or WaitTimeout
                 || instruction.Definition.Name == "debug_line")
             {
                 return null;
@@ -100,11 +101,16 @@ internal sealed partial class BeamModuleCompiler
                 released = true;
             }
 
-            BigInteger next = EndsBeamBlock(opcode) || opcode == IfEnd ? BigInteger.Zero : live[index - start + 1];
-            BigInteger onBranch = BigInteger.Zero;
+            bool fallsThrough = !EndsBeamBlock(opcode) && opcode != IfEnd;
+            List<int>? targets = null;
             bool call = opcode is LocalCall or TailLocalCall or TailLocalCallWithFrame;
             bool initializes = opcode == InitYRegisters;
-            int destination = StackWriteOperand(instruction);
+            int destination = opcode switch
+            {
+                LoopReceive => 1,
+                WaitTimeout => -1,
+                _ => StackWriteOperand(instruction)
+            };
             BigInteger reads = BigInteger.Zero;
             BigInteger writes = BigInteger.Zero;
             for (int position = 0; position < instruction.Operands.Count; position++)
@@ -112,12 +118,13 @@ internal sealed partial class BeamModuleCompiler
                 BeamOperand operand = instruction.Operands[position];
                 if (!call && operand.Kind == BeamOperandParameters.Label && operand.Value != clauseFailure)
                 {
-                    if (!labels.TryGetValue((int)operand.Value, out int target) || target <= index)
+                    if (!labels.TryGetValue((int)operand.Value, out int target))
                     {
                         return null;
                     }
 
-                    onBranch |= live[target - start];
+                    (targets ??= []).Add(target - start);
+                    hasBackEdge |= target <= index;
                     branched = true;
                 }
 
@@ -149,21 +156,50 @@ internal sealed partial class BeamModuleCompiler
                 }
             }
 
-            // A failing instruction does not define its destination on the branch edge.
-            BigInteger before = reads | (next & ~writes) | onBranch;
-            live[index - start] = before;
-            AddStackInterference(before, before, conflicts);
-            if (!writes.IsZero)
-            {
-                BigInteger occupied = next | reads | (initializes ? BigInteger.Zero : writes);
-                AddStackInterference(writes, occupied, conflicts);
-                AddStackInterference(occupied, writes, conflicts);
-            }
+            effects[index - start] = (reads, writes, fallsThrough, targets);
         }
 
         if (!branched || !released)
         {
             return null;
+        }
+
+        bool changed;
+        do
+        {
+            changed = false;
+            for (int index = effects.Length - 1; index >= 0; index--)
+            {
+                var (reads, writes, fallsThrough, targets) = effects[index];
+                BigInteger next = fallsThrough ? live[index + 1] : BigInteger.Zero;
+                // A failing instruction defines its destination on the fallthrough edge only.
+                BigInteger before = reads | (next & ~writes);
+                if (targets is not null)
+                {
+                    foreach (int target in targets)
+                    {
+                        before |= live[target];
+                    }
+                }
+
+                changed |= before != live[index];
+                live[index] = before;
+            }
+        } while (hasBackEdge && changed);
+
+        for (int index = 0; index < effects.Length; index++)
+        {
+            var (reads, writes, fallsThrough, _) = effects[index];
+            BigInteger before = live[index];
+            AddStackInterference(before, before, conflicts);
+            if (!writes.IsZero)
+            {
+                BigInteger next = fallsThrough ? live[index + 1] : BigInteger.Zero;
+                bool initializes = body[start + index].Definition.Opcode == InitYRegisters;
+                BigInteger occupied = next | reads | (initializes ? BigInteger.Zero : writes);
+                AddStackInterference(writes, occupied, conflicts);
+                AddStackInterference(occupied, writes, conflicts);
+            }
         }
 
         var groups = new List<BigInteger>();
