@@ -1,5 +1,7 @@
 # Compatibility overview
 
+Part 1790. Replace make_fun3 plus an immediate X-to-Y copy with make_fun3 targeting the same Y slot when the original X value has no later use. Track closure destinations in entry register liveness. [Evidence](validation/part-1790/README.md).
+
 Part 1789. Replace an entry argument store with frame initialization when the lifetime analysis proves that the copied value has no reads. Allow frame and X-root compaction to follow. [Evidence](validation/part-1789/README.md).
 
 Part 1788. Preserve a zero-slot frame for a trapping tail BIF. Add a frame when an earlier emitter produced a frameless call to one of those BIFs. [Evidence](validation/part-1788/README.md).

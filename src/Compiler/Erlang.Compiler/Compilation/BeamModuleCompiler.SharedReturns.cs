@@ -164,6 +164,7 @@ internal sealed partial class BeamModuleCompiler
                 ?? ForwardSavedCallResults(code, body, stackOperands)
                 ?? PlaceEntryBifBeforeAllocation(code, body, stackOperands)
                 ?? StoreBifResultsDirectly(code, body)
+                ?? StoreClosureResultsDirectly(code, body)
                 ?? SinkTupleReadsAcrossCalls(code, body, stackOperands)
                 ?? ForwardStackProjections(code, body)
                 ?? RemoveUnusedTrailingFrameSlots(code, body)

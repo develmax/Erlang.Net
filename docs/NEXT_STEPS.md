@@ -1,5 +1,7 @@
 # Next steps
 
+Keep the words, floats and funs allocation fields when combining the heap request with the frame. [Evidence](validation/part-1790/README.md).
+
 Store closure results directly in Y registers after proving the temporary X register is dead. [Evidence](validation/part-1789/README.md).
 
 Eliminate entry argument spills proven unread by the existing register lifetime analysis. [Evidence](validation/part-1788/README.md).

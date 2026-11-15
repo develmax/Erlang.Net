@@ -278,7 +278,7 @@ internal sealed partial class BeamModuleCompiler
                 available &= EntryRegisterPrefix(operands[1]);
             }
 
-            if (opcode is GetTupleElement or GetHead or GetTail or GetList or PutList or PutTuple
+            if (opcode is GetTupleElement or GetHead or GetTail or GetList or PutList or PutTuple or MakeFun
                 or BifZero or BifOne or BifTwo or BifThree or GcBifOne or GcBifTwo or GcBifThree)
             {
                 available &= ~EntryRegisterBit(operands[StackWriteOperand(instruction)]);

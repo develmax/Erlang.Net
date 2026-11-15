@@ -357,6 +357,7 @@ internal static class BeamModuleEmissionChecks
         CompareStackSlotsAcrossTrim();
         CompareTrappingTailFrames();
         CompareUnreadEntrySpills();
+        CompareClosureResultStores();
         CompareStackReuseAcrossCalls();
         CompareRepeatedCallFrameTrims();
         CompareRecursiveListComprehensionHelpers();
@@ -1026,6 +1027,24 @@ internal static class BeamModuleEmissionChecks
         if (code.AsSpan().IndexOf(frame) < 0)
         {
             throw new InvalidOperationException("Expected the unread argument spill to leave just one initialized slot.");
+        }
+    }
+
+    private static void CompareClosureResultStores()
+    {
+        const string source = """
+            -module(beam_closure_result_stores).
+            -export([classify/1]).
+
+            classify(Name) when is_atom(Name) ->
+                lists:all(fun(Digit) -> Digit >= $0 andalso Digit =< $9 end, atom_to_list(Name)).
+            """;
+        byte[] beam = CodeGeneration.CompileBeamModule(source, "beam_closure_result_stores.erl");
+        byte[] code = BeamDocumentationEmissionChecks.Chunks(beam).Single(chunk => chunk.Id == "Code").Data;
+        ReadOnlySpan<byte> closureIntoStack = [BeamEmissionFormat.MakeFun, 0x00, 0x04];
+        if (code.AsSpan().IndexOf(closureIntoStack) < 0)
+        {
+            throw new InvalidOperationException("Expected the closure to be stored directly in Y0.");
         }
     }
 
