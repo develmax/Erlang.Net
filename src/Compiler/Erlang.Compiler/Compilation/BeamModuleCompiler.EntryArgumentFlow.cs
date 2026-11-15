@@ -16,6 +16,8 @@ internal sealed partial class BeamModuleCompiler
         )
         {
             var uses = new List<int>();
+            bool needsLifetimeAnalysis = false;
+            bool hasOverwrite = false;
             for (int index = entry; index < end; index++)
             {
                 BeamInstruction instruction = body[index];
@@ -34,10 +36,22 @@ internal sealed partial class BeamModuleCompiler
 
                 if (index < save || !ReadsEntryCopy(instruction, slot))
                 {
-                    return null;
+                    needsLifetimeAnalysis = true;
+                    hasOverwrite |= index > save && OverwritesEntryCopy(instruction, slot);
+                    continue;
                 }
 
                 uses.Add(index);
+            }
+
+            if (needsLifetimeAnalysis)
+            {
+                if (!hasOverwrite || FindEntryCopyLifetimeUses(entry, save, end, slot) is not { } lifetimeUses)
+                {
+                    return null;
+                }
+
+                uses = lifetimeUses;
             }
 
             if (uses.Count == 0)
@@ -102,6 +116,104 @@ internal sealed partial class BeamModuleCompiler
             }
 
             return redundantLoads.Count == 0 ? null : (false, redundantLoads);
+        }
+
+        private List<int>? FindEntryCopyLifetimeUses(
+            int entry,
+            int save,
+            int end,
+            BeamOperand slot
+        )
+        {
+            const int BeforeOrAfterLifetime = 1;
+            const int DuringLifetime = 2;
+            var seen = new int[end - entry];
+            var pending = new Stack<(int Index, bool HoldsCopy)>();
+            pending.Push((entry, false));
+            while (pending.TryPop(out var state))
+            {
+                var (index, holdsCopy) = state;
+                int mark = holdsCopy ? DuringLifetime : BeforeOrAfterLifetime;
+                if ((seen[index - entry] & mark) != 0)
+                {
+                    continue;
+                }
+
+                seen[index - entry] |= mark;
+                BeamInstruction instruction = body[index];
+                if (index == save)
+                {
+                    holdsCopy = true;
+                }
+                else if (holdsCopy && OverwritesEntryCopy(instruction, slot))
+                {
+                    holdsCopy = false;
+                }
+
+                foreach (int target in successors[index])
+                {
+                    if (target >= entry && target < end)
+                    {
+                        pending.Push((target, holdsCopy));
+                    }
+                }
+            }
+
+            var uses = new List<int>();
+            for (int index = entry; index < end; index++)
+            {
+                BeamInstruction instruction = body[index];
+                int mark = seen[index - entry];
+                if (index == save || (mark & DuringLifetime) == 0
+                    || !instruction.Operands.Any(operand => SameProjectionRegister(operand, slot))
+                    || OverwritesEntryCopy(instruction, slot))
+                {
+                    continue;
+                }
+
+                // An instruction shared with a path that replaced the slot must keep reading Y.
+                if (mark != DuringLifetime || !ReadsEntryCopy(instruction, slot))
+                {
+                    return null;
+                }
+
+                uses.Add(index);
+            }
+
+            return uses;
+        }
+
+        private static bool OverwritesEntryCopy(BeamInstruction instruction, BeamOperand slot)
+        {
+            if (instruction.Definition.Opcode == InitYRegisters)
+            {
+                return instruction.Operands.Any(operand => SameProjectionRegister(operand, slot));
+            }
+
+            if (instruction.Definition.Opcode is not (Move or GetTupleElement or GetHead or GetTail
+                or GetList or PutList or PutTuple))
+            {
+                return false;
+            }
+
+            int destination = StackWriteOperand(instruction);
+            bool writes = false;
+            for (int index = 0; index < instruction.Operands.Count; index++)
+            {
+                if (!SameProjectionRegister(instruction.Operands[index], slot))
+                {
+                    continue;
+                }
+
+                if (index != destination && !(instruction.Definition.Opcode == GetList && index == 2))
+                {
+                    return false;
+                }
+
+                writes = true;
+            }
+
+            return writes;
         }
 
         private static bool ReadsEntryCopy(BeamInstruction instruction, BeamOperand slot)

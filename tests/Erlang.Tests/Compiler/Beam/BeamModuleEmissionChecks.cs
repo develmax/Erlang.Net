@@ -348,6 +348,8 @@ internal static class BeamModuleEmissionChecks
         CompareHeapTestsBeforeNullaryBifs();
         CompareEntryArgumentCopies();
         CompareEntryArgumentCopiesAcrossBranches();
+        CompareEntryArgumentCopiesWithSlotReuse();
+        CompareStackSlotsWithFramelessFailure();
         CompareRedundantEntryArgumentReloads();
         CompareEntryFrameInitialization();
         CompareProjectionFrameInitialization();
@@ -657,6 +659,76 @@ internal static class BeamModuleEmissionChecks
         if (code.AsSpan().IndexOf(withoutSpills) < 0 || code.AsSpan().IndexOf(acrossCall) < 0)
         {
             throw new InvalidOperationException("Expected entry spills to be removed only when all uses can read the input register.");
+        }
+    }
+
+    private static void CompareEntryArgumentCopiesWithSlotReuse()
+    {
+        const string source = """
+            -module(beam_entry_lifetimes).
+            -export([pack/2, branch/2]).
+
+            pack(First, Second) ->
+                Pair = {First, Second},
+                Old = put(capture, Pair),
+                {Old, put(next, Old)}.
+
+            branch(Flag, Value) ->
+                case Flag of
+                    yes ->
+                        Old = put(Flag, Value),
+                        {Old, put(next, Old)};
+                    no -> Value
+                end.
+            """;
+        byte[] beam = CodeGeneration.CompileBeamModule(source, "beam_entry_lifetimes.erl");
+        byte[] code = BeamDocumentationEmissionChecks.Chunks(beam).Single(chunk => chunk.Id == "Code").Data;
+        ReadOnlySpan<byte> tupleFromArguments =
+        [
+            BeamEmissionFormat.PutTuple, 0x03, BeamEmissionFormat.ExtendedListOperand, 0x20, 0x03, 0x13
+        ];
+        ReadOnlySpan<byte> branchWithInitializedSlot =
+        [
+            BeamEmissionFormat.Allocate, 0x10, 0x20,
+            BeamEmissionFormat.InitYRegisters, BeamEmissionFormat.ExtendedListOperand, 0x10, 0x04
+        ];
+        int start = code.AsSpan().IndexOf(branchWithInitializedSlot);
+        ReadOnlySpan<byte> captureCallResult =
+        [
+            BeamEmissionFormat.ExternalCall, 0x20, 0x00,
+            BeamEmissionFormat.Move, 0x03, 0x04
+        ];
+        if (code.AsSpan().IndexOf(tupleFromArguments) < 0 || start < 0
+            || code.AsSpan(start + branchWithInitializedSlot.Length).IndexOf(captureCallResult) != 2)
+        {
+            throw new InvalidOperationException(
+                "Expected the original X argument to be used before its Y slot is reused for a result."
+            );
+        }
+    }
+
+    private static void CompareStackSlotsWithFramelessFailure()
+    {
+        const string source = """
+            -module(beam_frameless_stack_failure).
+            -export([run/2]).
+
+            run(Triple, Keep) ->
+                {_, Key, Value} = Triple,
+                Old = put(Key, Value),
+                {Old, Keep, put(next, Old)}.
+            """;
+        byte[] beam = CodeGeneration.CompileBeamModule(source, "beam_frameless_stack_failure.erl");
+        byte[] code = BeamDocumentationEmissionChecks.Chunks(beam).Single(chunk => chunk.Id == "Code").Data;
+        ReadOnlySpan<byte> reducedFrame = [BeamEmissionFormat.Allocate, 0x30, 0x20];
+        ReadOnlySpan<byte> largerFrame = [BeamEmissionFormat.Allocate, 0x40, 0x20];
+        ReadOnlySpan<byte> unframedFailure = [BeamEmissionFormat.BadMatch, 0x03];
+        if (code.AsSpan().IndexOf(reducedFrame) < 0 || code.AsSpan().IndexOf(largerFrame) >= 0
+            || code.AsSpan().IndexOf(unframedFailure) < 0)
+        {
+            throw new InvalidOperationException(
+                "Expected slot reuse after the tuple test and a badmatch exit without a frame."
+            );
         }
     }
 

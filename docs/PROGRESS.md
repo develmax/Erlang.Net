@@ -1,5 +1,7 @@
 # Project progress
 
+Part 1758 compiled all 1,366 corpus sources with 398 Equal and 968 Different. 123 entry spill-count comparisons at matching allocation kinds and live X counts across 540 changed images, with 78 new matches and 17 lost matches. Sum of absolute spill-count gaps decreases by 90 across comparable allocations. [Evidence](validation/part-1758/README.md).
+
 Part 1757 compiled all 1,366 corpus sources with 398 Equal and 968 Different. 79 stack slot-count comparisons at corresponding frame allocations across 221 changed images, with 10 new matches and 7 lost matches. Sum of absolute slot-count gaps decreases by 84 across comparable allocations. [Evidence](validation/part-1757/README.md).
 
 Part 1756 compiled all 1,366 corpus sources with 398 Equal and 968 Different. 148 stack slot-count comparisons at corresponding frame allocations across 129 changed images, with 30 new matches and 0 lost matches. Sum of absolute slot-count gaps decreases by 148 across comparable allocations. [Evidence](validation/part-1756/README.md).

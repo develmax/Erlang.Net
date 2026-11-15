@@ -1,5 +1,7 @@
 # Next steps
 
+Classify remaining entry argument reloads by the first X clobber and slot reassignment. 293 modules 586 functions 978 spills {false,none,move}, 217 modules 379 functions 451 spills {false,move,move}. [Evidence](validation/part-1758/README.md).
+
 Compare remaining projected value lifetimes through additional calls. 150 modules 235 functions 303 sites {single_use,same_block,move}, 150 modules 198 functions 256 sites {multiple_uses,additional_call} [Evidence](validation/part-1757/README.md).
 
 Compare projected values by their slot lifetime. 193 modules 385 functions 506 sites {single_use,same_block,move}, 152 modules 200 functions 260 sites {multiple_uses,additional_call} [Evidence](validation/part-1756/README.md).

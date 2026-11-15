@@ -1,0 +1,8 @@
+Both variants rebuilt all 1,366 files.
+
+| Variant | Status summary | Changed images | Reduction in absolute frame-size gap | Reduction in absolute Code size gap |
+| --- | --- | ---: | ---: | ---: |
+| Entry copy lifetime | Different 968, Equal 398 | 530 | -539 slots | 8890 bytes |
+| Entry copy lifetime and stack-free failure exits | Different 968, Equal 398 | 540 | 1155 slots | 14676 bytes |
+
+After the entry-copy change, some ASN.1 encoders moved tuple tests before the allocation. The old frame allocator disallowed local failure labels at these tests and could no longer shrink their frames. The second variant allows local terminal errors with no stack operands.

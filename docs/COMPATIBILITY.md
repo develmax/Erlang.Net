@@ -1,5 +1,7 @@
 # Compatibility overview
 
+Part 1758 forwards original entry arguments into X consumers before their Y slots are overwritten and supports slot reuse after predicates with stack-free error exits. [Evidence](validation/part-1758/README.md).
+
 Part 1757 supports deferred reads after several ordinary calls and field-slot reuse. [Evidence](validation/part-1757/README.md).
 
 Part 1756 folds eligible initial trim instructions into frame allocation. [Evidence](validation/part-1756/README.md).

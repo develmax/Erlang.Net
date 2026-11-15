@@ -1,3 +1,5 @@
+Part 1758 tracks entry values up to definite stack-slot writes. The entry argument pass still excludes trim and exception-handler frames. [Evidence](validation/part-1758/README.md).
+
 Part 1757 tracks projected values through slot overwrites and trim. Fields with multiple consumers still need placement analysis. [Evidence](validation/part-1757/README.md).
 
 Part 1756 allocates smaller frames for eligible initial trims. Later trims and frames with earlier slot uses still need their existing size changes. [Evidence](validation/part-1756/README.md).

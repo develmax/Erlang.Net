@@ -20,16 +20,24 @@ internal sealed partial class BeamModuleCompiler
 
         int clauseFailure = infoLabel >= 0 && body[infoLabel].Definition.Opcode == Label
             ? (int)body[infoLabel].Operands[0].Value : -1;
+        var failureLabels = new HashSet<int>();
         int allocation = entry + 1;
         while (allocation < end && body[allocation].Definition.Opcode is not (Allocate or AllocateHeap))
         {
             var instruction = body[allocation];
             if (instruction.Definition.Opcode != Line
                 && (!IsEntryFramePredicate(instruction.Definition.Opcode)
-                    || instruction.Operands.Any(operand => operand.Kind == BeamOperandParameters.Y
-                        || operand.Kind == BeamOperandParameters.Label && operand.Value != clauseFailure)))
+                    || instruction.Operands.Any(operand => operand.Kind == BeamOperandParameters.Y)))
             {
                 return null;
+            }
+
+            foreach (BeamOperand operand in instruction.Operands)
+            {
+                if (operand.Kind == BeamOperandParameters.Label && operand.Value != clauseFailure)
+                {
+                    failureLabels.Add((int)operand.Value);
+                }
             }
 
             allocation++;
@@ -70,6 +78,14 @@ internal sealed partial class BeamModuleCompiler
                     int slot = (int)operand.Value;
                     firstUse[slot] = Math.Min(firstUse[slot], index);
                 }
+            }
+        }
+
+        foreach (int failure in failureLabels)
+        {
+            if (!labels.TryGetValue(failure, out int target) || !IsFramelessStackAllocationExit(body, target, end))
+            {
+                return null;
             }
         }
 
@@ -235,6 +251,18 @@ internal sealed partial class BeamModuleCompiler
         }
 
         return (groups.Count, slots);
+    }
+
+    private static bool IsFramelessStackAllocationExit(IReadOnlyList<BeamInstruction> body, int target, int end)
+    {
+        int index = target + 1;
+        while (index < end && body[index].Definition.Opcode is Label or Line)
+        {
+            index++;
+        }
+
+        return index < end && body[index].Definition.Opcode is BadMatch or BadRecord or CaseEnd or IfEnd
+            && body[index].Operands.All(operand => operand.Kind != BeamOperandParameters.Y);
     }
 
     private static void AddStackInterference(BigInteger slots, BigInteger other, BigInteger[] conflicts)
