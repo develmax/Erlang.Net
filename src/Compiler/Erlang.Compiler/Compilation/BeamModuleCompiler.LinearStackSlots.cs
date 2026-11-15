@@ -131,13 +131,13 @@ internal sealed partial class BeamModuleCompiler
         int end
     )
     {
-        if (entry + 1 >= end || body[entry].Definition.Opcode != Label
-            || body[entry + 1].Definition.Opcode is not (Allocate or AllocateHeap))
+        int allocation = FindEntryFrameAllocation(body, entry, end);
+        if (allocation < 0)
         {
             return null;
         }
 
-        int frame = (int)body[entry + 1].Operands[0].Value;
+        int frame = (int)body[allocation].Operands[0].Value;
         if (frame < 2 || frame > BeamOperandParameters.MaximumRegister)
         {
             return null;
@@ -148,7 +148,7 @@ internal sealed partial class BeamModuleCompiler
         var defined = new bool[frame];
         bool released = false;
         bool terminal = false;
-        for (int index = entry + 2; index < end; index++)
+        for (int index = allocation + 1; index < end; index++)
         {
             BeamInstruction instruction = body[index];
             byte opcode = instruction.Definition.Opcode;

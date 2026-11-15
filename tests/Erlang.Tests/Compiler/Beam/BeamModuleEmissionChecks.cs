@@ -358,6 +358,7 @@ internal static class BeamModuleEmissionChecks
         CompareTrappingTailFrames();
         CompareUnreadEntrySpills();
         CompareClosureResultStores();
+        CompareGuardedLinearStackSlots();
         CompareStackReuseAcrossCalls();
         CompareRepeatedCallFrameTrims();
         CompareRecursiveListComprehensionHelpers();
@@ -1063,6 +1064,30 @@ internal static class BeamModuleEmissionChecks
         if (code.AsSpan().IndexOf(captureFromArgument) < 0)
         {
             throw new InvalidOperationException("Expected the closure to capture the entry argument from X0.");
+        }
+    }
+
+    private static void CompareGuardedLinearStackSlots()
+    {
+        const string source = """
+            -module(beam_guarded_frame_slots).
+            -export([collect/2]).
+            -record(spec, {prefix, tag, tail}).
+
+            collect(#spec{tag=Options}, Label) ->
+                Name = join(Label),
+                Items = [I || {entry,I} <- Options],
+                accept(Name,[default|Items]).
+            join(Label) -> {label,Label}.
+            accept(Rest, Expected) -> {Rest,Expected}.
+            """;
+        byte[] beam = CodeGeneration.CompileBeamModule(source, "beam_guarded_frame_slots.erl");
+        byte[] code = BeamDocumentationEmissionChecks.Chunks(beam).Single(chunk => chunk.Id == "Code").Data;
+        ReadOnlySpan<byte> compactFrame = [BeamEmissionFormat.Allocate, 0x20, 0x20];
+        ReadOnlySpan<byte> fullFrame = [BeamEmissionFormat.Allocate, 0x30, 0x20];
+        if (code.AsSpan().IndexOf(compactFrame) < 0 || code.AsSpan().IndexOf(fullFrame) >= 0)
+        {
+            throw new InvalidOperationException("Expected two reusable stack slots after the record guard.");
         }
     }
 

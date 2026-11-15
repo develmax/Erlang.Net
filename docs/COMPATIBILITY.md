@@ -1,5 +1,7 @@
 # Compatibility overview
 
+Part 1793. Find frame allocation after an entry prefix using the existing proof for predicates and function-clause failure. Reuse the same linear slot planner and byte emitter. [Evidence](validation/part-1793/README.md).
+
 Part 1792. Account for make_fun3 reads and overwrites in the existing entry argument lifetime analysis. Substitute an available X register for the same captured value. [Evidence](validation/part-1792/README.md).
 
 Part 1791. Copy the compact heap operand when converting allocate and test_heap into allocate_heap. Remove slot initializers overwritten by closure construction before a read or collection. [Evidence](validation/part-1791/README.md).

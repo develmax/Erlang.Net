@@ -1,5 +1,7 @@
 # Next steps
 
+Read the next argument before spilling the previous result where doing so allows slot reuse. [Evidence](validation/part-1793/README.md).
+
 Compact linear frame layouts that begin after entry predicates. [Evidence](validation/part-1792/README.md).
 
 Read captured entry arguments from the original X registers where their values are still available. [Evidence](validation/part-1791/README.md).
