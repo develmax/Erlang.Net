@@ -9,13 +9,13 @@ internal sealed partial class BeamModuleCompiler
         Definition
     }
 
-    private static IEnumerable<Expr.ListComprehension> OrderedListComprehensions(
+    private static IEnumerable<Expr> OrderedLocalDefinitions(
         IReadOnlyList<Clause> clauses,
         ListComprehensionOrder order
     ) => OrderComprehensionClauses(clauses, order)
-        .SelectMany(clause => OrderedListComprehensions(clause.Body, order));
+        .SelectMany(clause => OrderedLocalDefinitions(clause.Body, order));
 
-    private static IEnumerable<Expr.ListComprehension> OrderedListComprehensions(
+    private static IEnumerable<Expr> OrderedLocalDefinitions(
         Expr expression,
         ListComprehensionOrder order
     )
@@ -24,21 +24,21 @@ internal sealed partial class BeamModuleCompiler
         IEnumerable<Expr> Operands(IEnumerable<Expr> operands) =>
             order == ListComprehensionOrder.Core ? operands.Reverse() : operands;
 
-        IEnumerable<Expr.ListComprehension> In(IEnumerable<Expr> expressions) =>
-            expressions.SelectMany(child => OrderedListComprehensions(child, order));
+        IEnumerable<Expr> In(IEnumerable<Expr> expressions) =>
+            expressions.SelectMany(child => OrderedLocalDefinitions(child, order));
 
         return expression switch
         {
-            Expr.ListComprehension comprehension => [comprehension],
+            Expr.ListComprehension or Expr.Fun => [expression],
             Expr.Sequence sequence => In(sequence.Items),
-            Expr.Block block => OrderedListComprehensions(block.Body, order),
-            Expr.Match match => OrderedListComprehensions(match.Value, order),
+            Expr.Block block => OrderedLocalDefinitions(block.Body, order),
+            Expr.Match match => OrderedLocalDefinitions(match.Value, order),
             Expr.Tuple tuple => In(Operands(tuple.Items)),
             Expr.List or Expr.Call { DynamicRemote: false } => In(Operands(LocalFunctionEntries.Children(expression))),
-            Expr.Unary unary => OrderedListComprehensions(unary.Operand, order),
+            Expr.Unary unary => OrderedLocalDefinitions(unary.Operand, order),
             Expr.Binary { Operator: not ("++" or "andalso" or "orelse") } binary => In(Operands([binary.Left, binary.Right])),
-            Expr.Case @case => OrderedListComprehensions(@case.Value, order).Concat(OrderedListComprehensions(@case.Clauses, order)),
-            Expr.If @if => OrderedListComprehensions(@if.Clauses, order),
+            Expr.Case @case => OrderedLocalDefinitions(@case.Value, order).Concat(OrderedLocalDefinitions(@case.Clauses, order)),
+            Expr.If @if => OrderedLocalDefinitions(@if.Clauses, order),
             _ => []
         };
     }

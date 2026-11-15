@@ -90,10 +90,9 @@ internal sealed partial class BeamModuleCompiler
 
             var lexicalOwner = parentFunction!;
             int ordinal = function.CoreOrdinal ?? anonymousOrdinal++;
-            string suffix = function.SelfName is { } self
-                ? FormattableString.Invariant($"{self}/{declaredArity}")
-                : "fun";
-            string name = FormattableString.Invariant($"-{lexicalOwner.Name}/{lexicalOwner.Arity}-{suffix}-{ordinal}-");
+            string name = function.SelfName is { } self
+                ? FormattableString.Invariant($"-{lexicalOwner.Name}/{lexicalOwner.Arity}-{self}/{declaredArity}-{ordinal}-")
+                : AnonymousClosureName(lexicalOwner, ordinal);
             var clauses = function.Clauses.Select(clause => clause with
             {
                 Patterns = [.. clause.Patterns, .. captures.Select(capture => new Pattern.Variable(capture))]

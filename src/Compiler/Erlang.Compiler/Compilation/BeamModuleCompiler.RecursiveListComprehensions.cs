@@ -4,6 +4,9 @@ namespace Erlang.Compiler;
 
 internal sealed partial class BeamModuleCompiler
 {
+    private readonly Dictionary<(string Name, int Arity), (string Name, int? Arity)[]> recursiveDefinitionOrder = [];
+    private bool hasMixedRecursiveDefinitions;
+
     private (FunctionDefinition Parent, IReadOnlyList<(FunctionDefinition Function, BeamSourceLocation Location)> Helpers)? ExtractRecursiveListComprehensions(
         FunctionDefinition function,
         BeamSourceLocation location,
@@ -13,8 +16,9 @@ internal sealed partial class BeamModuleCompiler
     {
         var expressions = function.Clauses.SelectMany(clause => LocalFunctionEntries.Walk(clause.Body)).ToArray();
         var comprehensions = expressions.OfType<Expr.ListComprehension>().ToArray();
-        if (comprehensions.Length == 0
-            || expressions.Any(expression => expression is Expr.Fun or Expr.BinaryComprehension or Expr.MapComprehension)
+        var anonymous = expressions.OfType<Expr.Fun>().ToArray();
+        if (comprehensions.Length == 0 || anonymous.Any(fun => fun.SelfName is not null)
+            || expressions.Any(expression => expression is Expr.BinaryComprehension or Expr.MapComprehension)
             || ReadListMappingPlan(function.Clauses) is not null
             || ReadDiscardedListCalls(function, localFunctions) is not null
             || ReadPageComprehension(function, localFunctions) is not null
@@ -23,28 +27,30 @@ internal sealed partial class BeamModuleCompiler
             return null;
         }
 
-        var core = comprehensions;
+        Expr[] core = comprehensions;
         var ssa = comprehensions;
-        var definitions = comprehensions;
-        if (comprehensions.Length > 1)
+        Expr[] definitions = comprehensions;
+        if (comprehensions.Length > 1 || anonymous.Length != 0)
         {
             if (LocalFunctionEntries.ClauseExpressions(function.Clauses).SelectMany(LocalFunctionEntries.Walk)
-                .Any(expression => expression is Expr.Try or Expr.Receive or Expr.Maybe or Expr.Fun
+                .Any(expression => expression is Expr.Try or Expr.Receive or Expr.Maybe
                     or Expr.BinaryComprehension or Expr.MapComprehension))
             {
                 return null;
             }
 
-            core = OrderedListComprehensions(function.Clauses, ListComprehensionOrder.Core).ToArray();
-            ssa = OrderedListComprehensions(function.Clauses, ListComprehensionOrder.Ssa).ToArray();
-            definitions = OrderedListComprehensions(function.Clauses, ListComprehensionOrder.Definition).ToArray();
-            if (core.Length != comprehensions.Length || ssa.Length != core.Length || definitions.Length != core.Length)
+            core = OrderedLocalDefinitions(function.Clauses, ListComprehensionOrder.Core).ToArray();
+            ssa = OrderedLocalDefinitions(function.Clauses, ListComprehensionOrder.Ssa).OfType<Expr.ListComprehension>().ToArray();
+            definitions = OrderedLocalDefinitions(function.Clauses, ListComprehensionOrder.Definition).ToArray();
+            // A nested closure or comprehension needs a separate scope and SSA traversal.
+            if (core.Length != comprehensions.Length + anonymous.Length || ssa.Length != comprehensions.Length
+                || definitions.Length != core.Length)
             {
                 return null;
             }
         }
 
-        var names = new Dictionary<Expr.ListComprehension, int>(ReferenceEqualityComparer.Instance);
+        var names = new Dictionary<Expr, int>(ReferenceEqualityComparer.Instance);
         for (int index = 0; index < core.Length; index++)
         {
             if (!names.TryAdd(core[index], index))
@@ -54,7 +60,12 @@ internal sealed partial class BeamModuleCompiler
         }
 
         var helpers = new Dictionary<Expr.ListComprehension, (FunctionDefinition Function, BeamSourceLocation Location)>(ReferenceEqualityComparer.Instance);
-        var calls = new Dictionary<Expr, Expr>(ReferenceEqualityComparer.Instance);
+        var replacements = new Dictionary<Expr, Expr>(ReferenceEqualityComparer.Instance);
+        foreach (var fun in anonymous)
+        {
+            replacements.Add(fun, fun with { CoreOrdinal = names[fun] });
+        }
+
         for (int index = 0; index < ssa.Length; index++)
         {
             var comprehension = ssa[index];
@@ -75,7 +86,7 @@ internal sealed partial class BeamModuleCompiler
                 location,
                 name,
                 localFunctions,
-                comprehensions.Length > 1
+                comprehensions.Length > 1 || anonymous.Length != 0
             );
             if (plan is not { } mapping || declared.Contains((name, mapping.Helper.Arity)))
             {
@@ -83,10 +94,19 @@ internal sealed partial class BeamModuleCompiler
             }
 
             helpers.Add(comprehension, (mapping.Helper, mapping.Location));
-            calls.Add(comprehension, mapping.Call);
+            replacements.Add(comprehension, mapping.Call);
         }
 
-        var ordered = definitions.Select(comprehension => helpers[comprehension]).ToArray();
+        var ordered = definitions.OfType<Expr.ListComprehension>().Select(comprehension => helpers[comprehension]).ToArray();
+        recursiveDefinitionOrder.Add(
+            (function.Name, function.Arity),
+            definitions.Select(definition =>
+                definition is Expr.ListComprehension comprehension
+                    ? (helpers[comprehension].Function.Name, (int?)helpers[comprehension].Function.Arity)
+                    : (AnonymousClosureName(function, names[definition]), null)
+            ).ToArray()
+        );
+        hasMixedRecursiveDefinitions |= anonymous.Length != 0;
         foreach (var helper in ordered)
         {
             declared.Add((helper.Function.Name, helper.Function.Arity));
@@ -99,12 +119,56 @@ internal sealed partial class BeamModuleCompiler
                 Body = BeamTargetedInlining.Rewrite(
                     clause.Body,
                     expression => expression,
-                    rewriteScope: expression => calls.GetValueOrDefault(expression)
+                    rewriteScope: expression => replacements.GetValueOrDefault(expression)
                 )
             }).ToArray()
         };
 
         return (parent, ordered);
+    }
+
+    private static string AnonymousClosureName(FunctionDefinition owner, int ordinal) =>
+        FormattableString.Invariant($"-{owner.Name}/{owner.Arity}-fun-{ordinal}-");
+
+    private void RecordRecursiveClosureBoundaries(
+        IReadOnlyList<FunctionDefinition> functions,
+        int[] firstClosure,
+        IReadOnlyDictionary<(string Name, int Arity), int> entries,
+        Dictionary<int, List<int>> boundaries
+    )
+    {
+        for (int index = 0; index < firstClosure.Length - 1; index++)
+        {
+            var parent = functions[index];
+            if (!recursiveDefinitionOrder.TryGetValue((parent.Name, parent.Arity), out var order))
+            {
+                continue;
+            }
+
+            int boundary = firstClosure[index];
+            int end = firstClosure[index + 1];
+            foreach (var definition in order)
+            {
+                if (definition.Arity is not { } arity)
+                {
+                    int emitted = closures.FindIndex(boundary, end - boundary, closure => closure.Name == definition.Name);
+                    if (emitted >= 0)
+                    {
+                        boundary = emitted + 1;
+                    }
+
+                    continue;
+                }
+
+                if (!boundaries.TryGetValue(boundary, out var group))
+                {
+                    group = [];
+                    boundaries.Add(boundary, group);
+                }
+
+                group.Add(-entries[(definition.Name, arity)]);
+            }
+        }
     }
 
     private (Expr.Call Call, FunctionDefinition Helper, BeamSourceLocation Location)? PlanRecursiveListComprehension(

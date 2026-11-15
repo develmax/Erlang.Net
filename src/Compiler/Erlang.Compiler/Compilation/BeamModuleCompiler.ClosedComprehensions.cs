@@ -145,6 +145,20 @@ internal sealed partial class BeamModuleCompiler
             helpers.Add((helper, location));
         }
 
+        if (hasMixedRecursiveDefinitions)
+        {
+            foreach (var definitions in recursiveDefinitionOrder.Values)
+            {
+                foreach (var definition in definitions)
+                {
+                    if (definition.Arity.HasValue)
+                    {
+                        deferredProjections.Add(definition.Name);
+                    }
+                }
+            }
+        }
+
         helpers.Reverse();
         return helpers.Count == 0
             ? (functions, locations)

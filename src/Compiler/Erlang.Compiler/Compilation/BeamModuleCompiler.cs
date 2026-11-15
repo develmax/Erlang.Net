@@ -509,9 +509,15 @@ internal sealed partial class BeamModuleCompiler(
             pageHelpers.Add((helper, flow, sourceLines[index]));
         }
 
-        var wxMappingBoundaries = new Dictionary<int, List<int>>();
+        var closureBoundaries = new Dictionary<int, List<int>>();
+        int[]? firstClosure = hasMixedRecursiveDefinitions ? new int[declaredCount + 1] : null;
         for (int index = 0; index < functions.Count; index++)
         {
+            if (firstClosure is not null && index < declaredCount)
+            {
+                firstClosure[index] = closures.Count;
+            }
+
             if (index == declaredCount)
             {
                 AddMetadataFunctions(callbackInfo);
@@ -527,10 +533,10 @@ internal sealed partial class BeamModuleCompiler(
                 string helper = MappingName(function.Name, function.Arity);
                 if (wxUnicodeMappings.Contains(helper))
                 {
-                    if (!wxMappingBoundaries.TryGetValue(closures.Count, out var group))
+                    if (!closureBoundaries.TryGetValue(closures.Count, out var group))
                     {
                         group = [];
-                        wxMappingBoundaries.Add(closures.Count, group);
+                        closureBoundaries.Add(closures.Count, group);
                     }
 
                     group.Add(-localEntries[(helper, 1)]);
@@ -643,6 +649,12 @@ internal sealed partial class BeamModuleCompiler(
             EmitPageComprehensionHelper(helper, flow, location, localEntries);
         }
 
+        if (firstClosure is not null)
+        {
+            firstClosure[^1] = closures.Count;
+            RecordRecursiveClosureBoundaries(functions, firstClosure, localEntries, closureBoundaries);
+        }
+
         var guardFailures = new Dictionary<string, int>(StringComparer.Ordinal);
         void EmitDeferredProjection(int index)
         {
@@ -654,20 +666,23 @@ internal sealed partial class BeamModuleCompiler(
             new GeneralEmitter(this, localEntries, byName, line, plan.Slots, plan.Labels, plan.ListFailures, plannedTupleFrames: plan.TupleFrames).Function(function);
         }
 
-        void EmitWxMappingsAtBoundary(int boundary)
+        void EmitHelpersAtBoundary(int boundary)
         {
-            if (!wxMappingBoundaries.TryGetValue(boundary, out var group))
+            if (!closureBoundaries.TryGetValue(boundary, out var group))
             {
                 return;
             }
 
             for (int index = group.Count - 1; index >= 0; index--)
             {
-                EmitDeferredProjection(group[index]);
+                if (!deferredEntries.ContainsKey(-group[index]))
+                {
+                    EmitDeferredProjection(group[index]);
+                }
             }
         }
 
-        EmitLiftedClosures(localEntries, byName, guardFailures, emitAtBoundary: EmitWxMappingsAtBoundary);
+        EmitLiftedClosures(localEntries, byName, guardFailures, emitAtBoundary: EmitHelpersAtBoundary);
         int emittedClosures = closures.Count;
         for (int index = declaredCount; index < functions.Count; index++)
         {

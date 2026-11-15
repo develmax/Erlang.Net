@@ -1,5 +1,7 @@
 # Next steps
 
+Emit function_clause stubs for captured anonymous closures with a refutable head or guard. The default compiler options group has 291 missing SSA-generated stubs across 136 modules, each called from one anonymous function. [Evidence](validation/part-1769/README.md).
+
 Share Core ordinals and lifted-function ordering with anonymous functions outside the comprehension. The group with one independent comprehension covers 193 source functions across 131 modules. For two operands in a tuple, OTP numbers from the right in Core and reverses helper emission relative to evaluation. [Evidence](validation/part-1768/README.md).
 
 Lower functions with two independent comprehensions and reproduce the helper ordinals assigned in the Core and SSA passes. The ranked group contains 159 functions across 119 modules. [Evidence](validation/part-1767/README.md).

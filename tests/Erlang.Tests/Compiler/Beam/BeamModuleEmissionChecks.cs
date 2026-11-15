@@ -360,6 +360,7 @@ internal static class BeamModuleEmissionChecks
         CompareCallListGeneratorHelpers();
         CompareFilteredListGeneratorHelpers();
         CompareIndependentListComprehensionHelpers();
+        CompareComprehensionsWithClosures();
         CompareRedundantEntryArgumentReloads();
         CompareEntryFrameInitialization();
         CompareProjectionFrameInitialization();
@@ -1160,17 +1161,49 @@ internal static class BeamModuleEmissionChecks
             "-sequence/2-lc$^1/1-1-",
             "-sequence/2-lc$^0/1-0-"
         ];
+        RequireHelperOrder(atoms, expected);
+    }
+
+    private static void RequireHelperOrder(string atoms, IReadOnlyList<string> expected)
+    {
         int previous = -1;
         foreach (string helper in expected)
         {
             int index = atoms.IndexOf(helper, StringComparison.Ordinal);
             if (index <= previous)
             {
-                throw new InvalidOperationException($"Expected independent list comprehension helper {helper} in OTP order.");
+                throw new InvalidOperationException($"Expected lifted function {helper} in OTP order.");
             }
 
             previous = index;
         }
+    }
+
+    private static void CompareComprehensionsWithClosures()
+    {
+        const string source = """
+            -module(beam_lc_and_fun).
+            -export([before/2, following/2, branch/3]).
+
+            before(List, Key) -> {fun() -> Key end, [pair(Key, X) || X <- List]}.
+            following(List, Key) -> {[pair(Key, X) || X <- List], fun() -> Key end}.
+            branch(List, Key, yes) -> fun() -> {Key, List} end;
+            branch(List, Key, _) -> [pair(Key, X) || X <- List].
+
+            pair(Key, Value) -> {Key, Value}.
+            """;
+        byte[] beam = CodeGeneration.CompileBeamModule(source, "beam_lc_and_fun.erl");
+        var chunks = BeamDocumentationEmissionChecks.Chunks(beam);
+        string atoms = Encoding.UTF8.GetString(chunks.Single(chunk => chunk.Id == "AtU8").Data);
+        RequireHelperOrder(atoms,
+        [
+            "-branch/3-lc$^1/1-0-",
+            "-branch/3-fun-0-",
+            "-following/2-fun-0-",
+            "-following/2-lc$^1/1-0-",
+            "-before/2-lc$^0/1-0-",
+            "-before/2-fun-1-"
+        ]);
     }
 
     private static void CompareRedundantEntryArgumentReloads()
