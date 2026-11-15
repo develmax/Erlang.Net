@@ -23,10 +23,14 @@ internal sealed partial class BeamModuleCompiler
 
             if (end - start > 1)
             {
-                int[] order = Enumerable.Range(start, end - start)
-                    .OrderBy(index => body[index].Operands[1].Value).ToArray();
-                if (!order.SequenceEqual(Enumerable.Range(start, end - start))
-                    && order.Select(index => body[index].Operands[1].Value).Distinct().Count() == order.Length)
+                // All sources are X registers, so a later write to the same Y slot
+                // makes the earlier store dead throughout this run.
+                IEnumerable<int> original = Enumerable.Range(start, end - start);
+                int[] order = original.GroupBy(index => body[index].Operands[1].Value)
+                    .OrderBy(stores => stores.Key)
+                    .Select(stores => stores.Last())
+                    .ToArray();
+                if (!order.SequenceEqual(original))
                 {
                     output.Write(code.Span[copied..body[start].Offset]);
                     foreach (int index in order)

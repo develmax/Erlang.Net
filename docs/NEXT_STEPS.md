@@ -1,5 +1,7 @@
 # Next steps
 
+Remove zero-slot frames on tail-only paths while preserving heap allocation. [Evidence](validation/part-1786/README.md).
+
 Remove the duplicate entry stack store that remains in the retained-input path. [Evidence](validation/part-1785/README.md).
 
 Place a second tuple extraction after the first field guard when the failure path does not need that extraction. [Evidence](validation/part-1784/README.md).

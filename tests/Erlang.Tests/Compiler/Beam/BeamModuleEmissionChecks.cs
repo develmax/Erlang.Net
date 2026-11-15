@@ -967,10 +967,13 @@ internal static class BeamModuleEmissionChecks
             """;
         byte[] beam = CodeGeneration.CompileBeamModule(source, "beam_single_trim_slots.erl");
         byte[] code = BeamDocumentationEmissionChecks.Chunks(beam).Single(chunk => chunk.Id == "Code").Data;
-        ReadOnlySpan<byte> oneKept = [BeamEmissionFormat.Allocate, 0x10, 0x20, BeamEmissionFormat.Move, 0x03, 0x04];
+        ReadOnlySpan<byte> directRecordProjection = [
+            BeamEmissionFormat.Allocate, 0x00, 0x20,
+            BeamEmissionFormat.GetTupleElement, 0x13, 0x10, 0x03
+        ];
         ReadOnlySpan<byte> registerProjection = [BeamEmissionFormat.Allocate, 0x00, 0x20, BeamEmissionFormat.GetTupleElement, 0x03];
-        ReadOnlySpan<byte> released = [BeamEmissionFormat.Deallocate, 0x10, BeamEmissionFormat.Return];
-        if (code.AsSpan().IndexOf(oneKept) < 0 || code.AsSpan().IndexOf(registerProjection) < 0
+        ReadOnlySpan<byte> released = [BeamEmissionFormat.Deallocate, 0x00, BeamEmissionFormat.Return];
+        if (code.AsSpan().IndexOf(directRecordProjection) < 0 || code.AsSpan().IndexOf(registerProjection) < 0
             || code.AsSpan().IndexOf(released) < 0)
         {
             throw new InvalidOperationException("Expected compact frames without copying unwritten Y registers.");
@@ -1116,15 +1119,25 @@ internal static class BeamModuleEmissionChecks
             byte[] beam = CodeGeneration.CompileBeamModule(source, "beam_tuple_entry_frame.erl");
             byte[] code = BeamDocumentationEmissionChecks.Chunks(beam).Single(chunk => chunk.Id == "Code").Data;
             ReadOnlySpan<byte> first = [BeamEmissionFormat.GetTupleElement, 0x03, 0x00, 0x23];
-            ReadOnlySpan<byte> second = [BeamEmissionFormat.GetTupleElement, 0x03, 0x10, (byte)((secondRegister << 4) | 0x03)];
-            ReadOnlySpan<byte> frame = [BeamEmissionFormat.Allocate, 0x20, (byte)(live << 4)];
+            byte secondOperand = (byte)((secondRegister << 4) | 0x03);
+            ReadOnlySpan<byte> second = [BeamEmissionFormat.GetTupleElement, 0x03, 0x10, secondOperand];
+            ReadOnlySpan<byte> frame = [
+                BeamEmissionFormat.Allocate, 0x20, (byte)(live << 4),
+                BeamEmissionFormat.Move, secondOperand, 0x04,
+                BeamEmissionFormat.Move, 0x13, 0x14
+            ];
             int firstField = code.AsSpan().IndexOf(first);
             int secondField = code.AsSpan().IndexOf(second);
             int allocation = code.AsSpan().IndexOf(frame);
             int guard = firstField + first.Length;
-            if (firstField < 0 || secondField <= guard || allocation <= secondField || code[guard] != BeamEmissionFormat.IsInteger)
+            if (firstField < 0 || secondField <= guard || code[guard] != BeamEmissionFormat.IsInteger)
             {
                 throw new InvalidOperationException("Expected the first tuple field guard before extracting the second field.");
+            }
+
+            if (allocation <= secondField)
+            {
+                throw new InvalidOperationException("Expected one entry store per live stack slot after the tuple guards.");
             }
         }
     }

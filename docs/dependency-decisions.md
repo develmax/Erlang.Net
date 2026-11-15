@@ -1,5 +1,7 @@
 # Dependency and compatibility decisions
 
+Part 1786. Use register dataflow and pinned OTP 29.1.1 beam_block move ordering. No dependency was added. [Evidence](validation/part-1786/README.md).
+
 Part 1785. Follow pinned OTP 29.1.1 beam_ssa_opt sink scheduling. Reuse branch liveness and preserve GC root initialization. No dependency was added. [Evidence](validation/part-1785/README.md).
 
 Part 1784. Reuse entry frame placement and its list projection liveness checks. Compare register allocation against pinned OTP 29.1.1. No dependency was added. [Evidence](validation/part-1784/README.md).
