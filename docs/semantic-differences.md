@@ -1,3 +1,5 @@
+Part 1760 preserves Y values live along the failure edge of a compound bit match. Dynamic pattern frame sizes and register ordering still differ. [Evidence](validation/part-1760/README.md).
+
 Part 1759 tracks map destinations on failure when reusing stack slots. Compound binary match commands still need operand and failure-path analysis. [Evidence](validation/part-1759/README.md).
 
 Part 1758 tracks entry values up to definite stack-slot writes. The entry argument pass still excludes trim and exception-handler frames. [Evidence](validation/part-1758/README.md).

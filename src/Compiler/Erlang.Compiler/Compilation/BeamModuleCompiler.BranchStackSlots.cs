@@ -124,7 +124,7 @@ internal sealed partial class BeamModuleCompiler
             int destination = opcode switch
             {
                 LoopReceive => 1,
-                WaitTimeout or GetMapElements => -1,
+                WaitTimeout or GetMapElements or BinaryMatch => -1,
                 _ => StackAllocationDestination(instruction)
             };
             BigInteger reads = BigInteger.Zero;
@@ -162,8 +162,11 @@ internal sealed partial class BeamModuleCompiler
                     continue;
                 }
 
+                // In bs_match, the context precedes the command list. Only destinations
+                // in that list can be registers.
                 if (initializes || position == destination || opcode == GetList && position == 2
-                    || opcode == GetMapElements && position >= 4 && position % 2 == 0)
+                    || opcode == GetMapElements && position >= 4 && position % 2 == 0
+                    || opcode == BinaryMatch && position >= BeamBinaryNames.MatchPrefix)
                 {
                     writes |= masks[slot];
                 }
@@ -214,7 +217,7 @@ internal sealed partial class BeamModuleCompiler
                 BigInteger next = fallsThrough ? live[index + 1] : BigInteger.Zero;
                 bool initializes = body[start + index].Definition.Opcode == InitYRegisters;
                 BigInteger occupied = next | reads | (initializes ? BigInteger.Zero : writes);
-                if (body[start + index].Definition.Opcode == GetMapElements && targets is not null)
+                if (body[start + index].Definition.Opcode is GetMapElements or BinaryMatch && targets is not null)
                 {
                     // A failed match can already have written some of its destinations.
                     foreach (int target in targets)

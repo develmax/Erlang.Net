@@ -258,9 +258,12 @@ internal sealed partial class BeamModuleCompiler
 
     private static int StackAllocationDestination(BeamInstruction instruction) => instruction.Definition.Opcode switch
     {
-        GetBinaryTail => 1,
+        FloatConvert or GetBinaryTail or GetBinaryPosition => 1,
         PutMapAssoc or PutMapExact => 2,
-        CreateBinary => 4,
+        StartBinaryMatch or StartBinaryMatchKnown => 3,
+        CreateBinary or GetBinaryUtf8 or GetBinaryUtf16 or GetBinaryUtf32 => 4,
+        GetBinaryInteger or GetBinaryFloat or GetBinarySegment => 6,
+        MatchBinaryString or SkipBinaryBits or SetBinaryPosition => -1,
         _ => StackWriteOperand(instruction)
     };
 

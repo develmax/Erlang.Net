@@ -351,6 +351,7 @@ internal static class BeamModuleEmissionChecks
         CompareEntryArgumentCopiesWithSlotReuse();
         CompareStackSlotsWithFramelessFailure();
         CompareStackSlotsAcrossMapAndBinaryOperations();
+        CompareStackSlotsAcrossBitMatches();
         CompareRedundantEntryArgumentReloads();
         CompareEntryFrameInitialization();
         CompareProjectionFrameInitialization();
@@ -775,6 +776,46 @@ internal static class BeamModuleEmissionChecks
             throw new InvalidOperationException(
                 "Expected stack-slot reuse through map updates, map matching, and binary construction."
             );
+        }
+    }
+
+    private static void CompareStackSlotsAcrossBitMatches()
+    {
+        const string source = """
+            -module(beam_bit_match_slots).
+            -export([fixed/2, split/3, signed/3]).
+
+            fixed(Bin, Keep) ->
+                Snapshot = put(first, Bin),
+                case Snapshot of
+                    <<A:8, 42, B:8>> -> {A, B, Keep, put(next, A)};
+                    _ -> {missing, Keep, put(next, Bin)}
+                end.
+
+            split(Bin, Count, Keep) ->
+                Snapshot = put(first, Bin),
+                case Snapshot of
+                    <<A:Count/binary, B/binary>> -> {A, B, Keep, put(next, A)};
+                    _ -> {missing, Keep, put(next, Bin)}
+                end.
+
+            signed(Bin, Count, Keep) ->
+                Snapshot = put(first, Bin),
+                case Snapshot of
+                    <<A:Count/signed, B:8>> -> {A, B, Keep, put(next, A)};
+                    _ -> {missing, Keep, put(next, Bin)}
+                end.
+            """;
+        byte[] beam = CodeGeneration.CompileBeamModule(source, "beam_bit_match_slots.erl");
+        byte[] code = BeamDocumentationEmissionChecks.Chunks(beam).Single(chunk => chunk.Id == "Code").Data;
+        ReadOnlySpan<byte> fixedFrame = [BeamEmissionFormat.Allocate, 0x40, 0x20];
+        ReadOnlySpan<byte> splitFrame = [BeamEmissionFormat.Allocate, 0x50, 0x30];
+        ReadOnlySpan<byte> signedFrame = [BeamEmissionFormat.Allocate, 0x60, 0x30];
+        ReadOnlySpan<byte> largerFixedFrame = [BeamEmissionFormat.Allocate, 0x50, 0x20];
+        if (code.AsSpan().IndexOf(fixedFrame) < 0 || code.AsSpan().IndexOf(splitFrame) < 0
+            || code.AsSpan().IndexOf(signedFrame) < 0 || code.AsSpan().IndexOf(largerFixedFrame) >= 0)
+        {
+            throw new InvalidOperationException("Expected smaller frames for fixed and dynamic binary patterns.");
         }
     }
 
