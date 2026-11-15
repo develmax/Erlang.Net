@@ -1034,10 +1034,15 @@ internal static class BeamModuleEmissionChecks
     {
         const string source = """
             -module(beam_closure_result_stores).
-            -export([classify/1]).
+            -export([classify/1, keep_fun/2]).
 
             classify(Name) when is_atom(Name) ->
                 lists:all(fun(Digit) -> Digit >= $0 andalso Digit =< $9 end, atom_to_list(Name)).
+
+            keep_fun(Flag, Values) ->
+                Checker = fun(Value) -> Value =:= Flag end,
+                put(checker, Flag),
+                lists:any(Checker, Values).
             """;
         byte[] beam = CodeGeneration.CompileBeamModule(source, "beam_closure_result_stores.erl");
         byte[] code = BeamDocumentationEmissionChecks.Chunks(beam).Single(chunk => chunk.Id == "Code").Data;
@@ -1049,6 +1054,15 @@ internal static class BeamModuleEmissionChecks
         if (code.AsSpan().IndexOf(closureIntoStack) < 0)
         {
             throw new InvalidOperationException("Expected a fun allocation followed by direct closure initialization of Y0.");
+        }
+
+        ReadOnlySpan<byte> captureFromArgument = [
+            BeamEmissionFormat.MakeFun, 0x10, 0x04,
+            BeamEmissionFormat.ExtendedListOperand, 0x10, 0x03
+        ];
+        if (code.AsSpan().IndexOf(captureFromArgument) < 0)
+        {
+            throw new InvalidOperationException("Expected the closure to capture the entry argument from X0.");
         }
     }
 

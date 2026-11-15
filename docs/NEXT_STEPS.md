@@ -1,5 +1,7 @@
 # Next steps
 
+Compact linear frame layouts that begin after entry predicates. [Evidence](validation/part-1792/README.md).
+
 Read captured entry arguments from the original X registers where their values are still available. [Evidence](validation/part-1791/README.md).
 
 Keep the words, floats and funs allocation fields when combining the heap request with the frame. [Evidence](validation/part-1790/README.md).

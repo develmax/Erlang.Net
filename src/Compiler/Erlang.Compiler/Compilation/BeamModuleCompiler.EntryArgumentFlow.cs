@@ -192,7 +192,7 @@ internal sealed partial class BeamModuleCompiler
             }
 
             if (instruction.Definition.Opcode is not (Move or GetTupleElement or GetHead or GetTail
-                or GetList or PutList or PutTuple))
+                or GetList or PutList or PutTuple or MakeFun))
             {
                 return false;
             }
@@ -232,7 +232,7 @@ internal sealed partial class BeamModuleCompiler
                 return false;
             }
 
-            return opcode is Move or GetTupleElement or GetHead or GetTail or GetList or PutList or PutTuple
+            return opcode is Move or GetTupleElement or GetHead or GetTail or GetList or PutList or PutTuple or MakeFun
                 or BifOne or BifTwo or BifThree or GcBifOne or GcBifTwo or GcBifThree
                 or SelectValue or SelectTupleArity or BadMatch or CaseEnd or BadRecord
                 || IsEntryFramePredicate(opcode);

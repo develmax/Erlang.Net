@@ -1,5 +1,7 @@
 Part 1783. Sort consecutive independent X-to-Y moves by destination slot after branch slot reuse. Preserve original store order when a run writes the same destination twice. [Evidence](validation/part-1783/README.md).
 
+Part 1792. Account for make_fun3 reads and overwrites in the existing entry argument lifetime analysis. Substitute an available X register for the same captured value. [Evidence](validation/part-1792/README.md).
+
 Part 1791. Copy the compact heap operand when converting allocate and test_heap into allocate_heap. Remove slot initializers overwritten by closure construction before a read or collection. [Evidence](validation/part-1791/README.md).
 
 Part 1790. Replace make_fun3 plus an immediate X-to-Y copy with make_fun3 targeting the same Y slot when the original X value has no later use. Track closure destinations in entry register liveness. [Evidence](validation/part-1790/README.md).
