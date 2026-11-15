@@ -1,5 +1,7 @@
 # Next steps
 
+Compare result saves before test_heap with zero live X registers. Start with tuple construction followed by a move, which occurs in 811 functions across 326 modules. [Evidence](validation/part-1736/README.md).
+
 Track original call results along branch successors and replace redundant stack saves and reloads when the result remains live in X0. The leading candidate is a call followed by a save before is_tuple in 3,625 functions across 571 modules. [Evidence](validation/part-1735/README.md).
 
 Trace oversized frames in 5,906 ordinary branching functions across 743 modules through their lowering and X-to-Y spills. Start by checking which Y slot writes are avoidable around calls and selectors. [Evidence](validation/part-1734/README.md).

@@ -4,7 +4,7 @@ namespace Erlang.Compiler;
 
 internal sealed partial class BeamModuleCompiler
 {
-    private sealed class BeamProjectionFlow
+    private sealed partial class BeamProjectionFlow
     {
         private readonly IReadOnlyList<BeamInstruction> body;
         private readonly List<int>[] predecessors;
@@ -56,7 +56,7 @@ internal sealed partial class BeamModuleCompiler
         internal bool CanEliminate(int projection, int continuation, BeamOperand slot) =>
             IsDead(continuation, slot) && IsInitialized(projection, slot);
 
-        private bool IsInitialized(int projection, BeamOperand slot)
+        internal bool IsInitialized(int projection, BeamOperand slot)
         {
             var work = new Stack<(int Index, bool Initialized)>();
             var seen = new HashSet<(int Index, bool Initialized)>();

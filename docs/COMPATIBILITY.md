@@ -1,5 +1,7 @@
 # Compatibility overview
 
+Part 1736 keeps eligible call results in X0 through independent branches and uses the frame only when needed. [Evidence](validation/part-1736/README.md).
+
 Part 1735 reads saved registers directly for eligible BEAM predicates and selectors. [Evidence](validation/part-1735/README.md).
 
 Part 1734 reuses Y registers across eligible branches with one frame and maintains slot initialization and live values. [Evidence](validation/part-1734/README.md).

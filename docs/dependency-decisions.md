@@ -1,5 +1,7 @@
 # Dependency and compatibility decisions
 
+Part 1736 reuses the BEAM control-flow graph, stack-initialization check and compact register encoder. No library was added. [Evidence](validation/part-1736/README.md).
+
 Part 1735 reuses the BEAM control-flow graph, compact reader and register writer. No library was added. [Evidence](validation/part-1735/README.md).
 
 Part 1734 reuses the BEAM register decoder and existing frame rewrite. The control-flow liveness uses the platform BigInteger bit operations. No external library was added. [Evidence](validation/part-1734/README.md).

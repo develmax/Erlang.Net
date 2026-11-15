@@ -590,14 +590,14 @@ internal static class BeamModuleEmissionChecks
             """;
         byte[] bytes = CodeGeneration.CompileBeamModule(source, "beam_branch_stack_slots.erl");
         byte[] code = BeamDocumentationEmissionChecks.Chunks(bytes).Single(chunk => chunk.Id == "Code").Data;
-        ReadOnlySpan<byte> reusedFrame = [BeamEmissionFormat.Allocate, 0x20, 0x20];
-        ReadOnlySpan<byte> originalFrame = [BeamEmissionFormat.Allocate, 0x40, 0x20];
+        ReadOnlySpan<byte> reusedFrame = [BeamEmissionFormat.Allocate, 0x10, 0x20];
+        ReadOnlySpan<byte> originalFrame = [BeamEmissionFormat.Allocate, 0x20, 0x20];
         if (code.AsSpan().IndexOf(reusedFrame) < 0 || code.AsSpan().IndexOf(originalFrame) >= 0)
         {
-            throw new InvalidOperationException("Expected a two-slot frame for the branching function.");
+            throw new InvalidOperationException("Expected a one-slot frame for the branching function.");
         }
 
-        ReadOnlySpan<byte> savedSelector = [BeamEmissionFormat.SelectValue, 0x14];
+        ReadOnlySpan<byte> savedSelector = [BeamEmissionFormat.SelectValue, 0x04];
         if (code.AsSpan().IndexOf(savedSelector) < 0)
         {
             throw new InvalidOperationException("Expected branching to read its selector directly from the stack.");
