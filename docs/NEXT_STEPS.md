@@ -1,5 +1,7 @@
 # Next steps
 
+Inspect the next most common differences in the full corpus. [Evidence](validation/part-1798/README.md).
+
 Use a constructed tagged tuple as additional evidence of record shape. [Evidence](validation/part-1797/README.md).
 
 Prove private entry record shapes at all direct call sites. [Evidence](validation/part-1796/README.md).

@@ -1104,13 +1104,16 @@ internal static class BeamModuleEmissionChecks
     {
         const string source = """
             -module(beam_local_record_checks).
-            -export([read/1]).
+            -export([read/1, constructed/1]).
             -record(entry, {value}).
 
             read(Record = #entry{}) ->
                 put(last_record, Record),
                 read_private(Record).
             read_private(#entry{value=Value}) -> Value.
+
+            constructed(Value) -> from_constructed(#entry{value=Value}).
+            from_constructed(#entry{value=Value}) -> Value.
             """;
         byte[] beam = CodeGeneration.CompileBeamModule(source, "beam_local_record_checks.erl");
         byte[] code = BeamDocumentationEmissionChecks.Chunks(beam).Single(chunk => chunk.Id == "Code").Data;

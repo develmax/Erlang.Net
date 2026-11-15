@@ -133,6 +133,12 @@ internal sealed partial class BeamModuleCompiler
                         continue;
                     }
 
+                    if (instruction is { Definition.Opcode: PutTuple, Operands: [var tuple, var count, var first, ..] }
+                        && SameProjectionRegister(register, tuple) && count.Value == size.Value && first == tag)
+                    {
+                        continue;
+                    }
+
                     if (instruction is { Definition.Opcode: Move, Operands: [var value, var destination] }
                         && SameProjectionRegister(destination, register))
                     {
