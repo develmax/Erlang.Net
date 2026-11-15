@@ -1,5 +1,7 @@
 # Project progress
 
+Part 1731 compiled all 1,366 corpus sources with 398 Equal and 968 Different. Forwarding terminal call results changes 381 images. [Evidence](validation/part-1731/README.md).
+
 Part 1730 compiled all 1,366 corpus sources with 398 Equal and 968 Different. Reusing Y slots in linear functions changes 430 images. [Evidence](validation/part-1730/README.md).
 
 Part 1729 compiled all 1,366 corpus sources with 398 Equal and 968 Different. Using saved operands in record predicates and updates changes 414 images. [Evidence](validation/part-1729/README.md).

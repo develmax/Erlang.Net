@@ -1,5 +1,7 @@
 # Dependency and compatibility decisions
 
+Part 1731 reuses the BEAM register operand decoder and encoder. The tail call argument pass uses existing BEAM register comparison and operand encoding. No library was added. [Evidence](validation/part-1731/README.md).
+
 Part 1730 reuses the BEAM register operand decoder and encoder. Frame allocation reuses the BEAM operand decoder and compact writer. No library was added. [Evidence](validation/part-1730/README.md).
 
 Part 1729 reuses the BEAM register operand decoder and encoder. Record predicates and updates reuse the existing saved operand, tag test and error emission. No library was added. [Evidence](validation/part-1729/README.md).

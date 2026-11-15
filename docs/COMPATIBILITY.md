@@ -1,5 +1,7 @@
 # Compatibility overview
 
+Part 1731 passes a preceding call result directly in the X register for a terminal call argument. [Evidence](validation/part-1731/README.md).
+
 Part 1730 reuses Y registers for values with disjoint lifetimes in a linear frame. [Evidence](validation/part-1730/README.md).
 
 Part 1729 uses saved registers directly for is_record tests and checked record updates. [Evidence](validation/part-1729/README.md).

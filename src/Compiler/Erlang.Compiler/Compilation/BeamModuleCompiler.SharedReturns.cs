@@ -157,6 +157,7 @@ internal sealed partial class BeamModuleCompiler
                 ?? NormalizeIntegerComparisons(code, body)
                 ?? CombineStackAndHeapAllocation(code, body)
                 ?? KeepTerminalCallResultsInX0(code, body, stackOperands)
+                ?? ForwardTailCallResult(code, body)
                 ?? EliminateEntryArgumentCopies(code, body, stackOperands)
                 ?? RemoveUnusedTrailingFrameSlots(code, body)
                 ?? ReallocateLeafFrameRegisters(code, body, stackOperands)
