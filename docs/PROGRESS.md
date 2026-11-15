@@ -1,5 +1,7 @@
 # Project progress
 
+Part 1785 compiled all 1,366 modules with 400 Equal and 966 Different. Compared 60 changed images. Gained 1 and lost 0 normalized instruction matches. The sum of absolute Code size differences changed by 0 bytes. [Evidence](validation/part-1785/README.md).
+
 Part 1784 compiled all 1,366 modules with 400 Equal and 966 Different. Compared 79 changed images. Gained 0 and lost 0 normalized instruction matches. The sum of absolute Code size differences changed by 45 bytes. [Evidence](validation/part-1784/README.md).
 
 Parts 1781 through 1783 each compiled all 1,366 release sources with 400 Equal and 966 Different. [Completed runs](changelog/0157.md#follow-up-validation-of-parts-1781-through-1783--2026-11-16).

@@ -236,10 +236,17 @@ internal sealed partial class BeamModuleCompiler
             return foundEnd;
         }
 
-        internal bool IsBranchTemporaryDead(int branch, BeamOperand temporary)
+        internal bool IsBranchTemporaryDead(int branch, BeamOperand temporary) =>
+            IsTemporaryDead(successors[branch], temporary, preserveHeapRoots: true);
+
+        internal bool IsGuardTemporaryDeadOnFailure(int guard, BeamOperand temporary, bool preserveHeapRoots) =>
+            successors[guard] is [int failure, int success] && success == guard + 1
+                && failure != success && IsTemporaryDead([failure], temporary, preserveHeapRoots);
+
+        private bool IsTemporaryDead(IEnumerable<int> entries, BeamOperand temporary, bool preserveHeapRoots)
         {
             var visited = new HashSet<int>();
-            var pending = new Stack<int>(successors[branch]);
+            var pending = new Stack<int>(entries);
             while (pending.TryPop(out int index))
             {
                 if (!visited.Add(index))
@@ -255,7 +262,8 @@ internal sealed partial class BeamModuleCompiler
                         or TailExternalCall or TailExternalCallWithFrame => (int)instruction.Operands[0].Value,
                     DynamicApply or TailDynamicApply => (int)instruction.Operands[0].Value + 2,
                     CallFun => (int)instruction.Operands[0].Value + 1,
-                    Allocate or AllocateHeap or TestHeap or FunctionInfo => (int)instruction.Operands[^1].Value,
+                    Allocate or AllocateHeap or FunctionInfo => (int)instruction.Operands[^1].Value,
+                    TestHeap when preserveHeapRoots => (int)instruction.Operands[^1].Value,
                     Return => 1,
                     _ => 0
                 };

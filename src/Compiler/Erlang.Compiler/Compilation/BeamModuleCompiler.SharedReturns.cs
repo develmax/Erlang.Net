@@ -169,6 +169,7 @@ internal sealed partial class BeamModuleCompiler
                 ?? RemoveUnusedTrailingFrameSlots(code, body)
                 ?? ReallocateLeafFrameRegisters(code, body, stackOperands)
                 ?? DelayEntryStackFrame(code, body, stackOperands)
+                ?? SinkTupleReadsPastGuards(code, body)
                 ?? SimplifyFrameInitialization(code, body)
                 ?? FoldTerminalCalls(code, body)
                 ?? ScheduleCallResultStores(code, body)

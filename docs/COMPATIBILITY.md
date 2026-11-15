@@ -1,5 +1,7 @@
 # Compatibility overview
 
+Part 1785. Move the second pair extraction after a type test on the first field when the failed guard does not read the second field. Keep the original initialized tuple in an aliased register on the failure path. [Evidence](validation/part-1785/README.md).
+
 Part 1784. Put adjacent fields of the same tuple in X registers before frame allocation. Reuse the input X register for the second field when both successors can discard the tuple. [Evidence](validation/part-1784/README.md).
 
 Part 1783. Sort consecutive independent X-to-Y moves by destination slot after branch slot reuse. Preserve original store order when a run writes the same destination twice. [Evidence](validation/part-1783/README.md).

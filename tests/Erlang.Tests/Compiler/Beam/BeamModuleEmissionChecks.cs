@@ -1121,9 +1121,10 @@ internal static class BeamModuleEmissionChecks
             int firstField = code.AsSpan().IndexOf(first);
             int secondField = code.AsSpan().IndexOf(second);
             int allocation = code.AsSpan().IndexOf(frame);
-            if (firstField < 0 || secondField <= firstField || allocation <= secondField)
+            int guard = firstField + first.Length;
+            if (firstField < 0 || secondField <= guard || allocation <= secondField || code[guard] != BeamEmissionFormat.IsInteger)
             {
-                throw new InvalidOperationException("Expected tuple fields in X registers before the framed branch.");
+                throw new InvalidOperationException("Expected the first tuple field guard before extracting the second field.");
             }
         }
     }
