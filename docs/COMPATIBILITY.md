@@ -1,5 +1,7 @@
 # Compatibility overview
 
+Part 1745 places eligible entry BIFs ahead of frame allocation with live X roots and original operands. [Evidence](validation/part-1745/README.md).
+
 Part 1744 writes eligible BIF results directly into the saved Y register across an ordinary call. [Evidence](validation/part-1744/README.md).
 
 Part 1743 writes eligible tuple projections directly to their destination X registers while preserving initialization of the old slot. [Evidence](validation/part-1743/README.md).

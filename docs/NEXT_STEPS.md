@@ -1,5 +1,7 @@
 # Next steps
 
+Prioritize the remaining BIFs that OTP places before the frame. Audit the allocation following predicates that consume their results. [Evidence](validation/part-1745/README.md).
+
 Compare entry BIFs preceding frame allocation in OTP and prove argument and X-root liveness before moving the frame. [Evidence](validation/part-1744/README.md).
 
 Compare BIF result copies with direct Y result destinations in OTP and prove that X is dead on each applicable continuation. [Evidence](validation/part-1743/README.md).

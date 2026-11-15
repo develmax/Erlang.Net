@@ -348,6 +348,7 @@ internal static class BeamModuleEmissionChecks
         CompareProjectionFrameInitialization();
         CompareDirectCallProjections();
         CompareBifResultStores();
+        CompareEntryBifPlacement();
         CompareTerminalCallFolding();
         CompareSharedReturnCallFolding();
         CompareUnreachableReturnRemoval();
@@ -724,6 +725,25 @@ internal static class BeamModuleEmissionChecks
         }
     }
 
+    private static void CompareEntryBifPlacement()
+    {
+        const string file = "beam_entry_bif_placement.erl";
+        byte[] bytes = CodeGeneration.CompileBeamModule(Encoding.UTF8.GetString(Read(file)), file);
+        byte[] code = BeamDocumentationEmissionChecks.Chunks(bytes).Single(chunk => chunk.Id == "Code").Data;
+        ReadOnlySpan<byte> reuseArgument =
+        [
+            BeamEmissionFormat.GcBifTwo, 0x05, 0x10, 0x00, 0x03, 0x11, 0x03, BeamEmissionFormat.Allocate, 0x10, 0x10
+        ];
+        ReadOnlySpan<byte> preserveArgument =
+        [
+            BeamEmissionFormat.GcBifTwo, 0x05, 0x10, 0x00, 0x03, 0x11, 0x13, BeamEmissionFormat.Allocate, 0x20, 0x20
+        ];
+        if (code.AsSpan().IndexOf(reuseArgument) < 0 || code.AsSpan().IndexOf(preserveArgument) < 0)
+        {
+            throw new InvalidOperationException("Expected the entry BIF before allocation with both argument liveness patterns.");
+        }
+    }
+
     private static void CompareBifResultStores()
     {
         const string file = "beam_bif_result_store.erl";
@@ -735,7 +755,11 @@ internal static class BeamModuleEmissionChecks
         ];
         ReadOnlySpan<byte> usedArgument =
         [
-            BeamEmissionFormat.GcBifTwo, 0x05, 0x00, 0x00, 0x04, 0x11, 0x03, BeamEmissionFormat.Move, 0x03, 0x14
+            BeamEmissionFormat.GcBifTwo, 0x05, 0x10, 0x00, 0x03, 0x11, 0x13,
+            BeamEmissionFormat.Allocate, 0x20, 0x20,
+            BeamEmissionFormat.Move, 0x03, 0x04,
+            BeamEmissionFormat.Move, 0x13, 0x03,
+            BeamEmissionFormat.Move, 0x03, 0x14
         ];
         if (code.AsSpan().IndexOf(directStore) < 0 || code.AsSpan().IndexOf(usedArgument) < 0)
         {

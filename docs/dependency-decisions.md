@@ -1,5 +1,7 @@
 # Dependency and compatibility decisions
 
+Part 1745 uses the existing operand reader, register encoder and liveness check for entry BIF placement. No dependency was added. [Evidence](validation/part-1745/README.md).
+
 Part 1744 uses the existing operand reader and register encoder for direct BIF stores. No dependency was added. [Evidence](validation/part-1744/README.md).
 
 Part 1743 reuses the existing projection copy scanner and stack frame cleanup. No dependency was added. [Evidence](validation/part-1743/README.md).

@@ -1,3 +1,5 @@
+Part 1745 moves an eligible entry BIF before the frame. Allocation after the predicate and the numbering of saved registers still differ in some functions. [Evidence](validation/part-1745/README.md).
+
 Part 1744 removes an X-to-Y result move before an ordinary call when the X result is outside the call arguments. BIF and allocation order still differ in other functions. [Evidence](validation/part-1744/README.md).
 
 Part 1743 removes intermediate Y stores for tuple projections when the slot has no other uses and the X destination is free. Projection ordering and lifetimes still differ in some functions. [Evidence](validation/part-1743/README.md).

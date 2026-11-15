@@ -1,5 +1,7 @@
 # Project progress
 
+Part 1745 compiled all 1,366 corpus sources with 398 Equal and 968 Different. 957 BIF placement comparisons across 374 changed images, with 834 new order matches and 123 lost matches. [Evidence](validation/part-1745/README.md).
+
 Part 1744 compiled all 1,366 corpus sources with 398 Equal and 968 Different. 115 more direct Y BIF destinations and 115 fewer X-to-Y moves across 63 changed images. [Evidence](validation/part-1744/README.md).
 
 Part 1743 compiled all 1,366 corpus sources with 398 Equal and 968 Different. 2731 more direct X projections, 2731 fewer Y projections, 2731 fewer Y-to-X moves, and 903 fewer slots across 522 changed images. [Evidence](validation/part-1743/README.md).
