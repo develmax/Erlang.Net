@@ -1,5 +1,7 @@
 # Compatibility overview
 
+Part 1744 writes eligible BIF results directly into the saved Y register across an ordinary call. [Evidence](validation/part-1744/README.md).
+
 Part 1743 writes eligible tuple projections directly to their destination X registers while preserving initialization of the old slot. [Evidence](validation/part-1743/README.md).
 
 Part 1742 reuses branch stack slots past read-only entry guards with function-clause failure. [Evidence](validation/part-1742/README.md).

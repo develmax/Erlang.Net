@@ -1,0 +1,7 @@
+Experimental rewrite: direct Y stores wherever the X result is proven dead.
+This variant is excluded from the published compiler because it worsens OTP destination alignment.
+
+Different 968
+Equal 398
+8826 more direct Y BIF destinations and 8827 fewer X-to-Y moves across 656 changed images.
+Within functions with the same ordered BIF signatures, 631 destination kinds match OTP after the change and 5008 cease to match.

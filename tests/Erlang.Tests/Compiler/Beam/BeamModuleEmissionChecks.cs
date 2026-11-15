@@ -347,6 +347,7 @@ internal static class BeamModuleEmissionChecks
         CompareEntryFrameInitialization();
         CompareProjectionFrameInitialization();
         CompareDirectCallProjections();
+        CompareBifResultStores();
         CompareTerminalCallFolding();
         CompareSharedReturnCallFolding();
         CompareUnreachableReturnRemoval();
@@ -720,6 +721,25 @@ internal static class BeamModuleEmissionChecks
         if (!beam.AsSpan().SequenceEqual(Read("beam_entry_initialization.beam")))
         {
             throw new InvalidOperationException("Expected the OTP frame allocation and register layout.");
+        }
+    }
+
+    private static void CompareBifResultStores()
+    {
+        const string file = "beam_bif_result_store.erl";
+        byte[] bytes = CodeGeneration.CompileBeamModule(Encoding.UTF8.GetString(Read(file)), file);
+        byte[] code = BeamDocumentationEmissionChecks.Chunks(bytes).Single(chunk => chunk.Id == "Code").Data;
+        ReadOnlySpan<byte> directStore =
+        [
+            BeamEmissionFormat.GcBifTwo, 0x05, 0x00, 0x00, 0x04, 0x11, 0x24
+        ];
+        ReadOnlySpan<byte> usedArgument =
+        [
+            BeamEmissionFormat.GcBifTwo, 0x05, 0x00, 0x00, 0x04, 0x11, 0x03, BeamEmissionFormat.Move, 0x03, 0x14
+        ];
+        if (code.AsSpan().IndexOf(directStore) < 0 || code.AsSpan().IndexOf(usedArgument) < 0)
+        {
+            throw new InvalidOperationException("Expected a direct BIF result store only when the X register is dead.");
         }
     }
 
