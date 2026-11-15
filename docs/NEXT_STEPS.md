@@ -1,5 +1,7 @@
 # Next steps
 
+Implement repeated trims based on slot lifetime between calls. The part 1774 comparison found 869 modules with fewer trims than OTP, including 302 modules with straight-line functions missing a trim. [Evidence](validation/part-1775/README.md).
+
 Schedule the last independent Y-to-X argument load ahead of the result spill when this lets the frame allocator reuse the released slot. In ex_slider:do_init/1 the stored fourth slider result currently overlaps the first slider until the first call to wxSizer:add/3. [Evidence](validation/part-1774/README.md).
 
 Keep an arithmetic operand in X0 when its producer is followed by a GC BIF and no other operand evaluation overwrites it. The part 1771 report identified excess call-result spills before GC BIFs in 1,023 functions across 297 modules. [Evidence](validation/part-1773/README.md).

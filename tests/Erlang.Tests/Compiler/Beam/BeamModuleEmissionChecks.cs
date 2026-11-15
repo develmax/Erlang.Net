@@ -355,7 +355,7 @@ internal static class BeamModuleEmissionChecks
         CompareStackSlotsAcrossTry();
         CompareStackSlotsAcrossCatch();
         CompareStackSlotsAcrossTrim();
-        CompareConstantsAcrossCalls();
+        CompareStackReuseAcrossCalls();
         CompareRecursiveListComprehensionHelpers();
         CompareRecursiveTupleComprehensionHelpers();
         CompareCallListGeneratorHelpers();
@@ -974,10 +974,10 @@ internal static class BeamModuleEmissionChecks
         }
     }
 
-    private static void CompareConstantsAcrossCalls()
+    private static void CompareStackReuseAcrossCalls()
     {
         const string source = """
-            -module(beam_straight_constants).
+            -module(beam_call_result_slot_reuse).
             -export([run/1]).
             -record(state, {panel, config}).
 
@@ -989,21 +989,24 @@ internal static class BeamModuleEmissionChecks
                 Start = 25,
                 First = slider(Panel, Start, Min, Max, [{style, style(first) bor 4}]),
                 Second = slider(Panel, Start, Min, Max, [{style, style(second) bor 8}]),
-                put(values, {First, Second}),
+                remember(first_value, First),
+                remember(second_value, Second),
                 {Panel, #state{panel=Panel,config=Config}}.
 
+            remember(Key, Value) -> put(Key, Value).
             keep(Value) -> {panel, Value}.
             slider(Panel, Start, Min, Max, Options) -> {Panel, Start, Min, Max, Options}.
             style(Name) ->
                 put(Name, true),
                 1.
             """;
-        byte[] beam = CodeGeneration.CompileBeamModule(source, "beam_straight_constants.erl");
+        byte[] beam = CodeGeneration.CompileBeamModule(source, "beam_call_result_slot_reuse.erl");
         byte[] code = BeamDocumentationEmissionChecks.Chunks(beam).Single(chunk => chunk.Id == "Code").Data;
         ReadOnlySpan<byte> frame = [BeamEmissionFormat.Allocate, 0x30, 0x10];
-        if (code.AsSpan().IndexOf(frame) < 0)
+        ReadOnlySpan<byte> reuse = [BeamEmissionFormat.Move, 0x04, 0x13, BeamEmissionFormat.Move, 0x03, 0x04];
+        if (code.AsSpan().IndexOf(frame) < 0 || code.AsSpan().IndexOf(reuse) < 0)
         {
-            throw new InvalidOperationException("Expected constants and immediate arithmetic operands to stay out of the frame.");
+            throw new InvalidOperationException("Expected the call result to reuse the slot released by the argument load.");
         }
     }
 

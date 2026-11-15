@@ -170,6 +170,7 @@ internal sealed partial class BeamModuleCompiler
                 ?? DelayEntryStackFrame(code, body, stackOperands)
                 ?? SimplifyFrameInitialization(code, body)
                 ?? FoldTerminalCalls(code, body)
+                ?? ScheduleCallResultStores(code, body)
                 ?? ReuseStackSlots(code, body, stackOperands)
                 ?? OrderIndependentCallArguments(code, body)
                 ?? TrimAllocationLiveRegisters(code, body)
