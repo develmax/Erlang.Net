@@ -1051,6 +1051,13 @@ internal static class BeamModuleEmissionChecks
         {
             throw new InvalidOperationException("Expected two call boundaries to shrink the frame before return.");
         }
+
+        ReadOnlySpan<byte> listConstruction = [BeamEmissionFormat.TestHeap, 0x50, 0x10, BeamEmissionFormat.PutTuple];
+        ReadOnlySpan<byte> recordConstruction = [BeamEmissionFormat.TestHeap, 0x70, 0x00, BeamEmissionFormat.PutTuple];
+        if (code.AsSpan().IndexOf(listConstruction) < 0 || code.AsSpan().IndexOf(recordConstruction) < 0)
+        {
+            throw new InvalidOperationException("Expected adjacent constructors to share a heap check with the initial live roots.");
+        }
     }
 
     private static void CompareRecursiveListComprehensionHelpers()

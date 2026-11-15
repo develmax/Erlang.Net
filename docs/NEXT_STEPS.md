@@ -1,5 +1,7 @@
 # Next steps
 
+Apply OTP argument move order when a constructed argument already occupies its outgoing register. The preceding corpus contains 501 modules with candidate partially ordered call setups. [Evidence](validation/part-1777/README.md).
+
 Combine heap checks for adjacent construction without crossing a call, a garbage-collecting operation or a branch. Part 1775 contains 853 modules with excess split checks. [Evidence](validation/part-1776/README.md).
 
 Implement repeated trims based on slot lifetime between calls. The part 1774 comparison found 869 modules with fewer trims than OTP, including 302 modules with straight-line functions missing a trim. [Evidence](validation/part-1775/README.md).

@@ -1,5 +1,7 @@
 # Dependency and compatibility decisions
 
+Part 1777 reuses compact operand rewriting and heap reservation scheduling. No dependency was added. [Evidence](validation/part-1777/README.md).
+
 Part 1776 reuses frame initialization and compact operand rewriting. No dependency was added. [Evidence](validation/part-1776/README.md).
 
 Part 1775 reuses linear stack allocation and late instruction rewriting. No dependency was added. [Evidence](validation/part-1775/README.md).

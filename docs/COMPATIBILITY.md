@@ -1,5 +1,7 @@
 # Compatibility overview
 
+Part 1777 combines reservations for adjacent tuple and list constructors. [Evidence](validation/part-1777/README.md).
+
 Part 1776 trims straight-line frames between calls. [Evidence](validation/part-1776/README.md).
 
 Part 1775 reuses a stack slot when an independent load can precede the call result store. [Evidence](validation/part-1775/README.md).

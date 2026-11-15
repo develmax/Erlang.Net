@@ -155,6 +155,7 @@ internal sealed partial class BeamModuleCompiler
             byte[]? simplified = SimplifyValueSelections(code, body, labelOperands)
                 ?? InvertBranchTests(code, body, labelOperands)
                 ?? NormalizeIntegerComparisons(code, body)
+                ?? CombineConstructionHeapChecks(code, body)
                 ?? CombineStackAndHeapAllocation(code, body)
                 ?? KeepTerminalCallResultsInX0(code, body, stackOperands)
                 ?? ForwardCallResult(code, body)

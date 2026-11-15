@@ -1,3 +1,5 @@
+Part 1777 preserves existing roots across combined construction heap checks. [Evidence](validation/part-1777/README.md).
+
 Part 1776 remaps live Y slots after each between-call trim. [Evidence](validation/part-1776/README.md).
 
 Part 1775 reduces the frame after independent argument loads in straight-line code. [Evidence](validation/part-1775/README.md).
