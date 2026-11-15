@@ -1,5 +1,7 @@
 # Compatibility overview
 
+Part 1764 emits recursive BEAM helpers for a relaxed variable list generator with a variable input and a call output. [Evidence](validation/part-1764/README.md).
+
 Part 1763 reuses stack slots in functions with one frame and one trim. [Evidence](validation/part-1763/README.md).
 
 Part 1762 reuses stack slots outside the tag lifetime in functions with one catch and one frame. [Evidence](validation/part-1762/README.md).

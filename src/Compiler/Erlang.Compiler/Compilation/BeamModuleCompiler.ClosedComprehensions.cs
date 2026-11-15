@@ -10,6 +10,7 @@ internal sealed partial class BeamModuleCompiler
         var rewritten = functions.ToArray();
         var helpers = new List<(FunctionDefinition Function, BeamSourceLocation Location)>();
         var declared = functions.Select(function => (function.Name, function.Arity)).ToHashSet();
+        var localFunctions = functions.ToDictionary(function => (function.Name, function.Arity));
         for (int index = 0; index < functions.Count; index++)
         {
             var function = functions[index];
@@ -102,6 +103,12 @@ internal sealed partial class BeamModuleCompiler
                 || binding.Pattern is not Pattern.Variable bound || bound.Name != source.Name
                 || item.Name == VariableScopeNames.Wildcard || !ClosedMappingExpression(body, item.Name))
             {
+                if (ExtractRecursiveListComprehension(function, locations[index], declared, localFunctions) is { } recursive)
+                {
+                    rewritten[index] = recursive.Parent;
+                    helpers.Add((recursive.Helper, recursive.Location));
+                }
+
                 continue;
             }
             Expr mapped = body is Expr.Block block ? block.Body : body;
@@ -280,17 +287,30 @@ internal sealed partial class BeamModuleCompiler
         Pattern.Variable item,
         Expr mapped,
         Pattern.Variable? capture = null
+    ) => BuildRecursiveMapping(
+        name,
+        item,
+        mapped,
+        capture is null ? [] : [capture],
+        useReservedBindings: capture is not null
+    );
+
+    private static FunctionDefinition BuildRecursiveMapping(
+        string name,
+        Pattern.Variable item,
+        Expr mapped,
+        IReadOnlyList<Pattern.Variable> captures,
+        bool useReservedBindings = true
     )
     {
-        string tail = capture is null ? "BeamComprehensionTail" : "@BeamComprehensionTail";
-        string bad = capture is null ? "BeamComprehensionInput" : "@BeamComprehensionInput";
-        Pattern[] capturedPatterns = capture is null ? [] : [capture];
-        Pattern[] ignoredCaptures = capture is null ? [] : [new Pattern.Variable(VariableScopeNames.Wildcard)];
-        Expr[] capturedArguments = capture is null ? [] : [new Expr.Variable(capture.Name)];
-        int arity = capturedArguments.Length + 1;
+        string tail = useReservedBindings ? "@BeamComprehensionTail" : "BeamComprehensionTail";
+        string bad = useReservedBindings ? "@BeamComprehensionInput" : "BeamComprehensionInput";
+        var ignoredCaptures = captures.Select(_ => new Pattern.Variable(VariableScopeNames.Wildcard)).ToArray();
+        var capturedArguments = captures.Select(capture => new Expr.Variable(capture.Name)).ToArray();
+        int arity = captures.Count + 1;
         return new FunctionDefinition(name, arity,
         [
-            new([new Pattern.List([item], new Pattern.Variable(tail)), .. capturedPatterns], null,
+            new([new Pattern.List([item], new Pattern.Variable(tail)), .. captures], null,
                 new Expr.List([mapped], new Expr.Call(null, name, [new Expr.Variable(tail), .. capturedArguments]))),
             new([new Pattern.List([], null), .. ignoredCaptures], null, new Expr.Literal(Nil.Value)),
             new([new Pattern.Variable(bad), .. ignoredCaptures], null, new Expr.Call(ErlangModuleNames.Module, "error",

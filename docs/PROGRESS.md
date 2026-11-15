@@ -1,5 +1,7 @@
 # Project progress
 
+Part 1764 compiled all 1,366 sources with 398 Equal and 968 Different. 435 new OTP list comprehension helper identities and 0 lost, across 159 changed modules with helper differences. Normalized helper instructions gained 243 matches and lost 0. [Evidence](validation/part-1764/README.md).
+
 Part 1763 compiled all 1,366 sources with 398 Equal and 968 Different. 27 stack slot-count comparisons at corresponding frame allocations across 69 changed images, with 3 new matches and 0 lost matches. Sum of absolute slot-count gaps decreases by 41 across comparable allocations. [Evidence](validation/part-1763/README.md).
 
 Part 1762 compiled all 1,366 sources with 398 Equal and 968 Different. 391 stack slot-count comparisons at corresponding frame allocations across 187 changed images, with 74 new matches and 0 lost matches. Sum of absolute slot-count gaps decreases by 1148 across comparable allocations. [Evidence](validation/part-1762/README.md).

@@ -1,5 +1,7 @@
 # Next steps
 
+Recursive lowering for relaxed tuple generators over a variable can address 254 source functions in 149 modules. OTP skips nonmatching heads with a tail call to the helper. [Evidence](validation/part-1764/README.md).
+
 Lower list comprehensions with one variable generator over a variable, call output and no filters into recursive helpers. The source group contains 570 source functions in 213 modules. The initial-trim follow-up covers copies from unwritten slots. 230 functions in 151 modules move an unwritten Y slot between allocate and initial trim. 100 such functions in 71 modules have no frame in OTP. [Evidence](validation/part-1763/README.md).
 
 Compare Y positions and lifetimes before and after a single frame trim. 118 modules 171 functions {trim_shape,1,1,false,false,false}. [Evidence](validation/part-1762/README.md).

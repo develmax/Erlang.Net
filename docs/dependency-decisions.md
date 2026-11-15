@@ -1,5 +1,7 @@
 # Dependency and compatibility decisions
 
+Part 1764 follows OTP 29.1.1 Core lowering and reuses the expression rewriter and recursive mapper. No dependency was added. [Evidence](validation/part-1764/README.md).
+
 Part 1763 reuses the operand decoder and control-flow graph. No dependency was added. [Evidence](validation/part-1763/README.md).
 
 Part 1762 reuses the operand decoder and control-flow graph. No dependency was added. [Evidence](validation/part-1762/README.md).

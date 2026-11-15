@@ -355,6 +355,7 @@ internal static class BeamModuleEmissionChecks
         CompareStackSlotsAcrossTry();
         CompareStackSlotsAcrossCatch();
         CompareStackSlotsAcrossTrim();
+        CompareRecursiveListComprehensionHelpers();
         CompareRedundantEntryArgumentReloads();
         CompareEntryFrameInitialization();
         CompareProjectionFrameInitialization();
@@ -962,6 +963,50 @@ internal static class BeamModuleEmissionChecks
             || code.AsSpan().IndexOf(released) < 0)
         {
             throw new InvalidOperationException("Expected compact frames and renumbered Y registers after trim.");
+        }
+    }
+
+    private static void CompareRecursiveListComprehensionHelpers()
+    {
+        const string source = """
+            -module(beam_recursive_list_comprehensions).
+            -export([map/2, captured/3, embedded/2, choose/2]).
+
+            map(List, Prefix) ->
+                [item(Prefix, Element) || Element <- List].
+
+            captured(List, Z, A) ->
+                [record_item(Z, Element, A) || Element <- List].
+
+            embedded(List, Prefix) ->
+                {tag, lists:reverse([item(Prefix, Element) || Element <- List])}.
+
+            choose(false, _) ->
+                skipped;
+            choose({prefix, Prefix}, List) ->
+                [item(Prefix, Element) || Element <- List].
+
+            item(Prefix, Element) -> {Prefix, Element}.
+            record_item(First, Element, Last) ->
+                put(seen, [Element | get(seen)]),
+                {First, Element, Last}.
+            """;
+        byte[] beam = CodeGeneration.CompileBeamModule(source, "beam_recursive_list_comprehensions.erl");
+        var chunks = BeamDocumentationEmissionChecks.Chunks(beam);
+        string atoms = Encoding.UTF8.GetString(chunks.Single(chunk => chunk.Id == "AtU8").Data);
+        byte[] code = chunks.Single(chunk => chunk.Id == "Code").Data;
+        ReadOnlySpan<byte> prepareMappedCall =
+        [
+            BeamEmissionFormat.GetList, 0x03, 0x13, 0x04,
+            BeamEmissionFormat.Move, 0x14, 0x03
+        ];
+        if (!atoms.Contains("-map/2-lc$^0/1-0-", StringComparison.Ordinal)
+            || !atoms.Contains("-captured/3-lc$^0/1-0-", StringComparison.Ordinal)
+            || !atoms.Contains("-embedded/2-lc$^0/1-0-", StringComparison.Ordinal)
+            || !atoms.Contains("-choose/2-lc$^0/1-0-", StringComparison.Ordinal)
+            || code.AsSpan().IndexOf(prepareMappedCall) < 0)
+        {
+            throw new InvalidOperationException("Expected recursive list comprehension helpers with captured arguments.");
         }
     }
 
