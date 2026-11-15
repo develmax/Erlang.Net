@@ -297,7 +297,7 @@ internal sealed partial class BeamModuleCompiler
 
     private static FunctionDefinition BuildRecursiveMapping(
         string name,
-        Pattern.Variable item,
+        Pattern item,
         Expr mapped,
         IReadOnlyList<Pattern.Variable> captures,
         bool useReservedBindings = true
@@ -308,10 +308,16 @@ internal sealed partial class BeamModuleCompiler
         var ignoredCaptures = captures.Select(_ => new Pattern.Variable(VariableScopeNames.Wildcard)).ToArray();
         var capturedArguments = captures.Select(capture => new Expr.Variable(capture.Name)).ToArray();
         int arity = captures.Count + 1;
+        var recur = new Expr.Call(null, name, [new Expr.Variable(tail), .. capturedArguments]);
+        Clause[] skip = item is Pattern.Variable ? [] :
+        [
+            new([new Pattern.List([new Pattern.Variable(VariableScopeNames.Wildcard)], new Pattern.Variable(tail)), .. captures], null, recur with { })
+        ];
         return new FunctionDefinition(name, arity,
         [
             new([new Pattern.List([item], new Pattern.Variable(tail)), .. captures], null,
-                new Expr.List([mapped], new Expr.Call(null, name, [new Expr.Variable(tail), .. capturedArguments]))),
+                new Expr.List([mapped], recur)),
+            .. skip,
             new([new Pattern.List([], null), .. ignoredCaptures], null, new Expr.Literal(Nil.Value)),
             new([new Pattern.Variable(bad), .. ignoredCaptures], null, new Expr.Call(ErlangModuleNames.Module, "error",
                 [new Expr.Tuple([new Expr.Literal(Term.A(ErlangErrorReasons.BadGenerator)), new Expr.Variable(bad)])]))

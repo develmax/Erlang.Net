@@ -277,7 +277,7 @@ internal sealed partial class BeamModuleCompiler
                     if (!ReferenceEquals(caller, target))
                     {
                         hasCaller = true;
-                        return argument is Expr.ListComprehension
+                        return IsListComprehensionResult(argument)
                             || (InferPairFacts(argument) & PairFacts.ProperList) != 0
                             || followForwarding && argument is Expr.Variable variable && ProveForwarded(caller, call, variable);
                     }
@@ -312,8 +312,8 @@ internal sealed partial class BeamModuleCompiler
                         if (statement is Expr.Match
                             {
                                 Pattern: Pattern.Variable binding,
-                                Value: Expr.ListComprehension
-                            } && binding.Name == variable.Name)
+                                Value: var value
+                            } && binding.Name == variable.Name && IsListComprehensionResult(value))
                         {
                             properBinding = true;
                         }
@@ -322,6 +322,11 @@ internal sealed partial class BeamModuleCompiler
 
                 return false;
             }
+
+            bool IsListComprehensionResult(Expr expression) => expression is Expr.ListComprehension
+                || expression is Expr.Call { Module: null, DynamicRemote: false } call
+                    && localFunctions.TryGetValue((call.Function, call.Arguments.Count), out var mapper)
+                    && mapper.IsRecursiveListMapper;
 
             static bool IsDirectUse(Expr expression, Expr.Call call) =>
                 ReferenceEquals(expression, call)

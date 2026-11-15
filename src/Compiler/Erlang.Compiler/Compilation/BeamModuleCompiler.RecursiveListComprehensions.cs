@@ -15,9 +15,11 @@ internal sealed partial class BeamModuleCompiler
         if (expressions.OfType<Expr.ListComprehension>().ToArray() is not
             [
             {
-                Items: [Expr.Call { DynamicRemote: false } mapped], Qualifiers: [ComprehensionQualifier.Generator
-                { Strict: false, Pattern: Pattern.Variable item, Source: Expr.Variable list } generator]
+                Items: [var mapped], Qualifiers: [ComprehensionQualifier.Generator
+                { Strict: false, Pattern: var item, Source: Expr.Variable list } generator]
             } comprehension]
+            || !(item is Pattern.Variable && mapped is Expr.Call { DynamicRemote: false }
+                || item is Pattern.Tuple && IsRecursiveListPattern(item))
             || expressions.Any(expression => expression is Expr.Fun or Expr.BinaryComprehension or Expr.MapComprehension)
             || expressions.OfType<Expr.Sequence>().Any(sequence => sequence.Items.SkipLast(1)
                 .Any(expression => ReferenceEquals(expression, comprehension)))
@@ -45,9 +47,10 @@ internal sealed partial class BeamModuleCompiler
             return null;
         }
 
+        var bound = Semantics.Variables(item).ToHashSet(StringComparer.Ordinal);
         var free = output.OfType<Expr.Variable>()
             .Select(variable => variable.Name)
-            .Where(name => name != item.Name)
+            .Where(name => !bound.Contains(name))
             .ToHashSet(StringComparer.Ordinal);
         var parentClause = function.Clauses.First(clause => LocalFunctionEntries.Walk(clause.Body)
             .Any(expression => ReferenceEquals(expression, comprehension)));
@@ -89,10 +92,18 @@ internal sealed partial class BeamModuleCompiler
             item,
             mapped,
             captures.Select(name => new Pattern.Variable(name)).ToArray()
-        );
+        ) with { IsRecursiveListMapper = true };
 
         return (parent, helper, helperLocation);
     }
+
+    private static bool IsRecursiveListPattern(Pattern pattern) => pattern switch
+    {
+        Pattern.Variable or Pattern.Literal => true,
+        Pattern.Tuple tuple => tuple.Items.All(IsRecursiveListPattern),
+        Pattern.List list => list.Items.All(IsRecursiveListPattern) && (list.Tail is null || IsRecursiveListPattern(list.Tail)),
+        _ => false
+    };
 
     private sealed partial class GeneralEmitter
     {

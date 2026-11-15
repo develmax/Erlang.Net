@@ -356,6 +356,7 @@ internal static class BeamModuleEmissionChecks
         CompareStackSlotsAcrossCatch();
         CompareStackSlotsAcrossTrim();
         CompareRecursiveListComprehensionHelpers();
+        CompareRecursiveTupleComprehensionHelpers();
         CompareRedundantEntryArgumentReloads();
         CompareEntryFrameInitialization();
         CompareProjectionFrameInitialization();
@@ -1007,6 +1008,48 @@ internal static class BeamModuleEmissionChecks
             || code.AsSpan().IndexOf(prepareMappedCall) < 0)
         {
             throw new InvalidOperationException("Expected recursive list comprehension helpers with captured arguments.");
+        }
+    }
+
+    private static void CompareRecursiveTupleComprehensionHelpers()
+    {
+        const string source = """
+            -module(beam_tuple_list_comprehension).
+            -export([project/2, repeated/1, identity/1, called/2, nested/1]).
+
+            project(List, Prefix) ->
+                [{Key, Prefix, Value} || {Key, Value} <- List].
+
+            repeated(List) ->
+                [{same, X} || {X, X} <- List].
+
+            identity(List) ->
+                [{Key, Value} || {Key, Value} <- List].
+
+            called(List, Prefix) ->
+                [collect(Prefix, K, V) || {K, V} <- List].
+
+            nested(List) ->
+                [V || {tag, {V, _}} <- List].
+
+            collect(Prefix, Key, Value) ->
+                put(seen, [Key | get(seen)]),
+                {Prefix, Key, Value}.
+            """;
+        byte[] beam = CodeGeneration.CompileBeamModule(source, "beam_tuple_list_comprehension.erl");
+        var chunks = BeamDocumentationEmissionChecks.Chunks(beam);
+        string atoms = Encoding.UTF8.GetString(chunks.Single(chunk => chunk.Id == "AtU8").Data);
+        byte[] code = chunks.Single(chunk => chunk.Id == "Code").Data;
+        ReadOnlySpan<byte> holdTuple = [BeamEmissionFormat.GetList, 0x03, 0x23, 0x03, BeamEmissionFormat.IsTuple];
+        ReadOnlySpan<byte> reuseTuple = [BeamEmissionFormat.PutList, 0x04, 0x03, 0x03, BeamEmissionFormat.Deallocate, 0x10];
+        if (!atoms.Contains("-project/2-lc$^0/1-0-", StringComparison.Ordinal)
+            || !atoms.Contains("-repeated/1-lc$^0/1-0-", StringComparison.Ordinal)
+            || !atoms.Contains("-identity/1-lc$^0/1-0-", StringComparison.Ordinal)
+            || !atoms.Contains("-called/2-lc$^0/1-0-", StringComparison.Ordinal)
+            || !atoms.Contains("-nested/1-lc$^0/1-0-", StringComparison.Ordinal)
+            || code.AsSpan().IndexOf(holdTuple) < 0 || code.AsSpan().IndexOf(reuseTuple) < 0)
+        {
+            throw new InvalidOperationException("Expected tuple comprehension helpers and reuse of the original tuple.");
         }
     }
 
