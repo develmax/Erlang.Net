@@ -947,11 +947,13 @@ internal sealed partial class BeamModuleCompiler(
             }
         }
 
+        int labelCount = nextLabel - sharedReturnLabelCount;
+        code = FoldInitialFrameTrims(code, labelCount) ?? code;
         code = RemoveRepeatedLines(code);
         Word(output, CodeHeaderSize);
         Word(output, BeamWire.FormatVersion);
         Word(output, highestOpcode);
-        Word(output, nextLabel - sharedReturnLabelCount);
+        Word(output, labelCount);
         Word(output, exports.Count + locals.Count);
         output.Write(code.Span);
     }

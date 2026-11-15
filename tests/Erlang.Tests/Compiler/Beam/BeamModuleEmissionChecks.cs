@@ -351,6 +351,7 @@ internal static class BeamModuleEmissionChecks
         CompareRedundantEntryArgumentReloads();
         CompareEntryFrameInitialization();
         CompareProjectionFrameInitialization();
+        CompareInitialFrameTrim();
         CompareDirectCallProjections();
         CompareBifResultStores();
         CompareEntryBifPlacement();
@@ -1014,6 +1015,28 @@ internal static class BeamModuleEmissionChecks
         if (allocation < 0 || code.AsSpan(allocation + frame.Length).IndexOf(reads) < 0)
         {
             throw new InvalidOperationException("Expected the whole tuple in one frame slot and its fields read after collection.");
+        }
+    }
+
+    private static void CompareInitialFrameTrim()
+    {
+        const string source = """
+            -module(beam_pretrim).
+            -export([assign/2]).
+            assign({Left,Right}, Key) ->
+                Previous = erlang:put(saved, Key),
+                {Previous, Left, Right}.
+            """;
+        byte[] beam = CodeGeneration.CompileBeamModule(source, "beam_pretrim.erl");
+        byte[] code = BeamDocumentationEmissionChecks.Chunks(beam).Single(chunk => chunk.Id == "Code").Data;
+        ReadOnlySpan<byte> frame =
+        [
+            BeamEmissionFormat.Allocate, 0x10, 0x20,
+            BeamEmissionFormat.Move, 0x03, 0x04
+        ];
+        if (code.AsSpan().IndexOf(frame) < 0)
+        {
+            throw new InvalidOperationException("Expected the initial frame to allocate only the saved tuple slot.");
         }
     }
 
