@@ -173,6 +173,7 @@ internal sealed partial class BeamModuleCompiler
                 ?? FoldTerminalCalls(code, body)
                 ?? ScheduleCallResultStores(code, body)
                 ?? ReuseStackSlots(code, body, stackOperands)
+                ?? LoadCallArgumentsBeforeReusedResultStore(code, body)
                 ?? OrderIndependentCallArguments(code, body)
                 ?? TrimAllocationLiveRegisters(code, body)
                 ?? MoveHeapTestsBeforeNeutralInstructions(code, body, atomNames, importsByIndex)

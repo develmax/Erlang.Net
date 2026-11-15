@@ -1,5 +1,7 @@
 # Dependency and compatibility decisions
 
+Part 1779 reuses register encoding and the release image comparison. No dependency was added. [Evidence](validation/part-1779/README.md).
+
 Part 1778 reuses independent argument scheduling and stack-slot allocation. No dependency was added. [Evidence](validation/part-1778/README.md).
 
 Part 1777 reuses compact operand rewriting and heap reservation scheduling. No dependency was added. [Evidence](validation/part-1777/README.md).

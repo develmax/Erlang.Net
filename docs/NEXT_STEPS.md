@@ -1,5 +1,7 @@
 # Next steps
 
+Move the list shape and projections out of the frame before dispatch where the fallback can finish in registers. Revisit branch-local slot coloring after entry placement. [Evidence](validation/part-1779/README.md).
+
 Delay the spill to an aliased Y register until the next call arguments have been loaded. Reserve an X temporary for the first argument while X0 still holds the previous result. [Evidence](validation/part-1778/README.md).
 
 Apply OTP argument move order when a constructed argument already occupies its outgoing register. The preceding corpus contains 501 modules with candidate partially ordered call setups. [Evidence](validation/part-1777/README.md).

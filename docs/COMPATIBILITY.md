@@ -1,5 +1,7 @@
 # Compatibility overview
 
+Part 1779 aligns argument loading around an aliased result spill. [Evidence](validation/part-1779/README.md).
+
 Part 1778 orders remaining call arguments after an argument constructor. [Evidence](validation/part-1778/README.md).
 
 Part 1777 combines reservations for adjacent tuple and list constructors. [Evidence](validation/part-1777/README.md).

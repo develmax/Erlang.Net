@@ -1,3 +1,5 @@
+Part 1779 preserves the first argument until the previous X0 result has been stored. [Evidence](validation/part-1779/README.md).
+
 Part 1778 preserves outgoing registers that were assigned by a constructor. [Evidence](validation/part-1778/README.md).
 
 Part 1777 preserves existing roots across combined construction heap checks. [Evidence](validation/part-1777/README.md).

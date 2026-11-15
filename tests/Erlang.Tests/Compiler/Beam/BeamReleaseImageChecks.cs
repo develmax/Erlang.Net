@@ -55,6 +55,7 @@ internal static class BeamReleaseImageChecks
             ("ssh-6.0.6", "ssh_tcpip_forward_acceptor_sup"),
             ("ssl-11.7.7", "ssl_session_cache_api"),
             ("tftp-1.3", "tftp"),
+            ("wx-2.7", "ex_slider"),
             ("wx-2.7", "wxClipboardTextEvent"),
             ("wx-2.7", "wx_misc"),
             ("wx-2.7", "wxDisplay"),
@@ -297,6 +298,17 @@ internal static class BeamReleaseImageChecks
                     "httpc_handler_sup" => OtpWindowsReleaseProfiles.FindForSource(
                         application,
                         Path.Combine("lib", application, "src", "http_client", input)
+                    ),
+                    "ex_slider" => OtpWindowsReleaseProfiles.FindForSource(
+                        application,
+                        Path.Combine(
+                            "lib",
+                            application,
+                            "doc",
+                            "examples",
+                            "demo",
+                            input
+                        )
                     ),
                     "prim_buffer" or "ssh_lsocket_sup" or "ssh_tcpip_forward_acceptor_sup" => OtpWindowsReleaseProfiles.FindForSource(
                         application,
