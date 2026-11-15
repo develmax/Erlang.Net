@@ -51,6 +51,7 @@ internal sealed partial class BeamModuleCompiler
 
             var remove = new Dictionary<int, BeamOperand>();
             var replace = new Dictionary<int, (int End, BeamOperand Source)>();
+            var earlyLoads = new Dictionary<int, BeamOperand>();
             for (int save = first; save < setupEnd; save++)
             {
                 if (body[save] is not { Definition.Opcode: Move, Operands: [var source, var slot] }
@@ -74,6 +75,10 @@ internal sealed partial class BeamModuleCompiler
                     }
 
                     RecordEntryArgumentUses(body, stackOperands, plan.Uses, slot, replace);
+                    foreach (var (use, register) in plan.EarlyLoads)
+                    {
+                        earlyLoads.Add(use, register);
+                    }
                 }
             }
 
@@ -87,6 +92,19 @@ internal sealed partial class BeamModuleCompiler
             for (int index = first; index < end; index++)
             {
                 BeamInstruction instruction = body[index];
+                if (earlyLoads.TryGetValue(index + 1, out BeamOperand? earlySource))
+                {
+                    // Load the outgoing argument before the literal overwrites its source.
+                    output.Write(code.Span[copied..instruction.Offset]);
+                    output.WriteByte(Move);
+                    WriteRegister(output, earlySource);
+                    WriteRegister(output, body[index + 1].Operands[1]);
+                    output.Write(code.Span[instruction.Offset..body[index + 1].Offset]);
+                    copied = body[index + 2].Offset;
+                    index++;
+                    continue;
+                }
+
                 if (remove.TryGetValue(index, out BeamOperand? slot))
                 {
                     output.Write(code.Span[copied..instruction.Offset]);

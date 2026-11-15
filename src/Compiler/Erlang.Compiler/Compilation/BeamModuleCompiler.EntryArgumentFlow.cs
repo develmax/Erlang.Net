@@ -7,7 +7,7 @@ internal sealed partial class BeamModuleCompiler
 {
     private sealed partial class BeamProjectionFlow
     {
-        internal (bool RemoveSpill, Dictionary<int, BeamOperand> Uses)? PlanEntryRegisterUses(
+        internal (bool RemoveSpill, Dictionary<int, BeamOperand> Uses, Dictionary<int, BeamOperand> EarlyLoads)? PlanEntryRegisterUses(
             int entry,
             int save,
             int end,
@@ -57,7 +57,7 @@ internal sealed partial class BeamModuleCompiler
             if (uses.Count == 0)
             {
                 // The slot still needs initialization for GC until it is overwritten.
-                return (true, []);
+                return (true, [], []);
             }
 
             BigInteger original = EntryRegisterBit(source);
@@ -87,6 +87,7 @@ internal sealed partial class BeamModuleCompiler
 
             var replacements = new Dictionary<int, BeamOperand>();
             var redundantLoads = new Dictionary<int, BeamOperand>();
+            var earlyLoads = new Dictionary<int, BeamOperand>();
             foreach (int use in uses)
             {
                 BigInteger available = incoming[use - entry].GetValueOrDefault();
@@ -98,6 +99,18 @@ internal sealed partial class BeamModuleCompiler
 
                 if (available.IsZero)
                 {
+                    if (use > save + 1 && predecessors[use] is [int previous] && previous == use - 1
+                        && instruction is { Definition.Opcode: Move, Operands: [_, { Kind: BeamOperandParameters.X, TypeIndex: null } target] }
+                        && !SameProjectionRegister(target, source)
+                        && body[previous] is { Definition.Opcode: Move, Operands: [
+                            { Kind: BeamOperandParameters.LiteralValue or BeamOperandParameters.Integer
+                                or BeamOperandParameters.Atom or BeamOperandParameters.Nil }, var overwritten] }
+                        && SameProjectionRegister(overwritten, source)
+                        && !(incoming[previous - entry].GetValueOrDefault() & original).IsZero)
+                    {
+                        earlyLoads.Add(use, source);
+                    }
+
                     continue;
                 }
 
@@ -111,12 +124,12 @@ internal sealed partial class BeamModuleCompiler
                 }
             }
 
-            if (uses.Count == replacements.Count)
+            if (uses.Count == replacements.Count + earlyLoads.Count)
             {
-                return (true, replacements);
+                return (true, replacements, earlyLoads);
             }
 
-            return redundantLoads.Count == 0 ? null : (false, redundantLoads);
+            return redundantLoads.Count == 0 ? null : (false, redundantLoads, []);
         }
 
         private List<int>? FindEntryCopyLifetimeUses(

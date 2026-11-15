@@ -1,5 +1,7 @@
 # Next steps
 
+Prove private entry record shapes at all direct call sites. [Evidence](validation/part-1796/README.md).
+
 Move entry arguments before a literal overwrites their original X register. [Evidence](validation/part-1795/README.md).
 
 Defer the only tuple projection until the saved slot is reused by the call result. [Evidence](validation/part-1794/README.md).

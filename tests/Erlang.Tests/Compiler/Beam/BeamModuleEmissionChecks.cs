@@ -1075,15 +1075,19 @@ internal static class BeamModuleEmissionChecks
             -record(spec, {prefix, tag, tail}).
 
             collect(#spec{tag=Options}, Label) ->
-                Name = join(Label),
+                Name = join(Label, name),
                 Items = [I || {entry,I} <- Options],
                 accept(Name,[default|Items]).
-            join(Label) -> {label,Label}.
+            join(Label, Kind) -> {Kind,Label}.
             accept(Rest, Expected) -> {Rest,Expected}.
             """;
         byte[] beam = CodeGeneration.CompileBeamModule(source, "beam_guarded_frame_slots.erl");
         byte[] code = BeamDocumentationEmissionChecks.Chunks(beam).Single(chunk => chunk.Id == "Code").Data;
-        ReadOnlySpan<byte> compactFrame = [BeamEmissionFormat.Allocate, 0x10, 0x20];
+        ReadOnlySpan<byte> compactFrame = [
+            BeamEmissionFormat.Allocate, 0x10, 0x20,
+            BeamEmissionFormat.Move, 0x03, 0x04,
+            BeamEmissionFormat.Move, 0x13, 0x03
+        ];
         ReadOnlySpan<byte> reusedSlot = [
             BeamEmissionFormat.GetTupleElement, 0x04, 0x20, 0x13,
             BeamEmissionFormat.Move, 0x03, 0x04,
@@ -1091,7 +1095,7 @@ internal static class BeamModuleEmissionChecks
         ];
         if (code.AsSpan().IndexOf(compactFrame) < 0 || code.AsSpan().IndexOf(reusedSlot) < 0)
         {
-            throw new InvalidOperationException("Expected the deferred field read before the tuple slot is reused for the result.");
+            throw new InvalidOperationException("Expected the entry argument to move before the literal and the tuple slot to be reused.");
         }
     }
 
