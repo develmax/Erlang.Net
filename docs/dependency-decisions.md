@@ -1,5 +1,7 @@
 # Dependency and compatibility decisions
 
+Part 1757 reuses the BEAM control-flow graph and deferred projection rewrite. No dependency was added. [Evidence](validation/part-1757/README.md).
+
 Part 1756 reuses the BEAM operand decoder, frame initializer and compact operand writer. No dependency was added. [Evidence](validation/part-1756/README.md).
 
 Part 1755 reuses the BEAM branch liveness proof, frame initialization and compact operand writer. No dependency was added. [Evidence](validation/part-1755/README.md).

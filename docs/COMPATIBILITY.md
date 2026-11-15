@@ -1,5 +1,7 @@
 # Compatibility overview
 
+Part 1757 supports deferred reads after several ordinary calls and field-slot reuse. [Evidence](validation/part-1757/README.md).
+
 Part 1756 folds eligible initial trim instructions into frame allocation. [Evidence](validation/part-1756/README.md).
 
 Part 1755 sinks straight-line tuple field reads to eligible consumers after calls. [Evidence](validation/part-1755/README.md).

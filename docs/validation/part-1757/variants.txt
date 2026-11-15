@@ -1,0 +1,9 @@
+All three variants rebuilt the 1,366 release files with 398 Equal and 968 Different.
+
+| Variant | Changed files | New placement matches | Lost placement matches | Reduction in absolute Code size gap |
+| --- | ---: | ---: | ---: | ---: |
+| Slot reuse | 209 | 69 | 76 | -2295 bytes |
+| Slot reuse and trim | 213 | 69 | 88 | -2356 bytes |
+| Tuple liveness and multiple calls | 221 | 383 | 153 | -1053 bytes |
+
+The selected variant limits newly eligible single-field sinks to tuples with a later use. It also handles additional ordinary calls and skips duplicate slot clears. The placement count compares the projection windows on both sides of each corresponding call.

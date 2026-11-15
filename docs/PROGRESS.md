@@ -1,5 +1,7 @@
 # Project progress
 
+Part 1757 compiled all 1,366 corpus sources with 398 Equal and 968 Different. 79 stack slot-count comparisons at corresponding frame allocations across 221 changed images, with 10 new matches and 7 lost matches. Sum of absolute slot-count gaps decreases by 84 across comparable allocations. [Evidence](validation/part-1757/README.md).
+
 Part 1756 compiled all 1,366 corpus sources with 398 Equal and 968 Different. 148 stack slot-count comparisons at corresponding frame allocations across 129 changed images, with 30 new matches and 0 lost matches. Sum of absolute slot-count gaps decreases by 148 across comparable allocations. [Evidence](validation/part-1756/README.md).
 
 Part 1755 compiled all 1,366 corpus sources with 398 Equal and 968 Different. 128 stack slot-count comparisons at corresponding frame allocations across 207 changed images, with 37 new matches and 2 lost matches. Sum of absolute slot-count gaps decreases by 144 across comparable allocations. [Evidence](validation/part-1755/README.md).

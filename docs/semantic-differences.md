@@ -1,3 +1,5 @@
+Part 1757 tracks projected values through slot overwrites and trim. Fields with multiple consumers still need placement analysis. [Evidence](validation/part-1757/README.md).
+
 Part 1756 allocates smaller frames for eligible initial trims. Later trims and frames with earlier slot uses still need their existing size changes. [Evidence](validation/part-1756/README.md).
 
 Part 1755 can keep one tuple slot in place of several fields across a call. Some resulting frames still use an explicit trim before the call. [Evidence](validation/part-1755/README.md).

@@ -351,6 +351,7 @@ internal static class BeamModuleEmissionChecks
         CompareRedundantEntryArgumentReloads();
         CompareEntryFrameInitialization();
         CompareProjectionFrameInitialization();
+        CompareDeferredProjectionSlotReuse();
         CompareInitialFrameTrim();
         CompareDirectCallProjections();
         CompareBifResultStores();
@@ -1015,6 +1016,51 @@ internal static class BeamModuleEmissionChecks
         if (allocation < 0 || code.AsSpan(allocation + frame.Length).IndexOf(reads) < 0)
         {
             throw new InvalidOperationException("Expected the whole tuple in one frame slot and its fields read after collection.");
+        }
+    }
+
+    private static void CompareDeferredProjectionSlotReuse()
+    {
+        const string source = """
+            -module(beam_projection_reuse).
+            -export([remember/2, pack/2, later/3]).
+
+            remember(T = {tag, Value}, Key) ->
+                erlang:put(Key, T),
+                Old = erlang:put(last, Value),
+                New = erlang:get(Key),
+                {T, Old, New}.
+
+            pack(T = {tag, Value}, Key) ->
+                erlang:put(Key, T),
+                Next = {T, Value},
+                Other = erlang:put(next, Next),
+                {Other, Next}.
+
+            later(First, T = {tag, Value}, Key) ->
+                Previous = erlang:put(First, T),
+                _ = erlang:put(Key, T),
+                Result = erlang:put(Previous, Value),
+                {T, Result}.
+            """;
+        byte[] beam = CodeGeneration.CompileBeamModule(source, "beam_projection_reuse.erl");
+        byte[] code = BeamDocumentationEmissionChecks.Chunks(beam).Single(chunk => chunk.Id == "Code").Data;
+        ReadOnlySpan<byte> deferred =
+        [
+            BeamEmissionFormat.ExternalCall, 0x20, 0x00,
+            BeamEmissionFormat.GetTupleElement, 0x04, 0x10, 0x13
+        ];
+        ReadOnlySpan<byte> reuse = [BeamEmissionFormat.Move, 0x03, 0x24];
+        ReadOnlySpan<byte> afterTwoCalls =
+        [
+            BeamEmissionFormat.ExternalCall, 0x20, 0x00,
+            BeamEmissionFormat.GetTupleElement, 0x14, 0x10, 0x13
+        ];
+        int read = code.AsSpan().IndexOf(deferred);
+        if (read < 0 || code.AsSpan(read + deferred.Length).IndexOf(reuse) < 0
+            || code.AsSpan().IndexOf(afterTwoCalls) < 0)
+        {
+            throw new InvalidOperationException("Expected a late tuple read before the slot is reused for the call result.");
         }
     }
 

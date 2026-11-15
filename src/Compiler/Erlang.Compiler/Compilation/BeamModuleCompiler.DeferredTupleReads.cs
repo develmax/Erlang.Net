@@ -42,7 +42,7 @@ internal sealed partial class BeamModuleCompiler
                         WriteRegister(output, capture);
                         WriteRegister(output, tuple);
                     }
-                    else
+                    else if (!IsDeferredSlotAlreadyCleared(body, read.Definition, read.Slot))
                     {
                         WriteFrameInitialization(output, [(int)read.Slot.Value]);
                     }
@@ -111,15 +111,17 @@ internal sealed partial class BeamModuleCompiler
     {
         var references = new Dictionary<int, List<int>>();
         int allocations = 0;
+        bool renumbersSlots = false;
         for (int index = entry; index < end; index++)
         {
             BeamInstruction instruction = body[index];
             byte opcode = instruction.Definition.Opcode;
-            if (opcode is TrimFrame or TryEnter or CatchEnter || instruction.Definition.Name == "debug_line")
+            if (opcode is TryEnter or CatchEnter || instruction.Definition.Name == "debug_line")
             {
                 return null;
             }
 
+            renumbersSlots |= opcode == TrimFrame;
             if (opcode is Allocate or AllocateHeap)
             {
                 allocations++;
@@ -156,7 +158,8 @@ internal sealed partial class BeamModuleCompiler
             }
 
             int last = call + 1;
-            while (last < end && IsDeferredTupleReadNeighbor(body[last].Definition.Opcode))
+            while (last < end && (IsDeferredTupleReadNeighbor(body[last].Definition.Opcode)
+                || body[last].Definition.Opcode is LocalCall or ExternalCall))
             {
                 last++;
             }
@@ -176,8 +179,18 @@ internal sealed partial class BeamModuleCompiler
                     }
                     || SameProjectionRegister(tuple, slot)
                     || !references.TryGetValue((int)slot.Value, out List<int>? sites)
-                    || sites is not [var first, var use] || first != definition || use <= call || use >= last
-                    || !IsDeferredTupleConsumer(body[use], slot))
+                    || FindDeferredTupleUse(
+                        body,
+                        sites,
+                        definition,
+                        call,
+                        last,
+                        entry,
+                        end,
+                        slot,
+                        renumbersSlots,
+                        ref flow
+                    ) is not int use)
                 {
                     continue;
                 }
@@ -203,6 +216,21 @@ internal sealed partial class BeamModuleCompiler
                 BeamOperand tupleSlot = capture ? reads[0].Slot : source;
                 int first = reads[0].Definition;
                 int lastUse = reads.Max(read => read.Use);
+                int lastCall = lastUse - 1;
+                while (lastCall > call && body[lastCall].Definition.Opcode is not (LocalCall or ExternalCall))
+                {
+                    lastCall--;
+                }
+
+                bool extendsPreviousProof = lastCall != call || renumbersSlots
+                    || references[(int)reads[0].Slot.Value].Count != 2;
+                if (!capture && reads.Count == 1 && extendsPreviousProof
+                    && (flow ??= new BeamProjectionFlow(body)).IsDeferredSlotDeadAfterUse(lastCall, entry, end, source))
+                {
+                    // Keep one extracted field across a call when the tuple itself would otherwise die.
+                    continue;
+                }
+
                 bool stable = true;
                 for (int index = first; index <= lastUse; index++)
                 {
@@ -226,6 +254,67 @@ internal sealed partial class BeamModuleCompiler
         }
 
         return null;
+    }
+
+    private static bool IsDeferredSlotAlreadyCleared(
+        IReadOnlyList<BeamInstruction> body,
+        int definition,
+        BeamOperand slot
+    )
+    {
+        for (int index = definition - 1; index >= 0; index--)
+        {
+            BeamInstruction instruction = body[index];
+            byte opcode = instruction.Definition.Opcode;
+            if (opcode is Label or FunctionInfo or Allocate or AllocateHeap or Deallocate or TrimFrame
+                || EndsBeamBlock(opcode))
+            {
+                return false;
+            }
+
+            if (instruction.Operands.Any(operand => SameProjectionRegister(operand, slot)))
+            {
+                return opcode == InitYRegisters;
+            }
+        }
+
+        return false;
+    }
+
+    private static int? FindDeferredTupleUse(
+        IReadOnlyList<BeamInstruction> body,
+        List<int> sites,
+        int definition,
+        int call,
+        int last,
+        int entry,
+        int end,
+        BeamOperand slot,
+        bool renumbersSlots,
+        ref BeamProjectionFlow? flow
+    )
+    {
+        int next = sites.BinarySearch(definition) + 1;
+        if (next >= sites.Count)
+        {
+            return null;
+        }
+
+        int use = sites[next];
+        if (use <= call || use >= last || !IsDeferredTupleConsumer(body[use], slot))
+        {
+            return null;
+        }
+
+        bool laterReference = next + 1 < sites.Count;
+        if (laterReference && sites[next + 1] == use
+            || (renumbersSlots || laterReference)
+                && !(flow ??= new BeamProjectionFlow(body)).IsDeferredSlotDeadAfterUse(use, entry, end, slot))
+        {
+            return null;
+        }
+
+        return use;
     }
 
     private static bool IsDeferredTupleReadNeighbor(byte opcode) =>
@@ -294,5 +383,75 @@ internal sealed partial class BeamModuleCompiler
         }
 
         return true;
+    }
+
+    private sealed partial class BeamProjectionFlow
+    {
+        internal bool IsDeferredSlotDeadAfterUse(int use, int entry, int end, BeamOperand slot)
+        {
+            var visited = new HashSet<(int Index, BeamOperand Slot)>();
+            var pending = new Stack<(int Index, BeamOperand Slot)>(
+                successors[use].Select(index => (index, slot)));
+            while (pending.TryPop(out var state))
+            {
+                int index = state.Index;
+                if (index < entry || index >= end || !visited.Add(state))
+                {
+                    continue;
+                }
+
+                BeamInstruction instruction = body[index];
+                byte opcode = instruction.Definition.Opcode;
+                BeamOperand current = state.Slot;
+                if (opcode == TrimFrame)
+                {
+                    if (current.Value < instruction.Operands[0].Value)
+                    {
+                        continue;
+                    }
+
+                    current = current with { Value = current.Value - instruction.Operands[0].Value };
+                }
+
+                int destination = StackWriteOperand(instruction);
+                bool overwrites = false;
+                for (int position = 0; position < instruction.Operands.Count; position++)
+                {
+                    if (!SameProjectionRegister(instruction.Operands[position], current))
+                    {
+                        continue;
+                    }
+
+                    if (opcode == InitYRegisters || position == destination || opcode == GetList && position == 2)
+                    {
+                        overwrites = true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+
+                // A branch on failure can still observe the old slot.
+                if (opcode is Deallocate or IfEnd || overwrites
+                    && instruction.Operands.All(operand => operand.Kind != BeamOperandParameters.Label))
+                {
+                    continue;
+                }
+
+                foreach (int target in successors[index])
+                {
+                    if (!overwrites || target != index + 1
+                        || instruction.Operands.Any(operand => operand.Kind == BeamOperandParameters.Label
+                            && body[target].Definition.Opcode == Label
+                            && operand.Value == body[target].Operands[0].Value))
+                    {
+                        pending.Push((target, current));
+                    }
+                }
+            }
+
+            return true;
+        }
     }
 }

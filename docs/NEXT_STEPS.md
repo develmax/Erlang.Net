@@ -1,5 +1,7 @@
 # Next steps
 
+Compare remaining projected value lifetimes through additional calls. 150 modules 235 functions 303 sites {single_use,same_block,move}, 150 modules 198 functions 256 sites {multiple_uses,additional_call} [Evidence](validation/part-1757/README.md).
+
 Compare projected values by their slot lifetime. 193 modules 385 functions 506 sites {single_use,same_block,move}, 152 modules 200 functions 260 sites {multiple_uses,additional_call} [Evidence](validation/part-1756/README.md).
 
 Compare remaining tuple projections and initial frame trims. 203 modules 343 functions with matching calls and Y projections before the call where OTP reads the fields after it. 105 modules 150 functions with a foldable frame trim before an ordinary call, 32 frame sizes align with OTP's first frame. [Evidence](validation/part-1755/README.md).
