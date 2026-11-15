@@ -753,11 +753,11 @@ internal static class BeamModuleEmissionChecks
         [
             BeamEmissionFormat.BifOne, 0x05, 0x00, 0x12, 0x03,
             BeamEmissionFormat.ExactEqualTest, 0x35, 0x03, 0x52,
-            BeamEmissionFormat.Allocate, 0x00, 0x10
+            BeamEmissionFormat.Allocate, 0x00, 0x00
         ];
         if (code.AsSpan().IndexOf(guardedAllocation) < 0)
         {
-            throw new InvalidOperationException("Expected the BIF result predicate before the stack allocation.");
+            throw new InvalidOperationException("Expected the BIF result predicate before an allocation with no live X registers.");
         }
     }
 

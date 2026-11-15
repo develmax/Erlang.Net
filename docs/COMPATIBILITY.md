@@ -1,5 +1,7 @@
 # Compatibility overview
 
+Part 1748 excludes proven dead trailing X registers from allocate and allocate_heap roots. [Evidence](validation/part-1748/README.md).
+
 Part 1747 extends entry frame placement through a sequence of guards even if the allocation already follows a guard. [Evidence](validation/part-1747/README.md).
 
 Part 1746 delays the stack frame past eligible predicates after an entry BIF. [Evidence](validation/part-1746/README.md).

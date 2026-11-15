@@ -1,5 +1,7 @@
 # Project progress
 
+Part 1748 compiled all 1,366 corpus sources with 398 Equal and 968 Different. 53 live-X count comparisons at corresponding frame allocations across 181 changed images, with 53 new matches and 0 lost matches. [Evidence](validation/part-1748/README.md).
+
 Part 1747 compiled all 1,366 corpus sources with 398 Equal and 968 Different. 2 entry guard placement comparisons across 16 changed images, with 2 new order matches and 0 lost matches. [Evidence](validation/part-1747/README.md).
 
 Part 1746 compiled all 1,366 corpus sources with 398 Equal and 968 Different. 17 predicate placement comparisons across 20 changed images, with 16 new order matches and 1 lost matches. [Evidence](validation/part-1746/README.md).

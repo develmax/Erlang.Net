@@ -1,3 +1,5 @@
+Part 1748 trims dead allocation roots when the continuation is understood. Other collector live counts and unsupported instructions still differ. [Evidence](validation/part-1748/README.md).
+
 Part 1747 delays a shared frame past eligible predicates. The order of BIFs, guard branches and other allocation sites still differs in the remaining images. [Evidence](validation/part-1747/README.md).
 
 Part 1746 places the frame after eligible post-BIF predicates. Register live counts and frame placement across multiple call paths still differ. [Evidence](validation/part-1746/README.md).
