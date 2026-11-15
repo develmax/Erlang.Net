@@ -1,3 +1,5 @@
+Part 1771 matches shared tagged-message tests and branch-local frames for a record lookup and update. Further entry dispatch cases with an unconditional default still need branch-specific frame placement. [Evidence](validation/part-1771/README.md).
+
 Part 1770 aligns function_clause arguments for captured closures. Entry patterns that need a frame still use generic register and stack allocation. [Evidence](validation/part-1770/README.md).
 
 Part 1769 aligns Core names and helper order for independent anonymous closures and list comprehensions. Nested comprehensions inside a closure remain outside this lowering. [Evidence](validation/part-1769/README.md).

@@ -1133,7 +1133,7 @@ internal sealed partial class BeamModuleCompiler
             }
 
             if (recursiveClosure is null && clauses.Count == function.Clauses.Count
-                && (TryEmitGroupedTupleEntry(function, functionInfo)
+                && (TryEmitTaggedLookupRecordUpdate(function) || TryEmitGroupedTupleEntry(function, functionInfo)
                     || TryEmitSharedTaggedTupleDispatch(function, functionInfo)
                     || TryEmitTupleAndAtomTailDispatch(function, functionInfo)))
             {

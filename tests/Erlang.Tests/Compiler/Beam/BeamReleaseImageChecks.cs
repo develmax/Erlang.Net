@@ -19,6 +19,7 @@ internal static class BeamReleaseImageChecks
             ("erts-17.1", "prim_buffer"),
             ("et-1.8", "et"),
             ("kernel-11.0.4", "logger_handler"),
+            ("kernel-11.0.4", "logger_handler_watcher"),
             ("stdlib-8.1", "erl_abstract_code"),
             ("megaco-4.9.2", "megaco_encoder"),
             ("snmp-5.20.5", "snmpa_mib_data"),

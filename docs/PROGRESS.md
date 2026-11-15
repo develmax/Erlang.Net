@@ -1,5 +1,7 @@
 # Project progress
 
+Part 1771 compiled all 1,366 sources with 399 Equal and 967 Different. The release logger_handler_watcher image became byte-equal. [Evidence](validation/part-1771/README.md).
+
 Part 1770 compiled all 1,366 sources with 398 Equal and 968 Different. 253 new OTP function_clause stub identities and 0 lost, across 128 changed modules with helper differences. Normalized helper instructions gained 228 matches and lost 1. [Evidence](validation/part-1770/README.md).
 
 Part 1769 compiled all 1,366 sources with 398 Equal and 968 Different. 277 new OTP list comprehension helper identities and 0 lost, across 44 changed modules with helper differences. Normalized helper instructions gained 11 matches and lost 0. [Evidence](validation/part-1769/README.md).

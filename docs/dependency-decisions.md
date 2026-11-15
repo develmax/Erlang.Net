@@ -1,5 +1,7 @@
 # Dependency and compatibility decisions
 
+Part 1771 reuses register tuple tests, typed updates and branch-local call frames. No dependency was added. [Evidence](validation/part-1771/README.md).
+
 Part 1770 reuses deferred call labels and register entry tests for captured closure failures. No dependency was added. [Evidence](validation/part-1770/README.md).
 
 Part 1769 reuses deferred call labels to interleave recursive helpers with anonymous closures. No dependency was added. [Evidence](validation/part-1769/README.md).

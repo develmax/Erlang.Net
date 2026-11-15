@@ -1,5 +1,7 @@
 # Next steps
 
+Extend register-only entry tests to functions with a single tagged clause and an unconditional default. That is the largest classified group with a default, with 361 functions across 157 modules. [Evidence](validation/part-1771/README.md).
+
 Move shared tagged-tuple tests before frame allocation. The first instruction mismatch has this shape in 1687 functions across 363 modules. Start with handle_info/2 in logger_handler_watcher, where it is the only function whose disassembled instructions differ after label normalization. [Evidence](validation/part-1770/README.md).
 
 Emit function_clause stubs for captured anonymous closures with a refutable head or guard. The default compiler options group has 291 missing SSA-generated stubs across 136 modules, each called from one anonymous function. [Evidence](validation/part-1769/README.md).
