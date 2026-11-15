@@ -1,5 +1,7 @@
 # Next steps
 
+Compare remaining tests and tuple projections before the first BIF and their effect on frame placement. [Evidence](validation/part-1746/README.md).
+
 Prioritize the remaining BIFs that OTP places before the frame. Audit the allocation following predicates that consume their results. [Evidence](validation/part-1745/README.md).
 
 Compare entry BIFs preceding frame allocation in OTP and prove argument and X-root liveness before moving the frame. [Evidence](validation/part-1744/README.md).

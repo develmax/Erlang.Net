@@ -1,5 +1,7 @@
 # Dependency and compatibility decisions
 
+Part 1746 uses the existing frame dominance and operand-rewriting passes after a pre-frame BIF. No dependency was added. [Evidence](validation/part-1746/README.md).
+
 Part 1745 uses the existing operand reader, register encoder and liveness check for entry BIF placement. No dependency was added. [Evidence](validation/part-1745/README.md).
 
 Part 1744 uses the existing operand reader and register encoder for direct BIF stores. No dependency was added. [Evidence](validation/part-1744/README.md).

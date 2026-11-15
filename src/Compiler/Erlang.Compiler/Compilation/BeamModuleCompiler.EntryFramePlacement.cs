@@ -21,10 +21,16 @@ internal sealed partial class BeamModuleCompiler
                 continue;
             }
 
-            var plan = PlanEntryFramePlacement(body, start, end);
+            int allocationIndex = FindEntryFrameAllocation(body, start, end);
+            var plan = allocationIndex < 0 ? null : PlanEntryFramePlacement(
+                body,
+                start,
+                allocationIndex,
+                end
+            );
             if (plan is { } placement)
             {
-                int allocation = body[start + 1].Offset;
+                int allocation = body[allocationIndex].Offset;
                 int first = body[placement.First].Offset;
                 ReadOnlySpan<byte> setup = code.Span[allocation..first];
                 output.Write(code.Span[copied..allocation]);
@@ -80,20 +86,65 @@ internal sealed partial class BeamModuleCompiler
         return output.ToArray();
     }
 
-    private static (int First, Dictionary<int, int> Saved, HashSet<int> Delayed, int FrameSite)?
-        PlanEntryFramePlacement(IReadOnlyList<BeamInstruction> body, int start, int end)
+    private static int FindEntryFrameAllocation(IReadOnlyList<BeamInstruction> body, int start, int end)
     {
-        if (end - start < 3 || body[start].Definition.Opcode != Label
-            || body[start + 1].Definition.Opcode is not (Allocate or AllocateHeap))
+        if (end - start < 3 || body[start].Definition.Opcode != Label)
         {
-            return null;
+            return -1;
         }
 
-        BeamInstruction allocation = body[start + 1];
+        int allocation = start + 1;
+        if (body[allocation].Definition.Opcode is Allocate or AllocateHeap)
+        {
+            return allocation;
+        }
+
+        int infoLabel = start - 2;
+        while (infoLabel >= 0 && body[infoLabel].Definition.Opcode == Line)
+        {
+            infoLabel--;
+        }
+
+        int failure = infoLabel >= 0 && body[infoLabel].Definition.Opcode == Label
+            ? (int)body[infoLabel].Operands[0].Value : -1;
+        bool sawBif = false;
+        for (; allocation < end; allocation++)
+        {
+            BeamInstruction instruction = body[allocation];
+            byte opcode = instruction.Definition.Opcode;
+            if (opcode is Allocate or AllocateHeap)
+            {
+                return sawBif ? allocation : -1;
+            }
+
+            bool bif = opcode is BifZero or BifOne or BifTwo or BifThree or GcBifOne or GcBifTwo or GcBifThree;
+            if (!(bif || opcode == Line || IsEntryFramePredicate(opcode))
+                || instruction.Operands.Any(operand => operand.Kind == BeamOperandParameters.Y
+                    || operand.Kind == BeamOperandParameters.Label && operand.Value != failure))
+            {
+                return -1;
+            }
+
+            // Earlier branches may leave through func_info, but cannot bypass the moved frame.
+            sawBif |= bif;
+        }
+
+        return -1;
+    }
+
+    private static (int First, Dictionary<int, int> Saved, HashSet<int> Delayed, int FrameSite)?
+        PlanEntryFramePlacement(
+            IReadOnlyList<BeamInstruction> body,
+            int start,
+            int allocationIndex,
+            int end
+        )
+    {
+        BeamInstruction allocation = body[allocationIndex];
         int frameSize = (int)allocation.Operands[0].Value;
         int live = (int)allocation.Operands[^1].Value;
         var saved = new Dictionary<int, int>();
-        int first = start + 2;
+        int first = allocationIndex + 1;
         while (first < end)
         {
             BeamInstruction instruction = body[first];
@@ -118,7 +169,16 @@ internal sealed partial class BeamModuleCompiler
             first++;
         }
 
-        if (first == end || !IsEntryFramePredicate(body[first].Definition.Opcode))
+        int predicate = first;
+        if (allocationIndex != start + 1)
+        {
+            while (predicate < end && body[predicate].Definition.Opcode == Line)
+            {
+                predicate++;
+            }
+        }
+
+        if (predicate == end || !IsDelayedFramePredicate(body[predicate].Definition.Opcode))
         {
             return null;
         }
@@ -147,7 +207,7 @@ internal sealed partial class BeamModuleCompiler
             BeamInstruction instruction = body[index];
             byte opcode = instruction.Definition.Opcode;
             bool deallocates = index + 1 < end && IsEntryFrameReturn(index + 1);
-            bool supported = IsEntryFramePredicate(opcode)
+            bool supported = IsDelayedFramePredicate(opcode)
                 || opcode is Label or Line or Jump or BadMatch or BadRecord or CaseEnd or IfEnd or Return
                 || opcode == Move && deallocates && instruction.Operands[1] is { Kind: BeamOperandParameters.X, Value.IsZero: true }
                 || IsEntryFrameReturn(index);
@@ -284,6 +344,9 @@ internal sealed partial class BeamModuleCompiler
                 yield return index + 1;
             }
         }
+
+        bool IsDelayedFramePredicate(byte opcode) => IsEntryFramePredicate(opcode)
+            || allocationIndex != start + 1 && opcode is SelectValue or SelectTupleArity;
     }
 
     private static bool IsEntryFramePredicate(byte opcode) => IsTrimTest(opcode)

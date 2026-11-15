@@ -1,5 +1,7 @@
 # Compatibility overview
 
+Part 1746 delays the stack frame past eligible predicates after an entry BIF. [Evidence](validation/part-1746/README.md).
+
 Part 1745 places eligible entry BIFs ahead of frame allocation with live X roots and original operands. [Evidence](validation/part-1745/README.md).
 
 Part 1744 writes eligible BIF results directly into the saved Y register across an ordinary call. [Evidence](validation/part-1744/README.md).

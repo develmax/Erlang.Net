@@ -1,3 +1,5 @@
+Part 1746 places the frame after eligible post-BIF predicates. Register live counts and frame placement across multiple call paths still differ. [Evidence](validation/part-1746/README.md).
+
 Part 1745 moves an eligible entry BIF before the frame. Allocation after the predicate and the numbering of saved registers still differ in some functions. [Evidence](validation/part-1745/README.md).
 
 Part 1744 removes an X-to-Y result move before an ordinary call when the X result is outside the call arguments. BIF and allocation order still differ in other functions. [Evidence](validation/part-1744/README.md).

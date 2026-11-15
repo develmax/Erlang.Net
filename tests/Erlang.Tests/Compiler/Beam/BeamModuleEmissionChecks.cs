@@ -349,6 +349,7 @@ internal static class BeamModuleEmissionChecks
         CompareDirectCallProjections();
         CompareBifResultStores();
         CompareEntryBifPlacement();
+        CompareBifPredicateFrame();
         CompareTerminalCallFolding();
         CompareSharedReturnCallFolding();
         CompareUnreachableReturnRemoval();
@@ -722,6 +723,23 @@ internal static class BeamModuleEmissionChecks
         if (!beam.AsSpan().SequenceEqual(Read("beam_entry_initialization.beam")))
         {
             throw new InvalidOperationException("Expected the OTP frame allocation and register layout.");
+        }
+    }
+
+    private static void CompareBifPredicateFrame()
+    {
+        const string file = "beam_bif_predicate_frame.erl";
+        byte[] bytes = CodeGeneration.CompileBeamModule(Encoding.UTF8.GetString(Read(file)), file);
+        byte[] code = BeamDocumentationEmissionChecks.Chunks(bytes).Single(chunk => chunk.Id == "Code").Data;
+        ReadOnlySpan<byte> guardedAllocation =
+        [
+            BeamEmissionFormat.BifOne, 0x05, 0x00, 0x12, 0x03,
+            BeamEmissionFormat.ExactEqualTest, 0x35, 0x03, 0x52,
+            BeamEmissionFormat.Allocate, 0x00, 0x10
+        ];
+        if (code.AsSpan().IndexOf(guardedAllocation) < 0)
+        {
+            throw new InvalidOperationException("Expected the BIF result predicate before the stack allocation.");
         }
     }
 
