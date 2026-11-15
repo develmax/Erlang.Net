@@ -1,3 +1,5 @@
+Part 1732 avoids eligible ordinary call result spills and matches the dynamic apply argument order in the focused fixture. General argument move ordering still differs. [Evidence](validation/part-1732/README.md).
+
 Part 1731 avoids eligible terminal call result spills. Ordinary call spills and argument order still differ. [Evidence](validation/part-1731/README.md).
 
 Part 1730 compacts disjoint Y slots in straight-line frames. X spills, register ordering and frame lifetimes still differ. [Evidence](validation/part-1730/README.md).

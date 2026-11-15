@@ -123,7 +123,7 @@ internal sealed partial class BeamModuleCompiler
             return foundFrame;
         }
 
-        private bool IsDead(int continuation, BeamOperand slot)
+        internal bool IsDead(int continuation, BeamOperand slot)
         {
             var work = new Stack<(int Index, BeamOperand Slot, bool PassedCall)>();
             var seen = new HashSet<(int Index, BeamOperand Slot, bool PassedCall)>();

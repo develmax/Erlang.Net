@@ -74,19 +74,50 @@ internal sealed partial class BeamModuleCompiler
         return output.ToArray();
     }
 
-    private static byte[]? ForwardTailCallResult(ReadOnlyMemory<byte> code, IReadOnlyList<BeamInstruction> body)
+    private static byte[]? ForwardCallResult(ReadOnlyMemory<byte> code, IReadOnlyList<BeamInstruction> body)
     {
         using var output = new MemoryStream();
         int copied = 0;
+        int inspectedThrough = -1;
+        bool hasHandler = false;
+        BeamProjectionFlow? flow = null;
         var result = new BeamOperand(BeamOperandParameters.X, 0);
         for (int index = 0; index + 3 < body.Count; index++)
         {
             if (body[index].Definition.Opcode is not (LocalCall or ExternalCall or DynamicApply or CallFun or CallFunTyped)
                 || body[index + 1] is not { Definition.Opcode: Move, Operands: [var source, var saved] }
                 || source != result || saved.Kind != BeamOperandParameters.Y
-                || FindTailResultReload(body, index + 2, saved) is not int reload)
+                || FindResultReload(body, index + 2, saved) is not { } setup)
             {
                 continue;
+            }
+
+            var (reload, call) = setup;
+            if (body[call].Definition.Opcode is LocalCall or ExternalCall)
+            {
+                if (index >= inspectedThrough)
+                {
+                    int start = index;
+                    while (start > 0 && body[start - 1].Definition.Opcode != FunctionInfo)
+                    {
+                        start--;
+                    }
+
+                    inspectedThrough = start;
+                    hasHandler = false;
+                    while (inspectedThrough < body.Count
+                        && body[inspectedThrough].Definition.Opcode is not (FunctionInfo or EndCode))
+                    {
+                        hasHandler |= body[inspectedThrough].Definition.Opcode is TryEnter or CatchEnter;
+                        inspectedThrough++;
+                    }
+                }
+
+                // The graph models normal edges. A handler could also read the saved slot.
+                if (hasHandler || !(flow ??= new BeamProjectionFlow(body)).IsDead(call, saved))
+                {
+                    continue;
+                }
             }
 
             BeamOperand destination = body[reload].Operands[1];
@@ -98,9 +129,34 @@ internal sealed partial class BeamModuleCompiler
                 WriteRegister(output, destination);
             }
 
-            output.Write(code.Span[body[index + 2].Offset..body[reload].Offset]);
-            copied = body[reload + 1].Offset;
-            index = reload;
+            int last = call - 1;
+            while (last > index + 1 && body[last].Definition.Opcode == Line)
+            {
+                last--;
+            }
+
+            int previous = last - 1 == reload ? last - 2 : last - 1;
+            // OTP leaves the independent X0 load next to the apply.
+            bool orderApply = body[call].Definition.Opcode == TailDynamicApply
+                && previous >= index + 2 && last != reload
+                && body[previous] is { Definition.Opcode: Move, Operands: [{ Kind: BeamOperandParameters.Y }, var argument] }
+                && argument == result
+                && body[last] is { Definition.Opcode: Move, Operands: [{ Kind: BeamOperandParameters.Atom }, var function] }
+                && function.Kind == BeamOperandParameters.X && function.Value == body[call].Operands[0].Value + 1;
+            for (int move = index + 2; move < call; move++)
+            {
+                if (move == reload)
+                {
+                    continue;
+                }
+
+                int emitted = orderApply && move == previous ? last
+                    : orderApply && move == last ? previous : move;
+                output.Write(code.Span[body[emitted].Offset..body[emitted + 1].Offset]);
+            }
+
+            copied = body[call].Offset;
+            index = call - 1;
         }
 
         if (copied == 0)
@@ -113,7 +169,7 @@ internal sealed partial class BeamModuleCompiler
         return output.ToArray();
     }
 
-    private static int? FindTailResultReload(IReadOnlyList<BeamInstruction> body, int start, BeamOperand saved)
+    private static (int Reload, int Call)? FindResultReload(IReadOnlyList<BeamInstruction> body, int start, BeamOperand saved)
     {
         var touched = new HashSet<int>();
         int? reload = null;
@@ -127,8 +183,10 @@ internal sealed partial class BeamModuleCompiler
 
             if (instruction is not { Definition.Opcode: Move, Operands: [var source, var destination] })
             {
-                return instruction.Definition.Opcode is TailExternalCallWithFrame or TailLocalCallWithFrame or TailDynamicApply
-                    ? reload : null;
+                return reload is int found
+                    && instruction.Definition.Opcode is LocalCall or ExternalCall
+                        or TailExternalCallWithFrame or TailLocalCallWithFrame or TailDynamicApply
+                            ? (found, index) : null;
             }
 
             if (SameProjectionRegister(source, saved))

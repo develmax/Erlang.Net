@@ -31,6 +31,7 @@ internal static class BeamModuleEmissionChecks
             "beam_unused_entry_frame",
             "beam_leaf_registers",
             "beam_entry_apply",
+            "beam_tail_result_apply",
             "tiny",
             "beam_same_line",
             "beam_empty",

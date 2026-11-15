@@ -1,5 +1,7 @@
 # Next steps
 
+Reproduce OTP ordering of independent call argument moves. Start from 165 functions in 117 images where independent move order is the first instruction difference. [Evidence](validation/part-1732/README.md).
+
 Forward call results into ordinary call arguments when stack-slot liveness permits it. The corpus has 697 candidates in 309 modules. Compare independent argument move ordering with OTP. [Evidence](validation/part-1731/README.md).
 
 Keep call results in X registers during terminal call preparation. The corpus has 766 functions in 298 images with a result spill and reload into an available X register before a terminal call. [Evidence](validation/part-1730/README.md).
