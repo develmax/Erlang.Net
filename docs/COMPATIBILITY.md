@@ -1,5 +1,7 @@
 # Compatibility overview
 
+Part 1772 moves tagged entry tests and safe tuple field projections before allocating a branch frame. [Evidence](validation/part-1772/README.md).
+
 Part 1771 uses branch-local frames for shared tagged tuple dispatch with lookup and record update. The Windows release logger_handler_watcher image matches byte for byte. [Evidence](validation/part-1771/README.md).
 
 Part 1770 emits function_clause stubs for captured anonymous functions with partial heads or guards. [Evidence](validation/part-1770/README.md).

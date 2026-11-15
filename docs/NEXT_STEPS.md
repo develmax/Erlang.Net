@@ -1,5 +1,7 @@
 # Next steps
 
+Compact live Y slots separately for each branch frame. A larger allocation in C# is the first difference for 8244 functions across 856 modules. [Evidence](validation/part-1772/README.md).
+
 Extend register-only entry tests to functions with a single tagged clause and an unconditional default. That is the largest classified group with a default, with 361 functions across 157 modules. [Evidence](validation/part-1771/README.md).
 
 Move shared tagged-tuple tests before frame allocation. The first instruction mismatch has this shape in 1687 functions across 363 modules. Start with handle_info/2 in logger_handler_watcher, where it is the only function whose disassembled instructions differ after label normalization. [Evidence](validation/part-1770/README.md).

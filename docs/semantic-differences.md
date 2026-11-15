@@ -1,3 +1,5 @@
+Part 1772 delays frame allocation across tagged projections with proven register availability. Branch-local Y-slot compaction remains open. [Evidence](validation/part-1772/README.md).
+
 Part 1771 matches shared tagged-message tests and branch-local frames for a record lookup and update. Further entry dispatch cases with an unconditional default still need branch-specific frame placement. [Evidence](validation/part-1771/README.md).
 
 Part 1770 aligns function_clause arguments for captured closures. Entry patterns that need a frame still use generic register and stack allocation. [Evidence](validation/part-1770/README.md).

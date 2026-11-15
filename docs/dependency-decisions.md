@@ -1,5 +1,7 @@
 # Dependency and compatibility decisions
 
+Part 1772 reuses the entry frame pass and compact operand writer for tagged projections. No dependency was added. [Evidence](validation/part-1772/README.md).
+
 Part 1771 reuses register tuple tests, typed updates and branch-local call frames. No dependency was added. [Evidence](validation/part-1771/README.md).
 
 Part 1770 reuses deferred call labels and register entry tests for captured closure failures. No dependency was added. [Evidence](validation/part-1770/README.md).
