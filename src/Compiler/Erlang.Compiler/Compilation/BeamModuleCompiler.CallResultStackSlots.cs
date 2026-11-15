@@ -7,6 +7,8 @@ internal sealed partial class BeamModuleCompiler
     private static byte[]? ScheduleCallResultStores(ReadOnlyMemory<byte> code, IReadOnlyList<BeamInstruction> body)
     {
         using var output = new MemoryStream();
+        BeamProjectionFlow? flow = null;
+        var scratch = new BeamOperand(BeamOperandParameters.X, 1);
         int copied = 0;
         int entry = 0;
         for (int end = 0; end < body.Count; end++)
@@ -18,21 +20,23 @@ internal sealed partial class BeamModuleCompiler
 
             int start = entry;
             entry = end + 1;
-            if (start + 1 >= end || body[start].Definition.Opcode != Label
-                || body[start + 1].Definition.Opcode is not (Allocate or AllocateHeap))
+            int allocation = FindEntryFrameAllocation(body, start, end);
+            if (allocation < 0)
             {
                 continue;
             }
 
             List<int>? stores = null;
-            for (int index = start + 2; index + 2 < end; index++)
+            for (int index = allocation + 1; index + 2 < end; index++)
             {
                 if (body[index].Definition.Opcode is (LocalCall or ExternalCall or DynamicApply or CallFun or CallFunTyped)
                     && body[index + 1] is { Definition.Opcode: Move, Operands: [
                         { Kind: BeamOperandParameters.X, Value.IsZero: true }, { Kind: BeamOperandParameters.Y } saved] }
                     && body[index + 2] is { Definition.Opcode: Move, Operands: [
-                        { Kind: BeamOperandParameters.Y } read, { Kind: BeamOperandParameters.X, Value.IsZero: false }] }
-                    && saved.Value != read.Value)
+                        { Kind: BeamOperandParameters.Y, TypeIndex: null } read,
+                        { Kind: BeamOperandParameters.X, TypeIndex: null } argument] }
+                    && saved.Value != read.Value
+                    && (!argument.Value.IsZero || (flow ??= new BeamProjectionFlow(body)).IsBranchTemporaryDead(index + 2, scratch)))
                 {
                     (stores ??= []).Add(index + 1);
                 }
@@ -52,16 +56,17 @@ internal sealed partial class BeamModuleCompiler
             foreach (int store in stores)
             {
                 int index = store - start;
-                // The load neither reads the destination slot nor overwrites the call result.
+                // The planner tracks Y-slot lifetimes. Emission uses X1 if the load would overwrite X0.
                 (reordered[index], reordered[index + 1]) = (reordered[index + 1], reordered[index]);
             }
 
-            if (PlanLinearStackSlots(reordered, 0, reordered.Length) is not { } planned)
+            int relativeAllocation = allocation - start;
+            if (PlanLinearStackSlots(reordered, relativeAllocation, reordered.Length) is not { } planned)
             {
                 continue;
             }
 
-            int original = PlanLinearStackSlots(body, start, end)?.Count ?? (int)body[start + 1].Operands[0].Value;
+            int original = PlanLinearStackSlots(body, allocation, end)?.Count ?? (int)body[allocation].Operands[0].Value;
             if (planned.Count >= original)
             {
                 continue;
@@ -72,7 +77,8 @@ internal sealed partial class BeamModuleCompiler
             {
                 int index = stores[candidate] - start;
                 (reordered[index], reordered[index + 1]) = (reordered[index + 1], reordered[index]);
-                if (PlanLinearStackSlots(reordered, 0, reordered.Length) is { } unchanged && unchanged.Count <= planned.Count)
+                if (PlanLinearStackSlots(reordered, relativeAllocation, reordered.Length) is { } unchanged
+                    && unchanged.Count <= planned.Count)
                 {
                     stores.RemoveAt(candidate);
                 }
@@ -89,8 +95,22 @@ internal sealed partial class BeamModuleCompiler
                 int load = body[store + 1].Offset;
                 int next = body[store + 2].Offset;
                 output.Write(code.Span[copied..write]);
-                output.Write(code.Span[load..next]);
-                output.Write(code.Span[write..load]);
+                var argument = body[store + 1].Operands[1];
+                if (argument.Value.IsZero)
+                {
+                    output.WriteByte(Move);
+                    WriteRegister(output, body[store + 1].Operands[0]);
+                    WriteRegister(output, scratch);
+                    output.Write(code.Span[write..load]);
+                    output.WriteByte(Move);
+                    WriteRegister(output, scratch);
+                    WriteRegister(output, argument);
+                }
+                else
+                {
+                    output.Write(code.Span[load..next]);
+                    output.Write(code.Span[write..load]);
+                }
                 copied = next;
             }
         }

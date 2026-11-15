@@ -1083,11 +1083,15 @@ internal static class BeamModuleEmissionChecks
             """;
         byte[] beam = CodeGeneration.CompileBeamModule(source, "beam_guarded_frame_slots.erl");
         byte[] code = BeamDocumentationEmissionChecks.Chunks(beam).Single(chunk => chunk.Id == "Code").Data;
-        ReadOnlySpan<byte> compactFrame = [BeamEmissionFormat.Allocate, 0x20, 0x20];
-        ReadOnlySpan<byte> fullFrame = [BeamEmissionFormat.Allocate, 0x30, 0x20];
-        if (code.AsSpan().IndexOf(compactFrame) < 0 || code.AsSpan().IndexOf(fullFrame) >= 0)
+        ReadOnlySpan<byte> compactFrame = [BeamEmissionFormat.Allocate, 0x10, 0x20];
+        ReadOnlySpan<byte> reusedSlot = [
+            BeamEmissionFormat.Move, 0x04, 0x13,
+            BeamEmissionFormat.Move, 0x03, 0x04,
+            BeamEmissionFormat.Move, 0x13, 0x03
+        ];
+        if (code.AsSpan().IndexOf(compactFrame) < 0 || code.AsSpan().IndexOf(reusedSlot) < 0)
         {
-            throw new InvalidOperationException("Expected two reusable stack slots after the record guard.");
+            throw new InvalidOperationException("Expected the next call to read the slot before it is reused for the result.");
         }
     }
 

@@ -1,5 +1,7 @@
 # Compatibility overview
 
+Part 1794. Use a dead X1 for the next argument when reading its last Y use before the result spill reduces the frame. Deliver the argument in X0 after the spill. [Evidence](validation/part-1794/README.md).
+
 Part 1793. Find frame allocation after an entry prefix using the existing proof for predicates and function-clause failure. Reuse the same linear slot planner and byte emitter. [Evidence](validation/part-1793/README.md).
 
 Part 1792. Account for make_fun3 reads and overwrites in the existing entry argument lifetime analysis. Substitute an available X register for the same captured value. [Evidence](validation/part-1792/README.md).

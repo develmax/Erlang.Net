@@ -23,7 +23,7 @@ internal sealed partial class BeamModuleCompiler
 
             int entry = start;
             start = end + 1;
-            var linear = PlanLinearStackSlots(body, entry, end);
+            var linear = PlanLinearStackSlots(body, FindEntryFrameAllocation(body, entry, end), end);
             var allocation = linear is { } layout
                 ? (layout.Count, layout.Slots, Trim: ((int Index, int OriginalRemoved, int Kept)?)null)
                 : PlanBranchStackSlots(body, entry, end);
@@ -127,11 +127,10 @@ internal sealed partial class BeamModuleCompiler
 
     private static (int Count, int[] Slots, (int First, int Last)[] Uses)? PlanLinearStackSlots(
         IReadOnlyList<BeamInstruction> body,
-        int entry,
+        int allocation,
         int end
     )
     {
-        int allocation = FindEntryFrameAllocation(body, entry, end);
         if (allocation < 0)
         {
             return null;
