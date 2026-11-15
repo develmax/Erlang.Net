@@ -1,0 +1,39 @@
+Entry-prefix extension with a single allocation site
+Different 968
+Equal 398
+No status changes.
+2 entry guard placement comparisons across 16 changed images, with 2 new order matches and 0 lost matches.
+Stack allocation counts gain 0 matches and lose 0 across corresponding functions.
+
+Unrestricted branch splitting before or after return-jump expansion
+Different 971
+Equal 395
+lib\debugger-7.0\ebin\dbg_idb.beam: Equal -> Different
+lib\eldap-1.3.1\ebin\ELDAPv3.beam: Equal -> Different
+lib\snmp-5.20.5\ebin\snmp_pdus_basic.beam: Equal -> Different
+509 entry guard placement comparisons across 645 changed images, with 437 new order matches and 46 lost matches.
+Stack allocation counts gain 282 matches and lose 2429 across corresponding functions.
+
+Branch splitting after return-jump expansion
+Different 971
+Equal 395
+lib\debugger-7.0\ebin\dbg_idb.beam: Equal -> Different
+lib\eldap-1.3.1\ebin\ELDAPv3.beam: Equal -> Different
+lib\snmp-5.20.5\ebin\snmp_pdus_basic.beam: Equal -> Different
+560 entry guard placement comparisons across 636 changed images, with 488 new order matches and 46 lost matches.
+Stack allocation counts gain 287 matches and lose 2392 across corresponding functions.
+
+Branch splitting with a frameless return but without checking convergence
+Different 968
+Equal 398
+No status changes.
+70 entry guard placement comparisons across 189 changed images, with 64 new order matches and 0 lost matches.
+Stack allocation counts gain 47 matches and lose 141 across corresponding functions.
+
+Branch-specific allocations with a frameless return and disjoint descendants. This variant is excluded because the allocation counts and Code size moved farther from OTP overall.
+Different 968
+Equal 398
+No status changes.
+68 entry guard placement comparisons across 185 changed images, with 62 new order matches and 0 lost matches.
+Stack allocation counts gain 45 matches and lose 138 across corresponding functions.
+The absolute Code-size gap increased by 8162 bytes in this variant.

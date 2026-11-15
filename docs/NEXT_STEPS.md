@@ -1,5 +1,7 @@
 # Next steps
 
+Compare the largest remaining entry-test group before the first BIF and test frame placement with shared and disjoint call paths. [Evidence](validation/part-1747/README.md).
+
 Compare remaining tests and tuple projections before the first BIF and their effect on frame placement. [Evidence](validation/part-1746/README.md).
 
 Prioritize the remaining BIFs that OTP places before the frame. Audit the allocation following predicates that consume their results. [Evidence](validation/part-1745/README.md).

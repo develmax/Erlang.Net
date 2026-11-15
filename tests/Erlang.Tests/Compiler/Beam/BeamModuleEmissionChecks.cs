@@ -350,6 +350,7 @@ internal static class BeamModuleEmissionChecks
         CompareBifResultStores();
         CompareEntryBifPlacement();
         CompareBifPredicateFrame();
+        CompareGuardedFramePrefix();
         CompareTerminalCallFolding();
         CompareSharedReturnCallFolding();
         CompareUnreachableReturnRemoval();
@@ -723,6 +724,23 @@ internal static class BeamModuleEmissionChecks
         if (!beam.AsSpan().SequenceEqual(Read("beam_entry_initialization.beam")))
         {
             throw new InvalidOperationException("Expected the OTP frame allocation and register layout.");
+        }
+    }
+
+    private static void CompareGuardedFramePrefix()
+    {
+        const string file = "beam_guarded_frame_prefix.erl";
+        byte[] bytes = CodeGeneration.CompileBeamModule(Encoding.UTF8.GetString(Read(file)), file);
+        byte[] code = BeamDocumentationEmissionChecks.Chunks(bytes).Single(chunk => chunk.Id == "Code").Data;
+        ReadOnlySpan<byte> guardedPrefix =
+        [
+            BeamEmissionFormat.IsInteger, 0x15, 0x03,
+            BeamEmissionFormat.ExactEqualTest, 0x35, 0x13, 0x32,
+            BeamEmissionFormat.Allocate, 0x20, 0x20
+        ];
+        if (code.AsSpan().IndexOf(guardedPrefix) < 0)
+        {
+            throw new InvalidOperationException("Expected the stack frame after both entry predicates.");
         }
     }
 

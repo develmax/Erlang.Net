@@ -107,26 +107,23 @@ internal sealed partial class BeamModuleCompiler
 
         int failure = infoLabel >= 0 && body[infoLabel].Definition.Opcode == Label
             ? (int)body[infoLabel].Operands[0].Value : -1;
-        bool sawBif = false;
         for (; allocation < end; allocation++)
         {
             BeamInstruction instruction = body[allocation];
             byte opcode = instruction.Definition.Opcode;
             if (opcode is Allocate or AllocateHeap)
             {
-                return sawBif ? allocation : -1;
+                return allocation;
             }
 
             bool bif = opcode is BifZero or BifOne or BifTwo or BifThree or GcBifOne or GcBifTwo or GcBifThree;
+            // Earlier branches may leave through func_info, but cannot bypass the moved frame.
             if (!(bif || opcode == Line || IsEntryFramePredicate(opcode))
                 || instruction.Operands.Any(operand => operand.Kind == BeamOperandParameters.Y
                     || operand.Kind == BeamOperandParameters.Label && operand.Value != failure))
             {
                 return -1;
             }
-
-            // Earlier branches may leave through func_info, but cannot bypass the moved frame.
-            sawBif |= bif;
         }
 
         return -1;
@@ -170,12 +167,9 @@ internal sealed partial class BeamModuleCompiler
         }
 
         int predicate = first;
-        if (allocationIndex != start + 1)
+        while (predicate < end && body[predicate].Definition.Opcode == Line)
         {
-            while (predicate < end && body[predicate].Definition.Opcode == Line)
-            {
-                predicate++;
-            }
+            predicate++;
         }
 
         if (predicate == end || !IsDelayedFramePredicate(body[predicate].Definition.Opcode))
