@@ -187,6 +187,13 @@ internal sealed partial class BeamModuleCompiler
                 )
                 ?? MoveHeapTestsBeforeNeutralInstructions(code, body, atomNames, importsByIndex)
                 ?? RemoveProvenLocalRecordChecks(code, body, atomNames)
+                ?? (shareReturns ? null : EliminateEntryArgumentCopies(
+                    code,
+                    body,
+                    stackOperands,
+                    removeSpills: true,
+                    allowFramelessBranches: true
+                ))
                 ?? (shareReturns ? null : ReuseStackSlots(code, body, stackOperands, useValueLiveness: true))
                 // Reloads also identify the unframed returns when short return jumps are expanded.
                 ?? (shareReturns ? null : EliminateEntryArgumentCopies(code, body, stackOperands, removeSpills: false));

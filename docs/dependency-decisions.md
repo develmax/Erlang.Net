@@ -1,5 +1,7 @@
 # Dependency and compatibility decisions
 
+Part 1803. Reuse the normal BEAM edge and value availability analysis. Compare the resulting argument projection against OTP 29.1.1. No dependency was added. [Evidence](validation/part-1803/README.md).
+
 Part 1802. Reuse the branch allocator liveness and compare against the pinned OTP beam_ssa_pre_codegen live intervals and frame sizes. No dependency was added. [Evidence](validation/part-1802/README.md).
 
 Part 1801. Reuse the BEAM control-flow edges and compiler literal shape metadata. No dependency was added. [Evidence](validation/part-1801/README.md).

@@ -8,7 +8,8 @@ internal sealed partial class BeamModuleCompiler
         ReadOnlyMemory<byte> code,
         IReadOnlyList<BeamInstruction> body,
         List<(int Start, int End, int Slot)> stackOperands,
-        bool removeSpills
+        bool removeSpills,
+        bool allowFramelessBranches = false
     )
     {
         using var output = new MemoryStream();
@@ -38,6 +39,19 @@ internal sealed partial class BeamModuleCompiler
             }
 
             if (allocation == end || body[allocation].Definition.Opcode is not (Allocate or AllocateHeap))
+            {
+                if (!allowFramelessBranches)
+                {
+                    continue;
+                }
+
+                allocation = FindLinearFrameSuffix(body, entry, end);
+                if (PlanLinearStackSlots(body, allocation, end, includeUnchanged: true) is null)
+                {
+                    continue;
+                }
+            }
+            else if (allowFramelessBranches)
             {
                 continue;
             }

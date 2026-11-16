@@ -1768,6 +1768,12 @@ internal static class BeamModuleEmissionChecks
         {
             throw new InvalidOperationException("Expected two stack slots after the record check.");
         }
+
+        ReadOnlySpan<byte> registerProjection = [BeamEmissionFormat.GetTupleElement, 0x13, 0x20, 0x13];
+        if (code.AsSpan().IndexOf(registerProjection) < 0)
+        {
+            throw new InvalidOperationException("Expected the record projection to use the incoming X1 directly.");
+        }
     }
 
     private static void CompareHeapCallResult()

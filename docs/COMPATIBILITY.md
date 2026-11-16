@@ -1,5 +1,7 @@
 # Compatibility overview
 
+Part 1803. Use the existing argument liveness proof for a linear framed suffix reached through a prefix with frameless exits. Drop an entry spill only when all uses of its original value are covered. [Evidence](validation/part-1803/README.md).
+
 Part 1802. Reuse the per-value interference graph for a linear framed suffix once every path through the suffix has passed its allocation. Keep allocation, frame release and all Y operands consistent with the new layout. [Evidence](validation/part-1802/README.md).
 
 Part 1801. Use exact equality on a tuple literal as a shape proof. For a value selection, require every key entering the same block to have the proven tag and arity. [Evidence](validation/part-1801/README.md).

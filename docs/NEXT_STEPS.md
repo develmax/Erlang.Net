@@ -1,5 +1,7 @@
 # Next steps
 
+Move terminal error blocks after the success path. [Evidence](validation/part-1803/README.md).
+
 Forward arguments directly to projections after the same frameless exits and measure the resulting changes. [Evidence](validation/part-1802/README.md).
 
 Measure how often whole-slot intervals prevent further stack-frame reuse. [Evidence](validation/part-1801/README.md).
