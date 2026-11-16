@@ -197,7 +197,8 @@ internal sealed partial class BeamModuleCompiler
                 ?? (shareReturns ? null : ReuseStackSlots(code, body, stackOperands, useValueLiveness: true))
                 // Reloads also identify the unframed returns when short return jumps are expanded.
                 ?? (shareReturns ? null : EliminateEntryArgumentCopies(code, body, stackOperands, removeSpills: false))
-                ?? (shareReturns ? null : MoveTerminalErrorBlocks(code, body));
+                ?? (shareReturns ? null : MoveTerminalErrorBlocks(code, body))
+                ?? (shareReturns ? null : CompactDisjointFrames(code, body, stackOperands));
             return simplified is null ? null : (simplified, Enumerable.Range(0, labelCount).ToArray(), 0);
         }
 

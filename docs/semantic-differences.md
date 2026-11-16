@@ -1,5 +1,7 @@
 Part 1783. Sort consecutive independent X-to-Y moves by destination slot after branch slot reuse. Preserve original store order when a run writes the same destination twice. [Evidence](validation/part-1783/README.md).
 
+Part 1808. Track which allocation owns each reachable instruction. Drop unused slots from each independently allocated frame and remap the remaining operands and frame releases. [Evidence](validation/part-1808/README.md).
+
 Part 1807. Delay the shared frame until required by a branch and emit a direct local tail call without a frame when its arguments are already available. Keep receive loop retry edges at the label after allocation. [Evidence](validation/part-1807/README.md).
 
 Part 1806. Attach the source position of a record field to its badrecord exit. Relocate explicit single-line exits with their location and omit a redundant line when the same source is already active. [Evidence](validation/part-1806/README.md).

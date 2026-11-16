@@ -1,5 +1,7 @@
 # Next steps
 
+Remove detached error exits retained by source annotations. [Evidence](validation/part-1808/README.md).
+
 Compact the unused slots in each independently allocated frame. [Evidence](validation/part-1807/README.md).
 
 Rank remaining differences in code, register assignments and release metadata. [Evidence](validation/part-1806/README.md).
