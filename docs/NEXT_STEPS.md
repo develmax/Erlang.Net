@@ -1,5 +1,7 @@
 # Next steps
 
+Investigate stack slot numbering in lifted closures. [Evidence](validation/part-1818/README.md).
+
 Place the list head in its call register at extraction. [Evidence](validation/part-1817/README.md).
 
 Extract recursive helpers for discarded list comprehensions. [Evidence](validation/part-1816/README.md).

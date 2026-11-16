@@ -1,5 +1,7 @@
 # Dependency and compatibility decisions
 
+Part 1818. Reproduce the register operands emitted by pinned OTP for a recursive helper with a retained call argument. No dependency was added. [Evidence](validation/part-1818/README.md).
+
 Part 1817. Follow the discarded result path in pinned OTP v3_core. No dependency was added. [Evidence](validation/part-1817/README.md).
 
 Part 1816. Reuse the call preparation order derived from pinned OTP beam_ssa_codegen and beam_block. No dependency was added. [Evidence](validation/part-1816/README.md).

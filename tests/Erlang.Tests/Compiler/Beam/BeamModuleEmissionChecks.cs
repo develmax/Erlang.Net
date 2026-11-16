@@ -2028,6 +2028,14 @@ internal static class BeamModuleEmissionChecks
         {
             throw new InvalidOperationException("Expected recursive helpers for discarded comprehension results.");
         }
+
+        byte[] code = BeamDocumentationEmissionChecks.Chunks(beam).Single(chunk => chunk.Id == "Code").Data;
+        ReadOnlySpan<byte> preparedHead =
+            [BeamEmissionFormat.GetList, 0x03, 0x13, 0x04, BeamEmissionFormat.Move, 0x14, 0x03];
+        if (code.AsSpan().IndexOf(preparedHead) < 0)
+        {
+            throw new InvalidOperationException("Expected the list head and saved argument in their call registers.");
+        }
     }
 
     private static void CompareHeapCallResult()

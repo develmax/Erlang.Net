@@ -1,5 +1,7 @@
 Part 1783. Sort consecutive independent X-to-Y moves by destination slot after branch slot reuse. Preserve original store order when a run writes the same destination twice. [Evidence](validation/part-1783/README.md).
 
+Part 1818. Use the saved Y copy of the other register to fold a list extraction followed by a swap. [Evidence](validation/part-1818/README.md).
+
 Part 1817. Extract recursive helpers for supported single-generator list comprehensions whose values are discarded. Keep the side effect and the improper-list error. [Evidence](validation/part-1817/README.md).
 
 Part 1816. Order all remaining saved arguments by Y slot when the preceding direct call already supplies X0. [Evidence](validation/part-1816/README.md).
