@@ -14,7 +14,7 @@ internal static class BeamDocumentationSourceChecks
         const string fourQuotes = "\"\"\"\"\r\n  \"\"\"\r\n  x\r\n  \"\"\"\"";
         Require(Lexer.Scan(triple)[0].Text == "a\\n\n\nb");
         Require(Lexer.Scan(fourQuotes)[0].Text == "\"\"\"\r\nx");
-        string source = "-module(documentation). -moduledoc false. -doc " + triple + ". f() -> ok.";
+        string source = "-module(documentation). -export([f/0]). -moduledoc false. -doc " + triple + ". f() -> ok.";
         var module = new Parser(source).ParseModule();
         Require(module.Attributes.Count == 0);
         Require(module.Documentation.Count == 2);
@@ -23,16 +23,10 @@ internal static class BeamDocumentationSourceChecks
         var metadata = new Parser("-module(doc_meta). -moduledoc(#{since => ~\"OTP 29\"}). -doc(#{equiv => f(X)}). f() -> ok.").ParseModule();
         Require(metadata.Documentation[0].Value is MapTerm);
         Require(metadata.Documentation[1].EquivalentCall is { Function: "f", Arguments: [Expr.Variable { Name: "X" }] });
-        try
-        {
-            CodeGeneration.CompileBeamModule("-module(documentation). -moduledoc(#{since => \"29\"}).", "documentation.erl");
-        }
-        catch (NotSupportedException)
-        {
-            return Task.CompletedTask;
-        }
+        byte[] beam = CodeGeneration.CompileBeamModule(source, "documentation.erl");
+        Require(BeamDocumentationEmissionChecks.Chunks(beam).Any(chunk => chunk.Id == "Docs"));
 
-        throw new InvalidOperationException(Failure);
+        return Task.CompletedTask;
     }
 
     private static void Require(bool condition)

@@ -25,15 +25,12 @@ internal static class BeamTypeSourceChecks
             throw new InvalidOperationException(Failure);
         }
 
-        try
+        byte[] beam = CodeGeneration.CompileBeamModule(source, "typed_probe.erl");
+        if (!BeamDocumentationEmissionChecks.Chunks(beam).Any(chunk => chunk.Id == "Code"))
         {
-            CodeGeneration.CompileBeamModule(source, "typed_probe.erl");
-        }
-        catch (NotSupportedException)
-        {
-            return Task.CompletedTask;
+            throw new InvalidOperationException(Failure);
         }
 
-        throw new InvalidOperationException(Failure);
+        return Task.CompletedTask;
     }
 }

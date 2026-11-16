@@ -7224,7 +7224,7 @@ Test(
 
  {
 
-     Throws<CompileException>(() => new Parser("\"\\x{41}\"").ParseExpression());
+     Throws<CompileException>(() => new Parser("\"\\x{110000}\"").ParseExpression());
 
 
 
