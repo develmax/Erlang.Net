@@ -20,24 +20,7 @@ internal static class ErlangHashHostChecks
                     ErlangHashCheckParameters.ImprovedFunction,
                     arguments
                 );
-                int startingThread = Environment.CurrentManagedThreadId;
-                long before = GC.GetAllocatedBytesForCurrentThread();
-                ValueTask<Term> pending = runtime.Modules.Call(
-                    context,
-                    ErlangModuleNames.Module,
-                    ErlangHashCheckParameters.ImprovedFunction,
-                    arguments
-                );
-                bool synchronous = pending.IsCompletedSuccessfully;
-                if (!synchronous)
-                    throw new InvalidDataException(ErlangHashCheckDiagnostics.AsynchronousMeasurement);
-                Term result = pending.GetAwaiter().GetResult();
-                long allocated = GC.GetAllocatedBytesForCurrentThread() - before;
-                int endingThread = Environment.CurrentManagedThreadId;
-                if (startingThread != endingThread)
-                    throw new InvalidDataException(ErlangHashCheckDiagnostics.ThreadChanged(startingThread, endingThread));
-                if (result is not Integer || allocated > ErlangHashCheckParameters.AllocationBudgetBytes)
-                    throw new InvalidDataException(ErlangHashCheckDiagnostics.AllocationExceeded(allocated, result.GetType().Name, startingThread));
+                CheckHashAllocation(runtime.Modules, context, arguments);
 
                 Term tuple = Nil.Value;
                 for (int index = 0; index < ErlangHashCheckParameters.TupleDepth; index++)
@@ -106,23 +89,14 @@ internal static class ErlangHashHostChecks
                     ErlangHashAllocationControlNames.Copy,
                     arguments
                 ).GetAwaiter().GetResult();
-                int startingThread = Environment.CurrentManagedThreadId;
-                long before = GC.GetAllocatedBytesForCurrentThread();
-                ValueTask<Term> pending = runtime.Modules.Call(
+                var (result, allocated) = MeasureAllocation(
+                    runtime.Modules,
                     context,
                     ErlangHashAllocationControlNames.Module,
                     ErlangHashAllocationControlNames.Copy,
                     arguments
                 );
-                if (!pending.IsCompletedSuccessfully)
-                    throw new InvalidDataException(ErlangHashCheckDiagnostics.AsynchronousMeasurement);
-                Term result = pending.GetAwaiter().GetResult();
-                long allocated = GC.GetAllocatedBytesForCurrentThread() - before;
-                int endingThread = Environment.CurrentManagedThreadId;
-                if (startingThread != endingThread)
-                    throw new InvalidDataException(ErlangHashCheckDiagnostics.ThreadChanged(startingThread, endingThread));
-                if (allocated <= ErlangHashCheckParameters.AllocationBudgetBytes ||
-                    allocated < ErlangHashCheckParameters.BinaryBytes)
+                if (!IncludesPayloadAllocation(allocated))
                     throw new InvalidDataException(ErlangHashCheckDiagnostics.CopyNotDetected);
                 if (result is not Integer || !result.Equals(expected))
                     throw new InvalidDataException(ErlangHashCheckDiagnostics.CopyChangedHash);
@@ -139,5 +113,61 @@ internal static class ErlangHashHostChecks
         await process.Completion;
         if (failure is not null)
             throw failure;
+    }
+
+    private static void CheckHashAllocation(ModuleRegistry modules, ProcessContext context, Term[] arguments)
+    {
+        // The CLR counter can report a multi-KiB spike even during an allocation-free interval.
+        // Use the median for the steady-state budget and check every sample for a payload copy.
+        Span<long> samples = stackalloc long[ErlangHashCheckParameters.AllocationSamples];
+        for (int index = 0; index < samples.Length; index++)
+        {
+            var (result, allocated) = MeasureAllocation(
+                modules,
+                context,
+                ErlangModuleNames.Module,
+                ErlangHashCheckParameters.ImprovedFunction,
+                arguments
+            );
+            if (result is not Integer)
+                throw new InvalidDataException(ErlangHashCheckDiagnostics.InvalidHashResult);
+            if (IncludesPayloadAllocation(allocated))
+                throw new InvalidDataException(ErlangHashCheckDiagnostics.BinaryCopied);
+            samples[index] = allocated;
+        }
+
+        samples.Sort();
+        long median = samples[samples.Length / 2];
+        if (median > ErlangHashCheckParameters.AllocationBudgetBytes)
+            throw new InvalidDataException(ErlangHashCheckDiagnostics.AllocationExceeded(median));
+    }
+
+    private static bool IncludesPayloadAllocation(long allocated) => allocated >= ErlangHashCheckParameters.BinaryBytes;
+
+    private static (Term Result, long Allocated) MeasureAllocation(
+        ModuleRegistry modules,
+        ProcessContext context,
+        string module,
+        string function,
+        Term[] arguments
+    )
+    {
+        int startingThread = Environment.CurrentManagedThreadId;
+        long before = GC.GetAllocatedBytesForCurrentThread();
+        ValueTask<Term> pending = modules.Call(
+            context,
+            module,
+            function,
+            arguments
+        );
+        if (!pending.IsCompletedSuccessfully)
+            throw new InvalidDataException(ErlangHashCheckDiagnostics.AsynchronousMeasurement);
+        Term result = pending.GetAwaiter().GetResult();
+        long allocated = GC.GetAllocatedBytesForCurrentThread() - before;
+        int endingThread = Environment.CurrentManagedThreadId;
+        if (startingThread != endingThread)
+            throw new InvalidDataException(ErlangHashCheckDiagnostics.ThreadChanged(startingThread, endingThread));
+
+        return (result, allocated);
     }
 }

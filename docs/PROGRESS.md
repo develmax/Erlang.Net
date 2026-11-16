@@ -1,5 +1,7 @@
 # Project progress
 
+Part 1822 stabilizes the phash2 allocation guard with five measurements, the existing 4,096-byte limit and a copy check on every sample. [Validation](validation/part-1822/README.md).
+
 Part 1821 recovered working-copy BEAM compiler changes. The full Windows OTP 29.1.1 run generated all 1,366 images. The same 400 matched byte for byte, including ELDAPv3. [Validation](validation/part-1821/results.json).
 
 Part611 adds the selectable error_logger backend with all 29 exports. Both backends pass 143 targeted observations and 10 upstream tests. [Publication evidence](validation/error-logger-port-20261105/publication/README.md).
