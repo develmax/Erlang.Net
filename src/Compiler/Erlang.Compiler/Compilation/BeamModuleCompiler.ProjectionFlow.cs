@@ -94,7 +94,13 @@ internal sealed partial class BeamModuleCompiler
                             break;
                         case Move:
                         case GetTupleElement:
+                        case GetHead:
+                        case GetTail:
                             initialized |= SameProjectionRegister(instruction.Operands[^1], slot);
+                            break;
+                        case GetList:
+                            initialized |= SameProjectionRegister(instruction.Operands[1], slot)
+                                || SameProjectionRegister(instruction.Operands[2], slot);
                             break;
                         case LocalCall:
                         case ExternalCall:

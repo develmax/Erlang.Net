@@ -299,6 +299,8 @@ public static class ListLengthHostChecks
                     : priority
                     ? Term.Tuple(Term.A(ListLengthHostNames.Priority), Term.A(ListLengthHostNames.Retained))
                     : function is not null ? Term.A(ListLengthHostNames.Ok) : Term.I(ListLengthHostNames.Cells);
+                // Only a successful operation publishes the returned value.
+                _ = await pending;
                 Term actual = await returned.Task.WaitAsync(ListLengthHostNames.Deadline);
                 if (originalBeam)
                 {

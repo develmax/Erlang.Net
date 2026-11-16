@@ -1,6 +1,6 @@
 # Next steps
 
-For BEAM parity, compare the merged compiler with all 1,366 Windows OTP 29.1.1 release images. The latest checkpoint has 400 Equal and 966 Different. [Checkpoint evidence](validation/part-1820/README.md).
+The recovered C# compiler retained the equality status of all 1,366 Windows OTP 29.1.1 images. Rank the 966 differences by shared compiler operation before choosing the next lowering change. [Validation](validation/part-1821/results.json).
 
 Part611 adds the selectable error_logger backend with all 29 exports. Both backends pass 143 targeted observations and 10 upstream tests. [Publication evidence](validation/error-logger-port-20261105/publication/README.md).
 

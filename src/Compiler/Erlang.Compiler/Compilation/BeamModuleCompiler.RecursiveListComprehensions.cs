@@ -77,7 +77,7 @@ internal sealed partial class BeamModuleCompiler
                     } && ReferenceEquals(assigned, comprehension)));
             if (discarded && comprehension is not
                 {
-                    Items: [Expr.Call { DynamicRemote: false }],
+                    Items: [Expr.Call { DynamicRemote: false } or Expr.Apply { Function: Expr.Variable }],
                     Qualifiers: [ComprehensionQualifier.Generator { Pattern: Pattern.Variable, Source: Expr.Variable }]
                 }
                 || !discarded && expressions.OfType<Expr.Match>().Any(match =>
@@ -205,7 +205,8 @@ internal sealed partial class BeamModuleCompiler
             || comprehension.Qualifiers is not ([_] or [_, ComprehensionQualifier.Filter])
             || source is not (Expr.Variable or Expr.Call { DynamicRemote: false })
             || !(item is Pattern.Variable && (independent || comprehension.Qualifiers.Count == 2
-                    || source is Expr.Call || mapped is Expr.Call { DynamicRemote: false })
+                    || source is Expr.Call
+                    || mapped is Expr.Call { DynamicRemote: false } or Expr.Apply { Function: Expr.Variable })
                 || item is Pattern.Tuple && IsRecursiveListPattern(item)))
         {
             return null;
@@ -264,6 +265,7 @@ internal sealed partial class BeamModuleCompiler
             Expr.Call { DynamicRemote: false } call => call.Module is not null
                 || localFunctions.ContainsKey((call.Function, call.Arguments.Count))
                 || ResolveExternalModule(call.Function, call.Arguments.Count) is not null,
+            Expr.Apply { Function: Expr.Variable } => true,
             Expr.Variable or Expr.Literal or Expr.Tuple or Expr.List or Expr.Unary or Expr.Binary
                 or Expr.RecordAccess or Expr.RecordTest => true,
             _ => false

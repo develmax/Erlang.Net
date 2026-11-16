@@ -148,7 +148,7 @@ internal sealed partial class BeamModuleCompiler
             }
         }
 
-        if (uses.Count < 2)
+        if (uses.Count == 0)
         {
             return null;
         }
